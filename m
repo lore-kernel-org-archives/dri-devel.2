@@ -4,106 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32E83C5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:05:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 569EEC5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:11:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35C7610E1E1;
-	Mon, 10 Aug 2026 08:05:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B251710E18F;
+	Mon, 10 Aug 2026 08:11:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="LgzCGWYT";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="a22kh4Ru";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55DEC10E71F
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 08:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786349107;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/+a+0U5GgUWNz5gXhQg+X0ag29Jj0knQnRmccGbHPwc=;
- b=LgzCGWYTnAx4MCxnZ+3XiExT+6PsC403lR+ZYOkXy17wuGjBgi5THETewV8/kUftFLk17R
- PSLO3v1Vem0L6AKPzRLPS1JuP4+188golcZnsscP/EMnWrryJ5JI85YcthvGJbuSTHaTrv
- 1C33kmFqV17ElB0o+mThWEzsZnNi/C8=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-364-nxztM1ttMeC5K4sSg_ZusA-1; Mon, 10 Aug 2026 04:05:02 -0400
-X-MC-Unique: nxztM1ttMeC5K4sSg_ZusA-1
-X-Mimecast-MFC-AGG-ID: nxztM1ttMeC5K4sSg_ZusA_1786349101
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-47f83416551so1475683f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 01:05:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786349101; x=1786953901;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/+a+0U5GgUWNz5gXhQg+X0ag29Jj0knQnRmccGbHPwc=;
- b=Bzrc40j6k1R4Slm120HYVoc7bjaiMsGwdRSEqyQ+eLFsslmsZDptnNFRIGRxZbZlNr
- CGtKR9659+fUEaSk7QzqrUksQIsSqCFPDrDLqkKiBsuVWa/xLEo7msdu8h/nxcMppDkb
- DjYnxHAFsKF9rdATwnhEoMQCO5SkmCOL44X6Za62hzRky96B3OQBV4iPBG9bv0lwtaGE
- VAgZ1IaEBXVXUSZK2xj8yxvGtV602L+tReZCncfwCIt8exZRbxswdqnRAnMr4SZ04MG5
- 7YgEemPolVlnth3SeGbBcWCpNKWplmQklMSgD3QOpU5hLI5vVJSM/LDniUte/mPPcbfU
- tfQA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrkhaBhcDeYTsxWSh03Mw01kWVCqUaPoCwOiIujLnQhyEpJ/88SI3i4oX/EmwvXHpxiQkW3FW77bsg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YypMopMqJu5Tc2bAZdOmcFbIO48Mp7h++dAUYSX5j192Ux9ojW8
- IhNNzU1D5vKx1JpdVPeYyJ18fTgtFgFkHFvuxFBF91m/KQPmWcK+Xhjy4dGBQgNffg6B46CLfWW
- udgGwA4x2AbErjVigRBzOIfGx0qbA4hKLc8YetYwuJwGH4rFYSZU8yHizMW9/g0cyg721qw==
-X-Gm-Gg: AR+sD13cB5oZ//CSZRSZFEaiO78vwUZne3x7CM8152YsHlWHEbpmEmGRXwDga71jOJR
- AhThLNtS/Rig9YzyHhOahjVn6rfbCPnhq9tttlPVwk245MrcvQNLY8n53NzW1yXR0FP2d34rjOZ
- aKppjDvI1JAV1xYs1ViIW5I8URdrRG6nt1KhvRsbUNlOcdbvxhslJwWJG+BW54+AaOB4kAOo0Am
- +nnIiaaXD5XoipPel7EfFxwaCDSjIbfzB0HaHBIP58jfz3aLSEItk1GNNAGk7cfs7us4Xmxk1r0
- OlSFHRyjhVJC+i1BFYfoCEC29eLp7qLpxLXUsD6qLSmugYh56YwlsujbFhyvizJ6yo5eGBr0xYm
- Wl32I4BUSzrRSbB6370OTIg==
-X-Received: by 2002:a05:6000:430a:b0:47f:71a6:970e with SMTP id
- ffacd0b85a97d-47ffd203e5emr38268903f8f.2.1786349101180; 
- Mon, 10 Aug 2026 01:05:01 -0700 (PDT)
-X-Received: by 2002:a05:6000:430a:b0:47f:71a6:970e with SMTP id
- ffacd0b85a97d-47ffd203e5emr38268788f8f.2.1786349100617; 
- Mon, 10 Aug 2026 01:05:00 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-39-98.inter.net.il. [80.230.39.98])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-480021e8b09sm35811136f8f.23.2026.08.10.01.04.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Aug 2026 01:05:00 -0700 (PDT)
-Date: Mon, 10 Aug 2026 04:04:55 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: "Graf (AWS), Alexander" <graf@amazon.de>
-Cc: Jason Wang <jasowangio@gmail.com>, Alex Williamson <alex@shazbot.org>,
- David Airlie <airlied@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Feng Liu <feliu@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Halil Pasic <pasic@linux.ibm.com>, Jens Axboe <axboe@kernel.dk>,
- Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "nh-open-source@amazon.com" <nh-open-source@amazon.com>,
- "nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Parav Pandit <parav@nvidia.com>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Stefan Hajnoczi <stefanha@redhat.com>,
- "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Yishai Hadas <yishaih@nvidia.com>
-Subject: Re: [RFC PATCH 00/12] virtio: support devices that own their
- virtqueue memory
-Message-ID: <20260810035246-mutt-send-email-mst@kernel.org>
-References: <20260809182010.32931-1-graf@amazon.com>
- <20260810021450-mutt-send-email-mst@kernel.org>
- <c56fb4d0-33ef-4e9b-ac18-ac4e896957cd@amazon.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACA310E1F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 08:11:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1786349510;
+ bh=B8ECLxTqX185rBSx7pg5nmBpje5EAUuD31go+NlGAAg=;
+ h=From:Date:Subject:To:Cc:From;
+ b=a22kh4Ruw8SReUkv9AuGMPJK8/pxLNYO5LzKR7MPIwgwM7sWS3k5VfaVk5RIDbSL/
+ gSEGZf+KzvUY8qFKisAwpi4M7Rjih3rXJ52zii6PMC6RNvoXnab71wB4ZGqnVlb2gz
+ VCcZEehMDCW00CvWvqE8VzfY9qBYRAQpww7KdG+W57xA8O+SkOMMDWPDJpJQXPChwt
+ jF+8YiaV300hPqMdNGEsX2mZiHAtjAa23qGYVHqpLR7eDF9VAzwjqvX0Y9HAxtOF0Q
+ KTCrQGGbqZJb5bBzc3kzBLHf7j08elk6zFoMp/K4qc9xCQe1/9wHWxal99IRT78KAE
+ HbtQZWPE3S5qw==
+Received: from laura.lan (unknown [100.64.0.215])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: laura.nao)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B854517E07F5;
+ Mon, 10 Aug 2026 10:11:49 +0200 (CEST)
+From: Laura Nao <laura.nao@collabora.com>
+Date: Mon, 10 Aug 2026 10:11:35 +0200
+Subject: [PATCH v5] drm/tyr: add Job IRQ handling
 MIME-Version: 1.0
-In-Reply-To: <c56fb4d0-33ef-4e9b-ac18-ac4e896957cd@amazon.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jcGuVjEAh5d8O2NdwugKxgn8KdX0GO7WiJAasqds27g_1786349101
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260728-tyr-irq-v2-v5-1-59fd9dea952a@collabora.com>
+X-B4-Tracking: v=1; b=H4sIALaHeWoC/23O0QqCMBTG8VeRXbc4O3Pquuo9ogs9zRyYq01GE
+ r57K4g0gt18B35/9mDBeGsC22UP5k20wbohDbXJGHX1cDbcntJmCFhAiRUfJ8+tv/GIHBpJChA
+ bIyVL4OpNa+/v2OGYdmfD6Pz0bkd8XT8ZvcykJzhhqaAlIU5K78n1fd04X2/JXdgrFeWSr34RZ
+ eKadEOKADWpfzz/8grUiueJV6LOSxCFEAS/fJ7nJ1UDFUEmAQAA
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, kernel@collabora.com, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>, 
+ Laura Nao <laura.nao@collabora.com>
+X-Mailer: b4 0.12.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,124 +73,350 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 10, 2026 at 07:39:02AM +0000, Graf (AWS), Alexander wrote:
-> Hey Michael,
-> 
-> Thanks a bunch for having a detailed and quick look!
-> 
-> On 10.08.26 08:23, Michael S. Tsirkin wrote:
-> > On Sun, Aug 09, 2026 at 06:19:58PM +0000, Alexander Graf wrote:
-> >> Virtio drivers use guest memory to back virtqueues and their buffers.
-> >> That means a VMM needs to be able to map guest memory. That is ok in the
-> >> normal virt case. It gets icky with confidential computing (where we use
-> >> swiotlb as workaround) and it defeats the purpose of isolated vhost-user
-> >> backing devices, because they end up with full RAM access to the guest.
-> >>
-> >> So instead, I'm proposing an extension to virtio which allows it to give
-> >> each virtio device its own dedicated memory region to communicate with the
-> >> host, called DMB (Device Memory Buffer). A trusted hypervisor can force
-> >> DMB to be present, which then enables safer, more isolated and resilient
-> >> communication between guest and host.
-> >>
-> >> With DMB, the device provides a shared memory region that both parties
-> >> agree is the full memory map both have access to. All memory offsets
-> >> that previously would have been into guest RAM, are then offsets into
-> >> this shared memory buffer region. One nice property of this is that it
-> >> is a generic mechanism in the virtio transport layer, so higher level
-> >> drivers work unmodified.
-> >>
-> >> I was exploring to use swiotlb instead to create individual pools. But
-> >> that approach has multiple downsides:
-> >>
-> >> 1. Swiotlb is an OS primitive which is not available in all Operating
-> >> Systems. DMB however lives in the virtio transport layer, which means we
-> >> can add support for it in any OS independent of generic layers. This
-> >> helps with Windows support.
-> >
-> > How does it help, if you are going to put a pool in
-> > the driver, put a pool in the driver. Maybe with virtio mem to
-> > simplify allocation.
-> 
-> 
-> I'm not sure I understand the suggestion :)
-> 
+Add a threaded IRQ wrapper for Tyr interrupt sources and use it to
+handle the firmware Job IRQ.
 
+The Job IRQ reports requests from the CSF firmware, including global
+interface requests and CSG attention bits. Only the GLB bit is currently
+handled, as it will be used to check firmware readiness. CSG bits
+handling will be added at a later stage. Add a Job IRQ handler that
+masks the interrupt in the primary IRQ handler, processes pending raw
+status in the threaded handler, clears the handled bit, and reenables
+the mask before returning.
+Add a wait queue and a bool flag so the handler can signal firmware
+readiness when the GLB bit is set.
 
-I'm not sure what the problem is for windows :)
+Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Signed-off-by: Laura Nao <laura.nao@collabora.com>
+---
+Changes in v5:
+- Implement PinnedDrop on TyrIrq to clear the interrupt mask on teardown 
+- Link to v4: https://lore.kernel.org/r/20260805-tyr-irq-v2-v4-1-81a4701611c0@collabora.com
 
-But if you want a chunk of contiguos memory that windows
-does not poke at without a driver, virtio mem is that :)
+Changes in v4:
+- Replaced c_str! with C-String in irq.rs
+- Moved clear_status() before handle() in handle_threaded(), to avoid 
+  losing events if hw re-asserts the bit while handle() is running.
+- Only unmask interrupt sources in job_irq_init() when the handler is 
+  correctly registered.
+- Link to v3: https://lore.kernel.org/r/20260728-tyr-irq-v2-v3-1-9c9bc5c029c5@collabora.com
 
-> >
-> >> 2. We munge DMA space together. DMB provides a separate DMA space per
-> >> virtio device. This means we can for example implement a device in
-> >> vhost-user and give the implementing process only visibility to the DMB
-> >> region, not all of guest memory. That reduces the exposure the
-> >> vhost-user provider has, improving security.
-> >>
-> >> 3. Devices can opt-in. A hypervisor can choose to use standard virtio
-> >> semantics for self-implemented devices (e.g. NSM), while requiring DMB
-> >> for devices implemented by less trustworthy providers. The
-> >> non-trustworthy devices do not get any visibility into the trustworthy
-> >> ones, even with DMB in place for both.
-> >
-> > So I am not sure whether the implication is that it's purely a software
-> > construct. But if it is, can we extend virtio iommu to
-> > add a way to discover and enforce trust boundaries?
-> > And maybe translate offsets to BARs, if that is desired?
-> >
-> > It seems to be that the result would be that we don't need fiddly
-> > special casing in virtio ring specifically, and a lot of things like
-> > pre-mapped dma will begin to work.
-> 
-> 
-> On thing I'm trying to avoid is dynamicity. Anything that dynamically 
-> changes visibility or needs state tracking is something that can go 
-> wrong. By keeping everything self-contained within the guest, I can 
-> reason about what is visible and what is not easily. Especially for 
-> confidential computing, IMHO static wins over dynamic in general.
-> 
-> Or did I misunderstand your suggestion?
+Changes in v3:
+- Propagated request_threaded_irq_by_name safety requirement up the
+  call chain, made TyrIrq::request() and job_irq_init() unsafe
+- Dropped CSG bits masking, added TODO comment to note this will be
+  handled at a later stage. Reworded commit message to reflect the
+  change.
+- Added documentation for TyrIrqTrait, TyrIrq, JobIrq and job_irq_init()
+- Link to v2: https://lore.kernel.org/r/20260729-tyr-irq-v2-v2-1-c2750fc11d59@collabora.com
 
+Changes in v2:
+- Dropped Wait custom type in favor of WaitQueue
+- Renamed JobIrq lifetime to generic 'a
 
-I get this part. But we can absolutely make it static.
+This patch follows up to [1], which adds support for firmware loading
+and MCU booting to the Tyr driver. The changes included here were
+originally introduced in its v4[2], then dropped to reduce the scope of
+the series, and have been adjusted to work with the HRT (Higher-Ranked
+Lifetime Types) driver architecture recently introduced.
 
+The patch adds a threaded IRQ wrapper for the firmware Job interrupts,
+used to signal events from the global CSF (GLB) and Command Stream Group
+(CSG) interfaces.
 
-Let's start by replicating your functionality with virtio-iommu.  So:
+These changes will be later used to wait for global CSF interface
+readiness after firmware boot, as part of the CSF firmware interfaces
+support that will be submitted as a separate series.
 
--device is behind virtio-iommu
--virtio-iommu tells guest "this device can only consume memory from that range,"
--and maybe: ...and translation is 1:1 with this offset
+This patch is based on drm-rust-next and depends on:
+- [PATCH v2] rust: irq: make Registration compatible with lifetime-bound drivers[3]
+- [PATCH 0/5] rust: sync: add WaitQueue infrastructure[4]
 
-if guest does not acknowledge it will just fail?
+Note: [4] doesn't apply cleanly on drm-rust-next at the moment, due to
+missing changes in rust/kernel/sync/lock/spinlock.rs[5]. I've applied
+all dependencies and fixed conflicts for the purpose of testing this
+patch on top of drm-rust-next, a branch with these changes is available
+here: https://gitlab.freedesktop.org/laura.nao/linux/-/commits/b4/tyr-irq-v5
 
+[1] https://lore.kernel.org/all/20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com/ 
+[2] https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-15-a5d91050789d@collabora.com/
+[3] https://lore.kernel.org/rust-for-linux/20260719153631.559341-1-dakr@kernel.org/
+[4] https://lore.kernel.org/rust-for-linux/20260726223613.1242940-1-dakr@kernel.org/
+[5] https://lore.kernel.org/all/20260302232154.861916-1-lyude@redhat.com/
+---
+ drivers/gpu/drm/tyr/driver.rs | 108 ++++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/fw.rs     |   1 +
+ drivers/gpu/drm/tyr/fw/irq.rs | 112 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 221 insertions(+)
 
-this covers the proposal here simply by using a dedicated range
-per device, right?
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index d78ad9d292ff..495cc3baa98c 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0 or MIT
+ 
++use core::marker::PhantomPinned;
++
+ use kernel::{
+     clk::{
+         Clk,
+@@ -21,6 +23,13 @@
+         poll,
+         Io, //
+     },
++    irq::{
++        Flags,
++        IrqReturn,
++        ThreadedHandler,
++        ThreadedIrqReturn,
++        ThreadedRegistration, //
++    },
+     new_mutex,
+     of,
+     platform,
+@@ -236,3 +245,102 @@ struct Regulators {
+     _mali: Regulator<regulator::Enabled>,
+     _sram: Regulator<regulator::Enabled>,
+ }
++
++/// Trait describing the operations required to service a Tyr interrupt source.
++pub(crate) trait TyrIrqTrait: Sync {
++    /// Returns the masked interrupt status.
++    fn read_status(&self) -> u32;
++
++    /// Clears all bits in the mask register, disabling the interrupt sources.
++    fn clear_mask(&self);
++
++    /// Sets the mask register to re-enable the interrupt sources.
++    fn reenable_mask(&self);
++
++    /// Returns the raw interrupt status, regardless of the current mask.
++    fn read_raw_status(&self) -> u32;
++
++    /// Clears the given bits in the interrupt status register.
++    fn clear_status(&self, status: u32);
++
++    /// Returns the bitmask of interrupt sources handled by this instance.
++    fn mask(&self) -> u32;
++
++    /// Handles the given pending, unmasked interrupt bits.
++    fn handle(&self, status: u32);
++}
++
++/// A threaded IRQ wrapper shared by all Tyr interrupt sources.
++#[pin_data(PinnedDrop)]
++pub(crate) struct TyrIrq<T: TyrIrqTrait> {
++    /// The interrupt source.
++    irq: T,
++    #[pin]
++    _pin: PhantomPinned,
++}
++
++impl<T: TyrIrqTrait> TyrIrq<T> {
++    /// Requests a threaded IRQ registration for `irq`, using `name` to look up the interrupt.
++    ///
++    /// # Safety
++    ///
++    /// Callers must not `mem::forget()` the resulting registration or otherwise prevent its
++    /// [`Drop`] implementation from running.
++    pub(crate) unsafe fn request<'a>(
++        pdev: &'a platform::Device<Bound>,
++        name: &'static CStr,
++        irq: T,
++    ) -> Result<impl PinInit<ThreadedRegistration<'a, Self>, Error> + 'a>
++    where
++        T: 'a,
++    {
++        let handler = try_pin_init!(Self {
++            irq,
++            _pin: PhantomPinned,
++        });
++
++        // SAFETY: The caller guarantees the resulting registration will not be leaked.
++        Ok(unsafe { pdev.request_threaded_irq_by_name(Flags::SHARED, name, name, handler) })
++    }
++
++    /// Returns a reference to the wrapped interrupt source.
++    pub(crate) fn irq(&self) -> &T {
++        &self.irq
++    }
++}
++
++impl<T: TyrIrqTrait> ThreadedHandler for TyrIrq<T> {
++    fn handle(&self) -> ThreadedIrqReturn {
++        let masked_status = self.irq.read_status();
++
++        if masked_status == 0 {
++            return ThreadedIrqReturn::None;
++        }
++        self.irq.clear_mask();
++        ThreadedIrqReturn::WakeThread
++    }
++
++    fn handle_threaded(&self) -> IrqReturn {
++        let mut ret = IrqReturn::None;
++
++        loop {
++            let raw_status = self.irq.read_raw_status() & self.irq.mask();
++            if raw_status == 0 {
++                break;
++            }
++            self.irq.clear_status(raw_status);
++            self.irq.handle(raw_status);
++            ret = IrqReturn::Handled;
++        }
++
++        self.irq.reenable_mask();
++        ret
++    }
++}
++
++#[pinned_drop]
++impl<T: TyrIrqTrait> PinnedDrop for TyrIrq<T> {
++    fn drop(self: Pin<&mut Self>) {
++        self.irq.clear_mask();
++    }
++}
+diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+index 47d25c901bd0..8162b9806c97 100644
+--- a/drivers/gpu/drm/tyr/fw.rs
++++ b/drivers/gpu/drm/tyr/fw.rs
+@@ -69,6 +69,7 @@
+     vm::Vm, //
+ };
+ 
++pub(crate) mod irq;
+ mod parser;
+ 
+ pub(super) const CSF_MCU_SHARED_REGION_START: u32 = 0x04000000;
+diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
+new file mode 100644
+index 000000000000..fcdc0097f2dd
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/fw/irq.rs
+@@ -0,0 +1,112 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! IRQ handling for the Job IRQ.
++//!
++//! The Job IRQ signals events from the MCU, including global interface acknowledgements.
++#![allow(dead_code)]
++
++use core::sync::atomic::{
++    AtomicBool,
++    Ordering, //
++};
++
++use kernel::{
++    device::Bound, //
++    io::Io,
++    irq::ThreadedRegistration,
++    platform,
++    prelude::*,
++    sync::{
++        Arc,
++        WaitQueue, //
++    },
++};
++
++use crate::{
++    driver::{
++        IoMem,
++        TyrIrq,
++        TyrIrqTrait, //
++    },
++    regs::job_control::{
++        JOB_IRQ_CLEAR,
++        JOB_IRQ_MASK,
++        JOB_IRQ_RAWSTAT,
++        JOB_IRQ_STATUS, //
++    }, //
++};
++
++// The Job IRQ, signalling requests or notification from the MCU.
++pub(crate) struct JobIrq<'a> {
++    /// GPU MMIO register mapping.
++    iomem: Arc<IoMem<'a>>,
++    /// Flag to signal firmware readiness.
++    fw_ready: Arc<AtomicBool>,
++    /// Wait queue used to signal firmware events to waiters.
++    job_irq_wait: Arc<WaitQueue>,
++}
++
++/// Requests a threaded IRQ registration for the Job IRQ.
++///
++/// # Safety
++///
++/// Callers must not `mem::forget()` the resulting registration or otherwise prevent its
++/// [`Drop`] implementation from running.
++pub(crate) unsafe fn job_irq_init<'a>(
++    pdev: &'a platform::Device<Bound>,
++    iomem: Arc<IoMem<'a>>,
++    fw_ready: Arc<AtomicBool>,
++    job_irq_wait: Arc<WaitQueue>,
++) -> Result<impl PinInit<ThreadedRegistration<'a, TyrIrq<JobIrq<'a>>>, Error> + 'a> {
++    let job_irq = JobIrq {
++        iomem,
++        fw_ready,
++        job_irq_wait,
++    };
++    // Ensure interrupt sources are disabled until the handler is registered.
++    job_irq.clear_mask();
++
++    // SAFETY: The caller guarantees the resulting registration will not be leaked.
++    let registration = unsafe { TyrIrq::request(pdev, c"job", job_irq) };
++
++    // Unmask once the handler has been successfully registered.
++    Ok(registration?.pin_chain(|reg| {
++        reg.handler().irq().reenable_mask();
++        Ok(())
++    }))
++}
++
++impl TyrIrqTrait for JobIrq<'_> {
++    fn read_status(&self) -> u32 {
++        self.iomem.read(JOB_IRQ_STATUS).into_raw()
++    }
++
++    fn clear_mask(&self) {
++        self.iomem.write_reg(JOB_IRQ_MASK::zeroed());
++    }
++
++    fn reenable_mask(&self) {
++        self.iomem.write_reg(JOB_IRQ_MASK::zeroed().with_glb(true));
++    }
++
++    fn read_raw_status(&self) -> u32 {
++        self.iomem.read(JOB_IRQ_RAWSTAT).into_raw()
++    }
++
++    fn clear_status(&self, status: u32) {
++        self.iomem.write_reg(JOB_IRQ_CLEAR::from_raw(status));
++    }
++
++    fn mask(&self) -> u32 {
++        JOB_IRQ_MASK::zeroed().with_glb(true).into_raw()
++    }
++
++    fn handle(&self, status: u32) {
++        // TODO: handle other Job IRQ events (e.g. CSG attention bits) here once
++        // support for them is added.
++        if JOB_IRQ_RAWSTAT::from_raw(status).glb() {
++            self.fw_ready.store(true, Ordering::Release);
++            self.job_irq_wait.wake_up_all();
++        }
++    }
++}
 
+---
+base-commit: 0710742e26a06c2c3167e77a8ea82b59632d9f7a
+change-id: 20260728-tyr-irq-v2-0b3c5022be33
 
-
-But look what we can easily add later: share a range
-between devices, now you can move data between them with zero copies.
-
-
-Isn't that better?
-
-
-> As to pure software construct: With CXL, you can implement the exact 
-> same protocol on real hardware as well. All it takes is cache coherency 
-> of the BAR (or whatever the transport uses) region.
-> 
-> 
-> 
-> Alex
-
-Yes this is what I thought originally, that you intend to
-do it in hardware. But re-reading it, it begins to look like
-that's not really the case, it's only "theoretically possible"?
-
-
-
+Best regards,
 -- 
-MST
+Laura Nao <laura.nao@collabora.com>
 
