@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65E08C5AE5D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 12:03:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F77CC5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 12:03:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6274510E7F5;
-	Mon, 10 Aug 2026 12:03:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CD8A10E7F7;
+	Mon, 10 Aug 2026 12:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5b7nBnie";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="whKbpBCo";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011001.outbound.protection.outlook.com [52.101.57.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEEF810E7F3;
- Mon, 10 Aug 2026 12:03:14 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012070.outbound.protection.outlook.com [40.107.209.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7BFB10E7F7;
+ Mon, 10 Aug 2026 12:03:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FchU4pVbBEBaWoHSffASz7lJwb/mtsM946q1Mq7xTlxvUHhIUKttrqU9gwEw0WKgv3XV0XMClgqSeOi4JoxcCYIIBM16U8SKaiUyY+2NiLcsXkO3TTjue1mI0Ss9akDgZ4MxyDc1HzzTDRc3lwsenQ5GV7L3yS9SRNdDS8ofywAxPZ0Ny8oNTrEjECmFXtKVgtNLorJfVuuRra8Remnhn3uW8YZ2WUe94BCyr69iNdSYr1hg6B6ud01U6tKqkQO0krFp5c8A8A5xLLnsAiS52X2owBpnrW0BRuj2KY5N+UoMqKcJS6WMwOVbQjU5VE1qesaOdfHzSXZ/92i4kPRNyA==
+ b=uNxLjAiNmAWPe5wYwhUrimxXBRqO/XFSTidatztBfmmEihqa2r/2DDKcUzUYVY7iCQ4QniTiphOqEvSvbloelyygec6ux2QaNph1Nz64DRq9RJlV5wzgMlvYbkTbcGXDrbcCGPhHQabu6BNxJnYDpPUPITmHIJpgKCgjTYkPIYWkgwB8z2Y+lZXJB5X7N+oX26sWz0tGz9GKsljjfYjlA0AxVt8JSuOQBPsTVPHBEYz9dYL2nHNthH/PkM1EAK4tJlFKsph+zaFg/wi6ACkDIFPByxeihClgNnNWBLmYFPZL8ulZhM6EhqYu4l54ICaBp/s5MEyCXxriPW43Nit2sg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9qIcCekxQ5Fq5/83/E9VJQrKqt7nqFA17GW7oKbD7hE=;
- b=aEHv2TXMHMFozb2aYks/nK60tvaZTcV4RfgxXmarkDYLPKmTlL4y/aCybJGYCInG5PkH6yveI8/G/7OSwPKF3UQC78St7Ucu3A2aKPN7yqSUKSvSU4hsCBv1Fej5HRAJljmfM/4roLfdLI9FRYVJKyxKaxWvPawF+JV+YRLVIfC/SfNVwrWaDZPJYPqQ+CcSLyQ97oQkXq43Vqup2+RZJ9kehZmSQzIMkQ2+tPrBlcsvB8+aa6lykiyirkQUy2++cJz0k1bWJFCKM8UAFXuXwp72lTFAiyqogtSg3A0EWxaBq77Tdeyxyo0GpgCw4rEv2JgQGsy62UQYelIXjsCQ0Q==
+ bh=FxZpH7s81kpZqJPb/kQ/GA5XHLnbwUKYsF+zkilHtqc=;
+ b=D8x4wZdPD2DkbpwjIKJaZnX/ZoHUYdLbSqFv8kOOu+J++PzFSd+PNRliL0q7JzGuAH0gLAJcVlbW05Fb0S8j3bNsopBO6QfKFVacZLXUAMeltvs4l0Ut1pzh8KaI4S5hrMN1d9mZkPdqQGWFujxYi8RP9PSO71yiXKsUGxw5u6BfJvuQMOS7hRQRsaI7EDtSLOSb3s6yvdiIvnh9PULlZMn3+6i75Wpf9u8Eq1eDDz6dbcIatJQ2+zex81hvKYk+rUDv/4/kWpKCi9ZsS3w5Z3BjzOcGdbWmRHCXKekmVO5qO8LnYgtAApnX4AXRo6m0KEsPHeIggn3pI1fV43FpzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9qIcCekxQ5Fq5/83/E9VJQrKqt7nqFA17GW7oKbD7hE=;
- b=5b7nBnieUbYaHqcKIbmRZxGTtKsSERm1sZn9NKoJFVG5XAKMh9GWNKO5BLQ6e4TDNpU6FzIKlC8Ag0RTQ14rPt6Pod8zLRZolZBg4MKBgW8SRryQOpG1ytnPe2B4lqAe0Kc2cyplWxogvlXo/nK24jK7hidTfFaXhzbmQx20oJA=
-Received: from DS7P221CA0002.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25b::13) by
- SA1PR12MB6996.namprd12.prod.outlook.com (2603:10b6:806:24f::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=FxZpH7s81kpZqJPb/kQ/GA5XHLnbwUKYsF+zkilHtqc=;
+ b=whKbpBCojxb/19S0N4MllRMa/yav31uUMCJNs8VgnVLojN2OZJsW0QRq5md+7vmkMScGz8ZGU3eaeA/lli5/SxuFWyeLwMyd+l171woIyjXFRyOIH3ZdxwE37h6ta3ayf9P5feLFbHJsb8GXTzYSWg6e4CK3B363SSXpOeTJ9g8=
+Received: from MN0P222CA0013.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::18)
+ by SJ2PR12MB8874.namprd12.prod.outlook.com (2603:10b6:a03:540::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 12:03:07 +0000
-Received: from DS1PEPF00017092.namprd03.prod.outlook.com
- (2603:10b6:8:25b:cafe::5d) by DS7P221CA0002.outlook.office365.com
- (2603:10b6:8:25b::13) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 12:03:25 +0000
+Received: from BN2PEPF000044A8.namprd04.prod.outlook.com
+ (2603:10b6:208:531:cafe::98) by MN0P222CA0013.outlook.office365.com
+ (2603:10b6:208:531::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
- 10 Aug 2026 12:03:07 +0000
+ 10 Aug 2026 12:03:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,23 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- DS1PEPF00017092.mail.protection.outlook.com (10.167.17.135) with Microsoft
+ BN2PEPF000044A8.mail.protection.outlook.com (10.167.243.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 12:03:07 +0000
+ 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 12:03:23 +0000
 Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 10 Aug 2026 07:03:05 -0500
+ 15.2.2562.45; Mon, 10 Aug 2026 07:03:21 -0500
 From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Pierre-Eric
- Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 2/3] drm/amdgpu: delay ttm buffer func enablement on xgmi
-Date: Mon, 10 Aug 2026 14:02:15 +0200
-Message-ID: <20260810120218.23000-2-pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH v3 3/3] drm/amdgpu: remove useless enable/disable of ttm
+ buffer funcs
+Date: Mon, 10 Aug 2026 14:02:16 +0200
+Message-ID: <20260810120218.23000-3-pierre-eric.pelloux-prayer@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260810120218.23000-1-pierre-eric.pelloux-prayer@amd.com>
 References: <20260810120218.23000-1-pierre-eric.pelloux-prayer@amd.com>
@@ -76,29 +77,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017092:EE_|SA1PR12MB6996:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fb26f01-9287-4e00-e320-08def6d75725
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A8:EE_|SJ2PR12MB8874:EE_
+X-MS-Office365-Filtering-Correlation-Id: f68bb4f4-3328-4f3f-3600-08def6d760d8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|18002099003|22082099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: Nbh+mWjxDgYdjGSVXKwDdIYmItkEjvszuMJVgpN8+f+1hUqgKQsRJoEggxcIzc4A3r0cCRPO1afH34h+oWXa+lQ5AqAM9ftK3edtggCEhmdpCxc7bbqBjcPHjhMC4Wg8vuSg3xacb8X56vSAtYe3RQHpsDW7j/u+9xVfqsjialX9x33rxFOdMh2W74BbG2tex3yBmvUMNDUgLjNyZK66I1F7FmMp4kTkfTCh0kwTro0/79aOCxCNmLv7b2yXG1RKbSP/lH6+uRnj3bTk1GKeqUdKBSHCF34gSJl8ggHl2WlrNezK+96rulHJJdBxNO7AznOgxDLS3wgdxwmyGLu2rPEbCTjOL39QrQMMgG6vZzimEzPK0UsWtqOvhM2K9zwfZEkR+phA0Koc6E/s5jB7JSMSsGZQdo1Yhyyw7+J3SJtYUbJm370euJJq1eW3Ikn2ZupHPPL0SJGWA8z+hjGKOBRs7SZKXH5vRejKMVNzPjYU037LPQNMTTGHIEQ2J3Gi5rUY8ei+dRTYDtj0wpMtcNHApg1YMLKmPNA+Kn6d/gtlZ2n8Neq8JQlv64zz41wyxjFLzLLkSdmjDwtl36GnvvT99xoO6yOscqzNT/Iib19nGWXnx5bbHlzDOx5grj3ZIJRJrvL5aHTao7+Xkl9LTG1ED2chP//ob6TUy8rgbHy01tvLiDG2YRPUq226on5UfRl+093b6jFylO4UYe89+A==
+ ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 43L4Fb+XqF0vH93ePqZZsqRWfePlvodA2V8rHvXgxsetHGYFGa5cPX2DzpdhtW4Zxq9k7+k3XCl8PdBIhEVgr6tpurj95BgHwMQKfBnLynct5I9k0nkrWGTEDPY7i4o65fO2BAGUeYqNLFKXxCVohGNOp132nmOcnR5/F6kbk5Ao21qCrFYvvmxne9wAcsfEgVQknlMlNFt7X5/HyMCX7B4dpVqyIWaIvjJflopoddLOjyt2mSoa+oxeTdWHoynVM7r6DcJMstI9kJ0oWimyV3yPi1eLlyi5vpEBVF9ACWDyYToUXTcYj6xK8UQHDWSIdxI6zmdnmH0vJyUGOBoTA3ifwmrY40P+GUrhWRFRBwPXpytMCoevTiWKuZ+pYl3ROPIyveoNYorKJG79cky47ROT5U9P7jzbB4ow9pYxIgf8e8uj4/+UxK5B9rmy/s9oWrnXFDeOxXMGGfb5Xnk5AAB8fI7LMGwg6cls2OFy/RsnFbuW7TwcUB2Hnel0njj+/L1dNci3ourZ4kZSFCeJ9B48drgCpu2HmYpmDlxQ0KHd9kKJNkqgFBe0d1f2nw96poRBG6i89NEJpI7g0ETg9DuK/V9AoNAgDB5qWjo8QR5buwsg4lmqAGjpjfvU3uGMBjWN5oOcSm60ztSwMCV8PzFmdwUqevwCu+4/unTW1YD+kZ1W2N1l+oMRFsL8nZUppfLcSYw8bCwJ+IfHsiHXQA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);
+ SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: wsFuTFzuSHj1Hn2iIBI3UVn8UZwhgtMsjiD0Iwdh60xf2BExoJgmVDtAJ7GAb6kIpqGgrllsb3vkt/P2hJosmmJF1ly1DAACPuuYXeRznGIaTDjVZXn4P4KjKRwbl8CsiCLe2Aotrg5EN1i4EZlzE1Sl4wOmjaSqt82jDS4V97WL54uOFbqjPp+3OridWJZ5tvrP+bxSUUSq4ouu4bvzLfAaSD6MYPrV9C83un0vsB7f7qu9eWXSbUaYnWakl3XViO2sztycFzKgwV7421AgftmW3fFP1IeCY7Iq8wjL3iJmHRjZ4umxbL1RNQG0qP0d2tkP+UlGsM9zKyEy6AQ8G/S3eQg7+kfPqk2fFEJPQ0ZUPWlyaA83rpJjlOCzrtCmWie/oVtuf3YCiINc+0bqllFYMvR0jZmhvxRG4DwpZCd3CvTo/3b+DuGWtCt6A9bp
+X-MS-Exchange-AntiSpam-MessageData-0: ePverTeLmMjU0j7hfhWRtKFUYCaqMfbD9xRSAb2c1XqM7aquFkTfqNqka9/3Q7lc25DfSr5vuKOanWY4XBwmB8gJeGXaP2v7WhgO1q081k/SJ5TN7Oxz1keZ1buDGOqbn4Yzfo/p5EgqbTfPxC8GqmB4kO1wBuNShiaSZzPMHKNuI8yzGabSCThzzPj8QDAlC6xLIjmPq8ariI71LAfVILmHtL1d39UnsdTvE5sTZ/iwqFCfwjCdVLw3KOCPsiQcIGuw9bYXhxq4OYudzsCsRWjjA4932N5ElSBynHoy/Xu/RLocBPg1YOhQHO+DrGrqt7YoNBhDqCMeOY6/r2+9SY8Ly+3seiXvELJ3dyvyURqMgEWdislzeCMh0EXlCF5/oI2qEJN8i3sKZcfGG6l30hFaMydf6aeRe/yeABnf/5V05D6CttTXLUpimz6mDGiU
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 12:03:07.2891 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fb26f01-9287-4e00-e320-08def6d75725
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 12:03:23.5942 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f68bb4f4-3328-4f3f-3600-08def6d760d8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017092.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A8.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6996
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8874
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,65 +115,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When amdgpu_init_minimal_xgmi is used, SDMA engines init
-is delayed so amdgpu_ttm_enable_buffer_funcs must be
-called later.
+amdgpu_ttm_disable_buffer_funcs and amdgpu_ttm_enable_buffer_funcs should
+each only be called once per amdgpu_device: at startup and teardown.
 
-Without this, the check for num_buffer_funcs_scheds will
-fail and using ttm buffer funcs later will fail.
+Therefore the other calls are redundant and can be safely dropped.
 
-Given that amdgpu_ttm_enable_buffer_funcs is a no-op if
-amdgpu_in_reset() returns true, the call has to occur
-after the reset lock is dropped.
-
-Fixes: 3a5da695c8d1 ("drm/amdgpu: only use working sdma schedulers for ttm")
 Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 3 +++
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 1 -
+ 2 files changed, 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index b7751dde2894..1ec3162cb175 100644
+index 1ec3162cb175..e966e6f7d2fa 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2474,7 +2474,11 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto init_failed;
+@@ -3379,8 +3379,6 @@ static int amdgpu_device_ip_resume(struct amdgpu_device *adev)
+ 
+ 	r = amdgpu_device_ip_resume_phase2(adev);
  
 -	amdgpu_ttm_enable_buffer_funcs(adev);
-+	/* If SDMA is not brought up during hwini, the ttm buffer funcs enablement
-+	 * is delayed after reset-on-init completes.
-+	 */
-+	if (amdgpu_ip_member_of_hwini(adev, AMD_IP_BLOCK_TYPE_SDMA))
-+		amdgpu_ttm_enable_buffer_funcs(adev);
- 
- 	/* Don't init kfd if whole hive need to be reset during init */
- 	if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
-@@ -5088,8 +5092,6 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
- 				if (r)
- 					goto out;
- 
--				amdgpu_ttm_enable_buffer_funcs(tmp_adev);
 -
- 				r = amdgpu_device_ip_resume_phase3(tmp_adev);
- 				if (r)
- 					goto out;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 2725230aa5e3..45e31b3daf06 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -1380,6 +1380,9 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
- 	amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
+ 	if (r)
+ 		return r;
  
- 	list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
-+		/* Enable ttm buffers funcs after the reset lock has been dropped. */
-+		amdgpu_ttm_enable_buffer_funcs(tmp_adev);
-+
- 		r = amdgpu_ras_init_badpage_info(tmp_adev);
- 		if (r && r != -EHWPOISON)
- 			dev_err(tmp_adev->dev,
+@@ -4511,8 +4509,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
+ 	if (r)
+ 		goto unwind_userq;
+ 
+-	amdgpu_ttm_disable_buffer_funcs(adev);
+-
+ 	amdgpu_fence_driver_hw_fini(adev);
+ 
+ 	r = amdgpu_device_ip_suspend_phase2(adev);
+@@ -4525,7 +4521,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
+ 	return 0;
+ 
+ unwind_evict:
+-	amdgpu_ttm_enable_buffer_funcs(adev);
+ 	amdgpu_fence_driver_hw_init(adev);
+ 
+ unwind_userq:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 5bcb6a966941..ba99edbfe3a6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2137,7 +2137,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	}
+ 
+ 	/* Change the size here instead of the init above so only lpfn is affected */
+-	amdgpu_ttm_disable_buffer_funcs(adev);
+ #ifdef CONFIG_64BIT
+ #ifdef CONFIG_X86
+ 	if (adev->gmc.xgmi.connected_to_cpu)
 -- 
 2.43.0
 
