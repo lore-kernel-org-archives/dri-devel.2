@@ -4,109 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD31C5AD7B
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 21:42:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8940C5AD55
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 22:10:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F010410E23A;
-	Mon, 10 Aug 2026 21:42:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2341B10E1A1;
+	Mon, 10 Aug 2026 22:10:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="e3Cg1o0F";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UwX/Ilov";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F17510E23A
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 21:42:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786398175;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8hpE9nsljlM6tmO4jy65/s0BrzX0SxrerfQOPk9V8zg=;
- b=e3Cg1o0Ftpay4/tWHdiUl0MRjkzqF1WeQm40o6XOoEwBrtSrFKg/G70yKUJMLxz/XB/CrO
- Mc7fFrcZ5xJDsW6OrDh+BxHF2Om48lhF06fI1qHOwyKcgUDtZ6h7U7Dk1gUO8Ao/ypr4CS
- EOi4uBeZxKLHRZgyagvPtxgpm+PK+qo=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-158-EABCtuK0OdiFQ5Tjm57GrA-1; Mon, 10 Aug 2026 17:42:39 -0400
-X-MC-Unique: EABCtuK0OdiFQ5Tjm57GrA-1
-X-Mimecast-MFC-AGG-ID: EABCtuK0OdiFQ5Tjm57GrA_1786398158
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-4740be00302so1991332f8f.2
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 14:42:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786398158; x=1787002958;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=8hpE9nsljlM6tmO4jy65/s0BrzX0SxrerfQOPk9V8zg=;
- b=Kauoph6U86SaAOYhUPyodSf9D7ZDuZNzvSHBCAmZC5rJUWh8OMJR+Jb56uQwJdBsnW
- RteWeBjavwWwFRPspFK093giQJiSm5QZfslNRJvqfvM0YFhZMEiurbZC/mMo5vR3aePQ
- +OwcwcDHHvwc4V3tOky4Fojb6GamZ+MRDy/yFfy8xnu/DwUqZHT96LdYnfVMo4iMNMQt
- Am/0AgdTbKZCGCSm7H71walhLkFAgcoYsdjebyeD85b47qldhZH6TS6JXsCPWiCxRxpT
- H3IsJOI417fYxBI4cRXaayrgepRUm+2Ce1VDmIx13sIQNBuUFzhrpzbvceM71OmlBnOr
- QqDA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RokbB6FIXhYqcO8v4uS/YloLqiAxqRZy5sn2ADBaKoABVeZR1ofeqJ+NjDK2g0CZZIniyNlBER5TJ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxB0lodYLaSVbhy56YrW+jUQOLl0zV77OzUlm2vB1A2ukhvuz1r
- X8iFcPcrIOmA+uQguKIFxnOMPusAWote5ST4WEXY7jgXLVzprHE1HEhzM92ZyQoCFGYrsZ+rZj+
- M34ldHsPh2FteiMd0O58f6ZXH8JfKLE8ZAw5S31A47lq62BHRolXV+qJ1ov9v7GO57MIW/A==
-X-Gm-Gg: AR+sD13jlvtjKLW4hwLvBPQNNulZlt1EHHQ+eSRtGg56EXv53sTovDxITwEgRRGeVi+
- cDRYOG2HuYY+qcE9ufpsHdZ6WzaBDk2F9+g7vHFSiMzSoaz/KeKNmSXrQFQ+4/vai5VPPpRIIqK
- jh/puIZUpC54S0J3+yjO/fxBtAd6wOhqOK899f3RIYPGSAgJCKKxfh2PmFbgWbE1LNk6gD1nKWW
- BAwpjcrIcQnatwrVMoq8PewH0/Qboc+yAMflRPun5Xujw/i1DyqnizFisoFMYr9IncXkqho8F2N
- HqS8oRLrSNwonvorjAfzMLLpmZJQPB+wtTuyvX+2O3S7NijNqIekw3Y+EQJA/SjMUGdguqUU0ou
- YMce847RoaW57yORirFJd2A==
-X-Received: by 2002:a05:600c:46cc:b0:495:4e89:3f30 with SMTP id
- 5b1f17b1804b1-49961b8a027mr260735245e9.15.1786398157964; 
- Mon, 10 Aug 2026 14:42:37 -0700 (PDT)
-X-Received: by 2002:a05:600c:46cc:b0:495:4e89:3f30 with SMTP id
- 5b1f17b1804b1-49961b8a027mr260735045e9.15.1786398157508; 
- Mon, 10 Aug 2026 14:42:37 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-39-98.inter.net.il. [80.230.39.98])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49974170572sm17781805e9.15.2026.08.10.14.42.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Aug 2026 14:42:36 -0700 (PDT)
-Date: Mon, 10 Aug 2026 17:42:32 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: "Graf (AWS), Alexander" <graf@amazon.de>
-Cc: Jason Wang <jasowangio@gmail.com>, Alex Williamson <alex@shazbot.org>,
- David Airlie <airlied@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Feng Liu <feliu@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Halil Pasic <pasic@linux.ibm.com>, Jens Axboe <axboe@kernel.dk>,
- Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "nh-open-source@amazon.com" <nh-open-source@amazon.com>,
- "nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Parav Pandit <parav@nvidia.com>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Stefan Hajnoczi <stefanha@redhat.com>,
- "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Yishai Hadas <yishaih@nvidia.com>
-Subject: Re: [RFC PATCH 00/12] virtio: support devices that own their
- virtqueue memory
-Message-ID: <20260810162924-mutt-send-email-mst@kernel.org>
-References: <20260809182010.32931-1-graf@amazon.com>
- <20260810021450-mutt-send-email-mst@kernel.org>
- <c56fb4d0-33ef-4e9b-ac18-ac4e896957cd@amazon.com>
- <20260810035246-mutt-send-email-mst@kernel.org>
- <bdcec878-d627-4d0f-a97c-35e596363b20@amazon.de>
- <21714074-dc1e-4ef3-a515-6602bd19f055@amazon.de>
-MIME-Version: 1.0
-In-Reply-To: <21714074-dc1e-4ef3-a515-6602bd19f055@amazon.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jbmPijMMVr68O09wVAXlUKzDqtxnS_G1r2dfPnmpgoI_1786398158
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A152F10E1A1;
+ Mon, 10 Aug 2026 22:10:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9C362600AA;
+ Mon, 10 Aug 2026 22:10:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB66F1F000E9;
+ Mon, 10 Aug 2026 22:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=korg; t=1786399810;
+ bh=/hUK9nmdYQUfhG6ut1/QpR/T7D3LLI4jSc7+bBZ5Ofc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=UwX/Ilov0bIFii9m3iwtL8q7dWNlzT+Wx3UroPo9PylX7if0NcfH9JAavRDAn86dw
+ JNwDAbfcVY3VRo/UBsUbAdQe6WqOiVdxquE1mb7LVSCrY0NRcx31i22SVoR5H3wZ9K
+ Nroa/JyRqqFqLrw3hFrR5C55A7jEiwD4QPiMGP18=
+Date: Mon, 10 Aug 2026 15:10:07 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+ <mhocko@suse.com>, Jann Horn <jannh@google.com>, Pedro Falcato
+ <pfalcato@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
+ Kara <jack@suse.cz>, Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>, Harry Yoo
+ <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, Kees Cook
+ <kees@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, Ryan
+ Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+ <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, Matthew Brost
+ <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim
+ <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
+ <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
+ Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, Xu Xin
+ <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, Arnd
+ Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank
+ <frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
+ <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
+ Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de
+ Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
+ Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
+ Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, John
+ Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, Oscar
+ Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>, Kairui Song
+ <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham
+ <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Youngjun Park
+ <youngjun.park@lge.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 02/20] mm: provide vma_[flags_]is_cow_mapping() and
+ remove is_cow_mapping()
+Message-Id: <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
+In-Reply-To: <ann-vS6MYT9kuXqu@lucifer>
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-2-ab318a350404@kernel.org>
+ <ann-vS6MYT9kuXqu@lucifer>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,9 +105,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 10, 2026 at 07:14:09PM +0000, Graf (AWS), Alexander wrote:
-> Maybe I'm missing the real point you're trying to make? :)
+On Mon, 10 Aug 2026 18:59:34 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-At least one point is not to have text like "intepret every address as
-an offset" in the spec and actually make it an address.
+> Hi Andrew - would it be possible to insert the comments added below? Trying
+> to avoid a respin if possible :)
+
+np, like this?
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
+Date: Mon Aug 10 03:07:02 PM PDT 2026
+
+add comments, per Lorenzo
+
+Link: https://lore.kernel.org/ann-vS6MYT9kuXqu@lucifer
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ include/linux/mm.h |   57 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+
+--- a/include/linux/mm.h~mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
++++ a/include/linux/mm.h
+@@ -2271,17 +2271,74 @@ void unpin_user_pages(struct page **page
+ void unpin_user_folio(struct folio *folio, unsigned long npages);
+ void unpin_folios(struct folio **folios, unsigned long nfolios);
+ 
++/**
++ * vma_flags_is_cow_mapping() - Do these VMA flags imply a CoW mapping?
++ * @flags: The VMA flags to check.
++ *
++ * Mappings which could be CoW'd (subject to Copy-On-Write faults) are
++ * described as CoW mappings.
++ *
++ * All mappings backed by anonymous folios (all anonymous mappings and most
++ * MAP_PRIVATE-file backed ranges) are CoW mappings.
++ *
++ * All other mappings (including all writable MAP_SHARED mappings) are
++ * non-CoW.
++ *
++ * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
++ *
++ * VMA_MAYWRITE_BIT is checked instead of VMA_WRITE_BIT to account for both
++ * future mprotect() calls which can render a read-only mapping writable, and
++ * GUP with FOLL_FORCE (e.g. ptrace) which can CoW a read-only mapping.
++ *
++ * - No anonymous mapping can ever clear VMA_MAYWRITE_BIT.
++ *
++ * - Writes to anonymous mappings do not immediately result in CoW faults but
++ *   may do so after the process is forked or if a read is followed by a
++ *   write.
++ *
++ * - Writes to MAP_PRIVATE file-backed mappings result in CoW faults and may
++ *   do so again after fork.
++ *
++ * - MAP_SHARED mappings of a file opened read-only are transformed into
++ *   VMA_MAYSHARE_BIT, !VMA_SHARED_BIT, !VMA_MAYWRITE_BIT mappings, so remain
++ *   non-CoW.
++ *
++ * - Drivers may clear VMA_MAYWRITE_BIT but do so at mmap() time and cannot
++ *   mark themselves anonymous. Having cleared this flag it is not valid for
++ *   them to leave the VMA_WRITE_BIT flag set.
++ *
++ * As a consequence, the anonymous reverse mapping only tracks CoW mappings.
++ *
++ * Returns: true if the flags indicate a CoW mapping, otherwise false.
++ */
+ static inline bool vma_flags_is_cow_mapping(const vma_flags_t *flags)
+ {
+ 	return vma_flags_test(flags, VMA_MAYWRITE_BIT) &&
+ 		!vma_flags_test(flags, VMA_SHARED_BIT);
+ }
+ 
++/**
++ * vma_is_cow_mapping() - Is this VMA a CoW mapping?
++ * @desc: The VMA to check.
++ *
++ * See vma_flags_is_cow_mapping() for details.
++ *
++ * Returns: true if the VMA is a CoW mapping, otherwise false.
++ */
+ static inline bool vma_is_cow_mapping(const struct vm_area_struct *vma)
+ {
+ 	return vma_flags_is_cow_mapping(&vma->flags);
+ }
+ 
++/**
++ * vma_desc_is_cow_mapping() - Is this VMA descriptor a CoW mapping?
++ * @desc: The VMA descriptor to check.
++ *
++ * See vma_flags_is_cow_mapping() for details.
++ *
++ * Returns: true if the VMA descriptor describes a CoW mapping, otherwise
++ * false.
++ */
+ static inline bool vma_desc_is_cow_mapping(struct vm_area_desc *desc)
+ {
+ 	return vma_flags_is_cow_mapping(&desc->vma_flags);
+_
 
