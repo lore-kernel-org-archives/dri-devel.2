@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E242C5AD7B
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59ABDC5B56A
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:30:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E07C10E1EF;
-	Mon, 10 Aug 2026 16:30:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1446710E932;
+	Mon, 10 Aug 2026 16:30:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aMW6No3k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dajWCyaK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6759710E1EF
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 16:30:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C5910E1EF
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 16:30:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 621D260052;
- Mon, 10 Aug 2026 16:30:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79121F000E9;
- Mon, 10 Aug 2026 16:30:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A034C43222;
+ Mon, 10 Aug 2026 16:30:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5F01F000E9;
+ Mon, 10 Aug 2026 16:30:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786379401;
- bh=hQFdk9edjydwzvKSVfLkbgSGxgUMzPD8nyU+/VvM8ig=;
+ s=k20260515; t=1786379402;
+ bh=XPP//AGyV4M3GkmszSuKx5FMxFP4bL+DNUDYzMBNOOE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aMW6No3kpZMxLG0WR7rjlwh3fnK/yH5XvPbpGRqs7Ucj3oYQTc5ITULxBqnvoo+9m
- 9KPh81tSWq5HRYVgM647KsFrhv5VVevvFx2Bw9I4Wlkp1ehecPsQE9pf5XFeys0qbc
- uvTA5j09FLnPJ09iecxZkZwwOfQCiUGifnIrLB4cj58JjRtiwm1/QS1Uoo1cBgXZz4
- AF3scc29TsxDRJrbye6+PHsHfhwwTdoBKkJOYu7cFZSe8R0yTVnbcCzCeiAotmhU1L
- 6a4jlHbu9BIcnDBEzEawGxUDghy7CmEHScaMUflIcKK/n/2ZswpF56HZ5UJ/AyQ4lS
- skxKIyaZyyJrw==
+ b=dajWCyaKaTYjbHAiuZNWW7zoCcaBG5TAEInXCUgk+QvTQmot9R+/IJXOAEZDwgVXe
+ YidBIpJnzSq2o9TBEtiGs6QoVBUmA+6K8ggzaep3N2bD0mqcmzFh4Zk5UWygQCQrVY
+ ADp8abFzUkttMnNPdCjS2rJdIYLxbLIn7dHH6F08afYqTf7fBNBlLQ0GAl4zb++1SB
+ lvzxvEMgfyxnJGs1apj6w+D+QpNs7541sNg/dLhRmUor3mB4sV9h+WQFfjUt9AW5/8
+ KzqjxCDuO8lFUfHcQ3liXorSfTQsk0vMwm1R7RESrG0dFE3+Gr9/ZHF1D4o37FJNCc
+ bnx9XCsZLiJrQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] drm/amdgpu: enforce UVD handle ownership on destroy
+Subject: Re: [PATCH 5/5] drm/amdgpu: free userptr HMM ranges on the CS error
+ path
 To: "Junrui Luo" <moonafterrain@outlook.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260811-amdgpu-fixes-v1-4-4954a417b8ff@outlook.com>
+In-Reply-To: <20260811-amdgpu-fixes-v1-5-4954a417b8ff@outlook.com>
 References: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
- <20260811-amdgpu-fixes-v1-4-4954a417b8ff@outlook.com>
+ <20260811-amdgpu-fixes-v1-5-4954a417b8ff@outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 16:29:59 +0000
-Message-Id: <20260810163000.D79121F000E9@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 16:30:01 +0000
+Message-Id: <20260810163002.4F5F01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,158 +58,113 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] TOCTOU race condition in UVD destroy ownership check allows bypass=
-ing the security check.
-- [High] Partial driver state modification during UVD destroy message valid=
-ation leads to a permanent firmware resource leak.
-- [Medium] Un-rate-limited DRM_ERROR in user-triggerable path allows kernel=
- log flooding.
-
 Pre-existing issues:
-- [High] Flawed loop logic and lockless design in UVD handle creation allow=
-s clients to create duplicate handles and shadow existing sessions.
-- [High] Integer overflow in amdgpu_uvd_cs_msg_decode allows bypassing buff=
-er size validation, leading to out-of-bounds DMA writes by firmware.
+- [Critical] Data Race / Use-After-Free due to shared amdgpu_bo_list_entry
+- [High] DRM scheduler API contract violation: aborting job after drm_sched=
+_job_arm()
 --
 
---- Patch [4]: [PATCH 4/5] drm/amdgpu: enforce UVD handle ownership on dest=
-roy ---
-commit 51bb2295b5cb365884456f0b29a575d54bdae4a7
+--- Patch [5]: [PATCH 5/5] drm/amdgpu: free userptr HMM ranges on the CS er=
+ror path ---
+commit c42f00dbd4932bbfbbb760f3bcc81040f9afbef4
 Author: Junrui Luo <moonafterrain@outlook.com>
-Subject: drm/amdgpu: enforce UVD handle ownership on destroy
 
-This patch updates the UVD command submission to validate handle ownership
-during destroy operations, similar to the decode path. It checks that the
-file pointer associated with the handle matches the submitting client. The
-mapping release is also hoisted above the loop to prevent reference leaks on
-error.
+drm/amdgpu: free userptr HMM ranges on the CS error path
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_uvd.c
-> index e8b0c62f72be2..8d3e5435cf528 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -918,9 +918,19 @@ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ct=
-x *ctx,
-> =20
->  	case 2:
->  		/* it's a destroy msg, free the handle */
-> -		for (i =3D 0; i < adev->uvd.max_handles; ++i)
-> -			atomic_cmpxchg(&adev->uvd.handles[i], handle, 0);
->  		amdgpu_bo_kunmap(bo);
+This commit fixes a memory leak in the amdgpu_cs ioctl error path by
+releasing userptr HMM ranges in amdgpu_cs_parser_fini(). Previously, these
+ranges were only freed on success or specific error paths, leading to leaks
+when errors occurred between allocation and the release loop in
+amdgpu_cs_submit().
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index 617f53f135f35..17c4fec214028 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1416,6 +1416,16 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs=
+_parser *parser)
+>  				amdgpu_vm_bo_invalidate(bo, false);
+>  			}
+>  		}
 > +
-> +		for (i =3D 0; i < adev->uvd.max_handles; ++i) {
-> +			if (atomic_read(&adev->uvd.handles[i]) !=3D handle)
-> +				continue;
-> +
-> +			if (adev->uvd.filp[i] !=3D ctx->parser->filp) {
+> +		/*
+> +		 * Release the ranges still live on the error paths;
+> +		 * amdgpu_cs_submit() already freed and cleared them when it
+> +		 * got far enough to check them for invalidation.
+> +		 */
+> +		amdgpu_bo_list_for_each_userptr_entry(e, parser->bo_list) {
+> +			amdgpu_hmm_range_free(e->range);
+> +			e->range =3D NULL;
 
-[Severity: High]
-Does this check introduce a time-of-check to time-of-use race condition?
+[Severity: Critical]
+This is a pre-existing issue, but does lockless modification of the shared
+bo_list_entry introduce a data race or use-after-free here?
 
-In the case 0 (create) path, the slot is claimed via atomic_cmpxchg before
-filp[i] is updated:
+If userspace creates a BO list, obtains a handle, and invokes multiple
+concurrent amdgpu_cs ioctls using the same BO list handle, the amdgpu_bo_li=
+st
+objects are reference-counted and shared across those ioctls.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:amdgpu_uvd_cs_msg() {
+If one thread fails during the ioctl and reaches this newly modified
+amdgpu_cs_parser_fini(), could it free e->range while another thread is
+concurrently allocating or using it in amdgpu_cs_parser_bos()?
+
+Thread 1:
+amdgpu_cs_parser_bos() {
     ...
-    if (!atomic_cmpxchg(&adev->uvd.handles[i], 0, handle)) {
-        adev->uvd.filp[i] =3D ctx->parser->filp;
-        return 0;
-    }
+    e->range =3D amdgpu_hmm_range_alloc(NULL);
     ...
 }
 
-If a victim thread is preempted right after the atomic_cmpxchg but before
-updating filp[i], filp[i] still retains its old value. If an attacker
-concurrently submits a destroy command and their filp matches that old valu=
-e,
-can they pass this new ownership check and destroy the victim's newly alloc=
-ated
-session?
-
-> +				DRM_ERROR("UVD handle collision detected!\n");
-
-[Severity: Medium]
-Is it possible for a user to flood the kernel log with this error message?
-
-Since this path is entirely controlled by user inputs, an attacker could
-repeatedly submit destroy messages for handles they do not own, triggering
-this un-rate-limited DRM_ERROR in a tight loop.
-
-> +				return -EINVAL;
-> +			}
-> +
-> +			atomic_cmpxchg(&adev->uvd.handles[i], handle, 0);
-
-[Severity: High]
-Can returning -EINVAL here cause a permanent leak of UVD hardware sessions?
-
-If multiple slots happen to contain the same handle, this loop will clear t=
-he
-first matching slot using atomic_cmpxchg. When it reaches the second matchi=
-ng
-slot (owned by a different client), the filp check fails and the function
-returns -EINVAL.
-
-This aborts the command submission before the destroy command is sent to the
-firmware. However, because the first software slot is already zeroed out,
-amdgpu_uvd_free_handles() will never clean it up, leaving the hardware
-session leaked permanently.
+Thread 2 (on an error path):
+amdgpu_cs_parser_fini() {
+    ...
+    amdgpu_bo_list_for_each_userptr_entry(e, parser->bo_list) {
+        amdgpu_hmm_range_free(e->range);
+        e->range =3D NULL;
+    }
+}
 
 > +		}
->  		return 0;
-> =20
->  	default:
+>  		amdgpu_bo_list_put(parser->bo_list);
+>  	}
 
 [Severity: High]
-This is a pre-existing issue, but does the loop logic in the case 0 (create)
-path allow clients to create duplicate handles and shadow existing sessions?
+This isn't a bug introduced by this patch, but does amdgpu_cs_submit() viol=
+ate
+the DRM scheduler API contract by aborting jobs after they are armed?
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:amdgpu_uvd_cs_msg() {
+Looking at amdgpu_cs_submit(), it arms jobs but can return an error before
+pushing them:
+
+amdgpu_cs_submit() {
     ...
-    for (i =3D 0; i < adev->uvd.max_handles; ++i) {
-        if (atomic_read(&adev->uvd.handles[i]) =3D=3D handle) {
-            ...
-        }
-
-        if (!atomic_cmpxchg(&adev->uvd.handles[i], 0, handle)) {
-            adev->uvd.filp[i] =3D ctx->parser->filp;
-            return 0;
-        }
+    for (i =3D 0; i < p->gang_size; ++i)
+        drm_sched_job_arm(&p->jobs[i]->base);
+    ...
+    if (r || !list_empty(&vm->individual.needs_update)) {
+        r =3D -EAGAIN;
+        mutex_unlock(&p->adev->notifier_lock);
+        return r;
     }
     ...
 }
 
-The loop exits early upon finding a free slot, bypassing duplicate checks f=
-or
-the remaining slots. If an attacker creates a handle that is already owned =
-by
-a victim, and the attacker obtains an earlier slot index, subsequent operat=
-ions
-by the victim will hit the attacker's slot first and fail the ownership che=
-ck.
+If the function returns an error (e.g., if drm_sched_job_add_dependency() f=
+ails
+or !list_empty(&vm->individual.needs_update) is true), the armed job is
+aborted via drm_sched_job_cleanup() instead of being submitted.
 
-[Severity: High]
-This is a pre-existing issue, but does the 32-bit multiplication of
-user-controlled dimensions in amdgpu_uvd_cs_msg_decode() overflow?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:amdgpu_uvd_cs_msg_decode() {
-    ...
-    image_size =3D (ALIGN(width, 16) * ALIGN(height, 16) * 3) / 2;
-    ...
-}
-
-The width and height dimensions read from the UVD message do not seem to be
-checked against upper bounds. By providing extremely large values, this
-calculation can overflow 32-bit arithmetic to a very small value, bypassing
-buffer size validation and allowing the firmware to perform out-of-bounds D=
-MA
-writes.
+Does calling drm_sched_job_cleanup() after drm_sched_job_arm() leave sequen=
+ce
+gaps on the scheduler entity timeline, potentially causing permanent GPU ha=
+ngs
+for subsequent jobs?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811-amdgpu-fix=
-es-v1-0-4954a417b8ff@outlook.com?part=3D4
+es-v1-0-4954a417b8ff@outlook.com?part=3D5
