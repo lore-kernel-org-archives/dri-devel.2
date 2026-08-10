@@ -4,53 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46589C5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:02:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A72E1C5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:07:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A37C410E1E9;
-	Mon, 10 Aug 2026 09:02:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECBB410E1C5;
+	Mon, 10 Aug 2026 09:07:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DRwl1wy6";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="HPsvRX7C";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1D2F10E1E9
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:02:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 870CE60052;
- Mon, 10 Aug 2026 09:02:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F9F1F000E9;
- Mon, 10 Aug 2026 09:02:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786352530;
- bh=HdpBme/9t/xZqKfAX+GpR5irQSAM7NC/ySAMmoe/4aQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=DRwl1wy6wJ8GczC3ap6xxrKWs6ZWkvS3tMC6pAb1FetOncUzJRQtKCIq8+lfKKBOX
- g5fk/FmVLnywzijHBkrEdqvogicRLGraYhBoW5Q+Llea0yby+ZTm3zhEmvTVBm6uw9
- RdjnDQIkhC7C5XVaot/kmNFo90CIWOu2tpgvpjyf5BDbuqO30IkFK+P5SUyq9EPDr0
- JwDDCKgoux6qgWhqeMyxUFoM5iZT/lZSwE73c4gggOlk4/MqdWvxlIw9T3wVFrc3Dg
- J8QhXDvQ/4d5GXMzUMS+5dmx+ggKza+XFObqYsmq8EZnfpUNjmdJT56EYNbGtSD2Bi
- /XrrjrsbBJ0iA==
-Date: Mon, 10 Aug 2026 11:02:07 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, 
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-Message-ID: <20260810-devout-pig-of-performance-595ccc@houat>
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
- <am2mvECnCcO9IxuI@monoceros>
- <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
- <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA3C810E1C5
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:07:32 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260810090730euoutp02f7b9709c04b553a5c0d5fadac9823431~KZnQV0R580704107041euoutp02R;
+ Mon, 10 Aug 2026 09:07:30 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260810090730euoutp02f7b9709c04b553a5c0d5fadac9823431~KZnQV0R580704107041euoutp02R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1786352851;
+ bh=ySuGWbXUDGRFaGMKt5Y7z0dskEZPyGt9AbN/dMvXf1U=;
+ h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
+ b=HPsvRX7C15j1heJymtevQXoi/AnN/UmZgnpt+LPxF3VYvuPtRJ3PYpNdLnmaXR0Ag
+ 59kf/XM9EHs3O50nSy+7hCuFxp4Q55Xi5/hdzAIdCWJOo8JxnrbbHOV1ClSd71HV0d
+ r4jlBz+O8JAs/tO9cz+lHcFefZSDAVIP9ORDDg9o=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260810090730eucas1p23ceee7c50d9b5f62e163a92c91aa20de~KZnPjUrlt0040900409eucas1p2L;
+ Mon, 10 Aug 2026 09:07:30 +0000 (GMT)
+Received: from [106.120.50.46] (unknown [106.120.50.46]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260810090727eusmtip10eb84a9d5031d28278c93306c2caa136~KZnNUvdOP2715827158eusmtip1g;
+ Mon, 10 Aug 2026 09:07:27 +0000 (GMT)
+Message-ID: <8a988f86-e497-4e9b-92db-c9b454467df5@samsung.com>
+Date: Mon, 10 Aug 2026 11:07:26 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="jlvsv7mq5dpw6ycy"
-Content-Disposition: inline
-In-Reply-To: <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
+User-Agent: Betterbird (Windows)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Mikko
+ Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, Rasmus
+ Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
+ <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
+ Gorbik <gor@linux.ibm.com>, Christian Borntraeger
+ <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Andrew
+ Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
+ R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+ Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-s390@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev,
+ linaro-mm-sig@lists.linaro.org, linux-trace-kernel@vger.kernel.org
+Content-Language: en-US
+In-Reply-To: <anSuYvj1JU5K8xUO@orome>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260810090730eucas1p23ceee7c50d9b5f62e163a92c91aa20de
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
+X-EPHeader: CA
+X-CMS-RootMailID: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
+ <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+ <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
+ <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
+ <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com> <ak_E4UxfnFJywJa7@orome>
+ <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com> <anSuYvj1JU5K8xUO@orome>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,70 +100,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 06.08.2026 18:09, Thierry Reding wrote:
+> On Thu, Jul 16, 2026 at 12:43:56PM +0200, Marek Szyprowski wrote:
+>> On 09.07.2026 17:59, Thierry Reding wrote:
+>>> On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
+>>>> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
+>>>>> On 7/7/26 12:02, Marek Szyprowski wrote:
+>>>>>> On 01.07.2026 18:08, Thierry Reding wrote:
+>>>>>>> From: Thierry Reding <treding@nvidia.com>
+>>>>>>>
+>>>>>>> There is no technical reason why there should be a limited number of CMA
+>>>>>>> regions, so extract some code into helpers and use them to create extra
+>>>>>>> functions (cma_create() and cma_free()) that allow creating and freeing,
+>>>>>>> respectively, CMA regions dynamically at runtime.
+>>>>>> Well, the technical reason for not creating cma regions dynamically at
+>>>>>> runtime is that on some architectures (like 32bit ARM) the early fixup
+>>>>>> for the region is needed to make it functional for DMA.
+>>>>> Can you point me at the code that does that? Thanks!
+>>>> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in 
+>>>> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings for
+>>>> the CMA reserved region in linear map are remapped with 4k pages instead
+>>>> of the 1M sections, so later, it will be possible to alter the mappings and
+>>>> change them to coherent when needed (altering 1M sections is not possible,
+>>>> because each process has it's own level-1 array even for the kernel linear
+>>>> mapping).
+>>>>
+>>>>
+>>>>
+>>>> However, in the use case in this patchset the reserved region is only shared
+>>>> with buddy allocator by using the CMA infrastructure, not registered to the
+>>>> regular DMA-mapping API, so it would work fine. I'm not convinced that this
+>>>> is the right API to use for this though.
+>>> Are you saying you're not convinced that CMA is the right API to use for
+>>> this? Or something else?
+>> I read this again and indeed CMA seems to be right solution. I only wonder
+>> why do You want to create the CMA areas dynamically? Imho it would work if
+>> You just create large enough CMA area on boot, what would automatically
+>> share the memory with buddy allocator and then allocate dynamic VPR regions
+>> with cma_alloc(), potentially unmapping or marking the allocated region as
+>> reserved in linear kernel mapping to avoid any potential speculative access
+>> to the protected memory.
+> Hi Marek,
+>
+> sorry for missing your reply earlier.
+>
+> The reason why we want to create the CMA areas dynamically is because we
+> want to split the secure memory into multiple areas. And the size and
+> number of these areas may need to vary, so I didn't want to have to rely
+> on rebuilding kernels with different numbers of maximum CMA areas
+> depending on the chunk size that we choose.
+>
+> The reason why we need to split up the protected memory into multiple
+> CMA areas is that allocation patterns can create holes within a CMA
+> area. For the VPR memory, however, we must ensure that there aren't any
+> holes within the protected region because it is specified using a single
+> base address and a size. So there is one contiguous region that can be
+> marked protected.
+>
+> If we were to use a single CMA area, we could get holes within an area
+> that is marked protected and once the pages are returned to the buddy
+> allocator with cma_release(), something else could be attempting to
+> access it and cause an error because it is still protected.
+>
+> The only way to make sure we get a single, resizable and contiguous
+> region is by using multiple CMA areas and allocating the entire area
+> once our allocations need to expand into that new area. So we're not in
+> fact using much of the CMA infrastructure and actually need to duplicate
+> some of it. We primarily need it for the page migration and reclaim
+> functionality.
 
---jlvsv7mq5dpw6ycy
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-MIME-Version: 1.0
+This still looks over-engineered. I understand that in case of a single CMA
 
-Hi,
+area using cma_alloc() is not enough for Your use-case, but You already
 
-On Sun, Aug 02, 2026 at 12:01:58AM +0200, M=C3=A0xim Pedraza Padilla wrote:
-> Uwe Kleine-K=C3=B6nig wrote:
-> > My 0.02=E2=82=AC: Usually you want to use the display using drm and not=
- fb once
-> > the machine is fully booted. If you're using fb during boot to display a
-> > logo, it's hardly possible to switch to drm later in the boot process
-> > without flicker.
-> >
-> > So my recommendation for your usecase is to not use the kernel boot logo
-> > stuff, but something like https://github.com/pengutronix/platsch.
->=20
-> Thanks for the pointer, I did not know platsch and it looks like a good
-> fit for the problem it solves. It does not solve mine, though, and I
-> think the reason is worth spelling out, because it is not about how the
-> image gets drawn but about when.
->=20
-> These are industrial units, and the requirement is time to first pixel
-> after power is applied. If the panel stays dark for more than a moment
-> the unit reads as dead, and that is a support call. Anything running in
-> userspace is by construction later than the kernel: it needs the kernel
-> booted, the rootfs mounted and init far enough along to exec it. I can
-> measure the exact difference on our hardware if that is useful for the
-> discussion.
->=20
-> We do already paint a BMP from U-Boot, which is as early as we can
-> possibly be. The problem is the gap that follows: once the display
-> driver probes, the panel is cleared, and nothing puts anything back
-> until userspace is running. Moving the logo further out into userspace
-> widens that gap rather than closing it. The kernel boot logo is what
-> fills it, and that is the whole reason this series exists.
+pointed that You need to have custom method of managing which part of memory
 
-If the sole reason for this series is to keep having something on the
-display while the kernel boots until DRM catches up, then you probably
-want to check
+is assigned to secure world, so wouldn't it be much simpler just to add
 
-https://lore.kernel.org/r/20260629-drm-state-readout-v4-0-5966657980ed@kern=
-el.org
+cma_alloc_exact_range() -like function and keep using a single, boot-time
 
-Which also does what you're trying to achieve: keep the display running
-with the same content while the DRM driver loads, and switch to whatever
-comes next without a flicker (if we can).
+defined CMA area? Then in instead of creating and deleting CMA areas
 
-Maxime
+dynamically, You just 'allocate' respective ranges from the single CMA area
 
---jlvsv7mq5dpw6ycy
-Content-Type: application/pgp-signature; name="signature.asc"
+and manage them on You own (like in current patchset).
 
------BEGIN PGP SIGNATURE-----
+>> In both cases You will probably won't need the DMA-mapping API on top of
+>> it, although it might be even possible to partially use with by
+>> registering custom dma_ops for the devices using the protected region
+>> (assuming that it would support only DMA_ATTR_NO_KERNEL_MAPPING
+>> allocations).
+> Yeah, I don't think we want the DMA API on top at all. The allocator has
+> special needs, like clustered allocations to minimize fragmentation and
+> keeping as few chunks activated as possible. We also want to avoid
+> resize operations because they can be quite heavy depending on system
+> load.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCanmTiAAKCRAnX84Zoj2+
-dv6HAX9W/YXoO7mIxYM1dW13th4tADPga2R/eJrH9jUS2EpeZODDGQI35Bz22jXD
-BzPgq0EBgITlzetN/7l5R6fMid4G29Yo7pdhJkE7hJygLXhy0ruNuW9u8AtJTfKp
-9bLeQ/WtyQ==
-=MPTn
------END PGP SIGNATURE-----
+That's okay.
 
---jlvsv7mq5dpw6ycy--
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
