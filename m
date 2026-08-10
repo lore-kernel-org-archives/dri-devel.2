@@ -4,77 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0085DC5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46589C5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:02:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5CC310E733;
-	Mon, 10 Aug 2026 09:00:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A37C410E1E9;
+	Mon, 10 Aug 2026 09:02:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aNteT2hs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DRwl1wy6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93E6E10E1E9;
- Mon, 10 Aug 2026 09:00:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786352434; x=1817888434;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=aBla1GdjrZzE2U81Np1weJRn78Yirl09PISBrS8Wfjk=;
- b=aNteT2hsvE7GmjyQO+oQqtnnSQs93vAIJEAgIRq+Qd0JYo3jAxWn7S4U
- +7qEWhMkS21OD3pAI4TfXtydk5WGySOIQ55MgW5WaNn8AaKxJoPoqbVm2
- pt37Maxzrq0IT2xqk3kSj4U3lyoGCyqrnVewSTVlt+d9Fl9DnWRR6qfX6
- rjH5HqbjZL5r1VcQAbkls/+HD+HgG65UwrlNf6zUKLiotaN2PfObUnosE
- hpmLt65jfpXAo2vB1LRfrV4F6V6nFTnNwWd/lGrZdfBUPfIyqtDHzX6N8
- GcK8lzreH5c82q5P7jvh3VgErpMKR/V/qtUtp0lm69hpAXX/vTlCP/6s4 g==;
-X-CSE-ConnectionGUID: 94885zmtQ9OeFcwZ8JmzFQ==
-X-CSE-MsgGUID: Vm3ZpJ3IShKa13wh0gr6vQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="98011378"
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="98011378"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 02:00:33 -0700
-X-CSE-ConnectionGUID: 1eooUKPrQXSqNF6iyA5v6Q==
-X-CSE-MsgGUID: Ot0FgtJ9SUanv3Sz08oEaw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="259125323"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.103])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 02:00:22 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Igor Paunovic <royalnet026@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Sebastian Reichel
- <sebastian.reichel@collabora.com>, Cristian Ciocaltea
- <cristian.ciocaltea@collabora.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andy.yan@rock-chips.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Imre Deak <imre.deak@intel.com>, Ankit
- Nautiyal <ankit.k.nautiyal@intel.com>, Igor Paunovic
- <royalnet026@gmail.com>
-Subject: Re: [PATCH 1/5] drm/dp: Add drm_dp_hdr_metadata_infoframe_sdp_pack()
-In-Reply-To: <20260808095749.9428-2-royalnet026@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260808095749.9428-1-royalnet026@gmail.com>
- <20260808095749.9428-2-royalnet026@gmail.com>
-Date: Mon, 10 Aug 2026 12:00:20 +0300
-Message-ID: <d128b937ee3ca1987d2bd543f92cbabab84ea440@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1D2F10E1E9
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:02:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 870CE60052;
+ Mon, 10 Aug 2026 09:02:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F9F1F000E9;
+ Mon, 10 Aug 2026 09:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786352530;
+ bh=HdpBme/9t/xZqKfAX+GpR5irQSAM7NC/ySAMmoe/4aQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=DRwl1wy6wJ8GczC3ap6xxrKWs6ZWkvS3tMC6pAb1FetOncUzJRQtKCIq8+lfKKBOX
+ g5fk/FmVLnywzijHBkrEdqvogicRLGraYhBoW5Q+Llea0yby+ZTm3zhEmvTVBm6uw9
+ RdjnDQIkhC7C5XVaot/kmNFo90CIWOu2tpgvpjyf5BDbuqO30IkFK+P5SUyq9EPDr0
+ JwDDCKgoux6qgWhqeMyxUFoM5iZT/lZSwE73c4gggOlk4/MqdWvxlIw9T3wVFrc3Dg
+ J8QhXDvQ/4d5GXMzUMS+5dmx+ggKza+XFObqYsmq8EZnfpUNjmdJT56EYNbGtSD2Bi
+ /XrrjrsbBJ0iA==
+Date: Mon, 10 Aug 2026 11:02:07 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, 
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+Message-ID: <20260810-devout-pig-of-performance-595ccc@houat>
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+ <am2mvECnCcO9IxuI@monoceros>
+ <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
+ <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="jlvsv7mq5dpw6ycy"
+Content-Disposition: inline
+In-Reply-To: <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,280 +66,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 08 Aug 2026, Igor Paunovic <royalnet026@gmail.com> wrote:
-> i915 packs HDR static metadata into an HDR Metadata InfoFrame SDP
-> (DP 1.4a spec, Table 2-100 and Table 2-101) with a driver-private
-> helper, intel_dp_hdr_metadata_infoframe_sdp_pack(). Nothing in it is
-> i915 specific: it converts a generic struct hdmi_drm_infoframe into a
-> generic struct dp_sdp.
->
-> Move it to drm_dp_helper.c as drm_dp_hdr_metadata_infoframe_sdp_pack(),
-> next to drm_dp_vsc_sdp_pack(), and convert i915 to the new helper. The
-> Synopsys DesignWare DisplayPort bridge driver (dw-dp) needs to send the
-> same SDP to support HDR and should not have to duplicate the packing
-> code.
->
-> The helper takes a struct drm_device pointer in place of the i915
-> display pointer for its two debug messages, and an i915-specific
-> comment about GEN11+ GMP register sizes is dropped. No functional
-> change.
->
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 
-'git show --color-moved' says it's fine. ;)
+--jlvsv7mq5dpw6ycy
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+MIME-Version: 1.0
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Hi,
 
-for merging via drm-misc.
+On Sun, Aug 02, 2026 at 12:01:58AM +0200, M=C3=A0xim Pedraza Padilla wrote:
+> Uwe Kleine-K=C3=B6nig wrote:
+> > My 0.02=E2=82=AC: Usually you want to use the display using drm and not=
+ fb once
+> > the machine is fully booted. If you're using fb during boot to display a
+> > logo, it's hardly possible to switch to drm later in the boot process
+> > without flicker.
+> >
+> > So my recommendation for your usecase is to not use the kernel boot logo
+> > stuff, but something like https://github.com/pengutronix/platsch.
+>=20
+> Thanks for the pointer, I did not know platsch and it looks like a good
+> fit for the problem it solves. It does not solve mine, though, and I
+> think the reason is worth spelling out, because it is not about how the
+> image gets drawn but about when.
+>=20
+> These are industrial units, and the requirement is time to first pixel
+> after power is applied. If the panel stays dark for more than a moment
+> the unit reads as dead, and that is a support call. Anything running in
+> userspace is by construction later than the kernel: it needs the kernel
+> booted, the rootfs mounted and init far enough along to exec it. I can
+> measure the exact difference on our hardware if that is useful for the
+> discussion.
+>=20
+> We do already paint a BMP from U-Boot, which is as early as we can
+> possibly be. The problem is the gap that follows: once the display
+> driver probes, the panel is cleared, and nothing puts anything back
+> until userspace is running. Moving the logo further out into userspace
+> widens that gap rather than closing it. The kernel boot logo is what
+> fills it, and that is the whole reason this series exists.
 
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 88 +++++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dp.c | 84 +----------------------
->  include/drm/display/drm_dp_helper.h     |  4 ++
->  3 files changed, 95 insertions(+), 81 deletions(-)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
-splay/drm_dp_helper.c
-> index 9c31e14cc413..7b3b079403c4 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -25,6 +25,7 @@
->  #include <linux/dynamic_debug.h>
->  #include <linux/errno.h>
->  #include <linux/export.h>
-> +#include <linux/hdmi.h>
->  #include <linux/i2c.h>
->  #include <linux/init.h>
->  #include <linux/iopoll.h>
-> @@ -3672,6 +3673,93 @@ ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vs=
-c_sdp *vsc,
->  }
->  EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
->=20=20
-> +/**
-> + * drm_dp_hdr_metadata_infoframe_sdp_pack() - pack HDR Metadata InfoFram=
-e SDP
-> + * @dev: DRM device
-> + * @drm_infoframe: HDMI DRM infoframe carrying the HDR static metadata
-> + * @sdp: valid handle to the generic dp_sdp which will be packed
-> + * @size: valid size of the passed sdp handle
-> + *
-> + * Pack a CTA-861 Dynamic Range and Mastering infoframe into an HDR
-> + * Metadata InfoFrame SDP, as defined in DP 1.4a spec, Table 2-100 and
-> + * Table 2-101.
-> + *
-> + * Returns: length of sdp on success and error code on failure
-> + */
-> +ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
-> +					       const struct hdmi_drm_infoframe *drm_infoframe,
-> +					       struct dp_sdp *sdp,
-> +					       size_t size)
-> +{
-> +	size_t length =3D sizeof(struct dp_sdp);
-> +	const int infoframe_size =3D HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFO=
-FRAME_SIZE;
-> +	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
-> +	ssize_t len;
-> +
-> +	if (size < length)
-> +		return -ENOSPC;
-> +
-> +	memset(sdp, 0, size);
-> +
-> +	len =3D hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
-> +	if (len < 0) {
-> +		drm_dbg_kms(dev,
-> +			    "buffer size is smaller than hdr metadata infoframe\n");
-> +		return -ENOSPC;
-> +	}
-> +
-> +	if (len !=3D infoframe_size) {
-> +		drm_dbg_kms(dev, "wrong static hdr metadata size\n");
-> +		return -ENOSPC;
-> +	}
-> +
-> +	/*
-> +	 * Set up the infoframe sdp packet for HDR static metadata.
-> +	 * Prepare VSC Header for SU as per DP 1.4a spec,
-> +	 * Table 2-100 and Table 2-101
-> +	 */
-> +
-> +	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
-> +	sdp->sdp_header.HB0 =3D 0;
-> +	/*
-> +	 * Packet Type 80h + Non-audio INFOFRAME Type value
-> +	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
-> +	 * - 80h + Non-audio INFOFRAME Type value
-> +	 * - InfoFrame Type: 0x07
-> +	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
-> +	 */
-> +	sdp->sdp_header.HB1 =3D drm_infoframe->type;
-> +	/*
-> +	 * Least Significant Eight Bits of (Data Byte Count =E2=80=93 1)
-> +	 * infoframe_size - 1
-> +	 */
-> +	sdp->sdp_header.HB2 =3D 0x1D;
-> +	/* INFOFRAME SDP Version Number */
-> +	sdp->sdp_header.HB3 =3D (0x13 << 2);
-> +	/* CTA Header Byte 2 (INFOFRAME Version Number) */
-> +	sdp->db[0] =3D drm_infoframe->version;
-> +	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
-> +	sdp->db[1] =3D drm_infoframe->length;
-> +	/*
-> +	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
-> +	 * HDMI_INFOFRAME_HEADER_SIZE
-> +	 */
-> +	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
-> +	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
-> +	       HDMI_DRM_INFOFRAME_SIZE);
-> +
-> +	/*
-> +	 * Size of DP infoframe sdp packet for HDR static metadata consists of
-> +	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
-> +	 * - Two Data Blocks: 2 bytes
-> +	 *    CTA Header Byte2 (INFOFRAME Version Number)
-> +	 *    CTA Header Byte3 (Length of INFOFRAME)
-> +	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
-> +	 */
-> +	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
-> +}
-> +EXPORT_SYMBOL(drm_dp_hdr_metadata_infoframe_sdp_pack);
-> +
->  /**
->   * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
->   * @dpcd: DisplayPort configuration data
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 6e3fa6662cbe..093a3b7961f7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -5157,84 +5157,6 @@ static ssize_t intel_dp_as_sdp_pack(const struct d=
-rm_dp_as_sdp *as_sdp,
->  	return length;
->  }
->=20=20
-> -static ssize_t
-> -intel_dp_hdr_metadata_infoframe_sdp_pack(struct intel_display *display,
-> -					 const struct hdmi_drm_infoframe *drm_infoframe,
-> -					 struct dp_sdp *sdp,
-> -					 size_t size)
-> -{
-> -	size_t length =3D sizeof(struct dp_sdp);
-> -	const int infoframe_size =3D HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFO=
-FRAME_SIZE;
-> -	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
-> -	ssize_t len;
-> -
-> -	if (size < length)
-> -		return -ENOSPC;
-> -
-> -	memset(sdp, 0, size);
-> -
-> -	len =3D hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
-> -	if (len < 0) {
-> -		drm_dbg_kms(display->drm,
-> -			    "buffer size is smaller than hdr metadata infoframe\n");
-> -		return -ENOSPC;
-> -	}
-> -
-> -	if (len !=3D infoframe_size) {
-> -		drm_dbg_kms(display->drm, "wrong static hdr metadata size\n");
-> -		return -ENOSPC;
-> -	}
-> -
-> -	/*
-> -	 * Set up the infoframe sdp packet for HDR static metadata.
-> -	 * Prepare VSC Header for SU as per DP 1.4a spec,
-> -	 * Table 2-100 and Table 2-101
-> -	 */
-> -
-> -	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
-> -	sdp->sdp_header.HB0 =3D 0;
-> -	/*
-> -	 * Packet Type 80h + Non-audio INFOFRAME Type value
-> -	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
-> -	 * - 80h + Non-audio INFOFRAME Type value
-> -	 * - InfoFrame Type: 0x07
-> -	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
-> -	 */
-> -	sdp->sdp_header.HB1 =3D drm_infoframe->type;
-> -	/*
-> -	 * Least Significant Eight Bits of (Data Byte Count =E2=80=93 1)
-> -	 * infoframe_size - 1
-> -	 */
-> -	sdp->sdp_header.HB2 =3D 0x1D;
-> -	/* INFOFRAME SDP Version Number */
-> -	sdp->sdp_header.HB3 =3D (0x13 << 2);
-> -	/* CTA Header Byte 2 (INFOFRAME Version Number) */
-> -	sdp->db[0] =3D drm_infoframe->version;
-> -	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
-> -	sdp->db[1] =3D drm_infoframe->length;
-> -	/*
-> -	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
-> -	 * HDMI_INFOFRAME_HEADER_SIZE
-> -	 */
-> -	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
-> -	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
-> -	       HDMI_DRM_INFOFRAME_SIZE);
-> -
-> -	/*
-> -	 * Size of DP infoframe sdp packet for HDR static metadata consists of
-> -	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
-> -	 * - Two Data Blocks: 2 bytes
-> -	 *    CTA Header Byte2 (INFOFRAME Version Number)
-> -	 *    CTA Header Byte3 (Length of INFOFRAME)
-> -	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
-> -	 *
-> -	 * Prior to GEN11's GMP register size is identical to DP HDR static met=
-adata
-> -	 * infoframe size. But GEN11+ has larger than that size, write_infoframe
-> -	 * will pad rest of the size.
-> -	 */
-> -	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
-> -}
-> -
->  static void intel_write_dp_sdp(struct intel_encoder *encoder,
->  			       const struct intel_crtc_state *crtc_state,
->  			       unsigned int type)
-> @@ -5253,9 +5175,9 @@ static void intel_write_dp_sdp(struct intel_encoder=
- *encoder,
->  		len =3D drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp);
->  		break;
->  	case HDMI_PACKET_TYPE_GAMUT_METADATA:
-> -		len =3D intel_dp_hdr_metadata_infoframe_sdp_pack(display,
-> -							       &crtc_state->infoframes.drm.drm,
-> -							       &sdp, sizeof(sdp));
-> +		len =3D drm_dp_hdr_metadata_infoframe_sdp_pack(display->drm,
-> +							     &crtc_state->infoframes.drm.drm,
-> +							     &sdp, sizeof(sdp));
->  		break;
->  	case DP_SDP_ADAPTIVE_SYNC:
->  		len =3D intel_dp_as_sdp_pack(&crtc_state->infoframes.as_sdp, &sdp,
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/dr=
-m_dp_helper.h
-> index ab16c1be3900..c158628f0d38 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -32,6 +32,7 @@
->  struct drm_device;
->  struct drm_dp_aux;
->  struct drm_panel;
-> +struct hdmi_drm_infoframe;
->=20=20
->  bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
->  			  int lane_count);
-> @@ -1029,6 +1030,9 @@ int drm_dp_bw_channel_coding_efficiency(bool is_uhb=
-r);
->  int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes);
->=20=20
->  ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc, struct dp_=
-sdp *sdp);
-> +ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
-> +					       const struct hdmi_drm_infoframe *drm_infoframe,
-> +					       struct dp_sdp *sdp, size_t size);
->  int drm_dp_link_symbol_cycles(int lane_count, int pixels, int dsc_slice_=
-count,
->  			      int bpp_x16, int symbol_size, bool is_mst);
+If the sole reason for this series is to keep having something on the
+display while the kernel boots until DRM catches up, then you probably
+want to check
 
---=20
-Jani Nikula, Intel
+https://lore.kernel.org/r/20260629-drm-state-readout-v4-0-5966657980ed@kern=
+el.org
+
+Which also does what you're trying to achieve: keep the display running
+with the same content while the DRM driver loads, and switch to whatever
+comes next without a flicker (if we can).
+
+Maxime
+
+--jlvsv7mq5dpw6ycy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCanmTiAAKCRAnX84Zoj2+
+dv6HAX9W/YXoO7mIxYM1dW13th4tADPga2R/eJrH9jUS2EpeZODDGQI35Bz22jXD
+BzPgq0EBgITlzetN/7l5R6fMid4G29Yo7pdhJkE7hJygLXhy0ruNuW9u8AtJTfKp
+9bLeQ/WtyQ==
+=MPTn
+-----END PGP SIGNATURE-----
+
+--jlvsv7mq5dpw6ycy--
