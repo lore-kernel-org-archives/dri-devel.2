@@ -4,81 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E46FC5B56C
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 15:33:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A819AC5B56C
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 15:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FA6C10E8FF;
-	Mon, 10 Aug 2026 15:33:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C413E10E908;
+	Mon, 10 Aug 2026 15:36:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="InSSFqAU";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dtvWgb+P";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F38210E236;
- Mon, 10 Aug 2026 15:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=os657xqLGgDm/9BsJwKm0Ml1+Xpgpj6PbqbNKEPedwY=; b=InSSFqAUtqJgpjF9gDXzPI1PX3
- 6OPs13+vrcLG+PApOUtM/gkAZsPLUyxTij20rEkuatYQP933tg2VnYa3lqdwmLkDgY7YFXGi8rPGW
- u04iztb1TsRZzL9E/qsRGp2Pu2AFyCfJD4RT4AMaYhWguPU9GnwJwjZR0RNmwIfzXhWsJrOn32U6t
- S63k1qX0fJOZaVvnJ20/iRkO+PNr+B7m4pqsjen42Aj938aVUSDcsTNEWkKNjucVsvgxvI4Wa+g1y
- Mo0k67uDzncD6H8oeFJxIhUyZvBAjFSIDeDLuBkcinzYp8NP3ZoZjLHmPqgxHZeThMN/Y0mq0v+Qt
- 3SctFU3Q==;
-Received: from [187.36.208.132] (helo=[192.168.1.103])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wtRzU-00GeZ7-KL; Mon, 10 Aug 2026 17:32:40 +0200
-Message-ID: <038c825a-aaa3-4bb0-98ae-6f93dce73544@igalia.com>
-Date: Mon, 10 Aug 2026 12:32:31 -0300
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB8310E8F4
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 15:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1786376211;
+ bh=pMymhqUpqlZ74YRu8rpj+qRCN2Hay1Xn7UMg04yfTgc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=dtvWgb+PYtcHuk/SWGr9mlaXksFDfM0PwHErNtdNxn1OFct3eZWvkJHQryHHeawFW
+ rUKkfrDkKd+traekHupo8Gvq264LI0FjktOlnIgWgA1GpnvyZOWnXjWmz5MNiDczxT
+ fcQlh4lq3Fojz44fXxGATFcH4BtaSPR4kPwXCq1d18yf5ZjOtQdexbrwE8tUyw6ShE
+ 8n+uPB2w+NYv0QbuezHLHEE3MDId6hKBTMKUM4iGXEZrCLSkAqoUuLrj2jatG7fjYn
+ a1xSYmMvo2Q2r4/CHF4fN1rRxm3WyZhrdpmUDtr/Yu6nZovo4umD8Zw6zDY/e4QBOQ
+ NARr564V77J6Q==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5EE8017E0967;
+ Mon, 10 Aug 2026 17:36:51 +0200 (CEST)
+Message-ID: <33bd4a94-11af-4cf3-ae44-b7f8944250f6@collabora.com>
+Date: Mon, 10 Aug 2026 18:36:50 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] drm/amdgpu: Use drm_timeout_abs_to_jiffies()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+Subject: Re: drm/rockchip: vop2: ACLK_VOP pinned at 500 MHz starves DP 4K120
+ on RK3588
+To: Igor Paunovic <royalnet026@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org
+Cc: Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>,
- Iago Toral <itoral@igalia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com>
- <20260809-drm-timeout-helpers-v1-3-2de67405a145@igalia.com>
- <eaba2132-a4ad-4634-b00b-6728364a792c@amd.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Alexey Charkov <alchark@flipper.net>
+References: <20260808104240.13776-1-royalnet026@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <eaba2132-a4ad-4634-b00b-6728364a792c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260808104240.13776-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,112 +68,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
+Hi Igor,
 
-On 10/08/26 10:34, Christian König wrote:
-> On 8/9/26 21:23, Maíra Canal wrote:
->> amdgpu_gem_timeout() converts an absolute deadline in ns into jiffies,
->> which is what drm_timeout_abs_to_jiffies() already does for the other
->> drivers whose wait UAPI takes a deadline. Use the shared helper and keep
->> only the part that is specific to amdgpu.
->>
->> Two details change along this conversion: the helper rounds up rather than
->> truncating, so a deadline less than a tick away now waits for one jiffy
->> instead of returning 0. It also uses nsecs_to_jiffies64(), so the
->> conversion no longer truncates on 32-bit, where a large deadline could
->> previously be reduced to an arbitrary shorter one.
->>
->> Signed-off-by: Maíra Canal <mcanal@igalia.com>
->>
->> ---
->>
->> As a note, this patch can be merged independently to the AMD tree
->> without any dependencies.
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 16 ++--------------
->>   1 file changed, 2 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index 6a0699746fbc..84b509a484b0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -25,7 +25,6 @@
->>    *          Alex Deucher
->>    *          Jerome Glisse
->>    */
->> -#include <linux/ktime.h>
->>   #include <linux/module.h>
->>   #include <linux/overflow.h>
->>   #include <linux/pagemap.h>
->> @@ -40,6 +39,7 @@
->>   #include <drm/drm_gem_ttm_helper.h>
->>   #include <drm/ttm/ttm_tt.h>
->>   #include <drm/drm_syncobj.h>
->> +#include <drm/drm_utils.h>
->>   
->>   #include "amdgpu.h"
->>   #include "amdgpu_display.h"
->> @@ -622,23 +622,11 @@ int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
->>    */
->>   unsigned long amdgpu_gem_timeout(uint64_t timeout_ns)
+On 8/8/26 1:42 PM, Igor Paunovic wrote:
+> Hello,
 > 
-> Please completely nuke that function and replace it with calls to drm_timeout_abs_to_jiffies().
+> On RK3588 the VOP2 AXI clock is pinned to 500 MHz by device tree and
+> nothing in mainline ever raises it.  For DisplayPort at 3840x2160@120
+> that is not enough bandwidth, and the failure is not graceful: the
+> video port floods POST_BUF_EMPTY interrupts and the picture is
+> corrupted.
 > 
->>   {
->> -	unsigned long timeout_jiffies;
->> -	ktime_t timeout;
->> -
->>   	/* clamp timeout if it's to large */
->>   	if (((int64_t)timeout_ns) < 0)
->>   		return MAX_SCHEDULE_TIMEOUT;
+> I mentioned this in passing when I sent a Tested-by for the dw-dp v11
+> series:
+> https://lore.kernel.org/all/20260808094138.7205-1-royalnet026@gmail.com/
 > 
-> That check was actually never correct at all as far as I can see.
+> The pin is explicit.  In arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> the cru node lists <&cru ACLK_VOP> in assigned-clocks with 500000000 in
+> the matching position of assigned-clock-rates.  It is a deliberate
+> assignment rather than a boot default, and it is identical in mainline
+> and in the Collabora rockchip-devel branch.
 > 
-
-I'm not sure about that... Taking a look at other UAPIs (like Panfrost),
-I see that they use a s64 timeout_ns, which matches the ktime_t the
-deadline is converted through. Contrary to that, AMD exposes a __u64 in
-the UAPI and defines AMDGPU_TIMEOUT_INFINITE = 0xffffffffffffffffull in
-libdrm. Therefore the check looks correct to me: it detects the values
-above S64_MAX and maps them to an infinite wait.
-
-Having said that, the comment is quite misleading. How about?
-
-       /* Map anything that doesn't fit in a s64 to an infinite wait */
-
-To make it even clearer, we could use `if (timeout_ns > S64_MAX)`.
-
-> We need to make sure that when timeout_ns is larger than represent-able in long jiffies (especially on 32bit systems) then MAX_SCHEDULE_TIMEOUT is returned by drm_timeout_abs_to_jiffies().
+> The rate request does propagate.  ACLK_VOP is registered as a gate with
+> flags 0 in clk-rk3588.c, but drivers/clk/rockchip/clk.c adds
+> CLK_SET_RATE_PARENT for every branch_gate, so a request on aclk_vop
+> travels up through aclk_vop_sub_src (a mux carrying the same flag) to
+> aclk_vop_root, which is a settable composite.
 > 
-
-Actually, what drm_timeout_abs_to_jiffies() does is clamp the
-nsecs_to_jiffies64() return to MAX_SCHEDULE_TIMEOUT - 1, so that a
-finite deadline is never turned into an infinite wait. So it is safe on
-32-bit, but it's not doing exactly what you described.
-
-Best regards,
-- Maíra
-
-> And I hope that drm_timeout_abs_to_jiffies() does that correctly already, if not this seriously needs fixing anyway.
+> What I measured, on an Orange Pi 5 Plus driving a DP monitor over USB-C
+> Alt Mode at 3840x2160@120 (YCbCr 4:2:0, so dclk sits at 594 MHz), on
+> drm-misc-next of 2026-08-07 (dc2f9f7fed1a) plus the dw-dp v11 and usbdp
+> v13 series.  I built with CLOCK_ALLOW_WRITE_DEBUGFS and changed the
+> rate by writing aclk_vop_root's clk_rate in clock debugfs, one level
+> up, which has the same effect.  The mode was unchanged across all three
+> phases, so dclk stayed at 594 MHz and the AXI rate was the only thing
+> that moved:
 > 
-> Regards,
-> Christian.
+>   500 MHz:  vop2_isr reported ~594000 suppressed callbacks per 5 s,
+>             roughly 119k interrupts per second, all POST_BUF_EMPTY on
+>             the DP video port; picture unusable
+>   750 MHz:  no POST_BUF_EMPTY logged at all for 42 s, the whole phase;
+>             the picture became correct the moment the write landed
+>   500 MHz:  ~607000 suppressed callbacks per 5 s; broken again
 > 
->>   
->> -	timeout = ktime_sub(ns_to_ktime(timeout_ns), ktime_get());
->> -	if (ktime_to_ns(timeout) < 0)
->> -		return 0;
->> -
->> -	timeout_jiffies = nsecs_to_jiffies(ktime_to_ns(timeout));
->> -	/*  clamp timeout to avoid unsigned-> signed overflow */
->> -	if (timeout_jiffies > MAX_SCHEDULE_TIMEOUT)
->> -		return MAX_SCHEDULE_TIMEOUT - 1;
->> -
->> -	return timeout_jiffies;
->> +	return drm_timeout_abs_to_jiffies(timeout_ns);
->>   }
->>   
->>   int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
->>
+> Both transitions are immediate, and the timestamps line up with the
+> phases of my test script.
 > 
+> Everything I can drive up to 2560x1440@144 (about 586 MHz pixel clock)
+> stays clean at 500 MHz; 3840x2160@120 (1188 MHz) does not.  That
+> comparison comes from a mode sweep on my rockchip-devel based daily
+> kernel rather than from the run above, and my monitor offers nothing in
+> between, so I cannot bisect the threshold.
+> 
+> In mainline rockchip_drm_vop2.c there is no clk_set_rate() on the VOP
+> aclk at all; the only clk_set_rate() in the file is on vp->dclk.  To
+> reproduce: enable dp0 on an RK3588 board - it is disabled in the
+> mainline DTS, so this needs a board DT change - drive a DP monitor at
+> 3840x2160@120, and watch dmesg or the vop interrupt count in
+> /proc/interrupts.
+> 
+> The only code I know of that raises the rate is a commit in the
+> Collabora rockchip-devel branch, "drm/rockchip: vop2: Scale ACLK rate
+> up for RK3588 FRL display modes" by Cristian Ciocaltea.  It defines a
+> 750 MHz rate and calls clk_set_rate() from vop2_crtc_atomic_enable()
+> and _disable(), gated on vcstate->frl_enabled with a refcount over the
+> video ports.  I could not find it on lore, but I may well have missed
+> it.
 
+I haven't submitted that yet; it's part of a work-in-progress FRL enablement
+patchset that's currently blocked on the HDMI 2.0 support series [1], still
+under review upstream.
+
+> If that is the intended shape of the fix, DisplayPort still would not
+> benefit: frl_enabled is set only by dw_hdmi_qp-rockchip.c, and neither
+> dw-dp.c nor dw_dp-rockchip.c mentions FRL at all, so the condition is
+> HDMI specific while the bandwidth problem is not.  It also explains
+> what I had been seeing since I enabled dp0 on this board last week:
+> 4K120 over USB-C only worked while an HDMI output happened to be
+> running in FRL mode.
+> 
+> Raising the DT rate to 750 MHz unconditionally would be simpler, but it
+> would cost power on boards that never drive such a mode, which is
+> presumably the reason for making it dynamic.
+
+Yes.
+
+> Cristian, Heiko - hence my question: should the ACLK rate be derived
+> from the bandwidth the enabled video ports actually need, rather than
+> from an HDMI-specific link flag?  A per-video-port requirement combined
+> with max() across the active ports would cover DP and HDMI under one
+> rule and would not need a refcount.
+
+Unfortunately, deriving ACLK purely from bandwidth wouldn't suffice as a general
+solution for HDMI. FRL and TMDS overlap for certain display modes, and hardware
+may impose its own limits on max TMDS character rate and/or supported min/max
+FRL bandwidth - so the same mode can map to different ACLK requirements
+depending on which link type is used. 
+
+Later, we might want to support user-prioritization of FRL over TMDS, even for
+modes that TMDS could otherwise handle cleanly. Since FRL uses fixed rates
+regardless of the active display mode, ACLK can't be reliably inferred from the
+mode alone for HDMI.
+
+DP may still follow a bandwidth-derived max() rule, though I haven't been
+personally involved in the DP use-case. I recall Alexey (added to CC) mentioning
+additional issues with PLL rates on RK3576, I think [2] is the most recent one. 
+
+Cheers,
+Cristian
+
+[1] https://lore.kernel.org/all/20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com/
+[2] https://lore.kernel.org/all/CAKTNdwFPhVrjb4iVpN19f0Nw+MA_BxXLOLs4V50fuyf+_rbEPg@mail.gmail.com
