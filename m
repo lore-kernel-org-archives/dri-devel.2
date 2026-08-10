@@ -4,114 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5883CC5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:59:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB67BC5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 10:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B3DB10E788;
-	Mon, 10 Aug 2026 09:59:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0822C89160;
+	Mon, 10 Aug 2026 10:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SFsAl1CJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qrUN/bIr";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C14510E788
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:59:44 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-47de0093c42so1193342f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 02:59:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1786355982; x=1786960782; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SiMbtxTKEvUw/r0Ou/ONt2ZII0Ap2iYNjYN/HVqfmSU=;
- b=SFsAl1CJ/Fih90wPFJtiUnQTUoD7TPNTvBcQjyEnYrdrLvT3C77zXRfub7W7m0kMtb
- wl40wrYKTkrgiJkdqwbwB05wmpTo+d48YFpaVn0pyDMO31xLCxxk5s7qhSz/0umyRooq
- Y6MOH+2eQ5rRHBFSAPplC11STdoMTLca8OAPPlqLWbtIRX6aNuoCNjmRF812RX2ie9z0
- 58V83IbEPyewh/ODHHRYhE2+/Z6dWoAU3CHwIRTCfbZby5dI4AvhaC2orjTcnOdoSu1e
- UxbhpaIJBzkfxo5CqS/PwpldgkZ0iKh1+72/gi5OwbEMS+IdO2gxaH16JCsfCvvsux5e
- C4ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786355982; x=1786960782;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=SiMbtxTKEvUw/r0Ou/ONt2ZII0Ap2iYNjYN/HVqfmSU=;
- b=aYh3NtKIQzIQ4nUim2HrddIB4OI1IpKzdQK1VQjWyL8db1Vw/Qge7fZVTg1uV8eEPD
- NmatC5FTXoFtrm2sO9mB7RdNettxbEnUiGM6k96tMD6dlMYA1pPpZbSRTBIixo2q8Ld9
- RV/DN8wOZeVRV/k6b9o9OgH2m0aBa6WC3MzIAy2kAJnLhRrHx/SluPUpkTuCUVIp1hF/
- Z5RqrSUgK8N64dxLkMNNwJkd3SotIyhI54RKBJFb7Df514Rx7vp4XXFbao51CufBFpv/
- rJWmIYiVZFQdvfzZY3vRTmsC7BSCkw6F38H+q2ALJsWqD9LvO8xbyLDKXf+g/S68Mm4t
- +l2g==
-X-Gm-Message-State: AOJu0Yy1egDA/5dZDlC+E/9ky2U10cX1wrlScoo4R6AXxF180h5C5R/b
- gJ74IeRGtuV2O0NUkb+bCD2QdTOnko7JFQSVfi+gwHJ9t5L5io0AFawQT5O7tz+8z+U=
-X-Gm-Gg: AR+sD13b1eikQzkPlSnaAY5ofpbtUiI5F2dVWmg4fcFb23HRh7fqiterJ/AjZgvyq7n
- W7TQNS10DrmlgehhhbHxQ0u1gs2iL+ABjeaCP2e2gdpaAAY5rTxZuhryr/Gy4/zoUr9d1erwFRN
- /1qhzynbs1V5KfJaSIqa5iNRvRDSpgBsbWPWhLsz45djGY8WWzfBRVs5qvLljXfaahn/CMxP66n
- HaAhF0yGupLi09/4hmkE4T/o2W+MhFBqy72/ik0TFzwvN1FE6h40+8MfVPutARyJQSQqJO+EuEW
- DLSpmLdQ5Zwauk8WhCEFpQDugPku+QVFkReBO7JVSh7+jiZJ9SIffAz2meUiPB05ZRO6R6OhO58
- cTDFXa0MXrQSIaG8p9/ZDCoUSGKjhYEM/EAWw1Cw6tTe3OFPovDZaaDIir4zmP15dNvZ6c+EXzY
- YNTeiDW8Yz1fSQXm7eKqIDOumnFgK4fmDXtmKohVN5w6eDsyd3dUKXqDlNfTCYzzhdAb3BCzfMs
- V/stuBetVDVwDIkxWFhT2VKw2IZKdQR51h14LnT5g==
-X-Received: by 2002:a05:6000:240b:b0:47f:8fb6:c32f with SMTP id
- ffacd0b85a97d-48130eefaacmr23781864f8f.24.1786355982283; 
- Mon, 10 Aug 2026 02:59:42 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:eb7f:37e4:e8c9:f32?
- ([2a01:e0a:106d:1080:eb7f:37e4:e8c9:f32])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-480021e8cd0sm32743162f8f.17.2026.08.10.02.59.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Aug 2026 02:59:41 -0700 (PDT)
-Message-ID: <277b95f9-7edb-4ed8-91c3-658a0bfde8c9@linaro.org>
-Date: Mon, 10 Aug 2026 11:59:41 +0200
-MIME-Version: 1.0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011048.outbound.protection.outlook.com
+ [40.93.194.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC1C10E757
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 10:01:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n9k4DTxrPYIoMJiV2e63JvdOS9UHwORHTJhuHyXTcBXqYBHdJHgh3gr2B66rBnEgu4+/2QfBly12ngtSIxHpF1s8ICSP6LQuWdbQ+g8lP1Du4RmmOZFJLMZAwcdFGzOY2I+5r78N/KTHlmOmoLRCkphrfVshlgMuEqqxCNWRrRBOoricRfu7qB7TCx1R6Ki4Q24AIg+CBHmUK0KSfV1Zs1pQGfJjVqtOoyrnF4ftk0GiPXAyusM1Z5nlT1HH/TbWh5s1oPkv5r5lWprO17CAvwdhs/SMXr5Nj/qJ2OSryW0X85sqm1mSctPoj+pzOX8DB0R7XlAXgPVEX+qPQypi5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EO16WyduuBXiVMI+ZZ4vAVlt3lfFRsogvi1qNj0ZuxY=;
+ b=E2qvkt9D6UkKevAcn4EHCJjrMIK18L5VNZExdwNEKGTP5OZ4ZhrT6KjNlA+eTirmwFVw9WnTP+TA6ruO6J5Chdyf07CdF0Y3qt0ALL4UDGVE2f84naepLW2w1TbUxbTI7PLEbZ4JMW0Tcb96SDOUeDwwq89WSp/AZ86OKsV1MRCbotSunhkNk5tf/G0kFXwIzBFXAwUoMcO3bC+Nto2qASp0FnbN58EQ20c3oPQeRbt5IDYHAtSArupLQ7Ast6iK5rENnu/zRhgDtTb3uUh07vFArFN/BEOFuFHHxY+89aIpNIxm14Gb0NdEebSCSASKfvHLbe79hAe22mt2fywT5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EO16WyduuBXiVMI+ZZ4vAVlt3lfFRsogvi1qNj0ZuxY=;
+ b=qrUN/bIrFxp1fCf7inz3+88pmyVDnZJOro9pF+NniJBlR4sKgP4f95jPYwGXJqZD1bX4pBXjAu5AQHD5ZgdxLzAfBHvTO5XWu1NTOgtIK+zz9rkK9ktp/QCbqz6AvXwj8ptOCDz7a19x7mb1g8nbHOQWUYssWT4vVmOqlPo0oxo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB7180.namprd12.prod.outlook.com (2603:10b6:806:2a8::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 10:01:44 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 10:01:43 +0000
+Message-ID: <49840a84-6d73-4a15-adae-800eccfb1c7d@amd.com>
+Date: Mon, 10 Aug 2026 12:01:36 +0200
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/2] drm/panel: lg-sw43408: use the full DCS brightness
- range
-To: david@ixit.cz, Sumit Semwal <sumit.semwal@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul <vkoul@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260810-fix-blueline-panel-v2-0-9344dfdbc3f9@ixit.cz>
- <20260810-fix-blueline-panel-v2-2-9344dfdbc3f9@ixit.cz>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260810-fix-blueline-panel-v2-2-9344dfdbc3f9@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2 3/6] drm/ttm, drm/vmwgfx: directly create writable PTEs
+ when mkwrite is in use
+To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ David Hildenbrand <david@kernel.org>, dri-devel@lists.freedesktop.org,
+ Fei Li <fei1.li@intel.com>, Huang Rui <ray.huang@amd.com>,
+ linux-mm@kvack.org, linux-s390@vger.kernel.org,
+ Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>,
+ Sergio Lopez <slp@redhat.com>, Sean Christopherson <seanjc@google.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+ <20260804120529.1730187-4-pbonzini@redhat.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260804120529.1730187-4-pbonzini@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0343.namprd13.prod.outlook.com
+ (2603:10b6:208:2c6::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7180:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab804fbe-e7f9-4e05-83e3-08def6c66197
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|7416014|1800799024|23010399003|6133799003|4143699003|11063799006|5023799004|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: o0zOAskj9V83ajf4UiyMtQlA6PTxQfCB+05ywWvgYytjvb7a+352hA1BdIX2Zn7vNnHDMZykWSvX2T4ssj4M2etDOIUtFcNvwVdCED8HCw08G6mAqxko3cVVTfAu0hbCwXMDkd0ROjgnDYLoG26/8Cv9JIE+YOArR3D2F4yBmbLnetViW22NGou8bsllCHIq/oLbOg2QPqZ7/7CuNQ86qOXc0Cu9mFnci4khdjM2EV5HRBFL8OLKVH99EHzV+8Ci4O5SdRx4QJRUZgmchSgMo/IqkClXjuPjgdXLYWZLjuqhETHtrznoewWW3Ho+Q3gK2yp3wYa3jORiVnTy14pCOlg3NVk911VksHZOTqzaYiXrjBXi+RSThMyrNhVLD6GdFu0kjCTAj+k6dH1sd2IvRM4hQi/TkdbwS9ABLyVnRsTf0v31uETA9nn17VhdpVaz+/4XkgDoJyRfwHofxbjJwgvSGMeKKjAmIkUpN298joQP8k1exGsLtsQP92tn54tUlDEW7IiCgZw4B4VtD421rwZCLiOoI17HsW8KxYG6QL0A6ty8Lnnl3tYBOgD7elz2duVjEOPfbV8Jqh7khQygeOgMB/HkKDE5fv8jHrLuA+H7GsGY0vdDWst2wzeBOmRkp+4jNU1VsfFW9U1tqmKNm/d5aVDBGEq17e3s+AGuA6c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(1800799024)(23010399003)(6133799003)(4143699003)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDQrTk53dXgrS1FPa0todk5tM1REUmpGWXVYclg4N3dMLzBoL1BUMXA1bkIv?=
+ =?utf-8?B?RUVjRDcwelp2cWhrM1h2NGVJMzRaaTFnUGU1UzBoNlg1YWhUMkNaS0xaL3p6?=
+ =?utf-8?B?Q3lWaVdiaEF4TkMyWUlyZWtOdHpNWVowWVBib25wQ05DU21sc1V6UE5tZEJO?=
+ =?utf-8?B?RUUrWk03NUR2Y2EvZ3owZE8zQ0F1SDNUZDRWZHlsVjJ2UCt4ZWNBeDcxWDZU?=
+ =?utf-8?B?TEsxa2FnLzUzOWJCZFBmL3l6WXpQbnRPOGd2bXNZZ21vcjRJdG9aZldRWVhZ?=
+ =?utf-8?B?SDEyam1WK2huL3hJK2NhMXcrNGdpblpMb0E1eHhQM0pwd3lqREhrS2djK2lz?=
+ =?utf-8?B?S0hTS1N4aW4xRFZYdWF0VW81aGxTYktZN3NBVUxQRU5qeTJsQTJtOHFKQWsz?=
+ =?utf-8?B?M1QwQnVWM1lDazk5czJFOTZrUW1laFhpaTFaQlBHTkc5U3BCS29RdGovRjZZ?=
+ =?utf-8?B?ZDIzRGMvd2hFNWhHcUdqN2RqdjRDeGQwY3pwUk00am1vTGNmbDhlaFc1ZSt5?=
+ =?utf-8?B?c29xK01uZDRBWEErWHd6c1lJQ1hyRUliZjM2SkNJbXJ1RGFTekxWU0Q5cDdl?=
+ =?utf-8?B?WkdwdXpNK1EyQXJ5VGZkSDRKdTNaYVJDTnZYcS9EZlR6SHVPZzFwYUpSSXpC?=
+ =?utf-8?B?aVBja2l1K2dROWowOFBvMllLa0RhVlczTys0S3hTUmRXSnN0eURqQitidHJQ?=
+ =?utf-8?B?Q0Ixczl0VGpZSnRoK2FteGNVMlZZbnpHeGR1aDl5YjJaNU00VjI5SFVlYVJH?=
+ =?utf-8?B?QTZ1b2hwQWo3NWg2OEtsVUtaQ3dBdG1Nb0hHQ3FEbUd0K05WamxHQ0NBYjJR?=
+ =?utf-8?B?ZlJaWmlnT3VqdVJxSVdLdE9nTUZjU0RxaXd2YS9sbUJsOTZjbmMwa3lLc3lQ?=
+ =?utf-8?B?UHV0dUxJMlEzMXpoMm4zanUzL0hhS1h4MnIvVGM0UnhPalQyd0M4R1BDUjF6?=
+ =?utf-8?B?M1NKU2hjZFNTSlpEN21CVnNhUm5NNnhCek4yYThGdS8yRlhEV2dmbFl1VnNr?=
+ =?utf-8?B?dFdxSk9HbDV3MnlPQmdIUXF4aElCOC9rZUN1aC9KUTRETGN5VXQrc20zUlhV?=
+ =?utf-8?B?Wkp2ZE11bi9rcUtVVU00Wk16d0dydFNUQlkzYmU3c1JadDRCcjdiTnZrNVVE?=
+ =?utf-8?B?cHJWV0p3c29vVHgxUjFydDFkTk96UUtUSUhPcEtKUHRibWZjUm5kZ09NMUxE?=
+ =?utf-8?B?M0ZyQk1sbnhKeS92NkFuWU5RekpLaXVTVitrVnNuRm9TMGg5NlhsNHB2Z2cw?=
+ =?utf-8?B?UEpGbjEvQ01lOHNUMGRqdHlvSW8wT2lsWDZYVDRMUUIrWlJXbThhK005Y3Iw?=
+ =?utf-8?B?L1ZhUWdBNERnOE10bzZMbDRUL3huZlNyS3phVEo3dldSV0ZVZXlkMTlkb1py?=
+ =?utf-8?B?Wnk4OUV3V3JWY2tHRFVVQmlQZEd2bU5zeGxhYlhIY0hVcXBSZTFOakdrSEtP?=
+ =?utf-8?B?Nlk0YWl2cncwUm9ZZnNwcFpLVXZ3cjhqVHN4ejJ1ZTFBaTRURkFiQUVXcWQw?=
+ =?utf-8?B?aHVnRG1kNW00SzA1MjIxQWJURiszcUFXK0dwYmUyOElQbVVqSXh1dDZGUHhm?=
+ =?utf-8?B?aEJTRWJiMHR2Q2w4TWRkcUFhNTlaaml2bmRSei9YeTl5KzZBQzhTNkNCUlRn?=
+ =?utf-8?B?TWZmVFBHdFU5UVYyRjBlN3B5VzdEUFRTcTNSbXRTcExBVHV2R2RxMDlZWElV?=
+ =?utf-8?B?ejg4cUJBNFYxTVk5ZkcxdHY0NU1hMCt4cVNHdm5LVEkrN3N4dytKSm92NlJF?=
+ =?utf-8?B?dnkvZFltV3p5eGh0VFlxYWVMUlpxNExqc3d1TVptMU1SY0lrQzYxMG5vTmtV?=
+ =?utf-8?B?SW4ydnBzTzNlTGJ0aGJHS3Fzb0lHcWpkMUJlbHVMSm5jQ2grYWx6bXpUdXFh?=
+ =?utf-8?B?SDJScDZGbEdTNW43UjFHR0dlQ2pKTGJnSGNXUldMVFBpUGxSbHJvb01WWng1?=
+ =?utf-8?B?WUplNVRFbVRBYm55WlFHMlNBb2F4b0lTTHp3MlFIRnQ5d3hMdlY4d0p3Z2FX?=
+ =?utf-8?B?cG5jaWxDVlorTzI2Wk1naEY1NElGZVZybG9DV3NwYXFNN1NDQjJVNzZ1TDVP?=
+ =?utf-8?B?ekRUSUNzTHZheXRsQUREaWdzcUJDNDJSK2RuRGVwU3VwVmJhQjBHU2FxTE1l?=
+ =?utf-8?B?b1YxMmpEYW9iM3NWd2liMDV0TjJWLzR4MFUrbGdreWlWdE1WSnBKWnZKZzB5?=
+ =?utf-8?B?emxXZFQxZW1uUU1vakxPbjZ2ZVdYRU9sY3h3Rkd1ZVg0d212WmhreW1HaHdR?=
+ =?utf-8?B?Wi90Tys5Y0k0b1pWbGlzeENQRGViMU1EMEtFaElsRkRQeEhTclJIZm56WGpu?=
+ =?utf-8?Q?xLJmRC2xofoZSyNfz2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab804fbe-e7f9-4e05-83e3-08def6c66197
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 10:01:43.7923 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cPyHY4EJUF74HszscAWsFeO9Hfm/yE1fvylYVU1oks44TDkkehd2CQRthUCE3iPI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7180
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,53 +142,144 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/10/26 11:55, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+
+
+On 8/4/26 14:05, Paolo Bonzini wrote:
+> This ensures that fixup_user_fault() users see a writable PTE when
+> they request one.  The flip side is that vmw_bo_vm_fault() now has
+> to record by hand the write fault, because .pfn_mkwrite() is
+> not invoked.
 > 
-> The vendor firmware panel configuration (XBL DisplayDxe panel XML)
-> declares DCSMaxBrightness 0x332 with a two-byte brightness command,
-> and the driver already sends two bytes via
-> mipi_dsi_dcs_set_display_brightness_large().
+> Prefaulting works as before because only the first entry comes
+> out writable, while the following ones still end up executing
+> the .pfn_mkwrite() callback.
 > 
-> Capping max_brightness at 255 therefore limits the panel to ~31% of
-> its real brightness range. Use the firmware maximum.
-> 
-> Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->   drivers/gpu/drm/panel/panel-lg-sw43408.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/ttm/ttm_bo_vm.c            |  7 ++--
+>  drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c | 42 ++++++++++++----------
+>  2 files changed, 29 insertions(+), 20 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> index 0bf8e08f10b9c..be132b65b0c13 100644
-> --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> @@ -203,17 +203,17 @@ static const struct backlight_ops sw43408_backlight_ops = {
->   };
->   
->   static int sw43408_backlight_init(struct sw43408_panel *ctx)
->   {
->   	struct device *dev = &ctx->link->dev;
->   	const struct backlight_properties props = {
->   		.type = BACKLIGHT_PLATFORM,
->   		.brightness = 255,
-> -		.max_brightness = 255,
-> +		.max_brightness = 818,
->   	};
->   
->   	ctx->base.backlight = devm_backlight_device_register(dev, dev_name(dev), dev,
->   							     ctx->link,
->   							     &sw43408_backlight_ops,
->   							     &props);
->   
->   	if (IS_ERR(ctx->base.backlight))
-> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> index a80510489c45..3ebde936ce60 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> @@ -191,6 +191,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>  	unsigned long pfn;
+>  	struct ttm_tt *ttm = NULL;
+>  	struct page *page;
+> +	bool mkwrite;
+>  	int err;
+>  	pgoff_t i;
+>  	vm_fault_t ret = VM_FAULT_NOPAGE;
+> @@ -242,6 +243,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>  	 * Speculatively prefault a number of pages. Only error on
+>  	 * first page.
+>  	 */
+> +	mkwrite = !!(vmf->flags & FAULT_FLAG_WRITE);
+>  	for (i = 0; i < num_prefault; ++i) {
+>  		if (bo->resource->bus.is_iomem) {
+>  			pfn = ttm_bo_io_mem_pfn(bo, page_offset);
+> @@ -263,9 +265,10 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>  		 * at arbitrary times while the data is mmap'ed.
+>  		 * See vmf_insert_pfn_prot() for a discussion.
+>  		 */
+> -		ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
+> +		ret = vmf_insert_pfn_prot_mkwrite(vma, address, pfn, prot, mkwrite);
+>  
+> -		/* Never error on prefaulted PTEs */
+> +		/* Never error on prefaulted PTEs and never map them writable */
+> +		mkwrite = false;
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+As far as I can see that is a really bad idea, we do want the prefaulted PTEs writeable.
 
-Thanks,
-Neil
+The whole prefaulting is essentially an optimization for cases where taking a fault has massively overhead (virtualization for example).
+
+Wasn't vmf_insert_pfn_prot() making them writeable before?
+
+Regards,
+Christian.
+
+
+>  		if (unlikely((ret & VM_FAULT_ERROR))) {
+>  			if (i == 0)
+>  				return VM_FAULT_NOPAGE;
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+> index 45561bc1c9ef..3099558c0762 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+> @@ -398,15 +398,33 @@ void vmw_bo_dirty_clear_res(struct vmw_resource *res)
+>  		dirty->end = res_start;
+>  }
+>  
+> +static vm_fault_t vmw_bo_dirty_mkwrite(struct vm_fault *vmf, struct ttm_buffer_object *bo)
+> +{
+> +	unsigned long page_offset;
+> +	struct vmw_bo *vbo = to_vmw_bo(&bo->base);
+> +
+> +	page_offset = vmf->pgoff - drm_vma_node_start(&bo->base.vma_node);
+> +	if (unlikely(page_offset >= PFN_UP(bo->resource->size)))
+> +		return VM_FAULT_SIGBUS;
+> +
+> +	if (vbo->dirty && vbo->dirty->method == VMW_BO_DIRTY_MKWRITE &&
+> +	    !test_bit(page_offset, &vbo->dirty->bitmap[0])) {
+> +		struct vmw_bo_dirty *dirty = vbo->dirty;
+> +
+> +		__set_bit(page_offset, &dirty->bitmap[0]);
+> +		dirty->start = min(dirty->start, page_offset);
+> +		dirty->end = max(dirty->end, page_offset + 1);
+> +	}
+> +	return 0;
+> +}
+> +
+>  vm_fault_t vmw_bo_vm_mkwrite(struct vm_fault *vmf)
+>  {
+>  	struct vm_area_struct *vma = vmf->vma;
+>  	struct ttm_buffer_object *bo = (struct ttm_buffer_object *)
+>  	    vma->vm_private_data;
+>  	vm_fault_t ret;
+> -	unsigned long page_offset;
+>  	unsigned int save_flags;
+> -	struct vmw_bo *vbo = to_vmw_bo(&bo->base);
+>  
+>  	/*
+>  	 * mkwrite() doesn't handle the VM_FAULT_RETRY return value correctly.
+> @@ -419,22 +437,7 @@ vm_fault_t vmw_bo_vm_mkwrite(struct vm_fault *vmf)
+>  	if (ret)
+>  		return ret;
+>  
+> -	page_offset = vmf->pgoff - drm_vma_node_start(&bo->base.vma_node);
+> -	if (unlikely(page_offset >= PFN_UP(bo->resource->size))) {
+> -		ret = VM_FAULT_SIGBUS;
+> -		goto out_unlock;
+> -	}
+> -
+> -	if (vbo->dirty && vbo->dirty->method == VMW_BO_DIRTY_MKWRITE &&
+> -	    !test_bit(page_offset, &vbo->dirty->bitmap[0])) {
+> -		struct vmw_bo_dirty *dirty = vbo->dirty;
+> -
+> -		__set_bit(page_offset, &dirty->bitmap[0]);
+> -		dirty->start = min(dirty->start, page_offset);
+> -		dirty->end = max(dirty->end, page_offset + 1);
+> -	}
+> -
+> -out_unlock:
+> +	ret = vmw_bo_dirty_mkwrite(vmf, bo);
+>  	dma_resv_unlock(bo->base.resv);
+>  	return ret;
+>  }
+> @@ -484,6 +487,9 @@ vm_fault_t vmw_bo_vm_fault(struct vm_fault *vmf)
+>  		prot = vm_get_page_prot(vma->vm_flags);
+>  
+>  	ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault);
+> +	if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+> +		WARN_ON_ONCE(vmw_bo_dirty_mkwrite(vmf, bo));
+> +
+>  	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>  		return ret;
+>  
+
