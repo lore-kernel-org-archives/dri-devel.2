@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78959C5AD7B
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13828C5B56A
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDA7510E918;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E118810E91C;
 	Mon, 10 Aug 2026 16:17:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W2u55l+l";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N2yDUZHU";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E26110E0F8;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6639610E913;
  Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E0F7540939;
- Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BEFFBC2BCF5;
- Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 28E3443F3A;
+ Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0D024C2BCFB;
+ Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786378667;
- bh=JLiEjUV2M/GXqGn0sCPZe30rDApH2W8yKBOjkSz2S8E=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=W2u55l+lju3FBknQz9IHY6d46EnAiCmMu4WwCdL4bVHNA2oJ1WZq/k8iRV0anzJ+C
- ZUJB/sc/IbMoAuqSFWfx34YaWvuzocYvfHHYVsie9Sx0ILIMNGwHojT3pT+s0WOLwH
- HxUpJAxr1piW0NBsUyq7oQvfQbnIvMK/GrDBXAbsHWEIToVftE9vO67BTd7yNpoSUq
- v9AiyVyq4byhk/RJOBEWyla4uI5sUBpz14lCkj+gddHM4mOTIx2IIIxwnFSsi0c5F1
- PfuEG/CvP13Zl4qBd9yFWUlKljuvCjNUSRJPmKrZUN0brQuv+d+EkVTa+mVRKUYKwB
- v7jqRUqMR1XwQ==
+ s=k20201202; t=1786378668;
+ bh=e7qU4DwQRhkwQZ7bRxaFZbYgsVTpDVtdRWvEtA7dFMA=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=N2yDUZHUC+IiL1ijHjfMJnnBZdHY8+FrZXfujPqROiUzMIRwWzXXQaV0pg+4b71R+
+ iLgvFXIoU9QJrpVoLy39ERqqLbjpwDV7w9vRyR7wmaCmjOrVoTVv27X0IgqzqfGGuQ
+ tVztO48l8TE0ACnyKtMlo2J8zOolDMwREwqXaQSxmZ50QOF7DeB1yy8bE19qRyy0xN
+ 9Z1wKjyXwfKZn3yXy5imLzmeRwaKSr5OysXS3NV7zG5u8OjY6gfbp6qp3TvNuV4k6E
+ qmzIFa4OWQj3tUwc6QcvIXj+oYjrCaXeFigq31AsfE/DHtTiceqomoqw0V4pn8EAWJ
+ kWCkQOvlzruJA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 96BD5C5B56A;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id EDE7DC5B56A;
  Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Subject: [PATCH 0/5] drm/amdgpu: five independent fixes in the KMS, userq,
- UVD and CS paths
-Date: Tue, 11 Aug 2026 00:13:09 +0800
-Message-Id: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
+Date: Tue, 11 Aug 2026 00:13:14 +0800
+Subject: [PATCH 5/5] drm/amdgpu: free userptr HMM ranges on the CS error path
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJX4eWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC0MD3cTclPSCUt20zIrUYt0ks8QkQwNTy0QDYxMloJaColSwBFBHdGx
- tLQCXaaHtXgAAAA==
-X-Change-ID: 20260810-amdgpu-fixes-b6ab1059a034
+Message-Id: <20260811-amdgpu-fixes-v1-5-4954a417b8ff@outlook.com>
+References: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
+In-Reply-To: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -59,13 +56,13 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, Junrui Luo <moonafterrain@outlook.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3006;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2404;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=JLiEjUV2M/GXqGn0sCPZe30rDApH2W8yKBOjkSz2S8E=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfS45nTpH4cCXLbNGHq64yixJZ+uY62L/y3L8oV
- FVl7dwL8ec6SlkYxLgYZMUUWY4XXPpm4btFd4vPlmSYOaxMIEMYuDgFYCLMBxj+p/c9attUlxr1
- eOpJLwv1w5u+C66bFhVuxLLgSPZcD85pKQz/q90nLO+eI/jptb/gvPvVR5j6SsPuex5dNOtahYr
- zmvUTmADHzk6K
+ bh=L6QMfmjG08GEYgq6Lvgjn+rT+rJCq+Q7xLdhBvY9+GU=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfy6RfzJuy89+X84usVeOvsxZ2dRd+fvO2Y3GL7
+ G0m597euRkdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMJHHnxkZvjsd3j4/vThq
+ p2rz6jjX/GVveLbFf9zL6NGSKFRhWnulg5Fh2dX9fdNlpNndDOxbPjf+kJn0MMVvVnP40Zi8st8
+ xCrz8AHwXTaI=
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -87,65 +84,63 @@ Reply-To: moonafterrain@outlook.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Five independent fixes; no dependency between them, they can be applied
-or dropped individually.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-Patch 1 frees fpriv->prt_va on the amdgpu_driver_open_kms() error path.
-amdgpu_vm_fini() releases mappings but never a struct amdgpu_bo_va, so a
-failure to map the CSA or the seq64 buffer leaks the bo_va and the
-dma_fence stub reference it holds.  postclose_kms() already gets this
-right; only the open() unwind was missing it.
+amdgpu_cs_parser_bos() allocates a struct amdgpu_hmm_range for every
+userptr entry of the BO list and returns with them live. They are only
+released in two places: the out_free_user_pages label in
+amdgpu_cs_parser_bos() itself, and the invalidation check loop in
+amdgpu_cs_submit().
 
-Patch 2 rejects a mapping without a backing BO in
-amdgpu_userq_input_va_validate().  A PRT mapping is routed through
-fpriv->prt_va, whose base.bo is NULL, yet a queue_va/rptr_va/wptr_va
-inside it passes validation and latches userq_va_mapped.  The next unmap
-of any PRT mapping in that VM then dereferences bo_va->base.bo in
-amdgpu_userq_gem_va_unmap_validate().
+Every error edge between those two points leaks. A failure in
+amdgpu_cs_patch_jobs(), amdgpu_cs_vm_handling() or amdgpu_cs_sync_rings(),
+or an early return from amdgpu_cs_submit() before its release loop, jumps
+to error_fini and falls into amdgpu_cs_parser_fini(), which never walks
+the BO list for userptr ranges. An IB address with no VM mapping is enough
+to get there: amdgpu_cs_patch_ibs() returns the -EINVAL that
+amdgpu_cs_find_mapping() hands back, so the leak is repeatable at will
+from an unprivileged render node fd. Each leaked entry costs a struct
+amdgpu_hmm_range plus its hmm_pfns array, a kvmalloc_array() of one entry
+per page of the userptr mapping, allocated with plain GFP_KERNEL and so
+not charged to the caller's memory cgroup.
 
-Patch 3 bounds the retry loop in amdgpu_userq_ensure_ev_fence().  Every
-failure ahead of amdgpu_evf_mgr_rearm() leaves the restore worker giving
-up with only a drm_file_err(), so the waiting thread reschedules and
-flushes forever in TASK_UNINTERRUPTIBLE - unkillable and out of reach of
-the OOM killer.  The eviction fence sequence number is used as the loop's
-progress condition instead.
+Release the ranges in amdgpu_cs_parser_fini(), which every path out of
+amdgpu_cs_ioctl() passes through. amdgpu_hmm_range_free() ignores a NULL
+range, so the success path, where amdgpu_cs_submit() has already freed and
+cleared them, is unaffected.
 
-Patch 4 applies the decode arm's handle ownership test to the UVD destroy
-arm.  handles[] and filp[] are per-device, and destroy clears every slot
-matching the handle from the command stream without checking the owner,
-so one render node client can tear down another's UVD session and leave a
-stale filp behind.
-
-Patch 5 releases the userptr HMM ranges in amdgpu_cs_parser_fini().
-amdgpu_cs_parser_bos() returns with them live and only two sites free
-them; every error edge in between leaks a struct amdgpu_hmm_range plus a
-kvmalloc_array() of one hmm_pfn per page of the userptr mapping,
-allocated GFP_KERNEL and not charged to the caller's memcg.  An IB
-address with no VM mapping is enough to reach one of those edges, so it
-is repeatable at will from an unprivileged fd.
-
+Fixes: fec8fdb54e8f ("drm/amdgpu: fix userptr HMM range handling v2")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
-Junrui Luo (5):
-      drm/amdgpu: free prt_va on the open_kms error path
-      drm/amdgpu: reject PRT mappings as user queue buffer VAs
-      drm/amdgpu/userq: bound the eviction fence rearm retry loop
-      drm/amdgpu: enforce UVD handle ownership on destroy
-      drm/amdgpu: free userptr HMM ranges on the CS error path
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c          | 10 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c         |  5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c       | 29 +++++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h       |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 10 ++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c         | 14 ++++++++++--
- 6 files changed, 65 insertions(+), 7 deletions(-)
----
-base-commit: c4f76bf5e107bcda6e496f1c4060c55af091fa79
-change-id: 20260810-amdgpu-fixes-b6ab1059a034
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 617f53f135f3..17c4fec21402 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1416,6 +1416,16 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
+ 				amdgpu_vm_bo_invalidate(bo, false);
+ 			}
+ 		}
++
++		/*
++		 * Release the ranges still live on the error paths;
++		 * amdgpu_cs_submit() already freed and cleared them when it
++		 * got far enough to check them for invalidation.
++		 */
++		amdgpu_bo_list_for_each_userptr_entry(e, parser->bo_list) {
++			amdgpu_hmm_range_free(e->range);
++			e->range = NULL;
++		}
+ 		amdgpu_bo_list_put(parser->bo_list);
+ 	}
+ 
 
-Best regards,
 -- 
-Junrui Luo <moonafterrain@outlook.com>
+2.51.2
 
 
