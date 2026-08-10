@@ -4,89 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37060C5B575
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 07:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BBFBC5B56D
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 07:26:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8220210EAB6;
-	Tue, 11 Aug 2026 07:26:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96F1710EABA;
+	Tue, 11 Aug 2026 07:26:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="khD8uNOg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gaugKwxo";
 	dkim-atps=neutral
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9D3910E291
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 06:43:06 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-52d58d7aad6so664331cf.2
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 23:43:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786430585; cv=none;
- d=google.com; s=arc-20260327;
- b=DZ5DXFSUJGB+bvtFY74LXLY0b7aXjoKM331u8FO8anJNpEwgUOYObr1txFhRJ6jX+E
- lcbL7SM+IESxV0DYp6JDxDePy6XZXP4yb20nDGo9FDnXE+Twr7zXm2Lo0M7FOFEcEISV
- 6KQlI3VQL7zFz8OcWrr3523f+S8M9Pf0w35pWh8r9L13EcDFhvGx/aTDQSIc8jBvHs66
- 0Rk5d2vpWBFVeywECVqpU5eL8Q+tje60vxKvyKygPvY4fI+K7y5x5y6sbPe3nrR24eq6
- lfHo/dPeOvjlb3bdNqIW86MoRNsGeo8dNEpMG1MLS6Mj/H2jqw/NXBpijoDEvWozHKxO
- z4+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=CRgBsOr9tUnMXIdBw/25ujn1g858nS9XaW0F3ZHuDRE=;
- fh=2KhL3eVl44mWZxTUs4fuCdafA1yfdgPjy6XVV17TNtA=;
- b=IVokybOAWaQU+gLfLTrSUG+Gh9oajXCbjQ+A2UEpELnBGPlI0/WOzHd8qVFnyERhcp
- aSwY5O5uwXymEhLtdcaFK/6vOzJEU/TZ+EqEhmau7xdO84m0+kpT3429HBl/G92T+H0R
- kx6QLM8sR+mdSt6c8AzhQ4iapgNughuE73XcihSvvi7F9IhDOubJ9y2zjgb+LYwdrTtY
- 9tD/2na2smr2+kMtoa1N77ECxt4/3haTDZKi2829Z45uwTepBCQElmm2OmhmqL5x0v4z
- MavMKnnnDZbjJ1F6PDww9fRLpm0JsUDgZtBLGy2uVOE93fHdJ3ApqTbR8D5XJheuXmwc
- mZhw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com
+ [74.125.224.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AE3110E042
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 23:45:44 +0000 (UTC)
+Received: by mail-yx1-f54.google.com with SMTP id
+ 956f58d0204a3-667971437d6so2932918d50.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 16:45:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786430585; x=1787035385; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=CRgBsOr9tUnMXIdBw/25ujn1g858nS9XaW0F3ZHuDRE=;
- b=khD8uNOgccaGlXkuFpZfGU46T8ExFSevUIN+7w0yqMcDm8YA9fsEhaA7OgTDQXL6oH
- KlACyd8zplfpqcrt+VptQWAhe/Pgod1bpLiSwUD4UxrrbG6rYYBeZOH/GV4KtBLlC3xz
- 1ytOATvjeDsJpHr7eknWzVHWGwliyXRx1UdDhxHFczmb5najvlUV6Jhesew1M2MvrJeC
- bUsRGWg7JLLIfgox2TImVXjhAV6VWyPxU1Sdoc9WEXiKWrVZ6bI9CHdVd1CZRU1MbcTJ
- 8bmBD4sbmks/hWy/6AY2CLrjURmTqKP8fC13BEqCHg9yXHwSZtBFInDNFGPPn1GYuH/H
- rH4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786430585; x=1787035385;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=gmail.com; s=20251104; t=1786405543; x=1787010343; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
  :reply-to:content-type;
- bh=CRgBsOr9tUnMXIdBw/25ujn1g858nS9XaW0F3ZHuDRE=;
- b=j/H/lX/0s6ijsKiXl9f/+92PDwErJ0GK+UGcgvdQXRhAk/ApWAhzJFkvecJi40nS4+
- Xgl8stluPCaup1tRC+EWMkHFpkIkXi/M/uvO2kH+txnJAvWaEk64ExXZRKSRSEC+KyJP
- 2JwP0CIV1tbK39GmI2R6x6D2n5vPQIyRJsShRZSRUa8MRPwPUomrk67xJIN9EqttGel4
- bsCx3D2no9BvxxUwGB6+fAFP0EvlXzoRfaKeE7unJrR84WSyG3cgj4KcGyUlRplpA9yg
- 1X/zy7AIr3KFM8SpnKC9mWtvTaSz9sxhru/b0NBVpEJeirKatP8ZeZ79XXQb+FVYl5qx
- pQvQ==
-X-Gm-Message-State: AOJu0YzZNflxY7P2wC4f0Eu4skbWEn4O2BETUcgxCQmivwJD26Xiz6L7
- UqTkZXHBOD2JywCE+Dq8xMN48UeWr0ryfLSBoKSpCWCEb03dMVNoPc7KF7XRBpsX/fSO0lBN8PD
- 2n8AtSwjaQBOTjS9q/sxerMfprrH0Roo=
-X-Gm-Gg: AR+sD13zAMhkChRGbMM8Prk/NtRAtgiTr2Ce89xRjJwAiwSlnVv3dq3XzY7cPd+6PA0
- p0FaPu/mRD3Lh6DOIeLmdZx0WTF6qHzGCpapnSx6YbjCw3GtUiV5uOW685yaQHO/H7qslyMAYL+
- vniNCf+I2+GBdR+FQeoh7GpAC1W8TnO1OSNcNX15r3hcvtlYvmWb67JJWE7BToUmNItJkPhQjJX
- PhLTOxc8U9dhtM42qqFqtwJDfYceBLNmTYL2RTS9oHcoL7t4/u8EJbrXn+fc3djMTzBlullf5ej
- ruizLXVTpJDM2SJ5vRc8gP/MpT2+SP/vTWV8qkxclCenppGPa//3B1Uag/r+e2jb/QfF3KnaGYj
- lxdea0t7oQRL35eZ9Lt6Rye1hKNY=
-X-Received: by 2002:a05:622a:10a:b0:527:6dc7:5c5b with SMTP id
- d75a77b69052e-52d585e2c25mr7849061cf.21.1786430585364; Mon, 10 Aug 2026
- 23:43:05 -0700 (PDT)
+ bh=7HG5CwiDv1boZ0L5kG6Cnp/M+Qv7efLzzrooJVO8CU8=;
+ b=gaugKwxo46dq1bXGg/bQStBKOo2nblQJZad9e8m5O1+JXNC5ks6wloHjSQgaUajSbt
+ ueFmohKWTGgfKYRpx+f6fccZ/lnEKoFknzD06aFj27WopWSq6fPqgbTLYuw36pYYL4BW
+ 5LHiBb92HuEsXSeLYb4iPc39fQt4kd6nA1DCrxK/nYTKVrf7TnxaUdFaabg7HtpRah5o
+ IlC6G/g7croONg4Po+HL3DdV6h9RcPeZLnaTgB2zTg+ji0NhDEfqC5ywkalICNf03RdU
+ mrdgsigHg4Vl2WWc6IKsCEnYmTym4wmop0r/FIsiXiP0aZTW0pe5HFv2L2gTGv8y4CdN
+ Es+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786405543; x=1787010343;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=7HG5CwiDv1boZ0L5kG6Cnp/M+Qv7efLzzrooJVO8CU8=;
+ b=IGNQCReesdftbPNutMw5Iqu7/JJaE3RGD+ILpkZy+1KkR8wIKg0SU6ybaP+Qz58G1J
+ UeuSNhdRJotjs5cHbiEYsveAzgrhT/4vI4jbsUfh6ie53Dd2qSL2GpFXwRYRDVCdYQCt
+ dXdPOfjG3pAyUuumDhSvLajvk0Gcz7f1LMpNaxCQYm66MM7vYLlkoiWPS+B7hhWJzBn+
+ yZgU48fJy9J8Gq5+2vNezZS0MK5k2Yw+fDFsHi52CSn23HP8ap5JYEHWR/jDku5GWBOx
+ tk13S2LtQfuvvY181zbE8nXvCflTo++7LrKSHUhkIhtOyf/8F9ZQSoYvAL1wsJDeunRX
+ JKkg==
+X-Gm-Message-State: AOJu0YwySROtsV/f4quHccNrs9DT4VmzlntY5QwnkFfW4HcB9pyI3lvL
+ TjtaV8pw1QN9hQhxLUNvlMBV29YdRNXv3TQt3X1CD85BGGVV1agY+uuS
+X-Gm-Gg: AR+sD10u96FQZL1+FYIUjZFCVDKEJmRETmHLIyWK5NXGPoIqTJ/QugTL0tqm7gNuIK9
+ dARkFhoQrUKa1J9PSFTV5+boUj14e1ENB3azvI3i9GoTqq/O5+pqUn1gnB3+ubOztTFFkoTEYMR
+ JnOUc574Vh8ZJ9K5ACLhF3qtWfN9BdRvuJeRRvA0Bl0zbgYBl6SssovuS1BJ4WJUeb/KIgOv9X5
+ 41VwulElnAr3mrTPvBAcTnuL6ldF0O8HOTPvScMQd1lVniw3kCDIzzHUmaIgjHDKWr+cEgdr6hV
+ MbyhIO5eWsWI9B8VAR6Xfb7ctg5v7bcOoEqwAVQayJvKwhBGwD9pzPGa5goGK/8yGBnx4j7qy9o
+ EOSD1gXvG0oPoyJwU6WYQf2cexZUatUTU8+9ym7g8x42k1M1E9fjIco8d+F5YJW0BRfB6w1LSy9
+ vhYIGWkdg62HuH0bb4ZmQozw0e5v8D1LZRPZjuqN2ZhBjYrcokthVOhumW9g6ipMr8lCMKjqkeV
+ UKlQ5bX2x76HYA=
+X-Received: by 2002:a53:4906:0:b0:668:9567:db70 with SMTP id
+ 956f58d0204a3-66b12520805mr2969989d50.40.1786405542722; 
+ Mon, 10 Aug 2026 16:45:42 -0700 (PDT)
+Received: from [192.168.1.71] ([2600:1702:56e9:4b40:e3a9:78c5:641e:a58c])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-66acae62283sm7277044d50.13.2026.08.10.16.45.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Aug 2026 16:45:41 -0700 (PDT)
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+Date: Mon, 10 Aug 2026 18:45:40 -0500
+Subject: [PATCH v2] drm/panel: samsung-s6d16d0: Use mipi_dsi_*_multi(); fix
+ minor bugs
 MIME-Version: 1.0
-From: ZW Tang <tangzw515@gmail.com>
-Date: Tue, 11 Aug 2026 14:42:52 +0800
-X-Gm-Features: AUfX_mzkYL5dm3KUIE_vQtokvdamN0RJ_PQA6MSpWuKrnyDtP4JTVnXIL_QOEwo
-Message-ID: <CAA2SOT7-Em=-ZY=66MA8xacAOZE+AQAx-gANJeVbpDY35jmApg@mail.gmail.com>
-Subject: [BUG] drm/vkms: WARNING in drm_crtc_wait_one_vblank due to vblank
- timeout
-To: Louis Chauvet <louis.chauvet@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260810-mipi-dsi-s6d16d0-multi-v2-1-8fcdfbf9bbd2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQqDMBBFryKz7pQkwqhd9R7iQpJRB4xKYkOLe
+ PemXqDL9+C/f0DkIBzhURwQOEmUdclgbgXYqV9GRnGZwShDqlYVetkEXRSM5DQ5hf4174KaKjY
+ lcUNEkMdb4EHeV7jtMk8S9zV8rp+kf/ZvMmnUaElXzUBDaZv6Ofpe5rtdPXTneX4BAiD24bwAA
+ AA=
+X-Change-ID: 20260807-mipi-dsi-s6d16d0-multi-167e236e9666
+To: Doug Anderson <dianders@chromium.org>, Linus Walleij <linusw@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Akash Sukhavasi <akash.sukhavasi@gmail.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Tue, 11 Aug 2026 07:26:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,59 +99,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+The mipi_dsi_dcs_*() functions used by this driver are deprecated
+in favour of their _multi() counterparts, as noted in
+Documentation/gpu/todo.rst. The _multi() variants record the
+first error in a context structure and skip subsequent calls once
+an error is set, removing the need to check the return value
+after each command. They also log failures internally, making the
+per-call dev_err() calls redundant.
 
-I am reporting a WARNING triggered by a syzkaller reproducer in the
-DRM/VKMS path on Linux 7.2-rc3.
+Convert prepare(), enable(), disable(), and unprepare() to use
+mipi_dsi_dcs_*_multi().
 
-The warning is emitted from drm_crtc_wait_one_vblank() because waiting
-for one vblank on CRTC 0 times out:
+unprepare() previously returned an error if
+mipi_dsi_dcs_enter_sleep_mode() failed, skipping RESET assertion
+and regulator_disable(). Because drm_panel_unprepare() does not
+clear panel->prepared when the callback returns an error,
+drm_panel_prepare() would then return early on the next call,
+leaving the panel powered and unable to be re-initialised. The
+converted code always asserts RESET, disables the regulator, and
+returns 0.
 
-faux_driver vkms: [drm] ERROR [CRTC:45] flip_done timed out
-faux_driver vkms: [drm] vblank wait timed out on crtc 0
-WARNING: drivers/gpu/drm/drm_vblank.c:1329 at
-drm_crtc_wait_one_vblank+0x2f3/0x560
+Also fix a typo in a comment ("Enabe" -> "Enable").
 
-This looks like a VKMS / DRM fb-helper / DRM vblank interaction issue.
-The reproducer opens DRM devices, queries KMS resources and plane
-resources, and then issues DRM_IOCTL_MODE_SETCRTC with the returned
-CRTC/plane identifiers. After that, drm_fb_helper_damage_work() runs
-from the events workqueue and waits for a vblank through
-drm_client_modeset_wait_for_vblank(), but no vblank is observed before
-the timeout. Since panic_on_warn is enabled, the warning is converted
-into a kernel panic.
+Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+---
+Compile tested only, no hardware available. checkpatch and a W=1
+build are clean.
+---
+Changes in v2:
+- Keep intermediate dsi variable for readability, per Neil's review.
+- Add comment explaining why accum_err is not checked in unprepare().
+- Simplify prepare() to a single return path.
+- Link to v1: https://lore.kernel.org/r/20260807-mipi-dsi-s6d16d0-multi-v1-1-c6179f6f3c98@gmail.com
+---
+ drivers/gpu/drm/panel/panel-samsung-s6d16d0.c | 55 +++++++++------------------
+ 1 file changed, 17 insertions(+), 38 deletions(-)
 
-A similar vblank timeout warning in drm_crtc_wait_one_vblank() may
-have been reported before, but I can still reproduce this issue on
-Linux 7.2-rc3.
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+index 54a65abf7e89..e734fffa45a4 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+@@ -48,14 +48,10 @@ static int s6d16d0_unprepare(struct drm_panel *panel)
+ {
+ 	struct s6d16d0 *s6 = panel_to_s6d16d0(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(s6->dev);
+-	int ret;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 
+-	/* Enter sleep mode */
+-	ret = mipi_dsi_dcs_enter_sleep_mode(dsi);
+-	if (ret) {
+-		dev_err(s6->dev, "failed to enter sleep mode (%d)\n", ret);
+-		return ret;
+-	}
++	/* Enter sleep mode; error does not prevent power-off */
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+ 
+ 	/* Assert RESET */
+ 	gpiod_set_value_cansleep(s6->reset_gpio, 1);
+@@ -68,6 +64,7 @@ static int s6d16d0_prepare(struct drm_panel *panel)
+ {
+ 	struct s6d16d0 *s6 = panel_to_s6d16d0(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(s6->dev);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 	int ret;
+ 
+ 	ret = regulator_enable(s6->supply);
+@@ -83,57 +80,39 @@ static int s6d16d0_prepare(struct drm_panel *panel)
+ 	gpiod_set_value_cansleep(s6->reset_gpio, 0);
+ 	msleep(120);
+ 
+-	/* Enabe tearing mode: send TE (tearing effect) at VBLANK */
+-	ret = mipi_dsi_dcs_set_tear_on(dsi,
++	/* Enable tearing mode: send TE (tearing effect) at VBLANK */
++	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx,
+ 				       MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+-	if (ret) {
+-		dev_err(s6->dev, "failed to enable vblank TE (%d)\n", ret);
+-		goto err_power_off;
+-	}
+ 	/* Exit sleep mode and power on */
+-	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
+-	if (ret) {
+-		dev_err(s6->dev, "failed to exit sleep mode (%d)\n", ret);
+-		goto err_power_off;
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	if (dsi_ctx.accum_err) {
++		gpiod_set_value_cansleep(s6->reset_gpio, 1);
++		regulator_disable(s6->supply);
+ 	}
+ 
+-	return 0;
+-
+-err_power_off:
+-	gpiod_set_value_cansleep(s6->reset_gpio, 1);
+-	regulator_disable(s6->supply);
+-
+-	return ret;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int s6d16d0_enable(struct drm_panel *panel)
+ {
+ 	struct s6d16d0 *s6 = panel_to_s6d16d0(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(s6->dev);
+-	int ret;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 
+-	ret = mipi_dsi_dcs_set_display_on(dsi);
+-	if (ret) {
+-		dev_err(s6->dev, "failed to turn display on (%d)\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+ 
+-	return 0;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int s6d16d0_disable(struct drm_panel *panel)
+ {
+ 	struct s6d16d0 *s6 = panel_to_s6d16d0(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(s6->dev);
+-	int ret;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 
+-	ret = mipi_dsi_dcs_set_display_off(dsi);
+-	if (ret) {
+-		dev_err(s6->dev, "failed to turn display off (%d)\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+ 
+-	return 0;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int s6d16d0_get_modes(struct drm_panel *panel,
 
-Reproducer:
-syz reproducer: https://pastebin.com/raw/HeCMiVFR
-console output: https://pastebin.com/raw/Y5CinzRS
-kernel config: https://pastebin.com/raw/Lqbb3fQn
+---
+base-commit: dc2f9f7fed1a8ea5290f9f60c6310d497e85e666
+change-id: 20260807-mipi-dsi-s6d16d0-multi-167e236e9666
 
-Kernel:
-HEAD commit: 1137d8b5df06137fb49513cc923b3b24d94cb809
-git tree: torvalds/linux
-kernel version: 7.2.0-rc3 #1 PREEMPT(full) (QEMU Ubuntu 24.10)
+Best regards,
+-- 
+Akash Sukhavasi <akash.sukhavasi@gmail.com>
 
-Crash log:
-
-[ 78.750312][T10019] faux_driver vkms: [drm] ERROR [CRTC:45] flip_done timed out
-[ 79.792561][ T793] faux_driver vkms: [drm] vblank wait timed out on crtc 0
-[ 79.796488][ T793] WARNING: drivers/gpu/drm/drm_vblank.c:1329 at
-drm_crtc_wait_one_vblank+0x2f3/0x560, CPU#1: kworker/1:2/793
-[ 79.813855][ T793] Workqueue: events drm_fb_helper_damage_work
-[ 79.849602][ T793] <TASK>
-[ 79.855848][ T793] drm_client_modeset_wait_for_vblank+0xf1/0x130
-[ 79.857114][ T793] drm_fb_helper_damage_work+0x2e1/0xae0
-[ 79.860522][ T793] process_scheduled_works+0x5ed/0x1c90
-[ 79.864431][ T793] worker_thread+0x5be/0xd20
-[ 79.866835][ T793] kthread+0x404/0x530
-[ 79.867639][ T793] ret_from_fork+0x7c5/0xde0
-[ 79.872873][ T793] ret_from_fork_asm+0x1a/0x30
-[ 79.873717][ T793] </TASK>
-[ 79.874264][ T793] Kernel panic - not syncing: kernel: panic_on_warn set ...
-
-
-Thanks
