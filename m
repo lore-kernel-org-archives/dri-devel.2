@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E7BC5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:26:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFA56C5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65B37899D4;
-	Mon, 10 Aug 2026 07:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE27B10E18B;
+	Mon, 10 Aug 2026 07:29:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jr8iHqXE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OsRzgBRH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B1CC899D4
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 07:26:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E925C10E18B
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 07:29:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B7D20600B1;
- Mon, 10 Aug 2026 07:26:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515921F00A3A;
- Mon, 10 Aug 2026 07:26:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C0B7C42E2A;
+ Mon, 10 Aug 2026 07:29:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A391F000E9;
+ Mon, 10 Aug 2026 07:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786346813;
- bh=PyEbjIgybH8eVskit9SJ6WDB+jwgH5gPvOVFFCmv17U=;
+ s=k20260515; t=1786346995;
+ bh=KaOEqGGQvnEIyJ4KASCLDmu7+xitlf30L6MDYtGk6DY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Jr8iHqXEvLbOIbajtTnhKfPFxcis7v47P9vZvqvhqzrOp9zbONG99gXzRCA4ct+HA
- OLDrB5+CdA3A7JTQInKkzL2WeC5guZx/F9yE9a+mGrM94GUZ/26gSXtZBQLiKnfDY/
- 3/PsTSuoH4Q1RhSIaKtcYEACE0diAIVcXGeJgxQbHAdqrCi6K9nRkTOyjYk+K1ZKzk
- fqdXmKHT3hwNNE8oLOr+Ss3ewPYHQLaNgLFg4g3/4XK54EAcExKv2Ty0ogcLm4pKR7
- FPr7ZfczARXmIq7R+X4BPf7Bo4Q5Byd5Xy7Y57Gb815WLCTPs1MUTBXYX9r6g92gh6
- UDziDC4cU/p8g==
+ b=OsRzgBRHLSa8M7BINsndjJ2wrQHIN0s3UTTv9ly7+Jsyp4jy6erolvqpzHF7IqZfE
+ es9o1zlU/QDK3MX25YR0UkuR+JagAAYuNU0KSeaFJdMFqCn7cDdeniBWYYtm92u0rk
+ PyiZugfuHyxCkStxhXZLA9S+SK2BvAnopOxz0Zh/QKXJAlnbbO7RaTk815aurhAiGG
+ zuWSMa1twQ6EcSw4DkyK0INe0n9P+ZuETdOrID2cYe/KjmNfJyutLtPU1JkoYYdAWH
+ 8xxfS7mgjFqztQZxsKWGnHaIauDa+5JNozjD4Dk8P0OHw/i+hyNA62jht8qN2+e22P
+ kP4EAfbVlujVg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/5] drm/bridge: nwl-dsi: Correct MIPI DSI horizontal
- sync timing
+Subject: Re: [PATCH v4 1/3] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
 To: "Esben Haabendal" <esben@geanix.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260810-nwl-dsi-fixes-v3-5-256da9d672e1@geanix.com>
-References: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
- <20260810-nwl-dsi-fixes-v3-5-256da9d672e1@geanix.com>
+In-Reply-To: <20260810-ti-sn65dsi83-fixes-v4-1-ae9c95c8d162@geanix.com>
+References: <20260810-ti-sn65dsi83-fixes-v4-0-ae9c95c8d162@geanix.com>
+ <20260810-ti-sn65dsi83-fixes-v4-1-ae9c95c8d162@geanix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 07:26:52 +0000
-Message-Id: <20260810072653.515921F00A3A@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 07:29:54 +0000
+Message-Id: <20260810072955.72A391F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,88 +58,97 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Implicit 64-bit division using the `/` operator causes link errors=
- on 32-bit architectures.
-- [Low] Integer overflow in `dsi->mode.clock * 1000` for high pixel clocks.
-- [Low] Redundant picosecond period conversion introduces precision loss an=
-d forces 64-bit math.
+
+New issues:
+- [High] Unconditionally re-enabling the interrupt after a failed hardware =
+reset introduces a severe interrupt and workqueue storm.
+
+Pre-existing issues:
+- [Critical] Missing workqueue cancellation in the driver remove path leads=
+ to a Use-After-Free of the driver context.
 --
 
---- Patch [5]: [PATCH v3 5/5] drm/bridge: nwl-dsi: Correct MIPI DSI horizon=
-tal sync timing ---
-commit 54cf1e5377e7b6795c12c78939b18d1607d54031
+--- Patch [1]: [PATCH v4 1/3] drm/bridge: ti-sn65dsi83: Fix error handling =
+in sn65dsi83_reset_work() ---
+commit 9e0c74443fddb87d6c513a0e21cb5c153b2b2c3a
 Author: Esben Haabendal <esben@geanix.com>
 
-drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
+drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
 
-The commit updates the NWL MIPI Host controller's horizontal sync timing
-calculations. It converts hfp, hsa, and hbp to DSI packet bytes and
-subtracts the packet header size. This aligns the timing configuration
-with the i.MX 8M reference manual.
+This commit changes the error handling in sn65dsi83_reset_work() so that
+enable_irq() and drm_bridge_exit() are called even if sn65dsi83_reset_pipe()
+fails.
 
-> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nw=
-l-dsi.c
-> index e90588299c5ea..87d22b3bd79c7 100644
-> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
-> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-[ ... ]
-> @@ -317,9 +322,62 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
->  			      dsi->mode.hdisplay);
->  	}
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
+ge/ti-sn65dsi83.c
+> index 42b451432bbb6..0ccfff401b2a6 100644
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> @@ -417,10 +417,9 @@ static void sn65dsi83_reset_work(struct work_struct =
+*ws)
 > =20
-> -	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
-> -	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
-> -	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
-> +	pclk_period =3D DIV_ROUND_UP_ULL(PSEC_PER_SEC, dsi->mode.clock * 1000);
-
-[Severity: Low]
-Could this multiplication overflow on high pixel clocks? dsi->mode.clock is=
- a
-signed 32-bit integer, so multiplying by 1000 could overflow if the clock
-exceeds roughly 2.147 GHz. The resulting negative number would then be
-sign-extended into a large unsigned long long for DIV_ROUND_UP_ULL(). Perha=
-ps
-casting to 1000ULL would avoid this?
-
-> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "pclk_period: %llu\n", pclk_period);
+>  	/* Reset the pipe */
+>  	ret =3D sn65dsi83_reset_pipe(ctx);
+> -	if (ret) {
+> +	if (ret)
+>  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+> -		return;
+> -	}
 > +
-> +	hs_period =3D DIV_ROUND_UP_ULL(PSEC_PER_SEC, dsi->phy_cfg.mipi_dphy.hs_=
-clk_rate);
-> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_period: %llu\n", hs_period);
-> +
-> +	/*
-> +	 * Calculate the bytes needed, according to the RM formula:
-> +	 * Time of DPI event =3D time to transmit x number of bytes on the DSI
-> +	 * interface
-> +	 * dpi_event_size * dpi_pclk_period =3D dsi_bytes * 8 * hs_bit_period /
-> +	 * num_lanes
-> +	 * =3D=3D=3D>
-> +	 * dsi_bytes =3D dpi_event_size * dpi_pclk_period * num_lanes /
-> +	 * (8 * hs_bit_period)
-> +	 */
-> +	hfp =3D hfront_porch * pclk_period * dsi->lanes / (8 * hs_period);
-> +	hbp =3D hback_porch * pclk_period * dsi->lanes / (8 * hs_period);
-> +	hsa =3D hsync_len * pclk_period * dsi->lanes / (8 * hs_period);
-
-[Severity: Low]
-Does calculating the period in picoseconds introduce unnecessary precision =
-loss?
-By calculating pclk_period and hs_period first and then dividing them, the
-math effectively does (10^12 / pclk) / (10^12 / hs_clk). For example, 148.5=
-MHz
-becomes 6735ps instead of 6734.0067ps. Using the raw clock rates directly
-might eliminate intermediate rounding errors.
+>  	if (ctx->irq)
+>  		enable_irq(ctx->irq);
 
 [Severity: High]
-Will this standard division operator cause build failures on 32-bit platfor=
-ms?
-pclk_period and hs_period are 64-bit variables, so using the / operator here
-will result in undefined reference to __udivdi3 during linking on 32-bit
-architectures. Using div64_u64() or refactoring to use a 32-bit denominator
-would prevent this link error.
+Does unconditionally re-enabling the interrupt after a failed hardware reset
+introduce an interrupt and workqueue storm regression?
+
+If sn65dsi83_reset_pipe() fails, the hardware IRQ status register
+(REG_IRQ_STAT) remains uncleared because the reset sequence did not
+successfully reach sn65dsi83_atomic_enable().
+
+Since enable_irq(ctx->irq) is now called in sn65dsi83_reset_work() even on
+failure, will the hardware immediately trigger the interrupt again? This wo=
+uld
+cause the interrupt handler to run, disable the IRQ, and schedule reset_wor=
+k.
+The work runs, fails again, and re-enables the IRQ, creating an infinite lo=
+op
+that could lock up a CPU core.
+
+[Severity: Critical]
+This is a pre-existing issue, but does the driver missing workqueue
+cancellation in the remove path lead to a use-after-free of the driver cont=
+ext?
+
+The driver context ctx is dynamically allocated via devm_drm_bridge_alloc()=
+ and
+is automatically freed by devres after sn65dsi83_remove() returns:
+
+drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_remove() {
+	struct sn65dsi83 *ctx =3D i2c_get_clientdata(client);
+
+	drm_bridge_unplug(&ctx->bridge);
+}
+
+The teardown path never calls cancel_work_sync(&ctx->reset_work). If an
+interrupt schedules the work just before removal, and it hasn't completed w=
+hen
+remove() returns, the scheduled work will run after devres frees ctx.
+
+The work function sn65dsi83_reset_work() then dereferences the freed ctx:
+
+drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_reset_work() {
+	struct sn65dsi83 *ctx =3D container_of(ws, struct sn65dsi83, reset_work);
+	...
+	if (!drm_bridge_enter(&ctx->bridge, &idx))
+		return;
+	...
+}
+
+Should cancel_work_sync() be added to sn65dsi83_remove() to prevent this?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-nwl-dsi-fi=
-xes-v3-0-256da9d672e1@geanix.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-ti-sn65dsi=
+83-fixes-v4-0-ae9c95c8d162@geanix.com?part=3D1
