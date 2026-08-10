@@ -4,44 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 728BFC5AD7B
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:35:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54C2FC5B56A
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:44:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EEE510E207;
-	Mon, 10 Aug 2026 16:35:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48DEE10E935;
+	Mon, 10 Aug 2026 16:44:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LTOCLhhv";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="AjGoef2c";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B8E010E207
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 16:35:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9D13C60052;
- Mon, 10 Aug 2026 16:35:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B9E1F000E9;
- Mon, 10 Aug 2026 16:35:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786379728;
- bh=qEY8qdMreXYjz2T+5hvc/rMIYQdNixr1BKfyCRS9vvM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LTOCLhhv1tEGQ07WNr2qqq5RcvcSYddWiG5UDCRUbdAK2sOwHODKFnJRO5HSj3zDY
- oLm1FK+a1SulzJrkbWKvIZg8p20rnu8iKIabOYDmp1DoLkRISLqAVBKTkZx4gikjpQ
- LMnte0w5++dI4NzXSJ/mHWL44NyBJoCHhn2RzqPgDXbzlyx9Dw76GddAXGvq9xrBV3
- kRxHYFUMvrN4oamwcktRDManq//nqPQcHs4b/81FqYYc8SLeHnvNLD+I06Bo7JNmRD
- ycfD1vkYEHDy7XECkCgbmOMwXYm31niG1p7wk/ffkD6oVkZ+bAufxbdH3Xt5CHGAzS
- ItSSF9BGlXFrQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] drm/amdgpu/userq: bound the eviction fence rearm
- retry loop
-To: "Junrui Luo" <moonafterrain@outlook.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260811-amdgpu-fixes-v1-3-4954a417b8ff@outlook.com>
-References: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
- <20260811-amdgpu-fixes-v1-3-4954a417b8ff@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 16:35:27 +0000
-Message-Id: <20260810163528.38B9E1F000E9@smtp.kernel.org>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71F6F10E935
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 16:44:39 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id BBAD61A1533;
+ Mon, 10 Aug 2026 16:44:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 8E4CD6033B;
+ Mon, 10 Aug 2026 16:44:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 3ED9111C4ACF7; 
+ Mon, 10 Aug 2026 18:44:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1786380272; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=nx3LTST6fkQFcT6QHY3+E2Te3mOPHPcmskmq8yxPBBE=;
+ b=AjGoef2c/3RJ2DLmVbdwNikvWTaURd3xBzTeVfDVXJQpat8huqK2/qq1wurp0QVxzMFrwu
+ DBkR0d7KFoEyQSjhiWpC9PDU7K2bTkdPdFd9JZ8s9P4TqqXpIRKu/pZSXHe7nL4dPmyALF
+ MrsJkklt8A937wc9aqWOmSEauxSyNoInMW9JV+5zI5AEmbOMByJxGuaMsLvkqH+USgmcQe
+ iWHd+SR7Xgqcfvrbgy/YtYE92q1mB8RhbUZj0LSjzVp+5Rrrxy1ETG3NRIAJ1ziURsnvwU
+ qJTJUOVmicIKPomawlIJ/CFfTB1C9uSu1jLNk53vBiouEnC5NW5MP5+rrpOc/A==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Mon, 10 Aug 2026 18:43:53 +0200
+Subject: [PATCH] drm/panel: remove .orig file committed by mistake
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260810-drm-remove-drm_panel-c-orig-v1-1-90592f91974e@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMWwrCMBBG4a2UeXZgWjVetiIiNfmtIzYpEy1C6
+ d5N9e18L2eiDFNkOlYTGUbNmmJBvarI39vYgTUUUyONk30tHKxnQ59GLHkZ2ogne06mHW93sg4
+ bwcE5T+UwGG76+d1P57/z+/qAfy1LmucvX9m+ln8AAAA=
+X-Change-ID: 20260810-drm-remove-drm_panel-c-orig-5703d40e966c
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Diederik de Haas <diederik@cknow-tech.com>, 
+ Albert Esteve <aesteve@redhat.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,181 +68,755 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+Commit ac3baea883da ("drm/panel: find_panel_by_fwnode() return a counted
+reference") inadvertently added a .orig file which should not be there.
 
-New issues:
-- [Medium] The retry loop in amdgpu_userq_ensure_ev_fence() fails permanent=
-ly with -ENOMEM when ev_fence_seq wraps to -1.
+Reported-by: Diederik de Haas <diederik@cknow-tech.com>
+Link: https://lore.kernel.org/all/DK9KRSOWRHY0.H7SC0R3BIIUZ@cknow-tech.com/
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+ drivers/gpu/drm/drm_panel.c.orig | 722 ---------------------------------------
+ 1 file changed, 722 deletions(-)
 
-Pre-existing issues:
-- [High] Wait dependencies are permanently lost if an error path unwinds th=
-e IOCTL or if the IOCTL restarts.
-- [High] Missing cancellation of queue->hang_detect_work in the amdgpu_user=
-q_create() error path leads to Use-After-Free.
-- [High] Leaking fence_drv references stored in fence_drv_array when a fenc=
-e is destroyed on error paths or queue teardown.
-- [High] Missing rcu_assign_pointer and premature reference drop when updat=
-ing evf_mgr->ev_fence causes deadlock and uninitialized memory access.
---
+diff --git a/drivers/gpu/drm/drm_panel.c.orig b/drivers/gpu/drm/drm_panel.c.orig
+deleted file mode 100644
+index 32fba1a562fb..000000000000
+--- a/drivers/gpu/drm/drm_panel.c.orig
++++ /dev/null
+@@ -1,722 +0,0 @@
+-/*
+- * Copyright (C) 2013, NVIDIA Corporation.  All rights reserved.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sub license,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice (including the
+- * next paragraph) shall be included in all copies or substantial portions
+- * of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL
+- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+- * DEALINGS IN THE SOFTWARE.
+- */
+-
+-#include <linux/backlight.h>
+-#include <linux/err.h>
+-#include <linux/export.h>
+-#include <linux/module.h>
+-#include <linux/of.h>
+-
+-#include <drm/drm_crtc.h>
+-#include <drm/drm_of.h>
+-#include <drm/drm_panel.h>
+-#include <drm/drm_print.h>
+-
+-static DEFINE_MUTEX(panel_lock);
+-static LIST_HEAD(panel_list);
+-
+-/**
+- * DOC: drm panel
+- *
+- * The DRM panel helpers allow drivers to register panel objects with a
+- * central registry and provide functions to retrieve those panels in display
+- * drivers.
+- *
+- * For easy integration into drivers using the &drm_bridge infrastructure please
+- * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
+- */
+-
+-/**
+- * drm_panel_init - initialize a panel
+- * @panel: DRM panel
+- * @dev: parent device of the panel
+- * @funcs: panel operations
+- * @connector_type: the connector type (DRM_MODE_CONNECTOR_*) corresponding to
+- *	the panel interface (must NOT be DRM_MODE_CONNECTOR_Unknown)
+- *
+- * Initialize the panel structure for subsequent registration with
+- * drm_panel_add().
+- */
+-static void drm_panel_init(struct drm_panel *panel, struct device *dev,
+-			   const struct drm_panel_funcs *funcs,
+-			   int connector_type)
+-{
+-	if (connector_type == DRM_MODE_CONNECTOR_Unknown)
+-		DRM_WARN("%s: %s: a valid connector type is required!\n", __func__, dev_name(dev));
+-
+-	INIT_LIST_HEAD(&panel->list);
+-	INIT_LIST_HEAD(&panel->followers);
+-	mutex_init(&panel->follower_lock);
+-	panel->dev = dev;
+-	panel->funcs = funcs;
+-	panel->connector_type = connector_type;
+-}
+-
+-/**
+- * drm_panel_add - add a panel to the global registry
+- * @panel: panel to add
+- *
+- * Add a panel to the global registry so that it can be looked
+- * up by display drivers. The panel to be added must have been
+- * allocated by devm_drm_panel_alloc().
+- */
+-void drm_panel_add(struct drm_panel *panel)
+-{
+-	drm_panel_get(panel);
+-	mutex_lock(&panel_lock);
+-	list_add_tail(&panel->list, &panel_list);
+-	mutex_unlock(&panel_lock);
+-}
+-EXPORT_SYMBOL(drm_panel_add);
+-
+-/**
+- * drm_panel_remove - remove a panel from the global registry
+- * @panel: DRM panel
+- *
+- * Removes a panel from the global registry.
+- */
+-void drm_panel_remove(struct drm_panel *panel)
+-{
+-	mutex_lock(&panel_lock);
+-	list_del_init(&panel->list);
+-	mutex_unlock(&panel_lock);
+-	drm_panel_put(panel);
+-}
+-EXPORT_SYMBOL(drm_panel_remove);
+-
+-static void drm_panel_add_release(void *data)
+-{
+-	drm_panel_remove(data);
+-}
+-
+-/**
+- * devm_drm_panel_add - add a panel to the global registry using devres
+- * @dev: device to which the panel is attached
+- * @panel: panel to add
+- *
+- * Add a panel to the global registry so that it can be looked
+- * up by display drivers. The panel to be added must have been
+- * allocated by devm_drm_panel_alloc(). Unlike drm_panel_add() with this
+- * function there is no need to call drm_panel_remove(), it will be called
+- * automatically.
+- */
+-int devm_drm_panel_add(struct device *dev, struct drm_panel *panel)
+-{
+-	drm_panel_add(panel);
+-
+-	return devm_add_action_or_reset(dev, drm_panel_add_release, panel);
+-}
+-EXPORT_SYMBOL(devm_drm_panel_add);
+-
+-/**
+- * drm_panel_prepare - power on a panel
+- * @panel: DRM panel
+- *
+- * Calling this function will enable power and deassert any reset signals to
+- * the panel. After this has completed it is possible to communicate with any
+- * integrated circuitry via a command bus. This function cannot fail (as it is
+- * called from the pre_enable call chain). There will always be a call to
+- * drm_panel_disable() afterwards.
+- */
+-void drm_panel_prepare(struct drm_panel *panel)
+-{
+-	struct drm_panel_follower *follower;
+-	int ret;
+-
+-	if (!panel)
+-		return;
+-
+-	if (panel->prepared) {
+-		dev_warn(panel->dev, "Skipping prepare of already prepared panel\n");
+-		return;
+-	}
+-
+-	mutex_lock(&panel->follower_lock);
+-
+-	if (panel->funcs && panel->funcs->prepare) {
+-		ret = panel->funcs->prepare(panel);
+-		if (ret < 0)
+-			goto exit;
+-	}
+-	panel->prepared = true;
+-
+-	list_for_each_entry(follower, &panel->followers, list) {
+-		if (!follower->funcs->panel_prepared)
+-			continue;
+-
+-		ret = follower->funcs->panel_prepared(follower);
+-		if (ret < 0)
+-			dev_info(panel->dev, "%ps failed: %d\n",
+-				 follower->funcs->panel_prepared, ret);
+-	}
+-
+-exit:
+-	mutex_unlock(&panel->follower_lock);
+-}
+-EXPORT_SYMBOL(drm_panel_prepare);
+-
+-/**
+- * drm_panel_unprepare - power off a panel
+- * @panel: DRM panel
+- *
+- * Calling this function will completely power off a panel (assert the panel's
+- * reset, turn off power supplies, ...). After this function has completed, it
+- * is usually no longer possible to communicate with the panel until another
+- * call to drm_panel_prepare().
+- */
+-void drm_panel_unprepare(struct drm_panel *panel)
+-{
+-	struct drm_panel_follower *follower;
+-	int ret;
+-
+-	if (!panel)
+-		return;
+-
+-	/*
+-	 * If you are seeing the warning below it likely means one of two things:
+-	 * - Your panel driver incorrectly calls drm_panel_unprepare() in its
+-	 *   shutdown routine. You should delete this.
+-	 * - You are using panel-edp or panel-simple and your DRM modeset
+-	 *   driver's shutdown() callback happened after the panel's shutdown().
+-	 *   In this case the warning is harmless though ideally you should
+-	 *   figure out how to reverse the order of the shutdown() callbacks.
+-	 */
+-	if (!panel->prepared) {
+-		dev_warn(panel->dev, "Skipping unprepare of already unprepared panel\n");
+-		return;
+-	}
+-
+-	mutex_lock(&panel->follower_lock);
+-
+-	list_for_each_entry(follower, &panel->followers, list) {
+-		if (!follower->funcs->panel_unpreparing)
+-			continue;
+-
+-		ret = follower->funcs->panel_unpreparing(follower);
+-		if (ret < 0)
+-			dev_info(panel->dev, "%ps failed: %d\n",
+-				 follower->funcs->panel_unpreparing, ret);
+-	}
+-
+-	if (panel->funcs && panel->funcs->unprepare) {
+-		ret = panel->funcs->unprepare(panel);
+-		if (ret < 0)
+-			goto exit;
+-	}
+-	panel->prepared = false;
+-
+-exit:
+-	mutex_unlock(&panel->follower_lock);
+-}
+-EXPORT_SYMBOL(drm_panel_unprepare);
+-
+-/**
+- * drm_panel_enable - enable a panel
+- * @panel: DRM panel
+- *
+- * Calling this function will cause the panel display drivers to be turned on
+- * and the backlight to be enabled. Content will be visible on screen after
+- * this call completes. This function cannot fail (as it is called from the
+- * enable call chain). There will always be a call to drm_panel_disable()
+- * afterwards.
+- */
+-void drm_panel_enable(struct drm_panel *panel)
+-{
+-	struct drm_panel_follower *follower;
+-	int ret;
+-
+-	if (!panel)
+-		return;
+-
+-	if (panel->enabled) {
+-		dev_warn(panel->dev, "Skipping enable of already enabled panel\n");
+-		return;
+-	}
+-
+-	mutex_lock(&panel->follower_lock);
+-
+-	if (panel->funcs && panel->funcs->enable) {
+-		ret = panel->funcs->enable(panel);
+-		if (ret < 0)
+-			goto exit;
+-	}
+-	panel->enabled = true;
+-
+-	ret = backlight_enable(panel->backlight);
+-	if (ret < 0)
+-		DRM_DEV_INFO(panel->dev, "failed to enable backlight: %d\n",
+-			     ret);
+-
+-	list_for_each_entry(follower, &panel->followers, list) {
+-		if (!follower->funcs->panel_enabled)
+-			continue;
+-
+-		ret = follower->funcs->panel_enabled(follower);
+-		if (ret < 0)
+-			dev_info(panel->dev, "%ps failed: %d\n",
+-				 follower->funcs->panel_enabled, ret);
+-	}
+-
+-exit:
+-	mutex_unlock(&panel->follower_lock);
+-}
+-EXPORT_SYMBOL(drm_panel_enable);
+-
+-/**
+- * drm_panel_disable - disable a panel
+- * @panel: DRM panel
+- *
+- * This will typically turn off the panel's backlight or disable the display
+- * drivers. For smart panels it should still be possible to communicate with
+- * the integrated circuitry via any command bus after this call.
+- */
+-void drm_panel_disable(struct drm_panel *panel)
+-{
+-	struct drm_panel_follower *follower;
+-	int ret;
+-
+-	if (!panel)
+-		return;
+-
+-	/*
+-	 * If you are seeing the warning below it likely means one of two things:
+-	 * - Your panel driver incorrectly calls drm_panel_disable() in its
+-	 *   shutdown routine. You should delete this.
+-	 * - You are using panel-edp or panel-simple and your DRM modeset
+-	 *   driver's shutdown() callback happened after the panel's shutdown().
+-	 *   In this case the warning is harmless though ideally you should
+-	 *   figure out how to reverse the order of the shutdown() callbacks.
+-	 */
+-	if (!panel->enabled) {
+-		dev_warn(panel->dev, "Skipping disable of already disabled panel\n");
+-		return;
+-	}
+-
+-	mutex_lock(&panel->follower_lock);
+-
+-	list_for_each_entry(follower, &panel->followers, list) {
+-		if (!follower->funcs->panel_disabling)
+-			continue;
+-
+-		ret = follower->funcs->panel_disabling(follower);
+-		if (ret < 0)
+-			dev_info(panel->dev, "%ps failed: %d\n",
+-				 follower->funcs->panel_disabling, ret);
+-	}
+-
+-	ret = backlight_disable(panel->backlight);
+-	if (ret < 0)
+-		DRM_DEV_INFO(panel->dev, "failed to disable backlight: %d\n",
+-			     ret);
+-
+-	if (panel->funcs && panel->funcs->disable) {
+-		ret = panel->funcs->disable(panel);
+-		if (ret < 0)
+-			goto exit;
+-	}
+-	panel->enabled = false;
+-
+-exit:
+-	mutex_unlock(&panel->follower_lock);
+-}
+-EXPORT_SYMBOL(drm_panel_disable);
+-
+-/**
+- * drm_panel_get_modes - probe the available display modes of a panel
+- * @panel: DRM panel
+- * @connector: DRM connector
+- *
+- * The modes probed from the panel are automatically added to the connector
+- * that the panel is attached to.
+- *
+- * Return: The number of modes available from the panel on success, or 0 on
+- * failure (no modes).
+- */
+-int drm_panel_get_modes(struct drm_panel *panel,
+-			struct drm_connector *connector)
+-{
+-	if (!panel)
+-		return 0;
+-
+-	if (panel->funcs && panel->funcs->get_modes) {
+-		int num;
+-
+-		num = panel->funcs->get_modes(panel, connector);
+-		if (num > 0)
+-			return num;
+-	}
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL(drm_panel_get_modes);
+-
+-static void __drm_panel_free(struct kref *kref)
+-{
+-	struct drm_panel *panel = container_of(kref, struct drm_panel, refcount);
+-
+-	kfree(panel->container);
+-}
+-
+-/**
+- * drm_panel_get - Acquire a panel reference
+- * @panel: DRM panel
+- *
+- * This function increments the panel's refcount.
+- * Returns:
+- * Pointer to @panel
+- */
+-struct drm_panel *drm_panel_get(struct drm_panel *panel)
+-{
+-	if (!panel)
+-		return panel;
+-
+-	kref_get(&panel->refcount);
+-
+-	return panel;
+-}
+-EXPORT_SYMBOL(drm_panel_get);
+-
+-/**
+- * drm_panel_put - Release a panel reference
+- * @panel: DRM panel
+- *
+- * This function decrements the panel's reference count and frees the
+- * object if the reference count drops to zero.
+- */
+-void drm_panel_put(struct drm_panel *panel)
+-{
+-	if (panel)
+-		kref_put(&panel->refcount, __drm_panel_free);
+-}
+-EXPORT_SYMBOL(drm_panel_put);
+-
+-/**
+- * drm_panel_put_void - wrapper to drm_panel_put() taking a void pointer
+- *
+- * @data: pointer to @struct drm_panel, cast to a void pointer
+- *
+- * Wrapper of drm_panel_put() to be used when a function taking a void
+- * pointer is needed, for example as a devm action.
+- */
+-static void drm_panel_put_void(void *data)
+-{
+-	struct drm_panel *panel = (struct drm_panel *)data;
+-
+-	drm_panel_put(panel);
+-}
+-
+-void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
+-			     const struct drm_panel_funcs *funcs,
+-			     int connector_type)
+-{
+-	void *container;
+-	struct drm_panel *panel;
+-	int err;
+-
+-	if (!funcs) {
+-		dev_warn(dev, "Missing funcs pointer\n");
+-		return ERR_PTR(-EINVAL);
+-	}
+-
+-	container = kzalloc(size, GFP_KERNEL);
+-	if (!container)
+-		return ERR_PTR(-ENOMEM);
+-
+-	panel = container + offset;
+-	panel->container = container;
+-	panel->funcs = funcs;
+-	kref_init(&panel->refcount);
+-
+-	err = devm_add_action_or_reset(dev, drm_panel_put_void, panel);
+-	if (err)
+-		return ERR_PTR(err);
+-
+-	drm_panel_init(panel, dev, funcs, connector_type);
+-
+-	return container;
+-}
+-EXPORT_SYMBOL(__devm_drm_panel_alloc);
+-
+-#ifdef CONFIG_OF
+-/**
+- * of_drm_find_panel - look up and reference a panel by device tree node
+- * @np: device tree node of the panel
+- *
+- * Searches the set of registered panels for one that matches the given device
+- * tree node. If a matching panel is found, the panel's reference count is
+- * incremented before returning a pointer to it. The caller must call
+- * drm_panel_put() when it no longer needs the panel pointer.
+- *
+- * Return: A reference-counted pointer to the panel registered for the specified
+- * device tree node or an ERR_PTR() if no panel matching the device tree node
+- * can be found.
+- *
+- * Possible error codes returned by this function:
+- *
+- * - EPROBE_DEFER: the panel device has not been probed yet, and the caller
+- *   should retry later
+- * - ENODEV: the device is not available (status != "okay" or "ok")
+- */
+-struct drm_panel *of_drm_find_panel(const struct device_node *np)
+-{
+-	struct drm_panel *panel;
+-
+-	if (!of_device_is_available(np))
+-		return ERR_PTR(-ENODEV);
+-
+-	mutex_lock(&panel_lock);
+-
+-	list_for_each_entry(panel, &panel_list, list) {
+-		if (panel->dev->of_node == np) {
+-			drm_panel_get(panel);
+-			mutex_unlock(&panel_lock);
+-			return panel;
+-		}
+-	}
+-
+-	mutex_unlock(&panel_lock);
+-	return ERR_PTR(-EPROBE_DEFER);
+-}
+-EXPORT_SYMBOL(of_drm_find_panel);
+-#endif
+-
+-/* Find panel by fwnode. This should be identical to of_drm_find_panel(). */
+-static struct drm_panel *find_panel_by_fwnode(const struct fwnode_handle *fwnode)
+-{
+-	struct drm_panel *panel;
+-
+-	if (!fwnode_device_is_available(fwnode))
+-		return ERR_PTR(-ENODEV);
+-
+-	mutex_lock(&panel_lock);
+-
+-	list_for_each_entry(panel, &panel_list, list) {
+-		if (dev_fwnode(panel->dev) == fwnode) {
+-			mutex_unlock(&panel_lock);
+-			return panel;
+-		}
+-	}
+-
+-	mutex_unlock(&panel_lock);
+-
+-	return ERR_PTR(-EPROBE_DEFER);
+-}
+-
+-/* Find panel by follower device */
+-static struct drm_panel *find_panel_by_dev(struct device *follower_dev)
+-{
+-	struct fwnode_handle *fwnode;
+-	struct drm_panel *panel;
+-
+-	fwnode = fwnode_find_reference(dev_fwnode(follower_dev), "panel", 0);
+-	if (IS_ERR(fwnode))
+-		return ERR_PTR(-ENODEV);
+-
+-	panel = find_panel_by_fwnode(fwnode);
+-	fwnode_handle_put(fwnode);
+-
+-	return panel;
+-}
+-
+-/**
+- * drm_is_panel_follower() - Check if the device is a panel follower
+- * @dev: The 'struct device' to check
+- *
+- * This checks to see if a device needs to be power sequenced together with
+- * a panel using the panel follower API.
+- *
+- * The "panel" property of the follower points to the panel to be followed.
+- *
+- * Return: true if we should be power sequenced with a panel; false otherwise.
+- */
+-bool drm_is_panel_follower(struct device *dev)
+-{
+-	/*
+-	 * The "panel" property is actually a phandle, but for simplicity we
+-	 * don't bother trying to parse it here. We just need to know if the
+-	 * property is there.
+-	 */
+-	return device_property_present(dev, "panel");
+-}
+-EXPORT_SYMBOL(drm_is_panel_follower);
+-
+-/**
+- * drm_panel_add_follower() - Register something to follow panel state.
+- * @follower_dev: The 'struct device' for the follower.
+- * @follower:     The panel follower descriptor for the follower.
+- *
+- * A panel follower is called right after preparing/enabling the panel and right
+- * before unpreparing/disabling the panel. It's primary intention is to power on
+- * an associated touchscreen, though it could be used for any similar devices.
+- * Multiple devices are allowed the follow the same panel.
+- *
+- * If a follower is added to a panel that's already been prepared/enabled, the
+- * follower's prepared/enabled callback is called right away.
+- *
+- * The "panel" property of the follower points to the panel to be followed.
+- *
+- * Return: 0 or an error code. Note that -ENODEV means that we detected that
+- *         follower_dev is not actually following a panel. The caller may
+- *         choose to ignore this return value if following a panel is optional.
+- */
+-int drm_panel_add_follower(struct device *follower_dev,
+-			   struct drm_panel_follower *follower)
+-{
+-	struct drm_panel *panel;
+-	int ret;
+-
+-	panel = find_panel_by_dev(follower_dev);
+-	if (IS_ERR(panel))
+-		return PTR_ERR(panel);
+-
+-	get_device(panel->dev);
+-	follower->panel = panel;
+-
+-	mutex_lock(&panel->follower_lock);
+-
+-	list_add_tail(&follower->list, &panel->followers);
+-	if (panel->prepared && follower->funcs->panel_prepared) {
+-		ret = follower->funcs->panel_prepared(follower);
+-		if (ret < 0)
+-			dev_info(panel->dev, "%ps failed: %d\n",
+-				 follower->funcs->panel_prepared, ret);
+-	}
+-	if (panel->enabled && follower->funcs->panel_enabled) {
+-		ret = follower->funcs->panel_enabled(follower);
+-		if (ret < 0)
+-			dev_info(panel->dev, "%ps failed: %d\n",
+-				 follower->funcs->panel_enabled, ret);
+-	}
+-
+-	mutex_unlock(&panel->follower_lock);
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL(drm_panel_add_follower);
+-
+-/**
+- * drm_panel_remove_follower() - Reverse drm_panel_add_follower().
+- * @follower:     The panel follower descriptor for the follower.
+- *
+- * Undo drm_panel_add_follower(). This includes calling the follower's
+- * unpreparing/disabling function if we're removed from a panel that's currently
+- * prepared/enabled.
+- *
+- * Return: 0 or an error code.
+- */
+-void drm_panel_remove_follower(struct drm_panel_follower *follower)
+-{
+-	struct drm_panel *panel = follower->panel;
+-	int ret;
+-
+-	mutex_lock(&panel->follower_lock);
+-
+-	if (panel->enabled && follower->funcs->panel_disabling) {
+-		ret = follower->funcs->panel_disabling(follower);
+-		if (ret < 0)
+-			dev_info(panel->dev, "%ps failed: %d\n",
+-				 follower->funcs->panel_disabling, ret);
+-	}
+-	if (panel->prepared && follower->funcs->panel_unpreparing) {
+-		ret = follower->funcs->panel_unpreparing(follower);
+-		if (ret < 0)
+-			dev_info(panel->dev, "%ps failed: %d\n",
+-				 follower->funcs->panel_unpreparing, ret);
+-	}
+-	list_del_init(&follower->list);
+-
+-	mutex_unlock(&panel->follower_lock);
+-
+-	put_device(panel->dev);
+-}
+-EXPORT_SYMBOL(drm_panel_remove_follower);
+-
+-static void drm_panel_remove_follower_void(void *follower)
+-{
+-	drm_panel_remove_follower(follower);
+-}
+-
+-/**
+- * devm_drm_panel_add_follower() - devm version of drm_panel_add_follower()
+- * @follower_dev: The 'struct device' for the follower.
+- * @follower:     The panel follower descriptor for the follower.
+- *
+- * Handles calling drm_panel_remove_follower() using devm on the follower_dev.
+- *
+- * Return: 0 or an error code.
+- */
+-int devm_drm_panel_add_follower(struct device *follower_dev,
+-				struct drm_panel_follower *follower)
+-{
+-	int ret;
+-
+-	ret = drm_panel_add_follower(follower_dev, follower);
+-	if (ret)
+-		return ret;
+-
+-	return devm_add_action_or_reset(follower_dev,
+-					drm_panel_remove_follower_void, follower);
+-}
+-EXPORT_SYMBOL(devm_drm_panel_add_follower);
+-
+-#if IS_REACHABLE(CONFIG_BACKLIGHT_CLASS_DEVICE)
+-/**
+- * drm_panel_of_backlight - use backlight device node for backlight
+- * @panel: DRM panel
+- *
+- * Use this function to enable backlight handling if your panel
+- * uses device tree and has a backlight phandle.
+- *
+- * When the panel is enabled backlight will be enabled after a
+- * successful call to &drm_panel_funcs.enable()
+- *
+- * When the panel is disabled backlight will be disabled before the
+- * call to &drm_panel_funcs.disable().
+- *
+- * A typical implementation for a panel driver supporting device tree
+- * will call this function at probe time. Backlight will then be handled
+- * transparently without requiring any intervention from the driver.
+- *
+- * Return: 0 on success or a negative error code on failure.
+- */
+-int drm_panel_of_backlight(struct drm_panel *panel)
+-{
+-	struct backlight_device *backlight;
+-
+-	if (!panel || !panel->dev)
+-		return -EINVAL;
+-
+-	backlight = devm_of_find_backlight(panel->dev);
+-
+-	if (IS_ERR(backlight))
+-		return PTR_ERR(backlight);
+-
+-	panel->backlight = backlight;
+-	return 0;
+-}
+-EXPORT_SYMBOL(drm_panel_of_backlight);
+-#endif
+-
+-MODULE_AUTHOR("Thierry Reding <treding@nvidia.com>");
+-MODULE_DESCRIPTION("DRM panel infrastructure");
+-MODULE_LICENSE("GPL and additional rights");
 
---- Patch [3]: [PATCH 3/5] drm/amdgpu/userq: bound the eviction fence rearm=
- retry loop ---
-commit ad19a8a5be75c8d4ceb626d159cd7abccb2976c4
-Author: Junrui Luo <moonafterrain@outlook.com>
+---
+base-commit: dc2f9f7fed1a8ea5290f9f60c6310d497e85e666
+change-id: 20260810-drm-remove-drm_panel-c-orig-5703d40e966c
 
-drm/amdgpu/userq: bound the eviction fence rearm retry loop
+Best regards,
+--  
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-This patch bounds a previously infinite loop in the userq eviction fence
-rearm logic by verifying that the sequence number has advanced. It returns
--ENOMEM if the rearm worker fails to make progress.
-
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -448,12 +448,16 @@ static void amdgpu_userq_cleanup(struct amdgpu_user=
-mode_queue *queue)
->  int
->  amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
->  			     struct amdgpu_eviction_fence_mgr *evf_mgr)
->  {
->  	struct dma_fence *ev_fence;
-> +	int seq, prev_seq =3D -1;
-> =20
->  retry:
-[ ... ]
->  	if (dma_fence_is_signaled(ev_fence)) {
->  		dma_fence_put(ev_fence);
-> +		seq =3D atomic_read(&evf_mgr->ev_fence_seq);
->  		mutex_unlock(&uq_mgr->userq_mutex);
-> +		/*
-> +		 * The sequence number is only bumped by a successful rearm, so
-> +		 * if the flush above ran the worker without moving it then the
-> +		 * restore failed and looping again would never terminate.
-> +		 */
-> +		if (seq =3D=3D prev_seq)
-> +			return -ENOMEM;
-
-[Severity: Medium]
-Could this condition match incorrectly if the sequence number wraps around?
-
-Since ev_fence_seq is a 32-bit atomic counter incremented on successful
-rearms, it will eventually wrap to -1 (0xFFFFFFFF).
-
-If prev_seq is initialized to -1, seq =3D=3D prev_seq would evaluate to true
-on the first loop iteration when the counter wraps.
-
-Does this cause amdgpu_userq_ensure_ev_fence() to immediately return
--ENOMEM without attempting to schedule the resume worker, permanently
-wedging the user queue manager?
-
-> +		prev_seq =3D seq;
-[ ... ]
-> @@ -747,7 +762,9 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
-amdgpu_userq *args)
->  	if (r)
->  		goto clean_mqd;
-> =20
-> -	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> +	r =3D amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> +	if (r)
-> +		goto erase_doorbell;
-
-[Severity: High]
-This is a pre-existing issue, but can the goto erase_doorbell error path
-cause a use-after-free of the queue structure?
-
-Looking at amdgpu_userq_create(), the queue is inserted into
-adev->userq_doorbell_xa earlier in the function, making it globally
-visible.
-
-If a hardware fault occurs and schedules queue->hang_detect_work, and then
-this error path frees the queue without calling
-cancel_delayed_work_sync(&queue->hang_detect_work), will the deferred work
-access the freed queue later?
-
->  	/* don't map the queue if scheduling is halted */
-[ ... ]
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -523,7 +523,15 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev=
-, void *data,
->  		goto put_queue;
-> =20
->  	/* We are here means UQ is active, make sure the eviction fence is vali=
-d */
-> -	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> +	r =3D amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> +	if (r) {
-> +		/* The fence is not initialized yet, so unwind it by hand */
-> +		amdgpu_userq_fence_put_fence_drv_array(fence);
-> +		amdgpu_userq_fence_driver_put(fence->fence_drv);
-> +		kvfree(fence->fence_drv_array);
-> +		kfree(fence);
-> +		goto put_queue;
-> +	}
-
-[Severity: High]
-This is a pre-existing issue, but does unwinding the fence here permanently
-lose synchronization dependencies?
-
-In amdgpu_userq_fence_alloc(), xa_extract() destructively removes fence
-drivers from queue->fence_drv_xa and moves them into fence_drv_array.
-
-If we abort here, the fence and its array are freed, but the dependencies
-are never restored to the xarray. If the IOCTL restarts (for example, from
--ERESTARTSYS later), won't it create a new fence missing all previous wait
-dependencies?
-
-[Severity: High]
-This is also a pre-existing issue, but does amdgpu_userq_fence_free()
-leak these extracted dependencies on normal release paths?
-
-While the hand-unwind path above correctly calls
-amdgpu_userq_fence_put_fence_drv_array(fence), the standard cleanup
-routine misses this:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:amdgpu_userq_fence_free() {
-    ...
-    kvfree(userq_fence->fence_drv_array);
-    kfree(userq_fence);
-    ...
-}
-
-Since amdgpu_userq_fence_free() frees the array memory without dropping the
-refcounts of the fence_drv objects inside it, do they leak permanently?
-
-> =20
->  	/* Create the new fence */
->  	amdgpu_userq_fence_init(queue, fence, wptr);
-[ ... ]
-
-While reviewing the eviction fence code related to this patch, I noticed
-another pre-existing issue:
-
-[Severity: High]
-This is a pre-existing issue, but does this direct assignment without
-rcu_assign_pointer() risk a deadlock and uninitialized memory access?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c:amdgpu_evf_mgr_rearm() {
-    ...
-    dma_fence_put(evf_mgr->ev_fence);
-    evf_mgr->ev_fence =3D &ev_fence->base;
-    ...
-}
-
-evf_mgr->ev_fence is an RCU annotated pointer. Dropping the reference
-to the old fence before the assignment could leave the pointer referencing a
-zero-refcount object if preempted here.
-
-A concurrent reader using dma_fence_get_rcu_safe() might enter an infinite
-loop if kref_get_unless_zero() fails. Furthermore, without a release
-barrier, concurrent readers might see the new fence before it is fully
-initialized.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811-amdgpu-fix=
-es-v1-0-4954a417b8ff@outlook.com?part=3D3
