@@ -4,64 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E72E7C5AD7B
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 20:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8817C5AD55
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 20:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB76B10E22E;
-	Mon, 10 Aug 2026 20:34:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5596310E257;
+	Mon, 10 Aug 2026 20:39:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="dPldqICu";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="OqFe98qp";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E83510E22E
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 20:34:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=5fkRRQESuJogTJbUlw1TtnlKX+cyZWiGY0fHfzIT9Xw=; t=1786394088; x=1787603688; 
- b=dPldqICuN9PL/26ZE6jDyxPMn0dFNkGDV292XxKH9gQV+MVM+BO7BxVBnyg2BBYEvxsOCiv+st6
- GAvjgW8okc3s9sUr3SxJAxf/TH6e61RFNFS818CXfDIFWqM00SZvZhgCTc2OR2grAKgZr3PJ4Yt3t
- wXlm1onGhvBYFaPdzTds7ITPIl5lbqCCt3JexrvmwB9EJPSrtBPwuNOpp4Pq3djXe05gcV6YRGKkY
- qEvZNqw+dDHZmPVTw1N+QbgHlTjGuHgVlJimb3HjXKB7MWrLN38FmUFHi6dVoJDcJECFpUeFc3Exs
- XfLYE6Nni6jRcrQK5kGFex81uAm/CdKkLFrg==;
-Date: Mon, 10 Aug 2026 22:34:13 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Daniel Thompson <danielt@kernel.org>, Grond <grond66@riseup.net>, Stefan
- Leichter <sle85276@gmx.de>, Grazvydas Ignotas <notasas@gmail.com>, Tony
- Lindgren <tony@atomide.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Lee Jones <lee@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
- <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Jingoo Han <jingoohan1@gmail.com>, Helge Deller
- <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, Sen Wang <sen@ti.com>, Richard Fitzgerald
- <rf@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>, Srinivas
- Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Kuninori Morimoto
- <kuninori.morimoto.gx@renesas.com>, Charles Keepax
- <ckeepax@opensource.cirrus.com>, Niranjan H Y <niranjan.hy@ti.com>,
- letux-kernel@openphoenux.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- kernel@pyra-handheld.com, mfd@lists.linux.dev
-Subject: Re: [PATCH 15/16] backlight: remove pandora_bl
-Message-ID: <20260810223413.01af9a6d@kemnade.info>
-In-Reply-To: <92FE1162-8C61-4186-B073-6AB4B2BDA640@goldelico.com>
-References: <cover.1783749722.git.hns@goldelico.com>
- <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
- <anmpiADsvzW39DNx@aspen.lan>
- <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
- <20260810143914.64d29a5c@kemnade.info>
- <2C9844A3-3C4C-48E6-863D-BF8328CEE540@goldelico.com>
- <92FE1162-8C61-4186-B073-6AB4B2BDA640@goldelico.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5749A10E257
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 20:39:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786394357;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hBu07eFdsAaRS4DouGyS0AD72vCjFyZu2g7jKIa4PTw=;
+ b=OqFe98qpMnud7hO8pIWnn5QPfUJWhEQaFYu5NvBxBLhp7mGx0sIrLqy5A5GIZ07Kb/6ucJ
+ RDThuz059QWZYARR0r1jjltwQ2NH9kguDZH2JJWToaOn7LJMTFLm7mXskAGNal4iwF2Hb5
+ XmMe2/mS9MRskTBSZ2DvZgMlxrJUnCQ=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-144-VnfPPCRKObiAty1uR5NNVQ-1; Mon,
+ 10 Aug 2026 16:39:10 -0400
+X-MC-Unique: VnfPPCRKObiAty1uR5NNVQ-1
+X-Mimecast-MFC-AGG-ID: VnfPPCRKObiAty1uR5NNVQ_1786394348
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 3C00A19560BB; Mon, 10 Aug 2026 20:39:07 +0000 (UTC)
+Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com
+ [10.2.32.116])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 7FE851800347; Mon, 10 Aug 2026 20:39:05 +0000 (UTC)
+Date: Mon, 10 Aug 2026 16:39:01 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Alexander Graf <graf@amazon.com>
+Cc: Jason Wang <jasowangio@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Alex Williamson <alex@shazbot.org>, David Airlie <airlied@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ dri-devel@lists.freedesktop.org,
+ Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ Feng Liu <feliu@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Jens Axboe <axboe@kernel.dk>,
+ Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
+ linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nh-open-source@amazon.com,
+ nvdimm@lists.linux.dev, Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Parav Pandit <parav@nvidia.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, virtualization@lists.linux.dev,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Yishai Hadas <yishaih@nvidia.com>
+Subject: Re: [RFC PATCH 00/12] virtio: support devices that own their
+ virtqueue memory
+Message-ID: <20260810203901.GA35278@fedora>
+References: <20260809182010.32931-1-graf@amazon.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="E1944FrHRiu7HOOY"
+Content-Disposition: inline
+In-Reply-To: <20260809182010.32931-1-graf@amazon.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,35 +85,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 10 Aug 2026 20:30:13 +0200
-"H. Nikolaus Schaller" <hns@goldelico.com> wrote:
+--E1944FrHRiu7HOOY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> > 
-> > Yes that is what I mean. It needs to be ported somewhere. If it can be ported to
-> > some compatible = "pwm_bl_for_tps61161" or what fits best it will be fine. Or it
-> > could be in some compatible = "pandora_bl" driver.
-> > 
-> > Has to be worked out when the development machines are not blocked by 3 or 4 other
-> > projects already running in parallel :)  
-> 
-> Nevertheless I did a quick look into the pandora_bl driver structure.
-> 
-> Here are my findings:
-> - the code fragment is part of pandora_backlight_update_status()
-> - priv->old_state remembers if brighness was set to 0 or not
-> - so this code triggers on any change from bright = 0 to bright > 0
-> - the pandora_bl driver is the only one to use TWL_MODULE_PWM besides twl-pwm
-> 
-> So the most natural way of transplanting this appears to me:
-> - add this logic to the twl-pwm driver
+On Sun, Aug 09, 2026 at 06:19:58PM +0000, Alexander Graf wrote:
+> Virtio drivers use guest memory to back virtqueues and their buffers.
+> That means a VMM needs to be able to map guest memory. That is ok in the
+> normal virt case. It gets icky with confidential computing (where we use
+> swiotlb as workaround) and it defeats the purpose of isolated vhost-user
+> backing devices, because they end up with full RAM access to the guest.
+>=20
+> So instead, I'm proposing an extension to virtio which allows it to give
+> each virtio device its own dedicated memory region to communicate with the
+> host, called DMB (Device Memory Buffer). A trusted hypervisor can force
+> DMB to be present, which then enables safer, more isolated and resilient
+> communication between guest and host.
+>=20
+> With DMB, the device provides a shared memory region that both parties
+> agree is the full memory map both have access to. All memory offsets
+> that previously would have been into guest RAM, are then offsets into
+> this shared memory buffer region. One nice property of this is that it
+> is a generic mechanism in the virtio transport layer, so higher level
+> drivers work unmodified.
 
-That chip could be connected to any pwm driver, so
-it does not make sense to have that in a pwm driver.
+This is similar to VIRTIO's Shared Memory Regions. A problem with this
+kind of approach is that guest software that depends on zero-copy,
+O_DIRECT, the ability to mmap, etc may break when passing an address
+=66rom one device to another device.
 
-So it belongs into a backlight driver. And since it shared so much
-code with the pwm_bl, it could be extended.
-The compatible should have pwm in the name to be able to also add
-a w1 driver later.
+For example, a guest userspace application writing to a virtio-blk
+device with O_DIRECT can pass any source memory buffer. One VIRTIO
+device will be unable to address another VIRTIO device's DMB. This
+problem also extends to vhost-user where one back-end cannot access
+another back-end's DMB or Shared Memory Regions.
 
-Regards,
-Andreas
+Maybe your use case will never hit this problem because you can rely on
+the guest software never to assume zero-copy/O_DIRECT/etc works.
+virtiofs hit it with its DAX Shared Memory Regions.
+
+I'm mentioned it in case this is something you want to think about
+before deploying this approach.
+
+>=20
+> I was exploring to use swiotlb instead to create individual pools. But
+> that approach has multiple downsides:
+>=20
+> 1. Swiotlb is an OS primitive which is not available in all Operating
+> Systems. DMB however lives in the virtio transport layer, which means we
+> can add support for it in any OS independent of generic layers. This
+> helps with Windows support.
+>=20
+> 2. We munge DMA space together. DMB provides a separate DMA space per
+> virtio device. This means we can for example implement a device in
+> vhost-user and give the implementing process only visibility to the DMB
+> region, not all of guest memory. That reduces the exposure the
+> vhost-user provider has, improving security.
+
+Connor Kite is working on a different approach for vhost-user memory
+isolation here:
+https://lore.kernel.org/qemu-devel/20260723-vhost-user-isolated-memory-v1-0=
+-6b97c439eb28@gmail.com/T/#t
+
+It involves a bounce buffer at the VMM level. Unmodified vhost-user
+back-ends never sees guest RAM. Guest drivers are also unmodified. The
+cost of doing this is that the VMM has to intercept kick and call
+eventfds in order to copy between the bounce buffer and guest RAM.
+
+I don't see DMB or vhost-user memory isolation as conflicting features.
+There can be two ways of solving the same problem with different
+trade-offs. I just wanted to share a link to Connor's ongoing work.
+
+>=20
+> 3. Devices can opt-in. A hypervisor can choose to use standard virtio
+> semantics for self-implemented devices (e.g. NSM), while requiring DMB
+> for devices implemented by less trustworthy providers. The
+> non-trustworthy devices do not get any visibility into the trustworthy
+> ones, even with DMB in place for both.
+>=20
+> =3D=3D Limitations =3D=3D
+>=20
+>   - Only PCI is wired up.
+>   - Feature bit 44 and the shared memory id register at offset 0x40 of the
+>     PCI common configuration are provisional: the OASIS technical
+>     committee has the specification and has allocated neither.
+>=20
+>   https://lore.kernel.org/virtio-comment/20260804161202.38619-1-graf@amaz=
+on.com/
+>=20
+>   - The device I ran this against is not public, so you cannot reproduce
+>     the numbers below. The KUnit test you can.
+>=20
+> =3D=3D Testing =3D=3D
+>=20
+> Without patches 10 and 12 a receive refill livelocks and queues starve
+> each other: 29,319,791 receive softirqs in five seconds with not one
+> packet received, against 4 with them, and 2 of 7 receive queues that never
+> see a buffer, against none. Earlier revisions moved 512 MiB of O_DIRECT
+> block I/O and 2.7 GB of verified vsock through a region with no error.
+>=20
+> The KUnit test for patch 12's guarantee you can run yourself, and two of
+> its five cases fail if I take the fix out:
+>=20
+>   tools/testing/kunit/kunit.py run --arch=3Dx86_64 \
+>       --kconfig_add CONFIG_VIRTIO_MMIO=3Dy \
+>       --kconfig_add CONFIG_VIRTIO_DMB=3Dy virtio_dmb
+>=20
+> Patch 1 can be taken on its own: a stale worked example in a vdpa
+> comment. Patch 10 fixes something older than this series too, a failed
+> mapping arriving as -EIO from a packed ring, failing an I/O that on a
+> split ring is only back-pressure, but it does not apply alone: it wants
+> patch 2, and patch 9 for the file its documentation hunk edits. Both
+> carry Fixes:. Patch 12 wants 10 first.
+>=20
+> I wrote this series with an AI coding assistant, which drafted the code,
+> the changelogs and this cover letter. I reviewed and reworked all of it,
+> and every commit carries an Assisted-by: trailer.
+>=20
+> Alex
+>=20
+> Alexander Graf (12):
+>   vdpa: correct the VIRTIO_DEVICE_F_MASK example value
+>   virtio_ring: validate premapped addresses through the device's map
+>   virtio: add the VIRTIO_F_DMB feature bit
+>   virtio_pci: read the device memory buffer shared memory id
+>   virtio_pci: create virtqueues with the device's mapping token
+>   virtio: add a device memory buffer region allocator
+>   virtio: locate the device memory buffer after feature negotiation
+>   virtio_pci: support VIRTIO_F_DMB
+>   Documentation: virtio: describe the device memory buffer
+>   virtio_ring: report a bounded pool's exhaustion as -ENOSPC
+>   virtio: expose device memory buffer occupancy over debugfs
+>   virtio: guarantee a virtqueue can publish its first descriptor chain
+>=20
+>  Documentation/driver-api/virtio/index.rst     |    1 +
+>  .../driver-api/virtio/virtio-dmb.rst          |  803 ++++++++
+>  drivers/vdpa/vdpa.c                           |    2 +-
+>  drivers/virtio/Kconfig                        |   29 +
+>  drivers/virtio/Makefile                       |    3 +-
+>  drivers/virtio/virtio.c                       |   15 +-
+>  drivers/virtio/virtio_dmb.c                   | 1719 +++++++++++++++++
+>  drivers/virtio/virtio_dmb.h                   |   34 +
+>  drivers/virtio/virtio_dmb_test.c              |  279 +++
+>  drivers/virtio/virtio_pci_modern.c            |  100 +-
+>  drivers/virtio/virtio_pci_modern_dev.c        |   23 +-
+>  drivers/virtio/virtio_ring.c                  |  216 ++-
+>  include/linux/virtio.h                        |    3 +
+>  include/linux/virtio_config.h                 |   41 +
+>  include/linux/virtio_pci_modern.h             |    1 +
+>  include/uapi/linux/virtio_config.h            |   17 +-
+>  include/uapi/linux/virtio_pci.h               |   10 +
+>  17 files changed, 3254 insertions(+), 42 deletions(-)
+>  create mode 100644 Documentation/driver-api/virtio/virtio-dmb.rst
+>  create mode 100644 drivers/virtio/virtio_dmb.c
+>  create mode 100644 drivers/virtio/virtio_dmb.h
+>  create mode 100644 drivers/virtio/virtio_dmb_test.c
+>=20
+>=20
+> base-commit: fc02acf6ac0ccde0c805c2daa9148683cdd01ba8
+>=20
+
+--E1944FrHRiu7HOOY
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmp6NuUACgkQnKSrs4Gr
+c8h0ggf9EhOgsO3HluDcAxl3LjRyKeWbnNqK/dzD/aM1tcO8azZNHWFtAJ2p4lRl
+tdNT844A8krTR2ljwTsyQ0A5RDiSb1bG78G03NSmTWjTXp9o8czKuB9vppbMVcPE
+cbTditRQwpwQNt2xKLg1jkObOA5IZj7NMDSZPsDGrdWsRZN3q2zOorsyykwSGLVv
+fnfdz5V0COWy+6Y1PR0sfOpW++T5hV2YPCs0B/s99hdMkCC0j9K42jkhcMTJK5eT
+aBQTdNsanuH6DeW6YTIoikD01SLzLy1sJvvJx0Slw00aA1QsPXxEK51YkQZqSnkn
+pgJmmLt2/LwAxoWM3zZC5sUiv5kkpQ==
+=R2aw
+-----END PGP SIGNATURE-----
+
+--E1944FrHRiu7HOOY--
+
