@@ -4,65 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B81FBC5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:53:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F56EC5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:55:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC30210E74D;
-	Mon, 10 Aug 2026 08:53:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D71B010E1BD;
+	Mon, 10 Aug 2026 08:55:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="nqEdNM6S";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QWIBzfNm";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A88A10E73B
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 08:53:33 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260810085331euoutp02900721d2a8a9f0df05e824a29b7bf125~KZbCzCnrs2552025520euoutp02X
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 08:53:31 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260810085331euoutp02900721d2a8a9f0df05e824a29b7bf125~KZbCzCnrs2552025520euoutp02X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1786352011;
- bh=Jfs1r6rrM0YDkS4/IQJOpMMB4FuY2S1pjTMPpIdGReI=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=nqEdNM6SPdGN4nhZFVGKFLtV8+La49xe1qH9gz13zgRue1vKaS/oKeOn63sCyq6z4
- mbXvnCPh+OLXWauialRYNAtGFcmMGS1rPQzmtNB5zrFQ+wXFAry9xA0BU1WV8vKXoa
- ZIzyDaJuip39Q4YUT7aMdM1zaYvuWXosZLjuV9lk=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260810085331eucas1p19d5524b6b6be32222b3bc7f3e47f289d~KZbCD3aoj2027320273eucas1p1h;
- Mon, 10 Aug 2026 08:53:31 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260810085330eusmtip15b67a4f25d004e395285f9983231e854~KZbBVToZB1467214672eusmtip1Y;
- Mon, 10 Aug 2026 08:53:30 +0000 (GMT)
-Message-ID: <223e0d51-9c2a-4938-b304-5d49d5984d37@samsung.com>
-Date: Mon, 10 Aug 2026 10:53:29 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
-To: Alessio Belle <Alessio.Belle@imgtec.com>
-Cc: "lkp@intel.com" <lkp@intel.com>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Frank Binns
- <Frank.Binns@imgtec.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <1be61852213cc616eadc60941512862deddd12c7.camel@imgtec.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260810085331eucas1p19d5524b6b6be32222b3bc7f3e47f289d
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260805193726eucas1p122ba1e7c33d06a993a985637e909bd41
-X-EPHeader: CA
-X-CMS-RootMailID: 20260805193726eucas1p122ba1e7c33d06a993a985637e909bd41
-References: <CGME20260805193726eucas1p122ba1e7c33d06a993a985637e909bd41@eucas1p1.samsung.com>
- <20260805-fix_imagination-v2-1-7391a13c891f@samsung.com>
- <1be61852213cc616eadc60941512862deddd12c7.camel@imgtec.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFB610E1BD
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 08:55:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0C97B41346;
+ Mon, 10 Aug 2026 08:55:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EB121F000E9;
+ Mon, 10 Aug 2026 08:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786352146;
+ bh=plh47mpcPfUIJLelymJANfcnbveHGF9umWBdKBbdqQI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QWIBzfNm4gcLgSinzqlv101yy0Z+Snuh/GAQl+PRBzhAhEGYbs18wmSKqxRz1Z6p+
+ LoOFCwyCQaDArgcmWjNN1tQ0M67SVYpwT4tmlPd3M8RXxtSKsFs7qCrAGB37wAcgcP
+ Tu6nEI7E1NCb9lgOe0IAogbQg/UlO7C07npTOtuRvINBNsHlCnY1QJQJiBElKa5qOL
+ EfxoafzvbSU7flBXIn/ywHPjzfsk+VqQhbDGYnU5cyqEcW/fgTwIjJnuAXV9UhyzpS
+ eHrPkujv7pdPQrZY7zqX4OmSnMXRIDIqg1zReusvdL5/Jy2tODIMNFc+9+E0Q5sqf4
+ EsJNjv95sL4Ow==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/5] rust: bitmap: add contiguous area operations
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260810-chid-v4-3-c9f206fdcb97@nvidia.com>
+References: <20260810-chid-v4-0-c9f206fdcb97@nvidia.com>
+ <20260810-chid-v4-3-c9f206fdcb97@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 08:55:45 +0000
+Message-Id: <20260810085546.5EB121F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,86 +54,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The overflow check `align_mask.checked_add(self.len())?.checked_=
+add(nbits)?` incorrectly rejects valid `next_zero_area_off` queries on 32-b=
+it architectures when `self.len()` and `nbits` are large.
+- [Medium] The assertion `start < self.len()` in `next_zero_area_off` panic=
+s if `start =3D=3D self.len()`, which breaks iterators and empty bitmaps.
+--
 
+--- Patch [3]: [PATCH v4 3/5] rust: bitmap: add contiguous area operations =
+---
+commit cd8a17b1e3284bd61e474e6a67facb0e46c2ec8a
+Author: Eliot Courtney <ecourtney@nvidia.com>
 
-On 8/8/26 11:27, Alessio Belle wrote:
-> Hi Michal,
-> 
-> Did you mean to make any changes to this patch? Because apart from the stub
-> changelog, everything else seems the same as in v1.
+rust: bitmap: add contiguous area operations
 
-Hi Alessio,
+Add bindings for area operations on bitmaps. Each one is made safe by adding
+some extra checks compared to the underlying C code (for example, checking
+bounds) and with additional checks to catch likely erroneous usage if
+CONFIG_RUST_BITMAP_HARDENED is on. Tests demonstrating the edge cases are
+also included.
 
-Yes, the only intended change for v2 was expanding the commit message
-based on the feedback from v1 [1].
+> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+> index 0d481d761f2ac..a2557e9c5cfe0 100644
+> --- a/rust/kernel/bitmap.rs
+> +++ b/rust/kernel/bitmap.rs
 
-I completely missed replacing the "EDITME" template in the changelog
-section, sorry.
+[ ... ]
 
-Let me know if you'd like me to send a v3 just to clean up the changelog
-block, or if you're fine taking it as-is.
+> @@ -504,6 +504,138 @@ pub fn next_zero_bit(&self, start: usize) -> Option=
+<usize> {
+>              Some(index)
+>          }
+>      }
+> +
+> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`=
+, where the area plus
+> +    /// `align_offset` is aligned to `align`.
+> +    ///
+> +    /// Returns the bit index of the start of the area, or [`None`] if n=
+o such area fitting in
+> +    /// the bitmap exists.
+> +    ///
+> +    /// The returned index plus `align_offset` is a multiple of `align`.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is =
+out of bounds.
+> +    #[inline]
+> +    pub fn next_zero_area_off(
+> +        &self,
+> +        start: usize,
+> +        nbits: usize,
+> +        align: Alignment,
+> +        align_offset: usize,
+> +    ) -> Option<usize> {
+> +        bitmap_assert!(
+> +            start < self.len(),
 
-[1] - https://lore.kernel.org/all/09a1028b03d614ffedc49dee24eee51578fa0d96.camel@imgtec.com/
+[Severity: Medium]
+Does this assertion break iterators and empty bitmaps when
+CONFIG_RUST_BITMAP_HARDENED is enabled?
 
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+If a caller iteratively searches for zero areas (e.g., start =3D area_index=
+ +
+nbits) and the last found area ends exactly at the bitmap boundary, the next
+iteration will query with start =3D=3D self.len(). Also, querying an empty =
+bitmap
+(self.len() =3D=3D 0) with start =3D 0 would trigger this panic.
 
-> 
-> Thanks,
-> Alessio
-> 
-> On Wed, 2026-08-05 at 21:37 +0200, Michal Wilczynski wrote:
->> The build fails on RISC-V using GCC because `SIZE_CHECK(struct
->> rogue_fwif_hwrtdata, 384)` expects 384 bytes, but the compiler generates
->> a 336-byte structure.
->>
->> This is due to an alignment conflict: the inner member `cleanup_state`
->> requires 64-byte alignment, but the outer struct is explicitly marked
->> `__aligned(8)`.
->>
->> While GCC on ARM64 implicitly pads the size to a multiple of 64, GCC on
->> RISC-V strictly respects the 8-byte outer alignment, resulting in a size
->> mismatch.
->>
->> Fix this by aligning the entire structure to 64 bytes, which resolves
->> the contradiction and forces the correct 384 byte size on all
->> architectures.
->>
->> Fixes: a26f067feac1 ("drm/imagination: Add FWIF headers")
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202512131851.1WNXk3BC-lkp@intel.com/
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->> Changes in v2:
->> - EDITME: describe what is new in this series revision.
->> - EDITME: use bulletpoints and terse descriptions.
->> - Link to v1: https://lore.kernel.org/r/20251222-fix_imagination-v1-1-0ac80a2ff317@samsung.com
->> ---
->>  drivers/gpu/drm/imagination/pvr_rogue_fwif.h | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/imagination/pvr_rogue_fwif.h b/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
->> index 172886be4c820a32ae1b08d62bf0814250f2a9bd..1ba2a167a38b31911e0846923e4dc70626f5ca65 100644
->> --- a/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
->> +++ b/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
->> @@ -2170,7 +2170,7 @@ struct rogue_fwif_hwrtdata {
->>  	bool geom_caches_need_zeroing __aligned(4);
->>  
->>  	struct rogue_fwif_cleanup_ctl cleanup_state __aligned(64);
->> -} __aligned(8);
->> +} __aligned(64);
->>  
->>  /*
->>   ******************************************************************************
->>
->> ---
->> base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
->> change-id: 20251222-fix_imagination-8ef0c94122c4
->>
->> Best regards,
-> 
+The underlying C function bitmap_find_next_zero_area_off() safely processes
+start >=3D size by returning size, which the Rust code gracefully transform=
+s to
+None.
 
+Could we use start <=3D self.len() here instead, similar to how the set() a=
+nd
+clear() functions allow end <=3D self.len()?
+
+> +            "`start` must be < {}, was {}",
+> +            self.len(),
+> +            start
+> +        );
+> +
+> +        let nr =3D u32::try_from(nbits).ok()?;
+> +
+> +        // The C alignment and end arithmetic must not overflow, or it c=
+an read out of bounds.
+> +        // Overflow is only possible on 32-bit.
+> +        let align_mask =3D align.as_usize() - 1;
+> +        align_mask.checked_add(self.len())?.checked_add(nbits)?;
+
+[Severity: Medium]
+Is this overflow check overly strict for 32-bit architectures?
+
+If a caller requests a large contiguous area in a large bitmap, such as
+self.len() =3D 0x7FFFFFFF and nbits =3D 0x7FFFFFFF, the sum of align_mask +
+self.len() + nbits can exceed u32::MAX. This would cause the checked_add()
+chain to fail and incorrectly return None instead of executing the search.
+
+Since we only need to prevent the C function's end =3D index + nr calculati=
+on
+from wrapping around maliciously, and we know nbits <=3D self.len() makes n=
+r at
+most 0x7FFFFFFF, any wrap-around of index + nr on 32-bit would mathematical=
+ly
+result in an end value strictly less than index. The C code handles end < i=
+ndex
+safely by returning index, which Rust then correctly rejects since
+index < self.len() is false.
+
+Would a simpler check like "if nbits > self.len() { return None; }" be
+sufficient to prevent malicious wrap-around while preserving valid searches
+for large boundaries?
+
+> +
+> +        // SAFETY: `bitmap_find_next_zero_area_off` is safe to use with =
+an out of bounds `start`
+> +        // value and, given the overflow check above, never reads beyond=
+ `self.len()` bits.
+> +        let index =3D unsafe {
+> +            bindings::bitmap_find_next_zero_area_off(
+> +                self.as_ptr().cast_mut(),
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-chid-v4-0-=
+c9f206fdcb97@nvidia.com?part=3D3
