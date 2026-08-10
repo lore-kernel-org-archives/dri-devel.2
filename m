@@ -4,48 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16E29C5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 03:29:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 072B6C5AD55
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 03:42:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD4D010E13D;
-	Mon, 10 Aug 2026 03:29:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD0210E5F0;
+	Mon, 10 Aug 2026 03:42:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="yZsLOpa/";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="eezR/5CX";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1705D10E13D
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 03:29:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=2mXr+36gQcVouoMzQ7KrVvAve6jSBWSK45dYP1ruE3s=; b=yZsLOpa/KvV6fqnglFbg4wE62d
- JivkRFHRaWx4c8tMMJP9+EJGS7ZBhgc4s68xyOZUThN5X5gJ4qNaW0PZ5okCAd6VnnP7THswjZbqG
- kJvQQMfFlQFZ8T08UiWTIHLqWu6lJn6MZGq6EbvXQWoU5CDoKRNmmBGWD1g3lMyxCUB40SFgANEIY
- Qxg6YVY/lG40FtEb1EdTT1eXTLL48T4bShBrSXWe6/cRzm+tttAJBFtS7g804bPCBDV+7S+OxaLDP
- bOdOPURaUXpW8DtrqW8w0D1QhUuP9Dwobnedbz8zQARptC3PG2GZXv0s8m3AuSEdhyDH5GCQpkxG1
- IK3h95Yw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wtGhf-0000000AxV3-3S7w; Mon, 10 Aug 2026 03:29:31 +0000
-Message-ID: <7282ae0f-3bf5-4eb8-9585-04635de0084a@infradead.org>
-Date: Sun, 9 Aug 2026 20:29:31 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] fbdev: maxinefb: fix build issues
-To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org
-References: <20260809234810.982500-1-rdunlap@infradead.org>
- <8ce99afa-1162-4910-92a4-6cb2973ea977@oss.qualcomm.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <8ce99afa-1162-4910-92a4-6cb2973ea977@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4445410E5F0
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 03:42:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1786333308;
+ bh=Z8AUauJqA+r3pT/B0qrPy70O7l5e8ImJzUTG647LH5c=;
+ h=From:To:Subject:Date:Message-Id;
+ b=eezR/5CXrl/olfuipUMB1TrDY2J/ryA2zSnXrl92wvmknnonmk224Jep6aCnYEwuz
+ LH1tjyv2YYKOWYCAXsqNMlfNCx/9eQTLMFP2pwWQdEB4pDwikaYmbe/LYADo2YrQGF
+ eDkgsbwUdwdPMuhvWMWUn1lorIBODXeixyG2r74g=
+X-QQ-mid: esmtpgz11t1786333305t01702f6b
+X-QQ-Originating-IP: PgJMsdmQ2ZvNvkE+yrtkeVW07WCleVAPDiFefrOZEaU=
+Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Mon, 10 Aug 2026 11:41:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 3484612477660433064
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: [PATCH v3 0/3] DSI Controller improvements for Rockchip platforms
+Date: Mon, 10 Aug 2026 11:41:36 +0800
+Message-Id: <20260810034139.148-1-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: ND42uzdxTIzrFGecMR8iHevg5r7qdZi0GrkFF5q/942MN1ALdOxRn22K
+ wbd34LlALqR3saLn7pAB8iH48/EB75w2gKZ5piLBRqz3EfYbO8kDPqts3WyDaujBTFm7EF+
+ J1jPP7uL8V0icOHjMWQa2OIncBTQjGetjtK4GbslxXAo+yZNKShBt1bUjy9pqbs4cd5IKIG
+ g0zyesWYW9H41JnjPkmiFgByYyxnjMRSp1jSUmfhK9qtmiwG2ER+sAAaucDUkw6k/hUpf28
+ d0dBhA4oJzMncaUVn4DwcJAsv4qyxBTAsTrcAZlkh6RY+bMh6u1I3/kP4N04BoI4zKTsrEo
+ S5dQnBOD1HKR57sAX0OQONL6NHbLqBZmf1ChroELG6Do/n0VxDqRmID6bb57fZJmBKU/U30
+ C+wUIisKZ8Uqkos29eviAn62+lzXKirJVAJBlk2TRNW7xXIdRMecn/sjM2h19b2FxmtZz6K
+ Su5p6AmGRg9bjICioB9lZMsroDkoTBejKFndsVlZYh28TPlR10fjfZCGKasB79UwFijjLZr
+ dhSfy4Cd8S9Yg8l05uNu38NIw1iiAjK/nvZZbiiX3FaqNkMTL3n6NbNPikTLVQTIEUJ3oWF
+ ri0jS+FCuJuw8DDWCWX0cuGTpnTXcP98/FdFfilMDOvKRx04YMPOYN4On/9xcmZ397f4Ras
+ jgW/g6hvxC+QfptMbxI1x4Ftu9j6noFFjzpyPNfbl3ArypBpZ5znbOUxSm682UBybViR9Sl
+ lfi6uHZJ+RTvnlAk6eHboQaIyfpDJLhA7FTPmYfmseHEByvTE8wlJ4491CdqkopPHdyKMga
+ mwd61pUYclLuMGNyIEJ+PJSsT65I8dG8a3LMIBUCv63okvP1XsMIlqbjEecNN/JvUEdioHi
+ dfrfdpydlzqT+3jINGyPV6bOSgW3HeCZMi+yN2bpqjt1QAtjUVt9fEx3xcp3EFh+dQI+6W+
+ k2bkcLid/3iVC/9vhzKSYQpwChJON9ev5MCSFoWvf/7Do+wQ+17HEWcdW2H5S6v1NtrhqAp
+ g3mny8RKub4/vuvayn
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,153 +80,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-On 8/9/26 8:24 PM, Philippe Mathieu-Daudé wrote:
-> Hi Randy,
-> 
-> On 10/8/26 01:48, Randy Dunlap wrote:
->> This is all ancient source code from the beginning of git time.
->> Now builds cleanly on 32-bit and 64-bit MACH_DECSTATION.
->>
->> Fixes these build errors/warnings:
->>
->> ../drivers/video/fbdev/maxinefb.c:64:6: warning: no previous prototype for 'maxinefb_ims332_write_register' [-Wmissing-prototypes]
->>     64 | void maxinefb_ims332_write_register(int regno, register unsigned int val)
->>        |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>
->> In file included from ../drivers/video/fbdev/maxinefb.c:34:
->> ../drivers/video/fbdev/maxinefb.c: In function 'maxinefb_ims332_write_register':
->> ../include/video/maxinefb.h:16:41: error: implicit declaration of function 'KSEG1ADDR'; did you mean 'CKSEG1ADDR'? [-Wimplicit-function-declaration]
->>     16 | #define MAXINEFB_IMS332_ADDRESS         KSEG1ADDR(0x1c140000)
->>        |                                         ^~~~~~~~~
->> ../drivers/video/fbdev/maxinefb.c:66:49: note: in expansion of macro 'MAXINEFB_IMS332_ADDRESS'
->>     66 |         register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
->>        |                                                 ^~~~~~~~~~~~~~~~~~~~~~~
->> ../drivers/video/fbdev/maxinefb.c:66:40: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
->>     66 |         register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
->>        |                                        ^
->> ../drivers/video/fbdev/maxinefb.c: At top level:
->> ../drivers/video/fbdev/maxinefb.c:74:14: warning: no previous prototype for 'maxinefb_ims332_read_register' [-Wmissing-prototypes]
->>     74 | unsigned int maxinefb_ims332_read_register(int regno)
->>        |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> ../drivers/video/fbdev/maxinefb.c: At top level:
->> ../drivers/video/fbdev/maxinefb.c:74:21: warning: 'maxinefb_ims332_read_register' defined but not used [-Wunused-function]
->>     74 | static unsigned int maxinefb_ims332_read_register(int regno)
->>        |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> ../drivers/video/fbdev/maxinefb.c: In function 'maxinefb_ims332_read_register':
->> ../drivers/video/fbdev/maxinefb.c:76:40: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
->>     76 |         register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
->>        |                                        ^
->> ../drivers/video/fbdev/maxinefb.c: At top level:
->> ../drivers/video/fbdev/maxinefb.c:114:12: warning: no previous prototype for 'maxinefb_init' [-Wmissing-prototypes]
->>    114 | int __init maxinefb_init(void)
->>        |            ^~~~~~~~~~~~~
->> In file included from ../drivers/video/fbdev/maxinefb.c:34:
->> ../drivers/video/fbdev/maxinefb.c: In function 'maxinefb_init':
->> ../include/video/maxinefb.h:22:41: error: implicit declaration of function 'KSEG1ADDR'; did you mean 'CKSEG1ADDR'? [-Wimplicit-function-declaration]
->>     22 | #define DS5000_xx_ONBOARD_FBMEM_START   KSEG1ADDR(0x0a000000)
->>        |                                         ^~~~~~~~~
->> ../drivers/video/fbdev/maxinefb.c:119:20: note: in expansion of macro 'DS5000_xx_ONBOARD_FBMEM_START'
->>    119 |         fb_start = DS5000_xx_ONBOARD_FBMEM_START;
->>        |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>
->> Suggested-by: "Maciej W. Rozycki" <macro@orcam.me.uk> # for s/KSEG1ADDR/CKSEG1ADDR/
->> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
->> ---
->> Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>
->> Cc: Helge Deller <deller@gmx.de>
->> Cc: linux-fbdev@vger.kernel.org
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
->> Cc: linux-mips@vger.kernel.org
->>
->>   drivers/video/fbdev/maxinefb.c |   17 ++---------------
->>   include/video/maxinefb.h       |    4 ++--
->>   2 files changed, 4 insertions(+), 17 deletions(-)
->>
->> --- linux-next-20260807.orig/drivers/video/fbdev/maxinefb.c
->> +++ linux-next-20260807/drivers/video/fbdev/maxinefb.c
->> @@ -61,7 +61,7 @@ static struct fb_fix_screeninfo maxinefb
->>     /* Handle the funny Inmos RamDAC/video controller ... */
->>   -void maxinefb_ims332_write_register(int regno, register unsigned int val)
->> +static void maxinefb_ims332_write_register(int regno, register unsigned int val)
->>   {
->>       register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
->>       unsigned char *wptr;
->> @@ -71,19 +71,6 @@ void maxinefb_ims332_write_register(int
->>       *((volatile unsigned short *) (wptr)) = val;
->>   }
->>   -unsigned int maxinefb_ims332_read_register(int regno)
->> -{
->> -    register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
->> -    unsigned char *rptr;
->> -    register unsigned int j, k;
->> -
->> -    rptr = regs + 0x80000 + (regno << 4);
->> -    j = *((volatile unsigned short *) rptr);
->> -    k = *((volatile unsigned short *) regs);
->> -
->> -    return (j & 0xffff) | ((k & 0xff00) << 8);
->> -}
->> -
->>   /* Set the palette */
->>   static int maxinefb_setcolreg(unsigned regno, unsigned red, unsigned green,
->>                     unsigned blue, unsigned transp, struct fb_info *info)
->> @@ -111,7 +98,7 @@ static const struct fb_ops maxinefb_ops
->>       .fb_setcolreg    = maxinefb_setcolreg,
->>   };
->>   -int __init maxinefb_init(void)
->> +static int __init maxinefb_init(void)
->>   {
->>       unsigned long fboff;
->>       unsigned long fb_start;
->> --- linux-next-20260807.orig/include/video/maxinefb.h
->> +++ linux-next-20260807/include/video/maxinefb.h
->> @@ -13,13 +13,13 @@
->>   /*
->>    * IMS332 video controller register base address
->>    */
->> -#define MAXINEFB_IMS332_ADDRESS        KSEG1ADDR(0x1c140000)
->> +#define MAXINEFB_IMS332_ADDRESS        CKSEG1ADDR(0x1c140000)
->>     /*
->>    * Begin of DECstation 5000/xx onboard framebuffer memory, default resolution
->>    * is 1024x768x8
->>    */
->> -#define DS5000_xx_ONBOARD_FBMEM_START    KSEG1ADDR(0x0a000000)
->> +#define DS5000_xx_ONBOARD_FBMEM_START    CKSEG1ADDR(0x0a000000)
-> 
-> The change looks correct, but clearly this has never been tested
-> on a 64-bit DECstation, so I'm not sure having this code being
-> now built is an improvement.
-> 
-> What about:
-> 
-> -- >8 --
-> diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
-> index ac9ac4287c6a..ff17afe6b8b3 100644
-> --- a/drivers/video/fbdev/Kconfig
-> +++ b/drivers/video/fbdev/Kconfig
-> @@ -1436,7 +1436,7 @@ config FB_PMAGB_B
-> 
->  config FB_MAXINE
->         bool "Maxine (Personal DECstation) onboard framebuffer support"
-> -       depends on (FB = y) && MACH_DECSTATION
-> +       depends on (FB = y) && MACH_DECSTATION && 32BIT
->         select FB_IOMEM_HELPERS
->         help
->           Support for the onboard framebuffer (1024x768x8) in the Personal
-> ---
-> 
-> ?
+This series is dedicated to enhancing the DSI controller and PHY timing
+interaction, refining the lane rate calculation, and addressing the
+associated hardware limitations.
 
-I guess I'm OK with that. I'm even OK with removing the driver completely.
+Changes in v3:
+- Link to v2: https://lore.kernel.org/all/20260603033532.164-1-kernel@airkyi.com/
+- Rebase to Linux v7.2
 
-Maciej did say in https://lore.kernel.org/all/alpine.DEB.2.21.2308152255080.8596@angie.orcam.me.uk/
-that: "the proper way would be by using `ioremap' really.  I'll make a patch."
-[That was 15.Aug.2023.]
+Changes in v2:
+- Link to v1: https://lore.kernel.org/all/20260324085838.90-1-kernel@airkyi.com/
+- Fix the unit conversion for max_mbps.
+- Split the lane rate calculation into a separate patch.
+- Add more comment about timing config.
 
+Chaoyi Chen (3):
+  drm/rockchip: dsi: Add maximum per lane bit rate calculation
+  drm/rockchip: dsi: Add dphy_get_timing support for multiple PHY types
+  drm/rockchip: dsi: Relax the lane rate margin requirements
 
--- 
-~Randy
+ .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   | 66 +++++++++++++++++--
+ 1 file changed, 60 insertions(+), 6 deletions(-)
+
+--
+2.53.0
 
