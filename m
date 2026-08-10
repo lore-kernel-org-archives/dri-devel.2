@@ -4,87 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC643C5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FE17C5AD7B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD5B10E725;
-	Mon, 10 Aug 2026 08:36:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89B3D10E736;
+	Mon, 10 Aug 2026 08:36:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="gB9QpieR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WG9vfruA";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD85C10E727;
- Mon, 10 Aug 2026 08:36:05 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67A6wG881815409; Mon, 10 Aug 2026 09:35:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=X
- LMSxbg8czHaqnTrR1cYdU3gpk1Yq3PXzK+0+3gsL7Q=; b=gB9QpieRcRoz/DmZ+
- v4fRDA6n81HLzwPjzeQgErhT9On0Bm5/JkMMidImVWUqcHC0EhPN4tPKlGh54Znx
- vj1geJQBuKdgbTEPOo+E2H6XHHUzdagVmDzZKTRIIVT9HHJugzrzOD3ic8a0xTyG
- ihwyRccEnOWMBq1aYlvKV84s6PUsu8cA9Ga3N0ElZ9kmMmqqA+2V7nM+k+KWyjZB
- WCYDrWzZBdnHQLMubV/RC9ayTX1UwPHTvBVe+XKOczhBCu5D68F3S1ct2T4xc8BT
- ZzYms0E09YVTorFbueOGUEmku4wGhuRPynlGk18g9mrnkZqK3O/wquc7yCXbDLQ0
- 7Ff2w==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4fwtqqhb3g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Aug 2026 09:35:47 +0100 (BST)
-Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
- 2026 09:35:45 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Mon, 10 Aug 2026 11:35:19 +0300
-Subject: [PATCH v2 1/2] drm/imagination: Unify repeated register defines
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260810-b4-unify-repeated-reg-defs-and-move-fwcore-macros-v2-1-991ae813fd88@imgtec.com>
-References: <20260810-b4-unify-repeated-reg-defs-and-move-fwcore-macros-v2-0-991ae813fd88@imgtec.com>
-In-Reply-To: <20260810-b4-unify-repeated-reg-defs-and-move-fwcore-macros-v2-0-991ae813fd88@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE05110E729;
+ Mon, 10 Aug 2026 08:36:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4AE1E40BE7;
+ Mon, 10 Aug 2026 08:36:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7FC1F00A3D;
+ Mon, 10 Aug 2026 08:36:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786351015;
+ bh=JV5WNgHkpKWzZzTADt5HV8WfufvTRE1W/LdtA3ppIU0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=WG9vfruAdcqV26E8riIECGmFnBJZd5QFGEF/vLwr28j8gC4/i7xF0ppv5LbXGsZXX
+ JxNn+AK3ID5hxM+oY6+3ga/4g5kSAUZ3bpLvKsQ3jdW2iUMHhzYR8K+qeLV3wBd+SH
+ VfMjlXUAPInIsYgKwkG0faj9NQPkTn8mbqTh93b2RkQ6vc61GikkngdVPvCYS8u1v3
+ Bbmd+K6Qvi9MyaqQYp3ipshXdNTBrXxLxAhKWBNy+rqBS761NXJu8HVp2apMLGHoSi
+ TNqEO7IDleHDyLVMiyzHc0N4UA6L3SFYnW+RHipKKKGb19601kNwdtCQOjQmzQOcPt
+ EgpNCWtEiomWw==
+Date: Mon, 10 Aug 2026 09:36:21 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Paul Walmsley <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>,
- Matt Coster <opensource@mtcoster.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786350943; l=63294;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=p/saWlnfLQr2M7IP3im644iNj9L+BcLZJqLk22RZhiw=;
- b=B7bbg46X9FESWOiwt9dXWG33yCBpJwG3eXM/LqKQ5Y7ZODdhpcfumGbASRDx6IySAZF3121NN
- Pxoc5lvtr81D0NsG4D3rdGVGZSu/R2hoz+GptW+PoIgCBvWFmVmi/nl
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Originating-IP: [172.25.10.25]
-X-Proofpoint-GUID: rlLJTe6fWlCVp26U5vH9Qp7v1CAg3Q2-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDA3MyBTYWx0ZWRfXz9mBwedy6IQu
- 2BYd/ffb3CcmURiyyOlQx906rW+F2VZT1sAKEHlRJlYYTwCFFQBI3ULrbAA1oCfKL0eeR6iH4R7
- 9IDtyfGi6+D9IM7VU570ZONPj/s5+MCsxyDuTgMtTJOt4eXakAGSVbEQ9Kel80UgmAjSsD2j0oZ
- C78dzEyggZCG/1A2gGH0rK42jpDIh3IeC0rr4mKCb8nm1wBjzXrBvm8vE5dFevp0jj0wLS20ZUe
- Kb14xgJnn5l/1OKDM/SU3WC12YPl1Z1sN4QyBrVFYnvy8qyaY7ZcYWw9RzqnOg0jIfjkP5aCR3o
- V/uWpQZDEltsSGHF63M/ydQ3YOa3nEqpWhCvKY+Hd/jaC8ZBZr7CMKZ+s+YWDRZXyfVdOWA993m
- 9dK33tLmNKc2jY78Kosj8TRjCOrO/IFMqYJWMxHIGpqVgiNBIz+pvxKe+OcAdBCFHvD04sn0fa8
- a0d+Q9lK2oDJK5NnyIA==
-X-Authority-Analysis: v=2.4 cv=fsTsol4f c=1 sm=1 tr=0 ts=6a798d63 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=tznSPeGP1RyTJcOsZ9MA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: rlLJTe6fWlCVp26U5vH9Qp7v1CAg3Q2-
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDA3MyBTYWx0ZWRfX4YuuqUmyL554
- T3+mK8ERL/yr7axJJ/5fEdBweY0OkrFUps+F8mO6dfs/dSfy5YKwzxKXqcPuN/t/G+LQ6lXCqwK
- S++yujbzA28sfFINX/iiQIqWokP/9LM=
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/20] mm/vma: introduce VMA anon page offset field
+ and add helpers
+Message-ID: <anmLnvWAyIJwjsXj@lucifer>
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-1-ab318a350404@kernel.org>
+ <CAJuCfpFAA1H2pOi6EOarNtrdzLQDJyhm6QOGsfZ4SFTuM5eiLQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpFAA1H2pOi6EOarNtrdzLQDJyhm6QOGsfZ4SFTuM5eiLQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,1155 +118,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Matt Coster <matt.coster@imgtec.com>
+On Sat, Aug 08, 2026 at 05:51:10PM -0700, Suren Baghdasaryan wrote:
+> On Thu, Aug 6, 2026 at 1:22 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index 87feaa5a2b78..df78847f5f07 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -4393,6 +4393,65 @@ static inline pgoff_t vma_last_pgoff(const struct vm_area_struct *vma)
+> >         return vma_end_pgoff(vma) - 1;
+> >  }
+> >
+> > +/**
+> > + * vma_start_anon_pgoff() - Get the anonymous page offset of the start of @vma
+> > + * @vma: The VMA whose anonymous page offset is required.
+> > + *
+> > + * If unfaulted, then this is vma->vm_start >> PAGE_SHIFT, if faulted then the
+> > + * anonymous page offset at the time of first fault.
+> > + *
+> > + * If the VMA is anonymous, this returns the same value as vma_start_pgoff().
+> > + *
+> > + * This value is used for tracking MAP_PRIVATE file-backed mappings by their
+> > + * anonymous page offset.
+>
+> I assume this function should not be used with shared file-backed
+> mappings, right? If so, maybe add a comment like the one you have for
+> linear_anon_page_index(): "It is not valid to call this function for
+> shared file-backed mappings."?
 
-Some register definitions are annotated as "Register group: X, with N
-repeats". The only difference between all the N copies of those definitions
-is the register addresses which can be unified into a BASE/OFFSET pair.
+No that's not the case, it is valid to access this for any VMA though it's only
+meaningful for MAP_PRIVATE and anonymous VMAs (though in the latter case pgoff
+== anon pgoff).
 
-Typical usage patterns of these repeated registers do not involve
-hardcoding individual instances, so using any specific defines is
-semantically incorrect.
+The code keeps the anon pgoff values consistent even for shared mappings because
+- hey - we have the field anyway and it's easiest and safest to just keep it the
+same.
 
-Signed-off-by: Matt Coster <matt.coster@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_fw_riscv.c      |  27 +-
- drivers/gpu/drm/imagination/pvr_fw_startstop.c  |  24 +-
- drivers/gpu/drm/imagination/pvr_rogue_cr_defs.h | 918 +++---------------------
- drivers/gpu/drm/imagination/pvr_rogue_defs.h    |  23 +-
- drivers/gpu/drm/imagination/pvr_rogue_riscv.h   |   2 -
- 5 files changed, 157 insertions(+), 837 deletions(-)
+One alternative would be to have code that checks the flags and zeroes the field
+otherwise , but then you have problems like - early on initialisation now
+there's an ordering requirement which can easily go wrong.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-index fc13d483be9a..d2bd263aa25f 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-@@ -23,27 +23,32 @@ static int
- pvr_riscv_wrapper_init(struct pvr_device *pvr_dev)
- {
- 	const u64 common_opts =
--		((u64)(ROGUE_FW_HEAP_RISCV_SIZE >> FWCORE_ADDR_REMAP_CONFIG0_SIZE_ALIGNSHIFT)
--		 << ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_SIZE_SHIFT) |
-+		((u64)(ROGUE_FW_HEAP_RISCV_SIZE >> FWCORE_ADDR_REMAP_CONFIGx_SIZE_ALIGNSHIFT)
-+		 << ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_SIZE_SHIFT) |
- 		((u64)MMU_CONTEXT_MAPPING_FWPRIV
--		 << FWCORE_ADDR_REMAP_CONFIG0_MMU_CONTEXT_SHIFT);
-+		 << FWCORE_ADDR_REMAP_CONFIGx_MMU_CONTEXT_SHIFT);
- 
- 	u64 code_addr = pvr_fw_obj_get_gpu_addr(pvr_dev->fw_dev.mem.code_obj);
- 	u64 data_addr = pvr_fw_obj_get_gpu_addr(pvr_dev->fw_dev.mem.data_obj);
- 
- 	/* This condition allows us to OR the addresses into the register directly. */
--	static_assert(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_DEVVADDR_SHIFT ==
--		      ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_DEVVADDR_ALIGNSHIFT);
-+	static_assert(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_SHIFT ==
-+		      ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_ALIGNSHIFT);
- 
--	WARN_ON(code_addr & ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_DEVVADDR_CLRMSK);
--	WARN_ON(data_addr & ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_DEVVADDR_CLRMSK);
-+	WARN_ON(code_addr & ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_CLRMSK);
-+	WARN_ON(data_addr & ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_CLRMSK);
- 
--	pvr_cr_write64(pvr_dev, ROGUE_RISCVFW_REGION_REMAP_CR(BOOTLDR_CODE),
--		       code_addr | common_opts | ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_FETCH_EN_EN);
-+	pvr_cr_write64(pvr_dev,
-+		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
-+				       ROGUE_RISCV_REGION_BOOTLDR_CODE),
-+		       code_addr | common_opts |
-+		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_FETCH_EN_EN);
- 
--	pvr_cr_write64(pvr_dev, ROGUE_RISCVFW_REGION_REMAP_CR(BOOTLDR_DATA),
-+	pvr_cr_write64(pvr_dev,
-+		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
-+				       ROGUE_RISCV_REGION_BOOTLDR_DATA),
- 		       data_addr | common_opts |
--			       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_LOAD_STORE_EN_EN);
-+		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_LOAD_STORE_EN_EN);
- 
- 	/* Garten IDLE bit controlled by RISC-V. */
- 	pvr_cr_write64(pvr_dev, ROGUE_CR_MTS_GARTEN_WRAPPER_CONFIG,
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_startstop.c b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-index e24ed6fc4362..98ca2692239d 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-@@ -43,19 +43,25 @@ rogue_bif_init(struct pvr_device *pvr_dev)
- 	pc_dma_addr = pvr_vm_get_page_table_root_addr(pvr_dev->kernel_vm_ctx);
- 
- 	/* Write the kernel catalogue base. */
--	pc_addr = ((((u64)pc_dma_addr >> ROGUE_CR_BIF_CAT_BASE0_ADDR_ALIGNSHIFT)
--		    << ROGUE_CR_BIF_CAT_BASE0_ADDR_SHIFT) &
--		   ~ROGUE_CR_BIF_CAT_BASE0_ADDR_CLRMSK);
-+	pc_addr = ((((u64)pc_dma_addr >> ROGUE_CR_BIF_CAT_BASEx_ADDR_ALIGNSHIFT)
-+		    << ROGUE_CR_BIF_CAT_BASEx_ADDR_SHIFT) &
-+		   ~ROGUE_CR_BIF_CAT_BASEx_ADDR_CLRMSK);
- 
--	pvr_cr_write64(pvr_dev, BIF_CAT_BASEX(MMU_CONTEXT_MAPPING_FWPRIV),
-+	pvr_cr_write64(pvr_dev,
-+		       PVR_CR_REPEAT_X(ROGUE_CR_BIF_CAT_BASE,
-+				       MMU_CONTEXT_MAPPING_FWPRIV),
- 		       pc_addr);
- 
- 	if (pvr_dev->fw_dev.processor_type == PVR_FW_PROCESSOR_TYPE_RISCV) {
--		pc_addr = (((u64)pc_dma_addr >> ROGUE_CR_FWCORE_MEM_CAT_BASE0_ADDR_ALIGNSHIFT)
--			   << ROGUE_CR_FWCORE_MEM_CAT_BASE0_ADDR_SHIFT) &
--			  ~ROGUE_CR_FWCORE_MEM_CAT_BASE0_ADDR_CLRMSK;
--
--		pvr_cr_write64(pvr_dev, FWCORE_MEM_CAT_BASEX(MMU_CONTEXT_MAPPING_FWPRIV), pc_addr);
-+		pc_addr = (((u64)pc_dma_addr
-+			    >> ROGUE_CR_FWCORE_MEM_CAT_BASEx_ADDR_ALIGNSHIFT)
-+			   << ROGUE_CR_FWCORE_MEM_CAT_BASEx_ADDR_SHIFT) &
-+			  ~ROGUE_CR_FWCORE_MEM_CAT_BASEx_ADDR_CLRMSK;
-+
-+		pvr_cr_write64(pvr_dev,
-+			       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_MEM_CAT_BASE,
-+					       MMU_CONTEXT_MAPPING_FWPRIV),
-+			       pc_addr);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_cr_defs.h b/drivers/gpu/drm/imagination/pvr_rogue_cr_defs.h
-index 790c97f80a2a..5fbb1ffd0eb9 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_cr_defs.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_cr_defs.h
-@@ -2344,101 +2344,48 @@
- #define ROGUE_CR_ISP_STATUS_EOR_EN 0x00000001U
- 
- /* Register group: ROGUE_CR_ISP_XTP_RESUME, with 64 repeats */
--#define ROGUE_CR_ISP_XTP_RESUME_REPEATCOUNT 64U
--/* Register ROGUE_CR_ISP_XTP_RESUME0 */
--#define ROGUE_CR_ISP_XTP_RESUME0 0x3A00U
--#define ROGUE_CR_ISP_XTP_RESUME0_MASKFULL 0x00000000003FF3FFULL
--#define ROGUE_CR_ISP_XTP_RESUME0_TILE_X_SHIFT 12U
--#define ROGUE_CR_ISP_XTP_RESUME0_TILE_X_CLRMSK 0xFFC00FFFU
--#define ROGUE_CR_ISP_XTP_RESUME0_TILE_Y_SHIFT 0U
--#define ROGUE_CR_ISP_XTP_RESUME0_TILE_Y_CLRMSK 0xFFFFFC00U
-+#define ROGUE_CR_ISP_XTP_RESUME_REPEAT_COUNT 64U
-+#define ROGUE_CR_ISP_XTP_RESUME_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_ISP_XTP_RESUME_REPEAT_BASE 0x3A00U
-+/* Register ROGUE_CR_ISP_XTP_RESUMEx */
-+#define ROGUE_CR_ISP_XTP_RESUMEx_MASKFULL 0x00000000003FF3FFULL
-+#define ROGUE_CR_ISP_XTP_RESUMEx_TILE_X_SHIFT 12U
-+#define ROGUE_CR_ISP_XTP_RESUMEx_TILE_X_CLRMSK 0xFFC00FFFU
-+#define ROGUE_CR_ISP_XTP_RESUMEx_TILE_Y_SHIFT 0U
-+#define ROGUE_CR_ISP_XTP_RESUMEx_TILE_Y_CLRMSK 0xFFFFFC00U
- 
- /* Register group: ROGUE_CR_ISP_XTP_STORE, with 32 repeats */
--#define ROGUE_CR_ISP_XTP_STORE_REPEATCOUNT 32U
--/* Register ROGUE_CR_ISP_XTP_STORE0 */
--#define ROGUE_CR_ISP_XTP_STORE0 0x3C00U
--#define ROGUE_CR_ISP_XTP_STORE0_MASKFULL 0x000000007F3FF3FFULL
--#define ROGUE_CR_ISP_XTP_STORE0_ACTIVE_SHIFT 30U
--#define ROGUE_CR_ISP_XTP_STORE0_ACTIVE_CLRMSK 0xBFFFFFFFU
--#define ROGUE_CR_ISP_XTP_STORE0_ACTIVE_EN 0x40000000U
--#define ROGUE_CR_ISP_XTP_STORE0_EOR_SHIFT 29U
--#define ROGUE_CR_ISP_XTP_STORE0_EOR_CLRMSK 0xDFFFFFFFU
--#define ROGUE_CR_ISP_XTP_STORE0_EOR_EN 0x20000000U
--#define ROGUE_CR_ISP_XTP_STORE0_TILE_LAST_SHIFT 28U
--#define ROGUE_CR_ISP_XTP_STORE0_TILE_LAST_CLRMSK 0xEFFFFFFFU
--#define ROGUE_CR_ISP_XTP_STORE0_TILE_LAST_EN 0x10000000U
--#define ROGUE_CR_ISP_XTP_STORE0_MT_SHIFT 24U
--#define ROGUE_CR_ISP_XTP_STORE0_MT_CLRMSK 0xF0FFFFFFU
--#define ROGUE_CR_ISP_XTP_STORE0_TILE_X_SHIFT 12U
--#define ROGUE_CR_ISP_XTP_STORE0_TILE_X_CLRMSK 0xFFC00FFFU
--#define ROGUE_CR_ISP_XTP_STORE0_TILE_Y_SHIFT 0U
--#define ROGUE_CR_ISP_XTP_STORE0_TILE_Y_CLRMSK 0xFFFFFC00U
-+#define ROGUE_CR_ISP_XTP_STORE_REPEAT_COUNT 32U
-+#define ROGUE_CR_ISP_XTP_STORE_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_ISP_XTP_STORE_REPEAT_BASE 0x3C00U
-+/* Register ROGUE_CR_ISP_XTP_STOREx */
-+#define ROGUE_CR_ISP_XTP_STOREx_MASKFULL 0x000000007F3FF3FFULL
-+#define ROGUE_CR_ISP_XTP_STOREx_ACTIVE_SHIFT 30U
-+#define ROGUE_CR_ISP_XTP_STOREx_ACTIVE_CLRMSK 0xBFFFFFFFU
-+#define ROGUE_CR_ISP_XTP_STOREx_ACTIVE_EN 0x40000000U
-+#define ROGUE_CR_ISP_XTP_STOREx_EOR_SHIFT 29U
-+#define ROGUE_CR_ISP_XTP_STOREx_EOR_CLRMSK 0xDFFFFFFFU
-+#define ROGUE_CR_ISP_XTP_STOREx_EOR_EN 0x20000000U
-+#define ROGUE_CR_ISP_XTP_STOREx_TILE_LAST_SHIFT 28U
-+#define ROGUE_CR_ISP_XTP_STOREx_TILE_LAST_CLRMSK 0xEFFFFFFFU
-+#define ROGUE_CR_ISP_XTP_STOREx_TILE_LAST_EN 0x10000000U
-+#define ROGUE_CR_ISP_XTP_STOREx_MT_SHIFT 24U
-+#define ROGUE_CR_ISP_XTP_STOREx_MT_CLRMSK 0xF0FFFFFFU
-+#define ROGUE_CR_ISP_XTP_STOREx_TILE_X_SHIFT 12U
-+#define ROGUE_CR_ISP_XTP_STOREx_TILE_X_CLRMSK 0xFFC00FFFU
-+#define ROGUE_CR_ISP_XTP_STOREx_TILE_Y_SHIFT 0U
-+#define ROGUE_CR_ISP_XTP_STOREx_TILE_Y_CLRMSK 0xFFFFFC00U
- 
- /* Register group: ROGUE_CR_BIF_CAT_BASE, with 8 repeats */
--#define ROGUE_CR_BIF_CAT_BASE_REPEATCOUNT 8U
--/* Register ROGUE_CR_BIF_CAT_BASE0 */
--#define ROGUE_CR_BIF_CAT_BASE0 0x1200U
--#define ROGUE_CR_BIF_CAT_BASE0_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_BIF_CAT_BASE0_ADDR_SHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE0_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_BIF_CAT_BASE0_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE0_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_CAT_BASE1 */
--#define ROGUE_CR_BIF_CAT_BASE1 0x1208U
--#define ROGUE_CR_BIF_CAT_BASE1_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_BIF_CAT_BASE1_ADDR_SHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE1_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_BIF_CAT_BASE1_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE1_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_CAT_BASE2 */
--#define ROGUE_CR_BIF_CAT_BASE2 0x1210U
--#define ROGUE_CR_BIF_CAT_BASE2_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_BIF_CAT_BASE2_ADDR_SHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE2_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_BIF_CAT_BASE2_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE2_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_CAT_BASE3 */
--#define ROGUE_CR_BIF_CAT_BASE3 0x1218U
--#define ROGUE_CR_BIF_CAT_BASE3_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_BIF_CAT_BASE3_ADDR_SHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE3_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_BIF_CAT_BASE3_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE3_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_CAT_BASE4 */
--#define ROGUE_CR_BIF_CAT_BASE4 0x1220U
--#define ROGUE_CR_BIF_CAT_BASE4_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_BIF_CAT_BASE4_ADDR_SHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE4_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_BIF_CAT_BASE4_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE4_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_CAT_BASE5 */
--#define ROGUE_CR_BIF_CAT_BASE5 0x1228U
--#define ROGUE_CR_BIF_CAT_BASE5_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_BIF_CAT_BASE5_ADDR_SHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE5_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_BIF_CAT_BASE5_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE5_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_CAT_BASE6 */
--#define ROGUE_CR_BIF_CAT_BASE6 0x1230U
--#define ROGUE_CR_BIF_CAT_BASE6_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_BIF_CAT_BASE6_ADDR_SHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE6_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_BIF_CAT_BASE6_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE6_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_CAT_BASE7 */
--#define ROGUE_CR_BIF_CAT_BASE7 0x1238U
--#define ROGUE_CR_BIF_CAT_BASE7_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_BIF_CAT_BASE7_ADDR_SHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE7_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_BIF_CAT_BASE7_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_CAT_BASE7_ADDR_ALIGNSIZE 4096U
-+#define ROGUE_CR_BIF_CAT_BASE_REPEAT_COUNT 8U
-+#define ROGUE_CR_BIF_CAT_BASE_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_BIF_CAT_BASE_REPEAT_BASE 0x1200U
-+/* Register ROGUE_CR_BIF_CAT_BASEx */
-+#define ROGUE_CR_BIF_CAT_BASEx_MASKFULL 0x000000FFFFFFF000ULL
-+#define ROGUE_CR_BIF_CAT_BASEx_ADDR_SHIFT 12U
-+#define ROGUE_CR_BIF_CAT_BASEx_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
-+#define ROGUE_CR_BIF_CAT_BASEx_ADDR_ALIGNSHIFT 12U
-+#define ROGUE_CR_BIF_CAT_BASEx_ADDR_ALIGNSIZE 4096U
- 
- /* Register ROGUE_CR_BIF_CAT_BASE_INDEX */
- #define ROGUE_CR_BIF_CAT_BASE_INDEX 0x1240U
-@@ -2715,142 +2662,24 @@
- #define ROGUE_CR_BIF_MMU_STATUS_BUSY_EN 0x00000001U
- 
- /* Register group: ROGUE_CR_BIF_TILING_CFG, with 8 repeats */
--#define ROGUE_CR_BIF_TILING_CFG_REPEATCOUNT 8U
--/* Register ROGUE_CR_BIF_TILING_CFG0 */
--#define ROGUE_CR_BIF_TILING_CFG0 0x12D8U
--#define ROGUE_CR_BIF_TILING_CFG0_MASKFULL 0xFFFFFFFF0FFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG0_XSTRIDE_SHIFT 61U
--#define ROGUE_CR_BIF_TILING_CFG0_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG0_ENABLE_SHIFT 60U
--#define ROGUE_CR_BIF_TILING_CFG0_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG0_ENABLE_EN 0x1000000000000000ULL
--#define ROGUE_CR_BIF_TILING_CFG0_MAX_ADDRESS_SHIFT 32U
--#define ROGUE_CR_BIF_TILING_CFG0_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG0_MAX_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG0_MAX_ADDRESS_ALIGNSIZE 4096U
--#define ROGUE_CR_BIF_TILING_CFG0_MIN_ADDRESS_SHIFT 0U
--#define ROGUE_CR_BIF_TILING_CFG0_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
--#define ROGUE_CR_BIF_TILING_CFG0_MIN_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG0_MIN_ADDRESS_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_TILING_CFG1 */
--#define ROGUE_CR_BIF_TILING_CFG1 0x12E0U
--#define ROGUE_CR_BIF_TILING_CFG1_MASKFULL 0xFFFFFFFF0FFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG1_XSTRIDE_SHIFT 61U
--#define ROGUE_CR_BIF_TILING_CFG1_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG1_ENABLE_SHIFT 60U
--#define ROGUE_CR_BIF_TILING_CFG1_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG1_ENABLE_EN 0x1000000000000000ULL
--#define ROGUE_CR_BIF_TILING_CFG1_MAX_ADDRESS_SHIFT 32U
--#define ROGUE_CR_BIF_TILING_CFG1_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG1_MAX_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG1_MAX_ADDRESS_ALIGNSIZE 4096U
--#define ROGUE_CR_BIF_TILING_CFG1_MIN_ADDRESS_SHIFT 0U
--#define ROGUE_CR_BIF_TILING_CFG1_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
--#define ROGUE_CR_BIF_TILING_CFG1_MIN_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG1_MIN_ADDRESS_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_TILING_CFG2 */
--#define ROGUE_CR_BIF_TILING_CFG2 0x12E8U
--#define ROGUE_CR_BIF_TILING_CFG2_MASKFULL 0xFFFFFFFF0FFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG2_XSTRIDE_SHIFT 61U
--#define ROGUE_CR_BIF_TILING_CFG2_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG2_ENABLE_SHIFT 60U
--#define ROGUE_CR_BIF_TILING_CFG2_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG2_ENABLE_EN 0x1000000000000000ULL
--#define ROGUE_CR_BIF_TILING_CFG2_MAX_ADDRESS_SHIFT 32U
--#define ROGUE_CR_BIF_TILING_CFG2_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG2_MAX_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG2_MAX_ADDRESS_ALIGNSIZE 4096U
--#define ROGUE_CR_BIF_TILING_CFG2_MIN_ADDRESS_SHIFT 0U
--#define ROGUE_CR_BIF_TILING_CFG2_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
--#define ROGUE_CR_BIF_TILING_CFG2_MIN_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG2_MIN_ADDRESS_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_TILING_CFG3 */
--#define ROGUE_CR_BIF_TILING_CFG3 0x12F0U
--#define ROGUE_CR_BIF_TILING_CFG3_MASKFULL 0xFFFFFFFF0FFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG3_XSTRIDE_SHIFT 61U
--#define ROGUE_CR_BIF_TILING_CFG3_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG3_ENABLE_SHIFT 60U
--#define ROGUE_CR_BIF_TILING_CFG3_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG3_ENABLE_EN 0x1000000000000000ULL
--#define ROGUE_CR_BIF_TILING_CFG3_MAX_ADDRESS_SHIFT 32U
--#define ROGUE_CR_BIF_TILING_CFG3_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG3_MAX_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG3_MAX_ADDRESS_ALIGNSIZE 4096U
--#define ROGUE_CR_BIF_TILING_CFG3_MIN_ADDRESS_SHIFT 0U
--#define ROGUE_CR_BIF_TILING_CFG3_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
--#define ROGUE_CR_BIF_TILING_CFG3_MIN_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG3_MIN_ADDRESS_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_TILING_CFG4 */
--#define ROGUE_CR_BIF_TILING_CFG4 0x12F8U
--#define ROGUE_CR_BIF_TILING_CFG4_MASKFULL 0xFFFFFFFF0FFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG4_XSTRIDE_SHIFT 61U
--#define ROGUE_CR_BIF_TILING_CFG4_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG4_ENABLE_SHIFT 60U
--#define ROGUE_CR_BIF_TILING_CFG4_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG4_ENABLE_EN 0x1000000000000000ULL
--#define ROGUE_CR_BIF_TILING_CFG4_MAX_ADDRESS_SHIFT 32U
--#define ROGUE_CR_BIF_TILING_CFG4_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG4_MAX_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG4_MAX_ADDRESS_ALIGNSIZE 4096U
--#define ROGUE_CR_BIF_TILING_CFG4_MIN_ADDRESS_SHIFT 0U
--#define ROGUE_CR_BIF_TILING_CFG4_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
--#define ROGUE_CR_BIF_TILING_CFG4_MIN_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG4_MIN_ADDRESS_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_TILING_CFG5 */
--#define ROGUE_CR_BIF_TILING_CFG5 0x1300U
--#define ROGUE_CR_BIF_TILING_CFG5_MASKFULL 0xFFFFFFFF0FFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG5_XSTRIDE_SHIFT 61U
--#define ROGUE_CR_BIF_TILING_CFG5_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG5_ENABLE_SHIFT 60U
--#define ROGUE_CR_BIF_TILING_CFG5_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG5_ENABLE_EN 0x1000000000000000ULL
--#define ROGUE_CR_BIF_TILING_CFG5_MAX_ADDRESS_SHIFT 32U
--#define ROGUE_CR_BIF_TILING_CFG5_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG5_MAX_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG5_MAX_ADDRESS_ALIGNSIZE 4096U
--#define ROGUE_CR_BIF_TILING_CFG5_MIN_ADDRESS_SHIFT 0U
--#define ROGUE_CR_BIF_TILING_CFG5_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
--#define ROGUE_CR_BIF_TILING_CFG5_MIN_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG5_MIN_ADDRESS_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_TILING_CFG6 */
--#define ROGUE_CR_BIF_TILING_CFG6 0x1308U
--#define ROGUE_CR_BIF_TILING_CFG6_MASKFULL 0xFFFFFFFF0FFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG6_XSTRIDE_SHIFT 61U
--#define ROGUE_CR_BIF_TILING_CFG6_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG6_ENABLE_SHIFT 60U
--#define ROGUE_CR_BIF_TILING_CFG6_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG6_ENABLE_EN 0x1000000000000000ULL
--#define ROGUE_CR_BIF_TILING_CFG6_MAX_ADDRESS_SHIFT 32U
--#define ROGUE_CR_BIF_TILING_CFG6_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG6_MAX_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG6_MAX_ADDRESS_ALIGNSIZE 4096U
--#define ROGUE_CR_BIF_TILING_CFG6_MIN_ADDRESS_SHIFT 0U
--#define ROGUE_CR_BIF_TILING_CFG6_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
--#define ROGUE_CR_BIF_TILING_CFG6_MIN_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG6_MIN_ADDRESS_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_BIF_TILING_CFG7 */
--#define ROGUE_CR_BIF_TILING_CFG7 0x1310U
--#define ROGUE_CR_BIF_TILING_CFG7_MASKFULL 0xFFFFFFFF0FFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG7_XSTRIDE_SHIFT 61U
--#define ROGUE_CR_BIF_TILING_CFG7_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG7_ENABLE_SHIFT 60U
--#define ROGUE_CR_BIF_TILING_CFG7_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG7_ENABLE_EN 0x1000000000000000ULL
--#define ROGUE_CR_BIF_TILING_CFG7_MAX_ADDRESS_SHIFT 32U
--#define ROGUE_CR_BIF_TILING_CFG7_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
--#define ROGUE_CR_BIF_TILING_CFG7_MAX_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG7_MAX_ADDRESS_ALIGNSIZE 4096U
--#define ROGUE_CR_BIF_TILING_CFG7_MIN_ADDRESS_SHIFT 0U
--#define ROGUE_CR_BIF_TILING_CFG7_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
--#define ROGUE_CR_BIF_TILING_CFG7_MIN_ADDRESS_ALIGNSHIFT 12U
--#define ROGUE_CR_BIF_TILING_CFG7_MIN_ADDRESS_ALIGNSIZE 4096U
-+#define ROGUE_CR_BIF_TILING_CFG_REPEAT_COUNT 8U
-+#define ROGUE_CR_BIF_TILING_CFG_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_BIF_TILING_CFG_REPEAT_BASE 0x12D8U
-+/* Register ROGUE_CR_BIF_TILING_CFGx */
-+#define ROGUE_CR_BIF_TILING_CFGx_MASKFULL 0xFFFFFFFF0FFFFFFFULL
-+#define ROGUE_CR_BIF_TILING_CFGx_XSTRIDE_SHIFT 61U
-+#define ROGUE_CR_BIF_TILING_CFGx_XSTRIDE_CLRMSK 0x1FFFFFFFFFFFFFFFULL
-+#define ROGUE_CR_BIF_TILING_CFGx_ENABLE_SHIFT 60U
-+#define ROGUE_CR_BIF_TILING_CFGx_ENABLE_CLRMSK 0xEFFFFFFFFFFFFFFFULL
-+#define ROGUE_CR_BIF_TILING_CFGx_ENABLE_EN 0x1000000000000000ULL
-+#define ROGUE_CR_BIF_TILING_CFGx_MAX_ADDRESS_SHIFT 32U
-+#define ROGUE_CR_BIF_TILING_CFGx_MAX_ADDRESS_CLRMSK 0xF0000000FFFFFFFFULL
-+#define ROGUE_CR_BIF_TILING_CFGx_MAX_ADDRESS_ALIGNSHIFT 12U
-+#define ROGUE_CR_BIF_TILING_CFGx_MAX_ADDRESS_ALIGNSIZE 4096U
-+#define ROGUE_CR_BIF_TILING_CFGx_MIN_ADDRESS_SHIFT 0U
-+#define ROGUE_CR_BIF_TILING_CFGx_MIN_ADDRESS_CLRMSK 0xFFFFFFFFF0000000ULL
-+#define ROGUE_CR_BIF_TILING_CFGx_MIN_ADDRESS_ALIGNSHIFT 12U
-+#define ROGUE_CR_BIF_TILING_CFGx_MIN_ADDRESS_ALIGNSIZE 4096U
- 
- /* Register ROGUE_CR_BIF_READS_EXT_STATUS */
- #define ROGUE_CR_BIF_READS_EXT_STATUS 0x1320U
-@@ -2951,102 +2780,13 @@
- #define ROGUE_CR_MCU_FENCE_ADDR_ALIGNSIZE 32U
- 
- /* Register group: ROGUE_CR_SCRATCH, with 16 repeats */
--#define ROGUE_CR_SCRATCH_REPEATCOUNT 16U
--/* Register ROGUE_CR_SCRATCH0 */
--#define ROGUE_CR_SCRATCH0 0x1A00U
--#define ROGUE_CR_SCRATCH0_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH0_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH0_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH1 */
--#define ROGUE_CR_SCRATCH1 0x1A08U
--#define ROGUE_CR_SCRATCH1_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH1_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH1_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH2 */
--#define ROGUE_CR_SCRATCH2 0x1A10U
--#define ROGUE_CR_SCRATCH2_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH2_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH2_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH3 */
--#define ROGUE_CR_SCRATCH3 0x1A18U
--#define ROGUE_CR_SCRATCH3_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH3_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH3_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH4 */
--#define ROGUE_CR_SCRATCH4 0x1A20U
--#define ROGUE_CR_SCRATCH4_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH4_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH4_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH5 */
--#define ROGUE_CR_SCRATCH5 0x1A28U
--#define ROGUE_CR_SCRATCH5_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH5_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH5_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH6 */
--#define ROGUE_CR_SCRATCH6 0x1A30U
--#define ROGUE_CR_SCRATCH6_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH6_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH6_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH7 */
--#define ROGUE_CR_SCRATCH7 0x1A38U
--#define ROGUE_CR_SCRATCH7_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH7_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH7_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH8 */
--#define ROGUE_CR_SCRATCH8 0x1A40U
--#define ROGUE_CR_SCRATCH8_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH8_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH8_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH9 */
--#define ROGUE_CR_SCRATCH9 0x1A48U
--#define ROGUE_CR_SCRATCH9_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH9_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH9_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH10 */
--#define ROGUE_CR_SCRATCH10 0x1A50U
--#define ROGUE_CR_SCRATCH10_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH10_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH10_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH11 */
--#define ROGUE_CR_SCRATCH11 0x1A58U
--#define ROGUE_CR_SCRATCH11_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH11_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH11_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH12 */
--#define ROGUE_CR_SCRATCH12 0x1A60U
--#define ROGUE_CR_SCRATCH12_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH12_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH12_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH13 */
--#define ROGUE_CR_SCRATCH13 0x1A68U
--#define ROGUE_CR_SCRATCH13_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH13_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH13_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH14 */
--#define ROGUE_CR_SCRATCH14 0x1A70U
--#define ROGUE_CR_SCRATCH14_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH14_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH14_DATA_CLRMSK 0x00000000U
--
--/* Register ROGUE_CR_SCRATCH15 */
--#define ROGUE_CR_SCRATCH15 0x1A78U
--#define ROGUE_CR_SCRATCH15_MASKFULL 0x00000000FFFFFFFFULL
--#define ROGUE_CR_SCRATCH15_DATA_SHIFT 0U
--#define ROGUE_CR_SCRATCH15_DATA_CLRMSK 0x00000000U
-+#define ROGUE_CR_SCRATCH_REPEAT_COUNT 16U
-+#define ROGUE_CR_SCRATCH_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_SCRATCH_REPEAT_BASE 0x1A00U
-+/* Register ROGUE_CR_SCRATCHx */
-+#define ROGUE_CR_SCRATCHx_MASKFULL 0x00000000FFFFFFFFULL
-+#define ROGUE_CR_SCRATCHx_DATA_SHIFT 0U
-+#define ROGUE_CR_SCRATCHx_DATA_CLRMSK 0x00000000U
- 
- /* Register group: ROGUE_CR_OS0_SCRATCH, with 2 repeats */
- #define ROGUE_CR_OS0_SCRATCH_REPEATCOUNT 2U
-@@ -3273,342 +3013,28 @@
- #define ROGUE_CR_SPFILTER_SIGNAL_DESCR_MIN_ADDR_ALIGNSIZE 16U
- 
- /* Register group: ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG, with 16 repeats */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG_REPEATCOUNT 16U
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0 0x3000U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1 0x3008U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG1_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2 0x3010U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG2_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3 0x3018U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG3_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4 0x3020U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG4_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5 0x3028U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG5_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6 0x3030U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG6_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7 0x3038U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG7_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8 0x3040U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG8_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9 0x3048U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG9_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10 0x3050U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG10_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11 0x3058U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG11_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12 0x3060U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG12_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13 0x3068U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG13_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14 0x3070U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG14_DEVVADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15 */
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15 0x3078U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_MASKFULL 0x7FFFF7FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_TRUSTED_SHIFT 62U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_TRUSTED_EN 0x4000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_LOAD_STORE_EN_SHIFT 61U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_LOAD_STORE_EN_EN 0x2000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_FETCH_EN_SHIFT 60U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_FETCH_EN_EN 0x1000000000000000ULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_SIZE_SHIFT 44U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_CBASE_SHIFT 40U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_DEVVADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_DEVVADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG15_DEVVADDR_ALIGNSIZE 4096U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG_REPEAT_COUNT 16U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG_REPEAT_BASE 0x3000U
-+/* Register ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx */
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_MASKFULL 0x7FFFF7FFFFFFF000ULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_TRUSTED_SHIFT 62U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_TRUSTED_CLRMSK 0xBFFFFFFFFFFFFFFFULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_TRUSTED_EN 0x4000000000000000ULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_LOAD_STORE_EN_SHIFT 61U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_LOAD_STORE_EN_CLRMSK 0xDFFFFFFFFFFFFFFFULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_LOAD_STORE_EN_EN 0x2000000000000000ULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_FETCH_EN_SHIFT 60U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_FETCH_EN_CLRMSK 0xEFFFFFFFFFFFFFFFULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_FETCH_EN_EN 0x1000000000000000ULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_SIZE_SHIFT 44U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_SIZE_CLRMSK 0xF0000FFFFFFFFFFFULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_CBASE_SHIFT 40U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_CBASE_CLRMSK 0xFFFFF8FFFFFFFFFFULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_SHIFT 12U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_CLRMSK 0xFFFFFF0000000FFFULL
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_ALIGNSHIFT 12U
-+#define ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_ALIGNSIZE 4096U
- 
- /* Register ROGUE_CR_FWCORE_BOOT */
- #define ROGUE_CR_FWCORE_BOOT 0x3090U
-@@ -3726,70 +3152,15 @@
- #define ROGUE_CR_FWCORE_WRAPPER_FENCE_ID_EN 0x00000001U
- 
- /* Register group: ROGUE_CR_FWCORE_MEM_CAT_BASE, with 8 repeats */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE_REPEATCOUNT 8U
--/* Register ROGUE_CR_FWCORE_MEM_CAT_BASE0 */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE0 0x30F0U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE0_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE0_ADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE0_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE0_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE0_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_MEM_CAT_BASE1 */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE1 0x30F8U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE1_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE1_ADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE1_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE1_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE1_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_MEM_CAT_BASE2 */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE2 0x3100U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE2_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE2_ADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE2_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE2_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE2_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_MEM_CAT_BASE3 */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE3 0x3108U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE3_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE3_ADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE3_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE3_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE3_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_MEM_CAT_BASE4 */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE4 0x3110U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE4_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE4_ADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE4_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE4_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE4_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_MEM_CAT_BASE5 */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE5 0x3118U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE5_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE5_ADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE5_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE5_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE5_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_MEM_CAT_BASE6 */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE6 0x3120U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE6_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE6_ADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE6_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE6_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE6_ADDR_ALIGNSIZE 4096U
--
--/* Register ROGUE_CR_FWCORE_MEM_CAT_BASE7 */
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE7 0x3128U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE7_MASKFULL 0x000000FFFFFFF000ULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE7_ADDR_SHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE7_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE7_ADDR_ALIGNSHIFT 12U
--#define ROGUE_CR_FWCORE_MEM_CAT_BASE7_ADDR_ALIGNSIZE 4096U
-+#define ROGUE_CR_FWCORE_MEM_CAT_BASE_REPEAT_COUNT 8U
-+#define ROGUE_CR_FWCORE_MEM_CAT_BASE_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_FWCORE_MEM_CAT_BASE_REPEAT_BASE 0x30F0U
-+/* Register ROGUE_CR_FWCORE_MEM_CAT_BASEx */
-+#define ROGUE_CR_FWCORE_MEM_CAT_BASEx_MASKFULL 0x000000FFFFFFF000ULL
-+#define ROGUE_CR_FWCORE_MEM_CAT_BASEx_ADDR_SHIFT 12U
-+#define ROGUE_CR_FWCORE_MEM_CAT_BASEx_ADDR_CLRMSK 0xFFFFFF0000000FFFULL
-+#define ROGUE_CR_FWCORE_MEM_CAT_BASEx_ADDR_ALIGNSHIFT 12U
-+#define ROGUE_CR_FWCORE_MEM_CAT_BASEx_ADDR_ALIGNSIZE 4096U
- 
- /* Register ROGUE_CR_FWCORE_WDT_RESET */
- #define ROGUE_CR_FWCORE_WDT_RESET 0x3130U
-@@ -3816,22 +3187,11 @@
- #define ROGUE_CR_FWCORE_WDT_COUNT_VALUE_CLRMSK 0x00000000U
- 
- /* Register group: ROGUE_CR_FWCORE_DMI_RESERVED0, with 4 repeats */
--#define ROGUE_CR_FWCORE_DMI_RESERVED0_REPEATCOUNT 4U
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED00 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED00 0x3400U
--#define ROGUE_CR_FWCORE_DMI_RESERVED00_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED01 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED01 0x3408U
--#define ROGUE_CR_FWCORE_DMI_RESERVED01_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED02 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED02 0x3410U
--#define ROGUE_CR_FWCORE_DMI_RESERVED02_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED03 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED03 0x3418U
--#define ROGUE_CR_FWCORE_DMI_RESERVED03_MASKFULL 0x0000000000000000ULL
-+#define ROGUE_CR_FWCORE_DMI_RESERVED0_REPEAT_COUNT 4U
-+#define ROGUE_CR_FWCORE_DMI_RESERVED0_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_FWCORE_DMI_RESERVED0_REPEAT_BASE 0x3400U
-+/* Register ROGUE_CR_FWCORE_DMI_RESERVED0x */
-+#define ROGUE_CR_FWCORE_DMI_RESERVED0x_MASKFULL 0x0000000000000000ULL
- 
- /* Register ROGUE_CR_FWCORE_DMI_DATA0 */
- #define ROGUE_CR_FWCORE_DMI_DATA0 0x3420U
-@@ -3842,26 +3202,11 @@
- #define ROGUE_CR_FWCORE_DMI_DATA1_MASKFULL 0x0000000000000000ULL
- 
- /* Register group: ROGUE_CR_FWCORE_DMI_RESERVED1, with 5 repeats */
--#define ROGUE_CR_FWCORE_DMI_RESERVED1_REPEATCOUNT 5U
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED10 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED10 0x3430U
--#define ROGUE_CR_FWCORE_DMI_RESERVED10_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED11 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED11 0x3438U
--#define ROGUE_CR_FWCORE_DMI_RESERVED11_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED12 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED12 0x3440U
--#define ROGUE_CR_FWCORE_DMI_RESERVED12_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED13 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED13 0x3448U
--#define ROGUE_CR_FWCORE_DMI_RESERVED13_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED14 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED14 0x3450U
--#define ROGUE_CR_FWCORE_DMI_RESERVED14_MASKFULL 0x0000000000000000ULL
-+#define ROGUE_CR_FWCORE_DMI_RESERVED1_REPEAT_COUNT 5U
-+#define ROGUE_CR_FWCORE_DMI_RESERVED1_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_FWCORE_DMI_RESERVED1_REPEAT_BASE 0x3430U
-+/* Register ROGUE_CR_FWCORE_DMI_RESERVED1x */
-+#define ROGUE_CR_FWCORE_DMI_RESERVED1x_MASKFULL 0x0000000000000000ULL
- 
- /* Register ROGUE_CR_FWCORE_DMI_DMCONTROL */
- #define ROGUE_CR_FWCORE_DMI_DMCONTROL 0x3480U
-@@ -3872,22 +3217,11 @@
- #define ROGUE_CR_FWCORE_DMI_DMSTATUS_MASKFULL 0x0000000000000000ULL
- 
- /* Register group: ROGUE_CR_FWCORE_DMI_RESERVED2, with 4 repeats */
--#define ROGUE_CR_FWCORE_DMI_RESERVED2_REPEATCOUNT 4U
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED20 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED20 0x3490U
--#define ROGUE_CR_FWCORE_DMI_RESERVED20_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED21 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED21 0x3498U
--#define ROGUE_CR_FWCORE_DMI_RESERVED21_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED22 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED22 0x34A0U
--#define ROGUE_CR_FWCORE_DMI_RESERVED22_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED23 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED23 0x34A8U
--#define ROGUE_CR_FWCORE_DMI_RESERVED23_MASKFULL 0x0000000000000000ULL
-+#define ROGUE_CR_FWCORE_DMI_RESERVED2_REPEAT_COUNT 4U
-+#define ROGUE_CR_FWCORE_DMI_RESERVED2_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_FWCORE_DMI_RESERVED2_REPEAT_BASE 0x3490U
-+/* Register ROGUE_CR_FWCORE_DMI_RESERVED2x */
-+#define ROGUE_CR_FWCORE_DMI_RESERVED2x_MASKFULL 0x0000000000000000ULL
- 
- /* Register ROGUE_CR_FWCORE_DMI_ABSTRACTCS */
- #define ROGUE_CR_FWCORE_DMI_ABSTRACTCS 0x34B0U
-@@ -3906,32 +3240,18 @@
- #define ROGUE_CR_FWCORE_DMI_SBADDRESS0_MASKFULL 0x0000000000000000ULL
- 
- /* Register group: ROGUE_CR_FWCORE_DMI_RESERVED3, with 2 repeats */
--#define ROGUE_CR_FWCORE_DMI_RESERVED3_REPEATCOUNT 2U
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED30 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED30 0x34D0U
--#define ROGUE_CR_FWCORE_DMI_RESERVED30_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_RESERVED31 */
--#define ROGUE_CR_FWCORE_DMI_RESERVED31 0x34D8U
--#define ROGUE_CR_FWCORE_DMI_RESERVED31_MASKFULL 0x0000000000000000ULL
-+#define ROGUE_CR_FWCORE_DMI_RESERVED3_REPEAT_COUNT 2U
-+#define ROGUE_CR_FWCORE_DMI_RESERVED3_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_FWCORE_DMI_RESERVED3_REPEAT_BASE 0x34D0U
-+/* Register ROGUE_CR_FWCORE_DMI_RESERVED3x */
-+#define ROGUE_CR_FWCORE_DMI_RESERVED3x_MASKFULL 0x0000000000000000ULL
- 
- /* Register group: ROGUE_CR_FWCORE_DMI_SBDATA, with 4 repeats */
--#define ROGUE_CR_FWCORE_DMI_SBDATA_REPEATCOUNT 4U
--/* Register ROGUE_CR_FWCORE_DMI_SBDATA0 */
--#define ROGUE_CR_FWCORE_DMI_SBDATA0 0x35E0U
--#define ROGUE_CR_FWCORE_DMI_SBDATA0_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_SBDATA1 */
--#define ROGUE_CR_FWCORE_DMI_SBDATA1 0x35E8U
--#define ROGUE_CR_FWCORE_DMI_SBDATA1_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_SBDATA2 */
--#define ROGUE_CR_FWCORE_DMI_SBDATA2 0x35F0U
--#define ROGUE_CR_FWCORE_DMI_SBDATA2_MASKFULL 0x0000000000000000ULL
--
--/* Register ROGUE_CR_FWCORE_DMI_SBDATA3 */
--#define ROGUE_CR_FWCORE_DMI_SBDATA3 0x35F8U
--#define ROGUE_CR_FWCORE_DMI_SBDATA3_MASKFULL 0x0000000000000000ULL
-+#define ROGUE_CR_FWCORE_DMI_SBDATA_REPEAT_COUNT 4U
-+#define ROGUE_CR_FWCORE_DMI_SBDATA_REPEAT_OFFSET 0x0008U
-+#define ROGUE_CR_FWCORE_DMI_SBDATA_REPEAT_BASE 0x35E0U
-+/* Register ROGUE_CR_FWCORE_DMI_SBDATAx */
-+#define ROGUE_CR_FWCORE_DMI_SBDATAx_MASKFULL 0x0000000000000000ULL
- 
- /* Register ROGUE_CR_FWCORE_DMI_HALTSUM0 */
- #define ROGUE_CR_FWCORE_DMI_HALTSUM0 0x3600U
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_defs.h b/drivers/gpu/drm/imagination/pvr_rogue_defs.h
-index 932b01686008..035e2ea39434 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_defs.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_defs.h
-@@ -93,26 +93,17 @@
- #define MMU_CONTEXT_MAPPING_FWPRIV (0x0) /* FW code/private data */
- #define MMU_CONTEXT_MAPPING_FWIF (0x0) /* Host/FW data */
- 
--/*
-- * Utility macros to calculate CAT_BASE register addresses
-- */
--#define BIF_CAT_BASEX(n)          \
--	(ROGUE_CR_BIF_CAT_BASE0 + \
--	 (n) * (ROGUE_CR_BIF_CAT_BASE1 - ROGUE_CR_BIF_CAT_BASE0))
--
--#define FWCORE_MEM_CAT_BASEX(n)                 \
--	(ROGUE_CR_FWCORE_MEM_CAT_BASE0 +        \
--	 (n) * (ROGUE_CR_FWCORE_MEM_CAT_BASE1 - \
--		ROGUE_CR_FWCORE_MEM_CAT_BASE0))
-+/* Utility macro for accessing instances of repeated registers */
-+#define PVR_CR_REPEAT_X(REG, N) ((REG##_REPEAT_BASE) + (N) * (REG##_REPEAT_OFFSET))
- 
- /*
-  * FWCORE wrapper register defines
-  */
--#define FWCORE_ADDR_REMAP_CONFIG0_MMU_CONTEXT_SHIFT \
--	ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_CBASE_SHIFT
--#define FWCORE_ADDR_REMAP_CONFIG0_MMU_CONTEXT_CLRMSK \
--	ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0_CBASE_CLRMSK
--#define FWCORE_ADDR_REMAP_CONFIG0_SIZE_ALIGNSHIFT (12U)
-+#define FWCORE_ADDR_REMAP_CONFIGx_MMU_CONTEXT_SHIFT \
-+	ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_CBASE_SHIFT
-+#define FWCORE_ADDR_REMAP_CONFIGx_MMU_CONTEXT_CLRMSK \
-+	ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_CBASE_CLRMSK
-+#define FWCORE_ADDR_REMAP_CONFIGx_SIZE_ALIGNSHIFT (12U)
- 
- #define ROGUE_MAX_COMPUTE_SHARED_REGISTERS (2 * 1024)
- #define ROGUE_MAX_VERTEX_SHARED_REGISTERS 1024
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_riscv.h b/drivers/gpu/drm/imagination/pvr_rogue_riscv.h
-index 9a070e24fa6a..d971729e18a4 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_riscv.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_riscv.h
-@@ -35,7 +35,5 @@ enum rogue_riscvfw_region {
- };
- 
- #define ROGUE_RISCVFW_REGION_BASE(r) ((u32)(ROGUE_RISCV_REGION_##r) << ROGUE_RISCVFW_REGION_SHIFT)
--#define ROGUE_RISCVFW_REGION_REMAP_CR(r) \
--	(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG0 + (u32)(ROGUE_RISCV_REGION_##r) * 8U)
- 
- #endif /* PVR_ROGUE_RISCV_H */
+Another alternative is to just leave it stale, but then that seems objectively
+worse and again requires branching code on update and set.
 
--- 
-2.43.0
+All-in-all it's easier to keep this working the same for any type of mapping,
+it's just useless to do anything with the anon pgoff for a shared mapping :)
 
+--
+Cheers, Lorenzo
