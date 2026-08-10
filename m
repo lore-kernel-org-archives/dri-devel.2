@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24927C5AE49
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 15:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2C8FC5AE49
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 15:02:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB8B10E8E8;
-	Mon, 10 Aug 2026 15:02:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10F8010E8F1;
+	Mon, 10 Aug 2026 15:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AXtaDj+r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vt8Uw4uT";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF4610E8E8
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 15:02:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2AB010E8F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 15:02:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 94C1560A6E;
- Mon, 10 Aug 2026 15:02:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 761BC1F000E9;
- Mon, 10 Aug 2026 15:02:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 75926600C8;
+ Mon, 10 Aug 2026 15:02:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D201D1F000E9;
+ Mon, 10 Aug 2026 15:02:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786374155;
- bh=hEk4BuzvaC+vu6TqSvCp8+5pFlEXL/ArMkk50WgIKWA=;
+ s=k20260515; t=1786374166;
+ bh=nJrdftnA5dFdS9Rs8j4FKwEAwssX5jWSQkP633ZLCy4=;
  h=Date:From:To:Cc:Subject;
- b=AXtaDj+rCdd7YYlGf54va4A93f1lU198JPIBCBHL6d2DGcw7wyXOC9J8BFUxZa93x
- gqK4LqSbw8loaER62Ezj/vK0hvX+aTE8383ShhszY+kYI8okH83iJ7fpHt1gKPQA/F
- bm5LXP7sDu3or3JBpualhSPRrPrl/Zzc7yqlu6cm96t7zJYV3D00ngNcknVwwsTmhw
- EwWuG+WmaKzQSH4/Bsp9s+h+rjxWmhtz13A0NM/jPfFs4KDo0+1IDJQxmiG6z2gv1r
- bwl6PLIxN6EiMWoxKn0gn3GRbpHvVpQ4pjidSFGElxyLHyAdA10rEoOHeh5RnVpcVo
- oldWLk/qiVpQA==
-Date: Mon, 10 Aug 2026 16:02:30 +0100
+ b=Vt8Uw4uTyYxkAae4u3UGB9uZ08ahJ3GtmQK0Y2AZKflGJFNzXhw/i7XqVhdUXEikF
+ kxGQjFXhuc1UKLgauA+uaj7oHvmFpdMf05rX1o3OwRGJSGizwFXasOlNVkyIhgZesk
+ P7Y896EQYWZFAo8aWEezqZRKyF71aEsx2zDUISpDv/MfBR6E2/OKW2PcIJQjvPVOAb
+ EyYYvu/SU6sDtVKtttu4TUWDl8gZ8ZjGAeXW/sWjrvDdlRUzsBSQkVXtsz3GveZPGu
+ IGJ4jW9IS5UIeEeNKKV2pPSfrjT0dI+4/CSYf6pzut5b1mb1kkZ696HHg2zfY2XtZt
+ eiEIvbuMFg8Bg==
+Date: Mon, 10 Aug 2026 16:02:42 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
- Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
- George Zhang <george.zhang@amd.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux Next Mailing List <linux-next@vger.kernel.org>,
- Matthew Stewart <Matthew.Stewart2@amd.com>, Roman Li <roman.li@amd.com>
+ Yang Wang <kevinyang.wang@amd.com>
 Subject: linux-next: manual merge of the drm tree with the origin tree
-Message-ID: <annoBpNA9VXWao4L@sirena.org.uk>
+Message-ID: <annoEomdInpOqqPO@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qspAP+TxOsXsf+oQ"
+ protocol="application/pgp-signature"; boundary="rg9/KF51gF/Kfdk0"
 Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,7 +59,7 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---qspAP+TxOsXsf+oQ
+--rg9/KF51gF/Kfdk0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -70,21 +68,20 @@ Hi all,
 
 Today's linux-next merge of the drm tree got a conflict in:
 
-  drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
+  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
 
-between commit:
+between commits:
 
-  fbbbd98f200f1 ("drm/amd/display: Fix DCN42B null registers & register mas=
-ks")
+  e987eabc02646 ("drm/amd/pm: fix smu14 power limit range calculation")
+  1849a64165ccc ("drm/amd/pm: use milliwatts for GPU power sensors")
 
 =66rom the origin tree and commits:
 
-  77c9d06187f18 ("drm/amd/display: Add missing DCN42B register defines")
-  183bbded999a7 ("drm/amd/display: fix dcn42b det allocation order")
-  fd651b9a3be9e ("drm/amd/display: Add DCN42B VID_CRC_CONTROL and HBLANK_CO=
-NTROL registers")
-  b7d69145907cd ("drm/amd/display: Fix DCN42B null registers & register mas=
-ks")
+  6c9e0328d1dee ("drm/amd/pm: refactor PPT limits by controller and power s=
+ource")
+  757ba0790bafe ("drm/amd/pm: use milliwatts for GPU power sensors")
+  93bd6de5518da ("drm/amd/pm: account for OD percentage in effective PPT li=
+mits")
 
 =66rom the drm tree.
 
@@ -95,222 +92,246 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --combined drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resou=
-rce.c
-index 94e166c0a9b0b,41f0c67f57fff..0000000000000
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
-@@@ -13,6 -13,7 +13,7 @@@
+diff --combined drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index bd054cbfbae08,1054c4b4b03e1..0000000000000
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@@ -59,6 -59,9 +59,9 @@@
+  static void smu_v14_0_2_get_od_setting_limits(struct smu_context *smu,
+  					      int od_feature_bit,
+  					      int32_t *min, int32_t *max);
++ static int smu_v14_0_2_init_ppt_limits(struct smu_context *smu);
++ static int smu_v14_0_2_get_overdrive_table(struct smu_context *smu,
++ 					   OverDriveTableExternal_t *od_table);
  =20
-  #include "resource.h"
-  #include "include/irq_service_interface.h"
-+ #include "basics/conversion.h"
+  static const struct smu_feature_bits smu_v14_0_2_dpm_features =3D {
+  	.bits =3D { SMU_FEATURE_BIT_INIT(FEATURE_DPM_GFXCLK_BIT),
+@@@ -370,7 -373,7 +373,7 @@@ static int smu_v14_0_2_setup_pptable(st
+  	if (ret)
+  		return ret;
  =20
-  #include "dcn42b_resource.h"
-  #include "dcn20/dcn20_resource.h"
-@@@ -134,6 -135,34 +135,34 @@@
-  #define regHUBP3_HUBPREQ_DEBUG                0x088d
-  #define regHUBP3_HUBPREQ_DEBUG_BASE_IDX       2
- =20
-+ #define regDP_SYM32_ENC0_DP_SYM32_ENC_VID_CRC_CONTROL                    =
-                               0x3687
-+ #define regDP_SYM32_ENC0_DP_SYM32_ENC_VID_CRC_CONTROL_BASE_IDX           =
-                               2
-+ #define regDP_SYM32_ENC1_DP_SYM32_ENC_VID_CRC_CONTROL                    =
-                               0x375b
-+ #define regDP_SYM32_ENC1_DP_SYM32_ENC_VID_CRC_CONTROL_BASE_IDX           =
-                               2
-+ #define regDP_SYM32_ENC2_DP_SYM32_ENC_VID_CRC_CONTROL                    =
-                               0x382f
-+ #define regDP_SYM32_ENC2_DP_SYM32_ENC_VID_CRC_CONTROL_BASE_IDX           =
-                               2
-+ #define regDP_SYM32_ENC0_DP_SYM32_ENC_HBLANK_CONTROL                     =
-                               0x366b
-+ #define regDP_SYM32_ENC0_DP_SYM32_ENC_HBLANK_CONTROL_BASE_IDX            =
-                               2
-+ #define regDP_SYM32_ENC1_DP_SYM32_ENC_HBLANK_CONTROL                     =
-                               0x373f
-+ #define regDP_SYM32_ENC1_DP_SYM32_ENC_HBLANK_CONTROL_BASE_IDX            =
-                               2
-+ #define regDP_SYM32_ENC2_DP_SYM32_ENC_HBLANK_CONTROL                     =
-                               0x3813
-+ #define regDP_SYM32_ENC2_DP_SYM32_ENC_HBLANK_CONTROL_BASE_IDX            =
-                               2
-+=20
-+ #define DP_SYM32_ENC0_DP_SYM32_ENC_VID_CRC_CONTROL__CRC_ENABLE__SHIFT    =
-                                     0x0
-+ #define DP_SYM32_ENC0_DP_SYM32_ENC_VID_CRC_CONTROL__CRC_CONT_MODE_ENABLE_=
-_SHIFT                               0x4
-+ #define DP_SYM32_ENC0_DP_SYM32_ENC_VID_CRC_CONTROL__CRC_ENABLE_MASK      =
-                                     0x00000001L
-+ #define DP_SYM32_ENC0_DP_SYM32_ENC_VID_CRC_CONTROL__CRC_CONT_MODE_ENABLE_=
-MASK                                 0x00000010L
-+ #define DP_SYM32_ENC0_DP_SYM32_ENC_HBLANK_CONTROL__HBLANK_MINIMUM_SYMBOL_=
-WIDTH__SHIFT                         0x0
-+ #define DP_SYM32_ENC0_DP_SYM32_ENC_HBLANK_CONTROL__HBLANK_MINIMUM_SYMBOL_=
-WIDTH_MASK                           0x0000FFFFL
-+=20
-+=20
-+ #define DP_SYM32_ENC1_DP_SYM32_ENC_VID_CRC_CONTROL__CRC_ENABLE__SHIFT    =
-                                     0x0
-+ #define DP_SYM32_ENC1_DP_SYM32_ENC_VID_CRC_CONTROL__CRC_CONT_MODE_ENABLE_=
-_SHIFT                               0x4
-+ #define DP_SYM32_ENC1_DP_SYM32_ENC_VID_CRC_CONTROL__CRC_ENABLE_MASK      =
-                                     0x00000001L
-+ #define DP_SYM32_ENC1_DP_SYM32_ENC_VID_CRC_CONTROL__CRC_CONT_MODE_ENABLE_=
-MASK                                 0x00000010L
-+ #define DP_SYM32_ENC1_DP_SYM32_ENC_HBLANK_CONTROL__HBLANK_MINIMUM_SYMBOL_=
-WIDTH__SHIFT                         0x0
-+ #define DP_SYM32_ENC1_DP_SYM32_ENC_HBLANK_CONTROL__HBLANK_MINIMUM_SYMBOL_=
-WIDTH_MASK                           0x0000FFFFL
-+=20
-  enum dcn401_clk_src_array_id {
-  	DCN401_CLK_SRC_PLL0,
-  	DCN401_CLK_SRC_PLL1,
-@@@ -253,10 -282,10 +282,10 @@@ static struct bios_registers bios_regs
-  static struct dce110_clk_src_regs clk_src_regs[5];
- =20
-  static const struct dce110_clk_src_shift cs_shift =3D {
-- 	CS_COMMON_MASK_SH_LIST_DCN3_2(__SHIFT)
-+ 	CS_COMMON_MASK_SH_LIST_DCN4_0_1(__SHIFT)
-  };
-  static const struct dce110_clk_src_mask cs_mask =3D {
-- 	CS_COMMON_MASK_SH_LIST_DCN3_2(_MASK)
-+ 	CS_COMMON_MASK_SH_LIST_DCN4_0_1(_MASK)
-  };
-  #define abm_regs_init(id) \
-  	ABM_DCN42B_REG_LIST_RI(id)
-@@@ -351,15 -380,15 +380,15 @@@ static const struct dcn10_link_enc_mas
-  	LINK_ENCODER_MASK_SH_LIST_DCN42B(_MASK)};
- =20
-  #define hpo_dp_stream_encoder_reg_init(id) \
-- 	DCN42B_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
-+ 	DCN42_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
- =20
-  static struct dcn31_hpo_dp_stream_encoder_registers hpo_dp_stream_enc_reg=
-s[4];
- =20
-  static const struct dcn31_hpo_dp_stream_encoder_shift hpo_dp_se_shift =3D=
- {
-- 	DCN4_2B_HPO_DP_STREAM_ENC_MASK_SH_LIST(__SHIFT)};
-+ 	DCN4_2_HPO_DP_STREAM_ENC_MASK_SH_LIST(__SHIFT)};
- =20
-  static const struct dcn31_hpo_dp_stream_encoder_mask hpo_dp_se_mask =3D {
-- 	DCN4_2B_HPO_DP_STREAM_ENC_MASK_SH_LIST(_MASK)};
-+ 	DCN4_2_HPO_DP_STREAM_ENC_MASK_SH_LIST(_MASK)};
- =20
-  #define hpo_dp_link_encoder_reg_init(id) \
-  	DCN42B_HPO_DP_LINK_ENC_REG_LIST_RI(id)
-@@@ -756,6 -785,7 +785,7 @@@ static const struct dc_plane_cap plane_
-  	.min_height =3D 64};
- =20
-  static const struct dc_debug_options debug_defaults_drv =3D {
-+ 	.limit_ffe =3D 3,
-  	.disable_dmcu =3D true,
-  	.force_abm_enable =3D false,
-  	.clock_trace =3D true,
-@@@ -775,7 -805,7 +805,7 @@@
-  	.underflow_assert_delay_us =3D 0xFFFFFFFF,
-  	.dwb_fi_phase =3D -1, // -1 =3D disable,
-  	.dmub_command_table =3D true,
-- 	.pstate_enabled =3D false,
-+ 	.pstate_enabled =3D true,
-  	.enable_mem_low_power =3D {
-  		.bits =3D {
-  			.vga =3D false,
-@@@ -801,7 -831,7 +831,7 @@@
-  		}
-  	},
-  	.seamless_boot_odm_combine =3D DML_FAIL_SOURCE_PIXEL_FORMAT,
-- 	.enable_z9_disable_interface =3D false, /* Allow support for the PMFW in=
-terface for disable Z9*/
-+ 	.enable_z9_disable_interface =3D true, /* Allow support for the PMFW int=
-erface for disable Z9*/
-  	.minimum_z8_residency_time =3D 1, /* Always allow when other conditions =
-are met */
-  	.support_eDP1_5 =3D true,
-  	.use_max_lb =3D true,
-@@@ -823,7 -853,7 +853,7 @@@
-  	.disable_timeout =3D true,
-  	.min_disp_clk_khz =3D 50000,
-  	.static_screen_wait_frames =3D 2,
-- 	.disable_z10 =3D true,
-+ 	.disable_z10 =3D false,
-  	.ignore_pg =3D true,
-  	.disable_stutter_for_wm_program =3D true,
-  	.min_deep_sleep_dcfclk_khz =3D 8000,
-@@@ -1034,9 -1064,9 +1064,9 @@@ static struct hubp *dcn42b_hubp_create
+- 	return ret;
++ 	return smu_v14_0_2_init_ppt_limits(smu);
   }
-  static const struct dc_panel_config dcn42b_panel_config_defaults =3D {
-  	.psr =3D {
-- 		.disable_psr =3D true,
-+ 		.disable_psr =3D false,
-  		.disallow_psrsu =3D true,
-- 		.disallow_replay =3D true,
-+ 		.disallow_replay =3D false,
-  	},
-  	.ilr =3D {
-  		.optimize_edp_link_rate =3D true,
-@@@ -1842,7 -1872,7 +1872,7 @@@ static struct link_encoder *dcn42b_link
+ =20
+  static int smu_v14_0_2_tables_init(struct smu_context *smu)
+@@@ -1610,58 -1613,69 +1613,69 @@@ static int smu_v14_0_2_get_fan_speed_rp
+  						speed);
+  }
+ =20
+- static int smu_v14_0_2_get_power_limit(struct smu_context *smu,
+- 				       uint32_t *current_power_limit,
+- 				       uint32_t *default_power_limit,
+- 				       uint32_t *max_power_limit,
+- 				       uint32_t *min_power_limit)
++ static int smu_v14_0_2_get_ppt_limit(struct smu_context *smu,
++ 				     enum smu_ppt_limit_type limit_type,
++ 				     uint32_t *ppt_limit)
++ {
++ 	OverDriveTableExternal_t od_table;
++ 	int ret;
++=20
++ 	if (limit_type !=3D SMU_PPT_LIMIT_PPT0)
++ 		return -EOPNOTSUPP;
++=20
++ 	ret =3D smu_v14_0_get_ppt_limit(smu, limit_type, ppt_limit);
++ 	if (ret)
++ 		return ret;
++=20
++ 	ret =3D smu_v14_0_2_get_overdrive_table(smu, &od_table);
++ 	if (ret)
++ 		return ret;
++=20
++ 	if (od_table.OverDriveTable.Ppt > 0)
++ 		*ppt_limit =3D *ppt_limit *
++ 			(100 + od_table.OverDriveTable.Ppt) / 100;
++=20
++ 	return 0;
++ }
++=20
++ static int smu_v14_0_2_init_ppt_limits(struct smu_context *smu)
   {
-  	struct dcn20_link_encoder *enc20;
+  	struct smu_table_context *table_context =3D &smu->smu_table;
+  	struct smu_14_0_2_powerplay_table *powerplay_table =3D
+  		table_context->power_play_table;
+  	PPTable_t *pptable =3D table_context->driver_pptable;
+  	CustomSkuTable_t *skutable =3D &pptable->CustomSkuTable;
+- 	uint32_t pp_limit =3D smu->adev->pm.ac_power ?
+- 		skutable->SocketPowerLimitAc[PPT_THROTTLER_PPT0] :
+- 		skutable->SocketPowerLimitDc[PPT_THROTTLER_PPT0];
+- 	uint32_t msg_limit =3D pptable->SkuTable.MsgLimits.Power[PPT_THROTTLER_P=
+PT0][POWER_SOURCE_AC];
+- 	uint32_t min_limit =3D min_t(uint32_t, pp_limit, msg_limit);
+- 	uint32_t max_limit =3D max_t(uint32_t, pp_limit, msg_limit);
+  	int16_t od_percent_upper =3D 0, od_percent_lower =3D 0;
+- 	int ret;
++ 	uint32_t pp_limit, msg_limit, min_limit, max_limit;
++ 	int i;
  =20
-- 	if ((unsigned int)(eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap=
-->num_dig_link_enc)
-+ 	if ((unsigned int)(eng_id - ENGINE_ID_DIGA) >=3D ctx->dc->res_pool->res_=
-cap->num_dig_link_enc)
-  		return NULL;
+- 	if (current_power_limit) {
+- 		ret =3D smu_v14_0_get_current_power_limit(smu, current_power_limit);
+- 		if (ret)
+- 			*current_power_limit =3D pp_limit;
++ 	if (powerplay_table &&
++ 	    smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_PPT_BIT)) {
++ 		od_percent_upper =3D pptable->SkuTable.OverDriveLimitsBasicMax.Ppt;
++ 		od_percent_lower =3D pptable->SkuTable.OverDriveLimitsBasicMin.Ppt;
+  	}
  =20
-  	enc20 =3D kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
-@@@ -1854,6 -1884,8 +1884,8 @@@
-  			ctx,
-  			&link_enc_feature,
-  			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
-+ 			&le_shift,
-+ 			&le_mask,
-  			eng_id);
+- 	if (default_power_limit)
+- 		*default_power_limit =3D pp_limit;
++ 	for (i =3D SMU_POWER_SOURCE_AC; i < SMU_POWER_SOURCE_COUNT; i++) {
++ 		pp_limit =3D i =3D=3D SMU_POWER_SOURCE_AC ?
++ 			skutable->SocketPowerLimitAc[PPT_THROTTLER_PPT0] :
++ 			skutable->SocketPowerLimitDc[PPT_THROTTLER_PPT0];
++ 		msg_limit =3D pptable->SkuTable.MsgLimits.Power
++ 			[PPT_THROTTLER_PPT0][i];
++ 		min_limit =3D min(pp_limit, msg_limit);
++ 		max_limit =3D max(pp_limit, msg_limit);
  =20
-  	return &enc20->enc10.base;
-@@@ -2002,11 -2034,10 +2034,10 @@@ static bool dcn42b_resource_construct
-  	dc->caps.dmcub_support =3D true;
-  	dc->caps.is_apu =3D true;
-  	dc->caps.seamless_odm =3D true;
-- 	dc->caps.zstate_support =3D false;
-- 	dc->caps.ips_support =3D false;
-+ 	dc->caps.zstate_support =3D true;
-+ 	dc->caps.ips_support =3D true;
-  	dc->caps.max_v_total =3D (1 << 15) - 1;
-  	dc->caps.vtotal_limited_by_fp2 =3D true;
-- 	dc->config.disable_ips =3D DMUB_IPS_DISABLE_ALL;
+- 	if (powerplay_table) {
+- 		if (smu->od_enabled &&
+- 		    smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_PPT_BIT)) {
+- 			od_percent_upper =3D pptable->SkuTable.OverDriveLimitsBasicMax.Ppt;
+- 			od_percent_lower =3D pptable->SkuTable.OverDriveLimitsBasicMin.Ppt;
+- 		} else if (smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_PPT_B=
+IT)) {
+- 			od_percent_upper =3D 0;
+- 			od_percent_lower =3D pptable->SkuTable.OverDriveLimitsBasicMin.Ppt;
+- 		}
++ 		smu->ppt_limits.range[i][SMU_PPT_LIMIT_PPT0].default_value =3D
++ 			pp_limit;
++ 		smu->ppt_limits.range[i][SMU_PPT_LIMIT_PPT0].max =3D max_limit;
++ 		smu->ppt_limits.range[i][SMU_PPT_LIMIT_PPT0].min =3D
++ 			min_limit * (100 + od_percent_lower) / 100;
++ 		smu->ppt_limits.range[i][SMU_PPT_LIMIT_PPT0].od_max =3D
++ 			max_limit * (100 + od_percent_upper) / 100;
++ 		smu->ppt_limits.range[i][SMU_PPT_LIMIT_PPT0].od_min =3D
++ 			smu->ppt_limits.range[i][SMU_PPT_LIMIT_PPT0].min;
+  	}
  =20
-  	/* Color pipeline capabilities */
-  	dc->caps.color.dpp.dcn_arch =3D 1;
-@@@ -2066,6 -2097,7 +2097,7 @@@
-  	dc->caps.color.mpc.rmcm_3d_lut_caps.mem_format_support.float_fp1_5_10 =
-=3D 1;
-  	dc->caps.color.mpc.rmcm_3d_lut_caps.mem_pixel_order_support.order_rgba =
-=3D 1;
-  	dc->caps.color.mpc.rmcm_3d_lut_caps.mem_pixel_order_support.order_bgra =
-=3D 1;
-+ 	dc->caps.color.mpc.max_gamut_remap_coeff =3D dc_fixpt_from_fraction(S3D1=
-2_MAX, DIVIDER);
+- 	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (defau=
+lt power: %d)\n",
+- 					od_percent_upper, od_percent_lower, pp_limit);
+-=20
+- 	if (max_power_limit) {
+- 		*max_power_limit =3D max_limit * (100 + od_percent_upper);
+- 		*max_power_limit /=3D 100;
+- 	}
+-=20
+- 	if (min_power_limit) {
+- 		*min_power_limit =3D min_limit * (100 + od_percent_lower);
+- 		*min_power_limit /=3D 100;
+- 	}
++ 	smu->ppt_limits.supported_mask |=3D BIT(SMU_PPT_LIMIT_PPT0);
  =20
-  	dc->caps.num_of_host_routers =3D 0;
-  	dc->caps.num_of_dpias_per_host_router =3D 0;
+  	return 0;
+  }
+@@@ -1832,9 -1846,10 +1846,10 @@@ static int smu_v14_0_2_set_power_profil
+  				return -ENOMEM;
+  		}
+  		if (custom_params && custom_params_max_idx) {
+- 			if (custom_params_max_idx !=3D SMU_14_0_2_CUSTOM_PARAMS_COUNT)
+- 				return -EINVAL;
+- 			if (custom_params[0] >=3D SMU_14_0_2_CUSTOM_PARAMS_CLOCK_COUNT)
++ 			if (!smu_cmn_custom_params_count_valid(custom_params_max_idx,
++ 							       SMU_14_0_2_CUSTOM_PARAMS_COUNT) ||
++ 			    !smu_cmn_custom_params_clock_valid(custom_params[0],
++ 							       SMU_14_0_2_CUSTOM_PARAMS_CLOCK_COUNT))
+  				return -EINVAL;
+  			idx =3D custom_params[0] * SMU_14_0_2_CUSTOM_PARAMS_COUNT;
+  			smu->custom_profile_params[idx] =3D 1;
+@@@ -2788,22 -2803,28 +2803,28 @@@ static int smu_v14_0_2_od_edit_dpm_tabl
+  	return ret;
+  }
+ =20
+- static int smu_v14_0_2_set_power_limit(struct smu_context *smu,
+- 				       enum smu_ppt_limit_type limit_type,
+- 				       uint32_t limit)
++ static int smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
++ 				     enum smu_ppt_limit_type limit_type,
++ 				     uint32_t limit)
+  {
+  	PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+- 	uint32_t msg_limit =3D pptable->SkuTable.MsgLimits.Power[PPT_THROTTLER_P=
+PT0][POWER_SOURCE_AC];
++ 	uint32_t msg_limit =3D pptable->SkuTable.MsgLimits.Power
++ 		[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
+  	struct smu_table_context *table_context =3D &smu->smu_table;
+  	OverDriveTableExternal_t *od_table =3D
+  		(OverDriveTableExternal_t *)table_context->overdrive_table;
++ 	OverDriveTableExternal_t current_od_table;
+  	int ret =3D 0;
+ =20
+- 	if (limit_type !=3D SMU_DEFAULT_PPT_LIMIT)
++ 	if (limit_type !=3D SMU_PPT_LIMIT_PPT0)
+  		return -EINVAL;
+ =20
+  	if (limit <=3D msg_limit) {
+- 		if (smu->current_power_limit > msg_limit) {
++ 		ret =3D smu_v14_0_2_get_overdrive_table(smu, &current_od_table);
++ 		if (ret)
++ 			return ret;
++=20
++ 		if (current_od_table.OverDriveTable.Ppt) {
+  			od_table->OverDriveTable.Ppt =3D 0;
+  			od_table->OverDriveTable.FeatureCtrlMask |=3D 1U << PP_OD_FEATURE_PPT_=
+BIT;
+ =20
+@@@ -2813,9 -2834,9 +2834,9 @@@
+  				return ret;
+  			}
+  		}
+- 		return smu_v14_0_set_power_limit(smu, limit_type, limit);
++ 		return smu_v14_0_set_ppt_limit(smu, limit_type, limit);
+  	} else if (smu->od_enabled) {
+- 		ret =3D smu_v14_0_set_power_limit(smu, limit_type, msg_limit);
++ 		ret =3D smu_v14_0_set_ppt_limit(smu, limit_type, msg_limit);
+  		if (ret)
+  			return ret;
+ =20
+@@@ -2828,7 -2849,6 +2849,6 @@@
+  		  return ret;
+  		}
+ =20
+- 		smu->current_power_limit =3D limit;
+  	} else {
+  		return -EINVAL;
+  	}
+@@@ -2882,8 -2902,8 +2902,8 @@@ static const struct pptable_funcs smu_v
+  	.get_unique_id =3D smu_v14_0_2_get_unique_id,
+  	.get_fan_speed_pwm =3D smu_v14_0_2_get_fan_speed_pwm,
+  	.get_fan_speed_rpm =3D smu_v14_0_2_get_fan_speed_rpm,
+- 	.get_power_limit =3D smu_v14_0_2_get_power_limit,
+- 	.set_power_limit =3D smu_v14_0_2_set_power_limit,
++ 	.get_ppt_limit =3D smu_v14_0_2_get_ppt_limit,
++ 	.set_ppt_limit =3D smu_v14_0_2_set_ppt_limit,
+  	.get_power_profile_mode =3D smu_v14_0_2_get_power_profile_mode,
+  	.set_power_profile_mode =3D smu_v14_0_2_set_power_profile_mode,
+  	.run_btc =3D smu_v14_0_run_btc,
+@@@ -2893,8 -2913,6 +2913,6 @@@
+  	.deep_sleep_control =3D smu_v14_0_deep_sleep_control,
+  	.gfx_ulv_control =3D smu_v14_0_gfx_ulv_control,
+  	.get_bamaco_support =3D smu_v14_0_get_bamaco_support,
+- 	.baco_get_state =3D smu_v14_0_baco_get_state,
+- 	.baco_set_state =3D smu_v14_0_baco_set_state,
+  	.baco_enter =3D smu_v14_0_2_baco_enter,
+  	.baco_exit =3D smu_v14_0_2_baco_exit,
+  	.mode1_reset_is_support =3D smu_v14_0_2_is_mode1_reset_supported,
 
---qspAP+TxOsXsf+oQ
+--rg9/KF51gF/Kfdk0
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp56AYACgkQJNaLcl1U
-h9DS7gf/XbZWotxD07B283xLMPi+d6xIW9iGPWN9kCONXDtCR8pBgoHg3rr+aqmD
-Y/FQVicZrF3vR/4avvoDXfznJtalSs3hzZaJiI5Sv6OWkabndUfYdyAa133h/lI4
-M3TjPOPEolq1R15RZMSXjlZzAGw7+Fs65ZYvStlurcT171q1nrxd0bnOE5exbmAw
-loBjAk8slXwf4D+nl0QqUc4yO8r8kvTdApx1JnCSV1fdqEYsEviHNHW0DBMVR7E9
-/yTp3n1muTy/WCKqHMKB1STAhUKNtO9F69myQkpQbLi/7lNZ55NAr0SeekdgiU1M
-iNK6nl1Rs+LL9JSM3C/7hDURwnLNLQ==
-=Ozg+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp56BEACgkQJNaLcl1U
+h9By4Af/Zb5OFzM8H5eLHG0ktYlYdBC2GDRAVRD+8oDyuARic5Vw9CwZCcSNTQ7j
+/VTbN39wnI3Fk2kuIAlyj7vjBCfm9qtgIoiNy0nFPhTYromqtYb73WERBGIOO6yI
+BTH/zQHHYo9G8TUuhsX5kkmDOCEPRRMrH3etaC43nOASF36XpvCoQ4qpKgZWy5jo
+iEq5xxQ39c/t3hd3HLu9XL7xNlOgmmCBxyIV5t0y5h1r+I6V3ZmeVolIMMqCvLgB
+pACeXjdufJ18Kky2WBy/qQiSTG6E7QF0czPjJmafPKLgIQl7BJl/LcECoZje7lK5
+CHDOllOsmR4EfUIvFj6LrSCQaO6M4A==
+=QlN4
 -----END PGP SIGNATURE-----
 
---qspAP+TxOsXsf+oQ--
+--rg9/KF51gF/Kfdk0--
