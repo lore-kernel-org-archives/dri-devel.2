@@ -4,49 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D53EDC5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 10:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 256CAC5AD7B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 10:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E184210E78B;
-	Mon, 10 Aug 2026 10:04:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4371110E78C;
+	Mon, 10 Aug 2026 10:05:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fkWBatPn";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FsBPv4ES";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD15B10E78C
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 10:04:53 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9C7BA5E;
- Mon, 10 Aug 2026 12:03:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1786356218;
- bh=yQdZe9RRs+ShJ14GMJhSuql7BtFumMXPm4coSH46p30=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fkWBatPndikYhSLylGsv/qWu0j9wax0c1zQlOKbCOTDnZfZKXRzji5+Ij6WaE9+t9
- JbT1YjlYQS6YBtRmFw+F6tawXwSXXJccq5X6uQmaLQfqgZwwcu+vj1iJxy++jE5UQe
- +W7t5gqZP3tAfdZJmLILpCy09uqRrfLefB9tdYuY=
-Date: Mon, 10 Aug 2026 13:04:51 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH] drm/rcar-du: dsi: Implement DSI command TX using AXI
- memory access
-Message-ID: <20260810100451.GA2940644@killaraus.ideasonboard.com>
-References: <20260809195831.842907-1-marek.vasut+renesas@mailbox.org>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE4D10E78C
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 10:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786356314;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KTE9q723VNHgSKbOmtVFOArX1damMhZ8BQEArvWAKkE=;
+ b=FsBPv4ES9kyKNgKlWzIgi+oXz7XsakdZRO4Fymvkux04hbvXb7lklDLmqSqch4fCKsNYpn
+ eVbyB2o1oLHP3QJvYMKYJP1MCmfcZQEgd+4myGUYNnVy1jMRiTlhUq5Iq8gmsaJ+Wxkay8
+ 1aFqCEaNCzr+IOSeDBLPEDn4VyDrNjE=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-605-gqT7_sTeOJSvCjDBVK7OdA-1; Mon, 10 Aug 2026 06:05:10 -0400
+X-MC-Unique: gqT7_sTeOJSvCjDBVK7OdA-1
+X-Mimecast-MFC-AGG-ID: gqT7_sTeOJSvCjDBVK7OdA_1786356309
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-49955a9dbcdso10290955e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 03:05:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786356309; x=1786961109;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=KTE9q723VNHgSKbOmtVFOArX1damMhZ8BQEArvWAKkE=;
+ b=EhZl8zD0p9H4Paj26gxZnk4X32y7iLlq67rHDygvjlnqyFItmGSgItJrgw514YZviY
+ oGPLO7ue6q6n1ga66xw5ci6/OkLcfQZvhdOeBaFcBIj3K5Jq40GR7fpeAd3540XZznH1
+ N2dmh+SkTUZvX9wP+biKN+08DWv+pxz9Y30gpNrQFwGT2WIpfMDd5YGYCUut8eklFya7
+ 6rVyxpk/qVvwSvGmxpJJmuTIp5wx9ZH/hvupNQmtnNj5FGt8XLtseuf3BJqbCISsMzt0
+ mxdHinVGr4y64UDrdimtisigSOr/l8CRu3dpC3Lc3tt10DXsHtWS9LGVCWqhk3/308tG
+ wyfA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RokumPxCeze8qT2B9W2X/L2aD5PJynlqKdcnXZcg6+SFk5Iuve2psdMwkG05YdoqXt3RV5KNRpvPHU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyCKtLqZ13lWVaDlcZGUQDNXreMlNMuw+MsrrhsLDUt08gwlRlV
+ anC1YfKZAW0dlzdCGS/jVj2pvKf9z2qR6iP9hRQM8Lu55C69FRwxmjYFHXX390ZvxJAEkC94rim
+ WLiONumfg3pisUfDWvirNdbgINa1Ad6/0pZoNEfkJ/HSyxcbgRZH4Sw0s0Vfc1xiwG+LN6+x4Pg
+ vNkUh3Jm2uiOuah+O/evH1w7grrSzUmIimSBuDWNUgKkpG
+X-Gm-Gg: AR+sD115VJ/Fm5f+ZNSqd6WCk7aRr3E5Nptv6ycISjXCfN5I/bUZELGzaV7z0Ayi+ou
+ Odtt06INcp9/aK/fBpxJxl9x4VbKVpy2aomUqSHRP1l6fAsrMUccC6juqsBVLZLoyqRW9g24Nd9
+ M8hP2yIRqhj5pVetu46NtSt1mBxuXK/rvT7B3SnRVIfs4fpYFx4w3wpx1jfXi1ZwWko+7mnQ9eO
+ l3cvnkBfGqQmHw+kHiiNIOu0NzpAWW+xlOUpK1EumXcax6xcHvyjFnk5pY=
+X-Received: by 2002:a05:600c:3226:b0:490:e5c1:b8bf with SMTP id
+ 5b1f17b1804b1-499727a3b84mr5344235e9.13.1786356309215; 
+ Mon, 10 Aug 2026 03:05:09 -0700 (PDT)
+X-Received: by 2002:a05:600c:3226:b0:490:e5c1:b8bf with SMTP id
+ 5b1f17b1804b1-499727a3b84mr5343835e9.13.1786356308812; Mon, 10 Aug 2026
+ 03:05:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260809195831.842907-1-marek.vasut+renesas@mailbox.org>
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+ <20260804120529.1730187-4-pbonzini@redhat.com>
+ <49840a84-6d73-4a15-adae-800eccfb1c7d@amd.com>
+In-Reply-To: <49840a84-6d73-4a15-adae-800eccfb1c7d@amd.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 10 Aug 2026 12:04:48 +0200
+X-Gm-Features: AUfX_my6VzuSeHJgh3uVKaTYyn_VnWzP5xLi-qQ5sWEuv-5l4TAmINZeor_-704
+Message-ID: <CABgObfYvz_SrBBXmzJfiW0VsQyRa8OWQdP7myfY=WAws63oguw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/6] drm/ttm, drm/vmwgfx: directly create writable PTEs
+ when mkwrite is in use
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+ Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ David Hildenbrand <david@kernel.org>, 
+ dri-devel@lists.freedesktop.org, Fei Li <fei1.li@intel.com>, 
+ Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, linux-s390@vger.kernel.org, 
+ Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>,
+ Sergio Lopez <slp@redhat.com>, Sean Christopherson <seanjc@google.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: GYqfIh2LtBxp6oDNle9IQ4oGJf9f3B7l-jgigeB44Vg_1786356309
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,157 +105,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Marek,
+On Mon, Aug 10, 2026 at 12:01=E2=80=AFPM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+>
+> > -             /* Never error on prefaulted PTEs */
+> > +             /* Never error on prefaulted PTEs and never map them writ=
+able */
+> > +             mkwrite =3D false;
+>
+> As far as I can see that is a really bad idea, we do want the prefaulted =
+PTEs writeable.
+>
+> The whole prefaulting is essentially an optimization for cases where taki=
+ng a fault has massively overhead (virtualization for example).
+>
+> Wasn't vmf_insert_pfn_prot() making them writeable before?
 
-Thank you for the patch.
+In general yes and they still will be, but not if pfn_mkwrite was used
+(as in the vmwgfx driver). I'll change the comment to "never force
+them to be writable". Setting mkwrite to false is exactly the same
+behavior as before, setting it to true is a superset.
 
-On Sun, Aug 09, 2026 at 09:58:06PM +0200, Marek Vasut wrote:
-> Currently, the driver supports register access mode for DSI command
-> transfer, which limits both TX and RX to only 16 Bytes long packets.
-> Implement support for DSI command TX using AXI memory access mode,
-> which extends the packet transfer length up to 128 Bytes long in LP
-> and 1024 Bytes long in HS. Support for DSI command RX using the AXI
-> access mode is not implemented due to missing test hardware.
-> 
-> The implementation allocates a DMAble 4k page. In case the command
-> transfer is longer than 16 Bytes, the payload is copied into the
-> page and sent out using the AXI access mode, otherwise the register
-> access mode is used.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Magnus Damm <magnus.damm@gmail.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  .../gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   | 42 +++++++++++++++----
->  1 file changed, 35 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> index 6e46d6d99f3c0..c25218ca4320a 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> @@ -8,6 +8,7 @@
->  #include <linux/bitfield.h>
->  #include <linux/clk.h>
->  #include <linux/delay.h>
-> +#include <linux/dma-mapping.h>
->  #include <linux/io.h>
->  #include <linux/iopoll.h>
->  #include <linux/math64.h>
-> @@ -75,6 +76,9 @@ struct rcar_mipi_dsi {
->  	unsigned long mode_flags;
->  	unsigned int num_data_lanes;
->  	unsigned int lanes;
-> +
-> +	void *cmd_axi_cpu;
-> +	dma_addr_t cmd_axi_dma;
->  };
->  
->  struct dsi_setup_info {
-> @@ -977,6 +981,7 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
->  					      bool is_rx_xfer)
->  {
->  	const bool is_tx_long = mipi_dsi_packet_format_is_long(msg->type);
-> +	const bool is_tx_axi = !is_rx_xfer && is_tx_long && (msg->tx_len > 16);
->  	struct rcar_mipi_dsi *dsi = host_to_rcar_mipi_dsi(host);
->  	struct mipi_dsi_packet packet;
->  	u8 payload[16] = { 0 };
-> @@ -987,9 +992,14 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
->  	if (ret)
->  		return ret;
->  
-> -	/* Configure LP or HS command transfer. */
-> -	rcar_mipi_dsi_write(dsi, TXCMSETR, (msg->flags & MIPI_DSI_MSG_USE_LPM) ?
-> -					   TXCMSETR_SPDTYP : 0);
-> +	/* Configure LP or HS and register or AXI command transfer. */
-> +	rcar_mipi_dsi_write(dsi, TXCMSETR, ((msg->flags & MIPI_DSI_MSG_USE_LPM) ?
-> +					    TXCMSETR_SPDTYP : 0) |
-> +					   (is_tx_axi ? TXCMSETR_LPPDACC : 0));
-> +
-> +	/* Configure DMA source address for AXI command transfer. */
-> +	if (is_tx_axi)
-> +		rcar_mipi_dsi_write(dsi, TXCMADDRSET0R, dsi->cmd_axi_dma);
->  
->  	/* Register access mode for RX transfer. */
->  	if (is_rx_xfer)
-> @@ -1011,7 +1021,10 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
->  			    TXCMPHDR_DATA1(packet.header[2]) |
->  			    TXCMPHDR_DATA0(packet.header[1]));
->  
-> -	if (is_tx_long) {
-> +	if (is_tx_axi) {
-> +		memcpy(dsi->cmd_axi_cpu, packet.payload,
-> +		       min(msg->tx_len, 128));
-> +	} else if (is_tx_long) {
->  		memcpy(payload, packet.payload,
->  		       min(msg->tx_len, sizeof(payload)));
->  
-> @@ -1162,10 +1175,16 @@ static ssize_t rcar_mipi_dsi_host_transfer(struct mipi_dsi_host *host,
->  	struct rcar_mipi_dsi *dsi = host_to_rcar_mipi_dsi(host);
->  	int ret;
->  
-> -	if (msg->tx_len > 16 || msg->rx_len > 16) {
-> -		/* ToDo: Implement Memory on AXI bus command mode. */
-> +	if (msg->tx_len > 1024 || msg->rx_len > 16) {
-> +		/* ToDo: Implement Memory on AXI bus RX command mode. */
->  		dev_warn(dsi->dev,
-> -			 "Register-based command mode supports only up to 16 Bytes long payload\n");
-> +			 "Command mode supports only up to 1024B long TX and 16B long RX payload\n");
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	if ((msg->flags & MIPI_DSI_MSG_USE_LPM) && msg->tx_len > 128) {
-> +		dev_warn(dsi->dev,
-> +			 "Command mode in LP supports only up to 128B long TX payload\n");
->  		return -EOPNOTSUPP;
->  	}
->  
-> @@ -1276,6 +1295,13 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
->  	dsi->dev = &pdev->dev;
->  	dsi->info = of_device_get_match_data(&pdev->dev);
->  
-> +	dsi->cmd_axi_cpu = dma_alloc_coherent(&pdev->dev, SZ_4K, &dsi->cmd_axi_dma,
-> +					      GFP_KERNEL | GFP_DMA32);
+Paolo
 
-I think setting the DMA mask for the device is preferred over using
-GFP_DMA32.
-
-> +	if (!dsi->cmd_axi_cpu) {
-> +		return dev_err_probe(&pdev->dev, -ENOMEM,
-> +				     "Failed to allocate DSI AXI Access command buffer\n");
-> +	}
-
-No need for curly braces.
-
-> +
->  	ret = rcar_mipi_dsi_parse_dt(dsi);
-
-The allocated memory is leaking in error paths.
-
->  	if (ret < 0)
->  		return ret;
-> @@ -1309,6 +1335,8 @@ static void rcar_mipi_dsi_remove(struct platform_device *pdev)
->  {
->  	struct rcar_mipi_dsi *dsi = platform_get_drvdata(pdev);
->  
-> +	dma_free_coherent(&pdev->dev, SZ_4K, dsi->cmd_axi_cpu, dsi->cmd_axi_dma);
-> +
->  	mipi_dsi_host_unregister(&dsi->host);
->  }
->  
-
--- 
-Regards,
-
-Laurent Pinchart
