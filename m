@@ -4,56 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04115C5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5245C5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:07:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5957110E66E;
-	Mon, 10 Aug 2026 07:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED7210E6D7;
+	Mon, 10 Aug 2026 07:07:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O3oU0DEh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s0TYwEvc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11B7F10E66E;
- Mon, 10 Aug 2026 07:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786345391; x=1817881391;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=xtkKDeObPUQTh95kLilBbBeVEyfx5Lr+tEpNYbf3o3s=;
- b=O3oU0DEhADDRGdqHGriI7Iq20seXf0s6U+koMXHlekz5+3Oo5TX7Mmw6
- wbys2aAhl4Cv2xpLZ6KO4rQYBkL1nj6VGyI3LRKgnb/vI6ZZfcdyDAPa1
- i5EVabxdo9jXDS7ucAIUPdQJOZJEM17pwJuqLJTVcrYRp5ZKyfMU6z+CZ
- 0Ql3nIThunTdKQ0T3BcmGS1SggtcKoanG/0M7Kgpggrj8S8n1DQLILQ/Y
- gikIx5BpU+HuqVWhhSGUi/Sc1S5FzYRrrodcj4kVbU0vfeRo6zAVMK5Gf
- AQ+lBJXue8k3kG0kVepoBL7jf07UHzjIT/Du+wmB4PIHeii3jnVZefwni Q==;
-X-CSE-ConnectionGUID: tjPBEeXzSl6c5wUrs3ociQ==
-X-CSE-MsgGUID: tgH5+IHFRCyvYXCR0vrIfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="97505973"
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="97505973"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 00:03:10 -0700
-X-CSE-ConnectionGUID: 3tBXPJAlQQKwMgoxBVVdIg==
-X-CSE-MsgGUID: GafR8Bz0QTehP//b85etnw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="287665001"
-Received: from varungup-desk.iind.intel.com ([10.190.238.71])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 00:02:55 -0700
-From: Arvind Yadav <arvind.yadav@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, himal.prasad.ghimiray@intel.com
-Subject: [PATCH v5] drm/pagemap: Prevent double migration of device pages
-Date: Mon, 10 Aug 2026 12:32:40 +0530
-Message-ID: <20260810070240.2721317-1-arvind.yadav@intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D62A10E6CC
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 07:07:36 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-39c7ed5410bso5618051fa.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 00:07:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786345655; cv=none;
+ d=google.com; s=arc-20260327;
+ b=pGukM8jRycxBd0QAv4mC8jznvmcIxqElKQJmLLlCd3sioARQ1KnMm7tNSfYQNFhKTL
+ w1BE92JNbfp0H7ffHcpGtYOlPDqGAwuXd+SCr/nl/mZFnFAs1vucEtHox5RjF8tCz7mA
+ axIryFRdUVboLuR22B2FlG1BFkf1n73kk8acHc1WglV0dpel5x0hXYoLD5sLFGw08w+w
+ Np8CdSjQXe6QGE+jInyKyIxi3rg9RDhaSLPzuE3M3e2cGJSpmuQfv1GKhtIQBOQ78Y0e
+ 1OAT5N2WPNPhsbEB9s2MSzMv0noMKuxCL2AOZdpeRNqFNGNZW0uS9n/ZDRkFZdO+t46X
+ r/xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=t0itK36weHoU2jtoEAt96DrFUj7FEsHjlM30gbeY12U=;
+ fh=1hQyGlGc3MVhy0+tYL5eHDrWOpbCVPVxcVrulK57UKc=;
+ b=AirutVqYgXVCdHfKB02F0aIkR9QmF2DZ7jQ6Fbs4qorOToZlNROKsR36zfaHSkbCsb
+ IiP3hIpUM8vpGK9/FmzLTrVU4e8bGGwQZBiBxBDkVl9kgR072I//K1dt+uaaGgolTAPf
+ Vp0WlJYj0u0+ta2XYuheRxYxuV5IogoZbo36S5YznatpLpyfvZKMa6+nrgK8trPG3TWi
+ SNj/YM+8cQoNFi6FZJrvjoVinAphAlIcmeeOELdt9N8dtQy3v7nE4KGsSj3eeH3XrL6X
+ UO3fGr0g8b1ERsgAXeP+rdYIFJ7h/R7iwQaEAn8eBp0wPkipUhS8wOvihuZx+esMNceL
+ I5JA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786345655; x=1786950455; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=t0itK36weHoU2jtoEAt96DrFUj7FEsHjlM30gbeY12U=;
+ b=s0TYwEvc5pGY7ehUJZ+e0XFVWdKcPzR5dIbuAJb8YIn2X1n4pxJ4UMs92dK3S2Dow5
+ RnySe+uGLbR6ATL0Hleope3Z6YCVnlpY+UEA635Ng4RdXt7gHcll16X6WE11GEughpC9
+ n4YfjApMGM/6SLOkDUPa805674SKjYrNKfjDKA4cLpZEAMeD2SJZe/hwOVlp6c6rtvyy
+ nY2tnTHuePME7d718ODPHr5nml7q+x2TjburkzWAi4Jx7p7S+BJE1xB0FT8BfMPjtjH1
+ rtTHcScQjxAIX7vpebKgX1BEeele865SRwNcKHX9tQqjsKURxWYAjq2UQea+KD9RNVww
+ sSMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786345655; x=1786950455;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=t0itK36weHoU2jtoEAt96DrFUj7FEsHjlM30gbeY12U=;
+ b=gXWXcC2VzN+WuGC5e16utvx4Trh2Ra9LXgCoZYwMAU9t/YF8ytvsWfhbaeEQ2kOIKY
+ nec/1n54Nh3hYLKR2zwN0J1y7l1OYG6e4ABUehTYRHzx7ULfBI5VfyBIfo1yvlwrsx/v
+ 3PCp3Us0DaV7VERfb3AcBIITRwKq0lXEaEw7ZRdqkn0Do4uLALqKCAyIZRaLtREMPt9p
+ +7zq7OpnTQGxC9ZD9Fw5bxfCDP52CRHctluWLvUfOAoTFyK4wB1uOZb61to5WZc/IGC9
+ WlPqQ3g+uDt2lutqiHoRsmOEdJBL08xu4gTjfLBGvJRug6Ih1rExVKx/beXhdQtONw5a
+ Ee+Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoftrzgU/kTydP3WMO3uG+XE9L7vhXtNaf1SFJjdwkuOykdZfqclcQAl+ReT2y25epR8JvsTnU/vSU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvxJ9et7X7Bms7JNz2COArual6YSBD5kKO/DHhVjjhsZZBFWYg
+ MRvDHIa3HgR+HWya3zZzJ1BANlFPPbu2hEVZrbbVSdjeYkLfUqb/DIEogE6thuvmmysZ45Nzu1I
+ g6tWu/88PJvWO1JMkaEUqtjBa0W2P/gU=
+X-Gm-Gg: AR+sD11gGsdLPT3QVfxADLwRPEdNnsvnItSUR8V+tr6AISryJhNBd8azURGTQI2FowU
+ Ga5dNVacO8+XhOwYqz2DzWjX8hAFUFuP3l9EbGfqCxY37glPbWQ1CqZJycUrFPgkdyx9x7BQOsh
+ /xslh5A5orWx6UG3BkFpCzru6hvPBedCxHB91oePTgWPI//vhmHYFOM66xg77PRui6g7lGONR+F
+ 3nL7ySxHAX3ALfTgqc0eaueAdG31ssXdiesSCjhpYB++YxAthvycbIn01h+n86xoTPdRGYxvwSc
+ O918nBk5vxotRXFZRJlJ3FP30NDtqv7KTAuOimNeMrqrpFTAvouyzrgoBfPFys5xf4Gnobva1Rv
+ IlY2nQEE5JaRtOtP58EUjFtPp2jkB2WXy2byXrFl4vgAfO8WNmH/xBJEmiRZAm0FJI7PlYlsL7z
+ E2Wkk4+6wLwIWWq6t+RRpwkiC0CI3ndHm6pQd9RPA+uA==
+X-Received: by 2002:a05:651c:c8d:b0:39a:cfe9:247f with SMTP id
+ 38308e7fff4ca-39fbb301b83mr46526421fa.31.1786345654462; Mon, 10 Aug 2026
+ 00:07:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260809053253.14537-1-amballip@gmail.com>
+In-Reply-To: <20260809053253.14537-1-amballip@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 10 Aug 2026 10:06:58 +0300
+X-Gm-Features: AUfX_mwVA-ExyPEAQSrd3nXoSIktRzqRF1T8EbwlfOAr0G0N12s_EaUlhji3NvU
+Message-ID: <CAHp75VcFkgrcBKJcvm8Br164MA8jM1xRKahBuZ-WPgEBwfi5Fg@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: Fix wrong controller name in fb_bd663474
+To: Preetish Amballi <amballip@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,353 +109,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A device-private folio migrated to system memory by a CPU fault can
-remain reachable through the raw-PFN eviction path until migration
-finalization drops the source reference.
+On Sun, Aug 9, 2026 at 8:33=E2=80=AFAM Preetish Amballi <amballip@gmail.com=
+> wrote:
+>
+> The file fb_bd663474.c is a driver for the BD663474 LCD controller,
+> but the comment header and MODULE_DESCRIPTION incorrectly reference
+> 'uPD161704' =E2=80=94 a copy-paste error from fb_upd161704.c.
+>
+> Fix the comment and MODULE_DESCRIPTION to say 'BD663474' instead of
+> 'uPD161704'.
 
-If eviction selects the same device-private folio during this window,
-it can attempt to migrate the folio again. The second migration can leave
-an uncharged folio on an LRU list, causing folio_lruvec_lock_irqsave() to
-retry indefinitely and resulting in a soft lockup and RCU stall.
+LGTM,
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
 
-Mark successfully migrated device-private folios using a low bit of
-their zone_device_data before migration finalization. Make both CPU-fault
-and raw-PFN migration paths skip device-private folios carrying this
-flag.
-
-Mask the flag when retrieving the drm_pagemap_zdd pointer and preserve
-it when a device-private folio is split. Keeping the state on the physical
-folio also avoids depending on a virtual address that may change before a
-fault occurs.
-
-v2:
-- Replace the retired-PFN XArray with an embedded bitmap. (Matthew Brost)
-- Mark every base page covered by a migrated folio so retirement remains
-  valid if the folio is later split.
-
-v3:
-- Store the migrated state in a low bit of zone_device_data instead of
-  adding virtual-range and bitmap tracking to the ZDD. (Matthew Brost)
-- Mask the flag when retrieving the ZDD and preserve it when splitting
-  a folio.
-- Drop the pre-existing fixes already covered by Matthew Brost's series:
-  https://patchwork.freedesktop.org/series/171651/
-
-v4:
-- Advance by the folio size only for migration entries marked with
-  MIGRATE_PFN_COMPOUND. (Sashiko)
-
-v5:
-- Simplify ZDD flag updates and folio iteration. (Matthew Brost)
-- Skip retired device-private folios in the CPU-fault path. (Matthew Brost)
-- Preserve flag bits while taking a new ZDD reference for split folios.
-
-The lockup was observed as:
-[10109.860465] watchdog: BUG: soft lockup - CPU#9 stuck for 26s! [kworker/u65:5:6557]
-[10109.860524] Tainted: [S]=CPU_OUT_OF_SPEC, [O]=OOT_MODULE
-[10109.860524] Hardware name: ASUS System Product Name/PRIME Z790-P WIFI, BIOS 0812 02/24/2023
-[10109.860525] Workqueue: xe_page_fault_work_queue xe_pagefault_queue_work [xe]
-[10109.860644] RIP: 0010:_raw_spin_unlock_irqrestore+0x57/0x80
-[10109.860655] Call Trace:
-[10109.860655]  <TASK>
-[10109.860657]  folio_lruvec_lock_irqsave+0x216/0x220
-[10109.860661]  ? __pfx_lru_add+0x10/0x10
-[10109.860665]  folio_batch_move_lru+0xc8/0x450
-[10109.860670]  ? lock_acquire+0xc4/0x2d0
-[10109.860674]  ? __folio_batch_add_and_move+0x60/0x2e0
-[10109.860677]  ? folio_migrate_mapping+0xa6/0x110
-[10109.860679]  ? folio_migrate_flags+0x13b/0x1b0
-[10109.860681]  ? __pfx_lru_add+0x10/0x10
-[10109.860683]  __folio_batch_add_and_move+0xe7/0x2e0
-[10109.860685]  ? dma_iova_try_alloc+0xb0/0x140
-[10109.860689]  folio_add_lru+0x64/0x80
-[10109.860691]  __migrate_device_finalize+0x12c/0x270
-[10109.860695]  migrate_device_finalize+0x10/0x20
-[10109.860698]  drm_pagemap_evict_to_ram+0x185/0x370 [drm_gpusvm_helper]
-[10109.860704]  ? drm_pagemap_evict_to_ram+0x96/0x370 [drm_gpusvm_helper]
-[10109.860709]  xe_svm_bo_evict+0x15/0x20 [xe]
-[10109.860819]  ? xe_svm_bo_evict+0x15/0x20 [xe]
-[10109.860921]  xe_bo_move+0x107e/0x1570 [xe]
-[10109.860992]  ? xe_ttm_tt_create+0x168/0x340 [xe]
-[10109.861059]  ? __up_read+0x98/0x2b0
-[10109.861061]  ? lock_is_held_type+0xa3/0x130
-[10109.861067]  ttm_bo_handle_move_mem+0xe8/0x1e0 [ttm]
-[10109.861075]  ttm_bo_evict+0x141/0x1c0 [ttm]
-[10109.861081]  ttm_bo_evict_cb+0x9f/0x100 [ttm]
-[10109.861086]  ttm_lru_walk_for_evict+0x84/0x190 [ttm]
-[10109.861091]  ? xe_ttm_vram_mgr_new+0x258/0x3a0 [xe]
-[10109.861198]  ttm_bo_alloc_resource+0x219/0x750 [ttm]
-[10109.861203]  ? ttm_bo_alloc_resource+0xa9/0x750 [ttm]
-[10109.861208]  ? lock_acquire+0xc4/0x2d0
-[10109.861214]  ttm_bo_validate+0x94/0x1c0 [ttm]
-[10109.861218]  ? ww_mutex_trylock+0x19d/0x3d0
-[10109.861219]  ? _raw_write_unlock+0x22/0x50
-[10109.861223]  ttm_bo_init_reserved+0x17d/0x1f0 [ttm]
-[10109.861228]  xe_bo_init_locked+0x20a/0x620 [xe]
-[10109.861294]  ? __pfx_xe_ttm_bo_destroy+0x10/0x10 [xe]
-[10109.861359]  ? mark_held_locks+0x46/0x90
-[10109.861361]  ? __create_object+0x68/0xc0
-[10109.861366]  __xe_bo_create_locked+0x384/0xa20 [xe]
-[10109.861432]  ? lock_acquire+0xc4/0x2d0
-[10109.861434]  ? xe_drm_pagemap_populate_mm+0xd3/0x340 [xe]
-[10109.861542]  xe_bo_create_locked+0x23/0x40 [xe]
-[10109.861609]  xe_drm_pagemap_populate_mm+0x12e/0x340 [xe]
-[10109.861707]  ? __lock_acquire+0x43e/0x2930
-[10109.861716]  drm_pagemap_populate_mm+0x74/0xe0 [drm_gpusvm_helper]
-[10109.861720]  xe_svm_alloc_vram+0xb5/0x2c0 [xe]
-[10109.861817]  ? seqcount_lockdep_reader_access.constprop.0+0x9f/0xc0
-[10109.861819]  ? ktime_get+0x23/0x130
-[10109.861821]  ? trace_hardirqs_on+0x22/0xe0
-[10109.861823]  ? seqcount_lockdep_reader_access.constprop.0+0x9f/0xc0
-[10109.861826]  __xe_svm_handle_pagefault+0x77d/0xbf0 [xe]
-[10109.861924]  ? rwsem_down_write_slowpath+0x43a/0x9a0
-[10109.861926]  ? _raw_spin_unlock_irq+0x27/0x70
-[10109.861928]  ? rwsem_down_write_slowpath+0x43a/0x9a0
-[10109.861929]  ? trace_hardirqs_on+0x22/0xe0
-[10109.861931]  ? _raw_spin_unlock_irq+0x27/0x70
-[10109.861933]  ? rwsem_down_write_slowpath+0x459/0x9a0
-[10109.861937]  xe_svm_handle_pagefault+0x3d/0xb0 [xe]
-[10109.862030]  xe_pagefault_queue_work+0x1a9/0x520 [xe]
-[10109.862122]  process_one_work+0x239/0x730
-[10109.862127]  worker_thread+0x200/0x3f0
-[10109.862130]  ? __pfx_worker_thread+0x10/0x10
-[10109.862132]  kthread+0x10d/0x150
-[10109.862133]  ? __pfx_kthread+0x10/0x10
-[10109.862135]  ret_from_fork+0x3bd/0x470
-[10109.862138]  ? __pfx_kthread+0x10/0x10
-[10109.862140]  ret_from_fork_asm+0x1a/0x30
-[10109.862146]  </TASK>
-
-Fixes: 99624bdff867 ("drm/gpusvm: Add support for GPU Shared Virtual Memory")
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Assisted-by: Claude:claude-opus-4-8
-Suggested-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
----
- drivers/gpu/drm/drm_pagemap.c | 119 ++++++++++++++++++++++++++++++++--
- include/drm/drm_pagemap.h     |   8 ++-
- 2 files changed, 121 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 7a056592ac66..c23f311e378d 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -1102,12 +1102,109 @@ void drm_pagemap_put(struct drm_pagemap *dpagemap)
- }
- EXPORT_SYMBOL(drm_pagemap_put);
- 
-+/**
-+ * drm_pagemap_page_get_flags() - Read flags from a device-private folio
-+ * @page: Pointer to a page of the device-private folio
-+ *
-+ * Return: The DRM_PAGEMAP_ZDD_FLAG_* bits encoded in zone_device_data.
-+ */
-+static unsigned long drm_pagemap_page_get_flags(struct page *page)
-+{
-+	struct folio *folio = page_folio(page);
-+
-+	return (unsigned long)folio_zone_device_data(folio) &
-+		DRM_PAGEMAP_ZDD_FLAG_MASK;
-+}
-+
-+/**
-+ * drm_pagemap_page_set_flags() - Set flags on a device-private folio
-+ * @page: Pointer to a page of the device-private folio
-+ * @flags: DRM_PAGEMAP_ZDD_FLAG_* bits to set
-+ *
-+ * Preserve any flags already encoded alongside the ZDD pointer.
-+ */
-+static void drm_pagemap_page_set_flags(struct page *page,
-+				       unsigned long flags)
-+{
-+	struct folio *folio = page_folio(page);
-+	unsigned long old;
-+
-+	if (WARN_ON_ONCE(flags & ~DRM_PAGEMAP_ZDD_FLAG_MASK))
-+		return;
-+
-+	old = (unsigned long)folio_zone_device_data(folio);
-+	folio_set_zone_device_data(folio, (void *)(old | flags));
-+}
-+
-+/**
-+ * drm_pagemap_retire_migrated_pages() - Record migrated device-private folios
-+ * @src_pfns: source array after migrate_vma_pages() or migrate_device_pages()
-+ * @npages: number of entries in @src_pfns
-+ *
-+ * Flag device folios that were successfully migrated to RAM before finalize
-+ * unlocks the sources. The migrated state is stored in the physical folio, so
-+ * it survives later folio splits and subsequent migrations can skip it.
-+ */
-+static void drm_pagemap_retire_migrated_pages(unsigned long *src_pfns,
-+					      unsigned long npages)
-+{
-+	unsigned long i = 0;
-+
-+	while (i < npages) {
-+		struct page *page = migrate_pfn_to_page(src_pfns[i]);
-+
-+		if (!page) {
-+			i++;
-+			continue;
-+		}
-+
-+		if ((src_pfns[i] & MIGRATE_PFN_MIGRATE) &&
-+		    is_device_private_page(page))
-+			drm_pagemap_page_set_flags(page,
-+						   DRM_PAGEMAP_ZDD_FLAG_MIGRATED);
-+
-+		i += folio_nr_pages(page_folio(page));
-+	}
-+}
-+
-+/**
-+ * drm_pagemap_skip_retired_pages() - Skip retired device-private folios
-+ * @src_pfns: MIGRATE_PFN-encoded source array
-+ * @npages: number of entries in @src_pfns
-+ *
-+ * Skip source folios already migrated to RAM, identified by the migrated flag
-+ * stored in the physical folio's zone_device_data.
-+ */
-+static void drm_pagemap_skip_retired_pages(unsigned long *src_pfns,
-+					   unsigned long npages)
-+{
-+	unsigned long i = 0;
-+
-+	while (i < npages) {
-+		struct page *page = migrate_pfn_to_page(src_pfns[i]);
-+
-+		if (!page) {
-+			i++;
-+			continue;
-+		}
-+
-+		if ((src_pfns[i] & MIGRATE_PFN_MIGRATE) &&
-+		    is_device_private_page(page) &&
-+		    (drm_pagemap_page_get_flags(page) &
-+		     DRM_PAGEMAP_ZDD_FLAG_MIGRATED))
-+			src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
-+
-+		i += folio_nr_pages(page_folio(page));
-+	}
-+}
-+
- /**
-  * drm_pagemap_evict_to_ram() - Evict GPU SVM range to RAM
-  * @devmem_allocation: Pointer to the device memory allocation
-  *
-- * Similar to __drm_pagemap_migrate_to_ram but does not require mmap lock and
-- * migration done via migrate_device_* functions.
-+ * Similar to __drm_pagemap_migrate_to_ram(), but uses the
-+ * migrate_device_* helpers and does not require the mmap lock
-+ * Device-private PFNs already migrated to RAM by either path are skipped.
-  *
-  * Return: 0 on success, negative error code on failure.
-  */
-@@ -1149,6 +1246,8 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	if (err)
- 		goto err_free;
- 
-+	drm_pagemap_skip_retired_pages(src, npages);
-+
- 	err = drm_pagemap_migrate_populate_ram_pfn(NULL, NULL, npages, &mpages,
- 						   src, dst, 0);
- 	if (err || !mpages)
-@@ -1179,6 +1278,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	if (err)
- 		drm_pagemap_migration_unlock_put_pages(npages, dst);
- 	migrate_device_pages(src, dst, npages);
-+	drm_pagemap_retire_migrated_pages(src, npages);
- 	migrate_device_finalize(src, dst, npages);
- 	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
- 					DMA_FROM_DEVICE, &state);
-@@ -1276,13 +1376,15 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	if (!migrate.cpages)
- 		goto err_free;
- 
-+	drm_pagemap_skip_retired_pages(migrate.src, npages);
-+
- 	ops = zdd->devmem_allocation->ops;
- 	dev = zdd->devmem_allocation->dev;
- 
- 	err = drm_pagemap_migrate_populate_ram_pfn(vas, page, npages, &mpages,
- 						   migrate.src, migrate.dst,
- 						   start);
--	if (err)
-+	if (err || !mpages)
- 		goto err_finalize;
- 
- 	err = drm_pagemap_migrate_map_system_pages(dev, pagemap_addr,
-@@ -1309,6 +1411,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	if (err)
- 		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
- 	migrate_vma_pages(&migrate);
-+	drm_pagemap_retire_migrated_pages(migrate.src, npages);
- 	migrate_vma_finalize(&migrate);
- 	if (dev)
- 		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
-@@ -1361,13 +1464,19 @@ static vm_fault_t drm_pagemap_migrate_to_ram(struct vm_fault *vmf)
- static void drm_pagemap_folio_split(struct folio *orig_folio, struct folio *new_folio)
- {
- 	struct drm_pagemap_zdd *zdd;
-+	unsigned long orig_data, new_data;
- 
- 	if (!new_folio)
- 		return;
- 
- 	new_folio->pgmap = orig_folio->pgmap;
--	zdd = folio_zone_device_data(orig_folio);
--	folio_set_zone_device_data(new_folio, drm_pagemap_zdd_get(zdd));
-+
-+	orig_data = (unsigned long)folio_zone_device_data(orig_folio);
-+	zdd = (struct drm_pagemap_zdd *)(orig_data & ~DRM_PAGEMAP_ZDD_FLAG_MASK);
-+
-+	new_data = (unsigned long)drm_pagemap_zdd_get(zdd);
-+	new_data |= orig_data & DRM_PAGEMAP_ZDD_FLAG_MASK;
-+	folio_set_zone_device_data(new_folio, (void *)new_data);
- }
- 
- static const struct dev_pagemap_ops drm_pagemap_pagemap_ops = {
-diff --git a/include/drm/drm_pagemap.h b/include/drm/drm_pagemap.h
-index 95eb4b66b057..ebbd3b0ddf36 100644
---- a/include/drm/drm_pagemap.h
-+++ b/include/drm/drm_pagemap.h
-@@ -2,6 +2,7 @@
- #ifndef _DRM_PAGEMAP_H_
- #define _DRM_PAGEMAP_H_
- 
-+#include <linux/bits.h>
- #include <linux/dma-direction.h>
- #include <linux/hmm.h>
- #include <linux/memremap.h>
-@@ -339,6 +340,9 @@ struct drm_pagemap_migrate_details {
- 
- #if IS_ENABLED(CONFIG_ZONE_DEVICE)
- 
-+#define DRM_PAGEMAP_ZDD_FLAG_MIGRATED	BIT(0)
-+#define DRM_PAGEMAP_ZDD_FLAG_MASK	DRM_PAGEMAP_ZDD_FLAG_MIGRATED
-+
- int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
- 				  struct mm_struct *mm,
- 				  unsigned long start, unsigned long end,
-@@ -373,7 +377,9 @@ static inline struct drm_pagemap_zdd *drm_pagemap_page_zone_device_data(struct p
- {
- 	struct folio *folio = page_folio(page);
- 
--	return folio_zone_device_data(folio);
-+	return (struct drm_pagemap_zdd *)
-+		((unsigned long)folio_zone_device_data(folio) &
-+		 ~DRM_PAGEMAP_ZDD_FLAG_MASK);
- }
- 
- #else
--- 
-2.43.0
-
+--=20
+With Best Regards,
+Andy Shevchenko
