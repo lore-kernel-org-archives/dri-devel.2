@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD85DC5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:14:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC416C5AD7B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:14:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D81210E6D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF42E10E168;
 	Mon, 10 Aug 2026 07:14:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="OmeTkIQd";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="eQ7s87up";
 	dkim-atps=neutral
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch
- [79.135.106.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5CD10E6E2
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 07:14:51 +0000 (UTC)
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch
+ [185.70.43.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 163DB10E168
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 07:14:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1786346089; x=1786605289;
- bh=JQQ9TMEugEucDHVTnXkrZEPpBuBBfgLOHL8udwc85/M=;
+ s=protonmail; t=1786346087; x=1786605287;
+ bh=HryS5wCyVQBONoxwWZjTDlJMAM0CO2Fw/WwlMf9O2pA=;
  h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=OmeTkIQdVjIEFLfJawa7Gx4rs5CPYVQLx+0lKlR0rPar4ySPvE15GSXAu2X3UTGXf
- dlQCngkmxva+9utziFSaQIYCh2u6AVGxQ60gG4NIQFZG0PlveKWilA/W1QrKpQgFmF
- HBuZ9he7gyT5p4Oo7+7xbxOChPZlWmPo7MagDCWtvPOcd5Oc1oQIZqATf2W9rz7m4r
- 07a8MmK6g84QPfoBzZ0g23rJ9lwKFjFFkiwsaheRXOSPZxjdJHEimzQiR7L40MhmEC
- Wf8BNiRHap5BNvmc65v0NziGWwaGqR6p/VToEwaFs2Q/JqTV0xuqa0rbg+E5TJAEvt
- yWgXMWJKDKUzg==
-X-Pm-Submission-Id: 4hJQxM039nz1DDs5
+ b=eQ7s87upq72BO9ABZzY8+s9zWPsFO0L9jEjn8xHOekwqizh4+FDbRupfUnYSQeFST
+ GTR4d+yn34+t2n9mFEPZofRfzBnw9S1dP/iXWbtNWzjR0vfA8xae/O831HKZqtF1A/
+ Csoz9CpOcYbT4ZjqtLw8R+T1ACqWmBqPoEtoJQl5NjF2VrmylZ5f1ZwplsF//Jetec
+ 5W2H8x6T4TGAiWjLzBa7QAriaBx6rYeuY1Oz2+fRMIHeewTUObT9b792vKRUCF7W+q
+ hmWM2E1YI4lNn/8fWHo8pYdMQFBunClhKuDQHunMD7zv0hZwvw90C54wFcc1XL1wuR
+ nxsiX4NyxL8Lw==
+X-Pm-Submission-Id: 4hJQxK14jhz1DDLf
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 10 Aug 2026 09:14:38 +0200
-Subject: [PATCH v3 2/5] drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+Date: Mon, 10 Aug 2026 09:14:37 +0200
+Subject: [PATCH v3 1/5] drm/bridge: nwl-dsi: Cleanup endpoint mux control
+ selection
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-nwl-dsi-fixes-v3-2-256da9d672e1@geanix.com>
+Message-Id: <20260810-nwl-dsi-fixes-v3-1-256da9d672e1@geanix.com>
 References: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
 In-Reply-To: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -51,11 +52,11 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786346082; l=1455;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786346082; l=1958;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=ybpHHip3mJEGeNkHM6B8y6xjeCgFvYd0piX0R4XK18g=;
- b=WHXOY7dEpyBJTO8+q1izP0YvHBMjly2JQsYu8ZWJg7Tmt/GQMzuiUE5SbAh5fBd5DldvInrEQ
- ZEvY0nmm2G1DeFeOgAO5Aa+ouTfhDA1FyFw9wKoPhb9l1N3hb29xmLg
+ bh=XW6AnJUPIJ/6p17ZYvKjmVPpSue826KCAQU2igzRdEQ=;
+ b=3611Z1XItbb5fq1kQSZa2gaINsGs3P0Q01dLmrM6v+hjI+QGBnul+gB5W2mTPu0i7h9nwRh82
+ HeiDpiWUDm6AFt4PjHYMV25g/W1fVjkazSJe0cEUsWDeutXeSa4jL1l
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,37 +74,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When using DCSS with NWL, overriding the mode flags to enforce active high
-sync is preventing the use of active low with downstream bridges, such as
-ti-sn65dsi83, which will not see such mode flags set by the panel.
+Using the endpoint define values makes it more clear that the argument to
+mux_control_try_select() must be valid state integers, and not something
+that looks like a boolean.
 
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
+The endpoint value is kept, as it will be used in a following patch that
+changes behavior slightly based on which endpoint is selected.
+
 Cc: stable@vger.kernel.org
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/gpu/drm/bridge/nwl-dsi.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 39be58cf5bd2..374884e76f25 100644
+index 3c9ae93c4f67..39be58cf5bd2 100644
 --- a/drivers/gpu/drm/bridge/nwl-dsi.c
 +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -823,10 +823,13 @@ static int nwl_dsi_bridge_atomic_check(struct drm_bridge *bridge,
- 				       struct drm_connector_state *conn_state)
+@@ -110,6 +110,8 @@ struct nwl_dsi {
+ 	int error;
+ 
+ 	struct nwl_dsi_transfer *xfer;
++
++	unsigned int endpoint;
+ };
+ 
+ static const struct regmap_config nwl_dsi_regmap_config = {
+@@ -1088,13 +1090,12 @@ static int nwl_dsi_parse_dt(struct nwl_dsi *dsi)
+ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
  {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
+ 	struct device_node *remote;
+-	u32 use_dcss = 1;
+ 	int ret;
  
- 	/* At least LCDIF + NWL needs active high sync */
--	adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
--	adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
-+	if (dsi->endpoint == NWL_DSI_ENDPOINT_LCDIF) {
-+		adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
-+		adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
-+	}
+ 	remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
+ 					  NWL_DSI_ENDPOINT_LCDIF);
+ 	if (remote) {
+-		use_dcss = 0;
++		dsi->endpoint = NWL_DSI_ENDPOINT_LCDIF;
+ 	} else {
+ 		remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
+ 						  NWL_DSI_ENDPOINT_DCSS);
+@@ -1103,11 +1104,12 @@ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
+ 				      "No valid input endpoint found\n");
+ 			return -EINVAL;
+ 		}
++		dsi->endpoint = NWL_DSI_ENDPOINT_DCSS;
+ 	}
  
- 	/*
- 	 * Do a full modeset if crtc_state->active is changed to be true.
+ 	DRM_DEV_INFO(dsi->dev, "Using %s as input source\n",
+-		     (use_dcss) ? "DCSS" : "LCDIF");
+-	ret = mux_control_try_select(dsi->mux, use_dcss);
++		     (dsi->endpoint == NWL_DSI_ENDPOINT_DCSS) ? "DCSS" : "LCDIF");
++	ret = mux_control_try_select(dsi->mux, dsi->endpoint);
+ 	if (ret < 0)
+ 		DRM_DEV_ERROR(dsi->dev, "Failed to select input: %d\n", ret);
+ 
 
 -- 
 2.55.0
