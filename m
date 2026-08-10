@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 771BAC5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:21:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A25FEC5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:22:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEAB110E186;
-	Mon, 10 Aug 2026 07:21:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E98E710E700;
+	Mon, 10 Aug 2026 07:22:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QiHgVPe/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DgSc0U6q";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48A9B10E186
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 07:21:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D53F10E700
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 07:22:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0CD8B42A6D;
- Mon, 10 Aug 2026 07:21:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C46581F000E9;
- Mon, 10 Aug 2026 07:21:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9146F600AB;
+ Mon, 10 Aug 2026 07:22:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ABD61F000E9;
+ Mon, 10 Aug 2026 07:22:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786346460;
- bh=R8AGGKJYO0+/xfC7g6I6KcdnEDmkKUbWkUR4ZudqXIo=;
+ s=k20260515; t=1786346577;
+ bh=Mt5U2irxMyfNZGaozbb0hKyUbVB2/Gg0vCmI/NA75FY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QiHgVPe/JxVobOnNWO0F2MFYld3XlVv3kFBLraTwXEB5nc/ghMYxXxmGsYT0hW6r8
- sqNWWS471P+98bOfDbih7/cDSk1YlSM4sw6GGgkv1qAHWVxy2MlsYzP/oVYNcy6T+6
- Va4LtL8IFuzHqHx+VxFSjH0ezyYwSqd0iqzip7iGOcXNLPTiAVPbg7p9B8BOf8ib8e
- FoJgQRDHcCEj6g2fZEiKRWosfD9DHFB8vr4uII4OoCmkUgz/MAU5ORSOWLZ4Ra+iTS
- iG7hfdg7qvzRy0hcCTGgb0aTcVnwzyQgYwuVuffGf+8ZlQIWoWXIhrw0FDuC1QnjeY
- ZBPqPY59P6p+g==
+ b=DgSc0U6quEBCZkFtjBrJQxYfFW9IRv2cv1NqoCUu1EAzw97Fn6qznm9wPVx4V7PFw
+ IPswLYKWSuyIf+nnbCl3ulClg1mVWSuWVeJ0ZBZI8DqB850HTPem4a/QuFZUxv+qxw
+ FdTCoETpYlhIEyFIn/RpvS/6pZ02fEBdrSjphRkDLm+45Xgi8IjaDtDdRwUV+QjVf5
+ /oL31fiiUh+706vDjnhYAk8bCQOuFZvkO0tVM5NRris1mw3KOmjtHXh7QwqHm4jtmx
+ ikpdaVeRzGX7VX1rEd2faopbV18Kpvg6vQbdZGBhPCjldgvdlYFrDQZFRHlpDopVlz
+ GjCtrIEU5GpjA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5] drm/pagemap: Prevent double migration of device pages
-To: "Arvind Yadav" <arvind.yadav@intel.com>
+Subject: Re: [PATCH v3 4/5] drm/bridge: nwl-dsi: Add error handling of
+ nwl_dsi_mode_set()
+To: "Esben Haabendal" <esben@geanix.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260810070240.2721317-1-arvind.yadav@intel.com>
-References: <20260810070240.2721317-1-arvind.yadav@intel.com>
+In-Reply-To: <20260810-nwl-dsi-fixes-v3-4-256da9d672e1@geanix.com>
+References: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
+ <20260810-nwl-dsi-fixes-v3-4-256da9d672e1@geanix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 07:21:00 +0000
-Message-Id: <20260810072100.C46581F000E9@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 07:22:56 +0000
+Message-Id: <20260810072257.2ABD61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,118 +58,91 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Incorrect PFN array iteration when encountering large folios cause=
-s unrelated folios to be skipped, and leaves tail pages improperly processe=
-d.
-
 Pre-existing issues:
-- [High] Out-of-bounds array write in `migrate_device_pfns()` when processi=
-ng compound pages.
+- [High] Unbalanced resource teardown and PM runtime underflow in mode_set =
+error path.
 --
 
---- Patch [1]: [PATCH v5] drm/pagemap: Prevent double migration of device p=
-ages ---
-commit e82d028d2739c02084b327b5c44a4c4cb949a76c
-Author: Arvind Yadav <arvind.yadav@intel.com>
-Subject: drm/pagemap: Prevent double migration of device pages
+--- Patch [4]: [PATCH v3 4/5] drm/bridge: nwl-dsi: Add error handling of nw=
+l_dsi_mode_set() ---
+commit 0db3c1cc2f73a9bc66aea2633f754029dd76b743
+Author: Esben Haabendal <esben@geanix.com>
 
-This patch aims to prevent soft lockups caused by double migration of
-device-private folios. It marks successfully migrated folios in their
-zone_device_data and makes both CPU-fault and raw-PFN migration paths
-skip folios carrying this flag.
+drm/bridge: nwl-dsi: Add error handling of nwl_dsi_mode_set()
 
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-[ ... ]
-> +static void drm_pagemap_skip_retired_pages(unsigned long *src_pfns,
-> +					   unsigned long npages)
-> +{
-> +	unsigned long i =3D 0;
-> +
-> +	while (i < npages) {
-> +		struct page *page =3D migrate_pfn_to_page(src_pfns[i]);
-> +
-> +		if (!page) {
-> +			i++;
-> +			continue;
-> +		}
-> +
-> +		if ((src_pfns[i] & MIGRATE_PFN_MIGRATE) &&
-> +		    is_device_private_page(page) &&
-> +		    (drm_pagemap_page_get_flags(page) &
-> +		     DRM_PAGEMAP_ZDD_FLAG_MIGRATED))
-> +			src_pfns[i] &=3D ~MIGRATE_PFN_MIGRATE;
-> +
+This commit adds a return value check for nwl_dsi_mode_set() in
+nwl_dsi_bridge_mode_set(), jumping to an error path on failure.
 
-[Severity: High]
-Does advancing by folio_nr_pages() here leave tail pages improperly
-processed?
-
-By only clearing the MIGRATE_PFN_MIGRATE bit for src_pfns[i] (the head page)
-and then skipping ahead, any subsequent tail pages in the src_pfns array
-will remain flagged.
-
-Downstream functions like migrate_vma_pages() process every array entry, so
-they might see the un-cleared tail pages and attempt to migrate them
-individually. Could this defeat the fix and trigger the double migration
-lockups again?
-
-Also, if the PFN array starts on a tail page due to VMA boundary clamping,
-will advancing by the full folio_nr_pages() overshoot the folio's actual
-footprint in the array and skip completely unrelated folios?
-
-This same pattern appears in drm_pagemap_retire_migrated_pages() just above.
-There are also pre-existing loops in drm_pagemap_evict_to_ram(),
-__drm_pagemap_migrate_to_ram(), and drm_pagemap_migrate_populate_ram_pfn()
-that advance using i +=3D NR_PAGES(order) and might suffer from this same
-tail-page stepping issue.
-
-> +		i +=3D folio_nr_pages(page_folio(page));
-> +	}
-> +}
-[ ... ]
-> @@ -1143,6 +1240,8 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_dev=
-mem *devmem_allocation)
->  	if (err)
->  		goto err_free;
+> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nw=
+l-dsi.c
+> index 3fd41212933c8..e90588299c5ea 100644
+> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
+> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+> @@ -884,7 +884,9 @@ nwl_dsi_bridge_mode_set(struct drm_bridge *bridge,
+>  	}
 > =20
-> +	drm_pagemap_skip_retired_pages(src, npages);
-> +
+>  	/* Step 2 from DSI reset-out instructions */
+> -	nwl_dsi_mode_set(dsi);
+> +	ret =3D nwl_dsi_mode_set(dsi);
+> +	if (ret < 0)
+> +		goto runtime_put;
 
 [Severity: High]
-This is a pre-existing issue, but does migrate_device_pfns() (called just
-above this in drm_pagemap_evict_to_ram) lack bounds checking when processing
-compound pages?
+This is a pre-existing issue, but does taking the runtime_put error path he=
+re
+lead to unbalanced resource teardown and PM runtime underflows?
 
-When the following loop in mm/migrate_device.c:migrate_device_pfns()
-encounters a compound page, it zeroes out subsequent entries in the src_pfns
-array up to the full size of the compound page:
+Because the drm_bridge_funcs.mode_set callback returns void, failures canno=
+t be
+propagated to the DRM core to abort the commit. If nwl_dsi_mode_set() fails=
+ and
+jumps to runtime_put, it calls pm_runtime_put_sync() and returns early.=20
 
-mm/migrate_device.c:migrate_device_pfns() {
-    ...
-    for (j =3D 1; j < nr; j++)
-        src_pfns[i+j] =3D 0;
-    ...
+However, the DRM core still considers the bridge pipeline state to be 'enab=
+led',
+and will unconditionally call nwl_dsi_bridge_atomic_disable() during the ne=
+xt
+pipeline teardown.
+
+When atomic_disable() runs, it unconditionally calls pm_runtime_put(), lead=
+ing
+to a reference count underflow:
+
+drivers/gpu/drm/bridge/nwl-dsi.c:nwl_dsi_bridge_atomic_disable() {
+	...
+	pm_runtime_put(dsi->dev);
 }
 
-If a large folio extends beyond the npages limit, such as when the caller
-passes a clamped range or an unaligned array size, this loop will write
-zeros past the end of the src_pfns allocation.
+Furthermore, atomic_disable() unconditionally calls nwl_dsi_disable(), which
+blindly attempts to tear down the PHY:
 
-Could this corrupt adjacent memory, like the uninitialized dst array
-allocated concurrently?
+drivers/gpu/drm/bridge/nwl-dsi.c:nwl_dsi_bridge_atomic_disable() {
+	...
+	nwl_dsi_disable(dsi);
+	...
+}
 
->  	err =3D drm_pagemap_migrate_populate_ram_pfn(NULL, NULL, npages, &mpage=
-s,
->  						   src, dst, 0);
->  	if (err || !mpages)
-[ ... ]
+Since nwl_dsi_mode_set() already cleans up its own PHY resources on internal
+failure, this double-disable pushes the PHY framework's power_count and
+init_count to -1. The next attempt to initialize the display will increment
+these counters to 0, skipping the actual hardware ops->power_on() and
+ops->init() calls, permanently leaving the display broken until the module =
+is
+reloaded.
+
+While this broken error path already existed for clock initialization failu=
+res
+in this function, wiring up nwl_dsi_mode_set's return value to it exposes t=
+he
+PHY breakage on a new failure path.
+
+> =20
+>  	/* Step 3 from DSI reset-out instructions */
+>  	ret =3D reset_control_deassert(dsi->rst_esc);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810070240.2721=
-317-1-arvind.yadav@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-nwl-dsi-fi=
+xes-v3-0-256da9d672e1@geanix.com?part=3D4
