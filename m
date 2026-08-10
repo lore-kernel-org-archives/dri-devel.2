@@ -4,78 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 901C5C5AD7B
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B831C5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B821510E793;
-	Mon, 10 Aug 2026 09:55:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACD3210E778;
+	Mon, 10 Aug 2026 09:57:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HgnS7ODo";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="TjHxSfvO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 221A610E791
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:55:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 07747600DA;
- Mon, 10 Aug 2026 09:55:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A513EC19425;
- Mon, 10 Aug 2026 09:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786355742;
- bh=lRKV8H74Co2qH7BGcr2cTswTqZvkze7IH7Sbt/O3Weg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=HgnS7ODoDhTe+xdr8JMh+UR7U8ZRkEyTBrtJyyKHlI9fb28qnikx4JhUmKSCvN9Oe
- A0oC3WtThVDIgNNamDH2j/ko7/4WUinlhBmczWxGY474B9AZMFo0WU8W149DA5bhj0
- yEtwS2cpT+DCF5sGSEPPdqzs3KjggbqoDZv11sdr2JrGdcf0Sck1E96ZTUgJB/gIS4
- SLeBTBnqq0tYDAepf/Ku94mbJT96Tk8PEGn1dH4QMqCN1WKu7jlUuXpXMJaj/tJFRm
- +L5slBEkQl/scsDwjA24DqwtPlWB4CNO20kdoijVjPjdDAB7bJ8R97d3IHbosraaBz
- hD8ZWoOZNw/zw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 87031C5AD4E;
- Mon, 10 Aug 2026 09:55:42 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 10 Aug 2026 11:55:37 +0200
-Subject: [PATCH v2 1/2] drm/panel: lg-sw43408: do not assert reset across
- unprepare
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692CA10E77C
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:57:00 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id AE8DB1F8;
+ Mon, 10 Aug 2026 11:55:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1786355744;
+ bh=mkeGwb7KavZ+0PhGaCyhO4wBp06sFcZ/FXbz1sq0Zh0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TjHxSfvOOpUoqxezXCyNoalZhZiilO3MCyt/jRiSWyWxgX/eFSGc9tNEdeggsrWSi
+ Rn7Gqs3TPu8CP5dY8lV7uiekmntjNWPANGh1FxSSPWv2ryd7pe61B1NW5GCtUe/Scy
+ oK4oSVIun5WF8U1ZkxSSOdE3ELqusWSxkpGKSbQQ=
+Date: Mon, 10 Aug 2026 12:56:57 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
+ hardcoding EDID
+Message-ID: <20260810095657.GA2954498@killaraus.ideasonboard.com>
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
+ <20260706-capable-beaver-of-excellence-a3cf10@houat>
+ <20260706094522.GA42740@killaraus.ideasonboard.com>
+ <20260706-fancy-perch-of-satiation-0c220e@houat>
+ <20260706160243.GB106045@killaraus.ideasonboard.com>
+ <20260707-meaty-chocolate-lemming-fa9ead@houat>
+ <20260707080143.GA211515@killaraus.ideasonboard.com>
+ <20260717122530.GA1955120@killaraus.ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-fix-blueline-panel-v2-1-9344dfdbc3f9@ixit.cz>
-References: <20260810-fix-blueline-panel-v2-0-9344dfdbc3f9@ixit.cz>
-In-Reply-To: <20260810-fix-blueline-panel-v2-0-9344dfdbc3f9@ixit.cz>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- Casey Connolly <casey.connolly@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Vinod Koul <vkoul@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2520; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=di2OzEU0PRnOGKu5XRkp3UwJDiN4YcH6Uzw5Ht/qTmo=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqeaAcmfWFxH/vXpRpVSRZ7tC+z5dEZIMfcu5sL
- pQk4pwKikOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCanmgHAAKCRBgAj/E00kg
- cimrEACOKggloVunUqSkYEPAHQr9QpRUmDqwumRVhly4Re0KbUuKUFJp0AsDuvTWwtxd53PtnRg
- IOlbZckmFq2U/CXxSa/cPs7dlDe3dUs9PqKONnGQ793Wg+P0eTtBCVdHvYS1kivf931dtcbvkU5
- skzV5687haaSbffYyDXc9ZD6zD4NV8KZ4cmFVA2CoNVxRCbdbr8XdaC+OKdtu7k9E2OQ9iMt+Sc
- 22OpDEg5Uvjxxp9wn0dDIDGKSse5okN2LPgkgbuUwc8TI33kdy8iP4fiQOc+/CLue7NWvDJXHMX
- UypepwnQXyUgtUzD0QE8JTysjFdnzexKJKvl0F1kaIxMOUm9yfkvq0mJxq+tPQGZviaTh2MpoL7
- Zojo5Nf3shniVfa1m5z6pjQl2GHQVQ/FVtL4xUeSYW9gf8rKYLlTopdIYoHcmDXCygcTFtKoq/X
- Q5KUQof/hwkyhOfhuyvEHRbn94HRhn7EOc9+eXk793a7dsPxMM2aJRhtcV7g1JcU9jDYSDrolMd
- hpbxW2dsSACH2OZ4uGKJ6WHqaPVkuXDRlJR3c7BqQtPSR28pNLI68MIWT68yL1FcRKv2VW/hB2P
- 1L97kPJQ7dhxysOpb2dRrRHWWmpZw9xlX8HLHHzEhrswoGvIBUNEjRCLV37NXSn4/WXBmgzg0a/
- CUNK+ROeb9jAxzQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260717122530.GA1955120@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,74 +72,104 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
+Hi Maxime,
 
-Asserting the reset GPIO in unprepare() and leaving it asserted puts
-the DDIC into a state it never recovers from: after the following
-prepare() the panel answers all DCS commands, reports display-on with
-clean self-diagnostics, and its configuration registers read back
-identical to a working panel, but it never lights up again.
+Ping ?
 
-On the Pixel 3, vddi is shared with the touchscreen controller and
-remains powered while the panel is off, so with this driver the DDIC
-sits in reset with its logic rail up for the whole blank period - a
-state the vendor stack never creates: the vendor firmware only toggles
-reset as part of a full power-on sequence, and the vendor OS never
-power-cycles the panel at all (LP mode is used instead).
-
-Leave reset alone in unprepare(); prepare() performs the regular reset
-sequence anyway.
-
-Without this, the Pixel 3 display never comes back after the first
-blank/unblank cycle.
-
-Since there isn't any other panel or device using this DDIC, this
-approach seems resoanble to address the issue.
-
-Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/gpu/drm/panel/panel-lg-sw43408.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-index 293826c5006b9..0bf8e08f10b9c 100644
---- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-+++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-@@ -50,18 +50,24 @@ static int sw43408_unprepare(struct drm_panel *panel)
- 	int ret;
- 
- 	mipi_dsi_dcs_set_display_off_multi(&ctx);
- 
- 	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
- 
- 	mipi_dsi_msleep(&ctx, 100);
- 
--	gpiod_set_value(sw43408->reset_gpio, 1);
--
-+	/*
-+	 * Keep reset deasserted: vddi may stay powered (it is shared with
-+	 * the touchscreen on Pixel 3) and holding the DDIC in reset while
-+	 * its logic rail is up puts it into a state that no init sequence
-+	 * recovers from - the panel keeps answering DCS commands and
-+	 * reports display-on, but never lights up again. The vendor stack
-+	 * only ever toggles reset as part of a powered-up init sequence.
-+	 */
- 	ret = regulator_bulk_disable(ARRAY_SIZE(sw43408_supplies), sw43408->supplies);
- 
- 	return ret ? : ctx.accum_err;
- }
- 
- static int sw43408_program(struct drm_panel *panel)
- {
- 	struct sw43408_panel *sw43408 = to_panel_info(panel);
+On Fri, Jul 17, 2026 at 03:25:30PM +0300, Laurent Pinchart wrote:
+> On Tue, Jul 07, 2026 at 11:01:43AM +0300, Laurent Pinchart wrote:
+> > On Tue, Jul 07, 2026 at 09:46:52AM +0200, Maxime Ripard wrote:
+> > > On Mon, Jul 06, 2026 at 07:02:43PM +0300, Laurent Pinchart wrote:
+> > > > On Mon, Jul 06, 2026 at 05:40:30PM +0200, Maxime Ripard wrote:
+> > > > > On Mon, Jul 06, 2026 at 12:45:22PM +0300, Laurent Pinchart wrote:
+> > > > > > On Mon, Jul 06, 2026 at 10:52:32AM +0200, Maxime Ripard wrote:
+> > > > > > > On Mon, Jul 06, 2026 at 12:35:39AM +0300, Laurent Pinchart wrote:
+> > > > > > > > Since DDC version 2, introduced in 1996, VGA monitors have exposed EDID
+> > > > > > > > data over an I2C bus. The bus is also used to detect the presence of a
+> > > > > > > > connected monitor by trying to read the EDID data.
+> > > > > > > > 
+> > > > > > > > Some devices where the VGA display is integrated in the device and
+> > > > > > > > always connected do not connect the DDC pins. Some development boards,
+> > > > > > > > such as the Renesas M3N Salvator-XS, also do not connect the DDC pins.
+> > > > > > > > 
+> > > > > > > > To support those, add the ability to provide hardcoded EDID data in the
+> > > > > > > > device tree. This is mutually exclusive with specifying a DDC bus, and
+> > > > > > > > can only be done when the VGA display is guaranteed to be always
+> > > > > > > > connected.
+> > > > > > > > 
+> > > > > > > > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > > > > > > 
+> > > > > > > This feels redundant with the EDID firmware loading mechanism we have in
+> > > > > > > KMS already. It should at least be mentioned why we would need to set it
+> > > > > > > in the device tree at all.
+> > > > > > 
+> > > > > > Very good question.
+> > > > > > 
+> > > > > > I assume you're talking about CONFIG_DRM_LOAD_EDID_FIRMWARE, as the
+> > > > > > debugfs override_edid feature isn't meant for production. If there are
+> > > > > > other relevant mechanisms I'm not aware of, please let me know.
+> > > > > 
+> > > > > No, that's indeed what I meant.
+> > > > > 
+> > > > > > In the use case at hand, the VGA display is an integral part of the
+> > > > > > device, the same way an LVDS or DSI panel would be. Using
+> > > > > > CONFIG_DRM_LOAD_EDID_FIRMWARE, the manufacturer would need to set the
+> > > > > > drm.edid_firmware command line parameter, and provide EDID as a file in
+> > > > > > /lib/firmware/ (possibly in an initramfs). Beside the complexity, and
+> > > > > > the fact it won't be very friendly to people who run a different
+> > > > > > userspace on the device, I think EDID counts in this case as system
+> > > > > > description, the same way we support specifying panel timings in device
+> > > > > > tree.
+> > > > > 
+> > > > > It's *some* hardware description, but you have no idea whether it's
+> > > > > actually the hardware you're running from. What would be in that EDID
+> > > > > anyway?
+> > > > 
+> > > > It would be the EDID corresponding to the connected display :-) I see it
+> > > > as identical to how a user of the simple panel driver is responsible for
+> > > > listing the timings corresponding to the hardware in the device tree.
+> > > 
+> > > What's the expected user-experience for someone with that board
+> > > unplugging a display and plugging another then? Update the device tree,
+> > > rebuild it, rebuild the firmware and / or resign it and reboot?
+> > 
+> > The whole point is that they can't easily unplug the display. This patch
+> > series is meant to support devices where the display is an integral part
+> > of the device. The user experience is expected to be the same as for a
+> > user who will take a phone, remove the display panel, and plug a
+> > different one. It's certainly possible, and they would have to update
+> > the DT indeed.
+> > 
+> > > That doesn't sound very practical, and even impossible in some cases.
+> > > 
+> > > > > There's another alternative we've used several times already, in
+> > > > > simple-bridge for example: just register any VESA mode up to a given
+> > > > > resolution:
+> > > > > https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/bridge/simple-bridge.c#L66
+> > > > 
+> > > > I don't see how that would help. The goal is to provide the kernel with
+> > > > the data corresponding to the display integrated in the device.
+> > > 
+> > > How is that not helping? Your problem is that you have a display you
+> > > can't get the supported resolutions from. What I'm suggesting allows you
+> > > to create all the possible resolutions for that display, allowing the
+> > > user to use the display, which is what we did for multiple drivers with
+> > > the same problem.
+> > 
+> > How would the possible resolutions be provided to the kernel ? Isn't it
+> > the whole point of EDID ?
+> > 
+> > > You seem to be set on providing the EDID to the kernel, but it's a
+> > > terrible idea to begin with, so I'd rather discuss alternatives.
+> > 
+> > Could you elaborate on why it is a terrible idea ?
+> 
+> I'd be happy to continue this discussion when you'll have time.
 
 -- 
-2.55.0
+Regards,
 
-
+Laurent Pinchart
