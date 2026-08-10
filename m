@@ -4,92 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8940C5AD55
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 22:10:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CC2BC5AD7B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 22:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2341B10E1A1;
-	Mon, 10 Aug 2026 22:10:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A6C10E9D4;
+	Mon, 10 Aug 2026 22:16:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UwX/Ilov";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wi/E9QIJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A152F10E1A1;
- Mon, 10 Aug 2026 22:10:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9C362600AA;
- Mon, 10 Aug 2026 22:10:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB66F1F000E9;
- Mon, 10 Aug 2026 22:10:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1786399810;
- bh=/hUK9nmdYQUfhG6ut1/QpR/T7D3LLI4jSc7+bBZ5Ofc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=UwX/Ilov0bIFii9m3iwtL8q7dWNlzT+Wx3UroPo9PylX7if0NcfH9JAavRDAn86dw
- JNwDAbfcVY3VRo/UBsUbAdQe6WqOiVdxquE1mb7LVSCrY0NRcx31i22SVoR5H3wZ9K
- Nroa/JyRqqFqLrw3hFrR5C55A7jEiwD4QPiMGP18=
-Date: Mon, 10 Aug 2026 15:10:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, Jann Horn <jannh@google.com>, Pedro Falcato
- <pfalcato@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
- Kara <jack@suse.cz>, Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>, Harry Yoo
- <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, Kees Cook
- <kees@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, Ryan
- Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
- <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, Matthew Brost
- <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim
- <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
- <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
- Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, Xu Xin
- <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, Arnd
- Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank
- <frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
- <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
- Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Alex
- Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de
- Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
- Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, John
- Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, Oscar
- Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>, Kairui Song
- <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham
- <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Youngjun Park
- <youngjun.park@lge.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, linux-s390@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/20] mm: provide vma_[flags_]is_cow_mapping() and
- remove is_cow_mapping()
-Message-Id: <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
-In-Reply-To: <ann-vS6MYT9kuXqu@lucifer>
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-2-ab318a350404@kernel.org>
- <ann-vS6MYT9kuXqu@lucifer>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3182710E9D4;
+ Mon, 10 Aug 2026 22:16:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786400160; x=1817936160;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version;
+ bh=Mg9+rWZJqMT4VsDDv6qLubBa3t5NA3/vgbk/FrvAbfk=;
+ b=Wi/E9QIJW72Gt21cswGAyymXBUVuG2ZfurGKYlVl9vvYXC1fMU69D/GY
+ C1lqoafvL2LRbaTc90yoM/YZG2CUUeaZt0No+RRw3cj/jMB+rPli+Nsio
+ S2e3xFMYkYyXMZLGeNJuBaDFG3LTSEGmt36HjQDAU3491CJW00VOhJzc4
+ Ex9m+y2qGnycKOwaeZCq/xV00D3r93O2htfe8JoE64tOJLexDiO431LJu
+ PPSZ/cIpgLGcIRrBm6HNLlElHg5siu5ckvncmApbnTbXicP4m2wIg+hNu
+ m13I6S9jKK5qtzwUbsxCq6mY2qeLg0sYitCHcwD5YXU9varLT7O1Qi70e g==;
+X-CSE-ConnectionGUID: II7rDnbnSmSIePxF5j0fmQ==
+X-CSE-MsgGUID: mi4L1iiGRS+aoNq2b3psmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="98075404"
+X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; d="scan'208";a="98075404"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2026 15:15:59 -0700
+X-CSE-ConnectionGUID: IX7Dd6bfTrKrNSJgSJRUFw==
+X-CSE-MsgGUID: UD++CGDsQXqJW3xUJ4FLGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; d="scan'208";a="267436655"
+Received: from unknown (HELO adixit-MOBL3.intel.com) ([10.241.243.70])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2026 15:16:01 -0700
+Date: Mon, 10 Aug 2026 15:15:59 -0700
+Message-ID: <87fr0lhba8.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Matthew Brost <matthew.brost@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr?=
+ =?ISO-8859-1?Q?=F6m?= <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, =?ISO-8859-1?Q?Jos=E9?= Roberto de Souza
+ <jose.souza@intel.com>, "Umesh Nerlige Ramappa"
+ <umesh.nerlige.ramappa@intel.com>,<intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>,<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/xe/oa: Fix sync entry leak on OA config emit
+ failure
+In-Reply-To: <20260731011932.3426219-1-lilinmao@kylinos.cn>
+References: <20260715023332.391298-1-lilinmao@kylinos.cn>	<20260731011932.3426219-1-lilinmao@kylinos.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,103 +76,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 10 Aug 2026 18:59:34 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+On Thu, 30 Jul 2026 18:19:32 -0700, Linmao Li wrote:
+>
+> xe_oa_emit_oa_config() releases the sync entries and the syncs array
+> only on its success path. When it fails before the point of no return
+> (fence allocation, config buffer allocation or batch submission), it
+> returns without touching stream->syncs.
+>
+> The stream open path handles such failures in the caller, but
+> xe_oa_config_locked() propagates the error without any cleanup, so the
+> syncs array and the fence references held by the parsed entries are
+> leaked. The next config ioctl overwrites stream->syncs, making the
+> memory unreachable for good.
+>
+> Clean up the parsed syncs when xe_oa_emit_oa_config() fails, matching
+> the cleanup done by the stream open error path.
+>
+> Fixes: 9920c8b88c5c ("drm/xe/oa: Add syncs support to OA config ioctl")
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> ---
+> v2:
+> - drop the stream->syncs/num_syncs reset; nothing dereferences them
+>   before they are overwritten or the stream is destroyed (Ashutosh Dixit)
+>
+>  drivers/gpu/drm/xe/xe_oa.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
+> index b3acbcd678b7c..d334ce8fed1c2 100644
+> --- a/drivers/gpu/drm/xe/xe_oa.c
+> +++ b/drivers/gpu/drm/xe/xe_oa.c
+> @@ -1594,6 +1594,10 @@ static long xe_oa_config_locked(struct xe_oa_stream *stream, u64 arg)
+>		config = xchg(&stream->oa_config, config);
+>		drm_dbg(&stream->oa->xe->drm, "changed to oa config uuid=%s\n",
+>			stream->oa_config->uuid);
+> +	} else {
+> +		while (param.num_syncs--)
+> +			xe_sync_entry_cleanup(&param.syncs[param.num_syncs]);
+> +		kfree(param.syncs);
+>	}
 
-> Hi Andrew - would it be possible to insert the comments added below? Trying
-> to avoid a respin if possible :)
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 
-np, like this?
+Thanks for the patch Linmao, we'll get it merged.
 
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
-Date: Mon Aug 10 03:07:02 PM PDT 2026
+Thanks.
+--
+Ashutosh
 
-add comments, per Lorenzo
 
-Link: https://lore.kernel.org/ann-vS6MYT9kuXqu@lucifer
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- include/linux/mm.h |   57 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
-
---- a/include/linux/mm.h~mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
-+++ a/include/linux/mm.h
-@@ -2271,17 +2271,74 @@ void unpin_user_pages(struct page **page
- void unpin_user_folio(struct folio *folio, unsigned long npages);
- void unpin_folios(struct folio **folios, unsigned long nfolios);
- 
-+/**
-+ * vma_flags_is_cow_mapping() - Do these VMA flags imply a CoW mapping?
-+ * @flags: The VMA flags to check.
-+ *
-+ * Mappings which could be CoW'd (subject to Copy-On-Write faults) are
-+ * described as CoW mappings.
-+ *
-+ * All mappings backed by anonymous folios (all anonymous mappings and most
-+ * MAP_PRIVATE-file backed ranges) are CoW mappings.
-+ *
-+ * All other mappings (including all writable MAP_SHARED mappings) are
-+ * non-CoW.
-+ *
-+ * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
-+ *
-+ * VMA_MAYWRITE_BIT is checked instead of VMA_WRITE_BIT to account for both
-+ * future mprotect() calls which can render a read-only mapping writable, and
-+ * GUP with FOLL_FORCE (e.g. ptrace) which can CoW a read-only mapping.
-+ *
-+ * - No anonymous mapping can ever clear VMA_MAYWRITE_BIT.
-+ *
-+ * - Writes to anonymous mappings do not immediately result in CoW faults but
-+ *   may do so after the process is forked or if a read is followed by a
-+ *   write.
-+ *
-+ * - Writes to MAP_PRIVATE file-backed mappings result in CoW faults and may
-+ *   do so again after fork.
-+ *
-+ * - MAP_SHARED mappings of a file opened read-only are transformed into
-+ *   VMA_MAYSHARE_BIT, !VMA_SHARED_BIT, !VMA_MAYWRITE_BIT mappings, so remain
-+ *   non-CoW.
-+ *
-+ * - Drivers may clear VMA_MAYWRITE_BIT but do so at mmap() time and cannot
-+ *   mark themselves anonymous. Having cleared this flag it is not valid for
-+ *   them to leave the VMA_WRITE_BIT flag set.
-+ *
-+ * As a consequence, the anonymous reverse mapping only tracks CoW mappings.
-+ *
-+ * Returns: true if the flags indicate a CoW mapping, otherwise false.
-+ */
- static inline bool vma_flags_is_cow_mapping(const vma_flags_t *flags)
- {
- 	return vma_flags_test(flags, VMA_MAYWRITE_BIT) &&
- 		!vma_flags_test(flags, VMA_SHARED_BIT);
- }
- 
-+/**
-+ * vma_is_cow_mapping() - Is this VMA a CoW mapping?
-+ * @desc: The VMA to check.
-+ *
-+ * See vma_flags_is_cow_mapping() for details.
-+ *
-+ * Returns: true if the VMA is a CoW mapping, otherwise false.
-+ */
- static inline bool vma_is_cow_mapping(const struct vm_area_struct *vma)
- {
- 	return vma_flags_is_cow_mapping(&vma->flags);
- }
- 
-+/**
-+ * vma_desc_is_cow_mapping() - Is this VMA descriptor a CoW mapping?
-+ * @desc: The VMA descriptor to check.
-+ *
-+ * See vma_flags_is_cow_mapping() for details.
-+ *
-+ * Returns: true if the VMA descriptor describes a CoW mapping, otherwise
-+ * false.
-+ */
- static inline bool vma_desc_is_cow_mapping(struct vm_area_desc *desc)
- {
- 	return vma_flags_is_cow_mapping(&desc->vma_flags);
-_
-
+>
+>  err_config_put:
+> --
+> 2.25.1
+>
