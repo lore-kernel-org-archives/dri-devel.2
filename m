@@ -4,94 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28D23C5AD55
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 22:32:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5961AC5AD55
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 23:55:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3216810EA00;
-	Mon, 10 Aug 2026 22:32:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC1A10E1B9;
+	Mon, 10 Aug 2026 23:55:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b/l7q4F1";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="vd0HOoBN";
 	dkim-atps=neutral
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com
- [209.85.160.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 818E910E09D
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 22:32:03 +0000 (UTC)
-Received: by mail-oa1-f45.google.com with SMTP id
- 586e51a60fabf-451a49abd8aso1234194fac.3
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 15:32:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786401122; cv=none;
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09DCC10E1B9
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 23:55:06 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4994d67d260so14455e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 16:55:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786406104; cv=none;
  d=google.com; s=arc-20260327;
- b=GJRZdaKysIKtR4T2LWFeTokiJ52IpB6QKSZb1J5nHOjXRmI2lSUNcV+XKMggrFRALe
- f+EiM1jLrSyTM9fvzOCi1B/NlNnrCXiX56uqTKVq4Bx4gd7TpDr9N09x0P+ciroFMorE
- folkjukuQp43yZgStP0MF1MMEw8dQ4l6gnD/rZo5lstvQJqfv9hOopA84eXAeLRR+DPO
- gQa1l9vUI8wCBmuzSckQgCdVHRa8p3NoWrIo5chr6PyS0v+F3NIKVLY1SaubhsNSrahH
- 5DltFO/UYhuziJ7F5pXVEw3JyiycQBsY3BHwzvRa7dzazcffwMDwz5L9lhxU/y5yeHP+
- fbew==
+ b=f94/SjE1VhC2YsLM/LhfA0RidlKLjC0VeZBx8AAMtrUTvGskdKm3ZPR+jeO9/Y4brG
+ a12DBAEoMQdNVhW1cRgBt6gjK4X46NtiLohf8x3LHyxXD2A2c7z/ViReuuXCTigy4i3/
+ 9TH8dkI+xAMnYJVnm1vLmPAE9+7DuyLI9JXyUbQcGBlKpIeJHrk99dP6rD0UvkCBXKTb
+ wZkJ9+RLNlhbGUkypPWmyUHgRri1rY4F6Jm3Fb5cpb4zDQn/gwCFASAMeyuj3MTz+j21
+ jGPEulC9EwHBpl1vDzb87dRUkSwSiPwKUhHne0nG0DgHDQ0viQ+3euYpe74IviGOT9KL
+ Dz0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=zyxXtENBpyFNsNuf38voWr1wQ1uEtNHDyiKrmTqUuxg=;
- fh=IHKSE05UL95S75iNX31OKIAP6ChgRfgKtgbrCoYkux4=;
- b=Lssy+EHaOCB+x6vNDsZpuLTGwNlbc2xJ5UGaNR50OF/3KfMsbv9kWkffG3fLUYUxux
- XOmw6rs2/LdN0rHUTQ/y2lIGE27zCIg+3zXMqJm8g6UBC50hlQH0t9SB0G1uAv3egBQO
- y3L8lEVG+75jeqCNXJ0oxr+7DQGPYCCuQcl+QHQ9hg44JMMPelpzyVjoIbJas0W4Ubv1
- k5oLu5P7l3xAq06zclncUyLJe4HLEJsBMMyCnomtP1uhEX1qzBBtUB8C88dX9ciqw2FH
- I6j8CwZ8SH0dQ1QsOZBixgbimeSn0yQIqpuVMyrh13jLhN5SDqjTJPIjLgEmodQlVuhW
- eL2Q==; darn=lists.freedesktop.org
+ bh=JHfanZgIA8mK03STIk1FeUn57Mhb7JG9av6AGKnMHws=;
+ fh=qcmYIuMfmkmV1qtw1226FM0SkrM8F6PP55FGUO1tZP0=;
+ b=MX3RQI8klPUzti+S+a2Jw8A0DMaYvFdWY4vkiwlEjZ5BGkwLUFWC7Vl23F94CitKXD
+ w3GhkrD0MiSta6PTs3NahHc3fUTQCdNL6niBf3HhzJGBJeytlo/3pEe1nwAASfXlKlX6
+ HKg4KMGoQB7a6sPdgxzNDWdjEwshlm+LNgA2RMv78ZTOAWRL3KSTE7W/3BDHqEG+UB+f
+ HDmEin/XUSJ7TFmAIvrCnac7m76ctDK+2cvXIJZXKFqDtSHNDqmInzMo/W+mXVnFUtpq
+ JsrcZwoeLppj4uZfNoMfpfMcRhMLlvecBKfOd80BneeGYk8J8Wj2g8Us5IYSYGuKMWX0
+ axJQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786401122; x=1787005922; darn=lists.freedesktop.org;
+ d=google.com; s=20251104; t=1786406104; x=1787010904;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=zyxXtENBpyFNsNuf38voWr1wQ1uEtNHDyiKrmTqUuxg=;
- b=b/l7q4F1ANeRr1F0D+YASwmlUdm03H/niyRPnybJ7PJTzH+reqap6yrgf/uFsiFc/v
- YG1MfnrOxt0akbYT3PazyNXLqj1lZPEp9XfubVgelhAplvek5BXBRFmzdy9MtSVaS1Eu
- bGbwe8hNTDk48z7a4+GmzyYMQmz0Iv+br9Xx2bd90gK24oWx5VQhVE1adx9ZH4i+ECp3
- BqJ9RWqBnPCbsuK8+Nlo2W7BoUEQEuODhSWYvrwR7kbSDQ61xk+roy0jIpm/fWvWkBeD
- LAcK/w3tvWd5cYgwK4EVSHV9381ZPxUCkATOkNZhZEgWNrsaSbwabcpThNcaF4Jiti3A
- bFAQ==
+ bh=JHfanZgIA8mK03STIk1FeUn57Mhb7JG9av6AGKnMHws=;
+ b=vd0HOoBNguVsiKVcdXNR0VSSqR0G12/R3vxR2ngWg5X90aZL4qOd5O3OVqHn8T0qQr
+ e39YZtWSfnzRpwVX1mZl3wnUWc6HDW17sOCGodJIz4qcRHPxtJGUm9NSYd3poe9FeDuk
+ /ksmB3LjCeOSFHQGUAf/2Pr1HEoReGJNXC/dBrgrssyGqp7qgS+avJZbfnxy6JJC9qbR
+ mgfpASvZf1Ug2Y1bEKks2t5xm8UeOINV1jd5+WjAWij7Kf6h/lTIK89OtjaYvhNYZiBO
+ lhsWQPzaIkYxtl7ZUD7a16ybImvt3sA2fw9U6BfOhBIflwNtFrggOo51l5xXO4VvSwnj
+ DSVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786401122; x=1787005922;
+ d=1e100.net; s=20251104; t=1786406104; x=1787010904;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=zyxXtENBpyFNsNuf38voWr1wQ1uEtNHDyiKrmTqUuxg=;
- b=nYrzEKlnZ4hOA23NDmOTnPWpB+Dxgb5idJCH1PUxUsPLWbj5/6TXT+sc2i9h+g8pXE
- q6uQurpxwNm2fc2boNwYUlWex/qfhNNEE6d8xipBb4x9SM71ig3CVnGq+7MEh1hF1BV3
- PY2PV7umeCbKTLNudwYrrgdgOrYVPNk2CqCXdiNYd5ckSVEf5RLsRv9/FpzjFC6VJy1D
- WqO6NT2Tz3FOT9ZgyJs+u0QrCklj8F92e4klpOiL57wtviJTCk1FrgKKulorrZSvDgQU
- SiPa1GbTRfk6kOOL1X4eGUmKqrYxYO6M8G0kuotBd7mrjkiT3IQjnsYJl+ihDZGb0dJV
- YBwQ==
+ bh=JHfanZgIA8mK03STIk1FeUn57Mhb7JG9av6AGKnMHws=;
+ b=Az2T8AJzXxnpHpPsY/rKpC7mWsysR+jDnakJbo6xp5UHXj8Ixzqkpqdnn8YRHfajoG
+ nJVIzI9glAm7BW1XIJdf1R4gT3lORskTWTSPtNLxSCdqufpsI9Xiz/QYjwVbePiDZJGU
+ wwc67yAG+MPJv14SE+VhDOrLWNHx75ID3Bgpbb68ly04kPsR1JQtBmgOCxTEucugluUU
+ 6Lc/GaOLNeZ4o0ORRWytdcMBD9dx1k0UVBp5DUGTlcXBYvTI47GTAEJrf2C/vEzTKIPZ
+ JcO5ux1alHFYe+E2dYlxagNfd1lXi7PyxsoavCod942V7zO3RTg17xMiAxDNbR4YKe3B
+ lFvA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoV3cSO4vPvF1a4H62nUQ38stKHNAK/WdZx9wfaKTWRz54Zwq3tDeb/kLJX92m4XusT2l9uexWlxEA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzC9bdIfbjRTiMuPJtnjPkPRGviSJqAxzs02rVGS3/bUI1ilDDP
- 3BG+sUJWB0c8MyzadQjT5tUDaoIMvcHn4J//RzJbGGiCW0tB05cKg5sZgonWwB9g2l3X2xSfYaw
- 9zMtEyQARkQEIZSTcRQdkHEFjAz+qgsE=
-X-Gm-Gg: AR+sD11DD7GNamJGtpD8SJ1/j/TxmqV4JjjWsnnR5IDvL2kdFosFA/xVwqo+R2dhgUQ
- WwwLskwkMBasFw7jGtWmBptPoDT17Kt6YosDaEp+kGSK+VGncIgfKRe9R0ML0iDIvpNA4KcRHna
- dTZZGByoOXVJi55/wUXmo2EPfygiZcyJPMqNlu8o62Iqp3SaL5GMiMNSukYtIbHxo9VX0x1dZmf
- CIXkMMhmxXySOipusnoYFewLG6Ez4zojvRbArcxJKtn8QwjKhFj2jxGz8OIygYwYrd3ilxbn+j2
- KqH5Vg+2ua8AOGiWCveL28QldtaGt4/4LYhSJtgNn+y7qBXFoQ6gwqtm
-X-Received: by 2002:a05:6871:eb14:b0:409:5241:8abc with SMTP id
- 586e51a60fabf-459ffc96be9mr14219832fac.20.1786401122585; Mon, 10 Aug 2026
- 15:32:02 -0700 (PDT)
+ AHgh+RpE2RWkj1WX97TLgAol1rc9YamBTuazxrwrsvlxt788ompS/oZIcF9RcRZGTVrqUi3yD0cJpU+rXJY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSD6EmtfmzErIxItdXc7xfQXr66lf1b3Tg66upfVoLcaXgaDpI
+ 5Y+tCVNla+sfX5FEMQ3ys9JeVkIA8TGUQvo9DMcEF3VipP8jMprNkCokhhNvCbXFJszjMuT2uIC
+ ybzGWlZqhPQ//J1DNh6WVezD3a65hEqiP6USfOBNr
+X-Gm-Gg: AR+sD12ztxs9SZmxXEDXWxkwGF8MFb8PzFT+R47tuMCFbgWFDKTKrgQpb/4FEl5v3Nl
+ eaZi/KEItKsrZzvlDJo8xB8QQOhERGq2glaGvT+/pNN3O4CWbWyS9cdg2jqj9ruyEl2svZQTce+
+ JzcS94A4NqZ5U/ARwTKQmzoxISv2RiAyPng0HF7MYUn/U5FwALB7ITDUG74Mp2JLdtr7Vk8bOr1
+ MZr0Q6GaFFa8ul50Ahr/S8y9lb5TU/xonD6fyqVF3zxxUuoOSERoLTGcR+g9sNc6mkGkLJGFD24
+ klBj7P0L3JYApVibMXIItOdGvhM7edCnGdH5rrhu4F7aQGIvv4CgUN6302f0vNMMSxKQZyOhsuQ
+ =
+X-Received: by 2002:a05:600d:108:20b0:495:4593:616c with SMTP id
+ 5b1f17b1804b1-49975c21896mr314355e9.1.1786406103959; Mon, 10 Aug 2026
+ 16:55:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260807182724.51018-1-edu042sjroy@proton.me>
- <CACNCB+=r4dAU4+WF2wGzsedbP67ZztWb8xE=CHgAf92BUhmxzA@mail.gmail.com>
- <TfUyS8ZAROFt0PXoGV7cW9HCmJCeX30V7o6BJSHAQOkc5aUVRYg5x0Bzui1uOBd5b1jXlYkwajcV4Z0_wSDRSHVaAcnu8HbjDYqhGD6q0Tg=@proton.me>
-In-Reply-To: <TfUyS8ZAROFt0PXoGV7cW9HCmJCeX30V7o6BJSHAQOkc5aUVRYg5x0Bzui1uOBd5b1jXlYkwajcV4Z0_wSDRSHVaAcnu8HbjDYqhGD6q0Tg=@proton.me>
-From: Nathan Lucas <nlucasgit@gmail.com>
-Date: Mon, 10 Aug 2026 16:31:51 -0600
-X-Gm-Features: AUfX_mwWXSS48fnafVI5tybbDEohF5POqvdUB9mQHhCRVov_4uA_RvOrYmLge74
-Message-ID: <CACNCB+=cv9gBMLKxz+1e8=yFCC4PbKR0z4sh_jVEXPif1PG_zg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix BT2020 YCbCr limited range output CSC
-To: edu042sjroy@proton.me
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
- siqueira@igalia.com, alexander.deucher@amd.com, Ilya.Bakoulin@amd.com, 
- dri-devel@lists.freedesktop.org
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+ <CABdmKX2i_vxs3EgJgydEbXoTxqWe9g9pj=hqPKuwf0ge0SjZuQ@mail.gmail.com>
+ <anSyU_-zArFch-an@orome>
+In-Reply-To: <anSyU_-zArFch-an@orome>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Mon, 10 Aug 2026 16:54:51 -0700
+X-Gm-Features: AUfX_mwf0uw3dVpzklPu-Nif3rg3tPQMirUP9IgK_6gn-zY2Jt3_SUQapkz0Yvg
+Message-ID: <CABdmKX2Hn0cDw_aFW7Xr9v5mr=WvfhhTXgX7tpRaMMGstYp4=g@mail.gmail.com>
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,31 +145,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Satyajit,
-That makes sense for the 8-bit normalization.  Thank you for testing
-the patch on your equipment.
+On Thu, Aug 6, 2026 at 9:21=E2=80=AFAM Thierry Reding <thierry.reding@kerne=
+l.org> wrote:
+>
+> On Wed, Jul 08, 2026 at 04:49:31PM -0700, T.J. Mercier wrote:
+> > On Wed, Jul 1, 2026 at 9:09=E2=80=AFAM Thierry Reding <thierry.reding@k=
+ernel.org> wrote:
+> > >
+> > > From: Thierry Reding <treding@nvidia.com>
+> > >
+> > > There is no technical reason why there should be a limited number of =
+CMA
+> > > regions, so extract some code into helpers and use them to create ext=
+ra
+> > > functions (cma_create() and cma_free()) that allow creating and freei=
+ng,
+> > > respectively, CMA regions dynamically at runtime.
+> > >
+> > > The static array of CMA areas cannot be replaced by dynamically creat=
+ed
+> > > areas because for many of them, allocation must not fail and some cas=
+es
+> > > may need to initialize them before the slab allocator is even availab=
+le.
+> > > To account for this, keep these "early" areas in a separate list and
+> > > track the dynamic areas in a separate list.
+>
+> Huh... going over this thread again I could've sworn that I had replied
+> to this before, but I can't find any evidence of any reply.
+>
+> > Hi, It looks like you'll also need to update the CMA dma-buf heap's
+> > add_cma_heaps init function so that it adds all the CMA areas, not
+> > just the early ones.
+>
+> I would actually rather not do that. The case that we need this for is
+> creating a special purpose dma-buf heap that's composed of multiple CMA
+> areas. These areas must not be used by anyone else. Exposing these to
+> the CMA dma-buf heap would allow anyone to allocate from individual
+> chunks and throw off the accounting that we need to do in order to keep
+> the protected memory from working correctly.
+>
+> Besides, given the dynamic nature of this means that the CMA dma-buf
+> heap might already have probed when these dynamic CMA areas are added.
+> So we would either need to have some way of notifying the CMA dma-buf
+> heap of newly created areas or we might end up with an incomplete set
+> of registered heaps.
+>
+> If you really insist, I could look into this, but I think it's actually
+> a nice feature that the CMA dma-buf heap only registers these "early"
+> areas and exposes them.
+>
+> Thierry
 
-On Mon, Aug 10, 2026 at 12:05=E2=80=AFPM <edu042sjroy@proton.me> wrote:
->
-> Hi Nathan,
->
-> Thanks for catching the normalization issue.
->
-> I initially used 8-bit normalization because the mode I was debugging was=
- 3840x2160@60 YCbCr 4:4:4 at 8 bpc, and I incorrectly tied the CSC normaliz=
-ation to the output link bit depth. Your 10-bit normalization is correct.
->
-> I built and tested your first patch, "[PATCH 1/2] drm/amd/display: fix BT=
-.2020 YCbCr limited output CSC matrix", on Navi33 / DCN 3.2.1 over HDMI to =
-an LG CX with BT.2020/PQ HDR. The limited-range path works correctly with t=
-he corrected matrix and fixes the incorrect HDR levels and color I was seei=
-ng with the original matrix.
->
-> I also confirmed that the resulting amdgpu module contains the corrected =
-limited-range coefficients from that patch. My hardware testing was limited=
- to the DCN limited-range path.
->
-> Tested-by: Satyajit Roy edu042sjroy@proton.me
->
-> Thanks,
-> Satyajit
+No problem, thanks for responding. I see there is now discussion about
+subdividing a single CMA area for this, and that seems like it could
+end up simpler in terms of the CMA code for this series. So I'm
+supportive of that idea.
