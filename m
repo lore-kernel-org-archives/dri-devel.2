@@ -4,100 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E91DC5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:23:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D2C0C5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:32:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CBFD10E1A5;
-	Mon, 10 Aug 2026 06:23:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F47110E1B0;
+	Mon, 10 Aug 2026 06:32:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GO2STRW4";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Rs6NR5aR";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 905EF10E1A5
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 06:23:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786342993;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HzXPQnozqWnPo5236EWypdZ47CBguSfl6g0bCZAQVQ4=;
- b=GO2STRW4MFTQsAJ82KqPmKXANVa0EWUKNfeSyxSnpYXWyiN7XfHfxA8ixO+MsPidqk/gOV
- R9KcDhN0Nukgg5I5CGaLk1/mpSlyZLwo5dHPGj8jbVe2tAJFQYHEAxkojsp9mBqD55bHwQ
- 1vx9k9o/ty1zP2ALNTazgxrik7SFVyc=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-524-vvebbjdpNOu_CuRRLO4QQA-1; Mon, 10 Aug 2026 02:23:06 -0400
-X-MC-Unique: vvebbjdpNOu_CuRRLO4QQA-1
-X-Mimecast-MFC-AGG-ID: vvebbjdpNOu_CuRRLO4QQA_1786342986
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-47f726186c4so923268f8f.2
- for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 23:23:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786342985; x=1786947785;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HzXPQnozqWnPo5236EWypdZ47CBguSfl6g0bCZAQVQ4=;
- b=eht8TqLEwcNGC4PoVLWxw4pWJHqnfYcWNwo9TnD+Jyt3Wha1Wk0CaE3f3MvwS0tZAR
- lkOpnJFriUMuXeRTFwHz0b1CHpxbKNCWw5CUeNOgh5iIICVFqSezNR9Gto5jLFv1B8d/
- L1ykJwoW5xpJhOczmpO+2WZJ+aq+4SSQwJtLjvP978g13XAXnKBmCufuLY3RdBbNlyge
- l/Cdb+kVdr4i2c8iwJsG5PyX+6lKPAVwzpuNyJQXbwZ+WF8bp5qb5Rnu7D+dTLucen5g
- hkWUFkfI5xIBII/rP8P4HWIj2YfslrnVx1W5HFqFwNCtjImdwgYUFpD0dkVknVuCJ+xA
- DVfg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpSICJDMJt/Ctk2aQWlV9X2XdpZzQTjpU39XJOr8stm8DD5wZCVj5ThsAIay3RYuN8PIgXGWVDUdR4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQdUWnGsPpaNuBLMXvaGAYfG5yqwbGBVaRu4mKWuN/i6KEzOoO
- 3ld0hpM2rarR7d0J2DUJuzBEQ8Ly6rX48U23Tv0COKViIIp5SCw7ydFjlKa7sMS7y006/BnAWlS
- fROKt+UfygXeh3VzVdsVrDLfDXtQV+yR8Uei/Vv2+6LrdIUcIqzAPxqfvCFAfIAQAgEeDqA==
-X-Gm-Gg: AR+sD11KUA2BbPTorJotfrDX0WfOSngL79FQEivDWKnkVlDCSOM3m0m040lqGzLur7r
- j2OHsS9itPiNN9fTc8SfeV6EtsdRxrDs0TmoXGTSsBI6Uh69g9u3Q4E5aWEN6D5CuLVnnyY5M+m
- +DvqLF/ewwDjYQbRBhp/NlFs8e5TbphuaTt+Yz1tfH0fnp4Wa1xVeBdOEp1fhgzDxrViT1XnVcU
- ESD7c87siH+dLlHFXruRW0EIM8ADojhjAmlYtKxKLLZjVYkjQ+IIxAhUL/TPA58yVPQkZPnSw32
- aC+K0qgK74rSBSycaETQ+7N5HjurdLIIEhOPYpkTdKXstaX2/Z2FqYAGq6/jlRybSqcHSf575/d
- YfKYm4Q6IQFQ4BFvSvP90iQ==
-X-Received: by 2002:a05:6000:41d3:b0:45e:e1a4:c4c3 with SMTP id
- ffacd0b85a97d-47fec628b57mr64771502f8f.15.1786342985402; 
- Sun, 09 Aug 2026 23:23:05 -0700 (PDT)
-X-Received: by 2002:a05:6000:41d3:b0:45e:e1a4:c4c3 with SMTP id
- ffacd0b85a97d-47fec628b57mr64771414f8f.15.1786342984878; 
- Sun, 09 Aug 2026 23:23:04 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-39-98.inter.net.il. [80.230.39.98])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4800220aa83sm26809797f8f.36.2026.08.09.23.23.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 23:23:04 -0700 (PDT)
-Date: Mon, 10 Aug 2026 02:23:00 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Alexander Graf <graf@amazon.com>
-Cc: Jason Wang <jasowangio@gmail.com>, Alex Williamson <alex@shazbot.org>,
- David Airlie <airlied@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- dri-devel@lists.freedesktop.org,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Feng Liu <feliu@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Halil Pasic <pasic@linux.ibm.com>, Jens Axboe <axboe@kernel.dk>,
- Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
- linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, nh-open-source@amazon.com,
- nvdimm@lists.linux.dev, Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Parav Pandit <parav@nvidia.com>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Stefan Hajnoczi <stefanha@redhat.com>, virtualization@lists.linux.dev,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Yishai Hadas <yishaih@nvidia.com>
-Subject: Re: [RFC PATCH 00/12] virtio: support devices that own their
- virtqueue memory
-Message-ID: <20260810021450-mutt-send-email-mst@kernel.org>
-References: <20260809182010.32931-1-graf@amazon.com>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012007.outbound.protection.outlook.com [40.107.209.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12A4110E1B0;
+ Mon, 10 Aug 2026 06:32:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KBdppuEmliU0d5EzB7WmyKgoQQcrXX4S+NzIigwduVelnZw3b1kcKzXQnQK7eJkwruJvPOkulgSbE0zIK7kbQ2K4A5OLADmMQ9LI5u9LNn+wImztofI2njmNvGW7e6RDRyccpMJyEKlhlgS0YaLyv714MmbGaLLWTJefijDtb+awaPOvQqOdmCgKk0APtSU+yzZGI4UW2XK9inxkbIPifR4yTw4L4fWhrsP6ks5ZMa3i5cbEcM0akhHbBfZxkmFtKki7tT5Ui9cmZj6kIagbI40Zbtj8JOMTitd5FG8UwZfNILESrHW6jZ6ATL7MZ62otZIIOhPh9miimsZ6b2CWXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=79XUjPTYJf3TDuof6wymT16WUoT6V4csuyE3pjqN6rs=;
+ b=C/BGxT6rmkRQSrNs+oQxdWSXzw5o9f3ah7da63HC6KIqJ1XASdOMTqkfuZw2rCrp6fBsY1iGy5cxVcG2VBXn/O0Z3y3gPqRb30l6bGMrRFknKiSUtirCK3rk6nB+UDRN8Ek08O8ZAXaXSGnSLczIrxuGsDbDMEYjqE1kaSvHYC0RumlzCgyw75Z5aofRWM6DSALtsyCfOEe7bggFZNmDhna1pIWIuBGuprSLyaY2LBhNMt3FYAopenFlsoNEGb6ceJsfzf+HULAYPGw5nYI/ZLEZ7RlWbDdm/su+4gJuzA7JP8DUg6MHPgc20YiD5M3A5v+nGQ2TPRAywa2vkaCVkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=79XUjPTYJf3TDuof6wymT16WUoT6V4csuyE3pjqN6rs=;
+ b=Rs6NR5aRuinXQo/rV3za9OL6TXsMcq2BRh+LvCttwHPXfGFs/N8hkNXn0Hva58ql2G7+7h10zexGkm31oi9R2aD6HjweKLb3Z7tEDJIdrM7b3QKMPv7SIuBL94Sl9d7gt6HnojR5JH1m1xEH+ZMvruI0u4g6brYahww1cBDiEqLfRr5wiwY7/UlN108ShkV8J49VF8hg6k1LD/tcnPQL4segCVU0g0qNxtPMMa9E7bo9Yxmo5zxuiQPeZ9Bt4zoYxrysoMImn3WsbC9aZ7+PmlqNSyZf8FduEtafTnCH+C7BH4hUic6A0x2vGZTJpWGXww2wGO8hKUWZL5WKBU1rZA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by SJ2PR12MB8875.namprd12.prod.outlook.com (2603:10b6:a03:543::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 06:32:16 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 06:32:16 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 10 Aug 2026 15:32:13 +0900
+Message-Id: <DKL1XM6HGRMS.272K41SKJJB2Z@nvidia.com>
+Cc: <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-doc@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 01/12] rust: io: add Region::try_subregion
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Yury Norov" <yury.norov@gmail.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260805-pramin-split-v1-0-ff3e84a75dac@nvidia.com>
+ <20260805-pramin-split-v1-1-ff3e84a75dac@nvidia.com>
+ <DKGY508IDAS4.9E9983YWQ2F5@garyguo.net>
+In-Reply-To: <DKGY508IDAS4.9E9983YWQ2F5@garyguo.net>
+X-ClientProxiedBy: TYCP286CA0114.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::12) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-In-Reply-To: <20260809182010.32931-1-graf@amazon.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 30hn6_B1RiT2CFH-P7ssoyEkjIFtIj8eg-3ujvwD8bY_1786342986
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SJ2PR12MB8875:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0122d29e-d148-47a1-c775-08def6a91f1f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|10070799003|23010399003|376014|7416014|18002099003|22082099003|5023799004|56012099006|11063799006|4143699003|10067099003|921020;
+X-Microsoft-Antispam-Message-Info: bV/eWcUrVxs4OZv9yhcGutfaun2y6JN7ckmF7Ozzp4Zwd5vB8Jp6GoCWkb3YLb99QxP35UnM97Q59JIA5NdMqqEDmH3KqeltunZkeJOr5/pknjwrlhlxKNZfTXxH0qUZRPh4IRB3WtgbMF2HatL8xTCqCTDIHDfbut2wEhkmUTQgi9WZv6tZ3LshLJnGgeybxdC0v6x9RfA/9v5rcYdTuaXfrYD0IC+b4K8eKrVmkd/NHHci3wXRP2nsJ8dJMvPZK4Hlo5RBLYh7DYDZ0E98zHbFm2Gc7IfZnKVf8KvfIiRQFNlBO/ucyjv0OX30F8zLQLX8T8W/0P4Vu1317wVWE2MdtCA6QbjZi/b5hZ659JjNTInfy+D4aHfZI590pepriuqp/+pHzmiTpoOqRsRu+UDIo4p900o7jNpan2l3yUdIwh88TWpoU9cGHwKil18zg7uhq2La8t/WdD+Bc605fgvjPR+bg8DvjD4RloBOAaEWHxKRAZt7MyYQfl8hbZ3Xw46ZB1MG8BfSAADz1W6cDqCiTSEghVnnlFgzKyjrunPUrbJXbNMyISDYYIq0echbFPHbG2qzHhiSKFjPM1VtOwj6ZACZZ/yQgfVL/o8jKqMF8v2Emq+9+YeX3dJ5zsowe35ShS9DoNbC2VbTljf8Mt5r6HZB2wO9kCq/MRSl2k3GxMIWxkvUbvN+oFSKXHwq6lYS2gFkZLSidyqja5QHcg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(10070799003)(23010399003)(376014)(7416014)(18002099003)(22082099003)(5023799004)(56012099006)(11063799006)(4143699003)(10067099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUlIOWUyRTBrdXJXQndwb3JHeTJ1UVQ4OHEwVWRSZys4TklLb2JQNllYTEtl?=
+ =?utf-8?B?aFlyRDZsUTFQMm1jVmVxNndRRWlXeTJlWWNONHJwR2tkNUd4NFJycG4yQ3dY?=
+ =?utf-8?B?L3VSUDdEZXZJVTh5a0lSYUZFL0EwM3VsVXQ1S0Rid3UzVjZnbmRIbWlKeTIw?=
+ =?utf-8?B?ejVQdjVraDYyL0owYktDSDNxcFFHRGtlUEl1YWozRlNGSWRxU0h0SUhGZHh4?=
+ =?utf-8?B?Nk1pVlBOM0MyaVE4ZGVaMlNGTkJpNHU5czJyU2JJZ2VwRXlYK1UrVEl0VmtC?=
+ =?utf-8?B?a2pxWUFYTk5CazlkbnRMYitNK0VHeUtGdExsYndTQkJJalZ0N3l6VDhHenlx?=
+ =?utf-8?B?a3YxK3FuWmN4N1ljclRUaERCbndnZUVZWEFzNVdZUlhyR2liRlhuR0lZN1JY?=
+ =?utf-8?B?M2tNUHEwQzhqQ0F5N2RIdm81QzBXWXVuMVdRdDYzSFFHOWdzY2phdDY0MVFN?=
+ =?utf-8?B?QkZnR0xLY2R0U3gzR3AyRU10ZEF5OGVsdzYyK3JMNU9MN3B2cEpycW9uL2d2?=
+ =?utf-8?B?cVF5djc1MDNsbm1LVlBXcFhMSkFuTVdaOGJFUWd4eXJ0b0F3bkdJMlJYMGt5?=
+ =?utf-8?B?WDJYMGVpS2kyRS9KOTB5VFJCMGIzb3NVR1hnUU4zbDBJVEpiTEVjaDc4UTBt?=
+ =?utf-8?B?TXZtWUk3Rm9SWE9mMHlvTlc4MWRia1QySUtmSDhpdWZPZUxHTitNb0t6dWcz?=
+ =?utf-8?B?Y3UrdXo2bFRGUzMxR3NaVzY1NWJqM1lJL2Rzc043TG5vaUJLVDUwRHFVamdu?=
+ =?utf-8?B?RWNSdkdXN3ZZOUN0Y0hpbGxNT250YkRDSDZqQk42dFRUTDlxbmdyaGdhQWRX?=
+ =?utf-8?B?VTBheTNUM0JFNDdKajFVM2hoTTNzMi9DT1YxVjRkZUNhNFlaR2tMMHkrcVNz?=
+ =?utf-8?B?aFRTSStDUVBWL0JhaWJDajB1N3dCWkNDVGZsUngzcFdpd1R0UTNCTGRHYUhL?=
+ =?utf-8?B?RExmOWFmallVMGpYZVAxR0owakZRV1J1QXkzTGo1K2VFRXRNd0wxb2NBdEJO?=
+ =?utf-8?B?TThNeWFpVzBuWmQ2eUc0M0puQlQwRkxVNDhrUGkrdER4YnQ3VWN2Y3pDcENq?=
+ =?utf-8?B?Rmgxc3ZaekRGNW56ZC9TRWdOSVB6RDNHa0syT3ZKOW1PdHA1UW95eUxhMGRo?=
+ =?utf-8?B?b1dDTkxGekl1YjVDV01WZUQxczR4WVhVREhLOSttZlFMVFRTVTRYazdldldk?=
+ =?utf-8?B?NkVkWFllcXV4R095Y2F3WENLa2pyN0t0dERrY2pvZlNHQ2FnVXdidUJ2R1NZ?=
+ =?utf-8?B?ZDNSREgzVWczcC9wMjV2TlJ4NXh3NkE5OGozdFY5SVdTdUlMMVMrSUZlOTVw?=
+ =?utf-8?B?bldUWDh6dzBsdzJ2OVJ0cHJSeHNoOC9oSjBxbG5tVnJEKzNRcGs5L0JuRWJC?=
+ =?utf-8?B?T2JHd0J0ODJneEYyZm8zVlJLSlNkRCt4QStRRnBhY3c1eWM4STNFVjlNczNZ?=
+ =?utf-8?B?ZTRMR0k4dmZJLzFmalIwb2Rwb1JacEtqOFNyRmY2Z05UV290ellPelNRWllG?=
+ =?utf-8?B?RHFMUGwxNlR6bWxBRExqMG1MY1BWWE5MdFJkTUFab3VadHQ4dEhWZHdPQVpU?=
+ =?utf-8?B?dkNldlFPZmVuaHNBN2JXcVIrNjRMakpqaUtlUUxRcUhQVDZ3cjIrOXdzOFdm?=
+ =?utf-8?B?R1ZySHFyK2pseGJxVVpvVjVoY0FLNmRtZlRXdkpsb3dLbmE3a2xnUWZZdmp1?=
+ =?utf-8?B?SGVpblFxYjhaNDZvNFBpcDF1V3RDZ0FGMkRoYmExQms0WWFVZzhQUnEwcTlY?=
+ =?utf-8?B?OXV1NW9BZHliUmNJakZuYjdiMVhzQkJLcElFS0lRYkQ3VjdNeFR3NGRrc3Zy?=
+ =?utf-8?B?eEJrWk1mTlVpd3o0dkFNZE1jbGdGRmhYL3lreHFtYy81SjRJdllqWS9hNVdt?=
+ =?utf-8?B?Ty9ORVpKY1ZwNFZ4eDN0d3ovb2hKUnVtbHlibG5GdXFyYjdyKzRUOGhSYjN0?=
+ =?utf-8?B?aDBRRWR6Nlgxc2hpMXFwZ0JyOVdqTjMwTTNtWWRsOHdyNDk1QWs5cGJRZms5?=
+ =?utf-8?B?RlN5alBtN1N0OWorMmFuMGJSNEx1Kytxb3V6aFpCQnlYajFVMndieGdaTnI4?=
+ =?utf-8?B?cjd4SUZkaDQrWGZQdy9QQVMvaXVUaklrOSt6U1daL0pOSFJkV3dxWVc3MERF?=
+ =?utf-8?B?T0lwejMwSnIzODR6UmlzTjBOc0lLMHFNZFRQVEtZNDFza1R5WTFrNVVZdGFL?=
+ =?utf-8?B?U1VrYWNaLzN3OVBlSVR2VDJGR0x2Zk1Edm5xajJvYXZ0VEdaWVgxeUtxYnZ6?=
+ =?utf-8?B?aTBPLzRhaVVPMTdYT3ZoQ0gxcjNWUExoOXl6SHQ0MmZFYjJmY0RRajg0ZVNI?=
+ =?utf-8?B?MkVKRGIra1gvbFdvVUlJS0QveEVCRUloRUl4RXk3Y3dJWHZwNHI2OWdsMGFM?=
+ =?utf-8?Q?leKwZOaxdzLDuHktj5jrwtGIKuKzHim/DgIYgKI7PCZXS?=
+X-MS-Exchange-AntiSpam-MessageData-1: SRiIzr11jpIUqA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0122d29e-d148-47a1-c775-08def6a91f1f
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 06:32:16.7376 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2mhDRY2/zp2nB1OvN+OckUSB4UjOJiRQBBWEjGQNxQeOQ9h3mny7dRC4a2/l7uAr7MBtJC1LIme+c+NtjR4b3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8875
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,143 +153,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Aug 09, 2026 at 06:19:58PM +0000, Alexander Graf wrote:
-> Virtio drivers use guest memory to back virtqueues and their buffers.
-> That means a VMM needs to be able to map guest memory. That is ok in the
-> normal virt case. It gets icky with confidential computing (where we use
-> swiotlb as workaround) and it defeats the purpose of isolated vhost-user
-> backing devices, because they end up with full RAM access to the guest.
-> 
-> So instead, I'm proposing an extension to virtio which allows it to give
-> each virtio device its own dedicated memory region to communicate with the
-> host, called DMB (Device Memory Buffer). A trusted hypervisor can force
-> DMB to be present, which then enables safer, more isolated and resilient
-> communication between guest and host.
-> 
-> With DMB, the device provides a shared memory region that both parties
-> agree is the full memory map both have access to. All memory offsets
-> that previously would have been into guest RAM, are then offsets into
-> this shared memory buffer region. One nice property of this is that it
-> is a generic mechanism in the virtio transport layer, so higher level
-> drivers work unmodified.
-> 
-> I was exploring to use swiotlb instead to create individual pools. But
-> that approach has multiple downsides:
-> 
-> 1. Swiotlb is an OS primitive which is not available in all Operating
-> Systems. DMB however lives in the virtio transport layer, which means we
-> can add support for it in any OS independent of generic layers. This
-> helps with Windows support.
+On Wed Aug 5, 2026 at 7:43 PM JST, Gary Guo wrote:
+> On Wed Aug 5, 2026 at 6:44 AM BST, Eliot Courtney wrote:
+>> Add a helper to get a subregion of an IO view fallibly.
+>>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  rust/kernel/io.rs | 31 ++++++++++++++++++++++++++++++-
+>>  1 file changed, 30 insertions(+), 1 deletion(-)
+>
+> Looks like the case where you need this don't actually require a `Region`
+> (dynamically sized type) but rather a fixed size window?
+>
+> In that case the next version of
+> https://lore.kernel.org/rust-for-linux/20260721-typed_register-v1-0-452d7=
+2b60262@garyguo.net/
+> will contain what you need.
+>
+> Best,
+> Gary
 
-
-How does it help, if you are going to put a pool in
-the driver, put a pool in the driver. Maybe with virtio mem to
-simplify allocation.
-
-> 2. We munge DMA space together. DMB provides a separate DMA space per
-> virtio device. This means we can for example implement a device in
-> vhost-user and give the implementing process only visibility to the DMB
-> region, not all of guest memory. That reduces the exposure the
-> vhost-user provider has, improving security.
-> 
-> 3. Devices can opt-in. A hypervisor can choose to use standard virtio
-> semantics for self-implemented devices (e.g. NSM), while requiring DMB
-> for devices implemented by less trustworthy providers. The
-> non-trustworthy devices do not get any visibility into the trustworthy
-> ones, even with DMB in place for both.
-
-
-
-So I am not sure whether the implication is that it's purely a software
-construct. But if it is, can we extend virtio iommu to
-add a way to discover and enforce trust boundaries?
-And maybe translate offsets to BARs, if that is desired?
-
-
-
-It seems to be that the result would be that we don't need fiddly
-special casing in virtio ring specifically, and a lot of things like
-pre-mapped dma will begin to work.
-
-
-
-> == Limitations ==
-> 
->   - Only PCI is wired up.
->   - Feature bit 44 and the shared memory id register at offset 0x40 of the
->     PCI common configuration are provisional: the OASIS technical
->     committee has the specification and has allocated neither.
-> 
->   https://lore.kernel.org/virtio-comment/20260804161202.38619-1-graf@amazon.com/
-> 
->   - The device I ran this against is not public, so you cannot reproduce
->     the numbers below. The KUnit test you can.
-> 
-> == Testing ==
-> 
-> Without patches 10 and 12 a receive refill livelocks and queues starve
-> each other: 29,319,791 receive softirqs in five seconds with not one
-> packet received, against 4 with them, and 2 of 7 receive queues that never
-> see a buffer, against none. Earlier revisions moved 512 MiB of O_DIRECT
-> block I/O and 2.7 GB of verified vsock through a region with no error.
-> 
-> The KUnit test for patch 12's guarantee you can run yourself, and two of
-> its five cases fail if I take the fix out:
-> 
->   tools/testing/kunit/kunit.py run --arch=x86_64 \
->       --kconfig_add CONFIG_VIRTIO_MMIO=y \
->       --kconfig_add CONFIG_VIRTIO_DMB=y virtio_dmb
-> 
-> Patch 1 can be taken on its own: a stale worked example in a vdpa
-> comment. Patch 10 fixes something older than this series too, a failed
-> mapping arriving as -EIO from a packed ring, failing an I/O that on a
-> split ring is only back-pressure, but it does not apply alone: it wants
-> patch 2, and patch 9 for the file its documentation hunk edits. Both
-> carry Fixes:. Patch 12 wants 10 first.
-> 
-> I wrote this series with an AI coding assistant, which drafted the code,
-> the changelogs and this cover letter. I reviewed and reworked all of it,
-> and every commit carries an Assisted-by: trailer.
-> 
-> Alex
-> 
-> Alexander Graf (12):
->   vdpa: correct the VIRTIO_DEVICE_F_MASK example value
->   virtio_ring: validate premapped addresses through the device's map
->   virtio: add the VIRTIO_F_DMB feature bit
->   virtio_pci: read the device memory buffer shared memory id
->   virtio_pci: create virtqueues with the device's mapping token
->   virtio: add a device memory buffer region allocator
->   virtio: locate the device memory buffer after feature negotiation
->   virtio_pci: support VIRTIO_F_DMB
->   Documentation: virtio: describe the device memory buffer
->   virtio_ring: report a bounded pool's exhaustion as -ENOSPC
->   virtio: expose device memory buffer occupancy over debugfs
->   virtio: guarantee a virtqueue can publish its first descriptor chain
-> 
->  Documentation/driver-api/virtio/index.rst     |    1 +
->  .../driver-api/virtio/virtio-dmb.rst          |  803 ++++++++
->  drivers/vdpa/vdpa.c                           |    2 +-
->  drivers/virtio/Kconfig                        |   29 +
->  drivers/virtio/Makefile                       |    3 +-
->  drivers/virtio/virtio.c                       |   15 +-
->  drivers/virtio/virtio_dmb.c                   | 1719 +++++++++++++++++
->  drivers/virtio/virtio_dmb.h                   |   34 +
->  drivers/virtio/virtio_dmb_test.c              |  279 +++
->  drivers/virtio/virtio_pci_modern.c            |  100 +-
->  drivers/virtio/virtio_pci_modern_dev.c        |   23 +-
->  drivers/virtio/virtio_ring.c                  |  216 ++-
->  include/linux/virtio.h                        |    3 +
->  include/linux/virtio_config.h                 |   41 +
->  include/linux/virtio_pci_modern.h             |    1 +
->  include/uapi/linux/virtio_config.h            |   17 +-
->  include/uapi/linux/virtio_pci.h               |   10 +
->  17 files changed, 3254 insertions(+), 42 deletions(-)
->  create mode 100644 Documentation/driver-api/virtio/virtio-dmb.rst
->  create mode 100644 drivers/virtio/virtio_dmb.c
->  create mode 100644 drivers/virtio/virtio_dmb.h
->  create mode 100644 drivers/virtio/virtio_dmb_test.c
-> 
-> 
-> base-commit: fc02acf6ac0ccde0c805c2daa9148683cdd01ba8
-
+Thanks! I updated the code to use your v2 of that. To support the
+runtime offset I ended up having to use OffsetLoc which you have as
+#[doc(hidden)]. I will send the respin shortly.
