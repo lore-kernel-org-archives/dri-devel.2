@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EADAC5AE5D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 10:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4110C5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 10:47:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81D6810E60D;
-	Mon, 10 Aug 2026 10:47:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2E7610E79E;
+	Mon, 10 Aug 2026 10:47:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="0Iirk1w7";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="M8gyTEwG";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="s+Pgc/rn";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="CDA9tNiy";
 	dkim-atps=neutral
 Received: from flow-b5-smtp.messagingengine.com
  (flow-b5-smtp.messagingengine.com [202.12.124.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDC5310E60D
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 10:47:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 094EB10E79E
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 10:47:38 +0000 (UTC)
 Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailflow.stl.internal (Postfix) with ESMTP id DC75D130024E;
- Mon, 10 Aug 2026 06:47:27 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Mon, 10 Aug 2026 06:47:28 -0400
+ by mailflow.stl.internal (Postfix) with ESMTP id 4C830130024E;
+ Mon, 10 Aug 2026 06:47:37 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Mon, 10 Aug 2026 06:47:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1786358847; x=
- 1786362447; bh=i1d8j3w63MewxTuNMV7zC0RSGykhvhg+gqyCJyLiHoA=; b=0
- Iirk1w7cDQxW8fGCM0zH2tLN9MREJS+iQ4rYA97Hc3EJioyxRdto9VNjKGOX7UDS
- 53hk1i9BlfAeANcKM2WQd813Z9U4Z6IZ3t4OeeJXFPREQkNjA44vb4ZB3750XLUx
- 5uVghWnf/6AR8MeccqTviR4ioJFqEiglwsdEFr5BVJhEjZ9Ox8wtztSqWCavNfet
- uiKKsBE3Tw4uiPhVy9kfuUJyYjkUJvyLID3/1DDQMt2tXuZJpb3VK7l8NwzlyojU
- nUPfd5RY8IykCOPzhEj038m48AZcW5+idNccobN33JiLbfSjKFqvlTxUer5Hi+4B
- hYtDQkgKGDEsqkfe9buxw==
+ :reply-to:subject:subject:to:to; s=fm1; t=1786358857; x=
+ 1786362457; bh=HThYlIkGwdQDjZCN1XChIZNPsZZt1lbJWIT/W+aHcAw=; b=s
+ +Pgc/rn7Ikkf3sJP5wsXVgYu3LRM5jUWJoV83lCemtt/0YBS2dhKGgLI9+OjtztJ
+ zK4lKctYHy7xWS40VZyH3aQXscsiLj9a8s0GcEU/EeLxRepx9/EDoXP0R+WCnoD/
+ dqe8GupM7PVPSwxFG6LqvAJNX9GMPBN8enCsEcuqQqN5fU5EIPmTr1aoRCnRUvdJ
+ Zf4plyi+HrpAF65NVD9+X6ozkFKg+BbFaeEg5Xo9Un6jKHskKW7O0/637qH5Ykit
+ rSt86lb0VqCPKOqxx6KMAp9PcBsQxKfcsPVGpJ5q8ia4pM4HjAqhDliDhGcAXdb8
+ mHm5xBocwims4BglJTEbg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1786358847; x=1786362447; bh=i
- 1d8j3w63MewxTuNMV7zC0RSGykhvhg+gqyCJyLiHoA=; b=M8gyTEwGBlQuQ7ul2
- eFBFRMtOqMP5tOm8nWgmEEn09AehUU6SfJjgvGQuKcG6vvI4C9SMAYDGeJ18qe6K
- pHR+moyrn7Ti+SedHje0Cd8r+C3TMn+8Jy9a6c3aioRb6JpQKybuRwVpHFeWWB/t
- eY3QhdGhRoCXKnbMms6aEgPJBlPGpDktT+mHZ4kZO3xAj0qLqF9PmEQBKEx94V0S
- t6ZyRXxjHkYW/TyC9GM+r4HDJ2fLiCN8NXfdBm5L0cN5KXvf/LnQmDe9j5RF6JR5
- V2zjOGlqqhPR17juGUvgFgd3rzajgrm0YK8KjL7I7dxkmom/CuSGqcDOGfPnt9WM
- ud60g==
-X-ME-Sender: <xms:Pqx5auEHQ0UiPoXqqAPmwBxiG-lnDqPSHt9yhpLRAb0ERMlauVfp0w>
- <xme:Pqx5alv_dGrnXkM5GRzkUa6HWq2baHDRxG9V5ZGZf4Ww8_oGZ8MC1W6Jhmn8m7TMb
- uX9QlmYqOssT6ptyx_DYcQZz_ntPhYgfGR5OU93lLgKLk_KEBBtUBw>
-X-ME-Received: <xmr:Pqx5akadEEBoM6rb8ZsNJYL9o0jVN3rbAd_ARDsvREjjdm1RLWPqARuh91zUiRwCkuG_JhBzkQ>
-X-ME-Proxy-Cause: dmFkZTE5Nfr2TDzQINlxmlOGJApALjQbyPsZet3r/DZJh5EHasV90KzDNM73V+IHteFMkf
- /hzbqKWMBrt3JwlLyQuPJh1r5R7tWcyA12rMW7uK5cMLKXrl2rLCwHN1T0pb/9Y0RV1LFy
- NJD57/bMVQSD7eCINQ81fbqfUZjghmqvfPsfz0uuPS40S7lZ699MAmD/BGuo6Vj3j+Hifq
- dj/YtJEP2JIIcBJ2mtjpaDlOdHHiuhEUWQ9co/u/LwJWr3rI1NcToTxI2FEWlZxkbzXzwW
- 7j63BaHAKJapGxxwTEwb4xnX+uBLErgXDYZjbV8A1D0VbRIqZnFLDL012ubqW2TRBmhjkW
- Cdz1HGRIsmDibrraVMrxcpy9maSQwwAFTsrjN9iBbhz0S/5XtwprurAEpbGTdXMCp3M77I
- EEvRYPwjHtsOGXGYE9g1XHFQLBqpdAwpLXnzge0b4ie3+HJ52FwkFiG1v6n8z+Wd/dwd1x
- Pjveda+Q/H0FTI3JPBDw1caj18oc1Rmmj3XtjvRh3if6rmqJAMa+Uod22zgNTw+pr2FyMv
- 6mWyLsfibe5M5plfrf9Wk6tKeXa0yuD/ivPo+3Xr0YTx/c11d3RSoGL5geXb7HJaVzx0Fh
- PLaj4Tae1V0sXLB9N0ayWVV7t5SD6uYM3ojafcUND99+X+R5Rj2qUYph/F7g
-X-ME-Proxy: <xmx:Pqx5al56VUqygWg-uXQLw5pYLPHI8aoiPk8EZSi7Qvza0YNLnzUojg>
- <xmx:Pqx5as-Y510AqP9FMhm4RXXqvZEKKOGU_ezQ8rfyOLbSVaYbhDGMsg>
- <xmx:Pqx5ahZWZH1AzsMBPn-tyznhk6KDxD4ztTZvnIIbSpnpPCR9R7Y6qA>
- <xmx:Pqx5al5ORnMk1K5FpYd96XoK5_K--kdNkEi-I26VaDDpNOlFS28lAg>
- <xmx:P6x5aoATVsDps-ZgZEUF25V2_BvSS86ZKJx67oT84H6lc4m66LTcXIjV>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1786358857; x=1786362457; bh=H
+ ThYlIkGwdQDjZCN1XChIZNPsZZt1lbJWIT/W+aHcAw=; b=CDA9tNiyR9KGLen46
+ e3MeOv5ADrw/LE98uXEu367EsYTIapxMuU/xcytk/WvwUVMWmIlhWjKXtTdh3qLh
+ 6Zq9m/Mp4zVE5N4HmXTJbYQ31iGV/KQLisZeAPWwugAgBcYbzxJGQPOIeuPifUVc
+ bnYa0/LMUigF9W8B2pWsuVi9gzya1lJy5F/B2z5qbnBU7a0r+aP7nnqeQRmUtSjP
+ FMy2u42GqBJOBY/X6ksHXZZ8kg59CofRtmN00aU+ZVdfX7T/KkKrM3vIW353UR3R
+ svjEDUncYqY2FBHB807kTyddFV06c8cjydAIevyAywNsr5TlxMWZ+u90WlmUq+O8
+ oqeog==
+X-ME-Sender: <xms:Sax5auyBED-RbQwYglPhlzSUvaZf60sGHCwZPZyu_n7f7zWOjoIZHg>
+ <xme:Sax5agrYu25jOR1Me3dV51nARmuNZrDgeHBx6M_8_XFxrCLGVtGItV0x-XyWP4-vi
+ H2_vY2yD0rvyl9qiEbkWPMtjaxehf5qQQAxjLJua7Ux0W2JaoVMM5s>
+X-ME-Received: <xmr:Sax5askZPDwd8tnu1waR5TKgx-1ax8Q6DwI11M7SgPAQZ_mJUc5YlVzUE1AwosGaOwDM12iIAg>
+X-ME-Proxy-Cause: dmFkZTGo3YHa5UvIUA3KMVpnWV+rhRTws4uKbckz7pR5ikg2n5/c5eYVs9tatMTHrYm86X
+ FSGuOd0UfKeCG5u8cS/0ATovadYV0dloHbVuKOWKSfZB88s4PYZGP9luXZM+jrb97oEJTt
+ RjRxeBSdKRaUq1Cbf0AX2U2+s5aPebsu3iqtNBNadOPFf19HGL/wn0eF7sL6wksW58CMqX
+ BLeBRAONs2p7XTfHF1hunFp6DfL3Jqtn+kA10ruhL1u9ahvxehz1XqMb+CmuMSFYCXSNVz
+ GAkqdFh0yeYsHlymk60Q2nG1topr5bWJdMpOf6oG7iCk9bBIEsLY0ig7J/2u0JJQZKmOtc
+ Em4dYjC/7GCMA2gZu1ND9atVNQ2ELgVarBLlzipaJecf8whQLYDAQsaasD5XDIICH0L1gs
+ 2ksjL01O7hDt6emZ9dI+RU9zYzG/R21LTTkWS/8LpoLcTJVAaGZMUc/v+JIga1v5WPshKH
+ kwbAXSkdGppWCMger7aN4i8ZQxEE4T3i/k7AHE6VcYpTXKzbgw5zE1l5Rv8e8PafM0zWYY
+ G+40w9UgCt7UTvSeX31fV1UypudgihgI3rSR7X0WK69PWKiZVGti0J1VnkH24NxmsUgi8+
+ 0/nEP+40BR1FhCaCVDOFWE4l3onHWuxtAFsK4pL/BICojn9sS23zWYyGCrog
+X-ME-Proxy: <xmx:Sax5aiUwex3LRQr6_qgIYcaVyEdd4no3-TsaVJ0Sz0bTIaGOGSRSXQ>
+ <xmx:Sax5aorIukvY8Y4Mzkcv69xz3_Ow8a4gIhzK86XqqiRrK57I4Z4q7Q>
+ <xmx:Sax5arWqlaeryNOMJ7h_m4a3iOV2lEMnsbCrNg6WH7nCi6zMLIJjaw>
+ <xmx:Sax5ahEw4qBapU8QdsRK-hIgmaTuaKF25tUKwlH6W4MfrDJYN8EkHQ>
+ <xmx:Sax5agfmGMUW-_WXNE7_SQifw9oL2egGoz-uRPUOeLfx5wgqiLAR3Ey5>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 10 Aug 2026 06:47:21 -0400 (EDT)
+ 10 Aug 2026 06:47:31 -0400 (EDT)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: chaoyi.chen@rock-chips.com, royalnet026@gmail.com, heiko@sntech.de,
  tomeu@tomeuvizoso.net, robin.murphy@arm.com, diederik@cknow-tech.com
@@ -75,14 +75,14 @@ Cc: alchark@flipper.net, linux-rockchip@lists.infradead.org,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
 Subject: Re: [RFC PATCH v6 7/9] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Mon, 10 Aug 2026 22:47:18 +1200
-Message-ID: <20260810104718.1214191-1-gahing@gahingwoo.com>
+Date: Mon, 10 Aug 2026 22:47:28 +1200
+Message-ID: <20260810104728.1214233-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <4f300b78-d96d-4d98-8819-dc292b0c9b97@rock-chips.com>
+In-Reply-To: <20260808123926.23903-1-royalnet026@gmail.com>
 References: <20260806063413.350184-1-gahing@gahingwoo.com>
  <20260806063413.350184-8-gahing@gahingwoo.com>
  <20260807211629.1573228-1-gahing@gahingwoo.com>
- <4f300b78-d96d-4d98-8819-dc292b0c9b97@rock-chips.com>
+ <20260808123926.23903-1-royalnet026@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -100,40 +100,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chaoyi,
+Hi Igor,
 
-Thank you, that settles it, and no apology needed for not reading the
-series.
+> One item outlives it, because it is not part of the poll machinery. In
+> rocket_core_init(), the new multi-power-domain attach returns without
+> unwinding rocket_job_init():
 
-> For RK3576:
->
-> - BIT[15:0] task_number
-> - BIT[16] task_pp_en
-> - BIT[17] task_count_clear
-> - BIT[18] task_last_layer_clear
+You are right, and the path immediately above it is the model, as you
+say. RK3576 still needs the attach in v7, so the shape does survive the
+rewrite, and v7 unwinds rocket_job_init() on that return.
 
-That matches the register trace bit for bit, and it is worth more than
-the trace, because the trace could only say which word the vendor writes
-and not what the bits in it are.
+> the commit message says nothing changes for RK3588, but struct
+> rocket_core's clks[] grows from 4 to 6 there while the two extra names
+> only arrive in 7/9
 
-BIT[18] is new to me. I was setting it because the vendor's word had it
-set and clearing it was not something I wanted to try blind. Now it can
-be named rather than shipped as 0x7 << 16:
+Moved rather than explained: the array grows in the patch that adds the
+two names, so the RK3588 patch really does change nothing for RK3588.
 
-  #define PC_TASK_CON_TASK_NUMBER		GENMASK(15, 0)
-  #define PC_TASK_CON_TASK_PP_EN		BIT(16)
-  #define PC_TASK_CON_TASK_COUNT_CLEAR		BIT(17)
-  #define PC_TASK_CON_TASK_LAST_LAYER_CLEAR	BIT(18)
+The poll is gone in v7 entirely, not reduced. With the TASK_CON fix the
+interrupt retires every job, so there is nothing for a fallback to fall
+back to, and a fallback that never runs is a fallback nobody tests. The
+job_lock move goes out on its own with a Fixes tag rather than riding in
+a feature series, so it can be picked up on its own timeline.
 
-with the RK3588 positions kept beside them, since the two differ only in
-the width of the first field and that is exactly what made v1 through v6
-wrong.
+> I would rather send you results than a tag that covers less than it
+> looks like it does.
 
-One question, if you have a moment. Is task_last_layer_clear meant to be
-set on every submit, or only on the task that ends a layer? Setting it
-unconditionally works on RK3576 here, but working and being right are
-not the same thing, and I would rather not encode a guess in a driver
-other people will copy from.
+So would I, and thank you for putting it that way. Probe, multi-task
+jobs, all three cores in parallel, a forced timeout and reset, and
+runtime-PM cycling against a bit-exact oracle is more coverage than any
+tag I could ask you for. I will send v7 to you directly when it goes
+out.
 
-Thanks again,
 Jiaxing
