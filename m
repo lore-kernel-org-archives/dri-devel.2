@@ -4,42 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E49C5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FD51C5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:28:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6475310E722;
-	Mon, 10 Aug 2026 08:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F50210E708;
+	Mon, 10 Aug 2026 08:28:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LZdRSh8f";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TO+sSvTH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BDA010E720
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 08:19:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 52E72412C9;
- Mon, 10 Aug 2026 08:19:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A24C1F00A3A;
- Mon, 10 Aug 2026 08:19:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786349977;
- bh=a928142tAJcF5hB1a4L5ML4JsCtb8mVpVueYBnr2WKE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LZdRSh8fUuKTlUm2NhYiTv/148Whd34CaJANBoBYeWfEMhpcHUcBkCC/vSODzZw7n
- /o9a4ADjtaD9BOz0aycmHGaT0rHTflbhMTGMuTkCZhxwEe/qG+4Y6E4plE4kSuKuFV
- VPvN2D4sUXH02ilBWoS0Vr1mjQldhqSOo9tWgc/2Iknh7TVcCL0XzS6beLBzCxoNd/
- 00Q8/SztmnD5DRj8j2BIILo5h4yEZ0Asrk+fYUCldWPtiEAN2Ap1RGIZKt1ND0mw+J
- 7ZgNt/EmPzrUyPhB1jROYLyabyeT59Vc+5hAHQvZcn2e4I1MFlIJBOhbqeSm2WOTVe
- IjF3ux+omvosg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5] drm/tyr: add Job IRQ handling
-To: "Laura Nao" <laura.nao@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260728-tyr-irq-v2-v5-1-59fd9dea952a@collabora.com>
-References: <20260728-tyr-irq-v2-v5-1-59fd9dea952a@collabora.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5526710E708;
+ Mon, 10 Aug 2026 08:28:22 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hJSZ56WRTzKnR3;
+ Mon, 10 Aug 2026 10:28:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1786350499; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=9yu6LEk2UcyjL9r965P8ZavzTzFAgQo0BfGlpvZT/OE=;
+ b=TO+sSvTHYAlWYgEcUG/JQbXVlcu6tw7XIJZt+5rLQCLU39Iu2nwwzo0lAX2izkWGHYYgah
+ 35eD3EGGny2IRS1Ysy0c0rJe8psXiYt2WRoRl3SiLkLVWI2g3YL6/a23swDOkuJjLSQtW7
+ ms3wADbqyooWyWXXalMEt9rrwn1BS7kfC3yjoY5bs2JhSHQhGkPwPPsrhNNBVxCj++R9Et
+ 0Kzx7Si4k1XGQCRQJwQV/6Ldyik/Q65mOiNxOL9/gfZHaHZXAA+sRFfKDXafKQUsQTa2po
+ +9SbYoatX4JI51IqMIUOZKB44Qse6aPGJeF2PjN6A0o68NZhzH7R/79L2G4I0Q==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of phasta@mailbox.org designates
+ 2001:67c:2050:b231:465::2 as permitted sender)
+ smtp.mailfrom=phasta@mailbox.org
+Message-ID: <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+From: Philipp Stanner <phasta@mailbox.org>
+To: Luke.Wildhardt@proton.me, "matthew.brost@intel.com"
+ <matthew.brost@intel.com>, "dakr@kernel.org" <dakr@kernel.org>, 
+ "phasta@kernel.org" <phasta@kernel.org>, "ckoenig.leichtzumerken@gmail.com"
+ <ckoenig.leichtzumerken@gmail.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>, 
+ "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Date: Mon, 10 Aug 2026 10:28:04 +0200
+In-Reply-To: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 08:19:36 +0000
-Message-Id: <20260810081937.0A24C1F00A3A@smtp.kernel.org>
+MIME-Version: 1.0
+X-MBO-RS-ID: 45f535531c94d2e02af
+X-MBO-RS-META: tgkpc1exkfrzt6o87it7isjs8m6bthoo
+X-Rspamd-Queue-Id: 4hJSZ56WRTzKnR3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,124 +73,124 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Teardown race condition: device interrupts are disabled after the =
-IRQ handler is unregistered, which can cause an interrupt storm on a shared=
- IRQ line.
-- [High] The threaded IRQ handler will enter an infinite loop if the device=
- becomes inaccessible, causing a CPU stall.
-- [Medium] Missing dummy read after clearing the interrupt mask causes spur=
-ious hardirq invocations.
---
++Cc Tvrtko
 
---- Patch [1]: [PATCH v5] drm/tyr: add Job IRQ handling ---
-commit 3c87c90f73f8609cae24e8591456f2e88af085b5
-Author: Laura Nao <laura.nao@collabora.com>
+On Sat, 2026-08-08 at 23:33 +0000, Luke.Wildhardt@proton.me wrote:
+> Since the DRM scheduler default policy was switched to FAIR in 7.2, susta=
+ined 100% GPU load in-game on my RX 9070 XT causes severe performance degra=
+dation. In the example title running through Proton, Project Silverfish, th=
+e foreground application degrades to roughly 10 fps or freezes outright whi=
+le audio continues, and the KDE Plasma Wayland session can lock up entirely=
+, requiring a reboot or killing the compositor to recover. The problem is n=
+ot limited to games. Running the game in the background + alt tabbing, then=
+ playing a YouTube video can also cause the entire desktop to freeze.=20
+>=20
+> Then, if the game starts to stutter, either alt-tabbing, or opening up a =
+menu in game (which reduced the load on the GPU) immediately stops the stut=
+tering.=20
+>=20
+> The issue is reliably reproducible under sustained GPU saturation, althou=
+gh the time-to-failure varies. Increasing shadow load (which decreases in-g=
+ame frame rate) substantially shortens the time-to-failure.
+>=20
+> In game, MangoHud does not reveal any frametime discrepancy.=20
+>=20
+> Bisection / test matrix
+>=20
+> Reproducer: Project Silverfish (Proton) at settings that saturate the GPU=
+, with a second GPU client active (browser video). Other titles show the sa=
+me symptom under sustained load; I have not yet re-tested those specific ti=
+tles against the fix.
+>=20
+> Kernel	Result
+> torvalds/master stock	FAIR (default)	FAIL
+> same as above + reverts below	gpu_sched.sched_policy=3D2 (FAIR)	FAIL
+> same as above + reverts below	gpu_sched.sched_policy=3D1 (FIFO)	PASS
+> 7.1.5 release	PASS
+> drm-next	FAIR (default)	FAIL
+>=20
+> Reverted Commits:
+>=20
+> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
+> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
+> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
+> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run q=
+ueue
+> 45c211ddf92a drm/sched: Switch default policy to fair
+> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
+>=20
+>=20
+>=20
+> Kernel (failing):=C2=A0 7.2.0-rc6 (stock), also current drm-next
+> Kernel (working):=C2=A0 7.2.0-rc6-default-revert-00006-g7e5de9b07e3d with=
+ sched_policy=3D1
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 7.1 release
+> Distro:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ Arch Linux
+> Session:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 KDE =
+Plasma 6.7.4 / Wayland (KWin), Qt 6.11.1, KF 6.28.0
+> CPU:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 AMD Ryzen 9 9950X3D
+> RAM:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 64 GiB
+> GPU:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Sapphire Pulse Radeon RX 9070 XT
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 03:00.0 [1002:7550] rev c0, subsys Sap=
+phire 1478
+> Motherboard:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ASUS (AM5 / 800-series c=
+hipset)
+> Mesa:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 26.1.6-arch1.1 (RADV, driverVersion 26.1.6)
+> Vulkan:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ instance 1.4.357 / device 1.4.354
+>=20
+>=20
+>=20
+>=20
+> On the same reverted kernel build, changing only gpu_sched.sched_policy f=
+rom 2 (FAIR) to 1 (FIFO) changes the result from reliably failing to passin=
+g extended stress testing.
+>=20
+>=20
+>=20
+> Possible mitigation options
+>=20
+> Given that 7.2 is late in the release cycle and 77a6809f1dc3 removes FIFO=
+/RR as selectable policies, there is currently no runtime workaround for af=
+fected systems.
+>=20
+>=20
+> Revert 45c211ddf92a so FIFO remains the default while FAIR remains availa=
+ble for further testing.
 
-drm/tyr: add Job IRQ handling
+That might be the wisest thing to do; but let's hear if Tvrtko has an
+idea for a hotfix first.
 
-Add a threaded IRQ wrapper for Tyr interrupt sources and use it to
-handle the firmware Job IRQ.
 
-Link: https://lore.kernel.org/all/20260728-fw-boot-b4-v10-0-9187aefa3f2f@co=
-llabora.com/
-Link: https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-15-a=
-5d91050789d@collabora.com/
-Link: https://lore.kernel.org/rust-for-linux/20260719153631.559341-1-dakr@k=
-ernel.org/
-Link: https://lore.kernel.org/rust-for-linux/20260726223613.1242940-1-dakr@=
-kernel.org/
-Link: https://lore.kernel.org/all/20260302232154.861916-1-lyude@redhat.com/
+>=20
+> If necessary, also revert 77a6809f1dc3 and dependent changes to restore r=
+untime policy selection.
+>=20
+> Alternatively, fix the underlying FAIR regression if a suitable fix can b=
+e identified in time for 7.2.
+>=20
+>=20
+> I mention the revert options because the justification for removing FIFO/=
+RR included the absence of known regressions relative to those policies. Th=
+is report appears to provide at least one counterexample.
+>=20
+>=20
+> I am willing to test patches responsively and collect data if necessary.=
+=C2=A0=20
 
-> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-> index d78ad9d292ff7..495cc3baa98c3 100644
-> --- a/drivers/gpu/drm/tyr/driver.rs
-> +++ b/drivers/gpu/drm/tyr/driver.rs
 
-[ ... ]
+Thanks for your effort and help. I had dared to hope that we could get
+this one through without a regression, but reality always catches up..
 
-> @@ -236,3 +245,102 @@ struct Regulators {
-> +impl<T: TyrIrqTrait> ThreadedHandler for TyrIrq<T> {
-> +    fn handle(&self) -> ThreadedIrqReturn {
-> +        let masked_status =3D self.irq.read_status();
-> +
-> +        if masked_status =3D=3D 0 {
-> +            return ThreadedIrqReturn::None;
-> +        }
-> +        self.irq.clear_mask();
-> +        ThreadedIrqReturn::WakeThread
-> +    }
-
-[Severity: Medium]
-Is a dummy read required after clearing the mask to flush the posted write?
-
-Looking at JobIrq::clear_mask() in fw/irq.rs, it performs a raw MMIO write
-without a subsequent dummy read:
-
-    fn clear_mask(&self) {
-        self.iomem.write_reg(JOB_IRQ_MASK::zeroed());
-    }
-
-If the write hasn't reached the device when handle() returns WakeThread,
-could the interrupt controller immediately re-invoke the hardirq handler,
-causing spurious invocations?
-
-> +
-> +    fn handle_threaded(&self) -> IrqReturn {
-> +        let mut ret =3D IrqReturn::None;
-> +
-> +        loop {
-> +            let raw_status =3D self.irq.read_raw_status() & self.irq.mas=
-k();
-> +            if raw_status =3D=3D 0 {
-> +                break;
-> +            }
-
-[Severity: High]
-Does this loop need a safeguard against MMIO reads returning 0xFFFFFFFF?
-
-If the device becomes inaccessible (e.g. from surprise removal, loss of
-power, or a bus error) while handle_threaded() is running,=20
-read_raw_status() might return all 1s.
-
-Since that value bitwise-ANDed with mask() is non-zero, could this cause=20
-the kernel thread to spin indefinitely and result in CPU stalls?
-
-> +            self.irq.clear_status(raw_status);
-> +            self.irq.handle(raw_status);
-> +            ret =3D IrqReturn::Handled;
-> +        }
-> +
-> +        self.irq.reenable_mask();
-> +        ret
-> +    }
-> +}
-> +
-> +#[pinned_drop]
-> +impl<T: TyrIrqTrait> PinnedDrop for TyrIrq<T> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        self.irq.clear_mask();
-> +    }
-> +}
-
-[Severity: High]
-Will clear_mask() execute too late during teardown, leading to an interrupt
-storm?
-
-Since TyrIrq is embedded inside the ThreadedRegistration returned by
-request_threaded_irq_by_name(), the Rust drop order will drop the
-ThreadedRegistration first (which calls free_irq()), followed by TyrIrq
-(which calls clear_mask() here).
-
-If the device asserts an interrupt after free_irq() completes but before
-clear_mask() runs, could the unhandled interrupt on a shared line result
-in an IRQ storm that permanently disables the IRQ line?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-tyr-irq-v2=
--v5-1-59fd9dea952a@collabora.com?part=3D1
+P.
