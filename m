@@ -4,96 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40E89C5AD55
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 11:26:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C28EC5AD55
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 11:33:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93F0610E7BD;
-	Mon, 10 Aug 2026 11:26:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C0D510E201;
+	Mon, 10 Aug 2026 11:33:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TAi5N8oQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DP5/kCLr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E45110E7BD
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 11:26:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7AA510E201
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 11:33:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B184644F66
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 11:26:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B231F0155E
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 11:26:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DD4FB600DA;
+ Mon, 10 Aug 2026 11:33:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B8A31F000E9;
+ Mon, 10 Aug 2026 11:33:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786361170;
- bh=wZoyj/bcYqq2WaFoOPNolBM0q0on9gdK76aAsSvObhU=;
- h=From:In-Reply-To:References:Date:Subject:To:Cc;
- b=TAi5N8oQgDU3uxlgGdhWfEn9nNC7rXCuv4yN2uZImZ5Qe473HPVo3p50VUpSWiPHG
- IoiTod5iPqxiSXKiITSq8Z8zTmwJc5HZ5uz7xmOpQ3Jkb0fyrve6APE8i9wcqXWbG9
- lXGMKZJiKDjBF9o//Mpr0RyCf4KxJ0hU7mN22P+i0Mg5N9bg3iRDxEVPL+nUuBavi3
- AGideJY+Jza/asFc16Mup/MjDB2acqh/PegxslqsJ6Ggp5t9N4qp8PgknMdViirGgS
- A8bpR8iBlt1Pwb4LwILd9Hw6sRCpa0GAj9fkI0FlOKyQ95A6k8YjbPxxtVg2uxyHNg
- fWwlAMzpEDWvA==
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5b3119957f0so1174467e87.1
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 04:26:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RoEEqkBJEFiH7/VZsL2bPijF3CnggDp7YIALtyHs6zEb1yEcy9qvOxihoZr/PBWCI8LR1HdF1XEmPU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwF6MAK/Ia8NjAS++XfgEAk9SbgTiLdKrcrRoczdLMp1ZZBPJfr
- DUw5xMpvvSwjEOarocg2hzDpCB+uRbDV0NV1/1muJtKdBNX3m0x3DWUAC4zHEOQ808oJ6+LpIdz
- nZzJ0BMZUcbwo7ADmdYXBukVcmk0RfgY5XVhC3piIGA==
-X-Received: by 2002:ac2:4d18:0:b0:5b0:1b0f:7a60 with SMTP id
- 2adb3069b0e04-5b2f4cc8da0mr3704106e87.32.1786361168649; Mon, 10 Aug 2026
- 04:26:08 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 10 Aug 2026 06:26:07 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 10 Aug 2026 06:26:07 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+ s=k20260515; t=1786361618;
+ bh=hvV4eHEb4kE7ggGIwsUxzLO9pYuYceTZB7NYAKgOanQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=DP5/kCLroub3+UdkErD4bO1rE8X7qHsRIKxtzuw/z8eJvodD9FC/L/IQcbf9Av3gx
+ ef5DsPAmRYXEL+UScKx91q6mxNWZ8p+1Q02L5/IIrkNyZVHkQMOhYX93shtcALECQA
+ 4l+DNFmcGuePKJ9RrZTlZTtyC7Cny7VCbglzPoRJHXOCDtRyaPsP3qs4FFXqBz3DeE
+ uAiGN4Iz7GrmCGOOmBWcMRf/o3iF8Sg2Ms0lzU8VDou1WqyrOjJcWBR4mQ1unY1zqj
+ x9KRy/OMgNM+7BqAZY6BFLDrvfYTyOvFvlpSZmeop06vC2K2DjMnZyQPdjR1WN4Ghe
+ 0IwOorTKAoJCg==
+Date: Mon, 10 Aug 2026 12:33:33 +0100
+From: Daniel Thompson <danielt@kernel.org>
+To: Wim de With <wf@dewith.io>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 2/2] backlight: Add support for Orient Chip OCP8178
+Message-ID: <anm3DY86P_TGxj3a@aspen.lan>
+References: <20260806201541.101304-1-wf@dewith.io>
+ <20260806201541.101304-3-wf@dewith.io>
 MIME-Version: 1.0
-References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
-Date: Mon, 10 Aug 2026 06:26:07 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MeiXHL-1i31q-+wuibK5qM1=xV+4qn0z+CWFXjt3CdrCQ@mail.gmail.com>
-X-Gm-Features: AUfX_myd-9E67e5jDYYEWIDd_Fhka4yTI8ar0CZ3ucq5EUGNAu2R2AhAZ0we-FI
-Message-ID: <CAMRc=MeiXHL-1i31q-+wuibK5qM1=xV+4qn0z+CWFXjt3CdrCQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Correct white-space style
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
- Leo Yan <leo.yan@arm.com>, 
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Patrice Chotard <patrice.chotard@foss.st.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>, 
- Lee Jones <lee@kernel.org>, Johannes Berg <johannes@sipsolutions.net>, 
- Jeff Johnson <jjohnson@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, Yangbo Lu <yangbo.lu@nxp.com>, 
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Richard Cochran <richardcochran@gmail.com>, 
- Jens Wiklander <jenswi@kernel.org>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>, 
- YC Hung <yc.hung@mediatek.com>, Svyatoslav Ryhel <clamor95@gmail.com>, 
- Sean Wang <sean.wang@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- coresight@lists.linaro.org, linux-arm-msm@vger.kernel.org, 
- linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, 
- linux-i2c@vger.kernel.org, mfd@lists.linux.dev, 
- linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
- linux-pm@vger.kernel.org, netdev@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806201541.101304-3-wf@dewith.io>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,39 +63,275 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 1 Aug 2026 21:56:14 +0200, Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> said:
-> Correct a few white-space issues, like double space after '=' or before
-> bracket '{' characters, which will be flagged by dt-check-style.  No
-> functional changes.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->
-> ---
->
-> Patch applies on Rob's for-next branch.
-> ---
->  .../arm/firmware/linaro,optee-tz.yaml         |  8 +-
->  .../devicetree/bindings/arm/psci.yaml         | 18 ++--
->  .../bindings/arm/qcom,coresight-tnoc.yaml     |  2 +-
->  .../devicetree/bindings/ata/st,ahci.yaml      | 22 ++---
->  .../bindings/display/ti/ti,am65x-dss.yaml     | 12 +--
->  .../bindings/display/ti/ti,j721e-dss.yaml     | 96 +++++++++----------
->  .../bindings/display/ti/ti,k2g-dss.yaml       | 36 +++----
->  .../bindings/dsp/mediatek,mt8195-dsp.yaml     |  2 +-
->  .../bindings/gpio/st,nomadik-gpio.yaml        |  2 +-
->  .../devicetree/bindings/i2c/st,sti-i2c.yaml   |  2 +-
->  .../bindings/mailbox/st,sti-mailbox.yaml      |  2 +-
->  .../bindings/mfd/maxim,max77620.yaml          |  2 +-
->  .../bindings/net/wireless/qcom,ath10k.yaml    | 34 +++----
->  .../devicetree/bindings/opp/opp-v2.yaml       | 28 +++---
->  .../pinctrl/mediatek,mt7988-pinctrl.yaml      |  2 +-
->  .../devicetree/bindings/ptp/fsl,ptp.yaml      | 12 +--
->  .../devicetree/bindings/pwm/pwm-sifive.yaml   |  2 +-
->  .../bindings/usb/ti,twl4030-usb.yaml          |  2 +-
->  18 files changed, 142 insertions(+), 142 deletions(-)
->
+On Thu, Aug 06, 2026 at 10:15:41PM +0200, Wim de With wrote:
+> diff --git a/drivers/video/backlight/ocp8178_bl.c b/drivers/video/backlight/ocp8178_bl.c
 
-For GPIO:
+Without repeating Uwe's review...
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
+> new file mode 100644
+> index 0000000000000..4500c9d23f7ef
+> --- /dev/null
+> +++ b/drivers/video/backlight/ocp8178_bl.c
+> @@ -0,0 +1,243 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Orient Chip OCP8178 Backlight Driver
+> + *
+> + * Copyright (C) 2026 Wim de With
+> + *
+> + * Author: Wim de With <wf@dewith.io>
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/irqflags.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +
+> +#define OCP8178_MAX_BRIGHTNESS 0x1F /* 5 bits */
+> +
+> +#define OCP8178_DEVICE_ADDRESS 0x72
+> +
+> +/*
+> + * We cannot set RFA (request for acknowledge) unless the GPIO pin is
+> + * configured as open drain.
+> + */
+> +#define OCP8178_DATA_RFA BIT(7)
+> +#define OCP8178_DATA_ADDR GENMASK(6, 5)
+> +#define OCP8178_DATA_VALUE GENMASK(4, 0)
+> +
+> +#define OCP8178_1W_INIT_MAX_RETRIES 5
+> +#define OCP8178_1W_INIT_SLEEP_MS 50
+> +
+> +#define OCP8178_T_OFF_MS 3 /* datasheet specifies at least 2.5 ms */
+> +#define OCP8178_1W_T_DELAY_US (100 + 10) /* 10 us as safety factor */
+> +#define OCP8178_1W_T_DETECT_US (260 + 10) /* 10 us as safety factor */
+> +#define OCP8178_1W_T_START_US 2
+> +#define OCP8178_1W_T_EOS_US 2
+> +#define OCP8178_1W_T_WIN_NS (1000 * 1000)
+> +
+> +/*
+> + * The datasheet specifies 1.7 Kbps to 160 Kbps.
+> + * 1 / (160 Kbps) is about 6.67 us, so using 7 us per bit should be fine.
+> + * T_HIGH + T_LOW = 7 us
+> + * T_HIGH > 2 * T_LOW for high bits
+> + * T_LOW > 2 * T_HIGH for low bits
+> + */
+> +#define OCP8178_1W_HIGH_BIT_T_LOW_US 2
+> +#define OCP8178_1W_HIGH_BIT_T_HIGH_US 5
+> +#define OCP8178_1W_LOW_BIT_T_LOW_US 5
+> +#define OCP8178_1W_LOW_BIT_T_HIGH_US 2
+> +
+> +struct ocp8178_bl {
+> +	struct device *dev;
+> +	struct gpio_desc *gpiod;
+> +};
+> +
+> +static int ocp8178_bl_enable_onewire(struct ocp8178_bl *ocp8178)
+> +{
+> +	u64 start, duration;
+> +
+> +	dev_dbg(ocp8178->dev, "enabling onewire protocol\n");
+> +
+> +	gpiod_set_value_cansleep(ocp8178->gpiod, 0);
+> +	msleep(OCP8178_T_OFF_MS);
+> +
+> +	start = ktime_get_ns();
+> +
+> +	gpiod_set_value(ocp8178->gpiod, 1);
+> +	udelay(OCP8178_1W_T_DELAY_US);
+> +	gpiod_set_value(ocp8178->gpiod, 0);
+> +	udelay(OCP8178_1W_T_DETECT_US);
+> +	gpiod_set_value(ocp8178->gpiod, 1);
+> +
+> +	duration = ktime_get_ns() - start;
+> +
+> +	if (duration >= OCP8178_1W_T_WIN_NS) {
+> +		dev_err(ocp8178->dev,
+> +			"onewire detection window exceeded (%llu ns)\n",
+> +			duration);
+> +		return -EAGAIN;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
+> +{
+> +	unsigned long flags;
+> +
+> +	gpiod_set_value(ocp8178->gpiod, 1);
+> +	udelay(OCP8178_1W_T_START_US);
+> +
+> +	local_irq_save(flags);
+> +
+> +	for (int i = 7; i >= 0; i--) {
+> +		if ((value >> i) & 1) {
+> +			gpiod_set_value(ocp8178->gpiod, 0);
+> +			udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
+> +			gpiod_set_value(ocp8178->gpiod, 1);
+> +			udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
+> +		} else {
+> +			gpiod_set_value(ocp8178->gpiod, 0);
+> +			udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
+> +			gpiod_set_value(ocp8178->gpiod, 1);
+> +			udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
+> +		}
+> +	}
+> +
+> +	gpiod_set_value(ocp8178->gpiod, 0);
+> +
+> +	local_irq_restore(flags);
+> +
+> +	udelay(OCP8178_1W_T_EOS_US);
+
+Given this happens after we restore local irqs this should probably be
+fsleep().
+
+
+> +	gpiod_set_value(ocp8178->gpiod, 1);
+> +}
+> +
+> +static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
+> +{
+> +	u8 data = 0;
+> +
+> +	dev_dbg(ocp8178->dev, "setting brightness to %u\n", brightness);
+
+Do we really need the dev_dbg() here?
+
+
+> +
+> +	data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
+> +	data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
+> +
+> +	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
+> +	ocp8178_bl_write_u8(ocp8178, data);
+> +}
+> +
+> +static int ocp8178_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct ocp8178_bl *ocp8178 = bl_get_data(bl);
+> +	u8 brightness = backlight_get_brightness(bl);
+> +
+> +	/*
+> +	 * Setting brightness to 0 turns the backlight off but retains the
+> +	 * onewire mode. If we disable the controller, we would need to enable
+> +	 * the onewire mode again.
+> +	 */
+> +	if (backlight_is_blank(bl))
+> +		brightness = 0;
+
+This is not needed. It will happen inside backlight_get_brightness().
+
+
+> +
+> +	ocp8178_bl_set_brightness(ocp8178, brightness);
+> +	return 0;
+> +}
+> +
+> +static const struct backlight_ops ocp8178_bl_ops = {
+> +	.options	= BL_CORE_SUSPENDRESUME,
+> +	.update_status	= ocp8178_bl_update_status,
+> +};
+> +
+> +static int ocp8178_bl_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct backlight_device *bl;
+> +	struct backlight_properties props;
+> +	struct ocp8178_bl *ocp8178;
+> +	u32 max_brightness, brightness;
+> +	int ret, retries;
+> +
+> +	ocp8178 = devm_kzalloc(dev, sizeof(*ocp8178), GFP_KERNEL);
+> +	if (!ocp8178)
+> +		return -ENOMEM;
+> +
+> +	ocp8178->dev = dev;
+> +
+> +	ret = device_property_read_u32(dev, "max-brightness", &max_brightness);
+> +	if (ret)
+> +		max_brightness = OCP8178_MAX_BRIGHTNESS;
+> +	if (max_brightness > OCP8178_MAX_BRIGHTNESS) {
+> +		dev_warn(dev, "max brightness exceeds hardware limit\n");
+> +		max_brightness = OCP8178_MAX_BRIGHTNESS;
+> +	}
+> +
+> +	ret = device_property_read_u32(dev, "default-brightness", &brightness);
+> +	if (ret)
+> +		brightness = max_brightness;
+> +	if (brightness > max_brightness) {
+> +		dev_warn(dev, "default brightness exceeds max brightness\n");
+> +		brightness = max_brightness;
+> +	}
+> +
+> +	ocp8178->gpiod = devm_gpiod_get(dev, "enable", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ocp8178->gpiod))
+> +		return dev_err_probe(dev, PTR_ERR(ocp8178->gpiod),
+> +				     "gpio missing or invalid\n");
+> +	gpiod_set_consumer_name(ocp8178->gpiod, dev_name(dev));
+> +
+> +	for (retries = 0; retries < OCP8178_1W_INIT_MAX_RETRIES; retries++) {
+> +		ret = ocp8178_bl_enable_onewire(ocp8178);
+> +		if (!ret)
+> +			break;
+> +		if (ret != -EAGAIN)
+> +			return ret;
+> +		msleep(OCP8178_1W_INIT_SLEEP_MS);
+
+fsleep()?
+
+
+> +	}
+> +	if (retries >= OCP8178_1W_INIT_MAX_RETRIES)
+> +		return dev_err_probe(dev, -ETIMEDOUT,
+> +				     "failed to initialize onewire protocol");
+> +
+> +	props = (typeof(props)){
+> +		.type		= BACKLIGHT_RAW,
+> +		.brightness	= brightness,
+> +		.max_brightness = max_brightness,
+> +		.power		= BACKLIGHT_POWER_ON,
+> +		.scale		= BACKLIGHT_SCALE_NON_LINEAR,
+> +	};
+> +
+> +	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ocp8178,
+> +					    &ocp8178_bl_ops, &props);
+> +	if (IS_ERR(bl))
+> +		return dev_err_probe(dev, PTR_ERR(bl),
+> +				     "failed to register backlight\n");
+> +
+> +	platform_set_drvdata(pdev, bl);
+> +	backlight_update_status(bl);
+> +
+> +	dev_info(dev, "probed, brightness=%u/%u\n", brightness, max_brightness);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id ocp8178_bl_of_match[] = {
+> +	{ .compatible = "ocs,ocp8178" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ocp8178_bl_of_match);
+> +
+> +static struct platform_driver ocp8178_bl_driver = {
+> +	.driver		= {
+> +		.name		= "ocp8178-bl",
+> +		.of_match_table	= ocp8178_bl_of_match,
+> +	},
+> +	.probe		= ocp8178_bl_probe,
+> +};
+
+I'm with Uwe on the indentation here. No padding needed after the
+= IMHO.
+
+
+Daniel.
