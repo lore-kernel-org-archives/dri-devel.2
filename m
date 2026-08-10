@@ -4,127 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4493AC5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 04:41:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E14BBC5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 05:15:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 636A110E5FA;
-	Mon, 10 Aug 2026 04:41:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15D5D10E14C;
+	Mon, 10 Aug 2026 05:15:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="01aEjGZ/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AoHFh8hD";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011062.outbound.protection.outlook.com [52.101.52.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3270210E5FA;
- Mon, 10 Aug 2026 04:41:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56AD010E038;
+ Mon, 10 Aug 2026 05:15:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786338947; x=1817874947;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=FN0eLzFd7yB9YmauuSXINfHMj/Y4AdBZ6hJ4J50iHFk=;
+ b=AoHFh8hDzN8hxqB3sWXcHWZfu/S670YKJDD3u/6FzM17UvMByxMF8Hqa
+ ZfL+umtiwVLbdjIyW9N/mVJEkpTTZtlUXtzhnzsRAtlev77CVWJiNkyY4
+ OGk15L0+C5CAp14hDyga7cLrjamwbnvvQfMn/2QiNCFEEMiE98934qCat
+ yImQf96TAM7EinFn+V5NqHb4yNMOwxLTfOXKeoJlRoNZKY1FvxDfsIAkC
+ 4i18IqbrXNQnjurmlbz28zhK1g0ypbxa1PD8MLFUPvmkBxXjeiIm1El87
+ G0CxOHVbJETU0V5KapTJtnGyPPF/MJkGdULrJwQl2350k6eKnaMbS67Re Q==;
+X-CSE-ConnectionGUID: fIhbL3Q7TxOjNwKqz3SYjw==
+X-CSE-MsgGUID: VIUpegHmR3CfRsF8beTzVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="104236885"
+X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="104236885"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Aug 2026 22:15:41 -0700
+X-CSE-ConnectionGUID: GCx68pmjRU6ndP27sz9Yng==
+X-CSE-MsgGUID: Vt+1TYsFQWG3C8To2/pt6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="266789465"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Aug 2026 22:15:41 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sun, 9 Aug 2026 22:15:40 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Sun, 9 Aug 2026 22:15:40 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.43) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sun, 9 Aug 2026 22:15:40 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j6LJNpKiu/zERCDb8tCr4BcqLy69hKQyjNJjW6P/0AX9+Zd9BTffmObDPnENwM0azGCJLuER1TlAjwnhk9WO/B2MYPpq86wtQYXPwfCN5re+63HUUgSU4ijMUrtlkslKBEc2HAGxQai4poKqf6pMYq2L9iUCO0p26JEd78h1U0f6tdUj5SavHI6c3kemZ/KikH/SA+pK/zng4kj6v0+FLLbzxCtbC6JKVoNDb+lSqD5m2QHDjxWx2DbJ1g+RARXxem4zZR5b1pnqM1d7PUTlAOcSqrdWH8ahDB17W6r8u2b+9s2yVzmBfy5RZDJBAOiSiSU/OIo6S3FJDBsMdyUZbw==
+ b=HX14Jl2gJtLxFnhGRw/wEj2TdFkic3hkVsrSFtGm8rQduhBaMY8oijd31MIGk+/FpF/Hl4uqxI9rUbEj4TqSH9NVF7BnUQdUWUfKEETyf39UjDw9eRbLffQ0fUTkNkgLymbF5mo8C8x5sXyK4v+bE0BwY6JO1jcCRer7d2iM3s2xXEEijp21QAE4M/diBTr4xBCA4/voZfHI28I1N6Gh0bMKXnOFzCmzxo69zfZ1wZycoT/h7/1MWDphSER/WFRvGNt/66wsVhan418Qfx61Gv9rkyGgxqqJvoJ+Q3oj/EpKCVR7gqyAcdqBQvDXWW0KSpLQanCS1kKb2sYVWwJKaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5CiD/XsZZ9CcYeVBdSbwrM8JM4ISMg/r0RBH3HLBhrI=;
- b=pwdvIVQzaYpZ151nKFlM2kwTUDW75q9oRaD+nyo+B0Tg87xnpfynKaJIwJnQVsFSPZJ587gktdrvTY0lFgmMpQJGkVDsys/7PM7DuOlqBdL4L/Y8/Rc0souayjeSi7qGD/AwQxfWrijkiLR2bA49a2ellxLaxL3prbpizVtlMhjjjlEnQjjH2RQszqb8qnfheoAXmzAXngljLqpNvdAU2o2noQTAKYscrCmd3w7KnLoGzPpIFm2eaGTl8A/kB7ixtAiaq/4CuwrDvMioha9rD8y2unaXgMou6MJHFqc7RVU5fK+nhOi1uPVx3naz5BbriIqDB0xGjeiQTC+kJvq2zw==
+ bh=Ee6O5Wp6A9WQTW7eJ93ZeAN0DSx4UseNvg+eguPkr+w=;
+ b=SD4hsQEaLNWrHBr1/Cnfqxq58C3hgLCIdiaMuZDSilSIphoOBAt2BWQaHJE5D0In0XtQUmc/jxvg5Z/dqFR7jtnIFViqKdTDl/NoP4a0z37Cgo8XhEBYGh4+YnDwPdPTOV2v0EOtXyzXWeKTH4ZaqcRnYeRaopJcs7fQl5dr9vUilDWZunwXHa9c9AxPC23Ao9z+uej24r2dwvfK+J5Z1nXg9s5pZF5GkiMuBQc6hjAQqZBScrJ9PaAeg522EU8v4RcIMDzY9VacLoPMZm0aaJQka5qYjJNwr4h7CXQG9qyfsTPXkojCIIF2i/i4Bc2tSh2FeuIJVor5i6p+8nZ1eA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5CiD/XsZZ9CcYeVBdSbwrM8JM4ISMg/r0RBH3HLBhrI=;
- b=01aEjGZ/iNz5BImqlXwH2O1ZRgzJJgTLgFNM54luG/QUwiCCrsLwK8PoE8+X60Vb6dCxrrLR58Xj78q6secX7r4hLye4/xuUJNxG8fLn/WgZIYeJITZ7nMVz/3/MWszXPWXaqAGtcDU/byqe5YAz3HIkuVZTYlxhFvYRAoxUf84=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SN7PR12MB7954.namprd12.prod.outlook.com (2603:10b6:806:344::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::5b) by PH7PR11MB7146.namprd11.prod.outlook.com
+ (2603:10b6:510:1ed::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 04:41:08 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 04:41:08 +0000
-Message-ID: <77e1ef2b-24ab-4492-bc91-08c01f012a46@amd.com>
-Date: Mon, 10 Aug 2026 10:11:00 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: silence uninitialized variable warnings
-To: Dan Carpenter <error27@gmail.com>, Asad Kamal <asad.kamal@amd.com>
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-References: <aneGaKJUl_Jyu05n@stanley.mountain>
+ 2026 05:15:37 +0000
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::5be7:2ceb:99ef:6334]) by DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::5be7:2ceb:99ef:6334%8]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 05:15:36 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: Werner Sembach <wse@tuxedocomputers.com>, "jani.nikula@linux.intel.com"
+ <jani.nikula@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "tursulin@ursulin.net" <tursulin@ursulin.net>, "airlied@gmail.com"
+ <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, "Nautiyal, Ankit K"
+ <ankit.k.nautiyal@intel.com>
+CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v4 1/1] drm/i915/display: Add quirk to force backlight
+ type on some TUXEDO devices
+Thread-Topic: [PATCH v4 1/1] drm/i915/display: Add quirk to force backlight
+ type on some TUXEDO devices
+Thread-Index: AQHdJqhlIZhAapHlg0OOGBbOOXMHEbaWwMYQ
+Date: Mon, 10 Aug 2026 05:15:36 +0000
+Message-ID: <DS4PPFE901A304F2015FECB30801D611C79E3DE2@DS4PPFE901A304F.namprd11.prod.outlook.com>
+References: <20260807200709.464343-1-wse@tuxedocomputers.com>
+ <20260807200709.464343-2-wse@tuxedocomputers.com>
+In-Reply-To: <20260807200709.464343-2-wse@tuxedocomputers.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <aneGaKJUl_Jyu05n@stanley.mountain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0232.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::6) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SN7PR12MB7954:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7daf5508-280b-4595-59dd-08def6999853
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 8IwwrQvWqi5NUXBWs1Dtb1x00zHLj4BH+LjM6AvgPG17ld2aAsNdtzMX7uf9u2JJt5v4kVesUYsUbcPH9Ynpu5rI4JR1pzLrdZ4pPOUSubv5qx8tFeKZE+gUvIoRQdSpAeA7tKexM3c5+rzMbmbBKQL8g99A6QA40dxorX66OL5TrURtIAVhHMdLb1FeECAPJoMVXF3iwpehrS/LnYqFvw316N2Hk67wKQdiPScjKmwmu3wUqzhjSvxI5xpYtpmXUnIOtVsUdCuZj+e7KGYbN4jOgFKfPIrVqEC4TEZNuijiHfw+dadC8cr2/hnDkMZ+aF1jnZ5Ywl4xsFect81/INmzmzuqirz1ibZPOwxXmiY2t75WJS3O9HGZH89L7rH3JRG4ELjM3NCKKNrOBWEcs+IedXMJOTwzVXjR0/Q+Wh67jWEZcb008CRfHxCSzJF2PjnpAoxw9VjrN1mKE8HUJuHDNzKQ76rqRzjT1Nlc4vLzDsCcCIrwYfi6dgv2xZdOntkFF1+eSqrk5ysnBhbY/Qpb5qiaSoNREdUieJ/9xUSeYia/DCQdbYklq8KgNPJ7JLFVhAYs4A9OoNaEoAPzxtHyiGDFIwjyToFcgQ2WAOsUOspbw3xjbd9lZTa9mEfvf9g2efHl8e16Q35wHuctd2Z57TEmW4xJc989E15wgzs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|PH7PR11MB7146:EE_
+x-ms-office365-filtering-correlation-id: 84bc67aa-1278-4448-1840-08def69e6965
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|23010399003|22082099003|18002099003|11063799006|56012099006|3023799007|38070700021|4143699003|10067099003|921020;
+x-microsoft-antispam-message-info: qhBGCwC/k3DjQmlTaJdEpXSGuB8HQovfVMTYrgEkvCNt95j5Xa9KFHViVtuM+RTOJvomDzyzpJiTfg4tf63DZusVqyqwOt5Fsz5iDAcTn/INVnnUv10LBecBCrhXtHtapen1xc4DFw1zj7K+H7wokxyOBQXNUgCpSLzmYPF7hKEzBoMMtJJ2LehkawWWVda1AUjLKozxSAnQ/+WqPIERl3ltXJ4LU8BwEuOQ/4tez2HRk3jZpHj94TOf+wYWs4ZgZ6s8dY7LK3DH+JyoFo/5SqDcf8yKCu8zSCVNjBB2rV9eucrCOqrpAxtAGYtBQzJD7W+sojZNVXRev4CRmN0QDJoy5mqU5r1jOvw1JlE6ixWBOBFKNyGLRsjxsc48sYpmNwJMmd/1PefmcKQj1iMm00PdVFMZ4ddxJjdM+FFekLZBXfwXDB+5s4V0G1nk3+PnMakCKrz1bR+9EYHL8idKZn+MFqm9gq2zoBfHNEt05IaayAMhi+TIxJ7txLsOwNpTbFr+9wexdvbHey9Mx1uIGPxZRh41wpxuPfPzJLW3DEKueyBYdebcOiyCoDXG6iHxSWW4ubxz8c6z9FlbRh2wuBkRwRNj6eOxzd8ZsjeVYcZmZj6XySTF9JIPyzZWHe3TjWuIyWcoBYxF4MiIZfWlpfiPhaRrBXPVjXQNJKvho4Uak+YXPadk94IzU7i4rPJmaJuS6Ip7QGYYT2Xas3X9JU+XrsXN4wR0Fjq/d0f7M0aRGp6yWU/wMQgSsnTgFV60
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(3023799007)(38070700021)(4143699003)(10067099003)(921020);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjlwUkRhc290MTB6VmZDRkdhcXNpRHlwS0pRNzdSTE8zOWpKa01pR2pPQzZC?=
- =?utf-8?B?Q3FkM2YxRkwzcUhyc3ViK0Q3Wi95WStWV3V6NjJsN1pyR1YybFI2T3BFbWhE?=
- =?utf-8?B?QmVuR2djL25BbC9UbEJsWkxDZnlMSUtLUmVwTXNOandSdms0eGFPcHNYbHNO?=
- =?utf-8?B?M1VyRzM4TjJrbUxlMm5vajhubGlWRzlwd1RiTGwvNTdwRkRqL1VWcXFYQ3Jp?=
- =?utf-8?B?ZG9rS2lOMHhCeUQwTDIrZFBsSjNWU0xPOE1jNVY3bzdRdDFjd01Ea3pJOU5y?=
- =?utf-8?B?R1djVUtmdG4vUGRhcWtmU1VqdEYyYXl0M2JSZWxUR0pZS2tPUzA5RlRRdHRK?=
- =?utf-8?B?a3c5WXhMYy9mRld6NTJzSnpMWG1VaFJGenNUMklmZFZKbEFqcU1SVWxlcU1h?=
- =?utf-8?B?U2dTWXRpMVdwK0NEcVFvKzlVdU00Z0VyMDJ5eHRBNHk0ZEI3cWVlRys2ODdB?=
- =?utf-8?B?MzBwZWRsdE5qcHBxVUdISW5aUXk4YUVtNytuRDhWMHMxQ3cydzVwczVwZzFM?=
- =?utf-8?B?M3d0eWhUSjNUTjJCSXM3bklWamMvTEduM2Zid0k1TW5BNk5EcjhoVHlzVjNL?=
- =?utf-8?B?NEQ3WGdKT2dXQUppS2NyY1F1Si9HQm56TW51cmdEWER2OEp1K0lSY245YVJu?=
- =?utf-8?B?SFpLNWJIdXdSVEhEY1ZLWkUwekZhV1J5Njk5YW5wNGlROGlpdXpSYjJaWjMv?=
- =?utf-8?B?aWhQeGFCR2t1YTBrb00zRVAwV0dmeGpEZURRTzZCQ1BQWEpQZ1N4YWx4WkdH?=
- =?utf-8?B?Y1B6b2I1OTJPaVVRTnJJMk8vSUc2N0FDQnIyYld4MWl1TGp2cUhtZElMdjFY?=
- =?utf-8?B?K01yaGVkRllaSzVTd25oZXRiLzRUZFJrNWp3cjBjS1lIT1VCanRYTHQ3YjEz?=
- =?utf-8?B?MFF6UEllODh0N094Qytud2xseEJreXVud2tZMFNUS0Frd0F3dVlyVEVMaTNL?=
- =?utf-8?B?a1dCNVp5Mm1TK0FxSEpNSnZzQ1BhMVlaWE1nSEIxamVpQ0Q2cWtERFlrN0JI?=
- =?utf-8?B?OEdPMG55Qzdsem1jNjREQmdRNytQc2F2VlFkMzlXVWtrMzRGeGd4VjVXTEor?=
- =?utf-8?B?bjloeHd0UUQrMlhFV2U5QlR2V25YaWxjOWxkSkZXZ0dLZGxhQjlYMG52NTVw?=
- =?utf-8?B?b2dMeUw0dVlzZjVLYmliVWIrQis0ZUE5UFNnYUgrNTAyOW1McTd5NEhLNzFE?=
- =?utf-8?B?dVBJUU5wOFRqWXJlbmlGb24zb28rV0tqckRNc3M4SzVzSnFjbW1EMkJsTzN6?=
- =?utf-8?B?dExGV0hDSFpCUlZBVndkYkVyMmF5MzJpcVdML3pJYm1KMDZ4VWc5NC9SeVdy?=
- =?utf-8?B?MWpHY2I0eVhqUGtEOGlSYWtNVStzK2wwZUd2VmdFd3FjL0s0VHhZeHlvNjVD?=
- =?utf-8?B?MFdVZENXWUZXTFdDUmk5SGpkVnpSV1doZ1NYeFdGblhkcU1YN1ZhcVZvMHVM?=
- =?utf-8?B?TUhlOEQ3OU5sd1hVTUtIcWI5L3JEYlBtekUxaTE1b2FPRU56RnA2cUNVTG5B?=
- =?utf-8?B?YjhxM1Q3UnFVb2JGb0NOK2ozU0xXTjl5dmRtaWEyRGRocDBzY3ZMZGpTcXc2?=
- =?utf-8?B?RGkyeFhpSDh3dzVJc1hmb0VxSk5KSmQ0T2txMUZLNEE1d2hQaklGUm5YT0dG?=
- =?utf-8?B?dzNSdWVVbmZBaVdySm1KaWw3NzZzU1BYZjN4Ujk4SFhLbEthTW5PUUcwcjBt?=
- =?utf-8?B?Vy9qTkxPVlhVZFIvOFpsUDd6ZDliV1ZYcFM0WFozSjJ1UzY0Q0VUNWJHZ0tl?=
- =?utf-8?B?ZWxmUkIxcHR1NTNZcW4wM0t2Y0t1QnY1M1JNQ21xYUdqSGhXRWNYOCttemxG?=
- =?utf-8?B?UlR3TERiTFVMeXBkTW55eGV4YXQ4S016b3BYSEx1NE50VG1tcEJtOVE5WFIx?=
- =?utf-8?B?dGRuMTVOVlZSOGJpZkxIME0rdHY2dW9uVllFdlViMEdVSkxlaTlGZmxUZ24x?=
- =?utf-8?B?MUVVdWNCYzVKYldKVFZjaVNtaSs2cnk3UjdqbFdLa21na0ZtL3dZTnVqMUxO?=
- =?utf-8?B?SGkrRHFLUkJpcGxzV3l3amg2eGFQditWVU1VSzRZeWNXdExtdmJRNmJjS1V6?=
- =?utf-8?B?cDE5T1k4M0xndlZNZUh2amtnRFJMeFA2V1lVUlAwNFhQRnZYMDVQNjA2ZTNX?=
- =?utf-8?B?bjA1R2lhVUZtcHhSZWVVRU44aE9HUGc5ZnpwU01NUFArTlVjVGVKSkxTcjMx?=
- =?utf-8?B?NTBDWFptMEtyc1VENzBkVEVZZGUwb3BXeFZPZWs3UTJUSG1meUR5bTFLODg2?=
- =?utf-8?B?Znk2dG5Gd0J5VG5MRzJDNVdzY0tBUmRnVk0rVmY4TmgzNXpPdStBODVlNzNz?=
- =?utf-8?Q?i3n95+uJ2DbNNecDqD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7daf5508-280b-4595-59dd-08def6999853
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uwaBnRxvJGdrcyU0SFWxTAWGLf2le1rQzvhkJDvyBSZLmglrJgKXwmRAodfB?=
+ =?us-ascii?Q?PZ6fbKz6EUcMNb3IkjrZc2Dr6phOHXdcHTbnbuWJI3gZAW7WKmSM8yFXdOfv?=
+ =?us-ascii?Q?oCPKoKOPkFow4idwITrAeDvkUbBHKfJxCG2QJVdquz+dSXWc8iWh2l0Agop4?=
+ =?us-ascii?Q?QExVDngMNIF4JiNqXBlHKRTcnCOhUODMJAoKzzByG45Xaiu/HAS9dY/X2mhw?=
+ =?us-ascii?Q?dtCl5ekbAS2FCkg7JOukozxyvhyh4hrqskN/KlSk45pcqwAkXB3LVTTh9TAd?=
+ =?us-ascii?Q?BmBDpfrl10Kw7EKXo65VQXq0WsCCwsLsyE68Hus0+klzkprSQQ8sZiyf4tz+?=
+ =?us-ascii?Q?/gaaW+ZMR848VFoDPm1MH3jiPU91zw5KYSuHLNaNjGkpaYKBD+Iea39i3EL1?=
+ =?us-ascii?Q?B4bDNpJr7eUGA99RbPiJ4AAa9TUhf2nbQJdsdrEA0ft2FzeYIVzExc60hCiB?=
+ =?us-ascii?Q?IIFHbKAPp5MNP3m3szI5rtxufkwHq7sdWgKhLDKQ+JHy3aPLl6s59zLxZMGD?=
+ =?us-ascii?Q?ZSZJk8pyu4Z8VU94sZV2dbBux9l1hjikZ56c8emPPLIOC1zvdwzikIgh2zUK?=
+ =?us-ascii?Q?VQMYwd4j0eVZHXBYjJ58VdvvVGWIFNoOsna/fL8J3ISFMjvY/U3qCFRswQ/H?=
+ =?us-ascii?Q?7oYzgNbyw+tnL0t9N845XRmvH28Qc9i/AQf60r+igzS05G4Ne4K1aPEIUQPx?=
+ =?us-ascii?Q?pT2cfZT04p3Gzrwzt6vWpjlkQtqI+T9GjdYwSIgOcjNGqgVx1XSABZurSkq1?=
+ =?us-ascii?Q?+GZnwpxCkewPt63yNfpZoSYao5nIjBksBVNj7KVJ+4MGxhon4O2ffdsFJnuV?=
+ =?us-ascii?Q?zqNGQkGV4MEr16KVE6XNwBmyhS/nqcMz3dv4zcQlH0Puwq65+eY4I/LzZUIA?=
+ =?us-ascii?Q?37TdTtiCMcXLrEEpuK6JSxerukkf7bvxQZG9gY3aAkCYiGPpCXO6da2gH29/?=
+ =?us-ascii?Q?HPJ746GvCCyncrMCcuyj0JI3ccs9GMeywAcaMY5Jk+BOeiC2Akq+GxEukmjg?=
+ =?us-ascii?Q?2iwVDULwjTj6reS3TPPEompJl48361uBiiGutJ7Bxsrdd/dRILv1Jp/6NykQ?=
+ =?us-ascii?Q?vV6NIr00M4OlH90F1QUPjxMaNlaYlprgQgaPxmXNJZxpx13/9nB76nX75NDB?=
+ =?us-ascii?Q?LtA7zv+aGSpuhcikWo7YKV55rNENkqgsIBoDR7Y31ulf6+53WJOpnMTwhzHU?=
+ =?us-ascii?Q?sBWkB4SO64CEMK9Nn+3JojCV/xFKS6hApkmHHh3DLamNCeGlCbuFD8MEM5h0?=
+ =?us-ascii?Q?aTZ9UpADHtM6vsNYJOlC288nrmjqBBlcCRt9WHoVX/Fk1DpDScReWrf47uak?=
+ =?us-ascii?Q?dOLpbLUXD8kpzK7fu1TZ03f5h4LUIQpbJJkJfgM+8l0efQDA3IUhRvXiBgVU?=
+ =?us-ascii?Q?2F/phs1BgKZgOsWXxMwBhYTuImK3LHe9upM+j+it7VrqqtaZ6MfqjWFU1GOG?=
+ =?us-ascii?Q?ntFSUyZ+3A7OBmhgzcEW1KuFEquS9bgl9XQqwgkO+8I2qurH+47CrheFOVO0?=
+ =?us-ascii?Q?ERexhdnZ5rg5Hvy7FMS4pj+1BNWDiN5Es8ekjK94bXmfQIVAl6Retx/o/la5?=
+ =?us-ascii?Q?val1G0q+sOmqDZZ/hMA8zlfEJ2E9kLqycSTdNfbVW/5+zeMoPV98dIHvsMz7?=
+ =?us-ascii?Q?RoNVsEwXiOLpOPV/m8V1NlYFKNGEL/7R/McNbiEAW02PneQ5Nz43RZgHswqF?=
+ =?us-ascii?Q?HXVdWxsxGWa0YEocdCOjk8wZEx28QesTxa5COe1KPRgJccCGifCn8GmfD7mx?=
+ =?us-ascii?Q?65AsyEn7cw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: RDC3HjwSuF0LSs8fq7jymuS/uZMMcqc3qH8hKSmw50siqA9B/Vw4uzCjQByUprAJ2izFo+JL2kZrR88XCXOFYWXn0m0t+07CJ55xQpmSMaWs/BOG/FygdGp4PK36OpdQQ0/5UTTQW+Z9If/biZvME6tn4ujT51b9xcDkbzChZ+58UbBs8OjEXKhm/atI8Dsc5IyDZwQg6muRgEBqE0NClPi5lZo529vbC2Tq6ez4FMUoQXgtyaZku2zU2ITItntrctZyKkGEv3mBgeMnz+mpuPrL86A2zJJFo+n77od0Qeqp/iWE+SzbJszM81AqSwOePxw+ckFx4Y1h+QIioR8LZg==
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 04:41:08.3248 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QlIr4QtWLs3MPkXoksNGus/VOQQ6MtsueoszltSQHy5vqZZluql8FSmRuBfkhYR9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7954
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84bc67aa-1278-4448-1840-08def69e6965
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2026 05:15:36.6206 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MhsnCDyTanTl2bhscJOG9CVGszw770iQOE8jjrh0GXz2cAh0aSxaWyjGdMkynlEOAv2qgqrRBLuvjQSnE0E//w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7146
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,52 +171,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+> Subject: [PATCH v4 1/1] drm/i915/display: Add quirk to force backlight ty=
+pe on
+> some TUXEDO devices
+>=20
+> The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 have a brok=
+en
+> VBT in the AUO 12701 and AUO 12701 panels, but not others. They are
+> advertising INTEL_BACKLIGHT_DISPLAY_DDI, but are actually failing to use =
+the
+> Intel interface. Adding a fallback to the VESA interface gives these devi=
+ces a
+> working backlight for both the broken and non broken panel VBTs.
+>=20
+> Forcing the fallback can already be achieved via a module parameter, but =
+this
+> patch adds a quirk to apply this by default on the mentioned devices.
+>=20
+> This patch does not actually test for the exact panels as the ID that is =
+used in
 
+We don't refer to the current code as patch but as a commit because as soon=
+ as it gets merged
+It's a commit. No need to send the patch again this can be fixed while merg=
+ing.
 
-On 09-Aug-26 1:11 AM, Dan Carpenter wrote:
-> Smatch complains that:
-> 
->      drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu15/smu_v15_0_8_ppt.c:1964
->      smu_v15_0_8_set_performance_level() error: uninitialized symbol 'ret'.
-> 
-> In this line there is an "if (ret)" condition where "ret" is either
-> zero or uninitialized.  Initialize "ret" at the start of the function to
-> avoid a potential uninitialized variable bug.  But also delete the
-> condition since it is never true.
-> 
-> Fixes: 422b399b09c7 ("drm/amd/pm: Add od_edit_dpm_table support")
-> Signed-off-by: Dan Carpenter <error27@gmail.com>
+Other than that
+LGTM,
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-Thanks,
-Lijo
-
+> the intel_dpcd_quirks list is sadly zeroed on the devices, but afaik all =
+these
+> devices use try_intel_interface first anyway so all the quirk does is to =
+add the
+> fallback to try_vesa_interface, so the behaviour on the devices not needi=
+ng the
+> quirk and fallback should functionally stay the same.
+>=20
+> Fixes: f30fddb44023 ("Revert "drm/i915/backlight: Remove
+> try_vesa_interface"")
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15679
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 > ---
->   drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c | 5 +----
->   1 file changed, 1 insertion(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-> index 59fdd2319b66..c78e611d2a25 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-> @@ -1920,7 +1920,7 @@ static int smu_v15_0_8_set_performance_level(struct smu_context *smu,
->   	struct smu_dpm_table *gfx_table = &dpm_context->dpm_tables.gfx_table;
->   	struct smu_dpm_table *uclk_table = &dpm_context->dpm_tables.uclk_table;
->   	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
-> -	int ret;
-> +	int ret = 0;
->   
->   	switch (level) {
->   	case AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM:
-> @@ -1961,9 +1961,6 @@ static int smu_v15_0_8_set_performance_level(struct smu_context *smu,
->   				SMU_DPM_TABLE_MAX(uclk_table);
->   		}
->   
-> -		if (ret)
-> -			goto out;
-> -
->   		smu_cmn_reset_custom_level(smu);
->   
->   		break;
+>  .../drm/i915/display/intel_dp_aux_backlight.c | 22 ++++++++++++++++-
+>  drivers/gpu/drm/i915/display/intel_quirks.c   | 24 +++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
+>  3 files changed, 46 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> index 266e042e00237..d84def79c4bfb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> @@ -41,6 +41,7 @@
+>  #include "intel_display_types.h"
+>  #include "intel_dp.h"
+>  #include "intel_dp_aux_backlight.h"
+> +#include "intel_quirks.h"
+>=20
+>  /*
+>   * DP AUX registers for Intel's proprietary HDR backlight interface. We =
+define
+> @@ -687,11 +688,30 @@ int intel_dp_aux_init_backlight_funcs(struct
+> intel_connector *connector)
+>  	struct drm_device *dev =3D connector->base.dev;
+>  	struct intel_panel *panel =3D &connector->panel;
+>  	bool try_intel_interface =3D false, try_vesa_interface =3D false;
+> +	int enable_dpcd_backlight;
+> +
+> +	/*
+> +	 * Some devices have a broken VBT in some Panels, but not others,
+> +	 * advertising INTEL_BACKLIGHT_DISPLAY_DDI, but actually failing to
+> use
+> +	 * the Intel interface. Adding a fallback to the Vesa interface gives
+> +	 * these devices a working backlight for both the broken and non
+> broken
+> +	 * panel VBTs.
+> +	 *
+> +	 * This fallback can not be made the general default as this has broken
+> +	 * other devices in the past whose VBT correctly reports
+> +	 * INTEL_BACKLIGHT_DISPLAY_DDI and whose PWM path is the actual
+> +	 * backlight control, but whose DPCD optimistically advertises
+> +	 * DP_EDP_BACKLIGHT_AUX_ENABLE_CAP /
+> _BRIGHTNESS_AUX_SET_CAP.
+> +	 */
+> +	enable_dpcd_backlight =3D display->params.enable_dpcd_backlight;
+> +	if (enable_dpcd_backlight =3D=3D INTEL_DP_AUX_BACKLIGHT_AUTO &&
+> +	    intel_has_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT))
+> +		enable_dpcd_backlight =3D INTEL_DP_AUX_BACKLIGHT_ON;
+>=20
+>  	/* Check the VBT and user's module parameters to figure out which
+>  	 * interfaces to probe
+>  	 */
+> -	switch (display->params.enable_dpcd_backlight) {
+> +	switch (enable_dpcd_backlight) {
+>  	case INTEL_DP_AUX_BACKLIGHT_OFF:
+>  		return -ENODEV;
+>  	case INTEL_DP_AUX_BACKLIGHT_AUTO:
+> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c
+> b/drivers/gpu/drm/i915/display/intel_quirks.c
+> index 33245f44c0d50..89d82364ae45d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+> @@ -100,6 +100,14 @@ static void quirk_disable_psr2(struct intel_display
+> *display)
+>  	drm_info(display->drm, "PSR2 support not currently available for this
+> setup, applying disable PSR2 quirk\n");  }
+>=20
+> +static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp) {
+> +	struct intel_display *display =3D to_intel_display(intel_dp);
+> +
+> +	intel_set_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT);
+> +	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n"); }
+> +
+>  struct intel_quirk {
+>  	int device;
+>  	int subsystem_vendor;
+> @@ -286,6 +294,22 @@ static const struct intel_dpcd_quirk
+> intel_dpcd_quirks[] =3D {
+>  		.sink_oui =3D SINK_OUI(0x00, 0x22, 0xb9),
+>  		.hook =3D quirk_disable_edp_panel_replay,
+>  	},
+> +	/* TUXEDO InsanityBook 15 v1 */
+> +	{
+> +		.device =3D 0x591b,
+> +		.subsystem_vendor =3D 0x1558,
+> +		.subsystem_device =3D 0x9501,
+> +		.sink_oui =3D SINK_OUI(0x38, 0xec, 0x11),
+> +		.hook =3D quirk_enable_dpcd_backlight,
+> +	},
+> +	/* TUXEDO DX1708 */
+> +	{
+> +		.device =3D 0x3e9b,
+> +		.subsystem_vendor =3D 0x1558,
+> +		.subsystem_device =3D 0x8500,
+> +		.sink_oui =3D SINK_OUI(0x38, 0xec, 0x11),
+> +		.hook =3D quirk_enable_dpcd_backlight,
+> +	},
+>  };
+>=20
+>  void intel_init_quirks(struct intel_display *display) diff --git
+> a/drivers/gpu/drm/i915/display/intel_quirks.h
+> b/drivers/gpu/drm/i915/display/intel_quirks.h
+> index 970a4fe52fafc..4996419ae76bd 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+> @@ -23,6 +23,7 @@ enum intel_quirk_id {
+>  	QUIRK_EDP_LIMIT_RATE_HBR2,
+>  	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+>  	QUIRK_DISABLE_PSR2,
+> +	QUIRK_ENABLE_DPCD_BACKLIGHT,
+>  };
+>=20
+>  void intel_init_quirks(struct intel_display *display);
+> --
+> 2.43.0
 
