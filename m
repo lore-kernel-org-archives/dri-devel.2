@@ -4,43 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A25C5AD55
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 13:22:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF6BC5AD55
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 13:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2CA410E1F9;
-	Mon, 10 Aug 2026 13:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5875D10E846;
+	Mon, 10 Aug 2026 13:23:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eBHPNGPN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="kcm8+Fr2";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="pxqtwYZ9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A269E10E1F9
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 13:22:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A4D5360052;
- Mon, 10 Aug 2026 13:22:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C16D1F000E9;
- Mon, 10 Aug 2026 13:22:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786368122;
- bh=UZsH3LVbKNCPB+c+qhYVDFZ+SNwzoeHb0Bkj6iEH2eo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eBHPNGPNTHailW20RvooOGtapH3hfdJzA+rCKcZXazeJA5tqV+tir7YVwoIp7z6uw
- s5lfcST0jaMuuGu1NfHjLfVQ5qmJPVdubRnbRQwZkVIjlzGvvpV7LuHPE5LZ5+Pbpk
- RkvJxoz4sPZ5oY8umg4xfWYo/QbQEowQZ8EdBw2RPQgpybjCgIU7yvUpbMKc078EpX
- vv4np6srnKEusp11gKh9K61+7Ff+HFHHOjgeCPkItJl8PCdslj+07tKlvcobeWBKoZ
- Yms2UsSGXlNnm7GGSEswqJ5h7wzeU1i/65Xub661qPS3I3GNs5bkPkW1EJcnao4L/u
- s+B3DM9dHtNRg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/imagination: Remove duplicated CCB control
- initialisation
-To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260810-b4-upstream-remove-duplicate-ccb-control-init-v1-1-4ea79b116b40@imgtec.com>
-References: <20260810-b4-upstream-remove-duplicate-ccb-control-init-v1-1-4ea79b116b40@imgtec.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
+ [85.215.255.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A45F10E841
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 13:23:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1786368204; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=oZwvfMJaGTBBjkBPR3xlmWs35zo06s0Dr8YQKH8QljmQ9uAQdJb0dY4ii2Po47oqP8
+ 067G+NpNbtO6GzHie7kkZdJTYt6Sd/NqrS/d1kcJEpNgrGkAkZ8SIwtvWeBKmS5k9Fac
+ vXkiKYUJC6PYF/p4Pr6dw8zr2scRUYMyKsl8UHdgG4Ib47RrdCxnMfsi9AyxIyyZy37Y
+ PPOcJHoF24PexYjubN31MwQUiqAh4gI3eb2/fC/OwHW2ATBlmHcxoT/jNBezdwGCEOa8
+ rJcBzx3XdhhgBSzEwK56xxGuGT3NJWjcI0NlYpdmHNrHCap6ovCeOLaxVM4LstkqLLyD
+ Jr4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786368204;
+ s=strato-dkim-0002; d=strato.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=UVLS94Nu/msDhoAOREJ/lL1zoSphEtNktL21sATk4oE=;
+ b=C+1GfriRL03PaVpEB/BoflZAnOd1yR2ZtLYd5i6MPiLflpvEskSs3khOWLyKqzxH/j
+ o2QKHBwtRaQKj6ThIeRV8BD0v3Qj6ZUYjFKsyERDoXujHTKyJrFUiKNZGT0s4WYueo4+
+ wP/MVZu0RTQW2af+92csK9Or6YeqTXyWrRPZtM3SsYsAdcT3x3f0Y2VmFWlegE73pJ5q
+ X2QeBYDtap1kxHY5EaWbcfPhZGX73KBDLOO3DeBFEHbmLihuSnJHfI+pG4b/2W7MRbU7
+ k/A0WKcFkqDzvTL04qHhwJvalDaSv5DG28OCW8zt6KvjYDNtZ4H86NoUasppqu5z8ZvL
+ Cauw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786368204;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=UVLS94Nu/msDhoAOREJ/lL1zoSphEtNktL21sATk4oE=;
+ b=kcm8+Fr2dZean0JggFaM7FX7eCQ0l72pYub+jaEsPSUSWMe5O3ysbVty9J/EXJPTjz
+ P3QnSXXXzPz91KM1By7JeVtoVQNQpopVNNfjMIZbYX/MCCauNFwRSIcaZmEdlx/wh9Qm
+ k08PgQNTXbHTQuYQglOPk7Me9jnJJ6E2H8DfMaZ/lmqBFLQdLaBOUbbmQuwjjueQdIBa
+ KBeKcD4QTIZp3HGCkhIynZd7/lGowSgsPZuEPHgHAOSTfb5mOfjIxI+wNQzFRIbkQn9V
+ PK1vLEnuTXXYtSkK0NQ+W+uEATtNy4pdSGza6qp8Ao+U63HGKfaId3RvGDZeWVKQOgkI
+ yTPA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786368204;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=UVLS94Nu/msDhoAOREJ/lL1zoSphEtNktL21sATk4oE=;
+ b=pxqtwYZ9vplpgSt/sU0OClyffqzbWrotFPpsUMsIZ9OtbvV0CemIGBSKQDjB4znVj4
+ LlouQyDfsJrsM2TlRSDg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTipoGmsiNZ9v/oGyp26o/Wi+pVFrZX1Db5b3z"
+Received: from smtpclient.apple by smtp.strato.de (RZmta 55.5.6 AUTH)
+ with ESMTPSA id Q58eac27ADNMhHH
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
+ with 256 ECDH bits, eq. 3072 bits RSA))
+ (Client did not present a certificate);
+ Mon, 10 Aug 2026 15:23:22 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH 15/16] backlight: remove pandora_bl
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20260810143914.64d29a5c@kemnade.info>
+Date: Mon, 10 Aug 2026 15:23:12 +0200
+Cc: Daniel Thompson <danielt@kernel.org>, Grond <grond66@riseup.net>,
+ Stefan Leichter <sle85276@gmx.de>, Grazvydas Ignotas <notasas@gmail.com>,
+ Tony Lindgren <tony@atomide.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Jingoo Han <jingoohan1@gmail.com>,
+ Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Sen Wang <sen@ti.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, kernel@pyra-handheld.com, mfd@lists.linux.dev
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 13:22:01 +0000
-Message-Id: <20260810132202.3C16D1F000E9@smtp.kernel.org>
+Message-Id: <2C9844A3-3C4C-48E6-863D-BF8328CEE540@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
+ <anmpiADsvzW39DNx@aspen.lan>
+ <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
+ <20260810143914.64d29a5c@kemnade.info>
+To: Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,148 +116,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Pre-existing NULL pointer dereference in `pvr_fw_object_destroy()`=
- when handling allocation failures.
-- [High] Unprotected accesses to `free_list->current_pages` and `free_list-=
->ready_pages` in `pvr_free_list_process_grow_req`.
-- [High] Firmware commands in the FWCCB can be processed out of order due t=
-o lock dropping in `pvr_fwccb_process`.
---
 
---- Patch [1]: [PATCH] drm/imagination: Remove duplicated CCB control initi=
-alisation ---
-commit f2cf0d89b43f414e7db3141318ab274dbe8aa132
-Author: Alessio Belle <alessio.belle@imgtec.com>
-
-drm/imagination: Remove duplicated CCB control initialisation
-
-The same is already done by the ccb_ctrl_init() callback.
-
-> diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imag=
-ination/pvr_ccb.c
-> index 4accf18e23418..48672a86ca2f5 100644
-> --- a/drivers/gpu/drm/imagination/pvr_ccb.c
-> +++ b/drivers/gpu/drm/imagination/pvr_ccb.c
-> @@ -82,11 +82,6 @@ pvr_ccb_init(struct pvr_device *pvr_dev, struct pvr_cc=
-b *pvr_ccb,
->  	pvr_fw_object_get_fw_addr(pvr_ccb->ctrl_obj, &pvr_ccb->ctrl_fw_addr);
->  	pvr_fw_object_get_fw_addr(pvr_ccb->ccb_obj, &pvr_ccb->ccb_fw_addr);
-> =20
-> -	WRITE_ONCE(pvr_ccb->ctrl->write_offset, 0);
-> -	WRITE_ONCE(pvr_ccb->ctrl->read_offset, 0);
-> -	WRITE_ONCE(pvr_ccb->ctrl->wrap_mask, num_cmds - 1);
-> -	WRITE_ONCE(pvr_ccb->ctrl->cmd_size, cmd_size);
+> Am 10.08.2026 um 14:39 schrieb Andreas Kemnade <andreas@kemnade.info>:
+>=20
+> On Mon, 10 Aug 2026 12:45:16 +0200
+> "H. Nikolaus Schaller" <hns@goldelico.com> wrote:
+>=20
+>> Hi Daniel,
+>>=20
+>>> Am 10.08.2026 um 12:35 schrieb Daniel Thompson <danielt@kernel.org>:
+>>>=20
+>>> On Sat, Jul 11, 2026 at 08:02:02AM +0200, H. Nikolaus Schaller =
+wrote: =20
+>>>> Retire the platform specific pandora backlight driver since
+>>>> it can now be replaced by twl_pm and device tree.
+>>>>=20
+>>>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com> =20
+>>>=20
+>>> Yay!
+>>>=20
+>>> Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> =20
+>>=20
+>> Well, there were some good comments by Sahiko to the prerequisites of =
+this patch,
+>> because it has one speciality the PWM BL driver does not handle =
+(avoid
+>> interpretation of PWM signals as W1 protocol).
+>>=20
+>> I haven't found time to work on this, so we can't remove this yet.
+>>=20
+>> In the end it may either remain a pandora_bl driver (converted to DT)
+>> or become a patch for something else.
+>>=20
+> But then it is a TPS61161 on top of PWM, not a pandora driver.
+> And then there might be just a quirk for that chip in the pwm_bl using
+> triggered by a compatible. I guess the quirk is this:
+>=20
+>=20
+> if (priv->old_state =3D=3D PANDORABL_WAS_OFF) {
+> - /*
+> - * set PWM duty cycle to max. TPS61161 seems to use this
+> - * to calibrate it's PWM sensitivity when it starts.
+> - */
+> - twl_i2c_write_u8(TWL_MODULE_PWM, MAX_VALUE, TWL_PWM0_OFF);
 > -
->  	return 0;
-> =20
->  err_free_ctrl:
+> - /* first enable clock, then PWM0 out */
+> - twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_GPBR1);
+> - r &=3D ~PWM0_ENABLE;
+> - r |=3D PWM0_CLK_ENABLE;
+> - twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
+> - r |=3D PWM0_ENABLE;
+> - twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
+> -
+> - /*
+> - * TI made it very easy to enable digital control, so easy that
+> - * it often triggers unintentionally and disabes PWM control,
+> - * so wait until 1 wire mode detection window ends.
+> - */
+> - usleep_range(2000, 10000);
+> - }
+>=20
 
-This isn't a bug introduced by this patch, but I noticed a potential NULL
-pointer dereference in pvr_fw_object_destroy() when handling allocation
-failures.
+Yes that is what I mean. It needs to be ported somewhere. If it can be =
+ported to
+some compatible =3D "pwm_bl_for_tps61161" or what fits best it will be =
+fine. Or it
+could be in some compatible =3D "pandora_bl" driver.
 
-If pvr_gem_object_create() fails in pvr_fw_object_create_and_map_common(),
-fw_obj->gem is explicitly set to NULL before jumping to the error cleanup
-path:
+Has to be worked out when the development machines are not blocked by 3 =
+or 4 other
+projects already running in parallel :)
 
-drivers/gpu/drm/imagination/pvr_fw.c:pvr_fw_object_create_and_map_common() {
-	...
-	fw_obj->gem =3D pvr_gem_object_create(pvr_dev, size, flags);
-	if (IS_ERR(fw_obj->gem)) {
-		err =3D PTR_ERR(fw_obj->gem);
-		fw_obj->gem =3D NULL;
-		goto err_put_object;
-	}
-	...
-err_put_object:
-	pvr_fw_object_destroy(fw_obj);
-
-	return ERR_PTR(err);
-}
-
-The cleanup path then calls pvr_fw_object_destroy():
-
-drivers/gpu/drm/imagination/pvr_fw.c:pvr_fw_object_destroy() {
-	struct pvr_gem_object *pvr_obj =3D fw_obj->gem;
-	struct drm_gem_object *gem_obj =3D gem_from_pvr_gem(pvr_obj);
-	struct pvr_device *pvr_dev =3D to_pvr_device(gem_obj->dev);
-
-[Severity: High]
-Will this unconditionally dereference the NULL gem_obj (derived from the NU=
-LL
-fw_obj->gem) to get the device, causing a kernel panic?
+BR,
+Nikolaus
 
 
-This is a pre-existing issue, but there appears to be an unprotected access
-to the free list page accounting variables in
-pvr_free_list_process_grow_req().
-
-drivers/gpu/drm/imagination/pvr_free_list.c:pvr_free_list_process_grow_req(=
-) {
-	...
-	/* Since the FW made the request, it has already consumed the ready pages,
-	 * update the host struct.
-	 */
-	free_list->current_pages +=3D free_list->ready_pages;
-	free_list->ready_pages =3D 0;
-
-	/* If the grow succeeds, update the grow_pages argument. */
-	if (!pvr_free_list_grow(free_list, free_list->grow_pages))
-		grow_pages =3D free_list->grow_pages;
-
-	/* Now prepare the response and send it back to the FW. */
-	pvr_fw_object_get_fw_addr(free_list->fw_obj, &resp->freelist_fw_addr);
-	resp->delta_pages =3D grow_pages;
-	resp->new_pages =3D free_list->current_pages + free_list->ready_pages;
-	...
-}
-
-[Severity: High]
-Since pvr_fwccb_process() can run concurrently (from the IRQ handler and
-userspace-triggered free list release), can these unprotected modifications
-and reads of free_list->current_pages and free_list->ready_pages lead to
-data corruption in the free list page accounting?
-
-
-This isn't a bug introduced by this patch, but I noticed that firmware comm=
-ands
-in the FWCCB might be processed out of order because the lock is dropped in
-pvr_fwccb_process().
-
-drivers/gpu/drm/imagination/pvr_ccb.c:pvr_fwccb_process() {
-	...
-	while ((read_offset =3D READ_ONCE(ctrl->read_offset)) !=3D READ_ONCE(ctrl-=
->write_offset)) {
-		struct rogue_fwif_fwccb_cmd cmd =3D fwccb[read_offset];
-
-		WRITE_ONCE(ctrl->read_offset, (read_offset + 1) & READ_ONCE(ctrl->wrap_ma=
-sk));
-
-		/* Drop FWCCB lock while we process command. */
-		mutex_unlock(&pvr_dev->fwccb.lock);
-
-		process_fwccb_command(pvr_dev, &cmd);
-
-		mutex_lock(&pvr_dev->fwccb.lock);
-	}
-	...
-}
-
-[Severity: High]
-Since this function can be called both from the IRQ thread and from the
-userspace-triggered pvr_free_list_release() path, if one thread dequeues a
-command and drops the lock, could a second thread acquire the lock, dequeue
-the next command, and process it concurrently, leading to out-of-order
-execution of firmware events?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-b4-upstrea=
-m-remove-duplicate-ccb-control-init-v1-1-4ea79b116b40@imgtec.com?part=3D1
