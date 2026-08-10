@@ -4,132 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6F73C5B56D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 17:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 015D1C5AD7B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 17:47:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A371510E232;
-	Mon, 10 Aug 2026 17:28:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33F1A10E23C;
+	Mon, 10 Aug 2026 17:47:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FBHlM6lI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kq7uElwp";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010000.outbound.protection.outlook.com [52.101.56.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9038D10E224;
- Mon, 10 Aug 2026 17:28:27 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012041.outbound.protection.outlook.com [40.107.209.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A2E10E95E;
+ Mon, 10 Aug 2026 17:47:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fhAr6CRqdE2ZxqWkCNZ0OfXD0Z9w2acF1SJWtYPnG8GCI/HBqvesPq0Cuna1VE5bYVEfqz447KasoPmFqY+SaqbLzFrUGZ6ub2oOhyYkbu8OFxcrugUn4tCJRn3c3AOL8htGBm4gPMTuFx496JbLMY0WU3pxvlLCBb4iSu8N+7nkmAqwtMQXjv9yfPNCsOsUW7EvkUrEL6k2zKCiH3JQea6buKonP5Q5ppNMb/5CGWMNtBLlI/YMebKp7jrejoB1t7IvAo/JIUtzZNbXEdheFaPqIIdcVekYKz5gsHUy1/EEWBO6hQnRwd3bd5cLVGezDgWBuLjL267hnKSFT4tMKQ==
+ b=ngcEeu+wuzFTvM3f2RyBQ7fDruqz9Ibg4DUWhFh81n5MEQyWWgmOJH7J6aqaxuLiOhct6yPFkkzEyUt6FbDjgToGAar3ed+XHl7FpQOIhs8Sn7glbefXOpqZPBUnKezqaq+i31J0WrRQ98UNVl0tEdsWgqV4azRubNPOgVXmvX22o2MYmVYWJvwi3m3HWaNPOrWRDNCNhdUu4WRmXqL+hHluBlR1Ro98+UFIU3eKGKbRvSjmVr5naod/M9jmnBpjtiOOx1hbddO7n8vSSq7Xi2uBibGn19kVVJhfAmiI6o8l+p8WsbzR8QfkSveZNGj68jklVaULSaDxpQTepSTznA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CdEIL05RpG1QSjwM+t3NhRwau9Zy6k9ppnYl/LjkV80=;
- b=GMm29tehxnsQg2k+IXYe08/AKhnNzJiwO9UrNF3QUvxkAoZ1SzAEkmtCxS28keL8v5vqR1lyspzLY4xvW7CWAa+okeJlyyLdYQ4O2fNB8f1sc3aD5rVSs1dp588Zpb8sy3WsIbCEFHj5Ptom+qd1Uge6xPuJIjydsB/JVfGvS9p528X9RyVsLyUcKXKWIZew5rg7S8H+SmsF3IbN6g7C8KjkpLDri3WpRl64L5l5185OuVasr5/q3kdzrZ9LlSSpY0OCCSn177fZSpz9aWNHTduOLBQVMkZty0y51DOEc1otnWlrGAto00gD2UT2Op4GykqwCZ7/CE+rB46li8VOAQ==
+ bh=ADGRhPBJ/ug1Z8Likp6nrKpnEGe3NzxsBXCaw0HLf2s=;
+ b=Ytq3K56yGwlMO3u9qdsVjSjBGYvO4uZsH0E3/Ny7v6OJTrChY5q+IPcEdRuPNZoePi7wxBWRAXH3IH9eFNd7P+4qAeJ+Sl8kv5pF9MjeHQFKPw4Hp3OqrHf0O5AIyuxstvsk0bbdRbJBU86i1iuqBHxvhzDIUiMdtKCklIa+Y2+8IWWhHLLxM11eOFRnqqPDNo065kqsRzEGOSCTDYjexg8fgp507jEIaIczB59Wd16hRjx9WuTq5/QCj1C2fPDUzucFicCe0/mh/sk3Fp44iPn4PnFOYJLPmyZ6ezKPq1IAYH8KClYR3CyqsGHnOeK+Dtt0pwvwykLQBoOKmo2qKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CdEIL05RpG1QSjwM+t3NhRwau9Zy6k9ppnYl/LjkV80=;
- b=FBHlM6lIf12ND5DcLUwYyFsmxtu/UHHp1qnLk7i1wiyMqDc88/tVKyM6P6wTQutZwchgHwoyWCTi9iK1rtjEURm7mtds7e0F3mkGFAfaL1D7Cl8POlcbDoz60CJPxZ/ss2EuvPWL4JrXTCE47PIdgF0yql624KiFKAZeF4egBMk=
+ bh=ADGRhPBJ/ug1Z8Likp6nrKpnEGe3NzxsBXCaw0HLf2s=;
+ b=kq7uElwpbaNoC23p4W/N+DS0nXOHCG2KqyCvwqDrh2sVHxcN/49rUzczesP7CBnV7ZDyP+COXcpAizRj1/ZIl9yWUEnHlbeACRS6MshU5kElATuIK3+FzovKR1v9xFVCnMiodnk4lLGqZgMmDxYgE61O1iqkiJhdpPlFyCncib4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA0PR12MB7464.namprd12.prod.outlook.com (2603:10b6:806:24b::18)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DM4PR12MB7574.namprd12.prod.outlook.com (2603:10b6:8:10e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 17:28:23 +0000
+ 2026 17:47:31 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 17:28:22 +0000
-Message-ID: <01a00d60-a3ae-44cf-a963-6baccdac32f1@amd.com>
-Date: Mon, 10 Aug 2026 19:28:15 +0200
+ 17:47:28 +0000
+Message-ID: <ced1aa87-c7d7-492a-8775-6b5ed3444ae1@amd.com>
+Date: Mon, 10 Aug 2026 19:47:19 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] drm/amdgpu/userq: bound the eviction fence rearm
- retry loop
-To: moonafterrain@outlook.com, Alex Deucher <alexander.deucher@amd.com>,
+Subject: Re: [PATCH 3/6] drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Junwei Zhang <Jerry.Zhang@amd.com>,
- =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nicolai.haehnle@amd.com>,
- Prike Liang <Prike.Liang@amd.com>, Arvind Yadav <arvind.yadav@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>, Leo Liu <leo.liu@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, Yuhao Jiang <danisjiang@gmail.com>,
- stable@vger.kernel.org
-References: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
- <20260811-amdgpu-fixes-v1-3-4954a417b8ff@outlook.com>
+ Alex Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Iago Toral <itoral@igalia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com>
+ <20260809-drm-timeout-helpers-v1-3-2de67405a145@igalia.com>
+ <eaba2132-a4ad-4634-b00b-6728364a792c@amd.com>
+ <038c825a-aaa3-4bb0-98ae-6f93dce73544@igalia.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260811-amdgpu-fixes-v1-3-4954a417b8ff@outlook.com>
+In-Reply-To: <038c825a-aaa3-4bb0-98ae-6f93dce73544@igalia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0066.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ce::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0173.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::16) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB7464:EE_
-X-MS-Office365-Filtering-Correlation-Id: 366f6da5-2ead-4190-c02c-08def704c734
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB7574:EE_
+X-MS-Office365-Filtering-Correlation-Id: 287a5631-cfa7-45cc-4e4d-08def70771c2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|23010399003|921020|22082099003|18002099003|56012099006|10067099003|5023799004|11063799006|4143699003|6133799003;
-X-Microsoft-Antispam-Message-Info: 4caNLgYbVBNiHmiaZ+00uqRrn/oqELW2Fh1TJCFtwVbVj8XM1DB1z+T3UfCz4gfR7FkyZ8edbhAahRrFwLwwzPLuEzafh2SzYZbGJn4MVUGL58cUGvWSq1UPSdYTetox4d6LqDYyj8QHOEl62+9jpAPntttiSBNjVFrIQ3UHryuH57Oq6tlflxgMWUP0N0s10Xtei6YcYeYgHYbaARLWWgB83kL3tugMucxy/DATOu06uuH7Z0MUKVstA7Js1a+oQY8GXNk1hg9IVvHo4T3iOCz9GzwgNBkqllge/WlMG22h3CP2tQV+QAuzGk6D0L0eXI76mDLouh5fy7UoNvgIx3zFqeNvM7/2AA4Vazdps2nh3/LcNSDu7ytE3WEpMgs7W4rlndqAjVIXkfhLo3ovasTUkujSIew5K9anPUzlhmJH/O+XRi4Yagp6tTnk3Zv3xJgfzZ1bqt1A9POLWBnFIJaWPqJxJCTFqfoyXNaM35SwDpN76Xf3ntfq8471gKuDLmqnJSaG8DuVHzZC2NGBdJugwSq+qBwW+4nSlAQ+dKQX1i7lKa0hAJT1SZ8QnXiu56PI1HFW0tuu0u4vv62jO1r/dFbhS+5vUu+vEdF1WnMLOaHqg27E/M+G+lAz4JZFIqb12TpGHsjLNcPxemNXs+5ZNMOSuk7Q586iBLJte0ofe04iWd6itotOm0Jgqj2/SVYGpwXRaWBooBPcRcu0VA==
+ ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|11063799006|4143699003|56012099006|5023799004|6133799003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: J86VjZv/JEHLws6w1NkGVlRAeTOgL22ouZ7Fst7cOb++RodP6g4WwmzpykzJ0w73D+wpcvlw9Z8MGhtTFomMp331f0hx818R0dB3VRQPKzRTbAMAFN3SwiIsgA8C0lTUNWUD22P0+M2EbeQhuprxHg5FWaiP5zJ2gPwX+nC16qYUUYDi586ZkNzytBeernhywUwuhPXKjePoR4ekvzExZTrztGXKhVjeKBpQlBaLe0f/NlincXPJqxYrf3YX//sSa0iwna4QfgxDp35P79yvO5L+QRQnw5JIVGz8z93gcVy/F2o2rMjAMvlrJn5hc4OnaM0/kk72YgzwY16st9H/t0w44bSH66RMIR/bgweG9OQroPcY6GTrgtTHPF+PsJIt39QH3+L8jfgugkkQhe0emxvVdVGOyKGsgYmfgEvOv35SlNbXjX0Pl/2Li8EbSg1cwdD3WqnkKF/OvHZS7l0282Fvi4UDFCujl5SuLt691MIFQ8U3pedtVOTT4V3dM5dSiXtLQHjO48pmZFn2jiq6rfRpBtdTGOSMCk6PMq1sCqNDndxyzGHUYnB88nr+Q3UyrAppvVJRIpjx8r588HfVdMLF7bCO56lDKL5TfPFpRFh1ndVBM6YVt/cISgxBwLRPY0W6IK9oilQVI9MkWx+lUGK9vMaGgz/enuu/0SLZGLFlIJkpe1HPmDRhM70WrZVorswp6qiKUnl6V6gJRzcSzQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(921020)(22082099003)(18002099003)(56012099006)(10067099003)(5023799004)(11063799006)(4143699003)(6133799003);
+ SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(5023799004)(6133799003)(22082099003)(18002099003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHBjVlRsbEVndHRZaWk2TW9TUDRaZUVMU2NIdDBySHhGeU8wWFRTVFhYNW9Z?=
- =?utf-8?B?WnJCSGhxekZNMlJkUUtOdDlsM1V0dHFnT1djb3FQcmdWY1kwMkVjNnpKMWNi?=
- =?utf-8?B?U2ZZN1FVZ1dkazdIc2JhQVdVYmVCMnhuZFMvSWlHWGcyNjhkRHRSaUVvSncz?=
- =?utf-8?B?Q1BLWnBTZjF3TXpxVU5YdHBrZm54T1plZVRRL3lEQmhYT2ZEQ3k1VC9YSFpn?=
- =?utf-8?B?NHBWbXF1UEUzS0NudEhrWXRTOWpyaWp5akRrYUJSMW53QVlTcUVGSjhSL0JK?=
- =?utf-8?B?V3pLeFhvQVFyZXd0M0p3ZkpweSt5TWN0N3AzcHVPdTlMNUtDNWxFRHh5K2hL?=
- =?utf-8?B?Wk9jQkpyY1NCaEZKNUVLd0pmYWNzUTNSYy9xWXZ4S29TTHlNK3JHaExTdDZE?=
- =?utf-8?B?VER1Z005WHo4RDNnZWE4WFV3L0hGd2FTNDFnQnhsYW5BVDFKN29uNG4xYlVC?=
- =?utf-8?B?OS9IU3RsQVN1MEY5c2N5blB3Qkl5SExnaUpMVzRoMUZmK0E4UlFLbEcwOFVE?=
- =?utf-8?B?UWNYMkNORm0vREltQ3NBeVI4V0dFeGgzNEx2dytibWU1NWg0cHRMT05vOHAw?=
- =?utf-8?B?dWt5UTdWbi8zbUFqK0hSNW9wbmtzekFXbTloalo4azF4ZTlRdTJaQ3VsM2V3?=
- =?utf-8?B?YWtiTkFpOFNGdVI3UmdEd05PUGlZSHJkYUJ5dk41VUR6SHFlSGM0b2JtRDlv?=
- =?utf-8?B?SGVnOGlxdnBUU0lqcHBmdkM0aG05aWI3aEovUVNMNHJrZDg2SFI2NXBrNjZM?=
- =?utf-8?B?WVJ6eWxZTTkvbllRaGdmNURkdVBLeTV2cWJxN2o3ZWpHeFlaR0FyQndmMUJr?=
- =?utf-8?B?V2hPdEh1L2JDSjQxU1piUTI0YWlCMU1jb21naTFEdXdVc1F6WTlCNDVGMFR1?=
- =?utf-8?B?d20vOUc2SkVFYkt5OXBsNE9pdlZ5ZEpzTWgrUVlXYUtwUWUzaS9ZdUJNQ1B4?=
- =?utf-8?B?TGpwK2dnTUdOb25lYUVhL25mdDFLQWxRY2FCSnByZWtkZ01EaFh2cHJTU3E4?=
- =?utf-8?B?b1hOWUNFSzN5NHJyMVllY2lEQXB2dWk5N3ZJd25wZzZFNExVZlJwcHA4dEFu?=
- =?utf-8?B?VlpieXZjeFZaaWVYSlovbTV5SzVpaFgyYzNpbFhVS2phWlNQTlRRUDlicmVD?=
- =?utf-8?B?K3hHRk1IYVhYTzlHOFY5MHhxbnh5ZlMrYnF2NFZnYlBZdWN4NWxZa3dVZ0Na?=
- =?utf-8?B?ZlFMZERUOWk5SHhOUDBPTFF5NHpPZ01BOHl0WFVLZDFJL09LamNlL1pNZnFV?=
- =?utf-8?B?YjQrdWhBTDJQRjRrdVhYUWNlemh1QlBjNS8zSmVGanh6UXhGTFVVR3ZlUHdv?=
- =?utf-8?B?UWdOZzVFd3c5Tk5FM3RUUThUV0Vva0JabW1sdm1RYzhVZnRUK3hnSlcvMTVr?=
- =?utf-8?B?NFF3SWdURmR2RmNISU5Jdkd5dHlHMTU5aFJFRzNERTA3c1RML3M0Vk5Qektk?=
- =?utf-8?B?R0pxZmhQVG1kdmRsRWFCZytnL2EvVEd2VnZCak9YWmZQazRvQnpCYmNpeDho?=
- =?utf-8?B?bzZqUnl4NUF2OENzdmU0c2dSNUQ4ckNiTkhYZTJoOXl4dWt2cDFMMitJem96?=
- =?utf-8?B?SHR4Z3AwT3JhV3k0ZEY2QkluaFFITGc0T1RjZVpiWjBuMWNzN1hWSjV0VjFx?=
- =?utf-8?B?N0IvMDlYSWxwUFl2bEpJeVpTeE5yVnEvTjVrZFlBYnlBWHhKR3I2aFZpeUV1?=
- =?utf-8?B?MXFWSEZZZEhLclRkWEtQUkZoRU42aHd6UE5oSmNucFRQdzVzR1lFNGMrTTN2?=
- =?utf-8?B?VFBQVjNwMU1Qb0FoVmROeDQ0bEF5TU5vbmVhaTFncTVYS2hvK2MrVzNOUWxt?=
- =?utf-8?B?SmZRL1diVlpTMUZXL1ZoWlJSZTd5Q3o4NzdESll5TEpmS05kaHZDQ1BSYkVa?=
- =?utf-8?B?akFaeEdwaDhzZDVneVZEVVlZZmZsR3hQeC9kMFJaalNaVWNpWGgzUTY4SURN?=
- =?utf-8?B?Q2QxZ3NSc04xanI5S3RkYzBxZnJVbC9wbUgwVGVxWTBPSGM0cDdsKy9aYWpD?=
- =?utf-8?B?UzJSODlESHhLODlmdzh4ZWhSTHRmekRSeGZ4THhsaDVWakN0dnM1a1lXSkxF?=
- =?utf-8?B?M2ZhZThENFBqKy9WTXJUbWtOT05oTEtGdUdCMThkMERZWDdkdFN6ZFVJVHh2?=
- =?utf-8?B?ZE9EWDZ6bjZ2dHJiRjdvenFGWTVjcEFnS0kvMmNiS3EvMnZpaGxXTEc3aUdt?=
- =?utf-8?B?NUxnK2gvK3Blek05MnBzU0tYMWNvN3QvSHZJN1V2MEF5RnpSTzgwNXAvZmVm?=
- =?utf-8?B?Vk84V05aZnE2UGk2VmV2S05QTG5NM2RRSDdqRFlCQkNWTjNMaUdoZnhLblM1?=
- =?utf-8?Q?qJtdO7fWEOiUg3K+04?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aExaMkV5VFh5dWpjMVh4TW9GYmdDTlRUeHBKcEhsTGRJSlNibEF1OVc3dUdM?=
+ =?utf-8?B?eTJ3VjJaMTVCMjU5ZFFzMEs1NUo3MVU0VVBTNXdReXBkNVZtOXFmYUh4ZURk?=
+ =?utf-8?B?L2kwa0hXY2NEaHFQTW50cHlJNUpxNEN2MnlmY096SWlSdzNvYXBkQmxmbXF5?=
+ =?utf-8?B?QjlXR3B0eFowQWV0RUNDZFpkK0Q4bjEzd0UvaDBFTGhRam1qS2ovTkUzbTJm?=
+ =?utf-8?B?S3hoMzlHUDExcW1rSkFRK0NlWHpaZDFtU2JCZ3l0TVUzSDl4cHVlZ1VmOFhC?=
+ =?utf-8?B?Z2QzcW1HNmQzM1dScHRLUjI1Ym5BZEs0ZlhQRmpqMHRQMnRVUU5RNnhMaDV2?=
+ =?utf-8?B?VGN2SXBPZk1pVnhFNVVzTk1BeVZYdEVFbzhRbEltcWdTK01CWVhVQ3hMM0NE?=
+ =?utf-8?B?aXpRKzVuU1FXbEJpRFhPUmptR3EvRlBBTmxldnNjUUdSR0xNN3p4b1A0bVJK?=
+ =?utf-8?B?dkZUKzNtUHh0bEtYSU84MVhHSTdYV0xnQ1lPUVlYVzNOUWRuQVNTaCtURy9a?=
+ =?utf-8?B?Uk9oUFVOU1ByeTlKaG8zN0tNVVFhb3A5Skt5ZU55c2FDVkJCcE9aaW9XY0FK?=
+ =?utf-8?B?RUZYemJMTFlPNjdjQmp6Ym1yTXZFKzlvb2hpaFRZcExlWElCcEZJQm9nWVh4?=
+ =?utf-8?B?Y3ZZeHViSlhvdHlMRFMxaiszT2pndmw5alA5V1Bwd2FSQnplUDRqR082bDli?=
+ =?utf-8?B?Nll1dktaRmwyQmhMNytyaC9lUUpSdXl6cUtPTDVtV1pkcjBzOEhFUXRaNElX?=
+ =?utf-8?B?Zmh2NDRSRzViSGZYVVZzWk8zT1U5N1RnTXhPR0VTL0lTVXQrZlNTOXJaMW1T?=
+ =?utf-8?B?ZFE2TkR1RnNhTS9zbXlrZnBlYUpuTkRRcjBCZ3BpNDhjZ3hYTm5SZXRHczFC?=
+ =?utf-8?B?RXRIcW51bm11YmxBR1d2Y3ZNc0pNalJ2elh4RTE4eGt1cXRoY21xekFjRTBD?=
+ =?utf-8?B?bE55NzgzMENtM29tcTVZdkJkSit6clAxbHBQeW81WGhLYktOMDFUanlNTVM2?=
+ =?utf-8?B?LzBYNzVEMGF3SkhRN04rUzd0a1FYYXorOEF3b3ZHay9JMFVTT21RNUJ5Q0hB?=
+ =?utf-8?B?akNUZUl2RThEMFNLcThDQU8wRDZlSERYOUxNVHdrcktyRG5jRXhOU3gvNXZS?=
+ =?utf-8?B?RlRWUjVwSktRODgvQjZMdHgzR1ErT09CZE85SDZmTnRjZ0xRSnAzbzcweG04?=
+ =?utf-8?B?T3J5RmdJZ29UUWJ6RmllcjN6SVZ1bFlCdlcyandiN2ttUE9NNFBLaVEvMUoz?=
+ =?utf-8?B?OSs3Ym5UeXY1ei9ScDdoWnB4Ly83RzNvYzhYYmlaTFlROXhzbVJDak5ocWpu?=
+ =?utf-8?B?aVlXdy9adUhDb0RFenNoeXFsNEkyZlVEakQ3UGRVb201SlpuckZWNU42K2Nz?=
+ =?utf-8?B?Nk5BTHBPU1hBSXIxV1FsVXdmam02ZGVEM3IwZzArbWQyZkxEQzVRenlWbUwx?=
+ =?utf-8?B?djNOcnNnV2d1S3NEUTcvTU5zSXd5b3RabzhtVHFpUkd3VHlRQmF4cXJxQXI5?=
+ =?utf-8?B?OE5RMHRtRlk5L2x2cFFtRmJyaHFpSVIwZzRmTzBNc2FXUG9LbDlRengzSi9H?=
+ =?utf-8?B?bi9icUlNVzJ1MjdOeUlaNG9USUIyaitJdmt4RUwraEtCK2NEeXVwNFY4SmV3?=
+ =?utf-8?B?dWpBRjZVQVdnbHU0ekNYN0xrM2hBN2tKYXFSc21ZcURpdDI0OWNqRHdqVjZk?=
+ =?utf-8?B?Q3VvelJWLzhIU29uMXVzc1JYWWREOUFnWDlZdEFkWUJRd0ZiS1l4elBDaHZk?=
+ =?utf-8?B?bU9kR29JMWxHZ0RvVno5cEJQNjJYb3UzaTlySE5YYWZxNTFMZEJCb3lTMVdB?=
+ =?utf-8?B?dmh0aVpXWjJDUmUxdnBzUGZOdVl6L2lmNnlHYURFeVRxSDE5L0NTQ0pTK1J3?=
+ =?utf-8?B?cnBscEptREpSaHY3cVluclVyeDA1Z3k1VmF1bGpubitWaktqOThkZ3M1MTZ0?=
+ =?utf-8?B?L3FyL2xabXNlaEQvWHRidVdBck4vZzlVWE1mOVgzTzF6bEd1OEZWK3ZuVFJF?=
+ =?utf-8?B?c0JJeGoraUY5ZHpyd2t5ZGs4b3VVeG9ZeEFxMSs1RVNoeXZpYXdhT2ZPYjZS?=
+ =?utf-8?B?SGpNNGtVcVk2c0NPbThGT2FtUUxJWFNIOFJtRlcxbjBwRHYvaG5xUWoxR3pX?=
+ =?utf-8?B?aVFnK2ZIWHRSK0xPUWdKbmNGc29wc2NZU3VhenRyQ2wvL0preGlzVUQwM0ZC?=
+ =?utf-8?B?NytsRXVZRWlWd25kV1FFc2ZLYWFpZkE4dFRiTVJTUWF5ODYrUVdncVprUm01?=
+ =?utf-8?B?M202eXhCdFBadGxwM2s3TVNOb05yekRLeUgwZlh2TGowbHNBaUV1RU8vYU9I?=
+ =?utf-8?Q?DFaW4L0iEovA7JYgl7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 366f6da5-2ead-4190-c02c-08def704c734
+X-MS-Exchange-CrossTenant-Network-Message-Id: 287a5631-cfa7-45cc-4e4d-08def70771c2
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 17:28:22.8854 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 17:47:28.0403 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hl9t4+t3QUv1shlipj6eH1/mNOmbST8XL3uXsTqHHSW9pdJJZtEjYF5A0Chud0l6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7464
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZSDuBSGsilQ+rwZATxfWyoJLZCNYGUvHV4EVPeineJbRxKT4nkgSPIRPU9slrQxl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7574
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,145 +148,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/10/26 18:13, Junrui Luo via B4 Relay wrote:
-> From: Junrui Luo <moonafterrain@outlook.com>
+On 8/10/26 17:32, Maíra Canal wrote:
+> Hi Christian,
 > 
-> amdgpu_userq_ensure_ev_fence() loops until the eviction fence is both
-> present and unsignaled.  The only producer of such a fence is
-> amdgpu_evf_mgr_rearm(), which runs as the very last step of
-> amdgpu_userq_vm_validate().  Every failure point ahead of it - the
-> kzalloc() in the rearm itself, amdgpu_hmm_range_alloc(), the
-> ttm_bo_validate() calls, the GART binding of the wptr BOs - makes
-> amdgpu_userq_restore_worker() give up with only a drm_file_err().
-> Nothing propagates that back, so the waiting thread reschedules the
-> worker and flushes it again, forever.
+> On 10/08/26 10:34, Christian König wrote:
+>> On 8/9/26 21:23, Maíra Canal wrote:
+>>> amdgpu_gem_timeout() converts an absolute deadline in ns into jiffies,
+>>> which is what drm_timeout_abs_to_jiffies() already does for the other
+>>> drivers whose wait UAPI takes a deadline. Use the shared helper and keep
+>>> only the part that is specific to amdgpu.
+>>>
+>>> Two details change along this conversion: the helper rounds up rather than
+>>> truncating, so a deadline less than a tick away now waits for one jiffy
+>>> instead of returning 0. It also uses nsecs_to_jiffies64(), so the
+>>> conversion no longer truncates on 32-bit, where a large deadline could
+>>> previously be reduced to an arbitrary shorter one.
+>>>
+>>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+>>>
+>>> ---
+>>>
+>>> As a note, this patch can be merged independently to the AMD tree
+>>> without any dependencies.
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 16 ++--------------
+>>>   1 file changed, 2 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> index 6a0699746fbc..84b509a484b0 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> @@ -25,7 +25,6 @@
+>>>    *          Alex Deucher
+>>>    *          Jerome Glisse
+>>>    */
+>>> -#include <linux/ktime.h>
+>>>   #include <linux/module.h>
+>>>   #include <linux/overflow.h>
+>>>   #include <linux/pagemap.h>
+>>> @@ -40,6 +39,7 @@
+>>>   #include <drm/drm_gem_ttm_helper.h>
+>>>   #include <drm/ttm/ttm_tt.h>
+>>>   #include <drm/drm_syncobj.h>
+>>> +#include <drm/drm_utils.h>
+>>>     #include "amdgpu.h"
+>>>   #include "amdgpu_display.h"
+>>> @@ -622,23 +622,11 @@ int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+>>>    */
+>>>   unsigned long amdgpu_gem_timeout(uint64_t timeout_ns)
+>>
+>> Please completely nuke that function and replace it with calls to drm_timeout_abs_to_jiffies().
+>>
+>>>   {
+>>> -    unsigned long timeout_jiffies;
+>>> -    ktime_t timeout;
+>>> -
+>>>       /* clamp timeout if it's to large */
+>>>       if (((int64_t)timeout_ns) < 0)
+>>>           return MAX_SCHEDULE_TIMEOUT;
+>>
+>> That check was actually never correct at all as far as I can see.
+>>
 > 
-> Both flush_delayed_work() and mutex_lock() sleep in
-> TASK_UNINTERRUPTIBLE, so the looping task cannot be killed and the OOM
-> killer cannot reclaim it. An unprivileged render node client
-> reaches this from both AMDGPU_USERQ and AMDGPU_USERQ_SIGNAL.
+> I'm not sure about that... Taking a look at other UAPIs (like Panfrost),
+> I see that they use a s64 timeout_ns, which matches the ktime_t the
+> deadline is converted through. Contrary to that, AMD exposes a __u64 in
+> the UAPI and defines AMDGPU_TIMEOUT_INFINITE = 0xffffffffffffffffull in
+> libdrm. Therefore the check looks correct to me: it detects the values
+> above S64_MAX and maps them to an infinite wait.
 > 
-> The eviction fence sequence number is already bumped by every
-> successful rearm, so use it as the loop's progress condition: if a
-> completed flush of the restore worker did not move it then no rearm
-> happened and retrying cannot help.  Return -ENOMEM in that case and
-> let both callers report it to userspace.
+> Having said that, the comment is quite misleading. How about?
 > 
-> Fixes: a242a3e4b5be ("drm/amdgpu: simplify eviction fence suspend/resume")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+>       /* Map anything that doesn't fit in a s64 to an infinite wait */
+> 
+> To make it even clearer, we could use `if (timeout_ns > S64_MAX)`.
 
-Absolutely clear NAK!
+Yeah that is pretty much what I had in mind as well. That would be much better already.
 
-This functions needs to loop forever should the rearm worker fails to re-arm the fence.
+>> We need to make sure that when timeout_ns is larger than represent-able in long jiffies (especially on 32bit systems) then MAX_SCHEDULE_TIMEOUT is returned by drm_timeout_abs_to_jiffies().
+>>
+> 
+> Actually, what drm_timeout_abs_to_jiffies() does is clamp the
+> nsecs_to_jiffies64() return to MAX_SCHEDULE_TIMEOUT - 1, so that a
+> finite deadline is never turned into an infinite wait. So it is safe on
+> 32-bit, but it's not doing exactly what you described.
 
-The only thing which could potentially get out of that is to kill the process or maybe that the eviction fence is signaled with an error.
+Mhm, I'm not sure if that behavior is a good idea.
+
+IIRC MAX_SCHEDULE_TIMEOUT-1 is only ~50 days on 32bit systems, but that is way lower than the potentially requested time here. I mean we basically changing a wait of more than 250 years into a 50 days wait...
+
+Most likely not relevant in practice, but I would still say that returning an infinity wait for timeout_ns > S64_MAX is more defensive.
 
 Regards,
 Christian.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c       | 21 +++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h       |  4 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 10 +++++++++-
->  3 files changed, 30 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index bec107216811..208b53ae5bd1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -448,12 +448,16 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
->   * Ensures that a valid and not yet signaled eviction fence is attached to the
->   * usermode queue before any queue operations proceed. If it is signalled, then
->   * rearm a new eviction fence.
-> + *
-> + * Returns 0 with @uq_mgr->userq_mutex held, or -ENOMEM with the mutex released
-> + * when the restore worker could not rearm the fence.
->   */
-> -void
-> +int
->  amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
->  			     struct amdgpu_eviction_fence_mgr *evf_mgr)
->  {
->  	struct dma_fence *ev_fence;
-> +	int seq, prev_seq = -1;
->  
->  retry:
->  	/* Flush any pending resume work to create ev_fence */
-> @@ -463,7 +467,16 @@ amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
->  	ev_fence = amdgpu_evf_mgr_get_fence(evf_mgr);
->  	if (dma_fence_is_signaled(ev_fence)) {
->  		dma_fence_put(ev_fence);
-> +		seq = atomic_read(&evf_mgr->ev_fence_seq);
->  		mutex_unlock(&uq_mgr->userq_mutex);
-> +		/*
-> +		 * The sequence number is only bumped by a successful rearm, so
-> +		 * if the flush above ran the worker without moving it then the
-> +		 * restore failed and looping again would never terminate.
-> +		 */
-> +		if (seq == prev_seq)
-> +			return -ENOMEM;
-> +		prev_seq = seq;
->  		/*
->  		 * Looks like there was no pending resume work,
->  		 * add one now to create a valid eviction fence
-> @@ -472,6 +485,8 @@ amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
->  		goto retry;
->  	}
->  	dma_fence_put(ev_fence);
-> +
-> +	return 0;
->  }
->  
->  
-> @@ -747,7 +762,9 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->  	if (r)
->  		goto clean_mqd;
->  
-> -	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> +	r = amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> +	if (r)
-> +		goto erase_doorbell;
->  
->  	/* don't map the queue if scheduling is halted */
->  	if (!adev->userq_halt_for_enforce_isolation ||
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> index 6412a7f7b6ef..c35909bf7ceb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -164,8 +164,8 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
->  
->  void amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
->  
-> -void amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *userq_mgr,
-> -				  struct amdgpu_eviction_fence_mgr *evf_mgr);
-> +int amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *userq_mgr,
-> +				 struct amdgpu_eviction_fence_mgr *evf_mgr);
->  
->  u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev);
->  bool amdgpu_userq_enabled(struct drm_device *dev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index 7e80442ec3e5..1c287ce59736 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -523,7 +523,15 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->  		goto put_queue;
->  
->  	/* We are here means UQ is active, make sure the eviction fence is valid */
-> -	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> +	r = amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> +	if (r) {
-> +		/* The fence is not initialized yet, so unwind it by hand */
-> +		amdgpu_userq_fence_put_fence_drv_array(fence);
-> +		amdgpu_userq_fence_driver_put(fence->fence_drv);
-> +		kvfree(fence->fence_drv_array);
-> +		kfree(fence);
-> +		goto put_queue;
-> +	}
->  
->  	/* Create the new fence */
->  	amdgpu_userq_fence_init(queue, fence, wptr);
+> Best regards,
+> - Maíra
+> 
+>> And I hope that drm_timeout_abs_to_jiffies() does that correctly already, if not this seriously needs fixing anyway.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>   -    timeout = ktime_sub(ns_to_ktime(timeout_ns), ktime_get());
+>>> -    if (ktime_to_ns(timeout) < 0)
+>>> -        return 0;
+>>> -
+>>> -    timeout_jiffies = nsecs_to_jiffies(ktime_to_ns(timeout));
+>>> -    /*  clamp timeout to avoid unsigned-> signed overflow */
+>>> -    if (timeout_jiffies > MAX_SCHEDULE_TIMEOUT)
+>>> -        return MAX_SCHEDULE_TIMEOUT - 1;
+>>> -
+>>> -    return timeout_jiffies;
+>>> +    return drm_timeout_abs_to_jiffies(timeout_ns);
+>>>   }
+>>>     int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
+>>>
+>>
 > 
 
