@@ -4,76 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBA88C5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 07:48:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32E83C5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 08:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0CC410E1AA;
-	Mon, 10 Aug 2026 07:48:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35C7610E1E1;
+	Mon, 10 Aug 2026 08:05:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ViiVWbZH";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="LgzCGWYT";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 079A310E1AA
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 07:48:15 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hJRgv2Mm8zMlDr;
- Mon, 10 Aug 2026 09:48:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1786348091; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55DEC10E71F
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 08:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786349107;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wcfouqGkbtN6qbgtaKfsihWkqZ0FKvP4t7FAWyvgg3k=;
- b=ViiVWbZH8vUUunF8Vd0PWAu3HSRksIQ9wiOB+zo9xu3rhYOC84nlsH7di9G3hhbeYZxSP2
- WCl+f9V615ix5sjUwX+AnN6Y0A4Xe5jpj+DBVdbYXLn1OmrOWiudIyoTWSWY7tg9exUXap
- gVEPbTy+Yi4IB4GH1SKZQY4CgNeaM7vlh9om3T31EaSxe7Jz/i0XQb94Refz1BOCmbAGpe
- OZd7lUsn/Nikk9iUfybN8obV24vjLwq8OzWUuJ3BnRUXsreuqhyKXmzYFaWidBOtk4ewfj
- M2cG09kFLzRAg/3TFj4o2L/EE3ayEaFFUa9W6S85R5DyH8T50R5iXFox69UVsQ==
-Message-ID: <91325da652d7840509015c043c8cb7b4450a00f3.camel@mailbox.org>
-Subject: Re: [PATCH v9 0/5] rust / dma_buf: Add abstractions for dma_fence
-From: Philipp Stanner <phasta@mailbox.org>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Philipp Stanner
- <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Sumit Semwal	
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Lyude Paul <lyude@redhat.com>, "Paul E.
- McKenney"	 <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes
- <joelagnelf@nvidia.com>, Josh Triplett	 <josh@joshtriplett.org>, Uladzislau
- Rezki <urezki@gmail.com>, Steven Rostedt	 <rostedt@goodmis.org>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>,  Lai Jiangshan
- <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, Asahi Lina
- <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>, Lorenzo Stoakes
- <ljs@kernel.org>, FUJITA Tomonori	 <fujita.tomonori@gmail.com>, Eliot
- Courtney <ecourtney@nvidia.com>, Mirko Adzic	 <adzicmirko97@gmail.com>,
- Timur Tabi <ttabi@nvidia.com>, Daniel del Castillo	
- <delcastillodelarosadaniel@gmail.com>, Boris Brezillon	
- <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- rcu@vger.kernel.org
-Date: Mon, 10 Aug 2026 09:47:55 +0200
-In-Reply-To: <CANiq72nZ25wkxVHpz9GTA_m5E_vyBmRKdDSUNMsJAZ=6zk=zhw@mail.gmail.com>
-References: <20260805145949.938505-2-phasta@kernel.org>
- <CANiq72nZ25wkxVHpz9GTA_m5E_vyBmRKdDSUNMsJAZ=6zk=zhw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ bh=/+a+0U5GgUWNz5gXhQg+X0ag29Jj0knQnRmccGbHPwc=;
+ b=LgzCGWYTnAx4MCxnZ+3XiExT+6PsC403lR+ZYOkXy17wuGjBgi5THETewV8/kUftFLk17R
+ PSLO3v1Vem0L6AKPzRLPS1JuP4+188golcZnsscP/EMnWrryJ5JI85YcthvGJbuSTHaTrv
+ 1C33kmFqV17ElB0o+mThWEzsZnNi/C8=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-364-nxztM1ttMeC5K4sSg_ZusA-1; Mon, 10 Aug 2026 04:05:02 -0400
+X-MC-Unique: nxztM1ttMeC5K4sSg_ZusA-1
+X-Mimecast-MFC-AGG-ID: nxztM1ttMeC5K4sSg_ZusA_1786349101
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-47f83416551so1475683f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 01:05:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786349101; x=1786953901;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/+a+0U5GgUWNz5gXhQg+X0ag29Jj0knQnRmccGbHPwc=;
+ b=Bzrc40j6k1R4Slm120HYVoc7bjaiMsGwdRSEqyQ+eLFsslmsZDptnNFRIGRxZbZlNr
+ CGtKR9659+fUEaSk7QzqrUksQIsSqCFPDrDLqkKiBsuVWa/xLEo7msdu8h/nxcMppDkb
+ DjYnxHAFsKF9rdATwnhEoMQCO5SkmCOL44X6Za62hzRky96B3OQBV4iPBG9bv0lwtaGE
+ VAgZ1IaEBXVXUSZK2xj8yxvGtV602L+tReZCncfwCIt8exZRbxswdqnRAnMr4SZ04MG5
+ 7YgEemPolVlnth3SeGbBcWCpNKWplmQklMSgD3QOpU5hLI5vVJSM/LDniUte/mPPcbfU
+ tfQA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrkhaBhcDeYTsxWSh03Mw01kWVCqUaPoCwOiIujLnQhyEpJ/88SI3i4oX/EmwvXHpxiQkW3FW77bsg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YypMopMqJu5Tc2bAZdOmcFbIO48Mp7h++dAUYSX5j192Ux9ojW8
+ IhNNzU1D5vKx1JpdVPeYyJ18fTgtFgFkHFvuxFBF91m/KQPmWcK+Xhjy4dGBQgNffg6B46CLfWW
+ udgGwA4x2AbErjVigRBzOIfGx0qbA4hKLc8YetYwuJwGH4rFYSZU8yHizMW9/g0cyg721qw==
+X-Gm-Gg: AR+sD13cB5oZ//CSZRSZFEaiO78vwUZne3x7CM8152YsHlWHEbpmEmGRXwDga71jOJR
+ AhThLNtS/Rig9YzyHhOahjVn6rfbCPnhq9tttlPVwk245MrcvQNLY8n53NzW1yXR0FP2d34rjOZ
+ aKppjDvI1JAV1xYs1ViIW5I8URdrRG6nt1KhvRsbUNlOcdbvxhslJwWJG+BW54+AaOB4kAOo0Am
+ +nnIiaaXD5XoipPel7EfFxwaCDSjIbfzB0HaHBIP58jfz3aLSEItk1GNNAGk7cfs7us4Xmxk1r0
+ OlSFHRyjhVJC+i1BFYfoCEC29eLp7qLpxLXUsD6qLSmugYh56YwlsujbFhyvizJ6yo5eGBr0xYm
+ Wl32I4BUSzrRSbB6370OTIg==
+X-Received: by 2002:a05:6000:430a:b0:47f:71a6:970e with SMTP id
+ ffacd0b85a97d-47ffd203e5emr38268903f8f.2.1786349101180; 
+ Mon, 10 Aug 2026 01:05:01 -0700 (PDT)
+X-Received: by 2002:a05:6000:430a:b0:47f:71a6:970e with SMTP id
+ ffacd0b85a97d-47ffd203e5emr38268788f8f.2.1786349100617; 
+ Mon, 10 Aug 2026 01:05:00 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-39-98.inter.net.il. [80.230.39.98])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-480021e8b09sm35811136f8f.23.2026.08.10.01.04.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Aug 2026 01:05:00 -0700 (PDT)
+Date: Mon, 10 Aug 2026 04:04:55 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: "Graf (AWS), Alexander" <graf@amazon.de>
+Cc: Jason Wang <jasowangio@gmail.com>, Alex Williamson <alex@shazbot.org>,
+ David Airlie <airlied@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ Feng Liu <feliu@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Jens Axboe <axboe@kernel.dk>,
+ Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "nh-open-source@amazon.com" <nh-open-source@amazon.com>,
+ "nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Parav Pandit <parav@nvidia.com>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Yishai Hadas <yishaih@nvidia.com>
+Subject: Re: [RFC PATCH 00/12] virtio: support devices that own their
+ virtqueue memory
+Message-ID: <20260810035246-mutt-send-email-mst@kernel.org>
+References: <20260809182010.32931-1-graf@amazon.com>
+ <20260810021450-mutt-send-email-mst@kernel.org>
+ <c56fb4d0-33ef-4e9b-ac18-ac4e896957cd@amazon.com>
 MIME-Version: 1.0
-X-MBO-RS-META: e1q7rg1nfpbi93b8n3c9nfpegttm8ggb
-X-MBO-RS-ID: 32b232e1d19317e22c3
+In-Reply-To: <c56fb4d0-33ef-4e9b-ac18-ac4e896957cd@amazon.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: jcGuVjEAh5d8O2NdwugKxgn8KdX0GO7WiJAasqds27g_1786349101
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,45 +116,127 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-08-10 at 08:00 +0200, Miguel Ojeda wrote:
-> On Wed, Aug 5, 2026 at 5:01=E2=80=AFPM Philipp Stanner <phasta@kernel.org=
-> wrote:
-> >=20
-> > =C2=A0 rust: types: implement ForeignOwnable for ARef<T>
-> > =C2=A0 rust: sync: Add abstraction for rcu_barrier()
-> > =C2=A0 rust: error: add remaining error codes
->=20
-> Applied (these three) to `rust-next` -- thanks everyone!
->=20
-> Please note that your Signed-off-by is required when sending a patch
-> from someone else:
->=20
-> =C2=A0 https://docs.kernel.org/process/submitting-patches.html#sign-your-=
-work-the-developer-s-certificate-of-origin
->=20
-> I added it here on apply for you -- please let me know if that is not
-> what you intended!
+On Mon, Aug 10, 2026 at 07:39:02AM +0000, Graf (AWS), Alexander wrote:
+> Hey Michael,
+> 
+> Thanks a bunch for having a detailed and quick look!
+> 
+> On 10.08.26 08:23, Michael S. Tsirkin wrote:
+> > On Sun, Aug 09, 2026 at 06:19:58PM +0000, Alexander Graf wrote:
+> >> Virtio drivers use guest memory to back virtqueues and their buffers.
+> >> That means a VMM needs to be able to map guest memory. That is ok in the
+> >> normal virt case. It gets icky with confidential computing (where we use
+> >> swiotlb as workaround) and it defeats the purpose of isolated vhost-user
+> >> backing devices, because they end up with full RAM access to the guest.
+> >>
+> >> So instead, I'm proposing an extension to virtio which allows it to give
+> >> each virtio device its own dedicated memory region to communicate with the
+> >> host, called DMB (Device Memory Buffer). A trusted hypervisor can force
+> >> DMB to be present, which then enables safer, more isolated and resilient
+> >> communication between guest and host.
+> >>
+> >> With DMB, the device provides a shared memory region that both parties
+> >> agree is the full memory map both have access to. All memory offsets
+> >> that previously would have been into guest RAM, are then offsets into
+> >> this shared memory buffer region. One nice property of this is that it
+> >> is a generic mechanism in the virtio transport layer, so higher level
+> >> drivers work unmodified.
+> >>
+> >> I was exploring to use swiotlb instead to create individual pools. But
+> >> that approach has multiple downsides:
+> >>
+> >> 1. Swiotlb is an OS primitive which is not available in all Operating
+> >> Systems. DMB however lives in the virtio transport layer, which means we
+> >> can add support for it in any OS independent of generic layers. This
+> >> helps with Windows support.
+> >
+> > How does it help, if you are going to put a pool in
+> > the driver, put a pool in the driver. Maybe with virtio mem to
+> > simplify allocation.
+> 
+> 
+> I'm not sure I understand the suggestion :)
+> 
 
-No, fine by me, thank you for fixing it
 
-P.
+I'm not sure what the problem is for windows :)
 
->=20
-> =C2=A0=C2=A0=C2=A0 [ Formatted comments. Added the submitter's Signed-off=
--by tag. - Miguel ]
->=20
-> =C2=A0=C2=A0=C2=A0 [ Relaxed `'static` bound and added `#[inline]` as dis=
-cussed. Added
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 the submitter's Signed-off-by tag. - Migue=
-l ]
->=20
-> =C2=A0=C2=A0=C2=A0 [ Formatted documentation. Sorted tags. - Miguel ]
->=20
-> Thanks!
->=20
-> Cheers,
-> Miguel
+But if you want a chunk of contiguos memory that windows
+does not poke at without a driver, virtio mem is that :)
+
+> >
+> >> 2. We munge DMA space together. DMB provides a separate DMA space per
+> >> virtio device. This means we can for example implement a device in
+> >> vhost-user and give the implementing process only visibility to the DMB
+> >> region, not all of guest memory. That reduces the exposure the
+> >> vhost-user provider has, improving security.
+> >>
+> >> 3. Devices can opt-in. A hypervisor can choose to use standard virtio
+> >> semantics for self-implemented devices (e.g. NSM), while requiring DMB
+> >> for devices implemented by less trustworthy providers. The
+> >> non-trustworthy devices do not get any visibility into the trustworthy
+> >> ones, even with DMB in place for both.
+> >
+> > So I am not sure whether the implication is that it's purely a software
+> > construct. But if it is, can we extend virtio iommu to
+> > add a way to discover and enforce trust boundaries?
+> > And maybe translate offsets to BARs, if that is desired?
+> >
+> > It seems to be that the result would be that we don't need fiddly
+> > special casing in virtio ring specifically, and a lot of things like
+> > pre-mapped dma will begin to work.
+> 
+> 
+> On thing I'm trying to avoid is dynamicity. Anything that dynamically 
+> changes visibility or needs state tracking is something that can go 
+> wrong. By keeping everything self-contained within the guest, I can 
+> reason about what is visible and what is not easily. Especially for 
+> confidential computing, IMHO static wins over dynamic in general.
+> 
+> Or did I misunderstand your suggestion?
+
+
+I get this part. But we can absolutely make it static.
+
+
+Let's start by replicating your functionality with virtio-iommu.  So:
+
+-device is behind virtio-iommu
+-virtio-iommu tells guest "this device can only consume memory from that range,"
+-and maybe: ...and translation is 1:1 with this offset
+
+if guest does not acknowledge it will just fail?
+
+
+this covers the proposal here simply by using a dedicated range
+per device, right?
+
+
+
+But look what we can easily add later: share a range
+between devices, now you can move data between them with zero copies.
+
+
+Isn't that better?
+
+
+> As to pure software construct: With CXL, you can implement the exact 
+> same protocol on real hardware as well. All it takes is cache coherency 
+> of the BAR (or whatever the transport uses) region.
+> 
+> 
+> 
+> Alex
+
+Yes this is what I thought originally, that you intend to
+do it in hardware. But re-reading it, it begins to look like
+that's not really the case, it's only "theoretically possible"?
+
+
+
+-- 
+MST
+
