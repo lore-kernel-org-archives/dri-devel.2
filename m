@@ -4,93 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B06C5AD7B
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:24:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A6AC5AD7B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:25:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D944010E92E;
-	Mon, 10 Aug 2026 16:24:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA5D110E92F;
+	Mon, 10 Aug 2026 16:25:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="mROkK6kK";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="F72tFsCX";
 	dkim-atps=neutral
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2300910E92E
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 16:24:37 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-51c10e86e52so428501cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:24:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786379076; cv=none;
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5591710E930
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 16:25:29 +0000 (UTC)
+Received: by mail-qt1-f173.google.com with SMTP id
+ d75a77b69052e-51c15a5b265so441051cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:25:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786379128; cv=none;
  d=google.com; s=arc-20260327;
- b=ZQ9A/ID2OFEAFnAYYWwdpxqFDTZiTzKzVLrCUaaKLzdm4yiydQ/4JSNJcXeOL+FthQ
- IMm2SpPVjlq0/hmBv1VlYxQ67CBV/oyLJ+SEy1idoTwl4i/GTpbKAHstaQxCIngrN4J9
- i2kabZ5/iLLXc4ALhTQsqWfkTF2KxAKzyaSlqx2KT4DV6a9N/E6g6m5okbHAasE4RBkW
- M0YWFLUCh4eUtZIOlaR2gC5dFe60ZG0D8vwN3FyYxTF7KryrTxQEGghcsgkkXoMSGwBS
- a+Sld3zM2oXH84WDDWl1r58GejPsp0YHLJh4rodO9cOxreXGJiA/Dos3W1nP/vMjjfav
- ykjQ==
+ b=F+T3pLr3I9kE7EW3zv0qFetRS0IDv2LJaYWCmCLAjecukbIxRhRu/9gwtmNs7QnhEg
+ fuQoZXUn4AXq7B+l/HrbJk3ZpcNXBlKWqd0awmF/aHJjzGNBWX2B0wji8TboE04WwWZd
+ otY8OzXn1IT9RabB9FJwxynA1uDq9SPoDVM6T17q0vAQG1TMNxufYA+zn2IDyKKyecdq
+ Uzd0breEXXOrxJYp1Lg/kFB8iNVJTgFnvtLh/EcwzGN+RgUjWg/rZs7xm1nuvNDxUwJb
+ hegUVIsS8TQY5Cn9BmzIBbUmi1jptElB4G9CxcSc/SskHekIqS3oRykFABy6DoP1Aldu
+ LAEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=JnpU+yjthofc0zpgkM1QSjOc8GqltDckB0JeUB3rUkg=;
- fh=6oBL2Rk4QL5zc7ukDdvwEWtqssG+39QDB/a0WVU/wgk=;
- b=PStFOowRPz8TCtUfSetDY9fx0iXYSxnsraAAGN3C2rpxDSOcRKbUh3SO/VPi0jQ0mt
- xwFLQwLOkLhq7Z+BbKoJ1JBPIa54PxTkQDaigw81zZ/t6CN/2OWcGfctOb4RDYo64Z7Y
- YQhL9MEzZxQRBBUQfMqeeZhKa0tZt8K3cSCVfmEG5ne5Uavy6WfiaJpqtzVfYtb8x3o1
- kl9USnbIw3M0SyveZ3Bt7aXrl2Sln6hBhq7Mh21SI2inqedpzlTer/kuz/dPf1f6oDzz
- FVU2vvbpCliYYx15AjA6WcNWQDiixUugvkuXvZhsLUh7uKMNash0zD3DUCGpdBJOdPUI
- LB8w==; darn=lists.freedesktop.org
+ bh=oQBA7RZMWG8pbHKGdFOSfTUai8Qp0mhMLH3fVjxyT/A=;
+ fh=XQKegkgrB1la2uJNODh7O7UwcE2Rd9X5lV8EbaM/kFg=;
+ b=oTqgfVDLijST42qwM5TyPcZJ2mNRBjGQQQ3uPDEAfAV8q0tC3Jt9k5yVGsCQ39jIu3
+ wqgmf95PzS/7vFvnX2hiVd/CksnvfQWL34W73WBzUnqwXy8BYCqTNSVXCQ9nqxBeQvZz
+ yjzGFxN0EUt959mtcu/sXwhli57DvQ87JfCRwb55wR0HEIATUDbBVXMM6zQdXbypLW6y
+ DTYx5lt9Gt/BeGANwskkBkPbLhsehaGqKdLjvy4TpqiNYSD+EcGMyOCH+Ac9aFQxXKpO
+ 8F75TyBtZjFdwnx19OXLO6eNdkryOvJcXz0gebTBimvJ1usaxNFP1C9vuaXYtgyGTzsn
+ OKWQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1786379076; x=1786983876;
+ d=google.com; s=20251104; t=1786379128; x=1786983928;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=JnpU+yjthofc0zpgkM1QSjOc8GqltDckB0JeUB3rUkg=;
- b=mROkK6kK8x+h1OUf3qEAUhJDBCtlhFeVVf0JezT7wIyMJE4zsInWXn2TYKoaJ0c6CU
- acS8ZnWhvn9z5TxEmDeCpzVnClUlWusPJwkBR94uyAuq78qRZpU3ITmO86zUOdJpOrOu
- zFloGgtrFnC0F/qhuC2hzdoYNNCH4GSlILCP+ZW4PCszLyNhKtbjHHyRFZ2rI7k78EPN
- smNfa69qers52gTxh6yXkTcpLxTTvvHCIDRyzZu4SJ1NlZD6N9iX26J9q7SNKEZLWhXm
- beUn2XG0hLZoiqUKNnevjL7ZnZ9vPtw58lfinlSlajvQDkQFMKM2K70r6NyvWC8coTaL
- UWbw==
+ bh=oQBA7RZMWG8pbHKGdFOSfTUai8Qp0mhMLH3fVjxyT/A=;
+ b=F72tFsCX/2RkdvjRrH9aJf5SL7Uwk96wVOJBG8O0zpmab281Zjnr8aFarwlPDBMr7s
+ 63AyeQBym2AkmmErSpsORPH0VaC0Ahvco70iA3mJRRXTlDWgbX6d5JSM3lxmM5kt+KOC
+ op8O5F6aEGs29M8nMmMQ7Q426bgkPdxcSmu/u3nKvri4JIH1nCpFyJe3N02jZI6BTGyT
+ gNVGFgpDSOs65SAtMWQFE22NgqFWtAvpq+5vNFcC1vO6fAJCMjpOi9leqD2y5RypOlBM
+ qXyIA+Q+W87OmMSNKYD5aYpt6F/Mg/e4477iILTAO42gScjw3DS9cXl+DSRC5GHMbZv8
+ bjeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786379076; x=1786983876;
+ d=1e100.net; s=20251104; t=1786379128; x=1786983928;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=JnpU+yjthofc0zpgkM1QSjOc8GqltDckB0JeUB3rUkg=;
- b=Ot41gpNFCsrsk3TrMrjF3Aj1y3KVyVKVp5HG+p/RVgRhSGmAGFgRy9vS1eFNe9Qfro
- G2+17g4wzhIB/QJCLQ/XKAOiNuI21pnC2eIeluXa8zkvQK/tpBObs2CKcchxSbFUIkx6
- ACFiPCDefgBIb90pib8iMefrykqQAs1h1yZCwj/nAgfIidR4E8qEj2gvYxSvN5G5NgUx
- bx8zk9I64amuNoWrTmhLtL054lgfOyvi3zKf+uqfZxW+y72YoxD+tSKXUVXKEU/YZmAQ
- ixUBxsIR0T1NM8eT63FBgrRQFWt20zuk6pxlG9V1sp84KIswI1qNtnvmQJzuQYL1fbef
- yNbA==
+ bh=oQBA7RZMWG8pbHKGdFOSfTUai8Qp0mhMLH3fVjxyT/A=;
+ b=suzaOgWnMmsdH82V4qHKEKOH7w1ztQzF31NmRu5vUorcQLmZOVwfl1SaQMQVdDg4oP
+ Et7/y+8az6TaNRCB5FzUr09RsUnetI1f5mPwMnFv3AsXMNrxgI1jGICPW5d0Ub1lGhcS
+ Sej3J1BhW3oNjnktwDZkPLra0H1rLmhTwBKnCWlGJ6dcpB74EJJ04JvUNPOH/G7bF6Bj
+ fmnUQOJrUjjeEXjX/ENXAlHDjlqN38Q2ntr3q8LR4ldTKakoC/fmMwzhwFpIqLqA8wo6
+ lSYMbvVxkOgwQQvQp8qy25QPTrhHBgbtU2gCd0x1Z7sfNyiIiXEcO4IycQdOCLgr6Zz1
+ YvJA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoiAvM8mPSXi3F2kHgBnElZShT2QhlPwD1q3heiXreJ5NrsE3+3qwOgsMENYgnJkMka9qmiSvOPASY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCTPQJ10V7DGGi6BXbvmpJrn1BO25skIX4cefCb0Z8bDPyGm+Z
- fB9cfO7DcxOVb6vYkx0sGfv3cQs5dQgyYJqFu8b+6nluVxWarMqsPnOrWxcULwTRz09ASRPdNbu
- gVPU5CLDq+gOKkb2grs65mj95gUP+rE+ufAOZkUHd
-X-Gm-Gg: AR+sD12V2xi213eAIU4NQ5rf5boBrorYmcDlvT9H1klt9UxO5EsNeNk7oRyDPIZCReU
- AicEQRqlqPnGfA1qZj9vK04AzrcQS5pBZjR3o1H9HjiP0Z2u24Y7QFuUy5jAgRs/Pea9CeI3W2b
- qjjsgTFbqd/7FXmiUv7LX3+W0hmdcQ0EYsOIWpiCqyyxSSYQSyIoPjiOAkgdCeTHbMSNOEolxPu
- PoL1YpeW39UQoK/W+etSHvePjvp+6+3xHeagXE5dRmZq+2Z/g0c0mzWEYjBtxNq9cpGIZad+nOR
- JOb0xmBE0cRP+JF552unXdfkf9hGsQmU+yB8PEsRwe7ZxBvJRvAxcQ==
-X-Received: by 2002:a05:622a:2b0a:b0:519:b655:235 with SMTP id
- d75a77b69052e-52d2810222bmr38915311cf.3.1786379075203; Mon, 10 Aug 2026
- 09:24:35 -0700 (PDT)
+ AHgh+RrhXtxVbZhWIeRP/nCOvPyJRMBL19NMXn57beAEdXZ9eDivCxUIvQmEJj8gNQssC4+4VQQ7jOA+U2U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyHkBOvzmu91ZGFVhodLJuPvq6Uest5BlsVZKYvwsTky98m8DvU
+ NClaMLTy5MiLVy7mvGU5BqxSUSsfXq7qFOR5jVJv/VJZbnp5zi4FSDDjpjNo3ejwT3CPuW8Ix7x
+ Kikq8ddUrFKhtSyvP9WUktVfRUGaClQWxkb2wVYyO
+X-Gm-Gg: AR+sD12hF2KkL8IBNUbKyY/nQ7HRe4LA+EqvY4qxp2IzD/Ln+MBI965SjoOCQELL+Gc
+ KnwCoksoVkei8F+vCR4/SB1CIgW1DHG9lxGV7wMzKpdCQ2p3R/CCzUsCwISjYF4S5EPDqRTmu+9
+ TDYpIytthvWREPU3WRW6QCQ7bt1cDehKqfe/dXPtxa/4/R78slsGj4mZN8Ycn3bRPcHfIfE+rzA
+ Gjcz76/W7y1/XBTFg/OwsZlutuniI2niyM0PkRNP99kneUSETEe0eC3XNxFUeCkpn8n4pbv9hDl
+ VUu8kXucCtcmGR8y/kjZ278nl6AT8/KCljc+t2av0YI=
+X-Received: by 2002:a05:622a:1b06:b0:516:3f51:81cb with SMTP id
+ d75a77b69052e-52d2817b938mr34999921cf.13.1786379127554; Mon, 10 Aug 2026
+ 09:25:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-1-ab318a350404@kernel.org>
- <CAJuCfpFAA1H2pOi6EOarNtrdzLQDJyhm6QOGsfZ4SFTuM5eiLQ@mail.gmail.com>
- <anmLnvWAyIJwjsXj@lucifer>
-In-Reply-To: <anmLnvWAyIJwjsXj@lucifer>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-3-ab318a350404@kernel.org>
+ <CAJuCfpGjE66Duhw0r8H0GKBFDExjroRar6n5MgVOOQjz4ZfTuA@mail.gmail.com>
+ <anmNojqwGzdiLkIm@lucifer>
+In-Reply-To: <anmNojqwGzdiLkIm@lucifer>
 From: Suren Baghdasaryan <surenb@google.com>
-Date: Mon, 10 Aug 2026 09:24:23 -0700
-X-Gm-Features: AUfX_mykce6fbL166nHsURFiLv_kMzKY9gOukzdEiVHYnjVKW8Vop-MtXqL00bE
-Message-ID: <CAJuCfpGJuf3NOuPg4+7TaWhNOv5sN7WEY2awZOpDv1VV13J-DQ@mail.gmail.com>
-Subject: Re: [PATCH v4 01/20] mm/vma: introduce VMA anon page offset field and
- add helpers
+Date: Mon, 10 Aug 2026 09:25:16 -0700
+X-Gm-Features: AUfX_mz9WU1SPgoH6YTV3DTKwNKGMKFcURK6j4M8chTMyTH0jJu5GwZ0wv2wrtI
+Message-ID: <CAJuCfpHtaeeqn9UbnG1U0iA8uhrcQpEG8g8+G_RybVbwoOE0sA@mail.gmail.com>
+Subject: Re: [PATCH v4 03/20] mm: introduce linear_anon_page_index()
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
  David Hildenbrand <david@kernel.org>, 
@@ -168,70 +167,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 10, 2026 at 1:36=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+On Mon, Aug 10, 2026 at 1:40=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
 rg> wrote:
 >
-> On Sat, Aug 08, 2026 at 05:51:10PM -0700, Suren Baghdasaryan wrote:
-> > On Thu, Aug 6, 2026 at 1:22=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kerne=
+> On Sat, Aug 08, 2026 at 05:49:48PM -0700, Suren Baghdasaryan wrote:
+> > On Thu, Aug 6, 2026 at 1:23=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kerne=
 l.org> wrote:
-> > > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> > > index 87feaa5a2b78..df78847f5f07 100644
-> > > --- a/include/linux/mm.h
-> > > +++ b/include/linux/mm.h
-> > > @@ -4393,6 +4393,65 @@ static inline pgoff_t vma_last_pgoff(const str=
-uct vm_area_struct *vma)
-> > >         return vma_end_pgoff(vma) - 1;
-> > >  }
 > > >
-> > > +/**
-> > > + * vma_start_anon_pgoff() - Get the anonymous page offset of the sta=
-rt of @vma
-> > > + * @vma: The VMA whose anonymous page offset is required.
-> > > + *
-> > > + * If unfaulted, then this is vma->vm_start >> PAGE_SHIFT, if faulte=
-d then the
-> > > + * anonymous page offset at the time of first fault.
-> > > + *
-> > > + * If the VMA is anonymous, this returns the same value as vma_start=
-_pgoff().
-> > > + *
-> > > + * This value is used for tracking MAP_PRIVATE file-backed mappings =
-by their
-> > > + * anonymous page offset.
+> > > This function provides the anonymous equivalent of linear_page_index(=
+),
+> > > instead offsetting based on the anonymous page offset of the VMA.
+> > >
+> > > It is valid only for anonymous or MAP_PRIVATE file-backed mappings, i=
+n
+> > > other words CoW mappings.
+> > >
+> > > For pure anon VMAs, this will be equal to linear_page_index().
+> > >
+> > > Assert that both of these invariants are true In linear_anon_page_ind=
+ex()
 > >
-> > I assume this function should not be used with shared file-backed
-> > mappings, right? If so, maybe add a comment like the one you have for
-> > linear_anon_page_index(): "It is not valid to call this function for
-> > shared file-backed mappings."?
+> > s/In/in
 >
-> No that's not the case, it is valid to access this for any VMA though it'=
-s only
-> meaningful for MAP_PRIVATE and anonymous VMAs (though in the latter case =
-pgoff
-> =3D=3D anon pgoff).
+> Ack. I ran these patches through claude several times and it didn't get t=
+his ;)
+> the machines are not taking over just yet...
 >
-> The code keeps the anon pgoff values consistent even for shared mappings =
-because
-> - hey - we have the field anyway and it's easiest and safest to just keep=
- it the
-> same.
+> Andrew - could you change this in-place? Thanks!
 >
-> One alternative would be to have code that checks the flags and zeroes th=
-e field
-> otherwise , but then you have problems like - early on initialisation now
-> there's an ordering requirement which can easily go wrong.
+> > > diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> > > index c6fc783aaee5..0adfa6605653 100644
+> > > --- a/include/linux/pagemap.h
+> > > +++ b/include/linux/pagemap.h
+> > > @@ -1094,10 +1094,44 @@ static inline pgoff_t linear_page_delta(const=
+ struct vm_area_struct *vma,
+> > >  static inline pgoff_t linear_page_index(const struct vm_area_struct =
+*vma,
+> > >                                         const unsigned long address)
+> > >  {
+> > > -       pgoff_t pgoff;
+> > > +       return linear_page_delta(vma, address) + vma_start_pgoff(vma)=
+;
+> > > +}
+> > > +
+> > > +static inline pgoff_t __linear_anon_page_index(const struct vm_area_=
+struct *vma,
+> > > +               const unsigned long address)
+> > > +{
+> > > +       return linear_page_delta(vma, address) + vma_start_anon_pgoff=
+(vma);
+> > > +}
+> > > +
+> > > +/**
+> > > + * linear_anon_page_index() - Determine the absolute anonymous page =
+offset of
+> > > + * @address within @vma.
+> > > + * @vma: An anonymous or MAP_PRIVATE file-backed VMA in which @addre=
+ss resides.
+> > > + * @address: The address whose absolute page offset is required.
+> > > + *
+> > > + * This returns the anonymous page offset of @address, which is the =
+page offset
+> > > + * the address possessed at the time the VMA was first faulted.
+> > > + *
+> > > + * For anonymous mappings, this returns the same value as linear_pag=
+e_index().
+> > > + *
+> > > + * For MAP_PRIVATE file-backed mappings, this returns the anonymous =
+page offset
+> > > + * of @address, which is the page offset the address possessed at th=
+e time the
+> > > + * VMA was first faulted.
+> > > + *
+> > > + * It is not valid to call this function for shared file-backed mapp=
+ings.
+> > > + *
+> > > + * Returns: The absolute anonymous page offset of @address within @v=
+ma.
+> > > + */
+> > > +static inline pgoff_t linear_anon_page_index(const struct vm_area_st=
+ruct *vma,
+> > > +               const unsigned long address)
+> > > +{
+> > > +       const pgoff_t pgoff =3D __linear_anon_page_index(vma, address=
+);
+> > > +
+> > > +       VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
+> >
+> > As discussed off the list, this assertion works even for read-only
+> > anon mappings because, as you said, "there's no such thing as a pure
+> > anon mapping that is !VMA_MAYWRITE_BIT, there is no way to achieve
+> > that."
+> > It took me some time to see that after reading your discussion with
+> > David at [1] and [2], and I don't think it's very intuitive. Could you
+> > please add a comment explaining that? Maybe add a comment at
+> > vma_is_cow_mapping() definition since you are using the same assertion
+> > in another patch of this series?
 >
-> Another alternative is to just leave it stale, but then that seems object=
-ively
-> worse and again requires branching code on update and set.
+> Sure will do! It is very confusing stuff (and I was duly confused also at
+> first).
 >
-> All-in-all it's easier to keep this working the same for any type of mapp=
-ing,
-> it's just useless to do anything with the anon pgoff for a shared mapping=
- :)
+> To save a respin (unless there's more stuff I need to address) I will pro=
+bably
+> reply to the relevant patch with a proposed new comment.
 
-Makes sense. Thanks for the explanation!
+Sounds good!
 
+>
+> >
+> > [1] https://lore.kernel.org/linux-mm/anBjpdMicqaGADr-@lucifer/
+> > [2] https://lore.kernel.org/linux-mm/anLyhaI6kW-EWk13@lucifer/
 >
 > --
 > Cheers, Lorenzo
