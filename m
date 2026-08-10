@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7829DC5B56A
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 17:18:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00FDEC5AD7B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 17:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF1F810E209;
-	Mon, 10 Aug 2026 17:18:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 519FA10E21C;
+	Mon, 10 Aug 2026 17:26:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XhUVJHeB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eY4Xy+mm";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF3B810E209
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 17:18:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A916C10E21C
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 17:26:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E3661600C8;
- Mon, 10 Aug 2026 17:18:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 364721F000E9;
- Mon, 10 Aug 2026 17:18:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 583BB41AD2;
+ Mon, 10 Aug 2026 17:26:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10DD11F000E9;
+ Mon, 10 Aug 2026 17:26:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786382299;
- bh=zgCJLzK2j5t+ZIMpgHwnjV0dS4vtc5LLT70QuK3a3g0=;
+ s=k20260515; t=1786382791;
+ bh=VxkZ45hYJB8egn2bO4BYkMamxawoHV0L9E2rc428CU4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XhUVJHeBADd/lPKjeoaPzW1kLGBwqe6C7cyczjUH4u68QE0dyLtSZ57xZ+wSydCvn
- OzChUazPAS6rc9uORugjFXq8IBZSPDHvHWZUs9vBhz/Vx5z/xVOppHU6rfEfFboTuc
- T/vahH8A0OsauI7G0AYupfzyOR63Q/nD4VG0QovE1Y3MxRLg7rxFd9/xvhINvA0a4h
- rvz6DyBIK9N/HuitqC6yFEy7kJqbcvtn+ovWy6UPKt3QDPdNvTDAMqM3W+Qkex/Fkz
- sHJBRatEcMYsqobjQsf97Hr/Gppc7p4arLYcTcSzcSPHgljKrVoPsp85gD8lSlcw20
- 5bQ4G2VN/HI0g==
+ b=eY4Xy+mmLmwy/xisMD7U1PVsU8uxXZqN3YM7yi6QZ6HNmcpFfOR+a7TPl5DiS4anV
+ 8GDoK2J7liMUmO5TRP912vFbQy8XJdcJmuvDPvhEPZoGqEikY3EMFz9ldDNiREF0Gs
+ jmb1jQPh2qoMD2KNiHFHX8gZfWSOPD/l4ZOdRG5cSImeRkIy/HFrvxU7vqTW4YOSCK
+ xstm50Ao1mdsMrNvLthF2oWTNGvaBcqmQbERnpP8kLR1MPuCEFSc/pWDUnHF9YxWcQ
+ cllHj9OgYh+j3KmzghFBFlhDueOuYom13ZQBIfuaQi26pDplSoo9XLFZpkVYW2VslA
+ EWZ+4uFU/DvOg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/3] drm/amdgpu: skip amdgpu_gmc_flush_gpu_tlb_pasid
- if device is wedged
+Subject: Re: [PATCH v1 2/3] drm/amdgpu: skip amdgpu_gart_unbind if the
+ device is wedged
 To: "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260810165322.24682-3-pierre-eric.pelloux-prayer@amd.com>
+In-Reply-To: <20260810165322.24682-2-pierre-eric.pelloux-prayer@amd.com>
 References: <20260810165322.24682-1-pierre-eric.pelloux-prayer@amd.com>
- <20260810165322.24682-3-pierre-eric.pelloux-prayer@amd.com>
+ <20260810165322.24682-2-pierre-eric.pelloux-prayer@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 17:18:17 +0000
-Message-Id: <20260810171819.364721F000E9@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 17:26:30 +0000
+Message-Id: <20260810172631.10DD11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,68 +60,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Pre-existing deadlock risk: `amdgpu_gmc_flush_gpu_tlb_pasid()` use=
-s plain `spin_lock()` for `ring_lock` while KIQ accessor functions use `spi=
-n_lock_irqsave()` and run in hardirq context.
+- [Critical] Skipping `amdgpu_gart_unbind` when the device is wedged leaves=
+ GART PTEs pointing to freed system memory, enabling runaway DMA corruption.
 --
 
---- Patch [3]: [PATCH v1 3/3] drm/amdgpu: skip amdgpu_gmc_flush_gpu_tlb_pas=
-id if device is wedged ---
-commit 24e4f92f6cbb016df09e7fbd1d0ec02c367162a1
+--- Patch [2]: [PATCH v1 2/3] drm/amdgpu: skip amdgpu_gart_unbind if the de=
+vice is wedged ---
+commit 6802482fc9c63b1193bceee62eda365971bd0506
 Author: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-drm/amdgpu: skip amdgpu_gmc_flush_gpu_tlb_pasid if device is wedged
+drm/amdgpu: skip amdgpu_gart_unbind if the device is wedged
 
-This commit skips the GPU TLB flush for a specific pasid when the device
-is wedged. This avoids failing to wait for the register write, which could
-fill the MES buffer and prevent a reset from succeeding.
+This commit modifies amdgpu_gart_unbind() to return early if the device is
+wedged. This avoids unbinding GART pages during a wedged state.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.c
-> index f43d85ba4b78b..c33320a6413e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -786,6 +786,9 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_devi=
-ce *adev, uint16_t pasid,
->  	int r, cnt =3D 0;
->  	uint32_t seq;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_gart.c
+> index c4c21dbbbdbf8..09ddfccb81743 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> @@ -315,7 +315,7 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, u=
+int64_t offset,
+>  	uint64_t flags =3D 0;
+>  	int idx;
 > =20
-> +	if (amdgpu_device_is_wedged(adev))
-> +		return -ENODEV;
-> +
->  	/*
->  	 * A GPU reset should flush all TLBs anyway, so no need to do
->  	 * this while one is ongoing.
+> -	if (!adev->gart.ptr)
+> +	if (!adev->gart.ptr || amdgpu_device_is_wedged(adev))
+>  		return;
 
-[ ... ]
+[Severity: Critical]
+Does skipping this unbind leave GART PTEs pointing to freed system memory in
+amdgpu_gart_unbind()?
 
->  	} else {
->  		/* 2 dwords flush + 8 dwords fence */
->  		ndw =3D kiq->pmf->invalidate_tlbs_size + 8;
->=20
->  		if (adev->gmc.flush_tlb_needs_extra_type_2)
->  			ndw +=3D kiq->pmf->invalidate_tlbs_size;
->=20
->  		if (adev->gmc.flush_tlb_needs_extra_type_0)
->  			ndw +=3D kiq->pmf->invalidate_tlbs_size;
->=20
->  		spin_lock(&adev->gfx.kiq[inst].ring_lock);
+When the GPU is wedged, the driver explicitly skips resetting the GPU but
+signals all pending fences to unblock the system. TTM responds to these
+signaled fences by freeing the backing memory of the completed or killed
+jobs, returning the physical pages to the OS.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed that
-amdgpu_gmc_flush_gpu_tlb_pasid() acquires the KIQ ring_lock using plain
-spin_lock() here, while other KIQ accessor functions like amdgpu_kiq_wreg()
-acquire it with spin_lock_irqsave() because they can run in hardirq context.
+Because this new code returns early, it skips updating the GART PTEs to the
+safe dummy_page_addr. If a userspace application hangs the GPU (e.g. an
+infinite loop with memory writes), the application exits, and its memory is
+reallocated to other processes or the kernel.
 
-If a hardware interrupt occurs on the same CPU while this lock is held,
-could an interrupt handler attempting to read or write a register using KIQ
-(such as via WREG32 on an SR-IOV guest) deadlock when trying to acquire the
-same ring_lock?
+Could the hung GPU, which is deliberately left powered on and electrically
+active by the wedge state, continue performing DMA writes through the stale
+GART PTEs? This appears it would corrupt the newly allocated system memory,
+causing silent corruption on systems where the IOMMU is disabled or running
+in passthrough mode.
 
-Does this lock acquisition need to be changed to spin_lock_irqsave()?
+> =20
+>  	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+>  		return;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810165322.2468=
-2-1-pierre-eric.pelloux-prayer@amd.com?part=3D3
+2-1-pierre-eric.pelloux-prayer@amd.com?part=3D2
