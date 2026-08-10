@@ -4,89 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 109E1C5AD55
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 12:33:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A698C5AD7B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 12:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE2FE10E1EC;
-	Mon, 10 Aug 2026 12:33:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 010EA10E800;
+	Mon, 10 Aug 2026 12:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="RPJbl+Ze";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="ZxFDaqfH";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0E6E10E1EC;
- Mon, 10 Aug 2026 12:33:14 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67A9RiM72030388; Mon, 10 Aug 2026 13:33:03 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=oUZvCmtOXPOypLF3e3z6uVU
- HjYcLuXvafk1VGuEVzNM=; b=RPJbl+ZepfTr4cqSLKCch9xffsNyRkQic1rllEw
- m3mZwisvWTDLIxS9HQkahrYsfhBINvy1oy/NjAPIKoWbqPWlRIInhdBePJS2NLQt
- o6gDTyrp34XaoHYhZtEjwOa8tWBtSWMcs29DJQRP1JE08pH4kl6vvPVvNW4sgJSg
- pgag2xOmoftUoZ0y+oZP31BzL6Odny4CUBar3D6zN+2I0g0osbTsQfvw97s3cE1m
- yqjCGJ3LAiYBfUpcBBgDTBW4ynwqNFmCl6/abv6aWrdZiK5beotNCUvX4aueMvsA
- D923IxTn+3AMMqurGGaZYR2s2AxE8MqsR+ZY5ez1K42ZCBg==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fwvhtsp6q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Aug 2026 13:33:03 +0100 (BST)
-Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
- 2026 13:31:42 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Mon, 10 Aug 2026 15:31:26 +0300
-Subject: [PATCH] drm/imagination: Manage FW VM context from its init and
- fini callbacks
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B706510E800
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 12:39:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=RY/1wmCxCIFM0LLRBnTLXmBpxbfVg0FeVcj6W7X9LH0=; t=1786365595; x=1787575195; 
+ b=ZxFDaqfHUWso+x87bZKPCkNiinXFySvHQx8T6+I6Hoy5DOWeGMHoAzReaZJOFzK/NgikUPkK1/f
+ eNVI36CIvCqrnvX5mwMq2Dn54QlQu9CsEgJOrgM++3KQ0WFjkUHhVY4ofqbzcLc+SL+WvHFuG6yv/
+ 3BqszX+lKmgTa2qx/CkSI4h4o58G1uZ8FJFwYb3uvzn56ayLGRHnD09hHXYvHGBM5QDYEzv4tuQEO
+ FfYRRK5iFY6zYGpMUFwXE+2JaWY4RS6ZQBqNVvum3fhp5/mkB4n+uovU1ikjq8l0rOjtP/O9Iw+wv
+ yM3Et0arJlz0lDoeN7RTk4ZgOJD+Io/cfVGA==;
+Date: Mon, 10 Aug 2026 14:39:14 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Daniel Thompson <danielt@kernel.org>, Grond <grond66@riseup.net>, Stefan
+ Leichter <sle85276@gmx.de>, Grazvydas Ignotas <notasas@gmail.com>, Tony
+ Lindgren <tony@atomide.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Lee Jones <lee@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Jingoo Han <jingoohan1@gmail.com>, Helge Deller
+ <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Sen Wang <sen@ti.com>, Richard Fitzgerald
+ <rf@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>, Srinivas
+ Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Kuninori Morimoto
+ <kuninori.morimoto.gx@renesas.com>, Charles Keepax
+ <ckeepax@opensource.cirrus.com>, Niranjan H Y <niranjan.hy@ti.com>,
+ letux-kernel@openphoenux.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ kernel@pyra-handheld.com, mfd@lists.linux.dev
+Subject: Re: [PATCH 15/16] backlight: remove pandora_bl
+Message-ID: <20260810143914.64d29a5c@kemnade.info>
+In-Reply-To: <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
+ <anmpiADsvzW39DNx@aspen.lan>
+ <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-v1-1-2c6229e36e5e@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAJ7EeWoC/yWNQQrCMBBFr1Jm7UBStKhXERfpZKIjZFKStBZK7
- 27U3X/weW+Dwlm4wLXbIPMiRZI2sIcO6On0wSi+MfSmH8zZGhyPOE+lZnYRo1PXHuGNS0RKWnm
- tGHKKKCoVnXoMbaG9nMh7Y4kGA808ZQ6y/qq3+5/LPL6Y6jcF+/4BmMNSvpcAAAA=
-X-Change-ID: 20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-195cdd01cc60
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Paul Walmsley <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- "Alexandru Dadu" <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786365102; l=5570;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=C2e+L340zP0q8i9wzAJkeQrcy6Gd0cpDPGEkKEQ+voQ=;
- b=Ga+hVoe749netVN9cG8oN2rN8vAlMn+1bt33qc6fPJ1aqIDvju5uzQ2PcdczaI/otM02LC5av
- 5um01RVox6tAJ8wV0+VD0Giv0L4b9wYOZmpCtAOP5YToNphweDY5mVM
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Originating-IP: [172.25.10.25]
-X-Proofpoint-GUID: lxQVhyrlLz8IxJG28pus3U--AZAQT0Ar
-X-Proofpoint-ORIG-GUID: lxQVhyrlLz8IxJG28pus3U--AZAQT0Ar
-X-Authority-Analysis: v=2.4 cv=Xt7K/1F9 c=1 sm=1 tr=0 ts=6a79c4ff cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=Ubvqm-L7-7mULy6RTAoA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEwNyBTYWx0ZWRfX1nJxi8ctN4+s
- RuRTFaJAcYuVJj/ktsIpIoRwl6ODAK+ZoYKqaqHR1EQ+iujxqHpb7x/1JGS0zggTsxptSga3Nlr
- PbQz/jYk8qh6xOHkOsi8WhIc25/F0H2pjRmwV0X6TAHoX6rWrgxCGmESDHbCVcEaXmtdRjqpBpQ
- JfAjcyrjq8S2gdtuYfOWlSzcA0Dilyao5QaUKeYQ5GMjag0kG4TC053NGee3nBn0yn27uiq7MHE
- ekufE+lh8LBmhlpVz4GQgqOIUwqwgAEHsX2KWKBJoAo2EH9AuQjG+8dokhd9BIrBxXkTedZ0zQo
- +8eloZlrrWEXkDm1UgQZByBSt7LfirxHyqtuDrCqpZwCqKya886yh4tofCPyzZf5OXEcrpCKLy2
- UD5SpowjXYUtKbe8wULumt2OSwevcJcPqDUqCGNd4NaCdMyOyQnnKYmVqc7pXTS01LQAQvm7aJu
- gUSc1btwjWoWnh3ePRA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEwNyBTYWx0ZWRfXztPIyC+fMSOw
- 76xapPmqGKbfmbFl80Ir1xXwztDuKwjaYI0oSMcwgGYfNm/b2aQzb51coSz0XNduOOlq2M4xcJA
- e4Vilkai+rbVvyvoYc+wJyph90FR3VU=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,179 +74,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+On Mon, 10 Aug 2026 12:45:16 +0200
+"H. Nikolaus Schaller" <hns@goldelico.com> wrote:
 
-While the MIPS firmware virtual memory context is created and destroyed
-from within the MIPS firmware init and fini callbacks, the META and
-RISC-V firmware contexts are created and destroyed from within blocks
-right before or after those callbacks.
+> Hi Daniel,
+> 
+> > Am 10.08.2026 um 12:35 schrieb Daniel Thompson <danielt@kernel.org>:
+> > 
+> > On Sat, Jul 11, 2026 at 08:02:02AM +0200, H. Nikolaus Schaller wrote:  
+> >> Retire the platform specific pandora backlight driver since
+> >> it can now be replaced by twl_pm and device tree.
+> >> 
+> >> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>  
+> > 
+> > Yay!
+> > 
+> > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>  
+> 
+> Well, there were some good comments by Sahiko to the prerequisites of this patch,
+> because it has one speciality the PWM BL driver does not handle (avoid
+> interpretation of PWM signals as W1 protocol).
+> 
+> I haven't found time to work on this, so we can't remove this yet.
+> 
+> In the end it may either remain a pandora_bl driver (converted to DT)
+> or become a patch for something else.
+> 
+But then it is a TPS61161 on top of PWM, not a pandora driver.
+And then there might be just a quirk for that chip in the pwm_bl using
+triggered by a compatible. I guess the quirk is this:
 
-Match the logic for all firmware processors by moving those blocks to
-the META and RISC-V init and fini callbacks.
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
----
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_device.c   | 25 +------------------------
- drivers/gpu/drm/imagination/pvr_fw.c       |  6 ++----
- drivers/gpu/drm/imagination/pvr_fw.h       |  2 +-
- drivers/gpu/drm/imagination/pvr_fw_meta.c  | 12 ++++++++++++
- drivers/gpu/drm/imagination/pvr_fw_riscv.c | 12 ++++++++++++
- 5 files changed, 28 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
-index 54fe4180c73c..35eaa54f75ed 100644
---- a/drivers/gpu/drm/imagination/pvr_device.c
-+++ b/drivers/gpu/drm/imagination/pvr_device.c
-@@ -697,25 +697,7 @@ pvr_device_gpu_init(struct pvr_device *pvr_dev)
- 	if (err)
- 		return err;
- 
--	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
--		pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
--		if (IS_ERR(pvr_dev->kernel_vm_ctx))
--			return PTR_ERR(pvr_dev->kernel_vm_ctx);
+if (priv->old_state == PANDORABL_WAS_OFF) {
+-		/*
+-		 * set PWM duty cycle to max. TPS61161 seems to use this
+-		 * to calibrate it's PWM sensitivity when it starts.
+-		 */
+-		twl_i2c_write_u8(TWL_MODULE_PWM, MAX_VALUE, TWL_PWM0_OFF);
+-
+-		/* first enable clock, then PWM0 out */
+-		twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_GPBR1);
+-		r &= ~PWM0_ENABLE;
+-		r |= PWM0_CLK_ENABLE;
+-		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
+-		r |= PWM0_ENABLE;
+-		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
+-
+-		/*
+-		 * TI made it very easy to enable digital control, so easy that
+-		 * it often triggers unintentionally and disabes PWM control,
+-		 * so wait until 1 wire mode detection window ends.
+-		 */
+-		usleep_range(2000, 10000);
 -	}
--
--	err = pvr_fw_init(pvr_dev);
--	if (err)
--		goto err_vm_ctx_put;
--
--	return 0;
--
--err_vm_ctx_put:
--	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
--		pvr_vm_context_put(pvr_dev->kernel_vm_ctx);
--		pvr_dev->kernel_vm_ctx = NULL;
--	}
--
--	return err;
-+	return pvr_fw_init(pvr_dev);
- }
- 
- /**
-@@ -726,11 +708,6 @@ static void
- pvr_device_gpu_fini(struct pvr_device *pvr_dev)
- {
- 	pvr_fw_fini(pvr_dev);
--
--	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
--		WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
--		pvr_dev->kernel_vm_ctx = NULL;
--	}
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index 850a3ec8e775..58ee51cd65df 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -1029,8 +1029,7 @@ pvr_fw_init(struct pvr_device *pvr_dev)
- err_mm_takedown:
- 	drm_mm_takedown(&fw_dev->fw_mm);
- 
--	if (fw_dev->defs->fini)
--		fw_dev->defs->fini(pvr_dev);
-+	fw_dev->defs->fini(pvr_dev);
- 
- 	return err;
- }
-@@ -1063,8 +1062,7 @@ pvr_fw_fini(struct pvr_device *pvr_dev)
- 
- 	drm_mm_takedown(&fw_dev->fw_mm);
- 
--	if (fw_dev->defs->fini)
--		fw_dev->defs->fini(pvr_dev);
-+	fw_dev->defs->fini(pvr_dev);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 3390c84e4fd3..4b25291135b6 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -86,7 +86,7 @@ struct pvr_fw_defs {
- 	 * FW processor specific finalisation.
- 	 * @pvr_dev: Target PowerVR device.
- 	 *
--	 * This function is optional.
-+	 * This function is mandatory.
- 	 */
- 	void (*fini)(struct pvr_device *pvr_dev);
- 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-index 9ff03bc60a08..6c5dc711e81e 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-@@ -500,9 +500,20 @@ pvr_meta_init(struct pvr_device *pvr_dev)
- {
- 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_META_SHIFT, 0);
- 
-+	pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
-+	if (IS_ERR(pvr_dev->kernel_vm_ctx))
-+		return PTR_ERR(pvr_dev->kernel_vm_ctx);
-+
- 	return 0;
- }
- 
-+static void
-+pvr_meta_fini(struct pvr_device *pvr_dev)
-+{
-+	WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
-+	pvr_dev->kernel_vm_ctx = NULL;
-+}
-+
- static u32
- pvr_meta_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
- {
-@@ -550,6 +561,7 @@ pvr_meta_irq_clear(struct pvr_device *pvr_dev)
- 
- const struct pvr_fw_defs pvr_fw_defs_meta = {
- 	.init = pvr_meta_init,
-+	.fini = pvr_meta_fini,
- 	.fw_process = pvr_meta_fw_process,
- 	.vm_map = pvr_meta_vm_map,
- 	.vm_unmap = pvr_meta_vm_unmap,
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-index fc13d483be9a..58bacc522e72 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-@@ -103,9 +103,20 @@ pvr_riscv_init(struct pvr_device *pvr_dev)
- {
- 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_RISCV_SHIFT, 0);
- 
-+	pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
-+	if (IS_ERR(pvr_dev->kernel_vm_ctx))
-+		return PTR_ERR(pvr_dev->kernel_vm_ctx);
-+
- 	return 0;
- }
- 
-+static void
-+pvr_riscv_fini(struct pvr_device *pvr_dev)
-+{
-+	WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
-+	pvr_dev->kernel_vm_ctx = NULL;
-+}
-+
- static u32
- pvr_riscv_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
- {
-@@ -154,6 +165,7 @@ pvr_riscv_irq_clear(struct pvr_device *pvr_dev)
- 
- const struct pvr_fw_defs pvr_fw_defs_riscv = {
- 	.init = pvr_riscv_init,
-+	.fini = pvr_riscv_fini,
- 	.fw_process = pvr_riscv_fw_process,
- 	.vm_map = pvr_riscv_vm_map,
- 	.vm_unmap = pvr_riscv_vm_unmap,
 
----
-base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
-change-id: 20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-195cdd01cc60
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
-
+Regards,
+Andreas
