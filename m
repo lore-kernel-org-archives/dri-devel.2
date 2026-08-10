@@ -4,63 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7730C5AD55
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 11:20:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA0FC5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 11:21:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 505D810E7D0;
-	Mon, 10 Aug 2026 11:20:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63FA610E7C4;
+	Mon, 10 Aug 2026 11:21:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hJzav1G1";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Cttdo2sT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61A4710E7D0;
- Mon, 10 Aug 2026 11:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786360838; x=1817896838;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=z4xDF+9bp9QQvbFU55qOoRrC0n6y39VOJSTNB6rBof4=;
- b=hJzav1G1vy6LfBEbd0gmzECmoGKzQby9vltx1pykJmI+6SgkJk4UpLmZ
- /d2iXRC6l84MZwMbPKcNWejuuXT5Gu11zKwpzxzkw5kU9TCr+1qcANrjH
- XemxtDD3C3NkJToheli8z4cSiMRG8Dc+XVBTndidu3/maZTq3iFbl92gZ
- K9kHaLFkL06KRdNsV5s4Ngp7YQQ9mQGQLSobHM2Dg9FNq2WLVEjhPLEGq
- 7rl+WzuFTfXBxoxOEPLX31GDprOy6tuLrGmza5G73ON2r5lFt/q6KL72+
- +JRsX+CWuE/idofmx9/cST7jZ1AkKA67AUeDDdhMTs/Z3tnLGtrBk6lf9 A==;
-X-CSE-ConnectionGUID: 3BItyMOkRLezkQTmgEeaHw==
-X-CSE-MsgGUID: eZAQiLAQRPSlSbdHyEq6eQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="97220946"
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="97220946"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 04:20:38 -0700
-X-CSE-ConnectionGUID: HEWE1GgCQJS1yC127j2rpw==
-X-CSE-MsgGUID: YVPxZ02fS+uGJSGocq0z7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="264998325"
-Received: from rtauro-desk.iind.intel.com ([10.190.238.50])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 04:20:33 -0700
-From: Riana Tauro <riana.tauro@intel.com>
-To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org
-Cc: aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, kuba@kernel.org,
- simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
- joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
- shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
- raag.jadav@intel.com, maarten.lankhorst@linux.intel.com,
- mallesh.koujalagi@intel.com, soham.purkait@intel.com,
- Riana Tauro <riana.tauro@intel.com>
-Subject: [PATCH v7 2/2] drm/xe/xe_ras: Report correctable/uncorrectable error
- events to userspace
-Date: Mon, 10 Aug 2026 16:50:11 +0530
-Message-ID: <20260810112008.1858731-6-riana.tauro@intel.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20260810112008.1858731-4-riana.tauro@intel.com>
-References: <20260810112008.1858731-4-riana.tauro@intel.com>
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020139.outbound.protection.outlook.com [52.101.195.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFE6910E7F3
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 11:21:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Off2ILzdTIrNBpsW8B86VbBSqcKwlTHEl7phueu5JBPkw72QUB4Uzsrj66v4JlFw8tnK/N4S8KaK+CK+w13mBaCfd7QrAusA3zsVmCOQII70NV6FLyN5QzJnKTg9mbu6c0cnmAkzU1xv8IbKQcw/cnzOpNY9HQ4q7UNOmRbmIOZ23epxTtc179xjXM7MezIdKN36UxuspbM4K1RcxZMnJijywgM15KHznABY0NauMXCvF2IDPqj9x2bYQhw5tF1TuxWEsbBJhrAhyTy+mfzdhbv4fbrdfCNVK0CzxRIrCvZMVgNju8kXMVUq3P4wTaMbXyRCnYqF4YXHlvaBZmDcgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dt0/8c5S3U5GQtrTBhUZp6Emr5f92yZPhPC+zVxfY3I=;
+ b=ZHpLvC1QM2ZK40C6/5skVZjEJuLKluNNR6SAQHxcLAhBd5y8tBnBYFw45xAWUwkSQb/R3QX7WkSb2/uN0Jvw7eb78HpJ/sfCwO6BA0nMDZhOWsGwuZ4SpPlNfHV463/G0aiydWFjtPXQwQViz0X1R40w7Pz/uxJXy0MMpje6BJaH8Q5EUesP/CAQxFKO9NI2ayJJ7NFJeCz7m9j+Osgm4nZRNhHViw8dJHeZgAXCmXnPLK5nuuxyhZucsweKi82eV+2SaoUsc/f/d2tKYZVuXrCyuvLugTmXiaYnv5j3BvAuRRCMNc5KSND1MQIsPqbqBlJCHurtf0remR1tFlCA+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dt0/8c5S3U5GQtrTBhUZp6Emr5f92yZPhPC+zVxfY3I=;
+ b=Cttdo2sTTaXo7THyJIfiaHeyUxwQptofx1tesSk6QA5DuAYrOu6svvIZ1oXxpnr7jSzlUHVqnlCJKsqyCVzU8q1z8gqNQi0M4SkipjzRrN0rZqztARbezhkDbbCHrqn2cT1LufNvPGjkk0GnYGm6SGz9UDwVt8J+YBbUyNix7Eo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO8P265MB7485.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b5::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 11:21:39 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 11:21:39 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 10 Aug 2026 12:21:38 +0100
+Message-Id: <DKL837PVU38R.3OONERSO8RMOW@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v2 02/16] rust: io: add `IoRepr` trait
+X-Mailer: aerc 0.21.0
+References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
+ <20260805-typed_register-v2-2-c3ca142220a0@garyguo.net>
+ <DKL5Q2P868GQ.29WSPCWX4HTHJ@nvidia.com>
+In-Reply-To: <DKL5Q2P868GQ.29WSPCWX4HTHJ@nvidia.com>
+X-ClientProxiedBy: LO4P302CA0030.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c1::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO8P265MB7485:EE_
+X-MS-Office365-Filtering-Correlation-Id: 924a46ae-14ab-45d5-427d-08def6d18c1f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|7416014|1800799024|23010399003|10070799003|6133799003|4143699003|5023799004|56012099006|10067099003|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: x8e+mAErGsQDeX5bVPpsyrzArXP9vtt1xLfsuW89onBo/vLDjicbKQJsa4/8P3LfQfrxTFFRCdevcyncDNiyDAOMQQUKAQf0z4Ak/YsShFxNwx5XUmPtt/CbjdClRQ1ecwgdfzO/OxfCqQYUNQQHC5S3K5tStnP6iq9YjXiz9kYAdVBSK8k7g8SAWdkRP7JIeT/DM6BkAImhD5fGR2Hv5tPpXYtwJFxKJj+G56D4dipJ/Vf+BPcWAx5rzEkk0a5NsidOHWhR8EtJTme0OLoFNQ9cUEut8Vc/rqqhFgvUHmI51n1kjF3XEcQhB8suiYRxqQFxU00ZU0ZoudengHXor7t0S41VXDloaQC9YIBJpDbdNLnBa0ycGDRCf2sT0BbZeofS4mawgY6owNC8f7S5bLAFp+QxJLAphQgSdjR/79lpFUvpyQD84lMFK5QdxcOoDC2t7tXu9h5DYKTP/qzjd56+Xn0FzIU+3ANq+cHXd6Cj8KsFXvff9K4y0dzc/r1GItqtU8bpuTHGAFU50PaUbo/bzaHfGkwWMZjsCKjjGb2gjKWG3X9aTYy2HHyk0vlnw00CZvdzUVkFN3i5TbLGVMVK9BeDbSfQjHvwngjCHo8gDy0l5c98RtSOxEkkSIy/wlOYnKuO6FNFUCG2HPf/iwyEhtt5Z3XIbN4ijy80cOY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(1800799024)(23010399003)(10070799003)(6133799003)(4143699003)(5023799004)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WE9JOVhwQTZUVmdKZTdlenRnVVZDRVMyTVg0YzJOVnA3N0l6WDZidFl2eXBy?=
+ =?utf-8?B?elJHZ3FuNVJRZmVWK0M1dVB3K1NTdERseHh6OERLR1VaUnFnQWEyYzdRaURj?=
+ =?utf-8?B?c280SGx6UDJUdEs3dm1EdSs0ZVF1N3hLcURBWW5hVWFJOXRRM05NaUlxamV1?=
+ =?utf-8?B?WGlsN1ZWME1BcU5ERDRBQktzYkhmd2VxcTZuMU1zc09lanZjemdEMC9menJT?=
+ =?utf-8?B?MWRzRHRiWTA3UnVZQVpLZGEyNm12VkQ4akF4NmJTRnM0L21Kc2NHSFREUWVL?=
+ =?utf-8?B?MGFMZkhqWDZ4MU51UUduemdkTHg4MGkyaEk2ZkVHOHZmeDdxNXV6aitzdWpk?=
+ =?utf-8?B?OGtkVmJLUW95RGpmR3J0VDVFL1FIRlZYV2RZZDhFMERIWGpaOThyOWxMUnZE?=
+ =?utf-8?B?RVZXVjFyWm9FdnZTNXdrd2R0UFBXWnlIZW4wdGFHM1kwcXREazZNeVlRTDRq?=
+ =?utf-8?B?b0xmdW5WaWh6Sk12U2JIMGl0RURGUlVRVERiUzREVnpmNVgvMTVud3FSNmMy?=
+ =?utf-8?B?dEhHeW1NMU9ZbHhUUk5LQ3QvR0gvN1FqS2M1R3ZwK253SlpUcUdOY2szK0Mx?=
+ =?utf-8?B?T0dhM2p3Y1hiWGo2aGQ1dGdsUnpnaCtSS01sOE1ydFNTS0ozZERQck1BaU1Q?=
+ =?utf-8?B?dDNkK3p0L0I5M2pVZkJQaitOVjRyRDBKdEFWTlM1ZklKZ0VuRllrVUI2UDMv?=
+ =?utf-8?B?VTRFcTZYSGFrSVEwZHhIWFYzVFhoVkRwWlNaU0tvWjErMVZGcUJPQzZSNDRk?=
+ =?utf-8?B?aWhFcmhZaEZZV2x0TFhXbWVXa2lGZE4zcTF2V1FxV3N1MCtqOTVTYW1LZThj?=
+ =?utf-8?B?VysxNUdhYjNQclk1WW1SaHd2TE1HUFNpUktkajlVdmZ2RCtYdkVLekVvSHRj?=
+ =?utf-8?B?b0UwWThsSkdEVTFxemM3cVF3aHFrNWRtaEhPeDRHdytVcC9vdmxDUWhkaGU5?=
+ =?utf-8?B?VVE2Wk0yb1NMdkRoZ2UwM1N4enRCS2wyNmFPOWIyUWNPY0RjZTl6YmRTbDJj?=
+ =?utf-8?B?MzFQcmdLVkxiOGFVL2VlZFVKTWNjMWdaRm5vWWN2NTBocEE2alljSXZmeDdi?=
+ =?utf-8?B?RkJPM2tYWFdMempsbGVJSHByaFM2OTlFRWhBRzFiK0trdktsWGQxTHF5VUZz?=
+ =?utf-8?B?OGNiZEpuV21CU1NQSFM1a2hBMVFITUcwcU55ZXlRMSt1Yk5TUkdRTFNvUVBl?=
+ =?utf-8?B?Ymp3TEdneTQ1d29ISklDMGh0WUcySnRxZWRXTDNGM0RTeUZrY2tkeHhrQUw5?=
+ =?utf-8?B?eTJCN0IxdUIvQnd5UUJTMC90WFVLRlRYV29saVFKU3hySXpIamh2SU0wTFds?=
+ =?utf-8?B?WGJyWExsbk5mRG1RMjVXNEEwcDlZYzFQYVdYLzBOVWVhY29zU0U5OW9NMDlz?=
+ =?utf-8?B?blc3UWRpMzhHZGU4SGRGZmpnQytXdUFlUWp5STZCSTh3RFloK2hIZ1dRMzBU?=
+ =?utf-8?B?RndheEM0dmpsY3FtbTRPbC9FWG5jd3AySUpsSXJZUVZrNWlpRk02S05Ia1U3?=
+ =?utf-8?B?SVUvM0piNUxPWkc4QURFZW5NRVJCdmJrK0I5cFkrcnpUaWJ4R2dYY2liVHdz?=
+ =?utf-8?B?MjlSWDVPdnBUdDFxRmdPL3Q4c0d1NFZHclkvaEY1UlhKWlR2RG9jSlMxYWNS?=
+ =?utf-8?B?Y09BKzFGUCtISnpoNkZtL3AvQm9mOUs2TEVSWE9HZkNyaVVuRFZMVWpKczIr?=
+ =?utf-8?B?S3FuOVVFcHphK3RSbHdLMndUV1gwZFJ6YWdLNzd5ZFZKRG1qQU9QenVxMktn?=
+ =?utf-8?B?eUgrK0lwdUkwQy9ZbTZrYjBzcEVET1V5eTJFYWlEbTcvYTJzNzQyUTdwdWZW?=
+ =?utf-8?B?Zm1ya2pxanlFOGRhb2pBeEdRQVVqNnErWkdXV0wvcnp3dlRtelM0NmNYUzlu?=
+ =?utf-8?B?SUt3ZnRrL1lleXNXMFpjY2hQS0wxUDh6dndvWEN0UGZMbXB3ODBsT2VCYmdD?=
+ =?utf-8?B?dFdVcHNjbk4ydVg5aEZ3OXl2ajJaVXlGZDNSUGw5N0tuWVlSYzVvOXorMXAw?=
+ =?utf-8?B?MVNiTGlCM3pZa1dIT3c1aWdiQnMrRUR3WkpVbUhzZXdORG1HdXFaa2gzNmtu?=
+ =?utf-8?B?TlVZejlEQldyR3krZGoxZ3NrY25nTXZOZmdzQWFwMElJZUdocFhVcWxvUVJs?=
+ =?utf-8?B?dlc1Z01RakpNb3E0NFNmN2Z4cnhDNUZ0TGtmUHBuN2hjUUlRcUc2MXRWRVhL?=
+ =?utf-8?B?VTJXUmxxMzFTcTJTZkt6S0lyanhrNXpyUmpxZlFsOC9BSm5RTG9kTmQzWUpl?=
+ =?utf-8?B?K1k5S1Fyb0V4WWVENVJySUpIN0phMVAwcUpBeElYK0hlcmVYRHB5UXhaZ0xL?=
+ =?utf-8?B?aEthQmltQlN6WGpPNjFlMWxFNkU1QTFlRStTdDU5Y3M5Yy9LNExjQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 924a46ae-14ab-45d5-427d-08def6d18c1f
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 11:21:39.3933 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3Ku28JySzzHK+8z9BYLUF53W/3+WCSnkZ0z8sPKyWXzpvXMb4O80JtwA7fu0bXf1dF4IoDsyEDZb00+/9Kn/gQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7485
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,226 +148,274 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When an interrupt is received for correctable errors indicating that error
-counter has crossed its threshold, read the current counter value and
-deliver a drm-ras error-event to userspace for each affected component.
+On Mon Aug 10, 2026 at 10:30 AM BST, Alexandre Courbot wrote:
+> On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
+>> For types that are layout-compatible with an I/O capable type, we would
+>> want the ability to use them directly for I/O operations. E.g.
+>>
+>>     bitfield! {
+>>         pub struct Foo(u32) {
+>>             ...
+>>         }
+>>     }
+>>
+>>     #[repr(C)]
+>>     struct Bar {
+>>         foo: Foo,
+>>     }
+>>
+>>     let mmio: Mmio<'_, Bar> =3D ...;
+>>     io_read!(mmio, .foo)
+>>
+>> Currently this feature is available from `register!()` macro but not
+>> otherwise available with `io_read!`, `io_write!`. Support this by adding=
+ a
+>> `IoRepr` type to denote the underlying I/O type to use for a specific ty=
+pe.
+>>
+>> This makes the `IoLoc::IoType` and `Register::Storage` redundant; thus
+>> remove them; also convert register methods to use the `read_val` and
+>> `write_val` instead.
+>
+> Ah that's nice, I was a bit bothered that `IoType` and `Storage`
+> basically defined the same thing.
+>
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> ---
+>>  rust/kernel/bitfield.rs    |   5 ++
+>>  rust/kernel/io.rs          | 203 ++++++++++++++++++++++++++++++++------=
+-------
+>>  rust/kernel/io/register.rs |  59 +++++--------
+>>  3 files changed, 170 insertions(+), 97 deletions(-)
+>>
+>> diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
+>> index 35ede53f2b8e..4bc92c62da06 100644
+>> --- a/rust/kernel/bitfield.rs
+>> +++ b/rust/kernel/bitfield.rs
+>> @@ -308,6 +308,7 @@ macro_rules! bitfield {
+>>          $(#[$attr])*
+>>          #[repr(transparent)]
+>>          #[derive(Clone, Copy, PartialEq, Eq)]
+>> +        #[derive($crate::prelude::FromBytes, $crate::prelude::IntoBytes=
+)]
+>>          $vis struct $name {
+>>              inner: $storage,
+>>          }
+>> @@ -346,6 +347,10 @@ fn from(val: $storage) -> $name {
+>>                  Self::from_raw(val)
+>>              }
+>>          }
+>> +
+>> +        impl $crate::io::IoRepr for $name {
+>> +            type Repr =3D $storage;
+>> +        }
+>
+> This introduces a dependency from `bitfield` to `io`, which looks like
+> inconsistent layering. But thankfully there is an easy fix - see below.
+>
+>>      };
+>> =20
+>>      // Definitions requiring knowledge of individual fields: private an=
+d public field accessors,
+>> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+>> index adfc555de7d0..71c6180ed745 100644
+>> --- a/rust/kernel/io.rs
+>> +++ b/rust/kernel/io.rs
+>> @@ -276,6 +276,91 @@ pub trait IoCapable<T>: IoBackend {
+>>      fn io_write<'a>(view: Self::View<'a, T>, value: T);
+>>  }
+>> =20
+>> +/// Safe transmute that performs size check on monomorphization-time.
+>> +///
+>> +/// Can be considered as generic version of [`zerocopy::transmute!`] ma=
+cro but using the unstable
+>> +/// `core::mem::transmute_neo` instead of [`core::mem::transmute`].
+>> +#[inline(always)] // This is a no-op.
+>> +fn transmute_neo<Src: IntoBytes, Dst: FromBytes>(val: Src) -> Dst {
+>> +    const_assert!(size_of::<Src>() =3D=3D size_of::<Dst>());
+>> +
+>> +    // SAFETY: `Src: IntoBytes` and `Dst: FromBytes` and we've checked =
+size is the same.
+>> +    unsafe { core::mem::transmute_copy(&core::mem::ManuallyDrop::new(va=
+l)) }
+>> +}
+>
+> This is universally useful, so let's move this to the `transmute` module?
 
-Also send drm-ras error-event to userspace for uncorrectable errors on
-receiving an AER.
+I think we can just have a `kernel::mem` and put it there so it's consisten=
+t
+with std naming. The `transmute` module just contains two types that are go=
+ing
+away.
 
-To avoid sending duplicate events when the same component appears multiple
-times in the response, send the error-event once per component.
+Ideally we have this function in `zerocopy`. But my understanding is that t=
+his
+depends on inline const which is stable since 1.79 but zerocopy's MSRV is 1=
+.56.
 
-Signed-off-by: Riana Tauro <riana.tauro@intel.com>
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
----
-v2: add BUILD_BUG_ON and use BITS_PER_TYPE
-    combine correctable/uncorrectable patches (Raag)
-    use correct parameters for get_counter (Sashiko)
----
- drivers/gpu/drm/xe/xe_drm_ras.c | 31 +++++++++++++++
- drivers/gpu/drm/xe/xe_drm_ras.h |  3 ++
- drivers/gpu/drm/xe/xe_ras.c     | 69 +++++++++++++++++++++++++++++++++
- 3 files changed, 103 insertions(+)
+>
+>> +
+>> +/// Trait indicating the underlying primitive types to be used for I/O =
+operations.
+>> +///
+>> +/// Implementing trait allows arbitrary types to be used for I/O operat=
+ions, not just raw
+>> +/// primitives.
+>> +///
+>> +/// The layout of the type and the underlying primitive must match; thi=
+s is enforced via const
+>> +/// assertions when I/O methods are used, as the type system cannot rep=
+resent this.
+>> +/// [`IoRepr::from_repr`] and [`IoRepr::into_expr`] can be overridden f=
+or conversions, however it
+>> +/// should be noted that they are only invoked on value read/write oper=
+ations and are not invoked
+>> +/// on byte operations such as [`Io::copy_read`].
+>> +///
+>> +/// # Examples
+>> +///
+>> +/// ```
+>> +/// # use kernel::io::*;
+>> +/// #[repr(transparent)]
+>> +/// #[derive(FromBytes, IntoBytes)]
+>> +/// pub struct MyNewType(u32);
+>> +///
+>> +/// impl IoRepr for MyNewType {
+>> +///     type Repr =3D u32;
+>> +/// }
+>> +///
+>> +/// #[repr(C)]
+>> +/// pub struct MyStruct {
+>> +///     raw: u32,
+>> +///     new_type: MyNewType,
+>> +/// }
+>> +///
+>> +/// # fn test(mmio: Mmio<'_, MyStruct>) {
+>> +/// // let mmio: Mmio<'_, MyStruct>;
+>> +/// let val: u32 =3D io_read!(mmio, .raw); // Raw primitive read
+>> +/// io_write!(mmio, .raw, val);          // Raw primitve write
+>> +/// let val: MyNewType =3D io_read!(mmio, .new_type); // Read via `IoRe=
+pr`.
+>> +/// io_write!(mmio, .new_type, val);                // Write via `IoRep=
+r`.
+>> +/// # }
+>> +/// ```
+>> +pub trait IoRepr: FromBytes + IntoBytes + Sized {
+>> +    /// The backing I/O capable type.
+>> +    type Repr: FromBytes + IntoBytes;
+>> +
+>> +    /// Convert from [`IoRepr::Repr`] to `Self`.
+>> +    #[inline(always)]
+>> +    fn from_repr(repr: Self::Repr) -> Self {
+>> +        transmute_neo(repr)
+>> +    }
+>> +
+>> +    /// Convert from `Self` to [`IoRepr::Repr`].
+>> +    #[inline(always)]
+>> +    fn into_repr(this: Self) -> Self::Repr {
+>> +        transmute_neo(this)
+>> +    }
+>> +}
+>> +
+>> +macro_rules! impl_io_repr {
+>> +    ($($ty:ty =3D> $backing:ty,)*) =3D> {
+>> +        $(impl IoRepr for $ty {
+>> +            type Repr =3D $backing;
+>> +        })*
+>> +    };
+>> +}
+>> +
+>> +impl_io_repr! {
+>> +    u8 =3D> u8,
+>> +    u16 =3D> u16,
+>> +    u32 =3D> u32,
+>> +    u64 =3D> u64,
+>> +    i8 =3D> u8,
+>> +    i16 =3D> u16,
+>> +    i32 =3D> u32,
+>> +    i64 =3D> u64,
+>> +}
+>
+> ... and `IoRepr` and its implementations for primitive types should also
+> be part of `transmute` IMHO (after being renamed to e.g. `Repr`), for
+> there is nothing I/O exclusive to it. It just indicates that one type
+> can be represented by another, a property that is again useful outside
+> of I/O.
 
-diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
-index 7937d8ba0ed9..bf1b921f4183 100644
---- a/drivers/gpu/drm/xe/xe_drm_ras.c
-+++ b/drivers/gpu/drm/xe/xe_drm_ras.c
-@@ -185,6 +185,37 @@ static int register_nodes(struct xe_device *xe)
- 	return ret;
- }
- 
-+/**
-+ * xe_drm_ras_event() - Report drm-ras error event to userspace
-+ * @xe: xe device structure
-+ * @component: error component (see &enum drm_xe_ras_error_component)
-+ * @severity: error severity (see &enum drm_xe_ras_error_severity)
-+ * @value: value of error counter
-+ *
-+ * Report an error-event to userspace.
-+ */
-+void xe_drm_ras_event(struct xe_device *xe, u32 component, u32 severity, u32 value)
-+{
-+	struct xe_drm_ras *ras = &xe->ras;
-+	struct xe_drm_ras_counter *info = ras->info[severity];
-+	struct drm_ras_node *node;
-+	int ret;
-+
-+	/* Event is supported only if drm-ras is enabled */
-+	if (!xe->info.has_drm_ras)
-+		return;
-+
-+	node = &ras->node[severity];
-+
-+	if (!info || !info[component].name)
-+		return;
-+
-+	ret = drm_ras_nl_error_event(node, component, info[component].name, value);
-+	if (ret)
-+		drm_err_ratelimited(&xe->drm, "drm-ras error-event failed: %d for %s %s\n", ret,
-+				    info[component].name, error_severity[severity]);
-+}
-+
- /**
-  * xe_drm_ras_init() - Initialize DRM RAS
-  * @xe: xe device instance
-diff --git a/drivers/gpu/drm/xe/xe_drm_ras.h b/drivers/gpu/drm/xe/xe_drm_ras.h
-index 365c70e93e82..723229b2cffb 100644
---- a/drivers/gpu/drm/xe/xe_drm_ras.h
-+++ b/drivers/gpu/drm/xe/xe_drm_ras.h
-@@ -5,11 +5,14 @@
- #ifndef _XE_DRM_RAS_H_
- #define _XE_DRM_RAS_H_
- 
-+#include <linux/types.h>
-+
- struct xe_device;
- 
- #define for_each_error_severity(i)	\
- 	for (i = 0; i < DRM_XE_RAS_ERR_SEV_MAX; i++)
- 
- int xe_drm_ras_init(struct xe_device *xe);
-+void xe_drm_ras_event(struct xe_device *xe, u32 component, u32 severity, u32 value);
- 
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index 352f056fd9ef..48532447e1d8 100644
---- a/drivers/gpu/drm/xe/xe_ras.c
-+++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -90,6 +90,8 @@ static const char * const gpu_health_states[] = {
- };
- static_assert(ARRAY_SIZE(gpu_health_states) == XE_RAS_HEALTH_MAX);
- 
-+static int get_counter(struct xe_device *xe, struct xe_ras_error_class *counter, u32 *value);
-+
- static u8 drm_to_xe_ras_severity(u8 severity)
- {
- 	switch (severity) {
-@@ -102,6 +104,18 @@ static u8 drm_to_xe_ras_severity(u8 severity)
- 	}
- }
- 
-+static u8 xe_to_drm_ras_severity(u8 severity)
-+{
-+	switch (severity) {
-+	case XE_RAS_SEV_CORRECTABLE:
-+		return DRM_XE_RAS_ERR_SEV_CORRECTABLE;
-+	case XE_RAS_SEV_UNCORRECTABLE:
-+		return DRM_XE_RAS_ERR_SEV_UNCORRECTABLE;
-+	default:
-+		return DRM_XE_RAS_ERR_SEV_MAX;
-+	}
-+}
-+
- static u8 drm_to_xe_ras_component(u8 component)
- {
- 	switch (component) {
-@@ -120,6 +134,24 @@ static u8 drm_to_xe_ras_component(u8 component)
- 	}
- }
- 
-+static u8 xe_to_drm_ras_component(u8 component)
-+{
-+	switch (component) {
-+	case XE_RAS_COMP_DEVICE_MEMORY:
-+		return DRM_XE_RAS_ERR_COMP_DEVICE_MEMORY;
-+	case XE_RAS_COMP_CORE_COMPUTE:
-+		return DRM_XE_RAS_ERR_COMP_CORE_COMPUTE;
-+	case XE_RAS_COMP_PCIE:
-+		return DRM_XE_RAS_ERR_COMP_PCIE;
-+	case XE_RAS_COMP_FABRIC:
-+		return DRM_XE_RAS_ERR_COMP_FABRIC;
-+	case XE_RAS_COMP_SOC_INTERNAL:
-+		return DRM_XE_RAS_ERR_COMP_SOC_INTERNAL;
-+	default:
-+		return DRM_XE_RAS_ERR_COMP_MAX;
-+	}
-+}
-+
- static int ras_status_to_errno(u32 status)
- {
- 	switch (status) {
-@@ -236,6 +268,26 @@ static void ras_usp_aer_init(struct xe_device *xe)
- 	dev_dbg(&usp->dev, "Uncorrectable Internal Errors downgraded and unmasked\n");
- }
- 
-+static void ras_send_error_event(struct xe_device *xe, u8 severity, u8 component)
-+{
-+	struct xe_ras_error_class counter = {0};
-+	u8 drm_severity, drm_component;
-+	u32 value;
-+	int ret;
-+
-+	counter.common.severity = severity;
-+	counter.common.component = component;
-+
-+	ret = get_counter(xe, &counter, &value);
-+	if (ret)
-+		return;
-+
-+	drm_severity = xe_to_drm_ras_severity(severity);
-+	drm_component = xe_to_drm_ras_component(component);
-+
-+	xe_drm_ras_event(xe, drm_component, drm_severity, value);
-+}
-+
- static u8 handle_core_compute_errors(struct xe_ras_error_array *arr)
- {
- 	struct xe_ras_compute_error *error_info = (void *)arr->details;
-@@ -330,8 +382,10 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
- 	struct xe_ras_threshold_crossed *pending = (void *)&response->data;
- 	struct xe_ras_error_class *errors = pending->counters;
- 	u32 id, ncounters = pending->ncounters;
-+	u8 sent = 0;
- 
- 	BUILD_BUG_ON(sizeof(response->data) < sizeof(*pending));
-+	BUILD_BUG_ON(BITS_PER_TYPE(sent) < XE_RAS_COMP_MAX);
- 	xe_device_assert_mem_access(xe);
- 
- 	if (!ncounters || ncounters > XE_RAS_NUM_COUNTERS)
-@@ -350,6 +404,13 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
- 
- 		xe_warn(xe, "[RAS]: %s %s detected\n",
- 			comp_to_str(component), sev_to_str(severity));
-+
-+		/* Send event once per component */
-+		if (sent & BIT(component))
-+			continue;
-+		sent |= BIT(component);
-+
-+		ras_send_error_event(xe, severity, component);
- 	}
- }
- 
-@@ -406,12 +467,14 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
- 	enum xe_ras_recovery_action final_action;
- 	u32 remaining = XE_SYSCTRL_FLOOD_LIMIT;
- 	struct xe_ras_get_soc_error response;
-+	u8 sent = 0;
- 	size_t rlen;
- 	int ret;
- 
- 	if (!xe->info.has_sysctrl)
- 		return XE_RAS_RECOVERY_ACTION_RESET;
- 
-+	BUILD_BUG_ON(BITS_PER_TYPE(sent) < XE_RAS_COMP_MAX);
- 	/* Default action */
- 	final_action = XE_RAS_RECOVERY_ACTION_RECOVERED;
- 
-@@ -452,6 +515,12 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
- 			xe_info(xe, "[RAS]: %s %s detected\n", comp_to_str(component),
- 				sev_to_str(severity));
- 
-+			/* Send event once per component */
-+			if (!(sent & BIT(component))) {
-+				sent |= BIT(component);
-+				ras_send_error_event(xe, severity, component);
-+			}
-+
- 			switch (component) {
- 			case XE_RAS_COMP_CORE_COMPUTE:
- 				action = handle_core_compute_errors(arr);
--- 
-2.47.1
+I tried to be a little bit forward looking in designing this, so I ended up
+with a design that provides conversion functions instead of just transmutat=
+ion.
+If we're moving it we should probably just get rid of these and just requir=
+e a
+transmutability with the raw repr.
+
+Note that there is `AtomicType` which has similar (but not equivalent
+requirement). `AtomicType` requires a round-trip transmutability only, and
+`IoRepr` needs both directions. So `repr(C)` enums (that is not used up all=
+ its
+variant reprs) can be `AtomicType` but not `IoRepr`.
+
+>
+> That way `bitfield` gets a dependency on `transmute` rather than `io`,
+> which doesn't break layering.
+
+We can also avoid breaking layering by requiring user to need to specify
+`#[derive(IoRepr)]` when declaring bitfield.
+
+Best,
+Gary
+
+>
+> In order to avoid `Repr::Repr` we can also rename the associated type to
+> `Raw` and update the method names accordingly to `from_raw`/`into_raw` -
+> which would have allowed us to remove the `bitfield` methods of the same
+> name if they weren't needed in const context! But at least it makes
+> things align nicely.
+>
+> <...>
+>> @@ -831,8 +816,8 @@ macro_rules! register {
+>>              { $($fields:tt)* }
+>>      ) =3D> {
+>>          $crate::register!(@bitfield $(#[$attr])* $vis struct $name($sto=
+rage) { $($fields)* });
+>> -        $crate::register!(@io_base $name($storage) @ $offset);
+>> -        $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
+>> +        $crate::register!(@io_base $name @ $offset);
+>> +        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
+>>      };
+>> =20
+>>      };
+>> [snip]
+>> =20
+>>      // Implementations of register arrays.
+>> -    (@io_array $vis:vis $name:ident ($storage:ty) [ $size:expr, stride =
+=3D $stride:expr ]) =3D> {
+>> +    (@io_array $vis:vis $name:ident [ $size:expr, stride =3D $stride:ex=
+pr ]) =3D> {
+>>          impl $crate::io::register::Array for $name {}
+>> =20
+>>          impl $crate::io::register::RegisterArray for $name {
+>> @@ -1008,7 +991,7 @@ impl $crate::io::register::RegisterArray for $name =
+{
+>> =20
+>>      // Implementations of relative array registers.
+>>      (
+>> -        @io_relative_array $vis:vis $name:ident ($storage:ty) [ $size:e=
+xpr, stride =3D $stride:expr ]
+>> +        @io_relative_array $vis:vis $name:ident [ $size:expr, stride =
+=3D $stride:expr ]
+>>              @ $base:ident + $offset:literal
+>>      ) =3D> {
+>>          impl $crate::io::register::WithBase for $name {
+>
+> These appear to repeat quite a bit of [1] which is already in
+> `driver-core-next`. You'll want to rebase, I think the only difference
+> between the two is the removal of $storage from @io_base.
+
+I'm thinking of moving this entire thing to syn :)
+
+Best,
+Gary
+
 
