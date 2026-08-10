@@ -4,109 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0289C5AD7B
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 20:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCF1EC5AD55
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 21:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E554E10E229;
-	Mon, 10 Aug 2026 20:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A971110E9AA;
+	Mon, 10 Aug 2026 21:05:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="PsP/bxV0";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="ol9sAKua";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mdVdCuk5";
 	dkim-atps=neutral
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [81.169.146.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 067A510E229
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 20:58:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1786395414; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=t2BQl9Z8KeurTNXDux1Cx0A8Bjn5K0igXQw7bigsJM3q6Fu18PGX6fQ8shpduQ2qp9
- kojVa+x45LQPfZEA7f21vmALVD24IAPFWurY/6pZjrRMtWvkYIWYRxp6gKPf+fLOGsSl
- kVsyrHPDywUYKyqNnyR9GXUPh19Yz1q6Gqukf+lmS9AnuahB/U1XVVZKSS0hLRmaqCkE
- 0N9c9YRybc2rxxFMk31QEfKmbi869/LgVytFIpDjRQnEkDQaa6uBwwiQom/I2JaRLoEo
- HKsxaYV0a401CR32Zo4qSYOLi1oTrRJyJBpWn4BiGW6G0SOuZGtogL9eW4MayGFUM5NT
- LR7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786395414;
- s=strato-dkim-0002; d=strato.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
- b=Dwyj4QBN67/T9pzAOzwI1/AJhjzygobZHUmTcKODeVjNNEWKSV73ese/v4lua+h54C
- IoGUXYfXo1dcUm6YCznSLE5tI2CwV5ca4KM+zS4VK4uVDykY+/5TW/lSMxDCkmTFd329
- aHnbS5D6ENGua0gnvcq6s96Tp3XMeRV4H2ichflsdisgRE01IPVSdqL79XlpTDEAXg12
- efmtlwOw9200KHv86Zp3TLhuxI8zUdS8mnTPzmwM1Sec0g8zCfBsTIZ3vG7RmmcHcxvK
- tPTphRF5vVjbqPstelrDB1lv/Csoj//SX/yYxh/qQf23AX4v4YY7pFx7k5BuQfC3DPzy
- 7OXQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786395414;
- s=strato-dkim-0002; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
- b=PsP/bxV0DkARdQeMAEKbfJPJg42HksHI8mlHtlKGDLalnkZ7cIXtbWwJ8LdE7DB99M
- IIfb2bPHCNo1n8eCFg3PDJO55f0wEdVCy4Hlj8e9VrqLUhmh+LPpel1ZHgOBjIfR2WXF
- 5DV01vxRyuEGon6/1hhSINkJRmXOOTeKgrhyjj5VVzKXcz4fRAUawT+xQLdsxJxX+1K9
- qHY3mrD4msgpzTNz6d8JL36TJcOrnyYROQ2y6rtb6lYNmnmlSe7AtpWh31Og8Do3WDBX
- pMTRi48cpor8XLotO1HUL59BLznYwONrDYakOLuV9NNlZRVJDj1yyMUzFkSLgHvFK6G0
- OJIg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786395414;
- s=strato-dkim-0003; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
- b=ol9sAKuaZNHWsPcZa7fLcth6fUGMED5C+eqhENktvwwMT/CtFPT0K86CugHMLpZSaJ
- zfejHdUcnNxS2MSRKNAQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTipoGmsiNZ9v/oGyp26o/Wi+pVFrZX1Db5b3z"
-Received: from smtpclient.apple by smtp.strato.de (RZmta 55.5.6 AUTH)
- with ESMTPSA id Q58eac27AKuqiaO
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
- with 256 ECDH bits, eq. 3072 bits RSA))
- (Client did not present a certificate);
- Mon, 10 Aug 2026 22:56:52 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [Letux-kernel] [PATCH 15/16] backlight: remove pandora_bl
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20260810223413.01af9a6d@kemnade.info>
-Date: Mon, 10 Aug 2026 22:56:41 +0200
-Cc: linux-fbdev@vger.kernel.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Tony Lindgren <tony@atomide.com>,
- dri-devel@lists.freedesktop.org, Niranjan H Y <niranjan.hy@ti.com>,
- Sen Wang <sen@ti.com>, Rob Herring <robh@kernel.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>,
- Helge Deller <deller@gmx.de>, Lee Jones <lee@kernel.org>,
- Russell King <linux@armlinux.org.uk>, linux-omap@vger.kernel.org,
- Daniel Thompson <danielt@kernel.org>,
- Grazvydas Ignotas <notasas@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Arnd Bergmann <arnd@arndb.de>, Sascha Hauer <s.hauer@pengutronix.de>,
- mfd@lists.linux.dev, linux-sound@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, Roger Quadros <rogerq@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, kernel@pyra-handheld.com,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <38ED9D73-7BF3-4005-8E1C-4F7125906A20@goldelico.com>
-References: <cover.1783749722.git.hns@goldelico.com>
- <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
- <anmpiADsvzW39DNx@aspen.lan>
- <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
- <20260810143914.64d29a5c@kemnade.info>
- <2C9844A3-3C4C-48E6-863D-BF8328CEE540@goldelico.com>
- <92FE1162-8C61-4186-B073-6AB4B2BDA640@goldelico.com>
- <20260810223413.01af9a6d@kemnade.info>
-To: Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010020.outbound.protection.outlook.com [52.101.85.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB2F110E238;
+ Mon, 10 Aug 2026 21:05:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cWX8NA/BOe2ePljy1UN/2p4npYKs7ONWcu6ZMWO6zgilTD1JsL/mAQlCUMhDkTzO3z1xU0KTS9GI6ku3RLK0MOWfk+SqcUjrYMAFEiCbgHb8pazvysLa3M89NwRFEttYKLNxyhQ28um5mP/M3vVobq9knytTKGbIe2mPVfl/zMMihetcrNH8H17ECeWv7fyIXP4TYkpJLYPzy82m22/CnoDxrFXn8UREgLuXAH5Um8c3nXlee1jUYHdFTTKlzVJOT6b4iEyGxCgT0YJowSnDSMxOPI1uTZBKoYEMWoPViT/5brzgB6iY7QcuaZTd8Lvfa2rf1duMiit4b/0YNAn3Dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P3AUuAo3E7Pm+46OcMj23bHU3KNnvk9rHfrRD00gAbQ=;
+ b=mrHDCKpqhbEALpW37Kp5ny2gQcheHDUZhUtjEwyTb0S+riGp8nnHJq47uAqeesfbPAUkN1DPglM3XCgxTwUruL+h59M8yqt+2l61UNdEcZ4yiYCP2uH3XYbenWVzS5WnMRsdDH9Zk6OAD8C2ukdT1laI/wwgvJS4fFlQuy9JEMcbW3MBQydaNoAnf6OqhwwoHUG2Z28/fNsFemcrcbJRAXIWrnnLzBhxE8T5MPkI9tYedgYheGkn3+NPrqrDxoJD60/XrKtdnWCHesBY4uI4o3nFNVNBMeynJw7VCAylmWc0tlCJIfYDfcUZfAACKBHT+Bg11mTKpasyoip9+I9Wfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P3AUuAo3E7Pm+46OcMj23bHU3KNnvk9rHfrRD00gAbQ=;
+ b=mdVdCuk5I6PXryunIng8Av0U7NRsxTtbjtYiWU83UJMQ/wCDJtt0i296qoZEgJOt4PqZ7MOFV8RPnit1YdOgFAFaaDgAvbL81iriyHKqBONEeXsSOOKLuP5Dyhwc3T/CRSANNOK+k+/U5FmsBLAHLP4RORM8AKXXHU/p6hrhYxI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by DS7PR12MB8249.namprd12.prod.outlook.com (2603:10b6:8:ea::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 21:04:56 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 21:04:56 +0000
+Message-ID: <36651a7c-0301-46db-a07d-d48da10b8512@amd.com>
+Date: Mon, 10 Aug 2026 17:04:52 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] drm/amd/display: Add HDMI ALLM support
+To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260730171754.704049-1-jerry.zuo@amd.com>
+ <20260806205449.16806-1-jerry.zuo@amd.com>
+ <20260806205449.16806-5-jerry.zuo@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260806205449.16806-5-jerry.zuo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0207.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ad::11) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|DS7PR12MB8249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c4f15f7-0290-47fa-f66a-08def72307b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|18092099006|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: cPNTsTd8Cb6Ew2vRHZ6N9w8SJ0GUmUg0SY7AnahyafLaAo95CUGsbTh24ooXVHnd1PTGOpLGOx9cS4Z3V4RAdGaiAV+WszjHd0WYtXCORpqN+cfNYL5VmtV8mbRfNt5qAWzJmIyVjMz3dFMcvJZYBWMwGvrr7DqeIV3y2wG6zf7p7p8M86ZgMoslHQVEyUkXoReZoabvYxkNiekVOZ/r/CEmRCz79eZrxZA3xj61ohLrrc+WxB60W0KI2MnPvz2rxNzLpotB4j4IUrBzyYlrNySurVf9Ak/dN6C1OuwEsJ8YoMMw9FbnfW+0cYMoRrsbBPvk0aRxyvdb1jQix8hgn606/wJl4gko4vMnPitO2GqSVraeK/UmZ5TVGcBQu5SsU9I9UOaG0PGLw/scNscxHnSosbIVFTw+k9fIFy78k1h9CEc1xHQ0f4t44bRC1T1UNJa0cd1DfbwuncZXhLIqdP8ORdy8+LXLo0lYhQxMl+exZtcOSeD+BMomvV94W+bVHBvaJoOK8nTxXl7sSE6SdOKs3dcqUVTqXxYFc/cBdOYAqy3HSlImLoM2Hve2l9lt7DnWxhqvl+qurk37fl9fgCVX3+w45IFwMB1zXlsFBnEkEn/GkRv2uf3yRTJZ3GXpr24QRZXwAUZ34PLAUjo0lunNofNCZ6mJkWvCTVvsN6U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(18092099006)(4143699003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzJHK2xBUThHemkvdmZ0RXQvdmVURFFJbysrcllPRi9vZHhWbitINGorZTMw?=
+ =?utf-8?B?enQvUk92bWZTazd5Ry95VlJuaXhpTnNEdkswSzFJWTBVNThNb2ZEZ2Y3RFpQ?=
+ =?utf-8?B?bEY5WWdMRFNaYTY3SUxubmZhYWh3RkgwQUl5dVFXN2xUZEI2eXJJbzRnNVlx?=
+ =?utf-8?B?TkVzZ2FSNmZOYVZhay9WNjVMeVc5V3NCazVKaXBuVU1LbWt4QUp1WjRkdFkv?=
+ =?utf-8?B?cmxlWkdWQXN2N1MvdTRMYWo0RTZ6Q1g1czduRG9mejg1aXlWTDBDUzJFTGg1?=
+ =?utf-8?B?MnRYT0JWZFo3eDc0TlJNVzIyQ2FCcmhWaDB4WVhnTXFuOHVHbnJRSTI1a0ht?=
+ =?utf-8?B?YUJEQ2ZkTXkxRzhIaVZRN3puSEhZeVJWZXcwaXUxM0VhTERpU01mU21lWHYw?=
+ =?utf-8?B?bGR2Tm10UDRSMUJuUXZ1aDFuWDhKY2F6eWRxUG4wT2lmL3A0TG9JNGJTTDlp?=
+ =?utf-8?B?MzJObDRXNDZyOEpwNFc4a1AvS01pZnhMVzNlNGM4QUVwMTlqcXgxaDhkN3A1?=
+ =?utf-8?B?TUVsOGlOSklsUXBKZGQwS2loTGtiYXdiZDhmM2Y4V1UxTE9vU0VjaHZ0UFJZ?=
+ =?utf-8?B?NXlzVEl1cDBkSVJzOUdSYWRFMDU2VmZQVHZOcWZiWGNiMGQ4bEFCbHc0dE5X?=
+ =?utf-8?B?WjZST1RjV24yaC9BZDNqdjBvRm5JbnQ1bjZaS3VPM0VnY0p2cmhaNVFMSzZZ?=
+ =?utf-8?B?ZWNnamxDYkRYUjE1OHpUQ0wydjg0RWtmQkJLam5HT0VRVUYrZGZxVjNkZkh2?=
+ =?utf-8?B?dFJhb2FxNDIyYTdKOUo5SXByZTF1S3V1ZFNEL1VwNUFwL3VSRm5jdVlFeFZw?=
+ =?utf-8?B?MWtXYVZuZUpJeXE1VlFuR3hLd0M4NzBWR2NMcXArMVNPWllTRzQwOUVmNVV4?=
+ =?utf-8?B?dDhkdVFiN1lSYlNzSFozZ1VCdWg2V0EyOHNyNldiKys4M1ZIVnczdjdtWjZP?=
+ =?utf-8?B?bkdrcWszbFdOOS9yTlV4VTJlamRYdVpIU1hZYTdmUS9DVjdFMnp1UWJQYS9u?=
+ =?utf-8?B?amNab09Dc3ZUbGQrcGUyTXdCWFpBVWkvVXZxQmg0QjRiS01zK3puKzFyQ3Ir?=
+ =?utf-8?B?REV5U2ZaUnBLMldCNUZybUhwRFcvVVFoNXBJcXprMWxtTkdPZDN3ZEdBa292?=
+ =?utf-8?B?bTdTZStWQUVXR2xMUmNDTTRYOWdhTjVldC83WHovNG1maklwT0h4eEdwWTI1?=
+ =?utf-8?B?YlhrcVFRTGZtZld5M0pnamRSamdTYWRvUERKb3JlMzBPODlxdVVVR0h4RU1Y?=
+ =?utf-8?B?Q3hNVFhnelRPTGRQSmxlV0ttUEtGUjRhdEdhVFdabkF5cUUvWGdBSkVDMCsy?=
+ =?utf-8?B?L1RVVXBMV0RjNzdYczhublNPT3E2UW5RclEzeUlSQXBpSFMyQWNST0g5SkV3?=
+ =?utf-8?B?ZHlmZ3FnY25sb1BvVjU4REZjRU1yUzM2dmhxbzFzUmIxK3dTcFQyVFZyWEQ1?=
+ =?utf-8?B?am9TRG5veTk4dUtoQnRVU3lPdkRpeEV4aHgxUGI4akZKbFBaVG5ML0ZCMTNl?=
+ =?utf-8?B?T0N4QVc1UmJEYm5PalpBZHlLMDBHbEdNdjNjWWNsOTJZc0lIdW02SkxXOGM2?=
+ =?utf-8?B?M3pvbTQ4LzhoVy9pcUViRS83K3E2UmIwZlh0YSs4MlcvcE9Ub3pxcy9OdlB5?=
+ =?utf-8?B?ZXczKzRLVFBaR0Q3R3RUaDZMYVpmSk50NmpjdFRkQTdlL1JyZ3EyRVQ4TWla?=
+ =?utf-8?B?eDkra3RLUUNqZkJuRzBaOWEwWGV5NzFQUVNQZFhseFJVaWZVcVdDbTdBTW91?=
+ =?utf-8?B?aEtUTlBhZ2JHQ3hFazBsY21nMTJub01wRXU5NkZKN0wxQWM4L0Zka1NtWGQ3?=
+ =?utf-8?B?VGpDY0FXVXcrQlV6N2RURHNoNUtnNDhsN1VpTzF1SkNrQlpjN24xRzM2T1M0?=
+ =?utf-8?B?UE8rM0xGeTRmSmpYTWdkTnBBZmFVbFAyUmVjVVA2OEFjblZGTzlGejk2TDQv?=
+ =?utf-8?B?UXBpN3F2NFFoL1V5czJOOTJVNElBb1VLOGdrckJFdTRlR1VieFRDejg1UHM1?=
+ =?utf-8?B?R3lnbWJqcUh1REh2eklrNHl3dFFYN3dHR2FqYnl4SDVFQXUrbm5SVTc4VlpG?=
+ =?utf-8?B?QVZ1TVd4d1JwM1VxQXFYajE0VjNSb1NaZ0E2dk8yRGJ5Smk4UnFTd2lVTXhV?=
+ =?utf-8?B?ZllIZUprc0RDR0MzVWVYUENlbE8vSndBdUJCb0UxdmgrZFNMZ3ZSWThaTy9K?=
+ =?utf-8?B?Z0gvRExxa1U2RWI5c1JyOFA0bzMvQnpadFkyOVJaR1lWYXA5Z1NETi9NdHFx?=
+ =?utf-8?B?QzRsR3RkUTlGdzFyRTFEUm1WeHlEbTJoWjhEcDVkUkc4V0NMWDNQMzkvYS8y?=
+ =?utf-8?B?VnNjUnJFTC9Ha1BTcWcxSk9Jd2dwNjdHTXVaWDJhdEVpNWV6anFGdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c4f15f7-0290-47fa-f66a-08def72307b8
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 21:04:56.1725 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z9dep8mxAFhkdsg7S99BXEnZyb0tS/WVoJBki2dixyYy9A2JNhRLshQR4l/XNNUELdn0UOjZxWp6mop+DPkd7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8249
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,77 +141,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 2026-08-06 16:54, Fangzhi Zuo wrote:
+> why:
+> HDMI 2.1 Auto Low-Latency Mode (ALLM) lets a Source request the Sink's
+> low-latency mode through the HF-VSIF. amdgpu never set ALLM_Mode in the
+> HF-VSIF, so ALLM was never signalled to the sink.
+> 
+> how:
+> - In create_stream_for_sink(), build the HF-VSIF with ALLM_Mode set when
+>   the sink advertises ALLM (connector->display_info.hdmi.allm, parsed by
+>   DRM core from the HF-VSDB) and the content type is Game (content-type =
+>   Game is how userspace requests low-latency mode, HDMI GCTS HF1-56).
+> - In update_freesync_state_on_stream(), also set ALLM_Mode when
+>   Gaming-VRR is active (VRR_EN=1, HDMI GCTS HF1-58 step 8.3.1), and push
+>   the updated HF-VSIF (vsp_infopacket) as a stream update.
+> 
+> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-> Am 10.08.2026 um 22:34 schrieb Andreas Kemnade <andreas@kemnade.info>:
->=20
-> On Mon, 10 Aug 2026 20:30:13 +0200
-> "H. Nikolaus Schaller" <hns@goldelico.com> wrote:
->=20
->>>=20
->>> Yes that is what I mean. It needs to be ported somewhere. If it can =
-be ported to
->>> some compatible =3D "pwm_bl_for_tps61161" or what fits best it will =
-be fine. Or it
->>> could be in some compatible =3D "pandora_bl" driver.
->>>=20
->>> Has to be worked out when the development machines are not blocked =
-by 3 or 4 other
->>> projects already running in parallel :) =20
->>=20
->> Nevertheless I did a quick look into the pandora_bl driver structure.
->>=20
->> Here are my findings:
->> - the code fragment is part of pandora_backlight_update_status()
->> - priv->old_state remembers if brighness was set to 0 or not
->> - so this code triggers on any change from bright =3D 0 to bright > 0
->> - the pandora_bl driver is the only one to use TWL_MODULE_PWM besides =
-twl-pwm
->>=20
->> So the most natural way of transplanting this appears to me:
->> - add this logic to the twl-pwm driver
->=20
-> That chip could be connected to any pwm driver, so
-> it does not make sense to have that in a pwm driver.
+Harry
 
-Well, the chip does not need a driver, at all - at least in PWM case.
-The missing piece is just about doing proper startup into PWM mode.
-
-> So it belongs into a backlight driver.
-
-Interesting how contrary requirements can be judged :) Especially
-for such simple things that apparently even work without any driver.
-
-> And since it shared so much
-> code with the pwm_bl, it could be extended.
-
-But how do you give the chip driver access to twl4030 registers?
-Or make it universal so that it works on any PWM generator? Any ideas?
-
-> The compatible should have pwm in the name to be able to also add
-> a w1 driver later.
-
-Ok, that is an argument to be considered.
-
-But: for multi-protocol chips (think of SPI and I2C) there are
-usually two drivers (or glue code for a core driver) for each
-protocol. So we can have one driver when connected to PWM and
-another being an EasyScale (which is not the standard one-wire
-protocol) driver.
-
-BTW: I am still not convinced that the chip needs an EasyScale
-client driver at all. The protocol is similar to an UART with
-fixed bit format. So this rather needs a generic host driver. Not a
-client driver. Something like baclkight levels -> easy-scale.
-Then you can connect any compatible chip.
-
-But even in this case the hardware connection requires you to
-patch or piggy-back that into the twl4030 pwm driver because that
-is the connection given by the Pandora hardware.
-
-So why not generating the simple startup sequence in the PWM driver?
-KISS...
-
-BR,
-Nikolaus
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 ++-
+>  .../display/amdgpu_dm/amdgpu_dm_connector.c   | 18 +++++++++--
+>  .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 31 +++++++++++++++++++
+>  3 files changed, 51 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 567bf04979ee..ff0db0cb9880 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4029,9 +4029,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+>  		}
+>  
+>  		if (acrtc_state->stream) {
+> -			if (acrtc_state->freesync_vrr_info_changed)
+> +			if (acrtc_state->freesync_vrr_info_changed) {
+>  				bundle->stream_update.vrr_infopacket =
+>  					&acrtc_state->stream->vrr_infopacket;
+> +				bundle->stream_update.vsp_infopacket =
+> +					&acrtc_state->stream->vsp_infopacket;
+> +			}
+>  		}
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index df39bc70ec6c..6cfd7526ab56 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -1572,8 +1572,22 @@ create_stream_for_sink(struct drm_connector *connector,
+>  	update_stream_signal(stream, sink);
+>  
+>  	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+> -	    stream->signal == SIGNAL_TYPE_HDMI_FRL)
+> -		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, false, false);
+> +	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
+> +		/*
+> +		 * Enable HDMI ALLM (Auto Low-Latency Mode) when the sink
+> +		 * advertises ALLM in the SCDS and the content type is Game.
+> +		 * Setting content-type = Game is how userspace requests the
+> +		 * Sink's low-latency mode (HDMI GCTS HF1-56).
+> +		 */
+> +		bool allm = connector->display_info.hdmi.allm &&
+> +			stream->content_type == DISPLAY_CONTENT_TYPE_GAME;
+> +
+> +		drm_dbg_driver(dev,
+> +			       "ALLM: set mode: sink_allm=%d content_type=%d -> ALLM_Mode=%d\n",
+> +			    connector->display_info.hdmi.allm, stream->content_type, allm);
+> +
+> +		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, allm, allm);
+> +	}
+>  
+>  	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
+>  	    stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> index cb49184813de..c4bc6e717df9 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> @@ -252,6 +252,37 @@ void amdgpu_dm_update_freesync_state_on_stream(
+>  	new_stream->vrr_infopacket = vrr_infopacket;
+>  	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
+>  
+> +	/*
+> +	 * HDMI ALLM: transmit the HF-VSIF with ALLM_Mode=1 when the sink
+> +	 * advertises ALLM in the SCDS and either the content type is Game
+> +	 * (HF1-56) or Gaming-VRR is active (VRR_EN=1, HF1-58 step 8.3.1).
+> +	 * HDMI 2.1 7.6.6.
+> +	 */
+> +	if (new_stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+> +	    new_stream->signal == SIGNAL_TYPE_HDMI_FRL) {
+> +		struct dc_info_packet vsp_infopacket = {0};
+> +		bool sink_allm = aconn && aconn->base.display_info.hdmi.allm;
+> +		bool allm = sink_allm &&
+> +			(new_stream->content_type == DISPLAY_CONTENT_TYPE_GAME ||
+> +			 vrr_params.state == VRR_STATE_ACTIVE_VARIABLE ||
+> +			 vrr_params.state == VRR_STATE_ACTIVE_FIXED);
+> +		bool allm_changed;
+> +
+> +		mod_build_hf_vsif_infopacket(new_stream, &vsp_infopacket, allm, allm);
+> +
+> +		allm_changed = memcmp(&new_stream->vsp_infopacket, &vsp_infopacket,
+> +				      sizeof(vsp_infopacket)) != 0;
+> +		new_crtc_state->freesync_vrr_info_changed |= allm_changed;
+> +		new_stream->vsp_infopacket = vsp_infopacket;
+> +
+> +		if (allm_changed)
+> +			drm_dbg_driver(adev_to_drm(adev),
+> +				       "ALLM: flip on crtc=%u: sink_allm=%d content_type=%d vrr_state=%d -> ALLM_Mode=%d\n",
+> +				    new_crtc_state->base.crtc->base.id,
+> +				    sink_allm,
+> +				    new_stream->content_type, vrr_params.state, allm);
+> +	}
+> +
+>  	if (new_crtc_state->freesync_vrr_info_changed)
+>  		drm_dbg_kms(adev_to_drm(adev), "VRR packet update: crtc=%u enabled=%d state=%d",
+>  			      new_crtc_state->base.crtc->base.id,
 
