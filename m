@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13828C5B56A
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:17:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 543C6C5B56D
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 16:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E118810E91C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B8510E91E;
 	Mon, 10 Aug 2026 16:17:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N2yDUZHU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rxn/c43A";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6639610E913;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 591AD10E23B;
  Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 28E3443F3A;
+ by sea.source.kernel.org (Postfix) with ESMTP id 208FB43E4E;
  Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0D024C2BCFB;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0459BC2BCFC;
  Mon, 10 Aug 2026 16:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1786378668;
- bh=e7qU4DwQRhkwQZ7bRxaFZbYgsVTpDVtdRWvEtA7dFMA=;
+ bh=qrWihAGCrqFkMcNdLvUZTQMgUT+Pgkggyran7rTHm9M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=N2yDUZHUC+IiL1ijHjfMJnnBZdHY8+FrZXfujPqROiUzMIRwWzXXQaV0pg+4b71R+
- iLgvFXIoU9QJrpVoLy39ERqqLbjpwDV7w9vRyR7wmaCmjOrVoTVv27X0IgqzqfGGuQ
- tVztO48l8TE0ACnyKtMlo2J8zOolDMwREwqXaQSxmZ50QOF7DeB1yy8bE19qRyy0xN
- 9Z1wKjyXwfKZn3yXy5imLzmeRwaKSr5OysXS3NV7zG5u8OjY6gfbp6qp3TvNuV4k6E
- qmzIFa4OWQj3tUwc6QcvIXj+oYjrCaXeFigq31AsfE/DHtTiceqomoqw0V4pn8EAWJ
- kWCkQOvlzruJA==
+ b=Rxn/c43A0RClcJ3wW3eopMFE4AD5cbJ1MV+B6K+ukP/gjaBjPM+V/EkXOHI1/E3K/
+ +u3t0cMH1k2fU1kg8s79UhC4mm0udFDIb5Y+X6iJZIO/8PwaznQAgfIi3Udu9WNzw0
+ mHXCWhgk2PIKxozXWm79EcCRb9QOMj6YphU3aMRi0socbjfFGRLywBgbTIOYpt+xz/
+ Km7O88SSXCQqY1APsRbO1/1WrePt2P2hlwLfK8TZEOfAdpCdaO9FrcJNyEkEWg8W6L
+ KOMhjUAEN69wqLxvmogNjSdUOAGMBXFv2VSKOi6OAQggkAVP1YGwXltHWVDlTQaj/p
+ vvoR3vl3h1m7g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id EDE7DC5B56A;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id DDD8AC5B572;
  Mon, 10 Aug 2026 16:17:47 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Tue, 11 Aug 2026 00:13:14 +0800
-Subject: [PATCH 5/5] drm/amdgpu: free userptr HMM ranges on the CS error path
+Date: Tue, 11 Aug 2026 00:13:13 +0800
+Subject: [PATCH 4/5] drm/amdgpu: enforce UVD handle ownership on destroy
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-amdgpu-fixes-v1-5-4954a417b8ff@outlook.com>
+Message-Id: <20260811-amdgpu-fixes-v1-4-4954a417b8ff@outlook.com>
 References: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
 In-Reply-To: <20260811-amdgpu-fixes-v1-0-4954a417b8ff@outlook.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
@@ -56,13 +56,13 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, Junrui Luo <moonafterrain@outlook.com>, 
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2404;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2299;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=L6QMfmjG08GEYgq6Lvgjn+rT+rJCq+Q7xLdhBvY9+GU=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfy6RfzJuy89+X84usVeOvsxZ2dRd+fvO2Y3GL7
- G0m597euRkdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMJHHnxkZvjsd3j4/vThq
- p2rz6jjX/GVveLbFf9zL6NGSKFRhWnulg5Fh2dX9fdNlpNndDOxbPjf+kJn0MMVvVnP40Zi8st8
- xCrz8AHwXTaI=
+ bh=UtGNeM13NSreEA2vgkQPwwzgGSG/EJ+HK2TwqY3ru6I=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMqfS40VjhmWnd2/6hD3na7ZrbHHfV8FbmefWj17e
+ lyFd6J4TWdHKQuDGBeDrJgiy/GCS98sfLfobvHZkgwzh5UJZAgDF6cATMQrieGffnHOVano9rq9
+ HMXn1TZyyjWGrQ8Ji//dz/WvaKP8bcHdjAynyuLigxq3Zwcmm+R/+VGSxGH59HiN/utz+bN4Pwe
+ s+MQEAO2LS68=
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -86,59 +86,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Junrui Luo <moonafterrain@outlook.com>
 
-amdgpu_cs_parser_bos() allocates a struct amdgpu_hmm_range for every
-userptr entry of the BO list and returns with them live. They are only
-released in two places: the out_free_user_pages label in
-amdgpu_cs_parser_bos() itself, and the invalidation check loop in
-amdgpu_cs_submit().
+amdgpu_uvd_cs_msg() validates that a decode message references a handle
+owned by the submitting client, rejecting a mismatch between
+adev->uvd.filp[i] and ctx->parser->filp. The handles[] and filp[] tables
+are per-device and shared by every drm_file that opens the render node.
 
-Every error edge between those two points leaks. A failure in
-amdgpu_cs_patch_jobs(), amdgpu_cs_vm_handling() or amdgpu_cs_sync_rings(),
-or an early return from amdgpu_cs_submit() before its release loop, jumps
-to error_fini and falls into amdgpu_cs_parser_fini(), which never walks
-the BO list for userptr ranges. An IB address with no VM mapping is enough
-to get there: amdgpu_cs_patch_ibs() returns the -EINVAL that
-amdgpu_cs_find_mapping() hands back, so the leak is repeatable at will
-from an unprivileged render node fd. Each leaked entry costs a struct
-amdgpu_hmm_range plus its hmm_pfns array, a kvmalloc_array() of one entry
-per page of the userptr mapping, allocated with plain GFP_KERNEL and so
-not charged to the caller's memory cgroup.
+The destroy message performs no such check: it walks the whole table and
+clears every slot matching the handle taken from the command stream
+buffer. A client can therefore destroy a handle owned by another client,
+clearing the victim's slot and tearing down its session in UVD firmware,
+so subsequent decode submissions fail with -ENOENT. Since
+amdgpu_uvd_free_handles() only reaps slots whose handle is non-zero, the
+cleared slot also retains a stale filp pointer until reused.
 
-Release the ranges in amdgpu_cs_parser_fini(), which every path out of
-amdgpu_cs_ioctl() passes through. amdgpu_hmm_range_free() ignores a NULL
-range, so the success path, where amdgpu_cs_submit() has already freed and
-cleared them, is unaffected.
+Apply the decode arm's ownership test to the destroy arm. The kunmap
+is hoisted above the loop, matching the create and decode arms, so
+the new error return cannot leak the amdgpu_bo_kmap() reference.
+Kernel-initiated teardown goes through amdgpu_uvd_send_msg() and never
+runs the parser.
 
-Fixes: fec8fdb54e8f ("drm/amdgpu: fix userptr HMM range handling v2")
+Fixes: 5146419e6feb ("drm/amdgpu: make UVD handle checking more strict")
 Reported-by: Yuhao Jiang <danisjiang@gmail.com>
 Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 617f53f135f3..17c4fec21402 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1416,6 +1416,16 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
- 				amdgpu_vm_bo_invalidate(bo, false);
- 			}
- 		}
-+
-+		/*
-+		 * Release the ranges still live on the error paths;
-+		 * amdgpu_cs_submit() already freed and cleared them when it
-+		 * got far enough to check them for invalidation.
-+		 */
-+		amdgpu_bo_list_for_each_userptr_entry(e, parser->bo_list) {
-+			amdgpu_hmm_range_free(e->range);
-+			e->range = NULL;
-+		}
- 		amdgpu_bo_list_put(parser->bo_list);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index e8b0c62f72be..8d3e5435cf52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -918,9 +918,19 @@ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ctx *ctx,
  
+ 	case 2:
+ 		/* it's a destroy msg, free the handle */
+-		for (i = 0; i < adev->uvd.max_handles; ++i)
+-			atomic_cmpxchg(&adev->uvd.handles[i], handle, 0);
+ 		amdgpu_bo_kunmap(bo);
++
++		for (i = 0; i < adev->uvd.max_handles; ++i) {
++			if (atomic_read(&adev->uvd.handles[i]) != handle)
++				continue;
++
++			if (adev->uvd.filp[i] != ctx->parser->filp) {
++				DRM_ERROR("UVD handle collision detected!\n");
++				return -EINVAL;
++			}
++
++			atomic_cmpxchg(&adev->uvd.handles[i], handle, 0);
++		}
+ 		return 0;
+ 
+ 	default:
 
 -- 
 2.51.2
