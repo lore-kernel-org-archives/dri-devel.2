@@ -4,50 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C55BC5AD5A
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 01:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68C1CC5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 03:24:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95A7910E5C5;
-	Mon, 10 Aug 2026 01:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2536910E11C;
+	Mon, 10 Aug 2026 03:24:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="gvYwIxUy";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hhxQCHf7";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Kw0QwyED";
 	dkim-atps=neutral
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Mon, 10 Aug 2026 01:37:05 UTC
-Received: from mail-m20521016463.xmail.ntesmail.com
- (mail-m20521016463.xmail.ntesmail.com [205.210.164.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDFBC10E5C5
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 01:37:05 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4954c83d2;
- Mon, 10 Aug 2026 09:31:58 +0800 (GMT+08:00)
-Message-ID: <4f300b78-d96d-4d98-8819-dc292b0c9b97@rock-chips.com>
-Date: Mon, 10 Aug 2026 09:31:56 +0800
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D113F10E11C
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 03:24:53 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 679LCaJu4102320
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 03:24:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ kvbFwVVBMqfv/umXyteNcSRhSoeZzKe/6uhNTUR5reQ=; b=hhxQCHf7EVaebvmp
+ iHj+HlSAhrZidDdj+JanmT+LlfGNFTmrqCkG2Oil/7x+/vfzmfhgVEweBFrGPuA1
+ 1sD5HUbmOCDG1DyxDEKfnhxpVqHcfre/U56GjZE7vIP872hafAQFfzrqBM6mIMxQ
+ VjqcQY6Kp3w6GZiQW/0tlPnM1sgWxBs6EbHF0Jsiduc32+H5qos9s9laeSbSpkKz
+ jzjxiSJVK4cj7wwamYSYbAAJTNiM5WmuSNHuzfqO693no4s6EaeWgQdYmfW05U8L
+ mH+hEjKr7ARLnngwQf4Z+eU8uQQUHV8V7Yzm9OZKLbJiSS2CxxviWHwz4Q1+yqLZ
+ G1xk6Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fy18xrmya-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 03:24:52 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-92e52306621so115537985a.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 20:24:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1786332292; x=1786937092;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from:references
+ :cc:to:content-language:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=kvbFwVVBMqfv/umXyteNcSRhSoeZzKe/6uhNTUR5reQ=;
+ b=Kw0QwyEDIALLW9DlD+WG/Fcs6ADrqaIBD+d5+JEiYQVAYGPKNUgl9fTfDbdWkTguEr
+ NeHdw5halr1dvuGB9gOV8oQYNFDVv57HBnE22ckqJ8cyDU6wuY0ASzFkfOadmnuf9y6s
+ A0vLQfL6N2V6WqIgZHJKL2b1L8nmqTURHiSjh3xa88mvH/1nlHZYNfIPK00xFM04zHRj
+ VxNBvTfLqDjCaOX1bhUdZpb3qDWW/I9FwBl7KJyVWbFarTMqBhRK2TL+xbjJE4eSD0Iv
+ 4rEbNJUzREGCkR0m0OHHWi7YZsHfVukoQof0VSQ66pCEATMYkRDXFHoTAALswEoqat4B
+ KkdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786332292; x=1786937092;
+ h=content-transfer-encoding:content-type:in-reply-to:from:references
+ :cc:to:content-language:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=kvbFwVVBMqfv/umXyteNcSRhSoeZzKe/6uhNTUR5reQ=;
+ b=ElxFed/4lYCSmZYRfeOx61ovZPWYquE9BaqTMCH7r7MqWm6IDfv3crwuTA6s0fG7AW
+ ZJGE5QrW0DfbD1D3drnUWXJ0mvZm6H4viPXJnnzorvpycv/t3KXEa6V4Sgyzy+BlJ5sN
+ /2YxyBbZOcKDvjl2/DO+yQCZ4ECBvgbTvRcGfzmty+Mos053XHQHRNEcMy/PNibrT2Z1
+ 8s9qklt329XZX4hICOCrBnO6Rcb4Q39vC4lLdWGO8uE36i75LGS1bvSbva5k6gLntn5W
+ 5AOfskf0qjZT206SBoYID/84a2omYKiBpQkww0guKtyo1AAW7N0mu/vupnY/+7giK6QV
+ pl6A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpVMksAN4her+APTIeSgyiBGXOsmR8ZRd5bASnuvMWPxUiHC2hBOFPPeVtvIImAIKn/xfiGT/522fs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrP/tNfu/xPhsewwfa47J4RaN+GbrV0M3fZHKH823qTktKjpk7
+ HYCw5UkyLnXa7RvT3FFUqqQrw+LZ+QzJ5Y9+ITuWVQFzju5Bhoha/6wNud7a7KT4/RRIyDby3TX
+ gM5wr6uFSoTkoEygiC7VIE6Fbb85g6c7dFMyafw7G1SeYGxxTN56eJ2a2prZObFFa0NdpzgU=
+X-Gm-Gg: AR+sD11k/b8wPLoBx9BmkG5DjmWxcpB/6mmu5+0IxwJGlRmF1trOKKWv7nAVgFOU0v1
+ LXqK4rr35MKc2FxEV7s+SZR8+iP9jssEO6mKc710XX+7/10tOzmWv73axy9xEZ7iBMsj52PIOp5
+ NXoH4JpOZEoCk+E7qy/Rc+9m5wpuewspOssgVrD/c3aq7FX6nL4EFFQbOg8TxaXUE0NEUBAQRfO
+ ehHc6BUjsDljGEaqRTtlBT1VtpYS82Nbaqz8mMc8Jauoh4zjGPGtXMqweIxc6gSqsPNmGkWJOkZ
+ ciuIcRsm6+iGghOYPyTCQjpdGnYflnUQrUe428pLbOMJZNo6zQ/GbSimxXiCcFswAg4tPpqsW38
+ DC64cjHseagb3hHKh5ZwAEfhsCWXQSY/wYjk=
+X-Received: by 2002:a05:622a:2b4e:b0:51c:17cd:1fd4 with SMTP id
+ d75a77b69052e-52ce622aad1mr418905911cf.41.1786332291800; 
+ Sun, 09 Aug 2026 20:24:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:2b4e:b0:51c:17cd:1fd4 with SMTP id
+ d75a77b69052e-52ce622aad1mr418905621cf.41.1786332291317; 
+ Sun, 09 Aug 2026 20:24:51 -0700 (PDT)
+Received: from [192.168.69.229] (pmd666.hd.free.fr. [88.187.86.199])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4995427a244sm376443725e9.10.2026.08.09.20.24.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 09 Aug 2026 20:24:50 -0700 (PDT)
+Message-ID: <8ce99afa-1162-4910-92a4-6cb2973ea977@oss.qualcomm.com>
+Date: Mon, 10 Aug 2026 05:24:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v6 7/9] accel/rocket: add RK3576 NPU (RKNN) support
-To: Jiaxing Hu <gahing@gahingwoo.com>, robin.murphy@arm.com,
- diederik@cknow-tech.com, tomeu@tomeuvizoso.net, heiko@sntech.de
-Cc: royalnet026@gmail.com, alchark@flipper.net,
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260807211629.1573228-1-gahing@gahingwoo.com>
+Subject: Re: [RFC PATCH] fbdev: maxinefb: fix build issues
 Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260807211629.1573228-1-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=UTF-8
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org
+References: <20260809234810.982500-1-rdunlap@infradead.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
+In-Reply-To: <20260809234810.982500-1-rdunlap@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9fe94c473d03a7kunmce24bfbe32cc6a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHxpIVk8YTklMGE1NQ00eTlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=gvYwIxUyRKyWrRPg/LzX/WyFw38Sqo3xYCQ4wqD9F6CVmdoIfBSqnYCMPF6PvmHvbK8L+y7Q5K/rDDmVaRqJEK+8LIWPfhHiU4x9Vh6ehxrNO3+HuhtlcF3nGkCGpaRTya2McD64fX7wN6/PSnPmaXOldmlH8R8IRiE9yhbuM6E=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=TyZsKoeFO/hOdOg/2IcDw4HLimad+gEcqp8l3PEbK/c=;
- h=date:mime-version:subject:message-id:from;
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDAyNiBTYWx0ZWRfX1oXr+d6vDhQ3
+ YsunFijrL/0qwIfS4NqTjv7Hi8mgL24bPw0dZyqLDI3/oPnOwvKrkKCqO4FTqS5Wwv6h2E2xLpR
+ I63mG5MisP7Idr3TfE1VOpls+4Lql2Y=
+X-Proofpoint-ORIG-GUID: k48Yzz_ObenvZnrV-4tR_p95FxJOEG_W
+X-Proofpoint-GUID: k48Yzz_ObenvZnrV-4tR_p95FxJOEG_W
+X-Authority-Analysis: v=2.4 cv=bfZbluPB c=1 sm=1 tr=0 ts=6a794484 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=4s3hRJSeHn4rkQlkrse1kQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=BcPKCTjPAAAA:8 a=JfrnYn6hAAAA:8 a=VwQbUJbxAAAA:8 a=e5mUnYsNAAAA:8
+ a=GfA0_eoHWwQSGlj7o5oA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=MNXww67FyIVnWKX2fotq:22 a=1CNFftbPRP8L7MoqJWF3:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDAyNiBTYWx0ZWRfXzu8sdHvxu/g8
+ YSMHTWYTeVgCZQSdR0KxEvOEzj1eUfWmcJbE/qgCgmB1ni41pJEvcQVH8g0npD+AkOq+1pZm0PH
+ +s7W0+tI7PZ+c3o/ZpFuNhE4e9CT7AgYKl0ramlif7iq2heJ/bY6vrdsDvbOdATeyTA8e0buRja
+ 47XCWpiSFS8/gbOLPlkNaz+njVjZaYiJaIwkgnGfkFLrp8KD4oBQnhY6p7wnNmcu5mHTg28CcfJ
+ gd280h8prvKyavTp7FQjWbNwv4yZwBWhcDr5iCY85LLSwmPuJIczGqy0E6+NewieA/QDfL68U0c
+ yyojxdcMBRLStLg+AzXXX5MhSokxAYk6gZ+lOz7GpF4QNGMWBxR9lczi3EBZPz2oMjkI4e1wMmx
+ 4SxAI69KFCPG7DTrKjQgZMCszpApHM5c72GDQ3ZubHiIlTF9HcMPngr5NZRw8r/i9Cj6uZ+Ni89
+ YHUCzb82Qh8wnOLcNdg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-09_07,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1011
+ priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100026
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,95 +145,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Jiaxing, 
+Hi Randy,
 
-On 8/8/2026 5:16 AM, Jiaxing Hu wrote:
-> On 07/08/2026 1:56 pm, Robin Murphy wrote:
->> If the interrupt never fires at all then possibly the signal depends on
->> some additional clock or power domain in order to propagate, or it's
->> just described incorrectly; or if other interrupt sources within the
->> NPU/IOMMU do still work then maybe there's some additional masking
->> control that's been overlooked, or perhaps it it just terminally broken.
+On 10/8/26 01:48, Randy Dunlap wrote:
+> This is all ancient source code from the beginning of git time.
+> Now builds cleanly on 32-bit and 64-bit MACH_DECSTATION.
 > 
-> Robin, Diederik, I owe you both a correction before you spend any more
-> time on this. The premise is wrong. The interrupt is fine, and the
-> polling in patch 7 should not exist.
+> Fixes these build errors/warnings:
 > 
-> The completion interrupt does reach the GIC on RK3576. With the fix
-> below and the hrtimer disabled, so that only a real interrupt can retire
-> a job, a single int8 convolution runs correctly three times out of three
-> on three different inputs with zero timeouts and /proc/interrupts
-> counting up. No extra clock, no extra power domain, no extra mask.
+> ../drivers/video/fbdev/maxinefb.c:64:6: warning: no previous prototype for 'maxinefb_ims332_write_register' [-Wmissing-prototypes]
+>     64 | void maxinefb_ims332_write_register(int regno, register unsigned int val)
+>        |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 
-> What was actually wrong is one register write. PC_TASK_CON packs the
-> task number, and rocket_registers.h is derived from RK3588, where that
-> field is 12 bits wide with TASK_PP_EN, TASK_COUNT_CLEAR and RESERVED_0
-> above it at bits 12, 13 and 14. RK3576 uses a 16 bit task number, so
-> those three controls sit at bits 16, 17 and 18 instead:
->
+> In file included from ../drivers/video/fbdev/maxinefb.c:34:
+> ../drivers/video/fbdev/maxinefb.c: In function 'maxinefb_ims332_write_register':
+> ../include/video/maxinefb.h:16:41: error: implicit declaration of function 'KSEG1ADDR'; did you mean 'CKSEG1ADDR'? [-Wimplicit-function-declaration]
+>     16 | #define MAXINEFB_IMS332_ADDRESS         KSEG1ADDR(0x1c140000)
+>        |                                         ^~~~~~~~~
+> ../drivers/video/fbdev/maxinefb.c:66:49: note: in expansion of macro 'MAXINEFB_IMS332_ADDRESS'
+>     66 |         register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
+>        |                                                 ^~~~~~~~~~~~~~~~~~~~~~~
+> ../drivers/video/fbdev/maxinefb.c:66:40: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+>     66 |         register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
+>        |                                        ^
+> ../drivers/video/fbdev/maxinefb.c: At top level:
+> ../drivers/video/fbdev/maxinefb.c:74:14: warning: no previous prototype for 'maxinefb_ims332_read_register' [-Wmissing-prototypes]
+>     74 | unsigned int maxinefb_ims332_read_register(int regno)
+>        |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> ../drivers/video/fbdev/maxinefb.c: At top level:
+> ../drivers/video/fbdev/maxinefb.c:74:21: warning: 'maxinefb_ims332_read_register' defined but not used [-Wunused-function]
+>     74 | static unsigned int maxinefb_ims332_read_register(int regno)
+>        |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> ../drivers/video/fbdev/maxinefb.c: In function 'maxinefb_ims332_read_register':
+> ../drivers/video/fbdev/maxinefb.c:76:40: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+>     76 |         register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
+>        |                                        ^
+> ../drivers/video/fbdev/maxinefb.c: At top level:
+> ../drivers/video/fbdev/maxinefb.c:114:12: warning: no previous prototype for 'maxinefb_init' [-Wmissing-prototypes]
+>    114 | int __init maxinefb_init(void)
+>        |            ^~~~~~~~~~~~~
+> In file included from ../drivers/video/fbdev/maxinefb.c:34:
+> ../drivers/video/fbdev/maxinefb.c: In function 'maxinefb_init':
+> ../include/video/maxinefb.h:22:41: error: implicit declaration of function 'KSEG1ADDR'; did you mean 'CKSEG1ADDR'? [-Wimplicit-function-declaration]
+>     22 | #define DS5000_xx_ONBOARD_FBMEM_START   KSEG1ADDR(0x0a000000)
+>        |                                         ^~~~~~~~~
+> ../drivers/video/fbdev/maxinefb.c:119:20: note: in expansion of macro 'DS5000_xx_ONBOARD_FBMEM_START'
+>    119 |         fb_start = DS5000_xx_ONBOARD_FBMEM_START;
+>        |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 
+> Suggested-by: "Maciej W. Rozycki" <macro@orcam.me.uk> # for s/KSEG1ADDR/CKSEG1ADDR/
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> ---
+> Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>
+> Cc: Helge Deller <deller@gmx.de>
+> Cc: linux-fbdev@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+> Cc: linux-mips@vger.kernel.org
+> 
+>   drivers/video/fbdev/maxinefb.c |   17 ++---------------
+>   include/video/maxinefb.h       |    4 ++--
+>   2 files changed, 4 insertions(+), 17 deletions(-)
+> 
+> --- linux-next-20260807.orig/drivers/video/fbdev/maxinefb.c
+> +++ linux-next-20260807/drivers/video/fbdev/maxinefb.c
+> @@ -61,7 +61,7 @@ static struct fb_fix_screeninfo maxinefb
+>   
+>   /* Handle the funny Inmos RamDAC/video controller ... */
+>   
+> -void maxinefb_ims332_write_register(int regno, register unsigned int val)
+> +static void maxinefb_ims332_write_register(int regno, register unsigned int val)
+>   {
+>   	register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
+>   	unsigned char *wptr;
+> @@ -71,19 +71,6 @@ void maxinefb_ims332_write_register(int
+>   	*((volatile unsigned short *) (wptr)) = val;
+>   }
+>   
+> -unsigned int maxinefb_ims332_read_register(int regno)
+> -{
+> -	register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
+> -	unsigned char *rptr;
+> -	register unsigned int j, k;
+> -
+> -	rptr = regs + 0x80000 + (regno << 4);
+> -	j = *((volatile unsigned short *) rptr);
+> -	k = *((volatile unsigned short *) regs);
+> -
+> -	return (j & 0xffff) | ((k & 0xff00) << 8);
+> -}
+> -
+>   /* Set the palette */
+>   static int maxinefb_setcolreg(unsigned regno, unsigned red, unsigned green,
+>   			      unsigned blue, unsigned transp, struct fb_info *info)
+> @@ -111,7 +98,7 @@ static const struct fb_ops maxinefb_ops
+>   	.fb_setcolreg	= maxinefb_setcolreg,
+>   };
+>   
+> -int __init maxinefb_init(void)
+> +static int __init maxinefb_init(void)
+>   {
+>   	unsigned long fboff;
+>   	unsigned long fb_start;
+> --- linux-next-20260807.orig/include/video/maxinefb.h
+> +++ linux-next-20260807/include/video/maxinefb.h
+> @@ -13,13 +13,13 @@
+>   /*
+>    * IMS332 video controller register base address
+>    */
+> -#define MAXINEFB_IMS332_ADDRESS		KSEG1ADDR(0x1c140000)
+> +#define MAXINEFB_IMS332_ADDRESS		CKSEG1ADDR(0x1c140000)
+>   
+>   /*
+>    * Begin of DECstation 5000/xx onboard framebuffer memory, default resolution
+>    * is 1024x768x8
+>    */
+> -#define DS5000_xx_ONBOARD_FBMEM_START	KSEG1ADDR(0x0a000000)
+> +#define DS5000_xx_ONBOARD_FBMEM_START	CKSEG1ADDR(0x0a000000)
 
-Sorry, I haven't had time to check this series. Here is some
-information for your reference:
+The change looks correct, but clearly this has never been tested
+on a 64-bit DECstation, so I'm not sure having this code being
+now built is an improvement.
 
-For RK3588:
+What about:
 
-- BIT[11:0] task_number
-- BIT[12] task_pp_en
-- BIT[13] task_count_clear
+-- >8 --
+diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
+index ac9ac4287c6a..ff17afe6b8b3 100644
+--- a/drivers/video/fbdev/Kconfig
++++ b/drivers/video/fbdev/Kconfig
+@@ -1436,7 +1436,7 @@ config FB_PMAGB_B
 
-For RK3576:
+  config FB_MAXINE
+         bool "Maxine (Personal DECstation) onboard framebuffer support"
+-       depends on (FB = y) && MACH_DECSTATION
++       depends on (FB = y) && MACH_DECSTATION && 32BIT
+         select FB_IOMEM_HELPERS
+         help
+           Support for the onboard framebuffer (1024x768x8) in the Personal
+---
 
-- BIT[15:0] task_number
-- BIT[16] task_pp_en
-- BIT[17] task_count_clear
-- BIT[18] task_last_layer_clear
+?
 
->   rocket, v1 through v6:  TASK_CON = 0x00007001
->   vendor driver, RK3576:  TASK_CON = 0x00070001
-> 
-> So the PC read our word as task_number = 0x7001, that is 28673 tasks,
-> with the count clear landing on nothing. It never signalled completion
-> because by its own count it was never finished, and only a full reset
-> ever cleared the counter. That also explains the other symptom in the
-> cover letter, that only the first job after a reset computed anything.
-> 
->   rocket_pc_writel(core, TASK_CON, (0x7u << 16) | task_count);
-> 
-> I found it by taking an ordered trace of every register write our driver
-> makes during one submit and diffing it against the same trace from the
-> vendor driver on the same board. Exactly one value differed. I should
-> have done that before writing a workaround, and before describing a
-> hardware limitation I had not established.
-> 
-> Two guesses I made the same night, a per job IOMMU teardown and the
-> vendor's post completion sequence, were both wrong, which is the other
-> half of the lesson.
-> 
-> So for v7: patch 7 loses the polling and the "the interrupt does not
-> arrive" text. I would rather not carry a bounded poll at all. Jobs that
-> compute incorrectly do still time out, but that is a driver bug on my
-> side rather than something the hardware needs help with, and the
-> scheduler timeout already covers it. Diederik, this is what you warned
-> me about off list, that a poll reads as a workaround for an
-> undetermined problem. You were right and the problem is now determined.
-> 
-> The rest of v7 follows what you both asked for: the job_lock fix becomes
-> its own patch with a Fixes tag and leaves the RFC series, the
-> rk3588_soc_data change is separated from adding rk3576_soc_data,
-> refactoring comes before the new support rather than inside it, and I
-> will stop editing a comment in the patch after the one that added it.
-> 
-> On the GIC question, for the record, so the thread has it in one place:
-> RK3576 is GICv2, gic-400 in the upstream DT, not GICv3. It made no
-> difference here, as you said it would not.
-> 
-> Thanks for digging into this, and sorry for pointing you at a fault that
-> was mine.
-> 
-> Jiaxing
-> 
-> 
+Regards,
 
--- 
-Best, 
-Chaoyi
+Phil.
