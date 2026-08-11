@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C978CC5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6A5C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0468F10EBDF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEDA710EBD3;
 	Tue, 11 Aug 2026 13:48:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bpSNSc22";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fPAqHjmx";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC3CB10EBD2;
- Tue, 11 Aug 2026 13:48:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 699DC10EBDB;
+ Tue, 11 Aug 2026 13:48:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=uJ3EpT7DmA9CpGm3ROx190dkI0zlO+2mVu+iubKl05E=; b=
- bpSNSc222L7rDeXkh5F6GmJSHk97PDWZWthhl4Wac9tIw6W2+xTeDWqmMe4Cwan3VtR7EbH8EOEQ3
- BHyeI3LmHeUj0b89xu62Md72fh73D0Y91U+qeVAWDxf9OTqrqWuU+xphtInwbaDqSH5AhVV8lEaP1
- fCqGn5WXCYPHKRs2AqMj76L78ujp4D3aPXeFGCpJI5fcc1fsNDYpxHQ0eVhHdS0EssD4xkB2wME4Q
- /pmr+TANv3vZTFzvQ/4QqAc6kfraqgfcP1v5M1HQjWpYMiGYSvd2X1vGpRsqNBnDzOYrH5BIMo7fU
- 6teZ7CkYL4izadl3Yz4rynp5L+FQD5wNlQ==;
+ Cc:To:From:From:Reply-To; bh=dDGG6d1pHHDr6E559SFYSTxzTkXjCnYIyy8bFEof5jY=; b=
+ fPAqHjmx50c5k6u/YlNixBbGy6Z04vHbrY/VoR6lnhT+6pB0JWsHhlys37LkX0nO6lH/0RdxvK4TT
+ 62kY/0T5SsrtuKdoFcr5Dq/87pqooUzkGsYRjrDdA8GMQ6LcuLOiPH40ptlI3x7i1HYO6jSFaW8rp
+ hmpARgYFW+fvy4B5D61v6z7M4rwFZ64GwD7E3qlqzbb8+v608W1bUu/HjVE7JSaH/aKcQaKyjpJNJ
+ 9IvpWHiNKMtoras+5H5BGYWw57WLISgXmx8UwFnPdmXWNm3NRPfNW/hnwinbk5hxY6hzk9mDoHnHW
+ 86YCuX8civiOIXeHc7/VmF7xnZ4glLS2hg==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtmpl-00H9mM-PJ; Tue, 11 Aug 2026 15:48:01 +0200
+ id 1wtmpm-00H9mY-HS; Tue, 11 Aug 2026 15:48:02 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 01/20] Revert "drm/sched: Remove redundant entity->rq
- initialization and checks"
-Date: Tue, 11 Aug 2026 14:47:39 +0100
-Message-ID: <20260811134758.96339-2-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 02/20] Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
+Date: Tue, 11 Aug 2026 14:47:40 +0100
+Message-ID: <20260811134758.96339-3-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
 References: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
@@ -57,71 +56,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This reverts commit 2df5efb45425b48fbf5a3c1f36a686af26871009.
+This reverts commit d09339388b778f04dd9e638befa2594c9cb4290b.
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 11 +++++++++--
- drivers/gpu/drm/scheduler/sched_main.c   |  9 +++++++++
- 2 files changed, 18 insertions(+), 2 deletions(-)
+ include/drm/gpu_scheduler.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index c51101ec70c1..4ebb513255ed 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -129,6 +129,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 		return -ENOMEM;
- 
- 	INIT_LIST_HEAD(&entity->list);
-+	entity->rq = NULL;
- 	entity->guilty = guilty;
- 	entity->priority = priority;
- 	entity->last_user = current->group_leader;
-@@ -279,6 +280,9 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
- 	struct drm_sched_job *job;
- 	struct dma_fence *prev;
- 
-+	if (!entity->rq)
-+		return;
-+
- 	spin_lock(&entity->lock);
- 	entity->stopped = true;
- 	drm_sched_rq_remove_entity(entity->rq, entity);
-@@ -325,11 +329,14 @@ EXPORT_SYMBOL(drm_sched_entity_kill);
-  */
- long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeout)
- {
--	struct drm_gpu_scheduler *sched =
--		container_of(entity->rq, typeof(*sched), rq);
-+	struct drm_gpu_scheduler *sched;
- 	struct task_struct *last_user;
- 	long ret = timeout;
- 
-+	if (!entity->rq)
-+		return 0;
-+
-+	sched = container_of(entity->rq, typeof(*sched), rq);
- 	/*
- 	 * The client will not queue more jobs during this fini - consume
- 	 * existing queued ones, or discard them on SIGKILL.
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index d2ca01b31ee4..818d3d4434b5 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -588,6 +588,15 @@ int drm_sched_job_init(struct drm_sched_job *job,
- 		       u32 credits, void *owner,
- 		       uint64_t drm_client_id)
- {
-+	if (!entity->rq) {
-+		/* This will most likely be followed by missing frames
-+		 * or worse--a blank screen--leave a trail in the
-+		 * logs, so this can be debugged easier.
-+		 */
-+		dev_err(job->sched->dev, "%s: entity has no rq!\n", __func__);
-+		return -ENOENT;
-+	}
-+
- 	if (unlikely(!credits)) {
- 		pr_err("*ERROR* %s: credits cannot be 0!\n", __func__);
- 		return -EINVAL;
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 363d13fc929f..da5d142506f2 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -607,6 +607,8 @@ struct drm_gpu_scheduler {
+  * @ops: backend operations provided by the driver
+  * @submit_wq: workqueue to use for submission. If NULL, an ordered wq is
+  *	       allocated and used.
++ * @num_rqs: Number of run-queues. This may be at most DRM_SCHED_PRIORITY_COUNT,
++ *	     as there's usually one run-queue per priority, but may be less.
+  * @credit_limit: the number of credits this scheduler can hold from all jobs
+  * @hang_limit: number of times to allow a job to hang before dropping it.
+  *		This mechanism is DEPRECATED. Set it to 0.
+@@ -620,6 +622,7 @@ struct drm_sched_init_args {
+ 	const struct drm_sched_backend_ops *ops;
+ 	struct workqueue_struct *submit_wq;
+ 	struct workqueue_struct *timeout_wq;
++	u32 num_rqs;
+ 	u32 credit_limit;
+ 	unsigned int hang_limit;
+ 	long timeout;
 -- 
 2.54.0
 
