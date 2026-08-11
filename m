@@ -4,91 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D25C5B567
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E9FDC5CFCF
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8A2610EE73;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7529710EE70;
 	Wed, 12 Aug 2026 07:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YsroEjYB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FrhClwLM";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E45F510E461
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:29:09 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-8487b7b3fc8so959628b3a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:29:09 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A643D10E35A
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 19:42:46 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4980dc26022so1742805e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 12:42:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786458549; x=1787063349; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=QkL6quPpYZOmrSZlgR7q8t7HlM3bpCXuTHsi56o560Y=;
- b=YsroEjYBwY2TXjLfrD53ZhmNnFN81aZZohuicr3GFsxodQdZI4Fme66mgPrFKLdjys
- q8ZJ2D96rMjDVBea2AdPBMpGENCNZatL8/aOjKKcc7Dhr/C+zPZZSKh19638a6JGmT6+
- oRUTgXcW3LXZUgGBE1j/f17l0iXxVNRLunELrom2KnefB04/+JR3c7tU9HxpH4gNEzWC
- 63B+yJavtU7QwPUx/idWOdN/xkHkv7mxhu4E3WnsNpAP4UBzPh7jq6ZBbF6y7qcPQIc9
- mu97LehUlVvdELkDdY7Bk7OwjMj+6cmSbNIIEnN4B+agzZAx/6Q6CZAhxhW1h9k3JYAj
- aEhQ==
+ d=gmail.com; s=20251104; t=1786477365; x=1787082165; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=BuMfkemM9Oz2WhvZaC2ZnN/4G8tTmAb8WWo8t6gaQkk=;
+ b=FrhClwLM6N2I+LJAexr2C9gDL/mwsuNSK3ydcKUGCOkFcc4SxgFb5KQX5EC14/6x48
+ YdU3MlciG/OXJ/+TJnKqFMOwojtL33AVKiQM8CnzuxnroYjHhZiFTkux+pJtY00W7mkg
+ ok6RIGhnGbCtjhUV9zNM3u475AtmPci2zmr+pxB71wUGryT0zAVzX1rJ7q/NWMlot1Iu
+ OfBvxPHjx525/FRev7KP/Y5csHs+paNlegQedFeOEW7ZJi6gklcP9aUtxRizo1ekQoLw
+ k/snaGq0Twi3XeU9jebamG5sHhRTzO8jiII0D1rEq+v7YqMRF77Y7PaOPxC2qBPCtCIO
+ 6vxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786458549; x=1787063349;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=QkL6quPpYZOmrSZlgR7q8t7HlM3bpCXuTHsi56o560Y=;
- b=fYPWvbYGGNKmT1hi+ZZ/qexoQlD44EoG2qdlFfMW4u4kXhfXUPBW7cRSbYNnJEosFh
- bZ/sgaB4H442NZU/Vbg9lvdBdg8keclaEQdtEG9KCmv0Wrs4ZwuSp58bD7G8w7kKCQru
- QBYvXxs7hFFkN7gIoO5XFouzB2TH4L/u6Tp+fSQgcaPxNsQD3Slmcuv4PBOVN2PwJXxn
- LvxtHKjhMz2tGBVhVUfCt6j55aofsSUcqA6h+zYoovFqzlAXg9obJ0B6WIv17JtHEQRv
- 94q2P/MVCMnvZXpezrmkCdPX3rgfgi6DV1hEeNnDSVlm+tx+OSUvu7/XbJNY2LkUNKcn
- ippg==
-X-Gm-Message-State: AOJu0YycS4Unz5IkcdOHVcOKDNC5epAbHm5IpKw+MVenh+QoB2TI7PgK
- c431k1KNu7+rPucL6ShyyjOuwjB3LCIxMyfeJuPhSLHycUJxD1OYO0Wf
-X-Gm-Gg: AR+sD12mQ2LFEyk8GZDG57fAycAW69LqAiTypFNrgVew5z9qdlPMbLo85rse4lysH17
- jQ6ErMGK5/93BzpWTQe+qAGH3LSGnj2hcKwuNt2DtmK1Din0jI3k9Oc3qD6HkbK7lflRUi3UKm2
- CwP293upVsDnPaF1qtNo/bOuyCmSmb/GD8PF6FbvpOzZT2oVmouGupRPbrniGtUSgkIhykLZbsU
- LrncievF5B+MJZBhgHX8qIqoc3PI+xuocymIcolvsBWAyqDTVJcdX1rmoCi3yo+0+CkkkO2d7J8
- KlRVOEfNOlKE3Xq66CYT1U8TE1wWiM50vtbd7KaIQ8YUoLqR4oKGtu1bn6SHkTYpe3l5Me5+sJ4
- WxDN7Mq20j930wOwD/gHpdI1nnNkBpIyKNfOY/G1st6e6q6eqn2TDgY60WU5q5HHmYjYGcnJaBV
- WBqV5RaYVs1EsVIVCaphC40hT5mh/Pv9Q4VBBc8A+wSa1SfEyU0u1U9kT0Jr4=
-X-Received: by 2002:a05:6a00:138e:b0:848:8619:c149 with SMTP id
- d2e1a72fcca58-84faf42c2efmr824043b3a.2.1786458549054; 
- Tue, 11 Aug 2026 07:29:09 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
+ d=1e100.net; s=20251104; t=1786477365; x=1787082165;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BuMfkemM9Oz2WhvZaC2ZnN/4G8tTmAb8WWo8t6gaQkk=;
+ b=HzDRZ5nfC6aBGnFaSqosfvfpX1HdzzFEnM/xbPbQyj0FvlmWDabLKslCT0ki8N9nd3
+ hRNTsi5FOplI4ByQtTJ/941uUtr5DBG8wVVP/yH3mfBJt22qiKUUQBrCiaxiApGD6saK
+ JzCyo6orllwLK/1N+1ItteQ/sOZZhkRnlThbrk21eBEet0E5w7OUpLEPVqumNnSOftPK
+ 54koVYY4cueHTakVb3s7A/aElXfOUN4A8mY2EmSq7KF+9oHEA/yyKf3mAStFHnFOpnUO
+ imG1PMvbO/DL3m8/0X+G5OLbD+/s9N9c5O6KLgKi+3eWsBT5PyZsf6jxAXq4jf3n7+gz
+ fnfQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqp4vK1U7wOOaovSIPjcZ1nhgtbMf8yYmB/rOI2NN0vWb4wkgCoOgQm1Y2R5AY4xtXUjXgMZNmRnoU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxMmwZh3YS4vcUD1/52JT9XixfcxJWZ/lpy1iURtKThkSVYqgH5
+ /eZg0TnDy+T5ZNGjw0hZRwj/OZxD2ByqIV1opMZhCPIx6Ogri0CRmDRdRjq0nU5I
+X-Gm-Gg: AR+sD13Qy68qlnMrKdFKpS31xtdnU295mkQTlfvkK7uIyPkjlUQwUH6SOV+y2I9moK6
+ TaJEZx6eF6dRcoZewT9w7yh+Ukquj/1b6bC6iI4Y+ojXZhnuiipLTjazZDVcmiWg5t171wePw1J
+ loS8qOpiC3laSdDjcd3RT4VSk5UG6EpuPdww71i9YBiWqDRbHSPGba3X0996A2RmTDygqipysZB
+ KTm++g6d18Fk2imV1l26g/lqbEHpR51JogxcYCDA2B8DREjkfsYcHaegaRDTmOoRAo1vExNIHLT
+ Q5MCZLJNREGbk8ZVcxIZngdWAn/TKHeYzEoRPKHD8x3HSh7JXHHZpHC39P/BZEmlhD3hTpdWRJN
+ kP20sf8VtHvNJQsKTSqryUfEiair69Mm8H/1E97E5q5CKzGEAk3ZIUp65bhHBGLc4JHS5qUDzqX
+ j8I9LsImbDA/5o+dRFvMXky3VmSqCRGXg4ftS2jWlGUWO33UvJpd+SvL3KqzDDR6PKP5PebQG17
+ 57K/nOlvG1UhCN5xpB5Njmzw6pt6lVWZrLZ5/NUOKJO5dpR11S3
+X-Received: by 2002:a05:600c:c4ab:b0:493:aa0a:45ad with SMTP id
+ 5b1f17b1804b1-4997842c213mr78119195e9.2.1786477364935; 
+ Tue, 11 Aug 2026 12:42:44 -0700 (PDT)
+Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
+ (212.pool95-21-2.static.orange.es. [95.21.2.212])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84fa954fc8asm890209b3a.50.2026.08.11.07.29.04
+ 5b1f17b1804b1-4997adad05esm3986195e9.3.2026.08.11.12.42.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 07:29:08 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Subject: [PATCH 0/2] drm/nouveau/dmem: fix DMA unmap size and callocated
- accounting for THP
-Date: Tue, 11 Aug 2026 22:28:49 +0800
-Message-Id: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
+ Tue, 11 Aug 2026 12:42:44 -0700 (PDT)
+From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
+To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>
+Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>, 
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ stable@vger.kernel.org
+Subject: [PATCH v5 6/6] ttm_pool_mgr_init() does not check return value
+Date: Tue, 11 Aug 2026 21:42:21 +0200
+Message-ID: <20260811194224.121597-7-megia.oscar@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260811194224.121597-1-megia.oscar@gmail.com>
+References: <20260811194224.121597-1-megia.oscar@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKExe2oC/yXMUQqDMBCE4avIPnfBhFJCr1L6EHW2bsEoWSOCe
- Pem7ePH8M9BhqwwujcHZWxqOqcKd2moH2N6gXWoJt/6Wxuc4+7KaS4bYuFhwsTruLDoDmMEiIs
- i4oOn2i8Zv6Hmj+ffVro3+vV7SOf5AWu1zIh9AAAA
-X-Change-ID: 20260811-b4-nouveau-dmem-thp-fixes-e8ef1afff282
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Balbir Singh <balbirs@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786458544; l=1559;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=ZMKglCqVFXjvtgIXuZifnh47ei+nnVi+BRmkcnYy+sQ=;
- b=BoaoApiS8sm/+sfuksuoGEKYu0rzRHDSGrA0yNMo6P0a/eAtz2lAgOnDDCgBuQuP0XlJFp1Dp
- j8eAjUVMULPBHmIZgK5qC2TH5H0uqNmEN6oKiq7Z6bRRZADtjalkaaJ
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 12 Aug 2026 07:08:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,39 +97,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Two independent, stable-worthy fixes to the device-private THP migration
-path in nouveau, both introduced by commit c32287471077 ("gpu/drm/nouveau:
-enable THP support for GPU memory migration") and still present in
-mainline.
+Bug: ttm_pool_mgr_init() does not check return value in
+ttm_global_init().
 
-Patch 1 fixes two dma_unmap_page() sites that pass a literal PAGE_SIZE
-instead of the mapped page_size(). For an order > 0 folio this unmaps
-less than was mapped and leaks the remainder of the IOMMU/IOVA mapping.
+Fix: Check the return value from ttm_pool_mgr_init() and propagate
+the error.
 
-Patch 2 accounts for large-folio splits in the ->folio_split() hook,
-which previously left chunk->callocated unchanged. A folio counted once
-at allocation (+1) is later freed as N sub-folios (-N), so the unsigned
-counter underflows on the first split/free cycle and the chunk leaks.
-
-Both are confined to nouveau and orthogonal to the in-flight "Remove
-device private pages from the physical address space" rework, which
-touches nouveau_dmem_page_addr()/nouveau_dmem_chunk_alloc()/
-nouveau_dmem_fini() rather than these teardown/accounting sites; they
-apply and are needed independently.
-
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Assisted-by: OpenCode:1.17.18-Big Pickle/DeepSeek V4 Flash
+Assisted-by: claude.ai:Sonnet 5
+Cc: <stable@vger.kernel.org> # 7.1.0
+Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
+Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
 ---
-Zhenhao Wan (2):
-      drm/nouveau/dmem: fix mismatched DMA unmap size for large folios
-      drm/nouveau/dmem: fix callocated underflow on large folio split
+ drivers/gpu/drm/ttm/ttm_device.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/nouveau/nouveau_dmem.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260811-b4-nouveau-dmem-thp-fixes-e8ef1afff282
-
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+index d3bfb9a696a7..896b766712d0 100644
+--- a/drivers/gpu/drm/ttm/ttm_device.c
++++ b/drivers/gpu/drm/ttm/ttm_device.c
+@@ -96,7 +96,9 @@ static int ttm_global_init(void)
+ 		>> PAGE_SHIFT;
+ 	num_dma32 = min(num_dma32, 2UL << (30 - PAGE_SHIFT));
+ 
+-	ttm_pool_mgr_init(num_pages);
++	ret = ttm_pool_mgr_init(num_pages);
++	if (ret)
++		goto out;
+ 	ttm_tt_mgr_init(num_pages, num_dma32);
+ 
+ 	glob->dummy_read_page = alloc_page(__GFP_ZERO | GFP_DMA32 |
+-- 
+2.55.0
 
