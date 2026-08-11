@@ -4,56 +4,178 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00114C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAC9C5B567
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48BC610E3DB;
-	Wed, 12 Aug 2026 07:08:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD8AE10EE65;
+	Wed, 12 Aug 2026 07:08:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="Rj5jtiD8";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.de header.i=@amazon.de header.b="S3gaH36E";
 	dkim-atps=neutral
-X-Greylist: delayed 91105 seconds by postgrey-1.36 at gabe;
- Tue, 11 Aug 2026 17:59:18 UTC
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
- [79.135.106.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 072F410ED16
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 17:59:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=3jue3prkvzdelhxqbbuuvwtkqe.protonmail; t=1786471155; x=1786730355;
- bh=Rhq8TQEyp/YkXN1pgK+No4ze40gOJy7gf5bTiXAy8xk=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=Rj5jtiD873I7jKzJj9eX5AUjZgOQx8tzvXszjkLAJc7kRVrn+RvP2hghKv9lY/mjD
- oXT5pIL0WEaiQR37Q5abIr/V8dxMsWHUuKG+5XCILr5rQ5gtsvKFx8q4UGDpjaJxpL
- 4l0Oh74xS10wwbFt41FLj/jicUI6Srl8OLckEpKrCKIhLIuOMZjsVaZyXD+XXUKvbU
- PvgnuvTtWp5isvQtal+j0lGR0ESh5+T5xOEmce+5t7ANoEQWsvh0WII/Se2blfEFQs
- X3W8hcqAvJA1gVwwKnm/EA6Zgyyg/aBeWEM0CCJzeIytp2eDXEy0pLJ3uE+43tHaAV
- eO6ZVQcWMFWSA==
-Date: Tue, 11 Aug 2026 17:59:09 +0000
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-From: Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>,
- phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-Message-ID: <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
-In-Reply-To: <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
-Feedback-ID: 214028577:user:proton
-X-Pm-Message-ID: 33967dafe27c211d4ea346d13d616ab9ee968239
+Received: from fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.199.210.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FAB410E371
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 19:33:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+ t=1786476816; x=1818012816;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=6KCgRu57nWhaDVMB6y+KpxUEj/MkgSrDcNOCLLcfjOs=;
+ b=S3gaH36Emh4hfHlRVVRqazKwLNnffQJiRmhHTWiABOVTb0oTqE5TxOCf
+ m6OWLcQE+GeTUkLR/t7CLW+dMKY2XW01iACiQXpk38QM5AT/CU35trrrk
+ l3caLrjI3xz4oVIoMS026wHdez6wfg3haNvVwNAqSyly50eXL5xANZP5f
+ qsQqfk9I0HRhshdjdHJYTaI/g21wwoGAGKZ6SmYDr6rlxh9ffLK9Ymevb
+ J0cvgMdOqCEd12W+HOVIhy9a35OSI4D/WV8yH3bQNAICGb4Eul+M+eWZV
+ XJ7zUQIpBvR/IzaTSgoPYRPvavnkO4T/4jfEzS8jcphBRVhRhdSP9sCs+ Q==;
+X-CSE-ConnectionGUID: UotRurfNQNKckIanhX8oPQ==
+X-CSE-MsgGUID: JN2LHAxHRuCG6ZQ5wzonaQ==
+X-IronPort-AV: E=Sophos;i="6.25,218,1779148800"; d="scan'208";a="17604226"
+Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
+ by internal-fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 19:33:31 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:12574]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.29.62:2525]
+ with esmtp (Farcaster)
+ id 5a8fd43b-57f0-48a2-b152-f0322f179708; Tue, 11 Aug 2026 19:33:31 +0000 (UTC)
+X-Farcaster-Flow-ID: 5a8fd43b-57f0-48a2-b152-f0322f179708
+Received: from EX19EXOEUC002.ant.amazon.com (10.252.51.145) by
+ EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Tue, 11 Aug 2026 19:33:31 +0000
+Received: from FR4P281CU032.outbound.protection.outlook.com (10.252.51.94) by
+ EX19EXOEUC002.ant.amazon.com (10.252.51.145) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45
+ via Frontend Transport; Tue, 11 Aug 2026 19:33:31 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ayu2g4QehFq8gh1T3tF/GYTRWvdsmL84zPTCaEm6hlHpG02ql7ABxDRmGo343pUUteEIHWcw2dnBuTtahyvjAAjkoK2XmS0Tmb8SDkhzbYHDHIG7zRnn2NB+GtNVFPo/B6vpqUaJfcR4NQABHeu7LfBXrvNbixXEhJzTdvQ14X3nplysSPrnKd/k6lmEFJH2i87AJyE0XYXTctu8fRZok74NspyzhItadHQpeapIkAtDce/NR2+yaiyVe3quf277x5VYrsEOuZIKUJeYZkHyyQQVbUcKIW4u8xwqqh86hOJ22IiK/2XbkHmZRHgSm0AGEqL0hvGhWTmC5jut1mJQfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6KCgRu57nWhaDVMB6y+KpxUEj/MkgSrDcNOCLLcfjOs=;
+ b=qAZXorK58LYg+4kB6m56yydsWl0q6X+g+I5yruenu2lVUzdEfORFyw81ZQsq8zZ2p7HroUajxfZ0MJSIahDBEyqjNGFnL64Nw0zPG3hGp14wWQomO0hbwwRlnGh2Wn/mdcQOyWiMCmUCeUiVDV4HzQMir/Drzqhj3NOrDf8fv4vZ2GngUQiFw0+lPBiT7hr0Z4Tp6VH/yaguhYDUp7k0bTwK3aNWH9ITg1JCAc9YaAIJBaNxDqIHoDjPrXbUNZXG0fTNncZDEIHoCZ+/rl9Hx20ndj6oUjYsawzqSu5uEL0JNVlb1TIy/DUbXTrai/0eNKu0JFzi6wOKvb6ktDQJ9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amazon.de; dmarc=pass action=none header.from=amazon.de;
+ dkim=pass header.d=amazon.de; arc=none
+Received: from BE3P281MB6244.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:103::21)
+ by FR0P281MB2891.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:57::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
+ 2026 19:33:27 +0000
+Received: from BE3P281MB6244.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::6854:a8a7:80a6:2c71]) by BE3P281MB6244.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::6854:a8a7:80a6:2c71%6]) with mapi id 15.21.0315.008; Tue, 11 Aug 2026
+ 19:33:27 +0000
+From: "Graf (AWS), Alexander" <graf@amazon.de>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: Jason Wang <jasowangio@gmail.com>, Alex Williamson <alex@shazbot.org>,
+ David Airlie <airlied@redhat.com>, Dmitry Osipenko
+ <dmitry.osipenko@collabora.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, =?utf-8?B?RXVnZW5pbyBQw6lyZXo=?=
+ <eperezma@redhat.com>, Feng Liu <feliu@nvidia.com>, Gerd Hoffmann
+ <kraxel@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Jens Axboe
+ <axboe@kernel.dk>, Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet
+ <corbet@lwn.net>, "linux-block@vger.kernel.org"
+ <linux-block@vger.kernel.org>, "linux-doc@vger.kernel.org"
+ <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "nh-open-source@amazon.com"
+ <nh-open-source@amazon.com>, "nvdimm@lists.linux.dev"
+ <nvdimm@lists.linux.dev>, Pankaj Gupta <pankaj.gupta.linux@gmail.com>, "Paolo
+ Bonzini" <pbonzini@redhat.com>, Parav Pandit <parav@nvidia.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, Stefan Hajnoczi <stefanha@redhat.com>,
+ "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>, Xuan Zhuo
+ <xuanzhuo@linux.alibaba.com>, Yishai Hadas <yishaih@nvidia.com>
+Subject: Re: [RFC PATCH 00/12] virtio: support devices that own their
+ virtqueue memory
+Thread-Topic: [RFC PATCH 00/12] virtio: support devices that own their
+ virtqueue memory
+Thread-Index: AQHdKchHcVe2KOeMjkSNLqlP5cvryA==
+Date: Tue, 11 Aug 2026 19:33:26 +0000
+Message-ID: <8c31b1a0-b9c1-4580-9589-9f868da42785@amazon.de>
+References: <20260809182010.32931-1-graf@amazon.com>
+ <20260810021450-mutt-send-email-mst@kernel.org>
+ <c56fb4d0-33ef-4e9b-ac18-ac4e896957cd@amazon.com>
+ <20260810035246-mutt-send-email-mst@kernel.org>
+ <bdcec878-d627-4d0f-a97c-35e596363b20@amazon.de>
+ <21714074-dc1e-4ef3-a515-6602bd19f055@amazon.de>
+ <20260810162924-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20260810162924-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amazon.de;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BE3P281MB6244:EE_|FR0P281MB2891:EE_
+x-ms-office365-filtering-correlation-id: b8d24dc4-c58b-4c3f-3884-08def7df6a80
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|366016|1800799024|376014|38070700021|6133799003|11063799006|10067099003|56012099006|4143699003|18002099003|22082099003;
+x-microsoft-antispam-message-info: RGzaMntpl2hoG567kwVJfOmWV3qbDF6bpJHiJHEy3bHiOQxBgHkw7f6pqlqztilGGQpjnwpzU7NGrScBq8qmBbtBYZBo7IOO41JBavecu+aqPSQgVMD5Yk1UiAd+pKliyqwPC0no3ZLic7Uc4OMUy+uwLeacOkLynx7yw1uUdELsFs6VeWXB91lIo63HTxNBmXTpDbgKsKqZDhz5G+W6xqrVMTNyHW0GgiSkudTPtMtgA/pzIuDXPPYYQJD9Kxra7YE0seEiyHi5ezMHwf/6/IoEXvaSClEnngdtzRmPIL3jgB/64KCybLl8Ir8syNUCt9H3eI14IL7jtr9emqoHBukIBgVc5OPr4feEgDIB9vdIAm5+/TPJSk82K4WvZMU/vwe6PoJl9SRDmIDq/uWQTg5KgsrmLdPQvFovmKG2R4DJNkcqWAX/9ABBtZ6p66B5uvezETFjm9/T4wE52RfQgdrF+1v+TBHn43EBF7I6Bm1bkQ2/js5j06gn34DXu05u1zNGOKFSJq8d9P7Nh3PI8Yjo/9f9y9Sm/2XFNTH0p/HnYPgCe5t+QKZC1idw60Jz98OKnKxYaKzN9SGToZWBo3JjinUC8Q8cEQ2di5bEupKja92liy1jDIhjWbN4cqO6uO/IDfetDs5hu+DdekIrFbCo36h9OjEedx/hKUGRs5icV2u16d/b8IIWyhzMaO0DD3zBfQnqSq1+EtVBAC081EkWwUHJyExHlnRtvmSFyNo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BE3P281MB6244.DEUP281.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(38070700021)(6133799003)(11063799006)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?R1NrbUVZZjNsdFZ1ZzFvVXZuMWtURGhNaGZmbkJJNFBEQnVVcUR6dU9BNFVV?=
+ =?utf-8?B?SDBJN0FWMkt6eGI3R2RjZUNvaGNQQzFYSDZlMUJ5UkRHQVI3VmxURWpsdTAy?=
+ =?utf-8?B?d3lvV3BPS0diZE42Qk9FWEROMXFjNHNTMmZvdUtUMVVONnNHUG40TlR3b3dQ?=
+ =?utf-8?B?c2grNmRXcW4rUWtVQ3ZsMEdsdittTW5sc2JPdDU3VnBSTXp2bU5aeGZmNGN1?=
+ =?utf-8?B?VWJETWNFOHNqUExUWVkxODAySlo1U0g4czRjRlMrYkgrZEIzb3J0UjJENGo4?=
+ =?utf-8?B?WkVwWUVNM0t3ZU9DY2t1alk3ZnJSMUdPZmNRT3dXWG51RXpoenp0Zms3MzJQ?=
+ =?utf-8?B?cnltSnVoeEk1R0lwYjk4VC83VjlNSS9BUzdMenR4WGtpTTZTRlQzcWxqZFAw?=
+ =?utf-8?B?NXBBSnMwc2pqbDgwZDhHaU42UXJLbEw3aWpqUWtybDdRYmZXRzNDaEtqNXMw?=
+ =?utf-8?B?RnFRR0MxazFoV3FzMCt0bXd1TllzdGJZVm9GWGo0WEhydzJQWWZqYlV3ZEg0?=
+ =?utf-8?B?MnR3WGx4RkU3dW9DNkk2c2kyWm9FSUxqbUNWUytGWnUxMnNGRUJwVklCZ0g1?=
+ =?utf-8?B?WEtRM1Y2d0szV1FVckp3UzBZcFl6ZW9TTzlUeVRWWFN6NU5MNjZheDE0a3Nt?=
+ =?utf-8?B?aUJLamRSa0d0eU9qL1FiN25tRTJIVW5nWWZ0dUlnNndtcWw3MlZ0cEp6UlZF?=
+ =?utf-8?B?dktyQW9SZS9qdTVLc2pmMElSaDA5cWVEbFRyelNvZWw2TjcxRDkzNzBpekVz?=
+ =?utf-8?B?U0gyOGpxZ1JHcWNDVFBYRDBmV2pNU3Bkdnc1VGpZTHN1ZFc0UHhEZFBQa0sx?=
+ =?utf-8?B?T3QrLzQrY0dZU2Z1MVNadlRCaEUrVkNqMS9NdlpFQ2JZSGcvdEtENzRhZ2p2?=
+ =?utf-8?B?UmZMbnY0Tzh0L3lXbHFuTXVUTXc1dk1oS0N1RUNJZWJGR21yZDBrOGxGa1ZR?=
+ =?utf-8?B?UmlUdFJpNzN0a2hkOVVYQmFTV0lSc1pROTk3SDRqYWNscWdGOVY0SmZiRndE?=
+ =?utf-8?B?aVpLU2pNRjNzNXBOQzREL0tISENRVC9Od0RNanBqcTBueDZHRzA4NmphTkNp?=
+ =?utf-8?B?UXlGdzZ0eHMyc2NrbHVKbzM2OTdyQmx6YjRjMEVKUXlTTVN3N2xGbk8vRDlR?=
+ =?utf-8?B?YnY4V2VBZUpsVHA3bGJSalVQYTRMWEFYMXk4a3M0VnN1cUwyTlkyZjRUb3RX?=
+ =?utf-8?B?dHhscFVGMkpBUHFFZ1JkdTBpL0dVeFkrcXlacUNEck9waGYxaWFGMWRNd01N?=
+ =?utf-8?B?djlJUkNhT2lHQnRpWkFkSHJ4ME9tdDJ5eVhIb3hHQWE3N0RqUDdVck80dzU3?=
+ =?utf-8?B?azlQK2hvNUpiblQ4RWlKT2wzNTN1NUczS3Q2R283SDBiamx5bUU4RmsxM3Vj?=
+ =?utf-8?B?VitpS0RrNjJiNFhMT1lNMEpJNSs4Q2c3alJyeTlsN29Qc1piVVpCVlRWRDQ0?=
+ =?utf-8?B?SHp3UEVQbzRyMURXSVEzYzM0RjdLdG55R1BLMC81cGpTbEQzb01NMmZ4RVhL?=
+ =?utf-8?B?N0N5NjEvZ2RpYWlWdlY3ME45SjJDUWJqR3Jna05UTy9hdlRKUTVEQytpcFFR?=
+ =?utf-8?B?bEswS3A0czRZKzNtQ1FFa2g1Nk1iN1E2TVVmTkNjZEcvRGtJdlg5QXJ4L1ly?=
+ =?utf-8?B?SmUreWQ1ZDBVYWdyZDk4SGl0RGdaU1RVblFBM3FXYzZxZ3c3STZTU3hmUTBh?=
+ =?utf-8?B?VTE3NnhjM2RGRzJtaytxdlBQaVhkK2hoRkRVYVBTSk9tazhiRjBiTDZGMlpO?=
+ =?utf-8?B?bTQ5dmVJbWUxbVBNSFdsTkJGYjJuUzVkeUkxTXJ3b3UyOGcrYmpzazVmYXd1?=
+ =?utf-8?B?bkdzR0tHUlMwTFRYakJ0V296N0kvZTF5ZkUwNkJhV1AzMGFxaHBwakxQRndZ?=
+ =?utf-8?B?Y0ZxVE5jbkgvVFFaWGNhZHRHK1p6RU5XZCtDWjlhdzhhOElJcGlpUTB4d3Bv?=
+ =?utf-8?B?VFErRDlZOWpITlNCMXJqV1RaZEU0bzFXdkswOTAzSlJxbndlZWxZeU9VSGla?=
+ =?utf-8?B?RFdpSVhCN1VHT21jZVZOSTU0M3o3cUlZOFFOSkVwcEhESGNQcFJ4c2dFWS9l?=
+ =?utf-8?B?Vllhd1UwSjM1UzVZbkxCU1FIbGgwa1pQRkxGcXhPUW1HM08vRXVxTW1JQVRu?=
+ =?utf-8?B?ZHlsS25EdVBva1NnYTJUbEhCZy8xdzZrcGE3TzJNZnE4WjlyUlNRRU9RWlRo?=
+ =?utf-8?B?ZHZaS2RHMmg1T1FOTzBsQStYNUkzUXdxS2FZZVhQNW5GanBhRlp1MXJzUUtD?=
+ =?utf-8?B?ZUt4Mkd5MjNWeWNsdU9LWlpibFBiaWJRa0xhUDVkK2ZOT01GaWcweG1udjdD?=
+ =?utf-8?Q?fH0zQmWrAvyrsdcAGo?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2E7680D0CB34944DB02A08C7FB1238AC@DEUP281.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked: Zo33V/j/tClOF7+Nt+5QTMJA50Nf2EavTia5rcQZv/9oa6Hn8SYHl8YI8hX6edSGKcZx0eB7ELi+vYg1Cyflq1dtLrtTpK9tyNXUy3Kgd4MZoxSqZn/JONEX2VUDgety0LwWhnpS5uE5MQJUfFLG7YggH4h/jZG0ngC5yH4AiDbfYpkCSftpzUi93P7YknHPV76ZVctLTLkDk0nIODeFFqttf7Z6EYMAoAjiO1jQz9K8zmmSiFc1PCBMOLFisnk71fQEnSxMoAYyNtdhU2YNGl+h95mTg3roY1UePmFwcmpAi9+XeNDbdi457Y7uIMhLEnz8L+Kflh4GUPX5FL1H1w==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BE3P281MB6244.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8d24dc4-c58b-4c3f-3884-08def7df6a80
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 19:33:26.9087 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /pWH+44CCLFS6qqilNCN+eJYH68nh2hd5BRHBbBB17FS2sJOoYls+oWBMjvoKzJ2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR0P281MB2891
+X-OriginatorOrg: amazon.de
 X-Mailman-Approved-At: Wed, 12 Aug 2026 07:08:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,186 +192,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I want to be very clear here, I was working with Claude Opus on debugging t=
-his issue. I am not a good programmer and work in on the hardware side of t=
-hings, so this is only code I've tested and not of my creation, just hoping=
- to be helpful.
-
-
-
-It appears the freezing (and maybe what I'll call micro freezing instead of=
- stuttering) was resolved after an issue was potentially identified in driv=
-ers/gpu/drm/scheduler/sched_rq.c
-
-I did a 20m play session attempting to reproduce the issue but was not able=
- to. Previously, I could reproduce this on-demand.
-
-I will copy the writeup it created and the testing we did below. I am only =
-claiming that the freezing had been seemingly resolved, not a particular fi=
-tness or correct identification of the issue, that is for developers to jud=
-ge.
-
-Quotations are an output of a summery I had Claude create.
-
-"
-THE INVARIANT
-
-drm_sched_entity_stats::vruntime is held absolute while the entity is linke=
-d
-in the run queue tree, and relative to min_vruntime while it is idle.
-save_vruntime() converts one way on the way out, restore_vruntime() the oth=
-er
-on the way back in. drm_sched_rq_add_entity() calls restore unconditionally=
-,
-which is only correct if the entity has definitely been through save.
-
-
-THE WINDOW
-
-drm_sched_entity_pop_job():
-
-    spsc_queue_pop(&entity->job_queue);      /* queue now empty */
-
-    drm_sched_rq_pop_entity(entity);         /* takes entity->lock inside *=
-/
-
-No lock held across those two lines. A concurrent push seeing the queue emp=
-ty
-gets first =3D=3D true, calls add_entity, and restores a vruntime that has =
-not yet
-been saved -- adding min_vruntime to an already-absolute value. If the enti=
-ty
-is leftmost, get_min_vruntime() returns its own vruntime and it doubles.
-
-It persists: pop_entity then finds the pushed job, takes the next_job branc=
-h,
-and update_vruntime() carries the inflated value forward. The entity sits f=
-ar
-right in the tree and is not selected until min_vruntime catches up, which
-under sustained load may be effectively never.
-
-
-EVIDENCE
-
-WARN_ON_ONCE(!RB_EMPTY_NODE(&entity->rb_tree_node)) at the top of
-add_entity(), after the rq lock, fires reproducibly.
-
-That condition should be unreachable. add_entity() is reached only from the
-"first job" branch of push_job(), and first is true only when the SPSC queu=
-e
-was empty. A linked entity implies its last pop_entity() peeked non-empty.
-Empty queue and still linked cannot both hold in any ordered execution. Fre=
-sh
-entities are excluded -- entity_init() calls RB_CLEAR_NODE() unconditionall=
-y.
-
-Instrumented as a counter instead, with ring and comm logged:
-
-  idle 10s:      0 races /  5662 restores
-  gameplay 60s:  8 races / 43315 restores
-
-  [ 192.754604] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
-  [ 226.882135] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
-  [ 292.226032] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
-
-plus Xwayland:cs0 and vkd3d_queue on gfx, and many more on sdma0/sdma1. The
-gfx_0.0.0 / kwin_wayla:cs0 entries are the compositor submission thread on =
-the
-graphics ring -- the process that dies when the desktop freezes.
-
-
-CHANGE
-
-The principled fix is presumably to close the window by holding entity->loc=
-k
-across the pop, which needs a _locked variant of drm_sched_rq_pop_entity().
-I did not attempt that. What I tested checks the invariant instead: a still=
--
-linked entity never left, so its vruntime is already absolute and its tree
-position valid.
-
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ drm_sched_rq_add_entity
--=09ts =3D drm_sched_rq_get_min_vruntime(rq);
--=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
--=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-+=09if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
-+=09=09ts =3D drm_sched_rq_get_min_vruntime(rq);
-+=09=09ts =3D drm_sched_entity_restore_vruntime(entity, ts,
-+=09=09=09=09=09=09       rq->head_prio);
-+=09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-+=09}
-
-On stock 7.2-rc7 with this applied, freezes are gone against a trigger that
-previously reproduced on demand, and perceptible hitching appears gone too.
-The race counter keeps incrementing (35 in the last session against 295744
-restores), so the window still opens at the same rate and is now absorbed -=
--
-the timing has not merely shifted. Extended soak in progress.
-"
-
-
-
-On Monday, August 10th, 2026 at 9:40 AM, Luke.Wildhardt@proton.me <Luke.Wil=
-dhardt@proton.me> wrote:
-
-> Oops, forgot to reply all in my last message.
->
-> I did a quick test of the patch before I left this morning, the freezing =
-seems to gone, but when the GPU is under the same condition, the stuttering=
- is more uniform if that makes sense. Granted this was only a 5 minute test=
- but the freeze was rather reliable before, I can do more testing later.
->
-> I know these things can be hard to describe, if that helps. If there's an=
-y profiling I could do or detailed logging that would help don't hesitate t=
-o ask.
->
->
->
-> -------- Original Message --------
-> On Monday, 08/10/26 at 06:48 Tvrtko Ursulin <tvrtko.ursulin@igalia.com> w=
-rote:
->
-> On 10/08/2026 13:45, Danilo Krummrich wrote:
-> > On Mon Aug 10, 2026 at 10:28 AM CEST, Philipp Stanner wrote:
-> >>> Reverted Commits:
-> >>>
-> >>> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
-> >>> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
-> >>> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
-> >>> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single r=
-un queue
-> >>> 45c211ddf92a drm/sched: Switch default policy to fair
-> >>> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
-> >
-> > [...]
-> >
-> >> That might be the wisest thing to do; but let's hear if Tvrtko has an =
-idea for
-> >> a hotfix first.
-> >
-> > -rc7 was released yesterday; even with a working hotfix today it'd be t=
-ricky to
-> > ensure the hotfix does not regress other drivers or workloads with 7.2 =
-being
-> > just a few days ahead.
-> >
-> > I suggest to not wait and get the reverts ready.
->
-> Yes reverts would be safer. I have them in a branch at
-> people.freedesktop.org/~tursulin/drm-intel drm-sched-fair-reverts,
-> mostly straightforward apart from one easy conflict in
-> amdgpu_xcp_release_sched. Smoke tested on Steam Deck looks fine.
->
-> Having said that, the fix for min_vruntime handling I provided earlier
-> in the thread also looks fine in my testing and is simple. No
-> regressions found with synthetic unit test workloads or messing around
-> on the Steam Deck. But we need to wait to hear from Luke since I haven't
-> been able to repro his report locally yet.
->
-> Regards,
->
-> Tvrtko
->
->
+DQpPbiAxMC4wOC4yNiAyMzo0MiwgTWljaGFlbCBTLiBUc2lya2luIHdyb3RlOg0KPiBPbiBNb24s
+IEF1ZyAxMCwgMjAyNiBhdCAwNzoxNDowOVBNICswMDAwLCBHcmFmIChBV1MpLCBBbGV4YW5kZXIg
+d3JvdGU6DQo+PiBNYXliZSBJJ20gbWlzc2luZyB0aGUgcmVhbCBwb2ludCB5b3UncmUgdHJ5aW5n
+IHRvIG1ha2U/IDopDQo+IEF0IGxlYXN0IG9uZSBwb2ludCBpcyBub3QgdG8gaGF2ZSB0ZXh0IGxp
+a2UgImludGVwcmV0IGV2ZXJ5IGFkZHJlc3MgYXMNCj4gYW4gb2Zmc2V0IiBpbiB0aGUgc3BlYyBh
+bmQgYWN0dWFsbHkgbWFrZSBpdCBhbiBhZGRyZXNzLg0KDQoNCkkgYW0gZ2VudWluZWx5IHVuYWJs
+ZSB0byBzZWUgaG93IHdlIGNhbiBtYWtlIGl0IHByZXR0aWVyLg0KDQpXaGF0IEknbSB0cnlpbmcg
+dG8gdHJhbnNtaXQgaXMgdGhhdCBlYWNoIGRldmljZSBzaG91bGQgbGl2ZSBpbiBpdHMgb3duIA0K
+YWRkcmVzcyBzcGFjZSwgd2l0aCB0aGUgaG9zdCBzcGVjaWZ5aW5nIHdoaWNoIGJvdW5kYXJ5IGFu
+IGFkZHJlc3Mgc3BhY2UgDQpoYXMuIEkgYWdyZWUgdGhhdCBvbiBzdXJmYWNlIGl0IHNvdW5kcyBh
+IGJpdCBsaWtlIGFuIElPTU1VLiBBbmQgeWVzLCB3ZSANCmNhbiBjb21iaW5lIHRoYXQgd2l0aCB2
+aXJ0aW8taW9tbXUsIGJ1dCB0aGF0J3MgcmVhbGx5IGp1c3QgcHVudGluZyB0aGUgDQpwcm9ibGVt
+IGRvd24gb25lIGxheWVyIGFuZCBtYWtlcyBpdCBtb3JlIGRpZmZpY3VsdCB0byByZWNyZWF0ZSB0
+aGUgdGllcyANCnRoYXQgYSBuYXRpdmUgcGVyLWRldmljZSBtZWNoYW5pc20gYWxyZWFkeSBnaXZl
+cyB1cy4NCg0KV2l0aCBhIHB1cmUgdmlydGlvLWlvbW11IGltcGxlbWVudGF0aW9uLCB0aGUgbW9z
+dCBvYnZpb3VzIHdheSB0byBjcmVhdGUgDQphIHByaXZhdGUgbWVtb3J5IHJlZ2lvbiAobm90IFJB
+TSwgYmVjYXVzZSB0aGlzIHJlZ2lvbiBzaG91bGQgbmV2ZXIgYmUgDQp1c2VkIGJ5IGFueXRoaW5n
+IGFzIFJBTSkgdmlhIGFuIFNITSByZWdpb24gdG8gdGhlIHZpcnRpby1pb21tdSBkZXZpY2UuDQoN
+Ck5vdyB3ZSdyZSBtb3ZpbmcgdGhlIHdvcmRpbmcgaW4gdGhlIHNwZWMgZnJvbSAiRGV2aWNlIERN
+QSBpcyByb3V0ZWQgdG8gYSANCnByaXZhdGUgYWRkcmVzcyBzcGFjZSB3aGljaCBpcyBiYWNrZWQg
+YnkgdGhlIERNQiBTSE0gcmVnaW9uIiBpbnRvIA0KIlZpcnRpby1pb21tdSBoYXMgdGhlIGFiaWxp
+dHkgdG8gdGFyZ2V0IGEgc3BlY2lhbCBhZGRyZXNzIHNwYWNlLCBiYWNrZWQgDQpieSBhbiBTSE0g
+cmVnaW9uIi4gQW5kIHdlIHRoZW4gbmVlZCB0byBmaW5kIGEgd2F5IHRvIHNpemUgdGhhdCByZWdp
+b24sIA0KZHluYW1pY2FsbHkgc2xpY2UgaXQgKGZvciBob3RwbHVnIHN1cHBvcnQpIGFuZCBjb21t
+dW5pY2F0ZSBiZXR3ZWVuIGFsbCANCmNvbXBvbmVudHMgd2hlcmUgYW5kIGhvdyB0byB1c2UgdGhl
+IHZpcnRpby1pb21tdSBTSE0gcmVnaW9uIGluc3RlYWQuDQoNCklmIHdlIGRvbid0IHdhbnQgdG8g
+dXNlIGEgdmlydGlvLWlvbW11IFNITSByZWdpb24sIGJ1dCBwdW50IGl0IGRvd24gb25lIA0KbGF5
+ZXIgdG8gdmlydGlvLW1lbSwgaXQgZ2V0cyBldmVuIG1vcmUgZGlmZmljdWx0LiBXZSdkIGhhdmUg
+YWxsIG9mIHRoZSANCnByb2JsZW1zIHRoYXQgd2UgZ2V0IHdoZW4gdXNpbmcgdmlydGlvLWlvbW11
+LCBidXQgb24gdG9wIG9mIHRoYXQgd2Ugbm93IA0KbmVlZCB0byBlbmxpZ2h0ZW4gdmlydGlvLW1l
+bSB3aXRoIGEgc3BlY2lhbCAicHJpdmF0ZSIgbWVtb3J5IHJlZ2lvbiB0aGF0IA0KaXMgbm90IFJB
+TS4gQW5kIHRoZW4gY29ubmVjdCB0aGF0IGJhY2sgaW50byB2aXJ0aW8taW9tbXUuDQoNClNvIHdo
+aWxlIEkgdW5kZXJzdGFuZCB5b3VyIGNvbmNlcm4sIEkgZmFpbCB0byBzZWUgYSBwYXRoIHRvd2Fy
+ZHMgYW4gDQphY3R1YWxseSB2aWFibGUsIGdlbnVpbmVseSBiZXR0ZXIgKHByZXR0aWVyIC8gbW9y
+ZSBtYWludGFpbmFibGUgLyBlYXNpZXIgDQovIGxlc3MgZXJyb3IgcHJvbmUgLyBldGMpIGltcGxl
+bWVudGF0aW9uIHdpdGggdmlydGlvLWlvbW11Lg0KDQoNCkFsZXgNCg==
