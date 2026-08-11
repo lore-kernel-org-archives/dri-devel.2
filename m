@@ -4,92 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41CE8C5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45441C5B56A
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 646A710E093;
-	Tue, 11 Aug 2026 21:16:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F04C10E24D;
+	Tue, 11 Aug 2026 21:24:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dQdfTbg4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lzNnglaF";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB3A710E093
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:16:04 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4996c452e95so284795e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:16:04 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B2B10E24D
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:24:26 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-47f6981d244so24626f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:24:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786482963; x=1787087763; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786483464; x=1787088264; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=6aQogsOegT+g6QZpcciAxI27XEPgO8Du/rqMWdvlx5I=;
- b=dQdfTbg4YECXOWc99l4gVqyjS+1ZTEvrm2ivb2V0XQGATD6gokgTz/3JIXSmtN2ngl
- +M4nC+BRjbOG13rqFS1zHiCJ5jwOu5p7vQxRC17alNix1jLi/323iT7L9TalT7OpURMR
- WOqytqVW/O6x76HV2yK2TSATsiBJoiRz1fuyY9qrz9/dgy6+S9T7QXNBqhQs/k/twx/z
- sMhBOmuWC3TrWRlCu6BArjA/g7gufplryyoBLE331GquGf/kdEjUQgZM1VtNof4nFa6T
- FIfaL/dL+nSr3czmR39Ih8Ng/+AYZk0+nzQfcBAYJg8AKitAQ9BREqEoqMb5AFbBCMC1
- WeAQ==
+ bh=WvCeOL9JP58AfB/MRzhZ0CTB3RYi+jJQ1QyJ9ty4SVE=;
+ b=lzNnglaFPaI33YylPqiB2gP8BinSRdQZfbneW2tBVSQv5nKGRbevNN8ZEPZ1SFpsy5
+ GGrj0KVaKcCf3GRRZkl8+Mj8xt0RLztpL73PQbMQvLKprYmabUojh7Q5mkkzVGQEbwpV
+ dB8RUu0qi9IhyHYaeXaW92vVIIg8hpOS4k31JiU7a7qETjNCHTAj9jgJeeVbODLLbIML
+ 5sAU2pjak9JVx5eWUCCSWjTY0WJx5pHq1eL4VH3JTCuM7u9gUUUUJf8uhzWs6o8FepHI
+ iYObAlYfz5y/lsnnYBsmMeviOK4VCSeUJnxIkHnEQ7sUnqlrQDJZD7QvmZgdAAZyf7KQ
+ Nb6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786482963; x=1787087763;
+ d=1e100.net; s=20251104; t=1786483464; x=1787088264;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=6aQogsOegT+g6QZpcciAxI27XEPgO8Du/rqMWdvlx5I=;
- b=gcnsRYkj0Y+ljtKLChdEEjrgQKYWnu4agv3HuxQxGpI+lyy8D07344lZLwf1A6TY6j
- +9QjgIMlzLn+U+INtyv8vaAlp11WK6foTxkifpcNQHFd28DKbdjqU7hB01hmKNa5XSGD
- ETBwpnUBESBHJOQdZV6sP/fn2BltZClQu0vpqtS+RYjADqb2RLkS8qAnk1wE29F+ylcH
- /UyWOLAywbmgmH8VUkbRrX12aJ61gEr8pA9yz/EGZG5l14bNklj6J/mZqryoWdk/sVnR
- Ub/2MkEgyYGOatYIpEBB1pQ5CtqIBDT6dnaTFky5ylwOQiA0bYwuZFPE+jMjGM2T0kpz
- 7Wzw==
+ bh=WvCeOL9JP58AfB/MRzhZ0CTB3RYi+jJQ1QyJ9ty4SVE=;
+ b=MxfdJmbuD7BrouFitVJnNi01mHwiCHI5CdsCU/n4U0oLGEsS6lsjkW2d+QeEvjpl7z
+ ECxX0EEmZlbBaPipo4FvBO0b7sikqhFhEIoS24xyEGHjrRCu9ymARoir2Xjex9ZmxK/U
+ CWnPsOf0ldE4xil8tKsOsvBlN2jDJErNW+ebzXm51PzERiWCTldt3M9U3CpUX0YoOpRx
+ PU2cMQcEAr9F+k9LB9lu2wLC4twgZY7o2C6olMtEL/BCqt8SSCsw3udun7Ekg3AuYvXH
+ M8Yl1VKtDJUpRH9idZLw6Wa4A+SoFd0XR9RE0+b0edTsEw3f7CXbd7bKVs1fXwbvjghd
+ htRA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpNsatpw807hc3V8xgSAtbXwebzXZDacHgZ8rtxyjZbErhzQZesdi/ufFhf+HWzIQEiUZKmm4zDMzo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwG/3GN5xfNrwwXw/HW8s3YyQ3YTJHT/9s2gCMo5+fiyBWjijp1
- AVz+u//jD228V8jP3R7ModnVmraGSSXu4MYdOucFQqlK5jaKHkzndjbc
-X-Gm-Gg: AR+sD11EJuqQS+k0CZNWI/qtscDC/eabJVF+usY+M66aj1n9krmz3lf7QobfuIFKv3v
- r/nkxt5FsPVd17nV6OSkGGqFjuSHSt9dLKcwn47FJpnSrHGnkysb4Qyd0IY6KPfJZVjGgQHgH/6
- wXDIhCVnuFgdMHVbq718B9cQL5Bu4uCdUogqzIxwXzQj1SFp3ncedbMfpuzehSJ3U5BtKIJ9ODM
- nQabIBRRbx+RheyMXQXv6t7SG64vEb1a+sg/xvVR0ixANWq4iE+6scsXsclGB1TDgcaho4eZHag
- THeoD4RWCe5LNENwhJZsN8nELjLlmi4sZODS1gokpVvMWrO2lKxkv4AGJg5taYGA5yhyfHSBtL1
- mmo/yURRhrNY1nejR6dDjc6S1I5+gfwi5ErDLQohYq/v3kp6kTBUWUKkAgXe+jYdnPdQPyJWN6Y
- 8gVYHeyYNSSYG9OKnT9yjq4kghJtoB7rpiCdOzqmIwlu/04TtClaQLPjUL7mdnbYDqnLKeSTq6r
- PJ95GdWKo08iLAlKjmb1OVYp7MD0OVUSdYOljFgd5sj86jX/1CR38PkrZbJeMyS9dBKzw==
-X-Received: by 2002:a05:600c:a48:b0:499:73ca:c419 with SMTP id
- 5b1f17b1804b1-4997c12c6c7mr634725e9.4.1786482962800; 
- Tue, 11 Aug 2026 14:16:02 -0700 (PDT)
+ AHgh+RqAf+3jcAYlHg2k6gvACAS6C97DeVOZYLqRgDuVq7p6uiGfkJbGg8fC4nxCw08Wa6GyemL7QB02hX0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxlVHXxfMzOORTBFvaAJ0bb9nF2HmRh0gLrjkI1NZCpFU0LiZ1S
+ kvg+gdBPK8WwEfS82OJJWFDBFe+JZtKlluTDEEAlz16hm3nhAxf7h9q2
+X-Gm-Gg: AR+sD11lO1ejrkWWTIlptCfZOKghluUejmkn1w5Ohr5RC/mtTI7mQWhXmJQj0gUmkBh
+ y/cMK18LQDAFPSeLNn4hcKZSGoYCZqSWGVqxLS9gQtwADfUg4xI7W23tftQLo4pzibtBH31YJfR
+ GKoJteIcGorBRlG5b8i1agwt7Rdyb+iJM0ndGd7DfirtlZZmDa0RnYFimf0InqOaOPCTjtSFhfJ
+ GA9nRSJUu9gGLlBQoNaWgKwlBPoXuERuUErOd5CYNgAG2nFWmkxcjOiaGTPM+B3wAu1UIuXfycm
+ 40nEcGjnxmif3GggHY8SN8Q3sQq2nHV+834ynvFsa/IGXi9+32Q9DwPMjfmMoOhDHF9iHyG+Dra
+ 8VuSMTPgvUhaqXOHA1DOvO2IISZ4XyO5W3Uc3uRHTed8i5MdLlskgF0+gkwNFeu7DSWFe0DDver
+ nqLhg+TVd3jMxs01ZZeqArH5TnBES1+FI6TvDRTr5TpztvAP1aaKLNt0/xW1wHuwv218ufoAqF7
+ tOfzY2Cv1wehSCdiEi7jXRSW+hmWj8AFZX/1pcYvPIEUkg1EWm7F5JBM8B30u+98LJKiQ==
+X-Received: by 2002:a05:600c:1f82:b0:496:bbce:ef with SMTP id
+ 5b1f17b1804b1-4997c15bc31mr801435e9.3.1786483464434; 
+ Tue, 11 Aug 2026 14:24:24 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B94ED005B06BF1B5A09FFE4.dsl.pool.telekom.hu.
  [2001:4c4e:1b94:ed00:5b06:bf1b:5a09:ffe4])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4997aa96fb5sm19488225e9.3.2026.08.11.14.16.00
+ 5b1f17b1804b1-4997aac6e85sm20674225e9.14.2026.08.11.14.24.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 14:16:02 -0700 (PDT)
+ Tue, 11 Aug 2026 14:24:23 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
-To: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-Cc: Igor Paunovic <royalnet026@gmail.com>, hjc@rock-chips.com,
- andy.yan@rock-chips.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- p.zabel@pengutronix.de, sebastian.reichel@collabora.com,
- cristian.ciocaltea@collabora.com, damon.ding@rock-chips.com,
- lumag@kernel.org, alchark@flipper.net, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org, krzysztof.kozlowski@oss.qualcomm.com
-Subject: Re: [PATCH v11 00/21] Synopsys DisplayPort Controller improvements
- for Rockchip platforms
-Date: Tue, 11 Aug 2026 23:15:29 +0200
-Message-ID: <20260811211534.8618-1-royalnet026@gmail.com>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Alexey Charkov <alchark@flipper.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: drm/rockchip: vop2: ACLK_VOP pinned at 500 MHz starves DP 4K120
+ on RK3588
+Date: Tue, 11 Aug 2026 23:23:50 +0200
+Message-ID: <20260811212358.9980-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20767137.geO5KgaWL5@diego>
-References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20767137.geO5KgaWL5@diego>
+In-Reply-To: <c0a7521d-9c19-4197-802b-2b64a6ddea28@rock-chips.com>
+References: <20260808104240.13776-1-royalnet026@gmail.com>
+ <33bd4a94-11af-4cf3-ae44-b7f8944250f6@collabora.com>
+ <c0a7521d-9c19-4197-802b-2b64a6ddea28@rock-chips.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -108,107 +106,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Heiko,
+Hi Chaoyi, Cristian,
 
-Two of your four points I can say something concrete about.
+Chaoyi, your reading fits my own measurements better than mine did.
 
-On the cable being plugged in at boot: I see the same thing on an Orange
-Pi 5 Plus, and it is the single thing that cost me the most time on this
-hardware. The USB side comes up, the Type-C partner registers - your log
-[1] shows typec_displayport binding cleanly at 23.9s - and the DRM
-connector is still "disconnected" fifteen seconds later. That is what
-happened on 16 of the 21 boots I have logged with the adapter attached;
-on the other five the connector came up on its own inside that window.
-So here it is the normal case rather than every single boot.
+The link in that test was running YCbCr 4:2:0, so dclk sat at 594 MHz
+for a 3840x2160@120 mode - the interface rate was the cheap part. What
+was not cheap was what the video port had to compose: a single
+full-screen 3840x2160 ARGB plane at 120 Hz. So the case I reported is
+one where the interface was modest and the composition was not, which
+is the direction you are pointing in. I framed it as a DisplayPort
+problem because DisplayPort was the only thing I changed; that was the
+wrong axis.
 
-What gets it out of that state without touching the cable is a software
-replug of the Type-C port controller - unbind and rebind the fusb302
-driver:
+I should say what this bears on directly, because it is not
+hypothetical for me. I have a patch here that I have not sent, which
+replaces the frl_enabled condition with a threshold on the pixel clock:
 
-  echo 6-0022 > /sys/bus/i2c/drivers/typec_fusb302/unbind
-  echo 6-0022 > /sys/bus/i2c/drivers/typec_fusb302/bind
+  static bool vop2_needs_aclk_boost(struct drm_crtc_state *crtc_state)
+  {
+      return vcstate->frl_enabled ||
+             crtc_state->adjusted_mode.crtc_clock > VOP2_HIGH_BW_PIXCLK_KHZ;
+  }
 
-(the i2c address is board specific). After that the connector comes up
-and the mode is set normally. I run this from a boot service. It has
-fired on 16 boots and has never once failed: on 15 of them the log
-records DP-1 going from disconnected to connected within three seconds,
-and on the sixteenth the machine was powered off before any outcome was
-written. The most recent one, from a boot tonight, is representative -
-kernel start at 23:00:28, EDID override at 23:00:52, connector still
-disconnected with the cable in at 23:01:07, unbind and rebind, connected
-at 23:01:13.
+with VOP2_HIGH_BW_PIXCLK_KHZ at 1000000, so that any video port needing
+the bandwidth can ask for the higher rate. It also guards the refcount
+on the way, since atomic_disable() runs for ports that were never
+enabled and the counter is unsigned. It is written against the
+rockchip-devel branch, on top of the commit Cristian mentions, and I
+was holding it back until I had a threshold I could defend.
 
-Fair warning before you try it. The kernel I logged this on is a v7.2-rc6
-Collabora rockchip-devel build that predates your v11 - it was built on 6
-August at 00:00 CEST, so it carries the v9 generation of dw-dp - and it
-is tainted by out-of-tree modules. On it the
-unbind produces a WARN:
+Your reply says the quantity I keyed it on is the wrong one, and I
+cannot argue against that from my own data. The measurement the
+threshold came from is that at 500 MHz a 2560x1440@144 mode stays clean
+while 3840x2160@120 does not. But in both cases the port was composing
+a single full-screen plane at the mode's own resolution, so mode and
+composition moved together and the comparison cannot separate them. If
+the rule belongs in terms of what the port composes, then the pixel
+clock is at best a proxy that happens to fit the two points I have.
 
-  WARNING: drivers/base/devres.c:1184 at devm_kfree+0xb8/0xd0
+I would rather learn that before sending the patch than after. Two
+things I can run here:
 
-  devm_kfree+0xb8/0xd0 (P)
-  tcpm_port_unregister_pd+0x70/0xc8 [tcpm]
-  tcpm_unregister_port+0x70/0x178 [tcpm]
-  devm_tcpm_unregister_port+0x1c/0x40 [tcpm]
-  devm_action_release+0x20/0x48
-  release_nodes+0x6c/0xc8
-  devres_release_group+0x144/0x1a8
-  i2c_device_remove+0x5c/0x130
+  - your first case: hold 3840x2160@120 on DP, leave ACLK at 500 MHz,
+    and scan out a 1080p plane instead of the full-screen one. If that
+    comes up clean, the pixel clock is not the variable and the patch
+    as written is keyed on the wrong thing.
 
-I have it on 13 boots, most recently tonight; the rebind then works
-regardless. My kernel is tainted by out-of-tree modules, and I have not
-checked whether this is already known or fixed in usb-next, so please
-treat it as a heads-up rather than as a bug report.
+  - your second case: a modest mode with several 4K ARGB planes
+    composed at once. I can drive that over HDMI, without the USB-C
+    adapter in the path, so it is a cleaner test than the first.
 
-One timing detail, in case it applies to you: the Type-C partner does not
-always show up promptly here. On most boots it is registered within about
-twenty seconds, but on a minority of boots it takes far longer - the worst
-one I have logged brackets it somewhere between 73 and 88 seconds after
-kernel start. Anything that samples the connector state earlier than that
-concludes the port is empty when it is not. I only have one USB-C dock to
-test with, so I cannot say whether that delay is the board or the dock's
-PD timing.
+Is there a form of the condition you would consider correct? What your
+description suggests to me is something derived from the composed pixel
+rate summed over a video port's enabled planes, with max() across the
+active ports rather than a refcount - but you know what the hardware
+actually stalls on, and I am inferring it from an interrupt counter.
 
-I called this an adapter problem in my earlier reply on this thread, and
-your report makes me a good deal less sure of that. My assumption was
-that it was firmware specific: this board runs the edk2-rk3588 UEFI port
-(my build reports v1.1-13-g824e6c12), whose own support matrix lists
-USB-C DisplayPort as only partially working - "No hot-plug detect & EDID.
-Only works in one orientation of the Type-C port" - and lists the FUSB302
-Type-C controller as not working, with no PD or TCPM driver in that tree
-at all. So my working theory was that firmware leaves the PHY in a state
-the driver does not reset. If you are seeing the same symptom on a
-different board with different firmware, that theory does not hold and
-this is something to fix rather than work around. What are you booting?
+Cristian, understood on HDMI. If FRL and TMDS can serve the same mode
+at different fixed rates, the mode cannot determine the rate on its own
+and a bandwidth rule cannot be the whole story there. That answers what
+I asked. Whatever shape this ends up taking should keep working for the
+FRL case you already handle rather than replace it.
 
-On ACLK_VOP: thank you for confirming the starvation. That is the first
-report of it on hardware other than mine, and until now I had no way to
-tell whether it was my adapter.
+One thing worth carrying across from the dw-dp v11 thread, since not
+everyone on this Cc list is on that one. Heiko reported that on his 4K
+display he gets no output at all at the stock rate, and some output
+after raising ACLK_VOP to 750 MHz, although that output is garbled:
 
-I do not think your garbling is a milder version of the same failure,
-though. Here, at 750 MHz the picture became correct the moment the write
-landed and stayed correct, with no POST_BUF_EMPTY logged for the 42
-seconds that phase lasted; dropping back to 500 MHz brought the
-corruption straight back. That run was on drm-misc-next dc2f9f7fed1a plus
-your two series, built with CLOCK_ALLOW_WRITE_DEBUGFS so I could move the
-rate at runtime. So on this board 750 MHz is a clean state and not a
-marginal one - which also makes me doubt Alexey's reading that the
-garbling is an artifact of overclocking the VOP2. At least it is not that
-here.
+  https://lore.kernel.org/all/20767137.geO5KgaWL5@diego/
 
-The rest of what Alexey says looks like the right thing to check for your
-case. It is worth seeing what pixel clock your 4K mode actually asks for
-and what dclk it ends up with; on my side that same comparison is what
-exposed a separate bug on this board, a video port left parented to a
-dead PLL. One caveat when you compare against my numbers: my 4K120 link
-runs YCbCr 4:2:0, which halves dclk, so the mode asks for 1188 MHz while
-dclk sits at 594 MHz. If yours is 4:4:4 the numbers will not line up. If
-you post the mode and the "setting dclk to rate=... result=..." line from
-your log, I am happy to compare it against what this board does.
-
-For reference, the ACLK thread is here; Cristian and Chaoyi have both
-replied to it since:
-
-  https://lore.kernel.org/all/20260808104240.13776-1-royalnet026@gmail.com/
+So the starvation reproduces on hardware other than mine, which until
+now I could not tell apart from a fault in my adapter. The garbling at
+750 MHz is not something I see here - the picture was correct the
+moment the write landed and stayed correct - so that looks like a
+separate problem, and I have replied to him on that thread rather than
+fold it into this one.
 
 Igor
