@@ -4,64 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3571C5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4CFBC5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDE7610E7DE;
-	Tue, 11 Aug 2026 13:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C243510EBC7;
+	Tue, 11 Aug 2026 13:48:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="uh81J75z";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g1EYQVsg";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C037310E7DE
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 13:46:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1786455975;
- bh=jWJ1sfiQUrY8eZSJtbwUs8Sji3PCSlk35DzYAJePwXA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=uh81J75zaUrUxSobgiM/jehSkH7Kx3sml7mNHJOktOTkrmWsgPK99z1dgQP9jViCI
- cMwNBxcYDAwwrmNr7sXX2aC6EYYHASdV3yQHDY9p5zyqh9utzR6I+Ji8k+8wi/qbuz
- I+pS+OzWr94YiAgDrpzWv8IgyKw4DHpyPGSsxhqLF8Sk05aN0o2W8NdCfiWC3nmbLN
- 0QxE8H/7mUiACxbbyEF97xnzNadd/knMo4jkl0aY+gluYFxJ24OnA1xiJaVoBhNYZu
- 1f070xwYiYXlHE/hN+LT4hbB4Ueq1HgbvkKOM36v8RNBmZbznO43gUIRI4451hO9M6
- 0284DIxfautIg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hKCZN2mfJz4w9r;
- Tue, 11 Aug 2026 23:46:03 +1000 (AEST)
-Message-ID: <1ccd055c-9369-45ea-b3b2-e26c39b4f696@ozlabs.org>
-Date: Tue, 11 Aug 2026 14:45:59 +0100
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A539C10EBC7;
+ Tue, 11 Aug 2026 13:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=MdDSOxkknt+Lz03V4J+d5YfMUkb2czaqzWcEf7nkJIA=; b=g1EYQVsg2yMQfoZ3S97loEYmfd
+ gPfuLdFeAeGerIdl2vqjnEM1KbH/sM9f/3cDHq2cbngIifEzgE9zGbP7K7i0/i+0eMDdsr9SPsNL/
+ waad9VHK//nRLCk810sQswy5FkjFrH1Xlx3ijKiLD8TnTDIBRZ5Ceac9vjNvLv2lb653Th9GL47+D
+ LZK6wZpYEqEDFHZufpRmJTPrsEINyK0VxIlgxlZBX8AW7b/m39sAH7vPgxga+iMScHpVCgHXEklBW
+ N+554x26xQaiI+s8d7xEuJO9oYrH9bO/Bg2C2hSYwnnIk4+cyhK6FkENh8eZnQdRE6scKL+OmpRnz
+ 3Ee9f+SA==;
+Received: from [90.249.211.112] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wtmpl-00H9mH-0Y; Tue, 11 Aug 2026 15:48:01 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Luke.Wildhardt@proton.me, Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: [PATCH 00/20] Revert switching default DRM scheduler policy to fair
+Date: Tue, 11 Aug 2026 14:47:38 +0100
+Message-ID: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Content-Language: en-GB
-To: Logan Gunthorpe <logang@deltatee.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Alex Mastro <amastro@fb.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org, Longfang Liu <liulongfang@huawei.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-3-matt@ozlabs.org>
- <e90b0bd0-fb8e-4d4e-b282-609c26692e4a@ozlabs.org>
- <b30e75d8-37d6-478d-bc72-a9ed0b7e200c@deltatee.com>
- <20260805003914.GK27883@nvidia.com>
- <554c73c8-bc17-4336-8e38-f4cfe8d8b3fe@ozlabs.org>
- <20260805164052.GQ27883@nvidia.com>
- <72c83c2e-fcbb-4925-ba50-5be01af359ad@deltatee.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <72c83c2e-fcbb-4925-ba50-5be01af359ad@deltatee.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,124 +58,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Logan, Jason, Alex,
+There was a late minute user reported regression report[1] so lets revert this
+so it can be debugged in peace.
 
-On 05/08/2026 21:50, Logan Gunthorpe wrote:
-> 
-> 
-> On 2026-08-05 10:40, Jason Gunthorpe wrote:
->> On Wed, Aug 05, 2026 at 05:28:27PM +0100, Matt Evans wrote:
->>> Hi both (Logan thanks for your comments!),
->>>
->>> On 05/08/2026 01:39, Jason Gunthorpe wrote:
->>>> On Tue, Aug 04, 2026 at 10:19:11AM -0600, Logan Gunthorpe wrote:
->>>>
->>>>> There's a vague convention for this already: the term 'p2pmem' is often
->>>>> used for cases where the driver uses the allocator, etc. (I think I had
->>>>> this intention when I wrote the code and have since forgotten about
->>>>> it).
->>>>
->>>> I've been calling it the genalloc layer and the core layer. p2pmem
->>>> would be OK to refer to the genalloc stuff. So if you want to have
->>>> CONFIG_PCI_P2PDMA and CONFIG_PCI_P2PMEM that seem sOk
->>>>
->>>>> code into it's own file, potentially renaming some functions. Then, in
->>>>> the end, we would probably have a pcim_p2pdma_supported() function and a
->>>>> pcim_p2pmem_supported() function, the latter being used by existing use
->>>>> cases.
->>>>
->>>> Not quite sure why we need this?
->>>
->>> ( [1] )
->>>
->>>> Matt, the mlx5 stuff is the same as VFIO, it just uses the "core"
->>>> layer and does not use the genalloc. So there shouldn't be an issue
->>>> here, if the genalloc is off then the mlx5 stuff should still
->>>> work. There shouldn't be a case where CONFIG_PCI_P2PDMA=y and mlx5 is
->>>> broken?
->>>
->>> Oh, when CONFIG_PCI_P2PDMA=y it's all good.
->>>
->>> The issue is when CONFIG_PCI_P2PDMA=n, as mlx5 still seems to permit a
->>> DMABUF export solely because pcim_p2pdma_provider() succeeds.  (This
->>> patch's CONFIG_PCI_P2PDMA_CORE enables that.)  mlx5 assumes that getting
->>> a provider means P2P DMA is also available.
->>
->> That's my point, the mlx5 should work fine with CONFIG_PCI_P2PDMA_CORE
->> only or it is split wrong.
->>
->>> Later, DMABUF attach would fail, but it'd be good to keep the original
->>> failure mode where UVERBS_METHOD_DMABUF_ALLOC fails early if no P2PDMA.
->>
->> Why does it fail? It should not fail :)
->>
->>> I was thinking something trivial like the following would let things
->>> like IB fail the DMABUF_ALLOC early still, instead of making the
->>> assupmtion that having a provider means having P2P DMA.  E.g. OK
->>> provider's available, but test for P2P DMA support too:
->>>
->>>  bool pcim_p2pdma_supported(void)
->>>  {
->>
->> it seems illogical, if you have a provider you have p2p dma, things
->> are split wrong if this is not true.
->>
->> The split should be only around the genalloc and related
->> (sysfs,etc,etc) not anything mlx5 uses.
->>
->> The only think that should stop working without genalloc (ie
->> CONFIG_PCI_P2PDMA=n) is nvme.
-> 
-> Hmm, seems I made a few mistakes in my reply. Though I'm less certain I
-> understand the issue anymore.
-> 
-> I did confuse in my response pcim_p2pdma_provider() and
-> pcim_p2pdma_supported(). The later choice I really dislike. My thinking
-> was we'd have two versions of pcim_p2p[dma|mem]_provider()... But I'm
-> not sure that's necessary.
-> 
-> I thought there were callers of pcim_p2pdma_provider() in the p2pmem
-> code (non-core) section. But digging deeper today, it seems like
-> pci_p2pdma_add_resource() is the one caller, which I'd expect would be
-> compiled out when CONFIG_PCI_P2PDMA=n. Which seems fine. So I'm not sure
-> I understand the root issue anymore.
+I have not been able to locally reproduce it yet, but at least a partial fix
+looks to be this[2]. Further debug will be needed, possibly after the holiday/
+vacation season is over.
 
-Yes, this has gone round in a bit of a circle, apologies.
+[1] https://lore.kernel.org/dri-devel/TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me/
+[2] https://lore.kernel.org/dri-devel/20260811134223.96203-1-tvrtko.ursulin@igalia.com/
 
-I went back to the original change and concluded vfio-pci _doesn't_
-always need a provider, so this work to refactor P2PDMA to provide a
-provider even when CONFIG_PCI_P2PDMA=n is unnecessary.
+Cc: Luke.Wildhardt@proton.me
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
 
-The original original need was to break the dependency of vfio-pci on
-P2PDMA, since the series made vfio-pci dependent on
-CONFIG_VFIO_PCI_DMABUF.  I'd missed that the _export_ of a DMABUF
-doesn't need a provider (after all, the phys_vec has the PFNs).
+Tvrtko Ursulin (20):
+  Revert "drm/sched: Remove redundant entity->rq initialization and
+    checks"
+  Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
+  Revert "drm/xe: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/v3d: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/sched: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/panthor: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/panfrost: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/nouveau: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/msm: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/lima: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/imagination: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/etnaviv: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/amdgpu: Remove drm_sched_init_args->num_rqs usage"
+  Revert "accel/ethosu: Remove drm_sched_init_args->num_rqs usage"
+  Revert "accel/rocket: Remove drm_sched_init_args->num_rqs usage"
+  Revert "accel/amdxdna: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/sched: Embed run queue singleton into the scheduler"
+  Revert "drm/sched: Remove FIFO and RR and simplify to a single run
+    queue"
+  Revert "drm/sched: Switch default policy to fair"
+  drm/sched: Mark fair policy as experimental
 
-So we can just do this:
+ drivers/accel/amdxdna/aie2_ctx.c              |   1 +
+ drivers/accel/ethosu/ethosu_job.c             |   1 +
+ drivers/accel/rocket/rocket_job.c             |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   4 +-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c       |   1 +
+ drivers/gpu/drm/imagination/pvr_queue.c       |   1 +
+ drivers/gpu/drm/lima/lima_sched.c             |   1 +
+ drivers/gpu/drm/msm/msm_gem_vma.c             |   1 +
+ drivers/gpu/drm/msm/msm_ringbuffer.c          |   1 +
+ drivers/gpu/drm/nouveau/nouveau_sched.c       |   1 +
+ drivers/gpu/drm/panfrost/panfrost_job.c       |   1 +
+ drivers/gpu/drm/panthor/panthor_mmu.c         |   1 +
+ drivers/gpu/drm/panthor/panthor_sched.c       |   1 +
+ drivers/gpu/drm/scheduler/sched_entity.c      |  61 ++++++--
+ drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
+ drivers/gpu/drm/scheduler/sched_internal.h    |  15 +-
+ drivers/gpu/drm/scheduler/sched_main.c        | 130 ++++++++++++++++--
+ drivers/gpu/drm/scheduler/sched_rq.c          |  87 ++++++++----
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |   1 +
+ drivers/gpu/drm/v3d/v3d_sched.c               |   1 +
+ drivers/gpu/drm/xe/xe_dep_scheduler.c         |   1 +
+ drivers/gpu/drm/xe/xe_execlist.c              |   1 +
+ drivers/gpu/drm/xe/xe_gpu_scheduler.c         |   1 +
+ include/drm/gpu_scheduler.h                   |  42 +++++-
+ 30 files changed, 319 insertions(+), 94 deletions(-)
 
-- VFIO exports DMABUF internally for mmap()
-- It attempts to get a provider for the export, but if
-CONFIG_PCI_P2PDMA=n then provider is NULL.
-- The DMABUF works fine for CPU access through the VMA
-- If someone were to fish out the DMABUF from the VMA/fds then it cannot
-be imported unless the provider is valid (dma_buf_map_attachment()
-returns -EINVAL)
-- Drop the P2PDMA changes entirely
-
-IOW, when CONFIG_PCI_P2PDMA=n you obviously don't get to import DMABUFs
-into another driver for P2P, so the provider is unused ... and when
-P2PDMA is supported, the VFIO BAR VMA's DMABUF has a provider, so could
-be imported for P2P.  The struct vfio_pci_dma_buf only needs to have a
-valid provider if the DMABUF could possibly be imported of course.
-
-The behaviour of pcim_p2pdma_provider() is unchanged, as are any other
-consumers such as mlx5.
-
-This is way simpler.  I will drop these first two P2PDMA refactor
-patches from this series.  Sorry for the churn and time spent on these;
-though a cleanup/refactor could have merit separately it sounds like
-there's discussion needed on exactly what that goal should be.
-
-
-Matt
+-- 
+2.54.0
 
