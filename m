@@ -4,178 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C33C5CFE7
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 14:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62E3C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 14:19:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7DF10EC4C;
-	Tue, 11 Aug 2026 14:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C01B010E72A;
+	Tue, 11 Aug 2026 14:19:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Of2zMK4A";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Of2zMK4A";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="RZYxxq4P";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013006.outbound.protection.outlook.com
- [40.107.162.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1046A10EC4B;
- Tue, 11 Aug 2026 14:09:54 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=xcDPG0hVFOk0AUBj4C159DlzoaguQZmjigOLV2wlFCc1pdTt01jMQKGY/63LO/jOC85zG8fc5G4S/C6LkqRvQq8cGDjsCAp4G0jAx5M6heW70DQpUJHjiGaHTKnlqex+aOAtpgfSFkhVomSobgG26G6LQsP/rlLSbbT9biSftIQAxcHrOrhpc/0mz0VQw2WcUOSxlc7+nk02Fmg58AXbzUzfJrDdq58Wms8TkhdGIF914fbh+45YDgmPICpe3rEcmG8FNY3lmrlAVnxH+OvFs7B5Hh9XDmAxy7tKUofargAwaRLAuSv6YqFDrLtEJYGZ8P+hC53w/NpVCRzM9KBrRA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=spajHA6ointRyLw86RivlHQVOLc0loAJEJ1TlU4g/dk=;
- b=g44y70zFwMxf1rENbj2VFHwbaRyRQgZzGayNR9x0/8MrFLFhqCzljt7pZsMD14Mjeoa2oQINEuzzHsUleIeFCipLAFcZZipBxMdPXY8RPqw+AEb9AiUeIQRyTI3n0Z0036JBosn0LDw/M4rlkL4dFiRVhD7ioWXRsIwQYR5qraJe5t4h49ArxxFG1BIvRemUHWrQBPcUDcd7mf8bDwzF1TTDxCo6+MssXldmesRH7X/ERmExRfyQywBYtlefGWdousS3j0NG7cUg2zL/ozv12GzgfvtaDWsfIlMMLX7AsX1VHSM6P6EnHRFJZiFzUrSylcGJcmY98ej2nd68mQrJMA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=spajHA6ointRyLw86RivlHQVOLc0loAJEJ1TlU4g/dk=;
- b=Of2zMK4AYCmnRWDmgZxXsjcqJPO31mxBQjUoXGVjTGfhVwp3SdIVVi7agOghu8iMGsMktBYOl3wqspqIPSdjK9UxF2eBDJ6bk6sX1c3OJggt0NuQA/Et5PtcevurQjrhzd+EKtrJjoGYBF7cOXsfD+VKGP1nFjdL2BwS8rzk/ik=
-Received: from AS9PR05CA0242.eurprd05.prod.outlook.com (2603:10a6:20b:493::26)
- by AS2PR08MB9713.eurprd08.prod.outlook.com (2603:10a6:20b:607::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 14:09:45 +0000
-Received: from AMS1EPF00000094.eurprd05.prod.outlook.com
- (2603:10a6:20b:493:cafe::41) by AS9PR05CA0242.outlook.office365.com
- (2603:10a6:20b:493::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.26 via Frontend Transport; Tue,
- 11 Aug 2026 14:09:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS1EPF00000094.mail.protection.outlook.com (10.167.242.91) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.6
- via Frontend Transport; Tue, 11 Aug 2026 14:09:44 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HAp0D8fED4BIknp3JzrYjuhx/SQCyUUgLhlHQqssIAq2N6Zbn1so7sXZlziVHIj7d6R6PvF8Ffjtzn5GtAwxsJVYpCiC48lY1FRKuvfiZSsIjOzx5m0rzsNPepoiaPYMUz1G50y3QAq/T9sRgB7BwN9w9N/5R6Z/dvPN6jj2BvCi5es97DYocaURGfL86kcHhZ1Slwc/nSlmXR/BKN/XnrkkkH8IwV9gNY0TdJ1pp7/fHWC6RH/vdaAWVJV5U07z0j2Ijxbtr1LpePU5MZb1DHhnujJir1mlbvttFdbM6COV0mAusxSw6xvcW/kyWYKjFzABD7KH14UKtT0642548w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=spajHA6ointRyLw86RivlHQVOLc0loAJEJ1TlU4g/dk=;
- b=iaBjCOaVhCrKf98DWl2iS/e0DsC7e2a2L3DMyqusEaofhJIZiVQsRraj6DPlUHWjukjnzf+AoDBXBd5Ox9PjTzzPv3+rGqnof+EKhq///cIsuJpOOu7gm5tcXvQs8wLkXbmtqZ/yG17mPwjxEksDitQGwZ3BuZrdYfyLesQWzPqWPhK7kueTmeaMsz7EK+6sUZMOSPcFkkNDWrBv25fa0YsWNMPqFyhGOArj1uD+rr+3ELIXOhc57Dz1C3xjDevg7ocWAmwbS63Ihia7vPkPc9ak4loMKc52jcciVQPoAiesWVhjMqiBGkrR2ZU76WKZ5dv12pZ7rzg4OvzuMYZSAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=spajHA6ointRyLw86RivlHQVOLc0loAJEJ1TlU4g/dk=;
- b=Of2zMK4AYCmnRWDmgZxXsjcqJPO31mxBQjUoXGVjTGfhVwp3SdIVVi7agOghu8iMGsMktBYOl3wqspqIPSdjK9UxF2eBDJ6bk6sX1c3OJggt0NuQA/Et5PtcevurQjrhzd+EKtrJjoGYBF7cOXsfD+VKGP1nFjdL2BwS8rzk/ik=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by DB9PR08MB9730.eurprd08.prod.outlook.com (2603:10a6:10:462::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 14:09:11 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0315.008; Tue, 11 Aug 2026
- 14:09:11 +0000
-Message-ID: <b21c4cc9-84a3-429e-8156-0b9967b2f133@arm.com>
-Date: Tue, 11 Aug 2026 15:09:07 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
- ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH 3/9] mm: name pointers to copied PTE values ptentp
-To: Anshuman Khandual <anshuman.khandual@arm.com>
-References: <20260806083926.1807279-1-usama.anjum@arm.com>
- <20260806083926.1807279-4-usama.anjum@arm.com>
- <e7osakog3yvdewhdlrk3bsp27pwt2nnhroeb7zihlfxyjotarb@rwxkcb25crh3>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <e7osakog3yvdewhdlrk3bsp27pwt2nnhroeb7zihlfxyjotarb@rwxkcb25crh3>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0197.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a4::22) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4487210EC4F
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786457938;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=d1HU6LBDnWtUkFmucBW5pIeZXLIpgzR08eamvaDcYUA=;
+ b=RZYxxq4P9YClxyrPIm81XjFoizPPKby/YlJOEAXkpS7avMWn3LnD+F+83tSiLV4GNZc6fH
+ QQ4gd3y8qVkf5J/H3UDb9t/JJEdHx3eejF130+OwKidavt0mgXSU1DapsS6e4reGbANSoU
+ liTsVpQPhsHdSVSwVle0tJM/BgTbteI=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-600-uNj8_-awOkmwhVd6HyAKug-1; Tue, 11 Aug 2026 10:18:56 -0400
+X-MC-Unique: uNj8_-awOkmwhVd6HyAKug-1
+X-Mimecast-MFC-AGG-ID: uNj8_-awOkmwhVd6HyAKug_1786457936
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-38dd87656d3so3946907a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:18:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786457936; x=1787062736;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=d1HU6LBDnWtUkFmucBW5pIeZXLIpgzR08eamvaDcYUA=;
+ b=cGCFVAg48GRKdPDOXGX0p6YSFonn1UJ3Mf0ipkYxA+OapvhKTDgpUQMqDwxupKXg1e
+ 7xXXN/NC9b6lvT4X6hytl1gHLM2QNpUnWnn6eEv+kCn86Bg1Qpz85uLNEc3YeKKRmjg3
+ yReN28ieMLlOSZt2RIkiz5eMeaiJmLTou8/M0ngnLSgl4/crKGHuMRmtNJ9E9M/RfKg8
+ zwWN4f4S2RbyPw5LKHqiT2sxzv+8/kGy/ZsJDDazy2a+SUzRZkCgbK3lDeTOnHXirJ4Z
+ VqADxc811+CBOOFSavaJRSPRNip/nOgaLD7whc7DVT5mpOVRfL7festwhhydUfKMyhva
+ /L4g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqpJpXwx0BtfHn2k27TZKJDqz82cxHP/jVIe1skoZHJsd9i+1vj2xNTNOyU611aI/TCXO4aHw23OPI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw6MLV9oMIw5sDkQ0GpKmLadXLBG9IkaCZP+/GuGf2hRUTdwBaP
+ Qj17PWFlkDfzUkOqjpN8vKQISEngdkVqbMPvhdFyZ2zqxHI1PtUt0/W8IwW7rctMJjXOobOnLWa
+ Ahgli5KCH1znoNhyLMWSOFdBQcy2tskJ5jrnAis2fsCOaOwYCR5jWhu/ZeO0ACRYVkv1g4w==
+X-Gm-Gg: AR+sD13tkjklp7oijTcpY9LjrWazP4v9ywdHWTyTnU91KVxciYlTU9fzM8UH7oTv5/1
+ c+RQFL1Hn0K+i3+lZm9WE6SorZXbp2kDNSJiI5LDg+hl6lTgrOWHwMe9RH9G+zUPrD0kkEETT8O
+ pTq+413nnZNayTTexgCtpwvGbZZ9Kj8yt1Pp1nTg0YwGKCfeqhF7SEngls8HnzGAQLSzmsKhPIg
+ V9R7cQwF40krNgIXCKncd95PIBQmqLCJAfxpnxUvegQ/9wDNPxqDpn6khWvEp+tfkoR/lDU1/A+
+ N6OINRke+sYuk/IygDODAFknzH4ABZfhcx+bEAn/hMy+K98nQwu2GLsJtyTcCT1+/NLdCUokpkV
+ kUTs13hKzBXk/TUv8LSnuGA0kB4ERzg==
+X-Received: by 2002:a17:90b:39c7:b0:38f:dec8:f7e9 with SMTP id
+ 98e67ed59e1d1-392ec5f1516mr3991881a91.12.1786457935626; 
+ Tue, 11 Aug 2026 07:18:55 -0700 (PDT)
+X-Received: by 2002:a17:90b:39c7:b0:38f:dec8:f7e9 with SMTP id
+ 98e67ed59e1d1-392ec5f1516mr3991746a91.12.1786457934885; 
+ Tue, 11 Aug 2026 07:18:54 -0700 (PDT)
+Received: from localhost ([181.122.135.46]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-31cf67912dbsm42228eec.22.2026.08.11.07.18.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Aug 2026 07:18:54 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>
+Cc: airlied@gmail.com, andriy.shevchenko@intel.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, robh@kernel.org,
+ simona@ffwll.ch, tzimmermann@suse.de
+Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+In-Reply-To: <20260811122603.30773-1-amit.barzilai22@gmail.com>
+References: <20260811122603.30773-1-amit.barzilai22@gmail.com>
+Date: Tue, 11 Aug 2026 16:18:52 +0200
+Message-ID: <875x1gpwoj.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|DB9PR08MB9730:EE_|AMS1EPF00000094:EE_|AS2PR08MB9713:EE_
-X-MS-Office365-Filtering-Correlation-Id: fff88c87-ef4e-46f1-d491-08def7b231fd
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|366016|23010399003|376014|7416014|1800799024|6133799003|10067099003|4143699003|56012099006|5023799004|11063799006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info-Original: X8qvVO1tGgOGc68Tj8e6uYIlEm61fj7Yc+rR2Ay/UJ31hxb3PHm/Vx9ayVx7BXhFCE26lvSj1FVRwdkt9qTwDUf03EfjHj5zTGh3lNmthZUPU0QqKoBPqNCZMmlIdwvntC0ETgEazcLBhiggaaU1oTVhVrF4zZNB+8zbzV+Jd4wX3kEhklK/JQF5PBzEsMQlnX/RA2nh2JKyOqzVqPIP0JRjHOvrNtwouMyn4EApYlEz54M5OIY1sJGVL2DhxYD3bw4zw1/+YIsp0Em0CEamCCEu6TYlPIaaPzdzbep4Q20xFGwIz/vtY0BuDXxxwaquypHlTctA+f8g9C3qAfi604tm9S5lbClK6rgQWc2C7gtm+k/RpQITOlu/8ySU8jRAuLryQLIaU07iwsnyadRcNDbGozKdXF53Sl5vfnr69T1lGLspteufAc2KPwXQegTPnGNpBa3XqVK3I0rj6mCz2fhoS5cgar40oNGDel28oFjLSHmTqLzlgfCXDa/SdbvfGw6kYd7pbX0X6Er0Yoa1pmDs1KkhBG+od3Lm2kLHvxMgPWvVu6+OGVUF/muODby0JcN0Z5kv6Rm9XFuwS+rujtHHfFG+S8WUrGIQGqc1z/gh7bAy38Lj79K19jGGQknUUaoEdzVxQEjI8Btl4hXMy1IFAn4QlZDRT18lnMFWkRU=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(10067099003)(4143699003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: PoID+C9pr8SsNiZRZqrmEF20E8+VyYQrbmNS/atK0zw4H6xYhN8JDWaNyZcuAbKvDXx3md+N466b0729ETpNiHwGFoQQWHtr1wStuHk00WaD7R8uPTqjp9Pek556gM35mQe8FX1aL7Sp2zO09cPHEXYxt6UjkF20b/IyX2c8fU9p9FtV22m3Uikksqe9i+Rbf7inmIUq5CxSfVO/lt6nTQ/RZeCwOhVPzS6fqYMTUAmCwPYjztBlT9Knlw8LjChFicyl5+dVAtGMoyOikQxEQPeOpO5qwUVElOLqNbWdabbXkDPmBevoai7DCbgoVW7V/xraDV24EN08DFdilYcMzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB9730
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AMS1EPF00000094.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 685e73f2-e898-46f2-3da0-08def7b21dbb
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|23010399003|82310400026|14060799003|36860700016|35042699022|22082099003|18002099003|3023799007|56012099006|10067099003|4143699003|11063799006|6133799003|5023799004;
-X-Microsoft-Antispam-Message-Info: QrDAuJ2AlDAgvei/zvkJkvfQWUZGGIE48wAeeS/YiIuKQGmvUJdnpoOGxcyZyGvL5v9YQDS11/dPPsMg2cg1TdIBKj/ZPGWerzgyXqYtwORlNDmgfnW1ufsTE6Dd8rVH5Y60KHRVB7gdGtwPo0QRPYxa+19gn2F9ZYAc7vEaMH7O/lMCMTdnVAeZpH3cffXgRvh0z4psptR+jLz5AOW2p95Mp7oEkWASyLHtxgupDKTGEedMTMvp//INjXGo2cWcA/e6GrBUxPqcX5kfCHlTW7LZJVVh7KoMepIb3kvntg0sZB7NL70Gfcia3025jrIEKnF4KqGPNa7L4Wq1HuGXv0mXVwxgNaXb4NK6wEqF20/zC2xOQ03ZEDkzIaO5E8EtDOmMHI3BTAJp19EjbxOnpsbjpZwiRMVYN8hTGfn+phsV7aF1B5A1fxxKzIWNT7TcyDZDNbDBy1fbQToFO5F+i4z/RQolLUS3Wn0ibbXuZ+MygZXiKYKpg6hE3qAiTq+5zd0g/bBOWtNab9jVgdTUMONzw2ZxDG0EgMOHwF0DiCsTueED+SeHwVgZU+GzrMz87g33N5tKbau+TbAQn2QXPF9MxQ6cHwA8s4U9bUxPnpTjQgHdHKTvFvU5aY7Ow1Ob1uTCPhu5ZMh43XcVPfVFoDWZh3bLL6721rPAVQi4Q0ZLIBz69rhhyWPreQ7jy1l9vvLbXjiKTroIq0PcnHoNqA==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(82310400026)(14060799003)(36860700016)(35042699022)(22082099003)(18002099003)(3023799007)(56012099006)(10067099003)(4143699003)(11063799006)(6133799003)(5023799004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vJDzeRb927ULnuNkJdCXMZlhivSk2C+D0uSOnJ7V3ytepBxLXm9FF/vHnPjZGBO8nF2u/+cRH8iKRjoTl1m5jFnoKyjflZUcWX7Uxbggm+eXM9hAPxwV4hQPwdlt4m0bJeyYkEMZjtJ+HCNEdOf49hoHllcfXObByHwyeCPEQEmfATo3YQAMseQqQ7nJkmgo6XalANWP4f+Hdn6/bPhbPvRs6gKRx7T3WlexdzGR2IR9A1t+EG24dcOLQcX1a9QiijX+f/ItEgCVcLa2WlN9xjjcH98InlLSbUc2rfQziuUojQeyl1c6FmjcOBGg5upE1sHsKJ1LCXjFA4h57R19kbwEWTeGr3YiuKif/ZnDswdLKZ+f+keUwx3sdcTyYKRVhOGkpjBK2wm3HgH+r5/JTrWf3YKzp7BzmT/1RjYxYw8ipU3vIF94I+n/8KtOtGbE
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 14:09:44.7531 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fff88c87-ef4e-46f1-d491-08def7b231fd
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF00000094.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9713
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: DGreM4DFvLpUx00xiC-Stg7RPVFRFvSYUW1ObImnGCA_1786457936
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,140 +99,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 11/08/2026 11:58 am, Anshuman Khandual wrote:
-> Subject line is very confusing. Perhaps something like the following.
-> 
-> mm: Rename pointers to copied PTE values as ptentp
-> 
-> But even 'copied PTE values' is not very clear as well.
+Amit Barzilai <amit.barzilai22@gmail.com> writes:
 
-Something like:
+Hello Amit,
 
-mm: rename pointers to logical PTE values as ptentp
+> Hey Javier,
 
-or
+[...]
 
-mm: rename pointers to software PTE values as ptentp
+>
+> So for v4 I propose:
+>
+> - Keep ssd130x_write_cmds() writing SSD13XX_COMMAND per byte as it does
+>   today, so there is no change to I2C or SPI wire behaviour anywhere in
+>   the series.
+>
+> - Still do the ssd130x_write_cmd()/ssd130x_write_cmds() unification as
+>   its own prep patch, as you asked. It removes the duplicated variadic
+>   loop and gives a single place for the check below.
+>
+> - Add a bool cmd_params_are_data to ssd130x_deviceinfo, checked after
+>   the first byte is sent to decide how to send the parameters. If it is
+>   set, the parameters go through ssd130x_write_data(); otherwise the
+>   existing byte-by-byte loop is used.
+>
+> - Drop the separate SPI transport patch entirely.
+>
+> The comment in the core will be phrased in the core's own terms this
+> time: parameters go on the data path rather than as further command
+> bytes, without mentioning D/C or any other transport-specific
+> information.
+>
 
-> 
-> On Thu, Aug 06, 2026 at 09:38:41AM +0100, Muhammad Usama Anjum wrote:
->> The hw_pte_t conversion must retain pte_t * for pointers to standalone PTE
-> 
-> We need to explain what is `standalone PTE values` first.
-> 
->> values. Name the value parameters ptentp in the install_pte callback,
->> write_protect_page(), and guard_install_set_pte() so the later mechanical
->> conversion can distinguish them from pointers to PTE table storage.
->>
->> Some functions already use the ptentp name, including:
->> - madvise_folio_pte_batch()
->> - folio_pte_batch_flags()
->> No need to convert them.
->>
->> This is a naming-only change.
-> 
-> Small nit - s/naming-only/rename
+Thanks for the explanations. Since you have given a lot of thought of this
+I trust your judgement and agree with your plan. Let's see how the patches
+look once you post them.
 
-I'll fix it.
+> Apologies for going back on something I already agreed to. If you still
+> prefer it in the SPI layer I will do it that way and fold in the 0x00
+> control byte change, with the I2C framing change called out in the
+> commit message, but I wanted to flag the breakage before building on it.
+> I have already implemented the fixes for most of the other comments
+> locally. Once we settle this, I will submit the finished v4.
+>
 
-> 
-> The commit message needs rewrite clearly explaining the following details
-> 
-> - What are standalone PTE values
-Logical/software PTE is correct and better name here.
-
-> - How these are different from HW pgtable pointers
-> - Change is just a rename for pointers into such 'standalone PTE'
-> - These renamed 'ptentp' here would be used for skip or replaced during
->   upcoming mechanical change via a script
-> - No functional changes intended
-I'll update message in more elaborate way.
-
-> 
->>
->> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->> ---
->> Changes since RFC v1:
->> - Update the description for the architecture opt-in conversion.
->> ---
->>  include/linux/pagewalk.h | 2 +-
->>  mm/ksm.c                 | 4 ++--
->>  mm/madvise.c             | 4 ++--
->>  3 files changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
->> index b41d7265c01bc..c34d826c5e4a2 100644
->> --- a/include/linux/pagewalk.h
->> +++ b/include/linux/pagewalk.h
->> @@ -89,7 +89,7 @@ struct mm_walk_ops {
->>  		       struct mm_walk *walk);
->>  	void (*post_vma)(struct mm_walk *walk);
->>  	int (*install_pte)(unsigned long addr, unsigned long next,
->> -			   pte_t *ptep, struct mm_walk *walk);
->> +			   pte_t *ptentp, struct mm_walk *walk);
->>  	enum page_walk_lock walk_lock;
->>  };
->>  
->> diff --git a/mm/ksm.c b/mm/ksm.c
->> index ad05d7791307e..11d50518d02e9 100644
->> --- a/mm/ksm.c
->> +++ b/mm/ksm.c
->> @@ -1292,7 +1292,7 @@ static u32 calc_checksum(struct page *page)
->>  }
->>  
->>  static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
->> -			      pte_t *orig_pte)
->> +			      pte_t *ptentp)
->>  {
->>  	struct mm_struct *mm = vma->vm_mm;
->>  	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, 0, 0);
->> @@ -1371,7 +1371,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
->>  
->>  		set_pte_at(mm, pvmw.address, pvmw.pte, entry);
->>  	}
->> -	*orig_pte = entry;
->> +	*ptentp = entry;
->>  	err = 0;
->>  
->>  out_unlock:
->> diff --git a/mm/madvise.c b/mm/madvise.c
->> index 07a21ca31bad4..c324cc991f841 100644
->> --- a/mm/madvise.c
->> +++ b/mm/madvise.c
->> @@ -1101,12 +1101,12 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
->>  }
->>  
->>  static int guard_install_set_pte(unsigned long addr, unsigned long next,
->> -				 pte_t *ptep, struct mm_walk *walk)
->> +				 pte_t *ptentp, struct mm_walk *walk)
->>  {
->>  	unsigned long *nr_pages = (unsigned long *)walk->private;
->>  
->>  	/* Simply install a PTE marker, this causes segfault on access. */
->> -	*ptep = make_pte_marker(PTE_MARKER_GUARD);
->> +	*ptentp = make_pte_marker(PTE_MARKER_GUARD);
->>  	(*nr_pages)++;
->>  
->>  	return 0;
->> -- 
->> 2.47.3
->>
-> 
-> How did we ensure that the above changes are comprehensive and nothing
-> else got left in here ?
-
-The order of patches and even the code was found out after adding hw_pte_t
-structure. Then everything was converted, until some pte_t pointers were left
-which didn't require conversion.
-
-If something is left, we'll get build errors when we build a converted architecture.
-So the branch mentioned in the cover letter when built, would produce build errors.
-(Those patches would be sent separately, after finalization of this series).
-
-Whenever I'm rebasing (on mm-new), I'm rerunning Coccinelle script to see if new code
-has arrived which requires conversion or renaming.
+No need to apologize, I appreciate the deep thought and willing to not
+break the I2C devices already supported.
 
 -- 
-Thanks,
-Usama
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
