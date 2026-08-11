@@ -4,129 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 423BFC5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 07:59:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 480A1C5B574
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 07:59:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 612FD10E2BF;
-	Tue, 11 Aug 2026 07:59:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9246D10EABE;
+	Tue, 11 Aug 2026 07:59:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="F7pj/nhg";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q1MYPfiA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ChZFwsCs";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vnBQfVUf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cA7B95Ri";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D49C510E2BF;
- Tue, 11 Aug 2026 07:59:20 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 19DE03DF6;
- Tue, 11 Aug 2026 07:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1786435147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=mEb+iFVnsjF8sWnvUeIiIZLGSrKk7a/zXl6CXhr7ddA=;
- b=F7pj/nhg4OrBsuuN3sF6gkB5SOa+ub4F5TMRS00XFyGqkjLRfYepSQ2zyLT5RzJ3ycw4Wa
- u6cCNLABe37M3Y5NIUm9Vv9+OMda3ylInNkSxajXk7wEKgNQP5kugPA4upISBQXMIiww9f
- XB++b1znrIfVv0CJQd8OBT9Y01h2EHs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1786435147;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=mEb+iFVnsjF8sWnvUeIiIZLGSrKk7a/zXl6CXhr7ddA=;
- b=Q1MYPfiAO/sJkiTgetv99j6Gqm6jse/osv//p/dHm4pk+6GQ2Ur5sWJEYAVtWShtpm+y80
- LN3mL9ZQFm+ZAYDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1786435143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=mEb+iFVnsjF8sWnvUeIiIZLGSrKk7a/zXl6CXhr7ddA=;
- b=ChZFwsCskUHR6N5QkSEA11Cvvv0XhdRKd0Vltx+tMzZL00SkD1UJZoFoDQBmb91IT0OOd1
- vu9tncT7ffPsmeI3I82yTE62UdOTq/nibhhFEm91HQ+nGla9vahJHjGEvYXIPGB5VorM3H
- p6nzQkPh0R063oFY47lasweIjkP/ykU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1786435143;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=mEb+iFVnsjF8sWnvUeIiIZLGSrKk7a/zXl6CXhr7ddA=;
- b=vnBQfVUf+vBm9sJMsNomwC+My0J1s6WKSuW7gyYmSV9wvUSfBoYMzj3zhtmAs9LSkOSYJF
- 9pePizGkRX9IVrDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BEB14779B2;
- Tue, 11 Aug 2026 07:59:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id tkI3LUbWemrGJAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 11 Aug 2026 07:59:02 +0000
-Message-ID: <df01989a-04fc-4f1d-8942-51f937fc8d97@suse.de>
-Date: Tue, 11 Aug 2026 09:58:21 +0200
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE0710EADB
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:59:40 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-5aeb2bc82ccso3171173e87.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 00:59:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786435178; cv=none;
+ d=google.com; s=arc-20260327;
+ b=rurNYSvX8QrnQgLsfBPacUj6tLKxBB6jv7XYGmyfHZfWBq1P8hXfSHivV4h0jLF4xZ
+ cQtZWXCjkrkoxhzCUBuZt0Llu2QQYb6+Gydiw3WEcKNcdp26h6XLnQ6rvm4iyAYuk2NC
+ ful84j3S3yH2yiTxBHTIk6DBluDSwz9VAPsmaJ7S0xHdkqlvLxr7F6Gj3tvdpfYd+wpo
+ +UuBZqA7Pkc7UNeIK6Dkg/8bCzs1Pybpq85IrvB9eG0T46R2o08VRS/i8uYQK2omZ0hC
+ 7lHsNr1fTLKpNh2nbIxl5U7Ub6g1T5eIIEf79CpBsqX+qvIp0BzofZ7E0iNw/5p3iRsF
+ rXJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=8Y15Oeu6WD1rVBTcBgZQKalUwtBBzYJ+Q7T1cbfERWw=;
+ fh=xVVVA6Qr020HpIVAaY82So99O6eIhzbZiqhKjiQFVLQ=;
+ b=qx+lw+YS4NuvDADFXklN927NmskequcPxYEKEI/nIUjjZGPtNp8Imqt04QMPJeZlLX
+ KNx4i8Vula+wj/AW3dDrxQh0deUzzu5jQl2+tiALxsT2QdjxSKdlkc+5eJ0Zb1FqkPkc
+ Nc5Odyje5g/faPOEqcOM17cVFQrpNV9snPYFRnVJJD6MbCZFcvZs7SZHu7uGsOmHRyCo
+ nQFwciIABKMCLd3YOgOixa3J47eqsmkPOxBYCmD5gOqGExWJ6GZ4Mp+Iw8zYNTRvlwYp
+ 6x3TsJzew0QjcwDiKTUZmzV5pbS5h/Btr82oksoIoo0o76jD6SAfZMW+/HAowDeSvWIq
+ ncpg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786435178; x=1787039978; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8Y15Oeu6WD1rVBTcBgZQKalUwtBBzYJ+Q7T1cbfERWw=;
+ b=cA7B95RinBm/tgEEPeJOI2TczZFK31X+Mk9frVivITseQ6SzBRUyMYNyNHoRblrN+Q
+ Gfa4Nw9twLnnSgWAXqUUWDgvguAJUcXct5OQPna+TCoR2t6ZGT6saTU4tKCVS1+pAY6c
+ cjdUXtAsDjUsHn5Dm2W/xf3TiABGlf+HevfDhXajbCGeq1p/oK0RHbkO/uI8XF9dGtye
+ hi2EDdCRz4p9cq4s4MT4WPxu2YIDpgUzkz88MRfe9ZQ26/41lMg/qfMtpyRKMGRdytWl
+ WhhL+AvFUepd3OlNdZYgP/scbva4LmU8JkORrNcA8LbYat4K3XtPGg3Sp9RVSxufEE98
+ SFlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786435178; x=1787039978;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=8Y15Oeu6WD1rVBTcBgZQKalUwtBBzYJ+Q7T1cbfERWw=;
+ b=FU6xFx7E/nPZHhiD+ytMzwDToidou+foabbU1+AjaJATqS+TJY3/4yeDf1c/l2FE0p
+ 9frPdQcE+UAOsgtdrwjc4xKelwvh/wYV1GCjLw+bcoJwfuqijvNa4YxPMiI8dh0AVqlc
+ lMqrPWc7LrpLXeaSKB79Y3tDxaDjgu2ZzsgMCvC6kawDd82jTe6WBIVlc69M2RUIn1MJ
+ 2QqQ5SJMvf7cc+44Dmrctw/PdWDQtBwaTYyWTbOpj+nz7ztmzxHxKAdtDojK+2H0DY50
+ m0Cbt90rkO/3Ufh9p0onoYCCZz5So/S5YPyPwWENF1+enIK629/BDxfAyxbjrch3G/ne
+ ahHw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rppya84V6EG0xprRBVx5PQPGFrDYY74UmLPqdBIwyaG/Ec9CGL07iKHlOQ7nek8bfWR1ma05a8X9Bw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyl0fAYO1ewmOSThmcP0SrYY+X7Nw62VEjRn5iqzRV/1q2SYGgA
+ KN5tA2vjyeujm0b17qqJn4FOBnFTJnFwFoPCh97aM1N3BvFMO9i4WFCo8Js34gDcxXuX1aSGs5L
+ K0kmitv4rac2ZljLQou07CqwXbKvO8gQ=
+X-Gm-Gg: AR+sD10iu7p4Jho39bG+sj9LFH1abnUXDUyPCG48/NeYU6FYpm6nU1ay22cVcJR9GKb
+ /6KRNP4/AQ9OVyv+exkMo8NuZE7uBG6udKuraF3WCRkNyT9aUTktHwoC9pTNSkY1yE4GPUKt+ok
+ LcqtvBWgbQw9wePzgnXSurgkHbYwvgN7swOAtO1QT+7FcnDkO9WTthrfS6mPD8WrxvnuNccj4Xu
+ X8/4/BMdmcFNBVM0E99hjz6q/OdiFjTHPfvsQnM4vgBBa6bWLgXz4wOlYz7lSPWI0xOpcSTN7eZ
+ hIxOgZ4XOmF5SAfgSNC7xlY/KFLDqPPttbCngO62c42PE6+h/chRuTxsP4Ku8aqBjuLKdk/KDQ1
+ tba6Jw02T3zmnHC9I9/FPN1PVUuKAag==
+X-Received: by 2002:a05:6512:33cc:b0:5b1:55a0:f7e0 with SMTP id
+ 2adb3069b0e04-5b448641ca1mr242560e87.44.1786435178035; Tue, 11 Aug 2026
+ 00:59:38 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/i915/display: Handle struct
- drm_plane_state.ignore_damage_clips
-To: ville.syrjala@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- Javier Martinez Canillas <javierm@redhat.com>
-References: <20260721095454.404298-1-tzimmermann@suse.de>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260721095454.404298-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.997]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[intel.com,linux.intel.com,ursulin.net,gmail.com,ffwll.ch];
- RCPT_COUNT_TWELVE(0.00)[12]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Tue, 11 Aug 2026 02:59:26 -0500
+X-Gm-Features: AUfX_mx4c-GmMXQo4tUspG8Th66IptU81MYj56fCtT6BUir6JEYdopRwXO9FByw
+Message-ID: <CALHNRZ-yffAy7xZbjVEZOfgVeqFGZ6h9jvNkbtTsNNXGQSgeCQ@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/msm/a8xx: Add support for Adreno 830 GPU
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: abhinav.kumar@linux.dev, David Airlie <airlied@gmail.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Jessica Zhang <jesszhan0024@gmail.com>, jie.zhang@oss.qualcomm.com, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ marijn.suijten@somainline.org, Maxime Ripard <mripard@kernel.org>, 
+ Rob Herring <robh@kernel.org>, robin.clark@oss.qualcomm.com, sean@poorly.run, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,91 +112,413 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gentle ping to review this change
-
-Am 21.07.26 um 11:54 schrieb Thomas Zimmermann:
-> Call drm_atomic_helper_check_plane_damage() in plane_atomic_check()
-> before copying the damage information to guarantees that ignore_damage_clips
-> from struct drm_plane_state has the correct value. Although i915 does not
-> directly modify or use the flag, DRM's damage iterator will soon rely on
-> it.
->
-> As a side effect, if the CRTC has been marked for a full modeset before
-> the call to drm_atomic_helper_check_plane_damage() happens, the plane now
-> ignores all damage clips and does a full update.
->
-> Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
-> helpers to ignore damage clips") introduced ignore_damage_clips to
-> selectively ignore damage clipping for certain framebuffer changes. The
-> mode-setting pipeline can disabled damage clippings for an atomic commit
-> by setting ignore_damage_clips in struct drm_plane_state. The atomic
-> commit will then do a full display update.
->
-> Future directions: there's currently a multitude of options that affect
-> damage clipping; with different places seeing different state. In order
-> to unify this, drm_atomic_helper_check_plane_state() will soon evaluate
-> all options in a single place and set ignore_damage_clips accordingly. All
-> later stages of the mode-setting pipeline will only look at this field.
->
-> v3:
-> - fix the call to drm_atomic_helper_check_plane_state()
-> - use primary-CRTC's plane state (Sashiko)
-> - note full-plane updates in commit description
-> v2:
-> - move _check_plane_damage() before reading damage first time (Sashiko)
-> - expand commit description
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
+> Add support for the Adreno 830 GPU present in SM8750 SoC. Adreno 830 GPU
+> belongs to the A8x Gen 1 family and it is architecturally close Adreno 840.
+> Add a new catalog entry along with the register list to enable support
+> for this GPU.
+> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
-> Taken with updates from the series at
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 334 ++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c     |   2 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   5 +
+>  3 files changed, 340 insertions(+), 1 deletion(-)
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index 90a0c7ffb3c8..418edde9104e 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1693,6 +1693,294 @@ static const struct adreno_info a7xx_gpus[] = {
+>  };
+>  DECLARE_ADRENO_GPULIST(a7xx);
 >
->    https://lore.kernel.org/dri-devel/20260610152505.260172-1-tzimmermann@suse.de/
-> ---
->   drivers/gpu/drm/i915/display/intel_plane.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
-> index a440f92ff00c..d64f151ce410 100644
-> --- a/drivers/gpu/drm/i915/display/intel_plane.c
-> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
-> @@ -850,7 +850,7 @@ static int plane_atomic_check(struct intel_atomic_state *state,
->   		intel_atomic_get_new_plane_state(state, plane);
->   	const struct intel_plane_state *old_plane_state =
->   		intel_atomic_get_old_plane_state(state, plane);
-> -	const struct intel_plane_state *new_primary_crtc_plane_state;
-> +	struct intel_plane_state *new_primary_crtc_plane_state;
->   	const struct intel_plane_state *old_primary_crtc_plane_state;
->   	struct intel_crtc *crtc = intel_crtc_for_pipe(display, plane->pipe);
->   	const struct intel_crtc_state *old_crtc_state =
-> @@ -873,6 +873,14 @@ static int plane_atomic_check(struct intel_atomic_state *state,
->   		old_primary_crtc_plane_state = old_plane_state;
->   	}
->   
-> +	/*
-> +	 * Prepare plane-damage state before using it; do this on all
-> +	 * display versions to keep the underlying DRM plane state in
-> +	 * good shape.
-> +	 */
-> +	drm_atomic_helper_check_plane_damage(&state->base,
-> +					     &new_primary_crtc_plane_state->uapi);
+> +static const struct adreno_reglist_pipe a830_nonctxt_regs[] = {
+> + { REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+> + { REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + /* Configure GBIF GX registers */
+> + { REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+> + { REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+> + /* Enable full concurrent resolve and unresolves */
+> + { REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+> + /* Partially enable perf clear, Disable DINT to c/z be data forwarding */
+> + { REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
+> + { REG_A8XX_RB_GC_GMEM_PROTECT, 0x0c000000, BIT(PIPE_BR) },
+> + /* Configure number of outstanding transactions to 32 */
+> + { REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+> + /* Configure UCHE request time out to 16 cycles for CCU/UCHE arbitration */
+> + { REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+> + { REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+> + { REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+> + { REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+> + { REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+> + { REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+> + /* Enable contribution of all shader stages to SP perfcounters */
+> + { REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+> + /*
+> + * BIT(26): Limit the number of wave-slots for Eviction buffer to 1 per ALU GRP
+> + * BIT(30): Disable LPAC auto-promotion
+> + */
+> + { REG_A7XX_SP_CHICKEN_BITS_1, BIT(26) | BIT(30), BIT(PIPE_NONE) },
+> + /*
+> + * BIT(22): Disable PS out of order retire
+> + * BIT(23): Enable half wave mode and MM instruction src&dst is half precision
+> + */
+> + { REG_A7XX_SP_CHICKEN_BITS_2, BIT(22) | BIT(23), BIT(PIPE_NONE) },
+> + { REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+> + { REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080,  BIT(PIPE_NONE) },
+> + { REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10000000, BIT(PIPE_NONE) },
+> + /* Enable cubemap small miplevel optimization settings */
+> + /* BIT(26): Disable final clamp for bicubic filtering */
+> + { REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
+> + /* Disable tag bank id hashing */
+> + { REG_A6XX_UCHE_MODE_CNTL, 0x00080000, BIT(PIPE_NONE) },
+> + { REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+> + /* Limit gmem number of ways for GMEM requests in each set */
+> + { REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE)},
+> + /* Disable write slow pointer in data phase queue */
+> + { REG_A8XX_UCHE_HW_DBG_CNTL, BIT(8), BIT(PIPE_NONE) },
+> + /* Configure UCHE to CCU switchthreshold timeout cycles */
+> + { REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+> + { REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00100020, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + /* Disable redundant tile data optimization */
+> + { REG_A8XX_VSC_KMD_DBG_ECO_CNTL, BIT(11), BIT(PIPE_NONE)},
+> + { },
+> +};
 > +
->   	intel_plane_copy_uapi_plane_damage(new_plane_state,
->   					   old_primary_crtc_plane_state,
->   					   new_primary_crtc_plane_state);
+> +static const u32 a830_protect_regs[] = {
+> + A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
+> + A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
+> + A6XX_PROTECT_NORDWR(0x00440, 0x001f),
+> + A6XX_PROTECT_RDONLY(0x00580, 0x005f),
+> + A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
+> + A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
+> + A6XX_PROTECT_RDONLY(0x00759, 0x0026),
+> + A6XX_PROTECT_RDONLY(0x00789, 0x0000),
+> + A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
+> + A6XX_PROTECT_NORDWR(0x00800, 0x0029),
+> + A6XX_PROTECT_NORDWR(0x00837, 0x00af),
+> + A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
+> + A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
+> + A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
+> + A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
+> + A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
+> + A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
+> + A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+> + A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
+> + A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
+> + A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
+> + A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
+> + A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
+> + A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
+> + A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
+> + A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
+> + A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
+> + A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
+> + A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
+> + A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
+> + A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
+> + A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
+> + A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
+> + A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
+> + A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
+> + A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+> + A6XX_PROTECT_NORDWR(0x18400, 0x003f),
+> + A6XX_PROTECT_RDONLY(0x18440, 0x013f),
+> + A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
+> + A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
+> + A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
+> + A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
+> + A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
+> + A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
+> + A6XX_PROTECT_NORDWR(0x27800, 0x007f),
+> + A6XX_PROTECT_RDONLY(0x27880, 0x0381),
+> + A6XX_PROTECT_NORDWR(0x27882, 0x0001),
+> + A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
+> +};
+> +DECLARE_ADRENO_PROTECT(a830_protect, 64);
+
+I have tested this on an AYN Odin 3, which has a CQ8725S SoC with
+A830. As-is, this change causes the device to fail to boot. Comparing
+to a different implementation of this support that I used previously,
+I found the operable difference is the count_max field here. Dropping
+that from 64 to 15 allows the device to boot and work as intended. I
+unfortunately don't have uart to see what the actual failure text is
+and provide any more information than this.
+
+Aaron
+
+> +static const u32 a830_pwrup_reglist_regs[] = {
+> + REG_A6XX_UCHE_MODE_CNTL,
+> + REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
+> + REG_A8XX_UCHE_GBIF_GX_CONFIG,
+> + REG_A8XX_UCHE_CACHE_WAYS,
+> + REG_A8XX_UCHE_CCHE_MODE_CNTL,
+> + REG_A8XX_UCHE_CCHE_CACHE_WAYS,
+> + REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
+> + REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
+> + REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN,
+> + REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN + 1,
+> + REG_A8XX_UCHE_CCHE_TRAP_BASE,
+> + REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
+> + REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
+> + REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
+> + REG_A8XX_UCHE_HW_DBG_CNTL,
+> + REG_A8XX_UCHE_WRITE_THRU_BASE,
+> + REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
+> + REG_A8XX_UCHE_TRAP_BASE,
+> + REG_A8XX_UCHE_TRAP_BASE + 1,
+> + REG_A8XX_UCHE_CLIENT_PF,
+> + REG_A8XX_VSC_KMD_DBG_ECO_CNTL,
+> + REG_A8XX_RB_CMP_NC_MODE_CNTL,
+> + REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
+> + REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
+> + REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
+> + REG_A7XX_SP_READ_SEL,
+> + REG_A6XX_TPL1_NC_MODE_CNTL,
+> + REG_A6XX_TPL1_DBG_ECO_CNTL,
+> + REG_A6XX_TPL1_DBG_ECO_CNTL1,
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
+> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
+> +};
+> +DECLARE_ADRENO_REGLIST_LIST(a830_pwrup_reglist);
+> +
+> +static const u32 a830_ifpc_reglist_regs[] = {
+> + REG_A8XX_RBBM_NC_MODE_CNTL,
+> + REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
+> + REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
+> + REG_A6XX_SP_NC_MODE_CNTL,
+> + REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN,
+> + REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN + 1,
+> + REG_A7XX_SP_CHICKEN_BITS_1,
+> + REG_A7XX_SP_CHICKEN_BITS_2,
+> + REG_A7XX_SP_CHICKEN_BITS_3,
+> + REG_A6XX_SP_PERFCTR_SHADER_MASK,
+> + REG_A7XX_SP_HLSQ_DBG_ECO_CNTL,
+> + REG_A8XX_CP_INTERRUPT_STATUS_MASK_GLOBAL,
+> + REG_A8XX_RBBM_PERFCTR_CNTL,
+> + REG_A8XX_CP_PROTECT_GLOBAL(0),
+> + REG_A8XX_CP_PROTECT_GLOBAL(1),
+> + REG_A8XX_CP_PROTECT_GLOBAL(2),
+> + REG_A8XX_CP_PROTECT_GLOBAL(3),
+> + REG_A8XX_CP_PROTECT_GLOBAL(4),
+> + REG_A8XX_CP_PROTECT_GLOBAL(5),
+> + REG_A8XX_CP_PROTECT_GLOBAL(6),
+> + REG_A8XX_CP_PROTECT_GLOBAL(7),
+> + REG_A8XX_CP_PROTECT_GLOBAL(8),
+> + REG_A8XX_CP_PROTECT_GLOBAL(9),
+> + REG_A8XX_CP_PROTECT_GLOBAL(10),
+> + REG_A8XX_CP_PROTECT_GLOBAL(11),
+> + REG_A8XX_CP_PROTECT_GLOBAL(12),
+> + REG_A8XX_CP_PROTECT_GLOBAL(13),
+> + REG_A8XX_CP_PROTECT_GLOBAL(14),
+> + REG_A8XX_CP_PROTECT_GLOBAL(15),
+> + REG_A8XX_CP_PROTECT_GLOBAL(16),
+> + REG_A8XX_CP_PROTECT_GLOBAL(17),
+> + REG_A8XX_CP_PROTECT_GLOBAL(18),
+> + REG_A8XX_CP_PROTECT_GLOBAL(19),
+> + REG_A8XX_CP_PROTECT_GLOBAL(20),
+> + REG_A8XX_CP_PROTECT_GLOBAL(21),
+> + REG_A8XX_CP_PROTECT_GLOBAL(22),
+> + REG_A8XX_CP_PROTECT_GLOBAL(23),
+> + REG_A8XX_CP_PROTECT_GLOBAL(24),
+> + REG_A8XX_CP_PROTECT_GLOBAL(25),
+> + REG_A8XX_CP_PROTECT_GLOBAL(26),
+> + REG_A8XX_CP_PROTECT_GLOBAL(27),
+> + REG_A8XX_CP_PROTECT_GLOBAL(28),
+> + REG_A8XX_CP_PROTECT_GLOBAL(29),
+> + REG_A8XX_CP_PROTECT_GLOBAL(30),
+> + REG_A8XX_CP_PROTECT_GLOBAL(31),
+> + REG_A8XX_CP_PROTECT_GLOBAL(32),
+> + REG_A8XX_CP_PROTECT_GLOBAL(33),
+> + REG_A8XX_CP_PROTECT_GLOBAL(34),
+> + REG_A8XX_CP_PROTECT_GLOBAL(35),
+> + REG_A8XX_CP_PROTECT_GLOBAL(36),
+> + REG_A8XX_CP_PROTECT_GLOBAL(37),
+> + REG_A8XX_CP_PROTECT_GLOBAL(38),
+> + REG_A8XX_CP_PROTECT_GLOBAL(39),
+> + REG_A8XX_CP_PROTECT_GLOBAL(40),
+> + REG_A8XX_CP_PROTECT_GLOBAL(41),
+> + REG_A8XX_CP_PROTECT_GLOBAL(42),
+> + REG_A8XX_CP_PROTECT_GLOBAL(43),
+> + REG_A8XX_CP_PROTECT_GLOBAL(44),
+> + REG_A8XX_CP_PROTECT_GLOBAL(45),
+> + REG_A8XX_CP_PROTECT_GLOBAL(46),
+> + REG_A8XX_CP_PROTECT_GLOBAL(47),
+> + REG_A8XX_CP_PROTECT_GLOBAL(48),
+> + REG_A8XX_CP_PROTECT_GLOBAL(49),
+> + REG_A8XX_CP_PROTECT_GLOBAL(50),
+> + REG_A8XX_CP_PROTECT_GLOBAL(51),
+> + REG_A8XX_CP_PROTECT_GLOBAL(52),
+> + REG_A8XX_CP_PROTECT_GLOBAL(53),
+> + REG_A8XX_CP_PROTECT_GLOBAL(54),
+> + REG_A8XX_CP_PROTECT_GLOBAL(55),
+> + REG_A8XX_CP_PROTECT_GLOBAL(56),
+> + REG_A8XX_CP_PROTECT_GLOBAL(57),
+> + REG_A8XX_CP_PROTECT_GLOBAL(58),
+> + REG_A8XX_CP_PROTECT_GLOBAL(59),
+> + REG_A8XX_CP_PROTECT_GLOBAL(60),
+> + REG_A8XX_CP_PROTECT_GLOBAL(61),
+> + REG_A8XX_CP_PROTECT_GLOBAL(62),
+> + REG_A8XX_CP_PROTECT_GLOBAL(63),
+> +};
+> +DECLARE_ADRENO_REGLIST_LIST(a830_ifpc_reglist);
+> +
+> +static const struct adreno_reglist_pipe a830_dyn_pwrup_reglist_regs[] = {
+> + { REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+> + BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+> + BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+> + { REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+> + BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+> + BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+> + { REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+> + { REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+> + { REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
+> + { REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+> + { REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+> + { REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+> + { REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
+> + { REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+> + { REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+> + { REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
+> + { REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> + { REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+> + { },
+> +};
+> +DECLARE_ADRENO_REGLIST_PIPE_LIST(a830_dyn_pwrup_reglist);
+> +
+>  static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
+>   { REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+>   { REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> @@ -2399,6 +2687,51 @@ DECLARE_ADRENO_REGLIST_PIPE_LIST(a840_dyn_pwrup_reglist);
 >
-> base-commit: fcaba3bc017906059b910ece3f83185e93010581
-> prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-> prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
-> prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
-> prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+>  static const struct adreno_info a8xx_gpus[] = {
+>   {
+> + .chip_ids = ADRENO_CHIP_IDS(0x44050001),
+> + .family = ADRENO_8XX_GEN1,
+> + .fw = {
+> + [ADRENO_FW_SQE] = "gen80000_sqe.fw",
+> + [ADRENO_FW_GMU] = "gen80000_gmu.bin",
+> + [ADRENO_FW_AQE] = "gen80000_aqe.fw",
+> + },
+> + .gmem = 12 * SZ_1M,
+> + .inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> + .quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> +  ADRENO_QUIRK_HAS_HW_APRIV |
+> +  ADRENO_QUIRK_PREEMPTION |
+> +  ADRENO_QUIRK_IFPC,
+> + .funcs = &a8xx_gpu_funcs,
+> + .a6xx = &(const struct a6xx_info) {
+> + .protect = &a830_protect,
+> + .nonctxt_reglist = a830_nonctxt_regs,
+> + .pwrup_reglist = &a830_pwrup_reglist,
+> + .dyn_pwrup_reglist = &a830_dyn_pwrup_reglist,
+> + .ifpc_reglist = &a830_ifpc_reglist,
+> + .gbif_cx = a840_gbif,
+> + .max_slices = 3,
+> + .gmu_chipid = 0x8000100,
+> + .bcms = (const struct a6xx_bcm[]) {
+> + { .name = "SH0", .buswidth = 16 },
+> + { .name = "MC0", .buswidth = 4 },
+> + {
+> + .name = "ACV",
+> + .fixed = true,
+> + .perfmode = BIT(2),
+> + .perfmode_bw = 10687500,
+> + },
+> + { /* sentinel */ },
+> + },
+> + },
+> + .preempt_record_size = 13536 * SZ_1K,
+> + .speedbins = ADRENO_SPEEDBINS(
+> + { 0,   0 },
+> + { 252, 0 },
+> + { 242, 1 },
+> + { 232, 2 },
+> + { 221, 3 },
+> + { 190, 4 },
+> + ),
+> + }, {
+>   .chip_ids = ADRENO_CHIP_IDS(0x44070001),
+>   .family = ADRENO_8XX_GEN2,
+>   .fw = {
+> @@ -2537,4 +2870,5 @@ static inline __always_unused void __build_asserts(void)
+>   BUILD_BUG_ON(a690_protect.count > a690_protect.count_max);
+>   BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
+>   BUILD_BUG_ON(a810_protect.count > a810_protect.count_max);
+> + BUILD_BUG_ON(a830_protect.count > a830_protect.count_max);
+>  }
+> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> index add93c1fa039..62df0569c62b 100644
+> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> @@ -200,7 +200,7 @@ static void a8xx_set_hwcg(struct msm_gpu *gpu, bool state)
+>   struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>   u32 val;
+>
+> - if (adreno_is_x285(adreno_gpu) && state)
+> + if ((adreno_is_x285(adreno_gpu) || adreno_is_a830(adreno_gpu)) && state)
+>   gpu_write(gpu, REG_A8XX_RBBM_CGC_0_PC, 0x00000702);
+>
+>   gmu_write(gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_MODE_CNTL,
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index 114a40f79ef3..338e02271fcc 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -602,6 +602,11 @@ static inline int adreno_is_x285(struct adreno_gpu *gpu)
+>   return gpu->info->chip_ids[0] == 0x44070001;
+>  }
+>
+> +static inline int adreno_is_a830(struct adreno_gpu *gpu)
+> +{
+> + return gpu->info->chip_ids[0] == 0x44050001;
+> +}
+> +
+>  static inline int adreno_is_a840(struct adreno_gpu *gpu)
+>  {
+>   return gpu->info->chip_ids[0] == 0x44050a01;
+> --
+> 2.54.0
