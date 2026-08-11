@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A044FC5CFC1
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 11:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CFE1C5CFE7
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 11:23:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42B6410EB57;
-	Tue, 11 Aug 2026 11:23:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BBCF10EB59;
+	Tue, 11 Aug 2026 11:23:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FxASTETb";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aok+6Tsk";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC5A110EB53
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 11:23:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6CB10EB4D
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 11:23:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786447420;
- bh=D+z9AmI03v+b/oFKR/XQVXQ5voM2vqRD4wLzoDTlk6Q=;
+ s=mail; t=1786447422;
+ bh=Pi9i5UzGb78WjQznePF9x+TLJOjAw2y7jJ/ydSCsf7o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=FxASTETbDqCaawepiIfdSBv2Vhymv9az9NDXl6y/cN3gSSldtFtioe35edCx+msbG
- B+jIhUXM6GhV1FIYUBNOTrXspw2xzj7Ws/xWh+EPpoFDTlvmCcfwHtUZkxOMZ8uTrN
- vagbiMoWkb3sWHvLR/JSLQHxufLL7gXyf85vqVlnBDolLCz5rxJIhc+Qqyk1N3epiZ
- mvfgonTbNgsWLHvh5rbE5H2UNLg6I9GIusyzQM3jcDa2dKFNHUqFswAZvKbnEsdZSR
- awVqaJB/Ck7FTQ9ZxgdZeS6Ny8KrLxV/xz+Uqbv14g/Irkj0yvEvHitr4F3fh/1p7d
- lSZ2Zv2SC5g9Q==
+ b=aok+6TskCMfyhV6+xXEXqe6E1J8LmQr8pz1p6m6/SovWqvCbBIoa10tIlCwvzhQaV
+ jtwz3pYx8IuK5NnMZqqwDezAfvVH0ZiF9/39qLmRfWRA1KNt1UdDH6EZZ48MRJH/4+
+ 8/Gk66AQvaxb4tBfYAmVYEPqxuuv9J+TLD7xZefLQE2wAz2i4quq/FAgw8L7K7cciE
+ cx+7zRpS6C7SG+NgyHTjzbX3SvS0wYFGlKdakS+XLHtOikAMloHnOK3m1Z9u8JFE4R
+ mp186tWrJ4DjgTG4UtvKA/c349IpHvw4SZ3A9MKtLT+ujQfdTL0yEB+0SbkKdKth7H
+ lNIXaY7Toc4yA==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F131F17E0EF0;
- Tue, 11 Aug 2026 13:23:39 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B77DB17E0F85;
+ Tue, 11 Aug 2026 13:23:41 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 11 Aug 2026 13:23:37 +0200
-Subject: [PATCH v6 3/9] drm/panthor: Replace the panthor_irq macro
- machinery by inline helpers
+Date: Tue, 11 Aug 2026 13:23:40 +0200
+Subject: [PATCH v6 6/9] drm/panthor: Protect events processing with a
+ separate spinlock
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-panthor-signal-from-irq-v6-3-12f2ab53d735@collabora.com>
+Message-Id: <20260811-panthor-signal-from-irq-v6-6-12f2ab53d735@collabora.com>
 References: <20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com>
 In-Reply-To: <20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -50,11 +50,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786447418; l=23880;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786447418; l=14333;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=D+z9AmI03v+b/oFKR/XQVXQ5voM2vqRD4wLzoDTlk6Q=;
- b=TwZGirtFZ1yXQKuPSt66HIWu1l5qceJgXqKxAPo1GeTH/IEUhzSHPAFO01/Sp37jP8SE6cfkJ
- 97SHiS4uCYsBvIbeEPmK8/KTxeTiYBy7C0lRSgd6AqIPTsCXntcZVoT
+ bh=Pi9i5UzGb78WjQznePF9x+TLJOjAw2y7jJ/ydSCsf7o=;
+ b=vSYIoaDOLZjbUEksmtTFX9hWRWbnB9PCO57YBm1GDXtGMPxPCd48sn4Sd0FLJ2eeW0l8Xk15a
+ ZDN0y5lL5ZzBmKECFkV1OwVtkkQ/5NMBKoyO40WCv/fsf9kTs0GQxlj
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,646 +72,398 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that panthor_irq contains the iomem region, there's no real need
-for the macro-based panthor_irq helper generation logic. We can just
-provide inline helpers that do the same and let the compiler optimize
-indirect function calls. The only extra annoyance is the fact we have
-to open-code the panthor_xxx_irq_threaded_handler() implementation, but
-those are single-line functions, so it's acceptable.
+Add a specific spinlock for events processing so we can selectively
+move some event processing to the threaded IRQ handler. For events to be
+processed, we need to have access to the group attached to the CSG slot
+which also forces us to protect the csg_slots[] updates with this
+lock.
 
-While at it, we changed the prototype of the IRQ handlers to take
-a panthor_irq instead of panthor_device, since that's the thing
-that's passed around when it comes to panthor_irq, and the
-panthor_device can be directly extracted from there.
+Note that fatal_queues/timedout are turned into atomics to avoid having
+to take the events_lock every time those are checked or updated.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.h | 247 +++++++++++++++----------------
- drivers/gpu/drm/panthor/panthor_fw.c     |  22 ++-
- drivers/gpu/drm/panthor/panthor_gpu.c    |  28 ++--
- drivers/gpu/drm/panthor/panthor_mmu.c    |  39 ++---
- drivers/gpu/drm/panthor/panthor_pwr.c    |  24 +--
- 5 files changed, 188 insertions(+), 172 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 123 ++++++++++++++++++++------------
+ 1 file changed, 78 insertions(+), 45 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index b102ea77fd1a..b55a3f9edd41 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -571,132 +571,127 @@ static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
- #define INT_MASK    0x8
- #define INT_STAT    0xc
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 9adf1e21eb83..794105e239e6 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -254,8 +254,21 @@ struct panthor_scheduler {
+ 		struct list_head waiting;
+ 	} groups;
  
--/**
-- * PANTHOR_IRQ_HANDLER() - Define interrupt handlers and the interrupt
-- * registration function.
-- *
-- * The boiler-plate to gracefully deal with shared interrupts is
-- * auto-generated. All you have to do is call PANTHOR_IRQ_HANDLER()
-- * just after the actual handler. The handler prototype is:
-- *
-- * void (*handler)(struct panthor_device *, u32 status);
-- */
--#define PANTHOR_IRQ_HANDLER(__name, __handler)							\
--static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)			\
--{												\
--	struct panthor_irq *pirq = data;							\
--												\
--	guard(spinlock_irqsave)(&pirq->lock);							\
--	if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)						\
--		return IRQ_NONE;								\
--												\
--	if (!gpu_read(pirq->iomem, INT_STAT))							\
--		return IRQ_NONE;								\
--												\
--	pirq->state = PANTHOR_IRQ_STATE_PROCESSING;						\
--	gpu_write(pirq->iomem, INT_MASK, 0);							\
--	return IRQ_WAKE_THREAD;									\
--}												\
--												\
--static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *data)		\
--{												\
--	struct panthor_irq *pirq = data;							\
--	struct panthor_device *ptdev = pirq->ptdev;						\
--	irqreturn_t ret = IRQ_NONE;								\
--												\
--	while (true) {										\
--		/* It's safe to access pirq->mask without the lock held here. If a new		\
--		 * event gets added to the mask and the corresponding IRQ is pending,		\
--		 * we'll process it right away instead of adding an extra raw -> threaded	\
--		 * round trip. If an event is removed and the status bit is set, it will	\
--		 * be ignored, just like it would have been if the mask had been adjusted	\
--		 * right before the HW event kicks in. TLDR; it's all expected races we're	\
--		 * covered for.									\
--		 */										\
--		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;			\
--												\
--		if (!status)									\
--			break;									\
--												\
--		__handler(ptdev, status);							\
--		ret = IRQ_HANDLED;								\
--	}											\
--												\
--	scoped_guard(spinlock_irqsave, &pirq->lock) {						\
--		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {				\
--			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;					\
--			gpu_write(pirq->iomem, INT_MASK, pirq->mask);				\
--		}										\
--	}											\
--												\
--	return ret;										\
--}												\
--												\
--static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)			\
--{												\
--	scoped_guard(spinlock_irqsave, &pirq->lock) {						\
--		pirq->state = PANTHOR_IRQ_STATE_SUSPENDING;					\
--		gpu_write(pirq->iomem, INT_MASK, 0);						\
--	}											\
--	synchronize_irq(pirq->irq);								\
--	scoped_guard(spinlock_irqsave, &pirq->lock)						\
--		pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;					\
--}												\
--												\
--static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)			\
--{												\
--	guard(spinlock_irqsave)(&pirq->lock);							\
--												\
--	pirq->state = PANTHOR_IRQ_STATE_ACTIVE;							\
--	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);						\
--	gpu_write(pirq->iomem, INT_MASK, pirq->mask);						\
--}												\
--												\
--static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
--					      struct panthor_irq *pirq,				\
--					      int irq, void __iomem *iomem)			\
--{												\
--	pirq->ptdev = ptdev;									\
--	pirq->irq = irq;									\
--	pirq->mask = 0;										\
--	pirq->iomem = iomem;									\
--	spin_lock_init(&pirq->lock);								\
--	pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;						\
--	gpu_write(pirq->iomem, INT_MASK, 0);							\
--												\
--	return devm_request_threaded_irq(ptdev->base.dev, irq,					\
--					 panthor_ ## __name ## _irq_raw_handler,		\
--					 panthor_ ## __name ## _irq_threaded_handler,		\
--					 IRQF_SHARED, KBUILD_MODNAME "-" # __name,		\
--					 pirq);							\
--}												\
--												\
--static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *pirq, u32 mask)	\
--{												\
--	guard(spinlock_irqsave)(&pirq->lock);							\
--	pirq->mask |= mask;									\
--												\
--	/* The only situation where we need to write the new mask is if the IRQ is active.	\
--	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()	\
--	 * on the PROCESSING -> ACTIVE transition.						\
--	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
--	 */											\
--	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
--		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
--}												\
--												\
--static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq *pirq, u32 mask)\
--{												\
--	guard(spinlock_irqsave)(&pirq->lock);							\
--	pirq->mask &= ~mask;									\
--												\
--	/* The only situation where we need to write the new mask is if the IRQ is active.	\
--	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()	\
--	 * on the PROCESSING -> ACTIVE transition.						\
--	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
--	 */											\
--	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
--		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
-+static inline irqreturn_t panthor_irq_default_raw_handler(int irq, void *data)
-+{
-+	struct panthor_irq *pirq = data;
-+
-+	guard(spinlock_irqsave)(&pirq->lock);
-+	if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)
-+		return IRQ_NONE;
-+
-+	if (!gpu_read(pirq->iomem, INT_STAT))
-+		return IRQ_NONE;
-+
-+	pirq->state = PANTHOR_IRQ_STATE_PROCESSING;
-+	gpu_write(pirq->iomem, INT_MASK, 0);
-+	return IRQ_WAKE_THREAD;
-+}
-+
-+static __always_inline irqreturn_t
-+panthor_irq_default_threaded_handler(void *data,
-+				     void (*slow_handler)(struct panthor_irq *, u32))
-+{
-+	struct panthor_irq *pirq = data;
-+	irqreturn_t ret = IRQ_NONE;
-+
-+	while (true) {
-+		/* It's safe to access pirq->mask without the lock held here. If a new
-+		 * event gets added to the mask and the corresponding IRQ is pending,
-+		 * we'll process it right away instead of adding an extra raw -> threaded
-+		 * round trip. If an event is removed and the status bit is set, it will
-+		 * be ignored, just like it would have been if the mask had been adjusted
-+		 * right before the HW event kicks in. TLDR; it's all expected races we're
-+		 * covered for.
-+		 */
-+		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;
-+
-+		if (!status)
-+			break;
-+
-+		slow_handler(pirq, status);
-+		ret = IRQ_HANDLED;
-+	}
-+
-+	scoped_guard(spinlock_irqsave, &pirq->lock) {
-+		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {
-+			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
-+			gpu_write(pirq->iomem, INT_MASK, pirq->mask);
-+		}
-+	}
-+
-+	return ret;
-+}
-+
-+static inline void panthor_irq_suspend(struct panthor_irq *pirq)
-+{
-+	scoped_guard(spinlock_irqsave, &pirq->lock) {
-+		pirq->state = PANTHOR_IRQ_STATE_SUSPENDING;
-+		gpu_write(pirq->iomem, INT_MASK, 0);
-+	}
-+	synchronize_irq(pirq->irq);
-+	scoped_guard(spinlock_irqsave, &pirq->lock)
-+		pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;
-+}
-+
-+static inline void panthor_irq_resume(struct panthor_irq *pirq)
-+{
-+	guard(spinlock_irqsave)(&pirq->lock);
-+	pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
-+	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);
-+	gpu_write(pirq->iomem, INT_MASK, pirq->mask);
-+}
-+
-+static inline void panthor_irq_enable_events(struct panthor_irq *pirq, u32 mask)
-+{
-+	guard(spinlock_irqsave)(&pirq->lock);
-+	pirq->mask |= mask;
-+
-+	/* The only situation where we need to write the new mask is if the IRQ is active.
-+	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()
-+	 * on the PROCESSING -> ACTIVE transition.
-+	 * If the IRQ is suspended/suspending, the mask is restored at resume time.
++	/**
++	 * @events_lock: Lock taken when processing events.
++	 *
++	 * This also needs to be taken when csg_slots are updated, to make sure
++	 * the event processing logic doesn't touch groups that have left the CSG
++	 * slot.
 +	 */
-+	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)
-+		gpu_write(pirq->iomem, INT_MASK, pirq->mask);
-+}
++	spinlock_t events_lock;
 +
-+static inline void panthor_irq_disable_events(struct panthor_irq *pirq, u32 mask)
-+{
-+	guard(spinlock_irqsave)(&pirq->lock);
-+	pirq->mask &= ~mask;
-+
-+	/* The only situation where we need to write the new mask is if the IRQ is active.
-+	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()
-+	 * on the PROCESSING -> ACTIVE transition.
-+	 * If the IRQ is suspended/suspending, the mask is restored at resume time.
+ 	/**
+ 	 * @csg_slots: FW command stream group slots.
++	 *
++	 * Updates to these slots must happen with both panthor_scheduler::lock and
++	 * panthor_scheduler::events_lock held. As a result, reads can happen with
++	 * either of these locks held.
+ 	 */
+ 	struct panthor_csg_slot csg_slots[MAX_CSGS];
+ 
+@@ -565,8 +578,13 @@ struct panthor_group {
+ 	/** @idle_queues: Bitmask reflecting the idle queues. */
+ 	u32 idle_queues;
+ 
+-	/** @fatal_queues: Bitmask reflecting the queues that hit a fatal exception. */
+-	u32 fatal_queues;
++	/**
++	 * @fatal_queues: Bitmask reflecting the queues that hit a fatal exception.
++	 *
++	 * This is an atomic because we don't want to acquire the events_lock
++	 * every time we need to check the group state.
 +	 */
-+	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)
-+		gpu_write(pirq->iomem, INT_MASK, pirq->mask);
-+}
-+
-+static inline int
-+panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
-+		    int irq, void __iomem *iomem, const char *name,
-+		    irqreturn_t (*threaded_handler)(int, void *data))
-+{
-+	const char *full_name;
-+
-+	pirq->ptdev = ptdev;
-+	pirq->irq = irq;
-+	pirq->mask = 0;
-+	pirq->iomem = iomem;
-+	spin_lock_init(&pirq->lock);
-+	pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;
-+
-+	full_name = devm_kasprintf(ptdev->base.dev, GFP_KERNEL, KBUILD_MODNAME "-%s", name);
-+	if (!full_name)
-+		return -ENOMEM;
-+
-+	gpu_write(pirq->iomem, INT_MASK, 0);
-+	return devm_request_threaded_irq(ptdev->base.dev, irq,
-+					 panthor_irq_default_raw_handler,
-+					 threaded_handler,
-+					 IRQF_SHARED, full_name, pirq);
- }
++	atomic_t fatal_queues;
  
- extern struct workqueue_struct *panthor_cleanup_wq;
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index fc1a423e48a8..68965175105f 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -1072,8 +1072,9 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
- 			 msecs_to_jiffies(PING_INTERVAL_MS));
- }
+ 	/** @tiler_oom: Mask of queues that have a tiler OOM event to process. */
+ 	atomic_t tiler_oom;
+@@ -602,8 +620,14 @@ struct panthor_group {
+ 	 * any timeout situation is unrecoverable, and the group becomes useless. We
+ 	 * simply wait for all references to be dropped so we can release the group
+ 	 * object.
++	 *
++	 * This is an atomic because it can be set from both a scheduling context
++	 * (protected with panthor_scheduler::lock) and an event processing context
++	 * (protected with panthor_scheduler::events_lock). We could protect access
++	 * with the events_lock, but this is simpler to make it an atomic since the
++	 * only allowed transition is false -> true.
+ 	 */
+-	bool timedout;
++	atomic_t timedout;
  
--static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
-+static void panthor_job_irq_handler(struct panthor_irq *pirq, u32 status)
+ 	/**
+ 	 * @innocent: True when the group becomes unusable because the group suspension
+@@ -996,7 +1020,6 @@ static int
+ group_bind_locked(struct panthor_group *group, u32 csg_id)
  {
-+	struct panthor_device *ptdev = pirq->ptdev;
- 	u32 duration;
- 	u64 start = 0;
+ 	struct panthor_device *ptdev = group->ptdev;
+-	struct panthor_csg_slot *csg_slot;
+ 	int ret;
  
-@@ -1099,7 +1100,11 @@ static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
- 		trace_gpu_job_irq(ptdev->base.dev, status, duration);
- 	}
- }
--PANTHOR_IRQ_HANDLER(job, panthor_job_irq_handler);
-+
-+static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *data)
-+{
-+	return panthor_irq_default_threaded_handler(data, panthor_job_irq_handler);
-+}
- 
- static int panthor_fw_start(struct panthor_device *ptdev)
- {
-@@ -1107,8 +1112,8 @@ static int panthor_fw_start(struct panthor_device *ptdev)
- 	bool timedout = false;
- 
- 	ptdev->fw->booted = false;
--	panthor_job_irq_enable_events(&ptdev->fw->irq, ~0);
--	panthor_job_irq_resume(&ptdev->fw->irq);
-+	panthor_irq_enable_events(&ptdev->fw->irq, ~0);
-+	panthor_irq_resume(&ptdev->fw->irq);
- 	gpu_write(fw->iomem, MCU_CONTROL, MCU_CONTROL_AUTO);
- 
- 	if (!wait_event_timeout(ptdev->fw->req_waitqueue,
-@@ -1218,7 +1223,7 @@ void panthor_fw_pre_reset(struct panthor_device *ptdev, bool on_hang)
- 			ptdev->reset.fast = true;
- 	}
- 
--	panthor_job_irq_suspend(&ptdev->fw->irq);
-+	panthor_irq_suspend(&ptdev->fw->irq);
- 	panthor_fw_stop(ptdev);
- }
- 
-@@ -1287,7 +1292,7 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
- 
- 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev)) {
- 		/* Make sure the IRQ handler cannot be called after that point. */
--		panthor_job_irq_suspend(&ptdev->fw->irq);
-+		panthor_irq_suspend(&ptdev->fw->irq);
- 		panthor_fw_stop(ptdev);
- 	}
- 
-@@ -1482,8 +1487,9 @@ int panthor_fw_init(struct panthor_device *ptdev)
- 	if (irq <= 0)
- 		return -ENODEV;
- 
--	ret = panthor_request_job_irq(ptdev, &fw->irq, irq,
--				      ptdev->iomem + JOB_INT_BASE);
-+	ret = panthor_irq_request(ptdev, &fw->irq, irq,
-+				  ptdev->iomem + JOB_INT_BASE, "job",
-+				  panthor_job_irq_threaded_handler);
- 	if (ret) {
- 		drm_err(&ptdev->base, "failed to request job irq");
- 		return ret;
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-index c013d6bf9a59..7f287242285a 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.c
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-@@ -86,8 +86,9 @@ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
- 	gpu_write(gpu->iomem, GPU_L2_CONFIG, l2_config);
- }
- 
--static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
-+static void panthor_gpu_irq_handler(struct panthor_irq *pirq, u32 status)
- {
-+	struct panthor_device *ptdev = pirq->ptdev;
- 	struct panthor_gpu *gpu = ptdev->gpu;
- 
- 	gpu_write(gpu->irq.iomem, INT_CLEAR, status);
-@@ -116,7 +117,11 @@ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
- 	}
- 	spin_unlock(&ptdev->gpu->reqs_lock);
- }
--PANTHOR_IRQ_HANDLER(gpu, panthor_gpu_irq_handler);
-+
-+static irqreturn_t panthor_gpu_irq_threaded_handler(int irq, void *data)
-+{
-+	return panthor_irq_default_threaded_handler(data, panthor_gpu_irq_handler);
-+}
- 
- /**
-  * panthor_gpu_unplug() - Called when the GPU is unplugged.
-@@ -128,7 +133,7 @@ void panthor_gpu_unplug(struct panthor_device *ptdev)
- 
- 	/* Make sure the IRQ handler is not running after that point. */
- 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
--		panthor_gpu_irq_suspend(&ptdev->gpu->irq);
-+		panthor_irq_suspend(&ptdev->gpu->irq);
- 
- 	/* Wake-up all waiters. */
- 	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-@@ -169,13 +174,14 @@ int panthor_gpu_init(struct panthor_device *ptdev)
- 	if (irq < 0)
- 		return irq;
- 
--	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
--				      ptdev->iomem + GPU_INT_BASE);
-+	ret = panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
-+				  ptdev->iomem + GPU_INT_BASE, "gpu",
-+				  panthor_gpu_irq_threaded_handler);
+ 	lockdep_assert_held(&ptdev->scheduler->lock);
+@@ -1009,9 +1032,7 @@ group_bind_locked(struct panthor_group *group, u32 csg_id)
  	if (ret)
  		return ret;
  
--	panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_INTERRUPTS_MASK);
--	panthor_gpu_irq_resume(&ptdev->gpu->irq);
-+	panthor_irq_enable_events(&ptdev->gpu->irq, GPU_INTERRUPTS_MASK);
-+	panthor_irq_resume(&ptdev->gpu->irq);
+-	csg_slot = &ptdev->scheduler->csg_slots[csg_id];
+ 	group_get(group);
+-	group->csg_id = csg_id;
+ 
+ 	/* Dummy doorbell allocation: doorbell is assigned to the group and
+ 	 * all queues use the same doorbell.
+@@ -1023,7 +1044,10 @@ group_bind_locked(struct panthor_group *group, u32 csg_id)
+ 	for (u32 i = 0; i < group->queue_count; i++)
+ 		group->queues[i]->doorbell_id = csg_id + 1;
+ 
+-	csg_slot->group = group;
++	scoped_guard(spinlock, &ptdev->scheduler->events_lock) {
++		ptdev->scheduler->csg_slots[csg_id].group = group;
++		group->csg_id = csg_id;
++	}
+ 
  	return 0;
  }
- 
-@@ -183,7 +189,7 @@ int panthor_gpu_power_changed_on(struct panthor_device *ptdev)
+@@ -1038,7 +1062,6 @@ static int
+ group_unbind_locked(struct panthor_group *group)
  {
- 	guard(pm_runtime_active)(ptdev->base.dev);
+ 	struct panthor_device *ptdev = group->ptdev;
+-	struct panthor_csg_slot *slot;
  
--	panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
-+	panthor_irq_enable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
+ 	lockdep_assert_held(&ptdev->scheduler->lock);
  
- 	return 0;
- }
-@@ -192,7 +198,7 @@ void panthor_gpu_power_changed_off(struct panthor_device *ptdev)
- {
- 	guard(pm_runtime_active)(ptdev->base.dev);
+@@ -1048,9 +1071,12 @@ group_unbind_locked(struct panthor_group *group)
+ 	if (drm_WARN_ON(&ptdev->base, group->state == PANTHOR_CS_GROUP_ACTIVE))
+ 		return -EINVAL;
  
--	panthor_gpu_irq_disable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
-+	panthor_irq_disable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
- }
+-	slot = &ptdev->scheduler->csg_slots[group->csg_id];
++	scoped_guard(spinlock, &ptdev->scheduler->events_lock) {
++		ptdev->scheduler->csg_slots[group->csg_id].group = NULL;
++		group->csg_id = -1;
++	}
++
+ 	panthor_vm_idle(group->vm);
+-	group->csg_id = -1;
  
- /**
-@@ -425,7 +431,7 @@ void panthor_gpu_suspend(struct panthor_device *ptdev)
- 	else
- 		panthor_hw_l2_power_off(ptdev);
+ 	/* Tiler OOM events will be re-issued next time the group is scheduled. */
+ 	atomic_set(&group->tiler_oom, 0);
+@@ -1060,8 +1086,6 @@ group_unbind_locked(struct panthor_group *group)
+ 	for (u32 i = 0; i < group->queue_count; i++)
+ 		group->queues[i]->doorbell_id = -1;
  
--	panthor_gpu_irq_suspend(&ptdev->gpu->irq);
-+	panthor_irq_suspend(&ptdev->gpu->irq);
- }
- 
- /**
-@@ -437,7 +443,7 @@ void panthor_gpu_suspend(struct panthor_device *ptdev)
-  */
- void panthor_gpu_resume(struct panthor_device *ptdev)
- {
--	panthor_gpu_irq_resume(&ptdev->gpu->irq);
-+	panthor_irq_resume(&ptdev->gpu->irq);
- 	panthor_hw_l2_power_on(ptdev);
- }
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 0182b72f1932..d43ba1c7cd2a 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -601,17 +601,13 @@ static u32 panthor_mmu_as_fault_mask(struct panthor_device *ptdev, u32 as)
- 	return BIT(as);
- }
- 
--/* Forward declaration to call helpers within as_enable/disable */
--static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status);
--PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
+-	slot->group = NULL;
 -
- static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
- 				 u64 transtab, u64 transcfg, u64 memattr)
- {
- 	struct panthor_mmu *mmu = ptdev->mmu;
- 
--	panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
--				      panthor_mmu_as_fault_mask(ptdev, as_nr));
-+	panthor_irq_enable_events(&ptdev->mmu->irq,
-+				  panthor_mmu_as_fault_mask(ptdev, as_nr));
- 
- 	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
- 	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
-@@ -629,8 +625,8 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
- 
- 	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
- 
--	panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
--				       panthor_mmu_as_fault_mask(ptdev, as_nr));
-+	panthor_irq_disable_events(&ptdev->mmu->irq,
-+				   panthor_mmu_as_fault_mask(ptdev, as_nr));
- 
- 	/* Flush+invalidate RW caches, invalidate RO ones. */
- 	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-@@ -1859,8 +1855,9 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
- 	mutex_unlock(&ptdev->mmu->as.slots_lock);
- }
- 
--static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
-+static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
- {
-+	struct panthor_device *ptdev = pirq->ptdev;
- 	struct panthor_mmu *mmu = ptdev->mmu;
- 	bool has_unhandled_faults = false;
- 
-@@ -1923,6 +1920,11 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
- 		panthor_sched_report_mmu_fault(ptdev);
- }
- 
-+static irqreturn_t panthor_mmu_irq_threaded_handler(int irq, void *data)
-+{
-+	return panthor_irq_default_threaded_handler(data, panthor_mmu_irq_handler);
-+}
-+
- /**
-  * panthor_mmu_suspend() - Suspend the MMU logic
-  * @ptdev: Device.
-@@ -1947,7 +1949,7 @@ void panthor_mmu_suspend(struct panthor_device *ptdev)
- 	}
- 	mutex_unlock(&ptdev->mmu->as.slots_lock);
- 
--	panthor_mmu_irq_suspend(&ptdev->mmu->irq);
-+	panthor_irq_suspend(&ptdev->mmu->irq);
- }
- 
- /**
-@@ -1966,7 +1968,7 @@ void panthor_mmu_resume(struct panthor_device *ptdev)
- 	ptdev->mmu->as.faulty_mask = 0;
- 	mutex_unlock(&ptdev->mmu->as.slots_lock);
- 
--	panthor_mmu_irq_resume(&ptdev->mmu->irq);
-+	panthor_irq_resume(&ptdev->mmu->irq);
- }
- 
- /**
-@@ -1983,7 +1985,7 @@ void panthor_mmu_pre_reset(struct panthor_device *ptdev)
- {
- 	struct panthor_vm *vm;
- 
--	panthor_mmu_irq_suspend(&ptdev->mmu->irq);
-+	panthor_irq_suspend(&ptdev->mmu->irq);
- 
- 	mutex_lock(&ptdev->mmu->vm.lock);
- 	ptdev->mmu->vm.reset_in_progress = true;
-@@ -2020,7 +2022,7 @@ void panthor_mmu_post_reset(struct panthor_device *ptdev)
- 
- 	mutex_unlock(&ptdev->mmu->as.slots_lock);
- 
--	panthor_mmu_irq_resume(&ptdev->mmu->irq);
-+	panthor_irq_resume(&ptdev->mmu->irq);
- 
- 	/* Restart the VM_BIND queues. */
- 	mutex_lock(&ptdev->mmu->vm.lock);
-@@ -3352,7 +3354,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
- void panthor_mmu_unplug(struct panthor_device *ptdev)
- {
- 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
--		panthor_mmu_irq_suspend(&ptdev->mmu->irq);
-+		panthor_irq_suspend(&ptdev->mmu->irq);
- 
- 	mutex_lock(&ptdev->mmu->as.slots_lock);
- 	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
-@@ -3413,8 +3415,9 @@ int panthor_mmu_init(struct panthor_device *ptdev)
- 	if (irq <= 0)
- 		return -ENODEV;
- 
--	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
--				      ptdev->iomem + MMU_INT_BASE);
-+	ret = panthor_irq_request(ptdev, &mmu->irq, irq,
-+				  ptdev->iomem + MMU_INT_BASE, "mmu",
-+				  panthor_mmu_irq_threaded_handler);
- 	if (ret)
- 		return ret;
- 
-@@ -3435,8 +3438,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
- 	if (ret)
- 		return ret;
- 
--	panthor_mmu_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
--	panthor_mmu_irq_resume(&mmu->irq);
-+	panthor_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
-+	panthor_irq_resume(&mmu->irq);
+ 	group_put(group);
  	return 0;
  }
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-index f2c2c3000590..dd7b6ef8ea20 100644
---- a/drivers/gpu/drm/panthor/panthor_pwr.c
-+++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-@@ -56,8 +56,9 @@ struct panthor_pwr {
- 	wait_queue_head_t reqs_acked;
- };
- 
--static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
-+static void panthor_pwr_irq_handler(struct panthor_irq *pirq, u32 status)
+@@ -1079,8 +1103,9 @@ group_can_run(struct panthor_group *group)
  {
-+	struct panthor_device *ptdev = pirq->ptdev;
- 	struct panthor_pwr *pwr = ptdev->pwr;
+ 	return group->state != PANTHOR_CS_GROUP_TERMINATED &&
+ 	       group->state != PANTHOR_CS_GROUP_UNKNOWN_STATE &&
+-	       !group->destroyed && group->fatal_queues == 0 &&
+-	       !group->timedout;
++	       !group->destroyed &&
++	       !atomic_read(&group->fatal_queues) &&
++	       !atomic_read(&group->timedout);
+ }
  
- 	spin_lock(&ptdev->pwr->reqs_lock);
-@@ -75,7 +76,11 @@ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
+ static bool
+@@ -1479,7 +1504,7 @@ cs_slot_process_fatal_event_locked(struct panthor_device *ptdev,
+ 	u32 fatal;
+ 	u64 info;
+ 
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	cs_iface = panthor_fw_get_cs_iface(ptdev, csg_id, cs_id);
+ 	fatal = cs_iface->output->fatal;
+@@ -1489,7 +1514,7 @@ cs_slot_process_fatal_event_locked(struct panthor_device *ptdev,
+ 		drm_warn(&ptdev->base, "CS_FATAL: pid=%d, comm=%s\n",
+ 			 group->task_info.pid, group->task_info.comm);
+ 
+-		group->fatal_queues |= BIT(cs_id);
++		atomic_or(BIT(cs_id), &group->fatal_queues);
  	}
- 	spin_unlock(&ptdev->pwr->reqs_lock);
- }
--PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
-+
-+static irqreturn_t panthor_pwr_irq_threaded_handler(int irq, void *data)
-+{
-+	return panthor_irq_default_threaded_handler(data, panthor_pwr_irq_handler);
-+}
  
- static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
+ 	if (CS_EXCEPTION_TYPE(fatal) == DRM_PANTHOR_EXCEPTION_CS_UNRECOVERABLE) {
+@@ -1527,7 +1552,7 @@ cs_slot_process_fault_event_locked(struct panthor_device *ptdev,
+ 	u32 fault;
+ 	u64 info;
+ 
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	cs_iface = panthor_fw_get_cs_iface(ptdev, csg_id, cs_id);
+ 	fault = cs_iface->output->fault;
+@@ -1619,7 +1644,7 @@ static int group_process_tiler_oom(struct panthor_group *group, u32 cs_id)
+ 	 */
+ 	if (ret && ret != -ENOMEM) {
+ 		drm_warn(&ptdev->base, "Failed to extend the tiler heap\n");
+-		group->fatal_queues |= BIT(cs_id);
++		atomic_or(BIT(cs_id), &group->fatal_queues);
+ 		sched_queue_delayed_work(sched, tick, 0);
+ 		goto out_put_heap_pool;
+ 	}
+@@ -1679,7 +1704,7 @@ cs_slot_process_tiler_oom_event_locked(struct panthor_device *ptdev,
+ 	struct panthor_csg_slot *csg_slot = &sched->csg_slots[csg_id];
+ 	struct panthor_group *group = csg_slot->group;
+ 
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	if (drm_WARN_ON(&ptdev->base, !group))
+ 		return;
+@@ -1700,7 +1725,7 @@ static bool cs_slot_process_irq_locked(struct panthor_device *ptdev,
+ 	struct panthor_fw_cs_iface *cs_iface;
+ 	u32 req, ack, events;
+ 
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 
+ 	cs_iface = panthor_fw_get_cs_iface(ptdev, csg_id, cs_id);
+ 	req = cs_iface->input->req;
+@@ -1728,7 +1753,7 @@ static void csg_slot_process_idle_event_locked(struct panthor_device *ptdev, u32
  {
-@@ -454,7 +459,7 @@ void panthor_pwr_unplug(struct panthor_device *ptdev)
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
  
- 	/* Make sure the IRQ handler is not running after that point. */
- 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
--		panthor_pwr_irq_suspend(&ptdev->pwr->irq);
-+		panthor_irq_suspend(&ptdev->pwr->irq);
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
  
- 	/* Wake-up all waiters. */
- 	spin_lock_irqsave(&ptdev->pwr->reqs_lock, flags);
-@@ -484,13 +489,14 @@ int panthor_pwr_init(struct panthor_device *ptdev)
- 	if (irq < 0)
- 		return irq;
+ 	/* Schedule a tick so we can evict idle groups and schedule non-idle
+ 	 * ones. This will also update runtime PM and devfreq busy/idle states,
+@@ -1743,7 +1768,7 @@ static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
+ 	struct panthor_csg_slot *csg_slot = &ptdev->scheduler->csg_slots[csg_id];
+ 	struct panthor_group *group = csg_slot->group;
  
--	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq,
--				      pwr->iomem + PWR_INT_BASE);
-+	err = panthor_irq_request(ptdev, &pwr->irq, irq,
-+				  pwr->iomem + PWR_INT_BASE, "pwr",
-+				  panthor_pwr_irq_threaded_handler);
- 	if (err)
- 		return err;
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
  
--	panthor_pwr_irq_enable_events(&pwr->irq, PWR_INTERRUPTS_MASK);
--	panthor_pwr_irq_resume(&pwr->irq);
-+	panthor_irq_enable_events(&pwr->irq, PWR_INTERRUPTS_MASK);
-+	panthor_irq_resume(&pwr->irq);
- 	return 0;
- }
+ 	if (group)
+ 		group_queue_work(group, sync_upd);
+@@ -1758,14 +1783,14 @@ csg_slot_process_progress_timer_event_locked(struct panthor_device *ptdev, u32 c
+ 	struct panthor_csg_slot *csg_slot = &sched->csg_slots[csg_id];
+ 	struct panthor_group *group = csg_slot->group;
  
-@@ -566,7 +572,7 @@ void panthor_pwr_suspend(struct panthor_device *ptdev)
- 	if (!ptdev->pwr)
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	group = csg_slot->group;
+ 	if (!drm_WARN_ON(&ptdev->base, !group)) {
+ 		drm_warn(&ptdev->base, "CSG_PROGRESS_TIMER_EVENT: pid=%d, comm=%s\n",
+ 			 group->task_info.pid, group->task_info.comm);
+ 
+-		group->timedout = true;
++		atomic_set(&group->timedout, true);
+ 	}
+ 
+ 	drm_warn(&ptdev->base, "CSG slot %d progress timeout\n", csg_id);
+@@ -1779,7 +1804,7 @@ static void sched_process_csg_irq_locked(struct panthor_device *ptdev, u32 csg_i
+ 	struct panthor_fw_csg_iface *csg_iface;
+ 	u32 ring_cs_db_mask = 0;
+ 
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 
+ 	if (drm_WARN_ON(&ptdev->base, csg_id >= ptdev->scheduler->csg_slot_count))
  		return;
+@@ -1837,7 +1862,7 @@ static void sched_process_idle_event_locked(struct panthor_device *ptdev)
+ {
+ 	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
  
--	panthor_pwr_irq_suspend(&ptdev->pwr->irq);
-+	panthor_irq_suspend(&ptdev->pwr->irq);
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 
+ 	/* Acknowledge the idle event and schedule a tick. */
+ 	panthor_fw_update_reqs(glb_iface, req, glb_iface->output->ack, GLB_IDLE);
+@@ -1853,7 +1878,7 @@ static void sched_process_global_irq_locked(struct panthor_device *ptdev)
+ 	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+ 	u32 req, ack, evts;
+ 
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 
+ 	req = READ_ONCE(glb_iface->input->req);
+ 	ack = READ_ONCE(glb_iface->output->ack);
+@@ -1870,7 +1895,7 @@ static void process_fw_events_work(struct work_struct *work)
+ 	u32 events = atomic_xchg(&sched->fw_events, 0);
+ 	struct panthor_device *ptdev = sched->ptdev;
+ 
+-	mutex_lock(&sched->lock);
++	guard(spinlock)(&sched->events_lock);
+ 
+ 	if (events & JOB_INT_GLOBAL_IF) {
+ 		sched_process_global_irq_locked(ptdev);
+@@ -1883,8 +1908,6 @@ static void process_fw_events_work(struct work_struct *work)
+ 		sched_process_csg_irq_locked(ptdev, csg_id);
+ 		events &= ~BIT(csg_id);
+ 	}
+-
+-	mutex_unlock(&sched->lock);
  }
  
- void panthor_pwr_resume(struct panthor_device *ptdev)
-@@ -574,5 +580,5 @@ void panthor_pwr_resume(struct panthor_device *ptdev)
- 	if (!ptdev->pwr)
- 		return;
+ /**
+@@ -2131,11 +2154,12 @@ tick_ctx_init(struct panthor_scheduler *sched,
+ 		 * CSG IRQs, so we can flag the faulty queue.
+ 		 */
+ 		if (panthor_vm_has_unhandled_faults(group->vm)) {
+-			sched_process_csg_irq_locked(ptdev, i);
++			scoped_guard(spinlock, &sched->events_lock)
++				sched_process_csg_irq_locked(ptdev, i);
  
--	panthor_pwr_irq_resume(&ptdev->pwr->irq);
-+	panthor_irq_resume(&ptdev->pwr->irq);
- }
+ 			/* No fatal fault reported, flag all queues as faulty. */
+-			if (!group->fatal_queues)
+-				group->fatal_queues |= GENMASK(group->queue_count - 1, 0);
++			atomic_cmpxchg(&group->fatal_queues, 0,
++				       GENMASK(group->queue_count - 1, 0));
+ 		}
+ 
+ 		tick_ctx_insert_old_group(sched, ctx, group);
+@@ -2168,9 +2192,9 @@ group_term_post_processing(struct panthor_group *group)
+ 		struct panthor_syncobj_64b *syncobj;
+ 		int err;
+ 
+-		if (group->fatal_queues & BIT(i))
++		if (atomic_read(&group->fatal_queues) & BIT(i))
+ 			err = -EINVAL;
+-		else if (group->timedout)
++		else if (atomic_read(&group->timedout))
+ 			err = -ETIMEDOUT;
+ 		else
+ 			err = -ECANCELED;
+@@ -2331,8 +2355,10 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+ 			 * any pending interrupts before we start the new
+ 			 * group.
+ 			 */
+-			if (group->csg_id >= 0)
++			if (group->csg_id >= 0) {
++				guard(spinlock)(&sched->events_lock);
+ 				sched_process_csg_irq_locked(ptdev, group->csg_id);
++			}
+ 
+ 			group_unbind_locked(group);
+ 		}
+@@ -2861,7 +2887,7 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
+ 			/* We consider group suspension failures as fatal and flag the
+ 			 * group as unusable by setting timedout=true.
+ 			 */
+-			csg_slot->group->timedout = true;
++			atomic_set(&csg_slot->group->timedout, true);
+ 
+ 			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+ 						CSG_STATE_TERMINATE,
+@@ -2910,10 +2936,12 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
+ 			u32 csg_id = ffs(slot_mask) - 1;
+ 			struct panthor_csg_slot *csg_slot = &sched->csg_slots[csg_id];
+ 
+-			if (flush_caches_failed)
++			if (flush_caches_failed) {
+ 				csg_slot->group->state = PANTHOR_CS_GROUP_TERMINATED;
+-			else
++			} else {
++				guard(spinlock)(&sched->events_lock);
+ 				csg_slot_sync_update_locked(ptdev, csg_id);
++			}
+ 
+ 			slot_mask &= ~BIT(csg_id);
+ 		}
+@@ -2928,8 +2956,10 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
+ 
+ 		group_get(group);
+ 
+-		if (group->csg_id >= 0)
++		if (group->csg_id >= 0) {
++			guard(spinlock)(&sched->events_lock);
+ 			sched_process_csg_irq_locked(ptdev, group->csg_id);
++		}
+ 
+ 		group_unbind_locked(group);
+ 
+@@ -3421,7 +3451,7 @@ queue_timedout_job(struct drm_sched_job *sched_job)
+ 	queue_stop(queue, job);
+ 
+ 	mutex_lock(&sched->lock);
+-	group->timedout = true;
++	atomic_set(&group->timedout, true);
+ 	if (group->csg_id >= 0) {
+ 		sched_queue_delayed_work(ptdev->scheduler, tick, 0);
+ 	} else {
+@@ -3843,12 +3873,13 @@ int panthor_group_get_state(struct panthor_file *pfile,
+ 	memset(get_state, 0, sizeof(*get_state));
+ 
+ 	mutex_lock(&sched->lock);
+-	if (group->timedout)
++	if (atomic_read(&group->timedout))
+ 		get_state->state |= DRM_PANTHOR_GROUP_STATE_TIMEDOUT;
+-	if (group->fatal_queues) {
++
++	get_state->fatal_queues = atomic_read(&group->fatal_queues);
++	if (get_state->fatal_queues)
+ 		get_state->state |= DRM_PANTHOR_GROUP_STATE_FATAL_FAULT;
+-		get_state->fatal_queues = group->fatal_queues;
+-	}
++
+ 	if (group->innocent)
+ 		get_state->state |= DRM_PANTHOR_GROUP_STATE_INNOCENT;
+ 	mutex_unlock(&sched->lock);
+@@ -4146,6 +4177,8 @@ int panthor_sched_init(struct panthor_device *ptdev)
+ 	INIT_WORK(&sched->sync_upd_work, sync_upd_work);
+ 	INIT_WORK(&sched->fw_events_work, process_fw_events_work);
+ 
++	spin_lock_init(&sched->events_lock);
++
+ 	ret = drmm_mutex_init(&ptdev->base, &sched->lock);
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.55.0
