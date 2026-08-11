@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7819CC5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BBA5C5CFE7
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B465510EBF9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74E7E10EBF5;
 	Tue, 11 Aug 2026 13:48:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UpbaUI6o";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TwnqsemE";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F41E910EBED;
- Tue, 11 Aug 2026 13:48:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A703A10EBF4;
+ Tue, 11 Aug 2026 13:48:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=2yANrU3JxCsCF0YvipMZ2vNVtYx4W6eQrU9nOOaUfXM=; b=
- UpbaUI6ofXS5n48/2bP0FkvpvUiEfwxbM4sjod2+Y5kyN92W8/t7WJP7c5FWRLR2tc7DoPd7evwJs
- 7B74+FToP0R7ia1GpKqtX+rXguPv7t/nQk3ytfjTgjDg8sKRBr0KwBcvK9tf2AUhDnbDt4hQx3Y99
- +RHqVSw8fIcOO69/+uP+AVoJ5V7dqaZ5+/Sj9J2YNL62h10RS1sI7/rTIrguIjUxXCUmuAmX3bPBR
- NCM9CbZRv56o+l4V0WSNhMbItrB3WOEsjRYOGHjUNaDGDeVOkUMYo0y5ESdPoPRMrfwMrsLq9Ulv3
- OALdtIq4yxU4dXeKk0Ec5mP7/HsE4yxuvA==;
+ Cc:To:From:From:Reply-To; bh=4bjm/133UemT++T0VsKIOqDU9vIzJ8JdrLbI/MFr8nU=; b=
+ TwnqsemEh9eX5eYfGmN56gIwTePgDIbae4acoXp1M2QyaW4EFhwognIvrHK7G5yUaxTpXhbsuWjgj
+ oWL2FugjItWKf8OJ60jY2UMVnt2kJwjni/d1rhnaWhpIvMh8zKEnBjREgH+aq8kxKiFtYFP2U88S7
+ j3dCLnIGh0EKihi+sMREhXT5APV6NjauHuziKYR9mgPPankF5ScuR4T35Tsf05Lc+xFSfx1ipO8J1
+ 1GNKM6OZPqICIQeJ2HQZlgaKgh/AKTNqKwwEQEZaCTEmq8F891nV+Em2ZzZc7Y8f3HqKt9HB1ATij
+ xyTzPOd7f12L5KaGpQjB3KlriIgZGcBQvA==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtmpv-00H9pY-5B; Tue, 11 Aug 2026 15:48:11 +0200
+ id 1wtmps-00H9oS-Pt; Tue, 11 Aug 2026 15:48:08 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 13/20] Revert "drm/amdgpu: Remove drm_sched_init_args->num_rqs
+Subject: [PATCH 10/20] Revert "drm/lima: Remove drm_sched_init_args->num_rqs
  usage"
-Date: Tue, 11 Aug 2026 14:47:51 +0100
-Message-ID: <20260811134758.96339-14-tvrtko.ursulin@igalia.com>
+Date: Tue, 11 Aug 2026 14:47:48 +0100
+Message-ID: <20260811134758.96339-11-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
 References: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
@@ -57,23 +57,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This reverts commit 2462a0ce23b0ba1c2195beccf39bc8608cdbd84e.
+This reverts commit 098fe077ec029a1c8ded65af3c2b2a4190d93e9d.
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+ drivers/gpu/drm/lima/lima_sched.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 964efec0d335..743b899c9625 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2236,6 +2236,7 @@ static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
- {
- 	struct drm_sched_init_args args = {
- 		.ops = &amdgpu_sched_ops,
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index 0a01213c4878..9a1e6b9ecbe5 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -521,6 +521,7 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
+ 			       lima_sched_timeout_ms : 10000;
+ 	const struct drm_sched_init_args args = {
+ 		.ops = &lima_sched_ops,
 +		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.timeout_wq = adev->reset_domain->wq,
- 		.dev = adev->dev,
- 	};
+ 		.credit_limit = 1,
+ 		.hang_limit = lima_job_hang_limit,
+ 		.timeout = msecs_to_jiffies(timeout),
 -- 
 2.54.0
 
