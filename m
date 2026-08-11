@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6A5C5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 487E7C5CFCF
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEDA710EBD3;
-	Tue, 11 Aug 2026 13:48:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E314910EBDA;
+	Tue, 11 Aug 2026 13:48:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fPAqHjmx";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LWEN0LAq";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 699DC10EBDB;
- Tue, 11 Aug 2026 13:48:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27E3D10EBD2;
+ Tue, 11 Aug 2026 13:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=dDGG6d1pHHDr6E559SFYSTxzTkXjCnYIyy8bFEof5jY=; b=
- fPAqHjmx50c5k6u/YlNixBbGy6Z04vHbrY/VoR6lnhT+6pB0JWsHhlys37LkX0nO6lH/0RdxvK4TT
- 62kY/0T5SsrtuKdoFcr5Dq/87pqooUzkGsYRjrDdA8GMQ6LcuLOiPH40ptlI3x7i1HYO6jSFaW8rp
- hmpARgYFW+fvy4B5D61v6z7M4rwFZ64GwD7E3qlqzbb8+v608W1bUu/HjVE7JSaH/aKcQaKyjpJNJ
- 9IvpWHiNKMtoras+5H5BGYWw57WLISgXmx8UwFnPdmXWNm3NRPfNW/hnwinbk5hxY6hzk9mDoHnHW
- 86YCuX8civiOIXeHc7/VmF7xnZ4glLS2hg==;
+ Cc:To:From:From:Reply-To; bh=zGzgVAtmhTQa8WZPkMeoIS86WIwJJu/KtuYMng5Z2IU=; b=
+ LWEN0LAqlQ1Xf87sS5jm2qyHvL32EI4gCMd84h+xd+x9dotWM1Awz0xGM5YRULp5uYLFFgoN5C6y3
+ 8pZ2eckKVU82CqcxPmyW9Vxrs8PlHKL6qo22ZmS//ZhNp9bCkvMhj7ITWaYNbQj5bPzhtp0Yiy+UU
+ 3WTPl8uiuz0mRUJF415E4EFqFgVBHN1NCWs5SC9sctvVF8hI/JBweE1+enDmBN96VZ6utdGE7Zog0
+ 67VngdVBixDNEAQDYBKKTOLKdBYCscNivTAfR6k02BOj8Cr+pLLdkozWrDNaRlWQFIkXIbMCvATVx
+ znHIahs7/MFgjqBiK3kA0w8axkwrae0NkA==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtmpm-00H9mY-HS; Tue, 11 Aug 2026 15:48:02 +0200
+ id 1wtmpn-00H9mg-AL; Tue, 11 Aug 2026 15:48:03 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 02/20] Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
-Date: Tue, 11 Aug 2026 14:47:40 +0100
-Message-ID: <20260811134758.96339-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 03/20] Revert "drm/xe: Remove drm_sched_init_args->num_rqs
+ usage"
+Date: Tue, 11 Aug 2026 14:47:41 +0100
+Message-ID: <20260811134758.96339-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
 References: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
@@ -56,32 +57,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This reverts commit d09339388b778f04dd9e638befa2594c9cb4290b.
+This reverts commit 4ca491d6ccf2daea813e67ed4b42e7b272f0687d.
 ---
- include/drm/gpu_scheduler.h | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/xe/xe_dep_scheduler.c | 1 +
+ drivers/gpu/drm/xe/xe_execlist.c      | 1 +
+ drivers/gpu/drm/xe/xe_gpu_scheduler.c | 1 +
+ 3 files changed, 3 insertions(+)
 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 363d13fc929f..da5d142506f2 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -607,6 +607,8 @@ struct drm_gpu_scheduler {
-  * @ops: backend operations provided by the driver
-  * @submit_wq: workqueue to use for submission. If NULL, an ordered wq is
-  *	       allocated and used.
-+ * @num_rqs: Number of run-queues. This may be at most DRM_SCHED_PRIORITY_COUNT,
-+ *	     as there's usually one run-queue per priority, but may be less.
-  * @credit_limit: the number of credits this scheduler can hold from all jobs
-  * @hang_limit: number of times to allow a job to hang before dropping it.
-  *		This mechanism is DEPRECATED. Set it to 0.
-@@ -620,6 +622,7 @@ struct drm_sched_init_args {
- 	const struct drm_sched_backend_ops *ops;
- 	struct workqueue_struct *submit_wq;
- 	struct workqueue_struct *timeout_wq;
-+	u32 num_rqs;
- 	u32 credit_limit;
- 	unsigned int hang_limit;
- 	long timeout;
+diff --git a/drivers/gpu/drm/xe/xe_dep_scheduler.c b/drivers/gpu/drm/xe/xe_dep_scheduler.c
+index 004aac8b89e6..51d99fee9aa5 100644
+--- a/drivers/gpu/drm/xe/xe_dep_scheduler.c
++++ b/drivers/gpu/drm/xe/xe_dep_scheduler.c
+@@ -78,6 +78,7 @@ xe_dep_scheduler_create(struct xe_device *xe,
+ 	const struct drm_sched_init_args args = {
+ 		.ops = &sched_ops,
+ 		.submit_wq = submit_wq,
++		.num_rqs = 1,
+ 		.credit_limit = job_limit,
+ 		.timeout = MAX_SCHEDULE_TIMEOUT,
+ 		.name = name,
+diff --git a/drivers/gpu/drm/xe/xe_execlist.c b/drivers/gpu/drm/xe/xe_execlist.c
+index cc33ae80e8cf..0d0db66c6ea2 100644
+--- a/drivers/gpu/drm/xe/xe_execlist.c
++++ b/drivers/gpu/drm/xe/xe_execlist.c
+@@ -328,6 +328,7 @@ static int execlist_exec_queue_init(struct xe_exec_queue *q)
+ 	struct drm_gpu_scheduler *sched;
+ 	const struct drm_sched_init_args args = {
+ 		.ops = &drm_sched_ops,
++		.num_rqs = 1,
+ 		.credit_limit = xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES,
+ 		.hang_limit = XE_SCHED_HANG_LIMIT,
+ 		.timeout = XE_SCHED_JOB_TIMEOUT,
+diff --git a/drivers/gpu/drm/xe/xe_gpu_scheduler.c b/drivers/gpu/drm/xe/xe_gpu_scheduler.c
+index 67d8ce368486..9c8004d5dd91 100644
+--- a/drivers/gpu/drm/xe/xe_gpu_scheduler.c
++++ b/drivers/gpu/drm/xe/xe_gpu_scheduler.c
+@@ -66,6 +66,7 @@ int xe_sched_init(struct xe_gpu_scheduler *sched,
+ 	const struct drm_sched_init_args args = {
+ 		.ops = ops,
+ 		.submit_wq = submit_wq,
++		.num_rqs = 1,
+ 		.credit_limit = hw_submission,
+ 		.hang_limit = hang_limit,
+ 		.timeout = timeout,
 -- 
 2.54.0
 
