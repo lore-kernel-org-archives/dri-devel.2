@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19725C5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17515C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D51E510E2AD;
-	Tue, 11 Aug 2026 16:31:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 583D510E337;
+	Tue, 11 Aug 2026 16:31:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gM9CIG4n";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ervahUN8";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC8010E1D0;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B893110E329;
  Tue, 11 Aug 2026 16:31:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=DgE9x8QJ1350dhcL4vg32S6hUBhAoGbqZv2HKd3bKMU=; b=gM9CIG4ntwOLFibmsyBMrxVzrU
- FmpB5UyP7JaGFLW3UUPNNcHB0jP8U3vsyVwtuPklvHjVGimJjN6D+DzwlSLEBoj/Gsgk9Q0RvQ58u
- YiLPFuwfmLhYJVbrNLArcA9SL+j0bMbE096CIZQ1JMJzaIWjQNxj2WJp1b3mbLiJfLc2SPz3MxL+Z
- /6OxL7B9RClf4HjNlWT3I2GSnhPAigZ/twPsfzEJDY/3uHKabgPO4we/vKR55ZGhv2Afvu9oRqTyb
- F5AyCqsDNObjPR0aaNwVk1BCm9phR7AuR85KM8sH6FoInwIx5yV9BGghXnU/XasXd5rqFrgAbPXH8
- UBw0ZMig==;
+ bh=5bHxX8Jd0ML2i3tdzqp1Rec3YckN5Tn0R3ThKVyY3gs=; b=ervahUN8b1up1S46RkFpiGeBFM
+ MjN7xgJVlY/5HzDQPR7kXV2STjSyIBMpqhYOBo2veEsM2FPJ7NONPGz3JfQf+eIZw+Y2h1zPPh/uQ
+ Ls8/F3YI+7WWJ6l1k4WZLHp0F4PXWmigTtNIyfSSN3ihLWqFi81WsDL7dOxBEOV5Fnu/5gBq6WWY1
+ Fdcf+qGsAuIpI1ARHviikCi6RUZ/c2BG0dALuwk6ojh5mKrYIWEGiCe308lrjsVWvC+huhagoXCbH
+ zUHnGSnZjELrk0mw51qY96AK7PDYBo1IOzZZ/Vjpr61SMgaxHqdELClYQJvn4dQtLJ7b76Kie5c4T
+ fQ2CB0Aw==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpO9-00HFcj-AJ; Tue, 11 Aug 2026 18:31:41 +0200
+ id 1wtpOA-00HFcv-SA; Tue, 11 Aug 2026 18:31:42 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -36,10 +36,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Luke.Wildhardt@proton.me, Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH v3 01/19] Revert "drm/sched: Remove
- drm_sched_init_args->num_rqs"
-Date: Tue, 11 Aug 2026 17:31:20 +0100
-Message-ID: <20260811163139.99746-2-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v3 03/19] Revert "drm/v3d: Remove drm_sched_init_args->num_rqs
+ usage"
+Date: Tue, 11 Aug 2026 17:31:22 +0100
+Message-ID: <20260811163139.99746-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
 References: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
@@ -61,7 +61,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This reverts commit d09339388b778f04dd9e638befa2594c9cb4290b.
+This reverts commit a1bf9381fc62f3c4e26a2caedb8317046383a559.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Luke.Wildhardt@proton.me
@@ -70,30 +70,21 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Philipp Stanner <phasta@kernel.org>
 Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
 ---
- include/drm/gpu_scheduler.h | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/v3d/v3d_sched.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index d61c19e78182..f1e15a80c844 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -608,6 +608,8 @@ struct drm_gpu_scheduler {
-  * @ops: backend operations provided by the driver
-  * @submit_wq: workqueue to use for submission. If NULL, an ordered wq is
-  *	       allocated and used.
-+ * @num_rqs: Number of run-queues. This may be at most DRM_SCHED_PRIORITY_COUNT,
-+ *	     as there's usually one run-queue per priority, but may be less.
-  * @credit_limit: the number of credits this scheduler can hold from all jobs
-  * @hang_limit: number of times to allow a job to hang before dropping it.
-  *		This mechanism is DEPRECATED. Set it to 0.
-@@ -621,6 +623,7 @@ struct drm_sched_init_args {
- 	const struct drm_sched_backend_ops *ops;
- 	struct workqueue_struct *submit_wq;
- 	struct workqueue_struct *timeout_wq;
-+	u32 num_rqs;
- 	u32 credit_limit;
- 	unsigned int hang_limit;
- 	long timeout;
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 63dd95b828c8..bea46298b69e 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -835,6 +835,7 @@ v3d_queue_sched_init(struct v3d_dev *v3d, const struct drm_sched_backend_ops *op
+ 		     enum v3d_queue queue, const char *name)
+ {
+ 	struct drm_sched_init_args args = {
++		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = 1,
+ 		.timeout = msecs_to_jiffies(500),
+ 		.timeout_wq = v3d->reset_wq,
 -- 
 2.54.0
 
