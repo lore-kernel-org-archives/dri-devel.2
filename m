@@ -4,160 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C43C2C5CFC1
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 09:37:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B7E3C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 09:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05FE410E2CD;
-	Tue, 11 Aug 2026 09:37:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5896D10E2B9;
+	Tue, 11 Aug 2026 09:46:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AMzsrHW2";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="BCR9Oqdt";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBA510E2AB;
- Tue, 11 Aug 2026 09:37:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786441044; x=1817977044;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=/JHob7mTj8P5AQEEsyhZqmnaLO0ZkgO1Aezl7IMujrU=;
- b=AMzsrHW2eTVKvee7JBmiZ6XABp+W9xZgNTpSue1mAp75LrqpwHHmiKCJ
- EaVHK47bBj9wOohtk/ryHkly8NlSS6W2lJggnzSiks7wy7ETnixnhW2hA
- TR69r2tTwY9PGAW3OoU02hUSna7rvfk926rhfXxKp/TL7qqWoMX8FBZis
- YDGTXRM3pR8ujhUTQrYmyNCDUYHQMNzGntl4lqpgeDN9BnEAqlWuOPqJI
- xcgbuxSpCdxzvH6acC2WZrKiQWCoLK0A0FdBSBJszqPB8a1G6x1BZSlxY
- JiGBP+mskml1v/RQMWwMERg+S99O70n9GohXVeatx4O0zW4rZ8UdJcXPv A==;
-X-CSE-ConnectionGUID: JokHMxOnTcOkyN6OB2EXmg==
-X-CSE-MsgGUID: 9zI3vDQ2Qbq96gG4KTBMXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86993076"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="86993076"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:37:24 -0700
-X-CSE-ConnectionGUID: Q4buEpHrRBaq4oN1eHITew==
-X-CSE-MsgGUID: X/CtitlRT2K05ysxcUJoWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="263338973"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:37:23 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 02:37:23 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 02:37:23 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.10) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 02:37:19 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aTqWTU3JPqKUACjU4ku6/OTosgWOwmn18nTTR0zUSXCQ7G4SSLuRXCeJ3afkchiNWgZ322Jfktiu+I6odSyPFVdnNOW6eTjO8muLbcsx9tGOaunqycM+kmQHlNAfqcN2r26vyoOhITEitpTRY53ja45/0wlnov4oz5Nqw7/lUOMUNfp8M020VMv5SAk8/JzneHL6jmLglFFAzvN8ZbMQeD/iL5Qv7pVviS2+zoAfjtIXkbbI5fEPdX713vCMxVpOrL4o3LxIApYwPAcd0lLb1H1JgW6ied50BGlyZoGX0BNpaxdpI8AQqm3CPh5YH1vZxAhqTNH5tJhW8p9xAw//+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cK4FT2Th+zQ7RmK4WKk2wQl1eggXehClzx4S1hfCOqI=;
- b=vQJUa9AhxQtBMR/4fvE3dDrZ+mhdqTwofRzYNH8fIPoQGEwoKf9HAKbAFc0QIpoFBZaENTRO32qR6TGJretrcCDDKIPIFNVajXxbfiS3xmC/Es8adPCFH08ZPJitaAcBGmX1+rAGFkj64sBtOhiHLEIBz1uBBXNozo6zKyynzEGSCAMGd6x/+ZjHhaJK4w202x4Qb2X5hoBqVkdnay4+BlBVEMBgfoqPcV6/RsDavQwbafmiBfeENNMed+akpKinhyJ2/MLgLnJ0x+99S6yRqqqsNK/C8Z+qC+Tf7LtMlpZobt69Jo/n3vmyDZiSIsES4a/5rBGEY00DVDvCck4Qgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by IA3PR11MB155912.namprd11.prod.outlook.com (2603:10b6:208:549::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
- 2026 09:37:17 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0315.011; Tue, 11 Aug 2026
- 09:37:17 +0000
-Date: Tue, 11 Aug 2026 09:37:06 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <jani.nikula@linux.intel.com>,
- <joonas.lahtinen@linux.intel.com>, <rodrigo.vivi@intel.com>,
- <tursulin@ursulin.net>, <chris@chris-wilson.co.uk>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915/gem: Fix request use-after-free in
- active_engine()
-Message-ID: <zmincd7ubpkwasily6fegvx7mz6zkdw5oglbj3ynpgqovpkszh@un7lyxy6dgly>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260809173646.3292361-1-shuangpeng.kernel@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20260809173646.3292361-1-shuangpeng.kernel@gmail.com>
-X-ClientProxiedBy: DUZPR01CA0079.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:46a::16) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90CF910E2B9
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 09:46:56 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hK6GP0vQxzKvtK;
+ Tue, 11 Aug 2026 11:46:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1786441613; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SMTYumGGj/OlPrilnAWOxWy4+DP0GwV+EuPjKPGpFWM=;
+ b=BCR9OqdtTaUXm0vE502KFCqwdcDiSiT4Q+ezpZNXBa3pic7Y338q7lcYh+jWKnxTfw9qV/
+ x6yuHxdxMUf+Tj7N14LMsqHOehJ2RXbAvULtS3YPpPD1EpJiFiYDIkgwZs1/dJFIuOPtbd
+ CT7KOPGgqu59ScY1c46eJE2Ae96PY2MuHASAdC2K6lkSzYYMtxbfD/56/uyFlbyCHMg+dK
+ JN38DN8gpJycQ8hkEOfkKVJSvxOy/KooMu38oHAwFjv/0Wv0T//XhoBdKN4/MdQPdn4Lxd
+ leEW/lsl1OzNdC53/t8PLiK8CImfAet0rJeDPkR/ef3tOgt/5TYyJqa2sCvBxg==
+Message-ID: <43fe1fd5e88ac7dda08f522346cfa39ec58006bc.camel@mailbox.org>
+Subject: Re: [PATCH v9 4/5] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+To: Gary Guo <gary@garyguo.net>, Philipp Stanner <phasta@kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>, Sumit Semwal	 <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Lyude Paul
+ <lyude@redhat.com>, "Paul E. McKenney"	 <paulmck@kernel.org>, Frederic
+ Weisbecker <frederic@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
+ Triplett	 <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt	 <rostedt@goodmis.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>,  Lai Jiangshan <jiangshanlai@gmail.com>,
+ Zqiang <qiang.zhang@linux.dev>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Asahi Lina <lina+kernel@asahilina.net>, Burak
+ Emir <bqe@google.com>, Lorenzo Stoakes <ljs@kernel.org>, FUJITA Tomonori	
+ <fujita.tomonori@gmail.com>, Eliot Courtney <ecourtney@nvidia.com>, Mirko
+ Adzic	 <adzicmirko97@gmail.com>, Timur Tabi <ttabi@nvidia.com>, Daniel del
+ Castillo	 <delcastillodelarosadaniel@gmail.com>, Boris Brezillon	
+ <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
+Date: Tue, 11 Aug 2026 11:46:36 +0200
+In-Reply-To: <DKHWVRYDD28C.3H5R8CKLZ3035@garyguo.net>
+References: <20260805145949.938505-2-phasta@kernel.org>
+ <20260805145949.938505-6-phasta@kernel.org>
+ <DKHWVRYDD28C.3H5R8CKLZ3035@garyguo.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|IA3PR11MB155912:EE_
-X-MS-Office365-Filtering-Correlation-Id: f877f1e6-2f4c-44d8-63c0-08def78c21d4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|56012099006|10067099003|18002099003|22082099003|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info: Sud7CNOM+Z2Cxs677dc1GvizBVhc2C4GMJ33Pw3jQeI+kYwBpXWg7YmelrFbDs9x1If6OSugqyXdtG6ukwaUqDg+s8jwNuzsY7N6wixaJDQGEXgU3GOTKzNCo+n7fomnhDatc+DJY24VvPOHjB6NDqqe5wZOhmz+iQP06VKv13mGFXWA738J/CHJ/hcLMpvlVbYjQ0/NFrB2dhOimcuslaTR6td3Iz7l+W+9IX+akRqpydYOdUBV1Ra6wD3R/BcOtWwQyW86xfPwNtPLGfx/rsNRkiJki95RsjDH659dYDy4re639e0aWay4SqmQDkoQRPbDY5tttX0atgYQ5+WJaHDMCevJGvwMcgLN+x48U4x1+9fAl2Z8f+wV2F191pK3jBy4d/72TmYdmqMlvIM9P83NJZJTsvckvVvU706OJmPvT+YCbyIM/2QT5GZ04CHAXPqqT78tnli0S4hV7ieteOXMvBD2El5Kd/j+uSHF2m5Pcsa8NYrVzDHI02FTfJM6SpBnxnzc8GGr+EJOXVsC6kmKsswSf6Z44UdLZUYWqU4g0uGDoPqjt1j70GPaZB2ooTqpXmCqrs5n955ghjEMAUtCckymPDTQD7Ndv+UOKBycJQ3Vys9Bv+0XkskPUnwHnm7aQoTu78zRuuvtmh9MKbbrxlQ0Z1c1bDrZwX/Ssq0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(18002099003)(22082099003)(11063799006)(5023799004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aERZZGxmYkphaFVzaTdVL29ocXZaMVJCRjB4enlLSWkwN25wTjhpM0J1NVBU?=
- =?utf-8?B?L2dKWkJvNzh4MTBxRmVXbkZJQzlIRmNmUW5yLzQrdFJFSnZXUGF6VEQxblNJ?=
- =?utf-8?B?VmpSVE5BUmpnNmloR21kV1hTWVdlaVMxeHN0Y1hBWVVldkx5R2V0TFlkZXh2?=
- =?utf-8?B?T0dtYmFiL0lWeEpuTUpnUUQ5RmsvelZkNlllVjlIbEQwd2thd1VxcWUwT05s?=
- =?utf-8?B?YTBvS3h4dVU5S3d0WEhHK1R1eU1HM1FQdHcrZHNXYkIxVHY1SkR1L21nTytO?=
- =?utf-8?B?WnZ3TzRFeHBhaUFnWFNic09CSFloK2FuZGpKaDZyb3V4a0Jjc3QxNkI0RXpZ?=
- =?utf-8?B?OVpiOCtpSXA0SjNzaG1MaEpBQ3N3WTJMSVd0SW13NXBrVEhLdWE2dCt3cHRP?=
- =?utf-8?B?am1HdTMvUkc0U2lBVlQvS0xHZyt5dURjNnE2eVAxZnFWRHlXb2REVnFlOWRG?=
- =?utf-8?B?SmQ1K3dyWkRzMCtRdjFSUjVxZ21aeDYwZk9MaUpRRTJ6M1E4UWRmQzNlQ1g4?=
- =?utf-8?B?OVFiRTNtK2syNzR5aWt1eDVVZ2NTRzk5OFVxRkxLNExpU1IxZzdsY3BVRHRh?=
- =?utf-8?B?SnYvTnF4Q2FsQnBHelYrckhrT1EzQzRHOCt3cmkyT3htV3p4VjYyTzRsZTF5?=
- =?utf-8?B?OWhNMzZQaEhKd1FxdkljU2xibThQdzlqMXlBZURLQVU0NExqZ0Y1M08wcXJL?=
- =?utf-8?B?L3dRRkY1Uzd2SkJzemYvTzFPNTd3eFNlMHd6TnhKS291b2lBRVNJMlF2cEk0?=
- =?utf-8?B?TUR4UjlLSFJPQUNUS3NoQ1FPNkJPbUhRaURPR1I4VytiSVJyK0NGSzN3Smkx?=
- =?utf-8?B?NXlvWFZHWm56a0o0OG85Mms4cDFmMURWcFdCcFNJYW1mdWNBdE5rWFVuSTJR?=
- =?utf-8?B?RlNQekhFSHoreUw5YU42N1MxbVNqWGxrNmtCNUZtUVVQekJiZlJhYzdEMjIv?=
- =?utf-8?B?aG1BeFFIczVZVU16eHBEeDl6SUd3eEd6MDZlVjNBbXd4b0FPN2dFMHBzOUk0?=
- =?utf-8?B?MEtsL2F4cjEyZDVwMXNsMWlaL3RCb05oRGxLa0ZyYW5oa1NlcHNnZEIybURj?=
- =?utf-8?B?ZEU1c0NEaVl0c1piSVZXM2VxWlp0N1I2MGhraGJ0eDFua1lwenN3SFJ5VHBC?=
- =?utf-8?B?NFluZysveEx4dzhRQzA3SHk1NlpMSVZMWGsySFhCYUtZajdYSTh3QnBKeXRI?=
- =?utf-8?B?VXlHTXZIU0VBRTExaUhidnhJS1kzRjBKTi9zei9QOHBNQk5qK1BEQTdBUWsx?=
- =?utf-8?B?bmwxWnJKZDZheUFwZEc0Y3pOczl1US96c0JKSjc1QTRHSG95dEFudGVTT2xx?=
- =?utf-8?B?dGNwOUtHdzNFVzNDTjdxalhBRGJxaHk3ZDBDS3NwNGtKbzJvTStoTXM4Nk1q?=
- =?utf-8?B?V0xyYmZiVExYcG9uNXNrMXZrUlNBMVJhREVHRnQvT2gyOVc4eEJvd2NPRjJp?=
- =?utf-8?B?WExmbXdxclpybmhsWnFSZ1RiRkZnOHVmKzAyMCtteDRhWHlwakdyV1BiMmV1?=
- =?utf-8?B?bWtFNm1lV0VhRzlMTmVQdG9EVU9RMkxQZkVrN1pROXRsVlNqOS9PanZzeWx4?=
- =?utf-8?B?NEVpZk9SRk9MVWpSMnZVYm9sb2NxUm9jeExuVjVyazNxRGRSME91MUFIQ3Na?=
- =?utf-8?B?bWsrQWJpY04wNjF4cXhpVnJEWjk0RUZQSE10SVZGTHBvdWpOR0dqM0J5cFRH?=
- =?utf-8?B?Q1hHZ3BTc2ZqVnQ2L3lBcUFPSWdEWkt2SU1LT1h5VS8yYXpLVFZRSTBsVWxJ?=
- =?utf-8?B?eGVwWmhxVXFXOE8vKzJwdHNIVGFjK0YrWmpLbTJTdHNQUVVnQ0tBOHRuUDZV?=
- =?utf-8?B?b1huVnRXTkt5MHFBS3U2WlNZWExkVlFOYjBjcjEyblIxNkY2U284YnAraWNq?=
- =?utf-8?B?WjkwWGt5cjBwZU9YQ2t4TVc4eVYxRzN2VGMvMnkzZG5ZNmFXUjNhcXd6d0JW?=
- =?utf-8?B?N1JJUkVnM2hVZWE5RlcxNHk5NUlhZ3ZCMjdMWDFDeTJkdFBxVmg4NGgvZXdy?=
- =?utf-8?B?THd5OS9PNDYvR0dpU3JzRWhySjAyZmMvcjA4T2JyVEU1dzRlSDBVVlJhU01z?=
- =?utf-8?B?OFZoTnpLWDhpS0RjRFZqN2NUWlZqWmMwVjUzc082TVlRcG9Qb0pFVGhiaWhj?=
- =?utf-8?B?Vko1elYyZzN2UVRuS1pYQkxHcnBpOVpOZExqTmI5ejlJYjRpZ09Vb0gwbE9n?=
- =?utf-8?B?TUtETGw3cDlIcnkrdEUxRC9yYmJpRjZQTFpCcWUwaEsvS2J5RTRuM1F3Y0ho?=
- =?utf-8?B?NFRrSW5jcFFtQWpkQ2I3T1QrTG5nRlpDNjMyZUhHQ1dpOEJoQ29Bek93V0li?=
- =?utf-8?B?ME1NRUw5aUZ4TGptUzlycUR1Y1lPR0F3Nk0zdDRBM2JOcndncDc4TEtaL2I4?=
- =?utf-8?Q?BKcGWsEotXEAzbp0=3D?=
-X-Exchange-RoutingPolicyChecked: lkUTtKO8W3lnvtFCKqNiajJoXvnONXeoziRrG4slrMxuHcPJhTG72AzhI/vF/b1XALK8dkC8TQzy7HQO4aro0LMCZrUdCWeyAlJfklL9jDmfCxS8ITjzIHR3KAXfcvScH36ap1c49nF8+ETm44V6Sww9OLt7M01FoyCmI5HiM4hKdlFIG9Et4Vumdh2xtaknpWYVUDdjUpywcdi5mNy/avaY1TqFHcnVg/tVJExgmZRlBH8XcWV7F7EJPrxdm/YotugJd2emy18cegwKINdpUkyYPMubvRKByvzoPUPJVRoj/DQHz9t0pINjU2jyZKjMB6u5jVpPczmiSu2WhrPtXw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f877f1e6-2f4c-44d8-63c0-08def78c21d4
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 09:37:16.9481 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZxaWBLnFdzDWgYl9dYx/U2R9ekBNDQ6izmsF4JCQhGPsmzMyP4YJWheAET8UZR/QsQZufJQidN5nuxiWs7ldCHDghG3rdGPzmXiXUHnXGxY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB155912
-X-OriginatorOrg: intel.com
+X-MBO-RS-ID: 2e84bd00eabb74370c6
+X-MBO-RS-META: cmorqhb7w3gby9wj56qptq968e5d46eh
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,88 +86,305 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Shuangpeng,
+On Thu, 2026-08-06 at 14:56 +0100, Gary Guo wrote:
+> On Wed Aug 5, 2026 at 3:59 PM BST, Philipp Stanner wrote:
+> >=20
 
-On 2026-08-09 at 13:36:46 -0400, Shuangpeng Bai wrote:
-> active_engine() walks timeline->requests in reverse under RCU and takes a
-> temporary reference before inspecting each request. However, it drops that
-> reference in the loop body before list_for_each_entry_reverse() advances
-> the cursor.
-> 
-> Concurrent retirement can unlink the same request and drop its base
-> reference while active_engine() holds the temporary reference. The put in
-> active_engine() may then be final, freeing or recycling the request before
-> the loop step reads rq->link.prev. SLAB_TYPESAFE_BY_RCU does not defer that
-> reuse.
-> 
-> Open-code the reverse walk and cache the previous request while the current
-> request is still referenced. The next request remains protected by
-> i915_request_get_rcu() and validated against the timeline before use.
-> 
-> An i915 mock selftest forced retirement between the active check and cursor
-> advance. The vulnerable tree reached the final request release and
-> kmem_cache_free(), while the fixed tree completed the same ordering without
-> accessing rq after the put.
-What mock selftest are you referring to?
+[=E2=80=A6]
 
-> 
-> Fixes: 3cfea8c97c93 ("drm/i915/gem: Hold request reference for canceling an active context")
-> Cc: stable@vger.kernel.org # v5.10+
-> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_context.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> index c58ffa5a8fa6..ff5c892a0176 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> @@ -1361,7 +1361,7 @@ static bool __cancel_engine(struct intel_engine_cs *engine)
->  static struct intel_engine_cs *active_engine(struct intel_context *ce)
->  {
->  	struct intel_engine_cs *engine = NULL;
-> -	struct i915_request *rq;
-> +	struct i915_request *rq, *prev;
->  
->  	if (intel_context_has_inflight(ce))
->  		return intel_context_inflight(ce);
-> @@ -1375,7 +1375,8 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
->  	 * (and onto a new timeline->requests list).
->  	 */
->  	rcu_read_lock();
-> -	list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
-> +	rq = list_last_entry(&ce->timeline->requests, typeof(*rq), link);
-> +	while (!list_entry_is_head(rq, &ce->timeline->requests, link)) {
->  		bool found;
->  
->  		/* timeline is already completed upto this point? */
-> @@ -1387,9 +1388,14 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
->  		if (likely(rcu_access_pointer(rq->timeline) == ce->timeline))
->  			found = i915_request_active_engine(rq, &engine);
->  
-> +		/* Cache the cursor before the put, which may release rq. */
-> +		if (!found)
-You could skip this check here and unconditionally set "prev".
-Its value is going to be used only once if found == false anyway.
+(feel free to crop huge mails like this)
 
-> +			prev = list_prev_entry(rq, link);
->  		i915_request_put(rq);
->  		if (found)
->  			break;
-> +
-> +		rq = prev;
->  	}
->  	rcu_read_unlock();
->  
-> 
-> base-commit: a59f57e2aa127c5354168d2ec4bac920df1be4f4
-> -- 
-> 2.43.0
-> 
 
--- 
-Best Regards,
-Krzysztof
+> > +/// Error type for fence callback registration.
+> > +///
+> > +/// Generic over `T` so that `AlreadySignaled` can return the callback=
+ to the
+> > +/// caller, allowing it to reclaim any resources owned by the callback=
+ (e.g.,
+> > +/// a fence handle that needs to be signaled).
+> > +#[derive(Debug)]
+> > +pub enum CallbackError<T =3D ()> {
+>=20
+> What is this `=3D ()` used for?
+
+A relic, can remove.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0 /// The fence was already signaled. The callback is=
+ returned so the caller
+> > +=C2=A0=C2=A0=C2=A0 /// can extract owned resources without losing them=
+.
+> > +=C2=A0=C2=A0=C2=A0 AlreadySignaled(T),
+> > +=C2=A0=C2=A0=C2=A0 /// Some other error occurred during registration.
+> > +=C2=A0=C2=A0=C2=A0 Other(Error),
+> > +}
+> > +
+> > +impl<T> From<CallbackError<T>> for Error {
+>=20
+> #[inline]
+>=20
+> > +=C2=A0=C2=A0=C2=A0 fn from(err: CallbackError<T>) -> Self {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 match err {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cal=
+lbackError::AlreadySignaled(_) =3D> ENOENT,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cal=
+lbackError::Other(e) =3D> e,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> > +
+> > +impl<T> From<AllocError> for CallbackError<T> {
+>=20
+> #[inline]
+>=20
+> > +=C2=A0=C2=A0=C2=A0 fn from(e: AllocError) -> Self {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CallbackError::Other(Error:=
+:from(e))
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> > +
+> >=20
+
+[=E2=80=A6]
+
+> > +pub trait FenceCallback: Send + 'static {
+> > +=C2=A0=C2=A0=C2=A0 /// Called when the fence is signaled.
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// This is called from the fence signaling path, w=
+hich may be in interrupt
+> > +=C2=A0=C2=A0=C2=A0 /// context or with locks held, which is why `self`=
+ is only borrowed, so that
+> > +=C2=A0=C2=A0=C2=A0 /// it cannot drop. Implementations must not sleep =
+or perform
+> > +=C2=A0=C2=A0=C2=A0 /// long-running operations.
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// An implementation likely wants to inform itself=
+ (e.g., through a work item)
+> > +=C2=A0=C2=A0=C2=A0 /// within this callback that the associated [`Fenc=
+eCallbackRegistration`]
+> > +=C2=A0=C2=A0=C2=A0 /// can now be dropped.
+> > +=C2=A0=C2=A0=C2=A0 fn called(&mut self);
+>=20
+> The name feels a bit awkward to me. I think this should either look like =
+an
+> action on the callback, in which case "call" or describe an event on the =
+fence,
+> i.e. "on_signal" or "signaled". Naming it "called" is very weird because =
+it's
+> not a event that is triggered when something is "called".
+
+on_signal() sounds good.
+
+>=20
+> > +}
+> > +
+> >=20
+
+[=E2=80=A6]
+
+> > +#[pinned_drop]
+> > +impl<T: FenceCallback> PinnedDrop for FenceCallbackRegistration<T> {
+> > +=C2=A0=C2=A0=C2=A0 fn drop(self: Pin<&mut Self>) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // Always call dma_fence_re=
+move_callback, even if `callback` has already
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // been taken by `dma_fence=
+_callback`.=C2=A0 This is necessary for
+>=20
+> Is this still up-to-date? You're not taking callback anymore in
+> `dma_fence_callback`.
+
+The comment is outdated, but the race prevention is still necessary.
+I'll update the text.
+
+>=20
+> >=20
+
+[=E2=80=A6]
+
+> > +impl Deref for FenceGuard {
+> > +=C2=A0=C2=A0=C2=A0 type Target =3D *mut bindings::dma_fence;
+>=20
+> Why not store and return `&Fence`?
+
+Sounds good, although it would be cool if the FenceGuard directly
+derefs to the raw pointer, since the need for accessing the latter with
+the lock held is the reason the guard exists.
+
+>=20
+> > +
+> >=20
+
+[=E2=80=A6]
+
+>=20
+> #[inline] here and many more below.
+
+I do not understand the Rust policy regarding inline at all. When do
+you need it and when not?
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0 fn lock(&self) -> FenceGuard {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let mut guard =3D FenceGuar=
+d {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inn=
+er: self.as_raw(),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fla=
+gs: 0,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `fence` is valid=
+ because `self` is valid. `flag_ptr` is
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // merely a pointer to an i=
+nteger, whose lifetime is tied to the guard
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // object.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::dma_fenc=
+e_lock_irqsave(guard.inner, &raw mut guard.flags) };
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 guard
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /// Get the fence's sequence number.
+> > +=C2=A0=C2=A0=C2=A0 pub fn seqno(&self) -> u64 {
+
+inline?
+
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: Valid because `s=
+elf` is valid.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { (*self.as_raw()).s=
+eqno }
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 fn as_raw(&self) -> *mut bindings::dma_fence {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 self.inner.get()
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /// Create a [`Fence`] from a raw C [`bindings::dma=
+_fence`].
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// # Safety
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// `ptr` must point to an initialized fence that i=
+s embedded into a [`Fence`].
+> > +=C2=A0=C2=A0=C2=A0 pub unsafe fn from_raw<'a>(ptr: *mut bindings::dma_=
+fence) -> &'a Self {
+
+inline?
+
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: Safe as per the =
+function's overall safety requirements.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { &*ptr.cast() }
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+
+In C, we spent literally decades to get it out of people's heads to use
+the inline keyword, because "the compiler knows better than you". It
+should only be used for code in headers (and I even think that there
+should not be code in headers).
+
+What is the Rust equivalent?
+
+
+> > +
+> >=20
+
+[=E2=80=A6]
+
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `fence` is valid=
+ because `self` is valid. The lock must be
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // held, which we acquired =
+directly above.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if !unsafe { bindings::dma_=
+fence_test_signaled_flag(*fence.deref()) } {
+>=20
+> These `*fence.deref()` are quite weird as consequence of `FenceGuard` des=
+ign.
+> If `FenceGuard` just derefs to `&Fence` then this can be `fence.as_raw()`=
+.
+
+True; it's good to fix this.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if =
+let Err(err) =3D res {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `fence` is valid because `self` is valid. =
+The fence
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 // must not have been signaled yet, which we check di=
+rectly above.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::dma_fence_set_error(*fence.deref()=
+, err.to_errno()) };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+SAFETY: `fence` is valid because `self` is valid. The lock must
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+be held, which we acquired above.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
+afe { bindings::dma_fence_signal_locked(*fence.deref()) };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `self.data` is v=
+alid because `self` is valid.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let fctx =3D unsafe { self.=
+data.as_ref().fctx };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let _ =3D fctx.nr_of_unsign=
+aled_fences.fetch_sub(1, Relaxed);
+>=20
+> Drop impl of `self` here will neededlessly take lock again before checkin=
+g it's
+> signaled already and unlock.
+
+Yes, I know.
+So? What could we do about it?
+
+We need to take the lock when signaling, and we need to take it when
+dropping to check if everyone was kind and did indeed signal before.
+
+What you describe is a lock-relock on the same CPU, and it is unlikely
+that there are contenders (only contender right now could be
+Fence::is_signaled(), which is nothing upcoming users will poll
+intensively).
+
+tl;dr I don't see a problem with that
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> >=20
+
+[=E2=80=A6]
+
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `call_rcu()` is =
+always safe to be called. `rcu_head_ptr` was
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // created validly above. T=
+he module must perform a `synchronize_rcu()`
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // or `rcu_barrier()` call =
+to guard against module unload.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::call_rcu=
+(rcu_head_ptr, Some(drop_driver_fence_data::<T>)) };
+>=20
+> I thought at some point it was mentioned that we want a fast path
+>=20
+> =C2=A0=C2=A0=C2=A0 if !mem::needs_drop::<...>() {
+> =C2=A0=C2=A0=C2=A0 }
+
+True. Added it.
+
+>=20
+> ?
+>=20
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> > +
+
+
+Regarding all your nits and comments I skipped above, I agree with them
+for the most part and will address them in v10.
+
+
+P.
