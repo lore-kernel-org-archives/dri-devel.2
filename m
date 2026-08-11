@@ -4,83 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50411C5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 15:10:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B494C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 15:24:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B1DA10EC69;
-	Tue, 11 Aug 2026 15:10:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D5D410E2C9;
+	Tue, 11 Aug 2026 15:24:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BapOW1SO";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="dtJtRIgs";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3CA510EC69
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 15:10:57 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4956869750eso21874215e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 08:10:57 -0700 (PDT)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3F510E2C9
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 15:24:00 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2cca0c5799eso915495ad.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 08:24:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786461840; cv=none;
+ d=google.com; s=arc-20260327;
+ b=kxciGBUcQsVfGg1josDkSeTMsJQs2c+FjHxjCHbBBmXHidS/mpYpmt90z2KhkISaY2
+ kFHIFI2XmMMcelCwfF1HpUKD7ggClaCaBmUfM/IfFvgkaiOGuT5xZBPD4+Pt1iy0GFtu
+ lkMkZxL/jle304GKAnqj4TmkNJ43whnOHDNfARJFarjKB7SYxL/abMyASbdOTN5WM9Sx
+ 3tBVOjO1M75MPLk4p4FICCwlWjfVR7U4p37leBeHmg8UIxkA2fmAjvq3zyOMcSHesar/
+ pfNDSBvWWHhKuDXroHkVLQmxGQnhYhBO9ZeioTOvpPoJ7iqnwvrnJ5+MP6kIJsekEC1o
+ 7YrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=/STLSUIb/DMEpP+keoEG4UtLhN4foCJA+kk3jcncjDU=;
+ fh=SWzFFb8QQK2lxRLu823Iqhuc7tx4bplVxofZe3g2qT0=;
+ b=CP0TYNWYcp4iJUnV37mAEUDOvig7TOEq0KulmOtHR3TyYSIv/Eem6+mqOKXM2Sc0Jc
+ 1J05vYCPFzPg1JKp9Qfys9zlw2OWWjXRB0Gvl6Rsx0TsZ91S0jGLw0uSIQosLHrDssSf
+ glSDU3t3FL0n3oPsdOyZapYwPCuW22JpJgN2LRHpSCQmlRDjCMElrKY04hYLTfrNMytG
+ c+5aHfeYdFIfBFlSgDbg+LEkT3QYTog8pYBJHQDNx77xCExu/8cPlZ4jvYGy0L56IVta
+ KliFS23GQTdn1QaUiulkh0zhjaX1Z3Nrv40HcesYgPu9KzB8uFRB0Q+ORHnY+kBomCu2
+ KXJQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786461056; x=1787065856; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=FqY4BGNrVrEdqqs5mL1dMpbRJH5xMB3zokQi0/ffwZ8=;
- b=BapOW1SOM5ecPNuOFhmKvtk9/7kNy7h16G6rnBxWKbBPwhAMcV6QpzXIDIDA/fy5yP
- OoaP1hRnICHJJ2fORiIMHNNtxIoe7/k6MDx4TsBbdSMxxOn4hN2oswyihCDRR2V91HWK
- U8h9p511rJJmx1oHGlbS+SG2+F6QfLvJHOlf42mmzSkd2b4Dn7lKbfwT7D5qg24P1JBJ
- MPV9qWEK0ZBAevwtpCHhZPdqt5N8N9TmyK4IkS9ZrU+afJHvrbdzcCzoV9JKiv2W9y8A
- D+s2Gmfjeg5jrxuMl7dfWoY+txkCeaSgVUxpQ20zW3fF1R2ln8HgZYMTnfIK1SBEEtf9
- WnBA==
+ d=fooishbar.org; s=google; t=1786461840; x=1787066640;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=/STLSUIb/DMEpP+keoEG4UtLhN4foCJA+kk3jcncjDU=;
+ b=dtJtRIgsDQcVVEO7a5MSvnArg+lQV+BQb2dezL10wMS+s+eQVm8x98kBU5WGbUsb9Y
+ X0kPaXRR8tgGRe4tbYivIfi9ACyT+h7U6b9lnbBwKIHFZrTfvb06Ko4ICeTIXzPvISfE
+ olUX9mrSgx/sQK6u1ssIxFxjj+7DeEq4hUU1gCXPEkQGoifGvqCVtBaQNe2InrEjSnfU
+ VVvRijQDAw/TVzVfKSurQbYAM4i8+/GpBSP/nt7ECkTMauFzA5GxUraEdSwxmU2oJMWO
+ UpTJG/g1yhl0QsI1SFMx9NmK0tG7uwDE6xdsuLs60nQj9tZNaAsQPrj2helHjZ0bVJw9
+ nZqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786461056; x=1787065856;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=FqY4BGNrVrEdqqs5mL1dMpbRJH5xMB3zokQi0/ffwZ8=;
- b=CYE8JoMkdTl8v+PstXnxnztawFBqcqWytaqXEHX2dlPwc60x3NGsOC1TosOBxNjb5b
- K0ZOXcR3sn+F6p0288hlMynaMTsdDkEt5yIagyuA8iCuUx5ODUD1/noozer0gFgyGfpz
- 6aorDPmK+bwhkX3JzHvHNWKM+q8iLajuHTyHy6Zr6RU7S8yFaZppKPIAOBTOCjL5orga
- WM6e6eyC0f4lCcvjB9ehreTEj67IwCqfQWuVwvQtzb9B6mhRvPXgiNaIFuMwHS4NvHNU
- Xk/PT9LX9tRbPCkZzt1U4RiFEAdzxSre0L+ukUDbNo/b1JzA/1LWCbyr+yYLlhsKb3oH
- I0SQ==
+ d=1e100.net; s=20251104; t=1786461840; x=1787066640;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=/STLSUIb/DMEpP+keoEG4UtLhN4foCJA+kk3jcncjDU=;
+ b=g+7YtLZOJdYY1xivoAHv6nfpcQJDvhxE2IAleU8Fr5vsiSKRUaNAzzvE8OFbCuPgj5
+ XPlkDlW1ESmwrvrk+rQt1mJcIUred/xi/lA4JiFhvmidJIQqcGFWAtREOKeIEZEjCwZR
+ P5xdd5w0bMNtgaLqkyrUym9txQL9UeyAn0RqGsrFWo/ojPDlriT4Be86Bs/eIw5MUwt5
+ 24Sa7XGgoSx4JAuUNRUNZvWyT/+i24kYJkPr0lDmT3IqOoBLMlhylBA3TljdKaCMbf2x
+ JqKDKd5rRLXd1a8l959dpx5uQ4uULpLhwJGtOhBhxNdZIBvtKvPbFKywsToTHOWlQ9ic
+ nWNg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoMwSdHslHfWU+Q1kqaUTRl2KVOcb8Kh9AAkZ/8bQU7rmM3CAR+h3EOBbBp2hUSKIKjWK183mHItNI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxwn+i9Ir9+phMTHl+Wt102XXAHZ3C5PtHSUfhIqLVdyTFvRmSE
- EQRMnkDxpvAicLezj33P0p6cQJDNzJclkqWcdlycfnzibGeh6uvU1znwvNRp9JNf
-X-Gm-Gg: AR+sD11LLU4cZKZElx+G4x4knXbzBepyId89wBxPi3JqrqzsBpx3KMKGamAwzLR+Ikj
- ghEiizxZGJsJNdzy6G2M7mj4rvDdh/7gS5e0Y7X0Q7UxYgm/bxog5sSqyxewD8I+rL6ojong9Ju
- QNV21vh4dqSCzw/pb69SXGqcikiCWrRyi2KA/tExExlUbmil6vB8FAdz8cyNBey//leHr9qYNTV
- AJMgPpDTvTRVdJ+d6ES1vHKvCGFo/Y5PfwSmb5g5/INR7EEpsfcRuK7i7p9/U2oK56XJbUPZt7Z
- 3iHKl8+Dahv09ExMfVA5xin6M7fTDigINJjSU/Z7wi9Mubx5nq13BvSZOipSdt0QCvsdxbt91Q6
- ozfMJenv3xgwlPSWxuvr6yIuiMVRT1M7tpE9aQMKuTz+azFYVGRYrtvPQ6x4bzOUdEvR5Q6zVQX
- 47Y7f2EhS//0gqng1tbqzzXdxgrassG4zHw+ZmqBtJRlZi/LoSv0g8M2F4uXkkqXTSa+2tmMYNp
- 7gFoA/ClhhN9AVuvjkaUVrTWvvJ3Cpyo3w=
-X-Received: by 2002:a05:600c:154c:b0:499:79b9:e226 with SMTP id
- 5b1f17b1804b1-49979b9e359mr30314355e9.0.1786461056011; 
- Tue, 11 Aug 2026 08:10:56 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:b0cf:778:ae86:13b1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49977e57785sm54307265e9.2.2026.08.11.08.10.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 08:10:55 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH 5/6] drm/panel: Use devm_mipi_dsi_attach in display vendor
- panels
-Date: Tue, 11 Aug 2026 17:09:49 +0200
-Message-ID: <20260811151000.75038-6-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260811151000.75038-1-osama.abdelkader@gmail.com>
-References: <20260811151000.75038-1-osama.abdelkader@gmail.com>
+ AHgh+RpykzfetOF7nDYhxKBN6tPTPd887S+whwyelvDuCgCgUn2t8drcVxZwJW+NbRjKFZ4zORgrkDBcHqE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3KTxohDlAz8dVkk6KEUtpZpkjfLWtV5JzEsv6ZDfJTFSKcIzB
+ 3Os3VZJpZTYw/O2zgATiOsAd1WZxxYk3mDGtxYvQeQML+Gs1Q/MtmqmRdKZN5y+qmlsqqqp/x7/
+ v1m1GRG9SO5jQ3+uKQ+j7TZ5JL06aOVlZl8sVzyJzyw==
+X-Gm-Gg: AR+sD10UA0NDjX6cHVPHbTho/HCLlueEEd0BKm63jjLztTZIBv2dozTBl5guMwz50j+
+ BzNVTHeyBuxFF+363w4o9/BZ0nuQsUvXnCg76XAelCKep2ULuCnbOq6DTAuw2f62YYGdDMHm7xx
+ JGHQLAlNl9g0sW5Ie1ac8OVJiaD0X2G0B4KjbftNpvS4gXwtAhipU6PYXjCFGXhfzQNHeCXXS75
+ /CEJoLVia0/GHHLzgTKKMmuk9biA/BlaS3CFtCCJL7kI/EOzAQcNNhqBg9EaQjeCVGTxbdQ7RCq
+ aQJS6M0BlUfM58iOtK5bDi9Tx2IuGVlfuDmEbCwi2Q==
+X-Received: by 2002:a17:903:2405:b0:2c9:c991:6ed3 with SMTP id
+ d9443c01a7336-2d3178c8ad7mr53856565ad.12.1786461839554; Tue, 11 Aug 2026
+ 08:23:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260806205449.16806-1-jerry.zuo@amd.com>
+ <20260811003921.1398292-1-jerry.zuo@amd.com>
+ <20260811003921.1398292-5-jerry.zuo@amd.com>
+ <0102019ff114857a-259b7f40-8202-425a-bfbc-71bb92acf184-000000@eu-west-1.amazonses.com>
+In-Reply-To: <0102019ff114857a-259b7f40-8202-425a-bfbc-71bb92acf184-000000@eu-west-1.amazonses.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Tue, 11 Aug 2026 16:23:48 +0100
+X-Gm-Features: AUfX_mzW4vpKvpSLOTXQ7G_2xDxw4RcITaclPpwkDi_AI9CwVUZdC4ZfVyrenos
+Message-ID: <CAPj87rMSYC0wKP66p5Q5uOL+-Fb04-gYJFcRxdxxZ2-_du89GQ@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] drm/amd/display: Add HDMI ALLM support
+To: Derek Foreman <derek.foreman@collabora.com>
+Cc: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,275 +108,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the managed MIPI DSI attach helper in JDI, Sharp, Sony, Visionox and Leadtek panel drivers and drop the corresponding manual detach calls from remove paths.
----
- drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c           | 8 +-------
- drivers/gpu/drm/panel/panel-jdi-lt070me05000.c         | 8 +-------
- drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c     | 8 +-------
- drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c     | 8 +-------
- drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c        | 7 +------
- drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c        | 8 +-------
- drivers/gpu/drm/panel/panel-sony-td4353-jdi.c          | 8 +-------
- drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c | 8 +-------
- drivers/gpu/drm/panel/panel-visionox-r66451.c          | 8 +-------
- drivers/gpu/drm/panel/panel-visionox-rm69299.c         | 4 +---
- 10 files changed, 10 insertions(+), 65 deletions(-)
+Hi,
 
-diff --git a/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c b/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
-index cbe354b51bce..ce299160d3ab 100644
---- a/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
-+++ b/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
-@@ -202,7 +202,7 @@ static int jdi_fhd_r63452_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		return ret;
-@@ -214,12 +214,6 @@ static int jdi_fhd_r63452_probe(struct mipi_dsi_device *dsi)
- static void jdi_fhd_r63452_remove(struct mipi_dsi_device *dsi)
- {
- 	struct jdi_fhd_r63452 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c b/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
-index 01bd748aecec..d9cba45eb729 100644
---- a/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
-+++ b/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
-@@ -380,7 +380,7 @@ static int jdi_panel_probe(struct mipi_dsi_device *dsi)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		jdi_panel_del(jdi);
- 		return ret;
-@@ -392,12 +392,6 @@ static int jdi_panel_probe(struct mipi_dsi_device *dsi)
- static void jdi_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct jdi_panel *jdi = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n",
--			ret);
- 
- 	jdi_panel_del(jdi);
- }
-diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-index 0856df5a6ee2..b660d7055810 100644
---- a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-+++ b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
-@@ -585,7 +585,7 @@ static int ltk050h3146w_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -598,12 +598,6 @@ static int ltk050h3146w_probe(struct mipi_dsi_device *dsi)
- static void ltk050h3146w_remove(struct mipi_dsi_device *dsi)
- {
- 	struct ltk050h3146w *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-index 7f19fd5b8060..6ec6f81877aa 100644
---- a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-+++ b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-@@ -651,7 +651,7 @@ static int ltk500hd1829_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -664,12 +664,6 @@ static int ltk500hd1829_probe(struct mipi_dsi_device *dsi)
- static void ltk500hd1829_remove(struct mipi_dsi_device *dsi)
- {
- 	struct ltk500hd1829 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
-index 989b030ea22d..11615551e8a6 100644
---- a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
-+++ b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
-@@ -244,7 +244,7 @@ static int sharp_nt_panel_probe(struct mipi_dsi_device *dsi)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		sharp_nt_panel_del(sharp_nt);
- 		return ret;
-@@ -256,11 +256,6 @@ static int sharp_nt_panel_probe(struct mipi_dsi_device *dsi)
- static void sharp_nt_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct sharp_nt_panel *sharp_nt = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
- 
- 	sharp_nt_panel_del(sharp_nt);
- }
-diff --git a/drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c b/drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c
-index 0456f3d705e7..236d45121a44 100644
---- a/drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c
-+++ b/drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c
-@@ -235,7 +235,7 @@ static int sharp_ls060_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -248,12 +248,6 @@ static int sharp_ls060_probe(struct mipi_dsi_device *dsi)
- static void sharp_ls060_remove(struct mipi_dsi_device *dsi)
- {
- 	struct sharp_ls060 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-sony-td4353-jdi.c b/drivers/gpu/drm/panel/panel-sony-td4353-jdi.c
-index a14c86c60d19..08e4adf9e0f0 100644
---- a/drivers/gpu/drm/panel/panel-sony-td4353-jdi.c
-+++ b/drivers/gpu/drm/panel/panel-sony-td4353-jdi.c
-@@ -216,7 +216,7 @@ static int sony_td4353_jdi_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -229,12 +229,6 @@ static int sony_td4353_jdi_probe(struct mipi_dsi_device *dsi)
- static void sony_td4353_jdi_remove(struct mipi_dsi_device *dsi)
- {
- 	struct sony_td4353_jdi *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c b/drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c
-index 216a6ad8696e..5ce8b1cdf024 100644
---- a/drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c
-+++ b/drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c
-@@ -474,7 +474,7 @@ static int truly_nt35521_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -487,12 +487,6 @@ static int truly_nt35521_probe(struct mipi_dsi_device *dsi)
- static void truly_nt35521_remove(struct mipi_dsi_device *dsi)
- {
- 	struct truly_nt35521 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-visionox-r66451.c b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-index 690cccedd438..40bbc3ea6958 100644
---- a/drivers/gpu/drm/panel/panel-visionox-r66451.c
-+++ b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-@@ -306,7 +306,7 @@ static int visionox_r66451_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -318,12 +318,6 @@ static int visionox_r66451_probe(struct mipi_dsi_device *dsi)
- static void visionox_r66451_remove(struct mipi_dsi_device *dsi)
- {
- 	struct visionox_r66451 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-index 50f8a84537ca..7a60b1d436df 100644
---- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-+++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-@@ -388,7 +388,7 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
- 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "dsi attach failed ret = %d\n", ret);
- 		goto err_dsi_attach;
-@@ -404,8 +404,6 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
- static void visionox_rm69299_remove(struct mipi_dsi_device *dsi)
- {
- 	struct visionox_rm69299 *ctx = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(ctx->dsi);
- 	drm_panel_remove(&ctx->panel);
- }
- 
--- 
-2.43.0
+On Tue, 11 Aug 2026 at 14:54, Derek Foreman <derek.foreman@collabora.com> wrote:
+> On 8/10/26 7:39 PM, Fangzhi Zuo wrote:
+> > +             /*
+> > +              * Enable HDMI ALLM (Auto Low-Latency Mode) when the sink
+> > +              * advertises ALLM in the SCDS and the content type is Game.
+> > +              * Setting content-type = Game is how userspace requests the
+> > +              * Sink's low-latency mode (HDMI GCTS HF1-56).
+> > +              */
 
+Is it mandatory for the source to set ALLM when the sink advertises
+ALLM support, and content-type == game?
+
+Is it allowable for the source to set ALLM when the sink advertises
+ALLM support, and content-type != game?
+
+> > +     /*
+> > +      * HDMI ALLM: transmit the HF-VSIF with ALLM_Mode=1 when the sink
+> > +      * advertises ALLM in the SCDS and either the content type is Game
+> > +      * (HF1-56) or Gaming-VRR is active (VRR_EN=1, HF1-58 step 8.3.1).
+> > +      * HDMI 2.1 7.6.6.
+> > +      */
+
+Is it mandatory for the source to set ALLM when the sink advertises
+ALLM support, and game-VRR is active?
+
+Is it allowable for the source to set ALLM when the sink advertises
+ALLM support, and non-game-VRR is active?
+
+> Tying this to Gaming-VRR seems potentially surprising. Gaming-VRR
+> doesn't mean we're playing a game. We might be using it to play back
+> judder free video (where we'd like ALLM off to preserve the sink's image
+> enhancement), or we might be at the desktop.
+>
+> I'd imagine some users would still want their sink to use all the image
+> enhancements they saw in the showroom even when playing a game, so I'm
+> not sure any kind of "auto" decision making in the kernel makes sense at
+> all, even based on content type. It's a very subjective trade-off.
+>
+> To me, this seems like something a compositor would want control of with
+> a simple boolean property.
+
+I strongly agree. I really don't want to see more magic implicit
+semantics unless they're completely necessary for some reason.
+
+Someone passed on second-hand that one of the reasons to do this was
+to make it easier to support X11 - however, if X11 needs better ALLM
+control, then it can be exposed as a connector property via RandR,
+just like content-type.
+
+Cheers,
+Daniel
