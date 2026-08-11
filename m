@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 590CCC5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 06:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99394C5B569
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 06:41:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 472A110EA8C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54B6110EA92;
 	Tue, 11 Aug 2026 06:41:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="NZMU6BNp";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="JFSor2hS";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81E6810EA8F
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 06:41:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACC7610EA88
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 06:41:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 738BC44FC8;
+ by sea.source.kernel.org (Postfix) with ESMTP id 95BB74501A;
  Tue, 11 Aug 2026 06:41:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A026C2BCF4;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 67B00C2BCFA;
  Tue, 11 Aug 2026 06:41:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1786430466; bh=VfzbZNd9bdUa4BN3WHg5N3MuqGNhCA7R5iDzpO0AVjE=;
+ t=1786430466; bh=t9D2Px8pUwrEcOg/YTzMXGqqQKBGT5HfYznSBGN9YqI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NZMU6BNp7lj/LcoSD+X4mAu1qz7LI+8Kaf351PiJwEj9LykJN69+TP1xnAKFsFMax
- 56Z0D51R4aE/qXbCMnxDPOtHJmWMgoYvPYlcvY1lR/1dhxN9CEwGHGxzNFwQ9I/xDQ
- 3Y4BELaOo3T9xXtQ8QHxpm439lzaEXoFLUU0Qam8=
+ b=JFSor2hS5saK23uNOWSFZthothWmaXMnxBe0i93x7kOdIMBPvKjJhM1NXYcp18763
+ ePvhNPHsnbi1K/5lHMTjAJGU1XH2ord61ZCfKBgqfcdj/JfWaTyjr6aUIsi3E2q77R
+ ZNad6prv175RY5/mqFrJ49LkUWPd2DHKCUfiZcYs=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 2F273C5B574;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 50EE1C5B569;
  Tue, 11 Aug 2026 06:41:06 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Tue, 11 Aug 2026 14:39:47 +0800
-Subject: [PATCH v10 05/10] rust: drm: set fops.owner from driver module pointer
+Date: Tue, 11 Aug 2026 14:39:49 +0800
+Subject: [PATCH v10 07/10] rust: configfs: use `LocalModule` for `THIS_MODULE`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-fix-fops-owner-v10-5-7e71776f9dbe@linux.dev>
+Message-Id: <20260811-fix-fops-owner-v10-7-7e71776f9dbe@linux.dev>
 References: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
 In-Reply-To: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -69,11 +69,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786430463; l=1921;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786430463; l=2926;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=VfzbZNd9bdUa4BN3WHg5N3MuqGNhCA7R5iDzpO0AVjE=;
- b=d4F2HSgrhOfkX+lYUKfNjW1DIuNhdyt8fUln5qoPruM6cFTKHU4bqLtTN5ew0uiQMZZlRGIlM
- 3K64Q9fCk7NDRF5tZYWTNN462LU1Z7b/GSP/YptEYVqRfe9P2jb350s
+ bh=t9D2Px8pUwrEcOg/YTzMXGqqQKBGT5HfYznSBGN9YqI=;
+ b=qtMV7yeXqhaYZVvul4NqGhUUdcVoBe2tah6MnJR9lmmRAMqMf9KCsSFMqum5YtQXu+Xwjb+DI
+ 5rNSgQBEO78AV7CBlIRkWjPfI8WZtXa/o3bEw/LNmfHh2b/LISgMfT0
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -93,52 +93,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Change `create_fops()` to accept an owner module pointer instead of
-hardcoding `null_mut()`, ensuring the kernel correctly tracks the
-module owning the DRM device's file operations.
+Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
+macro with `this_module::<LocalModule>()`, and update
+rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
+with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
 
 Assisted-by: opencode:glm-5.2
 Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-Reviewed-by: Gary Guo <gary@garyguo.net>
 Acked-by: Danilo Krummrich <dakr@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Andreas Hindborg <a.hindborg@kernel.org>
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/drm/device.rs  | 3 ++-
- rust/kernel/drm/gem/mod.rs | 4 ++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ drivers/block/rnull/configfs.rs | 5 +----
+ rust/kernel/configfs.rs         | 9 ++++++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index 477cf771fb10e..73fbd551f0811 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -203,7 +203,8 @@ const fn compute_features() -> u32 {
-         fops: &Self::GEM_FOPS,
-     };
+diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
+index c10a55fc58948..9b28be2150933 100644
+--- a/drivers/block/rnull/configfs.rs
++++ b/drivers/block/rnull/configfs.rs
+@@ -1,9 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
  
--    const GEM_FOPS: bindings::file_operations = drm::gem::create_fops();
-+    const GEM_FOPS: bindings::file_operations =
-+        drm::gem::create_fops(crate::module::this_module::<T::OwnerModule>().as_ptr());
+-use super::{
+-    NullBlkDevice,
+-    THIS_MODULE, //
+-};
++use super::NullBlkDevice;
+ use kernel::{
+     block::mq::gen_disk::{
+         GenDisk,
+diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
+index 2339c6467325d..cd082b83e9e74 100644
+--- a/rust/kernel/configfs.rs
++++ b/rust/kernel/configfs.rs
+@@ -875,13 +875,14 @@ fn as_ptr(&self) -> *const bindings::config_item_type {
+ ///                 configfs::Subsystem<Configuration>,
+ ///                 Configuration
+ ///                 >::new_with_child_ctor::<N,Child>(
+-///             &THIS_MODULE,
++///             ::kernel::module::this_module::<crate::LocalModule>(),
+ ///             &CONFIGURATION_ATTRS
+ ///         );
+ ///
+ ///     &CONFIGURATION_TPE
+ /// }
+ /// ```
++#[allow(clippy::crate_in_macro_def)]
+ #[macro_export]
+ macro_rules! configfs_attrs {
+     (
+@@ -1021,7 +1022,8 @@ macro_rules! configfs_attrs {
  
-     /// Create a new `UnregisteredDevice` for a `drm::Driver`.
-     ///
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index c8b66d8168719..a7ba1453d40b9 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -387,10 +387,10 @@ impl<T: DriverObject, Ctx: DeviceContext> AllocImpl for Object<T, Ctx> {
-     };
- }
+                     static [< $data:upper _TPE >] : $crate::configfs::ItemType<$container, $data>  =
+                         $crate::configfs::ItemType::<$container, $data>::new::<N>(
+-                            &THIS_MODULE, &[<$ data:upper _ATTRS >]
++                            $crate::module::this_module::<crate::LocalModule>(),
++                            &[<$ data:upper _ATTRS >]
+                         );
+                 )?
  
--pub(super) const fn create_fops() -> bindings::file_operations {
-+pub(super) const fn create_fops(owner: *mut bindings::module) -> bindings::file_operations {
-     let mut fops: bindings::file_operations = pin_init::zeroed();
+@@ -1030,7 +1032,8 @@ macro_rules! configfs_attrs {
+                         $crate::configfs::ItemType<$container, $data>  =
+                             $crate::configfs::ItemType::<$container, $data>::
+                             new_with_child_ctor::<N, $child>(
+-                                &THIS_MODULE, &[<$ data:upper _ATTRS >]
++                                $crate::module::this_module::<crate::LocalModule>(),
++                                &[<$ data:upper _ATTRS >]
+                             );
+                 )?
  
--    fops.owner = core::ptr::null_mut();
-+    fops.owner = owner;
-     fops.open = Some(bindings::drm_open);
-     fops.release = Some(bindings::drm_release);
-     fops.unlocked_ioctl = Some(bindings::drm_ioctl);
 
 -- 
 2.43.0
