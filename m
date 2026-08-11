@@ -4,86 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B2CC5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 09:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E83FC5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 09:50:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0766710E2D2;
-	Tue, 11 Aug 2026 09:48:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B66910E2D0;
+	Tue, 11 Aug 2026 09:50:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="d6ccwcWa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ipUxO/Kh";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id E5E4F10E2E6;
- Tue, 11 Aug 2026 09:48:00 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53CA01682;
- Tue, 11 Aug 2026 02:47:56 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8FC363F632;
- Tue, 11 Aug 2026 02:47:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1786441680; bh=9BoMtxA4Y0P7/HlT09wIdHqLAsjiBcPF0bOK0SA6y88=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=d6ccwcWanhV2NaMQGyN2LuxorwwpnGJX87UVp3OA/ioC8kalbAN29GEdYDjGMly4L
- +yi+Q/zEcN/N5K6/AZJJ9VjzIZc7OuAomjl/vPpcEdxNEFoRGn9LR525fZF+bpEreD
- Ak2C6/i9Np4uONZAT7JjQS//RpxwX0LWi0gAmmt8=
-Date: Tue, 11 Aug 2026 15:17:57 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, 
- Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
- Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, 
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, 
- pfalcato@suse.de, ryan.roberts@arm.com, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, 
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH 1/9] mm: introduce hw_pte_t for PTE table storage
-Message-ID: <u457qwrnkaquvqfn4op2a4wcdflm6d4gzut5ii4ialbeqjiyfj@qpn5fu5kwn4z>
-References: <20260806083926.1807279-1-usama.anjum@arm.com>
- <20260806083926.1807279-2-usama.anjum@arm.com>
- <3db8233c-3785-444e-b2eb-3e5fc5cb2f17-agordeev@linux.ibm.com>
- <eef14e97-20cd-4b08-ae22-7636af049b09@arm.com>
- <4a42c498-58ca-46f4-819f-da14cfba154f-agordeev@linux.ibm.com>
- <52b5066c-64f6-40bb-9bce-365a18f24265@arm.com>
- <b40d4359-3156-4d02-9662-73bfeace607c@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACE2610E2D0
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 09:50:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786441832; x=1817977832;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Dfmvdw/culho4GPh3SNbuEpAoO3xxlAwvTqR0vMoJ4Y=;
+ b=ipUxO/KhaunjEf9dN76RcFCmizHmGgNm3tw9TyMTa+VpJ1mT647ZBnuw
+ 5jqSuhXoCUGgJrHKOPUBN4ek/Kc1hGZKQg0gAkV4MDW9/hRfbFmnZQ/V5
+ nNnfTbqBH2ZATh0SRYQDqcep/jdmrU5CBxK21n/bkMc9OJAxBaqdnfTZ+
+ zcChwYR3gedXUjcO+DtMUitLDGVh3Nqm6lHJBjiYCnExaf/KirO464Lcz
+ Vdyn/QwM54OgjsPvNcUY8XGItNcxdUAknihqJJudDQRBniegjHIDm5o1c
+ 8KGrkrLjhgXE5Xb1wkGNNy5e7YPixrKJtb94R5x4WemO4KLKOU4m8NNsr Q==;
+X-CSE-ConnectionGUID: 31vG0kuSR82as5CK5OS2ug==
+X-CSE-MsgGUID: yOUUTlTlS2OQ290ujHvZGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86729134"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="86729134"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 02:50:32 -0700
+X-CSE-ConnectionGUID: Ytr36kbnSq2ZFur0XiU7Vw==
+X-CSE-MsgGUID: sKNYaCJqRWmyARl2TpS3EQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="293234329"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.254])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 02:50:27 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Diederik de Haas <diederik@cknow-tech.com>, Albert Esteve
+ <aesteve@redhat.com>, Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH] drm/panel: remove .orig file committed by mistake
+In-Reply-To: <20260810-drm-remove-drm_panel-c-orig-v1-1-90592f91974e@bootlin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260810-drm-remove-drm_panel-c-orig-v1-1-90592f91974e@bootlin.com>
+Date: Tue, 11 Aug 2026 12:50:24 +0300
+Message-ID: <673b05048bc6a2c8eaf75e2a0224706483ede95b@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b40d4359-3156-4d02-9662-73bfeace607c@kernel.org>
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,35 +77,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 10, 2026 at 01:20:00PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/10/26 12:09, Muhammad Usama Anjum wrote:
-> > On 09/08/2026 6:45 pm, Alexander Gordeev wrote:
-> >> On Fri, Aug 07, 2026 at 04:24:00PM +0100, Muhammad Usama Anjum wrote:
-> >>> Thank you for testing it out on s390.
-> >>>
-> >>> As __hw_pte_t isn't being used yet in this series, would s390 enablement
-> >>> patches add __hw_pte_t to this definition?
-> >>
-> >> I hope there is a better solution. As I noted m68k, powerpc and sparc
-> >> may also be affected, so I would suggest to look into those as well.
-> >> I would prefer s390 to use the generic one rather than circumvent a
-> >> compile error in a custom way.
-> > I've just checked all of these architectures by doing dirty conversion and
-> > reached to same conclusion that __hw_pte_t must be defined like:
-> >  
-> > typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
-> > 
-> > I'lll add __hw_pte_t to this series. (Initially on last email I'd thought
-> > that the first user would add __hw_pte_t. But it seems sensible to add it
-> > now)
-> 
-> Yes, do it as part of the introduction. Also a good idea to mention in the patch
-> description *why* that is required.
+On Mon, 10 Aug 2026, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
+> Commit ac3baea883da ("drm/panel: find_panel_by_fwnode() return a counted
+> reference") inadvertently added a .orig file which should not be there.
+>
+> Reported-by: Diederik de Haas <diederik@cknow-tech.com>
+> Link: https://lore.kernel.org/all/DK9KRSOWRHY0.H7SC0R3BIIUZ@cknow-tech.com/
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Agreed.
+Beat you to it with commit 651b0bd0922b ("drm/panel: remove accidentally
+committed .orig file").
 
-> 
-> -- 
-> Cheers,
-> 
-> David
+BR,
+Jani.
+
+
+-- 
+Jani Nikula, Intel
