@@ -4,147 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37EE8C5CFE7
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 17:07:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06BF0C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68BBE10ED08;
-	Tue, 11 Aug 2026 17:07:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD25810ED13;
+	Tue, 11 Aug 2026 17:11:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C1xgmaox";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="C8MeFc3D";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4D110ED09;
- Tue, 11 Aug 2026 17:07:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 16F25600C3;
- Tue, 11 Aug 2026 17:07:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1016A1F000E9;
- Tue, 11 Aug 2026 17:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786468072;
- bh=NcUYlebditRzXC8Tsb5C2O6sXfnUZTaYua9dPwxuhXY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=C1xgmaox6jM06CGbziwMMosyDYBUOxTpEKVdUxqsjMb14qQpEqq0l8Z7LDdXDoI+k
- EYS6GIgSdIliHA5P9w3vpAQ75xrU1chQdg6B0MrUXcQ5lEI7JDDw+Twpk3rO//8lL2
- umKh5RWQVoNpFm+HDDcXCJQxu/3B4TFo3Z5wao4bzIjH+LM6xL/QMBi7BnHS2+M41u
- H/IhAZksx8DpVJun5rI8l95b86r2Gtbdq2O0KbwOd8I9AeXYDfWohPCj659l3Qq+cJ
- 9OqNbIptAelwblof6H2ZzsnyzFAkBFWY/i8bHlEhc1VtgTpPZ1hap7lJ5PxM1DefOs
- P6gBwv8T2OsPQ==
-Message-ID: <c7930f14-5978-4709-bac2-54950c988883@kernel.org>
-Date: Tue, 11 Aug 2026 19:07:27 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7656B10ECFA;
+ Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=XSqPNlMRjHTgCivrcOmZqe2DefzjiZUQWPd+89+xPCc=; b=
+ C8MeFc3DphZKn1a6SoT1kmxXXcAitI6yu0Xir9IQPd2pEbICRVc+rHFw6FrF1UMG53Z3i1BjHdqIe
+ hTasrGVWHw3ToQHNN7vQ3o2/kZ8BCIb8wmHiIv2v7zaTaHPbhUVrO2MKf7zczOZKPsbAyby944OZL
+ 63EYkwSYfCySbFbSnF8icHNjtkmjTxgnw0BP/xRjW83OFmdARA/s/RirDqU91h7u4u0srjDHdP0Fb
+ HJPHu2qsxJmbFqUzLe403u/MR8gIkz8QpjKfLbGnuzRHzZ8gp3ok2uut9Nddt8FW0y48MhKJY3Ho8
+ SX6SRma8M/Mgz4gJqsx+NH4Fp3zkRLdtPQ==;
+Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
+ helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wtpzW-00HH9d-Lm; Tue, 11 Aug 2026 19:10:18 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
+ daniels@collabora.com, harry.wentland@amd.com, louis.chauvet@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, mwen@igalia.com,
+ sebastian.wick@redhat.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 00/11] drm/atomic: don't allow changes to inactive colorops
+ & other fixes
+Date: Tue, 11 Aug 2026 18:45:49 +0200
+Message-ID: <20260811171011.184964-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 17/20] mm/vma: only permit MAP_PRIVATE /dev/zero to be
- mapped anonymous
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Kees Cook <kees@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, linux-s390@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-17-ab318a350404@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-17-ab318a350404@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,93 +69,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
-> In order to use mmap_prepare() with MAP_PRIVATE mappings of /dev/zero
-> without the success_hook hack we explicitly permitted mmap_prepare handlers
-> to set NULL vm_ops.
+This series is a follow-up of what was discussed in [1] and on #wayland
+IRC channel regarding policy and userspace expectations on changes in
+colorop properties and the current status of the color pipeline in which
+the colorop is part of. In short, we agreed that userspace can change
+properties of colorops that are currently part of an active color
+pipeline or when the pipeline is switching status in the same commit.
+However, userspace cannot change colorop properties of inactive color
+pipeline in the expactation that it will be activated at some point in
+the future.
 
-The sentence is a bit hard to get as you are mixing "with" with another "without".
+Userspace also expects persistence of color pipeline already set, even
+if it becomes inactive for a while, when activated, colorop settings
+previouly set should be preserved.
 
-> 
-> However this is dangerous and we really only want to allow this for
-> MAP_PRIVATE-mapped /dev/zero.
-> 
-> Make it possible to explicitly identify /dev/zero by setting a global
-> DEVZERO_MINOR device minor number then explicitly check for this in mmap
-> code for a MAP_PRIVATE mapping and only set the VMA anonymous if we have
-> positively identified it.
-> 
-> Then remove all ability for mmap_prepare or mmap hooks to set a VMA
-> anonymous and update mmap_zero_prepare() to leave it to the core mmap code
-> to mark the VMA anonymous.
-> 
-> Note that this disallows nested MAP_PRIVATE-mappings of /dev/zero
-> regions. Doing this would be broken in any case.
+In addition, I found some bugs on IGT tests when this policy is applied.
+So I sent bug fixes to kms_colorop and kms_properties to behave
+according to this contract (new version) [2]. The rest of the series in
+[1] was detached in [3] and already applied. However, after a bad merge
+conflict resolution the colorop-update track was removed from AMD and
+this series needs it back to make the AMD part work correctly. I've
+already resubmitted it [4].
 
-What exactly do you mean by "nested MAP_PRIVATE mappings"? You mean, reusing
-parts in other drives?
+I also tried to address some Sashiko's complaints on pre-existent issues
+that affects the stability of this series, but not all since I want to
+keep a healthy scope for reviews. AMD fixes are in this series because
+of their scope, but they can be detached and applied whenever it's
+convenient.
 
-Do you mean things like ...
+[v1] https://lore.kernel.org/dri-devel/20260526142940.504911-1-mwen@igalia.com/
+Changes:
+- define a macro to walk in the color pipeline (Alex H.)
+- fix checkpatch warning (Alex H.)
 
-[...]
+[v2] https://lore.kernel.org/dri-devel/20260604180457.1110110-1-mwen@igalia.com/
+Changes:
+- [Drop] drm/atomic: duplicate state of all colorops
+  If inactive colorops state are duplicated on resume, the commit will be
+  rejected. 
+- [New] Four new patches to make AMD driver match the policy of colorop
+  updates only for colorops in active color pipelines plus individual
+  colorop updates. It also tries to untangle COLOR_PIPELINE = Bypass from
+  colorop BYPASS prop = true. I think patches 3-5 can be cherry-picked and
+  applied if it looks correct for AMD, I just included them here for
+  context (for example, Sashiko reported an issue in the previous version
+  of this series).
 
-> 
-> An example of this is drm_gem_shmem_mmap() which deliberately clears
-> vma->vm_ops before handing the VMA to dma-buf. Cases such as this will be
-> updated when they are converted to mmap_prepare.
+[v3] https://lore.kernel.org/dri-devel/20260609121230.1358786-1-mwen@igalia.com/
+Changes:
+- make drm_atomic_add_affected_colorops static and move to
+  drm_atomic_helper.c (John H.)
+- skip check when just duplicating state for suspend/resume persistence.
+- [re-add] drm/atomic: duplicate state of all colorops to preserve all
+  colorop status in a suspend/resume
+- rewite commit message and better explain what's considered an active
+  colorop (John H.)
+- [new] drm/atomic: check if an active colorop has a blob if its type
+  requires one
+- drop the ternary and add just a warn_on since both current callers
+  iterate planes already in the atomic state in AMD's active pipeline
+  check (John H.)
+- explain the reason to use commited colorop in AMD's active pipeline
+  check (John H.)
+- [new] drm/amd/display: don't ignore failure on blend colorop setup
+- [new] drm/amd/display: distinguish colorop setup error from no colorop support
 
-... this?
+[1] https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
+[2] https://lore.kernel.org/igt-dev/20260811143558.141813-1-mwen@igalia.com
+[3] https://lore.kernel.org/dri-devel/20260609110420.1298352-1-mwen@igalia.com/
+[4] https://lore.kernel.org/dri-devel/20260807115712.22423-1-mwen@igalia.com/
 
-> 
-> Also, in order to avoid a single commit bisection hazard, add a temporary
-> workaround to set the VMA anonymous only after vma->vm_file is assigned in
-> __mmap_new_file_vma().
-> 
-> This is because vma_set_range() calls vma_set_pgoff() and
-> assert_sane_pgoff() in turn, prior to the vma->vm_file being assigned. If
-> we set the VMA anonymous early then this assert will fail.
-> 
-> This is removed in the subsequent commit.
-> 
-> Also update the VMA userland tests to reflect the change.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+Melissa Wen (11):
+  drm/atomic: only add states of active or transient active colorops
+  drm/atomic: reject colorop update from inactive color pipeline
+  drm/atomic: duplicate state of all colorops
+  drm/atomic: check if an active colorop has a blob if its type requires one
+  drm/amd/display: only check colorops of an active color pipeline
+  drm/amd/display: truly bypass plane colorop 3x4 matrix and hdr mult
+  drm/amd/display: make shaper bypass mode cleaner
+  drm/amd/display: make blnd bypass mode clearer
+  drm/amd/display: don't ignore failure on blend colorop setup
+  drm/amd/display: allow individual colorop changes
+  drm/amd/display: distinguish colorop setup error from no colorop support
 
-[...]
-
->  
-> +static bool map_is_dev_zero(const struct mmap_state *map)
-> +{
-> +	const struct file *file = map->file;
-> +	struct inode *inode;
-> +
-> +	if (!file)
-> +		return false;
-> +	inode = file_inode(file);
-> +	if (!S_ISCHR(inode->i_mode))
-> +		return false;
-> +	return imajor(inode) == MEM_MAJOR && iminor(inode) == DEVZERO_MINOR;
-> +}
-
-My brain is a bit slow after digging through this series.
-
-We identify shmem, for example, through shmem_vm_ops/shmem_anon_vm_ops.
-
-So naturally I am wondering: couldn't we do something similar to identify that?
-Like, checking for zero_fops?
-
-> +
-> +static bool map_is_private(const struct mmap_state *map)
-> +{
-> +	return !vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
-
-Can't we use the is_cow_mapping() helper instead somehow?
-
-
-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  33 ++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 206 +++++++-----------
+ drivers/gpu/drm/drm_atomic.c                  | 199 ++++++++++++-----
+ drivers/gpu/drm/drm_atomic_helper.c           |  52 ++++-
+ include/drm/drm_atomic.h                      |   3 -
+ include/drm/drm_colorop.h                     |   3 +
+ 6 files changed, 304 insertions(+), 192 deletions(-)
 
 -- 
-Cheers,
+2.53.0
 
-David
