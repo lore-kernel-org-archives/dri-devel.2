@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3501AC5CFDB
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:55:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B135C5CFC1
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DBAF10EDB6;
-	Tue, 11 Aug 2026 21:55:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A99EA10EDBA;
+	Tue, 11 Aug 2026 21:55:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="onUBY8PX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="etETqwIw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6426B10EDB6
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:55:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9FA810EDBA
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:55:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DCEBE601E0;
- Tue, 11 Aug 2026 21:55:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 674D11F000E9;
- Tue, 11 Aug 2026 21:55:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7C94241669;
+ Tue, 11 Aug 2026 21:55:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331781F000E9;
+ Tue, 11 Aug 2026 21:55:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786485326;
- bh=WY94XiClcXP98RMKVCLeX7epAY4ef981DhaFqKjAcfA=;
+ s=k20260515; t=1786485342;
+ bh=/MjdMHL1JU7dALgMqjxxRavffyhdYh0C12LsStT0u3k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=onUBY8PXJFFLHNiO1W2awcrtQB/AaNzMLp8mm/oeexU/b/50Cl38iuXL5XiGRJMnu
- 1xUWJPtsx2bG4u+xBbzxDdl+wfn8ewnyOefitAOvI+e9KXlWxGhqizdtMro+m5wJ/r
- kgdZJ02ImFFQnhnExw/ruBZIIqpirNu45hyAobXKFA/lkn/EWOBeDqqgh+yp75Lvqn
- TphHh+53+hSk+fNpbN/47WfJMobFSlFCPl8oMhLrJzttPyovqh5CSNlnTLWWbSkq3r
- tNZl53tqokJgDTejlSZseMLC22B5XY/LD/feDyQr0GIhNz8huT0wFn8Wq83R8avZ1V
- uYTXcESBTcF3A==
+ b=etETqwIw2FxR9oig/eBWxiIhZs0xLCt9fNEDjmxqw5zidnbTBzsEKCiqNB4u23qS2
+ PtSrGGUlBXUu141sOMiXWc5Yq3bQX3tigAYB+cy4pj2OVitT9Qav8ENslzzd1Q86fs
+ kZ9z+FFsIHW0PSGf7ktIzqFMsx+9crssWlzBHkOiEar/IA4PDPk1b+2zvK43oIXpEB
+ JJDU75u3432T7jmnDk8T5FuoI0DnPo44rkpho+1G6wrdSjnG0ywpFK4kIexFWeUIay
+ gwkuO3Oumv9MNVhNe3vYJMpZtMJniPvH463L/3kM9xUlpdk/04PuteekSLYtkHhF1f
+ L6aXeTkkmO1dA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 04/11] drm/panfrost: Move shrinker initialization and
- unplug one level down
+Subject: Re: [PATCH v5 11/11] drm/panfrost: Bump driver minor to reflect new
+ DUMP IOCTL req field
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260811-claude-fixes-v5-4-3d692c9e98c2@collabora.com>
+In-Reply-To: <20260811-claude-fixes-v5-11-3d692c9e98c2@collabora.com>
 References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
- <20260811-claude-fixes-v5-4-3d692c9e98c2@collabora.com>
+ <20260811-claude-fixes-v5-11-3d692c9e98c2@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 11 Aug 2026 21:55:26 +0000
-Message-Id: <20260811215526.674D11F000E9@smtp.kernel.org>
+Date: Tue, 11 Aug 2026 21:55:41 +0000
+Message-Id: <20260811215542.331781F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,79 +60,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Removing the `IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)` check causes=
- a build failure (undefined reference to `panfrost_transparent_hugepage`) w=
-hen `CONFIG_TRANSPARENT_HUGEPAGE` is disabled.
+- [Medium] Incomplete patch falsely advertises new UAPI feature (hw_reset) =
+by bumping the driver minor version, but omits the actual UAPI and driver i=
+mplementations.
 --
 
---- Patch [4]: [PATCH v5 04/11] drm/panfrost: Move shrinker initialization =
-and unplug one level down ---
-commit a1e5fed49d6d030d377938e3c3e5a1b2314d6290
+--- Patch [11]: [PATCH v5 11/11] drm/panfrost: Bump driver minor to reflect=
+ new DUMP IOCTL req field ---
+commit 05a98b7146163b4b69a5fa2ced180f71b22a96f4
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Move shrinker initialization and unplug one level down
+Expose expanded PERFCNT_DUMP IOCTL interface to user mode.
 
-Since the moment we call drm_dev_register() the device should be in a
-position to accept jobs, so it's best if the shrinker is already
-initialized by then.
+This commit bumps the panfrost driver minor version to 7 and adds a comment
+indicating the addition of a hw_reset field to the PERFCNT_DUMP ioctl.
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_gem.c
-> index 3a7fce4288987..7b993a089af2d 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> @@ -15,20 +15,25 @@
->  #include "panfrost_gem.h"
->  #include "panfrost_mmu.h"
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index ff23b1a979bb..2949ab3ca055 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -936,6 +936,7 @@ static void panfrost_debugfs_init(struct drm_minor *m=
+inor)
+>   * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
+>   *	   PANFROST_IOCTL_QUERY_BO_INFO and
+>   *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
+> + * - 1.7 - adds PERFCNT_DUMP req hw_reset field
+>   */
+>  static const struct drm_driver panfrost_drm_driver =3D {
+>  	.driver_features	=3D DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
+> @@ -948,7 +949,7 @@ static const struct drm_driver panfrost_drm_driver =
+=3D {
+>  	.name			=3D "panfrost",
+>  	.desc			=3D "panfrost DRM",
+>  	.major			=3D 1,
+> -	.minor			=3D 6,
+> +	.minor			=3D 7,
+
+[Severity: Medium]
+Is this patch missing the corresponding UAPI and implementation changes?
+
+The comment and version bump explicitly advertise the new hw_reset field to
+userspace, but the modifications to struct drm_panfrost_perfcnt_dump in the
+UAPI header and the actual driver logic in panfrost_ioctl_perfcnt_dump()=20
+appear to be omitted.
+
+Userspace checking the minor version might falsely believe the feature is
+supported, leading to IOCTL failures or ignored fields. Should the version
+bump occur together with the feature implementation in the same patch to
+avoid intermediate breakage?
+
 > =20
-> -void panfrost_gem_init(struct panfrost_device *pfdev)
-> +int panfrost_gem_init(struct panfrost_device *pfdev)
->  {
->  	int err;
-> =20
-> -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
-> -	    !panfrost_transparent_hugepage)
-> -		return;
-> +	if (panfrost_transparent_hugepage) {
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: Low]
-Will this cause a build failure when CONFIG_TRANSPARENT_HUGEPAGE is disable=
-d?
-
-Looking at drivers/gpu/drm/panfrost/panfrost_drv.c,
-panfrost_transparent_hugepage is defined under an #ifdef:
-
-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-bool panfrost_transparent_hugepage =3D true;
-module_param_named(transparent_hugepage, panfrost_transparent_hugepage, boo=
-l, 0400);
-MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point w=
-ith Transparent Hugepage enabled (true =3D default)");
-#endif
-
-Without the IS_ENABLED() check, evaluating panfrost_transparent_hugepage he=
-re
-could result in an undefined reference error during linking if the config is
-disabled.
-
-> +		err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> +		if (drm_gem_get_huge_mnt(&pfdev->base))
-> +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> +		else if (err)
-> +			drm_warn(&pfdev->base,
-> +				 "Can't use Transparent Hugepage (%d)\n", err);
-> +	}
-> =20
-> -	err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> -	if (drm_gem_get_huge_mnt(&pfdev->base))
-> -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> -	else if (err)
-> -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-> -			 err);
-> +	return panfrost_gem_shrinker_init(pfdev);
-> +}
+>  	.gem_create_object	=3D panfrost_gem_create_object,
+>  	.gem_prime_import	=3D panfrost_gem_prime_import,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811-claude-fix=
-es-v5-0-3d692c9e98c2@collabora.com?part=3D4
+es-v5-0-3d692c9e98c2@collabora.com?part=3D11
