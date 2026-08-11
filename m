@@ -4,97 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C625DC5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 14:26:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0777C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 14:28:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D844B10E0CA;
-	Tue, 11 Aug 2026 14:26:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CAD410E32C;
+	Tue, 11 Aug 2026 14:28:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="akfbdIHv";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="N4NeBAmW";
 	dkim-atps=neutral
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1307910E0CA
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:26:30 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-39f91ba1ef7so19187361fa.3
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:26:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786458388; cv=none;
- d=google.com; s=arc-20260327;
- b=N097JRbMnAq/F4hiNZn0xLyq9KIP8irjVIRVacmUcGdJSf4sdt71Z9mQXbptoB7p+5
- xPa0BhrydMWZIRh8Jq5vjcBrutli+Ks/cvyATNgLdZR1v5yIEti7zDDDENggeclkmrSW
- FESrZP5j6zHn6x6RnMm8gf4/Lv+iYewkTpMawvxFb/mxs8iGe7bRY5vdgEJ0dwgTD04V
- BwUIWCuG/385T/4IF6zTUF285ZFnz/rhhxBDoFsNPUuLx0Titz/CKCsa6OsRYxf8OPxH
- eSy4lO0qOF6d2LtJO3u6M5dUy6WTGDB64RtvT1DS/qQfGodctzbgObDBXW61VDRh+YXT
- JmpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
- fh=aE+wBCudF/gOybGiYNdGNsCMc8GX1x+3JHzzIbThrC8=;
- b=F80191T9o1pa2XzB2fZjVKdCHPgomoPqxwvS5oqHOu4S5aaL0PyYozLcVGvnSYlxgB
- FdAHsuD539iiI/7O3EoelY9pCuyXbTI+CJQVEkeH3RrG8bbmKMkNwVg6mXD561ykG/Ys
- +OC1fH2A7HvbI2JC3iHXwfcvZEL6cPxXuGzooJ8+gXohUCsvphXwDGD/azmLMnoWi4TU
- x9XAicRbWwqKItnfY7XfGgmfn3ZFxeurVP2VjZDEIjg/0i1ayFwYSBhcKVfzF0r3Lalw
- sk3bI1lGP3zo4S3y79tUwTJyjagFlDcCyicnYOks+DGxEkap+aX6p8k0z5166bt3NWOO
- k1GQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FB2F10E32C
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:28:35 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-4813ea321cdso786482f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:28:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786458388; x=1787063188; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
- b=akfbdIHvrC9sZT0wz/hvJreQT4rfPQY2g2xFDpnTmIY4+KopS5+LXsBoMawpqI6czH
- mCQbUKzoljUrw9GUFomhIK5g6GJERaQ7F4mCgsDg4jXdlHCsLeX48Z8fLNmpCK8Z6iLJ
- JBk/fV8tO/CmivvQx0eXbxglVOi2GTuYzBTxLlqA3bOx6ryueYkHfwDXx3jdvJ8P6CvZ
- mzSYolmJqgw/qyU0WqMyoX8AlDLB9dRq48qGTGC4hkcl6Wgqk6M+z9NZZXqzuL4FAG1U
- 05EF/756p2Mp1ZE1KmAlgndfH98m/kIptURjIRrHKjHQ/p4ynN1bRc3TuE3bHO4d5fb1
- YTnw==
+ d=baylibre.com; s=google; t=1786458514; x=1787063314;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=15/Bnl2VxSh6SuH4L0zNteMsMCshNZVm/S5m2oTyH2U=;
+ b=N4NeBAmWF30zqrB1gb1bRiY4fpYUMZo3teJNx/MqaOyg2lgwrE1XAr5sgZLF5+x/ko
+ fOeO3hTtRlUOtQ5V7V5CMOB1jiCnRjtp8I3UC39xTYh+h4vA6sI3+9vaJMLNQ4z4Tmkq
+ C8GSTxVCaXBS7lUOYnYQatPeqhXV6ZgZ9bdGxgkSllYvtXI9iL0Z2x9KdFZMIown6Ax9
+ fX7gxTjkDl2mA8wQSEu5JmoYJu4yjbhXvhcZGvsiBt0kHxHscYuvEXRz6sUZPE9ZYkQ8
+ VkTviBe1p6cgRmlzqlNLYdvjseilpXguE+7HHmenglU+weCnwzHXov89P3emE1L61gzL
+ IzCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786458388; x=1787063188;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
- b=FRL2mgYm7tPIvoGUAwKSQnlxfgYC1tULjC3NuXEYmAErfTmrYFCOg2BvcYPnya+fwP
- 9daoLMuZ9foa1BG1mDE5ml7UumB6VjRby0XG6Z2wdGqOsDFck0nbcsYAHv7ZqnuoWMuN
- 4w4ZT9o9Ceqx1hro/Lp3JrKUw5ALjFx8nMFT2OPW1bbYfiDALqE0opEQbtahqJMq0/sH
- gS3/xhjsj/IdU9ElXo6NxPzKbv5l8f/JsciNaX1JFqnm6whEpqjXLW1XamHgIHHXFICO
- vvRulaLHGSYorLy43dtSfnIZKIdeZc2GN1CvW76CV2vKwsQd+p9L0QTWKk7jQGfLLIT3
- 32Yw==
-X-Gm-Message-State: AOJu0YxAlTP11Lzus9eb98pJfEa76/nlOr8RFOk2nleZTGY3StmxXOuK
- rAkyimvRNkGVzOAQYO84ZDDmr9HxfPxBn9OdoxmM1Ffve5ETA4VzHeaiQdOzYe/gbUHNVClcqcB
- +AFKD8y052uRoQiiATdI6DqyYpQJ7rlM=
-X-Gm-Gg: AR+sD11jrTHcQ9Sh3RRmVTIKiykqKB7ily+n/NKpizRbgr8ZAsGxbf76w3aoMUsQX56
- PoYAmiy8ZBPiWpPZP4LRRtcUnDkyBlK9KbqVwluWfgzzdswTEloFDyETjy2P7DgEHYjKZUGJVQm
- oL4CZDez5cGWDB+6BgaxFsm6tAn3cIuhkSELX4a7b8fFgCD0GvDJTuaMvWivRWwPWqgaDfg+v9k
- ddfzduNxg6PaZrrfY8BbbgAMpChgXzsWVeiJNxX8TxdSN9kxDjX3B+GdkMhFKzGEw7IC1ytwrqs
- 68raSsx5/t9Oc+5zS3gFPyxWjEOvxc6yYY/q2Do8LRbW7JuSgrzQ4CEHzBOOCxbq06GBqnJGbi6
- ozN2gynIwlwhqkISx5LE61a2Ym6dnewFrO+n0A1GU+ZdUqkDx35sM8O8mDH/1Rs5b
-X-Received: by 2002:a05:651c:1503:b0:39d:93e8:801b with SMTP id
- 38308e7fff4ca-3a0f8d9088bmr4687721fa.22.1786458387881; Tue, 11 Aug 2026
- 07:26:27 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1786458514; x=1787063314;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=15/Bnl2VxSh6SuH4L0zNteMsMCshNZVm/S5m2oTyH2U=;
+ b=J24o84Dl+hKsJi72VSFxA8EE3XYYeCuMsZfzWMhVX2x7WTgSjmX5lhvgCowY+OrL5r
+ 8SdM5PsYZWs39LOymKC5QEHdh3YWP3uafmhb2aqSLJSwcDrMz/t8YOFMiXQcxSPGLbEF
+ xe1O/ZQS6qafX1JQjpmZCEMWUycT9Uy79yHhtJ1wLV7AdrV0aVaw5yZtGUnZdS5wKpoL
+ Oehhk2oWvyw02+7+KsonCSHbA9PiBPv3tmfyPtEpOzpE+Qe8q0DRz5a+dvTwT0kkJbNm
+ Sudh5dCSKvXD8xLYK+p4Cz6Bd6q9ueBGbq/0ji+lSxUuO/lkf3nFn8XnQOxAqQqCSyPv
+ rvgQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrU9HYA6nS5Am6MX1SFnNbf4e/7HAu/Yt508jXffB+pE6CGdTkya2Do6WmMj/uWq5FeAIlszpq+hso=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJGtSCi2UcTMMlIS8jqvGLeVGYEYybjVnQHvCJbZjkm36gGg86
+ zdHIA6g6Sqydmnnpifgo/ciwJgj9hcC1rvi6grSwpHNZ1EkIPKwDABhFGL0EOPdP7uc=
+X-Gm-Gg: AR+sD11XFwOMPp7+rpUZM2kERh498BQa/7bftd6flKeQCWHsj8hHo2W3nCFEzJFxbwj
+ Us46v0KeKZvThT2diw0AH+1E5GufzAmV0Qos5Vht5LTzbietpG2usp47AfZRH5Lwo59AuENn1lJ
+ KjA1HEIAGv8vd5RlUJMGmQ6T/FG5deQ2O/BPPKCqGPkOTNpDuHkZRdaU9nko04zeKdO26JP9Xm+
+ UhbTPtIUa+jTCOCPSFRSbJC3gvfxUtQMC3SZSbZLb8DqNlxMCUuIe9NXlcWEPB+zttjhtHBmSs+
+ p5XK4os7QzAh09tMMi3A8fLWNAOaCzQHSBLjlGdELMzAsCcuwLilDzrIN4MaSKoL2E1+q/bEw92
+ W7AkuMAvL8IWpdBh2U3sHcqMQfhsADroYJWBMi0IxZ7F13zBF2YLwHPMENz/wAwh3e8oKqF+B4d
+ 4xP44PZa/aYyW1RT1eQ6VL8XxgfXDldd48pP69PyJ0Wshixp/1JbdNIPaWOh6qyww2GY3GJwmGy
+ ztB6c5UMyGdhenrhYQH7w92bo54ulcJABSX9hI8V6ZSrnrR86FI
+X-Received: by 2002:a05:6000:46cb:b0:47f:e7f7:370f with SMTP id
+ ffacd0b85a97d-4814ff0bd3bmr471948f8f.10.1786458513493; 
+ Tue, 11 Aug 2026 07:28:33 -0700 (PDT)
+Received: from localhost
+ (p200300f65f017104853c3975fdcddd6f.dip0.t-ipconnect.de.
+ [2003:f6:5f01:7104:853c:3975:fdcd:dd6f])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-4814a5be2aasm4934080f8f.13.2026.08.11.07.28.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Aug 2026 07:28:32 -0700 (PDT)
+Date: Tue, 11 Aug 2026 16:28:30 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Esteban Urrutia <esteuwu@proton.me>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37703 based panels
+Message-ID: <answxKBHSJNR-bua@monoceros>
+References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
+ <20260811-nt37703-bup-v1-2-34ad42b064a3@proton.me>
 MIME-Version: 1.0
-References: <20260730173643.256052-1-kieweg.leander@gmail.com>
- <20260730173643.256052-2-kieweg.leander@gmail.com>
- <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
- <CAMwcS0hupV50NEOX1Fsi_tzRYXBecaummjAm=CFHO7xOT1uUXw@mail.gmail.com>
- <c5f760db-2235-44c1-899c-b6ac023b3233@kernel.org>
- <CAMwcS0jTwpigztHBTLv_sgFNLK0ERHDMzMGsBdi7josLHw56-g@mail.gmail.com>
- <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
-In-Reply-To: <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
-From: Leander Kieweg <kieweg.leander@gmail.com>
-Date: Tue, 11 Aug 2026 16:26:16 +0200
-X-Gm-Features: AUfX_mzIwlYwfI--6_3lWtHQX0aoa-u49OuWteOKOtIxMK3649W4Ay3R76dJT3g
-Message-ID: <CAMwcS0jUNcVwMkpxSjToyqgVEPqeScz4WLHLQAtKL-VMNXxgqg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="mdziawi5h7yhrhrs"
+Content-Disposition: inline
+In-Reply-To: <20260811-nt37703-bup-v1-2-34ad42b064a3@proton.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,35 +103,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> I am fine with small projects, till we do not have surge of them because
-> anyone clones some project and vibe-codes new soft-core.
->
-> Projects run on your personal github, without any organization, do not
-> get their own vendor prefix. Why? Because then you come with another
-> project and want one more prefix... Personal vendor prefix would be
-> fine, but different thing: this repo for your design was created a few
-> months ago, with one contributor and ~70 commits. This means it is very
-> new, without users.
 
-Makes sense. I'll go with a personal vendor prefix instead, e.g.
-"kieweg,gpu-1.0". I'd reuse that for any future project instead of
-asking for a new prefix.
+--mdziawi5h7yhrhrs
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37703 based
+ panels
+MIME-Version: 1.0
 
-> What is the benefit of having it in Linux kernel for the community? Who
-> needs this, outside of you?
+Hello,
 
-Honestly, no one, probably. I built this because I wanted to learn,
-not because anyone was asking for it. I actually asked about this
-exact concern during the RFC review, whether being a hobby/non
-commercial project could be a dealbreaker for mainline. Thomas
-Zimmermann's reply at the time was:
+On Tue, Aug 11, 2026 at 01:52:34AM -0400, Esteban Urrutia wrote:
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37703.c b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
+> new file mode 100644
+> index 000000000000..5858bf12a310
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
+> @@ -0,0 +1,467 @@
+> [...]
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dsc_helper.h>
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
 
-  We already have a driver for a RasPi-based USB display that
-  someone made in their spare time. So being a hobbyist project is
-  not a problem per se.
+Please rely on <drm/drm_mipi_dsi.h> to provide the definition of
+of_device_id and drop explicit inclusion of <linux/mod_devicetable.h> as
+this will go away soon.
 
-I don't want to pretend there's a bigger community need than there
-actually is. If that's not enough for mainline, I understand.
+> [...]
+> +static const struct of_device_id nt37703_of_match[] = {
+> +	{
+> +		.compatible = "motorola,bronco-tianma-v2-nt37703",
+> +		.data = &bronco_tianma_v2_desc,
+> +	},
+> +	{ /* sentinel */ },
 
-Best regards,
-Leander
+No trailing comma after the list terminator please.
+
+> +};
+> +MODULE_DEVICE_TABLE(of, nt37703_of_match);
+
+Best regards
+Uwe
+
+--mdziawi5h7yhrhrs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp7MYsACgkQj4D7WH0S
+/k4ptQgAioC+Rr2A/Y5d45JoMyxiVG0O3RuWg9gDYCChFxXDJuKOWL12djmbG2Mm
++06Qy0mRg7Mf2XwORLM24txg92KtS9FWg454A4qeINt7TvZ1/FupspVlrxBKWwgr
+jUs5ua3a1C3VIeM0safbs7w3tNhy7oo4o1xS/ACn4e4U70YZNxqooS2dpdcrx5qr
+ObEH/mpbsEseluUZtEF8I5R+SbniO+25spM9TZXM30YGcoFiMKhHAoYzPQEbwKPE
+RYsXTMMReO+5alsUjkAUfkQWzErZe05Sl7YdX3uMaxOAP9gSYa1sgToQU4nijg/c
+RYsE/7R7AZASm+U0u+KySpmqyhqXMA==
+=HQGs
+-----END PGP SIGNATURE-----
+
+--mdziawi5h7yhrhrs--
