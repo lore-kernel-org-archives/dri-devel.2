@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27E4FC5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 15:49:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 550A0C5B56A
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 15:59:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B74B10EC9E;
-	Tue, 11 Aug 2026 15:49:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEC1310ECAE;
+	Tue, 11 Aug 2026 15:59:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="Lq/b1qSs";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="oYtFUSh9";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F09CC10EC90
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 15:49:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1786463371; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=IPbOA7iqYU4NZ+6LG31zWs11yB242BhxW7HJqDty6P6eky+C7Yrsz+pe9iIkk3QT4bqWAuUiFrAwT8BRXeHbKxNFlNmPnqb3NDIuEcB9LK/0p5wQJbUGhq8MKG+c7nvK2A2SmWha5akxrcvJ81XT4NAJXV39QG888Z/fl4NyMXU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1786463371;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wJ+mE/6pcm4lW/l9xvOfruk8A2xPzxyqDey8hIf/l5U=; 
- b=AMCSv6Io8pKITmE2viU0V7/4Bd1w0bGz2GsRXid+8ChOqS0DDlHX0nE9LWU28lgY0Rr+6muznjNb/0SkJKxMQhNeOuVcQK1atX5cYayqQxOMwfMQfhVT5VdYsSZZmV8TcGqkXdbKLNEkF5ctS+Oka95s7wzwkBbzWIIVcWEshaA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786463371; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=wJ+mE/6pcm4lW/l9xvOfruk8A2xPzxyqDey8hIf/l5U=;
- b=Lq/b1qSsRAoPEXX7g9mx3mFNbcho/oNs7UuxztajAgkQXCbZG++IWLuGo3H6Brer
- NPUa9D5LtvJm9aZujJq1QPdJc2hEvwv+/vn2726FPKEN4+oft163blIxp/gjAZcdtMM
- Gg87rgJh21tZvWIAc9eSuz3MC1RxNdUbwYkiz6CM=
-Received: by mx.zohomail.com with SMTPS id 1786463370473304.88449999785416;
- Tue, 11 Aug 2026 08:49:30 -0700 (PDT)
-Message-ID: <bf859b59-3f56-4d26-a86e-c01efc2d6f74@collabora.com>
-Date: Tue, 11 Aug 2026 18:49:25 +0300
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4CD110EC9D
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 15:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1786463939;
+ bh=w2QH4sAWrGs+qGmjMe6f4fRXH0fwoJH3v8g792kcikI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oYtFUSh98nkPETDOM+fvRJ5xc3OYCXwPMqlxjLprkqpxbAdV2TdqS1eCP9l3nHa4A
+ aXe6errSeEVv1iamPg66CeyPSS4/exUN/enyoT+kKw7UHX7C+YJJIX4qRljR4Fu03G
+ gSq5mykH/Eef/DHUPuKmXoZg7d3WVmXe1NhVOheKMObXcgs+aap1m4O3DfhvlnNxz1
+ Tag5ujnt6PnTPIaMgckFgp12v2lhro4oyiO4jZsxp4pQWrJb0srmEu1yP+bQozRbKC
+ hMOZy9FOIxzSVYkPcPtGNtajl8kUTAskCrNZUydWXydhQbID4+dSMmYGPaaNrFVO9Y
+ hO1uWDahbsQWQ==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4hKGWX4HM7z4w2b;
+ Wed, 12 Aug 2026 01:58:47 +1000 (AEST)
+Message-ID: <291625a2-f281-4c05-b51f-553018a34b08@ozlabs.org>
+Date: Tue, 11 Aug 2026 16:58:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: use the DMA API for resource backing on Xen
-To: benjamin@edera.io, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260806-virtgpu-xen-dma-v1-1-e499b345bbad@edera.io>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260806-virtgpu-xen-dma-v1-1-e499b345bbad@edera.io>
+Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-8-matt@ozlabs.org>
+ <20260729115204.2a9a50b2@shazbot.org>
+ <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
+ <20260804141022.71b6429d@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260804141022.71b6429d@shazbot.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,139 +75,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/7/26 01:54, Benjamin Leggett via B4 Relay wrote:
-> From: Benjamin Leggett <benjamin@edera.io>
-> 
-> On a Xen PV domain page addresses bear no relation to the real machine
-> addresses the host would have to use to reach it.
-> virtio_ring.c handles this correctly, vring_use_map_api() returns true
-> for any xen_domain() regardless of VIRTIO_F_ACCESS_PLATFORM.
-> 
-> virtio-gpu makes the same decision independently, but its copy
-> looks only at the feature bit:
-> 
-> 	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-> 
-> QEMU does not set iommu_platform on virtio-vga by default, so
-> VIRTIO_F_ACCESS_PLATFORM is not negotiated, use_dma_api is false, and
-> virtio_gpu_object_shmem_init() describes the framebuffer's backing pages
-> to the host with sg_phys().  Those are guest-physical addresses. In a PV
-> domain they resolve, on the host side, to pages belonging to some other
-> domain, so the host scans out unrelated memory.
-> 
-> Move the decision into virtio_gpu_use_dma_api() and give it the
-> xen_domain() check, like vring_use_map_api() has. This
-> additionally enables the dma_sync_sgtable_for_device() calls in
-> virtgpu_vq.c, which are required for correctness whenever swiotlb
-> is in play.
-> 
-> Reproduced with a Xen 4.21 PV dom0 nested inside QEMU 8.2 with
-> virtio-vga, on both a distro 6.8 kernel and 6.18 LTS. A PVH dom0
-> works fine and doesn't need this fix because it is identity-mapped,
-> only PV dom0s are affected.
-> 
-> Fixes: a3b815f09bb8 ("drm/virtio: add iommu support.")
-> Signed-off-by: Ben Leggett <benjamin@edera.io>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_drv.h    | 20 ++++++++++++++++++++
->  drivers/gpu/drm/virtio/virtgpu_object.c |  2 +-
->  drivers/gpu/drm/virtio/virtgpu_vq.c     |  6 +++---
->  3 files changed, 24 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> index 17a6a4d26516..09da7973387e 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> @@ -43,6 +43,8 @@
->  #include <drm/drm_probe_helper.h>
->  #include <drm/virtgpu_drm.h>
->  
-> +#include <xen/xen.h>
-> +
->  #define DRIVER_NAME "virtio_gpu"
->  #define DRIVER_DESC "virtio GPU"
->  
-> @@ -60,6 +62,24 @@
->  /* See virtio_gpu_ctx_create. One additional character for NULL terminator. */
->  #define DEBUG_NAME_MAX_LEN 65
->  
-> +/*
-> + * Whether the host must be told about resource backing pages by DMA address
-> + * rather than guest-physical address.
-> + *
-> + * This mirrors vring_use_map_api() in drivers/virtio/virtio_ring.c, including
-> + * its xen_domain() case.
-> + */
-> +static inline bool virtio_gpu_use_dma_api(const struct virtio_device *vdev)
-> +{
-> +	if (!virtio_has_dma_quirk(vdev))
-> +		return true;
-> +
-> +	if (xen_domain())
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
->  struct virtio_gpu_object_params {
->  	unsigned long size;
->  	bool dumb;
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-> index 9bc0bd68c314..49899485be6f 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_object.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-> @@ -173,7 +173,7 @@ static int virtio_gpu_object_shmem_init(struct virtio_gpu_device *vgdev,
->  					struct virtio_gpu_mem_entry **ents,
->  					unsigned int *nents)
->  {
-> -	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-> +	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
->  	struct scatterlist *sg;
->  	struct sg_table *pages;
->  	int si;
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> index 905b1f42cd98..568fefd713e0 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> @@ -764,7 +764,7 @@ int virtio_gpu_panic_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
->  	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(objs->objs[0]);
->  	struct virtio_gpu_transfer_to_host_2d *cmd_p;
->  	struct virtio_gpu_vbuffer *vbuf;
-> -	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-> +	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
->  
->  	if (virtio_gpu_is_shmem(bo) && use_dma_api)
->  		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
-> @@ -795,7 +795,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
->  	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(objs->objs[0]);
->  	struct virtio_gpu_transfer_to_host_2d *cmd_p;
->  	struct virtio_gpu_vbuffer *vbuf;
-> -	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-> +	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
->  
->  	if (virtio_gpu_is_shmem(bo) && use_dma_api)
->  		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
-> @@ -1231,7 +1231,7 @@ void virtio_gpu_cmd_transfer_to_host_3d(struct virtio_gpu_device *vgdev,
->  	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(objs->objs[0]);
->  	struct virtio_gpu_transfer_host_3d *cmd_p;
->  	struct virtio_gpu_vbuffer *vbuf;
-> -	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-> +	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
->  
->  	if (virtio_gpu_is_shmem(bo) && use_dma_api)
->  		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
-> 
-> ---
-> base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-> change-id: 20260806-virtgpu-xen-dma-559fab712250
-> 
-> Best regards,
+Hi Alex,
 
-Looks okay, though I'm not familiar with Xen. Will apply to -next in a
-day if nobody will have objections.
+On 04/08/2026 21:10, Alex Williamson wrote:
+> On Thu, 30 Jul 2026 15:47:13 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
+> 
+>> Hi Alex,
+>>
+>> On 29/07/2026 18:52, Alex Williamson wrote:
+>>> On Wed, 15 Jul 2026 18:47:30 +0100
+>>> Matt Evans <matt@ozlabs.org> wrote:  
+>>>> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+>>>> index 9a1674c152aa..e2b4252e7c3f 100644
+>>>> --- a/include/linux/vfio_pci_core.h
+>>>> +++ b/include/linux/vfio_pci_core.h
+>>>> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
+>>>>  	bool			pm_intx_masked;
+>>>>  	bool			pm_runtime_engaged;
+>>>>  	bool			sriov_active;
+>>>> +	bool			zap_bars_on_revoke;
+>>>>  	struct pci_saved_state	*pci_saved_state;
+>>>>  	struct pci_saved_state	*pm_save;
+>>>>  	int			ioeventfds_nr;  
+>>>
+>>> This should be in the bitfield usage group since it's only modified at
+>>> init time.  
+>>
+>> This was intentional, but happy to change it if you're certain ofc.  Is
+>> it inconceivable that a sub-driver could set it after init?  I'd say
+>> they _shouldn't_, but only review will stop them and this placement
+>> intended to be cautious.  It seemed a low cost way to avoid issues
+>> around synchronisation on the bitfield.
+> 
+> I'd agree with the statement that they shouldn't, it would be difficult
+> to synchronize setting the flag once there are any active mappings of
+> the BARs.  Also, if we put it in the bitfield category under the
+> comment that the value is only modified at setup/release, it documents
+> the intentions, hopefully to the extent the author or reviewers notice.
+> An argument can always be made to change it if there's a worthwhile use
+> case.  Thanks,
 
-Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+(Having noticed in moving this to the bitfield; my previous reply didn't
+supply the real reason it wasn't in the bitfield.)
 
--- 
-Best regards,
-Dmitry
+Isn't the init-time 'event horizon' for writing the bitfield the
+vfio_register_group_dev() in vfio_pci_core_register_device(), after
+which synchronisation is needed?
+
+The hisi_acc_vfio_pci driver's .probe calls
+vfio_pci_core_register_device() and _after that_ sets
+zap_bars_on_revoke, and that's now in the "needs synchronisation to
+write the bitfield" phase.
+
+(Re-reading my comment in vfio_pci_core_register_device() I'd noted
+this, "Drivers can opt out after registration".  Has to be done after by
+definition as the default's set in vfio_pci_core_register_device().)
+
+The concern is just blatting neighbours in the bitfield, not the window
+of time before the flag's set.  The flag's an opt-out of a safe but (for
+this driver) unnecessary zap, so having it unset for a short time is OK.
+
+I still think this really should be a standalone bool, not a bit in the
+bitfield.  It has to be set after registration and having to take a lock
+to do that has downsides.
+
+Thanks,
+
+
+Matt
+
