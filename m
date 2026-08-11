@@ -4,162 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B822FC5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 06:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E056EC5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 06:41:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30F7110EA81;
-	Tue, 11 Aug 2026 06:28:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC8C910EA89;
+	Tue, 11 Aug 2026 06:41:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VLgIxQe9";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="jVtoMvUL";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69A5C10E28B;
- Tue, 11 Aug 2026 06:28:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786429704; x=1817965704;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=4lbCg0us4EX0JBSSeMKIbhgEpsNdeST2vWNN6V5X/rc=;
- b=VLgIxQe93nmtJaF7cpl8a+hsRvYuhPz5ii2oTS/tVxIOD7UO5ey0mFEw
- nO4oyftTgNJuSbeBNX6fovXhjUWexJ0oYaMiIiCeEk85atBRxNXfBiIq3
- nINwG65qAaMFpjgrHwyjrTbqJoIUsBflWAPvDOHM2x1vcsLTAm+1MxUjF
- OskeEAie0gRs7Qfqsbo99hjCwaFUDk/AxRWciF/oEiN99fuyZgrLU5V8f
- 9Bk40On/TDnDA3H6TNp8b6/7n2urhCGEpnrellYG3JipFw3BsJZXW11/g
- LUs6ePFanA4ZsAywgV3xWAFQ9N5+qTo8SmuI/ZcG/xYvqwSwD7jcuCf1W Q==;
-X-CSE-ConnectionGUID: 4gKv+2FVQqKJ0sSQ3oijJg==
-X-CSE-MsgGUID: ArYQp1+pSKyEsouD174QKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86888123"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="86888123"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 23:28:24 -0700
-X-CSE-ConnectionGUID: MnLXmQ/ZQAuuaeO9z0A9PA==
-X-CSE-MsgGUID: JuryXTqdQaSWin972YSzCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="259936112"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 23:28:23 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 10 Aug 2026 23:28:23 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Mon, 10 Aug 2026 23:28:23 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.44) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 10 Aug 2026 23:28:23 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r5Fxl2l3x8XhtnCa/nYr+wyjCXdQhaI3GB1BBjTtGao4IAEyVouvdj59mSd/Xrw9EepkSacHcH9Mzf8J+OuubLHSoSSF50rlVH9FS2KE/18gjUnsRKMf2EPJyCus5by+4FyUrPpxfL1iP9yGktURrp1x0iQp4FOmGu5tvRfehaSPXDgRm2il87OAFDGvOZhqP+Pr3CflNcOiNIIE8tjYb8BQpxTEbgQ/dbswYFoKcVcc9exQTBhR9JQFiEePT1bef4c1PifuCJWGuA0UY+ZaIygwJzaVxx7b+BXEN+Q3Dunf0BGC1pZ3/iKaK6BnEWniZeoOXMjywCPA3wLtGWZdXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KO7u3C7uDHzmE/v1Wo+7JEfeD5/B41JMlhP5zjzSP1E=;
- b=FSZjDWYdfq5B8BrqxpR2+WHDygiFDl8wsdk14AspKASDjp5IL4KN22vFTZ/8731aZhplBrC8iHydbxAPAvM34E5Di6/v5sOkEfcAWdptQirvj6cJXoL+r6EZQCZW8WGIu5vqDOFCTRPn+qaF+z2ZErYTaWyOcwhOhkRH07slxKKqMFD3KlMUxtxYbE3eyN72WCWwT34WLCmJ6Ca9hDInyvMj4SUFyLz7uq7PYSH+otiBayAcRvRby4mOzStMF0v8441tXgt1Xv5nArFaapofSuu0h9v+ACd0vSft9393y1c79IUqRVRUqXTgaEUP7zNCpBpKvctkSiw6N4xlW7vu1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by DM6PR11MB4516.namprd11.prod.outlook.com (2603:10b6:5:2a5::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.23; Tue, 11 Aug
- 2026 06:28:20 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0315.011; Tue, 11 Aug 2026
- 06:28:20 +0000
-Date: Tue, 11 Aug 2026 06:28:10 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Deepanshu Kartikey <kartikey406@gmail.com>
-CC: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <tursulin@ursulin.net>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <chris@chris-wilson.co.uk>,
- <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>,
- <syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com>
-Subject: Re: [PATCH] drm/i915: Guard against NULL driver_data in
- i915_pci_probe()
-Message-ID: <w3p7i7btvl6b7o5puofyxcjm362ni3mtcfmog2plm6h5wxk3an@dflvwud5t6zf>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260809090430.20577-1-kartikey406@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20260809090430.20577-1-kartikey406@gmail.com>
-X-ClientProxiedBy: DUZPR01CA0073.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:3c2::11) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A25910EA88
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 06:41:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 480A76001D;
+ Tue, 11 Aug 2026 06:41:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E1C1FC2BCC7;
+ Tue, 11 Aug 2026 06:41:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1786430466; bh=ka+ScX/zlU/JYUngrdsiDLgi/Ef+XpJZklFYxxat62U=;
+ h=From:Subject:Date:To:Cc:From;
+ b=jVtoMvULvjMcSFwXW1gq98NMjOH0K+qhyDpEEBzc+hcdEdyP27u/NkJfACIZ3kVbU
+ J+GCfov461ayOisY4pQ4zr3oAg89OEl+3oOymbyhO2f/nXyJl39i5TkQkgAg1vhSTl
+ T4YgEck/M0BOQQuIoU2iosLWj0z9IB/i1A8HDA0A=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C9B25C5B569;
+ Tue, 11 Aug 2026 06:41:05 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Subject: [PATCH v10 00/10] Fix missing fops.owner in Rust DRM/misc abstractions
+Date: Tue, 11 Aug 2026 14:39:42 +0800
+Message-Id: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|DM6PR11MB4516:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f26f901-41c0-40bf-9b17-08def771bca6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|23010399003|18002099003|22082099003|11063799006|3023799007|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: w3CoNzQ/16o4T4ypbjGMgXJzrGmAFGSbmXqEMAcGqGOsT9PxxdS7JUjOZAbzIn0ktfxj2jNFPl7FEK7ZeXIkyF/U8Sjs7Bq/bqjW8Mu5xUgm7l0lzQIRZksl2YDJgi80FMzwkoHTJU8Zz9KYSdPjxyWuT1q1jkgF0DTRSAuw9ph8aU5BTAgOnuAx4hj8z3bi1hd2WFnRBI0DEq0slVFYRYn7B4KXqjOpGM5u2Zlm+E+aTlLSl+isajQC7esliFRurqbiMTeXRNQVPhj796IfMEHSwYQc8AiZRxKrQZi0OWQPCsHVTgpp3ZvEwUZ/+bCUIkAAQovyjGgDd/rkpkWXbFzzzdwAmLC8lFErctA/LwzFGaobjGgMPNz7P46eeQHAHaWgoEQBky9BGjwuHby66ksGiFfkyGLYD+3gNRvSMtzUoHQt9gW+zcavGkLqnzkzZ5F9hlI9N4OosUwhKEmTo7/6KjPvlwuEfOieUFOIVpbgjVBADWACSe5YT8RDY5EBNeZzlALl97CaMGySSV9A4ajppKzjI0eBfRyry5ULGMyy0RKBRrQ0g3FOvlQHx69dpgfT/GKHkAmd1DT58RDAa1hTb+S8LSgoJNgG7j8L6I0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(11063799006)(3023799007)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnNDYWpRL29TWlZPUW0wdnBPaDRsckRvd2NuaWdjeTc3LzI1VHpmUXpxNm5v?=
- =?utf-8?B?eGFlNFhVbGNra2t6ZkNZRFNONzZYbGo4MG5sQ0gwbXBId05GT0RnMVE2SGhL?=
- =?utf-8?B?OWFyZ0Y1RlhacTJWMWQvRkJnL0RKbWpqaDVaazNuWVFXMWJ5anl0R0lrbjA5?=
- =?utf-8?B?dDVOL0NGZHFmeElWRjNOOGdLUm84WldCV0gyQ0VrZjFNUGpaRVRacjZwR1Ft?=
- =?utf-8?B?R3VxQ3pHN01nMFZSbzNCaVpiNlk1bTZLN2ViNDB4a2FjTjhEZzRQcVR6UTcx?=
- =?utf-8?B?NGRmdnZMaXNONUNjdmdMb2RvRGFJOFU1NDlUdnF0c2phWWRPdzVuZG5LRGpE?=
- =?utf-8?B?Y2tMNXpzTTZzdmFMcFNyUkRFQnBBVEJwTCtjUEZJR1pHejREV09yaHFtbmg0?=
- =?utf-8?B?dDdEeUFwTFdnd0N6SHZNWGQ5SndLWlUrWnN2aklSY2oxTjBvYlpVT0h6dWdE?=
- =?utf-8?B?L09EVU1wTlE0SFg2VU5sZ0hQVkdQRmFOOHQrUzVjT2Zsb0hodGxQM25Jc2N5?=
- =?utf-8?B?UVRSdkNoMG10dHQxVmFGRCtSRWFVK2o1ZXlQZVF2cmRodFovdnR1QU1CdGJ3?=
- =?utf-8?B?dWpZWWtPeG1xM1YvNWJIbzJxc0VkUjdla0o1MU1XZzVSSzliZFRmTzJSUFFk?=
- =?utf-8?B?aUYzalFwSzEvdWtXeSsrK3BIYjFyc3oydjBqZ0RwRG1hKzdIM2dNaXNhL0dl?=
- =?utf-8?B?Und3cmdETTl0bEJ2Ui93OHpFQjhzQW8vQ2hrUmF4YzRUWHQ3YnlMR1V1LzRW?=
- =?utf-8?B?MityanBEWllpNDlRYmd3RGJnWEMvQ2Rvbm9jN0liYzdGbnZ1T3dySGkzcmMv?=
- =?utf-8?B?R0FUT0d6TkNZTCtpNzM0VG5TckJnSWQwWEVPL1JiZlNVM0VXNEdQNjRTYmpK?=
- =?utf-8?B?MHFPMUtlTUZHSVJUcHBheFFPSkFwcHA5K2ZDNzZPQjRESG5LaDd6SGJKdUsx?=
- =?utf-8?B?b2N6cFNjSkV3bEdWYTdDWE5DbnlLRkVlK0IySHU5dVlxVlI4U2NtMDNtNjMr?=
- =?utf-8?B?dGo1dEU4aE84dWdRMWk1S3FralY3cFhQME0zZVRvMEwzQ0FLVFJoY1hZNDdD?=
- =?utf-8?B?SjR2dVc4YytPeWFqQjNVb2hJcDRJRlhxalFPbjZYRnRGY0U4VC8reWozYkNu?=
- =?utf-8?B?cFZyTFVJVGtPWFBHNWIvMnFQZGtmRG0zREo0ZDQxRHFCN3RzNjZwWTVzTkwr?=
- =?utf-8?B?NXNIZXYwaHgzUEdPZDJzN09RQVdGS0UwUHB4RUpCUmZ0U0FNM1NKZWdDSjNn?=
- =?utf-8?B?aU1CZktpRnRtcGhxYjE5YnBVemRadFN1Yk5wLzlYcVJaNjFFQlhpcC9LL29Z?=
- =?utf-8?B?enFpejVVOXRYd1AyUXBQd2dNa05KZnZacEtZbm9OMHBGWXlHTWlpU20va244?=
- =?utf-8?B?eVRUWklVanM0QUNueE9lNmJQUzBJaStlZDZvQkllYWkwVzFIZ0YvbEpFTXJl?=
- =?utf-8?B?WVkwbC85V1lHLzZWQ1JXSkJ6TGN0UEo3RnYxZDNkNDJsNWdRSTliK3k5T245?=
- =?utf-8?B?WklUK3hSeVJaU0Z3QytkRFhOYS84UjJhc3I4QXBKLzFuWVllT1BCdW5PQ1JQ?=
- =?utf-8?B?WThMWTBtdTNhNXlpdUlrc0w0amlZT0RKSnVqVGVZRllGcFNRaVhKc01OajBK?=
- =?utf-8?B?dHE0MUFRRmdyU1VIU2Y3Z0NybHdyUjlaNCs3a0JBdHY5ZXNwZ2xTREtWcm1u?=
- =?utf-8?B?YzdJYWcxSkptbVZJOEQ1NHlIVmkrc2VNbnZMWXRYd0N6Q2E0a3FvM3M2UktG?=
- =?utf-8?B?N3BwSzVrOHV2YWxtNmp6aTZ2blROODk5T2dyQTJxZ09jd0ZCNnV0OGI3MXhz?=
- =?utf-8?B?RFlFaDRmS3ZDZmxKUWREV1hXcjgxL1hYUmtTRk9zVFpMS3dKYTRpcEZnS1ZU?=
- =?utf-8?B?MExWcStqM243dlhveGx0c012TVg5U3dRajNlTGNPdC9LdDV3U0MyTXRmL1hv?=
- =?utf-8?B?eFcyV0c0UGU0cUtpSjRUbTdIL3RlYndEbjRmWnJiLy9Zc21EMzEvaEtOWWwr?=
- =?utf-8?B?am5tc1pTajdOMFlMb0Fvb0N5Nk94MVFLeXh3UWJ4WXRrZHAyQWh5YjJoZEhM?=
- =?utf-8?B?U2dldndqWmpIaFNvcW16OXJmMXUrL0ZPUmhWS0J1N1JnSHhINnZISERKbXhM?=
- =?utf-8?B?YnV1dGgxMEIrREpMbkJUelJ2dXlQalR1ZFRLVjU0U3E0OURSWkxDUXRqR1J6?=
- =?utf-8?B?eVVkUGd4SjRVbk9xRG9YNXg4THlzank0MVFyYVBFTXJzdVFOQXNQazdLdkJE?=
- =?utf-8?B?dGI4cHZnSS9yM1Y5Ymp4eXEvd0JnblBBeG1wRnE0dCttSko2bnpuTVdPSXRz?=
- =?utf-8?B?aVlsZzRwbmNpK29IK0p3elM0VlZXeGdPR2FKRTNRZk1tRXpmYjZHTFNuYkNx?=
- =?utf-8?Q?N9pVXKgvSbUWn2/A=3D?=
-X-Exchange-RoutingPolicyChecked: eF12G/hYhAQciFnVsWQ5ck3c3VcfE0lr//vDN0SWXAfASY+Un3LSp9jr/4CvigTD8aGtfaUjyFrcrqGtRsDylEAbs4b1QW1hcA0MqQLbNZu7Sk3W+4kYEPN6j/890J4cqmzolqi1zJaR4EOh/XDgq15JuVnPjWy9TI2XzwSyAPpsZUHtQYcoGDTaqVqcr1domXP4SkFwR58IqjAWFmDPtt0e+GM4EwPC8jzs6OXy7tqCAymB8Jgm4lMKIf2ubMUJg9n3KWtJ9L/E3rTwAj3fTN7dweHymm+DfkXJzbf7DwJYgFE//g5NTQvzZKq2uWgRKo7Od3qd9eLVmZrD8lEPNw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f26f901-41c0-40bf-9b17-08def771bca6
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 06:28:20.2643 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6tE83/88n3P9XXEMuUp7fNz361VT4ZU7rncSQMx8lfIsC03OZJRx4cVoOZVIgZuUlg3eYfdZYWPMv4vfPA5NW3yj+Z/0pMsq2gt1opMDUjM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4516
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAK7DemoC/33RzU7DMAwA4FeZeiYocZK62Yn3QBwSx2GVYB1tV
+ 4amvTumHKha4Ggrn/9yrQbuWx6q/e5a9Ty1Q9sdJTD6blfRIR6fWbVZEhVoqLU3QZX2okp3GlT
+ 3fuResY2IKQFSTZWgU8/yYq74+PQd9/x2lsLjd7JKcWBF3etrO+53E96D6glnGkc6SLv9zjokH
+ y3VOXEJjYVUiBtnQiGwXLNuUnSIpfrqcGiHses/5hUmM7f4a9jJKK0gc5aaOkfjHl7a4/lyn3m
+ aS02w4GA2HISXHILGIPPpDbc/vAbYcCvchew8JYvawpq7Jbcb7oTL1MUXjZg9rblfcrfhXniMh
+ lIEB0X7Na//57VwD8GztVbm5zXHJccNR+ECs5XrcS56zZsfjma7e/P1cS54KrGB7HDNw4L/cro
+ gnAzZWLBgorTkt9vtE9vmrNcHAwAA
+X-Change-ID: 20260519-fix-fops-owner-e3a77bb27c6c
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786430463; l=9369;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=ka+ScX/zlU/JYUngrdsiDLgi/Ef+XpJZklFYxxat62U=;
+ b=EPiadqAMfDKwh+yMsWX1MIHuDAPEvePnkM3j9O4XFJFfBjbaBP6uxInTOtSQWFZBqNlHISApz
+ HPlb4Aoi9BrCfh9RIj87irDbqEW8jZjK2tJfyhkHFhd8+tC77gdqQIS
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,47 +99,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Deepanshu,
+During tyr debugfs development, a kernel NULL pointer dereference was
+encountered after `rmmod tyr` while gnome-shell still held /dev/card1 open:
 
-On 2026-08-09 at 14:34:30 +0530, Deepanshu Kartikey wrote:
-> pci_match_device() can return the dummy pci_device_id_any entry
-> when a device is force-bound via sysfs driver_override, in which
-> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
-> struct intel_device_info * unconditionally and dereferences
-> intel_info->require_force_probe, causing a NULL-ptr-deref.
-> 
-> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=db96c5ff032f4292a8dc
-> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> Fixes: 42f5551d2769 ("drm/i915: Split out the PCI driver interface to i915_pci.c")
-This "Fixes" tag should point to the commit that breaks stuff,
-I believe, so what you are looking for is
-7ef5ef5cdead ("drm/i915: add force_probe module parameter to replace alpha_support")
-since this patch introduced that unconditional dereference.
+```
+  [158827.868132] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  [158827.868918] Mem abort info:
+  [158827.869177]   ESR = 0x0000000086000004
+  [158827.869519]   EC = 0x21: IABT (current EL), IL = 32 bits
+  [158827.870000]   SET = 0, FnV = 0
+  [158827.870281]   EA = 0, S1PTW = 0
+  [158827.870571]   FSC = 0x04: level 0 translation fault
+  [158827.871043] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000108dec000
+  [158827.871623] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
+  [158827.872242] Internal error: Oops: 0000000086000004 [#1]  SMP
+  [158827.872246] Modules linked in: tyr sunrpc snd_soc_simple_card rk805_pwrkey snd_soc_simple_card_utils rtw88_8822bu display_connector rtw88_usb rtw88_8822b snd_soc_rockchip_i2s_tdm snd_soc_hdmi_codec
+  rtw88_core]
+  [158827.872337] CPU: 4 UID: 1000 PID: 11276 Comm: gnome-s:disk$0 Tainted: G                 N  7.1.0-rc1+ #331 PREEMPT
+  [158827.880534] Tainted: [N]=TEST
+  [158827.880535] Hardware name: FriendlyElec NanoPi R6C/NanoPi R6C, BIOS v1.1 04/09/2025
+  [158827.880538] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+  [158827.880542] pc : 0x0
+  [158827.880547] lr : _RNvNtCs257m05FHVbX_3tyr2vm8pt_unmap+0x8c/0x12c [tyr]
+  [158827.880578] sp : ffff800083c236b0
+  [158827.880579] x29: ffff800083c236d0 x28: ffff00013f8a0000 x27: 0000000000000000
+  [158827.880585] x26: 000000000000007c x25: ffff000108e6ed80 x24: 0000000000401000
+  [158827.880590] x23: 0000000000000000 x22: 0000000040000000 x21: 0000000000001000
+  [158827.880595] x20: ffff00010f778138 x19: 0000000000400000 x18: 00000000ffffffff
+  [158827.880600] x17: 000000040044ffff x16: 045000f2b5503510 x15: 0720072007200720
+  [158827.880606] x14: 0720072007200720 x13: 0000000000401000 x12: 0000000000400000
+  [158827.880611] x11: ffff800083c239d0 x10: ffff000141e4fd88 x9 : 0000000000000000
+  [158827.880615] x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000400000
+  [158827.880620] x5 : ffff00013f8a0000 x4 : 0000000000000000 x3 : 0000000000000001
+  [158827.880625] x2 : 0000000000001000 x1 : 0000000000400000 x0 : ffff00010f778138
+  [158827.880630] Call trace:
+  [158827.880632]  0x0 (P)
+  [158827.880635]  _RNvXs6_NtCs257m05FHVbX_3tyr2vmNtB5_9GpuVmDataNtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm11DriverGpuVm13sm_step_unmap+0x3c/0x120 [tyr]
+  [158827.891166]  _RNvMs4_NtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm6sm_opsINtB7_5GpuVmNtNtCs257m05FHVbX_3tyr2vm9GpuVmDataE13sm_step_unmapB13_+0x18/0x34 [tyr]
+  [158827.891187]  op_unmap_cb+0x78/0xb0
+  [158827.891196]  __drm_gpuvm_sm_unmap+0x18c/0x1b4
+  [158827.891204]  drm_gpuvm_sm_unmap+0x38/0x4c
+  [158827.891209]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm7exec_op+0x1cc/0x254 [tyr]
+  [158827.894085]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm11unmap_range+0x124/0x188 [tyr]
+  [158827.894105]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeNtNtCs257m05FHVbX_3tyr3gem8KernelBoEBK_+0x44/0xd8 [tyr]
+  [158827.894125]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel5alloc4kvec3VecNtNtCs257m05FHVbX_3tyr2fw7SectionNtNtBL_9allocator7KmallocEEB1r_+0x3c/0x100 [tyr]
+  [158827.894147]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel4sync3arc3ArcNtNtCs257m05FHVbX_3tyr2fw8FirmwareEEB1p_+0x94/0x190 [tyr]
+  [158827.894167]  _RNvMs4_NtNtCsgmSOfgXi5CZ_6kernel3drm6deviceINtB5_6DeviceNtNtCs257m05FHVbX_3tyr6driver12TyrDrmDriverE7releaseBW_+0x30/0x98 [tyr]
+  [158827.899550]  drm_dev_put.part.0+0x88/0xc0
+  [158827.899557]  drm_minor_release+0x18/0x28
+  [158827.899562]  drm_release+0x144/0x170
+  [158827.899567]  __fput+0xe4/0x30c
+  [158827.899573]  ____fput+0x14/0x20
+  [158827.899579]  task_work_run+0x7c/0xe8
+  [158827.899586]  do_exit+0x2a8/0xac4
+  [158827.899590]  do_group_exit+0x34/0x90
+  [158827.899594]  get_signal+0xaac/0xabc
+  [158827.899599]  arch_do_signal_or_restart+0x90/0x3e8
+  [158827.899606]  exit_to_user_mode_loop+0x140/0x1d0
+  [158827.899613]  el0_svc+0x2f4/0x2f8
+  [158827.899620]  el0t_64_sync_handler+0xa0/0xe4
+  [158827.899627]  el0t_64_sync+0x198/0x19c
+  [158827.899632] ---[ end trace 0000000000000000 ]---
+```
 
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
->  drivers/gpu/drm/i915/i915_pci.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index 82415af47d54..2f03f95945f1 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
->  		(struct intel_device_info *) ent->driver_data;
->  	int err;
->  
-> +	if (!intel_info)
-> +		return -ENODEV;
-> +
->  	if (intel_info->require_force_probe && !id_forced(pdev->device)) {
->  		dev_info(&pdev->dev,
->  			 "Your graphics device %04x is not properly supported by i915 in this\n"
-> -- 
-> 2.43.0
-> 
+The root cause: `fops.owner` was `NULL` in Rust DRM drivers, so the kernel
+never blocked module unloading while file descriptors were open. This leads to
+use-after-free when drm_release (or other fops) is called on freed module code.
 
+The series moves `THIS_MODULE` into the `ModuleMetadata` as a const, threads it
+through `#[vtable]` to set `fops.owner` in DRM/miscdevice, and updates configfs
+and rnull to use `this_module::<LocalModule>()`.
+
+Assisted-by: opencode:glm-5.2
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+Changes in v10:
+- Drop prerequisite patches that have been merged, to
+  resolve rebase conflicts.
+- Link to v9: https://lore.kernel.org/r/20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev
+
+Changes in v9:
+- Rename the binder commit prefix from `rust: binder:` to `rust_binder:`
+  to match the in-tree module name.
+- Link to v8: https://lore.kernel.org/r/20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev
+
+Changes in v8:
+- Remove unused `crate::LocalModule` import in rnull configfs.
+- Link to v7: https://lore.kernel.org/r/20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev
+
+Changes in v7:
+- Use `crate::LocalModule` in `configfs_attrs!` and silence `clippy::crate_in_macro_def`, per Gary's review.
+- Link to v6: https://lore.kernel.org/r/20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev
+
+Changes in v6:
+- Update MAINTAINERS to cover the new `rust/kernel/module.rs`.
+- Link to v5: https://lore.kernel.org/r/20260624-fix-fops-owner-v5-0-aa1cba242f05@linux.dev
+
+Changes in v5:
+- Add `#[inline]` to the `this_module()` helper.
+- Fix configfs doc comment to reference `crate::LocalModule` instead of
+  bare `LocalModule`.
+- Link to v4: https://lore.kernel.org/r/20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev
+
+Changes in v4:
+- Move module-related types into a new `rust/kernel/module.rs`.
+- Migrate binder from the `module!`-generated `THIS_MODULE` static to
+  `this_module::<LocalModule>()`.
+- Reorganise the series so that every commit builds independently, and
+  drop the legacy `THIS_MODULE` static once all users are migrated.
+- Link to v3: https://lore.kernel.org/r/20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev
+
+Changes in v3:
+- Renamed vtable associated type `ThisModule` to `OwnerModule`
+- Added `this_module()` helper for ergonomic `THIS_MODULE` access
+- Refined vtable macro implementation: one-liner detection and single `defined_items` set
+- Reordered commits to place doctest fallback before vtable auto-insert
+- Link to v2: https://lore.kernel.org/r/20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev
+
+Changes in v2:
+- Merged old `static THIS_MODULE` and v1's `MODULE_PTR` into a single
+  `ModuleMetadata::THIS_MODULE` const
+- `#[vtable]` macro now auto-inserts `type ThisModule`, removing all per-driver
+  manual patches from v1
+- Added configfs & rnull usage site updates and doctest `LocalModule` fallback
+- Link to v1: https://lore.kernel.org/r/20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev
+
+---
+Alvin Sun (10):
+      rust: module: move module types into `module.rs`
+      rust: module: add `THIS_MODULE` const to `ModuleMetadata` trait
+      rust: doctest: add LocalModule fallback for #[vtable] ThisModule
+      rust: macros: auto-insert OwnerModule in #[vtable]
+      rust: drm: set fops.owner from driver module pointer
+      rust: miscdevice: set fops.owner from driver module pointer
+      rust: configfs: use `LocalModule` for `THIS_MODULE`
+      rust_binder: use `LocalModule` for `THIS_MODULE`
+      rust: macros: remove `THIS_MODULE` static from `module!`
+      rust: module: update MAINTAINERS to cover module.rs
+
+ MAINTAINERS                                |  2 +-
+ drivers/android/binder/rust_binder_main.rs |  3 +-
+ drivers/block/rnull/configfs.rs            |  5 +-
+ rust/kernel/auxiliary.rs                   |  2 +-
+ rust/kernel/configfs.rs                    |  9 ++--
+ rust/kernel/drm/device.rs                  |  3 +-
+ rust/kernel/drm/gem/mod.rs                 |  4 +-
+ rust/kernel/i2c.rs                         |  2 +-
+ rust/kernel/lib.rs                         | 75 +++-------------------------
+ rust/kernel/miscdevice.rs                  |  4 +-
+ rust/kernel/module.rs                      | 80 ++++++++++++++++++++++++++++++
+ rust/kernel/net/phy.rs                     |  6 ++-
+ rust/kernel/pci.rs                         |  2 +-
+ rust/kernel/platform.rs                    |  2 +-
+ rust/kernel/usb.rs                         |  2 +-
+ rust/macros/lib.rs                         |  6 +++
+ rust/macros/module.rs                      | 34 ++++++-------
+ rust/macros/vtable.rs                      | 41 +++++++++++++--
+ scripts/rustdoc_test_gen.rs                | 16 ++++++
+ 19 files changed, 189 insertions(+), 109 deletions(-)
+---
+base-commit: 2ee859ebf156157609f71060ae472711c8cbc326
+change-id: 20260519-fix-fops-owner-e3a77bb27c6c
+prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
+
+Best regards,
 -- 
-Best Regards,
-Krzysztof
+Alvin Sun <alvin.sun@linux.dev>
+
+
