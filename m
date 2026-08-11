@@ -4,55 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07EA2C5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 07:49:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D65F6C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 07:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E54DC10EACF;
-	Tue, 11 Aug 2026 07:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F48110E29F;
+	Tue, 11 Aug 2026 07:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cyUgvD/m";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VY2YBGhI";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54C0F10EABC;
- Tue, 11 Aug 2026 07:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=4DJzo5COey13Dn5ANrWbZ1iE0e1NUUeeF45LhlAujg4=; b=cyUgvD/maIBhij+vR77ntQ6pUX
- ldzrKYZdtAcGqzt4axERrxxPO2sFsaDEim4GNFy3Lc6eQGJ2KvqVujnPe1OOLHG5bqblR9ov/uHI0
- a+3ZhOPTYea8ao7y1kpNr0vqZDH9rZWVu5x0PZIe94X3hY7AhyMomu/JX7nTtWxTU13wvJqe9FRLW
- L1xXFOwe3kvHKVBHfjGKC/l54AU8udNO3UQkS8PWK8QPJmUgEX0a44aguMjD9ZQRC/ORbXDynaJAA
- 9dpjdqpNQipgpFfZouKISMIVIet0ElmT8HRGZiA6TGlOPyMJToGra5Dkm6uGdAtdtI01V1P3Kp/cz
- K67C6IUA==;
-Received: from [90.249.211.112] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wthEV-00GxYo-Py; Tue, 11 Aug 2026 09:49:11 +0200
-Message-ID: <3e3ae169-6313-42dc-b82d-cfaf85370aa7@igalia.com>
-Date: Tue, 11 Aug 2026 08:49:10 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10AC910E29F
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:54:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F12CB600AF;
+ Tue, 11 Aug 2026 07:54:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F0E1F000E9;
+ Tue, 11 Aug 2026 07:54:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786434858;
+ bh=vNn4N61X5h4i8q/qeKcqZMXb8zMuPTcsONaagSygukQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=VY2YBGhIIBULdfbRGcwxo/i8/rQHP6FGVqtUwDE8Rf0lQdEHvk7oJS/8kCykVQfsb
+ R4TYsMYRDXs8YpEQ1Ap8G5XmtDQGH39LcOx8Nmw9R2oblXAgy1AgulWUSO4vNCf3Td
+ GI8ob+jwnFEq6i2+SBmJe3GkP5R3GAAVYr/X3oerliSMBuW0C6sHs0HYuAnMy32lrk
+ FpaQa6KPQdflHjkMgR89cQJAY088T/ZbCcOjvpCeYoWhLd0rHB0rGzZeKEVZpOqCnT
+ Pr+vLcbICMnbvw21TPX8yUtNQem4h8B8bWlCWvGHcW2f6thG/3w5PWtYDDh2rb1xrn
+ bZpER2NMhKnXw==
+From: Maxime Ripard <mripard@kernel.org>
+To: dri-devel@lists.freedesktop.org,
+	Jani Nikula <jani.nikula@intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] drm/panel: remove accidentally committed .orig file
+Date: Tue, 11 Aug 2026 09:54:13 +0200
+Message-ID: <178643485116.204852.837435722994824936.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260810125204.3258447-1-jani.nikula@intel.com>
+References: <20260810125204.3258447-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-To: Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>, 
- phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,62 +59,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 10/08/2026 17:40, Luke.Wildhardt@proton.me wrote:
-> Oops, forgot to reply all in my last message.
-> 
-> I did a quick test of the patch before I left this morning, the freezing seems to gone, but when the GPU is under the same condition, the stuttering is more uniform if that makes sense. Granted this was only a 5 minute test but the freeze was rather reliable before, I can do more testing later.
-> 
-> I know these things can be hard to describe, if that helps. If there's any profiling I could do or detailed logging that would help don't hesitate to ask.
-
-I am assuming this more uniform stuttering is something not present with 
-FIFO? Would it be possible to make two short videos, one before the 
-regression kicks in, and one after. And for both cases a snapshot of 
-gputop (from igt-gpu-tools) output before and after.
-
-Regards,
-
-Tvrtko
-
-> -------- Original Message --------
-> On Monday, 08/10/26 at 06:48 Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
-> 
-> On 10/08/2026 13:45, Danilo Krummrich wrote:
->> On Mon Aug 10, 2026 at 10:28 AM CEST, Philipp Stanner wrote:
->>>> Reverted Commits:
->>>>
->>>> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
->>>> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
->>>> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
->>>> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run queue
->>>> 45c211ddf92a drm/sched: Switch default policy to fair
->>>> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
->>
->> [...]
->>
->>> That might be the wisest thing to do; but let's hear if Tvrtko has an idea for
->>> a hotfix first.
->>
->> -rc7 was released yesterday; even with a working hotfix today it'd be tricky to
->> ensure the hotfix does not regress other drivers or workloads with 7.2 being
->> just a few days ahead.
->>
->> I suggest to not wait and get the reverts ready.
-> 
-> Yes reverts would be safer. I have them in a branch at
-> people.freedesktop.org/~tursulin/drm-intel drm-sched-fair-reverts,
-> mostly straightforward apart from one easy conflict in
-> amdgpu_xcp_release_sched. Smoke tested on Steam Deck looks fine.
-> 
-> Having said that, the fix for min_vruntime handling I provided earlier
-> in the thread also looks fine in my testing and is simple. No
-> regressions found with synthetic unit test workloads or messing around
-> on the Steam Deck. But we need to wait to hear from Luke since I haven't
-> been able to repro his report locally yet.
-> 
-> Regards,
-> 
-> Tvrtko
+On Mon, 10 Aug 2026 15:52:04 +0300, Jani Nikula wrote:
+> Apparently an extra file drivers/gpu/drm/drm_panel.c.orig was
+> accidentally added and committed while committing ac3baea883da
+> ("drm/panel: find_panel_by_fwnode() return a counted reference"). Remove
+> it.
 > 
 > 
 
+Applied to misc/kernel.git (drm-misc-next-fixes).
+
+Thanks!
+Maxime
