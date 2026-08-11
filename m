@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F37FC5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:49:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FDC0C5CFCF
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:50:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B5DC10E838;
-	Tue, 11 Aug 2026 16:49:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75AB110ECEC;
+	Tue, 11 Aug 2026 16:50:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DsPVUnJV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HXIf/Yov";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF5E610E348;
- Tue, 11 Aug 2026 16:49:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF0810E348;
+ Tue, 11 Aug 2026 16:50:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0ABBD600AF;
- Tue, 11 Aug 2026 16:49:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC2691F000E9;
- Tue, 11 Aug 2026 16:49:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DF13E600AF;
+ Tue, 11 Aug 2026 16:50:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7D41F00A3A;
+ Tue, 11 Aug 2026 16:49:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786466974;
- bh=PMHt1PxPKmPCDk2/Pw91u9MKW8xKor5mVibvjR+1jCk=;
+ s=k20260515; t=1786467020;
+ bh=xXFhibsUW725xi6pNIgQUNLkJVb6zSIqB7JauXpHees=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=DsPVUnJVrRM1iCTZsAum7yqfSapKulnv39oXBOy7M3maIyVNl+QPbw1z5+RklgXW2
- Va+3dkeqBAmB+cHEBYodyFTt2MxqjqQ1Fl3n2UedBplrSerI326uAw8LRA4Z9ZGZQt
- 28cilKd3LUutjJs3x9ki83XEvXJ7cipKdMw7aWWJmTcvnJoPnPd7YSCCfv9h+88cbo
- 4cpifFpASnAR6wcznPs7SIBuBEtqoPCCIUyCnvdcd5jc2EqdpyS8RCtdE4eHyjS9+a
- mYSziO4t5TvcpFAI6fQMS5U3rKZu486pqVstPNVAF2MzVDcY+7ELibOlyE1yg3hnRx
- KqZ4V/tl5bbeg==
-Message-ID: <31e0f1eb-b7e7-41b4-8ae7-57fe96401a41@kernel.org>
-Date: Tue, 11 Aug 2026 18:49:09 +0200
+ b=HXIf/YovUcqyU8qw6pDPQUK1YKfiKCzKu68Du5bYxwT7vu+y7S8vao6f1IpmFD9sn
+ +QDND6G+isja4clbQVrErRz9eTvRyJrrmiPX5O0bOHlJVPVfKWkccTQtWlmdGCp4+S
+ /4Tla6jMNDvJu/x+BWolOXqjVVBc62VcbUyZfMAAjel9YXPX0Kt2L1jydUwps7tfvu
+ /ZmiFS47TTUzqNU6sZvmRcLtQicAZqB146H/hxdwZHhgFLP1yjLmOqnOZhNOZTTs+R
+ VwD/IeHA3VLjD8sgzyeOu7xJzLS5w7LvcSU54kGVXPBZNvLEizf6EUwqZsFzRAYY4J
+ 2bTQlDmLNjMdA==
+Message-ID: <b1d55058-0668-47ef-ba66-640a0bddf8c9@kernel.org>
+Date: Tue, 11 Aug 2026 18:49:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/20] mm/huge_memory: update remove_migration_pmd() to
- accept a folio
+Subject: Re: [PATCH v4 13/20] mm/migrate: calculate large folio page index
+ using PFN
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -95,7 +95,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
 References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-12-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-13-ab318a350404@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -142,7 +142,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-12-ab318a350404@kernel.org>
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-13-ab318a350404@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -161,18 +161,23 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
-> This function does not need to accept a page and requiring it to is unnecessary
-> and misleading.
+> Rather than having to figure out the page index to use using
+> linear_page_index(), calculate it using PFN.
 > 
-> make_[writable, readable]_device_private_entry() must be passed a
-> PMD-aligned PFN as they immediately used to obtain a softleaf PMD entry and
-> the same argument applies to folio_add_[anon, file]_rmap_pmd().
+> This is a more natural fit as the linear page index is immaterial to
+> determining the folio page index.
 > 
-> While we are here, update a VM_BUG_ON() to a VM_WARN_ON_ONCE().
+> Derive the page index from the offset between migration entry PFN and folio
+> PFN - pvmw.pfn (set via DEFINE_FOLIO_VMA_WALK() which uses folio_pfn() to
+> obtain it).
+> 
+> Additionally remove a not so useful comment and clean the code layout up.
 > 
 > No functional change intended.
 > 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
