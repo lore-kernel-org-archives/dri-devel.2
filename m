@@ -4,85 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAC8FC5B56A
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 14:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14C71C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 14:33:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A73A10E343;
-	Tue, 11 Aug 2026 14:32:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C61710E336;
+	Tue, 11 Aug 2026 14:33:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nAOHCnsN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MF84XBJt";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E55F810E336
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:32:32 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-49553515a8bso50142045e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:32:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786458751; x=1787063551; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:to:from:date:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=HYlCOewNL3l2HhIwDF9AzVHy9ppLOSojfQ0hX+V1OZk=;
- b=nAOHCnsN6+Db5ScCkby/HxF7plVC0ra1v9VQ7pg1a20i5lul277DBJRt5EIFKgU3K2
- Ne4SC4nYdJIEEsEkryDGKO17Oll9WcAd6JkLe4PqnElDDzxSt5wJeMZZWaxvAOu8Jt8y
- 5sxgoO8etfbxiNSqgqw+1dQ0H4D4GU3gzvE8hfQFyEXmFJ6HCeHN+6oZeRWoegiqpvUi
- rY8khdRscay35uXtIIgfH+Wz4A2wDeFzGlzCwwFoJFDqnr+I6STPSQihl3BsCzHSrMGt
- YWsrOyjWRevCYUnajLk2mEC2RJvF8R7RE+jKTvnM70fYpB2sjm2H3WAL3ze+gaUCLuON
- M3aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786458751; x=1787063551;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HYlCOewNL3l2HhIwDF9AzVHy9ppLOSojfQ0hX+V1OZk=;
- b=MexM9G809jvDcAup7T0+kXXQAnq/c5xIjDfy5jz34hhhu/3TfQ3AnKJKR8m8SOOA6j
- VsIoHymagrDR4wqdyfNaYA97pJEk9CmuREL9uds5leCPLUeghTqlyatKyh+P9V0gZ4/+
- ALa085zFTWCV8RomAUdbeeTg8+Br1FyisYH0B+V5pTwZmOmqI9CNq28utmCv5NKdJOp7
- egeTL+5hacO0nDtkmoyrHVCWq0U1s/xO1pWICa+JSLV2uUK/4bKLkcpuU5MeH57EMrMF
- KOlLLLBv6g0viDN8s+/oWNRW47xIbvRle/wD8bBA5LDZ0SLh9AqIT1SPS9ObIJ9KrMzI
- ox6A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RomhltGJ1UWlVVnPNd9bCunkWWjW0esKzC0OB3Bx25h/WM74yJ6tAHZIBmtAE9FIHNZu2VslQd5tJY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzSTsayNcSELZQuRTk4gt4ro/yzHXmc7DgvZTDQkU6yuITvwY+6
- 6xIhlazAy57PhsaaVJEJnm3oY0hk/yCf7Nf0WTgzcmjQdoP5LT5aUz80
-X-Gm-Gg: AR+sD11gsZXX4VPztI8umRDYiOOlMOua9JPFnfP5R6q8g8C27zMB3QX112ZLsHcUrcL
- fWU+G9y/EmXYzGstcw54+p5AX3nrIxlr8yaeJLShpSPdXBrmBiXHlpew9ghfhl4x7PoBhwDhu1o
- x43SdLU6b05xLU5yNwG3KkqCKKSItHnuIgArLE0exU6bHpGgjNk5tgdIhFuaQPw+DmVIFcXozRT
- eA2QSytKtGr9cQe1Tne+TQZe9miIIgtKgNSPvA9/2ZVHmzPOpJoxPn3PyiexWUB/AEOUvlS86Jv
- bEWeFR/MtDIL+S9PbDsU/0Vx/dn3d8dcolWyXjmLEypvcTDG18Paa3dCRT/FMO2irVB6wHXKeuX
- MZRSZmZxM4Jh/Uffi3h/mUIicc8NeXnQTXDCwAydNpL9Hv9YJCDZYeAUkoZmca0XIiz777OT3Xl
- 9Fq2HrISTfTDSPIPY6LgYD9+T0oFy8Rlp6iIka/fxAzvugn4jnUqKIxWwEWStu32d0Q7wpd18KZ
- V62/CJYiBWxW/U8q7RBVQ==
-X-Received: by 2002:a05:600c:8b4c:b0:499:593c:3384 with SMTP id
- 5b1f17b1804b1-49978434835mr60014535e9.6.1786458750690; 
- Tue, 11 Aug 2026 07:32:30 -0700 (PDT)
-Received: from osama ([2a02:908:185:7e40:b0cf:778:ae86:13b1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499788fd9a4sm62325695e9.12.2026.08.11.07.32.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 07:32:30 -0700 (PDT)
-Date: Tue, 11 Aug 2026 16:32:28 +0200
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: luca.ceresoli@bootlin.com, Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/bridge: chipone-icn6211: use devm_mipi_dsi_attach
-Message-ID: <ansyfFn0yhem0z0v@osama>
-References: <20260521212529.151493-1-osama.abdelkader@gmail.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F3F910E336
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:33:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1786458816;
+ bh=I3dRmbBpdwny4y/7VrHAWNz1deG+tVyE+EN7OXSUR4M=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=MF84XBJtAwfyV0rHzkGfhyaKFX7bViz0e8PRCWlDM6QHI9852mB8cbevnBEK/7ErY
+ 5uTudJwqEQxZDqZMS2hePSNHWI5aCpqkTHzfMFdOu09Ug6O8haih6u2Dkt2h4wO8+i
+ ZNaMnGhaL7CS/QPIoVQqgWVNkEbjpUH1jUNuWN0DwjNoxoCf0TR6fpOr7lghXwbprW
+ Std8Wxz79R1W0/ZYfyKX3DPaeUa601f4OwyfwFjJQ1w7w18Hg2wtr0oh3lbKd6Lu/8
+ g4alnQqG1MkRzPWmt61LgzPiqb/KwNY6tvROSlge+yQ1ROD5PVa7Mkj4y0vgj0Toph
+ zVbxzKPlUDyUA==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8FB8A17E0048;
+ Tue, 11 Aug 2026 16:33:35 +0200 (CEST)
+Date: Tue, 11 Aug 2026 16:33:30 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Grant Likely
+ <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v3 2/3] drm/panthor: Revisit reqs_lock handling in
+ flush/reset paths
+Message-ID: <20260811163330.6b0d302a@fedora-21.home>
+In-Reply-To: <20260811-panthor-cache-flush-fix-v3-2-47d2c1bb1dab@collabora.com>
+References: <20260811-panthor-cache-flush-fix-v3-0-47d2c1bb1dab@collabora.com>
+ <20260811-panthor-cache-flush-fix-v3-2-47d2c1bb1dab@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260521212529.151493-1-osama.abdelkader@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,51 +69,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 21, 2026 at 11:25:28PM +0200, Osama Abdelkader wrote:
-> Follow up on the previous devm_drm_bridge_add() conversion by
-> converting the remaining manual cleanup in chipone-icn6211 to the
-> managed helper.
+On Tue, 11 Aug 2026 16:08:32 +0200
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+
+> panthor_gpu_flush_caches() and panthor_gpu_soft_reset() acquire their
+> reqs_lock spinlock with the IRQ-disabling variants of the spinlocking
+> functions. This isn't necessary, as the lock is never taken from an
+> atomic context, as Panthor uses threaded interrupt handlers. The result
+> of this overly strict locking is that IRQs may be disabled more
+> frequently and for longer than they should be, resulting in increased
+> system latency.
 > 
-> Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> Switch the locking to use non-IRQ-disabling scoped_guard statements for
+> locking. The wait_event_timeout read of pending_reqs outside of the
+> spinlock is fine as wait_event_timeout is a memory barrier according to
+> the Linux Memory Model.
+> 
+> Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
 > ---
->  drivers/gpu/drm/bridge/chipone-icn6211.c | 8 +-------
->  1 file changed, 1 insertion(+), 7 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_gpu.c | 66 ++++++++++++++++-------------------
+>  1 file changed, 30 insertions(+), 36 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/bridge/chipone-icn6211.c b/drivers/gpu/drm/bridge/chipone-icn6211.c
-> index e5957917ad88..d51d770060b6 100644
-> --- a/drivers/gpu/drm/bridge/chipone-icn6211.c
-> +++ b/drivers/gpu/drm/bridge/chipone-icn6211.c
-> @@ -531,7 +531,7 @@ static int chipone_dsi_attach(struct chipone *icn)
->  	dsi->hs_rate = 500000000;
->  	dsi->lp_rate = 16000000;
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index 68e2dd2527df..cb5319d1c5de 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -330,37 +330,32 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  			     u32 l2, u32 lsc, u32 other)
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+> -	unsigned long flags;
+>  	int ret = 0;
 >  
-> -	ret = mipi_dsi_attach(dsi);
-> +	ret = devm_mipi_dsi_attach(dev, dsi);
->  	if (ret < 0)
->  		dev_err(icn->dev, "failed to attach dsi\n");
+>  	/* Serialize cache flush operations. */
+>  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
 >  
-> @@ -761,11 +761,6 @@ static int chipone_i2c_probe(struct i2c_client *client)
->  	return chipone_dsi_host_attach(icn);
->  }
->  
-> -static void chipone_dsi_remove(struct mipi_dsi_device *dsi)
-> -{
-> -	mipi_dsi_detach(dsi);
-> -}
+> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -	trace_gpu_cache_flush_start(ptdev->base.dev, l2, lsc, other);
+> -	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+> -		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> -		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> -	} else {
+> -		ret = -EIO;
+> -	}
+> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
 > -
->  static const struct of_device_id chipone_of_match[] = {
->  	{ .compatible = "chipone,icn6211", },
->  	{ /* sentinel */ }
-> @@ -774,7 +769,6 @@ MODULE_DEVICE_TABLE(of, chipone_of_match);
+> -	if (ret) {
+> -		trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+> -		return ret;
+> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +		trace_gpu_cache_flush_start(ptdev->base.dev, l2, lsc, other);
+> +		if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+> +			ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> +			gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> +		} else {
+> +			trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+> +			return -EIO;
+> +		}
+>  	}
 >  
->  static struct mipi_dsi_driver chipone_dsi_driver = {
->  	.probe = chipone_dsi_probe,
-> -	.remove = chipone_dsi_remove,
->  	.driver = {
->  		.name = "chipone-icn6211",
->  		.of_match_table = chipone_of_match,
-> -- 
-> 2.43.0
+>  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+>  				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+> -		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+> -			ret = -ETIMEDOUT;
+> -		else
+> -			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> +		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +			if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+> +			!(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+> +				ret = -ETIMEDOUT;
+> +			else
+> +				ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> +		}
+>  	}
+>  
+>  	trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+> @@ -383,27 +378,26 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+>  	bool timedout = false;
+> -	unsigned long flags;
+>  
+> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -	if (!drm_WARN_ON(&ptdev->base,
+> -			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+> -		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+> -		gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+> -		gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +		if (!drm_WARN_ON(&ptdev->base,
+> +				ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+> +			ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+> +			gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+> +			gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+> +		}
+>  	}
+> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  
+>  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
+>  				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+> -		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+> -			timedout = true;
+> -		else
+> -			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> +		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +			if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+> +			!(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+> +				timedout = true;
+> +			else
+> +				ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+> +		}
+>  	}
+>  
+>  	if (timedout) {
 > 
-ping.
+
