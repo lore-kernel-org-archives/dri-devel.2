@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66FA8C5AC67
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7568C5CFCF
 	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 10:17:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76E6810E2B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BC0C10EB15;
 	Tue, 11 Aug 2026 10:17:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RAcJ4tmc";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BQnAqdav";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E225510E2C5
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 10:17:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD9F10E2C5
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 10:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786443469;
- bh=76GunOx6VjNDBXpXmvzFeO0zG5xEZwxiP+FPiy9vntU=;
+ s=mail; t=1786443470;
+ bh=sS1voS0F+wgg2eh+l3RNjJaKI/tWiqmrmFsqaEonVJE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=RAcJ4tmc3tys7NE3ud9C2V69VhGvR8ML8Qxu4ffrCIPszRmUT84D8LEww3EvN5zQd
- nX6bhHESSiNrJEpQtlpu+wVP9UzW5swORUNczDyDQ1Lb3+BSQs+GWZ/bo46ah4dK4x
- g3ajoBKA4Cxrd+e2SQPsmY+zhk/eUhklbZ4PjtI74KxM6cVwgUte5Zobv1Cpmmbaa4
- bPbjiNJKMo5Vz0Xoj70t+4VxFGp25IuCU1HnywDdKb2KIuNhkzh80GDixvIxbSGtb+
- qnxRvz5k3fbMNE0mJxUcBgCMhFjiyeMJLv7Os8QkvMwZ9urvSGVIFLXI7KjM5pAm7f
- Eyuf/4uv15e0A==
+ b=BQnAqdav5/b7Fzs6+RzAhZNNc9WcG85QTmgEZwS3BlylNzYRzePkpakIKIc870wbf
+ dWtk6zzD0eTGNOFmtNsxlnUQUxFYjnNbPyw8k4VOQaZGotRQ1WIQyOf9+40Kiz7m3c
+ /fkf39YU0RfH+OmaUYZC3xfw++AAgnjBJ19iykVal8mD2yH919k81UzffCBpnX8SlZ
+ /mEVu5gYU5nmG243SaccKaAyK3ePWl9S/RBxz1mcggCegwXm+68ienBb6JZqXGccF2
+ DXdhSzF2WPEtIUX90xJjv2k65s1u1DM9DnSso4lSn4z3WQ2DWA2xbjJ5uT2mK5jxbF
+ jmJtieM8e7PeA==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3F46E17E0F83;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C354817E0F85;
  Tue, 11 Aug 2026 12:17:49 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 11 Aug 2026 12:17:38 +0200
-Subject: [PATCH v2 04/17] drm/panthor: Make sure reset requests in the post
- reset path are not lost
+Date: Tue, 11 Aug 2026 12:17:39 +0200
+Subject: [PATCH v2 05/17] drm/panthor: Flush the cleanup_wq in the unplug path
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-panthor-unplug-fixes-v2-4-6b583e37f9ae@collabora.com>
+Message-Id: <20260811-panthor-unplug-fixes-v2-5-6b583e37f9ae@collabora.com>
 References: <20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com>
 In-Reply-To: <20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -49,11 +48,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786443466; l=2210;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786443466; l=2279;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=76GunOx6VjNDBXpXmvzFeO0zG5xEZwxiP+FPiy9vntU=;
- b=AFKfwh+Qo12V30mfiD6T9zo3eMTdrDWgKWVJGiIn4iRt7+JpiX3R8gWfqHv9Re68X9iRAWZRz
- E2DxgmKLzOEDxTjLB12mWLuO4rwOEZhTUvN3ZVAGl/PPVADMirix6uX
+ bh=sS1voS0F+wgg2eh+l3RNjJaKI/tWiqmrmFsqaEonVJE=;
+ b=DES6GhuWFkrZ8m64B4oMJQpE30gXXiQtO8TDJSbXH0z4ErXDvhoYHm2i2gufvvTNJLvXzXvqY
+ mt7PA/nQVFwD4DoQbLo/fblIaZj389eJ2KdIlChWRWCj1KpH0aOCu3g
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,51 +70,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In theory, there might be MMU/FW faults happening after the FW has
-successfully started, and since we clear the reset.pending bit after
-panthor_fw_post_reset() has returned, there's a short window during
-which a reset request can be ignored.
+If we don't do that, we might face various UAFs, because the resource
+referenced by these work items might be gone by the time they get
+executed.
 
-The other case is a reset condition in other subcomponents that would
-not prevent the FW to boot, but given what's currently done in the
-post_reset() helpers, I don't see how this can happen. Anyway, it's
-probably safer to reset the pending bit just before the SOFT_RESET is
-issued, so there's absolutely no timeframe during which a reset event
-can be lost. The risk is an infinite reset loop if the reset condition
-doesn't prevent the FW to boot, and keeps happening in subsequent resets.
+In each subcomponent making use of the panthor_cleanup_wq, we add a
+flush_workqueue() at the end of the _unplug() function. Note that this
+assumes no more work items from this subcomponent gets queued after
+that point.
 
-Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
+Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
 Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com?part=2
+Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c   | 6 ++++++
+ drivers/gpu/drm/panthor/panthor_sched.c | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 2520158adb03..393031ada315 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -156,11 +156,18 @@ static void panthor_device_reset_work(struct work_struct *work)
- 	panthor_sched_pre_reset(ptdev);
- 	panthor_fw_pre_reset(ptdev, true);
- 	panthor_mmu_pre_reset(ptdev);
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 0182b72f1932..0b862d3c3605 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -3365,6 +3365,12 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
+ 		}
+ 	}
+ 	mutex_unlock(&ptdev->mmu->as.slots_lock);
 +
-+	/* Reset the pending bit just before the SOFT_RESET to catch any reset
-+	 * condition happening in the post reset path. If we're in such a bad
-+	 * state we can't even resume the FW, we will bail out and unplug
-+	 * anyway, at which point the reset work is disabled, which should
-+	 * prevent an infinite reset loop.
++	/* Ensure any pending job cleanup work are executed before returning,
++	 * otherwise those might access objects that are gone if the work is
++	 * executed after other components are unplugged.
 +	 */
-+	atomic_set(&ptdev->reset.pending, 0);
- 	panthor_hw_soft_reset(ptdev);
- 	panthor_hw_l2_power_on(ptdev);
- 	panthor_mmu_post_reset(ptdev);
- 	ret = panthor_fw_post_reset(ptdev);
--	atomic_set(&ptdev->reset.pending, 0);
- 	panthor_sched_post_reset(ptdev, ret != 0);
- 	drm_dev_exit(cookie);
++	flush_workqueue(panthor_cleanup_wq);
+ }
  
+ static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 5832dccfc093..f18b2e03f2fd 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -4074,6 +4074,12 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
+ 		sched->pm.has_ref = false;
+ 	}
+ 	mutex_unlock(&sched->lock);
++
++	/* Ensure any pending group release work are executed before returning,
++	 * otherwise those might access objects that are gone if the work is
++	 * executed after other components are unplugged.
++	 */
++	flush_workqueue(panthor_cleanup_wq);
+ }
+ 
+ static void panthor_sched_fini(struct drm_device *ddev, void *res)
 
 -- 
 2.55.0
