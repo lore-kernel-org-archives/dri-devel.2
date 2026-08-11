@@ -4,83 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C22C5CFEB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00114C5B56A
 	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04E5410EE60;
-	Wed, 12 Aug 2026 07:08:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48BC610E3DB;
+	Wed, 12 Aug 2026 07:08:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mPHYLmHu";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="Rj5jtiD8";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79F6210E35A
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 19:42:43 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-49954b88fffso1945605e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 12:42:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786477362; x=1787082162; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=4v0iZboq/uLDu8mV5Gkz82xHeLB+QGVZ8axU862tksE=;
- b=mPHYLmHuJKBwC8I7UqKXStZZL5QVwlOIZE2OzjB9o5W0ir6wsGhvaVcCuaZmmZcj6V
- QCsM7PFwqD2BLB/ykELQCCT1qFrjIIsfN0JY7TDig9KXDn7sW7lqpgUQfi1YhDuxA/H/
- 2QoukCoigiotUSWsHxgRbA6LcJS+tRiwMA+T4s60rlUNBA/FID9okAtQ5nhPtm6zrZtn
- 9p5lK7jskngaGcTXOvpvWQQcYPvzgYfamoj5fTnjGeF6V6oZEjpYN14pmAkPEY0smlNh
- 2+hQiXlJElo22xnrBTHUxb4qFcQkIytCCEJVoG7hCTH7kODntaQai2/qQpZYKJuNqZFx
- yq9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786477362; x=1787082162;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=4v0iZboq/uLDu8mV5Gkz82xHeLB+QGVZ8axU862tksE=;
- b=Egjsa41UVrckn+mJ7KeBe1h3HFKel9615gvtZj907jBPu3mwYR8CxTfD8ho2ePXmpc
- FU235Pz+F+nk4hu3Q4Pu1UxTeN3L0IT7X2drXIFZUgaRbMLBKxUiNP/cjdrN3R9RYTmJ
- zW0D/+t5aZA7i2y148GXdZhUao3/Nq/1zYUvoaMYqyRaIs8Wq7di6MoydEWnr0UGYFzt
- xpN+OMTcCTJ91Qe5NDOfVLJt4pMgC5mVQOfM4gi5NOFVfL6hDMzQ2FCO22aw//p8f3gI
- d6uBIc3Qha3YAt4+OymX3dv2MOwKK8wkABsvtCtveeI56Rdp0mmlcNRnSGgkHkTjlKYz
- WASg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqfkqGOrc8JnBpU3cOHblk/HbWpOKy/5RpoqQvUBsGprvHdLQyTaI0nyBzJ4dLkCs21F5OwiarW5cI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YybpoZG8YhGDKVKPUaiyTyoh5JSIwEl0fwBnUJshli1SjguItms
- wui05OwGfQoSVzkGUlBmIvRrwC2NScVwACYKKSCcijJXlAa2cF37zarl
-X-Gm-Gg: AR+sD11of9Qz2XuMe8LhMZXvJYtHcjSVE9AJTQ/ZmH8HFwWtd5WTu5r7LhsfG7Z/dG7
- hjqk+GQ0ng0i+qYiniVG/H/DZBZMjFI45zMW8QEmPTmQ9YJqHErjLsqFUwPW9xQ3UG6Fq4A1evS
- WS3eeRj05NqjyEBGONDNnVM4dfGcwCc5pZ/pMmxvtxsr+K+aW2Kn/5utQ36aRBpvBJ6pmCAPMoj
- 30jyAA07AmTKMKbbo2aUBf/O1R2sJxaT8NAw7oefq8OM9/+s8N6pcq7+R2K2po0nyn/UiCjBkAf
- Hc2fS0h2zGOuk4FIjwvQvJQsRwE7cKfLja1ab1800tGj7Svj6IR1ubcFrB3/6sIWGsXG3rOiiVj
- m/Bq9gBaB7XNDPEaRkbCM8kqxINe6u7scso1KVp04PTIV5d9/2/KpYgmtIWZOQDb1FMpoGN7css
- 9//zfCIFez5q4aLlA4OBrLojO07a4t9Iu3+fw7g8jsmRENc1n3Gj2+1HYxz+lYDiYqwo5ytzRdU
- fYgIoMK75+wEM3avGCE9zr9DpG/8YUmEawDISPDjmGGFgNIs37a
-X-Received: by 2002:a05:600c:34d3:b0:499:6eac:36d2 with SMTP id
- 5b1f17b1804b1-4997846d9c5mr93834455e9.17.1786477361645; 
- Tue, 11 Aug 2026 12:42:41 -0700 (PDT)
-Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
- (212.pool95-21-2.static.orange.es. [95.21.2.212])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4997adad05esm3986195e9.3.2026.08.11.12.42.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 12:42:41 -0700 (PDT)
-From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
-To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>
-Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>, 
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
- stable@vger.kernel.org
-Subject: [PATCH v5 3/6] ttm_pool_fini() does not destroy list lru
-Date: Tue, 11 Aug 2026 21:42:18 +0200
-Message-ID: <20260811194224.121597-4-megia.oscar@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811194224.121597-1-megia.oscar@gmail.com>
-References: <20260811194224.121597-1-megia.oscar@gmail.com>
+X-Greylist: delayed 91105 seconds by postgrey-1.36 at gabe;
+ Tue, 11 Aug 2026 17:59:18 UTC
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
+ [79.135.106.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 072F410ED16
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 17:59:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=3jue3prkvzdelhxqbbuuvwtkqe.protonmail; t=1786471155; x=1786730355;
+ bh=Rhq8TQEyp/YkXN1pgK+No4ze40gOJy7gf5bTiXAy8xk=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=Rj5jtiD873I7jKzJj9eX5AUjZgOQx8tzvXszjkLAJc7kRVrn+RvP2hghKv9lY/mjD
+ oXT5pIL0WEaiQR37Q5abIr/V8dxMsWHUuKG+5XCILr5rQ5gtsvKFx8q4UGDpjaJxpL
+ 4l0Oh74xS10wwbFt41FLj/jicUI6Srl8OLckEpKrCKIhLIuOMZjsVaZyXD+XXUKvbU
+ PvgnuvTtWp5isvQtal+j0lGR0ESh5+T5xOEmce+5t7ANoEQWsvh0WII/Se2blfEFQs
+ X3W8hcqAvJA1gVwwKnm/EA6Zgyyg/aBeWEM0CCJzeIytp2eDXEy0pLJ3uE+43tHaAV
+ eO6ZVQcWMFWSA==
+Date: Tue, 11 Aug 2026 17:59:09 +0000
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+From: Luke.Wildhardt@proton.me
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>,
+ phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+Message-ID: <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
+In-Reply-To: <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+ <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
+ <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
+ <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
+ <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+Feedback-ID: 214028577:user:proton
+X-Pm-Message-ID: 33967dafe27c211d4ea346d13d616ab9ee968239
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 12 Aug 2026 07:08:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,41 +70,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bug: ttm_pool_fini() does not destroy list lru with list_lru_destroy().
+I want to be very clear here, I was working with Claude Opus on debugging t=
+his issue. I am not a good programmer and work in on the hardware side of t=
+hings, so this is only code I've tested and not of my creation, just hoping=
+ to be helpful.
 
-Fix: Add list_lru_destroy() after ttm_pool_type_fini().
 
-Assisted-by: OpenCode:1.17.18-Big Pickle/DeepSeek V4 Flash
-Assisted-by: claude.ai:Sonnet 5
-Cc: <stable@vger.kernel.org> # 7.1.0
-Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
-Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 8637f7942347..87c843f52736 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -1232,6 +1232,17 @@ void ttm_pool_fini(struct ttm_pool *pool)
- 	 * that no shrinker is concurrently freeing pages from the pool.
- 	 */
- 	ttm_pool_synchronize_shrinkers();
-+
-+	for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i) {
-+		for (j = 0; j < NR_PAGE_ORDERS; ++j) {
-+			struct ttm_pool_type *pt;
-+
-+			pt = ttm_pool_select_type(pool, i, j);
-+			if (pt != &pool->caching[i].orders[j])
-+				continue;
-+			list_lru_destroy(&pt->pages);
-+		}
-+	}
- }
- EXPORT_SYMBOL(ttm_pool_fini);
- 
--- 
-2.55.0
+It appears the freezing (and maybe what I'll call micro freezing instead of=
+ stuttering) was resolved after an issue was potentially identified in driv=
+ers/gpu/drm/scheduler/sched_rq.c
 
+I did a 20m play session attempting to reproduce the issue but was not able=
+ to. Previously, I could reproduce this on-demand.
+
+I will copy the writeup it created and the testing we did below. I am only =
+claiming that the freezing had been seemingly resolved, not a particular fi=
+tness or correct identification of the issue, that is for developers to jud=
+ge.
+
+Quotations are an output of a summery I had Claude create.
+
+"
+THE INVARIANT
+
+drm_sched_entity_stats::vruntime is held absolute while the entity is linke=
+d
+in the run queue tree, and relative to min_vruntime while it is idle.
+save_vruntime() converts one way on the way out, restore_vruntime() the oth=
+er
+on the way back in. drm_sched_rq_add_entity() calls restore unconditionally=
+,
+which is only correct if the entity has definitely been through save.
+
+
+THE WINDOW
+
+drm_sched_entity_pop_job():
+
+    spsc_queue_pop(&entity->job_queue);      /* queue now empty */
+
+    drm_sched_rq_pop_entity(entity);         /* takes entity->lock inside *=
+/
+
+No lock held across those two lines. A concurrent push seeing the queue emp=
+ty
+gets first =3D=3D true, calls add_entity, and restores a vruntime that has =
+not yet
+been saved -- adding min_vruntime to an already-absolute value. If the enti=
+ty
+is leftmost, get_min_vruntime() returns its own vruntime and it doubles.
+
+It persists: pop_entity then finds the pushed job, takes the next_job branc=
+h,
+and update_vruntime() carries the inflated value forward. The entity sits f=
+ar
+right in the tree and is not selected until min_vruntime catches up, which
+under sustained load may be effectively never.
+
+
+EVIDENCE
+
+WARN_ON_ONCE(!RB_EMPTY_NODE(&entity->rb_tree_node)) at the top of
+add_entity(), after the rq lock, fires reproducibly.
+
+That condition should be unreachable. add_entity() is reached only from the
+"first job" branch of push_job(), and first is true only when the SPSC queu=
+e
+was empty. A linked entity implies its last pop_entity() peeked non-empty.
+Empty queue and still linked cannot both hold in any ordered execution. Fre=
+sh
+entities are excluded -- entity_init() calls RB_CLEAR_NODE() unconditionall=
+y.
+
+Instrumented as a counter instead, with ring and comm logged:
+
+  idle 10s:      0 races /  5662 restores
+  gameplay 60s:  8 races / 43315 restores
+
+  [ 192.754604] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
+  [ 226.882135] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
+  [ 292.226032] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
+
+plus Xwayland:cs0 and vkd3d_queue on gfx, and many more on sdma0/sdma1. The
+gfx_0.0.0 / kwin_wayla:cs0 entries are the compositor submission thread on =
+the
+graphics ring -- the process that dies when the desktop freezes.
+
+
+CHANGE
+
+The principled fix is presumably to close the window by holding entity->loc=
+k
+across the pop, which needs a _locked variant of drm_sched_rq_pop_entity().
+I did not attempt that. What I tested checks the invariant instead: a still=
+-
+linked entity never left, so its vruntime is already absolute and its tree
+position valid.
+
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ drm_sched_rq_add_entity
+-=09ts =3D drm_sched_rq_get_min_vruntime(rq);
+-=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
+-=09drm_sched_rq_update_tree_locked(entity, rq, ts);
++=09if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
++=09=09ts =3D drm_sched_rq_get_min_vruntime(rq);
++=09=09ts =3D drm_sched_entity_restore_vruntime(entity, ts,
++=09=09=09=09=09=09       rq->head_prio);
++=09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
++=09}
+
+On stock 7.2-rc7 with this applied, freezes are gone against a trigger that
+previously reproduced on demand, and perceptible hitching appears gone too.
+The race counter keeps incrementing (35 in the last session against 295744
+restores), so the window still opens at the same rate and is now absorbed -=
+-
+the timing has not merely shifted. Extended soak in progress.
+"
+
+
+
+On Monday, August 10th, 2026 at 9:40 AM, Luke.Wildhardt@proton.me <Luke.Wil=
+dhardt@proton.me> wrote:
+
+> Oops, forgot to reply all in my last message.
+>
+> I did a quick test of the patch before I left this morning, the freezing =
+seems to gone, but when the GPU is under the same condition, the stuttering=
+ is more uniform if that makes sense. Granted this was only a 5 minute test=
+ but the freeze was rather reliable before, I can do more testing later.
+>
+> I know these things can be hard to describe, if that helps. If there's an=
+y profiling I could do or detailed logging that would help don't hesitate t=
+o ask.
+>
+>
+>
+> -------- Original Message --------
+> On Monday, 08/10/26 at 06:48 Tvrtko Ursulin <tvrtko.ursulin@igalia.com> w=
+rote:
+>
+> On 10/08/2026 13:45, Danilo Krummrich wrote:
+> > On Mon Aug 10, 2026 at 10:28 AM CEST, Philipp Stanner wrote:
+> >>> Reverted Commits:
+> >>>
+> >>> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
+> >>> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
+> >>> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
+> >>> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single r=
+un queue
+> >>> 45c211ddf92a drm/sched: Switch default policy to fair
+> >>> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
+> >
+> > [...]
+> >
+> >> That might be the wisest thing to do; but let's hear if Tvrtko has an =
+idea for
+> >> a hotfix first.
+> >
+> > -rc7 was released yesterday; even with a working hotfix today it'd be t=
+ricky to
+> > ensure the hotfix does not regress other drivers or workloads with 7.2 =
+being
+> > just a few days ahead.
+> >
+> > I suggest to not wait and get the reverts ready.
+>
+> Yes reverts would be safer. I have them in a branch at
+> people.freedesktop.org/~tursulin/drm-intel drm-sched-fair-reverts,
+> mostly straightforward apart from one easy conflict in
+> amdgpu_xcp_release_sched. Smoke tested on Steam Deck looks fine.
+>
+> Having said that, the fix for min_vruntime handling I provided earlier
+> in the thread also looks fine in my testing and is simple. No
+> regressions found with synthetic unit test workloads or messing around
+> on the Steam Deck. But we need to wait to hear from Luke since I haven't
+> been able to repro his report locally yet.
+>
+> Regards,
+>
+> Tvrtko
+>
+>
