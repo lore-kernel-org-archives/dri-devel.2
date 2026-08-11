@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42365C5B56A
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DAEDC5CFE7
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C37210ECE6;
-	Tue, 11 Aug 2026 16:47:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF0A210E4ED;
+	Tue, 11 Aug 2026 16:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WmXVFlun";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AIZxIFAm";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44A5810E327;
- Tue, 11 Aug 2026 16:47:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDC0D10E327;
+ Tue, 11 Aug 2026 16:48:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A0A8B600C3;
- Tue, 11 Aug 2026 16:47:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73FAD1F00A3A;
- Tue, 11 Aug 2026 16:47:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 40870600AD;
+ Tue, 11 Aug 2026 16:48:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89AC81F000E9;
+ Tue, 11 Aug 2026 16:48:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786466843;
- bh=aAJmH2RZWtuo/nczs+6yqrQv07ilSQp4Hm9KiWaE9KU=;
+ s=k20260515; t=1786466912;
+ bh=9N4Q1jk4C+Off88XGaOwtGooGJBpZMvX648V30zsvDQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=WmXVFlunRxpDAll3Tg1HyKKOFpDURz7v3unAPbgW6vcpFaHuqSw91xJDoEak2/hJ6
- dJy9/hEr17V859sGvDWGdD2D/G3Rlhrx8qavJCmSat+jW0BWd56nTDYrxaqbaA26p9
- pmWmbRldbJGu+2K40KZilR1uKsAU1kdgQqfG8n67jUdg9NyBf8pz5twN7Z2NxRRmJM
- fv/T8znbn7zLsqbqGEyvrEz3zIncUWwNVQ0sEup0YrsOwdFallbS0jm8/z0BNBOmGr
- hk03RRkrYb8m+c8cyuZCmLVFAc+okHkQP0NOEqbnc2K3KFsDKXxavrI/VotHIpKC23
- i7SkXJnZgNsZw==
-Message-ID: <3cff4b8f-b523-4805-add9-e817e9bb6a82@kernel.org>
-Date: Tue, 11 Aug 2026 18:46:58 +0200
+ b=AIZxIFAmKurbVhT2yKjRNb4cRvhB+aLR4EE3v66FDsMcvJDyndNDawSimnPvQAVq5
+ qzmttuzuV93lAlfyPshLQv9WnCp/gf/T/afoUa/9rA2W8cIbOzq5pgzRQv7ULKb6Xv
+ RwXF08n3j5I564owX4uerUmLiYkuavi9CI99q5xp5NVAHLampqcAvfk+QbjXLhf9Ri
+ J7mkamacG9CxXzFsa3mj+eOwCtMl0vCzaIwFewUqPwZgdbwNufyqjMkdEUtSqYHpmZ
+ EE2XRNaOwl2BZeh/j8BC3xM7acgjaKgABCXDUhKs+Gas6yfxQsp1tPOtCFW0MyzZPT
+ 2tFeIuIhqH/uQ==
+Message-ID: <4382368c-d0ef-4361-957d-78bc1edf60e2@kernel.org>
+Date: Tue, 11 Aug 2026 18:48:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/20] mm/rmap: track whether the page VMA mapped pgoff
- is anonymous
+Subject: Re: [PATCH v4 11/20] mm: clean up vma_address_end()
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -95,7 +94,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
 References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-10-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-11-ab318a350404@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -142,7 +141,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-10-ab318a350404@kernel.org>
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-11-ab318a350404@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -161,24 +160,21 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
-> Update the page_vma_mapped_walk structure to track whether the pgoff being
-> tracked is an anonymous pgoff or not and update the comments to reflect
-> this.
+> vma_address_end() is a confusing function with a lot of moving parts so
+> clean it up prior to extending it for anon page indexed mappings.
 > 
-> This is necessary in order to determine the correct VMA page
-> offset in vma_address_end() when pvmw->nr_pages > 1.
+> Const-ify some variables and establish pgoff_vma_start and pgoff_end
+> variables to clearly identify the page offset for the start of the VMA and
+> the end of the page offset range specified by the page walk.
 > 
-> Also document that pvmw->pgoff is meaningless for pvmw->nr_pages == 1 and
-> for KSM.
-> 
-> Do not set this field where pgoff is not specified.
-> 
-> This is laying the groundwork for eventually using anonymous page offsets
-> as the index for all anonymous folios.
+> This simplifies the function significantly and lays the groundwork for a
+> future change to update this function to account for anonymously page
+> indexed folios.
 > 
 > No functional change intended.
 > 
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
