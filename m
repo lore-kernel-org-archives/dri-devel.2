@@ -4,86 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45731C5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 06:12:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B822FC5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 06:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7967910EA74;
-	Tue, 11 Aug 2026 06:12:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30F7110EA81;
+	Tue, 11 Aug 2026 06:28:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="D7rA6T/R";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VLgIxQe9";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3C6310EA74;
- Tue, 11 Aug 2026 06:12:22 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67B4ovFA1196858; Tue, 11 Aug 2026 07:12:11 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=062FekdOCmABLNFdsGtDPla
- i6QllVwqAYSGKAED3WhM=; b=D7rA6T/R/C99gchARPXurVNMZJTSAyPATJVnp25
- f8qvzykUe7/PvxVRSFXVN+CvJjMhFkYXtM+gYnBs33gUQtSPZ6rEsWS22O4e63co
- QsJlViWybAxfsDY9QrQTjmHwWk3QY6F1S9tss9Czo6CRMWzb2yo0PyRBzHBoiZa4
- sdGj3iS92mPv0t/hKWBM/5aHCd5sT1bBYYbf8qeF2V8mewpBwz5/Rm6V7TO5Gp+Z
- 5VhQrCg15zaBgV5J43JLywjqSPX+4MiwCw122nq7MRkaIDKv5QcDWCdUrXVGrVof
- Nz/Fb78hM9P7rLa5iL5AUrKmJWTbdcd8dgUiVkb4VTgiEtw==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4fysma051d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Aug 2026 07:12:11 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
- 2026 07:12:10 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 11 Aug 2026 09:11:54 +0300
-Subject: [PATCH] drm/imagination: Propagate all errors from KCCB command
- submission code
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69A5C10E28B;
+ Tue, 11 Aug 2026 06:28:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786429704; x=1817965704;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=4lbCg0us4EX0JBSSeMKIbhgEpsNdeST2vWNN6V5X/rc=;
+ b=VLgIxQe93nmtJaF7cpl8a+hsRvYuhPz5ii2oTS/tVxIOD7UO5ey0mFEw
+ nO4oyftTgNJuSbeBNX6fovXhjUWexJ0oYaMiIiCeEk85atBRxNXfBiIq3
+ nINwG65qAaMFpjgrHwyjrTbqJoIUsBflWAPvDOHM2x1vcsLTAm+1MxUjF
+ OskeEAie0gRs7Qfqsbo99hjCwaFUDk/AxRWciF/oEiN99fuyZgrLU5V8f
+ 9Bk40On/TDnDA3H6TNp8b6/7n2urhCGEpnrellYG3JipFw3BsJZXW11/g
+ LUs6ePFanA4ZsAywgV3xWAFQ9N5+qTo8SmuI/ZcG/xYvqwSwD7jcuCf1W Q==;
+X-CSE-ConnectionGUID: 4gKv+2FVQqKJ0sSQ3oijJg==
+X-CSE-MsgGUID: ArYQp1+pSKyEsouD174QKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86888123"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="86888123"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2026 23:28:24 -0700
+X-CSE-ConnectionGUID: MnLXmQ/ZQAuuaeO9z0A9PA==
+X-CSE-MsgGUID: JuryXTqdQaSWin972YSzCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="259936112"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2026 23:28:23 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 10 Aug 2026 23:28:23 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Mon, 10 Aug 2026 23:28:23 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.44) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 10 Aug 2026 23:28:23 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r5Fxl2l3x8XhtnCa/nYr+wyjCXdQhaI3GB1BBjTtGao4IAEyVouvdj59mSd/Xrw9EepkSacHcH9Mzf8J+OuubLHSoSSF50rlVH9FS2KE/18gjUnsRKMf2EPJyCus5by+4FyUrPpxfL1iP9yGktURrp1x0iQp4FOmGu5tvRfehaSPXDgRm2il87OAFDGvOZhqP+Pr3CflNcOiNIIE8tjYb8BQpxTEbgQ/dbswYFoKcVcc9exQTBhR9JQFiEePT1bef4c1PifuCJWGuA0UY+ZaIygwJzaVxx7b+BXEN+Q3Dunf0BGC1pZ3/iKaK6BnEWniZeoOXMjywCPA3wLtGWZdXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KO7u3C7uDHzmE/v1Wo+7JEfeD5/B41JMlhP5zjzSP1E=;
+ b=FSZjDWYdfq5B8BrqxpR2+WHDygiFDl8wsdk14AspKASDjp5IL4KN22vFTZ/8731aZhplBrC8iHydbxAPAvM34E5Di6/v5sOkEfcAWdptQirvj6cJXoL+r6EZQCZW8WGIu5vqDOFCTRPn+qaF+z2ZErYTaWyOcwhOhkRH07slxKKqMFD3KlMUxtxYbE3eyN72WCWwT34WLCmJ6Ca9hDInyvMj4SUFyLz7uq7PYSH+otiBayAcRvRby4mOzStMF0v8441tXgt1Xv5nArFaapofSuu0h9v+ACd0vSft9393y1c79IUqRVRUqXTgaEUP7zNCpBpKvctkSiw6N4xlW7vu1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
+ by DM6PR11MB4516.namprd11.prod.outlook.com (2603:10b6:5:2a5::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.23; Tue, 11 Aug
+ 2026 06:28:20 +0000
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0315.011; Tue, 11 Aug 2026
+ 06:28:20 +0000
+Date: Tue, 11 Aug 2026 06:28:10 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: Deepanshu Kartikey <kartikey406@gmail.com>
+CC: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tursulin@ursulin.net>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <chris@chris-wilson.co.uk>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>,
+ <syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com>
+Subject: Re: [PATCH] drm/i915: Guard against NULL driver_data in
+ i915_pci_probe()
+Message-ID: <w3p7i7btvl6b7o5puofyxcjm362ni3mtcfmog2plm6h5wxk3an@dflvwud5t6zf>
+"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
+References: <20260809090430.20577-1-kartikey406@gmail.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260811-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v1-1-ffd55254d6d2@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIACm9emoC/yWOQQ6CMBBFr0Jm7SSFgDFexbhop1OsUtrMgDEh3
- N2iy7d4//0NlCWywrXZQPgdNea5QntqgB52Hhmjrwyd6c7m0hp0Pa5FF2GbsEgudrQLo50mZJE
- sikFywheRQ0oedXUp6rGKlD2j8Zb7YIZAboAaKcIhfn4Hbvc/V+XJtBxV2PcvWk2mm6IAAAA=
-X-Change-ID: 20260810-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-0dae4f05fcb5
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786428730; l=9366;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=K+AKp7oBWFHnU8LxolG6MA8coB5zCGfLOMCMYd8wHPk=;
- b=rOBERDSIXGKQv2qfvZ4PEqcon6gJ1xcSDAgltP9TOkFbFThvbXP6I3sA42YRjAKjB6reZehey
- Jv4M12Vq5+RBhYGJ5QI9q7Q6hQV15yEulO5jkz+xOjCa+E+MOyPPN6/
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Originating-IP: [172.25.5.88]
-X-Authority-Analysis: v=2.4 cv=BO+DalQG c=1 sm=1 tr=0 ts=6a7abd3b cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=WhBBAM252t03QMwC9x0A:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: I_v_E8RgUfInTfWjIo7kjDVVGYSdZi0D
-X-Proofpoint-ORIG-GUID: I_v_E8RgUfInTfWjIo7kjDVVGYSdZi0D
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA1MCBTYWx0ZWRfX93PjlE4d89g9
- OBV0ZW3KTkKyLY8FV14aWNIVwfX/OZ2MSyVpF/rxxPpACi2MsR94HIedB0H3Y9kCr7kEvJp6uD2
- mq6t3L49HY0llvb75mIzV9gcO7JocYA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA1MCBTYWx0ZWRfX68vJcT95LX3P
- O+CqtkTKgbIguEPUxaxuQABlrZlPQOLikSDUV0y+c9KU9B6dFhpRhVoDJuB2RO8gZxUq6jOZwv/
- BaQRWWi09JoxxoyzdnUE31LGXSFMQJl36UjlqeBq8Jacb9plx0Da48+uEmriNAj/y0sPWFx4sy9
- wDpICHbSoVJdOsJpAj/M2AGO39UVZDXI1AWg8dCrErRjfCIAUQH1/r7nNDoK6BKbhcdeOQJB4Of
- eqe7mXP04wTpHgtJZN2RcPOQr9an/VT+G2fnw3uf7HImCdYiBhOiYlvCqW5vQ3O3pcOp02Hl3fT
- MbxD2GTqisdbNS3+gTx4brmaLQU3LlHnvgDcXJPdaNEGKm0pqFay+NftQqgBB6DIIbCwCmtbgic
- nzDVg71xdtwAZafiMLMCUOsRD+4r8sjX1ItR1vDUgnqnFZc1l1+r+MmgyCA08NSBN2gPP6ejnum
- JNQ13lfkYBxIgvfXmww==
+Content-Disposition: inline
+In-Reply-To: <20260809090430.20577-1-kartikey406@gmail.com>
+X-ClientProxiedBy: DUZPR01CA0073.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:3c2::11) To PH0PR11MB7424.namprd11.prod.outlook.com
+ (2603:10b6:510:287::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|DM6PR11MB4516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f26f901-41c0-40bf-9b17-08def771bca6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|23010399003|18002099003|22082099003|11063799006|3023799007|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: w3CoNzQ/16o4T4ypbjGMgXJzrGmAFGSbmXqEMAcGqGOsT9PxxdS7JUjOZAbzIn0ktfxj2jNFPl7FEK7ZeXIkyF/U8Sjs7Bq/bqjW8Mu5xUgm7l0lzQIRZksl2YDJgi80FMzwkoHTJU8Zz9KYSdPjxyWuT1q1jkgF0DTRSAuw9ph8aU5BTAgOnuAx4hj8z3bi1hd2WFnRBI0DEq0slVFYRYn7B4KXqjOpGM5u2Zlm+E+aTlLSl+isajQC7esliFRurqbiMTeXRNQVPhj796IfMEHSwYQc8AiZRxKrQZi0OWQPCsHVTgpp3ZvEwUZ/+bCUIkAAQovyjGgDd/rkpkWXbFzzzdwAmLC8lFErctA/LwzFGaobjGgMPNz7P46eeQHAHaWgoEQBky9BGjwuHby66ksGiFfkyGLYD+3gNRvSMtzUoHQt9gW+zcavGkLqnzkzZ5F9hlI9N4OosUwhKEmTo7/6KjPvlwuEfOieUFOIVpbgjVBADWACSe5YT8RDY5EBNeZzlALl97CaMGySSV9A4ajppKzjI0eBfRyry5ULGMyy0RKBRrQ0g3FOvlQHx69dpgfT/GKHkAmd1DT58RDAa1hTb+S8LSgoJNgG7j8L6I0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(11063799006)(3023799007)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnNDYWpRL29TWlZPUW0wdnBPaDRsckRvd2NuaWdjeTc3LzI1VHpmUXpxNm5v?=
+ =?utf-8?B?eGFlNFhVbGNra2t6ZkNZRFNONzZYbGo4MG5sQ0gwbXBId05GT0RnMVE2SGhL?=
+ =?utf-8?B?OWFyZ0Y1RlhacTJWMWQvRkJnL0RKbWpqaDVaazNuWVFXMWJ5anl0R0lrbjA5?=
+ =?utf-8?B?dDVOL0NGZHFmeElWRjNOOGdLUm84WldCV0gyQ0VrZjFNUGpaRVRacjZwR1Ft?=
+ =?utf-8?B?R3VxQ3pHN01nMFZSbzNCaVpiNlk1bTZLN2ViNDB4a2FjTjhEZzRQcVR6UTcx?=
+ =?utf-8?B?NGRmdnZMaXNONUNjdmdMb2RvRGFJOFU1NDlUdnF0c2phWWRPdzVuZG5LRGpE?=
+ =?utf-8?B?Y2tMNXpzTTZzdmFMcFNyUkRFQnBBVEJwTCtjUEZJR1pHejREV09yaHFtbmg0?=
+ =?utf-8?B?dDdEeUFwTFdnd0N6SHZNWGQ5SndLWlUrWnN2aklSY2oxTjBvYlpVT0h6dWdE?=
+ =?utf-8?B?L09EVU1wTlE0SFg2VU5sZ0hQVkdQRmFOOHQrUzVjT2Zsb0hodGxQM25Jc2N5?=
+ =?utf-8?B?UVRSdkNoMG10dHQxVmFGRCtSRWFVK2o1ZXlQZVF2cmRodFovdnR1QU1CdGJ3?=
+ =?utf-8?B?dWpZWWtPeG1xM1YvNWJIbzJxc0VkUjdla0o1MU1XZzVSSzliZFRmTzJSUFFk?=
+ =?utf-8?B?aUYzalFwSzEvdWtXeSsrK3BIYjFyc3oydjBqZ0RwRG1hKzdIM2dNaXNhL0dl?=
+ =?utf-8?B?Und3cmdETTl0bEJ2Ui93OHpFQjhzQW8vQ2hrUmF4YzRUWHQ3YnlMR1V1LzRW?=
+ =?utf-8?B?MityanBEWllpNDlRYmd3RGJnWEMvQ2Rvbm9jN0liYzdGbnZ1T3dySGkzcmMv?=
+ =?utf-8?B?R0FUT0d6TkNZTCtpNzM0VG5TckJnSWQwWEVPL1JiZlNVM0VXNEdQNjRTYmpK?=
+ =?utf-8?B?MHFPMUtlTUZHSVJUcHBheFFPSkFwcHA5K2ZDNzZPQjRESG5LaDd6SGJKdUsx?=
+ =?utf-8?B?b2N6cFNjSkV3bEdWYTdDWE5DbnlLRkVlK0IySHU5dVlxVlI4U2NtMDNtNjMr?=
+ =?utf-8?B?dGo1dEU4aE84dWdRMWk1S3FralY3cFhQME0zZVRvMEwzQ0FLVFJoY1hZNDdD?=
+ =?utf-8?B?SjR2dVc4YytPeWFqQjNVb2hJcDRJRlhxalFPbjZYRnRGY0U4VC8reWozYkNu?=
+ =?utf-8?B?cFZyTFVJVGtPWFBHNWIvMnFQZGtmRG0zREo0ZDQxRHFCN3RzNjZwWTVzTkwr?=
+ =?utf-8?B?NXNIZXYwaHgzUEdPZDJzN09RQVdGS0UwUHB4RUpCUmZ0U0FNM1NKZWdDSjNn?=
+ =?utf-8?B?aU1CZktpRnRtcGhxYjE5YnBVemRadFN1Yk5wLzlYcVJaNjFFQlhpcC9LL29Z?=
+ =?utf-8?B?enFpejVVOXRYd1AyUXBQd2dNa05KZnZacEtZbm9OMHBGWXlHTWlpU20va244?=
+ =?utf-8?B?eVRUWklVanM0QUNueE9lNmJQUzBJaStlZDZvQkllYWkwVzFIZ0YvbEpFTXJl?=
+ =?utf-8?B?WVkwbC85V1lHLzZWQ1JXSkJ6TGN0UEo3RnYxZDNkNDJsNWdRSTliK3k5T245?=
+ =?utf-8?B?WklUK3hSeVJaU0Z3QytkRFhOYS84UjJhc3I4QXBKLzFuWVllT1BCdW5PQ1JQ?=
+ =?utf-8?B?WThMWTBtdTNhNXlpdUlrc0w0amlZT0RKSnVqVGVZRllGcFNRaVhKc01OajBK?=
+ =?utf-8?B?dHE0MUFRRmdyU1VIU2Y3Z0NybHdyUjlaNCs3a0JBdHY5ZXNwZ2xTREtWcm1u?=
+ =?utf-8?B?YzdJYWcxSkptbVZJOEQ1NHlIVmkrc2VNbnZMWXRYd0N6Q2E0a3FvM3M2UktG?=
+ =?utf-8?B?N3BwSzVrOHV2YWxtNmp6aTZ2blROODk5T2dyQTJxZ09jd0ZCNnV0OGI3MXhz?=
+ =?utf-8?B?RFlFaDRmS3ZDZmxKUWREV1hXcjgxL1hYUmtTRk9zVFpMS3dKYTRpcEZnS1ZU?=
+ =?utf-8?B?MExWcStqM243dlhveGx0c012TVg5U3dRajNlTGNPdC9LdDV3U0MyTXRmL1hv?=
+ =?utf-8?B?eFcyV0c0UGU0cUtpSjRUbTdIL3RlYndEbjRmWnJiLy9Zc21EMzEvaEtOWWwr?=
+ =?utf-8?B?am5tc1pTajdOMFlMb0Fvb0N5Nk94MVFLeXh3UWJ4WXRrZHAyQWh5YjJoZEhM?=
+ =?utf-8?B?U2dldndqWmpIaFNvcW16OXJmMXUrL0ZPUmhWS0J1N1JnSHhINnZISERKbXhM?=
+ =?utf-8?B?YnV1dGgxMEIrREpMbkJUelJ2dXlQalR1ZFRLVjU0U3E0OURSWkxDUXRqR1J6?=
+ =?utf-8?B?eVVkUGd4SjRVbk9xRG9YNXg4THlzank0MVFyYVBFTXJzdVFOQXNQazdLdkJE?=
+ =?utf-8?B?dGI4cHZnSS9yM1Y5Ymp4eXEvd0JnblBBeG1wRnE0dCttSko2bnpuTVdPSXRz?=
+ =?utf-8?B?aVlsZzRwbmNpK29IK0p3elM0VlZXeGdPR2FKRTNRZk1tRXpmYjZHTFNuYkNx?=
+ =?utf-8?Q?N9pVXKgvSbUWn2/A=3D?=
+X-Exchange-RoutingPolicyChecked: eF12G/hYhAQciFnVsWQ5ck3c3VcfE0lr//vDN0SWXAfASY+Un3LSp9jr/4CvigTD8aGtfaUjyFrcrqGtRsDylEAbs4b1QW1hcA0MqQLbNZu7Sk3W+4kYEPN6j/890J4cqmzolqi1zJaR4EOh/XDgq15JuVnPjWy9TI2XzwSyAPpsZUHtQYcoGDTaqVqcr1domXP4SkFwR58IqjAWFmDPtt0e+GM4EwPC8jzs6OXy7tqCAymB8Jgm4lMKIf2ubMUJg9n3KWtJ9L/E3rTwAj3fTN7dweHymm+DfkXJzbf7DwJYgFE//g5NTQvzZKq2uWgRKo7Od3qd9eLVmZrD8lEPNw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f26f901-41c0-40bf-9b17-08def771bca6
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 06:28:20.2643 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6tE83/88n3P9XXEMuUp7fNz361VT4ZU7rncSQMx8lfIsC03OZJRx4cVoOZVIgZuUlg3eYfdZYWPMv4vfPA5NW3yj+Z/0pMsq2gt1opMDUjM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4516
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,248 +175,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+Hi Deepanshu,
 
-pvr_kccb_send_cmd_reserved_powered() returned void while the other two
-variants of pvr_kccb_send_cmd*() returned int.
+On 2026-08-09 at 14:34:30 +0530, Deepanshu Kartikey wrote:
+> pci_match_device() can return the dummy pci_device_id_any entry
+> when a device is force-bound via sysfs driver_override, in which
+> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
+> struct intel_device_info * unconditionally and dereferences
+> intel_info->require_force_probe, causing a NULL-ptr-deref.
+> 
+> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=db96c5ff032f4292a8dc
+> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+> Fixes: 42f5551d2769 ("drm/i915: Split out the PCI driver interface to i915_pci.c")
+This "Fixes" tag should point to the commit that breaks stuff,
+I believe, so what you are looking for is
+7ef5ef5cdead ("drm/i915: add force_probe module parameter to replace alpha_support")
+since this patch introduced that unconditional dereference.
 
-The error is now propagated all the way to the DRM scheduler's run_job()
-callback, which is the only user of pvr_kccb_send_cmd_reserved_powered()
-outside of the other variants of pvr_kccb_send_cmd*().
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+>  drivers/gpu/drm/i915/i915_pci.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+> index 82415af47d54..2f03f95945f1 100644
+> --- a/drivers/gpu/drm/i915/i915_pci.c
+> +++ b/drivers/gpu/drm/i915/i915_pci.c
+> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  		(struct intel_device_info *) ent->driver_data;
+>  	int err;
+>  
+> +	if (!intel_info)
+> +		return -ENODEV;
+> +
+>  	if (intel_info->require_force_probe && !id_forced(pdev->device)) {
+>  		dev_info(&pdev->dev,
+>  			 "Your graphics device %04x is not properly supported by i915 in this\n"
+> -- 
+> 2.43.0
+> 
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
----
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_ccb.c   | 33 +++++++++++++++++++++++++--------
- drivers/gpu/drm/imagination/pvr_ccb.h   |  6 +++---
- drivers/gpu/drm/imagination/pvr_cccb.c  | 12 ++++++++----
- drivers/gpu/drm/imagination/pvr_cccb.h  | 20 ++++++++++----------
- drivers/gpu/drm/imagination/pvr_queue.c | 28 ++++++++++++++++------------
- 5 files changed, 62 insertions(+), 37 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imagination/pvr_ccb.c
-index 4accf18e2341..8182babd8ad8 100644
---- a/drivers/gpu/drm/imagination/pvr_ccb.c
-+++ b/drivers/gpu/drm/imagination/pvr_ccb.c
-@@ -257,8 +257,13 @@ pvr_kccb_used_slot_count_locked(struct pvr_device *pvr_dev)
-  * @pvr_dev: Device pointer.
-  * @cmd: Command to sent.
-  * @kccb_slot: Address to store the KCCB slot for this command. May be %NULL.
-+ *
-+ * Returns:
-+ * * Zero on success,
-+ * * -EIO if the device is lost, or
-+ * * -EINVAL if a KCCB slot was not reserved or is not available.
-  */
--void
-+int
- pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
- 				   struct rogue_fwif_kccb_cmd *cmd,
- 				   u32 *kccb_slot)
-@@ -268,19 +273,25 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
- 	struct rogue_fwif_ccb_ctl *ctrl = pvr_ccb->ctrl;
- 	u32 old_write_offset;
- 	u32 new_write_offset;
-+	int err;
- 
--	WARN_ON(pvr_dev->lost);
-+	if (pvr_dev->lost)
-+		return -EIO;
- 
- 	mutex_lock(&pvr_ccb->lock);
- 
--	if (WARN_ON(!pvr_dev->kccb.reserved_count))
-+	if (WARN_ON(!pvr_dev->kccb.reserved_count)) {
-+		err = -EINVAL;
- 		goto out_unlock;
-+	}
- 
- 	old_write_offset = READ_ONCE(ctrl->write_offset);
- 
- 	/* We reserved the slot, we should have one available. */
--	if (WARN_ON(!pvr_ccb_slot_available_locked(pvr_ccb, &new_write_offset)))
-+	if (WARN_ON(!pvr_ccb_slot_available_locked(pvr_ccb, &new_write_offset))) {
-+		err = -EINVAL;
- 		goto out_unlock;
-+	}
- 
- 	memcpy(&kccb[old_write_offset], cmd,
- 	       sizeof(struct rogue_fwif_kccb_cmd));
-@@ -298,8 +309,14 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
- 	pvr_fw_mts_schedule(pvr_dev,
- 			    PVR_FWIF_DM_GP & ~ROGUE_CR_MTS_SCHEDULE_DM_CLRMSK);
- 
-+	mutex_unlock(&pvr_ccb->lock);
-+
-+	return 0;
-+
- out_unlock:
- 	mutex_unlock(&pvr_ccb->lock);
-+
-+	return err;
- }
- 
- /**
-@@ -365,8 +382,9 @@ static int pvr_kccb_reserve_slot_sync(struct pvr_device *pvr_dev)
-  * @kccb_slot: Address to store the KCCB slot for this command. May be %NULL.
-  *
-  * Returns:
-- *  * Zero on success, or
-- *  * -EBUSY if timeout while waiting for a free KCCB slot.
-+ * * Zero on success,
-+ * * Any error returned by pvr_kccb_reserve_slot_sync(), or
-+ * * Any error returned by pvr_kccb_send_cmd_reserved_powered().
-  */
- int
- pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev, struct rogue_fwif_kccb_cmd *cmd,
-@@ -378,8 +396,7 @@ pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev, struct rogue_fwif_kccb_cmd
- 	if (err)
- 		return err;
- 
--	pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
--	return 0;
-+	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_ccb.h b/drivers/gpu/drm/imagination/pvr_ccb.h
-index 4c8aef31eeb0..8b698206c68b 100644
---- a/drivers/gpu/drm/imagination/pvr_ccb.h
-+++ b/drivers/gpu/drm/imagination/pvr_ccb.h
-@@ -60,9 +60,9 @@ int pvr_kccb_send_cmd(struct pvr_device *pvr_dev,
- int pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev,
- 			      struct rogue_fwif_kccb_cmd *cmd,
- 			      u32 *kccb_slot);
--void pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
--					struct rogue_fwif_kccb_cmd *cmd,
--					u32 *kccb_slot);
-+int pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
-+				       struct rogue_fwif_kccb_cmd *cmd,
-+				       u32 *kccb_slot);
- int pvr_kccb_wait_for_completion(struct pvr_device *pvr_dev, u32 slot_nr, u32 timeout,
- 				 u32 *rtn_out);
- bool pvr_kccb_is_idle(struct pvr_device *pvr_dev);
-diff --git a/drivers/gpu/drm/imagination/pvr_cccb.c b/drivers/gpu/drm/imagination/pvr_cccb.c
-index 4fabab41bea7..da6e6d94e29f 100644
---- a/drivers/gpu/drm/imagination/pvr_cccb.c
-+++ b/drivers/gpu/drm/imagination/pvr_cccb.c
-@@ -220,8 +220,12 @@ static void fill_cmd_kick_data(struct pvr_cccb *cccb, u32 ctx_fw_addr,
-  * You must call pvr_kccb_reserve_slot() and wait for the returned fence to
-  * signal (if this function didn't return NULL) before calling
-  * pvr_cccb_send_kccb_kick().
-+ *
-+ * Returns:
-+ * * Zero on success, or
-+ * * Any error returned by pvr_kccb_send_cmd_reserved_powered().
-  */
--void
-+int
- pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
- 			struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
- 			struct pvr_hwrt_data *hwrt)
-@@ -235,10 +239,10 @@ pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
- 	/* Make sure the writes to the CCCB are flushed before sending the KICK. */
- 	wmb();
- 
--	pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
-+	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
- }
- 
--void
-+int
- pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
- 				 struct pvr_cccb *geom_cccb,
- 				 struct pvr_cccb *frag_cccb,
-@@ -263,5 +267,5 @@ pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
- 	/* Make sure the writes to the CCCB are flushed before sending the KICK. */
- 	wmb();
- 
--	pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
-+	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
- }
-diff --git a/drivers/gpu/drm/imagination/pvr_cccb.h b/drivers/gpu/drm/imagination/pvr_cccb.h
-index 943fe8f2c963..a2155f732bf1 100644
---- a/drivers/gpu/drm/imagination/pvr_cccb.h
-+++ b/drivers/gpu/drm/imagination/pvr_cccb.h
-@@ -59,16 +59,16 @@ void pvr_cccb_fini(struct pvr_cccb *cccb);
- void pvr_cccb_write_command_with_header(struct pvr_cccb *pvr_cccb,
- 					u32 cmd_type, u32 cmd_size, void *cmd_data,
- 					u32 ext_job_ref, u32 int_job_ref);
--void pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
--			     struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
--			     struct pvr_hwrt_data *hwrt);
--void pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
--				      struct pvr_cccb *geom_cccb,
--				      struct pvr_cccb *frag_cccb,
--				      u32 geom_ctx_fw_addr,
--				      u32 frag_ctx_fw_addr,
--				      struct pvr_hwrt_data *hwrt,
--				      bool frag_is_pr);
-+int pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
-+			    struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
-+			    struct pvr_hwrt_data *hwrt);
-+int pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
-+				     struct pvr_cccb *geom_cccb,
-+				     struct pvr_cccb *frag_cccb,
-+				     u32 geom_ctx_fw_addr,
-+				     u32 frag_ctx_fw_addr,
-+				     struct pvr_hwrt_data *hwrt,
-+				     bool frag_is_pr);
- bool pvr_cccb_cmdseq_fits(struct pvr_cccb *pvr_cccb, size_t size);
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index 54e88b4208d7..0f46bbfb9886 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -792,24 +792,28 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
- 
- 		/* Submit the fragment job along the geometry job and send a combined kick. */
- 		pvr_queue_submit_job_to_cccb(frag_job);
--		pvr_cccb_send_kccb_combined_kick(pvr_dev,
--						 &geom_queue->cccb, &frag_queue->cccb,
--						 pvr_context_get_fw_addr(geom_job->ctx) +
--						 geom_queue->ctx_offset,
--						 pvr_context_get_fw_addr(frag_job->ctx) +
--						 frag_queue->ctx_offset,
--						 job->hwrt,
--						 frag_job->fw_ccb_cmd_type ==
--						 ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
-+		err = pvr_cccb_send_kccb_combined_kick(pvr_dev,
-+						       &geom_queue->cccb, &frag_queue->cccb,
-+						       pvr_context_get_fw_addr(geom_job->ctx) +
-+						       geom_queue->ctx_offset,
-+						       pvr_context_get_fw_addr(frag_job->ctx) +
-+						       frag_queue->ctx_offset,
-+						       job->hwrt,
-+						       frag_job->fw_ccb_cmd_type ==
-+						       ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
- 	} else {
- 		struct pvr_queue *queue = container_of(job->base.sched,
- 						       struct pvr_queue, scheduler);
- 
--		pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
--					pvr_context_get_fw_addr(job->ctx) + queue->ctx_offset,
--					job->hwrt);
-+		err = pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
-+					      pvr_context_get_fw_addr(job->ctx) +
-+					      queue->ctx_offset,
-+					      job->hwrt);
- 	}
- 
-+	if (WARN_ON(err))
-+		return ERR_PTR(err);
-+
- 	return dma_fence_get(job->done_fence);
- }
- 
-
----
-base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
-change-id: 20260810-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-0dae4f05fcb5
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
-
+-- 
+Best Regards,
+Krzysztof
