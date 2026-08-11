@@ -4,96 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67B4DC5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:06:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5675C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1D210E7AE;
-	Tue, 11 Aug 2026 13:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A32010E8A3;
+	Tue, 11 Aug 2026 13:17:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="bTPXaAGS";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="D0DJM+Mp";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 619B410EB96
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 13:05:59 +0000 (UTC)
-Received: from [10.0.0.152] (unknown [10.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id DB8085340A5F;
- Tue, 11 Aug 2026 15:05:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1786453556;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=7kj6+gNTfJEQ/43BkZEK0OeHjYvFlCc5cLV5gjCYGSU=;
- b=bTPXaAGSZNP+BXw/+pw7GCWYM9rG+SYRBa7SsV6Xh3KgCKMviVN1UY8gzTW8rK7YrMkZJ5
- zuUQ6RncDKOHBqeXjUVQclfChFEskTi9I8dZqrlkanYqFWI3DEX48aP/9axxbF5DC6eUQc
- SDhgDTVqGtq3qYYgDqVNXBwGcQ+DySk=
-Message-ID: <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
-Date: Tue, 11 Aug 2026 15:05:55 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A087310E1FA;
+ Tue, 11 Aug 2026 13:17:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=iiDxR/T+im2R3v74OKLWGqURltZWSX0op5h3VfwA6MI=; b=D0DJM+MpCH7nnHXWDnZlDm/3DV
+ LyJKFtpJBBoHp2mhQ6zC+JwB5bk3yYFup23o6iiX05tC47PaqtNe9Z5kbq3ct1uZczstzMB0hEKsV
+ bmmlW9SgfL/pXT/BVRHEwGKa6eAl/aKiX7paTm2m9yeKz3lKARiiqEuci5BMwjd/u5MHK6QpNY3QM
+ 0oF6UzbqIdsFkdX7RbvXfMKr0FbAhhGYU7BaWZkKqEqGUuVmidn2+c7zOiVVTtDPeucA5g8dSBph7
+ BNjoLwakJHpiKivXmRliZVwqPrYiIdu3WOLMAQtAAF+FIXv4cq7AB6TAGTFPZtZPNOsQtFV9sHxn/
+ P3F+274A==;
+Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
+ helo=[192.168.1.128]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wtmM9-00H7Ih-IC; Tue, 11 Aug 2026 15:17:25 +0200
+Message-ID: <f3eb0bbb-c167-4557-b5a6-16cfb4b6137f@igalia.com>
+Date: Tue, 11 Aug 2026 15:17:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
- NT37703
-To: esteuwu@proton.me, Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
- <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
+Subject: Re: [PATCH v2 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
+ warning
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ daniels@collabora.com, harry.wentland@amd.com,
+ leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, kernel-dev@igalia.com,
+ Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260804140758.107683-1-mwen@igalia.com>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
+In-Reply-To: <20260804140758.107683-1-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -111,115 +64,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 11/08/2026 07:52, Esteban Urrutia via B4 Relay wrote:
-> From: Esteban Urrutia <esteuwu@proton.me>
-> 
-> Add bindings for this display driver IC which is used to drive MIPI DSI
-> panels.
-> 
-> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
-> ---
->   .../bindings/display/panel/novatek,nt37703.yaml    | 78 ++++++++++++++++++++++
->   1 file changed, 78 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37703.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37703.yaml
-> new file mode 100644
-> index 000000000000..e1aeed5b978e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37703.yaml
-> @@ -0,0 +1,78 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37703.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Novatek NT37703 display driver IC based panels
-> +
-> +maintainers:
-> +  - Esteban Urrutia <esteuwu@proton.me>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - motorola,bronco-tianma-v2-nt37703
-> +      - const: novatek,nt37703
 
-Hi Esteban,
 
-Usually the used pattern is vendor,ddic+panel-model
+On 04/08/2026 16:00, Melissa Wen wrote:
+> PREMULTI was the default DRM blend mode until 9813e158d13d
+> ("drm/drm_blend: allow blend mode property without PREMULTI") introduced
+> the possibility of exposing the blend mode property without PREMULTI
+> being supported. However, __drm_atomic_helper_plane_state_init() still
+> resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
+> mode in this property. In the same series, 860e748bddcc ("drm: ensure
+> blend mode supported if pixel format with alpha exposed") starts warning
+> drivers that supports alpha formats in a given planes but doesn't
+> support blend mode property, which includes AMD primary and cursor
+> planes.
+>
+> For AMD DCN families, overlay and primary planes support the three blend
+> modes, and therefore PREMULTI is still the default mode. So the warn can
+> be fixed by just creating blend mode properties for primary planes too.
+> PREMULTI is the default/unique mode for cursor planes in DCN and DCE
+> driver. However, looks like PIXEL_NONE is the unique blend mode
+> supported by DCE-generation driver. I don't have the hardware to check
+> it out, but looking at the code I understand that, even if the hardware
+> can do PREMULTI or COVERAGE, the way it programs registers doesn't make
+> these other blend modes actually available.
 
-novatek,nt37703-motorola-bronco
+Hello,
 
-...but motorola bronco isn't the model of the panel.
+As this series mostly fixes AMD display driver, can I get an ack from 
+AMD folks?
 
-My recommendation - look at some video of screen replacement, stop at moment 
-when FLEX cable from panel is visible and that's where the panel model usually is.
+Thanks in advance,
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  avdd-supply:
-> +    description: Analog power supply for panel
-> +
-> +  elvdd-supply:
-> +    description: Positive electroluminiscent (EL) power supply for panel
-> +
-> +  elvss-supply:
-> +    description: Negative electroluminiscent (EL) power supply for panel
-> +
-> +  vci-supply:
-> +    description: Analog power supply for DDIC
-> +
-> +  vdd-supply:
-> +    description: Digital power supply for DDIC
-> +
-> +  vddi-supply:
-> +    description: Digital I/O power supply for DDIC
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reset-gpios
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    dsi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        panel@0 {
-> +            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
-> +            reg = <0>;
-> +
-> +            vci-supply = <&vreg_l13c_3p0>;
-> +            vdd-supply = <&vreg_l1d_1p25>;
-> +            vddi-supply = <&vreg_l12c_1p8>;
-> +            reset-gpios = <&tlmm 0 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                panel_in: endpoint {
-> +                        remote-endpoint = <&dsi0_out>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> 
+Melissa
 
--- 
-David Heidelberg
+>
+> Bearing this in mind, this series is organized as follow:
+>
+> - Patch 1 fixes the pixel_blend_mode reset when the blend mode property
+>    is advertised without PREMULTI support. It's needed for AMD
+>    DCE-generation (patch 3) and I think with this we can also remove a
+>    workaround in nouveau nv50_wndw_default_state() caused by the
+>    hardcoded PREMULTI default value [1].
+>
+> - Patch 2 fixes the missing-blend-mode-property warning for DCN primary
+>    plane and for DCN+DCE cursor plane.
+>
+> - Patch 3 fixes the warning for DCE primary plane, but I detached this
+>    solution from the previous patch because I don't have hardware to
+>    validate if my assumption about PIXEL_NONE-only is correct.
+>
+> [1] https://lore.kernel.org/dri-devel/20260720215058.398210-3-lyude@redhat.com/
+>
+> [v1]: https://lore.kernel.org/dri-devel/20260722183240.626522-1-mwen@igalia.com/
+> Changes:
+> - new patch for pixel_blend_mode default value other than PREMULTI.
+> - remove DCE11 which supports per_pixel_alpha but doesn't support DCN_UNIVERSAL_PLANE.
+> - new patch for the primary plane blend mode on DCE-generations
+>
+> Best Regards,
+>
+> Melissa
+>
+> Melissa Wen (3):
+>    drm/atomic-state-helper: set pixel_blend_mode to prop default on reset
+>    drm/amd/display: fix missing blend-mode-prop warning for DCN
+>    drm/amd/display: advertise PIXEL_NONE as blend mode for DCE
+>      generations
+>
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 22 +++++++++++++++++--
+>   drivers/gpu/drm/drm_atomic_state_helper.c     |  7 ++++++
+>   2 files changed, 27 insertions(+), 2 deletions(-)
+>
 
