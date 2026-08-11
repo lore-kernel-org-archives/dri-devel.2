@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 834D1C5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65992C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FFA910ED3A;
-	Tue, 11 Aug 2026 17:11:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17F4E10ED43;
+	Tue, 11 Aug 2026 17:11:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CGPi7H1R";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pJJOfwUu";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F08310ECF8;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91E2710ED0A;
  Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=LjXymtRRb6BWMpk7UcD7TFtGhe5or8FsGDX+VeAa6Fg=; b=
- CGPi7H1R+X9gH+PRBfOnnsWzZPTJrzHhkpSNF2rwDrb71Qx9IcOPdVmNCuB5dlowUDzoTWmveKCtr
- pTO/coDi/7Z6NvYvTRFqEf2KRZ0OHc4bz+0tvMGROXGIlmz72TbpL79ethO8jXu1xtIoeaekWTlMG
- IXhVRBvHr+ka3EN2Ne4r2kdfal7J6YeKCgK8ujjvMAtbgVPv+9BHSIneEdxJow6VzIxe2SWwD8i3G
- IWFZxCfwTa13UE1cHnVJgZGR3d1cGjZFriUXicjY/eSpHqmB2J7mkno8oYf2GTTZRHKiZCnnZHzMo
- tJ1P6v5Oe63rgIzxHmum1vIzEwTf4YrcNA==;
+ Cc:To:From:From:Reply-To; bh=6wxTK7P3jCamLVB45nsIDvg8qPYN9Nhe8EEXCEZBTOE=; b=
+ pJJOfwUuAGtJGShl0Zl/0pSmWoMIdAzezJ2HbK1PG2Zxwj0mJQ3TGuts96EBPGqs10VL0/Oxz9LJO
+ x/CTwBCtVpYwXjVdv0Mg7cHdRVPiRQdp1Xhc8X5ZBVdnJ+Vwv0C1LGFZvf4XnAWlCSgWWMLytB8C/
+ Cs5IQiUZBACjNObKFJNc8GO/huIo3dhJfvLQNZxCR0khxaZg/QYOtM3zLRQ3rDRgP+gkgbn65yIn0
+ voF+lYvNzCW/jj/YUJJDzss3t24k5Icm3zMhnOQXkHu+6lx/47k1cokyDtzIqK8KZWjqvL4+w3D2p
+ Hy1Q7H96aHzjtvCMlRMiHb7cZyKKxBGHog==;
 Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpzi-00HH9d-Me; Tue, 11 Aug 2026 19:10:30 +0200
+ id 1wtpzh-00HH9d-A0; Tue, 11 Aug 2026 19:10:29 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -46,11 +46,10 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Sashiko <sashiko-bot@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 09/11] drm/amd/display: don't ignore failure on blend
- colorop setup
-Date: Tue, 11 Aug 2026 18:45:58 +0200
-Message-ID: <20260811171011.184964-10-mwen@igalia.com>
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 08/11] drm/amd/display: make blnd bypass mode clearer
+Date: Tue, 11 Aug 2026 18:45:57 +0200
+Message-ID: <20260811171011.184964-9-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
 References: <20260811171011.184964-1-mwen@igalia.com>
@@ -71,62 +70,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-__set_input_tf_32() can fail on ENOMEM and let the blend transfer
-function setup in an unstable state. Check its return value and only
-enable blend if transfer function was successfully configured.
+If userspace set blnd colorop to bypass, AMD driver just skips blnd
+transfer function configuration. Currently, this is not an issue since
+dc plane state is a reset/default state, but it's not fully correct and
+doesn't mirror shaper tf helper. Make bypass mode setup clear by
+initially set tf->type as BYPASS and let the helper change its type
+according to userspace requests.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 5ed78b44e4e6 ("drm/amd/display: add shaper and blend colorops for 1D Curve Custom LUT")
+Acked-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c   | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index ad67106c6435..c528daefac5e 100644
+index ca9e43e81edf..ad67106c6435 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1835,7 +1835,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 	const struct drm_color_lut32 *blend_lut = NULL;
- 	struct drm_device *dev = colorop->dev;
+@@ -1837,6 +1837,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
  	uint32_t blend_size = 0;
--	int i = 0;
-+	int i = 0, ret;
+ 	int i = 0;
  
- 	tf->type = TF_TYPE_BYPASS;
++	tf->type = TF_TYPE_BYPASS;
  	dc_plane_state->cm.flags.bits.blend_enable = 0;
-@@ -1870,8 +1870,10 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-+		ret = __set_input_tf_32(NULL, tf, blend_lut, blend_size);
-+		if (ret)
-+			return ret;
- 		dc_plane_state->cm.flags.bits.blend_enable = 1;
--		__set_input_tf_32(NULL, tf, blend_lut, blend_size);
- 	}
  
- 	if (lut_state && !lut_state->bypass) {
-@@ -1879,13 +1881,16 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf;
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
--		dc_plane_state->cm.flags.bits.blend_enable = 1;
- 		blend_lut = __extract_blob_lut32(lut_state->data, &blend_size);
- 		blend_size = blend_lut != NULL ? blend_size : 0;
- 
- 		/* Custom LUT size must be the same as supported size */
--		if (blend_size == lut_colorop->size)
--			__set_input_tf_32(NULL, tf, blend_lut, blend_size);
-+		if (blend_size == lut_colorop->size) {
-+			ret = __set_input_tf_32(NULL, tf, blend_lut, blend_size);
-+			if (ret)
-+				return ret;
-+			dc_plane_state->cm.flags.bits.blend_enable = 1;
-+		}
- 	}
- 
- 	return 0;
+ 	/* 1D Curve - BLND TF: find state */
 -- 
 2.53.0
 
