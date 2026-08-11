@@ -4,58 +4,177 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB32C5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 11:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4553EC5CFCF
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 11:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C3E610EB5E;
-	Tue, 11 Aug 2026 11:23:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9948810EB5A;
+	Tue, 11 Aug 2026 11:26:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mtA1F6Bi";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ZDqaLm7g";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZDqaLm7g";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7699B10EB4D
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 11:23:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786447423;
- bh=uYLup99cnNiZiVfM/azyFrqCCYE+R/lI/+jegXfQNh4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mtA1F6BiBD4absVHnYdG7O5z6Tx7eeQ/W+L5cb6ybVuGHL1KlBjBVFLGWe4uUTIqw
- 2vDJCrd1C954ygaDRhKxOyrPyzXYFSCfvOnNNzkZGMFs16DKYJbATWffCIshs2mSh8
- +vaoNRnxkkjxGDatXT8RJKbcVgvBN9YBAk8fqcWwMioFoQtSUsdtH8Dj/b2Hz2YP/V
- 0Zjp+0T90NChCqSpm9qy4M1dP09qwEmqbeYINOhDZoLjIfGr4/sF3FWuRrC3HwPDxl
- N4yzqmjzL4dm4CQIgGJNt4wIlxzFG6wJwUspCYdhDW0YPrhiOjik45aCTrPKvrYndy
- 2oP4ijz+h9bCw==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CFC4A17E0FB1;
- Tue, 11 Aug 2026 13:23:42 +0200 (CEST)
-From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 11 Aug 2026 13:23:42 +0200
-Subject: [PATCH v6 8/9] drm/panthor: Don't defer FW event processing
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011031.outbound.protection.outlook.com [52.101.65.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C517410EB5A;
+ Tue, 11 Aug 2026 11:26:04 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=LR8XLs2K7Av+AN8MFbA38rp+OtYJPybhHowexY5/w4ouSFJJ7P/yP3vj7Cm2IeTMlZUj1pQ0O/2xjCMBBxbLjGLOU55YHqcINNoh6I/SyXT2Vo8NviLhu9ja9UKLZ/MUPzP2Kz1b2WXJPpwW1Fxm68JpYbJBXvmvh3sW1r9D4hLkQDayxSjkruAHPxmAnkffcN1lRWpMdfWrzDgEFtzrarXmMiFXblxTSucUPpQetKHzyHdwmnPeiPOsTpNg73awK3ttMZ8tT/0KkdliCas5KKrRIIfbM4WvDorehZIAmpcMl1cijjZcpJUC9+61eQBB5En17HO8PVWcxM2YYaNCcA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Upa8H8lYci2AEeo5pg4WAAxc+FTB6t5I5dTvHmgOG8=;
+ b=arhJojw6f6UGnxzfNGNedm3EQ31RL+LDDUtCFjgoxJgxH0RGYktGR8/+2qcqTfubb1JHgR8nHmVO9oOC4zjDWAJq81J1hXJ8TQRMZU/Xd+qMZVtX6Szi1NvtBpGif7CZRlZt06G5UJU3ijGMpdRGZRgKDjDJjDAV0achaWfQ8bXAMxQICwThYJ6+MhlbSbWpy5cT7ZXJ5iJz8Ql3kzozGUMZcYJbC09tm/1mI8nOia3fX5Ed/jQGw0p6HjBIJhV8g3q2fZIvxwKbDG0HTiroHKak2ZXnLMQ0iNBOJgkEXbBp42CIW9wEmUCx91ZFp/Y5npRVsUrr0W7dnu36MqtQ2A==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Upa8H8lYci2AEeo5pg4WAAxc+FTB6t5I5dTvHmgOG8=;
+ b=ZDqaLm7gWhUITSg3PvlCRuHDeaF0jtytI9AB0HVCOFjQL41efiVP1AEJKscTP+JFRYc3f4vwBxX6ZAv4Y4PTsCJUFq4gLgyuAFM1k5WCHt84HzI07ZD2DqdbEand2v5A73ThSJ6I32hkVU7sgGurUuuZJ0gjrk4FBCJjr8mRbic=
+Received: from AS4P191CA0033.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:657::20)
+ by AS2PR08MB8747.eurprd08.prod.outlook.com (2603:10a6:20b:55f::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 11:25:57 +0000
+Received: from AMS0EPF000001A9.eurprd05.prod.outlook.com
+ (2603:10a6:20b:657:cafe::7a) by AS4P191CA0033.outlook.office365.com
+ (2603:10a6:20b:657::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Tue,
+ 11 Aug 2026 11:25:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AMS0EPF000001A9.mail.protection.outlook.com (10.167.16.149) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.6
+ via Frontend Transport; Tue, 11 Aug 2026 11:25:57 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rfpSa1oKx33iClOdPa8JCMayv6kb2mS5cLSdASv8gqPN7G9jRNvNZr0BRV4nAn6sr7qPWueIE9ojHmSandXoWV6JVIpWCGw0mabIwDi3hHXaLXz/d09eY9YS/qmXGiad6Nx7LwvsP3kdsAo4tvgS/k3HhLmg2aGodcwlkU1qKK2+WtV5Z5feAlL1aVtakk4g/bMK/rfm4u6YKvP7XXcz9/i8d0vgwi39NfSQ1znyncgm9lObFdDx6hgSgY61WahCZgSNmpzHZZeo5EpCJhHGjpN3AhYm7QSKGEWktVwtPMb8mZ/r7AU9IqrFuiWeqKZGgdDb0JOBgfrWxcD4VVqDPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Upa8H8lYci2AEeo5pg4WAAxc+FTB6t5I5dTvHmgOG8=;
+ b=wPp6P2gJ4yNQDU7fWUD1/g6d6JagwvLy15xCBXNctqNPVJNxT71iw0065K7P6c05Yufxg2vVpUuu1t5vH85kR7TRcPvqyfqE4PpXf6TAwLs89iK9hg0BqavgDwN8+AFGzg+osrO2SGItVo/uJYHvmGhmr1GRm5CljI++dqBRw+wB0W+Td9dzJ9gI8qkjy1cSs7hPwJtlQDELDD7lUnOQFut0LFcDCBf3Y/x99uqfZF2ujpT45Smb/nAIPnrxA1r7ex+SOUNkIqhY2cmz+HO2/YWS3qbYInruq9XQi0dBfnhbKn5vsoPQbFeEi7DmozIPRLvwFmokHwABpcYYEaWsiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Upa8H8lYci2AEeo5pg4WAAxc+FTB6t5I5dTvHmgOG8=;
+ b=ZDqaLm7gWhUITSg3PvlCRuHDeaF0jtytI9AB0HVCOFjQL41efiVP1AEJKscTP+JFRYc3f4vwBxX6ZAv4Y4PTsCJUFq4gLgyuAFM1k5WCHt84HzI07ZD2DqdbEand2v5A73ThSJ6I32hkVU7sgGurUuuZJ0gjrk4FBCJjr8mRbic=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
+ by GV1PR08MB8033.eurprd08.prod.outlook.com (2603:10a6:150:9a::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 11:25:13 +0000
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0315.008; Tue, 11 Aug 2026
+ 11:25:11 +0000
+Message-ID: <85286df7-363a-4671-bce8-8157ae5c8f02@arm.com>
+Date: Tue, 11 Aug 2026 12:25:08 +0100
+User-Agent: Mozilla Thunderbird
+Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 2/9] mm: make hw_pte_t visible to generic PTE interfaces
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ David Hildenbrand <david@kernel.org>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-3-usama.anjum@arm.com>
+ <7xbai2nyu6nuyr6otqv556dnphpgwaqsmvwkqwoqwbh5nvj3ns@ddy5ezgvb7w3>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Content-Language: en-US
+In-Reply-To: <7xbai2nyu6nuyr6otqv556dnphpgwaqsmvwkqwoqwbh5nvj3ns@ddy5ezgvb7w3>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-panthor-signal-from-irq-v6-8-12f2ab53d735@collabora.com>
-References: <20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com>
-In-Reply-To: <20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Chia-I Wu <olvaffe@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786447418; l=3475;
- i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=uYLup99cnNiZiVfM/azyFrqCCYE+R/lI/+jegXfQNh4=;
- b=GhNnEUzGhzkGsuNVtJmgyzq8u7oYNcPW1lBo65LCsb0k53o1nFP65iSUGGuseh88PodWk7ih4
- KBTxRE8xzJ3A2WqS1ujRIJ/asrB9OMZnHseb//2slMpvEJe+HrpGKuZ
-X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
- pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
+X-ClientProxiedBy: LO4P265CA0164.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:312::13) To VI1PR08MB3421.eurprd08.prod.outlook.com
+ (2603:10a6:803:80::16)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|GV1PR08MB8033:EE_|AMS0EPF000001A9:EE_|AS2PR08MB8747:EE_
+X-MS-Office365-Filtering-Correlation-Id: b28951d4-3669-499f-4352-08def79b5085
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|7416014|56012099006|10067099003|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original: S6S52yYdxtDtrbu3+R3LqA1hBff1nj/2rLzT9GQ0+Ov8ipkmk0O3mjgrS/DUQ1/AFHfZWm9IZqKqqBU43nupYPXdHctB4A1PEZb9VDmjzZVISz3QfTXgSdr/68htGFhRc/j48gtQ4l6+L4ZW1nZja24rc6nWlSCYCtCWwtrMSs9R7h+dNpcLi2YgHViFI9Py9PcceBHI2y1hbD3tgIm9e45D/TvCqL/DDHF12QMIcti8yIvgdyO09z7AYYF74iZeACzU7uBne+6EXxl5OTZFg6QDzYUP73s7GSAEpT8D0uC32vGvMHjG8m+SK/kgAzP+Nmx82vnMrK3xq8uA+VWijeEIKRH0QxmnSwYsuk1AtsGokPKiK6I6K7ncpwqGz621yibL1B1X/TtMxwipICwYVw/YV+fP2FF6t2BPeh9+LOL+/jJ5P4Q0nEQm8VGkWH7CqIW3RZfdDrfhmWwygRbb4FGuEulKGS0Zb9XSJgqJ/zyiqn5W4UNQbXYIOTge5Vv9t0ogYUJ+UEirnawh/Dtsl7J7crALwP6tP+AkARGX3R1W7ZcuiL99OIu2CO3DNYis4WRH+XIaGeh4GtZWlHcy/Q/iSOzNy8TKPbP6PMGBNW2rO6bfWb0+8p3gurQ1AfDE8vOseTc5WWE/ndAm09GMDOSotmNmMi7644PyBtk9BhE=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(56012099006)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: HcK3rNnbwnlUGSwsDidSABGG1HQSoO72TkmhaC28ctmrJg8jVmz1OTzbiHJyHscmR1RSZ/MVJf3UF+V1Dje2C1z7jQczHvpZZk9NqnA1pIaWUyQ0NJGWUP8OQZQ7BxNR+CvvvJU4JV3+pgE+pVX/LgqCg/GXYo9PNipkTyJMz9mRgXBJrvoOJFLveHRnnNj6ydDRiY+xZEs2n9JOMvPO5HLQY82ufTlmcOJ3FL9PskIALGq/04QKaGj1BuKnnTOeCwktvBeWr/VO5+ier2emXtvzMh/0Yd8zfkfTpnuAfv7qGuIggIUVnYNjisH2v/7Pxh+mGQifH9TryIJK1GhcFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB8033
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AMS0EPF000001A9.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: eedea4c3-0f48-4936-b2b9-08def79b350b
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|14060799003|36860700016|35042699022|23010399003|1800799024|82310400026|7416014|376014|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 6KeX0Y8hlJ6T8DzdMW1+mLWuzvKwSvsLtVaM1FZSBYQFe2/wJ9AM2jY6ZKYld4Xl2hdLlFmzsPGUB5r4A4gd7B3BDO7zfp+pOAwufqbeXfYmrHSUmyqnHgYGKQTtPxLxVvlkmrZV6SHU2W4jdHN5JitLujQKDD98cTOrNXmnw2rMrGNzhPel/sMCrrxUOwcDyNJzMhjNvTihybUfZEVVS6KX6L7TIuHg6Hrt5ougauduq1FrBUL+6J76wEjtl/xKDnxve5EXBb7d1FXkUSfEgNgAHCwP0vZIRt40S4BHfeSviAlN4pxqH2tUK41SRVj5I7A6f+xUG9WT0yFTvXowhCvXxrlE3eD+2PiLSAOujzLikwzfHMtN9knYkKcDtMFMcq+/iqei+pN0DkXdGTnlV5+aILrwkI5aQvTaP5+NzPWrhEmc3B+TO+4dcPLY1VlERE1j70QDf71kHs4R3st0+eZpsjxeFEOV3sxJo8/V+bdpg8iT81OrvEvWHFyrFBPyta3aIdfh0/WyiKDrN2Lp0d8WTKmHlQFnlvDseOO3dPGPLGROGxMiC/xqCne8h2QWiQKpjdh3pJipAoo3nL0btv/sUspBv1jsoWkKSEk8X3xlhoLcq4AWhm3rWFtoTS3eh1ZCxS7IbIcbzCEVnAAXUrXMliI1AAoko08NSYK6d4Fj3BLijKjNKhwfbDVCGGcgRmz0pcNOwhIIpwUuMdFgsg==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(14060799003)(36860700016)(35042699022)(23010399003)(1800799024)(82310400026)(7416014)(376014)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: PpJWUGBI0WXngUjmkkmjZ8b9gVABqPlGGdB9in5/n5SVZR/asrpHB7LtoHfG4dL4AjWVyKTXpsEwcsX+jvKJYl51kZwclhNMX8lZECOJjm1ho6qMO3JWlgYLZbH1Fq9uRoCjmRSkf89Wu5QQgQiJQn7NgXUp1gxZDG+bm7d6kU7ubZhtxXLe55hhalbMJFecFRP3KRfX1w+j6xBke2NFN/V2E7odXBw/sjlfrNmeBofeAKv/j7gH42MDjAGWfA8EQwUOF8zhAC42fhaPcfmtjCYKn4wJElqHNc37lF105kHubkPzm7VB2ryGNn/JgYeP0MlcOcYG1Dn5KUpILs7lTmk+Xjb5U9iSSjI4JApKKGTiYPMVqrcCIQYYHQEHa09ZjxJEZjARr7DDEpsYzqGq0xo6ca/UhZFYZtmedtQ2phr8KIsEK0Kbi9zCAxauV+9Z
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 11:25:57.5424 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b28951d4-3669-499f-4352-08def79b5085
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF000001A9.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8747
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,104 +190,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Avoid a workqueue roundtrip and process things immediately from
-panthor_sched_report_fw_events().
+On 11/08/2026 11:15 am, Anshuman Khandual wrote:
+> On Thu, Aug 06, 2026 at 09:38:40AM +0100, Muhammad Usama Anjum wrote:
+>> Later conversions use hw_pte_t in page-table checking, generic page-table
+>> helpers, and vmalloc interfaces. Include linux/pgtable_types.h from the
+>> headers that declare those interfaces before changing their types.
+>>
+>> For vmalloc.h, replace the direct asm/page.h include with
+>> linux/pgtable_types.h. The latter includes asm/page.h, so pgprot_t remains
+>> available. It also provides either the default alias or the opted-in
+>> hw_pte_t wrapper.
+> 
+> Stand-alone header file updates are not ideal. Why cannot these changes be
+> folded in, where hw_pte_t gets used first time ever in the above mentioned
+> places.
+That's correct. This patch should be merged with the 3/9 patch. But that patch
+is already too much big as it was generated with the help of Coccinelle. So I
+kept it separate.
 
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_sched.c | 48 +++++++--------------------------
- 1 file changed, 9 insertions(+), 39 deletions(-)
+Do you still think we should merge it as its a special case?
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 1ef9da55030c..8016b0a55173 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -177,23 +177,6 @@ struct panthor_scheduler {
- 	 */
- 	struct work_struct sync_upd_work;
- 
--	/**
--	 * @fw_events_work: Work used to process FW events outside the interrupt path.
--	 *
--	 * Even if the interrupt is threaded, we need any event processing
--	 * that require taking the panthor_scheduler::lock to be processed
--	 * outside the interrupt path so we don't block the tick logic when
--	 * it calls panthor_fw_{csg,wait}_wait_acks(). Since most of the
--	 * event processing requires taking this lock, we just delegate all
--	 * FW event processing to the scheduler workqueue.
--	 */
--	struct work_struct fw_events_work;
--
--	/**
--	 * @fw_events: Bitmask encoding pending FW events.
--	 */
--	atomic_t fw_events;
--
- 	/**
- 	 * @resched_target: When the next tick should occur.
- 	 *
-@@ -1971,14 +1954,17 @@ static void sched_process_global_irq_locked(struct panthor_device *ptdev)
- 		sched_process_idle_event_locked(ptdev);
- }
- 
--static void process_fw_events_work(struct work_struct *work)
-+/**
-+ * panthor_sched_report_fw_events() - Report FW events to the scheduler.
-+ * @ptdev: Device.
-+ * @events: Bitmask of pending FW events to report.
-+ */
-+void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
- {
--	struct panthor_scheduler *sched = container_of(work, struct panthor_scheduler,
--						      fw_events_work);
--	u32 events = atomic_xchg(&sched->fw_events, 0);
--	struct panthor_device *ptdev = sched->ptdev;
-+	if (!ptdev->scheduler)
-+		return;
- 
--	guard(spinlock)(&sched->events_lock);
-+	guard(spinlock)(&ptdev->scheduler->events_lock);
- 
- 	if (events & JOB_INT_GLOBAL_IF) {
- 		sched_process_global_irq_locked(ptdev);
-@@ -1993,20 +1979,6 @@ static void process_fw_events_work(struct work_struct *work)
- 	}
- }
- 
--/**
-- * panthor_sched_report_fw_events() - Report FW events to the scheduler.
-- * @ptdev: Device.
-- * @events: Bitmask of pending FW events to report.
-- */
--void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
--{
--	if (!ptdev->scheduler)
--		return;
--
--	atomic_or(events, &ptdev->scheduler->fw_events);
--	sched_queue_work(ptdev->scheduler, fw_events);
--}
--
- static const char *fence_get_driver_name(struct dma_fence *fence)
- {
- 	return "panthor";
-@@ -4082,7 +4054,6 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
- 	struct panthor_scheduler *sched = ptdev->scheduler;
- 
- 	disable_delayed_work_sync(&sched->tick_work);
--	disable_work_sync(&sched->fw_events_work);
- 	disable_work_sync(&sched->sync_upd_work);
- 
- 	mutex_lock(&sched->lock);
-@@ -4167,7 +4138,6 @@ int panthor_sched_init(struct panthor_device *ptdev)
- 	sched->tick_period = msecs_to_jiffies(10);
- 	INIT_DELAYED_WORK(&sched->tick_work, tick_work);
- 	INIT_WORK(&sched->sync_upd_work, sync_upd_work);
--	INIT_WORK(&sched->fw_events_work, process_fw_events_work);
- 
- 	spin_lock_init(&sched->events_lock);
- 
+> 
+>>
+>> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>> ---
+>> Changes since RFC v1:
+>> - Clarify that the header provides both generic hw_pte_t definitions.
+>> ---
+>>  include/linux/page_table_check.h | 2 ++
+>>  include/linux/pgtable.h          | 1 +
+>>  include/linux/vmalloc.h          | 2 +-
+>>  3 files changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/include/linux/page_table_check.h b/include/linux/page_table_check.h
+>> index 12268a32e8be1..12ee6d16ad339 100644
+>> --- a/include/linux/page_table_check.h
+>> +++ b/include/linux/page_table_check.h
+>> @@ -7,6 +7,8 @@
+>>  #ifndef __LINUX_PAGE_TABLE_CHECK_H
+>>  #define __LINUX_PAGE_TABLE_CHECK_H
+>>  
+>> +#include <linux/pgtable_types.h>
+>> +
+>>  #ifdef CONFIG_PAGE_TABLE_CHECK
+>>  #include <linux/jump_label.h>
+>>  
+>> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+>> index 8c093c119e5a8..cf595608cc4c4 100644
+>> --- a/include/linux/pgtable.h
+>> +++ b/include/linux/pgtable.h
+>> @@ -4,6 +4,7 @@
+>>  
+>>  #include <linux/pfn.h>
+>>  #include <asm/pgtable.h>
+>> +#include <linux/pgtable_types.h>
+>>  
+>>  #define PMD_ORDER	(PMD_SHIFT - PAGE_SHIFT)
+>>  #define PUD_ORDER	(PUD_SHIFT - PAGE_SHIFT)
+>> diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+>> index aed121d729b01..b068e6ade4207 100644
+>> --- a/include/linux/vmalloc.h
+>> +++ b/include/linux/vmalloc.h
+>> @@ -8,7 +8,7 @@
+>>  #include <linux/init.h>
+>>  #include <linux/list.h>
+>>  #include <linux/llist.h>
+>> -#include <asm/page.h>		/* pgprot_t */
+>> +#include <linux/pgtable_types.h>	/* pgprot_t, hw_pte_t */
+>>  #include <linux/rbtree.h>
+>>  #include <linux/overflow.h>
+>>  
+>> -- 
+>> 2.47.3
+>>
 
 -- 
-2.55.0
+Thanks,
+Usama
 
