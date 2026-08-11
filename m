@@ -4,93 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45441C5B56A
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BF5EC5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F04C10E24D;
-	Tue, 11 Aug 2026 21:24:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6371510E263;
+	Tue, 11 Aug 2026 21:27:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lzNnglaF";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="c2F2SqeJ";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88B2B10E24D
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:24:26 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-47f6981d244so24626f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786483464; x=1787088264; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=WvCeOL9JP58AfB/MRzhZ0CTB3RYi+jJQ1QyJ9ty4SVE=;
- b=lzNnglaFPaI33YylPqiB2gP8BinSRdQZfbneW2tBVSQv5nKGRbevNN8ZEPZ1SFpsy5
- GGrj0KVaKcCf3GRRZkl8+Mj8xt0RLztpL73PQbMQvLKprYmabUojh7Q5mkkzVGQEbwpV
- dB8RUu0qi9IhyHYaeXaW92vVIIg8hpOS4k31JiU7a7qETjNCHTAj9jgJeeVbODLLbIML
- 5sAU2pjak9JVx5eWUCCSWjTY0WJx5pHq1eL4VH3JTCuM7u9gUUUUJf8uhzWs6o8FepHI
- iYObAlYfz5y/lsnnYBsmMeviOK4VCSeUJnxIkHnEQ7sUnqlrQDJZD7QvmZgdAAZyf7KQ
- Nb6w==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EDBD10E2F4
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:27:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786483622;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VyjTfJ6M6WhikLFiddpAGC6DAl6KdSUSHU1hQ6sGp+U=;
+ b=c2F2SqeJBjBuTqgCP8FHmHO73V0kc1cuRjJY+568JAEgIFnwkAG+ENxSPmHsIK+RRdZBWv
+ y89+MRtnwr0yUsTT2H7C55XuUKGUb745Jb2FuIabiw4zWAsqT/pU97e9LuVJb07Qc6epfo
+ EtH1sTleuTP7ARFdNWTc+xVRKk3OQVk=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-650-9IzfZPsAM0-t8i9xg8Alxg-1; Tue, 11 Aug 2026 17:27:01 -0400
+X-MC-Unique: 9IzfZPsAM0-t8i9xg8Alxg-1
+X-Mimecast-MFC-AGG-ID: 9IzfZPsAM0-t8i9xg8Alxg_1786483621
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-51c01ff996dso5461981cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:27:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786483464; x=1787088264;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20251104; t=1786483621; x=1787088421;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=WvCeOL9JP58AfB/MRzhZ0CTB3RYi+jJQ1QyJ9ty4SVE=;
- b=MxfdJmbuD7BrouFitVJnNi01mHwiCHI5CdsCU/n4U0oLGEsS6lsjkW2d+QeEvjpl7z
- ECxX0EEmZlbBaPipo4FvBO0b7sikqhFhEIoS24xyEGHjrRCu9ymARoir2Xjex9ZmxK/U
- CWnPsOf0ldE4xil8tKsOsvBlN2jDJErNW+ebzXm51PzERiWCTldt3M9U3CpUX0YoOpRx
- PU2cMQcEAr9F+k9LB9lu2wLC4twgZY7o2C6olMtEL/BCqt8SSCsw3udun7Ekg3AuYvXH
- M8Yl1VKtDJUpRH9idZLw6Wa4A+SoFd0XR9RE0+b0edTsEw3f7CXbd7bKVs1fXwbvjghd
- htRA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqAf+3jcAYlHg2k6gvACAS6C97DeVOZYLqRgDuVq7p6uiGfkJbGg8fC4nxCw08Wa6GyemL7QB02hX0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxlVHXxfMzOORTBFvaAJ0bb9nF2HmRh0gLrjkI1NZCpFU0LiZ1S
- kvg+gdBPK8WwEfS82OJJWFDBFe+JZtKlluTDEEAlz16hm3nhAxf7h9q2
-X-Gm-Gg: AR+sD11lO1ejrkWWTIlptCfZOKghluUejmkn1w5Ohr5RC/mtTI7mQWhXmJQj0gUmkBh
- y/cMK18LQDAFPSeLNn4hcKZSGoYCZqSWGVqxLS9gQtwADfUg4xI7W23tftQLo4pzibtBH31YJfR
- GKoJteIcGorBRlG5b8i1agwt7Rdyb+iJM0ndGd7DfirtlZZmDa0RnYFimf0InqOaOPCTjtSFhfJ
- GA9nRSJUu9gGLlBQoNaWgKwlBPoXuERuUErOd5CYNgAG2nFWmkxcjOiaGTPM+B3wAu1UIuXfycm
- 40nEcGjnxmif3GggHY8SN8Q3sQq2nHV+834ynvFsa/IGXi9+32Q9DwPMjfmMoOhDHF9iHyG+Dra
- 8VuSMTPgvUhaqXOHA1DOvO2IISZ4XyO5W3Uc3uRHTed8i5MdLlskgF0+gkwNFeu7DSWFe0DDver
- nqLhg+TVd3jMxs01ZZeqArH5TnBES1+FI6TvDRTr5TpztvAP1aaKLNt0/xW1wHuwv218ufoAqF7
- tOfzY2Cv1wehSCdiEi7jXRSW+hmWj8AFZX/1pcYvPIEUkg1EWm7F5JBM8B30u+98LJKiQ==
-X-Received: by 2002:a05:600c:1f82:b0:496:bbce:ef with SMTP id
- 5b1f17b1804b1-4997c15bc31mr801435e9.3.1786483464434; 
- Tue, 11 Aug 2026 14:24:24 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B94ED005B06BF1B5A09FFE4.dsl.pool.telekom.hu.
- [2001:4c4e:1b94:ed00:5b06:bf1b:5a09:ffe4])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4997aac6e85sm20674225e9.14.2026.08.11.14.24.23
+ bh=rTYFSNNmHE5Ej6nfI5EPC0KoXgMH1Yho7tZYF93ZSko=;
+ b=EkL9fcA0mSXV2n5xfNkjBdEUxlL77jkrYbTgYKp1M6pKHodtQZ5qLDZmIs5CcFpPkf
+ 6wKrfeG8aWIBm9N4R0F9qFn77D/+TVZlulTTLzPDLyUkNeZUiI85aHl+hRa4gE4EQHIQ
+ SDO0AE2owONXUCCsegxsz/Ck34cQGFrO2gpA5zbExZ28/ywfEfcm0d9ciBm5W59dr/4I
+ Ekyn466gXa8qQ20ujeORKba/yrDYoopBvSuz14lCuwH2fGjGI/czjBjsst0RDjhnZy/h
+ Ae9+GG9SrMP72brZY3WAfBGQl/GiQto3Mi3UF4tOmjyyH1Erj2L1pOHPCeWBYXfKet7O
+ WMow==
+X-Gm-Message-State: AOJu0Yz9dYvc9QU/SOnfG88Bey5S5ovyjPHUBHHzdtfIPVAMcebgkOgg
+ +LOzgSkfsY8iC5jY7j3atjgXz8LCgvSE2g+vgCdxIRIoccd2hTjn2NK6kHJt8IGZsJJWg4kePKO
+ HXa9Lyx8LiMwDXXI4UeYia+qvJYLKtXSLmpP68PuFFweK2LieRHqStgcbkiMkvn8b4axn4w==
+X-Gm-Gg: AR+sD12bPGEGIykcu/xgxJ0UWgYap89mfmeiFdUAz+xANt+gQr7NIpS5ZP3CYBGBX7D
+ 8QDvNI7YTs3JIeXVbyLnvC1Kwx+Lunp9tlsgLjt8Ep8nWwKugTqiW+b7C86jO9m1bkUlXyhr4Tg
+ zgXmNHMmKuILPqaLHmznD5aDMypsZIYd5xYAIULWJ+cLOugwBfQ5qOUPKsD7y3Q7X9oPdXvtg+w
+ 0mLO1thE7tIqW7ZJmyx+THuzsAX4fNjVNCe1t/qmdUSG4CU5OW73wt+Djqiyt/LqPANOFcY2DBE
+ riIw/5fe5DU/w/+8jj+s/D0DWC4OzGJ1UPs0DjfXdBjR/srcHXQMBDxA6W7B6dMsNZLbbXgd
+X-Received: by 2002:a05:622a:1cc7:b0:521:934c:bcf with SMTP id
+ d75a77b69052e-52d64838801mr2843851cf.41.1786483620642; 
+ Tue, 11 Aug 2026 14:27:00 -0700 (PDT)
+X-Received: by 2002:a05:622a:1cc7:b0:521:934c:bcf with SMTP id
+ d75a77b69052e-52d64838801mr2843391cf.41.1786483620229; 
+ Tue, 11 Aug 2026 14:27:00 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-52d61d91199sm4729021cf.14.2026.08.11.14.26.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 14:24:23 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Alexey Charkov <alchark@flipper.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: drm/rockchip: vop2: ACLK_VOP pinned at 500 MHz starves DP 4K120
- on RK3588
-Date: Tue, 11 Aug 2026 23:23:50 +0200
-Message-ID: <20260811212358.9980-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <c0a7521d-9c19-4197-802b-2b64a6ddea28@rock-chips.com>
-References: <20260808104240.13776-1-royalnet026@gmail.com>
- <33bd4a94-11af-4cf3-ae44-b7f8944250f6@collabora.com>
- <c0a7521d-9c19-4197-802b-2b64a6ddea28@rock-chips.com>
+ Tue, 11 Aug 2026 14:26:59 -0700 (PDT)
+Message-ID: <3449a374543614d15655576d13d87c3822e29896.camel@redhat.com>
+Subject: Re: [PATCH v2 1/3] drm/nouveau/uvmm: fix NULL deref unwinding an
+ OP_MAP_SPARSE op
+From: lyude@redhat.com
+To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Dave Airlie
+ <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org
+Date: Tue, 11 Aug 2026 17:26:58 -0400
+In-Reply-To: <20260811-nouveau-uvmm-vmbind-fixes-v2-1-aaee4b395d04@gmail.com>
+References: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
+ <20260811-nouveau-uvmm-vmbind-fixes-v2-1-aaee4b395d04@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: EGk46m5z_ccP_OoOacXf3PFEpX-Qf3bOxBCj6SenSMU_1786483621
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,81 +104,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chaoyi, Cristian,
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Chaoyi, your reading fits my own measurements better than mine did.
+On Tue, 2026-08-11 at 16:46 +0800, Zhenhao Wan wrote:
+> Each bind_job_op is zeroed by kzalloc_obj() in
+> bind_job_op_from_uop(),
+> and the OP_MAP_SPARSE case in nouveau_uvmm_bind_job_submit() only
+> creates
+> a region, so op->ops stays NULL for a successfully processed sparse
+> map.
+>=20
+> If a later op in the same job fails, the reverse unwind loop revisits
+> that
+> op and calls drm_gpuva_ops_free(&uvmm->base, op->ops)
+> unconditionally.
+> drm_gpuva_ops_free() dereferences its argument right away
+> (list_for_each_entry_safe on &ops->list), so a NULL op->ops oopses.
+> The
+> path is reachable by any render-node fd holder, since NOUVEAU_VM_BIND
+> is
+> DRM_RENDER_ALLOW.
+>=20
+> Guard the free with IS_ERR_OR_NULL(), as
+> nouveau_uvmm_bind_job_cleanup()
+> already does for the identical free.
+>=20
+> Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_uvmm.c | 3 ++-
+> =C2=A01 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> index 36445915aa58..849bf42c124e 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> @@ -1489,7 +1489,8 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job
+> *job,
+> =C2=A0=09=09=09break;
+> =C2=A0=09=09}
+> =C2=A0
+> -=09=09drm_gpuva_ops_free(&uvmm->base, op->ops);
+> +=09=09if (!IS_ERR_OR_NULL(op->ops))
+> +=09=09=09drm_gpuva_ops_free(&uvmm->base, op->ops);
+> =C2=A0=09=09op->ops =3D NULL;
+> =C2=A0=09=09op->reg =3D NULL;
+> =C2=A0=09}
 
-The link in that test was running YCbCr 4:2:0, so dclk sat at 594 MHz
-for a 3840x2160@120 mode - the interface rate was the cheap part. What
-was not cheap was what the video port had to compose: a single
-full-screen 3840x2160 ARGB plane at 120 Hz. So the case I reported is
-one where the interface was modest and the composition was not, which
-is the direction you are pointing in. I framed it as a DisplayPort
-problem because DisplayPort was the only thing I changed; that was the
-wrong axis.
-
-I should say what this bears on directly, because it is not
-hypothetical for me. I have a patch here that I have not sent, which
-replaces the frl_enabled condition with a threshold on the pixel clock:
-
-  static bool vop2_needs_aclk_boost(struct drm_crtc_state *crtc_state)
-  {
-      return vcstate->frl_enabled ||
-             crtc_state->adjusted_mode.crtc_clock > VOP2_HIGH_BW_PIXCLK_KHZ;
-  }
-
-with VOP2_HIGH_BW_PIXCLK_KHZ at 1000000, so that any video port needing
-the bandwidth can ask for the higher rate. It also guards the refcount
-on the way, since atomic_disable() runs for ports that were never
-enabled and the counter is unsigned. It is written against the
-rockchip-devel branch, on top of the commit Cristian mentions, and I
-was holding it back until I had a threshold I could defend.
-
-Your reply says the quantity I keyed it on is the wrong one, and I
-cannot argue against that from my own data. The measurement the
-threshold came from is that at 500 MHz a 2560x1440@144 mode stays clean
-while 3840x2160@120 does not. But in both cases the port was composing
-a single full-screen plane at the mode's own resolution, so mode and
-composition moved together and the comparison cannot separate them. If
-the rule belongs in terms of what the port composes, then the pixel
-clock is at best a proxy that happens to fit the two points I have.
-
-I would rather learn that before sending the patch than after. Two
-things I can run here:
-
-  - your first case: hold 3840x2160@120 on DP, leave ACLK at 500 MHz,
-    and scan out a 1080p plane instead of the full-screen one. If that
-    comes up clean, the pixel clock is not the variable and the patch
-    as written is keyed on the wrong thing.
-
-  - your second case: a modest mode with several 4K ARGB planes
-    composed at once. I can drive that over HDMI, without the USB-C
-    adapter in the path, so it is a cleaner test than the first.
-
-Is there a form of the condition you would consider correct? What your
-description suggests to me is something derived from the composed pixel
-rate summed over a video port's enabled planes, with max() across the
-active ports rather than a refcount - but you know what the hardware
-actually stalls on, and I am inferring it from an interrupt counter.
-
-Cristian, understood on HDMI. If FRL and TMDS can serve the same mode
-at different fixed rates, the mode cannot determine the rate on its own
-and a bandwidth rule cannot be the whole story there. That answers what
-I asked. Whatever shape this ends up taking should keep working for the
-FRL case you already handle rather than replace it.
-
-One thing worth carrying across from the dw-dp v11 thread, since not
-everyone on this Cc list is on that one. Heiko reported that on his 4K
-display he gets no output at all at the stock rate, and some output
-after raising ACLK_VOP to 750 MHz, although that output is garbled:
-
-  https://lore.kernel.org/all/20767137.geO5KgaWL5@diego/
-
-So the starvation reproduces on hardware other than mine, which until
-now I could not tell apart from a fault in my adapter. The garbling at
-750 MHz is not something I see here - the picture was correct the
-moment the write landed and stayed correct - so that looks like a
-separate problem, and I have replied to him on that thread rather than
-fold it into this one.
-
-Igor
