@@ -4,90 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDDEFC5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA8BCC5CFC1
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3878410EDBB;
-	Tue, 11 Aug 2026 21:56:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AAF910EDBE;
+	Tue, 11 Aug 2026 21:57:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="SxMSZEMQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YL10zsoh";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D7910EDBE
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:56:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786485390;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UfO5GTjXHvoFpUxirelLBunZxdJGiurIwuNIlIkF25U=;
- b=SxMSZEMQAaeEHAiU58GdJ2VMYi7v+PzvBQQ6CPfh5Uid+oSX1wOZYMfpzaHYQk81KG+37+
- GMUuEXPTHL5b1pnIev7/q39yplfgJcIQdPwXK4w0J7YK69GcbdeEG9nStLr/gpMxzLHDas
- ug5M3f9GW+58eobUiTrXofDQNh1lV70=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-359-S8xrD1BFOyqFT5HfIUKc3g-1; Tue, 11 Aug 2026 17:56:29 -0400
-X-MC-Unique: S8xrD1BFOyqFT5HfIUKc3g-1
-X-Mimecast-MFC-AGG-ID: S8xrD1BFOyqFT5HfIUKc3g_1786485388
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-907b38aaad2so2144276d6.1
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:56:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786485388; x=1787090188;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=UfO5GTjXHvoFpUxirelLBunZxdJGiurIwuNIlIkF25U=;
- b=ZGq5e/GBXzcpbKYFh7cJlbJvIkpQZ2C3t36iqKBJqkdHFGIk6Icln20BDNEGzJMmWG
- Vbk7Y4IMyRarJGU5WRYbf26BrSzQbe3RDEJEgaXQHEqkUj3+ypQFQWRpz7/Cgv8k6udK
- JQ7TsCuwVfHoa9yb5GOw3t8cS+Sm1f7KTojc5gO7VHLd6o0l+EDijjIIleNR3tV1lR5s
- RDlyTnDBUT2JUYeFaFCS3pdVuh/X5fSosJjR07u+uINrtJm3vYy6AG811978+wZba2Qe
- oeeu4Ck4u7QtJ26F6mWWzArPvseJfCQSj75f7IivMsUQn+eYcZuYDaSENlRBxb29uFuz
- 7ajA==
-X-Gm-Message-State: AOJu0YxOkP5kgPQr7HZTUD06/KtQQ0vhIFtCqzuVQj+BgtUzn+PudUwD
- kKDsOYQsffVZpRfpuqMlpVBveXB8sOEKj2mUaZF5JoHDq4piK9MvhuN6xZNOXY3rRzaJNFrr+JH
- u2eNe0bGwmibUo53Fu5dtDQqnvALnRYyyc0yniKNG/Fz8RDUGgwBwSxMhLRfvbmCY4HYOmg==
-X-Gm-Gg: AR+sD121xPCnib+YA7wUMGqlFeT+5n6gGVDwrI1oNRGBl69mjbmN0pXBYXhBttZ/wUz
- 0zfjO2RuoUFOhlAFi/9Nm3jfKAebH3keOOr4HyeGGi4KKeeJ2yx3deDuOaLKK7HfQJyeaaWcMLw
- LeKCe+yB94qiMYYr3XY8PnfOlN7DsQqcKd0XvQneT9qDP1eH8JEDRSefpi4a1Hhz06rMjD/CoH1
- s1mHsl4v+KQhMwJzwaM7HPn9QJogw7OWx+b6L3Jb+VcWNaF/r1s/hGzSADP6uqHPlryO5oll+km
- ydG0/azwxdI9Crl5rtveNIOoeJEnPZho/f4LSwWnMD8vO/sqrfKoXjLh/TxC5+kUeVB4QWzV
-X-Received: by 2002:a05:6214:44a1:b0:907:5150:a2dd with SMTP id
- 6a1803df08f44-90a6ff95966mr2475526d6.14.1786485388320; 
- Tue, 11 Aug 2026 14:56:28 -0700 (PDT)
-X-Received: by 2002:a05:6214:44a1:b0:907:5150:a2dd with SMTP id
- 6a1803df08f44-90a6ff95966mr2475246d6.14.1786485387868; 
- Tue, 11 Aug 2026 14:56:27 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90a6c26d83fsm8495466d6.4.2026.08.11.14.56.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 14:56:27 -0700 (PDT)
-Message-ID: <1fb27dc24b3d01c9a6318b0dabc0e7571adb7cda.camel@redhat.com>
-Subject: Re: [PATCH v2 0/3] drm/nouveau/uvmm: fix VM_BIND submit/unwind
- error-path bugs
-From: lyude@redhat.com
-To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Dave Airlie
- <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org
-Date: Tue, 11 Aug 2026 17:56:26 -0400
-In-Reply-To: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
-References: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: iAzivQtLMBywsEeyEN3KYQtpfr6lo8ugJM3C2zX1jcc_1786485388
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D560E10EDBE
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:57:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 41EB360A85;
+ Tue, 11 Aug 2026 21:57:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9831F000E9;
+ Tue, 11 Aug 2026 21:57:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786485436;
+ bh=HxBqsb6Oa4VEe++gFC0lyJ4DIZFuZ2SX/3U+qHhdzno=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YL10zsohgtpm8TI3pyCd3gO3/HtA9693JzMkJKd0EQxnrHa0jW5aBUQP1fb0fW6yU
+ gyeJqBk0ReeHWydVLmcPNvbfwBekOLTW0AFoWhJ8zIf+KKS2rdPHJ5lyNhFhB/Pih6
+ PuN2LKgrzT0RyDKEwg+/UyeUKANAYhA0PfOR2Pzw1JcLginjS/hz+xKLOWpvi2Q7A8
+ S4cCAmCBbHcUcTtnVYUJgkD4ntdg4JTodIEsFNHWi59YyagrT8L6hhQI2KWMKubec3
+ 77tOnKbi88m4GS4BSlNICF8scU6wHv8LP+h9HdLJV+L7vUx6QnxLSXs3wUUqXHSMcv
+ d5Un+eH1Ukblw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 02/11] drm/panfrost: Prevent division by 0
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260811-claude-fixes-v5-2-3d692c9e98c2@collabora.com>
+References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
+ <20260811-claude-fixes-v5-2-3d692c9e98c2@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 11 Aug 2026 21:57:15 +0000
+Message-Id: <20260811215715.BF9831F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,55 +53,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series is:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Multiplying `status->busy_time` by 100 introduces a 32-bit integ=
+er overflow on 32-bit architectures, resulting in wildly incorrect GPU load=
+ percentages in the debug log.
+- [Low] The use of the type-unsafe `MAX()` macro violates kernel coding sty=
+le guidelines.
+--
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+--- Patch [2]: [PATCH v5 02/11] drm/panfrost: Prevent division by 0 ---
+commit 40a64804964495fc5a5f268bdf1f61ec7215f8a4
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-On Tue, 2026-08-11 at 16:46 +0800, Zhenhao Wan wrote:
-> Three bugs on the nouveau VM_BIND submit/unwind/cleanup error path,
-> all
-> introduced by the original VM_BIND uAPI (Fixes: b88baab82871) and all
-> reachable by an unprivileged render-node client:
->=20
-> =C2=A0 1/3 NULL deref when the unwind loop frees a never-populated
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 OP_MAP_SPARSE op's ops list.
-> =C2=A0 2/3 premature free of a region on a failed OP_UNMAP_SPARSE, becaus=
-e
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 op->reg is left set on the failure paths.
-> =C2=A0 3/3 a sparse region left permanently marked dirty after unwind,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wedging later binds over that range.
->=20
-> Each fix is minimal and self-contained; all are Cc: stable.
->=20
-> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
-> ---
-> Changes in v2:
-> - Add an Assisted-by: trailer to each patch; no code changes.
-> - Link to v1:
-> https://patch.msgid.link/20260811-nouveau-uvmm-vmbind-fixes-v1-0-40df1c04=
-6b49@gmail.com
->=20
-> ---
-> Zhenhao Wan (3):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/uvmm: fix NULL deref unwinding=
- an OP_MAP_SPARSE op
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/uvmm: fix premature region fre=
-e on failed
-> OP_UNMAP_SPARSE
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/nouveau/uvmm: clear the dirty flag whe=
-n unwinding an
-> OP_UNMAP_SPARSE
->=20
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_uvmm.c | 6 +++++-
-> =C2=A01 file changed, 5 insertions(+), 1 deletion(-)
-> ---
-> base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
-> change-id: 20260811-nouveau-uvmm-vmbind-fixes-c2dfab359df2
->=20
-> Best regards,
-> --=C2=A0=20
-> Zhenhao Wan <whi4ed0g@gmail.com>
+drm/panfrost: Prevent division by 0
 
+This commit attempts to fix a potential division by zero when calculating t=
+he
+GPU load percentage for debug logging by rearranging the operands. It chang=
+es
+the calculation to multiply busy_time by 100 before dividing, and uses MAX()
+to ensure the divisor is at least 1.
+
+Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/88
+
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/dr=
+m/panfrost/panfrost_devfreq.c
+> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> @@ -78,7 +78,7 @@ static int panfrost_devfreq_get_dev_status(struct devic=
+e *dev,
+> =20
+>  	dev_dbg(pfdev->base.dev, "busy %lu total %lu %lu %% freq %lu MHz\n",
+>  		status->busy_time, status->total_time,
+> -		status->busy_time / (status->total_time / 100),
+> +		status->busy_time * 100 / MAX(status->total_time, 1),
+
+[Severity: Medium]
+Does this calculation introduce a 32-bit integer overflow on 32-bit platfor=
+ms
+like ARMv7?
+
+The fields busy_time and total_time in struct devfreq_dev_status are of type
+unsigned long. On 32-bit architectures, unsigned long is 32 bits, with a
+maximum value of 4,294,967,295.
+
+Since time is measured in nanoseconds and the devfreq polling interval is
+typically 50ms, a fully loaded GPU will have a busy_time close to 50,000,00=
+0 ns.
+
+Multiplying this by 100 yields 5,000,000,000, which overflows the 32-bit
+unsigned integer and wraps around to ~705 million. This results in the debug
+log incorrectly reporting a ~14% load instead of 100% when the GPU is fully
+utilized.
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but does the use of MAX() here
+bypass strict kernel type-checking mechanisms?
+
+The MAX() macro defined in linux/minmax.h is explicitly documented with a
+warning to use it carefully for obvious constants only, as it performs no t=
+ype
+checking and uses the arguments multiple times.
+
+While this specific instance does not cause a runtime bug, using the type-s=
+afe
+max(status->total_time, 1UL) or max_t(unsigned long, status->total_time, 1)
+might be a better fit for standard kernel coding style guidelines.
+
+>  		status->current_frequency / 1000 / 1000);
+> =20
+>  	return 0;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811-claude-fix=
+es-v5-0-3d692c9e98c2@collabora.com?part=3D2
