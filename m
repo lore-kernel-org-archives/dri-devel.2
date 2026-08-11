@@ -4,99 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 480A1C5B574
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 07:59:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA321C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 08:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9246D10EABE;
-	Tue, 11 Aug 2026 07:59:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44FAA10EAC7;
+	Tue, 11 Aug 2026 08:04:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cA7B95Ri";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AtSjWI1X";
 	dkim-atps=neutral
 Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
  [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE0710EADB
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:59:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8B9610EAC7
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 08:04:20 +0000 (UTC)
 Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5aeb2bc82ccso3171173e87.2
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 00:59:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786435178; cv=none;
+ 2adb3069b0e04-5b01910b499so633579e87.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 01:04:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786435459; cv=none;
  d=google.com; s=arc-20260327;
- b=rurNYSvX8QrnQgLsfBPacUj6tLKxBB6jv7XYGmyfHZfWBq1P8hXfSHivV4h0jLF4xZ
- cQtZWXCjkrkoxhzCUBuZt0Llu2QQYb6+Gydiw3WEcKNcdp26h6XLnQ6rvm4iyAYuk2NC
- ful84j3S3yH2yiTxBHTIk6DBluDSwz9VAPsmaJ7S0xHdkqlvLxr7F6Gj3tvdpfYd+wpo
- +UuBZqA7Pkc7UNeIK6Dkg/8bCzs1Pybpq85IrvB9eG0T46R2o08VRS/i8uYQK2omZ0hC
- 7lHsNr1fTLKpNh2nbIxl5U7Ub6g1T5eIIEf79CpBsqX+qvIp0BzofZ7E0iNw/5p3iRsF
- rXJw==
+ b=lEOvqRhOxI+IjH8jh4Dsn4q3PCvjBgHZbhC0PfMCfXJzYLLyos8V5XBxPSd2Hk3Bda
+ R5NEznAKsXhot/05ayyvFdu/BCwvXgKLbSUerMffZJPT7su120ks0pcUcH/0SMf3cb/J
+ 0u5ycfRoctOq7lI7yzxCdT9Codmv8BsSLuHTxUgS7S9DlxJyRIPCErePZh2GJlP0hPUL
+ mOgzDVrVffc247pX/urS1kw3ZgQPiZ/ODPeeisXs3BhB5R5NDova0oFAckqO4trjGfWv
+ jtvBud1Uj89mWb+AqMj8YSISZ+92FaoWVA1475JDSlSKazydpcfMsmEy8/cj1iWYhHzB
+ ybug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=8Y15Oeu6WD1rVBTcBgZQKalUwtBBzYJ+Q7T1cbfERWw=;
- fh=xVVVA6Qr020HpIVAaY82So99O6eIhzbZiqhKjiQFVLQ=;
- b=qx+lw+YS4NuvDADFXklN927NmskequcPxYEKEI/nIUjjZGPtNp8Imqt04QMPJeZlLX
- KNx4i8Vula+wj/AW3dDrxQh0deUzzu5jQl2+tiALxsT2QdjxSKdlkc+5eJ0Zb1FqkPkc
- Nc5Odyje5g/faPOEqcOM17cVFQrpNV9snPYFRnVJJD6MbCZFcvZs7SZHu7uGsOmHRyCo
- nQFwciIABKMCLd3YOgOixa3J47eqsmkPOxBYCmD5gOqGExWJ6GZ4Mp+Iw8zYNTRvlwYp
- 6x3TsJzew0QjcwDiKTUZmzV5pbS5h/Btr82oksoIoo0o76jD6SAfZMW+/HAowDeSvWIq
- ncpg==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=eD2VIkq4zaZTjNLqo1OszCP1hmPdXu0NsEJWpsPsgXs=;
+ fh=T0Di0OIQtKN2Jy2HJaiCSh4pkKOz1gwjS3SDM7fMoNk=;
+ b=rySRvRm38MI6sKzfXS01LfWiZtkyMHp2gNYFbr/ROTWHEBsm2V0pJ8CuMTGjHUH9O9
+ dNECL+Bm2hf1uk1eEVHai3BuQPRqTMUpgHSIqBzP7j/ZudI+JvMn6CyaokFhrpVKAVcX
+ Ko0IVShrnl0gMRMPIsImQvHVvr4AVy4li7VDM/1t6P8EX/IxJHms3OgFbDjeFd8Je2bT
+ 9iyqV5y3zUaT3tTEqlgwjMdZoUYLuVQrP/ClhmQxG+51N/uqWbGO0VU4xi+DWVsv3nTW
+ lRGp257oeGSdw1gH07XtfefLOE1Dh4lod9M7wi9wnVGOLrPRe9FROkIMjDme+p873V7m
+ 7o/g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786435178; x=1787039978; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=8Y15Oeu6WD1rVBTcBgZQKalUwtBBzYJ+Q7T1cbfERWw=;
- b=cA7B95RinBm/tgEEPeJOI2TczZFK31X+Mk9frVivITseQ6SzBRUyMYNyNHoRblrN+Q
- Gfa4Nw9twLnnSgWAXqUUWDgvguAJUcXct5OQPna+TCoR2t6ZGT6saTU4tKCVS1+pAY6c
- cjdUXtAsDjUsHn5Dm2W/xf3TiABGlf+HevfDhXajbCGeq1p/oK0RHbkO/uI8XF9dGtye
- hi2EDdCRz4p9cq4s4MT4WPxu2YIDpgUzkz88MRfe9ZQ26/41lMg/qfMtpyRKMGRdytWl
- WhhL+AvFUepd3OlNdZYgP/scbva4LmU8JkORrNcA8LbYat4K3XtPGg3Sp9RVSxufEE98
- SFlA==
+ d=gmail.com; s=20251104; t=1786435459; x=1787040259; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=eD2VIkq4zaZTjNLqo1OszCP1hmPdXu0NsEJWpsPsgXs=;
+ b=AtSjWI1XqGLGoh6SQqsP0ETJ/y8qkd+sYDWWBM3L2bL4E3MmxEPyGEe62SykYZfYfL
+ 0dEHjmbR3xf/8VHoVgxxKNy4GWwJRF94dWT0oI5JCeo9XCdJif82tRomyJMda0DVvP+s
+ eg3rGCdidiVg3M1kKHoleHgM2Apmz0d7QwwBEXw4rsOKlbQGcqFO4gzMw5OVsMyutv/B
+ /jQbxYuZ5cXTxSNGFDh/rufY6YvLzdLVIFZCR3flqKzN8dGHiU39I4k1HXzflgGM8rqG
+ 073Qv2YDSGfSTRh72AG9YrDf1IWAQ+oZBPJp1l5lXg2XBiskXCwZ+vNySYi0csPyiprc
+ HJdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786435178; x=1787039978;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=8Y15Oeu6WD1rVBTcBgZQKalUwtBBzYJ+Q7T1cbfERWw=;
- b=FU6xFx7E/nPZHhiD+ytMzwDToidou+foabbU1+AjaJATqS+TJY3/4yeDf1c/l2FE0p
- 9frPdQcE+UAOsgtdrwjc4xKelwvh/wYV1GCjLw+bcoJwfuqijvNa4YxPMiI8dh0AVqlc
- lMqrPWc7LrpLXeaSKB79Y3tDxaDjgu2ZzsgMCvC6kawDd82jTe6WBIVlc69M2RUIn1MJ
- 2QqQ5SJMvf7cc+44Dmrctw/PdWDQtBwaTYyWTbOpj+nz7ztmzxHxKAdtDojK+2H0DY50
- m0Cbt90rkO/3Ufh9p0onoYCCZz5So/S5YPyPwWENF1+enIK629/BDxfAyxbjrch3G/ne
- ahHw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rppya84V6EG0xprRBVx5PQPGFrDYY74UmLPqdBIwyaG/Ec9CGL07iKHlOQ7nek8bfWR1ma05a8X9Bw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyl0fAYO1ewmOSThmcP0SrYY+X7Nw62VEjRn5iqzRV/1q2SYGgA
- KN5tA2vjyeujm0b17qqJn4FOBnFTJnFwFoPCh97aM1N3BvFMO9i4WFCo8Js34gDcxXuX1aSGs5L
- K0kmitv4rac2ZljLQou07CqwXbKvO8gQ=
-X-Gm-Gg: AR+sD10iu7p4Jho39bG+sj9LFH1abnUXDUyPCG48/NeYU6FYpm6nU1ay22cVcJR9GKb
- /6KRNP4/AQ9OVyv+exkMo8NuZE7uBG6udKuraF3WCRkNyT9aUTktHwoC9pTNSkY1yE4GPUKt+ok
- LcqtvBWgbQw9wePzgnXSurgkHbYwvgN7swOAtO1QT+7FcnDkO9WTthrfS6mPD8WrxvnuNccj4Xu
- X8/4/BMdmcFNBVM0E99hjz6q/OdiFjTHPfvsQnM4vgBBa6bWLgXz4wOlYz7lSPWI0xOpcSTN7eZ
- hIxOgZ4XOmF5SAfgSNC7xlY/KFLDqPPttbCngO62c42PE6+h/chRuTxsP4Ku8aqBjuLKdk/KDQ1
- tba6Jw02T3zmnHC9I9/FPN1PVUuKAag==
-X-Received: by 2002:a05:6512:33cc:b0:5b1:55a0:f7e0 with SMTP id
- 2adb3069b0e04-5b448641ca1mr242560e87.44.1786435178035; Tue, 11 Aug 2026
- 00:59:38 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1786435459; x=1787040259;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=eD2VIkq4zaZTjNLqo1OszCP1hmPdXu0NsEJWpsPsgXs=;
+ b=dg7vVL+2pbjQQhYs1c1BSjEJ3qxTgS5xWdlZiJZV0x+snY/rQBJiBkmAX5JawgdFEP
+ 8G8JbPwXGmuFlcKd7nLmw8uNc9FebDuA7jkm4gYt95pklErDNzxsqsU7i9QSbMHBixCQ
+ AMdJtIMwjhQXzg5fKsKVfSBpCY9UgwNqmLdZH2cdIldR6lPbFIbmAAQOAD+RE4xmUHxg
+ rBNU3591xTHR10qx2Rs1ir93hN01TUkheuPtCdtiu/z/JHSFkMdlSl6xnyCXKtoLK4jg
+ UHN6HYz93wDBZ0w1GEb+pf80s/5OY9G5QdJ7oS2pmRhfrIB7dSG+htMVSEpqkVN/UvLH
+ qvxQ==
+X-Gm-Message-State: AOJu0YxKHfrYfzWIjZGM8Z/HI0h2OgmLqcJ7kUT6WNIqYT8T/JpWSN/O
+ 3ZsL+GLlpeWExrBm2nO94b/ivN8eG1m/JuzOxxmeblHcSaClhcctN3BLT0hmKrBRXlzcl4Xgh5n
+ 64P94rtfqVCUnjuyOpr9MZBO/9Az5cIzJOldk
+X-Gm-Gg: AR+sD11jAwHkmcPIA+t1W5EGvnXrk7q0bbEYgEDP1/7sxfQ6EXuGDUAAj1PmzSdIIJV
+ 2mGxJzugmT2UXYKWvlah7uMpeYSrXIvoPxn0ATmHqN+b8SJjBGAtLFL+BlnAAwh4HllBBY02qqv
+ R+DMSeLHsJAI5zxk1QifnewIaSA9VW173kOJc8YMnwSxoyxoBo4tP5lJkOwFgsLF9Kema3oS4qO
+ BePRAYAgh2VZ7reZ0OrxZymI3/mrVKTwhqbUSVSUjODpYXHxWn6kryRYStQEOuxyNEpOPeDp2Na
+ /T1H2x1rGG5mqZ7herPvyb+DKWQfy6t6XkegIHgvqlRgFx39yebon8bpenqyOJX9KuXB4sfuti/
+ AcLarU5ijW2w8PnQD570YE9Ahv8cwR+azFYwPgNgQ0eBcczKdEILm1b5kxxmcXrMZ5wp4FSrIvp
+ vPKixW+eYIjNHiWWdkX5Y=
+X-Received: by 2002:a05:6512:3c97:b0:5ae:aea9:63ef with SMTP id
+ 2adb3069b0e04-5b44884624emr255678e87.12.1786435458791; Tue, 11 Aug 2026
+ 01:04:18 -0700 (PDT)
 MIME-Version: 1.0
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 11 Aug 2026 02:59:26 -0500
-X-Gm-Features: AUfX_mx4c-GmMXQo4tUspG8Th66IptU81MYj56fCtT6BUir6JEYdopRwXO9FByw
-Message-ID: <CALHNRZ-yffAy7xZbjVEZOfgVeqFGZ6h9jvNkbtTsNNXGQSgeCQ@mail.gmail.com>
-Subject: Re: [PATCH 1/6] drm/msm/a8xx: Add support for Adreno 830 GPU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: abhinav.kumar@linux.dev, David Airlie <airlied@gmail.com>, 
- Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Jessica Zhang <jesszhan0024@gmail.com>, jie.zhang@oss.qualcomm.com, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <lumag@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- marijn.suijten@somainline.org, Maxime Ripard <mripard@kernel.org>, 
- Rob Herring <robh@kernel.org>, robin.clark@oss.qualcomm.com, sean@poorly.run, 
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+References: <20260730173643.256052-1-kieweg.leander@gmail.com>
+ <20260730173643.256052-2-kieweg.leander@gmail.com>
+ <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
+ <CAMwcS0hupV50NEOX1Fsi_tzRYXBecaummjAm=CFHO7xOT1uUXw@mail.gmail.com>
+ <c5f760db-2235-44c1-899c-b6ac023b3233@kernel.org>
+ <CAMwcS0jTwpigztHBTLv_sgFNLK0ERHDMzMGsBdi7josLHw56-g@mail.gmail.com>
+ <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
+In-Reply-To: <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Tue, 11 Aug 2026 10:04:08 +0200
+X-Gm-Features: AUfX_mzY0t4wemhPgOUxlfJ8wfsNV4rlS_YyzWedW4MFJlppAsBpsn_nNSHUWaw
+Message-ID: <CAMwcS0ij5Bof_S=aaynAnvY=WANqvvsDR0Zs03_2qXEP8yfuJw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Content-Type: multipart/alternative; boundary="000000000000ef80840658c0ea20"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,413 +114,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> Add support for the Adreno 830 GPU present in SM8750 SoC. Adreno 830 GPU
-> belongs to the A8x Gen 1 family and it is architecturally close Adreno 840.
-> Add a new catalog entry along with the register list to enable support
-> for this GPU.
-> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 334 ++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/a8xx_gpu.c     |   2 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   5 +
->  3 files changed, 340 insertions(+), 1 deletion(-)
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> index 90a0c7ffb3c8..418edde9104e 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> @@ -1693,6 +1693,294 @@ static const struct adreno_info a7xx_gpus[] = {
->  };
->  DECLARE_ADRENO_GPULIST(a7xx);
->
-> +static const struct adreno_reglist_pipe a830_nonctxt_regs[] = {
-> + { REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
-> + { REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + /* Configure GBIF GX registers */
-> + { REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
-> + { REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
-> + /* Enable full concurrent resolve and unresolves */
-> + { REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
-> + /* Partially enable perf clear, Disable DINT to c/z be data forwarding */
-> + { REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
-> + { REG_A8XX_RB_GC_GMEM_PROTECT, 0x0c000000, BIT(PIPE_BR) },
-> + /* Configure number of outstanding transactions to 32 */
-> + { REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
-> + /* Configure UCHE request time out to 16 cycles for CCU/UCHE arbitration */
-> + { REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
-> + { REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
-> + { REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
-> + { REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
-> + { REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
-> + { REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
-> + /* Enable contribution of all shader stages to SP perfcounters */
-> + { REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
-> + /*
-> + * BIT(26): Limit the number of wave-slots for Eviction buffer to 1 per ALU GRP
-> + * BIT(30): Disable LPAC auto-promotion
-> + */
-> + { REG_A7XX_SP_CHICKEN_BITS_1, BIT(26) | BIT(30), BIT(PIPE_NONE) },
-> + /*
-> + * BIT(22): Disable PS out of order retire
-> + * BIT(23): Enable half wave mode and MM instruction src&dst is half precision
-> + */
-> + { REG_A7XX_SP_CHICKEN_BITS_2, BIT(22) | BIT(23), BIT(PIPE_NONE) },
-> + { REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
-> + { REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080,  BIT(PIPE_NONE) },
-> + { REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10000000, BIT(PIPE_NONE) },
-> + /* Enable cubemap small miplevel optimization settings */
-> + /* BIT(26): Disable final clamp for bicubic filtering */
-> + { REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
-> + /* Disable tag bank id hashing */
-> + { REG_A6XX_UCHE_MODE_CNTL, 0x00080000, BIT(PIPE_NONE) },
-> + { REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
-> + /* Limit gmem number of ways for GMEM requests in each set */
-> + { REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE)},
-> + /* Disable write slow pointer in data phase queue */
-> + { REG_A8XX_UCHE_HW_DBG_CNTL, BIT(8), BIT(PIPE_NONE) },
-> + /* Configure UCHE to CCU switchthreshold timeout cycles */
-> + { REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
-> + { REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00100020, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + /* Disable redundant tile data optimization */
-> + { REG_A8XX_VSC_KMD_DBG_ECO_CNTL, BIT(11), BIT(PIPE_NONE)},
-> + { },
-> +};
-> +
-> +static const u32 a830_protect_regs[] = {
-> + A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
-> + A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
-> + A6XX_PROTECT_NORDWR(0x00440, 0x001f),
-> + A6XX_PROTECT_RDONLY(0x00580, 0x005f),
-> + A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
-> + A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
-> + A6XX_PROTECT_RDONLY(0x00759, 0x0026),
-> + A6XX_PROTECT_RDONLY(0x00789, 0x0000),
-> + A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
-> + A6XX_PROTECT_NORDWR(0x00800, 0x0029),
-> + A6XX_PROTECT_NORDWR(0x00837, 0x00af),
-> + A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
-> + A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
-> + A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
-> + A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
-> + A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
-> + A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
-> + A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
-> + A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
-> + A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
-> + A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
-> + A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
-> + A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
-> + A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
-> + A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
-> + A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
-> + A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
-> + A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
-> + A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
-> + A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
-> + A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
-> + A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
-> + A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
-> + A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
-> + A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
-> + A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
-> + A6XX_PROTECT_NORDWR(0x18400, 0x003f),
-> + A6XX_PROTECT_RDONLY(0x18440, 0x013f),
-> + A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
-> + A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
-> + A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
-> + A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
-> + A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
-> + A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
-> + A6XX_PROTECT_NORDWR(0x27800, 0x007f),
-> + A6XX_PROTECT_RDONLY(0x27880, 0x0381),
-> + A6XX_PROTECT_NORDWR(0x27882, 0x0001),
-> + A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
-> +};
-> +DECLARE_ADRENO_PROTECT(a830_protect, 64);
+--000000000000ef80840658c0ea20
+Content-Type: text/plain; charset="UTF-8"
 
-I have tested this on an AYN Odin 3, which has a CQ8725S SoC with
-A830. As-is, this change causes the device to fail to boot. Comparing
-to a different implementation of this support that I used previously,
-I found the operable difference is the count_max field here. Dropping
-that from 64 to 15 allows the device to boot and work as intended. I
-unfortunately don't have uart to see what the actual failure text is
-and provide any more information than this.
+> I am fine with small projects, till we do not have surge of them because
+> anyone clones some project and vibe-codes new soft-core.
+>
+> Projects run on your personal github, without any organization, do not
+> get their own vendor prefix. Why? Because then you come with another
+> project and want one more prefix... Personal vendor prefix would be
+> fine, but different thing: this repo for your design was created a few
+> months ago, with one contributor and ~70 commits. This means it is very
+> new, without users.
 
-Aaron
+Makes sense. I'll go with a personal vendor prefix instead, e.g.
+"kieweg,gpu-1.0". I'd reuse that for any future project instead of
+asking for a new prefix.
 
-> +static const u32 a830_pwrup_reglist_regs[] = {
-> + REG_A6XX_UCHE_MODE_CNTL,
-> + REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
-> + REG_A8XX_UCHE_GBIF_GX_CONFIG,
-> + REG_A8XX_UCHE_CACHE_WAYS,
-> + REG_A8XX_UCHE_CCHE_MODE_CNTL,
-> + REG_A8XX_UCHE_CCHE_CACHE_WAYS,
-> + REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
-> + REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
-> + REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN,
-> + REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN + 1,
-> + REG_A8XX_UCHE_CCHE_TRAP_BASE,
-> + REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
-> + REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
-> + REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
-> + REG_A8XX_UCHE_HW_DBG_CNTL,
-> + REG_A8XX_UCHE_WRITE_THRU_BASE,
-> + REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
-> + REG_A8XX_UCHE_TRAP_BASE,
-> + REG_A8XX_UCHE_TRAP_BASE + 1,
-> + REG_A8XX_UCHE_CLIENT_PF,
-> + REG_A8XX_VSC_KMD_DBG_ECO_CNTL,
-> + REG_A8XX_RB_CMP_NC_MODE_CNTL,
-> + REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
-> + REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
-> + REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
-> + REG_A7XX_SP_READ_SEL,
-> + REG_A6XX_TPL1_NC_MODE_CNTL,
-> + REG_A6XX_TPL1_DBG_ECO_CNTL,
-> + REG_A6XX_TPL1_DBG_ECO_CNTL1,
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
-> + REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
-> +};
-> +DECLARE_ADRENO_REGLIST_LIST(a830_pwrup_reglist);
-> +
-> +static const u32 a830_ifpc_reglist_regs[] = {
-> + REG_A8XX_RBBM_NC_MODE_CNTL,
-> + REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
-> + REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
-> + REG_A6XX_SP_NC_MODE_CNTL,
-> + REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN,
-> + REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN + 1,
-> + REG_A7XX_SP_CHICKEN_BITS_1,
-> + REG_A7XX_SP_CHICKEN_BITS_2,
-> + REG_A7XX_SP_CHICKEN_BITS_3,
-> + REG_A6XX_SP_PERFCTR_SHADER_MASK,
-> + REG_A7XX_SP_HLSQ_DBG_ECO_CNTL,
-> + REG_A8XX_CP_INTERRUPT_STATUS_MASK_GLOBAL,
-> + REG_A8XX_RBBM_PERFCTR_CNTL,
-> + REG_A8XX_CP_PROTECT_GLOBAL(0),
-> + REG_A8XX_CP_PROTECT_GLOBAL(1),
-> + REG_A8XX_CP_PROTECT_GLOBAL(2),
-> + REG_A8XX_CP_PROTECT_GLOBAL(3),
-> + REG_A8XX_CP_PROTECT_GLOBAL(4),
-> + REG_A8XX_CP_PROTECT_GLOBAL(5),
-> + REG_A8XX_CP_PROTECT_GLOBAL(6),
-> + REG_A8XX_CP_PROTECT_GLOBAL(7),
-> + REG_A8XX_CP_PROTECT_GLOBAL(8),
-> + REG_A8XX_CP_PROTECT_GLOBAL(9),
-> + REG_A8XX_CP_PROTECT_GLOBAL(10),
-> + REG_A8XX_CP_PROTECT_GLOBAL(11),
-> + REG_A8XX_CP_PROTECT_GLOBAL(12),
-> + REG_A8XX_CP_PROTECT_GLOBAL(13),
-> + REG_A8XX_CP_PROTECT_GLOBAL(14),
-> + REG_A8XX_CP_PROTECT_GLOBAL(15),
-> + REG_A8XX_CP_PROTECT_GLOBAL(16),
-> + REG_A8XX_CP_PROTECT_GLOBAL(17),
-> + REG_A8XX_CP_PROTECT_GLOBAL(18),
-> + REG_A8XX_CP_PROTECT_GLOBAL(19),
-> + REG_A8XX_CP_PROTECT_GLOBAL(20),
-> + REG_A8XX_CP_PROTECT_GLOBAL(21),
-> + REG_A8XX_CP_PROTECT_GLOBAL(22),
-> + REG_A8XX_CP_PROTECT_GLOBAL(23),
-> + REG_A8XX_CP_PROTECT_GLOBAL(24),
-> + REG_A8XX_CP_PROTECT_GLOBAL(25),
-> + REG_A8XX_CP_PROTECT_GLOBAL(26),
-> + REG_A8XX_CP_PROTECT_GLOBAL(27),
-> + REG_A8XX_CP_PROTECT_GLOBAL(28),
-> + REG_A8XX_CP_PROTECT_GLOBAL(29),
-> + REG_A8XX_CP_PROTECT_GLOBAL(30),
-> + REG_A8XX_CP_PROTECT_GLOBAL(31),
-> + REG_A8XX_CP_PROTECT_GLOBAL(32),
-> + REG_A8XX_CP_PROTECT_GLOBAL(33),
-> + REG_A8XX_CP_PROTECT_GLOBAL(34),
-> + REG_A8XX_CP_PROTECT_GLOBAL(35),
-> + REG_A8XX_CP_PROTECT_GLOBAL(36),
-> + REG_A8XX_CP_PROTECT_GLOBAL(37),
-> + REG_A8XX_CP_PROTECT_GLOBAL(38),
-> + REG_A8XX_CP_PROTECT_GLOBAL(39),
-> + REG_A8XX_CP_PROTECT_GLOBAL(40),
-> + REG_A8XX_CP_PROTECT_GLOBAL(41),
-> + REG_A8XX_CP_PROTECT_GLOBAL(42),
-> + REG_A8XX_CP_PROTECT_GLOBAL(43),
-> + REG_A8XX_CP_PROTECT_GLOBAL(44),
-> + REG_A8XX_CP_PROTECT_GLOBAL(45),
-> + REG_A8XX_CP_PROTECT_GLOBAL(46),
-> + REG_A8XX_CP_PROTECT_GLOBAL(47),
-> + REG_A8XX_CP_PROTECT_GLOBAL(48),
-> + REG_A8XX_CP_PROTECT_GLOBAL(49),
-> + REG_A8XX_CP_PROTECT_GLOBAL(50),
-> + REG_A8XX_CP_PROTECT_GLOBAL(51),
-> + REG_A8XX_CP_PROTECT_GLOBAL(52),
-> + REG_A8XX_CP_PROTECT_GLOBAL(53),
-> + REG_A8XX_CP_PROTECT_GLOBAL(54),
-> + REG_A8XX_CP_PROTECT_GLOBAL(55),
-> + REG_A8XX_CP_PROTECT_GLOBAL(56),
-> + REG_A8XX_CP_PROTECT_GLOBAL(57),
-> + REG_A8XX_CP_PROTECT_GLOBAL(58),
-> + REG_A8XX_CP_PROTECT_GLOBAL(59),
-> + REG_A8XX_CP_PROTECT_GLOBAL(60),
-> + REG_A8XX_CP_PROTECT_GLOBAL(61),
-> + REG_A8XX_CP_PROTECT_GLOBAL(62),
-> + REG_A8XX_CP_PROTECT_GLOBAL(63),
-> +};
-> +DECLARE_ADRENO_REGLIST_LIST(a830_ifpc_reglist);
-> +
-> +static const struct adreno_reglist_pipe a830_dyn_pwrup_reglist_regs[] = {
-> + { REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
-> + BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
-> + BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
-> + { REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
-> + BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
-> + BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
-> + { REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
-> + { REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
-> + { REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
-> + { REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
-> + { REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
-> + { REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
-> + { REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
-> + { REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
-> + { REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
-> + { REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
-> + { REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> + { REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> + { },
-> +};
-> +DECLARE_ADRENO_REGLIST_PIPE_LIST(a830_dyn_pwrup_reglist);
-> +
->  static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
->   { REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
->   { REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> @@ -2399,6 +2687,51 @@ DECLARE_ADRENO_REGLIST_PIPE_LIST(a840_dyn_pwrup_reglist);
+> What is the benefit of having it in Linux kernel for the community? Who
+> needs this, outside of you?
+
+Honestly, no one, probably. I built this because I wanted to learn,
+not because anyone was asking for it. I actually asked about this
+exact concern during the RFC review, whether being a hobby/non
+commercial project could be a dealbreaker for mainline. Thomas
+Zimmermann's reply at the time was:
+
+  We already have a driver for a RasPi-based USB display that
+  someone made in their spare time. So being a hobbyist project is
+  not a problem per se.
+
+I don't want to pretend there's a bigger community need than there
+actually is. If that's not enough for mainline, I understand.
+
+Best regards,
+Leander
+
+--000000000000ef80840658c0ea20
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">&gt; I am fine with small projects, till we do not have s=
+urge of them because<br>
+&gt; anyone clones some project and vibe-codes new soft-core.<br>
+&gt;<br>
+&gt; Projects run on your personal github, without any organization, do not=
+<br>
+&gt; get their own vendor prefix. Why? Because then you come with another<b=
+r>
+&gt; project and want one more prefix... Personal vendor prefix would be<br=
 >
->  static const struct adreno_info a8xx_gpus[] = {
->   {
-> + .chip_ids = ADRENO_CHIP_IDS(0x44050001),
-> + .family = ADRENO_8XX_GEN1,
-> + .fw = {
-> + [ADRENO_FW_SQE] = "gen80000_sqe.fw",
-> + [ADRENO_FW_GMU] = "gen80000_gmu.bin",
-> + [ADRENO_FW_AQE] = "gen80000_aqe.fw",
-> + },
-> + .gmem = 12 * SZ_1M,
-> + .inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> + .quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-> +  ADRENO_QUIRK_HAS_HW_APRIV |
-> +  ADRENO_QUIRK_PREEMPTION |
-> +  ADRENO_QUIRK_IFPC,
-> + .funcs = &a8xx_gpu_funcs,
-> + .a6xx = &(const struct a6xx_info) {
-> + .protect = &a830_protect,
-> + .nonctxt_reglist = a830_nonctxt_regs,
-> + .pwrup_reglist = &a830_pwrup_reglist,
-> + .dyn_pwrup_reglist = &a830_dyn_pwrup_reglist,
-> + .ifpc_reglist = &a830_ifpc_reglist,
-> + .gbif_cx = a840_gbif,
-> + .max_slices = 3,
-> + .gmu_chipid = 0x8000100,
-> + .bcms = (const struct a6xx_bcm[]) {
-> + { .name = "SH0", .buswidth = 16 },
-> + { .name = "MC0", .buswidth = 4 },
-> + {
-> + .name = "ACV",
-> + .fixed = true,
-> + .perfmode = BIT(2),
-> + .perfmode_bw = 10687500,
-> + },
-> + { /* sentinel */ },
-> + },
-> + },
-> + .preempt_record_size = 13536 * SZ_1K,
-> + .speedbins = ADRENO_SPEEDBINS(
-> + { 0,   0 },
-> + { 252, 0 },
-> + { 242, 1 },
-> + { 232, 2 },
-> + { 221, 3 },
-> + { 190, 4 },
-> + ),
-> + }, {
->   .chip_ids = ADRENO_CHIP_IDS(0x44070001),
->   .family = ADRENO_8XX_GEN2,
->   .fw = {
-> @@ -2537,4 +2870,5 @@ static inline __always_unused void __build_asserts(void)
->   BUILD_BUG_ON(a690_protect.count > a690_protect.count_max);
->   BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
->   BUILD_BUG_ON(a810_protect.count > a810_protect.count_max);
-> + BUILD_BUG_ON(a830_protect.count > a830_protect.count_max);
->  }
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> index add93c1fa039..62df0569c62b 100644
-> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> @@ -200,7 +200,7 @@ static void a8xx_set_hwcg(struct msm_gpu *gpu, bool state)
->   struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
->   u32 val;
->
-> - if (adreno_is_x285(adreno_gpu) && state)
-> + if ((adreno_is_x285(adreno_gpu) || adreno_is_a830(adreno_gpu)) && state)
->   gpu_write(gpu, REG_A8XX_RBBM_CGC_0_PC, 0x00000702);
->
->   gmu_write(gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_MODE_CNTL,
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index 114a40f79ef3..338e02271fcc 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -602,6 +602,11 @@ static inline int adreno_is_x285(struct adreno_gpu *gpu)
->   return gpu->info->chip_ids[0] == 0x44070001;
->  }
->
-> +static inline int adreno_is_a830(struct adreno_gpu *gpu)
-> +{
-> + return gpu->info->chip_ids[0] == 0x44050001;
-> +}
-> +
->  static inline int adreno_is_a840(struct adreno_gpu *gpu)
->  {
->   return gpu->info->chip_ids[0] == 0x44050a01;
-> --
-> 2.54.0
+&gt; fine, but different thing: this repo for your design was created a few=
+<br>
+&gt; months ago, with one contributor and ~70 commits. This means it is ver=
+y<br>
+&gt; new, without users.<br>
+<br>
+Makes sense. I&#39;ll go with a personal vendor prefix instead, e.g.<br>
+&quot;kieweg,gpu-1.0&quot;. I&#39;d reuse that for any future project inste=
+ad of<br>
+asking for a new prefix.<br>
+<br>
+&gt; What is the benefit of having it in Linux kernel for the community? Wh=
+o<br>
+&gt; needs this, outside of you?<br>
+<br>
+Honestly, no one, probably. I built this because I wanted to learn,<br>
+not because anyone was asking for it. I actually asked about this<br>
+exact concern during the RFC review, whether being a hobby/non<br>
+commercial project could be a dealbreaker for mainline. Thomas<br>
+Zimmermann&#39;s reply at the time was:<br>
+<br>
+=C2=A0 We already have a driver for a RasPi-based USB display that<br>
+=C2=A0 someone made in their spare time. So being a hobbyist project is<br>
+=C2=A0 not a problem per se.<br>
+<br>
+I don&#39;t want to pretend there&#39;s a bigger community need than there<=
+br>
+actually is. If that&#39;s not enough for mainline, I understand.<br>
+<br>
+Best regards,<br>
+Leander<br></div>
+
+--000000000000ef80840658c0ea20--
