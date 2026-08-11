@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE841C5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 11:23:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A044FC5CFC1
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 11:23:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F30210EB53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42B6410EB57;
 	Tue, 11 Aug 2026 11:23:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="pryvNSBB";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FxASTETb";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E62F910EB4D
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 11:23:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC5A110EB53
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 11:23:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786447422;
- bh=3NRjvFxL5rlB3twQb44i+QFtWmo1Zowmn+0rf5uAf1I=;
+ s=mail; t=1786447420;
+ bh=D+z9AmI03v+b/oFKR/XQVXQ5voM2vqRD4wLzoDTlk6Q=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pryvNSBBaFXdniz5Eo5ECIcYpmIKt2yWLv+WvXiHTdQUcr147y+bfHkJvTSlwz5lB
- 19ciq0caCyO4ZrK3QbOBnLb2mmam8c8pZaBEZ/cXWtk0par/jr8MBPsptqcBjJJAB7
- N76EErHnWmih6La9Iuv271C+Z205qInGrjmFnWA1b5r3pnW6wKc8QRrja900HFiqxI
- qs1nuIkr4qXI0XMthuU3gWAqDxThuXFRuF/T/nZ6v0ycnSNCC67Htw41BR0Te5jM5U
- HVgEhhmdbQbBdiiURLH1vSlmHwwrFGPcxPwe0w0DGl8Vs6xYOc4sqIEgzx9Dfc4Q2o
- ZEUwRW2oM4+eg==
+ b=FxASTETbDqCaawepiIfdSBv2Vhymv9az9NDXl6y/cN3gSSldtFtioe35edCx+msbG
+ B+jIhUXM6GhV1FIYUBNOTrXspw2xzj7Ws/xWh+EPpoFDTlvmCcfwHtUZkxOMZ8uTrN
+ vagbiMoWkb3sWHvLR/JSLQHxufLL7gXyf85vqVlnBDolLCz5rxJIhc+Qqyk1N3epiZ
+ mvfgonTbNgsWLHvh5rbE5H2UNLg6I9GIusyzQM3jcDa2dKFNHUqFswAZvKbnEsdZSR
+ awVqaJB/Ck7FTQ9ZxgdZeS6Ny8KrLxV/xz+Uqbv14g/Irkj0yvEvHitr4F3fh/1p7d
+ lSZ2Zv2SC5g9Q==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 48C4B17E0FAB;
- Tue, 11 Aug 2026 13:23:42 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id F131F17E0EF0;
+ Tue, 11 Aug 2026 13:23:39 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 11 Aug 2026 13:23:41 +0200
-Subject: [PATCH v6 7/9] drm/panthor: Don't defer job completion checks
+Date: Tue, 11 Aug 2026 13:23:37 +0200
+Subject: [PATCH v6 3/9] drm/panthor: Replace the panthor_irq macro
+ machinery by inline helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-panthor-signal-from-irq-v6-7-12f2ab53d735@collabora.com>
+Message-Id: <20260811-panthor-signal-from-irq-v6-3-12f2ab53d735@collabora.com>
 References: <20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com>
 In-Reply-To: <20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -49,11 +50,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786447418; l=7802;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786447418; l=23880;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=3NRjvFxL5rlB3twQb44i+QFtWmo1Zowmn+0rf5uAf1I=;
- b=pwCOwhtEyGGm4ilpjyOGlJ0i68vrVklAtWfbu6vJWbD8WJVW2OwJ2zjl0QHBJ2Bl90zTrlK9O
- /ANEB4hZQkqDySsPCg3Emi9DhG3T3DcK1PvVyLSnExKDeCrBQI8Zypp
+ bh=D+z9AmI03v+b/oFKR/XQVXQ5voM2vqRD4wLzoDTlk6Q=;
+ b=TwZGirtFZ1yXQKuPSt66HIWu1l5qceJgXqKxAPo1GeTH/IEUhzSHPAFO01/Sp37jP8SE6cfkJ
+ 97SHiS4uCYsBvIbeEPmK8/KTxeTiYBy7C0lRSgd6AqIPTsCXntcZVoT
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,242 +72,646 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Call group_check_job_completion() directly from
-csg_slot_sync_update_locked() instead of deferring it.
+Now that panthor_irq contains the iomem region, there's no real need
+for the macro-based panthor_irq helper generation logic. We can just
+provide inline helpers that do the same and let the compiler optimize
+indirect function calls. The only extra annoyance is the fact we have
+to open-code the panthor_xxx_irq_threaded_handler() implementation, but
+those are single-line functions, so it's acceptable.
 
+While at it, we changed the prototype of the IRQ handlers to take
+a panthor_irq instead of panthor_device, since that's the thing
+that's passed around when it comes to panthor_irq, and the
+panthor_device can be directly extracted from there.
+
+Reviewed-by: Steven Price <steven.price@arm.com>
+Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_sched.c | 182 +++++++++++++++-----------------
- 1 file changed, 87 insertions(+), 95 deletions(-)
+ drivers/gpu/drm/panthor/panthor_device.h | 247 +++++++++++++++----------------
+ drivers/gpu/drm/panthor/panthor_fw.c     |  22 ++-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  28 ++--
+ drivers/gpu/drm/panthor/panthor_mmu.c    |  39 ++---
+ drivers/gpu/drm/panthor/panthor_pwr.c    |  24 +--
+ 5 files changed, 188 insertions(+), 172 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 794105e239e6..1ef9da55030c 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -697,9 +697,6 @@ struct panthor_group {
- 	 */
- 	struct panthor_kernel_bo *protm_suspend_buf;
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index b102ea77fd1a..b55a3f9edd41 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -571,132 +571,127 @@ static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+ #define INT_MASK    0x8
+ #define INT_STAT    0xc
  
--	/** @sync_upd_work: Work used to check/signal job fences. */
--	struct work_struct sync_upd_work;
--
- 	/** @tiler_oom_work: Work used to process tiler OOM events happening on this group. */
- 	struct work_struct tiler_oom_work;
- 
-@@ -1762,6 +1759,92 @@ static void csg_slot_process_idle_event_locked(struct panthor_device *ptdev, u32
- 	sched_queue_delayed_work(sched, tick, 0);
+-/**
+- * PANTHOR_IRQ_HANDLER() - Define interrupt handlers and the interrupt
+- * registration function.
+- *
+- * The boiler-plate to gracefully deal with shared interrupts is
+- * auto-generated. All you have to do is call PANTHOR_IRQ_HANDLER()
+- * just after the actual handler. The handler prototype is:
+- *
+- * void (*handler)(struct panthor_device *, u32 status);
+- */
+-#define PANTHOR_IRQ_HANDLER(__name, __handler)							\
+-static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)			\
+-{												\
+-	struct panthor_irq *pirq = data;							\
+-												\
+-	guard(spinlock_irqsave)(&pirq->lock);							\
+-	if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)						\
+-		return IRQ_NONE;								\
+-												\
+-	if (!gpu_read(pirq->iomem, INT_STAT))							\
+-		return IRQ_NONE;								\
+-												\
+-	pirq->state = PANTHOR_IRQ_STATE_PROCESSING;						\
+-	gpu_write(pirq->iomem, INT_MASK, 0);							\
+-	return IRQ_WAKE_THREAD;									\
+-}												\
+-												\
+-static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *data)		\
+-{												\
+-	struct panthor_irq *pirq = data;							\
+-	struct panthor_device *ptdev = pirq->ptdev;						\
+-	irqreturn_t ret = IRQ_NONE;								\
+-												\
+-	while (true) {										\
+-		/* It's safe to access pirq->mask without the lock held here. If a new		\
+-		 * event gets added to the mask and the corresponding IRQ is pending,		\
+-		 * we'll process it right away instead of adding an extra raw -> threaded	\
+-		 * round trip. If an event is removed and the status bit is set, it will	\
+-		 * be ignored, just like it would have been if the mask had been adjusted	\
+-		 * right before the HW event kicks in. TLDR; it's all expected races we're	\
+-		 * covered for.									\
+-		 */										\
+-		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;			\
+-												\
+-		if (!status)									\
+-			break;									\
+-												\
+-		__handler(ptdev, status);							\
+-		ret = IRQ_HANDLED;								\
+-	}											\
+-												\
+-	scoped_guard(spinlock_irqsave, &pirq->lock) {						\
+-		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {				\
+-			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;					\
+-			gpu_write(pirq->iomem, INT_MASK, pirq->mask);				\
+-		}										\
+-	}											\
+-												\
+-	return ret;										\
+-}												\
+-												\
+-static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)			\
+-{												\
+-	scoped_guard(spinlock_irqsave, &pirq->lock) {						\
+-		pirq->state = PANTHOR_IRQ_STATE_SUSPENDING;					\
+-		gpu_write(pirq->iomem, INT_MASK, 0);						\
+-	}											\
+-	synchronize_irq(pirq->irq);								\
+-	scoped_guard(spinlock_irqsave, &pirq->lock)						\
+-		pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;					\
+-}												\
+-												\
+-static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)			\
+-{												\
+-	guard(spinlock_irqsave)(&pirq->lock);							\
+-												\
+-	pirq->state = PANTHOR_IRQ_STATE_ACTIVE;							\
+-	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);						\
+-	gpu_write(pirq->iomem, INT_MASK, pirq->mask);						\
+-}												\
+-												\
+-static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
+-					      struct panthor_irq *pirq,				\
+-					      int irq, void __iomem *iomem)			\
+-{												\
+-	pirq->ptdev = ptdev;									\
+-	pirq->irq = irq;									\
+-	pirq->mask = 0;										\
+-	pirq->iomem = iomem;									\
+-	spin_lock_init(&pirq->lock);								\
+-	pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;						\
+-	gpu_write(pirq->iomem, INT_MASK, 0);							\
+-												\
+-	return devm_request_threaded_irq(ptdev->base.dev, irq,					\
+-					 panthor_ ## __name ## _irq_raw_handler,		\
+-					 panthor_ ## __name ## _irq_threaded_handler,		\
+-					 IRQF_SHARED, KBUILD_MODNAME "-" # __name,		\
+-					 pirq);							\
+-}												\
+-												\
+-static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *pirq, u32 mask)	\
+-{												\
+-	guard(spinlock_irqsave)(&pirq->lock);							\
+-	pirq->mask |= mask;									\
+-												\
+-	/* The only situation where we need to write the new mask is if the IRQ is active.	\
+-	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()	\
+-	 * on the PROCESSING -> ACTIVE transition.						\
+-	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+-	 */											\
+-	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
+-		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
+-}												\
+-												\
+-static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq *pirq, u32 mask)\
+-{												\
+-	guard(spinlock_irqsave)(&pirq->lock);							\
+-	pirq->mask &= ~mask;									\
+-												\
+-	/* The only situation where we need to write the new mask is if the IRQ is active.	\
+-	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()	\
+-	 * on the PROCESSING -> ACTIVE transition.						\
+-	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+-	 */											\
+-	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
+-		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
++static inline irqreturn_t panthor_irq_default_raw_handler(int irq, void *data)
++{
++	struct panthor_irq *pirq = data;
++
++	guard(spinlock_irqsave)(&pirq->lock);
++	if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)
++		return IRQ_NONE;
++
++	if (!gpu_read(pirq->iomem, INT_STAT))
++		return IRQ_NONE;
++
++	pirq->state = PANTHOR_IRQ_STATE_PROCESSING;
++	gpu_write(pirq->iomem, INT_MASK, 0);
++	return IRQ_WAKE_THREAD;
++}
++
++static __always_inline irqreturn_t
++panthor_irq_default_threaded_handler(void *data,
++				     void (*slow_handler)(struct panthor_irq *, u32))
++{
++	struct panthor_irq *pirq = data;
++	irqreturn_t ret = IRQ_NONE;
++
++	while (true) {
++		/* It's safe to access pirq->mask without the lock held here. If a new
++		 * event gets added to the mask and the corresponding IRQ is pending,
++		 * we'll process it right away instead of adding an extra raw -> threaded
++		 * round trip. If an event is removed and the status bit is set, it will
++		 * be ignored, just like it would have been if the mask had been adjusted
++		 * right before the HW event kicks in. TLDR; it's all expected races we're
++		 * covered for.
++		 */
++		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;
++
++		if (!status)
++			break;
++
++		slow_handler(pirq, status);
++		ret = IRQ_HANDLED;
++	}
++
++	scoped_guard(spinlock_irqsave, &pirq->lock) {
++		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {
++			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
++			gpu_write(pirq->iomem, INT_MASK, pirq->mask);
++		}
++	}
++
++	return ret;
++}
++
++static inline void panthor_irq_suspend(struct panthor_irq *pirq)
++{
++	scoped_guard(spinlock_irqsave, &pirq->lock) {
++		pirq->state = PANTHOR_IRQ_STATE_SUSPENDING;
++		gpu_write(pirq->iomem, INT_MASK, 0);
++	}
++	synchronize_irq(pirq->irq);
++	scoped_guard(spinlock_irqsave, &pirq->lock)
++		pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;
++}
++
++static inline void panthor_irq_resume(struct panthor_irq *pirq)
++{
++	guard(spinlock_irqsave)(&pirq->lock);
++	pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
++	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);
++	gpu_write(pirq->iomem, INT_MASK, pirq->mask);
++}
++
++static inline void panthor_irq_enable_events(struct panthor_irq *pirq, u32 mask)
++{
++	guard(spinlock_irqsave)(&pirq->lock);
++	pirq->mask |= mask;
++
++	/* The only situation where we need to write the new mask is if the IRQ is active.
++	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()
++	 * on the PROCESSING -> ACTIVE transition.
++	 * If the IRQ is suspended/suspending, the mask is restored at resume time.
++	 */
++	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)
++		gpu_write(pirq->iomem, INT_MASK, pirq->mask);
++}
++
++static inline void panthor_irq_disable_events(struct panthor_irq *pirq, u32 mask)
++{
++	guard(spinlock_irqsave)(&pirq->lock);
++	pirq->mask &= ~mask;
++
++	/* The only situation where we need to write the new mask is if the IRQ is active.
++	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()
++	 * on the PROCESSING -> ACTIVE transition.
++	 * If the IRQ is suspended/suspending, the mask is restored at resume time.
++	 */
++	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)
++		gpu_write(pirq->iomem, INT_MASK, pirq->mask);
++}
++
++static inline int
++panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
++		    int irq, void __iomem *iomem, const char *name,
++		    irqreturn_t (*threaded_handler)(int, void *data))
++{
++	const char *full_name;
++
++	pirq->ptdev = ptdev;
++	pirq->irq = irq;
++	pirq->mask = 0;
++	pirq->iomem = iomem;
++	spin_lock_init(&pirq->lock);
++	pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;
++
++	full_name = devm_kasprintf(ptdev->base.dev, GFP_KERNEL, KBUILD_MODNAME "-%s", name);
++	if (!full_name)
++		return -ENOMEM;
++
++	gpu_write(pirq->iomem, INT_MASK, 0);
++	return devm_request_threaded_irq(ptdev->base.dev, irq,
++					 panthor_irq_default_raw_handler,
++					 threaded_handler,
++					 IRQF_SHARED, full_name, pirq);
  }
  
-+static void update_fdinfo_stats(struct panthor_job *job)
-+{
-+	struct panthor_group *group = job->group;
-+	struct panthor_queue *queue = group->queues[job->queue_idx];
-+	struct panthor_gpu_usage *fdinfo = &group->fdinfo.data;
-+	struct panthor_job_profiling_data *slots = queue->profiling.slots->kmap;
-+	struct panthor_job_profiling_data *data = &slots[job->profiling.slot];
-+
-+	scoped_guard(spinlock_irqsave, &group->fdinfo.lock) {
-+		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_CYCLES)
-+			fdinfo->cycles += data->cycles.after - data->cycles.before;
-+		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP)
-+			fdinfo->time += data->time.after - data->time.before;
-+	}
-+}
-+
-+static bool queue_check_job_completion(struct panthor_queue *queue)
-+{
-+	struct panthor_syncobj_64b *syncobj = NULL;
-+	struct panthor_job *job, *job_tmp;
-+	bool cookie, progress = false;
-+	LIST_HEAD(done_jobs);
-+
-+	cookie = dma_fence_begin_signalling();
-+	scoped_guard(spinlock_irqsave, &queue->fence_ctx.lock) {
-+		list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
-+			if (!syncobj) {
-+				struct panthor_group *group = job->group;
-+
-+				syncobj = group->syncobjs->kmap +
-+					  (job->queue_idx * sizeof(*syncobj));
-+			}
-+
-+			if (syncobj->seqno < job->done_fence->seqno)
-+				break;
-+
-+			list_move_tail(&job->node, &done_jobs);
-+			dma_fence_signal_locked(job->done_fence);
-+		}
-+
-+		if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
-+			/* If we have no job left, we cancel the timer, and reset remaining
-+			 * time to its default so it can be restarted next time
-+			 * queue_resume_timeout() is called.
-+			 */
-+			queue_suspend_timeout_locked(queue);
-+
-+			/* If there's no job pending, we consider it progress to avoid a
-+			 * spurious timeout if the timeout handler and the sync update
-+			 * handler raced.
-+			 */
-+			progress = true;
-+		} else if (!list_empty(&done_jobs)) {
-+			queue_reset_timeout_locked(queue);
-+			progress = true;
-+		}
-+	}
-+	dma_fence_end_signalling(cookie);
-+
-+	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
-+		if (job->profiling.mask)
-+			update_fdinfo_stats(job);
-+		list_del_init(&job->node);
-+		panthor_job_put(&job->base);
-+	}
-+
-+	return progress;
-+}
-+
-+static void group_check_job_completion(struct panthor_group *group)
-+{
-+	u32 queue_idx;
-+	bool cookie;
-+
-+	cookie = dma_fence_begin_signalling();
-+	for (queue_idx = 0; queue_idx < group->queue_count; queue_idx++) {
-+		struct panthor_queue *queue = group->queues[queue_idx];
-+
-+		if (!queue)
-+			continue;
-+
-+		queue_check_job_completion(queue);
-+	}
-+	dma_fence_end_signalling(cookie);
-+}
-+
- static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
- 					u32 csg_id)
+ extern struct workqueue_struct *panthor_cleanup_wq;
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index fc1a423e48a8..68965175105f 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -1072,8 +1072,9 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
+ 			 msecs_to_jiffies(PING_INTERVAL_MS));
+ }
+ 
+-static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
++static void panthor_job_irq_handler(struct panthor_irq *pirq, u32 status)
  {
-@@ -1771,7 +1854,7 @@ static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
- 	lockdep_assert_held(&ptdev->scheduler->events_lock);
++	struct panthor_device *ptdev = pirq->ptdev;
+ 	u32 duration;
+ 	u64 start = 0;
  
- 	if (group)
--		group_queue_work(group, sync_upd);
-+		group_check_job_completion(group);
- 
- 	sched_queue_work(ptdev->scheduler, sync_upd);
- }
-@@ -3043,22 +3126,6 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
+@@ -1099,7 +1100,11 @@ static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
+ 		trace_gpu_job_irq(ptdev->base.dev, status, duration);
  	}
  }
+-PANTHOR_IRQ_HANDLER(job, panthor_job_irq_handler);
++
++static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *data)
++{
++	return panthor_irq_default_threaded_handler(data, panthor_job_irq_handler);
++}
  
--static void update_fdinfo_stats(struct panthor_job *job)
--{
--	struct panthor_group *group = job->group;
--	struct panthor_queue *queue = group->queues[job->queue_idx];
--	struct panthor_gpu_usage *fdinfo = &group->fdinfo.data;
--	struct panthor_job_profiling_data *slots = queue->profiling.slots->kmap;
--	struct panthor_job_profiling_data *data = &slots[job->profiling.slot];
--
--	scoped_guard(spinlock, &group->fdinfo.lock) {
--		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_CYCLES)
--			fdinfo->cycles += data->cycles.after - data->cycles.before;
--		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP)
--			fdinfo->time += data->time.after - data->time.before;
--	}
--}
--
- void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
+ static int panthor_fw_start(struct panthor_device *ptdev)
  {
- 	struct panthor_group_pool *gpool = pfile->groups;
-@@ -3079,80 +3146,6 @@ void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
- 	xa_unlock(&gpool->xa);
+@@ -1107,8 +1112,8 @@ static int panthor_fw_start(struct panthor_device *ptdev)
+ 	bool timedout = false;
+ 
+ 	ptdev->fw->booted = false;
+-	panthor_job_irq_enable_events(&ptdev->fw->irq, ~0);
+-	panthor_job_irq_resume(&ptdev->fw->irq);
++	panthor_irq_enable_events(&ptdev->fw->irq, ~0);
++	panthor_irq_resume(&ptdev->fw->irq);
+ 	gpu_write(fw->iomem, MCU_CONTROL, MCU_CONTROL_AUTO);
+ 
+ 	if (!wait_event_timeout(ptdev->fw->req_waitqueue,
+@@ -1218,7 +1223,7 @@ void panthor_fw_pre_reset(struct panthor_device *ptdev, bool on_hang)
+ 			ptdev->reset.fast = true;
+ 	}
+ 
+-	panthor_job_irq_suspend(&ptdev->fw->irq);
++	panthor_irq_suspend(&ptdev->fw->irq);
+ 	panthor_fw_stop(ptdev);
  }
  
--static bool queue_check_job_completion(struct panthor_queue *queue)
--{
--	struct panthor_syncobj_64b *syncobj = NULL;
--	struct panthor_job *job, *job_tmp;
--	bool cookie, progress = false;
--	LIST_HEAD(done_jobs);
--
--	cookie = dma_fence_begin_signalling();
--	scoped_guard(spinlock_irqsave, &queue->fence_ctx.lock) {
--		list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
--			if (!syncobj) {
--				struct panthor_group *group = job->group;
--
--				syncobj = group->syncobjs->kmap +
--					  (job->queue_idx * sizeof(*syncobj));
--			}
--
--			if (syncobj->seqno < job->done_fence->seqno)
--				break;
--
--			list_move_tail(&job->node, &done_jobs);
--			dma_fence_signal_locked(job->done_fence);
--		}
--
--		if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
--			/* If we have no job left, we cancel the timer, and reset remaining
--			 * time to its default so it can be restarted next time
--			 * queue_resume_timeout() is called.
--			 */
--			queue_suspend_timeout_locked(queue);
--
--			/* If there's no job pending, we consider it progress to avoid a
--			 * spurious timeout if the timeout handler and the sync update
--			 * handler raced.
--			 */
--			progress = true;
--		} else if (!list_empty(&done_jobs)) {
--			queue_reset_timeout_locked(queue);
--			progress = true;
--		}
--	}
--	dma_fence_end_signalling(cookie);
--
--	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
--		if (job->profiling.mask)
--			update_fdinfo_stats(job);
--		list_del_init(&job->node);
--		panthor_job_put(&job->base);
--	}
--
--	return progress;
--}
--
--static void group_sync_upd_work(struct work_struct *work)
--{
--	struct panthor_group *group =
--		container_of(work, struct panthor_group, sync_upd_work);
--	u32 queue_idx;
--	bool cookie;
--
--	cookie = dma_fence_begin_signalling();
--	for (queue_idx = 0; queue_idx < group->queue_count; queue_idx++) {
--		struct panthor_queue *queue = group->queues[queue_idx];
--
--		if (!queue)
--			continue;
--
--		queue_check_job_completion(queue);
--	}
--	dma_fence_end_signalling(cookie);
--
--	group_put(group);
--}
--
- struct panthor_job_ringbuf_instrs {
- 	u64 buffer[MAX_INSTRS_PER_JOB];
- 	u32 count;
-@@ -3718,7 +3711,6 @@ int panthor_group_create(struct panthor_file *pfile,
- 	INIT_LIST_HEAD(&group->wait_node);
- 	INIT_LIST_HEAD(&group->run_node);
- 	INIT_WORK(&group->term_work, group_term_work);
--	INIT_WORK(&group->sync_upd_work, group_sync_upd_work);
- 	INIT_WORK(&group->tiler_oom_work, group_tiler_oom_work);
- 	INIT_WORK(&group->release_work, group_release_work);
+@@ -1287,7 +1292,7 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
  
+ 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev)) {
+ 		/* Make sure the IRQ handler cannot be called after that point. */
+-		panthor_job_irq_suspend(&ptdev->fw->irq);
++		panthor_irq_suspend(&ptdev->fw->irq);
+ 		panthor_fw_stop(ptdev);
+ 	}
+ 
+@@ -1482,8 +1487,9 @@ int panthor_fw_init(struct panthor_device *ptdev)
+ 	if (irq <= 0)
+ 		return -ENODEV;
+ 
+-	ret = panthor_request_job_irq(ptdev, &fw->irq, irq,
+-				      ptdev->iomem + JOB_INT_BASE);
++	ret = panthor_irq_request(ptdev, &fw->irq, irq,
++				  ptdev->iomem + JOB_INT_BASE, "job",
++				  panthor_job_irq_threaded_handler);
+ 	if (ret) {
+ 		drm_err(&ptdev->base, "failed to request job irq");
+ 		return ret;
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index c013d6bf9a59..7f287242285a 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -86,8 +86,9 @@ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
+ 	gpu_write(gpu->iomem, GPU_L2_CONFIG, l2_config);
+ }
+ 
+-static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
++static void panthor_gpu_irq_handler(struct panthor_irq *pirq, u32 status)
+ {
++	struct panthor_device *ptdev = pirq->ptdev;
+ 	struct panthor_gpu *gpu = ptdev->gpu;
+ 
+ 	gpu_write(gpu->irq.iomem, INT_CLEAR, status);
+@@ -116,7 +117,11 @@ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
+ 	}
+ 	spin_unlock(&ptdev->gpu->reqs_lock);
+ }
+-PANTHOR_IRQ_HANDLER(gpu, panthor_gpu_irq_handler);
++
++static irqreturn_t panthor_gpu_irq_threaded_handler(int irq, void *data)
++{
++	return panthor_irq_default_threaded_handler(data, panthor_gpu_irq_handler);
++}
+ 
+ /**
+  * panthor_gpu_unplug() - Called when the GPU is unplugged.
+@@ -128,7 +133,7 @@ void panthor_gpu_unplug(struct panthor_device *ptdev)
+ 
+ 	/* Make sure the IRQ handler is not running after that point. */
+ 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
+-		panthor_gpu_irq_suspend(&ptdev->gpu->irq);
++		panthor_irq_suspend(&ptdev->gpu->irq);
+ 
+ 	/* Wake-up all waiters. */
+ 	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+@@ -169,13 +174,14 @@ int panthor_gpu_init(struct panthor_device *ptdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
+-	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
+-				      ptdev->iomem + GPU_INT_BASE);
++	ret = panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
++				  ptdev->iomem + GPU_INT_BASE, "gpu",
++				  panthor_gpu_irq_threaded_handler);
+ 	if (ret)
+ 		return ret;
+ 
+-	panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_INTERRUPTS_MASK);
+-	panthor_gpu_irq_resume(&ptdev->gpu->irq);
++	panthor_irq_enable_events(&ptdev->gpu->irq, GPU_INTERRUPTS_MASK);
++	panthor_irq_resume(&ptdev->gpu->irq);
+ 	return 0;
+ }
+ 
+@@ -183,7 +189,7 @@ int panthor_gpu_power_changed_on(struct panthor_device *ptdev)
+ {
+ 	guard(pm_runtime_active)(ptdev->base.dev);
+ 
+-	panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
++	panthor_irq_enable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
+ 
+ 	return 0;
+ }
+@@ -192,7 +198,7 @@ void panthor_gpu_power_changed_off(struct panthor_device *ptdev)
+ {
+ 	guard(pm_runtime_active)(ptdev->base.dev);
+ 
+-	panthor_gpu_irq_disable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
++	panthor_irq_disable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
+ }
+ 
+ /**
+@@ -425,7 +431,7 @@ void panthor_gpu_suspend(struct panthor_device *ptdev)
+ 	else
+ 		panthor_hw_l2_power_off(ptdev);
+ 
+-	panthor_gpu_irq_suspend(&ptdev->gpu->irq);
++	panthor_irq_suspend(&ptdev->gpu->irq);
+ }
+ 
+ /**
+@@ -437,7 +443,7 @@ void panthor_gpu_suspend(struct panthor_device *ptdev)
+  */
+ void panthor_gpu_resume(struct panthor_device *ptdev)
+ {
+-	panthor_gpu_irq_resume(&ptdev->gpu->irq);
++	panthor_irq_resume(&ptdev->gpu->irq);
+ 	panthor_hw_l2_power_on(ptdev);
+ }
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 0182b72f1932..d43ba1c7cd2a 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -601,17 +601,13 @@ static u32 panthor_mmu_as_fault_mask(struct panthor_device *ptdev, u32 as)
+ 	return BIT(as);
+ }
+ 
+-/* Forward declaration to call helpers within as_enable/disable */
+-static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status);
+-PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
+-
+ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+ 				 u64 transtab, u64 transcfg, u64 memattr)
+ {
+ 	struct panthor_mmu *mmu = ptdev->mmu;
+ 
+-	panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
+-				      panthor_mmu_as_fault_mask(ptdev, as_nr));
++	panthor_irq_enable_events(&ptdev->mmu->irq,
++				  panthor_mmu_as_fault_mask(ptdev, as_nr));
+ 
+ 	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
+ 	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
+@@ -629,8 +625,8 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+ 
+ 	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
+ 
+-	panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
+-				       panthor_mmu_as_fault_mask(ptdev, as_nr));
++	panthor_irq_disable_events(&ptdev->mmu->irq,
++				   panthor_mmu_as_fault_mask(ptdev, as_nr));
+ 
+ 	/* Flush+invalidate RW caches, invalidate RO ones. */
+ 	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+@@ -1859,8 +1855,9 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
+ 	mutex_unlock(&ptdev->mmu->as.slots_lock);
+ }
+ 
+-static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
++static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+ {
++	struct panthor_device *ptdev = pirq->ptdev;
+ 	struct panthor_mmu *mmu = ptdev->mmu;
+ 	bool has_unhandled_faults = false;
+ 
+@@ -1923,6 +1920,11 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
+ 		panthor_sched_report_mmu_fault(ptdev);
+ }
+ 
++static irqreturn_t panthor_mmu_irq_threaded_handler(int irq, void *data)
++{
++	return panthor_irq_default_threaded_handler(data, panthor_mmu_irq_handler);
++}
++
+ /**
+  * panthor_mmu_suspend() - Suspend the MMU logic
+  * @ptdev: Device.
+@@ -1947,7 +1949,7 @@ void panthor_mmu_suspend(struct panthor_device *ptdev)
+ 	}
+ 	mutex_unlock(&ptdev->mmu->as.slots_lock);
+ 
+-	panthor_mmu_irq_suspend(&ptdev->mmu->irq);
++	panthor_irq_suspend(&ptdev->mmu->irq);
+ }
+ 
+ /**
+@@ -1966,7 +1968,7 @@ void panthor_mmu_resume(struct panthor_device *ptdev)
+ 	ptdev->mmu->as.faulty_mask = 0;
+ 	mutex_unlock(&ptdev->mmu->as.slots_lock);
+ 
+-	panthor_mmu_irq_resume(&ptdev->mmu->irq);
++	panthor_irq_resume(&ptdev->mmu->irq);
+ }
+ 
+ /**
+@@ -1983,7 +1985,7 @@ void panthor_mmu_pre_reset(struct panthor_device *ptdev)
+ {
+ 	struct panthor_vm *vm;
+ 
+-	panthor_mmu_irq_suspend(&ptdev->mmu->irq);
++	panthor_irq_suspend(&ptdev->mmu->irq);
+ 
+ 	mutex_lock(&ptdev->mmu->vm.lock);
+ 	ptdev->mmu->vm.reset_in_progress = true;
+@@ -2020,7 +2022,7 @@ void panthor_mmu_post_reset(struct panthor_device *ptdev)
+ 
+ 	mutex_unlock(&ptdev->mmu->as.slots_lock);
+ 
+-	panthor_mmu_irq_resume(&ptdev->mmu->irq);
++	panthor_irq_resume(&ptdev->mmu->irq);
+ 
+ 	/* Restart the VM_BIND queues. */
+ 	mutex_lock(&ptdev->mmu->vm.lock);
+@@ -3352,7 +3354,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
+ void panthor_mmu_unplug(struct panthor_device *ptdev)
+ {
+ 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
+-		panthor_mmu_irq_suspend(&ptdev->mmu->irq);
++		panthor_irq_suspend(&ptdev->mmu->irq);
+ 
+ 	mutex_lock(&ptdev->mmu->as.slots_lock);
+ 	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
+@@ -3413,8 +3415,9 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+ 	if (irq <= 0)
+ 		return -ENODEV;
+ 
+-	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
+-				      ptdev->iomem + MMU_INT_BASE);
++	ret = panthor_irq_request(ptdev, &mmu->irq, irq,
++				  ptdev->iomem + MMU_INT_BASE, "mmu",
++				  panthor_mmu_irq_threaded_handler);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -3435,8 +3438,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	panthor_mmu_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
+-	panthor_mmu_irq_resume(&mmu->irq);
++	panthor_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
++	panthor_irq_resume(&mmu->irq);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+index f2c2c3000590..dd7b6ef8ea20 100644
+--- a/drivers/gpu/drm/panthor/panthor_pwr.c
++++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+@@ -56,8 +56,9 @@ struct panthor_pwr {
+ 	wait_queue_head_t reqs_acked;
+ };
+ 
+-static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
++static void panthor_pwr_irq_handler(struct panthor_irq *pirq, u32 status)
+ {
++	struct panthor_device *ptdev = pirq->ptdev;
+ 	struct panthor_pwr *pwr = ptdev->pwr;
+ 
+ 	spin_lock(&ptdev->pwr->reqs_lock);
+@@ -75,7 +76,11 @@ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
+ 	}
+ 	spin_unlock(&ptdev->pwr->reqs_lock);
+ }
+-PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
++
++static irqreturn_t panthor_pwr_irq_threaded_handler(int irq, void *data)
++{
++	return panthor_irq_default_threaded_handler(data, panthor_pwr_irq_handler);
++}
+ 
+ static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
+ {
+@@ -454,7 +459,7 @@ void panthor_pwr_unplug(struct panthor_device *ptdev)
+ 
+ 	/* Make sure the IRQ handler is not running after that point. */
+ 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
+-		panthor_pwr_irq_suspend(&ptdev->pwr->irq);
++		panthor_irq_suspend(&ptdev->pwr->irq);
+ 
+ 	/* Wake-up all waiters. */
+ 	spin_lock_irqsave(&ptdev->pwr->reqs_lock, flags);
+@@ -484,13 +489,14 @@ int panthor_pwr_init(struct panthor_device *ptdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
+-	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq,
+-				      pwr->iomem + PWR_INT_BASE);
++	err = panthor_irq_request(ptdev, &pwr->irq, irq,
++				  pwr->iomem + PWR_INT_BASE, "pwr",
++				  panthor_pwr_irq_threaded_handler);
+ 	if (err)
+ 		return err;
+ 
+-	panthor_pwr_irq_enable_events(&pwr->irq, PWR_INTERRUPTS_MASK);
+-	panthor_pwr_irq_resume(&pwr->irq);
++	panthor_irq_enable_events(&pwr->irq, PWR_INTERRUPTS_MASK);
++	panthor_irq_resume(&pwr->irq);
+ 	return 0;
+ }
+ 
+@@ -566,7 +572,7 @@ void panthor_pwr_suspend(struct panthor_device *ptdev)
+ 	if (!ptdev->pwr)
+ 		return;
+ 
+-	panthor_pwr_irq_suspend(&ptdev->pwr->irq);
++	panthor_irq_suspend(&ptdev->pwr->irq);
+ }
+ 
+ void panthor_pwr_resume(struct panthor_device *ptdev)
+@@ -574,5 +580,5 @@ void panthor_pwr_resume(struct panthor_device *ptdev)
+ 	if (!ptdev->pwr)
+ 		return;
+ 
+-	panthor_pwr_irq_resume(&ptdev->pwr->irq);
++	panthor_irq_resume(&ptdev->pwr->irq);
+ }
 
 -- 
 2.55.0
