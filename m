@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4CFBC5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C978CC5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C243510EBC7;
-	Tue, 11 Aug 2026 13:48:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0468F10EBDF;
+	Tue, 11 Aug 2026 13:48:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g1EYQVsg";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bpSNSc22";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A539C10EBC7;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC3CB10EBD2;
  Tue, 11 Aug 2026 13:48:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=MdDSOxkknt+Lz03V4J+d5YfMUkb2czaqzWcEf7nkJIA=; b=g1EYQVsg2yMQfoZ3S97loEYmfd
- gPfuLdFeAeGerIdl2vqjnEM1KbH/sM9f/3cDHq2cbngIifEzgE9zGbP7K7i0/i+0eMDdsr9SPsNL/
- waad9VHK//nRLCk810sQswy5FkjFrH1Xlx3ijKiLD8TnTDIBRZ5Ceac9vjNvLv2lb653Th9GL47+D
- LZK6wZpYEqEDFHZufpRmJTPrsEINyK0VxIlgxlZBX8AW7b/m39sAH7vPgxga+iMScHpVCgHXEklBW
- N+554x26xQaiI+s8d7xEuJO9oYrH9bO/Bg2C2hSYwnnIk4+cyhK6FkENh8eZnQdRE6scKL+OmpRnz
- 3Ee9f+SA==;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=uJ3EpT7DmA9CpGm3ROx190dkI0zlO+2mVu+iubKl05E=; b=
+ bpSNSc222L7rDeXkh5F6GmJSHk97PDWZWthhl4Wac9tIw6W2+xTeDWqmMe4Cwan3VtR7EbH8EOEQ3
+ BHyeI3LmHeUj0b89xu62Md72fh73D0Y91U+qeVAWDxf9OTqrqWuU+xphtInwbaDqSH5AhVV8lEaP1
+ fCqGn5WXCYPHKRs2AqMj76L78ujp4D3aPXeFGCpJI5fcc1fsNDYpxHQ0eVhHdS0EssD4xkB2wME4Q
+ /pmr+TANv3vZTFzvQ/4QqAc6kfraqgfcP1v5M1HQjWpYMiGYSvd2X1vGpRsqNBnDzOYrH5BIMo7fU
+ 6teZ7CkYL4izadl3Yz4rynp5L+FQD5wNlQ==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtmpl-00H9mH-0Y; Tue, 11 Aug 2026 15:48:01 +0200
+ id 1wtmpl-00H9mM-PJ; Tue, 11 Aug 2026 15:48:01 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Luke.Wildhardt@proton.me, Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH 00/20] Revert switching default DRM scheduler policy to fair
-Date: Tue, 11 Aug 2026 14:47:38 +0100
-Message-ID: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH 01/20] Revert "drm/sched: Remove redundant entity->rq
+ initialization and checks"
+Date: Tue, 11 Aug 2026 14:47:39 +0100
+Message-ID: <20260811134758.96339-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
+References: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,78 +57,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There was a late minute user reported regression report[1] so lets revert this
-so it can be debugged in peace.
+This reverts commit 2df5efb45425b48fbf5a3c1f36a686af26871009.
+---
+ drivers/gpu/drm/scheduler/sched_entity.c | 11 +++++++++--
+ drivers/gpu/drm/scheduler/sched_main.c   |  9 +++++++++
+ 2 files changed, 18 insertions(+), 2 deletions(-)
 
-I have not been able to locally reproduce it yet, but at least a partial fix
-looks to be this[2]. Further debug will be needed, possibly after the holiday/
-vacation season is over.
-
-[1] https://lore.kernel.org/dri-devel/TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me/
-[2] https://lore.kernel.org/dri-devel/20260811134223.96203-1-tvrtko.ursulin@igalia.com/
-
-Cc: Luke.Wildhardt@proton.me
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
-
-Tvrtko Ursulin (20):
-  Revert "drm/sched: Remove redundant entity->rq initialization and
-    checks"
-  Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
-  Revert "drm/xe: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/v3d: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/sched: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/panthor: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/panfrost: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/nouveau: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/msm: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/lima: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/imagination: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/etnaviv: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/amdgpu: Remove drm_sched_init_args->num_rqs usage"
-  Revert "accel/ethosu: Remove drm_sched_init_args->num_rqs usage"
-  Revert "accel/rocket: Remove drm_sched_init_args->num_rqs usage"
-  Revert "accel/amdxdna: Remove drm_sched_init_args->num_rqs usage"
-  Revert "drm/sched: Embed run queue singleton into the scheduler"
-  Revert "drm/sched: Remove FIFO and RR and simplify to a single run
-    queue"
-  Revert "drm/sched: Switch default policy to fair"
-  drm/sched: Mark fair policy as experimental
-
- drivers/accel/amdxdna/aie2_ctx.c              |   1 +
- drivers/accel/ethosu/ethosu_job.c             |   1 +
- drivers/accel/rocket/rocket_job.c             |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   4 +-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c       |   1 +
- drivers/gpu/drm/imagination/pvr_queue.c       |   1 +
- drivers/gpu/drm/lima/lima_sched.c             |   1 +
- drivers/gpu/drm/msm/msm_gem_vma.c             |   1 +
- drivers/gpu/drm/msm/msm_ringbuffer.c          |   1 +
- drivers/gpu/drm/nouveau/nouveau_sched.c       |   1 +
- drivers/gpu/drm/panfrost/panfrost_job.c       |   1 +
- drivers/gpu/drm/panthor/panthor_mmu.c         |   1 +
- drivers/gpu/drm/panthor/panthor_sched.c       |   1 +
- drivers/gpu/drm/scheduler/sched_entity.c      |  61 ++++++--
- drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
- drivers/gpu/drm/scheduler/sched_internal.h    |  15 +-
- drivers/gpu/drm/scheduler/sched_main.c        | 130 ++++++++++++++++--
- drivers/gpu/drm/scheduler/sched_rq.c          |  87 ++++++++----
- .../gpu/drm/scheduler/tests/mock_scheduler.c  |   1 +
- drivers/gpu/drm/v3d/v3d_sched.c               |   1 +
- drivers/gpu/drm/xe/xe_dep_scheduler.c         |   1 +
- drivers/gpu/drm/xe/xe_execlist.c              |   1 +
- drivers/gpu/drm/xe/xe_gpu_scheduler.c         |   1 +
- include/drm/gpu_scheduler.h                   |  42 +++++-
- 30 files changed, 319 insertions(+), 94 deletions(-)
-
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index c51101ec70c1..4ebb513255ed 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -129,6 +129,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 		return -ENOMEM;
+ 
+ 	INIT_LIST_HEAD(&entity->list);
++	entity->rq = NULL;
+ 	entity->guilty = guilty;
+ 	entity->priority = priority;
+ 	entity->last_user = current->group_leader;
+@@ -279,6 +280,9 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
+ 	struct drm_sched_job *job;
+ 	struct dma_fence *prev;
+ 
++	if (!entity->rq)
++		return;
++
+ 	spin_lock(&entity->lock);
+ 	entity->stopped = true;
+ 	drm_sched_rq_remove_entity(entity->rq, entity);
+@@ -325,11 +329,14 @@ EXPORT_SYMBOL(drm_sched_entity_kill);
+  */
+ long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeout)
+ {
+-	struct drm_gpu_scheduler *sched =
+-		container_of(entity->rq, typeof(*sched), rq);
++	struct drm_gpu_scheduler *sched;
+ 	struct task_struct *last_user;
+ 	long ret = timeout;
+ 
++	if (!entity->rq)
++		return 0;
++
++	sched = container_of(entity->rq, typeof(*sched), rq);
+ 	/*
+ 	 * The client will not queue more jobs during this fini - consume
+ 	 * existing queued ones, or discard them on SIGKILL.
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index d2ca01b31ee4..818d3d4434b5 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -588,6 +588,15 @@ int drm_sched_job_init(struct drm_sched_job *job,
+ 		       u32 credits, void *owner,
+ 		       uint64_t drm_client_id)
+ {
++	if (!entity->rq) {
++		/* This will most likely be followed by missing frames
++		 * or worse--a blank screen--leave a trail in the
++		 * logs, so this can be debugged easier.
++		 */
++		dev_err(job->sched->dev, "%s: entity has no rq!\n", __func__);
++		return -ENOENT;
++	}
++
+ 	if (unlikely(!credits)) {
+ 		pr_err("*ERROR* %s: credits cannot be 0!\n", __func__);
+ 		return -EINVAL;
 -- 
 2.54.0
 
