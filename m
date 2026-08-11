@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96BA4C5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC2AC5CFCF
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4307010ED0F;
-	Tue, 11 Aug 2026 17:11:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8435F10ED1E;
+	Tue, 11 Aug 2026 17:11:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mjeSnO0k";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YmPl7ouN";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B12A310ED0F;
- Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C9F110E38C;
+ Tue, 11 Aug 2026 17:10:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=aeVLgTc9lZD5on/N87viJZ3GrMBOhpVvY69l77soMIM=; b=
- mjeSnO0kwHJ1/45i3TDYpAjYfSybU8gEDrTFuzUUHx8l8igaIIwpQXOmZQGsV+jV5JWcNaGU9nmaf
- gArCchncM2YFzcWUTIVd4d8pM4pBT9HqUzNfbfoqD5gL1+t9Ql/RM4ouJiEe9JtSuEHoJzYCOkjKy
- 4ffy+FzS5wcF0I+1Z2ut241/rorsExv5WxedxABSW6GKWLLk9Q9J4oda1F8TTgt9kRDoSpYyf15WB
- SgIMeg1Lma+WQeDYZrJMh6f1NkxRlvcMMb2RTucUnHrs2+f0Q50C4KGJgOm9VGiIpcnCCFcLfs7fx
- V8XKpd85T/NjGaBeuW6mJU03WwCvrwd8+A==;
+ Cc:To:From:From:Reply-To; bh=//TxnqmlztwKvjmOKGcBYvIodU2Ir5/N828O7glJey4=; b=
+ YmPl7ouNJi7kF0nPGlB0RlbDSuiODNB02o1DVUe5KCyvAaEFI0c6/1utb9lMx13gjzyqFGQa3v5VK
+ d9ARCmcdWNQlv2VGUFAcWuHhbpSiVjf1zaXku2vCyc5hGqv06NEocxNrKFMGzV/M7WH2xUNWiQp46
+ Mey8aY2Sgum8vfwJUWu1gqRbBr85apPWfucg67q8SsKQePOeZqobIXOvugFClh6VQCRVNaV/98yqu
+ Mm0pC1F9R5CI0froKw2H21MeE/BLGvMkHIqSk1bqypRK5cpS3ZAuq1seBQKmWJU/hRRUBGPMAtK15
+ Dn9PW/BRg6roZgf568Jr2XeJpA1F80qyOg==;
 Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpzd-00HH9d-EX; Tue, 11 Aug 2026 19:10:25 +0200
+ id 1wtpza-00HH9d-Qb; Tue, 11 Aug 2026 19:10:22 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -46,11 +46,10 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Sashiko <sashiko-bot@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 05/11] drm/amd/display: only check colorops of an active
- color pipeline
-Date: Tue, 11 Aug 2026 18:45:54 +0200
-Message-ID: <20260811171011.184964-6-mwen@igalia.com>
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 03/11] drm/atomic: duplicate state of all colorops
+Date: Tue, 11 Aug 2026 18:45:52 +0200
+Message-ID: <20260811171011.184964-4-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
 References: <20260811171011.184964-1-mwen@igalia.com>
@@ -71,85 +70,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dm_plane_color_pipeline_active() iterates every colorop state in the
-atomic commit, so colorops of a pipeline that userspace deactivated via
-plane COLOR_PIPELINE are still taken into account, even though their
-BYPASS property is irrelevant once the pipeline is off. Walk the color
-pipeline of the plane state under evaluation instead, falling back to
-the committed colorop state when a colorop isn't in the atomic commit.
+Userspace expects that colorop settings of an inactive color pipeline
+persist, so that, when the color pipeline is activated again, preserves
+the values they had when it was deactivated. Colorop setup is expected
+to persist even during a suspend/resume. To snapshot colorop settings
+correctly, duplicate state of all colorops in a given plane, regardless
+of whether color pipeline is active. Depends on skipping
+drm_atomic_colorop_check() for duplicated state done in previous commit.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: d3a549f4df78 ("drm/amd/display: Use overlay cursor when color pipeline is active")
-Acked-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
-
 ---
+ drivers/gpu/drm/drm_atomic_helper.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-v4:
-- drop the ternary and add just a warn_on since both current callers
-  iterate planes already in the atomic state. (John H.)
-- explain the reason to use commited colorop (John H.)
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 ++++++++++++++-----
- 1 file changed, 24 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d0e612371c8f..384541b9ac9c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6551,9 +6551,9 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_commit *state, struct dr
-  * @use_old: if true, inspect the old colorop states; otherwise the new ones
-  *
-  * A color pipeline may be selected (color_pipeline != NULL) but still is
-- * inactive if every colorop in the chain is bypassed.  Only return
-- * true when at least one colorop has bypass == false, meaning the cursor
-- * would be subjected to the transformation in native mode.
-+ * inactive if every colorop in the chain is bypassed. Only return true when at
-+ * least one colorop has bypass == false, meaning the cursor would be subjected
-+ * to the transformation in native mode.
-  *
-  * Return: true if the pipeline modifies pixels, false otherwise.
-  */
-@@ -6561,18 +6561,33 @@ static bool dm_plane_color_pipeline_active(struct drm_atomic_commit *state,
- 					   struct drm_plane *plane,
- 					   bool use_old)
- {
-+	struct drm_plane_state *plane_state = use_old ?
-+					      drm_atomic_get_old_plane_state(state, plane) :
-+					      drm_atomic_get_new_plane_state(state, plane);
- 	struct drm_colorop *colorop;
--	struct drm_colorop_state *old_colorop_state, *new_colorop_state;
--	int i;
-+	struct drm_colorop_state *cstate;
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 917fd0594259..11c67bb808f9 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -3801,12 +3801,9 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
+ 			goto free;
+ 		}
  
--	for_each_oldnew_colorop_in_state(state, colorop, old_colorop_state, new_colorop_state, i) {
--		struct drm_colorop_state *cstate = use_old ? old_colorop_state : new_colorop_state;
-+	if (drm_WARN_ON(plane->dev, !plane_state))
-+		return false;
- 
--		if (cstate->colorop->plane != plane)
--			continue;
-+	/*
-+	 * A commit may change only some colorops of a pipeline, and only those
-+	 * have old and new states here. Telling whether the pipeline modifies
-+	 * pixels requires every colorop of the selected pipeline, so fall back
-+	 * to the committed state of the untouched ones; it's both their old
-+	 * and new state.
-+	 */
-+	drm_for_each_colorop_in_pipeline(colorop, plane_state->color_pipeline) {
-+		cstate = use_old ?
-+			 drm_atomic_get_old_colorop_state(state, colorop) :
-+			 drm_atomic_get_new_colorop_state(state, colorop);
-+
-+		if (!cstate)
-+			cstate = colorop->state;
- 		if (!cstate->bypass)
- 			return true;
+-		if (plane_state->color_pipeline) {
+-			err = drm_atomic_add_affected_colorops(state, plane);
+-			if (err)
+-				goto free;
+-		}
+-
++		err = drm_atomic_add_affected_colorops(state, plane);
++		if (err)
++			goto free;
  	}
-+
- 	return false;
- }
  
+ 	drm_connector_list_iter_begin(dev, &conn_iter);
 -- 
 2.53.0
 
