@@ -4,88 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 542CBC5B56A
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:54:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5B72C5B56A
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:54:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B926B10ECED;
-	Tue, 11 Aug 2026 16:54:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0436310ECF1;
+	Tue, 11 Aug 2026 16:54:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ci8kM3TP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BVuTUgTS";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 898CF10ECED
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 16:53:59 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-47fe377a217so699669f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 09:53:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786467238; x=1787072038; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=ksgenC6faa2uaiFtlpQfvuhc1ILqEPhv7NVF7jOjzek=;
- b=ci8kM3TP2GqixIIcLmLbPlxdD2EyBe29bQ4tfD9I05DPnMT48ci6J2/EfJd1uupr4X
- Q29uAEtxxehcHnd3FPihSpk06K1UweLwmGLJWjGvgdD4i2u0ups2woMU4mKUXkgf/z9Y
- sjcP9EGV77OpWdl18ahlbchgM4GT3vsPor+6jqGAAJHAAq1AN0VbAy6Mp/pHlwcwrqgO
- wQp81ekeEW1j9OkIb4eyJyoqGsFUGTkkOHVsbIVnWgVXIIsCgOtA1dXMddBkObO3GUzq
- nJ0xgWe+ooGqGjluo6k7K3rAm3MY8gkLOgQ/jr4V02t4OzsIQlNwg/b3aCieOh5ao+6R
- ZT6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786467238; x=1787072038;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ksgenC6faa2uaiFtlpQfvuhc1ILqEPhv7NVF7jOjzek=;
- b=CyeoHm6lyfmyc1kp+CECPMPxeISbKA9fDGubmcbQ6uiHc3JdpV4NUkUclsXxsAYD+E
- 2QT0NYM1NIYW+J93mQqm3c8Tk9UcWhhXhq1FfUslCZRzC/eMrZSo51O94PE+4cAQQcn+
- LBiCUwDywhXSJZesQSmorbOOFFZ5LStqnkgSnNETF9V0xtOX2Fxq9k1Qr9+4jfeRHq/I
- LIkfrqC/FZ9Sd+0wLqDB0veGzE3lQYB6uaOHVBDB+ye7TGEiU8SAUCIXZMI8kUdToXA7
- zh54UC0NpZTNGf4UfVh9HQfQrMH3zvidaOhjcBKg+T3rR7bYwCoSfiWQafcRHL7Zb6zE
- H4sw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp+FxoqDUaCJrxasm96hn4q1LxfAHQzseFho6aDCWSM4Km15lZ8eTCfgNqEeQZd1AC94qCfDfgNR1U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgI4WCpfkt9r1jFnLJi9wx4AtCr4HRw3CqjTLbWAQcb77gBjsm
- D1R7iVM8P/XEnV5aZFl7tO/hJKnJulAjBJayH+O11bQW1iM3SLBsmNyR
-X-Gm-Gg: AR+sD10yD50BicfvmJqyzgt7QoLDFitWC0rDaooSpGwaNzFYdvpoClOw53MLygJEWVp
- 3/JhsxRIkqmGNRfAf17rWBurr1xQN38fdqNRtGAU7Wo3ELMfCDSmGXe5m1RPncw2Ze0hNHvs5rQ
- vNS2qYEf3euctItnFPllbQkwdRVmOhkc9caLZvHnd4Y+SDCgxMoDFDZvViaAmaMR1ACVtCi2RID
- stvaeUFWGX2s3gqe1PWkghww+pd3vvnNH6h+woeyTzGcTdxXMneXkCGw1TuwREqFr9P8gzEuedM
- 4kDXlLLE5pLN5bEObVCCPCwROy+gJ725RWPLBw1HtQYjrb8hYstBQ0F4e5dubR0fJ0BxB6KmcaQ
- M25xRtQro7tdb8J+RC4MoednjHBPuAAs3flC4FKwZ7MaMTgKvvBlCbhm9l9ay3McQbgx3S++9Ni
- KCj+npysBZGZ26r54js9zlxnr3LT0dVpRz2qFojS8ia13n2/rP5ObTV9zoNkUYTt8r4p+ZamPPp
- ACrC1v2O1wozXXa53uszbQgaftQ2sKSUr8=
-X-Received: by 2002:a5d:5e92:0:b0:481:98d:b24 with SMTP id
- ffacd0b85a97d-4814fd76afemr3018131f8f.19.1786467237713; 
- Tue, 11 Aug 2026 09:53:57 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:434a:d6cf:4fd1:90b])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4814a7097adsm5967204f8f.23.2026.08.11.09.53.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 09:53:57 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: luca.ceresoli@bootlin.com, Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Joel Selvaraj <jo@jsfamily.in>,
- Icenowy Zheng <icenowy@aosc.io>, Jagan Teki <jagan@amarulasolutions.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>,
- Michael Tretter <m.tretter@pengutronix.de>,
- =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>,
- Purism Kernel Team <kernel@puri.sm>, Ondrej Jirman <megi@xff.cz>,
- Sasha Finkelstein <k@chaosmail.tech>, Janne Grunau <j@jannau.net>,
- Michael Trimarchi <michael@amarulasolutions.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- asahi@lists.linux.dev
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH v2 6/6] drm/panel: Use devm_mipi_dsi_attach in assorted panels
-Date: Tue, 11 Aug 2026 18:53:48 +0200
-Message-ID: <20260811165355.14530-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3351A10ECF1;
+ Tue, 11 Aug 2026 16:54:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1AC774012C;
+ Tue, 11 Aug 2026 16:54:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4F91F000E9;
+ Tue, 11 Aug 2026 16:53:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786467258;
+ bh=iX4NIPlAP4xo5UV8mClruOl7gqvsKTG+5TRTfDvmpvk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=BVuTUgTS8NxWWwARaVJz/KRZzymf5VYlMfEogAS68Xd1KTjRCHgyCB9tlLuO/b1O0
+ VvQTxUJzG8YLkm8kmQyQEBrnso7ux0wK9zUC4dX+58Aqm+yW2LY9CF02PAKMRjN13f
+ nrMX349UIgxtoTLCUvDLeQSKDLXhy1CG3NjkZcqY6Vbu2ZTVfIKyendySzeb/TsKNF
+ KM5gDZSj71VZtZkaoh+Jnapeku29oufgwAnkJSqa/MZnMp0U+5k5lyqAd5OilOD5LP
+ ZXQrBMt0AKkjIcLnZLdsezUjqpQkYNgT0bhQfGppMx0atyu1LNUqDnH7O0i1DtnHfc
+ czlElRvINGfZA==
+Message-ID: <cb6cb8c4-a8b7-463a-8ef5-75c99ff5638c@kernel.org>
+Date: Tue, 11 Aug 2026 18:53:53 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 15/20] tools/testing/vma: expand VMA merge tests to
+ assert anon pgoff
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Kees Cook <kees@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-15-ab318a350404@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-15-ab318a350404@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,761 +160,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the managed MIPI DSI attach helper in the remaining straightforward
-panel drivers and drop the corresponding manual detach calls from remove
-paths.
+On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
+> Now we have introduced the VMA anonymous page offset attribute and update
+> it when VMAs are manipulated, update VMA merge tests to assert that the
+> anonymous page offset is as expected.
+> 
+> Also update instances where we could use vma_start_pgoff() to do so.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-v2:
-- break long description lines.
-- add Signed-off-by tag
----
- drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c  | 9 +--------
- drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c     | 8 +-------
- drivers/gpu/drm/panel/panel-dsi-cm.c                  | 4 +---
- drivers/gpu/drm/panel/panel-ebbg-ft8719.c             | 8 +-------
- drivers/gpu/drm/panel/panel-elida-kd35t133.c          | 8 +-------
- drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c     | 4 +---
- drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c | 4 +---
- drivers/gpu/drm/panel/panel-hydis-hv101hd1.c          | 9 +--------
- drivers/gpu/drm/panel/panel-innolux-p079zca.c         | 8 +-------
- drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c      | 4 +---
- drivers/gpu/drm/panel/panel-khadas-ts050.c            | 8 +-------
- drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c    | 7 +------
- drivers/gpu/drm/panel/panel-lg-sw43408.c              | 8 +-------
- drivers/gpu/drm/panel/panel-lincolntech-lcd197.c      | 8 +-------
- drivers/gpu/drm/panel/panel-lxd-m9189a.c              | 8 +-------
- drivers/gpu/drm/panel/panel-mantix-mlaf057we51.c      | 4 +---
- drivers/gpu/drm/panel/panel-newvision-nv3051d.c       | 8 +-------
- drivers/gpu/drm/panel/panel-orisetech-otm8009a.c      | 4 +---
- drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c    | 8 +-------
- drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c  | 7 +------
- drivers/gpu/drm/panel/panel-ronbo-rb070d30.c          | 4 +---
- drivers/gpu/drm/panel/panel-simple.c                  | 8 +-------
- drivers/gpu/drm/panel/panel-sitronix-st7701.c         | 3 +--
- drivers/gpu/drm/panel/panel-sitronix-st7703.c         | 8 +-------
- drivers/gpu/drm/panel/panel-startek-kd070fhfid015.c   | 8 +-------
- drivers/gpu/drm/panel/panel-summit.c                  | 4 +---
- drivers/gpu/drm/panel/panel-synaptics-r63353.c        | 8 +-------
- drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c          | 8 +-------
- drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c      | 8 +-------
- 29 files changed, 29 insertions(+), 166 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c b/drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c
-index db006576d704..63359416944f 100644
---- a/drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c
-+++ b/drivers/gpu/drm/panel/panel-asus-z00t-tm5p5-n35596.c
-@@ -264,7 +264,7 @@ static int tm5p5_nt35596_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		return ret;
-@@ -276,13 +276,6 @@ static int tm5p5_nt35596_probe(struct mipi_dsi_device *dsi)
- static void tm5p5_nt35596_remove(struct mipi_dsi_device *dsi)
- {
- 	struct tm5p5_nt35596 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev,
--			"Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-index 562dc573528d..783ea9e9739d 100644
---- a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-+++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-@@ -292,7 +292,7 @@ static int ch13726a_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -305,12 +305,6 @@ static int ch13726a_probe(struct mipi_dsi_device *dsi)
- static void ch13726a_remove(struct mipi_dsi_device *dsi)
- {
- 	struct ch13726a_panel *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-dsi-cm.c b/drivers/gpu/drm/panel/panel-dsi-cm.c
-index ae6e9ffc46cb..329252416aa3 100644
---- a/drivers/gpu/drm/panel/panel-dsi-cm.c
-+++ b/drivers/gpu/drm/panel/panel-dsi-cm.c
-@@ -561,7 +561,7 @@ static int dsicm_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ddata->panel);
- 
--	r = mipi_dsi_attach(dsi);
-+	r = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (r < 0)
- 		goto err_dsi_attach;
- 
-@@ -583,8 +583,6 @@ static void dsicm_remove(struct mipi_dsi_device *dsi)
- 
- 	dev_dbg(&dsi->dev, "remove\n");
- 
--	mipi_dsi_detach(dsi);
--
- 	drm_panel_remove(&ddata->panel);
- 
- 	sysfs_remove_group(&dsi->dev.kobj, &dsicm_attr_group);
-diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-index fb9f9f42be4f..7b93eabbf65d 100644
---- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-+++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-@@ -204,7 +204,7 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -217,12 +217,6 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
- static void ebbg_ft8719_remove(struct mipi_dsi_device *dsi)
- {
- 	struct ebbg_ft8719 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-elida-kd35t133.c b/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-index d23002b5a2d7..fdc4bbef5f63 100644
---- a/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-+++ b/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-@@ -256,7 +256,7 @@ static int kd35t133_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -269,12 +269,6 @@ static int kd35t133_probe(struct mipi_dsi_device *dsi)
- static void kd35t133_remove(struct mipi_dsi_device *dsi)
- {
- 	struct kd35t133 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c b/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
-index 8c3a231c147d..13546faa07ad 100644
---- a/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
-+++ b/drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
-@@ -474,7 +474,7 @@ static int k101_im2ba02_dsi_probe(struct mipi_dsi_device *dsi)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->lanes = 4;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		drm_panel_remove(&ctx->panel);
- 		return ret;
-@@ -486,8 +486,6 @@ static int k101_im2ba02_dsi_probe(struct mipi_dsi_device *dsi)
- static void k101_im2ba02_dsi_remove(struct mipi_dsi_device *dsi)
- {
- 	struct k101_im2ba02 *ctx = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(dsi);
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-index c1d8ca5ca6e1..8d16a7254d4e 100644
---- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-+++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-@@ -219,7 +219,7 @@ static int feiyang_dsi_probe(struct mipi_dsi_device *dsi)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->lanes = 4;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		drm_panel_remove(&ctx->panel);
- 		return ret;
-@@ -231,8 +231,6 @@ static int feiyang_dsi_probe(struct mipi_dsi_device *dsi)
- static void feiyang_dsi_remove(struct mipi_dsi_device *dsi)
- {
- 	struct feiyang *ctx = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(dsi);
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-hydis-hv101hd1.c b/drivers/gpu/drm/panel/panel-hydis-hv101hd1.c
-index 0a96eb0fae1e..7c322aed7222 100644
---- a/drivers/gpu/drm/panel/panel-hydis-hv101hd1.c
-+++ b/drivers/gpu/drm/panel/panel-hydis-hv101hd1.c
-@@ -144,7 +144,7 @@ static int hv101hd1_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&hv->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret) {
- 		drm_panel_remove(&hv->panel);
- 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-@@ -156,13 +156,6 @@ static int hv101hd1_probe(struct mipi_dsi_device *dsi)
- static void hv101hd1_remove(struct mipi_dsi_device *dsi)
- {
- 	struct hv101hd1 *hv = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev,
--			"Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&hv->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-innolux-p079zca.c b/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-index 80afeeab9475..5eafddafe4ab 100644
---- a/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-+++ b/drivers/gpu/drm/panel/panel-innolux-p079zca.c
-@@ -444,7 +444,7 @@ static int innolux_panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	err = mipi_dsi_attach(dsi);
-+	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (err < 0) {
- 		innolux = mipi_dsi_get_drvdata(dsi);
- 		innolux_panel_del(innolux);
-@@ -457,12 +457,6 @@ static int innolux_panel_probe(struct mipi_dsi_device *dsi)
- static void innolux_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct innolux_panel *innolux = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
- 
- 	innolux_panel_del(innolux);
- }
-diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-index 5202c1ffc6e1..92ad445ca70f 100644
---- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-+++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-@@ -3251,7 +3251,7 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
- 	jadard->dsi = dsi;
- 	jadard->desc = desc;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0)
- 		drm_panel_remove(&jadard->panel);
- 
-@@ -3261,8 +3261,6 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
- static void jadard_dsi_remove(struct mipi_dsi_device *dsi)
- {
- 	struct jadard *jadard = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(dsi);
- 	drm_panel_remove(&jadard->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-khadas-ts050.c b/drivers/gpu/drm/panel/panel-khadas-ts050.c
-index 67ca055f06f3..5325c0f86324 100644
---- a/drivers/gpu/drm/panel/panel-khadas-ts050.c
-+++ b/drivers/gpu/drm/panel/panel-khadas-ts050.c
-@@ -862,7 +862,7 @@ static int khadas_ts050_panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	err = mipi_dsi_attach(dsi);
-+	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (err)
- 		drm_panel_remove(&khadas_ts050->base);
- 
-@@ -872,12 +872,6 @@ static int khadas_ts050_panel_probe(struct mipi_dsi_device *dsi)
- static void khadas_ts050_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct khadas_ts050_panel *khadas_ts050 = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
--
- 	drm_panel_remove(&khadas_ts050->base);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-index 893af9b16756..af0a04a6374d 100644
---- a/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-+++ b/drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c
-@@ -375,7 +375,7 @@ static int kingdisplay_panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	err = mipi_dsi_attach(dsi);
-+	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (err < 0) {
- 		kingdisplay_panel_del(kingdisplay);
- 		return err;
-@@ -387,11 +387,6 @@ static int kingdisplay_panel_probe(struct mipi_dsi_device *dsi)
- static void kingdisplay_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct kingdisplay_panel *kingdisplay = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
- 
- 	kingdisplay_panel_del(kingdisplay);
- }
-diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-index 293826c5006b..20238ad31567 100644
---- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-+++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-@@ -294,18 +294,12 @@ static int sw43408_probe(struct mipi_dsi_device *dsi)
- 
- 	dsi->dsc = &ctx->dsc;
- 
--	return mipi_dsi_attach(dsi);
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
- }
- 
- static void sw43408_remove(struct mipi_dsi_device *dsi)
- {
- 	struct sw43408_panel *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->base);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-lincolntech-lcd197.c b/drivers/gpu/drm/panel/panel-lincolntech-lcd197.c
-index 24b34443ace0..22c7e94bc587 100644
---- a/drivers/gpu/drm/panel/panel-lincolntech-lcd197.c
-+++ b/drivers/gpu/drm/panel/panel-lincolntech-lcd197.c
-@@ -221,7 +221,7 @@ static int lincoln_lcd197_panel_probe(struct mipi_dsi_device *dsi)
- 		return err;
- 
- 	drm_panel_add(&lcd->panel);
--	err = mipi_dsi_attach(dsi);
-+	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (err)
- 		drm_panel_remove(&lcd->panel);
- 
-@@ -231,12 +231,6 @@ static int lincoln_lcd197_panel_probe(struct mipi_dsi_device *dsi)
- static void lincoln_lcd197_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct lincoln_lcd197_panel *lcd = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
--
- 	drm_panel_remove(&lcd->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-lxd-m9189a.c b/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-index baaf170779e0..bb64097d7bb0 100644
---- a/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-+++ b/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-@@ -202,7 +202,7 @@ static int lxd_m9189_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&m9189->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
- 		drm_panel_remove(&m9189->panel);
-@@ -215,12 +215,6 @@ static int lxd_m9189_probe(struct mipi_dsi_device *dsi)
- static void lxd_m9189_remove(struct mipi_dsi_device *dsi)
- {
- 	struct m9189_panel *m9189 = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&m9189->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-mantix-mlaf057we51.c b/drivers/gpu/drm/panel/panel-mantix-mlaf057we51.c
-index 27e188bb2d7f..50f835c7d84a 100644
---- a/drivers/gpu/drm/panel/panel-mantix-mlaf057we51.c
-+++ b/drivers/gpu/drm/panel/panel-mantix-mlaf057we51.c
-@@ -280,7 +280,7 @@ static int mantix_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed (%d). Is host ready?\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -298,8 +298,6 @@ static int mantix_probe(struct mipi_dsi_device *dsi)
- static void mantix_remove(struct mipi_dsi_device *dsi)
- {
- 	struct mantix *ctx = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(dsi);
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-newvision-nv3051d.c b/drivers/gpu/drm/panel/panel-newvision-nv3051d.c
-index 22560384e48e..31b95ee49fae 100644
---- a/drivers/gpu/drm/panel/panel-newvision-nv3051d.c
-+++ b/drivers/gpu/drm/panel/panel-newvision-nv3051d.c
-@@ -399,7 +399,7 @@ static int panel_nv3051d_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -421,14 +421,8 @@ static void panel_nv3051d_shutdown(struct mipi_dsi_device *dsi)
- static void panel_nv3051d_remove(struct mipi_dsi_device *dsi)
- {
- 	struct panel_nv3051d *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
- 	panel_nv3051d_shutdown(dsi);
- 
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c b/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-index 130520558a81..2a96acc96f2f 100644
---- a/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-+++ b/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-@@ -434,7 +434,7 @@ static int otm8009a_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed. Is host ready?\n");
- 		drm_panel_remove(&ctx->panel);
-@@ -447,8 +447,6 @@ static int otm8009a_probe(struct mipi_dsi_device *dsi)
- static void otm8009a_remove(struct mipi_dsi_device *dsi)
- {
- 	struct otm8009a *ctx = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(dsi);
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c b/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-index 63ae9dc5712f..c7cd7a7101cc 100644
---- a/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-+++ b/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-@@ -172,7 +172,7 @@ static int osd101t2587_panel_probe(struct mipi_dsi_device *dsi)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret)
- 		drm_panel_remove(&osd101t2587->base);
- 
-@@ -182,13 +182,7 @@ static int osd101t2587_panel_probe(struct mipi_dsi_device *dsi)
- static void osd101t2587_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct osd101t2587_panel *osd101t2587 = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
- 	drm_panel_remove(&osd101t2587->base);
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
- }
- 
- static struct mipi_dsi_driver osd101t2587_panel_driver = {
-diff --git a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
-index d21d93a0700e..f37e069c57d6 100644
---- a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
-+++ b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
-@@ -210,7 +210,7 @@ static int wuxga_nt_panel_probe(struct mipi_dsi_device *dsi)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		wuxga_nt_panel_del(wuxga_nt);
- 		return ret;
-@@ -222,11 +222,6 @@ static int wuxga_nt_panel_probe(struct mipi_dsi_device *dsi)
- static void wuxga_nt_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct wuxga_nt_panel *wuxga_nt = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
- 
- 	wuxga_nt_panel_del(wuxga_nt);
- }
-diff --git a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-index c3fbc459c7e0..d9bb7066964a 100644
---- a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-+++ b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-@@ -198,7 +198,7 @@ static int rb070d30_panel_dsi_probe(struct mipi_dsi_device *dsi)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->lanes = 4;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		drm_panel_remove(&ctx->panel);
- 		return ret;
-@@ -210,8 +210,6 @@ static int rb070d30_panel_dsi_probe(struct mipi_dsi_device *dsi)
- static void rb070d30_panel_dsi_remove(struct mipi_dsi_device *dsi)
- {
- 	struct rb070d30_panel *ctx = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(dsi);
- 	drm_panel_remove(&ctx->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index c95964ba25a9..c52d30f472c2 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -6551,7 +6551,7 @@ static int panel_simple_dsi_probe(struct mipi_dsi_device *dsi)
- 	dsi->format = desc->format;
- 	dsi->lanes = desc->lanes;
- 
--	err = mipi_dsi_attach(dsi);
-+	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (err) {
- 		struct panel_simple *panel = mipi_dsi_get_drvdata(dsi);
- 
-@@ -6563,12 +6563,6 @@ static int panel_simple_dsi_probe(struct mipi_dsi_device *dsi)
- 
- static void panel_simple_dsi_remove(struct mipi_dsi_device *dsi)
- {
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
--
- 	panel_simple_remove(&dsi->dev);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7701.c b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-index f16e0de1ea60..b45e2e683fe9 100644
---- a/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-+++ b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-@@ -1347,7 +1347,7 @@ static int st7701_dsi_probe(struct mipi_dsi_device *dsi)
- 	dsi->format = st7701->desc->format;
- 	dsi->lanes = st7701->desc->lanes;
- 
--	err = mipi_dsi_attach(dsi);
-+	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (err)
- 		return dev_err_probe(&dsi->dev, err, "Failed to init MIPI DSI\n");
- 
-@@ -1381,7 +1381,6 @@ static int st7701_spi_probe(struct spi_device *spi)
- 
- static void st7701_dsi_remove(struct mipi_dsi_device *dsi)
- {
--	mipi_dsi_detach(dsi);
- }
- 
- static const struct of_device_id st7701_dsi_of_match[] = {
-diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-index 70f7282471e6..8b737651b628 100644
---- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-+++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-@@ -979,7 +979,7 @@ static int st7703_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed (%d). Is host ready?\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -998,12 +998,6 @@ static int st7703_probe(struct mipi_dsi_device *dsi)
- static void st7703_remove(struct mipi_dsi_device *dsi)
- {
- 	struct st7703 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- 
- 	st7703_debugfs_remove(ctx);
-diff --git a/drivers/gpu/drm/panel/panel-startek-kd070fhfid015.c b/drivers/gpu/drm/panel/panel-startek-kd070fhfid015.c
-index 7f04b7b404e7..064e2d2e3045 100644
---- a/drivers/gpu/drm/panel/panel-startek-kd070fhfid015.c
-+++ b/drivers/gpu/drm/panel/panel-startek-kd070fhfid015.c
-@@ -315,7 +315,7 @@ static int stk_panel_probe(struct mipi_dsi_device *dsi)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0)
- 		drm_panel_remove(&stk->base);
- 
-@@ -325,12 +325,6 @@ static int stk_panel_probe(struct mipi_dsi_device *dsi)
- static void stk_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct stk_panel *stk = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n",
--			err);
- 
- 	drm_panel_remove(&stk->base);
- }
-diff --git a/drivers/gpu/drm/panel/panel-summit.c b/drivers/gpu/drm/panel/panel-summit.c
-index 84435be52424..24db8a1353a0 100644
---- a/drivers/gpu/drm/panel/panel-summit.c
-+++ b/drivers/gpu/drm/panel/panel-summit.c
-@@ -90,14 +90,12 @@ static int summit_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&s_data->panel);
- 
--	return mipi_dsi_attach(dsi);
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
- }
- 
- static void summit_remove(struct mipi_dsi_device *dsi)
- {
- 	struct summit_data *s_data = mipi_dsi_get_drvdata(dsi);
--
--	mipi_dsi_detach(dsi);
- 	drm_panel_remove(&s_data->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-synaptics-r63353.c b/drivers/gpu/drm/panel/panel-synaptics-r63353.c
-index 3a74d48753d9..ea3fbd0c8662 100644
---- a/drivers/gpu/drm/panel/panel-synaptics-r63353.c
-+++ b/drivers/gpu/drm/panel/panel-synaptics-r63353.c
-@@ -267,7 +267,7 @@ static int r63353_panel_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&panel->base);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
- 		drm_panel_remove(&panel->base);
-@@ -281,12 +281,6 @@ static void r63353_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct r63353_panel *rpanel = mipi_dsi_get_drvdata(dsi);
- 	struct device *dev = &dsi->dev;
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(dev, "Failed to detach from host (%d)\n", ret);
--
- 	drm_panel_remove(&rpanel->base);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-index 13cfe252a838..92231716568b 100644
---- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-+++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-@@ -195,18 +195,12 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	return mipi_dsi_attach(dsi);
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
- }
- 
- static void tdo_tl070wsh30_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct tdo_tl070wsh30_panel *tdo_tl070wsh30 = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
--
- 	drm_panel_remove(&tdo_tl070wsh30->base);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c b/drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c
-index fc6516373b5d..f19ffc959115 100644
---- a/drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c
-+++ b/drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c
-@@ -276,7 +276,7 @@ static int xpp055c272_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
- 		drm_panel_remove(&ctx->panel);
-@@ -289,12 +289,6 @@ static int xpp055c272_probe(struct mipi_dsi_device *dsi)
- static void xpp055c272_remove(struct mipi_dsi_device *dsi)
- {
- 	struct xpp055c272 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&ctx->panel);
- }
- 
 -- 
-2.43.0
+Cheers,
 
+David
