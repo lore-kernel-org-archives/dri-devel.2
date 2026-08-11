@@ -4,83 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A43D1C5CFCF
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41062C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEAA510EE69;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8909210EE64;
 	Wed, 12 Aug 2026 07:08:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UC5mzFRy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="o8j7Ih0L";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4293D10E35A
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 19:42:41 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-49802c418b5so1713165e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 12:42:41 -0700 (PDT)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1B1810E240
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 08:47:18 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-382ef647e20so2968487a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 01:47:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786477360; x=1787082160; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Yi6COyPD9cih637RhWmDl/GrYJABMEvAXSPzHDaHyRc=;
- b=UC5mzFRymjpnJlzfxMP+yxMQOEFjsqfpkpVBVuOo9LmeaaQPXtV2zvWUqlsr3quy69
- McAtZ9C2ZGLI/xxZ0qqXauooR5GsIccr53UrDS0iQqsiv6dn0KkwpqFyhNrNBm2g634g
- MAfu+RCstWze3OJHT84/SgYIUN8SosY18NIfEpasnze6AAXwsxKrPrfjYv0qx9IUOf6C
- zqylUtZDV6XhMoSHgtD28vKgUtlbqTzxUTNlHIF8LlQjne2rmO2NtCsP7REsbuI8b/zD
- DU45EOFFJ4mABTkuzbVbpKEv5j9+VtXgeOF2vNOSJy55ZRUKE7KB4Ozt/RZVPxn+pdF6
- 76Ow==
+ d=gmail.com; s=20251104; t=1786438038; x=1787042838; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ly/Mo1nbCV/oSok4ztJy2PbfdvW3bZVZXW3Etcdsh1I=;
+ b=o8j7Ih0L5RtmDv2doVKS7+EjwouptxEH29swEtxr+dd0kgGIdWh1WtPW+ibqxoiC01
+ hA0uCR7HDqT2BIRgikyn83bD/FI+RZVAaBS0sskDlxzZs+5+uvEdx5hNT+gFvuPc+O60
+ 4hrpuO2pSr6osIRaARc0Kq/+4qoI/PkgDABstAxO9zWt78XRqIERIXG4t5Aou/o+nhN0
+ FDFKT5bDLiNfuCHsMGgVRRq0fvVr1yqXkfgBtIudXXAXFxsTIQkCfDC4as4rixxGr7Zr
+ 9Wnk2Ra37jfRETy+jJBKqf9ihNaN4SoSzcBIcjDeqeNZFIf5Dm1nJiKYfaGrIUTBOyHI
+ KR6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786477360; x=1787082160;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20251104; t=1786438038; x=1787042838;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Yi6COyPD9cih637RhWmDl/GrYJABMEvAXSPzHDaHyRc=;
- b=lQHzBbwo2VQWPigYzb3ZJ5knFVdwXVSLhbegsEZdjVX5T9bE4otC9iAJfHgbSllZIc
- 1FpGNk2Ad5IYgWm0/14vzky9a6xHFAdT02pWKlD0RqrgQdSKzeW53COz4dcj5vFuuj/R
- Ocf7UGwoxPm/NzTOfzLv7BUuE7HmsJqaJ6zh/Q/bn4Lz6vE9ytXJxHLbQbHy0Cloi42S
- xJZTCXzOKSmeuN5+4efW/f2wzHKcLIJ8NmWl1uk8Av2xbqFphiy83CXNZt7b5MBLuhxf
- b/zv54rohOJaZ/VeqoBnl9bIZ19y5o1u9uo3gSmeJPYPDN5YB/dtDhtEyUzS3KnWeZy4
- zGZg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoqoAqz18Qhl1yZBYHej5fJq72oO2BkbDR5KLfY9EnL5BMesc3eGJl3kmRVJMbp74n5pXZkyVJgQkE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yywy3/hBBF5qkTUTJoaxZdTXNITrVJ2E14n4de4IoD1cedWNLIm
- oTVy4ot08P2GMCk8RnYZoBI4Cj9ecIdEdzKadrzxOYV4fNuB9vWaR/sh
-X-Gm-Gg: AR+sD13OgA/CEuk7IMjM6UDUDf82e2BoH/Rwvp9B402AhsKWmYnjHaB09Opp4FxVjK0
- MVnsHvs+oooEQAaBnNZ9U1bkzVoGjLtSaeM9TPAZy8y/WFSTBjWoeH1t3RfDqS2ejgsqld+kenK
- 7g6weQ3Y/HfKZJoC7hRmuFdTYophRF9EygOqcs1FtXTVqfNkyEa42xZ4RVmUEr8zG1X0LD7X20t
- 9K4lyr6B8tDetgey61+E/qQGnG/8VVZDhWfOb7vbCUTIs8eFta6S8CY3X5b8qo9iLWtr+dwKIAn
- 8Awq1cjHgtQZD0Z3OqyMDS2BUw0hBbB7ULtgccebB5SFsyDHjeqpc8xWLruA/t/RELvGAmXrRHv
- oGsp8tG36WRs5YTeZZU9IUslj08NSMs+TUbPHpyV1D1BSzFtdj5WJRRwm2Efk62R+w/T1FLpTr3
- 9uE/cT8WFbx9zjP90ICvTR2jynDPU93+PrT/ljo7KN6JV1CsDtPmFuzoj1aTfG1tfUCYZuQx/yq
- QLSrZJ9mCFB2sswvT7EIAYrmGfzz6WDYB/TqGHVBCFqkqj7S0WC
-X-Received: by 2002:a05:600c:4f86:b0:496:c378:6420 with SMTP id
- 5b1f17b1804b1-4997843b3famr69845395e9.8.1786477359442; 
- Tue, 11 Aug 2026 12:42:39 -0700 (PDT)
-Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
- (212.pool95-21-2.static.orange.es. [95.21.2.212])
+ bh=ly/Mo1nbCV/oSok4ztJy2PbfdvW3bZVZXW3Etcdsh1I=;
+ b=dl/4+agMyrLw5iPRnO+fsn8H9LZnbJzRy7RnvF/eqk3HpAy7hgLmLUnqeUbBMmWOIH
+ 1enQSsmzqnTJUewiYail6irgg+f8/kv1aI3bvQWSmVf9+KnUpz1BD5ZQ89Inf/EDrmhu
+ CdnJSi5JH4clY9bFM9tQLDmyYOMcmr4d1aL1JowY8Y/OZWU2a55ro15tNgYOq5n6p+tF
+ zUDAeG6Dvp+YDZmkEmRMfUH/IqHU6vFp3U0/WtZ+fvYD5vhiAg6Y93pe08A51dDTG75E
+ BEx2DXmYMw5p747k4VW5GW5XVD1qI+FTil8lDbZ4X2E5Xwz8FW9sNuehRyEnJ9JNWxwv
+ YYiw==
+X-Gm-Message-State: AOJu0Ywl9nw57KQ0quk963+Od/toP5yTLMnX20mmK8VylPqF+mkF20Bc
+ 914wqO6SkOrvQkOMOkCO1H0EOqvRHBSqZHnVk6DK4oeDRgTw0zBdkAyCzLs/9SZyylQ=
+X-Gm-Gg: AR+sD13ZJcY8DGpz+hWtqTzBqj0YdNyQByLGhkLp66AvyH9DcV/zky7aaHbF7OoCwXL
+ 6bLlHihRj33xdkdK7Z9bRCt8Myi8GyR3d883hxg4l3+DGAzMAOsqXGjyIiBFx8hDkNRUPIYWKjQ
+ rxIZw8XI9Em5p3p5NxS4Ey6ZfcvoUto42aX24CI7lOy8tht+iXcjUlNTDK4Q7soYuaB3XSjxKxl
+ qtzrIeh47pnkChCgRSx0KvysWSpjgttSbHxyd0WPsURn6LrKpElCtGlcfSeWAlnL+AUdweDEGHw
+ nlCFaR4+m4HNBLYIJKEONnr1yOYDJPKIMU3YV394iKlpAmxkL3RppuVyOtBvnybxgi/8E5uERrl
+ U7dRDTN5l34z9v43LUAr3c1sHHq49rble3weMkP6azATtCs/0Ywvb+NglB1ZZCBJWGZZSHONV5d
+ YwpeqzCVJ0dFVRSOGSlrbgOWsUCu/mBdon/zJRn9Gd4x/acz/aW02qcbZk2RQ=
+X-Received: by 2002:a17:90a:ec90:b0:38e:2860:253f with SMTP id
+ 98e67ed59e1d1-392ec53e6c1mr1809410a91.12.1786438038162; 
+ Tue, 11 Aug 2026 01:47:18 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4997adad05esm3986195e9.3.2026.08.11.12.42.38
+ 98e67ed59e1d1-392e58a94aasm633058a91.4.2026.08.11.01.47.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 12:42:39 -0700 (PDT)
-From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
-To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>
-Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>, 
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
- stable@vger.kernel.org
-Subject: [PATCH v5 1/6] Memory leak error in qxl unbind
-Date: Tue, 11 Aug 2026 21:42:16 +0200
-Message-ID: <20260811194224.121597-2-megia.oscar@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811194224.121597-1-megia.oscar@gmail.com>
-References: <20260811194224.121597-1-megia.oscar@gmail.com>
+ Tue, 11 Aug 2026 01:47:17 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Date: Tue, 11 Aug 2026 16:46:29 +0800
+Subject: [PATCH v2 2/3] drm/nouveau/uvmm: fix premature region free on
+ failed OP_UNMAP_SPARSE
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260811-nouveau-uvmm-vmbind-fixes-v2-2-aaee4b395d04@gmail.com>
+References: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
+In-Reply-To: <20260811-nouveau-uvmm-vmbind-fixes-v2-0-aaee4b395d04@gmail.com>
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Airlie <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786438000; l=2185;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=fKwS8hLuASUBBkfhmQft0t9owMYTP3CSXRQ1mDs9JW0=;
+ b=yrXi/GfTrG95r3RXD9fwP33siW9x0kLUCR1OkBk7w2hfnn9/lRMc+wLYmEKPbf+pCazGFbf1e
+ HvXu2K4qPhFBTyDVzpUhsUqHjP6hqOL8DT8dLd6LvcoE6Kq50n4Egw2
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 X-Mailman-Approved-At: Wed, 12 Aug 2026 07:08:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,224 +103,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I discovered an OOM after run the script below
-(I updated it and added a sleep to allow enough time for the cache to
-recover):
+In nouveau_uvmm_bind_job_submit()'s OP_UNMAP_SPARSE arm, op->reg is set
+from nouveau_uvma_region_find(), which only looks the region up and takes
+no reference; a region's sole reference is its membership in
+uvmm->region_mt. Two failure paths leave op->reg set: the -ENOENT check
+when the region is busy, and the drm_gpuvm_sm_unmap_ops_create() failure.
+The sibling nouveau_uvmm_sm_unmap_prepare() failure just below clears
+op->reg; these two do not.
 
-while [ 1 -eq 1 ]; do\
-    i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
-    if (($i%1000==0)); then\
-        echo i=$i; free;\
-        grep nr_free_pages /proc/vmstat;\
-        grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
-        sync; echo 3 > /proc/sys/vm/drop_caches;\
-        echo 1 > /proc/sys/vm/compact_memory;\
-        sleep 10s;\
-        free;\
-        grep nr_free_pages /proc/vmstat;\
-        grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
-        uptime;\
-    fi;\
-    echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
-done
+unwind_continue steps back one op, so the failing op is skipped by the
+unwind loop and its op->reg stays set. nouveau_uvmm_bind_job_cleanup()
+then enters its if (op->reg) branch and calls nouveau_uvma_region_remove()
+and nouveau_uvma_region_put() on it, dropping the tree's sole reference
+and freeing a region this job never created. The comment above the
+cleanup loop documents the broken invariant: op->reg must be NULL on
+submit failure.
 
-The OOM isn't just a simple leak; it's a refcount corruption which renders
-the list_lru fix dead code after the first mid-init failure.
+This frees a live region on an unrelated failure, reachable single-job
+when drm_gpuvm_sm_unmap_ops_create() returns -ENOMEM; if another job owns
+the same region, its cleanup then removes and puts the freed region, a
+use-after-free. Clear op->reg on both failure paths.
 
-Fixed check if shrinker_list is empty holding shrinker_lock.
-Fixed check return value from ttm_pool_type_init and run
-ttm_pool_type_fini and list_lru_destroy for every pt initialized.
-Fixed change return value from ttm_pool_init to int.
-
-This patch depends on patch ("[PATCH v3] drm/qxl: fix use-after-free in
-qxl_irq_handler on PCI"), link [1] below.
-
-Assisted-by: OpenCode:1.17.18-Big Pickle/DeepSeek V4 Flash
-Assisted-by: claude.ai:Sonnet 5
-Link: https://lore.kernel.org/lkml/
-20260727110212.64913-1-megia.oscar@gmail.com/ [1]
-Link: https://lore.kernel.org/dri-devel/
-20260731053047.24503-1-megia.oscar@gmail.com/ [2]
-Cc: <stable@vger.kernel.org> # 7.1.0
-Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
-Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
-Changes in v2:
- - Bug 1: ttm_global_init ignores ttm_pool_mgr_init() return.
-   If shrinker_alloc() fails under memory pressure, ttm_pool_mgr_init
-   returns -ENOMEM with pool types already initialized (64 list_lru_init
-   calls done). ttm_global_init ignored this and returned 0, leaving orphaned
-   pool types with a NULL mm_shrinker.
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-   Fix: Check ret from ttm_pool_mgr_init; if non-zero, goto out cleans up
-   refcount + debugfs.
+diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+index 849bf42c124e..3412200b21fd 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+@@ -1319,6 +1319,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
+ 							   op->va.range);
+ 			if (!op->reg || op->reg->dirty) {
+ 				ret = -ENOENT;
++				op->reg = NULL;
+ 				goto unwind_continue;
+ 			}
+ 
+@@ -1327,6 +1328,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
+ 								op->va.range);
+ 			if (IS_ERR(op->ops)) {
+ 				ret = PTR_ERR(op->ops);
++				op->reg = NULL;
+ 				goto unwind_continue;
+ 			}
+ 
 
- - Bug 2: ttm_pool_mgr_init leaks pool types on shrinker_alloc failure
-   If shrinker_alloc fails after all 64 pool types were list_lru_init'd,
-   the function returned -ENOMEM without undoing them. With Bug 1 now
-   triggering proper error handling, this undo is necessary.
-
-   Fix: err_shrinker: label that finalizes + destroys all 64 pool types
-   before returning.
-
-Changes in v3:
- - Fix: "Unchecked list_lru_init() return value in ttm_pool_type_init()
-   causes a deterministic NULL pointer dereference in the newly added
-   error path."
-   Now check list_lru_init return value in ttm_pool_type_init() and
-   returns error if any.
-
- - Solved pre-existing issues reported by kernel test robot:
-   - [High] `ttm_pool_type_init()` ignores the return value of
-     `list_lru_init()`, leading to a NULL pointer dereference
-     if allocation fails.
-
-     Fix: get return value from list_lru_init and return error if any.
-
-   - [High] `ttm_pool_shrink()` assumes `shrinker_list` is never empty,
-     causing memory corruption and crashes during module unload
-     if triggered.
-
-     Fix: Check if shrinker_list is empty and return 0 if it is empty.
-
-Changes in v4:
- - removed check return value in ttm_pool_mgr_init, now in new patch
- ("[PATCH] ttm: Add error handling for ttm_pool_mgr_init()")
- link [2] above.
- - Fixed check empty shrinker_list.
- - Check return value from ttm_pool_type_init.
- - Move up shrinker_alloc.
- - Deleted dput(backup_fault_inject.dname);
- - Fixed issue [High] The patch introduces a use-after-free race condition
-   between `ttm_pool_type_fini()` and the active memory shrinker
-   `ttm_pool_shrink()` by calling `list_lru_destroy()` prematurely as
-   reported by kernel test robot.
-
-   Fix: separate ttm_pool_type_fini and list_lru_destroy. Then, add
-   ttm_pool_synchronize_shrinkers between them.
----
- drivers/gpu/drm/ttm/ttm_pool.c | 62 ++++++++++++++++++++++++----------
- include/drm/ttm/ttm_pool.h     |  2 +-
- 2 files changed, 46 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 278bbe7a11ad..88c0d33eed1a 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -437,13 +437,21 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
- 	LIST_HEAD(dispose);
- 	struct ttm_pool_type *pt;
- 	unsigned int num_pages;
-+	int empty = 0;
- 
- 	down_read(&pool_shrink_rwsem);
- 	spin_lock(&shrinker_lock);
--	pt = list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
--	list_move_tail(&pt->shrinker_list, &shrinker_list);
-+	if ((shrinker_list.prev == &shrinker_list) && (shrinker_list.next == &shrinker_list)) {
-+		empty = 1;
-+	} else {
-+		pt = list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
-+		list_move_tail(&pt->shrinker_list, &shrinker_list);
-+	}
- 	spin_unlock(&shrinker_lock);
- 
-+	if (empty)
-+		return 0;
-+
- 	num_pages = list_lru_walk_node(&pt->pages, nid, pool_move_to_dispose_list, &dispose, &num_to_free);
- 	num_pages *= 1 << pt->order;
- 
-@@ -1122,6 +1130,18 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
- 	return shrunken ? shrunken : ret;
- }
- 
-+/**
-+ * ttm_pool_synchronize_shrinkers - Wait for all running shrinkers to complete.
-+ *
-+ * This is useful to guarantee that all shrinker invocations have seen an
-+ * update, before freeing memory, similar to rcu.
-+ */
-+static void ttm_pool_synchronize_shrinkers(void)
-+{
-+	down_write(&pool_shrink_rwsem);
-+	up_write(&pool_shrink_rwsem);
-+}
-+
- /**
-  * ttm_pool_init - Initialize a pool
-  *
-@@ -1132,10 +1152,13 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
-  *
-  * Initialize the pool and its pool types.
-  */
--void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
-+int ttm_pool_init(struct ttm_pool *pool, struct device *dev,
- 		   int nid, unsigned int alloc_flags)
- {
--	unsigned int i, j;
-+	unsigned int i, j, k;
-+	int ret;
-+	struct ttm_pool_type *initialized[TTM_NUM_CACHING_TYPES * NR_PAGE_ORDERS];
-+	unsigned int n_initialized = 0;
- 
- 	WARN_ON(!dev && ttm_pool_uses_dma_alloc(pool));
- 
-@@ -1152,23 +1175,28 @@ void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
- 			if (pt != &pool->caching[i].orders[j])
- 				continue;
- 
--			ttm_pool_type_init(pt, pool, i, j);
-+			ret = ttm_pool_type_init(pt, pool, i, j);
-+			if (ret)
-+				goto error;
-+
-+			initialized[n_initialized++] = pt;
- 		}
- 	}
--}
--EXPORT_SYMBOL(ttm_pool_init);
- 
--/**
-- * ttm_pool_synchronize_shrinkers - Wait for all running shrinkers to complete.
-- *
-- * This is useful to guarantee that all shrinker invocations have seen an
-- * update, before freeing memory, similar to rcu.
-- */
--static void ttm_pool_synchronize_shrinkers(void)
--{
--	down_write(&pool_shrink_rwsem);
--	up_write(&pool_shrink_rwsem);
-+	return 0;
-+
-+error:
-+	for (k = 0; k < n_initialized; ++k)
-+		ttm_pool_type_fini(initialized[k]);
-+
-+	ttm_pool_synchronize_shrinkers();
-+
-+	for (k = 0; k < n_initialized; ++k)
-+		list_lru_destroy(&initialized[k]->pages);
-+
-+	return ret;
- }
-+EXPORT_SYMBOL(ttm_pool_init);
- 
- /**
-  * ttm_pool_fini - Cleanup a pool
-diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
-index 26ee592e1994..66248323c2c1 100644
---- a/include/drm/ttm/ttm_pool.h
-+++ b/include/drm/ttm/ttm_pool.h
-@@ -81,7 +81,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 		   struct ttm_operation_ctx *ctx);
- void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
- 
--void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
-+int ttm_pool_init(struct ttm_pool *pool, struct device *dev,
- 		   int nid, unsigned int alloc_flags);
- void ttm_pool_fini(struct ttm_pool *pool);
- 
 -- 
-2.55.0
+2.34.1
 
