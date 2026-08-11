@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32375C5CFE7
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:14:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1BEAC5B56A
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9B5510ECAF;
-	Tue, 11 Aug 2026 16:14:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEF4310E330;
+	Tue, 11 Aug 2026 16:19:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AqIEyxYo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D9zlC8Ue";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15B6310E330;
- Tue, 11 Aug 2026 16:14:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F64110E330;
+ Tue, 11 Aug 2026 16:19:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0F122600AE;
- Tue, 11 Aug 2026 16:14:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19C41F000E9;
- Tue, 11 Aug 2026 16:14:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C6AE8402EC;
+ Tue, 11 Aug 2026 16:19:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44F91F000E9;
+ Tue, 11 Aug 2026 16:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786464892;
- bh=ibHFa0NT6MxhyCm/QcqTUG2/hFc7gFbSlpWq8jjQ7cA=;
+ s=k20260515; t=1786465198;
+ bh=D7CISCZNOUacwFken/zE3V4XA36dbwptL0r4v8Me1CY=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=AqIEyxYo6WM3YdPSsSHbSDLMZr1JxmvH7h6KOYcSNIk3QXd2QVDV+IXaf+fBWHLQf
- 0b9y8y43sz8IUXGlQYKUUEcnqC/pPtKubYZ31f00YbF6B+5+QQkC3l+M/2k7hoZ0Tt
- a7TQCvXUCihZYHiWPRbGiwyJJrqK+B21ErINP+HNxYn1zaWYuXdldZOzPWtmT+qrvZ
- sV76ODh7HoZ2k3TTs7JrMZ6FV8O2QKp0q8LprjSmZii3bN/k4gT3tA/YRKP9iVuwNC
- pS0kSyWEURkoxvEHc5Mvx9ktzU6+nR50vPxDfujsHFVAaE1UrxqHbWhCnNE+/m0SZu
- pGLlpPrOKHZTQ==
-Message-ID: <08302615-8635-403f-b817-08a8a889cd58@kernel.org>
-Date: Tue, 11 Aug 2026 18:14:24 +0200
+ b=D9zlC8Ue7xyoRzrsbwUuTAn1JU7oiR5DVZid6WO7JwmYfxYK7juv4wK4YWA3jvPG9
+ fMNh6tkMCQAiV+0Zo803pEDObPx++QRzDbMTeqC8FVs213MQc6MHYwYbGM82/YGtMG
+ tumFrAoC8OmH0ntJar3oMIJddzwnBWGwpC3au/UO2THkmABUJaTyb0scTymw68IjPu
+ kkzGIAx14f0Jo7Xj9f/5/MjJGsLzrZgyFQOhYEJ9un76PSAbLqN1pq7gCZuqWWpzIm
+ 6wtuElC4RxaAl6cqVD+qTUPqAZdGhDYxOoD/cQsukiy/qeg4CvEDax1X263j94k9PW
+ qvRYNgLu9hing==
+Message-ID: <1d8cd29b-8a4d-454c-8dce-121b97e9d52b@kernel.org>
+Date: Tue, 11 Aug 2026 18:19:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/20] mm: provide vma_[flags_]is_cow_mapping() and
- remove is_cow_mapping()
-To: Andrew Morton <akpm@linux-foundation.org>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+Subject: Re: [PATCH v4 03/20] mm: introduce linear_anon_page_index()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
  Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
  <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
@@ -87,16 +86,15 @@ Cc: "Liam R. Howlett" <liam@infradead.org>,
  Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
  Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
  Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kvm@vger.kernel.org,
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+ Youngjun Park <youngjun.park@lge.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
 References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-2-ab318a350404@kernel.org>
- <ann-vS6MYT9kuXqu@lucifer>
- <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-3-ab318a350404@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -143,7 +141,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-3-ab318a350404@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -161,26 +159,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/11/26 00:10, Andrew Morton wrote:
-> On Mon, 10 Aug 2026 18:59:34 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
+> This function provides the anonymous equivalent of linear_page_index(),
+> instead offsetting based on the anonymous page offset of the VMA.
 > 
->> Hi Andrew - would it be possible to insert the comments added below? Trying
->> to avoid a respin if possible :)
+> It is valid only for anonymous or MAP_PRIVATE file-backed mappings, in
+> other words CoW mappings.
 > 
-> np, like this?
+> For pure anon VMAs, this will be equal to linear_page_index().
 > 
-> From: Andrew Morton <akpm@linux-foundation.org>
-> Subject: mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
-> Date: Mon Aug 10 03:07:02 PM PDT 2026
+> Assert that both of these invariants are true In linear_anon_page_index()
+> and implement the algorithm in __linear_anon_page_index().
 > 
-> add comments, per Lorenzo
+> Note that MAP_PRIVATE-/dev/zero mappings will satisfy vma_is_anonymous()
+> but not fulfill this invariant, so when asserting this we check
+> vma->vm_file to account for this.
 > 
-> Link: https://lore.kernel.org/ann-vS6MYT9kuXqu@lucifer
-> Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> We do not update callsites yet, so no functional change intended.
+> 
+> Also const-ify vma_is_anonymous() to make it compatible with the
+> const-ified linear_anon_page_index().
+> 
+> While we're here, update linear_page_index() to be more succinct.
+> 
+> VMA userland tests are also updated accordingly.
+> 
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
-
-To the whole resulting thing
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
