@@ -4,101 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA321C5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 08:04:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B080C5CFD9
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 08:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44FAA10EAC7;
-	Tue, 11 Aug 2026 08:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D05910EAC9;
+	Tue, 11 Aug 2026 08:41:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AtSjWI1X";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HneO5wKc";
 	dkim-atps=neutral
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8B9610EAC7
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 08:04:20 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5b01910b499so633579e87.0
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 01:04:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786435459; cv=none;
- d=google.com; s=arc-20260327;
- b=lEOvqRhOxI+IjH8jh4Dsn4q3PCvjBgHZbhC0PfMCfXJzYLLyos8V5XBxPSd2Hk3Bda
- R5NEznAKsXhot/05ayyvFdu/BCwvXgKLbSUerMffZJPT7su120ks0pcUcH/0SMf3cb/J
- 0u5ycfRoctOq7lI7yzxCdT9Codmv8BsSLuHTxUgS7S9DlxJyRIPCErePZh2GJlP0hPUL
- mOgzDVrVffc247pX/urS1kw3ZgQPiZ/ODPeeisXs3BhB5R5NDova0oFAckqO4trjGfWv
- jtvBud1Uj89mWb+AqMj8YSISZ+92FaoWVA1475JDSlSKazydpcfMsmEy8/cj1iWYhHzB
- ybug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=eD2VIkq4zaZTjNLqo1OszCP1hmPdXu0NsEJWpsPsgXs=;
- fh=T0Di0OIQtKN2Jy2HJaiCSh4pkKOz1gwjS3SDM7fMoNk=;
- b=rySRvRm38MI6sKzfXS01LfWiZtkyMHp2gNYFbr/ROTWHEBsm2V0pJ8CuMTGjHUH9O9
- dNECL+Bm2hf1uk1eEVHai3BuQPRqTMUpgHSIqBzP7j/ZudI+JvMn6CyaokFhrpVKAVcX
- Ko0IVShrnl0gMRMPIsImQvHVvr4AVy4li7VDM/1t6P8EX/IxJHms3OgFbDjeFd8Je2bT
- 9iyqV5y3zUaT3tTEqlgwjMdZoUYLuVQrP/ClhmQxG+51N/uqWbGO0VU4xi+DWVsv3nTW
- lRGp257oeGSdw1gH07XtfefLOE1Dh4lod9M7wi9wnVGOLrPRe9FROkIMjDme+p873V7m
- 7o/g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786435459; x=1787040259; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=eD2VIkq4zaZTjNLqo1OszCP1hmPdXu0NsEJWpsPsgXs=;
- b=AtSjWI1XqGLGoh6SQqsP0ETJ/y8qkd+sYDWWBM3L2bL4E3MmxEPyGEe62SykYZfYfL
- 0dEHjmbR3xf/8VHoVgxxKNy4GWwJRF94dWT0oI5JCeo9XCdJif82tRomyJMda0DVvP+s
- eg3rGCdidiVg3M1kKHoleHgM2Apmz0d7QwwBEXw4rsOKlbQGcqFO4gzMw5OVsMyutv/B
- /jQbxYuZ5cXTxSNGFDh/rufY6YvLzdLVIFZCR3flqKzN8dGHiU39I4k1HXzflgGM8rqG
- 073Qv2YDSGfSTRh72AG9YrDf1IWAQ+oZBPJp1l5lXg2XBiskXCwZ+vNySYi0csPyiprc
- HJdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786435459; x=1787040259;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=eD2VIkq4zaZTjNLqo1OszCP1hmPdXu0NsEJWpsPsgXs=;
- b=dg7vVL+2pbjQQhYs1c1BSjEJ3qxTgS5xWdlZiJZV0x+snY/rQBJiBkmAX5JawgdFEP
- 8G8JbPwXGmuFlcKd7nLmw8uNc9FebDuA7jkm4gYt95pklErDNzxsqsU7i9QSbMHBixCQ
- AMdJtIMwjhQXzg5fKsKVfSBpCY9UgwNqmLdZH2cdIldR6lPbFIbmAAQOAD+RE4xmUHxg
- rBNU3591xTHR10qx2Rs1ir93hN01TUkheuPtCdtiu/z/JHSFkMdlSl6xnyCXKtoLK4jg
- UHN6HYz93wDBZ0w1GEb+pf80s/5OY9G5QdJ7oS2pmRhfrIB7dSG+htMVSEpqkVN/UvLH
- qvxQ==
-X-Gm-Message-State: AOJu0YxKHfrYfzWIjZGM8Z/HI0h2OgmLqcJ7kUT6WNIqYT8T/JpWSN/O
- 3ZsL+GLlpeWExrBm2nO94b/ivN8eG1m/JuzOxxmeblHcSaClhcctN3BLT0hmKrBRXlzcl4Xgh5n
- 64P94rtfqVCUnjuyOpr9MZBO/9Az5cIzJOldk
-X-Gm-Gg: AR+sD11jAwHkmcPIA+t1W5EGvnXrk7q0bbEYgEDP1/7sxfQ6EXuGDUAAj1PmzSdIIJV
- 2mGxJzugmT2UXYKWvlah7uMpeYSrXIvoPxn0ATmHqN+b8SJjBGAtLFL+BlnAAwh4HllBBY02qqv
- R+DMSeLHsJAI5zxk1QifnewIaSA9VW173kOJc8YMnwSxoyxoBo4tP5lJkOwFgsLF9Kema3oS4qO
- BePRAYAgh2VZ7reZ0OrxZymI3/mrVKTwhqbUSVSUjODpYXHxWn6kryRYStQEOuxyNEpOPeDp2Na
- /T1H2x1rGG5mqZ7herPvyb+DKWQfy6t6XkegIHgvqlRgFx39yebon8bpenqyOJX9KuXB4sfuti/
- AcLarU5ijW2w8PnQD570YE9Ahv8cwR+azFYwPgNgQ0eBcczKdEILm1b5kxxmcXrMZ5wp4FSrIvp
- vPKixW+eYIjNHiWWdkX5Y=
-X-Received: by 2002:a05:6512:3c97:b0:5ae:aea9:63ef with SMTP id
- 2adb3069b0e04-5b44884624emr255678e87.12.1786435458791; Tue, 11 Aug 2026
- 01:04:18 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 551CC10E2B3;
+ Tue, 11 Aug 2026 08:41:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7477F600AE;
+ Tue, 11 Aug 2026 08:41:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B8E21F000E9;
+ Tue, 11 Aug 2026 08:41:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786437685;
+ bh=B9oyw8VGrdnmKGUbtduBgbxCRdwpvdeLqgkhrCXDNKQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HneO5wKcZdSzCZgiPL7O6y0hkp8NxpOysOwjQ1/0p5DZJDgbHmr8oIIto+qbUqUP8
+ QSncbqQais7NDR31QFmgQ7SJeueG1RlsaCn/ugXce/uqztMKctFvKx1+vcfyXCvqNZ
+ VJEHlmRInootV9fshr8tYk5LG1afiv/E+UOYl58uNgPRApc4UGU+ngmdh3PqQBdarD
+ Za9aH05yjKoWK0cBkN69Xhhb9cMAk62gCUKpXkd+IC3tlRx4y1qZ5QJ3SYz3eWJwWJ
+ /V1P5kbBwkgzwAFtJUA4uuFpLGZnK495BJYq41HQc15Y/yGaMH9StOXlfO1t3CLsMy
+ Wo0bc8EiRjuEw==
+Date: Tue, 11 Aug 2026 09:40:50 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 02/20] mm: provide vma_[flags_]is_cow_mapping() and
+ remove is_cow_mapping()
+Message-ID: <anrfA56ZIL7QQqvk@lucifer>
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-2-ab318a350404@kernel.org>
+ <ann-vS6MYT9kuXqu@lucifer>
+ <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
 MIME-Version: 1.0
-References: <20260730173643.256052-1-kieweg.leander@gmail.com>
- <20260730173643.256052-2-kieweg.leander@gmail.com>
- <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
- <CAMwcS0hupV50NEOX1Fsi_tzRYXBecaummjAm=CFHO7xOT1uUXw@mail.gmail.com>
- <c5f760db-2235-44c1-899c-b6ac023b3233@kernel.org>
- <CAMwcS0jTwpigztHBTLv_sgFNLK0ERHDMzMGsBdi7josLHw56-g@mail.gmail.com>
- <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
-In-Reply-To: <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
-From: Leander Kieweg <kieweg.leander@gmail.com>
-Date: Tue, 11 Aug 2026 10:04:08 +0200
-X-Gm-Features: AUfX_mzY0t4wemhPgOUxlfJ8wfsNV4rlS_YyzWedW4MFJlppAsBpsn_nNSHUWaw
-Message-ID: <CAMwcS0ij5Bof_S=aaynAnvY=WANqvvsDR0Zs03_2qXEP8yfuJw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Content-Type: multipart/alternative; boundary="000000000000ef80840658c0ea20"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,86 +118,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000ef80840658c0ea20
-Content-Type: text/plain; charset="UTF-8"
-
-> I am fine with small projects, till we do not have surge of them because
-> anyone clones some project and vibe-codes new soft-core.
+On Mon, Aug 10, 2026 at 03:10:07PM -0700, Andrew Morton wrote:
+> On Mon, 10 Aug 2026 18:59:34 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 >
-> Projects run on your personal github, without any organization, do not
-> get their own vendor prefix. Why? Because then you come with another
-> project and want one more prefix... Personal vendor prefix would be
-> fine, but different thing: this repo for your design was created a few
-> months ago, with one contributor and ~70 commits. This means it is very
-> new, without users.
-
-Makes sense. I'll go with a personal vendor prefix instead, e.g.
-"kieweg,gpu-1.0". I'd reuse that for any future project instead of
-asking for a new prefix.
-
-> What is the benefit of having it in Linux kernel for the community? Who
-> needs this, outside of you?
-
-Honestly, no one, probably. I built this because I wanted to learn,
-not because anyone was asking for it. I actually asked about this
-exact concern during the RFC review, whether being a hobby/non
-commercial project could be a dealbreaker for mainline. Thomas
-Zimmermann's reply at the time was:
-
-  We already have a driver for a RasPi-based USB display that
-  someone made in their spare time. So being a hobbyist project is
-  not a problem per se.
-
-I don't want to pretend there's a bigger community need than there
-actually is. If that's not enough for mainline, I understand.
-
-Best regards,
-Leander
-
---000000000000ef80840658c0ea20
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">&gt; I am fine with small projects, till we do not have s=
-urge of them because<br>
-&gt; anyone clones some project and vibe-codes new soft-core.<br>
-&gt;<br>
-&gt; Projects run on your personal github, without any organization, do not=
-<br>
-&gt; get their own vendor prefix. Why? Because then you come with another<b=
-r>
-&gt; project and want one more prefix... Personal vendor prefix would be<br=
+> > Hi Andrew - would it be possible to insert the comments added below? Trying
+> > to avoid a respin if possible :)
 >
-&gt; fine, but different thing: this repo for your design was created a few=
-<br>
-&gt; months ago, with one contributor and ~70 commits. This means it is ver=
-y<br>
-&gt; new, without users.<br>
-<br>
-Makes sense. I&#39;ll go with a personal vendor prefix instead, e.g.<br>
-&quot;kieweg,gpu-1.0&quot;. I&#39;d reuse that for any future project inste=
-ad of<br>
-asking for a new prefix.<br>
-<br>
-&gt; What is the benefit of having it in Linux kernel for the community? Wh=
-o<br>
-&gt; needs this, outside of you?<br>
-<br>
-Honestly, no one, probably. I built this because I wanted to learn,<br>
-not because anyone was asking for it. I actually asked about this<br>
-exact concern during the RFC review, whether being a hobby/non<br>
-commercial project could be a dealbreaker for mainline. Thomas<br>
-Zimmermann&#39;s reply at the time was:<br>
-<br>
-=C2=A0 We already have a driver for a RasPi-based USB display that<br>
-=C2=A0 someone made in their spare time. So being a hobbyist project is<br>
-=C2=A0 not a problem per se.<br>
-<br>
-I don&#39;t want to pretend there&#39;s a bigger community need than there<=
-br>
-actually is. If that&#39;s not enough for mainline, I understand.<br>
-<br>
-Best regards,<br>
-Leander<br></div>
+> np, like this?
 
---000000000000ef80840658c0ea20--
+Great thanks!
+
+Just one minor edit below (being pedantic here but kinda what the comment
+needs I think :)
+
+>
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
+> Date: Mon Aug 10 03:07:02 PM PDT 2026
+>
+> add comments, per Lorenzo
+>
+> Link: https://lore.kernel.org/ann-vS6MYT9kuXqu@lucifer
+> Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> ---
+>
+>  include/linux/mm.h |   57 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+>
+> --- a/include/linux/mm.h~mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
+> +++ a/include/linux/mm.h
+> @@ -2271,17 +2271,74 @@ void unpin_user_pages(struct page **page
+>  void unpin_user_folio(struct folio *folio, unsigned long npages);
+>  void unpin_folios(struct folio **folios, unsigned long nfolios);
+>
+> +/**
+> + * vma_flags_is_cow_mapping() - Do these VMA flags imply a CoW mapping?
+> + * @flags: The VMA flags to check.
+> + *
+> + * Mappings which could be CoW'd (subject to Copy-On-Write faults) are
+> + * described as CoW mappings.
+> + *
+> + * All mappings backed by anonymous folios (all anonymous mappings and most
+> + * MAP_PRIVATE-file backed ranges) are CoW mappings.
+> + *
+> + * All other mappings (including all writable MAP_SHARED mappings) are
+> + * non-CoW.
+
+I ummed and ahhed over how to put this but now I think this could cause
+confusion so could you replace the paragraph with:
+
+ * All other mappings (including all MAP_SHARED mappings) are non-CoW.
+
+It's _all_ MAP_SHARED mappings not just writable, I thought people would
+automatically assume read-only wasn't included plus drivers could in theory
+do crazy things (I have a pending series to fix that though) but it's
+clearer just to say all.
+
+> + *
+> + * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
+> + *
+> + * VMA_MAYWRITE_BIT is checked instead of VMA_WRITE_BIT to account for both
+> + * future mprotect() calls which can render a read-only mapping writable, and
+> + * GUP with FOLL_FORCE (e.g. ptrace) which can CoW a read-only mapping.
+> + *
+> + * - No anonymous mapping can ever clear VMA_MAYWRITE_BIT.
+> + *
+> + * - Writes to anonymous mappings do not immediately result in CoW faults but
+> + *   may do so after the process is forked or if a read is followed by a
+> + *   write.
+> + *
+> + * - Writes to MAP_PRIVATE file-backed mappings result in CoW faults and may
+> + *   do so again after fork.
+> + *
+> + * - MAP_SHARED mappings of a file opened read-only are transformed into
+> + *   VMA_MAYSHARE_BIT, !VMA_SHARED_BIT, !VMA_MAYWRITE_BIT mappings, so remain
+> + *   non-CoW.
+> + *
+> + * - Drivers may clear VMA_MAYWRITE_BIT but do so at mmap() time and cannot
+> + *   mark themselves anonymous. Having cleared this flag it is not valid for
+> + *   them to leave the VMA_WRITE_BIT flag set.
+> + *
+> + * As a consequence, the anonymous reverse mapping only tracks CoW mappings.
+> + *
+> + * Returns: true if the flags indicate a CoW mapping, otherwise false.
+> + */
+>  static inline bool vma_flags_is_cow_mapping(const vma_flags_t *flags)
+>  {
+>  	return vma_flags_test(flags, VMA_MAYWRITE_BIT) &&
+>  		!vma_flags_test(flags, VMA_SHARED_BIT);
+>  }
+>
+> +/**
+> + * vma_is_cow_mapping() - Is this VMA a CoW mapping?
+> + * @desc: The VMA to check.
+> + *
+> + * See vma_flags_is_cow_mapping() for details.
+> + *
+> + * Returns: true if the VMA is a CoW mapping, otherwise false.
+> + */
+>  static inline bool vma_is_cow_mapping(const struct vm_area_struct *vma)
+>  {
+>  	return vma_flags_is_cow_mapping(&vma->flags);
+>  }
+>
+> +/**
+> + * vma_desc_is_cow_mapping() - Is this VMA descriptor a CoW mapping?
+> + * @desc: The VMA descriptor to check.
+> + *
+> + * See vma_flags_is_cow_mapping() for details.
+> + *
+> + * Returns: true if the VMA descriptor describes a CoW mapping, otherwise
+> + * false.
+> + */
+>  static inline bool vma_desc_is_cow_mapping(struct vm_area_desc *desc)
+>  {
+>  	return vma_flags_is_cow_mapping(&desc->vma_flags);
+> _
+>
+
+--
+Cheers, Lorenzo
