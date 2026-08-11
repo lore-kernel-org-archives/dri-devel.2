@@ -4,127 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80186C5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 12:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D484C5CFC1
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 12:11:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99AAB10E31F;
-	Tue, 11 Aug 2026 12:09:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0902810EB6F;
+	Tue, 11 Aug 2026 12:11:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M8Ed2EC0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oMzFJcn9";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013062.outbound.protection.outlook.com
- [40.107.201.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D674E10E31F;
- Tue, 11 Aug 2026 12:09:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q/L+3jt+3PVjwg4KvHvVtESawUH+GzR2Avsl0knzMPTxkGZzQtgNJPJnHZdONWCZeJoRRsNPDhlywWdzPs/IlsmUYkqQU6HEk+9HWveqy9g+pmNqZt850PGHtd7D1qabDH+FnXYnkJzGKTOoaVX7r1MD2iid81LvStsEJzgH5dX7nPZY0uSbIVa7EjuWMIlB2mgmOJEjIAxLUMAoEJZWowDh8J1/RpYVe8nPW/yyDwYXGDuO3Dv0MfY88zK5bD9m9ioe419npIOV0xxi/z/7oYKJZkI7ar93TQQIeQQ4TA0gXQwhi3BGNDNLSjDcuHW3XMcPT1EDKsYu6w66NwmS2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r+3RhzQj1ouwoOocv3QYNikSv1qMjEICw5Awa8u8A2Y=;
- b=I9XSTpzYV9XDu8WRfvJiZer5CgUJgCfY9OFSDjA/OD6WvT75tjaGDRFTQMUusIsFlIFTmtyfQmq1vcYkYtiPwrdDEX4NMvRHRimAYI06hsDTQyfMoLxBtVnXMh+g7OaKpQrqsS5N/KKUG9HWqAakyo2Z1E6+aNlNoJD6vJG7uw/EioguCLD+wt8fzoLdkf1FSfjH3fA0E0oHIyD84b/UKFFZpjzEMpTWLi8Dzi0/Q2Ex8meI36bi/OcbzUtEU7Lgb9O8oFi4luSulseZFgwcvjE0TE7wEQB8l9YfmYUmlDCrip+SIRMNb1/gwRV/Qt+i2h1co449sKDVF0wpV0tHNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r+3RhzQj1ouwoOocv3QYNikSv1qMjEICw5Awa8u8A2Y=;
- b=M8Ed2EC0eMT3ljfeo1qW+I5MeyFFNGbzhyS4LQY7B9I5lC/6zvvdm8iblAqvs9EgYvQBQh3HrJQ4e+GRuAjoHy9Oi8hsZM9S0xtZ3FDKHQC9kmv83WpUdQ+N87G7CFS4aiR1NTrqL9BDtGt5vW0/WytD8cjAem/0v8xtzs+lJqU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by IA1PR12MB8192.namprd12.prod.outlook.com (2603:10b6:208:3f9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 12:09:28 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
- 12:09:28 +0000
-Message-ID: <241984ef-1b3a-4e52-8192-168a1489ee7f@amd.com>
-Date: Tue, 11 Aug 2026 17:39:22 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] gpu/tests/buddy: add dirty tracker performance
- KUnit test
-To: Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20260731070741.2654251-1-Arunpravin.PaneerSelvam@amd.com>
- <20260731070741.2654251-2-Arunpravin.PaneerSelvam@amd.com>
- <2526801e-1fdf-4386-8f48-99afb5f083a6@intel.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <2526801e-1fdf-4386-8f48-99afb5f083a6@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0055.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ac::11) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A17E10E6DE;
+ Tue, 11 Aug 2026 12:11:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AD2A843649;
+ Tue, 11 Aug 2026 12:11:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88261F000E9;
+ Tue, 11 Aug 2026 12:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786450309;
+ bh=/fTG1Cghw/RG7+KE3x88oxH8TI74VawrjBf3qjRRniY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=oMzFJcn9VOzkFaKMEx9vCYCdx1Pq7igNm3SDyOEjzrOpDudIApIUK8tbQWGyhMTA2
+ t05Mkqhok9RLYIMUol0cpCiu3QthaSWyzaAoYQ2iTd1AckujJZDZf2+JmOHRJ0KvP7
+ mcsYLS8a7sO8YaLXbyWEeOK99DFlaVD5L55J3MTekojG6h3FMWYgpjeoMH//X24lZs
+ 5lfWAxjxOdrK+/s8jDuKs0rLQeM8RFflAxNY1JPwZF3i/yhkf94kLkVqbTR4mmJWjo
+ hK2SQwlx7kI/9C/spjKPKM5IkvDG9SLQ6RAQ5o7kkbgcPTchuBQb5gh+4ZPvUgW8mp
+ IkyibBYe3lp/w==
+Message-ID: <e9de4158-b829-471b-980c-1999959bbc48@kernel.org>
+Date: Tue, 11 Aug 2026 14:11:31 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|IA1PR12MB8192:EE_
-X-MS-Office365-Filtering-Correlation-Id: 514f959f-9c2d-4f1e-edd5-08def7a16485
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: s/isGNtEQGa+35dzAW0rUftDmt2WOgGYBBds9eGL9BfIC+g5ufNzlYxDy5q83PURgeDWIvcy5dANLsrgCNKMdoFbZoWMULS/WK8PZ7IvlU5uvLhdl9Bq4ToO9XZwrHDxSWR6pZ4wOes0lX83BK9oAo6Ct2Tei+325wNA8rFuh/FAvwlYpfYuw5Thh2NdtmqoxYZbrAAt2L/G5DBtJHzvX+G/P7hJ0fC8Bh60KUYCiXVBSMO/fp03X1V1MgXTHM0Ay3JSeCA8cg730rjKnFP69NeZZGWRc9P+47Gb55cWwLriZTlxEdg5955sTywReZ4fBRWMO9wjaGaVPlULxjXXkr8CFnoCQTQBoTgQz3kOoo8GBFVdKT0SoSL1Hs39zWr+sJocvM0OyEeC6er4gz2r2+C7jhI2mVOMVliPz4lgfOgaer9Zq8uG7wemJJWJWTfSPBdgxVYaI3v1yrnWeyRzpeyAfvhMDL5GwKfDN+fib46qIKV8delrNF9kQ3vbd63VcpL9PlhICHRhXaOoplIwP0+YIsgAvq/2aU6RaTpYQvGMBMsWVTGmiEVh9c1nkkqW8Vs3DcrdIY/CwWlZw7QvtHk8JzE16cTnQ9NOKCXHUYo+ByO9QrLZb4QQPqC2xF15vVPQLKwTztwnRUiWpUJNNmfCoQdhl98hXFnk4CCGGy8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NzNjRDBDWFZMUXgvM1VnaWRtL3FpeFMyNkg1UWxzam9TMjdyOThEcDdPUnlO?=
- =?utf-8?B?YVh6Zk4yYmZTOXROK24xQ3JuemZVNjRpOUVrRElOL2NsSGd0VTNHOTlsWjJD?=
- =?utf-8?B?VW44LzdBK2R4OVM4NjNOYklENDM4UlM0dmpBT2JHd1BSV056RkYyTHp5dXJq?=
- =?utf-8?B?Zm4wZWhFS1NQMDVaaGNubFI4NGhGVnBzTkJMeHluNVJ1UjUyNSsvYnh2aFJz?=
- =?utf-8?B?KyszV1BBSk9IZC9NTU02bERJSHYvWjQxSGxXREIyaTc5QXkwclJKcXdOa0h5?=
- =?utf-8?B?TkpOL1UrZFFWWCs1LzQyZFM2OE5oaC9nWVV4TTZHa3ZZNXV6bGl0NFJZVkll?=
- =?utf-8?B?YTNsT0ZueGtrd1UwWld4SDJMRisyV0JpSDlYRDhLWkwrdTE0Y0NvRU51elZj?=
- =?utf-8?B?ejJBYy9aNUovT1l3cjBvNjVaaGZlQU1lVFJXdXV5clkyczdvZzd6WjFRbGtU?=
- =?utf-8?B?NlVkS0JqQkxsU0hCUXRwdStGa2U5ZGdyLzlpcjBFR2prV2xjTmI3RDFtQUI4?=
- =?utf-8?B?RW5LTGVnTWlRM0svUHZYNWoxb3JVdTJjNVUzemxlN25TMEVjNzF2d1l4SWRT?=
- =?utf-8?B?VG1DczhmbXQzakdHa29idFROMEdRVmpISElIVExXRFJQUG8wOTJDOWM5d3NG?=
- =?utf-8?B?VEZTbTNMNjMzczJtMEhENXNHYWkvTys0SkxTRThQOVNyTXQ2dkFNU2paMmpD?=
- =?utf-8?B?d3lJM0lNYk8reUIrZ2VmdmV2cUpSYUJ6ZWsvdW1ZSndrZnQyOWs4NzZyOW9D?=
- =?utf-8?B?VW4rb1FPSnFqemYvZHBJb0hmaGc3NUFtZGpqeno2VGNXYUVHYVJha2hiSHZY?=
- =?utf-8?B?TC91VUZTdFhwOGorRDI0SDFzT3J3WkQyN1VDZWVaZGxjWWNLUURWUUk3Rmd1?=
- =?utf-8?B?OWxaQXlHV0pQUEhMWEs4enNqMTRmUnpVZzhEM3VSS2VacGFsRE9XZWRiN1J2?=
- =?utf-8?B?T21BOUkzbEtPd01CUTdkZ0RsMHdpaWNYZTd6Y1Zycy93R1d1Z2hNVmxuUVRK?=
- =?utf-8?B?bm5CT09SYVRPME1FeDFyR3NrRTgzalM0V043RE5zdXVBSXIwVzErcVcxM2pz?=
- =?utf-8?B?aExvSHBMQVJpY0dHNnFnN2ZUaFBHMUozOEpaMG5FRDF3U2UvditYSmNheFox?=
- =?utf-8?B?Zmd4S1hzMFBlUTFCS05xNHY0NDJBRlpZc0N4cVY5RlBDT0FNT1R1a2VidFU3?=
- =?utf-8?B?ZWxuNDhJUmFoUVpJMk5saXJKek5aOStmcC9ZbzZkM3ZOTHpVa21RcDRzTEdG?=
- =?utf-8?B?SzltQ3BMWEp0STlPQ21zU1JmRVduaEU3a08wZjVLVUp0SkNnTmNPQ0dENkY0?=
- =?utf-8?B?VXJUdzNuYkMxQjYvcGFQZlU1dlo5eHR5RW1ZME4wTndvQjBUQ3h5clNPYjFN?=
- =?utf-8?B?NHVyRjlJNDNmTWdFdDFsTFhHUWlKM0dTL0drQWl1eld1dzRNQ1F0Q1prREI0?=
- =?utf-8?B?QmNiVzN3Q3ZFQnJTQ21IWTZKanFEY1gwTVNjM25qaDlkQTJDcVlOd0dVOVJa?=
- =?utf-8?B?OC8rV0FycHlaTnJGRDM5dHJEa3BqMEozTmtHemV6RmxnVFpvc21MM1R5RWRz?=
- =?utf-8?B?K3VOeDFEbXlsZ1VvWGgySkd3bGh2UVAvWXlMZHAycmNqalRUOXNVKzhsZ3RK?=
- =?utf-8?B?WE1pZjZYOUhjTmlqSW03Wng5enVOeTFMZ01xbm91KzRlckxZQ0xKeFcwcC9i?=
- =?utf-8?B?TDQ2bVNZU2lsR1IxTlhCdHB1ZkxOb1hJUDd1ZkNKaE41VUk0UjJGUHFhU3F6?=
- =?utf-8?B?ckVpbi9wOWhuSFl4Y2o5SDVyUVVyL3JxLzI4T2pSNHdYMVVETHZLeGxWVDVW?=
- =?utf-8?B?eWdjV1JkRGxrSGdiRS81bDgrNHM0UWdZR2dtYlZOZUNYNWw5WWV2OHIvT21l?=
- =?utf-8?B?MHVGY1RaR1JEaFZMNi9CdjlBTDZIeklwVUc1M01WYlJLa3VjTmpaejZSSTE3?=
- =?utf-8?B?SUREOUFwa2hXZUExcCtTYzloMjAxejlialovYVdWUG5WUGY5bElEK3l4bEhW?=
- =?utf-8?B?QnVPQm00Mldqa2M2VWZKTWdONjVUTURsbUhwc3hwU2M4VkZFRnNnRDhUZDlE?=
- =?utf-8?B?VCt0T3d3WWlqR2NLdG9lTS9BaVlGREZMUmdSamhSTHcvdUdPTVRQRlJCcmNM?=
- =?utf-8?B?ZDdvQTVTUC9WZE93M2ozRTlzTW1GcldBTU9CSS96M3djSjRmTVdPYUpNS2Vo?=
- =?utf-8?B?Tk9yQTcwTWEveWdxUGF4WXFaNTI3TVRWeFd3SVBXYWozWGxsTE9zbllIc0d3?=
- =?utf-8?B?NzZ3ODZCVEtRQWt4L20vOUp6WjF3WkFsVWY4VWxoczBpMndDL0tFZ2lNV0l2?=
- =?utf-8?B?V003ZjZWbENDOGVha2lleXhQMEhEWUlzMkYwaVdibkYycFNZYnJZQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 514f959f-9c2d-4f1e-edd5-08def7a16485
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 12:09:28.2541 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TrTeYflLXGKlE49UhIE56S6SeaF2AMlEYETNpX3jBylqGU3ejl7JFiy7KvN/XHl9uBYgwvuJDOaI+TD75d41Vg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8192
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/9] mm: convert PTE table entry to pte
+To: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-7-usama.anjum@arm.com>
+ <fab9fc78-1e1d-4d5b-a9ca-92f3ebd04108-agordeev@linux.ibm.com>
+ <5c329236-7761-4e42-a549-b822e43b4358@arm.com>
+ <2599c5b3-e8ac-4865-993b-d41e6f060d52-agordeev@linux.ibm.com>
+ <f0b0dacb-fb83-4402-b0ea-30072727dfd7@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <f0b0dacb-fb83-4402-b0ea-30072727dfd7@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,39 +144,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+On 8/10/26 13:06, Muhammad Usama Anjum wrote:
+> On 10/08/2026 7:44 am, Alexander Gordeev wrote:
+>> On Fri, Aug 07, 2026 at 05:26:04PM +0100, Muhammad Usama Anjum wrote:
+>>> Yes, this is particular line is for non MMU. In this case, CONIFG_ARCH_HAS_HW_PTE
+>>> would never be defined. Hence hw_pte_t is just pte_t and direct dereference is
+>>> allowed. I'd thought a lot about it; is better to leave direct dereference here
+>>> or use some helper. Then used __pte_from_hw() was already being used in generic
+>>> ptep_get().
+>>
+>> But in case CONIFG_ARCH_HAS_HW_PTE=n __pte_from_hw() is still gets called.
+>> That looks inconsistent to me. Why not just call ptep_deref() (see below)?
+> 
+> Agreed. Calling __pte_from_hw() directly exposes the representation
+> conversion at the call site. I will introduce ptep_deref() and use it
+> here.
+> 
+>>
+>>> There are only two users of __pte_from_hw() at this time. 
+>>>
+>>> ptep_get_sw() or ptep_get_deref() is better name here?
+>>
+>> ptep_deref() would be it.
+>>
+>> Do you agree to the suggested API requirements?
+> 
+> Yes. hw_pte_t * identifies storage containing hardware-formatted PTEs,
+> regardless of whether it is attached. ptep_get() is used for attached
+> entries and may provide additional architecture-specific handling.
+> ptep_deref() is used for unattached entries and performs only the raw
+> storage-to-value conversion.
+> 
+> For review, this patch would become:
+> 
+> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+> index bc0b9c65aa1d0..ce900d2652d91 100644
+> --- a/include/linux/hugetlb.h
+> +++ b/include/linux/hugetlb.h
+> @@ -1283,7 +1283,7 @@ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+>  #ifdef CONFIG_MMU
+>  	return ptep_get(ptep);
+>  #else
+> -	return *ptep;
+> +	return ptep_deref(ptep);
+>  #endif
+>  }
+>  
+> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> index 1768421755a9c..08613593f3320 100644
+> --- a/include/linux/pgtable.h
+> +++ b/include/linux/pgtable.h
+> @@ -490,6 +490,13 @@ static inline int pudp_set_access_flags(struct vm_area_struct *vma,
+>  #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+>  #endif
+>  
+> +#ifndef ptep_deref
+> +static inline pte_t ptep_deref(hw_pte_t *ptep)
+> +{
+> +	return __pte_from_hw(*ptep);
+> +}
+> +#endif
+> +
+>  #ifndef ptep_get
+>  static inline pte_t ptep_get(hw_pte_t *ptep)
+>  {
+> 
 
-On 8/6/2026 9:09 PM, Matthew Auld wrote:
-> On 31/07/2026 08:07, Arunpravin Paneer Selvam wrote:
->> Add gpu_test_buddy_dirty_tracker_performance to demonstrate the key
->> advantage of the decoupled dirty-tracker design over the old dual-tree
->> / force_merge approach.
->>
->> The test runs two scenarios on a 4 GiB pool after alternating
->> clear/dirty fragmentation at 4 KiB granularity:
->>
->>    1. Contiguous 4 GiB alloc: the old design requires __force_merge()
->>       to rebuild max_order from scratch; the new design coalesces during
->>       free() so the alloc is O(log N).
->>
->>         old (force_merge) - 71 ms
->>         dirty tracker design - 17 ms
->>
->>    2. Repeated 256 KiB alloc throughput: the old design pays
->>       __force_merge() on every alloc; the new design does not.
->>
->>         old (force_merge) - 95 ms
->>         dirty tracker design - 24 ms
->>
->> Assisted-by: Claude:claude-opus-4-8
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Just to clarify, is this RB for the main buddy allocator changes as well?
+I mean, how many such users do we expect? 1? :)
 
-Regards,
-Arun.
+Why have a helper for that then, that seems to encourage it's use, when really
+people should be using ptep_get() ?
 
+-- 
+Cheers,
+
+David
