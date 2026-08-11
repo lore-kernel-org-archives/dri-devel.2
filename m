@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86928C5CFDB
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 10:18:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C9BC5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 10:18:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC6EE10EB3C;
-	Tue, 11 Aug 2026 10:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0852510EB41;
+	Tue, 11 Aug 2026 10:18:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OyN0CK2L";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="YbrHB5ZA";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA5E710EB18
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 10:17:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2C7010E2C5
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 10:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786443474;
- bh=ZYp1BwFYi/2bMtugS7zfwiZcE/lz4o2JKqmO8xY3DZg=;
+ s=mail; t=1786443476;
+ bh=mUoAoXlDI7yZyvH60OvVhl7XJ24dV86jsycZLjHMo7U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=OyN0CK2L/BWmz56KZILZlyitqyDMV/7BudwMHU+mdbWnEGLWv7QgNKSptrjz6HYuH
- uIZpSpQi8YG5Gt4MgdkYPaGX80xuz+VNUPVDFMvV/1gX2gF1XXRDPiXHMr2GmyJx9Z
- nAjtDG5vBxw8AVP+hBt1X/k0tDjkghLZUQRu57lqW83G8VLo2eMguH8stu115Aq4lE
- OQykSiwqCJactx8eYLfi6UKaiJJ7r3S3r+MbfMAXc6rmlZXBN5afYpY3cvkJOwo2np
- 3KdRmQISEqro8fJeIBrnHamirNHJ9J2KAzUAJlu6kUU4CpRXKviiCaZFbACQN4BtCR
- j1ZqZ8wpG1d9Q==
+ b=YbrHB5ZAe69NiObLrwREIj5xxCMmeYtXrtI/5PpwyWd8hwk2/dKP6iHpD6B1ITruW
+ JnpsElxANrgxpucAAFqogHaScUStHa4rGJztGMJ4WdIkBDN4Jm6Gvq6EhZ0ZpwZrcE
+ yQXnzLRE4B2x1RK4LqwjYBYp2FMkytuUqkGEVGIZYwDb2MskPhBfyECtFd8QloZPLo
+ ZPHPsBRVQ9HtZ9IVPV+GEWPeFWS0qz3NZl+kRmWMFDELlA02wbARM3pgoO+6oZoWQw
+ BEExpeej2zCpNBaS5sS1/2dDPmLNjQhQrH4EwpO8cJRIgoc4d8zGlzHe8bKkQwzb2X
+ 0zIlehRXyqG9A==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 116A817E121B;
- Tue, 11 Aug 2026 12:17:54 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 306D517E12AE;
+ Tue, 11 Aug 2026 12:17:56 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 11 Aug 2026 12:17:47 +0200
-Subject: [PATCH v2 13/17] drm/panthor: Track user owned VMs
+Date: Tue, 11 Aug 2026 12:17:51 +0200
+Subject: [PATCH v2 17/17] drm/panthor: Add a debugfs knobs to simulate
+ reset failures
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-panthor-unplug-fixes-v2-13-6b583e37f9ae@collabora.com>
+Message-Id: <20260811-panthor-unplug-fixes-v2-17-6b583e37f9ae@collabora.com>
 References: <20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com>
 In-Reply-To: <20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -48,11 +49,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786443467; l=3118;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786443467; l=3671;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=ZYp1BwFYi/2bMtugS7zfwiZcE/lz4o2JKqmO8xY3DZg=;
- b=E6X2u1SlVbfXZJFr5NcQYVPfwjUJLGgjEPktcj/6ShDfxYzGNiPzJIGQSEkQPZebr4Ue0KB0c
- T/jfpramj//DGOWle0q1ERIqrh2HMWh6amKS3Hd7U+RP4DrTaxuyffA
+ bh=mUoAoXlDI7yZyvH60OvVhl7XJ24dV86jsycZLjHMo7U=;
+ b=CMqGYTbeMGpUymG0t0PK1yg0WM9B44OlTt3NMAV6ERJsy93lVaqTECzIY8ai7sVkkc5EqSDlw
+ 4oHpHG/ZTJZDy2DqFiAvScHH5WunZCFwzYXMxoypj4lB59by8JZKnZj
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,103 +71,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We will soon need this to fix the unplug logic and make sure panthor_vm
-objects are not left behind after an unplug.
+It's almost impossible to trigger a situation where the reset
+doesn't work now that the driver is more mature, so let's add two
+knobs to exercise this error path:
+
+- a knob to trigger a reset
+- a knob to fake an error in the reset path
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 29 ++++++++++++++++++++++++++---
- 1 file changed, 26 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/panthor/panthor_device.c | 45 +++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/panthor/panthor_device.h |  8 ++++++
+ 2 files changed, 52 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 93e9d55da783..5672d437d52d 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -107,12 +107,15 @@ struct panthor_mmu {
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index 012edf5d590c..09c9cc922e70 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -198,7 +198,10 @@ static void panthor_device_reset_work(struct work_struct *work)
+ 	panthor_hw_soft_reset(ptdev);
+ 	panthor_hw_l2_power_on(ptdev);
+ 	panthor_mmu_post_reset(ptdev);
+-	ret = panthor_fw_post_reset(ptdev);
++	if (ptdev->reset.fake_failure)
++		ret = -EIO;
++	else
++		ret = panthor_fw_post_reset(ptdev);
+ 	panthor_sched_post_reset(ptdev, ret != 0);
+ 	drm_dev_exit(cookie);
  
- 	/** @vm: VMs management fields */
- 	struct {
--		/** @vm.lock: Lock protecting access to list. */
-+		/** @vm.lock: Lock protecting access to list and user_owned. */
- 		struct mutex lock;
+@@ -699,6 +702,40 @@ DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_unplug_failure_fops,
+ 			 panthor_device_fake_unplug_failure_get,
+ 			 panthor_device_fake_unplug_failure_set, "%llu\n");
  
- 		/** @vm.list: List containing all VMs. */
- 		struct list_head list;
- 
-+		/** @vm.list: List containing VMs with a valid handle. */
-+		struct list_head user_owned;
++static int panthor_device_fake_fw_reset_failure_get(void *data, u64 *val)
++{
++	struct panthor_device *ptdev = data;
 +
- 		/** @vm.reset_in_progress: True if a reset is in progress. */
- 		bool reset_in_progress;
- 
-@@ -427,6 +430,9 @@ struct panthor_vm {
- 	/** @node: Used to insert the VM in the panthor_mmu::vm::list. */
- 	struct list_head node;
- 
-+	/* @user_node: Used to insert the VM in the panthor_mmu::vm::user_owned list. */
-+	struct list_head user_node;
-+
- 	/** @for_mcu: True if this is the MCU VM. */
- 	bool for_mcu;
- 
-@@ -1669,10 +1675,19 @@ int panthor_vm_pool_create_vm(struct panthor_device *ptdev,
- 	drm_gem_object_get(&pool->dummy->base);
- 	vm->dummy = pool->dummy;
- 
-+	/* Insert in the list before xa_alloc() so we can't race with
-+	 * panthor_vm_pool_destroy_vm() have the VM inserted in the
-+	 * user_owned list after it's been destroyed.
-+	 */
-+	scoped_guard(mutex, &ptdev->mmu->vm.lock)
-+		list_add_tail(&vm->user_node, &ptdev->mmu->vm.user_owned);
-+
- 	ret = xa_alloc(&pool->xa, &id, vm,
- 		       XA_LIMIT(1, PANTHOR_MAX_VMS_PER_FILE), GFP_KERNEL);
- 
- 	if (ret) {
-+		scoped_guard(mutex, &ptdev->mmu->vm.lock)
-+			list_del_init(&vm->user_node);
- 		panthor_vm_put(vm);
- 		return ret;
- 	}
-@@ -1727,13 +1742,19 @@ static void panthor_vm_destroy(struct panthor_vm *vm)
-  */
- int panthor_vm_pool_destroy_vm(struct panthor_vm_pool *pool, u32 handle)
- {
-+	struct panthor_device *ptdev;
- 	struct panthor_vm *vm;
- 
- 	vm = xa_erase(&pool->xa, handle);
-+	if (!vm)
-+		return -EINVAL;
-+
-+	ptdev = container_of(vm->as->base.drm, struct panthor_device, base);
-+	scoped_guard(mutex, &ptdev->mmu->vm.lock)
-+		list_del_init(&vm->user_node);
- 
- 	panthor_vm_destroy(vm);
--
--	return vm ? 0 : -EINVAL;
++	*val = ptdev->reset.fake_failure ? 1 : 0;
 +	return 0;
++}
++
++static int panthor_device_fake_fw_reset_failure_set(void *data, u64 val)
++{
++	struct panthor_device *ptdev = data;
++
++	ptdev->reset.fake_failure = val ? true : false;
++	return 0;
++}
++
++DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_fw_reset_failure_fops,
++			 panthor_device_fake_fw_reset_failure_get,
++			 panthor_device_fake_fw_reset_failure_set, "%llu\n");
++
++static ssize_t panthor_device_reset_file_write(struct file *file,
++					       const char __user *, size_t size,
++					       loff_t *)
++{
++	struct panthor_device *ptdev = file_inode(file)->i_private;
++
++	panthor_device_schedule_reset(ptdev);
++	return size;
++}
++
++static const struct debugfs_short_fops panthor_device_reset_fops = {
++	.write = panthor_device_reset_file_write,
++};
++
+ void panthor_device_debugfs_init(struct drm_minor *minor)
+ {
+ 	struct panthor_device *ptdev = container_of(minor->dev, struct panthor_device, base);
+@@ -706,6 +743,12 @@ void panthor_device_debugfs_init(struct drm_minor *minor)
+ 	debugfs_create_file("fake_unplug_failure", 0644,
+ 			    minor->debugfs_root, ptdev,
+ 			    &panthor_device_fake_unplug_failure_fops);
++	debugfs_create_file("fake_fw_reset_failure", 0644,
++			    minor->debugfs_root, ptdev,
++			    &panthor_device_fake_fw_reset_failure_fops);
++	debugfs_create_file("reset", 0200,
++			    minor->debugfs_root, ptdev,
++			    &panthor_device_reset_fops);
+ 	panthor_mmu_debugfs_init(minor);
+ 	panthor_gem_debugfs_init(minor);
  }
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index b2788373bfa9..160593824ef2 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -313,6 +313,14 @@ struct panthor_device {
+ 		 * all FW sections to make sure we start from a fresh state.
+ 		 */
+ 		bool fast;
++
++		/**
++		 * @fake_failure: When true, pretend the FW boot in the reset path failed.
++		 *
++		 * This is important to check that we're doing the right thing in this very
++		 * unlikely case.
++		 */
++		bool fake_failure;
+ 	} reset;
  
- /**
-@@ -3118,6 +3139,7 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
- 		goto err_put_as;
- 	}
- 
-+	INIT_LIST_HEAD(&vm->user_node);
- 	vm->user_va_range = kernel_va_start;
- 	vm->as = as;
- 	mutex_init(&vm->heaps.lock);
-@@ -3626,6 +3648,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
- 		return ret;
- 
- 	INIT_LIST_HEAD(&mmu->vm.list);
-+	INIT_LIST_HEAD(&mmu->vm.user_owned);
- 	ret = drmm_mutex_init(&ptdev->base, &mmu->vm.lock);
- 	if (ret)
- 		return ret;
+ 	/** @pm: Power management related data. */
 
 -- 
 2.55.0
