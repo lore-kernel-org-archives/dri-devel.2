@@ -4,146 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A566C5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 454D8C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0EAF10ECEF;
-	Tue, 11 Aug 2026 16:53:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 918C110ECFF;
+	Tue, 11 Aug 2026 16:53:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eUWm7wHR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hf1j6JH6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBC6A10ECED;
- Tue, 11 Aug 2026 16:53:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B54943FEB;
- Tue, 11 Aug 2026 16:53:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3771F000E9;
- Tue, 11 Aug 2026 16:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786467210;
- bh=faCwjOaV4ggvOJTu3mQalUWdVzO14/xtKlYuKKC1bt0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=eUWm7wHRfSiRbjXlRdDMhSWBZ3b07JcjXwAH0jW27Db5STdElQ2HbMmcXJJIJWxB6
- rQonhNQ2vaCyRhBsnC+l+mo1zquiuqCxJzBN3VK3rIoY6TZ4G4rylcsNz8n9S1Jte8
- Vig6qQBuHGVgLXbfojokmRbRMYVsYw2S5LPifQ7sYo91PavOCJGTq0fmkLW0CW0ScO
- cqPzHYg7kk056vo4x+1KmrgBj/y1Tj9MU8cVHSGE8iDAFhx6UO8066UB18RlrbypI4
- 8GPIxF5CQMQxS/IphlkkNk8q8a1T+zsT20zMqIyWI79OWJKawdOWc5YfgoCRYML/Z9
- H3xJOE5glmQrA==
-Message-ID: <20f5b9eb-c4ad-4241-9556-e9bfce9ac715@kernel.org>
-Date: Tue, 11 Aug 2026 18:53:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/20] mm/vma: fix self-merge check in copy_vma()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Kees Cook <kees@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCE7F10ECF6
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 16:53:40 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4997581cdc1so8679875e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 09:53:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786467219; x=1787072019; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=utlT2uUQzdRUww5rygwGaoyBNBp4hH6JMcjmwhuHBtQ=;
+ b=hf1j6JH6bp/+RKU1aJ7lYAx3xOBjevMWHtcRjI6eQMEO373DSFrf3ty6h71sRnUId9
+ pMJLX6wl1hl5LRXeBAYh/I/9T4T3Hh6UIwejSGOMeX8axpywbdqI4OM0TxQEILgcYI1I
+ fdbXKb04QEmbB2s9le5/yEB7XYy58pPX8VvUrLGB0tSsD5dtiHnRHxDPREHIzwdb6b/T
+ n2pH9FddJXY8cwndT4nmuwo5D3NMyhpcLqDmlFdprJc7P6Dkq767Pa5TGM3h/NujfeKI
+ WwTZz5olSv1IV3rlgiThR4NPq0/zO42/DVdBjQExzx2jNE2a510/Zl+rzLTRf5A9OAnj
+ KlVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786467219; x=1787072019;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=utlT2uUQzdRUww5rygwGaoyBNBp4hH6JMcjmwhuHBtQ=;
+ b=Ir5biIAtrMCZtgP7z85wgD3zTU1o2MwHsBDXtCVI1d2fM3EutXDC1VhYLZM/A9rwbA
+ mCLMiqtR7eUX4lTHytOQZYNWiR5r+ybi9QiDUTjEp+CHqTS4eMQITW4JGe86Gtj464CE
+ V/gLJ3b65QCdIyXDTCJa01x75/k0c+VSex7DOR8wKDiuHMbtid2Yiu5IwRzl3Mzp1GlS
+ SaHmWrWE/2u6clZqRkWeIl9yVoRY1WqVxD3bhOWiN6tNXTdVa+AmBmKkYQaLfL2iqlGn
+ 6Z0Us6cwhYyTdo7k8q3PwUC+0+kXk4KPFpjTvk9KB8RJ0xOEtthHwel/az5npsaEMofO
+ Fwjg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoM7boAxhDEzOLCmqBMqqc1TogbxX2iIcQ0v5aD1tmxwJTvGL1YNr0ERa+V+d19NBQ/eAhA5mjS7Po=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzSeAnGI3iYrxcNeicBZMVzDDf015ciZlz55xxDpjoEUVt9/wJj
+ XFycWzAPvWcFdbs3gHL9y5pYNrwLik7U5BSuwGu/BMi3J+4/hkicN8oy
+X-Gm-Gg: AR+sD13iwKafljIYaz33ugSpVVzY+fXHwRbhkFHYXnYdCoe1gCfsa3RaSyXpGXiI8fD
+ Y6V2OqOtCiJkMzyJb4FJq2Oj6PA5dLs1wbdUv6YlxtpFhXVTL/bTnbUI8oh75FBsthmDudwMDJH
+ kQGHD18tEpPCDWgOwmEtQDiZ7gCRtiFRQTGYpvco7CY7SwfukGzSYC1WVr7wU3YYjm6GGXdObWT
+ sZKwq4IrX5iMDPL93CO56uYQRrJuPw3HPkLXZMLkShkm506rueHEDSVC0IDbqbjZJURRZLw8cz8
+ DXkNsGxZaaHFTQ8vhReS6YjnbKPt980OdwKXloFOv6l+oyt6+sVQ4Dh200pUoqCXkK7pxtRTE75
+ 1gCuLyBhvYp0uEhQw0T+3v6t8CSdpsYP0wyDwWygcZRi4S3Eg0gwp2TSRz6UNDsqRn7zWUnHLOC
+ C+5KSRiq9ByALb1Hq+FxiMXCBjDC7YxkUYs8Q2sU93EjtJhMN2bgXZSfR6to6x3Dfl8Q3umkmSV
+ g7h9mYY8KwTpsLCUMIs5nxB
+X-Received: by 2002:a05:600c:4705:b0:498:8e6:d464 with SMTP id
+ 5b1f17b1804b1-499784737ccmr75785185e9.14.1786467218953; 
+ Tue, 11 Aug 2026 09:53:38 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:434a:d6cf:4fd1:90b])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4997abeba30sm4794825e9.9.2026.08.11.09.53.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Aug 2026 09:53:38 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: luca.ceresoli@bootlin.com, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kvm@vger.kernel.org,
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-7-ab318a350404@kernel.org>
- <3a0a9aaf-20f5-4f92-b848-00ab702e8fe2@kernel.org> <antTCpT9gXN7pSRn@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <antTCpT9gXN7pSRn@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
+Subject: [PATCH v2 5/6] drm/panel: Use devm_mipi_dsi_attach in display vendor
+ panels
+Date: Tue, 11 Aug 2026 18:53:34 +0200
+Message-ID: <20260811165337.14348-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,48 +93,283 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/11/26 18:51, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Aug 11, 2026 at 06:44:01PM +0200, David Hildenbrand (Arm) wrote:
->>>
->>> Since copy_vma_and_data() which calls copy_vma() intends to reference the
->>> old VMA after the merge, it must have this pointer updated.
->>>
->>> This kind of self-merge is not possible with a succeeding merge, as the
->>> merge always prefers to expand the preceding VMA if possible.
->>>
->>> copy_vma() accounts for this by explicitly checking to see if a self-merge
->>> occurred and updating the vmap pointer if so. However it incorrect did so
->>> even for a subsequent merge (this is simply a noop so it had no impact).
->>
->> Took me longer than it should to find out that this is no real fix ;)
->>
->>>
->>> So change this to only check for the case which matters - a backwards
->>> merge - and rearrange the parameters to make it clearer we're doing that -
->>> i.e. check new_vma->vm_start < old_vma_start (having already renamed
->>> vma_start to old_vma_start to make it clear this is the previous VMA).
->>>
->>> Also update the existing wall-of-text comment to be a lot clearer.
->>>
->>> While we're here, replace the VM_BUG_ON_VMA() with a VM_WARN_ON_ONCE_VMA()
->>> and update the VMA userland tests accordingly.
->>>
->>> No functional change intended.
->>>
->>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> ---
->> I skimmed over it, looks correct, but the merging stuff is way over my head to
->> confidentially give a RB tag her :)
-> 
-> Well that's what A-b is for ;)
+Use the managed MIPI DSI attach helper in JDI, Sharp, Sony, Visionox and
+Leadtek panel drivers and drop the corresponding manual detach calls from
+remove paths.
 
-Assisted-by? Half-assed-by?
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-;)
+v2:
+- break long description lines.
+- add Signed-off-by tag
+---
+ drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c           | 8 +-------
+ drivers/gpu/drm/panel/panel-jdi-lt070me05000.c         | 8 +-------
+ drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c     | 8 +-------
+ drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c     | 8 +-------
+ drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c        | 7 +------
+ drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c        | 8 +-------
+ drivers/gpu/drm/panel/panel-sony-td4353-jdi.c          | 8 +-------
+ drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c | 8 +-------
+ drivers/gpu/drm/panel/panel-visionox-r66451.c          | 8 +-------
+ drivers/gpu/drm/panel/panel-visionox-rm69299.c         | 4 +---
+ 10 files changed, 10 insertions(+), 65 deletions(-)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
+diff --git a/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c b/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
+index cbe354b51bce..ce299160d3ab 100644
+--- a/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
++++ b/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
+@@ -202,7 +202,7 @@ static int jdi_fhd_r63452_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		return ret;
+@@ -214,12 +214,6 @@ static int jdi_fhd_r63452_probe(struct mipi_dsi_device *dsi)
+ static void jdi_fhd_r63452_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct jdi_fhd_r63452 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c b/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
+index 01bd748aecec..d9cba45eb729 100644
+--- a/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
++++ b/drivers/gpu/drm/panel/panel-jdi-lt070me05000.c
+@@ -380,7 +380,7 @@ static int jdi_panel_probe(struct mipi_dsi_device *dsi)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		jdi_panel_del(jdi);
+ 		return ret;
+@@ -392,12 +392,6 @@ static int jdi_panel_probe(struct mipi_dsi_device *dsi)
+ static void jdi_panel_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct jdi_panel *jdi = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n",
+-			ret);
+ 
+ 	jdi_panel_del(jdi);
+ }
+diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
+index 0856df5a6ee2..b660d7055810 100644
+--- a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
++++ b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
+@@ -585,7 +585,7 @@ static int ltk050h3146w_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -598,12 +598,6 @@ static int ltk050h3146w_probe(struct mipi_dsi_device *dsi)
+ static void ltk050h3146w_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct ltk050h3146w *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
+index 7f19fd5b8060..6ec6f81877aa 100644
+--- a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
++++ b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
+@@ -651,7 +651,7 @@ static int ltk500hd1829_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -664,12 +664,6 @@ static int ltk500hd1829_probe(struct mipi_dsi_device *dsi)
+ static void ltk500hd1829_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct ltk500hd1829 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
+index 989b030ea22d..11615551e8a6 100644
+--- a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
++++ b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
+@@ -244,7 +244,7 @@ static int sharp_nt_panel_probe(struct mipi_dsi_device *dsi)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		sharp_nt_panel_del(sharp_nt);
+ 		return ret;
+@@ -256,11 +256,6 @@ static int sharp_nt_panel_probe(struct mipi_dsi_device *dsi)
+ static void sharp_nt_panel_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct sharp_nt_panel *sharp_nt = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+ 
+ 	sharp_nt_panel_del(sharp_nt);
+ }
+diff --git a/drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c b/drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c
+index 0456f3d705e7..236d45121a44 100644
+--- a/drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c
++++ b/drivers/gpu/drm/panel/panel-sharp-ls060t1sx01.c
+@@ -235,7 +235,7 @@ static int sharp_ls060_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -248,12 +248,6 @@ static int sharp_ls060_probe(struct mipi_dsi_device *dsi)
+ static void sharp_ls060_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct sharp_ls060 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-sony-td4353-jdi.c b/drivers/gpu/drm/panel/panel-sony-td4353-jdi.c
+index a14c86c60d19..08e4adf9e0f0 100644
+--- a/drivers/gpu/drm/panel/panel-sony-td4353-jdi.c
++++ b/drivers/gpu/drm/panel/panel-sony-td4353-jdi.c
+@@ -216,7 +216,7 @@ static int sony_td4353_jdi_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -229,12 +229,6 @@ static int sony_td4353_jdi_probe(struct mipi_dsi_device *dsi)
+ static void sony_td4353_jdi_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct sony_td4353_jdi *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c b/drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c
+index 216a6ad8696e..5ce8b1cdf024 100644
+--- a/drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c
++++ b/drivers/gpu/drm/panel/panel-sony-tulip-truly-nt35521.c
+@@ -474,7 +474,7 @@ static int truly_nt35521_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -487,12 +487,6 @@ static int truly_nt35521_probe(struct mipi_dsi_device *dsi)
+ static void truly_nt35521_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct truly_nt35521 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-visionox-r66451.c b/drivers/gpu/drm/panel/panel-visionox-r66451.c
+index 690cccedd438..40bbc3ea6958 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-r66451.c
++++ b/drivers/gpu/drm/panel/panel-visionox-r66451.c
+@@ -306,7 +306,7 @@ static int visionox_r66451_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -318,12 +318,6 @@ static int visionox_r66451_probe(struct mipi_dsi_device *dsi)
+ static void visionox_r66451_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct visionox_r66451 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+index 50f8a84537ca..7a60b1d436df 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
++++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+@@ -388,7 +388,7 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
+ 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "dsi attach failed ret = %d\n", ret);
+ 		goto err_dsi_attach;
+@@ -404,8 +404,6 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
+ static void visionox_rm69299_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct visionox_rm69299 *ctx = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(ctx->dsi);
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
 -- 
-Cheers,
+2.43.0
 
-David
