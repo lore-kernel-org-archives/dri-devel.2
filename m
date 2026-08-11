@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB56FC5CFC1
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:48:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC501C5CFC1
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2429410E39F;
-	Tue, 11 Aug 2026 21:48:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BFB510EDB4;
+	Tue, 11 Aug 2026 21:54:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="QHqOdX3n";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j92YcCSj";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A284110E39F
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:48:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1786484898; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=U9Rb2JhBu2/8ujZQ0BwDFbGsYPZOGWwXlA3RQJIlx9I2HR3RFmCqjtoHdqoA/XvMpiIMfX/Xxq9dCEOpunpY34LgdfsfXQYkaMy0lLeOv1wCt+EzeKVWQ4BdPcIYyP0ZWWfS4lCQx/PzRCm846sV8sWcrLYMDEleZ7GSg/UrCnU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1786484898;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=8dPJOsO7QwmkGfotFDEp7ajeM5F6HhDePrCAhJrbiPM=; 
- b=ck7POK3T+fvd/ZeyUKxk01WCHm5XnvTagB7N9+KaxVoe7TiXfVm88bHZL3I/+KdJnE/UbN99/bqsfxg4Ur9oKYV7pZfFkOa/YGxFb7saOg4YTewbs6ZToPuRV3Aagj1EXXRm/LxuHUhi0Bkziv67hDnYGn1IpQnz31JyrBCCflI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786484898; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=8dPJOsO7QwmkGfotFDEp7ajeM5F6HhDePrCAhJrbiPM=;
- b=QHqOdX3nJQbKT5w0wrvryREH/IgLsqZe7luBUdKrgNZ2p7Gmz9YiB9jD1KZ6RFDs
- lBlSuq+4yM4sQIfxNp7LuCTgShSOgwdydficwNGEJyyPpnekC+Esh0jtteE3febhoo5
- upXjqIGIXcBrFD0Jdf3GAwZGeSWLg/4qgUlHWzXU=
-Received: by mx.zohomail.com with SMTPS id 1786484896259780.0672748769396;
- Tue, 11 Aug 2026 14:48:16 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v3 3/3] drm/tyr: add GPU reset infrastructure
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <DKLM34SJR4GR.11ABPWKZJSTK8@kernel.org>
-Date: Tue, 11 Aug 2026 18:47:58 -0300
-Cc: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, aliceryhl@google.com, airlied@gmail.com,
- simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3C0110EDB1
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:54:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 48815600E2;
+ Tue, 11 Aug 2026 21:54:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1DB31F000E9;
+ Tue, 11 Aug 2026 21:54:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786485279;
+ bh=ctXiLW80l8Os4W3MKogF70rC01u9/Iq5VCIQbsgYISI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=j92YcCSjpgI2ZWnVuI7VU4ifde/N73TBLxonAKCw+HFEaebZuqtfFtfrr3/5yJPFS
+ cZUuJJLPtHT+2vuEEh/63ePqXFSDCpdF99HgKr77Dz5RanqZA/LmNtRjCFWQysfaUs
+ xewwhUjLppPjZ6gYV8Z1xep24RtylIN2wo+97DN0/16bQV+IBbSW51LZAjXhIyeWgV
+ 68CdwwVzJYCfEKnfyueavsC+ZVL6r6LFZXb0ES8bY/lDXPgrn0vG5EtGk9VPyV3eSK
+ 1gILFD8j42XqC0QTtOpAb4iwcMyttTFiHltS+773AWzQM5xnqNbJiU4xFkzd6gga0v
+ 7hKZfiuHPtAFw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 05/11] drm/panfrost: Move all device power up and
+ down into RPM callbacks
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260811-claude-fixes-v5-5-3d692c9e98c2@collabora.com>
+References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
+ <20260811-claude-fixes-v5-5-3d692c9e98c2@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <8BA7474C-3D1B-4C61-89B7-156A98AB63EE@collabora.com>
-References: <20260708114358.957305-1-work@onurozkan.dev>
- <20260708114358.957305-4-work@onurozkan.dev>
- <D388C501-9903-44A7-BFD9-3BFD91502FAC@collabora.com>
- <DKLM34SJR4GR.11ABPWKZJSTK8@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Date: Tue, 11 Aug 2026 21:54:38 +0000
+Message-Id: <20260811215438.D1DB31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,43 +54,123 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Danilo,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-> On 10 Aug 2026, at 19:19, Danilo Krummrich <dakr@kernel.org> wrote:
->=20
-> On Mon Aug 10, 2026 at 9:44 PM CEST, Daniel Almeida wrote:
->> As I said on the cover letter, I'd rather keep the 'bound design for =
-now,
->> leaving the door open to the Devres approach that we will eventually =
-need in
->> the future.
->=20
-> What exacly do you mean by this?
+New issues:
+- [High] Removing the explicit `pm_runtime_disable()` call in `panfrost_rem=
+ove()` leaves PM runtime active while the driver tears down software struct=
+ures and hardware abstractions. Because `devm_pm_runtime_enable()` postpone=
+s disabling until after `remove()` returns, a concurrent sysfs write (e.g.,=
+ `echo on > power/control`) can trigger `panfrost_device_runtime_resume()` =
+on a partially destroyed device, causing use-after-free or null pointer der=
+eferences.
+- [High] The patch moves hardware teardown into `panfrost_device_runtime_su=
+spend()` and relies on `pm_runtime_put_sync_suspend()` in `panfrost_try_sus=
+pend_device()` to execute it during device removal. However, if the PM usag=
+e count is > 0 (e.g., userspace held a sysfs power reference via `power/con=
+trol =3D on`), the device will not actually suspend. The driver then procee=
+ds to unconditionally unprepare clocks (`clk_unprepare()`) and regulators i=
+n `panfrost_device_fini()`, even though they are still enabled and powering=
+ active hardware.
 
-We have a lot of places in our downstream driver where it's not really =
-clear
-whether an &IoMem<'bound> and etc will be available.
+Pre-existing issues:
+- [High] In `panfrost_remove()`, the driver calls `pm_runtime_get_sync()` t=
+o wake the hardware for teardown. If this fails, the hardware remains suspe=
+nded (clocks and power domains off). The driver warns but unconditionally c=
+ontinues to `panfrost_device_fini()`, which invokes `panfrost_jm_fini()` an=
+d performs an MMIO write (`job_write(pfdev, JOB_INT_MASK, 0)`). Writing to =
+unpowered/unclocked MMIO registers triggers a synchronous external abort on=
+ ARM.
+--
 
-E.g.: places like the submit path or the async vm_bind path, both =
-invoked from
-the JobQueue, which runs on its own workqueue in our downstream =
-implementation.
+--- Patch [5]: [PATCH v5 05/11] drm/panfrost: Move all device power up and =
+down into RPM callbacks ---
+commit 01a89b3f3fd9da2c5ff706aa75efcef9f9333b91
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-i.e. when the JobQueue calls the driver's "submit to hardware" handler, =
-Tyr needs an
-IoMem to perform the mapping in the vm_bind case, or to write the =
-doorbell
-register in the submit case. Also places using delayed work, which is =
-still
-restricted to 'static workqueues IIUC.
+drm/panfrost: Move all device power up and down into RPM callbacks
 
-That's what I meant by "Devres we will eventually need in the future". =
-Perhaps
-there is a plan to relax the 'static requirement like what happened =
-recently to
-the IRQ code? Because otherwise my suggestion would be try_access().
+This commit moves all GPU enabling and disabling into runtime PM resume and
+suspend callbacks to ensure the device is resumed before touching registers.
+It also replaces explicit pm_runtime_disable() calls during module unload
+with devres management.
 
-=E2=80=94 Daniel=
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -212,6 +258,127 @@ static int panfrost_pm_domain_init(struct panfrost_=
+device *pfdev)
+[ ... ]
+> +void panfrost_try_suspend_device(struct panfrost_device *pfdev)
+> +{
+> +	pm_runtime_put_sync_suspend(pfdev->base.dev);
+
+[Severity: High]
+If userspace holds a power reference (for example, by setting power/control
+to "on" via sysfs), the PM usage count will be greater than zero and the
+device will not actually suspend here.
+
+If the suspend silently aborts, the driver will proceed to
+panfrost_device_fini() where panfrost_clk_fini() unconditionally calls
+clk_unprepare():
+
+panfrost_device_fini() ->
+  panfrost_clk_fini()
+    clk_unprepare(pfdev->bus_ace_clock);
+    clk_unprepare(pfdev->bus_clock);
+    clk_unprepare(pfdev->clock);
+
+Does this leave the hardware abruptly deprived of prepared clocks and
+regulators while it is still enabled?
+
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -1015,10 +1015,9 @@ static void panfrost_remove(struct platform_device=
+ *pdev)
+> =20
+>  	drm_dev_unregister(&pfdev->base);
+> =20
+> -	pm_runtime_get_sync(pfdev->base.dev);
+> -	pm_runtime_disable(pfdev->base.dev);
+> +	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
+> +
+
+[Severity: High]
+This is a pre-existing issue, but if pm_runtime_get_sync() fails, the
+hardware will remain suspended with its clocks and power domains off.
+
+Because execution unconditionally continues to panfrost_device_fini(),
+panfrost_jm_fini() will perform an MMIO write to JOB_INT_MASK:
+
+panfrost_remove() ->
+  panfrost_device_fini() ->
+    panfrost_jm_fini()
+       job_write(pfdev, JOB_INT_MASK, 0);
+
+Writing to unpowered or unclocked MMIO registers usually triggers a
+synchronous external abort on ARM. Should the teardown path be skipped or
+handled differently if the resume fails?
+
+>  	panfrost_device_fini(pfdev);
+> -	pm_runtime_set_suspended(pfdev->base.dev);
+>  }
+
+[Severity: High]
+Can removing the explicit pm_runtime_disable() call here cause a
+use-after-free during teardown?
+
+Since devm_pm_runtime_enable() postpones disabling PM runtime until after
+the remove() function returns, PM runtime remains active while
+panfrost_device_fini() destroys software structures and hardware abstractio=
+ns.
+
+Could a concurrent sysfs write (like echoing "on" to power/control) trigger
+panfrost_device_runtime_resume() on a partially destroyed device?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811-claude-fix=
+es-v5-0-3d692c9e98c2@collabora.com?part=3D5
