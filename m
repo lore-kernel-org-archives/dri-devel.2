@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D9BC5CFCF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6AD6C5AC67
 	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6EC210EBF6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA3E710EBFA;
 	Tue, 11 Aug 2026 13:48:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dcE7OTpe";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Rd8lpciX";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69BF310EC0B;
- Tue, 11 Aug 2026 13:48:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E6C710EBF8;
+ Tue, 11 Aug 2026 13:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=8p1/4x3AMsIhkOHx00neB8SMGFxOVGfy/1O6GGcyvKI=; b=
- dcE7OTpeRjjz9Wya0MmhLJhDfKIN/rvLQbKdE1dBQzvSSjECU38b6l3TzEwPcq+jEoQsmU+RDZwba
- BujrkaQ4zskbl3Wyn2HIjCiu46WC58RBTkit1vuXtL1LgF66bH5OBm5QTQHxZsolyB9kaqZ7BhrO/
- ce8e4Gfr8FMv0s5jViDARrb5pD5vQ9lqm4syejP5Ts66Puhd8kFBPeUad7nLCpduI23OQUKBOizqR
- M3KFqS7f3bNXxVDrCwzIHBnNNLjYG8M4GOpLt8BlWpNM4DcsNm9nBnEGB4cg8JgOMd5i1INJoCz31
- DpZxs7UesTpZEmLP1rbpWVsNAdnNvvtIug==;
+ Cc:To:From:From:Reply-To; bh=8BHJdSEY80/uEIqyl9tQMiZRpxavTL1yg44IrKBMGeM=; b=
+ Rd8lpciXHb882e4qcaeiMv39DITGvE9hZqe6e86w/SB2xtSMarNQ6peNbCfgP1sibWh5WTuB7OtJn
+ P7/iqWjm3XCGGu2NvZ1HyTbBBecIbG4BrQh8dN3igmXuwMo8kyCtfLsAUGcNS3L2ovVMjWAWDtAHw
+ WhKiOzkdgwtMRwmYK/Ll9DQQsNfFGLXrT24oWx9PNn5sRw98yZjNWrQG5XFnhdMgLk0JOjnMiHgze
+ 7NGql6Rcklf+c9Y/dhhOZ1pbD9g/5B1T7kG0nYdBEykuz4XrKs0adtNeZTDIfygw8ebz6t68G1Ljf
+ bVoqWJX79hf1E7/3akH2+PAHeIYBuyfdGg==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtmpt-00H9ou-Hu; Tue, 11 Aug 2026 15:48:09 +0200
+ id 1wtmpw-00H9q8-Ml; Tue, 11 Aug 2026 15:48:12 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 11/20] Revert "drm/imagination: Remove
+Subject: [PATCH 15/20] Revert "accel/rocket: Remove
  drm_sched_init_args->num_rqs usage"
-Date: Tue, 11 Aug 2026 14:47:49 +0100
-Message-ID: <20260811134758.96339-12-tvrtko.ursulin@igalia.com>
+Date: Tue, 11 Aug 2026 14:47:53 +0100
+Message-ID: <20260811134758.96339-16-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
 References: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
@@ -57,23 +57,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This reverts commit f84d73d2a08498174d950ba5935930dd94df7d3c.
+This reverts commit 4f335bba019958e59c2a02c4d71b72a8457cc595.
 ---
- drivers/gpu/drm/imagination/pvr_queue.c | 1 +
+ drivers/accel/rocket/rocket_job.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index 9e759421f075..24a8645aa913 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -1285,6 +1285,7 @@ struct pvr_queue *pvr_queue_create(struct pvr_context *ctx,
- 	const struct drm_sched_init_args sched_args = {
- 		.ops = &pvr_queue_sched_ops,
- 		.submit_wq = pvr_dev->sched_wq,
-+		.num_rqs = 1,
- 		.credit_limit = 64 * 1024,
- 		.hang_limit = 1,
- 		.timeout = msecs_to_jiffies(SCHED_TIMEOUT_PERIOD),
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index bb77b6bf0f23..3141f210fcd1 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -452,6 +452,7 @@ int rocket_job_init(struct rocket_core *core)
+ {
+ 	struct drm_sched_init_args args = {
+ 		.ops = &rocket_sched_ops,
++		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = 1,
+ 		.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS),
+ 		.name = dev_name(core->dev),
 -- 
 2.54.0
 
