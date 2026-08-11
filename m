@@ -4,78 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EBB4C5B56A
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 15:10:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D49EC5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 15:10:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE6110EC64;
-	Tue, 11 Aug 2026 15:10:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C050B10E0E6;
+	Tue, 11 Aug 2026 15:10:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M+olbgau";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PyBePouL";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7468810EC64
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 15:10:29 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-49954b88fffso35001545e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 08:10:29 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AAF910EC65
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 15:10:48 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4980dc26022so33966825e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 08:10:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786461028; x=1787065828; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786461046; x=1787065846; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=+5cZFvCl/vAsUiXuIlHQJb7GfBLhg5GlqSTHb/6mrLQ=;
- b=M+olbgauNdOliS4cXsJqwYBnRJhltZHCCbGLZ3VaeUq9GNf8ymzn7vgIW22OTpQ4cp
- wXkj2787a7DUehXdYuutSvA081wH/+6ZcEZyTtqII4eKhjWZR9eMqBPnQydbAQNu2QHw
- 0b0O7AKC0HKSN3waI51v6XdoteQTMBR2+5F9wblcijEL+OsIK/a/+FqTtC7ATIrXZg9o
- 6uH8E35UCAJIw2nBAoJ1Ac2ra1JdsVefgl3KusLHsh0WApcu0YMIuQ+LwG3keNI8j8Wt
- d9zERV77pfjbvHFvAZ8jZrJKAG62rWKu3RpJLv0DfpqyyqnatMYtpJzteFwBTTVMdr7r
- KBOw==
+ bh=rbhvOVyk4557fdZi9dUSvbpKOnRtueLxiCFpN/QbC9U=;
+ b=PyBePouLNsqNtWLNNlpxxMzcgdOwfp9FM2J/jb/eCEFbKrNZd+gw6MkfktU74HdjVP
+ 97ekYOb7IQPRvpvuKD4avfd7y1nYur2/7KvkNZFo4EHKP86ngH9L8jwhd5pgYRfJ6h9m
+ joEXY3yHYliodump5AISfXEL5+TB02WymoCYZq5FdRoM17TghJ8H4UAHaV6l2gHtR3x+
+ NUnG+xKddQ8/VIUJ+eRavVX9vv0BwfoaKHEHpNxzQJVlaDHUIuyRME6LVNaCwCJJPk0W
+ /dxNwoVacxw0xOdmOAtzDydCbNsUnD3V8BKzzVZctY1d/Joxhd8OhsO1BuQSFWxgHLTG
+ 978w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786461028; x=1787065828;
+ d=1e100.net; s=20251104; t=1786461046; x=1787065846;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=+5cZFvCl/vAsUiXuIlHQJb7GfBLhg5GlqSTHb/6mrLQ=;
- b=anbSdBp2fbHekcp9Hx717p94SjFBq8gCZk3lr1WFrT2an1x8cQK2mpyo4saHRR7bMA
- ckcoOi0cyKV3i+WXtUl71Co3pG33ghbF3P9777pMRS+ANUay4h2+cLvJrEs1sOsspFKz
- VEEK721Ppzlle1X2U/C2BFU2NnWok7BvFzVGo7C8nHqK2hWzSOj+aEvGh9SAWvxI1QOT
- 2EnRVHVebsF0+rpJ5gwHnDsArMCQUpRAF4m25Cb17yf6qe7vdrf0l6t2oDzXzQoVdjWi
- 6T3NNeh74EGOAYI1U2KkAYU+a2TDz4m96b3fBb0LN0seQGdFrKjhA9qabEQd0HsM5aPE
- WlIQ==
+ bh=rbhvOVyk4557fdZi9dUSvbpKOnRtueLxiCFpN/QbC9U=;
+ b=dUROyvA2PxPPDcUuS37XxwKsWexHQhgn+wuJiW0kYtv8+AscM6Y+kxMjUXP3S8zq3H
+ yIYmaDuSfcwvtWYjbFXmrSQNtDPS3ua3vfqi/802wYQHW+zoNfIrA7ZtdthJsl70ae0c
+ 8tOeNT8GxdUf8CR6zCNrDGv4XCv8YQqBE+utlNXSTjYIPjF9x2uYcwV4F3FfybqxD9Ot
+ QLNtUgGge9J9b+TiS+LoPbGBwgOBGPYg2F/YkOqnm/LQ+0nsxJcSM8IfDo5+5dCOxY7R
+ qilBhIT08Cz7CJQDaQUOMscNkWg9mxDLXkNyDGyz594GDNN+kShuSfhd6cBWGqnZ9IEv
+ S7fA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp80e4F59mBm18mOG/FxUhE2sT8BVJkYh3yfku0jAYb4cz0HJlA9L3AFe+iiU48nINMfqJEZ2RAC98=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzn82Gxyg93361j5DZwfBNqdlUNFsD47bMVm6+e0CJXT5Tl1rJE
- BcszCX4EIJO6LeeSBdxAReQxF16E9bx3Wi+swK/yc8hSDBibj6vW/1Mx
-X-Gm-Gg: AR+sD100ZkAd39ln6645uMmvjCV949bfATQq4iIr2bDr3tZg1MIYsslQDhO4iVeLm8c
- n5QBpqSpLQ5QqE7Z6v/zs5393aouBfvfhLZwO+0h6Z1iYyPu4D951ZNQNTNDdzFiXqrykx1zRW8
- rvo62YVw5fpK5tT4tnSJUHrPlLF4mhV3GA2U3cb6wX19/Y9EyBU80gE/nNwosIiwjFUT1hhrxQ8
- VcfEDKNSg8TO/MZOBc8KWE+IPc1Lk3awvjK4ewatR3kM5yhoOspEnvD2RCyTAzIduiobfZ0pvj7
- pqTy8b3ZFKB/WAMtJLwlIFaJapw+MehLBS72kVM5vKr0i5D3bNJ+6LNAK3dtrNfQ7wuKi6RZYkb
- O59s/YHzEYoshmUaMFX0R4vwhHGxMhFrCP7lqaODSS1Qfr9ZhxcyiNJMTc78laqUEWl7bhKlMeR
- 9s+MNNx4BKqi4UhlmSDmpQX3RpSh5hN2eWWC7XMpDYSvEq0CJ3RJ4aap9OKUFxsq1oQbrQTjcdm
- uxwJ6P4LX0zTZU2motzyJU3
-X-Received: by 2002:a05:600c:c163:b0:499:4892:d022 with SMTP id
- 5b1f17b1804b1-4997843e95fmr79403415e9.8.1786461027590; 
- Tue, 11 Aug 2026 08:10:27 -0700 (PDT)
+ AHgh+RpC+rK1TCDk0Fr+hrxIEE7iluH2NbGUxNDp9Qbqf/6ySaND+Sujz4yiblw+/FGA5yYttCl6CcZDEiI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxgAoKw9nrR/RGFjpTpDTTlSTRu/qIHuObExCpaf8i0Prrobr47
+ 5q8PaELglx5u8S+Gp7Fpr9n+hcQoLcWQarYczKPKKMyRMG0234W7+u7t
+X-Gm-Gg: AR+sD11nFKaLYKwDIunI9C6twquwdnZGUDU5ujepfGbure+oVhN99Zxkzqf3Qbh2YKe
+ s/1e2Bfp8gnb3hhpgMgqRA+v0HmSDE10fH11hXSgHdgSQyomszPlSParP6p0oT9cT0NI8YzGewk
+ 8bFZj/gfwzAl+KYnDQOTRodKR7yO5yyNd+TVzwxTPTFVKcsmwPTc9u7O6KQ8X34GRiAT2h+uFi/
+ i6PWEVeC17p2+uG60IbX9jSbENyAjHEXawpHxQOVn9KD1FBiFHZSy4IVzEgopsmA2YRBa4F9Zgi
+ HPV1orj4XYnIAPl+QyjbfuuhHcct+4z8z6wEFhkD3CxUzdXj+iOAmw10a5NQ+86JD/85mFS9MDa
+ uxkgMvXrgjkITymIyR9/IiH1PpfZBsydsQNEadvqPeFHT2FCG75TUZRIhs0d7IVuGgqvL8RO9gU
+ q6ZJytr1vJh0b+nsgR6KLuuDrgwxriKVV/6gwrC1o10IO3Q0HXux6SNBxU5NVAYbILhJfQd3gZ8
+ ue2i2gQRIS1ZO+Dyzlnm0L2
+X-Received: by 2002:a05:600c:800f:b0:499:726c:50e with SMTP id
+ 5b1f17b1804b1-499784661f7mr74280315e9.14.1786461046442; 
+ Tue, 11 Aug 2026 08:10:46 -0700 (PDT)
 Received: from osama.. ([2a02:908:185:7e40:b0cf:778:ae86:13b1])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49977e57785sm54307265e9.2.2026.08.11.08.10.26
+ 5b1f17b1804b1-49977e57785sm54307265e9.2.2026.08.11.08.10.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 08:10:27 -0700 (PDT)
+ Tue, 11 Aug 2026 08:10:46 -0700 (PDT)
 From: Osama Abdelkader <osama.abdelkader@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
+ Simona Vetter <simona@ffwll.ch>, Artur Weber <aweber.kernel@gmail.com>,
+ David Heidelberg <david@ixit.cz>, Dzmitry Sankouski <dsankouski@gmail.com>,
+ Yedaya Katsman <yedaya.ka@gmail.com>,
+ Casey Connolly <casey.connolly@linaro.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH 1/6] drm/panel: Use devm_mipi_dsi_attach in BOE panels
-Date: Tue, 11 Aug 2026 17:09:45 +0200
-Message-ID: <20260811151000.75038-2-osama.abdelkader@gmail.com>
+Subject: [PATCH 2/6] drm/panel: Use devm_mipi_dsi_attach in Samsung panels
+Date: Tue, 11 Aug 2026 17:09:46 +0200
+Message-ID: <20260811151000.75038-3-osama.abdelkader@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260811151000.75038-1-osama.abdelkader@gmail.com>
 References: <20260811151000.75038-1-osama.abdelkader@gmail.com>
@@ -96,85 +98,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the managed MIPI DSI attach helper in BOE panel drivers and drop the corresponding manual detach calls from remove paths.
+Use the managed MIPI DSI attach helper in Samsung panel drivers and drop the corresponding manual detach calls from remove paths.
 ---
- drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c       | 8 +-------
- drivers/gpu/drm/panel/panel-boe-himax8279d.c         | 8 +-------
- drivers/gpu/drm/panel/panel-boe-td4320.c             | 8 +-------
- drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c | 4 +---
- drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c       | 8 +-------
- drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c       | 7 +------
- 6 files changed, 6 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/panel/panel-samsung-s6d16d0.c            | 4 +---
+ drivers/gpu/drm/panel/panel-samsung-s6d7aa0.c            | 8 +-------
+ drivers/gpu/drm/panel/panel-samsung-s6e3fa7.c            | 8 +-------
+ drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c         | 8 +-------
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c            | 4 +---
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c            | 8 +-------
+ drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c         | 4 +---
+ drivers/gpu/drm/panel/panel-samsung-s6e63m0-dsi.c        | 3 +--
+ drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams427ap24.c | 8 +-------
+ drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams452ef01.c | 8 +-------
+ drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c            | 4 +---
+ drivers/gpu/drm/panel/panel-samsung-s6e8fc0-m1906f9.c    | 8 +-------
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c            | 8 +-------
+ 13 files changed, 13 insertions(+), 70 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-index 84c21c62a43e..6a74523a6614 100644
---- a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-+++ b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-@@ -359,7 +359,7 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+index 54a65abf7e89..8b6d39636f50 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+@@ -209,7 +209,7 @@ static int s6d16d0_probe(struct mipi_dsi_device *dsi)
  
- 	drm_panel_add(&boe->panel);
+ 	drm_panel_add(&s6->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0)
+ 		drm_panel_remove(&s6->panel);
+ 
+@@ -219,8 +219,6 @@ static int s6d16d0_probe(struct mipi_dsi_device *dsi)
+ static void s6d16d0_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct s6d16d0 *s6 = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(dsi);
+ 	drm_panel_remove(&s6->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d7aa0.c b/drivers/gpu/drm/panel/panel-samsung-s6d7aa0.c
+index 692020081524..1f070a99521a 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6d7aa0.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6d7aa0.c
+@@ -438,7 +438,7 @@ static int s6d7aa0_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
  
 -	ret = mipi_dsi_attach(dsi);
 +	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
  	if (ret < 0) {
  		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		return ret;
-@@ -371,12 +371,6 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
- static void boe_bf060y8m_aj0_remove(struct mipi_dsi_device *dsi)
- {
- 	struct boe_bf060y8m_aj0 *boe = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
- 	drm_panel_remove(&boe->panel);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-index 4a8560b4b899..ffcb63f65b75 100644
---- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-+++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-@@ -881,7 +881,7 @@ static int panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	err = mipi_dsi_attach(dsi);
-+	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (err < 0)
- 		drm_panel_remove(&pinfo->base);
- 
-@@ -891,12 +891,6 @@ static int panel_probe(struct mipi_dsi_device *dsi)
- static void panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
--
- 	drm_panel_remove(&pinfo->base);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-boe-td4320.c b/drivers/gpu/drm/panel/panel-boe-td4320.c
-index 23558a76dd72..704d5a9c13e7 100644
---- a/drivers/gpu/drm/panel/panel-boe-td4320.c
-+++ b/drivers/gpu/drm/panel/panel-boe-td4320.c
-@@ -204,7 +204,7 @@ static int boe_td4320_probe(struct mipi_dsi_device *dsi)
- 
- 	drm_panel_add(&ctx->panel);
- 
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret < 0) {
  		drm_panel_remove(&ctx->panel);
- 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-@@ -216,12 +216,6 @@ static int boe_td4320_probe(struct mipi_dsi_device *dsi)
- static void boe_td4320_remove(struct mipi_dsi_device *dsi)
+@@ -451,12 +451,6 @@ static int s6d7aa0_probe(struct mipi_dsi_device *dsi)
+ static void s6d7aa0_remove(struct mipi_dsi_device *dsi)
  {
- 	struct boe_td4320 *ctx = mipi_dsi_get_drvdata(dsi);
+ 	struct s6d7aa0 *ctx = mipi_dsi_get_drvdata(dsi);
 -	int ret;
 -
 -	ret = mipi_dsi_detach(dsi);
@@ -184,33 +163,228 @@ index 23558a76dd72..704d5a9c13e7 100644
  	drm_panel_remove(&ctx->panel);
  }
  
-diff --git a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-index a70a2e58f88c..94cc675973e6 100644
---- a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-+++ b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-@@ -393,7 +393,7 @@ static int boe_th101mb31ig002_dsi_probe(struct mipi_dsi_device *dsi)
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3fa7.c b/drivers/gpu/drm/panel/panel-samsung-s6e3fa7.c
+index f4d75eca3cdf..88e4d59941b4 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3fa7.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3fa7.c
+@@ -213,7 +213,7 @@ static int s6e3fa7_panel_probe(struct mipi_dsi_device *dsi)
  
  	drm_panel_add(&ctx->panel);
  
 -	ret = mipi_dsi_attach(dsi);
 +	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
  	if (ret < 0) {
- 		dev_err_probe(&dsi->dev, ret,
- 			      "Failed to attach panel to DSI host\n");
-@@ -407,8 +407,6 @@ static int boe_th101mb31ig002_dsi_probe(struct mipi_dsi_device *dsi)
- static void boe_th101mb31ig002_dsi_remove(struct mipi_dsi_device *dsi)
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -226,12 +226,6 @@ static int s6e3fa7_panel_probe(struct mipi_dsi_device *dsi)
+ static void s6e3fa7_panel_remove(struct mipi_dsi_device *dsi)
  {
- 	struct boe_th101mb31ig002 *ctx = mipi_dsi_get_drvdata(dsi);
+ 	struct s6e3fa7_panel *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c b/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
+index e63080204af7..cba46e3915b8 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c
+@@ -342,7 +342,7 @@ static int s6e3fc2x01_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -355,12 +355,6 @@ static int s6e3fc2x01_probe(struct mipi_dsi_device *dsi)
+ static void s6e3fc2x01_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct samsung_s6e3fc2x01 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
+index 1db0c63b1131..a1808124278b 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
+@@ -737,7 +737,7 @@ static int s6e3ha2_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0)
+ 		goto remove_panel;
+ 
+@@ -753,8 +753,6 @@ static int s6e3ha2_probe(struct mipi_dsi_device *dsi)
+ static void s6e3ha2_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct s6e3ha2 *ctx = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(dsi);
+ 	drm_panel_remove(&ctx->panel);
+ 	backlight_device_unregister(ctx->bl_dev);
+ }
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+index 550e9ef9bb71..22be3463357c 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+@@ -299,7 +299,7 @@ static int s6e3ha8_amb577px01_wqhd_probe(struct mipi_dsi_device *dsi)
+ 	priv->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
+ 	priv->dsc.block_pred_enable = true;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&priv->panel);
+@@ -312,12 +312,6 @@ static int s6e3ha8_amb577px01_wqhd_probe(struct mipi_dsi_device *dsi)
+ static void s6e3ha8_amb577px01_wqhd_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct s6e3ha8 *priv = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&priv->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c b/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
+index e05199ce14ee..4b16ffe31b8f 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c
+@@ -477,7 +477,7 @@ static int s6e63j0x03_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0)
+ 		goto remove_panel;
+ 
+@@ -493,8 +493,6 @@ static int s6e63j0x03_probe(struct mipi_dsi_device *dsi)
+ static void s6e63j0x03_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct s6e63j0x03 *ctx = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(dsi);
+ 	drm_panel_remove(&ctx->panel);
+ 
+ 	backlight_device_unregister(ctx->bl_dev);
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e63m0-dsi.c b/drivers/gpu/drm/panel/panel-samsung-s6e63m0-dsi.c
+index 2630975c111b..0edce6eedc0b 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e63m0-dsi.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e63m0-dsi.c
+@@ -105,7 +105,7 @@ static int s6e63m0_dsi_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0)
+ 		s6e63m0_remove(dev);
+ 
+@@ -114,7 +114,6 @@ static int s6e63m0_dsi_probe(struct mipi_dsi_device *dsi)
+ 
+ static void s6e63m0_dsi_remove(struct mipi_dsi_device *dsi)
+ {
+-	mipi_dsi_detach(dsi);
+ 	s6e63m0_remove(&dsi->dev);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams427ap24.c b/drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams427ap24.c
+index 77fee36dbb55..e9e621830fde 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams427ap24.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams427ap24.c
+@@ -724,7 +724,7 @@ static int s6e88a0_ams427ap24_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -737,12 +737,6 @@ static int s6e88a0_ams427ap24_probe(struct mipi_dsi_device *dsi)
+ static void s6e88a0_ams427ap24_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct s6e88a0_ams427ap24 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams452ef01.c b/drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams452ef01.c
+index ca5cad41ff1d..43fd28cd1a53 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams452ef01.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e88a0-ams452ef01.c
+@@ -196,7 +196,7 @@ static int s6e88a0_ams452ef01_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -209,12 +209,6 @@ static int s6e88a0_ams452ef01_probe(struct mipi_dsi_device *dsi)
+ static void s6e88a0_ams452ef01_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct s6e88a0_ams452ef01 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c b/drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c
+index 1b5c500d4f4e..4902079edd27 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c
+@@ -1020,7 +1020,7 @@ static int s6e8aa0_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0)
+ 		drm_panel_remove(&ctx->panel);
+ 
+@@ -1030,8 +1030,6 @@ static int s6e8aa0_probe(struct mipi_dsi_device *dsi)
+ static void s6e8aa0_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct s6e8aa0 *ctx = mipi_dsi_get_drvdata(dsi);
 -
 -	mipi_dsi_detach(dsi);
  	drm_panel_remove(&ctx->panel);
  }
  
-diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-index 20b6e11a7d84..2ab7764d4094 100644
---- a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-+++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-@@ -200,7 +200,7 @@ static int boe_tv101wum_ll2_probe(struct mipi_dsi_device *dsi)
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e8fc0-m1906f9.c b/drivers/gpu/drm/panel/panel-samsung-s6e8fc0-m1906f9.c
+index 2fae0dc6c424..6c86cfaf92b2 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e8fc0-m1906f9.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e8fc0-m1906f9.c
+@@ -258,7 +258,7 @@ static int s6e8fc0_m1906f9_probe(struct mipi_dsi_device *dsi)
  
  	drm_panel_add(&ctx->panel);
  
@@ -219,10 +393,10 @@ index 20b6e11a7d84..2ab7764d4094 100644
  	if (ret < 0) {
  		drm_panel_remove(&ctx->panel);
  		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-@@ -212,12 +212,6 @@ static int boe_tv101wum_ll2_probe(struct mipi_dsi_device *dsi)
- static void boe_tv101wum_ll2_remove(struct mipi_dsi_device *dsi)
+@@ -270,12 +270,6 @@ static int s6e8fc0_m1906f9_probe(struct mipi_dsi_device *dsi)
+ static void s6e8fc0_remove(struct mipi_dsi_device *dsi)
  {
- 	struct boe_tv101wum_ll2 *ctx = mipi_dsi_get_drvdata(dsi);
+ 	struct s6e8fc0_ctx *ctx = mipi_dsi_get_drvdata(dsi);
 -	int ret;
 -
 -	ret = mipi_dsi_detach(dsi);
@@ -232,31 +406,32 @@ index 20b6e11a7d84..2ab7764d4094 100644
  	drm_panel_remove(&ctx->panel);
  }
  
-diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-index 150dff3ab6c3..7d2672578dd8 100644
---- a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-+++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-@@ -1765,7 +1765,7 @@ static int boe_panel_probe(struct mipi_dsi_device *dsi)
+diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+index f07d6533ed69..5cb05ba246b8 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
++++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+@@ -252,7 +252,7 @@ static int sofef00_panel_probe(struct mipi_dsi_device *dsi)
  
- 	mipi_dsi_set_drvdata(dsi, boe);
+ 	drm_panel_add(&ctx->panel);
  
 -	ret = mipi_dsi_attach(dsi);
 +	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
- 	if (ret)
- 		drm_panel_remove(&boe->base);
- 
-@@ -1775,11 +1775,6 @@ static int boe_panel_probe(struct mipi_dsi_device *dsi)
- static void boe_panel_remove(struct mipi_dsi_device *dsi)
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		drm_panel_remove(&ctx->panel);
+@@ -265,12 +265,6 @@ static int sofef00_panel_probe(struct mipi_dsi_device *dsi)
+ static void sofef00_panel_remove(struct mipi_dsi_device *dsi)
  {
- 	struct boe_panel *boe = mipi_dsi_get_drvdata(dsi);
+ 	struct sofef00_panel *ctx = mipi_dsi_get_drvdata(dsi);
 -	int ret;
 -
 -	ret = mipi_dsi_detach(dsi);
 -	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
  
- 	if (boe->base.dev)
- 		drm_panel_remove(&boe->base);
 -- 
 2.43.0
 
