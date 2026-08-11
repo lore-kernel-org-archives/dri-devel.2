@@ -4,57 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AB9BC5AD55
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 01:39:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1403DC5AD55
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 01:56:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCF4F10EA32;
-	Tue, 11 Aug 2026 01:39:25 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Fby754QU";
-	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Tue, 11 Aug 2026 01:39:22 UTC
-Received: from mail-m16023653240.xmail.ntesmail.com
- (mail-m16023653240.xmail.ntesmail.com [160.236.53.240])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7C9C10EA2B
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 01:39:22 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 497d9ce87;
- Tue, 11 Aug 2026 09:34:15 +0800 (GMT+08:00)
-Message-ID: <c0a7521d-9c19-4197-802b-2b64a6ddea28@rock-chips.com>
-Date: Tue, 11 Aug 2026 09:34:13 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3197110EA2B;
+	Tue, 11 Aug 2026 01:56:40 +0000 (UTC)
+Received: from wxsgout04.xfusion.com (wxsgout04.xfusion.com [36.139.87.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E973210EA2B
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 01:56:38 +0000 (UTC)
+Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
+ by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4hJvmd1SQQzBL0v1;
+ Tue, 11 Aug 2026 09:53:53 +0800 (CST)
+Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
+ wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.20;
+ Tue, 11 Aug 2026 09:56:32 +0800
+From: shechenglong <shechenglong@xfusion.com>
+To: <airlied@redhat.com>, <kraxel@redhat.com>,
+ <dmitry.osipenko@collabora.com>, <gurchetansingh@chromium.org>,
+ <olvaffe@gmail.com>, <maarten.lankhorst@linux.intel.com>
+CC: <mripard@kernel.org>, <tzimmermann@suse.de>, <simona@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <stone.xulei@xfusion.com>,
+ <chenjialong@xfusion.com>, shechenglong <shechenglong@xfusion.com>
+Subject: [RESEND PATCH] drm/virtio: check return value of vgdev_output_init()
+Date: Tue, 11 Aug 2026 09:56:24 +0800
+Message-ID: <20260811015624.830-1-shechenglong@xfusion.com>
+X-Mailer: git-send-email 2.37.1.windows.1
+In-Reply-To: <20260802101108.1595-1-shechenglong@xfusion.com>
+References: <20260802101108.1595-1-shechenglong@xfusion.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/rockchip: vop2: ACLK_VOP pinned at 500 MHz starves DP 4K120
- on RK3588
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Igor Paunovic <royalnet026@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org
-Cc: Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Alexey Charkov <alchark@flipper.net>
-References: <20260808104240.13776-1-royalnet026@gmail.com>
- <33bd4a94-11af-4cf3-ae44-b7f8944250f6@collabora.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <33bd4a94-11af-4cf3-ae44-b7f8944250f6@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9fee74ba5003a7kunmb83a8d5243ccb1
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGEpJVkNIHUwaTh9LQh5NHlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=Fby754QUoVSX3qKOhJ+T9zxxpIaZ3/AFBleWT4T32EkawxyBDqdkx9/0/s7x2fpaPxlxUdT9qVIz0jsSH1tDv8G3Sv3acy3G8bwXvRFJ96vLWnGdDpKzqV4wUfEurumYph+GwPsn4pggilYltD8AbHX6a7CUnoqhVrf/6CAPi7s=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=+IE9jJ9s7tH4WhZu0h21Uh01ObG+BVF23Qpj2OsjRpQ=;
- h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Originating-IP: [10.82.130.100]
+X-ClientProxiedBy: wuxpheds03045.xfusion.com (10.32.131.99) To
+ wuxpheds03048.xfusion.com (10.32.143.30)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,134 +54,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Cristian, Igor,
-
-On 8/10/2026 11:36 PM, Cristian Ciocaltea wrote:
-> Hi Igor,
-> 
-> On 8/8/26 1:42 PM, Igor Paunovic wrote:
->> Hello,
->>
->> On RK3588 the VOP2 AXI clock is pinned to 500 MHz by device tree and
->> nothing in mainline ever raises it.  For DisplayPort at 3840x2160@120
->> that is not enough bandwidth, and the failure is not graceful: the
->> video port floods POST_BUF_EMPTY interrupts and the picture is
->> corrupted.
->>
->> I mentioned this in passing when I sent a Tested-by for the dw-dp v11
->> series:
->> https://lore.kernel.org/all/20260808094138.7205-1-royalnet026@gmail.com/
->>
->> The pin is explicit.  In arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
->> the cru node lists <&cru ACLK_VOP> in assigned-clocks with 500000000 in
->> the matching position of assigned-clock-rates.  It is a deliberate
->> assignment rather than a boot default, and it is identical in mainline
->> and in the Collabora rockchip-devel branch.
->>
->> The rate request does propagate.  ACLK_VOP is registered as a gate with
->> flags 0 in clk-rk3588.c, but drivers/clk/rockchip/clk.c adds
->> CLK_SET_RATE_PARENT for every branch_gate, so a request on aclk_vop
->> travels up through aclk_vop_sub_src (a mux carrying the same flag) to
->> aclk_vop_root, which is a settable composite.
->>
->> What I measured, on an Orange Pi 5 Plus driving a DP monitor over USB-C
->> Alt Mode at 3840x2160@120 (YCbCr 4:2:0, so dclk sits at 594 MHz), on
->> drm-misc-next of 2026-08-07 (dc2f9f7fed1a) plus the dw-dp v11 and usbdp
->> v13 series.  I built with CLOCK_ALLOW_WRITE_DEBUGFS and changed the
->> rate by writing aclk_vop_root's clk_rate in clock debugfs, one level
->> up, which has the same effect.  The mode was unchanged across all three
->> phases, so dclk stayed at 594 MHz and the AXI rate was the only thing
->> that moved:
->>
->>   500 MHz:  vop2_isr reported ~594000 suppressed callbacks per 5 s,
->>             roughly 119k interrupts per second, all POST_BUF_EMPTY on
->>             the DP video port; picture unusable
->>   750 MHz:  no POST_BUF_EMPTY logged at all for 42 s, the whole phase;
->>             the picture became correct the moment the write landed
->>   500 MHz:  ~607000 suppressed callbacks per 5 s; broken again
->>
->> Both transitions are immediate, and the timestamps line up with the
->> phases of my test script.
->>
->> Everything I can drive up to 2560x1440@144 (about 586 MHz pixel clock)
->> stays clean at 500 MHz; 3840x2160@120 (1188 MHz) does not.  That
->> comparison comes from a mode sweep on my rockchip-devel based daily
->> kernel rather than from the run above, and my monitor offers nothing in
->> between, so I cannot bisect the threshold.
->>
->> In mainline rockchip_drm_vop2.c there is no clk_set_rate() on the VOP
->> aclk at all; the only clk_set_rate() in the file is on vp->dclk.  To
->> reproduce: enable dp0 on an RK3588 board - it is disabled in the
->> mainline DTS, so this needs a board DT change - drive a DP monitor at
->> 3840x2160@120, and watch dmesg or the vop interrupt count in
->> /proc/interrupts.
->>
->> The only code I know of that raises the rate is a commit in the
->> Collabora rockchip-devel branch, "drm/rockchip: vop2: Scale ACLK rate
->> up for RK3588 FRL display modes" by Cristian Ciocaltea.  It defines a
->> 750 MHz rate and calls clk_set_rate() from vop2_crtc_atomic_enable()
->> and _disable(), gated on vcstate->frl_enabled with a refcount over the
->> video ports.  I could not find it on lore, but I may well have missed
->> it.
-> 
-> I haven't submitted that yet; it's part of a work-in-progress FRL enablement
-> patchset that's currently blocked on the HDMI 2.0 support series [1], still
-> under review upstream.
-> 
->> If that is the intended shape of the fix, DisplayPort still would not
->> benefit: frl_enabled is set only by dw_hdmi_qp-rockchip.c, and neither
->> dw-dp.c nor dw_dp-rockchip.c mentions FRL at all, so the condition is
->> HDMI specific while the bandwidth problem is not.  It also explains
->> what I had been seeing since I enabled dp0 on this board last week:
->> 4K120 over USB-C only worked while an HDMI output happened to be
->> running in FRL mode.
->>
->> Raising the DT rate to 750 MHz unconditionally would be simpler, but it
->> would cost power on boards that never drive such a mode, which is
->> presumably the reason for making it dynamic.
-> 
-> Yes.
-> 
->> Cristian, Heiko - hence my question: should the ACLK rate be derived
->> from the bandwidth the enabled video ports actually need, rather than
->> from an HDMI-specific link flag?  A per-video-port requirement combined
->> with max() across the active ports would cover DP and HDMI under one
->> rule and would not need a refcount.
-> 
-> Unfortunately, deriving ACLK purely from bandwidth wouldn't suffice as a general
-> solution for HDMI. FRL and TMDS overlap for certain display modes, and hardware
-> may impose its own limits on max TMDS character rate and/or supported min/max
-> FRL bandwidth - so the same mode can map to different ACLK requirements
-> depending on which link type is used. 
-> 
-> Later, we might want to support user-prioritization of FRL over TMDS, even for
-> modes that TMDS could otherwise handle cleanly. Since FRL uses fixed rates
-> regardless of the active display mode, ACLK can't be reliably inferred from the
-> mode alone for HDMI.
-> 
-> DP may still follow a bandwidth-derived max() rule, though I haven't been
-> personally involved in the DP use-case. I recall Alexey (added to CC) mentioning
-> additional issues with PLL rates on RK3576, I think [2] is the most recent one.
-
-In my opinion, POST BUF EMPTY has nothing to do with the display
-interface actually being used, but rather relates to the plane you
-are actually using.
-
-For example, when using DP at 4K@120, we can perfectly well use a
-lower ACLK with a smaller 1080P plane without encountering the POST
-BUF EMPTY issue. Similarly, when using 4K@60, if multiple 4K ARGB
-planes are displayed simultaneously, we may encounter the same issue 
-as well.
-
-> 
-> Cheers,
-> Cristian
-> 
-> [1] https://lore.kernel.org/all/20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com/
-> [2] https://lore.kernel.org/all/CAKTNdwFPhVrjb4iVpN19f0Nw+MA_BxXLOLs4V50fuyf+_rbEPg@mail.gmail.com
-> 
-> 
-
--- 
-Best, 
-Chaoyi
+The return value of vgdev_output_init(), called by=0D
+virtio_gpu_modeset_init(), is not checked. As a result, modeset=0D
+initialization continues even if an output fails to initialize.=0D
+=0D
+check the return value and return the error to the caller.=0D
+=0D
+Signed-off-by: shechenglong <shechenglong@xfusion.com>=0D
+---=0D
+ drivers/gpu/drm/virtio/virtgpu_display.c | 7 +++++--=0D
+ 1 file changed, 5 insertions(+), 2 deletions(-)=0D
+=0D
+diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/vir=
+tio/virtgpu_display.c=0D
+index 44ffffec550f..f2b98d018c1e 100644=0D
+--- a/drivers/gpu/drm/virtio/virtgpu_display.c=0D
++++ b/drivers/gpu/drm/virtio/virtgpu_display.c=0D
+@@ -378,8 +378,11 @@ int virtio_gpu_modeset_init(struct virtio_gpu_device *=
+vgdev)=0D
+=0D
+    vgdev->ddev->mode_config.fb_modifiers_not_supported =3D true;=0D
+=0D
+-   for (i =3D 0 ; i < vgdev->num_scanouts; ++i)=0D
+-       vgdev_output_init(vgdev, i);=0D
++   for (i =3D 0; i < vgdev->num_scanouts; ++i) {=0D
++       ret =3D vgdev_output_init(vgdev, i);=0D
++       if (ret)=0D
++           return ret;=0D
++   }=0D
+=0D
+    ret =3D drm_vblank_init(vgdev->ddev, vgdev->num_scanouts);=0D
+    if (ret)=0D
+--=0D
+2.33.0=0D
+=0D
