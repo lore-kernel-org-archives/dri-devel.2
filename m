@@ -4,83 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E5FC5CFCF
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C475BC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83AF310EE49;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A28F10E3DA;
 	Wed, 12 Aug 2026 07:08:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Mx3/7GjR";
+	dkim=pass (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="yK2Zufb6";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81F8410E35A
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 19:42:45 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-496bb7cdf51so985335e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 12:42:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786477364; x=1787082164; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=F8qrj8CmLGjwQMZeVA2ZOifuwHu1xiIsioWlV9Mw2Jg=;
- b=Mx3/7GjRZ/lqIqA5H2sHr7RqE+C8d1yiWP6Qrz/O4iyFAdCmqfJQLT66Fwos/p1xfH
- O34/EHt9Opn+O25wwObO2RxDpL1IWYnjj77lJ9tsiLBHoWnju3Z9fy9nsJca1iS7ViAT
- 0/rVElLUmeKHO0e0sPfbisncy2tTNI1HZ2ND4r0stwvMZEx1vUVNtxLA6VY8OeSs5HcX
- Eohb616jXdolTmafzg/q0vdiSb6K1ydzIuFdfY0jYN0zNc8jdWesJVFaQVhmgbmbIU8X
- Yo4RBsJSE5HWfrgws3U/HMAnfI8iPIzDKWYJxuMJiXN+JIwMdBGnqaqpFhmIKF+krlN0
- Gztw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786477364; x=1787082164;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=F8qrj8CmLGjwQMZeVA2ZOifuwHu1xiIsioWlV9Mw2Jg=;
- b=GiEy1rYF/MPNqcQ3g9yTxS2zkEfP5AJLKa2GD5lgbsmyHfC2MKl3R5njTF+bgLBxV/
- bOoaFzmL8AlW5QWefHFmsz9YCuxghwbjkoRW7c237mh5kbw2tkCzBR13gH087/2wi96L
- afKGYM00uHZKYJ/6foScAKIyPE27FHhuM0pTHnLwLJYcNQWPoG9ClQAh8U6+jjDpk3hY
- Xq63fXCY9mR9B7DrngU3I+XmoX1C8CTERRx1/Vsbmj8srRNkfJFe6csCgXAnABBWxGGi
- 4hwyas9fZ5qx2LhXltLzKLb1yGcVHnDb40OgxiDHBhnG83HJM83hMAbChNDa6ZRN574y
- ulwQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrHtyg/qAGE8FCagxITegn/IxI6Jewd2pRdp7XMKL80MwW8D0yioJ00IJVv9nWBrhgJaF5DL4SEjCI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2geuhftIsYgirRW30b53GF21OGBVsD0KjPEEYLTJjJbKaBLN6
- ao4rS/jH/Y6pnKlkhxqR8JYnChFLoYIiyX8enD/gpnTLHqWdaaQA00bB
-X-Gm-Gg: AR+sD13cF8In1XJXWbJS4uOVMZYNiQ2p7fLn78C4MwN+7jQGx8HxhrjIdnbtY/+BYLQ
- 60Q6wegHQ2cQk8CZJfavq3OEpOg729DRG/6PCuDL4XHzPR/uVmekpH0DnKryS6TAp0FtdlH1iXG
- FC7n9pNIbY7A2bfkKP5nrBfAte6reoUKx4L6boJnkeulU4s6hpTHuKg601IjayVT7AhagO44wnb
- IbceKy0eCeBLhGkA7efbZS4sXVoY8BhGhauBCCvvVLUwX7MBuJxlEb1oNKNosg3aFw9i+gP9lX0
- 8UYoHiqNOZ7dXVB/9PDyE2czQVityPnUwkveKe7n2uFR7e+shJeBQYuw0/K/iNx1Wm5oLRCuCDE
- EDnUSkZPVADX4aET6oY0bRzkrJKXnrNEkASwpPbAqoTzyXWCLVElLGS5hJCoN2BF7280tb2LrkE
- LVOLdjlNQSrcoeBzcZp8/BCpUtmDIUq3YeD5gKd6MOT6CJwJDYwc6kXhVO7z1W4fwHU0IjiZ9tA
- owZYWbzYv9X8ybksgnjcfqFkBz6um3pL/ygF/IiaSWgTUzY/kVU
-X-Received: by 2002:a05:600c:1d0b:b0:499:51b8:d649 with SMTP id
- 5b1f17b1804b1-4997a5f2427mr38053465e9.3.1786477363864; 
- Tue, 11 Aug 2026 12:42:43 -0700 (PDT)
-Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
- (212.pool95-21-2.static.orange.es. [95.21.2.212])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4997adad05esm3986195e9.3.2026.08.11.12.42.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 12:42:43 -0700 (PDT)
-From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
-To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>
-Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>, 
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
- stable@vger.kernel.org
-Subject: [PATCH v5 5/6] ttm_pool_mgr_fini() does not destroy the list_lru
-Date: Tue, 11 Aug 2026 21:42:20 +0200
-Message-ID: <20260811194224.121597-6-megia.oscar@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811194224.121597-1-megia.oscar@gmail.com>
-References: <20260811194224.121597-1-megia.oscar@gmail.com>
+Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com
+ [91.218.175.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E169B10E387
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 20:54:47 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaitmazov.com;
+ s=key1; t=1786481344;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=1jdponTtPa9+OLliftj3H7pLIYO+6RYcGejPvhahf5M=;
+ b=yK2Zufb67+//DyrLgFB683ZGsP6tZZ41aiq9eVTmADMc5g0EI6QeWWOIWJMZinmOKe6lf5
+ 57W2N1Pa124lWoeG8UGBNoNQLM9m0wVpU0y4Q89HBBCE6C8B0asL1cKR9RQZtECgPmathJ
+ 7FJgZ+rTcNBy5//rXAr2mZS2ylk8oXGzrxAHu07emPZnuM5iAUw/GqzfdW+YxMbQZ8TJv+
+ iHDnEgUqLZUSjtypPZobFi+JgKV0gIOES/siaPqvV5e9aD8NDHgT9vGgcpyzvkOvwKCVwz
+ vx7He5jM1VzyqCPpsdl7VkD3Tr3YErx9wudJPeCMAr08EQsEe259f2Mn/INGHw==
+From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+To: mamin506@gmail.com,
+	lizhi.hou@amd.com,
+	ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+Subject: [PATCH] accel/amdxdna: return -EBUSY when turbo mode is refused
+Date: Tue, 11 Aug 2026 23:48:42 +0300
+Message-ID: <20260811204842.877616-1-taimuraz@kaitmazov.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Wed, 12 Aug 2026 07:08:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,41 +57,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bug: ttm_pool_mgr_fini() does not destroy the list_lru.
+aie2_pm_set_mode() refuses to enter POWER_MODE_TURBO while a hardware
+context is live, and reports it as -EINVAL. The mode argument is valid;
+it is the device state that forbids the transition, which is what -EBUSY
+says. Documentation/gpu/drm-uapi.rst describes -EINVAL as the catch-all
+for "an invalid argument combination which cannot work", and lists
+-EBUSY among the codes whose common meaning applies.
 
-Fix: Add list_lru_destroy() after ttm_pool_type_fini().
+-EINVAL is returned for three distinct conditions on this path: an out
+of range mode value and a non-zero reserved field, both in
+aie2_set_power_mode(), plus this device-busy case. Userspace cannot tell
+them apart, and the natural reading of -EINVAL sends the caller to audit
+its arguments rather than to quiesce the device. The driver logs the
+real reason, but that reaches the kernel log rather than the caller. The
+practical cost is that the refusal reads as "turbo is unsupported on this
+part" and the caller settles for POWER_MODE_HIGH, which pins the same
+DPM level but leaves clock gating enabled.
 
-Assisted-by: OpenCode:1.17.18-Big Pickle/DeepSeek V4 Flash
-Assisted-by: claude.ai:Sonnet 5
-Cc: <stable@vger.kernel.org> # 7.1.0
-Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
-Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+-EBUSY is what the driver already returns elsewhere when a valid request
+meets a conflicting device state, in aie2_ctx.c for a BO that is already
+assigned to a context and in amdxdna_cbuf.c for carveout memory that is
+already set up.
+
+The guard covers the transition into turbo, not the state: a request
+made while the device is already in turbo returns success before the
+check is reached, so a context that starts afterwards does not change the
+reported mode.
+
+Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+Confirmed on npu4 that this guard is what refuses the transition: with a
+hardware context live, xrt-smi configure --pmode turbo failed, and with
+the device quiesced the same command succeeded. That ran against an
+unpatched driver, so it establishes which branch is taken rather than the
+errno a caller now sees.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 74d8770f41d8..876b6d3a632d 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -1572,16 +1572,7 @@ int ttm_pool_mgr_init(unsigned long num_pages)
-  */
- void ttm_pool_mgr_fini(void)
- {
--	unsigned int i;
--
--	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
--		ttm_pool_type_fini(&global_write_combined[i]);
--		ttm_pool_type_fini(&global_uncached[i]);
--
--		ttm_pool_type_fini(&global_dma32_write_combined[i]);
--		ttm_pool_type_fini(&global_dma32_uncached[i]);
--	}
--
- 	shrinker_free(mm_shrinker);
-+	ttm_pool_type_fini_and_list_lru_destroy(NR_PAGE_ORDERS);
- 	WARN_ON(!list_empty(&shrinker_list));
- }
+Compile-tested on drm-misc-next (dc2f9f7fe), clang,
+CONFIG_DRM_ACCEL_AMDXDNA=m.
+
+ drivers/accel/amdxdna/aie2_pm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/accel/amdxdna/aie2_pm.c b/drivers/accel/amdxdna/aie2_pm.c
+index 4fe6030d2..e4f2e9cc7 100644
+--- a/drivers/accel/amdxdna/aie2_pm.c
++++ b/drivers/accel/amdxdna/aie2_pm.c
+@@ -94,7 +94,7 @@ int aie2_pm_set_mode(struct amdxdna_dev_hdl *ndev, enum amdxdna_power_mode_type
+ 	case POWER_MODE_TURBO:
+ 		if (ndev->hwctx_num) {
+ 			XDNA_ERR(xdna, "Can not set turbo when there is active hwctx");
+-			return -EINVAL;
++			return -EBUSY;
+ 		}
+ 
+ 		clk_gating = AIE2_CLK_GATING_DISABLE;
 -- 
 2.55.0
 
