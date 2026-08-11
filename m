@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09F8C5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:33:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F722C5CFE7
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 13:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA61C10EBC0;
-	Tue, 11 Aug 2026 13:33:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1083C10E500;
+	Tue, 11 Aug 2026 13:33:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GHEEf7oh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JybU6fht";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 356A110E80D;
- Tue, 11 Aug 2026 13:33:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46B9A10EBC7;
+ Tue, 11 Aug 2026 13:33:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786455199; x=1817991199;
+ t=1786455205; x=1817991205;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=nOVkDt2tkC2lAtMXmcpDU+ptuDnPJw/MtTSaF+S6N70=;
- b=GHEEf7ohS2Yld6FvMXQeLEHOXQrnFHIGD1daZIyXcTShI8EaV1QobsxM
- t3q2r00ols/TkKPILMnVvrKgjfW+AqL49lNuwoblvKkr0m5+3Dh39vUpB
- vUaZPM4hY6DfMm3iCDm8lXLgsGWCeVj6+URhyWP7tRgOtD8c8GDC9n61H
- dTWm8x3sobROaVUiaylXkMBnueU3QS/Vd/Te//GvZ4iwSuF/URIMFkQuO
- n+7k6mvhxnDYa/OeVqqtMTR79lcYcN2/6it9xGw8RAXzT2LGyxTe4FvXJ
- Vh+EarAeYDcBXVP/tM8OlYqktpXGRjwQYTJ/PEMwjkUEl42cDcqGA4115 w==;
-X-CSE-ConnectionGUID: NHO8AS3iRXqkyBHyJXGqXg==
-X-CSE-MsgGUID: 6+ePOBilRAWOdzelehoC+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="104374860"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="104374860"
+ bh=SNiAvOjgrjiAphrvAg9ma5N3QmZKImg3qLWA+BozfcY=;
+ b=JybU6fhtYcT+OWZVJBCgGobjR+qndO2Hd8d78qX5A5DWeT2LQy8IehgB
+ PlEU7nhUgVnnl6sYW6rz53udG8e1tzbj/H/2ftQEyeZVbXHGsG21r69hm
+ sWrMz4qrdXGzrDRr3U77FxgY326uMdGBIVEJCmq9/31YFznkRgm3h816R
+ v13t1EgHHBz+W42vNLL4DTJ/Fmh64I7DVEdqub9bzPuZw7j/BpBxneIlu
+ hZVxxqsHCgz4wSmUEcuX1U2m26pr+iH6Q7a+mz5skr60KMwemPV2NPIjq
+ AnsMqI5LVu7g24oieplR+2pNRJhmQ7GdLnKxECCxM3t+TuuL6rj975dbQ A==;
+X-CSE-ConnectionGUID: y5W1mNfcT2CK9EhYRP32Iw==
+X-CSE-MsgGUID: wtwdkh2ERaCF51skiasN1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="104374870"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="104374870"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 06:33:19 -0700
-X-CSE-ConnectionGUID: K8HeStQeSoaAqIdo+Xxu5Q==
-X-CSE-MsgGUID: 5zvTTowvQAuo5cysiU3WxQ==
+ 11 Aug 2026 06:33:25 -0700
+X-CSE-ConnectionGUID: d/2X1AbYRKe3bOt508FYkw==
+X-CSE-MsgGUID: GlylFGFPQTKt2NLZ4nLCGA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="267187696"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="267187709"
 Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 06:33:19 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ 11 Aug 2026 06:33:25 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
  fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 06:33:18 -0700
+ 15.2.2562.45; Tue, 11 Aug 2026 06:33:24 -0700
 Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 06:33:18 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.7) by
+ 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 06:33:24 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.10) by
  edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 06:33:17 -0700
+ 15.2.2562.45; Tue, 11 Aug 2026 06:33:19 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s6BTR3Hpl0H7Uqg8rQ5fMPmGczq5fSOerxu8AVz+d/rE8MQ9d+/4BgQhHfQb+DLZe7bvUmRyRcJP9C8xxSwYyVhRF2xnxnRDKWgeMQL4jiD0R+NPdYCA8qYuPFyyL8R9gox4EB4+SvVkTNWFeH6nCgSEwlsWqgzKRatAyOVSZw9xrissYjo+lYeEYIBI0pNld5HVA00+FPPCOgtTawacVA9Qdnvv2lLusi4fyaxmckf6xHH5aj6hIvPDitOjdxrlN1YJaZDw8UpSeoRhEhm8rySldDXneYMQaPQ98XO8AkBZ1xu8EgZSb2MEknLXWOq0PU233r1/E8HNI0tFngNC0Q==
+ b=bRX64ufVy+fVhqRj3dxgdVZFiby36yDHHk3q+NlA0l4qLuoRHAGAsPR2KoxVWFsVxWtLx0FZE4PlJbP4VM/LV1Ev5eK7xF7vKsp114wnjw+P9EJ0kiCQ11Wxt2tMl6lm0q/t/ib247B1GMINfLAWJkFGY9JOizmrrF2P2bEC82eFNmGL2CFFGq1I3qwaznPLsZR8G8fhBhJJdzqSqTzvzJeWdx5khjln/W27wofSejXv/LxBlCdRwUAQT28JJjr0MHJukykDNJwRRxL9Q/fDENaaeK9/iXCvC0gO65XdYzyle1QUZe6yRUZHhBKyl9Vow3UUCXYNI9zZiMb3VYWOrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5yz4Bni2PG8LbuCKCtfMWyt67zIVT8H+HxetgKs4g10=;
- b=fzr7bkoOSFnkDPWXfMZMKt4Bjaae9C4FUu/XEl6N1pq513ClWXTaqfDh4V/WS9fheE5WCPlsMEd0Cpp1qAsDwnifJsctDfit6tJznaTwE4sRTCffc7NFxuFeU5+mQOHHNwbxeF4DAD9oMdqjiT9V48Ps8ClZCkhN6jza3liewkd144j1pipAKqQUbOhN2QrkRidD3zXGvnYx82Wsoe1dW6hHy2qNTaivfeeVAd71lQaHklccm6no3Kwi0qqPabCLvw0nkBT3Vg0hAdpEQjMvI8DBYLxWyxwdv7koETjElQL0dLfGbVSS50gmOlKKTzVyy4gKOrSFmYeMsRat6d3X8w==
+ bh=sY31Q/W7rpxTG1clNxXGMKfRahEUnAKUaeNb+FTcEnA=;
+ b=oSzlmQNROYPOmYrFDRPkzI8/jnVF7gOmXxDibBqq32v83VpsPD1CfYoaxPQ4nhxbNEZ+/4QefqZGiqA1gw7ipK6EDgrN9Zo4yBXIQUp8UeUWG4S6yJ+MQoMvBN/VmJj1Mb++g12eLeYDRE51tI8iT3F6tprHhXuoKenwA47UFk0xkjc/PyxJs7Cy6hMyiP2oUhu5jMGBdJN18uTgoukBx18e49hykJW7jBAJEhzLuwDjQcPGxi34TQL7GU2g9r5giFsSCeV+qu5TcIij7q3GB6v9IHmuhZ40OQ7An+tx/J72LrFAtpshPzLTKDeSSVBWb9+nbBKFHLsdxw2u50CAXg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by PH0PR11MB7447.namprd11.prod.outlook.com (2603:10b6:510:28b::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Tue, 11 Aug
- 2026 13:33:12 +0000
+ by DM4PR11MB6454.namprd11.prod.outlook.com (2603:10b6:8:b8::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.25; Tue, 11 Aug 2026 13:33:17 +0000
 Received: from PH0PR11MB7424.namprd11.prod.outlook.com
  ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
  ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0315.011; Tue, 11 Aug 2026
- 13:33:12 +0000
+ 13:33:17 +0000
 From: Krzysztof Karas <krzysztof.karas@intel.com>
 To: <intel-gfx@lists.freedesktop.org>
 CC: <dri-devel@lists.freedesktop.org>, Andi Shyti
@@ -81,71 +81,82 @@ CC: <dri-devel@lists.freedesktop.org>, Andi Shyti
  <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
  <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
  <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: [RFC PATCH 2/7] drm/i915/selftests: Use drm_* prints in live selftests
-Date: Tue, 11 Aug 2026 13:32:52 +0000
-Message-ID: <20260811133257.1133097-3-krzysztof.karas@intel.com>
+Subject: [RFC PATCH 4/7] drm/i915/gt/selftests: Use drm_* prints in aggregated
+ gt selftests
+Date: Tue, 11 Aug 2026 13:32:54 +0000
+Message-ID: <20260811133257.1133097-5-krzysztof.karas@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260811133257.1133097-1-krzysztof.karas@intel.com>
 References: <20260811133257.1133097-1-krzysztof.karas@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-ClientProxiedBy: DB9PR05CA0015.eurprd05.prod.outlook.com
  (2603:10a6:10:1da::20) To PH0PR11MB7424.namprd11.prod.outlook.com
  (2603:10b6:510:287::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|PH0PR11MB7447:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ce9fdb6-7352-4efc-0273-08def7ad16fc
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|DM4PR11MB6454:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ec1cf58-5b06-41a4-62b4-08def7ad19ac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|11063799006|56012099006|3023799007|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info: A1cxy7Y5vwxwlMLL1NCY+MyE5Jx0sf4p8LQZUyW6Iulc6jf41K4QnyWHJSKA0QCJomqBjzEHObvlMqPKIpTbMxc4Ik88bcfyz3Nsl3ZhBrTJl+H5DVFDz38fvXmB4wdDWN2eYA3W3C1nVsiekabf3Dp2tBAfzyNEa1W9RbgJyeyAV/x/V/rGjEiLv+SzaZDl6CTLXaGqI1l/RKwMtGNtTSPEFO5cqwDMn4lkTa5NX3hDqqIwJQPrY+u9damM2ffYhXELAjQH02Ysn+h6uKDwrtlAhy12r1EpzhPfdzcAFZfRocUpSJKTeGuOCHhyTYPw4TRCeTSnYIq7hfwbgJtP3IXVf38GQBJxJzLl/R4XF7aAJRqavdhndYt9zfcUEIloqJzq4V20DyDNfucsIrnGr11XLE/smC2EhgKPC4idAYkmoN7N/Bf/HCT8gVyf69mIQ+oTNizbsTZw4lWcI5oajRsBg88mYx2xlpABOR+KsN6QIdmB+p5A41lZd2q09m7ERKDenBMVvPZIZBfwUlt3RyNw0FpW4tENExWf6GlSQ5S7SwCaYZFLRDEoSOEgj9YcAuHlIQ3zgletKuSF8k9I1wMp9HuLpP2nHwNM9En90XXfUPSkvmTsBTyi4l6F8LfzGfhbxdiRqUPJdyBUcK+yAmSD1UxINX3lKPhECE4BmFk=
+ ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|10067099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: CTUWlBk3ckKkBv+F81ObfVo6HD7akNCd5xZJd8vCmFZa0rH95rAhklh20Mi6KKpRhRevO5en4lzm/QSd72EHZopfdVGWcfNow1r3K9nIhB5iZLCBQ4QiGAObZbm2AAQoKFs0X432VtydirAPfQi8fIhwr3kxEGEiZru3N4HvcuQ6nZIW2OiC3Z1e60mk91DGIi6R7nryPKIfAxrkZ8MF0+w1VgWyDV+B/3qF0Q8aAJ78amn+EUxP9sk9j5aiVdmoDiugCxSWeFvmJEuaVlH+GjTUUjVUb/wK/xQ0if74FP3MpkC1PmCDjLZ1u8Zn7DPnNbKoZm50tYy2UAZzUuieozPZelz06zZsYq161i2QwkU0wKEMjOevtyMhuVQS5nlkn/0Mr5tYj/o9nbV6tSPIYQLZU8CVg0qDD1eIOoCH+ishklSaABC+wQKUMmf3vrehNL4qj6duqVDzc/tP+p6H4EKkOgkS9f+4zg/jqtIvbjY7C5YV2Y8b0yQyLOcDtj0ivvjP+ZB5e4cBTIKxoMwH0JUMCZb/d+Hd1q1ha/lj1erupsBtKlv1kVy+fqtTnR+/4T1qGJkte80qnYjMvQdy9IDJJODrULL+jQTclAexrIX7X7a270MhfUYytRYxITlEFnGPb291rvVGGcf2qWdtXJcLuTkbIO+zpK731HAIUMY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(3023799007)(6133799003)(10067099003);
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1HoMyvfZd1jMe4iiqr6FsBcIdzwAkWYRh51z1Lqslz/jaLVVqFV63q0O5lGg?=
- =?us-ascii?Q?m3GS8Ozzhv74FYsuKBbyNnwGnDJkia+kEoJhL9nOm7Ax/6ifPmL7dVWpL937?=
- =?us-ascii?Q?Zxu5NgsYnF6frWKpqA0jiJuBJfy1L3JClMciAE/SY3VONQrnslD46d8IQMmK?=
- =?us-ascii?Q?WS15KEVUlyDctc/p1fqu0yNJwYwmBrisTTlg4mZSP6KwX3DLwoNKyYPMLTUf?=
- =?us-ascii?Q?Y/n0sKkiFibhf05BA+F/T14hrJaZuCHq14YTGrTJ4jIooEFrIFFMrvsYCYl5?=
- =?us-ascii?Q?NxY1nv8Oh4MBEzLiF9Qm38vMXlfKXcP9PqU6hpiNkf55GZn2wneRp7HgN/SV?=
- =?us-ascii?Q?4/BIkoWFeze4GqJKLGqamQ29NOaUBJYOoLxztYMHj9CTqSFotASD5wldwn0M?=
- =?us-ascii?Q?U/NJy9eH12JMRK3vU4mMZg3Bygwl1Yqf1v2DGuRGyRFOu1Vzf8c8W0DHtdCr?=
- =?us-ascii?Q?+9Bf0bEy3MKJwIRvMxc7cn5Cmh0qPcs8UNNbP1Bu1YIs749Jaspz3Yu+1ZS4?=
- =?us-ascii?Q?U3/bSyzeAQY81KwhcFTC16pKT4yU2Fwct62SK4QyFS0qlwKc/i1QfYMdPmln?=
- =?us-ascii?Q?uvY23w/O1W8arI7iFvmQ3FOGV8qHcs1GgSc6adrbvXMI/4S+L1lacrw6+191?=
- =?us-ascii?Q?5QsKsvro7aNBQP0VgInufesSdF/tWH9pLKxboiuzj/ToRlYcOL4OkoKj4/4D?=
- =?us-ascii?Q?LMBUY2YYp0AIKyR3qdn8dDT2MwroCC0mr+7McHH60tt8qCW9MFywBDQ9E0ZK?=
- =?us-ascii?Q?1iWFsgQxWaflIXRb8Q8n2yOny3g16+ZZePPbrNJQVCNWAginz8BGRD/ZRvyd?=
- =?us-ascii?Q?aWKMcQjYg4v6fLdyUHlQ7NBBTQDCFSQjzo5M9mIQoopsdn/XCIkeSODNrTEf?=
- =?us-ascii?Q?12+4YLm/90nIEZ68ZcFMKf3Zr6hZ5pKn+H0j3o6/MEvtfEJZSpv2i+ecvPFp?=
- =?us-ascii?Q?ZPgO+DWa59H/3uJGRU/fUNheK6Fq1VCylU5h5fpgZ7h4loKlNkxYP4Zdhb/U?=
- =?us-ascii?Q?oXClMJIuF5YgmT+bSmAPEBaOXK+fiRk82bNs8SZ8j4Vc3Kq2HpOKuMVHJO/w?=
- =?us-ascii?Q?kSYw7TWrhpJ8xl1Ae7i7VKC6UjgxSwGDCT7MWtZCgrKVLFYkP/QMpsQzO/O3?=
- =?us-ascii?Q?DL7yNSwt05B2aRwyPqS6I31nmT370e8maDWR7TFe62S6sFD+VmyZN+5TSivQ?=
- =?us-ascii?Q?3e0BbyQP60xeNGASE2zeSHWpBlTsRWxckb68w5XoTB5ZFyFGegAB+tIUXGOU?=
- =?us-ascii?Q?V+FEy53McIUsDjR/UNTlpjWTfX8jjOHbb0fGEMOsddYdzJansgO12egyj3b0?=
- =?us-ascii?Q?02GfRFadzv901iAOZs246XcGGBkcQxmzpAqOPasfm7CM+l6GJx/+oMXHXB6B?=
- =?us-ascii?Q?WpbeuUOpZCFU31RRWpT9Sld7cVP5qSL1zNcL4eprv31tKU5NIze4qCkav/Qd?=
- =?us-ascii?Q?WvMU7XeEHebIGbGL9a95ngab2mDRwdQMz6/wzgWF6oI9yIFTQpkQ5SKmttjJ?=
- =?us-ascii?Q?7s5Jfy5XNbrmROczIbDoga5Nd71qVmbNsRNd7ahkj43bMP5GMQB+6uMpJmLx?=
- =?us-ascii?Q?IxhNUioIrAwExw61a8dYEaHOpM74QW0p+4BhNJG8yF1YSpvK3l8tZ4P6SACM?=
- =?us-ascii?Q?7FsZfBeVJ8AJHJvA2qjQnKtHHzMlp4oJECar1jrWg0imtbf+sfOaGEBldgV9?=
- =?us-ascii?Q?LMcrn9PGxdTX7sapJ/60GdeOTRgdwRRKrABbugZwsa2Tw2bl52n84krvw83+?=
- =?us-ascii?Q?xKq4ouYcQFWqPMNNgv4c/CEJfuiYntc=3D?=
-X-Exchange-RoutingPolicyChecked: LLt2NSGeEe4uEeeJoHNv//V9n+tWXGrDQHfDy1n0za6YhHCakW6Oxs2DEraCFrnzE5sk38SeHwjWQIdjroNYUsBIAae0kaWE2514Ts9PLyW19n229AKYm2/Vqdow36fiTf4GkD2xe70iiOu7KZ3ov5Y1eByqnMoVKWru9Vfufcvqw4QQJBPMolRPj5un9DJwsXbbFLgwJDbShHwzBdamOU0fzaxkOUq0bpd/Ejv8DrKiXrBHUsY8pZ34yAagMaY6sJsDhovyn2dcx79FjB58YQV6dpuBycYEXabt5mXkLx64xpCHBZKyeS1QiewcdheZ98mXeCZQJsK50SVTFMJfUA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ce9fdb6-7352-4efc-0273-08def7ad16fc
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUdPbkI2d3VTeHo2LzNhVEtpT0xSbTkyWU1uSEpnTDJtOTlKMmRzTFpYRmZ0?=
+ =?utf-8?B?a2xaeVlMbWJmVHpLWUdDa29ZdWZEcmNMRWFxbXIwaVFJWllISzVkUEt4clAx?=
+ =?utf-8?B?cWRTYnAxTFE0VXk1SlFoY3RxWnpRQUZhSFQvWFNwUTFTVy9rdXNVRUc1T0Ir?=
+ =?utf-8?B?WkJPOFBoWE1sYkoramRYK1h2M3UyQnE5Mmpid1Y3VEhiK29YcHBLbEQva1pw?=
+ =?utf-8?B?ZTJTWThVYnlwZjdPckM2UFlMbEpNa0hBcVE3cU1oU3JYSEMvSDdiMzY1bXVT?=
+ =?utf-8?B?Z2NaREVMY0xHdlRTRmpDaWRmWlk4cDNiTUpWT08xV1ZQRHZnWFVFTXllVGRE?=
+ =?utf-8?B?b3BySnVhaUIwZVR3d01sL2dZYjhLdDVVVlhyZ2o5cjBSS09iT05jRHVxWVE4?=
+ =?utf-8?B?NUdQMTFkeHpPK1ZEQTdZTUJHZDZxUmQ5UmdzT3ZHelJTY25oc3FJTUMwc3hh?=
+ =?utf-8?B?TXZzV3BQWDhDNmd0Q1VNU2c3RUhPWGJ1Q0xCMzdMSGhQZE8ySXVEc3drQjZ1?=
+ =?utf-8?B?Wjd4N1lxTkN4b0w5ODFNbXZCNDRXWFZKOWF6VnhVZXQ2TzIyQzY0Z1NHL09B?=
+ =?utf-8?B?d1MvSjJqR2tsV2dBeWhNV3NRSnE3bFBvL09zTGp4RTBqaTVyU1lLRWx2V0lu?=
+ =?utf-8?B?UXg3TW54dGNtNytyeGNYRFFXSWNOeWNBVS9WVWxLWDJWQk56L0x1azR4T2Ri?=
+ =?utf-8?B?bTRaUUtQNjFlR2dLZlJ6Nlo2ek1PUi9xamgySXhQQ1JJbkoyWGtmVTdxckxh?=
+ =?utf-8?B?MEd4OUY0OFFtcHVRN3ppZUJoNk9xNUUrMWlMZ0RseEQ2NDltUEI0U2dwMHgw?=
+ =?utf-8?B?UmQxbkEveWpidktmUkRLRmU5cEMvbmNudjFHWmJiOEV3M2xrU0tGRW5WazIx?=
+ =?utf-8?B?d2MrQUNKLzg5UUlPdElDeEdVTGZqaURqREJDSmNCR0NZQy9sY1cwUytQYUYz?=
+ =?utf-8?B?c1hoUHdLQXl2dG1ORzMzNDFCRVlDUjZIYlh4SzZUL0szL3F0dVF3TFFhZTY0?=
+ =?utf-8?B?b3JUNWdzMlRtVklrNHUyTEJBaUNGUFh5L21BVno2bzBFbHRlK2VLOGw2VHhI?=
+ =?utf-8?B?M21UUERoS0RrN2M0cDZQR2cvYlMrd2JnUURVanhCSnd0NFFnODlVS3hMd09q?=
+ =?utf-8?B?V1ovMmtRVmhXejlDb3Y4N25kWGZNRmk4d0dLbzhOSVF3TU9DYndnVFYzSTZ3?=
+ =?utf-8?B?Z1BnaGlVenF2c2tob0lIYmROa1drL0pBdTBhMFZZditjcFRLcFRvYUFHNFNS?=
+ =?utf-8?B?VUdxV2V2b2VDaDlocVRqcW8wbUpwY0lhRDFXSzNxY1FiUUtDZWlMSWN2QXIx?=
+ =?utf-8?B?eTV1d2U1dHJDdVBGOEtNemgyY0tLemUxTEpSTVdCVGxrZGZUMHRIQllCcnVM?=
+ =?utf-8?B?ZThMUnhNS05sOVJWSmtoeXJKZS9ZQUxxRzZ2cjRtVkdvQ0Rka2orUDZNck84?=
+ =?utf-8?B?am4reTFORTN1S1lmYWVxNVV6cDZOM1pBQWgwdkYzNXFHYUh5OVdDYnNJNVlH?=
+ =?utf-8?B?NnRhOHNyVG9OcUdyZUhodzRmQjJ5eG0xNlVhSU5tR2FaL1ppUXFZTkYyelJX?=
+ =?utf-8?B?dGdzYkErVjU4WU5IUFJJRFJYSFk5czZBVjdPMG9BRmYzMG5mVlA0eVhkZzc2?=
+ =?utf-8?B?TElJdzZ0bm9ZdHZ2a0NacXQ0YkViN2xYQ1NnYzVic2E3ak45Y1dDTUdQSEhk?=
+ =?utf-8?B?d2FUaXJHeitrOWFTaUNKTTRqTnFWRVYvM3RIcnJSMTZnMVJzbkpURWQ0M3ZI?=
+ =?utf-8?B?bFRTbGdWU0d6ckdPSnR1V2RmTGVqRzRKbE95NzZVMFQ2dDZrUkVqcVhrdzZC?=
+ =?utf-8?B?aTdBVzBEWmIvUnAyNGZndlRDL2k1VGFkbThVak40WDlyODBaL3c3STM2blA3?=
+ =?utf-8?B?bzcwdEFQWDNEZjVjSTRsTDZBZ0lhUHJKRks2bzB1OVZMMytxdFJLRVUxMHph?=
+ =?utf-8?B?OGE1NnYzeitqOTZCRENuVlhrSTRDZWVMdUUwRk50Q3lSSmQ1MGY5czJJaXdl?=
+ =?utf-8?B?ZDRxL2pLSUxZc1haRHljdXgrYWp0THhkVnFqa0pJK0lPeUorQU1BNGt5eFd0?=
+ =?utf-8?B?LzBUd3JzdUI4SlJyZHRtR1NoK3grMUZSWFBkUWlEMmVMWVVYekdxK0NMWWcz?=
+ =?utf-8?B?eW1KbmUvelpFeWxROENjU3dINTMzVXZXb2Q5ckNiaDdzbUdLRXRyWG9PMDhH?=
+ =?utf-8?B?QlVHc2QzZUN4WXpCdTJPQWVROUQxNFZGdUl5RzhEcjFIcGZ0RGxMTkdRcWVY?=
+ =?utf-8?B?MjZkWS9ZaityRlovMmQvTXVodjg2VUpYcXdZdlNHL1hWZUc3d2M1TVJaQmxi?=
+ =?utf-8?B?MlBsQnpyNWUyQVlreEhNdWhXaEVoTW1hV015YmZ3UW9CdHlxUjdOV3NuNFdo?=
+ =?utf-8?Q?Fkp8VuXVWBHCiP7U=3D?=
+X-Exchange-RoutingPolicyChecked: j0xwA191jlj4fgykLoo/yV34UwSVp6FhvcvjNQ0JC0T+6UGMzofAttWE8XXZSX/CetSnBmVBFae9o3WJT3/YOkIscVVdMwU5lUTqAZE7Ceux9gfvCdIz4iR9+tfUWhGoOy2L3+H5QWbEFwuEC1Xb1SgFsKY7E8daWKJJTgTQLUvoLW/4J9m0Lb2e3Z1XLaLUUu6j+yHkwQtSnPLHLBoqx7Ei/FJ4sT6bD/r1v0+wxb6Uq1JlRIBIhK027ZLWpPl/aSj5Sn9k4l4KzvJUBGpzhzatugLo9Ks+h1p2HMIC6bps3ALfloyQ0xGuqI5nKS34t74SnOZruyyNUj2dZHh6PA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ec1cf58-5b06-41a4-62b4-08def7ad19ac
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 13:33:12.3996 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 13:33:16.9772 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +Giz+Nph+xr0p5SMW6+ib8VyvJM+cBPKOvEjGPU8Xg1Z3gnKmgBFMCsWTpJjg1FBotY5I8H3d0TBZu1fAU8s+zILDUAbGp4wcHxk+F2x5KQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7447
+X-MS-Exchange-CrossTenant-UserPrincipalName: jgODF5vZrND0BdkOhvtKow4ugWj+utabTl90nkrugb2C8cWuXw9sNcVeuxJsQAF7yXrAH74hREuRxjuMc61RhDEICmRmr0mk1HD7/VTBm+I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6454
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -167,2037 +178,1978 @@ versions.
 
 Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
 ---
- .../gpu/drm/i915/selftests/i915_gem_evict.c   |  69 +++---
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 198 ++++++++-------
- drivers/gpu/drm/i915/selftests/i915_perf.c    |  30 ++-
- drivers/gpu/drm/i915/selftests/i915_request.c | 144 +++++------
- drivers/gpu/drm/i915/selftests/i915_vma.c     | 225 ++++++++++--------
- drivers/gpu/drm/i915/selftests/intel_uncore.c |  89 ++++---
- 6 files changed, 434 insertions(+), 321 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_context.c    |  30 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c  |  26 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |  54 ++--
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  | 290 ++++++++++--------
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c      |  30 +-
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    |  62 ++--
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       |  12 +-
+ drivers/gpu/drm/i915/gt/selftest_reset.c      |  27 +-
+ drivers/gpu/drm/i915/gt/selftest_slpc.c       |  85 +++--
+ drivers/gpu/drm/i915/gt/selftest_tlb.c        |  37 ++-
+ .../gpu/drm/i915/gt/selftest_workarounds.c    |  99 +++---
+ 11 files changed, 448 insertions(+), 304 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-index 718cddde7e73..a70168d46d49 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-@@ -29,6 +29,8 @@
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_print.h"
+diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c b/drivers/gpu/drm/i915/gt/selftest_context.c
+index ab76703f6e8b..ae27eed0278a 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_context.c
++++ b/drivers/gpu/drm/i915/gt/selftest_context.c
+@@ -136,7 +136,8 @@ static int __live_context_size(struct intel_engine_cs *engine)
+ 		goto err_unpin;
  
-+#include <drm/drm_print.h>
-+
- #include "i915_selftest.h"
+ 	if (memchr_inv(vaddr, POISON_INUSE, I915_GTT_PAGE_SIZE)) {
+-		pr_err("%s context overwrote trailing red-zone!", engine->name);
++		drm_err(&engine->i915->drm,
++			"%s context overwrote trailing red-zone!", engine->name);
+ 		err = -EINVAL;
+ 	}
  
- #include "igt_flush_test.h"
-@@ -71,11 +73,11 @@ static int populate_ggtt(struct i915_ggtt *ggtt, struct list_head *objects)
- 		quirk_add(obj, objects);
- 		count++;
- 	} while (1);
--	pr_debug("Filled GGTT with %lu pages [%llu total]\n",
--		 count, ggtt->vm.total / PAGE_SIZE);
-+	drm_dbg(&ggtt->vm.i915->drm, "Filled GGTT with %lu pages [%llu total]\n",
-+		count, ggtt->vm.total / PAGE_SIZE);
+@@ -221,8 +222,9 @@ static int __live_active_context(struct intel_engine_cs *engine)
+ 		return 0;
  
- 	if (list_empty(&ggtt->vm.bound_list)) {
--		pr_err("No objects on the GGTT inactive list!\n");
-+		drm_err(&ggtt->vm.i915->drm, "No objects on the GGTT inactive list!\n");
+ 	if (intel_engine_pm_is_awake(engine)) {
+-		pr_err("%s is awake before starting %s!\n",
+-		       engine->name, __func__);
++		drm_err(&engine->i915->drm,
++			"%s is awake before starting %s!\n",
++			engine->name, __func__);
  		return -EINVAL;
  	}
  
-@@ -125,8 +127,9 @@ static int igt_evict_something(void *arg)
- 				       0);
- 	mutex_unlock(&ggtt->vm.mutex);
- 	if (err != -ENOSPC) {
--		pr_err("i915_gem_evict_something failed on a full GGTT with err=%d\n",
--		       err);
-+		drm_err(&gt->i915->drm,
-+			"i915_gem_evict_something failed on a full GGTT with err=%d\n",
-+			err);
- 		goto cleanup;
- 	}
- 
-@@ -140,8 +143,9 @@ static int igt_evict_something(void *arg)
- 				       0);
- 	mutex_unlock(&ggtt->vm.mutex);
- 	if (err) {
--		pr_err("i915_gem_evict_something failed on a full GGTT with err=%d\n",
--		       err);
-+		drm_err(&gt->i915->drm,
-+			"i915_gem_evict_something failed on a full GGTT with err=%d\n",
-+			err);
- 		goto cleanup;
- 	}
- 
-@@ -177,7 +181,9 @@ static int igt_overcommit(void *arg)
- 
- 	vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0, 0);
- 	if (vma != ERR_PTR(-ENOSPC)) {
--		pr_err("Failed to evict+insert, i915_gem_object_ggtt_pin returned err=%d\n", (int)PTR_ERR_OR_ZERO(vma));
-+		drm_err(&gt->i915->drm,
-+			"Failed to evict+insert, i915_gem_object_ggtt_pin returned err=%d\n",
-+			(int)PTR_ERR_OR_ZERO(vma));
- 		err = -EINVAL;
- 		goto cleanup;
- 	}
-@@ -209,8 +215,9 @@ static int igt_evict_for_vma(void *arg)
- 	err = i915_gem_evict_for_node(&ggtt->vm, NULL, &target, 0);
- 	mutex_unlock(&ggtt->vm.mutex);
- 	if (err != -ENOSPC) {
--		pr_err("i915_gem_evict_for_node on a full GGTT returned err=%d\n",
--		       err);
-+		drm_err(&gt->i915->drm,
-+			"i915_gem_evict_for_node on a full GGTT returned err=%d\n",
-+			err);
- 		goto cleanup;
- 	}
- 
-@@ -221,8 +228,8 @@ static int igt_evict_for_vma(void *arg)
- 	err = i915_gem_evict_for_node(&ggtt->vm, NULL, &target, 0);
- 	mutex_unlock(&ggtt->vm.mutex);
- 	if (err) {
--		pr_err("i915_gem_evict_for_node returned err=%d\n",
--		       err);
-+		drm_err(&gt->i915->drm, "i915_gem_evict_for_node returned err=%d\n",
-+			err);
- 		goto cleanup;
- 	}
- 
-@@ -273,7 +280,7 @@ static int igt_evict_for_cache_color(void *arg)
- 	vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0,
- 				       I915_GTT_PAGE_SIZE | flags);
- 	if (IS_ERR(vma)) {
--		pr_err("[0]i915_gem_object_ggtt_pin failed\n");
-+		drm_err(&gt->i915->drm, "[0]i915_gem_object_ggtt_pin failed\n");
- 		err = PTR_ERR(vma);
- 		goto cleanup;
- 	}
-@@ -290,7 +297,7 @@ static int igt_evict_for_cache_color(void *arg)
- 	vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0,
- 				       (I915_GTT_PAGE_SIZE * 2) | flags);
- 	if (IS_ERR(vma)) {
--		pr_err("[1]i915_gem_object_ggtt_pin failed\n");
-+		drm_err(&gt->i915->drm, "[1]i915_gem_object_ggtt_pin failed\n");
- 		err = PTR_ERR(vma);
- 		goto cleanup;
- 	}
-@@ -302,7 +309,8 @@ static int igt_evict_for_cache_color(void *arg)
- 	err = i915_gem_evict_for_node(&ggtt->vm, NULL, &target, 0);
- 	mutex_unlock(&ggtt->vm.mutex);
- 	if (err) {
--		pr_err("[0]i915_gem_evict_for_node returned err=%d\n", err);
-+		drm_err(&gt->i915->drm,
-+			"[0]i915_gem_evict_for_node returned err=%d\n", err);
- 		goto cleanup;
- 	}
- 
-@@ -315,7 +323,8 @@ static int igt_evict_for_cache_color(void *arg)
- 	err = i915_gem_evict_for_node(&ggtt->vm, NULL, &target, 0);
- 	mutex_unlock(&ggtt->vm.mutex);
- 	if (!err) {
--		pr_err("[1]i915_gem_evict_for_node returned err=%d\n", err);
-+		drm_err(&gt->i915->drm,
-+			"[1]i915_gem_evict_for_node returned err=%d\n", err);
- 		err = -EINVAL;
- 		goto cleanup;
- 	}
-@@ -348,8 +357,9 @@ static int igt_evict_vm(void *arg)
- 	err = i915_gem_evict_vm(&ggtt->vm, NULL, NULL);
- 	mutex_unlock(&ggtt->vm.mutex);
- 	if (err) {
--		pr_err("i915_gem_evict_vm on a full GGTT returned err=%d]\n",
--		       err);
-+		drm_err(&gt->i915->drm,
-+			"i915_gem_evict_vm on a full GGTT returned err=%d]\n",
-+			err);
- 		goto cleanup;
- 	}
- 
-@@ -362,8 +372,9 @@ static int igt_evict_vm(void *arg)
- 	}
- 
- 	if (err) {
--		pr_err("i915_gem_evict_vm on a full GGTT returned err=%d]\n",
--		       err);
-+		drm_err(&gt->i915->drm,
-+			"i915_gem_evict_vm on a full GGTT returned err=%d]\n",
-+			err);
- 		goto cleanup;
- 	}
- 
-@@ -443,7 +454,7 @@ static int igt_evict_contexts(void *arg)
- 	} while (1);
- 	drm_mm_remove_node(&hole);
- 	mutex_unlock(&ggtt->vm.mutex);
--	pr_info("Filled GGTT with %lu 1MiB nodes\n", count);
-+	drm_info(&i915->drm, "Filled GGTT with %lu 1MiB nodes\n", count);
- 
- 	/* Overfill the GGTT with context objects and so try to evict one. */
- 	for_each_engine(engine, gt, id) {
-@@ -469,9 +480,10 @@ static int igt_evict_contexts(void *arg)
- 			if (IS_ERR(rq)) {
- 				/* When full, fail_if_busy will trigger EBUSY */
- 				if (PTR_ERR(rq) != -EBUSY) {
--					pr_err("Unexpected error from request alloc (on %s): %d\n",
--					       engine->name,
--					       (int)PTR_ERR(rq));
-+					drm_err(&i915->drm,
-+						"Unexpected error from request alloc (on %s): %d\n",
-+						engine->name,
-+						(int)PTR_ERR(rq));
- 					err = PTR_ERR(rq);
- 				}
- 				break;
-@@ -492,16 +504,17 @@ static int igt_evict_contexts(void *arg)
- 			err = 0;
- 		} while(1);
- 		onstack_fence_fini(&fence);
--		pr_info("Submitted %lu contexts/requests on %s\n",
--			count, engine->name);
-+		drm_info(&i915->drm, "Submitted %lu contexts/requests on %s\n",
-+			 count, engine->name);
- 		if (err)
- 			break;
- 		if (last) {
- 			if (i915_request_wait(last, 0, HZ) < 0) {
- 				err = -EIO;
- 				i915_request_put(last);
--				pr_err("Failed waiting for last request (on %s)",
--				       engine->name);
-+				drm_err(&i915->drm,
-+					"Failed waiting for last request (on %s)\n",
-+					engine->name);
- 				break;
- 			}
- 			i915_request_put(last);
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index e6bd06774816..8185ad886ac0 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -25,6 +25,8 @@
- #include <linux/list_sort.h>
- #include <linux/prime_numbers.h>
- 
-+#include <drm/drm_print.h>
-+
- #include "gem/i915_gem_context.h"
- #include "gem/i915_gem_internal.h"
- #include "gem/i915_gem_lmem.h"
-@@ -34,6 +36,7 @@
- #include "gt/intel_gpu_commands.h"
- #include "gt/intel_gtt.h"
- 
-+#include "../i915_drv.h"
- #include "i915_random.h"
- #include "i915_selftest.h"
- #include "i915_vma_resource.h"
-@@ -268,8 +271,9 @@ static int lowlevel_hole(struct i915_address_space *vm,
- 			hole_size = KMALLOC_MAX_SIZE / sizeof(u32);
- 		count = hole_size >> 1;
- 		if (!count) {
--			pr_debug("%s: hole is too small [%llx - %llx] >> %d: %lld\n",
--				 __func__, hole_start, hole_end, size, hole_size);
-+			drm_dbg(&vm->i915->drm,
-+				"%s: hole is too small [%llx - %llx] >> %d: %lld\n",
-+				__func__, hole_start, hole_end, size, hole_size);
- 			break;
- 		}
- 
-@@ -472,16 +476,20 @@ static int fill_hole(struct i915_address_space *vm,
- 
- 					err = i915_vma_pin(vma, 0, 0, offset | flags);
- 					if (err) {
--						pr_err("%s(%s) pin (forward) failed with err=%d on size=%lu pages (prime=%lu), offset=%llx\n",
--						       __func__, p->name, err, npages, prime, offset);
-+						drm_err(&vm->i915->drm,
-+							"%s(%s) pin (forward) failed with err=%d on size=%lu pages (prime=%lu), offset=%llx\n",
-+							__func__, p->name, err, npages, prime,
-+							offset);
- 						goto err;
- 					}
- 
- 					if (!drm_mm_node_allocated(&vma->node) ||
- 					    i915_vma_misplaced(vma, 0, 0, offset | flags)) {
--						pr_err("%s(%s) (forward) insert failed: vma.node=%llx + %llx [allocated? %d], expected offset %llx\n",
--						       __func__, p->name, vma->node.start, vma->node.size, drm_mm_node_allocated(&vma->node),
--						       offset);
-+						drm_err(&vm->i915->drm,
-+							"%s(%s) (forward) insert failed: vma.node=%llx + %llx [allocated? %d], expected offset %llx\n",
-+							__func__, p->name, vma->node.start,
-+							vma->node.size,
-+							drm_mm_node_allocated(&vma->node), offset);
- 						err = -EINVAL;
- 						goto err;
- 					}
-@@ -512,18 +520,20 @@ static int fill_hole(struct i915_address_space *vm,
- 
- 					if (!drm_mm_node_allocated(&vma->node) ||
- 					    i915_vma_misplaced(vma, 0, 0, offset | flags)) {
--						pr_err("%s(%s) (forward) moved vma.node=%llx + %llx, expected offset %llx\n",
--						       __func__, p->name, vma->node.start, vma->node.size,
--						       offset);
-+						drm_err(&vm->i915->drm,
-+							"%s(%s) (forward) moved vma.node=%llx + %llx, expected offset %llx\n",
-+							__func__, p->name, vma->node.start,
-+							vma->node.size, offset);
- 						err = -EINVAL;
- 						goto err;
- 					}
- 
- 					err = i915_vma_unbind_unlocked(vma);
- 					if (err) {
--						pr_err("%s(%s) (forward) unbind of vma.node=%llx + %llx failed with err=%d\n",
--						       __func__, p->name, vma->node.start, vma->node.size,
--						       err);
-+						drm_err(&vm->i915->drm,
-+							"%s(%s) (forward) unbind of vma.node=%llx + %llx failed with err=%d\n",
-+							__func__, p->name, vma->node.start,
-+							vma->node.size, err);
- 						goto err;
- 					}
- 
-@@ -551,16 +561,20 @@ static int fill_hole(struct i915_address_space *vm,
- 
- 					err = i915_vma_pin(vma, 0, 0, offset | flags);
- 					if (err) {
--						pr_err("%s(%s) pin (backward) failed with err=%d on size=%lu pages (prime=%lu), offset=%llx\n",
--						       __func__, p->name, err, npages, prime, offset);
-+						drm_err(&vm->i915->drm,
-+							"%s(%s) pin (backward) failed with err=%d on size=%lu pages (prime=%lu), offset=%llx\n",
-+							__func__, p->name, err, npages, prime,
-+							offset);
- 						goto err;
- 					}
- 
- 					if (!drm_mm_node_allocated(&vma->node) ||
- 					    i915_vma_misplaced(vma, 0, 0, offset | flags)) {
--						pr_err("%s(%s) (backward) insert failed: vma.node=%llx + %llx [allocated? %d], expected offset %llx\n",
--						       __func__, p->name, vma->node.start, vma->node.size, drm_mm_node_allocated(&vma->node),
--						       offset);
-+						drm_err(&vm->i915->drm,
-+							"%s(%s) (backward) insert failed: vma.node=%llx + %llx [allocated? %d], expected offset %llx\n",
-+							__func__, p->name, vma->node.start,
-+							vma->node.size,
-+							drm_mm_node_allocated(&vma->node), offset);
- 						err = -EINVAL;
- 						goto err;
- 					}
-@@ -591,18 +605,21 @@ static int fill_hole(struct i915_address_space *vm,
- 
- 					if (!drm_mm_node_allocated(&vma->node) ||
- 					    i915_vma_misplaced(vma, 0, 0, offset | flags)) {
--						pr_err("%s(%s) (backward) moved vma.node=%llx + %llx [allocated? %d], expected offset %llx\n",
--						       __func__, p->name, vma->node.start, vma->node.size, drm_mm_node_allocated(&vma->node),
--						       offset);
-+						drm_err(&vm->i915->drm,
-+							"%s(%s) (backward) moved vma.node=%llx + %llx [allocated? %d], expected offset %llx\n",
-+							__func__, p->name, vma->node.start,
-+							vma->node.size,
-+							drm_mm_node_allocated(&vma->node), offset);
- 						err = -EINVAL;
- 						goto err;
- 					}
- 
- 					err = i915_vma_unbind_unlocked(vma);
- 					if (err) {
--						pr_err("%s(%s) (backward) unbind of vma.node=%llx + %llx failed with err=%d\n",
--						       __func__, p->name, vma->node.start, vma->node.size,
--						       err);
-+						drm_err(&vm->i915->drm,
-+							"%s(%s) (backward) unbind of vma.node=%llx + %llx failed with err=%d\n",
-+							__func__, p->name, vma->node.start,
-+							vma->node.size, err);
- 						goto err;
- 					}
- 
-@@ -672,25 +689,26 @@ static int walk_hole(struct i915_address_space *vm,
- 		     addr += round_up(obj->base.size, min_alignment)) {
- 			err = i915_vma_pin(vma, 0, 0, addr | flags);
- 			if (err) {
--				pr_err("%s bind failed at %llx + %llx [hole %llx- %llx] with err=%d\n",
--				       __func__, addr, vma->size,
--				       hole_start, hole_end, err);
-+				drm_err(&vm->i915->drm,
-+					"%s bind failed at %llx + %llx [hole %llx- %llx] with err=%d\n",
-+					__func__, addr, vma->size, hole_start, hole_end, err);
- 				goto err_put;
- 			}
- 			i915_vma_unpin(vma);
- 
- 			if (!drm_mm_node_allocated(&vma->node) ||
- 			    i915_vma_misplaced(vma, 0, 0, addr | flags)) {
--				pr_err("%s incorrect at %llx + %llx\n",
--				       __func__, addr, vma->size);
-+				drm_err(&vm->i915->drm, "%s incorrect at %llx + %llx\n",
-+					__func__, addr, vma->size);
- 				err = -EINVAL;
- 				goto err_put;
- 			}
- 
- 			err = i915_vma_unbind_unlocked(vma);
- 			if (err) {
--				pr_err("%s unbind failed at %llx + %llx  with err=%d\n",
--				       __func__, addr, vma->size, err);
-+				drm_err(&vm->i915->drm,
-+					"%s unbind failed at %llx + %llx  with err=%d\n",
-+					__func__, addr, vma->size, err);
- 				goto err_put;
- 			}
- 
-@@ -754,18 +772,16 @@ static int pot_hole(struct i915_address_space *vm,
- 		     addr += step) {
- 			err = i915_vma_pin(vma, 0, 0, addr | flags);
- 			if (err) {
--				pr_err("%s failed to pin object at %llx in hole [%llx - %llx], with err=%d\n",
--				       __func__,
--				       addr,
--				       hole_start, hole_end,
--				       err);
-+				drm_err(&vm->i915->drm,
-+					"%s failed to pin object at %llx in hole [%llx - %llx], with err=%d\n",
-+					__func__, addr, hole_start, hole_end, err);
- 				goto err_obj;
- 			}
- 
- 			if (!drm_mm_node_allocated(&vma->node) ||
- 			    i915_vma_misplaced(vma, 0, 0, addr | flags)) {
--				pr_err("%s incorrect at %llx + %llx\n",
--				       __func__, addr, vma->size);
-+				drm_err(&vm->i915->drm, "%s incorrect at %llx + %llx\n",
-+					__func__, addr, vma->size);
- 				i915_vma_unpin(vma);
- 				err = i915_vma_unbind_unlocked(vma);
- 				err = -EINVAL;
-@@ -819,8 +835,8 @@ static int drunk_hole(struct i915_address_space *vm,
- 			hole_size = KMALLOC_MAX_SIZE / sizeof(u32);
- 		count = hole_size >> 1;
- 		if (!count) {
--			pr_debug("%s: hole is too small [%llx - %llx] >> %d: %lld\n",
--				 __func__, hole_start, hole_end, size, hole_size);
-+			drm_dbg(&vm->i915->drm, "%s: hole is too small [%llx - %llx] >> %d: %lld\n",
-+				__func__, hole_start, hole_end, size, hole_size);
- 			break;
- 		}
- 
-@@ -859,18 +875,16 @@ static int drunk_hole(struct i915_address_space *vm,
- 
- 			err = i915_vma_pin(vma, 0, 0, addr | flags);
- 			if (err) {
--				pr_err("%s failed to pin object at %llx + %llx in hole [%llx - %llx], with err=%d\n",
--				       __func__,
--				       addr, BIT_ULL(size),
--				       hole_start, hole_end,
--				       err);
-+				drm_err(&vm->i915->drm,
-+					"%s failed to pin object at %llx + %llx in hole [%llx - %llx], with err=%d\n",
-+					__func__, addr, BIT_ULL(size), hole_start, hole_end, err);
- 				goto err_obj;
- 			}
- 
- 			if (!drm_mm_node_allocated(&vma->node) ||
- 			    i915_vma_misplaced(vma, 0, 0, addr | flags)) {
--				pr_err("%s incorrect at %llx + %llx\n",
--				       __func__, addr, BIT_ULL(size));
-+				drm_err(&vm->i915->drm, "%s incorrect at %llx + %llx\n",
-+					__func__, addr, BIT_ULL(size));
- 				i915_vma_unpin(vma);
- 				err = i915_vma_unbind_unlocked(vma);
- 				err = -EINVAL;
-@@ -939,15 +953,16 @@ static int __shrink_hole(struct i915_address_space *vm,
- 
- 		err = i915_vma_pin(vma, 0, 0, addr | flags);
- 		if (err) {
--			pr_err("%s failed to pin object at %llx + %llx in hole [%llx - %llx], with err=%d\n",
--			       __func__, addr, size, hole_start, hole_end, err);
-+			drm_err(&vm->i915->drm,
-+				"%s failed to pin object at %llx + %llx in hole [%llx - %llx], with err=%d\n",
-+				__func__, addr, size, hole_start, hole_end, err);
- 			break;
- 		}
- 
- 		if (!drm_mm_node_allocated(&vma->node) ||
- 		    i915_vma_misplaced(vma, 0, 0, addr | flags)) {
--			pr_err("%s incorrect at %llx + %llx\n",
--			       __func__, addr, size);
-+			drm_err(&vm->i915->drm, "%s incorrect at %llx + %llx\n",
-+				__func__, addr, size);
- 			i915_vma_unpin(vma);
- 			err = i915_vma_unbind_unlocked(vma);
- 			err = -EINVAL;
-@@ -966,8 +981,7 @@ static int __shrink_hole(struct i915_address_space *vm,
- 		if (err)
- 			break;
- 
--		if (igt_timeout(end_time,
--				"%s timed out at offset %llx [%llx - %llx]\n",
-+		if (igt_timeout(end_time, "%s timed out at offset %llx [%llx - %llx]\n",
- 				__func__, addr, hole_start, hole_end)) {
- 			err = -EINTR;
- 			break;
-@@ -1419,8 +1433,7 @@ static int igt_ggtt_page(void *arg)
- 		io_mapping_unmap_atomic(vaddr);
- 
- 		if (val != n) {
--			pr_err("insert page failed: found %d, expected %d\n",
--			       val, n);
-+			drm_err(&i915->drm, "insert page failed: found %d, expected %d\n", val, n);
- 			err = -EINVAL;
- 			break;
- 		}
-@@ -1578,18 +1591,19 @@ static int igt_gtt_reserve(void *arg)
- 
- 		err = reserve_gtt_with_resource(vma, total);
- 		if (err) {
--			pr_err("i915_gem_gtt_reserve (pass 1) failed at %llu/%llu with err=%d\n",
--			       total, ggtt->vm.total, err);
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_reserve (pass 1) failed at %llu/%llu with err=%d\n",
-+				total, ggtt->vm.total, err);
- 			goto out;
- 		}
- 		track_vma_bind(vma);
- 
- 		GEM_BUG_ON(!drm_mm_node_allocated(&vma->node));
- 		if (vma->node.start != total ||
--		    vma->node.size != 2*I915_GTT_PAGE_SIZE) {
--			pr_err("i915_gem_gtt_reserve (pass 1) placement failed, found (%llx + %llx), expected (%llx + %llx)\n",
--			       vma->node.start, vma->node.size,
--			       total, 2*I915_GTT_PAGE_SIZE);
-+		    vma->node.size != 2 * I915_GTT_PAGE_SIZE) {
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_reserve (pass 1) placement failed, found (%llx + %llx), expected (%llx + %llx)\n",
-+				vma->node.start, vma->node.size, total, 2 * I915_GTT_PAGE_SIZE);
- 			err = -EINVAL;
- 			goto out;
- 		}
-@@ -1624,18 +1638,19 @@ static int igt_gtt_reserve(void *arg)
- 
- 		err = reserve_gtt_with_resource(vma, total);
- 		if (err) {
--			pr_err("i915_gem_gtt_reserve (pass 2) failed at %llu/%llu with err=%d\n",
--			       total, ggtt->vm.total, err);
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_reserve (pass 2) failed at %llu/%llu with err=%d\n",
-+				total, ggtt->vm.total, err);
- 			goto out;
- 		}
- 		track_vma_bind(vma);
- 
- 		GEM_BUG_ON(!drm_mm_node_allocated(&vma->node));
- 		if (vma->node.start != total ||
--		    vma->node.size != 2*I915_GTT_PAGE_SIZE) {
--			pr_err("i915_gem_gtt_reserve (pass 2) placement failed, found (%llx + %llx), expected (%llx + %llx)\n",
--			       vma->node.start, vma->node.size,
--			       total, 2*I915_GTT_PAGE_SIZE);
-+		    vma->node.size != 2 * I915_GTT_PAGE_SIZE) {
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_reserve (pass 2) placement failed, found (%llx + %llx), expected (%llx + %llx)\n",
-+				vma->node.start, vma->node.size, total, 2 * I915_GTT_PAGE_SIZE);
- 			err = -EINVAL;
- 			goto out;
- 		}
-@@ -1654,7 +1669,7 @@ static int igt_gtt_reserve(void *arg)
- 
- 		err = i915_vma_unbind_unlocked(vma);
- 		if (err) {
--			pr_err("i915_vma_unbind failed with err=%d!\n", err);
-+			drm_err(&ggtt->vm.i915->drm, "i915_vma_unbind failed with err=%d!\n", err);
- 			goto out;
- 		}
- 
-@@ -1665,18 +1680,19 @@ static int igt_gtt_reserve(void *arg)
- 
- 		err = reserve_gtt_with_resource(vma, offset);
- 		if (err) {
--			pr_err("i915_gem_gtt_reserve (pass 3) failed at %llu/%llu with err=%d\n",
--			       total, ggtt->vm.total, err);
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_reserve (pass 3) failed at %llu/%llu with err=%d\n",
-+				total, ggtt->vm.total, err);
- 			goto out;
- 		}
- 		track_vma_bind(vma);
- 
- 		GEM_BUG_ON(!drm_mm_node_allocated(&vma->node));
- 		if (vma->node.start != offset ||
--		    vma->node.size != 2*I915_GTT_PAGE_SIZE) {
--			pr_err("i915_gem_gtt_reserve (pass 3) placement failed, found (%llx + %llx), expected (%llx + %llx)\n",
--			       vma->node.start, vma->node.size,
--			       offset, 2*I915_GTT_PAGE_SIZE);
-+		    vma->node.size != 2 * I915_GTT_PAGE_SIZE) {
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_reserve (pass 3) placement failed, found (%llx + %llx), expected (%llx + %llx)\n",
-+				vma->node.start, vma->node.size, offset, 2 * I915_GTT_PAGE_SIZE);
- 			err = -EINVAL;
- 			goto out;
- 		}
-@@ -1730,7 +1746,7 @@ static int igt_gtt_insert(void *arg)
- 			0, ggtt->vm.total,
- 		},
- 		{
--			2*I915_GTT_PAGE_SIZE, 0,
-+			2 * I915_GTT_PAGE_SIZE, 0,
- 			0, I915_GTT_PAGE_SIZE,
- 		},
- 		{
-@@ -1738,7 +1754,7 @@ static int igt_gtt_insert(void *arg)
- 			0, 4*I915_GTT_PAGE_SIZE,
- 		},
- 		{
--			-(u64)2*I915_GTT_PAGE_SIZE, 2*I915_GTT_PAGE_SIZE,
-+			-(u64)2 * I915_GTT_PAGE_SIZE, 2 * I915_GTT_PAGE_SIZE,
- 			0, 4*I915_GTT_PAGE_SIZE,
- 		},
- 		{
-@@ -1766,9 +1782,9 @@ static int igt_gtt_insert(void *arg)
- 					  0);
- 		mutex_unlock(&ggtt->vm.mutex);
- 		if (err != -ENOSPC) {
--			pr_err("Invalid i915_gem_gtt_insert(.size=%llx, .alignment=%llx, .start=%llx, .end=%llx) succeeded (err=%d)\n",
--			       ii->size, ii->alignment, ii->start, ii->end,
--			       err);
-+			drm_err(&ggtt->vm.i915->drm,
-+				"Invalid i915_gem_gtt_insert(.size=%llx, .alignment=%llx, .start=%llx, .end=%llx) succeeded (err=%d)\n",
-+				ii->size, ii->alignment, ii->start, ii->end, err);
- 			return -EINVAL;
- 		}
- 	}
-@@ -1807,8 +1823,9 @@ static int igt_gtt_insert(void *arg)
- 			break;
- 		}
- 		if (err) {
--			pr_err("i915_gem_gtt_insert (pass 1) failed at %llu/%llu with err=%d\n",
--			       total, ggtt->vm.total, err);
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_insert (pass 1) failed at %llu/%llu with err=%d\n",
-+				total, ggtt->vm.total, err);
- 			goto out;
- 		}
- 		track_vma_bind(vma);
-@@ -1827,7 +1844,7 @@ static int igt_gtt_insert(void *arg)
- 		}
- 
- 		if (!drm_mm_node_allocated(&vma->node)) {
--			pr_err("VMA was unexpectedly evicted!\n");
-+			drm_err(&ggtt->vm.i915->drm, "VMA was unexpectedly evicted!\n");
- 			err = -EINVAL;
- 			goto out;
- 		}
-@@ -1851,22 +1868,24 @@ static int igt_gtt_insert(void *arg)
- 
- 		err = i915_vma_unbind_unlocked(vma);
- 		if (err) {
--			pr_err("i915_vma_unbind failed with err=%d!\n", err);
-+			drm_err(&ggtt->vm.i915->drm, "i915_vma_unbind failed with err=%d!\n", err);
- 			goto out;
- 		}
- 
- 		err = insert_gtt_with_resource(vma);
- 		if (err) {
--			pr_err("i915_gem_gtt_insert (pass 2) failed at %llu/%llu with err=%d\n",
--			       total, ggtt->vm.total, err);
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_insert (pass 2) failed at %llu/%llu with err=%d\n",
-+				total, ggtt->vm.total, err);
- 			goto out;
- 		}
- 		track_vma_bind(vma);
- 
- 		GEM_BUG_ON(!drm_mm_node_allocated(&vma->node));
- 		if (vma->node.start != offset) {
--			pr_err("i915_gem_gtt_insert did not return node to its previous location (the only hole), expected address %llx, found %llx\n",
--			       offset, vma->node.start);
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_insert did not return node to its previous location (the only hole), expected address %llx, found %llx\n",
-+				offset, vma->node.start);
- 			err = -EINVAL;
- 			goto out;
- 		}
-@@ -1901,8 +1920,9 @@ static int igt_gtt_insert(void *arg)
- 
- 		err = insert_gtt_with_resource(vma);
- 		if (err) {
--			pr_err("i915_gem_gtt_insert (pass 3) failed at %llu/%llu with err=%d\n",
--			       total, ggtt->vm.total, err);
-+			drm_err(&ggtt->vm.i915->drm,
-+				"i915_gem_gtt_insert (pass 3) failed at %llu/%llu with err=%d\n",
-+				total, ggtt->vm.total, err);
- 			goto out;
- 		}
- 		track_vma_bind(vma);
-diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
-index e9469e27f42a..3bb7f1cadd4c 100644
---- a/drivers/gpu/drm/i915/selftests/i915_perf.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
-@@ -14,6 +14,8 @@
- #include "igt_flush_test.h"
- #include "lib_sw_fence.h"
- 
-+#include <drm/drm_print.h>
-+
- #define TEST_OA_CONFIG_UUID "12345678-1234-1234-1234-1234567890ab"
- 
- static int
-@@ -263,20 +265,23 @@ static int live_noa_delay(void *arg)
- 	t1 = poll_status(rq, 0x102);
- 	preempt_enable();
- 
--	pr_info("CPU delay: %lluns, expected %lluns\n",
--		ktime_sub(t1, t0), expected);
-+	drm_info(&stream->engine->i915->drm,
-+		 "CPU delay: %lluns, expected %lluns\n",
-+		 ktime_sub(t1, t0), expected);
- 
- 	delay = intel_read_status_page(stream->engine, 0x102);
- 	delay -= intel_read_status_page(stream->engine, 0x100);
- 	delay = intel_gt_clock_interval_to_ns(stream->engine->gt, delay);
--	pr_info("GPU delay: %uns, expected %lluns\n",
--		delay, expected);
-+	drm_info(&stream->engine->i915->drm,
-+		 "GPU delay: %uns, expected %lluns\n",
-+		 delay, expected);
- 
- 	if (4 * delay < 3 * expected || 2 * delay > 3 * expected) {
--		pr_err("GPU delay [%uus] outside of expected threshold! [%lluus, %lluus]\n",
--		       delay / 1000,
--		       div_u64(3 * expected, 4000),
--		       div_u64(3 * expected, 2000));
-+		drm_err(&stream->engine->i915->drm,
-+			"GPU delay [%uus] outside of expected threshold! [%lluus, %lluus]\n",
-+			delay / 1000,
-+			div_u64(3 * expected, 4000),
-+			div_u64(3 * expected, 2000));
- 		err = -EINVAL;
- 	}
- 
-@@ -385,7 +390,7 @@ static int live_noa_gpr(void *arg)
- 	i915_request_add(rq);
- 
- 	if (i915_request_wait(rq, I915_WAIT_INTERRUPTIBLE, HZ / 2) < 0) {
--		pr_err("noa_wait timed out\n");
-+		drm_err(&stream->engine->i915->drm, "noa_wait timed out\n");
- 		intel_gt_set_wedged(stream->engine->gt);
- 		err = -EIO;
- 		goto out_rq;
-@@ -396,14 +401,15 @@ static int live_noa_gpr(void *arg)
- 		if (store[i] == STACK_MAGIC)
- 			continue;
- 
--		pr_err("GPR[%d] lost, found:%08x, expected:%08x!\n",
--		       i, store[i], STACK_MAGIC);
-+		drm_err(&stream->engine->i915->drm,
-+			"GPR[%d] lost, found:%08x, expected:%08x!\n",
-+			i, store[i], STACK_MAGIC);
- 		err = -EINVAL;
- 	}
- 
- 	/* Verify that the user's scratch page was not used for GPR storage */
- 	if (memchr_inv(scratch, POISON_FREE, PAGE_SIZE)) {
--		pr_err("Scratch page overwritten!\n");
-+		drm_err(&stream->engine->i915->drm, "Scratch page overwritten!\n");
- 		igt_hexdump(scratch, 4096);
- 		err = -EINVAL;
- 	}
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index e1a7c454a0a9..c531f1050fb2 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -98,49 +98,49 @@ static int igt_wait_request(void *arg)
- 	i915_request_get(request);
- 
- 	if (i915_request_wait(request, 0, 0) != -ETIME) {
--		pr_err("request wait (busy query) succeeded (expected timeout before submit!)\n");
-+		drm_err(&i915->drm, "request wait (busy query) succeeded (expected timeout before submit!)\n");
- 		goto out_request;
- 	}
- 
- 	if (i915_request_wait(request, 0, T) != -ETIME) {
--		pr_err("request wait succeeded (expected timeout before submit!)\n");
-+		drm_err(&i915->drm, "request wait succeeded (expected timeout before submit!)\n");
- 		goto out_request;
- 	}
- 
- 	if (i915_request_completed(request)) {
--		pr_err("request completed before submit!!\n");
-+		drm_err(&i915->drm, "request completed before submit!!\n");
- 		goto out_request;
- 	}
- 
- 	i915_request_add(request);
- 
- 	if (i915_request_wait(request, 0, 0) != -ETIME) {
--		pr_err("request wait (busy query) succeeded (expected timeout after submit!)\n");
-+		drm_err(&i915->drm, "request wait (busy query) succeeded (expected timeout after submit!)\n");
- 		goto out_request;
- 	}
- 
- 	if (i915_request_completed(request)) {
--		pr_err("request completed immediately!\n");
-+		drm_err(&i915->drm, "request completed immediately!\n");
- 		goto out_request;
- 	}
- 
- 	if (i915_request_wait(request, 0, T / 2) != -ETIME) {
--		pr_err("request wait succeeded (expected timeout!)\n");
-+		drm_err(&i915->drm, "request wait succeeded (expected timeout!)\n");
- 		goto out_request;
- 	}
- 
- 	if (i915_request_wait(request, 0, T) == -ETIME) {
--		pr_err("request wait timed out!\n");
-+		drm_err(&i915->drm, "request wait timed out!\n");
- 		goto out_request;
- 	}
- 
- 	if (!i915_request_completed(request)) {
--		pr_err("request not complete after waiting!\n");
-+		drm_err(&i915->drm, "request not complete after waiting!\n");
- 		goto out_request;
- 	}
- 
- 	if (i915_request_wait(request, 0, T) == -ETIME) {
--		pr_err("request wait timed out when already complete!\n");
-+		drm_err(&i915->drm, "request wait timed out when already complete!\n");
- 		goto out_request;
- 	}
- 
-@@ -165,34 +165,34 @@ static int igt_fence_wait(void *arg)
- 		return PTR_ERR(request);
- 
- 	if (dma_fence_wait_timeout(&request->fence, false, T) != -ETIME) {
--		pr_err("fence wait success before submit (expected timeout)!\n");
-+		drm_err(&i915->drm, "fence wait success before submit (expected timeout)!\n");
- 		goto out;
- 	}
- 
- 	i915_request_add(request);
- 
- 	if (dma_fence_is_signaled(&request->fence)) {
--		pr_err("fence signaled immediately!\n");
-+		drm_err(&i915->drm, "fence signaled immediately!\n");
- 		goto out;
- 	}
- 
- 	if (dma_fence_wait_timeout(&request->fence, false, T / 2) != -ETIME) {
--		pr_err("fence wait success after submit (expected timeout)!\n");
-+		drm_err(&i915->drm, "fence wait success after submit (expected timeout)!\n");
- 		goto out;
- 	}
- 
- 	if (dma_fence_wait_timeout(&request->fence, false, T) <= 0) {
--		pr_err("fence wait timed out (expected success)!\n");
-+		drm_err(&i915->drm, "fence wait timed out (expected success)!\n");
- 		goto out;
- 	}
- 
- 	if (!dma_fence_is_signaled(&request->fence)) {
--		pr_err("fence unsignaled after waiting!\n");
-+		drm_err(&i915->drm, "fence unsignaled after waiting!\n");
- 		goto out;
- 	}
- 
- 	if (dma_fence_wait_timeout(&request->fence, false, T) <= 0) {
--		pr_err("fence wait timed out when complete (expected success)!\n");
-+		drm_err(&i915->drm, "fence wait timed out when complete (expected success)!\n");
- 		goto out;
- 	}
- 
-@@ -245,7 +245,7 @@ static int igt_request_rewind(void *arg)
- 
- 	/* Simulate preemption by manual reordering */
- 	if (!mock_cancel_request(request)) {
--		pr_err("failed to cancel request (already executed)!\n");
-+		drm_err(&i915->drm, "failed to cancel request (already executed)!\n");
- 		i915_request_add(vip);
- 		goto err_context_1;
- 	}
-@@ -257,12 +257,12 @@ static int igt_request_rewind(void *arg)
- 
- 
- 	if (i915_request_wait(vip, 0, HZ) == -ETIME) {
--		pr_err("timed out waiting for high priority request\n");
-+		drm_err(&i915->drm, "timed out waiting for high priority request\n");
- 		goto err;
- 	}
- 
- 	if (i915_request_completed(request)) {
--		pr_err("low priority request already completed\n");
-+		drm_err(&i915->drm, "low priority request already completed\n");
- 		goto err;
- 	}
- 
-@@ -406,7 +406,8 @@ static void __igt_breadcrumbs_smoketest(struct kthread_work *work)
- 					5 * HZ)) {
- 			struct i915_request *rq = requests[count - 1];
- 
--			pr_err("waiting for %d/%d fences (last %llx:%lld) on %s timed out!\n",
-+			drm_err(&t->engine->i915->drm,
-+				"waiting for %d/%d fences (last %llx:%lld) on %s timed out!\n",
- 			       atomic_read(&wait->pending), count,
- 			       rq->fence.context, rq->fence.seqno,
- 			       t->engine->name);
-@@ -423,7 +424,7 @@ static void __igt_breadcrumbs_smoketest(struct kthread_work *work)
- 
- 			if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
- 				      &rq->fence.flags)) {
--				pr_err("%llu:%llu was not signaled!\n",
-+				drm_err(&t->engine->i915->drm, "%llu:%llu was not signaled!\n",
- 				       rq->fence.context, rq->fence.seqno);
- 				err = -EINVAL;
- 			}
-@@ -523,7 +524,7 @@ static int mock_breadcrumbs_smoketest(void *arg)
- 
- 		kthread_destroy_worker(threads[n].worker);
- 	}
--	pr_info("Completed %lu waits for %lu fence across %d cpus\n",
-+	drm_info(&i915->drm, "Completed %lu waits for %lu fence across %d cpus\n",
- 		atomic_long_read(&t.num_waits),
- 		atomic_long_read(&t.num_fences),
- 		ncpus);
-@@ -632,7 +633,7 @@ static int live_nop_request(void *arg)
- 		if (err)
- 			return err;
- 
--		pr_info("Request latencies on %s: 1 = %lluns, %lu = %lluns\n",
-+		drm_info(&i915->drm, "Request latencies on %s: 1 = %lluns, %lu = %lluns\n",
- 			engine->name,
- 			ktime_to_ns(times[0]),
- 			prime, div64_u64(ktime_to_ns(times[1]), prime));
-@@ -663,7 +664,7 @@ static int __cancel_inactive(struct intel_engine_cs *engine)
- 		goto out_ce;
- 	}
- 
--	pr_debug("%s: Cancelling inactive request\n", engine->name);
-+	drm_dbg(&engine->i915->drm, "%s: Cancelling inactive request\n", engine->name);
- 	i915_request_cancel(rq, -EINTR);
- 	i915_request_get(rq);
- 	i915_request_add(rq);
-@@ -671,14 +672,16 @@ static int __cancel_inactive(struct intel_engine_cs *engine)
- 	if (i915_request_wait(rq, 0, HZ / 5) < 0) {
- 		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
- 
--		pr_err("%s: Failed to cancel inactive request\n", engine->name);
+@@ -250,15 +252,17 @@ static int __live_active_context(struct intel_engine_cs *engine)
+ 
+ 		/* Context will be kept active until after an idle-barrier. */
+ 		if (i915_active_is_idle(&ce->active)) {
+-			pr_err("context is not active; expected idle-barrier (%s pass %d)\n",
+-			       engine->name, pass);
 +			drm_err(&engine->i915->drm,
-+				"%s: Failed to cancel inactive request\n",
++				"context is not active; expected idle-barrier (%s pass %d)\n",
++				engine->name, pass);
+ 			err = -EINVAL;
+ 			goto out_engine;
+ 		}
+ 
+ 		if (!intel_engine_pm_is_awake(engine)) {
+-			pr_err("%s is asleep before idle-barrier\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s is asleep before idle-barrier\n",
 +				engine->name);
- 		intel_engine_dump(engine, &p, "%s\n", engine->name);
- 		err = -ETIME;
- 		goto out_rq;
- 	}
+ 			err = -EINVAL;
+ 			goto out_engine;
+ 		}
+@@ -280,7 +284,7 @@ static int __live_active_context(struct intel_engine_cs *engine)
+ 		goto err;
  
- 	if (rq->fence.error != -EINTR) {
--		pr_err("%s: fence not cancelled (%u)\n",
-+		drm_err(&engine->i915->drm, "%s: fence not cancelled (%u)\n",
- 		       engine->name, rq->fence.error);
+ 	if (!i915_active_is_idle(&ce->active)) {
+-		pr_err("context is still active!");
++		drm_err(&engine->i915->drm, "context is still active!");
  		err = -EINVAL;
  	}
-@@ -690,7 +693,7 @@ static int __cancel_inactive(struct intel_engine_cs *engine)
- out_spin:
- 	igt_spinner_fini(&spin);
- 	if (err)
--		pr_err("%s: %s error %d\n", __func__, engine->name, err);
-+		drm_err(&engine->i915->drm, "%s: %s error %d\n", __func__, engine->name, err);
- 	return err;
- }
  
-@@ -716,13 +719,13 @@ static int __cancel_active(struct intel_engine_cs *engine)
- 		goto out_ce;
+@@ -374,8 +378,9 @@ static int __live_remote_context(struct intel_engine_cs *engine)
+ 		return 0;
+ 
+ 	if (intel_engine_pm_is_awake(engine)) {
+-		pr_err("%s is awake before starting %s!\n",
+-		       engine->name, __func__);
++		drm_err(&engine->i915->drm,
++			"%s is awake before starting %s!\n",
++			engine->name, __func__);
+ 		return -EINVAL;
  	}
  
--	pr_debug("%s: Cancelling active request\n", engine->name);
-+	drm_dbg(&engine->i915->drm, "%s: Cancelling active request\n", engine->name);
- 	i915_request_get(rq);
- 	i915_request_add(rq);
- 	if (!igt_wait_for_spinner(&spin, rq)) {
- 		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
+@@ -403,8 +408,9 @@ static int __live_remote_context(struct intel_engine_cs *engine)
+ 			break;
  
--		pr_err("Failed to start spinner on %s\n", engine->name);
-+		drm_err(&engine->i915->drm, "Failed to start spinner on %s\n", engine->name);
- 		intel_engine_dump(engine, &p, "%s\n", engine->name);
- 		err = -ETIME;
- 		goto out_rq;
-@@ -732,14 +735,14 @@ static int __cancel_active(struct intel_engine_cs *engine)
- 	if (i915_request_wait(rq, 0, HZ / 5) < 0) {
- 		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
+ 		if (i915_active_is_idle(&remote->active)) {
+-			pr_err("remote context is not active; expected idle-barrier (%s pass %d)\n",
+-			       engine->name, pass);
++			drm_err(&engine->i915->drm,
++				"remote context is not active; expected idle-barrier (%s pass %d)\n",
++				engine->name, pass);
+ 			err = -EINVAL;
+ 			break;
+ 		}
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+index 5ffa5e30f419..e61f2d9e6d76 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+@@ -10,6 +10,7 @@
+ #include "intel_rps.h"
  
--		pr_err("%s: Failed to cancel active request\n", engine->name);
-+		drm_err(&engine->i915->drm, "%s: Failed to cancel active request\n", engine->name);
- 		intel_engine_dump(engine, &p, "%s\n", engine->name);
- 		err = -ETIME;
- 		goto out_rq;
- 	}
+ #include "i915_selftest.h"
++#include "selftests/mock_gem_device.h"
+ #include "selftests/igt_flush_test.h"
  
- 	if (rq->fence.error != -EINTR) {
--		pr_err("%s: fence not cancelled (%u)\n",
-+		drm_err(&engine->i915->drm, "%s: fence not cancelled (%u)\n",
- 		       engine->name, rq->fence.error);
- 		err = -EINVAL;
- 	}
-@@ -751,7 +754,7 @@ static int __cancel_active(struct intel_engine_cs *engine)
- out_spin:
- 	igt_spinner_fini(&spin);
- 	if (err)
--		pr_err("%s: %s error %d\n", __func__, engine->name, err);
-+		drm_err(&engine->i915->drm, "%s: %s error %d\n", __func__, engine->name, err);
- 	return err;
- }
- 
-@@ -785,10 +788,10 @@ static int __cancel_completed(struct intel_engine_cs *engine)
- 		goto out_rq;
- 	}
- 
--	pr_debug("%s: Cancelling completed request\n", engine->name);
-+	drm_dbg(&engine->i915->drm, "%s: Cancelling completed request\n", engine->name);
- 	i915_request_cancel(rq, -EINTR);
- 	if (rq->fence.error) {
--		pr_err("%s: fence not cancelled (%u)\n",
-+		drm_err(&engine->i915->drm, "%s: fence not cancelled (%u)\n",
- 		       engine->name, rq->fence.error);
- 		err = -EINVAL;
- 	}
-@@ -800,7 +803,7 @@ static int __cancel_completed(struct intel_engine_cs *engine)
- out_spin:
- 	igt_spinner_fini(&spin);
- 	if (err)
--		pr_err("%s: %s error %d\n", __func__, engine->name, err);
-+		drm_err(&engine->i915->drm, "%s: %s error %d\n", __func__, engine->name, err);
- 	return err;
- }
- 
-@@ -846,14 +849,15 @@ static int __cancel_reset(struct drm_i915_private *i915,
- 		goto out_ce;
- 	}
- 
--	pr_debug("%s: Cancelling active non-preemptable request\n",
-+	drm_dbg(&engine->i915->drm,
-+		"%s: Cancelling active non-preemptable request\n",
- 		 engine->name);
- 	i915_request_get(rq);
- 	i915_request_add(rq);
- 	if (!igt_wait_for_spinner(&spin, rq)) {
- 		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
- 
--		pr_err("Failed to start spinner on %s\n", engine->name);
-+		drm_err(&engine->i915->drm, "Failed to start spinner on %s\n", engine->name);
- 		intel_engine_dump(engine, &p, "%s\n", engine->name);
- 		err = -ETIME;
- 		goto out_rq;
-@@ -870,14 +874,14 @@ static int __cancel_reset(struct drm_i915_private *i915,
- 	if (i915_request_wait(rq, 0, HZ) < 0) {
- 		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
- 
--		pr_err("%s: Failed to cancel hung request\n", engine->name);
-+		drm_err(&engine->i915->drm, "%s: Failed to cancel hung request\n", engine->name);
- 		intel_engine_dump(engine, &p, "%s\n", engine->name);
- 		err = -ETIME;
- 		goto out_nop;
- 	}
- 
- 	if (rq->fence.error != -EINTR) {
--		pr_err("%s: fence not cancelled (%u)\n",
-+		drm_err(&engine->i915->drm, "%s: fence not cancelled (%u)\n",
- 		       engine->name, rq->fence.error);
- 		err = -EINVAL;
- 		goto out_nop;
-@@ -886,14 +890,14 @@ static int __cancel_reset(struct drm_i915_private *i915,
- 	if (i915_request_wait(nop, 0, HZ) < 0) {
- 		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
- 
--		pr_err("%s: Failed to complete nop request\n", engine->name);
-+		drm_err(&engine->i915->drm, "%s: Failed to complete nop request\n", engine->name);
- 		intel_engine_dump(engine, &p, "%s\n", engine->name);
- 		err = -ETIME;
- 		goto out_nop;
- 	}
- 
- 	if (nop->fence.error != 0) {
--		pr_err("%s: Nop request errored (%u)\n",
-+		drm_err(&engine->i915->drm, "%s: Nop request errored (%u)\n",
- 		       engine->name, nop->fence.error);
- 		err = -EINVAL;
- 	}
-@@ -909,7 +913,7 @@ static int __cancel_reset(struct drm_i915_private *i915,
- out_restore:
- 	engine->props.preempt_timeout_ms = preempt_timeout_ms;
- 	if (err)
--		pr_err("%s: %s error %d\n", __func__, engine->name, err);
-+		drm_err(&engine->i915->drm, "%s: %s error %d\n", __func__, engine->name, err);
- 	return err;
- }
- 
-@@ -1102,7 +1106,7 @@ static int live_empty_request(void *arg)
+ #define COUNT 5
+@@ -207,7 +208,7 @@ static int perf_mi_bb_start(void *arg)
  		if (err)
- 			goto out_batch;
+ 			break;
  
--		pr_info("Batch latencies on %s: 1 = %lluns, %lu = %lluns\n",
-+		drm_info(&i915->drm, "Batch latencies on %s: 1 = %lluns, %lu = %lluns\n",
- 			engine->name,
- 			ktime_to_ns(times[0]),
- 			prime, div64_u64(ktime_to_ns(times[1]), prime));
-@@ -1218,7 +1222,7 @@ static int live_all_engines(void *arg)
- 		batch = recursive_batch(engine->gt);
- 		if (IS_ERR(batch)) {
- 			err = PTR_ERR(batch);
--			pr_err("%s: Unable to create batch, err=%d\n",
-+			drm_err(&i915->drm, "%s: Unable to create batch, err=%d\n",
- 			       __func__, err);
- 			goto out_free;
- 		}
-@@ -1227,7 +1231,7 @@ static int live_all_engines(void *arg)
- 		request[idx] = intel_engine_create_kernel_request(engine);
- 		if (IS_ERR(request[idx])) {
- 			err = PTR_ERR(request[idx]);
--			pr_err("%s: Request allocation failed with err=%d\n",
-+			drm_err(&i915->drm, "%s: Request allocation failed with err=%d\n",
- 			       __func__, err);
- 			goto out_unlock;
- 		}
-@@ -1252,7 +1256,7 @@ static int live_all_engines(void *arg)
- 	idx = 0;
- 	for_each_uabi_engine(engine, i915) {
- 		if (i915_request_completed(request[idx])) {
--			pr_err("%s(%s): request completed too early!\n",
-+			drm_err(&i915->drm, "%s(%s): request completed too early!\n",
- 			       __func__, engine->name);
- 			err = -EINVAL;
- 			goto out_request;
-@@ -1264,7 +1268,7 @@ static int live_all_engines(void *arg)
- 	for_each_uabi_engine(engine, i915) {
- 		err = recursive_batch_resolve(request[idx]->batch);
- 		if (err) {
--			pr_err("%s: failed to resolve batch, err=%d\n",
-+			drm_err(&i915->drm, "%s: failed to resolve batch, err=%d\n",
- 			       __func__, err);
- 			goto out_request;
- 		}
-@@ -1280,7 +1284,7 @@ static int live_all_engines(void *arg)
- 					    MAX_SCHEDULE_TIMEOUT);
- 		if (timeout < 0) {
- 			err = timeout;
--			pr_err("%s: error waiting for request on %s, err=%d\n",
-+			drm_err(&i915->drm, "%s: error waiting for request on %s, err=%d\n",
- 			       __func__, engine->name, err);
- 			goto out_request;
- 		}
-@@ -1348,7 +1352,7 @@ static int live_sequential_engines(void *arg)
- 		batch = recursive_batch(engine->gt);
- 		if (IS_ERR(batch)) {
- 			err = PTR_ERR(batch);
--			pr_err("%s: Unable to create batch for %s, err=%d\n",
-+			drm_err(&i915->drm, "%s: Unable to create batch for %s, err=%d\n",
- 			       __func__, engine->name, err);
- 			goto out_free;
- 		}
-@@ -1357,7 +1361,7 @@ static int live_sequential_engines(void *arg)
- 		request[idx] = intel_engine_create_kernel_request(engine);
- 		if (IS_ERR(request[idx])) {
- 			err = PTR_ERR(request[idx]);
--			pr_err("%s: Request allocation failed for %s with err=%d\n",
-+			drm_err(&i915->drm, "%s: Request allocation failed for %s with err=%d\n",
- 			       __func__, engine->name, err);
- 			goto out_unlock;
- 		}
-@@ -1368,7 +1372,7 @@ static int live_sequential_engines(void *arg)
- 							   &prev->fence);
- 			if (err) {
- 				i915_request_add(request[idx]);
--				pr_err("%s: Request await failed for %s with err=%d\n",
-+				drm_err(&i915->drm, "%s: Request await failed for %s with err=%d\n",
- 				       __func__, engine->name, err);
- 				goto out_unlock;
- 			}
-@@ -1398,7 +1402,7 @@ static int live_sequential_engines(void *arg)
- 		long timeout;
+-		pr_info("%s: MI_BB_START cycles: %u\n",
++		drm_info(&gt->i915->drm, "%s: MI_BB_START cycles: %u\n",
+ 			engine->name, trifilter(cycles));
+ 	}
+ 	if (perf_end(gt, wakeref))
+@@ -365,7 +366,7 @@ static int perf_mi_noop(void *arg)
+ 		if (err)
+ 			break;
  
- 		if (i915_request_completed(request[idx])) {
--			pr_err("%s(%s): request completed too early!\n",
-+			drm_err(&i915->drm, "%s(%s): request completed too early!\n",
- 			       __func__, engine->name);
- 			err = -EINVAL;
- 			goto out_request;
-@@ -1406,7 +1410,7 @@ static int live_sequential_engines(void *arg)
+-		pr_info("%s: 16K MI_NOOP cycles: %u\n",
++		drm_info(&gt->i915->drm, "%s: 16K MI_NOOP cycles: %u\n",
+ 			engine->name, trifilter(cycles));
+ 	}
+ 	if (perf_end(gt, wakeref))
+@@ -389,6 +390,7 @@ int intel_engine_cs_perf_selftests(struct drm_i915_private *i915)
  
- 		err = recursive_batch_resolve(request[idx]->batch);
- 		if (err) {
--			pr_err("%s: failed to resolve batch, err=%d\n",
-+			drm_err(&i915->drm, "%s: failed to resolve batch, err=%d\n",
- 			       __func__, err);
- 			goto out_request;
- 		}
-@@ -1415,7 +1419,7 @@ static int live_sequential_engines(void *arg)
- 					    MAX_SCHEDULE_TIMEOUT);
- 		if (timeout < 0) {
- 			err = timeout;
--			pr_err("%s: error waiting for request on %s, err=%d\n",
-+			drm_err(&i915->drm, "%s: error waiting for request on %s, err=%d\n",
- 			       __func__, engine->name, err);
- 			goto out_request;
- 		}
-@@ -1496,7 +1500,7 @@ static void __live_parallel_engine1(struct kthread_work *work)
- 	} while (!__igt_timeout(end_time, NULL));
- 	intel_engine_pm_put(engine);
+ static int intel_mmio_bases_check(void *arg)
+ {
++	struct drm_i915_private *i915 = arg;
+ 	int i, j;
  
--	pr_info("%s: %lu request + sync\n", engine->name, count);
-+	drm_info(&engine->i915->drm, "%s: %lu request + sync\n", engine->name, count);
- 	thread->result = err;
+ 	for (i = 0; i < ARRAY_SIZE(intel_engines); i++) {
+@@ -400,7 +402,8 @@ static int intel_mmio_bases_check(void *arg)
+ 			u32 base = info->mmio_bases[j].base;
+ 
+ 			if (ver >= prev) {
+-				pr_err("%s(%s, class:%d, instance:%d): mmio base for graphics ver %u is before the one for ver %u\n",
++				drm_err(&i915->drm,
++					"%s(%s, class:%d, instance:%d): mmio base for graphics ver %u is before the one for ver %u\n",
+ 				       __func__,
+ 				       intel_engine_class_repr(info->class),
+ 				       info->class, info->instance,
+@@ -412,7 +415,8 @@ static int intel_mmio_bases_check(void *arg)
+ 				break;
+ 
+ 			if (!base) {
+-				pr_err("%s(%s, class:%d, instance:%d): invalid mmio base (%x) for graphics ver %u at entry %u\n",
++				drm_err(&i915->drm,
++					"%s(%s, class:%d, instance:%d): invalid mmio base (%x) for graphics ver %u at entry %u\n",
+ 				       __func__,
+ 				       intel_engine_class_repr(info->class),
+ 				       info->class, info->instance,
+@@ -423,7 +427,8 @@ static int intel_mmio_bases_check(void *arg)
+ 			prev = ver;
+ 		}
+ 
+-		pr_debug("%s: min graphics version supported for %s%d is %u\n",
++		drm_dbg(&i915->drm,
++			"%s: min graphics version supported for %s%d is %u\n",
+ 			 __func__,
+ 			 intel_engine_class_repr(info->class),
+ 			 info->instance,
+@@ -438,6 +443,15 @@ int intel_engine_cs_mock_selftests(void)
+ 	static const struct i915_subtest tests[] = {
+ 		SUBTEST(intel_mmio_bases_check),
+ 	};
++	struct drm_i915_private *i915;
++	int err;
++
++	i915 = mock_gem_device();
++	if (!i915)
++		return -ENOMEM;
+ 
+-	return i915_subtests(tests, NULL);
++	err = i915_subtests(tests, i915);
++	mock_destroy_device(i915);
++
++	return err;
  }
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+index 10e556a7eac4..0ce6c9d76ec1 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+@@ -5,6 +5,8 @@
  
-@@ -1525,7 +1529,7 @@ static void __live_parallel_engineN(struct kthread_work *work)
- 	} while (!__igt_timeout(end_time, NULL));
- 	intel_engine_pm_put(engine);
- 
--	pr_info("%s: %lu requests\n", engine->name, count);
-+	drm_info(&engine->i915->drm, "%s: %lu requests\n", engine->name, count);
- 	thread->result = err;
- }
- 
-@@ -1592,7 +1596,7 @@ static void __live_parallel_spin(struct kthread_work *work)
- 		/* Occupy this engine for the whole test */
- 		err = wait_for_all(engine->i915);
- 	} else {
--		pr_err("Failed to start spinner on %s\n", engine->name);
-+		drm_err(&engine->i915->drm, "Failed to start spinner on %s\n", engine->name);
- 		err = -EINVAL;
- 	}
- 	igt_spinner_end(&spin);
-@@ -1798,7 +1802,7 @@ static int live_breadcrumbs_smoketest(void *arg)
- 		}
- 		/* One ring interleaved between requests from all cpus */
- 		smoke[idx].max_batch /= ncpus + 1;
--		pr_debug("Limiting batches to %d requests on %s\n",
-+		drm_dbg(&i915->drm, "Limiting batches to %d requests on %s\n",
- 			 smoke[idx].max_batch, engine->name);
- 
- 		for (n = 0; n < ncpus; n++) {
-@@ -1849,7 +1853,8 @@ static int live_breadcrumbs_smoketest(void *arg)
- 		num_fences += atomic_long_read(&smoke[idx].num_fences);
- 		idx++;
- 	}
--	pr_info("Completed %lu waits for %lu fences across %d engines and %d cpus\n",
-+	drm_info(&i915->drm,
-+		 "Completed %lu waits for %lu fences across %d engines and %d cpus\n",
- 		num_waits, num_fences, idx, ncpus);
- 
- 	ret = igt_live_test_end(&live) ?: ret;
-@@ -2075,7 +2080,7 @@ static int measure_semaphore_response(struct intel_context *ce)
- 	}
- 
- 	cycles = trifilter(elapsed);
--	pr_info("%s: semaphore response %d cycles, %lluns\n",
-+	drm_info(&ce->engine->i915->drm, "%s: semaphore response %d cycles, %lluns\n",
- 		ce->engine->name, cycles >> TF_BIAS,
- 		cycles_to_ns(ce->engine, cycles));
- 
-@@ -2146,7 +2151,7 @@ static int measure_idle_dispatch(struct intel_context *ce)
- 		elapsed[i] = sema[i] - elapsed[i];
- 
- 	cycles = trifilter(elapsed);
--	pr_info("%s: idle dispatch latency %d cycles, %lluns\n",
-+	drm_info(&ce->engine->i915->drm, "%s: idle dispatch latency %d cycles, %lluns\n",
- 		ce->engine->name, cycles >> TF_BIAS,
- 		cycles_to_ns(ce->engine, cycles));
- 
-@@ -2223,7 +2228,7 @@ static int measure_busy_dispatch(struct intel_context *ce)
- 	}
- 
- 	cycles = trifilter(elapsed);
--	pr_info("%s: busy dispatch latency %d cycles, %lluns\n",
-+	drm_info(&ce->engine->i915->drm, "%s: busy dispatch latency %d cycles, %lluns\n",
- 		ce->engine->name, cycles >> TF_BIAS,
- 		cycles_to_ns(ce->engine, cycles));
- 
-@@ -2336,7 +2341,7 @@ static int measure_inter_request(struct intel_context *ce)
- 		elapsed[i - 1] = sema[i + 1] - sema[i];
- 
- 	cycles = trifilter(elapsed);
--	pr_info("%s: inter-request latency %d cycles, %lluns\n",
-+	drm_info(&ce->engine->i915->drm, "%s: inter-request latency %d cycles, %lluns\n",
- 		ce->engine->name, cycles >> TF_BIAS,
- 		cycles_to_ns(ce->engine, cycles));
- 
-@@ -2431,7 +2436,7 @@ static int measure_context_switch(struct intel_context *ce)
- 		elapsed[i - 1] = sema[2 * i + 2] - sema[2 * i + 1];
- 
- 	cycles = trifilter(elapsed);
--	pr_info("%s: context switch latency %d cycles, %lluns\n",
-+	drm_info(&ce->engine->i915->drm, "%s: context switch latency %d cycles, %lluns\n",
- 		ce->engine->name, cycles >> TF_BIAS,
- 		cycles_to_ns(ce->engine, cycles));
- 
-@@ -2534,7 +2539,8 @@ static int measure_preemption(struct intel_context *ce)
- 		elapsed[i - 1] = sema[2 * i + 0] - elapsed[i - 1];
- 
- 	cycles = trifilter(elapsed);
--	pr_info("%s: preemption dispatch latency %d cycles, %lluns\n",
-+	drm_info(&ce->engine->i915->drm,
-+		 "%s: preemption dispatch latency %d cycles, %lluns\n",
- 		ce->engine->name, cycles >> TF_BIAS,
- 		cycles_to_ns(ce->engine, cycles));
- 
-@@ -2542,7 +2548,8 @@ static int measure_preemption(struct intel_context *ce)
- 		elapsed[i - 1] = sema[2 * i + 1] - sema[2 * i + 0];
- 
- 	cycles = trifilter(elapsed);
--	pr_info("%s: preemption switch latency %d cycles, %lluns\n",
-+	drm_info(&ce->engine->i915->drm,
-+		 "%s: preemption switch latency %d cycles, %lluns\n",
- 		ce->engine->name, cycles >> TF_BIAS,
- 		cycles_to_ns(ce->engine, cycles));
- 
-@@ -2636,7 +2643,7 @@ static int measure_completion(struct intel_context *ce)
- 	}
- 
- 	cycles = trifilter(elapsed);
--	pr_info("%s: completion latency %d cycles, %lluns\n",
-+	drm_info(&ce->engine->i915->drm, "%s: completion latency %d cycles, %lluns\n",
- 		ce->engine->name, cycles >> TF_BIAS,
- 		cycles_to_ns(ce->engine, cycles));
- 
-@@ -2929,7 +2936,8 @@ static int perf_series_engines(void *arg)
- 				decimal = 0;
- 			}
- 
--			pr_info("%s %5s: { seqno:%d, busy:%d.%02d%%, runtime:%lldms, walltime:%lldms }\n",
-+			drm_info(&i915->drm,
-+				 "%s %5s: { seqno:%d, busy:%d.%02d%%, runtime:%lldms, walltime:%lldms }\n",
- 				name, p->engine->name, ce->timeline->seqno,
- 				integer, decimal,
- 				div_u64(p->runtime, 1000 * 1000),
-@@ -3275,7 +3283,7 @@ static int perf_parallel_engines(void *arg)
- 			}
- 
- 			GEM_BUG_ON(engine != p->engine);
--			pr_info("%s %5s: { count:%lu, busy:%d.%02d%%, runtime:%lldms, walltime:%lldms }\n",
-+			drm_info(&i915->drm, "%s %5s: { count:%lu, busy:%d.%02d%%, runtime:%lldms, walltime:%lldms }\n",
- 				name, engine->name, p->count, integer, decimal,
- 				div_u64(p->runtime, 1000 * 1000),
- 				div_u64(ktime_to_ns(p->time), 1000 * 1000));
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 7c4111e60f2e..ff08cad8680d 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -24,6 +24,8 @@
- 
- #include <linux/prime_numbers.h>
+ #include <linux/sort.h>
  
 +#include <drm/drm_print.h>
 +
- #include "gem/i915_gem_context.h"
- #include "gem/i915_gem_internal.h"
- #include "gem/selftests/mock_context.h"
-@@ -41,19 +43,19 @@ static bool assert_vma(struct i915_vma *vma,
- 	bool ok = true;
+ #include "gt/intel_gt_print.h"
+ #include "i915_selftest.h"
+ #include "intel_engine_regs.h"
+@@ -128,8 +130,9 @@ static int __measure_timestamps(struct intel_context *ce,
+ 	}
+ 	i915_request_put(rq);
  
- 	if (vma->vm != ctx->vm) {
--		pr_err("VMA created with wrong VM\n");
-+		drm_err(obj->base.dev, "VMA created with wrong VM\n");
- 		ok = false;
+-	pr_debug("%s CTX_TIMESTAMP: [%x, %x], RING_TIMESTAMP: [%x, %x]\n",
+-		 engine->name, sema[1], sema[3], sema[0], sema[4]);
++	drm_dbg(&engine->i915->drm,
++		"%s CTX_TIMESTAMP: [%x, %x], RING_TIMESTAMP: [%x, %x]\n",
++		engine->name, sema[1], sema[3], sema[0], sema[4]);
+ 
+ 	*d_ctx = sema[3] - sema[1];
+ 	*d_ring = sema[4] - sema[0];
+@@ -159,15 +162,17 @@ static int __live_engine_timestamps(struct intel_engine_cs *engine)
+ 	d_ring = trifilter(s_ring);
+ 	d_ctx = trifilter(s_ctx);
+ 
+-	pr_info("%s elapsed:%lldns, CTX_TIMESTAMP:%lldns, RING_TIMESTAMP:%lldns\n",
+-		engine->name, dt,
+-		intel_gt_clock_interval_to_ns(engine->gt, d_ctx),
+-		intel_gt_clock_interval_to_ns(engine->gt, d_ring));
++	drm_info(&engine->i915->drm,
++		 "%s elapsed:%lldns, CTX_TIMESTAMP:%lldns, RING_TIMESTAMP:%lldns\n",
++		 engine->name, dt,
++		 intel_gt_clock_interval_to_ns(engine->gt, d_ctx),
++		 intel_gt_clock_interval_to_ns(engine->gt, d_ring));
+ 
+ 	d_ring = intel_gt_clock_interval_to_ns(engine->gt, d_ring);
+ 	if (3 * dt > 4 * d_ring || 4 * dt < 3 * d_ring) {
+-		pr_err("%s Mismatch between ring timestamp and walltime!\n",
+-		       engine->name);
++		drm_err(&engine->i915->drm,
++			"%s Mismatch between ring timestamp and walltime!\n",
++			engine->name);
+ 		return -EINVAL;
  	}
  
- 	if (vma->size != obj->base.size) {
--		pr_err("VMA created with wrong size, found %llu, expected %zu\n",
-+		drm_err(obj->base.dev,
-+			"VMA created with wrong size, found %llu, expected %zu\n",
- 		       vma->size, obj->base.size);
- 		ok = false;
+@@ -181,8 +186,9 @@ static int __live_engine_timestamps(struct intel_engine_cs *engine)
+ 		d_ring *= engine->gt->clock_frequency;
+ 
+ 	if (3 * d_ctx > 4 * d_ring || 4 * d_ctx < 3 * d_ring) {
+-		pr_err("%s Mismatch between ring and context timestamps!\n",
+-		       engine->name);
++		drm_err(&engine->i915->drm,
++			"%s Mismatch between ring and context timestamps!\n",
++			engine->name);
+ 		return -EINVAL;
  	}
  
- 	if (vma->gtt_view.type != I915_GTT_VIEW_NORMAL) {
--		pr_err("VMA created with wrong type [%d]\n",
--		       vma->gtt_view.type);
-+		drm_err(obj->base.dev, "VMA created with wrong type [%d]\n", vma->gtt_view.type);
- 		ok = false;
+@@ -232,7 +238,7 @@ static int __spin_until_busier(struct intel_engine_cs *engine, ktime_t busyness)
+ 	while (intel_engine_get_busy_time(engine, &unused) == busyness) {
+ 		dt = ktime_get() - start;
+ 		if (dt > 10000000) {
+-			pr_err("active wait timed out %lld\n", dt);
++			drm_err(&engine->i915->drm, "active wait timed out %lld\n", dt);
+ 			ENGINE_TRACE(engine, "active wait time out %lld\n", dt);
+ 			return -ETIME;
+ 		}
+@@ -284,9 +290,10 @@ static int live_engine_busy_stats(void *arg)
+ 		preempt_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (de < 0 || de > 10) {
+-			pr_err("%s: reported %lldns [%d%%] busyness while sleeping [for %lldns]\n",
+-			       engine->name,
+-			       de, (int)div64_u64(100 * de, dt), dt);
++			drm_err(&engine->i915->drm,
++				"%s: reported %lldns [%d%%] busyness while sleeping [for %lldns]\n",
++				engine->name,
++				de, (int)div64_u64(100 * de, dt), dt);
+ 			GEM_TRACE_DUMP();
+ 			err = -EINVAL;
+ 			goto end;
+@@ -323,9 +330,10 @@ static int live_engine_busy_stats(void *arg)
+ 		preempt_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (100 * de < 95 * dt || 95 * de > 100 * dt) {
+-			pr_err("%s: reported %lldns [%d%%] busyness while spinning [for %lldns]\n",
+-			       engine->name,
+-			       de, (int)div64_u64(100 * de, dt), dt);
++			drm_err(&engine->i915->drm,
++				"%s: reported %lldns [%d%%] busyness while spinning [for %lldns]\n",
++				engine->name,
++				de, (int)div64_u64(100 * de, dt), dt);
+ 			GEM_TRACE_DUMP();
+ 			err = -EINVAL;
+ 			goto end;
+@@ -358,7 +366,7 @@ static int live_engine_pm(void *arg)
+ 	 * tell us.
+ 	 */
+ 	if (intel_gt_pm_wait_for_idle(gt)) {
+-		pr_err("Unable to flush GT pm before test\n");
++		drm_err(&gt->i915->drm, "Unable to flush GT pm before test\n");
+ 		return -EBUSY;
  	}
  
-@@ -74,30 +76,34 @@ checked_vma_instance(struct drm_i915_gem_object *obj,
+@@ -386,8 +394,9 @@ static int live_engine_pm(void *arg)
  
- 	/* Manual checks, will be reinforced by i915_vma_compare! */
- 	if (vma->vm != vm) {
--		pr_err("VMA's vm [%p] does not match request [%p]\n",
-+		drm_err(obj->base.dev,
-+			"VMA's vm [%p] does not match request [%p]\n",
- 		       vma->vm, vm);
- 		ok = false;
- 	}
+ 			p->critical_section_begin();
+ 			if (!intel_engine_pm_get_if_awake(engine))
+-				pr_err("intel_engine_pm_get_if_awake(%s) failed under %s\n",
+-				       engine->name, p->name);
++				drm_err(&engine->i915->drm,
++					"intel_engine_pm_get_if_awake(%s) failed under %s\n",
++					engine->name, p->name);
+ 			else
+ 				intel_engine_pm_put_async(engine);
+ 			intel_engine_pm_put_async(engine);
+@@ -396,8 +405,9 @@ static int live_engine_pm(void *arg)
+ 			intel_engine_pm_flush(engine);
  
- 	if (i915_is_ggtt(vm) != i915_vma_is_ggtt(vma)) {
--		pr_err("VMA ggtt status [%d] does not match parent [%d]\n",
-+		drm_err(obj->base.dev,
-+			"VMA ggtt status [%d] does not match parent [%d]\n",
- 		       i915_vma_is_ggtt(vma), i915_is_ggtt(vm));
- 		ok = false;
- 	}
+ 			if (intel_engine_pm_is_awake(engine)) {
+-				pr_err("%s is still awake after flushing pm\n",
+-				       engine->name);
++				drm_err(&engine->i915->drm,
++					"%s is still awake after flushing pm\n",
++					engine->name);
+ 				return -EINVAL;
+ 			}
  
- 	if (i915_vma_compare(vma, vm, view)) {
--		pr_err("i915_vma_compare failed with create parameters!\n");
-+		drm_err(obj->base.dev,
-+			"i915_vma_compare failed with create parameters!\n");
- 		return ERR_PTR(-EINVAL);
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+index 21e5ed9f72a3..80dacde5fbf7 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
++++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+@@ -89,8 +89,8 @@ static int wait_for_reset(struct intel_engine_cs *engine,
+ 	} while (time_before(jiffies, timeout));
  
- 	if (i915_vma_compare(vma, vma->vm,
- 			     i915_vma_is_ggtt(vma) ? &vma->gtt_view : NULL)) {
--		pr_err("i915_vma_compare failed with itself\n");
-+		drm_err(obj->base.dev, "i915_vma_compare failed with itself\n");
- 		return ERR_PTR(-EINVAL);
- 	}
+ 	if (rq->fence.error != -EIO) {
+-		pr_err("%s: hanging request %llx:%lld not reset\n",
+-		       engine->name,
++		drm_err(&engine->i915->drm,
++				"%s: hanging request %llx:%lld not reset\n", engine->name,
+ 		       rq->fence.context,
+ 		       rq->fence.seqno);
+ 		return -EINVAL;
+@@ -99,8 +99,8 @@ static int wait_for_reset(struct intel_engine_cs *engine,
+ 	/* Give the request a jiffy to complete after flushing the worker */
+ 	if (i915_request_wait(rq, 0,
+ 			      max(0l, (long)(timeout - jiffies)) + 1) < 0) {
+-		pr_err("%s: hanging request %llx:%lld did not complete\n",
+-		       engine->name,
++		drm_err(&engine->i915->drm,
++				"%s: hanging request %llx:%lld did not complete\n", engine->name,
+ 		       rq->fence.context,
+ 		       rq->fence.seqno);
+ 		return -ETIME;
+@@ -419,7 +419,8 @@ static int live_unlite_ring(void *arg)
+ 			n++;
+ 		}
+ 		intel_engine_flush_submission(engine);
+-		pr_debug("%s: Filled ring with %d nop tails {size:%x, tail:%x, emit:%x, rq.tail:%x}\n",
++		drm_dbg(&engine->i915->drm,
++				"%s: Filled ring with %d nop tails {size:%x, tail:%x, emit:%x, rq.tail:%x}\n",
+ 			 engine->name, n,
+ 			 ce[0]->ring->size,
+ 			 ce[0]->ring->tail,
+@@ -444,12 +445,14 @@ static int live_unlite_ring(void *arg)
+ 		err = wait_for_submit(engine, rq, HZ / 2);
+ 		i915_request_put(rq);
+ 		if (err) {
+-			pr_err("%s: preemption request was not submitted\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: preemption request was not submitted\n",
++				engine->name);
+ 			err = -ETIME;
+ 		}
  
- 	if (!ok) {
--		pr_err("i915_vma_compare failed to detect the difference!\n");
-+		drm_err(obj->base.dev,
-+			"i915_vma_compare failed to detect the difference!\n");
- 		return ERR_PTR(-EINVAL);
- 	}
+-		pr_debug("%s: ring[0]:{ tail:%x, emit:%x }, ring[1]:{ tail:%x, emit:%x }\n",
++		drm_dbg(&engine->i915->drm,
++				"%s: ring[0]:{ tail:%x, emit:%x }, ring[1]:{ tail:%x, emit:%x }\n",
+ 			 engine->name,
+ 			 ce[0]->ring->tail, ce[0]->ring->emit,
+ 			 ce[1]->ring->tail, ce[1]->ring->emit);
+@@ -644,8 +647,8 @@ static int live_hold_reset(void *arg)
  
-@@ -126,14 +132,16 @@ static int create_vmas(struct drm_i915_private *i915,
- 					return PTR_ERR(vma);
+ 		/* Check that we do not resubmit the held request */
+ 		if (!i915_request_wait(rq, 0, HZ / 5)) {
+-			pr_err("%s: on hold request completed!\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: on hold request completed!\n", engine->name);
+ 			i915_request_put(rq);
+ 			err = -EIO;
+ 			goto out;
+@@ -655,8 +658,8 @@ static int live_hold_reset(void *arg)
+ 		/* But is resubmitted on release */
+ 		execlists_unhold(engine, rq);
+ 		if (i915_request_wait(rq, 0, HZ / 5) < 0) {
+-			pr_err("%s: held request did not complete!\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: held request did not complete!\n", engine->name);
+ 			intel_gt_set_wedged(gt);
+ 			err = -ETIME;
+ 		}
+@@ -764,22 +767,23 @@ static int live_error_interrupt(void *arg)
  
- 				if (!assert_vma(vma, obj, ctx)) {
--					pr_err("VMA lookup/create failed\n");
-+					drm_err(obj->base.dev,
-+						"VMA lookup/create failed\n");
- 					return -EINVAL;
- 				}
- 
- 				if (!pinned) {
- 					err = i915_vma_pin(vma, 0, 0, PIN_USER);
- 					if (err) {
--						pr_err("Failed to pin VMA\n");
-+						drm_err(obj->base.dev,
-+							"Failed to pin VMA\n");
- 						return err;
- 					}
- 				} else {
-@@ -332,7 +340,8 @@ static int igt_vma_pin1(void *arg)
- 	for (m = modes; m->assert; m++) {
- 		err = i915_vma_pin(vma, m->size, 0, m->flags);
- 		if (!m->assert(vma, m, err)) {
--			pr_err("%s to pin single page into GGTT with mode[%d:%s]: size=%llx flags=%llx, err=%d\n",
-+			drm_err(obj->base.dev,
-+				"%s to pin single page into GGTT with mode[%d:%s]: size=%llx flags=%llx, err=%d\n",
- 			       m->assert == assert_pin_valid ? "Failed" : "Unexpectedly succeeded",
- 			       (int)(m - modes), m->string, m->size, m->flags,
- 			       err);
-@@ -346,7 +355,8 @@ static int igt_vma_pin1(void *arg)
- 			i915_vma_unpin(vma);
- 			err = i915_vma_unbind_unlocked(vma);
+ 			err = wait_for_submit(engine, client[0], HZ / 2);
  			if (err) {
--				pr_err("Failed to unbind single page from GGTT, err=%d\n", err);
-+				drm_err(obj->base.dev,
-+					"Failed to unbind single page from GGTT, err=%d\n", err);
+-				pr_err("%s: first request did not start within time!\n",
+-				       engine->name);
++				drm_err(&engine->i915->drm,
++					"%s: first request did not start within time!\n",
++					engine->name);
+ 				err = -ETIME;
  				goto out;
  			}
- 		}
-@@ -384,8 +394,9 @@ assert_rotated(struct drm_i915_gem_object *obj,
- 			dma_addr_t src;
  
- 			if (!sg) {
--				pr_err("Invalid sg table: too short at plane %d, (%d, %d)!\n",
--				       n, x, y);
-+				drm_err(obj->base.dev,
-+					"Invalid sg table: too short at plane %d, (%d, %d)!\n",
-+					n, x, y);
- 				return ERR_PTR(-EINVAL);
- 			}
+ 			for (i = 0; i < ARRAY_SIZE(client); i++) {
+ 				if (i915_request_wait(client[i], 0, HZ / 5) < 0)
+-					pr_debug("%s: %s request incomplete!\n",
+-						 engine->name,
+-						 error_repr(p->error[i]));
++					drm_dbg(&engine->i915->drm,
++						"%s: %s request incomplete!\n",
++						engine->name,
++						error_repr(p->error[i]));
  
-@@ -393,15 +404,16 @@ assert_rotated(struct drm_i915_gem_object *obj,
- 			src = i915_gem_object_get_dma_address(obj, src_idx);
- 
- 			if (sg_dma_len(sg) != PAGE_SIZE) {
--				pr_err("Invalid sg.length, found %d, expected %lu for rotated page (%d, %d) [src index %lu]\n",
--				       sg_dma_len(sg), PAGE_SIZE,
--				       x, y, src_idx);
-+				drm_err(obj->base.dev,
-+					"Invalid sg.length, found %d, expected %lu for rotated page (%d, %d) [src index %lu]\n",
-+					sg_dma_len(sg), PAGE_SIZE, x, y, src_idx);
- 				return ERR_PTR(-EINVAL);
- 			}
- 
- 			if (sg_dma_address(sg) != src) {
--				pr_err("Invalid address for rotated page (%d, %d) [src index %lu]\n",
--				       x, y, src_idx);
-+				drm_err(obj->base.dev,
-+					"Invalid address for rotated page (%d, %d) [src index %lu]\n",
-+					x, y, src_idx);
- 				return ERR_PTR(-EINVAL);
- 			}
- 
-@@ -414,20 +426,23 @@ assert_rotated(struct drm_i915_gem_object *obj,
- 			continue;
- 
- 		if (!sg) {
--			pr_err("Invalid sg table: too short at plane %d, (%d, %d)!\n",
--			       n, x, y);
-+			drm_err(obj->base.dev,
-+				"Invalid sg table: too short at plane %d, (%d, %d)!\n",
-+				n, x, y);
- 			return ERR_PTR(-EINVAL);
- 		}
- 
- 		if (sg_dma_len(sg) != left) {
--			pr_err("Invalid sg.length, found %d, expected %u for rotated page (%d, %d)\n",
--			       sg_dma_len(sg), left, x, y);
-+			drm_err(obj->base.dev,
-+				"Invalid sg.length, found %d, expected %u for rotated page (%d, %d)\n",
-+				sg_dma_len(sg), left, x, y);
- 			return ERR_PTR(-EINVAL);
- 		}
- 
- 		if (sg_dma_address(sg) != 0) {
--			pr_err("Invalid address, found %pad, expected 0 for remapped page (%d, %d)\n",
--			       &sg_dma_address(sg), x, y);
-+			drm_err(obj->base.dev,
-+				"Invalid address, found %pad, expected 0 for remapped page (%d, %d)\n",
-+				&sg_dma_address(sg), x, y);
- 			return ERR_PTR(-EINVAL);
- 		}
- 
-@@ -461,8 +476,9 @@ assert_remapped(struct drm_i915_gem_object *obj,
- 			dma_addr_t src;
- 
- 			if (!sg) {
--				pr_err("Invalid sg table: too short at plane %d, (%d, %d)!\n",
--				       n, x, y);
-+				drm_err(obj->base.dev,
-+					"Invalid sg table: too short at plane %d, (%d, %d)!\n",
-+					n, x, y);
- 				return ERR_PTR(-EINVAL);
- 			}
- 			if (!left) {
-@@ -474,15 +490,16 @@ assert_remapped(struct drm_i915_gem_object *obj,
- 			src = i915_gem_object_get_dma_address(obj, src_idx);
- 
- 			if (left < PAGE_SIZE || left & (PAGE_SIZE-1)) {
--				pr_err("Invalid sg.length, found %d, expected %lu for remapped page (%d, %d) [src index %lu]\n",
--				       sg_dma_len(sg), PAGE_SIZE,
--				       x, y, src_idx);
-+				drm_err(obj->base.dev,
-+					"Invalid sg.length, found %d, expected %lu for remapped page (%d, %d) [src index %lu]\n",
-+					sg_dma_len(sg), PAGE_SIZE, x, y, src_idx);
- 				return ERR_PTR(-EINVAL);
- 			}
- 
- 			if (sg_dma_address(sg) + offset != src) {
--				pr_err("Invalid address for remapped page (%d, %d) [src index %lu]\n",
--				       x, y, src_idx);
-+				drm_err(obj->base.dev,
-+					"Invalid address for remapped page (%d, %d) [src index %lu]\n",
-+					x, y, src_idx);
- 				return ERR_PTR(-EINVAL);
- 			}
- 
-@@ -495,9 +512,9 @@ assert_remapped(struct drm_i915_gem_object *obj,
- 		}
- 
- 		if (left) {
--			pr_err("Unexpected sg tail with %d size for remapped page (%d, %d)\n",
--			       left,
--			       x, y);
-+			drm_err(obj->base.dev,
-+				"Unexpected sg tail with %d size for remapped page (%d, %d)\n",
-+				left, x, y);
- 			return ERR_PTR(-EINVAL);
- 		}
- 
-@@ -507,22 +524,22 @@ assert_remapped(struct drm_i915_gem_object *obj,
- 			continue;
- 
- 		if (!sg) {
--			pr_err("Invalid sg table: too short at plane %d, (%d, %d)!\n",
--			       n, x, y);
-+			drm_err(obj->base.dev,
-+				"Invalid sg table: too short at plane %d, (%d, %d)!\n", n, x, y);
- 			return ERR_PTR(-EINVAL);
- 		}
- 
- 		if (sg_dma_len(sg) != left) {
--			pr_err("Invalid sg.length, found %u, expected %u for remapped page (%d, %d)\n",
--			       sg_dma_len(sg), left,
--			       x, y);
-+			drm_err(obj->base.dev,
-+				"Invalid sg.length, found %u, expected %u for remapped page (%d, %d)\n",
-+				sg_dma_len(sg), left, x, y);
- 			return ERR_PTR(-EINVAL);
- 		}
- 
- 		if (sg_dma_address(sg) != 0) {
--			pr_err("Invalid address, found %pad, expected 0 for remapped page (%d, %d)\n",
--			       &sg_dma_address(sg),
--			       x, y);
-+			drm_err(obj->base.dev,
-+				"Invalid address, found %pad, expected 0 for remapped page (%d, %d)\n",
-+				&sg_dma_address(sg), x, y);
- 			return ERR_PTR(-EINVAL);
- 		}
- 
-@@ -628,7 +645,8 @@ static int igt_vma_rotate_remap(void *arg)
- 
- 					err = i915_vma_pin(vma, 0, 0, PIN_GLOBAL);
- 					if (err) {
--						pr_err("Failed to pin VMA, err=%d\n", err);
-+						drm_err(obj->base.dev,
-+							"Failed to pin VMA, err=%d\n", err);
- 						goto out_object;
- 					}
- 
-@@ -636,36 +654,41 @@ static int igt_vma_rotate_remap(void *arg)
- 
- 					if (view.type == I915_GTT_VIEW_ROTATED &&
- 					    vma->size != expected_pages * PAGE_SIZE) {
--						pr_err("VMA is wrong size, expected %lu, found %llu\n",
--						       PAGE_SIZE * expected_pages, vma->size);
-+						drm_err(obj->base.dev,
-+							"VMA is wrong size, expected %lu, found %llu\n",
-+							PAGE_SIZE * expected_pages, vma->size);
- 						err = -EINVAL;
- 						goto out_object;
- 					}
- 
- 					if (view.type == I915_GTT_VIEW_REMAPPED &&
- 					    vma->size > expected_pages * PAGE_SIZE) {
--						pr_err("VMA is wrong size, expected %lu, found %llu\n",
--						       PAGE_SIZE * expected_pages, vma->size);
-+						drm_err(obj->base.dev,
-+							"VMA is wrong size, expected %lu, found %llu\n",
-+							PAGE_SIZE * expected_pages, vma->size);
- 						err = -EINVAL;
- 						goto out_object;
- 					}
- 
- 					if (vma->pages->nents > expected_pages) {
--						pr_err("sg table is wrong sizeo, expected %u, found %u nents\n",
--						       expected_pages, vma->pages->nents);
-+						drm_err(obj->base.dev,
-+							"sg table is wrong sizeo, expected %u, found %u nents\n",
-+							expected_pages, vma->pages->nents);
- 						err = -EINVAL;
- 						goto out_object;
- 					}
- 
- 					if (vma->node.size < vma->size) {
--						pr_err("VMA binding too small, expected %llu, found %llu\n",
--						       vma->size, vma->node.size);
-+						drm_err(obj->base.dev,
-+							"VMA binding too small, expected %llu, found %llu\n",
-+							vma->size, vma->node.size);
- 						err = -EINVAL;
- 						goto out_object;
- 					}
- 
- 					if (vma->pages == obj->mm.pages) {
--						pr_err("VMA using unrotated object pages!\n");
-+						drm_err(obj->base.dev,
-+							"VMA using unrotated object pages!\n");
- 						err = -EINVAL;
- 						goto out_object;
- 					}
-@@ -677,19 +700,20 @@ static int igt_vma_rotate_remap(void *arg)
- 						else
- 							sg = assert_remapped(obj, &view.remapped, n, sg);
- 						if (IS_ERR(sg)) {
--							pr_err("Inconsistent %s VMA pages for plane %d: [(%d, %d, %d, %d, %d), (%d, %d, %d, %d, %d)]\n",
--							       view.type == I915_GTT_VIEW_ROTATED ?
--							       "rotated" : "remapped", n,
--							       plane_info[0].width,
--							       plane_info[0].height,
--							       plane_info[0].src_stride,
--							       plane_info[0].dst_stride,
--							       plane_info[0].offset,
--							       plane_info[1].width,
--							       plane_info[1].height,
--							       plane_info[1].src_stride,
--							       plane_info[1].dst_stride,
--							       plane_info[1].offset);
-+							drm_err(obj->base.dev,
-+								"Inconsistent %s VMA pages for plane %d: [(%d, %d, %d, %d, %d), (%d, %d, %d, %d, %d)]\n",
-+								view.type == I915_GTT_VIEW_ROTATED ?
-+								"rotated" : "remapped", n,
-+								plane_info[0].width,
-+								plane_info[0].height,
-+								plane_info[0].src_stride,
-+								plane_info[0].dst_stride,
-+								plane_info[0].offset,
-+								plane_info[1].width,
-+								plane_info[1].height,
-+								plane_info[1].src_stride,
-+								plane_info[1].dst_stride,
-+								plane_info[1].offset);
- 							err = -EINVAL;
- 							goto out_object;
- 						}
-@@ -698,7 +722,8 @@ static int igt_vma_rotate_remap(void *arg)
- 					i915_vma_unpin(vma);
- 					err = i915_vma_unbind_unlocked(vma);
- 					if (err) {
--						pr_err("Unbinding returned %i\n", err);
-+						drm_err(obj->base.dev,
-+							"Unbinding returned %i\n", err);
- 						goto out_object;
- 					}
- 					cond_resched();
-@@ -726,14 +751,15 @@ static bool assert_partial(struct drm_i915_gem_object *obj,
- 		dma_addr_t src;
- 
- 		if (!size) {
--			pr_err("Partial scattergather list too long\n");
-+			drm_err(obj->base.dev,
-+				"Partial scattergather list too long\n");
- 			return false;
- 		}
- 
- 		src = i915_gem_object_get_dma_address(obj, offset);
- 		if (src != dma) {
--			pr_err("DMA mismatch for partial page offset %lu\n",
--			       offset);
-+			drm_err(obj->base.dev,
-+				"DMA mismatch for partial page offset %lu\n", offset);
- 			return false;
- 		}
- 
-@@ -752,38 +778,40 @@ static bool assert_pin(struct i915_vma *vma,
- 	bool ok = true;
- 
- 	if (vma->size != size) {
--		pr_err("(%s) VMA is wrong size, expected %llu, found %llu\n",
--		       name, size, vma->size);
-+		drm_err(vma->obj->base.dev,
-+			"(%s) VMA is wrong size, expected %llu, found %llu\n",
-+			name, size, vma->size);
- 		ok = false;
- 	}
- 
- 	if (vma->node.size < vma->size) {
--		pr_err("(%s) VMA binding too small, expected %llu, found %llu\n",
--		       name, vma->size, vma->node.size);
-+		drm_err(vma->obj->base.dev,
-+			"(%s) VMA binding too small, expected %llu, found %llu\n",
-+			name, vma->size, vma->node.size);
- 		ok = false;
- 	}
- 
- 	if (view && view->type != I915_GTT_VIEW_NORMAL) {
- 		if (memcmp(&vma->gtt_view, view, sizeof(*view))) {
--			pr_err("(%s) VMA mismatch upon creation!\n",
--			       name);
-+			drm_err(vma->obj->base.dev,
-+				"(%s) VMA mismatch upon creation!\n", name);
- 			ok = false;
- 		}
- 
- 		if (vma->pages == vma->obj->mm.pages) {
--			pr_err("(%s) VMA using original object pages!\n",
--			       name);
-+			drm_err(vma->obj->base.dev,
-+				"(%s) VMA using original object pages!\n", name);
- 			ok = false;
- 		}
- 	} else {
- 		if (vma->gtt_view.type != I915_GTT_VIEW_NORMAL) {
--			pr_err("Not the normal ggtt view! Found %d\n",
--			       vma->gtt_view.type);
-+			drm_err(vma->obj->base.dev,
-+				"Not the normal ggtt view! Found %d\n", vma->gtt_view.type);
- 			ok = false;
- 		}
- 
- 		if (vma->pages != vma->obj->mm.pages) {
--			pr_err("VMA not using object pages!\n");
-+			drm_err(vma->obj->base.dev, "VMA not using object pages!\n");
- 			ok = false;
- 		}
- 	}
-@@ -843,15 +871,17 @@ static int igt_vma_partial(void *arg)
- 					goto out_object;
- 
- 				if (!assert_pin(vma, &view, sz*PAGE_SIZE, p->name)) {
--					pr_err("(%s) Inconsistent partial pinning for (offset=%d, size=%d)\n",
--					       p->name, offset, sz);
-+					drm_err(obj->base.dev,
-+						"(%s) Inconsistent partial pinning for (offset=%d, size=%d)\n",
-+						p->name, offset, sz);
+ 				if (!i915_request_started(client[i])) {
+-					pr_err("%s: %s request not started!\n",
+-					       engine->name,
+-					       error_repr(p->error[i]));
++					drm_err(&engine->i915->drm, "%s: %s request not started!\n",
++						engine->name, error_repr(p->error[i]));
+ 					err = -ETIME;
+ 					goto out;
+ 				}
+@@ -787,11 +791,12 @@ static int live_error_interrupt(void *arg)
+ 				/* Kick the tasklet to process the error */
+ 				intel_engine_flush_submission(engine);
+ 				if (client[i]->fence.error != p->error[i]) {
+-					pr_err("%s: %s request (%s) with wrong error code: %d\n",
+-					       engine->name,
+-					       error_repr(p->error[i]),
+-					       i915_request_completed(client[i]) ? "completed" : "running",
+-					       client[i]->fence.error);
++					drm_err(&engine->i915->drm,
++						"%s: %s request (%s) with wrong error code: %d\n",
++						engine->name, error_repr(p->error[i]),
++						i915_request_completed(
++							client[i]) ? "completed" : "running",
++						client[i]->fence.error);
  					err = -EINVAL;
- 					goto out_object;
+ 					goto out;
  				}
- 
- 				if (!assert_partial(obj, vma, offset, sz)) {
--					pr_err("(%s) Inconsistent partial pages for (offset=%d, size=%d)\n",
--					       p->name, offset, sz);
-+					drm_err(obj->base.dev,
-+						"(%s) Inconsistent partial pages for (offset=%d, size=%d)\n",
-+						p->name, offset, sz);
- 					err = -EINVAL;
- 					goto out_object;
- 				}
-@@ -860,7 +890,7 @@ static int igt_vma_partial(void *arg)
- 				nvma++;
- 				err = i915_vma_unbind_unlocked(vma);
- 				if (err) {
--					pr_err("Unbinding returned %i\n", err);
-+					drm_err(obj->base.dev, "Unbinding returned %i\n", err);
- 					goto out_object;
- 				}
- 
-@@ -872,8 +902,9 @@ static int igt_vma_partial(void *arg)
- 		list_for_each_entry(vma, &obj->vma.list, obj_link)
- 			count++;
- 		if (count != nvma) {
--			pr_err("(%s) All partial vma were not recorded on the obj->vma_list: found %u, expected %u\n",
--			       p->name, count, nvma);
-+			drm_err(obj->base.dev,
-+				"(%s) All partial vma were not recorded on the obj->vma_list: found %u, expected %u\n",
-+				p->name, count, nvma);
- 			err = -EINVAL;
- 			goto out_object;
+@@ -802,9 +807,10 @@ static int live_error_interrupt(void *arg)
+ 				if (client[i])
+ 					i915_request_put(client[i]);
+ 			if (err) {
+-				pr_err("%s: failed at phase[%zd] { %d, %d }\n",
+-				       engine->name, p - phases,
+-				       p->error[0], p->error[1]);
++				drm_err(&engine->i915->drm,
++					"%s: failed at phase[%zd] { %d, %d }\n",
++					engine->name, p - phases,
++					p->error[0], p->error[1]);
+ 				break;
+ 			}
  		}
-@@ -890,7 +921,7 @@ static int igt_vma_partial(void *arg)
- 			goto out_object;
+@@ -964,8 +970,9 @@ slice_semaphore_queue(struct intel_engine_cs *outer,
  
- 		if (!assert_pin(vma, NULL, obj->base.size, p->name)) {
--			pr_err("(%s) inconsistent full pin\n", p->name);
-+			drm_err(obj->base.dev, "(%s) inconsistent full pin\n", p->name);
- 			err = -EINVAL;
- 			goto out_object;
- 		}
-@@ -899,7 +930,7 @@ static int igt_vma_partial(void *arg)
+ 	if (i915_request_wait(head, 0,
+ 			      2 * outer->gt->info.num_engines * (count + 2) * (count + 3)) < 0) {
+-		pr_err("%s: Failed to slice along semaphore chain of length (%d, %d)!\n",
+-		       outer->name, count, n);
++		drm_err(&outer->gt->i915->drm,
++			"%s: Failed to slice along semaphore chain of length (%d, %d)!\n",
++			outer->name, count, n);
+ 		GEM_TRACE_DUMP();
+ 		intel_gt_set_wedged(outer->gt);
+ 		err = -EIO;
+@@ -1174,8 +1181,8 @@ static int live_timeslice_rewind(void *arg)
  
- 		err = i915_vma_unbind_unlocked(vma);
+ 		err = wait_for_submit(engine, rq[A2], HZ / 2);
  		if (err) {
--			pr_err("Unbinding returned %i\n", err);
-+			drm_err(obj->base.dev, "Unbinding returned %i\n", err);
- 			goto out_object;
+-			pr_err("%s: failed to submit first context\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: failed to submit first context\n", engine->name);
+ 			goto err;
  		}
  
-@@ -907,7 +938,7 @@ static int igt_vma_partial(void *arg)
- 		list_for_each_entry(vma, &obj->vma.list, obj_link)
- 			count++;
- 		if (count != nvma) {
--			pr_err("(%s) allocated an extra full vma!\n", p->name);
-+			drm_err(obj->base.dev, "(%s) allocated an extra full vma!\n", p->name);
+@@ -1192,8 +1199,8 @@ static int live_timeslice_rewind(void *arg)
+ 
+ 		err = wait_for_submit(engine, rq[B1], HZ / 2);
+ 		if (err) {
+-			pr_err("%s: failed to submit second context\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: failed to submit second context\n", engine->name);
+ 			goto err;
+ 		}
+ 
+@@ -1222,21 +1229,23 @@ static int live_timeslice_rewind(void *arg)
+ 				;
+ 
+ 			if (!time_before(jiffies, timeout)) {
+-				pr_err("%s: rq[%d] timed out\n",
+-				       engine->name, i - 1);
++				drm_err(&engine->i915->drm,
++						"%s: rq[%d] timed out\n",
++						engine->name, i - 1);
+ 				err = -ETIME;
+ 				goto err;
+ 			}
+ 
+-			pr_debug("%s: slot[%d]:%x\n", engine->name, i, slot[i]);
++			drm_dbg(&engine->i915->drm, "%s: slot[%d]:%x\n", engine->name, i, slot[i]);
+ 		}
+ 
+ 		/* XZY: XZ < XY */
+ 		if (slot[Z] - slot[X] >= slot[Y] - slot[X]) {
+-			pr_err("%s: timeslicing did not run context B [%u] before A [%u]!\n",
+-			       engine->name,
+-			       slot[Z] - slot[X],
+-			       slot[Y] - slot[X]);
++			drm_err(&engine->i915->drm,
++				"%s: timeslicing did not run context B [%u] before A [%u]!\n",
++				engine->name,
++				slot[Z] - slot[X],
++				slot[Y] - slot[X]);
  			err = -EINVAL;
- 			goto out_object;
  		}
-@@ -1080,9 +1111,13 @@ static int igt_vma_remapped_gtt(void *arg)
  
- 					val = ioread32(&map[offset / sizeof(*map)]);
- 					if (val != exp) {
--						pr_err("%s VMA write test failed, expected 0x%x, found 0x%x\n",
--						       *t == I915_GTT_VIEW_ROTATED ? "Rotated" : "Remapped",
--						       exp, val);
-+						const char *kind;
-+
-+						kind = *t == I915_GTT_VIEW_ROTATED ?
-+							"Rotated" : "Remapped";
-+						drm_err(vma->obj->base.dev,
-+							"%s VMA write test failed, expected 0x%x, found 0x%x\n",
-+							kind, exp, val);
- 						i915_vma_unpin_iomap(vma);
- 						err = -EINVAL;
- 						goto out;
-diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-index 514d2200751b..881e8a1b809d 100644
---- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-@@ -26,9 +26,14 @@
+@@ -1347,8 +1356,9 @@ static int live_timeslice_queue(void *arg)
+ 		engine->sched_engine->schedule(rq, &attr);
+ 		err = wait_for_submit(engine, rq, HZ / 2);
+ 		if (err) {
+-			pr_err("%s: Timed out trying to submit semaphores\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: Timed out trying to submit semaphores\n",
++				engine->name);
+ 			goto err_rq;
+ 		}
  
- #include "gt/intel_gt.h"
+@@ -1361,8 +1371,8 @@ static int live_timeslice_queue(void *arg)
+ 		err = wait_for_submit(engine, nop, HZ / 2);
+ 		i915_request_put(nop);
+ 		if (err) {
+-			pr_err("%s: Timed out trying to submit nop\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: Timed out trying to submit nop\n", engine->name);
+ 			goto err_rq;
+ 		}
  
-+#include "mock_gem_device.h"
-+
+@@ -1385,8 +1395,8 @@ static int live_timeslice_queue(void *arg)
+ 			struct drm_printer p =
+ 				drm_info_printer(gt->i915->drm.dev);
+ 
+-			pr_err("%s: Failed to timeslice into queue\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: Failed to timeslice into queue\n", engine->name);
+ 			intel_engine_dump(engine, &p,
+ 					  "%s\n", engine->name);
+ 
+@@ -1501,8 +1511,9 @@ static int live_timeslice_nopreempt(void *arg)
+ 		 * enough to see if it is timesliced in by mistake.
+ 		 */
+ 		if (i915_request_wait(rq, 0, slice_timeout(engine)) >= 0) {
+-			pr_err("%s: I915_PRIORITY_BARRIER request completed, bypassing no-preempt request\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: I915_PRIORITY_BARRIER request completed, bypassing no-preempt request\n",
++				engine->name);
+ 			err = -EINVAL;
+ 		}
+ 		i915_request_put(rq);
+@@ -1648,8 +1659,8 @@ static int live_busywait_preempt(void *arg)
+ 		/* Low priority request should be busywaiting now */
+ 		if (i915_request_wait(lo, 0, 1) != -ETIME) {
+ 			i915_request_put(lo);
+-			pr_err("%s: Busywaiting request did not!\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: Busywaiting request did not!\n", engine->name);
+ 			err = -EIO;
+ 			goto err_vma;
+ 		}
+@@ -1680,8 +1691,9 @@ static int live_busywait_preempt(void *arg)
+ 		if (i915_request_wait(lo, 0, HZ / 5) < 0) {
+ 			struct drm_printer p = drm_info_printer(gt->i915->drm.dev);
+ 
+-			pr_err("%s: Failed to preempt semaphore busywait!\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: Failed to preempt semaphore busywait!\n",
++				engine->name);
+ 
+ 			intel_engine_dump(engine, &p, "%s\n", engine->name);
+ 			GEM_TRACE_DUMP();
+@@ -1871,7 +1883,7 @@ static int live_late_preempt(void *arg)
+ 
+ 		i915_request_add(rq);
+ 		if (!igt_wait_for_spinner(&spin_lo, rq)) {
+-			pr_err("First context failed to start\n");
++			drm_err(&engine->i915->drm, "First context failed to start\n");
+ 			goto err_wedged;
+ 		}
+ 
+@@ -1885,7 +1897,7 @@ static int live_late_preempt(void *arg)
+ 
+ 		i915_request_add(rq);
+ 		if (igt_wait_for_spinner(&spin_hi, rq)) {
+-			pr_err("Second context overtook first?\n");
++			drm_err(&engine->i915->drm, "Second context overtook first?\n");
+ 			goto err_wedged;
+ 		}
+ 
+@@ -1893,7 +1905,8 @@ static int live_late_preempt(void *arg)
+ 		engine->sched_engine->schedule(rq, &attr);
+ 
+ 		if (!igt_wait_for_spinner(&spin_hi, rq)) {
+-			pr_err("High priority context failed to preempt the low priority context\n");
++			drm_err(&engine->i915->drm,
++				"High priority context failed to preempt the low priority context\n");
+ 			GEM_TRACE_DUMP();
+ 			goto err_wedged;
+ 		}
+@@ -1993,7 +2006,7 @@ static int live_nopreempt(void *arg)
+ 
+ 		i915_request_add(rq_a);
+ 		if (!igt_wait_for_spinner(&a.spin, rq_a)) {
+-			pr_err("First client failed to start\n");
++			drm_err(&engine->i915->drm, "First client failed to start\n");
+ 			goto err_wedged;
+ 		}
+ 
+@@ -2012,22 +2025,23 @@ static int live_nopreempt(void *arg)
+ 
+ 		/* Wait long enough for preemption and timeslicing */
+ 		if (igt_wait_for_spinner(&b.spin, rq_b)) {
+-			pr_err("Second client started too early!\n");
++			drm_err(&engine->i915->drm, "Second client started too early!\n");
+ 			goto err_wedged;
+ 		}
+ 
+ 		igt_spinner_end(&a.spin);
+ 
+ 		if (!igt_wait_for_spinner(&b.spin, rq_b)) {
+-			pr_err("Second client failed to start\n");
++			drm_err(&engine->i915->drm, "Second client failed to start\n");
+ 			goto err_wedged;
+ 		}
+ 
+ 		igt_spinner_end(&b.spin);
+ 
+ 		if (engine->execlists.preempt_hang.count) {
+-			pr_err("Preemption recorded x%d; should have been suppressed!\n",
+-			       engine->execlists.preempt_hang.count);
++			drm_err(&engine->i915->drm,
++				"Preemption recorded x%d; should have been suppressed!\n",
++				engine->execlists.preempt_hang.count);
+ 			err = -EINVAL;
+ 			goto err_wedged;
+ 		}
+@@ -2089,7 +2103,8 @@ static int __cancel_active0(struct live_preempt_cancel *arg)
+ 
+ 	err = wait_for_reset(arg->engine, rq, HZ / 2);
+ 	if (err) {
+-		pr_err("Cancelled inflight0 request did not reset\n");
++		drm_err(&arg->engine->i915->drm,
++			"Cancelled inflight0 request did not reset\n");
+ 		goto out;
+ 	}
+ 
+@@ -2152,13 +2167,15 @@ static int __cancel_active1(struct live_preempt_cancel *arg)
+ 		goto out;
+ 
+ 	if (rq[0]->fence.error != 0) {
+-		pr_err("Normal inflight0 request did not complete\n");
++		drm_err(&arg->engine->i915->drm,
++			"Normal inflight0 request did not complete\n");
+ 		err = -EINVAL;
+ 		goto out;
+ 	}
+ 
+ 	if (rq[1]->fence.error != -EIO) {
+-		pr_err("Cancelled inflight1 request did not report -EIO\n");
++		drm_err(&arg->engine->i915->drm,
++			"Cancelled inflight1 request did not report -EIO\n");
+ 		err = -EINVAL;
+ 		goto out;
+ 	}
+@@ -2234,7 +2251,8 @@ static int __cancel_queued(struct live_preempt_cancel *arg)
+ 		goto out;
+ 
+ 	if (rq[0]->fence.error != -EIO) {
+-		pr_err("Cancelled inflight0 request did not report -EIO\n");
++		drm_err(&arg->engine->i915->drm,
++			"Cancelled inflight0 request did not report -EIO\n");
+ 		err = -EINVAL;
+ 		goto out;
+ 	}
+@@ -2246,13 +2264,15 @@ static int __cancel_queued(struct live_preempt_cancel *arg)
+ 	 */
+ 	if (intel_engine_has_semaphores(rq[1]->engine) &&
+ 	    rq[1]->fence.error != 0) {
+-		pr_err("Normal inflight1 request did not complete\n");
++		drm_err(&arg->engine->i915->drm,
++			"Normal inflight1 request did not complete\n");
+ 		err = -EINVAL;
+ 		goto out;
+ 	}
+ 
+ 	if (rq[2]->fence.error != -EIO) {
+-		pr_err("Cancelled queued request did not report -EIO\n");
++		drm_err(&arg->engine->i915->drm,
++			"Cancelled queued request did not report -EIO\n");
+ 		err = -EINVAL;
+ 		goto out;
+ 	}
+@@ -2300,7 +2320,8 @@ static int __cancel_hostile(struct live_preempt_cancel *arg)
+ 
+ 	err = wait_for_reset(arg->engine, rq, HZ / 2);
+ 	if (err) {
+-		pr_err("Cancelled inflight0 request did not reset\n");
++		drm_err(&arg->engine->i915->drm,
++			"Cancelled inflight0 request did not reset\n");
+ 		goto out;
+ 	}
+ 
+@@ -2371,7 +2392,8 @@ static int __cancel_fail(struct live_preempt_cancel *arg)
+ 	intel_engine_set_heartbeat(engine,
+ 				   engine->defaults.heartbeat_interval_ms);
+ 	if (err) {
+-		pr_err("Cancelled inflight0 request did not reset\n");
++		drm_err(&engine->i915->drm,
++			"Cancelled inflight0 request did not reset\n");
+ 		goto out;
+ 	}
+ 
+@@ -2490,7 +2512,7 @@ static int live_suppress_self_preempt(void *arg)
+ 
+ 		i915_request_add(rq_a);
+ 		if (!igt_wait_for_spinner(&a.spin, rq_a)) {
+-			pr_err("First client failed to start\n");
++			drm_err(&engine->i915->drm, "First client failed to start\n");
+ 			st_engine_heartbeat_enable(engine);
+ 			goto err_wedged;
+ 		}
+@@ -2513,7 +2535,8 @@ static int live_suppress_self_preempt(void *arg)
+ 			igt_spinner_end(&a.spin);
+ 
+ 			if (!igt_wait_for_spinner(&b.spin, rq_b)) {
+-				pr_err("Second client failed to start\n");
++				drm_err(&engine->i915->drm,
++					"Second client failed to start\n");
+ 				st_engine_heartbeat_enable(engine);
+ 				goto err_wedged;
+ 			}
+@@ -2524,10 +2547,11 @@ static int live_suppress_self_preempt(void *arg)
+ 		igt_spinner_end(&a.spin);
+ 
+ 		if (engine->execlists.preempt_hang.count) {
+-			pr_err("Preemption on %s recorded x%d, depth %d; should have been suppressed!\n",
+-			       engine->name,
+-			       engine->execlists.preempt_hang.count,
+-			       depth);
++			drm_err(&engine->i915->drm,
++				"Preemption on %s recorded x%d, depth %d; should have been suppressed!\n",
++				engine->name,
++				engine->execlists.preempt_hang.count,
++				depth);
+ 			st_engine_heartbeat_enable(engine);
+ 			err = -EINVAL;
+ 			goto err_client_b;
+@@ -2595,12 +2619,15 @@ static int live_chain_preempt(void *arg)
+ 		if (ring_size < 0)
+ 			ring_size += rq->ring->size;
+ 		ring_size = rq->ring->size / ring_size;
+-		pr_debug("%s(%s): Using maximum of %d requests\n",
+-			 __func__, engine->name, ring_size);
++		drm_dbg(&engine->i915->drm,
++				"%s(%s): Using maximum of %d requests\n",
++				__func__, engine->name, ring_size);
+ 
+ 		igt_spinner_end(&lo.spin);
+ 		if (i915_request_wait(rq, 0, HZ / 2) < 0) {
+-			pr_err("Timed out waiting to flush %s\n", engine->name);
++			drm_err(&engine->i915->drm,
++					"Timed out waiting to flush %s\n",
++					engine->name);
+ 			i915_request_put(rq);
+ 			goto err_wedged;
+ 		}
+@@ -2648,8 +2675,9 @@ static int live_chain_preempt(void *arg)
+ 				struct drm_printer p =
+ 					drm_info_printer(gt->i915->drm.dev);
+ 
+-				pr_err("Failed to preempt over chain of %d\n",
+-				       count);
++				drm_err(&engine->i915->drm,
++					"Failed to preempt over chain of %d\n",
++					count);
+ 				intel_engine_dump(engine, &p,
+ 						  "%s\n", engine->name);
+ 				i915_request_put(rq);
+@@ -2669,8 +2697,9 @@ static int live_chain_preempt(void *arg)
+ 				struct drm_printer p =
+ 					drm_info_printer(gt->i915->drm.dev);
+ 
+-				pr_err("Failed to flush low priority chain of %d requests\n",
+-				       count);
++				drm_err(&engine->i915->drm,
++					"Failed to flush low priority chain of %d requests\n",
++					count);
+ 				intel_engine_dump(engine, &p,
+ 						  "%s\n", engine->name);
+ 
+@@ -2867,12 +2896,13 @@ static int __live_preempt_ring(struct intel_engine_cs *engine,
+ 		n++;
+ 	}
+ 	intel_engine_flush_submission(engine);
+-	pr_debug("%s: Filled %d with %d nop tails {size:%x, tail:%x, emit:%x, rq.tail:%x}\n",
+-		 engine->name, queue_sz, n,
+-		 ce[0]->ring->size,
+-		 ce[0]->ring->tail,
+-		 ce[0]->ring->emit,
+-		 rq->tail);
++	drm_dbg(&engine->i915->drm,
++		"%s: Filled %d with %d nop tails {size:%x, tail:%x, emit:%x, rq.tail:%x}\n",
++		engine->name, queue_sz, n,
++		ce[0]->ring->size,
++		ce[0]->ring->tail,
++		ce[0]->ring->emit,
++		rq->tail);
+ 	i915_request_put(rq);
+ 
+ 	/* Create a second request to preempt the first ring */
+@@ -2889,15 +2919,16 @@ static int __live_preempt_ring(struct intel_engine_cs *engine,
+ 	err = wait_for_submit(engine, rq, HZ / 2);
+ 	i915_request_put(rq);
+ 	if (err) {
+-		pr_err("%s: preemption request was not submitted\n",
+-		       engine->name);
++		drm_err(&engine->i915->drm,
++			"%s: preemption request was not submitted\n", engine->name);
+ 		err = -ETIME;
+ 	}
+ 
+-	pr_debug("%s: ring[0]:{ tail:%x, emit:%x }, ring[1]:{ tail:%x, emit:%x }\n",
+-		 engine->name,
+-		 ce[0]->ring->tail, ce[0]->ring->emit,
+-		 ce[1]->ring->tail, ce[1]->ring->emit);
++	drm_dbg(&engine->i915->drm,
++		"%s: ring[0]:{ tail:%x, emit:%x }, ring[1]:{ tail:%x, emit:%x }\n",
++		engine->name,
++		ce[0]->ring->tail, ce[0]->ring->emit,
++		ce[1]->ring->tail, ce[1]->ring->emit);
+ 
+ err_ce:
+ 	intel_engine_flush_submission(engine);
+@@ -2999,8 +3030,9 @@ static int live_preempt_gang(void *arg)
+ 			engine->sched_engine->schedule(rq, &attr);
+ 		} while (prio <= I915_PRIORITY_MAX &&
+ 			 !__igt_timeout(end_time, NULL));
+-		pr_debug("%s: Preempt chain of %d requests\n",
+-			 engine->name, prio);
++		drm_dbg(&engine->i915->drm,
++				"%s: Preempt chain of %d requests\n",
++				engine->name, prio);
+ 
+ 		/*
+ 		 * Such that the last spinner is the highest priority and
+@@ -3024,8 +3056,9 @@ static int live_preempt_gang(void *arg)
+ 				struct drm_printer p =
+ 					drm_info_printer(engine->i915->drm.dev);
+ 
+-				pr_err("Failed to flush chain of %d requests, at %d\n",
+-				       prio, rq_prio(rq));
++				drm_err(&engine->i915->drm,
++					"Failed to flush chain of %d requests, at %d\n",
++					prio, rq_prio(rq));
+ 				intel_engine_dump(engine, &p,
+ 						  "%s\n", engine->name);
+ 
+@@ -3319,8 +3352,8 @@ static int live_preempt_user(void *arg)
+ 		}
+ 
+ 		if (READ_ONCE(result[0]) != NUM_GPR) {
+-			pr_err("%s: Failed to release semaphore\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: Failed to release semaphore\n", engine->name);
+ 			err = -EIO;
+ 			goto end_test;
+ 		}
+@@ -3335,9 +3368,9 @@ static int live_preempt_user(void *arg)
+ 
+ 			for (gpr = 1; gpr < NUM_GPR; gpr++) {
+ 				if (result[NUM_GPR * i + gpr] != 1) {
+-					pr_err("%s: Invalid result, client %d, gpr %d, result: %d\n",
+-					       engine->name,
+-					       i, gpr, result[NUM_GPR * i + gpr]);
++					drm_err(&engine->i915->drm,
++						"%s: Invalid result, client %d, gpr %d, result: %d\n",
++						engine->name, i, gpr, result[NUM_GPR * i + gpr]);
+ 					err = -EINVAL;
+ 					goto end_test;
+ 				}
+@@ -3601,7 +3634,8 @@ static int smoke_crescendo(struct preempt_smoke *smoke, unsigned int flags)
+ 		kthread_destroy_worker(worker[id]);
+ 	}
+ 
+-	pr_info("Submitted %lu crescendo:%x requests across %d engines and %d contexts\n",
++	drm_info(&smoke->gt->i915->drm,
++		 "Submitted %lu crescendo:%x requests across %d engines and %d contexts\n",
+ 		count, flags, smoke->gt->info.num_engines, smoke->ncontext);
+ 
+ 	kfree(arg);
+@@ -3630,7 +3664,8 @@ static int smoke_random(struct preempt_smoke *smoke, unsigned int flags)
+ 		}
+ 	} while (count < smoke->ncontext && !__igt_timeout(end_time, NULL));
+ 
+-	pr_info("Submitted %lu random:%x requests across %d engines and %d contexts\n",
++	drm_info(&smoke->gt->i915->drm,
++		 "Submitted %lu random:%x requests across %d engines and %d contexts\n",
+ 		count, flags, smoke->gt->info.num_engines, smoke->ncontext);
+ 	return 0;
+ }
+@@ -3787,10 +3822,11 @@ static int nop_virtual_engine(struct intel_gt *gt,
+ 
+ 		for (nc = 0; nc < nctx; nc++) {
+ 			if (i915_request_wait(request[nc], 0, HZ / 10) < 0) {
+-				pr_err("%s(%s): wait for %llx:%lld timed out\n",
+-				       __func__, ve[0]->engine->name,
+-				       request[nc]->fence.context,
+-				       request[nc]->fence.seqno);
++				drm_err(&gt->i915->drm,
++					"%s(%s): wait for %llx:%lld timed out\n",
++					__func__, ve[0]->engine->name,
++					request[nc]->fence.context,
++					request[nc]->fence.seqno);
+ 
+ 				GEM_TRACE("%s(%s) failed at request %llx:%lld\n",
+ 					  __func__, ve[0]->engine->name,
+@@ -3819,7 +3855,7 @@ static int nop_virtual_engine(struct intel_gt *gt,
+ 	if (err)
+ 		goto out;
+ 
+-	pr_info("Requestx%d latencies on %s: 1 = %lluns, %lu = %lluns\n",
++	drm_info(&gt->i915->drm, "Requestx%d latencies on %s: 1 = %lluns, %lu = %lluns\n",
+ 		nctx, ve[0]->engine->name, ktime_to_ns(times[0]),
+ 		prime, div64_u64(ktime_to_ns(times[1]), prime));
+ 
+@@ -3880,8 +3916,9 @@ static int live_virtual_engine(void *arg)
+ 	for_each_engine(engine, gt, id) {
+ 		err = nop_virtual_engine(gt, &engine, 1, 1, 0);
+ 		if (err) {
+-			pr_err("Failed to wrap engine %s: err=%d\n",
+-			       engine->name, err);
++			drm_err(&engine->i915->drm,
++				"Failed to wrap engine %s: err=%d\n",
++				engine->name, err);
+ 			return err;
+ 		}
+ 	}
+@@ -3954,10 +3991,11 @@ static int mask_virtual_engine(struct intel_gt *gt,
+ 
+ 	for (n = 0; n < nsibling; n++) {
+ 		if (i915_request_wait(request[n], 0, HZ / 10) < 0) {
+-			pr_err("%s(%s): wait for %llx:%lld timed out\n",
+-			       __func__, ve->engine->name,
+-			       request[n]->fence.context,
+-			       request[n]->fence.seqno);
++			drm_err(&gt->i915->drm,
++				"%s(%s): wait for %llx:%lld timed out\n",
++				__func__, ve->engine->name,
++				request[n]->fence.context,
++				request[n]->fence.seqno);
+ 
+ 			GEM_TRACE("%s(%s) failed at request %llx:%lld\n",
+ 				  __func__, ve->engine->name,
+@@ -3970,9 +4008,10 @@ static int mask_virtual_engine(struct intel_gt *gt,
+ 		}
+ 
+ 		if (request[n]->engine != siblings[nsibling - n - 1]) {
+-			pr_err("Executed on wrong sibling '%s', expected '%s'\n",
+-			       request[n]->engine->name,
+-			       siblings[nsibling - n - 1]->name);
++			drm_err(&gt->i915->drm,
++				"Executed on wrong sibling '%s', expected '%s'\n",
++				request[n]->engine->name,
++				siblings[nsibling - n - 1]->name);
+ 			err = -EINVAL;
+ 			goto out;
+ 		}
+@@ -4272,8 +4311,9 @@ static int preserved_virtual_engine(struct intel_gt *gt,
+ 
+ 	for (n = 0; n < NUM_GPR_DW; n++) {
+ 		if (cs[n] != n) {
+-			pr_err("Incorrect value[%d] found for GPR[%d]\n",
+-			       cs[n], n);
++			drm_err(&gt->i915->drm,
++				"Incorrect value[%d] found for GPR[%d]\n",
++				cs[n], n);
+ 			err = -EINVAL;
+ 			break;
+ 		}
+@@ -4400,8 +4440,8 @@ static int reset_virtual_engine(struct intel_gt *gt,
+ 	/* Check that we do not resubmit the held request */
+ 	i915_request_get(rq);
+ 	if (!i915_request_wait(rq, 0, HZ / 5)) {
+-		pr_err("%s: on hold request completed!\n",
+-		       engine->name);
++		drm_err(&engine->i915->drm,
++			"%s: on hold request completed!\n", engine->name);
+ 		intel_gt_set_wedged(gt);
+ 		err = -EIO;
+ 		goto out_rq;
+@@ -4411,8 +4451,8 @@ static int reset_virtual_engine(struct intel_gt *gt,
+ 	/* But is resubmitted on release */
+ 	execlists_unhold(engine, rq);
+ 	if (i915_request_wait(rq, 0, HZ / 5) < 0) {
+-		pr_err("%s: held request did not complete!\n",
+-		       engine->name);
++		drm_err(&engine->i915->drm,
++			"%s: held request did not complete!\n", engine->name);
+ 		intel_gt_set_wedged(gt);
+ 		err = -ETIME;
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/selftest_gt_pm.c b/drivers/gpu/drm/i915/gt/selftest_gt_pm.c
+index 07eaf71955c4..64e84b798737 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_gt_pm.c
+@@ -5,6 +5,8 @@
+ 
+ #include <linux/sort.h>
+ 
 +#include <drm/drm_print.h>
 +
- static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
- 				unsigned int num_ranges,
--				bool is_watertight)
-+				bool is_watertight,
-+				struct drm_i915_private *i915)
- {
- 	unsigned int i;
- 	s32 prev;
-@@ -36,22 +41,25 @@ static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
- 	for (i = 0, prev = -1; i < num_ranges; i++, ranges++) {
- 		/* Check that the table is watertight */
- 		if (is_watertight && (prev + 1) != (s32)ranges->start) {
--			pr_err("%s: entry[%d]:(%x, %x) is not watertight to previous (%x)\n",
--			       __func__, i, ranges->start, ranges->end, prev);
-+			drm_err(&i915->drm,
-+				"%s: entry[%d]:(%x, %x) is not watertight to previous (%x)\n",
-+				__func__, i, ranges->start, ranges->end, prev);
- 			return -EINVAL;
+ #include "intel_engine_regs.h"
+ #include "intel_gt_clock_utils.h"
+ 
+@@ -85,7 +87,7 @@ static int live_gt_clocks(void *arg)
+ 	int err = 0;
+ 
+ 	if (!gt->clock_frequency) { /* unknown */
+-		pr_info("CS_TIMESTAMP frequency unknown\n");
++		drm_info(&gt->i915->drm, "CS_TIMESTAMP frequency unknown\n");
+ 		return 0;
+ 	}
+ 
+@@ -109,20 +111,23 @@ static int live_gt_clocks(void *arg)
+ 		time = intel_gt_clock_interval_to_ns(engine->gt, cycles);
+ 		expected = intel_gt_ns_to_clock_interval(engine->gt, dt);
+ 
+-		pr_info("%s: TIMESTAMP %d cycles [%lldns] in %lldns [%d cycles], using CS clock frequency of %uKHz\n",
+-			engine->name, cycles, time, dt, expected,
+-			engine->gt->clock_frequency / 1000);
++		drm_info(&engine->i915->drm,
++			 "%s: TIMESTAMP %d cycles [%lldns] in %lldns [%d cycles], using CS clock frequency of %uKHz\n",
++			 engine->name, cycles, time, dt, expected,
++			 engine->gt->clock_frequency / 1000);
+ 
+ 		if (9 * time < 8 * dt || 8 * time > 9 * dt) {
+-			pr_err("%s: CS ticks did not match walltime!\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: CS ticks did not match walltime!\n",
++				engine->name);
+ 			err = -EINVAL;
+ 			break;
  		}
  
- 		/* Check that the table never goes backwards */
- 		if (prev >= (s32)ranges->start) {
--			pr_err("%s: entry[%d]:(%x, %x) is less than the previous (%x)\n",
--			       __func__, i, ranges->start, ranges->end, prev);
-+			drm_err(&i915->drm,
-+				"%s: entry[%d]:(%x, %x) is less than the previous (%x)\n",
-+				__func__, i, ranges->start, ranges->end, prev);
- 			return -EINVAL;
+ 		if (9 * expected < 8 * cycles || 8 * expected > 9 * cycles) {
+-			pr_err("%s: walltime did not match CS ticks!\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: walltime did not match CS ticks!\n",
++				engine->name);
+ 			err = -EINVAL;
+ 			break;
  		}
+@@ -146,7 +151,8 @@ static int live_gt_resume(void *arg)
+ 		intel_gt_suspend_late(gt);
  
- 		/* Check that the entry is valid */
- 		if (ranges->start >= ranges->end) {
--			pr_err("%s: entry[%d]:(%x, %x) has negative length\n",
--			       __func__, i, ranges->start, ranges->end);
-+			drm_err(&i915->drm,
-+				"%s: entry[%d]:(%x, %x) has negative length\n",
-+				__func__, i, ranges->start, ranges->end);
- 			return -EINVAL;
+ 		if (gt->rc6.enabled) {
+-			pr_err("rc6 still enabled after suspend!\n");
++			drm_err(&gt->i915->drm,
++				"rc6 still enabled after suspend!\n");
+ 			intel_gt_set_wedged_on_init(gt);
+ 			err = -EINVAL;
+ 			break;
+@@ -157,7 +163,8 @@ static int live_gt_resume(void *arg)
+ 			break;
+ 
+ 		if (gt->rc6.supported && !gt->rc6.enabled) {
+-			pr_err("rc6 not enabled upon resume!\n");
++			drm_err(&gt->i915->drm,
++				"rc6 not enabled upon resume!\n");
+ 			intel_gt_set_wedged_on_init(gt);
+ 			err = -EINVAL;
+ 			break;
+@@ -165,7 +172,8 @@ static int live_gt_resume(void *arg)
+ 
+ 		err = st_llc_verify(&gt->llc);
+ 		if (err) {
+-			pr_err("llc state not restored upon resume!\n");
++			drm_err(&gt->i915->drm,
++				"llc state not restored upon resume!\n");
+ 			intel_gt_set_wedged_on_init(gt);
+ 			break;
  		}
+diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+index 5b986a7687d9..5165cdc40424 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
++++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+@@ -5,6 +5,8 @@
  
-@@ -61,7 +69,7 @@ static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
+ #include <linux/sort.h>
+ 
++#include <drm/drm_print.h>
++
+ #include "gem/i915_gem_internal.h"
+ #include "gem/i915_gem_lmem.h"
+ 
+@@ -92,7 +94,7 @@ static int copy(struct intel_migrate *migrate,
+ 			continue;
+ 
+ 		if (err != -EDEADLK && err != -EINTR && err != -ERESTARTSYS)
+-			pr_err("%ps failed, size: %u\n", fn, sz);
++			drm_err(&i915->drm, "%ps failed, size: %u\n", fn, sz);
+ 		if (rq) {
+ 			i915_request_wait(rq, 0, HZ);
+ 			i915_request_put(rq);
+@@ -106,7 +108,7 @@ static int copy(struct intel_migrate *migrate,
+ 
+ 	if (rq) {
+ 		if (i915_request_wait(rq, 0, HZ) < 0) {
+-			pr_err("%ps timed out, size: %u\n", fn, sz);
++			drm_err(&i915->drm, "%ps timed out, size: %u\n", fn, sz);
+ 			err = -ETIME;
+ 		}
+ 		i915_request_put(rq);
+@@ -116,8 +118,8 @@ static int copy(struct intel_migrate *migrate,
+ 		int x = i * 1024 + i915_prandom_u32_max_state(1024, prng);
+ 
+ 		if (vaddr[x] != x) {
+-			pr_err("%ps failed, size: %u, offset: %zu\n",
+-			       fn, sz, x * sizeof(u32));
++			drm_err(&i915->drm, "%ps failed, size: %u, offset: %zu\n",
++				fn, sz, x * sizeof(u32));
+ 			igt_hexdump(vaddr + i * 1024, 4096);
+ 			err = -EINVAL;
+ 		}
+@@ -304,8 +306,8 @@ static int clear(struct intel_migrate *migrate,
+ 						     true, &rq);
+ 			if (rq && !err) {
+ 				if (i915_request_wait(rq, 0, HZ) < 0) {
+-					pr_err("%ps timed out, size: %u\n",
+-					       fn, sz);
++					drm_err(&i915->drm,
++						"%ps timed out, size: %u\n", fn, sz);
+ 					err = -ETIME;
+ 				}
+ 				i915_request_put(rq);
+@@ -318,7 +320,7 @@ static int clear(struct intel_migrate *migrate,
+ 		err = fn(migrate, &ww, obj, val, &rq);
+ 		if (rq && !err) {
+ 			if (i915_request_wait(rq, 0, HZ) < 0) {
+-				pr_err("%ps timed out, size: %u\n", fn, sz);
++				drm_err(&i915->drm, "%ps timed out, size: %u\n", fn, sz);
+ 				err = -ETIME;
+ 			}
+ 			i915_request_put(rq);
+@@ -335,8 +337,9 @@ static int clear(struct intel_migrate *migrate,
+ 				i915_prandom_u32_max_state(1024, prng);
+ 
+ 			if (vaddr[x] != val) {
+-				pr_err("%ps failed, (%u != %u), offset: %zu\n",
+-				       fn, vaddr[x], val, x * sizeof(u32));
++				drm_err(&i915->drm,
++					"%ps failed, (%u != %u), offset: %zu\n",
++					fn, vaddr[x], val, x * sizeof(u32));
+ 				igt_hexdump(vaddr + i * 1024, 4096);
+ 				err = -EINVAL;
+ 			}
+@@ -355,8 +358,8 @@ static int clear(struct intel_migrate *migrate,
+ 						     false, &rq);
+ 			if (rq && !err) {
+ 				if (i915_request_wait(rq, 0, HZ) < 0) {
+-					pr_err("%ps timed out, size: %u\n",
+-					       fn, sz);
++					drm_err(&i915->drm,
++						"%ps timed out, size: %u\n", fn, sz);
+ 					err = -ETIME;
+ 				}
+ 				i915_request_put(rq);
+@@ -377,8 +380,11 @@ static int clear(struct intel_migrate *migrate,
+ 									 ccs_bytes_left), prng);
+ 
+ 				if (vaddr[offset + x]) {
+-					pr_err("%ps ccs clearing failed, offset: %ld/%d\n",
+-					       fn, i * PAGE_SIZE + x * sizeof(u32), ccs_bytes);
++					drm_err(&i915->drm,
++						"%ps ccs clearing failed, offset: %ld/%d\n",
++						fn,
++						i * PAGE_SIZE + x * sizeof(u32),
++						ccs_bytes);
+ 					igt_hexdump(vaddr + offset,
+ 						    min_t(int, 4096,
+ 							  ccs_bytes_left * sizeof(u32)));
+@@ -394,7 +400,7 @@ static int clear(struct intel_migrate *migrate,
+ 
+ 	if (err) {
+ 		if (err != -EDEADLK && err != -EINTR && err != -ERESTARTSYS)
+-			pr_err("%ps failed, size: %u\n", fn, sz);
++			drm_err(&i915->drm, "%ps failed, size: %u\n", fn, sz);
+ 		if (rq && err != -EINVAL) {
+ 			i915_request_wait(rq, 0, HZ);
+ 			i915_request_put(rq);
+@@ -540,7 +546,7 @@ static void spinner_kill(struct timer_list *timer)
+ 	struct spinner_timer *st = timer_container_of(st, timer, timer);
+ 
+ 	igt_spinner_end(&st->spin);
+-	pr_info("%s\n", __func__);
++	drm_info(st->spin.hws->base.dev, "killing spinner\n");
+ }
+ 
+ static int live_emit_pte_full_ring(void *arg)
+@@ -633,7 +639,8 @@ static int live_emit_pte_full_ring(void *arg)
+ 		cs += sz;
+ 		intel_ring_advance(rq, cs);
+ 
+-		pr_info("%s emit=%u sz=%d\n", __func__, rq->ring->emit, sz);
++		drm_info(&i915->drm, "%s emit=%u sz=%d\n",
++			 __func__, rq->ring->emit, sz);
+ 
+ 		prev = rq;
+ 	} while (rq->ring->space > (rq->reserved_space +
+@@ -646,7 +653,8 @@ static int live_emit_pte_full_ring(void *arg)
+ 	 * This should wait for the spinner to be killed, otherwise we should go
+ 	 * down in flames when doing i915_request_add().
+ 	 */
+-	pr_info("%s emite_pte ring space=%u\n", __func__, rq->ring->space);
++	drm_info(&i915->drm, "%s emite_pte ring space=%u\n",
++		 __func__, rq->ring->space);
+ 	it = sg_sgt(obj->mm.pages->sgl);
+ 	len = emit_pte(rq, &it, obj->pat_index, false, 0, CHUNK_SZ);
+ 	if (!len) {
+@@ -880,11 +888,11 @@ static int __perf_clear_blt(struct intel_context *ce,
+ 		return err;
+ 
+ 	sort(t, ARRAY_SIZE(t), sizeof(*t), wrap_ktime_compare, NULL);
+-	pr_info("%s: %zd KiB fill: %lld MiB/s\n",
+-		ce->engine->name, sz >> 10,
+-		div64_u64(mul_u32_u32(4 * sz,
+-				      1000 * 1000 * 1000),
+-			  t[1] + 2 * t[2] + t[3]) >> 20);
++	drm_info(&ce->engine->i915->drm, "%s: %zd KiB fill: %lld MiB/s\n",
++		 ce->engine->name, sz >> 10,
++		 div64_u64(mul_u32_u32(4 * sz,
++			       1000 * 1000 * 1000),
++			   t[1] + 2 * t[2] + t[3]) >> 20);
  	return 0;
  }
  
--static int intel_shadow_table_check(void)
-+static int intel_shadow_table_check(struct drm_i915_private *i915)
- {
- 	struct {
- 		const struct i915_mmio_range *regs;
-@@ -82,20 +90,23 @@ static int intel_shadow_table_check(void)
- 		range = range_lists[j].regs;
- 		for (i = 0, prev = -1; i < range_lists[j].size; i++, range++) {
- 			if (range->end < range->start) {
--				pr_err("%s: range[%d]:(%06x-%06x) has end before start\n",
--				       __func__, i, range->start, range->end);
-+				drm_err(&i915->drm,
-+					"%s: range[%d]:(%06x-%06x) has end before start\n",
-+					__func__, i, range->start, range->end);
- 				return -EINVAL;
- 			}
+@@ -963,11 +971,11 @@ static int __perf_copy_blt(struct intel_context *ce,
+ 		return err;
  
- 			if (prev >= (s32)range->start) {
--				pr_err("%s: range[%d]:(%06x-%06x) is before end of previous (%06x)\n",
--				       __func__, i, range->start, range->end, prev);
-+				drm_err(&i915->drm,
-+					"%s: range[%d]:(%06x-%06x) is before end of previous (%06x)\n",
-+					__func__, i, range->start, range->end, prev);
- 				return -EINVAL;
- 			}
+ 	sort(t, ARRAY_SIZE(t), sizeof(*t), wrap_ktime_compare, NULL);
+-	pr_info("%s: %zd KiB copy: %lld MiB/s\n",
+-		ce->engine->name, sz >> 10,
+-		div64_u64(mul_u32_u32(4 * sz,
+-				      1000 * 1000 * 1000),
+-			  t[1] + 2 * t[2] + t[3]) >> 20);
++	drm_info(&ce->engine->i915->drm, "%s: %zd KiB copy: %lld MiB/s\n",
++		 ce->engine->name, sz >> 10,
++		 div64_u64(mul_u32_u32(4 * sz,
++			       1000 * 1000 * 1000),
++			   t[1] + 2 * t[2] + t[3]) >> 20);
+ 	return 0;
+ }
  
- 			if (range->start % 4) {
--				pr_err("%s: range[%d]:(%06x-%06x) has non-dword-aligned start\n",
--				       __func__, i, range->start, range->end);
-+				drm_err(&i915->drm,
-+					"%s: range[%d]:(%06x-%06x) has non-dword-aligned start\n",
-+					__func__, i, range->start, range->end);
- 				return -EINVAL;
- 			}
+diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+index d73e438fb85f..770516c6c7da 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+@@ -13,6 +13,8 @@
+ #include "selftests/igt_spinner.h"
+ #include "selftests/intel_scheduler_helpers.h"
  
-@@ -108,6 +119,7 @@ static int intel_shadow_table_check(void)
- 
- int intel_uncore_mock_selftests(void)
- {
-+	struct drm_i915_private *i915;
- 	struct {
- 		const struct intel_forcewake_range *ranges;
- 		unsigned int num_ranges;
-@@ -123,15 +135,27 @@ int intel_uncore_mock_selftests(void)
- 	};
- 	int err, i;
- 
-+	i915 = mock_gem_device();
-+	if (IS_ERR(i915))
-+		return PTR_ERR(i915);
++#include <drm/drm_print.h>
 +
- 	for (i = 0; i < ARRAY_SIZE(fw); i++) {
- 		err = intel_fw_table_check(fw[i].ranges,
- 					   fw[i].num_ranges,
--					   fw[i].is_watertight);
-+					   fw[i].is_watertight,
-+					   i915);
- 		if (err)
--			return err;
-+			goto out;
+ struct live_mocs {
+ 	struct drm_i915_mocs_table table;
+ 	struct drm_i915_mocs_table *mocs;
+@@ -169,8 +171,9 @@ static int check_mocs_table(struct intel_engine_cs *engine,
+ 
+ 	for_each_mocs(expect, table, i) {
+ 		if (**vaddr != expect) {
+-			pr_err("%s: Invalid MOCS[%d] entry, found %08x, expected %08x\n",
+-			       engine->name, i, **vaddr, expect);
++			drm_err(&engine->i915->drm,
++				"%s: Invalid MOCS[%d] entry, found %08x, expected %08x\n",
++				engine->name, i, **vaddr, expect);
+ 			return -EINVAL;
+ 		}
+ 		++*vaddr;
+@@ -203,8 +206,9 @@ static int check_l3cc_table(struct intel_engine_cs *engine,
+ 
+ 	for_each_l3cc(expect, table, i) {
+ 		if (!mcr_range(engine->i915, reg) && **vaddr != expect) {
+-			pr_err("%s: Invalid L3CC[%d] entry, found %08x, expected %08x\n",
+-			       engine->name, i, **vaddr, expect);
++			drm_err(&engine->i915->drm,
++				"%s: Invalid L3CC[%d] entry, found %08x, expected %08x\n",
++				engine->name, i, **vaddr, expect);
+ 			return -EINVAL;
+ 		}
+ 		++*vaddr;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
+index 2cfc23c58e90..4744f08692c5 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_reset.c
++++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
+@@ -14,6 +14,8 @@
+ #include "selftests/igt_atomic.h"
+ #include "selftests/igt_spinner.h"
+ 
++#include <drm/drm_print.h>
++
+ static int
+ __igt_reset_stolen(struct intel_gt *gt,
+ 		   intel_engine_mask_t mask,
+@@ -147,8 +149,9 @@ __igt_reset_stolen(struct intel_gt *gt,
+ 		    !__drm_mm_interval_first(&gt->i915->mm.stolen,
+ 					     page << PAGE_SHIFT,
+ 					     ((page + 1) << PAGE_SHIFT) - 1)) {
+-			pr_debug("unused stolen page %pa modified by GPU reset\n",
+-				 &page);
++			drm_dbg(&gt->i915->drm,
++				"unused stolen page %pa modified by GPU reset\n",
++				&page);
+ 			if (count++ == 0)
+ 				igt_hexdump(in, PAGE_SIZE);
+ 			max = page;
+@@ -160,12 +163,14 @@ __igt_reset_stolen(struct intel_gt *gt,
+ 	ggtt->vm.clear_range(&ggtt->vm, ggtt->error_capture.start, PAGE_SIZE);
+ 
+ 	if (count > 0) {
+-		pr_info("%s reset clobbered %ld pages of stolen, last clobber at page %ld\n",
+-			msg, count, max);
++		drm_info(&gt->i915->drm,
++			 "%s reset clobbered %ld pages of stolen, last clobber at page %ld\n",
++			 msg, count, max);
+ 	}
+ 	if (max >= I915_GEM_STOLEN_BIAS >> PAGE_SHIFT) {
+-		pr_err("%s reset clobbered unreserved area [above %x] of stolen; may cause severe faults\n",
+-		       msg, I915_GEM_STOLEN_BIAS);
++		drm_err(&gt->i915->drm,
++			"%s reset clobbered unreserved area [above %x] of stolen; may cause severe faults\n",
++			msg, I915_GEM_STOLEN_BIAS);
+ 		err = -EINVAL;
  	}
  
--	err = intel_shadow_table_check();
-+	err = intel_shadow_table_check(i915);
-+	if (err)
-+		goto out;
+@@ -223,7 +228,7 @@ static int igt_global_reset(void *arg)
+ 	intel_gt_reset(gt, ALL_ENGINES, NULL);
+ 
+ 	if (i915_reset_count(&gt->i915->gpu_error) == reset_count) {
+-		pr_err("No GPU reset recorded!\n");
++		drm_err(&gt->i915->drm, "No GPU reset recorded!\n");
+ 		err = -EINVAL;
+ 	}
+ 
+@@ -287,7 +292,8 @@ static int igt_atomic_reset(void *arg)
+ 		reset_finish(gt, awake);
+ 
+ 		if (err) {
+-			pr_err("__intel_gt_reset failed under %s\n", p->name);
++			drm_err(&gt->i915->drm,
++				"__intel_gt_reset failed under %s\n", p->name);
+ 			break;
+ 		}
+ 	}
+@@ -347,8 +353,9 @@ static int igt_atomic_engine_reset(void *arg)
+ 				local_bh_enable();
+ 
+ 			if (err) {
+-				pr_err("intel_engine_reset(%s) failed under %s\n",
+-				       engine->name, p->name);
++				drm_err(&engine->i915->drm,
++					"intel_engine_reset(%s) failed under %s\n",
++					engine->name, p->name);
+ 				break;
+ 			}
+ 		}
+diff --git a/drivers/gpu/drm/i915/gt/selftest_slpc.c b/drivers/gpu/drm/i915/gt/selftest_slpc.c
+index c3c918248989..4dd9573acf88 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_slpc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_slpc.c
+@@ -3,6 +3,10 @@
+  * Copyright © 2021 Intel Corporation
+  */
+ 
++#include <drm/drm_print.h>
 +
-+	err = 0;
++#include "uc/intel_guc.h"
 +
-+out:
-+	mock_destroy_device(i915);
+ #define NUM_STEPS 5
+ #define H2G_DELAY 50000
+ #define delay_for_h2g() usleep_range(H2G_DELAY, H2G_DELAY + 10000)
+@@ -23,13 +27,21 @@ struct slpc_thread {
+ 	int result;
+ };
+ 
++static struct intel_gt *selftest_slpc_to_gt(struct intel_guc_slpc *slpc)
++{
++	struct intel_guc *guc = container_of(slpc, struct intel_guc, slpc);
++
++	return guc_to_gt(guc);
++}
++
+ static int slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+ {
++	struct intel_gt *gt = selftest_slpc_to_gt(slpc);
+ 	int ret;
+ 
+ 	ret = intel_guc_slpc_set_min_freq(slpc, freq);
+ 	if (ret)
+-		pr_err("Could not set min frequency to [%u]\n", freq);
++		drm_err(&gt->i915->drm, "Could not set min frequency to [%u]\n", freq);
+ 	else /* Delay to ensure h2g completes */
+ 		delay_for_h2g();
+ 
+@@ -38,12 +50,12 @@ static int slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+ 
+ static int slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 freq)
+ {
++	struct intel_gt *gt = selftest_slpc_to_gt(slpc);
+ 	int ret;
+ 
+ 	ret = intel_guc_slpc_set_max_freq(slpc, freq);
+ 	if (ret)
+-		pr_err("Could not set maximum frequency [%u]\n",
+-		       freq);
++		drm_err(&gt->i915->drm, "Could not set maximum frequency [%u]\n", freq);
+ 	else /* Delay to ensure h2g completes */
+ 		delay_for_h2g();
+ 
+@@ -57,13 +69,13 @@ static int slpc_set_freq(struct intel_gt *gt, u32 freq)
+ 
+ 	err = slpc_set_max_freq(slpc, freq);
+ 	if (err) {
+-		pr_err("Unable to update max freq");
++		drm_err(&gt->i915->drm, "Unable to update max freq");
+ 		return err;
+ 	}
+ 
+ 	err = slpc_set_min_freq(slpc, freq);
+ 	if (err) {
+-		pr_err("Unable to update min freq");
++		drm_err(&gt->i915->drm, "Unable to update min freq");
+ 		return err;
+ 	}
+ 
+@@ -72,23 +84,24 @@ static int slpc_set_freq(struct intel_gt *gt, u32 freq)
+ 
+ static int slpc_restore_freq(struct intel_guc_slpc *slpc, u32 min, u32 max)
+ {
++	struct intel_gt *gt = selftest_slpc_to_gt(slpc);
+ 	int err;
+ 
+ 	err = slpc_set_max_freq(slpc, max);
+ 	if (err) {
+-		pr_err("Unable to restore max freq");
++		drm_err(&gt->i915->drm, "Unable to restore max freq");
+ 		return err;
+ 	}
+ 
+ 	err = slpc_set_min_freq(slpc, min);
+ 	if (err) {
+-		pr_err("Unable to restore min freq");
++		drm_err(&gt->i915->drm, "Unable to restore min freq");
+ 		return err;
+ 	}
+ 
+ 	err = intel_guc_slpc_set_ignore_eff_freq(slpc, false);
+ 	if (err) {
+-		pr_err("Unable to restore efficient freq");
++		drm_err(&gt->i915->drm, "Unable to restore efficient freq");
+ 		return err;
+ 	}
+ 
+@@ -143,8 +156,8 @@ static int vary_max_freq(struct intel_guc_slpc *slpc, struct intel_rps *rps,
+ 
+ 		/* GuC requests freq in multiples of 50/3 MHz */
+ 		if (req_freq > (max_freq + FREQUENCY_REQ_UNIT)) {
+-			pr_err("SWReq is %d, should be at most %d\n", req_freq,
+-			       max_freq + FREQUENCY_REQ_UNIT);
++			drm_err(&rps_to_i915(rps)->drm, "SWReq is %d, should be at most %d\n",
++				req_freq, max_freq + FREQUENCY_REQ_UNIT);
+ 			err = -EINVAL;
+ 		}
+ 
+@@ -179,8 +192,8 @@ static int vary_min_freq(struct intel_guc_slpc *slpc, struct intel_rps *rps,
+ 
+ 		/* GuC requests freq in multiples of 50/3 MHz */
+ 		if (req_freq < (min_freq - FREQUENCY_REQ_UNIT)) {
+-			pr_err("SWReq is %d, should be at least %d\n", req_freq,
+-			       min_freq - FREQUENCY_REQ_UNIT);
++			drm_err(&rps_to_i915(rps)->drm, "SWReq is %d, should be at least %d\n",
++				req_freq, min_freq - FREQUENCY_REQ_UNIT);
+ 			err = -EINVAL;
+ 		}
+ 
+@@ -224,19 +237,21 @@ static int slpc_power(struct intel_gt *gt, struct intel_engine_cs *engine)
  	if (err)
  		return err;
  
-@@ -172,7 +196,8 @@ static int live_forcewake_ops(void *arg)
+-	pr_info("%s: min:%llumW @ %uMHz, max:%llumW @ %uMHz\n",
++	drm_info(&engine->i915->drm, "%s: min:%llumW @ %uMHz, max:%llumW @ %uMHz\n",
+ 		engine->name,
+ 		min.power, min.freq,
+ 		max.power, max.freq);
  
- 	/* vlv/chv with their pcu behave differently wrt reads */
- 	if (IS_VALLEYVIEW(gt->i915) || IS_CHERRYVIEW(gt->i915)) {
--		pr_debug("PCU fakes forcewake badly; skipping\n");
-+		drm_dbg(&gt->i915->drm,
-+			"PCU fakes forcewake badly; skipping\n");
- 		return 0;
+ 	if (10 * min.freq >= 9 * max.freq) {
+-		pr_notice("Could not control frequency, ran at [%uMHz, %uMhz]\n",
+-			  min.freq, max.freq);
++		drm_notice(&engine->i915->drm,
++			   "Could not control frequency, ran at [%uMHz, %uMhz]\n",
++			   min.freq, max.freq);
  	}
  
-@@ -192,8 +217,9 @@ static int live_forcewake_ops(void *arg)
- 		if (IS_GRAPHICS_VER(gt->i915, r->min_graphics_ver, r->max_graphics_ver))
- 			break;
- 	if (!r->name) {
--		pr_debug("Forcewaked register not known for %s; skipping\n",
--			 intel_platform_name(INTEL_INFO(gt->i915)->platform));
-+		drm_dbg(&gt->i915->drm,
-+			"Forcewaked register not known for %s; skipping\n",
-+			intel_platform_name(INTEL_INFO(gt->i915)->platform));
- 		return 0;
+ 	if (11 * min.power > 10 * max.power) {
+-		pr_err("%s: did not conserve power when setting lower frequency!\n",
+-		       engine->name);
++		drm_err(&engine->i915->drm,
++			"%s: did not conserve power when setting lower frequency!\n",
++			engine->name);
+ 		err = -EINVAL;
  	}
  
-@@ -225,8 +251,9 @@ static int live_forcewake_ops(void *arg)
- 			if (!domain->wake_count)
- 				continue;
+@@ -265,10 +280,11 @@ static int max_granted_freq(struct intel_guc_slpc *slpc, struct intel_rps *rps,
  
--			pr_err("fw_domain %s still active, aborting test!\n",
--			       intel_uncore_forcewake_domain_to_str(domain->id));
-+			drm_err(&gt->i915->drm,
-+				"fw_domain %s still active, aborting test!\n",
-+				intel_uncore_forcewake_domain_to_str(domain->id));
+ 		/* If not, this is an error */
+ 		if (!(perf_limit_reasons & GT0_PERF_LIMIT_REASONS_MASK)) {
+-			pr_err("Pcode did not grant max freq\n");
++			drm_err(&gt->i915->drm, "Pcode did not grant max freq\n");
  			err = -EINVAL;
- 			goto out_rpm;
+ 		} else {
+-			pr_info("Pcode throttled frequency 0x%x\n", perf_limit_reasons);
++			drm_info(&gt->i915->drm,
++				 "Pcode throttled frequency 0x%x\n", perf_limit_reasons);
  		}
-@@ -245,23 +272,26 @@ static int live_forcewake_ops(void *arg)
- 			err = wait_ack_clear(domain, FORCEWAKE_KERNEL);
- 			preempt_enable();
- 			if (err) {
--				pr_err("Failed to clear fw_domain %s\n",
--				       intel_uncore_forcewake_domain_to_str(domain->id));
-+				drm_err(&gt->i915->drm,
-+					"Failed to clear fw_domain %s\n",
-+					intel_uncore_forcewake_domain_to_str(domain->id));
- 				goto out_rpm;
+ 	}
+ 
+@@ -290,7 +306,7 @@ static int run_test(struct intel_gt *gt, int test_type)
+ 		return 0;
+ 
+ 	if (slpc->min_freq == slpc->rp0_freq) {
+-		pr_err("Min/Max are fused to the same value\n");
++		drm_err(&gt->i915->drm, "Min/Max are fused to the same value\n");
+ 		return -EINVAL;
+ 	}
+ 
+@@ -298,12 +314,12 @@ static int run_test(struct intel_gt *gt, int test_type)
+ 		return -ENOMEM;
+ 
+ 	if (intel_guc_slpc_get_max_freq(slpc, &slpc_max_freq)) {
+-		pr_err("Could not get SLPC max freq\n");
++		drm_err(&gt->i915->drm, "Could not get SLPC max freq\n");
+ 		return -EIO;
+ 	}
+ 
+ 	if (intel_guc_slpc_get_min_freq(slpc, &slpc_min_freq)) {
+-		pr_err("Could not get SLPC min freq\n");
++		drm_err(&gt->i915->drm, "Could not get SLPC min freq\n");
+ 		return -EIO;
+ 	}
+ 
+@@ -313,7 +329,7 @@ static int run_test(struct intel_gt *gt, int test_type)
+ 	 */
+ 	err = slpc_set_min_freq(slpc, slpc->min_freq);
+ 	if (err) {
+-		pr_err("Unable to update min freq!");
++		drm_err(&gt->i915->drm, "Unable to update min freq!");
+ 		return err;
+ 	}
+ 
+@@ -322,7 +338,7 @@ static int run_test(struct intel_gt *gt, int test_type)
+ 	 */
+ 	err = intel_guc_slpc_set_ignore_eff_freq(slpc, true);
+ 	if (err) {
+-		pr_err("Unable to turn off efficient freq!");
++		drm_err(&gt->i915->drm, "Unable to turn off efficient freq!");
+ 		return err;
+ 	}
+ 
+@@ -349,8 +365,8 @@ static int run_test(struct intel_gt *gt, int test_type)
+ 		i915_request_add(rq);
+ 
+ 		if (!igt_wait_for_spinner(&spin, rq)) {
+-			pr_err("%s: Spinner did not start\n",
+-			       engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: Spinner did not start\n", engine->name);
+ 			igt_spinner_end(&spin);
+ 			st_engine_heartbeat_enable(engine);
+ 			intel_gt_set_wedged(engine->gt);
+@@ -387,15 +403,18 @@ static int run_test(struct intel_gt *gt, int test_type)
+ 		}
+ 
+ 		if (test_type != SLPC_POWER) {
+-			pr_info("Max actual frequency for %s was %d\n",
+-				engine->name, max_act_freq);
++			drm_info(&engine->i915->drm,
++				 "%s: Max actual frequency was %d\n",
++				 engine->name, max_act_freq);
+ 
+ 			/* Actual frequency should rise above min */
+ 			if (max_act_freq <= slpc->min_freq) {
+-				pr_err("Actual freq did not rise above min\n");
+-				pr_err("Perf Limit Reasons: 0x%x\n",
+-				       intel_uncore_read(gt->uncore,
+-							 intel_gt_perf_limit_reasons_reg(gt)));
++				drm_err(&engine->i915->drm,
++					"Actual freq did not rise above min\n");
++				drm_err(&engine->i915->drm,
++					"Perf Limit Reasons: 0x%x\n",
++					intel_uncore_read(gt->uncore,
++						intel_gt_perf_limit_reasons_reg(gt)));
+ 				err = -EINVAL;
  			}
  		}
+@@ -525,7 +544,7 @@ static int live_slpc_tile_interaction(void *arg)
+ 		kthread_flush_work(&threads[i].work);
+ 		status = READ_ONCE(threads[i].result);
+ 		if (status && !ret) {
+-			pr_err("%s GT %d failed ", __func__, gt->info.id);
++			drm_err(&gt->i915->drm, "%s GT %d failed ", __func__, gt->info.id);
+ 			ret = status;
+ 		}
+ 		kthread_destroy_worker(threads[i].worker);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+index a5184f09d1de..f3a8b101afb2 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_tlb.c
++++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+@@ -20,6 +20,8 @@
+ #include "selftests/igt_flush_test.h"
+ #include "selftests/i915_random.h"
  
- 		if (!val) {
--			pr_err("%s:%s was zero while fw was held!\n",
--			       engine->name, r->name);
-+			drm_err(&engine->i915->drm,
-+				"%s:%s was zero while fw was held!\n",
-+				engine->name, r->name);
++#include <drm/drm_print.h>
++
+ static void vma_set_qw(struct i915_vma *vma, u64 addr, u64 val)
+ {
+ 	GEM_BUG_ON(addr < i915_vma_offset(vma));
+@@ -68,7 +70,8 @@ pte_tlbinv(struct intel_context *ce,
+ 				 va->size, align);
+ 	err = i915_vma_pin(va,  0, 0, addr | PIN_OFFSET_FIXED | PIN_USER);
+ 	if (err) {
+-		pr_err("Cannot pin at %llx+%llx\n", addr, va->size);
++		drm_err(&ce->engine->i915->drm,
++			"Cannot pin at %llx+%llx\n", addr, va->size);
+ 		goto out;
+ 	}
+ 	GEM_BUG_ON(i915_vma_offset(va) != addr);
+@@ -91,11 +94,12 @@ pte_tlbinv(struct intel_context *ce,
+ 	addr = igt_random_offset(prng, addr, addr + align, 8, 8);
+ 
+ 	if (va != vb)
+-		pr_info("%s(%s): Sampling %llx, with alignment %llx, using PTE size %x (phys %x, sg %x), invalidate:%llx+%llx\n",
+-			ce->engine->name, va->obj->mm.region->name ?: "smem",
+-			addr, align, va->resource->page_sizes_gtt,
+-			va->page_sizes.phys, va->page_sizes.sg,
+-			addr & -length, length);
++		drm_info(&ce->engine->i915->drm,
++			 "%s(%s): Sampling %llx, with alignment %llx, using PTE size %x (phys %x, sg %x), invalidate:%llx+%llx\n",
++			 ce->engine->name, va->obj->mm.region->name ?: "smem",
++			 addr, align, va->resource->page_sizes_gtt,
++			 va->page_sizes.phys, va->page_sizes.sg,
++			 addr & -length, length);
+ 
+ 	cs = i915_gem_object_pin_map_unlocked(batch, I915_MAP_WC);
+ 	*cs++ = MI_NOOP; /* for later termination */
+@@ -147,10 +151,11 @@ pte_tlbinv(struct intel_context *ce,
+ 
+ 	if (va == vb) {
+ 		if (!i915_request_completed(rq)) {
+-			pr_err("%s(%s): Semaphore sanitycheck failed %llx, with alignment %llx, using PTE size %x (phys %x, sg %x)\n",
+-			       ce->engine->name, va->obj->mm.region->name ?: "smem",
+-			       addr, align, va->resource->page_sizes_gtt,
+-			       va->page_sizes.phys, va->page_sizes.sg);
++			drm_err(&ce->engine->i915->drm,
++				"%s(%s): Semaphore sanitycheck failed %llx, with alignment %llx, using PTE size %x (phys %x, sg %x)\n",
++				ce->engine->name, va->obj->mm.region->name ?: "smem",
++				addr, align, va->resource->page_sizes_gtt,
++				va->page_sizes.phys, va->page_sizes.sg);
+ 			err = -EIO;
+ 		}
+ 	} else if (!i915_request_completed(rq)) {
+@@ -171,12 +176,13 @@ pte_tlbinv(struct intel_context *ce,
+ 		tlbinv(ce->vm, addr & -length, length);
+ 
+ 		if (wait_for(i915_request_completed(rq), HZ / 2)) {
+-			pr_err("%s: Request did not complete; the COND_BBE did not read the updated PTE\n",
+-			       ce->engine->name);
++			drm_err(&ce->engine->i915->drm,
++				"%s: Request did not complete; the COND_BBE did not read the updated PTE\n",
++				ce->engine->name);
  			err = -EINVAL;
- 			goto out_rpm;
  		}
+ 	} else {
+-		pr_err("Spinner ended unexpectedly\n");
++		drm_err(&ce->engine->i915->drm, "Spinner ended unexpectedly\n");
+ 		err = -EIO;
+ 	}
+ 	i915_request_put(rq);
+@@ -271,8 +277,9 @@ mem_tlbinv(struct intel_gt *gt,
  
- 		/* We then expect the read to return 0 outside of the fw */
- 		if (wait_for(readl(reg) == 0, 100)) {
--			pr_err("%s:%s=%0x, fw_domains 0x%x still up after 100ms!\n",
--			       engine->name, r->name, readl(reg), fw_domains);
-+			drm_err(&engine->i915->drm,
-+				"%s:%s=%0x, fw_domains 0x%x still up after 100ms!\n",
-+				engine->name, r->name, readl(reg), fw_domains);
- 			err = -ETIMEDOUT;
- 			goto out_rpm;
- 		}
-@@ -279,7 +309,8 @@ static int live_fw_table(void *arg)
- 	/* Confirm the table we load is still valid */
- 	return intel_fw_table_check(gt->uncore->fw_domains_table,
- 				    gt->uncore->fw_domains_table_entries,
--				    GRAPHICS_VER(gt->i915) >= 9);
-+				    GRAPHICS_VER(gt->i915) >= 9,
-+				    gt->i915);
+ 	GEM_BUG_ON(A->base.size != B->base.size);
+ 	if ((A->mm.page_sizes.phys | B->mm.page_sizes.phys) & (A->base.size - 1))
+-		pr_warn("Failed to allocate contiguous pages for size %zx\n",
+-			A->base.size);
++		drm_warn(&gt->i915->drm,
++			 "Failed to allocate contiguous pages for size %zx\n",
++			 A->base.size);
+ 
+ 	ppgtt = i915_ppgtt_create(gt, 0);
+ 	if (IS_ERR(ppgtt)) {
+diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+index 4e4c420ae67f..93f41b583172 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+@@ -16,6 +16,8 @@
+ #include "selftests/intel_scheduler_helpers.h"
+ #include "selftests/mock_drm.h"
+ 
++#include <drm/drm_print.h>
++
+ #include "gem/selftests/igt_gem_utils.h"
+ #include "gem/selftests/mock_context.h"
+ 
+@@ -193,8 +195,9 @@ print_results(const struct intel_engine_cs *engine, const u32 *results)
+ 		u32 expected = get_whitelist_reg(engine, i);
+ 		u32 actual = results[i];
+ 
+-		pr_info("RING_NONPRIV[%d]: expected 0x%08x, found 0x%08x\n",
+-			i, expected, actual);
++		drm_info(&engine->i915->drm,
++			 "RING_NONPRIV[%d]: expected 0x%08x, found 0x%08x\n",
++			 i, expected, actual);
+ 	}
  }
  
- int intel_uncore_live_selftests(struct drm_i915_private *i915)
+@@ -233,8 +236,9 @@ static int check_whitelist(struct intel_context *ce)
+ 
+ 		if (expected != actual) {
+ 			print_results(engine, vaddr);
+-			pr_err("Invalid RING_NONPRIV[%d], expected 0x%08x, found 0x%08x\n",
+-			       i, expected, actual);
++			drm_err(&engine->i915->drm,
++				"Invalid RING_NONPRIV[%d], expected 0x%08x, found 0x%08x\n",
++				i, expected, actual);
+ 
+ 			err = -EINVAL;
+ 			break;
+@@ -304,8 +308,9 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ 	intel_wakeref_t wakeref;
+ 	int err;
+ 
+-	pr_info("Checking %d whitelisted registers on %s (RING_NONPRIV) [%s]\n",
+-		engine->whitelist.count, engine->name, name);
++	drm_info(&engine->i915->drm,
++		 "Checking %d whitelisted registers on %s (RING_NONPRIV) [%s]\n",
++		 engine->whitelist.count, engine->name, name);
+ 
+ 	ce = intel_context_create(engine);
+ 	if (IS_ERR(ce))
+@@ -317,7 +322,8 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ 
+ 	err = check_whitelist(ce);
+ 	if (err) {
+-		pr_err("Invalid whitelist *before* %s reset!\n", name);
++		drm_err(&engine->i915->drm,
++			"Invalid whitelist *before* %s reset!\n", name);
+ 		goto out_spin;
+ 	}
+ 
+@@ -327,7 +333,7 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ 
+ 	/* Ensure the spinner hasn't aborted */
+ 	if (i915_request_completed(rq)) {
+-		pr_err("%s spinner failed to start\n", name);
++		drm_err(&engine->i915->drm, "%s spinner failed to start\n", name);
+ 		err = -ETIMEDOUT;
+ 		goto out_spin;
+ 	}
+@@ -342,14 +348,15 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ 	igt_spinner_end(&spin);
+ 
+ 	if (err) {
+-		pr_err("%s reset failed\n", name);
++		drm_err(&engine->i915->drm, "%s reset failed\n", name);
+ 		goto out_spin;
+ 	}
+ 
+ 	err = check_whitelist(ce);
+ 	if (err) {
+-		pr_err("Whitelist not preserved in context across %s reset!\n",
+-		       name);
++		drm_err(&engine->i915->drm,
++			"Whitelist not preserved in context across %s reset!\n",
++			name);
+ 		goto out_spin;
+ 	}
+ 
+@@ -363,8 +370,9 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ 
+ 	err = check_whitelist(ce);
+ 	if (err) {
+-		pr_err("Invalid whitelist *after* %s reset in fresh context!\n",
+-		       name);
++		drm_err(&engine->i915->drm,
++			"Invalid whitelist *after* %s reset in fresh context!\n",
++			name);
+ 		goto out_spin;
+ 	}
+ 
+@@ -565,8 +573,8 @@ static int check_dirty_whitelist(struct intel_context *ce)
+ 		if (GRAPHICS_VER(engine->i915) >= 8)
+ 			lrm++, srm++;
+ 
+-		pr_debug("%s: Writing garbage to %x\n",
+-			 engine->name, reg);
++		drm_dbg(&engine->i915->drm, "%s: Writing garbage to %x\n",
++			engine->name, reg);
+ 
+ 		/* SRM original */
+ 		*cs++ = srm;
+@@ -646,8 +654,9 @@ static int check_dirty_whitelist(struct intel_context *ce)
+ err_request:
+ 		err = request_add_sync(rq, err);
+ 		if (err) {
+-			pr_err("%s: Futzing %x timedout; cancelling test\n",
+-			       engine->name, reg);
++			drm_err(&engine->i915->drm,
++				"%s: Futzing %x timedout; cancelling test\n",
++				engine->name, reg);
+ 			intel_gt_set_wedged(engine->gt);
+ 			goto out_unmap_scratch;
+ 		}
+@@ -657,8 +666,9 @@ static int check_dirty_whitelist(struct intel_context *ce)
+ 			/* detect write masking */
+ 			rsvd = results[ARRAY_SIZE(values)];
+ 			if (!rsvd) {
+-				pr_err("%s: Unable to write to whitelisted register %x\n",
+-				       engine->name, reg);
++				drm_err(&engine->i915->drm,
++					"%s: Unable to write to whitelisted register %x\n",
++					engine->name, reg);
+ 				err = -EINVAL;
+ 				goto out_unmap_scratch;
+ 			}
+@@ -689,15 +699,18 @@ static int check_dirty_whitelist(struct intel_context *ce)
+ 			idx++;
+ 		}
+ 		if (err) {
+-			pr_err("%s: %d mismatch between values written to whitelisted register [%x], and values read back!\n",
+-			       engine->name, err, reg);
++			drm_err(&engine->i915->drm,
++				"%s: %d mismatch between values written to whitelisted register [%x], and values read back!\n",
++				engine->name, err, reg);
+ 
+ 			if (ro_reg)
+-				pr_info("%s: Whitelisted read-only register: %x, original value %08x\n",
+-					engine->name, reg, results[0]);
++				drm_info(&engine->i915->drm,
++					 "%s: Whitelisted read-only register: %x, original value %08x\n",
++					 engine->name, reg, results[0]);
+ 			else
+-				pr_info("%s: Whitelisted register: %x, original value %08x, rsvd %08x\n",
+-					engine->name, reg, results[0], rsvd);
++				drm_info(&engine->i915->drm,
++					 "%s: Whitelisted register: %x, original value %08x, rsvd %08x\n",
++					 engine->name, reg, results[0], rsvd);
+ 
+ 			expect = results[0];
+ 			idx = 1;
+@@ -708,8 +721,9 @@ static int check_dirty_whitelist(struct intel_context *ce)
+ 					expect = results[0];
+ 				else
+ 					expect = reg_write(expect, w, rsvd);
+-				pr_info("Wrote %08x, read %08x, expect %08x\n",
+-					w, results[idx], expect);
++				drm_info(&engine->i915->drm,
++					 "Wrote %08x, read %08x, expect %08x\n",
++					 w, results[idx], expect);
+ 				idx++;
+ 			}
+ 			for (v = 0; v < ARRAY_SIZE(values); v++) {
+@@ -719,8 +733,9 @@ static int check_dirty_whitelist(struct intel_context *ce)
+ 					expect = results[0];
+ 				else
+ 					expect = reg_write(expect, w, rsvd);
+-				pr_info("Wrote %08x, read %08x, expect %08x\n",
+-					w, results[idx], expect);
++				drm_info(&engine->i915->drm,
++					 "Wrote %08x, read %08x, expect %08x\n",
++					 w, results[idx], expect);
+ 				idx++;
+ 			}
+ 
+@@ -985,8 +1000,9 @@ static bool result_eq(struct intel_engine_cs *engine,
+ 		      u32 a, u32 b, i915_reg_t reg)
+ {
+ 	if (a != b && !pardon_reg(engine->i915, reg)) {
+-		pr_err("Whitelisted register 0x%4x not context saved: A=%08x, B=%08x\n",
+-		       i915_mmio_reg_offset(reg), a, b);
++		drm_err(&engine->i915->drm,
++			"Whitelisted register 0x%4x not context saved: A=%08x, B=%08x\n",
++			i915_mmio_reg_offset(reg), a, b);
+ 		return false;
+ 	}
+ 
+@@ -1007,8 +1023,9 @@ static bool result_neq(struct intel_engine_cs *engine,
+ 		       u32 a, u32 b, i915_reg_t reg)
+ {
+ 	if (a == b && !writeonly_reg(engine->i915, reg)) {
+-		pr_err("Whitelist register 0x%4x:%08x was unwritable\n",
+-		       i915_mmio_reg_offset(reg), a);
++		drm_err(&engine->i915->drm,
++			"Whitelist register 0x%4x:%08x was unwritable\n",
++			i915_mmio_reg_offset(reg), a);
+ 		return false;
+ 	}
+ 
+@@ -1211,7 +1228,7 @@ live_gpu_reset_workarounds(void *arg)
+ 	if (!lists)
+ 		return -ENOMEM;
+ 
+-	pr_info("Verifying after GPU reset...\n");
++	drm_info(&gt->i915->drm, "Verifying after GPU reset...\n");
+ 
+ 	igt_global_reset_lock(gt);
+ 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
+@@ -1266,7 +1283,8 @@ live_engine_reset_workarounds(void *arg)
+ 		bool ok;
+ 		int ret2;
+ 
+-		pr_info("Verifying after %s reset...\n", engine->name);
++		drm_info(&engine->i915->drm, "Verifying after %s reset...\n",
++			 engine->name);
+ 		ret = intel_selftest_modify_policy(engine, &saved,
+ 						   SELFTEST_SCHEDULER_MODIFY_FAST_RESET);
+ 		if (ret)
+@@ -1287,7 +1305,8 @@ live_engine_reset_workarounds(void *arg)
+ 
+ 			ret = intel_engine_reset(engine, "live_workarounds:idle");
+ 			if (ret) {
+-				pr_err("%s: Reset failed while idle\n", engine->name);
++				drm_err(&engine->i915->drm,
++					"%s: Reset failed while idle\n", engine->name);
+ 				goto err;
+ 			}
+ 
+@@ -1311,7 +1330,8 @@ live_engine_reset_workarounds(void *arg)
+ 
+ 		ret = request_add_spin(rq, &spin);
+ 		if (ret) {
+-			pr_err("%s: Spinner failed to start\n", engine->name);
++			drm_err(&engine->i915->drm,
++				"%s: Spinner failed to start\n", engine->name);
+ 			igt_spinner_fini(&spin);
+ 			goto err;
+ 		}
+@@ -1325,8 +1345,9 @@ live_engine_reset_workarounds(void *arg)
+ 		if (!using_guc) {
+ 			ret = intel_engine_reset(engine, "live_workarounds:active");
+ 			if (ret) {
+-				pr_err("%s: Reset failed on an active spinner\n",
+-				       engine->name);
++				drm_err(&engine->i915->drm,
++					"%s: Reset failed on an active spinner\n",
++					engine->name);
+ 				igt_spinner_fini(&spin);
+ 				goto err;
+ 			}
 -- 
 2.34.1
 
