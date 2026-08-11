@@ -4,86 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62E3C5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 14:19:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C625DC5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 14:26:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C01B010E72A;
-	Tue, 11 Aug 2026 14:19:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D844B10E0CA;
+	Tue, 11 Aug 2026 14:26:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="RZYxxq4P";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="akfbdIHv";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4487210EC4F
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786457938;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=d1HU6LBDnWtUkFmucBW5pIeZXLIpgzR08eamvaDcYUA=;
- b=RZYxxq4P9YClxyrPIm81XjFoizPPKby/YlJOEAXkpS7avMWn3LnD+F+83tSiLV4GNZc6fH
- QQ4gd3y8qVkf5J/H3UDb9t/JJEdHx3eejF130+OwKidavt0mgXSU1DapsS6e4reGbANSoU
- liTsVpQPhsHdSVSwVle0tJM/BgTbteI=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-600-uNj8_-awOkmwhVd6HyAKug-1; Tue, 11 Aug 2026 10:18:56 -0400
-X-MC-Unique: uNj8_-awOkmwhVd6HyAKug-1
-X-Mimecast-MFC-AGG-ID: uNj8_-awOkmwhVd6HyAKug_1786457936
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-38dd87656d3so3946907a91.2
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:18:56 -0700 (PDT)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1307910E0CA
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:26:30 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-39f91ba1ef7so19187361fa.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 07:26:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786458388; cv=none;
+ d=google.com; s=arc-20260327;
+ b=N097JRbMnAq/F4hiNZn0xLyq9KIP8irjVIRVacmUcGdJSf4sdt71Z9mQXbptoB7p+5
+ xPa0BhrydMWZIRh8Jq5vjcBrutli+Ks/cvyATNgLdZR1v5yIEti7zDDDENggeclkmrSW
+ FESrZP5j6zHn6x6RnMm8gf4/Lv+iYewkTpMawvxFb/mxs8iGe7bRY5vdgEJ0dwgTD04V
+ BwUIWCuG/385T/4IF6zTUF285ZFnz/rhhxBDoFsNPUuLx0Titz/CKCsa6OsRYxf8OPxH
+ eSy4lO0qOF6d2LtJO3u6M5dUy6WTGDB64RtvT1DS/qQfGodctzbgObDBXW61VDRh+YXT
+ JmpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
+ fh=aE+wBCudF/gOybGiYNdGNsCMc8GX1x+3JHzzIbThrC8=;
+ b=F80191T9o1pa2XzB2fZjVKdCHPgomoPqxwvS5oqHOu4S5aaL0PyYozLcVGvnSYlxgB
+ FdAHsuD539iiI/7O3EoelY9pCuyXbTI+CJQVEkeH3RrG8bbmKMkNwVg6mXD561ykG/Ys
+ +OC1fH2A7HvbI2JC3iHXwfcvZEL6cPxXuGzooJ8+gXohUCsvphXwDGD/azmLMnoWi4TU
+ x9XAicRbWwqKItnfY7XfGgmfn3ZFxeurVP2VjZDEIjg/0i1ayFwYSBhcKVfzF0r3Lalw
+ sk3bI1lGP3zo4S3y79tUwTJyjagFlDcCyicnYOks+DGxEkap+aX6p8k0z5166bt3NWOO
+ k1GQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786458388; x=1787063188; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
+ b=akfbdIHvrC9sZT0wz/hvJreQT4rfPQY2g2xFDpnTmIY4+KopS5+LXsBoMawpqI6czH
+ mCQbUKzoljUrw9GUFomhIK5g6GJERaQ7F4mCgsDg4jXdlHCsLeX48Z8fLNmpCK8Z6iLJ
+ JBk/fV8tO/CmivvQx0eXbxglVOi2GTuYzBTxLlqA3bOx6ryueYkHfwDXx3jdvJ8P6CvZ
+ mzSYolmJqgw/qyU0WqMyoX8AlDLB9dRq48qGTGC4hkcl6Wgqk6M+z9NZZXqzuL4FAG1U
+ 05EF/756p2Mp1ZE1KmAlgndfH98m/kIptURjIRrHKjHQ/p4ynN1bRc3TuE3bHO4d5fb1
+ YTnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786457936; x=1787062736;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=d1HU6LBDnWtUkFmucBW5pIeZXLIpgzR08eamvaDcYUA=;
- b=cGCFVAg48GRKdPDOXGX0p6YSFonn1UJ3Mf0ipkYxA+OapvhKTDgpUQMqDwxupKXg1e
- 7xXXN/NC9b6lvT4X6hytl1gHLM2QNpUnWnn6eEv+kCn86Bg1Qpz85uLNEc3YeKKRmjg3
- yReN28ieMLlOSZt2RIkiz5eMeaiJmLTou8/M0ngnLSgl4/crKGHuMRmtNJ9E9M/RfKg8
- zwWN4f4S2RbyPw5LKHqiT2sxzv+8/kGy/ZsJDDazy2a+SUzRZkCgbK3lDeTOnHXirJ4Z
- VqADxc811+CBOOFSavaJRSPRNip/nOgaLD7whc7DVT5mpOVRfL7festwhhydUfKMyhva
- /L4g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqpJpXwx0BtfHn2k27TZKJDqz82cxHP/jVIe1skoZHJsd9i+1vj2xNTNOyU611aI/TCXO4aHw23OPI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6MLV9oMIw5sDkQ0GpKmLadXLBG9IkaCZP+/GuGf2hRUTdwBaP
- Qj17PWFlkDfzUkOqjpN8vKQISEngdkVqbMPvhdFyZ2zqxHI1PtUt0/W8IwW7rctMJjXOobOnLWa
- Ahgli5KCH1znoNhyLMWSOFdBQcy2tskJ5jrnAis2fsCOaOwYCR5jWhu/ZeO0ACRYVkv1g4w==
-X-Gm-Gg: AR+sD13tkjklp7oijTcpY9LjrWazP4v9ywdHWTyTnU91KVxciYlTU9fzM8UH7oTv5/1
- c+RQFL1Hn0K+i3+lZm9WE6SorZXbp2kDNSJiI5LDg+hl6lTgrOWHwMe9RH9G+zUPrD0kkEETT8O
- pTq+413nnZNayTTexgCtpwvGbZZ9Kj8yt1Pp1nTg0YwGKCfeqhF7SEngls8HnzGAQLSzmsKhPIg
- V9R7cQwF40krNgIXCKncd95PIBQmqLCJAfxpnxUvegQ/9wDNPxqDpn6khWvEp+tfkoR/lDU1/A+
- N6OINRke+sYuk/IygDODAFknzH4ABZfhcx+bEAn/hMy+K98nQwu2GLsJtyTcCT1+/NLdCUokpkV
- kUTs13hKzBXk/TUv8LSnuGA0kB4ERzg==
-X-Received: by 2002:a17:90b:39c7:b0:38f:dec8:f7e9 with SMTP id
- 98e67ed59e1d1-392ec5f1516mr3991881a91.12.1786457935626; 
- Tue, 11 Aug 2026 07:18:55 -0700 (PDT)
-X-Received: by 2002:a17:90b:39c7:b0:38f:dec8:f7e9 with SMTP id
- 98e67ed59e1d1-392ec5f1516mr3991746a91.12.1786457934885; 
- Tue, 11 Aug 2026 07:18:54 -0700 (PDT)
-Received: from localhost ([181.122.135.46]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-31cf67912dbsm42228eec.22.2026.08.11.07.18.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 07:18:54 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: airlied@gmail.com, andriy.shevchenko@intel.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, robh@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de
-Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
-In-Reply-To: <20260811122603.30773-1-amit.barzilai22@gmail.com>
-References: <20260811122603.30773-1-amit.barzilai22@gmail.com>
-Date: Tue, 11 Aug 2026 16:18:52 +0200
-Message-ID: <875x1gpwoj.fsf@ocarina.mail-host-address-is-not-set>
+ d=1e100.net; s=20251104; t=1786458388; x=1787063188;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
+ b=FRL2mgYm7tPIvoGUAwKSQnlxfgYC1tULjC3NuXEYmAErfTmrYFCOg2BvcYPnya+fwP
+ 9daoLMuZ9foa1BG1mDE5ml7UumB6VjRby0XG6Z2wdGqOsDFck0nbcsYAHv7ZqnuoWMuN
+ 4w4ZT9o9Ceqx1hro/Lp3JrKUw5ALjFx8nMFT2OPW1bbYfiDALqE0opEQbtahqJMq0/sH
+ gS3/xhjsj/IdU9ElXo6NxPzKbv5l8f/JsciNaX1JFqnm6whEpqjXLW1XamHgIHHXFICO
+ vvRulaLHGSYorLy43dtSfnIZKIdeZc2GN1CvW76CV2vKwsQd+p9L0QTWKk7jQGfLLIT3
+ 32Yw==
+X-Gm-Message-State: AOJu0YxAlTP11Lzus9eb98pJfEa76/nlOr8RFOk2nleZTGY3StmxXOuK
+ rAkyimvRNkGVzOAQYO84ZDDmr9HxfPxBn9OdoxmM1Ffve5ETA4VzHeaiQdOzYe/gbUHNVClcqcB
+ +AFKD8y052uRoQiiATdI6DqyYpQJ7rlM=
+X-Gm-Gg: AR+sD11jrTHcQ9Sh3RRmVTIKiykqKB7ily+n/NKpizRbgr8ZAsGxbf76w3aoMUsQX56
+ PoYAmiy8ZBPiWpPZP4LRRtcUnDkyBlK9KbqVwluWfgzzdswTEloFDyETjy2P7DgEHYjKZUGJVQm
+ oL4CZDez5cGWDB+6BgaxFsm6tAn3cIuhkSELX4a7b8fFgCD0GvDJTuaMvWivRWwPWqgaDfg+v9k
+ ddfzduNxg6PaZrrfY8BbbgAMpChgXzsWVeiJNxX8TxdSN9kxDjX3B+GdkMhFKzGEw7IC1ytwrqs
+ 68raSsx5/t9Oc+5zS3gFPyxWjEOvxc6yYY/q2Do8LRbW7JuSgrzQ4CEHzBOOCxbq06GBqnJGbi6
+ ozN2gynIwlwhqkISx5LE61a2Ym6dnewFrO+n0A1GU+ZdUqkDx35sM8O8mDH/1Rs5b
+X-Received: by 2002:a05:651c:1503:b0:39d:93e8:801b with SMTP id
+ 38308e7fff4ca-3a0f8d9088bmr4687721fa.22.1786458387881; Tue, 11 Aug 2026
+ 07:26:27 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: DGreM4DFvLpUx00xiC-Stg7RPVFRFvSYUW1ObImnGCA_1786457936
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+References: <20260730173643.256052-1-kieweg.leander@gmail.com>
+ <20260730173643.256052-2-kieweg.leander@gmail.com>
+ <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
+ <CAMwcS0hupV50NEOX1Fsi_tzRYXBecaummjAm=CFHO7xOT1uUXw@mail.gmail.com>
+ <c5f760db-2235-44c1-899c-b6ac023b3233@kernel.org>
+ <CAMwcS0jTwpigztHBTLv_sgFNLK0ERHDMzMGsBdi7josLHw56-g@mail.gmail.com>
+ <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
+In-Reply-To: <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Tue, 11 Aug 2026 16:26:16 +0200
+X-Gm-Features: AUfX_mzIwlYwfI--6_3lWtHQX0aoa-u49OuWteOKOtIxMK3649W4Ay3R76dJT3g
+Message-ID: <CAMwcS0jUNcVwMkpxSjToyqgVEPqeScz4WLHLQAtKL-VMNXxgqg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, u.kleine-koenig@baylibre.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,57 +110,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
-
-Hello Amit,
-
-> Hey Javier,
-
-[...]
-
+> I am fine with small projects, till we do not have surge of them because
+> anyone clones some project and vibe-codes new soft-core.
 >
-> So for v4 I propose:
->
-> - Keep ssd130x_write_cmds() writing SSD13XX_COMMAND per byte as it does
->   today, so there is no change to I2C or SPI wire behaviour anywhere in
->   the series.
->
-> - Still do the ssd130x_write_cmd()/ssd130x_write_cmds() unification as
->   its own prep patch, as you asked. It removes the duplicated variadic
->   loop and gives a single place for the check below.
->
-> - Add a bool cmd_params_are_data to ssd130x_deviceinfo, checked after
->   the first byte is sent to decide how to send the parameters. If it is
->   set, the parameters go through ssd130x_write_data(); otherwise the
->   existing byte-by-byte loop is used.
->
-> - Drop the separate SPI transport patch entirely.
->
-> The comment in the core will be phrased in the core's own terms this
-> time: parameters go on the data path rather than as further command
-> bytes, without mentioning D/C or any other transport-specific
-> information.
->
+> Projects run on your personal github, without any organization, do not
+> get their own vendor prefix. Why? Because then you come with another
+> project and want one more prefix... Personal vendor prefix would be
+> fine, but different thing: this repo for your design was created a few
+> months ago, with one contributor and ~70 commits. This means it is very
+> new, without users.
 
-Thanks for the explanations. Since you have given a lot of thought of this
-I trust your judgement and agree with your plan. Let's see how the patches
-look once you post them.
+Makes sense. I'll go with a personal vendor prefix instead, e.g.
+"kieweg,gpu-1.0". I'd reuse that for any future project instead of
+asking for a new prefix.
 
-> Apologies for going back on something I already agreed to. If you still
-> prefer it in the SPI layer I will do it that way and fold in the 0x00
-> control byte change, with the I2C framing change called out in the
-> commit message, but I wanted to flag the breakage before building on it.
-> I have already implemented the fixes for most of the other comments
-> locally. Once we settle this, I will submit the finished v4.
->
+> What is the benefit of having it in Linux kernel for the community? Who
+> needs this, outside of you?
 
-No need to apologize, I appreciate the deep thought and willing to not
-break the I2C devices already supported.
+Honestly, no one, probably. I built this because I wanted to learn,
+not because anyone was asking for it. I actually asked about this
+exact concern during the RFC review, whether being a hobby/non
+commercial project could be a dealbreaker for mainline. Thomas
+Zimmermann's reply at the time was:
 
--- 
+  We already have a driver for a RasPi-based USB display that
+  someone made in their spare time. So being a hobbyist project is
+  not a problem per se.
+
+I don't want to pretend there's a bigger community need than there
+actually is. If that's not enough for mainline, I understand.
+
 Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Leander
