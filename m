@@ -4,91 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37FA9C5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:15:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41CE8C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 21:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F47210E124;
-	Tue, 11 Aug 2026 21:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 646A710E093;
+	Tue, 11 Aug 2026 21:16:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ChjBhG2q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dQdfTbg4";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEF110E124
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:15:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786482933;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CasrwAeU4zNExmdvqxolJrRbP1xj2cuvMnUIVD1Umt8=;
- b=ChjBhG2q/QKnqbiKanQiAyc8XMgl97Uia+PK+zAV03lCxhvqwHZUSo5CXQLCQ5zj2pIsv0
- FkYMNsz43hlUwmcDM3vcXZYPE3TI7yCwCZrK2JiW7mwqZznyixqXyWtCsskmVNeLRVX6kf
- s+w/e7SbzQ7ceWhqveY37hU1zwizP90=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-516-Z5Vma-4QM8Ofa4ltJzLdug-1; Tue, 11 Aug 2026 17:14:24 -0400
-X-MC-Unique: Z5Vma-4QM8Ofa4ltJzLdug-1
-X-Mimecast-MFC-AGG-ID: Z5Vma-4QM8Ofa4ltJzLdug_1786482863
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-9349c5af52bso69149085a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:14:24 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB3A710E093
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 21:16:04 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4996c452e95so284795e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 14:16:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786482963; x=1787087763; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6aQogsOegT+g6QZpcciAxI27XEPgO8Du/rqMWdvlx5I=;
+ b=dQdfTbg4YECXOWc99l4gVqyjS+1ZTEvrm2ivb2V0XQGATD6gokgTz/3JIXSmtN2ngl
+ +M4nC+BRjbOG13rqFS1zHiCJ5jwOu5p7vQxRC17alNix1jLi/323iT7L9TalT7OpURMR
+ WOqytqVW/O6x76HV2yK2TSATsiBJoiRz1fuyY9qrz9/dgy6+S9T7QXNBqhQs/k/twx/z
+ sMhBOmuWC3TrWRlCu6BArjA/g7gufplryyoBLE331GquGf/kdEjUQgZM1VtNof4nFa6T
+ FIfaL/dL+nSr3czmR39Ih8Ng/+AYZk0+nzQfcBAYJg8AKitAQ9BREqEoqMb5AFbBCMC1
+ WeAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786482863; x=1787087663;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ d=1e100.net; s=20251104; t=1786482963; x=1787087763;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=ouhsGoLziLRHCm+hWwEcaYZBRlXQpJLyEgr0LCF275A=;
- b=LxHf1d63wFjaSr+stmHV8L22Z/4p4sIZ5UxBGwalcxY9CF4LQ2F+TNUWI2n0P38Z9v
- 7tm5ZMc7ANu+TOCuMx1tnmhfZHVgqO6vYXEVhxcSS/svsfrzV7y+qTNrUN6lBM4ozLMN
- Pr+akoKsrehl13LG4pE1t3yeyRx740RjEx01hxZx/BesUH07I1tbRvlaPI+6kuN0vb3/
- iSOnHCJmNqKEHT1DrUzsP9KJ2Pl8dJVrWBfs6eD6NpBaZFNafg7uEacrP2VlCcf18Zay
- /RvI6zqvFj8+T1KxRIXQvfhIdPr2ieXxLZK0hbCPksiDZ79Z03GB1MImft3c2LUK50tX
- wb1Q==
-X-Gm-Message-State: AOJu0YxYttP2W6XBIQQMXPw2mfTTTN8bbVkkHPgqxtQwFE10yJqdmX9P
- i6bwglXfGF9wYmW24g7AXMEPiYsy+KGdw31qRCQQHN6sJbphxinu78Q7JfLn8kgRD0WQhvpQNow
- /eRPu33v8gJ81nF+xB0ul/6Uwg+YJfQcQfxPURAKKpzRJttgelwFu0w3pt8RzBcFukHhTkw==
-X-Gm-Gg: AR+sD10T6Bf4oq3ushfyXCeul/+6q8wyVHWnPkKmasgonBuOOhru4ZnBldsAOWLCj5p
- ehlock/nfA9E78I7IU+mmQWz0vW8SFcqxzpVpBD2tZqh29sQ1BQ0inDpEx1j492ArkPHNLz1GSX
- LEGuXt3z7HU9wHtOgFXLpjh40qTvnVELzeW6bWLfOPhxdlYeNILsO2GFPUIIgm/9fAbH2+68nQq
- MIW1I8jYHxwVrWlje7rI6PNskV1blwKkrT7ukploDUsYpa4/gjZT6Xrv3GYEfD0cgKE3iV3JK1v
- TDiGD0ss737lEBOe+yoCbfwoxsaeIs5HlJQhLfeKqIbIW2ZldKHpLwtkIfBQWhsH/A1PAzIf
-X-Received: by 2002:a05:620a:25cf:b0:930:a718:bafb with SMTP id
- af79cd13be357-936b3a4201dmr39431185a.10.1786482863528; 
- Tue, 11 Aug 2026 14:14:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:25cf:b0:930:a718:bafb with SMTP id
- af79cd13be357-936b3a4201dmr39428185a.10.1786482863056; 
- Tue, 11 Aug 2026 14:14:23 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-936a848e7ecsm196988185a.11.2026.08.11.14.14.21
+ bh=6aQogsOegT+g6QZpcciAxI27XEPgO8Du/rqMWdvlx5I=;
+ b=gcnsRYkj0Y+ljtKLChdEEjrgQKYWnu4agv3HuxQxGpI+lyy8D07344lZLwf1A6TY6j
+ +9QjgIMlzLn+U+INtyv8vaAlp11WK6foTxkifpcNQHFd28DKbdjqU7hB01hmKNa5XSGD
+ ETBwpnUBESBHJOQdZV6sP/fn2BltZClQu0vpqtS+RYjADqb2RLkS8qAnk1wE29F+ylcH
+ /UyWOLAywbmgmH8VUkbRrX12aJ61gEr8pA9yz/EGZG5l14bNklj6J/mZqryoWdk/sVnR
+ Ub/2MkEgyYGOatYIpEBB1pQ5CtqIBDT6dnaTFky5ylwOQiA0bYwuZFPE+jMjGM2T0kpz
+ 7Wzw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpNsatpw807hc3V8xgSAtbXwebzXZDacHgZ8rtxyjZbErhzQZesdi/ufFhf+HWzIQEiUZKmm4zDMzo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwG/3GN5xfNrwwXw/HW8s3YyQ3YTJHT/9s2gCMo5+fiyBWjijp1
+ AVz+u//jD228V8jP3R7ModnVmraGSSXu4MYdOucFQqlK5jaKHkzndjbc
+X-Gm-Gg: AR+sD11EJuqQS+k0CZNWI/qtscDC/eabJVF+usY+M66aj1n9krmz3lf7QobfuIFKv3v
+ r/nkxt5FsPVd17nV6OSkGGqFjuSHSt9dLKcwn47FJpnSrHGnkysb4Qyd0IY6KPfJZVjGgQHgH/6
+ wXDIhCVnuFgdMHVbq718B9cQL5Bu4uCdUogqzIxwXzQj1SFp3ncedbMfpuzehSJ3U5BtKIJ9ODM
+ nQabIBRRbx+RheyMXQXv6t7SG64vEb1a+sg/xvVR0ixANWq4iE+6scsXsclGB1TDgcaho4eZHag
+ THeoD4RWCe5LNENwhJZsN8nELjLlmi4sZODS1gokpVvMWrO2lKxkv4AGJg5taYGA5yhyfHSBtL1
+ mmo/yURRhrNY1nejR6dDjc6S1I5+gfwi5ErDLQohYq/v3kp6kTBUWUKkAgXe+jYdnPdQPyJWN6Y
+ 8gVYHeyYNSSYG9OKnT9yjq4kghJtoB7rpiCdOzqmIwlu/04TtClaQLPjUL7mdnbYDqnLKeSTq6r
+ PJ95GdWKo08iLAlKjmb1OVYp7MD0OVUSdYOljFgd5sj86jX/1CR38PkrZbJeMyS9dBKzw==
+X-Received: by 2002:a05:600c:a48:b0:499:73ca:c419 with SMTP id
+ 5b1f17b1804b1-4997c12c6c7mr634725e9.4.1786482962800; 
+ Tue, 11 Aug 2026 14:16:02 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B94ED005B06BF1B5A09FFE4.dsl.pool.telekom.hu.
+ [2001:4c4e:1b94:ed00:5b06:bf1b:5a09:ffe4])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4997aa96fb5sm19488225e9.3.2026.08.11.14.16.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2026 14:14:22 -0700 (PDT)
-Message-ID: <a24ff71ff94630ec818477ce6c590215ac3839e0.camel@redhat.com>
-Subject: Re: [PATCH 2/2] drm/nouveau/dmem: fix callocated underflow on large
- folio split
-From: lyude@redhat.com
-To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Andrew Morton
- <akpm@linux-foundation.org>, Balbir Singh	 <balbirs@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org
-Date: Tue, 11 Aug 2026 17:14:21 -0400
-In-Reply-To: <20260811-b4-nouveau-dmem-thp-fixes-v1-2-2cdf9860af2a@gmail.com>
-References: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
- <20260811-b4-nouveau-dmem-thp-fixes-v1-2-2cdf9860af2a@gmail.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+ Tue, 11 Aug 2026 14:16:02 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+Cc: Igor Paunovic <royalnet026@gmail.com>, hjc@rock-chips.com,
+ andy.yan@rock-chips.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ p.zabel@pengutronix.de, sebastian.reichel@collabora.com,
+ cristian.ciocaltea@collabora.com, damon.ding@rock-chips.com,
+ lumag@kernel.org, alchark@flipper.net, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org, krzysztof.kozlowski@oss.qualcomm.com
+Subject: Re: [PATCH v11 00/21] Synopsys DisplayPort Controller improvements
+ for Rockchip platforms
+Date: Tue, 11 Aug 2026 23:15:29 +0200
+Message-ID: <20260811211534.8618-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20767137.geO5KgaWL5@diego>
+References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+ <20767137.geO5KgaWL5@diego>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: s8YXQzP8qj7LpHfsuy-T-cRLDvM3qmpDyCPj-5hD2GA_1786482863
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,86 +108,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch looks suspiciously human written (or at the very least, the
-commit message sure does). FWIW: if the code wasn't itself generated by
-an LLM, it's fine by me to avoid adding the tag. Most of us are
-concerned about generated LLM code that gets submitted, not human
-written code written to fix a legitimate issue that an LLM managed to
-help find. If we were concerned about the latter, I think anything
-sashiko touched would end up having an assisted-by tag on it :).
+Hi Heiko,
 
-Either way, this whole patch series is:
+Two of your four points I can say something concrete about.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+On the cable being plugged in at boot: I see the same thing on an Orange
+Pi 5 Plus, and it is the single thing that cost me the most time on this
+hardware. The USB side comes up, the Type-C partner registers - your log
+[1] shows typec_displayport binding cleanly at 23.9s - and the DRM
+connector is still "disconnected" fifteen seconds later. That is what
+happened on 16 of the 21 boots I have logged with the adapter attached;
+on the other five the connector came up on its own inside that window.
+So here it is the normal case rather than every single boot.
 
-Issue looks quite legitimate, fix seems fine to me.
+What gets it out of that state without touching the cable is a software
+replug of the Type-C port controller - unbind and rebind the fusb302
+driver:
 
-On Tue, 2026-08-11 at 22:28 +0800, Zhenhao Wan wrote:
-> nouveau_dmem_folio_free() drops chunk->callocated once per freed
-> folio,
-> while a large (compound) device-private folio is only counted once
-> when
-> it is allocated.=C2=A0 When such a folio is split, the mm core invokes
-> ->folio_split() (nouveau_dmem_folio_split()) once for each new
-> sub-folio, but the hook only fixes up the sub-folio metadata and
-> leaves
-> chunk->callocated unchanged.
->=20
-> Each resulting sub-folio is later freed separately, so after a split
-> the single allocation (+1) is met by N frees (-N), leaving
-> chunk->callocated short by N-1.=C2=A0 On the first split/free cycle it
-> underflows: WARN_ON(!chunk->callocated) fires, the unsigned counter
-> wraps and never returns to zero, so the chunk can no longer be
-> reclaimed (nouveau_dmem_fini() also warns on the leaked count).
->=20
-> Account for the new sub-folio in the split hook, under the same lock
-> as
-> nouveau_dmem_folio_free(), so the count stays balanced.
->=20
-> Fixes: c32287471077 ("gpu/drm/nouveau: enable THP support for GPU
-> memory migration")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_dmem.c | 14 ++++++++++++++
-> =C2=A01 file changed, 14 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> index d2abee3efb9a..ad4570c50be7 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> @@ -279,11 +279,25 @@ static vm_fault_t
-> nouveau_dmem_migrate_to_ram(struct vm_fault *vmf)
-> =C2=A0
-> =C2=A0static void nouveau_dmem_folio_split(struct folio *head, struct
-> folio *tail)
-> =C2=A0{
-> +=09struct nouveau_dmem_chunk *chunk;
-> +=09struct nouveau_dmem *dmem;
-> +
-> =C2=A0=09if (tail =3D=3D NULL)
-> =C2=A0=09=09return;
-> =C2=A0=09tail->pgmap =3D head->pgmap;
-> =C2=A0=09tail->mapping =3D head->mapping;
-> =C2=A0=09folio_set_zone_device_data(tail,
-> folio_zone_device_data(head));
-> +
-> +=09/*
-> +=09 * The split hands out a new independently-freeable folio
-> that will
-> +=09 * later be released via nouveau_dmem_folio_free(); account
-> for it so
-> +=09 * chunk->callocated stays balanced.
-> +=09 */
-> +=09chunk =3D nouveau_page_to_chunk(&head->page);
-> +=09dmem =3D chunk->drm->dmem;
-> +=09spin_lock(&dmem->lock);
-> +=09chunk->callocated++;
-> +=09spin_unlock(&dmem->lock);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct dev_pagemap_ops nouveau_dmem_pagemap_ops =3D {
+  echo 6-0022 > /sys/bus/i2c/drivers/typec_fusb302/unbind
+  echo 6-0022 > /sys/bus/i2c/drivers/typec_fusb302/bind
 
+(the i2c address is board specific). After that the connector comes up
+and the mode is set normally. I run this from a boot service. It has
+fired on 16 boots and has never once failed: on 15 of them the log
+records DP-1 going from disconnected to connected within three seconds,
+and on the sixteenth the machine was powered off before any outcome was
+written. The most recent one, from a boot tonight, is representative -
+kernel start at 23:00:28, EDID override at 23:00:52, connector still
+disconnected with the cable in at 23:01:07, unbind and rebind, connected
+at 23:01:13.
+
+Fair warning before you try it. The kernel I logged this on is a v7.2-rc6
+Collabora rockchip-devel build that predates your v11 - it was built on 6
+August at 00:00 CEST, so it carries the v9 generation of dw-dp - and it
+is tainted by out-of-tree modules. On it the
+unbind produces a WARN:
+
+  WARNING: drivers/base/devres.c:1184 at devm_kfree+0xb8/0xd0
+
+  devm_kfree+0xb8/0xd0 (P)
+  tcpm_port_unregister_pd+0x70/0xc8 [tcpm]
+  tcpm_unregister_port+0x70/0x178 [tcpm]
+  devm_tcpm_unregister_port+0x1c/0x40 [tcpm]
+  devm_action_release+0x20/0x48
+  release_nodes+0x6c/0xc8
+  devres_release_group+0x144/0x1a8
+  i2c_device_remove+0x5c/0x130
+
+I have it on 13 boots, most recently tonight; the rebind then works
+regardless. My kernel is tainted by out-of-tree modules, and I have not
+checked whether this is already known or fixed in usb-next, so please
+treat it as a heads-up rather than as a bug report.
+
+One timing detail, in case it applies to you: the Type-C partner does not
+always show up promptly here. On most boots it is registered within about
+twenty seconds, but on a minority of boots it takes far longer - the worst
+one I have logged brackets it somewhere between 73 and 88 seconds after
+kernel start. Anything that samples the connector state earlier than that
+concludes the port is empty when it is not. I only have one USB-C dock to
+test with, so I cannot say whether that delay is the board or the dock's
+PD timing.
+
+I called this an adapter problem in my earlier reply on this thread, and
+your report makes me a good deal less sure of that. My assumption was
+that it was firmware specific: this board runs the edk2-rk3588 UEFI port
+(my build reports v1.1-13-g824e6c12), whose own support matrix lists
+USB-C DisplayPort as only partially working - "No hot-plug detect & EDID.
+Only works in one orientation of the Type-C port" - and lists the FUSB302
+Type-C controller as not working, with no PD or TCPM driver in that tree
+at all. So my working theory was that firmware leaves the PHY in a state
+the driver does not reset. If you are seeing the same symptom on a
+different board with different firmware, that theory does not hold and
+this is something to fix rather than work around. What are you booting?
+
+On ACLK_VOP: thank you for confirming the starvation. That is the first
+report of it on hardware other than mine, and until now I had no way to
+tell whether it was my adapter.
+
+I do not think your garbling is a milder version of the same failure,
+though. Here, at 750 MHz the picture became correct the moment the write
+landed and stayed correct, with no POST_BUF_EMPTY logged for the 42
+seconds that phase lasted; dropping back to 500 MHz brought the
+corruption straight back. That run was on drm-misc-next dc2f9f7fed1a plus
+your two series, built with CLOCK_ALLOW_WRITE_DEBUGFS so I could move the
+rate at runtime. So on this board 750 MHz is a clean state and not a
+marginal one - which also makes me doubt Alexey's reading that the
+garbling is an artifact of overclocking the VOP2. At least it is not that
+here.
+
+The rest of what Alexey says looks like the right thing to check for your
+case. It is worth seeing what pixel clock your 4K mode actually asks for
+and what dclk it ends up with; on my side that same comparison is what
+exposed a separate bug on this board, a video port left parented to a
+dead PLL. One caveat when you compare against my numbers: my 4K120 link
+runs YCbCr 4:2:0, which halves dclk, so the mode asks for 1188 MHz while
+dclk sits at 594 MHz. If yours is 4:4:4 the numbers will not line up. If
+you post the mode and the "setting dclk to rate=... result=..." line from
+your log, I am happy to compare it against what this board does.
+
+For reference, the ACLK thread is here; Cristian and Chaoyi have both
+replied to it since:
+
+  https://lore.kernel.org/all/20260808104240.13776-1-royalnet026@gmail.com/
+
+Igor
