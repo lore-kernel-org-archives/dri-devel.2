@@ -4,131 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF83EC5AD7B
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 04:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC19C5AD7B
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 04:06:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBF8B10E288;
-	Tue, 11 Aug 2026 04:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A31A210E167;
+	Tue, 11 Aug 2026 04:05:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="AGlUA8+7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ecfoKKH+";
 	dkim-atps=neutral
-Received: from SY8PR01CU002.outbound.protection.outlook.com
- (mail-australiaeastazolkn19010022.outbound.protection.outlook.com
- [52.103.72.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0272B10E27D;
- Tue, 11 Aug 2026 04:00:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MISYZvw3rLha7GAr4SkWvtlfaZJu9L64xbUWD0LkibXBTv8um0maYQd2irIAquBGR5ikGNnFgGwnWkXSI8/xCdRay6pj7F9BIjOb7Db/esAJqSRWNBpUnDT/YfWf1U5f7VkXfNK057ny8JBSMlsP/qCXMd3bT5ck0jpRxxKYNWMfGic/HYZgZIZ+hCV0h7rKPW1Ds4GbLDQa0/GxW3gObiiY2HPlcxm1DRtrUFciHpygTh140jeU6xWqeV6ue7hOTw6n3/5DleZawnCnNWFMU7Qg/cRVLE1lryzpM+/t/T8PrYdJXR6TZWWFLZ7W3w+AuedAbbMIMIPnNceCgUzd4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iDQ3SK2oQQMMvmrq/edYLMz2mlZ9+YWLoBRXNHknz2E=;
- b=wxbejDzmmpWvUk35aFstn8eeNEUrlIVkmw+zv69f3qlx2i52WOOP5xeZR/gZURwCZKogXKkjwsXlMNofAQxgchxIUrArOIcM3obD632YCNsnBGaBaVbcCuNJk33WXhNcyHoaOXhDl0DOdxYVziaxp9iBNyAVgkmkG8Bu7XfWUCPFRXc8TyvtQ828gHlLB2GQt2I6x+Dvi5yGqQMzzKvD5h7o1dYJ9UlZoUk8eORdRAuB9sJ3B8+nzxLspRHdeEMewAdwe5woErosZWjfKRvEzCutj2HyLoctxOKfk/LpbMtyO5/1hwnIwEV1Zfq6N0EOaFx41ssd9p+kUtlMCGIwYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iDQ3SK2oQQMMvmrq/edYLMz2mlZ9+YWLoBRXNHknz2E=;
- b=AGlUA8+7F5IxVZnu1QRXVml7Z7UJNuB7QJ1hFh15XZV8+RtFuOnKjJJ13vGs5OgCRvVbLVJ7ewyJEVxZAomDlAf2jQcQZ/u9ijirynUM/SdYLYirLqGsLHtIk8yF9b7NIZvT9qWAXzj7XWHvueCcgQ2jOwPMFNkCgNLlDOVAVe0YlfmZo+GJQPNclVdfXfctFfjLK8cYdyX/vEuNIyaDjuiHNvQzt9XFNsHArjYLVnDyoyEl6gcm1d1OdqHJvDJfLASjxXhtA1sqlZ/nbe0rulLgv1S9UT85t1iAZ+iRz4ZIB6Al2aMJskXo+vH4zSh3WNnR7KPzbYuUHaCLfCRQXA==
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
- by MEYPR01MB6583.ausprd01.prod.outlook.com (2603:10c6:220:12a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 04:00:16 +0000
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c%3]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
- 04:00:16 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-To: David Airlie <airlied@redhat.com>
-CC: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yuhao Jiang
- <danisjiang@gmail.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH 1/2] drm/nouveau: bound sync and op counts in EXEC and
- VM_BIND
-Thread-Topic: [PATCH 1/2] drm/nouveau: bound sync and op counts in EXEC and
- VM_BIND
-Thread-Index: AQHdKFCL60Me3odJBEStS5HWPvuGibaYOyEA
-Date: Tue, 11 Aug 2026 04:00:15 +0000
-Message-ID: <55965C34-9026-4EE7-B2F0-1D5D9807D682@outlook.com>
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
+ [74.125.224.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A20A710E167
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 04:05:58 +0000 (UTC)
+Received: by mail-yx1-f52.google.com with SMTP id
+ 956f58d0204a3-6679d88abdcso3294584d50.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 21:05:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786421157; cv=none;
+ d=google.com; s=arc-20260327;
+ b=do6sl+/1vJWQ5gcPIa5p7iCIV0soMuPc04Sr2WrLlXRly92YNoTSEUHiIOJYOzqdJH
+ 9vUL7JqlN9ruRG0PuYClzqRfzfhbU8p9MPSVwcyywVU6+ckQeteaky+wwN64FZUjVHIY
+ r5M3IYai1hSZTmXy896+mbf/fUzc0e1dVeBQHrrhX2YF0XzaT5PAY91Ix2XVWtGkq2W1
+ zMbfLsh6bv+6riJFuh6XuVKnA4cyIwhtZ3szJFuhgLzw2rq6+SbYUQdxyDQMDI1nSIXH
+ UpVi4uqsGT0zPzzpTCqff3myV9ZU17lh959JrNASOKqMJhrj1Pcgt4meWQXq929Xj2is
+ BoTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=cHpnkGdhgzlYq7979nZPO/96+5OTEhnencdtJNs5i5Q=;
+ fh=iYJAQnYQKNEYtFVvjauRvM2QazdwLPoGACb+jJFW5Ww=;
+ b=Bt1x8tuzJ1ohSlf3V2tbVbiK7QPX/SiMp9NPnrTGMMoUN4Q68hpIdtfVy3NxVdpqav
+ ZcbDpZIk6CZ/XbS5pMuIyGwRJwodi0FfHv0u+Hy5oSbuqUxUq6xrxuXAE5DHFB9U6Vod
+ NyDY4WPlzUrfVSPouy9nMlgiheZ1u5kSyri59UB77X1d/CDY6PgqAnk2VQ6x/uho37LR
+ q6nkFvu/5wamDQ1Y7WWr/a6Vk+AcV+FXztL5j8NIWRF+rQ90RUMfzdfum8L5jYwZZuRz
+ N/mnqP5p+LBQkyA8e5ZorQtU5LBxIttIZyybB6q9Agg0R7Yf+Eegeohu8wCzSocUZD+r
+ znBg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786421157; x=1787025957; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=cHpnkGdhgzlYq7979nZPO/96+5OTEhnencdtJNs5i5Q=;
+ b=ecfoKKH+ibHW6lzi8iuVRK4LaJkztYPh+wpVEdAALMLwCXz1uAWEn8n33LPCo3XWBP
+ 9VvpvQMgTZ27yWegGZVwbHLpsL0o2hL92rWSgCM3CJ0WjZlpTtOtBThGavySsmZ+XiUk
+ Crz6PbOwi0+8hKFfFWAoPtofKPBPTBwlB7XEbCvHmaEgozg1nCugDfqvTG+U6TqrXJ2A
+ pMVu4EqmknGM7mTPeUX7ftvxxngBPFh95LkD5QSBELlqCNsX6CK6vnL0DfbQcLcL9e9s
+ tGO5sbBCL6AKdWpi7z4ZQQtSIPfFRJuovTyRlx0Pq4uUw9EQUqf9EKNDY+2sayH/sSom
+ RfkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786421157; x=1787025957;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=cHpnkGdhgzlYq7979nZPO/96+5OTEhnencdtJNs5i5Q=;
+ b=GyPKQ+X7v308Qd+2sVwxYX0w42K6AXTY48seYhsVCqvTpJIMTfBvsn6X+j29e1uMIx
+ 4/hxpccdx7ndxRHGGdG/O3WU7sDrOH8UvSZuwX2PI1HgCKaq1PRR/uv8ntzVMILxnlY8
+ NKqYrRAc+gnUNir7bXtbMuIBQmqHC7gWNYj6OYQ6wmUi0J7pbzTOkumCJutLYwBAjlqv
+ c4q0MSG+Xke2LN9qTSxxY8ZcwNX5NqYu8YDLCYkVaAYicBLPYcjY+c3xroITwXYScOgq
+ ctzyvJigwI+M3IPFjQGwVLSooOZdDpucopbEwU6gHAN535uG9cZ+7f/8NlPdR9uk1nQo
+ h9vQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq98tjdURrWEp9mDom2oUm7z2nPe53F8jv6h08eEe77jGEZNIuhfZ+TIXOjUVxFJS4luix6d25EzME=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymM+xIk3rthbxPbQ0CaHc8PFgZ5ST0eub8LPcd+pqzPwYpcn2S
+ 44Ke7ygF1PqhC0w8J5NyiS6FvLdUdRHaTVo2+DNQU1juOAtlAUZi9w3CcAAvHw3KCT68gBFGCef
+ RMHgzSTjJM3TlH8XT0h5Cyeldv91SCqo=
+X-Gm-Gg: AR+sD13EAdShTViZXSyWGRqil3+zC5irfczQp4+tTrlG0HpRe2kts/bMONn7nb0xAN7
+ Jj5dVi9TEBWiCVBvM72oBtA2jrisBdUGDMVciy40n8cDUSGTjWy6C0QrJTX1VSew0Lc4LIIMrEN
+ khrpk/NLK8EuzcXPhT/D6JEzfvR/xRMpbu32sP+WIB9b+qIUGj/J6E/bFOHtcI5iREImmPC5chB
+ UGYxcCa+LW5jcuplJVg5XfRsPD29x7dkaI7FMFGBQT7Va8pKEDWno1H6TqesI3o/wJ2otrEQiVf
+ 5byiRGvNxpJIxiFoTuzfXwhxCDNMfnRtRzMrcqRSu3p692Db/gk5+BSCeyIUxp8pLsMyOUKCIxH
+ F25WZERxE8B4Qp6Xs9n6jgv+MKjMGxw==
+X-Received: by 2002:a53:acdb:0:10b0:666:541f:6355 with SMTP id
+ 956f58d0204a3-66b22ed1439mr132084d50.35.1786421157461; Mon, 10 Aug 2026
+ 21:05:57 -0700 (PDT)
+MIME-Version: 1.0
 References: <20260808-nouveau-fixes-v1-0-c3ebdc17a89c@outlook.com>
  <20260808-nouveau-fixes-v1-1-c3ebdc17a89c@outlook.com>
  <CAMwc25qozGSRw8KKNzVhakH1jCNWsFS_z=mFn9hswxjdNNX0GA@mail.gmail.com>
-In-Reply-To: <CAMwc25qozGSRw8KKNzVhakH1jCNWsFS_z=mFn9hswxjdNNX0GA@mail.gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|MEYPR01MB6583:EE_
-x-ms-office365-filtering-correlation-id: a2c596d3-a65e-44f2-67c8-08def75d0d5c
-x-microsoft-antispam: BCL:0;
- ARA:14566002|22091999003|24121999003|15080799012|55001999006|24021099003|4140399003|25010399006|31061999003|8062599012|8060799015|19110799012|56899033|12091999003|440099028|3412199025|102099032|40105399003|52005399003|2607281247196008;
-x-microsoft-antispam-message-info: =?us-ascii?Q?SN7HWyyHZBoqc6hbAiVpCqAK41oEazsiwIH85fIJsYIccCBnX/xlm+KlhHye?=
- =?us-ascii?Q?uwT1vnW2BRJfPnRqLV6P9M1L/65xSUh7gSOjy92a8K3EXB56mPNlz73f79MN?=
- =?us-ascii?Q?5iqAWGWDtwZ4ppQy3Jq7yZjVlkfsu2vaLzdHxnJIjVr13COymwpJjjs3bI9b?=
- =?us-ascii?Q?GW/iuWwJQhBa9aWQJceqhD9JHpN8YQhCWICC23QVxyYid85mPeOZEm9taRJp?=
- =?us-ascii?Q?kVAhstliD7ssbIZTAuNvVAd9EJK7NSTSmJLIK3AYRhwzcj68EwgL3r0o8qi3?=
- =?us-ascii?Q?6uSuf5dsms43oTUIVvs+hnUcvZENvZHOLP+XcnbypR8qO2dQV8M6UdJxxXw5?=
- =?us-ascii?Q?5oqX0/5co7NsrANHZ/kMzK2HmkIlViMmDm9j/uJwMX1Ojzpib3+s98qWWvAZ?=
- =?us-ascii?Q?Na5wht5lstcNSD6XxyKIi1Q3v1jEm0mECoBacj450/dr1AEf0l4e30qdPRbd?=
- =?us-ascii?Q?dix15szIWewiE44Z78jMHJbtJwZTs9u8UeAbrMjrHQYTUihJUmmn1zOqldOi?=
- =?us-ascii?Q?FLc7CdbsmLLSX6jxCbq2ZJ869rniCgLqlWfYnPG54cgjfBpFpfCtvjFGMKIw?=
- =?us-ascii?Q?1bmlpBLIshJy0PK9n683KdRolyKMDsupq3eqAJ+TKQzDuOgtpcOH5oZnS+EE?=
- =?us-ascii?Q?clcHzTB0lPHER1FmBIvPy8waSwB7xQ6QgQYKiMtJDf1eTlXIU9op+Zei83YG?=
- =?us-ascii?Q?NsS2WPbbol2mGZNOd3cNwy5iHCnKzDR4OxH0h/8M1YgGmwmHyT6y8fjhoCJZ?=
- =?us-ascii?Q?ZHQjC5ujCbKAW34QLDAekiqY4HBH7AOc6073Fw/7gq2CCjrAMbrUw4Ag32uZ?=
- =?us-ascii?Q?hdI6sY/VjBB14BqrYljlyRQDb6ZVebldmWDeZtG3cqJXmhQMK4BmYuEDtd7l?=
- =?us-ascii?Q?1Vsz+bWNXBe57jGCXU3BVrQBxE6H89dYBcbsc6UxFQLIxyd/Za6hrnXf/ADO?=
- =?us-ascii?Q?xyk0JTjZjWcbWzS98RQT3F4mVIlITxNCKG9R5XSu8NDQTNMi34P1cAF7VkaM?=
- =?us-ascii?Q?rKWR9VPFJNFjcQkT2CYUhNMcXXHV1olEbCS4c/eolXH8KHsd9hV2bEKjgJcw?=
- =?us-ascii?Q?sNlXNn30?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CwRfFkKhs6zhj9mlL2IBzzpkPhixLE+SVhe3OS5EqqzBFVt0HmSni0idFP/N?=
- =?us-ascii?Q?7KnfkfrFCJ2+gk+z1yySMEUO7zLSh+ItfL8J3lv9vE8lMq0xfWl8v7vuOLFk?=
- =?us-ascii?Q?5LCmxuxIfHWmPrzXiBjfU3t+BjY8PdRiWmUfZxV1IJHXu6v+VBBVf8Qn39U3?=
- =?us-ascii?Q?T8OvB1jcLI6KM+AKS6jiFUSLFamEMcE9jQQhUI8Qv2q7kY+5cpmFlSE/7E06?=
- =?us-ascii?Q?jzBZAh3epBfN2rlGp11xTz/97QKUOweb74zV63V5pBpP3h70ZgRogMHqHj10?=
- =?us-ascii?Q?H6Y7PYKMfMRWyCQh+5MuCh2bi+pWIOysIDyfltcgB4u2BnJq180X3GoV6u4T?=
- =?us-ascii?Q?eXpMmajnHn3uJWECFwKx0djVp4N4MbCcd3diUkqvRF/SWCh/8d+jCdAj/A+x?=
- =?us-ascii?Q?IicEVQQXw7LTzEmcTPszTbWvz7Xu7rWXv4arqb8IQLZQxckZ63iABg1lAbiW?=
- =?us-ascii?Q?4ZZING81d1sGTMjh8vkp+Zfo7E37V+uO3d2hNA4+FKRh5TL4To+pBv94Onkr?=
- =?us-ascii?Q?qRbL8jd6liOsRZLxUJv6RtrfOo7V4fIdA1bxqe/Cedj24AMX9K/lR0nXLzSB?=
- =?us-ascii?Q?c8C1lOuZSMLTPJEStVHhduxFv3uxWSgWPXfMbWYmBo8UiB2P3m3ol481uRSg?=
- =?us-ascii?Q?BvQPFlyqPncmjR3EH/U2GotTS4PW2og0uo34FMNSIiU2mj5v6+uJh384OA8R?=
- =?us-ascii?Q?hzHoJ4s0KlqbYt7z/cOMv0oYZLuq8HwV3yO4hd2Nf2RA9Kh9ilYDZ8vati0l?=
- =?us-ascii?Q?5yusAM53eZChnG+bcBIJ1pNHqHRfX6E0gjxAFpS+eU6CzNSsURMUpHo3DyfG?=
- =?us-ascii?Q?ul5tUiHs1c6dS7FgYJqF7+CosknGU8pyWMymC+Ii+cTHJSZuPV96O+LpMDsu?=
- =?us-ascii?Q?9/E8hYbbA7YCjOhN2MZ5RbP3wmThvVT9laij4GjO9sG/H3Jv44KSq78d5O9i?=
- =?us-ascii?Q?JvPkcaG/YnTaR8v6t88Kl8/8iY8Ac/G2+VzTkiFyCI8XnCtDeV0TCMrqvjod?=
- =?us-ascii?Q?IXi1cDkMqpc1EEqvbVsiyWzrKfq84KdBUOM0pltN1M4ijVWXHdvZ7sRUEthD?=
- =?us-ascii?Q?gUA4vaSAvY5NQbNqFFsiK/HQmZmXK+f1Js17zxUf4XfM4gUlqEf88LQ7ome7?=
- =?us-ascii?Q?Q5M/wYWTS42b+oTCKqfktplG3DlDy/IC/K5HyJWEaull+CvX/aMXrE1dCGHK?=
- =?us-ascii?Q?/OTThdo/gGICc21jmAPnkOaAsDA7F816Tt9VBQKzZJsuDWDu/wTdWwoGjJ+R?=
- =?us-ascii?Q?SMLQlTXX7fsAKyM/8574KKcYtFVxOtyks1FxrJjd2cSeNduJYPT29srlsOFp?=
- =?us-ascii?Q?wImSOIh7HSdRB9V/1NmaHSD6BjmFvXT8w461qawAwBx0f6RebmhL/fYprDSA?=
- =?us-ascii?Q?bkA4q8i91s//o3jL7AGDqHqdhEtLAnq7b/fD0WpgYTsXQlxErw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <9CA76C564FC7D74AB67E4A18184564E0@ausprd01.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2c596d3-a65e-44f2-67c8-08def75d0d5c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 04:00:16.0787 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MEYPR01MB6583
+ <55965C34-9026-4EE7-B2F0-1D5D9807D682@outlook.com>
+In-Reply-To: <55965C34-9026-4EE7-B2F0-1D5D9807D682@outlook.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 11 Aug 2026 14:05:45 +1000
+X-Gm-Features: AUfX_mygO8g3uDRlU_tKv8cfeWEPc5DomvcU0l-wKoJbB4Wcs1CRG-FE0Jl6bRo
+Message-ID: <CAPM=9txG6wEwx_L5RsB+3gEuT6dYJQvrPpQnHHF4V1gFZpWNFQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/nouveau: bound sync and op counts in EXEC and
+ VM_BIND
+To: Junrui Luo <moonafterrain@outlook.com>
+Cc: David Airlie <airlied@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yuhao Jiang <danisjiang@gmail.com>, 
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,18 +116,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 10, 2026 at 08:43:50AM +1000, David Airlie wrote:
-> Have you run a complete Vulkan CTS with NVK across this with no regressio=
-ns?
->=20
-> I'm weary of those limits being too low, but I think the only app that
-> might push them beyond CTS would be Forza Horizon 5 or 6.
+On Tue, 11 Aug 2026 at 14:00, Junrui Luo <moonafterrain@outlook.com> wrote:
+>
+> On Mon, Aug 10, 2026 at 08:43:50AM +1000, David Airlie wrote:
+> > Have you run a complete Vulkan CTS with NVK across this with no regressions?
+> >
+> > I'm weary of those limits being too low, but I think the only app that
+> > might push them beyond CTS would be Forza Horizon 5 or 6.
+>
+> No, I have not. I don't currently have the hardware to run NVK, so I can't
+> offer a CTS run or any other regression test for this.
+>
+> Is there a better guard that avoids a hard limit here, or does this need
+> a test before it can go in?
 
-No, I have not. I don't currently have the hardware to run NVK, so I can't
-offer a CTS run or any other regression test for this.
+Looking at xe it also has 1024 limit on number of syncs, but it
+doesn't have any limit on number of binds,
 
-Is there a better guard that avoids a hard limit here, or does this need
-a test before it can go in?
+                *bind_ops = kvmalloc_objs(struct drm_xe_vm_bind_op,
+                                          args->num_binds,
+                                          GFP_KERNEL | __GFP_ACCOUNT |
+__GFP_RETRY_MAYFAIL | __GFP_NOWARN);
 
-Thanks,
-Junrui Luo=
+Maybe nouveau could do the same.
+
+Dave.
+>
+> Thanks,
+> Junrui Luo
