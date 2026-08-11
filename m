@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DBF3C5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 10:17:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC376C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 10:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B35F10E2F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E913A10EB09;
 	Tue, 11 Aug 2026 10:17:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EuXIA5lu";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="g8btHzNm";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 625AD10E2F8
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C273C10E2C5
  for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 10:17:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1786443468;
- bh=ycLtDUILBUNGvGA3TCZuAZrvo03VF+JiaIir96T3EKQ=;
+ bh=fzLWUDPtqoIwG8+ccSWaLGPju4rxuXjgRSA/ZeNnC6E=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=EuXIA5luX54UHnD5ViwyRpm0i69gStmk6K4DIyFIiDilYjP6VV73DYCL9cG4xXvmC
- VJMEQbEMqmmS658YBzvs6coez1VwpE210eA7IBs0geN+9A8IIZyoM0PBgUwgd6syG1
- tuI4ubPsUTkZNW+y4sqGBmLXvu822NHDBh2br7oUNzGXk2NpXYj7ZUGWEi1+YGHZK+
- 3hKQW+DS+AjEeXqiZNMBkGzg7bFzSGsVSzi0Z9jOL3loV/KvT04S3YUVeQu/6lBwG0
- /qSk4oArOOHe4MSMo2NJx4o3VWqg+nWCOI4ev4xeijJ/shcw3JLQfJfP495Q3Y1O1h
- X6Q3/48oZLslg==
+ b=g8btHzNmnHcZ/N36x8L0IRMZMWbrhUFj3yteqbte6AGhUy8FuPLgRgOH62j0uYmfx
+ lTBFatH658IgIVBM2aon7TS7NsbAK9ePQn8xVvPrGGaaVXvcciMZmL+WpO4EvJHAMT
+ xznZPv1VXXnnghzKDnh6rMKBMeSaXUNvH2kT93GSI5duRb6/LjIlDDz3cP8Zoi0nxU
+ EIl5OrfaCHnoHQ5Nl4JXNbFgK9ngEuqEqjY1d5+v5f9mIR8r4T8mf4AIMFu7n8EcCH
+ /5nrmFLQ3jyEcSGlK6ueXffHxW7+UEYlkzdcun3GM3RjD4I1Ikncug74FXjHAerI8B
+ 7aw51Sq0VOedg==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9DE0917E0778;
- Tue, 11 Aug 2026 12:17:47 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 287F317E0EF0;
+ Tue, 11 Aug 2026 12:17:48 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 11 Aug 2026 12:17:35 +0200
-Subject: [PATCH v2 01/17] drm/panthor: Disable reset work before unplug
+Date: Tue, 11 Aug 2026 12:17:36 +0200
+Subject: [PATCH v2 02/17] drm/panthor: Further delay reset work enablement
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-panthor-unplug-fixes-v2-1-6b583e37f9ae@collabora.com>
+Message-Id: <20260811-panthor-unplug-fixes-v2-2-6b583e37f9ae@collabora.com>
 References: <20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com>
 In-Reply-To: <20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -48,11 +48,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786443466; l=3214;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786443466; l=1731;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=ycLtDUILBUNGvGA3TCZuAZrvo03VF+JiaIir96T3EKQ=;
- b=UaWMZzECfriH7c2mI5nVv+K1t5Pcuwy7hfBFBQQQ2zsv78tVj9wFPEij3gdcIAqYf3jWxa8Df
- P7RKw/ZytyOBHqnlufo3RweVTFv4a+8P/fckK/hooMqAdpZU2qP8jTE
+ bh=fzLWUDPtqoIwG8+ccSWaLGPju4rxuXjgRSA/ZeNnC6E=;
+ b=v4QUI2eEqCE7l0H1iOl8FYGceTetF0ckuE0U63QSdLYPeVsRHBo+njSpylXOytl3AWnZwOBuZ
+ dkuYk/sZV8nAb9Vb+rBv5HIXPNqDFh3ikRWfqACLMayuod2fQqRR7JA
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,89 +70,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Unplug is supposed to be the end of the road, so we need to make sure
-reset works won't execute while we're cleaning up everything as part
-of the unplug, otherwise it would mess up the internal state.
+There's no point re-enabling the reset work before the DRM device
+registration succeeds, so move the enable_work() after the point where
+nothing can fail anymore, and in the unlikely event where a reset was
+pending, reschedule it.
 
-In order to be able to call disable_work_sync() in the unplug
-path, we need to defer the unplug triggered by the reset logic,
-otherwise we would deadlock.
-
-Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
+Fixes: 1b8d771fb214 ("drm/panthor: Keep the reset work disabled until everything is initialized")
+Closes: https://sashiko.dev/#/patchset/20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com?part=2
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c | 21 ++++++++++++++++++++-
- drivers/gpu/drm/panthor/panthor_device.h |  3 +++
- 2 files changed, 23 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_device.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 0b25abebb803..c41de1b61533 100644
+index c41de1b61533..5355c4074f1f 100644
 --- a/drivers/gpu/drm/panthor/panthor_device.c
 +++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -91,6 +91,16 @@ void panthor_device_unplug(struct panthor_device *ptdev)
- 	 */
- 	mutex_unlock(&ptdev->unplug.lock);
+@@ -305,9 +305,6 @@ int panthor_device_init(struct panthor_device *ptdev)
  
-+	/* Unplug triggered by a device removal might race with the deferred
-+	 * one queued by the reset work. The function covers this concurrent
-+	 * unplug situation, but if we can disable the work before its
-+	 * execution, that's still better.
+ 	panthor_gem_init(ptdev);
+ 
+-	/* Now that everything is initialized, we can enable the reset work. */
+-	enable_work(&ptdev->reset.work);
+-
+ 	/* ~3 frames */
+ 	pm_runtime_set_autosuspend_delay(ptdev->base.dev, 50);
+ 	pm_runtime_use_autosuspend(ptdev->base.dev);
+@@ -316,6 +313,14 @@ int panthor_device_init(struct panthor_device *ptdev)
+ 	if (ret)
+ 		goto err_disable_autosuspend;
+ 
++	/* Now that everything is initialized, we can enable the reset work.
++	 * If there was a reset pending, clear and reschedule, otherwise the
++	 * reset.pending bit is stuck.
 +	 */
-+	disable_work(&ptdev->unplug.work);
++	enable_work(&ptdev->reset.work);
++	if (atomic_read(&ptdev->reset.pending))
++		queue_work(ptdev->reset.wq, &ptdev->reset.work);
 +
-+	/* Make sure we're not interrupted by resets while we're unplugging. */
-+	disable_work_sync(&ptdev->reset.work);
-+
- 	/* Now, try to cleanly shutdown the GPU before the device resources
- 	 * get reclaimed.
- 	 */
-@@ -114,6 +124,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
- 	complete_all(&ptdev->unplug.done);
- }
+ 	pm_runtime_put_autosuspend(ptdev->base.dev);
+ 	return 0;
  
-+static void panthor_device_unplug_work(struct work_struct *work)
-+{
-+	struct panthor_device *ptdev = container_of(work, struct panthor_device, unplug.work);
-+
-+	panthor_device_unplug(ptdev);
-+}
-+
- static void panthor_device_reset_cleanup(struct drm_device *ddev, void *data)
- {
- 	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
-@@ -148,8 +165,9 @@ static void panthor_device_reset_work(struct work_struct *work)
- 	drm_dev_exit(cookie);
- 
- 	if (ret) {
--		panthor_device_unplug(ptdev);
-+		disable_work(&ptdev->reset.work);
- 		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device unusable.");
-+		queue_work(ptdev->reset.wq, &ptdev->unplug.work);
- 	}
- }
- 
-@@ -206,6 +224,7 @@ int panthor_device_init(struct panthor_device *ptdev)
- 	 */
- 	*dummy_page_virt = 1;
- 
-+	INIT_WORK(&ptdev->unplug.work, panthor_device_unplug_work);
- 	INIT_WORK(&ptdev->reset.work, panthor_device_reset_work);
- 	disable_work(&ptdev->reset.work);
- 	ptdev->reset.wq = alloc_ordered_workqueue("panthor-reset-wq", 0);
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index 0fda64fbe5f2..ea23dde90fea 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -264,6 +264,9 @@ struct panthor_device {
- 		 * operation is done.
- 		 */
- 		struct completion done;
-+
-+		/** @work: Unplug work. */
-+		struct work_struct work;
- 	} unplug;
- 
- 	/** @reset: Reset related fields. */
 
 -- 
 2.55.0
