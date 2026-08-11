@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD7C3C5B569
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 06:41:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC0D8C5B573
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 06:41:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C65CA10EA97;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE89B10EA96;
 	Tue, 11 Aug 2026 06:41:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="k5cY7JJs";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="VSJb9/OB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BFB410EA89
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 06:41:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEE6B10EA88
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 06:41:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 504C443FDF;
+ by sea.source.kernel.org (Postfix) with ESMTP id B1AD445035;
  Tue, 11 Aug 2026 06:41:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 24FC9C2BCFF;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 79F89C4AF12;
  Tue, 11 Aug 2026 06:41:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1786430466; bh=4Odon41wn3POG2a/8uxgoozDkAx9LipJnGNGbya68aQ=;
+ t=1786430466; bh=Y+g5XGXUpaEPEpNu/2z6EYlrPFXE16lF+w/ttECZ4PY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=k5cY7JJsugmfCg74kXPW43wgpSf9z++eX37e34YE/HVltGFqobp6+42YjQ5bhEQEx
- wO+UXprUO4NEAwMC0vn3Q6fW70uVqMJFl0o2qYfqOOGjW2uifBfv2ghrkoxCoDhuXn
- iEYtrGmUnY041jMmNQSjM5Jc5VK+8yheP9O31y9o=
+ b=VSJb9/OB0joa9XhxpWkPGcjfNW+4y83dpQ9OTeK5wH6MkVHjmoq6o0svtcqQbr1Zr
+ Gmq2DqwGZj4F5WNh5uKINkpfsT81Nfk5k9bA6EbiK9V9lWfRiaJ8+FNOvQZD/8rtLe
+ L3k9DYOSgo5odP7RvX1OwDJT+HaMf4cVIOGYWInc=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 0CAD4C5B573;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 631DDC5B572;
  Tue, 11 Aug 2026 06:41:06 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Tue, 11 Aug 2026 14:39:45 +0800
-Subject: [PATCH v10 03/10] rust: doctest: add LocalModule fallback for
- #[vtable] ThisModule
+Date: Tue, 11 Aug 2026 14:39:50 +0800
+Subject: [PATCH v10 08/10] rust_binder: use `LocalModule` for `THIS_MODULE`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-fix-fops-owner-v10-3-7e71776f9dbe@linux.dev>
+Message-Id: <20260811-fix-fops-owner-v10-8-7e71776f9dbe@linux.dev>
 References: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
 In-Reply-To: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -70,11 +69,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786430463; l=1377;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786430463; l=1425;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=4Odon41wn3POG2a/8uxgoozDkAx9LipJnGNGbya68aQ=;
- b=5jzWxvtwEM0NRDV/ItXwJKlqZLPjSdPgzdn4CbZtR6SbhakWPFbJPR4lYpQlRmLkk0OlgTZs7
- 4Snb5CFs1AZBTNvViiofuBpxSUZ1p6eK98KNCffcLTzVQ/84Q8ecmMa
+ bh=Y+g5XGXUpaEPEpNu/2z6EYlrPFXE16lF+w/ttECZ4PY=;
+ b=wuist2Y7evoWdYNP5wCetrUO8g0Zyp2qFyp/lrFrzl5GEv+uOR39Tkb7fGA3n/X+NR1byOdye
+ R8btYsCJOWWARHHJavwcrV9JguGqWiKKnZeebYGpLkBpHBurbz3rCRn
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -94,47 +93,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a `LocalModule` struct with a null-pointer `ModuleMetadata` impl
-in the doctest harness, so that `crate::LocalModule` (auto-inserted
-by `#[vtable]`) resolves correctly when there is no `module!` macro.
+Replace the `THIS_MODULE` static reference in the binder fops with
+`this_module::<LocalModule>()`, consistent with the move of
+`THIS_MODULE` into the `ModuleMetadata` trait.
 
 Assisted-by: opencode:glm-5.2
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
 Reviewed-by: Gary Guo <gary@garyguo.net>
 Acked-by: Danilo Krummrich <dakr@kernel.org>
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- scripts/rustdoc_test_gen.rs | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/android/binder/rust_binder_main.rs | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/scripts/rustdoc_test_gen.rs b/scripts/rustdoc_test_gen.rs
-index d61a77219a8c2..9913f78650365 100644
---- a/scripts/rustdoc_test_gen.rs
-+++ b/scripts/rustdoc_test_gen.rs
-@@ -232,6 +232,22 @@ macro_rules! assert_eq {{
+diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
+index dc1941cd2407b..d6ceebbd5f94e 100644
+--- a/drivers/android/binder/rust_binder_main.rs
++++ b/drivers/android/binder/rust_binder_main.rs
+@@ -17,6 +17,7 @@
+     bindings::{self, seq_file},
+     fs::File,
+     list::{ListArc, ListArcSafe, ListLinksSelfPtr, TryNewListArc},
++    module::this_module,
+     prelude::*,
+     seq_file::SeqFile,
+     seq_print,
+@@ -318,7 +319,7 @@ unsafe impl<T> Sync for AssertSync<T> {}
+     let zeroed_ops = unsafe { core::mem::MaybeUninit::zeroed().assume_init() };
  
- const __LOG_PREFIX: &[u8] = b"rust_doctests_kernel\0";
- 
-+/// Dummy module type for doctest context.
-+struct LocalModule;
-+
-+use kernel::{{
-+    str::CStr,
-+    ModuleMetadata,
-+    ThisModule, //
-+}};
-+use core::ptr::null_mut;
-+
-+impl ModuleMetadata for LocalModule {{
-+    const NAME: &'static CStr = c"rust_doctests_kernel";
-+    // SAFETY: `try_module_get`/`module_put` handle null module pointers gracefully.
-+    const THIS_MODULE: ThisModule = unsafe {{ ThisModule::from_ptr(null_mut()) }};
-+}}
-+
- {rust_tests}
- "#
-     )
+     let ops = kernel::bindings::file_operations {
+-        owner: THIS_MODULE.as_ptr(),
++        owner: this_module::<LocalModule>().as_ptr(),
+         poll: Some(rust_binder_poll),
+         unlocked_ioctl: Some(rust_binder_ioctl),
+         compat_ioctl: bindings::compat_ptr_ioctl,
 
 -- 
 2.43.0
