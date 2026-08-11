@@ -4,58 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C9BC5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 10:18:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D7E8C5CFDB
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 10:58:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0852510EB41;
-	Tue, 11 Aug 2026 10:18:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B39110E2FE;
+	Tue, 11 Aug 2026 10:58:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="YbrHB5ZA";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="tKGjJivw";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2C7010E2C5
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 10:17:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786443476;
- bh=mUoAoXlDI7yZyvH60OvVhl7XJ24dV86jsycZLjHMo7U=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=YbrHB5ZAe69NiObLrwREIj5xxCMmeYtXrtI/5PpwyWd8hwk2/dKP6iHpD6B1ITruW
- JnpsElxANrgxpucAAFqogHaScUStHa4rGJztGMJ4WdIkBDN4Jm6Gvq6EhZ0ZpwZrcE
- yQXnzLRE4B2x1RK4LqwjYBYp2FMkytuUqkGEVGIZYwDb2MskPhBfyECtFd8QloZPLo
- ZPHPsBRVQ9HtZ9IVPV+GEWPeFWS0qz3NZl+kRmWMFDELlA02wbARM3pgoO+6oZoWQw
- BEExpeej2zCpNBaS5sS1/2dDPmLNjQhQrH4EwpO8cJRIgoc4d8zGlzHe8bKkQwzb2X
- 0zIlehRXyqG9A==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 306D517E12AE;
- Tue, 11 Aug 2026 12:17:56 +0200 (CEST)
-From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 11 Aug 2026 12:17:51 +0200
-Subject: [PATCH v2 17/17] drm/panthor: Add a debugfs knobs to simulate
- reset failures
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1861C10E2F6;
+ Tue, 11 Aug 2026 10:58:13 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 44D0C1682;
+ Tue, 11 Aug 2026 03:58:08 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 820043F86F;
+ Tue, 11 Aug 2026 03:58:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786445892; bh=E2Q5I65meboDct+4hfaKsQDzSd1S1/tsAKEVH3DzJwo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tKGjJivwGyrqmHqJQhgHkKc1NYH5dpUS0DWnYV/mVHQACS1frf2TRd2UhTyMG8JvA
+ Bw0BndUTcgOm1QZBl4JI/V5svJA1QNwOZVE/G2oL5rd2q44W5xc5apxl/s1/v2NISQ
+ JQrQY7r9UAbIHixEwxX6nTsx2ykLpYcEoEZ681SE=
+Date: Tue, 11 Aug 2026 16:28:09 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, 
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, 
+ pfalcato@suse.de, agordeev@linux.ibm.com, ryan.roberts@arm.com, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 3/9] mm: name pointers to copied PTE values ptentp
+Message-ID: <e7osakog3yvdewhdlrk3bsp27pwt2nnhroeb7zihlfxyjotarb@rwxkcb25crh3>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-4-usama.anjum@arm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-panthor-unplug-fixes-v2-17-6b583e37f9ae@collabora.com>
-References: <20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com>
-In-Reply-To: <20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786443467; l=3671;
- i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=mUoAoXlDI7yZyvH60OvVhl7XJ24dV86jsycZLjHMo7U=;
- b=CMqGYTbeMGpUymG0t0PK1yg0WM9B44OlTt3NMAV6ERJsy93lVaqTECzIY8ai7sVkkc5EqSDlw
- 4oHpHG/ZTJZDy2DqFiAvScHH5WunZCFwzYXMxoypj4lB59by8JZKnZj
-X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
- pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806083926.1807279-4-usama.anjum@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,109 +94,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It's almost impossible to trigger a situation where the reset
-doesn't work now that the driver is more mature, so let's add two
-knobs to exercise this error path:
+Subject line is very confusing. Perhaps something like the following.
 
-- a knob to trigger a reset
-- a knob to fake an error in the reset path
+mm: Rename pointers to copied PTE values as ptentp
 
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_device.c | 45 +++++++++++++++++++++++++++++++-
- drivers/gpu/drm/panthor/panthor_device.h |  8 ++++++
- 2 files changed, 52 insertions(+), 1 deletion(-)
+But even 'copied PTE values' is not very clear as well.
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 012edf5d590c..09c9cc922e70 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -198,7 +198,10 @@ static void panthor_device_reset_work(struct work_struct *work)
- 	panthor_hw_soft_reset(ptdev);
- 	panthor_hw_l2_power_on(ptdev);
- 	panthor_mmu_post_reset(ptdev);
--	ret = panthor_fw_post_reset(ptdev);
-+	if (ptdev->reset.fake_failure)
-+		ret = -EIO;
-+	else
-+		ret = panthor_fw_post_reset(ptdev);
- 	panthor_sched_post_reset(ptdev, ret != 0);
- 	drm_dev_exit(cookie);
- 
-@@ -699,6 +702,40 @@ DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_unplug_failure_fops,
- 			 panthor_device_fake_unplug_failure_get,
- 			 panthor_device_fake_unplug_failure_set, "%llu\n");
- 
-+static int panthor_device_fake_fw_reset_failure_get(void *data, u64 *val)
-+{
-+	struct panthor_device *ptdev = data;
-+
-+	*val = ptdev->reset.fake_failure ? 1 : 0;
-+	return 0;
-+}
-+
-+static int panthor_device_fake_fw_reset_failure_set(void *data, u64 val)
-+{
-+	struct panthor_device *ptdev = data;
-+
-+	ptdev->reset.fake_failure = val ? true : false;
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_fw_reset_failure_fops,
-+			 panthor_device_fake_fw_reset_failure_get,
-+			 panthor_device_fake_fw_reset_failure_set, "%llu\n");
-+
-+static ssize_t panthor_device_reset_file_write(struct file *file,
-+					       const char __user *, size_t size,
-+					       loff_t *)
-+{
-+	struct panthor_device *ptdev = file_inode(file)->i_private;
-+
-+	panthor_device_schedule_reset(ptdev);
-+	return size;
-+}
-+
-+static const struct debugfs_short_fops panthor_device_reset_fops = {
-+	.write = panthor_device_reset_file_write,
-+};
-+
- void panthor_device_debugfs_init(struct drm_minor *minor)
- {
- 	struct panthor_device *ptdev = container_of(minor->dev, struct panthor_device, base);
-@@ -706,6 +743,12 @@ void panthor_device_debugfs_init(struct drm_minor *minor)
- 	debugfs_create_file("fake_unplug_failure", 0644,
- 			    minor->debugfs_root, ptdev,
- 			    &panthor_device_fake_unplug_failure_fops);
-+	debugfs_create_file("fake_fw_reset_failure", 0644,
-+			    minor->debugfs_root, ptdev,
-+			    &panthor_device_fake_fw_reset_failure_fops);
-+	debugfs_create_file("reset", 0200,
-+			    minor->debugfs_root, ptdev,
-+			    &panthor_device_reset_fops);
- 	panthor_mmu_debugfs_init(minor);
- 	panthor_gem_debugfs_init(minor);
- }
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index b2788373bfa9..160593824ef2 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -313,6 +313,14 @@ struct panthor_device {
- 		 * all FW sections to make sure we start from a fresh state.
- 		 */
- 		bool fast;
-+
-+		/**
-+		 * @fake_failure: When true, pretend the FW boot in the reset path failed.
-+		 *
-+		 * This is important to check that we're doing the right thing in this very
-+		 * unlikely case.
-+		 */
-+		bool fake_failure;
- 	} reset;
- 
- 	/** @pm: Power management related data. */
+On Thu, Aug 06, 2026 at 09:38:41AM +0100, Muhammad Usama Anjum wrote:
+> The hw_pte_t conversion must retain pte_t * for pointers to standalone PTE
 
--- 
-2.55.0
+We need to explain what is `standalone PTE values` first.
 
+> values. Name the value parameters ptentp in the install_pte callback,
+> write_protect_page(), and guard_install_set_pte() so the later mechanical
+> conversion can distinguish them from pointers to PTE table storage.
+> 
+> Some functions already use the ptentp name, including:
+> - madvise_folio_pte_batch()
+> - folio_pte_batch_flags()
+> No need to convert them.
+> 
+> This is a naming-only change.
+
+Small nit - s/naming-only/rename
+
+The commit message needs rewrite clearly explaining the following details
+
+- What are standalone PTE values
+- How these are different from HW pgtable pointers
+- Change is just a rename for pointers into such 'standalone PTE'
+- These renamed 'ptentp' here would be used for skip or replaced during
+  upcoming mechanical change via a script
+- No functional changes intended
+
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> ---
+> Changes since RFC v1:
+> - Update the description for the architecture opt-in conversion.
+> ---
+>  include/linux/pagewalk.h | 2 +-
+>  mm/ksm.c                 | 4 ++--
+>  mm/madvise.c             | 4 ++--
+>  3 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
+> index b41d7265c01bc..c34d826c5e4a2 100644
+> --- a/include/linux/pagewalk.h
+> +++ b/include/linux/pagewalk.h
+> @@ -89,7 +89,7 @@ struct mm_walk_ops {
+>  		       struct mm_walk *walk);
+>  	void (*post_vma)(struct mm_walk *walk);
+>  	int (*install_pte)(unsigned long addr, unsigned long next,
+> -			   pte_t *ptep, struct mm_walk *walk);
+> +			   pte_t *ptentp, struct mm_walk *walk);
+>  	enum page_walk_lock walk_lock;
+>  };
+>  
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index ad05d7791307e..11d50518d02e9 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -1292,7 +1292,7 @@ static u32 calc_checksum(struct page *page)
+>  }
+>  
+>  static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+> -			      pte_t *orig_pte)
+> +			      pte_t *ptentp)
+>  {
+>  	struct mm_struct *mm = vma->vm_mm;
+>  	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, 0, 0);
+> @@ -1371,7 +1371,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+>  
+>  		set_pte_at(mm, pvmw.address, pvmw.pte, entry);
+>  	}
+> -	*orig_pte = entry;
+> +	*ptentp = entry;
+>  	err = 0;
+>  
+>  out_unlock:
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index 07a21ca31bad4..c324cc991f841 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -1101,12 +1101,12 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
+>  }
+>  
+>  static int guard_install_set_pte(unsigned long addr, unsigned long next,
+> -				 pte_t *ptep, struct mm_walk *walk)
+> +				 pte_t *ptentp, struct mm_walk *walk)
+>  {
+>  	unsigned long *nr_pages = (unsigned long *)walk->private;
+>  
+>  	/* Simply install a PTE marker, this causes segfault on access. */
+> -	*ptep = make_pte_marker(PTE_MARKER_GUARD);
+> +	*ptentp = make_pte_marker(PTE_MARKER_GUARD);
+>  	(*nr_pages)++;
+>  
+>  	return 0;
+> -- 
+> 2.47.3
+>
+
+How did we ensure that the above changes are comprehensive and nothing
+else got left in here ?
