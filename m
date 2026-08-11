@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3435C5CFC1
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 23:03:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C295C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 23:22:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A66410E2DB;
-	Tue, 11 Aug 2026 23:03:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 478BC10E217;
+	Tue, 11 Aug 2026 23:22:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HkcejG9u";
+	dkim=pass (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="dq0qpLX8";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA96510E2DB
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 23:03:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E3B55409E1;
- Tue, 11 Aug 2026 23:03:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7841F000E9;
- Tue, 11 Aug 2026 23:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786489399;
- bh=CxJZFaM+j4jKnusC0Nz6ELroPCjJVgn0e/vaobI90vY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HkcejG9uMae7hD/S/jndCS1DpUgupTddagsfEfyMEMdUCf5uXT9761dNTikPzJVlC
- 4LP2FUJrdChHBIy4IEbB0za3jwKxNZMQ+dgBXfzs61UVMIp6S22lh3D2/PCvllqkya
- Dd/5OMWA5WK/Mn3eH3I+Rk2Wu/El832xunms4cavU1SvErOnAbjz0mYCN8bEbl7jsh
- 1mErEyq647XBUmSiRBXzu5i4fydYRm2aIh2TucRTeuw9b/ozB1LsWmp7P2fO1L8DND
- Ap8VDTAO5ddPyAaqDvd5gngsJbiTYut+vl5JElcEEMbeop2QtspNFfvLQgibWzfPqS
- tdz+F5xccUWQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] misc: fastrpc: fix double-free in
- fastrpc_map_attach() error path
-To: "Yifei Gao" <gyf161023@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260811225102.1077841-1-gyf161023@gmail.com>
-References: <20260806235056.456341-1-gyf161023@gmail.com>
- <20260811225102.1077841-1-gyf161023@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 11 Aug 2026 23:03:19 +0000
-Message-Id: <20260811230319.9A7841F000E9@smtp.kernel.org>
+Received: from out-171.mta1.migadu.com (mta1.migadu.com [37.59.57.117])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 846C810E3B5
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 23:22:32 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaitmazov.com;
+ s=key1; t=1786490072;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ojvD8nwShhikuxu6GiD4x9uHBNw2mf3InrhKfacCDIg=;
+ b=dq0qpLX8m4BXUqtEbxPYLqFc5U2GkveKne8g4DW6P2uL5y1px0qvcZmHxzoYgD3WU4hwkp
+ KC06/ISvm/bKJNieO0XhKkzZUzhtsE8RV/zCOr43SbshRgeQi8/lp0x02kc8TmCPMbAqFh
+ ha/+QD7q15AhMbnrXI8G2f+49GIEq2DuGp+6AVU8qPTsL855kJNvBYApMt32nAMMBwGzwR
+ FKf4tHAGUMZPr0Y/iUEyvndgIXqpyxb14SPzuAMF63hAE9qKWP6barvMf3CEFx5UQNg8on
+ mIbCcNmqrHYoGM1Lsns8QS3YIgUGk3hL+VTc5CTc5ijpejy9+UruhUWrx4fwgg==
+From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+To: mamin506@gmail.com,
+	lizhi.hou@amd.com,
+	ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+Subject: [PATCH v2 5/5] accel/amdxdna: flush only the requested range in
+ amdxdna_flush_bo
+Date: Wed, 12 Aug 2026 02:13:51 +0300
+Message-ID: <20260811231351.1011244-6-taimuraz@kaitmazov.com>
+In-Reply-To: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
+References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,107 +58,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+SYNC_BO carries an offset and a size, but amdxdna_flush_bo() honours
+them only on the vmap path: an imported BO is tested for first and
+flushes its whole scatterlist, and the page-array fallback flushes every
+page of the BO. A sync costs what the BO is worth rather than what the
+caller asked to maintain.
 
-New issues:
-- [High] Routing the qcom_scm_assign_mem() failure path to get_err introduc=
-es a massive DMA-buf and memory leak because fastrpc_free_map() aborts earl=
-y on cleanup.
+amdxdna_gem_obj_vmap() maps an imported BO through dma_buf_vmap(), so
+try the vmap path first and leave drm_clflush_sg() as the fallback for
+an exporter that cannot serve one. Index the page-array fallback from
+the requested offset. An imported BO now holds a kernel mapping from its
+first sync until it is freed, as a shmem BO already does. That does not
+pin anything the exporter was still free to move: this driver attaches
+without importer ops, so the attachment is static and the exporter has
+already pinned the buffer when the sg table was mapped at import.
 
-Pre-existing issues:
-- [Critical] Lockless and un-referenced use of fastrpc_map pointers leads t=
-o Use-After-Free vulnerabilities.
---
+Measured on npu4, 64 MiB BO, pinned, minimum of 50 runs: an imported BO
+cost 1056 us to sync at every size from 4 KiB up, and now tracks the
+driver-owned BO at 0.7 us for 4 KiB, 17 us for 1 MiB and 1056 us for the
+whole BO. The driver-owned column does not move.
 
---- Patch [1]: [PATCH v2] misc: fastrpc: fix double-free in fastrpc_map_att=
-ach() error path ---
-commit e44cb66ae041e0f79b6c9be086dbcbf912aa8a9e
-Author: Yifei Gao <gyf161023@gmail.com>
+An earlier version walked the scatterlist a page at a time instead. It
+fixed the range case but cost about 179 ns per page of barrier and call
+overhead, taking the whole-BO sync from 1056 to 3989 us, so this one
+reuses the mapping instead.
 
-misc: fastrpc: fix double-free in fastrpc_map_attach() error path
+This does not bracket the flush with dma_buf_begin_cpu_access() and
+dma_buf_end_cpu_access(). The driver has never called them, here or
+anywhere else, so the omission predates this change; what changes is that
+the vmap path now serves an imported BO by default, which is where the
+exporter's own coherency hook would matter most. Adding the bracket is
+follow-up work rather than part of this one: the calls carry a direction
+but no range, so pairing them with a ranged flush wants its own reasoning
+and its own measurement.
 
-This patch attempts to fix a double-free in the error path of
-fastrpc_map_attach() by routing map->table-is-set failure branches to
-get_err instead of map_err. This makes fastrpc_free_map() the sole owner
-of the unmap/detach/put sequence for these branches.
+Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index eb6c2a78d3c7b..d480a87752a7f 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -881,7 +881,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl=
-, int fd,
->  		dev_dbg(sess->dev, "Bad size passed len 0x%llx map size 0x%llx\n",
->  				len, map->size);
->  		err =3D -EINVAL;
-> -		goto map_err;
-> +		goto get_err;
->  	}
->  	map->va =3D sg_virt(map->table->sgl);
->  	map->len =3D len;
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index d944f1b99..4430a3e3b 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -1235,6 +1235,8 @@ int amdxdna_drm_get_bo_info_ioctl(struct drm_device *dev, void *data, struct drm
+ 
+ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
+ {
++	unsigned long first, nr_pages;
++	void *kva;
+ 	u64 end;
+ 
+ 	if (offset >= abo->mem.size)
+@@ -1247,12 +1249,16 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
+ 	if (!size)
+ 		return 0;
+ 
+-	if (is_import_bo(abo))
++	first = offset >> PAGE_SHIFT;
++	nr_pages = (PAGE_ALIGN(offset + size) >> PAGE_SHIFT) - first;
++
++	kva = __amdxdna_gem_vmap(abo);
++	if (!IS_ERR(kva))
++		drm_clflush_virt_range(kva + offset, size);
++	else if (is_import_bo(abo))
+ 		drm_clflush_sg(abo->base.sgt);
+-	else if (amdxdna_gem_vmap(abo))
+-		drm_clflush_virt_range(amdxdna_gem_vmap(abo) + offset, size);
+ 	else if (abo->base.pages)
+-		drm_clflush_pages(abo->base.pages, abo->mem.size >> PAGE_SHIFT);
++		drm_clflush_pages(&abo->base.pages[first], nr_pages);
+ 	else
+ 		return -EINVAL;
+ 
+-- 
+2.55.0
 
-[ ... ]
-
-> @@ -904,7 +904,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl=
-, int fd,
->  			dev_err(sess->dev,
->  				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
->  				&map->dma_addr, map->len, err);
-> -			goto map_err;
-> +			goto get_err;
-
-[Severity: High]
-Does routing this qcom_scm_assign_mem() failure to get_err introduce a memo=
-ry
-and DMA-buf leak?
-
-When the forward assignment to TrustZone fails, map->attr is already set to
-FASTRPC_ATTR_SECUREMAP. If we jump to get_err, fastrpc_map_put() is called
-which in turn calls fastrpc_free_map(). Inside fastrpc_free_map(), it will
-see this flag and attempt a reverse qcom_scm_assign_mem().
-
-Since the forward assignment just failed, the reverse assignment will also
-fail. Looking at fastrpc_free_map(), if the reverse assignment fails, it
-returns early:
-
-fastrpc_free_map() {
-    ...
-    if (map->attr & FASTRPC_ATTR_SECUREMAP) {
-        ...
-        err =3D qcom_scm_assign_mem(...);
-        if (err)
-            return;
-    }
-    ...
-}
-
-Will this early return completely skip dma_buf_unmap_attachment_unlocked(),
-dma_buf_detach(), dma_buf_put(), and kfree(map), leaving untrusted user
-space able to exhaust kernel memory?
-
->  		}
->  	}
->  	spin_lock(&fl->lock);
-
-[Severity: Critical]
-This is a pre-existing issue, but can the lockless use of fastrpc_map
-pointers lead to a use-after-free elsewhere in this file?
-
-In fastrpc_req_mem_unmap_impl(), the fl->maps list is searched under fl->lo=
-ck
-to find a map pointer. If the lock is then dropped without incrementing the
-object's reference count, concurrent ioctls could free the map while it is
-still being accessed.
-
-A similar pattern appears in fastrpc_put_args() where fastrpc_map_lookup()
-is called without taking a reference, returning an unreferenced pointer that
-is later passed to fastrpc_map_put(), causing a refcount imbalance.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811225102.1077=
-841-1-gyf161023@gmail.com?part=3D1
