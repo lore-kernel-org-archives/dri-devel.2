@@ -4,64 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E83FC5AC67
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 09:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C4A6C5CFCF
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 10:15:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B66910E2D0;
-	Tue, 11 Aug 2026 09:50:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE56710E2EF;
+	Tue, 11 Aug 2026 10:15:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ipUxO/Kh";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="V+Vm46x3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACE2610E2D0
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 09:50:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786441832; x=1817977832;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Dfmvdw/culho4GPh3SNbuEpAoO3xxlAwvTqR0vMoJ4Y=;
- b=ipUxO/KhaunjEf9dN76RcFCmizHmGgNm3tw9TyMTa+VpJ1mT647ZBnuw
- 5jqSuhXoCUGgJrHKOPUBN4ek/Kc1hGZKQg0gAkV4MDW9/hRfbFmnZQ/V5
- nNnfTbqBH2ZATh0SRYQDqcep/jdmrU5CBxK21n/bkMc9OJAxBaqdnfTZ+
- zcChwYR3gedXUjcO+DtMUitLDGVh3Nqm6lHJBjiYCnExaf/KirO464Lcz
- Vdyn/QwM54OgjsPvNcUY8XGItNcxdUAknihqJJudDQRBniegjHIDm5o1c
- 8KGrkrLjhgXE5Xb1wkGNNy5e7YPixrKJtb94R5x4WemO4KLKOU4m8NNsr Q==;
-X-CSE-ConnectionGUID: 31vG0kuSR82as5CK5OS2ug==
-X-CSE-MsgGUID: yOUUTlTlS2OQ290ujHvZGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86729134"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="86729134"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:50:32 -0700
-X-CSE-ConnectionGUID: Ytr36kbnSq2ZFur0XiU7Vw==
-X-CSE-MsgGUID: sKNYaCJqRWmyARl2TpS3EQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="293234329"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.254])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:50:27 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Diederik de Haas <diederik@cknow-tech.com>, Albert Esteve
- <aesteve@redhat.com>, Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] drm/panel: remove .orig file committed by mistake
-In-Reply-To: <20260810-drm-remove-drm_panel-c-orig-v1-1-90592f91974e@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260810-drm-remove-drm_panel-c-orig-v1-1-90592f91974e@bootlin.com>
-Date: Tue, 11 Aug 2026 12:50:24 +0300
-Message-ID: <673b05048bc6a2c8eaf75e2a0224706483ede95b@intel.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5695210E2EE;
+ Tue, 11 Aug 2026 10:15:10 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BBBEA1682;
+ Tue, 11 Aug 2026 03:15:05 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0350C3F86F;
+ Tue, 11 Aug 2026 03:15:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786443309; bh=+szcqBCq9eZ2ua7vWX4x/+s1q8ODJlqcpxLyiJuSiwc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=V+Vm46x3ghCefqeO2I1n6DA88n8dnPA9fKF0KOYZamwYwLaVm1b44z72dYIEIsYC0
+ p/UxibT9bkIS6vm2g/03/53REk/x6Bjd7ZTy6XlUazb0cSaz7+p0GyYbiNAyjJgZGx
+ FyXK8Yk5Rfauuo195Y0NDG5YghHuk7t+gElvU4PU=
+Date: Tue, 11 Aug 2026 15:45:06 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, 
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, 
+ pfalcato@suse.de, agordeev@linux.ibm.com, ryan.roberts@arm.com, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 2/9] mm: make hw_pte_t visible to generic PTE interfaces
+Message-ID: <7xbai2nyu6nuyr6otqv556dnphpgwaqsmvwkqwoqwbh5nvj3ns@ddy5ezgvb7w3>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-3-usama.anjum@arm.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806083926.1807279-3-usama.anjum@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,20 +94,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 10 Aug 2026, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
-> Commit ac3baea883da ("drm/panel: find_panel_by_fwnode() return a counted
-> reference") inadvertently added a .orig file which should not be there.
->
-> Reported-by: Diederik de Haas <diederik@cknow-tech.com>
-> Link: https://lore.kernel.org/all/DK9KRSOWRHY0.H7SC0R3BIIUZ@cknow-tech.com/
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Thu, Aug 06, 2026 at 09:38:40AM +0100, Muhammad Usama Anjum wrote:
+> Later conversions use hw_pte_t in page-table checking, generic page-table
+> helpers, and vmalloc interfaces. Include linux/pgtable_types.h from the
+> headers that declare those interfaces before changing their types.
+> 
+> For vmalloc.h, replace the direct asm/page.h include with
+> linux/pgtable_types.h. The latter includes asm/page.h, so pgprot_t remains
+> available. It also provides either the default alias or the opted-in
+> hw_pte_t wrapper.
 
-Beat you to it with commit 651b0bd0922b ("drm/panel: remove accidentally
-committed .orig file").
+Stand-alone header file updates are not ideal. Why cannot these changes be
+folded in, where hw_pte_t gets used first time ever in the above mentioned
+places.
 
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> ---
+> Changes since RFC v1:
+> - Clarify that the header provides both generic hw_pte_t definitions.
+> ---
+>  include/linux/page_table_check.h | 2 ++
+>  include/linux/pgtable.h          | 1 +
+>  include/linux/vmalloc.h          | 2 +-
+>  3 files changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/page_table_check.h b/include/linux/page_table_check.h
+> index 12268a32e8be1..12ee6d16ad339 100644
+> --- a/include/linux/page_table_check.h
+> +++ b/include/linux/page_table_check.h
+> @@ -7,6 +7,8 @@
+>  #ifndef __LINUX_PAGE_TABLE_CHECK_H
+>  #define __LINUX_PAGE_TABLE_CHECK_H
+>  
+> +#include <linux/pgtable_types.h>
+> +
+>  #ifdef CONFIG_PAGE_TABLE_CHECK
+>  #include <linux/jump_label.h>
+>  
+> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> index 8c093c119e5a8..cf595608cc4c4 100644
+> --- a/include/linux/pgtable.h
+> +++ b/include/linux/pgtable.h
+> @@ -4,6 +4,7 @@
+>  
+>  #include <linux/pfn.h>
+>  #include <asm/pgtable.h>
+> +#include <linux/pgtable_types.h>
+>  
+>  #define PMD_ORDER	(PMD_SHIFT - PAGE_SHIFT)
+>  #define PUD_ORDER	(PUD_SHIFT - PAGE_SHIFT)
+> diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+> index aed121d729b01..b068e6ade4207 100644
+> --- a/include/linux/vmalloc.h
+> +++ b/include/linux/vmalloc.h
+> @@ -8,7 +8,7 @@
+>  #include <linux/init.h>
+>  #include <linux/list.h>
+>  #include <linux/llist.h>
+> -#include <asm/page.h>		/* pgprot_t */
+> +#include <linux/pgtable_types.h>	/* pgprot_t, hw_pte_t */
+>  #include <linux/rbtree.h>
+>  #include <linux/overflow.h>
+>  
+> -- 
+> 2.47.3
+> 
