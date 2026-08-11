@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0E56C5CFCF
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:46:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42365C5B56A
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 16:47:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6C010E33F;
-	Tue, 11 Aug 2026 16:46:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C37210ECE6;
+	Tue, 11 Aug 2026 16:47:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PDOZm2SI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WmXVFlun";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C5710E327;
- Tue, 11 Aug 2026 16:46:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44A5810E327;
+ Tue, 11 Aug 2026 16:47:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1D3B9600AE;
- Tue, 11 Aug 2026 16:46:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2C271F000E9;
- Tue, 11 Aug 2026 16:46:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A0A8B600C3;
+ Tue, 11 Aug 2026 16:47:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73FAD1F00A3A;
+ Tue, 11 Aug 2026 16:47:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786466790;
- bh=/XUCNlER7njUc40tBR0DWcTfriB1zvkQvss6GHD2ank=;
+ s=k20260515; t=1786466843;
+ bh=aAJmH2RZWtuo/nczs+6yqrQv07ilSQp4Hm9KiWaE9KU=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=PDOZm2SIEHzJEYL6kAt2p9SwsPWFP53BfhFoDIV5PJx4Mar22fWokuwB1Gs40HMCW
- HusJkPRcas4gssRJHuMvSkcy0pQOGTfK9t7uteNp15QoUveerW2+sQ/5N5czl4URVe
- 6huPu9zGCJOtwppJ8w1zMucIJf3bBhZUKXFmUyF7Cjlj/mkR0OgZUmQeUhQP92R7jv
- yVieUyIsqDE5eH662LglgH6MGJcAh0MiiR41c50TFp4hD+mDnj/smhw97Lg4dNjutr
- DKAURUrvfOmLvLTJNeKIvaIwsjRGawg9+A+NfDLh/l+iN5qQjYALyXHDiynJvEt825
- Ap0uIpkDLBUoA==
-Message-ID: <c76f1dab-97a0-47e3-92ef-042e403c64db@kernel.org>
-Date: Tue, 11 Aug 2026 18:46:06 +0200
+ b=WmXVFlunRxpDAll3Tg1HyKKOFpDURz7v3unAPbgW6vcpFaHuqSw91xJDoEak2/hJ6
+ dJy9/hEr17V859sGvDWGdD2D/G3Rlhrx8qavJCmSat+jW0BWd56nTDYrxaqbaA26p9
+ pmWmbRldbJGu+2K40KZilR1uKsAU1kdgQqfG8n67jUdg9NyBf8pz5twN7Z2NxRRmJM
+ fv/T8znbn7zLsqbqGEyvrEz3zIncUWwNVQ0sEup0YrsOwdFallbS0jm8/z0BNBOmGr
+ hk03RRkrYb8m+c8cyuZCmLVFAc+okHkQP0NOEqbnc2K3KFsDKXxavrI/VotHIpKC23
+ i7SkXJnZgNsZw==
+Message-ID: <3cff4b8f-b523-4805-add9-e817e9bb6a82@kernel.org>
+Date: Tue, 11 Aug 2026 18:46:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/20] tools/testing/vma: add tests for copy_vma()
- self-merge
+Subject: Re: [PATCH v4 10/20] mm/rmap: track whether the page VMA mapped pgoff
+ is anonymous
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -95,7 +95,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
 References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-8-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-10-ab318a350404@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -142,7 +142,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-8-ab318a350404@kernel.org>
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-10-ab318a350404@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -161,78 +161,24 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
-> Assert that a VMA can be moved backwards, forwards and between a preceding
-> VMA and its old self.
+> Update the page_vma_mapped_walk structure to track whether the pgoff being
+> tracked is an anonymous pgoff or not and update the comments to reflect
+> this.
 > 
-> In the cases in which the VMA merges only with itself expect that to be
-> achieved by expanding its old self, so assert that these function
-> correctly.
+> This is necessary in order to determine the correct VMA page
+> offset in vma_address_end() when pvmw->nr_pages > 1.
 > 
-> However in the case of a merge between a preceding VMA and itself the
-> original VMA is removed, so assert that the preceding VMA replaces the one
-> passed in as vmap and the merge is as expected.
+> Also document that pvmw->pgoff is meaningless for pvmw->nr_pages == 1 and
+> for KSM.
+> 
+> Do not set this field where pgoff is not specified.
+> 
+> This is laying the groundwork for eventually using anonymous page offsets
+> as the index for all anonymous folios.
+> 
+> No functional change intended.
 > 
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  tools/testing/vma/tests/vma.c | 46 ++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 45 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/vma/tests/vma.c b/tools/testing/vma/tests/vma.c
-> index 754a2da06321..0d40d7ba2181 100644
-> --- a/tools/testing/vma/tests/vma.c
-> +++ b/tools/testing/vma/tests/vma.c
-> @@ -33,7 +33,51 @@ static bool test_copy_vma(void)
->  	struct mm_struct mm = {};
->  	bool need_locks = false;
->  	VMA_ITERATOR(vmi, &mm, 0);
-> -	struct vm_area_struct *vma, *vma_new, *vma_next;
-> +	struct vm_area_struct *vma, *vma_prev, *vma_new, *vma_next, *vma_orig;
-> +
-> +	/* Move forwards, adjacent to old self - self-merge. */
-> +
-> +	vma = alloc_and_link_vma(&mm, 0x1000, 0x2000, 1, vma_flags);
-> +	vma_set_anonymous(vma);
-> +	vma_orig = vma;
-> +	vma_new = copy_vma(&vma, 0x2000, 0x1000, 1, &need_locks);
-> +	ASSERT_EQ(vma_new, vma_orig);
-> +	ASSERT_EQ(vma, vma_orig);
-> +	ASSERT_EQ(vma_new->vm_start, 0x1000);
-> +	ASSERT_EQ(vma_new->vm_end, 0x3000);
-> +
-> +	cleanup_mm(&mm, &vmi);
-> +
-> +	/* Move backwards, adjacent to old self - self-merge. */
-> +
-> +	vma = alloc_and_link_vma(&mm, 0x2000, 0x3000, 2, vma_flags);
-> +	vma_set_anonymous(vma);
-> +	vma_orig = vma;
-> +	vma_new = copy_vma(&vma, 0x1000, 0x1000, 2, &need_locks);
-> +	ASSERT_EQ(vma_new, vma_orig);
-> +	ASSERT_EQ(vma, vma_orig);
-> +	ASSERT_EQ(vma_new->vm_start, 0x1000);
-> +	ASSERT_EQ(vma_new->vm_end, 0x3000);
-> +
-> +	cleanup_mm(&mm, &vmi);
-> +
-> +	/*
-> +	 * Move backwards between prior VMA and old self - self-merge and vma
-> +	 * updated to a new VMA.
-> +	 */
-> +
-> +	vma_prev = alloc_and_link_vma(&mm, 0x1000, 0x2000, 1, vma_flags);
-> +	vma_set_anonymous(vma_prev);
-> +	vma = alloc_and_link_vma(&mm, 0x3000, 0x4000, 3, vma_flags);
-> +	vma_set_anonymous(vma);
-> +	vma_orig = vma;
-> +	vma_new = copy_vma(&vma, 0x2000, 0x1000, 3, &need_locks);
-> +	ASSERT_NE(vma_new, vma_orig);
-> +	ASSERT_EQ(vma_new, vma);
-> +	ASSERT_EQ(vma_new->vm_start, 0x1000);
-> +	ASSERT_EQ(vma_new->vm_end, 0x4000);
-> +
-> +	cleanup_mm(&mm, &vmi);
-
-Okay, these examples were pretty useful to understand the original problem.
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
