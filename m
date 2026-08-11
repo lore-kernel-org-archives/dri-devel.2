@@ -4,68 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C69AEC5B56A
-	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 20:41:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 976B0C5AC67
+	for <dri-devel@archiver.kernel.org>; Tue, 11 Aug 2026 20:55:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD9F888F94;
-	Tue, 11 Aug 2026 20:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 978E010E385;
+	Tue, 11 Aug 2026 20:55:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="CbGp+fup";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WD7qhZGV";
 	dkim-atps=neutral
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72B9388F94
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 20:41:28 +0000 (UTC)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-cb6cf425e86so232696a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 13:41:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1786480888; x=1787085688;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:mime-version:date:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=HJ+kHjelH5pg9wQKl1OmAN9lbWOp3U72jOs17+JTkO0=;
- b=CbGp+fup4d1fF/lB1RCmlz6IvK1MonDQsbNHGdfe+sinVJ5AkmX/24YqhUt1f063X7
- itltwOxcCg72XvQhW8U9VcOok3O5Aic7rVR33QNebA6XwWBhW1rBK++8p0PYce1FYCDI
- oYBJy1UNlYaioG1bqmVNGYuN/CkYQLUVn+rRtMXhYeliTXbMfdImIy724aWen6GBgRVN
- 68GRtobpe4zJ0JfKPA8JUd/vgFtijRfXSWH3oAMcxJcZmz/wQN4TymX2iebhF5ImIb8O
- VzfD97vQNGoi4iEaEnWyM3dOkN5+LpClPRY/qWccB7XtpitqeO0j61+0aKkHl4JaQiQY
- 3rVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786480888; x=1787085688;
- h=content-type:cc:to:from:subject:message-id:mime-version:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HJ+kHjelH5pg9wQKl1OmAN9lbWOp3U72jOs17+JTkO0=;
- b=j1Fe2pDDuM6+d/EtYoYzxtQgr46jifqfrCevu0loZES5Taqjyak8q7yEr3nKAqDUze
- 1ElD+VR9F5CYiZC2hrlIJV2ED4whkxuM9ipgokjHUDfQnm1Dugv0srN6kIkIy94T+ExG
- USfUoGQ9VHxWQ5BipmWAkouBjqOyNcv4x/KdAO+T2bUF8BTCoFA9RKRdko2pQtkotkvK
- bCt/8WOpglFxsqfzB6Jp23zvu1BAbW9B8X4QV8FcBP9Z7Pwj+S4DE43qsOVS6WITe7tE
- P9P5LPNj7n3nY0TgeaQ7I97vt/SH/MqZ/EFpVmkGdNMS77PtcZGCeTgIPxrIomx4G4FZ
- EKjg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpjFAdmB0Ot27vX9HqAWQnsKv6LmwCdJnEuSZU/65eN/mFR0x5eAGbSqcWORR70CV+x8QbcEk+YvOk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7gDpRhvJq4Axk+nax6nC8vRlcJdjvqfGi8WDae0Wv1/FUYZx+
- e4ME/5hjyopukW4FWEvs3J5gP95oX/Ci0pFL2bw6YP17a105B20Jd32Wv93JeL6noSH4g/BJYgX
- FygQsM5brLGxtoQUDLg==
-X-Received: from pgvq11.prod.google.com ([2002:a65:624b:0:b0:c9b:f0c9:631a])
- (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:bea6:b0:3c1:b9c:4890 with SMTP id
- adf61e73a8af0-3cc2ba60c41mr7899605637.22.1786480887687; 
- Tue, 11 Aug 2026 13:41:27 -0700 (PDT)
-Date: Tue, 11 Aug 2026 13:41:23 -0700
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.679.g6767b8d81c-goog
-Message-ID: <20260811204123.3198370-1-tjmercier@google.com>
-Subject: [PATCH] kselftests: dmabuf-heaps: Open heap device files O_RDONLY
-From: "T.J. Mercier" <tjmercier@google.com>
-To: sumit.semwal@linaro.org, benjamin.gaignard@collabora.com, 
- Brian.Starkey@arm.com, jstultz@google.com, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Cc: christian.koenig@amd.com, shuah@kernel.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "T.J. Mercier" <tjmercier@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB45310E385
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 20:55:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 72EEA41853;
+ Tue, 11 Aug 2026 20:55:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DFD91F000E9;
+ Tue, 11 Aug 2026 20:55:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786481747;
+ bh=hIvJEInyyWyEQR8xW4MeUHGiXX1ux5+mx5Qqwh2CB4E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WD7qhZGVSda8r0I6MvPfyBhCdMXKIoTroXj83oQEHG1R5yvguV1Kww38MvMXJWkYX
+ +rCtJ0jAV/PhrGvMyCL2BGTnWyBbJmyY9LC6Xsd3Uium2LPNMjsmcNqa2g/1HWPwGC
+ CYWFPA2HPRCDfNG2uvGzTgOY4mnW/hckMEMnwvD4ahOo8/O0BFEsJ/kqmgFBMZJC3i
+ RrJJeCYpG7h54lwC53MRKODsSVFDGWtIqF+5xeuV1WhrmT36mFh2udoOj/rwjgNxqa
+ 3VFrqHGpFvCklhdaXIKphl3lZei6BHPCCa+XO9k+uSv4EhICoOI0DrCGmfXEAUdtQZ
+ 5dp1vOTxdoWDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] accel/amdxdna: refuse an I/O memory mapping of an
+ imported BO
+To: "Taimuraz Kaitmazov" <taimuraz@kaitmazov.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20260811204556.875037-2-taimuraz@kaitmazov.com>
+References: <20260811204556.875037-1-taimuraz@kaitmazov.com>
+ <20260811204556.875037-2-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 11 Aug 2026 20:55:46 +0000
+Message-Id: <20260811205547.1DFD91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,53 +54,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Write permissions on the /dev/dma_heap/* device files are not required
-to issue ioctls and allocate dmabufs. Applications should be opening
-these file as O_RDONLY. The BPF dmabuf_iter selftest already does
-this. [1]
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Users are pointing to these selftests as examples of how use dmabuf,
-and encountering permission errors on systems where write permissions
-are not available on /dev/dma_heap/*. Apply the principle of least
-privilege to selftests which open dmabuf heaps by removing the write
-access mode and using O_RDONLY for the open() instead.
+Pre-existing issues:
+- [High] Missing `amdxdna_gem_put_obj()` on the error path in `amdxdna_cmd_=
+set_error` leaks a GEM object reference.
+--
 
-The same is true for the vgem test using /dev/dri/card.
+--- Patch [1]: [PATCH 1/3] accel/amdxdna: refuse an I/O memory mapping of a=
+n imported BO ---
+commit c573f7ee611c1dede95280b62a62d7abef0e2670
+Author: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c?h=v7.1#n49
+accel/amdxdna: refuse an I/O memory mapping of an imported BO
 
-Signed-off-by: T.J. Mercier <tjmercier@google.com>
----
- tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+amdxdna_gem_obj_vmap() accepts whatever dma_buf_vmap() returns and only
+rejects a NULL vaddr. struct iosys_map is a union discriminated by
+is_iomem, so an exporter that answers with an I/O mapping leaves a
+void __iomem pointer in map->vaddr, and amdxdna_gem_vmap() stores it in
+abo->mem.kva, which callers use as an ordinary kernel address:
+amdxdna_cmd_set_error() memsets and memcpys through it.
 
-diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-index fc9694fc4e89..45b420e37c97 100644
---- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-+++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-@@ -48,7 +48,7 @@ static int open_vgem(void)
- 
- 		snprintf(name, 80, "%s%u", drmstr, i);
- 
--		fd = open(name, O_RDWR);
-+		fd = open(name, O_RDONLY);
- 		if (fd < 0)
- 			continue;
- 
-@@ -96,7 +96,7 @@ static int dmabuf_heap_open(char *name)
- 	if (ret < 0)
- 		ksft_exit_fail_msg("snprintf failed! %d\n", ret);
- 
--	fd = open(buf, O_RDWR);
-+	fd = open(buf, O_RDONLY);
- 	if (fd < 0)
- 		ksft_exit_fail_msg("open %s failed: %s\n", buf, strerror(errno));
- 
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
+amdxdna_gem.c
+> index 1f190b319bb6e..b66ec9e482894 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_obje=
+ct *obj, struct iosys_map *ma
+> =20
+>  	dma_resv_assert_held(obj->resv);
+> =20
+> -	if (is_import_bo(abo))
+> +	if (is_import_bo(abo)) {
+>  		ret =3D dma_buf_vmap(abo->dma_buf, map);
+> -	else
+> +		/* Callers use mem.kva as an ordinary kernel address. */
+> +		if (!ret && map->is_iomem) {
+> +			dma_buf_vunmap(abo->dma_buf, map);
+> +			return -EOPNOTSUPP;
+> +		}
 
-base-commit: 9a11db68872055e6ead919bad04d6330851c522d
--- 
-2.55.0.679.g6767b8d81c-goog
+[Severity: High]
+This isn't a bug introduced by this patch, but refusing the mapping here
+exposes a reference leak in amdxdna_cmd_set_error().
 
+If unprivileged userspace imports an IOMEM DMABUF and submits it as an
+ERT_CMD_CHAIN command that causes an error, we reach this code in
+drivers/accel/amdxdna/amdxdna_ctx.c:
+
+	if (amdxdna_cmd_get_op(abo) =3D=3D ERT_CMD_CHAIN) {
+		cc =3D amdxdna_cmd_get_payload(abo, NULL);
+		cc->error_index =3D (cmd_idx < cc->command_count) ? cmd_idx : 0;
+		abo =3D amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
+		if (!abo)
+			return -EINVAL;
+		cmd =3D amdxdna_gem_vmap(abo);
+		if (!cmd)
+			return -ENOMEM;
+	}
+
+Because amdxdna_gem_vmap() will now return NULL for the IOMEM BO, the code
+returns -ENOMEM immediately. Does this leak the GEM object reference acquir=
+ed
+by amdxdna_gem_get_obj() since it bypasses the amdxdna_gem_put_obj() cleanup
+located at the end of the function?
+
+> +	} else {
+>  		ret =3D drm_gem_shmem_object_vmap(obj, map);
+> +	}
+>  	if (ret)
+>  		return ret;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811204556.8750=
+37-1-taimuraz@kaitmazov.com?part=3D1
