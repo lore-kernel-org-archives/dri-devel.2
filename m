@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 760D1C5CFEE
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 17:18:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BD9FC5CFCF
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 17:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E42F710E444;
-	Wed, 12 Aug 2026 17:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 992BF10F094;
+	Wed, 12 Aug 2026 17:19:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PqOPKr1U";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hLWxCl64";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51FA010E2DD;
- Wed, 12 Aug 2026 17:18:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B23A10E448;
+ Wed, 12 Aug 2026 17:19:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8978960A7D;
- Wed, 12 Aug 2026 17:18:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6AFE1F000E9;
- Wed, 12 Aug 2026 17:17:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A402660A84;
+ Wed, 12 Aug 2026 17:19:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40E471F000E9;
+ Wed, 12 Aug 2026 17:18:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786555080;
- bh=ORVjW2+uzGEZ3P9C+o+jbVG9nyuLf1KgGswOIiDbPpU=;
+ s=k20260515; t=1786555157;
+ bh=8WxyeD/4K/o06qOFzP7l98EIPHkrp93Cvie3fdx+YOA=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=PqOPKr1U5/Zq/Agb3zTnII31kLHupSik1RfSnUbFYYJxc/LOWQA5OndnLSlUrwPNe
- TYSzKj9S+0Qdc2Q1gyaM4kyDT9CQBarGPj+5FLHb/JsSWspuQ8Pfc5iIUUiZ7+MXA1
- 16JtkYXjjCOcDhxarJebImOL+ify/0dGzPawerSv91sViOfv2uYxFsF3632WBw9LMW
- is9aol95hYPNTHbXpseyT308oBoiSv1xSoEYR4GY5olBVeew0/AFjSHvgeC616xXK3
- zyED/ApTUhikIHDO1E9ansj2GKB5DZX6f0KX38OwbwEGfQusq4zozJXxxC6phj9ODs
- l1WxGP9jFFnlw==
-Message-ID: <5d1a35d2-8541-44d5-8958-1efa9773d7bb@kernel.org>
-Date: Wed, 12 Aug 2026 19:17:39 +0200
+ b=hLWxCl64FwqEYTiMqoHVw+thTGYp72pt2VffGqLy69crUuSqbNDx2idc8hBpx8w0J
+ P3JAeDvIcyVd8+wRt0BAw61Hu6zDJOLsFFODqNhfCxEZsSTiJJN/2Y7LuwsSc8cLNb
+ 23NQDQc7YkGWiKnFaMI30ynO5fSaGB2yZ5FxirgtAYQpsvPUp6nIgZnNpkkp897Ovn
+ wki1zPDK9TzVk+FQBO6+i7O13PJZeE0JzZQk+tKDMDirc7GfEZNVWzXyD3BCYeCmjV
+ I8oFpfyH/8yCYBIBereVnICPY6/Yvq4V2ZyoWh25BXSNfIhIKtgzVZO3swyC/kPN12
+ wnhjGkkwdbPgA==
+Message-ID: <cd7036f1-7efb-488d-8889-b61dcffd1b1f@kernel.org>
+Date: Wed, 12 Aug 2026 19:18:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 19/20] tools/testing/vma: add test to assert
@@ -160,52 +160,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
+> Now we've made MAP_PRIVATE-mapped /dev/zero mappings truly anonymous, add a
+> VMA userland test to assert that this is the case and everything is as
+> we would expect for an anonymous mapping.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  tools/testing/vma/include/dup.h |  1 +
+>  tools/testing/vma/tests/mmap.c  | 50 +++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 51 insertions(+)
+> 
+> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+> index aee36707abdd..41203b1c2323 100644
+> --- a/tools/testing/vma/include/dup.h
+> +++ b/tools/testing/vma/include/dup.h
+> @@ -20,6 +20,7 @@ struct task_struct *get_current(void);
+>  
+>  #define MAJOR(dev)	((unsigned int) ((dev) >> MINORBITS))
+>  #define MINOR(dev)	((unsigned int) ((dev) & MINORMASK))
+> +#define MKDEV(ma, mi)	(((ma) << MINORBITS) | (mi))
+>  
+>  #define S_IFMT  00170000
+>  #define S_IFCHR  0020000
+> diff --git a/tools/testing/vma/tests/mmap.c b/tools/testing/vma/tests/mmap.c
+> index c85bc000d1cb..ebe01362e530 100644
+> --- a/tools/testing/vma/tests/mmap.c
+> +++ b/tools/testing/vma/tests/mmap.c
+> @@ -45,7 +45,57 @@ static bool test_mmap_region_basic(void)
+>  	return true;
+>  }
+>  
+> +static int dummy_mmap_prepare(struct vm_area_desc *desc)
+> +{
+> +	return 0;
+> +}
+> +
 > +static bool test_pure_anon_dev_zero(void)
 > +{
-> +	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
-> +			VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT);
-> +	const struct file_operations f_op = {
-> +		.mmap_prepare = dummy_mmap_prepare,
-> +	};
-> +	struct inode inode = {
-> +		.i_mode = S_IFCHR,
-> +		.i_rdev = MKDEV(MEM_MAJOR, DEVZERO_MINOR),
-> +	};
-> +	struct file file = {
-> +		.f_inode = &inode,
-> +		.f_op = &f_op,
-> +	};
-> +	struct mm_struct mm = {};
-> +	struct vm_area_struct *vma;
-> +	unsigned long addr;
-> +	VMA_ITERATOR(vmi, &mm, 0);
-> +
 
-When we go with a zero_vm_ops this gets a bit simpler (see schloppedi-schlop).
+Ah, just one comment: should we call this something like
+"test_map_private_dev_zero", at least that'd be clearer for me.
 
-> +	current->mm = &mm;
-> +
-> +	/*
-> +	 * Map a MAP_PRIVATE-/dev/zero mapping at address 0x300000 with a page
-> +	 * offset of 0x10, which we expect to be reset to the anonymous page
-> +	 * offset.
-> +	 */
-> +	addr = __mmap_region(&file, 0x300000, 0x3000, vma_flags, 0x10, NULL);
-> +	ASSERT_EQ(addr, 0x300000);
-> +
-> +	/* Assert that it truly is an anonymous mapping. */
-> +	vma = vma_lookup(&mm, addr);
-> +	ASSERT_NE(vma, NULL);
-> +	ASSERT_TRUE(vma_is_anonymous(vma));
-> +	ASSERT_EQ(vma->vm_file, NULL);
-> +	ASSERT_EQ(vma->vm_private_data, NULL);
-> +	/* Expect anonymous page offsets. */
-> +	ASSERT_EQ(vma->vm_pgoff, 0x300);
-> +	ASSERT_EQ(vma_start_anon_pgoff(vma), 0x300);
-
-Yes, that looks good to me.
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
