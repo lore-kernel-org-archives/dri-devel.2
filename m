@@ -4,137 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CA8DC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E784C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AB3510F04B;
-	Wed, 12 Aug 2026 14:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47FDB10F052;
+	Wed, 12 Aug 2026 14:59:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="hG8JQ6O3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h2TpIeun";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011065.outbound.protection.outlook.com
- [40.93.194.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A3E10F04B
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:48:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hWJ2dI+/yExQ6bOA9a7txJtQWa3+IO0E+UUTX5LS/oIbkNiDKoVZiuJxZTnglk8UACjOdw0xLb3u2uFzMijrNUW7TIaDw4WLjK+EPEXPohGdP/k2J03cxTHXuXEoMbo6yJQcIZTc/iujy9AmSa2csOADNRM+L7maXq0enwZXSibPdXyaFcpBdJQM9Y7cVBSE/L8mWGKSka3CfmLjIG0X25/jZDSW3V15fBiovm6TI0ZO3rYfBVco6Ged2yFxeHV5TbL+LMAgeh1xo4Gy48lNxnzATDAD2r0oVMBjzRxKuoTtZPVnPLt7BEm3L77fhdSi76TdScBjS/nqpmQai/aHEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bb2XX+K8XlPrskQ3LjuUMVJxBwTNrFhavyXBFcu8lVc=;
- b=Xz/p9eOw2uML5dU7oecWYnTFGD0kNy07JUg2NaRJwd91O/l2zsHELJ2XeI75BDTt9+2Kdnqib3t+bX2fSE2JTSMaCwTe2zKO2EtKMofrvOqN2w74dA8xG7WKHmxS+NHNvziziaB14I/+EkFSDcoKlWACyENw+CUTwzpDaPC63tKK2/XJj7VURyzr3PK3ryySuKUDFSG0dgAgMDA0V29gnA/aB9xXEyOFl0OcPsH8R3+0iUOomQ5/4zzL8kFCSZMB8V0XOtuT/0KyjxACrzc5dw818UAhTkef2tP1gIdO0Bhn8hAwUC9SSaVyxhcOBdJncjZq9ZejLUjCWV4HtS4F0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bb2XX+K8XlPrskQ3LjuUMVJxBwTNrFhavyXBFcu8lVc=;
- b=hG8JQ6O3UyldndPwT92F/99PLhEyNTycIMqoHGhygZol3Y5zgYx0qo+6MRyA2SO9uH0g8P57IKzK1ref9o/vdSKDIEJY53e5qaSrbtv1sZyq3OwdADTx9zk+7mqRC5Mr3/eRecRQ3JTywO4uD51+325BNkeyEc6GElIFcmikT4DTgDEsr6EV3AEr3TZnZReU7G3fecu3hH/+0X72osp8XZtoFhezLhqgh6TD7I5J82F9RDFTjw1Ris3AG166ALiDIWFjZTHridy5rTis+/OE9Ex8Itslf1rcQETaS0oIoyPtdRC3Y7SBJGrb+t97XhylMiLVyT29D2Om8LhNViRqJQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by IA1PR12MB8406.namprd12.prod.outlook.com (2603:10b6:208:3da::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
- 2026 14:48:12 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0315.008; Wed, 12 Aug 2026
- 14:48:11 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 12 Aug 2026 23:48:07 +0900
-Message-Id: <DKN1QEH1HWD1.1ZV0LWLNCZJTH@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v2 12/16] gpu: nova-core: use projection for PFALCON and
- PFALCON2 registers
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Content-Transfer-Encoding: quoted-printable
-References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
- <20260805-typed_register-v2-12-c3ca142220a0@garyguo.net>
-In-Reply-To: <20260805-typed_register-v2-12-c3ca142220a0@garyguo.net>
-X-ClientProxiedBy: TY4P286CA0128.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37f::17) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F1DF10F052
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:59:15 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4996f1ee4a4so6931115e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:59:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786546754; x=1787151554; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=q1nrZUobuF1yn+UbJUUcT2D99tf03vlB8DoLKsIEbmM=;
+ b=h2TpIeunhF1Nuyn4kKWWApLHMkNFWvDS94VdRLLlypIZ9/Be4ijqu4dp9/YVhywLm5
+ 1bn9VGRCHWhDexs4Z/Fmtxg2Sxw6ZccsMjuNXPPY52avl4XPdUkp6D03T2Zn7Z07sQ0t
+ fojUhfx2Fpfa47mt5xT6v/+EKG3UJMN8AcmwpYvOG6PcO9sUs2quZIXbgW59N3teDXJm
+ oImQUir0qbF6rcqH9XBmmmQjutm8CG599ID1YABEuOuxZl1gIjngucmhfpAcVEbgMhxY
+ PYoO8N6t891X0jeDamF3CSfNIwyghHQIi3gvI7qSUvecmTEg2LTLC8crUX79Jh/7X9Nq
+ 1lpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786546754; x=1787151554;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=q1nrZUobuF1yn+UbJUUcT2D99tf03vlB8DoLKsIEbmM=;
+ b=DC60NixG5asDYYWDiLPxiRDstzzwZu3zylCVj9pKtl9Dw73Oz1001VRSNM1+V+SVCt
+ P5LfOecUDkk2c7pl/JABJ5k13DF3E0hBanS/YrDRQZ52Vsc9IOh3zdOelPqJhoPB6m8U
+ KChOCVA1Nq0RLqipYHRZvPpJSa4TaWR7LoVJOk8atrs+Yf4QVPlmCGJ33O3HPfNpZPq6
+ HLjOR3oA81NFaq4FBFBikW7pFLcSy6HslJHO2e8ftpxtjNvjSFYNF0BHq9wtksHR5XMP
+ js2kb/mN7VSXQg4c2+DRuVt2IFxAWrx38vy4sBALDjfC2DbVLaimWKJZwUfJID9RFDsc
+ Adyw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpvNvZIhNEwK+XuHVb/d7++4qzaLlPUtwrvSaaoQnN7y7/gUzNi9uD27cG7IO4FD/WlqlcLXQCw7yk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyu/HHBShU+rNVjLg0FPD+Zo2srcmFy9CiXzeutC/f8cPC/XJsb
+ NLwpmMIP5GgHJ8GFJ6RFRM9jRCYBdKURHuPkKDJFvL3NC8EehWzS/68K
+X-Gm-Gg: AR+sD11xWQgILnwAFuBzAQugXrkdA0mq+zLvxTvtwXzYDtiU34+yTpJp2pLrsO1Kw4D
+ 8I1jkLOvKGjPszx3RDVoyExfV7OHV3IbGtCo8l4ERNr3wLi3JX1KdeBtis+cZD0ES/yAvWGVwuK
+ 7m+8B70eZppXhh65ZogciCusCDZtQwtxu1EEud10uIS9odEO+bu9araZSUv20WONZWxobNlWHDn
+ AcXOS6MA+kmjw5pIzYIK5/GI9aNHzyjsKhVIvj74tP25s5+mdF2256yLDfFHOZXcMA2VXAZQU8T
+ SLotH97HdUaA8BS8pJ/01Hg/o20CRCisgwWQ2JXsd7yuv+jZ9AZ6ME/VtH4eOoopfJc1jVbjv1Q
+ ern4w9vv5FE/TnuM1pERu38TwyLWIo75iSNn6Xp5RoX4CXty3PN1VOkJ8A5/1cRqO83f6Ng/i/v
+ Zi/+s90O6Ka5yJUyEvyHPvD9MuInniqfT+I/OoUhEO6jjEt878yDWMLPqvAKSnFop0cqVplr6lG
+ bNVGWLfoXkFUVw6pj8OCGJ6QY/NtLiJImoX
+X-Received: by 2002:a7b:c7d1:0:b0:493:c634:952 with SMTP id
+ 5b1f17b1804b1-4997c1192c0mr54209895e9.7.1786546753681; 
+ Wed, 12 Aug 2026 07:59:13 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:3d2e:78f3:cfb2:413d])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4997aabab7asm77281825e9.6.2026.08.12.07.59.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Aug 2026 07:59:13 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: luca.ceresoli@bootlin.com, Linus Walleij <linusw@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Cristian Cozzolino <cristian_ci@protonmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Robert Chiras <robert.chiras@nxp.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
+Subject: [PATCH v4 3/6] drm/panel: Use managed helpers in Novatek and Raydium
+ panels
+Date: Wed, 12 Aug 2026 16:59:08 +0200
+Message-ID: <20260812145910.69509-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA1PR12MB8406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fd8f1a7-5bc2-4336-69d0-08def880bb1e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|23010399003|1800799024|10070799003|5023799004|4143699003|11063799006|3023799007|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: kTOa0aWKHj0COw/Dd/j1mtD5kNDtI1rn1PI5AU9eQNh2EaubmBz7FBwnEv3mMNmOFN/6J0z2gkAA3aSyGa+lzfskzJWbdinOYLqP01lcUvfEH5k4ckvhXLkRaLJG+ErOFmskB+ZYMZLToH5FKuSV8h9vASGMiIqRZ7Pb2k7rTbsvbEevQwTCH21o0zJeNexIEqHLsltijxY2sp5gMemFT4eEGsZgfxq/oWpYbGycLDtvnsMhsAZwcbXtyUDXsrv/nEA6BIolitlGaibTMWKiXI7e4j3gW9NMt1sqKIZD20lK9EnRVuo2oE9E88EyLd7YdVFuQzbAC6QSbadkvHIk2ncPE63gFLjoUaI0bXiAVd3uvRq28p6ZlryVKIRV+wRiFMNLSUcXmLKtaEQhYUHwSqCyen6DvIANarTLCwHdo7NMYqUogHfK4Zn10iEVXEef1z+QMN2ERfE50JfcEVCQrx52qCMyltUrJ7QE7nn7sGOX/raSMJF6YtAEZg0FzLVPQz+5f9Y4G+ENS3kWSLsXjLRq43kJhZ0wF23X8Jxx5QP1RPMXott3Q9mqIqYwhldPo3Q6doqfydDtksuD16Uv0RaT5iRN1gJSsP4RY+FkjFV1wrpuWhg4CtIjkCzMEerU9fjIfjjNU6muvoS/F0MNOFSsIV6FUrRinRd3z3GVrVM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(10070799003)(5023799004)(4143699003)(11063799006)(3023799007)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0lkUmMvZWd4aG1RaXIzb1JraXFPYllSSWowa045eml6U1FiUXM3Zy9oVDc0?=
- =?utf-8?B?aFNoNlBXNjQrOWhrcVBCaUY1UkMxNXIyNWlFRWtoZFpKYU1rclZsWVpOVll0?=
- =?utf-8?B?SndjSVRyOFJDVXI5d2M4UnVNU0hjUEd1ZGdWblFwYUE2OXcyOEhyQ3lNR3FS?=
- =?utf-8?B?T05pUUZRZE1VNkRGZmlERFhBa0lRS1lWNVNuemhvY011WVVGYk02NmxrSW5a?=
- =?utf-8?B?dWttZCtUYkR4UTZoM2xMYmkwelJqRE5McmY3KzVZVXBlYmNNL0U0ajRua3g5?=
- =?utf-8?B?S3RNY0NmK25ob2p6UzJpK2FEVlU4bXpJLzBjVXlNRkF6eHN3WFVtTnQwYkha?=
- =?utf-8?B?WElPOTNyNjRwM0RGdGhpRWcwa2NaYUJuVG1pVkRQSXBFa3luSWxxRllZQ0gy?=
- =?utf-8?B?REZ3TmdoV2FrNGZLR296bDd6QkVTOGk1TTh5eWhjTGxlRWdpdU5pT203NmFV?=
- =?utf-8?B?azlrcnZhRjFGY2xId0lINThkRFFBRy9UcU54T1g4UHp1TnlNSEhoRGZmU0Zr?=
- =?utf-8?B?aWJNY05nd254OVZPL0NoVUNCYmdjc3ROSk5BV1lLYnVtR093NWFERVpDUmto?=
- =?utf-8?B?MDRTVUdJNzN2Qm5MMmRuWWF0TkxhV3ArTXdwQjlWaXJQME1HSFY3TU53OE1I?=
- =?utf-8?B?RGNRWEs0aUkxQmFpTDdwVG13ajIvUVNCOVdVb3RGZ05IcWV0M3RJb1EwZXR0?=
- =?utf-8?B?RWFScEhTTHFLMVJDL3JoOVlHcHFjUWJzeHlqc0xkMlhRaUZKamo1OXIwU2Mx?=
- =?utf-8?B?SW5zTWp4dFRERm9SRTkvbWkwZnFYM2hObElEeSs4Vm9QWlVIV0JjR1c2K1U3?=
- =?utf-8?B?a0x4YjFQNHJuR0IrbmRobC96UjNya1ZZVktwYzZFNlRkaUwvYVFlazRVNUpL?=
- =?utf-8?B?Zk51UXNwbm83T0NYZHVXbkM1SFc0bFR3eFB3aVlDTU5mcUI5S2wrL21UUmJ1?=
- =?utf-8?B?b20vWDAvb2lKZCtta25IcVdIdXJzOGVGc1FxV0hkZjR2ZjB3cHZPdWlQSEw0?=
- =?utf-8?B?K0hDQngzaTlveFBWMW9FTmZ2R3o5NzRHdGQ2d2g2bW9ieDdzMTNqUCtQQWdS?=
- =?utf-8?B?c3dDUkR4VlFwMmo4SytQdGRGSWNwaWxTNXpiYUhZQ1k3YjZ6M21ZRmtjSU0z?=
- =?utf-8?B?NUt6MERrQ1Y4VDREb2ZRWlo3OG1CeU9yd1FYbFgrOW5tVmxxQ3FEWXRzSjdh?=
- =?utf-8?B?WFdPeE9wM3V6M280NkJDOWcyT0NlaWJVdmI4Lzd5ZjBBbW5hUEdpZkNMbXAv?=
- =?utf-8?B?M0lKZWllZ2tvb1ZnOVJsY09RVkFSZW1ZZ0sxRkFnWGJobTUvakR4VkhSRHlp?=
- =?utf-8?B?d0dWMmZ4V2hWb0xjZWJZN3NNN01JZ3ZEclY4clNYU0w0b3hzTk04WlpuWklm?=
- =?utf-8?B?WXpEaG9oOXBIT1hoNUtFU0NvS3Q5QTUzUzNNMG9kWUVYd05MWkNld1RYSlJK?=
- =?utf-8?B?K3pFQnVnM2dHTzYxV0dBRGJNY3Zka3JwNjJtT0ZNTnZHNDdSODNYUStnTG1v?=
- =?utf-8?B?LzFudjlmS0lOUEYwN09DSG5jNFVXdUJPaS94Q0tvU3RmcGtkOWg5MFQzTVlG?=
- =?utf-8?B?ZVl5RCtuNnE5L1gvK1diUDg1M3c2MTc2SlVlcTNocGZ2bEk2L0dhcDVnbUd3?=
- =?utf-8?B?L0M2Zmg3dkZvbHh2V2tGWDlTVkRSVldnV0JiTDhBb0QwYVRWK1UyYk1nWGtz?=
- =?utf-8?B?RHphYTFIcmVWbkg0bTF2cmhZaW56bHUzbkJUengvKzQ2YmtZcU5jdms5eGdM?=
- =?utf-8?B?cXRaVWNKQ3RxMmdjc1ZobXI0Wk5nUldVVnZtTG1RN3JBK1hmVzl0S0F0VmN5?=
- =?utf-8?B?c0tROHlYOXpMb0pVUm42ODc5ZXhjY0MwRU9TVkNHMVR3bXJjQ01pcFlUb3J0?=
- =?utf-8?B?S1o0blMzUVlpZndHVWhVQUJuaVFENkxHYjlnNnR6NXhyZUcrTmZGaS96K3JF?=
- =?utf-8?B?QitnMnRLT3FkNE9wTlFCb2JUdmhpVTVKS3Bna1NhdzZrNU8yVkR5WGRLa2Vj?=
- =?utf-8?B?Sk5XZHRwK3VCOWNPMnZGR290dUdVV0pxYVZBVXA1cnFvWjdtekk0Unc2Yitv?=
- =?utf-8?B?cXNzblZRb2Y0UzBLelFRbDNYTTd0c0pxUDJHengyMC94VW15QXdEM3F0ZXIy?=
- =?utf-8?B?bUxDblpCZ3gzZlYwc2R5VkZsSUN6bHlWQUxEZ2tCWDIrMWRSMVl2aUptMVBv?=
- =?utf-8?B?bmxuNlhDeVZ0aEcvNlBEVFdXMDVGeFR4c1BWUi9pcE5DME5oM1crVnk5bFg0?=
- =?utf-8?B?STRvbnR6S3gxWm9VQklBUTJ5OGd5S2JkTUp4MllrdWhQSW9NSm1TL3NrdXRK?=
- =?utf-8?B?WU9RalNCU0VxUnhBMVQvb1NnSDNNbjM2THF6SytJWnJtZHFOOXpXL1k3eGtO?=
- =?utf-8?Q?MrER9tzT8bwwSiZURqH4bi6z/X53QTDK+sImtuMvl8NNs?=
-X-MS-Exchange-AntiSpam-MessageData-1: FohuTWlJcyeJLQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fd8f1a7-5bc2-4336-69d0-08def880bb1e
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 14:48:11.5981 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HUaUb7RHLSkMwanM9ENamJ18ecMBULmKtKOEYpBghr37D8krXOq10dnokGESGSUVTSP36fN+Zltz1K4CeBqAPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8406
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,347 +98,531 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
-> Add fixed size region types `PFalconRegisters` and `PFalcon2Registers` an=
-d
-> update PFALCON and PFALCON registers to be fixed register on them and not
+Use the managed MIPI DSI attach and panel add helpers in Novatek and
+Raydium panel drivers and drop the corresponding manual detach and panel
+remove calls from remove paths.
 
-nit: second `PFALCON` should be `PFALCON2`.
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+v4:
+- use devm_drm_panel_add instead of drm_panel_add.
 
-> relative registers on `NovaRegisters`.
->
-> Update `Falcon` struct to store projected views when constructing and
-> access with `self.pfalcon` and `self.pfalcon2`.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
->  drivers/gpu/nova-core/falcon.rs                    | 157 +++++++++------=
-------
->  drivers/gpu/nova-core/falcon/fsp.rs                |  63 +++++----
->  drivers/gpu/nova-core/falcon/gsp.rs                |  51 ++++---
->  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  62 ++++----
->  drivers/gpu/nova-core/falcon/hal/tu102.rs          |   9 +-
->  drivers/gpu/nova-core/falcon/sec2.rs               |  37 +++--
->  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  18 +--
->  drivers/gpu/nova-core/gsp/hal/tu102.rs             |   7 +-
->  drivers/gpu/nova-core/regs.rs                      |  91 ++++++------
->  9 files changed, 238 insertions(+), 257 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falc=
-on.rs
-> index a91cbdd5d636..ed52572690ff 100644
-> --- a/drivers/gpu/nova-core/falcon.rs
-> +++ b/drivers/gpu/nova-core/falcon.rs
-> @@ -14,13 +14,12 @@
->      },
->      io::{
->          poll::read_poll_timeout,
-> -        register::{
-> -            RegisterBase,
-> -            WithBase, //
-> -        },
-> +        register::Array,
->          Io,
-> +        Mmio, //
->      },
->      prelude::*,
-> +    sizes::SZ_4K,
->      time::Delta,
->  };
-> =20
-> @@ -165,18 +164,22 @@ pub(crate) enum FalconFbifMemType with From<Bounded=
-<u32, 1>> {
->      }
->  }
-> =20
-> -/// Type used to represent the `PFALCON` registers address base for a gi=
-ven falcon engine.
-> -pub(crate) struct PFalconBase(());
-> +/// Type used to represent the `PFALCON` registers.
-> +#[repr(align(4))]
-> +#[derive(FromBytes, IntoBytes)]
-> +pub(crate) struct PFalconRegisters([u8; SZ_4K]);
-> =20
-> -/// Type used to represent the `PFALCON2` registers address base for a g=
-iven falcon engine.
-> -pub(crate) struct PFalcon2Base(());
-> +/// Type used to represent the `PFALCON2` registers.
-> +#[repr(align(4))]
-> +#[derive(FromBytes, IntoBytes)]
-> +pub(crate) struct PFalcon2Registers([u8; SZ_4K]);
-> =20
->  /// Trait defining the parameters of a given Falcon engine.
->  ///
->  /// Each engine provides one base for `PFALCON` and `PFALCON2` registers=
-.
-> -pub(crate) trait FalconEngine:
-> -    Send + Sync + RegisterBase<PFalconBase> + RegisterBase<PFalcon2Base>=
- + Sized
-> -{
-> +pub(crate) trait FalconEngine: Send + Sync + Sized {
-> +    fn pfalcon(io: Bar0<'_>) -> Mmio<'_, PFalconRegisters>;
-> +    fn pfalcon2(io: Bar0<'_>) -> Mmio<'_, PFalcon2Registers>;
+ drivers/gpu/drm/panel/panel-novatek-nt35510.c | 13 +++-------
+ drivers/gpu/drm/panel/panel-novatek-nt35532.c | 23 ++++-------------
+ drivers/gpu/drm/panel/panel-novatek-nt35560.c | 19 +++-----------
+ drivers/gpu/drm/panel/panel-novatek-nt36672a.c    | 25 ++-----------------
+ drivers/gpu/drm/panel/panel-novatek-nt36672e.c    | 21 ++++------------
+ drivers/gpu/drm/panel/panel-novatek-nt37700f.c    | 23 ++++-------------
+ drivers/gpu/drm/panel/panel-novatek-nt37801.c | 23 ++++-------------
+ drivers/gpu/drm/panel/panel-raydium-rm67191.c | 22 +++-------------
+ drivers/gpu/drm/panel/panel-raydium-rm67200.c | 23 ++++-------------
+ drivers/gpu/drm/panel/panel-raydium-rm68200.c | 16 +++---------
+ drivers/gpu/drm/panel/panel-raydium-rm692e5.c | 20 +++------------
+ 11 files changed, 45 insertions(+), 183 deletions(-)
 
-Remember on v1 when we contemplated using associated consts? Turns out
-we can with this version:
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35510.c b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+index 3189d89c7ca0..91c81bfffbef 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt35510.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+@@ -1173,13 +1173,11 @@ static int nt35510_probe(struct mipi_dsi_device *dsi)
+ 		nt->panel.backlight = bl;
+ 	}
+ 
+-	drm_panel_add(&nt->panel);
+-
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0)
+-		drm_panel_remove(&nt->panel);
++	ret = devm_drm_panel_add(dev, &nt->panel);
++	if (ret)
++		return ret;
+ 
+-	return 0;
++	return devm_mipi_dsi_attach(dev, dsi);
+ }
+ 
+ static void nt35510_remove(struct mipi_dsi_device *dsi)
+@@ -1187,13 +1185,10 @@ static void nt35510_remove(struct mipi_dsi_device *dsi)
+ 	struct nt35510 *nt = mipi_dsi_get_drvdata(dsi);
+ 	int ret;
+ 
+-	mipi_dsi_detach(dsi);
+ 	/* Power off */
+ 	ret = nt35510_power_off(nt);
+ 	if (ret)
+ 		dev_err(&dsi->dev, "Failed to power off\n");
+-
+-	drm_panel_remove(&nt->panel);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35532.c b/drivers/gpu/drm/panel/panel-novatek-nt35532.c
+index edea766a3c44..752144220514 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt35532.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt35532.c
+@@ -752,29 +752,17 @@ static int nt35532_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		drm_panel_remove(&ctx->panel);
++	ret = devm_mipi_dsi_attach(dev, dsi);
++	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+-	}
+ 
+ 	return 0;
+ }
+ 
+-static void nt35532_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct novatek_nt35532 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id nt35532_of_match[] = {
+ 	{ .compatible = "flipkart,rimob-panel-nt35532-cs", .data = &rimob_panel_desc },
+ 	{ /* sentinel */ }
+@@ -783,7 +771,6 @@ MODULE_DEVICE_TABLE(of, nt35532_of_match);
+ 
+ static struct mipi_dsi_driver nt35532_driver = {
+ 	.probe = nt35532_probe,
+-	.remove = nt35532_remove,
+ 	.driver = {
+ 		.name = "panel-novatek-nt35532",
+ 		.of_match_table = nt35532_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35560.c b/drivers/gpu/drm/panel/panel-novatek-nt35560.c
+index 6e5173f98a22..be42eb9ef423 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt35560.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt35560.c
+@@ -433,23 +433,11 @@ static int nt35560_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(nt->panel.backlight),
+ 				     "failed to register backlight device\n");
+ 
+-	drm_panel_add(&nt->panel);
+-
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		drm_panel_remove(&nt->panel);
++	ret = devm_drm_panel_add(dev, &nt->panel);
++	if (ret)
+ 		return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static void nt35560_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct nt35560 *nt = mipi_dsi_get_drvdata(dsi);
+ 
+-	mipi_dsi_detach(dsi);
+-	drm_panel_remove(&nt->panel);
++	return devm_mipi_dsi_attach(dev, dsi);
+ }
+ 
+ static const struct of_device_id nt35560_of_match[] = {
+@@ -467,7 +455,6 @@ MODULE_DEVICE_TABLE(of, nt35560_of_match);
+ 
+ static struct mipi_dsi_driver nt35560_driver = {
+ 	.probe = nt35560_probe,
+-	.remove = nt35560_remove,
+ 	.driver = {
+ 		.name = "panel-novatek-nt35560",
+ 		.of_match_table = nt35560_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+index 464d9ce47d87..da466cdd9354 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+@@ -428,9 +428,7 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 
+-	drm_panel_add(&pinfo->base);
+-
+-	return 0;
++	return devm_drm_panel_add(dev, &pinfo->base);
+ }
+ 
+ static int nt36672a_panel_probe(struct mipi_dsi_device *dsi)
+@@ -458,25 +456,7 @@ static int nt36672a_panel_probe(struct mipi_dsi_device *dsi)
+ 	if (err < 0)
+ 		return err;
+ 
+-	err = mipi_dsi_attach(dsi);
+-	if (err < 0) {
+-		drm_panel_remove(&pinfo->base);
+-		return err;
+-	}
+-
+-	return 0;
+-}
+-
+-static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct nt36672a_panel *pinfo = mipi_dsi_get_drvdata(dsi);
+-	int err;
+-
+-	err = mipi_dsi_detach(dsi);
+-	if (err < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
+-
+-	drm_panel_remove(&pinfo->base);
++	return devm_mipi_dsi_attach(&dsi->dev, dsi);
+ }
+ 
+ static const struct of_device_id tianma_fhd_video_of_match[] = {
+@@ -491,7 +471,6 @@ static struct mipi_dsi_driver nt36672a_panel_driver = {
+ 		.of_match_table = tianma_fhd_video_of_match,
+ 	},
+ 	.probe = nt36672a_panel_probe,
+-	.remove = nt36672a_panel_remove,
+ };
+ module_mipi_dsi_driver(nt36672a_panel_driver);
+ 
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
+index c5e00eb55722..85902338f10d 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
+@@ -561,27 +561,17 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
+ 
+ 	ctx->panel.prepare_prev_first = true;
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+-		goto err_dsi_attach;
++		return ret;
+ 	}
+ 
+ 	return 0;
+-
+-err_dsi_attach:
+-	drm_panel_remove(&ctx->panel);
+-	return ret;
+-}
+-
+-static void nt36672e_panel_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct nt36672e_panel *ctx = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(ctx->dsi);
+-	drm_panel_remove(&ctx->panel);
+ }
+ 
+ static const struct of_device_id nt36672e_of_match[] = {
+@@ -599,7 +589,6 @@ static struct mipi_dsi_driver nt36672e_panel_driver = {
+ 		.of_match_table = nt36672e_of_match,
+ 	},
+ 	.probe = nt36672e_panel_probe,
+-	.remove = nt36672e_panel_remove,
+ };
+ module_mipi_dsi_driver(nt36672e_panel_driver);
+ 
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37700f.c b/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
+index c221dd498fed..c2d219e52f6a 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
+@@ -257,29 +257,17 @@ static int nt37700f_tianma_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		drm_panel_remove(&ctx->panel);
++	ret = devm_mipi_dsi_attach(dev, dsi);
++	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+-	}
+ 
+ 	return 0;
+ }
+ 
+-static void nt37700f_tianma_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct nt37700f_tianma *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id nt37700f_tianma_of_match[] = {
+ 	{ .compatible = "novatek,nt37700f" },
+ 	{ /* sentinel */ }
+@@ -288,7 +276,6 @@ MODULE_DEVICE_TABLE(of, nt37700f_tianma_of_match);
+ 
+ static struct mipi_dsi_driver nt37700f_tianma_driver = {
+ 	.probe = nt37700f_tianma_probe,
+-	.remove = nt37700f_tianma_remove,
+ 	.driver = {
+ 		.name = "panel-novatek-nt37700f",
+ 		.of_match_table = nt37700f_tianma_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+index 5e46c4c6d771..4db560b66f4d 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+@@ -270,7 +270,9 @@ static int novatek_nt37801_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+ 	/* This panel only supports DSC; unconditionally enable it */
+ 	dsi->dsc = &ctx->dsc;
+@@ -283,27 +285,13 @@ static int novatek_nt37801_probe(struct mipi_dsi_device *dsi)
+ 	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
+ 	ctx->dsc.block_pred_enable = true;
+ 
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		drm_panel_remove(&ctx->panel);
++	ret = devm_mipi_dsi_attach(dev, dsi);
++	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+-	}
+ 
+ 	return 0;
+ }
+ 
+-static void novatek_nt37801_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct novatek_nt37801 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id novatek_nt37801_of_match[] = {
+ 	{ .compatible = "novatek,nt37801" },
+ 	{}
+@@ -312,7 +300,6 @@ MODULE_DEVICE_TABLE(of, novatek_nt37801_of_match);
+ 
+ static struct mipi_dsi_driver novatek_nt37801_driver = {
+ 	.probe = novatek_nt37801_probe,
+-	.remove = novatek_nt37801_remove,
+ 	.driver = {
+ 		.name = "panel-novatek-nt37801",
+ 		.of_match_table = novatek_nt37801_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm67191.c b/drivers/gpu/drm/panel/panel-raydium-rm67191.c
+index 2af6aa47a551..62062ae0ebe3 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm67191.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm67191.c
+@@ -590,26 +590,11 @@ static int rad_panel_probe(struct mipi_dsi_device *dsi)
+ 
+ 	dev_set_drvdata(dev, panel);
+ 
+-	drm_panel_add(&panel->panel);
+-
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret)
+-		drm_panel_remove(&panel->panel);
+-
+-	return ret;
+-}
+-
+-static void rad_panel_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct rad_panel *rad = mipi_dsi_get_drvdata(dsi);
+-	struct device *dev = &dsi->dev;
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
++	ret = devm_drm_panel_add(dev, &panel->panel);
+ 	if (ret)
+-		dev_err(dev, "Failed to detach from host (%d)\n", ret);
++		return ret;
+ 
+-	drm_panel_remove(&rad->panel);
++	return devm_mipi_dsi_attach(dev, dsi);
+ }
+ 
+ static const struct of_device_id rad_of_match[] = {
+@@ -624,7 +609,6 @@ static struct mipi_dsi_driver rad_panel_driver = {
+ 		.of_match_table = rad_of_match,
+ 	},
+ 	.probe = rad_panel_probe,
+-	.remove = rad_panel_remove,
+ };
+ module_mipi_dsi_driver(rad_panel_driver);
+ 
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm67200.c b/drivers/gpu/drm/panel/panel-raydium-rm67200.c
+index b2ba006c06f6..e16f9ad6d193 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm67200.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm67200.c
+@@ -420,29 +420,17 @@ static int raydium_rm67200_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return ret;
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
++	ret = devm_mipi_dsi_attach(dev, dsi);
++	if (ret < 0)
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+-		drm_panel_remove(&ctx->panel);
+-	}
+ 
+ 	return ret;
+ }
+ 
+-static void raydium_rm67200_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct raydium_rm67200 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct regulator_bulk_data w552793baa_regulators[] = {
+ 	{ .supply = "vdd", },		/*  2.8V */
+ 	{ .supply = "iovcc", },		/*  1.8V */
+@@ -479,7 +467,6 @@ MODULE_DEVICE_TABLE(of, raydium_rm67200_of_match);
+ 
+ static struct mipi_dsi_driver raydium_rm67200_driver = {
+ 	.probe = raydium_rm67200_probe,
+-	.remove = raydium_rm67200_remove,
+ 	.driver = {
+ 		.name = "panel-raydium-rm67200",
+ 		.of_match_table = raydium_rm67200_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+index c535dc931903..f235cb4ae071 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+@@ -360,26 +360,19 @@ static int rm68200_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return ret;
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "mipi_dsi_attach() failed: %d\n", ret);
+-		drm_panel_remove(&ctx->panel);
+ 		return ret;
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-static void rm68200_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct rm68200 *ctx = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(dsi);
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id raydium_rm68200_of_match[] = {
+ 	{ .compatible = "raydium,rm68200" },
+ 	{ }
+@@ -388,7 +381,6 @@ MODULE_DEVICE_TABLE(of, raydium_rm68200_of_match);
+ 
+ static struct mipi_dsi_driver raydium_rm68200_driver = {
+ 	.probe = rm68200_probe,
+-	.remove = rm68200_remove,
+ 	.driver = {
+ 		.name = "panel-raydium-rm68200",
+ 		.of_match_table = raydium_rm68200_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm692e5.c b/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
+index 8e9484768657..4065cdf690f9 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
+@@ -315,7 +315,9 @@ static int rm692e5_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+ 	/* This panel only supports DSC; unconditionally enable it */
+ 	dsi->dsc = &ctx->dsc;
+@@ -331,28 +333,15 @@ static int rm692e5_probe(struct mipi_dsi_device *dsi)
+ 	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
+ 	ctx->dsc.block_pred_enable = true;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+-		drm_panel_remove(&ctx->panel);
+ 		return ret;
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-static void rm692e5_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct rm692e5_panel *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id rm692e5_of_match[] = {
+ 	{ .compatible = "fairphone,fp5-rm692e5-boe" },
+ 	{ }
+@@ -361,7 +350,6 @@ MODULE_DEVICE_TABLE(of, rm692e5_of_match);
+ 
+ static struct mipi_dsi_driver rm692e5_driver = {
+ 	.probe = rm692e5_probe,
+-	.remove = rm692e5_remove,
+ 	.driver = {
+ 		.name = "panel-rm692e5-boe-amoled",
+ 		.of_match_table = rm692e5_of_match,
+-- 
+2.43.0
 
-    // Need a better name, but you get the idea.
-    pub(crate) type PFalconRegs =3D OffsetLoc<NovaRegisters, PFalconRegiste=
-rs>;
-    pub(crate) type PFalcon2Regs =3D OffsetLoc<NovaRegisters, PFalcon2Regis=
-ters>;
-
-    pub(crate) trait FalconEngine: Send + Sync + Sized {
-        const PFALCON: PFalconRegs;
-        const PFALCON2: PFalcon2Regs;
-    }
-
-... and make `Falcon::new` call `io_project` directly, and it works! At
-the cost of importing `OffsetLoc` in `falcon.rs`, but that removes ~30
-LoCs in total, and I'm not sure `OffsetLoc` should be hidden anyway.
-
->  }
-> =20
->  /// Represents a portion of the firmware to be loaded into a particular =
-memory (e.g. IMEM or DMEM)
-> @@ -358,6 +361,8 @@ pub(crate) struct Falcon<'a, E: FalconEngine> {
->      hal: KBox<dyn FalconHal<E>>,
->      dev: &'a device::Device<device::Bound>,
->      bar: Bar0<'a>,
-> +    pub(crate) pfalcon: Mmio<'a, PFalconRegisters>,
-> +    pfalcon2: Mmio<'a, PFalcon2Registers>,
->  }
-> =20
->  impl<'a, E: FalconEngine + 'static> Falcon<'a, E> {
-> @@ -371,19 +376,19 @@ pub(crate) fn new(
->              hal: hal::falcon_hal(chipset)?,
->              dev,
->              bar,
-> +            pfalcon: E::pfalcon(bar),
-> +            pfalcon2: E::pfalcon2(bar),
->          })
->      }
-> =20
->      /// Resets DMA-related registers.
->      pub(crate) fn dma_reset(&self) {
-> -        self.bar.update(regs::NV_PFALCON_FBIF_CTL::of::<E>(), |v| {
-> +        self.pfalcon.update(regs::NV_PFALCON_FBIF_CTL, |v| {
->              v.with_allow_phys_no_ctx(true)
->          });
-> =20
-> -        self.bar.write(
-> -            WithBase::of::<E>(),
-> -            regs::NV_PFALCON_FALCON_DMACTL::zeroed(),
-> -        );
-> +        self.pfalcon
-> +            .write_reg(regs::NV_PFALCON_FALCON_DMACTL::zeroed());
-
-Remembering the debates we had over how to address relative registers
-when we ported registers to the new I/O scheme, I guess this new syntax
-which should make everyone happy! :)
-
-<...>
-> diff --git a/drivers/gpu/nova-core/falcon/gsp.rs b/drivers/gpu/nova-core/=
-falcon/gsp.rs
-> index ae32f401aeb0..cbea6d7b49d3 100644
-> --- a/drivers/gpu/nova-core/falcon/gsp.rs
-> +++ b/drivers/gpu/nova-core/falcon/gsp.rs
-> @@ -2,23 +2,24 @@
-> =20
->  use kernel::{
->      io::{
-> +        io_project,
->          poll::read_poll_timeout,
-> -        register::{
-> -            RegisterBase,
-> -            WithBase, //
-> -        },
-> +        register,
->          Io,
-> +        Mmio, //
->      },
->      prelude::*,
->      time::Delta, //
->  };
-> =20
->  use crate::{
-> +    driver::{
-> +        Bar0,
-> +        NovaRegisters, //
-> +    },
->      falcon::{
->          Falcon,
-> -        FalconEngine,
-> -        PFalcon2Base,
-> -        PFalconBase, //
-> +        FalconEngine, //
->      },
->      regs,
->  };
-> @@ -26,24 +27,31 @@
->  /// Type specifying the `Gsp` falcon engine. Cannot be instantiated.
->  pub(crate) struct Gsp(());
-> =20
-> -impl RegisterBase<PFalconBase> for Gsp {
-> -    const BASE: usize =3D 0x00110000;
-> -}
-> +register! {
-> +    base: NovaRegisters;
-> =20
-> -impl RegisterBase<PFalcon2Base> for Gsp {
-> -    const BASE: usize =3D 0x00111000;
-> +    PFALCON: super::PFalconRegisters @ 0x00110000;
-> +    PFALCON2: super::PFalcon2Registers @ 0x00111000;
->  }
-> =20
-> -impl FalconEngine for Gsp {}
-> +impl FalconEngine for Gsp {
-> +    #[inline]
-> +    fn pfalcon<'a>(io: Bar0<'a>) -> Mmio<'a, super::PFalconRegisters> {
-> +        io_project!(io, build: PFALCON)
-> +    }
-> +
-> +    #[inline]
-> +    fn pfalcon2<'a>(io: Bar0<'a>) -> Mmio<'a, super::PFalcon2Registers> =
-{
-
-The lifetime `'a` is elided in `fsp.rs` and `sec2.rs`, so we can also do
-it here. But the point is moot if we switch to associated consts anyway.
-
-> +        io_project!(io, build: PFALCON2)
-> +    }
-> +}
-> =20
->  impl<'a> Falcon<'a, Gsp> {
->      /// Clears the SWGEN0 bit in the Falcon's IRQ status clear register =
-to
->      /// allow GSP to signal CPU for processing new messages in message q=
-ueue.
->      pub(crate) fn clear_swgen0_intr(&self) {
-> -        self.bar.write(
-> -            WithBase::of::<Gsp>(),
-> -            regs::NV_PFALCON_FALCON_IRQSCLR::zeroed().with_swgen0(true),
-> -        );
-> +        self.pfalcon
-> +            .write_reg(regs::NV_PFALCON_FALCON_IRQSCLR::zeroed().with_sw=
-gen0(true));
->      }
-> =20
->      /// Checks if GSP reload/resume has completed during the boot proces=
-s.
-> @@ -59,8 +67,8 @@ pub(crate) fn check_reload_completed(&self, timeout: De=
-lta) -> Result<bool> {
-> =20
->      /// Returns whether the RISC-V branch privilege lockdown bit is set.
->      pub(crate) fn riscv_branch_privilege_lockdown(&self) -> bool {
-> -        self.bar
-> -            .read(regs::NV_PFALCON_FALCON_HWCFG2::of::<Gsp>())
-> +        self.pfalcon
-> +            .read(regs::NV_PFALCON_FALCON_HWCFG2)
->              .riscv_br_priv_lockdown()
->      }
-> =20
-> @@ -71,10 +79,7 @@ pub(crate) fn priv_target_mask_released(&self) -> bool=
- {
->          const LOCKED_PATTERN: u32 =3D 0xbadf_4100;
->          const LOCKED_MASK: u32 =3D 0xffff_ff00;
-> =20
-> -        let hwcfg2 =3D self
-> -            .bar
-> -            .read(regs::NV_PFALCON_FALCON_HWCFG2::of::<Gsp>())
-> -            .into_raw();
-> +        let hwcfg2 =3D self.pfalcon.read(regs::NV_PFALCON_FALCON_HWCFG2)=
-.into_raw();
-> =20
->          hwcfg2 !=3D 0 && (hwcfg2 & LOCKED_MASK) !=3D LOCKED_PATTERN
->      }
-> diff --git a/drivers/gpu/nova-core/falcon/hal/ga102.rs b/drivers/gpu/nova=
--core/falcon/hal/ga102.rs
-> index 7600ee07ca2e..ebfaff3d960f 100644
-> --- a/drivers/gpu/nova-core/falcon/hal/ga102.rs
-> +++ b/drivers/gpu/nova-core/falcon/hal/ga102.rs
-> @@ -6,11 +6,9 @@
->      device,
->      io::{
->          poll::read_poll_timeout,
-> -        register::{
-> -            Array,
-> -            WithBase, //
-> -        },
-> -        Io, //
-> +        register::Array,
-> +        Io,
-> +        Mmio, //
->      },
->      prelude::*,
->      time::Delta, //
-> @@ -24,6 +22,7 @@
->          FalconBromParams,
->          FalconEngine,
->          FalconModSelAlgo,
-> +        PFalcon2Registers,
->          PeregrineCoreSelect, //
->      },
->      regs,
-> @@ -31,17 +30,16 @@
-> =20
->  use super::FalconHal;
-> =20
-> -fn select_core_ga102<E: FalconEngine>(bar: Bar0<'_>) -> Result {
-> -    let bcr_ctrl =3D bar.read(regs::NV_PRISCV_RISCV_BCR_CTRL::of::<E>())=
-;
-> +fn select_core_ga102<E: FalconEngine>(pfalcon2: Mmio<'_, PFalcon2Registe=
-rs>) -> Result {
-
-The generic parameter `E` is now unused and can be removed.
-
-> +    let bcr_ctrl =3D pfalcon2.read(regs::NV_PRISCV_RISCV_BCR_CTRL);
->      if bcr_ctrl.core_select() !=3D PeregrineCoreSelect::Falcon {
-> -        bar.write(
-> -            WithBase::of::<E>(),
-> +        pfalcon2.write_reg(
->              regs::NV_PRISCV_RISCV_BCR_CTRL::zeroed().with_core_select(Pe=
-regrineCoreSelect::Falcon),
->          );
-> =20
->          // TIMEOUT: falcon core should take less than 10ms to report bei=
-ng enabled.
->          read_poll_timeout(
-> -            || Ok(bar.read(regs::NV_PRISCV_RISCV_BCR_CTRL::of::<E>())),
-> +            || Ok(pfalcon2.read(regs::NV_PRISCV_RISCV_BCR_CTRL)),
->              |r| r.valid(),
->              Delta::ZERO,
->              Delta::from_millis(10),
-> @@ -86,24 +84,23 @@ fn signature_reg_fuse_version_ga102(
->      Ok(u16::BITS - reg_fuse_version.leading_zeros())
->  }
-> =20
-> -fn program_brom_ga102<E: FalconEngine>(bar: Bar0<'_>, params: &FalconBro=
-mParams) {
-> -    bar.write(
-> -        WithBase::of::<E>().at(0),
-> +fn program_brom_ga102<E: FalconEngine>(
-
-Same here.
-
-<...>
-> @@ -359,7 +356,7 @@ pub(crate) fn usable_fb_size(self) -> u64 {
->          25:25   aincr =3D> bool;
->      }
-> =20
-> -    pub(crate) NV_PFALCON_FALCON_EMEMD(u32) @ PFalconBase + 0x00000ac4 {
-> +    pub(crate) NV_PFALCON_FALCON_EMEMD(u32) @ 0x00000ac4 {
->          31:0    data =3D> u32;
->      }
->  }
-> @@ -385,13 +382,13 @@ pub(crate) fn with_falcon_mem(self, mem: FalconMem)=
- -> Self {
-> =20
->  impl NV_PFALCON_FALCON_ENGINE {
->      /// Resets the falcon
-> -    pub(crate) fn reset_engine<E: FalconEngine>(bar: Bar0<'_>) {
-> -        bar.update(Self::of::<E>(), |r| r.with_reset(true));
-> +    pub(crate) fn reset_engine<E: FalconEngine>(pfalcon: Mmio<'_, PFalco=
-nRegisters>) {
-
-Here as well `E` can be dropped.
