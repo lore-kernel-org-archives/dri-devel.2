@@ -4,56 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4527C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9908AC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:54:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08C5C10F006;
-	Wed, 12 Aug 2026 13:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED2BC10F00A;
+	Wed, 12 Aug 2026 13:54:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DsBBYIi4";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Cc02pna2";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lKJo1p7J";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EI87GtyM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YsWhsfJY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 065DC10F004;
- Wed, 12 Aug 2026 13:53:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DAB7F41311;
- Wed, 12 Aug 2026 13:53:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA591F000E9;
- Wed, 12 Aug 2026 13:53:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786542798;
- bh=lscjbvhu4sZY3Vq6UVhR28UHnVjIyganW1V7Q5v5k50=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=DsBBYIi4YlKKemyZgZt10pE6owlC543boMsGE/3SZ171NrzLYeKNxXJRB8FfTa9W3
- Euae2i4B4rI4SW4nh+JuR8IoIl6iCcgq3dyYPhEgRCQzyZ/s/8K/fHb9l5Zs1La9iu
- UHiG9tE41njuRc2Fc594N6amZOW5JLNzTmUaVYvedBS0eaDbB7OevQnbmuEzSzaR2o
- AEZqtpF9OVX2gnwhXgtvxUhLDCQBrBfn0nh7Bt/PPWeRCdlM/WLdpI2SpwCdcfx9Fk
- 0bdAFh75DnI8A9NcHFwTHys5khL9jW/SSnqQkvZX7zf80Zx70n8mq7kpDvpn6hkXnm
- pKulT/tkgPYhw==
-Date: Wed, 12 Aug 2026 15:53:09 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-phy@lists.infradead.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH v9 4/5] phy: qcom-uniphy: add more registers from display
- PHYs
-Message-ID: <bhvd4pv765rbog6wnj5i3log7dzqggtlibjnqeakj7rqibk4bg@wu2asltvxsuu>
-References: <20260513-fd-hdmi-phy-v9-0-ca98c72f1f9f@oss.qualcomm.com>
- <20260513-fd-hdmi-phy-v9-4-ca98c72f1f9f@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260513-fd-hdmi-phy-v9-4-ca98c72f1f9f@oss.qualcomm.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F276110F021;
+ Wed, 12 Aug 2026 13:54:11 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 34A8A822F3;
+ Wed, 12 Aug 2026 13:54:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1786542846; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dcTsi9mTEu/AweH+B/eF0oCGDKGYVPBNZGrykR66RMk=;
+ b=Cc02pna2wy+wF3esksu7cnKMuQu1KzM27lJ3z/lCxdqz8Hi15jqn6USxoVVKGsa1pyZJGY
+ 6xxKJ9ZeHC8LH0A0q4Ut3rqdecziJdvI+kVPPJl7NMedlWkeC5I5eC7Deeqf5Lm4gCt0O1
+ c/ZDzNHyPO3xob+bAU3jqRsRcO5WDUk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1786542846;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dcTsi9mTEu/AweH+B/eF0oCGDKGYVPBNZGrykR66RMk=;
+ b=lKJo1p7JpRBx3HBJydkEemscHVYl3ohOMSBQ+KS4V4M6qCa7kgeQd3t/t5iREWy6dDaA/E
+ NZtcOc41maCIJ2Cg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1786542842; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dcTsi9mTEu/AweH+B/eF0oCGDKGYVPBNZGrykR66RMk=;
+ b=EI87GtyMcEH1bvWHzroG+knQ+uc5lJYV3k8q2zU5cvkQo90qaLUrkcPB3SB/N665Cl1WHw
+ HYpSX5GyuDK38q2T8RKqOsVXrGOziJuAP6eOzpiYq4mSuUzRksdPUEYLtxmbS5fLW2j9NX
+ Th/iPSp6dcF2ZVngvaRpUatwRQCPbP0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1786542842;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dcTsi9mTEu/AweH+B/eF0oCGDKGYVPBNZGrykR66RMk=;
+ b=YsWhsfJY5Ho2SMFvwS+uH5CkdOIvogrWUAsEeXGWULb99UDuTS+SvP/gnQvx83/iPz9mKj
+ ijoqk92VeenLjVAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D2232779B1;
+ Wed, 12 Aug 2026 13:54:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id dnWrMvl6fGpUfAAAD6G6ig
+ (envelope-from <tiwai@suse.de>); Wed, 12 Aug 2026 13:54:01 +0000
+Date: Wed, 12 Aug 2026 15:53:57 +0200
+Message-ID: <87ik5fzbpm.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andre Eikmeyer <dev@deq.rocks>
+Cc: platform-driver-x86@vger.kernel.org,	amd-gfx@lists.freedesktop.org,
+ linux-sound@vger.kernel.org,	Atharva Tiwari
+ <atharvatiwarilinuxdev@gmail.com>,	Hans de Goede <hansg@kernel.org>,	Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,	Alex Deucher
+ <alexander.deucher@amd.com>,	Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>,	David Airlie <airlied@gmail.com>,	Simona Vetter
+ <simona@ffwll.ch>,	Kenneth Feng <kenneth.feng@amd.com>,	Jaroslav Kysela
+ <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,
+ dri-devel@lists.freedesktop.org,	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] ALSA: hda: allow direct complete with a powered-off
+ GPU
+In-Reply-To: <87mrurzc3s.wl-tiwai@suse.de>
+References: <20260812122206.193680-1-dev@deq.rocks>
+ <20260812122206.193680-4-dev@deq.rocks>
+ <87mrurzc3s.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,gmail.com,kernel.org,linux.intel.com,amd.com,ffwll.ch,perex.cz,suse.com];
+ TO_DN_SOME(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,19 +116,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 13, 2026 at 09:14:07PM +0300, Dmitry Baryshkov wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Wed, 12 Aug 2026 15:45:27 +0200,
+Takashi Iwai wrote:
 > 
-> Import register definitions from 28nm DSI and HDMI PHYs, adding more UNI
-> PHY registers.
+> On Wed, 12 Aug 2026 14:22:06 +0200,
+> Andre Eikmeyer wrote:
+> > 
+> > +static bool azx_vga_is_powered_off(struct azx *chip)
+> > +{
+> > +#ifdef SUPPORT_VGA_SWITCHEROO
+> > +	struct pci_dev *pci;
+> > +	bool powered_off = false;
+> > +
+> > +	if (!use_vga_switcheroo(container_of(chip, struct hda_intel, chip)))
+> > +		return false;
+> > +
+> > +	pci = get_bound_vga(chip->pci);
+> > +	if (pci) {
+> > +		powered_off = pm_runtime_suspended(&pci->dev) &&
+> > +			vga_switcheroo_get_client_state(pci) == VGA_SWITCHEROO_OFF;
+> > +		pci_dev_put(pci);
+> > +	}
+> > +
+> > +	return powered_off;
+> > +#else
+> > +	return false;
+> > +#endif
+> > +}
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> This ifdef can be moved to the caller side below...
+> 
+> > +
+> >  static int azx_prepare(struct device *dev)
+> >  {
+> >  	struct snd_card *card = dev_get_drvdata(dev);
+> > @@ -1025,6 +1048,10 @@ static int azx_prepare(struct device *dev)
+> >  		return 0;
+> >  
+> >  	chip = card->private_data;
+> > +	/* A powered-off dGPU cannot signal HDA wake events. */
+> > +	if (azx_vga_is_powered_off(chip))
+> > +		return 1;
+> > +
+> 
+> ... to wrap the call site, instead.  Since this is the only caller,
+> having the conditional here would make the intention clearer.
 
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Looking at the code again, this won't work well.
 
-- Mani
+But, keeping vga_switcheroo-specific code in a single place would be
+still meaningful.  So,
 
--- 
-மணிவண்ணன் சதாசிவம்
+ #ifdef SUPPORT_VGA_SWITCHEROO
+ #define use_vga_switcheroo(chip)	((chip)->use_vga_switcheroo)
+ #define needs_eld_notify_link(chip)	((chip)->bus.keep_power)
++static bool azx_vga_is_powered_off(struct azx *chip);
+ #else
+ #define use_vga_switcheroo(chip)	0
+ #define needs_eld_notify_link(chip)	false
++#define azx_vga_is_powered_off(chip)	false
+ #endif
+
+and then define azx_vga_is_powered_off() in the section for
+vga_switcheroo code.
+
+In anyway, it's a matter of taste, and if the resultant patch doesn't
+look better, you can keep the original way, too.
+
+
+thanks,
+
+Takashi
