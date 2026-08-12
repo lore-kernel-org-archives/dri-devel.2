@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03609C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:42:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B3FEC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:42:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED1CB10E428;
-	Wed, 12 Aug 2026 14:42:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D85C10F044;
+	Wed, 12 Aug 2026 14:42:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="wSIM/Qx5";
+	dkim=pass (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="bjnV55uM";
 	dkim-atps=neutral
 Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de
  [91.216.248.212])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EEFF10E428;
- Wed, 12 Aug 2026 14:42:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D011D10F03A;
+ Wed, 12 Aug 2026 14:42:35 +0000 (UTC)
 From: Andre Eikmeyer <dev@deq.rocks>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
- s=securedbylima-20251205; t=1786545750;
- bh=r//8AyeAQ7KMt3PVWfbj/mhaVNoRT8KhAZ4HUx1fBS4=;
+ s=securedbylima-20251205; t=1786545754;
+ bh=NHGFnHCWZzH1vnJMLGX/Fcj31gRuYYTG1RpcbvmCyR8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=wSIM/Qx5RJLVkUmoOODyLBDgbY+3u4PG/2VfholkhJgrO6VzWftBZj6noQueBlO+W
- xhoCLKla177vsYHZkTBwFrtS8KaooqhtGHNAxoClEQ+I08huKAsoJX9AMx5oE+02TI
- 3DTu6jAE4H6WmX9+gNbYBUXtf0wsayMFuf6R0WmsPXLKPzdD0l/ImfcQOp5XPLkEna
- WTmVmenj8rGGtARWa4mqiuLszol/aaqah4TIvb3it9HFYGbCiZPpU5Ebv4QHrxaciE
- Ec2EMTPEUTzUtLDezTFICRpny4/YQG9AWAjjsEQ+yq9qM+oJzpPRVcldKIbRoMRRvf
- ims6NIyM6yVfA==
+ b=bjnV55uMuzK3pJ3jC2EPgUXvwNzGH2rCm29dytoiMT01b/HWYC4pg8cQSSN/mXlBw
+ p6rHspvmWtfC73AyScpGzzMGA3WVLypGD/88Cl0SeDH8LdTyppioKtMr8MWgPEh/L6
+ nzi8daxfmI5mqalSS17Lsy73+/onp4HnG/Pid07jA3h2rIzO/47Oa36uHdfw7zXCuk
+ ZaiLZOmF5K+zHoEyvkNTj86X8VNk359UvnW+gWFXLiFHyCHcJs3bhgCRv9PekpgS31
+ 94cV2OyZms/CEginxfb66E+0Q6WGhq/6qf5ect9BZr5nc1NZ88f2fxwhDRhiNQgv8O
+ EOs2Mx6zR802A==
 To: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  linux-sound@vger.kernel.org
 Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
@@ -40,10 +40,9 @@ Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Andre Eikmeyer <dev@deq.rocks>
-Subject: [PATCH v2 1/3] platform/x86: apple-gmux: add MacBookPro15,
- 1 dGPU power sequence
-Date: Wed, 12 Aug 2026 16:42:19 +0200
-Message-ID: <20260812144221.35877-2-dev@deq.rocks>
+Subject: [PATCH v2 2/3] drm/amdgpu: add Apple GMUX runtime PM support
+Date: Wed, 12 Aug 2026 16:42:20 +0200
+Message-ID: <20260812144221.35877-3-dev@deq.rocks>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260812144221.35877-1-dev@deq.rocks>
 References: <20260812122206.193680-1-dev@deq.rocks>
@@ -65,167 +64,235 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+The MacBookPro15,1 uses Apple GMUX to control power to the discrete GPU,
+but it does not expose the ATPX or ACPI power-resource interfaces currently
+recognized by amdgpu. The driver therefore leaves runtime PM disabled even
+though vga_switcheroo can switch the GPU reliably.
 
-The discrete GPU on the MacBookPro15,1 does not return after the legacy
-GMUX power-on sequence. PCI configuration space remains inaccessible, so
-runtime PM cannot provide usable hybrid graphics with the integrated GPU
-as primary.
+A dedicated GMUX runtime PM mode uses the existing vga_switcheroo PM domain
+to sequence GPU power. A runtime-suspended GMUX GPU can remain powered off
+across system sleep, following the smart-suspend handling already used by
+BOCO devices.
 
-Evaluate the firmware PWG1 and PWG3 link methods around the GMUX
-transition and wait for PCI configuration space before completing power-on.
-Keep the sequence limited to the MacBookPro15,1 and retain the existing
-path for every other model.
+This allows the discrete GPU to enter D3cold while the integrated GPU is
+primary and allows PRIME workloads and external displays to wake it on
+demand. The model enablement is limited to the tested MacBookPro15,1.
 
-This was tested on both the 2018 and 2019 MacBookPro15,1 revisions with the
-integrated GPU as primary. The discrete GPU transitions between DynOff and
-DynPwr, and external displays work across the transitions.
+This was tested on both the 2018 and 2019 MacBookPro15,1 revisions together
+with the apple-gmux and HDA changes in this series.
 
-Co-developed-by: Andre Eikmeyer <dev@deq.rocks>
 Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 ---
- drivers/platform/x86/apple-gmux.c | 78 ++++++++++++++++++++++++++++---
- 1 file changed, 72 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 34 ++++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 30 ++++++++++++-------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  1 +
+ 4 files changed, 49 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index 9c728ac..16ccf15 100644
---- a/drivers/platform/x86/apple-gmux.c
-+++ b/drivers/platform/x86/apple-gmux.c
-@@ -22,6 +22,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 7b09410..cc2e2e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1402,6 +1402,7 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev);
+ int amdgpu_device_link_reset(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_atpx(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_px(struct amdgpu_device *adev);
++bool amdgpu_device_supports_gmux(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
+ int amdgpu_device_supports_baco(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index bff3e06..bfa2b7a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -34,6 +34,7 @@
+ #include <linux/slab.h>
+ #include <linux/iommu.h>
  #include <linux/pci.h>
- #include <linux/vga_switcheroo.h>
- #include <linux/debugfs.h>
 +#include <linux/dmi.h>
- #include <acpi/video.h>
- #include <asm/io.h>
+ #include <linux/pci-p2pdma.h>
+ #include <linux/apple-gmux.h>
+ #include <linux/nospec.h>
+@@ -568,6 +569,22 @@ bool amdgpu_device_supports_px(struct amdgpu_device *adev)
+ 	return false;
+ }
  
-@@ -74,6 +75,8 @@ struct apple_gmux_data {
- 	enum vga_switcheroo_client_id switch_state_external;
- 	enum vga_switcheroo_state power_state;
- 	struct completion powerchange_done;
-+	struct pci_dev *discrete_pdev;
-+	bool use_pwg_power_sequence;
- 
- 	/* debugfs data */
- 	u8 selected_port;
-@@ -82,6 +85,26 @@ struct apple_gmux_data {
- 
- static struct apple_gmux_data *apple_gmux_data;
- 
-+static int gmux_call_pwg(struct apple_gmux_data *gmux_data,
-+			 const char *method)
++static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
++		},
++	},
++	{ }
++};
++
++bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
 +{
-+	acpi_handle handle = ACPI_HANDLE(&gmux_data->discrete_pdev->dev);
-+	acpi_status status;
-+
-+	if (!handle)
-+		return -ENODEV;
-+
-+	status = acpi_evaluate_object(handle, (acpi_string)method, NULL, NULL);
-+	if (ACPI_FAILURE(status)) {
-+		dev_err(&gmux_data->discrete_pdev->dev,
-+			"failed to evaluate %s: %s\n", method,
-+			acpi_format_exception(status));
-+		return -EIO;
-+	}
-+
-+	return 0;
++	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
++	       !dev_is_removable(&adev->pdev->dev) &&
++	       apple_gmux_detect(NULL, NULL);
 +}
 +
- struct apple_gmux_config {
- 	u8 (*read8)(struct apple_gmux_data *gmux_data, int port);
- 	void (*write8)(struct apple_gmux_data *gmux_data, int port, u8 val);
-@@ -510,14 +533,49 @@ static int gmux_switch_ddc(enum vga_switcheroo_client_id id)
- static int gmux_set_discrete_state(struct apple_gmux_data *gmux_data,
- 				   enum vga_switcheroo_state state)
+ /**
+  * amdgpu_device_supports_boco - Is the device a dGPU with ACPI power resources
+  *
+@@ -631,6 +648,9 @@ void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
+ 			/* enable PX as runtime mode */
+ 			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+ 			dev_info(adev->dev, "Using ATPX for runtime pm\n");
++		} else if (amdgpu_device_supports_gmux(adev)) {
++			adev->pm.rpm_mode = AMDGPU_RUNPM_GMUX;
++			dev_info(adev->dev, "Using Apple GMUX for runtime pm\n");
+ 		} else if (amdgpu_device_supports_boco(adev)) {
+ 			/* enable boco as runtime mode */
+ 			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+@@ -3711,7 +3731,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
  {
-+	int ret;
-+
- 	reinit_completion(&gmux_data->powerchange_done);
+ 	struct pci_dev *pdev = adev->pdev;
+ 	int r, i;
+-	bool px = false;
++	bool gmux, px = false;
+ 	u32 max_MBps;
+ 	int tmp;
  
- 	if (state == VGA_SWITCHEROO_ON) {
--		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
--		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-+		if (gmux_data->use_pwg_power_sequence &&
-+		    gmux_data->discrete_pdev) {
-+			u16 vendor;
-+			int i;
-+
-+			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 2);
-+			msleep(100);
-+			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-+
-+			ret = gmux_call_pwg(gmux_data, "PWG1");
-+			if (ret)
-+				return ret;
-+
-+			for (i = 0; i < 1000; i++) {
-+				pci_read_config_word(gmux_data->discrete_pdev,
-+						     PCI_VENDOR_ID, &vendor);
-+				if (vendor != 0xffff)
-+					break;
-+				usleep_range(1000, 2000);
-+			}
-+			if (vendor == 0xffff) {
-+				dev_err(&gmux_data->discrete_pdev->dev,
-+					"timed out waiting for PCI config space\n");
-+				return -ETIMEDOUT;
-+			}
-+
-+			ret = gmux_call_pwg(gmux_data, "PWG3");
-+			if (ret)
-+				return ret;
-+		} else {
-+			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-+			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-+		}
- 		pr_debug("Discrete card powered up\n");
- 	} else {
- 		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-+		if (gmux_data->use_pwg_power_sequence)
-+			usleep_range(10000, 11000);
- 		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
- 		pr_debug("Discrete card powered down\n");
- 	}
-@@ -549,11 +607,16 @@ static enum vga_switcheroo_client_id gmux_get_client_id(struct pci_dev *pdev)
+@@ -4144,13 +4164,14 @@ fence_driver_init:
+ 		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
+ 
+ 	px = amdgpu_device_supports_px(adev);
++	gmux = amdgpu_device_supports_gmux(adev);
+ 
+ 	if (px || (!dev_is_removable(&adev->pdev->dev) &&
+-				apple_gmux_detect(NULL, NULL)))
++		   apple_gmux_detect(NULL, NULL)))
+ 		vga_switcheroo_register_client(adev->pdev,
+-					       &amdgpu_switcheroo_ops, px);
++					       &amdgpu_switcheroo_ops, px || gmux);
+ 
+-	if (px)
++	if (px || gmux)
+ 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
+ 
+ 	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
+@@ -4278,7 +4299,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+ {
+ 	int i, idx;
+-	bool px;
++	bool gmux, px;
+ 
+ 	amdgpu_device_ip_fini(adev);
+ 	amdgpu_fence_driver_sw_fini(adev);
+@@ -4309,12 +4330,13 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+ 	adev->xcp_mgr = NULL;
+ 
+ 	px = amdgpu_device_supports_px(adev);
++	gmux = amdgpu_device_supports_gmux(adev);
+ 
+ 	if (px || (!dev_is_removable(&adev->pdev->dev) &&
+ 				apple_gmux_detect(NULL, NULL)))
+ 		vga_switcheroo_unregister_client(adev->pdev);
+ 
+-	if (px)
++	if (px || gmux)
+ 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
+ 
+ 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 1aed121..b8d4273 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2485,11 +2485,12 @@ retry_init:
+ 		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
+ 
+ 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
+-		/* only need to skip on ATPX */
++		/* ATPX requires a full system-sleep transition. */
+ 		if (amdgpu_device_supports_px(adev))
+ 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+-		/* we want direct complete for BOCO */
+-		if (amdgpu_device_supports_boco(adev))
++		/* BOCO and GMUX can remain runtime suspended across system sleep. */
++		if (amdgpu_device_supports_boco(adev) ||
++		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
+ 						DPM_FLAG_SMART_SUSPEND |
+ 						DPM_FLAG_MAY_SKIP_RESUME);
+@@ -2598,7 +2599,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 	/* Return a positive number here so
+ 	 * DPM_FLAG_SMART_SUSPEND works properly
  	 */
- 	if (pdev->vendor == PCI_VENDOR_ID_INTEL)
- 		return VGA_SWITCHEROO_IGD;
--	else if (pdev->vendor == PCI_VENDOR_ID_NVIDIA &&
--		 pdev->device == 0x0863)
-+	if (pdev->vendor == PCI_VENDOR_ID_NVIDIA && pdev->device == 0x0863)
- 		return VGA_SWITCHEROO_IGD;
--	else
--		return VGA_SWITCHEROO_DIS;
-+
-+	if (apple_gmux_data->use_pwg_power_sequence &&
-+	    apple_gmux_data->discrete_pdev != pdev) {
-+		pci_dev_put(apple_gmux_data->discrete_pdev);
-+		apple_gmux_data->discrete_pdev = pci_dev_get(pdev);
-+	}
-+
-+	return VGA_SWITCHEROO_DIS;
- }
+-	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
++	if ((amdgpu_device_supports_boco(adev) ||
++	     adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) &&
++	    pm_runtime_suspended(dev))
+ 		return 1;
  
- static const struct vga_switcheroo_handler gmux_handler_no_ddc = {
-@@ -803,6 +866,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 	if (!gmux_data)
- 		return -ENOMEM;
- 	pnp_set_drvdata(pnp, gmux_data);
-+	gmux_data->use_pwg_power_sequence = type == APPLE_GMUX_TYPE_MMIO &&
-+		dmi_match(DMI_PRODUCT_NAME, "MacBookPro15,1");
+ 	/* if we will not support s3 or s2i for the device
+@@ -2860,7 +2863,8 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	}
  
- 	switch (type) {
- 	case APPLE_GMUX_TYPE_MMIO:
-@@ -1009,6 +1074,7 @@ static void gmux_remove(struct pnp_dev *pnp)
- 	} else
- 		release_region(gmux_data->iostart, gmux_data->iolen);
- 	apple_gmux_data = NULL;
-+	pci_dev_put(gmux_data->discrete_pdev);
- 	kfree(gmux_data);
- }
+ 	adev->in_runpm = true;
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
  
+ 	/*
+@@ -2887,8 +2891,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
+ 		adev->mp1_state = PP_MP1_STATE_NONE;
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
+-		/* Only need to handle PCI state in the driver for ATPX
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
++		/* Only need to handle PCI state in the driver for ATPX and GMUX.
+ 		 * PCI core handles it for _PR3.
+ 		 */
+ 		amdgpu_device_cache_pci_state(pdev);
+@@ -2935,10 +2940,11 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 	if (!pci_device_is_present(adev->pdev))
+ 		adev->no_hw_access = true;
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+ 
+-		/* Only need to handle PCI state in the driver for ATPX
++		/* Only need to handle PCI state in the driver for ATPX and GMUX.
+ 		 * PCI core handles it for _PR3.
+ 		 */
+ 		pci_set_power_state(pdev, PCI_D0);
+@@ -2958,12 +2964,14 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 	}
+ 	ret = amdgpu_device_resume(drm_dev, false);
+ 	if (ret) {
+-		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 			pci_disable_device(pdev);
+ 		return ret;
+ 	}
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
+ 
+ 	amdgpu_restore_umd_profile_pstate_after_runpm(adev);
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index 8d1b097..df24b01 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -48,6 +48,7 @@ enum amdgpu_int_thermal_type {
+ enum amdgpu_runpm_mode {
+ 	AMDGPU_RUNPM_NONE,
+ 	AMDGPU_RUNPM_PX,
++	AMDGPU_RUNPM_GMUX,
+ 	AMDGPU_RUNPM_BOCO,
+ 	AMDGPU_RUNPM_BACO,
+ 	AMDGPU_RUNPM_BAMACO,
 -- 
 2.55.0
 
