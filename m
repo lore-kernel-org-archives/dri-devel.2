@@ -4,71 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6576C5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:53:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF52AC5CFDB
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7645E10F10C;
-	Wed, 12 Aug 2026 21:53:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF6F610F0F1;
+	Wed, 12 Aug 2026 21:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IXsVTdQ5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lQIzQgey";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C6F810F0F1
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:53:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78CC110F0F1
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:54:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3C081600AD;
- Wed, 12 Aug 2026 21:53:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987811F000E9;
- Wed, 12 Aug 2026 21:53:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2F57B42E74;
+ Wed, 12 Aug 2026 21:54:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B8E1F00A3A;
+ Wed, 12 Aug 2026 21:54:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786571623;
- bh=6nEU+aeRluycxdNo/6s4mZZKrJ1RxjlgPtIHRp6CvKk=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=IXsVTdQ5zQUuKR4Iw6ZK3MQhGzcBbD5D+BmAgP90RIhowNF15Qvl/daAVQJt8uLyy
- rIkJAZ6sNBkDjUGtU3cI/VGEiGebXer+9cErer6IqhdmgixYvy4Hz1W7Q7pabBrv8x
- YQXaZcdMYk+oUEFaZT6hbmwff+KV39BTSqdgf6+R+2uOUvAmAbz9PrPAOS6WKy0Fa1
- O6EgPhBJzHIifIXXh8zwYLZJluIm96rhQ3IQSP1gu3YzsVqWyoQ5I/w3Dm6bN1SHUD
- PeamQtayFym7qz9Jcw3jlL3cOB+eq9PY/6eF6heTF+y3ojTLfgHj8GMUmuJum26dfp
- gSeZSwkGxdiXg==
-Mime-Version: 1.0
+ s=k20260515; t=1786571664;
+ bh=UQnJ9ceE1lU82i9ZZNmOt4XxSbcpocb1QXQ8j3oPO08=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=lQIzQgeyVtVDie2R6fFBgEwv9SkSspPnMLivqBgDCXX+733LkamgZ5dmx6qVy14wf
+ xioY/BG9niIODYrtUTJA8cdglxBwcyO9G22pP3RtENJFqi0z5t7Gx6jq/uMrYF79qb
+ PWlgt/5J3ZaxCxlEvD+4nLf6PlDcT5s8/87tZqIVCO7sw9UUH/HJTLJCMMJW+oAeij
+ nisB9R2AYGBKFzN704f9/z3OKvWkMRvX1dGXJghiPR3xP0AhHCOG/oripv7WymACCR
+ 8jEzNOV7os4zI/c47L1g+oXLQ+ram4HJoCnLUjtVa2tAZzxFacAs1RviFXPMiEDFbV
+ 3Hw1IIIy7A9pw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V1] accel/amdxdna: Fix unexpected wait when flushing
+ notifier_wq
+To: "Lizhi Hou" <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260812214403.817307-1-lizhi.hou@amd.com>
+References: <20260812214403.817307-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 12 Aug 2026 23:53:34 +0200
-Message-Id: <DKNAS52KYWLD.M15VEC6U0F6R@kernel.org>
-Subject: Re: [PATCH v10 00/10] Fix missing fops.owner in Rust DRM/misc
- abstractions
-Cc: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Luis
- Chamberlain" <mcgrof@kernel.org>, "Petr Pavlu" <petr.pavlu@suse.com>,
- "Daniel Gomez" <da.gomez@kernel.org>, "Sami Tolvanen"
- <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
- "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
- Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>, "Dave Ertman"
- <david.m.ertman@intel.com>, "Leon Romanovsky" <leon@kernel.org>, "Igor
- Korotin" <igor.korotin@linux.dev>, "FUJITA Tomonori"
- <fujita.tomonori@gmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <brauner@kernel.org>, "Carlos
- Llamas" <cmllamas@google.com>, <rust-for-linux@vger.kernel.org>,
- <linux-modules@vger.kernel.org>, <driver-core@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>,
- <linux-kselftest@vger.kernel.org>, <kunit-dev@googlegroups.com>,
- <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-pci@vger.kernel.org>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Mark Brown"
- <broonie@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
- <CANiq72=bhfofrbdf1qeA380-eWeKj5yXhC0NzaU_nbB9SpxYHA@mail.gmail.com>
-In-Reply-To: <CANiq72=bhfofrbdf1qeA380-eWeKj5yXhC0NzaU_nbB9SpxYHA@mail.gmail.com>
+Date: Wed, 12 Aug 2026 21:54:23 +0000
+Message-Id: <20260812215423.E6B8E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,171 +53,136 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(Cc: Mark)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Replacing flush_workqueue() with cancel_work_sync() inside a list =
+iteration creates a race condition leading to a Use-After-Free of the GEM o=
+bject (`abo`) when a work item has already unlinked itself.
+--
 
-On Wed Aug 12, 2026 at 6:33 PM CEST, Miguel Ojeda wrote:
-> On Tue, Aug 11, 2026 at 8:41=E2=80=AFAM Alvin Sun <alvin.sun@linux.dev> w=
-rote:
->>
->> The series moves `THIS_MODULE` into the `ModuleMetadata` as a const, thr=
-eads it
->> through `#[vtable]` to set `fops.owner` in DRM/miscdevice, and updates c=
-onfigfs
->> and rnull to use `this_module::<LocalModule>()`.
->
-> Applied to `rust-next` -- thanks everyone!
+--- Patch [1]: [PATCH V1] accel/amdxdna: Fix unexpected wait when flushing =
+notifier_wq ---
+commit 833f3279232d8856fda2a2788bbc7c5f9bd924f8
+Author: Lizhi Hou <lizhi.hou@amd.com>
 
-This series has a semantic conflict with both the driver-core and the drm-r=
-ust
-tree:
+accel/amdxdna: Fix unexpected wait when flushing notifier_wq
 
-@Mark: When you merge driver-core-next after rust-next (which I think is th=
-e
-case) then you need to include the diff in [1] into the merge.
+This commit replaces flush_workqueue() in amdxdna_gem_obj_free() with a
+new amdxdna_hmm_unregister_all() function. This avoids waiting for unrelated
+work items on the global device workqueue by iterating through the BO's
+umap_list and canceling the unregister works directly.
 
-In drm-rust-next the build fails with:
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
+amdxdna_gem.c
+> index b01f5d95fac83..a439e8c556465 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+[ ... ]
+> @@ -301,33 +301,40 @@ static void amdxdna_hmm_unregister(struct amdxdna_g=
+em_obj *abo,
+[ ... ]
+> +static void amdxdna_hmm_unregister_all(struct amdxdna_gem_obj *abo)
+> +{
+> +	struct amdxdna_dev *xdna =3D to_xdna_dev(to_gobj(abo)->dev);
+> +	struct amdxdna_umap *mapp, *tmp;
+> +	LIST_HEAD(dead);
+> =20
+> -	xdna =3D to_xdna_dev(to_gobj(mapp->abo)->dev);
+>  	down_write(&xdna->notifier_lock);
+> -	list_del(&mapp->node);
+> -	if (list_empty(&abo->mem.umap_list))
+> -		abo->mem.uva =3D AMDXDNA_INVALID_ADDR;
+> +	list_for_each_entry_safe(mapp, tmp, &abo->mem.umap_list, node) {
+> +		mapp->unmapped =3D true;
+> +		mapp->cleanup =3D true;
+> +		list_move(&mapp->node, &dead);
+> +	}
+>  	up_write(&xdna->notifier_lock);
+> =20
+> +	list_for_each_entry_safe(mapp, tmp, &dead, node) {
+> +		cancel_work_sync(&mapp->hmm_unreg_work);
+> +		amdxdna_umap_put(mapp);
+> +	}
+> +}
+> +
+[ ... ]
+> @@ -341,6 +348,20 @@ static void amdxdna_hmm_unreg_work(struct work_struc=
+t *work)
+>  {
+>  	struct amdxdna_umap *mapp =3D container_of(work, struct amdxdna_umap,
+>  						 hmm_unreg_work);
+> +	struct amdxdna_gem_obj *abo =3D mapp->abo;
+> +	struct amdxdna_dev *xdna;
+> +
+> +	xdna =3D to_xdna_dev(to_gobj(mapp->abo)->dev);
+> +	down_write(&xdna->notifier_lock);
+> +	if (mapp->cleanup) {
+> +		up_write(&xdna->notifier_lock);
+> +		return;
+> +	}
+> +
+> +	list_del(&mapp->node);
+> +	if (list_empty(&abo->mem.umap_list))
+> +		abo->mem.uva =3D AMDXDNA_INVALID_ADDR;
+> +	up_write(&xdna->notifier_lock);
+> =20
+>  	amdxdna_umap_put(mapp);
+>  }
+[ ... ]
+> @@ -643,8 +664,7 @@ static void amdxdna_gem_obj_free(struct drm_gem_objec=
+t *gobj)
+>  	struct amdxdna_dev *xdna =3D to_xdna_dev(gobj->dev);
+>  	struct amdxdna_gem_obj *abo =3D to_xdna_obj(gobj);
+> =20
+> -	amdxdna_hmm_unregister(abo, NULL);
+> -	flush_workqueue(xdna->notifier_wq);
+> +	amdxdna_hmm_unregister_all(abo);
 
-	error[E0425]: cannot find type `LocalModule` in the crate root
-	   --> rust/kernel/drm/gem/shmem.rs:628:5
-	    |
-	628 |     #[vtable]
-	    |     ^^^^^^^^^ not found in the crate root
-	    |
-	    =3D note: this error originates in the attribute macro `vtable` (in Ni=
-ghtly builds, run with -Z macro-backtrace for more info)
+[Severity: High]
+Does replacing flush_workqueue() with amdxdna_hmm_unregister_all() here ope=
+n a
+race condition leading to a use-after-free of the GEM object?
 
-which is because the kunit test in rust/kernel/drm/gem/shmem.rs uses the
-#[vtable] macro.
+If the worker thread amdxdna_hmm_unreg_work() has already unlinked mapp from
+abo->mem.umap_list via list_del(&mapp->node) and released the lock, but has=
+n't
+completed amdxdna_umap_put(mapp):
 
-This should be fixed up with a patch on top of this series in rust-next.
+Worker thread:
+amdxdna_hmm_unreg_work()
+	list_del(&mapp->node);
+	up_write(&xdna->notifier_lock);
+    <-- preempted here before amdxdna_umap_put(mapp) finishes unregistering
 
-I came up with to potential solutions [2] and [3]. I think with the new bui=
-ld
-system we want [3], but I'm not entirely sure this works correctly with the
-current build system in all cases (at least it did survive my tests).
+Free path:
+amdxdna_gem_obj_free()
+	amdxdna_hmm_unregister_all(abo)
 
-Alternatively, we could just open-code a dummy module as in [2] for now.
+Because mapp is no longer in abo->mem.umap_list, amdxdna_hmm_unregister_all=
+()
+will not find it and won't call cancel_work_sync(&mapp->hmm_unreg_work).
+The amdxdna_gem_obj_free() function will then proceed to free the GEM object
+(abo) without waiting for the work item to finish.
 
-[1] driver-core-next merge fixup
+If an MMU event such as munmap triggers the notifier before the worker
+finishes unregistering it, could it dereference the freed abo?
 
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-index a4927452016e..17ca504b7f8d 100644
---- a/rust/kernel/serdev.rs
-+++ b/rust/kernel/serdev.rs
-@@ -87,7 +87,7 @@ unsafe fn register(
-         }
+drivers/accel/amdxdna/amdxdna_gem.c:amdxdna_hmm_invalidate() {
+	struct amdxdna_umap *mapp =3D container_of(mni, struct amdxdna_umap, notif=
+ier);
+	struct amdxdna_gem_obj *abo =3D mapp->abo;
+	...
+	xdna =3D to_xdna_dev(to_gobj(abo)->dev);
+}
 
-         // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
--        to_result(unsafe { bindings::__serdev_device_driver_register(sdrv.=
-get(), module.0) })
-+        to_result(unsafe { bindings::__serdev_device_driver_register(sdrv.=
-get(), module.as_ptr()) })
-     }
+Is there a way to safely ensure any detached but still running work items a=
+re
+fully completed before freeing the GEM object?
 
-     unsafe fn unregister(sdrv: &Opaque<Self::DriverType>) {
-
-[2] Open-coded dummy module
-
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index c04e6c5aa7e0..274924cfcc05 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -157,6 +157,15 @@
- /// Prefix to appear before log messages printed from within the `kernel` =
-crate.
- const __LOG_PREFIX: &[u8] =3D b"rust_kernel\0";
-
-+/// Dummy module type for `#[vtable]` impl blocks within the kernel crate =
-(e.g. kunit tests).
-+struct LocalModule;
-+
-+impl ModuleMetadata for LocalModule {
-+    const NAME: &'static str::CStr =3D c"rust_kernel";
-+    // SAFETY: `try_module_get`/`module_put` handle null module pointers g=
-racefully.
-+    const THIS_MODULE: ThisModule =3D unsafe { ThisModule::from_ptr(core::=
-ptr::null_mut()) };
-+}
-+
- #[cfg(not(testlib))]
- #[panic_handler]
- fn panic(info: &core::panic::PanicInfo<'_>) -> ! {
-
-[3] Allow module!() for kernel crate
-
-diff --git a/rust/Makefile b/rust/Makefile
-index 48adcd9b7851..4f6bf1b4d194 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -279,6 +279,7 @@ rustdoc-pin_init: $(src)/pin-init/src/lib.rs rustdoc-pi=
-n_init_internal \
-        +$(call if_changed,rustdoc)
-
- rustdoc-kernel: private is-kernel-object :=3D y
-+rustdoc-kernel: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/lib.rs
- rustdoc-kernel: private rustc_target_flags =3D --extern ffi --extern pin_i=
-nit \
-     --extern build_error --extern macros \
-     --extern bindings --extern uapi \
-@@ -351,6 +352,7 @@ rusttestlib-pin_init: $(src)/pin-init/src/lib.rs rustte=
-stlib-macros \
-     rusttestlib-pin_init_internal $(obj)/$(libpin_init_internal_name) FORC=
-E
-        +$(call if_changed,rustc_test_library)
-
-+rusttestlib-kernel: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/li=
-b.rs
- rusttestlib-kernel: private rustc_target_flags =3D --extern ffi \
-     --extern build_error --extern macros --extern pin_init \
-     --extern bindings --extern uapi \
-@@ -386,6 +388,7 @@ quiet_cmd_rustdoc_test_kernel =3D RUSTDOC TK $<
-        rm -rf $(objtree)/$(obj)/test/doctests/kernel; \
-        mkdir -p $(objtree)/$(obj)/test/doctests/kernel; \
-        $(rustc_target_envs) \
-+       RUST_MODFILE=3Dkernel/lib.rs \
-        OBJTREE=3D$(abspath $(objtree)) \
-        $(RUSTDOC) --test $(filter-out --remap-path-scope=3D%,$(rust_flags)=
-) \
-                -L$(objtree)/$(obj) --extern ffi --extern pin_init \
-@@ -788,6 +791,7 @@ $(obj)/uapi.o: $(src)/uapi/lib.rs \
-     $(obj)/uapi/uapi_generated.rs FORCE
-        +$(call if_changed_rule,rustc_library)
-
-+$(obj)/kernel.o: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/lib.r=
-s
- $(obj)/kernel.o: private rustc_target_flags =3D --extern ffi --extern pin_=
-init \
-     --extern build_error --extern macros --extern bindings --extern uapi \
-     --extern zerocopy --extern zerocopy_derive
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index c04e6c5aa7e0..7df9159788ad 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -154,8 +154,21 @@
- };
- pub use uapi;
-
--/// Prefix to appear before log messages printed from within the `kernel` =
-crate.
--const __LOG_PREFIX: &[u8] =3D b"rust_kernel\0";
-+struct KernelCrateModule;
-+
-+impl Module for KernelCrateModule {
-+    fn init(_module: &'static ThisModule) -> error::Result<Self> {
-+        Ok(Self)
-+    }
-+}
-+
-+macros::module! {
-+    type: KernelCrateModule,
-+    name: "rust_kernel",
-+    authors: ["Rust for Linux Contributors"],
-+    description: "The kernel crate",
-+    license: "GPL",
-+}
-
- #[cfg(not(testlib))]
- #[panic_handler]
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812214403.8173=
+07-1-lizhi.hou@amd.com?part=3D1
