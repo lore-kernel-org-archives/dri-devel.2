@@ -4,140 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08B41C5B567
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 04:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6457C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 06:51:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BDEF10E3C4;
-	Wed, 12 Aug 2026 04:54:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D659A10E0D5;
+	Wed, 12 Aug 2026 06:51:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="uQnKKt7p";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="kEn9UvL1";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012042.outbound.protection.outlook.com [52.101.48.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0042810E3C4
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 04:54:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nsDsvpuJtPTJ/fTf1xBrLLcTMgwTbjmzfgyujNLZmEHze6eBnkaW4RqUD+y47uY2WQJh6+5R4vi6R85dKfL3ptsHnzan8+tgz1KlMWb+Ttv1qQ3VYhbEgtjJISMiTMRv4tdusUe+udzh3m5YG8wWlX3oTgxFw3CHgG3bqiThNO7dCoaMdTnCk2uDZEOmmTXRvtjBPg8bKE1sS3f2uR7cB+Dv6lERZDbx/r3PHJu0AserMvNfjHmKKtY33WYLjd73EeW5FHAWykBWRD4LdsDbGjERC7zZdXRTNseqtTXKt7LV0hxv/+GuT5SbL+kCFhlnSydzrzI2ChCBbe9o/u0TgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rok45ztNSmF9ZRXC/EGtLZX62x96TmNIGSdLHpa+sSs=;
- b=FhTPk3d4r69G/BIw32rV9ZuxpsKmtdHHtiyeeBVcN4yr7r2DaCwGc2r+QkumfysUdkklSSkRWOgcmwOjepOOw+4fkm7F4TRRTV+j9FygSLkubiop+jE0FhOsnmDAuzjUQPu6He7RqzWhADERCUWxeUx/usEZr4O5GcHsRaKHmkJC4Yh46eoFV2fRMl9juMcTg29jn4UxmCEEfl8MhZx8UcwbM1D9k+kj+dUm3uNJFq31GEHqtTNRqfTBxwGuhob7iju8yyTAgfxEdrb/lafXQwwMj5zfgJOYP3Dear8BOPxiBHsubZym7mlldfUT2uQmKUmxd8V9QG3ZsMNXI5MK+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rok45ztNSmF9ZRXC/EGtLZX62x96TmNIGSdLHpa+sSs=;
- b=uQnKKt7p1VSkrfjXY6Vbr7faHhNdVmI0hLbZCs9AZZfxFb1dw6aKp5NsRSlxovqzJpdpHcSO+MINI/GaB65ytXt9+2GkijcxT5zL3jIwrogdLfWSYghTqn4z584t2iNJezjvmikpbMShmmK3GIIsewHHW835oIlpgzrmkP2dhI++LVR5QWcKZJRIh5GPVdCe7D1f0xdkDj9lopW6kFvPZBBp8Z4iw+jyadY5ARL6s2prrx/dpL/tiO6axZuUKJj/xIr2F3zqV2vdhRrbxqtwVMh7jlBqSPE9oGG3JEVCTSUD3TDWSaMxknnqjDZ6eFSpc8sGtDkpV9bVMBtZ6xB0ng==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
- 2026 04:54:42 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0315.008; Wed, 12 Aug 2026
- 04:54:42 +0000
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4613710E0D5;
+ Wed, 12 Aug 2026 06:51:07 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hKfJp5HJTz8tyn;
+ Wed, 12 Aug 2026 08:50:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1786517464; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=aqUcPPYLa1DMjRbDFm2x6DWrts41qlTCDa5xchY2uwY=;
+ b=kEn9UvL1OKBs9R/ssaKhB2y4M4kcq1Yy/myJoLAMJG4isVQmJ91bJ2ocWKJAeOSe+34jJ5
+ W1bNw1gHtfUsvVLlSKTa6WhqC5lsdX60ZTH9w6+inbKtE0RiUdBOJ+z0jhOUDjZAkgkNhc
+ gI0/7gYVoXUhmFXE2HsuiGtTSJsz9phe9Sk0jiiCbyUzrfy+MpXxp37/7QFvO5WVH+Y5C+
+ CNHQ2LJ+s4K7UWPgTCHorRQDF8WcF6L4GBjpfDLbWlPnhANYWfJn7WIx0ZbfiEJrj3+gGm
+ D37oQmvMZP67vSmlUErpcX2wiV+8IXU5+cEwX1Tw7EppVCD6lhxyKdrLYY77YQ==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of phasta@mailbox.org designates
+ 2001:67c:2050:b231:465::1 as permitted sender)
+ smtp.mailfrom=phasta@mailbox.org
+Message-ID: <7df541d56edc935326eed7cad14dd80a0aba61de.camel@mailbox.org>
+Subject: Re: [PATCH v3 00/19] Revert switching default DRM scheduler policy
+ to fair
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Matthew Brost	
+ <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, Philipp
+ Stanner	 <phasta@kernel.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <ckoenig.leichtzumerken@gmail.com>
+Date: Wed, 12 Aug 2026 08:50:23 +0200
+In-Reply-To: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
+References: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 12 Aug 2026 13:54:38 +0900
-Message-Id: <DKMP3ZMD9FRA.2GV3E2SMK8O9A@nvidia.com>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Jonathan Corbet"
- <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-doc@vger.kernel.org>, "Joel
- Fernandes" <joelagnelf@nvidia.com>
-Subject: Re: [PATCH v2 00/12] gpu: nova-core: add PRAMIN window support
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
- <CANiq72n9TaUgWgZYg3Xzm2mn3Ed36B7O+f544a5BXik_XUh8FA@mail.gmail.com>
-In-Reply-To: <CANiq72n9TaUgWgZYg3Xzm2mn3Ed36B7O+f544a5BXik_XUh8FA@mail.gmail.com>
-X-ClientProxiedBy: TY4P301CA0018.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2b1::16) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB6088:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32c50d76-80a2-4686-746b-08def82dd239
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|7416014|376014|366016|1800799024|23010399003|4143699003|11063799006|56012099006|6133799003|18002099003|10067099003|22082099003;
-X-Microsoft-Antispam-Message-Info: k/vyM0XurNOTzaDf1AUfduEwgrOIhlgDfsQy/+8uXAI08GugTufjiZHQjPKZtmTZU+f3Fw9eTSv5SqPMbfLM4V2b9kWhS9fWFLR3zEgLIo6U7/7URPeWC9ZaXoxe+J7GmRIoMRDzPTWdh24/FX8nO+Nb0IiVJSsz4HubiN8UoSegNXw7U4p4yQ/KFKab4K7z7lh8TxvFrmRfomrnTPMwxQba3a21GXILVBFCM0sqHBShaB4241bOYa90+q/c/TfhFNY0WOnqk/5uVnp1NS3OO/2RX/9IxIn4dJ5ByG/GCNHmIn4k3m6qrKmx2LamGrmD2MFic3cSzXVJ1VntYUvdi3PZzhDivcEvYMKQeiKJQ3MBAQG7NKhME6xIRNBPG63WFhyFOmyo+qki9aD0RMrGrz1eJEnhUyJ6PeIhuEK4dArj6p1AJUsVMkd6x/SnWyN99qzLuogfxtCmDiQdNET/9jMAm59/NVktSqoZLpkCB1nZvETeuCOIwUgEOrkBRci+t/R4tsiGwasKvEjN1N9QgujeCzr260DTUYBg28j2owiLAl/fn5Ym6GC54K+ywzwXWG0D8br/kaQZVHvsSJuGJsB9SrW+PAFFGmopM6JqcfVQle+LYQzJUdG+OLDND4xxZwJ3uOTlewCV/FvcBEvIw2ZIxpeiMfhV9AiALPCmkqk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(7416014)(376014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(6133799003)(18002099003)(10067099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SnRXYlJUMzc3d2NZSWRmd2pGNHpRYmxycmhDaG9GZVdOU0I1UGNZZTl0WXc0?=
- =?utf-8?B?Rmo0aWtUNUtpYzd5V0JyZDY5bTBqZWh0UCtkT2tzMWJFRkJkdGpkQ3pOZ0hJ?=
- =?utf-8?B?WTI3aVVweVZCbDBYWjZVUllVYkhQcm5mUzloajIzQkZ5NTRKQTRLa1FtVk9W?=
- =?utf-8?B?WHFSQ3RHUnNvZnlMVDM1SW5TcTQ2TmkrWHVPb3kwdXA3RzBTbExlZllPSzZX?=
- =?utf-8?B?SkNZMjhka0F4ajdiK0NNR29zOHZVTFNmcmhlRGN1M29HeUwrTThvbkVkM3Av?=
- =?utf-8?B?VmRLNStpYW15amdLWWJ1M1ltQ0lYOU9LRENmYnJJUjlCMkx5aEVnSEJlcHZF?=
- =?utf-8?B?MWZSSHlDSllQcTNXamYyOUVHZ0JhRGZ1VG83RFc0bThjcG5oZWVWdzBoZEJN?=
- =?utf-8?B?dlFoZFZ2eHhzRXlGOGpkdG1vYzE0U3A2WWRJVVRhNlUvUjI2VEN3dXNHZkdm?=
- =?utf-8?B?UmZJZWNYVDRVS2pFa2ZQbUpPUUJzOHRGMEw1SVo2WjVLbUQzeXN0RTZwUDVh?=
- =?utf-8?B?aS9EbXc3NytjSzBlckh1VTBmZStmY0RjMkhNTVpMUXpjRG1sQXFmQUdmLzZv?=
- =?utf-8?B?eFJRWGdiVGJmL25KWTFuSml1UDJCMU9lK29EUkE3eFVKWU8ybXg5MVZ3eDF6?=
- =?utf-8?B?SS9mU0lSUHlwN3JEUjVGdk1yUGJvVkwwNmhRRWcyb2lvNE9lMEJDZ2tYNTlW?=
- =?utf-8?B?aHI1MG80aktmQTlYT2lGYmRCWnBuWjhGOFVVTTVUekhaeHhQbytKTHhPdGk0?=
- =?utf-8?B?V29HaHlmSFhkT2NkNlVKSTRaWU9PaDlZeW40V2FvTjhwSXFFcjBmbGk2MThR?=
- =?utf-8?B?clUxbDdwcFNJK0NIMm9kd3RTN3NndTdiMWNUU2E5a0N1SGhNTGgwNU56ajlJ?=
- =?utf-8?B?QWxPUjRXMzBqQVN3cVFiYVJmUSs2VjQ0TnozbU1yWTdHYjZ6TGZYOWh3dVph?=
- =?utf-8?B?V1RqL01Cdlkxb1NUREVacFZadjVZSk1jT09McXlyT0F0RHh3OUY4UElPSGY2?=
- =?utf-8?B?NGk3NFFoM1Y5alNMVkU3SVdCVTJqZlVoU3hQK0FVMVFSRzdtOUJUanFRbzB2?=
- =?utf-8?B?dy9nOXprK29wdy9penpjUitLamo4dHFPK05sUTc1MzFLMnhSd1FqUTRIbG81?=
- =?utf-8?B?NjlzS0dYUDI2cUNkamlOcmVXaE83QVBzQ0RsblU2bm5pcndQK3U0WVhmWXlq?=
- =?utf-8?B?Mm5lc1NtVWRxSjJzaUlxejg2MXVzdHZSMzhJMENDZDFkZERnNDVRbGpZWkNy?=
- =?utf-8?B?czdGQTlncWVhY0dhQmxHWG9mTUVMUVhaZ29BQjRvUnNXdk9ZYmROUjIwMmsz?=
- =?utf-8?B?NitSZUVhNEF0ejFhVmMxRnF3eTdpSjBVbUt5SHAzYzlrTDEyVFJiN3Y2cS9B?=
- =?utf-8?B?OXBqVlR5a3pGTWRpUDljSHVhQWpDS3dRdk9GQXptWDBjdG5BTmQ5S0RGL0NM?=
- =?utf-8?B?ZzBiaUhVVjRWTDgvY0Q5UDJlaVNzYVREWkN0Q1ViMEdVcE5SNG1oYmpqWWF4?=
- =?utf-8?B?MlVvSkhLTWY0ZnBKbWVsbTkxdHoxR056Z3h1Vk0wcExtaVBwUTFuV1A3OEw3?=
- =?utf-8?B?VGhEWDAyV3hCRkxFcmp2bEJRNE1VSlUxSlRra1Bpb1hNZGE2OHdzWnJXT2s0?=
- =?utf-8?B?YlBXMm1ieWx0bVZPV1hidXRXL1JiUjA0ZDhpSCswYlFPNlFkVGJrcG5PWEdC?=
- =?utf-8?B?WWJLZzJiNGRoSjJORisyOHAyUGlYaVZkc0hvaC9KNURPVERmcnRmUXhYVG9M?=
- =?utf-8?B?dWk2VWQ5VTRrSFhtNmwrN1E5TnNaUzVMUlJxQkp4YU1qTlNwdHVUQXBHZ1Jo?=
- =?utf-8?B?Q1c4czJTRC9QSTlmQzN6RkV3ZWJWTk44Wm81QVJ0YkxYWXUvbEF3clVLUUF0?=
- =?utf-8?B?S0hENkt4M3FjbGsveWhUVVZKUEpiRENuM282bVVmd0tnZTg2WTMySFNVYU8x?=
- =?utf-8?B?dDZCQ3A1d3dIQ0xSTW9EYmc5Vk9HTkVEUUJTcTIrZWViRGw3NXJ4U2p4YWhw?=
- =?utf-8?B?NzAxQXNGcjJpYXJhRzlKNFR6M2dicDlvZ1NzK2xjZmpNeGNocG0rc01jck1B?=
- =?utf-8?B?QVNNalpHQ3RWdlRkOWFORk9ZdVg1M2xGQklKMmZFclNoU3pZWUZLaCsxamNv?=
- =?utf-8?B?YnhwY1F4ODlaZ3Q1bHJGd3dRdEpXakhGM3lkeGVrUXY4c0k0OHFNbHFYendl?=
- =?utf-8?B?b2EwUFl2TmZNaGloK0xpdTh2WHN0MXA0S3Y5V2szdXZIWG9SaFZsR0ZJTTFJ?=
- =?utf-8?B?MFNVZzVXUXdack1mckY1a3NOcGdNdVZsRmpJaUhOUlJZZ3VNQ0lTV0VlYW13?=
- =?utf-8?B?QTB1blZJOG1icDBjTm1Jbysvc1ArUjJKVTZsTkFBbUFmTDBzY09iSmRFNGpN?=
- =?utf-8?Q?4tqNPJ+tdQr5BzaWlvV7Evz2xNC2BcNoGIAJ03FNWoYPt?=
-X-MS-Exchange-AntiSpam-MessageData-1: M2+Om4hndQl9uA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32c50d76-80a2-4686-746b-08def82dd239
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 04:54:42.1330 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0Dvqbzw+pQT9wIA+Z/xQIc5/OTuGj7iJQJyA7gYk9fGuORMA3z8XbhozEAuvzDP+GgDbn3aM+cEUJvuqA797SA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
+X-MBO-RS-META: f7fwy1ocy3myd71b5jupwiruzk4x1f5a
+X-MBO-RS-ID: 0f406911fbffb3a7ece
+X-Rspamd-Queue-Id: 4hKfJp5HJTz8tyn
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,43 +70,129 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Aug 11, 2026 at 9:31 PM JST, Miguel Ojeda wrote:
-> On Mon, Aug 10, 2026 at 3:57=E2=80=AFPM Eliot Courtney <ecourtney@nvidia.=
-com> wrote:
->>
->>       rust: num: use const_assert! in Bounded
->>       rust: num: reject Bounded::shr overshifts at build time
->>       rust: num: add Bounded::shr_exact
->
-> Applied to `rust-next` -- thanks everyone!
->
-> Alex: I didn't add an implicit Acked-by to the first one but I assume
-> you are OK with it:
+On Tue, 2026-08-11 at 17:31 +0100, Tvrtko Ursulin wrote:
+> There was a late minute user regression report[1] so lets revert this so =
+it can
+> be debugged in peace.
+>=20
+> I have not been able to locally reproduce it yet, but at least a partial =
+fix
+> looks to be this[2]. Further debug will be needed, possibly after the hol=
+iday/
+> vacation season is over.
+>=20
+> [1] https://lore.kernel.org/dri-devel/TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Ei=
+hzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=3D=
+@proton.me/
+> [2] https://lore.kernel.org/dri-devel/20260811134223.96203-1-tvrtko.ursul=
+in@igalia.com/
+>=20
+> Cc: Luke.Wildhardt@proton.me
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Cc: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
+>=20
+> v2:
+> =C2=A0* Forgot the SoBs.
+>=20
+> v3:
+> =C2=A0* Rebased for drm-misc-fixes.
 
-Yup no problem, I did ack the previous version that included this bit. I
-was just a bit slow to react to this one. :)
+Why is one patch now missing? Used to be 20.
 
->
->     Suggested-by: Gary Guo <gary@garyguo.net>
->     Link: https://lore.kernel.org/rust-for-linux/DKIY9YGIPUUE.SZD2DUQM9NG=
-K@garyguo.net/
->
-> The second one is actually fairly important so I did:
->
->     [ This implies we can break the type invariant, which in turn means
->       we can trigger UB via `Deref`, e.g.:
->
->           rust_kernel: panicked at rust/kernel/num/bounded.rs:528:22:
->           unsafe precondition(s) violated: hint::unreachable_unchecked
-> must never be reached
->
->         - Miguel ]
->
->     Cc: stable@vger.kernel.org
->     Fixes: c59a2d14cd24 ("rust: num: add `shr` and `shl` methods to `Boun=
-ded`")
+And it would seem you forgot the Acked-bys.
 
-Thanks!
+
+P.
+
+>=20
+> Tvrtko Ursulin (19):
+> =C2=A0 Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
+> =C2=A0 Revert "drm/xe: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/v3d: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/sched: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/panthor: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/panfrost: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/nouveau: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/msm: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/lima: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/imagination: Remove drm_sched_init_args->num_rqs usage=
+"
+> =C2=A0 Revert "drm/etnaviv: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/amdgpu: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "accel/ethosu: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "accel/rocket: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "accel/amdxdna: Remove drm_sched_init_args->num_rqs usage"
+> =C2=A0 Revert "drm/sched: Embed run queue singleton into the scheduler"
+> =C2=A0 Revert "drm/sched: Remove FIFO and RR and simplify to a single run
+> =C2=A0=C2=A0=C2=A0 queue"
+> =C2=A0 Revert "drm/sched: Switch default policy to fair"
+> =C2=A0 drm/sched: Mark fair policy as experimental
+>=20
+> =C2=A0drivers/accel/amdxdna/aie2_ctx.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/accel/ethosu/ethosu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/accel/rocket/rocket_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 27 ++--
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 5 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 8 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 8 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 8 +-
+> =C2=A0drivers/gpu/drm/etnaviv/etnaviv_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/msm/msm_gem_vma.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/msm/msm_ringbuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/panfrost/panfrost_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 52 ++++++--
+> =C2=A0drivers/gpu/drm/scheduler/sched_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 15 ++-
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 121 +++++++++++++++---
+> =C2=A0drivers/gpu/drm/scheduler/sched_rq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 87 +++++++++----
+> =C2=A0.../gpu/drm/scheduler/tests/mock_scheduler.c=C2=A0 |=C2=A0=C2=A0 1 =
++
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/xe/xe_dep_scheduler.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/xe/xe_execlist.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/xe/xe_gpu_scheduler.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 42 +++++-
+> =C2=A030 files changed, 304 insertions(+), 95 deletions(-)
