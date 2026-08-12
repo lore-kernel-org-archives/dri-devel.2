@@ -4,60 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11C2AC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 233ECC5CFCF
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:42:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70CEC10E422;
-	Wed, 12 Aug 2026 14:34:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A33310E426;
+	Wed, 12 Aug 2026 14:42:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="WLow+KMu";
+	dkim=pass (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="hUkUTUQb";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1130B10E422
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:34:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1786545274; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=hdI4bYMT/Ik6gCgebBjy+ri2r5uGLlyjO9/CocuQkQDqrvu+UnLFSs42hX9ZctaG+ROt+7MPlPs82ypOtqPcoziQGRbUTBUXO/8VUKYIMyCvYpXWKx3ugmosnFiEfGucSy74+Sr+2KLnFxMLtY3ljZmBPJoinAXvdZK/L/CWC1Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1786545274;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=YlPk0YXBIuAA9ISkq7nnSy0pzHLepqRdT5ikLjbY1Zw=; 
- b=W2LhJWA/F99X0BNa7gnQa5Ae/J7yhFSuvWJg23Mwd6FoeCtLW8MzqKr0VBbNPlzwzIkiVF7IOWcQRPL751fVT/QfUTB5J1Rs5jJNjFqTBIZcR1EktmXglOcNVQvDAhzIQXItP0iOsx9Gn8ii+AICjQBl3PXpniuSsDrfPW/RPiE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786545274; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=YlPk0YXBIuAA9ISkq7nnSy0pzHLepqRdT5ikLjbY1Zw=;
- b=WLow+KMuGMz9YhmwR0d3Qu+t6PzvTsrcRsh5U2QWNKCXYcmcDkgpa0B37Vz8fbBl
- Q/CDXx9W9DB6OFdigzmUiE5eaAMxiRl8/kqsk82hnRx8s17IJgx6NudBfByYCNPIJgG
- nnUk01M9VcGB0S8qwfv28U2Q0mlPyoYyRYULbBxA=
-Received: by mx.zohomail.com with SMTPS id 1786545271854845.2952027577405;
- Wed, 12 Aug 2026 07:34:31 -0700 (PDT)
-Date: Wed, 12 Aug 2026 15:34:26 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
- Eric Anholt <eric@anholt.net>, "Marty E. Plummer" <hanetzer@startmail.com>, 
+Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de
+ [91.216.248.212])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C6B10E426;
+ Wed, 12 Aug 2026 14:42:28 +0000 (UTC)
+From: Andre Eikmeyer <dev@deq.rocks>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+ s=securedbylima-20251205; t=1786545746;
+ bh=BwotxlEtPq994nsVoeymRzR3rcs0fcURPURwHTMYp/Q=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=hUkUTUQbYiWm3Kib3a1/3kxoAJaIKpUoSXaeR0/ON/LcZxW14QeTr9CgUC66Ha1fo
+ 9FseJRc5U7SQV3kKVrUZHkMy4yUPJ+AwP2DzNWkhFK9fJDnw2XR9QrSFIKH7cuYjyc
+ c7tgravmbDo+nki7FV7Bd+1VzXYLa+JWtv5xRaSH+h696oG2i+sNFezRJ1qjbftxIZ
+ zBDSJPyAAs3bxK/3KCKD/6AB33jBkjbXVPvu/0KBc1pMUQnddUcbmdRv395Ou4KfaF
+ JJPHh2/Eun9zG6OdZtFQ8JdCjm87A4LU8JGDsQSC/BT9y1SgkNH2jonbnh55cyucuV
+ mc4yhakWcpTAg==
+To: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-sound@vger.kernel.org
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panfrost: fix autosuspend cleanup during teardown
-Message-ID: <anx91vwww0TMjLn8@sobremesa>
-References: <20260808135025.2872956-1-lgs201920130244@gmail.com>
+ Andre Eikmeyer <dev@deq.rocks>
+Subject: [PATCH v2 0/3] Apple GMUX hybrid graphics support for MacBookPro15,1
+Date: Wed, 12 Aug 2026 16:42:18 +0200
+Message-ID: <20260812144221.35877-1-dev@deq.rocks>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260812122206.193680-1-dev@deq.rocks>
+References: <20260812122206.193680-1-dev@deq.rocks>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260808135025.2872956-1-lgs201920130244@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.535.77
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,72 +63,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Guangshuo,
+Hello everyone,
 
-Recently I've been working on a patch series that addresses PM refcnt imbalances in Panfrost.
-One of the fixes introduces devm_pm_runtime_enable(), so manually calling pm_runtime_dont_use_autosuspend()
-is no longer necessary like you mentioned in the commit message.
+This series enables hybrid graphics on the MacBookPro15,1.
 
-However, there might be a point in using it during device teardown and probe error just like Panthor does,
-becasue it doesn't make sense to postpone suspension when the device is going away.
+The MacBookPro15,1 normally starts Linux with the discrete GPU as primary.
+On the machines tested here that results in roughly 24 W idle power draw,
+about 12 W of which is attributable to the otherwise unused discrete GPU.
+Selecting the integrated GPU at boot avoids that cost, but the discrete GPU
+cannot currently return after GMUX powers it down, so usable hybrid graphics
+and suspend are not available.
 
-Anyway, you can have a look at it here:
-https://lore.kernel.org/r/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+This series provides the missing power lifecycle across apple-gmux, amdgpu
+and the HDA controller. With the integrated GPU as primary, the discrete GPU
+transitions between DynOff and DynPwr. Offloading through DRI_PRIME and
+external monitor support both work across these transitions.
 
-I was thinking, I'll let you know when I've v6 ready and then you could rebase this patch onto it
-before I submit the series to the ML so that I can send them all together?
+The result has been tested for three weeks on both the 2018 and 2019
+MacBookPro15,1 revisions. Runtime suspend and resume, system suspend and
+resume, repeated GPU wakeups, and a variety of external Thunderbolt and
+USB-C monitors were tested successfully.
 
-Kind Regards,
-Adrian
+One question remains regarding Apple's gpu-power-prefs EFI variable. The
+firmware defaults to the discrete GPU, while selecting the integrated GPU
+is required before this hybrid configuration can take effect. Would setting
+that preference from the kernel be appropriate on a known-good model, or
+should it remain a userspace policy decision? Some discoverable way to
+select the power-efficient configuration would seem preferable to requiring
+users to know about a vendor-specific NVRAM variable.
 
-On 08.08.2026 21:50, Guangshuo Li wrote:
-> panfrost_probe() calls pm_runtime_use_autosuspend(), but neither the
-> probe error path nor panfrost_remove() calls the matching
-> pm_runtime_dont_use_autosuspend() during teardown.
-> 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped.
-> 
-> The documentation for pm_runtime_use_autosuspend() also notes that it
-> is important to undo it with pm_runtime_dont_use_autosuspend() at
-> driver exit time, unless runtime PM was initially enabled with
-> devm_pm_runtime_enable().
-> 
-> Add the missing pm_runtime_dont_use_autosuspend() calls to both the
-> probe failure and device removal paths.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: f3ba91228e8e ("drm/panfrost: Add initial panfrost driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 784e36d72c2b..007dcba62e62 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -1011,6 +1011,7 @@ static int panfrost_probe(struct platform_device *pdev)
->  err_out2:
->  	drm_dev_unregister(&pfdev->base);
->  err_out1:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> @@ -1025,6 +1026,7 @@ static void panfrost_remove(struct platform_device *pdev)
->  	drm_dev_unregister(&pfdev->base);
->  	panfrost_gem_shrinker_cleanup(&pfdev->base);
->  
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_get_sync(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-> -- 
-> 2.43.0
+Changes in v2:
+- Refresh the individual patch descriptions.
+- Evaluate PWG methods without expecting an integer return object.
+- Refresh the cached discrete PCI device when a client is re-registered.
+- Keep the HDA switcheroo implementation in the existing switcheroo section.
+- Document the positive azx_prepare() return and add Takashi's Reviewed-by.
 
-Adrian Larumbe
+The HDA follow-up review crossed with the standalone v2 and v3 revisions of
+patch 3/3. This full-series v2 contains the reviewed v3 implementation.
+
+v1: https://lore.kernel.org/all/20260812122206.193680-1-dev@deq.rocks/
+
+Thank you for your time and consideration.
+
+Andre Eikmeyer (2):
+  drm/amdgpu: add Apple GMUX runtime PM support
+  ALSA: hda: allow direct complete with a powered-off GPU
+
+Atharva Tiwari (1):
+  platform/x86: apple-gmux: add MacBookPro15,1 dGPU power sequence
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 34 ++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 30 ++++++---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  1 +
+ drivers/platform/x86/apple-gmux.c          | 78 ++++++++++++++++++++--
+ sound/hda/controllers/intel.c              | 24 +++++++
+ 6 files changed, 145 insertions(+), 23 deletions(-)
+
+-- 
+2.55.0
