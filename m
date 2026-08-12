@@ -4,103 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B543BC5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 11:40:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC86DC5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 11:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1AF10E400;
-	Wed, 12 Aug 2026 11:40:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0593710E2FD;
+	Wed, 12 Aug 2026 11:47:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="GB7ysRj8";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="I6LK++dL";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A23C710E400
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 11:40:26 +0000 (UTC)
-Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id B6B8F53401E6;
- Wed, 12 Aug 2026 13:40:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1786534824;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KArXhTGikECnnXJBaKJQL5HiSiaclLz+gY4N4WdWjRA=;
- b=GB7ysRj8pn9j8ajPfl9zs1ENqu8qTVII284Qf4FOevTFQfE6k//3GPYoLp5AlMyfiII8KF
- bmiL05O4Yw4ptY+RPGmR1DHhpv3qai5XeDSN/rTPsAXphZx0FOsSqW7It7FR4+276wuubB
- XtmhSyiGNND8ETSKmaPTKjjifL1M/ik=
-Message-ID: <cce3fe36-322e-49ed-8928-3aef813faad7@ixit.cz>
-Date: Wed, 12 Aug 2026 13:40:23 +0200
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BDF110E2FD;
+ Wed, 12 Aug 2026 11:47:14 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67CB3Px23179683; Wed, 12 Aug 2026 12:46:59 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=cpb74TTTMbtHGcztYHTfmAo
+ u6grPgYQAdKdlZq+DKDs=; b=I6LK++dLsCht6K8JW3ADFFO8/Qlf9iCLelhAyxu
+ gDmN2WgIvD9gKjFmEJcQyZYYCtReRyHGe87/ZDbCq+LmgBhhnplEOcOachICIbVS
+ lfWrFATvH6HLXGL2BYZPJMkNofaEUQWO9XiV8C4QrSiMizWT790Q+CodDpGbNzd0
+ yOce2MyVoA5I9HHcIeUC3cpoqpb6oDCBNIAhJe90Pj3v2FiChY090uJ1fKEqMwOG
+ gTI2jTOzL5muyOKx63p8E6VnPd1atakRjrmDzEPjHfOQSIxnjur9YXn7oiQQ0GvY
+ hHsoKewhJ+/vlcraRVuxKIlRSCjqssVOFjuvtnFnpN6Ll2w==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fysk3hg30-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Aug 2026 12:46:59 +0100 (BST)
+Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 12:46:57 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Wed, 12 Aug 2026 14:46:48 +0300
+Subject: [PATCH] drm/imagination: Fix NULL pointer dereference
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/33] Add support for Qualcomm Snapdragon SM7150 SoC and
- Google Pixel 4a
-To: Jens Reidel <adrian@mainlining.org>, Danila Tikhonov
- <danila@jiaxyga.com>, Miro Mraz <mraz.miro@seznam.cz>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- neil.armstrong@linaro.org, linux-hardening@vger.kernel.org,
- linux@mainlining.org, Connor Mitchell <c.dog29@hotmail.com>
-References: <20250422-sm7150-upstream-v1-0-bf9a9081631d@jiaxyga.com>
- <2ca2b774-fd7f-4612-b38d-f60e32ff6f9a@mainlining.org>
- <283096ad-ae1b-42b8-8312-b192f735fc80@linaro.org>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <283096ad-ae1b-42b8-8312-b192f735fc80@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20260812-fix-null-pointer-dereference-v1-1-f69b2ffe9520@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIACddfGoC/yXMwQrCQAyE4VcpORvoBpGtryIedHeqkZKW3VYKp
+ e9u1MMcPgb+jSqKotK52ajgrVVHc4RDQ+l5swdYs5uklVMbg3CvK9syDDyNajMKZxT0PktgSbE
+ L4Si5i5E8Mfml6y9/uf5dl/sLaf42ad8/UDRuj4AAAAA=
+X-Change-ID: 20260812-fix-null-pointer-dereference-2c891142d988
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786535217; l=1943;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=lIPNx1UoS/uuznRxVcW/U6w6rgCt55U9k4LBVKP/9dM=;
+ b=5ru3cL4yrtDYn654dIw1YeUBcxMHb80rqG4k5zY5aUDAZbRzWYPPCPL3esPOknGKpNKoeRAuu
+ 6vExA0cEpc6B/GUmbWQWhVSMIi5SlTKk0JBrLfVF4YDaKy26ebWI2RZ
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Originating-IP: [172.25.10.25]
+X-Authority-Analysis: v=2.4 cv=DcwnbPtW c=1 sm=1 tr=0 ts=6a7c5d33 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=mTYf-tJyuyeqU9PAA0gA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDA5NSBTYWx0ZWRfX9WXf3lfk2J+A
+ qzq4znqFcTwmY4hXJ6cRkEpHAyemK8kbPMkkJAyuhK9WEqVU4C4590MhGq8gHNF1LVrTQHsCGhu
+ ZvIsTs5NClsCXKMIQrXohApkSRQ7bPUL+6XX1w5857BJ9e+c/YOv4M2IJngPlfdAfrQqhn49ngZ
+ JCo0QAHsjq1/P95lupShcR9dVL28NSXpy0AlEwo3DdLBOs6FCSwiWOK5ghS0+sZ2LA8H2LQ80oD
+ NWyyIds7O1bE/TAjpEqe/6cdsveF9CRZ3g/SGDrxnFzGKjIOLZIvG0a3dzI7V9GTYlBFpbWnw7t
+ PREtoPZ3ZnNiDK+OmzDTFSmHh6FJ91ih63ZnjzAEUl89zkh2+6GwZ5gH3RuxgWQJte0CbvClRMD
+ ZK1DfgJFgUtz19ZuUbZZ67v4HOfXj7+H0mcxpGvCgyO0qhEfjs+8JKOgDJRacpzRIAmHm3gLW7N
+ XNr2MgUuMHVclq46/Pw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDA5NSBTYWx0ZWRfXz69xyA7MFJe5
+ abJwGd3QI/x5sz9RWloz+7YdQ/M9cxpZKfh51ym5jRmT0qgxxIVMRu7MqVjXLdaTffIlKIQHiFs
+ wEC7RKm3l1d6ixgSImjeQ/ghl+PJASQ=
+X-Proofpoint-GUID: I-gLHxjMVoikDARHpAgyV6q4f_EHyEGG
+X-Proofpoint-ORIG-GUID: I-gLHxjMVoikDARHpAgyV6q4f_EHyEGG
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,42 +98,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Fix the NULL pointer dereference from pvr_fw_object_destroy() when
+handling allocation failures.
 
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+ drivers/gpu/drm/imagination/pvr_fw.c | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
-On 23/04/2025 09:26, Neil Armstrong wrote:
-> Hi,
-> 
-> On 23/04/2025 00:07, Jens Reidel wrote:
->> Hi everyone,
->>
->> apologies for the mess this created. Danila's mail provider ratelimited him 
->> halfway through sending the series and the attempt to re-try sending the 
->> second half an hour later ended up with a new message ID (I think due to not 
->> using --in-reply-to).
->> He asked me to let you know that this will be resolved later and the whole 
->> series will be re-sent once the problems are resolved.
-> 
-> The b4 web submission is a great alternative when the mail provider is rate 
-> limited:
-> https://b4.docs.kernel.org/en/latest/contributor/send.html#web-endpoint
-> 
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index 850a3ec8e775..88f11fb01304 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1425,22 +1425,26 @@ pvr_fw_object_create_and_map_offset(struct pvr_device *pvr_dev,
+  */
+ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
+ {
+-	struct pvr_gem_object *pvr_obj = fw_obj->gem;
+-	struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
+-	struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
++	if (!fw_obj)
++		return;
+ 
+-	mutex_lock(&pvr_dev->fw_dev.fw_objs.lock);
+-	list_del(&fw_obj->node);
+-	mutex_unlock(&pvr_dev->fw_dev.fw_objs.lock);
++	if (fw_obj->gem) {
++		struct pvr_gem_object *pvr_obj = fw_obj->gem;
++		struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
++		struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
+ 
+-	if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
+-		/* If we can't unmap, leak the memory. */
+-		if (WARN_ON(pvr_fw_object_fw_unmap(fw_obj)))
+-			return;
+-	}
++		mutex_lock(&pvr_dev->fw_dev.fw_objs.lock);
++		list_del(&fw_obj->node);
++		mutex_unlock(&pvr_dev->fw_dev.fw_objs.lock);
++
++		if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
++			/* If we can't unmap, leak the memory. */
++			if (WARN_ON(pvr_fw_object_fw_unmap(fw_obj)))
++				return;
++		}
+ 
+-	if (fw_obj->gem)
+ 		pvr_gem_object_put(fw_obj->gem);
++	}
+ 
+ 	kfree(fw_obj);
+ }
 
-I see people interested in moving Pixel 4a forward, but it seems this was never 
-upstreamed? I looked at sm7150 repository [1] where I see FROMLIST, but these 
-patches never arrived to the list and this series is from 2025.
+---
+base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
+change-id: 20260812-fix-null-pointer-dereference-2c891142d988
 
-Should we expect v2 (re)based on recent tree?
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
-Thanks
-David
-
-[1] 
-https://github.com/sm7150-mainline/linux/commit/7ea41523c678e94a7c048936052b5b1b1b109cdd
-
-> Neil
-> 
->>
->> Best regards,
->> Jens
-> 
-> 
