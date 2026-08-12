@@ -4,67 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B82C5B567
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:33:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AC73C5B567
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:36:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0C7F10EE9B;
-	Wed, 12 Aug 2026 07:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B29D510EE9C;
+	Wed, 12 Aug 2026 07:36:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="chMLgGF5";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ahaOaeuj";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCB3810EE9B
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:33:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1786519985;
- bh=0RC7xRrCg2fRyRdaPN4OfoMhKYrQhs7hQgPg17BL6Ko=;
- h=From:To:Subject:Date:Message-Id;
- b=chMLgGF5VPbaa6/ylYfa7/QjJIs6NxmWuT1E4sTUr+WEORdP1kpYKLLuP1hv0125K
- uVKOlCVk92BXQoMcHhIu3wWlVjZxHxJCGIvslASuadkD/fZwNllu1Z8D2GcnJOyPvz
- rQydlCHyiv9wdIkEXadTrSllIivcddskEFdbiHb8=
-X-QQ-mid: esmtpsz11t1786519808t4eb45b90
-X-QQ-Originating-IP: DgtAwOy9jdG0k6Bs+ZsEkTWYn6YpyP6FVOvGZ4eBsiw=
-Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 12 Aug 2026 15:30:05 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8909177870970302575
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: [PATCH v4 0/3] DSI Controller improvements for Rockchip platforms
-Date: Wed, 12 Aug 2026 15:29:59 +0800
-Message-Id: <20260812073002.328-1-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: OKpRv/MUM8f1AcXuAY/hd7SH4fMdz0zNlrca3Hbr/rs2A43/K/Os1YT+
- qUmSLUK40G9TGR+L5Aalk8QBvT1K7PaI4bAasPfP4LFlCCfladsyI0v6aUJhOQfqBwO1G9X
- KQ5Ifr8aMgVTu4rY2tFf6b8yvUhZ0W7SUjs8d/asNdMbfIvayu7tqRCr/atxCugwoDR6iRN
- TBXor/5qeSFrYbJvCjKYn1AiOw2x6a9s5Qb4RNo0Xf3lxAOVIVpZMdoDW0XhpdVCxhJcq3a
- 2OzvbkT49NrXQC47TE4Q8bd+8o/sjmqpWglmNcIthI7R9qS5GWkMtj/Re69sjh4TkeA3hVZ
- Jl2dEWWrcnQaX45imk7d/JaND90HDieKZzFLg82GB+BWiYbRLljbD6ZhcnSBxZW3JlYysI2
- 6UcvP1zMqqmMixgk9y8nz7t8ZtDcifbMdiv6qVXA08IYFFrxnZ0HfTbJq4V58MbZfKU/s8t
- gK+e+fI8Rw5sh+Ls98uG3it3ubv+IuQcMTMG/fQnPY1CNQPV9+AFtDUAxtGWmScPo326AUd
- o8gv2DKzg72nXMbZiskuzYTb6id4+8PmZXBEZpdE+GPJ8JEGG+Ltw4qIkj5kiSLFQ3enefJ
- 7BeVxBR888Vs02pI3eyyqhACZZH11JJKrUK7PTXzkKY07AAtuPJkVMQNEvgJuLzmT1Bphbu
- maBQZfEDYzl5zPAt9kFVUGFiMVE/+72pqVeh8RxHV7F9vicMzz6hR2L231ho9IOvJEXio49
- EroZo8f5WmZ9vrcdI+wKbZPNROOp4r2ZMc7ApzwGbNOUPRKWxYaVmPh5IcSzhpT25155tqG
- pg2lXgTc+D8UGRksR7IlciobxQOEBtPLn4nNLDQFAh6Uh421mrQ2nK4O5kYYDU1HwtZQcNM
- GAOrv+0JM5rs46ZbK3cj+UyWip9uCVj7h6rA+XDKfbwGr3SdAEQ83HdCLIkPwOGAINvjrIG
- xowzLb5zuBk+ZHK3dZaVPRNhg9Z9EKP4bZQrYVOlOAWm4hedk5TJGbxx6hvpyWkb8UV81k0
- BICJJQTeJhhYuEuJBOveddGDXuEUDkhZJglJWj+94OJOGcODP6
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC45510EE9C;
+ Wed, 12 Aug 2026 07:36:27 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hKgKC2bJzzMlKq;
+ Wed, 12 Aug 2026 09:36:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1786520182; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7UtIRYxm8TUl+aWiJtE4ZvgFUyRqXk4tQehg0VI2a8Q=;
+ b=ahaOaeujFT2lqHUF91N0J2nuw+IDdpZHzMHMsRulOxxlkgkhBboAvSL0/Mr16iR9C9YTQQ
+ hYrJl/NaL1tmNfCTSVtxMILcFnScHFJI4FwVzIPcmSiGlrCCXU0nzPVhHIfM9JY8RAz8iZ
+ rZXSdHcBecO6WYypwG+j0G9f15koC5G9ZChEi54fUPhhffX5elCLjpL3aXvBH024v/5sIn
+ 3WIybJATV5PHi51IUhGXNOBZB755F9BjC50VYXKeZXVBI5gZ8JxW62vGLOYqbZSMjIYfBe
+ B8FN72G5gyiG7zfcRmKlk17rJgPFE+CS58xBiFHaI+KmumF5KCOlHs2v1RwcXg==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of phasta@mailbox.org designates
+ 2001:67c:2050:b231:465::2 as permitted sender)
+ smtp.mailfrom=phasta@mailbox.org
+Message-ID: <9a349d1e5999fff97d6bada0a23273bf56a44240.camel@mailbox.org>
+Subject: Re: [PATCH v2 00/20] Revert switching default DRM scheduler policy
+ to fair
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Matthew Brost	
+ <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Date: Wed, 12 Aug 2026 09:36:04 +0200
+In-Reply-To: <bbe573b2-cee8-4647-bb75-662ced57b2d3@igalia.com>
+References: <20260811140738.96974-1-tvrtko.ursulin@igalia.com>
+ <c8f1e84b8ee1b51e6927c8252d28ef89d26cecb8.camel@mailbox.org>
+ <bbe573b2-cee8-4647-bb75-662ced57b2d3@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-META: s6a3djfzco167zc5bnp4mkrd5zzs5ejj
+X-MBO-RS-ID: eab0e299b0f94658499
+X-Rspamd-Queue-Id: 4hKgKC2bJzzMlKq
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,40 +74,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+On Tue, 2026-08-11 at 18:14 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 11/08/2026 15:42, Philipp Stanner wrote:
+> >=20
 
-This series is dedicated to enhancing the DSI controller and PHY timing
-interaction, refining the lane rate calculation, and addressing the
-associated hardware limitations.
+[=E2=80=A6]
 
-Changes in v4:
-- Link to v3: https://lore.kernel.org/all/20260810034139.148-1-kernel@airkyi.com/
-- Add missing RK3506 timing and the fallback path for get_timing
-  (sashiko).
-- Fix potential overflow and underflow issues in bandwidth
-  calculation(sashiko).
+> > Acked-by: Philipp Stanner <phasta@kernel.org>
+> >=20
+> >=20
+> > Doesn't yet apply to drm-misc-fixes, I suppose because of the merge
+> > yesterday.
+> >=20
+> >=20
+> > =C2=A0From my POV you can push this to misc-fixes if you can make it ap=
+ply;
+> > hopefully it's not too late for v7.2
+>=20
+> I've rebased against drm-misc-fixes, posted v3 and pushed it. I wanted=
+=20
+> to prioritise getting the reverts in quickly to not miss the fixes pull=
+=20
+> rq so I did not log the acks against all patches since there is a lot of=
+=20
+> them. There were two small conflicts while building drm-tip so fingers=
+=20
+> crossed that's all good. I compile re-tested both drm-misc-fixes with
+> all affected drivers, and drm-tip for x86 only.
 
-Changes in v3:
-- Link to v2: https://lore.kernel.org/all/20260603033532.164-1-kernel@airkyi.com/
-- Rebase to Linux v7.2
+Only saw this now. I think the Acks are not optional and adding them
+would have taken 3 minutes; but it is now what it is.
 
-Changes in v2:
-- Link to v1: https://lore.kernel.org/all/20260324085838.90-1-kernel@airkyi.com/
-- Fix the unit conversion for max_mbps.
-- Split the lane rate calculation into a separate patch.
-- Add more comment about timing config.
+Thanks for reacting quickly.
 
-Chaoyi Chen (3):
-  drm/rockchip: dsi: Add maximum per lane bit rate calculation
-  drm/rockchip: dsi: Add dphy_get_timing support for multiple PHY types
-  drm/rockchip: dsi: Relax the lane rate margin requirements
+Assuming we run into no further problems, we can continue with CFS
+slow-paced throughout the next cycles
 
- .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   | 70 +++++++++++++++++--
- 1 file changed, 64 insertions(+), 6 deletions(-)
 
--- 
-2.53.0
-
+P.
