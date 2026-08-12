@@ -4,60 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78EB2C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 10:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61B66C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 10:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A03BE10E32D;
-	Wed, 12 Aug 2026 10:06:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C60310EF0B;
+	Wed, 12 Aug 2026 10:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iaeWKoMU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="P/0bpBRo";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ifJooN3+";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6BA410E32D
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 10:06:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786529182;
- bh=oMgFoWAsb+8z/0tKY7s6yelxT2CJ7s5lRRX80idCuIo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=iaeWKoMUPxyWbBZ4HJL2bSjX8Q1z4W5WdGs3HTfmDETb0288RK3lc2svg5KePQpD7
- pDNLTe60bqwuHtwBZcqUo9kKWU0c5euUcgCLAwc5P7QfetJKDcVA+lUFNDiH1o11+t
- dkFTvzX5Cm8kn6+6hnlfh33WUtIZm4QSOaNUkmaU8ZxKZNQd4uS+Iugxd0IkeZr93O
- 7v46ObMJfuzKwito9r2IYWt4Mi0ApzWwv2WjbjnvmK8BNB3Sn1Zryk0+9UpShaB5yu
- 97ayQdud1i7Nrfz4MF8NloRrmU29MN6I3nN0yVhtf1otDB6rN3RGrPmu2yEVumcRbA
- 4HDTmzTUTCE5A==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 74DB117E071A;
- Wed, 12 Aug 2026 12:06:21 +0200 (CEST)
-Date: Wed, 12 Aug 2026 12:06:17 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 10/11] drm/panfrost: Fix races between perfcnt and
- reset sequence
-Message-ID: <20260812120617.394f246e@fedora-21.home>
-In-Reply-To: <20260811-claude-fixes-v5-10-3d692c9e98c2@collabora.com>
-References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
- <20260811-claude-fixes-v5-10-3d692c9e98c2@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C25110EF0B
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 10:06:47 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67C9fb2H384798
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 10:06:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ t/SOUpUwjDpAt++MVooTOPUKZjfOYijo38yy35xnxnE=; b=P/0bpBRoYv1osyh4
+ EAkk8kxe2DJERN5N3w78B5e/+lesGS5HMl8vMkcvIwuiGa/Ahn327h+p4QMv2rc4
+ SxeYZPEM1DymwEsgBin2TL34WUV5fPAjmygLIFgxTqLiNNGZEx8IBiiwNiolRDS/
+ Y1fTd8ET0ui5cFVH9j56O5mDWkndWU/NU4pG8pdTGPJInpKpUByIOxTmFG7Kxt23
+ C37rEApB3vYvqzcXkzjQszX/GfZ90nnYsUw6gWyYcAcCU5scrGEyRxLoKZcHhdGB
+ bXweSN1dJ8RadevfMuDptwwsH3QVi6cdQtf9URG9tEeu4I+WdRei4VBYGcP75Dr5
+ J67yvg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0nut889k-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 10:06:46 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8f0f45415cfso8290206d6.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 03:06:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1786529205; x=1787134005;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=t/SOUpUwjDpAt++MVooTOPUKZjfOYijo38yy35xnxnE=;
+ b=ifJooN3+Yl4GxYm98HaWRKEdPS+iajodJ1mmXj9CBooq99mZfOot0OgUQCAZMuhWgk
+ /m1NBykB8tkkeomnf/5V+Hpu8kI1yOEQVOynCbrHCKhO3hi4rLtZ9aZr+awxw/8BZl7B
+ aYbiqr2Z7YgpfQ9WwLlHq8eXCCCUF2gxc3w2Wgx+9VL8pr3MrFcboFXwZ+Tbmpk/0Mpb
+ pU9PJkch2tVomLg2/VWBRdz2rmQAFYxv7tgXTzi7a4x1w175uMlMmQjfT1WAZaiJQWuD
+ eSl4S1EgqnfOC/XBEWyzd3F1rxXCvH+/qFiq5VvM89hGUlusX1iOTvKg4iXflEvNOKPK
+ PI6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786529205; x=1787134005;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=t/SOUpUwjDpAt++MVooTOPUKZjfOYijo38yy35xnxnE=;
+ b=F//oEx6ujwxlDuGeZIRKBCgtF5fw0m238fh98PDoLVqDZPuJ6FrCCBYOq1RLgaanE3
+ XaQk/iSyfhjqtglQ8EFTFA2S3mz1oRakJb5TvQQz5jGyuQEVPRAWW7yMr10Akc1U9tdY
+ yxZ2un4HVRDh4apS7XAdulE62AoKX2iu3X0ZtyVgCIawxB8rOf9oiVnZQ3SiqTEza7x3
+ SSKUD33uD3Z6tcrXhk52dI6AxiSB+B0aFmcyPOdlghew35RtVSSI+xfSWP0/OQ+9hqm1
+ OGoMkKGwBD/vr5zIlIc0lqW7wMKjXbPbfh6K48okj5hqtnAOAf3MjFPMx+NIa/uHfF/D
+ qmmg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr+7n+LG4G4IFNLe4D7iuVdrgBQ3sqPCTp9jbowNar5yRnwlpS0oVMEkFslukzjMefXrysPvjvhtbc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz8WSZACO+PEI+FV0TKDbPKGhycNPvZbXXkjtVtp6ml7ObBSWul
+ afagcms4h1057lndaEKqLOsRwr6f+DO9rYnG2B1Qr+wZWtbv3BEgyu0sN6DmWd+iKttFucKrS0n
+ xTuL7xfoE/bUUqSnNmJI75Kr2qQLstLR+oCzCjms0wBDtuKKdLXYtnw+w4KICDnPmb5+OwdQ=
+X-Gm-Gg: AR+sD1037vhwUfiWJLcH3lb4WP4n9yC4EQrKJPl8dI/dXjR8g1ZgMbxYnjTlQsP0Pob
+ SHVLbA/Mnc+/kObvl6bTwa9EvVRx2DCslwgmUkptynIR10jqIK+32uHRF1QhL7sia00UVh4Y2Xb
+ XM4Yzz3BgfHHQiL+FdIYbTJgYc/zRgT5SqLh2To+gNFpA0om05ESWIdyf69hC7RtOKmylQbfcBN
+ bpxXWVlEG68QUGSnoI+3k9hJLKWGSwbe+a+AXCXAxImSMKFzLrfZZjNH/CAJhC0yPMqSYvfbBbZ
+ cJcY69IVMzZv8Utqty4bFvEZYJ+tu/pbfN94CyB8kByvx+yRSXppIc+FzuNV7PSwmZ6LqXLMyWg
+ eopxctYhu332PP0/aGrnkZ6ZHObB6eg==
+X-Received: by 2002:ac8:5854:0:b0:52d:3ccc:968b with SMTP id
+ d75a77b69052e-52d646b85b6mr26390721cf.9.1786529205488; 
+ Wed, 12 Aug 2026 03:06:45 -0700 (PDT)
+X-Received: by 2002:ac8:5854:0:b0:52d:3ccc:968b with SMTP id
+ d75a77b69052e-52d646b85b6mr26389931cf.9.1786529204950; 
+ Wed, 12 Aug 2026 03:06:44 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4997c946ce1sm34512735e9.5.2026.08.12.03.06.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Aug 2026 03:06:44 -0700 (PDT)
+Message-ID: <c8e4a3d3-a96d-4fd1-85a6-881e68385c83@oss.qualcomm.com>
+Date: Wed, 12 Aug 2026 12:06:40 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 3/4] firmware: Rename google firmware directory to
+ coreboot
+To: Julius Werner <jwerner@chromium.org>
+Cc: Sean Rhodes <sean@starlabs.systems>, chrome-platform@lists.linux.dev,
+ Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
+ <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Joshua Grisham <josh@joshuagrisham.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dell.Client.Kernel@dell.com, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Huacai Chen <chenhuacai@kernel.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
+ Brian Norris <briannorris@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Arnd Bergmann <arnd@arndb.de>, Eric Biggers <ebiggers@kernel.org>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+ Kees Cook <kees@kernel.org>, dri-devel@lists.freedesktop.org,
+ Oliver Lin <oliver@liuxiaozhen.dev>
+References: <cover.1785838269.git.sean@starlabs.systems>
+ <6f65c9869714188539f2890aef6cf30e7bd2edcb.1785838269.git.sean@starlabs.systems>
+ <e0d2a22e-a0cd-4a71-82c4-b88abcc7456e@oss.qualcomm.com>
+ <04db0ee0-a8d5-4f30-a494-5c7f8ac757c8@oss.qualcomm.com>
+ <CABtds-35m_cfT=Vm4MZkJYRe=dOPAKR6HYO_fu3SnwkdVQE0nQ@mail.gmail.com>
+ <64d82edc-87a0-47c7-8a17-f0d1c806a294@oss.qualcomm.com>
+ <CAODwPW8B2-i4Ne-ZTVUM_H-EZwn2hoaC4joRhxNM=CREDd_aUg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <CAODwPW8B2-i4Ne-ZTVUM_H-EZwn2hoaC4joRhxNM=CREDd_aUg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDA4MSBTYWx0ZWRfX89BiLTnqPauL
+ NY7SblVVGkMlqL6eu6jYreVBksDZcwa/Fpsbah53ymfCFQN674ac1lUSOlextQPn9B6kzBEaFie
+ qpoluYEaTPGKbYTsTIqfFB+S4sfuHbY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDA4MSBTYWx0ZWRfXyp058eavL9nH
+ oItu/uFltSrfWMHlhK8JSUIT6tz0hlRfrT9JBKQylhHydCW8yjmjYzvXB30IP519DUGZZDKK+Zq
+ 8sx97qxGKEnSMsX8TanD94qNjq9VJJQsIFq8Ai1fwNEswU98oCLFkKxuqfilDR598mp+pfMiuH2
+ +ZW61z1KxCX4Us6J+e85nTVl7zn1HmyS76vsTvuIaY3wMw+1ek4Yi1DrjQoS46/mvZ3yC5UX47y
+ UvQFBvEPuaF7/EF1ysUHveE4F6XPzlxVr7oBQYf8x3rgXcu33NTQ6/f0DyJzQbq1yu/i3EMu1kZ
+ TgWdQ1G5TK9srl1HzxBP18y0MxtmjyQqTtuuG5M5gAS3aBEDGTQclS7LzcNdjxZP+8t71MbukZV
+ daVS+UwAWFusV7XDD1m5tVChMq4LLlCQrwoQ/LU/m8PhfzMPz/RHlTiTu9VlApM3znQlOCl+ZOT
+ tUL60yLctLcSGSnckhw==
+X-Proofpoint-ORIG-GUID: 5yoHiWnYfkJ1EQz4-au4ifG05TWeBn6I
+X-Authority-Analysis: v=2.4 cv=POA/P/qC c=1 sm=1 tr=0 ts=6a7c45b6 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=WubhEmtZWPFaE_0rBY8A:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: 5yoHiWnYfkJ1EQz4-au4ifG05TWeBn6I
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_03,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ impostorscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120081
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,441 +179,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 11 Aug 2026 22:42:19 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On 11/08/2026 22:21, Julius Werner wrote:
+>>>>> Do not change this.
+>>>>
+>>>> I am surprised that such change appeared at v10.
+>>>>
+>>>> Changelog is quite incomplete and I do not see any explanation for this.
+>>>
+>>> Sorry, don't follow - so put the names back, or split it into its own patch?
+>>
+>> I did not find explanation of this in the changelog. It cuts at v9, so
+>> maybe that's the reason, although lore pointed me the v10 as the first
+>> version introducing new CONFIG symbols.
+>>
+>> Anyway, IMO renaming is really not worth if the sole reason is Google
+>> name is disliked now.
+> 
+> Krzysztof, the idea with this change was to introduce the new Kconfig
+> symbols that more accurately represent the new directory structure
+> while keeping the old symbol names available as fallback symbols for
+> people who continue using old .config files. Doesn't that avoid the
+> pain to users you're concerned about? I thought doing renames like
+> this cleanly was the whole point of the `transitional` feature in the
+> Kconfig language. Why do we have that lever if we don't want to use it
+> for the kind of cases it was meant for?
 
-> Formerly, the reset sequence would race with panfrost_mmu_as_put()
-> when tearing down a perfcnt session. On top of that, poking GPU
-> registers to program a perfcnt session or obtaining a dump might lead to
-> undefined behaviour when done at the same time a reset was ongoing.
->=20
-> Use the reset r/w semaphore to govern access to the hardware at reset
-> time. On top of that, expand the DRM uAPI for the perfcnt DUMP operation
-> so that userspace can be made aware of a reset having happened, because
-> that means counters will go back to 0 and can no longer be accumulated
-> to values previously kept in user space.
->=20
-> The new perfcnt-aware reset sequence also takes care to reestablish
-> perfcnt to its original configuration if there was an enabled session.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c  |   9 +-
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 220 ++++++++++++++++++++--=
-------
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.h |   2 +
->  include/uapi/drm/panfrost_drm.h             |   3 +-
->  4 files changed, 171 insertions(+), 63 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index e0390b6c0d22..c81d8ca67ae4 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -602,14 +602,21 @@ bool panfrost_exception_needs_reset(const struct pa=
-nfrost_device *pfdev,
-> =20
->  void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_jo=
-b_int)
->  {
-> -	guard(rwsem_read)(&pfdev->reset.lock);
-> +	guard(rwsem_write)(&pfdev->reset.lock);
-> =20
-> +	/* Pre-reset */
-> +	panfrost_perfcnt_reset(pfdev);
-> +
-> +	/* Do the actual device reset */
->  	panfrost_gpu_soft_reset(pfdev);
->  	panfrost_gpu_power_on(pfdev);
-> +
-> +	/* Post-reset */
->  	panfrost_mmu_reset(pfdev);
->  	panfrost_jm_reset_interrupts(pfdev);
->  	if (enable_job_int)
->  		panfrost_jm_enable_interrupts(pfdev);
-> +	panfrost_perfcnt_postreset(pfdev);
->  }
-> =20
->  #ifdef CONFIG_DEBUG_FS
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index ad1156678e91..01d477f7fce0 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -11,6 +11,7 @@
->  #include <drm/drm_file.h>
->  #include <drm/drm_gem_shmem_helper.h>
->  #include <drm/panfrost_drm.h>
-> +#include <drm/drm_print.h>
-> =20
->  #include "panfrost_device.h"
->  #include "panfrost_features.h"
-> @@ -25,14 +26,18 @@
->  #define BYTES_PER_COUNTER		4
->  #define BLOCKS_PER_COREGROUP		8
->  #define V4_SHADERS_PER_COREGROUP	4
-> +#define PERFCNT_DUMP_MAX_RETRIES	5
-> =20
->  struct panfrost_perfcnt {
->  	struct panfrost_gem_mapping *mapping;
-> +	unsigned int counterset;
->  	size_t bosize;
->  	void *buf;
->  	struct panfrost_file_priv *user;
->  	struct mutex lock;
->  	struct completion dump_comp;
-> +	bool reset_happened;
-> +	bool reset_failed;
->  };
-> =20
->  static void panfrost_perfcnt_gpu_disable(struct panfrost_device *pfdev)
-> @@ -55,25 +60,93 @@ void panfrost_perfcnt_sample_done(struct panfrost_dev=
-ice *pfdev)
->  	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
->  }
-> =20
-> -static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
-> +static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
->  {
-> -	u64 gpuva;
-> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> +	u32 cfg, as;
-> +	int ret;
-> +
-> +	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	as =3D ret;
-> +	cfg =3D GPU_PERFCNT_CFG_AS(as) |
-> +	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
-> +
-> +	/*
-> +	 * Bifrost GPUs have 2 set of counters, but we're only interested by
-> +	 * the first one for now.
-> +	 */
-> +	if (panfrost_model_is_bifrost(pfdev))
-> +		cfg |=3D GPU_PERFCNT_CFG_SETSEL(perfcnt->counterset);
-> +
-> +	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
-> +	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
-> +	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
-> +
-> +	/*
-> +	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
-> +	 * counters.
-> +	 */
-> +	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-> +	else
-> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-> +
-> +	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
-> +
-> +	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-> +
-> +	return 0;
-> +}
-> +
-> +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev,
-> +					u64 *reset_happened)
-> +{
-> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> +	u64 gpuva =3D perfcnt->mapping->mmnode.start << PAGE_SHIFT;
-> +	s64 retries =3D PERFCNT_DUMP_MAX_RETRIES;
->  	int ret;
-> =20
-> -	reinit_completion(&pfdev->perfcnt->dump_comp);
-> -	gpuva =3D pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
-> -	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
-> -	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
-> -	gpu_write(pfdev, GPU_INT_CLEAR,
-> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-> +dump_retry:
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		*reset_happened =3D perfcnt->reset_happened;
-> +		perfcnt->reset_happened =3D false;
-> +		if (perfcnt->reset_failed) {
-> +			ret =3D panfrost_perfcnt_hw_enable(pfdev);
-> +			if (ret)
-> +				return ret;
-> +			perfcnt->reset_failed =3D false;
-> +		}
-> +
-> +		reinit_completion(&pfdev->perfcnt->dump_comp);
-> +
-> +		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
-> +		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
-> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> +						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-> +	}
-> +
->  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
-_comp,
->  							msecs_to_jiffies(1000));
-> -	if (!ret)
-> -		ret =3D -ETIMEDOUT;
-> -	else if (ret > 0)
-> -		ret =3D 0;
-> +
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		if (ret > 0) {
-> +			if (perfcnt->reset_happened) {
-> +				if (--retries >=3D 0)
-> +					goto dump_retry;
-> +				else
-> +					ret =3D -EBUSY;
-> +			} else {
-> +				ret =3D 0;
-> +			}
-> +		} else if (!ret) {
-> +			ret =3D -ETIMEDOUT;
-> +		}
-> +	}
-> =20
->  	return ret;
->  }
-> @@ -84,9 +157,8 @@ static int panfrost_perfcnt_enable_locked(struct panfr=
-ost_device *pfdev,
->  {
->  	struct panfrost_file_priv *user =3D file_priv->driver_priv;
->  	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> -	struct iosys_map map;
->  	struct drm_gem_shmem_object *bo;
-> -	u32 cfg, as;
-> +	struct iosys_map map;
->  	int ret;
-> =20
->  	if (user =3D=3D perfcnt->user)
-> @@ -119,7 +191,9 @@ static int panfrost_perfcnt_enable_locked(struct panf=
-rost_device *pfdev,
->  	ret =3D drm_gem_vmap(&bo->base, &map);
->  	if (ret)
->  		goto err_put_mapping;
-> +
->  	perfcnt->buf =3D map.vaddr;
-> +	perfcnt->counterset =3D counterset;
-> =20
->  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
-> =20
-> @@ -127,60 +201,47 @@ static int panfrost_perfcnt_enable_locked(struct pa=
-nfrost_device *pfdev,
->  	 * Invalidate the cache and clear the counters to start from a fresh
->  	 * state.
->  	 */
-> -	reinit_completion(&pfdev->perfcnt->dump_comp);
-> -	gpu_write(pfdev, GPU_INT_CLEAR,
-> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		reinit_completion(&pfdev->perfcnt->dump_comp);
-> +		gpu_write(pfdev, GPU_INT_CLEAR,
-> +			  GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> +			  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+To me 'transitional' is when you actually make changes to drivers, their
+dependencies or to whatever Kconfig hierarchy is there.
 
-Can you remind me why we need a cache flush in the enable path? Feels
-to me that this is something we want after a dump but not when we
-enable the perfcnt block, especially since all dumps are currently
-manual. Dropping this pre-flush would actually simplify quite a few
-things.
+I do not consider marketing or pure "I do not like this name" as valid
+reasons, because this is developer string (or kernel/distro
+configurator) not end-user visible thing. And for us, the developers,
+this marketing does not matter.
 
-> +		perfcnt->reset_happened =3D false;
-> +		perfcnt->user =3D user;
-> +	}
-> +
-> +	/*
-> +	 * If a reset happens during the wait for the IRQ notification that cac=
-hes
-> +	 * are clean and invalidated, then we know the reset sequence did the j=
-ob
-> +	 * for us, even if it takes long enough for the completion to time out.
-> +	 */
->  	ret =3D wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
->  					  msecs_to_jiffies(1000));
-> -	if (!ret) {
-> +	if (!ret && !perfcnt->reset_happened) {
->  		ret =3D -ETIMEDOUT;
->  		goto err_vunmap;
->  	}
-> =20
-> -	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
-> -	if (ret < 0)
-> -		goto err_vunmap;
-> -
-> -	as =3D ret;
-> -	cfg =3D GPU_PERFCNT_CFG_AS(as) |
-> -	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
-> -
-> -	/*
-> -	 * Bifrost GPUs have 2 set of counters, but we're only interested by
-> -	 * the first one for now.
-> -	 */
-> -	if (panfrost_model_is_bifrost(pfdev))
-> -		cfg |=3D GPU_PERFCNT_CFG_SETSEL(counterset);
-> -
-> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
-> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
-> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
-> -
-> -	/*
-> -	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
-> -	 * counters.
-> -	 */
-> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-> -	else
-> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-> -
-> -	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
-> -
-> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		if (!perfcnt->reset_happened || perfcnt->reset_failed) {
-> +			ret =3D panfrost_perfcnt_hw_enable(pfdev);
-> +			if (ret)
-> +				goto err_vunmap;
-> +		}
-> +		perfcnt->reset_happened =3D false;
-> +		perfcnt->reset_failed =3D false;
-> +	}
-> =20
->  	/* The BO ref is retained by the mapping. */
->  	drm_gem_object_put(&bo->base);
-> =20
-> -	perfcnt->user =3D user;
-> -
->  	return 0;
-> =20
->  err_vunmap:
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock)
-> +		perfcnt->user =3D NULL;
->  	drm_gem_vunmap(&bo->base, &map);
->  err_put_mapping:
->  	panfrost_gem_mapping_put(perfcnt->mapping);
-> @@ -203,13 +264,15 @@ static int panfrost_perfcnt_disable_locked(struct p=
-anfrost_device *pfdev,
->  	if (user !=3D perfcnt->user)
->  		return -EINVAL;
-> =20
-> -	panfrost_perfcnt_gpu_disable(pfdev);
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		panfrost_perfcnt_gpu_disable(pfdev);
-> +		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
-> +		perfcnt->user =3D NULL;
-> +	}
-> =20
-> -	perfcnt->user =3D NULL;
->  	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
->  	perfcnt->buf =3D NULL;
->  	panfrost_gem_close(&perfcnt->mapping->obj->base.base, file_priv);
-> -	panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
->  	panfrost_gem_mapping_put(perfcnt->mapping);
->  	perfcnt->mapping =3D NULL;
->  	pm_runtime_put_autosuspend(pfdev->base.dev);
-> @@ -263,7 +326,7 @@ int panfrost_ioctl_perfcnt_dump(struct drm_device *de=
-v, void *data,
->  		goto out;
->  	}
-> =20
-> -	ret =3D panfrost_perfcnt_dump_locked(pfdev);
-> +	ret =3D panfrost_perfcnt_dump_locked(pfdev, &req->hw_reset);
->  	if (ret)
->  		goto out;
-> =20
-> @@ -346,3 +409,38 @@ void panfrost_perfcnt_fini(struct panfrost_device *p=
-fdev)
->  	/* Disable everything before leaving. */
->  	panfrost_perfcnt_gpu_disable(pfdev);
->  }
-> +
-> +void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
-> +{
-> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> +
-> +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
-> +		return;
-> +
-> +	lockdep_assert_held(&pfdev->reset.lock);
-> +
-> +	if (!perfcnt->user)
-> +		return;
-> +
-> +	perfcnt->reset_happened =3D true;
-> +	complete(&perfcnt->dump_comp);
-> +	panfrost_perfcnt_gpu_disable(pfdev);
+Anyway, defconfig change must be separate because it goes via different
+tree, unless this is non bisectable. Keeping it here initially confused
+me into thinking you are actually breaking use cases (which you are not).
 
-Do we really need both a _reset() and post_reset(). Feels to me that
-what we need is a post_reset() that re-enables the counters if they
-were enabled, and unblock dump_comp after setting reset_happened=3Dtrue.
-It's then up to the dump logic to retry (maybe a couple times max, to
-bail out if things keep failing).
 
-> +}
-> +
-> +void panfrost_perfcnt_postreset(struct panfrost_device *pfdev)
-> +{
-> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> +	int ret;
-> +
-> +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
-> +		return;
-> +
-> +	lockdep_assert_held(&pfdev->reset.lock);
-> +
-> +	if (!perfcnt->user)
-> +		return;
-> +
-> +	ret =3D panfrost_perfcnt_hw_enable(pfdev);
-> +	if (ret)
-> +		perfcnt->reset_failed =3D true;
-> +}
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.h
-> index 8bbcf5f5fb33..e14e760641fd 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
-> @@ -14,5 +14,7 @@ int panfrost_ioctl_perfcnt_enable(struct drm_device *de=
-v, void *data,
->  				  struct drm_file *file_priv);
->  int panfrost_ioctl_perfcnt_dump(struct drm_device *dev, void *data,
->  				struct drm_file *file_priv);
-> +void panfrost_perfcnt_reset(struct panfrost_device *pfdev);
-> +void panfrost_perfcnt_postreset(struct panfrost_device *pfdev);
-> =20
->  #endif
-> diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_=
-drm.h
-> index 50d5337f35ef..3bbf9220103d 100644
-> --- a/include/uapi/drm/panfrost_drm.h
-> +++ b/include/uapi/drm/panfrost_drm.h
-> @@ -47,7 +47,7 @@ extern "C" {
->   * them for anything but debugging purpose.
->   */
->  #define DRM_IOCTL_PANFROST_PERFCNT_ENABLE	DRM_IOW(DRM_COMMAND_BASE + DRM=
-_PANFROST_PERFCNT_ENABLE, struct drm_panfrost_perfcnt_enable)
-> -#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOW(DRM_COMMAND_BASE + DRM_=
-PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
-> +#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOWR(DRM_COMMAND_BASE + DRM=
-_PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
-> =20
->  #define PANFROST_JD_REQ_FS (1 << 0)
->  #define PANFROST_JD_REQ_CYCLE_COUNT (1 << 1)
-> @@ -272,6 +272,7 @@ struct drm_panfrost_perfcnt_enable {
-> =20
->  struct drm_panfrost_perfcnt_dump {
->  	__u64 buf_ptr;
-> +	__u64 hw_reset;
->  };
-> =20
->  /* madvise provides a way to tell the kernel in case a buffers contents
->=20
 
+Best regards,
+Krzysztof
