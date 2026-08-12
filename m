@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206FEC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC557C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:13:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B4C210E16A;
-	Wed, 12 Aug 2026 13:12:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2649B10EFCD;
+	Wed, 12 Aug 2026 13:13:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LuECS6Bb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oe9XY/6H";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6449410E16A
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:12:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C3F910EFCA
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:13:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 32646408D7;
- Wed, 12 Aug 2026 13:12:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA05C1F000E9;
- Wed, 12 Aug 2026 13:12:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 243ED42EAF;
+ Wed, 12 Aug 2026 13:13:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB181F000E9;
+ Wed, 12 Aug 2026 13:13:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786540336;
- bh=U15mOgIa3Cpp24usLL44CqlWws2DRMh8JqLmthnoVT4=;
+ s=k20260515; t=1786540393;
+ bh=BRLSjrp0D29ZueRa0L453YQ7x/Ra0L87BBVCFcp9aO8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LuECS6BbYJLPLzSDbPtK1mmCDt9hpxuz+CjqV9BNbX3vJTUAALoAjBPc8gYkUsuA4
- RFQJ0ODcdDv65CE8gPBcW46Z4xsHpVFs2vvLlR69nMEPs7qplgMnIVTLPg1Rit9Nq1
- LWNUg3cIDMuO8vpl3Zn2qjwg32D5A9IpIY4hWPWHX/L3VapjHqjtwcqa+dWZoC1HuN
- 6QTtUS5nXSUPwIiysqzkbPxvbwEDdyRTk8xD50vvuGcJQRyEiKvYUeCrhQ79uqB0uj
- r8Xb4Cw1EfRyIjV8vPWhxYhDRyua6mrjihla9C6mVcmlibelV4VE6viB7PCaqhJFpo
- WrwAVFnZcgTcQ==
+ b=oe9XY/6HWb7t9NSl52Kvr16Xo5fVS+shf41Yt9DmW5tyN1ZaVRarFeffgigFii0tc
+ I8yZTVxltJAx6sWmDFho3Qje4XUouZvGaXhou07I6Li4mF6KImnEuUTDGbN7lhFpWB
+ qCHLX1q5uy+ipn8mGQ7ROXrhRBZiE5Mq6A/z4asF5fqBJDxdm/OMQHHBCwHJe3He+P
+ hvvplPEGLykzV7JFkO4FACLY1TjvM/1bE1MIsQDfUbMCKQLLHx0RDR5Rzjo7bDw1Xc
+ G9nQFGgK7MqL+GpgUjTDZtZX0yQ6EnT7niBPQOGPmUBA8KIuEIh3ThWSBN4+gaziSe
+ cCxC382YrhnYA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/6] drm/panel: Use devm_mipi_dsi_attach in display
- vendor panels
+Subject: Re: [PATCH v3 4/6] drm/panel: Use devm_mipi_dsi_attach in Himax and
+ Ilitek panels
 To: "Osama Abdelkader" <osama.abdelkader@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260812130429.16850-5-osama.abdelkader@gmail.com>
+In-Reply-To: <20260812130429.16850-4-osama.abdelkader@gmail.com>
 References: <20260812130429.16850-1-osama.abdelkader@gmail.com>
- <20260812130429.16850-5-osama.abdelkader@gmail.com>
+ <20260812130429.16850-4-osama.abdelkader@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 13:12:15 +0000
-Message-Id: <20260812131215.EA05C1F000E9@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 13:13:12 +0000
+Message-Id: <20260812131312.DBB181F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +62,46 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing `drm_panel_remove()` on DSI attach failure leaves a dangli=
-ng pointer in the global panel list.
+- [High] Missing `drm_panel_remove()` in the error path of `ili9881c_dsi_pr=
+obe()` when `devm_mipi_dsi_attach()` fails, leaving a dangling pointer in t=
+he global panel list and causing a Use-After-Free.
 --
 
---- Patch [5]: [PATCH v3 5/6] drm/panel: Use devm_mipi_dsi_attach in displa=
-y vendor panels ---
-commit 861964400906b56ec8ecf322e4a2fb68f45fa468
+--- Patch [4]: [PATCH v3 4/6] drm/panel: Use devm_mipi_dsi_attach in Himax =
+and Ilitek panels ---
+commit 3a10b5f724df17d382396b95194d7b29446eceae
 Author: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-drm/panel: Use devm_mipi_dsi_attach in display vendor panels
+drm/panel: Use devm_mipi_dsi_attach in Himax and Ilitek panels
 
-This patch converts several MIPI DSI panel drivers to use the managed
-devm_mipi_dsi_attach() helper and removes the manual detach calls from
-their respective remove functions.
+Use the managed MIPI DSI attach helper in Himax and Ilitek panel drivers
+and drop the corresponding manual detach calls from remove paths.
 
-> diff --git a/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c b/drivers/gpu/d=
-rm/panel/panel-jdi-fhd-r63452.c
-> --- a/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
-> +++ b/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
-> @@ -202,7 +202,7 @@ static int jdi_fhd_r63452_probe(struct mipi_dsi_devic=
-e *dsi)
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/=
+drm/panel/panel-ilitek-ili9881c.c
+> index 3abdd0870e831..ca7037a4242c7 100644
+> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> @@ -2597,14 +2597,12 @@ static int ili9881c_dsi_probe(struct mipi_dsi_dev=
+ice *dsi)
+>  	dsi->format =3D MIPI_DSI_FMT_RGB888;
+>  	dsi->lanes =3D ctx->desc->lanes;
 > =20
->  	drm_panel_add(&ctx->panel);
-> =20
-> -	ret =3D mipi_dsi_attach(dsi);
-> +	ret =3D devm_mipi_dsi_attach(&dsi->dev, dsi);
->  	if (ret < 0) {
->  		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
->  		return ret;
+> -	return mipi_dsi_attach(dsi);
+> +	return devm_mipi_dsi_attach(&dsi->dev, dsi);
+>  }
 
 [Severity: High]
-This isn't a bug introduced by this patch, but shouldn't we call
-drm_panel_remove() before returning here?
+This is a pre-existing issue, but if devm_mipi_dsi_attach() fails here,
+does it leave a dangling pointer in the global panel list?
 
-Since the panel context is allocated using devm_drm_panel_alloc() earlier in
-jdi_fhd_r63452_probe(), returning an error will cause devres to automatical=
-ly
-free the memory.
+Since ili9881c_dsi_probe() directly returns the result of the attach attempt
+without calling drm_panel_remove() on failure, and the panel context
+was allocated with devm_drm_panel_alloc(), the devres cleanup will free
+the memory while it remains linked in panel_list.
 
-Because drm_panel_add() was called right before the attach attempt, will th=
-is
-leave a dangling pointer in the global panel_list? It looks like this could
-result in a use-after-free or list corruption the next time the list is
-traversed.
-
-Several of the other panel drivers updated in this patch (such as
-ltk050h3146w) correctly call drm_panel_remove() in this error path.
+Could this cause a use-after-free when the list is next traversed?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812130429.1685=
-0-1-osama.abdelkader@gmail.com?part=3D5
+0-1-osama.abdelkader@gmail.com?part=3D4
