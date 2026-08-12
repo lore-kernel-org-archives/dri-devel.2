@@ -4,146 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BD9FC5CFCF
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 17:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6AE2C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 17:20:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 992BF10F094;
-	Wed, 12 Aug 2026 17:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0C510E448;
+	Wed, 12 Aug 2026 17:20:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hLWxCl64";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NTUvD2fl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B23A10E448;
- Wed, 12 Aug 2026 17:19:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A402660A84;
- Wed, 12 Aug 2026 17:19:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40E471F000E9;
- Wed, 12 Aug 2026 17:18:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786555157;
- bh=8WxyeD/4K/o06qOFzP7l98EIPHkrp93Cvie3fdx+YOA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=hLWxCl64FwqEYTiMqoHVw+thTGYp72pt2VffGqLy69crUuSqbNDx2idc8hBpx8w0J
- P3JAeDvIcyVd8+wRt0BAw61Hu6zDJOLsFFODqNhfCxEZsSTiJJN/2Y7LuwsSc8cLNb
- 23NQDQc7YkGWiKnFaMI30ynO5fSaGB2yZ5FxirgtAYQpsvPUp6nIgZnNpkkp897Ovn
- wki1zPDK9TzVk+FQBO6+i7O13PJZeE0JzZQk+tKDMDirc7GfEZNVWzXyD3BCYeCmjV
- I8oFpfyH/8yCYBIBereVnICPY6/Yvq4V2ZyoWh25BXSNfIhIKtgzVZO3swyC/kPN12
- wnhjGkkwdbPgA==
-Message-ID: <cd7036f1-7efb-488d-8889-b61dcffd1b1f@kernel.org>
-Date: Wed, 12 Aug 2026 19:18:56 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9DC810F0A6;
+ Wed, 12 Aug 2026 17:20:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=TBLKWXq6HG2XRFCU+5kyvX35rrKA9Y6g9Bk43j5/pF4=; b=NTUvD2flz4LKIly/iwdLL8R47Q
+ uruoZ7I8Xbh10Ksv40vhEnj36jqVV8QAWUGbSH+qWanBY0by0KiRqKik26D0yo7bFBKbfua3DF16/
+ Yb+/ZjOIK3PiQnCPVUn1BJBwx9Ygz8rImkoAw2eaAKUWNskITLraKVlAbFT5/l8vWXApY8QBBQtBu
+ 1H/etiGMGGuTt6K08ahIRoRm2woKNmk/CGRuN4zODgLgo+ZbQfzH+qztZY4MQWpuNmT4sT1kPUkwe
+ NPXnCJshwgMmUa5Z7MmMQSu2XWDumEZzepaVNGIJUgfIh8EhU7v3wwCM8ZbqFDE81vGxKc5bTFXG7
+ Bu+9x5WA==;
+Received: from [31.4.134.207] (helo=[192.168.1.126])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wuCcV-000Dr2-75; Wed, 12 Aug 2026 19:20:03 +0200
+Message-ID: <22c2dfcd-f124-469c-aab8-a98db4b449d2@igalia.com>
+Date: Wed, 12 Aug 2026 19:20:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 19/20] tools/testing/vma: add test to assert
- MAP_PRIVATE-/dev/zero is anon
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Kees Cook <kees@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, linux-s390@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-19-ab318a350404@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v2 2/3] drm/amd/display: fix missing blend-mode-prop
+ warning for DCN
+To: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "daniels@collabora.com" <daniels@collabora.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "leandro.ribeiro@collabora.com" <leandro.ribeiro@collabora.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "pekka.paalanen@collabora.com" <pekka.paalanen@collabora.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "siqueira@igalia.com" <siqueira@igalia.com>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>
+Cc: "Hung, Alex" <Alex.Hung@amd.com>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
+ Lyude Paul <lyude@redhat.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20260804140758.107683-1-mwen@igalia.com>
+ <20260804140758.107683-3-mwen@igalia.com>
+ <DS0PR12MB65344015A6A94FCD1E449A709CDC2@DS0PR12MB6534.namprd12.prod.outlook.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-19-ab318a350404@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <DS0PR12MB65344015A6A94FCD1E449A709CDC2@DS0PR12MB6534.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,50 +77,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
-> Now we've made MAP_PRIVATE-mapped /dev/zero mappings truly anonymous, add a
-> VMA userland test to assert that this is the case and everything is as
-> we would expect for an anonymous mapping.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+
+On 12/08/2026 18:34, Wheeler, Daniel wrote:
+> Public
+>
+> Hey Melissa,
+>
+> I've found out that this patch causes some IGT failures with the igt@kms_plane_alpha_blend tests. I noticed it with a RX 7900 XT on a 4k60 HP U27. The tests fail with an assertion failure. I posted a snippet below.
+>
+>
+> Starting subtest: alpha-basic
+> Starting dynamic subtest: pipe-A-DP-1
+> [181.052561] (kms_plane_alpha_blend:9570) igt_kms-CRITICAL: Test assertion failure function do_display_commit, file ../lib/igt_kms.c:4982:
+> [181.052564] (kms_plane_alpha_blend:9570) igt_kms-CRITICAL: Failed assertion: ret == 0
+> [181.052568] (kms_plane_alpha_blend:9570) igt_kms-CRITICAL: Last errno: 22, Invalid argument
+> [181.052571] (kms_plane_alpha_blend:9570) igt_kms-CRITICAL: error: -22 != 0
+> Dynamic subtest pipe-A-DP-1 failed.
+
+Hi Daniel,
+
+Thanks for testing and pointing it out.
+
+I think the failure is caused by including alpha property to primary 
+planes, so the test runs for primary planes and fails when trying to 
+disable them (CRTC w/o primary).
+I'm not sure if this is essentially an issue in the IGT test or if AMD 
+primary planes don't support alpha, but I'll send another version to not 
+add alpha property to primary by now as it isn't related to the blend 
+mode warning. After I'll look at the driver to understand what is the 
+right approach.
+
+Best Regards,
+
+Melissa
+
+>
+> Thank you,
+>
+> Dan Wheeler
+> Sr. Technologist | AMD
+> SW Display
+> ------------------------------------------------------------------------------------------------------------------
+> 1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+> amd.com
+>
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Melissa Wen
+> Sent: Tuesday, August 4, 2026 10:01 AM
+> To: airlied@gmail.com; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; daniels@collabora.com; Wentland, Harry <Harry.Wentland@amd.com>; leandro.ribeiro@collabora.com; maarten.lankhorst@linux.intel.com; mripard@kernel.org; pekka.paalanen@collabora.com; simona@ffwll.ch; siqueira@igalia.com; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; tzimmermann@suse.de
+> Cc: Hung, Alex <Alex.Hung@amd.com>; kernel-dev@igalia.com; Lyude Paul <lyude@redhat.com>; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+> Subject: [PATCH v2 2/3] drm/amd/display: fix missing blend-mode-prop warning for DCN
+>
+> validate_blend_mode_for_alpha_formats() warns when a plane supports formats with alpha but doesn't expose the blend mode property. Fix this by adding the same overlay plane blend modes to primary plane, since they are all universal planes in DCN-generation. Cursor planes support
+> ARGB8888 format and CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA is set by default (other color formats are not implemented), so only expose support to PREMULTI, which is the default blend mode on DRM.
+>
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > ---
->  tools/testing/vma/include/dup.h |  1 +
->  tools/testing/vma/tests/mmap.c  | 50 +++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 51 insertions(+)
-> 
-> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-> index aee36707abdd..41203b1c2323 100644
-> --- a/tools/testing/vma/include/dup.h
-> +++ b/tools/testing/vma/include/dup.h
-> @@ -20,6 +20,7 @@ struct task_struct *get_current(void);
->  
->  #define MAJOR(dev)	((unsigned int) ((dev) >> MINORBITS))
->  #define MINOR(dev)	((unsigned int) ((dev) & MINORMASK))
-> +#define MKDEV(ma, mi)	(((ma) << MINORBITS) | (mi))
->  
->  #define S_IFMT  00170000
->  #define S_IFCHR  0020000
-> diff --git a/tools/testing/vma/tests/mmap.c b/tools/testing/vma/tests/mmap.c
-> index c85bc000d1cb..ebe01362e530 100644
-> --- a/tools/testing/vma/tests/mmap.c
-> +++ b/tools/testing/vma/tests/mmap.c
-> @@ -45,7 +45,57 @@ static bool test_mmap_region_basic(void)
->  	return true;
->  }
->  
-> +static int dummy_mmap_prepare(struct vm_area_desc *desc)
-> +{
-> +	return 0;
-> +}
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 18 ++++++++++++++++--
+>   1 file changed, 16 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 1b564cfe2120..a276f3730044 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1923,8 +1923,15 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>          if (res)
+>                  return res;
+>
+> -       if (plane->type == DRM_PLANE_TYPE_OVERLAY &&
+> -           plane_cap && plane_cap->per_pixel_alpha) {
+> +       /* TODO: Check which blend modes are supported in DCE-generation
+> +        * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
+> +        * property accordingly.
+> +        */
+> +       if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+> +            plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+> +           plane_cap &&
+> +           plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL &&
+> +           plane_cap->per_pixel_alpha) {
+>                  unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>                                            BIT(DRM_MODE_BLEND_PREMULTI) |
+>                                            BIT(DRM_MODE_BLEND_COVERAGE);
+> @@ -1933,6 +1940,13 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>                  drm_plane_create_blend_mode_property(plane, blend_caps);
+>          }
+>
+> +       /* Cursor color format is set to CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA
+> +        * by default, so only advertise DRM_MODE_BLEND_PREMULTI blend mode for
+> +        * this type of plane.
+> +        */
+> +       if (plane->type == DRM_PLANE_TYPE_CURSOR)
+> +               drm_plane_create_blend_mode_property(plane,
+> +BIT(DRM_MODE_BLEND_PREMULTI));
 > +
-> +static bool test_pure_anon_dev_zero(void)
-> +{
+>          if (plane->type == DRM_PLANE_TYPE_PRIMARY) {
+>                  /*
+>                   * Allow OVERLAY planes to be used as underlays by assigning an
+> --
+> 2.53.0
+>
 
-Ah, just one comment: should we call this something like
-"test_map_private_dev_zero", at least that'd be clearer for me.
-
-
--- 
-Cheers,
-
-David
