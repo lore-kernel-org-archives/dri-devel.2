@@ -4,128 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 741A8C5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:16:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 859D3C5CFDB
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA71910F144;
-	Wed, 12 Aug 2026 21:16:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90F1E10E45A;
+	Wed, 12 Aug 2026 21:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Cjkb3u+P";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0s9UJRaX";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011009.outbound.protection.outlook.com [40.107.208.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93DA810F0F4
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:16:44 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010018.outbound.protection.outlook.com
+ [52.101.193.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EF8410E45A
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:26:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s3EiFDTzqEIKksBZsTSuYHj8QUMM9sqqWmet0kENXEw2GNeUdzFhK7x/5yJH/K0LmVXz1pRl/Mr6XPfmJAn0U7Qs7ZmeZWnyztcdIsgHXnxF6HsijrumjUw1YN5X8YJ8OB/B7tr7V5QPEHNyclf/kFHtYRGBacN998DFD8pyvwp95pJ9PmC8NKiahBBFaKL4fFnN8L2sUb2bRCXwW1+d5lpaGtT5SgfxmUMukrUH8py6+Pqfsj8ePcq26n+h5pR8LJpptIQ3jJ1T5TSM98JXANB8EnMEoWUp2EXWaSf7jANxCc2KIR5GSntLeG+m2v4GBwiLGWLTHVwur5+5wPuXMQ==
+ b=xTzhuW9Oeyhx9i31Pa3usLa5WjKV04JYbJEKBE6q6/rS1BByNYh6UQq1qotoGdd/kQd6Kco2FDvdd36xaQox71V0I9C+pYfk4BcOUUV1kRFRdzwO93XZfmUA7zOPYFUNmiitM7JqojG29Oiho97Qhdx9vqiXDzgOv4dYtzQZdH8XQkDS5f48+VcA3ZvMZj3QI/P5fR1ufTEeppFS89TlKfU+vtlWffDdFwUSFIPDGPqhtQ3iDj+TLEyyIP2KsSnr0nrSPXi5NETGQ+U24k8YYgfgWfvnMZML8tJR8o/5r9NC8rCX5G1wI//lti3YustoTKnyhbkOeKQ9TpEw/jaJvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2COJDpD1dWexnUsu9rdOtfUSlaTsktewIZCZVy7PtcM=;
- b=Tu92z6R86HK4oXLV5YLBSLSAASdQAl//8aqhIO6Q2dhQiH9ChwcIOIvpSlqmsMO4Iqh5dKHSliRkY0WPIJR3iPLAHb2nP2XWxKKF3GUmt61o1aIKM19xEE3+zfGCAaaHrkZql+QDj8Hd6muXrKMieVJwmGG3hQd7AijjXND8N0ENCw03aFyny3EXcRuw1yMY5YDTXMZYKFa7m6iWFxKXCrDmbKPH9wQvlJR50UQ9dRrrOtj5k6IdUnnn0hRkNoB8FN5MiK2eYnmL07D/pOGm3yWeQ5yavM00y9T1GAsu64RU5FF+tHAzlOfMsafSIjSlYl4Bwm+2ajEK9Qg5SQwVzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=H43nrar5YyIINjyA3b1epLLYcFmnqHVmSdHEF3WEyas=;
+ b=n7Q8NVRmCryOViKbEx/iJY8xX65j027Z9xZ0C4D1IJja3Crw1EvOHoGU+tIupMLFHFrMdkoE8C1UUP4aMnMdkQw6Eu+ivkP+nFORwXH4YJbdPsp2P0T/hy3e6kdXjnKZ07l7UC1FqqtYebGOVNOF1yJNB/WAOmGbgXBylzxpTi6KJPod3xSx3oTA7nVq0GDei3cEvShQOHf57SOO82l5uj7zEZWVK1W6livBOq8Zrrn2F1f2NSSPzk9k/5oS7y5MfaysQ0r7XTFuDTcWBJ0xw2iLBXExMRFKL3jWm4lXnuQ3bFnOZf22QR2UYmfIrjrPsYO6BsR8dy89h86NY+tawA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2COJDpD1dWexnUsu9rdOtfUSlaTsktewIZCZVy7PtcM=;
- b=Cjkb3u+PDYWPydh/sm70beG0fFl9YTpYyKiCQqF53okZxknm7Tp0rg2G8iEtj3/jGxNPMTeoXrbjj9mKUkkKOzVL58b9fHP4QvtdVtJaV5c2Bcqmq0vrRVaVm5WtgDUL924GocD0mO/lsvD8ozi8UFK+dsdxfNRIAaBvnL0RpQpC5A4aOziOuymhgfYyYD5H+3hgm0+lnCWAf3rpRsKNt2Qs9hUd40/Ug6Rckd4/QuZxnw7SE26kEUkYvID81EkJOWgnY2QPKwLVXasiLMugw8N7Dz8ddexOvfb7uBgBtz4iLkhK7+C+Q7B/nPSmfYZ6esCOZb8Eb+5n8hJ42PwgYg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by DS4PR12MB9772.namprd12.prod.outlook.com (2603:10b6:8:2a6::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
- 2026 21:16:39 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
- 21:16:39 +0000
-Date: Wed, 12 Aug 2026 17:16:36 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v5 4/5] rust: id_pool: add contiguous area allocation
-Message-ID: <anzitCSFv28wKWeX@yury>
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-4-6c767770b3f4@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812-chid-v5-4-6c767770b3f4@nvidia.com>
-X-ClientProxiedBy: SJ0PR13CA0050.namprd13.prod.outlook.com
- (2603:10b6:a03:2c2::25) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+ bh=H43nrar5YyIINjyA3b1epLLYcFmnqHVmSdHEF3WEyas=;
+ b=0s9UJRaXfNspv+HyjB2UDh9RPFnkZgPXZLHlzoFmUA12N9QnUBe/cysdXP0vo+hnbaAvD2HhZv52UyhssWD9RdEAQXFeaHW8OOn4AgEXA8ry8mJhNehDt+5y5oVDM5ns0ayERrZiIjJ3RB5j3EOvPvqhDnnQQkK5bEfzT382R8E=
+Received: from MW4PR04CA0118.namprd04.prod.outlook.com (2603:10b6:303:83::33)
+ by SJ2PR12MB8720.namprd12.prod.outlook.com (2603:10b6:a03:539::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
+ 2026 21:26:53 +0000
+Received: from MWH0EPF000C6188.namprd02.prod.outlook.com
+ (2603:10b6:303:83:cafe::96) by MW4PR04CA0118.outlook.office365.com
+ (2603:10b6:303:83::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.13 via Frontend Transport; Wed,
+ 12 Aug 2026 21:26:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C6188.mail.protection.outlook.com (10.167.249.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 21:26:52 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 16:26:52 -0500
+Received: from [172.19.68.47] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 12 Aug 2026 16:26:51 -0500
+Message-ID: <8f4457fd-ef92-4783-b8d5-b4bb1f61de04@amd.com>
+Date: Wed, 12 Aug 2026 14:26:51 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1] accel/amdxdna: Skip unmapped range in
+ aie2_populate_range()
+To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20260812205628.810816-1-lizhi.hou@amd.com>
+Content-Language: en-US
+From: Max Zhen <max.zhen@amd.com>
+In-Reply-To: <20260812205628.810816-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|DS4PR12MB9772:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b529abe-54e3-4ffd-be0f-08def8b6ffa1
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6188:EE_|SJ2PR12MB8720:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7d4a18d-c632-4587-b4c8-08def8b86da6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|7416014|366016|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: YmfUdUmrU7kDa9unKqIBV/7pd0hEdaRkSiPk+irFt3g+BshZuQYDQ41KLFttfpqW3U85btBI4Oa2v8hn252gXb4bZNpYKcHK3Yks2n8AtsYSfct9/tBiG7BmDcMXGXJYs+iEzlHh/aSTidtKp9CAnGrFLQslOFZv46+d2AP0jpqVzPTvwCK8IWIM1y0soa1AP4UewLdcGed4UeL+9i28jQ2aS/q0o1Z2QwANAmYdtoG6LnJW7/7/Ksd3nFMPE9qKvv5+c0xsl1dRX0KNwO57yMb6w5TSPpa7Kewok94XvRIzld/VvON84d3eUamUmssobZkl68fiqSbjxTjvaQ0lfEpKXGAA5jHJJiPYcDhfihgoHHUsMGSVq9Mqky/JY5aL4v4OHB2WpSNiyJPJUUSRtk7Co2B/TO6bdhPZhTzOSk5Sm4Uk5cqi6Le/VHVJib6QUy6x4S/Q0KHc/iY2cdqvKJBONbMk4KulTnib47m+hH5vvdv/T1IpMoqWAmcxXuW8hk3YWIcWQH/L1BcDUsPArV+PyXaSdbWRmg5b/QuaYT0HLgk3pB88FVAtk2p6fkjXITIOkS7FkXk+7KfFoRvw5Hr5UmuzIHMDb59kXbXGTqFAEvVFkT6CxsGtzZKwX/vo9cuQYgm5S9nOnucAnb0QdZR8C5jh5evjayI062/fEC0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
+ ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|22082099003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: Bu20TD5oL8ftroF7sSYRXxTZfHx9E0uSGLqqFz3D3Nnat/7r+tdAJLxSjFfKAxNAzuxqIScbnmdAZbMM87qrxRxjiEDYJ5p+51xLTf+xiKQC7JgTs7qPQWUTczNO0Ne91QmlIssGoYn+ptfYwFT/Ox+zBBJZiUTqyiL7XL8hOftfJ/qYEHnW0Nk8BWcdo0PCN9fK1tgRQvN0l9Wy+P+kcRAedPNQpBgoLtsRxHfkbpcrSE79akdI8TWcA/6m/cQd2DjRcCKOZ4Tuyu6/fy3FfpnQvv/iAgeUxq3MFJNBWxZ2RC+0Yee4jVJxBrvQscUHQhYpkiPa7CGyq2Od1JEUdk04zkPmwUmYACVSQxFomOY+DefRKWboQcGbKPVoXAHQuel7ADAsw5qS/8oDMcS0OBVmruRB7dmRt5qukX7v0oaqSs4sjpLJ3I5yrskX6BQ9C8GxI3MLBQw01ly00iXklpRm/cqhKYHzQItb7SUJOzvQVmeFi3C8pwnx/4UJVdT3+X46VrF+WMp3VSWMRrS6ARipdHKdASiJ+O/zbmjdvqXgROn4erlV0yvsAInKrWuxEhcbA2Py/3Mt9GtzIYZ2iNIG1peXnn6MXHeCqM9vLzpHUgRj7A6XG4sovRnwEZHXlfJRp7SC+xQIlS6HrBSW4ZtdGpzt7o5Ufe+of9vfOiQQGPVxehaNNRT4RW8kBXVPX7QzUZgoViwW83Y1O7YIWw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/mKNFitCWSaUWU20Z1PSPCXP0kYmJu1EYlREIiEK2X58r7JP6rtirjzBbdtM?=
- =?us-ascii?Q?RdNJQC4fku/npYp+T3i6YPrtEkpqfCX1suw1OYIXPfa7/djsCpr7HJqknacs?=
- =?us-ascii?Q?lp4YlLC3YaoNRwov8wJyuaN1y5aPjCwY0dCfeSa7DwtsrsziI+B/yS2WtG2V?=
- =?us-ascii?Q?vWNKMa0XHojuxysjS6EUTQrHpLwABLHJkx759pb2/sZ4nGJe6mHL9NALctwz?=
- =?us-ascii?Q?M3x27uk8K1LjQ/dXUazwczJ4GKy6lzT0ixdBs06Hafk6dZLjkY5IvbtKf97Q?=
- =?us-ascii?Q?dgw9Qs0sbH/BM4cI3Hjqk1WelX/d3eKKTSkHF54EEZvfFAs+HxeHItK4IgCe?=
- =?us-ascii?Q?0c/kgzqWYIgV3Ms7Q5AfT45z0BVhPG8E0W/HYA/kK5r1qz7Ym8KTe6kq0lLZ?=
- =?us-ascii?Q?nFtsgp8hP4bol6OF0kpiEpKoEvAgppoudrqXPmFpIDtCOs2ncDZuPuwXhMrZ?=
- =?us-ascii?Q?TShwcb+0Hmqaay2KuvEHrQgoAJxE13GMJzutYXmR5bQ16LIj/SpHAJJYoR0a?=
- =?us-ascii?Q?waFI2jAGv//lkNcaw43Nkwaz5CYLHk7WTTyBOld4u9j4FUJWkbGd8th79sdH?=
- =?us-ascii?Q?K0HcdKaM+QI5ezbPj+R3K+7lyP28Amh/6IrotBTtDQGZJbDO41hEUzcysSc4?=
- =?us-ascii?Q?yDM6Bx8M9ED/Go5Vt83N72deZjhgR0MrJAM8wGUb7e+XzpvxZIYI7R8P4hw6?=
- =?us-ascii?Q?0PUo7Zi7M+dVcu/cFxjYv4eVskbdMtj9+8u7L0BxQ8nGRyvE2w2B/WLiM1Nt?=
- =?us-ascii?Q?u9DmGEaMHBDUrJAYNglqae7dknDnmTkiVuA6Pvh4SZMcYUd6py3VvOWwp5CM?=
- =?us-ascii?Q?gCTbS3prxSsCB+FpWkOAX91Y20Phpw3QDyGgKL8cNW7CgvjPd2P4nKD0z0Hz?=
- =?us-ascii?Q?8yYLuJ4C/juj8P1E7mJWLoaj000bsPMhnjefdiyq6W84/XupTIYF/R4OtV9a?=
- =?us-ascii?Q?84UKFh0NyrXgIQciXuxQVS8pYsoGz8+6UbIMOVxzPlB4JBZNaC6+V8S0I+DX?=
- =?us-ascii?Q?NH0RSxmfDfBjH3OUwDHH4/g9Ps06Josi1SE8NaCUIl/2Ga08LJ7XVb30uoWZ?=
- =?us-ascii?Q?rxzkdVkR80uxNHSE9TJ/po/WnZo4pZJEh/Fbc6i6hf5kS/L21f7b/t4SXd4I?=
- =?us-ascii?Q?VDByamD3bsuLfktEAHSPL3lTrHZOhMK211CmYqTiAycs0YLdie92sBrk+W17?=
- =?us-ascii?Q?SIRCDhqDTOtuPolLd1Jp05yv3kV8ROqt6fpMOqoXxdHgUu3z/XRO0T3p7fED?=
- =?us-ascii?Q?dYK3otOMDGjwJDGMz5SNPmbyydj5E3SsKOgtLm95N0Sjfwg6MK32InSyX5lU?=
- =?us-ascii?Q?WzSrKksPFlC5C6rFE2QMtl1SCuA34xZt61+Z72GS6QsuQMs+84fixu4ghuqs?=
- =?us-ascii?Q?pPpP2i3ruInkxHdt9FA/6Ur1jxEZlthQzNho2RgqQeFg2R9FvWtWur0ncRG5?=
- =?us-ascii?Q?dyPWJ+sYFx68YBup4BrwnDhEJ5ft0ErkAGl6MqCDTA+oFuCt9KBvvg7xdI7M?=
- =?us-ascii?Q?3MU5UvH4YtaFz5VS/Nk0zD3oNMc9n6gv4slarWp/Dlrt96jQU6un8kdoDDZy?=
- =?us-ascii?Q?tx8OwKpNU0QJWvR9Xq7nIYJJICwNesAS2k9xg1UNB6+hmEMS4sY6unQ+Zs66?=
- =?us-ascii?Q?ySZPVtgN8jddDFe97w1gBDWQg8KQVogeYMG5Ey4gYhRu13izdtMuw+6DgeYs?=
- =?us-ascii?Q?vj51XFIloKJlTHuPLvLeYfB6SLBmVNg09OxXo67jTNyfSXgwAWBSbe3YCnU/?=
- =?us-ascii?Q?pN+NHoTVwQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b529abe-54e3-4ffd-be0f-08def8b6ffa1
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 21:16:39.2944 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: is9VGgWJ1uxr2d3VM8IGOdJJ6zlyho4obsvdACTwFshaXQKCzI8k8U0VfJKmU/yUot5TOnGwX6howfSfMEPf1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9772
+X-MS-Exchange-AntiSpam-MessageData-0: /x6JXBEoBGrYVt7728XN4LQi+i6qjhkC6PXFDBIzgaB9uiFvd40dJEX2M92FWwVAJwT6G7GVuQT3HF90Vx4O10h9ov4HyudufI/496Pda3L0N0w8Fq7fxEUGMy1/+8bPY+f9kA3qxh1AieYgOzOS6KzOVMJK0t72KYdf6Emva+wL1Au1AP/BjdmqR81np+2Q+zynX8vTE+rvbXpn3kHtCXZCw/e4nWrwYFjjoLTeiXxkxFQX8LWhtkHSlLopgITG4CTO7SOSHceuoLaD4wNGyaR4VTrdfh6zpdx9Tp8Uor60u6sYBP+xrLu3SzpxcfGiVD7mv4XaJew5ImcCtuMHB/AXWngArHwDODY6Dm8OEJ7nX355DClDJ6bLODeWSAsjHZ092BSPtnP/ifSJ0k8ZFoLQe8vpS23ySzS9lkvM3wtC2s4nVx1vaHc5qcEwkN2u
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 21:26:52.9164 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7d4a18d-c632-4587-b4c8-08def8b86da6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6188.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8720
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,144 +115,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 05:51:24PM +0900, Eliot Courtney wrote:
-> Add support for contiguous area allocation. Add a new type,
-> `UnusedArea`, following the same pattern as `UnusedId`.
+
+
+On 8/12/2026 Wed 13:56, Lizhi Hou wrote:
+> aie2_populate_range() incorrectly failed jobs for BOs with multiple
+> mmaps: if the unmapped entry appeared first in umap_list, the loop would
+> pick it up, call hmm_range_fault() on a gone VMA, and return -EFAULT
+> without ever trying the remaining valid mapps.
 > 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> Fix it by skipping unmapped entries. After the loop, if the map list is
+> empty or all maps are valid, map_invalid can be cleared normally.
+> 
+> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Max Zhen <max.zhen@amd.com>
 > ---
->  rust/kernel/id_pool.rs | 69 ++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 69 insertions(+)
+>   drivers/accel/amdxdna/aie2_ctx.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
 > 
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 384753fe0e44..eb911a0e3217 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -4,8 +4,14 @@
->  
->  //! Rust API for an ID pool backed by a [`BitmapVec`].
->  
-> +use core::{
-> +    num::NonZero,
-> +    ops::Range, //
-> +};
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> index 4b3a62aa8798..8d9c283f606a 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -1052,6 +1052,16 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+>   	found = false;
+>   	down_write(&xdna->notifier_lock);
+>   	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
+> +		/*
+> +		 * Skip entries that have already been unmapped.
+> +		 *
+> +		 * If userspace unmaps the address and later submits I/O using
+> +		 * it, the IOMMU will reject the access and report a fault.
+> +		 * Ignore such entries here.
+> +		 */
+> +		if (mapp->unmapped)
+> +			continue;
 > +
->  use crate::alloc::{AllocError, Flags};
->  use crate::bitmap::BitmapVec;
-> +use crate::ptr::Alignment;
->  
->  /// Represents a dynamic ID pool backed by a [`BitmapVec`].
->  ///
-> @@ -240,6 +246,33 @@ pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'_>> {
->      pub fn release_id(&mut self, id: usize) {
->          self.map.clear_bit(id);
->      }
-> +
-> +    /// Finds a contiguous area of `count` unused IDs at or after `offset`.
-> +    ///
-> +    /// The start of the returned area is a multiple of `align`.
-> +    ///
-> +    /// Returns an [`UnusedArea`] upon success, or [`None`] if no such area could be found.
-> +    #[inline]
-> +    #[must_use]
-> +    pub fn find_unused_area(
-> +        &mut self,
-> +        offset: usize,
-> +        count: NonZero<usize>,
-> +        align: Alignment,
-> +    ) -> Option<UnusedArea<'_>> {
-> +        let start = self.map.next_zero_area(offset, count.get(), align)?;
-> +        // INVARIANT: `next_zero_area()` returns None or a start with `start + count <= map.len()`.
-> +        Some(UnusedArea {
-> +            range: start..start + count.get(),
-> +            pool: self,
-> +        })
-> +    }
-> +
-> +    /// Releases a contiguous area of IDs.
-> +    #[inline]
-> +    pub fn release_area(&mut self, range: &Range<usize>) {
-> +        self.map.clear(range.start, range.len());
-> +    }
->  }
->  
->  /// Represents an unused id in an [`IdPool`].
-> @@ -287,6 +320,42 @@ pub fn acquire(self) -> usize {
->      }
->  }
->  
-> +/// Represents an unused, contiguous area of IDs in an [`IdPool`].
-> +///
-> +/// # Invariants
-> +///
-> +/// `range.start <= range.end <= pool.map.len()`.
-> +#[must_use = "the ID range is not reserved unless acquired"]
-> +pub struct UnusedArea<'pool> {
-> +    range: Range<usize>,
-> +    pool: &'pool mut IdPool,
-> +}
+>   		if (mapp->invalid && kref_get_unless_zero(&mapp->refcnt)) {
+>   			found = true;
+>   			break;
+> @@ -1059,6 +1069,12 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+>   	}
+>   
+>   	if (!found) {
+> +		/*
+> +		 * This also covers the case where all mappings have been
+> +		 * removed. There are no invalid mappings left to process.
+> +		 * Any subsequent I/O using the unmapped address will be
+> +		 * rejected by the IOMMU.
+> +		 */
+>   		abo->mem.map_invalid = false;
+>   		up_write(&xdna->notifier_lock);
+>   		return 0;
 
-So, the compilation message refers the "ID range", not the UnusedArea.
-To me, this 'unused' language is confusing. What should I do with the
-area that I just allocated? Drop the 'unused' one and create the 'used'?
-
-Can you rename it to id_range please? Then the API would look more
-consistent, at least to me.
-
-> +
-> +impl<'pool> UnusedArea<'pool> {
-> +    /// Returns the unused ID range.
-> +    ///
-> +    /// Be aware that the area has not yet been acquired in the pool. The
-> +    /// [`acquire`] method must be called to prevent others from taking it.
-> +    ///
-> +    /// [`acquire`]: UnusedArea::acquire()
-
-So maybe implement the find_acquire() method? In the caller you
-serialize it with:
-
-        let mut ids = self.inner.lock();
-
-Is it possible to pass this down to the suggested find_acquire()? In
-my experience, having non-atomic sequence of find + acquire that
-requires the external locking is the recipe for troubles.
-
-> +    #[inline]
-> +    #[must_use]
-> +    pub fn range(&self) -> Range<usize> {
-> +        self.range.clone()
-> +    }
-> +
-> +    /// Acquires the area.
-> +    ///
-> +    /// Returns the now-reserved ID range.
-> +    #[inline]
-> +    pub fn acquire(self) -> Range<usize> {
-> +        let Self { range, pool } = self;
-> +        // By the type invariants, the range is within bounds.
-> +        pool.map.set(range.start, range.end - range.start);
-> +        range
-
-From hierarchy perspective, the UnusedArea wraps the Range, and
-passing the Range to the higher layer breaks the hierarchy. If you
-follow my suggestion, the hierarchy will be enforced stricter:
-
-        ChannelIdRange -> IdRange-> Range
-
-instead of  
-
-        ChannelIdArea -> UnusedArea-> Range
-                      |
-                      -> Range
-
-Or I misunderstand the concept of the UnusedArea?
-
-> +    }
-> +}
-> +
->  impl Default for IdPool {
->      #[inline]
->      fn default() -> Self {
-> 
-> -- 
-> 2.55.0
