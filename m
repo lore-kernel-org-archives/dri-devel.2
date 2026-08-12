@@ -4,50 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98190C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:36:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56942C5CFCF
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B555310E41B;
-	Wed, 12 Aug 2026 15:36:36 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2630610E41B
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:36:33 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.94])
- by APP-03 (Coremail) with SMTP id rQCowABHUD75knxq5xz4BA--.33358S2;
- Wed, 12 Aug 2026 23:36:26 +0800 (CST)
-Message-ID: <6c2b92efec2b8ed58da9b85b63935ba2e7f2a6ed.camel@iscas.ac.cn>
-Subject: Re: [PATCH RFC v2] drm/verisilicon: Switch to drm_fb_dma_get_addr()
- for framebuffer addresses
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Chen-Yu Tsai <wenst@chromium.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 12 Aug 2026 23:36:24 +0800
-In-Reply-To: <20260807114654.1373305-1-wenst@chromium.org>
-References: <20260807114654.1373305-1-wenst@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7CB10E41C;
+	Wed, 12 Aug 2026 15:45:11 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RNawWARV";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD81D10E41C
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:45:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D22996136E;
+ Wed, 12 Aug 2026 15:45:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77A561F00A3A;
+ Wed, 12 Aug 2026 15:45:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786549509;
+ bh=T7JPD4B+641airvUelShyGzuiDCSndbrW7wqSJKw0QY=;
+ h=Date:From:To:Cc:Subject;
+ b=RNawWARVw8vBCVWBlTUkMSUvulRMorxiATotBZoVwU95Fiw9pDzVUT1zNDl8M9YSd
+ qL2nKdFZSI9J2sji+k7Tlp0ksYjtlrvmxEa5Mdn21Ujpqv8KXJKCkR/IOqVzAEwt83
+ jQzTYGOga6OObHw+sHYxusHAkaLOGNbv0ATO3Vp049nZKAfDO5iURyLv1dKHGBYBwG
+ 9czr849QweF7WBQiaQMqGMWo8qb1cvkklIgu+/fII+vz78mok+u/nhVV24kgO1N0XY
+ u7fwWNffWY6XKV5KhosB9YiT8Dirqii/DOo42FW3ksnz/YK/xJPYs6Lyc334Trk4IF
+ +iE3Fiw+jDsog==
+Date: Wed, 12 Aug 2026 16:45:04 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Gangliang Xie <ganglxie@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Xiang Liu <xiang.liu@amd.com>
+Subject: linux-next: manual merge of the drm tree with the drm-misc-fixes tree
+Message-ID: <anyVAMjiBIKSgktr@sirena.org.uk>
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowABHUD75knxq5xz4BA--.33358S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Gw4xGFWfZF1xXr1DWr15Jwb_yoWxJr18pF
- sFyFZrtrs0yanYqr9rGr1xtay3Ca1fJryxWr4kC34j9r4Yyry5ZF1DWr95uFZ8JrZ7Wr4S
- qrsxCr98uF4jkr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkYb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k2
- 0xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI
- 8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41l
- IxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
- AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
- jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU5L18JUUUUU==
-X-Originating-IP: [120.85.96.94]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="W9FEyKEu0P44CSuu"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,162 +60,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-08-07=E4=BA=94=E7=9A=84 19:46 +0800=EF=BC=8CChen-Yu Tsai=E5=
-=86=99=E9=81=93=EF=BC=9A
-> The verisilicon driver has a custom framebuffer address calculating
-> helper that the common drm_fb_dma_get_addr() can substitute.
->=20
-> Differences from drm_fb_dma_get_addr():
->=20
-> - Uses drm_format_info_min_pitch() to calculate the horizontal
-> offset;
-> =C2=A0 however the driver does not support any of the blocked formats, so
 
-Technically this DC, advertised as part of the "Vivante" product line
-(considering Vivante Corporation is acquired by VeriSilicon), seems to
-support DRM_FORMAT_MOD_VIVANTE_SUPER_TILED modifier (the TH1520
-documentation says the DC supports
-`SuperTileX8x8/SuperTileX8x4/SuperTileY4x8`, although I think
-DRM_FORMAT_MOD_VIVANTE_SUPER_TILED is just one of these tiling).
+--W9FEyKEu0P44CSuu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-However, as my accessible SoCs with such DC have no GC-series 3D GPUs
-(TH1520 does have a 2D-only GC620 GPU), I think it's quite difficult to
-get this piece of thing right and it should be low-priority.
+Hi all,
 
-> =C2=A0 this just ends up being the same as in drm_fb_dma_get_addr():
-> =C2=A0 "cpp[plane] * y"
->=20
-> - Uses clipped source coordinates instead of non-clipped coordinates
-> =C2=A0 as in drm_fb_dma_get_addr();
->=20
-> =C2=A0 For the primary plane this doesn't matter, since the primary plane
-> =C2=A0 must match the output, i.e. it cannot be clipped. Also this driver
-> =C2=A0 doesn't support scaling.
->=20
-> =C2=A0 For the cursor plane this seems wrong, as the clipping seems to be
-> =C2=A0 done by the hardware, and thus the buffer address should be
-> unclipped.
+Today's linux-next merge of the drm tree got a conflict in:
 
-Yes this is right and the current state of the cursor plane is broken.
+  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
 
-However another error compensates this error so I didn't catch it when
-developing -- the [XY]_OFF fields aren't properly written because I
-forgot to shift the values for them (and then the value gets masked by
-regmap_update_bits()), which prevents the HW clipping to happen, and
-the normal-state arrow cursor happens to have no non-transparent pixels
-before the hotspot. When testing with `X -retro`, the retro X cursor
-gets quite glitchy with the current code; and when this patch is
-applied w/o the offset fix, the cursor isn't clipped at all.
+between commit:
 
-Both errors deserve fixes, I will then send the fix for the offset
-writing problem.
+  67cf83ac8316a ("Revert "drm/sched: Embed run queue singleton into the sch=
+eduler"")
 
-Thanks,
-Icenowy
+=66rom the drm-misc-fixes tree and commits:
 
->=20
-> As such, it should be fine to use the common helper and drop the
-> custom
-> code.
->=20
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> ---
-> Changes since v1:
-> - Fixed compile issues
->=20
-> This is only compile tested. I do not have the hardware.
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c |=C2=A0 4 +++-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_plane.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 20 -----------------
-> --
-> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 7 ++++++-
-> =C2=A03 files changed, 9 insertions(+), 22 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> index fa4f601dd0c8..59778433ae84 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> @@ -12,6 +12,7 @@
-> =C2=A0#include <drm/drm_atomic.h>
-> =C2=A0#include <drm/drm_atomic_helper.h>
-> =C2=A0#include <drm/drm_crtc.h>
-> +#include <drm/drm_fb_dma_helper.h>
-> =C2=A0#include <drm/drm_fourcc.h>
-> =C2=A0#include <drm/drm_framebuffer.h>
-> =C2=A0#include <drm/drm_gem_atomic_helper.h>
-> @@ -176,7 +177,8 @@ static void vs_cursor_plane_atomic_update(struct
-> drm_plane *plane,
-> =C2=A0		break;
-> =C2=A0	}
-> =C2=A0
-> -	dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
-> +	/* hardware handles clipping as seen below */
-> +	dma_addr =3D drm_fb_dma_get_gem_addr(fb, state, 0);
-> =C2=A0
-> =C2=A0	regmap_write(dc->regs, VSDC_CURSOR_ADDRESS(output),
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 lower_32_bits(dma_addr));
-> diff --git a/drivers/gpu/drm/verisilicon/vs_plane.c
-> b/drivers/gpu/drm/verisilicon/vs_plane.c
-> index d81f7b8f4c65..38b8b536eccb 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_plane.c
-> @@ -107,26 +107,6 @@ int drm_format_to_vs_format(u32 drm_format,
-> struct vs_format *vs_format)
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> -dma_addr_t vs_fb_get_dma_addr(struct drm_framebuffer *fb,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct drm_rect *src_rect)
-> -{
-> -	struct drm_gem_dma_object *gem;
-> -	dma_addr_t dma_addr;
-> -
-> -	/* Get the physical address of the buffer in memory */
-> -	gem =3D drm_fb_dma_get_gem_obj(fb, 0);
-> -
-> -	/* Compute the start of the displayed memory */
-> -	dma_addr =3D gem->dma_addr + fb->offsets[0];
-> -
-> -	/* Fixup framebuffer address for src coordinates */
-> -	dma_addr +=3D drm_format_info_min_pitch(fb->format, 0,
-> -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 src_rect->x1 >> 16);
-> -	dma_addr +=3D (src_rect->y1 >> 16) * fb->pitches[0];
-> -
-> -	return dma_addr;
-> -}
-> -
-> =C2=A0struct drm_plane_state *vs_plane_duplicate_state(struct drm_plane
-> *plane)
-> =C2=A0{
-> =C2=A0	struct vs_plane_state *vs_state, *vs_state_old;
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> index 1f2be41ae496..2750016a7f2c 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -8,6 +8,7 @@
-> =C2=A0#include <drm/drm_atomic.h>
-> =C2=A0#include <drm/drm_atomic_helper.h>
-> =C2=A0#include <drm/drm_crtc.h>
-> +#include <drm/drm_fb_dma_helper.h>
-> =C2=A0#include <drm/drm_fourcc.h>
-> =C2=A0#include <drm/drm_framebuffer.h>
-> =C2=A0#include <drm/drm_gem_atomic_helper.h>
-> @@ -126,7 +127,11 @@ static void
-> vs_primary_plane_atomic_update(struct drm_plane *plane,
-> =C2=A0			=C2=A0=C2=A0 VSDC_FB_CONFIG_UV_SWIZZLE_EN,
-> =C2=A0			=C2=A0=C2=A0 vs_state->format.uv_swizzle);
-> =C2=A0
-> -	dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
-> +	/*
-> +	 * Primary plane cannot be moved, no clipping is involved,
-> +	 * so the non-clipped framebuffer address can be used.
-> +	 */
-> +	dma_addr =3D drm_fb_dma_get_gem_addr(fb, state, 0);
-> =C2=A0
-> =C2=A0	regmap_write(dc->regs, VSDC_FB_ADDRESS(output),
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 lower_32_bits(dma_addr));
+  4a33d82e224c8 ("drm/amdgpu: protect XCP scheduler selection")
+  fa1531170d2c9 ("drm/amdgpu: add check for xcp id")
+  6e8a3c24bd75f ("drm/amdgpu: bounds check xcp_id in release_sched")
+  7445035dd3f22 ("drm/amdgpu: bounds check xcp ip block index")
+  62d8b452615fd ("drm/amdgpu: Fix kobject cleanup in xcp sysfs")
 
+=66rom the drm tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+index 42be8ee155dde,35faea0ff17ff..0000000000000
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@@ -466,16 -467,20 +467,21 @@@ int amdgpu_xcp_open_device(struct amdgp
+  void amdgpu_xcp_release_sched(struct amdgpu_device *adev,
+  				  struct amdgpu_ctx_entity *entity)
+  {
+ -	struct drm_gpu_scheduler *sched =3D
+ -		container_of(entity->entity.rq, typeof(*sched), rq);
+ +	struct drm_gpu_scheduler *sched;
+ +	struct amdgpu_ring *ring;
++ 	struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
+ =20
+- 	if (!adev->xcp_mgr)
++ 	if (!xcp_mgr)
+  		return;
+ =20
+ +	sched =3D entity->entity.rq->sched;
+  	if (drm_sched_wqueue_ready(sched)) {
+ -		struct amdgpu_ring *ring =3D to_amdgpu_ring(sched);
+ +		ring =3D to_amdgpu_ring(entity->entity.rq->sched);
+- 		atomic_dec(&adev->xcp_mgr->xcp[ring->xcp_id].ref_cnt);
++=20
++ 		mutex_lock(&xcp_mgr->xcp_lock);
++ 		if (ring->xcp_id < xcp_mgr->num_xcps && xcp_mgr->xcp[ring->xcp_id].vali=
+d)
++ 			atomic_dec(&xcp_mgr->xcp[ring->xcp_id].ref_cnt);
++ 		mutex_unlock(&xcp_mgr->xcp_lock);
+  	}
+  }
+ =20
+
+--W9FEyKEu0P44CSuu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp8lP8ACgkQJNaLcl1U
+h9Bjagf7BsMxK8nfyVpLS47rsL9RcMgypvKEhTNVx5IN4U8LugSzNaNulT4PelwY
+28aDjzODL7i/oXQy1z3qOR3YUPZUcQ2zpgifMPml3mWok9GleXGFiCvF0JQKIjJR
+LFF2CYeFBLZIA3y5NY3WD8J0iFZsZEhadMDdVlfVtpvypoM1zrpRSXiWmyEcopzK
+8Fs7+d9xvkH7QQljrxfpVlQR7OsluZcOlZFd/9rvK01TMPbwl//fkm68C0wfaqtt
+tytKwFljitrn3P8DtYVxQaBNx6b9Ufdos0uoD5nh/pZlawlaKB3KuB/M03u9hSMM
+0QhZLAuOaWJLbWhoBZnPAmX9gXE8CQ==
+=a72N
+-----END PGP SIGNATURE-----
+
+--W9FEyKEu0P44CSuu--
