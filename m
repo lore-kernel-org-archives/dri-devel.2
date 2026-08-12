@@ -4,56 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BABAC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:59:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B3ECC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F85E10F00C;
-	Wed, 12 Aug 2026 13:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 714A710F011;
+	Wed, 12 Aug 2026 14:01:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jDRW8v4w";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Sh4tBRAP";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4AF910F000;
- Wed, 12 Aug 2026 13:59:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8407C60A85;
- Wed, 12 Aug 2026 13:59:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E224E1F000E9;
- Wed, 12 Aug 2026 13:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786543154;
- bh=xWlAAoX4z+1nRZaEJHotnpbuB6N/MbAZxicm0ud2Z5c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jDRW8v4wNfw2FXPPeT+ZU6O3C8E6xTCUNgfwlSDixfiQYXPjjhDobnAdb4z0fcLPk
- IsajS56QCPX/IM4mket556BdoRD/XaPaFdh67VS6M6ViLBXxNFTEj+0fs50lIprOIx
- zW71nAZNN8di9CY+TeqJKAvAzaxjajCtUBLjW7hl+EV9BTF6wd2CO+Rl7EpUs3TNGt
- cIbE50jfKzEDNCEk2xm2OWcoC5x3El3Zocv9Fay7Ed1vN95T69+dr6ENbJVHGuE0tP
- fXmQHIQiu+hKYQAa9GoE97aU0zhrTBkSZr1iDVn8HzlGy0+4KMy/dyAheyoPOvcHjr
- wNdIrDF4AyqEw==
-Date: Wed, 12 Aug 2026 15:59:05 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-phy@lists.infradead.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v9 5/5] phy: qualcomm: add MSM8974 HDMI PHY support
-Message-ID: <3nhliv4mf7a7oaupsfsr6cg5nbiyyaftmeseqlgm2urhssayt2@bwc3oyhmmmcs>
-References: <20260513-fd-hdmi-phy-v9-0-ca98c72f1f9f@oss.qualcomm.com>
- <20260513-fd-hdmi-phy-v9-5-ca98c72f1f9f@oss.qualcomm.com>
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020107.outbound.protection.outlook.com [52.101.196.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D10DA10F012
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:01:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ho6uHyJJOcVrCouAALdfItM8NArzm907/CeyCYAu99CrcAR5qX6trUGXZJZnt/Qdc0ho5jt2xHyC/HBF/EBtKkUOTkeoM0tRjh3syactSo6l4yoNKsjlio5ZYl4QYnV+cJGLirC9Rs0zWcJu8znhwE0wlGfQq6Aijw418Y7r/VTaTclE2yYUcHK/Sy4xE6Rv+EENIH7kGX/BFhWfgrJp+mLNFDIGcfupd9I+yT2UeSxl/zGTRVq30cQ9qB0qF8LxJyktbc0/Kn6OWoKc9DFFKWSLCsYzqGcDjx/Pg9mcC0FR1yK17/G8VXgPlxwIcVT2nDnhczKgsqm6JbJ3ghvxaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AgMz8EmZAZ14kwKoBqdHuUPr1x1Na/iYVYzIXJ0ky7o=;
+ b=dbJ89zX8kAWhSLzoSOI947P4Hdy9XmOYNy93E+4QeK0h0uiLjoSsj8HG1KN3BjHx59kRODZ2Tqy0avIdgNa8v2/DkX9eiH/GGG+jAxhDlRiPRXkG6p+jsJDuDKPvuGncEaa2Z/GZIy2RPbcesdscnSOWafj+lb3xjTxUOc1hNHiR4b1smMAOAXgo0kmvrgCnSzhxXV2ew9m6PDrYCBNgsEs57ggLTof5fe3svA7HPJf7aIOkh2+9+M9qSjVFIBK1sIB80blDT/OaQgvOFYcST1sedQDcfv3jCgkk0Fi5Z4ylDDx7AiPLlPmkDiqwIziEjk0CNxEz01yRnGH/6j0rcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AgMz8EmZAZ14kwKoBqdHuUPr1x1Na/iYVYzIXJ0ky7o=;
+ b=Sh4tBRAP0eZsAdujqSOgSxq0xP69Cy43vQXr1O0RC8Griv5QBF8XtOrhCHSCOKxBzoDVQPQvYRQqYvbnxC//hX007msa8zi6LXjaQiNRXlm0x+Rad2WeZmTy7GIc5bD6yN2wp/HjJ6cLgKYOUyjNZh6Bh34wFkFxvCoWPUY+cFc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CW1P265MB7866.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:210::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
+ 2026 14:00:55 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.011; Wed, 12 Aug 2026
+ 14:00:55 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 12 Aug 2026 15:00:54 +0100
+Message-Id: <DKN0Q8TTO2AN.1FSUS3RCSAB2U@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>, <sashiko-bot@kernel.org>
+Cc: <dakr@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: retain the GSP-RM log buffers
+ after unbind
+X-Mailer: aerc 0.21.0
+References: <20260812113752.532537-1-vladazaharova2018@gmail.com>
+ <20260812113752.532537-2-vladazaharova2018@gmail.com>
+ <20260812120606.191456-1-vladazaharova2018@gmail.com>
+In-Reply-To: <20260812120606.191456-1-vladazaharova2018@gmail.com>
+X-ClientProxiedBy: LO6P123CA0017.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:313::7) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260513-fd-hdmi-phy-v9-5-ca98c72f1f9f@oss.qualcomm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7866:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b8b5290-8afe-413a-7f9c-08def87a208e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|10070799003|1800799024|22082099003|18002099003|56012099006|5023799004|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: zuXbgoDO8EKFzpudtkSCxzHbmoqb+Ol2vZIhruuwi7p/kvlzoYeSNAdirNNxR60JP9meEDAm6zNGrME8MawaY1Wv21cC5yz9pTeTEKFb5M5jiHkcbwhh15s8Agan9KjADZTNgr8cxm4VQAxM9552oQwJo2y7q0VVt6ldViKt7dFq4jP3QABYZb3jHWID0ToGiOovmaPWHJ6RpL+/3pZ2NoaLmudzFcyngM4gjNjU+RWNC32LMIYBBIwOBO04jvVN3nn6O4A2fD7AaR9DkjMmV5WI7SnXebisqOQ7kG2DI44+ocbeOUTnWhvFBVaqq2/1CrKbCp3mMdFzfMB0jePrrZjZQcQ6sjAp83FOTPduNWHwl3khPdZALU8caPzh2o5WoAmLPt1JR6lXHm1bM3qRSZq3sfhFRVnb2DOhVXKtLMoVsbaZDTBhFu29mF8rtrD7CEKzhDOsMgjH5nyYlP96IJ+t50Q05Kvdy+OUHypKZhQ9RkJefcOiLAmzoEYH+SBZzA2IuNGWK8j4TM8NkvM983cNIxqGoLU+lQaY2wVuofp7kEEG/kTl7hn2dQCdzV8CaOatMSxWacsrP7QYoqtrxNK7BtKIZoWDVsRDG7hUz1/kUy+Gfwo391AjA4E0SY9NQJoyFaYvSLqIyKq4hpJS/RlVlqFhNvD63nRyrAHsiLA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(10070799003)(1800799024)(22082099003)(18002099003)(56012099006)(5023799004)(4143699003)(10067099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3YwbTF6eWpELzNpRTZ2THphN2h6UWJ2Um5zL1htUlB0MnlKTy9PalNWTXB6?=
+ =?utf-8?B?TUx5Nlk0a0dEekxkRXdnaWIwRlc4bkNyOVowVTlOZHA0NWpBUmIxODA1TFpC?=
+ =?utf-8?B?UFplTDB6MjluUVg3RlZ4M3Rjc2JlMmdiRExxRWZFMTRRZGhXd2dmSVdsYjNp?=
+ =?utf-8?B?NUM0VHdLSTZ2a1VEYWp0R3V1czJ4SENBWTgyaUxzSzRaNHgyejNBeUlJRDlG?=
+ =?utf-8?B?YUVER0Q3UXorbU44QWEyd3VSQkZOVzdVYWd6MDZQSGFMSXhHcnhhYWQ5cFR3?=
+ =?utf-8?B?RUhvanBhREpRY0p1VUJUbmxDSE1JbERVZ1dSYVNTck42akdVcWxEV2RpdGNu?=
+ =?utf-8?B?eVNxb0NZYXp6QVR2aFh6R3BXcDVJQkxOdHFFUGhrclhJclRJd0tIeloyRnI5?=
+ =?utf-8?B?cmloSDFCVVBxa2tJTmVmRHM5bkV0azZJcTdxQ1lEbSt2TmhQV0VWWE1IR0VV?=
+ =?utf-8?B?MHE3ZnRXbGdYT2VwU2NkTkU3MGt3d2lhdDFZenZDQlpMbzk3QU0yZUc0VHZF?=
+ =?utf-8?B?eEsxbEY2bkNiRlE1WDJkY2pMbjZLUXBlUENUUERwWXRkQzJhTXVrNFB4Ymd2?=
+ =?utf-8?B?YVVMbnhaZm1xSzFCd2VsRSt5dW1uaXVqa2lQM3ZPWklEYklKamY1Q3ovbXhP?=
+ =?utf-8?B?bE9PNFZXaWhySW5JODJJVzdIUk5WRVV3WG9aZDFXZ01Pd0RWS05INGtOZnJu?=
+ =?utf-8?B?a29BcnhJNHJCZ0hnL1hWeG5EQkMwT2wzNFBVMXFBYXBNZjZwc0ErSmkvcTlm?=
+ =?utf-8?B?a3NjWmhYcHZuTE5qQnN2dS80aUVKeDREVkVzVWpyTGVWNTRzWUNDeGZYQUMw?=
+ =?utf-8?B?Vzk5THNCZG5CRVhUb1hmbXJFT2lmN1haV3pCZE5UVDVXc3lrNVdJekNsTlZk?=
+ =?utf-8?B?V0RjeXAxa01qWGlKNXFETlJrS0dxd0V2MURrOEkwNWFyZVMvS2ZNZjJUSG5Y?=
+ =?utf-8?B?VHllR2xJbGpoTjZIRzc3ZE9ablZ3ZmhXTkNTNXpNWjN3c1RnNHNDUUtPL1VH?=
+ =?utf-8?B?Z3B2ZzQ4N0dJZDZrb2RjRTBWTm96SjBaUjhja2F1N2NGM01KU09XSFNlSjY5?=
+ =?utf-8?B?S2gvZDdpVkYvMiswVUxXOGJ3K3ozWnpGZEllVEtkQVZVNWp1L21mczlBQktS?=
+ =?utf-8?B?a0Z1Y1RwbUhhUnY4eGoyQ0poTEZkRHBEVmE3RXZ1dEJKSEppU2dhYWIrampF?=
+ =?utf-8?B?Vk9xNGRmNzBBZFhMaVUwU1BnSE96MjdoZUFtREFqbHpkTGxoUVpXcDRzWnhR?=
+ =?utf-8?B?RGlqQ0pnT21HaWFjRW85OVRiWldIUGRjdVVRUUVmVm1nQ0hjNHoyeXdhQUZo?=
+ =?utf-8?B?YStFdUlJcFB2TDVNQXZWWkVnVnZlMi9WTkJidmdjbHdtRlFzWit4UjNTWW9E?=
+ =?utf-8?B?aWN0dllEUzhQeWMrZkozVmdQWk0yVHl6OEFMVk5FR1d6OGZxa1gyQmN6bVh1?=
+ =?utf-8?B?eU14d2NscUZYRkpOUENpWVNrTC90ZGpMUWM2NlJlajV5VS90YzRNNHg2ODV6?=
+ =?utf-8?B?eTIxMHUrcUxRcEdFNnZSZzRYOFlHQ0s2aUFWbUw0RlR6TnNuSEdMR0tYVnhz?=
+ =?utf-8?B?YUVsMDZVVUMwSXJVVE0xSitFQ0J2eVRUNnljcHNRNVUvSkQxc2k3ZXFidUdF?=
+ =?utf-8?B?WVVDS2NjRk14dzJPcjVYblViQzlPT1h0NHpJNHMxdWIwNEVhNkx6V01UckhC?=
+ =?utf-8?B?UlVLNW4yRWpoZndzOFFDS21mQ09FbXpNM2I4bnBzYk52VUcxTnVDR3J5THJO?=
+ =?utf-8?B?T09QTGlnY3k5bnM3NERoQWZkWWVwbzJzVjRxcWtxd3k4aE5SbmorTEdTWVNY?=
+ =?utf-8?B?SFBSMmFiQnNnUm9OMmJkbm1hOU5zMGd0Q0xjdEF1VStISDVyanZLZ25yVTNm?=
+ =?utf-8?B?blNNR2lrL3RZWmhJeHNzRFFSejZKMXRpRWJ2bHU3T3J1Q2MvWWJHM2NWcGlI?=
+ =?utf-8?B?VGlxYVE2TkNBRXVsem9RS2gvRDJwd1lnZERGbVFrRDVwdGpENXJoNEo3OGZB?=
+ =?utf-8?B?NFRuVFdKcG55aktQRmZlcHNkclkvVTZiMlFHckZheTB1K0p2dXgrVzBYY1VC?=
+ =?utf-8?B?TXM5U1BpSVBHaC9FbFF4L1IzNGdLQjlYR3dJZHlpUFJsWlBybndGbUhoU201?=
+ =?utf-8?B?c2U0R3dZQ29JOEFidzk5dzJKeXdGT3VrK1B1dm8rL2ZjS05QN2ROMmZzREFT?=
+ =?utf-8?B?clJ2TytOUkMyNGZGNURrOFNnMHJMTTFNbWFGM0ZPTXBjS2kvWXk3NjBLWFlP?=
+ =?utf-8?B?OE9KWVFjVzFObEg2YTJQT2xXelBHaFlmdkFZY25ZQ1JQNjNJMXdNNTlWYnRw?=
+ =?utf-8?B?V01xMXk1UTBmSzh3cnQxZ1VKdmQxNzl1bkRUSjZwbFgwcHBaa0wvdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b8b5290-8afe-413a-7f9c-08def87a208e
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 14:00:55.1683 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ElwgPdv5pg29Tj/vNe4afirhaZKprm/8WcOtsek6XMnUVj1hKV7XvsE2Dx5YBDA/GJG3xqJgkJhagNxMmkvuxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7866
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,229 +139,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 13, 2026 at 09:14:08PM +0300, Dmitry Baryshkov wrote:
-> Add support for HDMI PHY on Qualcomm MSM8974 / APQ8074 platforms.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c | 282 +++++++++++++++++++++++++++++
->  1 file changed, 282 insertions(+)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c b/drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c
-> index 720757f8f393..7d398060b3a3 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c
-> @@ -6,10 +6,13 @@
->   * Author: Rob Clark <robdclark@gmail.com>
->   */
->  
-> +#include <linux/bitfield.h>
->  #include <linux/delay.h>
->  #include <linux/iopoll.h>
-> +#include <linux/math64.h>
->  
->  #include "phy-qcom-hdmi-preqmp.h"
-> +#include "phy-qcom-uniphy.h"
->  
->  #define REG_HDMI_8x74_ANA_CFG0					0x00000000
->  #define REG_HDMI_8x74_ANA_CFG1					0x00000004
-> @@ -31,8 +34,282 @@
->  #define REG_HDMI_8x74_BIST_PATN3				0x00000048
->  #define REG_HDMI_8x74_STATUS					0x0000005c
->  
-> +#define HDMI_8974_VCO_MAX_FREQ 1800000000UL
-> +#define HDMI_8974_VCO_MIN_FREQ  600000000UL
-> +
-> +#define HDMI_8974_COMMON_DIV 5
-> +
-> +static inline void write16(u16 val, void __iomem *reg)
+On Wed Aug 12, 2026 at 1:06 PM BST, Vladislav Zaharov wrote:
+> sashiko-bot@kernel.org wrote:
+>> Does this code need a memory barrier (such as dma_rmb()) between reading
+>> the 'put' pointer and copying the buffer contents?
+>
+> Not in the path this code is written for. snapshot() is called from the
+> drop path of the log buffers, which is only reached after PinnedDrop for
+> GspResources has run the GSP unload sequence, so the GSP is no longer
+> writing to these buffers and there is nothing to order against.
+>
+> The one case where that does not hold is a Gsp::boot() that fails by
+> timing out: the GSP may then still be alive and appending while the
+> buffers are dropped. The copy is best-effort there - it cannot be made
+> atomic either way - but reading a non-zero 'put' and then reading
+> contents that predate it is indeed the pattern dma_rmb() exists for.
+>
+> I am happy to add it, but there is no dma_rmb() abstraction in
+> rust/kernel at the moment: sync/barrier.rs only provides the smp_*
+> family, and smp_rmb() is not a correct substitute, as on arm64 it uses
+> the inner shareable domain rather than the outer shareable one that
+> dma_rmb() needs.
 
-Same comment as previous patch. No 'inline' keyword in .c files.
+See
+https://lore.kernel.org/rust-for-linux/20260609-rust-barrier-v2-0-30fcc48e1=
+cd0@garyguo.net/
 
-> +{
-> +	writel(val & 0xff, reg);
-> +	writel(val >> 8, reg + 4);
-> +}
-> +
-> +static inline void write24(u32 val, void __iomem *reg)
-> +{
-> +	writel(val & 0xff, reg);
-> +	writel((val >> 8) & 0xff, reg + 4);
-> +	writel(val >> 16, reg + 8);
-> +}
-> +
-> +static inline u32 read24(void __iomem *reg)
-> +{
-> +	u32 val = readl(reg);
-> +
-> +	val |= readl(reg + 4) << 8;
-> +	val |= readl(reg + 8) << 16;
-> +
-> +	return val;
-> +}
-> +
-> +static void qcom_uniphy_setup(void __iomem *base, unsigned int ref_freq,
-> +			      bool sdm_mode,
-> +			      bool ref_freq_mult_2,
-> +			      bool dither,
-> +			      unsigned int refclk_div,
-> +			      unsigned int vco_freq)
+The abstraction part is being upstreamed via tip tree, so they're not curre=
+ntly
+present in drm-rust.next. It'll be there when the next backmerge happens.
 
-Nit: You can align these arguments better.
+>
+> Would you prefer a small prerequisite patch adding dma_rmb() to
+> rust/kernel, or is relying on the unload ordering acceptable, with the
+> requirement spelled out in a comment on snapshot()?
 
-> +{
-> +	unsigned int int_ref_freq = ref_freq * (ref_freq_mult_2 ? 2 : 1);
-> +	unsigned int div_in_freq = vco_freq / refclk_div;
-> +	unsigned int dc_offset = div_in_freq / int_ref_freq - 1;
-> +	unsigned int sdm_freq_seed;
-> +	unsigned int val;
-> +	u64 tmp = div_in_freq % int_ref_freq;
-> +
-> +	tmp *= 0x10000;
-> +	sdm_freq_seed = div_u64(tmp, int_ref_freq);
-> +
-> +	val = FIELD_PREP(UNIPHY_PLL_REFCLK_DBLR, ref_freq_mult_2) |
-> +	      FIELD_PREP(UNIPHY_PLL_REFCLK_DIV, refclk_div - 1);
-> +	writel(val, base + UNIPHY_PLL_REFCLK_CFG);
-> +
-> +	if (sdm_mode) {
-> +		writel(0, base + UNIPHY_PLL_SDM_CFG0);
-> +		writel(FIELD_PREP(UNIPHY_PLL_SDM_DITHER_EN, dither) | dc_offset,
-> +		       base + UNIPHY_PLL_SDM_CFG1);
-> +		write24(sdm_freq_seed, base + UNIPHY_PLL_SDM_CFG2);
-> +	} else {
-> +		writel(UNIPHY_PLL_SDM_BYP | dc_offset, base + UNIPHY_PLL_SDM_CFG0);
-> +		writel(0, base + UNIPHY_PLL_SDM_CFG1);
-> +		write24(0, base + UNIPHY_PLL_SDM_CFG2);
-> +	}
-> +
-> +	write16(mult_frac(ref_freq, 5, 1000000), base + UNIPHY_PLL_CAL_CFG8);
-> +	write16(vco_freq / 16, base + UNIPHY_PLL_CAL_CFG10);
-> +}
-> +
-> +static unsigned long qcom_uniphy_recalc(void __iomem *base, unsigned long parent_rate)
-> +{
-> +	unsigned long rate;
-> +	u32 refclk_cfg;
-> +	u32 dc_offset;
-> +	u64 fraq_n;
-> +	u32 val;
-> +
-> +	refclk_cfg = readl(base + UNIPHY_PLL_REFCLK_CFG);
-> +	if (refclk_cfg & UNIPHY_PLL_REFCLK_DBLR)
-> +		parent_rate *= 2;
-> +
-> +	val = readl(base + UNIPHY_PLL_SDM_CFG0);
-> +	if (FIELD_GET(UNIPHY_PLL_SDM_BYP, val)) {
-> +		dc_offset = FIELD_GET(UNIPHY_PLL_SDM_BYP_DIV, val);
-> +		fraq_n = 0;
-> +	} else {
-> +		dc_offset = FIELD_GET(UNIPHY_PLL_SDM_DC_OFFSET,
-> +				      readl(base + UNIPHY_PLL_SDM_CFG1));
-> +		fraq_n = read24(base + UNIPHY_PLL_SDM_CFG2);
-> +	}
-> +
-> +	rate = (dc_offset + 1) * parent_rate;
-> +	rate += div_u64(fraq_n * parent_rate, 0x10000);
-> +
-> +	rate *= FIELD_GET(UNIPHY_PLL_REFCLK_DIV, refclk_cfg) + 1;
-> +
-> +	return rate;
-> +}
-> +
-> +static const unsigned int qcom_hdmi_8974_divs[] = {1, 2, 4, 6};
-> +
-> +static unsigned long qcom_hdmi_8974_pll_recalc_rate(struct clk_hw *hw,
-> +						    unsigned long parent_rate)
-> +{
-> +	struct qcom_hdmi_preqmp_phy *hdmi_phy = hw_clk_to_phy(hw);
-> +	u32 div_idx = readl(hdmi_phy->pll_reg + UNIPHY_PLL_POSTDIV1_CFG);
-> +	unsigned long rate = qcom_uniphy_recalc(hdmi_phy->pll_reg, parent_rate);
-> +
-> +	return rate / HDMI_8974_COMMON_DIV / qcom_hdmi_8974_divs[div_idx & 0x3];
-> +}
-> +
-> +static int qcom_hdmi_8974_pll_determine_rate(struct clk_hw *hw,
-> +					     struct clk_rate_request *req)
-> +{
-> +	unsigned long min_freq = HDMI_8974_VCO_MIN_FREQ / HDMI_8974_COMMON_DIV;
-> +	unsigned long max_freq = HDMI_8974_VCO_MAX_FREQ / HDMI_8974_COMMON_DIV;
-> +
-> +	req->rate = clamp(req->rate, min_freq / 6, max_freq);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct clk_ops qcom_hdmi_8974_pll_ops = {
-> +	.recalc_rate = qcom_hdmi_8974_pll_recalc_rate,
-> +	.determine_rate = qcom_hdmi_8974_pll_determine_rate,
-> +};
-> +
-> +static int qcom_hdmi_msm8974_phy_find_div(unsigned long long pixclk)
-> +{
-> +	unsigned long long min_freq = HDMI_8974_VCO_MIN_FREQ / HDMI_8974_COMMON_DIV;
-> +	int i;
-> +
-> +	if (pixclk > HDMI_8974_VCO_MAX_FREQ / HDMI_8974_COMMON_DIV)
-> +		return -EINVAL;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(qcom_hdmi_8974_divs); i++) {
-> +		if (pixclk >= min_freq / qcom_hdmi_8974_divs[i])
-> +			return i;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int qcom_hdmi_msm8974_phy_pll_set_rate(struct qcom_hdmi_preqmp_phy *hdmi_phy)
-> +{
-> +	unsigned long long pixclk = hdmi_phy->hdmi_opts.tmds_char_rate;
-> +	unsigned long vco_rate;
-> +	unsigned int div;
-> +	int div_idx = 0;
-> +
-> +	div_idx = qcom_hdmi_msm8974_phy_find_div(pixclk);
-> +	if (WARN_ON(div_idx < 0))
-> +		return div_idx;
-> +
-> +	div = qcom_hdmi_8974_divs[div_idx];
-> +	vco_rate = pixclk * HDMI_8974_COMMON_DIV * div;
-> +
-> +	writel(0x81, hdmi_phy->phy_reg + REG_HDMI_8x74_GLB_CFG);
-> +
-> +	writel(0x01, hdmi_phy->pll_reg + UNIPHY_PLL_GLB_CFG);
-> +	writel(0x19, hdmi_phy->pll_reg + UNIPHY_PLL_VCOLPF_CFG);
-> +	writel(0x0e, hdmi_phy->pll_reg + UNIPHY_PLL_LPFR_CFG);
-> +	writel(0x20, hdmi_phy->pll_reg + UNIPHY_PLL_LPFC1_CFG);
-> +	writel(0x0d, hdmi_phy->pll_reg + UNIPHY_PLL_LPFC2_CFG);
-> +
-> +	qcom_uniphy_setup(hdmi_phy->pll_reg, 19200000, true, true, true, 1, vco_rate);
-> +
-> +	writel(0x10, hdmi_phy->pll_reg + UNIPHY_PLL_LKDET_CFG0);
-> +	writel(0x1a, hdmi_phy->pll_reg + UNIPHY_PLL_LKDET_CFG1);
-> +	writel(0x05, hdmi_phy->pll_reg + UNIPHY_PLL_LKDET_CFG2);
-> +
-> +	writel(div_idx, hdmi_phy->pll_reg + UNIPHY_PLL_POSTDIV1_CFG);
-> +
-> +	writel(0x00, hdmi_phy->pll_reg + UNIPHY_PLL_POSTDIV2_CFG);
-> +	writel(0x00, hdmi_phy->pll_reg + UNIPHY_PLL_POSTDIV3_CFG);
-> +	writel(0x01, hdmi_phy->pll_reg + UNIPHY_PLL_CAL_CFG2);
-> +
-> +	writel(0x1f, hdmi_phy->phy_reg + REG_HDMI_8x74_PD_CTRL0);
-> +	udelay(50);
+Sashiko is a patch review bot so you won't get any response by asking it --
+although I suppose this message is written by a LLM too.
 
-You've added a lot of delays in-between register writes. Delay between register
-writes makes me nervous because there is no guarantee that the previous write
-before delay would've reached the hardware before the next write after delay. So
-the delay might become irrelevant and can cause nasty timing issues if these
-delays need to be honored.
-
-So I'd double check and add a readl() before the delay to flush the previous
-writes.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Best,
+Gary
