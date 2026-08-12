@@ -4,133 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9F9C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:05:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E514BC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A62E10F012;
-	Wed, 12 Aug 2026 14:04:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 433EF10F017;
+	Wed, 12 Aug 2026 14:07:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W5TThx0f";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="LlEmey5q";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012057.outbound.protection.outlook.com [52.101.53.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D1CB10F012;
- Wed, 12 Aug 2026 14:04:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=st3gJhlsTeEYMvAWdQqvpbeTQUGv9bDy/92vknPuhozks9B5ghIF0Xy+zfGMmf1icb39o86gR44hiukr/Dka655hsdBkJuhjNV7nsinmFvnFAeBE7pFdLLUk7upvwO4z96ArqGB10njHYuoWalPPM5cR3Bex3+VjWGDj+CmWYDEzLousU12hLIuz8FP4cpPbDJIKqWCy5vkCkYh293KAvlGmSsMAnhw8tiEJsf0cL8xRX13ssXkML8L9rKIPo41JYxZTa4DdS5S9axsqqvBDcwjqhlEnwPG0N0pdyC0d7bYFFwJHQfKChcXCTKFfOXi/n/3cRKLTXopBoIcf1FgOhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hWTrx1XveTwPMGC+dPO6uSDMEuIBGZFzB7kiEB9HQuI=;
- b=RRE9iBIotfvDbHUNDJHYPKfjs0ECg4Q0vVtDEUgYYvXEtmKbaNLrNNMIroF+fEl+33I0WgklgNCHFjh/yJxFk6aDCn8+fpOnGk5vVegX1wfIQVAtbhcQa7lkPJ+BCS2qs/OSO6HuyimswAvym40SGGDNqRD9PAtVDzwdA81gdvJSLr8sZJDPIFAVe8kINwbZSyP3j99Je3jy1Ly9c/GGRu8kM1cT5qE9BuFg3+Lmmzqb1L+USg54ZJKhoTK4rP7T6XOWDjUw33TvKEBtIhK/voC8qbuhsoByC75mzOSg7SdlXf4HeW3x2BrLV9sirnSu3Sv9MzFcUERcJ+uJJBnMbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hWTrx1XveTwPMGC+dPO6uSDMEuIBGZFzB7kiEB9HQuI=;
- b=W5TThx0f45EcHsHTxZIXkoo/LcsyA+G4lslwnpQ5lL8T9TIGSU6w7P5k3noSGrKWaKKQIy/deajF//WWYlUPvkPA2TdqRlI07ZUN492LtYfertfoR0t/CNKjO23RRTFgoj23Pgcl2b/gYAD2MtS8GdP0Fs+ERXOFNJwxYv4koOw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB9473.namprd12.prod.outlook.com (2603:10b6:8:252::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Wed, 12 Aug
- 2026 14:04:43 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Wed, 12 Aug 2026
- 14:04:43 +0000
-Message-ID: <531dda40-5d7a-40f7-9c07-fafc84b57a4d@amd.com>
-Date: Wed, 12 Aug 2026 16:04:37 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] ALSA: hda: allow direct complete with a powered-off
- GPU
-To: Andre Eikmeyer <dev@deq.rocks>, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-sound@vger.kernel.org
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>
-References: <20260812122206.193680-1-dev@deq.rocks>
- <20260812122206.193680-4-dev@deq.rocks>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260812122206.193680-4-dev@deq.rocks>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0345.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E050610EFF6
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:07:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786543648;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gRtbmuUIT2xEHaBBjzuNZpDsU3g31gki1lemtjtVM+g=;
+ b=LlEmey5qvtqL3++Ma3onA50ZOAdWqipwBcZByyH/2io9fOJh9ZL83rAeu3jDGB1+SOQ+pm
+ zauefmV8O8tXNSVDUNrs5rEcTNn4Uv4XX0P5dJ+fjHEIlvlQVavGOrxMUZNqcetUOtT9rf
+ epjXFdWCcghugnyiUePArTpobhuUOvQ=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-32-XR5FGgXnOAewdEBL5z2D-w-1; Wed, 12 Aug 2026 10:07:19 -0400
+X-MC-Unique: XR5FGgXnOAewdEBL5z2D-w-1
+X-Mimecast-MFC-AGG-ID: XR5FGgXnOAewdEBL5z2D-w_1786543638
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-4814718d124so666366f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:07:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786543638; x=1787148438;
+ h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gRtbmuUIT2xEHaBBjzuNZpDsU3g31gki1lemtjtVM+g=;
+ b=AhOUlBMmjHWy1mA58Atr85VWS8qUrgDMAMHqu7PHmcV3YbFPFTJqBnidI86JFquQIr
+ sesBh9nYoe1N+Na7+bMKpX+8Eq0dMQIDDUg1Q34omGtlEv8Ukzf1D8LZGz5S84jS1ghb
+ 8Uup2EN6IgXuviSVndMI9FIqvaKcb4hx8yYhO7L+mzQH2gZ4qN+15Q5plU8Nuqq5trk6
+ 1rpwmXZaHumWG3O3cwdiInLOuyOIcFk4Fqyh71EqY5eNsdcjj2bv8ZitBPVM3HOyGG9K
+ xeGiuCjEnOqZYUdepZJZTi4MQ1FVxg8yO0oMVb81fAg9nPPrr9MCVoshORBiEZC3aTuR
+ sh9Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqeawulAfpLp/B6j1KzC4rpnqykynxkhI8Q+X1qIsqsrUSl9nWTRVnSU1ajj4Hle/D5xtusvvteoC0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwQ6e7spocYVcB+vCeTQZJ8YosmOm5d+WxIF6JuHo1mk3gRuLg9
+ LYMRl62UZuzDLqjOS3I+N3MSinlc1OMOnY/xVw2vamPVUIcazKhQzAM67NGtoZLpBZuMwFoFs2E
+ V9rQDLhrMgfTb+bX4N5I0YKeBkdiXsHdwsIYnKQoXxpunofj1KL41RcFbrSGw5QQEqMB6BA==
+X-Gm-Gg: AR+sD11sqi7OyaetQc/LHWVlWM8nlyfGY+5KUUZCZngHQOmBzReCg1i/aTVu8jBRu6m
+ WoxBxk60dWqLKHyrx73265bOPUBKWq4+xoNOAofCRggoNNJTCim4jKfyYd0WayfuCxySdk6I0uU
+ in8y5I1faEABmiFHIowASxaJj5EDCWAu0f+jjUm3M8zJHdaJwrhir8e5lTnuB6zgobkNSK1wuJB
+ fk4YEUh6GjW1blPXl8Uered6/LZt9A0FbATqcgqpnoFAAmOl99bRapc+13/Q/TLo67OVSFyrksv
+ Y5kGnGjpW0gv0B49JTV2TXtSgZ7rMlqHO11p3WEwMO8bWJLhFZ+6a1rEa2T49Ooyd1wAdEqh
+X-Received: by 2002:a05:600c:468f:b0:499:4892:e84e with SMTP id
+ 5b1f17b1804b1-4997c14569amr57082765e9.11.1786543638284; 
+ Wed, 12 Aug 2026 07:07:18 -0700 (PDT)
+X-Received: by 2002:a05:600c:468f:b0:499:4892:e84e with SMTP id
+ 5b1f17b1804b1-4997c14569amr57081675e9.11.1786543637673; 
+ Wed, 12 Aug 2026 07:07:17 -0700 (PDT)
+Received: from [192.168.0.9] ([47.64.115.27]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4997b34afe3sm61862125e9.2.2026.08.12.07.07.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Aug 2026 07:07:16 -0700 (PDT)
+Message-ID: <ffebbb7b-a4f9-488e-8834-199da3073b96@redhat.com>
+Date: Wed, 12 Aug 2026 16:07:14 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB9473:EE_
-X-MS-Office365-Filtering-Correlation-Id: 218ada3e-63a9-420a-4dd8-08def87aa8a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|7416014|376014|11063799006|56012099006|10067099003|6133799003|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info: BaKa+ijeCZEeHdLEgABMZDH9HpBgCXSE/Im4fUaIsKRiKTBxpb5nZYGLMUNQyNzUwlhNIUsLXI7MQC9dZxRAmQCTB37hUAlTuxjvwjQWszVEZ+POs5okUJaELPw8b7h9XgBakg/9+VP/6OIsvGSoKEcqraKso9ayojola7o6rKkqfXNty2FgEpo+s3+TJdGF66CBuZdmgAPUi4UDrEf6PeIFwMj1pnn7Cupcky913mLGnbrUJNkJmQ5HtRUniJ69AKAe/3aoH0HoRcIsm8NNK+2OcZr2fzBBGQnl50GVmJ+xwxlNosTkliXtai2W35gEMFxYruBCys5UqhYCOXrYi3pUBHDQnsGMGmNVwjMSKlYWb1YJWj1KuFWKKDGxGADEeKYx7ZBLMHbayreWi7nQUgRrcbqd9fL3AFOZsQcig7/lTUOXl7lQ4oFZnoR/m0qZZQreOrvnw9WMFnXF80rBvM8bx98UY29DweVjgSQV7hTlINg5aXEwFj5HKb6MXxrMNniYwED3+yc+xZ+AzN9gO0tlKyHC9pMv0F5O/ULZA3KkEtWsMusTIUMzz6vQSmIM3AtpDdfFSRZ9HEF7BUrcyTPz/nsXinhLqTK9BPFYHlTCiV58Y5dfL4PrORhPBmhu2o2Qt8hP5ZHWArscaDETsit5FjBkYnRku4gRKDj8/fQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(11063799006)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czJnQ1ZaelpsaHlOZlNvM1l0QlF1K0tvNEVRREx0RzU4amdkemJFdnMxY2hG?=
- =?utf-8?B?R0k5alVHOHR3eXVuRFhnSlBDSndsa3pHL0dpMTNjR2lvUWp3endSczhGaHZI?=
- =?utf-8?B?Uzd6T3VGV3FodG1rc1E0YXRYWmtTVW9OeVFRTDFTTEFnaGpSOTR6TmRLSmhq?=
- =?utf-8?B?NW5jUUJwUkcvR3h1em9sallJR3p2Zko2RExSZ3B5NzdlRDVSVmtXQXlxeEZk?=
- =?utf-8?B?OFhBV3lWd1BJTHNNbnQ2VWRSWFRyRExpalVCYlVrYW0zaFNCdlRCUlFvWjFw?=
- =?utf-8?B?WmRDYXczU3ZxU3lPKytyOTU3SU10cWZub0UrdWRKMGhWZ00weGRmdzNMSlJy?=
- =?utf-8?B?U2Joc052RzhxTXQ1eEZOL2JHNUZpOU5aeTBYTlgrT2NFSlh0QzAvM1draWVG?=
- =?utf-8?B?THRoYnBYN1QxQU53NzluaUN0M25QRGN4U3d1d29GT1FHNEVSclZtWlZUaG81?=
- =?utf-8?B?c09vZlVNL1pveHNGSWpxRCtzYlpNa0VnL0NjZVc4OHpWOVlqb0orRmtLK2Nt?=
- =?utf-8?B?aVRTeDcybHJTeEp3VFhxajd0b2FSSUdUdm5RYjZ4OFBSNnltalEva1oyTW5m?=
- =?utf-8?B?eFk3ZmFNam9hWVNrZFFxVllqWlVtWStJWG14bkxLZnR6MUdyTSsxYkR5OUY4?=
- =?utf-8?B?OFgwK2VVbzNqRFdFVFdRMjdNOFZjUjZHV1AvL0h6aGh1b1BxZ2pMcTJKVHFC?=
- =?utf-8?B?UUdyaDNaazFNc3NuRnlzcTRvTzRoZ3NxYUllS1k3UHQ1blJsWjc5RHFhVmdY?=
- =?utf-8?B?d3RQSVdvTTBScDl2bVRUT3ovcG5Uc0xWdzZvTlpPendieDdZWitwYWQ5dzVG?=
- =?utf-8?B?ZCtoUDRUWEFjcEtBVXR2S0U0RkFHZ3RJV29yNm1oSXBCcUsyS2tydWxlMFlL?=
- =?utf-8?B?NzRFYmFEWkpCWW1oUzF1eGZHLzNTank1cGhOeXdwOWJYTTN5Rzl1VGlHbHA0?=
- =?utf-8?B?blh0WHNCVENENUV0MGhWSFNzTUxManpzanNuZzlHSWx1ODdMVXRzME1ySkNZ?=
- =?utf-8?B?NnNwN1p6ME9pSXBvU1JNY09FWnV1Z3VFamRuT082am9KQk5UTHp5YkVPVHE3?=
- =?utf-8?B?WlVjUjRuaG0xYTBrR1BYbHBndXd4dmVUUVJyQnVTajloM204VnBrOE5UWC9Q?=
- =?utf-8?B?NXFYeWxSYVA4ZGxzZkRWZE5kYkFrMGV2YnlvcElESitIczd5TTdCYnpoNGFJ?=
- =?utf-8?B?NURDckJHUzQxVnBsQS94a2NyVXhCR0NRUlJRaEJXck9QRnAxWGt2MzJEM3M5?=
- =?utf-8?B?VFBoNjRzaUJnZm5GQndvZ1VwU1FINmFKa0k5aHIwazJXR3BMYzEzRHVPNXcw?=
- =?utf-8?B?ME1Rd1RVTnF5VTJ1bnVhcndtdEtqeTREaVFYZ0JidUwwWjhhSEMyZzJ2aXVk?=
- =?utf-8?B?a2VWeFhJQzZvY2pTTEVXZHlKTVIwYnRkYVoyR2NWVW4vMGp0bXFYWDdFNStq?=
- =?utf-8?B?K1JXdkZHNGJFUlk5Q2RLVXQrUUtwbnluNXdNVEY0Ymk1N29NZ1lNSFJIdFRs?=
- =?utf-8?B?MDRocHppT3B2R21GMVBwQVZRNElBYVhNYnZvbk8zU25xOFViZGFGS1JzdUNF?=
- =?utf-8?B?aU5xZzFHOExHMGg4Y0dzUE5QTlhaRFVTZ2J0NzFJTW0wS0dqU2N4aXVlNEFL?=
- =?utf-8?B?ZkI2cXVoNkhlU3JqK0p4ZklrMnVBME5UVmkwZkR3M3hNN3dqbTFoZmlJTGFN?=
- =?utf-8?B?QjhBTmJJZW1pdzJVeUo1L1pMMVhINFRkVzhnZHUzMVpCWjJWZGNERjFhRXl6?=
- =?utf-8?B?dVQ2cXJiNWFKeTFVMDNoMWJiWnQrU2Z5TDM4N1FRYU9mZ2g2Vm1kY0FFakZr?=
- =?utf-8?B?NnEydGpLYkhjMmVrR1AwSENSMUI2Zk1UU0pvbm5oSXJFTmNQaUI2Y3paOWZM?=
- =?utf-8?B?SGVXa2RRVXJaamEwZGhuM0Zyem5oZjdLYzY3OWZXOU5wdXNqVllqeG5xdXNW?=
- =?utf-8?B?WXJuamp5US8vWjVhWTNMWGJqb3lQR25WWVlvVWI2T3BWZWMyTWFrWWE1U0gv?=
- =?utf-8?B?Wi9FS3BTQXpCcGVycnArSWRtblR0T3Y0ZUIreGcxWktCYmRCU21LWWRWRGc5?=
- =?utf-8?B?M1JTelNhdGlNTUNJSWpaVnlWekt0RXdXeng5U01qeFRsU0g1bHV2VTlOdzFX?=
- =?utf-8?B?WTkwc1JraEl5U3hsNDlOV1JzbWFMenlxQ1QxWlF0Q3RmUlREUVB3WUg3UVZi?=
- =?utf-8?B?MkdlNlUvZVc1L1JQb3NHaHM4Vy9nYlNWYzFCdU03K1JqYjA5OGxxazFsVzFK?=
- =?utf-8?B?bXlYSUIwcWVUS09LSTBqOEVPd0tHRVVMQUt3Q01qb1B0TkMzdUVrclNmNjRV?=
- =?utf-8?Q?AACoRTPzSAkAMWFXHN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 218ada3e-63a9-420a-4dd8-08def87aa8a6
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 14:04:43.4044 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ehUWWqvtMpZ+aPhVJnX0tV+Q9/oe7xeS1Ew6ZqM3qQQcnzhlXhhlwQSKmBWdEjMj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9473
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/xe/guc: Fix invalid kfree() call via __cleanup on
+ pointer
+To: Wentao Liang <vulab@iscas.ac.cn>, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Ella Ma <alansnape3058@gmail.com>
+References: <20260617142632.3298984-1-vulab@iscas.ac.cn>
+From: Thomas Huth <thuth@redhat.com>
+Autocrypt: addr=thuth@redhat.com; keydata=
+ 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
+In-Reply-To: <20260617142632.3298984-1-vulab@iscas.ac.cn>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: dNBEd7GBlbLBGZQQ9n2CnuydK91LTT0rHUpifxi49fc_1786543638
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,105 +146,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/12/26 14:22, Andre Eikmeyer wrote:
-> Hello everyone,
+On 17/06/2026 16.26, Wentao Liang wrote:
+> The variable `buf` in `fast_req_dump()` is declared with
+> `__cleanup(kfree)`, which passes `&buf` (the stack address of the
+> pointer variable) to kfree() rather than the heap address stored
+> in `buf`.  This would cause an invalid free of a stack address,
+> leading to memory corruption or a crash.
 > 
-> The HDA controller normally needs different WAKEEN settings for runtime and
-> system suspend, so azx_prepare() prevents direct complete. For a switcheroo
-> audio client whose bound GPU is already runtime suspended and switched off,
-> however, the controller is physically inaccessible and cannot signal wake
-> events.
+> `__cleanup(func)` is designed for value-typed variables where the
+> cleanup function should receive a pointer to the variable.  For
+> heap-allocated pointers, `__free(kfree)` must be used instead,
+> since DEFINE_FREE creates a wrapper that correctly dereferences
+> the pointer before passing it to kfree().
 > 
-> Resuming the HDA function during system suspend also acquires its runtime
-> PM supplier. This powers the discrete GPU back on only to suspend it again
-> and can expose failures while restoring an otherwise unused GPU.
+> This is the same class of bug recorded in CVE-2026-45959 and fixed by
+> commit d5abcc33ee76 ("crypto: ccp - Fix a crash due to incorrect
+> cleanup usage of kfree").
 > 
-> Direct complete is now allowed when the bound VGA device is both runtime
-> suspended and reported off by vga_switcheroo. Active GPUs and HDA
-> controllers without a switcheroo binding retain the existing WAKEEN
-> transition.
-> 
-> This was tested as part of the MacBookPro15,1 hybrid graphics series on
-> both the 2018 and 2019 revisions. The discrete GPU remains powered off
-> across system suspend when it is unused, and suspend and resume complete
-> successfully.
-> 
-> Thank you for your time and consideration.
-
-That sounds reasonable to me, but I'm definitely not an expert for that kind of stuff.
-
-Adding Harry and Leo from our display team on CC as well since that HDA audio stuff falls into their responsibilities as well, please make sure to CC them on future revisions of this patch set.
-
-I'm not sure that even applies to AMD GPUs but if I strongly suggest to run this patch through our display CI, just to make sure that there is no regression on suspend/resume.
-
-Thanks,
-Christian.
-
-> 
-> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+> Fixes: ea944d57eac7 ("drm/xe/guc_ct: Cleanup ifdef'ry")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  sound/hda/controllers/intel.c | 29 +++++++++++++++++++++++++++--
->  1 file changed, 27 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/xe/xe_guc_ct.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-> index 28c55c5..20ddcc5 100644
-> --- a/sound/hda/controllers/intel.c
-> +++ b/sound/hda/controllers/intel.c
-> @@ -334,6 +334,7 @@ enum {
->  #ifdef SUPPORT_VGA_SWITCHEROO
->  #define use_vga_switcheroo(chip)	((chip)->use_vga_switcheroo)
->  #define needs_eld_notify_link(chip)	((chip)->bus.keep_power)
-> +static struct pci_dev *get_bound_vga(struct pci_dev *pci);
->  #else
->  #define use_vga_switcheroo(chip)	0
->  #define needs_eld_notify_link(chip)	false
-> @@ -1016,6 +1017,28 @@ static void __azx_runtime_resume(struct azx *chip)
->  		display_power(chip, false);
->  }
->  
-> +static bool azx_vga_is_powered_off(struct azx *chip)
-> +{
-> +#ifdef SUPPORT_VGA_SWITCHEROO
-> +	struct pci_dev *pci;
-> +	bool powered_off = false;
-> +
-> +	if (!use_vga_switcheroo(container_of(chip, struct hda_intel, chip)))
-> +		return false;
-> +
-> +	pci = get_bound_vga(chip->pci);
-> +	if (pci) {
-> +		powered_off = pm_runtime_suspended(&pci->dev) &&
-> +			vga_switcheroo_get_client_state(pci) == VGA_SWITCHEROO_OFF;
-> +		pci_dev_put(pci);
-> +	}
-> +
-> +	return powered_off;
-> +#else
-> +	return false;
-> +#endif
-> +}
-> +
->  static int azx_prepare(struct device *dev)
->  {
->  	struct snd_card *card = dev_get_drvdata(dev);
-> @@ -1025,6 +1048,10 @@ static int azx_prepare(struct device *dev)
->  		return 0;
->  
->  	chip = card->private_data;
-> +	/* A powered-off dGPU cannot signal HDA wake events. */
-> +	if (azx_vga_is_powered_off(chip))
-> +		return 1;
-> +
->  	chip->pm_prepared = 1;
->  	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
->  
-> @@ -1183,8 +1210,6 @@ static const struct dev_pm_ops azx_pm = {
->  static int azx_probe_continue(struct azx *chip);
->  
->  #ifdef SUPPORT_VGA_SWITCHEROO
-> -static struct pci_dev *get_bound_vga(struct pci_dev *pci);
-> -
->  static void azx_vs_set_state(struct pci_dev *pci,
->  			     enum vga_switcheroo_state state)
->  {
+> diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+> index a11cff7a20be..73867a5cbe3a 100644
+> --- a/drivers/gpu/drm/xe/xe_guc_ct.c
+> +++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+> @@ -116,7 +116,7 @@ static void fast_req_dump(struct xe_guc_ct *ct, u16 fence, unsigned int slot)
+>   {
+>   	struct xe_gt *gt = ct_to_gt(ct);
+>   #if IS_ENABLED(CONFIG_DRM_XE_DEBUG_GUC)
+> -	char *buf __cleanup(kfree) = kmalloc(SZ_4K, GFP_NOWAIT);
+> +	char *buf __free(kfree) = kmalloc(SZ_4K, GFP_NOWAIT);
+>   
+>   	if (buf && stack_depot_snprint(ct->fast_req[slot].stack, buf, SZ_4K, 0))
+>   		xe_gt_err(gt, "Fence 0x%x was used by action %#04x sent at:\n%s\n",
+
+Reviewed-by: Thomas Huth <thuth@redhat.com>
 
