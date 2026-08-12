@@ -4,44 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A332C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C48AC5CFEE
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:45:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC5A810EFE1;
-	Wed, 12 Aug 2026 13:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A43210EFE2;
+	Wed, 12 Aug 2026 13:45:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FXmHoAge";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="W2WRMx3n";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="E6m7KlUK";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IQDkptee";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gRw1lh2V";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3E9110EFE1
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:39:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BEAE960A85;
- Wed, 12 Aug 2026 13:39:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AF9A1F000E9;
- Wed, 12 Aug 2026 13:39:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786541981;
- bh=3ibm8bfQyR2d8UOaedwkCOqtnngF6Dqwc3ieAXLx8Wg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FXmHoAges9gNUhhGbbq4ohLZoieZPJ9Y/s992n8mtyT3yqzr1bRy0xTQiiu/bjAhZ
- TjmZPvzPo8jm4b8IqRqJ0of13cqWN5uXUZc2/GawLvXCbzj265R0cHxeJZ34Prn5RJ
- /XsYpSK3S6LocEAJW9m1KOZ4ppkRU37WXVXdV9r5DpioQ+LdfpnMTMWodUi5P+kS3P
- B07TzFh+X3nNUQ9iWfDuRQTN6Zt/UehQnOFqU/kKmGJs4WmBRJC7ZEnzQtsRNI059C
- xdIGiAXdd0B9uJZs7n4irEtz9XtQJx5KDY7fgutR9qj5Fm6+/bI2O6OwGSKBGW7oN6
- LBIH2hnG+PA1A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width property
-To: "Francesco Dolcini" <francesco@dolcini.it>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org,
- imx@lists.linux.dev, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260812132954.148571-2-francesco@dolcini.it>
-References: <20260812132954.148571-1-francesco@dolcini.it>
- <20260812132954.148571-2-francesco@dolcini.it>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 13:39:40 +0000
-Message-Id: <20260812133941.1AF9A1F000E9@smtp.kernel.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D10A510EFDF;
+ Wed, 12 Aug 2026 13:45:41 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2F4733E61;
+ Wed, 12 Aug 2026 13:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1786542336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Okam1Xv7qZj9TOT1CoF8I6lo9QA/fBV4+wzsnLl20Wk=;
+ b=W2WRMx3nLeuMDxrPfK1KoqLGRq3i+XP9a3++BYm4wpzl5HycPHeTOvIWOVe4/C2LX6wo7B
+ TMx80GbjRuq8/LYGi8IujUs0i1VbMehpX2O6wyUnQLkpc9omh2ua+yhyTkTH9CMjsRp/ZZ
+ EQPSu0EzBKJ4N26fFsa/DfRJT7JT0iQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1786542336;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Okam1Xv7qZj9TOT1CoF8I6lo9QA/fBV4+wzsnLl20Wk=;
+ b=E6m7KlUKWHnzkp6RioNdyePMYAyIOGc08MQ/oSAyLkbO9n1YmD1GlsKjVOJvVz+7YbAFqu
+ IyLY9sOsgyeeTxDw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=IQDkptee;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=gRw1lh2V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1786542332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Okam1Xv7qZj9TOT1CoF8I6lo9QA/fBV4+wzsnLl20Wk=;
+ b=IQDkpteeBHxkJg2gToumMklkvJOMyasX3Hn8hz6ofS8I18w4xokD7gpj+5D893D78DagmQ
+ UbcBlQhSzi/jbjazXZj27yC7N8idXgNDeuqkIvenfoTaiaQ6C+g3w0lARJpJGALSHvFamD
+ SbnrWU2bmrSqm/ekmx6nG6cNtFv3EOI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1786542332;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Okam1Xv7qZj9TOT1CoF8I6lo9QA/fBV4+wzsnLl20Wk=;
+ b=gRw1lh2VyIMoAtS27ouVSd6+ObbnxeiMEQ9DCsb1OTDlAOwNbXJNz7+iEGFor37+AN6C5/
+ 0RyP/V6oNC2pnlBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E6709779B1;
+ Wed, 12 Aug 2026 13:45:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 2XOUN/t4fGq8cwAAD6G6ig
+ (envelope-from <tiwai@suse.de>); Wed, 12 Aug 2026 13:45:31 +0000
+Date: Wed, 12 Aug 2026 15:45:27 +0200
+Message-ID: <87mrurzc3s.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andre Eikmeyer <dev@deq.rocks>
+Cc: platform-driver-x86@vger.kernel.org,	amd-gfx@lists.freedesktop.org,
+ linux-sound@vger.kernel.org,	Atharva Tiwari
+ <atharvatiwarilinuxdev@gmail.com>,	Hans de Goede <hansg@kernel.org>,	Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,	Alex Deucher
+ <alexander.deucher@amd.com>,	Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>,	David Airlie <airlied@gmail.com>,	Simona Vetter
+ <simona@ffwll.ch>,	Kenneth Feng <kenneth.feng@amd.com>,	Jaroslav Kysela
+ <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,
+ dri-devel@lists.freedesktop.org,	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] ALSA: hda: allow direct complete with a powered-off
+ GPU
+In-Reply-To: <20260812122206.193680-4-dev@deq.rocks>
+References: <20260812122206.193680-1-dev@deq.rocks>
+ <20260812122206.193680-4-dev@deq.rocks>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 2F4733E61
+X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ MIME_TRACE(0.00)[0:+];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,gmail.com,kernel.org,linux.intel.com,amd.com,ffwll.ch,perex.cz,suse.com];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,61 +122,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The device tree schema uses exact string matching (`properties: =
-endpoint`) instead of pattern matching (`patternProperties`), failing to va=
-lidate indexed endpoints with unit addresses (e.g., `endpoint@0`) and silen=
-tly bypassing constraints for `bus-width`.
---
+On Wed, 12 Aug 2026 14:22:06 +0200,
+Andre Eikmeyer wrote:
+> 
+> Hello everyone,
+> 
+> The HDA controller normally needs different WAKEEN settings for runtime and
+> system suspend, so azx_prepare() prevents direct complete. For a switcheroo
+> audio client whose bound GPU is already runtime suspended and switched off,
+> however, the controller is physically inaccessible and cannot signal wake
+> events.
+> 
+> Resuming the HDA function during system suspend also acquires its runtime
+> PM supplier. This powers the discrete GPU back on only to suspend it again
+> and can expose failures while restoring an otherwise unused GPU.
+> 
+> Direct complete is now allowed when the bound VGA device is both runtime
+> suspended and reported off by vga_switcheroo. Active GPUs and HDA
+> controllers without a switcheroo binding retain the existing WAKEEN
+> transition.
+> 
+> This was tested as part of the MacBookPro15,1 hybrid graphics series on
+> both the 2018 and 2019 revisions. The discrete GPU remains powered off
+> across system suspend when it is unused, and suspend and resume complete
+> successfully.
+> 
+> Thank you for your time and consideration.
+> 
+> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 
---- Patch [1]: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width pr=
-operty ---
-commit 875819bc127ee9201c1b4dcfb35262deed8eb282
-Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+Please drop greeting and thank-you texts.  They can be put in the
+cover letter, but not in each patch description.
 
-dt-bindings: lcdif: Add endpoint bus-width property
+About the code changes:
 
-This commit introduces a bus-width property to the output endpoint of the
-LCDIF display binding. It allows configuring the DPI output with a bus
-width of 16, 18, or 24 bits.
-
-> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
-ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
-> index 2dd0411ec6516..1f3daf0027075 100644
-> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> @@ -71,6 +71,15 @@ properties:
->      $ref: /schemas/graph.yaml#/properties/port
->      description: The LCDIF output port
-> =20
-> +    properties:
-> +      endpoint:
-
-[Severity: Medium]
-Will this exact string match cause validation to be skipped for indexed
-endpoints?
-
-If a device tree defines an endpoint with a unit address under the port nod=
-e,
-such as endpoint@0 or endpoint@1, the exact match on endpoint bypasses
-validation of the constraints inside this block. As a result, incorrect
-bus-width values on indexed endpoints would silently pass validation.
-
-Does this need to use patternProperties to correctly match both standard and
-indexed endpoints?
-
-> +        $ref: /schemas/media/video-interfaces.yaml
-> +        unevaluatedProperties: false
+> +static bool azx_vga_is_powered_off(struct azx *chip)
+> +{
+> +#ifdef SUPPORT_VGA_SWITCHEROO
+> +	struct pci_dev *pci;
+> +	bool powered_off = false;
 > +
-> +        properties:
-> +          bus-width:
-> +            enum: [ 16, 18, 24 ]
+> +	if (!use_vga_switcheroo(container_of(chip, struct hda_intel, chip)))
+> +		return false;
+> +
+> +	pci = get_bound_vga(chip->pci);
+> +	if (pci) {
+> +		powered_off = pm_runtime_suspended(&pci->dev) &&
+> +			vga_switcheroo_get_client_state(pci) == VGA_SWITCHEROO_OFF;
+> +		pci_dev_put(pci);
+> +	}
+> +
+> +	return powered_off;
+> +#else
+> +	return false;
+> +#endif
+> +}
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812132954.1485=
-71-1-francesco@dolcini.it?part=3D1
+This ifdef can be moved to the caller side below...
+
+> +
+>  static int azx_prepare(struct device *dev)
+>  {
+>  	struct snd_card *card = dev_get_drvdata(dev);
+> @@ -1025,6 +1048,10 @@ static int azx_prepare(struct device *dev)
+>  		return 0;
+>  
+>  	chip = card->private_data;
+> +	/* A powered-off dGPU cannot signal HDA wake events. */
+> +	if (azx_vga_is_powered_off(chip))
+> +		return 1;
+> +
+
+... to wrap the call site, instead.  Since this is the only caller,
+having the conditional here would make the intention clearer.
+
+Also, a comment about what "return 1" plays here would be helpful for
+readers.  It's a small piece but has a significant meaning.
+
+
+thanks,
+
+Takashi
