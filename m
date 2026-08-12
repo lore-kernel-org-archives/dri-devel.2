@@ -4,78 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C41B2C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:22:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF257C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:23:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 328EC10F025;
-	Wed, 12 Aug 2026 14:22:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44AD510E108;
+	Wed, 12 Aug 2026 14:23:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Iq9vQAXm";
+	dkim=pass (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="ulLQMA3I";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5005710F025
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:22:06 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-49558ce01afso8153625e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:22:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786544525; x=1787149325; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=aSBaDCiHXcH7od8kZUYH0XWJkxiBBbB5RxDxKzyH17s=;
- b=Iq9vQAXmXl0tY2BrGN0sej9DTBY7Y5zPchWpH5ine6K2o/3QavcXgkbKQtTjY3PgDB
- Olp1yIvyEyNO7wJOY8t6bwuMO182ktKszfyHWivGNsR051Xbh+CtyQKp2DUqcOhvz5NG
- nbYdMtxNPlV9SKWg+60ZcnHZBCKOIIXdDk0gmJypqoAx3x+EfpoegOmckPmFTpV//wbZ
- KSnaTKsItwPFQMIou345i0D0tI72EOFYX8cABZ9I8QSbryvSWEeYgBv6A1HTsSaYnTwB
- xfhNUCjCs7tXk981HaMlF3zo8qYR3vRSF5afAAwyLSIXKFZq+6Vmx+w3gcwYtpQQJrSA
- pTNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786544525; x=1787149325;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=aSBaDCiHXcH7od8kZUYH0XWJkxiBBbB5RxDxKzyH17s=;
- b=af/76+jTRCpnvCDhi6hC6C61ghfzW7JpuLI+aTgkVwqLQZXJ7/3QS44Qu+VmufA3WS
- 5H/o5SPDqDr/JHFde4muDv9698fKwIwZYHDg8gSBHBLe4l8WTqaq37w1xzfolU0aXmvs
- kM9r1V7qDjsEJMcrcEvSIkZr4QM78AMRC26IkDSFi212PmznIkRjuh6ftnzRgNl8k8IM
- grM3Re4cMMr116w3DQ9kCwKJFZcDSWPPPlMMXTzA3oTy+qvWV1Smq26Boy7GT8V0GSbA
- SOWVggIgCVc9hnzNFqiqqDFBGMePBFrnad/ZWrHOP+QvqiwNtkPlXJZxI7sWeMimwzW3
- Z2fQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RohyOxjZJ1AttTEcEhkEFsqjZFIbsit14dq9EJJ8+Uzn67k+x82t4IjLJVoK6fuBvCqjs7dqGgPWOI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3dyt2xQCDqcnh3l6792YXtqlUxI51Q/Xk7Bw2fofPxGoYn94H
- kLPMyV/fLUOjU0amtwjDm6jX19pkRh9L8MdymjRHDpjXSzNIRNAsJSt5
-X-Gm-Gg: AR+sD12NxE01z/5SIPI51tPSREDy7ifOgwK+AXiTGlyZPfSKm0N8agrOnTHpwt1+k4B
- R+BhFsrOK7tuQkoyQOCmJPfaAk60rWUuEFXHCRqpMbMjtLlRn7CtN5Wfcnsf4Nf3pEmFS8RkLn3
- iycYOptVcJjxogiQ3lofSPZSoz27JzmTghYL/hLA5ZiLN5K1ZTEMgzgoHHZwLYo0LCdBNSF9Txs
- tddJZUbNc1y3/FolPgIyf8mzdPDQqkmOjeMRkh4Tr63tAXK8H0ih10NfD8Lz+y+IN341fb1Kjw2
- Essk2zKYU6zhf5LRrWLTeGZJqH2erPLVEzvlAo0e+IMATR8ylvaQw3VJEQL9TkW1+x2UShSf04n
- 0lOdQjj/JJ1ZHp/HR2c5IjjnQ2DqjTOkUxT/S2sng4GO+joEUADsoDD/Iy2fvP8Nk+RT+IvWkER
- M5KWQFcj2XpRVsQMbw4+o7eWnvDEvUtSwX5+yJQRoohYDzuKFec78wBcTU2phRFM438xwkHpV/Z
- 5Rr2CsrnrS4nmK1Kb50jX/Mac+m0pWXghMO
-X-Received: by 2002:a05:600c:3f0c:b0:495:4d5c:903e with SMTP id
- 5b1f17b1804b1-4997c10aebbmr85438685e9.7.1786544524351; 
- Wed, 12 Aug 2026 07:22:04 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:3d2e:78f3:cfb2:413d])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4997c993d80sm55360995e9.12.2026.08.12.07.22.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 07:22:03 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: luca.ceresoli@bootlin.com, Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH v4 1/6] drm/panel: Use managed helpers in BOE panels
-Date: Wed, 12 Aug 2026 16:21:54 +0200
-Message-ID: <20260812142155.51941-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de
+ [91.216.248.212])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD5110E108;
+ Wed, 12 Aug 2026 14:23:07 +0000 (UTC)
+From: Andre Eikmeyer <dev@deq.rocks>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+ s=securedbylima-20251205; t=1786544585;
+ bh=DeON9CiENPk48ETmcdA0LflKVCteSZXW32YpFnPEgDM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ulLQMA3IVlDfrJdCagk96SJ3oyXaoRuDOtkgF+6yFVuWmENJ+2VBqTYFPxlE3TWev
+ N5Mulq4QsDgLqJZrp+rpcLcmZYX6EbinR/krs+9q6uXOVw9su4KUgw5vDu6kjlcbB1
+ R1HZZKhXIYi243CuMSR3jwnVCGFJOxGmYwfz9WlbcZ4tk7LDIBt17bCC+NrDEjYLxH
+ bufvEQnKu8ZRL0dQMqv9yxXysv9D5Pcnsjb5nU0BMjAu3n/ww6KO6XTMw6p4xY2RSr
+ pHY4mbjMzfyJAv4VvOXEC0esMwgSkuE4ewoXqMSorRp9K5s8w3AvMsPLs4Hp9UVJ5K
+ pCx80wyjpvEfw==
+To: Takashi Iwai <tiwai@suse.de>
+Cc: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-sound@vger.kernel.org,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>
+Subject: [PATCH v3 3/3] ALSA: hda: allow direct complete with a powered-off GPU
+Date: Wed, 12 Aug 2026 16:23:00 +0200
+Message-ID: <20260812142300.34472-1-dev@deq.rocks>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260812140347.33360-1-dev@deq.rocks>
+References: <20260812140347.33360-1-dev@deq.rocks>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,305 +63,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the managed MIPI DSI attach and panel add helpers in BOE panel drivers
-and drop the corresponding manual detach and panel remove calls from
-remove paths.
+The HDA controller normally needs different WAKEEN settings for runtime and
+system suspend, so azx_prepare() prevents direct complete. For a switcheroo
+audio client whose bound GPU is already runtime suspended and switched off,
+however, the controller is physically inaccessible and cannot signal wake
+events.
 
-Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+Resuming the HDA function during system suspend also acquires its runtime
+PM supplier. This powers the discrete GPU back on only to suspend it again
+and can expose failures while restoring an otherwise unused GPU.
+
+Direct complete is now allowed when the bound VGA device is both runtime
+suspended and reported off by vga_switcheroo. Active GPUs and HDA
+controllers without a switcheroo binding retain the existing WAKEEN
+transition.
+
+This was tested as part of the MacBookPro15,1 hybrid graphics series on
+both the 2018 and 2019 revisions. The discrete GPU remains powered off
+across system suspend when it is unused, and suspend and resume complete
+successfully.
+
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 ---
-v4:
-- use devm_drm_panel_add instead of drm_panel_add.
+Changes in v3:
+- Rework the conditional compilation as suggested in the follow-up review.
+- Keep the switcheroo implementation in the existing switcheroo section.
 
- drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c    | 19 ++++-----------
- drivers/gpu/drm/panel/panel-boe-himax8279d.c  | 23 ++----------------
- drivers/gpu/drm/panel/panel-boe-td4320.c      | 23 ++++--------------
- drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c  | 24 ++++++-------------
- drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c    | 23 ++++--------------
- drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c    | 24 ++-----------------
- 6 files changed, 25 insertions(+), 111 deletions(-)
+The follow-up review crossed with the v2 submission.
 
-diff --git a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-index 84c21c62a43e..e9519923c6d8 100644
---- a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-+++ b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-@@ -357,9 +357,11 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
- 		return dev_err_probe(dev, PTR_ERR(boe->panel.backlight),
- 				     "Failed to create backlight\n");
+Changes in v2:
+- Explain the significance of the positive azx_prepare() return value.
+
+ sound/hda/controllers/intel.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
+index 28c55c5..194d962 100644
+--- a/sound/hda/controllers/intel.c
++++ b/sound/hda/controllers/intel.c
+@@ -334,9 +334,11 @@ enum {
+ #ifdef SUPPORT_VGA_SWITCHEROO
+ #define use_vga_switcheroo(chip)	((chip)->use_vga_switcheroo)
+ #define needs_eld_notify_link(chip)	((chip)->bus.keep_power)
++static bool azx_vga_is_powered_off(struct azx *chip);
+ #else
+ #define use_vga_switcheroo(chip)	0
+ #define needs_eld_notify_link(chip)	false
++#define azx_vga_is_powered_off(chip)	false
+ #endif
  
--	drm_panel_add(&boe->panel);
-+	ret = devm_drm_panel_add(dev, &boe->panel);
-+	if (ret)
-+		return ret;
+ static const char * const driver_short_names[] = {
+@@ -1025,6 +1027,10 @@ static int azx_prepare(struct device *dev)
+ 		return 0;
  
--	ret = mipi_dsi_attach(dsi);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		return ret;
-@@ -368,18 +370,6 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
- 	return 0;
- }
+ 	chip = card->private_data;
++	/* A positive return allows the PM core to use direct complete. */
++	if (azx_vga_is_powered_off(chip))
++		return 1;
++
+ 	chip->pm_prepared = 1;
+ 	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
  
--static void boe_bf060y8m_aj0_remove(struct mipi_dsi_device *dsi)
--{
--	struct boe_bf060y8m_aj0 *boe = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
--	drm_panel_remove(&boe->panel);
--}
--
- static const struct of_device_id boe_bf060y8m_aj0_of_match[] = {
- 	{ .compatible = "boe,bf060y8m-aj0" },
- 	{ /* sentinel */ }
-@@ -388,7 +378,6 @@ MODULE_DEVICE_TABLE(of, boe_bf060y8m_aj0_of_match);
+@@ -1185,6 +1191,24 @@ static int azx_probe_continue(struct azx *chip);
+ #ifdef SUPPORT_VGA_SWITCHEROO
+ static struct pci_dev *get_bound_vga(struct pci_dev *pci);
  
- static struct mipi_dsi_driver boe_bf060y8m_aj0_driver = {
- 	.probe = boe_bf060y8m_aj0_probe,
--	.remove = boe_bf060y8m_aj0_remove,
- 	.driver = {
- 		.name = "panel-sw43404-boe-fhd-amoled",
- 		.of_match_table = boe_bf060y8m_aj0_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-index 4a8560b4b899..facf37bd1c14 100644
---- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-+++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-@@ -851,9 +851,7 @@ static int panel_add(struct panel_info *pinfo)
- 	if (ret)
- 		return ret;
- 
--	drm_panel_add(&pinfo->base);
--
--	return 0;
-+	return devm_drm_panel_add(dev, &pinfo->base);
- }
- 
- static int panel_probe(struct mipi_dsi_device *dsi)
-@@ -881,23 +879,7 @@ static int panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	err = mipi_dsi_attach(dsi);
--	if (err < 0)
--		drm_panel_remove(&pinfo->base);
--
--	return err;
--}
--
--static void panel_remove(struct mipi_dsi_device *dsi)
--{
--	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
--
--	drm_panel_remove(&pinfo->base);
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
- }
- 
- static struct mipi_dsi_driver panel_driver = {
-@@ -906,7 +888,6 @@ static struct mipi_dsi_driver panel_driver = {
- 		.of_match_table = panel_of_match,
- 	},
- 	.probe = panel_probe,
--	.remove = panel_remove,
- };
- module_mipi_dsi_driver(panel_driver);
- 
-diff --git a/drivers/gpu/drm/panel/panel-boe-td4320.c b/drivers/gpu/drm/panel/panel-boe-td4320.c
-index 23558a76dd72..73b762817e3e 100644
---- a/drivers/gpu/drm/panel/panel-boe-td4320.c
-+++ b/drivers/gpu/drm/panel/panel-boe-td4320.c
-@@ -202,29 +202,17 @@ static int boe_td4320_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
--		drm_panel_remove(&ctx->panel);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
--	}
- 
- 	return 0;
- }
- 
--static void boe_td4320_remove(struct mipi_dsi_device *dsi)
--{
--	struct boe_td4320 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
--	drm_panel_remove(&ctx->panel);
--}
--
- static const struct of_device_id boe_td4320_of_match[] = {
- 	{ .compatible = "boe,td4320" },
- 	{ /* sentinel */ }
-@@ -233,7 +221,6 @@ MODULE_DEVICE_TABLE(of, boe_td4320_of_match);
- 
- static struct mipi_dsi_driver boe_td4320_driver = {
- 	.probe = boe_td4320_probe,
--	.remove = boe_td4320_remove,
- 	.driver = {
- 		.name = "panel-boe-td4320",
- 		.of_match_table = boe_td4320_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-index a70a2e58f88c..c5f18e310b43 100644
---- a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-+++ b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-@@ -391,25 +391,16 @@ static int boe_th101mb31ig002_dsi_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return ret;
- 
--	drm_panel_add(&ctx->panel);
--
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
--		dev_err_probe(&dsi->dev, ret,
--			      "Failed to attach panel to DSI host\n");
--		drm_panel_remove(&ctx->panel);
-+	ret = devm_drm_panel_add(&dsi->dev, &ctx->panel);
-+	if (ret)
- 		return ret;
--	}
- 
--	return 0;
--}
--
--static void boe_th101mb31ig002_dsi_remove(struct mipi_dsi_device *dsi)
--{
--	struct boe_th101mb31ig002 *ctx = mipi_dsi_get_drvdata(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
-+	if (ret < 0)
-+		return dev_err_probe(&dsi->dev, ret,
-+				     "Failed to attach panel to DSI host\n");
- 
--	mipi_dsi_detach(dsi);
--	drm_panel_remove(&ctx->panel);
-+	return 0;
- }
- 
- static const struct of_device_id boe_th101mb31ig002_of_match[] = {
-@@ -431,7 +422,6 @@ static struct mipi_dsi_driver boe_th101mb31ig002_driver = {
- 		.of_match_table = boe_th101mb31ig002_of_match,
- 	},
- 	.probe = boe_th101mb31ig002_dsi_probe,
--	.remove = boe_th101mb31ig002_dsi_remove,
- };
- module_mipi_dsi_driver(boe_th101mb31ig002_driver);
- 
-diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-index 20b6e11a7d84..8a6c4d5c6320 100644
---- a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-+++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-@@ -198,29 +198,17 @@ static int boe_tv101wum_ll2_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
- 
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
--		drm_panel_remove(&ctx->panel);
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
--	}
- 
- 	return 0;
- }
- 
--static void boe_tv101wum_ll2_remove(struct mipi_dsi_device *dsi)
--{
--	struct boe_tv101wum_ll2 *ctx = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
--
--	drm_panel_remove(&ctx->panel);
--}
--
- static const struct of_device_id boe_tv101wum_ll2_of_match[] = {
- 	{ .compatible = "boe,tv101wum-ll2" },
- 	{ /* sentinel */ }
-@@ -229,7 +217,6 @@ MODULE_DEVICE_TABLE(of, boe_tv101wum_ll2_of_match);
- 
- static struct mipi_dsi_driver boe_tv101wum_ll2_driver = {
- 	.probe = boe_tv101wum_ll2_probe,
--	.remove = boe_tv101wum_ll2_remove,
- 	.driver = {
- 		.name = "panel-boe-tv101wum_ll2",
- 		.of_match_table = boe_tv101wum_ll2_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-index 150dff3ab6c3..cf9f15fae272 100644
---- a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-+++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-@@ -1736,9 +1736,7 @@ static int boe_panel_add(struct boe_panel *boe)
- 	boe->base.funcs = &boe_panel_funcs;
- 	boe->base.dev = &boe->dsi->dev;
- 
--	drm_panel_add(&boe->base);
--
--	return 0;
-+	return devm_drm_panel_add(dev, &boe->base);
- }
- 
- static int boe_panel_probe(struct mipi_dsi_device *dsi)
-@@ -1765,24 +1763,7 @@ static int boe_panel_probe(struct mipi_dsi_device *dsi)
- 
- 	mipi_dsi_set_drvdata(dsi, boe);
- 
--	ret = mipi_dsi_attach(dsi);
--	if (ret)
--		drm_panel_remove(&boe->base);
--
--	return ret;
--}
--
--static void boe_panel_remove(struct mipi_dsi_device *dsi)
--{
--	struct boe_panel *boe = mipi_dsi_get_drvdata(dsi);
--	int ret;
--
--	ret = mipi_dsi_detach(dsi);
--	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
--
--	if (boe->base.dev)
--		drm_panel_remove(&boe->base);
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
- }
- 
- static const struct of_device_id boe_of_match[] = {
-@@ -1820,7 +1801,6 @@ static struct mipi_dsi_driver boe_panel_driver = {
- 		.of_match_table = boe_of_match,
- 	},
- 	.probe = boe_panel_probe,
--	.remove = boe_panel_remove,
- };
- module_mipi_dsi_driver(boe_panel_driver);
- 
++static bool azx_vga_is_powered_off(struct azx *chip)
++{
++	struct pci_dev *pci;
++	bool powered_off = false;
++
++	if (!use_vga_switcheroo(container_of(chip, struct hda_intel, chip)))
++		return false;
++
++	pci = get_bound_vga(chip->pci);
++	if (pci) {
++		powered_off = pm_runtime_suspended(&pci->dev) &&
++			vga_switcheroo_get_client_state(pci) == VGA_SWITCHEROO_OFF;
++		pci_dev_put(pci);
++	}
++
++	return powered_off;
++}
++
+ static void azx_vs_set_state(struct pci_dev *pci,
+ 			     enum vga_switcheroo_state state)
+ {
 -- 
-2.43.0
-
+2.55.0
