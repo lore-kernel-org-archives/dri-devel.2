@@ -4,158 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F1D4C5B567
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 03:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C5CC5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 04:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D6310EE25;
-	Wed, 12 Aug 2026 03:55:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1158C10EE2C;
+	Wed, 12 Aug 2026 04:06:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NyK9hGnb";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Rg9GEe8O";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1827610EE1C;
- Wed, 12 Aug 2026 03:55:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786506949; x=1818042949;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=XUkYw5S4kgmzRcU6HyWaSZWoS6BMee8Gv+VyaHGuWc4=;
- b=NyK9hGnbtOTGvlhXPz77TbLa94Qt2zE7/Drl4jK5XOKbcGqC9ZJYfXOI
- hvLHwu3M3F2V9B1fdcNjyRG/grPoWFpF+20bXTns1CAAJerz5lq2xRlJg
- NJXoN4hSUyIoqQozIFQzXEHJ9SxFT+3T5bsz3w+kiM+CSx/a/A8DD+/RD
- oHMIAfpPs/h8igJqhE2TdfOd+//DmZo0aGotApdCQQkfOPujNDmEVKSzL
- sBj+79KtjtsXWkmiXla2JAeTMN1aHols0dkW7V/WVPB8CO4DbkcRAX8Wi
- 91C4ZoHfBVG+SRVuIU4Dd+A3HZIzpTdp4DdoUM/5lsPjbfHcURBBtojDZ g==;
-X-CSE-ConnectionGUID: MSBdhI1eQFKfSkLn4mTOIQ==
-X-CSE-MsgGUID: NetCKOP8RYSDryh2MPoXWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="98408525"
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="98408525"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 20:55:48 -0700
-X-CSE-ConnectionGUID: lRTTqxrbQiit3Qqej0uQcg==
-X-CSE-MsgGUID: tS++upbySAe2Mdwqwya0pA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="257327365"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 20:55:48 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 20:55:48 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 20:55:48 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.24) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 20:55:46 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yRao2jh7sVzW7ny9mxXb9kqQrM5KNxT91DGSvitp0Bas7dnYn8qu4EbGKreZpZfmjNnbQqK7mvBXmjELDbGMwS8Um+49S05FOpXKr85aW3XmPYZH5/2/P/PqMcvgk7QNofxl//YmXpUA0S8tv/nFoaiOXb/eXFcRb7ffu9UcyL/dZZMCIV7e9F6akvQf+uGgaalfwwPH6DNo/qKpOtK/WCzIvCqrjyhmQWoJXgL6nyN4zeS/+m6kpKTpWEHk+C1owI0jBJZeNdYLxhdo4e0nxI2+omueReZVt2jSsKU4rUGibIaAFp1+cbAXyCK96hKvcljeilV0HWvWuVdTs/VjsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MtjswVrUDFv0gKbrSNwYnF8kHh4eJEt65NfyEfUoIWA=;
- b=nj09kV7izadQs1XsTEEJmrdAusieUlrpTSZgWZZJ9x2VClYOelGUKB1PPUmyJY/uEzCU49LDwOGu4TFNuuYsAIkWHT5hHAnBNAwTDJQu0X8EIJKzi5mZ9q37CMh6Lqw99HMbucy8hw3PcxdrbqVMK9kxqAYpYnpSZ2I4MbmuLurZiHEQNxvrVbZdtqeachS0JVsEigi3+/5F7o9vDxTH42FOR/VAhN4d9FlQS/4skhMHJDQJOLNANZhY/mI0U1hfbc5Hn23V2agL+YjgeceM1TgSWbrfCoeMH3jz69NfpfBx7ElRfJdtuBrL0wiQwKZKtkUXYj4kCz8tlyQx8WOvlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA3PR11MB7554.namprd11.prod.outlook.com (2603:10b6:806:315::9)
- by PH8PR11MB8013.namprd11.prod.outlook.com (2603:10b6:510:239::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
- 2026 03:55:36 +0000
-Received: from SA3PR11MB7554.namprd11.prod.outlook.com
- ([fe80::3ec0:2280:db82:d67b]) by SA3PR11MB7554.namprd11.prod.outlook.com
- ([fe80::3ec0:2280:db82:d67b%5]) with mapi id 15.21.0292.024; Wed, 12 Aug 2026
- 03:55:36 +0000
-Message-ID: <c784f78d-2cb3-498a-a8a5-c1ea317999d1@intel.com>
-Date: Wed, 12 Aug 2026 09:25:29 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/dp: Add EDP_20 rev definition
-To: Suraj Kandpal <suraj.kandpal@intel.com>,
- <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>
-CC: <jani.nikula@intel.com>
-References: <20260804054806.1110078-1-suraj.kandpal@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260804054806.1110078-1-suraj.kandpal@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0311.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:21a::6) To SA3PR11MB7554.namprd11.prod.outlook.com
- (2603:10b6:806:315::9)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 77C0C10EE29;
+ Wed, 12 Aug 2026 04:06:15 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B399D1596;
+ Tue, 11 Aug 2026 21:06:10 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 018DD3F86F;
+ Tue, 11 Aug 2026 21:06:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786507574; bh=IHjypAHsNKjpNGDu8aCRCeoUOQ9LFF7rYITg0sTzbDM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Rg9GEe8ORnIQSzAFzPE9Q3CsOniFeZz3B5DAx1vSbU2ayamMlqi+pdI/abA/SWthR
+ JHd2kD7S7LWpcNIoT65928j5y1fwj3S00eMdlQR9LYSfVNqmGWvx2Jo8nRyP2/XrUC
+ occW+1n2ku+jahULG28ttJSOr0S4qPMQj+wCR/cQ=
+Date: Wed, 12 Aug 2026 09:36:11 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, 
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, 
+ pfalcato@suse.de, agordeev@linux.ibm.com, ryan.roberts@arm.com, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 3/9] mm: name pointers to copied PTE values ptentp
+Message-ID: <hwkurkpobxysltkid5523qxndufebqqmat4qjaq6zhwno2drmh@efwoegm2huo6>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-4-usama.anjum@arm.com>
+ <e7osakog3yvdewhdlrk3bsp27pwt2nnhroeb7zihlfxyjotarb@rwxkcb25crh3>
+ <b21c4cc9-84a3-429e-8156-0b9967b2f133@arm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR11MB7554:EE_|PH8PR11MB8013:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac2aaea2-ed68-4b23-0743-08def82590f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: +/ndUkGivkUFJfZtoLoRt5+1nLia5jziMlRt7Kr93QVIij/QI4ZtZrquEMeOTfM7R6YL5mAYRTqhxnQNwtBHoUrZq+EY2vwZzs+/gy24P3pu6fhAR//H0DDktZVsUiMtqINhXM0+2jr51PJxKb2dTb0CapG1mdNSkmjtJNtVV+H8Xiyv3xE+RTofF/qR7Xlo1R4z/iNGQcsgdnxWIAFeSXYdyz/zh7xL43u+enq9Mp6c6Y5oqoNtZRTqJJeSwQLGHCnGYvLe0sfzqlz8jK1ZngHmjFeZBG4VnvNt7qy6rwlNMGSc/GYnp6H3EjtQMvU5kFGUt9uPY5wxYsOECQR3jN1b65FrFcom0h2F7Ee/F7prpXL+ZBKV7alJjwsTkdyRpXPRe/3JkiJnRHzHImhWtU3K3grUlfToYP6LcE4A8LdhQceBhrhMRzMJNMgGR2fFFmZ1/9Um9WqtokxLFKHlDLNbaHYefFJGRW6yWKcEkFEIGeex1lR1wk+sM9CDLU6QqSDoP42ML0PEXs9rBEntNqDzx6UE7kmwTyR+5n46XptoXjrnMCc3Q7kWL6o8mv+1QVwlelhPpebijatQGNL4rWAXx+4ke/z3aZmKFgz3WXsY9uSEogjqAzRHyYrKORfniAvRHhfE4+snEyyrPDmUFWOff1EQmd1HREe0W9bo/Ls=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR11MB7554.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aTROQlVzREpnSm1VNGh2WHlsUk5mUm1ub0pMcGhTTXhHMzhaTzJVeTlSbHlO?=
- =?utf-8?B?bFIydk56dzhBV00wMWU3WXdUcE9XTitRMnhaQUVBYXl2eW1xT2QyZm91Und6?=
- =?utf-8?B?VWc2aklQT0V1VE4vUVJwMXcxSFFpRSs5NDYrUzFOVHJndk1MQ2VLQys1eXdV?=
- =?utf-8?B?TTFYRGtzb0V1dE9JcDlJa1ZpbXJuMmVNbTJNRWJiM01rankwTUpOQnFIcTlD?=
- =?utf-8?B?TTkybTFNcUJDVGVmL1RROGFoclprNFdQYmlvZTlLU29PK1Y0NUd5SnkzRE5Y?=
- =?utf-8?B?eXBuUkFzVFp1cUhqY05xbjU2UXpFa0ZWcGdNRHczQ0hlRXZma3JGSUlZVGdq?=
- =?utf-8?B?V2VraUFJNWRmakU3Z2xKT0htcEpzTGNLUEZNYUpnR09yMFRqQ0xTUW1wTjhS?=
- =?utf-8?B?TkdKTjhEbWs3RlMrN1Vndzg1TlJub2pmRHBEWTBZVEhjVXhEY0lYWTlVWmdo?=
- =?utf-8?B?OUJUaVRZSEd6Tzd3S2hWVkFsYjZWYjVUV0hXM3RWdmh5UUdhNTk2bWR3ZkJC?=
- =?utf-8?B?a3lTZEJyYVhEZzZFQ1QyTGRUM1p5QnBWVkNNZUVLR2tYNWhaZmJqSXJpWGtJ?=
- =?utf-8?B?WDJQOHJHSkZsTUtJQnBLVTdzMU5xYm9CYlhEemN2cTJoOXM0UUxPa1pZUk1L?=
- =?utf-8?B?RitSeEN2V0lNZ0Q1OFZVWk1RbUlPbHFIMFNwNEMxZm8xTGE4UDVtZURWN2tp?=
- =?utf-8?B?T1lqc1R6TXZET0d2ak5xVWdOTWZrYVFwZFdKeW9sWnA2RzFCTHhyREVZbFZa?=
- =?utf-8?B?by9QbHcvT0VoaVdDTFBqU0I0czBRbFYxOHpJMG9NTzQ5Wnp5czRJNytneDI5?=
- =?utf-8?B?R3lCRUw1WVV5aklmYjVEbHdBQ1RMWDZUcUhjZmUzNEN0UUwyeFZacnc4MVNS?=
- =?utf-8?B?WkZVYlFSREI2NnIyWExhcHorWTZrY0RhaFR4TjJNMTB5SWo1SXgyb1U4R09y?=
- =?utf-8?B?WnRLcmhJOVVuVUpZZXFzMlcwd3NDM2pIZjlZWlMxMlZMRGlaZmQxY3BmbHNM?=
- =?utf-8?B?S0ZmOXowUWdSS096N3grRXc0RUpzckgxRHZvNFBvUUorTTU0R2JEazg4a3Rt?=
- =?utf-8?B?SkY0SFpBWWl3aThsNkNTNFFNOFB2bWx2SkdIWkVvMTdycGhIamFkcnhYZnc0?=
- =?utf-8?B?bWR4dUIzVzh4cVAvZ0dER013b3NKbXdGd2dOZHdlWW5YMjl4UXFySCt4VFZ2?=
- =?utf-8?B?aEgwdXZwcEc4ZUgrbWNTY3RxUkJwbnBKbklQbmlxbXY0WWVDdVZZNTdJdUYv?=
- =?utf-8?B?WW1qM3pZQ0hiOHNSVWhrNWUyVTRpRm5VTEFoRVhhU2p2cTBGOFA2NVJKNnJF?=
- =?utf-8?B?RjhIQ3JHSkFEcnN5SG1KQmNSNEtNbU1sZmNoVWg2cHIySUY0SkRCKzVLbHVl?=
- =?utf-8?B?cjQyVDdScWFJNVVqTGhBbERldkJ3Yk1DQWxXWWNIbmk0UTBHMnhGZmIrV3FO?=
- =?utf-8?B?eVU1bjhSVktMaGNtOWl6ZGVONkM1c1d0U2JidnRKdThwMG5lbXFPS2xidk9w?=
- =?utf-8?B?SFM4MjJIR3Y4S0tXdDVLZXNvcnFXY2diQStpbjg4M0xIR21WUmNLRUt6SkU0?=
- =?utf-8?B?Nys5R2lSMUZMR29nQlU1ek45NTdZc0Q5MEdBVmRycERjekR3NzJQL3NBWklI?=
- =?utf-8?B?anJUckxpSzU4Q2RtRnV2a01WbW94MWVjeXRNLzVvYXduOE1rU2JXbkJwNm1Y?=
- =?utf-8?B?ZUV5YXprektDeWRJM2RLWkhQeTZOb2Y2NndnYW4wZ0srRjZidlNMajU5WVVl?=
- =?utf-8?B?NERHTmkwR3RKeU1SYnVTTXM4bkMwV2dIejhzVEpqVTBtZEQzRzY0RDhreVZP?=
- =?utf-8?B?UmNZTFZHYVcvMHJqeGNRcWdvWE9mWE1qTmFGaEdNd1h2bXdKdVpWaHZBbGsx?=
- =?utf-8?B?UHc1cXZIVVY0S0JWOFFsaktYNXZEWDN5dUhVUWc2OWo4aitZaVVIR3hzWWxr?=
- =?utf-8?B?dnhHK2ErNFlwMXV0b0lIYVVqOHdVclVIa1dMdDR0WnZ3OTBKVE9qODRRUHVj?=
- =?utf-8?B?RjBibm9NR1Y4Y0hHVloxUWNDdW5pWk1YS0VSNzA4U1loNXp6aXcyTXlFekdn?=
- =?utf-8?B?YXZEYWZ5WGhqZHVuOWpRK2ZQWmZSV3hCTUxETGl4VndScVZHS211L20xekVu?=
- =?utf-8?B?YVo1eVZBcDZjbUxzUUJxTm4zVEdTOXR4UHprK0QyMk1CZHpmcTRINmF0eGwz?=
- =?utf-8?B?eTZyVUswV2pQSG1LOUdyUmdSY1VSbEhhWDZLYUl0b25kM29jUU1ZZmtJMnR4?=
- =?utf-8?B?d0ZYa0NBZllIdG4rOEw2RE8yRm1xalR4TllCT3gwb2lQVDlxT0hxT0Y3VnAx?=
- =?utf-8?B?MmpsYm5BWEJidk9LZmtyY2RHVXJUYlhJUEN1MlVaL0h1UGtjWUtndmJjdGlV?=
- =?utf-8?Q?ohkWxIL766UzEXi8=3D?=
-X-Exchange-RoutingPolicyChecked: cHCRz+mr4K/+iXFt29P773uc5YiqHt0HpncVOWb79R9PrN/P1NQcnQaxX8tb736AVJ+ITZljgw2zW5w8f99nIz6MzzC8NZ26AGOkxzzwAExWzeTDBeU+bndHbq/X3/GpUqMi4T8a1nR3nrOymqrIwDwYzY6CqyNjl+n4pwMSnTqYsFwrBxwu6JK1MH51Gsroyc+mP2vYhoxfUnaS1B4S9Q99/3XXbWibuzvLgZAPo1NOj0cWhOAq3GGrVDtaGseJKCj1gErlB7MsqTRIc+tDy2lPv2VIGccp3S8dCy1GzGWC5KbnEjh1qDTn7svg5s51aRKN+dAVloyMwGOmMAPDGQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac2aaea2-ed68-4b23-0743-08def82590f0
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR11MB7554.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 03:55:36.5778 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Vn0ZKtU9grPm2CWxIt2lngjQMgOLQFskD6KXW7/xNKu7VlwqgaevnjtRqplqsS8s/vp1OVTQ7dLTq8e1oWuoTV+IxEFVWLN8aeLIfV5RG+0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB8013
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b21c4cc9-84a3-429e-8156-0b9967b2f133@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,28 +96,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Aug 11, 2026 at 03:09:07PM +0100, Muhammad Usama Anjum wrote:
+> On 11/08/2026 11:58 am, Anshuman Khandual wrote:
+> > Subject line is very confusing. Perhaps something like the following.
+> > 
+> > mm: Rename pointers to copied PTE values as ptentp
+> > 
+> > But even 'copied PTE values' is not very clear as well.
+> 
+> Something like:
+> 
+> mm: rename pointers to logical PTE values as ptentp
+> 
+> or
+> 
+> mm: rename pointers to software PTE values as ptentp
 
-On 8/4/2026 11:18 AM, Suraj Kandpal wrote:
-> Add EDP_20 DPCD revision definition.
->
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->   include/drm/display/drm_dp.h | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-> index 8b0ca36083dd..e63c7f075f54 100644
-> --- a/include/drm/display/drm_dp.h
-> +++ b/include/drm/display/drm_dp.h
-> @@ -1035,6 +1035,7 @@
->   # define DP_EDP_14a                         0x04    /* eDP 1.4a */
->   # define DP_EDP_14b                         0x05    /* eDP 1.4b */
->   # define DP_EDP_15			    0x06    /* eDP 1.5 */
-> +# define DP_EDP_20			    0x07    /* eDP 2.0 */
+Yeah but we need to get these nomenclature right at the very beginning
+and also probably get it documented some where.
 
+> 
+> > 
+> > On Thu, Aug 06, 2026 at 09:38:41AM +0100, Muhammad Usama Anjum wrote:
+> >> The hw_pte_t conversion must retain pte_t * for pointers to standalone PTE
+> > 
+> > We need to explain what is `standalone PTE values` first.
+> > 
+> >> values. Name the value parameters ptentp in the install_pte callback,
+> >> write_protect_page(), and guard_install_set_pte() so the later mechanical
+> >> conversion can distinguish them from pointers to PTE table storage.
+> >>
+> >> Some functions already use the ptentp name, including:
+> >> - madvise_folio_pte_batch()
+> >> - folio_pte_batch_flags()
+> >> No need to convert them.
+> >>
+> >> This is a naming-only change.
+> > 
+> > Small nit - s/naming-only/rename
+> 
+> I'll fix it.
+> 
+> > 
+> > The commit message needs rewrite clearly explaining the following details
+> > 
+> > - What are standalone PTE values
+> Logical/software PTE is correct and better name here.
 
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Right but we need to define these early on and then be consistent in their usage
+afterwards in the entire series.
 
->   
->   #define DP_EDP_GENERAL_CAP_1		    0x701
->   # define DP_EDP_TCON_BACKLIGHT_ADJUSTMENT_CAP		(1 << 0)
+> 
+> > - How these are different from HW pgtable pointers
+> > - Change is just a rename for pointers into such 'standalone PTE'
+> > - These renamed 'ptentp' here would be used for skip or replaced during
+> >   upcoming mechanical change via a script
+> > - No functional changes intended
+> I'll update message in more elaborate way.
+> 
+> > 
+> >>
+> >> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> >> ---
+> >> Changes since RFC v1:
+> >> - Update the description for the architecture opt-in conversion.
+> >> ---
+> >>  include/linux/pagewalk.h | 2 +-
+> >>  mm/ksm.c                 | 4 ++--
+> >>  mm/madvise.c             | 4 ++--
+> >>  3 files changed, 5 insertions(+), 5 deletions(-)
+> >>
+> >> diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
+> >> index b41d7265c01bc..c34d826c5e4a2 100644
+> >> --- a/include/linux/pagewalk.h
+> >> +++ b/include/linux/pagewalk.h
+> >> @@ -89,7 +89,7 @@ struct mm_walk_ops {
+> >>  		       struct mm_walk *walk);
+> >>  	void (*post_vma)(struct mm_walk *walk);
+> >>  	int (*install_pte)(unsigned long addr, unsigned long next,
+> >> -			   pte_t *ptep, struct mm_walk *walk);
+> >> +			   pte_t *ptentp, struct mm_walk *walk);
+> >>  	enum page_walk_lock walk_lock;
+> >>  };
+> >>  
+> >> diff --git a/mm/ksm.c b/mm/ksm.c
+> >> index ad05d7791307e..11d50518d02e9 100644
+> >> --- a/mm/ksm.c
+> >> +++ b/mm/ksm.c
+> >> @@ -1292,7 +1292,7 @@ static u32 calc_checksum(struct page *page)
+> >>  }
+> >>  
+> >>  static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+> >> -			      pte_t *orig_pte)
+> >> +			      pte_t *ptentp)
+> >>  {
+> >>  	struct mm_struct *mm = vma->vm_mm;
+> >>  	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, 0, 0);
+> >> @@ -1371,7 +1371,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+> >>  
+> >>  		set_pte_at(mm, pvmw.address, pvmw.pte, entry);
+> >>  	}
+> >> -	*orig_pte = entry;
+> >> +	*ptentp = entry;
+> >>  	err = 0;
+> >>  
+> >>  out_unlock:
+> >> diff --git a/mm/madvise.c b/mm/madvise.c
+> >> index 07a21ca31bad4..c324cc991f841 100644
+> >> --- a/mm/madvise.c
+> >> +++ b/mm/madvise.c
+> >> @@ -1101,12 +1101,12 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
+> >>  }
+> >>  
+> >>  static int guard_install_set_pte(unsigned long addr, unsigned long next,
+> >> -				 pte_t *ptep, struct mm_walk *walk)
+> >> +				 pte_t *ptentp, struct mm_walk *walk)
+> >>  {
+> >>  	unsigned long *nr_pages = (unsigned long *)walk->private;
+> >>  
+> >>  	/* Simply install a PTE marker, this causes segfault on access. */
+> >> -	*ptep = make_pte_marker(PTE_MARKER_GUARD);
+> >> +	*ptentp = make_pte_marker(PTE_MARKER_GUARD);
+> >>  	(*nr_pages)++;
+> >>  
+> >>  	return 0;
+> >> -- 
+> >> 2.47.3
+> >>
+> > 
+> > How did we ensure that the above changes are comprehensive and nothing
+> > else got left in here ?
+> 
+> The order of patches and even the code was found out after adding hw_pte_t
+> structure. Then everything was converted, until some pte_t pointers were left
+> which didn't require conversion.
+> 
+> If something is left, we'll get build errors when we build a converted architecture.
+> So the branch mentioned in the cover letter when built, would produce build errors.
+> (Those patches would be sent separately, after finalization of this series).
+> 
+> Whenever I'm rebasing (on mm-new), I'm rerunning Coccinelle script to see if new code
+> has arrived which requires conversion or renaming.
+
+But in the early patch where the manual renaming was done for the script to
+pick up 'ptentp' patterns needs to be audited again.
+
+> 
+> -- 
+> Thanks,
+> Usama
+> 
