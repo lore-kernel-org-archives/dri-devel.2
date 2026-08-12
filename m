@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC339C5CFCF
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F554C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:48:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 317D610F040;
-	Wed, 12 Aug 2026 14:48:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29D5110F047;
+	Wed, 12 Aug 2026 14:48:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="i2Omdrhi";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="aYgG5EMg";
 	dkim-atps=neutral
 Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de
  [91.216.248.212])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6629210F040;
- Wed, 12 Aug 2026 14:47:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D5F810F047;
+ Wed, 12 Aug 2026 14:48:01 +0000 (UTC)
 From: Andre Eikmeyer <dev@deq.rocks>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
- s=securedbylima-20251205; t=1786546076;
- bh=/AzW61RZwMFL9q+25Sft4GfDjCYLKAei5DaSN4AkE50=;
+ s=securedbylima-20251205; t=1786546080;
+ bh=79vwdvV8p9yudrSia5lQjOpCjUlE3msAERhpr9jn+Uw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i2OmdrhifVVVfuh+Um1vxgSGff3UzTtt4R5m/ZeSw2EGCYKI7v6OQTTW9SVTLOdBB
- E0IApi6IZBGKXx86PSxXzMpsl75xRuyM4YiQycgVHXMxGpftR1PeEdRGdmRHDBMoxo
- 31yQT1hZf2oRP4JNeVWyNG4zcIcihP3sd/UwqUlJ6g21kVs86W/sSgT25WBWiW6uQT
- ZKvEPrtiCq1TKGfh5xtRF6o2cnp0kUaZInMJFDRhxiZxa/y94qJkLnyzO/JYHY6sLz
- 1FNBqiJuOpuI35h3S9j/fUbiAMW/DpRPJjE6LiQ3Fixp3fsgB7HMr7iYZOEpTFEeuo
- l7jW6kPEU/7zg==
+ b=aYgG5EMg9jnhxfWzBxM8uWzsJefeApzHspx9voOZPHMjsvNNv1VIvlk6OCURWRiHo
+ Ty1wCCIJsuimQHQB3nAkLRoX3y27ytclMAmr5RBkakzc7vewiEGLKksd0lAUtXoVsd
+ evws3iz0g2XjdzxzfzgHukX4+N69EkkGJyre8TbMbn5vMJDVO5SDlcvyW4OA3/pmpO
+ jUnRX+EtVNkq5JVTzCTSGGZyECwr/+vrLGQif+21mZJePB3TMG4l6fbxvVk873uqBx
+ lgUANunU2LFicHtusxKW4kkvbYb7T05pFjqYkhccxk56k1WhJ32Afj2aEn0PBnilww
+ PJVcYKw9rtpOA==
 To: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  linux-sound@vger.kernel.org
 Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
@@ -40,12 +40,14 @@ Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Andre Eikmeyer <dev@deq.rocks>
-Subject: [PATCH v3 0/3] Apple GMUX hybrid graphics support for MacBookPro15,1
-Date: Wed, 12 Aug 2026 16:47:47 +0200
-Message-ID: <20260812144750.36797-1-dev@deq.rocks>
+Subject: [PATCH v3 1/3] platform/x86: apple-gmux: add MacBookPro15,
+ 1 dGPU power sequence
+Date: Wed, 12 Aug 2026 16:47:48 +0200
+Message-ID: <20260812144750.36797-2-dev@deq.rocks>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260812144221.35877-1-dev@deq.rocks>
+In-Reply-To: <20260812144750.36797-1-dev@deq.rocks>
 References: <20260812144221.35877-1-dev@deq.rocks>
+ <20260812144750.36797-1-dev@deq.rocks>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -63,65 +65,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello everyone,
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 
-This series enables hybrid graphics on the MacBookPro15,1.
+The discrete GPU on the MacBookPro15,1 does not return after the legacy
+GMUX power-on sequence. PCI configuration space remains inaccessible, so
+runtime PM cannot provide usable hybrid graphics with the integrated GPU
+as primary.
 
-The MacBookPro15,1 normally starts Linux with the discrete GPU as primary.
-On the machines tested here that results in roughly 24 W idle power draw,
-about 12 W of which is attributable to the otherwise unused discrete GPU.
-Selecting the integrated GPU at boot avoids that cost, but the discrete GPU
-cannot currently return after GMUX powers it down, so usable hybrid graphics
-and suspend are not available.
+Evaluate the firmware PWG1 and PWG3 link methods around the GMUX
+transition and wait for PCI configuration space before completing power-on.
+Keep the sequence limited to the MacBookPro15,1 and retain the existing
+path for every other model.
 
-This series provides the missing power lifecycle across apple-gmux, amdgpu
-and the HDA controller. With the integrated GPU as primary, the discrete GPU
-transitions between DynOff and DynPwr. Offloading through DRI_PRIME and
-external monitor support both work across these transitions.
+This was tested on both the 2018 and 2019 MacBookPro15,1 revisions with the
+integrated GPU as primary. The discrete GPU transitions between DynOff and
+DynPwr, and external displays work across the transitions.
 
-The result has been tested for three weeks on both the 2018 and 2019
-MacBookPro15,1 revisions. Runtime suspend and resume, system suspend and
-resume, repeated GPU wakeups, and a variety of external Thunderbolt and
-USB-C monitors were tested successfully.
+Co-developed-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/platform/x86/apple-gmux.c | 86 ++++++++++++++++++++++++++++---
+ 1 file changed, 80 insertions(+), 6 deletions(-)
 
-One question remains regarding Apple's gpu-power-prefs EFI variable. The
-firmware defaults to the discrete GPU, while selecting the integrated GPU
-is required before this hybrid configuration can take effect. Would setting
-that preference from the kernel be appropriate on a known-good model, or
-should it remain a userspace policy decision? Some discoverable way to
-select the power-efficient configuration would seem preferable to requiring
-users to know about a vendor-specific NVRAM variable.
-
-Changes in v3:
-- Restore integer result validation for PWG1 and PWG3. The MacBookPro15,1
-  AML returns Zero on success and One on failure from both methods. The v2
-  conversion to acpi_evaluate_object() incorrectly discarded that status.
-
-Changes in v2:
-- Refresh the individual patch descriptions.
-- Refresh the cached discrete PCI device when a client is re-registered.
-- Keep the HDA switcheroo implementation in the existing switcheroo section.
-- Document the positive azx_prepare() return and add Takashi's Reviewed-by.
-
-v2: https://lore.kernel.org/all/20260812144221.35877-1-dev@deq.rocks/
-v1: https://lore.kernel.org/all/20260812122206.193680-1-dev@deq.rocks/
-
-Thank you for your time and consideration.
-
-Andre Eikmeyer (2):
-  drm/amdgpu: add Apple GMUX runtime PM support
-  ALSA: hda: allow direct complete with a powered-off GPU
-
-Atharva Tiwari (1):
-  platform/x86: apple-gmux: add MacBookPro15,1 dGPU power sequence
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 34 +++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 30 +++++---
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  1 +
- drivers/platform/x86/apple-gmux.c          | 86 ++++++++++++++++++++--
- sound/hda/controllers/intel.c              | 24 ++++++
- 6 files changed, 153 insertions(+), 23 deletions(-)
-
+diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+index 9c728ac..ccb059a 100644
+--- a/drivers/platform/x86/apple-gmux.c
++++ b/drivers/platform/x86/apple-gmux.c
+@@ -22,6 +22,7 @@
+ #include <linux/pci.h>
+ #include <linux/vga_switcheroo.h>
+ #include <linux/debugfs.h>
++#include <linux/dmi.h>
+ #include <acpi/video.h>
+ #include <asm/io.h>
+ 
+@@ -74,6 +75,8 @@ struct apple_gmux_data {
+ 	enum vga_switcheroo_client_id switch_state_external;
+ 	enum vga_switcheroo_state power_state;
+ 	struct completion powerchange_done;
++	struct pci_dev *discrete_pdev;
++	bool use_pwg_power_sequence;
+ 
+ 	/* debugfs data */
+ 	u8 selected_port;
+@@ -82,6 +85,34 @@ struct apple_gmux_data {
+ 
+ static struct apple_gmux_data *apple_gmux_data;
+ 
++static int gmux_call_pwg(struct apple_gmux_data *gmux_data,
++			 const char *method)
++{
++	acpi_handle handle = ACPI_HANDLE(&gmux_data->discrete_pdev->dev);
++	unsigned long long result;
++	acpi_status status;
++
++	if (!handle)
++		return -ENODEV;
++
++	status = acpi_evaluate_integer(handle, (acpi_string)method, NULL,
++				       &result);
++	if (ACPI_FAILURE(status)) {
++		dev_err(&gmux_data->discrete_pdev->dev,
++			"failed to evaluate %s: %s\n", method,
++			acpi_format_exception(status));
++		return -EIO;
++	}
++
++	if (result) {
++		dev_err(&gmux_data->discrete_pdev->dev,
++			"%s failed: %llu\n", method, result);
++		return -EIO;
++	}
++
++	return 0;
++}
++
+ struct apple_gmux_config {
+ 	u8 (*read8)(struct apple_gmux_data *gmux_data, int port);
+ 	void (*write8)(struct apple_gmux_data *gmux_data, int port, u8 val);
+@@ -510,14 +541,49 @@ static int gmux_switch_ddc(enum vga_switcheroo_client_id id)
+ static int gmux_set_discrete_state(struct apple_gmux_data *gmux_data,
+ 				   enum vga_switcheroo_state state)
+ {
++	int ret;
++
+ 	reinit_completion(&gmux_data->powerchange_done);
+ 
+ 	if (state == VGA_SWITCHEROO_ON) {
+-		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+-		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
++		if (gmux_data->use_pwg_power_sequence &&
++		    gmux_data->discrete_pdev) {
++			u16 vendor;
++			int i;
++
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 2);
++			msleep(100);
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
++
++			ret = gmux_call_pwg(gmux_data, "PWG1");
++			if (ret)
++				return ret;
++
++			for (i = 0; i < 1000; i++) {
++				pci_read_config_word(gmux_data->discrete_pdev,
++						     PCI_VENDOR_ID, &vendor);
++				if (vendor != 0xffff)
++					break;
++				usleep_range(1000, 2000);
++			}
++			if (vendor == 0xffff) {
++				dev_err(&gmux_data->discrete_pdev->dev,
++					"timed out waiting for PCI config space\n");
++				return -ETIMEDOUT;
++			}
++
++			ret = gmux_call_pwg(gmux_data, "PWG3");
++			if (ret)
++				return ret;
++		} else {
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
++		}
+ 		pr_debug("Discrete card powered up\n");
+ 	} else {
+ 		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
++		if (gmux_data->use_pwg_power_sequence)
++			usleep_range(10000, 11000);
+ 		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
+ 		pr_debug("Discrete card powered down\n");
+ 	}
+@@ -549,11 +615,16 @@ static enum vga_switcheroo_client_id gmux_get_client_id(struct pci_dev *pdev)
+ 	 */
+ 	if (pdev->vendor == PCI_VENDOR_ID_INTEL)
+ 		return VGA_SWITCHEROO_IGD;
+-	else if (pdev->vendor == PCI_VENDOR_ID_NVIDIA &&
+-		 pdev->device == 0x0863)
++	if (pdev->vendor == PCI_VENDOR_ID_NVIDIA && pdev->device == 0x0863)
+ 		return VGA_SWITCHEROO_IGD;
+-	else
+-		return VGA_SWITCHEROO_DIS;
++
++	if (apple_gmux_data->use_pwg_power_sequence &&
++	    apple_gmux_data->discrete_pdev != pdev) {
++		pci_dev_put(apple_gmux_data->discrete_pdev);
++		apple_gmux_data->discrete_pdev = pci_dev_get(pdev);
++	}
++
++	return VGA_SWITCHEROO_DIS;
+ }
+ 
+ static const struct vga_switcheroo_handler gmux_handler_no_ddc = {
+@@ -803,6 +874,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 	if (!gmux_data)
+ 		return -ENOMEM;
+ 	pnp_set_drvdata(pnp, gmux_data);
++	gmux_data->use_pwg_power_sequence = type == APPLE_GMUX_TYPE_MMIO &&
++		dmi_match(DMI_PRODUCT_NAME, "MacBookPro15,1");
+ 
+ 	switch (type) {
+ 	case APPLE_GMUX_TYPE_MMIO:
+@@ -1009,6 +1082,7 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 	} else
+ 		release_region(gmux_data->iostart, gmux_data->iolen);
+ 	apple_gmux_data = NULL;
++	pci_dev_put(gmux_data->discrete_pdev);
+ 	kfree(gmux_data);
+ }
+ 
 -- 
 2.55.0
+
