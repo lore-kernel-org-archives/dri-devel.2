@@ -4,93 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CB0DC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18253C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:03:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 779B810F053;
-	Wed, 12 Aug 2026 15:02:18 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="H1HYtnay";
-	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D273C10F053
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:02:16 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-c1c52d920b8so149433966b.2
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:02:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786546935; cv=none;
- d=google.com; s=arc-20260327;
- b=Viwf8b6KXeX88hyJ6yAWqV2IAw4uog/3CvGbNs5PWhVhShW4s1+591daXlvNqbCtJe
- aAdaQqotHMYR9mcyEIWJ4ixfi5fTgA7B+1UNGY8E/xftAyPwIryrtP4h6b+T2UEPxSyO
- aQ9wuNKRY20kYxsjB7Hk8r9S+ul9OFanLyszEn8Vlx0/E+k6JvYaNQGORk7Ci8GkpfE9
- N66R7bZ4/hjUb0ugdw2xMNULQywuyCBFSsKQdGkhTdXPoTd4pyW8OijYVijKsJLStboy
- fHJ9D+HLVEBj40g4ejFhcKoSNukSbMV28yNIHpm/nJuFIrNhjCAMds3EbfPgwVheEBqv
- hOLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=q5uEzbGEkmct8ZKXCwDqoN9egKEIy/PFu90SVjOVj20=;
- fh=1enVimnujg5LgP3eJy2ITekazDW16fGIUM/387o/fnQ=;
- b=l4I1+dW/MhWWBeBFPeTelmunCQnkvy60bfG2Bi5LKEM/XwLZAPxgcsOJHl5/8ZERgH
- xm87wbtE2xFzpNImPyBZ7YtVQscR4yudbMcvdJuzeRe+b6wRJBQAtU4QlFgM54ibjwOu
- Q8NZFw2DCjU+G7wl+RVHPREncRz47YEQQKtgCEBXmY6Jdv8c3qztWYIo2bwrZWf5Atwj
- BGZU/ncGqyalK+4HcbYovLV67nIvRGtCFfXLcWrCBwuGSZxs3N4vY5lJSbT5hF0i270X
- gYQXkUkdzYGax4/Bge7PwQxq2QLw2txjLfYckH61dcrvrJqU8rjomQE/X+G0lDUh5aNc
- g6dQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1786546935; x=1787151735; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=q5uEzbGEkmct8ZKXCwDqoN9egKEIy/PFu90SVjOVj20=;
- b=H1HYtnay3Lp9EdhVFcYi6cRXnoH5HMIqfCmWG/FwucSpr8fGaDW2GvrinJ1t3WKURP
- dUYtemJuTJuwIjkniTLSgpmhJyUK7wLzBrvNlckedUkjvIsbjdkkebzjplRaVllaBXVE
- rMXATnl21A2SzHuLVQ4vvrU2MpjbHk55h3xB6pco/DD+HdbURh7GQ4rAPz1mBp3mqK04
- Y5q+4+qnEu/ujThVQmKQbruZvR+ICOAdc5mCa5SJ17nUC5jg5PBs/5RS+jBhZncrdz7/
- DikgKbZtrOkdp47bJwGd38EiuslUYsF0aRhpf44/Ha219lPo5MhDgUYY4vOaf2hBx3+s
- Gy5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786546935; x=1787151735;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=q5uEzbGEkmct8ZKXCwDqoN9egKEIy/PFu90SVjOVj20=;
- b=CHY3Wps3kMybM0VZlstbyQjp0DbiUDn2ViX5WugLUpTNbUkprk5KTNS0k29WzQEz5n
- mVPoUmDpf+3mknkzk6OJ0tHIL02qSaCjQXXL1pv/Og71b8/BIf0ogE6rb7a5a9LqbjmC
- 3Csy9S7P7gpv/SnPsM2qzgjG8d9iAguapK9C4PzhxX0Y3hjvB+SPlrF6ZwQcXbNhWuQT
- t0GVk7h1X7kgiVPNTQ0PsEGczfXXXW8I30ja1iQn+Br6GxHwzOhObXUw/LVetoPZkf7s
- xJIwppQLKQuaN0PtK66x4wRLxK0t3kkuQsgBffiLB2JNtfhUwLLp+vqaPdLkXEknzjm+
- J9eQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpBkDdb1Co+1IiBfNQJlszqjcZVwGl2BnpwkncD2PRqC4ECF+w16Oou8HzmjkK7U221UHl01uoRQI4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzWHvEEtsttx3qxUzIvV7D5kojCSm81tCxGa23jI8lFTm/GpXeU
- wNiCsI6MZy1ykD7vfX63JuNNxcw72Y22OIFfm3iY8n3fVDQDv5UNb35z0nfmHytrRjvcGHoaTRn
- NNeUe9VVLoZmlrqxGAklAkRfpDwRsnGG6Q2OWEZSe6w==
-X-Gm-Gg: AR+sD106UEgSrZiVmWCaGb1NNaIQf8nbwMj0+iknt7wQpeRTjthGTSyGV1cO0lpry07
- tsthbmHbxEvOvmMcLxnb4TnP0y8KHxyAuCdZX9Hkz1HUCU8o1BT8pzYiwmvqzWy1edY1F834aIU
- /giq4MxmtQIBEG43auSW6jfk8lUGNboGJFpD0EsI+RafCCHZG5AMfKCZOab2oXgkGum0ichAlrC
- CrEq/uFStdMV5TLDy3EMH7DMszuC+oys8783pdsHIVmfvFcFtJxXswoEeQVmrlhyox2ErEKv0g5
- 020U3GVmNDBK2EchF3jFQokORhxh9M1441yOBguHKy+Imth6C0rrkw8MrIC4sKBrhLYBCqgzuQ=
- =
-X-Received: by 2002:a17:907:980b:b0:c12:9b98:209e with SMTP id
- a640c23a62f3a-c20f300e2c3mr249056166b.23.1786546934618; Wed, 12 Aug 2026
- 08:02:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3877A10F06F;
+	Wed, 12 Aug 2026 15:02:59 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E52A810F057
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:02:57 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de
+ (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+ (Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0D4F5201D3C;
+ Wed, 12 Aug 2026 17:02:52 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <mfe@pengutronix.de>) id 1wuATj-0018fv-34;
+ Wed, 12 Aug 2026 17:02:51 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+ (envelope-from <mfe@pengutronix.de>) id 1wuATj-0000000E1IT-3Pn9;
+ Wed, 12 Aug 2026 17:02:51 +0200
+Date: Wed, 12 Aug 2026 17:02:51 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ imx@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org,
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Message-ID: <sn6xydbjkkz5b5okgnenp3zspj4ivr6gjpxow26kjknl7i2ihh@a55eb3vhby4i>
+References: <20260812132954.148571-1-francesco@dolcini.it>
+ <20260812132954.148571-3-francesco@dolcini.it>
 MIME-Version: 1.0
-References: <20260811204123.3198370-1-tjmercier@google.com>
-In-Reply-To: <20260811204123.3198370-1-tjmercier@google.com>
-From: Sumit Semwal <sumit.semwal@linaro.org>
-Date: Wed, 12 Aug 2026 20:32:02 +0530
-X-Gm-Features: AUfX_mxNO1BArOhzalHmBpnvLYxDFW9EBmuDhA91cv0HkIInUfoU4eE504H7mhY
-Message-ID: <CAO_48GEUhpyeenX8Vu1NoDnvzib5FGv3rOBYNYwQEWu1-6cjaQ@mail.gmail.com>
-Subject: Re: [PATCH] kselftests: dmabuf-heaps: Open heap device files O_RDONLY
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, christian.koenig@amd.com, shuah@kernel.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812132954.148571-3-francesco@dolcini.it>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,57 +67,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello T J,
+Hi Francesco,
 
-On Wed, 12 Aug 2026 at 02:11, T.J. Mercier <tjmercier@google.com> wrote:
->
-> Write permissions on the /dev/dma_heap/* device files are not required
-> to issue ioctls and allocate dmabufs. Applications should be opening
-> these file as O_RDONLY. The BPF dmabuf_iter selftest already does
-> this. [1]
->
-> Users are pointing to these selftests as examples of how use dmabuf,
-> and encountering permission errors on systems where write permissions
-> are not available on /dev/dma_heap/*. Apply the principle of least
-> privilege to selftests which open dmabuf heaps by removing the write
-> access mode and using O_RDONLY for the open() instead.
-
-Thanks for the patch.
->
-> The same is true for the vgem test using /dev/dri/card.
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c?h=v7.1#n49
->
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+On 26-08-12, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> format reported by the downstream panel or bridge describes the display
+> input, but it does not describe how the LCDIF data pins are physically
+> wired on the board.
+> 
+> These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> 24-bit display by wiring the available color bits to the corresponding
+> display inputs. In that case, using the display's 24-bit format to
+> configure LCDIF selects the wrong data-bus mode and changes the assignment
+> of color bits on the LCD_DATA pins.
+> 
+> Read the optional bus-width endpoint property from the LCDIF output port
+> and use it to select the media bus format used to configure LCDIF. This
+> allows the LCDIF bus mode to describe the physical interface
+> independently of the downstream display format.
+> 
+> When the optional property is absent, or it has an invalid value, continue
+> using the format reported by the downstream display device, preserving
+> the existing behavior. The code is not validating the DT for
+> correctness and just fall back to the previous behavior in case of
+> errors.
+> 
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 > ---
->  tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> index fc9694fc4e89..45b420e37c97 100644
-> --- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> +++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> @@ -48,7 +48,7 @@ static int open_vgem(void)
->
->                 snprintf(name, 80, "%s%u", drmstr, i);
->
-> -               fd = open(name, O_RDWR);
-> +               fd = open(name, O_RDONLY);
->                 if (fd < 0)
->                         continue;
->
-> @@ -96,7 +96,7 @@ static int dmabuf_heap_open(char *name)
->         if (ret < 0)
->                 ksft_exit_fail_msg("snprintf failed! %d\n", ret);
->
-> -       fd = open(buf, O_RDWR);
-> +       fd = open(buf, O_RDONLY);
->         if (fd < 0)
->                 ksft_exit_fail_msg("open %s failed: %s\n", buf, strerror(errno));
->
->
-> base-commit: 9a11db68872055e6ead919bad04d6330851c522d
-> --
-> 2.55.0.679.g6767b8d81c-goog
->
+> v3: improve commit message and make it clear that the code assumes that
+>     the DT is correct, when the DT contains an invalid property value,
+>     the code safely fall-back to the previous behavior
+> v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> ---
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+>  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
+>  3 files changed, 38 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> index 8b4a500347fb..f8ecc8bbd63c 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> @@ -12,7 +12,10 @@
+>  #include <linux/clk.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/io.h>
+> +#include <linux/media-bus-format.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_graph.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/property.h>
+>  #include <linux/pm_runtime.h>
+> @@ -211,7 +214,10 @@ static int mxsfb_load(struct drm_device *drm,
+>  		      const struct mxsfb_devdata *devdata)
+>  {
+>  	struct platform_device *pdev = to_platform_device(drm->dev);
+> +	struct device_node *np = pdev->dev.of_node;
+>  	struct mxsfb_drm_private *mxsfb;
+> +	struct device_node *ep;
+> +	u32 bus_width = 0;
+
+IMHO this default value makes no sense with..
+
+>  	int ret;
+>  
+>  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+> @@ -238,6 +244,24 @@ static int mxsfb_load(struct drm_device *drm,
+>  	if (IS_ERR(mxsfb->clk_disp_axi))
+>  		mxsfb->clk_disp_axi = NULL;
+>  
+> +	ep = of_graph_get_next_endpoint(np, NULL);
+> +	if (ep) {
+> +		of_property_read_u32(ep, "bus-width", &bus_width);
+> +		of_node_put(ep);
+> +	}
+> +
+> +	switch (bus_width) {
+> +	case 16:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
+> +		break;
+> +	case 18:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
+> +		break;
+> +	case 24:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+> +		break;
+
+these cases in case no bus-width was specified without the knowledge of
+the mxsfb_kms.c since the '0' value is not covered. However, I'm not the
+maintainer of this driver. Thanks for making use of the bus-width
+property :)
+
+Regards,
+  Marco
+
+> +	}
+> +
+>  	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> index d160d921b25f..bdc47ce5be79 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
+>  	struct drm_connector		*connector;
+>  	struct drm_bridge		*bridge;
+>  
+> +	u32				bus_format;
+> +
+>  	bool				crc_active;
+>  };
+>  
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> index d8ebebc5314b..1d78c486d147 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> @@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
+>  	if (!bus_format)
+>  		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+>  
+> +	/*
+> +	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
+> +	 * property when available. Otherwise, use the bus format reported by
+> +	 * the downstream bridge or panel.
+> +	 *
+> +	 * This supports mismatched display and interface bus widths, such as
+> +	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
+> +	 * panel connected through a 24-bit interface.
+> +	 */
+> +	if (mxsfb->bus_format)
+> +		bus_format = mxsfb->bus_format;
+> +
+>  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
+>  
+>  	/* Write cur_buf as well to avoid an initial corrupt frame */
+> -- 
+> 2.47.3
+> 
+> 
+> 
+
+-- 
+#gernperDu 
+#CallMeByMyFirstName
+
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
