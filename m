@@ -4,76 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D18DC5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 23:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE15C5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 23:13:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45DE510E0FA;
-	Wed, 12 Aug 2026 23:13:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5310E10F161;
+	Wed, 12 Aug 2026 23:13:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q8jyJrYg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OpX+Cmj1";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76BA910E46F
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 23:13:34 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-495502852d1so1418245e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 16:13:34 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBCCE10E46F
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 23:13:37 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4957799b92fso1195285e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 16:13:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786576413; x=1787181213; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=knmiZOkayyU4iEwEuKGRREO2aACklWxmCXd6sObM8f4=;
- b=q8jyJrYgqWKfNEydwETbj/j3n56OjmaJaDG3tsnHk0Jt9SLEKDv1FSAcnQW/lgko6O
- OdT1LkW+5KqEnNDSYpAY4ROwcKx9mdYBPff4gIyfcq3XVpii8lfZ6yERcJzll/Za66vw
- ZVGYT0WUVZNZf3Na/h36RzjXjAho1cpifVTCx/5Fpw5k+IBLEyDbE58aGgzVZeAWxFGy
- bOq8vBlXbpCGUjf7raDM2QBiLG1BQ7V7VB+Ax08C0o89XOM2+/+ITjcVQxp17cE5aUwQ
- S4PzwD6eVh0+nB/WOUtZRMvRVN0jnfQJmT321SFZn/Mj5QMJ+G5Rz+jPhjwSY19P0fXn
- t63A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786576413; x=1787181213;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1786576416; x=1787181216; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=knmiZOkayyU4iEwEuKGRREO2aACklWxmCXd6sObM8f4=;
- b=YcSjkcLBuRihLyBNCc5wnfiKYd71Py7j1I23nV5/2lLqYaAH51U1+htSSVQUf7L7y+
- 4qb0auJeJ+cZNGgvrYRYd2ALWPC8VOJc/1MwpBW2oVUvOkc1gEn9Gq1a1+c3W+spzyHh
- sA9LBW1e72ADfDytzCvOilBTvT/cIXQ6HDHIcc6+MOCSVXmtZSwCC/w7hcyPxTe3pefq
- 6vvOq7+OorlaYZM6KxQkmu+ORvjzy9sxBJf3EfjSz3tuw8p6JISmbvMj2IEitsw5V0Wq
- rbixzIx3UeqtKrnXS0XMT9uPNGPP4EMEYKnsx0MvMnQ6NvkDW5GJhXppdak93h0V9SiQ
- 0RPw==
+ bh=Tfw6HroNHGc2c12iMbCQTsQpKK1xWyV/VLQvyFAcyJg=;
+ b=OpX+Cmj1uGJl1q3eLd05KHdF181l0/tdKwWCFcpNHqoRDZi7J5xjX9df5q9b1lAz8Z
+ 0nHnq8ZQK3j0aSigaHQAyrq2lPz7eYbidFdGFuaDlKsd8C/C7hSy6fe5KIfM/pBaxZHE
+ kO1QRJgmPBR2TsctefIJ9XKahMLBxagYvWiAMLuXrxF2jzAbsjmpta8AiHmzubWdqPHo
+ qJxp6F6voSeM544+k9mbikwgVE0rcuy0jSSq5SaHcXJPftsqityMbZF2nkCHmmB1ravw
+ slmmHxkV62YtmBQgI+uVc8586N/voD8xFvN2LyqcEaH0xsQmeyLfhq4J/EKFPOZenazs
+ Oxfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786576416; x=1787181216;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Tfw6HroNHGc2c12iMbCQTsQpKK1xWyV/VLQvyFAcyJg=;
+ b=AC42CNmHkldW6ZnEWvbqnntVZd+vZQYMKKeZpU+A+fKZXi4qJUbHDMLl1dfBYfPM2Y
+ b11cUhZmRWg1KEsIFZHZRupHHP6z0wMTL60ZEDm1/taQj6Z29OTA800uhrLD/6s/32M4
+ yLo++pgHDqNLwojtQrtlKm4FgTd3jShdNrHo/Hbt8gMy5+dPWbecmzqWiXwFG/iR+GTF
+ eYNfJtK9p52t3NxVTaPQ4+Fva4e9mvAkfZQ+J0Jrs42MN/cSNyPNJpoKa0i9UQRQx203
+ Oa4UNDu79BnsH+j82VXqTceuJNszoe+Eb5liJXkjFRWme8eZ/y6fq9Y36+8xeUyYPCrY
+ x/iQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoM0nT+Q+S4M38t1CCkEDtMiMnTuGzAJc3ZTWotOFJPBGsiZFR/maVc6n+XE2EVKK8g+sZLYWbtrqM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfFhJl+/uPwGZTdB6dDpZVfNb1O2WnH6Wdor/x9oHvlaKxNkKu
- 32Q8G4JfII150pgqzmdw00EAkH7gpCxXBBYen0TLWbwfeaRWthn8n4kl
-X-Gm-Gg: AR+sD12sqcHEYuYjIYI/M4L9EQveXWvEbTIwDlO1Ox3VrjNvsAua8lyR4QpuvcAA4I2
- Q9Sz7ZsjQKKyyHILk2qCt1qv0M0vD/UTLU8um+oYxGEGQEej02XAerEhPbCruRpG1bYLKXt/hxd
- mCMedNCiFir2Vq08UrYCwZBXAXccMIUL1OQi6F469cUOB/1uwAtzyRsnfGHtBIzOhsDcJdFMFxf
- UoqwRjm6wntNdGKDyXIJ3Q8+UTUXqckbUedM05qhMa26siWFRfYRLdCDaBwvItmNgYOx7fsszA/
- WPdMaSAw0X8T8XfIq0xPH4LQVjtAXQo1EWfKJF2Ir3V2N1UF9ECkWjQTdURdm8PpltK2Gc8Wsoo
- RbdCG2RxhozDPvD3CNlRxIuQWIxd3nx+cxThgnBt4dZKgRfrTT2lWu3sCmWkwo8qYgeZrl9siMD
- X7W+k6nrmMyGkZ+NI5Jm/fPkF9XUFLC6gy8jvsWO/cy55vnLBLmtQVfNwIvUwepcDcmVtlAxw24
- a791m6QnMb2dFTxLJXdKRd8fC8nrpUoSdq/coJnhNr/f7oxk9+hZQ8M
-X-Received: by 2002:a05:600c:19d4:b0:490:ec79:3046 with SMTP id
- 5b1f17b1804b1-499821647efmr6305275e9.0.1786576412642; 
- Wed, 12 Aug 2026 16:13:32 -0700 (PDT)
+ AHgh+Rq+dSatTZqsK0LCHgUTa1VfAOhd9a5v9NuKNOZWjHlWn+X+GtyMS7jOUjFGvOoF+ksPnWyRhDjousE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/MMbU7YXmbkuHI26cYVROFxzZ6ndWHuIbUSzO3qOPYbFESxiF
+ l724DSY5KiQs7NAZW92R0c3duMHZzJL7TRU4Gsl8TXr9yrIvmOJoamCM
+X-Gm-Gg: AR+sD12en1Keqo0copPQ+3bHpKtGWsJPeG4VWw62p1sXeOzZycA6ZMVS/nu1tbN3B7O
+ QMrN7JOzI5gZ6BjaZQ7sZetYonzjZ+Merto4ya0uNdmCma4WOYhjB6sER7nQ6/xqphk+mtL/bON
+ 10u8DMdS1BU7pXrg8tNKmnWyskcKu5bX8FQfdu7b99crLeZ51TX8Fqhim/ROT8EfJxu7V34PMgc
+ LeXFmKxB7SzeKeuJnmTio3mec71CWaWHmpRxGCPDsFnZcsuCMZmBGzA1edJL7tgLGYCosRSQLqy
+ KP8TH9Jnyw5LUR/HhotRxbgAThda73KpqjT79wvnpedpQ5YXULSR4nylLSQj+roWRy75kHD3KkF
+ 2ueUvabkI8H+LzzPWwJgvVKB0ZSeAl6ULCveLHOsHepJ0lsTHdo2mtgLD5CKxJUWaczeH3v69jU
+ rzClrhQ7mxosHyreky/7OAuKjSDKpSNf6ntCULXyiM+cF6OzgXKK5m5A5mXxGDNxB6xI0K48ojR
+ kBIbBfIJG++euSjsGRFHEDvE1368iLY8cllGo3KxSOQAXqisCUJ3q4=
+X-Received: by 2002:a05:600c:3b2a:b0:495:4505:dad0 with SMTP id
+ 5b1f17b1804b1-499821ad33cmr5870475e9.2.1786576416271; 
+ Wed, 12 Aug 2026 16:13:36 -0700 (PDT)
 Received: from Neo.taile6b6ba.ts.net
  (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49981b631c1sm44532245e9.14.2026.08.12.16.13.31
+ 5b1f17b1804b1-49981b631c1sm44532245e9.14.2026.08.12.16.13.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 16:13:32 -0700 (PDT)
+ Wed, 12 Aug 2026 16:13:35 -0700 (PDT)
 From: Marek Czernohous <mczernohous@gmail.com>
 To: nouveau@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
  Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Ben Skeggs <bskeggs@nvidia.com>
-Subject: [PATCH v3 0/4] drm/nouveau: channel-kill event ordering fixes,
- and lower the gate to NV50
-Date: Thu, 13 Aug 2026 01:13:26 +0200
-Message-ID: <20260812231330.705425-1-mczernohous@gmail.com>
+Subject: [PATCH v3 3/4] drm/nouveau/fifo/nv04: filter benign CACHE_ERROR from
+ Mesa NV50 bind probe
+Date: Thu, 13 Aug 2026 01:13:29 +0200
+Message-ID: <20260812231330.705425-4-mczernohous@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260812231330.705425-1-mczernohous@gmail.com>
+References: <20260812231330.705425-1-mczernohous@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,167 +96,71 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Marek Czernohous <marek@czernohous.de>
 
-This is v3 of the nv04 FIFO series, cut down to the four patches that are
-ready. v2 is here:
+The Mesa userspace driver issues a method-0x0060 / data-0xbeef02xx
+binding probe that ends up triggering CACHE_ERROR in the PFIFO
+interrupt handler. The probe is harmless and recovers cleanly, but it
+is reported at error level, so it shows up in dmesg on session start.
 
-  https://lore.kernel.org/nouveau/20260806085228.1848994-1-mczernohous@gmail.com/
+Filter that specific pattern down to debug level so dmesg stays clean
+while real CACHE_ERROR conditions are still logged at error level.
 
-The Sashiko review bot flagged three issues on that posting. It was right on
-all three. Two are fixed by the new patches at the head of this series; the
-third was in the Tesla recovery patch, which I have dropped from this posting.
-More on that below, because the reason is not the bot's finding.
+The test is on the method and data pattern alone, not on the chip
+family, so it applies wherever nv04_fifo_intr() is the handler, that is
+nv04 through g98. That is deliberate rather than an oversight: a false
+positive would need userspace to write exactly 0xbeef02xx to method
+0x0060, and the probe itself comes from the shared nouveau Gallium code
+rather than from anything NV50 specific. Say so here so the narrower
+wording of the subject is not read as a chip gate.
 
-1/4 The channel-kill subscription outlives the fence context in
-    nouveau_channel_del(): the context is freed first and the event is only
-    dropped later, among the nvif object teardown. A kill delivered in that
-    window walks a freed fence context.
+Evidence: 99 occurrences across three logs from a second, independent
+MCP79/MCP7A machine running 7.0.10 and 6.12.90, under both Xorg and
+Wayland, with kwin and plasmashell named as the faulting clients. On my
+own reference machine the filter went in before the persistent kernel
+log did, so I cannot show a clean before and after from there.
 
-2/4 The subscription is armed before the fence context exists.
-    nouveau_channel_init() subscribes right after mapping userd and creates
-    the context at the end of the same function, and the backends publish
-    chan->fence from kzalloc() before nouveau_fence_context_new() initialises
-    its lock and pending list. The NULL check in nouveau_channel_kill() does
-    not cover that: the pointer is non-NULL and unusable.
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Marek Czernohous <marek@czernohous.de>
+---
+ .../gpu/drm/nouveau/nvkm/engine/fifo/nv04.c   | 26 ++++++++++++++-----
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-Both are pre-existing. Both are unreachable below Fermi today, and on Fermi
-and newer the windows are narrow, but they are real, so 1/4 and 2/4 carry
-Fixes: and Cc: stable and stand on their own. I should have carried them from
-the start. The v2 cover letter even described the teardown ordering and
-dismissed it as "most of that window is harmless". That judgement was wrong,
-and I appreciate the catch.
-
-3/4 and 4/4 are unchanged in code apart from the rebase and one joined format
-string. Both commit messages have been corrected: 3/4 no longer implies a chip
-gate it does not have and no longer claims a before and after I cannot show,
-and 4/4 no longer says the fences time out, because they cannot.
-
-3/4 downgrades one specific CACHE_ERROR to debug level. Mesa's NV50 bind
-probe writes a known method and data pattern that the hardware rejects,
-repeatedly over the life of a session, and nouveau has been reporting it at
-error level ever since. It changes no behaviour beyond the log level and is
-unrelated to the two fixes above; it has simply travelled with them since
-v2.
-
-4/4 lowers the channel-kill subscription from FERMI_CHANNEL_GPFIFO to
-NV50_CHANNEL_GPFIFO. On its own it changes no observable behaviour, because
-nothing kills a channel on Tesla today: the only nvkm_chan_error() callers are
-the Fermi and newer recovery paths. It is worth having anyway. Leaving the
-ERRORED event delivered into an empty notifier list is a latent dma-fence
-contract violation, and it is exactly the trap the recovery work would fall
-into. Removing it before anything can fall in is the right order.
-
-What is not in this posting, and why
-
-  v2 carried a third patch, the recovery path for Tesla cache_error and
-  dma_pusher faults, and the five-patch v3 I had prepared carried it as 5/5.
-  It is not in this posting, and the bot's third finding is not the reason:
-  that one was a real bug of mine and is fixed.
-
-  I ran an adversarial review over the whole series before sending, and it
-  found two defects in that patch that the bot had not flagged:
-
-  - nv04_fifo_recover() has no chip-family guard, but nv04_fifo_intr is .intr
-    for nv04, nv10, nv17, nv40, nv50, g84 and g98. On NV04 to NV40 the
-    escalation would therefore fire while 4/4 deliberately installs no
-    subscriber, producing exactly the dead-letter hang that 4/4 exists to
-    prevent. The series would have contradicted its own reasoning, in the same
-    diff.
-
-  - The recovery path pulls the drm_device out of drvdata on every fault,
-    while nouveau never clears drvdata and the only cancel_work_sync() for the
-    wedge work runs in nvkm_fifo_dtor(), that is after nouveau_drm_device_del()
-    has already kfree()d the nouveau_drm. A queued work reads freed memory.
-
-  The first is a one-line guard. The second wants the wedge policy moved into
-  the DRM layer rather than patched where it is, which also removes an nvkm to
-  DRM layering violation I should not have introduced. That is a rework, not a
-  fixup, so it goes into its own posting once it has been rebuilt and soaked.
-  Sending it now would only waste reviewer time.
-
-Testing
-
-  Reference hardware: Apple Mac mini Late 2009, MCP79 / GeForce 9400M (NVAC),
-  Core 2 Duo, Wayland (labwc).
-
-  Build. Unlike v2, this series is built against the stated base commit: the
-  nouveau module compiles and links with zero warnings and zero errors, with
-  the new format strings and the lowered class gate in place. checkpatch.pl
-  --strict is clean on all four patches.
-
-  Soak. Code equivalent to 1/4, 3/4 and 4/4 has been running on that machine
-  since 2026-07-25, and equivalent to 2/4 since 2026-08-06. The first spans
-  the kernel bumps 7.1.5, 7.1.6, 7.1.7 and 7.1.8, the second only 7.1.7 and
-  7.1.8. Since every channel now subscribes to the kill event, the interesting
-  long-run question is channel churn, so the soak is ordinary daily driving
-  with a browser and GL applications rather than a synthetic loop. No
-  regression has shown up in that time.
-
-  What the soak does not show, stated plainly: that tree carries local patches
-  this series does not, including a cap on the plane-fence wait in the
-  nonblocking commit tail. So the soak says these changes do not misbehave in
-  daily use. It is not an independent demonstration of the failure modes
-  described above.
-
-  1/4 and 2/4 are ordering fixes for windows I have not managed to hit
-  deliberately on this hardware; the reasoning is from the source, and the
-  bot's reading of it agrees. I would rather say that plainly than claim a
-  reproduction I do not have.
-
-  3/4 filters a benign CACHE_ERROR that Mesa's NV50 bind probe triggers. The
-  logs behind it are from a second, independent MCP79/MCP7A machine, not
-  mine: 99 occurrences across three logs and two kernel versions, under Xorg
-  and Wayland, with kwin and plasmashell named as the faulting clients. They
-  were shared with me by the tester who reported the original NVAC issue. I
-  have not named them and have added no Reported-by or Tested-by: we have
-  not been in touch since then, so I have nobody's consent to point at. On
-  my own machine the filter went in before the persistent logging did, so I
-  cannot show a clean before and after from here.
-
-AI assistance
-
-  Lyude asked on the v1 thread whether these patches were written by a human
-  and pointed at Documentation/process/coding-assistants.rst. The answer,
-  repeated here for the archive: this work is AI assisted. I use Claude
-  (claude-opus-4-7 for v1, claude-opus-5 since) as a coding and analysis
-  assistant. Every patch carries an Assisted-by trailer accordingly, and no
-  Signed-off-by is added by the tool.
-
-  Nature of the assistance, so you can calibrate your review: the assistant did
-  most of the code archaeology and drafting. I described symptoms, asked for
-  the mechanism to be traced in the source rather than guessed, and asked for
-  each claim to be backed by a file and line. The measurements quoted in
-  earlier postings are from the machine, not model output. The assistant also
-  reviewed its own earlier work adversarially, which is how the two defects in
-  the dropped patch were found, and how several unsupported claims in the v2
-  cover letter were caught before this posting. I reviewed the result, I
-  understand the code, and I take responsibility for it.
-
-Changes since v2
-
-  - new 1/4: unsubscribe the channel-kill event before the fence context
-  - new 2/4: subscribe to the channel-kill event after the fence context
-  - both found by the Sashiko review bot on the v2 posting, confirmed against
-    the source before acting on them, and now carrying Fixes: and Cc: stable
-  - dropped the Tesla recovery patch, see above
-  - 3/4 and 4/4 unchanged in code apart from the rebase and one joined format
-    string, both commit messages corrected for accuracy
-  - the series is now built against the base commit
-
-Marek Czernohous (4):
-  drm/nouveau: unsubscribe the channel-kill event before the fence
-    context
-  drm/nouveau: subscribe to the channel-kill event after the fence
-    context
-  drm/nouveau/fifo/nv04: filter benign CACHE_ERROR from Mesa NV50 bind
-    probe
-  drm/nouveau: subscribe to channel-kill events on NV50 and newer
-
- drivers/gpu/drm/nouveau/nouveau_chan.c        | 64 ++++++++++++-------
- .../gpu/drm/nouveau/nvkm/engine/fifo/nv04.c   | 26 ++++++--
- 2 files changed, 61 insertions(+), 29 deletions(-)
-
-
-base-commit: c21bb4193868a8de71fc4693fa741e195fdf5d86
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv04.c b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv04.c
+index c4b8e567d86f..ab144c1bd9da 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv04.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv04.c
+@@ -327,12 +327,26 @@ nv04_fifo_intr_cache_error(struct nvkm_fifo *fifo, u32 chid, u32 get)
+ 
+ 	if (!(pull0 & 0x00000100) ||
+ 	    !nv04_fifo_swmthd(device, chid, mthd, data)) {
+-		chan = nvkm_chan_get_chid(&fifo->engine, chid, &flags);
+-		nvkm_error(subdev, "CACHE_ERROR - "
+-			   "ch %d [%s] subc %d mthd %04x data %08x\n",
+-			   chid, chan ? chan->name : "unknown",
+-			   (mthd >> 13) & 7, mthd & 0x1ffc, data);
+-		nvkm_chan_put(&chan, flags);
++		/*
++		 * Filter the benign Mesa bind probe: mthd 0x0060 with data
++		 * 0xbeef02xx is a harmless userspace probe and does not
++		 * indicate an actual error condition. The test is on the
++		 * method and data pattern alone, so it applies on every
++		 * chip that reaches this handler, not just on Tesla.
++		 * Demote to debug to keep dmesg clean while still catching
++		 * real CACHE_ERROR events.
++		 */
++		if ((mthd & 0x1ffc) == 0x0060 &&
++		    (data & 0xffffff00) == 0xbeef0200) {
++			nvkm_debug(subdev, "CACHE_ERROR - ch %d subc %d mthd %04x data %08x (benign, skipped)\n",
++				   chid, (mthd >> 13) & 7, mthd & 0x1ffc, data);
++		} else {
++			chan = nvkm_chan_get_chid(&fifo->engine, chid, &flags);
++			nvkm_error(subdev, "CACHE_ERROR - ch %d [%s] subc %d mthd %04x data %08x\n",
++				   chid, chan ? chan->name : "unknown",
++				   (mthd >> 13) & 7, mthd & 0x1ffc, data);
++			nvkm_chan_put(&chan, flags);
++		}
+ 	}
+ 
+ 	nvkm_wr32(device, NV04_PFIFO_CACHE1_DMA_PUSH, 0);
 -- 
 2.54.0
 
