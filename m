@@ -4,95 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B184C5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 08:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66FBAC5CFDB
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 08:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6989E10EED9;
-	Wed, 12 Aug 2026 08:39:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82BA710E3F3;
+	Wed, 12 Aug 2026 08:46:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X3hNXmLC";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="2ZVWsRTU";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48E2910EED9
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:39:19 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-47fe45db360so68318f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 01:39:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786523958; x=1787128758; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=iTwjESD9HnwpOl/QOYMlTaCAN0eAUwIAYn/lLI/hTrg=;
- b=X3hNXmLC9t+w5q6FP9x0WaE1ccEmfBy/mxN0cnrvX2zQBGs+pSCQPifbQLw4kr0hah
- c1SdZjX1LfDORa/xp/r6Pa5Vz/X7WvvYeJn5DZ8PayMyNdh+BeMYd/kmbndcFkX8iUYZ
- So+EeHxWUDfiTmYBG/7pr1xNHYrUja0qSahyB3LAgZgGWwSgbiO/pOghG9VK1Vt1AGMk
- QMnBLGzD4/YI1pHjhQCWDjtaTZk3E3LsnuQFqwJd9ZKm2MM7DmTWB6Up/k5IUQSZjilm
- 6BvCyjpoz2BUBZuiAyjT6PyzLN8Efw+SO5eme0RnYmTBvnqAmbgnJEJEcHZYNzE3G/ul
- 7mZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786523958; x=1787128758;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=iTwjESD9HnwpOl/QOYMlTaCAN0eAUwIAYn/lLI/hTrg=;
- b=VXi+Pw2/gKPXK75w3Z3Yp4si5ejv6VlwZk4WzQnya1NxczntANYtxPlz8b22UTBAhI
- 8QvB9mSnLSJbVdWQzs8pqfEUm99d2x2GcN/PCYeN4kyDyH0VStH7i7hR60NHtPADxxOO
- ohEdAxgmdAsKqmGAHRpt5kH7xl3OYeNshgGNAWaAQx/1vW/tvc8m759Opsv+Znnv5ZR4
- YGhqQ3/CGxYgKrJcZqweox/uUas/722J7cl2UfLYyEhtDT9nMv7Nn78LyVIrAHpzZ3DI
- xofPB6zV0UbEqYJ/EJDatumMXcuYusuBYRNtU4rvU85aJOH9z9cOzrXpZp7vEuK4jFkI
- u5rQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrqSUL97dU+qnESNg+lG2KrS1qF+41S7MRuWGuW7XSbmftz4kWBpvUQNQY/WPdbWXpX9VKDlwAh8Zc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjxF+J8Gu8YW+XmGYu/22G63oqb49jnP084F1kzMZVYfqXiZna
- CjL6VdvpLbr6Gtawhw8DaEXMJ7G6lKP4bNb+DC0nntddeZwZAXHpMDeI
-X-Gm-Gg: AR+sD12IrGNcpzYtCW15m6nQ+P5nfnFRrfqXC6tShHer7sAP8zyn08XBStTpUHJrG8q
- rXCy0jNWGrg90hMC8oiYDIfxkJCZ2UcXjMMmNgO0M40semDKrn7ARWzz1sNNiftH/Nzs2vYxj/V
- yLdEr1wLnf29kT2ku5x743FmOZ97d5fDnL30XEPNaluNgio6oOit2o+tWAfA0DD/Ow2XZCMEVEz
- i1bBcrF5igcF9v/TJk63BUDEchm/l7adhIkn9ax7QBfXD188GE57+GTaTQ521smdfaqzuW2fA8H
- ycR6kYtLExtL54SsmX3nDjGDIb+hxOlfmYZnbW31SbguECNVeZkGodklIwUpjI0ZAxlISU6IvyW
- TgcK72BzHt0BktxQlhR4bdYVunW8RXtr3NdnrJamhJKDoXjl6uQkL136+74T4AE4zTKb07f28br
- QMPR/VMsLj+Rhwb4FwcJtHTUNpm2fDdXWaERBLW8h83exyOUX2YdlUVFsUuDrxtU0zO9FO/62yT
- Ot3y7TTfTdfpWnU/cfup5C7LVFlWkSP5txq/eCgmjigLOoEvH7GRrqiGmoTiSjZKdFnCQ==
-X-Received: by 2002:a05:600c:1f92:b0:496:c249:ddb1 with SMTP id
- 5b1f17b1804b1-4997c1582dcmr18291075e9.4.1786523957466; 
- Wed, 12 Aug 2026 01:39:17 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B84A600FEFE3CD53078703A.dsl.pool.telekom.hu.
- [2001:4c4e:1b84:a600:fefe:3cd5:3078:703a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4997abf94c1sm53087835e9.14.2026.08.12.01.39.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 01:39:17 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Alexey Charkov <alchark@flipper.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: drm/rockchip: vop2: ACLK_VOP pinned at 500 MHz starves DP 4K120
- on RK3588
-Date: Wed, 12 Aug 2026 10:38:52 +0200
-Message-ID: <20260812083857.60460-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <7759116b-0beb-4d25-b269-c020a8379cef@rock-chips.com>
-References: <20260808104240.13776-1-royalnet026@gmail.com>
- <33bd4a94-11af-4cf3-ae44-b7f8944250f6@collabora.com>
- <c0a7521d-9c19-4197-802b-2b64a6ddea28@rock-chips.com>
- <20260811212358.9980-1-royalnet026@gmail.com>
- <7759116b-0beb-4d25-b269-c020a8379cef@rock-chips.com>
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A02B510E3F3
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:46:14 +0000 (UTC)
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id 622065340228;
+ Wed, 12 Aug 2026 10:46:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1786524372;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4+bhS8F6XtythKonanhBEVFm3CxuuRt8oHeQlggx6/w=;
+ b=2ZVWsRTUnc9qoDxD+Z1a+Khe5cDp3C02IJuyPBYsk+86NYuKzoKA1L44904gkurqe0wuDc
+ FA0SDhw5eQSUBlJoPHmvMgwCWQKgwKA6kAQLwHm0/8DHxitcY9FZZBe96dFz8UHtz5SwRs
+ ogQQInDw5YkPSvKu9ecmlK57P4iEJhw=
+Message-ID: <7097b617-90be-492d-9637-4a2a101379e0@ixit.cz>
+Date: Wed, 12 Aug 2026 10:46:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
+ NT37703
+To: Esteban Urrutia <esteuwu@proton.me>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
+ <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
+ <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
+ <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,101 +114,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chaoyi,
+On 12/08/2026 07:21, Esteban Urrutia wrote:
+> On 8/11/26 9:05 AM, David Heidelberg wrote:
+>> Hi Esteban,
+>>
+>> Usually the used pattern is vendor,ddic+panel-model
+>>
+>> novatek,nt37703-motorola-bronco
+>>
+>> ...but motorola bronco isn't the model of the panel.
+>>
+>> My recommendation - look at some video of screen replacement, stop at moment
+>> when FLEX cable from panel is visible and that's where the panel model usually is.
+> 
+> 
+> I somewhat doubt the panel model would be located in the FPC cable.
+> I did search anyway but didn't find anything of interest. And I'm not
+> willing to risk damaging the display flex or the battery of my
+> development device just for a possibility either.
 
-That is exactly what I was missing, thank you. Having the vendor's
-decision flow meant I could stop guessing and go measure the case where
-my rule and yours disagree. I have done that now, and the result is
-worth more than my earlier argument was.
+No-one asks you to disassemble the device :)
+Sadly, I haven't found any video doing display replacement either.
+In worst case such as this I assume it make sense keep the phone model in the 
+compatible until panel codename is found.
 
-First, on equivalence: I do not think my threshold is equivalent to the
-linedur_ns term - it is strictly narrower. With
-linedur_ns = crtc_htotal * 1000000 / crtc_clock, and htotal 4400 for the
-4K modes my panel offers:
+> For the compatible pattern I used the implemented pattern for the
+> NT36523 TDDI, which is also used for other ICs such as the RM69380.
+> 
+> So, I believe it should be okay to leave the compatible as is.
 
-  3840x2160@120  1188000 kHz   linedur_ns 3703
-  3840x2160@60    594000 kHz   linedur_ns 7407
-  2560x1440@144  ~586000 kHz   linedur_ns ~4600-4700
+I would like to hear a word from Neil first. In similar cases like this would 
+make sense to have one way defining these compatible strings used in phones.
 
-My VOP2_HIGH_BW_PIXCLK_KHZ of 1000000, at htotal 4400, is the same as
-saying linedur_ns < 4400 - about 1.7x stricter than your 7500. So my
-rule declines to boost in cases where yours boosts, and 3840x2160@60 is
-one of them: your rule raises it on two counts (crtc_hdisplay > 2560 and
-linedur_ns 7407 < 7500), mine does not raise it at all.
 
-So I measured that case. I unplugged both HDMI cables, leaving the
-DisplayPort output as the only display, and switched it between
-3840x2160@120 and 3840x2160@60, reading aclk_vop and dclk_vop2 from
-clk_summary at each point:
+bit I missed in the review the part:
 
-                        4K120 (YCbCr 4:2:0)      4K60
-  dclk_vop2             594 MHz                  594 MHz
-  aclk_vop              750 MHz                  500 MHz
-  vop interrupts/s      120                      60
-  POST_BUF_EMPTY        0                        0, over 60 s
++            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
 
-The dclk is identical in the two states, because the 4K120 link runs
-YCbCr 4:2:0 and the 4K60 link does not. The interface rate did not move
-at all. What moved was what the video port composes - a full-screen 4K
-ARGB plane at 120 Hz versus the same plane at 60 Hz - and the AXI clock.
-That is the separation I told you I could not make from my earlier data,
-where mode and composition moved together. The interrupt counts are one
-vblank per frame in both states, so there is no starvation at either
-point.
+Unless the driver is able to auto-detect the connected panel (unlikely), 
+novatek,nt37703 doesn't make sense. The DDIC without the panel is useless.
 
-3840x2160@60 is therefore clean at ACLK 500 MHz with a full-screen 4K
-plane. For that case the downstream rule boosts and does not need to.
+For example, in sdm845-oneplus-fajita and enchilada, we have the generic 
+compatible because it was introduced before, so it's kept for compatibility 
+reasons. There is no need to do that here.
 
-Putting all four points I now have in terms of composed pixels per ACLK
-cycle:
+Thanks
+David
 
-  3840x2160@120   995.3 Mpx/s   500 MHz   1.99   storms (116630 irq/s)
-  3840x2160@120   995.3 Mpx/s   750 MHz   1.33   clean
-  2560x1440@144   530.8 Mpx/s   500 MHz   1.06   clean
-  3840x2160@60    497.7 Mpx/s   500 MHz   1.00   clean
-
-The boundary sits between 1.33 and 1.99. That quantity does not depend
-on the connector or on the pixel format, which is what I think you were
-pointing me at, and it fits every point I have rather than the two I
-started from.
-
-The honest limit of this: all four are a single full-screen plane on a
-single video port. They say nothing about plane_num_4k or crtc_num > 1,
-which are exactly the terms my condition has no counterpart for. I am
-not proposing to drop your terms - I am saying the two mode-derived ones
-appear to carry margin for this shape of workload, and I would rather
-ask than assume.
-
-The other thing I had not appreciated is where the decision lives.
-rockchip_drm_aclk_adjust() runs from atomic_commit_tail, so it is
-re-evaluated on every commit with that commit's plane information, and
-aclk_adjust_frame_num holds the boost for two more commits on the way
-down. My unsent patch puts the decision in vop2_crtc_atomic_enable() and
-_disable(), which only run on modeset. A condition that depends on what
-the planes are composing cannot live there: a client swapping a 1080p
-plane for a 4K one without a modeset would never be seen. So the
-placement has to change, not just the condition.
-
-Two things I would still rather learn than guess:
-
-  - Is the two-commit hold on the way down a hardware requirement - the
-    rate has to be up before the frame that needs it and stay up for a
-    beat after - or is it belt and braces? It decides whether an
-    upstream version needs the same hysteresis.
-
-  - Are the mode-derived terms describing something the hardware stalls
-    on, or are they a conservative stand-in for "this is probably a
-    heavy scene"? My 4K60 and 1440p144 points only make sense to me
-    under the second reading.
-
-I will rewrite the patch along the lines of your flow rather than the
-pixel-clock threshold, and move the decision to the commit path. For
-what it is worth, the version I have been running locally since 7 August
-has driven 3840x2160@120 HDR over DisplayPort with no HDMI output
-present at all, which is the case the FRL-gated condition cannot serve;
-it also drops the rate back to 500 MHz on modeset and restores it, so
-the refcount side behaves.
-
-Thanks again - this turned a guess into a measurement.
-
-Igor
+> 
+>> David Heidelberg
+> 
+> 
+> Regards,
+> Esteban
+> 
