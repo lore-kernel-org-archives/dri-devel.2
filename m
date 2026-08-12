@@ -4,129 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E4EFC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:20:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C41B2C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:22:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAB9D10F023;
-	Wed, 12 Aug 2026 14:20:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 328EC10F025;
+	Wed, 12 Aug 2026 14:22:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gVmwqn/m";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Iq9vQAXm";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013041.outbound.protection.outlook.com
- [40.107.162.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F4E410F023
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:20:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UdMFGXYaeMiz54Lkc8/G7pmRFgOp6YPoqG4hkd3X8wNiSb8boKveCGrbfaXiWd+kMZC/CSny0snGp7ta8V7ulUgmdavuelMcfeYIr8d3m0fU0pW2UGpX/yfDSm1/23fDCce8vOUwyXMLh9Rt6i4GDugXebWWHLtYG66hhnP8u9kJRMBVWBJejwE2eP1y3Cp0FOKv/lsM2n25RQPN7BvV/n12/2XNxX8fD1BH2zFa6IIo5iwwF5Oj2OBXdy0PAnIUHk5Jgki5Yzu4wmRuJ9ui1DAKUpKgxzv3P6s9CVupgJtM8nHxnz+AxKgOu0WmEZ6WVn4f4RwLjy21UD0QnWjvPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=An4zeuydARqKnZALFmdBlJulO67EiBLBol4gK5VRiKg=;
- b=tDNIpEz59RiXB49be+mek9roPtpCgPxNJ51cY6Ah/cUmJrQUMUYadepoYniYR9mkkXdax2W4TlPNBIyBDtgbUcffNm7y6Mc4rTj/Cy3osW8XlI9Te+h9ZbEhZD+TR8Z+506/eir+uQjfsMQdzaBbjIYE2qdda5f3pyoXR15x3Xxm31rrYrOv4h9nUiBJqk5fxmTTndhOT0Vp0SuLzN7lT+WMpMBxfWMfoTNMuSiS/rC9/2fhe0EvB7fM3+zgBdJJ9W4ok949X0X5Jc22yWT6UKzvgX9ZcdK4mFmDwK9Z6QRmnVlGIPf1I+GcStesNO0xJ9I9E6bwuqBvx6hlMfkiSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=An4zeuydARqKnZALFmdBlJulO67EiBLBol4gK5VRiKg=;
- b=gVmwqn/msOikpfTwSCso/stG4wbLmLvnPwgoV0R5HfIXtfnMUvo2nFNEFfk46+U9ldHfsafUPPkwapwD/8Q9ue0JKH0xaYm7crETZb1jmZrGuxQekZPXAcD+CxEYdKlIPWN9H+ij7O8qlUWD6QRuy1TrmwlIue3prQAtE6r2XDreqB3R4Pt1ATVrwHaVoi2HMIGomD8+F1eYeEgOV3mhHFKrPUEp7gFUxQ0LdAWfj8Aoz0NBmICneWsHGSje9oKNHP8S1R/eB6VCSsrIRc7fyQqKYmQTmUfj2naLGXPvw9nQO8jL2oBtw8MVA2P8izKpqOdQziUYA6M5f4/SJzpSqA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM0PR04MB6978.eurprd04.prod.outlook.com (2603:10a6:208:17d::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Wed, 12 Aug
- 2026 14:20:31 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
- 14:20:31 +0000
-Date: Wed, 12 Aug 2026 09:20:20 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5005710F025
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:22:06 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-49558ce01afso8153625e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:22:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786544525; x=1787149325; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=aSBaDCiHXcH7od8kZUYH0XWJkxiBBbB5RxDxKzyH17s=;
+ b=Iq9vQAXmXl0tY2BrGN0sej9DTBY7Y5zPchWpH5ine6K2o/3QavcXgkbKQtTjY3PgDB
+ Olp1yIvyEyNO7wJOY8t6bwuMO182ktKszfyHWivGNsR051Xbh+CtyQKp2DUqcOhvz5NG
+ nbYdMtxNPlV9SKWg+60ZcnHZBCKOIIXdDk0gmJypqoAx3x+EfpoegOmckPmFTpV//wbZ
+ KSnaTKsItwPFQMIou345i0D0tI72EOFYX8cABZ9I8QSbryvSWEeYgBv6A1HTsSaYnTwB
+ xfhNUCjCs7tXk981HaMlF3zo8qYR3vRSF5afAAwyLSIXKFZq+6Vmx+w3gcwYtpQQJrSA
+ pTNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786544525; x=1787149325;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=aSBaDCiHXcH7od8kZUYH0XWJkxiBBbB5RxDxKzyH17s=;
+ b=af/76+jTRCpnvCDhi6hC6C61ghfzW7JpuLI+aTgkVwqLQZXJ7/3QS44Qu+VmufA3WS
+ 5H/o5SPDqDr/JHFde4muDv9698fKwIwZYHDg8gSBHBLe4l8WTqaq37w1xzfolU0aXmvs
+ kM9r1V7qDjsEJMcrcEvSIkZr4QM78AMRC26IkDSFi212PmznIkRjuh6ftnzRgNl8k8IM
+ grM3Re4cMMr116w3DQ9kCwKJFZcDSWPPPlMMXTzA3oTy+qvWV1Smq26Boy7GT8V0GSbA
+ SOWVggIgCVc9hnzNFqiqqDFBGMePBFrnad/ZWrHOP+QvqiwNtkPlXJZxI7sWeMimwzW3
+ Z2fQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RohyOxjZJ1AttTEcEhkEFsqjZFIbsit14dq9EJJ8+Uzn67k+x82t4IjLJVoK6fuBvCqjs7dqGgPWOI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3dyt2xQCDqcnh3l6792YXtqlUxI51Q/Xk7Bw2fofPxGoYn94H
+ kLPMyV/fLUOjU0amtwjDm6jX19pkRh9L8MdymjRHDpjXSzNIRNAsJSt5
+X-Gm-Gg: AR+sD12NxE01z/5SIPI51tPSREDy7ifOgwK+AXiTGlyZPfSKm0N8agrOnTHpwt1+k4B
+ R+BhFsrOK7tuQkoyQOCmJPfaAk60rWUuEFXHCRqpMbMjtLlRn7CtN5Wfcnsf4Nf3pEmFS8RkLn3
+ iycYOptVcJjxogiQ3lofSPZSoz27JzmTghYL/hLA5ZiLN5K1ZTEMgzgoHHZwLYo0LCdBNSF9Txs
+ tddJZUbNc1y3/FolPgIyf8mzdPDQqkmOjeMRkh4Tr63tAXK8H0ih10NfD8Lz+y+IN341fb1Kjw2
+ Essk2zKYU6zhf5LRrWLTeGZJqH2erPLVEzvlAo0e+IMATR8ylvaQw3VJEQL9TkW1+x2UShSf04n
+ 0lOdQjj/JJ1ZHp/HR2c5IjjnQ2DqjTOkUxT/S2sng4GO+joEUADsoDD/Iy2fvP8Nk+RT+IvWkER
+ M5KWQFcj2XpRVsQMbw4+o7eWnvDEvUtSwX5+yJQRoohYDzuKFec78wBcTU2phRFM438xwkHpV/Z
+ 5Rr2CsrnrS4nmK1Kb50jX/Mac+m0pWXghMO
+X-Received: by 2002:a05:600c:3f0c:b0:495:4d5c:903e with SMTP id
+ 5b1f17b1804b1-4997c10aebbmr85438685e9.7.1786544524351; 
+ Wed, 12 Aug 2026 07:22:04 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:3d2e:78f3:cfb2:413d])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4997c993d80sm55360995e9.12.2026.08.12.07.22.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Aug 2026 07:22:03 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: luca.ceresoli@bootlin.com, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Message-ID: <anyBJMt6U2zXKlCh@SMW015318>
-References: <20260812132954.148571-1-francesco@dolcini.it>
- <20260812132954.148571-3-francesco@dolcini.it>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812132954.148571-3-francesco@dolcini.it>
-X-ClientProxiedBy: PH7PR10CA0007.namprd10.prod.outlook.com
- (2603:10b6:510:23d::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
+Subject: [PATCH v4 1/6] drm/panel: Use managed helpers in BOE panels
+Date: Wed, 12 Aug 2026 16:21:54 +0200
+Message-ID: <20260812142155.51941-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6978:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7b74a6d-892b-4640-7183-08def87cddb8
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|19092799006|7416014|23010399003|376014|1800799024|22082099003|18002099003|11063799006|4143699003|10067099003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info: oA56ete6xLyhz9RXXKEm3LJSk6rv+IywT7Q8+0pk3dUZ7ANTc5FFU/HtYM14S1wqq8SNOa8BLg09P0plSifpaa0KZnnYEMzG+FgmeaionX7FpT3jl9YpVBqayoRqG1T7AGmZ131Y/FBS/QmnfLa+63wJNXbCyad/sojMpqxwEud29QtRL6L6GZ18cseTxAyoDIGGwllEMyiAgnWsg9t1/jNkRFixlOemf3AumQCHWf32DQuPALl7OXJKnYojyZKy++tylTUBjIccXtHeJQle3EYDn8l73VXCKUaccIJ/WeGQeARigA23yWxmooOztGCUtSd7cW6/aTBNnxjkqkB7XtTs3wWgXVqc5R9nbxaoNwVjrMrY1r1peqQ5STGXOsnhVIULFo5XSZjg0o2PwegoRqxP0GP++/85MT4eKKSxH82RSXmnw+euFRPmmBKY8UhQX2MR1wQPmqn+wQ58EQprSfCWxq/023kz2BdXEDWGARxhlotSq+parWaxBS6DOgw0/l5/Kzit9uo0qu2WDmh8I4ws4ooiaJftZnxahBse7gdhBy9UXNUHJnzbdOWbs6PqWDiguc3eD2It64Ca/05s10dpBjtl54sFwmwGE8s0P9EgMpa8j4GrSonOA1YGfx7Pt/dF0ouZ+GJGsrLJNKcqpdYDUjiyHQGcYPNEuJvb1Gw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(19092799006)(7416014)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(10067099003)(56012099006)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZLvgR4RgqAB2Bkf4O6inC4uRbfrGE5kd9UP9Fwtp2U3xr2e7Il10Ckop8XzK?=
- =?us-ascii?Q?o9pGq30y2XLAbVfN7s5eNawOTcd5ykY8dqkbx7imlMbbeAEWJavTzWQtL7aN?=
- =?us-ascii?Q?SctEOnSvyWMujCaDVs33P+YDhPqIgnPX37OginC/fgCazmHjlYJmoNx9b5vE?=
- =?us-ascii?Q?lXc1F+qj4oS6lB8j9SQtPjbgBT4gBlgQ2YygtsILfoQ/VTxhyTTVM9CZ2rG6?=
- =?us-ascii?Q?uRCaRMlBUNFefVk48sccgtJZsLZhfJhcqWQAYahjTe1igenP2CSLFj+5uD8T?=
- =?us-ascii?Q?7SQBOoG4C6TNLk+RHGQkDB+yxCu2uoRRPq3QwLpK+O53NatvtqaLwthdIDSm?=
- =?us-ascii?Q?aU67CPTZgyd7G1KaPxDuiubKRu+YEbgEW47/kQkxlgjbzZDtdjPkgZvbS0Fn?=
- =?us-ascii?Q?xrSPH3u4BjhAHHwswwPLE8pFv7gTCirIVS7qybGtYZf7SeETweOcZY1s8NkI?=
- =?us-ascii?Q?mDaGielD3YfbMUxbP1EfnAr/3DV5rGpiab3KwKdHpmY0lGSdOJnF21e2rRKV?=
- =?us-ascii?Q?GLIBOZ6aQq/JQPTEBgvEXnl58HKf/teqfSBrLVqY74GCFbq2cOfJLdC6uqCT?=
- =?us-ascii?Q?WOIkS5u+Rdy0hg4wyGSIfySFr3z0Z7WdOuH3Ig4m+wyQeppXFkjU/df8DpHh?=
- =?us-ascii?Q?tukwboLTyFI9UWqhk3TSUAJbmVM4Is7pFtni1e8i/oeC9T6vL9xtGWKtwtQo?=
- =?us-ascii?Q?f0v1X1rRf2GRFAEsbJIuQxXB3H8fGubrbWl8G8h3midpkiK9ZEVNMa+lsUm7?=
- =?us-ascii?Q?1iwJQEl+FI+Jc7PlbZPnM+iGG2PnGiFHm9s807VnUcxrTkzH7fshWngrpqwv?=
- =?us-ascii?Q?IX+nRjqnl7wi/SfFPYywEJzImPEjP/Hnjby6TsTSCThEAcPqKu4WlKrD4AnK?=
- =?us-ascii?Q?wPryiUPCoyngBw+DzP6LqzCZPh5siPWk1aaIbPES2LmgQVTGn9NzB2go8R+V?=
- =?us-ascii?Q?tc6vUPGsvXBvsJd0DkyAp3m+9IhkE5Gv2tiy1L+BfGn2bnNms7N2W6xBqfQx?=
- =?us-ascii?Q?t+Vrr9SZIgzSsyWxjOc49x+z5SYZpuAaIjWnGabQaL8tj0ckzQYomjcUupqd?=
- =?us-ascii?Q?dPz6yaF+tE+XHMMyfDu2tWlSBFJT31dLKtGDh6QmqeYrvIreEFERygQESw83?=
- =?us-ascii?Q?I8fsBswKZICLIumVIRL1eF9IwWAHa94ax2PzWVR8JiYtEykLZXT0Boq7uQuW?=
- =?us-ascii?Q?5uvK7kjnK0W8Mj/I48Xi6lhQJJ3E2G1r09B9ie54BsoNZiczraxJTroq+ZDN?=
- =?us-ascii?Q?JLCqmcEAI+8Vnm0Zd2jBUkQAl+Ql6z7MHZviAOf/75miYuTDkVJ0FXfr80d1?=
- =?us-ascii?Q?CDs78ObV17duaxB49m1N9YBOhB6tmzuIqOTg8v1yv1ks+F+UM6AMBW2PLB9A?=
- =?us-ascii?Q?U0UwYqwHUUq2iDzYBTLN0mMC1TsvMVkF6wMqzHX3LdM5XQs3M9yeIXEu8KSC?=
- =?us-ascii?Q?aX/PxLaWsR+rM8eYuU8YG9fGAX+Wvlk2LqeB9WjhVw7GqtdEb9YI27Fmpyeo?=
- =?us-ascii?Q?8dnqjbz1dia8Cym4EHjlKhx9egyr4DXlUHyqogvFvfYwTyqYgYV/k2thGVR1?=
- =?us-ascii?Q?MILbHspsVGu1Btk74Wg730qPoDHkfZHDOwIpeEifnzFD/0lvj8ZiL2TgY4mu?=
- =?us-ascii?Q?nyDJ7V1nJxYAbhzGsp7vuZa3pFbLmEWDa+aPD3YtByPpBBb0iF0XPSljJRqW?=
- =?us-ascii?Q?PdEMTfrq8ERwBHqazMlMSeXcy7VX1Rvjj8CxXMTlp5xwDpEaCjNmA30/nPzA?=
- =?us-ascii?Q?UhiqXMLmWZmVZT9Npsr1ZUcL0F45n1K0uN9tStesgy4hYamFBrma?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7b74a6d-892b-4640-7183-08def87cddb8
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 14:20:31.5845 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 44WUBCeUJNrRwfQ9aMEf0K/agW4SfbA/PQK/lt2QBg+ES6+QLU1ZdhaiA4D2TFACjiGOU1yOA0Ay7NNlAXgxyRyD3oDAbYymG+7jWUQErNphTXTONgxe4/T/pGUuqEqQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6978
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,134 +93,305 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 03:29:50PM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
->
-> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> format reported by the downstream panel or bridge describes the display
-> input, but it does not describe how the LCDIF data pins are physically
-> wired on the board.
->
-> These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> 24-bit display by wiring the available color bits to the corresponding
-> display inputs. In that case, using the display's 24-bit format to
-> configure LCDIF selects the wrong data-bus mode and changes the assignment
-> of color bits on the LCD_DATA pins.
->
-> Read the optional bus-width endpoint property from the LCDIF output port
-> and use it to select the media bus format used to configure LCDIF. This
-> allows the LCDIF bus mode to describe the physical interface
-> independently of the downstream display format.
->
-> When the optional property is absent, or it has an invalid value, continue
-> using the format reported by the downstream display device, preserving
-> the existing behavior. The code is not validating the DT for
-> correctness and just fall back to the previous behavior in case of
-> errors.
->
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> ---
+Use the managed MIPI DSI attach and panel add helpers in BOE panel drivers
+and drop the corresponding manual detach and panel remove calls from
+remove paths.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+v4:
+- use devm_drm_panel_add instead of drm_panel_add.
 
-> v3: improve commit message and make it clear that the code assumes that
->     the DT is correct, when the DT contains an invalid property value,
->     the code safely fall-back to the previous behavior
-> v2: use the common bus-width property instead of the legacy interface-pix-fmt
-> ---
->  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
->  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
->  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
->  3 files changed, 38 insertions(+)
->
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> index 8b4a500347fb..f8ecc8bbd63c 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> @@ -12,7 +12,10 @@
->  #include <linux/clk.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/io.h>
-> +#include <linux/media-bus-format.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_graph.h>
->  #include <linux/platform_device.h>
->  #include <linux/property.h>
->  #include <linux/pm_runtime.h>
-> @@ -211,7 +214,10 @@ static int mxsfb_load(struct drm_device *drm,
->  		      const struct mxsfb_devdata *devdata)
->  {
->  	struct platform_device *pdev = to_platform_device(drm->dev);
-> +	struct device_node *np = pdev->dev.of_node;
->  	struct mxsfb_drm_private *mxsfb;
-> +	struct device_node *ep;
-> +	u32 bus_width = 0;
->  	int ret;
->
->  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
-> @@ -238,6 +244,24 @@ static int mxsfb_load(struct drm_device *drm,
->  	if (IS_ERR(mxsfb->clk_disp_axi))
->  		mxsfb->clk_disp_axi = NULL;
->
-> +	ep = of_graph_get_next_endpoint(np, NULL);
-> +	if (ep) {
-> +		of_property_read_u32(ep, "bus-width", &bus_width);
-> +		of_node_put(ep);
-> +	}
-> +
-> +	switch (bus_width) {
-> +	case 16:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
-> +		break;
-> +	case 18:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
-> +		break;
-> +	case 24:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-> +		break;
-> +	}
-> +
->  	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> index d160d921b25f..bdc47ce5be79 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
->  	struct drm_connector		*connector;
->  	struct drm_bridge		*bridge;
->
-> +	u32				bus_format;
-> +
->  	bool				crc_active;
->  };
->
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> index d8ebebc5314b..1d78c486d147 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> @@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
->  	if (!bus_format)
->  		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
->
-> +	/*
-> +	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
-> +	 * property when available. Otherwise, use the bus format reported by
-> +	 * the downstream bridge or panel.
-> +	 *
-> +	 * This supports mismatched display and interface bus widths, such as
-> +	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
-> +	 * panel connected through a 24-bit interface.
-> +	 */
-> +	if (mxsfb->bus_format)
-> +		bus_format = mxsfb->bus_format;
-> +
->  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
->
->  	/* Write cur_buf as well to avoid an initial corrupt frame */
-> --
-> 2.47.3
->
->
+ drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c    | 19 ++++-----------
+ drivers/gpu/drm/panel/panel-boe-himax8279d.c  | 23 ++----------------
+ drivers/gpu/drm/panel/panel-boe-td4320.c      | 23 ++++--------------
+ drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c  | 24 ++++++-------------
+ drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c    | 23 ++++--------------
+ drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c    | 24 ++-----------------
+ 6 files changed, 25 insertions(+), 111 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
+index 84c21c62a43e..e9519923c6d8 100644
+--- a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
++++ b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
+@@ -357,9 +357,11 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(boe->panel.backlight),
+ 				     "Failed to create backlight\n");
+ 
+-	drm_panel_add(&boe->panel);
++	ret = devm_drm_panel_add(dev, &boe->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		return ret;
+@@ -368,18 +370,6 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
+ 	return 0;
+ }
+ 
+-static void boe_bf060y8m_aj0_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct boe_bf060y8m_aj0 *boe = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&boe->panel);
+-}
+-
+ static const struct of_device_id boe_bf060y8m_aj0_of_match[] = {
+ 	{ .compatible = "boe,bf060y8m-aj0" },
+ 	{ /* sentinel */ }
+@@ -388,7 +378,6 @@ MODULE_DEVICE_TABLE(of, boe_bf060y8m_aj0_of_match);
+ 
+ static struct mipi_dsi_driver boe_bf060y8m_aj0_driver = {
+ 	.probe = boe_bf060y8m_aj0_probe,
+-	.remove = boe_bf060y8m_aj0_remove,
+ 	.driver = {
+ 		.name = "panel-sw43404-boe-fhd-amoled",
+ 		.of_match_table = boe_bf060y8m_aj0_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
+index 4a8560b4b899..facf37bd1c14 100644
+--- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
++++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
+@@ -851,9 +851,7 @@ static int panel_add(struct panel_info *pinfo)
+ 	if (ret)
+ 		return ret;
+ 
+-	drm_panel_add(&pinfo->base);
+-
+-	return 0;
++	return devm_drm_panel_add(dev, &pinfo->base);
+ }
+ 
+ static int panel_probe(struct mipi_dsi_device *dsi)
+@@ -881,23 +879,7 @@ static int panel_probe(struct mipi_dsi_device *dsi)
+ 	if (err < 0)
+ 		return err;
+ 
+-	err = mipi_dsi_attach(dsi);
+-	if (err < 0)
+-		drm_panel_remove(&pinfo->base);
+-
+-	return err;
+-}
+-
+-static void panel_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
+-	int err;
+-
+-	err = mipi_dsi_detach(dsi);
+-	if (err < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
+-
+-	drm_panel_remove(&pinfo->base);
++	return devm_mipi_dsi_attach(&dsi->dev, dsi);
+ }
+ 
+ static struct mipi_dsi_driver panel_driver = {
+@@ -906,7 +888,6 @@ static struct mipi_dsi_driver panel_driver = {
+ 		.of_match_table = panel_of_match,
+ 	},
+ 	.probe = panel_probe,
+-	.remove = panel_remove,
+ };
+ module_mipi_dsi_driver(panel_driver);
+ 
+diff --git a/drivers/gpu/drm/panel/panel-boe-td4320.c b/drivers/gpu/drm/panel/panel-boe-td4320.c
+index 23558a76dd72..73b762817e3e 100644
+--- a/drivers/gpu/drm/panel/panel-boe-td4320.c
++++ b/drivers/gpu/drm/panel/panel-boe-td4320.c
+@@ -202,29 +202,17 @@ static int boe_td4320_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		drm_panel_remove(&ctx->panel);
++	ret = devm_mipi_dsi_attach(dev, dsi);
++	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+-	}
+ 
+ 	return 0;
+ }
+ 
+-static void boe_td4320_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct boe_td4320 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id boe_td4320_of_match[] = {
+ 	{ .compatible = "boe,td4320" },
+ 	{ /* sentinel */ }
+@@ -233,7 +221,6 @@ MODULE_DEVICE_TABLE(of, boe_td4320_of_match);
+ 
+ static struct mipi_dsi_driver boe_td4320_driver = {
+ 	.probe = boe_td4320_probe,
+-	.remove = boe_td4320_remove,
+ 	.driver = {
+ 		.name = "panel-boe-td4320",
+ 		.of_match_table = boe_td4320_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
+index a70a2e58f88c..c5f18e310b43 100644
+--- a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
++++ b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
+@@ -391,25 +391,16 @@ static int boe_th101mb31ig002_dsi_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return ret;
+ 
+-	drm_panel_add(&ctx->panel);
+-
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		dev_err_probe(&dsi->dev, ret,
+-			      "Failed to attach panel to DSI host\n");
+-		drm_panel_remove(&ctx->panel);
++	ret = devm_drm_panel_add(&dsi->dev, &ctx->panel);
++	if (ret)
+ 		return ret;
+-	}
+ 
+-	return 0;
+-}
+-
+-static void boe_th101mb31ig002_dsi_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct boe_th101mb31ig002 *ctx = mipi_dsi_get_drvdata(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
++	if (ret < 0)
++		return dev_err_probe(&dsi->dev, ret,
++				     "Failed to attach panel to DSI host\n");
+ 
+-	mipi_dsi_detach(dsi);
+-	drm_panel_remove(&ctx->panel);
++	return 0;
+ }
+ 
+ static const struct of_device_id boe_th101mb31ig002_of_match[] = {
+@@ -431,7 +422,6 @@ static struct mipi_dsi_driver boe_th101mb31ig002_driver = {
+ 		.of_match_table = boe_th101mb31ig002_of_match,
+ 	},
+ 	.probe = boe_th101mb31ig002_dsi_probe,
+-	.remove = boe_th101mb31ig002_dsi_remove,
+ };
+ module_mipi_dsi_driver(boe_th101mb31ig002_driver);
+ 
+diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
+index 20b6e11a7d84..8a6c4d5c6320 100644
+--- a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
++++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
+@@ -198,29 +198,17 @@ static int boe_tv101wum_ll2_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		drm_panel_remove(&ctx->panel);
++	ret = devm_mipi_dsi_attach(dev, dsi);
++	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+-	}
+ 
+ 	return 0;
+ }
+ 
+-static void boe_tv101wum_ll2_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct boe_tv101wum_ll2 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id boe_tv101wum_ll2_of_match[] = {
+ 	{ .compatible = "boe,tv101wum-ll2" },
+ 	{ /* sentinel */ }
+@@ -229,7 +217,6 @@ MODULE_DEVICE_TABLE(of, boe_tv101wum_ll2_of_match);
+ 
+ static struct mipi_dsi_driver boe_tv101wum_ll2_driver = {
+ 	.probe = boe_tv101wum_ll2_probe,
+-	.remove = boe_tv101wum_ll2_remove,
+ 	.driver = {
+ 		.name = "panel-boe-tv101wum_ll2",
+ 		.of_match_table = boe_tv101wum_ll2_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
+index 150dff3ab6c3..cf9f15fae272 100644
+--- a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
++++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
+@@ -1736,9 +1736,7 @@ static int boe_panel_add(struct boe_panel *boe)
+ 	boe->base.funcs = &boe_panel_funcs;
+ 	boe->base.dev = &boe->dsi->dev;
+ 
+-	drm_panel_add(&boe->base);
+-
+-	return 0;
++	return devm_drm_panel_add(dev, &boe->base);
+ }
+ 
+ static int boe_panel_probe(struct mipi_dsi_device *dsi)
+@@ -1765,24 +1763,7 @@ static int boe_panel_probe(struct mipi_dsi_device *dsi)
+ 
+ 	mipi_dsi_set_drvdata(dsi, boe);
+ 
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret)
+-		drm_panel_remove(&boe->base);
+-
+-	return ret;
+-}
+-
+-static void boe_panel_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct boe_panel *boe = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+-
+-	if (boe->base.dev)
+-		drm_panel_remove(&boe->base);
++	return devm_mipi_dsi_attach(&dsi->dev, dsi);
+ }
+ 
+ static const struct of_device_id boe_of_match[] = {
+@@ -1820,7 +1801,6 @@ static struct mipi_dsi_driver boe_panel_driver = {
+ 		.of_match_table = boe_of_match,
+ 	},
+ 	.probe = boe_panel_probe,
+-	.remove = boe_panel_remove,
+ };
+ module_mipi_dsi_driver(boe_panel_driver);
+ 
+-- 
+2.43.0
+
