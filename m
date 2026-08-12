@@ -4,60 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DF46C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 09:18:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2F3DC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 09:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBA6510E18A;
-	Wed, 12 Aug 2026 09:17:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1490D10EEF3;
+	Wed, 12 Aug 2026 09:41:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FHFtRaBO";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="Do3+aaE4";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="btQRECF2";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1969B10E18A
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 09:17:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786526276;
- bh=vH8nSJeJ3kQ1WuJAFEOVqJ4wackbu349+wWl0QJOiZM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=FHFtRaBOpQO9Cu9Zwfz1N2P1WxHLjhmBFVgQmwwvCjpjGjNnBcgnbhjR9Vth6GlFK
- kUGDoQVmcwm8CdEX9HO/9fbi/Bb5bx0K7CtZYBYf1ZpfUoyXkrrJDTcUsxklRUU5P/
- X/oDnPBJBiWXVXvLLfulsVVBClE+UeDQuKK10knwE/byL0CzmgfR/MWILTsU/79N30
- zipkH4qW+RW2AYKsAQRMjSq+kgvGWy6mSK1j1UQXv40DjCNBSIc2Pl22SRZHDzUGf8
- KRBbWiC4BCrEmLI6QGC2nel8xCfoyJj80IRv/7KpDV6IqwFGVoVxMiWUX2CkrX2Xv4
- p5uIMtTSwgeQw==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1D78B17E052F;
- Wed, 12 Aug 2026 11:17:56 +0200 (CEST)
-Date: Wed, 12 Aug 2026 11:17:51 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 07/11] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
-Message-ID: <20260812111751.285b5080@fedora-21.home>
-In-Reply-To: <20260811-claude-fixes-v5-7-3d692c9e98c2@collabora.com>
-References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
- <20260811-claude-fixes-v5-7-3d692c9e98c2@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from flow-b8-smtp.messagingengine.com
+ (flow-b8-smtp.messagingengine.com [202.12.124.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE7610EEDC
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 09:41:20 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailflow.stl.internal (Postfix) with ESMTP id 31829130082A;
+ Wed, 12 Aug 2026 05:41:19 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-04.internal (MEProxy); Wed, 12 Aug 2026 05:41:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to; s=fm1; t=1786527679; x=1786531279; bh=XTtrf9QqIJ
+ 0aEwhEPUrpZWj0OOWgjuwh9E5x/Ee+vU4=; b=Do3+aaE4i5NUeaY7SfW37Pv25l
+ QUqp2DkEix2OMEKW2ejeNDwBY/EZZJUenQZ9uSZbixupOlZFEntTSb/QgCwgDacH
+ DvRtGzpFbGUAcconqSl45ZnVslcobtb3T2yIbJoFvqL91siSMIHyys2Ik8aeBezx
+ cPSyTv00jaYgSTGCvFJm4FcR0k8+D3jIe7pms7OgT3wSz1chERp709rnNx4cT3VN
+ 3kx6Hzw3lUVdqJTzRwjuWoK/dMPvv02dUf7xsWhHSHsqF80UKw80zbNmZzw3hT/s
+ Is3t2Itf6eSVFFeCjLKJv8O438bKp3P29x4jYr8YW7WuK0aVQiYctqgx0+XA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1786527679; x=1786531279; bh=XTtrf9QqIJ0aEwhEPUrpZWj0OOWgjuwh9E5
+ x/Ee+vU4=; b=btQRECF23aTza3IYQHkV0GTKQTlE9dEXDtuTd/kLYeJ/N7cEJDm
+ IiWhKkB3lU2kKH62Qxxd8PYm4pFiZExgW8NFXZ2ty+39XHTMUz8KafzqvX33Mz8l
+ bN5z6UeDkps6q495gzqtxHxZdBGRMrlrBkAh6qRmH4108GXIiGlEln6nZVgdrsrB
+ dbtXdnK3n9mgxVWkKzuGMPw26XnJffPU1NZAdNQP5ToIU9YwXdcu5xgjzllOEwZo
+ f8rYVGKQVPAgHql625a8leMv6hzYuM92/u9WEOrL1/PLKNeD58iSHTxu9auqL2cT
+ 8JQoyz87j8UF8vYqO3jQhkcMT35PiJFMqbg==
+X-ME-Sender: <xms:vT98agsS4QSOhkQqfbZHJbaLgpeDzpyE7L3Y-NJdEfiMKEh_aLXNwA>
+ <xme:vT98apm_0M54j0_nYdAd-EU1oQhgcJGidYpopFQlqfKZykD40vLEkbOGdnzJBo7HM
+ rhc1FpJLSggX5iIcivIIH27w_OZeW-Q3llEmsgUhumHB7AbnLq1vvJx>
+X-ME-Received: <xmr:vT98anlWWxK6HWMo_ofmolGB5kfxu4NBl0RxXN8h1FSrNT0QeARtr_Grh6jK49GcPP0k99NycQ>
+X-ME-Proxy-Cause: dmFkZTGczlsc6lTmWVXF5EdFbdBVrzj/e7Ns03qZEcXkYEtO1ejPPywerw48yQ4lW5hk3J
+ fT+nPF6HwKq4wLnadj9B/7Dxa+JyDDEx+4c7COf2RfNTk8z5C7N//KLe5jziAvw/TtX/Jp
+ OrC/dIaTR/CyYlCFQH75cyZe9sWyJHnxZXS6yI7T6OJVjuheIcXU/eK6bZTz4XhwORckp+
+ 14uoPBgn1Yp6vTSRddKOl657KK8RRAbUi7J1na8KuT9wzNcxlASvghh7F98Jutl24ebq9g
+ llnAP0pM5Ea0ZgFR9n5XPa2NKSElqXsALbI2HKi6XGVMFztOK0Iz3JFRIByX2nDIiMMtXZ
+ UayMLhX5L+S5al0XL9J/cmf77OnCUAbzlK/sgfcDEOMzs5USN3TTAHwETXv90c4PKmhd3E
+ Zmz/EZ0BjpxB8OvYiYRpneXAP1XbgYOrNEKBJcIp5n8s/2jaS0bqmK1X9Vn9sof/vgYmTk
+ bvyl8cFXFIBWFfgbSL2CbvQsUC+cHXRo+QL67C/1tkaNU1MwgMrG1H86LT0nPU5APvaGh/
+ KlRbyLA/BLZ9XeMTVX8Jka4laTBy/2rMvzmVvmGiEmGpS/a8BNddhIHgaQa5EQZWWVVCcX
+ CbidpSWly9KWj0mV1YU1or1O0uOzTW9F4XmzyDq/iNxuoMmBJCXvIZyMncMA
+X-ME-Proxy: <xmx:vT98asgifRk94cDkLTcUXFX_FUWxfgO-0kb2gLskTwBeV5Ojuj0TzQ>
+ <xmx:vT98ahEw5sSI2tHzovJwRUzDykMjOANd2zw1vm7Hrt-VyGlwwnr3pQ>
+ <xmx:vT98avayTAxSp2mQzvqpSvIiwOmlD7KiA7oU_mZBJwpqmrk6-gihEA>
+ <xmx:vT98asOTpXiddBNbBAhaBCxSGY5yEyHgNNio6EsY_QOjmeHZJgZIPA>
+ <xmx:vj98auwTyboyMhBm7PhDqpWlPNQ7n7PA3U2Yrp9MTW6bqezTSakjfVHi>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 12 Aug 2026 05:41:09 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, alchark@flipper.net, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v7 00/10] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Wed, 12 Aug 2026 21:40:55 +1200
+Message-ID: <20260812094106.1391698-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,108 +98,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 11 Aug 2026 22:42:16 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+Based on Igor Paunovic's "[PATCH v2] accel/rocket: request the core
+clocks by name", as v6 was:
 
-> This will be of great help when testing potential races between the GPU
-> reset sequence and other parts of the code accessing HW registers.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 39 ++++++++++++++++++++++++=
-++++++
->  drivers/gpu/drm/panfrost/panfrost_device.h |  3 +++
->  drivers/gpu/drm/panfrost/panfrost_drv.c    |  1 +
->  3 files changed, 43 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 52f4b8c6a05f..5b66173c75b9 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -2,6 +2,7 @@
->  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
->  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/clk.h>
->  #include <linux/reset.h>
->  #include <linux/platform_device.h>
-> @@ -608,3 +609,41 @@ void panfrost_device_reset(struct panfrost_device *p=
-fdev, bool enable_job_int)
->  	if (enable_job_int)
->  		panfrost_jm_enable_interrupts(pfdev);
->  }
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +static int reset_get(void *data, u64 *val)
-> +{
-> +	struct panfrost_device *pfdev =3D
-> +		container_of(data, struct panfrost_device, base);
-> +
-> +	*val =3D atomic_read(&pfdev->reset.pending);
-> +	return 0;
-> +}
-> +
-> +static int reset_set(void *data, u64 val)
-> +{
-> +	struct panfrost_device *pfdev =3D
-> +		container_of(data, struct panfrost_device, base);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_get_if_in_use(pfdev->base.dev);
-> +
-> +	if (ret > 0) {
-> +		panfrost_device_schedule_reset(pfdev);
-> +		flush_work(&pfdev->reset.work);
-> +		pm_runtime_put(pfdev->base.dev);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
-> +			 reset_get, reset_set,
-> +			 "0x%08llx\n");
-> +
-> +void panfrost_reset_debugfs_init(struct drm_minor *minor)
-> +{
-> +	debugfs_create_file("reset", 0600, minor->debugfs_root,
-> +			    minor->dev, &panfrost_reset_debugfs_fops);
-> +}
-> +#endif // CONFIG_DEBUG_FS
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm=
-/panfrost/panfrost_device.h
-> index 0fd33bc5b86f..4bbaaaf827a5 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
-> @@ -350,4 +350,7 @@ panfrost_device_started(struct panfrost_device *pfdev)
->  	return pfdev->js;
->  }
-> =20
-> +#ifdef CONFIG_DEBUG_FS
-> +void panfrost_reset_debugfs_init(struct drm_minor *minor);
-> +#endif // CONFIG_DEBUG_FS
->  #endif
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 8410de95e364..958f1d36ab10 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -916,6 +916,7 @@ static void panfrost_debugfs_init(struct drm_minor *m=
-inor)
->  {
->  	panthor_gems_debugfs_init(minor);
->  	panfrost_sched_debugfs_init(minor);
-> +	panfrost_reset_debugfs_init(minor);
+  https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet026@gmail.com/
 
-Nit: I'd probably go for panfrost_device_debugfs_init(), and since gems
-and sched are sub-components of the device, I'd call the other
-panfrost_{gems,sched}_debugfs_init() helpers from
-panfrost_device_debugfs_init().
+Tested on a Radxa ROCK 4D, on next-20260730.
 
->  }
->  #endif
-> =20
->=20
+The thing this series has been describing as unsolved since v3 is solved,
+and it was one register write. That changes the cover letter more than it
+changes the patches, so the correction comes first.
+
+The claim I have to withdraw
+============================
+
+Every version of this series from v1 to v6 has said that the RK3576's
+completion interrupt is armed exactly as on RK3588 and never reaches the
+GIC, and v6 shipped an hrtimer that samples INTERRUPT_RAW_STATUS instead
+of waiting for it. That is not true. The interrupt works.
+
+It never fired because the block believed it had 28672 tasks left to
+run, so the job was never complete. PC_TASK_CON packs the task number
+with three controls above it, and the field widths are not the same on
+both SoCs:
+
+  RK3588   BIT[11:0] task_number, BIT[12] pp_en, BIT[13] count_clear
+  RK3576   BIT[15:0] task_number, BIT[16] pp_en, BIT[17] count_clear,
+           BIT[18] last_layer_clear
+
+rocket_registers.h is generated from the RK3588 description, so writing
+it unchanged on an RK3576 asks for task_number 0x7001, that is 28673
+tasks, and puts TASK_COUNT_CLEAR on a bit that does nothing. The counter
+was then only ever cleared by a reset, which is precisely the "one task
+per reset" shape v6 reported, and it is why every completion path I
+added looked necessary.
+
+It was found by taking an ordered trace of every register write during
+one submit and diffing it against the same trace from the vendor driver
+on the same board. Exactly one value differed.
+
+Robin and Diederik, my apologies for the thread that premise cost you.
+Robin's shortlist for an interrupt that never arrives was an extra clock
+or power domain in the path, a masking control that had been overlooked,
+a wrong description, or terminally broken hardware. It was none of those,
+because the interrupt was not the thing that was wrong.
+
+Chaoyi Chen of Rockchip confirmed the layout on the list, including the
+fourth control at BIT(18) that the trace could not have named:
+
+  https://lore.kernel.org/all/4f300b78-d96d-4d98-8819-dc292b0c9b97@rock-chips.com/
+
+I sent a correction to the list when this landed rather than leaving it
+until now:
+
+  https://lore.kernel.org/all/20260807211629.1573228-1-gahing@gahingwoo.com/
+
+So v7 drops the poll entirely. There is no hrtimer, no poll work, no
+second completion path and no arbitration between two of them. A job is
+retired by its interrupt, the way it is on RK3588.
+
+Changes in v7
+=============
+
+  * accel/rocket: PC_TASK_CON is written with the RK3576 field layout.
+    The defines are in rocket_job.c rather than in rocket_registers.h,
+    which is generated and says not to edit it by hand.
+
+  * accel/rocket: the completion poll and everything supporting it is
+    gone: poll_completion, the hrtimer, the work, poll_seq and its
+    mirror, poll_dying, the teardown ordering in rocket_job_fini() and
+    the arbitration in rocket_job_handle_irq(). 7/9 in v6 was 142 added
+    lines in rocket_job.c and 8/10 here is 90, most of which is the
+    comment explaining the register.
+
+  * accel/rocket: the job_lock fix is its own patch now, 1/10, with a
+    Fixes tag. It is an RK3588 bug and it was buried in the middle of a
+    preparation patch in v6, where nobody could backport it.
+
+  * accel/rocket: the power domain list is attached before
+    iommu_group_get() rather than after rocket_job_init(). In v6 a
+    failure there returned without unwinding either of them. Igor caught
+    it. Moving the call is better than adding an unwind path, since
+    everything before that point is devres managed and a plain return is
+    then correct. It also keeps commit f509a081f6a2
+    ("accel/rocket: fix unwinding in error path in rocket_core_init")
+    from having a second copy of itself to keep in step.
+
+  * accel/rocket: struct rocket_core's clks[] no longer grows in 7/10.
+    Igor pointed out that 7/10 claimed nothing changes for RK3588 while
+    growing the array there, with the two extra names only arriving in
+    8/10. The array now grows in the patch that adds the names.
+
+  * The series is 10 patches rather than 9 because of the split above.
+    Nothing else moved.
+
+What this means for the split in 7/10 and 8/10
+==============================================
+
+Diederik asked for the enablement to be split and Igor seconded it, and
+v6 did that. The split survives v7 unchanged: 7/10 is the soc_data
+plumbing with RK3588 keeping four clocks and two resets, and 8/10 is the
+RK3576 enablement. What changed is that 8/10 is now much smaller.
+
+Where it stands
+===============
+
+With every debug knob off, on a ROCK 4D:
+
+  * the NPU probes with the two domain list and no attach failure;
+  * a convolution submitted three times with three different inputs is
+    byte exact against the CPU reference each time, with no reset in
+    between and with nothing retiring the job but the interrupt;
+  * the NPU's line in /proc/interrupts goes from zero to three across
+    those three submits, one each and no more;
+  * unbind and rebind is clean with no warning;
+  * every patch builds on its own;
+  * dt_binding_check is clean on all three bindings the series touches.
+
+The measurement in v6 that could not tell a recomputation from an
+untouched output buffer has been replaced by one that can: the inputs
+differ between submits, so a stale buffer cannot pass.
+
+That was run on this branch with nothing else applied. The out of tree
+work this hardware has needed for the userspace investigation, including
+an rk_iommu flush_iotlb_all that is neither upstream nor in this series,
+is not present, and the userspace results below are the same without it.
+
+The userspace side is a separate matter and is not part of this series.
+It runs regular convolutions, depthwise convolutions and the first
+convolution of MobileNet V1 byte exact per output channel against the
+CPU reference, and two chained operators come out at the accuracy the
+hardware's own arithmetic allows. A whole MobileNet does not run yet.
+Nothing that is still wrong there is in the kernel.
+
+Igor, thank you again for the RK3588 review. Both of the things you
+found in v6 are addressed above and the completion path has changed
+enough that it needs another look rather than a carried tag. Your offer
+to run this on all three RK3588 cores would be very welcome, since the
+only behaviour change to RK3588 in the series is the job_lock ordering
+in 1/10 and I cannot test it here.
+
+Jiaxing Hu (10):
+  accel/rocket: take the completion register writes under job_lock
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: allow the RK3576 NPU MMU clock set
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+ .../bindings/iommu/rockchip,iommu.yaml        |  8 ++
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++-
+ .../power/rockchip,power-controller.yaml      |  8 ++
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      | 10 +++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 80 ++++++++++++++++-
+ drivers/accel/rocket/rocket_core.c            | 28 +++++-
+ drivers/accel/rocket/rocket_core.h            | 11 ++-
+ drivers/accel/rocket/rocket_device.c          |  4 +
+ drivers/accel/rocket/rocket_drv.c             | 22 ++++-
+ drivers/accel/rocket/rocket_job.c             | 90 ++++++++++++++-----
+ drivers/pmdomain/rockchip/pm-domains.c        | 71 ++++++++++-----
+ 11 files changed, 324 insertions(+), 55 deletions(-)
+
+-- 
+2.43.0
 
