@@ -4,44 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 594DDC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:42:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1573CC5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73E9F10EE9F;
-	Wed, 12 Aug 2026 07:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F7F910EEA0;
+	Wed, 12 Aug 2026 07:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L3J5G3fm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aKkZKzQ4";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE25010EE9F
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:42:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DED6710EEA0
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:42:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 981EC41757;
- Wed, 12 Aug 2026 07:42:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 522331F000E9;
- Wed, 12 Aug 2026 07:42:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B868143BF0;
+ Wed, 12 Aug 2026 07:42:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F01B1F00A3A;
+ Wed, 12 Aug 2026 07:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786520555;
- bh=xd5mCe89e5Y8H6yWc6iTGVbR3Lp+fbUYjVSqB2fASeY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=L3J5G3fmrJebNsrzi3jKvHFTAKO6Upjs5FkSUkTMP+XlFKqHahOgr2nqWWxuRGkRt
- 38F+a6hPGioyD7M/R5p5zYAgyxr7M/pQbOtYD+yh0QjnxG54nL+9hNl+pe5ReJirHX
- ZcUo0osuzplT5bIs8V0gBprwt071kG2uYf5YlLEqS7q97SIiNrX292reaLspAJpC0h
- XSntc2qSLC7QLTLHDoFtimT7Si4Z44egmGPOnkHaWbOmVFBV4WMcdyt8j0alTIZR4r
- tZQu0RXzLxXobunJaDkk00JQXAKjMWdgNwCWB5cJ8KNh228yzH4GkBLnKt42GhZ+I1
- rbz6idzkAFWFA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] drm/rockchip: dsi: Relax the lane rate margin
- requirements
-To: "Chaoyi Chen" <kernel@airkyi.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260812073002.328-4-kernel@airkyi.com>
-References: <20260812073002.328-1-kernel@airkyi.com>
- <20260812073002.328-4-kernel@airkyi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 07:42:33 +0000
-Message-Id: <20260812074235.522331F000E9@smtp.kernel.org>
+ s=k20260515; t=1786520557;
+ bh=UB1jF7L3iPk9Rg0+1qtTwgCtX6bgx0/fZCeUDQ/DIwA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=aKkZKzQ4Z2TKBfnpaCMI4tPl2gHvTd3QyNnrw/r1RkNMvVdXANvYhqVp4ZdKVDXwj
+ qyyS6H5CdNZZjq+0ZuWWxrGSr8azN6lhiZvXdbNjvB4k+wO70NmRA/WAoo3mG4tE3T
+ QWzixG6juj7qx2goYfPhQV+kItylHrhuWrpURJ+ob6fR/XQIWUuW+l2qEOz1w7ouRr
+ DurzvNo2KByMTTz+wzI5K008b1B+iuTYz/uktjrYpPjJ2PfvJVLv2HyFu9zYCWR+P9
+ fu7Hl5cs2A9ZROiXW/vRVVMPDn5DYue9wnkGGxAQLYGdMzgM4WqTy0EkX+y/UYjK66
+ EPGxZhV8PFYrw==
+Date: Wed, 12 Aug 2026 09:42:35 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, 
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+Message-ID: <20260812-neon-asp-of-completion-e9349e@houat>
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+ <am2mvECnCcO9IxuI@monoceros>
+ <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
+ <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
+ <20260810-devout-pig-of-performance-595ccc@houat>
+ <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="ibzlmn7sqd2mt3nn"
+Content-Disposition: inline
+In-Reply-To: <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,74 +65,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incomplete fix: Integer overflow in external D-PHY pixel clock c=
-alculation
---
 
---- Patch [3]: [PATCH v4 3/3] drm/rockchip: dsi: Relax the lane rate margin=
- requirements ---
-commit 6f9a68488ce9227bbef69a3b1f33676d60dad2a4
-Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+--ibzlmn7sqd2mt3nn
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+MIME-Version: 1.0
 
-drm/rockchip: dsi: Relax the lane rate margin requirements
+On Wed, Aug 12, 2026 at 02:31:52AM +0200, M=E0xim Pedraza Padilla wrote:
+> El lun, 10 ago 2026 a las 11:02, Maxime Ripard (<mripard@kernel.org>) esc=
+ribi=F3:
+> > If the sole reason for this series is to keep having something on the
+> > display while the kernel boots until DRM catches up, then you probably
+> > want to check [drm state readout]
+>=20
+> Thanks, I had missed it. I read it and then measured, having earlier
+> claimed in this thread that our hardware kept no state worth reading. That
+> was wrong.
+>=20
+> Dumping the LCDC registers at the top of tilcdc's probe, before the driver
+> touches anything:
+>=20
+>   RASTER_CTRL=3D00280081  FB=3D9df13cc0..9dfcf4bc
+>=20
+> LCD_EN is set and the scanout address is exactly the framebuffer U-Boot
+> reported, still holding the image. So readout would have something real to
+> adopt here. tilcdc is not one of the drivers you implement, but that is
+> work rather than a disagreement.
+>=20
+> One observation that may be worth your time. Pointing a simple-framebuffer
+> node at that same memory, same device tree, only the driver differing:
+>=20
+>   simplefb   the image is still there afterwards
+>   simpledrm  the buffer reads back as all zeros
+>=20
+> So where the CRTC is still scanning the bootloader's buffer, simpledrm
+> wipes the image it was meant to carry over. I have not chased down the ca=
+ll
+> that clears it.
+>=20
+> What readout cannot cover is having no firmware splash to read. U-Boot's
+> Falcon mode boots the kernel from SPL and skips U-Boot proper, where
+> display init lives, so there is no image and no programmed CRTC to inherit
+> -- and Falcon mode exists to shorten boot time, which is the same reason
+> one cares about the logo appearing early.
 
-This commit adjusts the DSI lane rate calculation to reduce the bandwidth
-overhead from 25% to about 11%. It updates both the target_mbps calculation
-and the parameter passed to phy_mipi_dphy_get_default_config().
+In such a case, you can (and really should) use KMS, and you should use
+an initramfs and setup the splash screen there. There's no need for the
+kernel to do that work.
 
-> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gp=
-u/drm/rockchip/dw-mipi-dsi-rockchip.c
-> index ddb3a441787e6..c4de442675b79 100644
-> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-[ ... ]
-> @@ -589,8 +589,8 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const stru=
-ct drm_display_mode *mode,
-> =20
->  	mpclk =3D DIV_ROUND_UP(mode->clock, MSEC_PER_SEC);
->  	if (mpclk) {
-> -		/* take 1 / 0.8, since mbps must big than bandwidth of RGB */
-> -		tmp =3D mpclk * (bpp / lanes) * 10 / 8;
-> +		/* take 1 / 0.9, since mbps must big than bandwidth of RGB */
-> +		tmp =3D DIV_ROUND_UP(mpclk * bpp * 10, lanes * 9);
->  		if (tmp < max_mbps)
->  			target_mbps =3D tmp;
->  		else
-> @@ -600,7 +600,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const stru=
-ct drm_display_mode *mode,
-> =20
->  	/* for external phy only a the mipi_dphy_config is necessary */
->  	if (dsi->phy) {
-> -		phy_mipi_dphy_get_default_config(mode->clock * 1000 * 10 / 8,
-> +		phy_mipi_dphy_get_default_config((u32)mode->clock * 1000 * 10 / 9,
+It's still significantly different from your earlier claim, since there
+would be no gap between uboot and DRM, and no blanking either.
 
-[Severity: Medium]
-Will this (u32) cast still cause an integer overflow for high pixel clocks?
+Maxime
 
-If userspace requests a display mode with a pixel clock exceeding ~429.5 MHz
-(e.g., 594 MHz for 4K@60Hz), the intermediate product in
-dw_mipi_dsi_get_lane_mbps() will be:
+--ibzlmn7sqd2mt3nn
+Content-Type: application/pgp-signature; name="signature.asc"
 
-((u32)594000 * 1000 * 10 =3D 5,940,000,000)
+-----BEGIN PGP SIGNATURE-----
 
-This overflows 32-bit unsigned arithmetic and wraps around to 1,645,032,704.
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCanwj5wAKCRAnX84Zoj2+
+djk4AXoDaUpvlsLACdFgaEpmyXSq8tMZcRam1NtpdStxqjIXf0td0aHqsBW9yLHM
+qHBynosBfjTL6/dGkQiTNe8d8My3Mh9Mv/26EX8/wJznUEx3OXSHeiBB5CfJ36OR
+J3sTCZOWpQ==
+=d3a1
+-----END PGP SIGNATURE-----
 
-As a result, the PHY is incorrectly configured with ~182 MHz instead
-of 660 MHz, leading to insufficient bandwidth and display failures.
-
-Could we use a 64-bit cast like (u64) to fully prevent overflow during the
-intermediate calculation here?
-
->  						 bpp, lanes,
->  						 &dsi->phy_opts.mipi_dphy);
->  		dsi->lane_mbps =3D target_mbps;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812073002.328-=
-1-kernel@airkyi.com?part=3D3
+--ibzlmn7sqd2mt3nn--
