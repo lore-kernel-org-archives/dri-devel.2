@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADE94C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:48:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1356C5CFCF
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:48:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 031A210EFE4;
-	Wed, 12 Aug 2026 13:48:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16DF210EFEE;
+	Wed, 12 Aug 2026 13:48:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="N3NVpHwt";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="kdyUmRk2";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE97610EFE4
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:48:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A65CB10EFEB
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:48:40 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 834BE4E411D7;
- Wed, 12 Aug 2026 13:48:31 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 634724E411D7;
+ Wed, 12 Aug 2026 13:48:39 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4D6646045E;
- Wed, 12 Aug 2026 13:48:31 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 380CE6045E;
+ Wed, 12 Aug 2026 13:48:39 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C0E9F11C4CF18; 
- Wed, 12 Aug 2026 15:48:14 +0200 (CEST)
+ with ESMTPSA id E914911C4CF22; 
+ Wed, 12 Aug 2026 15:48:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786542506; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=9mn8+RLZ/euoxyRgD1crSDzVTtC0Rj4RzIpHK314g28=;
- b=N3NVpHwtcEt3ujgF0YvsGzMP8o4FEkoV4j3lLLHzTLjpBxvMdwD86VnuEzg5SuB04PjzGZ
- bTgdVrOlxOFM2WQYu0OlZYzsM5KogIckH+p6E7ZlBVVLaPEqIkBe4h5rFCC4aHhtD6wZ3K
- hOtKwfhML4wVA4swqpO1v/v3tg+MzBVbAmAgS0b3T5fmRTiESND9jB1E75D8fV77DfD+N7
- aud4BWD7Pum0meeiosCl6MNwiVc5aGb8gkgjPaPtUtJE56DyoUS8XrZPzl1vR5BMbuINv+
- VtwE5QOVROOkhSrvC6REXrjhSTNC2//UhBY6BSk6xGFfICwQsIfBCQ5Nf/DMOg==
+ t=1786542514; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Ov0u7JsseMJfjgjadQScKEce8zBTlkSI0oIffV2FKQw=;
+ b=kdyUmRk2YxZGS4wSZvil9+6Vz5VBhBNZj/f/y49DYYhs+ysNLxyERzeAY8qJXHl3FPRA92
+ +Gv5ZAJ41uMoyUaPtKXjg88jWOYOBQSxGpA+4wG7Imbqdz2rpuGS3PK7moxAVrIl1eQ/Uk
+ hLI+lHPIRPXWE128HXsJSYJaQBO5yckVzIplH47lu8ok6CyV4tY1pnOY5r4g49oAb4DpRx
+ tk0j6GnokFcU87tOdaHoHvtveL4pbbIZ/LfXEXvBDzgruvz4BVpQKR/e0DQRcWOpFnEVZ9
+ C8Nhp6OMCyzWeZQgPcP1UHfDUPkVuFj1TYQQHpHwoR8FFVXDYUwHDx/FN6U1Tg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH 00/12] drm/bridge: Kconfig: cleanup DRM_PANEL usage
-Date: Wed, 12 Aug 2026 15:42:40 +0200
-Message-Id: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
+Date: Wed, 12 Aug 2026 15:42:41 +0200
+Subject: [PATCH 01/12] drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: don't
+ select unused DRM_PANEL
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QrCMAyF4VcZuTbQFpXNVxEZXRo1MmtJ3RiMv
- btR787HgX+Fyipc4dSsoDxLlVc2+F0DdI/5xijJDMGFo2t9wKRPHFSSPTb7EjOPSCPHPBV0Hac
- DkXfdvgVLFOWrLL/8+fJ3nYYH0/vbhG37AMXh5EeAAAAA
-X-Change-ID: 20260812-drm-bridge-drm_panel-cleanup-09ed5cc10948
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260812-drm-bridge-drm_panel-cleanup-v1-1-0d86734e908a@bootlin.com>
+References: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
+In-Reply-To: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -71,84 +71,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As a cleanup in preparation for making every drm_panel create a
-panel_bridge, remove unnecessary or wrong usage of 'depends on DRM_PANEL'
-and 'select DRM_PANEL' from drivers/gpu/drm/bridge/Kconfig.
-
-== Grand plan
-
-This is part of the work to support hotplug of DRM bridges. The grand plan
-was discussed in [0].
-
-Here's the work breakdown (➜ marks the current series):
-
- 1. ➜ add refcounting to DRM bridges struct drm_bridge,
-      based on devm_drm_bridge_alloc()
-    A. ✔ add new alloc API and refcounting (v6.16)
-    B. ✔ convert all bridge drivers to new API (v6.17)
-    C. ✔ kunit tests (v6.17)
-    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
-         and warn on old allocation pattern (v6.17)
-    E. ➜ add get/put on drm_bridge accessors
-       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
-       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
-       3. ✔ drm_bridge_get_next_bridge() (v6.19)
-       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
-       5. ✔ drm_bridge_connector_init (v6.19)
-       6. ✔ protect encoder bridge chain with a mutex (v7.2)
-       7. ✔ of_drm_find_bridge
-          a. ✔ add of_drm_get_bridge() (v7.0),
-               convert basic direct users (v7.0-v7.1)
-          b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
-          c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
-          d. ✔ convert direct of_drm_get_bridge() users, part 4 (v7.1-v7.2)
-          e. ✔ bridge-only drm_of_find_panel_or_bridge() users (v7.2)
-       8. ➜ panel_bridge lifetime
-          a. ➜ cleanup DRM_PANEL in bridge drivers
-	  b.   add a panel_bridge to every panel
-       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
-    F. ✔ debugfs improvements
-       1. ✔ add top-level 'bridges' file (v6.16)
-       2. ✔ show refcount and list lingering bridges (v6.19)
- 2. ✔ handle gracefully atomic updates during bridge removal
-    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
-    B. ✔ Add drm_bridge_clear_and_put() (v7.1)
- 3. … DSI host-device driver interaction
- 4. ✔ removing the need for the "always-disconnected" connector
- 5. ✔ Migrate i.MX LCDIF driver to bridge-connector (v7.2)
- 6. … DRM bridge hotplug
-    A. … Bridge hotplug management in the DRM core
-       1. ✔ bridge-connector: attach encoder to the connector (v7.2)
-       2. … drm bridge hotplug
-    B.   Device tree description
-
-[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+This driver does not use the drm_panel APIs at all, so no need to select
+DRM_PANEL.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
-Luca Ceresoli (12):
-      drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: don't select unused DRM_PANEL
-      drm/bridge: tc358764: don't select unused DRM_PANEL
-      drm/bridge: ti-dlpc3433: don't depend on DRM_PANEL
-      drm/bridge: ti-sn65dsi86: don't select unused DRM_PANEL
-      drm/bridge: ti-sn65dsi83: select DRM_PANEL_BRIDGE
-      drm/bridge: nxp-ptn3460: select DRM_PANEL_BRIDGE
-      drm/bridge: parade-ps8622: select DRM_PANEL_BRIDGE
-      drm/bridge: parade-ps8640: select DRM_PANEL_BRIDGE
-      drm/bridge: tc358775: select DRM_PANEL_BRIDGE
-      drm/bridge: tc358767: select DRM_PANEL_BRIDGE
-      drm/bridge: tc358768: select DRM_PANEL_BRIDGE
-      drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
+ drivers/gpu/drm/bridge/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
- drivers/gpu/drm/bridge/Kconfig | 21 +++++++++------------
- 1 file changed, 9 insertions(+), 12 deletions(-)
----
-base-commit: d3850569e847e8912b9be6e0fe6b91fb75293647
-change-id: 20260812-drm-bridge-drm_panel-cleanup-09ed5cc10948
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index 4a57d49b4c6d..a999e57d0cc1 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -225,7 +225,6 @@ config DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW
+ 	tristate "MegaChips stdp4028-ge-b850v3-fw and stdp2690-ge-b850v3-fw"
+ 	depends on OF
+ 	select DRM_KMS_HELPER
+-	select DRM_PANEL
+ 	help
+ 	  This is a driver for the display bridges of
+ 	  GE B850v3 that convert dual channel LVDS
 
-Best regards,
---  
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+2.55.0
 
