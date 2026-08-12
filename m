@@ -4,64 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16479C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACA37C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:01:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 683C910EFC6;
-	Wed, 12 Aug 2026 12:57:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0408B10EFBA;
+	Wed, 12 Aug 2026 13:01:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hQVFd6uo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EJY4pyL5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EEFD10EFB1
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:57:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7F5D10EFB5
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:01:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 67AED406C5;
- Wed, 12 Aug 2026 12:57:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A8E1F00A3D;
- Wed, 12 Aug 2026 12:57:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 377DB60A92;
+ Wed, 12 Aug 2026 13:01:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FCF1F000E9;
+ Wed, 12 Aug 2026 13:01:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786539444;
- bh=nkcKmxiEewcdc/DJ2XJQBChyYlrduVaQIFbAzkQ4qXE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=hQVFd6uobghDM+OsVo+cN610jiNFQZY3TBWepy9i5fezfLhZIYtFoZIFa6no2Ab79
- Owmakq6oXnLGsYQoxq6tNUglXPZzF55QdARd16Y+JVqf8hi1Y+GnGHWPjBz/MT3trl
- oRYAJAbg84TuYCH6BiszAO+/8UPxnK2Wf4O4fw0by8z7U6qHuvyA9ZOgi/JYqjMaj7
- hpMEQxj8KcPjq9jdyOZJJTyekOqaX/1VP1Q7a111TKdLEheFHT7Kl4XkAGtmIsd1Y1
- 2df2uVRnUeycwdxTbUzIyPDNZfA1tFo28w2XxQf7jC+H7cycykcIoMUfvUzCsGkKNX
- JKsaZkqjxcL1Q==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 12 Aug 2026 14:57:03 +0200
-Subject: [PATCH RFC v2 8/9] drm/atomic: Allow filling a commit with
- pristine object states
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-drm-reset-state-flag-v2-8-e96ce13317dd@kernel.org>
-References: <20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org>
-In-Reply-To: <20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6257; i=mripard@kernel.org;
- h=from:subject:message-id; bh=QXo8kfkdi1Va2xyrt9RHIacabxzIOzzz0ldfCjJ0/Xg=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFk1uXOZXi9+mBxy4Wvb3iL+y1s2PF3yU5rvt6vblfArd
- hc6Ytf/6JjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATqS9gbOiqO1q57pvNk+1z
- nDeY6JX+WZR9W2yD3tvIvqtL7vOv7Xp57nX5tgvir7r8FjAKBn+XqmJsuHAuVG5X6v8O44CviQe
- uuNkduCA0f9L5jR3hFjpSH1byJHe9Xl0+z3KW6bNvoo2p++WkAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+ s=k20260515; t=1786539701;
+ bh=JprA4rEFsaaGGKf5OqpOYVXeiuAEYYV6xGCxTfD9E7c=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EJY4pyL50uhslMGcZneuMVRflT83wPvfHh4VN/hUyeutdHwYl8mDzJX1Dk7c78hMW
+ OiPXZjRKL5dcs7P7Ztf3FM1HfP+EH3zQAFgaI5bUlXagekKB4kHidKcw52KUf3uYnd
+ QPtMCRWPP5WQX4Ij6eBLI1lGrgNtmIpEfGED4+cf6by6fCxk/1bj50e8TH74h24vn5
+ DWPljvgNEi/1S0K87NBfc7Jvx7F79YDN/vArVB4KMyVjq7sDb5d9m7bfxkT2K2eO4A
+ ISvfssXIeGBGLQV473juWNgGb3SrF3L42/YIzN6Wk1Bd6SdsW3wCGLFW7eymj+NSCB
+ xPWjuTj3slNVA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] ALSA: hda: allow direct complete with a powered-off
+ GPU
+To: "Andre Eikmeyer" <dev@deq.rocks>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260812122206.193680-4-dev@deq.rocks>
+References: <20260812122206.193680-1-dev@deq.rocks>
+ <20260812122206.193680-4-dev@deq.rocks>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 13:01:41 +0000
+Message-Id: <20260812130141.C1FCF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,196 +54,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The upcoming DRM_MODE_ATOMIC_RESET flag will need to create an atomic
-commit that brings the entire device back to a pristine state, as if
-no configuration had ever been applied.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Bypassing mandatory suspend preparation in azx_prepare() causes co=
+ncurrent hardware access and crashes if direct-complete is aborted.
+--
 
-Create drm_atomic_commit_fill_with_defaults() which iterates over all
-CRTCs, planes, connectors, and color operations in the device and
-inserts a fresh default state for each one into the commit. This uses
-the atomic_create_state() hooks rather than atomic_duplicate_state(),
-since atomic_create_state() provides exactly this pristine state on a
-per-object basis.
+--- Patch [3]: [PATCH 3/3] ALSA: hda: allow direct complete with a powered-=
+off GPU ---
+commit 2f8a96155a50eb983d9e329380eedc7ca760b5b8
+Author: Andre Eikmeyer <dev@deq.rocks>
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/drm_atomic.c | 121 +++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_ioctl.c  |   1 +
- include/drm/drm_atomic.h     |   1 +
- 3 files changed, 123 insertions(+)
+ALSA: hda: allow direct complete with a powered-off GPU
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index d8251447e44a..d5ac10dd3148 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1657,10 +1657,131 @@ bool drm_atomic_can_create_state(struct drm_device *dev)
- 
- 	return true;
- }
- EXPORT_SYMBOL(drm_atomic_can_create_state);
- 
-+/**
-+ * drm_atomic_commit_fill_with_defaults - populate a commit with pristine states
-+ * @commit: atomic commit to fill
-+ *
-+ * Iterate over all CRTCs, planes, connectors, and color operations in
-+ * the device and insert a freshly created default state for each one
-+ * into @commit. The states are created through the atomic_create_state()
-+ * hooks, producing the same initial state the driver starts with rather
-+ * than a copy of the current hardware state.
-+ *
-+ * This is meant to be used with the %DRM_MODE_ATOMIC_RESET flag, which
-+ * needs to bring the device back to a known baseline before applying
-+ * userspace property changes on top.
-+ *
-+ * Returns:
-+ * 0 on success, or a negative error code on failure.
-+ */
-+int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit)
-+{
-+	struct drm_device *dev = commit->dev;
-+	struct drm_mode_config *config = &dev->mode_config;
-+	struct drm_crtc *crtc;
-+	struct drm_plane *plane;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_colorop *colorop;
-+	int ret;
-+
-+	WARN_ON(!commit->acquire_ctx);
-+
-+	if (!drm_atomic_can_create_state(dev))
-+		return -EOPNOTSUPP;
-+
-+	/*
-+	 * Private objects are ignored because none have userspace
-+	 * properties we might want to reset. atomic_check
-+	 * implementations will derive or infer there private obj state
-+	 * from the state that will end up being committed anyway.
-+	 */
-+	drm_for_each_colorop(colorop, dev) {
-+		struct drm_colorop_state *colorop_state;
-+
-+		colorop_state = drm_atomic_helper_colorop_create_state(colorop);
-+		if (IS_ERR(colorop_state))
-+			return PTR_ERR(colorop_state);
-+
-+		drm_modeset_lock_assert_held(&colorop->plane->mutex);
-+
-+		ret = drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
-+		if (ret) {
-+			drm_colorop_atomic_destroy_state(colorop, colorop_state);
-+			return ret;
-+		}
-+	}
-+
-+	drm_for_each_plane(plane, dev) {
-+		struct drm_plane_state *plane_state;
-+
-+		ret = drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		plane_state = plane->funcs->atomic_create_state(plane);
-+		if (IS_ERR(plane_state))
-+			return PTR_ERR(plane_state);
-+
-+		ret = drm_atomic_commit_set_plane_state(commit, plane, plane_state);
-+		if (ret) {
-+			plane->funcs->atomic_destroy_state(plane, plane_state);
-+			return ret;
-+		}
-+	}
-+
-+	drm_for_each_crtc(crtc, dev) {
-+		struct drm_crtc_state *crtc_state;
-+
-+		ret = drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		crtc_state = crtc->funcs->atomic_create_state(crtc);
-+		if (IS_ERR(crtc_state))
-+			return PTR_ERR(crtc_state);
-+
-+		ret = drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
-+		if (ret) {
-+			crtc->funcs->atomic_destroy_state(crtc, crtc_state);
-+			return ret;
-+		}
-+	}
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		struct drm_connector_state *connector_state;
-+
-+		ret = drm_modeset_lock(&config->connection_mutex, commit->acquire_ctx);
-+		if (ret) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			return ret;
-+		}
-+
-+		connector_state = connector->funcs->atomic_create_state(connector);
-+		if (IS_ERR(connector_state)) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			ret = PTR_ERR(connector_state);
-+			return ret;
-+		}
-+
-+		ret = drm_atomic_commit_set_connector_state(commit, connector, connector_state);
-+		if (ret) {
-+			connector->funcs->atomic_destroy_state(connector, connector_state);
-+			drm_connector_list_iter_end(&conn_iter);
-+			return ret;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
-+
- /**
-  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
-  * @state: atomic state
-  * @encoder: DRM encoder
-  *
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index e2df4becce62..8a1ccb8932bf 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -31,10 +31,11 @@
- #include <linux/export.h>
- #include <linux/nospec.h>
- #include <linux/pci.h>
- #include <linux/uaccess.h>
- 
-+#include <drm/drm_atomic.h>
- #include <drm/drm_auth.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 7dc26e3da65c..b60f67619bfa 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -701,10 +701,11 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
- struct drm_atomic_commit * __must_check
- drm_atomic_commit_alloc(struct drm_device *dev);
- void drm_atomic_commit_clear(struct drm_atomic_commit *state);
- 
- bool drm_atomic_can_create_state(struct drm_device *dev);
-+int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit);
- 
- /**
-  * drm_atomic_commit_get - acquire a reference to the atomic state
-  * @state: The atomic state
-  *
+This commit allows direct complete during system suspend for HDA
+controllers bound to a powered-off switcheroo GPU. It returns 1
+in azx_prepare() if the discrete GPU is runtime suspended and
+switched off.
 
--- 
-2.55.0
+> diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
+> index 4b03c64e72ab4..47cc695864a11 100644
+> --- a/sound/hda/controllers/intel.c
+> +++ b/sound/hda/controllers/intel.c
 
+[ ... ]
+
+> @@ -1025,6 +1048,10 @@ static int azx_prepare(struct device *dev)
+>  		return 0;
+> =20
+>  	chip =3D card->private_data;
+> +	/* A powered-off dGPU cannot signal HDA wake events. */
+> +	if (azx_vga_is_powered_off(chip))
+> +		return 1;
+> +
+
+[Severity: High]
+Does returning early here bypass setting chip->pm_prepared =3D 1?
+
+If the PM core aborts direct-complete (for example, if a user enables
+wakeup via sysfs, or another device fails to suspend), the fallback
+suspend path will execute.
+
+Because chip->pm_prepared is left as 0, when the PCI core triggers a
+runtime resume, wouldn't __azx_runtime_resume() incorrectly queue
+asynchronous codec resumes via pm_request_resume()?
+
+Could these async resumes execute on the pm_wq workqueue concurrently with
+azx_suspend() shutting down the HDA controller, leading to MMIO faults or
+system lockups?
+
+>  	chip->pm_prepared =3D 1;
+>  	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812122206.1936=
+80-1-dev@deq.rocks?part=3D3
