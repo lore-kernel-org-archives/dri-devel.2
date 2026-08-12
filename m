@@ -4,50 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79EEAC5CFC1
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 03:10:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD36C5AC67
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 03:13:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 822A510EE0F;
-	Wed, 12 Aug 2026 03:10:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B4010EE16;
+	Wed, 12 Aug 2026 03:13:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fuU7ipvf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jWrGKkom";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4DD110EE0F
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 03:10:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB2B10EE12
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 03:13:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CCA5C600E2;
- Wed, 12 Aug 2026 03:10:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6661D1F000E9;
- Wed, 12 Aug 2026 03:10:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8DAB4600E2;
+ Wed, 12 Aug 2026 03:13:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BC591F00A3A;
+ Wed, 12 Aug 2026 03:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786504246;
- bh=LE3W24wS75BSIMOFlefIC8ZjafXejnzU7cRNPUtlVmo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=fuU7ipvftV6NBq8GsZ6wtII+FkKlGgo80Jqmt2JbzmsXhE4gnwgJKawgPDN9wG/1B
- Xw8XCIZgy1JFVwCMFUpQcRmaKnDK30nB7/wCogNa0Iy2al1VM5ME5Zr8jL9MCLhsYa
- bwFkvui5xsFY9VpdMACj8p05FGQef82RvfQcqPaDDg3t6xAyFwjFQaE89a8fUIxsJ/
- v42n+fkQI2XcEOHJR8m89ySzGT4WOxXjLJ0IggOB4syQ7a2cvGi//hQP1U7bpcDpIw
- 5n8pvvX1+SnYh/nKzqe+7gmFFQ1iYZg/mYlD8/Re1SzLvq6KkIrZ6yMsWLYJJgXR5W
- L+Z8EimPAYWkg==
-Date: Tue, 11 Aug 2026 22:10:45 -0500
-From: Rob Herring <robh@kernel.org>
-To: Wim de With <wf@dewith.io>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: backlight: Add Orient Chip OCP8178
-Message-ID: <20260812031045.GA657686-robh@kernel.org>
-References: <20260806201541.101304-1-wf@dewith.io>
- <20260806201541.101304-2-wf@dewith.io>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806201541.101304-2-wf@dewith.io>
+ s=k20260515; t=1786504396;
+ bh=a3+VxNlwPBllAzrayaAf5dCv+h17tSY9fVaZoCdEnWs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jWrGKkompbBwlILusgfys+1fPn3J1E5diTRpQ1WvqVa9A1dIhCKn98NI330yNCGeG
+ xIXdqH88p9RblapRHemNRn+nVZM4TJEPLjk0+E9VrzSFuHzgF/MahWrnXy4n1xXnuo
+ yOKQkewBz/XERk4e78QoP/qDjzSmOHWGMihX7TPupTxhoNbYxYldd5SWkR2IyWjUJg
+ Pbrkg1060/PC7EK33eNgtACPlGdBeTcq1wLOy2Nw4286AoK5Yt47zuE+jdsDaSpuyS
+ 2+kW531/NPEvd+bQFM5a7NydjJESmVo1ZP9R4lzq/H2vyERnZ+1Hk/XDAryvCUspci
+ 4w0JY+g4Kg7gQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/stm/ltdc: Fix clock cleanup error handling
+To: "Hongling Zeng" <zenghongling@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260812030710.549621-1-zenghongling@kylinos.cn>
+References: <20260812030710.549621-1-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 03:13:15 +0000
+Message-Id: <20260812031316.1BC591F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +52,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 06, 2026 at 10:15:40PM +0200, Wim de With wrote:
-> Add device tree bindings for the Orient Chip OCP8178 LED backlight
-> driver.
-> 
-> Signed-off-by: Wim de With <wf@dewith.io>
-> ---
->  .../bindings/leds/backlight/ocs,ocp8178.yaml  | 46 +++++++++++++++++++
->  MAINTAINERS                                   |  5 ++
->  2 files changed, 51 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-> new file mode 100644
-> index 0000000000000..9a4df1ef91edd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-> @@ -0,0 +1,46 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/backlight/ocs,ocp8178.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Orient Chip OCP8178 backlight
-> +
-> +maintainers:
-> +  - Wim de With <wf@dewith.io>
-> +
-> +description: |
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Don't need '|'.
+Pre-existing issues:
+- [High] Resource leak of pixel clock on bus clock devm_clk_get() failure.
+- [High] Improper error handling of LVDS clock retrieval breaks probe defer=
+ral.
+--
 
-> +  The Orient Chip OCP8178 is a white LED backlight driver controlled by a single
-> +  GPIO line with a vendor-specific onewire protocol.
-> +
-> +allOf:
-> +  - $ref: common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: ocs,ocp8178
-> +
-> +  enable-gpios:
-> +    description: GPIO to use to enable/disable and dim the backlight.
-> +    maxItems: 1
-> +
-> +  default-brightness:
-> +    maximum: 31
+--- Patch [1]: [PATCH] drm/stm/ltdc: Fix clock cleanup error handling ---
+commit 9d3968fa3e6694cd51c4ea469a9ffb12dcc0dfc7
+Author: Hongling Zeng <zenghongling@kylinos.cn>
 
-blank line
+drm/stm/ltdc: Fix clock cleanup error handling
 
-> +  max-brightness:
-> +    maximum: 31
+This commit adds proper error handling to ensure prepared clocks are disabl=
+ed
+and unprepared when a subsequent clock preparation fails in ltdc_resume()
+and ltdc_load().
+
+Cc: stable@vger.kernel.org
+
+> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+> index 8818dcf98da79..ac1c2f27563e3 100644
+> --- a/drivers/gpu/drm/stm/ltdc.c
+> +++ b/drivers/gpu/drm/stm/ltdc.c
+> @@ -1958,12 +1967,12 @@ int ltdc_load(struct drm_device *ddev)
+>  	if (of_device_is_compatible(np, "st,stm32mp251-ltdc") ||
+>  	    of_device_is_compatible(np, "st,stm32mp255-ltdc")) {
+>  		ldev->bus_clk =3D devm_clk_get(dev, "bus");
+>  		if (IS_ERR(ldev->bus_clk))
+>  			return dev_err_probe(dev, PTR_ERR(ldev->bus_clk),
+>  					     "Unable to get bus clock\n");
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+This is a pre-existing issue, but does this early return leak a pixel clock
+reference? If devm_clk_get(dev, "bus") fails and returns -EPROBE_DEFER, it
+looks like the function returns directly without disabling the already
+enabled ldev->pixel_clk.
+
+> =20
+>  		ret =3D clk_prepare_enable(ldev->bus_clk);
+>  		if (ret) {
+>  			drm_err(ddev, "Unable to prepare bus clock\n");
+> -			return ret;
+> +			goto err_pixel;
+>  		}
+>  	}
+
+[ ... ]
+
+> @@ -2004,3 +2013,3 @@ int ltdc_load(struct drm_device *ddev)
+> =20
+>  	ldev->lvds_clk =3D devm_clk_get(dev, "lvds");
+>  	if (IS_ERR(ldev->lvds_clk))
+>  		ldev->lvds_clk =3D NULL;
+                ^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+This is a pre-existing issue, but does this unconditionally mask all errors
+from devm_clk_get(), including -EPROBE_DEFER? If the LVDS clock provider
+is initialized after the STM DRM driver, it seems this would silently ignore
+the error instead of correctly deferring the probe, which could leave the
+LVDS interface broken.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812030710.5496=
+21-1-zenghongling@kylinos.cn?part=3D1
