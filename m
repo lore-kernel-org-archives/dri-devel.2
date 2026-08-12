@@ -4,84 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A9AC5DF68
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43C1DC5DF66
 	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:43:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0A6610F270;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A15CE10F271;
 	Thu, 13 Aug 2026 09:43:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j/R+DQ4A";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="bUgn30XR";
 	dkim-atps=neutral
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20F3810E03B
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 04:27:53 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-39f927721f2so12416151fa.0
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:27:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786595271; cv=none;
- d=google.com; s=arc-20260327;
- b=U0B/mXOKecz7IQ28mwZfNIBxDazo0U3mBKzYkrFZNAItTPt8PGuWcNtyxmbRtd94eQ
- 1edF4gkBbHHcjOODQLkFyW/uPSuF2NZRBtoIis57sv+/vAHyWrv2GfgnQwAnqi4bz1G2
- Hg2c9xMtCbW+YjtLnil/V9i/5ZaviP5WCF9KwdJ/GT8dORKuc9fXxmjwYM+RTzOgvG+g
- 5UhL+epDK6lpNIfuDkZHJKGqDRq1M5num7pDmJzzBaj4CiJQIvjs6WNddSzww53DynqO
- NMQl2AVdBZ/xneUGwrbfp6GFJSQuFrA4j4MLZHvZgFns3dGWPzsTje1KxoKeDLTNK0PW
- 0x4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=a6DEVzmK3qVQENQm1NcCr1EvhZxESWnZuaofQxJb//w=;
- fh=+K3KkJVhAx6XIYikssRST+Hi/wiU0TlLh6F5Kf8iMrg=;
- b=hHRxjYxybMiY1y3eA4RIDfhhzAVlz8CZRL8Gjp6O8b3nNo/IrhkW1+KcaHq8uNwVEI
- MxC5MJXYaekX7hbFqIvN6PvZNiK7jSOH3m3Dx9VVcIOoBxjQXQ9qCgsWnXL+Vewp3PGA
- xFbiWi8YYlfbAhtAjZ88UoxJIDy6l/JtcizJPZ1vtc1s/kgl7WZ9VdkdCWtSOc0Fgcc9
- NHLjCssC0BeAv4RFnlZUeM75fxR/hKs5dbx6q64bxSillVaj5zegabvh/QtwjfF7T1oA
- Q9QRqcdBYq2ceV7/sfgfhRrjCABP7B/BqWOkDPDOFHeDobC15wIkFHPO1AfbE/UVS2wb
- pa4g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from out30-111.freemail.mail.aliyun.com
+ (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B587C10E3DF;
+ Wed, 12 Aug 2026 08:20:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786595271; x=1787200071; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=a6DEVzmK3qVQENQm1NcCr1EvhZxESWnZuaofQxJb//w=;
- b=j/R+DQ4A+6bCcS67UkUG1FMOJT7nRaaCxRgz/rUetIKfoi5oRIB7NsAeoXBajdRWLx
- 64em1Qi6M7rw9wd/9PNs3/yA2hbUSwgehNzL2ma0Oxhpz7KYCSyp4CDrPdb985FVfTWl
- /dImZBmYaopoL8XirH0xtfwOSLGxjaA0TspybcRMFCmbENYf3HAFt9CG29bKL2Pv1eC8
- vcBjm23QHzdkc0mhnoeRlQJAT0yMzX4iXos3vtVIHHrljT1HwqIjfboVEOQZk5Lvkraj
- HGNaureWB9xPPxNsYIQGhEVhAlDnHeJV6+ZrpsTc9hG3bSTlpPJkGVcVCwuce1gGwT8R
- y+hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786595271; x=1787200071;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=a6DEVzmK3qVQENQm1NcCr1EvhZxESWnZuaofQxJb//w=;
- b=SPKrkRxeenv8DYvghwXYmKjw5Ly6WX2dRqFQTbEaLu/1p2fn8iqGegtmWdBU4BQk1u
- QPxDrAbfT7lDAuzZ3CaNRW9UuOMlGiV4Oop7hgkZCthA4zvt4sHzmpGD0bc954pTMkUp
- ujim5dCBrzM3uH9zCeVPWz8hpvK7J7puPK3rU99b40xUlQDM4LblgyigMpGlu7edKfKU
- pGnpGsmehnVq8+oq7JCW92zkyrXALsRDBdBRLgO5Wt5hiATwvGA87nwi9p83rmGmcq90
- WUjGussm0/OFmo+dbW7RtqtxBwB4e2vw+xVZPV+F8bB9GOhViSs8MZEmGshvcxVf+51E
- Ac5w==
-X-Gm-Message-State: AOJu0YwzeLfUhTR747gNI0JF+qLXDrZpC1i5CEQu84x9NItJrp1pQLrJ
- s+zUfxgdpPu2CjY7zbSaAJL7+X4xQWg+VXE6QKYh5NY1+Z2mFVUWU+pxRLjIhz7safHo3d2gyxL
- DD9R4G6yESSmd0Rx0uprGHI2RbZyG6jYNZYs7cKY=
-X-Gm-Gg: AR+sD12fr9n3DUQC88Gwb8NtR76us69SiW+BkIU7MU7Yly1jsebxOWk/UtAJFcOd7t3
- fpK1gtl/5nfSwbyViYCRqN9GqkbraeyzcBY9xsgnVKl5DC/mENLWzX8/WxqoHgx1v8inhzEGGkb
- NO1IXe0JfHFNkg/HsL48ERzXr/4Jt1ss2o7j3HNQWlyK4AqSw/yx27gP9gKRnAiS0jMJArv8VX7
- nnpEGCw+ZGq/VGN1SWaj6t4xK18wDxJE1iFNq/1kkFxRbZfT/46bGlNyuj8MwNa2rCg0Vh8tkEv
- VZV96Rq4klGRlwlpnBGmSaStDT0LkPkUUKVUGTgvQgE=
-X-Received: by 2002:a2e:a98e:0:b0:39c:a346:8a36 with SMTP id
- 38308e7fff4ca-3a11a54152cmr3559571fa.8.1786595270857; Wed, 12 Aug 2026
- 21:27:50 -0700 (PDT)
+ d=linux.alibaba.com; s=default;
+ t=1786522826; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ bh=dZwyBpP0jzX3a5Q2lOIvsQUOtf394j7jNdT0AZlAj7A=;
+ b=bUgn30XRPoE1SyXlP8flX1owUpf5itBmqksn6wX1hsD8vJ4O/lQhpplxL8PspRSukx92qSmos31XHi+8HzOD+RyTXu5JQ6pF43pDvQfGLSGv0Qml7e9hMOIHvj3zzKO2luPO0WaJ66qHoy/JBCIokIjwqHir6Vb1lm7Z4i/wZCw=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045133197;
+ MF=ying.huang@linux.alibaba.com; NM=1; PH=DS; RN=31; SR=0;
+ TI=SMTPD_---0X8r2pwU_1786522823; 
+Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com
+ fp:SMTPD_---0X8r2pwU_1786522823 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 12 Aug 2026 16:20:24 +0800
+From: "Huang, Ying" <ying.huang@linux.alibaba.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: <intel-xe@lists.freedesktop.org>,  <dri-devel@lists.freedesktop.org>,
+ <linux-mm@kvack.org>,  <linux-kernel@vger.kernel.org>,  Andrew Morton
+ <akpm@linux-foundation.org>,  David Hildenbrand <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>,  Zi Yan <ziy@nvidia.com>,  Baolin
+ Wang <baolin.wang@linux.alibaba.com>,  "Liam R . Howlett"
+ <liam@infradead.org>,  Nico Pache <nico.pache@linux.dev>,  Ryan Roberts
+ <ryan.roberts@arm.com>,  "Dev Jain" <dev.jain@arm.com>,  Barry Song
+ <baohua@kernel.org>,  Lance Yang <lance.yang@linux.dev>,  Usama Arif
+ <usama.arif@linux.dev>,  Joshua Hahn <joshua.hahnjy@gmail.com>,  Rakie Kim
+ <rakie.kim@sk.com>,  Byungchul Park <byungchul@sk.com>,  Gregory Price
+ <gourry@gourry.net>,  Alistair Popple <apopple@nvidia.com>,  Balbir Singh
+ <balbirs@nvidia.com>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,  David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,  Thomas Hellstrm
+ <thomas.hellstrom@linux.intel.com>,  Francois Dugast
+ <francois.dugast@intel.com>,  <stable@vger.kernel.org>
+Subject: Re: [PATCH v3 3/6] mm/migrate_device: Fix THP splitting of a CPU
+ faulted device private folio
+In-Reply-To: <anopzF3Hk/RRh8kC@gsse-cloud1.jf.intel.com> (Matthew Brost's
+ message of "Mon, 10 Aug 2026 12:43:08 -0700")
+References: <20260805231041.3791771-1-matthew.brost@intel.com>
+ <20260805231041.3791771-4-matthew.brost@intel.com>
+ <87ik5in224.fsf@DESKTOP-5N7EMDA>
+ <anopzF3Hk/RRh8kC@gsse-cloud1.jf.intel.com>
+Date: Wed, 12 Aug 2026 16:20:22 +0800
+Message-ID: <87cxvnn41l.fsf@DESKTOP-5N7EMDA>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-From: Fabio Piparo <holofermes@gmail.com>
-Date: Thu, 13 Aug 2026 00:27:24 -0400
-X-Gm-Features: AUfX_mzd75rnG7eDXx3dOQZHSmFx8Mp8zkUsPQYcZPQWPT70HSQm2pB_XCPnJlg
-Message-ID: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
-Subject: drm/ssd130x: stale pixels when the GPU renders into the framebuffer
-To: dri-devel@lists.freedesktop.org
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=ascii
 X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,53 +76,330 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The symptom
-===========
+Matthew Brost <matthew.brost@intel.com> writes:
 
-I am working with a Raspberry Pi 5 driving a 128x32 SSD1306 over I2C
-through ssd130x, brought up with dtoverlay=ssd1306, and a GLES client
-rendering into it. The GPU renders straight into the panel's framebuffer.
-The panel shows a blocky pattern that is affected by CPU load. The kernel
-is 6.18.39.
+> On Mon, Aug 10, 2026 at 10:26:27AM +0800, Huang, Ying wrote:
+>> Hi, Matthew,
+>> 
+>> Matthew Brost <matthew.brost@intel.com> writes:
+>> 
+>> > When a CPU faults on a device private PMD and the device driver can only
+>> > allocate order-0 destination folios, __migrate_device_pages() has to
+>> > split the source THP via migrate_vma_split_unmapped_folio(). That path
+>> > is broken in two independent ways when the fault is what triggered the
+>> > migration.
+>> >
+>> > First, the split never succeeds. At the point folio_split_unmapped() is
+>> > called the folio carries two references beyond the ones it is
+>> > entitled to:
+>> >
+>> >   1 - taken by do_huge_pmd_device_private() for the duration of the
+>> >       ->migrate_to_ram() callback
+>> >   2 - taken by migrate_vma_collect_huge_pmd() when the folio was
+>> >       collected
+>> >
+>> > (the mapping reference having been dropped by set_pmd_migration_entry()).
+>> >
+>> > folio_split_unmapped() requires folio_expected_ref_count(folio) ==
+>> > folio_ref_count(folio) - 1, i.e. it tolerates exactly one caller
+>> > reference. With both of the above held the check sees 2 against an
+>> > expected 0 and returns -EAGAIN, so the migration is abandoned and the
+>> > CPU fault makes no progress.
+>> >
+>> > The PTE-based split path does not have this problem:
+>> > migrate_vma_split_folio() is called before any collect reference is
+>> > taken and explicitly skips folio_get() for the fault folio, so the fault
+>> > reference is the single caller reference the split expects.
+>> >
+>> > Fix it by dropping the fault reference across the split and re-taking it
+>> > afterwards. do_huge_pmd_device_private() derives the fault page from the
+>> > PMD entry, so it is always the head page of the folio and always ends up
+>> > in the head folio of an uniform split to order 0; re-taking the
+>> > reference on the folio therefore puts it back exactly where
+>> > do_huge_pmd_device_private() will release it. The folio cannot be freed
+>> > while the reference is dropped because the collect reference is still
+>> > held.
+>> >
+>> > Second, the folio is split globally but the page tables were demoted
+>> > only locally:
+>> >
+>> > 	split_huge_pmd_address(migrate->vma, addr, true);
+>> > 	ret = folio_split_unmapped(folio, 0);
+>> >
+>> > migrate_device_unmap() unmaps via try_to_migrate(folio, 0), deliberately
+>> > without TTU_SPLIT_HUGE_PMD, so every VMA that PMD maps the folio is left
+>> > holding a PMD sized migration entry. A folio that was PMD mapped in more
+>> > than one VMA -- after fork(), for example -- therefore keeps huge
+>> > migration entries in all the other VMAs while only migrate->vma is
+>> > demoted.
+>> >
+>> > folio_split_unmapped() does not notice: the folio is fully unmapped, so
+>> > it only looks at the refcount and happily splits to order 0. The other
+>> > VMAs are then left pointing a huge PMD at an order-0 folio, and
+>> > migrate_vma_finalize() -> remove_migration_ptes() walks into it:
+>> >
+>> >   page dumped because: VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
+>> >                                        !folio_test_pmd_mappable(folio))
+>> >   kernel BUG at mm/migrate.c:368!
+>> >   RIP: 0010:remove_migration_pte+0x56a/0x9b0
+>> >   Call Trace:
+>> >    rmap_walk_anon+0xfc/0x260
+>> >    remove_migration_ptes+0x79/0xb0
+>> >    __migrate_device_finalize+0x113/0x290
+>> >    __drm_pagemap_migrate_to_ram+0x278/0x360 [drm_gpusvm_helper]
+>> >    drm_pagemap_migrate_to_ram+0x5c/0x80 [drm_gpusvm_helper]
+>> >    do_huge_pmd_device_private+0x160/0x280
+>> 
+>> Which is the branch your patchset based on?  I found that
+>> drm_pagemap_migrate_populate_ram_pfn() in mm-everything-2026-08-08-07-08
+>> still don't support fallback to single pages if THP allocation fails as
+>> in the following comments,
+>> 
+>
+> This entire series, on drm-tip (i.e., the 6 patches posted here [1]).
+>
+> [1] https://patchwork.freedesktop.org/series/171651/
 
-A capture:
+Thanks!
 
-  https://files.fabiopiparo.com/ssd130-line-glitch.webp
+>> 	/* TODO: Support fallback to single pages if THP allocation fails */
+>> 
+>> 
+>> > Without CONFIG_DEBUG_VM the VM_BUG_ON_FOLIO() is compiled out and
+>> > remove_migration_pmd() installs a huge PMD pointing at an order-0 page
+>> > instead, along with add_mm_counter(mm, MM_ANONPAGES, HPAGE_PMD_NR). The
+>> > victim mm then maps 2MB of address space onto a single 4K page, which
+>> > shows up later as bad rss-counter state, leaked page tables and page
+>> > allocator freelist corruption in unrelated processes.
+>> >
+>> > Note this second problem was latent before the refcount fix above: the
+>> > split always failed, and the failed attempt left migrate->vma demoted,
+>> > so the retried fault took the PTE path, where __folio_split() unmaps
+>> > with TTU_SPLIT_HUGE_PMD and demotes every VMA.
+>> >
+>> > Fix it by walking the rmap and demoting every PMD sized migration entry
+>> > mapping the folio before splitting it. Demote with freeze = false: entry
+>> > creation in __split_huge_pmd_locked() is dispatched on
+>> > pmd_is_migration_entry(), not on freeze, so a migration PMD becomes PTE
+>> > sized migration entries either way, and freeze only controls a trailing
+>> > put_page(). With freeze = false there is no refcount change at all,
+>> > which makes the demotion idempotent across N VMAs.
+>> >
+>> > rmap_walk_control.anon_lock is deliberately left unset:
+>> > folio_lock_anon_vma_read() depends on folio_mapped(), and the folio is
+>> > already fully unmapped here. This mirrors remove_migration_ptes().
+>> >
+>> > Finally, refuse the split for a folio that is not anonymous. The rmap
+>> > walk would otherwise reach a file backed VMA, where
+>> > split_huge_pmd_address() zaps the PMD instead of demoting it.
+>> >
+>> > Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
+>> > Cc: Andrew Morton <akpm@linux-foundation.org>
+>> > Cc: David Hildenbrand <david@kernel.org>
+>> > Cc: Lorenzo Stoakes <ljs@kernel.org>
+>> > Cc: Zi Yan <ziy@nvidia.com>
+>> > Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+>> > Cc: Liam R. Howlett <liam@infradead.org>
+>> > Cc: Nico Pache <nico.pache@linux.dev>
+>> > Cc: Ryan Roberts <ryan.roberts@arm.com>
+>> > Cc: Dev Jain <dev.jain@arm.com>
+>> > Cc: Barry Song <baohua@kernel.org>
+>> > Cc: Lance Yang <lance.yang@linux.dev>
+>> > Cc: Usama Arif <usama.arif@linux.dev>
+>> > Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+>> > Cc: Rakie Kim <rakie.kim@sk.com>
+>> > Cc: Byungchul Park <byungchul@sk.com>
+>> > Cc: Gregory Price <gourry@gourry.net>
+>> > Cc: Ying Huang <ying.huang@linux.alibaba.com>
+>> > Cc: Alistair Popple <apopple@nvidia.com>
+>> > Cc: Balbir Singh <balbirs@nvidia.com>
+>> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> > Cc: Maxime Ripard <mripard@kernel.org>
+>> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> > Cc: David Airlie <airlied@gmail.com>
+>> > Cc: Simona Vetter <simona@ffwll.ch>
+>> > Cc: Thomas Hellstrm <thomas.hellstrom@linux.intel.com>
+>> > Cc: Francois Dugast <francois.dugast@intel.com>
+>> > Cc: dri-devel@lists.freedesktop.org
+>> > Cc: linux-mm@kvack.org
+>> > Cc: linux-kernel@vger.kernel.org
+>> > Cc: stable@vger.kernel.org
+>> > Assisted-by: GitHub_Copilot:claude-opus-5
+>> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>> > ---
+>> >  mm/migrate_device.c | 98 ++++++++++++++++++++++++++++++++++++++++-----
+>> >  1 file changed, 89 insertions(+), 9 deletions(-)
+>> >
+>> > diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+>> > index ae9027421b80..ae17bd516d24 100644
+>> > --- a/mm/migrate_device.c
+>> > +++ b/mm/migrate_device.c
+>> > @@ -899,22 +899,104 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
+>> >  	return 0;
+>> >  }
+>> >  
+>> > +static bool migrate_vma_split_pmd_one(struct folio *folio,
+>> > +				      struct vm_area_struct *vma,
+>> > +				      unsigned long addr, void *arg)
+>> > +{
+>> > +	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
+>> > +
+>> > +	while (page_vma_mapped_walk(&pvmw)) {
+>> > +		if (pvmw.pte)
+>> > +			continue;
+>> > +
+>> > +		addr = pvmw.address;
+>> > +		page_vma_mapped_walk_done(&pvmw);
+>> > +
+>> > +		/*
+>> > +		 * Demote with freeze = false: the PMD already holds a
+>> > +		 * migration entry, so __split_huge_pmd_locked() creates PTE
+>> > +		 * sized migration entries from it and leaves the refcount
+>> > +		 * alone. There is at most one PMD mapping @folio per VMA, so
+>> > +		 * stop the walk here.
+>> > +		 */
+>> > +		split_huge_pmd_address(vma, addr, false);
+>> > +		break;
+>> > +	}
+>> > +
+>> > +	return true;
+>> > +}
+>> > +
+>> > +/*
+>> > + * Demote every PMD sized migration entry that maps @folio to PTE sized ones.
+>> > + *
+>> > + * migrate_device_unmap() unmaps with try_to_migrate(folio, 0), i.e. without
+>> > + * TTU_SPLIT_HUGE_PMD, so a folio that was PMD mapped in several VMAs -- after
+>> > + * fork(), for instance -- ends up with a PMD sized migration entry in every one
+>> > + * of them. folio_split_unmapped() below does not care, it only looks at the
+>> > + * refcount, so splitting the folio without demoting all of those first would
+>> > + * leave the other VMAs pointing a huge PMD at what is now an order-0 folio.
+>> > + * remove_migration_ptes() trips over that in migrate_vma_finalize().
+>> > + */
+>> > +static void migrate_vma_split_pmd_mappings(struct folio *folio)
+>> > +{
+>> > +	struct rmap_walk_control rwc = {
+>> > +		.rmap_one = migrate_vma_split_pmd_one,
+>> > +	};
+>> > +
+>> > +	/*
+>> > +	 * Do not pass .anon_lock: folio_lock_anon_vma_read() requires
+>> > +	 * folio_mapped(), and @folio is already fully unmapped here.
+>> > +	 */
+>> > +	rmap_walk(folio, &rwc);
+>> > +}
+>> > +
+>> >  static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+>> > -					    unsigned long idx, unsigned long addr,
+>> > +					    unsigned long idx,
+>> >  					    struct folio *folio)
+>> >  {
+>> >  	unsigned long i;
+>> >  	unsigned long pfn;
+>> >  	unsigned long flags;
+>> > +	bool fault_folio;
+>> >  	int ret = 0;
+>> >  
+>> >  	/*
+>> > -	 * take a reference, since split_huge_pmd_address() with freeze = true
+>> > -	 * drops a reference at the end.
+>> > +	 * migrate_vma_split_pmd_mappings() walks the rmap, and
+>> > +	 * split_huge_pmd_address() zaps rather than demotes a PMD in a VMA that
+>> > +	 * is not anonymous. migrate_vma_collect_huge_pmd() does not check the
+>> > +	 * VMA type, so a file THP can reach here; the rest of the migrate_vma()
+>> > +	 * machinery only supports anonymous memory anyway.
+>> >  	 */
+>> > -	folio_get(folio);
+>> > -	split_huge_pmd_address(migrate->vma, addr, true);
+>> > +	if (!folio_test_anon(folio))
+>> > +		return -EINVAL;
+>> > +
+>> > +	/*
+>> > +	 * A CPU fault on a device private PMD holds an extra reference on the
+>> > +	 * folio, taken by do_huge_pmd_device_private(). folio_split_unmapped()
+>> > +	 * only tolerates a single caller reference, so the split would always
+>> > +	 * fail with -EAGAIN while this fault reference is held.
+>> > +	 *
+>> > +	 * do_huge_pmd_device_private() derives the fault page from the PMD
+>> > +	 * entry, so it is always the head page of @folio, and therefore always
+>> > +	 * ends up in the head folio after an uniform split to order 0. Drop
+>> > +	 * the reference across the split and re-take it on the head folio
+>> > +	 * afterwards, leaving the reference exactly where it is expected to be
+>> > +	 * released.
+>> > +	 *
+>> > +	 * The folio cannot go away while the reference is dropped: the
+>> > +	 * reference taken by migrate_vma_collect_huge_pmd() is still held.
+>> > +	 */
+>> > +	fault_folio = migrate->fault_page &&
+>> > +		page_folio(migrate->fault_page) == folio;
+>> > +
+>> > +	migrate_vma_split_pmd_mappings(folio);
+>> > +
+>> > +	if (fault_folio)
+>> > +		folio_put(folio);
+>> >  	ret = folio_split_unmapped(folio, 0);
+>> > +	if (fault_folio)
+>> > +		folio_get(folio);
+>> > +
+>> 
+>> Is it better to pass "extra_cnt" to folio_split_unmapped()?  This
+>> follows the coding style of the other migrate functions better, like
+>> that in __migrate_device_pages().
+>> 
+>
+> That is an option. To be minimally invasive, I went this route. I also
+> didn't know offhand what would happen if our head page had an extra
+> reference and we then called folio_split_unmapped() with "extra_cnt", or
+> how that would affect the reference counts of the newly split pages
+> (i.e., whether we would need to adjust the reference counts of all split
+> pages after folio_split_unmapped() returns). However, I could quickly
+> reason that dropping the reference and then reacquiring it was
+> functionally correct and safe.
 
-This is a simple trail traveling left to right, and the busier the Pi is,
-the shorter the trail (link above). On an idle machine the leftovers build
-up into a blocky fog. That was the clue that pointed me at the CPU cache,
-since the lifetime of the artifact tracks memory pressure.
+This makes sense for me.  Thanks!
 
-The trace
-=========
+I have another question.  If we have to split the large folio when
+migrating from device to ram, should we still migrate all pages of the
+original large folio, or should we migrate only the faulting
+normal-sized page of the original large folio instead?
 
-I made a test program that flips between two alternating solid frames
-while i2c_write payloads are traced. 15 of the 31 flushes carry bytes
-from both frames in one payload, mixed at 64 byte granularity.
+---
+Best Regards,
+Huang, Ying
 
-What appears to happen
-======================
-
-My reading: the driver's XRGB conversion reads the framebuffer through a
-cached mapping while the GPU writes the same memory directly, so what
-reaches the panel is whatever lines the CPU still holds. The 64 byte
-granularity and the load dependence both fit that, and write-combining
-the mapping makes it stop.
-
-What stops it
-=============
-
-Setting shmem->map_wc in a .gem_create_object hook makes all the traced
-payloads come out as expected.
-
-Whether the exporter is the right place for this, I do not know.
-
-I am happy to test anything on this hardware and report back.
-
-Disclosure
-==========
-
-The panel, the symptom and the i2c trace come from my own hardware. The
-analysis above and the change came out of a long debugging session with
-an AI assistant.
+> Matt
+>
+>> >  	if (ret)
+>> >  		return ret;
+>> >  	migrate->src[idx] &= ~MIGRATE_PFN_COMPOUND;
+>> > @@ -935,7 +1017,7 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
+>> >  }
+>> >  
+>> >  static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+>> > -					    unsigned long idx, unsigned long addr,
+>> > +					    unsigned long idx,
+>> >  					    struct folio *folio)
+>> >  {
+>> >  	return 0;
+>> > @@ -1103,7 +1185,6 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+>> >  	struct mmu_notifier_range range;
+>> >  	unsigned long i, j;
+>> >  	bool notified = false;
+>> > -	unsigned long addr;
+>> >  
+>> >  	for (i = 0; i < npages; ) {
+>> >  		struct page *newpage = migrate_pfn_to_page(dst_pfns[i]);
+>> > @@ -1177,8 +1258,7 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+>> >  					goto next;
+>> >  				}
+>> >  				nr = 1 << folio_order(folio);
+>> > -				addr = migrate->start + i * PAGE_SIZE;
+>> > -				if (migrate_vma_split_unmapped_folio(migrate, i, addr, folio)) {
+>> > +				if (migrate_vma_split_unmapped_folio(migrate, i, folio)) {
+>> >  					src_pfns[i] &= ~(MIGRATE_PFN_MIGRATE |
+>> >  							 MIGRATE_PFN_COMPOUND);
+>> >  					goto next;
+>> 
+>> ---
+>> Best Regards,
+>> Huang, Ying
