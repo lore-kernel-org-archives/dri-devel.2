@@ -4,137 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D61C5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 20:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400B4C5CFDB
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 20:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60F448952F;
-	Wed, 12 Aug 2026 20:44:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4B110E117;
+	Wed, 12 Aug 2026 20:47:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aHliJiY4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mm1cuohF";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010053.outbound.protection.outlook.com [52.101.56.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 643F48952F
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 20:44:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bnMo8PnYIAsfbhZHEPNlXgVfT1TiQsZHRGXgi/IlgkKq2RMMvzyia7oUTMV4pvzmBFXjR6vljiHDxlisRZ358ZFXuXQ9FYXQMXaqd6XF7k994xB7RRmmZ7oqXFVE4DjdvijhCXmoPyy1bwDjA2ALM8lCu3I7Cxgikvp//6oCG5c4niPvNl8w41YQxHMPGPXbweTGHMHJjmT3m4ZUoPwfYbwskCDqKI9jw9DQxw2mPeBkZ2GgkHu82c3+0H0CeP5wygtYIpBkMDgrDjOE4VsspR8RdK0XEgh3XJOehMGXj+7H0whPiJN7sMcX9rdPNi/bxOotVn8Iu7OWFqUX1EU1ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yzKFaOHACCB3mYf9jkXGdJpB3GCdn/BqovK7cQJqFN0=;
- b=DWEn4EL7hZMpYtgc0X5NZzKvk3ywYq3kEzdpyGVZpq+B3i31XGLDCSVWwkgc4+7LvtjupTv4qQqvM0UjckXowR/J5NBB2NmVFI77zUu/O2KZLW/lsWcA/22f33R5Cl4GHB/h4O1F9P2BuAQ0YKj8UYOqMVoqtFeswTxA26w4mAcsT6gJLHAzpStDKuPJm+fR1ArqBHr9f4qYljSZAEz45B57l4TE+U8TODSQCUycF3tV3D9eMzGEcvhUHl1ngArfq8sKXjWexMJDQDvmGale4BZW+DpZ4OZkfv7nLMjnCEPCBro2fom5KYBEZNj4CKq3NZoYWB7+uA1/DKq/FpgS7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yzKFaOHACCB3mYf9jkXGdJpB3GCdn/BqovK7cQJqFN0=;
- b=aHliJiY4DUKyGX+PBjiE3V6I50agQRydgNG1K14QkqNTcpxKpt7j/ryoP8oGSkD9GYmT3isKAuZFuMZ0LWOYLJI4k1iVmwBK+0pT8W6jnm2ZfBHCCVN06B4AnICwhppZV4nQ/S57q84gi8svOxSyDSb4L+ZFWu9BdHxfiKViVFIb2RMtu78iKva9Kic6e/uecW/B8SH/y4/WltCDMIXqGK+08/DQpLp7VfKZBD3PPJaiK81Wpn69MmOPfpJvzbMqvgrwxM8mG+ybF+P1mLE9afeaE5Rfo8dd7Lw5sIMs8hieP61s71YmyaW2Wmby5kGgugnKcCQZXAKKXtl11R5iMg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9412.namprd12.prod.outlook.com (2603:10b6:408:211::18)
- by SA3PR12MB7830.namprd12.prod.outlook.com (2603:10b6:806:315::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
- 2026 20:44:49 +0000
-Received: from LV3PR12MB9412.namprd12.prod.outlook.com
- ([fe80::c319:33b5:293:6ec4]) by LV3PR12MB9412.namprd12.prod.outlook.com
- ([fe80::c319:33b5:293:6ec4%4]) with mapi id 15.21.0315.008; Wed, 12 Aug 2026
- 20:44:49 +0000
-Message-ID: <280ce62b-fe17-4f70-b438-987417a28208@nvidia.com>
-Date: Wed, 12 Aug 2026 13:44:44 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/16] gpu: nova-core: use projection for PFALCON and
- PFALCON2 registers
-To: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
-References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
- <20260805-typed_register-v2-12-c3ca142220a0@garyguo.net>
- <DKN1QEH1HWD1.1ZV0LWLNCZJTH@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DKN1QEH1HWD1.1ZV0LWLNCZJTH@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0157.namprd03.prod.outlook.com
- (2603:10b6:a03:338::12) To LV3PR12MB9412.namprd12.prod.outlook.com
- (2603:10b6:408:211::18)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B78F810E117;
+ Wed, 12 Aug 2026 20:47:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786567654; x=1818103654;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=w024XBgg1ZjZTH0vd9AYmyiNtdRYrahWGr88BWoZsA0=;
+ b=mm1cuohFQUH2JFcRTVCUr/hWfNV3lTVoIWn6lXlk8Ar1Z/xZFjrmQ/kD
+ muHkt+Ldpz6UBE7y+NAWm2XL0f8q+5zg8ECSf0UNC28dSZcOgNktMAkDk
+ hYfIxvrRWvLIGtR3VomiC7Y/ifnCLV2hBo45JFkzlAYpe4Zoc20jqYkvT
+ P3VvXYKWOUFQyVfeQjvbsAwYbwZ6ca+6NGFgn/fwmqZO1DXYHIKgVslLh
+ O5XRiZvkqbihKzQpJWFiMkxZtA2zA8MphZ5I0WUafM6jbxLxmCHks3KTG
+ IGF7rRLYuiIhQ7XYi9cnWPCyxu4Cijs4g3ThlOUzND8u1wiVuYu7H7FK8 g==;
+X-CSE-ConnectionGUID: xScQ0XptTB2mTVZQlcXTTA==
+X-CSE-MsgGUID: rmPQrvF3SeOoAxqfGtpp6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="87015552"
+X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; d="scan'208";a="87015552"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2026 13:47:33 -0700
+X-CSE-ConnectionGUID: Iiifp7rBQgiDvA2CY6xE8w==
+X-CSE-MsgGUID: BJvATKfzTDe9unPHUxHYcg==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+ by fmviesa003.fm.intel.com with ESMTP; 12 Aug 2026 13:47:29 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wuFrD-00000000ReQ-0iLw;
+ Wed, 12 Aug 2026 20:47:27 +0000
+Date: Thu, 13 Aug 2026 04:46:49 +0800
+From: kernel test robot <lkp@intel.com>
+To: Pavitra Jha <jhapavitra98@gmail.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Pavitra Jha <jhapavitra98@gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP
+ discovery header cast
+Message-ID: <202608130435.5Msck82Q-lkp@intel.com>
+References: <20260708061835.111986-1-jhapavitra98@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9412:EE_|SA3PR12MB7830:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc6e6f31-f8de-423d-7b86-08def8b28d19
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|7416014|376014|56012099006|11063799006|10067099003|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info: hD6i6pAIc7TkMEZzX8/jlnqqO/diC6W+9mCofBraaKYP/HjRWbDQwe+0Hdv0ODbpIrPKTLfKqp9l6ol/U3X2S2DDIlsQYiGUIrwpcPve1jnO8/GOXYcH/0JaGYZdD5GWlGDJNOp4NHzbjGN4NGYEKuMPpEsDJONxN1+NXa8vCGV7W4mvoTWA0K5/kNkxEOFMQYr6sj9d+EU7xfTjciZ6Re5Ub1E9LlU/V1w3hAQHzTxQVifppp41RbWXavNCwnwPmhB5xHOol4/zLbXs95tGLewanl4ck8pAnBqVGmYWPi72P82aiu0oWmY0ndMNDkPQtS9r7b+jrRwTyv5rmC6iJDnY0ylXAbxzv1U6v//ePuj5wdaCHgEAAtlL+YP182SWEXr2/CTW/T7qHIS/tQzZhJexuWFNA2I+mHi8OAyKaIRcEWpxu3FZoqn3pvCXeucIsCTaVc4p/YCFHCpRF4NEZ9rPyuxwJiOTSXb6vu8GF5qmn4IWZHHFGvYmRvTOZwjr/WLLTdfuRhBwNTbanxfYlUd2f2FhdtGXd6EmOgLE3nIa19gLJFi6F9cGYawyfOqQKaD7LpkwOo7NsRyWNMjeUcrNiYYCpv5G1ZAh8QYe37flkFfgkeYnOPJDloEfZcWSFdtm8QMp93hi0gyNRzO3KWscMKOsNkIsMq9m6jUH7tg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9412.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clQ3ME05NEF5K0dEenlxRmI2OWpWMW9ERUE4TjlPck55OVNPRlFMYTA2SW5j?=
- =?utf-8?B?dWZsTmFORW9CbXBQaFFNUlFPOW5ub01zclhQak5OZ2Jldm42aCtYMlhrenJ5?=
- =?utf-8?B?bXIrMVNQek45Wm12SWlSbFFwY3VwemdHRGpaNHpWWWV3dXExdWhicm1XYzZz?=
- =?utf-8?B?SGJpQzBSSzdEalI2bVlnRFlZMzNabEpUVnVnWjFxM05GQU5BTC9jRE12RUlm?=
- =?utf-8?B?ZHVzTmxNaGRHbXloTEpQMDA3MlNqRFVBNG9zMTg3WGM3Uzl2RStvYkM2UGZU?=
- =?utf-8?B?U0N5Y1dKd2NBZVl6dnJJSmhmclhSajlBQjRaN21iVjZLS2FacUpCd28vU3RP?=
- =?utf-8?B?aWJEa0JkaFpiQkJYWm52VWtSNXZRaVBwa2drVkU4ZmRMME1FM1N0dzhFSWdK?=
- =?utf-8?B?eFRTL0UxQjNUcC84T1ZGaGJPKy9YWDN6SFNmdjd6cmhWVE85akkyZnZ4WUt2?=
- =?utf-8?B?d3lheiszVlJRTmdVdEtOTnpSdFliY1Q1M054YnFHYWwyL0QwVE12R2ZEVS9M?=
- =?utf-8?B?K1hDNDBxaDBhc3lkWmkveW01SXo5MndWY0FzM1V1U1ZoZkVqU1A5L3c5MSsx?=
- =?utf-8?B?WVZrY0hsR2FsaFozZm5Wb1FZVGVKby9DazRhT2V4VG93UmR2TUxlUGhLVHFH?=
- =?utf-8?B?YmdDVGszSE96WmJSYkg0VzJReEhEd2lyMXdDY2c3UEcxdVlzUHhVc2hkdjFC?=
- =?utf-8?B?ejVqWjZSMS84eXZZbDFMLy9BN0JSSGNCWkU4Z0ZLYWIzdkJxZEQrbzBMa2l5?=
- =?utf-8?B?OTdwRmJrRjJ3aThLcW5kTnlPcnpVVks0aVF1bWZabzhJVFJJOFp1TzlTRFZZ?=
- =?utf-8?B?djltbnIxMUZKZWo1S3lJTU9PRWlmWGJuSXJuZTkzOVg2bGFwZUtBQlNMZ3Nq?=
- =?utf-8?B?UGRxR2dLK1lFRzdzdms3QjMvUmFQWFhhbU9LbWJ2MlUxbVBjQUxMU0o4cnUx?=
- =?utf-8?B?ZnN2MGpjVUQ3cEFPL2ppeFdQTDFWaWNYV2VEM05vSlcvd0wyRnJlKzZadmQw?=
- =?utf-8?B?NDNITDhWR05jeHRzYXg2Y3JXMi8rY1hpM3ZIbEsxaDNjOW1mRlNGTVExL2Ix?=
- =?utf-8?B?Mmpya1YyTksvQkpEc282ZUNvSmxxSE9xdVRjZmpudTVIVU9IZHFUTlNKdjVs?=
- =?utf-8?B?S0Q0VXZzL1pSbXd0VGhzdTdkVGdPRlBkVVRaSXpDSU5HeFBTNDVUelh4ck5w?=
- =?utf-8?B?aVJZR05ZZnFKMnc4NW0xUW8vRkNpUHM4ME5HU0VXQTZVK2p4VEM4b0xFSUtj?=
- =?utf-8?B?eVZuSlBqbnVoWFlyM0orUWRjemxRVnpZWFdYZjlNYXdWS0VHN04wZGd3OXVu?=
- =?utf-8?B?LzdpV1UycEplTTVzekgrNWxyMzJTMXkrZmwxdDlHcVZxVlMvTzcxeXBlZkVr?=
- =?utf-8?B?YXNkRGx2a1FEdkI5RVFhNWd4ZFhBRHpvUnhTakFwaXRKMExjSVFFOHIrakdX?=
- =?utf-8?B?azNvTjJraXJtZmhPVG1zQi9FeExPaDZOeUowTk8ralhMWm8vZDF1T0lVa2hO?=
- =?utf-8?B?Z2xXTWJSQXVSK1piUHloRUhJdWhSbzloajc0ZzVqOUtEWUtqTmFIM29nSWdv?=
- =?utf-8?B?WU5SbEdYb0Z0TmtGTS9CQ1BrVFpVSTlrbUd0WWtENUZHV0k1RFI1RmtXR1ZL?=
- =?utf-8?B?cy94WmpMSklGaG9iMTc5UUxFc29ucWVZNi81aFVJM3NIZldWbkF5NW80QXBu?=
- =?utf-8?B?ZEtoVjlKVU0zblpsUUF5SklpYW45OXpSVythcWtvR0gybkxIRXM0SHVrTWhl?=
- =?utf-8?B?cUl5cVZvcmNKcjRyajQxbll2NFEyckw0V1ppMEhVWTl4YnFHUmd6RGd6UHRt?=
- =?utf-8?B?bmx6UGljYU9MWHNMRjFiZUZCL28yVG54UWNDbmx5dThLMXE5dExlb21YdGc3?=
- =?utf-8?B?cExoS0F5THQvUXNyRFVVbWxBYzFNaWNyOGtXeTd5bjlidXlHa3kxYmlIcS9o?=
- =?utf-8?B?dGtTZGxpNkRYQlAzQVk0UGhRM2JWdnBjYTBsZmxQT1BrQ0xZVXpxZHZ4OVJF?=
- =?utf-8?B?bTBmeVNkQXBGcC9OaEdCQVZ3a3dyb3VQNUtsUVVXTlFOT0ovbkZ0aVpjUEpq?=
- =?utf-8?B?UUdINW1oZ1Y1Y2pROUpDNzh5cC9WUGNabDJnT0pLekQ4M2V3amtBMVNaTEx3?=
- =?utf-8?B?dGRaMnVMYkZuYXR5WDVjMmZwVEcwM0o4VW0zcDBSMXErbnd1ai9FSXpkMFhX?=
- =?utf-8?B?aU45NUZ5TUc2SUlVQzd1ZnpkWjV0bU4rV2hIbVVublA2OElzOWtxa2RmQmVR?=
- =?utf-8?B?bHdqNG52L21iMy9jWkR2dWlVak90Z2F4YzlSeTJXOGV1RDRTbzdwTjd6UzZ6?=
- =?utf-8?B?NXJxTHoxMy9idmEwajYwejc2Q3JEdVJYWWQyTWJTMkFBY25RdkVwQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc6e6f31-f8de-423d-7b86-08def8b28d19
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9412.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 20:44:49.1234 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hy72bOfsYP7Dmmee3MP4rs2n3j/Vv5IlHnrtd1iXexibiZFlscZA54KUvnsFKc6y2776jIsR5/5Oz+lKgbhVbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7830
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708061835.111986-1-jhapavitra98@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,35 +73,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/12/26 7:48 AM, Alexandre Courbot wrote:
-> On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
-...
->>       /// Resets DMA-related registers.
->>       pub(crate) fn dma_reset(&self) {
->> -        self.bar.update(regs::NV_PFALCON_FBIF_CTL::of::<E>(), |v| {
->> +        self.pfalcon.update(regs::NV_PFALCON_FBIF_CTL, |v| {
->>               v.with_allow_phys_no_ctx(true)
->>           });
->>   
->> -        self.bar.write(
->> -            WithBase::of::<E>(),
->> -            regs::NV_PFALCON_FALCON_DMACTL::zeroed(),
->> -        );
->> +        self.pfalcon
->> +            .write_reg(regs::NV_PFALCON_FALCON_DMACTL::zeroed());
-> 
-> Remembering the debates we had over how to address relative registers
-> when we ported registers to the new I/O scheme, I guess this new syntax
-> which should make everyone happy! :)
-> 
+Hi Pavitra,
 
-What a huge improvement in readability! Yes, very happy
-with this.
+kernel test robot noticed the following build errors:
 
-the "::of::" and the bare "<E>" were always something that
-I had to look up. Now they're gone, wooohoo!
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v7.2-rc7 next-20260811]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-thanks,
--- 
-John Hubbard
+url:    https://github.com/intel-lab-lkp/linux/commits/Pavitra-Jha/drm-amdgpu-discovery-validate-table-offset-before-IP-discovery-header-cast/20260812-100224
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260708061835.111986-1-jhapavitra98%40gmail.com
+patch subject: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP discovery header cast
+config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20260813/202608130435.5Msck82Q-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 12df34b8469b8095359de8c249cb1b2753fadeea)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260813/202608130435.5Msck82Q-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608130435.5Msck82Q-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:534:25: error: member reference type 'struct table_info' is not a pointer; did you mean to use '.'?
+     534 |         if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
+         |                         ~~~~~~~^~
+         |                                .
+   include/linux/byteorder/generic.h:91:21: note: expanded from macro 'le16_to_cpu'
+      91 | #define le16_to_cpu __le16_to_cpu
+         |                     ^
+   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+         |                                                   ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:536:23: error: member reference type 'struct table_info' is not a pointer; did you mean to use '.'?
+     536 |                         le16_to_cpu((*info)->offset), table_id);
+         |                                     ~~~~~~~^~
+         |                                            .
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                        ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                                     ^~~~~~~~~~~
+   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+         |                                                   ^
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:536:34: error: use of undeclared identifier 'table_id'
+     536 |                         le16_to_cpu((*info)->offset), table_id);
+         |                                                       ^~~~~~~~
+   3 errors generated.
+
+
+vim +534 drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+
+   508	
+   509	static int amdgpu_discovery_verify_npsinfo(struct amdgpu_device *adev,
+   510						   struct table_info *info)
+   511	{
+   512		uint8_t *discovery_bin = adev->discovery.bin;
+   513		uint16_t checksum;
+   514		uint16_t offset;
+   515	
+   516		offset = le16_to_cpu(info->offset);
+   517		checksum = le16_to_cpu(info->checksum);
+   518	
+   519		struct nps_info_header *nhdr =
+   520			(struct nps_info_header *)(discovery_bin + offset);
+   521	
+   522		if (le32_to_cpu(nhdr->table_id) != NPS_INFO_TABLE_ID) {
+   523			dev_dbg(adev->dev, "invalid ip discovery nps info table id\n");
+   524			return -EINVAL;
+   525		}
+   526	
+   527		if (!amdgpu_discovery_verify_checksum(adev, discovery_bin + offset,
+   528						      le32_to_cpu(nhdr->size_bytes),
+   529						      checksum)) {
+   530			dev_dbg(adev->dev, "invalid nps info data table checksum\n");
+   531			return -EINVAL;
+   532		}
+   533	
+ > 534		if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
+   535			dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
+ > 536				le16_to_cpu((*info)->offset), table_id);
+   537			return -EINVAL;
+   538		}
+   539	
+   540		return 0;
+   541	}
+   542	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
