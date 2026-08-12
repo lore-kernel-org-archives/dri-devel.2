@@ -4,58 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC240C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:29:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96854C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B60C10EF9C;
-	Wed, 12 Aug 2026 12:29:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9F1710E401;
+	Wed, 12 Aug 2026 12:39:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="K64zQzNI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QrNygAZy";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 822AA10EF9C;
- Wed, 12 Aug 2026 12:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=70G4rGw4LXyZZd0eBpnHPHIIA6WX6NpH2rsQoiT5QaA=; b=K64zQzNI7KBpJZ3Oi7kvGElG6L
- C8IWDmWcvzqvB6s+YklFdHGlN4AOpdh5+nSCpR6myTHvnNgxfIs+GBLjEqZMxe4avOglNjq64A4cc
- 4BgbXeHvPlO710p+MWX7SfEcgeyz6jUdLUcYPiUpDCZDHqXTFQy4pUQ752sO6/HqXd6WTbZOkIMCO
- /Uz8EZkoLKX+/zC3I9NFmID0RDtWtriHTwxZtzW+xZlyucl+VsEUcm6gkvwzpUWUxASgrra6a74Gp
- VDtyviPEUmsCYQOX0xwPZbeS9kBFY6IgWMpEO5IKEYZGQFl1xcyaToG5k3pP4ZzS1xg2kAi0GrY5/
- qLNSWQHA==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wu855-0001VV-Hx; Wed, 12 Aug 2026 14:29:15 +0200
-Message-ID: <ab60bdb4-351f-4911-9246-2719d078cb96@igalia.com>
-Date: Wed, 12 Aug 2026 13:29:14 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-To: phasta@kernel.org, Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>,
- "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
- <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
- <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
- <932892b196f7bbba7f5e9bff22f9b484854aaccc.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <932892b196f7bbba7f5e9bff22f9b484854aaccc.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0488510E401
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:39:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AF63B40254;
+ Wed, 12 Aug 2026 12:39:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67EC81F00A3A;
+ Wed, 12 Aug 2026 12:39:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786538340;
+ bh=Mj3CRUWadVVer9+iThW5QZMn2o4xXSwt8auYSCRJSIg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QrNygAZyWjTLMW2AT/oYqDPSIM90QxjLpMtf/UvsVYqNLm7XJuN4nu6NMcAraTpEt
+ lf1tQpaIJV2y4ojwT5yfmrks02sBqme3s9ABAZNGGihubsteSEzl1M5WnikICGpsz2
+ pBPruTpzYhqPK3+w20yVGlrXZQnSyRNFWMg8KAiSsDIP3O6yfh6dUoc39thtmKSUGl
+ ncUNhBhxRke9gGCqK3sk/qijGThb0ucHf9nguPjlsGxig8i06IgaYwknQBMBy4GGah
+ WcweybvO/eSPaeaknuYP4TCYLBwRxifV3M1Uh258LMQ1EMh71qyrdo1W3In/39+zbr
+ 11q0NONaZJnmA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] platform/x86: apple-gmux: add MacBookPro15, 1 dGPU
+ power sequence
+To: "Andre Eikmeyer" <dev@deq.rocks>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260812122206.193680-2-dev@deq.rocks>
+References: <20260812122206.193680-1-dev@deq.rocks>
+ <20260812122206.193680-2-dev@deq.rocks>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 12:38:59 +0000
+Message-Id: <20260812123900.67EC81F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,88 +54,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `discrete_pdev` pointer caches the discrete GPU `pci_dev` bu=
+t is not updated when the client is unregistered and a new device is regist=
+ered, preventing power switching from functioning if the PCI device is resc=
+anned.
+--
 
-On 12/08/2026 12:58, Philipp Stanner wrote:
-> On Wed, 2026-08-12 at 12:37 +0100, Tvrtko Ursulin wrote:
->> Jokes aside, I agree with the above analysis that a better fix would be
->> to pull things under the lock, and interestingly, Philipp had a lock
->> widening patch not so long ago but I don't remember what happened it or
->> how exactly did it look. It would possibly have fixed this problem.
-> 
-> https://lore.kernel.org/dri-devel/a0d969408a5a55dfb6d0b3e65906fd7bbf3eee1c.camel@mailbox.org/
-> 
-> TBH I got discouraged and increasingly dissatisfied with the state of
-> our community, because whenever I try to fix things that are
-> *obviously* broken and incorrect (and which were usually not broken by
-> me), with relatively simple patches, I have to work uphill and only
-> receive pushback.
-> 
-> Reviewers and supporters are usually absent unless they want to have
-> more features or performance-hacks added, though it is apparent that
-> many indeed read what we are doing.
-> 
-> Should things get better it's usually not acknowledged, and should
-> things go wrong one runs danger of getting blamed with hindsight-bias.
-> 
-> Had my patch landed and (speculatively) prevented this regression, no
-> one would have noticed, but Phoronix would write some nice article
-> about the FPS gain in video games, achieved by Tvrtko Ursulin :)
+--- Patch [1]: [PATCH 1/3] platform/x86: apple-gmux: add MacBookPro15,1 dGP=
+U power sequence ---
+commit 35744aea76b96c0341cb3a18f76cff6290e2d999
+Author: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 
-Not sure if you are calling me out here or not, since apart from a 
-direct mention, the lore link above is also a reply to my email, so for 
-the record, I did give my ack for those patches. Plus I spent time 
-testing them. So if you were in fact calling me out, I don't see how 
-that is warranted. And on the wider topic I also never shied away from 
-the non-glamorous work.
+platform/x86: apple-gmux: add MacBookPro15,1 dGPU power sequence
 
-Going back to your linked patch series, now that I re-read it and 
-reminded myself, it wouldn't have solved the regression from this thread 
-since it left drm_sched_rq_pop_entity() outside the lock. But I did 
-agree even then it was a step in the right direction. So if you respin 
-it (last patch seemed buggy according to sashiko), maybe replace with my 
-version of the completion removal (what happened with that one?), 
-ideally fold the patch which removes the double re-lock cycle into the 
-actual locking change (I think that's better), my ack still stands.
+This commit introduces a dGPU power sequence for MacBookPro15,1 devices.
+It introduces ACPI method evaluation during gmux transitions and verifies
+PCI configuration space accessibility before completing power-on.
 
-But I also still think ack from AMD is needed as well since the changed 
-code paths are by large used from amdgpu.
+> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/app=
+le-gmux.c
+> index fbc30f1f8abdf..1771c6bb756ef 100644
+> --- a/drivers/platform/x86/apple-gmux.c
+> +++ b/drivers/platform/x86/apple-gmux.c
 
-Regards,
+[ ... ]
 
-Tvrtko
-> 
-> Ah well.
-> 
-> My vision for drm_sched has been that we absolutely need to start
-> establishing strict computer science standards and have to prioritze
-> formal correctness, simplicity and documentation over features and
-> *especially* performance.
-> 
-> Though I maybe should have tried to be more polite and diplomatic about
-> it, the evidence that I see is that the DRM community does not actually
-> want the above. At least I have to conclude that from the lack of
-> encouraging participation and the presence of discouragement.
-> 
-> So if I want to add a spinlock for something obviously broken, the
-> burden of proof is on me, not on the one who broke it. If I want to
-> prevent someone from adding a 4th drm_sched_start_x() function for
-> performance-reasons, then I receive not-so-nice emails.
-> 
-> Folks here seem to want to continue like they did for the last 15
-> years.
-> 
-> If anyone here reads this who *doesn't* want to continue like we did
-> for the last 15 years, then I would kindly ask for public participation
-> and help with moving things towards the right direction. Simple emails
-> with "I support this idea, +1", would almost be enough.
-> 
-> 
-> It would seem that these recent event might proof that I was right
-> about our fundamental issues.
-> 
-> 
-> P.
+> @@ -549,11 +615,14 @@ static enum vga_switcheroo_client_id gmux_get_clien=
+t_id(struct pci_dev *pdev)
+>  	 */
+>  	if (pdev->vendor =3D=3D PCI_VENDOR_ID_INTEL)
+>  		return VGA_SWITCHEROO_IGD;
+> -	else if (pdev->vendor =3D=3D PCI_VENDOR_ID_NVIDIA &&
+> -		 pdev->device =3D=3D 0x0863)
+> +	if (pdev->vendor =3D=3D PCI_VENDOR_ID_NVIDIA && pdev->device =3D=3D 0x0=
+863)
+>  		return VGA_SWITCHEROO_IGD;
+> -	else
+> -		return VGA_SWITCHEROO_DIS;
+> +
+> +	if (apple_gmux_data->use_pwg_power_sequence &&
+> +	    !apple_gmux_data->discrete_pdev)
+> +		apple_gmux_data->discrete_pdev =3D pci_dev_get(pdev);
 
+[Severity: Medium]
+Does this caching mechanism properly handle the PCI device being removed and
+rescanned?
+
+If an administrator logically removes the discrete GPU via sysfs (for examp=
+le,
+echo 1 > /sys/bus/pci/devices/.../remove) and rescans the PCI bus, the GPU
+driver will re-register with vga_switcheroo.
+
+Because of the !apple_gmux_data->discrete_pdev check, discrete_pdev won't be
+updated when the new device is registered. The power switching could break
+permanently by returning -ETIMEDOUT, because it will attempt to read the
+configuration space on the stale, disconnected pci_dev.
+
+Should there be a way to clear or update the cached discrete_pdev when a
+client is unregistered?
+
+> +
+> +	return VGA_SWITCHEROO_DIS;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812122206.1936=
+80-1-dev@deq.rocks?part=3D1
