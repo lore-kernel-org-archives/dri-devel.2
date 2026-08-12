@@ -4,54 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43044C5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 11:38:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B543BC5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 11:40:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3225B10EF62;
-	Wed, 12 Aug 2026 11:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB1AF10E400;
+	Wed, 12 Aug 2026 11:40:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="L4IwcYtp";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="GB7ysRj8";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF08F10E400;
- Wed, 12 Aug 2026 11:38:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=FOsbDIiKv0vNOMkm31uIgCuQq87hGoNH63/OPIvWnp8=; b=L4IwcYtpjpcItMyTTkTS0w69AT
- +VPySXaN21UEv0G0CAUayUPEZAeYjM/0cAcnfWdiJyrj1K9smN/9fB+SOCsDCd+C5rg71JryxHU6M
- Dq3ZfnKK/NGoIxDEikZvBLUfuNW7CSe0w3E/bgdvibFfiDnfJcv92oR2AfLs3pCYvru5cLO0vOD/y
- 7cfaccZtri5WzLdkQHSDe8q3pUIUGfwVAZymSXw3odABPdRZC/pUOWNWNVlPpkKPbuTLl7SMrI+F/
- oBqZtiAJQgS0Y7rDIb31BUkR1z1QjMa1myKmoDgcxh9M+gkjHRuoo6sHLd/ZONHI/y5m0dp6/xDWi
- NeYWpdug==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wu7HO-0000dF-GU; Wed, 12 Aug 2026 13:37:54 +0200
-Message-ID: <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
-Date: Wed, 12 Aug 2026 12:37:53 +0100
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A23C710E400
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 11:40:26 +0000 (UTC)
+Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id B6B8F53401E6;
+ Wed, 12 Aug 2026 13:40:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1786534824;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=KArXhTGikECnnXJBaKJQL5HiSiaclLz+gY4N4WdWjRA=;
+ b=GB7ysRj8pn9j8ajPfl9zs1ENqu8qTVII284Qf4FOevTFQfE6k//3GPYoLp5AlMyfiII8KF
+ bmiL05O4Yw4ptY+RPGmR1DHhpv3qai5XeDSN/rTPsAXphZx0FOsSqW7It7FR4+276wuubB
+ XtmhSyiGNND8ETSKmaPTKjjifL1M/ik=
+Message-ID: <cce3fe36-322e-49ed-8928-3aef813faad7@ixit.cz>
+Date: Wed, 12 Aug 2026 13:40:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-To: Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>, 
- phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
- <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
+Subject: Re: [PATCH 00/33] Add support for Qualcomm Snapdragon SM7150 SoC and
+ Google Pixel 4a
+To: Jens Reidel <adrian@mainlining.org>, Danila Tikhonov
+ <danila@jiaxyga.com>, Miro Mraz <mraz.miro@seznam.cz>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ neil.armstrong@linaro.org, linux-hardening@vger.kernel.org,
+ linux@mainlining.org, Connor Mitchell <c.dog29@hotmail.com>
+References: <20250422-sm7150-upstream-v1-0-bf9a9081631d@jiaxyga.com>
+ <2ca2b774-fd7f-4612-b38d-f60e32ff6f9a@mainlining.org>
+ <283096ad-ae1b-42b8-8312-b192f735fc80@linaro.org>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <283096ad-ae1b-42b8-8312-b192f735fc80@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,171 +117,41 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 11/08/2026 18:59, Luke.Wildhardt@proton.me wrote:
-> I want to be very clear here, I was working with Claude Opus on debugging this issue. I am not a good programmer and work in on the hardware side of things, so this is only code I've tested and not of my creation, just hoping to be helpful.
 
-It is really helpful and appreciated! Both that you found the regression 
-and that you are helping debug and fix it.
+On 23/04/2025 09:26, Neil Armstrong wrote:
+> Hi,
+> 
+> On 23/04/2025 00:07, Jens Reidel wrote:
+>> Hi everyone,
+>>
+>> apologies for the mess this created. Danila's mail provider ratelimited him 
+>> halfway through sending the series and the attempt to re-try sending the 
+>> second half an hour later ended up with a new message ID (I think due to not 
+>> using --in-reply-to).
+>> He asked me to let you know that this will be resolved later and the whole 
+>> series will be re-sent once the problems are resolved.
+> 
+> The b4 web submission is a great alternative when the mail provider is rate 
+> limited:
+> https://b4.docs.kernel.org/en/latest/contributor/send.html#web-endpoint
+> 
 
-> It appears the freezing (and maybe what I'll call micro freezing instead of stuttering) was resolved after an issue was potentially identified in drivers/gpu/drm/scheduler/sched_rq.c
-> 
-> I did a 20m play session attempting to reproduce the issue but was not able to. Previously, I could reproduce this on-demand.
-> 
-> I will copy the writeup it created and the testing we did below. I am only claiming that the freezing had been seemingly resolved, not a particular fitness or correct identification of the issue, that is for developers to judge.
-> 
-> Quotations are an output of a summery I had Claude create.
-> 
-> "
-> THE INVARIANT
-> 
-> drm_sched_entity_stats::vruntime is held absolute while the entity is linked
-> in the run queue tree, and relative to min_vruntime while it is idle.
-> save_vruntime() converts one way on the way out, restore_vruntime() the other
-> on the way back in. drm_sched_rq_add_entity() calls restore unconditionally,
-> which is only correct if the entity has definitely been through save.
-> 
-> 
-> THE WINDOW
-> 
-> drm_sched_entity_pop_job():
-> 
->      spsc_queue_pop(&entity->job_queue);      /* queue now empty */
-> 
->      drm_sched_rq_pop_entity(entity);         /* takes entity->lock inside */
-> 
-> No lock held across those two lines. A concurrent push seeing the queue empty
-> gets first == true, calls add_entity, and restores a vruntime that has not yet
-> been saved -- adding min_vruntime to an already-absolute value. If the entity
-> is leftmost, get_min_vruntime() returns its own vruntime and it doubles.
-> 
-> It persists: pop_entity then finds the pushed job, takes the next_job branch,
-> and update_vruntime() carries the inflated value forward. The entity sits far
-> right in the tree and is not selected until min_vruntime catches up, which
-> under sustained load may be effectively never.
-> 
-> 
-> EVIDENCE
-> 
-> WARN_ON_ONCE(!RB_EMPTY_NODE(&entity->rb_tree_node)) at the top of
-> add_entity(), after the rq lock, fires reproducibly.
-> 
-> That condition should be unreachable. add_entity() is reached only from the
-> "first job" branch of push_job(), and first is true only when the SPSC queue
-> was empty. A linked entity implies its last pop_entity() peeked non-empty.
-> Empty queue and still linked cannot both hold in any ordered execution. Fresh
-> entities are excluded -- entity_init() calls RB_CLEAR_NODE() unconditionally.
-> 
-> Instrumented as a counter instead, with ring and comm logged:
-> 
->    idle 10s:      0 races /  5662 restores
->    gameplay 60s:  8 races / 43315 restores
-> 
->    [ 192.754604] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
->    [ 226.882135] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
->    [ 292.226032] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
-> 
-> plus Xwayland:cs0 and vkd3d_queue on gfx, and many more on sdma0/sdma1. The
-> gfx_0.0.0 / kwin_wayla:cs0 entries are the compositor submission thread on the
-> graphics ring -- the process that dies when the desktop freezes.
-> 
-> 
-> CHANGE
-> 
-> The principled fix is presumably to close the window by holding entity->lock
-> across the pop, which needs a _locked variant of drm_sched_rq_pop_entity().
-> I did not attempt that. What I tested checks the invariant instead: a still-
-> linked entity never left, so its vruntime is already absolute and its tree
-> position valid.
-> 
-> --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> @@ drm_sched_rq_add_entity
-> -	ts = drm_sched_rq_get_min_vruntime(rq);
-> -	ts = drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
-> -	drm_sched_rq_update_tree_locked(entity, rq, ts);
-> +	if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> +		ts = drm_sched_rq_get_min_vruntime(rq);
-> +		ts = drm_sched_entity_restore_vruntime(entity, ts,
-> +						       rq->head_prio);
-> +		drm_sched_rq_update_tree_locked(entity, rq, ts);
-> +	}
-> 
-> On stock 7.2-rc7 with this applied, freezes are gone against a trigger that
-> previously reproduced on demand, and perceptible hitching appears gone too.
-> The race counter keeps incrementing (35 in the last session against 295744
-> restores), so the window still opens at the same rate and is now absorbed --
-> the timing has not merely shifted. Extended soak in progress.
-> "
+I see people interested in moving Pixel 4a forward, but it seems this was never 
+upstreamed? I looked at sm7150 repository [1] where I see FROMLIST, but these 
+patches never arrived to the list and this series is from 2025.
 
-Good find! I almost feel obsolete. Perhaps our new AI overlords should 
-make a pension fund out of the proceeds obtained by training their 
-models on the decades of our work so us old programmers can safely retire.
+Should we expect v2 (re)based on recent tree?
 
-Jokes aside, I agree with the above analysis that a better fix would be 
-to pull things under the lock, and interestingly, Philipp had a lock 
-widening patch not so long ago but I don't remember what happened it or 
-how exactly did it look. It would possibly have fixed this problem.
+Thanks
+David
 
-Anyway, I have prepared a branch with the two fixes if you would be kind 
-enough to give it a spin:
+[1] 
+https://github.com/sm7150-mainline/linux/commit/7ea41523c678e94a7c048936052b5b1b1b109cdd
 
-https://cgit.freedesktop.org/~tursulin/drm-intel/log/?h=drm-sched-fair-fixes
-
-In my testing it all looks good. Fingers crossed.
-
-Regards,
-
-Tvrtko
-
-> On Monday, August 10th, 2026 at 9:40 AM, Luke.Wildhardt@proton.me <Luke.Wildhardt@proton.me> wrote:
+> Neil
 > 
->> Oops, forgot to reply all in my last message.
 >>
->> I did a quick test of the patch before I left this morning, the freezing seems to gone, but when the GPU is under the same condition, the stuttering is more uniform if that makes sense. Granted this was only a 5 minute test but the freeze was rather reliable before, I can do more testing later.
->>
->> I know these things can be hard to describe, if that helps. If there's any profiling I could do or detailed logging that would help don't hesitate to ask.
->>
->>
->>
->> -------- Original Message --------
->> On Monday, 08/10/26 at 06:48 Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
->>
->> On 10/08/2026 13:45, Danilo Krummrich wrote:
->>> On Mon Aug 10, 2026 at 10:28 AM CEST, Philipp Stanner wrote:
->>>>> Reverted Commits:
->>>>>
->>>>> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
->>>>> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
->>>>> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
->>>>> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run queue
->>>>> 45c211ddf92a drm/sched: Switch default policy to fair
->>>>> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
->>>
->>> [...]
->>>
->>>> That might be the wisest thing to do; but let's hear if Tvrtko has an idea for
->>>> a hotfix first.
->>>
->>> -rc7 was released yesterday; even with a working hotfix today it'd be tricky to
->>> ensure the hotfix does not regress other drivers or workloads with 7.2 being
->>> just a few days ahead.
->>>
->>> I suggest to not wait and get the reverts ready.
->>
->> Yes reverts would be safer. I have them in a branch at
->> people.freedesktop.org/~tursulin/drm-intel drm-sched-fair-reverts,
->> mostly straightforward apart from one easy conflict in
->> amdgpu_xcp_release_sched. Smoke tested on Steam Deck looks fine.
->>
->> Having said that, the fix for min_vruntime handling I provided earlier
->> in the thread also looks fine in my testing and is simple. No
->> regressions found with synthetic unit test workloads or messing around
->> on the Steam Deck. But we need to wait to hear from Luke since I haven't
->> been able to repro his report locally yet.
->>
->> Regards,
->>
->> Tvrtko
->>
->>
-
+>> Best regards,
+>> Jens
+> 
+> 
