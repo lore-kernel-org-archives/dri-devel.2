@@ -4,102 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 859D3C5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:27:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A948C5CFDB
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:44:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90F1E10E45A;
-	Wed, 12 Aug 2026 21:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C4410F10E;
+	Wed, 12 Aug 2026 21:44:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0s9UJRaX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vlQRyn8q";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010018.outbound.protection.outlook.com
- [52.101.193.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EF8410E45A
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:26:59 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010029.outbound.protection.outlook.com
+ [40.93.198.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF85F10F10E
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:44:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xTzhuW9Oeyhx9i31Pa3usLa5WjKV04JYbJEKBE6q6/rS1BByNYh6UQq1qotoGdd/kQd6Kco2FDvdd36xaQox71V0I9C+pYfk4BcOUUV1kRFRdzwO93XZfmUA7zOPYFUNmiitM7JqojG29Oiho97Qhdx9vqiXDzgOv4dYtzQZdH8XQkDS5f48+VcA3ZvMZj3QI/P5fR1ufTEeppFS89TlKfU+vtlWffDdFwUSFIPDGPqhtQ3iDj+TLEyyIP2KsSnr0nrSPXi5NETGQ+U24k8YYgfgWfvnMZML8tJR8o/5r9NC8rCX5G1wI//lti3YustoTKnyhbkOeKQ9TpEw/jaJvw==
+ b=vmEVxgZf8a6AtvDS6dF2IjaX7lDCH6QAmgO3QROqpsHY7Rwdz94fqGZ1q9yXEFxJ4GfSlf5tzZJF8kU4q2iVABYLK9eok0gkLA1DKukTzeURcR0OCLWLCAL3RJzgL8oSxHHExEWOBYOov61VOF9QHQ2i6wh/GV6HBwINmSwU/hzhcHOkjfx7x72x0r5K4JoYEiSUVsg13fEGYCZajNofdgmniMbkejna4l9hLTOGz6Qv6agfepSgStaxk9Wbk3Rjf1/al+mUL3BFEfo9WyEDPz6ZqLCAv/Bjv3jTVQhN/vShrM1PwPK42ijl1kUAcZB/OQS6UFWOLRB4k8ueDqANhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H43nrar5YyIINjyA3b1epLLYcFmnqHVmSdHEF3WEyas=;
- b=n7Q8NVRmCryOViKbEx/iJY8xX65j027Z9xZ0C4D1IJja3Crw1EvOHoGU+tIupMLFHFrMdkoE8C1UUP4aMnMdkQw6Eu+ivkP+nFORwXH4YJbdPsp2P0T/hy3e6kdXjnKZ07l7UC1FqqtYebGOVNOF1yJNB/WAOmGbgXBylzxpTi6KJPod3xSx3oTA7nVq0GDei3cEvShQOHf57SOO82l5uj7zEZWVK1W6livBOq8Zrrn2F1f2NSSPzk9k/5oS7y5MfaysQ0r7XTFuDTcWBJ0xw2iLBXExMRFKL3jWm4lXnuQ3bFnOZf22QR2UYmfIrjrPsYO6BsR8dy89h86NY+tawA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=t/mmpejhRGfbNBqMKMWTRaQ+cdwIZpTf/b0NZCtoRQo=;
+ b=c3FCQndmkvkzPLZyOFTcE648wuYxrGzoOjgCMw+mOHaZVMaYJHcvwL6tjcnSHiPIeA1VgpYB+GPfBlIQLOsQD2O+t4O9kk7FN5AbLbWFPhzcTQLrKvH1Rl2/UFUiQNQhu1pE2vpySvwEHvcvBD5ptC+qrZwuPuRZJNTBlimEybZI6+oGeYiQq/P0r4clW5s+87RaQgf6N08OHrfD6M9HBxZsdfjuJ/jHecLy5uHXBuECYdTUKx5rMp6OoD09SqKOA7M+lIEwQIMUComJAlvq7W6LFwCvUPg/+0FhYD5nADQwOImgmGN2om8+qguH0a11IFkiPqlbG8xycKvYlfmw6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=kernel.org
+ smtp.mailfrom=amd.com; 
+ dmarc=temperror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H43nrar5YyIINjyA3b1epLLYcFmnqHVmSdHEF3WEyas=;
- b=0s9UJRaXfNspv+HyjB2UDh9RPFnkZgPXZLHlzoFmUA12N9QnUBe/cysdXP0vo+hnbaAvD2HhZv52UyhssWD9RdEAQXFeaHW8OOn4AgEXA8ry8mJhNehDt+5y5oVDM5ns0ayERrZiIjJ3RB5j3EOvPvqhDnnQQkK5bEfzT382R8E=
-Received: from MW4PR04CA0118.namprd04.prod.outlook.com (2603:10b6:303:83::33)
- by SJ2PR12MB8720.namprd12.prod.outlook.com (2603:10b6:a03:539::17)
+ bh=t/mmpejhRGfbNBqMKMWTRaQ+cdwIZpTf/b0NZCtoRQo=;
+ b=vlQRyn8qIQ0B9g0xuixYKYQav+WojF95UN3Hy98dlbTfUxvQI96PJGXKRAM9GBfRe7et8Schmf23tgbnIhO6MGW+qtyKVS8hS3nF5GXjcZxc7wLXjUqao4MPoJZm2sMVfkfjwCcptNgZOiqC+pYVXCaQyCDpbUYObYk8xFKmPqo=
+Received: from BN9PR03CA0232.namprd03.prod.outlook.com (2603:10b6:408:f8::27)
+ by CH3PR12MB8233.namprd12.prod.outlook.com (2603:10b6:610:129::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
- 2026 21:26:53 +0000
-Received: from MWH0EPF000C6188.namprd02.prod.outlook.com
- (2603:10b6:303:83:cafe::96) by MW4PR04CA0118.outlook.office365.com
- (2603:10b6:303:83::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.13 via Frontend Transport; Wed,
- 12 Aug 2026 21:26:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C6188.mail.protection.outlook.com (10.167.249.120) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Wed, 12 Aug
+ 2026 21:44:20 +0000
+Received: from BL02EPF0001A105.namprd05.prod.outlook.com
+ (2603:10b6:408:f8:cafe::3c) by BN9PR03CA0232.outlook.office365.com
+ (2603:10b6:408:f8::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Wed,
+ 12 Aug 2026 21:44:20 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A105.mail.protection.outlook.com (10.167.241.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 21:26:52 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 21:44:19 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
- 2026 16:26:52 -0500
-Received: from [172.19.68.47] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Wed, 12 Aug 2026 16:26:51 -0500
-Message-ID: <8f4457fd-ef92-4783-b8d5-b4bb1f61de04@amd.com>
-Date: Wed, 12 Aug 2026 14:26:51 -0700
+ 2026 16:44:19 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 12 Aug 2026 16:44:18 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Fix unexpected wait when flushing
+ notifier_wq
+Date: Wed, 12 Aug 2026 14:44:03 -0700
+Message-ID: <20260812214403.817307-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Skip unmapped range in
- aie2_populate_range()
-To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260812205628.810816-1-lizhi.hou@amd.com>
-Content-Language: en-US
-From: Max Zhen <max.zhen@amd.com>
-In-Reply-To: <20260812205628.810816-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6188:EE_|SJ2PR12MB8720:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7d4a18d-c632-4587-b4c8-08def8b86da6
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A105:EE_|CH3PR12MB8233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 119af8f9-ff8f-48a6-380a-08def8badd87
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: Bu20TD5oL8ftroF7sSYRXxTZfHx9E0uSGLqqFz3D3Nnat/7r+tdAJLxSjFfKAxNAzuxqIScbnmdAZbMM87qrxRxjiEDYJ5p+51xLTf+xiKQC7JgTs7qPQWUTczNO0Ne91QmlIssGoYn+ptfYwFT/Ox+zBBJZiUTqyiL7XL8hOftfJ/qYEHnW0Nk8BWcdo0PCN9fK1tgRQvN0l9Wy+P+kcRAedPNQpBgoLtsRxHfkbpcrSE79akdI8TWcA/6m/cQd2DjRcCKOZ4Tuyu6/fy3FfpnQvv/iAgeUxq3MFJNBWxZ2RC+0Yee4jVJxBrvQscUHQhYpkiPa7CGyq2Od1JEUdk04zkPmwUmYACVSQxFomOY+DefRKWboQcGbKPVoXAHQuel7ADAsw5qS/8oDMcS0OBVmruRB7dmRt5qukX7v0oaqSs4sjpLJ3I5yrskX6BQ9C8GxI3MLBQw01ly00iXklpRm/cqhKYHzQItb7SUJOzvQVmeFi3C8pwnx/4UJVdT3+X46VrF+WMp3VSWMRrS6ARipdHKdASiJ+O/zbmjdvqXgROn4erlV0yvsAInKrWuxEhcbA2Py/3Mt9GtzIYZ2iNIG1peXnn6MXHeCqM9vLzpHUgRj7A6XG4sovRnwEZHXlfJRp7SC+xQIlS6HrBSW4ZtdGpzt7o5Ufe+of9vfOiQQGPVxehaNNRT4RW8kBXVPX7QzUZgoViwW83Y1O7YIWw==
+ ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: HdZLB6st+D9UnaAWNvQ3wHBoegfDSiR9Uml/m1enzE34ZKVNd7fdMuHQ0Zw35yF0Z1y1BIWhg80XJrUA/XKHxuWtcL/HTjJH4+IfNAub8LmqTvloWwM3cxWyUoXKazE6R0ON5nHEAC8g/D4nW7kALykyK0rflRW25pe+tHB0GlFJRP0DeBGAsV6WWGQAvD0K8eh68IOB9TtxrDyU9tdTaUOqnlMmKPJBXBH9hI0KWDrwz2NAuz754a/97Wm24lDUVJaP9kUtY0Dek4R5U98SsunrNEBs/brM9EvxwSrJk3G18RqAfe3uRtCZ7P2TV4sPSQLbj3yjO0z58swcXjoAZO1IR9AJeKZMnc3OFoBGG7UIO0juK0Sq/dZzAPYgAI2+BTV/RwMtrZxv+yuOi9aEULHncYBGqEd3O/hsO8C2kGqIEotwCHT/easa6tr2rjYdxoeJheLNHqE0jq177MdG5UPzgUTZLubyKz62gCqwCF/HsJcFJGO84kFjf99l1b3bYqp+2AvHKKePt3m0tI1LEuhXb5DJ3xMhG8ieE9Zw+xvEFrxqeK2DQwQknoBBlDAEvdKfMYqfgwbSdbXpl6hjIH3lix2o6ZZdQJfwEb97/EieCLbZBRriLkfblDwWNQyHxizjDvShlQzcp2cQcdprrR2e/ae9dKHUNqhNcJyJiM3Xo6acYSiHWtRbvKKIpqaDAuYV3jUFDvlm1hTeb3KeJw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(18002099003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /x6JXBEoBGrYVt7728XN4LQi+i6qjhkC6PXFDBIzgaB9uiFvd40dJEX2M92FWwVAJwT6G7GVuQT3HF90Vx4O10h9ov4HyudufI/496Pda3L0N0w8Fq7fxEUGMy1/+8bPY+f9kA3qxh1AieYgOzOS6KzOVMJK0t72KYdf6Emva+wL1Au1AP/BjdmqR81np+2Q+zynX8vTE+rvbXpn3kHtCXZCw/e4nWrwYFjjoLTeiXxkxFQX8LWhtkHSlLopgITG4CTO7SOSHceuoLaD4wNGyaR4VTrdfh6zpdx9Tp8Uor60u6sYBP+xrLu3SzpxcfGiVD7mv4XaJew5ImcCtuMHB/AXWngArHwDODY6Dm8OEJ7nX355DClDJ6bLODeWSAsjHZ092BSPtnP/ifSJ0k8ZFoLQe8vpS23ySzS9lkvM3wtC2s4nVx1vaHc5qcEwkN2u
+X-MS-Exchange-AntiSpam-MessageData-0: vQW3tuJYUMNEWLRwh9S1v3Qa+H5rISHV4rb3909xFjUn9Mbm82r7EzIpVeMQ/QeqnZHak4OCr325WJrGvXxwnJUWrUTp16eGrKedmxePn/VCthtK4ibV5Il75YXkQwEyva08JyovZ/iWnmda3j89/PfV2BqUg9fwdfjJqTKOyuaHx7wv5AhHThQTI2VWFJx5fJ3n/Umby1RagAUcu1VZ6rtAU338THLya5Pm85jLdqipuk5vhc4az0NLlGC+AbeV0n+P5DGX8iaFBBx59cZUIef9G8bMJSRL9O95p/Nl12zrHwEh6Zu6Eq6UEbsjEHBl/vK/3Wj2t+algYG7sj4aBhVxbduOHOEpKqL33XzU86YTkkKQcnGEa6ZMyAt/tyufzGaxIaseEPd5411Ythspthr9lqGu4H+0CYi4/g23fVU95IpWtrn7Xl/Yognr0W6M
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 21:26:52.9164 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7d4a18d-c632-4587-b4c8-08def8b86da6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 21:44:19.6976 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 119af8f9-ff8f-48a6-380a-08def8badd87
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6188.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A105.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8720
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8233
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,56 +113,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+In amdxdna_gem_obj_free(), flush_workqueue(xdna->notifier_wq) waits for
+all pending work items on the device-global notifier workqueue, rather
+than only the work items associated with the BO being freed.
 
+If another BO has a pending hmm_unreg_work, freeing an unrelated BO can
+be unnecessarily blocked until that work completes.
 
-On 8/12/2026 Wed 13:56, Lizhi Hou wrote:
-> aie2_populate_range() incorrectly failed jobs for BOs with multiple
-> mmaps: if the unmapped entry appeared first in umap_list, the loop would
-> pick it up, call hmm_range_fault() on a gone VMA, and return -EFAULT
-> without ever trying the remaining valid mapps.
-> 
-> Fix it by skipping unmapped entries. After the loop, if the map list is
-> empty or all maps are valid, map_invalid can be cleared normally.
-> 
-> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Max Zhen <max.zhen@amd.com>
-> ---
->   drivers/accel/amdxdna/aie2_ctx.c | 16 ++++++++++++++++
->   1 file changed, 16 insertions(+)
-> 
-> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-> index 4b3a62aa8798..8d9c283f606a 100644
-> --- a/drivers/accel/amdxdna/aie2_ctx.c
-> +++ b/drivers/accel/amdxdna/aie2_ctx.c
-> @@ -1052,6 +1052,16 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
->   	found = false;
->   	down_write(&xdna->notifier_lock);
->   	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
-> +		/*
-> +		 * Skip entries that have already been unmapped.
-> +		 *
-> +		 * If userspace unmaps the address and later submits I/O using
-> +		 * it, the IOMMU will reject the access and report a fault.
-> +		 * Ignore such entries here.
-> +		 */
-> +		if (mapp->unmapped)
-> +			continue;
-> +
->   		if (mapp->invalid && kref_get_unless_zero(&mapp->refcnt)) {
->   			found = true;
->   			break;
-> @@ -1059,6 +1069,12 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
->   	}
->   
->   	if (!found) {
-> +		/*
-> +		 * This also covers the case where all mappings have been
-> +		 * removed. There are no invalid mappings left to process.
-> +		 * Any subsequent I/O using the unmapped address will be
-> +		 * rejected by the IOMMU.
-> +		 */
->   		abo->mem.map_invalid = false;
->   		up_write(&xdna->notifier_lock);
->   		return 0;
+mmu_interval_notifier_remove() is deferred to a workqueue because it
+cannot be called from the MMU notifier callback itself. The BO free path
+is not a notifier callback, so call mmu_interval_notifier_remove()
+directly there and avoid the workqueue.
+
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 60 +++++++++++++++++++----------
+ drivers/accel/amdxdna/amdxdna_gem.h |  1 +
+ 2 files changed, 41 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 1c63eff0a4a8..d6aa862e2d5b 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -301,33 +301,40 @@ static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
+ 
+ 	down_write(&xdna->notifier_lock);
+ 	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
+-		if (!vma || compare_range(mapp, vma->vm_mm, vma->vm_start, vma->vm_end)) {
+-			if (!mapp->unmapped) {
+-				queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
+-				mapp->unmapped = true;
+-			}
+-			if (vma)
+-				break;
+-		}
++		if (!compare_range(mapp, vma->vm_mm, vma->vm_start, vma->vm_end))
++			continue;
++
++		queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
++		mapp->unmapped = true;
+ 	}
+ 	up_write(&xdna->notifier_lock);
+ }
+ 
+-static void amdxdna_umap_release(struct kref *ref)
++static void amdxdna_hmm_unregister_all(struct amdxdna_gem_obj *abo)
+ {
+-	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
+-	struct amdxdna_gem_obj *abo = mapp->abo;
+-	struct amdxdna_dev *xdna;
+-
+-	mmu_interval_notifier_remove(&mapp->notifier);
++	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
++	struct amdxdna_umap *mapp, *tmp;
++	LIST_HEAD(dead);
+ 
+-	xdna = to_xdna_dev(to_gobj(mapp->abo)->dev);
+ 	down_write(&xdna->notifier_lock);
+-	list_del(&mapp->node);
+-	if (list_empty(&abo->mem.umap_list))
+-		abo->mem.uva = AMDXDNA_INVALID_ADDR;
++	list_for_each_entry_safe(mapp, tmp, &abo->mem.umap_list, node) {
++		mapp->unmapped = true;
++		mapp->cleanup = true;
++		list_move(&mapp->node, &dead);
++	}
+ 	up_write(&xdna->notifier_lock);
+ 
++	list_for_each_entry_safe(mapp, tmp, &dead, node) {
++		cancel_work_sync(&mapp->hmm_unreg_work);
++		amdxdna_umap_put(mapp);
++	}
++}
++
++static void amdxdna_umap_release(struct kref *ref)
++{
++	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
++
++	mmu_interval_notifier_remove(&mapp->notifier);
+ 	kvfree(mapp->range.hmm_pfns);
+ 	kfree(mapp);
+ }
+@@ -341,6 +348,20 @@ static void amdxdna_hmm_unreg_work(struct work_struct *work)
+ {
+ 	struct amdxdna_umap *mapp = container_of(work, struct amdxdna_umap,
+ 						 hmm_unreg_work);
++	struct amdxdna_gem_obj *abo = mapp->abo;
++	struct amdxdna_dev *xdna;
++
++	xdna = to_xdna_dev(to_gobj(mapp->abo)->dev);
++	down_write(&xdna->notifier_lock);
++	if (mapp->cleanup) {
++		up_write(&xdna->notifier_lock);
++		return;
++	}
++
++	list_del(&mapp->node);
++	if (list_empty(&abo->mem.umap_list))
++		abo->mem.uva = AMDXDNA_INVALID_ADDR;
++	up_write(&xdna->notifier_lock);
+ 
+ 	amdxdna_umap_put(mapp);
+ }
+@@ -643,8 +664,7 @@ static void amdxdna_gem_obj_free(struct drm_gem_object *gobj)
+ 	struct amdxdna_dev *xdna = to_xdna_dev(gobj->dev);
+ 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
+ 
+-	amdxdna_hmm_unregister(abo, NULL);
+-	flush_workqueue(xdna->notifier_wq);
++	amdxdna_hmm_unregister_all(abo);
+ 
+ 	if (abo->pinned)
+ 		amdxdna_gem_unpin(abo);
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
+index 1e90e32bf3cd..fb033ced1045 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.h
++++ b/drivers/accel/amdxdna/amdxdna_gem.h
+@@ -20,6 +20,7 @@ struct amdxdna_umap {
+ 	struct kref			refcnt;
+ 	bool				invalid;
+ 	bool				unmapped;
++	bool				cleanup;
+ };
+ 
+ struct amdxdna_mem {
+-- 
+2.34.1
 
