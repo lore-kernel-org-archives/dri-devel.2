@@ -4,61 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3225FC5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:02:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2663FC5CFDB
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 822EB10E464;
-	Wed, 12 Aug 2026 21:02:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 754A310E47F;
+	Wed, 12 Aug 2026 21:11:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="tAgVcEJU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="czagod/c";
 	dkim-atps=neutral
-Received: from smtpout2.mo539.mail-out.ovh.net
- (smtpout2.mo539.mail-out.ovh.net [51.210.91.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 307F910E3CA
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:02:00 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net
- (director5.derp.mail-out.ovh.net [57.128.106.70])
- by mo539.mail-out.ovh.net (Postfix) with ESMTPS id 4hL1Bs3dNvz4LdM;
- Wed, 12 Aug 2026 21:01:57 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net
- (director5.derp.mail-out.ovh.net. [127.0.0.1])
- by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <rppt@kernel.org>; Wed, 12 Aug 2026 21:01:57 +0000 (UTC)
-Received: from mta7.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.54.185])
- by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4hL1Bs1GNbz7tBb; Wed, 12 Aug 2026 21:01:57 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.5])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta7.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 541D5B81AA5; 
- Wed, 12 Aug 2026 21:01:56 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-98R00206f6ca3f-fd1e-48bc-897c-a2e8049964fc,
- 8BEE3CEBAAF7878994F6346FE83F56AB2EFF9D65) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <d5ea3344-24e7-4834-b743-4dec812ada70@pixelcluster.dev>
-Date: Wed, 12 Aug 2026 23:01:55 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Natalie Vock <nat@pixelcluster.dev>
-Subject: userfaultfd wp-async support for (GPU) special mappings?
-To: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
- <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-x-ovh-tracer-id: 16088265245785350599
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTENcapTGTz/DtMtzR+tulh/8IgOfyIAy0E7ZgGfgzt0x74nGHh+Af3SCltyISvAhYfN6Z7W2WI2lZ3YF0HhjPH8NaVRVJWyLTlPnSkCyvKLSsrgx8uQSSEYJmqvFhv9doqO1afN+znBMTHSLsSPTRbm3L40g5TnT0RiDSV2tTBsPCZPvK1g6U+c3VRFTZ8rn7ubQ+L3LBwKIik4bISvuP8+brxWUKsr/gAuWiH8s4gdYxTqJgseIC2pJP/jCh2K+U0UrqM96Whd9X/P8jww509uNsZZpw28RiTl8wYkI6JXilvJ3F1h52e65djX8/xuAvMbzEqdSWOLaKQ5GPiaz65dlwA2Wy64PKJJmFRbPPWRx2i4afiKZ4I+3E90qbeWK9TDyHM9afmrxASKpwfBkQq3Hm6s8ZL1KmZgharmd90YcIHRGvFW6KufR5nr5lc4BSRLfol4pNeefqHmySjGiWXfAdYEFJNBtqKWvdhhOSDtrf0TJWGbH2jVSh621iCYOGFs7vaMAYPjVSGy91UDPiGfQpq/w3Uc8Q9s3oZ/8D9WTyHySxgo35FEtiX6vUfobicwzrFFr6X++cdJ1u+iXaSJaekySfcul/BNAaVMsGSTlbN5FuyC3wZcyMA35dQk8Zci2Hyh8aIxNXJlpERVDIqQh+mvTgs+xX4wd+iIEjq1og
-DKIM-Signature: a=rsa-sha256; bh=T9TIIVYfyP1hghPMhmTqChfXDcPUAairEBLRBsUqb64=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1786568518; v=1;
- b=tAgVcEJUgwum9/qzkJD9U/EPxozVngErwQYmskct11W/P4U/l8s4hfu6xmNtfV2PysHPtAgX
- 9ZdbcxPMWdNJQ8Ub+m8e4AMGWOSrHVPN10ewceX+VHgqYp+cZhO1SQvamUstEa8q1jdzKBY2zlc
- AyL9PTdtuvjW8TZwl4P0JFEHPbiEpdd+yXB81+g+lcXjgtfCxBdvedn7KUtehh2F0tVzgF+ejeX
- yZ5W/6d/9iwC38svX9Dha4JFCLe2w2eWRv8zhtHvyTSWBQXk29UEVkmm9ugphTWDQQ/Tl4TLEEg
- hSawDqVce05rpx62adpjrEQnfz/7/FIVTkQgWI3LR0zmA==
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4C410F11B
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:10:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 68847600AD;
+ Wed, 12 Aug 2026 21:10:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37311F000E9;
+ Wed, 12 Aug 2026 21:10:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786569031;
+ bh=qTocXYfU7xuh3l9vwo2Dh63SrNZxr5hEGnvvOQRz4nE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=czagod/crZYTus5c7qWyqOrQKn5Os+yI1QxMVkkuGFpHFu6cGKkR3HC31QLEavs6u
+ IlyDGPDEtTvTlNJmIdnzehiysPoStwwxcGBChvqrU+ZcQ9w4LstXSQDwhAjPPzTf7l
+ ky1pBxl4k0ApkCSLx7boUxJ9ADwgrtbkIJqtRvhvWFKC0oCe+WhSEa9ZA1AVbs8ntg
+ nToD/4mkstK6WCLyINvDzsy+HeW416nm0By554cMRPG0KVMsYQxVoSej488k3PCrj8
+ DtzCwjL+dTOJgTqr9pb0jcohgtyHWFvheQCZq36UfrAAQDmKzEXVhMfVQl5hYMjcj3
+ nd2cs4tpiRBew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V1] accel/amdxdna: Skip unmapped range in
+ aie2_populate_range()
+To: "Lizhi Hou" <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260812205628.810816-1-lizhi.hou@amd.com>
+References: <20260812205628.810816-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 21:10:30 +0000
+Message-Id: <20260812211030.F37311F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,165 +53,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi all,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-lately I've been investigating some ways to efficiently query for 
-whether particular memory has been written to or not. The functionality 
-I'm looking for is pretty much exactly what userfaultfd's wp-async mode 
-exposes, but with a twist: The memory I'm interested in is GPU memory 
-mapped into users' address spaces.
+Pre-existing issues:
+- [High] Incomplete fix for skipping unmapped entries due to a TOCTOU race.=
+ Concurrent unmaps can still spuriously fail jobs.
+- [High] Denial of Service due to infinite invalidation retry loop bypassin=
+g absolute deadline.
+--
 
-The broader context here is writing a "capture/replay" tool for the 
-Vulkan graphics API: The tool lives in a .so that is injected into some 
-app at runtime (LD_PRELOAD style). All graphics API calls (rendering 
-commands etc.) are then intercepted, making a copy of any call 
-parameters and writing ("capturing") them to disk. Later, these calls 
-can be read back from the file and "replayed", reproducing the exact 
-same sequence of rendering commands again (hopefully leading to the same 
-rendering output, too).
-However, one of the commands is a simple wrapper over mmap(), where the 
-input is a GPU resource and the output is a mapped pointer for free use 
-by applications. To correctly reproduce the behavior of apps using this 
-command, the capture/replay tool needs some side-channel to know which 
-parts of this mapped memory have been overwritten by the CPU, so that it 
-can perform the same modifications when replaying API calls.
+--- Patch [1]: [PATCH V1] accel/amdxdna: Skip unmapped range in aie2_popula=
+te_range() ---
+commit 1e3ba3d3372ac85262e7eb721d68d3f6974ff9b1
+Author: Lizhi Hou <lizhi.hou@amd.com>
 
-The only part I'm interested here are writes done by the CPU. The GPU 
-may also write to the mapped memory itself, but there's no need to track 
-where it wrote.
+accel/amdxdna: Skip unmapped range in aie2_populate_range()
 
-userfaultfd wp-async tracking would be a pretty great match for this, if 
-only it could be made to work with GPU mappings, too. I've been hacking 
-around in the kernel and I did get my use case working fairly well with 
-only a few modifications:
+This commit addresses an issue where jobs fail incorrectly for buffer
+objects with multiple memory mappings. It modifies aie2_populate_range()
+to skip entries that have already been unmapped, allowing the driver to
+successfully process the remaining valid mappings.
 
-First, I mostly-reverted commit 3c58f641e81 ("userfaultfd: prevent 
-registration of special VMAs") for rather obvious reasons :)
-Then, all I had to change to get things to work was add handling for 
-encountering uffd-wp marker PTEs on a read fault inside insert_pfn(), 
-and allow the PM_SCAN ioctl for /proc/<pid>/pagemap to process vmas 
-marked with VM_PFNMAP if ioctl only does uffd wp-async bookkeeping.
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie=
+2_ctx.c
+> index 73f8001eef4f2..baf9a8b90a4d6 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -1053,6 +1053,16 @@ static int aie2_populate_range(struct amdxdna_gem_=
+obj *abo)
+>  	found =3D false;
+>  	down_write(&xdna->notifier_lock);
+>  	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
+> +		/*
+> +		 * Skip entries that have already been unmapped.
+> +		 *
+> +		 * If userspace unmaps the address and later submits I/O using
+> +		 * it, the IOMMU will reject the access and report a fault.
+> +		 * Ignore such entries here.
+> +		 */
+> +		if (mapp->unmapped)
+> +			continue;
+> +
+>  		if (mapp->invalid && kref_get_unless_zero(&mapp->refcnt)) {
+>  			found =3D true;
+>  			break;
+>  		}
 
-I included a complete diff of these changes at the end of this email, 
-but their quality is very much proof-of-concept only; it's not remotely 
-in an upstreamable state.
+[Severity: High]
+This is a pre-existing regression, but this patch does not fully fix the
+problem due to a time-of-check to time-of-use race.
 
-Is this something upstream would consider supporting at all? I'm not 
-familiar enough with memory management to judge whether there are 
-fundamental pitfalls making this whole idea impossible (but for what 
-it's worth, it worked really well on every program I tried 
-capturing/replaying :P)
+Could a concurrent unmap cause amdxdna_hmm_invalidate() to set mapp->invalid
+to true before mapp->unmapped is updated?
 
-Best,
-Natalie
+If aie2_populate_range() runs in drivers/accel/amdxdna/aie2_ctx.c after
+the invalidation but before mapp->unmapped is set to true, it will bypass
+this check and pick up the invalid VMA.
 
----
+It would then later fail when checking mmget_not_zero():
 
-Here's the diff for my dirty hacks making uffd work with GPU mappings, 
-based on commit f5098b6bae ("Linux 7.2-rc5"):
+	mm =3D mapp->notifier.mm;
+	if (!mmget_not_zero(mm)) {
+		amdxdna_umap_put(mapp);
+		return -EFAULT;
+	}
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index d32408f7cd5ed..7ac75ac0a7794 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -2426,6 +2426,19 @@ struct pagemap_scan_private {
-  	struct page_region __user *vec_out;
-  };
+Does this return -EFAULT and abort the entire job instead of gracefully
+skipping the unmapped entry?
 
-+static bool pagemap_exclusively_mark_wp(struct pagemap_scan_private *p)
-+{
-+	return (p->arg.flags & PM_SCAN_WP_MATCHING) && !p->vec_out;
-+}
-+
-+static bool
-+pagemap_exclusively_mark_and_query_wp(struct pagemap_scan_private *p)
-+{
-+	return !p->arg.category_anyof_mask && !p->arg.category_inverted &&
-+	       p->arg.category_mask == PAGE_IS_WRITTEN &&
-+	       p->arg.return_mask == PAGE_IS_WRITTEN;
-+}
-+
-  static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
-  					   struct vm_area_struct *vma,
-  					   unsigned long addr, pte_t pte)
-@@ -2689,7 +2702,9 @@ static int pagemap_scan_test_walk(unsigned long 
-start, unsigned long end,
-  		 */
-  	}
+>  	}
+> =20
+>  	if (!found) {
+> +		/*
+> +		 * This also covers the case where all mappings have been
+> +		 * removed. There are no invalid mappings left to process.
+> +		 * Any subsequent I/O using the unmapped address will be
+> +		 * rejected by the IOMMU.
+> +		 */
+>  		abo->mem.map_invalid =3D false;
+>  		up_write(&xdna->notifier_lock);
+>  		return 0;
 
--	if (vma->vm_flags & VM_PFNMAP)
-+	if ((vma->vm_flags & VM_PFNMAP) &&
-+	    !(pagemap_exclusively_mark_wp(p) ||
-+	      pagemap_exclusively_mark_and_query_wp(p)))
-  		return 1;
+[Severity: High]
+This is a pre-existing regression, but is it possible for this code
+to enter an infinite invalidation retry loop?
 
-  	if (wp_allowed)
-@@ -2844,7 +2859,7 @@ static int pagemap_scan_pmd_entry(pmd_t *pmd, 
-unsigned long start,
+Looking at aie2_populate_range() in drivers/accel/amdxdna/aie2_ctx.c:
 
-  	lazy_mmu_mode_enable();
+	timeout =3D msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+again:
+	found =3D false;
+[ ... ]
+	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
+		up_write(&xdna->notifier_lock);
+		amdxdna_umap_put(mapp);
+		mmput(mm);
+		goto again;
+	}
 
--	if ((p->arg.flags & PM_SCAN_WP_MATCHING) && !p->vec_out) {
-+	if (pagemap_exclusively_mark_wp(p)) {
-  		/* Fast path for performing exclusive WP */
-  		for (addr = start; addr != end; pte++, addr += PAGE_SIZE) {
-  			pte_t ptent = ptep_get(pte);
-@@ -2860,9 +2875,7 @@ static int pagemap_scan_pmd_entry(pmd_t *pmd, 
-unsigned long start,
-  		goto flush_and_return;
-  	}
+Because timeout is initialized before the again label, the relative timeout
+used by hmm_range_fault_unlocked_timeout() is continuously reset on each
+retry.
 
--	if (!p->arg.category_anyof_mask && !p->arg.category_inverted &&
--	    p->arg.category_mask == PAGE_IS_WRITTEN &&
--	    p->arg.return_mask == PAGE_IS_WRITTEN) {
-+	if (pagemap_exclusively_mark_and_query_wp(p)) {
-  		for (addr = start; addr < end; pte++, addr += PAGE_SIZE) {
-  			unsigned long next = addr + PAGE_SIZE;
-  			pte_t ptent = ptep_get(pte);
-diff --git a/mm/memory.c b/mm/memory.c
-index ff338c2abe923..a06a31f7f45cc 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2698,6 +2698,10 @@ static vm_fault_t insert_pfn(struct 
-vm_area_struct *vma, unsigned long addr,
-  			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
-  			if (ptep_set_access_flags(vma, addr, pte, entry, 1))
-  				update_mmu_cache(vma, addr, pte);
-+		} else if (pte_uffd_wp(entry)) {
-+			entry = pte_mkspecial(pfn_pte(pfn, prot));
-+			entry = pte_mkuffd_wp(entry);
-+			goto out_set_pte;
-  		}
-  		goto out_unlock;
-  	}
-@@ -2710,6 +2714,7 @@ static vm_fault_t insert_pfn(struct vm_area_struct 
-*vma, unsigned long addr,
-  		entry = maybe_mkwrite(pte_mkdirty(entry), vma);
-  	}
+If there is a continuous stream of memory invalidations, such as a
+userspace thread looping madvise(MADV_DONTNEED) on a mapping, could this
+trap the kernel thread in an infinite loop?
 
-+out_set_pte:
-  	set_pte_at(mm, addr, pte, entry);
-  	update_mmu_cache(vma, addr, pte); /* XXX: why not for insert_page? */
+Could this hold job_sem and cause a Denial of Service by preventing further
+job submissions?
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index c3adedaaf7d54..aa1553ec5a3bb 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2114,8 +2114,8 @@ static bool vma_can_userfault(struct 
-vm_area_struct *vma, vm_flags_t vm_flags,
-  	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
-  		return false;
-
--	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
--		return false;
-+	//if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
-+	//	return false;
-
-  	vm_flags &= __VM_UFFD_FLAGS;
-
--- 
-2.55.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812205628.8108=
+16-1-lizhi.hou@amd.com?part=3D1
