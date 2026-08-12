@@ -4,57 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4395BC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:49:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15AF8C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A131E10EFFE;
-	Wed, 12 Aug 2026 13:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 566F810E432;
+	Wed, 12 Aug 2026 13:51:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GD1ikoVy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GCrHKIGX";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1330210EFFE
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:49:35 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id D68254E411D7;
- Wed, 12 Aug 2026 13:49:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AC2556045E;
- Wed, 12 Aug 2026 13:49:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1DC9B11C4CF26; 
- Wed, 12 Aug 2026 15:49:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786542572; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=13uxCshRvBeCtGTD2cJ0HXO2IVu+PXjLc3uc3PdFdEg=;
- b=GD1ikoVyD4W3iBui5euesL550fnwHjoFyMpbRvOcICsQw79Z07q0LcbASpIKz5JyL4D+sZ
- uT30i2SQyESyg4hWiLX373n5ec5BxmOhZzwzlgB1srXXJDF7oakzjQtALzS0mljrKpNmLw
- NLyRMoyqQix8u0U6xY1Z1qzFshyeJlRC5w0zbYPC0LHsi8Nm/G1VTe/6414LN3lQZ+yhzA
- QMbaFUBJgB3QmakiMn9aaw1xP7TWvXxfRHEzzv+8BPN+9NQeCbVOAAlncHSsO56oaM6oYe
- yiixELP6KWV/invka94+GJMHWJbRquKwPkimWt6tuqqR5t8kvnyeEoS1jfZ77w==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 12 Aug 2026 15:42:52 +0200
-Subject: [PATCH 12/12] drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D47E10E432;
+ Wed, 12 Aug 2026 13:51:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4355F60A85;
+ Wed, 12 Aug 2026 13:51:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C981F000E9;
+ Wed, 12 Aug 2026 13:51:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786542685;
+ bh=HfSrybHosmPBbBh3i1Ck4hweWJGnDH2ZnIJOU2XsUCw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=GCrHKIGXSnClTN2uQy+fhLraalO+fZvDWq/gX7azMB8Qh49SRNjK0KVASfCz/zRh+
+ zs2gj5M+d0C/aj9vZ3bRxwf2Eq837L6SlfHEYuKFMLwtrWmsH9T0CoOKVEJJKbps0Y
+ QQvTwLSt/H5TeCm9RwSm1cuBffJ4lns/W3daUDxQWr7SwJs79DmsdfeMRaaRXmaqG+
+ nDAKZi9JUm3KTmNpYy8Ilo+bpMJbDVXDk2I2x6UWIhuRotIFnTPbkxj3J0b3hskTmb
+ /RAY16QrWLxEGXJk4I15dC7j342SvWg94LFVQhbknGiaxL95L9sCebjZhCpA4HQrli
+ yM1K40l8wofQg==
+Date: Wed, 12 Aug 2026 15:51:16 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-phy@lists.infradead.org
+Subject: Re: [PATCH v9 2/5] phy: qualcomm: hdmi-28lpm: provide dynamic
+ configuration
+Message-ID: <qxuzipnza3tzoig7xp3653vcqwgubf6zerzbgdmx5h6acof7zm@quy7xzjml7kn>
+References: <20260513-fd-hdmi-phy-v9-0-ca98c72f1f9f@oss.qualcomm.com>
+ <20260513-fd-hdmi-phy-v9-2-ca98c72f1f9f@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-drm-bridge-drm_panel-cleanup-v1-12-0d86734e908a@bootlin.com>
-References: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
-In-Reply-To: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260513-fd-hdmi-phy-v9-2-ca98c72f1f9f@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,30 +68,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver uses a mixture of drm_panel and drm_panel_bridge APIs, but the
-Kconfig symbol only selects DRM_PANEL.
+On Wed, May 13, 2026 at 09:14:05PM +0300, Dmitry Baryshkov wrote:
+> Replace fixed value configuration tables with the values calculated at
+> the runtime. In some cases the values might differ from the original
+> values. Those were validated on the IFC6410 board.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Select DRM_PANEL_BRIDGE instead, which in turn depends on DRM_PANEL.
+One nit below. With that fixed,
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/bridge/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index afcc5cce88cb..02c41ec2587f 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -350,7 +350,7 @@ config DRM_SOLOMON_SSD2825
- 	depends on SPI_MASTER && OF
- 	select DRM_MIPI_DSI
- 	select DRM_KMS_HELPER
--	select DRM_PANEL
-+	select DRM_PANEL_BRIDGE
- 	help
- 	  Say Y here if you want support for the Solomon SSD2825 RGB/DSI
- 	  SPI bridge driver.
+> ---
+>  drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c | 325 +++++++++--------------------
+>  1 file changed, 104 insertions(+), 221 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c b/drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c
+> index f1e7113e10bd..90d3331313c0 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c
+> @@ -148,222 +148,17 @@
+>  
+>  #define HDMI_8960_COMMON_DIV 5
+>  
+> -struct pll_rate {
+> -	unsigned long rate;
+> -	int num_reg;
+> -	struct {
+> -		u32 val;
+> -		u32 reg;
+> -	} conf[32];
+> -};
+> -
+> -/* NOTE: keep sorted highest freq to lowest: */
+> -static const struct pll_rate freqtbl[] = {
+> -	{ 154000000, 14, {
+> -		{ 0x08, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x20, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0xf9, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x03, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG3   },
+> -		{ 0x86, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG4   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG5   },
+> -		{ 0x0d, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0x4d, REG_HDMI_8960_PHY_PLL_SDM_CFG1      },
+> -		{ 0x5e, REG_HDMI_8960_PHY_PLL_SDM_CFG2      },
+> -		{ 0x42, REG_HDMI_8960_PHY_PLL_SDM_CFG3      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG4      },
+> -			}
+> -	},
+> -	/* 1080p60/1080p50 case */
+> -	{ 148500000, 27, {
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_CHRG_PUMP_CFG },
+> -		{ 0x01, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0x33, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0x2c, REG_HDMI_8960_PHY_PLL_IDAC_ADJ_CFG  },
+> -		{ 0x06, REG_HDMI_8960_PHY_PLL_I_VI_KVCO_CFG },
+> -		{ 0x0a, REG_HDMI_8960_PHY_PLL_PWRDN_B       },
+> -		{ 0x76, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0x01, REG_HDMI_8960_PHY_PLL_SDM_CFG1      },
+> -		{ 0x4c, REG_HDMI_8960_PHY_PLL_SDM_CFG2      },
+> -		{ 0xc0, REG_HDMI_8960_PHY_PLL_SDM_CFG3      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG4      },
+> -		{ 0x9a, REG_HDMI_8960_PHY_PLL_SSC_CFG0      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SSC_CFG1      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SSC_CFG2      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SSC_CFG3      },
+> -		{ 0x10, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG0  },
+> -		{ 0x1a, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG1  },
+> -		{ 0x0d, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG2  },
+> -		{ 0xe6, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG3   },
+> -		{ 0x86, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG4   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG5   },
+> -		{ 0x33, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG6   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG7   },
+> -			}
+> -	},
+> -	{ 108000000, 13, {
+> -		{ 0x08, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x21, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0xf9, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0x1c, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -		{ 0x86, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG4   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG5   },
+> -		{ 0x49, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0x49, REG_HDMI_8960_PHY_PLL_SDM_CFG1      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG2      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG3      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG4      },
+> -			}
+> -	},
+> -	/* 720p60/720p50/1080i60/1080i50/1080p24/1080p30/1080p25 */
+> -	{ 74250000, 8, {
+> -		{ 0x0a, REG_HDMI_8960_PHY_PLL_PWRDN_B       },
+> -		{ 0x12, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x01, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0x33, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0x76, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0xe6, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -			}
+> -	},
+> -	{ 74176000, 14, {
+> -		{ 0x18, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x20, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0xf9, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0xe5, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG3   },
+> -		{ 0x86, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG4   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG5   },
+> -		{ 0x0c, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0x4c, REG_HDMI_8960_PHY_PLL_SDM_CFG1      },
+> -		{ 0x7d, REG_HDMI_8960_PHY_PLL_SDM_CFG2      },
+> -		{ 0xbc, REG_HDMI_8960_PHY_PLL_SDM_CFG3      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG4      },
+> -			}
+> -	},
+> -	{ 65000000, 14, {
+> -		{ 0x18, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x20, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0xf9, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0x8a, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG3   },
+> -		{ 0x86, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG4   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG5   },
+> -		{ 0x0b, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0x4b, REG_HDMI_8960_PHY_PLL_SDM_CFG1      },
+> -		{ 0x7b, REG_HDMI_8960_PHY_PLL_SDM_CFG2      },
+> -		{ 0x09, REG_HDMI_8960_PHY_PLL_SDM_CFG3      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG4      },
+> -			}
+> -	},
+> -	/* 480p60/480i60 */
+> -	{ 27030000, 18, {
+> -		{ 0x0a, REG_HDMI_8960_PHY_PLL_PWRDN_B       },
+> -		{ 0x38, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_CHRG_PUMP_CFG },
+> -		{ 0x20, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0xff, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0x4e, REG_HDMI_8960_PHY_PLL_SDM_CFG1      },
+> -		{ 0xd7, REG_HDMI_8960_PHY_PLL_SDM_CFG2      },
+> -		{ 0x03, REG_HDMI_8960_PHY_PLL_SDM_CFG3      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG4      },
+> -		{ 0x2a, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x03, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG3   },
+> -		{ 0x86, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG4   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG5   },
+> -		{ 0x33, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG6   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG7   },
+> -			}
+> -	},
+> -	/* 576p50/576i50 */
+> -	{ 27000000, 27, {
+> -		{ 0x32, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_CHRG_PUMP_CFG },
+> -		{ 0x01, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0x33, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0x2c, REG_HDMI_8960_PHY_PLL_IDAC_ADJ_CFG  },
+> -		{ 0x06, REG_HDMI_8960_PHY_PLL_I_VI_KVCO_CFG },
+> -		{ 0x0a, REG_HDMI_8960_PHY_PLL_PWRDN_B       },
+> -		{ 0x7b, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0x01, REG_HDMI_8960_PHY_PLL_SDM_CFG1      },
+> -		{ 0x4c, REG_HDMI_8960_PHY_PLL_SDM_CFG2      },
+> -		{ 0xc0, REG_HDMI_8960_PHY_PLL_SDM_CFG3      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG4      },
+> -		{ 0x9a, REG_HDMI_8960_PHY_PLL_SSC_CFG0      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SSC_CFG1      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SSC_CFG2      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SSC_CFG3      },
+> -		{ 0x10, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG0  },
+> -		{ 0x1a, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG1  },
+> -		{ 0x0d, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG2  },
+> -		{ 0x2a, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x03, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG3   },
+> -		{ 0x86, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG4   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG5   },
+> -		{ 0x33, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG6   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG7   },
+> -			}
+> -	},
+> -	/* 640x480p60 */
+> -	{ 25200000, 27, {
+> -		{ 0x32, REG_HDMI_8960_PHY_PLL_REFCLK_CFG    },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_CHRG_PUMP_CFG },
+> -		{ 0x01, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG0 },
+> -		{ 0x33, REG_HDMI_8960_PHY_PLL_LOOP_FLT_CFG1 },
+> -		{ 0x2c, REG_HDMI_8960_PHY_PLL_IDAC_ADJ_CFG  },
+> -		{ 0x06, REG_HDMI_8960_PHY_PLL_I_VI_KVCO_CFG },
+> -		{ 0x0a, REG_HDMI_8960_PHY_PLL_PWRDN_B       },
+> -		{ 0x77, REG_HDMI_8960_PHY_PLL_SDM_CFG0      },
+> -		{ 0x4c, REG_HDMI_8960_PHY_PLL_SDM_CFG1      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG2      },
+> -		{ 0xc0, REG_HDMI_8960_PHY_PLL_SDM_CFG3      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SDM_CFG4      },
+> -		{ 0x9a, REG_HDMI_8960_PHY_PLL_SSC_CFG0      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SSC_CFG1      },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_SSC_CFG2      },
+> -		{ 0x20, REG_HDMI_8960_PHY_PLL_SSC_CFG3      },
+> -		{ 0x10, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG0  },
+> -		{ 0x1a, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG1  },
+> -		{ 0x0d, REG_HDMI_8960_PHY_PLL_LOCKDET_CFG2  },
+> -		{ 0xf4, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG0   },
+> -		{ 0x02, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG1   },
+> -		{ 0x3b, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG2   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG3   },
+> -		{ 0x86, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG4   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG5   },
+> -		{ 0x33, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG6   },
+> -		{ 0x00, REG_HDMI_8960_PHY_PLL_VCOCAL_CFG7   },
+> -			}
+> -	},
+> -};
+> -
+> -static const struct pll_rate *qcom_hdmi_8960_pll_find_rate(unsigned long rate)
+> +static inline void write16(u16 val, void __iomem *reg)
+
+No 'inline' keyword in .c files please.
+
+- Mani
 
 -- 
-2.55.0
-
+மணிவண்ணன் சதாசிவம்
