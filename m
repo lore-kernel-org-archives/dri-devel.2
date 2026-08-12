@@ -4,138 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34AFEC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 08:52:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B528C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 08:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ED2310EEFD;
-	Wed, 12 Aug 2026 08:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AE3810EF02;
+	Wed, 12 Aug 2026 08:57:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Bk07PpFX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W+1Cbt3u";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011001.outbound.protection.outlook.com [52.101.57.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 346A510EEFD
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:52:09 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012067.outbound.protection.outlook.com
+ [40.107.200.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 051BE10EED3
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:57:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IpFJ1pNeguWP25BSywFIxg+eY1FWpIuFiVu2ztfN72Rglwi3GAdcMldZXvVgl/yVlUlObTFg2o5FLZ64bS7kd1UBVm+FvP8Zso0aecn4s7Y+FwdGNR1Ad/AK8T1tZn+ePWc1DX7NS6FJi6oZaFmwaIZ3yVBxTq6PXcbPtSDEHwXWMa9U76BlhQ5VcT6Dsi/R7sfbNisSoazCBUEjS8T1tHQNIVkNlqdkKpx7vz3r3pBxJlBeYgvg1cbE14HwMBIiPuppTrpRgxBg/1ZIbM1BF0r2bnURTGnsbXNTxOg7k+A2j/1nMswjDV3HiKhFYv2HYMO4EDje3XSkYtedvxVbSQ==
+ b=r9ToREupCAGEcKhTgJ+9+V9lwAL6lCJRO4kkU4MU8u4C9FfAzwMzDTKvBcjxmok5Ptih+iyTuWBmeK3Eap5KtS5OmZpyo4g0AEhsbmUpAyJvayPpZ2EPiBGqD1DLo1b/u3lHs3YfwOIg78oOWKWG7EgdDnQJ0pBnr0XakodNik0FbFa/thneoZs3DGTe/OJDRZXJ0hK+PFdRygTi907ey0Clqkns/qz1E+0hsA4ZV6sqXYmhtFOrhLOodpMA8mEbDYF9SqNN6efah9TKnVVEjQZpkYNPZyaHqQ6sN62jzWy5Vb/CMJu9oAaQ8fJF7h/vZfJQb3sP472mu99/nRG/GQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kYYa87mvZyrUbfsj52KaS35BAILXm/I/ciOxRXaZQOs=;
- b=acseGBnZpEQMdDlJYNufBonsPQGRBNMkTYu1MS8ao/nLVsU8qAJEIGFaMImOiLwx96ye2Hye8CEkanXTlylRgIgBGwP2GGvp/W93qVOdKh4IFq53nU+q3iNBCf4ndIaLnJXtNd8rU0RzimGWYomr8JihJoCSOyD4/Chj0d03e+bqC2u7xHG4e3tKiAdGpWkwOKOfzhntXfvEBuvv/O3Lc8hlu931D/kWl/KD3Q9vz7Q/4pZvpI71sDmTwX63iLam7tScQkii5/uCTekXjR7LUe8Yf7JqQzrGlBsmJjK15ySAj9Msd9DNJ1TIEv1wteLdjSx9nL4fmBwIdcxWd4zc7g==
+ bh=eAueGrAyytbObpMFUEk27mH0ElDFMUre/hv5UPvHExw=;
+ b=wunJa2BPbJiZ3N66mXXrZDcnEFjizTgOfi395IyB2Iko+00+VuQNqlzSv9gvl5dcYsNKolKKimxbjmno6epwnmnLKW+qA5meymNL5WMTYGDD0ri3rQWrTg23mpSG/UCV3/D7U0PTnj45+oqxBtWeP5gU394DkgO4Zs1BBGae8Yf7VL5mW/ZeaOgM2uOqyWjJPLtvITy4x1GGIK8EAbF1Dc3xKJMSUpUgeh/TKWEeZOPHfdUAk5oABugMUif/zasR3eabenac6b0WaZ5FyZp9jzR2QtzvpvsZrKjLC2nvEkfvjrZfwFP57d5gKSbVRobxk1Kp1nQ3jHENTS6B750a0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kYYa87mvZyrUbfsj52KaS35BAILXm/I/ciOxRXaZQOs=;
- b=Bk07PpFXbQggKQ7kwtpA86VeQk9xT3Bo3a2c+mDpfTlrYsxVUnyTtuIlEblpnJfEiR6Q35gUNbFvFfSyXxvfKBOscGwP/WlhJj3zzslO5Sz1rNbQaA2DUMPhtYHeQaW8rJ7EEPUiQEKx0U4u/n3YlA9vMaULn16GYf32zxdsgzMVM5r7FwUCVL2epGKmq7WtSKt9dlYf5/vsEqZiWwzNYZni8fnZzTrkh5PZehNRR6YrUFLbKW/cbXMhQbI/6T8pkLI01cW5t64R5oUJHbS7n8o/ujSao+4lOMg8KbaGb8udDHU2G8y+yPo0+gDb+bwLHj1PvaWs57oiCvQ75fXAlw==
+ bh=eAueGrAyytbObpMFUEk27mH0ElDFMUre/hv5UPvHExw=;
+ b=W+1Cbt3uYsRs0rh4pgX9lp+Go847gd/quFksfCPT309MVlcFc1RPWgfQYnXTt+SizLUph/0OGLTdWLlcnl4DUw6Xv0++Fht3cWozNRmBDY8o5PRai/S8++dsAFbfP20I5feZoQKK1SVpzD+fZyzRpAJkINhW+rZWGZTs/WWwaco=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by IA1PR12MB8519.namprd12.prod.outlook.com (2603:10b6:208:44c::22)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB7992.namprd12.prod.outlook.com (2603:10b6:a03:4c3::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
- 2026 08:52:04 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0315.014; Wed, 12 Aug 2026
- 08:52:04 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 12 Aug 2026 17:51:25 +0900
-Subject: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-Content-Type: text/plain; charset="utf-8"
+ 2026 08:57:52 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Wed, 12 Aug 2026
+ 08:57:51 +0000
+Message-ID: <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
+Date: Wed, 12 Aug 2026 10:57:46 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, mamin506@gmail.com,
+ lizhi.hou@amd.com, ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sumit.semwal@linaro.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-chid-v5-5-6c767770b3f4@nvidia.com>
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
-In-Reply-To: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
-To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
- Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0360.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:7c::6) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+X-ClientProxiedBy: BL1PR13CA0374.namprd13.prod.outlook.com
+ (2603:10b6:208:2c0::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA1PR12MB8519:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1b97548-bd52-4a02-9d39-08def84efb88
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB7992:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24509a5a-78e9-44ff-f60f-08def84fca78
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|7416014|376014|366016|1800799024|921020|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: EQcL+3TzmH6+8r7aE8lsaj4e93o92YZwauF1f96MOHq9DoPtjep+ty2cOboOa+/+1nGKCR3PAEWc28OpvN/Sxrfq26L5YhXmQgJkQM0GxF5PvjCMYoXKei0M6i1f/41utVtpOP06FMrWFV0pKgdiqPtCEONgScKDjIL9KtaGuaGQ/0KT+Y62jokNXMngxrQfX38q8QX8/va+zatej3+8SjZnykVkYJqBSykA7yKJbrCpmw8VBbM5RjMj+gUgEXVn55lkxqLQVN/MdiBXxOTCRTZO6HkbxkKGqc/MJPC6gxA3UeWgSnbQ5xHCq6ryZCpcQxkDL+pxbhGbDNw0ecOB7ikBVbwB1LNu8hsP+VvD38GV+syc/D0QfdKVOF/wLArV4l/+anHKseqR/yNCPXkvIprThIWYmukveZ77hcSNbBD6hECrYIObVDGt7tFEEwa2mlax6Z6vU57isxy6J4PTtg4aoDM4c/Z+zwCOqSHk4WSn4FNqn2LhQMorW5VluELMvJ5iSodVcELPIjEpw90NUw3YQc4gdDZj59eJXir3q+qFgIYFpD5mjCMmOEgIFgI3Vb7/htyVVsbnzeeC/sJEz5b8geYb1ttBVoIpyq4Wump30JlCEzPWCrJMGpccPX34U9n22ENfGe0lCYN7o04zxkToaq3FfrOMoKO4Wo4j4I0yT9RqjHrwIj7LAkEzXN1bPMIotiSSNQvsPe7ZdWjf/g==
+ ARA:13230040|376014|23010399003|1800799024|366016|10067099003|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: e2sva9l2JRm/NpZ+n56zxDan782PXiIGm8eKAdeMZtSyMg/UpF6zf8BfROVkEwg6FUD0ZPZCEn3fI+c+lPX1BjEXMrWIMLlahdznRhATD85xiY3hfLG3Sjr9NCwoCJp+4hgbxAiQ/QH2bfudgHznBXSs8OoXZhKLd947RhAm8MlBsUOYcUSfHWa+sPD2LGU+HX8eGrZcK3gIL/TUAIdmQ4Z+DZF8D4zy5zei72pnAw5yBbTpqWzsblBc6sotAkq+6rZoz1vrRYC5YpTsvWlyl+r1trOeE5gIHKhytdeQ9lKnYokYPsoeOBs6yzmyJzcsEQc/370uZrgYbx0Hw14Dd7Ok2C1Kp+d3Y91TquDh3P0rwha96EicdApw2YVKnE0N5loDsEfR3xVnAfEQVdxgkN/T+rC4Gy5kzKxuCjkBvSZrRslXH5NiMp37CYwNS6YsArbVT+cwFouAZx0+fTyEoavgUYXClSmIVRhOPX7gikGQh9udSY7VsgElShkQd0wgWlsr2+InKZhq1Cl9HwS+SV9A2yiDfxOxrbHBY+pyzyoi8G4nfb9K7SWPiYMbbYqP00P439ABnempwqBAQO/PGK+DNjp2s+kj3fxPVT0YIAKXVaqbsPCKE+TeAExb3TFOW9+0KvdeRtQKzfnQRjXIXD40h2hEZtkS4aX1XrRvEfY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(7416014)(376014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZGtpaS9MVjBFUHJYWGZ6a3R3Z2c2QytyQ0YwRjVobGp0STFveGVJRkV3UFFF?=
- =?utf-8?B?dGJ5SThpYU93dlF6Q2dOaHdzQmRYN3VTemd4QjBXb2MySU1xWktTcDhqeWpl?=
- =?utf-8?B?dUUyUHJVbVRhNERwZmJIWlRkd2Rpbk50MTJOeS9yMXB3djk5QTdzYzJBZVAv?=
- =?utf-8?B?UFpnQUF0V3FlRG1WU245ZDJCc0YyemVqcDJINkpVeE9YZnlhUUxxNFdud00y?=
- =?utf-8?B?MVFsN2pzTWlTb0JZNWdjRGxteHNNN2NzNjZjODhCRkthNGZBRVpZZFhzZDFv?=
- =?utf-8?B?YVBiVzNVcCsrTzk0bHZUNmRoWHhMcTlhSktEZGZXaUxHVDBDRjFKdGcyVjZw?=
- =?utf-8?B?R3hZYTdkT21OcEplT3M5RC9HNTJRWmRYYnJFUXhZNVJZcTl5bzdzYmlwNUxo?=
- =?utf-8?B?M1ZycDB3Uk0xUGxyR2kyMkp0UVgzZkJhUzRuYzhVYUR5MkpIZzlGdXZBakRB?=
- =?utf-8?B?WHVvRC9seG1OOU1Ua0wrUmc1U0R0WmxtS25CTXhaOTBYQlYreXN4WXd4QjA5?=
- =?utf-8?B?UnNuMWY3SFlRVXJWUGREZXFWc2dLUXdNeXdVV2RGaHcvMEZaMm94aVdxM3NK?=
- =?utf-8?B?WTd6WjBncFE5ZU1oVERlcVpudWQzVjVoNjk1MGs2eE1pb3J0KzY3cTh5eVlL?=
- =?utf-8?B?VGkwMkxNVlNYWHowN2dGQzg1RllWWVpOWjdtdWJ0YnZqbWV3alR0K0xTanp4?=
- =?utf-8?B?aWtmMEpxY0h2dlJ2Njk5NUI1a2EyVkVsbzhLK1ZnbEFBd1BWQ1o1cG1udmlt?=
- =?utf-8?B?dGFQOGJxVzd2TmVhNmZNbjZ6NE9FZUhiSExsMnUzb3NKWTNlQ0NwZlVYTWhw?=
- =?utf-8?B?YU5BUWxWZ0J6dXZjOGdPdngwaE9XVHo5RzNQRTl1c2ptdXppcUptbEVDNVFp?=
- =?utf-8?B?TG9YUG8zVkQraDYxeS9xckN1elZOMExxTjI2dStQdENKMW8wNlB0Q3UyVXpv?=
- =?utf-8?B?RGpIamlOK211N01XTi9LYkZaQTcvNnowOEw4Q050RXR4YmJkbXlvblQ3czFv?=
- =?utf-8?B?TjVHV1RJMkxBcHVHTkdmVHF0OFhiRWdVbWl4VnNaMy9RVTFzN1RjT0FVVTRq?=
- =?utf-8?B?TFZOMGJ4Uk4wWGszNFB5bUVGelc4RDQzcWdZM0lBajRtR3hXMjZ1MnRqdEJ5?=
- =?utf-8?B?aDBMaEZjNzVZNXJmU3lqTUF4QkkvQ2RCVHdEclhmWmM2cmZRZ05RSVFJeDB3?=
- =?utf-8?B?U09TdXk5ZDF0OStjWFVGMFZwNG96NmVMMzFFMkoxUFJ5Q0JYcmxpTzRvQlpR?=
- =?utf-8?B?NW1HYmxrd1FZSXZlY2lKQVFWeXVWc2hRaG9hc0dsbVJBTndSd0JCM0ZMUUJH?=
- =?utf-8?B?RkU0bGlRbjBkc1ZmOThKNE5WV1ViWUhmN3Rxcy9UelJwODhxeFlMMFRhV1hS?=
- =?utf-8?B?WnJaN0dTOStyMVd0Vk5xbkpmYlZWNGVoUUNHY2ZXNnlVVElUVmh4blFUMzE2?=
- =?utf-8?B?MW1nVVBxZHJhSHY4NDU1Yk9mUTJWbXU2R1BZZHM1cmxicFdSWlRBWkQ1MVZo?=
- =?utf-8?B?MlFEMkQ4N2c3Yzk5K3ZDZmNiMkF6azlWQ2tzRzNJb2RlVTFCRXJpYmxOb1Vq?=
- =?utf-8?B?SEVPbmhVclJQem5xSlVsS01kWCtPeXgvVi9XallEK0VPN1BoSTNYdWZxdXp2?=
- =?utf-8?B?ZFJGMFdCdDBwQ2RSNURvZUFMdURrK2ZYRDBjWnpiaTlMVkdMNzlUc0JtV2I1?=
- =?utf-8?B?dHJ0YTBUMyt4Q3NhU0V4RDBZM1UzdEtmSEdPR2FDL3ZzUGhRSFZoSUtRa1BW?=
- =?utf-8?B?L1B6SGVkeGpnOVJmNXhRU2NwSWJmYXFmSERINzBMNi81QjlFMFArWVFCYmRV?=
- =?utf-8?B?ZWhyZE9CZnhMY2dWNEUxWUF0dTAxUTkwTjRBZ0RXdTVERjI3QUo5V0xXMXg4?=
- =?utf-8?B?bERjenVTOHRwVlFwQU40aVVSTzNzbVFNNmJkcVQ5NGlqbS9CQWFGQmxmWXE3?=
- =?utf-8?B?RzlsSEZUZ0xBUS9GY2Q1VHRoNG5TdVhLMGR4UjQ5OHRmUXZTeUh6TXU2NWtJ?=
- =?utf-8?B?WEJmVFlad1F2VS9tMVhBRlljK2NXVFpyRVJnUmtrS08xdUJBQUpsajZNRVpJ?=
- =?utf-8?B?TnRVVXlrTGd0ZjJMN1lxVEJJM2VMd1hWK29hODdhamJFWVpEeU5rTEdJN0Ru?=
- =?utf-8?B?OUh4R2wvN3hNdDRkWmVDak81WHBqaTVjczRzaGNWcmlOY2RDUGFXc1hmQUtH?=
- =?utf-8?B?OHJ3OXhqNnU1ZlZyNGtFTXZST1hJZGVtdnVHZlY4MjBqc29WVmZSZ1VGenJB?=
- =?utf-8?B?YTJwbWt3ZWJQRS9hU0NBRHJoeGlxd3NoM2lDNnROd2Z1RGJNYTVobXNXZkIx?=
- =?utf-8?B?alczb1hZb2UxMFhMTkJMczlyeEttSmRGY3lHb3M1WEtXSXB6RC9zdGVYWno1?=
- =?utf-8?Q?H4FQ6cb7B1rPOMFHprJ1/fexl3W+ecvdD+JW8wKSjF5Ir?=
-X-MS-Exchange-AntiSpam-MessageData-1: I7tbhtt/z9G0lw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1b97548-bd52-4a02-9d39-08def84efb88
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXVjNS9SSWVuWnloM0hENHMwMGpBRDhvZ0JSWG5NZzEyQ1hyRzg0c3p5NmVy?=
+ =?utf-8?B?UUZWejFSbm0vbllpNEk5YnliNXBIZE83WjZVQU1hZDRKM29nZk45K3BVZTVq?=
+ =?utf-8?B?Z2ROcWI2Ym1oWCtzMFhXd0pBUmFVYmdMbXRPY3NXTUIwSE9JNXkvSDhYWGNr?=
+ =?utf-8?B?YkZlOCtLK0lUUmxNOTk4WHJqVVdTNC9TU1g0Ky82eGFkVWo4M2pzR0gyMW11?=
+ =?utf-8?B?QjlLWjFTdkZZZFRvQVZuYnpLSEVLKzZyYzA5SHZNUFZ3S2xkYk84OGJnRjVE?=
+ =?utf-8?B?T25lN0I2b01tUkNVN2N5RnQwaFJNbTFMVDYxc3VjamtpRUxWNURvQnRPMURR?=
+ =?utf-8?B?MXlYcXluaFVKZHFCN1pBaThHd2VtMjMzUVFkcXo3aVRWUDVnT0k2M1NnUlow?=
+ =?utf-8?B?VUY5NHJnU3hDZTN1T1kvYnZMTGZZWG9LTGptUG5rbVlCYlFQZ1dJL2wxWVcy?=
+ =?utf-8?B?SXQrRy93a2RxUC92QUs3b2FGYkFqRjRhZDRsWXY5WlFWWERBVEVuTUMxN1Nr?=
+ =?utf-8?B?cWZsUEhLcW9RbkpXSTlFTzRTSG0xTENudG9SMkN3bERUc1JYN1daT29YVDVx?=
+ =?utf-8?B?STlMNUwyd1JkbW1FVWNHTlJYZWMwWjVBd21MQ2Z2U3JSQURNSTZpbzgrRDVr?=
+ =?utf-8?B?cUtFYkJXY2RCcGRFbUxmWU5LVnI2dFI3Z2RhNm5XZ3BuUktmNGJwdlAyeFh4?=
+ =?utf-8?B?aHJ6RENVREpaOXQxVU43K2pFSit6aGlDUTVienlXdXJ2SmxpTWVsZnVEeDNR?=
+ =?utf-8?B?aDJMbTlMWHBpTkVZM2hRdVg5dnhqQ2h6RlhtSnFDQXNuc1UyYk9hMHJOV1pq?=
+ =?utf-8?B?VDJnQ013YWtYSU9OMFZXNkx0T3BTQk56ckhxVEcrUmNYVFBRR3FmSXZWS1Jo?=
+ =?utf-8?B?d2FDM29QQ0FOeVBkM29GTzVtTldHUzlBWVpXcXlpMUJRNVZjQzk4b1ZESkFX?=
+ =?utf-8?B?Vmt1aHhua1Z5OFBPcnlwSy8yMmNEMFVvaDVBUUhOSFZkcWg5N1Nsc2RvYWF3?=
+ =?utf-8?B?MEl1bkhiTmlpaWE0aHczRW04QmsrZ09IdVE3V3VwWGg3YVdmV2dLODZzSi9Y?=
+ =?utf-8?B?UzJpcU5LbDZRQ0FPNUVPQ3NNbEdEVWNzMGR6M1pTR1FkOFl5M0xtYitnUThW?=
+ =?utf-8?B?QlJFMmhITU5nVWNONlp2RTZnWUhucTl2NTB2ZG90OE15NU9tckZyUGoxbEMz?=
+ =?utf-8?B?MUY2S1VCM1BjZmRQcEsyOE81VXc5Kzhpc05TYUU2Wkkyd1J4cjhNK0tZU1RT?=
+ =?utf-8?B?LzVXUEI0ZEpZN3kwNUdNTmpLNXJlbTZRVjNzbU80clUwMUJkbHZTS1J1UGJh?=
+ =?utf-8?B?d1ErZis3R1BQYzhrdmJpUUxBZWp4MXMya0pSZmozWTI0VUd3akNjTkpIZ0hE?=
+ =?utf-8?B?L2JsQ1NSVUFmbXIreEVlMXY3ajEwL3FndXhhTDdveVhBSk5STHczUEtRVGoz?=
+ =?utf-8?B?UlI1eGdGQnR1UmNIMVRpdU8vVWUyM2xEeUFXN2NIcnJ4Rk1FRStxQ2lXR3lX?=
+ =?utf-8?B?ZytlOUlhKzNXN3RkS0lxMkwwQjZEclhyL0hBb2YwYU1EWmNwckFVakFkbEFR?=
+ =?utf-8?B?cDBVQnVGS2hVSlkrTGJHMWV0VU9tUkllRUlUU0t0eENFYUxXcnFpMUYzZnZq?=
+ =?utf-8?B?RFl2QWJsODBhdUw5dWMzUGpZeGh4YWx3NTVCbCs2VHo1WFRrK0MrWjRQS2g0?=
+ =?utf-8?B?Y1JiWmc1LzUzNDk0T1NTRGRMTzJmMWNBQ0R1dHZjRW9hYTJiSmZLVU9FbGlZ?=
+ =?utf-8?B?SmlUOUlpbXVtWXpMWHV1bnE0bGJZZGhlUndRSVY4OUhRTGV6MVlWaUVnMnAr?=
+ =?utf-8?B?TURxU0ppMjQwWDJZYldLa0lDemRvODJkUjB4dTFrcWZCTG5MU1lVdFRxZW0y?=
+ =?utf-8?B?RWg3K2pacmhZSjJiam1ZR3A2MEtpdFdIRGVLd2hnb2o2SCtVQXpMdkdDSS9v?=
+ =?utf-8?B?MzVTQlZQcUplUTBDQ3FOSTErOThMTy9Mb1Y0MmY2U3dyS3lMT3RMNlFQa0x5?=
+ =?utf-8?B?YlFBNkt5SlZPR0h6QzltM3hDVFlpVnU0SnZwa1AvTFdEd2pLeWd4eGR1YUhH?=
+ =?utf-8?B?eERldmJKMUVuaHFzaEZra2NURmhuLzZwNC9ZSlJBM1Fvaklzc2xDNm0vdUFv?=
+ =?utf-8?B?TXBoZG51L0JGK2s0d3QxcVhIQ3B2Y0RXZGEwWHBveTZWTHpzeGRvNDdHWTVn?=
+ =?utf-8?B?b2FQd2FDMUEvU1ZUQytIcDNKcnZJcFZ4b3hUQURUb0hWVTQycGVHSkVPNGVk?=
+ =?utf-8?B?SXUvMHprL0pGdTArQkhYVXNPdCt5UEMvZXN3NXR0Vk9qNTJFWEY1RmlYZnV4?=
+ =?utf-8?Q?SkPifw2laYiwXHy8ty?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24509a5a-78e9-44ff-f60f-08def84fca78
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 08:52:04.5593 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 08:57:51.7986 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PpCnDBHd8qhjvHrBjF3lwav8D57IwcZONJ556DJoZQDEIgnZtvSN+YvVMh7v5BZ+9BN0eGd9qML4boeVhMZaRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8519
+X-MS-Exchange-CrossTenant-UserPrincipalName: thKHdwUqD8LwBSGGpN8/zOC6XOB9ykWWDy6gBcS4fnxbiXgmSeLTROWIG1AYP48L
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7992
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,228 +138,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add `ChannelIdPool` which adds automatic tracking and releasing of
-channel IDs on top of `IdPool`. This is necessary for apportioning
-ranges of channel IDs to be used in e.g. vGPU.
+On 8/12/26 01:13, Taimuraz Kaitmazov wrote:
+> SYNC_BO carries an offset and a size, but amdxdna_flush_bo() honours them
+> only on the vmap path. An imported BO is tested for first and flushes its
+> whole scatterlist,
 
-Channel IDs are allocated as a contiguous sequence with a specific
-length and sometimes a specific alignment [1] for vGPU. The ID space is
-small (limited to 2048) and allocation is not on a hot path, so a
-bitmap-backed `IdPool` is a better fit than IDA/xarray (which allocate a
-single ID within a range, not a contiguous sequence) or a maple tree
-(where aligned allocation needs an alloc_range()+erase() retry loop that
-essentially reimplements bitmap_find_next_zero_area()) [2]. It is
-also faster than maple tree [3].
+Absolutely clear NAK to that from a DMA-buf maintainer side.
 
-Link: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/ # [1]
-Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/ # [2]
-Link: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/ # [3]
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
----
- drivers/gpu/nova-core/gpu.rs         |   2 +
- drivers/gpu/nova-core/gpu/channel.rs | 180 +++++++++++++++++++++++++++++++++++
- 2 files changed, 182 insertions(+)
+Flushing on imported scatterlist of a DMA-buf is a really big NO-GO.
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 42a4cd7971fa..66ea697a89f8 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -33,6 +33,8 @@
-     vgpu::VgpuManager, //
- };
- 
-+#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
-+mod channel;
- mod hal;
- 
- macro_rules! define_chipset {
-diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core/gpu/channel.rs
-new file mode 100644
-index 000000000000..b755d2184aee
---- /dev/null
-+++ b/drivers/gpu/nova-core/gpu/channel.rs
-@@ -0,0 +1,180 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Channel ID allocation.
-+
-+use core::{
-+    num::NonZero,
-+    ops::{
-+        Deref,
-+        Range, //
-+    }, //
-+};
-+
-+use kernel::{
-+    id_pool::IdPool,
-+    prelude::*,
-+    ptr::Alignment,
-+    sync::{
-+        new_mutex,
-+        Mutex, //
-+    }, //
-+};
-+
-+/// Pool for tracking reservations of channel IDs.
-+#[pin_data]
-+pub(crate) struct ChannelIdPool {
-+    #[pin]
-+    inner: Mutex<IdPool>,
-+    num_chids: usize,
-+}
-+
-+impl ChannelIdPool {
-+    /// Creates a pool managing `num_chids` channel IDs.
-+    pub(crate) fn new(num_chids: usize) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            inner <- new_mutex!(IdPool::with_capacity(num_chids, GFP_KERNEL)?),
-+            num_chids,
-+        })
-+    }
-+
-+    /// Reserves a contiguous area of `count` channel IDs starting at a multiple of `align`,
-+    /// returning a guard that releases the area on drop.
-+    pub(crate) fn alloc_area(
-+        &self,
-+        count: NonZero<usize>,
-+        align: Alignment,
-+    ) -> Result<ChannelIdArea<'_>> {
-+        let mut ids = self.inner.lock();
-+        let area = ids.find_unused_area(0, count, align).ok_or(ENOSPC)?;
-+
-+        // If the pool is small, the backing bitmap may be rounded up to a larger size.
-+        if area.range().end > self.num_chids {
-+            return Err(ENOSPC);
-+        }
-+        Ok(ChannelIdArea {
-+            pool: self,
-+            range: area.acquire(),
-+        })
-+    }
-+}
-+
-+/// A reserved contiguous area of channel IDs.
-+///
-+/// Releases the whole area back to its [`ChannelIdPool`] when dropped. Releasing locks a
-+/// sleeping [`Mutex`], so the area must be dropped in a context that is allowed to sleep.
-+#[must_use = "the channel ID area is released immediately when unused"]
-+pub(crate) struct ChannelIdArea<'a> {
-+    pool: &'a ChannelIdPool,
-+    range: Range<usize>,
-+}
-+
-+impl Drop for ChannelIdArea<'_> {
-+    fn drop(&mut self) {
-+        self.pool.inner.lock().release_area(&self.range);
-+    }
-+}
-+
-+impl Deref for ChannelIdArea<'_> {
-+    type Target = Range<usize>;
-+
-+    fn deref(&self) -> &Self::Target {
-+        &self.range
-+    }
-+}
-+
-+#[kunit_tests(nova_core_channel)]
-+mod tests {
-+    use super::*;
-+
-+    const fn nz<const N: usize>() -> NonZero<usize> {
-+        const { NonZero::new(N).unwrap() }
-+    }
-+
-+    #[test]
-+    fn chid_area() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(2048), GFP_KERNEL)?;
-+        let unaligned = Alignment::new::<1>();
-+
-+        let first = pool.alloc_area(nz::<48>(), unaligned)?;
-+        assert_eq!(0, first.start);
-+        assert_eq!(48, first.len());
-+        assert_eq!(48, first.end);
-+
-+        let second = pool.alloc_area(nz::<48>(), unaligned)?;
-+        assert!(first.end <= second.start || second.end <= first.start);
-+
-+        let first_start = first.start;
-+        drop(first);
-+        assert_eq!(first_start, pool.alloc_area(nz::<48>(), unaligned)?.start);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_bounded_by_num_chids() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(4), GFP_KERNEL)?;
-+        let unaligned = Alignment::new::<1>();
-+
-+        {
-+            let a = pool.alloc_area(nz::<1>(), unaligned)?;
-+            let b = pool.alloc_area(nz::<1>(), unaligned)?;
-+            let c = pool.alloc_area(nz::<1>(), unaligned)?;
-+            let d = pool.alloc_area(nz::<1>(), unaligned)?;
-+            assert_eq!(0, a.start);
-+            assert_eq!(1, b.start);
-+            assert_eq!(2, c.start);
-+            assert_eq!(3, d.start);
-+            assert_eq!(
-+                Err(ENOSPC),
-+                pool.alloc_area(nz::<1>(), unaligned).map(|_| ())
-+            );
-+        }
-+
-+        assert_eq!(0, pool.alloc_area(nz::<4>(), unaligned)?.start);
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.alloc_area(nz::<5>(), unaligned).map(|_| ())
-+        );
-+
-+        let head = pool.alloc_area(nz::<3>(), unaligned)?;
-+        assert_eq!(0, head.start);
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.alloc_area(nz::<2>(), unaligned).map(|_| ())
-+        );
-+        assert_eq!(3, pool.alloc_area(nz::<1>(), unaligned)?.start);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_area_aligned() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(16), GFP_KERNEL)?;
-+        let unaligned = Alignment::new::<1>();
-+        let align4 = Alignment::new::<4>();
-+
-+        // Alloc 0 so the first fit for the next area is unaligned.
-+        let pad = pool.alloc_area(nz::<1>(), unaligned)?;
-+        assert_eq!(0, pad.start);
-+
-+        let a = pool.alloc_area(nz::<4>(), align4)?;
-+        assert_eq!(4, a.start);
-+
-+        // The area skipped over by the aligned allocation should still be available.
-+        let b = pool.alloc_area(nz::<1>(), unaligned)?;
-+        assert_eq!(1, b.start);
-+
-+        let c = pool.alloc_area(nz::<8>(), Alignment::new::<8>())?;
-+        assert_eq!(8, c.start);
-+
-+        // Only 2 IDs left.
-+        assert_eq!(Err(ENOSPC), pool.alloc_area(nz::<4>(), align4).map(|_| ()));
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.alloc_area(nz::<1>(), Alignment::new::<32>())
-+                .map(|_| ())
-+        );
-+
-+        assert_eq!(2, pool.alloc_area(nz::<2>(), unaligned)?.start);
-+        Ok(())
-+    }
-+}
+If DMA-buf imports are used with the device then the device needs to be able to coherently access the underlying memory.
 
--- 
-2.55.0
+In other words you *CAN'T* call drm_clflush_pages() on imported memory.
+
+Regards,
+Christian.
+
+> so a sync costs what the BO is worth rather than what
+> the caller asked to maintain: on npu4 an imported 64 MiB BO cost 1056 us
+> to sync at every size from 4 KiB up. Patch 5 reorders the arms so the
+> vmap path is tried first, and indexes the page-array fallback from the
+> requested offset.
+> 
+> The four before it are the ground that has to be solid first. Patch 1
+> refuses an I/O memory mapping, which the driver currently stores as if it
+> were an ordinary kernel address. Patch 2 adds a probe that does not log,
+> so patch 5 does not make an exporter without a vmap op print on every
+> ioctl. Patches 3 and 4 fix two ways the ioctl mishandles its own range: a
+> zero length reaching drm_clflush_virt_range(), and an offset and size
+> added to the BO address without an overflow check, one level above a
+> function that checks the same arithmetic. All four stand on their own and
+> can be taken separately; only patch 5 depends on them.
+> 
+> v1 did not reach dri-devel, so this is the first version visible there.
+> It is on lore via the other lists it was copied to:
+> https://lore.kernel.org/lkml/20260811204556.875037-1-taimuraz@kaitmazov.com/
+> 
+> Changes in v2:
+>  - patch 2: take the device from the GEM object rather than abo->client.
+>    amdxdna_gem_obj_close() clears that pointer under abo->lock, which the
+>    pre-split code held across the log and the split did not.
+>  - new patch 3: return early from a zero-length flush.
+>  - new patch 4: check the sync range for overflow on a device BO.
+>  - patch 5: say why the persistent mapping adds no pin.
+> 
+> The measurements in patch 5 were taken with the equivalent change in
+> AMD's out-of-tree xdna-driver, where this merged as #1541. That version
+> and this one differ only in a page-array fallback mainline has no field
+> for, reached when the mapping fails and the BO is neither imported nor
+> shmem backed, and in the name of the mapping helper. The flush and the
+> helper are otherwise identical. This version is compile-tested; it has
+> not been booted.
+> 
+> Patch 1 is from inspection rather than a reproducer. The exporter I can
+> test against is amdgpu, and amdgpu is the case that cannot reach it: it
+> implements .pin, so a non peer to peer attachment like this driver's
+> forces the buffer to GTT before anything maps it. Reproducing it needs a
+> GPU whose exporter has no .pin, which I do not have paired with an NPU
+> here.
+> 
+> Taimuraz Kaitmazov (5):
+>   accel/amdxdna: refuse an I/O memory mapping of an imported BO
+>   accel/amdxdna: add a quiet variant of amdxdna_gem_vmap()
+>   accel/amdxdna: return early from a zero-length flush
+>   accel/amdxdna: check the sync range for overflow on a device BO
+>   accel/amdxdna: flush only the requested range in amdxdna_flush_bo
+> 
+>  drivers/accel/amdxdna/amdxdna_gem.c | 66 +++++++++++++++++++++--------
+>  1 file changed, 49 insertions(+), 17 deletions(-)
+> 
+> --
+> 2.55.0
+> 
 
