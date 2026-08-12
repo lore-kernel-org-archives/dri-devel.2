@@ -4,83 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63007C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:03:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05DE4C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD1FB10EFAC;
-	Wed, 12 Aug 2026 13:03:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E88E10EFB5;
+	Wed, 12 Aug 2026 13:04:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xh3bFMqF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mWyq5EvN";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C337110EFAC
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:03:31 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-47f502ff678so101839f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 06:03:31 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA5910EFB5
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:04:39 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-47fe89fb333so515336f8f.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 06:04:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786539810; x=1787144610; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=as36wFWfEYJzqaxcovAhzmJbolrDk8C4787yYGJjYG8=;
- b=Xh3bFMqFGCgMVnu/3Xm9fWdVTIvlyDvpz4xnob1GW5QQbUcw6Bxs/CMgNe43LaGBva
- A21BdzIh4qQvSbNQAGqGTO6WKP6A/LTIHFTDmhy10j8QyixoUv7z3p4hUXqH1tYXUxBN
- LOEjvHhd5vX3yIYvofcyYT9WK/4dWi5Pecin7RfDlTkQuFX6SzVsZSvkWwp0EwAw93WU
- sySZla0E/0JhMSBGVR7i8CP5fv72aofGYJXyH+MkMSgCAw3+btoaTKI3uJD7B7sjiThy
- ofDiCCanD89x29Kin19oH+faXylAm+U09PHn6sa+V+XHD0gRfeSnqJV88JM6k9aSm1Fx
- 0p9Q==
+ d=gmail.com; s=20251104; t=1786539878; x=1787144678; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=iwslSfG+p8iUF3XFQu9lDnLhoLT7aq27LjQL7Nhl58U=;
+ b=mWyq5EvNj5bFkc6up5p0Jsbw7Kdd6C3Hk41hg3AlNarL1AElq3q/Cp3t76kqZtfqg9
+ ovvqV30KrMXEcZEHvSylqkJFwYW2Wd3NGIxZsBA6Zi6ijmus3O9T4HhU1Pkexkckfc93
+ Rtzp2W/sP4aRXqE3YA+KfJGLq4DZNZU1UFebgMgbSnp5yWUp0Bq6l2iJodf3E52o/YU5
+ 9tF8GXCZyFASytYHWNedfEBG2pCEclkGYB20Qp/dHWqkjbPa+/RFrwGAl1LoolSN3H1H
+ wWjygs+6nbfTgSJfeJwjQABvvEs059RQQR12hi5vu7jDL3EYZt7b56LEZtEKEaZlDkVo
+ eAWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786539810; x=1787144610;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=as36wFWfEYJzqaxcovAhzmJbolrDk8C4787yYGJjYG8=;
- b=jWgTLtH3i0zefizZ6UCXaE1nmLhE0NMG/ajkFZdKbkvQqWJN29lczLq8MnMjcCcB2g
- jjjonPrIRK+SFfZG/qQrZi+nTf3F5HUY7bFQJiGD32jxA8hk0ycnMwQCPMvl2XQTTAUP
- XietcthaifiwYn461N/ycQPxauP3VTkzLhSOIEJKeilwfNBjza+yjlOzZR7bZPyaXlRP
- mwzNjvPc2wUtk1RpBgdzWC0E1CmjHokGQwizJtLCXz0vm4V4p7P1nFN0m4+lYjTWlGYJ
- qaHhCCyfMjq4HGnVuSC6q4Hy7jBIMrQfwm8z9sHwtfGJuwnGnxDIudriaELSATAHjTQ+
- 03HQ==
+ d=1e100.net; s=20251104; t=1786539878; x=1787144678;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=iwslSfG+p8iUF3XFQu9lDnLhoLT7aq27LjQL7Nhl58U=;
+ b=UovCh+ZK1jANIeBLt37TE5G0hladV6mdHfksYtWW2C3zvMnkQ5eusQTPQgLkEDqxO1
+ TlWbhBnDD9mgj9EKzqg7CQTP+NM7OOi78TZhzRkzMwAR2NdCJKwreIafVcIBAUHWR/C8
+ 0M4tkNb1LAw6xPK7SHGIa6jDDYEpdT26h+utoMEWy0jxGdBFlgwWIHMEvqkjm1N2ERC8
+ Roizpahm0o3VGS1gErTy+41kk6OG2MTZNTPow0X6OYj429jVOyCrDhuiJsZhe+ZlTimh
+ r4M7gHWlL0qGdmDZFqkhTzfQEo0s7TWhTA8UiUy8LPRBfzvkiGOTJgHRl/9lh2v+UYe3
+ RskQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpIMPJfEe60zr5eohsVvmWY5q2xwkBEBic8HjGV+u8pr2P3SjCdZa5FBCo9XLOtS54d1dzh8Lzi/UU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzb8C5RBZIqR/l29bFiqxfRsX/wVOvWBrJ4uhGYK1Rmy44LjxVp
- MH1zWvpgIA1WcpQH/zBmr1BP4zH3BxFRkyWYC2ugons8jmbCNNoBPgr8
-X-Gm-Gg: AR+sD11H47YYaSNR9uZbyXnUM7Hh7lcLYgRzCw3/E7sLj1L2F0Z7u4IVujTjMMF0rmc
- /X79zXPVx8rsqt1zPeYhTvOePaEoCwwKCcm+egsvxmNwCR4Tncm/XokbQyuP/kPYVDftmw+oHpk
- aGLBYCsP58je1JcLr9Dm0LDq5AyIHqlRzD7w2byCjtwUdJDE5hgRcqbP/cxstVtMa0y/jqBKtRD
- Wj2yLAmV6+0ox0pZQTeWp67nZuU9kwfhjj7JkCDfbyMNEZOYPZZMg2z3X77WAJ3Cjg7AbNlg/Ri
- TDlTvcxphEal3oVoR1nSHA6sgq3PIamqaDhzblXIPvzN94WRy6GIF+2WxfjL+W7K6lZW/DFSynT
- o4H1g9Psz/Qb8oBXuAaaKmliySk/m2n/8hX5M0UuBxuJyNHS/DxtosIQCAwkuiCW8cZ2nQpaXBH
- 3uLTSLcqgiJB30uq/CLpVT83AteczFs9Q6EGqvfC1mocF1yqgnJS5cV0I/j1u7NxHG692qHyd3W
- c7MmvCeyfsi4JssRHni0d1zTIE3tITaEg1rW1Bt/I4IwTbxgHGmMaLOGSVuw+b9QJT6
-X-Received: by 2002:a5d:64e6:0:b0:47f:e8af:7687 with SMTP id
- ffacd0b85a97d-481528da9a6mr3640852f8f.1.1786539809937; 
- Wed, 12 Aug 2026 06:03:29 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B84A6001A34C2DD5D9E0419.dsl.pool.telekom.hu.
- [2001:4c4e:1b84:a600:1a34:c2dd:5d9e:419])
+ AHgh+RrVeT17VJpldhS1+fNTiduRT4+2QQdURgYjt0tjpwUM16uUhKn/Q7iUliTxMso0w/hYYc/0zMWufh0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzPX1Neuybs2zZNpCqljJVVg1HhclezfMOgun3orNwbyaQgZANT
+ T7WDbYBgn/Jvr7ppN15NIWSv0y2PTIL2kVWLsaty7UrcXqicRYAavjST
+X-Gm-Gg: AR+sD13l7Hd/4JsnmMkV4m/vrnZWiBYx//uLHvbyzugjr78RXn16gvxgClJiCU1Et6s
+ HC3EwHnaNAl5HUp1lrtQVWAwJdZPv9VoBqD9tRa+ikVDYEJ+dGtWRAFVi9U+XZLeRYkl7OAr4yA
+ HOdfl182Kl6k/ma2bWYZwHzSnLgInbQ4EaB2Hzffs91IB2cTAf9+BYZ+NcKYZJUHVwqwG2vWBzD
+ 9y9WSs7VbTRSL4/mu2g9U0Qo2aJiaMA7bzQ9129mO3z89BZwzs4AsYYl8s1uh/1TxYAaMXfoDJ9
+ BPtO/F+L/KDhMT9bWYeZefI76dC3FnHduJZCLRmN5ePwE/cWTM9yyvnzl5fpNHkirGk57VEO7jp
+ n/vtuGNxXPg9FR5BpjkPj2mKDhy0e3TaAuBWXulMDIhX/yCbd1IUnqSVw0N5+MND0WNPmRYrBmN
+ jmQEoJh8lWBoOCTOls+8+0h1OlrMrV+B3sh7zIMRsXqPmH4SJIGtBerlMOFTi4xKYoCICEysLPa
+ KudxlH52jjwDSdl7JtONsYc8T0=
+X-Received: by 2002:a5d:64e4:0:b0:47f:f908:ba7b with SMTP id
+ ffacd0b85a97d-481528ec696mr6980548f8f.23.1786539877808; 
+ Wed, 12 Aug 2026 06:04:37 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:3d2e:78f3:cfb2:413d])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48150d5cd2esm7316360f8f.26.2026.08.12.06.03.28
+ ffacd0b85a97d-48150d5eb2csm7040804f8f.30.2026.08.12.06.04.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 06:03:29 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Igor Paunovic <royalnet026@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Guangshuo Li <lgs201920130244@gmail.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] accel/rocket: fix shared-device lifecycle on probe
- failure and unbind
-Date: Wed, 12 Aug 2026 15:03:04 +0200
-Message-ID: <20260812130311.8252-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731064933.12548-1-royalnet026@gmail.com>
-References: <20260731064933.12548-1-royalnet026@gmail.com>
+ Wed, 12 Aug 2026 06:04:37 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: luca.ceresoli@bootlin.com, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
+Subject: [PATCH v3 1/6] drm/panel: Use devm_mipi_dsi_attach in BOE panels
+Date: Wed, 12 Aug 2026 15:04:18 +0200
+Message-ID: <20260812130429.16850-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,67 +93,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomeu,
+Use the managed MIPI DSI attach helper in BOE panel drivers and drop the
+corresponding manual detach calls from remove paths.
 
-A ping on this one. It has been on the list since 31 July and 2/2
-carries Jiaxing's Reviewed-by.
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-I am pinging now rather than just waiting because the failure it
-describes stopped being a code reading yesterday. I hit it on hardware
-while testing Jiaxing's v7 RK3576 series on RK3588, on a tree that did
-not have this series applied.
+---
+v3:
+- Move the changelog after the `---`.
 
-The sequence is the one 2/2 predicts: unbind core 0 while cores 1 and 2
-stay bound, then bind it back. What happens without these patches, on
-an Orange Pi 5 Plus with all three NPU cores:
+v2:
+- break long description lines.
+- add Signed-off-by tag
 
-  - the returning core takes the index of a core that is still live.
-    The driver prints
+ drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c       | 8 +-------
+ drivers/gpu/drm/panel/panel-boe-himax8279d.c         | 8 +-------
+ drivers/gpu/drm/panel/panel-boe-td4320.c             | 8 +-------
+ drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c | 4 +---
+ drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c       | 8 +-------
+ drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c       | 7 +------
+ 6 files changed, 6 insertions(+), 37 deletions(-)
 
-      rocket fdab0000.npu: Rockchip NPU core 2 version: 1179210309
+diff --git a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
+index 84c21c62a43e..6a74523a6614 100644
+--- a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
++++ b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
+@@ -359,7 +359,7 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&boe->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		return ret;
+@@ -371,12 +371,6 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
+ static void boe_bf060y8m_aj0_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct boe_bf060y8m_aj0 *boe = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&boe->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
+index 4a8560b4b899..ffcb63f65b75 100644
+--- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
++++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
+@@ -881,7 +881,7 @@ static int panel_probe(struct mipi_dsi_device *dsi)
+ 	if (err < 0)
+ 		return err;
+ 
+-	err = mipi_dsi_attach(dsi);
++	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (err < 0)
+ 		drm_panel_remove(&pinfo->base);
+ 
+@@ -891,12 +891,6 @@ static int panel_probe(struct mipi_dsi_device *dsi)
+ static void panel_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
+-	int err;
+-
+-	err = mipi_dsi_detach(dsi);
+-	if (err < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
+-
+ 	drm_panel_remove(&pinfo->base);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-boe-td4320.c b/drivers/gpu/drm/panel/panel-boe-td4320.c
+index 23558a76dd72..704d5a9c13e7 100644
+--- a/drivers/gpu/drm/panel/panel-boe-td4320.c
++++ b/drivers/gpu/drm/panel/panel-boe-td4320.c
+@@ -204,7 +204,7 @@ static int boe_td4320_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		drm_panel_remove(&ctx->panel);
+ 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+@@ -216,12 +216,6 @@ static int boe_td4320_probe(struct mipi_dsi_device *dsi)
+ static void boe_td4320_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct boe_td4320 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
+index a70a2e58f88c..94cc675973e6 100644
+--- a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
++++ b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
+@@ -393,7 +393,7 @@ static int boe_th101mb31ig002_dsi_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err_probe(&dsi->dev, ret,
+ 			      "Failed to attach panel to DSI host\n");
+@@ -407,8 +407,6 @@ static int boe_th101mb31ig002_dsi_probe(struct mipi_dsi_device *dsi)
+ static void boe_th101mb31ig002_dsi_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct boe_th101mb31ig002 *ctx = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(dsi);
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
+index 20b6e11a7d84..2ab7764d4094 100644
+--- a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
++++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
+@@ -200,7 +200,7 @@ static int boe_tv101wum_ll2_probe(struct mipi_dsi_device *dsi)
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret < 0) {
+ 		drm_panel_remove(&ctx->panel);
+ 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+@@ -212,12 +212,6 @@ static int boe_tv101wum_ll2_probe(struct mipi_dsi_device *dsi)
+ static void boe_tv101wum_ll2_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct boe_tv101wum_ll2 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+ 	drm_panel_remove(&ctx->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
+index 150dff3ab6c3..7d2672578dd8 100644
+--- a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
++++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
+@@ -1765,7 +1765,7 @@ static int boe_panel_probe(struct mipi_dsi_device *dsi)
+ 
+ 	mipi_dsi_set_drvdata(dsi, boe);
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
+ 	if (ret)
+ 		drm_panel_remove(&boe->base);
+ 
+@@ -1775,11 +1775,6 @@ static int boe_panel_probe(struct mipi_dsi_device *dsi)
+ static void boe_panel_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct boe_panel *boe = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+ 
+ 	if (boe->base.dev)
+ 		drm_panel_remove(&boe->base);
+-- 
+2.43.0
 
-    for the device that is physically core 0;
-
-  - inference stops being correct. The same MobileNet V1 input that
-    classified as "military uniform" before the rebind classifies as
-    "toilet tissue" after it, and the oracle hashes change with it;
-
-  - throughput falls from 88.6 to 1.9 inferences per second, and core 0
-    stops taking interrupts entirely - 0.00 per inference where it had
-    been taking 41.74 - while core 1 absorbs everything;
-
-  - the next unbind then dies. Ten "NPU job timed out" in a row,
-    followed by
-
-      Unable to handle kernel paging request at virtual address
-      dead000000000122
-      pc : destroy_workqueue+0x1b8/0x3e0
-      Call trace:
-       destroy_workqueue+0x1b8/0x3e0
-       drm_sched_fini+0x178/0x1a8 [gpu_sched]
-       rocket_job_fini+0x28/0x60 [rocket]
-       rocket_core_fini+0x4c/0x78 [rocket]
-       rocket_remove+0x6c/0x150 [rocket]
-       ... unbind_store
-
-    That is LIST_POISON2 being dereferenced. The sysfs write never
-    returns, the task is in uninterruptible sleep and cannot be killed,
-    and the machine needs a reboot.
-
-That is the second bullet of 2/2's commit message happening: the bind
-reuses the index of a still-live core and overwrites its slot while its
-IRQ handler and its DRM scheduler are still active.
-
-With the two patches applied and nothing else changed, the same
-sequence - core 2 out and back, core 0 out and back, all three out and
-all three back - runs clean. Twelve inference runs across two modules,
-one oracle hash for all of them, correct classification every time, and
-nothing in dmesg beyond the probe messages.
-
-I am happy to resend with the tag collected if that is easier. There
-is also a practical reason to have it in: the three-core RK3588 test
-that Jiaxing asked for on his v7 cannot run to completion on a tree
-without this, because the core-0 rebind step is what trips it.
-
-Thanks,
-Igor
