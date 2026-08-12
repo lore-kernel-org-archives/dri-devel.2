@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A4DAC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:49:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B848DC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0176F10EFF5;
-	Wed, 12 Aug 2026 13:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18B7B10EFF7;
+	Wed, 12 Aug 2026 13:49:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GMavbr1W";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lha0zG3a";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D465410EFF5
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:49:17 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7B3510EFF6
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:49:21 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id A9CB01A15B6;
- Wed, 12 Aug 2026 13:49:16 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 82D5B4E411D8;
+ Wed, 12 Aug 2026 13:49:20 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7D5B06045E;
- Wed, 12 Aug 2026 13:49:16 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 515446045E;
+ Wed, 12 Aug 2026 13:49:20 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B06E911C4CF26; 
- Wed, 12 Aug 2026 15:49:12 +0200 (CEST)
+ with ESMTPSA id 31B7211C4CF25; 
+ Wed, 12 Aug 2026 15:49:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786542555; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1786542559; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=2Ayg5NLrtGAiQzXbFgYTyCEJVIzlYU5qDgQ7w9fw7ec=;
- b=GMavbr1WGmtHAYBvYA8Bd2nX/2CMqTcUkpG0DG1Fx7/pogZeuW8ssaCHX/IPef53L906Yt
- cwCMEnhSB66TwUlzT+2OpX/ykJvyZXLwT4TdE385QCOQ/nt7eXtQ32n9apBH///7YFS9be
- zcWmedqXeZjqWui4M/hLbgOWsrprTfkO+j77pa2sVP4LYtBLXLPsYH3zcrM/UYwQv46gNo
- 3GWU7/2rxOjU4sW1MtPx6i0Wc28GRqcaf7KCA8XsJFazRDhVZdYc3zIfUY2jzkr469b/Q6
- 9GQoU6tbSGpykHfwZtpOmDAWHPaOi/yRn0dinjWgZdM+bWPpMT6zkNtny6Ou+A==
+ bh=VOX/U+Xa7aFJ9BJSrk7PsFJlTU5im3k5v+mA3gsgr+w=;
+ b=lha0zG3aI5ArB+dmOwWdWLqDEf2mxHJEKDqtpYjQPKLXopeO4tPMfqTBwFn/WB5OCKFP9C
+ pG9wSPRA/RRCJ+SBERNqYH3OXp5vImYBlRG0D2Zlc5eFpIuvuWSUWugtKYz8MV4dz7ygrR
+ AWb++VDwxVFEaKrp/KMmAizsQR6ySLHbinxec5pWz5X5mOnygirAy8QVMr9RuvYPAFAYPg
+ Za6uPOfgNbT51+LPe8WQNTD8HyiRoqKB1sTVLhcnFZsnsPZNxtZf5kOVXrp1NhHSvYl3mu
+ sIEihOqUJltRwwLIHiyBN2m3QY+po5yGEI4rDJngNNmIY/q168BcS9Nomhdfgg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 12 Aug 2026 15:42:47 +0200
-Subject: [PATCH 07/12] drm/bridge: parade-ps8622: select DRM_PANEL_BRIDGE
+Date: Wed, 12 Aug 2026 15:42:48 +0200
+Subject: [PATCH 08/12] drm/bridge: parade-ps8640: select DRM_PANEL_BRIDGE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-drm-bridge-drm_panel-cleanup-v1-7-0d86734e908a@bootlin.com>
+Message-Id: <20260812-drm-bridge-drm_panel-cleanup-v1-8-0d86734e908a@bootlin.com>
 References: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
 In-Reply-To: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,18 +79,18 @@ Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index e59b6689ced3..8bb5612a0ff5 100644
+index 8bb5612a0ff5..0f9ca869237b 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -276,7 +276,7 @@ config DRM_OF_DISPLAY_MODE_BRIDGE
- config DRM_PARADE_PS8622
- 	tristate "Parade eDP/LVDS bridge"
- 	depends on OF
+@@ -290,7 +290,7 @@ config DRM_PARADE_PS8640
+ 	select DRM_DISPLAY_DP_AUX_BUS
+ 	select DRM_KMS_HELPER
+ 	select DRM_MIPI_DSI
 -	select DRM_PANEL
 +	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
- 	select BACKLIGHT_CLASS_DEVICE
  	help
+ 	  Choose this option if you have PS8640 for display
+ 	  The PS8640 is a high-performance and low-power
 
 -- 
 2.55.0
