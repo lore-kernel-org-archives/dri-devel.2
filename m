@@ -4,127 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA631C5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 19:48:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6B95C5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 19:52:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D63D210E118;
-	Wed, 12 Aug 2026 19:48:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBEF310E44A;
+	Wed, 12 Aug 2026 19:52:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Jsthuy9V";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="sGnElibv";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="kb+UCJyW";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 264F510E118
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 19:48:03 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4994d67d260so1665e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:48:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786564081; cv=none;
- d=google.com; s=arc-20260327;
- b=ISacP2GPWQLRH93JBLIG2Fz3oju/MP2MVGLDf/DNvDGVaaHaPqHrMtgUBCMZDn4Pq0
- rUzwu01gsZSLci3sWi0gwh7hw2WbIeviFbPxL29PX6oO8qywQTDKo7j8egMLH29IA15r
- crJXoMh4m5c+MVlLwQynTjljbu8jQbqRjKjzqDN7SFUYbcPREmGoz2cWYxP/SaaaT+Ue
- 4wUPBPi3EV61A7UgKLVbZg/OE34sP7j859kLslpzq0GaIU8okrjCJ2t0r1SSHL1Q1V7T
- cP6AOAqPng7I/vMElf0HO1atoD3WtKP+2SD90dV++Hsow55Daok0E0E4pb9w9qHylS16
- nO2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=1DVjTbKTXkhH1yUwpD/lgRqJn/mvRVunuCZAxUjSgDU=;
- fh=0yA7EcGqhy8Y/AmxUjxbSCcJbGlgWyOBwOrQDSqd4Io=;
- b=MAyZGqfihFkbGrKjRiuS8AEqN3Lo7rfAZVbl52Jcq4EnVb6g7hG48R9oi74vDq7fwH
- iksNE1fMyQNQ23eqwgZ7BjEPWcvMgzl6Uv/mGX88b8lYsdfM0N8+oxTtPqfNaCNawyCA
- sT6raI9PGs9O5bSkkqdiLamGIch2hvc7sU4J/V9LOC8bydjjp0qcGdZOjfT3smEq7QX4
- sXBxDjNBhZUvSWTU+Cz0Oe2Tu0HF7pVrho/9FP7EzU2TFoTVRAOc8liKh6xDO3YAHjQ0
- kpJ4blGYLsWgMZdXn/WQ4POvkBgURebKp1velolgKll2j3fMON0QXpEWUIJMD/xxQOwL
- G6YA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1786564081; x=1787168881;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=1DVjTbKTXkhH1yUwpD/lgRqJn/mvRVunuCZAxUjSgDU=;
- b=Jsthuy9VkJEMAqJiBD3T+jHefS9Z+Na76pvOHy5s08zegQgYlO/eGlY6R4KqdHVeBA
- rFbsMVzzCzqOUgr8HahNcq4b6plgLa9HvGI4X6t1U1xsy8Z1Q94fwBbF3uc+2Ka48Qh+
- T40lCVIcxnNFKZ0NPMWKzlsOfZ86u+F5vKJDQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786564081; x=1787168881;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=1DVjTbKTXkhH1yUwpD/lgRqJn/mvRVunuCZAxUjSgDU=;
- b=fAEIG0L1rhkjr81rbY+k4N1YxrZwASbrsqn7YznclgxcwFtfH6RszEJjiE6cgCsXbl
- 7AqXbqhN0prax6MWMkPEIcaURagXlcHGjtZvhgVNp5g5TJQ63YvVwAG3XzpLZKggOTJI
- FuVslsfGUp5Ol7cc7J7osVdl1KfXrUeWnMiq/tFA6tTJd3psakF230hhVu3Fbm8Mut9v
- IgBbMERpROx1brqjwHjC8ORs4NVD0HjP4by3p/Qs6m6WABy4rcgKdRkAvJF26DPP+XM3
- BCU1S+cXstdiGg6JWHnGVqkPhgU9XoB7uCRODwXl1K3wUM7rE5JPG4zs9a4wn6K16Erp
- Mm+w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpXxbJZVkJWp2XnLDMn7gKb23CE+04VtiHu56+i3MIblcyzAykM3+1SaKRQMvCqmsfm3N3Gv3jQ8U0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQyFDEQcwxpH3y1pREbvGEpqeggE8RX+ohH1AYmGzf+XUHjPYn
- E2fgLED5ZH4tT+UnGAU7qKDEYqzq89FUjP1N5VoybRnNeXYJpvvOHAWlLO1O7V9Z5L7pOWCbJix
- EC4h4irCWfs0jpHpXbP9lyXWXDnNIoCjC9QrbqQt+
-X-Gm-Gg: AR+sD10vDBVW7DCpTBxdwxOhEVH4xkIfJHOp+C148zcxuOa08d2jJioUqKiqwHZKvI+
- O2nFltnPgcY8Ld1ki4C3kU2LuxdVtz04VT9iuNVRHzK0i1bBR8OXjOINJWbxWrFVxHUox+h4jpj
- Zc5P+6fddmQwKZmHsPgVCEsHn9AhzDK2FAD8MMl+84A0Z6XeeuND7in8uyyG0ccvgGeTxl9/zo6
- jr1rIRQF+diJwh/8hh77K9HjuKBdqssV7Mv86Xy75/wFfnDbZl3YijGTK+0M2fm2ZTiKSoSiYJN
- bYHhahFhjLfwn/vYx34JljsAml052SldcYcZkrI0IyPZo6SkwgAgCzvUo/UBuBvl34Fx8WRQl1W
- QPEw=
-X-Received: by 2002:a05:600c:a29f:b0:495:4069:b0de with SMTP id
- 5b1f17b1804b1-49981fabe30mr92875e9.9.1786564080986; Wed, 12 Aug 2026 12:48:00
- -0700 (PDT)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E55C110E44A
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 19:52:49 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hKzg42k9rz8trG;
+ Wed, 12 Aug 2026 21:52:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1786564368;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=NLhi4ZLjDXG/c04c+xT2qKYjmJN2aLYRZErpNT0+BbA=;
+ b=sGnElibvb5KvuwPU8Q+rNSik2Cr2PNdqyLyRXDXy4HJgWM1ZAmIc0naVeaYbDSCT+gEzps
+ ZM0ANrIdK6sDMqqNYR/kwmqMmiCvAL2mSVM39LeD7i5t2eDb5+o/X2rlrhIgzdNe2Tmg5i
+ qCoBwfkyHbrE2l39/W+paYFvSlfcD3daKsYcOE1wTeklBnR745SKU9CV2AkS0M6W7X24Xv
+ y9V83bcvZT+j51D6+Wlg3b65RlWli1VptfXq0cJYWKzeyjMA+NMma35v14WYhtjaAV/kzm
+ H/mWVXr0iKxyhv1diPyIr7wwOlTwZ+V8d6cwzm5bNmMLPlLf2gQZviN6lE4xAA==
+Authentication-Results: outgoing_mbo_mout;
+ dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=kb+UCJyW;
+ spf=pass (outgoing_mbo_mout: domain of mhi@mailbox.org designates
+ 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=mhi@mailbox.org
+From: Maurice Hieronymus <mhi@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1786564366;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=NLhi4ZLjDXG/c04c+xT2qKYjmJN2aLYRZErpNT0+BbA=;
+ b=kb+UCJyWl7YHA1htV8MGgZcDser2kx2iPdgBC/7scED7kLl/2GSOEsJFQFDCs3ZHseRTJE
+ GrM+rl8GcExsK1ekaU89VQ5O44R+F6vaPrvKnrg7ORgVdM55PH86z9Kwrns5t2USjUyL+W
+ 8pu9bfTXjEFkNKUN5mm+1MXDDGIvQKfNP+kZxnCOsuZUJU2Fw+iWlKkXditf8NL0GgnmT3
+ wlDwMzBkIybAttBUnIkdY6TuFjQrQcOizVgdxo0CINnwdXWiqehQaxfwK9/Gb8dI/fE5cs
+ KYTCBEDn3Z2cr+jWkB/h6h4DIGHZYJtisApLo1gZNcOYBmcd2cNmOV7PyFPtuw==
+Subject: [PATCH v3 0/5] rust: samples: add an EDU PCI driver sample (MMIO +
+ IRQ + DMA)
+Date: Wed, 12 Aug 2026 21:52:34 +0200
+Message-Id: <20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org>
 MIME-Version: 1.0
-References: <cover.1785838269.git.sean@starlabs.systems>
- <6f65c9869714188539f2890aef6cf30e7bd2edcb.1785838269.git.sean@starlabs.systems>
- <e0d2a22e-a0cd-4a71-82c4-b88abcc7456e@oss.qualcomm.com>
- <04db0ee0-a8d5-4f30-a494-5c7f8ac757c8@oss.qualcomm.com>
- <CABtds-35m_cfT=Vm4MZkJYRe=dOPAKR6HYO_fu3SnwkdVQE0nQ@mail.gmail.com>
- <64d82edc-87a0-47c7-8a17-f0d1c806a294@oss.qualcomm.com>
- <CAODwPW8B2-i4Ne-ZTVUM_H-EZwn2hoaC4joRhxNM=CREDd_aUg@mail.gmail.com>
- <c8e4a3d3-a96d-4fd1-85a6-881e68385c83@oss.qualcomm.com>
-In-Reply-To: <c8e4a3d3-a96d-4fd1-85a6-881e68385c83@oss.qualcomm.com>
-From: Julius Werner <jwerner@chromium.org>
-Date: Wed, 12 Aug 2026 12:47:48 -0700
-X-Gm-Features: AUfX_mxfmohhDd7NwZ5OlHrJ4eVefwPyRshu_429PA-DB0FUH4Xn3jxZI6eV4zY
-Message-ID: <CAODwPW__tskkkqSREHFAf9iG17oYfG5Li-1kh0y8pX=z0W_31A@mail.gmail.com>
-Subject: Re: [PATCH v11 3/4] firmware: Rename google firmware directory to
- coreboot
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Julius Werner <jwerner@chromium.org>, Sean Rhodes <sean@starlabs.systems>, 
- chrome-platform@lists.linux.dev, Corentin Chary <corentin.chary@gmail.com>,
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>, 
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Joshua Grisham <josh@joshuagrisham.com>, platform-driver-x86@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Dell.Client.Kernel@dell.com, 
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Huacai Chen <chenhuacai@kernel.org>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Chen-Yu Tsai <wenst@chromium.org>,
- Tzung-Bi Shih <tzungbi@kernel.org>, 
- Brian Norris <briannorris@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Eric Biggers <ebiggers@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
- Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>, 
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
- Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
- Kees Cook <kees@kernel.org>, 
- dri-devel@lists.freedesktop.org, Oliver Lin <oliver@liuxiaozhen.dev>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XPy2rDMBAF0F8xWneC3rJNKfmP0oUeo0QktlPJM
+ Skh/17Z2bSL0uUV6My9d1IwJyykb+4k45JKmsYaxEtD/NGOB4QUaiacck01k+Ak5GuZ4eITYLh
+ CyGnBDAIVDY6HYGkk9fMlY0y3DX7/qPmYyjzlr+3OwtbXf8mFAQUUkUvDnOqU3w82nd102035Q
+ FZ04T8gTv+EeIV0DFq3MnLP5G/o8ayb8fNa58/PzmTAUuw2v29etwuGdUwJLdhOqU5IBgyCPeX
+ 9CfOI59V6W5c7WxD8NAxp7hsthTVeUO1aj4IbKYKMnQzBUOpb1bYOhUGta4vHN6OaAoiMAQAA
+X-Change-ID: 20260614-b4-rust-pci-edu-driver-3e50db2dda0f
+To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Maurice Hieronymus <mhi@mailbox.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786564358; l=5126;
+ i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
+ bh=nR6TSx/d0itVYNJ02OsDsJtu7gv2QlTRkENcKcCmlXs=;
+ b=PYqX0rSRrfB0i29HyTewywP8ANjZYStn9kQfVhTrtLFS17nH+HPMf/wrmJzpQLmc/ruoYPMeE
+ P6ATvjS6fq5D47oISwejkzOyQ/cZcpYM5AMCXWS4X3hRq7VxZhU4lkq
+X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
+ pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
+X-MBO-RS-META: gpyw9xri61ok159gcy791n1ipc8zwwtq
+X-MBO-RS-ID: 71779d7d472a2538fba
+X-Rspamd-Queue-Id: 4hKzg42k9rz8trG
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,29 +104,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> I do not consider marketing or pure "I do not like this name" as valid
-> reasons, because this is developer string (or kernel/distro
-> configurator) not end-user visible thing. And for us, the developers,
-> this marketing does not matter.
+The Rust sample drivers currently exercise PCI facilities in isolation:
+rust_driver_pci covers MMIO and rust_dma covers DMA, but there is no
+single in-tree example that combines memory-mapped I/O, interrupts and
+DMA in one driver.
 
-I'm not sure I'd agree that naming doesn't matter for developers? The
-style guide has an entire section about choosing good names for C
-symbols, I don't think Kconfig symbols are fundamentally different in
-that regard; they're still strings developers read to find and make
-sense of things, and leaving something with the wrong name makes it
-harder for the reading developer to find and understand it. (This
-isn't about "marketing", btw, Google the company doesn't care whether
-this driver is called GOOGLE or COREBOOT. I care as a kernel developer
-that this driver has been mostly used for something else than what it
-was originally labeled for for a long while and it's high time that we
-correct that to avoid confusing people.)
+This series adds one. It targets QEMU's `edu` device -- a small,
+well-documented educational PCI device that supports exactly these three
+facilities and ships with any recent QEMU (`-device edu`), so the sample
+runs without special hardware.
 
-> Anyway, defconfig change must be separate because it goes via different
-> tree, unless this is non bisectable. Keeping it here initially confused
-> me into thinking you are actually breaking use cases (which you are not).
+The sample maps BAR0, reads the PCI configuration space, and runs a set
+of MMIO self-tests (identification, liveness, factorial), allocates an
+MSI vector and registers an IRQ handler, and performs a DMA round-trip
+-- each stage waiting on a Completion that the IRQ handler signals.
 
-Fair enough. So Sean, could you maybe split this out into this patch
-which does everything (the renaming and adding of transitional
-symbols) except for the arm64 defconfig change, and then the defconfig
-change as a separate patch at the end of the series so that it can go
-through a different tree?
+As requested by Danilo in the v2 review, the sample replaces
+rust_driver_pci, which it covers a superset of; the removal is the
+first patch.
+
+Prerequisites, that had to be implemented:
+
+- pci: rework the device enabling API: replace enable_device_mem()
+  with enable_device(), which returns a DeviceEnableGuard that
+  disables the device again on drop, so the enable count stays
+  balanced across unbind/rebind. This follows the design Danilo
+  proposed in the review of the standalone patch [1], which this
+  series absorbs.
+- pci: make Vendor::from_raw() public, so a driver can match a device
+  whose vendor ID has no symbolic name in pci_ids.h (QEMU's 0x1234),
+  matching what C drivers already do.
+- completion: add complete(), so a single Completion can be reused to
+  wait for consecutive events (e.g. back-to-back DMA transfers).
+
+The series is based on rust/rust-next and additionally depends on
+Danilo's "rust: irq: make Registration compatible with lifetime-bound
+drivers" [2], currently in linux-next.
+
+Note: DeviceEnableGuard drops from a bound scope, so pci_disable_device()
+can race the pci_dev bitfield word as discussed in [1]; that race
+predates this series and is triggerable from sysfs today. The bitops
+conversion is under way separately on linux-pci [3].
+
+Tested with QEMU `-device edu`;
+
+[1] https://lore.kernel.org/rust-for-linux/DJOEYVBS17MJ.1YD3TNGQBWHNK@kernel.org
+[2] https://lore.kernel.org/r/20260719153631.559341-1-dakr@kernel.org
+[3] https://lore.kernel.org/linux-pci/20260714-pci-dev-flags-v2-1-a1d7dc441cf3@mailbox.org/
+
+Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
+---
+Changes in v3:
+- Absorb the device enabling rework [1] into this series, redesigned
+  around DeviceEnableGuard as proposed by Danilo; convert nova-core.
+- Remove rust_driver_pci, replaced by this sample (Danilo).
+- Add access to PCI configuration space (Danilo).
+- Rebase on rust/rust-next on top of Danilo's irq Registration rework
+  [2]; register the handler via pci::Device::request_irq().
+- Use vertical import style.
+- Link to v2: https://lore.kernel.org/r/20260620-b4-rust-pci-edu-driver-v2-0-6fd6684f2c14@mailbox.org
+
+Changes in v2:
+- pci: Vendor::from_raw(): collected Reviewed-by from Gary Guo;
+  wrapped code identifiers in the commit message in backticks (Gary).
+- pci: enable_device(): collected Reviewed-by from Fiona Behrens;
+  made enable_device_mem() #[inline] and added a cross-reference to
+  enable_device() in its docs (Fiona).
+- completion: complete(): tightened the doc comment per Gary's review
+  (emphasise "single", drop the internal-counter detail, drop the
+  complete_all comparison).
+- samples/edu: take &EduDriverData instead of &Arc<EduDriverData> in
+  init()/test_irq()/test_dma() (Ewan Chorynski).
+- samples/edu: simplify wait_until_compute_has_finished() to forward
+  read_poll_timeout()'s error via inspect_err() instead of returning a
+  hard-coded ETIMEDOUT (Ewan Chorynski / Miguel Ojeda).
+- samples/edu: Rebased on rust/rust-next and adapt to the updated
+  pci::Bar / device::Core lifetimes and pci::Driver::Data<'bound>, and
+  obtain the BAR via into_devres().
+- Link to v1: https://lore.kernel.org/r/20260614-b4-rust-pci-edu-driver-v1-0-e3f2471b595c@mailbox.org
+
+---
+Maurice Hieronymus (5):
+      samples: rust: remove the rust_driver_pci sample
+      rust: pci: rework device enabling API
+      rust: pci: make Vendor::from_raw() public
+      rust: completion: add complete()
+      rust: samples: add EDU PCI driver sample
+
+ MAINTAINERS                     |   2 +-
+ drivers/gpu/nova-core/driver.rs |   5 +-
+ rust/kernel/pci.rs              |  31 ++-
+ rust/kernel/pci/id.rs           |   2 +-
+ rust/kernel/sync/completion.rs  |  11 ++
+ samples/rust/Kconfig            |   8 +-
+ samples/rust/Makefile           |   2 +-
+ samples/rust/rust_driver_edu.rs | 421 ++++++++++++++++++++++++++++++++++++++++
+ samples/rust/rust_driver_pci.rs | 194 ------------------
+ 9 files changed, 471 insertions(+), 205 deletions(-)
+---
+base-commit: 643a7c306b8ce32743d4f94dd700c8588be37e66
+change-id: 20260614-b4-rust-pci-edu-driver-3e50db2dda0f
+prerequisite-message-id: <20260719153631.559341-1-dakr@kernel.org>
+prerequisite-patch-id: 63224325d5ec73f06517bb35f8c366a086bbea19
+
+Best regards,
+-- 
+Maurice Hieronymus <mhi@mailbox.org>
+
