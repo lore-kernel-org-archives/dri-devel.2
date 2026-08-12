@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF92C5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 08:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D85EC5CFDB
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 08:51:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0FAD10EEEC;
-	Wed, 12 Aug 2026 08:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9828C10EEEF;
+	Wed, 12 Aug 2026 08:51:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="rccQ12r7";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="f18gu0Tp";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013051.outbound.protection.outlook.com
- [40.93.196.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E4110EEEC
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:51:49 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011052.outbound.protection.outlook.com [52.101.57.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 550ED10EEEF
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:51:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tf+rbSM/fJkmlL0QIlEoBfna0OV8sCznmgsBUS5JznZrFjPEZvWMRTldDm2uiBRo4QfB0rQqSzz1kMEHsgmL6NljZWQsQAWhxAaicDT9LYqRJkJw7HXcBkA24Cxm6m4As5mhHOmTZeqmTAk9bZQ5NWhtYTK32KMMXebgIHqMJp9fVrvmQrtI0VGZSrmR2NKda/JSvKqA/R/C7HU2e+D+EnGRW1gzf8Sp+XHmwGnZd6DG5qmXGUcAajxgbOubEUT5GhnJmgNI08Lz0sMg63TfCzkFJ0Vl/IkdiuAb4tzVYrNxIsos9SPDJWU+ifCqrVELOu8U9QgSaHy9dLakwVO9Tw==
+ b=d7wplp4WGsgfV6NrHLNTD+BPmIbHknaoYSjzcVbsAW6iIiYgN+of7FZ7FSrFoeGTYoKY1RBAbnynrXsAY888IJYINOpaCAziOP1sxxdit8blM2Y42gziCHY2pwqJKWz2QJEJHFOEMAW2Jxb7OTotkftfwK41lFrfxU/YJ1ne65SpAw0hw517wA7Cjx84S2KRspYhW9oscPY32sN40s2vR3rlTVH8tv8gWPLcJjSZdX4I2qe2I/m3HtkBHyuFMnvewcrx5ok3xU7+gUPLQmS90FKwzVHn+kZdN5TFs2ieof0jaZpJCNNy0TegnM19Q48X4PGGOiGf7hA85NDpfs7RMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7u7dvAPBl2WuKO3iwzYyxwsdySo7yOHzfxH3cCQuXO4=;
- b=irudkK7sfNPXU8LMgA9bCXGwBvZZmsU64JygMEvwuPFcVnexllaJ6i6zu++JQTC9e6zNayNxXkXC71THRlyh72pfinNscUTzETN3hyFLJluPhzRkCihMO2U1nrsN1QwHxXSswfPAUaUlibcYFYSfBf47V1QxR7AdedMlc9alTdUZ2zJ9/AuDRqmrBr6WV9XYXz8tEz17BaE5sKGZ7nlgOUJlg4pL/JBLhzYZfHZ1Xz8Q4TjWOtUH14KZqucAUQ01FcFranNUtBO15S/VmDdzbbYwMk4jETcYpAiKdwfdzpbng09cLKv9rCchVlo05rgd++W8KnsDRw5vBoZvEDAlhQ==
+ bh=nZAlwK41n82g8iatn565fzjdFwir6Ged75v/SjZwXFs=;
+ b=Hj8eFthTY128OfDJ4KzKjyqPLT3x0jrFZLqoFvPy4M9ZeWNp6+JQXeYCjSZ24G0AwNVYIIPwa7Fm2vcZflbeVvgwzfcMv7VSQ5/m34vd/UL3pQdqrvQpGH8qqaASvXfkbYIUbKa1GeUtbECpl/X9BQN5a3xf9Fx4NQvdyK3iGDFWyjirx2ZmZGetuOo8bI7V1KLYm4b7UYHzZDnoX2b9Jlk2J6e6/TP/lS/F7rQhRd1SDnnHtZ9ET2iTGN+fZTQGjrC8vKjej4S/37E2N+0mx7sImpkIcDaRIlrL/GG1HCjXqGWezNerVvqIbLDlXcSO6h5W7WQq6h+e66ripiPDHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7u7dvAPBl2WuKO3iwzYyxwsdySo7yOHzfxH3cCQuXO4=;
- b=rccQ12r7Br+Zb+oP3MD/X5Jdktov7RHz4sGoAmdjViBBMh3FRE+lEsM16uIaoBXrNRaSjteQVSwJjuoi0FJxcQxX9FGR4MMjekUAG3d4HzZrTmMDfwXbnePGjF4aEX3AyCAHjOAOxtLDyz3ygyG85iy7ccRV2KBdDHFTWNr4E3UBIbmgckiH1bJA0KVOeCCPntodPN5Vov3gTrWN2euRtp826xFXu2JWGwUIxj7qHHsonoil+r2E8ZWWxOMfi0d2J88leswmbcoWGulN/eSPLGigs96l2PjkrOkl4VvRFcac0ah7E47KK22pGbd2Ff8mnAcSNNUgEmRoE2fs+MQVhQ==
+ bh=nZAlwK41n82g8iatn565fzjdFwir6Ged75v/SjZwXFs=;
+ b=f18gu0TpHtuzWWJlkQoR8Jsi42MOTuAqgWgk/PYt19kgCmHI58JUrSLycibZ0pW3JHkLL9gI1wCZVtUmrn8qUwBgJUcfx0/aWsHG6c9OJ3v3tGhinGU3ciYS5hrSTOpSne830SLLkBIYLacNxATrsE7tGPu1zoepcJXaNlLtcTCT11bujWWyBpJXflZ7pp6KgHnaMSPGoKFJdwhcKVCaKGC6NwIvFIhcgSNtsmw3LShDUmql+sGzJ+OLn1+mHMbJFzCJNbsXsJtVPJXRvFQT2ZeXAZ04xPyC675ZMF8FRnhCTQM4pnTPEfPLFisjA19nBMdmxk5IYWAGj/KgobsQqQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by IA1PR12MB8519.namprd12.prod.outlook.com (2603:10b6:208:44c::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
- 2026 08:51:45 +0000
+ 2026 08:51:50 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0315.014; Wed, 12 Aug 2026
- 08:51:45 +0000
+ 08:51:50 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 12 Aug 2026 17:51:21 +0900
-Subject: [PATCH v5 1/5] rust: bitmap: use function-level cfg on kunit test
+Date: Wed, 12 Aug 2026 17:51:22 +0900
+Subject: [PATCH v5 2/5] rust: bitmap: restrict bitmap length to at most
+ i32::MAX
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-chid-v5-1-6c767770b3f4@nvidia.com>
+Message-Id: <20260812-chid-v5-2-6c767770b3f4@nvidia.com>
 References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
 In-Reply-To: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
 To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
@@ -69,73 +69,73 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWP286CA0001.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:178::12) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: DU2PR04CA0207.eurprd04.prod.outlook.com
+ (2603:10a6:10:28d::32) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA1PR12MB8519:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a1bd7fe-487f-4fc9-f5a3-08def84eefdb
+X-MS-Office365-Filtering-Correlation-Id: 35230042-eebf-4fae-c687-08def84ef355
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|7416014|376014|366016|1800799024|921020|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: zzA4kK88kdjPOBOpkfHzi1UBbekQayW0+0GurPYWK9JoUkSspr02pJC7WR2CMEURXWD2nXAYMX0VCQf/DrPO3FPFQcx/Al56oqY+Qu0DbgDOu2F0OvEM9j+Hwe+UI0d2cWy9LNVxvb94hX2tnYr70YTWu0NtwjfL0l3csvyGHAlSJaY/UnfWHJ8JJ4Ss7B4X6Rh5t0L4a3uJB45WcRbEoA/iYtoL42w/lnViciLL4h0goRYLrRT69duNY66HUSO3C2JXD7VLYgFn48oYbio/kpz+kvs7oFm4J+02vPPtM/u5mrBuzhrETGib1V18qcbCloFiv2gbuJqVW3KO682J/OMR7gFI/V3RneVDyQ/ZStxlYONPvwXwqwLGIBfVnDHMcC4H5iublTUw3a7uiLLt6CP0Jq8qlh0quAMzvxXAUxoumdn/icQxJ8xU4cUMSV8OClPGpS/1faU+GpbQVEfqMKozlj0lHeVnFeyAlJxaqyUbvpYgvWt01728Mz7HYRavFAk53O9g0asNlEjhJ74YXMskoj4YRaQ8e5CoEehAM5RO9yXPhnGkBLS/LMsZTqxxVwZTj/3Un+ftcPBpo8ugKxQ/IFBamh8UMJV11v8f6WVbOzbPWj+gTLA8+rmyANA6TbAS/afFXgP86id3k3xhwhfFRcUOeffZTAtmfavOqogmDze1XmczR6Muz4ki9SPJgnEGWfntXgB6QekgY7NoRw==
+ ARA:13230040|23010399003|10070799003|7416014|376014|366016|1800799024|921020|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: MCKjDtPxXvQVhhobR80+XNJ3q/AVuBPGYvJsmUNgzIoLkY2v9uBCxuwU1gfEeE8JHYPTdh7Sni4MfOl4ywiehtPSq277RdonOSzstGJk2Arsl0hD8va0p2+G+WANae7xaHyGwgPTAuvIcOc5Ica0MbIPFyxS13PPSZWObcPOYOka8WpA/9CfXmw/9EN2ap+g1PEHot7QvkKWgM+1hh8qtaXwek354YyOYGbRfwtghCZmHKrvZm+xsROr8LoJlRyUfXGtEXYzl8R/nmJgBIDzi4mhHmfC/Gk+fmtY5t/yeYSx8OFzwoYk7+UCkr2vIjFPA+h0fsd7P9O/Vc9lruvVwt782v9tAp29HnysTWhHtQjMZdwjfXQcH4ML8n3i70D/ljXJpHYfjviQG0sXe3PrV07Zo2HwWNHY8WBvO8dXeSoZsIIsVq4mInQLIBlT+11wNBrMEEga8PscFgliPsl0wgB2OuLzLnf+jdDVs5S3gqewc0byvELp95Ab3A9vVwEMELGQdiYNLv4Ltd4gL6Vh05zjTFvBskG6gs9mT4+1JrN/x0BwWIPQK06qM8ue9pxtF93lE9rwxlfsXW/AfcohtA0uPxmBTVANyGB6qevL98ebb4IMNwDBQ85C7h8Wl1KZoHweMJQfq1ECtyKOJ7z+suuQ2eKye51RJMSDpG1ziQfCkr6AOJPf7wZEpe1Un1Cr7XVrySofk3xgxrDGEPCPCg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(7416014)(376014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(10070799003)(7416014)(376014)(366016)(1800799024)(921020)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Wld2dHZ0VXNZY1VjL0xtbzVpZGNTL3RYMlVyVkNEdzNwK1JIU1Z3UzBFVHNQ?=
- =?utf-8?B?OUVreTdCTmhDdjdiTWVqVnZSdkF1cjZsTXhzYTl5VmV4UXNKV0ZtY25ESFlV?=
- =?utf-8?B?RHJMck1BOEIrQUc3NzFSQktwWE1idkI0TzQ4U2t6MmczZFEzZlkyL1R4RytV?=
- =?utf-8?B?Z2RXVlNKcXdCRDVMSldsMmVVVFIxUmU5aEJxRTVJTkZlNnIwRzZUMFI1bTc2?=
- =?utf-8?B?NXFhUW1LTmR2WFFhSmpMQUQ1SnBCYjdRZDN5MS9VcEJSLzY1OUJrRHk4NE9J?=
- =?utf-8?B?aFpreXZvTy84U2VuRFJHTkdpelZ5MDQ3TU8wRTQ2d3VDb01IK0d2NWZRWnFu?=
- =?utf-8?B?aEVha1ljaFdvMm9wUEV6djA5N3NLRlZ2aS9nSnVjZ2VmZ3F1Ti9LNDQwTmgr?=
- =?utf-8?B?eWdzQjBaUXRiaCs0elFmZTAxOEtWVzJGWENGbjVRaHdGWnFDdTNBU3JCTkhI?=
- =?utf-8?B?Uk1NR1RZZ0RGOXUrM29ycnpFYjVhRlJ2TkFUVlg4SmdSb3VQSVpKRUE2SDRJ?=
- =?utf-8?B?SHp6bnlrWTdyQnMwZTJ0anhnalBsNU5hZHdFSU9TTUljcUdoYUJmMmhXd3ZV?=
- =?utf-8?B?a09Bd0Q2dys3aDNmZXlkWTR3UC9Oa1hoZGFqd05td0dkS0d2ZnBFdmlCUWhI?=
- =?utf-8?B?dHFEdEF5dWU5ZGczTWZITWtYeDYwd1dPRllUUXNoZmVySEc3dFpUbE5jNTZ5?=
- =?utf-8?B?TFFsRytSNHJjUmxJdlY2YmJuYXhqYWM5d1dxQW5WU2NEMmtGTjc2WStvUTFG?=
- =?utf-8?B?R1BNMmloMTdLRXY0eWR4Q2VTU3RDOTFyWlIrcUVwU21JejVzQ0pJTkxjWC9R?=
- =?utf-8?B?bmtPRERBQzFFd1NUSlRtNmVNU25YdjlMOXFTV09JblZtRWp5bktDQjg2blZ6?=
- =?utf-8?B?K1NIY1NTaGJ2bmJYQjE1bktuSU9Ob3Mxa014eUJDTmVJbHliK2VpMjJRVnlZ?=
- =?utf-8?B?czY5RWlLUmczU25JNTQyYXJxYTFkNUtJYXBNbll6U2RqNW54bnJmbFVuSXd0?=
- =?utf-8?B?SWp2ajRRcGU2dlVqZXZUUFJyemoyY3ZBZ1pwKzlvMXRaRW1HMlF3YnVCK3Va?=
- =?utf-8?B?cDFaS2ozeEQ1dktDODFKdzdoeWF2aWlzWmN1NnRHNEFlZTkxVEcyd21MWkV1?=
- =?utf-8?B?eHk4bU5IU3dxUno5K1k3eUdsb3pnZWFtOHU2OGw4NXF3QW5zdndTUDFUSGx0?=
- =?utf-8?B?NkNiOElEaWd0MW5QYnBqaDB3bmhnUUhmdGg3OWZxdGJRMVF2ZUVxeGRMODkr?=
- =?utf-8?B?bGlMaWYwNElwVTFWL1Y4YmMwbHVkUk11SkR2cTRxNjFmOEw1bFg5Wmo2TVRF?=
- =?utf-8?B?WmJpZytCclp6TndEZ1U5STdlVkU3aVV3UTVaNzY1NnlIZ2dQWnk2NWU4NDR1?=
- =?utf-8?B?UXdOeUFwa2dzbE11V0kwQWt5RHU1SFJsUlBYK2FZVWRzWkY1WWFsWVltY2Mw?=
- =?utf-8?B?Q1lqUUtDRk5XRU4rOTJDQ2JVQVIrQ0xKYi9NWGY1K1p5K0wvQkt3VU9ZMU11?=
- =?utf-8?B?S2FTTDhvSm1mUWR1dDNEYXkyUXNPTFFsbFdLM0FrY2l2b0gvMGorMm5CTlBq?=
- =?utf-8?B?WTcxcjRFc0JHZERjdDk4bll2KzBKa2RJUUdtWGFmb21wbjBVQlUyZ1lpR29J?=
- =?utf-8?B?UmhZYjBRQlFDMHlUSzQ2L2tFNDJqQ3BwNTZYZURLK2dPSmhUNnlKaDVjVG41?=
- =?utf-8?B?anNXL0hvY1FXWHdQRTkxejAxbGFBVjVNa1lCYU1BTGFlZGRIcUdKcUc4RUt6?=
- =?utf-8?B?dDFQKy8vUUpJMFdOc09TalJzQjhlYUVCdFNCSW1xYS9VQ0gwSDZqUG10V1NF?=
- =?utf-8?B?M0R2WUNZWWQ2dWMyZTJYQm5xSGVNN2twUnN0VG0yVWxObTBnQlo1OWxSaDdC?=
- =?utf-8?B?WlpFa29NdmxBS3BsTTJXWDNYZjA1SHRWZWpEL0Y3Vk54YVE4MitmK3RoL043?=
- =?utf-8?B?TWNnemF0UTJsLzI1QUwvdEV1ajdJOTJWLzVjV0JWY05ZbkNYVDAxK2NxWlpJ?=
- =?utf-8?B?Smk0Z0RId0V5VkdNb3UzeWM0V1lIRFZZTUFTY2l5VUVWTWI1TUZ3eENZWFJm?=
- =?utf-8?B?cjIwbVdmWUpSa09zNk5tOTM2YTVRa0F3alluMEREVXByaWs0UGxGcGFpcDdr?=
- =?utf-8?B?SGN6ODk3VVRSZjdtamxiNDN2ek12Sk5sRy92YllCSGVNSTBWcGc4eEx6Wk9l?=
- =?utf-8?B?SXc1TExxYmU4LzdKenNzS1lIbU5kb1RBK2tlWnB3alNhZm5JQzR4SUVWWUUz?=
- =?utf-8?B?U3VvSlB5TVpxV1pLL2dtSG1qczMrTGN5UEZXMldueXhUbUkxaVJjWHhUcHJG?=
- =?utf-8?B?UERYTGRhS3k4ZFQxcldJamxiZFBrNlRBSVpzbUM1YmQxVlFqaWpqNEVJd2Vr?=
- =?utf-8?Q?E4N3lDKXpxbOvLmL3czhy58NofwR6TIugwcnSBEUsyXQg?=
-X-MS-Exchange-AntiSpam-MessageData-1: e32z8AU+iBQdVA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjBXUDFKb1BLQlQ2NEJaMGQ2VzJTTGIrTzRQUTFYWVFxamxVS09sa3Z0ZFBS?=
+ =?utf-8?B?NG9tS3lsSmtGMElmQ3dUZW05cHBlenZUMHZEbGpoK2tVMHhiVjl3ekk5QU1a?=
+ =?utf-8?B?NmJzTTk2ZUIrYkpRUWZrMnpMYkNIb1dUa05nL2lINlJzYXZTWVRGVG1uQ291?=
+ =?utf-8?B?VkVJRUJPbi83c2hjWGNTcEp6c05XbU5sTjB4WmUxcHUvclhoaFVTQlJtWnA5?=
+ =?utf-8?B?VTR6bDJ3ck1oNGJqNDdGQzQ2ckp5MTNZaWovQUhzYSs4N29nSUUzYThPZ2JN?=
+ =?utf-8?B?QUpSTG56Qk1MMHJCTHBhSnMxU05VTXR2UDdmZDEwNkJaTnNwY0FVaFlOc0V5?=
+ =?utf-8?B?WjhxYmRHenFJb0wvRXI5WFRLWnJDU0VLU3QxaTBBdlFRZ1g2Rkx2MENZUFA2?=
+ =?utf-8?B?NUQybEc5RVlOLzI2dnN1RDZBNkJnWmhxV05IS0szNWR4RWJ0cXdYVGRLS1gr?=
+ =?utf-8?B?RmlFRGVicXhCbGVyTU9xd1k5U092RHFSZFlPOFhVRFlFcCt5UkJndmozUlJy?=
+ =?utf-8?B?QmwxNVFndlV1cHoyaDJYZzFBNEV3MUIvNXAzMFRBdVltNkl2V2ZFMktMMWkr?=
+ =?utf-8?B?cVZEM09wMFA5VUdXb3ZiNGpsRkVxcnR2eTVTMXdWZTI1ajNJU2tDVkhTZU5j?=
+ =?utf-8?B?QWtiODI3R3lxbzhSMWRsMFhGeUpJemtYVTl6U1BxdmU2QUFvUFJVQk5zMno0?=
+ =?utf-8?B?WnJ3bXZ2VHdLSFRYU0FHblpyRXRnVU0wSUpRY2pHcnlGQjQxNVdKSURScmlM?=
+ =?utf-8?B?ak9LTDNWSWJqMGllYjl3a0x0d2ZmMThvdEY5Z2h6cTZZNHJyZVcvYTNVcGFh?=
+ =?utf-8?B?L0tDNUZ5VVJLQU40UTYyVkNja1lqVzVwM2hPY2wzRUFFNjJkRU5LN3JyNDlm?=
+ =?utf-8?B?OVAyb3o0V1RqTTJGWUpCNUJWVjVPQW9ib1VySXlGWThJRFlrV0dmOHExL0lk?=
+ =?utf-8?B?aXhCZGZncHdSblovWTBqSWhNclhxTTIzUk1YaDU4MDVSanYrN2hoRi9VNTd4?=
+ =?utf-8?B?VExVNFZsN2l6aUx3dXlHdUNqZEU0VU44UlJOeG1YaWViaHhJdFg1L0FqTzlp?=
+ =?utf-8?B?MEt2elBCL0d1OG93YWNOYzJYRUd0blUveXFZeXZaaU1pR0NGeS9pTUhoQlM4?=
+ =?utf-8?B?ZWVhUDFPRFFpYytGK0s0V21FcVRCQWFHZ1lGYTNDVmt4ai9hL3djeUpQU1V0?=
+ =?utf-8?B?b3lmQVQrR0hEOTJTSzcrZmhyVkFXVlRvcDJpQWtDSE9rSUN1UE5Zd09pSGNs?=
+ =?utf-8?B?K3VjUWpJNGVOZkZrMUxxVkNnY1N1Y3NLQTR4QTE3Z0Ric1dUWGNPTFBnSGpX?=
+ =?utf-8?B?bDFwclBnSEFIRDBTaGhodktKMUp2eTd3WkZnZXYwdk1LRWljdCtmU3F2UGZr?=
+ =?utf-8?B?UlZNM3EyQUh0blBKenFxUlhXejExWHNyeDBjK2lBWjJtRm94TU93T0wvbm0x?=
+ =?utf-8?B?RDZHb2JwZVpWalUvWnZwMjhhWHBEc0liaisvQU1kRCsvZTdMMlNzd2tsMnl5?=
+ =?utf-8?B?dHc4ODJFeng3VnBmcUl4Y21MWGVXRnB6TER0bGJzZXVZWUl1UVBMMDNRQk4z?=
+ =?utf-8?B?OW5GVTN0eHJsS2RIdVVLYU9VdjBMcitMS2pGZXlNU1ltalRzdjhWNHlNRENT?=
+ =?utf-8?B?MXdhZkQwaEV5Ny90dHFReXd3QzE3NUtCQTdkWElzOGVmOTVWUVdDOVc3d2pX?=
+ =?utf-8?B?OUtHM2FTYmR3d1kxcm9LZENVa21ZNGd2T0xaSHJ0eVZQOWxDSHRLUUVPemtW?=
+ =?utf-8?B?Lzc1TzArWk90czJCb3I4QXZDOGk5QThlbEc1U0RmNnhZZ09DRHNCU3BDQjBj?=
+ =?utf-8?B?cm1zQzlRdnpTV2RRVXJLU2ZPcVJ1eXQvY0RRV0dVbm13R09QNmFEc3BXT1gx?=
+ =?utf-8?B?ZmY0aklWaWUxemdxRE4yeVg3WGlYc1lUelBIQ0xTU3ZoeFdUTkxMUjFqbGtx?=
+ =?utf-8?B?aWZ6eW5YMFkrZ1ZqQ3dBUlVxaUNiVFkxa3ZKU3A4Z2ovYjVMWUsyWWJHMVpZ?=
+ =?utf-8?B?TCtBYXhWSzVBaXQ5Y29IdkxGUEhIN1lwci9SYUJrL0ZDaUZuclpsQ0U1MFhk?=
+ =?utf-8?B?UTlxbFlDZG94SDRMdWk5WkNLZldVb0xqOVI1L2t0SVJNRTB2eHVBMHRaVzZk?=
+ =?utf-8?B?NkpWeU9aQXpob0hrb3BVeVUzdGFkcEthU2lWNDBLVUJqQVdMdTlhTkhzWisw?=
+ =?utf-8?B?VURqWjExY3YrQWdsUlpyeW41b3YvVlN0bGhCY29RKzk0L2ZOeVd0RlQ2WFR1?=
+ =?utf-8?B?VkZjUTI1RFlqR3NEWEFTN3JwVmJIMm9LdTVQeThUb1FCdU5SalBNc3R5TDE2?=
+ =?utf-8?B?bWlQbjY3UmI3cVhxQkRhOU1YbndqbnhPNTVGOTVEdXJpUHp3QmE1cWpqa1c1?=
+ =?utf-8?Q?6Ddjv4fn+XEWcWcnEei+02/AYLPqax7h//dkgHh7vSAZI?=
+X-MS-Exchange-AntiSpam-MessageData-1: uI8rlKdlqyQQ/w==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a1bd7fe-487f-4fc9-f5a3-08def84eefdb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35230042-eebf-4fae-c687-08def84ef355
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 08:51:44.9896 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 08:51:50.7931 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y20eDm641UnVHXXcIAgiqy1/eK9g9BA73dKPI+jgtGrSeMczVwEuSS2Ou4l1xvs9dlo6vUW1MI+3NpgqIoOVKg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: iAF6Ed+MfzkKTZ1vKUG0sTvvcHsN2f6WKM8dfDjTlMz/1rV/fwMSKg803M3w/8M/UZQIfKXG375gSbdiZdox3A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8519
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -152,55 +152,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit c652dc44192d ("rust: kunit: allow `cfg` on `test`s"),
-we no longer need this workaround.
+It is currently possible to construct a non-`BitmapVec` backed
+`Bitmap` using `Bitmap::from_raw` that is larger than `i32::MAX`, and
+it is not part of the unsafe requirements. Restricting all bitmaps
+(even non-`BitmapVec` backed ones) to a maximum size of `i32::MAX`
+simplifies a few things and matches `BitmapVec::MAX_LEN`.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Add that requirement to the unsafe requirements on `Bitmap::from_raw`
+and `Bitmap::from_raw_mut`, and to the invariants on `Bitmap`.
+
+This also fixes u32 casts truncating in `copy_and_extend`, which could
+otherwise lead to OOB writes.
+
+Fixes: 11eca92a2cae ("rust: add bitmap API.")
+Link: https://lore.kernel.org/DKG0U8RLO7LZ.2I1AIH0S38PAP@nvidia.com
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- rust/kernel/bitmap.rs | 25 +++++++++++--------------
- 1 file changed, 11 insertions(+), 14 deletions(-)
+ rust/kernel/bitmap.rs | 68 +++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 47 insertions(+), 21 deletions(-)
 
 diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-index b27e0ec80d64..a43bfe0ec3dc 100644
+index a43bfe0ec3dc..fdcfc0409773 100644
 --- a/rust/kernel/bitmap.rs
 +++ b/rust/kernel/bitmap.rs
-@@ -572,24 +572,21 @@ fn bitmap_set_clear_find() -> Result<(), AllocError> {
-     }
+@@ -17,24 +17,57 @@
+ /// # Invariants
+ ///
+ /// Must reference a `[c_ulong]` long enough to fit `data.len()` bits.
++/// Must not be longer than `i32::MAX` bits.
+ #[cfg_attr(CONFIG_64BIT, repr(align(8)))]
+ #[cfg_attr(not(CONFIG_64BIT), repr(align(4)))]
+ pub struct Bitmap {
+     data: [()],
+ }
  
-     #[test]
-+    #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
-     fn owned_bitmap_out_of_bounds() -> Result<(), AllocError> {
--        // TODO: Kunit #[test]s do not support `cfg` yet,
--        // so we add it here in the body.
--        #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
--        {
--            let mut b = BitmapVec::new(128, GFP_KERNEL)?;
--            b.set_bit(2048);
--            b.set_bit_atomic(2048);
--            b.clear_bit(2048);
--            b.clear_bit_atomic(2048);
--            assert_eq!(None, b.next_bit(2048));
--            assert_eq!(None, b.next_zero_bit(2048));
--            assert_eq!(None, b.last_bit());
--        }
-+        let mut b = BitmapVec::new(128, GFP_KERNEL)?;
++macro_rules! bitmap_assert {
++    ($cond:expr, $($arg:tt)+) => {
++        #[cfg(CONFIG_RUST_BITMAP_HARDENED)]
++        assert!($cond, $($arg)*);
++    }
++}
 +
-+        b.set_bit(2048);
-+        b.set_bit_atomic(2048);
-+        b.clear_bit(2048);
-+        b.clear_bit_atomic(2048);
-+        assert_eq!(None, b.next_bit(2048));
-+        assert_eq!(None, b.next_zero_bit(2048));
-+        assert_eq!(None, b.last_bit());
-         Ok(())
-     }
++macro_rules! bitmap_assert_return {
++    ($cond:expr, $($arg:tt)+) => {
++        #[cfg(CONFIG_RUST_BITMAP_HARDENED)]
++        assert!($cond, $($arg)*);
++
++        #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
++        if !($cond) {
++            pr_err!($($arg)*);
++            return
++        }
++    }
++}
++
+ impl Bitmap {
+     /// Borrows a C bitmap.
+     ///
++    /// # Panics
++    ///
++    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `nbits` exceeds `i32::MAX`.
++    ///
+     /// # Safety
+     ///
+     /// * `ptr` holds a non-null address of an initialized array of `unsigned long`
+     ///   that is large enough to hold `nbits` bits.
++    /// * `nbits` must not exceed `i32::MAX`.
+     /// * the array must not be freed for the lifetime of this [`Bitmap`]
+     /// * concurrent access only happens through atomic operations
+     pub unsafe fn from_raw<'a>(ptr: *const usize, nbits: usize) -> &'a Bitmap {
++        bitmap_assert!(
++            nbits <= i32::MAX as usize,
++            "`nbits` must be <= {}, was {}",
++            i32::MAX,
++            nbits
++        );
+         let data: *const [()] = core::ptr::slice_from_raw_parts(ptr.cast(), nbits);
+         // INVARIANT: `data` references an initialized array that can hold `nbits` bits.
++        // INVARIANT: the caller guarantees that `nbits` does not exceed `i32::MAX`.
+         // SAFETY:
+         // The caller guarantees that `data` (derived from `ptr` and `nbits`)
+         // points to a valid, initialized, and appropriately sized memory region
+@@ -51,15 +84,27 @@ pub unsafe fn from_raw<'a>(ptr: *const usize, nbits: usize) -> &'a Bitmap {
  
--    // TODO: uncomment once kunit supports [should_panic] and `cfg`.
-+    // TODO: uncomment once kunit supports `#[should_panic]`.
-     // #[cfg(CONFIG_RUST_BITMAP_HARDENED)]
-     // #[test]
-     // #[should_panic]
+     /// Borrows a C bitmap exclusively.
+     ///
++    /// # Panics
++    ///
++    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `nbits` exceeds `i32::MAX`.
++    ///
+     /// # Safety
+     ///
+     /// * `ptr` holds a non-null address of an initialized array of `unsigned long`
+     ///   that is large enough to hold `nbits` bits.
++    /// * `nbits` must not exceed `i32::MAX`.
+     /// * the array must not be freed for the lifetime of this [`Bitmap`]
+     /// * no concurrent access may happen.
+     pub unsafe fn from_raw_mut<'a>(ptr: *mut usize, nbits: usize) -> &'a mut Bitmap {
++        bitmap_assert!(
++            nbits <= i32::MAX as usize,
++            "`nbits` must be <= {}, was {}",
++            i32::MAX,
++            nbits
++        );
+         let data: *mut [()] = core::ptr::slice_from_raw_parts_mut(ptr.cast(), nbits);
+         // INVARIANT: `data` references an initialized array that can hold `nbits` bits.
++        // INVARIANT: the caller guarantees that `nbits` does not exceed `i32::MAX`.
+         // SAFETY:
+         // The caller guarantees that `data` (derived from `ptr` and `nbits`)
+         // points to a valid, initialized, and appropriately sized memory region
+@@ -96,26 +141,6 @@ union BitmapRepr {
+     ptr: NonNull<usize>,
+ }
+ 
+-macro_rules! bitmap_assert {
+-    ($cond:expr, $($arg:tt)+) => {
+-        #[cfg(CONFIG_RUST_BITMAP_HARDENED)]
+-        assert!($cond, $($arg)*);
+-    }
+-}
+-
+-macro_rules! bitmap_assert_return {
+-    ($cond:expr, $($arg:tt)+) => {
+-        #[cfg(CONFIG_RUST_BITMAP_HARDENED)]
+-        assert!($cond, $($arg)*);
+-
+-        #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+-        if !($cond) {
+-            pr_err!($($arg)*);
+-            return
+-        }
+-    }
+-}
+-
+ /// Represents an owned bitmap.
+ ///
+ /// Wraps underlying C bitmap API. See [`Bitmap`] for available
+@@ -415,7 +440,8 @@ pub fn clear_bit_atomic(&self, index: usize) {
+     #[inline]
+     pub fn copy_and_extend(&mut self, src: &Bitmap) {
+         let len = core::cmp::min(src.len(), self.len());
+-        // SAFETY: access to `self` and `src` is within bounds.
++        // SAFETY: access to `self` and `src` is within bounds. Both lengths fit in `u32`
++        // because a `Bitmap` is at most `i32::MAX` bits, so the casts are lossless.
+         unsafe {
+             bindings::bitmap_copy_and_extend(
+                 self.as_mut_ptr(),
 
 -- 
 2.55.0
