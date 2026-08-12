@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AF37C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 09:45:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6386AC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 09:48:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E09710EF31;
-	Wed, 12 Aug 2026 09:45:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65D5C10EE92;
+	Wed, 12 Aug 2026 09:48:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="cUlQbuqd";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Qbf3r/DK";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4D2310EF31
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 09:45:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFD2C10EE92
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 09:48:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786527950;
- bh=xHMY9aQZ0U8E+yb5GMjrlzu2eFFN2gvZ1iTHabg3liA=;
+ s=mail; t=1786528102;
+ bh=2o9ukvPSDDELmFBfBuL3f9lQgH6RzToSuXLZ49wi+Ww=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=cUlQbuqdAUnffFp9kNcG/ZKug2GR2c4DXIJmsCn2HrTWZgbiJzjx7uUxPdDZdvOcI
- NPoy0UFIMupPIFxmdTeP1f+TVcwvUgL7/blwKnOswcDtNzWDeiQ1dlzd2Xk6IuBhoZ
- 2xSx1dBeCq5cl0JGutM8L+bAt2Ukaj5zALssEoQIVIeZjz1Xyg7R/h/ZVz51Q/RkK1
- BWRmLUjTfzFl2rGUkddxsONUb+JrvksD9pHTPX8kIX/lFL7s2mc5xzva+UJHXJ1LSF
- 1C8K9g/c7V28wVWRRS9/4O8LIAWHNEuKmT/6rxJ6ZYZuXBtbebOC/pzOeJ64Mknvsj
- rlgm8+b5ysCNA==
+ b=Qbf3r/DKvFUDXp83UlrstdK1jT5XSAkpnhRgNhv5uX9t0aDYvaQhLing5VPsWfZZr
+ 2m+cJzGVQ96VnnP1D7CcPAdKSi96C2LDrOqaGPzQLm+Ss+Nce1XMveDMD0Ha7fAf4c
+ feyOT9EYLQNjQGD5geWZ2JalNOL+42A4xGG59AlPEec8JnIOOgOsIbD/FskoDimZKd
+ DT4tCZsO+3mXxHoq/HccsrkdIMSYp4h1x4Tbv7x6myxZPVI5bwYq1gxx800pOQD4SZ
+ 8BcvtPD9gcdZ487Fe/7P1Igsfq7rx2tVMJcBLjCCYE28Y2UNrTyQk9Ii+VeKQUpI51
+ M1QElaGh00W7A==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BE3DE17E0E01;
- Wed, 12 Aug 2026 11:45:49 +0200 (CEST)
-Date: Wed, 12 Aug 2026 11:45:43 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E49FE17E0967;
+ Wed, 12 Aug 2026 11:48:21 +0200 (CEST)
+Date: Wed, 12 Aug 2026 11:48:16 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
 Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
@@ -47,11 +47,12 @@ Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
  <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 09/11] drm/panfrost: Introduce a reset lock
-Message-ID: <20260812114543.17e5c10d@fedora-21.home>
-In-Reply-To: <20260811-claude-fixes-v5-9-3d692c9e98c2@collabora.com>
+Subject: Re: [PATCH v5 08/11] drm/panfrost: Move perfcnt GPU disable
+ sequence into a helper
+Message-ID: <20260812114816.4d87360c@fedora-21.home>
+In-Reply-To: <20260811-claude-fixes-v5-8-3d692c9e98c2@collabora.com>
 References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
- <20260811-claude-fixes-v5-9-3d692c9e98c2@collabora.com>
+ <20260811-claude-fixes-v5-8-3d692c9e98c2@collabora.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -72,92 +73,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 11 Aug 2026 22:42:18 +0100
+On Tue, 11 Aug 2026 22:42:17 +0100
 Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-> So as to avoid accessing HW register while a reset is ongoing, a read/wri=
-te
-> semaphore that envelopes the reset sequence will help driver entry points
-> avoid racing with it. For now, the only such racy entry point is the ioctl
-> that returns the current GPU timestmap.
+> Just for the sake of avoiding repetition.
 >=20
+> Reviewed-by: Steven Price <steven.price@arm.com>
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 > ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 2 ++
->  drivers/gpu/drm/panfrost/panfrost_device.h | 1 +
->  drivers/gpu/drm/panfrost/panfrost_drv.c    | 9 ++++++---
->  drivers/gpu/drm/panfrost/panfrost_job.c    | 1 +
->  4 files changed, 10 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 31 ++++++++++++-----------=
+------
+>  1 file changed, 13 insertions(+), 18 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 5b66173c75b9..e0390b6c0d22 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -602,6 +602,8 @@ bool panfrost_exception_needs_reset(const struct panf=
-rost_device *pfdev,
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index 7020c0192e18..ad1156678e91 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> @@ -35,6 +35,16 @@ struct panfrost_perfcnt {
+>  	struct completion dump_comp;
+>  };
 > =20
->  void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_jo=
-b_int)
->  {
-> +	guard(rwsem_read)(&pfdev->reset.lock);
+> +static void panfrost_perfcnt_gpu_disable(struct panfrost_device *pfdev)
 
-Oops, s/rwsem_read/rwsem_write/. This is actually fixed in the next
-patch.
+I see you introduce panfrost_perfcnt_hw_enable() in patch 10, so maybe
+s/panfrost_perfcnt_gpu_disable/panfrost_perfcnt_hw_disable/ to be
+consistent.
 
+> +{
+> +	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> +		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> +	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +}
 > +
->  	panfrost_gpu_soft_reset(pfdev);
->  	panfrost_gpu_power_on(pfdev);
->  	panfrost_mmu_reset(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm=
-/panfrost/panfrost_device.h
-> index 4bbaaaf827a5..a2a68e042225 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
-> @@ -166,6 +166,7 @@ struct panfrost_device {
->  	struct {
->  		struct workqueue_struct *wq;
->  		struct work_struct work;
-> +		struct rw_semaphore lock;
->  		atomic_t pending;
->  	} reset;
+>  void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+>  {
+>  	complete(&pfdev->perfcnt->dump_comp);
+> @@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct pa=
+nfrost_device *pfdev,
+>  	if (user !=3D perfcnt->user)
+>  		return -EINVAL;
 > =20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 958f1d36ab10..ff23b1a979bb 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -41,9 +41,12 @@ static int panfrost_ioctl_query_timestamp(struct panfr=
-ost_device *pfdev,
->  	if (ret)
->  		return ret;
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> -		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> +	panfrost_perfcnt_gpu_disable(pfdev);
 > =20
-> -	panfrost_cycle_counter_get(pfdev);
-> -	*arg =3D panfrost_timestamp_read(pfdev);
-> -	panfrost_cycle_counter_put(pfdev);
-> +	/* We should not read timestamp register while the GPU  is being reset =
-*/
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		panfrost_cycle_counter_get(pfdev);
-> +		*arg =3D panfrost_timestamp_read(pfdev);
-> +		panfrost_cycle_counter_put(pfdev);
-> +	}
+>  	perfcnt->user =3D NULL;
+>  	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+> @@ -327,12 +332,7 @@ int panfrost_perfcnt_init(struct panfrost_device *pf=
+dev)
+>  	perfcnt->bosize =3D size;
 > =20
->  	pm_runtime_put(pfdev->base.dev);
->  	return 0;
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.c
-> index c761379851da..9d7dafa29f19 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -874,6 +874,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+>  	/* Start with everything disabled. */
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> -		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +	panfrost_perfcnt_gpu_disable(pfdev);
 > =20
->  	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
->  	spin_lock_init(&js->job_lock);
-> +	init_rwsem(&pfdev->reset.lock);
-> =20
->  	js->irq =3D platform_get_irq_byname(to_platform_device(pfdev->base.dev)=
-, "job");
->  	if (js->irq < 0)
+>  	init_completion(&perfcnt->dump_comp);
+>  	mutex_init(&perfcnt->lock);
+> @@ -344,10 +344,5 @@ int panfrost_perfcnt_init(struct panfrost_device *pf=
+dev)
+>  void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
+>  {
+>  	/* Disable everything before leaving. */
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> -		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +	panfrost_perfcnt_gpu_disable(pfdev);
+>  }
 >=20
 
