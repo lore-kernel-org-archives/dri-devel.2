@@ -4,89 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF9B3C5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 09:43:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91071C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 09:44:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA4C10E3F2;
-	Wed, 12 Aug 2026 09:43:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4D9410EF2E;
+	Wed, 12 Aug 2026 09:44:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="kZrsis23";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="fj9Wn+op";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kE4w/B0v";
 	dkim-atps=neutral
-Received: from flow-b8-smtp.messagingengine.com
- (flow-b8-smtp.messagingengine.com [202.12.124.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 031C310EF2E
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 09:43:12 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailflow.stl.internal (Postfix) with ESMTP id ED79A1300228;
- Wed, 12 Aug 2026 05:43:11 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Wed, 12 Aug 2026 05:43:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1786527791; x=
- 1786531391; bh=sgu7nAbq8Yx5koaOMKJWboxHdobCAGSow6z6pMfKPGU=; b=k
- Zrsis232bZfkHFr1KDQEA5RwQSh3Y+f3GqvVYV7nKQF+6G0Db3fpwDhWBdtp3lDq
- 51zIJWwgEXcvKId6UezziixDbqKveDd6V1ji4kHTgSOF26xGwYCj0PcUHFEZa71k
- iTH8ZYcceh7LhhvZwL41kxlsdVUgIP2Be8z0ESAYFnC2DexiqoU3EcreOKbm8Uj/
- CICkhL73XQ2G1xyhOtKjLVvNHT9VLmqDB+npmjB3hwgkItvYSxAUMAaWIRRLgPK2
- tccFNYPinP0Y2ZihHkYA9cAlXoYPw3fk267y+9RCWiXz3K1/w/PAkyAIQq5h9jMU
- bLQiOC7C/anypjjDOKaFw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1786527791; x=1786531391; bh=s
- gu7nAbq8Yx5koaOMKJWboxHdobCAGSow6z6pMfKPGU=; b=fj9Wn+optE2/3n76F
- GwQmq0VW+w7empB07ErfPqBxlWq9ur47tekxJR6whVcMUm1hAmYtmqN4yM4+99jq
- xirk16UW8EvC2ZjyK0EzOFKZaGg8I3j84XXmvFYl2dera6KFC0HgA/TS7NI/wTxf
- RG5xxr/Kkj4NB+NmgIgxy+gfczwrRE6ljtMWREL9fxY7cScuIoSCuwUqdAM1ahdI
- X5w099A9V9iCdYhr5XBONEUrsd/GY5fb3FnO1mm769rUsuRJBwTxJ7h7SvQABjc7
- KDnoc+dctpJpQ3eoNBB+W0nq63hciWa4hAjo1UKinI/AxGIAN29fdMJlbqV3UIgJ
- EqAPw==
-X-ME-Sender: <xms:L0B8avEboDPCuuC1vC6rHrdMuJAwgWObuGZMhvp_hQy_jbf_VuLPSg>
- <xme:L0B8avG3vLxS4qsQn3BmC1HPTUN5QCRUknKRpqgXHaJCqg4vAY05jjzzgql0sH_SO
- lVNvleNwk3M834kTt0vzDEf3ArwU9_M3kSU3rJAG_S3AXrTJmUuBKk0>
-X-ME-Received: <xmr:L0B8auByJQ0UwO1i8P4tZmcAU4RCegwsYb6-K9vWezrJExzQkJdr-NQzDz9ADiZva2h3d5wgIg>
-X-ME-Proxy-Cause: dmFkZTF94piGrtEjR6BqnUD01iAoRBrq3noUWIXMrqVxBmNdzc8ysXT9N2YVYtRNqawTRu
- 5Tl3rQYplDYkQz64yVDsKNFMVYgL9BKpjjZZz3bLRD/+XGC1BZ3Esv0AwJfhbuLnvweNXe
- XninG/a9vIk48teTHN+BtpEclMrlsHF+QX/6PBrRNtzjC6rQ0Gl0MN/erogFMCvHGI9gfF
- BkOzoGqrWELCUvV5BiizkhvRpEK4YW2BzI/XolsWW1gtttmqOJiC2cJo6UXJpqakqxIwIs
- 8bcD7GpDqISPzyFOIa2Ga/vPqf873UUD6g1hGqz8oQ9p48/ytHS5CEh/RcSEIGrpol2DrH
- 6wED6MbxOsSxo5qHTy3DjNvG9D1ESABJOX1YgrTau1f828XznckthGzgOJFm/VJerZ2KRh
- 6MYj74k9l/GCR+f5kepX73FH4E4lIhikDx1yVrlQzT8cnR6Qg4t5bOfaxDulRH3zgGGY4Z
- qdQmvzP+L8MZyiqj1/viBgy3hq0FbbB6zuhmk/7mOIITFHjCVIvKwV4Ure2tXfpUiyk69M
- CGKgSuV5whQWF3SlRMam8TUpON6jdVgzZuAWsTJey+xSYXzXSA2Iq4fqo0AxIGV0kOHTsK
- ob0JPKE7vP38iddd4Xe8UTkkvVRsKIVtBc6I5J3qyAKvUkmBRHB6Y1Gu/TUw
-X-ME-Proxy: <xmx:L0B8aknapWHNDYy-lykpU4VpX1VcEj89pCqPIQaPLFiymg_lcb9N7A>
- <xmx:L0B8as58dnhA0EYKPuIKa9qT1EC1Vm4a6-u9viGmkFHx-8KrxnWK9w>
- <xmx:L0B8aruU6HSOJVMjWMxP2KhRI-FCaGW8ITLPtuwTxIN5nJoVTBFyQw>
- <xmx:L0B8asXU7SM92QV2sioCS1CcbdVP6W0K_T8oxC3ZutGfPjSUyh5Ptw>
- <xmx:L0B8asX937CmQv-iufcxbRbnjgnUzebdvMbfh13BSfUvG4TzdGZYsrV2>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 12 Aug 2026 05:43:04 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, alchark@flipper.net, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v7 10/10] arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-Date: Wed, 12 Aug 2026 21:41:05 +1200
-Message-ID: <20260812094106.1391698-11-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260812094106.1391698-1-gahing@gahingwoo.com>
-References: <20260812094106.1391698-1-gahing@gahingwoo.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4A2A10EF2E
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 09:44:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1786527856;
+ bh=+jQhRS7OuBEQPxFMyxa+/id2Sb90WSdpfK4h89bwDXc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=kE4w/B0vRUSpiOD2+T/T//CUWQ7y/rNdq2mRx01nk5hlNnF2FjqSg9ATDHYFL2ACG
+ FanW+Gzh12b2Tu2Hs6JSAbY1Q6wYMy9VI72SslTwTRWf4F5bjIJPZ1gd2kpY6yFQXX
+ yCYDkoK0tTmp5jx7byCb245dRU3Pu7FouBKeyprHYGG/SmdoKpYuHdpqibd4rSEX9d
+ Oc2wKutGErpevMW8xi+f9lptjxJVUzvMIHhigBPzSJd7jmRGUxHxTA35UkjFEvUOcr
+ vU5L94baqwY45ocvUMoLrZMZvL/iGYsQSQAkzUcbqjZ5gVM4ai4j1fAroSBgdc4QG3
+ o3lACp5RJD7vw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9CCAB17E0E01;
+ Wed, 12 Aug 2026 11:44:15 +0200 (CEST)
+Date: Wed, 12 Aug 2026 11:44:10 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 09/11] drm/panfrost: Introduce a reset lock
+Message-ID: <20260812114410.4ca2cdb2@fedora-21.home>
+In-Reply-To: <20260811-claude-fixes-v5-9-3d692c9e98c2@collabora.com>
+References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
+ <20260811-claude-fixes-v5-9-3d692c9e98c2@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,45 +72,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable rknn_core_0 and its IOMMU on the Radxa ROCK 4D and supply the
-core from vdd_npu_s0.
+On Tue, 11 Aug 2026 22:42:18 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-The supply is marked always-on because the NPU power domains are what
-gate the block here, and dropping the rail underneath them takes an
-async SError on the next power-on rather than a clean retry. Only
-rknn_core_0 is enabled: the driver binds one core per node and the
-second core is left to whoever can test it.
+> So as to avoid accessing HW register while a reset is ongoing, a read/wri=
+te
+> semaphore that envelopes the reset sequence will help driver entry points
+> avoid racing with it. For now, the only such racy entry point is the ioctl
+> that returns the current GPU timestmap.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index 272af1012..965e0906b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -442,6 +442,7 @@ regulator-state-mem {
- 			};
- 
- 			vdd_npu_s0: dcdc-reg2 {
-+				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-enable-ramp-delay = <400>;
- 				regulator-min-microvolt = <550000>;
-@@ -869,3 +870,12 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi_in_vp0>;
- 	};
- };
-+
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
--- 
-2.43.0
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 2 ++
+>  drivers/gpu/drm/panfrost/panfrost_device.h | 1 +
+>  drivers/gpu/drm/panfrost/panfrost_drv.c    | 9 ++++++---
+>  drivers/gpu/drm/panfrost/panfrost_job.c    | 1 +
+>  4 files changed, 10 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 5b66173c75b9..e0390b6c0d22 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -602,6 +602,8 @@ bool panfrost_exception_needs_reset(const struct panf=
+rost_device *pfdev,
+> =20
+>  void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_jo=
+b_int)
+>  {
+> +	guard(rwsem_read)(&pfdev->reset.lock);
+> +
+>  	panfrost_gpu_soft_reset(pfdev);
+>  	panfrost_gpu_power_on(pfdev);
+>  	panfrost_mmu_reset(pfdev);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm=
+/panfrost/panfrost_device.h
+> index 4bbaaaf827a5..a2a68e042225 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+> @@ -166,6 +166,7 @@ struct panfrost_device {
+>  	struct {
+>  		struct workqueue_struct *wq;
+>  		struct work_struct work;
+> +		struct rw_semaphore lock;
+>  		atomic_t pending;
+>  	} reset;
+> =20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 958f1d36ab10..ff23b1a979bb 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -41,9 +41,12 @@ static int panfrost_ioctl_query_timestamp(struct panfr=
+ost_device *pfdev,
+>  	if (ret)
+>  		return ret;
+> =20
+> -	panfrost_cycle_counter_get(pfdev);
+> -	*arg =3D panfrost_timestamp_read(pfdev);
+> -	panfrost_cycle_counter_put(pfdev);
+> +	/* We should not read timestamp register while the GPU  is being reset =
+*/
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		panfrost_cycle_counter_get(pfdev);
+> +		*arg =3D panfrost_timestamp_read(pfdev);
+> +		panfrost_cycle_counter_put(pfdev);
+> +	}
+> =20
+>  	pm_runtime_put(pfdev->base.dev);
+>  	return 0;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_job.c
+> index c761379851da..9d7dafa29f19 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -874,6 +874,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+> =20
+>  	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
+>  	spin_lock_init(&js->job_lock);
+> +	init_rwsem(&pfdev->reset.lock);
+> =20
+>  	js->irq =3D platform_get_irq_byname(to_platform_device(pfdev->base.dev)=
+, "job");
+>  	if (js->irq < 0)
+>=20
 
