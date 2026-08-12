@@ -4,103 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FBF7C5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:51:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6576C5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 21:53:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B474110E2D9;
-	Wed, 12 Aug 2026 21:51:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7645E10F10C;
+	Wed, 12 Aug 2026 21:53:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZWcbCh5G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IXsVTdQ5";
 	dkim-atps=neutral
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3143D10E2D9
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:51:05 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-c15ca7a7ca9so142103566b.0
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:51:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786571463; cv=none;
- d=google.com; s=arc-20260327;
- b=e7Sm9rR+WcxpjYBFfQrrYM6elLcZ83BFClSlz7etHFZiD+8SAWoNr7ZZQt4gtvhtph
- OKvHc7LDOVKU7s5UgpTlj+MgcewQ5mgwrAlF23VLpqBkL6pgYyhn0HsfDRPa6xJnUElO
- RFuEMSCY6PsL770xdqTJ1xKnBOPeVn5XUEagAs++jThX4xAiT6eTFaqfklCjX5R7QgUC
- v3HfSTokCo6nWh6ZnBJ4zvx1XLW8RsKbmdB9kcefXSjSKjcKfHWnonV4pvjRDX39kY3c
- DVQg3Rx6NJb1SXuKGxj62owGbtmt6O43FANgPfp0zpJtFiw0L00OkzS5zLAmWxANCB4w
- BEkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ZRbb1QL5HOmY6fyxJkNCzzNheSCQLGJpJYrLwNUFf0s=;
- fh=gcgTn5n05z3nhshaCmdYRCjvylgwDV2AzETBhSh4uJI=;
- b=V0PBav4F1cUUuEllGgJfzm6VnCq2blUrp6fjFyW7OniQsiAdPr/iY0fkG35O/k4Mgj
- klBSf0uPTHmMNv3isMaJy19VCulgGCCF5dI5V7H0LM13om2QfKsjk6VCj/ztfLIWo1x0
- mgQSb3HdzRQvMyg+kLU1wvHqs23Zs16KBwjYEQyeswKKUKqDT9PljoOFM0f62YcM/BdA
- LIqnmvhWSVP3PwWB0zHFTC1rl48lrGoGRHkAlf5mFEWo9g2Y/dvQpS11SMbJq/RrbzXj
- QDaO/AIJQYfEmX7fNK0ctaRgxdJLY47gyq0nYaO0MijRVK2OWv/+tfYqtRCrL/HbCXCm
- Edbg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786571463; x=1787176263; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZRbb1QL5HOmY6fyxJkNCzzNheSCQLGJpJYrLwNUFf0s=;
- b=ZWcbCh5G0MXsFcKWUprJN7K8dFllvvaUzs9LpCzRc57p/gw8xIU1W9QonwmIMgBriK
- Im/G5V+3jg2hkkBGH2f3+2GhHEJ96QsiznOdE8tvHp5YgQn0E4THI3hFQ6mkYgAPbDWj
- 5I9a8sahUYlhCgbKNzP89qjA+jyTRTigrORm+m5YxR4l0e+IGhtGF9kljLjqO26kxWJN
- RUYI9vS/WAcTMl6CucrXvGH16mu6BiU8ZFP0cxI/MgeZxpji1uIo0md1kdDvTVuRa8W/
- gQCpAlxrqGEy9EaQ3fHOG4oJ2lPZaDQtEsqd00DG1k+WDE9y0KiWeWYZXbNzbsZcQo6x
- +Daw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786571463; x=1787176263;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZRbb1QL5HOmY6fyxJkNCzzNheSCQLGJpJYrLwNUFf0s=;
- b=RipSNe0LlZ/gJKHW/Ium9NJNlfxxkcjKDde8oFkmn1TE3OxRU386iintK9htA7lv10
- /ibCW6qoTKHFZjvKJ4xWg9W1w3lx8SkCRZxr9MsDKhNarvge+QqC36u3PTW0B4J1Ulpx
- ZKj0RORDrRRbbuH4vK05gCdRH97ceAb0ZyXwfRN8+eXpTR7jLl8viV3GkKqfx7ZIojJj
- GjtS3dwIpyS7U8RdciDAikfy35PQCYFrVByUOe7kQk0nchTTwX0QPkusF/QR4hVlNqgZ
- Q80JZ5GTu6oO3WWjsr0rvuPF3NVnEzdBRmuv/qbc+ab+oONt05oCIBxmUwCYi6rlgsjc
- CMAA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq8nc41dON8LGa0uLwNkHuWHW0MHzbi/eMP63FWAbsKxm3JIO7oSg9CSjmqYlbkef8zP3Kok04b6L0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoPOvhXHdk9WZANTXsPSDYDlbNCl1yydixo00wkE3M1bySETBm
- 5+oYB2kj4WAjVzVcMmBIYk+b0YQ9D3xP58Jw02Yl4rI+/g0KJ4i7QfwPvycR/JR5tnjez2UAFbm
- RmQ6t5wNdyZ8G6jQXQ2Re8fAkqm7Llh8=
-X-Gm-Gg: AR+sD11kVBEuL90E+GXFZoeHJzA6iHWs0FYLipTIEA6nJlTrM+nILcStEJHga9u95B+
- 4/iH8IaLc5wcQz+mPy4xAZKqjWIyEqXvni47QIcDI/lKOB+9bvfbaU73YMsh7kfz4/frp6EQf8d
- +h+i4/1FSlCQvyzT3WWuRfguwT3S+fWk8h43BBnaNd+Rh3l0AyfZJDCRXPZykeYJS+S2o2LkfDP
- JWndxtSmVfbr77Tmh8r6GUMN4gZSgVivNXyc2IP4/FY5BjCZR1+EIjDge6tTmQ8jtF06x4J5KYO
- 4oOeucN4p/pKYly5iLt6o26qrD7FaMcDklNYnD72vDgI
-X-Received: by 2002:a17:906:f59c:b0:c20:f913:9337 with SMTP id
- a640c23a62f3a-c2108f7b604mr49396666b.20.1786571463233; Wed, 12 Aug 2026
- 14:51:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
- <am2mvECnCcO9IxuI@monoceros> <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
- <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
- <20260810-devout-pig-of-performance-595ccc@houat>
- <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
- <20260812-neon-asp-of-completion-e9349e@houat>
-In-Reply-To: <20260812-neon-asp-of-completion-e9349e@houat>
-From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
-Date: Thu, 13 Aug 2026 01:50:47 +0200
-X-Gm-Features: AUfX_mxyPKLYJzGR3BRhvwNIy9Y09lt45MHF5IGyuCsk2Z_DBdXDroK9BGIUrgQ
-Message-ID: <CAEUXW=H-o+fqBjH1UQG7=UTm5x1a9Cj++XJM7twvFU4vJC4UrQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Helge Deller <deller@gmx.de>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C6F810F0F1
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:53:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3C081600AD;
+ Wed, 12 Aug 2026 21:53:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987811F000E9;
+ Wed, 12 Aug 2026 21:53:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786571623;
+ bh=6nEU+aeRluycxdNo/6s4mZZKrJ1RxjlgPtIHRp6CvKk=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=IXsVTdQ5zQUuKR4Iw6ZK3MQhGzcBbD5D+BmAgP90RIhowNF15Qvl/daAVQJt8uLyy
+ rIkJAZ6sNBkDjUGtU3cI/VGEiGebXer+9cErer6IqhdmgixYvy4Hz1W7Q7pabBrv8x
+ YQXaZcdMYk+oUEFaZT6hbmwff+KV39BTSqdgf6+R+2uOUvAmAbz9PrPAOS6WKy0Fa1
+ O6EgPhBJzHIifIXXh8zwYLZJluIm96rhQ3IQSP1gu3YzsVqWyoQ5I/w3Dm6bN1SHUD
+ PeamQtayFym7qz9Jcw3jlL3cOB+eq9PY/6eF6heTF+y3ojTLfgHj8GMUmuJum26dfp
+ gSeZSwkGxdiXg==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 12 Aug 2026 23:53:34 +0200
+Message-Id: <DKNAS52KYWLD.M15VEC6U0F6R@kernel.org>
+Subject: Re: [PATCH v10 00/10] Fix missing fops.owner in Rust DRM/misc
+ abstractions
+Cc: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Luis
+ Chamberlain" <mcgrof@kernel.org>, "Petr Pavlu" <petr.pavlu@suse.com>,
+ "Daniel Gomez" <da.gomez@kernel.org>, "Sami Tolvanen"
+ <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
+ "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
+ Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>, "Dave Ertman"
+ <david.m.ertman@intel.com>, "Leon Romanovsky" <leon@kernel.org>, "Igor
+ Korotin" <igor.korotin@linux.dev>, "FUJITA Tomonori"
+ <fujita.tomonori@gmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
+ <tkjos@android.com>, "Christian Brauner" <brauner@kernel.org>, "Carlos
+ Llamas" <cmllamas@google.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-modules@vger.kernel.org>, <driver-core@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>,
+ <linux-kselftest@vger.kernel.org>, <kunit-dev@googlegroups.com>,
+ <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-pci@vger.kernel.org>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Mark Brown"
+ <broonie@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
+ <CANiq72=bhfofrbdf1qeA380-eWeKj5yXhC0NzaU_nbB9SpxYHA@mail.gmail.com>
+In-Reply-To: <CANiq72=bhfofrbdf1qeA380-eWeKj5yXhC0NzaU_nbB9SpxYHA@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,45 +84,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-El mi=C3=A9, 12 ago 2026 a las 9:42, Maxime Ripard (<mripard@kernel.org>) e=
-scribi=C3=B3:
-> In such a case, you can (and really should) use KMS, and you should use
-> an initramfs and setup the splash screen there.
+(Cc: Mark)
 
-Agreed that readout is the right answer where it applies, and I am not
-looking to duplicate it. Three cases where it does not:
+On Wed Aug 12, 2026 at 6:33 PM CEST, Miguel Ojeda wrote:
+> On Tue, Aug 11, 2026 at 8:41=E2=80=AFAM Alvin Sun <alvin.sun@linux.dev> w=
+rote:
+>>
+>> The series moves `THIS_MODULE` into the `ModuleMetadata` as a const, thr=
+eads it
+>> through `#[vtable]` to set `fops.owner` in DRM/miscdevice, and updates c=
+onfigfs
+>> and rnull to use `this_module::<LocalModule>()`.
+>
+> Applied to `rust-next` -- thanks everyone!
 
-  - Hardware whose only in-tree display driver is fbdev. There is no KMS
-    state to read at all, and there are still around a hundred of those
-    drivers.
-  - DRM drivers without readout implemented, which today is all of them
-    but tidss.
-  - Falcon mode, where U-Boot proper never runs, so there is no image and
-    no programmed CRTC to inherit.
+This series has a semantic conflict with both the driver-core and the drm-r=
+ust
+tree:
 
-On the initramfs: it moves the splash earlier, it does not close the gap.
-Measured on our 4.19 product kernel:
+@Mark: When you merge driver-core-next after rust-next (which I think is th=
+e
+case) then you need to include the diff in [1] into the merge.
 
-  1.09 s  tilcdc registers fb0, the logo can be drawn
-  2.68 s  ubi0 starts attaching        <- 1.59 s of built-in driver probes
-  3.39 s  Run /sbin/init               <- 0.70 s of UBI attach + UBIFS moun=
-t
+In drm-rust-next the build fails with:
 
-An initramfs removes the 0.70 s of storage. It cannot remove the 1.59 s,
-because PID 1 does not exist until the initcalls have run. So the gap goes
-from 2.3 s to roughly 1.6 s, before the splash binary has loaded and drawn
-anything. That figure is an estimate; the breakdown it comes from is not.
+	error[E0425]: cannot find type `LocalModule` in the crate root
+	   --> rust/kernel/drm/gem/shmem.rs:628:5
+	    |
+	628 |     #[vtable]
+	    |     ^^^^^^^^^ not found in the crate root
+	    |
+	    =3D note: this error originates in the attribute macro `vtable` (in Ni=
+ghtly builds, run with -Z macro-backtrace for more info)
 
-It is also worth saying what this series is and is not. The kernel has
-drawn a boot logo for decades; this does not add that. It changes where the
-image comes from, so that one kernel binary can serve products that differ
-only in branding. If the position is that the kernel should not draw a logo
-at all, that is an argument about CONFIG_LOGO rather than about these
-patches -- and drm_panic already calls fb_find_logo(), so the logo is not
-purely an fbdev concern either.
+which is because the kunit test in rust/kernel/drm/gem/shmem.rs uses the
+#[vtable] macro.
 
-On doing it through KMS: you are right, and the follow-up series should be
-a DRM client alongside drm_log rather than a hook in drm_fb_helper. I will
-rework it that way before posting it.
+This should be fixed up with a patch on top of this series in rust-next.
 
-Max
+I came up with to potential solutions [2] and [3]. I think with the new bui=
+ld
+system we want [3], but I'm not entirely sure this works correctly with the
+current build system in all cases (at least it did survive my tests).
+
+Alternatively, we could just open-code a dummy module as in [2] for now.
+
+[1] driver-core-next merge fixup
+
+diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
+index a4927452016e..17ca504b7f8d 100644
+--- a/rust/kernel/serdev.rs
++++ b/rust/kernel/serdev.rs
+@@ -87,7 +87,7 @@ unsafe fn register(
+         }
+
+         // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
+-        to_result(unsafe { bindings::__serdev_device_driver_register(sdrv.=
+get(), module.0) })
++        to_result(unsafe { bindings::__serdev_device_driver_register(sdrv.=
+get(), module.as_ptr()) })
+     }
+
+     unsafe fn unregister(sdrv: &Opaque<Self::DriverType>) {
+
+[2] Open-coded dummy module
+
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index c04e6c5aa7e0..274924cfcc05 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -157,6 +157,15 @@
+ /// Prefix to appear before log messages printed from within the `kernel` =
+crate.
+ const __LOG_PREFIX: &[u8] =3D b"rust_kernel\0";
+
++/// Dummy module type for `#[vtable]` impl blocks within the kernel crate =
+(e.g. kunit tests).
++struct LocalModule;
++
++impl ModuleMetadata for LocalModule {
++    const NAME: &'static str::CStr =3D c"rust_kernel";
++    // SAFETY: `try_module_get`/`module_put` handle null module pointers g=
+racefully.
++    const THIS_MODULE: ThisModule =3D unsafe { ThisModule::from_ptr(core::=
+ptr::null_mut()) };
++}
++
+ #[cfg(not(testlib))]
+ #[panic_handler]
+ fn panic(info: &core::panic::PanicInfo<'_>) -> ! {
+
+[3] Allow module!() for kernel crate
+
+diff --git a/rust/Makefile b/rust/Makefile
+index 48adcd9b7851..4f6bf1b4d194 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -279,6 +279,7 @@ rustdoc-pin_init: $(src)/pin-init/src/lib.rs rustdoc-pi=
+n_init_internal \
+        +$(call if_changed,rustdoc)
+
+ rustdoc-kernel: private is-kernel-object :=3D y
++rustdoc-kernel: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/lib.rs
+ rustdoc-kernel: private rustc_target_flags =3D --extern ffi --extern pin_i=
+nit \
+     --extern build_error --extern macros \
+     --extern bindings --extern uapi \
+@@ -351,6 +352,7 @@ rusttestlib-pin_init: $(src)/pin-init/src/lib.rs rustte=
+stlib-macros \
+     rusttestlib-pin_init_internal $(obj)/$(libpin_init_internal_name) FORC=
+E
+        +$(call if_changed,rustc_test_library)
+
++rusttestlib-kernel: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/li=
+b.rs
+ rusttestlib-kernel: private rustc_target_flags =3D --extern ffi \
+     --extern build_error --extern macros --extern pin_init \
+     --extern bindings --extern uapi \
+@@ -386,6 +388,7 @@ quiet_cmd_rustdoc_test_kernel =3D RUSTDOC TK $<
+        rm -rf $(objtree)/$(obj)/test/doctests/kernel; \
+        mkdir -p $(objtree)/$(obj)/test/doctests/kernel; \
+        $(rustc_target_envs) \
++       RUST_MODFILE=3Dkernel/lib.rs \
+        OBJTREE=3D$(abspath $(objtree)) \
+        $(RUSTDOC) --test $(filter-out --remap-path-scope=3D%,$(rust_flags)=
+) \
+                -L$(objtree)/$(obj) --extern ffi --extern pin_init \
+@@ -788,6 +791,7 @@ $(obj)/uapi.o: $(src)/uapi/lib.rs \
+     $(obj)/uapi/uapi_generated.rs FORCE
+        +$(call if_changed_rule,rustc_library)
+
++$(obj)/kernel.o: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/lib.r=
+s
+ $(obj)/kernel.o: private rustc_target_flags =3D --extern ffi --extern pin_=
+init \
+     --extern build_error --extern macros --extern bindings --extern uapi \
+     --extern zerocopy --extern zerocopy_derive
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index c04e6c5aa7e0..7df9159788ad 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -154,8 +154,21 @@
+ };
+ pub use uapi;
+
+-/// Prefix to appear before log messages printed from within the `kernel` =
+crate.
+-const __LOG_PREFIX: &[u8] =3D b"rust_kernel\0";
++struct KernelCrateModule;
++
++impl Module for KernelCrateModule {
++    fn init(_module: &'static ThisModule) -> error::Result<Self> {
++        Ok(Self)
++    }
++}
++
++macros::module! {
++    type: KernelCrateModule,
++    name: "rust_kernel",
++    authors: ["Rust for Linux Contributors"],
++    description: "The kernel crate",
++    license: "GPL",
++}
+
+ #[cfg(not(testlib))]
+ #[panic_handler]
