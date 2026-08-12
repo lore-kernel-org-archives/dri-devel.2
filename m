@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2BDDC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B223FC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03AD910EFAB;
-	Wed, 12 Aug 2026 12:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC5E10EFAE;
+	Wed, 12 Aug 2026 12:57:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="am2VnvAg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E3ASPS1k";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B97B110EFAB
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:57:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC46B10EFAE
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:57:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A148A403E8;
- Wed, 12 Aug 2026 12:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C62C1F00A3E;
- Wed, 12 Aug 2026 12:57:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2F08960A84;
+ Wed, 12 Aug 2026 12:57:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F441F00AC4;
+ Wed, 12 Aug 2026 12:57:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786539439;
- bh=6s13Q+j8wBnnuEdnJ/nL5ccmcNMkL8DlD+sgq0/D/7I=;
+ s=k20260515; t=1786539441;
+ bh=Za4LRzHAXU2RDULMQIs7N/GmIAAtgm2U036qr4uAeQw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=am2VnvAgyCIGbMQaX1L3tdBsH5aA9XZTR5Ld7sr1F+fZajZDZc6VhGhaGWeGCxpvM
- oGhOvXA0iajopp0j7rSvKyd0r3yKIRRfpTAALq9hbaaI3+L8H7+n9rm8eLWDCuDIzl
- nksvrKuMnWoGk25Se24/jRbiupF203vKRzq07OKoa0BZAd/gVsX53DIQ3xf9K9dSxx
- S/FtzJRAQOttOLY9CvPmRl8c/7cCoNQq701vNPs3b74nh7KViD+upfUJpAsINxfCLd
- Us5/k0SaLUY3ktAhkMvG3w1r6/zvaDSNRei+yqpmGMJUHL6ueWHGlLgb6XZWvhMnie
- p/eGY3PsjpeuA==
+ b=E3ASPS1kUHKmmc0d/P8SRmaxilezY1EBf7gMhPgnAsOAtFg77hzimjxGQB3ZCqa8p
+ tSSaHHDP7Lcit4m4jwhrZSmpd5CtJSoYDp0/arbKXm/QgYoLcGttSRey5CsoflYURW
+ zv8F88WpU6672FJ9T9Wer46JFIdBvoiKwOpxAFEHkrpk0cNIbFVa6A3faFFf0MgGkL
+ /1MYTIgJGeLBR+o4/1SYIzepo8QUGvxEOzsZmygl5ITmW/oKdrmoK/lxW9WZ+J5Svr
+ YxUGMeOlia60cZgeJpVlax6AEIeGGLQEB8D7BwGhCL+rIjBsYfrCzzoOepRgb8epkV
+ B4Jb7Yk5PKJrA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 12 Aug 2026 14:57:01 +0200
-Subject: [PATCH RFC v2 6/9] drm/atomic: Create function to insert connector
- state into a commit
+Date: Wed, 12 Aug 2026 14:57:02 +0200
+Subject: [PATCH RFC v2 7/9] drm/atomic: Add drm_atomic_can_create_state()
+ helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-drm-reset-state-flag-v2-6-e96ce13317dd@kernel.org>
+Message-Id: <20260812-drm-reset-state-flag-v2-7-e96ce13317dd@kernel.org>
 References: <20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org>
 In-Reply-To: <20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4467; i=mripard@kernel.org;
- h=from:subject:message-id; bh=wDaUru3PKCxU0DIl/uXL+Fj/EweBL/7abRjPRJwuSBY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFk1uXMyJHOKLsrc2MinxHnme0jW3fkrjwRm3mWO+v0vZ
- vcR+11ZHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiAsGM9RWM7g0dlrL64TfS
- P3N3F56xXhuub5uckLPu2FH5VH3tFYFrAxamaH/QeKq0iXH3vN1yjA2rD+zqPLtu8QeT4qIl2/7
- Y3XDiYTlYXyQpcKNihfoauRg1qdaeNPmTKemTVu47xdZ+fi0A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3552; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=KqroUBF9fy63U0kIpZnbE8J3Xt6EvTVFVK/4HC1fRg0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFk1uXPX3NqX8HrZ/KDQtm/3RWVXJL+20eY42WRt9cn8Y
+ tHnGWLtHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAie1YyNpzxfh1Ry1f06bus
+ K4vnPx/52wm7GBeJPwh++nk/k1jtDn2ZedcuRqls3Ji2YKfQFt8VVxlrpbe22d3OkEvkUT8ffCR
+ MkfHFgu3xc7cLTK/baynKfKSM46ZaZnf4taP351n6+r4piXMGAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,135 +77,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_atomic_get_connector_state() allocates a new connector state by
-duplicating the current one and inserts it into the atomic commit as
-a single operation.
+The atomic reset path will need to create pristine default states from
+scratch for every plane, CRTC, and connector. This requires all of them
+to implement the atomic_create_state hook.
 
-However, a later change will need to insert a connector state into a
-commit without going through the full allocation and duplication path
-in drm_atomic_get_connector_state().
+Introduce a drm_atomic_can_create_state() helper that iterates over all
+planes, CRTCs, and connectors and returns whether they all provide the
+hook. Color operations are excluded since they always use
+drm_atomic_helper_colorop_create_state() directly.
 
-Extract the state insertion logic, including the dynamic array
-reallocation, into a new static
-drm_atomic_commit_set_connector_state() helper, and convert
-drm_atomic_get_connector_state() to use it.
+This will be used both as a precondition before filling a commit with
+default states, and to report the device capability to userspace.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 67 +++++++++++++++++++++++++++-----------------
- 1 file changed, 42 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 49 ++++++++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_atomic.h     |  2 ++
+ 2 files changed, 51 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 88cdb65698c9..e78f7eb6bfd1 100644
+index e78f7eb6bfd1..d8251447e44a 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1408,10 +1408,46 @@ drm_atomic_get_new_crtc_for_encoder(struct drm_atomic_commit *state,
+@@ -1608,10 +1608,59 @@ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
  
- 	return conn_state->crtc;
+ 	return drm_priv_to_bridge_state(obj_state);
  }
- EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
  
-+static int drm_atomic_commit_set_connector_state(struct drm_atomic_commit *commit,
-+						 struct drm_connector *connector,
-+						 struct drm_connector_state *connector_state)
++/**
++ * drm_atomic_can_create_state - check if a device supports creating pristine states
++ * @dev: DRM device
++ *
++ * Check whether every plane, CRTC, and connector in @dev implements the
++ * &drm_plane_funcs.atomic_create_state, &drm_crtc_funcs.atomic_create_state,
++ * and &drm_connector_funcs.atomic_create_state hooks respectively. These hooks
++ * are required to create default states from scratch rather than duplicating
++ * the current state.
++ *
++ * Color operations are not checked because they always use
++ * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
++ *
++ * Returns:
++ * True if all objects implement atomic_create_state, false otherwise.
++ */
++bool drm_atomic_can_create_state(struct drm_device *dev)
 +{
-+	struct drm_mode_config *config = &connector->dev->mode_config;
-+	int index;
++	struct drm_connector_list_iter conn_iter;
++	struct drm_connector *connector;
++	struct drm_plane *plane;
++	struct drm_crtc *crtc;
 +
-+	drm_modeset_lock_assert_held(&config->connection_mutex);
++	/*
++	 * colorops don't have an atomic_create_state hook but
++	 * drm_atomic_helper_colorop_create_state()
++	 */
 +
-+	index = drm_connector_index(connector);
-+	if (index >= commit->num_connector) {
-+		struct __drm_connnectors_state *c;
-+		int alloc = max(index + 1, config->num_connector);
++	drm_for_each_plane(plane, dev)
++		if (!plane->funcs->atomic_create_state)
++			return false;
 +
-+		c = krealloc_array(commit->connectors, alloc,
-+				   sizeof(*commit->connectors), GFP_KERNEL);
-+		if (!c)
-+			return -ENOMEM;
++	drm_for_each_crtc(crtc, dev)
++		if (!crtc->funcs->atomic_create_state)
++			return false;
 +
-+		commit->connectors = c;
-+		memset(&commit->connectors[commit->num_connector], 0,
-+		       sizeof(*commit->connectors) * (alloc - commit->num_connector));
-+
-+		commit->num_connector = alloc;
++	drm_connector_list_iter_begin(dev, &conn_iter);
++	drm_for_each_connector_iter(connector, &conn_iter) {
++		if (!connector->funcs->atomic_create_state) {
++			drm_connector_list_iter_end(&conn_iter);
++			return false;
++		}
 +	}
++	drm_connector_list_iter_end(&conn_iter);
 +
-+	drm_connector_get(connector);
-+	commit->connectors[index].state_to_destroy = connector_state;
-+	commit->connectors[index].old_state = connector->state;
-+	commit->connectors[index].new_state = connector_state;
-+	commit->connectors[index].ptr = connector;
-+	connector_state->state = commit;
-+
-+	return 0;
++	return true;
 +}
++EXPORT_SYMBOL(drm_atomic_can_create_state);
 +
  /**
-  * drm_atomic_get_connector_state - get connector state
-  * @state: global atomic state object
-  * @connector: connector to get state object for
+  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
+  * @state: atomic state
+  * @encoder: DRM encoder
   *
-@@ -1426,53 +1462,34 @@ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
-  */
- struct drm_connector_state *
- drm_atomic_get_connector_state(struct drm_atomic_commit *state,
- 			  struct drm_connector *connector)
- {
--	int ret, index;
-+	int ret;
- 	struct drm_mode_config *config = &connector->dev->mode_config;
- 	struct drm_connector_state *connector_state;
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 00b3e9fc429a..7dc26e3da65c 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -700,10 +700,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
  
- 	WARN_ON(!state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
+ struct drm_atomic_commit * __must_check
+ drm_atomic_commit_alloc(struct drm_device *dev);
+ void drm_atomic_commit_clear(struct drm_atomic_commit *state);
  
- 	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	index = drm_connector_index(connector);
--
--	if (index >= state->num_connector) {
--		struct __drm_connnectors_state *c;
--		int alloc = max(index + 1, config->num_connector);
--
--		c = krealloc_array(state->connectors, alloc,
--				   sizeof(*state->connectors), GFP_KERNEL);
--		if (!c)
--			return ERR_PTR(-ENOMEM);
--
--		state->connectors = c;
--		memset(&state->connectors[state->num_connector], 0,
--		       sizeof(*state->connectors) * (alloc - state->num_connector));
--
--		state->num_connector = alloc;
--	}
--
- 	connector_state = drm_atomic_get_new_connector_state(state, connector);
- 	if (connector_state)
- 		return connector_state;
- 
- 	connector_state = connector->funcs->atomic_duplicate_state(connector);
- 	if (!connector_state)
- 		return ERR_PTR(-ENOMEM);
- 
--	drm_connector_get(connector);
--	state->connectors[index].state_to_destroy = connector_state;
--	state->connectors[index].old_state = connector->state;
--	state->connectors[index].new_state = connector_state;
--	state->connectors[index].ptr = connector;
--	connector_state->state = state;
-+	ret = drm_atomic_commit_set_connector_state(state, connector, connector_state);
-+	if (ret) {
-+		connector->funcs->atomic_destroy_state(connector, connector_state);
-+		return ERR_PTR(ret);
-+	}
- 
- 	drm_dbg_atomic(connector->dev, "Added [CONNECTOR:%d:%s] %p state to %p\n",
- 			 connector->base.id, connector->name,
- 			 connector_state, state);
- 
++bool drm_atomic_can_create_state(struct drm_device *dev);
++
+ /**
+  * drm_atomic_commit_get - acquire a reference to the atomic state
+  * @state: The atomic state
+  *
+  * Returns a new reference to the @state
 
 -- 
 2.55.0
