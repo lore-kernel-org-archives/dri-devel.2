@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C556CC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:49:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F976C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 280AB10EFFC;
-	Wed, 12 Aug 2026 13:49:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C7B10EFFD;
+	Wed, 12 Aug 2026 13:49:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Gh7SpVRC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M42KjWXp";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9144510EFFD
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:49:24 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 5D0964E411D7;
- Wed, 12 Aug 2026 13:49:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 330196045E;
- Wed, 12 Aug 2026 13:49:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D735111C4CF20; 
- Wed, 12 Aug 2026 15:49:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786542562; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=vyc/LywQoCPLBFJ9CVtblAF+zKm9ADnp2PdlfG8DGmk=;
- b=Gh7SpVRCK+M0mAj/DrR/fdwANW/dsDnWJ9w/mp1p9Ib74xpWZAt2Vzsi87aDIDPeFhU32v
- OYJPvhlZXcQaYw8FAuEtdqB1H2WMD8mcwKIth0zana3r06aoslIQW82nC/h168qrfZlal+
- WGZbht2iBX3g3/WeyeGbJ+rqKC3lStxw9FVr5WwwDh5g+IMa5lSBOYygrXICjM3AtwyBKv
- bwb3hYvcsx8NeOLb9FJ2CQOXaEgEwhghlHyF/Lg1feAkd73SIvBWqCT0ktkHfGUMAkssuU
- wFVkSFrbOdw8yY/dR90FVggdwWeN1IRWvk8CWZwuLKdZUJUlSijq2EUABTG73Q==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 12 Aug 2026 15:42:49 +0200
-Subject: [PATCH 09/12] drm/bridge: tc358775: select DRM_PANEL_BRIDGE
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6A3810EFF6;
+ Wed, 12 Aug 2026 13:49:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1FDF361834;
+ Wed, 12 Aug 2026 13:49:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4031F000E9;
+ Wed, 12 Aug 2026 13:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786542565;
+ bh=qc+tb2kaon6pC/BAOxE+EancW/8TIBH5x8KL5DrAOxI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=M42KjWXppc5FA5jAlhRDCRmloZrfvkNRW2PUXI1NsK3qxIYeGF4ioj7gS4fU/Rmp4
+ XDCl9p7ksaknk4O6w9/5hrb9X50u5Zcx9SCVElwKRHDyDuwL990TG5wvEhrmkLeIoJ
+ G0mPkEtbu743dgNbhDiyWENcS/aE4rgmgPHoa9JikMTzUfXeV9moisNiI/Uz0E6/Hi
+ rg4gllAK6QSV9yBJZiU56/iHPy5fhGINln5CZGR1jMAOqslqKg3X51XzpJtN2MjJCZ
+ OLY2kA38W9cU2e1Sfjb4ub/e+BSs6pnjDhvWE6ciQicRRp2Riywb39A/82eq3SoWQR
+ Wkq74mQXoeKig==
+Date: Wed, 12 Aug 2026 15:49:15 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-phy@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Subject: Re: [PATCH v9 1/5] drm/msm/hdmi: switch to generic PHY subsystem
+Message-ID: <cph2vu2rgbddshnhfdxws46lkh6gktycd7ppzvcbwdxhsyjnxg@igv3jsg3qi77>
+References: <20260513-fd-hdmi-phy-v9-0-ca98c72f1f9f@oss.qualcomm.com>
+ <20260513-fd-hdmi-phy-v9-1-ca98c72f1f9f@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-drm-bridge-drm_panel-cleanup-v1-9-0d86734e908a@bootlin.com>
-References: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
-In-Reply-To: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260513-fd-hdmi-phy-v9-1-ca98c72f1f9f@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,28 +69,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver uses the drm_panel_bridge API and not the drm_panel API so it
-should select DRM_PANEL_BRIDGE and not DRM_PANEL.
+On Wed, May 13, 2026 at 09:14:04PM +0300, Dmitry Baryshkov wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Change the MSM HDMI driver to use generic PHY subsystem. Moving PHY
+> drivers allows better code sharing with the rest of the PHY system.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/bridge/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This change it too big to digest, but I don't spot any major issue. So,
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 0f9ca869237b..7874d3b1e760 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -421,7 +421,7 @@ config DRM_TOSHIBA_TC358775
- 	select DRM_DISPLAY_HELPER
- 	select DRM_KMS_HELPER
- 	select REGMAP_I2C
--	select DRM_PANEL
-+	select DRM_PANEL_BRIDGE
- 	select DRM_MIPI_DSI
- 	help
- 	  Toshiba TC358775 DSI/LVDS bridge chip driver.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+
+- Mani
 
 -- 
-2.55.0
-
+மணிவண்ணன் சதாசிவம்
