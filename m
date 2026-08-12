@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31FB3C5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 11:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DFFC5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:15:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A78210E417;
-	Wed, 12 Aug 2026 11:59:01 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC6CE10E417;
- Wed, 12 Aug 2026 11:58:59 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hKn8L1qlzzKvxn;
- Wed, 12 Aug 2026 13:58:58 +0200 (CEST)
-Message-ID: <932892b196f7bbba7f5e9bff22f9b484854aaccc.camel@mailbox.org>
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, phasta@kernel.org, 
- "matthew.brost@intel.com"
- <matthew.brost@intel.com>, "ckoenig.leichtzumerken@gmail.com"
- <ckoenig.leichtzumerken@gmail.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "regressions@lists.linux.dev"
- <regressions@lists.linux.dev>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Date: Wed, 12 Aug 2026 13:58:54 +0200
-In-Reply-To: <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
- <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
- <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00B2A10E402;
+	Wed, 12 Aug 2026 12:15:13 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OMH5SxDP";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E27510EF78
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:15:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 312F860A84;
+ Wed, 12 Aug 2026 12:15:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B651F00A3A;
+ Wed, 12 Aug 2026 12:15:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786536909;
+ bh=7Z+XzXDfYwobWJxYpx8R2juvCXyCYa2UzJFRERKyDxA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=OMH5SxDPZnlWw+o96gNmfx+bFpk5Q6i3bpnpv/MigtRYzSpTFekAXyDRXH5R/cUev
+ 9HKmFlw1NIXl37AGD93E/NKzElwkslxfP+7luOyANSMZ2Pt592nPH77mVD2mQoGpRx
+ 7+BP3X3/w9mhcMACZ8+m1zCKmNJLalIZl78aw9c8zbjCFGPMWfv+zq3BreAi4ikl0f
+ pLgiOyarMTKiWOAo2UIaOAAMSiykwvnRuYPiXnrHprxldfag+T6FqaOeZ4V7jcVrOZ
+ S8vuMJz+jlfrFyPrfMjIGWHZLG5YqwMkHR9ZO60lQZLxGidn+wMh7dm1wsW7Af2RTR
+ HVGLMpgGGtR9Q==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Junjie Cao <junjie.cao@intel.com>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Pengyu Luo <mitltlatltl@gmail.com>
+In-Reply-To: <20260804030255.1934470-1-junjie.cao@intel.com>
+References: <20260804030255.1934470-1-junjie.cao@intel.com>
+Subject: Re: [PATCH v3 0/3] backlight: aw99706: DT parsing and blank state
+ fixes
+Message-Id: <178653690808.1388789.8898275020570409827.b4-ty@b4>
+Date: Wed, 12 Aug 2026 13:15:08 +0100
 MIME-Version: 1.0
-X-MBO-RS-ID: c458c48d41946d84b5f
-X-MBO-RS-META: 4gth8jcm81u5wkqkmj6m45i1ad48gjpj
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,66 +57,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-08-12 at 12:37 +0100, Tvrtko Ursulin wrote:
-> Jokes aside, I agree with the above analysis that a better fix would be=
-=20
-> to pull things under the lock, and interestingly, Philipp had a lock=20
-> widening patch not so long ago but I don't remember what happened it or=
-=20
-> how exactly did it look. It would possibly have fixed this problem.
+On Tue, 04 Aug 2026 11:02:52 +0800, Junjie Cao wrote:
+> The driver reads its tuning properties under names the binding does not
+> define (patch 1), the validation paths accept values the binding forbids
+> (patch 2), and update_status() ignores the blank state, leaving bl_power
+> inoperative (patch 3).
+> 
+> v3:
+> - patch 2: reject 0 for awinic,sw-freq-hz (reserved-slot marker
+>   collided with it); add Fixes tag
+> - patch 3: add stable tag
+> v2: only patch 1/3 reached the lists (outbound mail failure):
+>     https://lore.kernel.org/all/20260803141310.1379194-2-junjie.cao@linux.dev/
+> v1: https://lore.kernel.org/all/20260701133918.33487-1-junjie.cao@linux.dev/
+> 
+> [...]
 
-https://lore.kernel.org/dri-devel/a0d969408a5a55dfb6d0b3e65906fd7bbf3eee1c.=
-camel@mailbox.org/
+Applied, thanks!
 
-TBH I got discouraged and increasingly dissatisfied with the state of
-our community, because whenever I try to fix things that are
-*obviously* broken and incorrect (and which were usually not broken by
-me), with relatively simple patches, I have to work uphill and only
-receive pushback.
+[1/3] backlight: aw99706: Fix DT property names to match binding
+      commit: daf120e464386f750b3870dc04d5bc6a786f0000
+[2/3] backlight: aw99706: Validate all DT property values consistently
+      commit: 3d142b19b09ea62d6e9a33d46d1b858b3ad05707
+[3/3] backlight: aw99706: Honor the core blank state in update_status()
+      commit: fbf8b5d251e8b4e1b01c591be313c63cb9e1526a
 
-Reviewers and supporters are usually absent unless they want to have
-more features or performance-hacks added, though it is apparent that
-many indeed read what we are doing.
+--
+Lee Jones [李琼斯]
 
-Should things get better it's usually not acknowledged, and should
-things go wrong one runs danger of getting blamed with hindsight-bias.
-
-Had my patch landed and (speculatively) prevented this regression, no
-one would have noticed, but Phoronix would write some nice article
-about the FPS gain in video games, achieved by Tvrtko Ursulin :)
-
-Ah well.
-
-My vision for drm_sched has been that we absolutely need to start
-establishing strict computer science standards and have to prioritze
-formal correctness, simplicity and documentation over features and
-*especially* performance.
-
-Though I maybe should have tried to be more polite and diplomatic about
-it, the evidence that I see is that the DRM community does not actually
-want the above. At least I have to conclude that from the lack of
-encouraging participation and the presence of discouragement.=C2=A0
-
-So if I want to add a spinlock for something obviously broken, the
-burden of proof is on me, not on the one who broke it. If I want to
-prevent someone from adding a 4th drm_sched_start_x() function for
-performance-reasons, then I receive not-so-nice emails.
-
-Folks here seem to want to continue like they did for the last 15
-years.
-
-If anyone here reads this who *doesn't* want to continue like we did
-for the last 15 years, then I would kindly ask for public participation
-and help with moving things towards the right direction. Simple emails
-with "I support this idea, +1", would almost be enough.
-
-
-It would seem that these recent event might proof that I was right
-about our fundamental issues.
-
-
-P.
