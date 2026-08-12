@@ -4,101 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66FBAC5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 08:46:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E4F4C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 08:50:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82BA710E3F3;
-	Wed, 12 Aug 2026 08:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9EB710EF01;
+	Wed, 12 Aug 2026 08:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="2ZVWsRTU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w9wO4M6l";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A02B510E3F3
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:46:14 +0000 (UTC)
-Received: from [10.0.0.152] (unknown [10.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 622065340228;
- Wed, 12 Aug 2026 10:46:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1786524372;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4+bhS8F6XtythKonanhBEVFm3CxuuRt8oHeQlggx6/w=;
- b=2ZVWsRTUnc9qoDxD+Z1a+Khe5cDp3C02IJuyPBYsk+86NYuKzoKA1L44904gkurqe0wuDc
- FA0SDhw5eQSUBlJoPHmvMgwCWQKgwKA6kAQLwHm0/8DHxitcY9FZZBe96dFz8UHtz5SwRs
- ogQQInDw5YkPSvKu9ecmlK57P4iEJhw=
-Message-ID: <7097b617-90be-492d-9637-4a2a101379e0@ixit.cz>
-Date: Wed, 12 Aug 2026 10:46:12 +0200
-MIME-Version: 1.0
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012065.outbound.protection.outlook.com
+ [40.107.200.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 456DB10EEEF
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:50:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r5ytTSHGOjw0JCEHGQRLgeorJKHqlODAO4pwQgL2gugdl1I0hE+/8gbgn1T/JTyJK7yYEQyRiDMfXQUqHhMYUwzTI/pKnKCPMS18xFJWvK/VBUVsErWod9wJiZYJslAs7/DPNsgivsV4Fmi+EOricTJXyjdnMXD8SQkIgcAEqtolGS+giCskvnDyNhe9bmoda+ZZ+sruDmKOtoAUp4NHEdZJ76O+BUVqCCgJbqlQZLiZvjk4HaPNE8U1950wA00iWZ0g3Dyfcygi+RqpYBshpXtVHY8kNrW2LcM45VpFoVbdF9Fu/9cLiUsStEP1MRCdIMNyDMfdELhi5USe017Siw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I9ljOyvcPXp4i5tUa6yrPaKfUcRY6eZKUCH4Am4Bles=;
+ b=G5Fi4AI2RzSx0ofpWsQ2fJF+CQy1EzM3PYJzofeN71wyxtky1StJa5p7kn9srfuDCWVGONjpFx3WtisVZsdWlAGUOvg4nmvm4EA5fGzP90J2FZumt/Zm6yP8hw/wOzGkoBPVeVEZMLgKza/9jV8VFCz+3ATk54t1ilMTj+oUSvk2Y7DBAVCwj77DhyjWrvaEg98fForuJESnR9O3bKRW3i2pvtd5Qk9YPBfv3dGSFDXLaL6I3C5u1dkiNK58cNm0M4oq540JEQTe4htuhkfjHGmhGdAoStC9DIQqyDRm5GkGmb2M48iTCm3QL0aVkVRN+NTvqRHuZL9o98gsTP/H0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I9ljOyvcPXp4i5tUa6yrPaKfUcRY6eZKUCH4Am4Bles=;
+ b=w9wO4M6l7mrHHgCVLxoahQnQtbGz4hEtOUDH7rwp9q44ivoFna00xL/rDcO+j2OwJ8DH/Yf54Rh83Fp2CQJ6iMiNqrvrc5KEPxN/aY8a8s5qsgjoLan5ow0Rkjz/UCRjUQRtHT8f+qqHEZNxh6KRocXMamJF5bc6AX91Pqfnn90=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ0PR12MB6942.namprd12.prod.outlook.com (2603:10b6:a03:449::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
+ 2026 08:50:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Wed, 12 Aug 2026
+ 08:50:12 +0000
+Message-ID: <18ac1350-c96f-4cba-8910-c7beca237eaa@amd.com>
+Date: Wed, 12 Aug 2026 10:50:06 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
- NT37703
-To: Esteban Urrutia <esteuwu@proton.me>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
- <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
- <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
- <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
+Subject: Re: [PATCH v5 1/6] Memory leak error in qxl unbind
+To: =?UTF-8?B?w5NzY2FyIE1lZ8OtYSBMw7NwZXo=?= <megia.oscar@gmail.com>,
+ Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20260811194224.121597-1-megia.oscar@gmail.com>
+ <20260811194224.121597-2-megia.oscar@gmail.com>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260811194224.121597-2-megia.oscar@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR20CA0038.namprd20.prod.outlook.com
+ (2603:10b6:208:235::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB6942:EE_
+X-MS-Office365-Filtering-Correlation-Id: a45cc3a2-4663-4127-ef75-08def84eb886
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|366016|6133799003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 8AYZ/Ug2FPcakPyTmcJyTUTmouel5fNOhkrzkuqtd/sYI5ZEyT3oevHBmZsHNsI3p8/E7oFIMjSF/c993swDKQiRHxpnRWsKx9tznCgUrISeSF0yo79kTNmC2YeUoYiPJujy3UbYqd14g9jof4KqWHRhtAaeu/yW58Clu5ns0EXLdKNkChXne1Xw+8rzYfGCOjM6/d3qDJVW7npu3gx3L6oBg/TLZsmvtulOGq71Aqn0JQrBwER0XRJIgNJR+T1Y6IQNYN+eKB2H/twwvJOnebvHTau3qP/E/ZXGjPUKvmkgqvf5F0/WlL28hyJ+USnqkkcZuYsT2fSt17Bbe6SBSdwpuu3ahYvpomPX4plElZDJKg+t6sYSnFa18OZC293n5gPftOK+oWofkjFFZmHZ443CCor5D4Vxx9dr49BaZtzSa6xYT1ySbXJN8f5F0F9l9uCL0F2iH+9W8e81v3mcRIfwdalbzkE5QgUuj0kclZC9fGuW19i7whMUoA6HWm77DIAFtRsELJD1fhwmt1Q+HrfEWkmAVaBSmMWop7RDioHFpPYGqu9yODQBz/AHTE+TUPg51usmTRmbW4B/ct1I6CC/tmvNiPlV1RWE6b5KhpGe3P9oyuR5D/s65T5uMBxQZFMoj1HUuLRstpyk+zGcW4U+vkV7r1xkHH5V2BRXnYc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0ViYlU2TEhjQm96a29ucDQrNmVVVkx2UFdNU29HTktaUHNRQmNnK2pmbnBL?=
+ =?utf-8?B?c3ZXR2YraDZUM01qbFpCbDdhbWdFUVBETStoQjJjRjZFb0w4bXZXWVVQbWV0?=
+ =?utf-8?B?M3h5dmRvbjViUG1HOE8yM0E1bEtqOXdZcEZKeno2cXE5bW5Md1p5NmhDNmp1?=
+ =?utf-8?B?WDUyTkJBT1BmYWlnSHFtenowZ01KQ0NyT2U0d3FFUmY3Q0lMM21semF4RmtS?=
+ =?utf-8?B?dmQzbWswMHYzRHFyMjJTQ1E4dkk1b1hidG1CL1lUbStRWi9IZFhld0NKT2x3?=
+ =?utf-8?B?ekxqZGRvY0ZSTjVKUkYvVFZLVitvUzc0alg2aTk2WW9NVzh6WC8rUUpXendO?=
+ =?utf-8?B?Vmt2VExZZnZwQ1VRYXN4ZUduaGlQYWNheU9tQnFPeHJiSHVHVVE3SGtqQm9Q?=
+ =?utf-8?B?c2kxRjNReS9DOEl3K2tJZFRMd2JjdWhLSitXNm1mNjl0RkUwc0Y5SmNXVENX?=
+ =?utf-8?B?YmNwUzZBVElWOHZmS0RIbnhJbk1oaGNuTko2bG9FcEk1WlJleEMySVU2YmNB?=
+ =?utf-8?B?eVdPUHNHVGcrYi9GY0ZYQ3c4L21XRm9zR3NOcUh4VXZ5STFOb3RydDkvdEx1?=
+ =?utf-8?B?SlZjUVJ6TW10WCtzb2cyMFVjU0VpRlE3aTJ0NlI2bnQ3djBiNDJBMm9Kb1o0?=
+ =?utf-8?B?ZDAvZnNlRFM1UVNMVzB2bVlnMXErMHhrdzVOd2swSlF1YWpSTWx3QXJoT092?=
+ =?utf-8?B?ZkxmSFJlZ0Z5L2xHMW1rNFRaeEdZR3hoWm85Z3hyQVh6cVBGbDlsSS9pODJs?=
+ =?utf-8?B?bTJYZU1TbGRmZjZSSnBEYjBzeEFIYlFTdU9lZllzWU0veExrYTZhRmVwT0hI?=
+ =?utf-8?B?WVJxUThNVmt3ZE56VVdaeEtwMkloUE5ZbFg1eGZJTHk0M2VSamg4OFFpRHRT?=
+ =?utf-8?B?V0s4cnVlQVRHN3JZaVp3UGVQbk5nQjhYRlNVMGlIbEdnUkxlUk5vSjh0KzZn?=
+ =?utf-8?B?TlRpZmNsbTM2RmZKU3ppM295ZDhRUEFVRDRENks5UUZ6ZXJPbkhlaTJqRFdq?=
+ =?utf-8?B?QkJLMlFXWTNmQUlYTThXSzVVRE8rSE1qb1puOUY1eWU0YUI1M21mcUxtSkJD?=
+ =?utf-8?B?UmFSeCsyS3JVMTBCUVl6OVkvUyt1VnU0UzhsenZpNzBtc0J4bDZLaHJlai9L?=
+ =?utf-8?B?ZlVBQS9uYk5BSjNMQXlkQzVlTXpvTUlOaEdFTWlHR0Q0S1JVS3dYN2hRam5M?=
+ =?utf-8?B?eldPR2tpaUZFYkVTcWNBVjMxSW5HRGNpaGpQcldTTndWTThrVnduRDNwaE5Y?=
+ =?utf-8?B?MUZESFAyZnZqVXlSNDZoMkpnY2cxMDlwUlYyY0xlYytFdkkwc0t0YnZzK21m?=
+ =?utf-8?B?ZW1FUjRSYlJlL2RIMGtFT2VobkVOSkdFZ2pDVGZaVy92Z0xycFV2a0FDNWxQ?=
+ =?utf-8?B?WGxoN3p3Z0RSbnRvQ0JTYStsQVRkWlhsNXQwYW1rczF1VE9EU2tuSzIvVU15?=
+ =?utf-8?B?UklVZkdlbk9yTlcwUUFDaDRJeWVJb2JMeVdNVnR1T1ROMU45VXg1OUxoYkZo?=
+ =?utf-8?B?Q3RUazNhazJRd1BjM3poQ2xsa3Bsb0tFcVY3cm1MWU5aZ0p3K1R0YmxCM0Nh?=
+ =?utf-8?B?WGR6TXhIVWt4Ty9MdGZLcGcyUTZQMHVCYllpeFA4MVhmelpieTJOamIrbFNw?=
+ =?utf-8?B?NzFzSHRmLzBKOStGK3JoS1pGSTg2dFZMTFBXelFCWnM1QVlRZ3IxaDROTS9E?=
+ =?utf-8?B?dkUzeWhpZTNjWVR2R0FkOVRJWEdFcW1XYUlhcjA4elhRRXptb1pzZ09TOEJE?=
+ =?utf-8?B?Wkpqa0dPdC9mSjJ5cWFiNzV0V2FOSExpeGNBYUtBMWJHQmN5NUdoOCtzakow?=
+ =?utf-8?B?eW9vZnNSUDRub25ka0t6Q2NGeFBKZDQzazFmbUN2L2Yzb3YyZW5hSUxFTFdl?=
+ =?utf-8?B?NlVHMjhnZzAzczg5UWZvK0Q3UGh0SFVOemV4T3ZGMU80NFJmTTA0c0FSWXhp?=
+ =?utf-8?B?MXU4NEhPNGNIYUpiVTk0OXhZZzYrZWthQVdvMzNLZHNhNnJxaVZleC9pTnpP?=
+ =?utf-8?B?WXR1dUhsbVZLcENhQTlvaTdWTWxqZ3M5UW5xVWFSMjFTRGpLTWp6RUprelpR?=
+ =?utf-8?B?aWtnbWNHckxrWWJIdEVQNEgxZVFnLytFRkN2dXhWRVI3dUhEV0Q1cDNBTmMx?=
+ =?utf-8?B?YzJBUHd5dFZITHovZ2I2Y2J6UFM3NXY0bjlwc3RQSkRpa0RkRlZ6aFV2MTZi?=
+ =?utf-8?B?WU1TODlzWFJoWnFnUzhYcVE5OERTZ1VsZFYvKzduMGp4MFlQUW1DSTFNUm1Q?=
+ =?utf-8?B?aTZyMG5TMmhpMmgySVhqUDF3Y2c3LzhXdFhXVGJ0M0RMTE9kVnBSYVEvM0ZB?=
+ =?utf-8?Q?bHv01aZbkPUTAVCuEf?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a45cc3a2-4663-4127-ef75-08def84eb886
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 08:50:12.1761 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ao6Ku6FS/Qx3mPo2vZHwuNyQ9WCJzH78er2pdfAyFErOfOHjuautsmODrP7RF1Fe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6942
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,57 +140,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 12/08/2026 07:21, Esteban Urrutia wrote:
-> On 8/11/26 9:05 AM, David Heidelberg wrote:
->> Hi Esteban,
->>
->> Usually the used pattern is vendor,ddic+panel-model
->>
->> novatek,nt37703-motorola-bronco
->>
->> ...but motorola bronco isn't the model of the panel.
->>
->> My recommendation - look at some video of screen replacement, stop at moment
->> when FLEX cable from panel is visible and that's where the panel model usually is.
+First of all those patches doesn't have meaningful subject lines so I previously ignored them.
+
+The subject should be something like "drm/ttm: fix memory leaks in ttm_pool".
+
+On 8/11/26 21:42, Óscar Megía López wrote:
+> I discovered an OOM after run the script below
+> (I updated it and added a sleep to allow enough time for the cache to
+> recover):
 > 
+> while [ 1 -eq 1 ]; do\
+>     i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
+>     if (($i%1000==0)); then\
+>         echo i=$i; free;\
+>         grep nr_free_pages /proc/vmstat;\
+>         grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
+>         sync; echo 3 > /proc/sys/vm/drop_caches;\
+>         echo 1 > /proc/sys/vm/compact_memory;\
+>         sleep 10s;\
+>         free;\
+>         grep nr_free_pages /proc/vmstat;\
+>         grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
+>         uptime;\
+>     fi;\
+>     echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
+> done
 > 
-> I somewhat doubt the panel model would be located in the FPC cable.
-> I did search anyway but didn't find anything of interest. And I'm not
-> willing to risk damaging the display flex or the battery of my
-> development device just for a possibility either.
-
-No-one asks you to disassemble the device :)
-Sadly, I haven't found any video doing display replacement either.
-In worst case such as this I assume it make sense keep the phone model in the 
-compatible until panel codename is found.
-
-> For the compatible pattern I used the implemented pattern for the
-> NT36523 TDDI, which is also used for other ICs such as the RM69380.
+> The OOM isn't just a simple leak; it's a refcount corruption which renders
+> the list_lru fix dead code after the first mid-init failure.
 > 
-> So, I believe it should be okay to leave the compatible as is.
-
-I would like to hear a word from Neil first. In similar cases like this would 
-make sense to have one way defining these compatible strings used in phones.
-
-
-bit I missed in the review the part:
-
-+            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
-
-Unless the driver is able to auto-detect the connected panel (unlikely), 
-novatek,nt37703 doesn't make sense. The DDIC without the panel is useless.
-
-For example, in sdm845-oneplus-fajita and enchilada, we have the generic 
-compatible because it was introduced before, so it's kept for compatibility 
-reasons. There is no need to do that here.
-
-Thanks
-David
-
+> Fixed check if shrinker_list is empty holding shrinker_lock.
+> Fixed check return value from ttm_pool_type_init and run
+> ttm_pool_type_fini and list_lru_destroy for every pt initialized.
+> Fixed change return value from ttm_pool_init to int.
 > 
->> David Heidelberg
+> This patch depends on patch ("[PATCH v3] drm/qxl: fix use-after-free in
+> qxl_irq_handler on PCI"), link [1] below.
 > 
+> Assisted-by: OpenCode:1.17.18-Big Pickle/DeepSeek V4 Flash
+> Assisted-by: claude.ai:Sonnet 5
+> Link: https://lore.kernel.org/lkml/
+> 20260727110212.64913-1-megia.oscar@gmail.com/ [1]
+> Link: https://lore.kernel.org/dri-devel/
+> 20260731053047.24503-1-megia.oscar@gmail.com/ [2]
+> Cc: <stable@vger.kernel.org> # 7.1.0
+> Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
+> Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+> ---
+> Changes in v2:
+>  - Bug 1: ttm_global_init ignores ttm_pool_mgr_init() return.
+>    If shrinker_alloc() fails under memory pressure, ttm_pool_mgr_init
+>    returns -ENOMEM with pool types already initialized (64 list_lru_init
+>    calls done). ttm_global_init ignored this and returned 0, leaving orphaned
+>    pool types with a NULL mm_shrinker.
 > 
-> Regards,
-> Esteban
+>    Fix: Check ret from ttm_pool_mgr_init; if non-zero, goto out cleans up
+>    refcount + debugfs.
 > 
+>  - Bug 2: ttm_pool_mgr_init leaks pool types on shrinker_alloc failure
+>    If shrinker_alloc fails after all 64 pool types were list_lru_init'd,
+>    the function returned -ENOMEM without undoing them. With Bug 1 now
+>    triggering proper error handling, this undo is necessary.
+> 
+>    Fix: err_shrinker: label that finalizes + destroys all 64 pool types
+>    before returning.
+> 
+> Changes in v3:
+>  - Fix: "Unchecked list_lru_init() return value in ttm_pool_type_init()
+>    causes a deterministic NULL pointer dereference in the newly added
+>    error path."
+>    Now check list_lru_init return value in ttm_pool_type_init() and
+>    returns error if any.
+> 
+>  - Solved pre-existing issues reported by kernel test robot:
+>    - [High] `ttm_pool_type_init()` ignores the return value of
+>      `list_lru_init()`, leading to a NULL pointer dereference
+>      if allocation fails.
+> 
+>      Fix: get return value from list_lru_init and return error if any.
+> 
+>    - [High] `ttm_pool_shrink()` assumes `shrinker_list` is never empty,
+>      causing memory corruption and crashes during module unload
+>      if triggered.
+> 
+>      Fix: Check if shrinker_list is empty and return 0 if it is empty.
+> 
+> Changes in v4:
+>  - removed check return value in ttm_pool_mgr_init, now in new patch
+>  ("[PATCH] ttm: Add error handling for ttm_pool_mgr_init()")
+>  link [2] above.
+>  - Fixed check empty shrinker_list.
+>  - Check return value from ttm_pool_type_init.
+>  - Move up shrinker_alloc.
+>  - Deleted dput(backup_fault_inject.dname);
+>  - Fixed issue [High] The patch introduces a use-after-free race condition
+>    between `ttm_pool_type_fini()` and the active memory shrinker
+>    `ttm_pool_shrink()` by calling `list_lru_destroy()` prematurely as
+>    reported by kernel test robot.
+> 
+>    Fix: separate ttm_pool_type_fini and list_lru_destroy. Then, add
+>    ttm_pool_synchronize_shrinkers between them.
+> ---
+>  drivers/gpu/drm/ttm/ttm_pool.c | 62 ++++++++++++++++++++++++----------
+>  include/drm/ttm/ttm_pool.h     |  2 +-
+>  2 files changed, 46 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 278bbe7a11ad..88c0d33eed1a 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -437,13 +437,21 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
+>  	LIST_HEAD(dispose);
+>  	struct ttm_pool_type *pt;
+>  	unsigned int num_pages;
+> +	int empty = 0;
+
+That should probably be a bool.
+
+>  
+>  	down_read(&pool_shrink_rwsem);
+>  	spin_lock(&shrinker_lock);
+> -	pt = list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
+> -	list_move_tail(&pt->shrinker_list, &shrinker_list);
+> +	if ((shrinker_list.prev == &shrinker_list) && (shrinker_list.next == &shrinker_list)) {
+
+Clear NAK to such list hacks. Usually list_first_entry_or_null() is used for that.
+
+> +		empty = 1;
+> +	} else {
+> +		pt = list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
+> +		list_move_tail(&pt->shrinker_list, &shrinker_list);
+> +	}
+>  	spin_unlock(&shrinker_lock);
+>  
+> +	if (empty)
+> +		return 0;
+> +
+>  	num_pages = list_lru_walk_node(&pt->pages, nid, pool_move_to_dispose_list, &dispose, &num_to_free);
+>  	num_pages *= 1 << pt->order;
+>  
+> @@ -1122,6 +1130,18 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+>  	return shrunken ? shrunken : ret;
+>  }
+>  
+> +/**
+> + * ttm_pool_synchronize_shrinkers - Wait for all running shrinkers to complete.
+> + *
+> + * This is useful to guarantee that all shrinker invocations have seen an
+> + * update, before freeing memory, similar to rcu.
+> + */
+> +static void ttm_pool_synchronize_shrinkers(void)
+> +{
+> +	down_write(&pool_shrink_rwsem);
+> +	up_write(&pool_shrink_rwsem);
+> +}
+> +
+>  /**
+>   * ttm_pool_init - Initialize a pool
+>   *
+> @@ -1132,10 +1152,13 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+>   *
+>   * Initialize the pool and its pool types.
+>   */
+> -void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+> +int ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+>  		   int nid, unsigned int alloc_flags)
+>  {
+> -	unsigned int i, j;
+> +	unsigned int i, j, k;
+> +	int ret;
+> +	struct ttm_pool_type *initialized[TTM_NUM_CACHING_TYPES * NR_PAGE_ORDERS];
+> +	unsigned int n_initialized = 0;
+>  
+>  	WARN_ON(!dev && ttm_pool_uses_dma_alloc(pool));
+>  
+> @@ -1152,23 +1175,28 @@ void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+>  			if (pt != &pool->caching[i].orders[j])
+>  				continue;
+>  
+> -			ttm_pool_type_init(pt, pool, i, j);
+> +			ret = ttm_pool_type_init(pt, pool, i, j);
+> +			if (ret)
+> +				goto error;
+> +
+> +			initialized[n_initialized++] = pt;
+
+That is just a horrible mess.
+
+First of all the change to ttm_pool_type_init() must come first in the patch set or otherwise that stuff here won't even compile.
+
+Then don't use a local array, that is *way* to big for the kernel stack.
+
+That patch set here is not even remotely sufficient for inclusion in the upstream kernel.
+
+Regards,
+Christian.
+
+>  		}
+>  	}
+> -}
+> -EXPORT_SYMBOL(ttm_pool_init);
+>  
+> -/**
+> - * ttm_pool_synchronize_shrinkers - Wait for all running shrinkers to complete.
+> - *
+> - * This is useful to guarantee that all shrinker invocations have seen an
+> - * update, before freeing memory, similar to rcu.
+> - */
+> -static void ttm_pool_synchronize_shrinkers(void)
+> -{
+> -	down_write(&pool_shrink_rwsem);
+> -	up_write(&pool_shrink_rwsem);
+> +	return 0;
+> +
+> +error:
+> +	for (k = 0; k < n_initialized; ++k)
+> +		ttm_pool_type_fini(initialized[k]);
+> +
+> +	ttm_pool_synchronize_shrinkers();
+> +
+> +	for (k = 0; k < n_initialized; ++k)
+> +		list_lru_destroy(&initialized[k]->pages);
+> +
+> +	return ret;
+>  }
+> +EXPORT_SYMBOL(ttm_pool_init);
+>  
+>  /**
+>   * ttm_pool_fini - Cleanup a pool
+> diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+> index 26ee592e1994..66248323c2c1 100644
+> --- a/include/drm/ttm/ttm_pool.h
+> +++ b/include/drm/ttm/ttm_pool.h
+> @@ -81,7 +81,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+>  		   struct ttm_operation_ctx *ctx);
+>  void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
+>  
+> -void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+> +int ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+>  		   int nid, unsigned int alloc_flags);
+>  void ttm_pool_fini(struct ttm_pool *pool);
+>  
+
