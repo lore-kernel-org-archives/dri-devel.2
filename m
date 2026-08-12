@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38CC7C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:49:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4395BC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 13:49:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8953010EFF9;
-	Wed, 12 Aug 2026 13:49:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A131E10EFFE;
+	Wed, 12 Aug 2026 13:49:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="fk8+jj7a";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GD1ikoVy";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C302310EFFE
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:49:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1330210EFFE
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 13:49:35 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 9055C4E411D8;
- Wed, 12 Aug 2026 13:49:30 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id D68254E411D7;
+ Wed, 12 Aug 2026 13:49:33 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 65F666045E;
- Wed, 12 Aug 2026 13:49:30 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id AC2556045E;
+ Wed, 12 Aug 2026 13:49:33 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6D7E511C4CF24; 
- Wed, 12 Aug 2026 15:49:26 +0200 (CEST)
+ with ESMTPSA id 1DC9B11C4CF26; 
+ Wed, 12 Aug 2026 15:49:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786542569; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1786542572; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=zJhI4phyjFQdoNCfEpPtI61cH9ZOGTmvld+CEPO3q9E=;
- b=fk8+jj7axRylil4ZNT7dZONhDjsFFdTEZIvqx3LNa6gFX/U5W35TYf7+IqUfiZ57rQKIZX
- o13hzIbRbm6OQkx48TKW7o+lDyXnOwK/CAkZ6w9HBzaA0b3xO5ycQ60PH76Gc3ntFLy+MG
- C3JvCyk5fn2UqYPAPjM0pHJ1zzaM1RKdSU5ZTT1lBStBF00l8FfNpMHDqhNz+UxncGeFFi
- YodtRs/bYtDV/fhr4o3hTNGK7cKRq/7Q3Esh8O3x6C8xXjtPyAv+FRgcPiMAvLuxbIy+9/
- 7u5Efej6EF++O6ird6z8MIE4qkSWyElSV2q3FJ2ILPcXXUVwRFUjCjpstFGbJQ==
+ bh=13uxCshRvBeCtGTD2cJ0HXO2IVu+PXjLc3uc3PdFdEg=;
+ b=GD1ikoVyD4W3iBui5euesL550fnwHjoFyMpbRvOcICsQw79Z07q0LcbASpIKz5JyL4D+sZ
+ uT30i2SQyESyg4hWiLX373n5ec5BxmOhZzwzlgB1srXXJDF7oakzjQtALzS0mljrKpNmLw
+ NLyRMoyqQix8u0U6xY1Z1qzFshyeJlRC5w0zbYPC0LHsi8Nm/G1VTe/6414LN3lQZ+yhzA
+ QMbaFUBJgB3QmakiMn9aaw1xP7TWvXxfRHEzzv+8BPN+9NQeCbVOAAlncHSsO56oaM6oYe
+ yiixELP6KWV/invka94+GJMHWJbRquKwPkimWt6tuqqR5t8kvnyeEoS1jfZ77w==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 12 Aug 2026 15:42:51 +0200
-Subject: [PATCH 11/12] drm/bridge: tc358768: select DRM_PANEL_BRIDGE
+Date: Wed, 12 Aug 2026 15:42:52 +0200
+Subject: [PATCH 12/12] drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-drm-bridge-drm_panel-cleanup-v1-11-0d86734e908a@bootlin.com>
+Message-Id: <20260812-drm-bridge-drm_panel-cleanup-v1-12-0d86734e908a@bootlin.com>
 References: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
 In-Reply-To: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -81,18 +81,18 @@ Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 8eaaa3282062..afcc5cce88cb 100644
+index afcc5cce88cb..02c41ec2587f 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -408,7 +408,7 @@ config DRM_TOSHIBA_TC358768
- 	depends on OF
+@@ -350,7 +350,7 @@ config DRM_SOLOMON_SSD2825
+ 	depends on SPI_MASTER && OF
+ 	select DRM_MIPI_DSI
  	select DRM_KMS_HELPER
- 	select REGMAP_I2C
 -	select DRM_PANEL
 +	select DRM_PANEL_BRIDGE
- 	select DRM_MIPI_DSI
- 	select VIDEOMODE_HELPERS
  	help
+ 	  Say Y here if you want support for the Solomon SSD2825 RGB/DSI
+ 	  SPI bridge driver.
 
 -- 
 2.55.0
