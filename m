@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65130C5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C9BC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9757710EE9D;
-	Wed, 12 Aug 2026 07:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8498810EE9E;
+	Wed, 12 Aug 2026 07:39:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="enu3bHZz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HL80GheG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C12810EE9D
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:38:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D1BE10EE9E
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:39:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 42F36416D6;
- Wed, 12 Aug 2026 07:38:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3DE81F000E9;
- Wed, 12 Aug 2026 07:38:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 913AF60A7E;
+ Wed, 12 Aug 2026 07:39:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5771F000E9;
+ Wed, 12 Aug 2026 07:39:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786520327;
- bh=R57jKtSyofeSNd/7tg5u23RfYtRnv8BqBRwU2OvyfHk=;
+ s=k20260515; t=1786520393;
+ bh=5RsGI1VR34r6morus9taD5f+nwBUBZDNdGT5/wPRL+8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=enu3bHZzT88bYenFvHkufR7VYBcXOX19i+EzhqzhJ79KQcF2ARccpZya7scR/UZW1
- /LZLI3Hc7w99mEJT6SrMZeKIpzL37vYSnVJpaOl91lCGYe3ZR2pmJgRN/iEtQF1G8+
- KI6W1zsot8RsT1r3PflAmSumdqm4fgvXeHJCarh7sIHP2dh1wfsIVudC9UTTMNiHhP
- 46tFbEMyZxQTae00ObMEegaB7J5xGtRk/cKjm4kOzUiZZN28FHvNZMUB6Fm+yBM3IU
- qrW/KIW41G2A3UhaOdtlXmtXrCsYvsbxashjurA23YhZMCxhyAQZNVqcqg7ayEyG6P
- 4BuBgiL+cVYIw==
+ b=HL80GheGuUaJKN7hpV62ZNDB2McyF0bic1+WWnTiwAW0L0wB1sABjqCtaq+exvADu
+ hF5X2LXMaJuXvJwNBardUIP4ShVyyUFCIJUlgmA3j2beG31D43uUA5wO65ees+IThn
+ B/oGUfDFrivnbGMcyRRhGjjuNuqyF9xwReepeemHHS5pRKBWERctplHODAIP+KmEnp
+ oKr2v4Xug7d66YGjhlfJHMfiGEduWhD8TDA3iBpXXhTuzt19+Q8Z9KFcwf3v9pRIJX
+ /yX2Bili2/fICm7K3U5LciqpCA8EyeCBwweD0N7C0Tr+ecI+af8Uar1SphjqIJixF7
+ 0XWL/4UiqeABg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/2] rust: Add dma_fence abstractions
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: media-ci@linuxtv.org, ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260812072217.1971807-3-phasta@kernel.org>
-References: <20260812072217.1971807-2-phasta@kernel.org>
- <20260812072217.1971807-3-phasta@kernel.org>
+Subject: Re: [PATCH v4 1/3] drm/rockchip: dsi: Add maximum per lane bit rate
+ calculation
+To: "Chaoyi Chen" <kernel@airkyi.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260812073002.328-2-kernel@airkyi.com>
+References: <20260812073002.328-1-kernel@airkyi.com>
+ <20260812073002.328-2-kernel@airkyi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 07:38:46 +0000
-Message-Id: <20260812073846.E3DE81F000E9@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 07:39:52 +0000
+Message-Id: <20260812073953.1E5771F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,198 +58,63 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] Use-After-Free of FenceContext when a Fence outlives its Drive=
-rFence or when `!needs_drop` bypasses RCU synchronization.
-- [High] FenceContext will reliably trigger a kernel panic on drop if a Dri=
-verFence is signaled by external C code.
-- [High] Fence::is_signaled() unconditionally acquires the fence spinlock, =
-leading to spinlock recursion deadlocks if called from a callback.
+- [Medium] Strict inequality check for maximum lane bit rate incorrectly re=
+jects exact boundary values, causing valid display modes to fail.
 --
 
---- Patch [1]: [PATCH v10 1/2] rust: Add dma_fence abstractions ---
-commit 4a2030e75f6de53abe7df28e7314d4e3c4ae44a8
-Author: Philipp Stanner <phasta@kernel.org>
+--- Patch [1]: [PATCH v4 1/3] drm/rockchip: dsi: Add maximum per lane bit r=
+ate calculation ---
+commit c849fa328462e27e823555ae008f52416cbc0bb9
+Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-rust: Add dma_fence abstractions
+drm/rockchip: dsi: Add maximum per lane bit rate calculation
 
-C's dma_fence's are synchronisation primitives that will be needed by all
-Rust GPU drivers.
+This commit introduces chip-specific maximum lane bit rate boundaries for t=
+he
+Rockchip DW MIPI DSI driver. This allows varying maximums per platform rath=
+er
+than using a hardcoded 1500 Mbps default.
 
-> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
-ence.rs
-> new file mode 100644
-> --- /dev/null
-> +++ b/rust/kernel/dma_buf/dma_fence.rs
-[ ... ]
-> +    extern "C" fn get_driver_name(ptr: *mut bindings::dma_fence) -> *con=
-st c_char {
-> +        // SAFETY: The C backend only invokes this callback with `ptr` p=
-ointing
-> +        // to a valid, unsignaled `bindings::dma_fence`. All fences crea=
-ted in
-> +        // this module always reside within `Fence` which always resides=
- in a
-> +        // `DriverFenceData`, thus satisfying the function's safety
-> +        // requirements.
-> +        let fctx =3D unsafe { Self::from_raw_fence(ptr) };
-> +
-> +        fctx.driver_name.as_char_ptr()
-> +    }
-
-[Severity: Critical]
-Is it possible for the FenceContext to be accessed after it is freed here?
-
-The C dma_fence API allows callbacks like get_driver_name() to be invoked
-at any time as long as the fence is alive (refcount > 0), even on signaled
-fences. Because the Rust abstraction explicitly allows a Fence to outlive
-its FenceContext, fctx can become a dangling pointer.
-
-A userspace application calling SYNC_IOC_FILE_INFO or accessing debugfs
-could trigger this after the driver has unloaded and the FenceContext is
-dropped.
+> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gp=
+u/drm/rockchip/dw-mipi-dsi-rockchip.c
+> index 268d4993a04fd..fd91343d0f6d5 100644
+> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
 
 [ ... ]
-> +    pub fn is_signaled(&self) -> bool {
-> +        // We should not use `dma_fence_is_signaled_locked()` here, beca=
-use
-> +        // according to the C backend's recommendations, that function is
-> +        // problematic and we should avoid calling that function with a =
-lock
-> +        // held.
-> +
-> +        // SAFETY: Inner `fence` is valid because `self` is valid.
-> +        let ret =3D unsafe { bindings::dma_fence_is_signaled(self.as_raw=
-()) };
-> +
-> +        // To be as robust as possible for the future we guarantee that =
-an API
-> +        // caller can 100% rely on the signalling being completed (i.e.,=
- all
-> +        // fence callbacks ran), so we have to take the lock.
-> +        //
-> +        // The reason is that the C dma_fence backend currently does not
-> +        // carefully synchronize the `dma_fence_is_signaled()` function =
-with the
-> +        // proper spinlock. This can lead to the function returning `tru=
-e` while
-> +        // fence callbacks are still being executed. This can be mitigat=
-ed by
-> +        // guarding the entire function with the spinlock.
-> +        //
-> +        // The fundamental reason is that the C backend currently does g=
-uard
-> +        // setting of the fence's signaled-bit with the fence's spinlock=
-, but
-> +        // reading is done locklessly.
-> +        //
-> +        // See commit c8a5d5ea3ba6a.
-> +        let _ =3D self.lock();
-> +
-> +        ret
-> +    }
 
-[Severity: High]
-Can this spinlock acquisition cause a recursion deadlock?
+> @@ -572,6 +573,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const stru=
+ct drm_display_mode *mode,
+>  	unsigned long _fbdiv, best_fbdiv;
+>  	unsigned long min_delta =3D ULONG_MAX;
+> =20
+> +	max_mbps =3D dsi->cdata->max_bit_rate_per_lane / USEC_PER_SEC;
 
-The C dma_fence_is_signaled() function is explicitly lockless. By acquiring
-the fence spinlock here, this wrapper introduces a blocking operation into
-what is supposed to be a lockless API.
+[Severity: Medium]
+Will this cause display modes that exactly match the new lower max_mbps
+to fail?
 
-If a user registers a FenceCallback that invokes is_signaled() on the same
-fence from within on_signal(), it will attempt to acquire the lock. Since
-dma_fence_signal executes these callbacks with the spinlock already held,
-this will result in an immediate deadlock.
+In dw_mipi_dsi_get_lane_mbps(), there is a strict inequality check shortly
+after this assignment:
 
-[ ... ]
-> +impl<'a, T: Send + Sync + FenceContextOps> Drop for DriverFence<'a, T> {
-> +    fn drop(&mut self) {
-> +        let guard =3D self.as_fence().lock();
-> +
-> +        // Use dma_fence_test_signaled_flag() instead of
-> +        // dma_fence_is_signaled_locked() because the C backend wants to=
- get rid
-> +        // of the latter.
-> +
-> +        // SAFETY: `guard` is valid until the `call_rcu()` below.
-> +        let signaled: bool =3D unsafe { bindings::dma_fence_test_signale=
-d_flag(guard.as_raw()) };
-> +        if !signaled {
-> +            pr_err!("DriverFence drops unsignaled. Danger of memory corr=
-uption!\n");
-> +            // SAFETY: `guard` is valid until the `call_rcu()` below. Th=
-e fence
-> +            // must not have been signaled yet, which we check directly =
-above.
-> +            unsafe { bindings::dma_fence_set_error(guard.as_raw(), ECANC=
-ELED.to_errno()) };
-> +            // SAFETY: `guard` is valid until the `call_rcu()` below. Th=
-e lock
-> +            // must be held, which we acquired above.
-> +            unsafe { bindings::dma_fence_signal_locked(guard.as_raw()) };
-> +
-> +            // SAFETY: `self.data` is valid because `self` is valid.
-> +            let fctx =3D unsafe { self.data.as_ref().fctx };
-> +            let _ =3D fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
-> +        }
-> +        drop(guard);
+        /* take 1 / 0.9, since mbps must big than bandwidth of RGB */
+        tmp =3D DIV_ROUND_UP(mpclk * bpp * 10, lanes * 9);
+        if (tmp < max_mbps)
+                target_mbps =3D tmp;
+        else
+                DRM_DEV_ERROR(dsi->dev, "DPHY clock frequency is out of ran=
+ge\n");
 
-[Severity: High]
-Will this skip the counter decrement if the fence is signaled by external
-C code?
+Because this patch lowers the boundary to 1000 Mbps or 1200 Mbps for several
+chips, display modes that yield a bandwidth exactly matching the chip's
+maximum will now be rejected.
 
-If a C subsystem (like the DRM scheduler or a software signaling debugfs
-hook) signals the DriverFence, the signaled variable will be true. If the
-driver subsequently drops the DriverFence without calling signal(), this
-block is skipped and the fetch_sub(1) decrement is permanently lost.
-
-When the FenceContext is later dropped, it will unconditionally panic
-because the counter is imbalanced:
-
-rust/kernel/dma_buf/dma_fence.rs:FenceContext::drop() {
-    ...
-    if self.nr_of_unsignaled_fences.load(Relaxed) !=3D 0 {
-        panic!("Forgotten fences in FenceContext.");
-    }
-    ...
-}
-
-> +
-> +        // `DriverFenceData` but could be accessed through some dma_fence
-> +        // callbacks right now. Access is being revoked in principle abo=
-ve by
-> +        // signalling the fence, but since the C backend does not guaran=
-tee
-> +        // perfect full synchronization, we have to wait for one grace p=
-eriod to
-> +        // ensure that all accessors of `DriverFenceData` (through the
-> +        // dma_fence_ops accessible through a `Fence`) are gone.
-> +
-> +        if !core::mem::needs_drop::<T::FenceDataType>() {
-> +            // SAFETY: Once a `DriverFence` is initialized, the inner `f=
-ence` is
-> +            // valid and initialized. It is valid until the refcount dro=
-ps
-> +            // to 0, which can earliest happen once we drop the `DriverF=
-ence`'s reference
-> +            // here.
-> +            unsafe { bindings::dma_fence_put(self.as_raw()) };
-> +            return;
-> +        }
-
-[Severity: Critical]
-Does this optimization bypass the RCU synchronization required for safe
-teardown?
-
-If this block returns early, no RCU callback is queued. Consequently, when
-the FenceContext drops, its rcu_barrier() call will not wait for a grace
-period because there are no callbacks pending.
-
-This allows the FenceContext to be freed immediately while concurrent C
-readers holding RCU read locks might still be executing, leading to a
-use-after-free.
+For example, a mode needing exactly 1000 Mbps would have previously passed
+because 1000 < 1500, but will now fail since 1000 is not < 1000. Should the
+check be updated to allow exact boundary values by using <=3D max_mbps?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812072217.1971=
-807-2-phasta@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812073002.328-=
+1-kernel@airkyi.com?part=3D1
