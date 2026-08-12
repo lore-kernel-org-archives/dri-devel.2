@@ -4,47 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10228C5AD5A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 10:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78EB2C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 10:06:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 072D610EEC6;
-	Wed, 12 Aug 2026 10:05:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A03BE10E32D;
+	Wed, 12 Aug 2026 10:06:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oHf4ayjo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iaeWKoMU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4259810EEC6
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 10:05:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with UTF8SMTP id D144D41509;
- Wed, 12 Aug 2026 10:05:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4178B1F000E9;
- Wed, 12 Aug 2026 10:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786529119;
- bh=WKIJnMIpPwtsBlJ0wkO1LtnFiGIt1kXUxaJvMOp5dxc=;
- h=From:To:Cc:Subject:Date;
- b=oHf4ayjopmn9tZeNOshlrwMjCoVxZPt0eMG3Ay1vf5KUjP5uvqz7KTneJ/45h/2Yd
- U28BvPlFEe2lL9/+6Tu/BMrrBS75ISuxVgvCYerv5pKzRrHPuyIKM9sd0WzhErM4X7
- 8PxwMBJUIfAyjFqo75GE77A1qlTYR0gP2VNTt2IDM9rPsUf5teB3YV+4QHwxr/qY/s
- tBLg1ne1VwdZNb0DPpyft9T2ao+BrdLKmqDbIUlQmX2YuFwCzNf9ciK9AXaNeR8XXM
- BD0umQGpjKXg5dqo9/ZvnewV0A+j2IWUP3yPncfQcZvSz5QNJxg21NCM0EzsE/jsrx
- AL+kFXYlgO6YQ==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com,
- Krystian Kaniewski <krystianmkaniewski@gmail.com>,
- "David Airlie" <airlied@gmail.com>, <dri-devel@lists.freedesktop.org>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] drm/client: Avoid warning on vblank timeout during modeset
- client waits
-Message-ID: <ad8b0286-7779-4682-9516-da4280f1d846@mail.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6BA410E32D
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 10:06:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1786529182;
+ bh=oMgFoWAsb+8z/0tKY7s6yelxT2CJ7s5lRRX80idCuIo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=iaeWKoMUPxyWbBZ4HJL2bSjX8Q1z4W5WdGs3HTfmDETb0288RK3lc2svg5KePQpD7
+ pDNLTe60bqwuHtwBZcqUo9kKWU0c5euUcgCLAwc5P7QfetJKDcVA+lUFNDiH1o11+t
+ dkFTvzX5Cm8kn6+6hnlfh33WUtIZm4QSOaNUkmaU8ZxKZNQd4uS+Iugxd0IkeZr93O
+ 7v46ObMJfuzKwito9r2IYWt4Mi0ApzWwv2WjbjnvmK8BNB3Sn1Zryk0+9UpShaB5yu
+ 97ayQdud1i7Nrfz4MF8NloRrmU29MN6I3nN0yVhtf1otDB6rN3RGrPmu2yEVumcRbA
+ 4HDTmzTUTCE5A==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 74DB117E071A;
+ Wed, 12 Aug 2026 12:06:21 +0200 (CEST)
+Date: Wed, 12 Aug 2026 12:06:17 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 10/11] drm/panfrost: Fix races between perfcnt and
+ reset sequence
+Message-ID: <20260812120617.394f246e@fedora-21.home>
+In-Reply-To: <20260811-claude-fixes-v5-10-3d692c9e98c2@collabora.com>
+References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
+ <20260811-claude-fixes-v5-10-3d692c9e98c2@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Wed, 12 Aug 2026 10:05:19 +0000 (UTC)
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,143 +73,441 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+On Tue, 11 Aug 2026 22:42:19 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-On PREEMPT_RT kernels, a user-space task with elevated Real-Time (RT)
-priority can starve essential kernel threads. For example, the VKMS driver
-simulates vblank interrupts using hrtimers. On PREEMPT_RT, these timers run
-in the per-CPU timer threads at a low RT priority. If a user-space task
-elevates its priority above the timer thread and monopolizes the CPU, the
-timer thread is starved and the VKMS software vblank delivery is delayed
-beyond the timeout.
+> Formerly, the reset sequence would race with panfrost_mmu_as_put()
+> when tearing down a perfcnt session. On top of that, poking GPU
+> registers to program a perfcnt session or obtaining a dump might lead to
+> undefined behaviour when done at the same time a reset was ongoing.
+>=20
+> Use the reset r/w semaphore to govern access to the hardware at reset
+> time. On top of that, expand the DRM uAPI for the perfcnt DUMP operation
+> so that userspace can be made aware of a reset having happened, because
+> that means counters will go back to 0 and can no longer be accumulated
+> to values previously kept in user space.
+>=20
+> The new perfcnt-aware reset sequence also takes care to reestablish
+> perfcnt to its original configuration if there was an enabled session.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c  |   9 +-
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 220 ++++++++++++++++++++--=
+------
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.h |   2 +
+>  include/uapi/drm/panfrost_drm.h             |   3 +-
+>  4 files changed, 171 insertions(+), 63 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index e0390b6c0d22..c81d8ca67ae4 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -602,14 +602,21 @@ bool panfrost_exception_needs_reset(const struct pa=
+nfrost_device *pfdev,
+> =20
+>  void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_jo=
+b_int)
+>  {
+> -	guard(rwsem_read)(&pfdev->reset.lock);
+> +	guard(rwsem_write)(&pfdev->reset.lock);
+> =20
+> +	/* Pre-reset */
+> +	panfrost_perfcnt_reset(pfdev);
+> +
+> +	/* Do the actual device reset */
+>  	panfrost_gpu_soft_reset(pfdev);
+>  	panfrost_gpu_power_on(pfdev);
+> +
+> +	/* Post-reset */
+>  	panfrost_mmu_reset(pfdev);
+>  	panfrost_jm_reset_interrupts(pfdev);
+>  	if (enable_job_int)
+>  		panfrost_jm_enable_interrupts(pfdev);
+> +	panfrost_perfcnt_postreset(pfdev);
+>  }
+> =20
+>  #ifdef CONFIG_DEBUG_FS
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index ad1156678e91..01d477f7fce0 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> @@ -11,6 +11,7 @@
+>  #include <drm/drm_file.h>
+>  #include <drm/drm_gem_shmem_helper.h>
+>  #include <drm/panfrost_drm.h>
+> +#include <drm/drm_print.h>
+> =20
+>  #include "panfrost_device.h"
+>  #include "panfrost_features.h"
+> @@ -25,14 +26,18 @@
+>  #define BYTES_PER_COUNTER		4
+>  #define BLOCKS_PER_COREGROUP		8
+>  #define V4_SHADERS_PER_COREGROUP	4
+> +#define PERFCNT_DUMP_MAX_RETRIES	5
+> =20
+>  struct panfrost_perfcnt {
+>  	struct panfrost_gem_mapping *mapping;
+> +	unsigned int counterset;
+>  	size_t bosize;
+>  	void *buf;
+>  	struct panfrost_file_priv *user;
+>  	struct mutex lock;
+>  	struct completion dump_comp;
+> +	bool reset_happened;
+> +	bool reset_failed;
+>  };
+> =20
+>  static void panfrost_perfcnt_gpu_disable(struct panfrost_device *pfdev)
+> @@ -55,25 +60,93 @@ void panfrost_perfcnt_sample_done(struct panfrost_dev=
+ice *pfdev)
+>  	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
+>  }
+> =20
+> -static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+> +static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
+>  {
+> -	u64 gpuva;
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +	u32 cfg, as;
+> +	int ret;
+> +
+> +	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	as =3D ret;
+> +	cfg =3D GPU_PERFCNT_CFG_AS(as) |
+> +	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
+> +
+> +	/*
+> +	 * Bifrost GPUs have 2 set of counters, but we're only interested by
+> +	 * the first one for now.
+> +	 */
+> +	if (panfrost_model_is_bifrost(pfdev))
+> +		cfg |=3D GPU_PERFCNT_CFG_SETSEL(perfcnt->counterset);
+> +
+> +	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
+> +	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
+> +	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
+> +
+> +	/*
+> +	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
+> +	 * counters.
+> +	 */
+> +	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +	else
+> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +
+> +	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
+> +
+> +	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +
+> +	return 0;
+> +}
+> +
+> +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev,
+> +					u64 *reset_happened)
+> +{
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +	u64 gpuva =3D perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> +	s64 retries =3D PERFCNT_DUMP_MAX_RETRIES;
+>  	int ret;
+> =20
+> -	reinit_completion(&pfdev->perfcnt->dump_comp);
+> -	gpuva =3D pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> -	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> -	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> -	gpu_write(pfdev, GPU_INT_CLEAR,
+> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> +dump_retry:
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		*reset_happened =3D perfcnt->reset_happened;
+> +		perfcnt->reset_happened =3D false;
+> +		if (perfcnt->reset_failed) {
+> +			ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +			if (ret)
+> +				return ret;
+> +			perfcnt->reset_failed =3D false;
+> +		}
+> +
+> +		reinit_completion(&pfdev->perfcnt->dump_comp);
+> +
+> +		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> +		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> +						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> +	}
+> +
+>  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
+_comp,
+>  							msecs_to_jiffies(1000));
+> -	if (!ret)
+> -		ret =3D -ETIMEDOUT;
+> -	else if (ret > 0)
+> -		ret =3D 0;
+> +
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		if (ret > 0) {
+> +			if (perfcnt->reset_happened) {
+> +				if (--retries >=3D 0)
+> +					goto dump_retry;
+> +				else
+> +					ret =3D -EBUSY;
+> +			} else {
+> +				ret =3D 0;
+> +			}
+> +		} else if (!ret) {
+> +			ret =3D -ETIMEDOUT;
+> +		}
+> +	}
+> =20
+>  	return ret;
+>  }
+> @@ -84,9 +157,8 @@ static int panfrost_perfcnt_enable_locked(struct panfr=
+ost_device *pfdev,
+>  {
+>  	struct panfrost_file_priv *user =3D file_priv->driver_priv;
+>  	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> -	struct iosys_map map;
+>  	struct drm_gem_shmem_object *bo;
+> -	u32 cfg, as;
+> +	struct iosys_map map;
+>  	int ret;
+> =20
+>  	if (user =3D=3D perfcnt->user)
+> @@ -119,7 +191,9 @@ static int panfrost_perfcnt_enable_locked(struct panf=
+rost_device *pfdev,
+>  	ret =3D drm_gem_vmap(&bo->base, &map);
+>  	if (ret)
+>  		goto err_put_mapping;
+> +
+>  	perfcnt->buf =3D map.vaddr;
+> +	perfcnt->counterset =3D counterset;
+> =20
+>  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+> =20
+> @@ -127,60 +201,47 @@ static int panfrost_perfcnt_enable_locked(struct pa=
+nfrost_device *pfdev,
+>  	 * Invalidate the cache and clear the counters to start from a fresh
+>  	 * state.
+>  	 */
+> -	reinit_completion(&pfdev->perfcnt->dump_comp);
+> -	gpu_write(pfdev, GPU_INT_CLEAR,
+> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		reinit_completion(&pfdev->perfcnt->dump_comp);
+> +		gpu_write(pfdev, GPU_INT_CLEAR,
+> +			  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> +			  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
 
-This leads to a timeout when a worker thread waits for the vblank event.
-For instance, a console update triggers a framebuffer update, scheduling
-drm_fb_helper_damage_work() on the system workqueue. The worker thread
-eventually calls drm_client_modeset_wait_for_vblank() to synchronize the
-screen update with the vblank interval. Due to the starved timer, the wait
-times out and triggers a warning in drm_crtc_wait_one_vblank().
+Can you remind me why we need a cache flush in the enable path? Feels
+to me that this is something we want after a dump but not when we
+enable the perfcnt block, especially since all dumps are currently
+manual. Dropping this pre-flush would actually simplify quite a few
+things.
 
-Since this vblank wait in the client modeset path is only used for optional
-client update throttling, a timeout is acceptable and does not indicate a
-kernel bug. Therefore, a warning should not be triggered in this case.
+> +		perfcnt->reset_happened =3D false;
+> +		perfcnt->user =3D user;
+> +	}
+> +
+> +	/*
+> +	 * If a reset happens during the wait for the IRQ notification that cac=
+hes
+> +	 * are clean and invalidated, then we know the reset sequence did the j=
+ob
+> +	 * for us, even if it takes long enough for the completion to time out.
+> +	 */
+>  	ret =3D wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
+>  					  msecs_to_jiffies(1000));
+> -	if (!ret) {
+> +	if (!ret && !perfcnt->reset_happened) {
+>  		ret =3D -ETIMEDOUT;
+>  		goto err_vunmap;
+>  	}
+> =20
+> -	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+> -	if (ret < 0)
+> -		goto err_vunmap;
+> -
+> -	as =3D ret;
+> -	cfg =3D GPU_PERFCNT_CFG_AS(as) |
+> -	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
+> -
+> -	/*
+> -	 * Bifrost GPUs have 2 set of counters, but we're only interested by
+> -	 * the first one for now.
+> -	 */
+> -	if (panfrost_model_is_bifrost(pfdev))
+> -		cfg |=3D GPU_PERFCNT_CFG_SETSEL(counterset);
+> -
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
+> -
+> -	/*
+> -	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
+> -	 * counters.
+> -	 */
+> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> -	else
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> -
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
+> -
+> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		if (!perfcnt->reset_happened || perfcnt->reset_failed) {
+> +			ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +			if (ret)
+> +				goto err_vunmap;
+> +		}
+> +		perfcnt->reset_happened =3D false;
+> +		perfcnt->reset_failed =3D false;
+> +	}
+> =20
+>  	/* The BO ref is retained by the mapping. */
+>  	drm_gem_object_put(&bo->base);
+> =20
+> -	perfcnt->user =3D user;
+> -
+>  	return 0;
+> =20
+>  err_vunmap:
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock)
+> +		perfcnt->user =3D NULL;
+>  	drm_gem_vunmap(&bo->base, &map);
+>  err_put_mapping:
+>  	panfrost_gem_mapping_put(perfcnt->mapping);
+> @@ -203,13 +264,15 @@ static int panfrost_perfcnt_disable_locked(struct p=
+anfrost_device *pfdev,
+>  	if (user !=3D perfcnt->user)
+>  		return -EINVAL;
+> =20
+> -	panfrost_perfcnt_gpu_disable(pfdev);
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		panfrost_perfcnt_gpu_disable(pfdev);
+> +		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+> +		perfcnt->user =3D NULL;
+> +	}
+> =20
+> -	perfcnt->user =3D NULL;
+>  	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+>  	perfcnt->buf =3D NULL;
+>  	panfrost_gem_close(&perfcnt->mapping->obj->base.base, file_priv);
+> -	panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+>  	panfrost_gem_mapping_put(perfcnt->mapping);
+>  	perfcnt->mapping =3D NULL;
+>  	pm_runtime_put_autosuspend(pfdev->base.dev);
+> @@ -263,7 +326,7 @@ int panfrost_ioctl_perfcnt_dump(struct drm_device *de=
+v, void *data,
+>  		goto out;
+>  	}
+> =20
+> -	ret =3D panfrost_perfcnt_dump_locked(pfdev);
+> +	ret =3D panfrost_perfcnt_dump_locked(pfdev, &req->hw_reset);
+>  	if (ret)
+>  		goto out;
+> =20
+> @@ -346,3 +409,38 @@ void panfrost_perfcnt_fini(struct panfrost_device *p=
+fdev)
+>  	/* Disable everything before leaving. */
+>  	panfrost_perfcnt_gpu_disable(pfdev);
+>  }
+> +
+> +void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
+> +{
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +
+> +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
+> +		return;
+> +
+> +	lockdep_assert_held(&pfdev->reset.lock);
+> +
+> +	if (!perfcnt->user)
+> +		return;
+> +
+> +	perfcnt->reset_happened =3D true;
+> +	complete(&perfcnt->dump_comp);
+> +	panfrost_perfcnt_gpu_disable(pfdev);
 
-Introduce drm_crtc_wait_one_vblank_internal(), which performs the vblank
-wait without triggering a warning on timeout. This new function is used in
-drm_client_modeset_wait_for_vblank() to avoid the warning, while keeping
-the warning in drm_crtc_wait_one_vblank() for other callers where a timeout
-might still indicate an actual issue.
+Do we really need both a _reset() and post_reset(). Feels to me that
+what we need is a post_reset() that re-enables the counters if they
+were enabled, and unblock dump_comp after setting reset_happened=3Dtrue.
+It's then up to the dump logic to retry (maybe a couple times max, to
+bail out if things keep failing).
 
-Keeping the vblank reference acquisition (drm_vblank_get()) in the public
-wrapper drm_crtc_wait_one_vblank() rather than moving it to the internal
-helper prevents an enable_vblank() error from being mislabeled as a wait
-timeout.
+> +}
+> +
+> +void panfrost_perfcnt_postreset(struct panfrost_device *pfdev)
+> +{
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +	int ret;
+> +
+> +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
+> +		return;
+> +
+> +	lockdep_assert_held(&pfdev->reset.lock);
+> +
+> +	if (!perfcnt->user)
+> +		return;
+> +
+> +	ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +	if (ret)
+> +		perfcnt->reset_failed =3D true;
+> +}
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.h
+> index 8bbcf5f5fb33..e14e760641fd 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
+> @@ -14,5 +14,7 @@ int panfrost_ioctl_perfcnt_enable(struct drm_device *de=
+v, void *data,
+>  				  struct drm_file *file_priv);
+>  int panfrost_ioctl_perfcnt_dump(struct drm_device *dev, void *data,
+>  				struct drm_file *file_priv);
+> +void panfrost_perfcnt_reset(struct panfrost_device *pfdev);
+> +void panfrost_perfcnt_postreset(struct panfrost_device *pfdev);
+> =20
+>  #endif
+> diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_=
+drm.h
+> index 50d5337f35ef..3bbf9220103d 100644
+> --- a/include/uapi/drm/panfrost_drm.h
+> +++ b/include/uapi/drm/panfrost_drm.h
+> @@ -47,7 +47,7 @@ extern "C" {
+>   * them for anything but debugging purpose.
+>   */
+>  #define DRM_IOCTL_PANFROST_PERFCNT_ENABLE	DRM_IOW(DRM_COMMAND_BASE + DRM=
+_PANFROST_PERFCNT_ENABLE, struct drm_panfrost_perfcnt_enable)
+> -#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOW(DRM_COMMAND_BASE + DRM_=
+PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
+> +#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOWR(DRM_COMMAND_BASE + DRM=
+_PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
+> =20
+>  #define PANFROST_JD_REQ_FS (1 << 0)
+>  #define PANFROST_JD_REQ_CYCLE_COUNT (1 << 1)
+> @@ -272,6 +272,7 @@ struct drm_panfrost_perfcnt_enable {
+> =20
+>  struct drm_panfrost_perfcnt_dump {
+>  	__u64 buf_ptr;
+> +	__u64 hw_reset;
+>  };
+> =20
+>  /* madvise provides a way to tell the kernel in case a buffers contents
+>=20
 
-Fixes: d8c4bddcd8bc ("drm/fb-helper: Synchronize dirty worker with vblank")
-Assisted-by: Gemini:gemini-3.5-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+f59157955aba9d0cb43b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f59157955aba9d0cb43b
-Link: https://syzkaller.appspot.com/ai_job?id=f37d4830-e66f-4bce-be00-e7ac1d70c469
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-
----
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index 0080a8e95..7ff0f24a0 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -1328,7 +1328,7 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
- 	 */
- 	ret = drm_crtc_vblank_get(crtc);
- 	if (!ret) {
--		drm_crtc_wait_one_vblank(crtc);
-+		drm_crtc_wait_one_vblank_internal(crtc);
- 		drm_crtc_vblank_put(crtc);
- 	}
- 
-diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-index f893b1e3a..6fd33672d 100644
---- a/drivers/gpu/drm/drm_internal.h
-+++ b/drivers/gpu/drm/drm_internal.h
-@@ -115,6 +115,7 @@ void drm_vblank_disable_and_save(struct drm_device *dev, unsigned int pipe);
- int drm_vblank_get(struct drm_device *dev, unsigned int pipe);
- void drm_vblank_put(struct drm_device *dev, unsigned int pipe);
- u64 drm_vblank_count(struct drm_device *dev, unsigned int pipe);
-+int drm_crtc_wait_one_vblank_internal(struct drm_crtc *crtc);
- 
- /* drm_vblank_work.c */
- static inline void drm_vblank_flush_worker(struct drm_vblank_crtc *vblank)
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index f90fb2d13..9cac7013b 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -1297,6 +1297,32 @@ void drm_crtc_vblank_put(struct drm_crtc *crtc)
- }
- EXPORT_SYMBOL(drm_crtc_vblank_put);
- 
-+/**
-+ * drm_crtc_wait_one_vblank_internal - wait for one vblank
-+ * @crtc: DRM crtc
-+ *
-+ * This waits for one vblank to pass on @crtc, using the irq driver interfaces.
-+ * Every caller must hold a vblank reference across the complete wait.
-+ *
-+ * Returns: 0 on success, negative error on failures.
-+ */
-+int drm_crtc_wait_one_vblank_internal(struct drm_crtc *crtc)
-+{
-+	struct drm_device *dev = crtc->dev;
-+	int pipe = drm_crtc_index(crtc);
-+	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
-+	int ret;
-+	u64 last;
-+
-+	last = drm_vblank_count(dev, pipe);
-+
-+	ret = wait_event_timeout(vblank->queue,
-+				 last != drm_vblank_count(dev, pipe),
-+				 msecs_to_jiffies(1000));
-+
-+	return ret ? 0 : -ETIMEDOUT;
-+}
-+
- /**
-  * drm_crtc_wait_one_vblank - wait for one vblank
-  * @crtc: DRM crtc
-@@ -1311,26 +1337,20 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
- {
- 	struct drm_device *dev = crtc->dev;
- 	int pipe = drm_crtc_index(crtc);
--	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
- 	int ret;
--	u64 last;
- 
- 	ret = drm_vblank_get(dev, pipe);
- 	if (drm_WARN(dev, ret, "vblank not available on crtc %i, ret=%i\n",
- 		     pipe, ret))
- 		return ret;
- 
--	last = drm_vblank_count(dev, pipe);
--
--	ret = wait_event_timeout(vblank->queue,
--				 last != drm_vblank_count(dev, pipe),
--				 msecs_to_jiffies(1000));
-+	ret = drm_crtc_wait_one_vblank_internal(crtc);
- 
--	drm_WARN(dev, ret == 0, "vblank wait timed out on crtc %i\n", pipe);
-+	drm_WARN(dev, ret == -ETIMEDOUT, "vblank wait timed out on crtc %i\n", pipe);
- 
- 	drm_vblank_put(dev, pipe);
- 
--	return ret ? 0 : -ETIMEDOUT;
-+	return ret;
- }
- EXPORT_SYMBOL(drm_crtc_wait_one_vblank);
- 
-
-
-base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
--- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
