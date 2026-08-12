@@ -4,56 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 158B1C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:01:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F7FC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFB710F000;
-	Wed, 12 Aug 2026 14:01:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0E8510F010;
+	Wed, 12 Aug 2026 14:03:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="EUF5j17j";
+	dkim=pass (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="fzBxrLN4";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627E310F000
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:01:40 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id D526B1A15B6;
- Wed, 12 Aug 2026 14:01:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id A26FB6045E;
- Wed, 12 Aug 2026 14:01:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E667511C4CF4E; 
- Wed, 12 Aug 2026 16:01:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786543293; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=q6Nku3dEzztmsbf/GKD+6Kf098eLKHF+39e80S9m4iQ=;
- b=EUF5j17j634OPvyGVGA8h4+ENHbJqcw6GXGvcrpDRdeAk5uVZQ7LVr5Au3n8SfUviZ0ryS
- 1HqQowqGSqteZdd0j05H9VETCJHMdbw0a+kfFIhx9kSw6Kwh6u2ApWhCzr66XdL5Gk69OX
- b+3f1D95nEQ1KKzaomRoL9xr/jfBz799LssTGwQBn/Uw4eAL6p+BJvfF9sGethneR76+gB
- nk4eR/0IVdw1X1cmqVooBub5zxn53HzqVhtcMbne9nEct5BuDjdXDNRe4RKNoXZeMTTNbI
- n1eoQB5ffDLFZ+0DLmNv6kO/622miQ0s3+Zstawvn+sxcwsrWz5IK+op9Ou/fw==
+Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de
+ [91.216.248.207])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3BDE10F00E;
+ Wed, 12 Aug 2026 14:03:54 +0000 (UTC)
+From: Andre Eikmeyer <dev@deq.rocks>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+ s=securedbylima-20251205; t=1786543432;
+ bh=rMVBYVyYP36ufcy949HDGAJ7V8DX2LXC7yMwpaP6hpQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=fzBxrLN4Mrud48wkeyqtNytP+uFPd3uaF8Iv6QPGsrIVOHalWEmxWXnrQF7NpvzOb
+ EUfMPWcozRi8IUtB2KDyOjKkbIcKa5wsVQHdGayPKede3qKcXSKn0XX1l/Mrd6jkx5
+ dXYCDKnpyIHEilgfjfO5xOwMiwjeTiDJHLmqmJC94aueZrdDdapa1ciIAz9ZxXVetI
+ Ze5Q18TbBO3/Otrxp+iVWlFWGwiv5gvvCui2iSbA/dj7mBKGVSi1ZVDK5y79+SQq+b
+ UvfEcamt7AyhKSHdCS2S+e8CIkxr43Fdgm6KcrfY4VvXUBV4t2VnifHB2sVnT8gkOb
+ HCEVSyXikPpOQ==
+To: Takashi Iwai <tiwai@suse.de>
+Cc: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-sound@vger.kernel.org,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>
+Subject: [PATCH v2 3/3] ALSA: hda: allow direct complete with a powered-off GPU
+Date: Wed, 12 Aug 2026 16:03:47 +0200
+Message-ID: <20260812140347.33360-1-dev@deq.rocks>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260812122206.193680-4-dev@deq.rocks>
+References: <20260812122206.193680-4-dev@deq.rocks>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] drm/bridge: chipone-icn6211: use devm_mipi_dsi_attach
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: luca.ceresoli@bootlin.com, Jagan Teki <jagan@amarulasolutions.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260521212529.151493-1-osama.abdelkader@gmail.com>
-References: <20260521212529.151493-1-osama.abdelkader@gmail.com>
-Date: Wed, 12 Aug 2026 16:01:15 +0200
-Message-Id: <178654327537.483443.8461948369902839411.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,15 +62,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 21 May 2026 23:25:28 +0200, Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
-> Follow up on the previous devm_drm_bridge_add() conversion by
-> converting the remaining manual cleanup in chipone-icn6211 to the
-> managed helper.
+The HDA controller normally needs different WAKEEN settings for runtime and
+system suspend, so azx_prepare() prevents direct complete. For a switcheroo
+audio client whose bound GPU is already runtime suspended and switched off,
+however, the controller is physically inaccessible and cannot signal wake
+events.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Resuming the HDA function during system suspend also acquires its runtime
+PM supplier. This powers the discrete GPU back on only to suspend it again
+and can expose failures while restoring an otherwise unused GPU.
 
+Direct complete is now allowed when the bound VGA device is both runtime
+suspended and reported off by vga_switcheroo. Active GPUs and HDA
+controllers without a switcheroo binding retain the existing WAKEEN
+transition.
+
+This was tested as part of the MacBookPro15,1 hybrid graphics series on
+both the 2018 and 2019 revisions. The discrete GPU remains powered off
+across system suspend when it is unused, and suspend and resume complete
+successfully.
+
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+---
+Changes in v2:
+- Move the SUPPORT_VGA_SWITCHEROO guard to the sole call site.
+- Explain the significance of the positive azx_prepare() return value.
+
+ sound/hda/controllers/intel.c | 29 +++++++++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
+
+diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
+index 28c55c5..9132907 100644
+--- a/sound/hda/controllers/intel.c
++++ b/sound/hda/controllers/intel.c
+@@ -334,6 +334,7 @@ enum {
+ #ifdef SUPPORT_VGA_SWITCHEROO
+ #define use_vga_switcheroo(chip)	((chip)->use_vga_switcheroo)
+ #define needs_eld_notify_link(chip)	((chip)->bus.keep_power)
++static struct pci_dev *get_bound_vga(struct pci_dev *pci);
+ #else
+ #define use_vga_switcheroo(chip)	0
+ #define needs_eld_notify_link(chip)	false
+@@ -1016,6 +1017,26 @@ static void __azx_runtime_resume(struct azx *chip)
+ 		display_power(chip, false);
+ }
+ 
++#ifdef SUPPORT_VGA_SWITCHEROO
++static bool azx_vga_is_powered_off(struct azx *chip)
++{
++	struct pci_dev *pci;
++	bool powered_off = false;
++
++	if (!use_vga_switcheroo(container_of(chip, struct hda_intel, chip)))
++		return false;
++
++	pci = get_bound_vga(chip->pci);
++	if (pci) {
++		powered_off = pm_runtime_suspended(&pci->dev) &&
++			vga_switcheroo_get_client_state(pci) == VGA_SWITCHEROO_OFF;
++		pci_dev_put(pci);
++	}
++
++	return powered_off;
++}
++#endif
++
+ static int azx_prepare(struct device *dev)
+ {
+ 	struct snd_card *card = dev_get_drvdata(dev);
+@@ -1025,6 +1046,12 @@ static int azx_prepare(struct device *dev)
+ 		return 0;
+ 
+ 	chip = card->private_data;
++#ifdef SUPPORT_VGA_SWITCHEROO
++	/* A positive return allows the PM core to use direct complete. */
++	if (azx_vga_is_powered_off(chip))
++		return 1;
++#endif
++
+ 	chip->pm_prepared = 1;
+ 	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
+ 
+@@ -1183,8 +1210,6 @@ static const struct dev_pm_ops azx_pm = {
+ static int azx_probe_continue(struct azx *chip);
+ 
+ #ifdef SUPPORT_VGA_SWITCHEROO
+-static struct pci_dev *get_bound_vga(struct pci_dev *pci);
+-
+ static void azx_vs_set_state(struct pci_dev *pci,
+ 			     enum vga_switcheroo_state state)
+ {
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+2.55.0
