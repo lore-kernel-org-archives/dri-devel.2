@@ -4,45 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E86C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:07:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805CCC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:07:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BFD910E17C;
-	Wed, 12 Aug 2026 15:07:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0B4D10E41D;
+	Wed, 12 Aug 2026 15:07:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mjNBVHUN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Ch9dJ1eB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C01F10E17C
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:07:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8222260AA9;
- Wed, 12 Aug 2026 15:07:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA751F00A3A;
- Wed, 12 Aug 2026 15:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786547248;
- bh=f6zWn3tNj2t7breiwR6oQDbNwhHW7lfGdJjhbzKf5Q8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mjNBVHUNAb7ovYmniP1T7OvSeSrU+gmhwi4Td5E/jWVnS77WaLLL/aH/aMlnY9W77
- 1sNwobbWJxZ7BlyfMhxSehyDPbflYFIGjtACBNd+jIjYkDOf0RAliEgdJVoHN7h4Ig
- KyzAeg089h5o/P/Yv6n9pos67nFzkI9Il2FZ9xYPSJ++ax9I9ZmwRXyQaLafHr3O90
- 4SBBW+6PJ6EbUAE+1WMempUaHCSicdFKXea7n/JuA3GK0lVlurwEVUIJ2YI7ArarXY
- cPy1A4CzJhtTv5Mry13zr0e35U1/l2aZwrKvN7uRN2aH7N5miK0SRNNs8JR6TM6bL3
- W9eC9dQUns46w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] platform/x86: apple-gmux: add MacBookPro15,1
- dGPU power sequence
-To: "Andre Eikmeyer" <dev@deq.rocks>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260812144750.36797-2-dev@deq.rocks>
-References: <20260812144221.35877-1-dev@deq.rocks>
- <20260812144750.36797-1-dev@deq.rocks>
- <20260812144750.36797-2-dev@deq.rocks>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 15:07:27 +0000
-Message-Id: <20260812150728.1BA751F00A3A@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47F1610E41D
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:07:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1786547252;
+ bh=cX2wDQYv6mT7BAjeKb9lsL+UDEuyxmXrUrfkbFSInRs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Ch9dJ1eBnSRYQCF791REJhtbEOgpwElyF087klIxYLZFj+YWGxraW97VahK+FvKdv
+ C0pDQ5G9dPQZkJMScnDXfpBa5+KmfgXYzu6nrgRTss8EPhoPEsCcH5y4P3ss5aIupj
+ l9DQJ400m2CauBvsHL1ikBFdFrJKn6jJZnQTfY+/kH2f1YS9AX29AL27usRJovmJXb
+ Yu+CltXb2/CrwGOFvJAIBCDFOmBKxZNinmMJdAfNsCqGsOUkYuedYBzYMjewyCButO
+ Iffmo2CbMgFuC2lcYZb1jTa2SUXWsbH5Ty//fXN5PL1a/TQEgB9SduF2bbFq0DCq4J
+ FL6P9ceTvHEhg==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 295A317E0D7E;
+ Wed, 12 Aug 2026 17:07:32 +0200 (CEST)
+Date: Wed, 12 Aug 2026 17:07:26 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Grant Likely
+ <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v4 1/3] drm/panthor: Add tracepoint for cache flushing
+Message-ID: <20260812170726.15d46854@fedora-21.home>
+In-Reply-To: <20260812-panthor-cache-flush-fix-v4-1-751e32901898@collabora.com>
+References: <20260812-panthor-cache-flush-fix-v4-0-751e32901898@collabora.com>
+ <20260812-panthor-cache-flush-fix-v4-1-751e32901898@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,100 +65,142 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The discrete GPU's PCI device pointer (`discrete_pdev`) fails to i=
-nitialize if the `apple-gmux` module is reloaded, breaking the discrete GPU=
- power-on sequence on MacBookPro15,1.
---
+On Wed, 12 Aug 2026 16:07:18 +0200
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
 
---- Patch [1]: [PATCH v3 1/3] platform/x86: apple-gmux: add MacBookPro15,1 =
-dGPU power sequence ---
-commit 82f7efe17d405f437532909cef38c118380b2e3f
-Author: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Subject: platform/x86: apple-gmux: add MacBookPro15,1 dGPU power sequence
+> Add a new event tracepoint: gpu_cache_flush to be emitted after a GPU
+> cache flush completes, with duration and return status arguments.
+> 
+> This allows debugging the duration a flush takes irrespective of initial
+> function entry lock contention, and communicates information about
+> whether the flush timed out or errored out in other ways, and which
+> caches were flushed.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-This commit adds a specific power-on sequence using PWG1 and PWG3 ACPI
-methods for the discrete GPU on MacBookPro15,1. It evaluates these link
-methods around the GMUX transition and waits for PCI configuration space
-before completing power-on.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/app=
-le-gmux.c
-> index fbc30f1f8abdf..2b6363aab8d15 100644
-> --- a/drivers/platform/x86/apple-gmux.c
-> +++ b/drivers/platform/x86/apple-gmux.c
-> @@ -510,14 +541,49 @@ static int gmux_switch_ddc(enum vga_switcheroo_clie=
-nt_id id)
->  static int gmux_set_discrete_state(struct apple_gmux_data *gmux_data,
->  				   enum vga_switcheroo_state state)
->  {
-> +	int ret;
-> +
->  	reinit_completion(&gmux_data->powerchange_done);
-> =20
->  	if (state =3D=3D VGA_SWITCHEROO_ON) {
-> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-> +		if (gmux_data->use_pwg_power_sequence &&
-> +		    gmux_data->discrete_pdev) {
-
-[Severity: High]
-If discrete_pdev fails to initialize during module reload, won't this check
-silently fall back to the legacy power sequence?
-
-If the legacy sequence is used on this model, could the discrete GPU fail to
-power on properly, causing subsequent PCI accesses to read 0xFFFFFFFF and
-potentially crash the system?
-
-[ ... ]
-
-> @@ -549,11 +615,16 @@ static enum vga_switcheroo_client_id gmux_get_clien=
-t_id(struct pci_dev *pdev)
->  	 */
->  	if (pdev->vendor =3D=3D PCI_VENDOR_ID_INTEL)
->  		return VGA_SWITCHEROO_IGD;
-> -	else if (pdev->vendor =3D=3D PCI_VENDOR_ID_NVIDIA &&
-> -		 pdev->device =3D=3D 0x0863)
-> +	if (pdev->vendor =3D=3D PCI_VENDOR_ID_NVIDIA && pdev->device =3D=3D 0x0=
-863)
->  		return VGA_SWITCHEROO_IGD;
-> -	else
-> -		return VGA_SWITCHEROO_DIS;
-> +
-> +	if (apple_gmux_data->use_pwg_power_sequence &&
-> +	    apple_gmux_data->discrete_pdev !=3D pdev) {
-> +		pci_dev_put(apple_gmux_data->discrete_pdev);
-> +		apple_gmux_data->discrete_pdev =3D pci_dev_get(pdev);
-> +	}
-> +
-> +	return VGA_SWITCHEROO_DIS;
+> ---
+>  drivers/gpu/drm/panthor/panthor_gpu.c   | 26 +++++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_trace.h | 38 +++++++++++++++++++++++++++++++++
+>  2 files changed, 63 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index c013d6bf9a59..7088371c6d64 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -317,6 +317,21 @@ int panthor_gpu_l2_power_on(struct panthor_device *ptdev)
+>  	return panthor_gpu_power_on(ptdev, L2, 1, 20000);
 >  }
+>  
+> +static inline void panthor_gpu_emit_flush_caches_tp(struct panthor_device *ptdev,
+> +						    u64 start, u32 l2, u32 lsc,
+> +						    u32 other, int ret)
+> +{
+> +	u32 duration;
+> +
+> +	if (!tracepoint_enabled(gpu_cache_flush) || !start)
+> +		return;
+> +
+> +	if (check_sub_overflow(ktime_get_ns(), start, &duration))
+> +		duration = U32_MAX;
+> +
+> +	trace_gpu_cache_flush(ptdev->base.dev, l2, lsc, other, duration, ret);
+> +}
+> +
+>  /**
+>   * panthor_gpu_flush_caches() - Flush caches
+>   * @ptdev: Device.
+> @@ -331,12 +346,17 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+>  	unsigned long flags;
+> +	u64 start = 0;
+>  	int ret = 0;
+>  
+>  	/* Serialize cache flush operations. */
+>  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
+>  
+>  	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> +
+> +	if (tracepoint_enabled(gpu_cache_flush))
+> +		start = ktime_get_ns();
+> +
+>  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+>  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+>  		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> @@ -345,8 +365,10 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  	}
+>  	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  
+> -	if (ret)
+> +	if (ret) {
+> +		panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc, other, ret);
+>  		return ret;
+> +	}
+>  
+>  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+> @@ -360,6 +382,8 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  	}
+>  
+> +	panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc, other, ret);
+> +
+>  	if (ret) {
+>  		panthor_device_schedule_reset(ptdev);
+>  		drm_err(&ptdev->base, "Flush caches timeout");
+> diff --git a/drivers/gpu/drm/panthor/panthor_trace.h b/drivers/gpu/drm/panthor/panthor_trace.h
+> index 6ffeb4fe6599..bd8652549ab4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_trace.h
+> +++ b/drivers/gpu/drm/panthor/panthor_trace.h
+> @@ -76,6 +76,44 @@ TRACE_EVENT(gpu_job_irq,
+>  		  __entry->events, __entry->duration_ns)
+>  );
+>  
+> +/**
+> + * gpu_cache_flush - emitted after cache flush completes
+> + * @dev: pointer to the &struct device, for printing the device name
+> + * @l2: "l2" flush flags
+> + * @lsc: "lsc" flush flags
+> + * @other: "other" flush flags
+> + * @duration_ns: how long the cache flush operation took, in nanoseconds
+> + * @ret: return status, 0 == success, negative errno on error
+> + *
+> + * Begins measuring after any initial lock contention around the locks needed
+> + * for flushing caches, but before the actual cache flush is requested. Stops
+> + * measuring and is emitted after flush operation is over.
+> + */
+> +TRACE_EVENT(gpu_cache_flush,
+> +	    TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other,
+> +		     u32 duration_ns, int ret),
+> +	    TP_ARGS(dev, l2, lsc, other, duration_ns, ret),
+> +	    TP_STRUCT__entry(
+> +		    __string(dev_name, dev_name(dev))
+> +		    __field(u32, l2)
+> +		    __field(u32, lsc)
+> +		    __field(u32, other)
+> +		    __field(u32, duration_ns)
+> +		    __field(int, ret)
+> +	    ),
+> +	    TP_fast_assign(
+> +		    __assign_str(dev_name);
+> +		    __entry->l2          = l2;
+> +		    __entry->lsc         = lsc;
+> +		    __entry->other       = other;
+> +		    __entry->duration_ns = duration_ns;
+> +		    __entry->ret         = ret;
+> +	    ),
+> +	    TP_printk("%s: l2=0x%x lsc=0x%x other=0x%x duration_ns=%u ret=%d",
+> +		      __get_str(dev_name), __entry->l2, __entry->lsc,
+> +		      __entry->other, __entry->duration_ns, __entry->ret)
+> +);
+> +
+>  #endif /* __PANTHOR_TRACE_H__ */
+>  
+>  #undef TRACE_INCLUDE_PATH
+> 
 
-[Severity: High]
-If the apple-gmux module is unloaded and reloaded, will this initialization
-actually happen?
-
-Looking at vga_switcheroo_enable() in the vgasr core, it intentionally skips
-get_client_id() for clients that already have a known ID:
-
-vga_switcheroo.c:vga_switcheroo_enable() {
-    ...
-    if (!client_is_vga(client) ||
-         client_id(client) !=3D VGA_SWITCHEROO_UNKNOWN_ID)
-        continue;
-
-    ret =3D vgasr_priv.handler->get_client_id(client->pdev);
-    ...
-}
-
-Since clients retain their IDs from the first load, won't get_client_id() be
-skipped entirely on module reload, leaving discrete_pdev as NULL?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812144750.3679=
-7-1-dev@deq.rocks?part=3D1
