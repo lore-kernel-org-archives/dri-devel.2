@@ -4,45 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4F79C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60DC2C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:48:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D004F10F05D;
-	Wed, 12 Aug 2026 15:46:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WehsZAa0";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7707A10F099
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:46:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 25E40415EB;
- Wed, 12 Aug 2026 15:46:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41C61F00A3F;
- Wed, 12 Aug 2026 15:46:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786549613;
- bh=/GB3Fi/saC+PIBt7BBLpbVMxRJbxvo0Nk2bljOa6Wpg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WehsZAa0qGuX6wkbSAYmT3STz35SP7AebyxyLCKOpOqeUwl+1lForMDjMyDvo13br
- cau+yGA102XYGDNrPPi6MCu0WhqjXrydUeCQ0K11GnnfLa+yjBLmWmL9vwFim0+QyH
- PVl5+uzuGX9zb+6VSYzZtCDr3dh9MdY1Ulja9YUhEnmyOdeHwoRIsFJdLP4sxnFBnJ
- Z3XAiyyHdjETjDaKBmDAfG2LJkqmKVijMOGl+M+Ex6Y0WCOc97ktaCxmsgKazLmU5C
- Qoyz3iCFqQ1VO6YgZ3GCdehbH1ndtTXIcnmpMyy4chTacBktQCTUeK7my0LudN+Uws
- cOvm880OpXBiQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] ALSA: hda: allow direct complete with a
- powered-off GPU
-To: "Andre Eikmeyer" <dev@deq.rocks>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260812144750.36797-4-dev@deq.rocks>
-References: <20260812144221.35877-1-dev@deq.rocks>
- <20260812144750.36797-1-dev@deq.rocks>
- <20260812144750.36797-4-dev@deq.rocks>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 15:46:52 +0000
-Message-Id: <20260812154652.C41C61F00A3F@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A558826D;
+	Wed, 12 Aug 2026 15:48:40 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE2998826D
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:48:38 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.94])
+ by APP-03 (Coremail) with SMTP id rQCowACnc0HPlXxqB5r4BA--.21280S2;
+ Wed, 12 Aug 2026 23:48:32 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Chen-Yu Tsai <wenst@chromium.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Icenowy Zheng <uwu@icenowy.me>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH] drm: verisilicon: fix cursor offset field update
+Date: Wed, 12 Aug 2026 23:48:29 +0800
+Message-ID: <20260812154829.671777-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowACnc0HPlXxqB5r4BA--.21280S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr43Gr4UAr4ftrWkKFWkCrg_yoW8Cw4fpF
+ WYka18K3ZFya1DXryDKr4DtrWfZa1rtrsa9rs8Cw4Yvwn8t343uryrGF97uFWDJFnxWr1a
+ 9anFkrW5Ar4I9aUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VUb_Ma5UUUUU==
+X-Originating-IP: [120.85.96.94]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,91 +59,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The 4th argument of regmap_update_bits() expects a pre-shifted register
+value instead of the field value when it's used to set a single field,
+however I forgot this when writing the code setting the cursor X/Y
+offset fields, thus the write operation doesn't happen at all (because
+of the non-shifted values being masked by regmap_update_bits()).
 
-New issues:
-- [High] The `azx_prepare` function conditionally returns 1 early to reques=
-t direct complete, bypassing mandatory ALSA state initialization and workqu=
-eue flushing. If direct complete is subsequently aborted by the PM core, th=
-e device will suspend in an inconsistent state.
+Fix this problem so the cursor is correctly clipped.
 
-Pre-existing issues:
-- [High] The HDA interrupt handler uses a non-atomic runtime PM check, and =
-the runtime suspend callback shuts down the hardware without synchronizing =
-shared IRQs. This allows the interrupt handler to run concurrently while th=
-e hardware is being powered down.
---
+The framebuffer address is also clipped so the cursor offset problem was
+previously not discovered, and the framebuffer address deserves another
+fix for proper cursor behavior when it's clipped.
 
---- Patch [3]: [PATCH v3 3/3] ALSA: hda: allow direct complete with a power=
-ed-off GPU ---
-commit 8f27e09b7a8bd094dbb356dbe9893145a18d34a2
-Author: Andre Eikmeyer <dev@deq.rocks>
+Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor planes")
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-ALSA: hda: allow direct complete with a powered-off GPU
+diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+index fa4f601dd0c87..4ce311ae48823 100644
+--- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+@@ -199,7 +199,7 @@ static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
+ 	} else {
+ 		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+ 				   VSDC_CURSOR_CONFIG_X_OFF_MASK,
+-				   -state->crtc_x);
++				   VSDC_CURSOR_CONFIG_X_OFF(-state->crtc_x));
+ 		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
+ 				   VSDC_CURSOR_LOCATION_X_MASK, 0);
+ 	}
+@@ -213,7 +213,7 @@ static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
+ 	} else {
+ 		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+ 				   VSDC_CURSOR_CONFIG_Y_OFF_MASK,
+-				   -state->crtc_y);
++				   VSDC_CURSOR_CONFIG_Y_OFF(-state->crtc_y));
+ 		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
+ 				   VSDC_CURSOR_LOCATION_Y_MASK, 0);
+ 	}
+-- 
+2.52.0
 
-The commit allows direct complete during system suspend for a switcheroo
-audio client when the bound GPU is already runtime suspended and switched
-off. It does this by checking the VGA switcheroo state and returning 1
-from azx_prepare().
-
-> diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-> index 4b03c64e72ab4..6f1c1d596e2ca 100644
-> --- a/sound/hda/controllers/intel.c
-> +++ b/sound/hda/controllers/intel.c
-
-[ ... ]
-
-> @@ -1025,6 +1027,10 @@ static int azx_prepare(struct device *dev)
->  		return 0;
-> =20
->  	chip =3D card->private_data;
-> +	/* A positive return allows the PM core to use direct complete. */
-> +	if (azx_vga_is_powered_off(chip))
-> +		return 1;
-> +
-
-[Severity: High]
-If the PM core decides to abort direct complete for this device later in the
-suspend process, will this leave the device in an inconsistent state?
-
-For example, if a child HDA codec returns 0 from its own prepare callback,
-the PM core clears the direct complete flag and will fall back to calling
-azx_suspend().
-
-Since this early return bypasses snd_power_change_state() and flush_work(),
-the ALSA subsystem will still consider the device to be in SNDRV_CTL_POWER_=
-D0
-and the unsol_work may still be queued or running while the hardware gets
-shut down.
-
->  	chip->pm_prepared =3D 1;
->  	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but I have a question about the existing
-runtime PM handling and shared interrupts in this driver.
-
-Does azx_runtime_suspend() need to call synchronize_irq() before powering
-down the hardware?
-
-Currently, azx_interrupt() in sound/hda/common/controller.c uses a
-non-atomic pm_runtime_active() check. If a shared interrupt fires for
-another device, azx_interrupt() could see the device as active, while
-another CPU concurrently executes azx_runtime_suspend() and shuts down the
-hardware.
-
-A read from the powered-off hardware would then typically return 0xffffffff.
-If this happens between reading INTSTS and RIRBSTS, the 0xff byte read could
-incorrectly match RIRB_INT_MASK and trigger further invalid accesses or an
-IRQ storm.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812144750.3679=
-7-1-dev@deq.rocks?part=3D3
