@@ -4,80 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0251C5CFDB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBA2DC5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEDFE10F256;
-	Thu, 13 Aug 2026 09:42:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 574A310F25C;
+	Thu, 13 Aug 2026 09:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HdYmi2/X";
+	dkim=pass (2048-bit key; unprotected) header.d=imd-tec.com header.i=@imd-tec.com header.b="Ui+G+gW8";
 	dkim-atps=neutral
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7C4910E39D
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 05:50:48 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5b011edaf7dso1930874e87.2
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 22:50:48 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 848CB10EF3A
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 10:06:01 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4955aa106b1so6660435e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 03:06:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786600247; x=1787205047; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=V3JEh31WwDsNrUS7v93z2nbzGko9efY4jXQ8adxryQQ=;
- b=HdYmi2/X3OlyCGzG2N+DA6rD4A/+Agy7zGz/IqxTMfFi8ReNz/BSDtiuT5Az5HCSTX
- +O6KCO0EdaS7c197pXzvuyIg7YTpHtGWzRGp7wFOIiy6RVF09gqoT2bnAmJFgIX+egIe
- uY9UC/sVfr1Jxv1aj6n+TjWTkv5ZiIwr0byOgWgw3JmCSprhKVoQLhjxDFV2vZt4hc9d
- SxyR+rgNEjQak7dn8WbC8PfqtASYGB2ojXhfIyMFgtc0nV5OgUPbFuq/rDnZP+vIxG2v
- RUmimP1CDhMxUXZKVWXjrq7rXBWLSWpxR8L4ApGxGqTn1tnMfl1XLyZlcNFtOj/8p/yf
- a1Ng==
+ d=imd-tec.com; s=google; t=1786529160; x=1787133960; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=8lTgpZKYeMDewjAwTo7awtsmXJS+XkKIAXMlp0xZDk0=;
+ b=Ui+G+gW8oZpfq5XmUBXBeIoLRIZHVJmdWAGkRXAP4fh93TqYxzanpQWGo+h9RkdZt8
+ DVgsEAe1+szPHbkv6iTUdDeyM9QHhP8fD6Lj2Xf2CBodrG54AyhG+T1/FYEzqLBL4DNd
+ oQOfqmiujhZbWArWW8uRHnq456YyOkBCQtwiWfkqx8SPYictC4UWAGrQ740/rjctVAUK
+ aZ5JRbsJO1U2e1uLdQlXTiCkx98QkYwQv0weDWlsMYq8x3tZK3+kS9Z7iHwD2CW5l4/H
+ hYyoQ2PAc2TbvJWyhCtLpRVllDBqv+bRybDm7cTXen6zvuOZFsd3KXJusZHk56S4zzcP
+ MDMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786600247; x=1787205047;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=V3JEh31WwDsNrUS7v93z2nbzGko9efY4jXQ8adxryQQ=;
- b=ZwOR0FqfF+UDq8cPq2B8mKdOeYmcrngD13uyFT8WBBBm1DytcL4uazGI8MlnByQOgB
- DjUtmMzzebHTU9a11ISesnmjyAzLAWUjYaIp6gDDOk1mAin7Ob0f15UjSLkMP8fAzUQo
- g7KCWo+9zCGSXXs4Aq6bxCPDLFvv3TPsUZkPvZQrGxeBIyJzmOqwM7CVYuB9oLPbmkYI
- 4aTp1/6HowTKdvvXyztiGa8y9+VZQpc/Ou83lK37lwdOGqMbmdeqKha1jLshLV5LKYAR
- MLnj/z65Z1fyRuRgxUpZGsw6aEBhz37veWhb/eV/g/CH9tBfqp1Hh+0v9gWS5J9AHTvp
- lMLA==
+ d=1e100.net; s=20251104; t=1786529160; x=1787133960;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=8lTgpZKYeMDewjAwTo7awtsmXJS+XkKIAXMlp0xZDk0=;
+ b=VNfHWZYSdG7zbUdrUVFsArU4Vh8TMEnzn89EhjRU6sRfbu59vLrovVl2KRaA8bFCGG
+ z7ZtRw3pv8hmIbqqEwK4a82lxoUNZ/FL+Z55xF75QvORk9oflxivq+p7/wMehblwhPts
+ bNOZpb+UD55cuHOERF1EJPNgMHTGHzMBUUm65oF6KirfquOwcSpNcOQ13F37Vmjv0Nrg
+ PheXIQ09u54pMnEMfDjiNw388Lp9ZusQH7224BBfi3DGQMzRuKsyHZNROykFIOVxAsxt
+ lXmLZ5KyRF0U48MA+f8Nk1HqJgS6SKT3xtBN/0FSfBOJuX012685XCu3ksnuckZ/CUPS
+ m5Ww==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqcitKuw4SWRj1WMnLsOZd+KSHGFBDlVDVc3TEJiqGTluOTyoE5aThPsKr/9YfzENrbETD4vSDiw9Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxtuUegsAeEf3mKiFZBAFNCWJcIDZOgAWXBliDfaTlDYwFzhFaI
- 2pLdJNkaKCfNb9ptn5PlmpRq/zRJZ+LiOvDvX1o3t/YfaUP2119MdJMO
-X-Gm-Gg: AR+sD12SWEyEdiXIOtqEKiH/yshvQ3dub2kPBJkTvkhaqnudADIzipAxBqq0P/Zsoje
- ThS+LrVCQDmmzXojjZgozWaGXoh1laFOafebbj29I2zcQNX/elT+x1vC1CmrOyQs+74kpNewupI
- Xf2LjXFAGUM8MYEDYtLxlaN1lcABlFpjXdVla5dTKm+71dgnd1gYOJd2XKRvOJh8fneLaRlDq2U
- nuVof2CGtX+toHcJgtHu0YySLaH+kUB7NORwspfwPl+GX/AQARWYTOLum1TFHhR4cX3HNzmYcC7
- 0I4GLQoTQCca9FTa414ceQH5YkLRQKXOVvrgAslMwTiG2HB08fuJmIiRkHEseW67TjIZd/YVqq9
- Z1PMxOk9JB9n2B/31jHkZY/l9FdmuNtjUc+qbfZzXHPWqAJuvmbqWapNvAW01sn9z4EumbqRC51
- 8kA6/Ch5OQHf4KDhCv+PxlS8opocDXK76qOBF8aRAZCJx2MTLIs6KaVP0W2M4jwO5eYpM=
-X-Received: by 2002:a05:6512:2c8e:b0:5b3:e02:b398 with SMTP id
- 2adb3069b0e04-5b453f9f805mr407533e87.44.1786600246595; 
- Wed, 12 Aug 2026 22:50:46 -0700 (PDT)
-Received: from localhost ([95.190.110.153]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b4539e1866sm249783e87.6.2026.08.12.22.50.45
+ AHgh+Rq+q0t7bXZB7gZl7I/CpwIEBjMLb6GnZD/K4vFa2TY19X0OKtrQszEXfi++CduJ/G2+EWxBR//VtQg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWwh8h7FwJChGhEZGDYw2GrFP26qePbuU1AxueoLPrIVzivojA
+ CbwwR/J6SsYzyaUJXacMmM1Z3CHyCmidC71h2Vgo2GH625Y040kw/7oRI75rPNrzlrY=
+X-Gm-Gg: AR+sD12Re7Fsp4ClI/6fS082UM4uow9WRuTj0qDdDT1DTfJHv2r3gBIxJ5w2VaR0C4k
+ ZEjdZBvrLbswn5VkqKQiBTPl849tILmXM067bOwVtIIVyz3+Tjrk7AFwnnQ8ryTW5B7UQHoKhAb
+ UkhDGYhk6BieZF75WFJ7kn8jueczs+LZnAmrVCuIED4HbBBK6ra/4Et/rpx6EvyWh9k7KeqMa6o
+ 9kogpamLR459jsEdJIvYD3TmnKaWpKtmeL/1MaW4dbkACHQhyCwyUORvzcMnnpKon0ZTtdJjESD
+ OMPPQKg02za89NJ/cvJ4xdcxVaHVUnlJMqkdshubCKr0bnpuUnzi3MOPZo90YRHrFJuDWaK/MMd
+ svHJhunE0brdUOcdM1vQrNSQ9+iWHIINboF+M8Ss3Kl2I3krhgq7v/AglF2TzWj0pz0R0SvyjJf
+ 8yklm8YTCy1GOmbZdhDq435O9KCe7E/64Z6h6weadhIWsmJKRyZYix5VUJIrCs1MQIVu4C+0qcO
+ X45R+1AIH6ahtFSJi18L3Y6clPigsxi0ShZjGihJHpGUJ/u5PSJfvAmyI1elg==
+X-Received: by 2002:a05:600c:8b33:b0:499:6a92:fff1 with SMTP id
+ 5b1f17b1804b1-4997c1706afmr55104685e9.18.1786529159744; 
+ Wed, 12 Aug 2026 03:05:59 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:23c6:273c:cd01:ee86:877c:752a:fac6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48150d5eddbsm6568147f8f.31.2026.08.12.03.05.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 22:50:46 -0700 (PDT)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
- gary@garyguo.net, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: retain the GSP-RM log buffers
- after unbind
-Date: Thu, 13 Aug 2026 12:50:44 +0700
-Message-ID: <20260813055044.98486-1-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <DKN35E0L9X9L.RSVUGPFWRV69@kernel.org>
-References: <20260812113752.532537-1-vladazaharova2018@gmail.com>
- <20260812113752.532537-2-vladazaharova2018@gmail.com>
- <DKN35E0L9X9L.RSVUGPFWRV69@kernel.org>
+ Wed, 12 Aug 2026 03:05:59 -0700 (PDT)
+From: William Bright <william.bright@imd-tec.com>
+Date: Wed, 12 Aug 2026 11:05:52 +0100
+Subject: [PATCH] drm/msm/dp: fix link bandwidth check when wide bus is enabled
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260812-msm-dp-link-bw-v1-1-b0e3ce1190be@imd-tec.com>
+X-B4-Tracking: v=1; b=H4sIAH9FfGoC/yXMSQ6DMAxA0asgr2spRIy9SsWCBBdMS0Axk4S4O
+ yldvsX/Bwh5JoFndICnlYVHFxA/IrBd7VpCboJBK52pItY4yIDNhF92HzQblqVOU1vkytgEQjR
+ 5evN+D1/V37KYnuz8u8B5XqQvVkRyAAAA
+X-Change-ID: 20260812-msm-dp-link-bw-99255c870bc4
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ William Bright <william.bright@imd-tec.com>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,39 +100,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Aug 13, 2026, Danilo Krummrich wrote:
-> I think those should use VVec.
-> Let's move all the LogBuffer code into gsp/logbuffer.rs to keep gsp.rs clean.
-> I think we can avoid this additional unsafe if we just create the retained dir
-> right away in module_init().
-> dev_dbg!() should be good enough.
+msm_dp_display_mode_valid() halves the pixel clock when either YUV420 or
+wide bus is in use, then uses that halved value both for the controller
+pixel clock limit and for the DP link bandwidth check.
 
-All four make sense, thanks - v2 will have them. Creating the retained
-directory in module_init() also removes the only reason retain() had to look
-at DEBUGFS_ROOT, so the unsafe block goes away with it.
+Only YUV420 halves the data crossing the link. Wide bus widens the
+internal DPU to DP interface to two pixels per clock, halving the
+controller clock. Every pixel is still transmitted, so the link
+bandwidth requirement remains.
 
-On Thu Aug 13, 2026, John Hubbard wrote:
-> I'd *much* rather use a kernel parameter: keep_gsp_logs, instead of
-> requiring a rebuild of the kernel.
+As a result, modes needing up to twice the available link bandwidth pass
+validation. On the IMDT QCS8550 SBC (rev5 with CYPD6125), where DP runs
+over USB-C alt mode where only two lanes are available, 3840x2160@60 was
+accepted despite needing 9.6 Gbps against the 8.64 Gbps the link can
+carry.
 
-Agreed, and it makes the patch smaller: with a module parameter the cfg gating
-disappears and the code is simply always built. I used a Kconfig because of the
-"the only Kconfig needed is for retaining the GSP log buffers after driver
-unbind" remark in the earlier thread, which I took literally instead of asking.
+Use a separate link pixel clock that is only halved for YUV420 for the
+bandwidth calculation, leaving the wide bus halving to apply solely to
+the controller pixel clock limit. With this, 4k@60 is correctly rejected
+and 4k@30 selected instead.
 
-That one needs a decision, though. The Rust module parameter abstraction has no
-bool: rust/kernel/module_param.rs only instantiates param ops for i8..u64,
-isize and usize, and rust/macros/module.rs panics on anything else. Nor is it
-quite a one-liner to add, since bare bool parameters rely on
-KERNEL_PARAM_OPS_FL_NOARG, which make_param_ops! cannot currently express.
+Fixes: df9cf852ca30 ("drm/msm/dp: account for widebus and yuv420 during mode validation")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: William Bright <william.bright@imd-tec.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-I am happy to write that prerequisite patch, but it would pull this series into
-rust/kernel review. So unless bool support is already in flight somewhere I
-have not found, I propose v2 uses u8 for now and moves to bool once it exists.
-Say the word if you would rather have it done properly first.
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index bc646d172abe..b2d6cb82a146 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -756,6 +756,7 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+ 	struct msm_dp_link_info *link_info;
+ 	u32 mode_rate_khz = 0, supported_rate_khz = 0, mode_bpp = 0;
+ 	int mode_pclk_khz = mode->clock;
++	int link_pclk_khz;
+ 	bool is_yuv_420;
+ 
+ 	if (!dp || !mode_pclk_khz || !dp->connector) {
+@@ -775,6 +776,13 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+ 	if (is_yuv_420 && !msm_dp_display->panel->vsc_sdp_supported)
+ 		return MODE_NO_420;
+ 
++	/*
++	 * Only YUV 420 actually halves the link bandwidth, as wide bus only
++	 * halves the pixel clock within the SoC, while the link bandwidth
++	 * requirement remains the same.
++	 */
++	link_pclk_khz = is_yuv_420 ? mode_pclk_khz / 2 : mode_pclk_khz;
++
+ 	if (is_yuv_420 || msm_dp_display->wide_bus_supported)
+ 		mode_pclk_khz /= 2;
+ 
+@@ -786,9 +794,9 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+ 		mode_bpp = default_bpp;
+ 
+ 	mode_bpp = msm_dp_panel_get_mode_bpp(msm_dp_display->panel,
+-			mode_bpp, mode_pclk_khz);
++			mode_bpp, link_pclk_khz);
+ 
+-	mode_rate_khz = mode_pclk_khz * mode_bpp;
++	mode_rate_khz = link_pclk_khz * mode_bpp;
+ 	supported_rate_khz = link_info->num_lanes * link_info->rate * 8;
+ 
+ 	if (mode_rate_khz > supported_rate_khz)
 
-The re-test on top of the current tip is still owed; I will run it before v2
-and report the result in its cover letter.
+---
+base-commit: 140b13475302601368c0cf4e193e66126a49feb3
+change-id: 20260812-msm-dp-link-bw-99255c870bc4
 
-Thanks,
-Vladislav
+Best regards,
+--  
+William Bright <william.bright@imd-tec.com>
+
