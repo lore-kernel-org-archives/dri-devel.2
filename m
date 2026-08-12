@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6396C5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8108EC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:57:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE6810EFB0;
-	Wed, 12 Aug 2026 12:57:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D784D10EFB1;
+	Wed, 12 Aug 2026 12:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SLwyfRPj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AhE8Illd";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 981C610EFA9
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:57:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7561A10EFB1
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:57:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B6BB60A9E;
- Wed, 12 Aug 2026 12:57:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E6071F00A3A;
- Wed, 12 Aug 2026 12:57:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EDA0160A92;
+ Wed, 12 Aug 2026 12:57:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9151F00A3A;
+ Wed, 12 Aug 2026 12:57:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786539434;
- bh=k8ycKUnGwpQ4AwzxzEo1cZNOe6UNyjcDqVjSThLSyEE=;
+ s=k20260515; t=1786539446;
+ bh=DnPFTOt0tndqJDX1gz+DDeONsWROJPsH75wddqa7RwE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SLwyfRPj3ehhwkDxBzq9XVgPSFCFDo9zesTEntZ3G0P0Q3lwwcSqJOuA7u5YsL1xI
- r4mVJhd3yJwyuJHcLrScGbg5d8w7ov6T8BgUQhaseOeZ/zCeIQa1TtmXvprh8sj57Q
- f/RMDMiNmhT/gXuZpuR7NpBRp7lTCoYGc3KZx7cJz9fU+futqPgN5mmRCJJG1aUBkQ
- y25OWVxvGJWeFpMe9sLgI04eNeX/XPmcn03Y3O+Iuas54Rr35J1XKCTn4SPnvm7E2I
- Hnl201m0XFso2hpgpHFeXr8fEX7WLFOdCUGFAR/JfiUY1PyelH5GE14DTQkF3b801K
- sFvPweca4UBqg==
+ b=AhE8IlldKPWV8wmAlP9LNl6q+UXdgkL4LfooF/o9f4COcN5NssI+cg7e1DABDIi9o
+ jfFOWHCPJ/VVbqRuqdhcVsyk5tUx4r/dqIFB4bAIm243VMWZukErIyrP+yv78PY5kQ
+ 4uXA4g3g8DDi7hEZZ3ZrZUeaN2TFL3mAoUOyUDKApCtopKwpLyCBAMMNEXYgoyz6NK
+ 7m4Rmq5ucx5LbvrGNGxtBt9XrqWsTXtnw6JECh2t5cEHRRruT4Q46xr3+mNtp5G0wg
+ mxA7JBwdpX/F5h3rCwWGrLY/jZHxPu7HKS88LttYdGZMsmLlUy4RCZ+jrdRDWKLqlS
+ asKF29Y0IlMpw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 12 Aug 2026 14:56:59 +0200
-Subject: [PATCH RFC v2 4/9] drm/atomic: Create function to insert colorop
- state into a commit
+Date: Wed, 12 Aug 2026 14:57:04 +0200
+Subject: [PATCH RFC v2 9/9] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-drm-reset-state-flag-v2-4-e96ce13317dd@kernel.org>
+Message-Id: <20260812-drm-reset-state-flag-v2-9-e96ce13317dd@kernel.org>
 References: <20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org>
 In-Reply-To: <20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +53,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2972; i=mripard@kernel.org;
- h=from:subject:message-id; bh=pZKlOKaPQ0ZMNJ3wdm+9LLNfg+R0yJMvj0WSw22/NaY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFk1uXOUgmOv7Y9xEdHNqIg6ru7732X3puj7ex389Dd8V
- OwrvCjYMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbCrM9YK8RztlbqEN9W5pVT
- pdxyapx2CB/bZr7T8dmusNvhVro9xbrPwvY/aXf6/GLnlIUVfmd3Mza0SQgILln7w4mHafenn0z
- VUQcY19rcYo6alL7S4tyMdTVhPvur4vbNk7Xrcvh49I1GXCsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6104; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=hKVb0fz+IZAsP57og4Z9AHoGfiNKGsvTwQ0y/0S8x3o=;
+ b=kA0DAAkTJ1/OGaI9vnYByyZiAGp8bZ6gcIOsDGJsQTwFWthw/+RfYJkX6TUphRlC3lfwHyBX1
+ 4iVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmp8bZ4ACgkQJ1/OGaI9vna+KAF/bVLg
+ HKpEf2b6cxggrUhs1riyDkZ7qL9wcysOQJBEK34Qa/hviS1gKN4JN+Rqly5MAX9KFJbWQpBg4Sw
+ z8QLlcWzfJCarkwz4DyA1rRRZ2JdFJOrs/0fOtYsI4loAxv+X0jk=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,89 +76,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_atomic_get_colorop_state() allocates a new colorop state by
-duplicating the current one and inserts it into the atomic commit as
-a single operation.
+From: Sebastian Wick <sebastian.wick@redhat.com>
 
-However, a later change will need to insert a colorop state into a
-commit without going through the full allocation and duplication path
-in drm_atomic_get_colorop_state().
+Userspace currently has no atomic way to reset all KMS object states
+to their defaults. To bring a display pipeline to a known state, a
+compositor must explicitly set every property on every object, which
+requires tracking which properties exist and what their defaults are.
 
-Extract the state insertion logic into a new static
-drm_atomic_commit_set_colorop_state() helper, and convert
-drm_atomic_get_colorop_state() to use it.
+Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
+atomic ioctl, fills the commit with default states for all KMS
+objects before applying the properties supplied in the request.
+Properties not explicitly included in the commit remain at their
+defaults (CRTCs inactive, planes disabled, connectors unbound, and
+so on).
 
+The flag cannot be combined with DRM_MODE_PAGE_FLIP_ASYNC, since a
+full state reset is incompatible with an async flip.
+
+Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
+Co-developed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 29 +++++++++++++++++++++++------
- 1 file changed, 23 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_atomic.c      |  3 +++
+ drivers/gpu/drm/drm_atomic_uapi.c | 13 +++++++++++++
+ drivers/gpu/drm/drm_ioctl.c       |  3 +++
+ include/uapi/drm/drm.h            | 10 ++++++++++
+ include/uapi/drm/drm_mode.h       | 14 +++++++++++++-
+ 5 files changed, 42 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 2ac26ed64823..e89e1d18c783 100644
+index d5ac10dd3148..848917bea75e 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -704,10 +704,27 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- 
- 	return plane_state;
- }
- EXPORT_SYMBOL(drm_atomic_get_plane_state);
- 
-+static int drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit,
-+					       struct drm_colorop *colorop,
-+					       struct drm_colorop_state *colorop_state)
-+{
-+	int index = drm_colorop_index(colorop);
-+
-+	drm_modeset_lock_assert_held(&colorop->plane->mutex);
-+
-+	commit->colorops[index].state_to_destroy = colorop_state;
-+	commit->colorops[index].old_state = colorop->state;
-+	commit->colorops[index].new_state = colorop_state;
-+	commit->colorops[index].ptr = colorop;
-+	colorop_state->state = commit;
-+
-+	return 0;
-+}
-+
- /**
-  * drm_atomic_get_colorop_state - get colorop state
-  * @state: global atomic state object
-  * @colorop: colorop to get state object for
+@@ -1621,10 +1621,13 @@ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
+  * the current state.
   *
-@@ -723,11 +740,11 @@ EXPORT_SYMBOL(drm_atomic_get_plane_state);
+  * Color operations are not checked because they always use
+  * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
+  *
++ * This is used to report the %DRM_CAP_ATOMIC_RESET capability to userspace,
++ * and as a precondition in drm_atomic_commit_fill_with_defaults().
++ *
+  * Returns:
+  * True if all objects implement atomic_create_state, false otherwise.
   */
- struct drm_colorop_state *
- drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
- 			     struct drm_colorop *colorop)
+ bool drm_atomic_can_create_state(struct drm_device *dev)
  {
--	int ret, index = drm_colorop_index(colorop);
-+	int ret;
- 	struct drm_colorop_state *colorop_state;
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 1050dddadb17..cdcc6efb9a00 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1658,10 +1658,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 		drm_dbg_atomic(dev,
+ 			       "commit failed: page-flip event requested with test-only commit\n");
+ 		return -EINVAL;
+ 	}
  
- 	WARN_ON(!state->acquire_ctx);
- 
- 	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-@@ -740,15 +757,15 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
- 
- 	colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
- 	if (!colorop_state)
- 		return ERR_PTR(-ENOMEM);
- 
--	state->colorops[index].state_to_destroy = colorop_state;
--	state->colorops[index].ptr = colorop;
--	state->colorops[index].old_state = colorop->state;
--	state->colorops[index].new_state = colorop_state;
--	colorop_state->state = state;
-+	ret = drm_atomic_commit_set_colorop_state(state, colorop, colorop_state);
-+	if (ret) {
-+		drm_colorop_atomic_destroy_state(colorop, colorop_state);
-+		return ERR_PTR(ret);
++	if ((arg->flags & DRM_MODE_ATOMIC_RESET) &&
++			(arg->flags & DRM_MODE_PAGE_FLIP_ASYNC)) {
++		drm_dbg_atomic(dev,
++			       "commit failed: reset cannot be combined with async flip\n");
++		return -EINVAL;
 +	}
++
+ 	state = drm_atomic_commit_alloc(dev);
+ 	if (!state)
+ 		return -ENOMEM;
  
- 	drm_dbg_atomic(colorop->dev, "Added [COLOROP:%d:%d] %p state to %p\n",
- 		       colorop->base.id, colorop->type, colorop_state, state);
+ 	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
+@@ -1673,10 +1680,16 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	copied_objs = 0;
+ 	copied_props = 0;
+ 	fence_state = NULL;
+ 	num_fences = 0;
  
- 	return colorop_state;
++	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
++		ret = drm_atomic_commit_fill_with_defaults(state);
++		if (ret)
++			goto out;
++	}
++
+ 	for (i = 0; i < arg->count_objs; i++) {
+ 		uint32_t obj_id, count_props;
+ 		struct drm_mode_object *obj;
+ 
+ 		if (get_user(obj_id, objs_ptr + copied_objs)) {
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index 8a1ccb8932bf..31e5c42bb020 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -303,10 +303,13 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
+ 		break;
+ 	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
+ 		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
+ 			     dev->mode_config.async_page_flip;
+ 		break;
++	case DRM_CAP_ATOMIC_RESET:
++		req->value = drm_atomic_can_create_state(dev);
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+ 	return 0;
+ }
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index bc7ef7684099..b6e2f2edd122 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -793,10 +793,20 @@ struct drm_gem_change_handle {
+  * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for atomic
+  * commits.
+  */
+ #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
+ 
++/**
++ * DRM_CAP_ATOMIC_RESET
++ *
++ * If set to 1, the driver supports the &DRM_MODE_ATOMIC_RESET flag in
++ * &DRM_IOCTL_MODE_ATOMIC commits. When supported, userspace can pass that
++ * flag to reset all KMS object states to their defaults before applying
++ * property changes.
++ */
++#define DRM_CAP_ATOMIC_RESET	0x16
++
+ /* DRM_IOCTL_GET_CAP ioctl argument type */
+ struct drm_get_cap {
+ 	__u64 capability;
+ 	__u64 value;
+ };
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index bd435effdcee..43024028f695 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -1314,10 +1314,21 @@ struct drm_mode_destroy_dumb {
+  * To the best of the driver's knowledge, visual artifacts are guaranteed to
+  * not appear when this flag is not set. Some sinks might display visual
+  * artifacts outside of the driver's control.
+  */
+ #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
++/**
++ * DRM_MODE_ATOMIC_RESET
++ *
++ * Reset all KMS object states (CRTCs, planes, connectors, color operations)
++ * to their default values before applying the properties in this commit.
++ * Properties not explicitly included in the commit will remain at their
++ * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
++ *
++ * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
++ */
++#define DRM_MODE_ATOMIC_RESET 0x0800
+ 
+ /**
+  * DRM_MODE_ATOMIC_FLAGS
+  *
+  * Bitfield of flags accepted by the &DRM_IOCTL_MODE_ATOMIC IOCTL in
+@@ -1326,11 +1337,12 @@ struct drm_mode_destroy_dumb {
+ #define DRM_MODE_ATOMIC_FLAGS (\
+ 		DRM_MODE_PAGE_FLIP_EVENT |\
+ 		DRM_MODE_PAGE_FLIP_ASYNC |\
+ 		DRM_MODE_ATOMIC_TEST_ONLY |\
+ 		DRM_MODE_ATOMIC_NONBLOCK |\
+-		DRM_MODE_ATOMIC_ALLOW_MODESET)
++		DRM_MODE_ATOMIC_ALLOW_MODESET |\
++		DRM_MODE_ATOMIC_RESET)
+ 
+ struct drm_mode_atomic {
+ 	__u32 flags;
+ 	__u32 count_objs;
+ 	__u64 objs_ptr;
 
 -- 
 2.55.0
