@@ -4,153 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C9DC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 02:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29886C5AC67
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 03:07:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D20E10E3BE;
-	Wed, 12 Aug 2026 02:09:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B14110E3DD;
+	Wed, 12 Aug 2026 03:07:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UgSMmYat";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OZzD8QVa";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1CB610E3BE;
- Wed, 12 Aug 2026 02:09:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786500586; x=1818036586;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=tM6t0iPap2LhQQRLPLBvikbEWh5ugdIwmFjYiJPA2Lw=;
- b=UgSMmYatiJLq8p50jp8mNzx61fkusqYjWns71382TGWqhST3mjKZGgpa
- XIfFU360EUY+ZPJOOmeNxyMnC5N2AY0v1OsNpp4xuInJgH/Tid1Hffr43
- YbDhQzUGbr2OPETQqsQ2NbGXl7Ikdeck6GT94XAxQjbUS9HBnESLI3pFC
- hVcGQSqWMxjebsjHvGzPv/6FdG2O4c+LhziuwvKK+85qu+QRjPORnCk7X
- EeS6l7elvc5ULdRVAUJOLRccf1XZgZMmlyp9AX1o3/jTXZZvIxtwmy8Of
- u0dfUTTNh6GpsLmNRsO5X6ekho2iJsdbbai6fnBB7Di24m8AbEH1lWBNl Q==;
-X-CSE-ConnectionGUID: lyGqOXVuSHiOE5VWKw/AlQ==
-X-CSE-MsgGUID: 8wozpr+ORzu+rJ6S45c/Cw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="109833317"
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="109833317"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 19:09:45 -0700
-X-CSE-ConnectionGUID: 1K8c3dLaTGS37jJdxfQY7A==
-X-CSE-MsgGUID: vROm2RkHQF+9BrhVWGq7jA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="286926393"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 19:09:45 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 19:09:44 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 19:09:44 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.70)
- by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 19:09:44 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pK8nLzPnYRSBZv8Ve9Apk+6YY0R0nZkGJaXJ7+ncIVjTBCT/hRB1qbm+du/w7iMB9+lh+sDVoL5o4i+pnUUxvhV76c2FzlF5Ohh9UjUXCJiSu7y9GV7fMXL9iPHbzl11t28O5AdDU5uIy33ed+ylzgAxLwDmkKrya5RG93G1IWDbF4zk+EQ59nwWL3P6HmcWAa7Z1c7SvwZ4lmxMId3Jn5KIcUmVKI1olqRVOBZG9aUiSnNrtt6/2D2Egv+2Sm9CkK2BYEUhygaqVFG/hZyJfiqwhLhNFoCrdNgd13WUsdWpg17ttbOXCVUmMNoWKuTooiXt33GphYm0PRtLlGz2qQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YNmMN0CzUEqKTx7ew+ZC4Pwx441L5W293em0A3GYR9E=;
- b=U65U9owobCllpBY394A3v549rmPAbcHDhNYkAdH2qYeVSYd24yYKK/MKCGytwstMh6YyxkngUFWq7JlqG6GOUcUFcLeKHZR46GyM1JEG7qvM6PRWwbaQqJEBK4x92eBpaQIsPR/L9oiJMAx6HCTH6Qal9q4aouR9qGNxVMFSwPh2HDTqZbsi8EGNQj0rypAOeEN49J4EszR06cMIKP0UKxvuLbmcRCNXSnxL6mPI/svVUIWFTcPg+V/+NiNmlIKlGrZBSPxoL1qGKJmJWvZo7EAXjSDPCUY1T5wOeQ2RsILWAtANaG+fwBZFcE7qqawWQ3PT35teHh2cFLsb3uvJJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by DS7PR11MB9451.namprd11.prod.outlook.com (2603:10b6:8:261::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
- 2026 02:09:37 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0315.011; Wed, 12 Aug 2026
- 02:09:36 +0000
-Date: Tue, 11 Aug 2026 19:09:33 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Neil Zhong <neil.zhong@ugreen.com>
-CC: <intel-xe@lists.freedesktop.org>, <thomas.hellstrom@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v2 1/1] drm/xe: keep VM-bound WC BOs resident during
- reclaim
-Message-ID: <anvV3WiVbYMqjdbZ@gsse-cloud1.jf.intel.com>
-References: <20260728065512.59911-1-neil.zhong@ugreen.com>
- <FEC04D5B1E58A204+20260728065512.59911-2-neil.zhong@ugreen.com>
- <amv8Ll7+CJOcZ222@gsse-cloud1.jf.intel.com>
- <amwL8o5BcWmaC5Xs@gsse-cloud1.jf.intel.com>
- <2177DDCA3446E482+20260801053934.26608-1-neil.zhong@ugreen.com>
- <am2Lkcid3rLuqLFL@gsse-cloud1.jf.intel.com>
- <0AC9B69C6E8FB7B2+20260808093408.79701-1-neil.zhong@ugreen.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <0AC9B69C6E8FB7B2+20260808093408.79701-1-neil.zhong@ugreen.com>
-X-ClientProxiedBy: SJ0PR13CA0210.namprd13.prod.outlook.com
- (2603:10b6:a03:2c3::35) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1BF10E3DD
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 03:07:10 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2ceb096e675so7581755ad.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 11 Aug 2026 20:07:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786504030; x=1787108830; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=tW05vuUN0QDLV81erlXyT4SqrvSYh+Z7l0E4pHZdxj0=;
+ b=OZzD8QVae1EDrn/o9JfOrs+BNOsiuiS78VWc4VQDegLk8XHGQtK4aGNENcDqOh/OCk
+ jzM+7XlrKev702YCaHaZfFs2/ERBLi3w8QeS8ARuEYYS4vJyGxmEqiIRhLY6f1Ue9Ga4
+ abWyO9FCoNDYgOJ8tw2XaeV+E6j1uwOeJQ9Xs7wqXx3C2+SO0ZjsVcg4vR2UVjK08U9a
+ OUQRtEBIQlB4in561LxzET+1MNqsLVU+OLgus8Y6l9Om1y+DGxOdKxIVfF95dEmHhJP7
+ zIEkGti1rNxygRbzec6cV6PO0WBnieCdjbm4pv4fxUZetxruMZmFwGhnDgFCP9UN4Tw8
+ 0M7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786504030; x=1787108830;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=tW05vuUN0QDLV81erlXyT4SqrvSYh+Z7l0E4pHZdxj0=;
+ b=qOvE/1RaeeM24+An8bFzwxyrd7xuKAZTJSN1ulkX3zP767NKXOL4I70vyPhkMEGSU1
+ wGJktvk9qc2SDA0WWaEnEokHX7cw7t/ATPVJVq9wa/MAyPn4bXJSPuxkvWyM9v2z5b09
+ h6aaR+hu4rtKvUFx5ezGOw1B7vLidfF0p7KYpbgi682iQqnYL9Q4/I1TfIeKGud2ADXS
+ yfw6y0qaOa/gPwlNh+ZdrShySXxhkxPeYpMl9pOMQ1NlYZsQZRiW13R5aIOuE4wVwIfR
+ Oq+cJyQyjnMvvmeXSes947upIYFwLHkrbLmnC9EO97rSAk8IBzXGkmtJNz383RAU8FBt
+ BNLg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrPiIohXs+K7ayf2BEziZvD4vY60mwD0PvbSwSStwFohqrJ1Va+5CkoSLDLkMcFiWsvo3kBwFbSnfU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3pUbUg+OIYLWhf6ij9bv5FH/Dm0+gsH/OzDHyYu+WiQk/3qlT
+ 5YAdCLBU6MsH321NALSoWusrdMj0RIr+fMv36VtE+eEtc3Er2dsvAEnz
+X-Gm-Gg: AR+sD13SkZJz1NeCNbpxccoILJGLP9ariVIuia6y4ZjsudtLOD6dgpKu6poOsvOsavc
+ 9voN4QTBalEimGEkAMdXjcKIy9iJ/n9d7om7dGZmJ1EY3Tq/l7DgMLDPMich955JzO+rZzDE6KE
+ 3rsqWUWtEKvOyx+l204s6xolw2CX9xEC3yxiCLUMTfRTbjQduKmDurvbi5M1zeFZ8WAUVDG8CPN
+ F2l+lzvGrvlODNanJRia8p+LCue6Ho0daI7OB2ZpX4xCBW4m9FeJqf/En/hPJX4bmZMMnxJBKi5
+ o8wQouuwJVNDKi8tWyUoTw83BhHeJKCqtrwCI8Wts1frhwUIJU9BqUhLLLRA14b/L9cIfZSe1sT
+ vMbq1QzIOtqGkDayqwqQpD4cyVs3VFKyEA8ITsLpIX59gwB5D8VApIikNVO2p0lLkMdsp5+eGMJ
+ Nl5bnoMyuZTysptw3Djw2HFCDSVJVHozPcALOv1VI4FGlvvQdas0JnP/u0UI6ERyBl4tmcZw==
+X-Received: by 2002:a17:903:b45:b0:2ca:20b1:3e0a with SMTP id
+ d9443c01a7336-2d345356ffcmr25195715ad.3.1786504029789; 
+ Tue, 11 Aug 2026 20:07:09 -0700 (PDT)
+Received: from [10.239.152.184] ([134.134.137.72])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d352217334sm596245ad.71.2026.08.11.20.07.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Aug 2026 20:07:09 -0700 (PDT)
+Message-ID: <ee7f26285f8ca8a8993f8cb62b4d893e4106b10c.camel@gmail.com>
+Subject: Re: [PATCH] drm/i915: Make suspend idle wait uninterruptible
+From: Weifeng Liu <weifeng.liu.z@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: matthew.brost@intel.com, jani.nikula@linux.intel.com, 
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, 	dri-devel@lists.freedesktop.org,
+ weifeng.liu@intel.com
+Date: Wed, 12 Aug 2026 11:07:04 +0800
+In-Reply-To: <20260805064539.1034880-1-weifeng.liu.z@gmail.com>
+References: <20260805064539.1034880-1-weifeng.liu.z@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DS7PR11MB9451:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5aab5ab5-f41d-4aea-42b4-08def816c246
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|18096099006|10067099003|17096099006|5023799004|11063799006|4143699003|56012099006|6133799003|22082099003|3023799007|11146099003|18002099003;
-X-Microsoft-Antispam-Message-Info: MDMTiKr+gCTmcNhSvweQcLToSxgcBlFqKexWM/wwkwGt3/SXe+hDH/a8CGn7OFrq9R9GDCQ+fP6ZRBB8I2IeDnAVnYYoVHb+dtcK1EuCy3W4HbaymxM5MbOUqqLievxZins1fpdTbJaKSrHLablO5FEUkw+u60b8DIpv9Q6SmdyFY8UfzGoFfRMcQ2JzBAFP6QJPLZE2XIobtLApGMAzkaC+wVM8qSjKWNzFY+vn0dnD5We6p7tyefg+Pqunadz41bomVrvnQx7xl3WSVtajaNKZh2tepr6//ku0gatqVuaxbpIh8EfbdKJ5UJ9/JcV9NZKx53r1jqcNPvtd/Y0wxjDbQLO2iVT5cPNq7qrz77BMf3kaGy58FzG0xVOAEDTcYmX0LYT71z89KUavNYw4CbTe2KEzdf4VBu40cn1gzeIxAX8v2L4Epf0hmq4lyEZnEAw5fWdmgErOaI0AVjEYxgzGkRmLGdaTWt1KwOAUC+1mkRtHnAyrDQRlSsN7WqdiskDUsDVkpqh9wLzMtkney0j4shLTxWOpHusLQ7OPkiMmxXkjoHE1VFLqSJ3HHIkKbig44UR7aYmkvefy6gsqZIhUL6DcibnGM+V2mKE9Z8fDY0hBXtrqyR0EGJqfGg20
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18096099006)(10067099003)(17096099006)(5023799004)(11063799006)(4143699003)(56012099006)(6133799003)(22082099003)(3023799007)(11146099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?H4h5Vlb995YtpNn8hHO5ItTLGx+HydpgjQIhgGnovNSGClP3LQ3DEAOSGEBL?=
- =?us-ascii?Q?WsLqbnyuC10Ev6ULMLSP7HVUf9HykHwGoCrfXIlvtMxip5hbPHmThzj7Bb1P?=
- =?us-ascii?Q?Qr9i1voUuLCNVUpA0a+Y+dhfm2us5mAH3tWIjiM2MKOPleS40LIzsAAFX+Fd?=
- =?us-ascii?Q?Ms3gxqU/qR8s7WUd7tz3rrG3Y42UEgOKS3pZW12ZmqqkLcWrj04jJf8OMnyU?=
- =?us-ascii?Q?RpG9o9e/YyUpa428ndAJW8xXkLMqH2PrvOoYgpks9MuDwkAuo7hMa45s3nvf?=
- =?us-ascii?Q?BqCCj5TqABwkz+NmVcLZ7+BLVYVbfk1I4BgIuSscaOVbHbs+yuLiwjP7/o5i?=
- =?us-ascii?Q?ULzpqrH18MaBZ4MByMrLbk05MZlyvh1mGcJwRs5wlu83paZAlu6+6eMUsYF+?=
- =?us-ascii?Q?FoV01S8IvxKQzPHZQbcgaXp1lDMrQ5d11jpcxjDleci8WT62zljkqzRm/u8E?=
- =?us-ascii?Q?LO0TRpdF8WhnL3XBuZdp0OUVd4AIrbu533p+iwp5dGobQGd0DsyRysVvN4DQ?=
- =?us-ascii?Q?V/vDtpQYuc9kexzBGkrQpVBG00GeypaP50xXXaqcn2rKQC6PiZdQVKtcu2Zd?=
- =?us-ascii?Q?6bAJYFY5bE7IenQT22y0gZaBXkYDbjJ+GPVX4m+I4UJ+BfOXfJGxEi1TCGGe?=
- =?us-ascii?Q?jeFP2vOcekMOnYX4Y0CL41h3DdId6d4vdHhjgwWNWT/PjI7NDQXW+UOybIH1?=
- =?us-ascii?Q?iK7GHizGnUkbJGZa7dj+8d6fB+9O6YrIGfjiOMPWURnlUc+3+gDptO+TDIO2?=
- =?us-ascii?Q?vlSqy70nxdbA8/qhG/2Hh7DU91QEr25SZXr/ReIRPTIff0nOZxs6FffPADSv?=
- =?us-ascii?Q?VXYSjWoIwneSupKWAQkBxiKUo/PTkxDckX5608uFpYAEsMjTNzbSlNIhwq5H?=
- =?us-ascii?Q?LFTm8Ca8+2hiwLwsAsIXluPnGxEmtVSs8EwcML2ZHMuVpKXA+FAeIeBAg/Li?=
- =?us-ascii?Q?LJKNL/O/JZajf24NAF3xlKLTZjq0IwgxsD7G2F3VIKnadwpFBRXQC6EMHJTY?=
- =?us-ascii?Q?C6DgwAGrLB77eAJhEoW9yPtu+FgH5moqfOyphGUp4n5ddXioo9ORIAWBuDRy?=
- =?us-ascii?Q?LrXWpozYljZryqMbkVdwTsJA2RKbxqnoprmHj4S0UJW5zbjv3z0O8Y3fTSHC?=
- =?us-ascii?Q?+uGyu4mb7whVscUMlavy3leuB2kQqoquL61FGs/ob4cKANYdVUZMzffRTqle?=
- =?us-ascii?Q?5cbGo09nQRfuoDhNodeOwIUROevavqcDjfYFu2FzXGWsGmNDvU/XNiIn+rh3?=
- =?us-ascii?Q?92EIo96ucHA7E2+ugFRN8tBujMsPJEVts0ZpjsuQIX3kxlp/RIkhHe2uSnQt?=
- =?us-ascii?Q?nguWm8tOECMptaQPjaeHC305y/0qVB+VA4AWZwgM5BBuAhygUZNfKunbaKk5?=
- =?us-ascii?Q?bfpAbYkbz89W2xl0IY/H7uJOqR5nhrsGWEPUQCi/t3C2G1Mo/mReiezCtsw3?=
- =?us-ascii?Q?5lI/4zRbnRawPuYuZ4FI/wZxiExsFVHWNef4A8+N4fDkeBLHLiFmSCtYy0yT?=
- =?us-ascii?Q?ciBBAzcdrndhn491KDfC/Ml/gkm+/jiduiVEbjGdK4gG1i3/rap2hnj/4TOF?=
- =?us-ascii?Q?Fe12Mg42KvOSzufGu3ZNTo1pgiLhqLDWTRaie08lUIE6B9UFvrnzgP8DSnNj?=
- =?us-ascii?Q?4D2D2vk3tkk8T5ClEccOEbxFPwZTjG7rw951jKbhYJ3Yw9Hs6FLS3w0yDdGZ?=
- =?us-ascii?Q?VSEQu99kYMoFKo7j3HzYBzek3Qx8Tbgyx2YaWHChPGwphBWFlogdZSbnAMHP?=
- =?us-ascii?Q?vEn5q/T9CCg4QfB8q1Urs2sIKJKpfmU=3D?=
-X-Exchange-RoutingPolicyChecked: WlqAfPYB45ViH//98YaBwWW8MITkKKpP1K1RPsl0Z/cGZQULc/bTZF+QIqkSzR196NePRqqyJ1KkE8roJQrJuus36J61so2ujmoSRTv3itniDUwBBnc9gmSPKBgE+Ccz1rCI0wkC/ayru56BiJ/9JB1TwxUBMM2zbyIS1IL1zF1z8ur6hJIzFP+y5MmxIlzUIaic9w17nSdeE59iOZbsk9MtmIUxwkAG3JBslowp9fOM4tR68TBxEsHtYZd2wXNulcHFkhApwAY4BslCdOrPjAKuRmPScg4zRFaFyUMAeRFFT0Igun4PX4PNjVTgD1pKoWQaoDBAmL9yNIl8oLBo1g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5aab5ab5-f41d-4aea-42b4-08def816c246
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 02:09:36.7590 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k7dCVd6p7GwTeap/okw7VPO6SXqvLNcqsrh3T1fGXru70WkwHspzhiw3ziNcbodL6/ApezVk4mKP83XUx517jg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB9451
-X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,267 +93,311 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Aug 08, 2026 at 05:34:04PM +0800, Neil Zhong wrote:
-> On Fri, Jul 31, 2026 at 11:00:49PM -0700, Matthew Brost wrote:
-> > This actually roughly what downstream customers are carrying :).
-> >
-> > It is basically these 3 patches [9] [10] [11] implemented directly in
-> > the Xe shrinker code to avoid touching the MM or TTM...
-> >
-> > Alas I got nack'd by someone outside my subsystem on this approach.
-> >
-> > I think if you use the reference patches above to implement a heuristic
-> > in Xe, or come up with a similar one, it will likely solve this issue.
-> >
-> > Since you're on 6.18, you may also be missing some Xe/TTM changes
-> > related to this problem that have already been merged into drm-tip.
-> > There are a couple of one-line fixes that should help somewhat, but the
-> > heuristic is what I think will actually address the root cause.
-> >
-> > As heads up, I've started looking at this again and pushing to get
-> > something upstream as this at least 5th time someone or org has flagged
-> > this as a problem. Any data you can provide will help us push towards a
-> > solution.
-> 
-> Hi Matt,
-> 
+Gentle ping. I would like to provide some additional context about the
+issue this patch is trying to fix.
 
-Thanks for all the details here, very helpful.
+A customer observed a shutdown hang in an automated S3 resume and
+power-off test. This issue occurs after resuming from S3 and later
+starting the power-off sequence. During process teardown, i915 reports
+GuC CT errors such as:
 
-> Thanks. I tested [9]-[13] on the same machine and the fragmentation
-> heuristic does reduce the frequency of the problem. However, after these
-> tests I would like to clarify my actual requirement, since my previous
-> watermark-based proposal did not express it correctly.
-> 
-> For BOs that belong to a latency-critical visual processing working set,
-> I think userspace should be able to mark them as non-shrinkable, and Xe
-> should not back them up under any memory-reclaim condition while that mark
-> is held. This would be a hard residency contract, not another reclaim
-> priority or a fragmentation hint.
+  i915 0000:00:02.0: [drm] *ERROR* GT0: GUC: CT: Unsolicited response
+message: len 1, data 0xe0000100 (fence 2941, last 2945)
+  i915 0000:00:02.0: [drm] *ERROR* GT0: GUC: CT: Failed to handle HXG
+message (-ENOKEY) 00 01 00 e0
+  i915 0000:00:02.0: [drm] *ERROR* GT0: GUC: CT: Failed to process CT
+message (-ENOKEY) 01 00 7d 0b 00 01 00 e0
 
-This is roughly what customers have indicated to us for laptop-type
-products: anything displayed on the screen should avoid eviction or
-shrinking at all costs. This series came out of that discussion:
+No rendering or display failure was observed before shutdown. The GuC
+error appears to be related to inconsistent context state after S3, but
+this patch does not attempt to fix that underlying issue; I focused on
+fixing the shutdown hang issue currently.
 
-https://patchwork.freedesktop.org/series/170454/
+With initcall_debug enabled, the last device shutdown message is:
 
-This customer, in particular, utilizes priority bands to express this
-heuristic (e.g., the compositor is the highest priority, any
-non-privileged UI-related content is normal priority, and everything
-else is low priority). I'm not sure if stock distros do anything like
-this.
+  i915 0000:00:02.0: shutdown
 
-Pinning would take this even further, allowing the compositor (or anyone
-really) to effectively say, "Don't shrink this".
+and device_shutdown() does not make further progress.
 
-> 
-> Why a hard contract is useful for visual workloads
-> --------------------------------------------------
-> 
-> The reproducer is continuous 4K60 HDR playback. Every decoded frame is
+While investigating this hang, I found that wait_for_suspend() assumes
+that intel_gt_wait_for_idle() either succeeds or returns -ETIME.
+However, the request retirement and GuC pending-message waits are
+interruptible and may return -EINTR or -ERESTARTSYS when the shutdown
+task has a pending signal. These errors bypass the existing wedge and
+cleanup path, after which wait_for_suspend() may block waiting for a GT
+wakeref that cannot be released.
 
-Can you give me instructions on how to recreate this on our end and your
-machine, memory details? I have a bunch of various reproducers which I
-have been using for shrinker work and the more the better.
+As a diagnostic experiment, adding a timeout to
+intel_wakeref_wait_for_idle() allowed the power-off sequence to
+complete consistently. I did not propose that approach upstream because
+continuing suspend with an active GT would weaken the existing suspend
+invariant.
 
-> imported through DMA-BUF and processed by libplacebo/OpenGL for HDR tone
-> mapping before presentation. The active BO set contains decoded video
-> surfaces, intermediate render targets and presentation-related surfaces.
-> 
+Instead, this patch makes only GT idle wait used by wait_for_suspend()
+uninterruptible. It retains the existing timeout and wedges the GT only
+if that timeout expires. All other intel_gt_wait_for_idle() callers
+remain interruptible.
 
-DMA-BUF in priority series moves to the prior band that is least likely
-to be shrunk.
+Does this approach look reasonable, or would you prefer a different way
+to prevent signals from bypassing the existing timeout recovery path?
 
-> At 60 Hz the complete frame interval is 16.667 ms. If glFlush() is blocked
-> for longer than this, the application misses at least one presentation
-> deadline. Repeated missed deadlines are perceived directly as dropped
-> frames or visible stutter. A 100-500 ms reclaim/restore storm is an
-> obvious freeze, even if the system eventually recovers and its average
-> throughput looks normal.
-> 
-> Fence-idle is not equivalent to cold for this workload. A video surface
-> can have no active fence in the small gap between two frames and still be
-> part of the application's current visual working set. The next frame can
-> need the same BO immediately.
-> 
+And I'll be very grateful if you can provide some hints about the root
+cause of the GuC error.
 
-Ok, I think I see a potential problem here with priorities. If, for
-example, a buffer is assigned a priority indicating that it is unlikely
-to be evicted but has no active fences, it could be chosen for shrinking
-before buffers whose priorities indicate "shrink this first" if those
-buffers have active fences.
+Best regards,
+Weifeng
 
-> The trace demonstrates exactly this case. In one sequence, kswapd
-> completed backup of an 8,208-page BO and the rendering thread started
-> restoring the exact same ttm_tt about 33 microseconds later. The kernel
-> copied about 32 MiB to shmem, dropped the WC pages, then immediately had
-> to allocate pages, copy the data back and reapply WC.
-> 
-> In the ten-minute default-watermark capture:
-> 
->   successful ttm_tt_backup:                 4,853
->   ttm_tt_restore:                           4,810
->   minimum backup+restore copy traffic: 50,436.105 MiB
->   Flush > 16.667 ms:                         209
->   Flush > 100 ms:                             65
->   maximum trace-aligned Flush:           223.195 ms
-
-Also a quick write up how you extracted these numbers from reproducer so
-I can recreate on my end.
-
-> 
-> Of 4,791 restores matched to the same preceding backup, 4,279 happened
-> within 100 ms and 4,753 within one second. kswapd0 performed 4,839 of the
-> 4,853 backups, while the player's rendering thread performed most of the
-> restores. Of the 209 Flush calls over one frame interval, 205 contained
-> ttm_tt_restore() and all 209 contained set_pages_array_wc().
-> 
-> This is not useful recovery of cold memory. It is destruction and
-> immediate reconstruction of the visible working set.
-> 
-
-Yes, indeed. We really don't want to destroy a working set unless the
-core system genuinely needs memory and doing so is the only option.
-Even then, there may be parts of the working set that simply cannot be
-shrunk, as you are suggesting.
-
-> What the heuristic test showed
-> ------------------------------
-> 
-> I backported [9]-[13], extended the fragmentation check to direct reclaim,
-> and tested a `high + min` watermark threshold. In a follow-up run with the
-> same kernel, video and playback configuration, I set vm.min_free_kbytes to
-> 50000. This lowered the Normal-zone `high + min` threshold from about
-> 379.8 MiB to 255.1 MiB.
-> 
-> With the lower threshold, the fragmentation helper returned true more
-> often and Xe working-set churn fell by about 90%:
-> 
->   successful ttm_tt_backup:        4,853 -> 443
->   ttm_tt_restore:                  4,810 -> 435
->   Flush > 16.667 ms:                 209 -> 19
->   Flush > 100 ms:                     65 -> 3
-> 
-> This confirms that preventing working-set backup prevents the visual
-> stalls. It does not make the individual restore path cheaper. When the
-> heuristic still allowed a storm, the maximum Flush was 191.655 ms and
-> contained 25 restores and 23 WC conversions.
-> 
-> I do not think tuning global watermarks is the right solution. More
-
-Nor do I. [9]-[13] were Xe replacement for what is IMO a proper solution
-in the core MM: https://patchwork.freedesktop.org/series/168651/ I'm
-pushing on this patch a bit more with the core MM maintainers and have
-another shrinker locally that is semi-related to this as well.
-
-I guess I'd like numbers with the patch above + priority bands to see if
-that is enough prevent working set shrinking of valuable buffers +
-spikes in flush times.
-
-> importantly, I no longer think that protection for explicitly identified
-> visual BOs should depend on whether reclaim was caused by fragmentation
-> or genuine low memory. Once userspace has declared a bounded set as
-> presentation-critical, violating that residency guarantee produces an
-> immediate and user-visible failure.
-> 
-
-To be clear - this would be an addition to fixes discussed above, right?
-
-> Possible explicit marking mechanism
-> -----------------------------------
-> 
-> Could Xe provide an opt-in, mlock-like mechanism for this purpose?
->
-
-Yes, we could implement something like this, but we'd need buy-in across
-the entire stack (i.e., from user space as well). I'll run this by the
-internal team too to see if anyone can immediately poke holes in it,
-because I don't currently see any obvious issues.
- 
-> One possible interface would be a new DRM_IOCTL_XE_MADVISE VMA attribute,
-> for example DRM_XE_VMA_ATTR_RECLAIM_POLICY, with states similar to:
-> 
->   DRM_XE_VMA_RECLAIM_DEFAULT
->   DRM_XE_VMA_RECLAIM_NO_SHRINK
-
-This seems like a reasonable API.
-
-> 
-> NO_SHRINK would mean that the backing BO is excluded from the Xe shrinker
-> while at least one protected VMA holds the attribute. Userspace would set
-> it when a video/render surface enters the active visual pipeline and clear
-> it after the surface leaves that working set. Unbind, VM destruction or
-> file close would also release the holder automatically.
-> 
-> For a BO shared by multiple VMAs, Xe could maintain a BO-level
-> no_shrink_count, similar to the holder accounting already used for
-> purgeable state. The shrinker would skip a BO with a non-zero count. I
-> would prefer a separate shrinker-specific count rather than exposing TTM
-> pin_count, because pinning also affects placement and migration, which is
-> broader than the requested guarantee.
-> 
-> The existing WILLNEED state does not provide this contract: it prevents
-> purging of the contents, but the non-purge shrinker may still back up and
-> unpopulate the BO. It also cannot simply be redefined because WILLNEED is
-> the default state for all VMAs. SCANOUT is not sufficient either, since
-> many HDR intermediate and imported video surfaces are not scanout BOs.
-> 
-> I understand that an unprivileged client must not be allowed to make an
-> unbounded amount of memory unreclaimable. Like mlock, this could be
-> controlled by an explicit per-file, per-client or cgroup byte limit, and
-
-I think we could just hook into mlock accounting. There is an exported
-function for exactly this purpose:
-
-https://elixir.bootlin.com/linux/v7.1.7/source/mm/util.c#L549
-
-You'd have to deal with multiple VMAs (from the same or different MMs in
-a dma-buf) aliasing the same BO and ensure that accounting remains
-consistent everywhere, but it shouldn't be too difficult. We already
-have this problem WILLNEED/WONTNEED and solved it.
-
-Ofc, this only works for system memory buffers so we'd some VRAM type
-accounting too. iirc Thomas was working on cgroups for that part in a
-slightly different context though.
-
-> possibly by a privilege check. If the requested protected set exceeds the
-> configured limit, the madvise should fail rather than silently accepting
-> the mark and later violating it under pressure. The application or system
-> service would then decide which visual surfaces to protect or release.
-> 
-> Within that bounded contract, however, I think NO_SHRINK should remain a
-> hard guarantee even in genuine low-memory reclaim. Under pressure the
-> kernel may reclaim unmarked BOs and other memory, reject additional
-> NO_SHRINK requests, or require the application/service to release part of
-> its protected set. Backing up an already accepted presentation-critical
-> BO and stalling a frame by hundreds of milliseconds defeats the purpose
-> of the interface.
-> 
-> For comparison, my original workaround approximated such a hard contract
-> by excluding VM-bound WC BOs from non-purge shrinking. In a 21-minute
-> capture, no XE_EXEC, VM_BIND or DMA-BUF ioctl exceeded the 16.7 ms frame
-> interval; their maxima were 348 us, 136 us and 20 us. The call rate of
-> set_pages_array_wc fell to 0.179/s. That automatic VM-bound WC rule is too
-> broad, but an explicit and bounded userspace mark could provide the same
-> latency guarantee only for the BOs that actually need it.
-> 
-> Would an explicit, bounded NO_SHRINK/latency-critical VMA attribute be a
-> reasonable Xe UAPI direction? If so, I can prototype the BO holder
-> accounting and shrinker exclusion, then modify the video/Mesa path to mark
-> only the active visual working set and collect another strict A/B trace.
-
-No issue if you want to prototype this, but as mentioned above, this
-would require buy-in from user space (which is not under my control) and
-at least one other person on the KMD team (most likely Thomas). So I
-can't guarantee that it won't be rejected by someone. 
-
-Matt
-
-> [9] https://patchwork.freedesktop.org/patch/720030/?series=165329&rev=1
-> [10] https://patchwork.freedesktop.org/patch/720036/?series=165329&rev=1
-> [11] https://patchwork.freedesktop.org/patch/720031/?series=165329&rev=1
-> [12] https://patchwork.freedesktop.org/patch/732698/?series=168466&rev=1
-> [13] https://patchwork.freedesktop.org/patch/732420/?series=168389&rev=1
-> 
-> Thanks,
-> Neil
+On Wed, 2026-08-05 at 14:45 +0800, Weifeng Liu wrote:
+> wait_for_suspend() only handles -ETIME from the GT idle wait.
+> However,
+> the wait can also be interrupted by a pending signal while retiring
+> requests or waiting for GuC messages, e.g., during the reboot process
+> invoked by init. This skips the wedge and cleanup path and may leave
+> suspend waiting indefinitely for a leaked wakeref.
+>=20
+> Make only the suspend idle wait uninterruptible while preserving its
+> existing timeout. Other callers remain interruptible, and the GT is
+> still wedged only when the timeout expires.
+>=20
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Assisted-by: OpenCode:GPT-5.6-Sol
+> Signed-off-by: Weifeng Liu <weifeng.liu.z@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/i915/gt/intel_gt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 24 +++++++++++++++--
+> --
+> =C2=A0drivers/gpu/drm/i915/gt/intel_gt.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/i915/gt/intel_gt_pm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> =C2=A0drivers/gpu/drm/i915/gt/intel_gt_requests.c=C2=A0=C2=A0 |=C2=A0 8 +=
++++---
+> =C2=A0drivers/gpu/drm/i915/gt/intel_gt_requests.h=C2=A0=C2=A0 | 13 ++++++=
+++--
+> =C2=A0drivers/gpu/drm/i915/gt/uc/intel_guc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> =C2=A0.../gpu/drm/i915/gt/uc/intel_guc_submission.c |=C2=A0 5 ++--
+> =C2=A0drivers/gpu/drm/i915/gt/uc/intel_uc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +++--
+> =C2=A08 files changed, 47 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c
+> b/drivers/gpu/drm/i915/gt/intel_gt.c
+> index 5c7f862f7100..5eaa52f535d4 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+> @@ -659,7 +659,9 @@ static void __intel_gt_disable(struct intel_gt
+> *gt)
+> =C2=A0	GEM_BUG_ON(intel_gt_pm_is_awake(gt));
+> =C2=A0}
+> =C2=A0
+> -int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
+> +static int __intel_gt_wait_for_idle(struct intel_gt *gt,
+> +				=C2=A0=C2=A0=C2=A0 bool interruptible,
+> +				=C2=A0=C2=A0=C2=A0 long timeout)
+> =C2=A0{
+> =C2=A0	long remaining_timeout;
+> =C2=A0
+> @@ -667,10 +669,11 @@ int intel_gt_wait_for_idle(struct intel_gt *gt,
+> long timeout)
+> =C2=A0	if (!intel_gt_pm_is_awake(gt))
+> =C2=A0		return 0;
+> =C2=A0
+> -	while ((timeout =3D intel_gt_retire_requests_timeout(gt,
+> timeout,
+> -							=C2=A0=C2=A0
+> &remaining_timeout)) > 0) {
+> +	while ((timeout =3D __intel_gt_retire_requests_timeout(gt,
+> interruptible,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0
+> timeout,
+> +							=C2=A0=C2=A0=C2=A0=C2=A0
+> &remaining_timeout)) > 0) {
+> =C2=A0		cond_resched();
+> -		if (signal_pending(current))
+> +		if (interruptible && signal_pending(current))
+> =C2=A0			return -EINTR;
+> =C2=A0	}
+> =C2=A0
+> @@ -680,7 +683,18 @@ int intel_gt_wait_for_idle(struct intel_gt *gt,
+> long timeout)
+> =C2=A0	if (remaining_timeout < 0)
+> =C2=A0		remaining_timeout =3D 0;
+> =C2=A0
+> -	return intel_uc_wait_for_idle(&gt->uc, remaining_timeout);
+> +	return intel_uc_wait_for_idle(&gt->uc, interruptible,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 remaining_timeout);
+> +}
+> +
+> +int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
+> +{
+> +	return __intel_gt_wait_for_idle(gt, true, timeout);
+> +}
+> +
+> +int intel_gt_wait_for_idle_uninterruptible(struct intel_gt *gt, long
+> timeout)
+> +{
+> +	return __intel_gt_wait_for_idle(gt, false, timeout);
+> =C2=A0}
+> =C2=A0
+> =C2=A0int intel_gt_init(struct intel_gt *gt)
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h
+> b/drivers/gpu/drm/i915/gt/intel_gt.h
+> index 998ca029b73a..6c7e5415f1dc 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+> @@ -143,6 +143,7 @@ void intel_gt_driver_release(struct intel_gt
+> *gt);
+> =C2=A0void intel_gt_driver_late_release_all(struct drm_i915_private
+> *i915);
+> =C2=A0
+> =C2=A0int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout);
+> +int intel_gt_wait_for_idle_uninterruptible(struct intel_gt *gt, long
+> timeout);
+> =C2=A0
+> =C2=A0void intel_gt_check_and_clear_faults(struct intel_gt *gt);
+> =C2=A0i915_reg_t intel_gt_perf_limit_reasons_reg(struct intel_gt *gt);
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+> b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+> index c7f59d60fac6..9fe31aa07ae8 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+> @@ -315,7 +315,8 @@ static void wait_for_suspend(struct intel_gt *gt)
+> =C2=A0	if (!intel_gt_pm_is_awake(gt))
+> =C2=A0		return;
+> =C2=A0
+> -	if (intel_gt_wait_for_idle(gt, I915_GT_SUSPEND_IDLE_TIMEOUT)
+> =3D=3D -ETIME) {
+> +	if (intel_gt_wait_for_idle_uninterruptible(gt,
+> +						=C2=A0=C2=A0
+> I915_GT_SUSPEND_IDLE_TIMEOUT) =3D=3D -ETIME) {
+> =C2=A0		/*
+> =C2=A0		 * Forcibly cancel outstanding work and leave
+> =C2=A0		 * the gpu quiet.
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> index 93298820bee2..b37e8f1d0b5c 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> @@ -130,8 +130,10 @@ void intel_engine_fini_retire(struct
+> intel_engine_cs *engine)
+> =C2=A0	GEM_BUG_ON(engine->retire);
+> =C2=A0}
+> =C2=A0
+> -long intel_gt_retire_requests_timeout(struct intel_gt *gt, long
+> timeout,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 long *remaining_timeout)
+> +long __intel_gt_retire_requests_timeout(struct intel_gt *gt,
+> +					bool interruptible,
+> +					long timeout,
+> +					long *remaining_timeout)
+> =C2=A0{
+> =C2=A0	struct intel_gt_timelines *timelines =3D &gt->timelines;
+> =C2=A0	struct intel_timeline *tl, *tn;
+> @@ -159,7 +161,7 @@ long intel_gt_retire_requests_timeout(struct
+> intel_gt *gt, long timeout,
+> =C2=A0				mutex_unlock(&tl->mutex);
+> =C2=A0
+> =C2=A0				timeout =3D
+> dma_fence_wait_timeout(fence,
+> -							=09
+> true,
+> +							=09
+> interruptible,
+> =C2=A0							=09
+> timeout);
+> =C2=A0				dma_fence_put(fence);
+> =C2=A0
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+> b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+> index d2969f68dd64..9242f85f4040 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+> @@ -12,8 +12,17 @@ struct intel_engine_cs;
+> =C2=A0struct intel_gt;
+> =C2=A0struct intel_timeline;
+> =C2=A0
+> -long intel_gt_retire_requests_timeout(struct intel_gt *gt, long
+> timeout,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 long *remaining_timeout);
+> +long __intel_gt_retire_requests_timeout(struct intel_gt *gt,
+> +					bool interruptible,
+> +					long timeout,
+> +					long *remaining_timeout);
+> +static inline long
+> +intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
+> +				 long *remaining_timeout)
+> +{
+> +	return __intel_gt_retire_requests_timeout(gt, true, timeout,
+> +						=C2=A0=C2=A0=C2=A0
+> remaining_timeout);
+> +}
+> =C2=A0static inline void intel_gt_retire_requests(struct intel_gt *gt)
+> =C2=A0{
+> =C2=A0	intel_gt_retire_requests_timeout(gt, 0, NULL);
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> index 053780f562c1..b5f4fddf5c1d 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> @@ -509,7 +509,8 @@ static inline void intel_guc_disable_msg(struct
+> intel_guc *guc, u32 mask)
+> =C2=A0	spin_unlock_irq(&guc->irq_lock);
+> =C2=A0}
+> =C2=A0
+> -int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout);
+> +int intel_guc_wait_for_idle(struct intel_guc *guc, bool
+> interruptible,
+> +			=C2=A0=C2=A0=C2=A0 long timeout);
+> =C2=A0
+> =C2=A0int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+> =C2=A0					=C2=A0 const u32 *msg, u32 len);
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> index 788e59cdfac9..aa74208c2b4e 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> @@ -680,14 +680,15 @@ int intel_guc_wait_for_pending_msg(struct
+> intel_guc *guc,
+> =C2=A0	return (timeout < 0) ? timeout : 0;
+> =C2=A0}
+> =C2=A0
+> -int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout)
+> +int intel_guc_wait_for_idle(struct intel_guc *guc, bool
+> interruptible,
+> +			=C2=A0=C2=A0=C2=A0 long timeout)
+> =C2=A0{
+> =C2=A0	if (!intel_uc_uses_guc_submission(&guc_to_gt(guc)->uc))
+> =C2=A0		return 0;
+> =C2=A0
+> =C2=A0	return intel_guc_wait_for_pending_msg(guc,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &guc-
+> >outstanding_submission_g2h,
+> -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 true, timeout);
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 interruptible,
+> timeout);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int guc_context_policy_init_v70(struct intel_context *ce,
+> bool loop);
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+> b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+> index 014bb7d83689..b62fe3b96b64 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+> @@ -96,9 +96,11 @@ uc_state_checkers(gsc, gsc_uc);
+> =C2=A0#undef uc_state_checkers
+> =C2=A0#undef __uc_state_checker
+> =C2=A0
+> -static inline int intel_uc_wait_for_idle(struct intel_uc *uc, long
+> timeout)
+> +static inline int intel_uc_wait_for_idle(struct intel_uc *uc,
+> +					 bool interruptible,
+> +					 long timeout)
+> =C2=A0{
+> -	return intel_guc_wait_for_idle(&uc->guc, timeout);
+> +	return intel_guc_wait_for_idle(&uc->guc, interruptible,
+> timeout);
+> =C2=A0}
+> =C2=A0
+> =C2=A0#define intel_uc_ops_function(_NAME, _OPS, _TYPE, _RET) \
