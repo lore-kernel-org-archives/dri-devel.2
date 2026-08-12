@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2631FC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:32:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D13F0C5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 07:33:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E0F710EE96;
-	Wed, 12 Aug 2026 07:32:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0CF010EE98;
+	Wed, 12 Aug 2026 07:33:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="OdjaFTX0";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="amf7qlrV";
 	dkim-atps=neutral
 Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F82F10EE96
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:32:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3826210EE98
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:33:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1786519876;
- bh=xwkwTG7s53pnZe6rR+ByPjuw32Fjs/KmR4y/OSRwSjI=;
+ s=altu2504; t=1786519977;
+ bh=5FA/V+nRcRTt6yyor6+0D24RflxpWaTmYt2XDxhPiO8=;
  h=From:To:Subject:Date:Message-Id;
- b=OdjaFTX0RregN4Pcswk3h3kDPfYMXCf3rO99dQJY+I4l2RsjysLqn9tzb+uKrJK5O
- ykz7seRzFDpJABU86YkFuBOrdIYgh252euy5mL4KsK9tBtK5dQPfJ8lTb9YpHYS3Eg
- rdUOqgcElQ4drPmH3gCpLYNOxd/HMh86DvnLt/I8=
-X-QQ-mid: esmtpsz11t1786519874t58231220
-X-QQ-Originating-IP: DecthGFCCJIjKGuRx0srYCYndBPraDw/pqHun5spefk=
+ b=amf7qlrVZ/rjKpssY1D+kjF7CQ6vwnsBbL/9yPT1qJ6cOdI/Sbxgj7NAQNDB05KME
+ 21mtmSAfMRqMDw77gT9S4jKeKasnG3cq6KqR8F+nvrty1hJyb9gotfg/pOUb5FSUnv
+ CSnaHRvBYz9s5Nkk0XYOOJ0R+aJf5hF0WGUgiQtg=
+X-QQ-mid: esmtpsz11t1786519811tabb45875
+X-QQ-Originating-IP: doHS0+eOIqn259p0aMCNuWIZy4GIzTDdZIk89RHla3E=
 Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 12 Aug 2026 15:30:20 +0800 (CST)
+ id ; Wed, 12 Aug 2026 15:30:09 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17205722276426766371
+X-BIZMAIL-ID: 13150229411053610803
 From: Chaoyi Chen <kernel@airkyi.com>
 To: Sandy Huang <hjc@rock-chips.com>,
  =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
@@ -41,32 +41,32 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
  Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: [PATCH v4 3/3] drm/rockchip: dsi: Relax the lane rate margin
- requirements
-Date: Wed, 12 Aug 2026 15:30:02 +0800
-Message-Id: <20260812073002.328-4-kernel@airkyi.com>
+Subject: [PATCH v4 1/3] drm/rockchip: dsi: Add maximum per lane bit rate
+ calculation
+Date: Wed, 12 Aug 2026 15:30:00 +0800
+Message-Id: <20260812073002.328-2-kernel@airkyi.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260812073002.328-1-kernel@airkyi.com>
 References: <20260812073002.328-1-kernel@airkyi.com>
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: Msjb2/dpc05VYijSOcDfHJFcvCbckJp0PwFkAiXi4rhw5lzr5TyGvfxh
- 0xKgBDk4rlo2u3b1xbr+RfGK/bl+gE9ehpHbxqh3983bRyPRKKHAulOgj5JyCGIHT454J0N
- mRNJilqR0nuT8lVc6qv7C/dIf3NhzIqgf9dWzv1uLMGvNhxEiqCihQk24r4pP51Muuikfre
- 8lEjeYf09e6oeqTuSQD9StbaQRXJfhoeGwNwyLVHTZjxxlRWTpcdOwp9cvW6ahd4/iDg88w
- Vz8j8aVk42DYRdnlQWsqxXfydjWaYZ6fkt8bZwCm6kHO29kyrK5uTDtqG5BhoCQXcmA53lo
- XsHcBuiJsgsGDwrBXsfrAgU4e6Bo9q+2QydPMcarjilQkzz390BLwQlYuvbdKJI9CoGdS28
- XdmENrnmZw3SFpOJovlIGjJUqVxe/Cw7rgdq88Ahz+CW5OWhPBmd0nG3VXP5QSEuIGh7Mjo
- nAXf/mFBjMXoPP3+n7Xt2Ve1iRiZHSoXgjScDd0b3fCZFZk6tMzVcFFqO17PnZ59ejDpFAV
- 1ut1fGbIUASHr4L8gFip/6p7j8ESHHbNeo7KdQHGVEAFGwiH2RYElcPL4Jw+GJaZvYKv1WW
- enrKHPRjbnbZGmCElLZEBu+2UrP8FFc4dG4Igu0/eK2pHtQepk8YWzOicz5ocX4JYCOJzky
- OCXBLeLEBqFdt1qG2MaS5YebtQB6CiYtS24c1YYBqwYZdS3ihNAvOuKNG2asDkxpMGSv+hc
- t/BeUCbUQvF6HldIiHd1+Du5of/EmxLuvme0JBQ3PH6WAa1ip6hxi4B2yaAHKXoY0vk9zoi
- VbawNLFOAU03CG5zwz8+DRFsW4mkRnu8jD+PRma3V7hNtmZzUEPOCM2I6WFADeEWEOL2MQ7
- a1lt+/T09Z48DIWgS0wbh6L80OHxGRtgLqDDoBvuPsL6B8RDY2N6WoQD4U6WmsKk6/0KZxl
- TJhhO2res9oBnwX/1noXOEpkSLoQwjXGd9oU7SJ5CQVZ8YWdK9taRd62BKobHt5RHnoy93P
- 0Ith4h8PjTDNSGcjXJ311LddjKQ+EzuwJslHAmrInVPQv6PaWP
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: MdoRYM9mYryd4pY8puvtKqScATAACpdXEztTkKEMDzF8LVkIFxFqqaIx
+ 6XH6utkP16RgVDRWyUfVqGkBVnhNwsVlNzO0svHBFBsGPKjfYW0eOeJyq//TYryfv6yEdr+
+ CVQDNNnaZDyfrU4403BWAM96nxsYkyRF7TqEydeQ2d6WRPxLNRzrMXrEgbO93YE0V0l7qMJ
+ g3uhdtn73+w13fxz3s/FEn2TaSeBAvUFOivKjwHiFNkwJxfv2iH9D6UwMkdg8J6v/WIiVaO
+ zNe29/TcIN+L/RZ7iV1r2fBZXxujwQeNOLwFhkPdJYlulLiKUciJrWqrFyJRJRsLJpmdqBy
+ 8rTYm/DJ0RKVLFQNxUeXXsdAF/KshaWdx+iGahL5kEAkKZPyvkDP1/Zuva1RpIcesfzdWfM
+ Zt/NDr4x2CzRScuoOWaTKxO2hm9Vuqi0dS7g2Lwx45XlGb0fHewSxE6zsTkooVff9K0CMdC
+ XxPc253dpy0osscHLoXeDh4U3gPcaOupDqFUlEOQlgoBsV4+IK2YQnFTvtSBWGjdngvO1kg
+ SWhEwHq3XhItuSKjBG5ikgPHiBYWbaIN1CzQ3vYaqUxPb3Nl5RipDlpNHvk6nWOCGEX9JxF
+ qJ+3Xa7xM7vXq0HqRn1wLfxew+B7sYrNHYeKYPmRfG6YfZc5sKj5l0Oqoqxd56ZWWqlJzL7
+ neKH7PWjsPovLKFxx4yorNPvWUIXQ+M//Iz39PtvrzRPpn3LWb9ARWDWPNY2EgPNWBsJJLb
+ H9CdB0MUl9fSY2u5g5t1X1KHMw9SzqcdzPcABOe/ehB8GFC+0S3TnDrq2PvpLdVpYGJiMXv
+ 9j+EpSsrc8SdxCcu5Id4uulYaihsvvQR/BL62E+jjiSbOdazmxWj2SCpA1w8HVIuts+/5/b
+ 9f8IrKmWIzY4CiX4sjvnviIPGxvjxbJHCbMcY+Rg7J50PhRkOhYwX/A1OttlHrg87HKOemY
+ Wc+N0xzkLXmBah66K5tdj97Kj7rBVfVybTGXsK+kgD22v5/LMY8fyuthZpa71GbwjVfMzTM
+ 7wdyTP5w==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,60 +85,143 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-The lane rate is calculated as follows:
+Different chips have varying support for the maximum bit rate per lane.
 
-	Lane_Rate = Pixel_Clk * (BPP / lanes) * Overhead
-
-The overhead factor is set to 1/0.8, equivalent to a 25% overhead.
-
-Now let's consider the case of RGB888 (BPP24) with a pclk of 148.5MHz.
-The lane rate equals 148.5M * (24 / 4) * 1.25 = 1113.75 Mbps.
-
-However, this is beyond the capability of certain platforms limited to a
-1Gbps lane rate. On the other hand, we have observed that some DSI panel
-actually perform worse with higher overhead.
-
-So we are considering relaxing the bandwidth margin requirements.
-According to the downstream test results, adopting 1/0.9 seems to
-be a sound approach, corresponding to an overhead of about 11%.
+Add calculation for the maximum per lane bit rate for various chip
+platforms.
 
 Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 ---
-Changes in v4:
-- Fix potential overflow and underflow issues in bandwidth
-  calculation(sashiko).
+(no changes since v4)
 
 Changes in v3:
 - Rebase to Linux v7.2
 
+Changes in v2:
+- Fix the unit conversion for max_mbps.
+- Split the lane rate calculation into a separate patch.
+
 ---
- drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-index d183c82ef9bc..77f9c5883987 100644
+index 3547d91b25d3..1060abec9f29 100644
 --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-@@ -590,8 +590,8 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+@@ -268,6 +268,7 @@ struct rockchip_dw_dsi_chip_data {
  
- 	mpclk = DIV_ROUND_UP(mode->clock, MSEC_PER_SEC);
- 	if (mpclk) {
--		/* take 1 / 0.8, since mbps must big than bandwidth of RGB */
--		tmp = mpclk * (bpp / lanes) * 10 / 8;
-+		/* take 1 / 0.9, since mbps must big than bandwidth of RGB */
-+		tmp = DIV_ROUND_UP(mpclk * bpp * 10, lanes * 9);
- 		if (tmp < max_mbps)
- 			target_mbps = tmp;
- 		else
-@@ -601,7 +601,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+ 	unsigned int flags;
+ 	unsigned int max_data_lanes;
++	unsigned long max_bit_rate_per_lane;
+ };
  
- 	/* for external phy only a the mipi_dphy_config is necessary */
- 	if (dsi->phy) {
--		phy_mipi_dphy_get_default_config(mode->clock * 1000 * 10 / 8,
-+		phy_mipi_dphy_get_default_config((u32)mode->clock * 1000 * 10 / 9,
- 						 bpp, lanes,
- 						 &dsi->phy_opts.mipi_dphy);
- 		dsi->lane_mbps = target_mbps;
+ struct dw_mipi_dsi_rockchip {
+@@ -565,7 +566,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+ 	int bpp;
+ 	unsigned long mpclk, tmp;
+ 	unsigned int target_mbps = 1000;
+-	unsigned int max_mbps = dppa_map[ARRAY_SIZE(dppa_map) - 1].max_mbps;
++	unsigned int max_mbps;
+ 	unsigned long best_freq = 0;
+ 	unsigned long fvco_min, fvco_max, fin, fout;
+ 	unsigned int min_prediv, max_prediv;
+@@ -573,6 +574,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+ 	unsigned long _fbdiv, best_fbdiv;
+ 	unsigned long min_delta = ULONG_MAX;
+ 
++	max_mbps = dsi->cdata->max_bit_rate_per_lane / USEC_PER_SEC;
+ 	dsi->format = format;
+ 	bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
+ 	if (bpp < 0) {
+@@ -1503,6 +1505,7 @@ static const struct rockchip_dw_dsi_chip_data px30_chip_data[] = {
+ 						PX30_DSI_FORCETXSTOPMODE), 0),
+ 
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1000000000UL,
+ 	},
+ 	{ /* sentinel */ }
+ };
+@@ -1515,6 +1518,7 @@ static const struct rockchip_dw_dsi_chip_data rk3128_chip_data[] = {
+ 						RK3128_DSI_FORCERXMODE |
+ 						RK3128_DSI_FORCETXSTOPMODE), 0),
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1000000000UL,
+ 	},
+ 	{ /* sentinel */ }
+ };
+@@ -1527,6 +1531,7 @@ static const struct rockchip_dw_dsi_chip_data rk3288_chip_data[] = {
+ 		.lcdsel_lit = FIELD_PREP_WM16_CONST(RK3288_DSI0_LCDC_SEL, 1),
+ 
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1500000000UL,
+ 	},
+ 	{
+ 		.reg = 0xff964000,
+@@ -1535,6 +1540,7 @@ static const struct rockchip_dw_dsi_chip_data rk3288_chip_data[] = {
+ 		.lcdsel_lit = FIELD_PREP_WM16_CONST(RK3288_DSI1_LCDC_SEL, 1),
+ 
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1500000000UL,
+ 	},
+ 	{ /* sentinel */ }
+ };
+@@ -1547,6 +1553,7 @@ static const struct rockchip_dw_dsi_chip_data rk3368_chip_data[] = {
+ 						RK3368_DSI_FORCETXSTOPMODE |
+ 						RK3368_DSI_FORCERXMODE), 0),
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1500000000UL,
+ 	},
+ 	{ /* sentinel */ }
+ };
+@@ -1634,6 +1641,7 @@ static const struct rockchip_dw_dsi_chip_data rk3399_chip_data[] = {
+ 
+ 		.flags = DW_MIPI_NEEDS_PHY_CFG_CLK | DW_MIPI_NEEDS_GRF_CLK,
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1500000000UL,
+ 	},
+ 	{
+ 		.reg = 0xff968000,
+@@ -1658,6 +1666,7 @@ static const struct rockchip_dw_dsi_chip_data rk3399_chip_data[] = {
+ 
+ 		.flags = DW_MIPI_NEEDS_PHY_CFG_CLK | DW_MIPI_NEEDS_GRF_CLK,
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1500000000UL,
+ 
+ 		.dphy_rx_init = rk3399_dphy_tx1rx1_init,
+ 		.dphy_rx_power_on = rk3399_dphy_tx1rx1_power_on,
+@@ -1674,6 +1683,7 @@ static const struct rockchip_dw_dsi_chip_data rk3506_chip_data[] = {
+ 			     FIELD_PREP_WM16_CONST(RK3506_DSI_FORCERXMODE, 0) |
+ 			     FIELD_PREP_WM16_CONST(RK3506_DSI_FORCETXSTOPMODE, 0)),
+ 		.max_data_lanes = 2,
++		.max_bit_rate_per_lane = 1500000000UL,
+ 	},
+ 	{ /* sentinel */ }
+ };
+@@ -1687,6 +1697,7 @@ static const struct rockchip_dw_dsi_chip_data rk3568_chip_data[] = {
+ 			     FIELD_PREP_WM16_CONST(RK3568_DSI0_TURNDISABLE, 0) |
+ 			     FIELD_PREP_WM16_CONST(RK3568_DSI0_FORCERXMODE, 0)),
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1200000000UL,
+ 	},
+ 	{
+ 		.reg = 0xfe070000,
+@@ -1696,6 +1707,7 @@ static const struct rockchip_dw_dsi_chip_data rk3568_chip_data[] = {
+ 			     FIELD_PREP_WM16_CONST(RK3568_DSI1_TURNDISABLE, 0) |
+ 			     FIELD_PREP_WM16_CONST(RK3568_DSI1_FORCERXMODE, 0)),
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1200000000UL,
+ 	},
+ 	{ /* sentinel */ }
+ };
+@@ -1708,6 +1720,7 @@ static const struct rockchip_dw_dsi_chip_data rv1126_chip_data[] = {
+ 			     FIELD_PREP_WM16_CONST(RV1126_DSI_FORCERXMODE, 0) |
+ 			     FIELD_PREP_WM16_CONST(RV1126_DSI_FORCETXSTOPMODE, 0)),
+ 		.max_data_lanes = 4,
++		.max_bit_rate_per_lane = 1000000000UL,
+ 	},
+ 	{ /* sentinel */ }
+ };
 -- 
 2.53.0
 
