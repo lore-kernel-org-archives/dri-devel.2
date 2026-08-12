@@ -4,45 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0F9DC5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:20:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 054F4C5AD5A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 12:21:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 647C810E40C;
-	Wed, 12 Aug 2026 12:20:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66D1B10EF80;
+	Wed, 12 Aug 2026 12:21:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TzG+InON";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="AlHITGMZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74BD410E40C
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:20:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F1E2E41FD5;
- Wed, 12 Aug 2026 12:20:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EF21F000E9;
- Wed, 12 Aug 2026 12:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786537218;
- bh=M++JHH9FE3FNHJ33/UcXJPT1h5likwtm4j+ioYhQc+I=;
- h=Date:From:To:Cc:Subject;
- b=TzG+InONulOKXHgqr4xNQ4ZqmpP3f7+zB+586TXlZ6az6RNQ6G4+gHra8QfRtmIah
- uA6f1asjs+Ld+LG7DqVHLRMw9wCHsFKjGAXZ6WtVnAhqND2iw4xW4P9RWaJIEuGJZq
- UC9udG4CHomjnE/W8AY+XOFbt82u8woAfqJRc69a2Li1Pc39X8GvzW/E+vqeZ+TCO2
- SXvnCRb1bok0744UfzPinpfqituk9JGwXW+Jyzbou8kAaraVyWbHWiipIDfrdKIsSe
- aeZimWJPjSAkoRYKyVtbQZg4lhckYJ53ZzOfSgYMLIxSKozyJXbk3G+iQaSC+OAuXc
- gM1KcnWYD485Q==
-Date: Wed, 12 Aug 2026 13:20:14 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Philipp Stanner <phasta@kernel.org>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: linux-next: manual merge of the drm tree with the drm-misc-fixes tree
-Message-ID: <anxk_iYSi8waaGvh@sirena.org.uk>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27CF910EF80
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:21:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1786537289; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=TsaqCtXpEuYMfk/2xrYNbeSM/gQkxXR+ja/Qk3WoOzKv92/QR+brD7fvCVT+6CIc7q1zwK/RGFqGYW1j3eGcAAbYqGmwKmezP7jjjF6SNM+E19kPacd9V+T5cl0TwX/Tjhvtl0xanH96VOXDlN/0OgJifbFLxiVZHufMoUpKw4g=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1786537289;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Cww7umszZJX86bX7ZQgwUGvlF/SNwN8vULjisHq2MYY=; 
+ b=B2GKv4A+4Pb8DqM/KCpKOWdvgWg9o52c1ZFaLmsR60x+YEkwIHzgqHOE9vDT7fxNSUXsmINoth7amhARO67CDy4JqbMLU/R4ZHAvobsVK4WyAk8tPeBwgTQriHf5lGAm37adIyE+YtW9Yn9n2KlMj1K+bIopkMMjtfgPd/S3bB8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786537289; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=Cww7umszZJX86bX7ZQgwUGvlF/SNwN8vULjisHq2MYY=;
+ b=AlHITGMZxB8TXJTGjbg62vwfXP38VbG3lWhK9Houdy2Qkd+/4fJNCiF22gKfO/Uf
+ rpVAum8DcSRCNCteOz7F7joqCB+IHA4BrTWB098FrQ6/qL4VuDwdYvbdo6KbLyGUcSV
+ f/+ysa1WatNvtkqvU278KjmzxN99czU/3aHJAeyQ=
+Received: by mx.zohomail.com with SMTPS id 178653728777435.800158134030085;
+ Wed, 12 Aug 2026 05:21:27 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com, Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v3 1/3] drm/panthor: Add tracepoints for cache flushing
+Date: Wed, 12 Aug 2026 14:21:21 +0200
+Message-ID: <9cSuC0ASTeWIz--58OoWZA@collabora.com>
+In-Reply-To: <20260811162934.340b1f16@fedora-21.home>
+References: <20260811-panthor-cache-flush-fix-v3-0-47d2c1bb1dab@collabora.com>
+ <20260811-panthor-cache-flush-fix-v3-1-47d2c1bb1dab@collabora.com>
+ <20260811162934.340b1f16@fedora-21.home>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vk8sGFR1HbDB4ZBv"
-Content-Disposition: inline
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,199 +71,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tuesday, 11 August 2026 16:29:34 Central European Summer Time Boris Brezillon wrote:
+> On Tue, 11 Aug 2026 16:08:31 +0200
+> Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+> 
+> > Add two new event tracepoints: gpu_cache_flush_start to be emitted after
+> > acquiring the flush mutex and reqs spinlock, and gpu_cache_flush_end to
+> > be emitted when leaving the function.
+> > 
+> > This allows debugging the duration a flush takes irrespective of initial
+> > function entry lock contention by subtracting the start tracepoint's
+> > timestamp from the end tracepoint timestamp, and additionally contains
+> > information such as which caches were flushed.
+> > 
+> > Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+> > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> > Reviewed-by: Steven Price <steven.price@arm.com>
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_gpu.c   |  7 ++++-
+> >  drivers/gpu/drm/panthor/panthor_trace.h | 49 +++++++++++++++++++++++++++++++++
+> >  2 files changed, 55 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> > index c013d6bf9a59..68e2dd2527df 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> > @@ -337,6 +337,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+> >  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
+> >  
+> >  	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> > +	trace_gpu_cache_flush_start(ptdev->base.dev, l2, lsc, other);
+> >  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+> >  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> >  		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> > @@ -345,8 +346,10 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+> >  	}
+> >  	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> >  
+> > -	if (ret)
+> > +	if (ret) {
+> > +		trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+> 
+> I don't mind having start/end traces, but I still think it'd be
+> valuable to report failure cases.
 
---vk8sGFR1HbDB4ZBv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Alright, I think in that case I will get rid of the start/end ones
+(since they now need to have different args) and just do one on exit
+with a duration arg and an ret arg.
 
-Hi all,
+> 
+> >  		return ret;
+> > +	}
+> >  
+> >  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+> >  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+> > @@ -360,6 +363,8 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+> >  		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> >  	}
+> >  
+> > +	trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+> > +
+> >  	if (ret) {
+> >  		panthor_device_schedule_reset(ptdev);
+> >  		drm_err(&ptdev->base, "Flush caches timeout");
+> > diff --git a/drivers/gpu/drm/panthor/panthor_trace.h b/drivers/gpu/drm/panthor/panthor_trace.h
+> > index 6ffeb4fe6599..6951b95b1de7 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_trace.h
+> > +++ b/drivers/gpu/drm/panthor/panthor_trace.h
+> > @@ -76,6 +76,55 @@ TRACE_EVENT(gpu_job_irq,
+> >  		  __entry->events, __entry->duration_ns)
+> >  );
+> >  
+> > +DECLARE_EVENT_CLASS(gpu_cache_flush_template,
+> > +	TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> > +	TP_ARGS(dev, l2, lsc, other),
+> > +	TP_STRUCT__entry(
+> > +		__string(dev_name, dev_name(dev))
+> > +		__field(u32, l2)
+> > +		__field(u32, lsc)
+> > +		__field(u32, other)
+> > +	),
+> > +	TP_fast_assign(
+> > +		__assign_str(dev_name);
+> > +		__entry->l2     = l2;
+> > +		__entry->lsc    = lsc;
+> > +		__entry->other  = other;
+> > +	),
+> > +	TP_printk("%s: l2=0x%x lsc=0x%x other=0x%x", __get_str(dev_name),
+> > +		  __entry->l2, __entry->lsc, __entry->other)
+> > +);
+> > +
+> > +/**
+> > + * gpu_cache_flush_start - called after cache flush locks taken, before flush
+> > + * @dev: pointer to the &struct device, for printing the device name
+> > + * @l2: "l2" flush flags
+> > + * @lsc: "lsc" flush flags
+> > + * @other: "other" flush flags
+> > + *
+> > + * Fires after any initial lock contention around the locks needed for flushing
+> > + * caches, but before the actual cache flush is requested.
+> > + */
+> > +DEFINE_EVENT(gpu_cache_flush_template, gpu_cache_flush_start,
+> > +	     TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> > +	     TP_ARGS(dev, l2, lsc, other)
+> > +);
+> > +
+> > +/**
+> > + * gpu_cache_flush_end - called after cache flush
+> > + * @dev: pointer to the &struct device, for printing the device name
+> > + * @l2: "l2" flush flags
+> > + * @lsc: "lsc" flush flags
+> > + * @other: "other" flush flags
+> > + *
+> > + * Fires after either the cache flush is complete, or has failed. Can be used
+> > + * together with gpu_cache_flush_start to get how long the flush has taken.
+> > + */
+> > +DEFINE_EVENT(gpu_cache_flush_template, gpu_cache_flush_end,
+> > +	     TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> > +	     TP_ARGS(dev, l2, lsc, other)
+> > +);
+> > +
+> >  #endif /* __PANTHOR_TRACE_H__ */
+> >  
+> >  #undef TRACE_INCLUDE_PATH
+> > 
+> 
+> 
 
-Today's linux-next merge of the drm tree got a conflict in:
 
-  drivers/gpu/drm/scheduler/sched_entity.c
 
-between commits:
 
-  67cf83ac8316a ("Revert "drm/sched: Embed run queue singleton into the sch=
-eduler"")
-
-=66rom the drm-misc-fixes tree and commit:
-
-  2df5efb45425b ("drm/sched: Remove redundant entity->rq initialization and=
- checks")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/scheduler/sched_entity.c
-index 672b5c57ed8e9,c51101ec70c16..0000000000000
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@@ -129,43 -129,14 +129,42 @@@ int drm_sched_entity_init(struct drm_sc
-  		return -ENOMEM;
- =20
-  	INIT_LIST_HEAD(&entity->list);
-- 	entity->rq =3D NULL;
-  	entity->guilty =3D guilty;
-  	entity->priority =3D priority;
-  	entity->last_user =3D current->group_leader;
- +	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
- +			      DRM_SCHED_PRIORITY_KERNEL : priority;
-  	entity->num_sched_list =3D num_sched_list;
-  	entity->sched_list =3D num_sched_list > 1 ? sched_list : NULL;
- -	entity->rq =3D &sched_list[0]->rq;
-  	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-  	RB_CLEAR_NODE(&entity->rb_tree_node);
- +
- +	if (!sched_list[0]->sched_rq) {
- +		/* Since every entry covered by num_sched_list
- +		 * should be non-NULL and therefore we warn drivers
- +		 * not to do this and to fix their DRM calling order.
- +		 */
- +		pr_warn("%s: called with uninitialized scheduler\n", __func__);
- +	} else {
- +		enum drm_sched_priority p =3D entity->priority;
- +
- +		/*
- +		 * The "priority" of an entity cannot exceed the number of
- +		 * run-queues of a scheduler. Protect against num_rqs being 0,
- +		 * by converting to signed. Choose the lowest priority
- +		 * available.
- +		 */
- +		if (p >=3D sched_list[0]->num_user_rqs) {
- +			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num=
-_user_rqs:%u\n",
- +				p, sched_list[0]->num_user_rqs);
- +			p =3D max_t(s32,
- +				  (s32)sched_list[0]->num_user_rqs - 1,
- +				  (s32)DRM_SCHED_PRIORITY_KERNEL);
- +			entity->priority =3D p;
- +		}
- +		entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
- +	}
- +
-  	init_completion(&entity->entity_idle);
- =20
-  	/* We start in an idle state. */
-@@@ -308,9 -279,6 +307,6 @@@ void drm_sched_entity_kill(struct drm_s
-  	struct drm_sched_job *job;
-  	struct dma_fence *prev;
- =20
-- 	if (!entity->rq)
-- 		return;
--=20
-  	spin_lock(&entity->lock);
-  	entity->stopped =3D true;
-  	drm_sched_rq_remove_entity(entity->rq, entity);
-@@@ -357,14 -325,11 +353,11 @@@ EXPORT_SYMBOL(drm_sched_entity_kill)
-   */
-  long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeout)
-  {
-- 	struct drm_gpu_scheduler *sched;
-+ 	struct drm_gpu_scheduler *sched =3D
-+ 		container_of(entity->rq, typeof(*sched), rq);
-  	struct task_struct *last_user;
-  	long ret =3D timeout;
- =20
-- 	if (!entity->rq)
-- 		return 0;
--=20
-- 	sched =3D entity->rq->sched;
-  	/*
-  	 * The client will not queue more jobs during this fini - consume
-  	 * existing queued ones, or discard them on SIGKILL.
-@@@ -445,10 -410,12 +438,10 @@@ static void drm_sched_entity_wakeup(str
-  {
-  	struct drm_sched_entity *entity =3D
-  		container_of(cb, struct drm_sched_entity, cb);
- -	struct drm_gpu_scheduler *sched =3D
- -		container_of(entity->rq, typeof(*sched), rq);
- =20
-  	entity->dependency =3D NULL;
-  	dma_fence_put(f);
- -	drm_sched_wakeup(sched);
- +	drm_sched_wakeup(entity->rq->sched);
-  }
- =20
-  /**
-@@@ -475,7 -442,8 +468,7 @@@ EXPORT_SYMBOL(drm_sched_entity_set_prio
-  static bool drm_sched_entity_add_dependency_cb(struct drm_sched_entity *e=
-ntity,
-  					       struct drm_sched_job *sched_job)
-  {
- -	struct drm_gpu_scheduler *sched =3D
- -		container_of(entity->rq, typeof(*sched), rq);
- +	struct drm_gpu_scheduler *sched =3D entity->rq->sched;
-  	struct dma_fence *fence =3D entity->dependency;
-  	struct drm_sched_fence *s_fence;
- =20
-@@@ -609,7 -577,7 +602,7 @@@ void drm_sched_entity_select_rq(struct=20
- =20
-  	spin_lock(&entity->lock);
-  	sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sched_list=
-);
- -	rq =3D sched ? &sched->rq : NULL;
- +	rq =3D sched ? sched->sched_rq[entity->rq_priority] : NULL;
-  	if (rq !=3D entity->rq) {
-  		drm_sched_rq_remove_entity(entity->rq, entity);
-  		entity->rq =3D rq;
-@@@ -633,8 -601,9 +626,8 @@@
-  void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
-  {
-  	struct drm_sched_entity *entity =3D sched_job->entity;
- -	struct drm_gpu_scheduler *sched =3D
- -		container_of(entity->rq, typeof(*sched), rq);
-  	bool first;
- +	ktime_t submit_ts;
- =20
-  	trace_drm_sched_job_queue(sched_job, entity);
- =20
-@@@ -645,22 -614,18 +638,22 @@@
-  		xa_for_each(&sched_job->dependencies, index, entry)
-  			trace_drm_sched_job_add_dep(sched_job, entry);
-  	}
- -	atomic_inc(sched->score);
- +	atomic_inc(entity->rq->sched->score);
-  	WRITE_ONCE(entity->last_user, current->group_leader);
- =20
-  	/*
-  	 * After the sched_job is pushed into the entity queue, it may be
-  	 * completed and freed up at any time. We can no longer access it.
- +	 * Make sure to set the submit_ts first, to avoid a race.
-  	 */
- +	sched_job->submit_ts =3D submit_ts =3D ktime_get();
-  	first =3D spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
- =20
-  	/* first job wakes up scheduler */
-  	if (first) {
- -		sched =3D drm_sched_rq_add_entity(entity);
- +		struct drm_gpu_scheduler *sched;
- +
- +		sched =3D drm_sched_rq_add_entity(entity, submit_ts);
-  		if (sched)
-  			drm_sched_wakeup(sched);
-  	}
-
---vk8sGFR1HbDB4ZBv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp8ZP0ACgkQJNaLcl1U
-h9AGpwf+KP1qSuFZf8wAC3Yw3KnffYPbrIbarqq+/S5i+TozpssFS2VIsRSgKBYg
-442CyjTm/EjgNSVHyFrfYJj4FcIDNupWljPRDDz78V8Ej5sULM5LeoRUoMab41o5
-d99L49TccY/4EDGY9N7m3RKxFJhH3/PqCpmhEzs1SGVxNGRcirxOW9p4qi5g9f4/
-Uw9IF6eSeAS08E1LtzWNfzwnkYEtcYI6caDFsxHjvcj/DvucIxJRMMKeK7imOWaL
-dC/ckOuc9BPuidIfuPsUze19ZT6r7LlkgMVMLate6PczZAIzGKBljztf3SbxEqCq
-N+TniMDdamkc0w9cNtFC8i7qBY1l9w==
-=66VA
------END PGP SIGNATURE-----
-
---vk8sGFR1HbDB4ZBv--
