@@ -4,74 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA880C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:43:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62A3C5CFDB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:43:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B40910F267;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55E1510F26B;
 	Thu, 13 Aug 2026 09:43:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ugreen.com header.i=@ugreen.com header.b="Ff2UEWQm";
+	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="vrqedMF4";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3651010E3E5;
- Wed, 12 Aug 2026 08:29:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
- s=pkvm2402; t=1786523339;
- bh=6pvU5hKGwNoAskF8h1svo43tQkk7bW8zd/eH2+CgO6g=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=Ff2UEWQmKyF02RA1FFVVT7JOl3lXuysDukNJmLPSQkhjd0zetm5/J/4PYyIHm20Uo
- RdkGtx9d//8hD5vsVoi7x99eIwYjC9nMdUITpjulRAp+tMamH2+bRFEdaOnHDAYDuk
- cWFtFZiRoEfBRsJIW8JbphOsVtVsHlfodE07mqj4=
-X-QQ-mid: zesmtpgz3t1786523331tccda71ea
-X-QQ-Originating-IP: ROJw1rlyoLNm7vO4Ujpru5u1DWWBu46TE/Dl7ji34wc=
-Received: from localhost.localdomain ( [113.90.157.158])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 12 Aug 2026 16:28:50 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8013104862253889230
-From: Neil Zhong <neil.zhong@ugreen.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 1/1] drm/xe: keep VM-bound WC BOs resident during
- reclaim
-Date: Wed, 12 Aug 2026 16:28:47 +0800
-Message-ID: <B6F23642F2B2211D+20260812082850.60737-1-neil.zhong@ugreen.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <anvV3WiVbYMqjdbZ@gsse-cloud1.jf.intel.com>
-References: <20260728065512.59911-1-neil.zhong@ugreen.com>
- <FEC04D5B1E58A204+20260728065512.59911-2-neil.zhong@ugreen.com>
- <amv8Ll7+CJOcZ222@gsse-cloud1.jf.intel.com>
- <amwL8o5BcWmaC5Xs@gsse-cloud1.jf.intel.com>
- <2177DDCA3446E482+20260801053934.26608-1-neil.zhong@ugreen.com>
- <am2Lkcid3rLuqLFL@gsse-cloud1.jf.intel.com>
- <0AC9B69C6E8FB7B2+20260808093408.79701-1-neil.zhong@ugreen.com>
- <anvV3WiVbYMqjdbZ@gsse-cloud1.jf.intel.com>
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A9910E44F
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 19:22:19 +0000 (UTC)
+Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
+ server-digest SHA256) (No client certificate requested)
+ by meve.dewith.io (Postfix) with ESMTPSA id DDFF324D4A;
+ Wed, 12 Aug 2026 19:22:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
+ t=1786562537;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=e44uASbU3jxyMilthv5zt90sB3025vAnuZmPyrUi39Y=;
+ b=vrqedMF4SkX2jxn/eoOh019DdHmPht2VudMiEIBnLVgHCNdC5aaKlOpZAlUViGodN8yFiK
+ hN4cspsjyDSWd1GpWvhH0H+JFUZlYlZxG6Djs0ZijlncQvsuvBjjuWBZwhM+GX633iXqEd
+ je/iG8Q11jtdMnqQtRbbpfM1p0UGNHs=
+From: Wim de With <wf@dewith.io>
+Date: Wed, 12 Aug 2026 21:21:47 +0200
+Subject: [PATCH v2 2/2] backlight: Add support for Orient Chip OCP8178
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Oe8iJ2SlZYdbgp4T4i8ZwEtxkbI+aPBCsoHR5N2/w8joACtUy4GisV6E
- g3Br1RMTzkm8onRe4k6k2xue2Y6OyQlN3MpWDfNMO++LZ6ACr/SKBmXYkQyXJy3c6vlZ2ko
- rssip3eVtr227wUu4j5OHBukwOvR8dXAoobjnq8RY9uf3rxoTRibjabjkoSilq6EbtnMgg9
- yne8sCweHE3fRiccuqA6ASNdEvvEucpPf0m+AN8OOYSZQKSoIgEwxEkYi6j5Sz9uNROa4Sc
- D5qZlEnAvFg6U5rea8VX2KDiTuDifIABLOyDFijtoKzFb+PFJ8h9srHO4nAzEWy0dHl93mm
- vI+VGOfZrCfZpAevKOGhMpdhkuXkD5jFhf7AgFNDOLnt2dbWr4UtYEZldOKFY6sI9N9SdR2
- jL5emFN9EG6WHblaoP1DN9BK1a8FYZJOVRZSaeRNbJzgXI5wsLvW5Sa61HFJe3oB/BCNKqR
- crXa1RHd8JbSJJcTxgdT1JAnq+JzaIKYgcJMxK7Akhb2/uXXd9PPp2LrtKkgzPGKFFyq/CI
- L/DmxhQODURBugI0FLvdVJn1/TnS0ZFu44Q9UGi3SglrZIH10dxf+WGdbB/J/8LxR497RYQ
- c1loPUu5cTOHcdqyJn3sGrTqhd0MDMlGlMmD82V/IJbi7ZRT1R6sZh+Bir6wz9aE+WsJGBG
- TNCxlF/fYLlG8ReNmklBxZCGwUOBcB72T63k7mloq87s/MJNlPImn58nL+oUPE3ARjOFjpV
- 9mG+n40Qq1Kxz3apPAMYmN9nb0oxwndvnmM1HKxJYcFaeDp3T/2zG4jTtvC+l2lOiH5kZVG
- waBO3lFDtUXt8G+EtlWdH8keWmzc19dZ8Pk3/tbPF2pnTXQyCgkATsY2bwaasJWrQ9DY58w
- VXrjrVIrwk5+jnlX10XQC/STn+XeLRV+jig+H1abLdc+nygJ0CC0AnbsDF4quz3MGrLj9C/
- P6kgXVSyA94gp46NVC+R0z8SYtoI1JqQlCUOZPtlkFaZ7wOkKh2H9zpGiD74zW5yZPLUAZc
- VAIWuBbpt63J/7QFaU19S67HbySBNgShLlzK0aAg+/1vE9KdaCzEVyi7J72T/Nr/7mXqCMV
- r+AEjWUuCX6
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260812-ocp8178-backlight-v2-2-4ad18b48bef8@dewith.io>
+References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
+In-Reply-To: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
+To: Wim de With <wf@dewith.io>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,150 +65,310 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Matt,
+Add a driver for the Orient Chip OCP8178 backlight controller.
 
-> Can you give me instructions on how to recreate this on our end and your
-> machine, memory details? I have a bunch of various reproducers which I
-> have been using for shrinker work and the more the better.
+The OCP8178 supports either PWM or a vendor-specific onewire protocol
+over GPIO. This driver implements the onewire protocol, which enables
+setting static brightness levels without requiring a continuous PWM
+signal from the host CPU. Note that while the vendor calls the protocol
+1-Wire, it is not the 1-Wire protocol from Dallas Semiconductor as
+implemented in drivers/w1.
 
-Yes. The test system and workload are as follows.
+Signed-off-by: Wim de With <wf@dewith.io>
+---
+ MAINTAINERS                          |   1 +
+ drivers/video/backlight/Kconfig      |  10 ++
+ drivers/video/backlight/Makefile     |   1 +
+ drivers/video/backlight/ocp8178_bl.c | 235 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 247 insertions(+)
 
-  - Panther Lake iGPU using shared system memory
-  - 8 GiB installed memory; /proc/meminfo reports 7,723,392 KiB
-  - 4 KiB base pages
-  - four zram swap devices, 3,858,416 KiB in total
-  - Linux 6.18.15, x86_64, PREEMPT_DYNAMIC
-  - X11 fullscreen output at 3840x2160 and 60 Hz
-  - a 3840x2160, 60 fps, HEVC HDR video played continuously in a loop
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3ca99d9c32ef1..7146e4dea8d78 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19682,6 +19682,7 @@ OCP8178 BACKLIGHT DRIVER
+ M:	Wim de With <wf@dewith.io>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
++F:	drivers/video/backlight/ocp8178_bl.c
+ 
+ OCXL (Open Coherent Accelerator Processor Interface OpenCAPI) DRIVER
+ M:	Mahesh J Salgaonkar <mahesh@linux.ibm.com>
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index 7aa1c4b21111f..aa845230c5f58 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -226,6 +226,16 @@ config BACKLIGHT_LOCOMO
+ 	  If you have a Sharp Zaurus SL-5500 (Collie) or SL-5600 (Poodle) say y to
+ 	  enable the LCD/backlight driver.
+ 
++config BACKLIGHT_OCP8178
++	tristate "OCP8178 Backlight Driver"
++	depends on GPIOLIB
++	help
++	  If you have an Orient Chip OCP8178, say Y to enable the backlight
++	  driver.
++
++	  To compile this driver as a module, choose M here: the module will
++	  be called ocp8178_bl.
++
+ config BACKLIGHT_OMAP1
+ 	tristate "OMAP1 PWL-based LCD Backlight"
+ 	depends on ARCH_OMAP1 || COMPILE_TEST
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index 21c8313cfb121..c4e87b708ae21 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -51,6 +51,7 @@ obj-$(CONFIG_BACKLIGHT_MAX25014)	+= max25014.o
+ obj-$(CONFIG_BACKLIGHT_MAX8925)		+= max8925_bl.o
+ obj-$(CONFIG_BACKLIGHT_MP3309C)		+= mp3309c.o
+ obj-$(CONFIG_BACKLIGHT_MT6370)		+= mt6370-backlight.o
++obj-$(CONFIG_BACKLIGHT_OCP8178)		+= ocp8178_bl.o
+ obj-$(CONFIG_BACKLIGHT_OMAP1)		+= omap1_bl.o
+ obj-$(CONFIG_BACKLIGHT_PANDORA)		+= pandora_bl.o
+ obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
+diff --git a/drivers/video/backlight/ocp8178_bl.c b/drivers/video/backlight/ocp8178_bl.c
+new file mode 100644
+index 0000000000000..bc48636ef64e4
+--- /dev/null
++++ b/drivers/video/backlight/ocp8178_bl.c
+@@ -0,0 +1,235 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Orient Chip OCP8178 Backlight Driver
++ *
++ * Copyright (C) 2026 Wim de With
++ *
++ * Author: Wim de With <wf@dewith.io>
++ */
++
++#include <linux/backlight.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/gpio/consumer.h>
++#include <linux/irqflags.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++
++#define OCP8178_MAX_BRIGHTNESS 0x1F /* 5 bits */
++
++#define OCP8178_DEVICE_ADDRESS 0x72
++
++#define OCP8178_DATA_RFA BIT(7)
++#define OCP8178_DATA_ADDR GENMASK(6, 5)
++#define OCP8178_DATA_VALUE GENMASK(4, 0)
++
++#define OCP8178_1W_INIT_MAX_RETRIES 5
++#define OCP8178_1W_INIT_SLEEP_US (50 * 1000)
++
++#define OCP8178_T_OFF_US (3 * 1000) /* datasheet specifies at least 2.5 ms */
++#define OCP8178_1W_T_DELAY_US (100 + 10) /* 10 us as safety factor */
++#define OCP8178_1W_T_DETECT_US (260 + 10) /* 10 us as safety factor */
++#define OCP8178_1W_T_START_US 2
++#define OCP8178_1W_T_EOS_US 2
++#define OCP8178_1W_T_WIN_NS (1000 * 1000)
++
++/*
++ * The datasheet specifies 1.7 Kbps to 160 Kbps.
++ * 1 / (160 Kbps) is about 6.67 us, so using 7 us per bit should be fine.
++ * T_HIGH + T_LOW = 7 us
++ * T_HIGH > 2 * T_LOW for high bits
++ * T_LOW > 2 * T_HIGH for low bits
++ */
++#define OCP8178_1W_HIGH_BIT_T_LOW_US 2
++#define OCP8178_1W_HIGH_BIT_T_HIGH_US 5
++#define OCP8178_1W_LOW_BIT_T_LOW_US 5
++#define OCP8178_1W_LOW_BIT_T_HIGH_US 2
++
++struct ocp8178_bl {
++	struct device *dev;
++	struct gpio_desc *gpiod;
++};
++
++static int ocp8178_bl_enable_onewire(struct ocp8178_bl *ocp8178)
++{
++	u64 start, duration;
++
++	dev_dbg(ocp8178->dev, "enabling onewire protocol\n");
++
++	gpiod_set_value(ocp8178->gpiod, 0);
++	fsleep(OCP8178_T_OFF_US);
++
++	start = ktime_get_ns();
++
++	gpiod_set_value(ocp8178->gpiod, 1);
++	udelay(OCP8178_1W_T_DELAY_US);
++	gpiod_set_value(ocp8178->gpiod, 0);
++	udelay(OCP8178_1W_T_DETECT_US);
++	gpiod_set_value(ocp8178->gpiod, 1);
++
++	duration = ktime_get_ns() - start;
++
++	if (duration >= OCP8178_1W_T_WIN_NS) {
++		dev_err(ocp8178->dev,
++			"onewire detection window exceeded (%llu ns)\n",
++			duration);
++		return -EAGAIN;
++	}
++
++	return 0;
++}
++
++static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
++{
++	unsigned long flags;
++
++	gpiod_set_value(ocp8178->gpiod, 1);
++	udelay(OCP8178_1W_T_START_US);
++
++	local_irq_save(flags);
++
++	for (int i = 7; i >= 0; i--) {
++		if ((value >> i) & 1) {
++			gpiod_set_value(ocp8178->gpiod, 0);
++			udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
++			gpiod_set_value(ocp8178->gpiod, 1);
++			udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
++		} else {
++			gpiod_set_value(ocp8178->gpiod, 0);
++			udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
++			gpiod_set_value(ocp8178->gpiod, 1);
++			udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
++		}
++	}
++
++	gpiod_set_value(ocp8178->gpiod, 0);
++	udelay(OCP8178_1W_T_EOS_US);
++	gpiod_set_value(ocp8178->gpiod, 1);
++
++	local_irq_restore(flags);
++}
++
++static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
++{
++	u8 data = 0;
++
++	/*
++	 * We cannot set RFA (request for acknowledge) unless the GPIO pin is
++	 * configured as open drain.
++	 */
++	data |= FIELD_PREP(OCP8178_DATA_RFA, 0);
++	data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
++	data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
++
++	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
++	ocp8178_bl_write_u8(ocp8178, data);
++}
++
++static int ocp8178_bl_update_status(struct backlight_device *bl)
++{
++	struct ocp8178_bl *ocp8178 = bl_get_data(bl);
++	u8 brightness = backlight_get_brightness(bl);
++
++	ocp8178_bl_set_brightness(ocp8178, brightness);
++	return 0;
++}
++
++static const struct backlight_ops ocp8178_bl_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.update_status = ocp8178_bl_update_status,
++};
++
++static int ocp8178_bl_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct backlight_device *bl;
++	struct backlight_properties props;
++	struct ocp8178_bl *ocp8178;
++	u32 max_brightness, brightness;
++	int ret, retries;
++
++	ocp8178 = devm_kzalloc(dev, sizeof(*ocp8178), GFP_KERNEL);
++	if (!ocp8178)
++		return -ENOMEM;
++
++	ocp8178->dev = dev;
++
++	ret = device_property_read_u32(dev, "max-brightness", &max_brightness);
++	if (ret)
++		max_brightness = OCP8178_MAX_BRIGHTNESS;
++	if (max_brightness > OCP8178_MAX_BRIGHTNESS) {
++		dev_warn(dev, "max brightness exceeds hardware limit\n");
++		max_brightness = OCP8178_MAX_BRIGHTNESS;
++	}
++
++	ret = device_property_read_u32(dev, "default-brightness", &brightness);
++	if (ret)
++		brightness = max_brightness;
++	if (brightness > max_brightness) {
++		dev_warn(dev, "default brightness exceeds max brightness\n");
++		brightness = max_brightness;
++	}
++
++	ocp8178->gpiod = devm_gpiod_get(dev, "enable", GPIOD_OUT_LOW);
++	if (IS_ERR(ocp8178->gpiod))
++		return dev_err_probe(dev, PTR_ERR(ocp8178->gpiod),
++				     "GPIO missing or invalid\n");
++	if (gpiod_cansleep(ocp8178->gpiod))
++		return dev_err_probe(dev, -EINVAL,
++				     "sleeping GPIO not supported\n");
++	gpiod_set_consumer_name(ocp8178->gpiod, dev_name(dev));
++
++	for (retries = 0; retries < OCP8178_1W_INIT_MAX_RETRIES; retries++) {
++		ret = ocp8178_bl_enable_onewire(ocp8178);
++		if (!ret)
++			break;
++		if (ret != -EAGAIN)
++			return ret;
++		fsleep(OCP8178_1W_INIT_SLEEP_US);
++	}
++	if (retries >= OCP8178_1W_INIT_MAX_RETRIES)
++		return dev_err_probe(dev, -ETIMEDOUT,
++				     "failed to initialize onewire protocol\n");
++
++	props = (typeof(props)){
++		.type = BACKLIGHT_RAW,
++		.brightness = brightness,
++		.max_brightness = max_brightness,
++		.power = BACKLIGHT_POWER_ON,
++		.scale = BACKLIGHT_SCALE_NON_LINEAR,
++	};
++
++	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ocp8178,
++					    &ocp8178_bl_ops, &props);
++	if (IS_ERR(bl))
++		return dev_err_probe(dev, PTR_ERR(bl),
++				     "failed to register backlight\n");
++
++	platform_set_drvdata(pdev, bl);
++	backlight_update_status(bl);
++
++	dev_dbg(dev, "probed, brightness=%u/%u\n", brightness, max_brightness);
++
++	return 0;
++}
++
++static const struct of_device_id ocp8178_bl_of_match[] = {
++	{ .compatible = "ocs,ocp8178" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ocp8178_bl_of_match);
++
++static struct platform_driver ocp8178_bl_driver = {
++	.driver = {
++		.name = "ocp8178-bl",
++		.of_match_table = ocp8178_bl_of_match,
++	},
++	.probe = ocp8178_bl_probe,
++};
++module_platform_driver(ocp8178_bl_driver);
++
++MODULE_AUTHOR("Wim de With <wf@dewith.io>");
++MODULE_DESCRIPTION("Orient Chip OCP8178 Backlight Driver");
++MODULE_LICENSE("GPL");
 
-The player uses hardware decoding. Each decoded frame is imported through
-DMA-BUF and processed by libplacebo/OpenGL for HDR tone mapping before
-presentation. It calls glFlush() for every rendered frame. During steady
-playback, the player accounts for about 1.85 GiB of logical Xe BO
-allocation, including about 672 MiB reported as shared.
+-- 
+2.55.0
 
-The player is not currently public. However, an equivalent pipeline should
-reproduce the condition if it keeps the decoded surfaces, HDR intermediate
-render targets and presentation surfaces alive, rather than creating a
-small synthetic BO set. 
-
-No additional memory-pressure tool was used for the first reproduction.
-I start the video, let its working set reach steady state, and then capture
-ten minutes while playback continues. On the 8 GiB system, the priority-only
-run had MemAvailable between 2.89 and 3.15 GiB, while 97.8% of kswapd wakeups
-were for order-10 allocations. Thus this reproduces without forcing an
-order-0 shortage.
-
-I collected the trace with:
-
-  sudo ./capture_xe_memory_churn.sh \
-          -t 600 \
-          -s 0.2 \
-          -o ./xe-memory-churn
-
-`-t 600` records ten minutes. `-t 0` can instead be used to record until
-Ctrl-C. The 0.2 second option is only the /proc and TTM-pool sampling
-interval; ftrace events are recorded continuously.
-
-The player also logs one line after each frame submission in this form:
-
-  gl_sw_submit_frame timing: ... Flush=123.456 ms
-
-The log prefix contains the wall-clock timestamp. An equivalent reproducer
-can record the time immediately after glFlush() returns and the measured
-duration. The trace script inserts a wall-clock epoch marker into a
-mono_raw ftrace stream so that the two timelines can be aligned.
-
-The figures in my previous email came from the 6.18.15 kernel with [9]-[13]
-backported, the fragmentation check applied to direct reclaim as well, and
-the high-plus-min watermark experiment described there. The default-device
-watermark capture used vm.min_free_kbytes=131072. The follow-up used 50000;
-the workload and trace procedure were otherwise unchanged.
-
-> Also a quick write up how you extracted these numbers from reproducer so
-> I can recreate on my end.
-
-The capture script creates temporary entry and return kprobes for:
-
-  ttm_tt_backup()
-  ttm_tt_restore()
-  ttm_pool_alloc()
-  ttm_pool_free()
-  ttm_pool_shrink()
-
-It also traces the Xe shrinker, TTM restore and cache-attribute functions,
-kswapd and direct-reclaim events, compaction, and allocation
-fragmentation.
-
-At ttm_tt_backup() entry, the probe records the ttm_tt pointer and
-num_pages. At return, it records the positive return value, which is the
-number of pages actually backed up. I sum those successful return values,
-not the requested page count, when reporting backup volume. A later
-ttm_tt_restore() is matched to the most recent successful backup using the
-same ttm_tt pointer. That provides per-object backup-to-restore latency and
-repeated-cycle counts.
-
-The byte-volume calculation is:
-
-  backup bytes = sum(successful backup return pages) * PAGE_SIZE
-  restore bytes = sum(num_pages for matched restores) * PAGE_SIZE
-
-The reported backup-plus-restore volume is the sum of those two values.
-It is cumulative migration/copy traffic, not resident memory and not net
-memory freed. A shmem backup remains resident system memory unless those
-shmem pages are subsequently swapped out.
-
-> This customer, in particular, utilizes priority bands to express this
-> heuristic (e.g., the compositor is the highest priority, any
-> non-privileged UI-related content is normal priority, and everything
-> else is low priority).
-
-I think priority bands are useful for relative reclaim ordering, but they
-do not by themselves express the guarantee needed here.
-
-Consider a system with one large GPU workload. If nearly all reclaimable
-BOs belong to that client and are placed in the high-priority band, the low
-bands will contain few or no candidates. When enough memory is requested,
-the shrinker must eventually enter the high band. In that case, high
-priority delays reclaim but does not prevent it. The priority-only test
-showed exactly this limitation: over ten minutes there were 6,743
-successful backups and 6,693 restores, with 157 Flush calls over 16.667 ms
-and a maximum Flush of 494.434 ms.
-
-I am not suggesting that every BO of a high-priority client should be
-unreclaimable. Whether reclaim is acceptable depends on the workload, and
-the kernel cannot infer that semantic from WC, VM-bound state, client count
-or BO size alone. For example, the driver-visible behavior of these two
-workloads can look very similar:
-
-  1. Foreground 4K60 HDR playback. Its active decoded surfaces, HDR render
-     targets and presentation surfaces have a 16.667 ms deadline. Backing
-     them up and restoring them causes an immediate and clearly visible
-     product failure. These BOs should avoid eviction and shrinking while
-     they are part of the active visual pipeline.
-
-  2. Background image recognition or classification. Its BOs have no
-     presentation deadline. Reclaiming them under system memory pressure
-     is reasonable, even if the job later has to reconstruct its working
-     set.
-
-Priority bands cannot distinguish those cases if both clients assign their
-current working set a high relative priority. This is why I think the
-business semantic has to come from userspace. Priority bands can remain the
-general ordering mechanism, while a separate, explicit and bounded
-NO_SHRINK or latency-critical mark protects only the BOs in an active visual
-pipeline. The mark should be removed as soon as a surface leaves that
-working set.
-
-> To be clear - this would be an addition to fixes discussed above, right?
-
-Yes. I see explicit workload-semantic protection as an addition to the
-core MM fragmentation/shrinker fixes and the Xe/TTM priority bands, not a
-replacement for either. I agree that testing series 168651 together with
-the priority bands is still useful for general working-set preservation.
-It can reduce accidental reclaim, while an accounted NO_SHRINK contract
-handles the smaller set for which a missed presentation deadline is not an
-acceptable reclaim tradeoff.
-
-Thanks,
-Neil
