@@ -4,51 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C809C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4F79C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 473FB10F09D;
-	Wed, 12 Aug 2026 15:46:39 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6228310F084
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:46:37 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.94])
- by APP-03 (Coremail) with SMTP id rQCowAC3wkBXlXxq94P4BA--.44847S2;
- Wed, 12 Aug 2026 23:46:32 +0800 (CST)
-Message-ID: <3108e29a5e66d4dc1d822802aa19d5293eac1366.camel@iscas.ac.cn>
-Subject: Re: [PATCH RFC v2] drm/verisilicon: Switch to drm_fb_dma_get_addr()
- for framebuffer addresses
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Chen-Yu Tsai <wenst@chromium.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 12 Aug 2026 23:46:31 +0800
-In-Reply-To: <6c2b92efec2b8ed58da9b85b63935ba2e7f2a6ed.camel@iscas.ac.cn>
-References: <20260807114654.1373305-1-wenst@chromium.org>
- <6c2b92efec2b8ed58da9b85b63935ba2e7f2a6ed.camel@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D004F10F05D;
+	Wed, 12 Aug 2026 15:46:53 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WehsZAa0";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7707A10F099
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:46:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 25E40415EB;
+ Wed, 12 Aug 2026 15:46:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41C61F00A3F;
+ Wed, 12 Aug 2026 15:46:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786549613;
+ bh=/GB3Fi/saC+PIBt7BBLpbVMxRJbxvo0Nk2bljOa6Wpg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WehsZAa0qGuX6wkbSAYmT3STz35SP7AebyxyLCKOpOqeUwl+1lForMDjMyDvo13br
+ cau+yGA102XYGDNrPPi6MCu0WhqjXrydUeCQ0K11GnnfLa+yjBLmWmL9vwFim0+QyH
+ PVl5+uzuGX9zb+6VSYzZtCDr3dh9MdY1Ulja9YUhEnmyOdeHwoRIsFJdLP4sxnFBnJ
+ Z3XAiyyHdjETjDaKBmDAfG2LJkqmKVijMOGl+M+Ex6Y0WCOc97ktaCxmsgKazLmU5C
+ Qoyz3iCFqQ1VO6YgZ3GCdehbH1ndtTXIcnmpMyy4chTacBktQCTUeK7my0LudN+Uws
+ cOvm880OpXBiQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] ALSA: hda: allow direct complete with a
+ powered-off GPU
+To: "Andre Eikmeyer" <dev@deq.rocks>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260812144750.36797-4-dev@deq.rocks>
+References: <20260812144221.35877-1-dev@deq.rocks>
+ <20260812144750.36797-1-dev@deq.rocks>
+ <20260812144750.36797-4-dev@deq.rocks>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: rQCowAC3wkBXlXxq94P4BA--.44847S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jr4fKr18tF13AFW7WrW7urg_yoWxArW7pF
- ZIyFWUtrs0ya1vgrnrJr1jyay3ua1fJ34xWr1kGw10krs0yry29F1DXr95uFZ8JrWxWw4S
- grsxAr9xuF4jyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k2
- 0xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI
- 8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41l
- IxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIx
- AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
- jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07bY0eLUUUUU=
-X-Originating-IP: [120.85.96.94]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Date: Wed, 12 Aug 2026 15:46:52 +0000
+Message-Id: <20260812154652.C41C61F00A3F@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,192 +55,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-08-12=E4=B8=89=E7=9A=84 23:36 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> =E5=9C=A8 2026-08-07=E4=BA=94=E7=9A=84 19:46 +0800=EF=BC=8CChen-Yu Tsai=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > The verisilicon driver has a custom framebuffer address calculating
-> > helper that the common drm_fb_dma_get_addr() can substitute.
-> >=20
-> > Differences from drm_fb_dma_get_addr():
-> >=20
-> > - Uses drm_format_info_min_pitch() to calculate the horizontal
-> > offset;
-> > =C2=A0 however the driver does not support any of the blocked formats,
-> > so
->=20
-> Technically this DC, advertised as part of the "Vivante" product line
-> (considering Vivante Corporation is acquired by VeriSilicon), seems
-> to
-> support DRM_FORMAT_MOD_VIVANTE_SUPER_TILED modifier (the TH1520
-> documentation says the DC supports
-> `SuperTileX8x8/SuperTileX8x4/SuperTileY4x8`, although I think
-> DRM_FORMAT_MOD_VIVANTE_SUPER_TILED is just one of these tiling).
->=20
-> However, as my accessible SoCs with such DC have no GC-series 3D GPUs
-> (TH1520 does have a 2D-only GC620 GPU), I think it's quite difficult
-> to
-> get this piece of thing right and it should be low-priority.
->=20
-> > =C2=A0 this just ends up being the same as in drm_fb_dma_get_addr():
-> > =C2=A0 "cpp[plane] * y"
-> >=20
-> > - Uses clipped source coordinates instead of non-clipped
-> > coordinates
-> > =C2=A0 as in drm_fb_dma_get_addr();
-> >=20
-> > =C2=A0 For the primary plane this doesn't matter, since the primary
-> > plane
-> > =C2=A0 must match the output, i.e. it cannot be clipped. Also this
-> > driver
-> > =C2=A0 doesn't support scaling.
-> >=20
-> > =C2=A0 For the cursor plane this seems wrong, as the clipping seems to
-> > be
-> > =C2=A0 done by the hardware, and thus the buffer address should be
-> > unclipped.
->=20
-> Yes this is right and the current state of the cursor plane is
-> broken.
->=20
-> However another error compensates this error so I didn't catch it
-> when
-> developing -- the [XY]_OFF fields aren't properly written because I
-> forgot to shift the values for them (and then the value gets masked
-> by
-> regmap_update_bits()), which prevents the HW clipping to happen, and
-> the normal-state arrow cursor happens to have no non-transparent
-> pixels
-> before the hotspot. When testing with `X -retro`, the retro X cursor
-> gets quite glitchy with the current code; and when this patch is
-> applied w/o the offset fix, the cursor isn't clipped at all.
->=20
-> Both errors deserve fixes, I will then send the fix for the offset
-> writing problem.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Ah I should drop a few tags here.
+New issues:
+- [High] The `azx_prepare` function conditionally returns 1 early to reques=
+t direct complete, bypassing mandatory ALSA state initialization and workqu=
+eue flushing. If direct complete is subsequently aborted by the PM core, th=
+e device will suspend in an inconsistent state.
 
-```
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor planes")
-```
+Pre-existing issues:
+- [High] The HDA interrupt handler uses a non-atomic runtime PM check, and =
+the runtime suspend callback shuts down the hardware without synchronizing =
+shared IRQs. This allows the interrupt handler to run concurrently while th=
+e hardware is being powered down.
+--
 
-Thanks,
-Icenowy
+--- Patch [3]: [PATCH v3 3/3] ALSA: hda: allow direct complete with a power=
+ed-off GPU ---
+commit 8f27e09b7a8bd094dbb356dbe9893145a18d34a2
+Author: Andre Eikmeyer <dev@deq.rocks>
 
->=20
-> Thanks,
-> Icenowy
->=20
-> >=20
-> > As such, it should be fine to use the common helper and drop the
-> > custom
-> > code.
-> >=20
-> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> > ---
-> > Changes since v1:
-> > - Fixed compile issues
-> >=20
-> > This is only compile tested. I do not have the hardware.
-> > ---
-> > =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c |=C2=A0 4 +++-
-> > =C2=A0drivers/gpu/drm/verisilicon/vs_plane.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 20 ---------------
-> > --
-> > --
-> > =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 7 ++++++-
-> > =C2=A03 files changed, 9 insertions(+), 22 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > index fa4f601dd0c8..59778433ae84 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> > @@ -12,6 +12,7 @@
-> > =C2=A0#include <drm/drm_atomic.h>
-> > =C2=A0#include <drm/drm_atomic_helper.h>
-> > =C2=A0#include <drm/drm_crtc.h>
-> > +#include <drm/drm_fb_dma_helper.h>
-> > =C2=A0#include <drm/drm_fourcc.h>
-> > =C2=A0#include <drm/drm_framebuffer.h>
-> > =C2=A0#include <drm/drm_gem_atomic_helper.h>
-> > @@ -176,7 +177,8 @@ static void
-> > vs_cursor_plane_atomic_update(struct
-> > drm_plane *plane,
-> > =C2=A0		break;
-> > =C2=A0	}
-> > =C2=A0
-> > -	dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
-> > +	/* hardware handles clipping as seen below */
-> > +	dma_addr =3D drm_fb_dma_get_gem_addr(fb, state, 0);
-> > =C2=A0
-> > =C2=A0	regmap_write(dc->regs, VSDC_CURSOR_ADDRESS(output),
-> > =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 lower_32_bits(dma_addr));
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_plane.c
-> > b/drivers/gpu/drm/verisilicon/vs_plane.c
-> > index d81f7b8f4c65..38b8b536eccb 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_plane.c
-> > +++ b/drivers/gpu/drm/verisilicon/vs_plane.c
-> > @@ -107,26 +107,6 @@ int drm_format_to_vs_format(u32 drm_format,
-> > struct vs_format *vs_format)
-> > =C2=A0	return 0;
-> > =C2=A0}
-> > =C2=A0
-> > -dma_addr_t vs_fb_get_dma_addr(struct drm_framebuffer *fb,
-> > -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct drm_rect *src_rect)
-> > -{
-> > -	struct drm_gem_dma_object *gem;
-> > -	dma_addr_t dma_addr;
-> > -
-> > -	/* Get the physical address of the buffer in memory */
-> > -	gem =3D drm_fb_dma_get_gem_obj(fb, 0);
-> > -
-> > -	/* Compute the start of the displayed memory */
-> > -	dma_addr =3D gem->dma_addr + fb->offsets[0];
-> > -
-> > -	/* Fixup framebuffer address for src coordinates */
-> > -	dma_addr +=3D drm_format_info_min_pitch(fb->format, 0,
-> > -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 src_rect->x1 >> 16);
-> > -	dma_addr +=3D (src_rect->y1 >> 16) * fb->pitches[0];
-> > -
-> > -	return dma_addr;
-> > -}
-> > -
-> > =C2=A0struct drm_plane_state *vs_plane_duplicate_state(struct drm_plane
-> > *plane)
-> > =C2=A0{
-> > =C2=A0	struct vs_plane_state *vs_state, *vs_state_old;
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > index 1f2be41ae496..2750016a7f2c 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > @@ -8,6 +8,7 @@
-> > =C2=A0#include <drm/drm_atomic.h>
-> > =C2=A0#include <drm/drm_atomic_helper.h>
-> > =C2=A0#include <drm/drm_crtc.h>
-> > +#include <drm/drm_fb_dma_helper.h>
-> > =C2=A0#include <drm/drm_fourcc.h>
-> > =C2=A0#include <drm/drm_framebuffer.h>
-> > =C2=A0#include <drm/drm_gem_atomic_helper.h>
-> > @@ -126,7 +127,11 @@ static void
-> > vs_primary_plane_atomic_update(struct drm_plane *plane,
-> > =C2=A0			=C2=A0=C2=A0 VSDC_FB_CONFIG_UV_SWIZZLE_EN,
-> > =C2=A0			=C2=A0=C2=A0 vs_state->format.uv_swizzle);
-> > =C2=A0
-> > -	dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
-> > +	/*
-> > +	 * Primary plane cannot be moved, no clipping is involved,
-> > +	 * so the non-clipped framebuffer address can be used.
-> > +	 */
-> > +	dma_addr =3D drm_fb_dma_get_gem_addr(fb, state, 0);
-> > =C2=A0
-> > =C2=A0	regmap_write(dc->regs, VSDC_FB_ADDRESS(output),
-> > =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 lower_32_bits(dma_addr));
+ALSA: hda: allow direct complete with a powered-off GPU
 
+The commit allows direct complete during system suspend for a switcheroo
+audio client when the bound GPU is already runtime suspended and switched
+off. It does this by checking the VGA switcheroo state and returning 1
+from azx_prepare().
+
+> diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
+> index 4b03c64e72ab4..6f1c1d596e2ca 100644
+> --- a/sound/hda/controllers/intel.c
+> +++ b/sound/hda/controllers/intel.c
+
+[ ... ]
+
+> @@ -1025,6 +1027,10 @@ static int azx_prepare(struct device *dev)
+>  		return 0;
+> =20
+>  	chip =3D card->private_data;
+> +	/* A positive return allows the PM core to use direct complete. */
+> +	if (azx_vga_is_powered_off(chip))
+> +		return 1;
+> +
+
+[Severity: High]
+If the PM core decides to abort direct complete for this device later in the
+suspend process, will this leave the device in an inconsistent state?
+
+For example, if a child HDA codec returns 0 from its own prepare callback,
+the PM core clears the direct complete flag and will fall back to calling
+azx_suspend().
+
+Since this early return bypasses snd_power_change_state() and flush_work(),
+the ALSA subsystem will still consider the device to be in SNDRV_CTL_POWER_=
+D0
+and the unsol_work may still be queued or running while the hardware gets
+shut down.
+
+>  	chip->pm_prepared =3D 1;
+>  	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but I have a question about the existing
+runtime PM handling and shared interrupts in this driver.
+
+Does azx_runtime_suspend() need to call synchronize_irq() before powering
+down the hardware?
+
+Currently, azx_interrupt() in sound/hda/common/controller.c uses a
+non-atomic pm_runtime_active() check. If a shared interrupt fires for
+another device, azx_interrupt() could see the device as active, while
+another CPU concurrently executes azx_runtime_suspend() and shuts down the
+hardware.
+
+A read from the powered-off hardware would then typically return 0xffffffff.
+If this happens between reading INTSTS and RIRBSTS, the 0xff byte read could
+incorrectly match RIRB_INT_MASK and trigger further invalid accesses or an
+IRQ storm.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812144750.3679=
+7-1-dev@deq.rocks?part=3D3
