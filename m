@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5EB4C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:07:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74B5CC5B56A
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 15:09:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAAF310F054;
-	Wed, 12 Aug 2026 15:07:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A440A10F057;
+	Wed, 12 Aug 2026 15:09:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="yJjYXpSU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="knX8w7tu";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D28EF10F054
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:07:51 +0000 (UTC)
-Received: from francesco-nb (93-33-22-216.ip42.fastwebnet.it [93.33.22.216])
- by mail11.truemail.it (Postfix) with ESMTPA id 8F5771FA72;
- Wed, 12 Aug 2026 17:07:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1786547269;
- bh=QIfjX2+FT4/MfQrfD5uaOld2GWanjnVeBmCHbsRzOlg=; h=From:To:Subject;
- b=yJjYXpSUCLRCa5pojNpDgw1JjcG7rickEEAdul+edWkEhr8iaBia58o474wZ6lYs3
- v9h+gO8qj/IVaR3xKZ6WPSyrGXMgguHGYG8KXZ7r650LVD+0pMX+djyAuQoOYgjJKi
- TrgSSWlcDqubnPsSZTqSUI2T3XkoX1T/oLvoGlwr9lWBr1WT5Y+2lNsElIC0x368aH
- /GZ/cD851KKG7fxZJOTyFLGyW5fVmRqF03XmcrS7VfFVrdLzAv8xPqoYYECbMm/Qi8
- wqx4vp/11u4BZldR0KRlHKpiktmN89lLCT0cAsvFKpPbrjE+bJYvHf+7x6JQlMBtFU
- dW0g+fkJkKAVA==
-Date: Wed, 12 Aug 2026 17:07:43 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- imx@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 2/4] drm: mxsfb: Add optional DPI output bus-width
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 249FD10F055;
+ Wed, 12 Aug 2026 15:09:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6079260A7D;
+ Wed, 12 Aug 2026 15:09:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A7161F000E9;
+ Wed, 12 Aug 2026 15:09:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786547362;
+ bh=aaqq2H2JimvVJmpoJx6SRa5PHhNV2698HwqcWY02mTg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=knX8w7tuFaejNzJ612ZhC4U4PMt8qOPH8Y3y6YDnuHGZl7P9z2xfb0BkaQNDANCPm
+ rai61Ks+jVyMqAl+DHgK/OlTduKSGI5d++w9qaHpR6ZX5VvWVGmuuclQRHJnJyWtXN
+ XqW8FC5QzVTa1IpcLcL2KUoGeRI+PD3A7XOvgM+RAhYbn97UkquAmKBAKEKHuXNS+J
+ ggDMlVaRHk4IOThl/4cZjaXH764+2k7y5qTe2oNZkHaqsay6PV4rTdgHH+yKw0guIO
+ aiLEOj4JumuiFii6f1byHdFOt3q53wTw0oxP4/xto+g3mH3d+6SYt6MCI5kviHSptj
+ /Zm56nlCIzKzQ==
+Date: Wed, 12 Aug 2026 17:09:13 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-phy@lists.infradead.org
+Subject: Re: [PATCH v9 2/5] phy: qualcomm: hdmi-28lpm: provide dynamic
  configuration
-Message-ID: <20260812150743.GA169597@francesco-nb>
-References: <20260812132954.148571-1-francesco@dolcini.it>
- <20260812132954.148571-3-francesco@dolcini.it>
- <sn6xydbjkkz5b5okgnenp3zspj4ivr6gjpxow26kjknl7i2ihh@a55eb3vhby4i>
+Message-ID: <xrkv6tfmaccqbpf2azecbx3kowrqvysgcgvgqpg4avaggb22zv@43uwievfbkzt>
+References: <20260513-fd-hdmi-phy-v9-0-ca98c72f1f9f@oss.qualcomm.com>
+ <20260513-fd-hdmi-phy-v9-2-ca98c72f1f9f@oss.qualcomm.com>
+ <qxuzipnza3tzoig7xp3653vcqwgubf6zerzbgdmx5h6acof7zm@quy7xzjml7kn>
+ <w6mq6a63mjzhjirvvgetcdptutkq3upa5v5kmdcezjke6rhkm3@lctdutlbnbud>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <sn6xydbjkkz5b5okgnenp3zspj4ivr6gjpxow26kjknl7i2ihh@a55eb3vhby4i>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <w6mq6a63mjzhjirvvgetcdptutkq3upa5v5kmdcezjke6rhkm3@lctdutlbnbud>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,106 +70,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 05:02:51PM +0200, Marco Felsch wrote:
-> Hi Francesco,
+On Wed, Aug 12, 2026 at 05:28:50PM +0300, Dmitry Baryshkov wrote:
+> On Wed, Aug 12, 2026 at 03:51:16PM +0200, Manivannan Sadhasivam wrote:
+> > On Wed, May 13, 2026 at 09:14:05PM +0300, Dmitry Baryshkov wrote:
+> > > Replace fixed value configuration tables with the values calculated at
+> > > the runtime. In some cases the values might differ from the original
+> > > values. Those were validated on the IFC6410 board.
+> > > 
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > 
+> > One nit below. With that fixed,
+> > 
+> > Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > 
+> > > ---
+> > >  drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c | 325 +++++++++--------------------
+> > >  1 file changed, 104 insertions(+), 221 deletions(-)
+> > > 
+> > > -static const struct pll_rate *qcom_hdmi_8960_pll_find_rate(unsigned long rate)
+> > > +static inline void write16(u16 val, void __iomem *reg)
+> > 
+> > No 'inline' keyword in .c files please.
 > 
-> On 26-08-12, Francesco Dolcini wrote:
-> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > 
-> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> > format reported by the downstream panel or bridge describes the display
-> > input, but it does not describe how the LCDIF data pins are physically
-> > wired on the board.
-> > 
-> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> > 24-bit display by wiring the available color bits to the corresponding
-> > display inputs. In that case, using the display's 24-bit format to
-> > configure LCDIF selects the wrong data-bus mode and changes the assignment
-> > of color bits on the LCD_DATA pins.
-> > 
-> > Read the optional bus-width endpoint property from the LCDIF output port
-> > and use it to select the media bus format used to configure LCDIF. This
-> > allows the LCDIF bus mode to describe the physical interface
-> > independently of the downstream display format.
-> > 
-> > When the optional property is absent, or it has an invalid value, continue
-> > using the format reported by the downstream display device, preserving
-> > the existing behavior. The code is not validating the DT for
-> > correctness and just fall back to the previous behavior in case of
-> > errors.
-> > 
-> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > ---
-> > v3: improve commit message and make it clear that the code assumes that
-> >     the DT is correct, when the DT contains an invalid property value,
-> >     the code safely fall-back to the previous behavior
-> > v2: use the common bus-width property instead of the legacy interface-pix-fmt
-> > ---
-> >  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
-> >  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
-> >  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
-> >  3 files changed, 38 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > index 8b4a500347fb..f8ecc8bbd63c 100644
-> > --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > @@ -12,7 +12,10 @@
-> >  #include <linux/clk.h>
-> >  #include <linux/dma-mapping.h>
-> >  #include <linux/io.h>
-> > +#include <linux/media-bus-format.h>
-> >  #include <linux/module.h>
-> > +#include <linux/of.h>
-> > +#include <linux/of_graph.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/property.h>
-> >  #include <linux/pm_runtime.h>
-> > @@ -211,7 +214,10 @@ static int mxsfb_load(struct drm_device *drm,
-> >  		      const struct mxsfb_devdata *devdata)
-> >  {
-> >  	struct platform_device *pdev = to_platform_device(drm->dev);
-> > +	struct device_node *np = pdev->dev.of_node;
-> >  	struct mxsfb_drm_private *mxsfb;
-> > +	struct device_node *ep;
-> > +	u32 bus_width = 0;
+> Why?
 > 
-> IMHO this default value makes no sense with..
-> 
-> >  	int ret;
-> >  
-> >  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
-> > @@ -238,6 +244,24 @@ static int mxsfb_load(struct drm_device *drm,
-> >  	if (IS_ERR(mxsfb->clk_disp_axi))
-> >  		mxsfb->clk_disp_axi = NULL;
-> >  
-> > +	ep = of_graph_get_next_endpoint(np, NULL);
-> > +	if (ep) {
-> > +		of_property_read_u32(ep, "bus-width", &bus_width);
-> > +		of_node_put(ep);
-> > +	}
-> > +
-> > +	switch (bus_width) {
-> > +	case 16:
-> > +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
-> > +		break;
-> > +	case 18:
-> > +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
-> > +		break;
-> > +	case 24:
-> > +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-> > +		break;
-> 
-> these cases in case no bus-width was specified without the knowledge of
-> the mxsfb_kms.c since the '0' value is not covered. However, I'm not the
-> maintainer of this driver. Thanks for making use of the bus-width
-> property :)
 
-I think it's needed, otherwise the variable might be non-initialized if
-the bus-width property is not present.
+Because the modern compilers are smarter enough to decide whether a specific
+function should be inlined or not. There is no guarantee that the 'inline'
+keyword that you pass will be honored by the compiler also, it is just a hint.
+That's why it is preferred to drop 'inline' keyword from .c files to avoid churn
+and leave the judgement to the compilers.
 
-And I need it to be 0, by default, so that we do leave bus_format to 0,
-and with that we maintain the previous existing behavior.
+- Mani
 
-Francesco
-
+-- 
+மணிவண்ணன் சதாசிவம்
