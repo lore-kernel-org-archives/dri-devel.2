@@ -4,143 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80773C5B56A
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:28:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4046C5CFEE
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 14:29:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C884710F027;
-	Wed, 12 Aug 2026 14:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 390A310F02A;
+	Wed, 12 Aug 2026 14:29:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oHmaryBQ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hW0RFfaV";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="M1t413im";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6130010E411
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:28:57 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67CDcBn73950935
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:28:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rRTRNjqnMuQmJhIBf/iDfReXyCTGBmAaSP7mRWJ3Hb0=; b=oHmaryBQeIzxliC/
- 6lwV34HNXaETyWDqwvcSZbxwQC4GEPtqZqdmaNqv1wvs5vzzbRRaWokO21Wo5TXU
- XZNtWpeGD+CmDSZBVUPfSEKmIyvFrmsbQAORZdmZr7iYKhvaTG3BjbHZye+Wa4rj
- 8YrPByIsDFPx3U2a+QzmMNUDEHE/GW/HS7qDyGiTy4uuotgnMrvjXUFlRKmgzdxR
- 9CYdvT0wP7MAqMwQUHe3mwANF7FH80d4xWGzhwx2TV1/m6Da3E9GpKzwet6SGW0j
- xH77C+4rNCQpXDx0PmTTqQ17VTjCAgUgPIM4ecREDSZGLvT2nInW59/KmwvgGGxe
- NdciMQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0hj2tats-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:28:56 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-52ce3c7cb2eso18241771cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:28:56 -0700 (PDT)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 459FA10F028
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:29:34 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-6a173ad7cf4so1737761a12.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:29:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786544936; x=1787149736;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=rRTRNjqnMuQmJhIBf/iDfReXyCTGBmAaSP7mRWJ3Hb0=;
- b=hW0RFfaVqd5IJO9QtOhjpfAjvQxdm4zvZr1Lrw7JK6sfJZpxJMDrlv+YJDoZEp5c+J
- xlKyN0ijKm2O9bP9bDSEhc0Gw1b3GWF4AtkzzO9T0f82U2KzB4j8A0jX+nmSStMd1rXj
- ECTAw/xIlBps/myYIfp499yWHZ1yxREmyn5GgAaeIITV4/KmSe5zR9wkzvkTqDq7bs/x
- QoawZo2NajwVfP2+uTBp1jIbA9Ziu9nUr+4IrPFRvKgRdK/JohkCEmtn4o6JeKYCXAYj
- Ql+VK2OfrCcYkAkBp1z6ZnXCC2oBMKpxCXA2rtxEc8IGKhlhIL1OP8IYJERkb3Z7P88J
- Pf3g==
+ d=linaro.org; s=google; t=1786544973; x=1787149773; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=1+cbmPdbcBrwM/0lJhhHJdcg2osH6Rj2q1mNv8GJOas=;
+ b=M1t413imzS6H8QJBpNg6+sFJX8H3me9suKqEFsWXNXYSOJvTO2OCUnkbiAAR4dZAJm
+ WJ6mHhWZ+n7lUM7BAbUaHCD5Iz4IfMYJSvx7VF4CKSKcmbjxqf1NUZO17DAn8GA62xrG
+ ZJ9mwjK9XlqgtL2YYdIeG7VbwhBy5VxeoZWEYKtDTUK4YGgWd9U7oI/al6ioXqq2Ufux
+ c5Jcds6QePHu4uA4tvTAjQ6wFiYHuxoaclmXAJI2Ef7kACBZYay0MVXURwUdW8iXJTdb
+ ZtG97EUsaHYjOIYVxHqu/eKAIyl7fwPXLg1fj5L3dbxg+pHvjZC9t5SQ6DFFXWHSyunL
+ Zsdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786544936; x=1787149736;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=rRTRNjqnMuQmJhIBf/iDfReXyCTGBmAaSP7mRWJ3Hb0=;
- b=VmNuq6WUnY16bMHft3q+nyIUmyD5h+X+OZEUNc/N96lDrwvvlaf13Ss7kclszkxxFz
- fDpRYgMkz9E8bAZXafCmAzwTbQfWQDCFD8YAMT/dHUar292YVw5n6nAIoAkwYk5KaqN0
- Hix8Ki5oQxAmu8jMoxO0HqHD4F1bW3ZvigdcLUOLlu+XNmr+TqBscaZc1O82IY/FSJnV
- VAGY3Q6Y/EI/Dxe+pDnjukHafQYeQPJ0Vjrm9pYplT10nxbbxPdm/J7/bsZ+gYndO0LU
- XcemyTqtGmwgVHp4aXBniQZBNYc4oJ2IAAQX0V8NPvPD3ffaKm+x7yPR7zoLqMfqZjSy
- 7ENg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqtjpIXNWoAl+kixpc1spHgIrGJBBkdzXUiyTXCurUhcG1RlF37oFo764flpAijsjba1V/kbNHXyUc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzlm/SCS9HChZUxvNYjbkslbXuo9NPEUjjqYnWKYFi4PAkrBUlD
- AsgBWlDCqbT+Skgfi74AuUgBEzD4DU+MlRLMAqklL9o5j7Dgw0RlIL+yuOXoXy5dHJ7QL94Lc9R
- EBoFYdbWPph4jzhavJOfIfFiMcuVlGu+ijrwpvTKCg/0kHCiXlKeokJhgrbLNvaDFo0XXMeo=
-X-Gm-Gg: AR+sD10BpaqWfNF62N763aMLASiQZxfV7LZqgcZnmhS5Re5vc4JThee2xwXnGQ2V5w6
- ZRyZSDC9dRi1+r7j49cNXLm80QTE0j/WGVba41vBa/zvRRYeV7lMbClehy0dKuSq1jVUVzQL/Qh
- +V0aVJtS1LyR0VGUYLx/JroHiSV+Kuc18siw1iPk84+X0y02iUOMhtCimQs5Qb8CSowSpVCGAcs
- Hs3gIeROjCmf0sukafNrop5WETDYZqiwmIHFKGjw4PnNoqeLHUU8GPzKXjg7f148s/zkcHNKKWF
- ozNd+K4gW5pQ2wWRHlzbcrulWrKv2Y13HyPhf0MCr8FY10DZz6NREqgDDTDBcfKNLOI5nyQE3m9
- AhsEIBoBNFcCrrJ56TM+3wP9XwCArFeAr6CA5fwvBuRNeJhAXQfwBWLL/0aHQVmvmH/ESZl4DIZ
- wscIIiaNPQeE57
-X-Received: by 2002:a05:622a:4d8e:b0:51c:257c:8166 with SMTP id
- d75a77b69052e-52d6482e3d6mr47451131cf.33.1786544935645; 
- Wed, 12 Aug 2026 07:28:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:4d8e:b0:51c:257c:8166 with SMTP id
- d75a77b69052e-52d6482e3d6mr47448981cf.33.1786544933971; 
- Wed, 12 Aug 2026 07:28:53 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ d=1e100.net; s=20251104; t=1786544973; x=1787149773;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=1+cbmPdbcBrwM/0lJhhHJdcg2osH6Rj2q1mNv8GJOas=;
+ b=BF/Xphd2A7vRbqE+yVb1kJ4ewRnPFgcWzJfZjT5n95sv1a3oIQOsgyCIUx3gflqbOM
+ rmw5rJA/oiwXRRLIqJJvaAhvNoZ5s01YD7HVPHCnbU/ped3ijoP3bshe2NwRKbli7IBB
+ IXIVA3X3JwELJBhknv7x1taxLSwq/g8y9OUkzHJ2yRTaG+NUEPHXW5nkgT9tiGHxGnXJ
+ mta8HtQAziNH+bOKBpr+wY+vvmKDTA3l0EHZ52RrzVVilP0WN48W7o8WYDTTFtzRu2MC
+ umRpwjMgElFePClwZrQqN+TiD02rtqbsRjnZoBVokyl0iRcICTLu9Rd352CaJkHJT1Ct
+ 0f3A==
+X-Gm-Message-State: AOJu0YxxgOo4tMFIDVTZo0RVHFlOobg4joU2wZ0MzTvs9DpbUZri30+6
+ FxWdOQyuLr7/6/AsH8LdZOEYsAB9MYLze/qBtmce7l5jwgKdXbEAz/b3lNPcON33VTc=
+X-Gm-Gg: AR+sD11i/YtcwD5rqEWYiN4hqbbweAU5Ehf37/CfbqmxoAW54D47sF/wLuIn6F93sgF
+ 0nbpSoU3m56r3SKPL8jaDANEHWBd9rOy/7J31K7g8eJgDVrO/XWGpDBeX1qQtjcmNdcuBnNcczv
+ OlzXRii7DW5NJii3W3W3KwnQKHFgxWjXd9YQzdD1rk2GsXP2McBtMWUQ6m+N575zaCTEix5stLH
+ EBr5CCy7N1h3SdrkrdbdP7//qWDFsQ7b83gBDHj8NPinK2F4zdgfvDsBhJSjdg+FmfHhRocTOdi
+ v276JtACN529Q/m/PlNNH65Gy1Kjpt7iPT1qry0VUH3mFw6g0JdsZP7dh+lRZyc/jhqX6FKUFFe
+ mPF1Di/YBlkoJVPj4B5yOYHKp0dmmzFfW2Vv3XQC+YOqM8vWWkQOKwKJvs4T2o8AqECCb25yX5d
+ +y618+242JH90qn1rOO6pCbgFF++zNxtKNgDtHA4YR8BmGwVO2AiRz3ZTtJy7VXlFk41LjglFRO
+ 4mFvEAdYMfbCkOVKXLl9B4wPgfknSIV/de5Z26Kp1SY
+X-Received: by 2002:a05:6402:504c:b0:698:8847:e2f8 with SMTP id
+ 4fb4d7f45d1cf-6a375f37606mr2110314a12.15.1786544972353; 
+ Wed, 12 Aug 2026 07:29:32 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:405d:735d:801e:de34?
+ ([2a01:e0a:106d:1080:405d:735d:801e:de34])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a107d20977sm5067671fa.15.2026.08.12.07.28.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 07:28:52 -0700 (PDT)
-Date: Wed, 12 Aug 2026 17:28:50 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-phy@lists.infradead.org
-Subject: Re: [PATCH v9 2/5] phy: qualcomm: hdmi-28lpm: provide dynamic
- configuration
-Message-ID: <w6mq6a63mjzhjirvvgetcdptutkq3upa5v5kmdcezjke6rhkm3@lctdutlbnbud>
-References: <20260513-fd-hdmi-phy-v9-0-ca98c72f1f9f@oss.qualcomm.com>
- <20260513-fd-hdmi-phy-v9-2-ca98c72f1f9f@oss.qualcomm.com>
- <qxuzipnza3tzoig7xp3653vcqwgubf6zerzbgdmx5h6acof7zm@quy7xzjml7kn>
+ 4fb4d7f45d1cf-6a3768b8f76sm793147a12.7.2026.08.12.07.29.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Aug 2026 07:29:31 -0700 (PDT)
+Message-ID: <58dd571c-502f-4f06-b648-4692f86817db@linaro.org>
+Date: Wed, 12 Aug 2026 16:29:30 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
+ NT37703
+To: David Heidelberg <david@ixit.cz>, Esteban Urrutia <esteuwu@proton.me>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
+ <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
+ <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
+ <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
+ <7097b617-90be-492d-9637-4a2a101379e0@ixit.cz>
+ <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
+ <803e354d-55b9-4904-a4a0-9eeefa0c6ffd@ixit.cz>
+ <19e120fc-4b60-4188-86d8-cb3705a5fd33@linaro.org>
+ <e2b1c037-fd3a-4c0a-912f-fccc2c5ab843@ixit.cz>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <e2b1c037-fd3a-4c0a-912f-fccc2c5ab843@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <qxuzipnza3tzoig7xp3653vcqwgubf6zerzbgdmx5h6acof7zm@quy7xzjml7kn>
-X-Authority-Analysis: v=2.4 cv=a8EAM0SF c=1 sm=1 tr=0 ts=6a7c8328 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=eL-OflJxe-d9IbCPJmsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: nTz1-XIx-p1x_sAEeoEwBlwgNHFm5xOM
-X-Proofpoint-GUID: nTz1-XIx-p1x_sAEeoEwBlwgNHFm5xOM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDExOCBTYWx0ZWRfX6G93n0CNpYAl
- Rn+/WyDWOVSP2u/BAlQzW+MMq3pr3E/OvPLN6e8H3KLgFeWyjMTXyZYrbMQLRUn6kd0OiXKUEWr
- zqi6JldKVMD0zQQQnTMmYg6BfJfbr1I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDExOCBTYWx0ZWRfX0Vy8Zd8V9HRC
- yZH/WxG/u1wSiEDU1JFz0EDczmPTG9jj25WIpKChCr62Jj6BHgRCN0O2pfiBDOg0CY4/F9zZkZy
- xuqJtTxcnm0Qwlg5gtbCotqIcc8UIvYfeKjdLPFvsLowNwXXaMGFcZzI+PhLl8Ac1Cep6nWA+hi
- W+1Alr+qCx6Nzp6eHgxmI7cyljevZPQZTVMvn840st2LSotrZuS6SyNiRtRTf5/yAyNUFOWa/1/
- lIIF3LGXZpUy/Ci0yGSNvwAzj32OYE038du8Qaz2r495nnAZycswQQEhSgCou6qFL43g7hkKvt+
- G5yYXNA/MqRUp1IbgQhoL6qJcHlajCirbtnx4uAJIX81eYVXaD4GjIu//Z+G3WypqIHZHGROlb5
- OB7WbKQyfnUY0RWXnxTe29uk+89rKr6Eby/8PfucFFtR6TThU+L7ZjaIM1MddO3nBSItvgjYTix
- lrPUyOpMSYpWwV1EFeg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 spamscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120118
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,38 +130,197 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 03:51:16PM +0200, Manivannan Sadhasivam wrote:
-> On Wed, May 13, 2026 at 09:14:05PM +0300, Dmitry Baryshkov wrote:
-> > Replace fixed value configuration tables with the values calculated at
-> > the runtime. In some cases the values might differ from the original
-> > values. Those were validated on the IFC6410 board.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On 8/12/26 14:53, David Heidelberg wrote:
+> On 12/08/2026 14:22, Neil Armstrong wrote:
+>> On 8/12/26 14:15, David Heidelberg wrote:
+>>> On 12/08/2026 13:52, Neil Armstrong wrote:
+>>>> On 8/12/26 10:46, David Heidelberg wrote:
+>>>>> On 12/08/2026 07:21, Esteban Urrutia wrote:
+>>>>>> On 8/11/26 9:05 AM, David Heidelberg wrote:
+>>>>>>> Hi Esteban,
+>>>>>>>
+>>>>>>> Usually the used pattern is vendor,ddic+panel-model
+>>>>>>>
+>>>>>>> novatek,nt37703-motorola-bronco
+>>>>>>>
+>>>>>>> ...but motorola bronco isn't the model of the panel.
+>>>>>>>
+>>>>>>> My recommendation - look at some video of screen replacement, stop at moment
+>>>>>>> when FLEX cable from panel is visible and that's where the panel model usually is.
+>>>>>>
+>>>>>>
+>>>>>> I somewhat doubt the panel model would be located in the FPC cable.
+>>>>>> I did search anyway but didn't find anything of interest. And I'm not
+>>>>>> willing to risk damaging the display flex or the battery of my
+>>>>>> development device just for a possibility either.
+>>>>>
+>>>>> No-one asks you to disassemble the device :)
+>>>>> Sadly, I haven't found any video doing display replacement either.
+>>>>> In worst case such as this I assume it make sense keep the phone model in the compatible until panel codename is found.
+>>>>>
+>>>>>> For the compatible pattern I used the implemented pattern for the
+>>>>>> NT36523 TDDI, which is also used for other ICs such as the RM69380.
+>>>>>>
+>>>>>> So, I believe it should be okay to leave the compatible as is.
+>>>>>
+>>>>> I would like to hear a word from Neil first. In similar cases like this would make sense to have one way defining these compatible strings used in phones.
+>>>>>
+>>>>>
+>>>>> bit I missed in the review the part:
+>>>>>
+>>>>> +            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
+>>>>>
+>>>>> Unless the driver is able to auto-detect the connected panel (unlikely), novatek,nt37703 doesn't make sense. The DDIC without the panel is useless.
+>>>>>
+>>>>> For example, in sdm845-oneplus-fajita and enchilada, we have the generic compatible because it was introduced before, so it's kept for compatibility reasons. There is no need to do that here.
+>>>>
+>>>> Yeah today the norm is to add the ddic as second compatible entry so the first compatible just describes the pane, so here it should be:
+>>>>
+>>>> compatible = "motorola,bronco-tianma-v2", "novatek,nt37703";
+>>>
+>>> So let's me present a situation which can happen, let say I'll be upstreaming:
+>>>
+>>> DDIC (novatek,nt37700) + panel (samsung,amb630qy).
+>>>
+>>> For the example I choose samsung,amb630qy because here the panel has phone model in it, which avoids the possible issue I'll be describing with this schema.
+>>>
+>>> Vendor can pair this panel with different DDIC. Thus it would be
+>>>
+>>> compatible = "samsung,amb630qy", "novatek,nt37700"; // new one
+>>> compatible = "samsung,amb630qy", "novatek,nt37703"; // existing
+>>>
+>>> The reality the driver picks only the first compatible, and that's all causing to load wrong driver now.
+>>
+>> No, the core will pick the first compatible that matches, so...
+>>
+>>>
+>>> Solution here would be differentiate between
+>>>
+>>> a) DDIC + panel
+>>> b) module name (consisting DDIC + panel).
+>>>
+>>> We could say module is motorola,bronco-tianma-v2 and contains [ DDIC + unknown panel ], which doesn't even have to be mentioned in device-tree.
+>>>
+>>> While it may seems I overthinking, in this case it doesn't matter that much, I already have patchsets for DDIC which can be combined with three types of panels (and using different schema) and I would like to have good solution for longterm contributions and development.
+>>
+>> ... in theory we could have:
+>>
+>> compatible = "samsung,amb630qy", "novatek,nt37700"; // new one
+>> compatible = "samsung,amb630qy", "novatek,nt37703"; // existing
+>>
+>> and drivers would only have:
+>>
+>> "novatek,nt37700"
+>>
+>> and
+>>
+>> "novatek,nt37703"
+>>
+>> as compatible and then a separate match table with :
+>>
+>> "samsung,amb630qy" and "samsung,amb630qy" which associates with the panel data.
+>>
+>> If it doesn't match, return -ENODEV and it would work like before,
+>>
+>> I mean it's valid, it's a matter of implementation, if the same module can have
+>> different DDIC then it should be described like that.
+>>
+>> In this case, the bindings should be for the module and not for the DDIC.
 > 
-> One nit below. With that fixed,
+> Definitely make sense in the context. This would mean I'll need to adapt my patchset to-be-sent :)
 > 
-> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Btw the disccusion slowly mentally gets me closer to the Camera module model, where you have multiple components such as
 > 
-> > ---
-> >  drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c | 325 +++++++++--------------------
-> >  1 file changed, 104 insertions(+), 221 deletions(-)
-> > 
-> > -static const struct pll_rate *qcom_hdmi_8960_pll_find_rate(unsigned long rate)
-> > +static inline void write16(u16 val, void __iomem *reg)
+> module (sunny-XY) -> camera (sony,imx519)
+>                    -> focus (dongwoon,dw9714)
+>                    -> OIS
+>                    -> fixed components as optics
 > 
-> No 'inline' keyword in .c files please.
+> where as we have here only
+> 
+> "module" (motorola-bronco-tianma-v2) -> DDIC (nt37703)
+>                                              ↕
+>                                       -> panel (unknown)
+>                                       -> touchscreen (sometimes, depend on the
+>                                                       phone build)
+> 
+> Sometimes init sequences and stuff depends on each other, thus touchscreen is part of the module in some cases.
+> 
+> Would it make sense to somehow model this into DT?
+> 
+> Since we doing all the stuff in the panel node, it could be something like
+> 
+> display@0 {
+>      compatible = "novatek,nt37703"; // first thing we interact with here
+>      module = "motorola-bronco-tianma-v2"; // DDIC driver picks the module data
+> 
+>      vddio-supply = "...";
+>      backlight = <&pmi8998_wled>;
+>      ...
+> 
+>      // I already have combination where two panels has different supplies
+>      // Samsung S9 vs Pixel 3 XL. One wiring is over DDIC it seems, second
+>      // directly to the panel
+>      panel { // REAL panel node
+>          compatible = "samsung,ams622xy" // maybe as a docs?
+>          vddneg-supply = <&lab>;
+>          vddpos-supply = <&ibb>;
+>      }
+> }
+> 
+> Just dumping my brain, feel free to ignore if it's complete nonsense.
 
-Why?
+Ultimately, we should describe everything, if we can, most of the time we
+can't as we don't have the DDIC and only timings and a bunch of DSI
+commands. So we need to keep the good ol' model for a while.
+
+But yeah perhaps it would nice to experiment and implement a full DDIC
+support modeled as a DRM bridge which has a panel subnode handled by
+a panel-simple with only the panel resources (timings, regulators,
+backlight regulator if not handled by DDIC).
+
+Feel free to experiment and throw some RFC so we can discuss.
+
+BTW I'll be hosting 2 BoFs about modern supports of DRM panels at the next
+Linux Plumbers and Embedded Linux Conferences in Prague, and this is one
+of the subject I'll speak about.
+
+Neil
 
 > 
-> - Mani
 > 
-> -- 
-> மணிவண்ணன் சதாசிவம்
+> David
+> 
+> 
+> 
+>>
+>> Neil
+>>
+>>>
+>>> What do you think?
+>>> David
+>>>
+>>>
+>>>>
+>>>> Neil
+>>>>
+>>>>>
+>>>>> Thanks
+>>>>> David
+>>>>>
+>>>>>>
+>>>>>>> David Heidelberg
+>>>>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>> Esteban
+>>>>>>
+>>>>
+>>>
+>>
+> 
 
--- 
-With best wishes
-Dmitry
