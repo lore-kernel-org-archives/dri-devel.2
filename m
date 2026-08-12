@@ -4,44 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC591C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E37C5DF66
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9050F10F24F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A10E610F250;
 	Thu, 13 Aug 2026 09:42:02 +0000 (UTC)
-X-Greylist: delayed 485 seconds by postgrey-1.36 at gabe;
- Wed, 12 Aug 2026 21:02:58 UTC
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46B3E10E47F
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:02:58 +0000 (UTC)
-Message-ID: <b15b2687-0c2e-43b2-ac9e-78e04e77e065@mainlining.org>
-Date: Wed, 12 Aug 2026 23:54:41 +0300
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PIwuljl6";
+	dkim-atps=neutral
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B35A510E3BC
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 12:06:10 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5b01910b499so768023e87.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 05:06:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786536369; x=1787141169; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=jwQe5AqkZRV6AycdDoCBJdkEwP9l6TMebpmQtJszUio=;
+ b=PIwuljl6Z5QPiqwJUu8GZAsK16v8luMbicA6zIfnwdB4dDa6ABkDV9I9zcjYYcuEDj
+ E5dqTN5hV1AkEcCGnu1co/tvgFoUQWgPDi+1g9+F7YRk7du5g3OzCSSr6M2J2ClCyFuv
+ FE5ncIvaBCvbkxaMcjj1+Jz36/uPxLmjdYG7p3RkouagTOsx98oMpWKUrSoJ8qE2IgIc
+ nicaj7oRaaidG+rhQUXcjypHhytH7GWf4+Ojr8QHH+4kPsloUw+G3ne6j/u7d9L84S5E
+ IIBCMgo6QKQ/cUH+DzgQHILeYt7z10QVanTjhh66XixyAfG5/zWy5OeY/T96nec5zLtn
+ JnRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786536369; x=1787141169;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=jwQe5AqkZRV6AycdDoCBJdkEwP9l6TMebpmQtJszUio=;
+ b=nClTAN3clPn+/W3eSngDSWWu4/dCDdNOqDD3MRQ0RN1N8AdxQ/Gu13CRfQYS+qh7xh
+ 15Qlgw8Rp2R0/tGD47amhwM1/MhzScVtqWScb6Sgr+Y70HdNkAiGIDgdE+NincC4dOY/
+ 4m1J2pYjlL3sbdZyPCaL6lKUT8xLF3bGugXPja4BiA6OqQgxPhxJjlj6OK85eKODjpKb
+ n86DyYjZxMntWDB0e+cH7oSuhvPjAecycSv2pSCvfkw/uI1wWuveJvdc0WxagpHLGWb7
+ hr4++tFMp6wFtRKs3vYgD5CFECjdWovF2hVVB5TW8kHG3mtrR5f719vS3Ezik9QRdK5J
+ wIkw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrfP19lreS6QHjS/Vebsls1cStgQ1r+kJRlHHoGEcZc/PQmAZT4Aj6slbMMHJ6TvCKVPfk/5OC+SQU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxhg2dwib57V3GCT+xmyBZANiRZfmN70YtKYQwffnSvMZW1Ldcn
+ sw1GkfkheueDUseP2KCTvlUX6tbg4UQfx+arTaKn4h6lur20j5ekYyut
+X-Gm-Gg: AR+sD13/uDk2pULRu8ndUYMnUpKCmRLjmuLARNDSZ1a1/ccuQuUGzq1P2Ft+LtKqlao
+ hNd2lxiEmovS9EM0M2cXMqd0aYoRbKqi1ODH0K4UDCMq/w1i//8cWVm/hqYhdV+B8oizDe1unvO
+ 8uJs4kmt3ZXyUeK3FPmLEKd00OkSnMrLe6BYm3BguuD1qYvn4aZyOACWGnRdZQ1dGAD78K3iqdA
+ 4Be9eTPRpN/gPrftdBPNV4pvlVuAYxIQF8VlKVJrVHRJGKB2/OaXikGQagc/lmXgi1JMVx58nTP
+ IAgSBBY0VISICs40aAMzWMJD9g4iL6VXVb68cW7xEYjzewbI6MOXMJpjTeBTMpOWtM3MI3LW8h+
+ /xeAMTFyiMKd3IVGc3Z7yRht9Ojemz7zMHOnpwKnOa14l4ywiBbKnNubMyMJfPr4Wg7JjCkCb3e
+ eM/KMfzFczYJoipHQnpqD80yYJrrbH66Y/xOBcMv6+hwyj4Hrc6ippdpUErlTp75SGYQ==
+X-Received: by 2002:a05:6512:a34d:b0:5b2:aa5d:9ce7 with SMTP id
+ 2adb3069b0e04-5b44bb2312fmr944010e87.10.1786536368688; 
+ Wed, 12 Aug 2026 05:06:08 -0700 (PDT)
+Received: from localhost ([95.190.105.95]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b44d04903esm447818e87.76.2026.08.12.05.06.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Aug 2026 05:06:08 -0700 (PDT)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: sashiko-bot@kernel.org
+Cc: dakr@kernel.org, acourbot@nvidia.com, aliceryhl@google.com,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: retain the GSP-RM log buffers
+ after unbind
+Date: Wed, 12 Aug 2026 19:06:06 +0700
+Message-ID: <20260812120606.191456-1-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260812113752.532537-2-vladazaharova2018@gmail.com>
+References: <20260812113752.532537-1-vladazaharova2018@gmail.com>
+ <20260812113752.532537-2-vladazaharova2018@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/33] Add support for Qualcomm Snapdragon SM7150 SoC and
- Google Pixel 4a
-To: David Heidelberg <david@ixit.cz>, Jens Reidel <adrian@mainlining.org>,
- Danila Tikhonov <danila@jiaxyga.com>, Miro Mraz <mraz.miro@seznam.cz>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- neil.armstrong@linaro.org, linux-hardening@vger.kernel.org,
- linux@mainlining.org, Connor Mitchell <c.dog29@hotmail.com>
-References: <20250422-sm7150-upstream-v1-0-bf9a9081631d@jiaxyga.com>
- <2ca2b774-fd7f-4612-b38d-f60e32ff6f9a@mainlining.org>
- <283096ad-ae1b-42b8-8312-b192f735fc80@linaro.org>
- <cce3fe36-322e-49ed-8928-3aef813faad7@ixit.cz>
-Content-Language: en-US
-From: Danila Tikhonov <danila@mainlining.org>
-In-Reply-To: <cce3fe36-322e-49ed-8928-3aef813faad7@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,64 +92,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi David,
+sashiko-bot@kernel.org wrote:
+> Does this code need a memory barrier (such as dma_rmb()) between reading
+> the 'put' pointer and copying the buffer contents?
 
-Thank you for your comment.
+Not in the path this code is written for. snapshot() is called from the
+drop path of the log buffers, which is only reached after PinnedDrop for
+GspResources has run the GSP unload sequence, so the GSP is no longer
+writing to these buffers and there is nothing to order against.
 
-On 12/08/2026 14:40, David Heidelberg wrote:
->
->
-> On 23/04/2025 09:26, Neil Armstrong wrote:
->> Hi,
->>
->> On 23/04/2025 00:07, Jens Reidel wrote:
->>> Hi everyone,
->>>
->>> apologies for the mess this created. Danila's mail provider 
->>> ratelimited him halfway through sending the series and the attempt 
->>> to re-try sending the second half an hour later ended up with a new 
->>> message ID (I think due to not using --in-reply-to).
->>> He asked me to let you know that this will be resolved later and the 
->>> whole series will be re-sent once the problems are resolved.
->>
->> The b4 web submission is a great alternative when the mail provider 
->> is rate limited:
->> https://b4.docs.kernel.org/en/latest/contributor/send.html#web-endpoint
->>
->
-> I see people interested in moving Pixel 4a forward, but it seems this 
-> was never upstreamed? I looked at sm7150 repository [1] where I see 
-> FROMLIST, but these patches never arrived to the list and this series 
-> is from 2025.
->
-> Should we expect v2 (re)based on recent tree?
->
+The one case where that does not hold is a Gsp::boot() that fails by
+timing out: the GSP may then still be alive and appending while the
+buffers are dropped. The copy is best-effort there - it cannot be made
+atomic either way - but reading a non-zero 'put' and then reading
+contents that predate it is indeed the pattern dma_rmb() exists for.
 
-I'd definitely like to get back to upstreaming SM7150 and the devices
-based on it, but I don't think there's much value in continuing with
-this particular series as-is. A lot has changed in the kernel over the
-past year, which would require substantial changes throughout the series
-and would effectively force the maintainers to review it from scratch
-anyway.
+I am happy to add it, but there is no dma_rmb() abstraction in
+rust/kernel at the moment: sync/barrier.rs only provides the smp_*
+family, and smp_rmb() is not a correct substitute, as on arm64 it uses
+the inner shareable domain rather than the outer shareable one that
+dma_rmb() needs.
 
-I'd also like to split the series up to avoid targeting such a large
-number of maintainers in a single submission. Hopefully, I'll be able to
-find some time to work on this in the near future.
+Would you prefer a small prerequisite patch adding dma_rmb() to
+rust/kernel, or is relying on the unload ordering acceptable, with the
+requirement spelled out in a comment on snapshot()?
 
-
-> Thanks
-> David
->
-> [1] 
-> https://github.com/sm7150-mainline/linux/commit/7ea41523c678e94a7c048936052b5b1b1b109cdd
->
->> Neil
->>
->>>
->>> Best regards,
->>> Jens
->>
->>
----
-Best regards,
-Danila
+Thanks,
+Vladislav
