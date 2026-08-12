@@ -4,61 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32118C5CFDB
-	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 22:32:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A9D2C5CFEB
+	for <dri-devel@archiver.kernel.org>; Wed, 12 Aug 2026 22:33:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57C0110F067;
-	Wed, 12 Aug 2026 22:32:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD1DC10F06A;
+	Wed, 12 Aug 2026 22:33:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cZyL++4B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NxnDcAN9";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE1510F146
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 22:32:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E30D10F06A
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 22:33:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B647541AFD;
- Wed, 12 Aug 2026 22:32:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7461F000E9;
- Wed, 12 Aug 2026 22:32:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BD844414B4;
+ Wed, 12 Aug 2026 22:33:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6503E1F00A3F;
+ Wed, 12 Aug 2026 22:33:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786573971;
- bh=8r5wf+1EdOu9kDZSeKuRUzd6DU8YYx8iwDviFqjhf3w=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=cZyL++4BmFmoo9BIgo8g3pYbTdpvjKtLU46K+doWAdWyQ+ABhkt23ZDudjHO5RtyR
- ZarOQLDtGP/B0WDAIE0SVLWw50HTB/yJHcBYbIUAKU3+awH3DeKveuyLhKSMz4fBTP
- 4VxEVl3pCR6JLAzBNZA7b/y/5cWqnsHDOgApmd6MDamKw28/LNP2IHuKKWiXHzxGET
- BSXbE+aWud+vt0Uy7W99wvRsN3lqE6fpsKQ25D3vnMSTrA/HnxoVdj9pvoxCGtQrxX
- mSzIyw+UeqfRWJxqm0fsbCIpB/XmgKQJCXLwuAWLr4OpKqBjChKAms8D1RcLMaN//H
- UGSKLCo5/h34g==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 13 Aug 2026 00:32:45 +0200
-Message-Id: <DKNBM5C0CWIL.1Y659FEPPM2G0@kernel.org>
-Subject: Re: [PATCH v2 2/3] rust: dma: rename dma_handle to dma_address
-Cc: "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Abdiel Janulgue"
- <abdiel.janulgue@gmail.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260805-falcon-dma-projections-v2-0-4cc9f3f13ee9@nvidia.com>
- <20260805-falcon-dma-projections-v2-2-4cc9f3f13ee9@nvidia.com>
- <3a87960b-8a20-4947-a8b5-d5197174317c@arm.com>
- <DKHATVF1WAE7.NGVXJQD12XQ@kernel.org>
- <DKIQEJX6H5A0.1D3POLLNZB9YS@garyguo.net>
-In-Reply-To: <DKIQEJX6H5A0.1D3POLLNZB9YS@garyguo.net>
+ s=k20260515; t=1786574017;
+ bh=aHVs81CE2IQ9JD4d8n66KMCOswlVQXDqi/24OSbt1Sk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=NxnDcAN9Z4zXwB8VaQ4ooTdrRgky6Q8zLm6mxJ1RjWe0Ovnre8a/4e3j/pRx23n0/
+ cgEf7TjrJMOhg0gmXjJXZ4JO3u25sFIG+ohZ87f1hnkqMiFEbX7HY4rFnFRxcBbrlh
+ tarqc9v8P+vKy7klLcouGokQZCYzNvAPTFlHUzDvkg0nGKbkA5JZXjdnJZSEsnLwSd
+ kSwV3PlOUlPY3k2iIRlibhfvsba3Q+ayHFC5C16qaWaoflAOG0WuK1M2/oFs8EbGqQ
+ 7FfrFAcQJBPX6Dt+03UO4/bZ+nDwz1sfdBzJP5rXNK3BVTpjgRsNEjab5htv4BFZXL
+ /sa4Zn9VXn4YQ==
+Date: Wed, 12 Aug 2026 17:33:36 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: linaro-mm-sig@lists.linaro.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, linux-tegra@vger.kernel.org,
+ linux-mm@kvack.org, Maxime Ripard <mripard@kernel.org>,
+ Yury Norov <yury.norov@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, iommu@lists.linux.dev,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Brian Starkey <Brian.Starkey@arm.com>,
+ linux-trace-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
+ David Hildenbrand <david@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, devicetree@vger.kernel.org,
+ Mike Rapoport <rppt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Vasily Gorbik <gor@linux.ibm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Chun Ng <chunn@nvidia.com>,
+ Thierry Reding <treding@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Will Deacon <will@kernel.org>, David Airlie <airlied@gmail.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+Subject: Re: [PATCH v4 02/10] dt-bindings: display: tegra: Document memory
+ regions
+Message-ID: <178657401505.1337249.16016860893024599580.robh@kernel.org>
+References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
+ <20260807-tegra-vpr-v4-2-5510d16af89e@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260807-tegra-vpr-v4-2-5510d16af89e@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,61 +95,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Aug 7, 2026 at 3:04 PM CEST, Gary Guo wrote:
-> On Wed Aug 5, 2026 at 9:39 PM BST, Danilo Krummrich wrote:
->> On Wed Aug 5, 2026 at 1:32 PM CEST, Robin Murphy wrote:
->>> To be fair, that is sort of the intent in the C API as well, to be clea=
-r=20
->>> that DMA addresses must not simply be treated as physical addresses, an=
-d=20
->>> aren't necessarily address-like in general e.g. comparing two=20
->>> dma_handles is pretty meaningless, since they could have different=20
->>> values but still refer to the same underlying memory, or vice-versa.=20
->>> Adding or subtracting offsets within the bounds of the original=20
->>> allocation/mapping size is pretty much the only arithmetic that _is_ va=
-lid.
->>
->> Yes, I did suggest a dma::Range type [1] for this purpose, such that onl=
-y this
->> kind arithmetic is possible to do.
->>
->> The dma::Range type should have a method returning its embedded raw valu=
-e which
->> then can be used to program registers etc.
->>
->> This patch is only an intermediate step, that clarifies that intent of t=
-he
->> current usage of dma_handle() (or now dma_address()), which is not to se=
-rve as a
->> handle.
->
-> I suppose with I/O projections now it's rarer that people need to operate=
- on dma
-> address directly? What do you envison as the use case for `dma::Range`?
->
-> Also, I suppose we can also represent dma address ranges as `Io` views th=
-at does
-> not implement any accessor methods, so projection still works on them.
 
-Yes, that covers most cases. What about SGEntry cases and CoherentHandle?
+On Fri, 07 Aug 2026 17:54:22 +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Add the memory-region and memory-region-names properties to the bindings
+> for the display controllers and the host1x engine found on various Tegra
+> generations. These memory regions are used to access firmware-provided
+> framebuffer memory as well as the video protection region.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+> Changes in v4:
+> - typofix
+> 
+> Changes in v3:
+> - document properties for VIC
+> ---
+>  .../devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml |  8 ++++++++
+>  .../devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml  | 10 ++++++++++
+>  .../devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml   | 10 +++++++++-
+>  .../bindings/display/tegra/nvidia,tegra20-host1x.yaml          |  7 +++++++
+>  4 files changed, 34 insertions(+), 1 deletion(-)
+> 
 
-For instance, in nova-core we currently have
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-	for sg_entry in sg_table.iter() {
-	    let num_pages =3D usize::from_safe_cast(sg_entry.dma_len()).div_ceil(G=
-SP_PAGE_SIZE);
-	    for i in 0..num_pages {
-	        let entry =3D sg_entry.dma_address()
-	            + (u64::from_safe_cast(i) * u64::from_safe_cast(GSP_PAGE_SIZE)=
-);
-	        dst.extend_from_slice(&entry.to_le_bytes(), GFP_KERNEL)?;
-	    }
-	}
-
-which could become
-
-	for sg_entry in sg_table.iter() {
-	    sg_entry.dma_range().for_each_block(GSP_PAGE_SIZE, |addr| {
-	        dst.extend_from_slice(&addr.to_le_bytes(), GFP_KERNEL)
-	    })?;
-	}
