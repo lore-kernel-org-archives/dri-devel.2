@@ -4,144 +4,182 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E500C5CFCF
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 16:06:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7431BC5CFCF
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 16:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 767DD10F3DE;
-	Thu, 13 Aug 2026 16:06:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA98010E4C7;
+	Thu, 13 Aug 2026 16:11:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KsiAbc8U";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DIzJmAyi";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="QgTEELaF";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8F410F3C9
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 16:06:10 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67DFU5sU3500729
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 16:06:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Z5QCS0LzCMHdHChJ5cMNSJzL
- +k+DFOwJ1h+R1Nhv55U=; b=KsiAbc8Uwz4mH7stLfth8VXzuLzjErnh4VjhhRao
- hqrO1R6cEjgn/O7r4pri85qHNOSc+HxpvwUnE2JsSznAg6ntVzFSrXcilzJvKsWe
- H+hToNJXChGh3TkUVDmEsFSxQDvoe8nZTsKZwTUrUsJMTRwU4MFxIR4YDJ1w27sn
- y1K8LInj75lKHp2T/2SJEjxggf+JiHiBoLej5/tmxhUy2ZXA6ixuCJYJb7FcfYA+
- mRdKcUhBkBHgg95lEROF35MxUUIRZp+RkhgJrdzeMHjlAPdNN2WgCOmddQyD0u8a
- uR3jSaGCvLNLCbrApqcFogUdKhdxPhXWoByN6o3Fr9Yh+w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g18182k3n-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 16:06:09 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-52769fc3f2eso1272771cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:06:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786637169; x=1787241969;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Z5QCS0LzCMHdHChJ5cMNSJzL+k+DFOwJ1h+R1Nhv55U=;
- b=DIzJmAyilPDjAFVAKdaYxDpjpmX8VSNsSJZ+d/GekGtBXuHCe9JWm7LBjHaGXQ+D8k
- G0a/GW5e8EcHqzM8swyWE1KshjqcKlkbixHsYDFRH53JWwJG3/RhX/45/vC9ksD8yFAX
- PKCfuQw0Fyc6iyMHTDvosTGHNfg+h5+pJv1JcoYGu1XHT2s5ccoJ/s2A6OXM1DOcVywQ
- CnyexMIQpRUBwqS5Gm3BFeKYH/YNS4fYFgEu0ajkXJ6ni9WJz+1kr6cioAWgQg108gYZ
- AMTr6Ole8Cf4TvntC5yngzQusByNlwU3dD3JxqbjikH+HtqvNbw7QWKWlYTGMctFmueF
- FxHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786637169; x=1787241969;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Z5QCS0LzCMHdHChJ5cMNSJzL+k+DFOwJ1h+R1Nhv55U=;
- b=W0Tg+xAWV2Fb26ppmNRsVm6makXJeU9IBYQBPrAZpeSp7em8AKLSZlnq6efkzf94np
- P9TCANm7SxdF1vEJoIcMP2rJ4P9/kuIsIU/Dw3FO7vTv8VHbpS6Vd1MT9eg6309ZkveH
- xrU+vOquxxt25sWsDw5kAlOtPrU2Ah0tErARwq4ROS2PL4iedrSAZCEKdUnK4lO+8rYT
- li7dA1Fm1Rupc6w7hQp1JM6mq07TOeZscPCNdyFvlMYZ10voi6KdwNHOqbSiXk/rDNoF
- iMqiOtKH+Ot81S8+GAcJfFuuE8I5Rg3AdLHPDmKJSYbXhwME+r2D98Nx+p+fUlCpDeDV
- CvDA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoAjL0IHGD4MBPPomoTINVWkRUYt9Ki/R76Fpi3qxpgmMi8vzh5GA6rMo3q7ryXDdUONxYF1v/VJBE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+OJ/+AnSf9P55Mm6Ds7DFz9tAb2QYLCGGlXUfCFEpQHulRE8E
- yQDCzWUZ+Ik8x/497ueiD4yf/khPGjfIHzPJH6zgqPy55IVm4l92L9KxtQKREyVSV7vLlIG0V6e
- apaJbk3WKdmNB5YQKmQ+TkkEu175B8rX0rQXTT5sv3fe2SG4npKBgEpT4en9pXWOXoD2upzg=
-X-Gm-Gg: AR+sD10anz/XiDtKNea4k9QAtjAAoZdpNZCTP32hkkph7fQYrccAcbe5yVvGnsJVOaZ
- CbtCqcsH/jb58rlZ4rSNk7GYR1Hs/LIqB4GvYh5KbM5xOP3BmZL1Nf8LX5iKJSGANcdpeaUQeqN
- +9K9SqZuUSUXRqABFSLbr1TTBCEV3IQXfkjAQdqbZLMsRqoamQ+IBwVcmvpVIWk2yQLr2E5ldbz
- cnnK3EZ8xWyQd0qYaVjpDR5pNN0R8fZjHc1mhc9/I609T0jUopnZj7ko1pIyEt0UWhgwC1ceD8S
- gUCu8vTEqB+MaxKAdp28Q6AfXC1t+edY5t1ifV01D6pKjESKvpX7AhnOcEmJU4swy/w2TOa5iwO
- t1L/WBbfC5lmtbvuB+NbzB0kMeQ6tP9VX4G7TzsXlVSxwF996RXCwT0J7TCrWKfePOtkaEdLJ5/
- ewxbB3iZCXm1IU
-X-Received: by 2002:a05:622a:4818:b0:50d:9e8d:9837 with SMTP id
- d75a77b69052e-52d73c0f303mr76159051cf.11.1786637168643; 
- Thu, 13 Aug 2026 09:06:08 -0700 (PDT)
-X-Received: by 2002:a05:622a:4818:b0:50d:9e8d:9837 with SMTP id
- d75a77b69052e-52d73c0f303mr76157761cf.11.1786637167971; 
- Thu, 13 Aug 2026 09:06:07 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a130cd9086sm359111fa.23.2026.08.13.09.06.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2026 09:06:06 -0700 (PDT)
-Date: Thu, 13 Aug 2026 19:06:03 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Jie Zhang <jie.zhang@oss.qualcomm.com>
-Subject: Re: [PATCH 5/6] arm64: dts: qcom: sm8750-mtp: Enable Adreno 830 GPU
-Message-ID: <ewc7lex7wi6g7ukq6xijieikuq3saw34b3hezfbr5776zmgxcc@upndudhd2bvb>
-References: <20260809-pakala-gpu-v1-0-207ad1fac1c7@oss.qualcomm.com>
- <20260809-pakala-gpu-v1-5-207ad1fac1c7@oss.qualcomm.com>
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 933C010E4C7
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 16:11:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1786637488; x=1787242288; i=deller@gmx.de;
+ bh=+ty+RJMFAkFme2S8Hcpdhma4jXJiRtENkIajXxicY7g=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=QgTEELaF/FE5+rj2qlflRiehgOcUMtU9YuTRSzk54vThyPwgObVG6F70Kadnk5Sb
+ M47KHn+FlIsqfoYmewIslWXmKgmocyybKwDFXnRz7aHRbAA1RpC/1GVHnXWy7m1Fc
+ k4O3hzDlzFbf5FYNLAe+7nZRo8Lf+6uGET1KhJQjVFrc8mylXKl8xs3LH3J1pei4T
+ Mo6MzVmEYQ+njeAuy0ZDZ3GMht/EKial/Wx4jDUzaWQPLuhXF7uXOXLFCkf0NtYvt
+ 9nQK6ybiXCW91jplne3HqFx0OBIl1U8am9Rk4J9f5SoXIait9x6swK0ze4TVsU9Kz
+ XoMJEocGdSX2xFpwmQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MtwUm-1x8cyC1xrI-015Pnr; Thu, 13
+ Aug 2026 18:11:28 +0200
+Message-ID: <81ac11ee-772e-4024-b9e9-6a925344052c@gmx.de>
+Date: Thu, 13 Aug 2026 18:11:26 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260809-pakala-gpu-v1-5-207ad1fac1c7@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEzMDExNSBTYWx0ZWRfX5qZupisqKHYl
- BdDd6RpqjWIG9FPNhU6y8y9jgof/4D5adO1cby3zSmGnwNJZ89d6tQb8q6CdfgyuB+AUXuSR6OG
- Fa4krRw7qzV6M06iuNhR3DQQ9cx4gHM=
-X-Authority-Analysis: v=2.4 cv=I45Vgtgg c=1 sm=1 tr=0 ts=6a7deb71 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=UQAiW8fk4jwks4S4FoYA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: GgAvlCARnT2k5M8wOGnjE_yE8wQsAS2m
-X-Proofpoint-ORIG-GUID: GgAvlCARnT2k5M8wOGnjE_yE8wQsAS2m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEzMDExNSBTYWx0ZWRfX4i1RYxA6SPN2
- qR3sOKp3a6vaOHUq1LFfHgl823VNVh8aWaq8zN3aW1P3Fe6SpFSocGD66wPgmTugaofsA4rDwE2
- 6JeeMWZJ5aSRK6+jol+/w4u/bwagLzxPNuJXpp0x8uvlsH57czFS7kzlK78hGxnhg6U/kQEifnF
- 3ng+ZkYqiRg+AZqdpIMSvbuyQpYsv3Y3glCFs6zitymTKshDgIkBOR1yYxla1iSOJkkRBM53B5Y
- hAH+dgTY7TiwLiEkTY45myB6wfV3tAO2cvzv3TNOgm6DsI1pRI/Axo4ZZL9PwWCBPhXMtusMZoJ
- DiRQYjUdcsGmmhFSs6bztXERFxRM47yrYw7L/I4Ks3HdnRcZzAy9eK3upTANFurUp0H4Z1cP5ku
- paD/4PeTvCxZxBRH4/c5q4eFTOb1fvwWzk1LKHiA10pi0i6MNDHdmUNPxdHlKGI293uAj5kakVM
- 7WbqvBS7RzJNiEjcyrA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-13_05,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0
- clxscore=1015 suspectscore=0 priorityscore=1501 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608130115
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] fbdev: maxinefb: fix build issues
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org
+References: <20260809234810.982500-1-rdunlap@infradead.org>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20260809234810.982500-1-rdunlap@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:j3tHv/2nz8AAAu2WPlhglHO5ktDabTArZmhwwR9zvPsYSN+evnO
+ o60DQ2l5fNZPUDmoLy1h3SyvvdrEzojlPbmqzR4IOv//YklCsTr9Hv9jnfNvBeDCdf7F4F6
+ EwJDkle35StjZSm0YlkC55x4xkm5V9+IE6wMaN06J7C6vmEN8ojsxsE8/jq1AozjJ9JabKj
+ qieBSZKFymmLuDyLRbRaQ==
+UI-OutboundReport: notjunk:1;M01:P0:n1dZL3hLIHU=;g6gzE4Sh+ytNbu1/t+mlP5tkvI7
+ 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
+ D4isHhte6eRz9peQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,22 +195,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Aug 09, 2026 at 01:53:12AM +0530, Akhil P Oommen wrote:
-> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> 
-> Enable GPU for sm8750-mtp platform and provide path for zap
-> shader.
-> 
-> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/sm8750-mtp.dts | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
+On 8/10/26 01:48, Randy Dunlap wrote:
+> This is all ancient source code from the beginning of git time.
+> Now builds cleanly on 32-bit and 64-bit MACH_DECSTATION.
+>=20
+> Fixes these build errors/warnings:
+> .....
+>   drivers/video/fbdev/maxinefb.c |   17 ++---------------
+>   include/video/maxinefb.h       |    4 ++--
+>   2 files changed, 4 insertions(+), 17 deletions(-)
+I've added the various comments from the mail thread to the
+patch and applied the patch as-is for now.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+Thanks!
+Helge
