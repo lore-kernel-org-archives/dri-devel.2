@@ -4,88 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9CFC5DF66
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB18C5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95D5F10F257;
-	Thu, 13 Aug 2026 09:42:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4499410F259;
+	Thu, 13 Aug 2026 09:42:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ouEH6aM7";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="W3y4RnPo";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1E3A10F058
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 15:00:37 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-3811f512167so1299758a91.3
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 08:00:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786546837; x=1787151637; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Q5RKCcCs+aO4MrLdOnYHMwBF2RezT4AlJ4Gp/mR+XLo=;
- b=ouEH6aM7TZBI2V7TH83YVgc7wDYFsOEppz9dTMQqmEvg1nLDmeVBmeA6c/LvUOx727
- JHIFmNEwYxGxGMNdO846yC8trkSHUX7MoabXEuALyo+fR4NZ0OG6SXJOVve3xBYOMvln
- Caef8+TTGLXuu29Ga3YfbBOkAw48SqV1sx5qFw4tzQ2sOb/Ahttm/Aj7eMcH1sbc4QmA
- SQ2tnpHj2g2OXBocfLzp/+LOVZePquVIBDV/AojplhoWkRacxS0iCQj9t9a29JIsof9j
- fU/GIyHtHVEjnvFQEmQ3nI73lO2uuizX9v8Km27/D1zwoVUq1GkbC/V4Z8kzw08TMzqY
- bHQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786546837; x=1787151637;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Q5RKCcCs+aO4MrLdOnYHMwBF2RezT4AlJ4Gp/mR+XLo=;
- b=B0YO6759StF1AhjC1IGhlSN1vdOvBYBJMjB+jSJTD8XilHk2kk/0ufbyvBPfqBNyQH
- mwBqMR/lWyYjA9TKSp7/jrLh70Ds/FTC1+czFuDlpHAyziOIymZ8+gWJhSBtmOsPVpo6
- 6I6ABiN8QY/9LzA3Z7CCRdpQUE0TkAQmtMUGivEnIl0bAwRHsAS5/NasqkdxsXRR2oJy
- m2gYF70y5ysf2hBYq+Zf0ahS2sPP3t+eDc7383BwmUmvVGPqZ5WfMU/3ApiUCOD8NUlt
- YrX2PLRBRNxaPjxmqv/b/ureEC0wh9ScgVbBPsYGXNVSLQZDfN1JPeopPDkURR1D7q8K
- Np9A==
-X-Gm-Message-State: AOJu0Yxgrq6tUKvq4Cpk7BDG1dRSCC4SG+E4Hc/ejzxRlDUM6TS5jweC
- nLJQxN7vxLGdBZUAJLYAdbc+bu1c5xb20A1Jb/FOKa0FwEhw8yqKv7S0jiKfYzJv
-X-Gm-Gg: AR+sD13KZcdXTCgBVBU51IwHodjfgLxF8RWrrCu0AVHuLFbEDt2VFTskMqAWIRGzyCZ
- 3KK0hh9+sEvHtHuLamBuN4cSKgnpng7sKCU2JzeiapMo4cl6+oRNNDjyVEBMd6xJ06N32cf3S9f
- /3U+MV4Kh03xZaOc9UVzMivXoGPhGIeSRK//2EXoVSk2MM71WM4C1w38i6sspZWjRdwSJ92a3JE
- jEIbmbP5xHIcLQLzqDtzHulegodVMVEzPoIZN1ItK1YG7Gm/51eVno6zwRXVzA5MjxxoqbB8wOB
- YXCONziMF9LpqQ5nIXhL5/5N4v9TTZsLY2T1VTDyPyadEHXS0zWRYAGt4JWIDTTzj4Xvk6B7Bi2
- zlF72y/8fZC9hH+65xrAP9dfO6EAbUdrysLCX6gVdEMUPR5f3yGktEhsv3h2lPcIVMQcnNbszGK
- 5Rj6IoaWw0Hc92Fb5It/NlspwVj842KY0o4rinJFIXZB2JqGu+8Wy0YfreAIjV
-X-Received: by 2002:a17:90b:2d87:b0:38e:1497:af5b with SMTP id
- 98e67ed59e1d1-393013c41e8mr6639072a91.1.1786546836771; 
- Wed, 12 Aug 2026 08:00:36 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-392f935f73csm3896491a91.6.2026.08.12.08.00.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 08:00:36 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Wed, 12 Aug 2026 23:00:04 +0800
-Subject: [PATCH 1/2] drm/nouveau/sw: prevent NULL deref of disp in vblank
- methods
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B0010F151
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 06:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1786603373; x=1786862573;
+ bh=7xKIxKwgEarei6Pw6wTpHCiSVuYHwsPGanMujYMxrE8=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=W3y4RnPoxcqhXMCFAdTlP82ubBGWURml8waKEYKN2IpMA6ylf3zmBQNg02THKq5Ex
+ AUPizjFVKqXEToXeKC6A9X2u3yiI7os3aEjRazTWA8B2+44UT4m5xE1qlwldjj+WxV
+ hZYTCQ/8pguoWO/+msVEPFoZV0pqHzTeR6/SolPlW0KWGNrr+/rwRcNVDGwiQEUg+w
+ qxBNncX5CBNY3Ai972u07iR/KaRgKGY9KbEw6vN2YjGk/NrvCL4Mxyz6+Y4paRcq0I
+ VApBV4jYyWtA0xbmFwmJm8QQbcQW+GN7PQ1AN+T9jTYfwH0QR9Rt/4h/cGanPxnLQv
+ ZP8kWQmhfQ8Hw==
+Date: Thu, 13 Aug 2026 06:42:47 +0000
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+From: Luke.Wildhardt@proton.me
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>,
+ phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+Message-ID: <ylme_dYqb7yeNvmFl3ZeH3v8d_46-oAWr6t95wEZTYGiLMdbNTzXBFoV1zueOeHcKXcFrMMsoF0s_57Hzj0wwEfxDRjPhmu-xquKmeXKehg=@proton.me>
+In-Reply-To: <Wgbhe0iRVno6QTXUasXAw96sdk1GzzJ8DW_Yw8EyCtxvwV4-EfRTaUdaF9vYeMYsMyfLVVTmXBOB1Br_d-l8b87D_2CMFyYSJi34eaaGGW4=@proton.me>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+ <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
+ <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
+ <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
+ <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+ <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
+ <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
+ <Wgbhe0iRVno6QTXUasXAw96sdk1GzzJ8DW_Yw8EyCtxvwV4-EfRTaUdaF9vYeMYsMyfLVVTmXBOB1Br_d-l8b87D_2CMFyYSJi34eaaGGW4=@proton.me>
+Feedback-ID: 214028577:user:proton
+X-Pm-Message-ID: 4a33c407371550b30197b9dc2dd5b0bdf83de5fe
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-1-7e057f6aeba0@gmail.com>
-References: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com>
-In-Reply-To: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786546828; l=2686;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=U4T7yVA0PCbP5g0s2yLY6Rg/fJ0eJtWweG0p/5LOj4Q=;
- b=zuoq23EqGDpiTQ22kZ6ODTRR2vhXOyPyC1C+c7ujp9yvu7qEc12Nu3mhBQN/oi2bH0Mkqjldp
- cfH5yZjZk6/CGDGFIQxyquHlnS8uQjUtZ8Pu9QRDOQ4/mxFg8b8kqGN
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,60 +70,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The NV50 and GF100 software-class vblank methods nv50_sw_chan_mthd()
-and gf100_sw_chan_mthd() evaluate "data < device->disp->vblank.index_nr"
-to validate the requested vblank head before allowing its notifier.
+Ok, after a lot of A/B testing, it appears that trying your "drm-intel/drm-=
+sched-fair-fixed" branch, the stuttering is still there. It's definitely pa=
+ced differently though, I will attach a video. It's "choppier" when it happ=
+ens. I tested in a few different areas / times of day, in case you notice t=
+he scenery isn't the same; this is representative of what I experienced in =
+other places. I will note, that I tried playing 4 times, 3/4 times, shortly=
+ after boot. 1/4 times I left my desktop to idle for about 30 minutes while=
+ I did something else, and I didn't encounter the issue at all in 10 minute=
+s. Not sure how significant that is, or if it's just noise.
 
-On a headless card the display subdevice is absent: nvkm_subdev_disable()
-(strap-driven from devinit) and the -ENODEV path of the NVKM_LAYOUT_ONCE
-device constructor both leave device->disp == NULL while the device
-continues to probe and still registers a render node (DRIVER_RENDER). An
-unprivileged client holding a /dev/dri/renderD* fd can then create a
-software channel and push method 0x0408 (NV50) / 0x040c (GF100), which
-dereferences the NULL device->disp and oopses the kernel.
+https://www.youtube.com/watch?v=3DGWyIVEuhooM
 
-The channel constructors nv50_sw_chan_new() and gf100_sw_chan_new()
-already tolerate an absent display ("for (i = 0; disp && ...)"), so no
-vblank notifier is ever registered on such a card and the method handlers
-are the only path that assumes disp is present. Guard the dereference
-with the same disp NULL test the constructors already use.
+To make sure I wasn't insane, I went back to the patch Claude gave me, appl=
+ied against a clean 7.2.0-rc7. At least again in a few sessions after boot,=
+ no issue. I'll post that exact code below.
 
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
----
- drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c | 2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+If you need any other info from me let me know.=20
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-index 0171cdf6f639..4cf8cd120c76 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
-@@ -72,7 +72,7 @@ gf100_sw_chan_mthd(struct nvkm_sw_chan *base, int subc, u32 mthd, u32 data)
- 		chan->vblank.value = data;
- 		return true;
- 	case 0x040c:
--		if (data < device->disp->vblank.index_nr) {
-+		if (device->disp && data < device->disp->vblank.index_nr) {
- 			nvkm_event_ntfy_allow(&chan->vblank.notify[data]);
- 			return true;
- 		}
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-index 0cfb1eaae6de..b202e11238a5 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
-@@ -69,7 +69,7 @@ nv50_sw_chan_mthd(struct nvkm_sw_chan *base, int subc, u32 mthd, u32 data)
- 	case 0x0400: chan->vblank.offset = data; return true;
- 	case 0x0404: chan->vblank.value  = data; return true;
- 	case 0x0408:
--		if (data < device->disp->vblank.index_nr) {
-+		if (device->disp && data < device->disp->vblank.index_nr) {
- 			nvkm_event_ntfy_allow(&chan->vblank.notify[data]);
- 			return true;
- 		}
 
--- 
-2.34.1
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ -2,6 +2,7 @@
+ /* Copyright 2015 Advanced Micro Devices, Inc. */
+ /* Copyright (c) 2025 Valve Corporation */
+
++#include <linux/moduleparam.h>
+ #include <linux/rbtree.h>
+
+ #include <drm/drm_print.h>
+@@ -9,6 +10,32 @@
+
+ #include "sched_internal.h"
+
++/*
++ * Diagnostic counters. Not for submission.
++ *
++ * dbg_pop_stayed  - pops where the entity had another job queued and so s=
+tayed
++ *                   in the tree. No save/restore of vruntime occurs.
++ * dbg_pop_left    - pops where the entity queue drained, so it left the t=
+ree
++ *                   and drm_sched_entity_save_vruntime() ran. Only this p=
+ath
++ *                   arms a later restore.
++ * dbg_add_restore - calls to drm_sched_rq_add_entity(), i.e. restores.
++ * dbg_add_race    - restores where the entity was still linked in the tre=
+e,
++ *                   meaning the vruntime being restored is still absolute=
+.
++ *
++ * Incremented under rq->lock, so exact per scheduler and only mildly loss=
+y
++ * when summed across rings. Writable so they can be reset between runs:
++ *   echo 0 > /sys/module/gpu_sched/parameters/dbg_pop_left
++ */
++static unsigned long dbg_pop_stayed;
++static unsigned long dbg_pop_left;
++static unsigned long dbg_add_restore;
++static unsigned long dbg_add_race;
++
++module_param(dbg_pop_stayed, ulong, 0644);
++module_param(dbg_pop_left, ulong, 0644);
++module_param(dbg_add_restore, ulong, 0644);
++module_param(dbg_add_race, ulong, 0644);
++
+ static __always_inline bool
+ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b=
+)
+ {
+@@ -266,14 +293,40 @@
+ =09sched =3D container_of(rq, typeof(*sched), rq);
+ =09spin_lock(&rq->lock);
+
++=09dbg_add_restore++;
++=09if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
++=09=09dbg_add_race++;
++=09=09pr_warn_ratelimited("drm_sched: vruntime race on ring %s (comm %s)\n=
+",
++=09=09=09=09    sched->name, current->comm);
++=09}
++
+ =09if (list_empty(&entity->list)) {
+ =09=09atomic_inc(sched->score);
+ =09=09list_add_tail(&entity->list, &rq->entities);
+ =09}
+
+-=09ts =3D drm_sched_rq_get_min_vruntime(rq);
+-=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
+-=09drm_sched_rq_update_tree_locked(entity, rq, ts);
++=09/*
++=09 * Only restore the vruntime if the entity actually left the run queue.
++=09 *
++=09 * drm_sched_entity_pop_job() dequeues the last job and only afterwards
++=09 * calls drm_sched_rq_pop_entity(), which is where the entity is remove=
+d
++=09 * from the tree and drm_sched_entity_save_vruntime() converts its
++=09 * vruntime to min_vruntime-relative form. A push landing in that windo=
+w
++=09 * sees an empty queue, takes the "first job" path to here, and would
++=09 * restore a vruntime which is still absolute -- adding min_vruntime to
++=09 * it a second time. If the entity is also the leftmost one,
++=09 * drm_sched_rq_get_min_vruntime() returns the entity's own vruntime an=
+d
++=09 * the value is doubled, placing it far to the right of the tree where =
+it
++=09 * will not be selected again until the run queue catches up.
++=09 *
++=09 * A still-linked entity never left, so its vruntime is already absolut=
+e
++=09 * and its tree position is valid. The concurrent pop will update both.
++=09 */
++=09if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
++=09=09ts =3D drm_sched_rq_get_min_vruntime(rq);
++=09=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
++=09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
++=09}
+
+ =09spin_unlock(&rq->lock);
+ =09spin_unlock(&entity->lock);
+@@ -330,11 +383,13 @@
+ =09if (next_job) {
+ =09=09ktime_t ts;
+
++=09=09dbg_pop_stayed++;
+ =09=09ts =3D drm_sched_entity_update_vruntime(entity);
+ =09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
+ =09} else {
+ =09=09ktime_t min_vruntime;
+
++=09=09dbg_pop_left++;
+ =09=09drm_sched_rq_remove_tree_locked(entity, rq);
+ =09=09min_vruntime =3D drm_sched_rq_get_min_vruntime(rq);
+ =09=09drm_sched_entity_save_vruntime(entity, min_vruntime);
+
+
 
