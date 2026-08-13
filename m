@@ -4,53 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACA8EC5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:43:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CA51C5DF68
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:43:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 705D210F26C;
-	Thu, 13 Aug 2026 09:43:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22A7910F277;
+	Thu, 13 Aug 2026 09:43:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="II8x4sSE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OX7ebVpz";
 	dkim-atps=neutral
-Received: from sender-of-o58.zoho.eu (sender-of-o58.zoho.eu [136.143.169.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 098B810E118;
- Wed, 12 Aug 2026 19:47:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1786564074; cv=none; d=zohomail.eu; s=zohoarc; 
- b=hTbtk9mdnFSPdsipOAwgHi+spTblPoZtWMKuJ1JwwbhuK3hQLcjBtu3yGDWwRdLJFr/Ny7gP+h1tQKCgI5jYAshJ6AdLYLdgbg6ZgtFvaYt5GOhEfNpWyqC1VqFUQZsLCNnPyValDRgUgMABKtk7P4P/omoCOmCPEG5homavqZA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1786564074;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mvscGV9BAjiM99498gHkRCfZKDdtsbR/zACjdQdWcqo=; 
- b=NTRCmOloG6xfGjMtNtClsUVuZBa5fh/IDcSiuMP/K1M6hpFDAN8FL6xSGZ0wiwDFXcactMzPKPXb5Ak2p6QrFAN0PjLTcC1UUyQBsJWEhiuGoFQeY6BTK0IaCSaEtMxzdr5YRRWIF/45AjrNW/ubMiiqxs3hB/vtdPI0tjQZq7I=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
- dkim=pass  header.i=iusegentoo.com;
- spf=pass  smtp.mailfrom=ali@iusegentoo.com;
- dmarc=pass header.from=<ali@iusegentoo.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786564074; 
- s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=mvscGV9BAjiM99498gHkRCfZKDdtsbR/zACjdQdWcqo=;
- b=II8x4sSEgRg0hJzhSry0XOzkC8TKFdLbkdcFYG3nTx/l1PUE8vye9hgIP2TszxHu
- hbO/EUZ5YjRAJgKCtaw8r3pk2ZOUE+FMJOUDjKFuAnJvfQop5x9WrkAU2i8IaGeQn0c
- m5NVon1blcfd5mFR9WZJudBCDncyxXY63t6fafVA=
-Received: by mx.zoho.eu with SMTPS id 1786564072583712.1442461699686;
- Wed, 12 Aug 2026 21:47:52 +0200 (CEST)
-From: Ali Ahmet Memis <ali@iusegentoo.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/xe: kill the secondary bind queues on multi-GT
- teardown
-Date: Wed, 12 Aug 2026 19:47:39 +0000
-Message-ID: <20260812194741.273853-1-ali@iusegentoo.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260806201455.340244-1-ali@iusegentoo.com>
-References: <20260806201455.340244-1-ali@iusegentoo.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83C4510F256
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:42:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 325D0405DF;
+ Thu, 13 Aug 2026 09:42:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A221F000E9;
+ Thu, 13 Aug 2026 09:42:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786614150;
+ bh=wGzl9P3ZZvwgNJ4nMBz7ik5uR0eH93+YbNY/M3r14bQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=OX7ebVpzSdJUcCOwP7NVFZCItKsSEvnwyDYQHdSksOhQdLQOxNDwEnvoSq0suMEXZ
+ CGAT/wMIlE8hlrv63mXCnk/iNEkE7eWHXIqOs20OLbd7zNiR2kZfGNcu+2AbI2cYET
+ Sc0r7TmaNmyqWrVwQONsQF622tIzw+/eA16UUlGUr8TA0tOviccT9WDsAF8AZNBGu2
+ MJ3uKbk3QinROWx50Aodof6NflKKtUcUj+piRU3s+GXH78dzcIlBDzUa37/NibykCq
+ oXb7yDeKHxyEuqAO5YTZbI7L8ZgFfMrpjSrj5WLUoaNg+nNvDVg2AyFM9l2iLq7r0+
+ pHIykhOpMYdng==
+Date: Thu, 13 Aug 2026 10:42:24 +0100
+From: Daniel Thompson <danielt@kernel.org>
+To: Wim de With <wf@dewith.io>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: backlight: Add Orient Chip OCP8178
+Message-ID: <an2RgGwu2YaglM7H@aspen.lan>
+References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
+ <20260812-ocp8178-backlight-v2-1-4ad18b48bef8@dewith.io>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812-ocp8178-backlight-v2-1-4ad18b48bef8@dewith.io>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,21 +63,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed, Aug 12, 2026 at 09:21:46PM +0200, Wim de With wrote:
+> Add device tree bindings for the Orient Chip OCP8178 LED backlight
+> driver.
+>
+> Signed-off-by: Wim de With <wf@dewith.io>
+> ---
+>  .../bindings/leds/backlight/ocs,ocp8178.yaml       | 47 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  5 +++
+>  2 files changed, 52 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
+> new file mode 100644
+> index 0000000000000..57c44d3383b88
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
+> @@ -0,0 +1,47 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/leds/backlight/ocs,ocp8178.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Orient Chip OCP8178 backlight
+> +
+> +maintainers:
+> +  - Wim de With <wf@dewith.io>
+> +
+> +description:
+> +  The Orient Chip OCP8178 is a white LED backlight driver controlled by a single
+> +  GPIO line with a vendor-specific onewire protocol.
+> +
+> +allOf:
+> +  - $ref: common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: ocs,ocp8178
+> +
+> +  enable-gpios:
+> +    description: GPIO to use to enable/disable and dim the backlight.
+> +    maxItems: 1
 
-CI never ran on this one:
+Is this really an "enable" GPIO? The enable-gpio(s) for most backlights
+is the HWEN pin rather than something used for protocol. Maybe
+onewire-gpios or control-gpios?
 
-  Series author address 'ali@iusegentoo.com' is not on the allowlist,
-  which prevents CI from being automatically triggered.
 
-  https://patchwork.freedesktop.org/series/171752/
-
-Could someone with Patchwork rights hit "retest" on that series? And if
-it is easy to do, add the address to the allowlist so later postings
-trigger CI on their own.
-
-I have no multi-tile device and the patch is compile tested only, so a
-CI run is the only coverage I can get for it.
-
-Thanks,
-Ali
+Daniel.
