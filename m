@@ -4,108 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2947C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:36:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 379F2C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6B1210F23F;
-	Thu, 13 Aug 2026 09:36:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D37EF10F242;
+	Thu, 13 Aug 2026 09:39:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lz1Duy5E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E6ikwu29";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52E9D10F23F;
- Thu, 13 Aug 2026 09:36:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ACEC10F242
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:39:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 58A2C600BB;
- Thu, 13 Aug 2026 09:36:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49AAC1F000E9;
- Thu, 13 Aug 2026 09:36:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D7B25600DA;
+ Thu, 13 Aug 2026 09:39:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133C91F000E9;
+ Thu, 13 Aug 2026 09:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786613817;
- bh=JSSZgUjMMjodUF2jdlWEV6On7VUDzA3+jCqusZy+uHI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=lz1Duy5EEJcZhdAXU+VSGCAzjzSl7Kl+2x9ncpE/plgruGPWrJSXsgJ2lIhi0rQyx
- sliVkI2Aefju0S0hgJvweLoT7d2v+tO16QpN39qrZ7iGGNqly0nKRius6h1q/JnSK7
- cP4vdq5tefx9H6GW3cP5Mn1Ld3Jhb5QI/aIP4GAl8HTzo20BPS0/yzFBY79XYrBsGv
- Z4czr0gSiplSdNc2NweADG0o5ddfvy2HXXlZ4RX+bbv/PrwXw1EbqM8ipXjCI1yPJI
- xohYc83bYTwoK1dRJ0h+9ReF+fALWELNLpnn0/uGJKajxIsac9e4uOKPC0dRxQL8Gx
- 4yBEag3xPb5mw==
-Date: Thu, 13 Aug 2026 10:36:20 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 17/20] mm/vma: only permit MAP_PRIVATE /dev/zero to be
- mapped anonymous
-Message-ID: <an2PqxrAAJaEC4u2@lucifer>
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-17-ab318a350404@kernel.org>
- <c7930f14-5978-4709-bac2-54950c988883@kernel.org>
- <ant1xwiG3djtoXoe@lucifer>
- <14a06774-4157-4629-8327-b1a6bae24ab7@kernel.org>
- <anyst_4LGm6bpWdq@lucifer>
- <ea3c2889-343b-4eba-9758-cf56c75da4fc@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ea3c2889-343b-4eba-9758-cf56c75da4fc@kernel.org>
+ s=k20260515; t=1786613940;
+ bh=A6nYTQKAuW8Ug06FtQ7eQLKH92ijsXIk+6c5ah8IXAE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=E6ikwu29wzZ8gMKYtr3qcUQErGyw/wvshGuk9yTfkrurp7flbXtmK5sY1XqUmcB1s
+ lTuwYb/p2GRU/uzpofrPQBqaGIrt0wdTCKNDxZLJQXyuG6yAmXRSRpVX7mnaftzm1K
+ 3kr/k7/G6zqipl3JOFXAHmTZNY64I1eoKk+WacIVbVHerXXqhkW9F7biv6NXelrH2c
+ JEfYs8z1dpUtIx4FbqAtr1okwAujZiG0hsIGpcJYhKAI9kZZLb5mhs9MGS0UfezPEV
+ 0ccf4YKy9uDO1UrJgs7Jo5AylB2dvXSx+czmDEBdW1/TsmXQoozKc4d+/K705vUpCU
+ GNnBWMcA2Q8cQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/4] dt-bindings: lcdif: Add endpoint bus-width property
+To: "Francesco Dolcini" <francesco@dolcini.it>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ Frank.Li@kernel.org, dri-devel@lists.freedesktop.org, imx@lists.linux.dev
+In-Reply-To: <20260813092836.38367-2-francesco@dolcini.it>
+References: <20260813092836.38367-1-francesco@dolcini.it>
+ <20260813092836.38367-2-francesco@dolcini.it>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 09:38:59 +0000
+Message-Id: <20260813093900.133C91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,111 +54,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 13, 2026 at 11:18:13AM +0200, David Hildenbrand (Arm) wrote:
-> On 8/12/26 20:05, Lorenzo Stoakes (ARM) wrote:
-> > TL;DR - either we need to find a way to uniquely identify it (keep my approach
-> > or move it to core mm) or we should drop this patch.
-> >
-> > Given we're late in the cycle + you stringly objective to my approach I think
-> > maybe best to drop it and respin?
->
-> Yes, let's handle that separately.
-
-Agreed. Will respin with these bits lopped off!
-
->
-> >
-> > Can do a follow up to add unique identification later, somehow.
-> >
-> > The key change of 'make anon-assigned file-backed MAP_PRIVATE mappings not
-> > special snowflakes' will still be achieved in the other patches (but have to
-> > rework them a little obviously).
-> >
-> > On Wed, Aug 12, 2026 at 07:15:05PM +0200, David Hildenbrand (Arm) wrote:
-> >>>
-> >>> We don't assign vm_ops for a MAP_PRIVATE-/dev/zero mapping. So that won't work.
-> >>>
-> >>> We could expose zero->f_ops but then it's literally in drivers/char/ and that's
-> >>> just weird to expose in mm.h or whatever.
-> >>
-> >> Thinking out loud: could we use a dummy (empty) vm_ops?
-> >>
-> >> We'd place it in mm.h (zero_vm_ops) and just use it in drivers/char/.
-> >
-> > The entire purpose of this patch is to _uniquely identify_ MAP_PRIVATE-mapped
-> > /dev/zero and only permit this to make a mapping anonymous.
-> >
-> > As per the commit message: 'mm/vma: only permit MAP_PRIVATE /dev/zero to be
-> > mapped anonymous'
-> >
-> > MAP_PRIVATE-/dev/zero to anon is a historical abberation. This is why it is a
-> > unique case where semantics don't make sense.
-> >
-> > Doing things by semantics makes sense if the semantics are a _class_ of
-> > thing. This is not a class of thing it is a one of one.
-> >
-> > Yes the method used is ugly, but the alternatives (I can think of) are:
-> >
-> > 1. (your proposal) allow any in-tree non-module mmap_prepare() driver to map
-> >    anonymous pages, creating an entirely new semantic for memory mapping.
-> >
-> >    (this is currently something that is possible, unfortunately).
-> >
-> >    To be safe we would have to implement then a series of checks to prevent true
-> >    insanities, because doing that would permit broken madness like a PFN map
-> >    being treated as anon.
-> >
-> >    Once this stuff is out there as an API, even in-tree, even non-module, people
-> >    will abuse it because it'll go through some random tree and we'll have to
-> >    support it.
-> >
-> >    I mean we may as well just not make a change in this case other than maybe
-> >    preventing .mmap from being able to do this.
->
-> As discussed off-list, we could have in in mm/ and special-case
-> drivers/char/mem.c to include a mm header like fs/exec.c similarly does.
->
-> drivers/char/mem.c really belongs to core-mm.
-
-Yeah, there's no approach that won't involve something gross but it's a case of
-least-worst.
-
-As per my MAINTAINERS change putting drivers/char/mem.c in mm sections also
-(first step at least :) I agree very much that it's a core mm thing or at least
-large chunks of it.
-
->
-> >
-> > 2. My solution - ugly but uniquely identifies the single permitted situation
-> >    where this behaviour is desired.
-> >
-> > 3. Export something from drivers/char/mem.c to mm - horrific for multiple
-> >    reasons, violates separation of concerns etc. etc.
->
-> Jup.
->
-> >
-> > 4. Move the driver code just for /dev/zero to mm - I thought a pretty horrible
-> >    idea, but maybe we could have some mm/ bit and some driver/char bit like
-> >    hugetlbfs or uffd? But I'm not sure there is a not-ugly way of doing this.
-> >    MAP_SHARED /dev/zero does shmem stuff so maybe could live there.
->
-> Given that I think drivers/char/mem.c really is core-mm material, something
-> along these lines also make sense.
-
-Yeah, the devil's in the details but the /dev/zero stuff can be dealt with next
-cycle.
-
-Respin incoming!
-
->
-> --
-> Cheers,
->
-> David
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The newly added endpoint constraints (including `bus-width`, `vi=
+deo-interfaces.yaml` inclusion, and `unevaluatedProperties: false`) are app=
+lied using an exact string match for `endpoint`. This silently bypasses val=
+idation for indexed nodes like `endpoint@1` or `endpoint@2`, which are acti=
+vely used by multi-endpoint configurations.
 --
-Cheers, Lorenzo
+
+--- Patch [1]: [PATCH v4 1/4] dt-bindings: lcdif: Add endpoint bus-width pr=
+operty ---
+commit e694f44914c3b2ddcaf755532413ffea7e676ef7
+Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+
+dt-bindings: lcdif: Add endpoint bus-width property
+
+The DPI output of the LCD interface can be configured with a bus width
+of 16, 18, or 24 bits. This introduces a bus-width property to the output
+endpoint to specify the number of parallel RGB bits connected.
+
+> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
+ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
+> index 2dd0411ec6516..89cea0c14cf1d 100644
+> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> @@ -68,9 +68,19 @@ properties:
+>      maxItems: 1
+> =20
+>    port:
+> -    $ref: /schemas/graph.yaml#/properties/port
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    unevaluatedProperties: false
+>      description: The LCDIF output port
+> =20
+> +    properties:
+> +      endpoint:
+
+[Severity: Medium]
+Will this strict property match cause a regression in validation for indexed
+endpoints?
+
+By using an exact string match for endpoint under the properties block, this
+schema appears to silently bypass validation for multi-endpoint configurati=
+ons
+that use indexed nodes like endpoint@1 or endpoint@2.
+
+Because these indexed nodes are matched and evaluated by the
+^endpoint(@[0-9a-f]+)?$ pattern from /schemas/graph.yaml#/$defs/port-base,
+they will satisfy the parent port node's unevaluatedProperties: false check.
+However, any invalid properties or incorrect bus-width values inside those
+indexed endpoint nodes will be ignored by this new schema block.
+
+Should this use patternProperties with "^endpoint(@[0-9a-f]+)?$" instead of
+an exact properties match to ensure all endpoints are properly validated?
+
+> +        $ref: /schemas/media/video-interfaces.yaml
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          bus-width:
+> +            enum: [ 16, 18, 24 ]
+> +
+>    display:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description: phandle to display panel
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813092836.3836=
+7-1-francesco@dolcini.it?part=3D1
