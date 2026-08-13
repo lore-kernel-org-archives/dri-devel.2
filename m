@@ -4,64 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 876F1C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 15:16:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F29A6C5DF64
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 15:20:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBFE410F396;
-	Thu, 13 Aug 2026 15:16:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E59D110E04D;
+	Thu, 13 Aug 2026 15:20:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FWPCZRqg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fHS/Gj6o";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8680A10F396;
- Thu, 13 Aug 2026 15:16:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2223B10E04D
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:20:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786634196; x=1818170196;
- h=message-id:date:mime-version:from:to:cc:subject:
- content-transfer-encoding;
- bh=g7347jQkxNuoDRf12u9GqL+4ls5r3X2gKhlW/m3Jw2s=;
- b=FWPCZRqgdPb4Dcf9OaWj/D9HcrcTH9WJDHtwKMaNjrikGPgocNq4ocVQ
- /yQAvWVjlNIC7eTI1pXUrxF+B9TlfLoAruzFMPn32JEM9yYvvM/OBVhhY
- tZnwSN5R99j5Vfj+d6yVvWM7MwCRrt/ONN1gGxilXPoKLAMYROG6yAu3H
- /6ajuVOSYU1esld09jblJyud2W1unkmB1gbpOiRGGanDOPE/eqagAV8Hp
- YV8vp3NsLhPbmT6p480u+S2eFbvGgK4I43QNjyiru87ItqlpK0eIFqFNl
- bjx4ceCGspYfBFxkmgAlCpz/aQxf04VkbILXSz2PKh9/QGisjFoFDdNg6 g==;
-X-CSE-ConnectionGUID: 69dVO5mfTQ2OHRmYn0flWQ==
-X-CSE-MsgGUID: W/WgHNv4Tj63h0mBZdM2ew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87134349"
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="87134349"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2026 08:16:35 -0700
-X-CSE-ConnectionGUID: rZZU6/quRKWvLing9hWwqQ==
-X-CSE-MsgGUID: 2ia+Rg46ScSLCk98fEK9Qw==
+ t=1786634447; x=1818170447;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=APemogmhtZDHWbVzDL+rN9To3ijEL2kyxlFbdtRKFp8=;
+ b=fHS/Gj6oaS++AZaNRtLkNvNRsGWLGUkVpb4rDbq19QpdL3kCWtyO/Xpi
+ AfYD+ZPpcVZQl0kZJf7W+s3wnKpOuH4hLP9MSJ5ROaNGTNW+CTbwSvXi2
+ yzngSMyi8juCgphqXK8ACiad7saEoDZMA1n6R5jv6n/epjexUOx9/XHKf
+ hvNuhPN8UtBS2kQpkuC5LzfsPEAldKReq4TL8cMtIswpB0rkRiKScZKtP
+ bmpcvZnq7EEf1yB2fsASytii5c/vAQpOtMYspD29bx2WKNLrD2jvQYQcd
+ +HbV+Kwx9mB1JUAl5f5X5yQRuwtul99G1/m2RIBZD+F2s0QEVcAbidA4J A==;
+X-CSE-ConnectionGUID: Rv4CNb96SjqI5Hl7zu2oUw==
+X-CSE-MsgGUID: WmArrCUiSoai8s5A7QfeEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87337712"
+X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="87337712"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2026 08:20:46 -0700
+X-CSE-ConnectionGUID: Gpzvu8jwRUGOF18DA0pujw==
+X-CSE-MsgGUID: iVbRuQ3JQWuGZ44qPS/BeA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="267475800"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.244.28])
- ([10.245.244.28])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2026 08:16:32 -0700
-Message-ID: <a9b38792-bdd0-42da-a46a-7a048c26c0c2@linux.intel.com>
-Date: Thu, 13 Aug 2026 17:17:51 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
-Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="260695153"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+ by fmviesa007.fm.intel.com with ESMTP; 13 Aug 2026 08:20:42 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wuXEV-00000000VhS-2AlQ;
+ Thu, 13 Aug 2026 15:20:39 +0000
+Date: Thu, 13 Aug 2026 23:19:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [PULL] drm-misc-fixes
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ arthurgrillo@riseup.net, linux-kernel@vger.kernel.org,
+ jeremie.dautheribes@bootlin.com, miquel.raynal@bootlin.com,
+ thomas.petazzoni@bootlin.com, seanpaul@google.com,
+ nicolejadeyee@google.com, Louis Chauvet <louis.chauvet@bootlin.com>
+Subject: Re: [PATCH v4 8/8] drm/vkms: Add P01* formats
+Message-ID: <202608132328.K0ZCjw8a-lkp@intel.com>
+References: <20250530-b4-new-color-formats-v4-8-ef5f9f48376c@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250530-b4-new-color-formats-v4-8-ef5f9f48376c@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,106 +81,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+Hi Louis,
 
-A few fixes and a bunch of reverts due to performance regressions with the gpu scheduler fair policy.
+kernel test robot noticed the following build warnings:
 
-Kind regards,
-~Maarten Lankhorst
+[auto build test WARNING on 2271e0a20ef795838527815e057f5af206b69c87]
 
-drm-misc-fixes-2026-08-13:
-drm-misc-fixes for v7.3:
-- Revert fair scheduler patches and mark fair policy as experimental due
-  to reported regressions.
-- Fix OOB read in connector/hdmi infoframe.
-- Handle invalid scaling parameters and empty messages in log target.
-- Skip attempting to populate unmapped pages in amdxdna.
-The following changes since commit db2ddb87143519e20a95aa36c60b36107b736a58:
+url:    https://github.com/intel-lab-lkp/linux/commits/Louis-Chauvet/drm-vkms-Create-helpers-macro-to-avoid-code-duplication-in-format-callbacks/20260813-163823
+base:   2271e0a20ef795838527815e057f5af206b69c87
+patch link:    https://lore.kernel.org/r/20250530-b4-new-color-formats-v4-8-ef5f9f48376c%40bootlin.com
+patch subject: [PATCH v4 8/8] drm/vkms: Add P01* formats
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260813/202608132328.K0ZCjw8a-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260813/202608132328.K0ZCjw8a-lkp@intel.com/reproduce)
 
-  Linux 7.2-rc7 (2026-08-09 14:54:50 -0700)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608132328.K0ZCjw8a-lkp@intel.com/
 
-are available in the Git repository at:
+All warnings (new ones prefixed by >>):
 
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-08-13
+>> drivers/gpu/drm/vkms/vkms_formats.c:324: warning: Excess function parameter '__VA_ARGS__' description in 'READ_LINE'
+>> drivers/gpu/drm/vkms/vkms_formats.c:335: warning: Function parameter or struct member 'a' not described in 'READ_LINE_ARGB8888'
+>> drivers/gpu/drm/vkms/vkms_formats.c:335: warning: Function parameter or struct member 'r' not described in 'READ_LINE_ARGB8888'
+>> drivers/gpu/drm/vkms/vkms_formats.c:335: warning: Function parameter or struct member 'g' not described in 'READ_LINE_ARGB8888'
+>> drivers/gpu/drm/vkms/vkms_formats.c:335: warning: Function parameter or struct member 'b' not described in 'READ_LINE_ARGB8888'
+>> drivers/gpu/drm/vkms/vkms_formats.c:345: warning: Function parameter or struct member 'a' not described in 'READ_LINE_le16161616'
+>> drivers/gpu/drm/vkms/vkms_formats.c:345: warning: Function parameter or struct member 'r' not described in 'READ_LINE_le16161616'
+>> drivers/gpu/drm/vkms/vkms_formats.c:345: warning: Function parameter or struct member 'g' not described in 'READ_LINE_le16161616'
+>> drivers/gpu/drm/vkms/vkms_formats.c:345: warning: Function parameter or struct member 'b' not described in 'READ_LINE_le16161616'
 
-for you to fetch changes up to f4f2bba28df9b9aaa00262a462139dbbcdc38d9f:
 
-  drm/log: Fix infinite loop when scale is too large for display (2026-08-13 15:49:40 +0200)
+vim +324 drivers/gpu/drm/vkms/vkms_formats.c
 
-----------------------------------------------------------------
-drm-misc-fixes for v7.3:
-- Revert fair scheduler patches and mark fair policy as experimental due
-  to reported regressions.
-- Fix OOB read in connector/hdmi infoframe.
-- Handle invalid scaling parameters and empty messages in log target.
-- Skip attempting to populate unmapped pages in amdxdna.
+   294	
+   295	/**
+   296	 * READ_LINE() - Generic generator for a read_line function which can be used for format with one
+   297	 * plane and a block_h == block_w == 1.
+   298	 *
+   299	 * @function_name: Function name to generate
+   300	 * @pixel_name: Temporary pixel name used in the @__VA_ARGS__ parameters
+   301	 * @pixel_type: Used to specify the type you want to cast the pixel pointer
+   302	 * @callback: Callback to call for each pixels. This fonction should take @__VA_ARGS__ as parameter
+   303	 *            and return a pixel_argb_u16
+   304	 * @__VA_ARGS__: Argument to pass inside the callback. You can use @pixel_name to access current
+   305	 *  pixel.
+   306	 */
+   307	#define READ_LINE(function_name, pixel_name, pixel_type, callback, ...)				\
+   308	static void function_name(const struct vkms_plane_state *plane, int x_start,			\
+   309				      int y_start, enum pixel_read_direction direction, int count,	\
+   310				      struct pixel_argb_u16 out_pixel[])				\
+   311	{												\
+   312		struct pixel_argb_u16 *end = out_pixel + count;						\
+   313		int step = get_block_step_bytes(plane->frame_info->fb, direction, 0);			\
+   314		u8 *src_pixels;										\
+   315													\
+   316		packed_pixels_addr_1x1(plane->frame_info, x_start, y_start, 0, &src_pixels);		\
+   317													\
+   318		while (out_pixel < end) {								\
+   319			pixel_type *(pixel_name) = (pixel_type *)src_pixels;				\
+   320			*out_pixel = (callback)(__VA_ARGS__);						\
+   321			out_pixel += 1;									\
+   322			src_pixels += step;								\
+   323		}											\
+ > 324	}
+   325	
+   326	/**
+   327	 * READ_LINE_ARGB8888() - Generic generator for ARGB8888 formats.
+   328	 * The pixel type used is u8, so pixel_name[0]..pixel_name[n] are the n components of the pixel.
+   329	 *
+   330	 * @function_name: Function name to generate
+   331	 * @pixel_name: temporary pixel to use in @a, @r, @g and @b parameters
+   332	 * @a, @r, @g, @b: value of each channel
+   333	 */
+   334	#define READ_LINE_ARGB8888(function_name, pixel_name, a, r, g, b) \
+ > 335		READ_LINE(function_name, pixel_name, u8, argb_u16_from_u8888, a, r, g, b)
+   336	/**
+   337	 * READ_LINE_le16161616() - Generic generator for ARGB16161616 formats.
+   338	 * The pixel type used is u16, so pixel_name[0]..pixel_name[n] are the n components of the pixel.
+   339	 *
+   340	 * @function_name: Function name to generate
+   341	 * @pixel_name: temporary pixel to use in @a, @r, @g and @b parameters
+   342	 * @a, @r, @g, @b: value of each channel
+   343	 */
+   344	#define READ_LINE_le16161616(function_name, pixel_name, a, r, g, b) \
+ > 345		READ_LINE(function_name, pixel_name, __le16, argb_u16_from_le16161616, a, r, g, b)
+   346	
 
-----------------------------------------------------------------
-John Harrison (1):
-      drm/connector/hdmi: Fix out of bounds memory read
-
-Lizhi Hou (1):
-      accel/amdxdna: Skip unmapped range in aie2_populate_range()
-
-Maarten Lankhorst (1):
-      Merge remote-tracking branch 'drm/drm-fixes' into drm-misc-fixes
-
-Shixiong Ou (3):
-      drm/log: Fix division by zero when scale module parameter is 0
-      drm/log: Fix out-of-bounds read on empty message length
-      drm/log: Fix infinite loop when scale is too large for display
-
-Tvrtko Ursulin (19):
-      Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
-      Revert "drm/xe: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/v3d: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/sched: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/panthor: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/panfrost: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/nouveau: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/msm: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/lima: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/imagination: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/etnaviv: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/amdgpu: Remove drm_sched_init_args->num_rqs usage"
-      Revert "accel/ethosu: Remove drm_sched_init_args->num_rqs usage"
-      Revert "accel/rocket: Remove drm_sched_init_args->num_rqs usage"
-      Revert "accel/amdxdna: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/sched: Embed run queue singleton into the scheduler"
-      Revert "drm/sched: Remove FIFO and RR and simplify to a single run queue"
-      Revert "drm/sched: Switch default policy to fair"
-      drm/sched: Mark fair policy as experimental
-
- drivers/accel/amdxdna/aie2_ctx.c                 |  17 ++++
- drivers/accel/ethosu/ethosu_job.c                |   1 +
- drivers/accel/rocket/rocket_job.c                |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c          |  27 ++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h          |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h        |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c      |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c          |   8 +-
- drivers/gpu/drm/clients/drm_log.c                |  12 +++
- drivers/gpu/drm/display/drm_hdmi_state_helper.c  |   3 +-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c          |   1 +
- drivers/gpu/drm/imagination/pvr_queue.c          |   1 +
- drivers/gpu/drm/lima/lima_sched.c                |   1 +
- drivers/gpu/drm/msm/msm_gem_vma.c                |   1 +
- drivers/gpu/drm/msm/msm_ringbuffer.c             |   1 +
- drivers/gpu/drm/nouveau/nouveau_sched.c          |   1 +
- drivers/gpu/drm/panfrost/panfrost_job.c          |   1 +
- drivers/gpu/drm/panthor/panthor_mmu.c            |   1 +
- drivers/gpu/drm/panthor/panthor_sched.c          |   1 +
- drivers/gpu/drm/scheduler/sched_entity.c         |  52 +++++++---
- drivers/gpu/drm/scheduler/sched_fence.c          |   2 +-
- drivers/gpu/drm/scheduler/sched_internal.h       |  15 ++-
- drivers/gpu/drm/scheduler/sched_main.c           | 121 ++++++++++++++++++++---
- drivers/gpu/drm/scheduler/sched_rq.c             |  89 ++++++++++++-----
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c |   1 +
- drivers/gpu/drm/v3d/v3d_sched.c                  |   1 +
- drivers/gpu/drm/xe/xe_dep_scheduler.c            |   1 +
- drivers/gpu/drm/xe/xe_execlist.c                 |   1 +
- drivers/gpu/drm/xe/xe_gpu_scheduler.c            |   1 +
- include/drm/gpu_scheduler.h                      |  42 +++++++-
- 32 files changed, 335 insertions(+), 97 deletions(-)
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
