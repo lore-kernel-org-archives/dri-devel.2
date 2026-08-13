@@ -4,55 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90F05C5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89258C5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:08:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A82AD89452;
-	Thu, 13 Aug 2026 07:06:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C150710E02F;
+	Thu, 13 Aug 2026 07:08:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LO7XnNmk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UXqRtasL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB6A389452
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:06:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 79D8840562;
- Thu, 13 Aug 2026 07:06:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E071F000E9;
- Thu, 13 Aug 2026 07:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786604795;
- bh=5gkzFo2+VnKiba/m6QDHWuLmIQSEjcsqyeD9BtdYCdE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=LO7XnNmksRdPGuuVUvy4uIp1TNqnss+bW1hz0raYz9RVLB9K2Msgsgwbi+S77PMen
- EU929j5yne48ccdwHerg5SVsXmfM/l/6Fsc13FOojuYOe4cA+efThVEz/GwEjv+U7g
- bEUZuO4PJZ0PxH6thkO1thO+J+W63uADRHQ7BT64/Yjc3vPSNeCe1n4zJaSG47bJHR
- /Plvnr6vRz1KaNK4XkEp1In1rN3T/LC5p7IJcb7XUmYuq1E4rA6o95MXLnlu675/Y8
- ptXQEUJYFoSiQ8eJSCg0y24KdXivFsYdEEdgPRfs5Mkf3vnB6kIHeAKCl95shEvTqW
- XPXivBMAj9aAA==
-Date: Thu, 13 Aug 2026 09:06:24 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, 
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, 
- zhangqing@rock-chips.com, royalnet026@gmail.com, alchark@flipper.net, 
- chaoyi.chen@rock-chips.com, diederik@cknow-tech.com,
- dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 03/10] dt-bindings: power: rockchip: allow resets in a
- power domain node
-Message-ID: <20260813-squid-of-splendid-hail-d968bf@quoll>
-References: <20260812094106.1391698-1-gahing@gahingwoo.com>
- <20260812094106.1391698-4-gahing@gahingwoo.com>
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 286B410E02F
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:08:16 +0000 (UTC)
+Received: by mail-qt1-f181.google.com with SMTP id
+ d75a77b69052e-51c0c45c580so11887021cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 00:08:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786604895; x=1787209695; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=SSbJwX3mVENBYQLVT50jOp9wDyIPziduBiZzfCOk5ZY=;
+ b=UXqRtasLg8rocl+uOXuvl/avZ1zzbdf8iZEy1iGbv6EQBelQEjFgzYvGFkx5j2oApv
+ hzkrtNJKYgQEra/g63ft1u37bowwPCqeZVF+J35rfJEOmhEdWOivKhJgFscR4D33f+Va
+ n3gXof+1RNVOzn8RUbkW2xb2uydWowzLxw/6BJJ/MyieAAbh8CpeRMDVyIBYQoUjWqnA
+ QfFl6jRoBdJeCitukfcRqkiANZXLA+lBZm1isz2FKBxoChEZIaXhT3syQZULT+si8VPQ
+ rCUfk0eEgTPd1/yEkUcBaFnA8R45f7Ff+WHANUoebRt4BF5jFS2S4uR6M/Pftnp7MWyz
+ bY3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786604895; x=1787209695;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SSbJwX3mVENBYQLVT50jOp9wDyIPziduBiZzfCOk5ZY=;
+ b=AGUor/UduyDxQ6Y8IXSWXPOztaC4djxgMHMt1MKP+DVPdclVeP6/5RSm0baV/6oyi5
+ 2ssTy22+WGEhW4R+Iuw628VSMX3GJ7lrhqT/RA2eeY0IV2DZn/yudBa5B4UiKmee0yTD
+ K+va1CR1AHwUPqVWmm0EdJdnWEIkpWIbmx2rNIWe5W/0nWqPqzfD4fgrV8q2TSZQjFJ/
+ BaKb7mQnipTvxgM1+V8VG8xdowQ8ItgR05xnnjC/xNF+q39DXRTs8vRI6VghLVvzmQ3n
+ d/0pwkR4GzjZNCFtRy/JycmesLJ0vAEKdEuh697Rev1VyxNguiYZ6V93kUoPPKbVeqdW
+ iibQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrI5Qs2dGcSl301PTCkZI4VzXeDXVnDTrUdW3hwemSNtSag7BnoRiTRNjRmqjoqu5t9i3nNxmCdNwg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyIDA8R5AVt5yhgmEVmFL0gSaYZnm/rypo1dhsg1BdfyBaoXsS6
+ Xk+z1zoJ9EyuU3vc0xNctzV62bpKE2SepUEWGZyWSIkKJbPQ/hZy6624
+X-Gm-Gg: AR+sD13HrL+kRfdDgnU/kWCYn0HFM58jW9dSVO4u5crjqTnNL6LMJEUUS07JlG3uCpy
+ zoCMF/zCGZxOY9vWzUriN7T/SHDOAmIBVEjh7bqfVzYHl+A4JICDpicP87az6mJWdNYxotcyNMe
+ TAvt5qjG/yFBuKtX3NJxqO9SZDM4GkdYdvxxoUkkYpGHd62hm8D0fdbo0HxqwL9Apg1fezsfXcf
+ rifnZvRPHok0zfoqldTLXV1HehdzB1GnBV9nhi/8d7rqRiwcoQ1D2c1UgDMsoclwQRDKHu48JzO
+ 0EV0ur93jiDWUxaVdQ87pE9DU5PqsKepqSKHHwb+1/XqITmmEPp+fLDpZhlPD9O2gjn/FHDAN4s
+ 2p17EYupHScAK1K7eXjSsv2YBR6mZPQMRscESDGmUJl/fNHTHvel4zETo9An/AueMo9nbAXH4Is
+ HAiS6mILVEqT8IFw3lTjxUU1WiK8kIBi7q2XUkIpKLhWLTa5xZ18G59iAxw5WD9JQ=
+X-Received: by 2002:ac8:7d0f:0:b0:519:8b76:2ce0 with SMTP id
+ d75a77b69052e-52d73e0144cmr31264241cf.37.1786604894953; 
+ Thu, 13 Aug 2026 00:08:14 -0700 (PDT)
+Received: from localhost ([37.19.206.57]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-52d73dfaf51sm11432531cf.6.2026.08.13.00.08.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Aug 2026 00:08:14 -0700 (PDT)
+Date: Thu, 13 Aug 2026 10:08:09 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Dave Airlie <airlied@gmail.com>
+Cc: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/virtio: Fix a NULL vs ERR_PTR() bug in
+ virtio_gpu_user_framebuffer_create()
+Message-ID: <an1tWfHIHwtXd9SO@stanley.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260812094106.1391698-4-gahing@gahingwoo.com>
+X-Mailer: git-send-email haha only kidding
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,49 +95,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 09:40:58PM +1200, Jiaxing Hu wrote:
-> Some domains do not come up in a usable state on their own and need
-> their resets cycled once power is on. The RK3576 NPU domains are one
-> case: without it the first access after power-on takes an async SError.
-> 
-> pd-node has no resets property and every nesting level is
-> unevaluatedProperties: false, so describing that in DT is rejected
-> today. Add it alongside clocks.
+Smatch complains that returning a NULL here will lead to a NULL pointer
+dereference in drm_mode_addfb2().  Return an error pointer instead.
 
-This paragraph is redundant. Why are you explaining correct syntax?
+Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+This code is obviously over a decade old.  I think this patch is correct.
+None of the other implementations return NULL, but I haven't tested it.
+---
+ drivers/gpu/drm/virtio/virtgpu_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> ---
->  .../bindings/power/rockchip,power-controller.yaml         | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
-> index b41db576f..f23c1a118 100644
-> --- a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
-> +++ b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
-> @@ -136,6 +136,14 @@ $defs:
->            A number of phandles to clocks that need to be enabled
->            while power domain switches state.
->  
-> +      resets:
-> +        minItems: 1
-> +        maxItems: 30
+diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
+index 44ffffec550f..85ea252c658e 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_display.c
++++ b/drivers/gpu/drm/virtio/virtgpu_display.c
+@@ -344,7 +344,7 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
+ 	if (ret) {
+ 		kfree(virtio_gpu_fb);
+ 		drm_gem_object_put(obj);
+-		return NULL;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	return &virtio_gpu_fb->base;
+-- 
+2.53.0
 
-30 resets per one power domain? and none got to the example in this
-file?
-
-> +        description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +          A number of phandles to resets that need to be cycled once the power
-> +          domain has been switched on, for domains whose logic does not come up
-> +          in a usable state by itself.
-> +
->        domain-supply:
->          description: domain regulator supply.
->  
-> -- 
-> 2.43.0
-> 
