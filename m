@@ -4,84 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C6E8C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:27:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 160BCC5CFDB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:28:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F44D10F217;
-	Thu, 13 Aug 2026 09:27:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32C6C10F22A;
+	Thu, 13 Aug 2026 09:28:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="Xwk8AWY8";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Q/9SiPgS";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="BqFAE/+f";
 	dkim-atps=neutral
-Received: from flow-b7-smtp.messagingengine.com
- (flow-b7-smtp.messagingengine.com [202.12.124.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9D710F217
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:27:11 +0000 (UTC)
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
- by mailflow.stl.internal (Postfix) with ESMTP id C088513002E3;
- Thu, 13 Aug 2026 05:27:10 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-12.internal (MEProxy); Thu, 13 Aug 2026 05:27:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1786613230; x=
- 1786616830; bh=hsFxZ3Ixcxao/UXVeMngQAQyl2hgDxb8MfUV5pS9FUs=; b=X
- wk8AWY8y35vFRSuC0ov4nAO2Q2loXiexbgX7ejR4U7I7ayhSOnWRtCRvqtVkMqCt
- NouaXTbR1h7dbbLl2V5tF8dn2dqWA0SELOs15A5AktZjwZi0+5XIwrBSlu/3FsXV
- i+r/16Riveo7a8euMTs4OyINO4YhS1ZNn1to4VmG3BnR8uQ1ppBIhaG+BH/6JXos
- clLt90XpluD8XIVWvMKLX/hJQJIlHQ1vVv4qi/yQkNREj83lXosfpb9QKzjMRgDI
- vi0umdk+QjLUCr/eD+yi/DoOL24V7uXymAxQ+lNL4e+sf67RZYWes+j8eSOWFS0M
- iYcNjLrOPe0boUhK3n/Gw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1786613230; x=1786616830; bh=h
- sFxZ3Ixcxao/UXVeMngQAQyl2hgDxb8MfUV5pS9FUs=; b=Q/9SiPgSDD5isYTw/
- kl2IM8TDJ7SyZd4QGFYywlNOQsHuUbdiqPGmnlXeeTmqAs8rTERrfXHcgk7fa5vL
- eXyz4MpWlEe46/+Nf88v5J9aNZT7ow5exUvmXSCY5S6Iy0cdaz7YprPjB4V3xX5B
- PelCSqOkY1wgBaupp9rY31nAvUwsBI83HZHxTpHMRJSjmSz6P21lBFC1CLkeKng3
- TJfGld6jMDu8s14NO7IpAsrKUkWD8Ic8I8d4DhWJrLwEVfi9OzCdC8Q0i/nGjBvo
- y9VoYyhw0kH4bkDEdB8LYbxwlAGDQ2Ahl/Kv0RWLAo5gLGIamEIQFJWl15jo4Dy7
- vMvvw==
-X-ME-Sender: <xms:7I19akugtWEUS6DPZSDisOQRe96mDrKGSRwGSSLpHU9mPMxRqN6LfQ>
- <xme:7I19apqy7lkyKCGEQIpAznxs8-WiSiQ653uMatsa-uUM2gfrkNbPU37rn1DxhNKmd
- NzzA1SKwKlns-bCz8jYD4057WoB2KLJ01qq4CuiwrAkxUySaVPEIxA>
-X-ME-Received: <xmr:7I19arUpi3rN-uvQmTa8xKsdhGw3uLMw323IJf2e4O1hfND1WsjrSbM-xH7VcXGWOmVvUj5i8g>
-X-ME-Proxy-Cause: dmFkZTFvkSju2jPjsNthsipJjLLcKiFKo2iZfGlFycdFk+MydEAZMZ8gLXf+IJPcsUPR7q
- 8Lu23Zv43b+dFbQ7TjLTmPjFPmS1byNHUQMmyTnEfd3+zp8aMAPcQyxqEG2X7Wh9zAGCZO
- ASfeTun9KO56biKJV5zVg16tsQhRU+6nbKkIbeQQqpYAylrTOrls7RmnSCLmRbmc2VPoBx
- vZ1P4cH26vteFh0edZtGGFBd7vW83H5gdsKKOvjG4hwjTKUneZFr39S9vg1vWvHxW1qTXR
- zUPf2/JEHD3iDaAfdm0gPNK5y+li0Yp5cV+EPNl29rBRAnACwpAGVl/KnlQtSLM0ttX4J2
- l/am9K2O25bP9VtmYiIW+Ly6VtUhOdy3nwxs4s4paixrmj2wHjw6niht4buWZq5Asathg6
- Dbkf3vfYVYIuGsr8OqC4kUSpHnopYqD2B1I1lcBGxFLDwkMzgVNIl9UwDGwBGLeAOHbbt/
- zrpjS30/nQOBC9mfp6MZRGCNVf5ooC5X9K42rk+Wn7kUL8YNSHsfX23UoiiyVImXKYepqA
- LZeamRMgClsJiboYwdWqADPrqjEP8BIGfaM/h0cYcfyyurW+EBHPTe3j+7YPmX4UWiLHUV
- sZPMA1wA7khI+wfKRscvUa0o9jFbm+dsi+zz5LhEmixxzjFL1pi6+NaQzMhg
-X-ME-Proxy: <xmx:7I19ah3mDQBzGkzh83Ngyq0CwEggQu3-m416weoqLJgBeoWeIZD-0A>
- <xmx:7I19agtMs8Kw7___d7YWK26zmLpWguftRWXsk323Xw3tnFevElH6PQ>
- <xmx:7I19apUVspdMaNcCZmZAF7KafA8U57BSQJkiVPsBIr8lCXH1si_pfQ>
- <xmx:7I19aowpXoGEJ410Ikjp4fuTgN7RDhSF8iOoY5aS8sVi7eLE0WCFNg>
- <xmx:7o19aidqPjfiTHJjLmdGvpruDWgk2Cs0qwl36P7cxE5EfU3kKVTnsL4k>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 13 Aug 2026 05:27:01 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: royalnet026@gmail.com
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, chaoyi.chen@rock-chips.com,
- alchark@flipper.net, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Thu, 13 Aug 2026 21:26:56 +1200
-Message-ID: <20260813092656.2568538-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260812124850.6597-1-royalnet026@gmail.com>
-References: <20260812094106.1391698-1-gahing@gahingwoo.com>
- <20260812094106.1391698-9-gahing@gahingwoo.com>
- <20260812124850.6597-1-royalnet026@gmail.com>
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7AB10F22A
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:28:46 +0000 (UTC)
+Received: from francesco-nb.. (2-224-16-253.ip168.fastwebnet.it [2.224.16.253])
+ by mail11.truemail.it (Postfix) with ESMTPA id D154F22BAB;
+ Thu, 13 Aug 2026 11:28:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1786613325;
+ bh=sz2GhH9CorHZJAm1J5Dom7Bt4omfMF6eFOTXBf/ebF8=; h=From:To:Subject;
+ b=BqFAE/+fkKTb78o7jZ4tie+P3k7tEu1xQh07b86U7VnWI6/rXAu3EUlmZKlt7cWjl
+ 2lyE3qSb3SvbvylX8ClXA08rMVEQGc84jZz4reJbXjCgD3bzd+A9BM0IoYuD+fVR1Z
+ iowGGy+Mh/iBuVViO15kU74vFAtLAwZmbJrlHuiLjw0nWX4OFEZY6NU3cNAashGm8S
+ 1M5FIXh/mERE3zGoLrG4yYLXlpBa+rmeQ0f+RU8lztIV03GPaU3HDLXd45HuukuDsZ
+ 9Q8JTMbUXZiE4Y00mccoS/0orUXeeb/wrmO5WiM342vBXMG2C/46eSzcfKFosWz9Rm
+ qTey1Lf7KcJJQ==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v4 0/4] drm: mxsfb: Support LCDIF interface bus width
+Date: Thu, 13 Aug 2026 11:28:30 +0200
+Message-ID: <20260813092836.38367-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,73 +63,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Thank you for the run, and for reading the patch rather than only
-testing it. Both of your points are right and both are fixed for v8.
-I am answering your 1/10 question here as well so it stays in one
-place.
+The width of the physical LCDIF output bus can differ from the input bus
+format advertised by the downstream panel or bridge.
 
-> That is the v6 comment for the poll.
+Such a distinction is required when the LCDIF bus width does not match the
+width of the downstream display interface. For example, an 18-bit or
+16-bit LCDIF bus can drive a 24-bit display by wiring the available color
+bits to the appropriate display inputs. Configuring LCDIF solely from the
+display's 24-bit format in this case selects the wrong LCD_DATABUS_WIDTH
+mode, changing the color-bit assignment on the LCD_DATA pins and resulting
+in incorrect colors.
 
-Yes, and it should not have shipped. The cover letter withdraws the
-premise that comment states, the patch under it deletes the machinery
-it describes, and it has no code beneath it at all. It is gone in v8.
+Use the common OF graph endpoint bus-width property to describe the width
+of the physical LCDIF output bus. Make the mxsfb driver derive the
+corresponding media bus format from this property and use it in preference
+to the format reported by the downstream display. When the property is
+absent, the existing behavior is preserved.
 
-For the record on how it survived: it was fixed in my tree the day the
-correction went to the list and the fix never made it into the series I
-formatted. That is the second time a fix has existed here and not
-reached what I sent, so I now diff the posted patches against the tree
-before sending rather than trusting that they match.
+Set the endpoint bus width for the Colibri iMX6ULL and Colibri iMX7 boards,
+which route an 18-bit LCD interface.
 
-> It would sit more naturally in 1/10, which already touches that
-> function, or in a patch of its own.
+v4:
+ - use /schemas/graph.yaml#/$defs/port-base
+ - add r-b and t-b tags
+v3: https://lore.kernel.org/all/20260812132954.148571-1-francesco@dolcini.it/
+ - use video-interfaces.yaml
+v2: https://lore.kernel.org/all/20260723093813.180089-1-francesco@dolcini.it/
+ - use the common bus-width property instead of the legacy interface-pix-fmt
+v1: https://lore.kernel.org/all/20260717121847.488148-1-francesco@dolcini.it/
 
-A patch of its own, placed after 1/10 rather than before it. 1/10 is a
-fix with a Fixes tag that someone may want to backport, and it should
-stay the smallest thing that fixes the bug. Refactoring the function
-first would put the backport on top of a restructure it does not need.
-So v8 is 1/10 unchanged, then the extraction on its own, then the
-RK3576 patch with no shared-path changes left in it.
+Francesco Dolcini (4):
+  dt-bindings: lcdif: Add endpoint bus-width property
+  drm: mxsfb: Add optional DPI output bus-width configuration
+  ARM: dts: imx6ull-colibri: Set LCDIF bus-width
+  ARM: dts: imx7-colibri: Set LCDIF bus-width
 
-> would a synchronize_irq(core->irq) before the guard in
-> rocket_reset() be worth having as well?
+ .../bindings/display/fsl,lcdif.yaml           | 12 +++++++++-
+ .../arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi |  1 +
+ arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi   |  1 +
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c             | 24 +++++++++++++++++++
+ drivers/gpu/drm/mxsfb/mxsfb_drv.h             |  2 ++
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c             | 12 ++++++++++
+ 6 files changed, 51 insertions(+), 1 deletion(-)
 
-I think yes, and before the guard is the only place it can go. The
-handler takes job_lock, so calling it inside the scoped_guard would
-wait for a handler that is waiting for the lock we hold. Before the
-guard nothing is held, and both callers, the timedout_job callback and
-reset_work, are process context, so it is safe there.
+-- 
+2.47.3
 
-It also closes exactly the window you describe rather than a different
-one. drm_sched_stop() stops the scheduler and returns; a threaded
-handler already running is untouched by it, and the comment sitting
-above that code says "Remaining interrupts have been handled", which is
-the assumption your reading breaks. synchronize_irq() makes that
-sentence true instead of hopeful.
-
-What it does not do is stop a handler that has already read
-in_flight_job from finishing its work on a job the reset is about to
-drop. That one wants the check and the write to be one step under the
-lock, which is what 1/10 does. The two changes are complementary and I
-will send them as such, with the comment reworded to say what is
-actually guaranteed.
-
-Your RK3588 numbers are also the only evidence anyone has that 1/10
-costs nothing on the path it protects, since I cannot run three cores
-here. Carrying the tag to v8:
-
-  Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores
-
-One piece of news from the userspace side, since you run MobileNet
-through Teflon yourself. As of today the whole of MobileNet V1 runs on
-the RK3576 with the open stack: 995 of its 1001 outputs land within one
-count of the CPU reference, against 1001 channels of zero in every run
-before this. The kernel side of that is this series unchanged; what
-moved was four Mesa faults, the last of which was a coefficient buffer
-whose second operand has to be 16 byte aligned, which is why every
-layer whose output channel count was not a multiple of eight came back
-empty.
-
-Thanks again,
-Jiaxing
