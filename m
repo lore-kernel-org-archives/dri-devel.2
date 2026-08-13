@@ -4,88 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 611DCC5CFCF
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:28:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6E5C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:29:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CEAA10F454;
-	Thu, 13 Aug 2026 17:28:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25D9B10F455;
+	Thu, 13 Aug 2026 17:29:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z8OfQFYL";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="HQiC4ai8";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8610E10F454
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 17:28:55 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-84a4d8fd6ecso1161565b3a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 10:28:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786642135; x=1787246935; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=3QAmNckJusENFi3b8PAoUfCMcO2O6+LVywV/5dZdBLk=;
- b=Z8OfQFYLv1W6p8/AmlLYVOyBESciDt5mhP/1ossUy7pm3pwXi7uRSIJA9ktY1tSTnI
- KViIvn/wh3yyeO/GUPA8P0sVeAcmLzUL2CwJnP4I+0102I3WE3NyQX/9xhGZWmLlc5Be
- MBoyGDiG6+t4nsTsnCVfOcdqpIc+Br032oVnbKZut+kz50O7dujishz2Wssaz2pQJw5Q
- fciLTwI7UjGcnn7oBOMvBfBgUIk/y1LlBKjQ0vkPs1M1kk4lU+Z+trlwzwp1b9p1BgDz
- RPhWXO8AdX8I15pIrLzhjH+4IUanR5ryQTkDAzZW80iuSix0c/SZJg//jsSrBhyorTa4
- T/Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786642135; x=1787246935;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=3QAmNckJusENFi3b8PAoUfCMcO2O6+LVywV/5dZdBLk=;
- b=CHn63bqdzpBxQfBYKxdYnvaGAbANjqr2a/qm6+oGJN4tKenfDK0SLNVMddiAYbbj/1
- 3PKPqadp9bK1xQ3jkC/0JYm5kyO0nvF8WFg+ewhCwT7Yyj6NhpNaId05/BTkZY8wABlQ
- MXrtaq9ZJPlRXIKlVhUwN/Pki7tVmJIWBWKO0TvwoF5KWWNPR5NF0mcW6E2n2Z0QxcfM
- La+Q1hlt30xdVDm68PIxd944yekILxHjlxWALsQiUwGbP58i9XuxDFEBVZE2jpwPI0OE
- BOf8ouv8NLtOk7jCD3SIzVSpguFc7SDM8SWMCAhmHMzhmnEKJKERgarE3yMWx1Vil2so
- XAcg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoY9Nbt8x8KcIQ86t4D7TiYDk4ZlFZ1M8EohXQJIH2TcLPrfERbRfrS9I1UaDLKuPcg6bx85yco/O8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvWsvLmQEIqeM/eR3+svZhT6PQNy8ohN+HoRHBDo5ali+oaB1v
- kJrOR9FKnqI8fo2B9QUCEghBtoo4NAVAtjR+FVvng5zDWQCwbZjU/A8=
-X-Gm-Gg: AR+sD12LFCRbHFET5lYTJOJTYXS8ldMjYhWjYMniFA/oes2wG93HLRJCGnPEuH8hLVL
- Pos5KFaKxPnn0a4ANuX4LvfMK612gMcZrKhsGz0pSAlfD27j0ZhvY3OUcW4dDsZIVx4mqHWy1AP
- Nve3g8ob+xJPVijqgdVZ3LyhI7mTsICQB6q4N9KjJrP1uD7qlYdnqHsOwpJPj5qmfjm8p7O5uPJ
- 0hqeZoXnF3ySKoHv6bVR4PKcMHVOqNJSv8GV8u6MbRv07N/ggcBFUdaf9hjsTeEbeFbQC/NYtNb
- u12HRx4eylM5wWuNr3giZGvXkcRXF7pnSXuYOPXHfhsdagXDy1J1gcB15p6gRwq+w61kCQUrF1L
- msOceHjeHvPAdmVVwBgCds72V1dawGMPRkdxIDxkFQzWIB0XpLLO3B7cRN1fYStCHbTfYAdtRps
- bx79qsq/JKhZiZlUsN2EqCGWv95cjEpFylAa/s4m5eGGEmUh2JLQ1OoHUocKFNUXaBFj0WnUS0g
- FxmhOyhayaKvv98ILpQqCp8
-X-Received: by 2002:a05:6a00:44ce:b0:848:6b43:35dc with SMTP id
- d2e1a72fcca58-84fc767caa3mr8813674b3a.35.1786642134845; 
- Thu, 13 Aug 2026 10:28:54 -0700 (PDT)
-Received: from localhost ([186.158.238.108]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84fc5a1bcaasm1251435b3a.29.2026.08.13.10.28.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Aug 2026 10:28:54 -0700 (PDT)
-Mime-Version: 1.0
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021099.outbound.protection.outlook.com [52.101.100.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06AF510F455
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 17:29:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L8WAsN0FkDGlu39//WaRXYNJNRCLEAUz6IcHt+kYKVGA+AZIzwotwE4mqwrp9wBYT9h6yF3lI9Y93EZQDZhI2zQnaR553I0tJ75F4MdoARKl+xFSCc4bkYqzcSFnV0I1+CjICk3IZg/4kbcoG34OKKt3tjAdcEKYJXif+OitcgX4tpiasTSJffZvNxhlbE/wVWiUm4K6Gl6UIdmMArKhIlr3as5FAmesloLcvhCie5eTVTi7q2D9n5RaLr/MReiuL8/6DHrSP+c4anNfm4hPfllItPdJyLtHMGFI16xZ6gijQwbGkcogGfNFZTyyJwIheTcDjWcqahwqHKOppJkmIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cK35aN0hEi1ovHKXY3E1pSNxfQeaCu0kY1KQFDMLfDI=;
+ b=HHX4qs72HBJ9TqD+9n1UO7CgKmxxsTpSSZ9tfXbH1eVNmPsYuVtOjbwNf3DkQyMgg33I55YRwuqK+rpSSeKROL+hUwPuSavAbSpGo2Wec1wFOE6T42Ih7BbGKvfJB4xeYPxZTlEYUj24Fa6jH/ICGWhNnPvw4CXcaiLxr0YQxgvT1gltUe6ft43DqMgYJy43+4Xy/51yutvqnbalnaA02r6l4ZVl6QXp9XmGJqZLd+jA6efPGfE4svoTS9+nwl2ShXFy0e/bKvBWpiQ0rLP7itZUOzcvyZmg5gQxWb1ug7zDEsIaZaEIURt6ow7I/nOAQQFmo2zhaKeVHvOjYpaItQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cK35aN0hEi1ovHKXY3E1pSNxfQeaCu0kY1KQFDMLfDI=;
+ b=HQiC4ai8zo3qCkwba1f8PvoGyhwjqPzTcfTAQbBkubQqrTvkpv0G9awz0hOiwJMwPMORPXaQxSN7KhghthH9yoIw19FgtyRfOcfPdFNwWN66OlZXyMO9qTI1K/FRJ+sQSIxOgDwmFm4UhmAnj1e1FEmXcdm+1eNQN6W3FvHUan4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWLP265MB6531.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1db::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Thu, 13 Aug
+ 2026 17:29:33 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
+ 17:29:33 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 13 Aug 2026 14:28:48 -0300
-Message-Id: <DKNZRYZZVSEA.I0LC7DRPXFK9@gmail.com>
-Cc: "David Airlie" <airlied@gmail.com>, "Jori Koolstra"
- <jkoolstra@xs4all.nl>, "Conor Dooley" <conor+dt@kernel.org>, "Brigham
- Campbell" <me@brighamcampbell.com>, <linux-kernel-mentees@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "Simona Vetter" <simona@ffwll.ch>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Maxime Ripard" <mripard@kernel.org>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: display: add Chipwealth CH1115 OLED
- controller
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <cover.1786110720.git.nico.antinori.7@gmail.com>
- <cf9b02d618db4eca88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com>
- <178611771198.882916.15330377894023589629.robh@kernel.org>
-In-Reply-To: <178611771198.882916.15330377894023589629.robh@kernel.org>
+Date: Thu, 13 Aug 2026 18:29:32 +0100
+Message-Id: <DKNZSJ3YXV87.TCOAG98VFTSX@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v2 01/16] rust: io: add static `cast()` method for views
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
+ <20260805-typed_register-v2-1-c3ca142220a0@garyguo.net>
+ <DKL5P5CJC170.3EFWNHBMTTIPS@nvidia.com>
+In-Reply-To: <DKL5P5CJC170.3EFWNHBMTTIPS@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0485.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a8::22) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB6531:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7db64cf-d3b6-4535-74cc-08def9607061
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|23010399003|10070799003|22082099003|18002099003|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: S/jYB37Ca9/6BOQA55oZhkqNI7EWF6tKSVceT9TXrZxrtxxFfifDoKR39PyYNLxJMt7qzg0Q0PLRDIM3MwS+2di/M5Iy8h4xTK7qL4APChcCH0x7Z3tqsNy3kDVnFiNconwyISw3Ie0PE/ixMVcYKJhnD9XsgqN9oWdak+MIJ6VIfeIGL+0ISOkRDREJwGtlNmQcxbqxNJkFw7VxdhsxPxPLx1AAkdaigoL1vHOcvlzvbvAoM+kOhXzRN2j5aJ7ahQ4ipFa0u9Hv2/ZoMP5x8mb1Jk0PAsBjZmx5pOK1Ze5ngokNZev2GApv37jdih3TYPk3TjFVMoAFTgkC0OQhm0RsKZrHNTl23LXOUnOQb5dSIwCr17lPF7eKV5uRkYPYWDhRC1EY6zQMDmHrUlUPHZrKdfDdWsCXQZAqR/ZRLCC7YWoIbT2vT4TgKyF4cBvk3rNs/tCczutygq+BufXuD3m2HpRq3YPDO/txbMZhFMBIF3me0erGex25MK5cC9pldMo3NzgdUnUqot/khNilYe/i9gwWnEU54FVegN9hYRy30bji/YNYewzLiz0LogdPY0nqSVW6bNvFR7V6sxAaVEJ6GvXNxtbsU9WYMxU3z8n7plS5wTZ4Va5/UrQ6dBPiy7pxtJDvDnbA9sqXIGa/F6v4dIcSTSUVG+bHymyw8ak=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(10070799003)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2FkRy92UkVxamtMVzNSSFl2bi8rcUs2T3F5a0U5TXROWEppMDlMSU92cUVC?=
+ =?utf-8?B?YmRoaXFxTDk0bnQzUnZPclQ0OWdUWnJ5VFdLbTRwdEJyY05nSW5hMU1IditI?=
+ =?utf-8?B?TFVYOHFteDRhNk1kR2hMTk9vbHA5K0RDeGJ6ckVuZnRnSysyWlRNSzRoQXFx?=
+ =?utf-8?B?Z2hXQzNjRVgzYlEvRlQ2anZlR1JoUlJ1U041V3R0U3BoRXEzOFQrOWYxZHFw?=
+ =?utf-8?B?MGd0bjkzSmtOc0k3MmhtQkd2ZmlVNWdMY3BCbUxObGwyR2E1UjJVN1NQSDlK?=
+ =?utf-8?B?cWpwSnZLbFVIY0pseWdFSlpPdWZOZDVzcmtsc044SkRnTGtLY2dBUzB0aTdP?=
+ =?utf-8?B?N2ZIamliS21PNGZLM3VnaVBQdktIdWhES0xxN05RdWlKWVNvZGpNRm96TGpH?=
+ =?utf-8?B?Q1pCR1Y2bnhxWTVoMHh5TnFFa0srU05CQm9oOUxpZmQ5RHVRcndRZXNUVkZy?=
+ =?utf-8?B?OS80eVpORlgyM3RFeHh3MmlGVldkOFdaYVdjVS95QU5kSVA0amVIV0NhNEt0?=
+ =?utf-8?B?WnRINFlnVGwvMnVHY2MxaDZZUklMN0xiT1NobGhwaDFTdGlGRkxqS3VRR0Zy?=
+ =?utf-8?B?YXBVc2tnVFhIU1dOYS9pUVhnazJGNUNNVW5IWWRUaVJWckxPbnZMemtpd0tY?=
+ =?utf-8?B?dWw5Y0lJT0JuMjdvc3hPdVFSUTR2L3VHTCtLdWVtTFJWREYrRnVMUmhPYzlZ?=
+ =?utf-8?B?MHpxMmg1QjZXU2p2K3pQM1Rtam5EOGNGVVBoSlRFSjhGYlR5TEc0Ni9sR1hX?=
+ =?utf-8?B?Y2EzR1l0QWo1Umw0VjBSRzI1UmFqYlZZZW1sTlNLNVlObmt6WnM2cVU1SkVl?=
+ =?utf-8?B?MjEvYkp3aWJkNUFGWHBVcFcrZWpZMFpYZXF4YSsrMU1YRE4yMURpajlucG1U?=
+ =?utf-8?B?cjRod2tMOE56VlV4VC9YVCtJZ2hxZ01KaU03ZHlMMUtCTzErbXcvNEVFb3dQ?=
+ =?utf-8?B?UDcyUHdkN2NldWYrbXJxRCtvd0JPZWFiUks5NWx1N3lBYzRHN0NzaEFER2dQ?=
+ =?utf-8?B?SHdmTGUvelV6ZnpLL3FRdldsRGZYV0hISUQ0TW51SFpjQ1p0MzdTN1cwQm56?=
+ =?utf-8?B?WDZnY2k0UEVZZjh3bzhkK3RBQ1Q2bzNFTHZWdWt3TVlILytSZmZCMWlUelpK?=
+ =?utf-8?B?RjZVY1o2UjF5SUZpVVo4a0IrbXBzL2d4TFl0Vy90YTFHd0xIOVk3NmhZTU9T?=
+ =?utf-8?B?Y1dpeEp2Y1IzZkdsdTNqQ3RPNlhRTDhJSmFPWHBnSGV0SmpLS3F5VmFpQ0xs?=
+ =?utf-8?B?cWVZMUZUT0dqcXoyMXhZNEpBblZiZm5FZFVHenY0MVZMVk1LU2VDdnp3cEJr?=
+ =?utf-8?B?Ujc1dzlzQkkzd3k3YWlXQzVVZEk3cVdmSEFQME9nN0ZWWVI1RnZaZVB2Z3BH?=
+ =?utf-8?B?NjJuMWlXSithSzAxQkl3WER5aUI3VGZkQUhScUZ5WmNKMUZCaHJZUzVSK0VY?=
+ =?utf-8?B?U0JrQ1pQMmdGS3FPNlhkRTdmSDdXUFRmZ2VleUZMZGFMVmpUTDhhczlZR0dw?=
+ =?utf-8?B?eVVXbUJyWGlveXI1MUtqM21FWitHcVVpd2RMdVA2cjU3cDdmMkFCZWRYQW1X?=
+ =?utf-8?B?aVgxMmlaeDhGcFh4V1llV2ZCSHQ5ZFA3WUQxMUU4ZWs5OVgzd3pqM1Q1N1JH?=
+ =?utf-8?B?bWoxSmdVWURQZU9SR1BzOXZWcDNCRGl3WkhNUXRVVDNMd245dGl3Sy9OTU1T?=
+ =?utf-8?B?NEsyUktQZTgxaW9HdDQ1K3FzWTJpQWFYb29KQmJ2ZU5UTUNuYklxeTgzU2ZI?=
+ =?utf-8?B?VGlpUFlvTjQveUwvUnd1Y28wMzBoQVFmWEhRZmFZTVdBS1IxN09tWG0vaW04?=
+ =?utf-8?B?VXo3TDF2ZkI4VzZGazdOS2w5eHYydTBPSDVlMlVzWnowMWNNUm9QemgrL0d5?=
+ =?utf-8?B?dWMrV2J5d1Z1UldQbTB2N0ZacDNxUGF5UEdPU1JUT2xkaVBwNzBHWEhmcHhU?=
+ =?utf-8?B?bXMrL3haMXFhYkNMWFdNU0tIS0dKd2pRR3NOT0dObXFpNTFqT3F0MjZIVW8x?=
+ =?utf-8?B?aTFQZ3RhYVh5SUtKSXN4cHJ2S0luay9OR0JIVnBKV2ZWOU1IRXBPcklWSWZZ?=
+ =?utf-8?B?OUdUc1lWMUFzMVhiNm5DSWZCZUVkRkhMSWVHSHhZNVdoUU5VNmRPY2Zhclpn?=
+ =?utf-8?B?UlpTck1TWUduQkpXb2NBbi9sVGxlLzM2cXJXQktwSWdGZ0RQL1lJRDZFcDN4?=
+ =?utf-8?B?VUZualUvVUd4WG96RlVOdjdDaUc0amRRUHIxWkh3eTFxWEV6ZnBTZ2I1KytB?=
+ =?utf-8?B?UStwYmZHMzBraUc4TDF4VjBOd3JsU0IwN0JBV2lvT1YrY2JIYmtwK0p2TktN?=
+ =?utf-8?B?R3NCY01NWlNiMFFBNHNPYloxUWNVc0pBTHM3V2N5bDlMTklXNHRWZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7db64cf-d3b6-4535-74cc-08def9607061
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 17:29:33.2006 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kTFdlGBDDfefmVtriqX9ZoD6czKYo0wqzBUbsBEFoMz4AssmEaEyQ5qmsqbApYEnC64l6S4JjDvh+iA3mSxRlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6531
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,53 +148,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Rob,
-
-On Fri Aug 7, 2026 at 12:48 PM -03, Rob Herring (Arm) wrote:
->
-> On Fri, 07 Aug 2026 11:19:50 -0300, Nicol=C3=A1s Antinori wrote:
->> Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
->>=20
->> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+On Mon Aug 10, 2026 at 10:29 AM BST, Alexandre Courbot wrote:
+> On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
+>> Add a compile-time checked variant of `try_cast()` using the minimum siz=
+e
+>> and alignment information.
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
 >> ---
->>  .../bindings/display/chipwealth,ch1115.yaml   | 73 +++++++++++++++++++
->>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
->>  2 files changed, 75 insertions(+)
->>  create mode 100644 Documentation/devicetree/bindings/display/chipwealth=
-,ch1115.yaml
->>=20
+>>  rust/kernel/io.rs | 39 +++++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 39 insertions(+)
+>>
+>> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+>> index a38c20ba3d23..adfc555de7d0 100644
+>> --- a/rust/kernel/io.rs
+>> +++ b/rust/kernel/io.rs
+>> @@ -436,6 +436,45 @@ fn is_empty<T>(self) -> bool
+>>          self.len() =3D=3D 0
+>>      }
+>> =20
+>> +    /// Convert into a different typed I/O view.
+>> +    ///
+>> +    /// The target type must be known (statically) to be of the same or=
+ smaller size to current
+>> +    /// type, and the current view is properly aligned for the target t=
+ype.
 >
-> My bot found errors running 'make dt_binding_check' on your patch:
+> grammar nit: s/is/must be.
 >
-> yamllint warnings/errors:
+>> +    ///
+>> +    /// # Examples
+>> +    ///
+>> +    /// ```no_run
+>> +    /// use kernel::io::{
+>> +    ///     io_project,
+>> +    ///     Mmio,
+>> +    ///     Io,
+>> +    ///     Region,
+>> +    /// };
+>> +    /// #[derive(FromBytes, IntoBytes)]
+>> +    /// #[repr(C)]
+>> +    /// struct MyStruct { field: u32, }
+>> +    ///
+>> +    /// # fn test(mmio: &Mmio<'_, Region<0x1000>>) {
+>> +    /// // let mmio: Mmio<'_, Region>;
 >
-> dtschema/dtc warnings/errors:
-> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
-display@3c (chipwealth,ch1115): 'contrast', 'first-page' do not match any o=
-f the regexes: '^pinctrl-[0-9]+$'
-> 	from schema $id: http://devicetree.org/schemas/display/chipwealth,ch1115=
-.yaml
-> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
-display@3c (chipwealth,ch1115): contrast: b'\x00\x00\x00\x7f' is not of typ=
-e 'object', 'integer', 'array', 'boolean', 'null'
-> 	from schema $id: http://devicetree.org/schemas/dt-core.yaml
-> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
-display@3c (chipwealth,ch1115): first-page: b'\x00\x00\x00\x01' is not of t=
-ype 'object', 'integer', 'array', 'boolean', 'null'
-> 	from schema $id: http://devicetree.org/schemas/dt-core.yaml
->
-> doc reference errors (make refcheckdocs):
->
-> See https://patchwork.kernel.org/project/devicetree/patch/cf9b02d618db4ec=
-a88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com
->
-> The base for the series is generally the latest rc1. A different dependen=
-cy
-> should be noted in *this* patch.
+> Should this be `Region<0x1000>`? Because as written the `cast` right
+> below wouldn't build since `Region::MIN_SIZE =3D=3D 0`.
 
-The patch is based in 7.2-rc6, I am going to rebase it to rc1 in v2
-(or wait until rc1 of 7.3, depending on how much it takes me to solve=20
-some observations found by sashiko).
+Indeed, I forgot to update the comment after copying this from try_cast doc=
+.
 
-Thank you for the clarifications!
+>
+> Also, looking at Sashiko's comment about `KnownSize` we should maybe
+> bite the bullet and make it unsafe? There was some talk about it [1] but
+> the reason why we kept it safe back then doesn't seem to protect us
+> here.
+>
+> [1] https://lore.kernel.org/rust-for-linux/DGSDGDIVUHO0.P594H9B4LLO5@kern=
+el.org/
 
+There isn't a way to create !Sized I/O regions safely right now, so I think
+everything is still okay. But making `KnownSize` unsafe sounds reasonable t=
+oo.
+
+Best,
+Gary
