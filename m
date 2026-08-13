@@ -4,44 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C08ECC5CFDB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:35:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E34B2C5CFDB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:36:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E009810F23D;
-	Thu, 13 Aug 2026 09:35:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0642810F23E;
+	Thu, 13 Aug 2026 09:36:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Os5+FdTW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hh3i3ief";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADFDE10F23D
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:35:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9593D40067;
- Thu, 13 Aug 2026 09:35:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535F41F000E9;
- Thu, 13 Aug 2026 09:35:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786613727;
- bh=G+nFDpRMcA0vky9cHmYndMorNQvEoR7XiPm1tFuXotM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Os5+FdTWprGU6IEeLbLhO0xnn+aWbEy5fkZV538Tfj4oUfsZ0OKHgN9qR/vqUPIds
- ieFRqy8vnbeyj0acoQDLP9FsTaWdVvMuje/G8L/QsLVuFhdwmyYObBUn0N0CqSXY56
- 0IuLL/cybS13w5OrCVZlOAYYOEIAyP2Wi/aroifotIdo0YnShAhW2s32sbELV0muRR
- z8fz4GcSYDA5J4/I8G5gUYDboX/i6fEoFFKl1eAoWE8Wo4wfppTkZDKeNN64YPvEkI
- Ku0j+VA+GijjR9NRWngp0XPaPnBqbu+NErjR5Wb1kWNcnzpgE+HlJE47CJB5Ikq2JC
- 9+BOzgWYcfDhQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] drm/sched: Protect entity->last_scheduled with
- spinlock
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260813092510.2385962-6-phasta@kernel.org>
-References: <20260813092510.2385962-4-phasta@kernel.org>
- <20260813092510.2385962-6-phasta@kernel.org>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E9310F258
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:36:15 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2cf110997efso5125405ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 02:36:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786613775; cv=none;
+ d=google.com; s=arc-20260327;
+ b=LOC2gXxW73etZjJOyZmhVntw4148sl5lr7tOQP0tRLfC0OK3aAhqkDDVBrbvQX5pKh
+ 32gspcI3pkWpC9f33+Uc+XUQL4oVNLtABZx5y42FHbtP+GGUz4GAQ1hAvGjm9WmvwsZv
+ appOEq003MX405WOOlCGplWBW40beeYgxUgnGm53sZl24mJ/Kl0qlLcsgKwl9s9OOl7V
+ OaQ68tg8RHb+ZqrVpzPahcxL4uL703ShQGmYnLAvEbRvZTQlBCe7pfMeHcRcHhUHAems
+ hURIcthQWQY0uGDkL7VizRk0bySWRJIA0d6R/9LFLee+zfRbobmfYYwLr6TcCK6k0rzt
+ xWZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=I9h0QULojzau7syX2ptB1YiILa8mj5wKL7cDn/JLX6g=;
+ fh=MMJAtaVKgGzej2pJeDRtSabkD6Iy2WZ+urxptCNtvyc=;
+ b=Uca/PxF1kNVuJ4hCdeY2vmCLzCN93p53llMpN+/vNn1qsOtF1wymMRBwhPgPXPNDtI
+ 3L2PnZqmSeSbeMBKTUelcKQtJKEL+JZYEydqK3SgWJLm0k9mH9t1diujdRCT4OfJTA/R
+ fEqh+1MptOW4F9cUg9cVPn7wHBxCGInJHg1lQSqCpbr6eWV0vYCMHwJCDu8vsiwcnuMq
+ gAWeOYSquZeNiuXZndnpdvhhhGiF4Qz1/Vxy73Vq58XJLvVeawjDGJ9S5zvvFMvVNM4f
+ NjxCsgIQi05cKATpKou18XfTH5LW8iQiAGz+kSTy1+HbohNhitN3/KfT8Ty0lZ53HTBI
+ pt8w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786613775; x=1787218575; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=I9h0QULojzau7syX2ptB1YiILa8mj5wKL7cDn/JLX6g=;
+ b=Hh3i3iefHEzl2Qg9qRKVMQJ/lgW7+RZ7cpX95zUjdQg7CQ1BPhyOff2+PF2wflLNhc
+ as4Jztu5k+v7PHRiNomx8nwqwQ6cI9+JooJDu0rF7VzBNMR6/AIQq2ftbJQ2Ad/jNN2o
+ 99JdPMqf7S19x2RPQIzCRlWlYI8i+49XhFqVMkc3pdj4gsz/+dKgb+VPOnUgCqESWT7b
+ Pd4z/e4MdTwCC8CdtHmNcAsEvM/8kv2183uB+WlhL6EBD8b4mYpyFVJeRdp6HEjOVFP2
+ UsV9RhjxRzyvBznYDj2VG+z/bvrcC9kC46Lot0jE8zzf3AJlkOUB9ZFdqjEcjAT/ggTU
+ TV2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786613775; x=1787218575;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=I9h0QULojzau7syX2ptB1YiILa8mj5wKL7cDn/JLX6g=;
+ b=o+z2QazCQmvLI+IUTE3PY1tNMVCCFslKpcZIlyhZfLpWDV6khi2P/f5C/JylCa8ZiZ
+ +27z6CYUi23Z2BgBTJplLBkeBDXV7BjWriL0daUc5TekKAURZneT036WgrhaEMEi2QNj
+ zAr1SFr7hLClqJf8BQxY/plf+lTcX3G9HDC7BS6bYBS6TA5qUwH5UTgs1Exr+o4/PAdv
+ JY8Pz8mZwpd+YRTA0mBGtyLgQsCWXbT2t59nixC4NwrHiFzQIekr6bx+rZDp3EeYSE1C
+ WAEWDKffQ23nwCvXnL+LKNdmfN8PktWRrTiUEj5VGJeWnCKBbrqXJ6s+wGCqTi1jeZg+
+ Vgjg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RroGEhHUR8WyRboOATXnj+UPkcNjaTLZhj86UHQC8Ce0XKl45TooAPLXBXjS/8uISkmfe3a+Qj6gjA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGzPqOStniHS4vIGDIdY+9LDImRv5t1OQe79Zo0PGcRFs/hkBr
+ egYDMeKl26PaRiYwNlJ+X94KCxHWj+CC0lvNg16oiK4vdO060b610Ck/3oLynL0e5WGPPZn50eZ
+ Mmc4L9OlSTR/SJHYLk+BaQpcGCeXtisw=
+X-Gm-Gg: AR+sD11STd1t0IqMNoooU6U3nV/6hGEzxgUdRbNUHmKMboIZvSZeKDnBkWGwvU7o/B/
+ hF+JOTzB+dbM5tKwim2bUrfMoqExSa4e6X90Am2hJYqzDzkfk6EhVBJyhUN0zUPKKOuFptM2yq3
+ eAsgaax3C/km6zpAagreOvyCYMJTZcavE39PrP6E/Qg7WnQFZ/vhPUaGyrKQh5SyBfckDIv9m3b
+ AqZVonLTW2OXkKucuyhA2LmS0B4zqBXo3z4Fodufz1s0oNUlW6elLrue70W899nBmWg10QmauBm
+ HybL5gL2fHdca+web82dS6KKCkKSX00rzl4OPdN8WVxRhITMy5zcMsWCIyVdWjRJ35045OrxxH2
+ o1L3dmTe944oFh4PUCprnsvwUTQizU6wiHkbeCgeWGlMcRUSARuB4+tyZktoQnrXetFYhlj4=
+X-Received: by 2002:a17:902:ea0b:b0:2c9:fbde:ab68 with SMTP id
+ d9443c01a7336-2d389b9107fmr28401875ad.3.1786613775343; Thu, 13 Aug 2026
+ 02:36:15 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
+ <CANiq72=bhfofrbdf1qeA380-eWeKj5yXhC0NzaU_nbB9SpxYHA@mail.gmail.com>
+ <DKNAS52KYWLD.M15VEC6U0F6R@kernel.org>
+In-Reply-To: <DKNAS52KYWLD.M15VEC6U0F6R@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 13 Aug 2026 11:36:01 +0200
+X-Gm-Features: AUfX_mydrO4nx0TADc_1KF-ELy8K1d4zi4yvOYINpS4bHvyjdnsvoZ1CepMueE4
+Message-ID: <CANiq72nR3K9d0Y--FyUm1yAkww2LaAuYQZ3yHXjYxxfztgMMYw@mail.gmail.com>
+Subject: Re: [PATCH v10 00/10] Fix missing fops.owner in Rust DRM/misc
+ abstractions
+To: Danilo Krummrich <dakr@kernel.org>, Mark Brown <broonie@kernel.org>
+Cc: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>, Breno Leitao <leitao@debian.org>,
+ Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org, 
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 09:35:26 +0000
-Message-Id: <20260813093527.535F41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,90 +133,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Incorrect ordering of `spsc_queue_pop()` and `drm_sched_rq_pop_ent=
-ity()` causes runqueue corruption, empty entity leakage, and breaks FIFO sc=
-heduling.
---
+On Wed, Aug 12, 2026 at 11:53=E2=80=AFPM Danilo Krummrich <dakr@kernel.org>=
+ wrote:
+>
+> This series has a semantic conflict with both the driver-core and the drm=
+-rust
+> tree:
+>
+> @Mark: When you merge driver-core-next after rust-next (which I think is =
+the
+> case) then you need to include the diff in [1] into the merge.
 
---- Patch [2]: [PATCH v2 2/2] drm/sched: Protect entity->last_scheduled wit=
-h spinlock ---
-commit fe95a95b4cbec301e14107b82365837fc67259e7
-Author: Philipp Stanner <phasta@kernel.org>
+Mark: in case it helps to make it clearer and so you don't have to
+read much, that [1] diff still needs to be included (i.e. the rest of
+the discussion and the commit I added is independent).
 
-drm/sched: Protect entity->last_scheduled with spinlock
+Thanks!
 
-This commit replaces the RCU and memory barrier mechanisms used to protect
-entity->last_scheduled with a spinlock. It aims to improve robustness and
-readability since the entity lock is already taken in most places that
-evaluate this field.
-
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-[ ... ]
-> @@ -555,23 +558,16 @@ struct drm_sched_job *drm_sched_entity_pop_job(stru=
-ct drm_sched_entity *entity)
->  	if (entity->guilty && atomic_read(entity->guilty))
->  		dma_fence_set_error(&sched_job->s_fence->finished, -ECANCELED);
-> =20
-> -	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
-> -	rcu_assign_pointer(entity->last_scheduled,
-> -			   dma_fence_get(&sched_job->s_fence->finished));
-> -
-> -	/*
-> -	 * If the queue is empty we allow drm_sched_entity_select_rq() to
-> -	 * locklessly access ->last_scheduled. This only works if we set the
-> -	 * pointer before we dequeue and if we a write barrier here.
-> -	 */
-> -	smp_wmb();
-> -
-> -	spsc_queue_pop(&entity->job_queue);
-> -
->  	spin_lock(&entity->lock);
-> +	prev_last_scheduled =3D entity->last_scheduled;
-> +	entity->last_scheduled =3D dma_fence_get(&sched_job->s_fence->finished);
->  	drm_sched_rq_pop_entity(entity);
->  	spin_unlock(&entity->lock);
-> =20
-> +	spsc_queue_pop(&entity->job_queue);
-
-[Severity: High]
-Does moving spsc_queue_pop() after drm_sched_rq_pop_entity() cause runqueue
-corruption?
-
-Looking at drm_sched_rq_pop_entity(), it uses drm_sched_entity_queue_peek()
-to check the next job in the queue:
-
-drivers/gpu/drm/scheduler/sched_rq.c:drm_sched_rq_pop_entity() {
-    ...
-    next_job =3D drm_sched_entity_queue_peek(entity);
-    if (next_job) {
-        ...
-        drm_sched_rq_update_fifo_locked(entity, rq, ts);
-    } else {
-        drm_sched_rq_remove_fifo_locked(entity, rq);
-        ...
-}
-
-Because the current job hasn't been popped from entity->job_queue yet,
-won't drm_sched_entity_queue_peek() return the job we are currently
-processing instead of the subsequent job (or NULL)?
-
-It appears this structural inversion causes the runqueue update to evaluate
-the current job's timestamp rather than the next job, and prevents empty
-entities from being correctly removed from the runqueue.
-
-> +
-> +	dma_fence_put(prev_last_scheduled);
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813092510.2385=
-962-4-phasta@kernel.org?part=3D2
+Cheers,
+Miguel
