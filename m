@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D9CC5DF66
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 273C8C5CFEB
 	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 10:57:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E67A10F2BF;
-	Thu, 13 Aug 2026 10:57:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D035110F2BE;
+	Thu, 13 Aug 2026 10:57:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lXPypXlK";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NYKVxAu5";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5048010F2BD
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 10:57:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D83710F2A7
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 10:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786618636;
- bh=yvjNyDvIDWUHmkQb8BXOUq7ZO1YV8XU+9xgQkA7MlMc=;
+ s=mail; t=1786618630;
+ bh=llmvfl88D0kE2ATS1wrk/iq+rvVdEB4y6FFYtHMalPM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=lXPypXlKbouWAudnrLLJ+zjTgs/0GJPu/PeJyWSrwbo/dC+1/uP+Vy68gGPDZ55NI
- 7IFbrRQ+2ZFfLF19qD3LxcIFzbkTHTOwDsG0WaHVMn/7PvAYkcroeeLtCefMPFgpAh
- 6ZOym6kK1yY9vt2ovJ+tZeLoVFvLSjTTR7VtkI2WrTGFq7Q1cI5WGLFeeJbGCPM5DS
- IRhcZSsPfN1rHBtxKNW4inxmayTkpLdO2Z6djRDoYd83gSjYWssdUrhP6UShn0zA+7
- nxdqiZWvgVwf6RwA4wo4GQ6aHmFaV8TyEQgE5l9Xh9sMvHGt4TbRnPCvc2ib5nvqE0
- asMUSFdQnNAkA==
+ b=NYKVxAu5N2bsw/eslXqQ7hqjYGeg+xA7yvbMfca5YSA9YgdcL9rqb0B4qjVnRmOln
+ c8eiZC3dcN/1iHZXIro/ta9j3u+Htqs1DyY7rSJU1sR0VyyL3qWeFYmZqWoUeb8L0t
+ CAnV0BihAsVah6qI3loldHADmyX8nb3MjjO1qtDI7fbET6WcqzIhRxgNb2VptSKkJA
+ uXI01DjERRcCO2hYwfH94mP2/stFe2Wb6C7phLZg9cwTeIsxQlVJbyMHB86J8y/v6b
+ 2Xm9ZEokFUywCuZsJnBitqteWcJPm7fk2R67JKkA6u3LzgBZGHkKYzPQ72ynbf6qEz
+ QOxqeTbEMqQWA==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5FC9817E0FE2;
- Thu, 13 Aug 2026 12:57:15 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8C7AC17E121D;
+ Thu, 13 Aug 2026 12:57:09 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 13 Aug 2026 12:57:14 +0200
-Subject: [PATCH v3 16/17] drm/panthor: Add a debugfs knob to simulate
- unplug failures
+Date: Thu, 13 Aug 2026 12:57:07 +0200
+Subject: [PATCH v3 09/17] drm/panthor: Add fine-grained restrictions on VMs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-panthor-unplug-fixes-v3-16-3ed4e961bbe7@collabora.com>
+Message-Id: <20260813-panthor-unplug-fixes-v3-9-3ed4e961bbe7@collabora.com>
 References: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
 In-Reply-To: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -49,11 +48,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786618621; l=3076;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786618621; l=10100;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=yvjNyDvIDWUHmkQb8BXOUq7ZO1YV8XU+9xgQkA7MlMc=;
- b=fSbKqlIex6R/Acibkrhgu/QuJjQrUEkpddwHaCws/BfR2GAqZrxHUq6iwZjop7PyTK9odX55C
- 663yZa7GCXRDLyZAeARvZKHLhyT18mDh8H3EpJMJGnmnPskN3yDZB2O
+ bh=llmvfl88D0kE2ATS1wrk/iq+rvVdEB4y6FFYtHMalPM=;
+ b=TxO8UQ6JbgC2/ehwZrGILPUfXXMgtMSGFzRh6sd36Kldiobd4QVbva/8NHjN6NYJ3C3pszI0W
+ YqiXeVSQL3aCq6LH4D5s/GPTKuXZyYjI+SqNG/ulnWeQPOizvRH+K6W
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,97 +70,299 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Unplug failures are almost impossible to reproduce in practice, so let's
-add a debugfs knob to simulate those.
+We currently restrict what a VM is allowed to do based on two states:
+panthor_vm::destroyed and panthor_vm_pgtable::unusable, but we'll soon
+need a no-unmap restriction to fix the unplug logic.
 
-With this new knob, we can check this error case with the following
-sequence:
+Instead of adding a third boolean that would reflect this new limitation,
+let's overhaul the current restriction logic by adding separate
+restriction flags representing the operations we want to prevent (map,
+unmap and use).
 
- # echo 1 > /sys/kernel/debug/dri/128/fake_unplug_failure
- # <start-some-GPU-workload>
- # echo fb000000.gpu > /sys/module/panthor/drivers/platform\:panthor/unbind
- # <stop-the-GPU-workload>
+Map and use restrictions are set everywhere we were previously
+calling panthor_vm_pgtable_declare_unusable() or setting ::destroyed
+to true, since that's what those two flags were preventing.
+
+We also add restriction checks in
+panthor_vm_pgtable_prepare_[un]map_op_ctx() and
+panthor_vm_pgtable_exec_op() and drop the ones we had in
+panthor_vm_bind_job_create() since they are redundant.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c | 28 ++++++++++++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_device.h |  8 ++++++++
- 2 files changed, 36 insertions(+)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 134 ++++++++++++++++++++++------------
+ 1 file changed, 88 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index db7bbe503d53..c6d4a97d60f6 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -4,6 +4,7 @@
- /* Copyright 2023 Collabora ltd. */
- /* Copyright 2025 ARM Limited. All rights reserved. */
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 041836552953..1b401fd0d2d7 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -215,6 +215,25 @@ struct panthor_as_op_ctx {
+ 	} map;
+ };
  
-+#include <linux/debugfs.h>
- #include <linux/clk.h>
- #include <linux/mm.h>
- #include <linux/platform_device.h>
-@@ -81,6 +82,8 @@ static int panthor_device_stop_before_unplug(struct panthor_device *ptdev)
- 	 * procedure.
- 	 */
- 	ret = panthor_hw_soft_reset(ptdev);
-+	if (!ret && ptdev->unplug.fake_failure)
-+		ret = -EIO;
++/**
++ * enum panthor_as_restriction - List of restrictions that can apply to an AS.
++ *
++ * An AS always starts unrestricted, but based on the faults or device state
++ * changes, restrictions can be added over time. Restrictions can't be removed
++ * though. Once a VM is restricted, a new one must be created to lift the
++ * restrictions.
++ */
++enum panthor_as_restriction {
++	/** @PANTHOR_AS_FORBID_MAP: The AS can't map new buffers. */
++	PANTHOR_AS_FORBID_MAP = BIT(0),
++
++	/** @PANTHOR_AS_FORBID_UNMAP: The AS can't remove existing mappings. */
++	PANTHOR_AS_FORBID_UNMAP = BIT(1),
++
++	/** @PANTHOR_AS_FORBID_USE: The AS can't become active again. */
++	PANTHOR_AS_FORBID_USE = BIT(2),
++};
++
+ /**
+  * struct panthor_as - Used to managed a GPU address space.
+  */
+@@ -275,25 +294,8 @@ struct panthor_as {
+ 		struct list_head lru_node;
+ 	} hw_slot;
  
- 	clk_disable_unprepare(ptdev->clks.core);
- 	return ret;
-@@ -690,8 +693,33 @@ int panthor_device_suspend(struct device *dev)
- }
+-	/**
+-	 * @unusable: True if the AS has turned unusable because something
+-	 * bad happened during an asynchronous request.
+-	 *
+-	 * We don't try to recover from such failures, because this implies
+-	 * informing userspace about the specific operation that failed, and
+-	 * hoping the userspace driver can replay things from there. This all
+-	 * sounds very complicated for little gain.
+-	 *
+-	 * Instead, we should just flag the AS as unusable, and fail any
+-	 * further request targeting this AS.
+-	 *
+-	 * We also provide a way to query an AS state, so userspace can
+-	 * destroy it and create a new one.
+-	 *
+-	 * As an analogy, this would be mapped to a VK_ERROR_DEVICE_LOST
+-	 * situation, where the logical device needs to be re-created.
+-	 */
+-	bool unusable;
++	/** @restrictions: Bitmask of panthor_as_restriction flags. */
++	atomic_t restrictions;
  
- #ifdef CONFIG_DEBUG_FS
-+static int panthor_device_fake_unplug_failure_get(void *data, u64 *val)
-+{
-+	struct panthor_device *ptdev = data;
-+
-+	*val = ptdev->unplug.fake_failure ? 1 : 0;
-+	return 0;
-+}
-+
-+static int panthor_device_fake_unplug_failure_set(void *data, u64 val)
-+{
-+	struct panthor_device *ptdev = data;
-+
-+	ptdev->unplug.fake_failure = val ? true : false;
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_unplug_failure_fops,
-+			 panthor_device_fake_unplug_failure_get,
-+			 panthor_device_fake_unplug_failure_set, "%llu\n");
-+
- void panthor_device_debugfs_init(struct drm_minor *minor)
+ 	/**
+ 	 * @unhandled_fault: Unhandled fault happened.
+@@ -411,13 +413,6 @@ struct panthor_vm {
+ 	/** @for_mcu: True if this is the MCU VM. */
+ 	bool for_mcu;
+ 
+-	/**
+-	 * @destroyed: True if the VM was destroyed.
+-	 *
+-	 * No further bind requests should be queued to a destroyed VM.
+-	 */
+-	bool destroyed;
+-
+ 	/**
+ 	 * @dummy: Dummy object used for sparse mappings.
+ 	 *
+@@ -693,7 +688,9 @@ bool panthor_vm_has_unhandled_faults(struct panthor_vm *vm)
+  */
+ bool panthor_vm_is_unusable(struct panthor_vm *vm)
  {
-+	struct panthor_device *ptdev = container_of(minor->dev, struct panthor_device, base);
-+
-+	debugfs_create_file("fake_unplug_failure", 0644,
-+			    minor->debugfs_root, ptdev,
-+			    &panthor_device_fake_unplug_failure_fops);
- 	panthor_mmu_debugfs_init(minor);
- 	panthor_gem_debugfs_init(minor);
+-	return vm->as->unusable;
++	return (atomic_read(&vm->as->restrictions) &
++		(PANTHOR_AS_FORBID_USE | PANTHOR_AS_FORBID_MAP |
++		 PANTHOR_AS_FORBID_UNMAP));
  }
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index 8c9177cf5da2..b2788373bfa9 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -282,6 +282,14 @@ struct panthor_device {
- 		 * any BO attached to an active VM, ...).
- 		 */
- 		bool leak_active_resources;
-+
-+		/**
-+		 * @fake_failure: When true, pretend the SOFT_RESET in the unplug path failed.
-+		 *
-+		 * This is important to check that we're doing the right thing in this very
-+		 * unlikely case.
-+		 */
-+		bool fake_failure;
- 	} unplug;
  
- 	/** @reset: Reset related fields. */
+ static void panthor_as_release_hw_slot_locked(struct panthor_as *as)
+@@ -752,6 +749,11 @@ int panthor_vm_active(struct panthor_vm *vm)
+ 	mutex_lock(&as->op_lock);
+ 	mutex_lock(&ptdev->mmu->as.slots_lock);
+ 
++	if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_USE) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	if (refcount_inc_not_zero(&as->active_cnt))
+ 		goto out_unlock;
+ 
+@@ -920,21 +922,29 @@ static size_t get_pgsize(u64 addr, size_t size, size_t *count)
+ 	return SZ_2M;
+ }
+ 
+-static void panthor_as_declare_unusable(struct panthor_as *as)
++static void panthor_as_restrict_usage_locked(struct panthor_as *as,
++					     u32 new_restrictions)
+ {
+ 	struct panthor_device *ptdev = container_of(as->base.drm, struct panthor_device, base);
+ 	int cookie;
+ 
+-	if (as->unusable)
+-		return;
++	lockdep_assert_held(&as->op_lock);
+ 
+-	as->unusable = true;
+-	mutex_lock(&ptdev->mmu->as.slots_lock);
+-	if (as->hw_slot.id >= 0 && drm_dev_enter(&ptdev->base, &cookie)) {
+-		panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+-		drm_dev_exit(cookie);
++	if (new_restrictions & PANTHOR_AS_FORBID_USE) {
++		guard(mutex)(&ptdev->mmu->as.slots_lock);
++		if (as->hw_slot.id >= 0 && drm_dev_enter(&ptdev->base, &cookie)) {
++			/* Try to disable the AS. If as_disable() passed, this should cause
++			 * a fault on the next memory access. If it failed, a reset is
++			 * scheduled to recover from the GPU hang.
++			 * We intentionally don't call release_as_locked() here, because
++			 * this would mess up with the active_cnt refcount.
++			 */
++			panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
++			drm_dev_exit(cookie);
++		}
+ 	}
+-	mutex_unlock(&ptdev->mmu->as.slots_lock);
++
++	atomic_or(new_restrictions, &as->restrictions);
+ }
+ 
+ static void panthor_as_unmap_pages(struct panthor_as *as, u64 iova, u64 size)
+@@ -970,7 +980,9 @@ static void panthor_as_unmap_pages(struct panthor_as *as, u64 iova, u64 size)
+ 			 * so flag the VM unusable to make sure it's not going
+ 			 * to be used anymore.
+ 			 */
+-			panthor_as_declare_unusable(as);
++			panthor_as_restrict_usage_locked(as,
++							 PANTHOR_AS_FORBID_USE |
++							 PANTHOR_AS_FORBID_MAP);
+ 
+ 			/* If we don't make progress, we're screwed. That also means
+ 			 * something else prevents us from unmapping the region, but
+@@ -1046,7 +1058,9 @@ panthor_as_map_pages(struct panthor_as *as, u64 iova, int prot,
+ 				 * table pages behind.
+ 				 */
+ 				panthor_as_unmap_pages(as, start_iova, iova - start_iova);
+-				panthor_as_declare_unusable(as);
++				panthor_as_restrict_usage_locked(as,
++								 PANTHOR_AS_FORBID_USE |
++								 PANTHOR_AS_FORBID_MAP);
+ 				return ret;
+ 			}
+ 		}
+@@ -1339,6 +1353,9 @@ static int panthor_as_prepare_map_op_ctx(struct panthor_as_op_ctx *op_ctx,
+ 	struct sg_table *sgt = NULL;
+ 	int ret;
+ 
++	if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_MAP)
++		return -EINVAL;
++
+ 	if (!bo)
+ 		return -EINVAL;
+ 
+@@ -1431,6 +1448,9 @@ static int panthor_as_prepare_unmap_op_ctx(struct panthor_as_op_ctx *op_ctx,
+ 	u32 pt_count = 0;
+ 	int ret;
+ 
++	if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP)
++		return -EINVAL;
++
+ 	memset(op_ctx, 0, sizeof(*op_ctx));
+ 	op_ctx->va.range = size;
+ 	op_ctx->va.addr = va;
+@@ -1640,7 +1660,12 @@ static void panthor_vm_destroy(struct panthor_vm *vm)
+ 
+ 	as = vm->as;
+ 	ptdev = container_of(as->base.drm, struct panthor_device, base);
+-	vm->destroyed = true;
++
++	scoped_guard(mutex, &as->op_lock) {
++		panthor_as_restrict_usage_locked(as,
++						 PANTHOR_AS_FORBID_USE |
++						 PANTHOR_AS_FORBID_MAP);
++	}
+ 
+ 	/* Tell scheduler to stop all GPU work related to this VM */
+ 	if (refcount_read(&as->active_cnt) > 0)
+@@ -2150,7 +2175,7 @@ struct panthor_heap_pool *panthor_vm_get_heap_pool(struct panthor_vm *vm, bool c
+ 
+ 	mutex_lock(&vm->heaps.lock);
+ 	if (!vm->heaps.pool && create) {
+-		if (vm->destroyed)
++		if (panthor_vm_is_unusable(vm))
+ 			pool = ERR_PTR(-EINVAL);
+ 		else
+ 			pool = panthor_heap_pool_create(ptdev, vm);
+@@ -2520,6 +2545,17 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo)
+ 		if (!mutex_trylock(&as->op_lock))
+ 			return -EDEADLK;
+ 
++		/* Unmaps are forbidden when we failed to communicate with the GPU,
++		 * meaning we can't guarantee that the GPU will see our page table
++		 * updates which might lead to UAF situations. In that case, we
++		 * just skip eviction on this VM. Things should go back to normal
++		 * after a GPU reset.
++		 */
++		if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP) {
++			ret = -EBUSY;
++			goto unlock_op;
++		}
++
+ 		/* It can be that the vm_bo was already evicted but a new
+ 		 * mapping pointing to this BO got created in the meantime,
+ 		 * thus turning the vm_bo in partially evicted state. In that case
+@@ -2555,6 +2591,7 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo)
+ 			vma->evicted = true;
+ 		}
+ 
++unlock_op:
+ 		mutex_unlock(&as->op_lock);
+ 
+ 		if (ret)
+@@ -2768,7 +2805,7 @@ static int panthor_as_exec_op(struct panthor_as *as,
+ 			.map.gem.offset = op->map.bo_offset,
+ 		};
+ 
+-		if (as->unusable) {
++		if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_MAP) {
+ 			ret = -EINVAL;
+ 			break;
+ 		}
+@@ -2778,6 +2815,11 @@ static int panthor_as_exec_op(struct panthor_as *as,
+ 	}
+ 
+ 	case DRM_PANTHOR_VM_BIND_OP_TYPE_UNMAP:
++		if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP) {
++			ret = -EINVAL;
++			break;
++		}
++
+ 		ret = drm_gpuvm_sm_unmap(&as->base, as, op->va.addr, op->va.range);
+ 		break;
+ 
+@@ -2789,8 +2831,11 @@ static int panthor_as_exec_op(struct panthor_as *as,
+ 	panthor_as_unlock_region(as);
+ 
+ out:
+-	if (ret && flag_vm_unusable_on_failure)
+-		panthor_as_declare_unusable(as);
++	if (ret && flag_vm_unusable_on_failure) {
++		panthor_as_restrict_usage_locked(as,
++						 PANTHOR_AS_FORBID_USE |
++						 PANTHOR_AS_FORBID_MAP);
++	}
+ 
+ 	as->op_ctx = NULL;
+ 	mutex_unlock(&as->op_lock);
+@@ -3112,9 +3157,6 @@ panthor_vm_bind_job_create(struct drm_file *file,
+ 	if (!vm)
+ 		return ERR_PTR(-EINVAL);
+ 
+-	if (vm->destroyed || vm->as->unusable)
+-		return ERR_PTR(-EINVAL);
+-
+ 	job = kzalloc_obj(*job);
+ 	if (!job)
+ 		return ERR_PTR(-ENOMEM);
 
 -- 
 2.55.0
