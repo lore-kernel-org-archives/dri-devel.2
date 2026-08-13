@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47F74C5DF67
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B4BC5DF67
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B0A110F486;
-	Thu, 13 Aug 2026 17:36:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E545A10F489;
+	Thu, 13 Aug 2026 17:37:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rp9Z/BjE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ixA7p747";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46C2E10F484;
- Thu, 13 Aug 2026 17:36:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC18610F487;
+ Thu, 13 Aug 2026 17:37:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7EE35600C3;
+ by sea.source.kernel.org (Postfix) with ESMTP id AACA5416BC;
+ Thu, 13 Aug 2026 17:37:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A411F00A3E;
  Thu, 13 Aug 2026 17:36:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631C31F00A3A;
- Thu, 13 Aug 2026 17:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786642607;
- bh=5EXc5iOEg9H0d0e1HfYbF7zEjYZ4oBYHKpBUsUiBnw0=;
+ s=k20260515; t=1786642627;
+ bh=vaw3s6T/GSWhGIBxH9c44M6soIaJSA08keLAt3jySb4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Rp9Z/BjEPxpYUoyxaFds6p1oBZAw1SzuHFYiH/cSF6KJkjwec8ieKG8PtE6ebH0Oh
- XbFmJ+JOri7Q0P5RfkiRIkg7AlWnDHfYrpxRm1e8iXTFNx4Nsul77z22qVOlnUkQ8a
- uPGrHtUBs6LHOtSIC+tCPR1DG11boYqayR16QQnlpYjEnpvl725Lg28dz7gZnVluGl
- BfV1JcBTm32fY9GvnTvAN9vQUPJRs9g7qfW/StEW0gC4aLs9Dg+IB3GrdoCpvzyOJp
- 31rLMMpzLNA+nX43lEvPi/d0gs6sRAs2Gxsb4Necef7josS+e4lxADOFVZ5w8/XQ7t
- jj+g1IHiSK5iA==
+ b=ixA7p747hccwgImJ59EcIdFEdSb9rc3LOw5kVbJpKoEo+0MrDfKmMlBaTs4ef7wRp
+ Y09zqNUCXL/Q1nXEnswtP39scxNB9QBcvSpkUWXqiJes3uks/0pES6sNqGYVl9zfIH
+ q1UdbZqJfKD2AjguBvWW/DtZR+cJY2l/Oa3RXrVhsaKxiZXggZapMoIY6l1WbpapBK
+ soW+xVWeTSY/FLuyemB/fTPfHP/6sgSHr5/1/K6gAGYMJccN3jC4vFXgCNgBT8mAwc
+ TAhftfuvaFfkEVyxyj0At3cGYA9N/gt8Q0gNTrFfMACpD2FzWDj1uimQe82B7+ml91
+ 7mrNMhuTrg+7w==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 13 Aug 2026 18:32:28 +0100
-Subject: [PATCH v5 11/16] mm: clean up vma_address_end()
+Date: Thu, 13 Aug 2026 18:32:29 +0100
+Subject: [PATCH v5 12/16] mm/huge_memory: update remove_migration_pmd() to
+ accept a folio
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-b4-scalable-cow-virt-pgoff-v5-11-c21581c0c3c8@kernel.org>
+Message-Id: <20260813-b4-scalable-cow-virt-pgoff-v5-12-c21581c0c3c8@kernel.org>
 References: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
 In-Reply-To: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -98,12 +99,12 @@ Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
  dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2040; i=ljs@kernel.org;
- h=from:subject:message-id; bh=rEAXpM+Q48loiQvQcclMM0xWbuZorGJAZULvM46znVw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJq/6/RMJi5nSPlvT53x+qFS++Jt00McDb5oxCeU6vV1
- Vx+fFNIRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACayuorhn/YPuR0iaxKVZ/XX
- 1h39v2nu6qlREnOOcTZsuvVzcdRxIR+Gv1JinWoLribkBHpV5ngUvzrE2Z0eo+d27syP3CUHJOb
- x8wEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3818; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=q0oMVyXXBC+siqfel45AxXFQKXhgvOdgu44yz/skNq4=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJq/6/5F1G55rl8yiLzKSurYtcednm68v2b5LfO17iun
+ E6r5tWz6ShlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBESq4x/E959/lG4ZRWo3vN
+ /Px/yn09V2vV3/rQ2563THRvA/eG/t8Mf8VmWS7u+1xZK/v/296rxqzNa68cNXc6UXH325RilYd
+ 3s7kB
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -121,59 +122,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vma_address_end() is a confusing function with a lot of moving parts so
-clean it up prior to extending it for anon page indexed mappings.
+This function does not need to accept a page and requiring it to is
+unnecessary and misleading.
 
-Const-ify some variables and establish pgoff_vma_start and pgoff_end
-variables to clearly identify the page offset for the start of the VMA and
-the end of the page offset range specified by the page walk.
+make_[writable, readable]_device_private_entry() must be passed a
+PMD-aligned PFN as they immediately used to obtain a softleaf PMD entry and
+the same argument applies to folio_add_[anon, file]_rmap_pmd().
 
-This simplifies the function significantly and lays the groundwork for a
-future change to update this function to account for anonymously page
-indexed folios.
+While we are here, update a VM_BUG_ON() to a VM_WARN_ON_ONCE().
 
 No functional change intended.
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/internal.h | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ include/linux/swapops.h |  6 +++---
+ mm/huge_memory.c        | 16 +++++++---------
+ mm/migrate.c            |  2 +-
+ 3 files changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 03145b8d0d56..98b067472ceb 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1079,22 +1079,24 @@ static inline unsigned long vma_anon_address(const struct vm_area_struct *vma,
+diff --git a/include/linux/swapops.h b/include/linux/swapops.h
+index c956bc445ee0..1f3ff3b93e16 100644
+--- a/include/linux/swapops.h
++++ b/include/linux/swapops.h
+@@ -325,8 +325,8 @@ struct page_vma_mapped_walk;
+ extern int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
+ 		struct page *page);
+ 
+-extern void remove_migration_pmd(struct page_vma_mapped_walk *pvmw,
+-		struct page *new);
++void remove_migration_pmd(struct page_vma_mapped_walk *pvmw,
++		struct folio *folio);
+ 
+ extern void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd);
+ 
+@@ -346,7 +346,7 @@ static inline int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
  }
  
- /*
-- * Then at what user virtual address will none of the range be found in vma?
-+ * At what user virtual address will none of the range be found in vma?
-  * Assumes that vma_address() already returned a good starting address.
-  */
- static inline unsigned long vma_address_end(struct page_vma_mapped_walk *pvmw)
+ static inline void remove_migration_pmd(struct page_vma_mapped_walk *pvmw,
+-		struct page *new)
++		struct folio *folio)
  {
--	struct vm_area_struct *vma = pvmw->vma;
--	pgoff_t pgoff;
-+	const pgoff_t pgoff_end = pvmw->pgoff + pvmw->nr_pages;
-+	const struct vm_area_struct *vma = pvmw->vma;
-+	pgoff_t pgoff_vma_start;
- 	unsigned long address;
+ 	BUILD_BUG();
+ }
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 6b0cabd45b2d..47c9c6e32eba 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -5020,9 +5020,8 @@ int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
+ 	return 0;
+ }
  
- 	/* Common case, plus ->pgoff is invalid for KSM */
- 	if (pvmw->nr_pages == 1)
- 		return pvmw->address + PAGE_SIZE;
+-void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct page *new)
++void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct folio *folio)
+ {
+-	struct folio *folio = page_folio(new);
+ 	struct vm_area_struct *vma = pvmw->vma;
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	unsigned long address = pvmw->address;
+@@ -5058,11 +5057,9 @@ void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct page *new)
+ 		swp_entry_t entry;
  
--	pgoff = pvmw->pgoff + pvmw->nr_pages;
-+	pgoff_vma_start = vma_start_pgoff(vma);
-+
- 	address = vma->vm_start +
--		((pgoff - vma_start_pgoff(vma)) << PAGE_SHIFT);
-+		((pgoff_end - pgoff_vma_start) << PAGE_SHIFT);
- 	/* Check for address beyond vma (or wrapped through 0?) */
- 	if (address < vma->vm_start || address > vma->vm_end)
- 		address = vma->vm_end;
+ 		if (pmd_write(pmde))
+-			entry = make_writable_device_private_entry(
+-							page_to_pfn(new));
++			entry = make_writable_device_private_entry(folio_pfn(folio));
+ 		else
+-			entry = make_readable_device_private_entry(
+-							page_to_pfn(new));
++			entry = make_readable_device_private_entry(folio_pfn(folio));
+ 		pmde = softleaf_to_pmd(entry);
+ 
+ 		if (pmd_swp_soft_dirty(*pvmw->pmd))
+@@ -5077,11 +5074,12 @@ void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct page *new)
+ 		if (!softleaf_is_migration_read(entry))
+ 			rmap_flags |= RMAP_EXCLUSIVE;
+ 
+-		folio_add_anon_rmap_pmd(folio, new, vma, haddr, rmap_flags);
++		folio_add_anon_rmap_pmd(folio, &folio->page, vma, haddr, rmap_flags);
+ 	} else {
+-		folio_add_file_rmap_pmd(folio, new, vma);
++		folio_add_file_rmap_pmd(folio, &folio->page, vma);
+ 	}
+-	VM_BUG_ON(pmd_write(pmde) && folio_test_anon(folio) && !PageAnonExclusive(new));
++	VM_WARN_ON_ONCE(pmd_write(pmde) && folio_test_anon(folio) &&
++			!PageAnonExclusive(&folio->page));
+ 	set_pmd_at(mm, haddr, pvmw->pmd, pmde);
+ 
+ 	/* No need to invalidate - it was non-present before */
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 222c8c15f782..d08eff028483 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -372,7 +372,7 @@ static bool remove_migration_pte(struct folio *folio,
+ 		if (!pvmw.pte) {
+ 			VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
+ 					!folio_test_pmd_mappable(folio), folio);
+-			remove_migration_pmd(&pvmw, new);
++			remove_migration_pmd(&pvmw, folio);
+ 			continue;
+ 		}
+ #endif
 
 -- 
 2.55.0
