@@ -4,58 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3DEDC5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0251C5CFDB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC5710F268;
-	Thu, 13 Aug 2026 09:42:05 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C73C910F1B0;
- Thu, 13 Aug 2026 06:34:35 +0000 (UTC)
-X-UUID: 0632ec6a96e111f1aa26b74ffac11d73-20260813
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
- HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
- IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, DN_TRUSTED
- SRC_TRUSTED, SA_UNTRUSTED, SA_UNFAMILIAR, SN_UNTRUSTED, SN_UNFAMILIAR
- SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD_SPF, CIE_UNKNOWN
- GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-UNFAMILIAR: 1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:fd3c8614-f519-4a77-b0d6-76025dacb9dc, IP:10,
- URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:10
-X-CID-INFO: VERSION:1.3.12, REQID:fd3c8614-f519-4a77-b0d6-76025dacb9dc, IP:10,
- UR
- L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
- elease,TS:10
-X-CID-META: VersionHash:e7bac3a, CLOUDID:e260268f0f2686f83a98a19cfcfe2e61,
- BulkI
- D:2608131434264LZW1PXM,BulkQuantity:0,Recheck:0,SF:16|19|66|78|102|127|850
- |865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:ni
- l,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE
- :0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_FSD,TF_CID_SPAM_SNR,TF_CID_SPAM_USA
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0632ec6a96e111f1aa26b74ffac11d73-20260813
-X-User: lihaojie@kylinos.cn
-Received: from localhost.localdomain [(39.144.190.5)] by mailgw.kylinos.cn
- (envelope-from <lihaojie@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 876626051; Thu, 13 Aug 2026 14:34:24 +0800
-From: lihaojie <lihaojie@kylinos.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- lihaojie <lihaojie@kylinos.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/virt: fix integer overflow in size_kb shift
-Date: Thu, 13 Aug 2026 14:34:18 +0800
-Message-Id: <20260813063418.2064270-1-lihaojie@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEDFE10F256;
+	Thu, 13 Aug 2026 09:42:41 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HdYmi2/X";
+	dkim-atps=neutral
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7C4910E39D
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 05:50:48 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5b011edaf7dso1930874e87.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 22:50:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786600247; x=1787205047; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=V3JEh31WwDsNrUS7v93z2nbzGko9efY4jXQ8adxryQQ=;
+ b=HdYmi2/X3OlyCGzG2N+DA6rD4A/+Agy7zGz/IqxTMfFi8ReNz/BSDtiuT5Az5HCSTX
+ +O6KCO0EdaS7c197pXzvuyIg7YTpHtGWzRGp7wFOIiy6RVF09gqoT2bnAmJFgIX+egIe
+ uY9UC/sVfr1Jxv1aj6n+TjWTkv5ZiIwr0byOgWgw3JmCSprhKVoQLhjxDFV2vZt4hc9d
+ SxyR+rgNEjQak7dn8WbC8PfqtASYGB2ojXhfIyMFgtc0nV5OgUPbFuq/rDnZP+vIxG2v
+ RUmimP1CDhMxUXZKVWXjrq7rXBWLSWpxR8L4ApGxGqTn1tnMfl1XLyZlcNFtOj/8p/yf
+ a1Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786600247; x=1787205047;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=V3JEh31WwDsNrUS7v93z2nbzGko9efY4jXQ8adxryQQ=;
+ b=ZwOR0FqfF+UDq8cPq2B8mKdOeYmcrngD13uyFT8WBBBm1DytcL4uazGI8MlnByQOgB
+ DjUtmMzzebHTU9a11ISesnmjyAzLAWUjYaIp6gDDOk1mAin7Ob0f15UjSLkMP8fAzUQo
+ g7KCWo+9zCGSXXs4Aq6bxCPDLFvv3TPsUZkPvZQrGxeBIyJzmOqwM7CVYuB9oLPbmkYI
+ 4aTp1/6HowTKdvvXyztiGa8y9+VZQpc/Ou83lK37lwdOGqMbmdeqKha1jLshLV5LKYAR
+ MLnj/z65Z1fyRuRgxUpZGsw6aEBhz37veWhb/eV/g/CH9tBfqp1Hh+0v9gWS5J9AHTvp
+ lMLA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqcitKuw4SWRj1WMnLsOZd+KSHGFBDlVDVc3TEJiqGTluOTyoE5aThPsKr/9YfzENrbETD4vSDiw9Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtuUegsAeEf3mKiFZBAFNCWJcIDZOgAWXBliDfaTlDYwFzhFaI
+ 2pLdJNkaKCfNb9ptn5PlmpRq/zRJZ+LiOvDvX1o3t/YfaUP2119MdJMO
+X-Gm-Gg: AR+sD12SWEyEdiXIOtqEKiH/yshvQ3dub2kPBJkTvkhaqnudADIzipAxBqq0P/Zsoje
+ ThS+LrVCQDmmzXojjZgozWaGXoh1laFOafebbj29I2zcQNX/elT+x1vC1CmrOyQs+74kpNewupI
+ Xf2LjXFAGUM8MYEDYtLxlaN1lcABlFpjXdVla5dTKm+71dgnd1gYOJd2XKRvOJh8fneLaRlDq2U
+ nuVof2CGtX+toHcJgtHu0YySLaH+kUB7NORwspfwPl+GX/AQARWYTOLum1TFHhR4cX3HNzmYcC7
+ 0I4GLQoTQCca9FTa414ceQH5YkLRQKXOVvrgAslMwTiG2HB08fuJmIiRkHEseW67TjIZd/YVqq9
+ Z1PMxOk9JB9n2B/31jHkZY/l9FdmuNtjUc+qbfZzXHPWqAJuvmbqWapNvAW01sn9z4EumbqRC51
+ 8kA6/Ch5OQHf4KDhCv+PxlS8opocDXK76qOBF8aRAZCJx2MTLIs6KaVP0W2M4jwO5eYpM=
+X-Received: by 2002:a05:6512:2c8e:b0:5b3:e02:b398 with SMTP id
+ 2adb3069b0e04-5b453f9f805mr407533e87.44.1786600246595; 
+ Wed, 12 Aug 2026 22:50:46 -0700 (PDT)
+Received: from localhost ([95.190.110.153]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b4539e1866sm249783e87.6.2026.08.12.22.50.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Aug 2026 22:50:46 -0700 (PDT)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: dakr@kernel.org,
+	jhubbard@nvidia.com
+Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
+ gary@garyguo.net, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: retain the GSP-RM log buffers
+ after unbind
+Date: Thu, 13 Aug 2026 12:50:44 +0700
+Message-ID: <20260813055044.98486-1-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <DKN35E0L9X9L.RSVUGPFWRV69@kernel.org>
+References: <20260812113752.532537-1-vladazaharova2018@gmail.com>
+ <20260812113752.532537-2-vladazaharova2018@gmail.com>
+ <DKN35E0L9X9L.RSVUGPFWRV69@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
@@ -74,94 +94,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-size_kb is uint32_t. The expression "size_kb << 10" is computed in
-32-bit arithmetic, which overflows when size_kb >= 0x400000 (4 GB in
-KB). This leads to incorrect buffer sizes being passed to kzalloc(),
-amdgpu_device_vram_access(), and amdgpu_ttm_init_vram_resv(),
-potentially causing undersized allocations and subsequent heap
-overflows.
+On Thu Aug 13, 2026, Danilo Krummrich wrote:
+> I think those should use VVec.
+> Let's move all the LogBuffer code into gsp/logbuffer.rs to keep gsp.rs clean.
+> I think we can avoid this additional unsafe if we just create the retained dir
+> right away in module_init().
+> dev_dbg!() should be good enough.
 
-Fix this by casting size_kb to u64 before the shift, matching the
-existing correct pattern already used in the same file:
+All four make sense, thanks - v2 will have them. Creating the retained
+directory in module_init() also removes the only reason retain() had to look
+at DEBUGFS_ROOT, so the unsafe block goes away with it.
 
-  u64 init_hdr_size = (u64)adev->virt.init_data_header.size_kb << 10;
+On Thu Aug 13, 2026, John Hubbard wrote:
+> I'd *much* rather use a kernel parameter: keep_gsp_logs, instead of
+> requiring a rebuild of the kernel.
 
-The affected call sites are:
-  - amdgpu_virt_read_exchange_data_from_mem(): dataexchange_size
-  - amdgpu_virt_init_data_exchange(): kzalloc size argument
-  - amdgpu_virt_init_critical_region(): amdgpu_ttm_init_vram_resv size
-  - amdgpu_virt_get_dynamic_data_info(): data_size
+Agreed, and it makes the patch smaller: with a module parameter the cfg gating
+disappears and the code is simply always built. I used a Kconfig because of the
+"the only Kconfig needed is for retaining the GSP log buffers after driver
+unbind" remark in the earlier thread, which I took literally instead of asking.
 
-Also update the corresponding dev_info/dev_dbg format strings from
-0x%x to 0x%llx to match the new u64 type.
+That one needs a decision, though. The Rust module parameter abstraction has no
+bool: rust/kernel/module_param.rs only instantiates param ops for i8..u64,
+isize and usize, and rust/macros/module.rs panics on anything else. Nor is it
+quite a one-liner to add, since bare bool parameters rely on
+KERNEL_PARAM_OPS_FL_NOARG, which make_param_ops! cannot currently express.
 
-Fixes: 07009df6494d ("drm/amdgpu: Introduce SRIOV critical regions v2 during VF init")
-Cc: stable@vger.kernel.org
-Signed-off-by: lihaojie <lihaojie@kylinos.cn>
----
+I am happy to write that prerequisite patch, but it would pull this series into
+rust/kernel review. So unless bool support is already in flight somewhere I
+have not found, I propose v2 uses u8 for now and moves to bool once it exists.
+Say the word if you would rather have it done properly first.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 9e8f7d2b898c..51287d2a6d12 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -752,12 +752,12 @@ static int amdgpu_virt_read_exchange_data_from_mem(struct amdgpu_device *adev, u
- {
- 	uint32_t dataexchange_offset =
- 		adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].offset;
--	uint32_t dataexchange_size =
--		adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10;
-+	u64 dataexchange_size =
-+		(u64)adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10;
- 	uint64_t pos = 0;
- 
- 	dev_info(adev->dev,
--			"Got data exchange info from dynamic crit_region_table at offset 0x%x with size of 0x%x bytes.\n",
-+			"Got data exchange info from dynamic crit_region_table at offset 0x%x with size of 0x%llx bytes.\n",
- 			dataexchange_offset, dataexchange_size);
- 
- 	if (!IS_ALIGNED(dataexchange_offset, 4) || !IS_ALIGNED(dataexchange_size, 4)) {
-@@ -804,7 +804,8 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
- 		/* got through this logic in early init stage to get necessary flags, e.g. rlcg_acc related*/
- 		if (adev->virt.req_init_data_ver == GPU_CRIT_REGION_V2) {
- 			pfvf_data =
--				kzalloc(adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10,
-+				kzalloc((u64)adev->virt.crit_regn_tbl
-+					[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10,
- 					GFP_KERNEL);
- 			if (!pfvf_data) {
- 				dev_err(adev->dev, "Failed to allocate memory for pfvf_data\n");
-@@ -1161,7 +1162,7 @@ int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
- 	/* reserved memory starts from crit region base offset with the size of 5MB */
- 	amdgpu_ttm_init_vram_resv(adev, AMDGPU_RESV_FW_VRAM_USAGE,
- 				  adev->virt.crit_regn.offset,
--				  adev->virt.crit_regn.size_kb << 10, true);
-+				  (u64)adev->virt.crit_regn.size_kb << 10, true);
- 	dev_info(adev->dev,
- 		"critical region v%d requested to reserve memory start at %08llx with %llu KB.\n",
- 			init_data_hdr->version,
-@@ -1181,14 +1182,14 @@ int amdgpu_virt_get_dynamic_data_info(struct amdgpu_device *adev,
- 	int data_id, uint8_t *binary, u32 *size)
- {
- 	uint32_t data_offset = 0;
--	uint32_t data_size = 0;
-+	u64 data_size = 0;
- 	enum amd_sriov_msg_table_id_enum data_table_id = data_id;
- 
- 	if (data_table_id >= AMD_SRIOV_MSG_MAX_TABLE_ID)
- 		return -EINVAL;
- 
- 	data_offset = adev->virt.crit_regn_tbl[data_table_id].offset;
--	data_size = adev->virt.crit_regn_tbl[data_table_id].size_kb << 10;
-+	data_size = (u64)adev->virt.crit_regn_tbl[data_table_id].size_kb << 10;
- 
- 	/* Validate on input params */
- 	if (!binary || !size || *size < (uint64_t)data_size)
-@@ -1200,7 +1201,7 @@ int amdgpu_virt_get_dynamic_data_info(struct amdgpu_device *adev,
- 	*size = (uint64_t)data_size;
- 
- 	dev_dbg(adev->dev,
--		"Got %s info from dynamic crit_region_table at offset 0x%x with size of 0x%x bytes.\n",
-+		"Got %s info from dynamic crit_region_table at offset 0x%x with size of 0x%llx bytes.\n",
- 		amdgpu_virt_dynamic_crit_table_name[data_id], data_offset, data_size);
- 
- 	return 0;
+The re-test on top of the current tip is still owed; I will run it before v2
+and report the result in its cover letter.
+
+Thanks,
+Vladislav
