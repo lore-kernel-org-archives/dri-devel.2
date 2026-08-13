@@ -4,109 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B4DC5DF67
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E63C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:37:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAA3510F48B;
-	Thu, 13 Aug 2026 17:37:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g87o/8Lw";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2492A10F488;
- Thu, 13 Aug 2026 17:37:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 08ED443472;
- Thu, 13 Aug 2026 17:37:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1700F1F000E9;
- Thu, 13 Aug 2026 17:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786642647;
- bh=mJPTehiXiSdt1BNIK6xJnSzDQS1j/lxnN+kNI1EurjI=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=g87o/8LwPgowJqtU2bHG3Mufu+nohJlc3U6lun9oXAPmaBCwkixuTZDN7rXbdKakS
- mXhifbZ1+rJrS/PCWRJsyf5c8BbMzX5pKEosCqVYUJYGMUEECrhrE+HsbfIOgBaKda
- 8MN2Hz2yijd7TM54oIuAh0fVtzMy5Tg2nV9eUqsGOegNPbXNuCITbdnv32FuFF7IuX
- 5Sbi/VYekz3di2IadYIzKl1LPsRv52IP2u4e/5/SRHMxZ4WS+lLSeL6YudyBGHQknB
- U1iKaNCFQ95sTMI7Orqnpl+RFqOw+kW0Y0CDpbh0KewYLf91Zrz7qF+EK0CUGDKjHg
- ZlOMTADzLm4Zg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 13 Aug 2026 18:32:30 +0100
-Subject: [PATCH v5 13/16] mm/migrate: calculate large folio page index
- using PFN
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94EBA10F48E;
+	Thu, 13 Aug 2026 17:37:34 +0000 (UTC)
+X-Greylist: delayed 338 seconds by postgrey-1.36 at gabe;
+ Thu, 13 Aug 2026 17:37:32 UTC
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B63CD10F48F
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 17:37:32 +0000 (UTC)
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+ id 1026692009C; Thu, 13 Aug 2026 19:31:51 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by angie.orcam.me.uk (Postfix) with ESMTP id 0B8BE92009B;
+ Thu, 13 Aug 2026 18:31:51 +0100 (BST)
+Date: Thu, 13 Aug 2026 18:31:50 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Randy Dunlap <rdunlap@infradead.org>
+cc: linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>, 
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ linux-mips@vger.kernel.org
+Subject: Re: [RFC PATCH] fbdev: maxinefb: fix build issues
+In-Reply-To: <20260809234810.982500-1-rdunlap@infradead.org>
+Message-ID: <alpine.DEB.2.21.2608131801340.48788@angie.orcam.me.uk>
+References: <20260809234810.982500-1-rdunlap@infradead.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-b4-scalable-cow-virt-pgoff-v5-13-c21581c0c3c8@kernel.org>
-References: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
-In-Reply-To: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Kees Cook <kees@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2257; i=ljs@kernel.org;
- h=from:subject:message-id; bh=4CWJyPC33HnfZF8tYHNty46xzNZUZPa7yJy7Pu2iMAw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJq/69Rd/JoXfQxfUbOWnaZwqzqy/9jQmbvev5hzQFh0
- QVWb4wEOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRFccZfrMU3rB5/yarPODj
- V133utms9+Zaec2wdTwoXaIvX7lhMgvD/6j1bxLuvr0pu2920YVPrKcffZ8n/Vv10ffg3wWL+S9
- uY2YEAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,73 +48,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rather than having to figure out the page index to use using
-linear_page_index(), calculate it using PFN.
+On Sun, 9 Aug 2026, Randy Dunlap wrote:
 
-This is a more natural fit as the linear page index is immaterial to
-determining the folio page index.
+> This is all ancient source code from the beginning of git time.
 
-Derive the page index from the offset between migration entry PFN and folio
-PFN - pvmw.pfn (set via DEFINE_FOLIO_VMA_WALK() which uses folio_pfn() to
-obtain it).
+ I can dig out any further details you may need from the old LMO git tree.  
+Eventually it's planned to be put back online, but resources.
 
-Additionally remove a not so useful comment and clean the code layout up.
+> Now builds cleanly on 32-bit and 64-bit MACH_DECSTATION.
 
-No functional change intended.
+ Thanks for doing this work.
 
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/migrate.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+> Suggested-by: "Maciej W. Rozycki" <macro@orcam.me.uk> # for s/KSEG1ADDR/CKSEG1ADDR/
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index d08eff028483..50d0b547bca3 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -356,16 +356,11 @@ static bool remove_migration_pte(struct folio *folio,
- 
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		rmap_t rmap_flags = RMAP_NONE;
--		pte_t old_pte;
--		pte_t pte;
-+		unsigned long idx = 0;
- 		softleaf_t entry;
- 		struct page *new;
--		unsigned long idx = 0;
--
--		/* pgoff is invalid for ksm pages, but they are never large */
--		if (folio_test_large(folio) && !folio_test_hugetlb(folio))
--			idx = linear_page_index(vma, pvmw.address) - pvmw.pgoff;
--		new = folio_page(folio, idx);
-+		pte_t old_pte;
-+		pte_t pte;
- 
- #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
- 		/* PMD-mapped THP migration entry */
-@@ -381,14 +376,18 @@ static bool remove_migration_pte(struct folio *folio,
- 						pvmw.pte);
- 		else
- 			old_pte = ptep_get(pvmw.pte);
-+
-+		entry = softleaf_from_pte(old_pte);
-+		if (folio_test_large(folio) && !folio_test_hugetlb(folio))
-+			idx = softleaf_to_pfn(entry) - pvmw.pfn;
-+
- 		if (rmap_walk_arg->map_unused_to_zeropage &&
- 		    try_to_map_unused_to_zeropage(&pvmw, folio, old_pte, idx))
- 			continue;
- 
- 		folio_get(folio);
-+		new = folio_page(folio, idx);
- 		pte = mk_pte(new, READ_ONCE(vma->vm_page_prot));
--
--		entry = softleaf_from_pte(old_pte);
- 		if (!softleaf_is_migration_young(entry))
- 			pte = pte_mkold(pte);
- 		if (folio_test_dirty(folio) && softleaf_is_migration_dirty(entry))
+ Eventually this code should be converted to a platform device, so such 
+hacks won't be necessary.  Sadly I declined an offer back in 2009 and I 
+have been chasing a specimen for a while now.  And since it's an onboard 
+device unlike all the TURBOchannel framebuffers, there's no alternative.
 
--- 
-2.55.0
+> --- linux-next-20260807.orig/drivers/video/fbdev/maxinefb.c
+> +++ linux-next-20260807/drivers/video/fbdev/maxinefb.c
+> @@ -71,19 +71,6 @@ void maxinefb_ims332_write_register(int
+>  	*((volatile unsigned short *) (wptr)) = val;
+>  }
+>  
+> -unsigned int maxinefb_ims332_read_register(int regno)
+> -{
+> -	register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
+> -	unsigned char *rptr;
+> -	register unsigned int j, k;
+> -
+> -	rptr = regs + 0x80000 + (regno << 4);
+> -	j = *((volatile unsigned short *) rptr);
+> -	k = *((volatile unsigned short *) regs);
+> -
+> -	return (j & 0xffff) | ((k & 0xff00) << 8);
+> -}
+> -
+>  /* Set the palette */
+>  static int maxinefb_setcolreg(unsigned regno, unsigned red, unsigned green,
+>  			      unsigned blue, unsigned transp, struct fb_info *info)
 
+ It might be worth mentioning in the change description that this is dead 
+code (and overall provide a summary as to making functions static, etc.).  
+Though I'm not entirely convinced as to the removal since this function 
+documents the hardware interface, which must have been the intent to put 
+it there.  Perhaps #if 0?
+
+> --- linux-next-20260807.orig/include/video/maxinefb.h
+> +++ linux-next-20260807/include/video/maxinefb.h
+> @@ -13,13 +13,13 @@
+>  /*
+>   * IMS332 video controller register base address
+>   */
+> -#define MAXINEFB_IMS332_ADDRESS		KSEG1ADDR(0x1c140000)
+> +#define MAXINEFB_IMS332_ADDRESS		CKSEG1ADDR(0x1c140000)
+>  
+>  /*
+>   * Begin of DECstation 5000/xx onboard framebuffer memory, default resolution
+>   * is 1024x768x8
+>   */
+> -#define DS5000_xx_ONBOARD_FBMEM_START	KSEG1ADDR(0x0a000000)
+> +#define DS5000_xx_ONBOARD_FBMEM_START	CKSEG1ADDR(0x0a000000)
+>  
+>  /*
+>   *      The IMS 332 video controller used in the DECstation 5000/xx series
+
+ This would probably best be a separate change, especially as it's not 
+needed for 32BIT.
+
+ I'm not sure how the actual maintainers see it (I should probably list 
+myself for all the scattered DECstation stuff), but I think this would 
+best be a patch series of 3 for each of the individual classes of fixes.  
+And since this borders on the obvious I wouldn't be too concerned as to 
+the change descriptions; just one sentence plus the relevant error message 
+quoted will do.  And your introduction should suffice as the cover letter.
+
+ Let me know if this works for you and if you post such a series, I'll ack 
+it right away.
+
+  Maciej
