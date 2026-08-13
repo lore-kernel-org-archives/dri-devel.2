@@ -4,43 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB158C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 11:37:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C90C2C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 11:52:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B360110F2D6;
-	Thu, 13 Aug 2026 11:37:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF57210E2A2;
+	Thu, 13 Aug 2026 11:52:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JCQihjpe";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="v5dajzEO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2B2A10F2D6
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:37:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6DBF540DEC;
- Thu, 13 Aug 2026 11:37:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1031F000E9;
- Thu, 13 Aug 2026 11:37:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786621032;
- bh=tOjBQ56EugzGusqth8E0PlQBi7s+A3YCbbI08tTp1gE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JCQihjpe85He5r9yKJ9XpQVrEWtZBIABK99kY05SFgQc+AH7H0H4p/Q7ue48BX37M
- 2taeUIG4TfVfEE9T6IYn4UhUovZ86Ini21/o3GNushI2LVq2SxmYmI5JX5JHRw5oKo
- 2hGN9aUop6bT2LoqLv/JczYL6WnpU6dTFIyOx08YH9+3Ll4XQnjDOEfHDq29tY5UTN
- oj14fsIkLkBhClfIzVt73WIKRmLyVbK/bThDk4G+RYKcz2BVsZw9um7r5R7KJk91ns
- SCTm/vlwNiIh5A0scXj/dBXr7yVCYnQyHxh3rEcRDzSQ676s+OOabBYWdL84+9Jdc6
- kfZi0kAWS6JdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/17] drm/panthor: Split panthor_vm
-To: "Boris Brezillon" <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260813-panthor-unplug-fixes-v3-8-3ed4e961bbe7@collabora.com>
-References: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
- <20260813-panthor-unplug-fixes-v3-8-3ed4e961bbe7@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 11:37:11 +0000
-Message-Id: <20260813113712.3D1031F000E9@smtp.kernel.org>
+Received: from mta0.migadu.com (out-139.mta0.migadu.com [91.218.175.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43ABA10E2A2
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:52:50 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=R2f0PJtuTSVROgAmYKIuGCx86gpNuYMzhmVycIrzC/0=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786621968; v=1; x=1787226768;
+ b=v5dajzEOuRcEgeiui5YhD1V1V/h7nQn+JmKxQay283veMuechwY8E/SlUIcY6nMSMi2JasVw
+ dUdKk1NdBmSGHmatmh/jprRVJYMV0tZnzmt4LOTA6gwqxm2/1ldDATsfaOPOEud/NrCI/yOW5XV
+ NhVCFYxPhc1yDp/G14jel6j4=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: from [192.168.200.2] (2a11:3:200::10a9)
+ by smtp.migadu.com with ESMTPS id dd9de6576435b65a;
+ Thu, 13 Aug 2026 11:52:38 +0000
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cfb5912c-514d-4a3c-b056-a1e8d2d4469f@linux.dev>
+Date: Thu, 13 Aug 2026 19:51:04 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 00/10] Fix missing fops.owner in Rust DRM/misc
+ abstractions
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Mark Brown <broonie@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Luis Chamberlain <mcgrof@kernel.org>,
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Igor Korotin <igor.korotin@linux.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
+ Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
+ <CANiq72=bhfofrbdf1qeA380-eWeKj5yXhC0NzaU_nbB9SpxYHA@mail.gmail.com>
+ <DKNAS52KYWLD.M15VEC6U0F6R@kernel.org>
+ <DKNDF3WD27GM.5VP6RBRXZBUS@garyguo.net>
+ <CANiq72=SP_nT7Z6NSH-GT51-8hJ8qLUa07Cs+SarSFTO9Z7vUw@mail.gmail.com>
+From: Alvin Sun <alvin.sun@linux.dev>
+In-Reply-To: <CANiq72=SP_nT7Z6NSH-GT51-8hJ8qLUa07Cs+SarSFTO9Z7vUw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,121 +84,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Premature removal of the AS from the reclaim list allows it to be =
-re-added concurrently, leading to a Use-After-Free when the AS is subsequen=
-tly freed.
+On 8/13/26 17:32, Miguel Ojeda wrote:
+> On Thu, Aug 13, 2026 at 1:57 AM Gary Guo <gary@garyguo.net> wrote:
+>> IMO this is the correct way, also consistent with
+>>
+>> https://lore.kernel.org/rust-for-linux/20260811-fix-fops-owner-v10-3-7e71776f9dbe@linux.dev/
+>>
+>> It might make sense to add this to rust-next.
+> Yeah, it is also consistent (in the sense of adding a fallback) with
+> the other fix I added when applying the series for the `macros`
+> doctest; and the `kernel` crate is not an actual module yet.
+>
+> I guess yet another solution would be to have an even more local
+> fallback, but that would be too local in my opinion, i.e. we will want
+> to use it elsewhere sooner or later.
+>
+> So I could fold [2] into commit 98f256e27262, but a commit on top is
+> fine, I will reference that commit from the new one instead.
+>
+> Ok, done -- Danilo, I took your diff and converted it into a proper
+> commit, please double-check you are OK with the Signed-off-by:
+>
+>    ec6fcf8a175a ("rust: kernel: add `LocalModule` fallback for
+> `#[vtable]` `impl`s")
 
-Pre-existing issues:
-- [High] If a VM is released concurrently with device unplug, the hardware =
-MMU slot is left enabled and pointing to freed page tables.
---
+I was just looking at the difference between the doctest and in-crate
+`#[kunit_tests]` test paths — thanks for taking care of this.
 
---- Patch [8]: [PATCH v3 08/17] drm/panthor: Split panthor_vm ---
-commit 7c73a792e45cba201c66a596be6469687f3cb78d
-Author: Boris Brezillon <boris.brezillon@collabora.com>
-Subject: drm/panthor: Split panthor_vm
+I'll look into [3] once the new build system lands.
 
-This commit splits the panthor_vm object into panthor_vm and panthor_as
-to manage address spaces and page table residency separately. This prepares
-the cleanup logic for future unplug robustness improvements.
+Best regards,
+Alvin
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
-hor/panthor_mmu.c
-> index 6c48e88ad17fb..0418365529538 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-
-[ ... ]
-
-> @@ -2031,15 +2044,23 @@ void panthor_mmu_post_reset(struct panthor_device=
- *ptdev)
->  	mutex_unlock(&ptdev->mmu->vm.lock);
->  }
-> =20
-> -static void panthor_vm_free(struct drm_gpuvm *gpuvm)
-> +static void panthor_vm_release(struct kref *kref)
->  {
-> -	struct panthor_vm *vm =3D container_of(gpuvm, struct panthor_vm, base);
-> -	struct panthor_device *ptdev =3D vm->ptdev;
-> +	struct panthor_vm *vm =3D container_of(kref, struct panthor_vm, refcoun=
-t);
-> +	struct panthor_as *as =3D vm->as;
-> +	struct panthor_device *ptdev =3D container_of(as->base.drm, struct pant=
-hor_device, base);
-> =20
-> +	/* Make sure the page table behind this VM doesn't participate in recla=
-im
-> +	 * after that point, since we're about to release everything anyway.
-> +	 */
->  	mutex_lock(&ptdev->base.gem_lru_mutex);
-> -	list_del_init(&vm->reclaim.lru_node);
-> +	list_del_init(&as->reclaim.lru_node);
->  	mutex_unlock(&ptdev->base.gem_lru_mutex);
-> =20
-> +	/* Unmap everything in case some BOs were still mapped. */
-> +	drm_WARN_ON(&ptdev->base,
-> +		    panthor_vm_unmap_range(vm, as->base.mm_start, as->base.mm_range));
-> +
-
-[Severity: High]
-Can this cause a use-after-free if another thread modifies a shared BO's
-reclaim state?=20
-
-Because the AS is removed from the reclaim list before its BO mappings are
-unmapped, couldn't a concurrent call to
-panthor_vm_update_bo_reclaim_lru_locked() see the empty list node and re-add
-the AS to ptdev->reclaim.vms?=20
-
-Once panthor_as_free() executes later, the AS would be freed while it is
-still linked in the global reclaim list.
-
->  	mutex_lock(&vm->heaps.lock);
->  	if (drm_WARN_ON(&ptdev->base, vm->heaps.pool))
->  		panthor_heap_pool_destroy(vm->heaps.pool);
-> @@ -2060,29 +2081,26 @@ static void panthor_vm_free(struct drm_gpuvm *gpu=
-vm)
->  	drm_sched_entity_destroy(&vm->entity);
->  	drm_sched_fini(&vm->sched);
-> =20
-> -	mutex_lock(&vm->op_lock);
-> +	mutex_lock(&vm->as->op_lock);
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
-> -	if (vm->as.id >=3D 0) {
-> +	if (as->hw_slot.id >=3D 0) {
->  		int cookie;
-> =20
->  		if (drm_dev_enter(&ptdev->base, &cookie)) {
-> -			panthor_mmu_as_disable(ptdev, vm->as.id, false);
-> +			panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
->  			drm_dev_exit(cookie);
->  		}
-> =20
-> -		ptdev->mmu->as.slots[vm->as.id].vm =3D NULL;
-> -		clear_bit(vm->as.id, &ptdev->mmu->as.alloc_mask);
-> -		list_del(&vm->as.lru_node);
-> +		panthor_as_release_hw_slot_locked(as);
->  	}
->  	mutex_unlock(&ptdev->mmu->as.slots_lock);
-
-[Severity: High]
-This is a pre-existing issue, but what happens to the hardware MMU slot if
-drm_dev_enter() fails during an unplug?
-
-It looks like the code skips panthor_mmu_as_disable() but still calls
-panthor_as_release_hw_slot_locked(as) directly below it.
-
-If the slot tracking is cleared here, won't panthor_mmu_unplug() also skip
-disabling the slot because it appears unused, leaving the GPU MMU active on
-freed page tables?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-panthor-un=
-plug-fixes-v3-0-3ed4e961bbe7@collabora.com?part=3D8
+>
+> Thanks!
+>
+> Cheers,
+> Miguel
