@@ -4,95 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B6BC5CFDB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:45:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3EBC5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE75710F1D0;
-	Thu, 13 Aug 2026 07:45:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C482D10F1D1;
+	Thu, 13 Aug 2026 07:45:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FPeaVwaZ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VJxVf4wz";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mPY7uKtA";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WzCFwQGv";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1701210F1D0
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:45:14 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 586F510F1D1
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:45:27 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67D5g1K1628997
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:45:13 GMT
+ 67D5g8Yp1072487
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:45:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qx3EP7LJrDWwM9ZG7+f76byk7vIQMhbjIHopCD4jEHo=; b=FPeaVwaZH3jCLoS5
- dy0eX0Pb3zDAb+XwrpSQIH/ET7Kf8cU/fG19XeutIRCwHGUWYJWsgfvRvqF2zPKt
- shQg1naGOkYc4ds9j5LtGe1OhB7UlDXDA0Qj63WhCU5eq32qxaIq249b0fz5O9jK
- gEfOg62iM7LNgXl/ZnxD1ihTpKwDBQEMzbZveq8XfeQH3/ywlApAl2aNtvzON2of
- c0zqSfFx09E+wfpsT9237+I3P0ypZ4fWps5WUlaqf11uctg/F0uMBQOx6T8TXver
- Y5g2D8DdcSkrkLA8OGErq9crWmdpgeBSCQ3IbrF1hCglPudSsRMqLRS7zPwclIkL
- 58V8Tw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0xsk2g57-1
+ mqfMyeLa/enZs1Q/aT9heNul0cQ6BjO2BGjlXPqgzCg=; b=mPY7uKtAsPiUK2LD
+ xFJBQsGTDdscZ7jwDMzGPj9JcznqlTdZHjjrdCCoKB+TIVvg5PCbYU/V1YUFpMf/
+ zoZNv+3/gP16bK3VSzZY9oyTKVl4GUqqv4AF261DsgzvdepWIvdFMQ8AmR//4sIf
+ /xGjOb6l31s24Zq2TZKcJvcXaXhjA9Z9T2heLn4iUNpiMGU8aGeExy13ak6L8wPy
+ IrmAy+LuHJSU3+jpqvygZUMJhohes6VF8Aaw+Tjdxn/1L30LUCpOVjhy4JQgr7DD
+ HJc157pZ/zs8Odn/9NDyB2IUA8AvGO7xstP4rLUX5cv+peYunxOj4OBMj72wh7DG
+ Qa7+kg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g14syh6nu-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:45:12 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8eeba1d9e47so16712146d6.2
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 00:45:12 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:45:26 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-52827090cc5so10330371cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 00:45:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786607112; x=1787211912;
+ d=oss.qualcomm.com; s=google; t=1786607121; x=1787211921;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=qx3EP7LJrDWwM9ZG7+f76byk7vIQMhbjIHopCD4jEHo=;
- b=VJxVf4wzW/Q3fq9HS7TaAnQ1lij7ao5bCGFDEiB3bXE2RV6J8oXE/Z1W8jH/ws7ukb
- HIVOQPAMjLbe3LzEjBVJUVwhysxOrtTqYDZqFTgPUPWjDBTZ82sG2deUvaSAiOsBCMco
- URn1yLc3Wb6oQs4Pvhyjf8c9JPWQVIdAXpLKjnPJ4EfZvdbt0q8ZR3IDcTN5NHBsDJyM
- v8UtVxw7nMBKcNVctyuWlWVqCJggqc4EjKCebvbyLE7Ufc+K1BG21TcPE3E9F3vslk75
- u0XeX3ZUpqnZj982HumZPmd0Yt8wkQg20f09NtVApSr4DdMvWqy0Bd2GrUHry5Xjqevn
- MpAg==
+ :content-type; bh=mqfMyeLa/enZs1Q/aT9heNul0cQ6BjO2BGjlXPqgzCg=;
+ b=WzCFwQGvvTthKwvogpSBZcyfOKgQ/5Xu1rQkoeC1tInj4BV1z60bOyZIw1s6x3SYok
+ LEgQZ4jtFFAQWPZMI08gAj24u9fQ97q3by5jkblZjDwyteoq/4Ox4voC46LqlBduT8/c
+ iLXsJwRbCscQsTnFQIrF/U2eTtsHzGlovTk1t1eLYNy93ZIK+nVBit4R2oxYXPo1M7XB
+ y+Y0jJ5cR6ltzaeP4NvtR8AQqIZ0xSuZkxx6I6MHzJSf3UvWocv0fpa2ATEKeS96mlxj
+ BhNFxVy6ACEBmzVR5V0wxOVMjo/kjGsRqFx7hlUArG21PetJqceorqx4w2TbjfFOWT4s
+ vsVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786607112; x=1787211912;
+ d=1e100.net; s=20251104; t=1786607121; x=1787211921;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=qx3EP7LJrDWwM9ZG7+f76byk7vIQMhbjIHopCD4jEHo=;
- b=XxXyrLbFaANyLb84F1bRZpBLrO0pgXfxDBp8PdtFyoQZ5coadDjK9DCkmcdsQYHRM/
- U0TOdeI3rp+yApYoSzoItYVclyfJEWSJDGHL1IyCJJRUCUAzj+158dsNoDYAW/CN+Io9
- 3Udy2huSZJ9RbapnYQUg0EULW10Vdr97fK9end+l2k6YLlHyQ1pQ9PfvDQTmdBQXfbJK
- /vf90o/34IUerbqpQhunNayS1M9v6HH76hyj3afMGlxum2ncNSH2lT42KSHztHqsDkLB
- jNbWbL2k2IDPwvIyVrImyPDOPiw9vhtl7L9UXBtB8I6Etts1TBy6mUP940FCaxOpYSvQ
- FYCw==
+ bh=mqfMyeLa/enZs1Q/aT9heNul0cQ6BjO2BGjlXPqgzCg=;
+ b=kRD4wKuISh2TDPPyb8X+1aef3VdzvpKath0wHyw+Ey3qTAVFBoi/AKTydzipNUGODt
+ dE3p6pyOPz3Mnl/Uds0II5QyIcTtNOO9U24RlkKSZXUjw30lnx5aPSUdLTVYKwF7SSyt
+ bZs9iOwhEbh6DO7j/594FWf6JcF1IYpeRQGIlMUNp94KbkgGOK0gDn3xK+6ODBg7dvPp
+ 0GTFdcOu07/HVN+GUCqZYKHIZahtSpMSlIHHMo2QpgJOIwz1gWpF0njHVL1Z35xflz+P
+ wDT1/qWC0YjS/NIFdqCteS6W6JjUmzN9vD4EIbZTo7Ig42irCPCJwySn2BeqMoXb1mTo
+ 6KNw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpDwmU11pA8LfnWI0detbnjjPOwMAAYN+pevQNEqfVzOWjyicVzuwiht6CMp+PQcbG82C4+2tC2Saw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyViFu8SAj5uJJfScjdBuV32zZ6zKa1n18XLcWvJMADuFLv+Xg8
- p7S+iLODkoAH24PWK7QBeLQ0sHKPwqfZQKgWKdH4FmJbefHtAM6+8GJ2cqL4+7it0nXVDj/nE0J
- dc9rdVas/Nxj2TNAAIztKG/CvRaOQIQEp6bc7kHnCDCr03UiS4FZOj3YYw1Pvzgm95SpYxOc=
-X-Gm-Gg: AR+sD10fSWlMIXAxzL3Qivwkrcyf9qE5Gu8IsRMKZA+b9SGIjVlgqciXA9iqoOlfMSv
- byO6lCX2DGtQwrrCJ770WS5w2I8DQEdo9YYVXFfzN02+Wk57IzY7oGIRfFBwWueN+aPop98oY5a
- B+UeZtc3UtIMzpfxEZFORiQJFFXwYqW0Ju4rM4m7UgbK+HZcgAkbxAFmP+BL8UkxcR1IYsdnN7H
- x0W7BeBXsvbN6IszmnCldvq8gi93tJ2P2JYtGp4Yb7f5tfP4b61TTVEMxbhS87G8jK9v+0i0WK6
- hRnuHP7UAOuvvW9pR33azZImUdFbATgfqOXvIexac53DC7AX5XPd3dwOVsOVBtZCY1lqwYQ1Iy8
- 8M5G9KH8j8UmyQzxV3qKh6TWJVojGC9XPzrt6YFb2q3UZLSoHHD/I6DY8eyDjEMch
-X-Received: by 2002:ad4:4eee:0:b0:8f0:47b2:5736 with SMTP id
- 6a1803df08f44-90a80b3a0e8mr34463086d6.13.1786607112466; 
- Thu, 13 Aug 2026 00:45:12 -0700 (PDT)
-X-Received: by 2002:ad4:4eee:0:b0:8f0:47b2:5736 with SMTP id
- 6a1803df08f44-90a80b3a0e8mr34462516d6.13.1786607111959; 
- Thu, 13 Aug 2026 00:45:11 -0700 (PDT)
+ AHgh+RroabneZmVu3RcK+lLzfK8wDIxEPw5mOnJ4Az55ZB3wLPFFjO92UgkXL7tGYcAIQFGbYa8Ow/0xNko=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywt6uQTSsGQT+q3/n3TPVci93OL8YqHDM/2cKyQAjXpBDHhpOcN
+ FsG4YTRmdy0sABtePgTWAH2NChWPjCp1Oahkk6KqecnqF6WHuvA6Ko5EWooBjnEQltmq9ww9n2m
+ mSnIgUeyF+vtyUX9+HvOh0TT9kmPhGYD0lIu9gUcJZpTentDTYgBnl3TKVBTXEwq4b0wNSGo=
+X-Gm-Gg: AR+sD12Onqcy9X4sOUk8kgyAkYO78fjEHy5xhwz9/+AKs9qrEtY49CyEXCdOGABeQYT
+ T1lvbiSePCMadgUbaNpAKMkFJpmcIW8lhFVGg8k7w+mg8I0YylDa0Tow3BCZVtg+/bU5NrCKa64
+ 034FYjp3/0JN4/YXvTNenL/oHLd4MHYWl/wyrgBUGfkTy9r0kknkvciuZkyDmHOWmzrTMPjClxX
+ a2KClRh9X50dEdBUN4xZ01oWuBHoJe6lIfRJwZ9Vt5nFYCRhMcxBSz1cmK6opCe3Z0jzEODtAh7
+ H2Dj0OIcSprc6x7e9hAgHtliG+Y+LR7JVCZoKkT2blwzaF4ddGl55izeE2DFk7l3EGqErW4wJ0F
+ Km9kIQuWg2hZfHWt7hPEWJ4a3OZmQh8uwnqQ44KOWZ4ZobKe/CcyAdhP3k9Z5tzo6
+X-Received: by 2002:a05:622a:148b:b0:51b:f992:9e18 with SMTP id
+ d75a77b69052e-52d74a35488mr27934201cf.2.1786607121556; 
+ Thu, 13 Aug 2026 00:45:21 -0700 (PDT)
+X-Received: by 2002:a05:622a:148b:b0:51b:f992:9e18 with SMTP id
+ d75a77b69052e-52d74a35488mr27933901cf.2.1786607121072; 
+ Thu, 13 Aug 2026 00:45:21 -0700 (PDT)
 Received: from [10.111.164.29] (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90a8179e4fasm9733956d6.2.2026.08.13.00.45.03
+ 6a1803df08f44-90a8179e4fasm9733956d6.2.2026.08.13.00.45.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Aug 2026 00:45:11 -0700 (PDT)
-Message-ID: <4fff475e-dcce-4a1a-aa06-25d0694bd3eb@oss.qualcomm.com>
-Date: Thu, 13 Aug 2026 15:45:03 +0800
+ Thu, 13 Aug 2026 00:45:20 -0700 (PDT)
+Message-ID: <b360c4a0-72ec-4121-b16d-b7aa94e1a1f1@oss.qualcomm.com>
+Date: Thu, 13 Aug 2026 15:45:13 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: display: msm: Allow two MDSS power
- domains
+Subject: Re: [PATCH 2/3] drm/msm/mdss: Enable INT2_GDSC alongside CORE_GDSC
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
@@ -112,38 +111,38 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260720-msm_gdsc2-v1-0-4687866d6cb0@oss.qualcomm.com>
- <20260720-msm_gdsc2-v1-1-4687866d6cb0@oss.qualcomm.com>
- <nqxbpcwxwastqutkfkaqz4o2telev3lixgrdlmb6anftpywjog@ibfxfb4e42xd>
+ <20260720-msm_gdsc2-v1-2-4687866d6cb0@oss.qualcomm.com>
+ <nwz6ail4qwkmsejow6757nxkutojc2q76tw7lt6oj3h4pncp5f@w6xkgj3bnlmh>
 Content-Language: en-US
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <nqxbpcwxwastqutkfkaqz4o2telev3lixgrdlmb6anftpywjog@ibfxfb4e42xd>
+In-Reply-To: <nwz6ail4qwkmsejow6757nxkutojc2q76tw7lt6oj3h4pncp5f@w6xkgj3bnlmh>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Q5PDf-K5FDywAf8XIjAQPEsA7Pl73RX1
-X-Authority-Analysis: v=2.4 cv=M7J97Sws c=1 sm=1 tr=0 ts=6a7d7609 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Authority-Analysis: v=2.4 cv=ZcQt8MVA c=1 sm=1 tr=0 ts=6a7d7616 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=0b-XH3JjkyDtS5VtSh0A:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEzMDA1MiBTYWx0ZWRfX+7WThjCW0BZN
- MpuYyaTyQjo16CY/gywIgS2C6UeXlMY4g3w0owrPtybRh6oPQ+gHfchSyPifMDxjz00+sf/wPz4
- M/Au1fkPDXfAO+UpRINDixnwD8qtu4o=
-X-Proofpoint-ORIG-GUID: Q5PDf-K5FDywAf8XIjAQPEsA7Pl73RX1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEzMDA1MiBTYWx0ZWRfX6ONw0JUUnCVJ
- VQb1ntDI6JjKj/0O68QsU5th/LgTEUVg5jmSDwSCmSvLnLSx0PdG3NMyMHloG2oSkeUaj06cD1s
- enFtNuNK3fkJLBCLlUoOkP60sXdMI+QpqBW0qjq9GK0NUlroNUW7A10zkwjJTl9dhzmpn7tDeoe
- aPUQ/iQ8kX0iPhCrA429jFiGkpXsvcMkOe8X7vnkQJkDuKSf+nfsI5F7Rh8f9nHGOp/qiqVSLTp
- qbk+kferlBbPLpkTvMNOzyHAyv6hmf5jBtrsPI8zr3xhwAWSNrBvxBrn8un8F5SeWEickhjQpiW
- B45PO03P/niuRhkMWQAi6HCfibTWUT1x10tjPerkYpOtOqj2VJmAdWgz8W5wWcZzQcMxRDkw9iM
- Lor6pefcAFpn6lZHTQc5WRFU+ZEC1MEZsz7Uolyirw/qSLsBiIQq5QjGFEXe8QnwNOKRvBsGt+d
- 8TCNFD7f5NZQ94bwNcA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=YZRirGJidSSDptMLQzoA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEzMDA1MiBTYWx0ZWRfX4QICIuA5uBrU
+ 67+wZ9aKbbrVuMCDYLUdIl0xYCna5IAA6kqa988+JyBHmx6hBqueFUWNmEkSRFvA+L2q8EoVwwx
+ wkXw7MTemQBI32fnlBvM6LL3ZVehmR0S656CJ1/4V8DHWb8xkXR5qvmitEYpFLZ1TIJe3rO+gYA
+ 9FR+tl1BMKCdur53mB9+b1EDdvSnT2IEA3h2tWsuSbWbp7zZZ2FKfX9+gi5CyaGQ2A3JJnkFnta
+ 7N7qKqnOMW+RFVXsQ3bX1yv6UR7l1o7vgy5Atw0S7fhe3iiEFJuLsdQTwAuo5g+r/b8R+5qqXXO
+ S0UhqxVeSUuDTQ6Ru9boNTMP1AB1RFiar5I8csRHoz7jhzSVFTEdnMRPiuYva1IJamgBDly8EYR
+ k/E/NCBKy2l/3xjPnl4fHycEK/4Tq7D0Cbm8iCQ/oXCzm8mQTjfM8FBoyGC6f+AdysbD4su+ASI
+ ZtZSsi0zUYvq/+gH3Eg==
+X-Proofpoint-ORIG-GUID: djLaGrFvX3jr_UCFSKVEbeeqx9AKcQV6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEzMDA1MiBTYWx0ZWRfX5hobc1wfGsv6
+ qw5u3qMjMIFOeqsddG0BKRJB9h8dt4RabTAsUrv/tNldcUq8HTBk/pnOWMGMR+6zeEkCzxPOqIi
+ 7CnjwaFlAozvMvbHYSn3mImH9ftJGrI=
+X-Proofpoint-GUID: djLaGrFvX3jr_UCFSKVEbeeqx9AKcQV6
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-13_02,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0
+ adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608130052
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -163,32 +162,62 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 7/22/2026 2:18 AM, Dmitry Baryshkov wrote:
-> On Mon, Jul 20, 2026 at 04:43:53PM +0800, Yongxing Mou wrote:
+On 7/22/2026 2:40 AM, Dmitry Baryshkov wrote:
+> On Mon, Jul 20, 2026 at 04:43:54PM +0800, Yongxing Mou wrote:
 >> Kaanapali (SM8750) and Glymur use two display power domains.
->> CORE_GDSC powers the main display hardware while INT2_GDSC
->> powers a subset of SSPP blocks.
-> 
-> I see that INT2_GDSC is defined since SC8280XP / SM8450. Does it need to
-> be enabled on all those platforms?
-> 
-No, INT2_GDSC was introduced starting from Kaanapali for SSPP1 
-(VIG2/VIG3/DMA5). Prior to that, it was not actually used and 
-essentially served as a placeholder.
-
-Sorry for the confusion. Glymur does not require INT2_GDSC to be enabled 
-either. I previously assumed it behaved the same way as Kaanapali, but 
-that assumption was incorrect.
+>> CORE_GDSC powers the main display hardware while INT2_GDSC powers
+>> a subset of SSPP blocks (VIG2/VIG3/DMA5/DMA6).
 >>
->> Allow the MDSS bindings to describe both power domains and
->> their corresponding power-domain-names values.
+>> The MDSS driver currently relies on the default runtime PM handling
+>> and does not enable the secondary INT2_GDSC. As a result, display
+>> pipes backed by INT2_GDSC remain inaccessible.
+>>
+>> Attach and manage both power domains explicitly and enable them
+>> during MDSS runtime PM activation.
 >>
 >> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 >> ---
->>   .../devicetree/bindings/display/msm/mdss-common.yaml        |  3 ++-
->>   .../devicetree/bindings/display/msm/qcom,glymur-mdss.yaml   | 13 ++++++++++++-
->>   .../bindings/display/msm/qcom,kaanapali-mdss.yaml           | 13 ++++++++++++-
->>   3 files changed, 26 insertions(+), 3 deletions(-)
+>>   drivers/gpu/drm/msm/msm_mdss.c | 53 +++++++++++++++++++++++++++++++++++++++++-
+>>   1 file changed, 52 insertions(+), 1 deletion(-)
+> 
+> Why is it being handled in the MDSS rather than DPU?
+> 
+Will move it next patchset.
+>> @@ -421,6 +451,27 @@ static struct msm_mdss *msm_mdss_init(struct platform_device *pdev, bool is_mdp5
+>>   	irq_set_chained_handler_and_data(irq, msm_mdss_irq,
+>>   					 msm_mdss);
+>>   
+>> +	/*
+>> +	 * When two power domains are listed in DT, the core framework does not
+>> +	 * auto-attach either of them.  Attach and manage both explicitly so
+>> +	 * that INT2_GDSC (needed for VIG2/VIG3) is enabled alongside the main
+>> +	 * CORE_GDSC.  Single-domain platforms are unaffected.
+>> +	 */
+>> +	if (of_count_phandle_with_args(pdev->dev.of_node, "power-domains",
+>> +				       "#power-domain-cells") > 1) {
+>> +		static const char * const mdss_pd_names[] = { "core", "int2" };
+>> +		static const struct dev_pm_domain_attach_data pd_data = {
+>> +			.pd_names = mdss_pd_names,
+>> +			.num_pd_names = ARRAY_SIZE(mdss_pd_names),
+>> +			.pd_flags = PD_FLAG_NO_DEV_LINK,
+> 
+> Can't you use DL_FLAG_PM_RUNTIME here?
+> 
+Got it.Will ust it next patch.
+>> +		};
+>> +
+>> +		ret = devm_pm_domain_attach_list(&pdev->dev, &pd_data,
+>> +						 &msm_mdss->pd_list);
+>> +		if (ret < 0)
+>> +			return ERR_PTR(ret);
+>> +	}
+>> +
+>>   	pm_runtime_enable(&pdev->dev);
+>>   
+>>   	return msm_mdss;
+>>
+>> -- 
+>> 2.43.0
 >>
 > 
 
