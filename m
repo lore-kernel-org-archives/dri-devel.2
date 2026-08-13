@@ -4,95 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D67E8C5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 14:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CE34C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 14:33:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0637310E4BF;
-	Thu, 13 Aug 2026 14:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3509D10E4DF;
+	Thu, 13 Aug 2026 14:33:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="e/TyMpIW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NTmuc5r4";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D07CD10E4BF
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:06:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786630015;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=r0qjcKO/+/C/XOXqXmwloOkNNQSRaO5VUx5n09b3OF0=;
- b=e/TyMpIWCdQs2u7FuSUuVegv/m9jOUpCGB2BCKfLUTn8DMOAt40BohasUkc/Jn7Y31tq6L
- J1UMHD3m205YG0+MnkQ+JsmQiEZGwk01x4hrw25NPDB4hGEybJ/3ne3vvtc8N+uIrUoihx
- TQ5S42gnvPv/gtbwZW0Uf5NM1pcSMTI=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-135-p9cXQXUWNj-kd7fqsyDilA-1; Thu, 13 Aug 2026 10:06:53 -0400
-X-MC-Unique: p9cXQXUWNj-kd7fqsyDilA-1
-X-Mimecast-MFC-AGG-ID: p9cXQXUWNj-kd7fqsyDilA_1786630012
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-481558a96e2so1169396f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:06:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786630012; x=1787234812;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=r0qjcKO/+/C/XOXqXmwloOkNNQSRaO5VUx5n09b3OF0=;
- b=Pxjjr5VWhpFAI2C6AzpZVUMQ/S44DTprt6+iFLC0u35no8NBjJUZlZts3pw/IdCBQc
- jLcSpqs60v95ccT9DWofPk+7DcrAN1PCBIIln7gHLnBBAAc2hLFgpNrVcTytYDB9bLzF
- O/rTd03nwPR6DDfaIV1RRt1+HBJBPx726eAxp5jZ3WvIZk4y8DSpECnFI1f0n1H0apJz
- 4y4HdB4AZW05oJu4FwjFZjuupMZXJgvMtajf8hKSJ7zkVv2TWrVD2Rh9qxmC8ORuoUSs
- aVYW8PPx9igEb3c3hMhBukUgHAsTTqmnpURaHuIhBiSSWn7Je0kWLm9SrTgRdq7olOgw
- ipbg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpxzgolFMEHDnyRAZX6L9IIH+F9PyyVK7Ak8SuYkxAUxN9oPAFeei/QYYs0jfcD5+1jXFH82iHtBFg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxN9sFpwjpjHsNIi6oJNa0CVx1Y08wH4u3sF/Em5ZW2XSwZ6hnW
- 3t/H6hrbyB6KXuBkrpSj12wYQAWWCdyPg6iH3cjLvW2u8V9W2WWgubtxYC20l+YnllL/6csSND+
- vljNqH9yUrfnzgY7wRctNAa3qlv3Gnd/NaNN84gX85qebNKWTSBuevPym2iqvnW6/VUBr9w==
-X-Gm-Gg: AR+sD11Py43p0R2nzHiuY/leQhcn1JCJTPwTkoJjEHfBtZVIlduQSbEumX9vGJAb3Qw
- eas69Kw60xEYYbkmqtwMxz+V74eF6VuNCFcyDbOSAqm+mNCzUV98ctRb/eBs9NuwzEj9sEC5woB
- CUN1j6lIgccP7YbUrPMsEy3oaCvK3/DX+9dks1E/47pH+VJc3YJGgrlVuHgyxudtjUZULlG6xrX
- 0lNI0FXs5JYcuRtYYJtigpPwAHgINqFy0LPgTIdq4J0WC8umrQjm9TVArzDe2lQAgtn7SjKHZwN
- NHHWOdpUaDTv5eJocFMXGTUg9/txIX37eMUXVhaH72gW3RVqFh0m77+BMxfXYiL2KhC5umsM/d8
- YW2Nj6EUVP+XUpWMxIl1q5K6Tlv07K0jfQwtKn3qtgZOcVA==
-X-Received: by 2002:a05:6000:4715:b0:47f:93e2:a07b with SMTP id
- ffacd0b85a97d-4815a00d89cmr9228637f8f.30.1786630012331; 
- Thu, 13 Aug 2026 07:06:52 -0700 (PDT)
-X-Received: by 2002:a05:6000:4715:b0:47f:93e2:a07b with SMTP id
- ffacd0b85a97d-4815a00d89cmr9228547f8f.30.1786630011905; 
- Thu, 13 Aug 2026 07:06:51 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:11aa:87f0:27a0:d75a:edd2:a62?
- ([2a01:e0a:11aa:87f0:27a0:d75a:edd2:a62])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4815a5612d0sm6990692f8f.2.2026.08.13.07.06.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Aug 2026 07:06:50 -0700 (PDT)
-Message-ID: <1a5bfaf2-2363-4795-96c7-223c589e8df4@redhat.com>
-Date: Thu, 13 Aug 2026 16:06:47 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/log: Fix out-of-bounds read on empty message
- length
-To: oushixiong1025@163.com
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Shixiong Ou <oushixiong@kylinos.cn>
-References: <20260729084520.688087-1-oushixiong1025@163.com>
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260729084520.688087-1-oushixiong1025@163.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Gr9I3T6pIxdK8QJNl2kv1ef_mpaiDfys4ZOgkWtvPO4_1786630012
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2806210E044
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:33:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BF68D418B8;
+ Thu, 13 Aug 2026 14:33:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81E231F00A3A;
+ Thu, 13 Aug 2026 14:33:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786631614;
+ bh=WG70DlKz/1waNrAZQWrvU0UoYrCMVFeq8PGjeDuf8+s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NTmuc5r4Atblkh8GAy0wQGqMwQp+aYAkaR0FLQ6FAa1a7i1AHNDmOL6k1sPjFL+Y2
+ OvE0/Rgli9CUTYrEC+pZ5qzknPKO87lcqJiDgikcwHrMNRyN5t9a1flneEdyxXz2fJ
+ DskWG4XTlnla2d1J8EYeNT5Dh+TjR95Z5jGQMAATBrGQulZrh/jmmGxzCMjoytFunX
+ wQ+3F6JY3RufB0qgb07PHdNDoJbI6g1b0fbCeCy2gr7EUeC9or5vsmOhoViupvRQL5
+ 71XJQE7UB3lN5s5vsQP2YBXu7vKVFtyzmwPm1IHIGKpUOOAXP7NmMoEEbZtBgsC09Q
+ vvvAHQQCuhMUA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] accel/rocket: Fix job submit error handling
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
+References: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 14:33:34 +0000
+Message-Id: <20260813143334.81E231F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,17 +52,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I just pushed the 4 patches.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-The 3 fixes to drm-misc-fixes, and the vmap/unmap optimization to 
-drm-misc-next.
+New issues:
+- [High] Returning -ERESTARTSYS after partial job submission causes duplica=
+te job execution upon syscall restart.
 
-Thanks for your contribution.
+Pre-existing issues:
+- [High] Fences are attached to the reservation objects after the job has b=
+een pushed to the scheduler.
+- [High] The job fails to attach a read fence to its input BOs, causing dat=
+a races with subsequent writers.
+- [High] Passing duplicate BO handles causes a double-unlock of the GEM obj=
+ect's WW mutex, leading to a kernel warning and potential lock state corrup=
+tion.
+--
 
--- 
+--- Patch [1]: [PATCH] accel/rocket: Fix job submit error handling ---
+commit 6dff53fbca0f674f61df49145b960506e0f490e8
+Author: MoGGuU <Naixumogu@whut.edu.cn>
 
-Jocelyn Falempe
+accel/rocket: Fix job submit error handling
 
+This commit fixes several job submission error paths. It validates BO
+handle counts to prevent integer overflows, moves dependency collection
+before arming the scheduler job, and aborts submission on the first
+error instead of continuing silently.
+
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -206,21 +206,20 @@ static int rocket_job_push(struct rocket_job *job)
+>  	if (ret)
+>  		goto err;
+> =20
+> +	ret =3D rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
+> +					   &job->base, false);
+> +	if (ret)
+> +		goto err_unlock;
+
+[Severity: High]
+This is a pre-existing issue, but does jumping to err_unlock here cause a
+double-unlock if there are duplicate BOs?
+
+Earlier in rocket_job_push(), the bos array is built by copying in_bos and
+out_bos without deduplication. When drm_gem_unlock_reservations() is called
+in the err_unlock path, it assumes all elements in the array are unique.
+Could passing duplicate handles corrupt the WW mutex state?
+
+> +
+> +	ret =3D rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
+> +					   &job->base, true);
+> +	if (ret)
+> +		goto err_unlock;
+> +
+>  	scoped_guard(mutex, &rdev->sched_lock) {
+>  		drm_sched_job_arm(&job->base);
+> -
+>  		job->inference_done_fence =3D dma_fence_get(&job->base.s_fence->finish=
+ed);
+> -
+> -		ret =3D rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &j=
+ob->base, false);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+> -		ret =3D rocket_acquire_object_fences(job->out_bos, job->out_bo_count, =
+&job->base, true);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+>  		kref_get(&job->refcount); /* put by scheduler job completion */
+> -
+>  		drm_sched_entity_push_job(&job->base);
+>  	}
+> =20
+>  	rocket_attach_object_fences(job->out_bos, job->out_bo_count, job->infer=
+ence_done_fence);
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to attach fences after pushing
+the job to the scheduler?
+
+The code executes drm_sched_entity_push_job() before calling
+rocket_attach_object_fences(). Can lockless RCU readers observe an idle
+buffer before the fences are attached, resulting in unprotected concurrent
+access?
+
+[Severity: High]
+This is also a pre-existing issue, but it looks like fences are only
+attached to the output BOs here.
+
+Since the function omits passing job->in_bos to
+rocket_attach_object_fences(), won't the input BOs lack read fences?
+Could this allow subsequent writers to proceed without waiting for this
+read operation to finish, leading to data corruption?
+
+[ ... ]
+
+> @@ -640,8 +645,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void=
+ *data, struct drm_file *fil
+>  	}
+> =20
+> =20
+> -	for (i =3D 0; i < args->job_count; i++)
+> -		rocket_ioctl_submit_job(dev, file, &jobs[i]);
+> +	for (i =3D 0; i < args->job_count; i++) {
+> +		ret =3D rocket_ioctl_submit_job(dev, file, &jobs[i]);
+> +		if (ret)
+> +			goto exit;
+> +	}
+> =20
+>  exit:
+>  	kvfree(jobs);
+
+[Severity: High]
+What happens if the submission is interrupted and returns -ERESTARTSYS?
+
+If an error occurs after a few jobs have already been successfully
+submitted, the ioctl aborts and returns the error code directly. Since
+previously queued jobs remain intact, wouldn't a syscall restart
+(from index 0) force duplicate execution of those already-submitted jobs?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813142059.1516=
+44-1-Naixumogu@whut.edu.cn?part=3D1
