@@ -4,43 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B05C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 14:36:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C04C5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 14:40:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 503F210F381;
-	Thu, 13 Aug 2026 14:36:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8BF210E42B;
+	Thu, 13 Aug 2026 14:40:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EL1Hp9l6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pm/4Kdgk";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43C4A10F36A;
- Thu, 13 Aug 2026 14:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=YfedfPgHjV6Li0mpT1vLqpvVcnadUb0v1gnMHlvlpe0=; b=
- EL1Hp9l6l5LPXf431aM0ceCnXg5dgPsuXXiS4GNWV1l9aV/s2jCA65Nk3WUwUC8hUShonmroKeLz1
- 3GHJbbrxway1tKldxF3AAHOQBxf2mB0n1BxeXSrRsfBCO34LIC552TPH1A7bWV18gyUKIbLGXcMR2
- hOWnMbOZ0hZr510Cb8hmkP9FMPADQ37iLZcqYyNGU+0ht5JFT2GukO5MKxdQzQnAgQetvGv6EhWo9
- /tM8sR85BFUudanIxShgWnZFnL3Rkx+DQmzUg+T+KaRrb3vFfnFT+6VkG13hCjoy3YMhCszBEFabq
- XwVbZXVvP0IkJ+tSYrweOC9NTEAHgAP1bQ==;
-Received: from [31.4.128.162] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wuWXZ-000sKW-19; Thu, 13 Aug 2026 16:36:17 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniels@collabora.com, harry.wentland@amd.com,
- leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
- kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
- warning
-Date: Thu, 13 Aug 2026 16:30:19 +0200
-Message-ID: <20260813143605.106104-1-mwen@igalia.com>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2316C10E42B
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:40:54 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4995df974b3so2455e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:40:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786632052; x=1787236852; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=zfgCd9JZmx1G3JenYZxMpetacJxXe9R/CJ7kBOkKzAo=;
+ b=Pm/4Kdgkn0J7VIc0jn9JazOE2ujn+2kMQes/eZVa6523gWActXjjbMZhkTwzJl/gmh
+ TFPVUAd/qv6RXouLQ5lfPyNCfI9pGoUENRS/IefajqsjiSkorCeamUMKghf7ZgWwMwfo
+ vX6IegQM3/gL6B8jKVOJb0EW1goKDh9oGciccOVclC0IJDT9xo4L/i942JkKhKaeuLjy
+ HV8AfkTJUP8v2aBh5p42tlxPwBgSdo/Xk6mH/C/3zrSk0FLyRibtGu/ndKHLu5aBb872
+ FDT2gNJwjd4nl9kwChwh4W2Pbr1+KvBOQFZ5waagNyJxFlnEnmT6keGy8utfrlV1uT3t
+ swIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786632052; x=1787236852;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=zfgCd9JZmx1G3JenYZxMpetacJxXe9R/CJ7kBOkKzAo=;
+ b=r7UUhkkoLhmt0bOBjw5rWONzmawAgmkMVF+NJ5p9fIZ5RW8kOhINhM89Ho9eCECJhM
+ Xq4+9yHXFZF8UxeI3m0UiR1j9GKwEdBhOfblfUFe4IZxBEiRiGKyRi9lZ3mSwg+R/NLJ
+ Z+VQObnvIBd0LpEboypa6BLLyuDWAv0AOYvGnro2GJ0etT3fiE5Eim0n9j7zxjPi448t
+ wiPoctLBIHTjzJRuJq0t8zvM8IVPA9CLGeG5bfMZLvS1Azm3+f89Br9d9MqVBLig7XRS
+ LlDgDKywU73ngZX1qBcEM35eIkXqRV65PEQ0LohcuckJ8aElDD0Z/AfLMCNF0T5CGfqL
+ Ahzw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpC2jgrPlo5TTkPXTTfqZHBc1Ub56M8k5d7zwhCvdMgOXOzinSv0U10qI2uVbHYjnWn42tU0IjhFIM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyWl7b109y7aetDkYQBJQLlLiULcwUyqHF0BmHbh+K5Wbcy+Wb7
+ 1ypJLkwvN20MtIgouaAr8MpXeOxJzbXNPrjYEfp5EuPFYja19wPgZHcU
+X-Gm-Gg: AR+sD13derTpetng+rnh6v5VeI5C4Vk7PFxcgvSuTLyAxBlNxIAAZBoVQnP573XP1LX
+ iSjHG4rf7Z6hf17Nw9WrYyXbRqsymIe7+tFNBY1x3BYMQ7rl+T1yZsnJHNg9WfrfDHxWwlUe40s
+ u7vEeUzo9V+MaV8rT3a348WqMTpfAqbeefoa+2chxouocThhil5jSqlh7Q2bUGrp5jTw/tpM3gu
+ MhVJcHcpoAhaLhZZfStKz5j5KcOh2fiQ00/aZSfw+v4HU30bkjLq+2ys49R5n8CfvTnzcS2kcV+
+ naie6R7GJbZ173CZxLb1tCdbXchTJc4DwrFtVNraTZ7a3uAqFapEkiTwZ44QTyTNB7oLQ9FIYNq
+ oR4lzLBybo1ZB8tdWXaQW8+Ya6r7BrQ5pCdUsWcWHYE7mYZYZTYKk4MrII0R9Rlq/4ys3r26Lrs
+ 0EjM+VfSgHcDuUV9lVSh4pTHG3ofkpIhTU3r1CoauP5uctD++KJaayn5U7F7B5A5MYZGLTRMO0H
+ gcqxpI4DSVLs0DlWkzP8uRsePK10FDwPkpO0Po/2IYis/08xJZCJ75gvs3pSBOoMbcI1OOegBjk
+ C4lt
+X-Received: by 2002:a05:600c:3ba2:b0:498:8e6:d463 with SMTP id
+ 5b1f17b1804b1-49982617b0emr35862875e9.1.1786632052215; 
+ Thu, 13 Aug 2026 07:40:52 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B911C00AE6C52CFC8961284.dsl.pool.telekom.hu.
+ [2001:4c4e:1b91:1c00:ae6c:52cf:c896:1284])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49981b58700sm66426445e9.9.2026.08.13.07.40.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Aug 2026 07:40:51 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Marius Dinu <m95d+git@psihoexpert.ro>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH 0/2] drm/rockchip: Add missing DRM_BRIDGE_CONNECTOR selects
+Date: Thu, 13 Aug 2026 16:40:17 +0200
+Message-ID: <20260813144019.12089-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -59,77 +98,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-PREMULTI was the default DRM blend mode until 9813e158d13d
-("drm/drm_blend: allow blend mode property without PREMULTI") introduced
-the possibility of exposing the blend mode property without PREMULTI
-being supported. However, __drm_atomic_helper_plane_state_init() still
-resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
-mode in this property. In the same series, 860e748bddcc ("drm: ensure
-blend mode supported if pixel format with alpha exposed") starts warning
-drivers that supports alpha formats in a given planes but doesn't
-support blend mode property, which includes AMD primary and cursor
-planes.
+While testing the dw-dp v11 series I noticed that ROCKCHIP_DW_DP does
+not select DRM_BRIDGE_CONNECTOR although dw_dp-rockchip.c calls
+drm_bridge_connector_init(), and Sebastian suggested handling this
+independently of that series [1].
 
-For AMD DCN families, overlay and primary planes support the three blend
-modes, and therefore PREMULTI is still the default mode. So the warning
-can be fixed by just creating blend mode properties for primary planes
-too. PREMULTI is the default/unique mode for cursor planes in DCN and
-DCE driver. However, looks like PIXEL_NONE is the unique blend mode
-supported by DCE-generation driver. I don't have the hardware to check
-it out, but looking at the code I understand that, even if the hardware
-can do PREMULTI or COVERAGE, the way it programs registers doesn't make
-these other blend modes actually available.
+The ROCKCHIP_DW_DP gap was in fact found before: Marius Dinu posted
+the same one-liner in March [2] and dropped it when the failure
+stopped reproducing in his build. The failure is
+configuration-dependent - any other enabled option that selects
+DRM_BRIDGE_CONNECTOR masks it - so it can come and go with unrelated
+config changes. It still reproduces on current drm-misc-next.
 
-Bearing this in mind, this series is organized as follow:
+A sweep over drivers/gpu/drm/rockchip found eight callers of
+drm_bridge_connector_init(). Five options already select it,
+ROCKCHIP_INNO_HDMI gets it through its DRM_INNO_HDMI core option, and
+two are left with a latent link failure: ROCKCHIP_DW_DP and
+ROCKCHIP_RK3066_HDMI. The rk3066 case additionally needs
+DRM_DISPLAY_HELPER, whose module carries the bridge-connector code.
 
-- Patch 1 fixes the pixel_blend_mode reset when the blend mode property
-  is advertised without PREMULTI support. It's needed for AMD
-  DCE-generation (patch 3) and I think with this we can also remove a
-  workaround in nouveau nv50_wndw_default_state() caused by the
-  hardcoded PREMULTI default value [1].
+Both failures were reproduced on drm-misc-next (d85a5e9dfb42) with an
+arm64 allnoconfig-based configuration enabling only DRM_ROCKCHIP plus
+the option in question; with the fixes applied both configurations
+link cleanly, and an arm64 defconfig re-run shows no new Kconfig
+warnings. Both issues are present in released kernels: the rk3066 one
+since v6.16, the dw_dp one since v6.18.
 
-- Patch 2 fixes the missing-blend-mode-property warning for DCN primary
-  plane and for DCN+DCE cursor plane. The alpha property keeps only on
-  overlay planes because looks like this is not supported by AMD primary
-  planes and it doesn't affect the blend mode warning we are targetting.
-  Enabling alpha properties to primary was also causing -EINVAL on IGT
-  alpha tests because it started testing primary planes and disabling it
-  (which is not allowed by the AMD display driver).
+[1] https://lore.kernel.org/r/aneNCDU12OzG99UX@venus
+[2] https://lore.kernel.org/r/20260319155051.1944-1-m95d+git@psihoexpert.ro
 
-- Patch 3 fixes the warning for DCE primary plane, but I detached this
-  solution from the previous patch because I don't have hardware to
-  validate if my assumption about PIXEL_NONE-only is correct.
+Igor Paunovic (2):
+  drm/rockchip: dw_dp: Select DRM_BRIDGE_CONNECTOR
+  drm/rockchip: rk3066_hdmi: Add missing Kconfig selects
 
-[1] https://lore.kernel.org/dri-devel/20260720215058.398210-3-lyude@redhat.com/
-
-[v1]: https://lore.kernel.org/dri-devel/20260722183240.626522-1-mwen@igalia.com/
-Changes:
-- new patch for pixel_blend_mode default value other than PREMULTI.
-- remove DCE11 which supports per_pixel_alpha but doesn't support DCN_UNIVERSAL_PLANE.
-- new patch for the primary plane blend mode on DCE-generations
-
-[v2]: https://lore.kernel.org/dri-devel/20260804140758.107683-1-mwen@igalia.com/
-Changes:
-- keep alpha property only for overlay planes (looks like primary plane
-  doesn't actually support it) - alpha prop in primary planes causes IGT
-  test failures with RX 7900 XT on a 4k60 HP U27 as reported by Daniel
-  Wheeler.
-- improve readability of if conditions (Alex H)
-- add Leandro's r-b tags.
-
-Best Regards,
-
-Melissa
-
-Melissa Wen (3):
-  drm/atomic-state-helper: set pixel_blend_mode to prop default on reset
-  drm/amd/display: fix missing blend-mode-prop warning for DCN
-  drm/amd/display: advertise PIXEL_NONE as blend mode for DCE generations
-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 25 ++++++++++++++++---
- drivers/gpu/drm/drm_atomic_state_helper.c     |  7 ++++++
- 2 files changed, 29 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/Kconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
 -- 
-2.53.0
+2.43.0
 
