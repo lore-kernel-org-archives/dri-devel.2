@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D54EC5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 10:57:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F100CC5DF66
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 10:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7C3110F2A1;
-	Thu, 13 Aug 2026 10:57:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BBEE10F2B5;
+	Thu, 13 Aug 2026 10:57:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Qih0xgbN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Jehriuzv";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58D9010E4C5
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 10:57:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6392F10F2A7
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 10:57:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786618626;
- bh=Errsu9GFDWfK0z5mH/zvEVz/71ISvAg4XKJzEn3gCLg=;
+ s=mail; t=1786618631;
+ bh=tdKa3iEPlj3pDEW5mojDJ07XRew8XsVzU/fp1UTnZ+s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Qih0xgbNBTmxBp68V8DmtIP9jKjPCIiINtC6T0KkagjjkxPQV3rCtLcnZHjC5t7rc
- QXQejYD18aeQHJ7jUmFfdLfX9zZgRKEZzDT2WE4JmbYYtlmCPlncD7MWyC+hVIdf2X
- Urdhu4b/pM3n9rUYKk6TDNPkJG3PwQndxn7G0i3ioqA6UkVPNLJNjhdq3ag/Qe+pU8
- igC4FQaCSr8Px8yLHiYRN8TD+c69mjv6goVvhFgpqPz0g+SB87l16Lh/QplGDMfm1W
- YMe9+XaSuMHtO2sCAWZfm8V7EeolR8lMZ1MW9JdHKAm12sxrKsozrPGUNY1I5MIOe/
- ss25BSLL6ia9g==
+ b=JehriuzvMgfQUTdmBiHbKaQ3TG0n6dxX8lbadmEbQyHjtunYjVRqwXBOADYQrFlYD
+ gd4wnp2gddO1//7atr7oHxuvO5/xyOXA/pmNkAg6gMrHuecUuTWrIosr4ZMO4V3dN4
+ 8MzPUBuZqH8IpGeikIHTyGlhUGiIhlCFxYBbG48ssnZ+1bW2jfFPRcGdJ98EU3a/v5
+ uRXFLVpc3QJmzEgkD7SRl2U+E2eWMrk0bQNiLaGLGFzRbGlUhWvhqvH3rdTOvFEuV9
+ bnanvJ2PrcVd79pqeQUaw9QTkHyQQIS1pxGdbqxP7V+6llZU2xLpTZRQzNrmQOJVRg
+ qfW2oJcNdCT1Q==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9B53017E107E;
- Thu, 13 Aug 2026 12:57:05 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7008717E1274;
+ Thu, 13 Aug 2026 12:57:10 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 13 Aug 2026 12:57:03 +0200
-Subject: [PATCH v3 05/17] drm/panthor: Flush the cleanup_wq in the unplug path
+Date: Thu, 13 Aug 2026 12:57:08 +0200
+Subject: [PATCH v3 10/17] drm/panthor: Check AS state before disabling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-panthor-unplug-fixes-v3-5-3ed4e961bbe7@collabora.com>
+Message-Id: <20260813-panthor-unplug-fixes-v3-10-3ed4e961bbe7@collabora.com>
 References: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
 In-Reply-To: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -46,13 +46,13 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
+ Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786618621; l=2353;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786618621; l=1813;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=Errsu9GFDWfK0z5mH/zvEVz/71ISvAg4XKJzEn3gCLg=;
- b=nc3euCWw3cScJh3kNrwZZq3PxRoduOjxqM6FMRqPfzIO7rRSDDrrGwK4tKS0USsiFrMDmVXnN
- l6jr8+sPL5KAlqtp5WJ2a5YN+oI4Y2uvq9bAW/Y0VNKpjUJ32/6iDfu
+ bh=tdKa3iEPlj3pDEW5mojDJ07XRew8XsVzU/fp1UTnZ+s=;
+ b=10Gm9grrdNHb2N9BfKaUwDXZyel4DIfCZHW8+V0creWyc+gZ9zOrvW9hG2WMQDPiJ2P/j/lYr
+ xuGOzP1Z5zUCZdem+FUU7THlZG84yvw128McTFP0WRTpMu8/VjV/Cl+
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,60 +70,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If we don't do that, we might face various UAFs, because the resource
-referenced by these work items might be gone by the time they get
-executed.
+Use TRANSTAB == 0 as a way to detect if an AS slot is idle. This
+allows us to make panthor_mmu_as_disable() a NOP when it's called
+after a SOFT_RESET, which will be needed for our unplug rework.
 
-In each subcomponent making use of the panthor_cleanup_wq, we add a
-flush_workqueue() at the end of the _unplug() function. Note that this
-assumes no more work items from this subcomponent gets queued after
-that point, which is not yet guaranteed, but this will be fixed in
-upcoming changes.
-
-Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
-Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c   | 6 ++++++
- drivers/gpu/drm/panthor/panthor_sched.c | 6 ++++++
- 2 files changed, 12 insertions(+)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 0182b72f1932..0b862d3c3605 100644
+index 1b401fd0d2d7..a48466788f4d 100644
 --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -3365,6 +3365,12 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
- 		}
- 	}
- 	mutex_unlock(&ptdev->mmu->as.slots_lock);
+@@ -634,6 +634,10 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 slot,
+ 
+ 	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
+ 
++	/* The AS was disabled already, nothing to do. */
++	if (!gpu_read64(mmu->iomem, AS_TRANSTAB(slot)))
++		return 0;
 +
-+	/* Ensure any pending job cleanup work are executed before returning,
-+	 * otherwise those might access objects that are gone if the work is
-+	 * executed after other components are unplugged.
+ 	panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
+ 				       panthor_mmu_as_fault_mask(ptdev, slot));
+ 
+@@ -656,11 +660,17 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 slot,
+ 	if (recycle_slot)
+ 		return 0;
+ 
+-	gpu_write64(mmu->iomem, AS_TRANSTAB(slot), 0);
+-	gpu_write64(mmu->iomem, AS_MEMATTR(slot), 0);
+ 	gpu_write64(mmu->iomem, AS_TRANSCFG(slot), AS_TRANSCFG_ADRMODE_UNMAPPED);
++	ret = as_send_cmd_and_wait(ptdev, slot, AS_COMMAND_UPDATE);
++	if (ret)
++		return ret;
+ 
+-	return as_send_cmd_and_wait(ptdev, slot, AS_COMMAND_UPDATE);
++	/* We reset the other fields late to ensure that, if something fails,
++	 * the page table is considered active (TRANSTAB != NULL).
 +	 */
-+	flush_workqueue(panthor_cleanup_wq);
++	gpu_write64(mmu->iomem, AS_MEMATTR(slot), 0);
++	gpu_write64(mmu->iomem, AS_TRANSTAB(slot), 0);
++	return 0;
  }
  
- static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 5832dccfc093..f18b2e03f2fd 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -4074,6 +4074,12 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
- 		sched->pm.has_ref = false;
- 	}
- 	mutex_unlock(&sched->lock);
-+
-+	/* Ensure any pending group release work are executed before returning,
-+	 * otherwise those might access objects that are gone if the work is
-+	 * executed after other components are unplugged.
-+	 */
-+	flush_workqueue(panthor_cleanup_wq);
- }
- 
- static void panthor_sched_fini(struct drm_device *ddev, void *res)
+ static u32 panthor_mmu_fault_mask(struct panthor_device *ptdev, u32 value)
 
 -- 
 2.55.0
