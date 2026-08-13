@@ -4,59 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F12A2C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 13:30:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A12BC5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 13:35:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0705510F335;
-	Thu, 13 Aug 2026 13:30:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE01310F337;
+	Thu, 13 Aug 2026 13:35:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="KUAcFqlC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P3q5vIKY";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 373278903B
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:30:47 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id BA3B04E411FA;
- Thu, 13 Aug 2026 13:30:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 85571602B8;
- Thu, 13 Aug 2026 13:30:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D87E511C4DF36; 
- Thu, 13 Aug 2026 15:30:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786627840; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=7cSIcWpLL5MF5M7OTNVPE4aBZy2yR3yCV865rYsklRk=;
- b=KUAcFqlCoHh0jv7vLJ9sszaPMG/VrO4ykTVrP+BW3LlNKl+OnAd9UcJqZW9SwweC6Y6Ds2
- 6qQb41sNRa1OHLULLTFSolWgrK/afzbNZAKomwCcO95dpPJswWUTxfPXPygD6IrdyMajay
- e1KRa2qlTl3H962bKIJWMUyB/KeroOJ3xO2mdVtvDLJANO9qt9wNSsLhD1Shbucr4yB4sl
- HewgCMuGureG1Jp9+ZJR6lPbt3NQ3TPsR6v0HAqy4pjw9WVVZ46xdP4iQ4mKHwSB75d55K
- lhY8i9xtQUBPfCB3CEUsSWIpzoeC/82JBPwgqxDh972bRqiYQGzf0FvBoLipmA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: linux-kernel@vger.kernel.org, Wojciech Dubowik <wojciech.dubowik@mt.com>
-Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260728122032.692482-1-wojciech.dubowik@mt.com>
-References: <20260728122032.692482-1-wojciech.dubowik@mt.com>
-Subject: Re: (subset) [PATCH v7 0/3] drm/bridge: ti-sn65dsi83: Add reverse
- lvds lanes support
-Message-Id: <178662783448.424368.5270156329576543328.b4-ty@b4>
-Date: Thu, 13 Aug 2026 15:30:34 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31FC610F337
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:35:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A2AB1405C9;
+ Thu, 13 Aug 2026 13:35:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F7D1F00A3D;
+ Thu, 13 Aug 2026 13:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786628139;
+ bh=u/QNXzsOaE2suX66IMMLbQ/FeLVy8GcdhacP7ftayeM=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc;
+ b=P3q5vIKYkO+QFEOTZ/q9tTT8RIztZL1ripaVIZXGvUNRXzITdErUVVhW0wwHEf2Iv
+ qIqrF6DwiTxpwNPlf0CpaYgzEWUYAaAM/XX9vkEdmiZ0817ZjGhE/ROuMDi4zsikQt
+ 1YMRJW96FTuG4pVqSq//uXBgsqpzaguvqEf+MWXHn2gG5K2nerfXuBwV6afKQ7vXM4
+ vSBf9YCjCDMhMCV3HmpbKOeWjCaMnP5W7cUKiw233n4ufLrZg6gAWegEWq03oZcxgh
+ 1OuTn+yOMKDmzb2EElmcTABf0p+NrFplMfEaFekJC6Dfi3YIUWydkqJZG29VMfHJYm
+ iVFjgW8B7/4qw==
+Message-ID: <59d73aba5b4fcaa2b645a433821ea7aa@kernel.org>
+Date: Thu, 13 Aug 2026 13:35:37 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Subject: Re: [PATCH v10 20/69] drm/display: hdmi-state-helper: Add source
+ TMDS rate validation
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-20-294364b2cf15@collabora.com>
+References: <20260731-dw-hdmi-qp-scramb-v10-20-294364b2cf15@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
+ Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
+ "Andy
+ Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
+ Stone" <daniels@collabora.com>,
+ "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
+ Airlie" <airlied@gmail.com>, "Diederik de Haas" <diederik@cknow-tech.com>,
+ =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jonas
+ Karlman" <jonas@kwiboo.se>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu
+ Ying" <victor.liu@nxp.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maud Spierings" <maud_spierings@hotmail.com>, "Maxime
+ Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
+ "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>,
+ "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>,
+ "Robert Foss" <rfoss@kernel.org>, "Samuel
+ Holland" <samuel@sholland.org>, "Sandy Huang" <hjc@rock-chips.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Zimmermann" <tzimmermann@suse.de>
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,26 +77,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Tue, 28 Jul 2026 14:20:28 +0200, Wojciech Dubowik wrote:
-> From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+On Fri, 31 Jul 2026 19:19:27 +0300, Cristian Ciocaltea wrote:
+> Validate the computed TMDS character rate against
+> connector->hdmi.max_tmds_char_rate, when provided by the driver/source.
 > 
-> Add support for reversed lvds output lanes. With an optional
-> data-lanes property one can support default layout <1 2 3 4>
-> or reversed layout <4 3 2 1>. The property is optional and when
-> not set it keeps the default output layout.
+> This gives HDMI connectors common support for rejecting modes whose TMDS
+> character rate exceeds the source supported limit, while still allowing
 > 
-> [...]
+> [ ... ]
 
-Applied, thanks!
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-[1/3] drm/bridge: ti-sn65dsi83: Simplify error condition logic
-      commit: d85a5e9dfb42449d9f37b0ddc6ec30b129f481ce
-
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
-
+Thanks!
+Maxime
