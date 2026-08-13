@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F549C5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:40:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00FE0C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 658D610F190;
-	Thu, 13 Aug 2026 07:40:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2744810F1C9;
+	Thu, 13 Aug 2026 07:44:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IeY+OdxM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UFeQi+HF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9CAE10F1C9
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:40:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46CA010F1C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:44:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 04D594077B;
- Thu, 13 Aug 2026 07:40:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEEA91F000E9;
- Thu, 13 Aug 2026 07:40:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1777543781;
+ Thu, 13 Aug 2026 07:44:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D771F000E9;
+ Thu, 13 Aug 2026 07:44:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786606807;
- bh=tdnH2aMs5ivF0TTfsTacmzPMPMyv9Bcd3eavdVCL1PU=;
+ s=k20260515; t=1786607065;
+ bh=Rv1vqy9s5R8xQTD8oSz33FcDFQMDhFbTcuZeDgw0Dh4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IeY+OdxM7hPlEbYwckI1xy66hxQinWJsjFq2MCWYXgW9P9p3A015w4ddt9puQcv4v
- s/9q4A30Y41nnZtRtNAGRj7B6ORMBwI8CrdSgv22ezocmOtKppTT30hJtl6rGzNMk0
- j1d+gGPdZgOwi6/bBgf5W3A5wM1RMnCVBokTf6thvbd1+TPMWLEF7Mn1VKrLYUPBfq
- 7H+ktM+h8ApEVSSGhZokmlyF+gvl5h9b4d2FbpuKSiE1OD038KUwZbJZS/m2FBk3T8
- 7KiDyYZr3pWBkDpeNEVRcRQthxlF3Wzwktx+jGGcYF/5+Fs7yRzn5KXtC5S43wW7VW
- qzy2wZYDSSqYg==
+ b=UFeQi+HF8Q47RjNl+y/9T/wO6qml7sqHSZEzvVGW5LOJ7n+C9xGbO2viGLVeG3mHF
+ A1k4CJsonbKFujr4Vn2EyYD1FpaKNeVqw7dStt0pEJwmIP7Jtx97pAl4hVlR2nzyDt
+ jJdfgAnUX4OcfM4o1TWSV4thyNeq3Z/NAI+p753mJjT+KyiUznS0nj7bjT8h1dNgqq
+ br9dw0xi5Ah9W8BQ1lnuiNmaMAE84DoUTdcGq5fom6M2lr56lbLlKmq9MME0RsL5gT
+ gf4PeDkCDSMf2ETgfpQ5PAPK8XKcHFwbj9GwdryvBWKzmJ5hZgeEd8ONDmAHdJ0/GA
+ VdKsCqPwea9rg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/7] rust: id_pool: take a NonZero capacity in
- with_capacity
+Subject: Re: [PATCH v6 4/7] rust: id_pool: add contiguous area allocation
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
- ojeda@kernel.org
-In-Reply-To: <20260813-chid-v6-5-160be5dfb5bd@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo
+ Krummrich" <dakr@kernel.org>
+In-Reply-To: <20260813-chid-v6-4-160be5dfb5bd@nvidia.com>
 References: <20260813-chid-v6-0-160be5dfb5bd@nvidia.com>
- <20260813-chid-v6-5-160be5dfb5bd@nvidia.com>
+ <20260813-chid-v6-4-160be5dfb5bd@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 07:40:07 +0000
-Message-Id: <20260813074007.AEEA91F000E9@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 07:44:24 +0000
+Message-Id: <20260813074424.B5D771F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +61,65 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The new imports in the documentation tests violate the kernel verti=
-cal import style.
+- [High] `IdPool::alloc_area` panics under `CONFIG_RUST_BITMAP_HARDENED` wh=
+en `offset >=3D capacity()` instead of returning `None` to trigger dynamic =
+growth
 --
 
---- Patch [5]: [PATCH v6 5/7] rust: id_pool: take a NonZero capacity in wit=
-h_capacity ---
-commit e9e2e8ccc28f355c2c0d256d428875b948d75705
+--- Patch [4]: [PATCH v6 4/7] rust: id_pool: add contiguous area allocation=
+ ---
+commit 8aa0c8588b18c055db8bdd7090bd5d9190acf589
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-rust: id_pool: take a NonZero capacity in with_capacity
+rust: id_pool: add contiguous area allocation
 
-This commit updates IdPool::with_capacity to take a NonZero capacity,
-as an IdPool should not be allocated with zero capacity.
+Add IdPool::alloc_area which allocates a contiguous area with the
+given offset, count, and alignment.
 
 > diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+> index 384753fe0e44a..a4a2ff417fe81 100644
 > --- a/rust/kernel/id_pool.rs
 > +++ b/rust/kernel/id_pool.rs
-> @@ -29,10 +29,11 @@
->  /// Basic usage
->  ///
->  /// ```
-> +/// use core::num::NonZero;
->  /// use kernel::alloc::AllocError;
-
-[Severity: Low]
-This isn't a bug, but should there be a blank line between the core:: and
-kernel:: imports to follow the kernel vertical import style?
-
->  /// use kernel::id_pool::{IdPool, UnusedId};
->  ///
-> -/// let mut pool =3D IdPool::with_capacity(64, GFP_KERNEL)?;
-> +/// let mut pool =3D IdPool::with_capacity(NonZero::new(64).unwrap(), GF=
-P_KERNEL)?;
-
 [ ... ]
+> @@ -240,6 +246,32 @@ pub fn find_unused_id(&mut self, offset: usize) -> O=
+ption<UnusedId<'_>> {
+>      pub fn release_id(&mut self, id: usize) {
+>          self.map.clear_bit(id);
+>      }
+> +
+> +    /// Allocates a contiguous area of `count` IDs at or after `offset`.
+> +    ///
+> +    /// The start of the returned area is a multiple of `align`.
+> +    ///
+> +    /// Returns the allocated range upon success, or [`None`] if no such=
+ area could be found.
+> +    #[inline]
+> +    #[must_use]
+> +    pub fn alloc_area(
+> +        &mut self,
+> +        offset: usize,
+> +        count: NonZero<usize>,
+> +        align: Alignment,
+> +    ) -> Option<Range<usize>> {
 
-> @@ -138,6 +139,7 @@ pub fn capacity(&self) -> usize {
->  /// # Examples
->  ///
->  /// ```
-> +/// use core::num::NonZero;
->  /// use kernel::{
+[Severity: High]
+Does this panic under CONFIG_RUST_BITMAP_HARDENED if offset is greater than
+or equal to the pool's capacity?
 
-[Severity: Low]
-This isn't a bug, but could we add a blank line here as well to separate the
-core imports from the kernel imports?
+When offset is passed directly to BitmapVec::next_zero_area(), the hardened
+build of the bitmap operations will assert that the start offset is less
+than the length.
 
->  ///     alloc::AllocError,
->  ///     bitmap::BitmapVec,
+If a caller dynamically searches for contiguous areas and their sliding win=
+dow
+goes beyond the current capacity, could this crash the kernel rather than
+safely returning None to trigger a dynamic growth request?
+
+> +        let start =3D self.map.next_zero_area(offset, count, align)?;
+> +        self.map.set(start, count);
+> +        Some(start..start + count.get())
+> +    }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-chid-v6-0-=
-160be5dfb5bd@nvidia.com?part=3D5
+160be5dfb5bd@nvidia.com?part=3D4
