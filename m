@@ -4,108 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17ED8C5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 15:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F7E4C5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 15:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1E410F397;
-	Thu, 13 Aug 2026 15:09:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 308E110E064;
+	Thu, 13 Aug 2026 15:11:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="pONo9s0a";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="H1X5J3ew";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9075710F397
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:09:25 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2cfff5f88dbso111915ad.3
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 08:09:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786633765; cv=none;
- d=google.com; s=arc-20260327;
- b=UgNg2dBzJ2nX48iKDNiq0sJ56lzBh4QJoJZDlgqVMjDVmSGDVhnNW8F9aLxFpmll+Q
- IFY5IrL3L8076+i6e/KJSh403X28rJLhLmgavPIDphCcJnm6I1yUxbUtwSAmSR2orwOo
- +QGTkufGMJ1Lh86McZRwg9SYuT+a0mM+5yfCfwchFmtbGHG4NjqoSj7kAZkqk1XN4ySR
- Y/PX7fJAJakVp8mehR1w8+NiQoOrI05cuI+30cv3fW3MrxLsV84bXmilAuGU8LQGtl5O
- Y74E6YEN05uk+JCotAQKZDKclxz5Xq4zBf9toGhOP0Pzcxq+b3ACMJehg4evNG0Fvctn
- Hf4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=sSfixZQMz0vR8g6mx6GBHkzMd5TjHfFJ5VTa4zkEMgM=;
- fh=UmQsttLvcwT5JleXt5FqSD7Q/6T11zjCqKtnyRfHabI=;
- b=ORbQ8BqhPPnLysix0oHEpb16bGmPPvwBfV8knYbiwUafWNYhGqCQT+wdB+GVeM/3D5
- XZqlzW5Mw6n5ZDhRtH5kda38zmChJUFva1aB/WrfC6rMLL89Na0RJYG873N/co3tcsHM
- iXOgFCABbl61+jciLshsVnzT1O5ZB0ik4ZBKKtsg8kc2Lk5HgxbnyWWqlnt2zBc/pDBo
- +9A39uyQ92ANJ4yN9mgcw3dDXz8CyygIH4Ada+zTpHl9iGVRMCRsQq7Rbxp7M/PsXhQy
- AJJXua+vGty5YB1v9n2rCecoJBw8Q6b3WWWZQ2xc0lk3cGrOn7nqjxgfMwKU87PwCPL1
- jI2Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1786633765; x=1787238565;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=sSfixZQMz0vR8g6mx6GBHkzMd5TjHfFJ5VTa4zkEMgM=;
- b=pONo9s0aPLSxlFiPa6OOGiN0xjqlKvUP7bOAoXLLsPGlt0AYpRa8MC5bWcr6m0JQTL
- t1GWXlGzz7w6uW9JQGWl1JZv74MEJPJFQjgdvjzlgOs1REsuy9J/dxxec2vAGZErud6S
- EPvy+08cOpxzJT6S8sqMhs9waX2A6gTP7LfUdboBPSfXzxwcxIBqqV+UQ+n3H8F1bHAE
- JKU7QH5vqF+mI5AM0VN+BlKdTNDrIZdgEvvjKZiEH1kN/fxneQgGatgciUbTQsKEshOj
- tCe/NeUXawU+qN+WE9I0yzdt9NMWGO0fZPiUa8kgdATXZ1xOAGCN0JaZhNFlYUTesNx/
- NiOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786633765; x=1787238565;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=sSfixZQMz0vR8g6mx6GBHkzMd5TjHfFJ5VTa4zkEMgM=;
- b=AyiZ0qK99lUrGIxaSZz4/qpTVTJt0eCQxkyI4+QXdY1ezMYZO//E8+/Tpen6y6i80H
- bxxX5LaXhDyOlzjjRLmo7auHP/1qTcbmzqzN01DkOqYDgzss6Gox0KPS7wz93uGRCwit
- vc1hBOQktoZh/ojTbla+DxfzyDKop2BoIA51lfjlm6ifQ0QkHjuWBISSGP1oM1agQ3yl
- eM5ZibjwdvyBo4pUl/OA90wxEBIYEeHcdneXsNZl49LOYfOoAbkg0W1Og91qKCpXKiqH
- 0Oojz/VrXqW6B5NVYEQ37ZgRJzHXJRnhvlvCA+nV1jmTtnsBRuhVPLAjlH4eI2B5AUlg
- +Mtw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrxHbFd/5cYS5tEHNgR5Y8GXyz857FoekPx7DYRcFP0DNIeH3R+sU1Msz/unJBhCm2tOwVKuEN6UsE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxS2TwvuLlYqGa2rv0n8gRGRBPY9Dpk4DvwSsrKd7UAtqvL8uD8
- SNnY703+uAIk8TJa5DP2bGc97pbRLzGw2kB+bWogDER5m674tPp0wLzjdgpfKNigfRcqT/cSKyy
- vPEw8G/ieQ9zyOxk/x1Fd/PuVpk8RZeCAXbjBKPJfpQ==
-X-Gm-Gg: AR+sD13STrznyPps6IU6aSPVr1wsxnP2PtdgqfeUOd7uwUVm5ccJ1Ue7MFKAHgE2VVx
- HDR6PcixifNSUWtWnpgiPyIu2lD8aj1aV4olt/pr0Fi7QLOuWnMgZ770mX98mvnIkAL69cheDpv
- eQ3YT0u8qVybTrlEqYiR+rTKbaQQTuQPW6x7lg/IcxUkZ5oKnYnSBVTArx59l6RN9poLAZRPMA8
- XdecO4eRgQICMh8Qj9pGYdQoSxfSMh9Mpot4ruNWbvH64pPWcd1r/sgoKGB1Rxz6qT4GKfVJ8pR
- tP7lZfuNzgOIKgNpzrJW5DhOELjE/XrtS+kd/7Y8QbfU
-X-Received: by 2002:a17:903:2987:b0:2ca:619f:9733 with SMTP id
- d9443c01a7336-2d37e9ae9a8mr80628175ad.17.1786633765124; Thu, 13 Aug 2026
- 08:09:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260724-scdc-link-health-v9-0-bdda406d016d@collabora.com>
-In-Reply-To: <20260724-scdc-link-health-v9-0-bdda406d016d@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 13 Aug 2026 16:09:12 +0100
-X-Gm-Features: AUfX_mwnT8mSX1TxP1zLMIDeonWHO5mTijXRqqeOSADs0LdjYAmb4n0gllJsz2E
-Message-ID: <CAPj87rMNdbzebt0ovJcymRtBNunnQaVx_=aSUbcrXNTEZOPz9g@mail.gmail.com>
-Subject: Re: [PATCH v9 0/5] Add SCDC information to connector debugfs
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C930010F398
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:11:46 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4D6E51596
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 08:11:42 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 03B4B3F632
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 08:11:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786633906; bh=Gf3v4QVvqhyfUNN4zkCnWh9pAVv2yh+/YpnQue6QahM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=H1X5J3ewl5QoYt/j8pW13C6jMlaTSlrJMiArLP0Mha/ODMNJXnkZDudB+uCDnu8hG
+ wiRapqF6zYtxxNEEqwJ+Vy51bZ4tTXgVOkIYQ1Aqdxa6iftuAQhPSicwaMiu44vA+9
+ +nJFSmKsdnuXanNu00W9iE3HFkkser6gl/LXV3EM=
+Date: Thu, 13 Aug 2026 16:11:37 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sashiko-bot@kernel.org, Danilo Krummrich <dakr@redhat.com>
+Subject: Re: [PATCH v3 00/17] drm/panthor: Fix the unplug logic
+Message-ID: <an3eqSUT_FRkye-1@e142607>
+References: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
+ <20260813132320.1682f9bd@fedora-21.home>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260813132320.1682f9bd@fedora-21.home>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,24 +62,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Nicolas,
+On Thu, Aug 13, 2026 at 01:23:20PM +0200, Boris Brezillon wrote:
+> +Danilo, since you worked on the 'bound lifetime stuff in rust, and I
+> feel this is related to the problem I'm trying to fix here.
+> 
+> On Thu, 13 Aug 2026 12:56:58 +0200
+> Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> 
+> > The current unplug logic is broken in multiple ways. This is an attempt
+> > at addressing the various problems found along the way (some were
+> > reported by Sashiko, others have been found while trying to address
+> > Sashiko's concerns).
+> > 
+> > Sending a new version even though v2 didn't receive any human review
+> > just to try and address the new stuff pointed out by Sashiko.
 
-On Fri, 24 Jul 2026 at 15:23, Nicolas Frattaroli
-<nicolas.frattaroli@collabora.com> wrote:
-> HDMI uses the DDC I2C bus for communicating various bits of link status
-> out of band with the actual HDMI video signal. This information can be
-> useful for debugging issues like questionable cables sabotaged by feline
-> teeth, Enthusiast Grade cables made of cow fencing wire, and other such
-> problems that ruin one's media viewing plans.
->
-> Consequently, this series exposes various bits of pertinent information
-> from the SCDC protocol in an HDMI connector's debugfs. To continually
-> poll the link status, userspace can poll the debugfs file.
+Sorry, I was on holiday at the beginning of the week, back today.
 
-Pushed now; thanks everyone for review and testing.
+> 
+> Just a note I forgot to add to my cover letter. I've already spent way
+> more time than I wanted on this, not just because Sashiko keeps finding
+> new issues at each of my attempt, but also because the whole idea of
+> pretending a device on a platform bus is unplugged and can't harm us is
+> doomed. This is not an hot-pluggable bus, and the device is still there,
+> so, unless we can be absolutely sure it's inactive (which a RESET can
+> provide, but RESETs are fallible) we just have two options:
+> 
+> 1. prevent the device from going away until we managed to properly
+>    shutdown the GPU
 
-To ssh://ssh.gitlab.freedesktop.org/drm/misc/kernel.git
-   0d46312808f32..9b388fc3d0e63  drm-misc-next -> drm-misc-next
+That's going to be event harder with the upcoming HW where the GPU
+slice can be made inaccessible by an arbiter.
 
-Cheers,
-Daniel
+> 
+> 2. make sure all resources the HW might have its hands on at the time
+>    the failure of RESET in the unplug path happened are leaked
+
+There is another option which is to make sure that the HW can only
+access the dummy pages. We're still in control of the MMU and the page
+tables, once we update those and flush them we should be safe in the
+knowledge that the HW cannot access live resources.
+
+
+> 
+> Option 1 is no longer possible since platform_driver::remove() can't
+> return an error. That leaves options 2, which is basically what this
+> patchset is doing, but the whole idea of leaking resources when the
+> final RESET in the unplug path fails has various nasty implications,
+> like the fact we end up with dangling drm_device (drm_gpuvm retains a
+> ref, and each GPU mapping we kept alive in the gpuvm is what keeps the
+> gpuvm and the BOs alive). In practice, there should be no one
+> triggering operations on this drm_device, because all the user-facing
+> interfaces have been shutdown by drm_dev_unregister() (which is called
+> by drm_dev_unplug()), but as things stand now, this drm_device still
+> has access to module-specific vtables, and there's nothing retaining
+> the module either.
+> 
+> TLDR; this is all super fragile stuff, on the other hand the current
+> situation is probably even worse. so if anyone has any idea how to
+> handle this properly (or at least a bit better than we do), please let
+> me know. I know a lot of this stuff is currently being considered as
+> part of the drm-rust abstractions, so hopefully we have a long-term
+> solution for rust drivers, but I'd really like a short-term solution
+> for panthor that doesn't involve nasty tricks or overly complex
+> refactoring.
+
+I think some of the pain we're suffering comes from the overlap (that
+you've tried to address in this series) between the resources that
+are visible to the HW and the ones that are visible to user space. The
+split of AS and VM is the right thing to do.
+
+My proposal for handling the unplugging would be to have race as quick
+as possible to the MMU unplug and then free up all BOs and VMs that
+were allocated at the request of user space, then go back and free
+the kernel BOs. Then hopefully we should be in a position where there
+are no GPU mappings and we can unplug the drm_gpuvm.
+
+Best regards,
+Liviu
+
+> 
+> > 
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > ---
+> > Changes in v3:
+> > - Fix a race in the reset reschedule logic we added to
+> >   panthor_device_resume() (missing smp_mb__after_atomic())
+> > - Fix a VM leak when reset and suspend are racing with each other
+> > - Add missing drm_dev_enter/exit() sections
+> > - Insert the groups in the user_owned list even if the group creation
+> >   happens during a reset
+> > - Try to document why some of the issues pointed out by Sashiko are
+> >   either not real issues, or are expected (either fixed in a later
+> >   commits, or just expected behavior)
+> > - Fix a race between panthor_device_unplug() and vm_prep_for_cleanup()
+> >   (introduced in v2)
+> > - Link to v2: https://patch.msgid.link/20260811-panthor-unplug-fixes-v2-0-6b583e37f9ae@collabora.com
+> > 
+> > Changes in v2:
+> > - Fix UAFs caused by deferred cleanup works
+> > - Fix UAFs caused by open FDs closed after unplug
+> > - Fix deadlock when device_unplug() is called from the reset work
+> > - Make sure reset requests are not lost in the resume and post_reset
+> >   paths
+> > - Fix a deadlock in the suspend path
+> > - Fix a clk prepare_enable leak in the unplug path
+> > - Don't use a drmm_action to flush the cleanup queue (this could cause
+> >   UAFs)
+> > - Drop the now unused panthor_vm::unusable field
+> > - Keep track of user owned resources to prevent leaks and/or UAFs
+> > - Link to v1: https://patch.msgid.link/20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com
+> > 
+> > ---
+> > Boris Brezillon (17):
+> >       drm/panthor: Disable reset work before unplug
+> >       drm/panthor: Further delay reset work enablement
+> >       drm/panthor: Make sure reset requests in the resume path are not lost
+> >       drm/panthor: Make sure reset requests in the post reset path are not lost
+> >       drm/panthor: Flush the cleanup_wq in the unplug path
+> >       drm/panthor: Drop unused vm argument passed to panthor_vm_prepare_sync_only_op_ctx()
+> >       drm/panthor: Move the debugfs initialization to panthor_device.c
+> >       drm/panthor: Split panthor_vm
+> >       drm/panthor: Add fine-grained restrictions on VMs
+> >       drm/panthor: Check AS state before disabling
+> >       drm/panthor: Don't pre-allocate VMAs or page tables when preparing a full VM unmap
+> >       drm/panthor: Make the VM cleanup path more robust against UAF
+> >       drm/panthor: Track user owned VMs
+> >       drm/panthor: Track user owned groups
+> >       drm/panthor: Fix the unplug logic
+> >       drm/panthor: Add a debugfs knob to simulate unplug failures
+> >       drm/panthor: Add a debugfs knobs to simulate reset failures
+> > 
+> >  drivers/gpu/drm/panthor/panthor_device.c |  189 +++-
+> >  drivers/gpu/drm/panthor/panthor_device.h |   38 +
+> >  drivers/gpu/drm/panthor/panthor_drv.c    |  132 ++-
+> >  drivers/gpu/drm/panthor/panthor_fw.c     |    9 +-
+> >  drivers/gpu/drm/panthor/panthor_mmu.c    | 1493 ++++++++++++++++++------------
+> >  drivers/gpu/drm/panthor/panthor_mmu.h    |    4 +-
+> >  drivers/gpu/drm/panthor/panthor_sched.c  |  132 ++-
+> >  7 files changed, 1344 insertions(+), 653 deletions(-)
+> > ---
+> > base-commit: 44e9eb5a762142a4aa46c0b5da7c39bfeb78910e
+> > change-id: 20260804-panthor-unplug-fixes-7927b3ddc2f9
+> > 
+> > Best regards,
+> > --  
+> > Boris Brezillon <boris.brezillon@collabora.com>
+> > 
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
