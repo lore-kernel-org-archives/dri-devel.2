@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B4BC5DF67
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B4DC5DF67
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:37:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E545A10F489;
-	Thu, 13 Aug 2026 17:37:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA3510F48B;
+	Thu, 13 Aug 2026 17:37:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ixA7p747";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g87o/8Lw";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC18610F487;
- Thu, 13 Aug 2026 17:37:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2492A10F488;
+ Thu, 13 Aug 2026 17:37:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AACA5416BC;
+ by sea.source.kernel.org (Postfix) with ESMTP id 08ED443472;
+ Thu, 13 Aug 2026 17:37:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1700F1F000E9;
  Thu, 13 Aug 2026 17:37:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A411F00A3E;
- Thu, 13 Aug 2026 17:36:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786642627;
- bh=vaw3s6T/GSWhGIBxH9c44M6soIaJSA08keLAt3jySb4=;
+ s=k20260515; t=1786642647;
+ bh=mJPTehiXiSdt1BNIK6xJnSzDQS1j/lxnN+kNI1EurjI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ixA7p747hccwgImJ59EcIdFEdSb9rc3LOw5kVbJpKoEo+0MrDfKmMlBaTs4ef7wRp
- Y09zqNUCXL/Q1nXEnswtP39scxNB9QBcvSpkUWXqiJes3uks/0pES6sNqGYVl9zfIH
- q1UdbZqJfKD2AjguBvWW/DtZR+cJY2l/Oa3RXrVhsaKxiZXggZapMoIY6l1WbpapBK
- soW+xVWeTSY/FLuyemB/fTPfHP/6sgSHr5/1/K6gAGYMJccN3jC4vFXgCNgBT8mAwc
- TAhftfuvaFfkEVyxyj0At3cGYA9N/gt8Q0gNTrFfMACpD2FzWDj1uimQe82B7+ml91
- 7mrNMhuTrg+7w==
+ b=g87o/8LwPgowJqtU2bHG3Mufu+nohJlc3U6lun9oXAPmaBCwkixuTZDN7rXbdKakS
+ mXhifbZ1+rJrS/PCWRJsyf5c8BbMzX5pKEosCqVYUJYGMUEECrhrE+HsbfIOgBaKda
+ 8MN2Hz2yijd7TM54oIuAh0fVtzMy5Tg2nV9eUqsGOegNPbXNuCITbdnv32FuFF7IuX
+ 5Sbi/VYekz3di2IadYIzKl1LPsRv52IP2u4e/5/SRHMxZ4WS+lLSeL6YudyBGHQknB
+ U1iKaNCFQ95sTMI7Orqnpl+RFqOw+kW0Y0CDpbh0KewYLf91Zrz7qF+EK0CUGDKjHg
+ ZlOMTADzLm4Zg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 13 Aug 2026 18:32:29 +0100
-Subject: [PATCH v5 12/16] mm/huge_memory: update remove_migration_pmd() to
- accept a folio
+Date: Thu, 13 Aug 2026 18:32:30 +0100
+Subject: [PATCH v5 13/16] mm/migrate: calculate large folio page index
+ using PFN
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-b4-scalable-cow-virt-pgoff-v5-12-c21581c0c3c8@kernel.org>
+Message-Id: <20260813-b4-scalable-cow-virt-pgoff-v5-13-c21581c0c3c8@kernel.org>
 References: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
 In-Reply-To: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -99,12 +99,12 @@ Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
  dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3818; i=ljs@kernel.org;
- h=from:subject:message-id; bh=q0oMVyXXBC+siqfel45AxXFQKXhgvOdgu44yz/skNq4=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJq/6/5F1G55rl8yiLzKSurYtcednm68v2b5LfO17iun
- E6r5tWz6ShlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBESq4x/E959/lG4ZRWo3vN
- /Px/yn09V2vV3/rQ2563THRvA/eG/t8Mf8VmWS7u+1xZK/v/296rxqzNa68cNXc6UXH325RilYd
- 3s7kB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2257; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=4CWJyPC33HnfZF8tYHNty46xzNZUZPa7yJy7Pu2iMAw=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJq/69Rd/JoXfQxfUbOWnaZwqzqy/9jQmbvev5hzQFh0
+ QVWb4wEOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRFccZfrMU3rB5/yarPODj
+ V133utms9+Zaec2wdTwoXaIvX7lhMgvD/6j1bxLuvr0pu2920YVPrKcffZ8n/Vv10ffg3wWL+S9
+ uY2YEAA==
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -122,107 +122,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This function does not need to accept a page and requiring it to is
-unnecessary and misleading.
+Rather than having to figure out the page index to use using
+linear_page_index(), calculate it using PFN.
 
-make_[writable, readable]_device_private_entry() must be passed a
-PMD-aligned PFN as they immediately used to obtain a softleaf PMD entry and
-the same argument applies to folio_add_[anon, file]_rmap_pmd().
+This is a more natural fit as the linear page index is immaterial to
+determining the folio page index.
 
-While we are here, update a VM_BUG_ON() to a VM_WARN_ON_ONCE().
+Derive the page index from the offset between migration entry PFN and folio
+PFN - pvmw.pfn (set via DEFINE_FOLIO_VMA_WALK() which uses folio_pfn() to
+obtain it).
+
+Additionally remove a not so useful comment and clean the code layout up.
 
 No functional change intended.
 
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/swapops.h |  6 +++---
- mm/huge_memory.c        | 16 +++++++---------
- mm/migrate.c            |  2 +-
- 3 files changed, 11 insertions(+), 13 deletions(-)
+ mm/migrate.c | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/swapops.h b/include/linux/swapops.h
-index c956bc445ee0..1f3ff3b93e16 100644
---- a/include/linux/swapops.h
-+++ b/include/linux/swapops.h
-@@ -325,8 +325,8 @@ struct page_vma_mapped_walk;
- extern int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
- 		struct page *page);
- 
--extern void remove_migration_pmd(struct page_vma_mapped_walk *pvmw,
--		struct page *new);
-+void remove_migration_pmd(struct page_vma_mapped_walk *pvmw,
-+		struct folio *folio);
- 
- extern void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd);
- 
-@@ -346,7 +346,7 @@ static inline int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
- }
- 
- static inline void remove_migration_pmd(struct page_vma_mapped_walk *pvmw,
--		struct page *new)
-+		struct folio *folio)
- {
- 	BUILD_BUG();
- }
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 6b0cabd45b2d..47c9c6e32eba 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -5020,9 +5020,8 @@ int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
- 	return 0;
- }
- 
--void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct page *new)
-+void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct folio *folio)
- {
--	struct folio *folio = page_folio(new);
- 	struct vm_area_struct *vma = pvmw->vma;
- 	struct mm_struct *mm = vma->vm_mm;
- 	unsigned long address = pvmw->address;
-@@ -5058,11 +5057,9 @@ void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct page *new)
- 		swp_entry_t entry;
- 
- 		if (pmd_write(pmde))
--			entry = make_writable_device_private_entry(
--							page_to_pfn(new));
-+			entry = make_writable_device_private_entry(folio_pfn(folio));
- 		else
--			entry = make_readable_device_private_entry(
--							page_to_pfn(new));
-+			entry = make_readable_device_private_entry(folio_pfn(folio));
- 		pmde = softleaf_to_pmd(entry);
- 
- 		if (pmd_swp_soft_dirty(*pvmw->pmd))
-@@ -5077,11 +5074,12 @@ void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct page *new)
- 		if (!softleaf_is_migration_read(entry))
- 			rmap_flags |= RMAP_EXCLUSIVE;
- 
--		folio_add_anon_rmap_pmd(folio, new, vma, haddr, rmap_flags);
-+		folio_add_anon_rmap_pmd(folio, &folio->page, vma, haddr, rmap_flags);
- 	} else {
--		folio_add_file_rmap_pmd(folio, new, vma);
-+		folio_add_file_rmap_pmd(folio, &folio->page, vma);
- 	}
--	VM_BUG_ON(pmd_write(pmde) && folio_test_anon(folio) && !PageAnonExclusive(new));
-+	VM_WARN_ON_ONCE(pmd_write(pmde) && folio_test_anon(folio) &&
-+			!PageAnonExclusive(&folio->page));
- 	set_pmd_at(mm, haddr, pvmw->pmd, pmde);
- 
- 	/* No need to invalidate - it was non-present before */
 diff --git a/mm/migrate.c b/mm/migrate.c
-index 222c8c15f782..d08eff028483 100644
+index d08eff028483..50d0b547bca3 100644
 --- a/mm/migrate.c
 +++ b/mm/migrate.c
-@@ -372,7 +372,7 @@ static bool remove_migration_pte(struct folio *folio,
- 		if (!pvmw.pte) {
- 			VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
- 					!folio_test_pmd_mappable(folio), folio);
--			remove_migration_pmd(&pvmw, new);
-+			remove_migration_pmd(&pvmw, folio);
+@@ -356,16 +356,11 @@ static bool remove_migration_pte(struct folio *folio,
+ 
+ 	while (page_vma_mapped_walk(&pvmw)) {
+ 		rmap_t rmap_flags = RMAP_NONE;
+-		pte_t old_pte;
+-		pte_t pte;
++		unsigned long idx = 0;
+ 		softleaf_t entry;
+ 		struct page *new;
+-		unsigned long idx = 0;
+-
+-		/* pgoff is invalid for ksm pages, but they are never large */
+-		if (folio_test_large(folio) && !folio_test_hugetlb(folio))
+-			idx = linear_page_index(vma, pvmw.address) - pvmw.pgoff;
+-		new = folio_page(folio, idx);
++		pte_t old_pte;
++		pte_t pte;
+ 
+ #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+ 		/* PMD-mapped THP migration entry */
+@@ -381,14 +376,18 @@ static bool remove_migration_pte(struct folio *folio,
+ 						pvmw.pte);
+ 		else
+ 			old_pte = ptep_get(pvmw.pte);
++
++		entry = softleaf_from_pte(old_pte);
++		if (folio_test_large(folio) && !folio_test_hugetlb(folio))
++			idx = softleaf_to_pfn(entry) - pvmw.pfn;
++
+ 		if (rmap_walk_arg->map_unused_to_zeropage &&
+ 		    try_to_map_unused_to_zeropage(&pvmw, folio, old_pte, idx))
  			continue;
- 		}
- #endif
+ 
+ 		folio_get(folio);
++		new = folio_page(folio, idx);
+ 		pte = mk_pte(new, READ_ONCE(vma->vm_page_prot));
+-
+-		entry = softleaf_from_pte(old_pte);
+ 		if (!softleaf_is_migration_young(entry))
+ 			pte = pte_mkold(pte);
+ 		if (folio_test_dirty(folio) && softleaf_is_migration_dirty(entry))
 
 -- 
 2.55.0
