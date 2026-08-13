@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59915C5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90F05C5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:06:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 827A910E367;
-	Thu, 13 Aug 2026 07:04:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A82AD89452;
+	Thu, 13 Aug 2026 07:06:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D5i0th3p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LO7XnNmk";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5B910F1A8
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:04:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB6A389452
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:06:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EECED40764;
- Thu, 13 Aug 2026 07:04:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A561F000E9;
- Thu, 13 Aug 2026 07:04:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 79D8840562;
+ Thu, 13 Aug 2026 07:06:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E071F000E9;
+ Thu, 13 Aug 2026 07:06:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786604686;
- bh=UgWct9UeMHk4UFxQ8VlRHLlm0oUzUbQW0gcOeCF6jPk=;
+ s=k20260515; t=1786604795;
+ bh=5gkzFo2+VnKiba/m6QDHWuLmIQSEjcsqyeD9BtdYCdE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=D5i0th3pYQMKiwMgNEoa1BpFL/0SSTZCFcvB9XduSctmIHD/XE/DkxQV4Hb7t7a3O
- jcxUPx+tHbFnXa51HVopZLAEfDmBsjpBtNo3qvptbCeOEEgvKGX2MwwGT9+/1Rwo1r
- Q+J+xq4+PAlB/1EFWPzaSKkl4bQoY0zvPu9cHv8wDrkV0FU/JNZpAUWOkf3jjPHX+x
- sv5BgEshyQkr4CuXPXvHydzBfpfl0ZvKdkoLFhbTS8o4N2AZyciqNqqPqU7GsZ5jAG
- UpJf5rlnBsuOyUvognZ0TKCPqnHlFtH7r9mXCA/fhoukVVrA2FcnkbYsxZXIXRrltP
- bRrcKN9+xOjKg==
-Date: Thu, 13 Aug 2026 09:04:37 +0200
+ b=LO7XnNmksRdPGuuVUvy4uIp1TNqnss+bW1hz0raYz9RVLB9K2Msgsgwbi+S77PMen
+ EU929j5yne48ccdwHerg5SVsXmfM/l/6Fsc13FOojuYOe4cA+efThVEz/GwEjv+U7g
+ bEUZuO4PJZ0PxH6thkO1thO+J+W63uADRHQ7BT64/Yjc3vPSNeCe1n4zJaSG47bJHR
+ /Plvnr6vRz1KaNK4XkEp1In1rN3T/LC5p7IJcb7XUmYuq1E4rA6o95MXLnlu675/Y8
+ ptXQEUJYFoSiQ8eJSCg0y24KdXivFsYdEEdgPRfs5Mkf3vnB6kIHeAKCl95shEvTqW
+ XPXivBMAj9aAA==
+Date: Thu, 13 Aug 2026 09:06:24 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Jiaxing Hu <gahing@gahingwoo.com>
 Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org, 
@@ -44,15 +44,15 @@ Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  linux-pm@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 02/10] dt-bindings: npu: rockchip: add
- rockchip,rk3576-rknn-core
-Message-ID: <20260813-apricot-bat-of-vigor-65ba20@quoll>
+Subject: Re: [PATCH v7 03/10] dt-bindings: power: rockchip: allow resets in a
+ power domain node
+Message-ID: <20260813-squid-of-splendid-hail-d968bf@quoll>
 References: <20260812094106.1391698-1-gahing@gahingwoo.com>
- <20260812094106.1391698-3-gahing@gahingwoo.com>
+ <20260812094106.1391698-4-gahing@gahingwoo.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260812094106.1391698-3-gahing@gahingwoo.com>
+In-Reply-To: <20260812094106.1391698-4-gahing@gahingwoo.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,23 +68,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 09:40:57PM +1200, Jiaxing Hu wrote:
-> The RK3576 NPU has two cores of the same RKNN block the RK3588 binding
-> already describes, but it wires them up differently: two extra CBUF
-> clocks, two power domains per core, and a single reset instead of two.
-> It also has no NPU SRAM supply.
+On Wed, Aug 12, 2026 at 09:40:58PM +1200, Jiaxing Hu wrote:
+> Some domains do not come up in a usable state on their own and need
+> their resets cycled once power is on. The RK3576 NPU domains are one
+> case: without it the first access after power-on takes an async SError.
 > 
-> Widen the property ranges to cover both, then pin each SoC back to its
-> own shape in allOf so nothing loosens for RK3588, and keep sram-supply
-> required for rockchip,rk3588-rknn-core only.
+> pd-node has no resets property and every nesting level is
+> unevaluatedProperties: false, so describing that in DT is rejected
+> today. Add it alongside clocks.
+
+This paragraph is redundant. Why are you explaining correct syntax?
+
 > 
 > Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 > ---
->  .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++++++++++--
->  1 file changed, 44 insertions(+), 3 deletions(-)
+>  .../bindings/power/rockchip,power-controller.yaml         | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
+> index b41db576f..f23c1a118 100644
+> --- a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
+> +++ b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
+> @@ -136,6 +136,14 @@ $defs:
+>            A number of phandles to clocks that need to be enabled
+>            while power domain switches state.
+>  
+> +      resets:
+> +        minItems: 1
+> +        maxItems: 30
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+30 resets per one power domain? and none got to the example in this
+file?
 
-Best regards,
-Krzysztof
+> +        description: |
 
+Do not need '|' unless you need to preserve formatting.
+
+> +          A number of phandles to resets that need to be cycled once the power
+> +          domain has been switched on, for domains whose logic does not come up
+> +          in a usable state by itself.
+> +
+>        domain-supply:
+>          description: domain regulator supply.
+>  
+> -- 
+> 2.43.0
+> 
