@@ -4,52 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34DEFC5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 15:30:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B32E0C5CFCF
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 15:45:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F64D10F3AD;
-	Thu, 13 Aug 2026 15:30:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E478210E066;
+	Thu, 13 Aug 2026 15:45:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ElxG8y9B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZCorfhbo";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 64A5F10F3AD
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:30:33 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0A91D1756
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 08:30:29 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- B17073F632
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 08:30:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1786635032; bh=fZHXHlUpDEgX8tHOpg8oqwQHGXxEPEgltzKhWJGUvts=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ElxG8y9BvYBE4jwbh30s4Uhd98+K2OV7PfUIO5WRASk/+3ULzhVtIjsxcrhbeNxBU
- JlcMxrsLqhka5RuGtnpX5+5OIbAvz0xYPjd3dj5vuDh/EzKqs1J597JHBUJVHsjx6H
- yOmVeVkb+CLcyoYnjanOI3ulmvckhTR1CLP64Rwo=
-Date: Thu, 13 Aug 2026 16:30:19 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Grant Likely <grant.likely@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 3/3] drm/panthor: Take reqs_lock in soft_reset for
- clearing pending_reqs
-Message-ID: <an3jCwAFslFkwUDc@e142607>
-References: <20260811-panthor-cache-flush-fix-v3-0-47d2c1bb1dab@collabora.com>
- <20260811-panthor-cache-flush-fix-v3-3-47d2c1bb1dab@collabora.com>
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAEEC10E066
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:45:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7BB3B41595;
+ Thu, 13 Aug 2026 15:45:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347361F000E9;
+ Thu, 13 Aug 2026 15:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786635908;
+ bh=6QDwKX0CxJTd/lkQkK1yYV/IrDXnHjokyq+nTBKmYyA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZCorfhbohBNabD1mdZdek5A6GA7LyDbfLMysj1kxjWdhnRBn81/je7McWlPFkBS39
+ ra8j6uDDiblxGm0pPQAxI3sgBAJfbjI0k378OIilER32XghfjBCwCDAITWVYQz0hKj
+ WC67vOZWWGvQX+nrqhN7rLL+FJA62fKLy6dtaKWqZbVxDJNoECovdWN+gbmPscgO9d
+ R/WVr+Ghf4/H0OH+v3H+1nnPASx8ngOx1x4N7mUKuoR/PFFd40FgBSqNcrLDs8uU1f
+ V/uJpe34dsSAHEdgeevEiMmgiyljEB+oVK1sRkfbJrBO+ox5Gg4p6hL6cvfaJiDIDO
+ cF+dtqphjw32g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/imagination: clamp freelist reconstruction requests
+To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260813152759.35856-1-pengpeng@iscas.ac.cn>
+References: <20260813152759.35856-1-pengpeng@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260811-panthor-cache-flush-fix-v3-3-47d2c1bb1dab@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 15:45:07 +0000
+Message-Id: <20260813154508.347361F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +52,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 11, 2026 at 04:08:33PM +0200, Nicolas Frattaroli wrote:
-> panthor_gpu_soft_reset() sets pending_reqs to 0 without taking the
-> requisite reqs_lock.
-> 
-> Fix this by taking the lock for the duration of the modification.
-> 
-> Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Pre-existing issues:
+- [High] Uninitialized kernel stack memory (union padding and trailing arra=
+y elements) sent to firmware CCB (Command Control Buffer).
+--
 
-Best regards,
-Liviu
+--- Patch [1]: [PATCH] drm/imagination: clamp freelist reconstruction reque=
+sts ---
+commit ba7e433ffb1bb57e684515b2def3023d1d0aff07
+Author: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-> ---
->  drivers/gpu/drm/panthor/panthor_gpu.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index cb5319d1c5de..12e7e29b35b5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -405,7 +405,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
->  		return -ETIMEDOUT;
->  	}
->  
-> -	ptdev->gpu->pending_reqs = 0;
-> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
-> +		ptdev->gpu->pending_reqs = 0;
-> +	}
+drm/imagination: clamp freelist reconstruction requests
+
+This commit bounds the freelist reconstruction count from firmware to the
+maximum array capacity to prevent out-of-bounds accesses. It processes
+only the bounded subset and reports this bounded count back to firmware,
+emitting a one-time warning if the limit is exceeded.
+
+> diff --git a/drivers/gpu/drm/imagination/pvr_free_list.c b/drivers/gpu/dr=
+m/imagination/pvr_free_list.c
+> index e85cac83834c6..23dbc227b081a 100644
+> --- a/drivers/gpu/drm/imagination/pvr_free_list.c
+> +++ b/drivers/gpu/drm/imagination/pvr_free_list.c
+> @@ -612,13 +612,20 @@ pvr_free_list_process_reconstruct_req(struct pvr_de=
+vice *pvr_dev,
+>  	};
+>  	struct rogue_fwif_freelists_reconstruction_data *resp =3D
+>  		&resp_cmd.cmd_data.free_lists_reconstruction_data;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this initialization lea=
+ve
+union padding uninitialized?
+
+The resp_cmd struct uses a designated initializer for cmd_type. This
+zero-initializes only the first member of its cmd_data union (cmd_kick_data=
+),
+leaving the remainder of the union uninitialized.
+
+> +	u32 count =3D min_t(u32, req->freelist_count,
+> +			  ARRAY_SIZE(req->freelist_ids));
+> =20
+> -	for (u32 i =3D 0; i < req->freelist_count; i++)
+> +	if (count !=3D req->freelist_count)
+> +		drm_warn_once(from_pvr_device(pvr_dev),
+> +			      "Firmware requested reconstruction of %u freelists, limiting to=
+ %u\n",
+> +			      req->freelist_count, count);
 > +
->  	return 0;
->  }
->  
-> 
-> -- 
-> 2.55.0
-> 
+> +	for (u32 i =3D 0; i < count; i++)
+>  		pvr_free_list_reconstruct(pvr_dev, req->freelist_ids[i]);
+> =20
+> -	resp->freelist_count =3D req->freelist_count;
+> +	resp->freelist_count =3D count;
+>  	memcpy(resp->freelist_ids, req->freelist_ids,
+> -	       req->freelist_count * sizeof(resp->freelist_ids[0]));
+> +	       count * sizeof(resp->freelist_ids[0]));
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+If count is small (e.g., 1), the memcpy only fills count elements of the ar=
+ray.
+The trailing elements of resp->freelist_ids will fall into the uninitialized
+union padding.
+
+> =20
+>  	WARN_ON(pvr_kccb_send_cmd(pvr_dev, &resp_cmd, NULL));
+>  }
+
+When pvr_kccb_send_cmd() copies the full sizeof(struct rogue_fwif_kccb_cmd)=
+ to
+the KCCB ring buffer, could it leak this uninitialized kernel stack memory =
+to
+the GPU firmware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813152759.3585=
+6-1-pengpeng@iscas.ac.cn?part=3D1
