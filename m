@@ -4,103 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 119F3C5DF66
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 22:02:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55FDAC5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 22:02:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18D6810F569;
-	Thu, 13 Aug 2026 22:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6790E10E040;
+	Thu, 13 Aug 2026 22:02:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n42abIMK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A/AQvLAI";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9703810F569
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 22:01:59 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-383fff6e8b6so38094a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:01:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786658519; cv=none;
- d=google.com; s=arc-20260327;
- b=HirjZRi0gV3hIqrNUVPxg062ACo77IWtL+bwokBOZSoR3EADlETZy64IP0D3vx5yBX
- AJ1kad+k9q5lwEKm/hQHK6WgO47GN2VX0+jmA9G/JY2Vcrm0MwRUjkmvYnJD1e7yHHL8
- tfw/qMvA0RSKDDqTbNncy9BuiEOj25/7yQlc4Vty8cUqcxrcKG66sEWd6fmnq5ST0/s+
- Vn91d9hEmdxlNT30J8GNsdhV2r0li6ZJgcT6vXjoxy6dZ585rLH6u4zLTIJLM++B/Lyk
- 4h+OEPMphSTVNPF39u/icINnqYCLnh0FrqaqmTMMleDzYRjFvIFOWsYiNqjZYv6GXSaC
- 2hZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4Mq4lnCpPXsLK97g8OxvoVmu/P5LTp2GxHOYzB464gE=;
- fh=zNpD3jocJwiJFHvXSZQlUDvI9j/zZy0s1LRIFdBQ9TI=;
- b=Shy+fNpeCReo1a+d0Og+xSl3lueqvvriZH1lmUaXsRtKmnvaohtu5kpGvzV2XHzmJT
- VBjtoJ+mGqOrB0LhJYycc5K5tOY9WLbRUnSLS6RosijFHPWZrcZ2sRpBYDYy/vM89S0X
- XGimYAh/ua5DDgj/ZqoB+z0CZz+Hl1kQrioIoisigAsk8hsIb9dFs6Rp1rmz5fPdBAka
- aUNz4G7L6MZ+82KMvr1S1xu/B6OE87matAU/6mm78V2aGjOF/WSrUfJWZO19SyX0jVdF
- kLC+H8+SSsBJ/CdLxbv0bUUzK7fHLY6hLLACECccSgvMfOjngL0S5Kzp+qviiLd3EPzt
- Vstw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786658519; x=1787263319; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=4Mq4lnCpPXsLK97g8OxvoVmu/P5LTp2GxHOYzB464gE=;
- b=n42abIMK1o3+ZheEgPyFVIlRApzlC61KJouOqILFlPWV9lomc2jA0UJ6iN3/1o8N5q
- z402PkyNk935W2Kv7MYaFP5Rfpmfak4PWjk9HyMzfLPFek9xiUPPIuPzyBmqetiGVoSV
- N+HDfDeHn8WqelTPFP9hYj4KVYsmXYAv8bb8nTdqhgXdrrNJSDt2q3X5UR7T44C0wjX1
- mrn3ETE+PDWZHdfaoN1dw+Gcj7odbMnoQHu5qpjm6st+Z9GHQpreXrT0uB2wTvVt8mea
- GKFHl6TziBiB6EC1l1ZBnKh9YypCDsxGupsvXHYqWE2TNXxbwWbc1hpaFzTOvcrEMpDr
- 7srg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786658519; x=1787263319;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=4Mq4lnCpPXsLK97g8OxvoVmu/P5LTp2GxHOYzB464gE=;
- b=KX8Ui0NqxKrxVD4NjeYN2t1M7Qo+ekaiUncTTkzElXt8OTshECWeFzjxfs9FIvdPOt
- 8cTMySPp86YK0+PEJYKze9Zx+GNuFCYadh7dI3N7Roe2kKV779aSEtB/GMG/RFLqG+Mw
- mzJ7hJdtZvAcWlBs/2N7CE2IFDOaTN9Xh3UD50mhsvywojOzUh4dr4r0c/2EDs90QRID
- Z2xSw4f1IcWnoSDqFelr9ZlmAkiDkpMWrNllwXjFsMRK/VO+iuHTjM4nlH076MmOUv8m
- zNY5Bccds9ROP5A2q83F6z0xLJX+uoNjrMvvmsgR8iYU6lxvHGombzLKMLeXny0/0tgq
- PlPQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpdj4/SwQ0EwelB66H93GvQakEwSnFpMYb9rnX7zLxCVP0HBVut2llu/l/GXTpkqYdHQAWURyQrVBk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxTu90LpyoOFRg0XzeaS7TrHpGF0Xs6VX7qRjQstwCFzgyaJsmz
- vA462HM3mVyT9DiQQNvP1r9JFRHQwbQ3Plu1oIhE51Bk8+TZJv3aoNAFGJdUSZrYQaGZ5OsdmXL
- slmqWDMdpiTKI3mSISeqmzSE+iIMGUF8=
-X-Gm-Gg: AR+sD12uF/aSaDgCkQ1VCRgiXBYH99iAXt65sO6SC/71mST4j6awvqM5Zq6bp++LG8K
- 1VayruvOo8S1bhOc15I78efeflzAxdwP12pN13hFP+sA95Pcjh0OnzTAUtAvZLAj1ZhOH6bfkA7
- yIYLAkpcuwFVEEzvWxwEYTWPo1LpbPuABr5dx+VMixl32yh0h12gI6zQ+irxUDBCE31Y/1AVg3A
- 7vnjnjMKf8wZjWXBjBtWhPXvLHRdaNV/SX4eLrLjoUUTFA4uh3piOavxaax6GW415zAShOJC215
- 8CqXvbaSMsITe4YQu8B6fKMJgLQwyeBBuCNogGBrRkekRnfK9i6HXaPHPoDCe4Howb4WYNhLkPn
- aYJ6yW8lZT3tXSzuTky0CaWMgh+Fq1X0=
-X-Received: by 2002:a17:90b:1fc8:b0:38e:7069:7117 with SMTP id
- 98e67ed59e1d1-3933b50729fmr918723a91.0.1786658518991; Thu, 13 Aug 2026
- 15:01:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260805140227.44868-1-boqun@kernel.org>
- <an44yIv7WG7vqTqQ@tardis.local>
-In-Reply-To: <an44yIv7WG7vqTqQ@tardis.local>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Aug 2026 18:01:47 -0400
-X-Gm-Features: AUfX_mwrCLsatx0Sle_Nl-2BbcnZsP50vwFu_lWeNoqprpd0PhoDhEdHVhOZSkw
-Message-ID: <CADnq5_PLV1rDw8DSawdHfQxyk8XgPp94TQa0HuFVdZVvZo+zmQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Fix incorrect avg vcn utilization in
- gpu_metrics
-To: Boqun Feng <boqun@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, Mark Janes <mjanes@netflix.com>, 
- Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lijo Lazar <lijo.lazar@amd.com>, 
- Asad Kamal <asad.kamal@amd.com>, Yang Wang <kevinyang.wang@amd.com>, 
- Priya Hosur <Priya.Hosur@amd.com>, mythilam <mythilam@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DFB210E040
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 22:02:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 110F3407BA;
+ Thu, 13 Aug 2026 22:02:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E76AA1F000E9;
+ Thu, 13 Aug 2026 22:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786658563;
+ bh=uztOojXZ1yE517xBpsBW5dq1952Xh4MfmPRSI32O1a8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=A/AQvLAI+krzqfv6Uh4ikqRwiHtELE/Y0HONZWqB38KMFjHnSszM3Og8odwJxIzAB
+ OS1YcpFGSBvgNrFJJ/SzkS35OfZsL/+XuqvJgUnY/u6HixrlamfJnvvyrNawSVZ9Bs
+ 9kdlHpxqQnhyEcSB0QC6udE+vm52BtOMO/HUw1e1QGEjLpJUqvMfXWM3svVeKNPsFR
+ vR4abfxgp6ILCLkheiVooMYKWqZ0hYiWIZjaCSQ+RcSeQg3UwZZPexwcWFBNLUx8Wq
+ d6tCq+0mIjy0lTEqmBaa5m7X8+kqGTCa6z2uBs1K8jm/e60yE7RPz42YcTkLionIcG
+ 3pR/drzGcEABw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 04/10] drm/msm/dp: Move link training to atomic_enable()
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260314-hpd-refactor-v5-4-0c8450737d64@oss.qualcomm.com>
+References: <20260314-hpd-refactor-v5-4-0c8450737d64@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 22:02:39 +0000
+Message-Id: <20260813220239.E76AA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,64 +52,186 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 13, 2026 at 5:36=E2=80=AFPM Boqun Feng <boqun@kernel.org> wrote=
-:
->
-> On Wed, Aug 05, 2026 at 07:02:21AM -0700, Boqun Feng wrote:
-> > In a Strix Halo system, a >100 average_vcn_activity in gpu_metrics can
-> > be observed by running the following command:
-> >
-> >     ffmpeg -hwaccel vappi -vappi_device /dev/dri/renderD128 -i \
-> >     ~/sample-10s.mp4 -vf hwupload,scale_vappi=3Dformat=3Dnv12 -c:v \
-> >     h264_vappi /tmp/output.mp4
-> >
-> > This is incorrect because the value is supposed to be in [0-100] range.
-> >
-> > The cause of the issue is that the metrics.VcnActivity reported by
-> > smu_cmn_get_metrics_table() is a permyriad value instead of a percentag=
-e
-> > value (e.g. smu_v14_0_0_get_smu_metrics_data() has a division by 100 to
-> > report the vcn_busy_percent). Therefore fix this by applying the same
-> > division in smu_v14_0_0_get_gpu_metrics().
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-I think this is correct as is.  smu_v14_0_0_get_smu_metrics_data() is
-used to fetch data for standardized formats like hwmon while
-smu_v14_0_0_get_gpu_metrics() is for dumping the raw metrics data.
+New issues:
+- [High] Silent link training failure in atomic_enable leaves userspace wit=
+h a broken display state.
+- [High] Moving DP link training to `atomic_enable()` leaves the unplug han=
+dler performing unbalanced clock disable and PHY power off, which corrupts =
+the PHY power state.
+- [Medium] Commit message and implementation mismatch regarding hpd_notify(=
+).
 
-Alex
+Pre-existing issues:
+- [High] Missing PM runtime put on error paths in `msm_dp_bridge_atomic_ena=
+ble` causes a usage counter leak.
+- [High] Failure during `msm_dp_ctrl_on_stream()` permanently leaks link cl=
+ocks, stream clocks, and PHY power.
+--
 
-> >
-> > Reported-by: Mark Janes <mjanes@netflix.com>
-> > Signed-off-by: Boqun Feng <boqun@kernel.org>
->
-> Ping?
->
-> Regards,
-> Boqun
->
-> > ---
-> >  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > index 568665265a13..1058338344b0 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > @@ -566,7 +566,8 @@ static ssize_t smu_v14_0_0_get_gpu_metrics(struct s=
-mu_context *smu,
-> >       gpu_metrics->temperature_skin =3D metrics.SkinTemp;
-> >
-> >       gpu_metrics->average_gfx_activity =3D metrics.GfxActivity;
-> > -     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity;
-> > +     /* metrics.VcnActivity is permyriad, convert it to percentage. */
-> > +     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity / 100;
-> >       memcpy(&gpu_metrics->average_ipu_activity[0],
-> >               &metrics.IpuBusy[0],
-> >               sizeof(uint16_t) * 8);
-> > --
-> > 2.50.1 (Apple Git-155)
-> >
+--- Patch [4]: [PATCH v5 04/10] drm/msm/dp: Move link training to atomic_en=
+able() ---
+commit c64d2d707d517a12463d9c1b31e96a4e25a831e3
+Author: Jessica Zhang <jesszhan0024@gmail.com>
+
+drm/msm/dp: Move link training to atomic_enable()
+
+This commit moves DP link training from the HPD handler into atomic_enable(=
+).
+It also states that plug and unplug handlers are called directly in
+hpd_notify() to prevent preemption by other events.
+
+> Finally, call the plug/unplug handlers directly in hpd_notify() instead
+> of queueing them in the event thread so that they aren't preempted by
+> other events.
+
+[Severity: Medium]
+Is this description accurate regarding hpd_notify()?
+
+Looking at msm_dp_bridge_hpd_notify(), the code continues to queue events v=
+ia
+msm_dp_add_event() rather than calling the handlers directly:
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_bridge_hpd_notify() {
+    if (!msm_dp_display->link_ready && status =3D=3D connector_status_conne=
+cted)
+        msm_dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
+    else if (msm_dp_display->link_ready && status =3D=3D connector_status_d=
+isconnected)
+        msm_dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
+}
+
+Could the commit message or implementation be updated to match?
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index a05144de3b93f..e7b1ed5491c49 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -436,11 +436,6 @@ static int msm_dp_display_process_hpd_high(struct ms=
+m_dp_display_private *dp)
+>  	msm_dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+> =20
+>  	msm_dp_link_reset_phy_params_vx_px(dp->link);
+> -	rc =3D msm_dp_ctrl_on_link(dp->ctrl);
+> -	if (rc) {
+> -		DRM_ERROR("failed to complete DP link training\n");
+> -		goto end;
+> -	}
+
+[Severity: High]
+Does removing the link training here leave the unplug handler performing an
+unbalanced clock disable and PHY power off?
+
+If a user unplugs the display while in ST_MAINLINK_READY (before userspace
+issues an atomic commit), msm_dp_hpd_unplug_handle() will call
+msm_dp_ctrl_off_link().
+
+This blindly calls clk_bulk_disable_unprepare() and phy_power_off() on cloc=
+ks
+and PHYs that were never enabled, leading to an unbalanced clock disable
+warning and decrementing the PHY power_count to a negative value. Once the
+power_count drops to -1, the next phy_power_on() increments it to 0 and
+bypasses the actual hardware callback, which seems like it would break the
+display until reboot.
+
+> =20
+>  	msm_dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
+> =20
+
+[ ... ]
+
+> @@ -1695,6 +1690,11 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge=
+ *drm_bridge,
+>  		force_link_train =3D true;
+>  	}
+> =20
+> +	rc =3D msm_dp_ctrl_on_link(msm_dp_display->ctrl);
+> +	if (rc)
+> +		DRM_ERROR("Failed link training (rc=3D%d)\n", rc);
+> +	// TODO: schedule drm_connector_set_link_status_property()
+> +
+
+[Severity: High]
+Will this leave userspace with a silently broken display state if
+msm_dp_ctrl_on_link() fails?
+
+The error is logged, but execution proceeds to enable the display anyway.
+Without the mentioned drm_connector_set_link_status_property() update to ma=
+rk
+the link as BAD, does userspace have any way to know it must trigger a
+recovery modeset?
+
+[Severity: High]
+This is a pre-existing issue, but does this function leak a PM runtime usage
+counter on its error paths?
+
+Earlier in msm_dp_bridge_atomic_enable(), a reference is acquired via
+pm_runtime_resume_and_get(), but the early returns do not release it:
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_bridge_atomic_enable() {
+    ...
+    hpd_state =3D msm_dp_display->hpd_state;
+    if (hpd_state !=3D ST_DISPLAY_OFF && hpd_state !=3D ST_MAINLINK_READY) {
+        mutex_unlock(&msm_dp_display->event_mutex);
+        return;
+    }
+
+    rc =3D msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
+    if (rc) {
+        DRM_ERROR("Failed to perform a mode set, rc=3D%d\n", rc);
+        mutex_unlock(&msm_dp_display->event_mutex);
+        return;
+    }
+    ...
+}
+
+If either condition fails, the function returns early without calling
+pm_runtime_put_sync(). Will this permanently prevent the display controller
+from entering suspend states?
+
+[Severity: High]
+This is also a pre-existing issue, but can a failure during stream setup
+permanently leak link clocks, stream clocks, and PHY power?
+
+In msm_dp_ctrl_on_stream():
+
+drivers/gpu/drm/msm/dp/dp_ctrl.c:msm_dp_ctrl_on_stream() {
+    ...
+    msm_dp_ctrl_enable_mainlink_clks(ctrl);
+
+    ret =3D msm_dp_ctrl_set_tu(ctrl);
+    if (ret)
+        return ret;
+    ...
+}
+
+If msm_dp_ctrl_set_tu() (or a subsequent step) fails, the function returns
+without disabling the clocks and PHY power enabled earlier.
+
+The caller (msm_dp_display_enable) then skips setting
+msm_dp_display->power_on =3D true.
+
+Later, msm_dp_display_disable() bypasses teardown:
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_disable() {
+    if (!msm_dp_display->power_on)
+        return 0;
+    ...
+}
+
+Does this bypass cement the resource leak and permanently block PM?
+
+>  	msm_dp_display_enable(msm_dp_display, force_link_train);
+> =20
+>  	rc =3D msm_dp_display_post_enable(dp);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260314-hpd-refact=
+or-v5-0-0c8450737d64@oss.qualcomm.com?part=3D4
