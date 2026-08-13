@@ -4,89 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5931BC5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A9AC5DF68
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:43:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4979110F26A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0A6610F270;
 	Thu, 13 Aug 2026 09:43:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DBMQEz3x";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j/R+DQ4A";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F7EB10F052
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 14:57:03 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2cacf197759so21719565ad.2
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 07:57:03 -0700 (PDT)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20F3810E03B
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 04:27:53 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-39f927721f2so12416151fa.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 21:27:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786595271; cv=none;
+ d=google.com; s=arc-20260327;
+ b=U0B/mXOKecz7IQ28mwZfNIBxDazo0U3mBKzYkrFZNAItTPt8PGuWcNtyxmbRtd94eQ
+ 1edF4gkBbHHcjOODQLkFyW/uPSuF2NZRBtoIis57sv+/vAHyWrv2GfgnQwAnqi4bz1G2
+ Hg2c9xMtCbW+YjtLnil/V9i/5ZaviP5WCF9KwdJ/GT8dORKuc9fXxmjwYM+RTzOgvG+g
+ 5UhL+epDK6lpNIfuDkZHJKGqDRq1M5num7pDmJzzBaj4CiJQIvjs6WNddSzww53DynqO
+ NMQl2AVdBZ/xneUGwrbfp6GFJSQuFrA4j4MLZHvZgFns3dGWPzsTje1KxoKeDLTNK0PW
+ 0x4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=a6DEVzmK3qVQENQm1NcCr1EvhZxESWnZuaofQxJb//w=;
+ fh=+K3KkJVhAx6XIYikssRST+Hi/wiU0TlLh6F5Kf8iMrg=;
+ b=hHRxjYxybMiY1y3eA4RIDfhhzAVlz8CZRL8Gjp6O8b3nNo/IrhkW1+KcaHq8uNwVEI
+ MxC5MJXYaekX7hbFqIvN6PvZNiK7jSOH3m3Dx9VVcIOoBxjQXQ9qCgsWnXL+Vewp3PGA
+ xFbiWi8YYlfbAhtAjZ88UoxJIDy6l/JtcizJPZ1vtc1s/kgl7WZ9VdkdCWtSOc0Fgcc9
+ NHLjCssC0BeAv4RFnlZUeM75fxR/hKs5dbx6q64bxSillVaj5zegabvh/QtwjfF7T1oA
+ Q9QRqcdBYq2ceV7/sfgfhRrjCABP7B/BqWOkDPDOFHeDobC15wIkFHPO1AfbE/UVS2wb
+ pa4g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786546623; x=1787151423; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=YJqzV4FfWSH2549UJL4Hdtad7cbUf0wdUKVbd4knoqE=;
- b=DBMQEz3xyWkSdPrL+k49xiENJfMQBHaYKpYRfQ07qzBbSeMksM/R3arub6XvgBuTKY
- Jy+MfFZuwgoehB4KHZ0DkCeXPVmMttSZRcmyA1DPxU3FqaOxJVWXedcqTsfbMZ7xwDy/
- 6/9OFTZ2tHLsbcbUBgmif/46bB4ULTooFFR42iP3sUN6Ee+5Us5YDkaFB+lnl19SOhtR
- AkBixg3Cg45Nf72JEIBHTllxBPO+PeeFVjoc/7sOkAsyDtPdhDwk/nGEHH0lNpxe+VcW
- QHjjR5t4aagZlpHaakAA/QsUOqpvgzf+du9w2YnjyVL5sd4ahKM/NZkxkJTbZc0b2VW2
- M08Q==
+ d=gmail.com; s=20251104; t=1786595271; x=1787200071; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=a6DEVzmK3qVQENQm1NcCr1EvhZxESWnZuaofQxJb//w=;
+ b=j/R+DQ4A+6bCcS67UkUG1FMOJT7nRaaCxRgz/rUetIKfoi5oRIB7NsAeoXBajdRWLx
+ 64em1Qi6M7rw9wd/9PNs3/yA2hbUSwgehNzL2ma0Oxhpz7KYCSyp4CDrPdb985FVfTWl
+ /dImZBmYaopoL8XirH0xtfwOSLGxjaA0TspybcRMFCmbENYf3HAFt9CG29bKL2Pv1eC8
+ vcBjm23QHzdkc0mhnoeRlQJAT0yMzX4iXos3vtVIHHrljT1HwqIjfboVEOQZk5Lvkraj
+ HGNaureWB9xPPxNsYIQGhEVhAlDnHeJV6+ZrpsTc9hG3bSTlpPJkGVcVCwuce1gGwT8R
+ y+hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786546623; x=1787151423;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=YJqzV4FfWSH2549UJL4Hdtad7cbUf0wdUKVbd4knoqE=;
- b=PCGEVmo5MXT1RMuQ0KnckGhnnko97OPFKqX3Y57yIyiTWQSZhHu70gWza8Y3uX89yD
- TWGweOBmiHvO41GxbLy2V1tTux+vDCde/e9bfHMgpo1xXSuttkLDwNT1mH/dpCEGft3N
- TBikVK1i0LlEBmsWrowUepvr+yqdNbWC5wsy+eW5Wg7YQJ2erMMajQLyegkvkmAIe7Wu
- Ej/zI2DPFVwWSk3Y7SLIKyMMCaZqAhxoewkGFpfNGG4zVMZY96XXF+Od8UBOK/PI5AXE
- Ya3tz9x5k+VjZHpfcIgUMYvvx/a+ly+RplAyIcgzqOhd8iVqHsZL+Lhkf1jo35380P3B
- /G0A==
-X-Gm-Message-State: AOJu0Yx81tHRivprQBKR/nGlyfH44zjyN4zPEaNDlMg/U+q60MbiZbh2
- DZtfR0pbjJ7k6DQlvbALMstJvETWZ/tVLsBnq16lPpQ6olL5D2yxPGWOOaT/TRT3
-X-Gm-Gg: AR+sD12wtWsNs05DpDpwlno4g3yvZCe0GdjZEIUq3xh3gy4CcI8wu0xyS/zAXjYVC98
- mfj+D+C9bP9y4RXD8EXECiWoI4G09fj414eZar3PqE+j6YeezZHERAKdznC6GA7I/IS12jEAn4E
- hoSAhhz9eETm7D2N7xPtCPQPcXSsLUdB/1yZ/TUDiqzBHDeeut+KYbiAzEO8BCphnftdYwXKSEX
- dcMLpn9b2ahLYNOR6T6YeHelsyp2W+jHt9Z7BzoRjzEaz0KwK0Nr2NZbNb7aYo8T5pPB0xE7HxT
- QcKATiLwTFxgeKU0flzwK1pkSZYn6ngtr9piFottzc2kKUD/UrwyQ9iccXO3Q5Aa8z5xl6BlsMB
- H7SRAhVpSJgFzcHbQ2qt8BopFCz0I1E4kB12CkJw0LJtc2R6GedsofIT467sfJR4KKPM+ONwsLr
- EPW4FuDFnkWJijN6+kyZRavSu6q+ZnlxTcF/Ybg22BWy6FMsLDMcsIzp5fka8=
-X-Received: by 2002:a17:903:324d:b0:2ca:4f33:e86f with SMTP id
- d9443c01a7336-2d3455870eamr75737575ad.12.1786546622846; 
- Wed, 12 Aug 2026 07:57:02 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d352208543sm8003165ad.60.2026.08.12.07.56.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 07:57:02 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Wed, 12 Aug 2026 22:56:46 +0800
-Subject: [PATCH] drm/nouveau/uvmm: reject zero-length range in validate_range
+ d=1e100.net; s=20251104; t=1786595271; x=1787200071;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=a6DEVzmK3qVQENQm1NcCr1EvhZxESWnZuaofQxJb//w=;
+ b=SPKrkRxeenv8DYvghwXYmKjw5Ly6WX2dRqFQTbEaLu/1p2fn8iqGegtmWdBU4BQk1u
+ QPxDrAbfT7lDAuzZ3CaNRW9UuOMlGiV4Oop7hgkZCthA4zvt4sHzmpGD0bc954pTMkUp
+ ujim5dCBrzM3uH9zCeVPWz8hpvK7J7puPK3rU99b40xUlQDM4LblgyigMpGlu7edKfKU
+ pGnpGsmehnVq8+oq7JCW92zkyrXALsRDBdBRLgO5Wt5hiATwvGA87nwi9p83rmGmcq90
+ WUjGussm0/OFmo+dbW7RtqtxBwB4e2vw+xVZPV+F8bB9GOhViSs8MZEmGshvcxVf+51E
+ Ac5w==
+X-Gm-Message-State: AOJu0YwzeLfUhTR747gNI0JF+qLXDrZpC1i5CEQu84x9NItJrp1pQLrJ
+ s+zUfxgdpPu2CjY7zbSaAJL7+X4xQWg+VXE6QKYh5NY1+Z2mFVUWU+pxRLjIhz7safHo3d2gyxL
+ DD9R4G6yESSmd0Rx0uprGHI2RbZyG6jYNZYs7cKY=
+X-Gm-Gg: AR+sD12fr9n3DUQC88Gwb8NtR76us69SiW+BkIU7MU7Yly1jsebxOWk/UtAJFcOd7t3
+ fpK1gtl/5nfSwbyViYCRqN9GqkbraeyzcBY9xsgnVKl5DC/mENLWzX8/WxqoHgx1v8inhzEGGkb
+ NO1IXe0JfHFNkg/HsL48ERzXr/4Jt1ss2o7j3HNQWlyK4AqSw/yx27gP9gKRnAiS0jMJArv8VX7
+ nnpEGCw+ZGq/VGN1SWaj6t4xK18wDxJE1iFNq/1kkFxRbZfT/46bGlNyuj8MwNa2rCg0Vh8tkEv
+ VZV96Rq4klGRlwlpnBGmSaStDT0LkPkUUKVUGTgvQgE=
+X-Received: by 2002:a2e:a98e:0:b0:39c:a346:8a36 with SMTP id
+ 38308e7fff4ca-3a11a54152cmr3559571fa.8.1786595270857; Wed, 12 Aug 2026
+ 21:27:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-nouveau-uvmm-pt-fixes-v1-1-ab3a823f946e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAK2JfGoC/yXMQQqDMBCF4avIrB1IImjrVcRFjGM7BaNkTBDEu
- 5vq8uPxvwOEApNAWxwQKLHw4jN0WYD7Wv8h5DEbjDK1emmDfomJbMSY5hnXDSfeSfDdqHq02qr
- KTZDbNdA95LTrH0scfuS2/xmc5wUrhSUxeQAAAA==
-X-Change-ID: 20260812-nouveau-uvmm-pt-fixes-9706da1a03cf
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786546618; l=1968;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=FdyxRhhBKZiYZz3arqKV848UtUVhcBBrpdMBwG2g/dM=;
- b=ar5RYS5eT7jVtxn2WyhdU/5ZUt+UbSy5eflTkgD7wLRWZEeSTi2xLVN1+tdVDVmKDg8elm2v3
- 1ZlEgthYLiQCWaVIbnBvP5OHkT64+EpC1XNJ887M4atJGbdz4l+31Wx
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+From: Fabio Piparo <holofermes@gmail.com>
+Date: Thu, 13 Aug 2026 00:27:24 -0400
+X-Gm-Features: AUfX_mzd75rnG7eDXx3dOQZHSmFx8Mp8zkUsPQYcZPQWPT70HSQm2pB_XCPnJlg
+Message-ID: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
+Subject: drm/ssd130x: stale pixels when the GPU renders into the framebuffer
+To: dri-devel@lists.freedesktop.org
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,50 +98,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nouveau_uvmm_validate_range() rejects misaligned addresses and ranges and
-defers the remaining bounds check to drm_gpuvm_range_valid(), but neither
-rejects a zero range: 0 is page-aligned and addr + 0 does not overflow, so
-a zero-length VM_BIND request from userspace passes validation. It then
-reaches the generic GPUVA interval-tree insertion, where the node last key
-is computed as addr + range - 1. With range == 0 this underflows to
-addr - 1, producing an interval whose end lies below its start. The
-resulting malformed node corrupts the augmented interval tree and misleads
-the overlap checks of later map/unmap operations on the same VM.
+The symptom
+===========
 
-drm_gpuvm_range_valid() intentionally leaves the zero-range rejection to
-its callers; drm/imagination does exactly this with an explicit "size != 0"
-test next to its drm_gpuvm_range_valid() call. nouveau simply omitted it.
+I am working with a Raspberry Pi 5 driving a 128x32 SSD1306 over I2C
+through ssd130x, brought up with dtoverlay=ssd1306, and a GLES client
+rendering into it. The GPU renders straight into the panel's framebuffer.
+The panel shows a blocky pattern that is affected by CPU load. The kernel
+is 6.18.39.
 
-Reject range == 0 alongside the existing alignment test.
+A capture:
 
-Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
----
- drivers/gpu/drm/nouveau/nouveau_uvmm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  https://files.fabiopiparo.com/ssd130-line-glitch.webp
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-index f5e4756b4de4..0efedd9ecc75 100644
---- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-@@ -1008,7 +1008,7 @@ nouveau_uvmm_validate_range(struct nouveau_uvmm *uvmm, u64 addr, u64 range)
- 	if (addr & ~PAGE_MASK)
- 		return -EINVAL;
- 
--	if (range & ~PAGE_MASK)
-+	if (!range || range & ~PAGE_MASK)
- 		return -EINVAL;
- 
- 	if (!drm_gpuvm_range_valid(&uvmm->base, addr, range))
+This is a simple trail traveling left to right, and the busier the Pi is,
+the shorter the trail (link above). On an idle machine the leftovers build
+up into a blocky fog. That was the clue that pointed me at the CPU cache,
+since the lifetime of the artifact tracks memory pressure.
 
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260812-nouveau-uvmm-pt-fixes-9706da1a03cf
+The trace
+=========
 
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+I made a test program that flips between two alternating solid frames
+while i2c_write payloads are traced. 15 of the 31 flushes carry bytes
+from both frames in one payload, mixed at 64 byte granularity.
 
+What appears to happen
+======================
+
+My reading: the driver's XRGB conversion reads the framebuffer through a
+cached mapping while the GPU writes the same memory directly, so what
+reaches the panel is whatever lines the CPU still holds. The 64 byte
+granularity and the load dependence both fit that, and write-combining
+the mapping makes it stop.
+
+What stops it
+=============
+
+Setting shmem->map_wc in a .gem_create_object hook makes all the traced
+payloads come out as expected.
+
+Whether the exporter is the right place for this, I do not know.
+
+I am happy to test anything on this hardware and report back.
+
+Disclosure
+==========
+
+The panel, the symptom and the i2c trace come from my own hardware. The
+analysis above and the change came out of a long debugging session with
+an AI assistant.
