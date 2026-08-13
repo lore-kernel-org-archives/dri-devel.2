@@ -4,163 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07355C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 06:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62B30C5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 06:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFFA510E39D;
-	Thu, 13 Aug 2026 06:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8726D10E0E1;
+	Thu, 13 Aug 2026 06:51:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OSDoARcO";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="O88jV4Tc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E15010E39D;
- Thu, 13 Aug 2026 06:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786602217; x=1818138217;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=tq8QosGn+5ZROoVsjHYNBCvVPiuBvbgB/VFvvKBwVRI=;
- b=OSDoARcOVPNb2RWTB8QKsHI1IuIDoUtYLAUJInhpNcicKiKJij9GNPeF
- TuBIdW5jBGSMT97oZI8RD8534uJzTd3oYOHb11k4WXeT8oXMKoPmO0c0D
- WvnCB24BF1j4zeudsjyxRSwu0RlEt9o30p/i4ZqiujSBxj577uhXHRwaQ
- BnAEVxjVq9oPOL8lER8HOPROJk52APe0cEDkwZVy+xbUUo+IV0BWFQzvH
- TSrz9aLTG7seTQgZKK3m30vd7VQTZs23DbMDLWRjpgjSgGyzSiEGGu+C8
- fFCIQqpzjmRaqw4UtGhiviv2c6PttIMLOiiDxSctiWKd88d2wOdKgcZj5 Q==;
-X-CSE-ConnectionGUID: yRHEv1lQRSKEQzvzO1nElg==
-X-CSE-MsgGUID: po51Mj2MSgW2CRQ2zyjvxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="97757669"
-X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; d="scan'208";a="97757669"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 23:23:37 -0700
-X-CSE-ConnectionGUID: Vex2v3BoSDersl15133CIQ==
-X-CSE-MsgGUID: Ikkj4PYrSRm33cNv4/hTQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; d="scan'208";a="260558295"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 23:23:37 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 12 Aug 2026 23:23:37 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Wed, 12 Aug 2026 23:23:36 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.2) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 12 Aug 2026 23:22:46 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NHehYgZMi0bqJTuLs4FBHz+mySPmksGnYdzD5fPoyhFt1HUaKvdX137QwT1s75sOKaQAVjG0uZnkV8uzA2GZW+5Aty5yO1rw5UYxE1MPAtFgfCmLNw26gI09T+A7qZKb79ZcB32hZYIAa0JpfFMu6KrNzYFlwyzkXTPG7VqElwAFbx2hpWCqH7zBYZVe/mrmYLNxTJUjpAtmkTu6G22bzZeOsf/GFA2Vy/V5mscxAsAVNBWhbMtNYPZKxNzABozUnpPQKxXfyryvjHJ/OTnlThnZxWDf52CMw3UT5ypdcyVzOG/Pk0ot5Mosw11jd37xneepsEMcUcxLROW9FgH/Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dKolULPBSfHBepqTsT3AGRIFlYFhZgVuG0rWTzAHOK4=;
- b=a6jg0nNrmiHrAY3yiTJKL8mQNnqBSmnenyeNxenGALbbMYKPeQGq1yu5MSeyP2la0f3WrZ9+fPzgN/6551apCOJgDrplt09e6KuqZ/48M93/RuB5oc6WUOvEsp5opB4kaLqSsNDvUEnPySgGUtj59JPnF5bY+g6qNibSAK/NVfEOhWrB009L3YgVzCWbGpYNawFpJs8pS4jV+kLl6jP/lkQaSCpVaiYHGSyRFPU177Xecmi27h5oLqtlfNkFxM/W8O3V5JM6xQJNqDPqPoWatDdOBnZ1NmTy8PkFn8evYMs1qNMMZEbm+4yQ5kGDh3K/nyQ8wsFofKcJ1XFWhz1Ipw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by CH8PR11MB9481.namprd11.prod.outlook.com (2603:10b6:610:2bb::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Thu, 13 Aug
- 2026 06:22:44 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0315.011; Thu, 13 Aug 2026
- 06:22:44 +0000
-Date: Thu, 13 Aug 2026 06:22:33 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- "Andi Shyti" <andi.shyti@linux.intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Subject: Re: [RFC PATCH 1/7] drm/i915/selftests: Use drm_* prints in mock
- selftests
-Message-ID: <cboq45kuykc7hmcd4u52jjghd4t5dtvgokjn4u5gjchteqp635@2nmtfo6aje3b>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260811133257.1133097-1-krzysztof.karas@intel.com>
- <20260811133257.1133097-2-krzysztof.karas@intel.com>
- <695f6840ccb16f40d89829f88fe43ebfaf9d85a9@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <695f6840ccb16f40d89829f88fe43ebfaf9d85a9@intel.com>
-X-ClientProxiedBy: VI1P190CA0050.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:800:1bb::15) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17F1310E0E1
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 06:51:34 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-38e347638adso536955a91.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 23:51:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1786603893; x=1787208693;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=j+N9yE6d7rB5JmWfr2wLA+1fKPLxUmtPAdPhKfD0XGE=;
+ b=O88jV4TcrXfRIUp5+qYfShzhEL8iUsAHNUiJsFFvkX7BaDs3hk7MqUSLUZNQk3/mrg
+ nQqirTlZ/tSNcCcZNxCPur2WwuVlB9t5HoIW5mTZW2XO1TFbPwQcss5qpS+nuWQGyoAx
+ 9fwy4evvPcI11LKHI8/5SwWe2SIUjUzAYaiFQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786603893; x=1787208693;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=j+N9yE6d7rB5JmWfr2wLA+1fKPLxUmtPAdPhKfD0XGE=;
+ b=eb0AacJm1CPp2rtbcjnKIR9USTVRzkrFHXO6g3sMso7WU/3kZod2bHu+Z9EEJlztOo
+ OLsedFweVw0L+51NqueQXHxw24g8n1t2aLC3EkaYg2gO957gjIePD882PddfVoH+bn+u
+ sl9AgFQByZ9ubSq9rpdoYfrkQ32RQQimO8S8puO6tuG2cQar5ddKlrnr1giqmHKkmKCf
+ YneQhblfo4SwWmwMP/KOYyKN5E5/f2u6Oh/UNzHz2cc1bu0zyxzJy0rthStCqsDbcvnt
+ Q3LNp37KovBWpTbwv+Q6e07ZDVxskAXdKvy+n7UHAIp+uvHsVcIqbPsXZmQ0aiVDKCCt
+ 2Jrg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RroOgGS3fdyNHCBEBCuByojU9C/BriLy+QnTE88Rxm3km1P8Bjf5/030ADQeuLFRuVE0uQSNoeSKt4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzhlSDQpTrUl2ifzBRddmssS8KU10KK7IthJLAHl5tygtm5RPII
+ 1pWvsOJ3z+iPGbXdepUcj4R4RkmPYS1oRi9Vjz75mdeuY8AjkcNrBFFBEN6ox9pfng==
+X-Gm-Gg: AR+sD12qCI0b0LvXNdyprzSlyX58GkR9n5q/AeH0RaOgzy8lbjJ7CpCPl6RrbIvxZy2
+ F7D1QrmwBqR4pWq1V2SGgOrwtzBlZLJUIPfz6QrSKHxugs6/mOLngObolr7D45xnXjFUzoYldi9
+ CIOLTDv+CqBfJJX0YCHbKq18ywaEJynFYKvTgAF+XxD6wwmj+sPS4JPa8UkKgLc5nfvw4hved8u
+ lE+4q/FOkF+1tX9isko3ALAmqHSu3j6weZGluORZLdeeVsQFZuEEO6ZfyuDIyRthqwQxygkBAVU
+ bmkuOZJJJk/LvRdnQgh2cMQz8OtdqMqAGRquuh7AzQiUxRm7YNs3rDnCbb8yny/F8npM5/bArts
+ MZ8O2QEWmBZ7WvQhL3WuZHycolwVOfZEnfuA2zlGPEUmS6QhYfh6jOelQj+O130OlIhkV9mLB66
+ c35wIdL6lOtzgSJPB6ji3uD67riuebHRqx3sUNcOIPWdJgapJTo2fypYCZm1RlAUj8L1SczWxiq
+ UWzRFPMpHsOm9gfLkXHygIRpkvhzxXn9tVhnhyQojzX
+X-Received: by 2002:a17:90b:4d08:b0:38d:dfd1:7a8 with SMTP id
+ 98e67ed59e1d1-3931dfd7b73mr4150306a91.2.1786603893446; 
+ Wed, 12 Aug 2026 23:51:33 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com
+ ([2a00:79e0:201d:8:61f:1b11:5c48:d758])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3931f44de1esm1694814a91.13.2026.08.12.23.51.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Aug 2026 23:51:32 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3] drm/verisilicon: Switch to drm_fb_dma_get_addr() for
+ framebuffer addresses
+Date: Thu, 13 Aug 2026 14:51:26 +0800
+Message-ID: <20260813065127.341349-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.691.gc56d675ccc-goog
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|CH8PR11MB9481:EE_
-X-MS-Office365-Filtering-Correlation-Id: 117d2523-62cc-41c9-075f-08def903493e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 6da9s56dsotpgH7gPrcfTd2CxhN+++K3QQme0VlNY1Hlbu/TfIY+cXINYkO32ZjhrogmzeZLZZki5XH+/lzy9bIL1d+E7io9dgSdrrmhUrZDtUTdUCvTkTzbWl2e2fAPYmqwGVeS7SpVn/Z90sTuGkqBwkZ1pBf1LLLIW4SoVfoRniWcwd5vRACKu1oZralfmySX3KSqcq9Thi1nx0Fk8KwGUKj+gfWJgxZlUncfWhGnG26xrvd2bDYz/Z11RHf+BMmUvJJQSZLei36nmWKYJNWcE8UWSx1jb3z3YSfRr9xxckYozZksu9RB0wMZnt44xbUdBKzFeqMZoYP0nvZ95naK8oensrLChRQnEqZEhUdZEtrBW56rR02bSK1hvh+NL/U4QdiewobmE3RvUu4UOx4/NPQplT26p5V9IvkOikEyIHcGc1W8ABBujFtva9KIla0xsykRuqMjUtoFYJ/3lWnWdi/0+JF/oYfkL/dYjlqW42N6t6MFcMA44c1Ez8jvjsepFh0mewkJZc6SXkd2AwEjoXhhJp3rWJTr7KFdYmSzopCb8uYnVHEDT03NXZAzgyX+dYHZYHyRsHyx//HIUNH7Y3DulWRJu4WjGxV7iQRrB0dYNTiXLJjemCNnysZH6Z80y5bJ7FdMlNDqbDdGgdToG53yuLbx3j4S6Efgp0A=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXdDNnF1bGpubG1xTDRML2QzMkFEUFl0NWJIbUpOU0VsSDRBeWxkVk9OdVpS?=
- =?utf-8?B?ZFFyeHFHVmphbE51WG5scnJsR2tVeE8yMGc2c2N1WGxEVXBMZ2JaTmcxS0hF?=
- =?utf-8?B?RzdRdCtGbDZKajZRUlZJckRiV2krVnJGWGh4Y2IzK3kydm44STIvUEQ1czVy?=
- =?utf-8?B?VE41YUU3VXFtanpqTGg2dS9jV2JFY0xBd0VJZzZUTTBxSGJ5dmFqYlRDekFW?=
- =?utf-8?B?VG9Sek9LcTFhYy9rK0RQYmFSUHBUdnFEMEk5MFpWUUZxMW5GMFdCTURYNEJP?=
- =?utf-8?B?TkphMExEVituSVN4UGVUM2ZrbGtWS0dPOFEzb3dTdklkVVM0dXdWN1B5NmMv?=
- =?utf-8?B?UWNsZXZWVWFSQjdmWG9uWVZZMFR4Vk1uY2xqeE5jWlJqR3ByMktGYW5yekwv?=
- =?utf-8?B?NzcrZy9GVTBKSFpYa2lyMzI2VHZNZ0JDSnVlM0JqVnRsSjF6cFNhNVhycVlq?=
- =?utf-8?B?cDFmNlFENkxWeG0rMmZtcGRkNWFhbWdyQlBmSGFXMnMvQXJYdWdudmo2V3Vs?=
- =?utf-8?B?dktsdHpLUkdzQVJibzNPUzZXVitsd2psTWc4WkhSbkVaNUJmbkU0Q00xVzRB?=
- =?utf-8?B?d0ROb1l2dERVRldrRENxaTk5cnJIZVRuUHJ2MS9BTW4wUG9RQmQzbzZFUmt1?=
- =?utf-8?B?Q3pHZ0M0eERRMEZQQWRTbUFiU091bnYyYVViL0FBY3U0VkVTTTRvcldTZ1Uv?=
- =?utf-8?B?R1Z0T2lveXl4NlVXWDJvY0RSS1F1VFlRU0p2dE9vKzhkZjVRS0lLYjBINVJa?=
- =?utf-8?B?bjc4UkQvRlZ4TUJ1U1A3QWVKckpiSm5DTmJ0YjlWRlZzYnd3TisyekZoOEdR?=
- =?utf-8?B?SWgwb1dlckhRcVowUTg1STd2aEg0WkN5SnRPcUZyaE1NNjVodWZhV1U0cXlZ?=
- =?utf-8?B?TkNORXpFOFlXemhIc1krWVUyQmhsNVBuaHVlY2ZhVlg2aUtJZnptbXl3WmRj?=
- =?utf-8?B?Sy90d3NVa0RhZUlLaWU2MFJQRW1Va0ZnclZlL0JybVEwOUZ4Smh2cE53N1E4?=
- =?utf-8?B?azdWemNvNkZDU05vdG5CRVVBK2dIUjZIeEw0SWY3U3dVRlNqZUR3Q1JVRXlB?=
- =?utf-8?B?Z3FVVk9zUFErVTRlLzB0K3RUa0ZkTkZxeU1ZdFFNNFNtTmVKS3RBRkxwSWNB?=
- =?utf-8?B?YlAwYnlPdUZvSkwxMWpwaEVqN1NXRU9KblE5L0dza2dLT05kQm1TUk40Wm54?=
- =?utf-8?B?K3V3clplR1lLdDJHU3BEYWpKR1dGeEhNdlEyL0ZoWGE2dmRmQ3U3MzRxSXNP?=
- =?utf-8?B?ajI2bGI0Sm5FYlVSU05QVjJnSS9iNGdFbDFmZDM4WDZoSU5YbE9ZcFR2aHZM?=
- =?utf-8?B?RENwbHVUL2wzVHRjcDFRZjJJUUdPNHNzSk85YlZ3NnhOSlZHT0JRZWtSWmNz?=
- =?utf-8?B?UFZUMGF1MGJaN0cyZ1J2QXNhN2tMMmZXby9FNm9XNmM0UEdvem1UN1BjaVRD?=
- =?utf-8?B?R1NTMUVvRERFc2VpQWgvTDhrZ3BKZUlYNmwyNHpOYXpycDZmVUllNkp6RjBS?=
- =?utf-8?B?anFUeDNuYmQ4UWJkdzZJSks1dFY5SW1QR0YxZS9tUHJKeDhlK1p0Ym9qRHdR?=
- =?utf-8?B?NHFpeFhRNnpJK3kycEIyQVFrcFBDdzBIRkRkc3NGQXl4MGpIWG5ibzM5Tmx2?=
- =?utf-8?B?L0U3aXk3VGlQWEYyaW1tL0V6cW05VjJKLzdjeGdBSFdValpybUZiblZnSS9I?=
- =?utf-8?B?Um1SQWNzRHh1azlsczZ6dGhqdlByUWNzcUdaWHpaR1ZRRWNhcERqeTkzUENC?=
- =?utf-8?B?aGRJNUpQaFdRa045NjU4UWtlOCttZml2ZWRDa2xYVFFlYkRSQUE4MThkMVZK?=
- =?utf-8?B?Z2RmNUFVRU1LVnBIQk9PWlU3bFV0TzcyejZ4MElVYk1MdVN1Rkg3L3RhRHly?=
- =?utf-8?B?bE9MVW92a2JmRU1XVHNrRFZ1d0pQM2hzeTFObTNMN29kQ3pMd3paTXBHWTl3?=
- =?utf-8?B?a24rb0dpY2ZRdmcxVVZqZHdWclR0Mms2T29Kc0xoSTU2eUlwQVIyUTl5RE1M?=
- =?utf-8?B?MzFQSG9zWHh4V0ZLTG43MlRNR2k2RkVEMGFzTWQxRklMemoveTRyM3FNZmph?=
- =?utf-8?B?S3NRbGt0Z3BKdDRLM3MrWFk0YmY5eFk4bnIybjRodDdLM21JckQvTXdHRDB1?=
- =?utf-8?B?RWc1UCs5dkQzQmlaYldWd2xkL1UrYlBab3ZLMWNTbERQK3U0emtTTm1kNmdq?=
- =?utf-8?B?NWVGOWJQTjBKb2xhRFJJd1B6Z2w4WXhaTnJDVWJWU0pTbDYzbVdETVd3MXd4?=
- =?utf-8?B?Y3ViZHYzdnRPdmwwOEZ4K3pEdHBScmY4WEgvR2l5VDRqRWM4dUpFcVlKYUF3?=
- =?utf-8?B?OE9BYnp5YVR6YWw2Y1Fza1haa3NOWEtYV0lEN2N6cjBIdDFHU0hpTm50SS8w?=
- =?utf-8?Q?/A/OhWimdgkAjrIc=3D?=
-X-Exchange-RoutingPolicyChecked: HzZzORZJKJP8FL46/l2d2QiuatkQYJ5mr13aLwJxzThaeognhg/fvd2PR9YYS0BBT0xNppzLGccd1GxLZKb3ziPyuLBy8VnH0kvZWBhYl0z0NZs9sARsNGbUcbJy14oWT0g++XiAntRFVcv/1JS6h1bbsRnSqENJMxAHW8bGiSb3fRrSU45tuj+tSjs7u/uZJFC3A8/p98tji3EADl9cskYocaRDl1oPA5ixN0PXVkGnyyaTlzQH6h2rm5wDD2mP/zL9X+pZeL/JUWcWxmkgsiQldDg59BlrY8fM1u9Zozn6fMnpYtRQ2lwhXo/foiVQz8F4N/Gm0FRZwMvHqZJ/Sg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 117d2523-62cc-41c9-075f-08def903493e
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 06:22:44.3918 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Di+Va5BbKCR1J3pHESTeA9JUdNPznDP0C0LfWrMTD6XjaRjOz0Uixe1cfGAKWIHfswW7iB1mPfSvFTasjuOGN6MexLdSCSpNLVE+tSZlu/s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR11MB9481
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,25 +89,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-08-11 at 20:19:25 +0300, Jani Nikula wrote:
-> On Tue, 11 Aug 2026, Krzysztof Karas <krzysztof.karas@intel.com> wrote:
-> > Move away from generic pr prints to device context aware drm
-> > versions.
-> 
-> Hmm, aren't these selftests independent of i915 (mock or real) and the
-> hardware, and could, in theory, be converted to kunit?
-> 
-> Does it make sense to introduce a dependency on mock i915 here? There's
-> no device context to begin with, why introduce one?
-It may be an overkill. I wanted to make the change uniform
-across the tests, but since you mention kunit testing it might
-be a good idea to do that instead of mocking devices.
-> 
-> (For the tests that do have a device context, the case is completely
-> different, of course.)
-Mhm, I'll shrink this series to contain only the changes, where
-device context is available.
+The verisilicon driver has a custom framebuffer address calculating
+helper that the common drm_fb_dma_get_addr() can substitute.
 
+Differences from drm_fb_dma_get_addr():
+
+- Uses drm_format_info_min_pitch() to calculate the horizontal offset;
+  however the driver does not support any of the blocked formats, so
+  this just ends up being the same as in drm_fb_dma_get_addr():
+  "cpp[plane] * y"
+
+- Uses clipped source coordinates instead of non-clipped coordinates
+  as in drm_fb_dma_get_addr();
+
+  For the primary plane this doesn't matter, since the primary plane
+  must match the output, i.e. it cannot be clipped. Also this driver
+  doesn't support scaling.
+
+  For the cursor plane this seems wrong, as the clipping seems to be
+  done by the hardware, and thus the buffer address should be unclipped.
+
+As such, it should be fine to use the common helper and drop the custom
+code.
+
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor planes")
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+Changes since v2:
+- Dropped vs_fb_get_dma_addr() prototype from header (Sashiko)
+
+Changes since v1:
+- Fixed compile issues
+
+Compile tested by me. I do not have the hardware. Icenowy tested on
+actual hardware.
+---
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c |  4 +++-
+ drivers/gpu/drm/verisilicon/vs_plane.c        | 20 -------------------
+ drivers/gpu/drm/verisilicon/vs_plane.h        |  2 --
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  7 ++++++-
+ 4 files changed, 9 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+index fa4f601dd0c8..59778433ae84 100644
+--- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_fb_dma_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_atomic_helper.h>
+@@ -176,7 +177,8 @@ static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
+ 		break;
+ 	}
+ 
+-	dma_addr = vs_fb_get_dma_addr(fb, &state->src);
++	/* hardware handles clipping as seen below */
++	dma_addr = drm_fb_dma_get_gem_addr(fb, state, 0);
+ 
+ 	regmap_write(dc->regs, VSDC_CURSOR_ADDRESS(output),
+ 		     lower_32_bits(dma_addr));
+diff --git a/drivers/gpu/drm/verisilicon/vs_plane.c b/drivers/gpu/drm/verisilicon/vs_plane.c
+index d81f7b8f4c65..38b8b536eccb 100644
+--- a/drivers/gpu/drm/verisilicon/vs_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_plane.c
+@@ -107,26 +107,6 @@ int drm_format_to_vs_format(u32 drm_format, struct vs_format *vs_format)
+ 	return 0;
+ }
+ 
+-dma_addr_t vs_fb_get_dma_addr(struct drm_framebuffer *fb,
+-			      const struct drm_rect *src_rect)
+-{
+-	struct drm_gem_dma_object *gem;
+-	dma_addr_t dma_addr;
+-
+-	/* Get the physical address of the buffer in memory */
+-	gem = drm_fb_dma_get_gem_obj(fb, 0);
+-
+-	/* Compute the start of the displayed memory */
+-	dma_addr = gem->dma_addr + fb->offsets[0];
+-
+-	/* Fixup framebuffer address for src coordinates */
+-	dma_addr += drm_format_info_min_pitch(fb->format, 0,
+-					      src_rect->x1 >> 16);
+-	dma_addr += (src_rect->y1 >> 16) * fb->pitches[0];
+-
+-	return dma_addr;
+-}
+-
+ struct drm_plane_state *vs_plane_duplicate_state(struct drm_plane *plane)
+ {
+ 	struct vs_plane_state *vs_state, *vs_state_old;
+diff --git a/drivers/gpu/drm/verisilicon/vs_plane.h b/drivers/gpu/drm/verisilicon/vs_plane.h
+index 32ed1d70f3b8..e4f82f1fc6e9 100644
+--- a/drivers/gpu/drm/verisilicon/vs_plane.h
++++ b/drivers/gpu/drm/verisilicon/vs_plane.h
+@@ -75,8 +75,6 @@ static inline struct vs_plane_state *to_vs_plane_state(struct drm_plane_state *s
+ }
+ 
+ int drm_format_to_vs_format(u32 drm_format, struct vs_format *vs_format);
+-dma_addr_t vs_fb_get_dma_addr(struct drm_framebuffer *fb,
+-			      const struct drm_rect *src_rect);
+ 
+ struct drm_plane_state *vs_plane_duplicate_state(struct drm_plane *plane);
+ void vs_plane_destroy_state(struct drm_plane *plane,
+diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+index 1f2be41ae496..2750016a7f2c 100644
+--- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+@@ -8,6 +8,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_fb_dma_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_atomic_helper.h>
+@@ -126,7 +127,11 @@ static void vs_primary_plane_atomic_update(struct drm_plane *plane,
+ 			   VSDC_FB_CONFIG_UV_SWIZZLE_EN,
+ 			   vs_state->format.uv_swizzle);
+ 
+-	dma_addr = vs_fb_get_dma_addr(fb, &state->src);
++	/*
++	 * Primary plane cannot be moved, no clipping is involved,
++	 * so the non-clipped framebuffer address can be used.
++	 */
++	dma_addr = drm_fb_dma_get_gem_addr(fb, state, 0);
+ 
+ 	regmap_write(dc->regs, VSDC_FB_ADDRESS(output),
+ 		     lower_32_bits(dma_addr));
 -- 
-Best Regards,
-Krzysztof
+2.55.0.691.gc56d675ccc-goog
+
