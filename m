@@ -4,62 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 336BAC5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 11:56:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A27BC5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 12:13:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4132410E4C3;
-	Thu, 13 Aug 2026 11:56:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA2D110E3EB;
+	Thu, 13 Aug 2026 12:13:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="WIdOMCWu";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="NLMQgDKA";
 	dkim-atps=neutral
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3B1610E4C3
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:56:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
- bh=jV+fr1YQSYU+Nk0tUAwhRpsmVLUxLPPUsySQv1/P7jU=; b=WIdOMCWuTO4eLAyYs6Kf6uR2Zv
- Va89VhI+u9Dmu+cns7ATJDSn8UUqS+X3ZyihRtem3zTW74T96FVdWpmHSRVoME+79JG7AHVdiJYFu
- a2zXUhIY4lTDLxpiAjlhfDQql1yI2Zo+/KewKwFDmJ4MbuqKk2CgXAvpW2YLvVAIgcWnx6aAS55mM
- 5OQr03rFN28yNM+2SkzuflKkewUehcJ4kSzhE6It/HC3EBRS4OdsQR70b8+H0aQzUYnyCyba1GnVK
- Te/Gv4yskbCkmumZOWGkuliITOOdONnuyra4rqfhpGoVfmsObkermgEpIWG8t0vS2vuIZuDDtj5U4
- DX9uyiBQ==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
- by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
- id 1wuTgX-0002Fs-1v; Thu, 13 Aug 2026 13:33:22 +0200
-Received: from localhost ([127.0.0.1])
- by sslproxy03.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
- id 1wuTgW-000HCm-1a; Thu, 13 Aug 2026 13:33:21 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF2EB10E3EB
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 12:13:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1786623226; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=etVA2vj5k/53aGbPJCagg5V0mgs37Ee1eUtoyGR9jRaU4EqEYtN/UYR8Th3+5+4tBT2E2OGY9h3R4XyHZwn5yzyFfJ9TV+fjG/cwcBjfdAjo6gmnTT9+arU/GrKS4NgentLMlqZUNuHoAqCnJ1nhSyWeyQnLJktUHPgmtlSG7Nw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1786623226;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=wqOdRYtb0vZ5F+MtjvPnCnjoIXqeosMrsVTjv2kiOUU=; 
+ b=a/M9Z4+wAFc3PXFTqTyRxkzKONOj4YsIwMvT0SzJJyWp2iR6auT4sGFE7P74qKZvzqXfSoCIFQQcWtBzsmbpz0PlEpAPxxDppcittvcloHZFTSYHE5iX8VXD+jIK+r3KwUXyd7pQyH5mR+Ht6d/e/iqkvvnxcaOCh2XCMgd2YU0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786623226; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=wqOdRYtb0vZ5F+MtjvPnCnjoIXqeosMrsVTjv2kiOUU=;
+ b=NLMQgDKAg3YQQOS9sZ9pb+oCszkqAaCRyAO24iS5jKLajQCyJRMn6S7T9gpUMh+8
+ h7czYoA2YU9OASI+6nAII9s0liaXwDDrMIu+JAbnYq/Vj+ACG+uIIGswfOsBKaAvyP/
+ xeBEdOn3gIX2VafoGXuHAMGKTe19t88evtc707rc=
+Received: by mx.zohomail.com with SMTPS id 1786623224736558.9306832210069;
+ Thu, 13 Aug 2026 05:13:44 -0700 (PDT)
+Date: Thu, 13 Aug 2026 13:13:39 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- Francesco Dolcini <francesco@dolcini.it>
-Subject: Re: [PATCH v4 1/4] dt-bindings: lcdif: Add endpoint bus-width property
-Date: Thu, 13 Aug 2026 13:33:20 +0200
-Message-ID: <16977374.uLZWGnKmhe@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260813092836.38367-2-francesco@dolcini.it>
-References: <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-2-francesco@dolcini.it>
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 04/11] drm/panfrost: Move shrinker initialization and
+ unplug one level down
+Message-ID: <an2zl5n-OD0ucwwk@sobremesa>
+References: <20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com>
+ <20260811-claude-fixes-v5-4-3d692c9e98c2@collabora.com>
+ <20260812100755.123e7ee0@fedora-21.home>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28091/Thu Aug 13 08:25:54 2026)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260812100755.123e7ee0@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.586.17
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,60 +80,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Donnerstag, 13. August 2026, 11:28:31 CEST schrieb Francesco Dolcini:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
->=20
-> The DPI output of the LCD interface can be configured with a bus width
-> of 16, 18, or 24 bits. Introduce a bus-width property to the output
-> endpoint, specifying the number of parallel RGB bits connected.
->=20
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+On 12.08.2026 10:07, Boris Brezillon wrote:
+> On Tue, 11 Aug 2026 22:42:13 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > Since the moment we call drm_dev_register() the device should be in a
+> > position to accept jobs, so it's best if the shrinker is already
+> > initialized by then.
+> > 
+> > On top of that, make shrinker functions take an panfrost_device pointer
+> > like other functions in the same sequence and rename them accordingly.
+> > 
+> > Essentially mimic the init/fini behaviour in Panthor.
+> > 
+> > On top of that, remove the config feature check, because it's unnecessary.
+> > 
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
+> >  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
+> >  drivers/gpu/drm/panfrost/panfrost_gem.c          | 25 ++++++++++++++----------
+> >  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
+> >  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
+> >  5 files changed, 28 insertions(+), 26 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index d8421fd6a662..74992deb0b3a 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -281,9 +281,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  	if (err)
+> >  		goto out_job;
+> >  
+> > -	panfrost_gem_init(pfdev);
+> > +	err = panfrost_gem_init(pfdev);
+> > +	if (err)
+> > +		goto out_perfcnt;
+> >  
+> >  	return 0;
+> > +
+> > +out_perfcnt:
+> > +	panfrost_perfcnt_fini(pfdev);
+> >  out_job:
+> >  	panfrost_jm_fini(pfdev);
+> >  out_mmu:
+> > @@ -305,6 +310,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  
+> >  void panfrost_device_fini(struct panfrost_device *pfdev)
+> >  {
+> > +	panfrost_gem_fini(pfdev);
+> >  	panfrost_perfcnt_fini(pfdev);
+> >  	panfrost_jm_fini(pfdev);
+> >  	panfrost_mmu_fini(pfdev);
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > index 2e931fa90da0..331a3bd5b98c 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > @@ -1002,14 +1002,9 @@ static int panfrost_probe(struct platform_device *pdev)
+> >  	if (err < 0)
+> >  		goto err_out1;
+> >  
+> > -	err = panfrost_gem_shrinker_init(&pfdev->base);
+> > -	if (err)
+> > -		goto err_out2;
+> >  
+> >  	return 0;
+> >  
+> > -err_out2:
+> > -	drm_dev_unregister(&pfdev->base);
+> >  err_out1:
+> >  	pm_runtime_disable(pfdev->base.dev);
+> >  	panfrost_device_fini(pfdev);
+> > @@ -1023,7 +1018,6 @@ static void panfrost_remove(struct platform_device *pdev)
+> >  	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
+> >  
+> >  	drm_dev_unregister(&pfdev->base);
+> > -	panfrost_gem_shrinker_cleanup(&pfdev->base);
+> >  
+> >  	pm_runtime_get_sync(pfdev->base.dev);
+> >  	pm_runtime_disable(pfdev->base.dev);
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > index 3a7fce428898..7b993a089af2 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > @@ -15,20 +15,25 @@
+> >  #include "panfrost_gem.h"
+> >  #include "panfrost_mmu.h"
+> >  
+> > -void panfrost_gem_init(struct panfrost_device *pfdev)
+> > +int panfrost_gem_init(struct panfrost_device *pfdev)
+> >  {
+> >  	int err;
+> >  
+> > -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> > -	    !panfrost_transparent_hugepage)
+> > -		return;
+> > +	if (panfrost_transparent_hugepage) {
+> 
+> Hm, are you sure it compiles fine when CONFIG_TRANSPARENT_HUGEPAGE=n?
+> Feels like the linker would complain about a missing symbol in that
+> case.
 
-Acked-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+Yep, I don't have it enabled in the build config, and yet it compiles troublefree.
+Steven had suggested getting rid of the feature check altogether, and I thought it
+might trigger a compiler error, but it seems the linker might be resolving undefined
+external variable symbols to 0.
 
-> ---
-> v4: use /schemas/graph.yaml#/$defs/port-base
-> v3: use video-interfaces.yaml
-> v2: use the common bus-width property instead of the legacy interface-pix=
-=2Dfmt
-> ---
->  .../devicetree/bindings/display/fsl,lcdif.yaml       | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
-ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
-> index 2dd0411ec651..89cea0c14cf1 100644
-> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> @@ -68,9 +68,19 @@ properties:
->      maxItems: 1
-> =20
->    port:
-> -    $ref: /schemas/graph.yaml#/properties/port
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
->      description: The LCDIF output port
-> =20
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          bus-width:
-> +            enum: [ 16, 18, 24 ]
-> +
->    display:
->      $ref: /schemas/types.yaml#/definitions/phandle
->      description: phandle to display panel
->=20
+> If you really want to simplify it this way, you probably need
+> 
+> #if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+> extern bool panfrost_transparent_hugepage;
+> #else
+> #define panfrost_transparent_hugepage false
+> #endif
 
+This makes it more clear so I'll go for it in the next iteration.
 
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
-
+> in panfrost_drv.h.
+> 
+> > +		err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > +		if (drm_gem_get_huge_mnt(&pfdev->base))
+> > +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> > +		else if (err)
+> > +			drm_warn(&pfdev->base,
+> > +				 "Can't use Transparent Hugepage (%d)\n", err);
+> > +	}
+> >  
+> > -	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > -	if (drm_gem_get_huge_mnt(&pfdev->base))
+> > -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> > -	else if (err)
+> > -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+> > -			 err);
+> > +	return panfrost_gem_shrinker_init(pfdev);
+> > +}
+> > +
+> > +void panfrost_gem_fini(struct panfrost_device *pfdev)
+> > +{
+> > +	panfrost_gem_shrinker_fini(pfdev);
+> >  }
+> >  
+> >  #ifdef CONFIG_DEBUG_FS
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > index 79d4377019e9..5c823cdbd980 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
+> >  	return container_of(node, struct panfrost_gem_mapping, mmnode);
+> >  }
+> >  
+> > -void panfrost_gem_init(struct panfrost_device *pfdev);
+> > +int panfrost_gem_init(struct panfrost_device *pfdev);
+> > +void panfrost_gem_fini(struct panfrost_device *pfdev);
+> >  
+> >  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
+> >  
+> > @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
+> >  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+> >  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
+> >  
+> > -int panfrost_gem_shrinker_init(struct drm_device *dev);
+> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
+> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+> >  
+> >  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
+> >  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > index 2fe967a90bcb..fefae87535d6 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> >   *
+> >   * This function registers and sets up the panfrost shrinker.
+> >   */
+> > -int panfrost_gem_shrinker_init(struct drm_device *dev)
+> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+> >  {
+> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
+> > -
+> >  	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+> >  	if (!pfdev->shrinker)
+> >  		return -ENOMEM;
+> > @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
+> >   *
+> >   * This function unregisters the panfrost shrinker.
+> >   */
+> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
+> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+> >  {
+> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
+> > -
+> >  	if (pfdev->shrinker)
+> >  		shrinker_free(pfdev->shrinker);
+> >  }
+> > 
