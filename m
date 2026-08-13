@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C04C5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 14:40:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC371C5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 14:40:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8BF210E42B;
-	Thu, 13 Aug 2026 14:40:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C50FB10E046;
+	Thu, 13 Aug 2026 14:40:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pm/4Kdgk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S/U9UMkA";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2316C10E42B
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:40:54 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4995df974b3so2455e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:40:54 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D24EF10F384
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:40:56 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4954b3c5cbeso1941645e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:40:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786632052; x=1787236852; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=zfgCd9JZmx1G3JenYZxMpetacJxXe9R/CJ7kBOkKzAo=;
- b=Pm/4Kdgkn0J7VIc0jn9JazOE2ujn+2kMQes/eZVa6523gWActXjjbMZhkTwzJl/gmh
- TFPVUAd/qv6RXouLQ5lfPyNCfI9pGoUENRS/IefajqsjiSkorCeamUMKghf7ZgWwMwfo
- vX6IegQM3/gL6B8jKVOJb0EW1goKDh9oGciccOVclC0IJDT9xo4L/i942JkKhKaeuLjy
- HV8AfkTJUP8v2aBh5p42tlxPwBgSdo/Xk6mH/C/3zrSk0FLyRibtGu/ndKHLu5aBb872
- FDT2gNJwjd4nl9kwChwh4W2Pbr1+KvBOQFZ5waagNyJxFlnEnmT6keGy8utfrlV1uT3t
- swIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786632052; x=1787236852;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1786632055; x=1787236855; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=zfgCd9JZmx1G3JenYZxMpetacJxXe9R/CJ7kBOkKzAo=;
- b=r7UUhkkoLhmt0bOBjw5rWONzmawAgmkMVF+NJ5p9fIZ5RW8kOhINhM89Ho9eCECJhM
- Xq4+9yHXFZF8UxeI3m0UiR1j9GKwEdBhOfblfUFe4IZxBEiRiGKyRi9lZ3mSwg+R/NLJ
- Z+VQObnvIBd0LpEboypa6BLLyuDWAv0AOYvGnro2GJ0etT3fiE5Eim0n9j7zxjPi448t
- wiPoctLBIHTjzJRuJq0t8zvM8IVPA9CLGeG5bfMZLvS1Azm3+f89Br9d9MqVBLig7XRS
- LlDgDKywU73ngZX1qBcEM35eIkXqRV65PEQ0LohcuckJ8aElDD0Z/AfLMCNF0T5CGfqL
- Ahzw==
+ bh=4182N1qJg8wcsdY0I1VphGRMJvbBfDpbj3gNAH48eMo=;
+ b=S/U9UMkAvvmX4SeLWwBJ/JRjg3zzUfYIDF9lfDQ1JZBljcCgQJdCtLjK+PywG22EYk
+ TbMfjWV9ZJOoMGYs3aJG/Sp21ndRQXmXe0NYf+MKwETlzo9MKdxG33Yg6VPJXX6mFrne
+ hUb79xuoyDkiIkU8udSpJ6Dp1aoVJBuJ9QumLUuAgxn3YS9Fmvo6BgYXPgPxWMAkQmu0
+ fteOEomsb3cXDsbIF+9ci71d3VBetkSaXabSkRzi21SWUYTORKculok8Fwdp51pu7WBk
+ uNqwUnCHUtfZcGrQc1PfrmTutpYiwXvCiDU/j1kS1WY7fss+LlfVl6VZRwvSCvWifpWo
+ hDMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786632055; x=1787236855;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4182N1qJg8wcsdY0I1VphGRMJvbBfDpbj3gNAH48eMo=;
+ b=hLFHfvIEI5ddqSupx5CmFxhU0dWkvXwtCS9PKnLLuxy8xDiefhepqVejlW3prxYJEg
+ wcappid2sXBIEys2r+xd0uBgcJX5mlJyxoUISVRCyKbBcD/o46Bls8Sf8BCxypQx1GsR
+ /Zt5F7pbYoN7ytoWoopa08RzgqqtkgH14SRYtov2PelmQiyQYc8fihERoGF4mdElap14
+ 9miy5NmujMuElToZ23s7d+BfecIn3W6BMlzqeI9Mq0aYRlfqFIZt6Rv9q6dMM6kGWUNu
+ rEXiMgt5TGb4aTbuMnC9FZRfLbFQhHpnxRHbif/H6YszJgCpYPI7RPmWi+epvgVW/AnI
+ qG3A==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpC2jgrPlo5TTkPXTTfqZHBc1Ub56M8k5d7zwhCvdMgOXOzinSv0U10qI2uVbHYjnWn42tU0IjhFIM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWl7b109y7aetDkYQBJQLlLiULcwUyqHF0BmHbh+K5Wbcy+Wb7
- 1ypJLkwvN20MtIgouaAr8MpXeOxJzbXNPrjYEfp5EuPFYja19wPgZHcU
-X-Gm-Gg: AR+sD13derTpetng+rnh6v5VeI5C4Vk7PFxcgvSuTLyAxBlNxIAAZBoVQnP573XP1LX
- iSjHG4rf7Z6hf17Nw9WrYyXbRqsymIe7+tFNBY1x3BYMQ7rl+T1yZsnJHNg9WfrfDHxWwlUe40s
- u7vEeUzo9V+MaV8rT3a348WqMTpfAqbeefoa+2chxouocThhil5jSqlh7Q2bUGrp5jTw/tpM3gu
- MhVJcHcpoAhaLhZZfStKz5j5KcOh2fiQ00/aZSfw+v4HU30bkjLq+2ys49R5n8CfvTnzcS2kcV+
- naie6R7GJbZ173CZxLb1tCdbXchTJc4DwrFtVNraTZ7a3uAqFapEkiTwZ44QTyTNB7oLQ9FIYNq
- oR4lzLBybo1ZB8tdWXaQW8+Ya6r7BrQ5pCdUsWcWHYE7mYZYZTYKk4MrII0R9Rlq/4ys3r26Lrs
- 0EjM+VfSgHcDuUV9lVSh4pTHG3ofkpIhTU3r1CoauP5uctD++KJaayn5U7F7B5A5MYZGLTRMO0H
- gcqxpI4DSVLs0DlWkzP8uRsePK10FDwPkpO0Po/2IYis/08xJZCJ75gvs3pSBOoMbcI1OOegBjk
- C4lt
-X-Received: by 2002:a05:600c:3ba2:b0:498:8e6:d463 with SMTP id
- 5b1f17b1804b1-49982617b0emr35862875e9.1.1786632052215; 
- Thu, 13 Aug 2026 07:40:52 -0700 (PDT)
+ AHgh+Rq2Pg1aAmcaAu+hYImL1D7O3hMaURlSj5PlO0GOtJ1Jpvq61mAoxhd7iuaeWRPagOtMystEcCnGc5E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxLjB+v6hbL5iwd45hLS53EyEtJ3iSTS63flmCumy3TY6CuiMv0
+ 7vaMB+0eyrNgqEh6vbXab74zNOIIOSdFgyPmseYp7mq7a6Pqje6P8j+X
+X-Gm-Gg: AR+sD13gdqRXq4t5OGhP0BdK/g4LNSC0uPL/meW6b8IEH+d1hSAG/KvQdR1fj5xNo2c
+ FgF4egxirMXKOKMzPZ0ckX3qCHlju6lF8st5Xx46X19JV0FsO51bv9xoC9z1Mb62KWZiC8lVDnN
+ YFTALvVQW+jLH41zOLMdgbMIoutGSrajtP3itgU0UDBoYuIu4RB4g/BSnEa7CHz8+DD+H95+Y4B
+ tDTxmGF4ZE/qb9KouxkBtp1HWTcMFAzBr2cbbEQw1liNyn7bxGLzFeldK7BNrDwC9B0f0gB1G01
+ LHLDSBOQLES9zp5kkDYKczZT0U7Oq5cXlBHMGbu02DUf2+VuZidb/dg3MzZgDYPHSrdk2SerYaj
+ hKjBlDBVC9Ayt+hhTxke7Sc7st7tmO6dYIfqxPdjIvrLrY3NZxTJ0OpN2MgkG2wIRdpdnQGJAzG
+ Oc/+RUv8R86rJf/qzdGEh/m9kwihw4FxOnF86zy47oz3hHEMjbYYpeUlnb4U1N3PxFuek6UMycu
+ emVPsay9iXjbRBEB+1AsbwsEwOwgLkC+i/vVlyszXYmaEXvDiAnA2jc3EtzrHzEVYgN6w==
+X-Received: by 2002:a05:600c:4513:b0:499:5b0f:72b with SMTP id
+ 5b1f17b1804b1-499821aa11emr43142705e9.1.1786632055178; 
+ Thu, 13 Aug 2026 07:40:55 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B911C00AE6C52CFC8961284.dsl.pool.telekom.hu.
  [2001:4c4e:1b91:1c00:ae6c:52cf:c896:1284])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49981b58700sm66426445e9.9.2026.08.13.07.40.50
+ 5b1f17b1804b1-49981b58700sm66426445e9.9.2026.08.13.07.40.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2026 07:40:51 -0700 (PDT)
+ Thu, 13 Aug 2026 07:40:54 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>,
  =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
@@ -77,10 +77,12 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Marius Dinu <m95d+git@psihoexpert.ro>, dri-devel@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 0/2] drm/rockchip: Add missing DRM_BRIDGE_CONNECTOR selects
-Date: Thu, 13 Aug 2026 16:40:17 +0200
-Message-ID: <20260813144019.12089-1-royalnet026@gmail.com>
+Subject: [PATCH 2/2] drm/rockchip: rk3066_hdmi: Add missing Kconfig selects
+Date: Thu, 13 Aug 2026 16:40:19 +0200
+Message-ID: <20260813144019.12089-3-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260813144019.12089-1-royalnet026@gmail.com>
+References: <20260813144019.12089-1-royalnet026@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,42 +100,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While testing the dw-dp v11 series I noticed that ROCKCHIP_DW_DP does
-not select DRM_BRIDGE_CONNECTOR although dw_dp-rockchip.c calls
-drm_bridge_connector_init(), and Sebastian suggested handling this
-independently of that series [1].
+rk3066_hdmi.c calls drm_bridge_connector_init(), but
+ROCKCHIP_RK3066_HDMI selects neither DRM_BRIDGE_CONNECTOR nor
+DRM_DISPLAY_HELPER, whose module carries the bridge-connector code. A
+configuration with ROCKCHIP_RK3066_HDMI as the only enabled Rockchip
+output option fails to link:
 
-The ROCKCHIP_DW_DP gap was in fact found before: Marius Dinu posted
-the same one-liner in March [2] and dropped it when the failure
-stopped reproducing in his build. The failure is
-configuration-dependent - any other enabled option that selects
-DRM_BRIDGE_CONNECTOR masks it - so it can come and go with unrelated
-config changes. It still reproduces on current drm-misc-next.
+  aarch64-linux-gnu-ld: drivers/gpu/drm/rockchip/rk3066_hdmi.o: in function `rk3066_hdmi_bind':
+  rk3066_hdmi.c:(.text+0x7a4): undefined reference to `drm_bridge_connector_init'
+  aarch64-linux-gnu-ld: drivers/gpu/drm/rockchip/rk3066_hdmi.o: in function `rk3066_hdmi_bridge_atomic_enable':
+  rk3066_hdmi.c:(.text+0xe74): undefined reference to `drm_atomic_helper_connector_hdmi_update_infoframes'
 
-A sweep over drivers/gpu/drm/rockchip found eight callers of
-drm_bridge_connector_init(). Five options already select it,
-ROCKCHIP_INNO_HDMI gets it through its DRM_INNO_HDMI core option, and
-two are left with a latent link failure: ROCKCHIP_DW_DP and
-ROCKCHIP_RK3066_HDMI. The rk3066 case additionally needs
-DRM_DISPLAY_HELPER, whose module carries the bridge-connector code.
+Select both, like ROCKCHIP_CDN_DP, ROCKCHIP_LVDS and ROCKCHIP_RGB do.
+DRM_BRIDGE_CONNECTOR in turn selects DRM_DISPLAY_HDMI_STATE_HELPER,
+which resolves the second symbol.
 
-Both failures were reproduced on drm-misc-next (d85a5e9dfb42) with an
-arm64 allnoconfig-based configuration enabling only DRM_ROCKCHIP plus
-the option in question; with the fixes applied both configurations
-link cleanly, and an arm64 defconfig re-run shows no new Kconfig
-warnings. Both issues are present in released kernels: the rk3066 one
-since v6.16, the dw_dp one since v6.18.
+Fixes: 57d6811e8a6d ("drm/rockchip: rk3066_hdmi: switch to drm bridge")
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+---
+ drivers/gpu/drm/rockchip/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-[1] https://lore.kernel.org/r/aneNCDU12OzG99UX@venus
-[2] https://lore.kernel.org/r/20260319155051.1944-1-m95d+git@psihoexpert.ro
-
-Igor Paunovic (2):
-  drm/rockchip: dw_dp: Select DRM_BRIDGE_CONNECTOR
-  drm/rockchip: rk3066_hdmi: Add missing Kconfig selects
-
- drivers/gpu/drm/rockchip/Kconfig | 3 +++
- 1 file changed, 3 insertions(+)
-
+diff --git a/drivers/gpu/drm/rockchip/Kconfig b/drivers/gpu/drm/rockchip/Kconfig
+index 697c0748eeca..4e58685f58ff 100644
+--- a/drivers/gpu/drm/rockchip/Kconfig
++++ b/drivers/gpu/drm/rockchip/Kconfig
+@@ -146,6 +146,8 @@ config ROCKCHIP_RGB
+ config ROCKCHIP_RK3066_HDMI
+ 	bool "Rockchip specific extensions for RK3066 HDMI"
+ 	depends on DRM_ROCKCHIP
++	select DRM_DISPLAY_HELPER
++	select DRM_BRIDGE_CONNECTOR
+ 	help
+ 	  This selects support for Rockchip SoC specific extensions
+ 	  for the RK3066 HDMI driver. If you want to enable
 -- 
 2.43.0
 
