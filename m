@@ -4,144 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 629E5C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 21:53:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 119F3C5DF66
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 22:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 971CB10F55B;
-	Thu, 13 Aug 2026 21:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18D6810F569;
+	Thu, 13 Aug 2026 22:02:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZJ3MQJSA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n42abIMK";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012036.outbound.protection.outlook.com
- [40.107.200.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 563E610F55B;
- Thu, 13 Aug 2026 21:53:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TFKqH6wSG/8kZrw8EujQePGZeZgHB+s5cNegexXJPBFy93VwC14JY5+ZulPHl+Cmx+LjM1+UdiAhU4tV67XVevjRbNx56+RWzgQwB6ZE/LDpc5TtoXRkPn/52W2XBDWfK7Vgo8O7MTMv24u7t6g+R6MPFbE965WRVrSXp+a9368UE5zfP8RGkEzXC50d2dbxfrjczze3y1fNpxqd+B0NX0cgHxwF/F27jeDRoyzSDN7dvZfH+8ojdMSoyW0IFz51TkOVNLHqFnGRTYlDX59ITwJrkV3ICB/S+/8uQ8+yqBASwuuOD8OQ3Bf13eeTwyjqFck9OX+AtmlHwnnDLsSdVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JVjbeK0pDlrzyRevjeqA3+FamE6Mset58LRYaQ34MTI=;
- b=uOpubYjJSjyEr1XYO082HlGGoJNpW/UiFBQmmtYOUd0DzdVDF3evu33VA1kknW1ybg4njYaAtisoy2ShfW+7/lE7VR5oZ4kfpor8tAxM98lYo9bNc8hiTNZqsxp99UClDYGtnbI1nzOWxuGzJaVR0Lxme1OhpU+zUTVUXLyLwgdNlo+/qmSKSNkyDClNXCTjnCoMowCQEorjffVu5HPgIQ+XS1gH2b3GjFRPC0YTT/s9a86zASuo+1deoEIIOFL9qNMIwoEiA6j2PU/F0Oh0emYycP4z3nSh/vtvBKRsFjNp20zx4bU092cJwC9hFfmdQeI6nExnsWZ+BE1J/3HpUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JVjbeK0pDlrzyRevjeqA3+FamE6Mset58LRYaQ34MTI=;
- b=ZJ3MQJSAFk3XKZoYGS0giTaFwT6Xb0FRYiWg001tnWvaONtPcjR/cWedmxKrIYYt+5/t5YK6Xl3qU4GLFWFerzQozgu602vtx0DCfq4CYYn5AMrLLmzUfPwhVJUF0Xg+5iRqn+RAImmSn6oxBlZFnQVcYgp1RC3p/c+TVvbJsf0/2PBc8CNaQ2tkzvwRe2+M7N814VU0mQ9d+plmrBDcMi4yjjCroM3zLSuEvJ6z5T6Irr21k88j4ecdSgGpw5FGiuILdfYB2Xp3i5UYXXqLTGscqyDDbOYotcsa1OIHRuzQW2tYpcWa0SOk20GSI4yuJMMD8yO98zBMJpZt3HyE0w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- LV9PR12MB9832.namprd12.prod.outlook.com (2603:10b6:408:2f3::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Thu, 13 Aug
- 2026 21:53:12 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
- 21:53:12 +0000
-Message-ID: <3c8c19e7-e1c4-4f0f-beb2-8d7cd58fb6b1@nvidia.com>
-Date: Thu, 13 Aug 2026 14:53:10 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>,
- Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
- Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org,
- dri-devel <dri-devel-bounces@lists.freedesktop.org>
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-5-6c767770b3f4@nvidia.com> <anzxKO0X1OrNRD32@yury>
- <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com> <an4NvQBt3389jP6E@yury>
- <DKO414SNC0B2.248FUBGJGSPLU@kernel.org>
- <DKO48OG9DU2S.16YBDI113DR4@garyguo.net>
- <c2cf35f6-7dfa-4186-acef-deab9a6f1b3c@nvidia.com> <an46vhEkOb35-oXE@yury>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <an46vhEkOb35-oXE@yury>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR05CA0117.namprd05.prod.outlook.com
- (2603:10b6:a03:334::32) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9703810F569
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 22:01:59 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-383fff6e8b6so38094a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:01:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786658519; cv=none;
+ d=google.com; s=arc-20260327;
+ b=HirjZRi0gV3hIqrNUVPxg062ACo77IWtL+bwokBOZSoR3EADlETZy64IP0D3vx5yBX
+ AJ1kad+k9q5lwEKm/hQHK6WgO47GN2VX0+jmA9G/JY2Vcrm0MwRUjkmvYnJD1e7yHHL8
+ tfw/qMvA0RSKDDqTbNncy9BuiEOj25/7yQlc4Vty8cUqcxrcKG66sEWd6fmnq5ST0/s+
+ Vn91d9hEmdxlNT30J8GNsdhV2r0li6ZJgcT6vXjoxy6dZ585rLH6u4zLTIJLM++B/Lyk
+ 4h+OEPMphSTVNPF39u/icINnqYCLnh0FrqaqmTMMleDzYRjFvIFOWsYiNqjZYv6GXSaC
+ 2hZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=4Mq4lnCpPXsLK97g8OxvoVmu/P5LTp2GxHOYzB464gE=;
+ fh=zNpD3jocJwiJFHvXSZQlUDvI9j/zZy0s1LRIFdBQ9TI=;
+ b=Shy+fNpeCReo1a+d0Og+xSl3lueqvvriZH1lmUaXsRtKmnvaohtu5kpGvzV2XHzmJT
+ VBjtoJ+mGqOrB0LhJYycc5K5tOY9WLbRUnSLS6RosijFHPWZrcZ2sRpBYDYy/vM89S0X
+ XGimYAh/ua5DDgj/ZqoB+z0CZz+Hl1kQrioIoisigAsk8hsIb9dFs6Rp1rmz5fPdBAka
+ aUNz4G7L6MZ+82KMvr1S1xu/B6OE87matAU/6mm78V2aGjOF/WSrUfJWZO19SyX0jVdF
+ kLC+H8+SSsBJ/CdLxbv0bUUzK7fHLY6hLLACECccSgvMfOjngL0S5Kzp+qviiLd3EPzt
+ Vstw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786658519; x=1787263319; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=4Mq4lnCpPXsLK97g8OxvoVmu/P5LTp2GxHOYzB464gE=;
+ b=n42abIMK1o3+ZheEgPyFVIlRApzlC61KJouOqILFlPWV9lomc2jA0UJ6iN3/1o8N5q
+ z402PkyNk935W2Kv7MYaFP5Rfpmfak4PWjk9HyMzfLPFek9xiUPPIuPzyBmqetiGVoSV
+ N+HDfDeHn8WqelTPFP9hYj4KVYsmXYAv8bb8nTdqhgXdrrNJSDt2q3X5UR7T44C0wjX1
+ mrn3ETE+PDWZHdfaoN1dw+Gcj7odbMnoQHu5qpjm6st+Z9GHQpreXrT0uB2wTvVt8mea
+ GKFHl6TziBiB6EC1l1ZBnKh9YypCDsxGupsvXHYqWE2TNXxbwWbc1hpaFzTOvcrEMpDr
+ 7srg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786658519; x=1787263319;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=4Mq4lnCpPXsLK97g8OxvoVmu/P5LTp2GxHOYzB464gE=;
+ b=KX8Ui0NqxKrxVD4NjeYN2t1M7Qo+ekaiUncTTkzElXt8OTshECWeFzjxfs9FIvdPOt
+ 8cTMySPp86YK0+PEJYKze9Zx+GNuFCYadh7dI3N7Roe2kKV779aSEtB/GMG/RFLqG+Mw
+ mzJ7hJdtZvAcWlBs/2N7CE2IFDOaTN9Xh3UD50mhsvywojOzUh4dr4r0c/2EDs90QRID
+ Z2xSw4f1IcWnoSDqFelr9ZlmAkiDkpMWrNllwXjFsMRK/VO+iuHTjM4nlH076MmOUv8m
+ zNY5Bccds9ROP5A2q83F6z0xLJX+uoNjrMvvmsgR8iYU6lxvHGombzLKMLeXny0/0tgq
+ PlPQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpdj4/SwQ0EwelB66H93GvQakEwSnFpMYb9rnX7zLxCVP0HBVut2llu/l/GXTpkqYdHQAWURyQrVBk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTu90LpyoOFRg0XzeaS7TrHpGF0Xs6VX7qRjQstwCFzgyaJsmz
+ vA462HM3mVyT9DiQQNvP1r9JFRHQwbQ3Plu1oIhE51Bk8+TZJv3aoNAFGJdUSZrYQaGZ5OsdmXL
+ slmqWDMdpiTKI3mSISeqmzSE+iIMGUF8=
+X-Gm-Gg: AR+sD12uF/aSaDgCkQ1VCRgiXBYH99iAXt65sO6SC/71mST4j6awvqM5Zq6bp++LG8K
+ 1VayruvOo8S1bhOc15I78efeflzAxdwP12pN13hFP+sA95Pcjh0OnzTAUtAvZLAj1ZhOH6bfkA7
+ yIYLAkpcuwFVEEzvWxwEYTWPo1LpbPuABr5dx+VMixl32yh0h12gI6zQ+irxUDBCE31Y/1AVg3A
+ 7vnjnjMKf8wZjWXBjBtWhPXvLHRdaNV/SX4eLrLjoUUTFA4uh3piOavxaax6GW415zAShOJC215
+ 8CqXvbaSMsITe4YQu8B6fKMJgLQwyeBBuCNogGBrRkekRnfK9i6HXaPHPoDCe4Howb4WYNhLkPn
+ aYJ6yW8lZT3tXSzuTky0CaWMgh+Fq1X0=
+X-Received: by 2002:a17:90b:1fc8:b0:38e:7069:7117 with SMTP id
+ 98e67ed59e1d1-3933b50729fmr918723a91.0.1786658518991; Thu, 13 Aug 2026
+ 15:01:58 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|LV9PR12MB9832:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9b5f9e6-f7ff-4f64-6cd1-08def9854571
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|4143699003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: iPzsFuOFyowEI4Rpsq1+hG3IkM9KaSaj+mBrzoIkLjLTPVNyw8NKR9hksq2sNJkzQRAI5YhC4HwrF1X1F1ojpLcNgV27PxRMYkZoYG9Q419643lauBA1rOBTFDu6+Mj5oRAyjCQ4pFXFcIaRM4BGVdfek1St7CUW1OBE2/mfTgmP5MfHfaUqFqkb2UhVQdZl3z/QMVxTAxFvsXm4f8acjuJC9gfgVplGZbrR8cLe/Hrlryu/QgYH8wT9u/kYU8X0YHVlOL4j5VerYkaF9gcc11hKp11mm0wKmUvUtRCBvCkTRvkQhtMfXhLlM5LDTSnomFWZTm6Yr9HQvljA6Azr49qfnLRIFyxZGmcEZpzfeFLepq6UI36NOt9lESK1IjCp2enH1tAeN29Ew9VlwIxKoM+8c/09LkpgildqGYM1/WqE68133G9oewwBirjkBeJUDpscoK2/JMxDc9szr1vwoG4I5OM7BwUwKrnoDAE9jPpLpouIzzL6211E4DIN5rOyU/IL77QAYj/iCr2vQY3k/7vYmtZLnQcPFPVN5xc4WCoOAWA80YS7mGYCmnmxKwq5ANjRh9SN03WRj5GDFkqnX5IanrK6eC/veJOXpIDeHa3QtmM5YHjgZpo/1EHL7mSy92xKzwNaO5y/h7CaAaPSx0rLYaOP4EOs5yjpCZGzyzQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(4143699003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZXVxa25XS3NpYlkyVGRLdkh0SUdwZGd5U3U4QVNxN29LaHpqRWhzUkJiOGRG?=
- =?utf-8?B?RzF4R0p4S2dFVXoyWGJza0J6YzlhUE1sZnFONTZwNDk4MVY4K2Q2bW5vczI1?=
- =?utf-8?B?cGRES2JTQ05kK25WUkVma3ZjR001dC9icS9ETFlVQWRKWndKR3BmVEt3b2pY?=
- =?utf-8?B?RVFTQUdMUGFFMWhOMWwrNlhmUUk3UnFpUFBwVVdMcWc3RnZ3Q1VhbmRFallj?=
- =?utf-8?B?eGxFTHBvcy9sak9VanpjcnhESTdNQTBBamdUcHBQcW5pOTBERVRPMzFKTnFh?=
- =?utf-8?B?NXk5YUptT3d6dVhtekw4NkxMOHFxREpVeHd6U09zQjhZaTZmN2VPZEFBMjMz?=
- =?utf-8?B?WXpVakwzeWtlRzFPNStua2xYOTdVbXJSN0JDS1Z3SzhXWEdXZ29EY2Y4aW1p?=
- =?utf-8?B?bWFjR0U0a3A5VWgwSmRmakc2L1dnOERvY3pVSHBid3dvVVZKWEYzVzJXeEtR?=
- =?utf-8?B?czdTUjFEYzdjSHZ4bGNEZ2l5QVZ1Nyswby9EWFRKVW9jWWhoTHZsVk9rOG5E?=
- =?utf-8?B?bHJUazdObWo5TzUveUpINmk3Q2haODVQNVNrbi9hcHpmUVR3cVFZcTk3SjFH?=
- =?utf-8?B?d1dpajNqM3FuSlR3cVdJZnRrNHZMU1g0TEUySzBtdm9RL3FFVFhFK2YzM2xN?=
- =?utf-8?B?RmpSWk1wdURnVW9ZdE9QL1hxTEl0ZklXclVtNTdER3M1QitHTitzb0pYc29O?=
- =?utf-8?B?OG4rREI3VlBJZzg5dkcxejNteDgrcDhieWVQNTlGUEdna0lwTjNsVXRpMXk5?=
- =?utf-8?B?MzdlQzdlSThTelByUTdqT2Jud0p2T1d3aWRLZ2V6a1JhSlQwV2dMZTFCYTgx?=
- =?utf-8?B?aSs1Snl4S3ZZVC9oT21GcXErcmRQYmJCYmVrUGhzak9LSVZFMVAxdXJXUzdN?=
- =?utf-8?B?ajNoVXBEMWtsclJmWVdESVlGMXUzRUFmajMzVkRDWXlMeDNzbEtFWE16b1pk?=
- =?utf-8?B?cFdBQVFOTzhuR1ZVYmF5bkxjeUg1aURhZnZIaGNrWGdrRVl6UGpNN0t3ZCtp?=
- =?utf-8?B?elRtSSs5WnEwek41WHVlTlVSNTUxQzVyemJlOEU0S2FDT0x5MHIwZDJaNUZz?=
- =?utf-8?B?QWM2clF0dFZYcytVMVc1UnFmMzJ4dGZud0orR25PNWtiamtnemxFMjhEZjhT?=
- =?utf-8?B?T1JqUGxkK1gzdklGYmtkZTFmSXZwd1NXSmFuaUo4OWlSdkZ6SXh3Y21yRE9l?=
- =?utf-8?B?d2tQRVJNR1lyUHVrTG9JWjB4STJBelFHZS9UTWMvSStyand5OXdUNHpXWmxi?=
- =?utf-8?B?dzNsNERFWlN1cEFCMzhMd3VuZ2dtdWpYMVBvZE5GWW9PZXJGTjF4U3FCN1Fx?=
- =?utf-8?B?VkV1V0hwUHRkNmswZFdwRmZMUE5pcWY4NlBDUWZMRmZmVUc2K3k0eVFwbWVn?=
- =?utf-8?B?SGtlOEkzQzZNc1BxQ3V3Rko5bUtFd3BmejVKYUVyQnhXeXpjR2hxdXI4d0NC?=
- =?utf-8?B?QjdMUTBtL3ZMekJKRXJaenB6eXc3SnIrUjZnT0JtWFc4QkFRNko5V3J2Tit2?=
- =?utf-8?B?dy8yOGl1OVZEVEErN1lXRHMwZ2p2RUpBMFJxZklObDNzVURuZHVSK0YxTzBT?=
- =?utf-8?B?QXBtYmtFRzJzS2h6QWFZQTRhWjU4Yk9rQW1NZ2NJeTMwNWoxYVArVHBnVUZs?=
- =?utf-8?B?c3pUT3JsOFFudGVMNkxnOU13UVJSWUlseEZlb2E2bUhlQ2tBcnJuY2hYNFBF?=
- =?utf-8?B?cHRQVWZvN3Rlb2xJcUpvTWZrZkh2U0xFancwbTZDUVpwQUQrbmlqeEQwcFVn?=
- =?utf-8?B?QnJhbTJKb0xGQ3kwcmg2R3FmNkxickZEbjVmakJZTmZMN1hZQ2ltMzlOZlNZ?=
- =?utf-8?B?U1hzSFFLRnlXa01USnZWVzdqNmtKS2RlcGRDNkI1aVVyNGVlQW56RU43eXZ3?=
- =?utf-8?B?M0Ntc2xFT2JUMXQvNys0aVJoVlpkeExLY2dTRmVvZnZkU3p3M1BDRXkrRWw0?=
- =?utf-8?B?ZnpNTXpRa2tDeTJlb1JoYm9vckgzUzJIMnIwN0IyVmpHRXlqb3hFN1Mzb2NH?=
- =?utf-8?B?bXpOdmRBT0duTytMU3BCc3VpVkp4b3B5QlNiVTNTdUUzNVV2QTZqOVRrNEhZ?=
- =?utf-8?B?NEt0OVl1eXR6RUZDRmh6cU9nNC94SVlFdXZwQkcvanlkb1RZV2pxTUFubkEv?=
- =?utf-8?B?bGlud1lkVlpkcDZGbkRKVktId2xHazNhWmVhSUNoQkQxQ1N1Sm5jSTB4dzhv?=
- =?utf-8?B?Sm5XQlhTN3hHMlQ4Q2MxYkVOTlI1YlNUb3VIdVRMUGdqQnBIZ3JxWFhyQjR3?=
- =?utf-8?B?eHNEYXAyZEF3RnpJMUEyY1JrQUtPZ2NLT3haUC9lV3ZRSjl3WXpycnh3ZkE4?=
- =?utf-8?B?Qm1Sa092bkZYT1QzQ0NCemYvc1luTWozV05JQnVLZHMxRUJBN0c0QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9b5f9e6-f7ff-4f64-6cd1-08def9854571
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 21:53:12.5974 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7PjvKiZOXfLcZXPOMqT7OgG9SWzfeSIWkmK9eRaLkW/tav0cnHkUsRvZM4WjBqJS4TUHF64MkKD00lHEZMXsiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9832
+References: <20260805140227.44868-1-boqun@kernel.org>
+ <an44yIv7WG7vqTqQ@tardis.local>
+In-Reply-To: <an44yIv7WG7vqTqQ@tardis.local>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 13 Aug 2026 18:01:47 -0400
+X-Gm-Features: AUfX_mwrCLsatx0Sle_Nl-2BbcnZsP50vwFu_lWeNoqprpd0PhoDhEdHVhOZSkw
+Message-ID: <CADnq5_PLV1rDw8DSawdHfQxyk8XgPp94TQa0HuFVdZVvZo+zmQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Fix incorrect avg vcn utilization in
+ gpu_metrics
+To: Boqun Feng <boqun@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, Mark Janes <mjanes@netflix.com>, 
+ Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, 
+ Asad Kamal <asad.kamal@amd.com>, Yang Wang <kevinyang.wang@amd.com>, 
+ Priya Hosur <Priya.Hosur@amd.com>, mythilam <mythilam@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,45 +116,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/13/26 2:44 PM, Yury Norov wrote:
-> On Thu, Aug 13, 2026 at 02:38:34PM -0700, John Hubbard wrote:
->> On 8/13/26 1:58 PM, Gary Guo wrote:
->>> On Thu Aug 13, 2026 at 9:48 PM BST, Danilo Krummrich wrote:
->>>> On Thu Aug 13, 2026 at 8:32 PM CEST, Yury Norov wrote:
->> ...
->>>> The code from Eliot does actually already takes advantage of this. In
->>>>
->>>> 	pool.alloc_area(nz::<8>(), Alignment::new::<8>())?;
->>>
->>> I have to say this looks quite ugly, compared to just `.alloc_area(8, 8)`. In
->>> this case I'd go with something aesthetically better...
->>
->> In addition to aesthetics, a practical concern is that there is a
->> higher cognitive load to both reading and writing the longer form,
->> above. Perhaps that is just the price one must pay.
->>
->> However, for primitive types, I am hearing (even from Miguel) that
->> there might be a way to get the static checking *and* an easier
->> interface.
->>
->> Here's hoping you all can find a way to do that. :)
+On Thu, Aug 13, 2026 at 5:36=E2=80=AFPM Boqun Feng <boqun@kernel.org> wrote=
+:
+>
+> On Wed, Aug 05, 2026 at 07:02:21AM -0700, Boqun Feng wrote:
+> > In a Strix Halo system, a >100 average_vcn_activity in gpu_metrics can
+> > be observed by running the following command:
+> >
+> >     ffmpeg -hwaccel vappi -vappi_device /dev/dri/renderD128 -i \
+> >     ~/sample-10s.mp4 -vf hwupload,scale_vappi=3Dformat=3Dnv12 -c:v \
+> >     h264_vappi /tmp/output.mp4
+> >
+> > This is incorrect because the value is supposed to be in [0-100] range.
+> >
+> > The cause of the issue is that the metrics.VcnActivity reported by
+> > smu_cmn_get_metrics_table() is a permyriad value instead of a percentag=
+e
+> > value (e.g. smu_v14_0_0_get_smu_metrics_data() has a division by 100 to
+> > report the vcn_busy_percent). Therefore fix this by applying the same
+> > division in smu_v14_0_0_get_gpu_metrics().
 
-On second thought, we haven't talked about what the callers look
-like here, and .alloc_area(8, 8) could simply force the mess back
-into the call sites.
+I think this is correct as is.  smu_v14_0_0_get_smu_metrics_data() is
+used to fetch data for standardized formats like hwmon while
+smu_v14_0_0_get_gpu_metrics() is for dumping the raw metrics data.
 
-> 
-> There's a nice postfix macro proposal:
-> 
-> computation().macro!().method().another_macro!()
-> 
-> https://github.com/rust-lang/rfcs/pull/2442
-> 
-> That would solve the problem. But it doesn't move since 2024. I
-> recall it was mentioned in the bitfields discussion, but maybe
-> it's a false memory...
+Alex
 
-thanks,
--- 
-John Hubbard
-
+> >
+> > Reported-by: Mark Janes <mjanes@netflix.com>
+> > Signed-off-by: Boqun Feng <boqun@kernel.org>
+>
+> Ping?
+>
+> Regards,
+> Boqun
+>
+> > ---
+> >  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/dri=
+vers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > index 568665265a13..1058338344b0 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > @@ -566,7 +566,8 @@ static ssize_t smu_v14_0_0_get_gpu_metrics(struct s=
+mu_context *smu,
+> >       gpu_metrics->temperature_skin =3D metrics.SkinTemp;
+> >
+> >       gpu_metrics->average_gfx_activity =3D metrics.GfxActivity;
+> > -     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity;
+> > +     /* metrics.VcnActivity is permyriad, convert it to percentage. */
+> > +     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity / 100;
+> >       memcpy(&gpu_metrics->average_ipu_activity[0],
+> >               &metrics.IpuBusy[0],
+> >               sizeof(uint16_t) * 8);
+> > --
+> > 2.50.1 (Apple Git-155)
+> >
