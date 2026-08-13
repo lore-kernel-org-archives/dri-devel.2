@@ -4,74 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B361FC5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96686C5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7E0010F30F;
-	Fri, 14 Aug 2026 07:04:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C15710F310;
+	Fri, 14 Aug 2026 07:04:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="soudcaCH";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="eWtTwJDC";
 	dkim-atps=neutral
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEFDE10E4C6
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:10:54 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-c9e7391839cso1804905a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 04:10:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786619454; x=1787224254; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=SrNuYfPLf9ZRG3VPVcc9OXZy7f7BhYSur9DBwfRDvzQ=;
- b=soudcaCHKXlsRceNunxc7B0mfHQeIEKRBayRQhEfyeWfOdzUU1K2yiTTRDNiew/zAw
- XSUcY/gfOcRSLBDlc7kGgqd5XRBfOy5vaK1aKnfbLkRzDkIhvUJI+rR8jQaoyEOrrKh6
- c4TzPOtTIRuZpGIf3mEe1wkSR1dOGuHHStMDe3MbM1rcQ3fEOgq/6KWaeUKcmxD6ktTm
- gT2iy29pPTXKfGigeWXYnxsR0MrCqbL8oOPQ6MAcrj8fTd8RsRHzQfRPPY/gE9CvMtRl
- 2qbL01TNrOnWj0xDmMe7fxEtvfbfhJCFRStL7fePYLyG9UGj29KukQNzz6Io2s0/0PDE
- 053Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786619454; x=1787224254;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SrNuYfPLf9ZRG3VPVcc9OXZy7f7BhYSur9DBwfRDvzQ=;
- b=UalXwDP4+zPE2/kxRVzn497BIRIef1mDQoGGNrSIl1Czb4q7+g4AD1fTWCAk+j6/i6
- Lpu7+wcssqj62eDHrH59MP65KiAA80eVo/4wwxRznJp7mF4EGWxW7jE2dzbjGD/MMJDO
- hin5oUbJoXUJCsCfWf2dujXk96E8SFl+/GkT7d2oXDYmLOdKLXGSy5l89ch+MZQn6Kug
- Ij+o+hkuAR2p2gbzGm65x+mqSeFaIo8ZfzOw6S2MK5SoGvVdpSay7qpT1j/ADMcoLIqm
- msiPgPlsL9SXSMuAOfgp0IajX8xB5HX3vjkcfcoKefjk/GheCqlute3w/qJBhxoMWO1y
- g0CQ==
-X-Gm-Message-State: AOJu0YzJMF6Rx7SOb+5xtVQe9EO1UCCeq+62ZMQxjMEOtgvPVTr20W+U
- Esdh9HHCIsA9fwg9rFqGvvKMtbC97BYOVkqGDK/naaVF8XueGhnDJL8akW/7Fa6PBJs=
-X-Gm-Gg: AR+sD11fVQTlpk4UPbBg96R8SgtSTsRDtwNKOTVUGJFUzN2OGe8jFk4uR1l1CJkdulr
- fMRnPtbWV8XY/El6y0yBeHrCpSK7WQdNkoVPRAbjPlYgfAI88FFAtMlVljD/flPoPppVdRwUx/x
- zajlZMHIGV9KHayR0yKNQ8FgOBlDoUXlWCxNZTt97pvCtpmBmVaBG2TgWfWPejB1MA0otyLimnh
- XnIRkCQKllb8wUkaonPUP4cUMCblDaY8Wbw3+iUctiOCiWSjwyzvCcIyl1pCIBRnIbrUFHn7a6j
- uNprRh8AaJxjRzhTaZ24Gs6OZbdQgw3MPJAzDdTbofhUdj86QqAZUyN1717eo9bQJ6MoC5nG9X4
- AoLNPkQrpbxJKqbO+GGDi/RfNeHS+ZW464nOPAoL1HsQy6PrAfshkptOrnenYvW/xdfGJ1Cpht6
- 1S4AZumjknXEdKMsTAWVfOhJi6Nqz7Nylt+419ek3HSijA/R2qXI/M/DXaf9Q7LytSfle/0lsFh
- 6CX5+NKC+O+tEyeMhCldMQ+xlO3gWX5HtU7mFGl5tifIKrOsgpBeKslxuN12Fw4x25vjrfAIL35
- SA==
-X-Received: by 2002:a05:6a21:1343:b0:3bf:b9de:8570 with SMTP id
- adf61e73a8af0-3cc5527de6cmr6884387637.19.1786619454076; 
- Thu, 13 Aug 2026 04:10:54 -0700 (PDT)
-Received: from localhost.localdomain ([2406:7400:94:ab62:887d:e555:df21:3318])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-31ec0228793sm7610406eec.26.2026.08.13.04.10.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2026 04:10:53 -0700 (PDT)
-From: Manush Prajwal <manushprajwal555@gmail.com>
-To: Paul Kocialkowski <paulk@sys-base.io>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
- Manush Prajwal <manushprajwal555@gmail.com>
-Subject: [PATCH] drm: logicvc: fix device_node refcount leak in
- logicvc_layers_init()
-Date: Thu, 13 Aug 2026 16:40:36 +0530
-Message-ID: <20260813111037.724-1-manushprajwal555@gmail.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+X-Greylist: delayed 27908 seconds by postgrey-1.36 at gabe;
+ Thu, 13 Aug 2026 14:28:03 UTC
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
+ [109.224.244.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC3A910E04F
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1786631282; x=1786890482;
+ bh=qGFcsBc4bsHSsqqNNBQTtVy8gp5FOx6AGTr/PDwWl7E=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=eWtTwJDCy/bIwpUXJBe2t3IA4YUFyCb23saPmBCfYJIABof9t0Yf47Mir3O16cPq1
+ yS3RmapqBO5csmhcf3fj0bMXQxgJalj5K5bqpLe79/LbggQpWROB4XgL2bgJ3mG/j+
+ vbpnhJ7zJ/z1nbtyhSLwsQe4dG+6dcx3Ye/Dx/fgs25Cw0EItR4OMyP/Q1A8BDXSNZ
+ XWg46hWlhk3Sl4C4Vg7kLQg2cIG82E5NCXkiK+tWXNETgDgqHpgr3Wmc8MuM0hes7e
+ NAnrtjIyscj7tl4MtOYopGT0jU+r4RxMglaFVUR8yryr6LQJH6ozvHA4jM3nQgRGEj
+ T23lBq5ImrIBA==
+Date: Thu, 13 Aug 2026 14:27:55 +0000
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+From: Luke.Wildhardt@proton.me
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>,
+ phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+Message-ID: <3vUDQmfKtaP3e1p0qrjrY9_5SnuA7-cIWQUk2-MElleGKbG4obs96fPT4A_F183UnGt5clbj7belPDQ5CSWLhxTkJ8oXsjN1VS5rCbocPd4=@proton.me>
+In-Reply-To: <61a96635-e143-4d69-b0f7-0f312f5a3a3c@igalia.com>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+ <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
+ <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
+ <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
+ <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+ <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
+ <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
+ <Wgbhe0iRVno6QTXUasXAw96sdk1GzzJ8DW_Yw8EyCtxvwV4-EfRTaUdaF9vYeMYsMyfLVVTmXBOB1Br_d-l8b87D_2CMFyYSJi34eaaGGW4=@proton.me>
+ <ylme_dYqb7yeNvmFl3ZeH3v8d_46-oAWr6t95wEZTYGiLMdbNTzXBFoV1zueOeHcKXcFrMMsoF0s_57Hzj0wwEfxDRjPhmu-xquKmeXKehg=@proton.me>
+ <61a96635-e143-4d69-b0f7-0f312f5a3a3c@igalia.com>
+Feedback-ID: 214028577:user:proton
+X-Pm-Message-ID: 0a81b811aa2182b5c7686ef92c41cb62fbbf3e67
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 14 Aug 2026 07:04:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,29 +75,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On logicvc_layer_init() failure, logicvc_layers_init() releases the
-parent layers_node reference before jumping to the error path, but
-never releases layer_node, the child node held by the current
-for_each_child_of_node() iteration. Add the missing of_node_put()
-for layer_node alongside the existing one for layers_node.
+Looks good, in the 10 minutes I spent this morning doing a quick test, I wa=
+sn't able to reproduce the failure. I will do extended testing tonight. =20
 
-Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
----
- drivers/gpu/drm/logicvc/logicvc_layer.c | 1 +
- 1 file changed, 1 insertion(+)
+I will report back later with more details, but given the issue was typical=
+ly reproducible on-demand, this is looking very promising.=20
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
-index 7f5ba00018..e83a2aafed 100644
---- a/drivers/gpu/drm/logicvc/logicvc_layer.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
-@@ -613,6 +613,7 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
- 
- 		ret = logicvc_layer_init(logicvc, layer_node, index);
- 		if (ret) {
-+			of_node_put(layer_node);
- 			of_node_put(layers_node);
- 			goto error;
- 		}
--- 
-2.46.2.windows.1
+Thanks for all the hard work everyone!
 
+On Thursday, August 13th, 2026 at 12:58 AM, Tvrtko Ursulin <tvrtko.ursulin@=
+igalia.com> wrote:
+
+>=20
+> On 13/08/2026 07:42, Luke.Wildhardt@proton.me wrote:
+> > Ok, after a lot of A/B testing, it appears that trying your "drm-intel/=
+drm-sched-fair-fixed" branch, the stuttering is still there. It's definitel=
+y paced differently though, I will attach a video. It's "choppier" when it =
+happens. I tested in a few different areas / times of day, in case you noti=
+ce the scenery isn't the same; this is representative of what I experienced=
+ in other places. I will note, that I tried playing 4 times, 3/4 times, sho=
+rtly after boot. 1/4 times I left my desktop to idle for about 30 minutes w=
+hile I did something else, and I didn't encounter the issue at all in 10 mi=
+nutes. Not sure how significant that is, or if it's just noise.
+> >
+> > https://www.youtube.com/watch?v=3DGWyIVEuhooM
+> >
+> > To make sure I wasn't insane, I went back to the patch Claude gave me, =
+applied against a clean 7.2.0-rc7. At least again in a few sessions after b=
+oot, no issue. I'll post that exact code below.
+>=20
+> Yes, I had a brain fart yesterday and had only pulled the lock out on
+> the pop side. I have now pushed the updated branch, with both the add
+> and pop side made symmetric in lock taking aspect.
+>=20
+> If you could pull and re-test once more that would be great.
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> > If you need any other info from me let me know.
+> >
+> >
+> > --- a/drivers/gpu/drm/scheduler/sched_rq.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+> > @@ -2,6 +2,7 @@
+> >   /* Copyright 2015 Advanced Micro Devices, Inc. */
+> >   /* Copyright (c) 2025 Valve Corporation */
+> >
+> > +#include <linux/moduleparam.h>
+> >   #include <linux/rbtree.h>
+> >
+> >   #include <drm/drm_print.h>
+> > @@ -9,6 +10,32 @@
+> >
+> >   #include "sched_internal.h"
+> >
+> > +/*
+> > + * Diagnostic counters. Not for submission.
+> > + *
+> > + * dbg_pop_stayed  - pops where the entity had another job queued and =
+so stayed
+> > + *                   in the tree. No save/restore of vruntime occurs.
+> > + * dbg_pop_left    - pops where the entity queue drained, so it left t=
+he tree
+> > + *                   and drm_sched_entity_save_vruntime() ran. Only th=
+is path
+> > + *                   arms a later restore.
+> > + * dbg_add_restore - calls to drm_sched_rq_add_entity(), i.e. restores=
+.
+> > + * dbg_add_race    - restores where the entity was still linked in the=
+ tree,
+> > + *                   meaning the vruntime being restored is still abso=
+lute.
+> > + *
+> > + * Incremented under rq->lock, so exact per scheduler and only mildly =
+lossy
+> > + * when summed across rings. Writable so they can be reset between run=
+s:
+> > + *   echo 0 > /sys/module/gpu_sched/parameters/dbg_pop_left
+> > + */
+> > +static unsigned long dbg_pop_stayed;
+> > +static unsigned long dbg_pop_left;
+> > +static unsigned long dbg_add_restore;
+> > +static unsigned long dbg_add_race;
+> > +
+> > +module_param(dbg_pop_stayed, ulong, 0644);
+> > +module_param(dbg_pop_left, ulong, 0644);
+> > +module_param(dbg_add_restore, ulong, 0644);
+> > +module_param(dbg_add_race, ulong, 0644);
+> > +
+> >   static __always_inline bool
+> >   drm_sched_entity_compare_before(struct rb_node *a, const struct rb_no=
+de *b)
+> >   {
+> > @@ -266,14 +293,40 @@
+> >   =09sched =3D container_of(rq, typeof(*sched), rq);
+> >   =09spin_lock(&rq->lock);
+> >
+> > +=09dbg_add_restore++;
+> > +=09if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+> > +=09=09dbg_add_race++;
+> > +=09=09pr_warn_ratelimited("drm_sched: vruntime race on ring %s (comm %=
+s)\n",
+> > +=09=09=09=09    sched->name, current->comm);
+> > +=09}
+> > +
+> >   =09if (list_empty(&entity->list)) {
+> >   =09=09atomic_inc(sched->score);
+> >   =09=09list_add_tail(&entity->list, &rq->entities);
+> >   =09}
+> >
+> > -=09ts =3D drm_sched_rq_get_min_vruntime(rq);
+> > -=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio)=
+;
+> > -=09drm_sched_rq_update_tree_locked(entity, rq, ts);
+> > +=09/*
+> > +=09 * Only restore the vruntime if the entity actually left the run qu=
+eue.
+> > +=09 *
+> > +=09 * drm_sched_entity_pop_job() dequeues the last job and only afterw=
+ards
+> > +=09 * calls drm_sched_rq_pop_entity(), which is where the entity is re=
+moved
+> > +=09 * from the tree and drm_sched_entity_save_vruntime() converts its
+> > +=09 * vruntime to min_vruntime-relative form. A push landing in that w=
+indow
+> > +=09 * sees an empty queue, takes the "first job" path to here, and wou=
+ld
+> > +=09 * restore a vruntime which is still absolute -- adding min_vruntim=
+e to
+> > +=09 * it a second time. If the entity is also the leftmost one,
+> > +=09 * drm_sched_rq_get_min_vruntime() returns the entity's own vruntim=
+e and
+> > +=09 * the value is doubled, placing it far to the right of the tree wh=
+ere it
+> > +=09 * will not be selected again until the run queue catches up.
+> > +=09 *
+> > +=09 * A still-linked entity never left, so its vruntime is already abs=
+olute
+> > +=09 * and its tree position is valid. The concurrent pop will update b=
+oth.
+> > +=09 */
+> > +=09if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
+> > +=09=09ts =3D drm_sched_rq_get_min_vruntime(rq);
+> > +=09=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_pr=
+io);
+> > +=09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
+> > +=09}
+> >
+> >   =09spin_unlock(&rq->lock);
+> >   =09spin_unlock(&entity->lock);
+> > @@ -330,11 +383,13 @@
+> >   =09if (next_job) {
+> >   =09=09ktime_t ts;
+> >
+> > +=09=09dbg_pop_stayed++;
+> >   =09=09ts =3D drm_sched_entity_update_vruntime(entity);
+> >   =09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
+> >   =09} else {
+> >   =09=09ktime_t min_vruntime;
+> >
+> > +=09=09dbg_pop_left++;
+> >   =09=09drm_sched_rq_remove_tree_locked(entity, rq);
+> >   =09=09min_vruntime =3D drm_sched_rq_get_min_vruntime(rq);
+> >   =09=09drm_sched_entity_save_vruntime(entity, min_vruntime);
+> >
+> >
+> >
+>=20
+> 
