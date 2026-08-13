@@ -4,50 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99060C5CFDB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:25:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D54ABC5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:26:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B44EC10F206;
-	Thu, 13 Aug 2026 09:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E668710F212;
+	Thu, 13 Aug 2026 09:26:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SXXTFa+p";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="nKP72OPT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6965F10F206
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:25:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2CD45600E2;
- Thu, 13 Aug 2026 09:25:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C6D1F000E9;
- Thu, 13 Aug 2026 09:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786613155;
- bh=hkq+Q+EL7xwWR6jehZUXvFrAB32hgQ60kVEf3GbqWBs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=SXXTFa+pqU9dW1RGNF5wXqc9brt4Gdyt579tmPLho3dX9XA4zaKDom/ehvlryCS0Z
- Ayhe3XcHbkll17QtaI7/1oOIxDJmKpztaR6tvAx9YSgdsOy1Z/pbMUlFkbt4Uytk2C
- 0iMq69m5+qBtJJZv4btjWExNtA7lTTZFTOtBdc7EZO0u2vgwKUCwHrSM/HeP/P6G3c
- 9F1E8bVHlO18U9bi829xTwX7BlShtRBi7ksv79/JVFNoDAE6qmM/sEKdln0JgN0DrM
- vPODseBGSqN5QUn8fUuTDFyg/UfKRCae2YwdeW+e3bEq+yBUdl37i4i1Mv/Y6LO7NQ
- yXupwCRY+m4cQ==
-From: Philipp Stanner <phasta@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6948910F212
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=IPz+pRNv6M2Bl3l0XU+3yKO/cuTqG+5OunpOwazZoio=; b=nKP72OPTQMRqcB57kmWSrGWTPj
+ esmryEFUibscPV2WL4LQE/LUfZ7EGKiutgMKBrrTAw5Pq3Uc8DXXtwU79wtvhDpTm1AA/nnzyw/RE
+ 1qNnrFopYMghltvOCStmG6zSNtEts0rTgQXJtWJICX88j4x0JJt9Cao1vKCerX8ilg7PVrjDlqs6B
+ 3Y5xoCiRLZ75fZWuKzkUE0an5ELxFy1MgnIYvk1CwTA9oWDP3JbCFVZ8VzIbsbS/Fr8cBq0enY7QK
+ i904iLYNM0Gv0aQ7CXWk6fUBbSX8pjk5tiIhU1Q5ajJ2wPMXxXJR3dd9SJg805E52gv57qEfwGwLX
+ Us7ErV7g==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+ by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1wuROI-000EhZ-0C; Thu, 13 Aug 2026 11:06:22 +0200
+Received: from localhost ([127.0.0.1])
+ by sslproxy01.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1wuROH-000CPn-1b; Thu, 13 Aug 2026 11:06:21 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Francesco Dolcini <francesco@dolcini.it>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-Subject: [PATCH v2 2/2] drm/sched: Protect entity->last_scheduled with spinlock
-Date: Thu, 13 Aug 2026 11:25:13 +0200
-Message-ID: <20260813092510.2385962-6-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260813092510.2385962-4-phasta@kernel.org>
-References: <20260813092510.2385962-4-phasta@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width property
+Date: Thu, 13 Aug 2026 11:06:20 +0200
+Message-ID: <4870648.tdWV9SEqCh@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <cf1e1514-fb92-46cd-95a3-9c857bf08f66@kernel.org>
+References: <20260812132954.148571-1-francesco@dolcini.it>
+ <7661119.LvFx2qVVIh@steina-w>
+ <cf1e1514-fb92-46cd-95a3-9c857bf08f66@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28091/Thu Aug 13 08:25:54 2026)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,173 +77,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The entity->last_scheduled field has always been set and read with
-special RCU functions in addition to memory barriers.
+Am Donnerstag, 13. August 2026, 11:03:06 CEST schrieb Krzysztof Kozlowski:
+> On 13/08/2026 10:56, Alexander Stein wrote:
+> > Am Donnerstag, 13. August 2026, 10:34:02 CEST schrieb Francesco Dolcini:
+> >> On Thu, Aug 13, 2026 at 10:10:43AM +0200, Krzysztof Kozlowski wrote:
+> >>> On Wed, Aug 12, 2026 at 03:29:49PM +0200, Francesco Dolcini wrote:
+> >>>> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> >>>>
+> >>>> The DPI output of the LCD interface can be configured with a bus wid=
+th
+> >>>> of 16, 18, or 24 bits. Introduce a bus-width property to the output
+> >>>> endpoint, specifying the number of parallel RGB bits connected.
+> >>>>
+> >>>> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> >>>> ---
+> >>>> v3: use video-interfaces.yaml
+> >>>> v2: use the common bus-width property instead of the legacy interfac=
+e-pix-fmt
+> >>>> ---
+> >>>>  Documentation/devicetree/bindings/display/fsl,lcdif.yaml | 9 ++++++=
++++
+> >>>>  1 file changed, 9 insertions(+)
+> >>>>
+> >>>> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yam=
+l b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> >>>> index 2dd0411ec651..1f3daf002707 100644
+> >>>> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> >>>> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> >>>> @@ -71,6 +71,15 @@ properties:
+> >>>>      $ref: /schemas/graph.yaml#/properties/port
+> >>>>      description: The LCDIF output port
+> >>>> =20
+> >>>> +    properties:
+> >>>> +      endpoint:
+> >>>> +        $ref: /schemas/media/video-interfaces.yaml
+> >>>
+> >>> This won't work, you need to test your DTS. The port schema does not
+> >>> allow video-interfaces properties. You need port-base, like in every
+> >>> other case.
+> >>
+> >> Thanks for the review Krzysztof
+> >>
+> >> Given my testing was not ok, and I am not sure what I did wrong exactly
+> >> on my tests, is this the change I should do?
+>=20
+> Yes
+>=20
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml =
+b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> >> index 1f3daf002707..89cea0c14cf1 100644
+> >> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> >> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> >> @@ -68,7 +68,8 @@ properties:
+> >>      maxItems: 1
+> >> =20
+> >>    port:
+> >> -    $ref: /schemas/graph.yaml#/properties/port
+> >> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> >> +    unevaluatedProperties: false
+> >>      description: The LCDIF output port
+> >=20
+> > With that change:
+> > Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+>=20
+> Please do not. Build testing is not testing (in the meaning of
+> "Tested-by" tag), otherwise where is Rob's tested-by tag for all the
+> patches he build tested?
 
-This was added in
+Well, I tested this on actual hardware, see patch 2. But then this
+is irrelevant for for dt-bindings. So let's go with:
+Acked-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 
-commit 70102d77ff22 ("drm/scheduler: add drm_sched_entity_error and use rcu for last_scheduled")
+Thanks and best regards,
+Alexander
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
 
-however, no proper justification for that mechanism was provided. There
-seems to be no obvious reason, since the entity lock is available and
-taken at all places that evaluate the last_scheduled field. The only
-exception is drm_sched_entity_error(), which is not performance critical
-in any way.
-
-Improve robustness, readability and maintainability by replacing RCU and
-barriers with the lock.
-
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/scheduler/sched_entity.c | 54 ++++++++++--------------
- include/drm/gpu_scheduler.h              | 10 ++---
- 2 files changed, 26 insertions(+), 38 deletions(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 7fe47fc86c0e..2c903feca230 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -137,7 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 			      DRM_SCHED_PRIORITY_KERNEL : priority;
- 	entity->num_sched_list = num_sched_list;
- 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
--	RCU_INIT_POINTER(entity->last_scheduled, NULL);
- 	RB_CLEAR_NODE(&entity->rb_tree_node);
- 
- 	if (!sched_list[0]->sched_rq) {
-@@ -230,10 +229,10 @@ int drm_sched_entity_error(struct drm_sched_entity *entity)
- 	struct dma_fence *fence;
- 	int r;
- 
--	rcu_read_lock();
--	fence = rcu_dereference(entity->last_scheduled);
-+	spin_lock(&entity->lock);
-+	fence = entity->last_scheduled;
- 	r = fence ? fence->error : 0;
--	rcu_read_unlock();
-+	spin_unlock(&entity->lock);
- 
- 	return r;
- }
-@@ -319,9 +318,10 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
- 	/* Make sure this entity is not used by the scheduler at the moment */
- 	wait_for_completion(&entity->entity_idle);
- 
--	/* The entity is guaranteed to not be used by the scheduler */
--	prev = rcu_dereference_check(entity->last_scheduled, true);
-+	spin_lock(&entity->lock);
-+	prev = entity->last_scheduled;
- 	dma_fence_get(prev);
-+	spin_unlock(&entity->lock);
- 	while ((job = drm_sched_entity_queue_pop(entity))) {
- 		struct drm_sched_fence *s_fence = job->s_fence;
- 
-@@ -416,8 +416,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
- 		entity->dependency = NULL;
- 	}
- 
--	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
--	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-+	dma_fence_put(entity->last_scheduled);
- 	drm_sched_entity_stats_put(entity->stats);
- }
- EXPORT_SYMBOL(drm_sched_entity_fini);
-@@ -539,6 +538,10 @@ drm_sched_job_dependency(struct drm_sched_job *job,
- 
- struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- {
-+	/* Helper to avoid dropping the reference while the entity lock is held,
-+	 * just to have some more robustness.
-+	 */
-+	struct dma_fence *prev_last_scheduled;
- 	struct drm_sched_job *sched_job;
- 
- 	sched_job = drm_sched_entity_queue_peek(entity);
-@@ -555,22 +558,15 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 	if (entity->guilty && atomic_read(entity->guilty))
- 		dma_fence_set_error(&sched_job->s_fence->finished, -ECANCELED);
- 
--	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
--	rcu_assign_pointer(entity->last_scheduled,
--			   dma_fence_get(&sched_job->s_fence->finished));
--
--	/*
--	 * If the queue is empty we allow drm_sched_entity_select_rq() to
--	 * locklessly access ->last_scheduled. This only works if we set the
--	 * pointer before we dequeue and if we a write barrier here.
--	 */
--	smp_wmb();
-+	spin_lock(&entity->lock);
-+	prev_last_scheduled = entity->last_scheduled;
-+	entity->last_scheduled = dma_fence_get(&sched_job->s_fence->finished);
-+	drm_sched_rq_pop_entity(entity);
-+	spin_unlock(&entity->lock);
- 
- 	spsc_queue_pop(&entity->job_queue);
- 
--	spin_lock(&entity->lock);
--	drm_sched_rq_pop_entity(entity);
--	spin_unlock(&entity->lock);
-+	dma_fence_put(prev_last_scheduled);
- 
- 	/* Jobs and entities might have different lifecycles. Since we're
- 	 * removing the job from the entities queue, set the jobs entity pointer
-@@ -595,21 +591,15 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (spsc_queue_count(&entity->job_queue))
- 		return;
- 
--	/*
--	 * Only when the queue is empty are we guaranteed that
--	 * drm_sched_run_job_work() cannot change entity->last_scheduled. To
--	 * enforce ordering we need a read barrier here. See
--	 * drm_sched_entity_pop_job() for the other side.
--	 */
--	smp_rmb();
--
--	fence = rcu_dereference_check(entity->last_scheduled, true);
-+	spin_lock(&entity->lock);
-+	fence = entity->last_scheduled;
- 
- 	/* stay on the same engine if the previous job hasn't finished */
--	if (fence && !dma_fence_is_signaled(fence))
-+	if (fence && !dma_fence_is_signaled(fence)) {
-+		spin_unlock(&entity->lock);
- 		return;
-+	}
- 
--	spin_lock(&entity->lock);
- 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
- 	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
- 	if (rq != entity->rq) {
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 790f7ecb6b85..b638065a11cb 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -100,8 +100,8 @@ struct drm_sched_entity {
- 	 * @lock:
- 	 *
- 	 * Lock protecting the run-queue (@rq) to which this entity belongs,
--	 * @priority, the list of schedulers (@sched_list, @num_sched_list) and
--	 * the @rr_ts field.
-+	 * @priority, @last_scheduled and the list of schedulers (@sched_list,
-+	 * @num_sched_list).
- 	 */
- 	spinlock_t			lock;
- 
-@@ -215,11 +215,9 @@ struct drm_sched_entity {
- 	/**
- 	 * @last_scheduled:
- 	 *
--	 * Points to the finished fence of the last scheduled job. Only written
--	 * by drm_sched_entity_pop_job(). Can be accessed locklessly from
--	 * drm_sched_job_arm() if the queue is empty.
-+	 * Points to the finished fence of the last scheduled job.
- 	 */
--	struct dma_fence __rcu		*last_scheduled;
-+	struct dma_fence		*last_scheduled;
- 
- 	/**
- 	 * @last_user: last group leader pushing a job into the entity.
--- 
-2.55.0
 
