@@ -4,65 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 163BAC5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE01FC5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 07:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD1410F1D3;
-	Thu, 13 Aug 2026 07:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE33210F1D9;
+	Thu, 13 Aug 2026 07:59:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="KaayYQY+";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hdc/TYsG";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 607DD10F1D3
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 07:51:50 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id B20B24E411E0;
- Thu, 13 Aug 2026 07:51:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 79A15602B8;
- Thu, 13 Aug 2026 07:51:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3953711C4DA71; 
- Thu, 13 Aug 2026 09:51:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786607506; h=from:subject:date:message-id:to:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=FKh/8+SfO495U80CNy6JuxwZlf79jZQTNJGu0uja1G0=;
- b=KaayYQY+zqv+r6+t04gqYdwL4yBQAhx6yeVi3CUY3Fw04/ywU8X6MxsKc4AGhTKsyBE98Y
- 2VbK67KZntLf6dMrloaWzdpbd8RTPXf0m4opEkD1Ebs7CMI0Q+tQBPr4mJw+VeASdBYPFN
- oxrxGjzvFAZLy+sYdbDYoInwtst6Ryt8+WtY8Wyz2V+GbMc5HJ1Ae1D+LG2+BcbNTXuIzZ
- KObuwoQAJwjAZ8jxjlC/YhkypvKXua2wq2pPKTTr40UoCiGrX2ZxtcAQrAzDHTe1S/llRD
- +w/clQQqI1WoYyBeD3E16D8zk0GgulW5c6pzBasdwPBkTHbqDT8EOxKOjlzu5g==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Douglas Anderson <dianders@chromium.org>, 
- Damon Ding <damon.ding@rock-chips.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Heiko Stuebner <heiko@sntech.de>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Harikrishna Shenoy <h-shenoy@ti.com>, Jayesh Choudhary <j-choudhary@ti.com>, 
- Kees Cook <kees@kernel.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Pan Chuang <panchuang@vivo.com>
-In-Reply-To: <20260723131649.134127-1-panchuang@vivo.com>
-References: <20260723131649.134127-1-panchuang@vivo.com>
-Subject: Re: (subset) [PATCH 00/10] drm/bridge: Remove redundant error
- messages on IRQ request failure
-Message-Id: <178660749514.216710.14432095187610483140.b4-ty@b4>
-Date: Thu, 13 Aug 2026 09:51:35 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D3C10F1D9;
+ Thu, 13 Aug 2026 07:59:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=uyRKfejl5js6NDDDEUB7U7M5f2j8gaDH5+HlJp1OK1Q=; b=hdc/TYsGDH0NDLOjNwuULY7iR0
+ LYnTlgCPFWxGsKWLRynPKYKRe4p+CdLURJBUM3wQ9IpzLpryIN4RV/PUE0Lcvu0ncdtzuuxd9lXZW
+ mLz5G5CDJjRNolvT43BU7PMWMFkAbytoyRWz41PnAi8pJDWmRegq3KCoOIBcRmRHRpDuWOKVVvslx
+ h8zbWxwVMtsk4qs0YFrtP8/FdtRYV8m2hK4EfGKHo7wlnE9pDoxz4ANz39VHNv+oDt/um0zmrvPQa
+ 4QYCxumAksNYP+C0XL6eSVrLmP2kPPoSXvrICw3DmOUbiQo/JNkH2J0pKyC/efPnr/kZ3ypLFpb8l
+ zdetznoA==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wuQKu-000koQ-2G; Thu, 13 Aug 2026 09:58:48 +0200
+Message-ID: <61a96635-e143-4d69-b0f7-0f312f5a3a3c@igalia.com>
+Date: Thu, 13 Aug 2026 08:58:47 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+To: Luke.Wildhardt@proton.me
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>, 
+ phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+ <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
+ <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
+ <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
+ <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+ <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
+ <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
+ <Wgbhe0iRVno6QTXUasXAw96sdk1GzzJ8DW_Yw8EyCtxvwV4-EfRTaUdaF9vYeMYsMyfLVVTmXBOB1Br_d-l8b87D_2CMFyYSJi34eaaGGW4=@proton.me>
+ <ylme_dYqb7yeNvmFl3ZeH3v8d_46-oAWr6t95wEZTYGiLMdbNTzXBFoV1zueOeHcKXcFrMMsoF0s_57Hzj0wwEfxDRjPhmu-xquKmeXKehg=@proton.me>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <ylme_dYqb7yeNvmFl3ZeH3v8d_46-oAWr6t95wEZTYGiLMdbNTzXBFoV1zueOeHcKXcFrMMsoF0s_57Hzj0wwEfxDRjPhmu-xquKmeXKehg=@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,44 +73,128 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Thu, 23 Jul 2026 21:16:32 +0800, Pan Chuang wrote:
-> Commit 55b48e23f5c4 ("genirq/devres: Add error handling in
-> devm_request_*_irq()") added automatic error logging to
-> devm_request_threaded_irq() and devm_request_any_context_irq()
-> via the new devm_request_result() helper, which prints device
-> name, IRQ number, handler functions, and error code on failure.
+On 13/08/2026 07:42, Luke.Wildhardt@proton.me wrote:
+> Ok, after a lot of A/B testing, it appears that trying your "drm-intel/drm-sched-fair-fixed" branch, the stuttering is still there. It's definitely paced differently though, I will attach a video. It's "choppier" when it happens. I tested in a few different areas / times of day, in case you notice the scenery isn't the same; this is representative of what I experienced in other places. I will note, that I tried playing 4 times, 3/4 times, shortly after boot. 1/4 times I left my desktop to idle for about 30 minutes while I did something else, and I didn't encounter the issue at all in 10 minutes. Not sure how significant that is, or if it's just noise.
 > 
-> Since devm_request_irq() is a static inline wrapper around
-> devm_request_threaded_irq(), it also benefits from this
-> automatic logging.
+> https://www.youtube.com/watch?v=GWyIVEuhooM
 > 
-> [...]
+> To make sure I wasn't insane, I went back to the patch Claude gave me, applied against a clean 7.2.0-rc7. At least again in a few sessions after boot, no issue. I'll post that exact code below.
 
-Applied, thanks!
+Yes, I had a brain fart yesterday and had only pulled the lock out on 
+the pop side. I have now pushed the updated branch, with both the add 
+and pop side made symmetric in lock taking aspect.
 
-[01/10] drm/bridge: analogix_dp: Remove redundant dev_err()
-        commit: 2132c69fa0a05b66824714fc17dbfd1d2f93ef86
-[02/10] drm/bridge: cdns-mhdp8546: Remove redundant dev_err()
-        commit: ee4cb1090310e56f5a1a5cf13bbedafb4f786751
-[03/10] drm/bridge: lt9611: Remove redundant dev_err()
-        commit: fa5cbeccd5e49ac165af3487741b61f94b5a5d06
-[04/10] drm/bridge: samsung-dsim: Remove redundant dev_err()
-        commit: 27860b5f974f412ee92ca44538f402d1cf1141c5
-[05/10] drm/bridge: synopsys: dw-dp: Remove redundant dev_err_probe()
-        commit: c4d6efe7364de4f68ed54fd654bd79b4c14979f3
-[06/10] drm/bridge: tc358767: Remove redundant dev_err()
-        commit: d265c80cbfc5a0df93c64106d3db1689d09b2ea3
-[07/10] drm/bridge: it6505: Remove redundant dev_err()
-        commit: d81e374f453de961662296905e77260048446f2d
-[08/10] drm/bridge/sii8620: Remove redundant dev_err_probe()
-        commit: b0899db1a492a6830a6cf5cfe12349f45f866549
-[09/10] drm/bridge: ti-sn65dsi83: Remove redundant dev_err_probe()
-        commit: c9a2c8ddcd65e96e7f095a87c0cc0b3211f740ea
+If you could pull and re-test once more that would be great.
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Regards,
 
+Tvrtko
+
+> If you need any other info from me let me know.
+> 
+> 
+> --- a/drivers/gpu/drm/scheduler/sched_rq.c
+> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+> @@ -2,6 +2,7 @@
+>   /* Copyright 2015 Advanced Micro Devices, Inc. */
+>   /* Copyright (c) 2025 Valve Corporation */
+> 
+> +#include <linux/moduleparam.h>
+>   #include <linux/rbtree.h>
+> 
+>   #include <drm/drm_print.h>
+> @@ -9,6 +10,32 @@
+> 
+>   #include "sched_internal.h"
+> 
+> +/*
+> + * Diagnostic counters. Not for submission.
+> + *
+> + * dbg_pop_stayed  - pops where the entity had another job queued and so stayed
+> + *                   in the tree. No save/restore of vruntime occurs.
+> + * dbg_pop_left    - pops where the entity queue drained, so it left the tree
+> + *                   and drm_sched_entity_save_vruntime() ran. Only this path
+> + *                   arms a later restore.
+> + * dbg_add_restore - calls to drm_sched_rq_add_entity(), i.e. restores.
+> + * dbg_add_race    - restores where the entity was still linked in the tree,
+> + *                   meaning the vruntime being restored is still absolute.
+> + *
+> + * Incremented under rq->lock, so exact per scheduler and only mildly lossy
+> + * when summed across rings. Writable so they can be reset between runs:
+> + *   echo 0 > /sys/module/gpu_sched/parameters/dbg_pop_left
+> + */
+> +static unsigned long dbg_pop_stayed;
+> +static unsigned long dbg_pop_left;
+> +static unsigned long dbg_add_restore;
+> +static unsigned long dbg_add_race;
+> +
+> +module_param(dbg_pop_stayed, ulong, 0644);
+> +module_param(dbg_pop_left, ulong, 0644);
+> +module_param(dbg_add_restore, ulong, 0644);
+> +module_param(dbg_add_race, ulong, 0644);
+> +
+>   static __always_inline bool
+>   drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
+>   {
+> @@ -266,14 +293,40 @@
+>   	sched = container_of(rq, typeof(*sched), rq);
+>   	spin_lock(&rq->lock);
+> 
+> +	dbg_add_restore++;
+> +	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+> +		dbg_add_race++;
+> +		pr_warn_ratelimited("drm_sched: vruntime race on ring %s (comm %s)\n",
+> +				    sched->name, current->comm);
+> +	}
+> +
+>   	if (list_empty(&entity->list)) {
+>   		atomic_inc(sched->score);
+>   		list_add_tail(&entity->list, &rq->entities);
+>   	}
+> 
+> -	ts = drm_sched_rq_get_min_vruntime(rq);
+> -	ts = drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
+> -	drm_sched_rq_update_tree_locked(entity, rq, ts);
+> +	/*
+> +	 * Only restore the vruntime if the entity actually left the run queue.
+> +	 *
+> +	 * drm_sched_entity_pop_job() dequeues the last job and only afterwards
+> +	 * calls drm_sched_rq_pop_entity(), which is where the entity is removed
+> +	 * from the tree and drm_sched_entity_save_vruntime() converts its
+> +	 * vruntime to min_vruntime-relative form. A push landing in that window
+> +	 * sees an empty queue, takes the "first job" path to here, and would
+> +	 * restore a vruntime which is still absolute -- adding min_vruntime to
+> +	 * it a second time. If the entity is also the leftmost one,
+> +	 * drm_sched_rq_get_min_vruntime() returns the entity's own vruntime and
+> +	 * the value is doubled, placing it far to the right of the tree where it
+> +	 * will not be selected again until the run queue catches up.
+> +	 *
+> +	 * A still-linked entity never left, so its vruntime is already absolute
+> +	 * and its tree position is valid. The concurrent pop will update both.
+> +	 */
+> +	if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
+> +		ts = drm_sched_rq_get_min_vruntime(rq);
+> +		ts = drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
+> +		drm_sched_rq_update_tree_locked(entity, rq, ts);
+> +	}
+> 
+>   	spin_unlock(&rq->lock);
+>   	spin_unlock(&entity->lock);
+> @@ -330,11 +383,13 @@
+>   	if (next_job) {
+>   		ktime_t ts;
+> 
+> +		dbg_pop_stayed++;
+>   		ts = drm_sched_entity_update_vruntime(entity);
+>   		drm_sched_rq_update_tree_locked(entity, rq, ts);
+>   	} else {
+>   		ktime_t min_vruntime;
+> 
+> +		dbg_pop_left++;
+>   		drm_sched_rq_remove_tree_locked(entity, rq);
+>   		min_vruntime = drm_sched_rq_get_min_vruntime(rq);
+>   		drm_sched_entity_save_vruntime(entity, min_vruntime);
+> 
+> 
+> 
 
