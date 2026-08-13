@@ -4,78 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B84A1C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A94FC5DF66
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:42:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA42A10F261;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFBEF10F262;
 	Thu, 13 Aug 2026 09:42:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aSy/uvJx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FbkO8iUY";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE1310E49D
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 02:30:31 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-cbed97fa26fso396153a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 19:30:31 -0700 (PDT)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B5E110E367
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 06:49:13 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-38deea72eebso461142a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 12 Aug 2026 23:49:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786588231; x=1787193031; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Ldz6DL8CjhzOSVRnFSPcYSPJn9r/HSeMGQbHfgC9q48=;
- b=aSy/uvJx3SAJ/VgrNF+8crs7q/uUELh4CpvI+Q/aoF1/j/Ou7ugGq/sZ5seD1D9HdA
- ERB+Zpz13iIwmWrYyJnmqpNt630aK0x23WQ28HxfwRgfud86CQpVhzolQF5jXQ7PlStr
- nCOEA6t/0rkQHXBydGeOjSzjyPRgPKzuC8RCPfPkCMBnSs7sr0JYaLR491vFLjGuk2sP
- eYltoiBXMfPgjZYd5UOkyu3Ha2XSqH2H/D+k+jWBClHw3+623NtbAx8McvRkxJB6WNxh
- MUFC68+BAGvcZMSREtkPOnp9PXMu77KmFzSMlfDE+I3IA32jU8Me76oq9/yYAucggNbg
- QSag==
+ d=gmail.com; s=20251104; t=1786603753; x=1787208553; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Sj4nAB5UJQSiK8q2P2qqPUYrLHWdF5UCEVGSdlXatDA=;
+ b=FbkO8iUYogh4z+PoA4/xqooNNDxTbFhkAIAJqBW9CJNin8grJ5+Ng+KNyjGqcisLBV
+ RMklpgQffstQYQ+yObU8JSm5Oqr6S8aA617Xc6pIA8gj+Alns7ZCU5E32wfxEuqmVEND
+ gLdqgT9DeYo7mRMh6Gfko1E+NZiuWSbSd72OOqVeGGrRz2tRTgFyIJb75UytBYfrHPPm
+ 3TkJMjeIaI/AlbR5jf+m+Z2WaPx2I6f9pFMTuOp1IC7X4kzLxmObJ6w4w8gfTUg6hOZe
+ C1BVsBHSu7Lw7Yru2JqU3Uz8DIjtKngaS6vcLGiqOBF4vbyUtfI9oVLSZJXZmv+2cE1R
+ HQLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786588231; x=1787193031;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Ldz6DL8CjhzOSVRnFSPcYSPJn9r/HSeMGQbHfgC9q48=;
- b=sb/yPbwbJ8xrsVc/ez8/0FtsnLZwRFV8v4vKwJdL5UR5W85f+xwguiWUt/NWQ7oaue
- Z0c65K4UxpjzvWVGv5Nr3VYenQDbW84l99QsEMM46VNkqWN2BoXtTlfLEgratastqRjC
- GMzDjeTCchgNECkeUaA2h5SEXptIt+lMi6PYBN6NmdCsB//udDo1b2IXv8CKlvGSU5GI
- MCULYNHECe500skI+HgEFv76sUoRPof8gciDGwHw45Ncb2SR/HJgiH86Udk3SKy8ALD4
- SS5NW6WzcYlTjdYW8YFVBVmXzXZrnvhtIkDyUR1E/9hSGWv7JKU6LgDNcQoVpXiGqgdt
- Hipg==
+ d=1e100.net; s=20251104; t=1786603753; x=1787208553;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Sj4nAB5UJQSiK8q2P2qqPUYrLHWdF5UCEVGSdlXatDA=;
+ b=tRZd4zuMmuJuqhzFgxeKt3V1NZJ9IJ9q3hUPH0CSsQbSw7stPSmTzvMpzi3EgY/dRt
+ j7dYCCohokdXfkdqxQjyT7MQFOYMYpkhoPNj/DMC6+3O5fdKUtrE9olxh7wZD32zr9gm
+ F5MSwlf1N4qBt2RJ5yGMy3ex97ncQQKW5Qk62w+gfFtO019nRzVHSBfOootBghZ+XVvN
+ Ezmxj46nv0PT2Wf/jC6MIn1V+nsLxZT3c6as9mQ1ZdqG7om9HHHqnwdxSy9HK86gUGyj
+ XV9SVdWX2sS1wPOJhd8R17mD5XOGh1pWuACaktWhvQwVk2SbkLZpK6h4O5m/VFf8DLED
+ NFKQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro8iLomg6BO6Ugvfld3ZjFjNITyth147/HHB5nlyYrHOe1WUq+7nIGaYwieOaT1JwNS9FUXEDIygSI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw48LBj1KoTJ6zFVJfz6FzOkguQX7bNKrcsIZ34dK8KMvxZ4lDu
- PqWo5V8PnJa2RInQbuPpSzU7vIL4b5IsemDl7wBKYrJbZYHi4SZk9KR9
-X-Gm-Gg: AR+sD13K1dqKytAxHXOz9QanYnG7f45Bw/atFlV4/ED92Bzqw1hy1DsnYDk+Nh9IFok
- U3/u4PFoSFP6IHRzyxXZuf6BgYQSWv03hxWoIH6lKWLdaLRxOV4rQZ7CcTCH/ZKs1pwJflI+uJL
- QVLNkCI+RNtZ2kq6yf0A0N8jIKJsfD0mQ7HMOYQrlJKAdIUKH3NiNFm4OeRAgugLRUa4HpSy4DS
- HfGgePQqMSR3clWbvs6vht4t5beQxp0OPc6yYZGTkfiJGdAQQ9Jlm8RTYEJYq8vNAt8a7NQb7Va
- b4Y0xRbjdAdavR05DeEIuitj4Mmf419epyoumv0+r93cHHwCS1MHUTO0iHYPTFOzDUE4+++x5Rq
- tD5+DpMb1wn6uXoghOKu4hWEQ0e5Pjf0JpUttgU4V7wqOPILkFFBoczirRm1ctdUzOdzmaARMsz
- tpgZbg5csSlibi+kOvaMrRQWr8beRIqHcJKIe4dR53u5jMHBvdyceb2grjUdl1Eh6bjVC2ZyAPr
- lE2T3QJbHm7p4uNd5F5Sjnkm4dpn5//A5pUxGxVtdi67lwwUjKqwUPE
-X-Received: by 2002:a05:6a20:244e:b0:3a2:c9a1:2c26 with SMTP id
- adf61e73a8af0-3cc57372d8bmr2480871637.7.1786588230599; 
- Wed, 12 Aug 2026 19:30:30 -0700 (PDT)
-Received: from lord.bigscale.net ([170.246.208.200])
+ AHgh+RoreqeUhptSdmGLlpa/FgXvsYEI0oL0d1Y83z9VOdZlaaulv6ciiqdoX57ySu5MF0W001EPHi/vvCA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyoWg68g2dcRWd8kLNx1QWXO2U703syxw74weKcokpPouEp/5ZF
+ 37Ut1nhxCAVaHavCKmxnzgbiQagXV0OxYVw5XsrI8Us2jqhV8m4Kk3nP
+X-Gm-Gg: AR+sD11q/xULEB7xVrfIpwF2d0g49QpBHrbLDi9OwhMh2OWKf3sg4RAQ5JLmCUWMIVM
+ 2VLn6ei3grwgVo5HSxlq9TL59dLcWChKneY46HGQAwW/3+CXXjv6kJk91C3pIlliRx33AO7mVnb
+ G4jY+eIMKStx5vrIVedAPLOX+SV7svukFZ44vWO/IATlWlv/mFRznuhm/mcZhvF36kYrDnEA2Ar
+ O5QJzI6uYtYX+lUB1aj5W03yrvKZn7ShziliXYykho/Rxnp5wHcK+cYcshEMPQvc84OgRgOgF1n
+ UBYEXUYX8BHnNIUojSdMRPMR9+Q4Onk5LmMtG0WJmLyCo6Mciph2zU1dHOVGcomCgvA+ebR2gN+
+ BAWroxY8yACYv54mCQvV91gj/IHf8/0EyvRkCe3SjImvGOlIYeHMoLxedT1/szRd0XVhAEjIVYO
+ FvSBOMtuvKnAc87cyoiPP2C/Rtna9ZCFXQFCvlksNBg3kurPVs11Sp6DRlS5yUSobntqLZcS2eR
+ dTQlzn44l0eCTQHuhuuczvr7zPUcoxb1yIXpTXVMPe+Raztv0XrzvdCMzu2yDKv
+X-Received: by 2002:a17:90b:1d43:b0:38e:3fdc:62e5 with SMTP id
+ 98e67ed59e1d1-3931e2a0572mr4819755a91.19.1786603753033; 
+ Wed, 12 Aug 2026 23:49:13 -0700 (PDT)
+Received: from deepanshu-Legion-Pro-5-16AFR10..
+ ([2405:201:682f:383f:229c:e2c9:8c03:c9c1])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-31ebf731f95sm1950053eec.15.2026.08.12.19.30.27
+ a92af1059eb24-1412da6c0e0sm7111503c88.13.2026.08.12.23.49.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2026 19:30:30 -0700 (PDT)
-From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
- stuart.summers@intel.com, julia.filipchuk@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-Subject: [PATCH v2 0/3] drm/xe: fix GuC TLB invalidation ack stalls on ARL
- (Wa_22016122933)
-Date: Wed, 12 Aug 2026 23:30:13 -0300
-Message-ID: <20260813023016.805573-1-talesam@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Wed, 12 Aug 2026 23:49:12 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, krzysztof.karas@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Deepanshu Kartikey <kartikey406@gmail.com>,
+ syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/i915: Guard against NULL driver_data in
+ i915_pci_probe()
+Date: Thu, 13 Aug 2026 12:19:02 +0530
+Message-ID: <20260813064902.367504-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 13 Aug 2026 09:42:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,66 +94,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+pci_match_device() can return the dummy pci_device_id_any entry
+when a device is force-bound via sysfs driver_override, in which
+case ->driver_data is unset (NULL). i915_pci_probe() casts it to
+struct intel_device_info * unconditionally and dereferences
+intel_info->require_force_probe, causing a NULL-ptr-deref.
 
-v2 of the TLB invalidation ack stall series for ARL, tracked in:
+Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=db96c5ff032f4292a8dc
+Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+v2: Drop Fixes tag, this isn't a regression from a single commit -
+    the unconditional dereference of ->driver_data has always assumed
+    it points into a MODULE_DEVICE_TABLE()-backed entry, an assumption
+    broken by the generic driver_override fallback path, not by any
+    i915-specific change. Add Cc: stable instead. (Krzysztof, Jani)
+---
+ drivers/gpu/drm/i915/i915_pci.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-  https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-
-The investigation concluded since v1: the GuC always replied in time.
-The CPU was reading a stale cache line of the G2H CTB - the GT1 caching
-bug that i915 works around as Wa_22016122933 and xe never inherited.
-Thanks Daniele for spotting the GT1 pattern in the GuC logs and
-suggesting the test, and Matt for the review and the guidance to mirror
-the i915 workaround.
-
-Patch 3 is new and is the actual fix: Wa_22016122933 for xe, scoped
-like i915 (media GT on media version 13.00) and covering the GuC-shared
-allocations the CPU reads from.
-
-Validation of patch 3 on two ARL machines (7d51 and 7dd1): before,
-20-60 ack stalls/day, every day, for weeks, on two GuC firmware
-versions; after, zero stalls across 6+ days combined and >5M TLB
-invalidations. The 7dd1 machine, which could not survive a day of media
-workloads on xe without a platform freeze, ran 34h+ continuously
-including video transcoding with zero incidents.
-
-Patches 1-2 are the diagnostics that made the investigation possible,
-updated per Matt's v1 review.
-
-v1 -> v2:
-- Dropped the "kick" workaround (RFC patch 3): obsolete now that the
-  root cause is fixed by Wa_22016122933.
-- Patch 1: unified with the existing devcoredump path -
-  __xe_devcoredump() taking a GT plus nullable q/job, with
-  xe_devcoredump()/xe_devcoredump_gt() wrapper macros (Matt).
-- Patch 2: record the first timed out seqno instead of the last one,
-  and use xe_warn() (Matt).
-- New patch 3: implement Wa_22016122933.
-
-Based on today's drm-tip. 
-
-Thanks,
-Tales
-
-Tales A. Mendonça (3):
-  drm/xe: Capture devcoredump on TLB invalidation timeout
-  drm/xe: Log when a timed out TLB invalidation ack finally arrives
-  drm/xe: Implement Wa_22016122933
-
- drivers/gpu/drm/xe/xe_devcoredump.c     | 46 ++++++++++++++-----------
- drivers/gpu/drm/xe/xe_devcoredump.h     | 15 +++++---
- drivers/gpu/drm/xe/xe_guc.c             | 16 +++++++++
- drivers/gpu/drm/xe/xe_guc.h             |  2 ++
- drivers/gpu/drm/xe/xe_guc_ads.c         |  3 +-
- drivers/gpu/drm/xe/xe_guc_ct.c          |  6 ++--
- drivers/gpu/drm/xe/xe_guc_log.c         |  7 ++--
- drivers/gpu/drm/xe/xe_guc_pc.c          |  3 +-
- drivers/gpu/drm/xe/xe_tlb_inval.c       | 39 +++++++++++++++++++++
- drivers/gpu/drm/xe/xe_tlb_inval_types.h | 17 +++++++++
- drivers/gpu/drm/xe/xe_wa_oob.rules      |  1 +
- 11 files changed, 124 insertions(+), 31 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 82415af47d54..2f03f95945f1 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		(struct intel_device_info *) ent->driver_data;
+ 	int err;
+ 
++	if (!intel_info)
++		return -ENODEV;
++
+ 	if (intel_info->require_force_probe && !id_forced(pdev->device)) {
+ 		dev_info(&pdev->dev,
+ 			 "Your graphics device %04x is not properly supported by i915 in this\n"
 -- 
-2.55.0
+2.43.0
 
