@@ -4,97 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1FCCC5CFDB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 21:12:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61BDFC5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 21:36:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34F5A10E51F;
-	Thu, 13 Aug 2026 21:12:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F97410E088;
+	Thu, 13 Aug 2026 21:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="RO1ovZhq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jQIPZ+hm";
 	dkim-atps=neutral
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com
- [209.85.216.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 863F010E51F
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 21:12:57 +0000 (UTC)
-Received: by mail-pj1-f98.google.com with SMTP id
- 98e67ed59e1d1-38dcbade417so333734a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:12:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786655577; x=1787260377;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=BmQIbOMpbDixM2LUoZ8EAUt/Js63kIkQtWinusc+PO0=;
- b=bvS9z1RMdumSVgefboZzopST6hEtBSdc5/oE2kwdquWrdgtHfX53+y/TiRWzpuUUHY
- 6y0L0yH/xTsUNEiS8V3TfL1t/ZzsSpSUiML2ulQk8m4nojZvDvomGct4JG/1cHPRh+UN
- cyG8W/I93zn2/pCSDBgfOyov6YYgZdVEFDOyTaWBXY816dg3O2b0WijfT0a8PE1AMHig
- Uy3lxUQpwvlLUzd/zmwSMuiK2aRfWRUj3vXuUsy5cjbv5QYve7+RKIDXrK6BAcrNNc5J
- jV4lIidbhxbfH3Dd20hT/Su0vstlD+LijSqX1rzaVcsKm+hBfTFXiO26DgBnFwFSr0I5
- IF3Q==
-X-Gm-Message-State: AOJu0Yyr+irRZXh1nIyR8dew/uKr5r2LyMInKG5WE3snBYwVcsUcngG5
- mAw1Hruf8Hh2vKi1w642yJorAC+zsWWSFnxm8mHP0qEC26s2VkTGHUloiJA1tVVTtGAutT93FTX
- kdeClKyt2V4F4QVNWCS8NenWOSfa45z6tf0qoFj0m3ViBy4pTRS27m0UJ4L8wApqaoWaxIUEp/G
- SgkhYPEi8q+bwJKdCMVmDapwbNPfyT5IlEJcwTdG9xMx6IwB71dlDkNcMyZ1DEayrBR8m/qZN+4
- gHW9f2GiJrdmxidCgcQnIXPhXe0
-X-Gm-Gg: AR+sD10TPRj63cix7xB22MFZ9jm4AXKRILwmF/RhM/VwX6G0M7ac3rnvDXIxsYFtv8W
- zx1/+pMvaq03p2d5vlxVYLhR2JuOaIQhJmrSeguH0RKDnh+OYHv07ZjTvjUTllcf135AtNa2pNA
- SUP6ZE4rIpDv+7GW7rnqZkulXwHLC/MWM73mZiOdlxTbTaR3QoU5gmahrdfg1bEf4FqsxhrgXnW
- LtyJSjKZpVHb2SB5tSAWkt/6qrEe14lSz/tQEKoKvi4H+xWm84RZUPttUWyrXAc/4irqUNElTfm
- Ax8CEhBS2C+k37BwxUFox7IoNji7VlBkjpYeHUMHzeFCADKY2BXYHhMSewwha2rH+fSUH+vK2ty
- otP9Wo7farqT76AsYKGvZjrdQ8xG4sqw3w7pRlKXm7FqmzdiYz2gbLsdNdJhJkB5uw1XITdWdnc
- Nnhjhof/7K0HRfBtkjW03K9LL/Z5/QCgRSflFOkg==
-X-Received: by 2002:a17:90b:53d0:b0:38e:9e9d:9209 with SMTP id
- 98e67ed59e1d1-3933bcec7edmr801981a91.17.1786655576881; 
- Thu, 13 Aug 2026 14:12:56 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-0.dlp.protect.broadcom.com. [144.49.247.0])
- by smtp-relay.gmail.com with ESMTPS id
- a92af1059eb24-14138832c8fsm63378c88.6.2026.08.13.14.12.56
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 13 Aug 2026 14:12:56 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-92e4f946461so31408785a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:12:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1786655575; x=1787260375;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=BmQIbOMpbDixM2LUoZ8EAUt/Js63kIkQtWinusc+PO0=;
- b=RO1ovZhqUPRdU8HzSpO1SIJLfTbEt1n+hFknxqZ5eD1hqhSHP8VBvWrVaS+UzHcI/g
- ykswGwJEK3fTpCBWxpjJmOvBAbxewYpzLqO5UbhFlSz9jdipfAy3/cR9aLQgCe1pvdcf
- MjjIUpMLrK54/raSCggCHsRT8Q4yfTjNF15sE=
-X-Received: by 2002:a05:620a:4e5:b0:934:9524:2e89 with SMTP id
- af79cd13be357-936d229216fmr61562985a.13.1786655575273; 
- Thu, 13 Aug 2026 14:12:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:4e5:b0:934:9524:2e89 with SMTP id
- af79cd13be357-936d229216fmr61557885a.13.1786655574799; 
- Thu, 13 Aug 2026 14:12:54 -0700 (PDT)
-Received: from [10.211.247.235] ([192.19.50.250])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-936ce21cb5bsm77064685a.36.2026.08.13.14.12.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Aug 2026 14:12:54 -0700 (PDT)
-Message-ID: <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
-Date: Thu, 13 Aug 2026 14:12:47 -0700
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A5B10E513
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 21:36:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E1646600C3;
+ Thu, 13 Aug 2026 21:36:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 176D81F000E9;
+ Thu, 13 Aug 2026 21:36:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786656971;
+ bh=p9f51wPt4Me2mLXjwn+nYgzJniqhQG1acKdKdYdH70c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=jQIPZ+hmvxFBuLhDkPmCx7P6LrbuvVKn0cNRFJyqBO7VX/oLiC/z2qcRg5/Bt3HQt
+ hVr7b+kIPkk+gCp3zRhYB3Gh8j6r2eoWb1HzmZ8n8+ci9Ia1y5Jx8v9GKqDz73RRda
+ +kylS6Yhpy+8BKm5wjqBK0vPIK1EPdyNx7BreUJOWH7O1Z5qHcsmrGhrC2SP5OtJml
+ Q5NpngvJNJBucvm4oAEj8HbUMwuKSIhTL9xX5P7HhzIAy6PQX1N17+NEWEHAnK3cOL
+ sS0sxXzciRywW6ywlE91DLCo38POwg9hKegIJ7umE8poNijCb+oiSv6cbbvzRK6fst
+ cwI67C9wzeo+Q==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 49114F40067;
+ Thu, 13 Aug 2026 17:36:10 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Thu, 13 Aug 2026 17:36:10 -0400
+X-ME-Sender: <xms:yjh-am3lm8BdOKF3S3cHS1g5VFPmw2kfsztM2D8tLAHVNcJzWfzNrA>
+ <xme:yjh-aur8r8xQSpji5PmTo_N9TQ5VCMeaVRUNN3iezH9KA5EUUsDpVXfnSaxadN632
+ IIDkDbrw3sNaSYN2aS1ks2QYn7ocRkEzchIri7pXG53E6HADMrG6vM>
+X-ME-Received: <xmr:yjh-aodzMmzK9cRoXCI7eru-AOSTl76Bu7VuUkHsH7LFynaS_HZCKKZSpSX4K0LesHWsziUTU9hxSIbe9beTQJwA0TPPw9Fu>
+X-ME-Proxy-Cause: dmFkZTFFk3kTpZ2SFvlqu/9NZoiEZe5tJqWtrVRy19Y8SztAWXFfhy/49Dkn8QCnOPK2+5
+ AogX8kvYOK34JJ7nqRZYM515r4tYKFep0ch8rpdETStvosQB8Lv9DKOjDF+jWme2+C48aq
+ tDZ5Cu8cR+nP44tCYWphM1ScDJWKjd/9+x1yBekjqAYWHTj5FP+RJyW4ZhW0zewY51QP/9
+ 9qP8GHzYdzv1w1GSaw7C27ELYUcPcV2bijCnHcsNoASmdNrOEZsVJDEdzYZnYTIstP8xq2
+ x/Nq2kNPuLOnPtzX9LBBWo0uhHpJAcP0wulimVm/zVnIpJajaE7ZUCmC4kf7NmFI2VTAPQ
+ rzZ1mihRcK8Nd2qPTzFLpyfWRFoVCav5asz5EX6+oaJfpNST8T9oTkb8wrLsYUnPYseE9G
+ KvO2gqxHhNeFN87lPEYat54EgKGM7CN3A9D4Kt+yGsNQLPkFwtDpf8+OGscPLg8lkJyGxx
+ 9+DpF18SkYOXvo51SMkSJ87TQ32AdrocX+DDJ/Zl1ueJKugpFfeOccwjwl59Da5BomlJtv
+ Indi661HVGvok/39k56FfTpsEPQ+QFsKw86B7cgbR6Ar7c9yrsi6ofinymRVXd5Dls7N3F
+ xeFtiM4MXiyOVQhzljuCYehZq49xf3Zr2N9SVJbYaSIVsSvr9N3WQOmJBvDA
+X-ME-Proxy: <xmx:yjh-aou4QNcgxyRFsdXgDtFIhbqV5nVhwqSjNik8EZXKl5j2-gzqhA>
+ <xmx:yjh-agWRe-wL_vAxkOsJtzL-uedi6sgOR1KM_G87u_X6gv8Tnjw4ig>
+ <xmx:yjh-at-I6Ywfsj0FHQxpaFIW0I_FSxZGHqA8eHWurGOHOsdVQgO8xg>
+ <xmx:yjh-as7e-i-KnBOtVr_5ed2UBwiY86dJq380p62ja_S_-SPKzWRYsw>
+ <xmx:yjh-au1vHhiy6jXMqFBfal2MoIUiUsh8XScjdfBKm4RYmJ53cMekqe2z>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 13 Aug 2026 17:36:09 -0400 (EDT)
+Date: Thu, 13 Aug 2026 14:36:08 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: Mark Janes <mjanes@netflix.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>,
+ Priya Hosur <Priya.Hosur@amd.com>, mythilam <mythilam@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/pm: Fix incorrect avg vcn utilization in
+ gpu_metrics
+Message-ID: <an44yIv7WG7vqTqQ@tardis.local>
+References: <20260805140227.44868-1-boqun@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
- are released
-To: Jellis Onsea | AccessWeb <jellis@accessweb.be>, zack.rusin@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
-References: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Content-Language: en-US
-In-Reply-To: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805140227.44868-1-boqun@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,7 +92,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-That is good to know. Do you still see a memory leak with 3D off?
+On Wed, Aug 05, 2026 at 07:02:21AM -0700, Boqun Feng wrote:
+> In a Strix Halo system, a >100 average_vcn_activity in gpu_metrics can
+> be observed by running the following command:
+> 
+>     ffmpeg -hwaccel vappi -vappi_device /dev/dri/renderD128 -i \
+>     ~/sample-10s.mp4 -vf hwupload,scale_vappi=format=nv12 -c:v \
+>     h264_vappi /tmp/output.mp4
+> 
+> This is incorrect because the value is supposed to be in [0-100] range.
+> 
+> The cause of the issue is that the metrics.VcnActivity reported by
+> smu_cmn_get_metrics_table() is a permyriad value instead of a percentage
+> value (e.g. smu_v14_0_0_get_smu_metrics_data() has a division by 100 to
+> report the vcn_busy_percent). Therefore fix this by applying the same
+> division in smu_v14_0_0_get_gpu_metrics().
+> 
+> Reported-by: Mark Janes <mjanes@netflix.com>
+> Signed-off-by: Boqun Feng <boqun@kernel.org>
 
--- 
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Ping?
+
+Regards,
+Boqun
+
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> index 568665265a13..1058338344b0 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> @@ -566,7 +566,8 @@ static ssize_t smu_v14_0_0_get_gpu_metrics(struct smu_context *smu,
+>  	gpu_metrics->temperature_skin = metrics.SkinTemp;
+>  
+>  	gpu_metrics->average_gfx_activity = metrics.GfxActivity;
+> -	gpu_metrics->average_vcn_activity = metrics.VcnActivity;
+> +	/* metrics.VcnActivity is permyriad, convert it to percentage. */
+> +	gpu_metrics->average_vcn_activity = metrics.VcnActivity / 100;
+>  	memcpy(&gpu_metrics->average_ipu_activity[0],
+>  		&metrics.IpuBusy[0],
+>  		sizeof(uint16_t) * 8);
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
