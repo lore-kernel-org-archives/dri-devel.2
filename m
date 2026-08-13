@@ -4,47 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B47BC5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 21:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B2E8C5CFDB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 21:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6678F10E06A;
-	Thu, 13 Aug 2026 21:46:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFDFA10F55E;
+	Thu, 13 Aug 2026 21:47:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="JvxAYEJt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="brrUxo0v";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3CDA10E06A
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 21:46:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=VrJjpnquoKirxGoQwEIqgJUFcxrud7TWyOeE6LNnY0Q=; b=JvxAYEJtdLMHwgdvuUhzatZqEv
- TO8AR+ev5z/sbSYaWyG/9mDVob8nZu8hxDpwe1ZTTE9ppynXUAWzrFJP9osq77Di79oNqugpWMpSX
- 32nipipgxb50ZbL0JNas+c04bW0Tvtkb48rSg5h/BEJDf5196dwavEsFs/FpqcKFfvIEvNFIDN5ba
- MZW0Ld9MqPZ+eYo/U4JdPCL2+WlqGIXIXRClY3T2aHTEYK1MshnaCtDsGCfMWMxCdRVYJzFWBGqCT
- LLFkumO8P+csYLhx5S9aVdnPCDttb5FgaAFpZoXD36NxixsKqaojkczxAaWpfDGQTykVEyXTehRdf
- wAuFLFqw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wudG4-00000001fHQ-0JCi; Thu, 13 Aug 2026 21:46:40 +0000
-Message-ID: <e4b67f1e-4afa-4d8b-bd28-28e8e991dfa4@infradead.org>
-Date: Thu, 13 Aug 2026 14:46:38 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] fbdev: maxinefb: fix build issues
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org
-References: <20260809234810.982500-1-rdunlap@infradead.org>
- <alpine.DEB.2.21.2608131801340.48788@angie.orcam.me.uk>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <alpine.DEB.2.21.2608131801340.48788@angie.orcam.me.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E38A210F55D
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 21:46:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 92D9A40719;
+ Thu, 13 Aug 2026 21:46:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6661F000E9;
+ Thu, 13 Aug 2026 21:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786657619;
+ bh=FMgecS2GqDxyMUEHuwAhOUr5Oh8jmURkgviWWGEkRno=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=brrUxo0vT5UzXloUwdK/46KVWhNAT52Gd3s8TNkgAho1DD0hYaIih7Ymz728cygz8
+ f/iUmRWUqFamu2cUc9VZm4H9Yvo4ROR5tbMbdh2Aj8qmYXwUlHyUKCt4xFxi/7H38u
+ Ec1VsTxwyUT99jNOkWurnnyb9hihvTr2DGLgeLLWM9V7lJI12OoJoSBu9rXcOSffc9
+ Z4sqclb+QTXOkJr1fJRxA2RLXnAAmf7jBKI0j86QV56raCy38zam2ATOuMVhAMFsY9
+ wDhyKmtHSkAgFUqOJAQHGNwWDnj/FqncyeGT71dZLsAJJu9jhnjPwaBBOhAV+a32LQ
+ 2YdAbzN9/X0iA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 03/10] drm/msm/dp: Read DPCD and sink count in bridge
+ detect()
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260314-hpd-refactor-v5-3-0c8450737d64@oss.qualcomm.com>
+References: <20260314-hpd-refactor-v5-3-0c8450737d64@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 21:46:54 +0000
+Message-Id: <20260813214659.4C6661F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,93 +53,110 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] msm_dp_bridge_detect disables AUX transfers globally on a transien=
+t runtime PM resume failure, breaking future transfers permanently.
+- [High] Transient AUX errors or PM resume failures incorrectly cause the d=
+isplay to be reported as disconnected, tearing down the display.
+--
 
+--- Patch [3]: [PATCH v5 03/10] drm/msm/dp: Read DPCD and sink count in bri=
+dge detect() ---
+commit 80bf1779215b888b4022742b582789f295f77790
+Author: Jessica Zhang <jesszhan0024@gmail.com>
 
-On 8/13/26 10:31 AM, Maciej W. Rozycki wrote:
-> On Sun, 9 Aug 2026, Randy Dunlap wrote:
-> 
->> This is all ancient source code from the beginning of git time.
-> 
->  I can dig out any further details you may need from the old LMO git tree.  
-> Eventually it's planned to be put back online, but resources.
-> 
->> Now builds cleanly on 32-bit and 64-bit MACH_DECSTATION.
-> 
->  Thanks for doing this work.
-> 
->> Suggested-by: "Maciej W. Rozycki" <macro@orcam.me.uk> # for s/KSEG1ADDR/CKSEG1ADDR/
-> 
->  Eventually this code should be converted to a platform device, so such 
-> hacks won't be necessary.  Sadly I declined an offer back in 2009 and I 
-> have been chasing a specimen for a while now.  And since it's an onboard 
-> device unlike all the TURBOchannel framebuffers, there's no alternative.
-> 
->> --- linux-next-20260807.orig/drivers/video/fbdev/maxinefb.c
->> +++ linux-next-20260807/drivers/video/fbdev/maxinefb.c
->> @@ -71,19 +71,6 @@ void maxinefb_ims332_write_register(int
->>  	*((volatile unsigned short *) (wptr)) = val;
->>  }
->>  
->> -unsigned int maxinefb_ims332_read_register(int regno)
->> -{
->> -	register unsigned char *regs = (char *) MAXINEFB_IMS332_ADDRESS;
->> -	unsigned char *rptr;
->> -	register unsigned int j, k;
->> -
->> -	rptr = regs + 0x80000 + (regno << 4);
->> -	j = *((volatile unsigned short *) rptr);
->> -	k = *((volatile unsigned short *) regs);
->> -
->> -	return (j & 0xffff) | ((k & 0xff00) << 8);
->> -}
->> -
->>  /* Set the palette */
->>  static int maxinefb_setcolreg(unsigned regno, unsigned red, unsigned green,
->>  			      unsigned blue, unsigned transp, struct fb_info *info)
-> 
->  It might be worth mentioning in the change description that this is dead 
-> code (and overall provide a summary as to making functions static, etc.).  
-> Though I'm not entirely convinced as to the removal since this function 
-> documents the hardware interface, which must have been the intent to put 
-> it there.  Perhaps #if 0?
-> 
->> --- linux-next-20260807.orig/include/video/maxinefb.h
->> +++ linux-next-20260807/include/video/maxinefb.h
->> @@ -13,13 +13,13 @@
->>  /*
->>   * IMS332 video controller register base address
->>   */
->> -#define MAXINEFB_IMS332_ADDRESS		KSEG1ADDR(0x1c140000)
->> +#define MAXINEFB_IMS332_ADDRESS		CKSEG1ADDR(0x1c140000)
->>  
->>  /*
->>   * Begin of DECstation 5000/xx onboard framebuffer memory, default resolution
->>   * is 1024x768x8
->>   */
->> -#define DS5000_xx_ONBOARD_FBMEM_START	KSEG1ADDR(0x0a000000)
->> +#define DS5000_xx_ONBOARD_FBMEM_START	CKSEG1ADDR(0x0a000000)
->>  
->>  /*
->>   *      The IMS 332 video controller used in the DECstation 5000/xx series
-> 
->  This would probably best be a separate change, especially as it's not 
-> needed for 32BIT.
-> 
->  I'm not sure how the actual maintainers see it (I should probably list 
-> myself for all the scattered DECstation stuff), but I think this would 
-> best be a patch series of 3 for each of the individual classes of fixes.  
-> And since this borders on the obvious I wouldn't be too concerned as to 
-> the change descriptions; just one sentence plus the relevant error message 
-> quoted will do.  And your introduction should suffice as the cover letter.
-> 
->  Let me know if this works for you and if you post such a series, I'll ack 
-> it right away.
+drm/msm/dp: Read DPCD and sink count in bridge detect()
 
-OK, I'll work on that.
+Instead of relying on the link_ready flag to specify if DP is connected,
+read the DPCD bits and get the sink count to accurately detect if DP is
+connected.
 
--- 
-~Randy
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index 5997cd28ba11f..a05144de3b93f 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+[ ... ]
+> @@ -1151,6 +1151,66 @@ static int msm_dp_hpd_event_thread_start(struct ms=
+m_dp_display_private *msm_dp_p
+[ ... ]
+> +enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+> +					       struct drm_connector *connector)
+> +{
+[ ... ]
+> +	if (!dp->link_ready)
+> +		return status;
+> +
+> +	msm_dp_aux_enable_xfers(priv->aux, true);
+> +
+> +	ret =3D pm_runtime_resume_and_get(&dp->pdev->dev);
+> +	if (ret) {
+> +		DRM_ERROR("failed to pm_runtime_resume\n");
+> +		msm_dp_aux_enable_xfers(priv->aux, false);
 
+[Severity: High]
+If pm_runtime_resume_and_get() fails here, is it correct to call
+msm_dp_aux_enable_xfers(priv->aux, false)?
+
+Since enable_xfers is otherwise managed by HPD interrupt handlers (which
+don't fire without physical hotplug events), setting it to false on a
+transient PM resume failure seems like it would permanently disable the
+AUX channel for subsequent transfers (like link training or EDID reads).
+Could this render the display unusable until a physical cable replug?
+
+> +		return status;
+> +	}
+> +
+> +	ret =3D msm_dp_aux_is_link_connected(priv->aux);
+> +	if (dp->internal_hpd && !ret)
+> +		goto end;
+> +
+> +	ret =3D drm_dp_read_dpcd_caps(priv->aux, dpcd);
+> +	if (ret)
+> +		goto end;
+> +
+> +	ret =3D drm_dp_read_desc(priv->aux, &desc, drm_dp_is_branch(dpcd));
+> +	if (ret)
+> +		goto end;
+
+[Severity: High]
+Does returning connector_status_disconnected on transient AUX failures
+cause problems?
+
+If drm_dp_read_dpcd_caps() or drm_dp_read_desc() fail due to a transient
+error (such as an I2C/AUX timeout), the code jumps to the end and returns
+the disconnected status. This could cause userspace to receive a false
+display disconnection event and tear down the display modeset abruptly.
+
+> +
+> +	status =3D connector_status_connected;
+> +	if (drm_dp_read_sink_count_cap(connector, dpcd, &desc)) {
+> +		int sink_count =3D drm_dp_read_sink_count(priv->aux);
+> +
+> +		drm_dbg_dp(dp->drm_dev, "sink_count =3D %d\n", sink_count);
+> +
+> +		if (sink_count <=3D 0)
+
+[Severity: High]
+Since drm_dp_read_sink_count() can return a negative error code (like
+-ETIMEDOUT) on failure, this check evaluates to true for errors.
+
+Would a transient read failure here also result in a false disconnection
+status being reported?
+
+> +			status =3D connector_status_disconnected;
+> +	}
+> +
+> +end:
+> +	pm_runtime_put_sync(&dp->pdev->dev);
+> +	return status;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260314-hpd-refact=
+or-v5-0-0c8450737d64@oss.qualcomm.com?part=3D3
