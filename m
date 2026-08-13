@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04A96C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 11:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB158C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 11:37:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16DF910F2CB;
-	Thu, 13 Aug 2026 11:25:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B360110F2D6;
+	Thu, 13 Aug 2026 11:37:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BuKlAFk6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JCQihjpe";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72F4510F2CB
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:25:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2B2A10F2D6
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:37:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DCA2A600AD;
- Thu, 13 Aug 2026 11:25:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7BD1F00A3A;
- Thu, 13 Aug 2026 11:25:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6DBF540DEC;
+ Thu, 13 Aug 2026 11:37:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1031F000E9;
+ Thu, 13 Aug 2026 11:37:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786620350;
- bh=6bCfAdP6soZNSDgVI5JknasmWaAv6pykGABnhb977Js=;
+ s=k20260515; t=1786621032;
+ bh=tOjBQ56EugzGusqth8E0PlQBi7s+A3YCbbI08tTp1gE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BuKlAFk6Qd4uUhH65TzOXgQBZe+GBugWT9u0BNkXAtfhgx+hEBMpeHslZ0SHNg9w2
- KnoLmfLWp3mOlPBUQtzTJZFPbp61lFsbVmHUHrxx7OAyVuB/iyg0/ax4RtIUxnHT7S
- TR0meadjn6C7OxyD8OhHfLsZt/VkjTPWXvzAwBt4d1Zy+9QInFh5RrnS95HSklwzD8
- Z0+e76yoI+gNh/orDw9Gn5xT1py6SDkobhrCaBugD+QySVnpEghQFyDKou0yDOpQIh
- tWRiLxpSWI1PLCb+zYfgP+m3QC0EPa+5V75gBjWooGz0LNyRuzvFXLzIQadqr5fZNk
- vFULBoCrFsx9g==
+ b=JCQihjpe85He5r9yKJ9XpQVrEWtZBIABK99kY05SFgQc+AH7H0H4p/Q7ue48BX37M
+ 2taeUIG4TfVfEE9T6IYn4UhUovZ86Ini21/o3GNushI2LVq2SxmYmI5JX5JHRw5oKo
+ 2hGN9aUop6bT2LoqLv/JczYL6WnpU6dTFIyOx08YH9+3Ll4XQnjDOEfHDq29tY5UTN
+ oj14fsIkLkBhClfIzVt73WIKRmLyVbK/bThDk4G+RYKcz2BVsZw9um7r5R7KJk91ns
+ SCTm/vlwNiIh5A0scXj/dBXr7yVCYnQyHxh3rEcRDzSQ676s+OOabBYWdL84+9Jdc6
+ kfZi0kAWS6JdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 15/17] drm/panthor: Fix the unplug logic
+Subject: Re: [PATCH v3 08/17] drm/panthor: Split panthor_vm
 To: "Boris Brezillon" <boris.brezillon@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260813-panthor-unplug-fixes-v3-15-3ed4e961bbe7@collabora.com>
+In-Reply-To: <20260813-panthor-unplug-fixes-v3-8-3ed4e961bbe7@collabora.com>
 References: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
- <20260813-panthor-unplug-fixes-v3-15-3ed4e961bbe7@collabora.com>
+ <20260813-panthor-unplug-fixes-v3-8-3ed4e961bbe7@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 11:25:50 +0000
-Message-Id: <20260813112550.7F7BD1F00A3A@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 11:37:11 +0000
+Message-Id: <20260813113712.3D1031F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,183 +57,117 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Unconditional memory leak of non-resident VMs (including page tabl=
-es and mapped BOs) during device unplug.
-- [High] Groups in the `waiting` list are skipped during scheduler unplug, =
-leading to leaked jobs and list corruption.
-- [High] The device's PM runtime usage counter is permanently elevated beca=
-use the `put` operation was removed while the `get` was retained.
-- [High] Kernel BOs (firmware sections) are unconditionally freed during un=
-plug, bypassing the leak_active_resources mitigation and leading to hardwar=
-e Use-After-Free.
+
+New issues:
+- [High] Premature removal of the AS from the reclaim list allows it to be =
+re-added concurrently, leading to a Use-After-Free when the AS is subsequen=
+tly freed.
+
+Pre-existing issues:
+- [High] If a VM is released concurrently with device unplug, the hardware =
+MMU slot is left enabled and pointing to freed page tables.
 --
 
---- Patch [15]: [PATCH v3 15/17] drm/panthor: Fix the unplug logic ---
-commit ca8eb24c765a734575adb5e02e03ca868df2f058
+--- Patch [8]: [PATCH v3 08/17] drm/panthor: Split panthor_vm ---
+commit 7c73a792e45cba201c66a596be6469687f3cb78d
 Author: Boris Brezillon <boris.brezillon@collabora.com>
+Subject: drm/panthor: Split panthor_vm
 
-drm/panthor: Fix the unplug logic
-
-This commit resets the GPU before calling the component unplug functions,
-drops unnecessary pm_get/put calls around sub-component unplugs, and attemp=
-ts
-to safely release resources at unplug time even if open FDs exist. It also
-introduces a leak_active_resources flag to purposefully leak resources if t=
-he
-hardware cannot be successfully stopped.
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
-anthor/panthor_device.c
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> [ ... ]
-> @@ -112,13 +148,6 @@ void panthor_device_unplug(struct panthor_device *pt=
-dev)
->  	panthor_gpu_unplug(ptdev);
->  	panthor_pwr_unplug(ptdev);
-> =20
-> -	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
-> -	pm_runtime_put_sync_suspend(ptdev->base.dev);
-> -
-> -	/* If PM is disabled, we need to call the suspend handler manually. */
-> -	if (!IS_ENABLED(CONFIG_PM))
-> -		panthor_device_suspend(ptdev->base.dev);
-> -
->  	/* Report the unplug operation as done to unblock concurrent
->  	 * panthor_device_unplug() callers.
->  	 */
-
-[Severity: High]
-Does this leave the PM runtime usage counter unbalanced?
-
-The panthor_device_unplug() function retains the call to
-pm_runtime_get_sync(ptdev->base.dev) earlier in this path, but this patch
-removes the matching pm_runtime_put_sync_suspend() call here.
-
-Could this permanent elevation of the usage counter prevent the device and
-its parent power domains from entering low-power states?
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
-or/panthor_fw.c
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> [ ... ]
-> @@ -1285,11 +1285,9 @@ void panthor_fw_unplug(struct panthor_device *ptde=
-v)
-> =20
->  	disable_delayed_work_sync(&ptdev->fw->watchdog.ping_work);
-> =20
-> -	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev)) {
-> -		/* Make sure the IRQ handler cannot be called after that point. */
-> +	/* Make sure the IRQ handler cannot be called after that point. */
-> +	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
->  		panthor_job_irq_suspend(&ptdev->fw->irq);
-> -		panthor_fw_stop(ptdev);
-> -	}
-> =20
->  	list_for_each_entry(section, &ptdev->fw->sections, node)
->  		panthor_kernel_bo_destroy(section->mem);
-
-[Severity: High]
-Should this check ptdev->unplug.leak_active_resources before destroying
-the kernel buffer objects?
-
-The commit message mentions leaking resources if the hardware cannot be
-stopped, but panthor_fw_unplug() unconditionally destroys the firmware
-sections here.
-
-If the hardware soft-reset failed, destroying these buffer objects could
-return physical memory to the OS allocator while the active GPU still
-retains access, potentially causing memory corruption.
+This commit splits the panthor_vm object into panthor_vm and panthor_as
+to manage address spaces and page table residency separately. This prepares
+the cleanup logic for future unplug robustness improvements.
 
 > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
 hor/panthor_mmu.c
+> index 6c48e88ad17fb..0418365529538 100644
 > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> [ ... ]
-> @@ -2227,6 +2238,11 @@ static bool vm_prep_for_cleanup(struct panthor_vm =
-*vm)
->  	}
+
+[ ... ]
+
+> @@ -2031,15 +2044,23 @@ void panthor_mmu_post_reset(struct panthor_device=
+ *ptdev)
+>  	mutex_unlock(&ptdev->mmu->vm.lock);
+>  }
 > =20
->  	if (!drm_dev_enter(&ptdev->base, &cookie)) {
-> +		/* Device is gone, take the unplug lock to make sure
-> +		 * panthor_device_stop_before_unplug() has run and
-> +		 * ::leak_active_resources is valid.
-> +		 */
-> +		guard(mutex)(&ptdev->unplug.lock);
->  		guard(mutex)(&ptdev->mmu->as.slots_lock);
+> -static void panthor_vm_free(struct drm_gpuvm *gpuvm)
+> +static void panthor_vm_release(struct kref *kref)
+>  {
+> -	struct panthor_vm *vm =3D container_of(gpuvm, struct panthor_vm, base);
+> -	struct panthor_device *ptdev =3D vm->ptdev;
+> +	struct panthor_vm *vm =3D container_of(kref, struct panthor_vm, refcoun=
+t);
+> +	struct panthor_as *as =3D vm->as;
+> +	struct panthor_device *ptdev =3D container_of(as->base.drm, struct pant=
+hor_device, base);
 > =20
->  		/* If we're still on slot after an unplug, it means
->  		 * drm_dev_unplug() has returned but the part in
->  		 * panthor_mmu_unplug() that evicts all resident AS has
->  		 * not been executed yet. In that case, we simply queue
->  		 * the VM to the cleanup list and wait for
->  		 * panthor_mmu_unplug() to do its job.
->  		 */
->  		if (as->hw_slot.id >=3D 0) {
->  			list_add_tail(&vm->node, &ptdev->mmu->as.cleanup_list);
->  			return false;
+> +	/* Make sure the page table behind this VM doesn't participate in recla=
+im
+> +	 * after that point, since we're about to release everything anyway.
+> +	 */
+>  	mutex_lock(&ptdev->base.gem_lru_mutex);
+> -	list_del_init(&vm->reclaim.lru_node);
+> +	list_del_init(&as->reclaim.lru_node);
+>  	mutex_unlock(&ptdev->base.gem_lru_mutex);
+> =20
+> +	/* Unmap everything in case some BOs were still mapped. */
+> +	drm_WARN_ON(&ptdev->base,
+> +		    panthor_vm_unmap_range(vm, as->base.mm_start, as->base.mm_range));
+> +
+
+[Severity: High]
+Can this cause a use-after-free if another thread modifies a shared BO's
+reclaim state?=20
+
+Because the AS is removed from the reclaim list before its BO mappings are
+unmapped, couldn't a concurrent call to
+panthor_vm_update_bo_reclaim_lru_locked() see the empty list node and re-add
+the AS to ptdev->reclaim.vms?=20
+
+Once panthor_as_free() executes later, the AS would be freed while it is
+still linked in the global reclaim list.
+
+>  	mutex_lock(&vm->heaps.lock);
+>  	if (drm_WARN_ON(&ptdev->base, vm->heaps.pool))
+>  		panthor_heap_pool_destroy(vm->heaps.pool);
+> @@ -2060,29 +2081,26 @@ static void panthor_vm_free(struct drm_gpuvm *gpu=
+vm)
+>  	drm_sched_entity_destroy(&vm->entity);
+>  	drm_sched_fini(&vm->sched);
+> =20
+> -	mutex_lock(&vm->op_lock);
+> +	mutex_lock(&vm->as->op_lock);
+>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+> -	if (vm->as.id >=3D 0) {
+> +	if (as->hw_slot.id >=3D 0) {
+>  		int cookie;
+> =20
+>  		if (drm_dev_enter(&ptdev->base, &cookie)) {
+> -			panthor_mmu_as_disable(ptdev, vm->as.id, false);
+> +			panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+>  			drm_dev_exit(cookie);
 >  		}
 > =20
->  		return true;
+> -		ptdev->mmu->as.slots[vm->as.id].vm =3D NULL;
+> -		clear_bit(vm->as.id, &ptdev->mmu->as.alloc_mask);
+> -		list_del(&vm->as.lru_node);
+> +		panthor_as_release_hw_slot_locked(as);
 >  	}
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
 
 [Severity: High]
-When drm_dev_enter() fails during an unplug, this path returns true for
-non-resident VMs without clearing the PANTHOR_AS_FORBID_UNMAP restriction.
+This is a pre-existing issue, but what happens to the hardware MMU slot if
+drm_dev_enter() fails during an unplug?
 
-Since panthor_mmu_freeze_before_unplug() applies this restriction to all
-VMs earlier in the unplug sequence, leaving it set forces unmap operations
-to fail or skip.
+It looks like the code skips panthor_mmu_as_disable() but still calls
+panthor_as_release_hw_slot_locked(as) directly below it.
 
-Could this cause an unconditional memory leak of the non-resident VMs,
-their page tables, and mapped buffer objects?
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
-nthor/panthor_sched.c
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> [ ... ]
-> @@ -4081,23 +4105,76 @@ void panthor_job_update_resvs(struct drm_exec *ex=
-ec, struct drm_sched_job *sched
->  void panthor_sched_unplug(struct panthor_device *ptdev)
->  {
->  	struct panthor_scheduler *sched =3D ptdev->scheduler;
-> +	struct panthor_group *group, *tmp_group;
-> +	LIST_HEAD(groups);
-> =20
->  	disable_delayed_work_sync(&sched->tick_work);
->  	disable_work_sync(&sched->fw_events_work);
->  	disable_work_sync(&sched->sync_upd_work);
-> =20
->  	mutex_lock(&sched->lock);
-> [ ... ]
-> +	/* Now take care of the non-resident groups. */
-> +	for (u32 i =3D 0; i < ARRAY_SIZE(sched->groups.runnable); i++)
-> +		list_splice_init(&sched->groups.runnable[i], &groups);
-> +
-> +	for (u32 i =3D 0; i < ARRAY_SIZE(sched->groups.idle); i++)
-> +		list_splice_init(&sched->groups.idle[i], &groups);
-> +
-> +	list_for_each_entry_safe(group, tmp_group, &groups, run_node) {
-> +		list_del_init(&group->run_node);
-> +		list_del_init(&group->wait_node);
-> +		group_queue_work(group, term);
-> +	}
-
-[Severity: High]
-Does this skip the groups currently waiting on synchronization objects?
-
-The logic splices the sched->groups.runnable and sched->groups.idle
-lists to terminate them, but it appears to entirely omit the
-sched->groups.waiting list.
-
-It seems any groups in the waiting list at the time of unplug will be
-stranded here, leading to a memory leak and a later WARN_ON during
-scheduler teardown.
+If the slot tracking is cleared here, won't panthor_mmu_unplug() also skip
+disabling the slot because it appears unused, leaving the GPU MMU active on
+freed page tables?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-panthor-un=
-plug-fixes-v3-0-3ed4e961bbe7@collabora.com?part=3D15
+plug-fixes-v3-0-3ed4e961bbe7@collabora.com?part=3D8
