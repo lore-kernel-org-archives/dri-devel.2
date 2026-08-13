@@ -4,51 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D82A5C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B361FC5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8762010F308;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E0010F30F;
 	Fri, 14 Aug 2026 07:04:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="L6w4TkoS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="soudcaCH";
 	dkim-atps=neutral
-Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B3E810F28B
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 10:03:28 +0000 (UTC)
-Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
- server-digest SHA256) (No client certificate requested)
- by meve.dewith.io (Postfix) with ESMTPSA id A460023E65;
- Thu, 13 Aug 2026 10:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
- t=1786615405;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bLaN4f3N6hbPhZzEo8AH8L3A2vrPXXcp/6EZkbNc4Lw=;
- b=L6w4TkoSNd7hnu6Nuxv73dllFQL9cOLiLvb4RBoGYI+2+AI/X0lbrjsrf6kXHSgQPUKFbh
- X0dyYBsyKB4r7A/119THkHcIEGu0jhvfwJdT77oJJjJe5q36V9hIqmdFhj2nBo7xxAZxLw
- Va7x/VjX0w9DD/wWHI2F2BbP2jaCEl0=
-Date: Thu, 13 Aug 2026 11:59:44 +0200
-From: Wim de With <wf@dewith.io>
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: backlight: Add Orient Chip OCP8178
-Message-ID: <an2VkN3446Ndxn9c@dewith.io>
-References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
- <20260812-ocp8178-backlight-v2-1-4ad18b48bef8@dewith.io>
- <an2RgGwu2YaglM7H@aspen.lan>
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEFDE10E4C6
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:10:54 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-c9e7391839cso1804905a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 04:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786619454; x=1787224254; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=SrNuYfPLf9ZRG3VPVcc9OXZy7f7BhYSur9DBwfRDvzQ=;
+ b=soudcaCHKXlsRceNunxc7B0mfHQeIEKRBayRQhEfyeWfOdzUU1K2yiTTRDNiew/zAw
+ XSUcY/gfOcRSLBDlc7kGgqd5XRBfOy5vaK1aKnfbLkRzDkIhvUJI+rR8jQaoyEOrrKh6
+ c4TzPOtTIRuZpGIf3mEe1wkSR1dOGuHHStMDe3MbM1rcQ3fEOgq/6KWaeUKcmxD6ktTm
+ gT2iy29pPTXKfGigeWXYnxsR0MrCqbL8oOPQ6MAcrj8fTd8RsRHzQfRPPY/gE9CvMtRl
+ 2qbL01TNrOnWj0xDmMe7fxEtvfbfhJCFRStL7fePYLyG9UGj29KukQNzz6Io2s0/0PDE
+ 053Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786619454; x=1787224254;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SrNuYfPLf9ZRG3VPVcc9OXZy7f7BhYSur9DBwfRDvzQ=;
+ b=UalXwDP4+zPE2/kxRVzn497BIRIef1mDQoGGNrSIl1Czb4q7+g4AD1fTWCAk+j6/i6
+ Lpu7+wcssqj62eDHrH59MP65KiAA80eVo/4wwxRznJp7mF4EGWxW7jE2dzbjGD/MMJDO
+ hin5oUbJoXUJCsCfWf2dujXk96E8SFl+/GkT7d2oXDYmLOdKLXGSy5l89ch+MZQn6Kug
+ Ij+o+hkuAR2p2gbzGm65x+mqSeFaIo8ZfzOw6S2MK5SoGvVdpSay7qpT1j/ADMcoLIqm
+ msiPgPlsL9SXSMuAOfgp0IajX8xB5HX3vjkcfcoKefjk/GheCqlute3w/qJBhxoMWO1y
+ g0CQ==
+X-Gm-Message-State: AOJu0YzJMF6Rx7SOb+5xtVQe9EO1UCCeq+62ZMQxjMEOtgvPVTr20W+U
+ Esdh9HHCIsA9fwg9rFqGvvKMtbC97BYOVkqGDK/naaVF8XueGhnDJL8akW/7Fa6PBJs=
+X-Gm-Gg: AR+sD11fVQTlpk4UPbBg96R8SgtSTsRDtwNKOTVUGJFUzN2OGe8jFk4uR1l1CJkdulr
+ fMRnPtbWV8XY/El6y0yBeHrCpSK7WQdNkoVPRAbjPlYgfAI88FFAtMlVljD/flPoPppVdRwUx/x
+ zajlZMHIGV9KHayR0yKNQ8FgOBlDoUXlWCxNZTt97pvCtpmBmVaBG2TgWfWPejB1MA0otyLimnh
+ XnIRkCQKllb8wUkaonPUP4cUMCblDaY8Wbw3+iUctiOCiWSjwyzvCcIyl1pCIBRnIbrUFHn7a6j
+ uNprRh8AaJxjRzhTaZ24Gs6OZbdQgw3MPJAzDdTbofhUdj86QqAZUyN1717eo9bQJ6MoC5nG9X4
+ AoLNPkQrpbxJKqbO+GGDi/RfNeHS+ZW464nOPAoL1HsQy6PrAfshkptOrnenYvW/xdfGJ1Cpht6
+ 1S4AZumjknXEdKMsTAWVfOhJi6Nqz7Nylt+419ek3HSijA/R2qXI/M/DXaf9Q7LytSfle/0lsFh
+ 6CX5+NKC+O+tEyeMhCldMQ+xlO3gWX5HtU7mFGl5tifIKrOsgpBeKslxuN12Fw4x25vjrfAIL35
+ SA==
+X-Received: by 2002:a05:6a21:1343:b0:3bf:b9de:8570 with SMTP id
+ adf61e73a8af0-3cc5527de6cmr6884387637.19.1786619454076; 
+ Thu, 13 Aug 2026 04:10:54 -0700 (PDT)
+Received: from localhost.localdomain ([2406:7400:94:ab62:887d:e555:df21:3318])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-31ec0228793sm7610406eec.26.2026.08.13.04.10.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Aug 2026 04:10:53 -0700 (PDT)
+From: Manush Prajwal <manushprajwal555@gmail.com>
+To: Paul Kocialkowski <paulk@sys-base.io>, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+ Manush Prajwal <manushprajwal555@gmail.com>
+Subject: [PATCH] drm: logicvc: fix device_node refcount leak in
+ logicvc_layers_init()
+Date: Thu, 13 Aug 2026 16:40:36 +0530
+Message-ID: <20260813111037.724-1-manushprajwal555@gmail.com>
+X-Mailer: git-send-email 2.46.2.windows.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <an2RgGwu2YaglM7H@aspen.lan>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Aug 2026 07:04:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,18 +88,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 13, 2026 at 10:42:24AM +0100, Daniel Thompson wrote:
-> On Wed, Aug 12, 2026 at 09:21:46PM +0200, Wim de With wrote:
-> > +  enable-gpios:
-> > +    description: GPIO to use to enable/disable and dim the backlight.
-> > +    maxItems: 1
-> 
-> Is this really an "enable" GPIO? The enable-gpio(s) for most backlights
-> is the HWEN pin rather than something used for protocol. Maybe
-> onewire-gpios or control-gpios?
+On logicvc_layer_init() failure, logicvc_layers_init() releases the
+parent layers_node reference before jumping to the error path, but
+never releases layer_node, the child node held by the current
+for_each_child_of_node() iteration. Add the missing of_node_put()
+for layer_node alongside the existing one for layers_node.
 
-I agree, and there is prior art in the kernel for ctrl-gpios, so I'll go
-with that.
+Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
+---
+ drivers/gpu/drm/logicvc/logicvc_layer.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Regards,
-Wim
+diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
+index 7f5ba00018..e83a2aafed 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_layer.c
++++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
+@@ -613,6 +613,7 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
+ 
+ 		ret = logicvc_layer_init(logicvc, layer_node, index);
+ 		if (ret) {
++			of_node_put(layer_node);
+ 			of_node_put(layers_node);
+ 			goto error;
+ 		}
+-- 
+2.46.2.windows.1
+
