@@ -4,68 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F29A6C5DF64
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 15:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F512C5CFCF
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 15:29:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E59D110E04D;
-	Thu, 13 Aug 2026 15:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E036910F3AA;
+	Thu, 13 Aug 2026 15:29:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fHS/Gj6o";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ju/9fQy0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2223B10E04D
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:20:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786634447; x=1818170447;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=APemogmhtZDHWbVzDL+rN9To3ijEL2kyxlFbdtRKFp8=;
- b=fHS/Gj6oaS++AZaNRtLkNvNRsGWLGUkVpb4rDbq19QpdL3kCWtyO/Xpi
- AfYD+ZPpcVZQl0kZJf7W+s3wnKpOuH4hLP9MSJ5ROaNGTNW+CTbwSvXi2
- yzngSMyi8juCgphqXK8ACiad7saEoDZMA1n6R5jv6n/epjexUOx9/XHKf
- hvNuhPN8UtBS2kQpkuC5LzfsPEAldKReq4TL8cMtIswpB0rkRiKScZKtP
- bmpcvZnq7EEf1yB2fsASytii5c/vAQpOtMYspD29bx2WKNLrD2jvQYQcd
- +HbV+Kwx9mB1JUAl5f5X5yQRuwtul99G1/m2RIBZD+F2s0QEVcAbidA4J A==;
-X-CSE-ConnectionGUID: Rv4CNb96SjqI5Hl7zu2oUw==
-X-CSE-MsgGUID: WmArrCUiSoai8s5A7QfeEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87337712"
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="87337712"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2026 08:20:46 -0700
-X-CSE-ConnectionGUID: Gpzvu8jwRUGOF18DA0pujw==
-X-CSE-MsgGUID: iVbRuQ3JQWuGZ44qPS/BeA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="260695153"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
- by fmviesa007.fm.intel.com with ESMTP; 13 Aug 2026 08:20:42 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wuXEV-00000000VhS-2AlQ;
- Thu, 13 Aug 2026 15:20:39 +0000
-Date: Thu, 13 Aug 2026 23:19:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BB80710F3AA
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 15:29:35 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52C2D1596
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 08:29:31 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 127603F632
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 08:29:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786634975; bh=HX5lmoJ8U40GOQvbc7bCue8HQIqzzve9G5mKtq7Eh0Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ju/9fQy0S45v9Z9qrCIgBKSKgRXHmP34XFg5fMPqDB9RtWYGkETAffQNj2SDVdKS1
+ EZjeLNuhK3IwhsAOW4FPagnaQXBJ+aK8h1/VsIuglzvAdaIzoLk7KiOmfJu6KXzMjT
+ C9+RzKKtXYQaSJyjzGUlUmPSRpkDLK2kdUqT51wo=
+Date: Thu, 13 Aug 2026 16:29:22 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
- arthurgrillo@riseup.net, linux-kernel@vger.kernel.org,
- jeremie.dautheribes@bootlin.com, miquel.raynal@bootlin.com,
- thomas.petazzoni@bootlin.com, seanpaul@google.com,
- nicolejadeyee@google.com, Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: Re: [PATCH v4 8/8] drm/vkms: Add P01* formats
-Message-ID: <202608132328.K0ZCjw8a-lkp@intel.com>
-References: <20250530-b4-new-color-formats-v4-8-ef5f9f48376c@bootlin.com>
+ Grant Likely <grant.likely@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v3 2/3] drm/panthor: Revisit reqs_lock handling in
+ flush/reset paths
+Message-ID: <an3i0skoO9BlRdlK@e142607>
+References: <20260811-panthor-cache-flush-fix-v3-0-47d2c1bb1dab@collabora.com>
+ <20260811-panthor-cache-flush-fix-v3-2-47d2c1bb1dab@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250530-b4-new-color-formats-v4-8-ef5f9f48376c@bootlin.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260811-panthor-cache-flush-fix-v3-2-47d2c1bb1dab@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,94 +65,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Louis,
+On Tue, Aug 11, 2026 at 04:08:32PM +0200, Nicolas Frattaroli wrote:
+> panthor_gpu_flush_caches() and panthor_gpu_soft_reset() acquire their
+> reqs_lock spinlock with the IRQ-disabling variants of the spinlocking
+> functions. This isn't necessary, as the lock is never taken from an
+> atomic context, as Panthor uses threaded interrupt handlers. The result
+> of this overly strict locking is that IRQs may be disabled more
+> frequently and for longer than they should be, resulting in increased
+> system latency.
+> 
+> Switch the locking to use non-IRQ-disabling scoped_guard statements for
+> locking. The wait_event_timeout read of pending_reqs outside of the
+> spinlock is fine as wait_event_timeout is a memory barrier according to
+> the Linux Memory Model.
+> 
+> Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-kernel test robot noticed the following build warnings:
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-[auto build test WARNING on 2271e0a20ef795838527815e057f5af206b69c87]
+Best regards,
+Liviu
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Louis-Chauvet/drm-vkms-Create-helpers-macro-to-avoid-code-duplication-in-format-callbacks/20260813-163823
-base:   2271e0a20ef795838527815e057f5af206b69c87
-patch link:    https://lore.kernel.org/r/20250530-b4-new-color-formats-v4-8-ef5f9f48376c%40bootlin.com
-patch subject: [PATCH v4 8/8] drm/vkms: Add P01* formats
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260813/202608132328.K0ZCjw8a-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260813/202608132328.K0ZCjw8a-lkp@intel.com/reproduce)
+> ---
+>  drivers/gpu/drm/panthor/panthor_gpu.c | 66 ++++++++++++++++-------------------
+>  1 file changed, 30 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index 68e2dd2527df..cb5319d1c5de 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -330,37 +330,32 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  			     u32 l2, u32 lsc, u32 other)
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+> -	unsigned long flags;
+>  	int ret = 0;
+>  
+>  	/* Serialize cache flush operations. */
+>  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
+>  
+> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -	trace_gpu_cache_flush_start(ptdev->base.dev, l2, lsc, other);
+> -	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+> -		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> -		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> -	} else {
+> -		ret = -EIO;
+> -	}
+> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> -
+> -	if (ret) {
+> -		trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+> -		return ret;
+> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +		trace_gpu_cache_flush_start(ptdev->base.dev, l2, lsc, other);
+> +		if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+> +			ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> +			gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> +		} else {
+> +			trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+> +			return -EIO;
+> +		}
+>  	}
+>  
+>  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+>  				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+> -		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+> -			ret = -ETIMEDOUT;
+> -		else
+> -			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> +		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +			if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+> +			!(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+> +				ret = -ETIMEDOUT;
+> +			else
+> +				ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> +		}
+>  	}
+>  
+>  	trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+> @@ -383,27 +378,26 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+>  	bool timedout = false;
+> -	unsigned long flags;
+>  
+> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -	if (!drm_WARN_ON(&ptdev->base,
+> -			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+> -		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+> -		gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+> -		gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +		if (!drm_WARN_ON(&ptdev->base,
+> +				ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+> +			ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+> +			gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+> +			gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+> +		}
+>  	}
+> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  
+>  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
+>  				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+> -		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+> -			timedout = true;
+> -		else
+> -			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> +		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +			if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+> +			!(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+> +				timedout = true;
+> +			else
+> +				ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+> +		}
+>  	}
+>  
+>  	if (timedout) {
+> 
+> -- 
+> 2.55.0
+> 
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608132328.K0ZCjw8a-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/vkms/vkms_formats.c:324: warning: Excess function parameter '__VA_ARGS__' description in 'READ_LINE'
->> drivers/gpu/drm/vkms/vkms_formats.c:335: warning: Function parameter or struct member 'a' not described in 'READ_LINE_ARGB8888'
->> drivers/gpu/drm/vkms/vkms_formats.c:335: warning: Function parameter or struct member 'r' not described in 'READ_LINE_ARGB8888'
->> drivers/gpu/drm/vkms/vkms_formats.c:335: warning: Function parameter or struct member 'g' not described in 'READ_LINE_ARGB8888'
->> drivers/gpu/drm/vkms/vkms_formats.c:335: warning: Function parameter or struct member 'b' not described in 'READ_LINE_ARGB8888'
->> drivers/gpu/drm/vkms/vkms_formats.c:345: warning: Function parameter or struct member 'a' not described in 'READ_LINE_le16161616'
->> drivers/gpu/drm/vkms/vkms_formats.c:345: warning: Function parameter or struct member 'r' not described in 'READ_LINE_le16161616'
->> drivers/gpu/drm/vkms/vkms_formats.c:345: warning: Function parameter or struct member 'g' not described in 'READ_LINE_le16161616'
->> drivers/gpu/drm/vkms/vkms_formats.c:345: warning: Function parameter or struct member 'b' not described in 'READ_LINE_le16161616'
-
-
-vim +324 drivers/gpu/drm/vkms/vkms_formats.c
-
-   294	
-   295	/**
-   296	 * READ_LINE() - Generic generator for a read_line function which can be used for format with one
-   297	 * plane and a block_h == block_w == 1.
-   298	 *
-   299	 * @function_name: Function name to generate
-   300	 * @pixel_name: Temporary pixel name used in the @__VA_ARGS__ parameters
-   301	 * @pixel_type: Used to specify the type you want to cast the pixel pointer
-   302	 * @callback: Callback to call for each pixels. This fonction should take @__VA_ARGS__ as parameter
-   303	 *            and return a pixel_argb_u16
-   304	 * @__VA_ARGS__: Argument to pass inside the callback. You can use @pixel_name to access current
-   305	 *  pixel.
-   306	 */
-   307	#define READ_LINE(function_name, pixel_name, pixel_type, callback, ...)				\
-   308	static void function_name(const struct vkms_plane_state *plane, int x_start,			\
-   309				      int y_start, enum pixel_read_direction direction, int count,	\
-   310				      struct pixel_argb_u16 out_pixel[])				\
-   311	{												\
-   312		struct pixel_argb_u16 *end = out_pixel + count;						\
-   313		int step = get_block_step_bytes(plane->frame_info->fb, direction, 0);			\
-   314		u8 *src_pixels;										\
-   315													\
-   316		packed_pixels_addr_1x1(plane->frame_info, x_start, y_start, 0, &src_pixels);		\
-   317													\
-   318		while (out_pixel < end) {								\
-   319			pixel_type *(pixel_name) = (pixel_type *)src_pixels;				\
-   320			*out_pixel = (callback)(__VA_ARGS__);						\
-   321			out_pixel += 1;									\
-   322			src_pixels += step;								\
-   323		}											\
- > 324	}
-   325	
-   326	/**
-   327	 * READ_LINE_ARGB8888() - Generic generator for ARGB8888 formats.
-   328	 * The pixel type used is u8, so pixel_name[0]..pixel_name[n] are the n components of the pixel.
-   329	 *
-   330	 * @function_name: Function name to generate
-   331	 * @pixel_name: temporary pixel to use in @a, @r, @g and @b parameters
-   332	 * @a, @r, @g, @b: value of each channel
-   333	 */
-   334	#define READ_LINE_ARGB8888(function_name, pixel_name, a, r, g, b) \
- > 335		READ_LINE(function_name, pixel_name, u8, argb_u16_from_u8888, a, r, g, b)
-   336	/**
-   337	 * READ_LINE_le16161616() - Generic generator for ARGB16161616 formats.
-   338	 * The pixel type used is u16, so pixel_name[0]..pixel_name[n] are the n components of the pixel.
-   339	 *
-   340	 * @function_name: Function name to generate
-   341	 * @pixel_name: temporary pixel to use in @a, @r, @g and @b parameters
-   342	 * @a, @r, @g, @b: value of each channel
-   343	 */
-   344	#define READ_LINE_le16161616(function_name, pixel_name, a, r, g, b) \
- > 345		READ_LINE(function_name, pixel_name, __le16, argb_u16_from_le16161616, a, r, g, b)
-   346	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
