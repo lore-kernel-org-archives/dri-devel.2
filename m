@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E6D4C5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 13:02:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4866CC5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 13:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E663B10F317;
-	Thu, 13 Aug 2026 13:02:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98CB410E035;
+	Thu, 13 Aug 2026 13:05:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LCbpI8N1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bpg7+rEr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44DF410F323
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:02:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 15BFC4031D;
- Thu, 13 Aug 2026 13:02:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F8E1F000E9;
- Thu, 13 Aug 2026 13:02:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786626128;
- bh=QiQv54C+CIjPDI2+lGeoSzjqq5XH3knJHomkwwfLZ54=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LCbpI8N1J/lVkTQaAtPOJvHn5mT+k/ukQfdIcJAAweY9lGRXgHl/Vd7Kitp4xbPFp
- 5EMJfZZBsO8yp71LSa+aRoXKtU8ZU7cAOwwGT6bmm1Sks6Dw5RtMETcUJMnBDWraih
- WAB3u4fMYiicZz/QNDbACfo7XsZlMyylDRGwNYm89SxvQeqLUwfc6vbAdQcZ6iK0VQ
- vbHUTWBxlv58k9NI1WWFfL+6bWJin1Ap+kEucrtAHHShE7xxmr5NJvmGIN6wE39S/x
- /lH9HYR7bP7WJ/DMoLGeyi69yVgAg4JNlgeDv3oVnsgk/QyE9epdK/Kwp92ZP44e64
- fbrD5ab8jDIzw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] fbdev: matrox: Convert to managed PCI and ioremap API
-To: oushixiong1025@163.com
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260813125015.1097301-4-oushixiong1025@163.com>
-References: <20260813125015.1097301-1-oushixiong1025@163.com>
- <20260813125015.1097301-4-oushixiong1025@163.com>
-Content-Type: text/plain; charset=utf-8
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33BC610E035
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:05:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3ED2E600AD
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:05:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E5883C19425
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1786626315;
+ bh=ouOKjkZv9VE3bezR/G5L3F1nOidzEG1n56xTrIPLJV4=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=bpg7+rEr2oBgumi52wTCycoHuHzYKyyJf9uGajR75MvzQ5KKAuDBknXsydLFLooTk
+ U6ZEFlwXuKN/StkOwCRMirWxAEfTZIHu2m9adY88G24rYOpAwNpEexvf0CCKosCVtJ
+ TpCmPf5+goAVeRtTleBF0INj6yFRmFdVvG3hqjuICjdHWxqRKuOZ1kw/Zc284ousS1
+ /KMKFZCNAtGfvH9IlXUeTZkJDLTjgqRTQ4RFuVWuocwdxmTPPO5zC+D4xhGP+Nhq7p
+ KpQAaOoYr9mLeLNxYjeVkERpUOyt+efv6F1Mr7WjCJ8QQ75nfAp1l9EIdhjuj33yKW
+ la2WVt2kl9ldg==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id C3012C41614; Thu, 13 Aug 2026 13:05:15 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221879] Max brightness broken since 6.18.42 / 7.1.6
+Date: Thu, 13 Aug 2026 13:05:15 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: augustin@trancart.eu
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-221879-2300-EZ0aIpj6Dt@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221879-2300@https.bugzilla.kernel.org/>
+References: <bug-221879-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 13:02:07 +0000
-Message-Id: <20260813130207.C1F8E1F000E9@smtp.kernel.org>
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,72 +71,20 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Crash/UAF due to premature devres cleanup during deferred driver t=
-eardown.
---
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221879
 
---- Patch [4]: [PATCH 4/5] fbdev: matrox: Convert to managed PCI and iorema=
-p API ---
-commit 3f4d09fdf1478a2c901bd635a21ab3e200899c5a
-Author: Shixiong Ou <oushixiong@kylinos.cn>
+--- Comment #1 from Augustin Trancart (augustin@trancart.eu) ---
+I'm CCing you Mario Limonciello as the original author of this commit. I ho=
+pe
+it's the correct procedure!
 
-fbdev: matrox: Convert to managed PCI and ioremap API
-
-This commit converts the matroxfb driver to use managed device resource
-APIs such as pcim_enable_device, devm_request_mem_region, and devm_ioremap.
-It removes the manual release_mem_region and iounmap calls from the remove
-path and error handling.
-
-> diff --git a/drivers/video/fbdev/matrox/matroxfb_base.c b/drivers/video/f=
-bdev/matrox/matroxfb_base.c
-> index ac04a19b68492..24d312c29fb64 100644
-> --- a/drivers/video/fbdev/matrox/matroxfb_base.c
-> +++ b/drivers/video/fbdev/matrox/matroxfb_base.c
-> @@ -374,10 +374,6 @@ static void matroxfb_remove(struct matrox_fb_info *m=
-info, int dummy)
->  	unregister_framebuffer(&minfo->fbcon);
->  	matroxfb_g450_shutdown(minfo);
->  	arch_phys_wc_del(minfo->wc_cookie);
-> -	iounmap(minfo->mmio.vbase.vaddr);
-> -	iounmap(minfo->video.vbase.vaddr);
-> -	release_mem_region(minfo->video.base, minfo->video.len_maximum);
-> -	release_mem_region(minfo->mmio.base, 16384);
->  	kfree(minfo);
->  }
-
-[Severity: High]
-Will this cause a crash if the device is removed while still in use?
-
-Looking earlier in matroxfb_remove(), there is an early return that defers
-cleanup if the device is busy:
-
-static void matroxfb_remove(struct matrox_fb_info *minfo, int dummy)
-{
-	...
-	minfo->dead =3D 1;
-	if (minfo->usecount) {
-		/* destroy it later */
-		return;
-	}
-	...
-}
-
-By converting the allocations to the devm_ and pcim_ APIs, the resources
-like the MMIO mappings and the PCI enable state will be automatically freed
-as soon as matroxfb_remove() returns to the driver core.
-
-If minfo->usecount is non-zero, won't this unmap and disable the device
-while userspace or other subsystems are still actively interacting with the
-framebuffer, leading to a memory fault?
-
-[ ... ]
+Please don't hesitate to ask me more information, I'd be glad to help.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813125015.1097=
-301-1-oushixiong1025@163.com?part=3D4
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
