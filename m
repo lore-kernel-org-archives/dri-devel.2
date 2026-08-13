@@ -4,38 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C9B0C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 18:33:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79694C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 18:33:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 836AE10F4C4;
-	Thu, 13 Aug 2026 18:33:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C575910F4CA;
+	Thu, 13 Aug 2026 18:33:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="SCN88PPV";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="HBPUBgqV";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BDF310F4CA
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 18:33:33 +0000 (UTC)
+Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E09F310F4C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 18:33:37 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=785H/QYz7tbrhz5y8FohqEh3tkF4DH8VaJ9KJX9xcIA=; 
+DKIM-Signature: a=rsa-sha256; bh=qG1QDrNHWq3VEBbfesMlP0OQ2+mC6waGnwBinaj6rCQ=; 
  c=simple/simple; d=kaitmazov.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786646011; v=1; x=1787250811;
- b=SCN88PPVTNRv81/a0IcpZ3hg/iK2UAXhgCuVz2DiarPCAbZH2J4r3cfKBe+0QdgcTTbqfLdd
- oNZdUi6rFAvC4P393iRcB/x5bUCY7sXUsg2xvfpodiRhXbUT0bsz+rEiqNcxIrv/Z4pz24K10IG
- RMvqOoBLpif8a1WJAMeEAZ2PgIRWnn7aaRFABXC7NvvJk4T9K5Bc3MZmNQF6Cmx+S4EExynJCuz
- w/KpkUCt9RM8g9eQDR9KBVTyiEaLw/rQ2kxEp2MOqZ+55KSevtHM8k6lPpBkDp6H6EPXRzS/cor
- 4Nm4JXZ7EOCHGi3uGqg7G3/e+TGSgi7nFSRIU2ejILfMw==
+ t=1786646016; v=1; x=1787250816;
+ b=HBPUBgqVDSRAysJZ0riEJa3PPvqivGi9124DADm7Q1bbE4YED66nFEJ9S6IY1MIsUJaoDf/p
+ Dm4G9CR2oUsgMFJtW3ulwDbjqR5S4Ifo5jdnLxdsWAIlLFNhkR1qqriURYoYcFHtldkfajlqEtq
+ PG35Yb2uPhWabpdJigZGGXpf27s4yFY0usjZrkST7hgjCjFiCdIeVpB+suJNTjIcd3cmDStec4Y
+ cRa4gnWaQvtcHtYTCnfWoN89IeZReKDLB/eKA/HlLa5djOBmK8GZZ49yrcAi2Q/cTSGY4Uc8sMK
+ gbvfO0PBW1B1zSFqgpanAqHfx8UlsrI8rnB6cUVOi0lEA==
 X-Envelope-To: dri-devel@lists.freedesktop.org
 Received: from cachyos-26.lan (193.42.111.69)
- by smtp.migadu.com with ESMTPS id 203b5f4320f74005;
- Thu, 13 Aug 2026 18:33:31 +0000
+ by smtp.migadu.com with ESMTPS id de2aaca3983ecfd6;
+ Thu, 13 Aug 2026 18:33:36 +0000
 X-Migadu-Flow: FLOW_OUT
 From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 0/3] accel/amdxdna: SYNC_BO correctness fixes
-Date: Thu, 13 Aug 2026 21:33:15 +0300
-Message-ID: <20260813164700.43960-1-taimuraz@kaitmazov.com>
+Subject: [PATCH v3 1/3] accel/amdxdna: refuse an I/O memory mapping of an
+ imported BO
+Date: Thu, 13 Aug 2026 21:33:16 +0300
+Message-ID: <20260813164700.43960-2-taimuraz@kaitmazov.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260813164700.43960-1-taimuraz@kaitmazov.com>
+References: <20260813164700.43960-1-taimuraz@kaitmazov.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -53,44 +56,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Three independent fixes in and around amdxdna_drm_sync_bo_ioctl(). None of
-them depend on each other.
+amdxdna_gem_obj_vmap() takes whatever dma_buf_vmap() returns and only
+rejects a NULL vaddr. iosys_map is discriminated by is_iomem, so an
+exporter answering with an I/O mapping leaves a void __iomem pointer in
+abo->mem.kva, which amdxdna_cmd_set_error() memsets and memcpys through.
 
-Patch 1 refuses an I/O memory mapping of an imported BO, which the driver
-currently stores as if it were an ordinary kernel address. Patches 2 and 3
-fix two ways the ioctl mishandles its own range: a zero length reaching
-drm_clflush_virt_range(), and an offset and size added to the BO address
-without an overflow check, one level above a function that checks the same
-arithmetic.
+amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
+buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
+peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
+no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
+object, so an NPU paired with nouveau or radeon does.
 
-Changes in v3:
-  - dropped the range patch ("flush only the requested range") and the
-    quiet-vmap patch that existed only to serve it. Christian NAKed
-    flushing an imported dma-buf, and the numbers in that patch came from
-    exactly that case; I also have not tested its premise on a matching
-    tree.
-  - patch 1: corrected a wrong sentence in the commit message about which
-    errno drm_gem_vmap_locked() returns.
-  - patch 2: also says what changes for an imported BO, where a zero-length
-    request currently flushes the whole scatterlist.
+Refuse the mapping. vmw_gem_vmap() does the same; unlike that one this
+path is reachable from an unprivileged ioctl, so it does not warn.
 
-Refusing a sync on a genuinely foreign import is still being discussed on
-the v2 thread and is not part of this series.
+Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-v2: https://lore.kernel.org/all/20260811231351.1011244-1-taimuraz@kaitmazov.com/
-
-Compile-tested on drm-misc-next only: x86_64 defconfig with
-DRM_ACCEL_AMDXDNA=m, gcc 16.2.1, no W=1 warnings. Not booted, and not run
-on hardware.
-
-Taimuraz Kaitmazov (3):
-  accel/amdxdna: refuse an I/O memory mapping of an imported BO
-  accel/amdxdna: return early from a zero-length flush
-  accel/amdxdna: check the sync range for overflow on a device BO
-
- drivers/accel/amdxdna/amdxdna_gem.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 1f190b319bb..b66ec9e4828 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *ma
+ 
+ 	dma_resv_assert_held(obj->resv);
+ 
+-	if (is_import_bo(abo))
++	if (is_import_bo(abo)) {
+ 		ret = dma_buf_vmap(abo->dma_buf, map);
+-	else
++		/* Callers use mem.kva as an ordinary kernel address. */
++		if (!ret && map->is_iomem) {
++			dma_buf_vunmap(abo->dma_buf, map);
++			return -EOPNOTSUPP;
++		}
++	} else {
+ 		ret = drm_gem_shmem_object_vmap(obj, map);
++	}
+ 	if (ret)
+ 		return ret;
+ 	if (!map->vaddr)
 -- 
 2.55.0
 
