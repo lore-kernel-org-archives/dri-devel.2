@@ -4,42 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F430C5CFDB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:56:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA5FC5CFEB
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 09:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B1D310E00C;
-	Thu, 13 Aug 2026 09:56:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59F8510E239;
+	Thu, 13 Aug 2026 09:57:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aByAJZoB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ev1SR+/B";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DB1610E00C
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:56:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8D3AC600E2;
- Thu, 13 Aug 2026 09:56:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25A7F1F000E9;
- Thu, 13 Aug 2026 09:56:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786615003;
- bh=V7xRtDVYeylMNDmjSRgypDqgeEAvnRbgIcReeeuwJLA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aByAJZoBushgqk9IzmHIUVgxGvED1ycMjhj0nMud6PzPdhtbyTVxP3F35IAEZGAJU
- Z4Iq++eHcqvI1H7F/g56KMGIdL0Up/kaHYPXDub/+YoNoSMRYD0j69z/aenDGCRgGw
- 4/aYhKbstNdMWd1M2uj5FZuR/f0du4xdGKXZu4vdu2cGDvIkWuRIJPhtqlPrpntGwp
- QsyaX7QHGoAL0e8hpKGaSYM0BqpElE64XejF81DhdNh/HIpzkz0CvZ1leh9dvrm3KK
- zZvu2dP6jexov5eGboCqKmX3JmN/hg0JjzmMDF+2p3B/vaC75mQ7cKMRfRwUox7ONw
- HieXSYjIbhHJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu/virt: fix integer overflow in size_kb shift
-To: lihaojie <lihaojie@kylinos.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260813063418.2064270-1-lihaojie@kylinos.cn>
-References: <20260813063418.2064270-1-lihaojie@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 09:56:42 +0000
-Message-Id: <20260813095643.25A7F1F000E9@smtp.kernel.org>
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B893810F264
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 09:57:34 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-47fe45db360so227860f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 02:57:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786615053; x=1787219853; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=EtA2EaJrfUAL10NvnwAbetKX7hEHz7uIdxdgCc4AGbQ=;
+ b=ev1SR+/BEqUMIO5/OpX3RMFdS0rVupq4//RFQ7IT91Dh6xKti6TA1H+oCtW3GLawhE
+ RbhgQM4hYBxMus6IZqCWJvhdcNPHtePxOuKv7r3ysTSnw4ED1zCDUInZdPP3UFu4Z/Ar
+ fVqnlgElzlHGExqWWwYNmjjIxFEOLrXjdslvPSbhdS2RLPN6VCmbrCUQjSW1aMvDaD/W
+ RlkuPtWJzGRcEFbqAfOxw1LXmFaDUQypzmVxCYEok1AvmrFjEg4ISIqlYCLc9XE6X2fG
+ ROhZkFOOCBZ00yAT7LDERN/qJKRg7hmUI4NpKW0FIuURsgEIpz2llYZ+Wn+C1W/ZqNT/
+ Lv8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786615053; x=1787219853;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=EtA2EaJrfUAL10NvnwAbetKX7hEHz7uIdxdgCc4AGbQ=;
+ b=D4sVJWw3N2Jn9J4BQJ1iPHBOqVdrcMQdauVMqL5faQ88LLXlV+QgWEy7NgpzOYAECm
+ /glI8yIHYe8hk0fZo3jCUA9tX5d4A70DHLCFVaGn7X1DXKa81aQ4AF1AfnCwf1agJjoU
+ QJucH/f9IRsnjycXgnagopAkNg6IwDetMxEsNUCoqHmRtm26GAdH2VwG1IvWIegoCnzp
+ AWB/AKmP/VVVKuZU8SLy+UHkQP6poM3nWkWntTEv5oJGg+5CZaZfQy5Un3ranxLLEaPm
+ mhlb3Ss2GuNUlALOcUMwsKQiM0bBjxbfePhEPISy7J+/f0q+ZxX2/Qr6Qa0+X2wZwqYl
+ PHRQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rrevfk31rYpkFdk9YrY0QpZydt7Sm7Cd793VpJQ2fumDZcNZJqaZ8LqnQnKdN6hWtK4xFhL4WsEYyU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwmU8Zd+mI2qEdChr4wfMs+a4UsMwUygdD567gz8YYmmraF1nsQ
+ eN5PVm3oaceailoCyOqRKUdzTfwBJso7V6e3zxPMTWrddCbTny0kzLt9
+X-Gm-Gg: AR+sD12PQo6S9H0ft8VVeRu1KPClnGx4CZ5obWFdWu77MO9B6UJvq+drovgvAWfVAZa
+ 1cLhurkyl82vjO70mDVaXolSCbxTjfp2qOjEGoodasf923xALaKzCpjctQnyqNC/Xxk3712bnn+
+ Es/escnExpO+Ztv8o/i69ybJBMgsvqKFVUQqm5e8EWyxHgG+L/BZQAwSVFcgT29IWPzCdx6iSwk
+ 5JCTD9R6qI+WpcNsDZ7gsNZuNMJQZQX2lzZfviePLm568/GbZUeDAQ02ZPcBLzJmA5x7sTxlh+k
+ S+zystGPNOFqysdG4hyZeWFdy0rtHGq08g6QtlN2zDNiWZPQCaPZKgY0nQRArvSoOxes5oQgWhI
+ ZDMA5552ncgABASK9MigiyDpoP/iTovxyUYXB4zpA2lgKfWUpTbG0No3dzG1pg4xaQmfG3V6sxT
+ X1frNuOplI7HFTCbPFwGpZRJTybX/dhTBF7BWL9rh+1jfLcfxbrEznkqPFEk2ucs54EmDjSE/kX
+ 85JPtTyJgyTmVyAowy3XIuWdFfWoCotMfdsawgN+DOKqzFTf6Cf8coxpYoqkHAxDPqcmA==
+X-Received: by 2002:a05:6000:41c6:b0:47f:9256:52c0 with SMTP id
+ ffacd0b85a97d-4815ae93ab7mr2388748f8f.3.1786615053053; 
+ Thu, 13 Aug 2026 02:57:33 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B911C009377EE8DF6D0A1C2.dsl.pool.telekom.hu.
+ [2001:4c4e:1b91:1c00:9377:ee8d:f6d0:a1c2])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4815a5b6b9bsm4760430f8f.29.2026.08.13.02.57.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Aug 2026 02:57:32 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, chaoyi.chen@rock-chips.com, alchark@flipper.net,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Thu, 13 Aug 2026 11:56:57 +0200
+Message-ID: <20260813095718.9747-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260813092656.2568538-1-gahing@gahingwoo.com>
+References: <20260812094106.1391698-1-gahing@gahingwoo.com>
+ <20260812094106.1391698-9-gahing@gahingwoo.com>
+ <20260813092656.2568538-1-gahing@gahingwoo.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,114 +95,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Jiaxing,
 
-Pre-existing issues:
-- [High] kzalloc(0) returns ZERO_SIZE_PTR which bypasses NULL checks and le=
-ads to an invalid pointer dereference when the data exchange table is omitt=
-ed.
-- [High] The delayed work vf2pf_work is not properly cancelled if the updat=
-e interval is 0, leading to an infinite workqueue loop and a Use-After-Free=
- when the device is destroyed.
---
+Two short things.
 
---- Patch [1]: [PATCH] drm/amdgpu/virt: fix integer overflow in size_kb shi=
-ft ---
-commit 9ad17a9be1058b6419621f31c0a9ac90b297b043
-Author: lihaojie <lihaojie@kylinos.cn>
+On synchronize_irq(): your placement is right and my question was not
+thought through that far. Inside the guard it would wait for a handler
+that is itself waiting for job_lock, which is a deadlock rather than a
+fence. Before it, with nothing held and both callers in process
+context, is the only place it works. I had the window right and the
+location wrong.
 
-drm/amdgpu/virt: fix integer overflow in size_kb shift
+I will run v8 on the three cores here when it is out, and I will drive
+the reset path deliberately rather than wait for a timeout to happen on
+its own, since that is the path the two changes are there for.
 
-This commit casts size_kb to u64 before left-shifting by 10 to prevent 32-b=
-it
-arithmetic overflow for buffer sizes. It updates the affected kzalloc and
-amdgpu_device_vram_access calls, and modifies the debug string formats to
-correctly print the new u64 values.
+On MobileNet: 995 of 1001 within one count is a different kind of
+number from what this series has been reporting, and it took four Mesa
+faults to get there. That is worth saying out loud.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_virt.c
-> index b43fc643668d2..afa66d9fed906 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+If it would help to know whether the remaining six are RK3576 specific
+or common to the stack, I can run the same comparison on RK3588. I
+already run MobileNet V1 through the Teflon delegate here, but my
+oracle is bit-exactness across repeated runs rather than a per-output
+comparison against the CPU, so it would not have noticed six outputs
+being off by more than a count. Say the word and I will point it at the
+CPU reference the way you did.
 
-[ ... ]
-
-> @@ -805,7 +805,8 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_dev=
-ice *adev)
->  		/* got through this logic in early init stage to get necessary flags, =
-e.g. rlcg_acc related*/
->  		if (adev->virt.req_init_data_ver =3D=3D GPU_CRIT_REGION_V2) {
->  			pfvf_data =3D
-> -				kzalloc(adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID=
-].size_kb << 10,
-> +				kzalloc((u64)adev->virt.crit_regn_tbl
-> +					[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID].size_kb << 10,
->  					GFP_KERNEL);
->  			if (!pfvf_data) {
->  				dev_err(adev->dev, "Failed to allocate memory for pfvf_data\n");
->  				return;
->  			}
-
-[Severity: High]
-This is a pre-existing issue, but does this allocation safely handle the ca=
-se
-where the hypervisor omits the data exchange table?
-
-If the AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID table is omitted, size_kb will b=
-e 0.
-kzalloc(0) returns ZERO_SIZE_PTR (0x10) instead of NULL, which causes the
-(!pfvf_data) check to succeed.
-
-Later, in amdgpu_virt_read_pf2vf_data():
-
-	if (adev->virt.fw_reserve.p_pf2vf =3D=3D NULL)
-		return -EINVAL;
-
-	if (pf2vf_info->size > 1024) {
-
-The invalid ZERO_SIZE_PTR is not NULL, so it reaches the size check and is
-dereferenced, causing a kernel panic. Should the allocation be guarded agai=
-nst a
-0 size?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it possible for vf2pf_wor=
-k to
-cause an infinite workqueue loop and a use-after-free during device teardow=
-n?
-
-If amdgpu_virt_read_pf2vf_data() fails to read valid data during initializa=
-tion,
-adev->virt.vf2pf_update_interval_ms remains 0.
-
-In amdgpu_virt_fini_data_exchange():
-
-	if (adev->virt.vf2pf_update_interval_ms !=3D 0) {
-		dev_info(adev->dev, "clean up the vf2pf work item\n");
-		cancel_delayed_work_sync(&adev->virt.vf2pf_work);
-		adev->virt.vf2pf_update_interval_ms =3D 0;
-	}
-
-The work cancellation is skipped because the interval is 0.
-
-However, the work function amdgpu_virt_update_vf2pf_work_item() uncondition=
-ally
-reschedules itself:
-
-out:
-	schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_in=
-terval_ms);
-
-This leaves the work looping infinitely with a 0 delay.
-
-When the device is unloaded, the uncancelled work continues executing and
-dereferences adev after it has been freed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813063418.2064=
-270-1-lihaojie@kylinos.cn?part=3D1
+Igor
