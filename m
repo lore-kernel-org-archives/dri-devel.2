@@ -4,81 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5541BC5DF6D
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26B60C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A78A10F300;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57C6A10F342;
 	Fri, 14 Aug 2026 07:04:34 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aSZKJ3UE";
-	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2166B10F483
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 17:55:24 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2d01663d816so2343025ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 10:55:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786643723; x=1787248523; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=SF4su2A7LBkgNyuJx7QC3c3F7wOlkzt5ypMNp2gqA1w=;
- b=aSZKJ3UECIFvEx2724yDGH5B9wvsioMHXFqul2fG/86lsiPPpCTplMGFfgoPHeiiNN
- Uj4xBEdMGRBDcs96Yvz3FuMhHabC8x6XdTUs6tJcvHTpGlI/nABly4BsQFb+v1As/xNF
- Rq465a9xPcxAkpxIhvRSv2fD5Vw1uITTaDnZsi53X6OYi1GfHXN1K4el9zARjX5bhpqe
- cqPQPKNYVL6flNViqjAp51c9BfNXzNPO+ZinLVjbdfBfyxR0Uh/+a0sd5582JcdLxX3P
- Whw6sii5tyvtDa5UAH5+msG1ipHHVkfnTK9vrJx+RoaS5PZnLyRNTjTOShfTk+4ycLL1
- qcaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786643723; x=1787248523;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SF4su2A7LBkgNyuJx7QC3c3F7wOlkzt5ypMNp2gqA1w=;
- b=Vu8itt4azB+IsKMdCea/vKy6hJg+lINFgnpMiOru124PgRNs6TEbQM2/AyuvkRdx2p
- alNknd48wKQvZ0XQzjCsOOZ2pgLwHR0WIhbxoIhCE2VHHiJU6VcOfjTD0FX3CPY5aaD5
- XWFGQpL0Y/Fqy/1RVmOfQAaQJS/2tBe4fv0VdAdEsT8rdl1wP+um8r9Cru+Qv0LXXzCA
- YngzKzY1aE8wM+z1OiE1eZsrw/wWO9/MVFObflb0PxP2awtbBI4J0y9fqHAkYK+BrF6Q
- P7DvO0DD40uHfgWOBYXOPgWHm/Ivh9JBuYHWs4xqEH4gVAOLmyavbw7pE5mGTQs/kXoJ
- 39ug==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrkLE6v31rtUlc144Zlrg+f/DI9TUd9+R0zVf1W689e+V3UrrNkhrDAqW6HxzubxABaLVsYUl7q6VA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZjSoViGo2pTGV3B9wTjO/MUbPoLcrEbtxQhXSzk9jkbFtHdyY
- 3UByfTqXsX1cFB1tC+oX6T/RKUCBxH+HG0CGaWoMRsd83vhblcbq4kj8
-X-Gm-Gg: AR+sD11CM7GKERslg2tkO/bybOmjznWTtmB8qiRc7cN0D377JOjO9zNj9Hl9Rs+81QL
- WYU11FbiPa8BKXRAkV67juheG8odQ9GK1pcHPg5P5qcLT0ivw44UZXDfcYlIHVzV+HwyhXbHQ+U
- 6DCRvm1Mj7s2sYoDLlKspEgILL1uS5o9jZ82bn/RNHaYKEd2JHYzZX+7i0yCZFS/3cjcMFMdlSM
- TMzSh5H5GpzCDJEqR3lLAkJXxmaciDZaNjTVLlsC0UppoTN4DDzX3E9qIOgL9ObrpqDLSHsV0f4
- v6ujAhqTJhvuSEJfBBr6wyp4A18bUshvEHWTL6bLbo/VScMHN1QWfFzzDVhOR5M8l0XgfsuAo8J
- dNUHKOAXHPrhHiG8TLB8VSqfJy0VFyTxC3D+fMo4atu/LqLXbT3Fk/bgQNYYHev9OhrFsaYheAo
- vbA8Th37//N9uLr2TYH9SV3+kVMLXMZ6lySDV+iw+3+vL+aOatK1x9LzHf4Wert1szEcE3KWSHt
- 6JnoFVyyQsO0CkkM9UZZR4XiuXiiSr5fpUFwJj1UUrWp3MlepGsAZgkNaCLfp2k2XSu
-X-Received: by 2002:a17:902:c948:b0:2c0:b6c7:227e with SMTP id
- d9443c01a7336-2d37d52e1d6mr84044455ad.5.1786643723510; 
- Thu, 13 Aug 2026 10:55:23 -0700 (PDT)
-Received: from LAPTOP-M4N25KQ5.tail73068d.ts.net
- (1-160-237-124.dynamic-ip.hinet.net. [1.160.237.124])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d3aec05197sm675935ad.81.2026.08.13.10.55.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2026 10:55:23 -0700 (PDT)
-From: Sean Chang <seanwascoding@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Sean Chang <seanwascoding@gmail.com>
-Subject: [PATCH v1] drm/mediatek: mtk_dsi: Open-code drm_simple_encoder_init()
-Date: Fri, 14 Aug 2026 01:55:17 +0800
-Message-ID: <20260813175517.156893-1-seanwascoding@gmail.com>
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Thu, 13 Aug 2026 14:26:12 UTC
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
+ [45.254.49.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0647A10E044
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:26:11 +0000 (UTC)
+Received: from Mogu.localdomain (unknown [223.73.65.85])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 49e36c71e;
+ Thu, 13 Aug 2026 22:21:03 +0800 (GMT+08:00)
+From: MoGGuU <Naixumogu@whut.edu.cn>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Naixumogu@whut.edu.cn
+Subject: [PATCH] accel/rocket: Fix job submit error handling
+Date: Thu, 13 Aug 2026 22:20:59 +0800
+Message-ID: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9ffb7f7b4a03a1kunm0ebce40633f04
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUhNVkMYQklOSx9LS0xJQ1YeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VQ05ZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 X-Mailman-Approved-At: Fri, 14 Aug 2026 07:04:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,45 +50,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_simple_encoder_init() helper is deprecated because it adds an
-intermediate abstraction layer that only wraps drm_encoder_init() with
-an empty or minimal drm_encoder_funcs struct.
+Several error paths in the job submission path can be triggered by
+unprivileged userspace through malformed DRM_ROCKET_SUBMIT requests.
 
-Replace drm_simple_encoder_init() with explicit calls to drm_encoder_init()
-and define driver-specific drm_encoder_funcs carrying the cleanup callback.
+First, the input and output BO handle counts are __u32, but GEM lookup and
+reservation helpers take int counts.  Values outside the signed range can
+become negative.  A combined count above INT_MAX can also overflow at the
+call sites.  Reject counts that cannot be represented safely before looking
+up the BOs.
 
-Signed-off-by: Sean Chang <seanwascoding@gmail.com>
+Second, rocket_job_push() arms the scheduler job before collecting its
+implicit dependencies.  Dependency collection can fail with -ENOMEM, but
+drm_sched_job_arm() is a point of no return.  An armed job must be pushed;
+it must not be aborted with drm_sched_job_cleanup().  Collect dependencies
+before taking the scheduler lock and arming the job.  Only operations that
+cannot fail remain after arm().
+
+Finally, rocket_ioctl_submit() discards each job's return value and reports
+success even when every job fails.  Return the first error
+and stop submitting the remaining jobs.  Jobs queued before an error remain
+queued, giving the ioctl ordered partial-submit semantics.
+
+Tested on RK3588 with zero task counts, invalid task pointers, invalid BO
+handles, and oversized BO counts.  The requests returned the expected error
+codes without warnings or errors in the kernel log.
+
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Cc: stable@vger.kernel.org
+Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
 ---
- drivers/gpu/drm/mediatek/mtk_dsi.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/accel/rocket/rocket_job.c | 34 +++++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 49dfc0f825cb..276d57f8407b 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -226,6 +226,10 @@ struct mtk_dsi {
- 	const struct mtk_dsi_driver_data *driver_data;
- };
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index bb77b6bf0..c42bbf486 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -206,21 +206,20 @@ static int rocket_job_push(struct rocket_job *job)
+ 	if (ret)
+ 		goto err;
  
-+static const struct drm_encoder_funcs mtk_dsi_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
++	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
++					   &job->base, false);
++	if (ret)
++		goto err_unlock;
 +
- static inline struct mtk_dsi *bridge_to_dsi(struct drm_bridge *b)
- {
- 	return container_of(b, struct mtk_dsi, bridge);
-@@ -918,8 +922,9 @@ static int mtk_dsi_encoder_init(struct drm_device *drm, struct mtk_dsi *dsi)
- {
- 	int ret;
++	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
++					   &job->base, true);
++	if (ret)
++		goto err_unlock;
++
+ 	scoped_guard(mutex, &rdev->sched_lock) {
+ 		drm_sched_job_arm(&job->base);
+-
+ 		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+-
+-		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+-		if (ret)
+-			goto err_unlock;
+-
+-		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+-		if (ret)
+-			goto err_unlock;
+-
+ 		kref_get(&job->refcount); /* put by scheduler job completion */
+-
+ 		drm_sched_entity_push_job(&job->base);
+ 	}
  
--	ret = drm_simple_encoder_init(drm, &dsi->encoder,
--				      DRM_MODE_ENCODER_DSI);
-+	ret = drm_encoder_init(drm, &dsi->encoder,
-+			       &mtk_dsi_encoder_funcs,
-+			       DRM_MODE_ENCODER_DSI, NULL);
- 	if (ret) {
- 		drm_err(drm, "Failed to encoder init to drm\n");
- 		return ret;
+@@ -556,6 +555,12 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 	if (job->task_count == 0)
+ 		return -EINVAL;
+ 
++	/* GEM lookup and reservation helpers take signed object counts. */
++	if (job->in_bo_handle_count > INT_MAX ||
++	    job->out_bo_handle_count > INT_MAX ||
++	    job->in_bo_handle_count > INT_MAX - job->out_bo_handle_count)
++		return -EINVAL;
++
+ 	rjob = kzalloc_obj(*rjob);
+ 	if (!rjob)
+ 		return -ENOMEM;
+@@ -639,8 +644,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
+ 	}
+ 
+ 
+-	for (i = 0; i < args->job_count; i++)
+-		rocket_ioctl_submit_job(dev, file, &jobs[i]);
++	for (i = 0; i < args->job_count; i++) {
++		ret = rocket_ioctl_submit_job(dev, file, &jobs[i]);
++		if (ret)
++			goto exit;
++	}
+ 
+ exit:
+ 	kvfree(jobs);
+
+base-commit: d85a5e9dfb42449d9f37b0ddc6ec30b129f481ce
 -- 
 2.43.0
 
