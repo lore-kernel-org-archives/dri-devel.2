@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8991CC5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82CA8C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 994EA10E0F1;
-	Fri, 14 Aug 2026 07:04:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A4010F17B;
+	Fri, 14 Aug 2026 07:04:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="f0BUIEg4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="brUOIXnC";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E74310E4EB
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 16:47:15 +0000 (UTC)
+Received: from mta1.migadu.com (out-248.mta1.migadu.com [95.215.58.248])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6059010E4E5
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 16:47:20 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=qG1QDrNHWq3VEBbfesMlP0OQ2+mC6waGnwBinaj6rCQ=; 
+DKIM-Signature: a=rsa-sha256; bh=7KtavsBAYZZgtG94hBCiuH8I75lc2MLciVw0wSBM7K0=; 
  c=simple/simple; d=kaitmazov.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786639633; v=1; x=1787244433;
- b=f0BUIEg4mXUeS3MWIgn6A7fMrYDnwOA21kMVHpbE7wvmxOLvS00PKrMwAT2eOHJuN8brgtxG
- CX4RN9pYpu/Si0rCnIJEtneCseUyzVIbjSVEZCZW5ZLWxshQ8gsjEMFDQHpG1Gc1ILXLqzXQQgr
- 8QzWC8Q2FGAwA5zbpcy2fUuIojmKQvAyWbOMELR6OzaZDVs9jRowNtghJkFf/JgKNXkpQtg1N6c
- weg3H8Xahci9e3IkvljyLRs/WxFjY0UM7gy4qaCwElM/lK7pWG3nJ9Ngz/TUuiicMpe4m7X/qyj
- dZMB0T7xP1o4WgKQzFeUcoJUrWSqwv9pUcbKHEURqRBaw==
+ t=1786639638; v=1; x=1787244438;
+ b=brUOIXnCzjz29IBZyfXqTZ9rrvRKaqjVjmsoN7InuSyGbvG4I7OHchWEsfH0i/PlnqjafLxp
+ v0yoVmhX1A44/q4M3qg/xYhMCn/MV4wv9/Wlgq4Xlj0sClqdPYESYHunCcwG3D+JlgYjnBffyl3
+ V+iPJainSlpoKZrKVfGQhRJCQIbGCaT5L4MhmKSwwUwlKEEyDyCr/alDSIpdNuTItB2PL9hfkC7
+ wXzFfEcX869kOAzEp3WWUZ2Edqw1p+Z0VXpB/rnCNmbmrHnK5CL4IGU0FxF1XAOnn5EXlML7/7D
+ XpfOVN10FGvBcQno6sCxlKCsgTQuY/tCKeH/8hzJYp9zQ==
 X-Envelope-To: dri-devel@lists.freedesktop.org
 Received: from cachyos-26.lan (193.42.111.69)
- by smtp.migadu.com with ESMTPS id e1b94cff074eb71f;
- Thu, 13 Aug 2026 16:47:13 +0000
+ by smtp.migadu.com with ESMTPS id 44420af015f4d1d4;
+ Thu, 13 Aug 2026 16:47:18 +0000
 X-Migadu-Flow: FLOW_OUT
 From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 To: Lizhi Hou <lizhi.hou@amd.com>, Min Ma <mamin506@gmail.com>,
@@ -38,10 +38,9 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Sonal Santan <sonal.santan@amd.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v3 1/3] accel/amdxdna: refuse an I/O memory mapping of an
- imported BO
-Date: Thu, 13 Aug 2026 19:46:58 +0300
-Message-ID: <20260813164700.43960-2-taimuraz@kaitmazov.com>
+Subject: [PATCH v3 2/3] accel/amdxdna: return early from a zero-length flush
+Date: Thu, 13 Aug 2026 19:46:59 +0300
+Message-ID: <20260813164700.43960-3-taimuraz@kaitmazov.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260813164700.43960-1-taimuraz@kaitmazov.com>
 References: <20260813164700.43960-1-taimuraz@kaitmazov.com>
@@ -62,50 +61,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Message-ID: <20260813164658.bXvSEIIEZ2X0aw3Le2xGmDuQSHzT4D-mWJkyiE086Rk@z>
+Message-ID: <20260813164659.IDBUto6a23fvw6tqWeXNt2bHxg4diPNnnDHJA2p9YYo@z>
 
-amdxdna_gem_obj_vmap() takes whatever dma_buf_vmap() returns and only
-rejects a NULL vaddr. iosys_map is discriminated by is_iomem, so an
-exporter answering with an I/O mapping leaves a void __iomem pointer in
-abo->mem.kva, which amdxdna_cmd_set_error() memsets and memcpys through.
+SYNC_BO does not constrain its size, so a request for zero bytes reaches
+amdxdna_flush_bo(). On the vmap path that calls drm_clflush_virt_range()
+with a length of zero, which flushes the byte in front of the region
+rather than anything the caller asked to maintain; on the import path it
+flushes the whole scatterlist, since that arm ignores the range.
 
-amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
-buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
-peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
-no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
-object, so an NPU paired with nouveau or radeon does.
-
-Refuse the mapping. vmw_gem_vmap() does the same; unlike that one this
-path is reachable from an unprivileged ioctl, so it does not warn.
+Nothing needs flushing for an empty range, so answer before choosing a
+path.
 
 Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 ---
- drivers/accel/amdxdna/amdxdna_gem.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/accel/amdxdna/amdxdna_gem.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 1f190b319bb..b66ec9e4828 100644
+index b66ec9e4828..813b212a53f 100644
 --- a/drivers/accel/amdxdna/amdxdna_gem.c
 +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *ma
+@@ -1232,6 +1232,9 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
+ 		return -EINVAL;
  
- 	dma_resv_assert_held(obj->resv);
- 
--	if (is_import_bo(abo))
-+	if (is_import_bo(abo)) {
- 		ret = dma_buf_vmap(abo->dma_buf, map);
--	else
-+		/* Callers use mem.kva as an ordinary kernel address. */
-+		if (!ret && map->is_iomem) {
-+			dma_buf_vunmap(abo->dma_buf, map);
-+			return -EOPNOTSUPP;
-+		}
-+	} else {
- 		ret = drm_gem_shmem_object_vmap(obj, map);
-+	}
- 	if (ret)
- 		return ret;
- 	if (!map->vaddr)
+ 	size = min(abo->mem.size, end) - offset;
++	if (!size)
++		return 0;
++
+ 	if (is_import_bo(abo))
+ 		drm_clflush_sg(abo->base.sgt);
+ 	else if (amdxdna_gem_vmap(abo))
 -- 
 2.55.0
 
