@@ -4,89 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ADBDC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E93CC5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 682DC10F288;
-	Fri, 14 Aug 2026 07:04:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30D7010F1A4;
+	Fri, 14 Aug 2026 07:04:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="psUKvRik";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GSUOzEXG";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9245310E295
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:22:14 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2cc97653887so10281215ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 06:22:14 -0700 (PDT)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A87ED10F2D2
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:27:03 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-84874b52eabso2757041b3a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 04:27:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786627334; x=1787232134; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=TVWNuYas/MOMOGJWvOzXANfSQQ0qHMRR18n7cjmi/E0=;
- b=psUKvRikaZZsYEUaDBDEhGV/0URMzVEttvow+OHvIkYba70HjiSIBwH2Fk84JrP7rp
- vd48Gy960wCeVnbOw4eddCBc2E9APvO31f1KO+4eLgp2ZGMfRwmRwz9o5h0Jf5CGk21U
- KFQFbw0Recq89/7QVwsKgMg124AlKKtqnBjlxICaXac7Q30gso1lyHcx3nUVM0qn9Fth
- dydy/ZSa8qNQmypAp6Whfhmh9x0pPZQo9fTNwp4QoF0bBzPyBdBYyoWuclEg5bznb4WI
- /sd7pPnbHLyKrIWMY85BI7M+saDUR38ivzS5qIRYysp3IFK7X6QtfvayBM7Pi4fQHse1
- K0ng==
+ d=gmail.com; s=20251104; t=1786620423; x=1787225223; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=NRGBrMNvLSobAjKhMm1lIf6g/DD55p77HOff+VMHwOw=;
+ b=GSUOzEXGHDGDfqUpCxTuhdKXfDDk6MkZ/vdPpeymS5eSH5IoD7P7SdTE75aaDqawzl
+ qlW+rU9UUmKSNS0Uj+/mcL2uxaeJV/MiEHt0Y4ZGaVj43pIM0MmkOzwxykcdXRnIUv0z
+ HHXTukLxlx6gTNGRk/rxqTpEHAtouDfUiUW/IvcivK6eC88USirKXAJU1anaaQQNEFYt
+ dMrJuP2mhYlVpPJZjd/waidX6+osQMVDNDHmYJ56MaEtrQm04ZvEMCvQVFqW3Pb9+KKz
+ BLFc6re6qHsWf+BxUQcEG/v8y3wTVwvYgqo/0rV+eD2VUH/yy2S4Z7D9DrIzS5JWELvY
+ bymg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786627334; x=1787232134;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=TVWNuYas/MOMOGJWvOzXANfSQQ0qHMRR18n7cjmi/E0=;
- b=LasTtSFnS9LZhXk+30hc9oByC1kOBFqQ8zl6v/Y9czxBODuUIbkAa6/ulDWzuIy1IV
- QjOh+YhO5quOCpMXbIoefFo41dJssSrPDraMdaWTzqElZiGPToCZaXXn2ScG14n3HNsn
- ad12LCCXNq+w3EakafLfL0FyiIidmvm55H3Zs+cJbc5dHgddHe2ifFdg6ibYvgOpzMvO
- lN3lWVZbhvf0BYqzcv+fEuQNi6JcAxdirAtXLMyvp1662RUZ8ELcTj+P00bOjDRBwDu8
- 9Hj6dIoV0ijwc6hQhr6kixUUPJghSAe3Dy5/aMxFPBlJd9+lNvgpSDguMglvcx6he9KF
- UeAQ==
-X-Gm-Message-State: AOJu0YxJcqZL8BhcaX6KH/Lgmg5g86qxRq3duwEGhXv4L+MTz+tISQOM
- ZIQrwBISmcFRcHIE0Z81nuy4KwwTGsioRoc7SUHeM7mt7atoUnTouvWf
-X-Gm-Gg: AR+sD10iuVpsqQLlj6I9hzxJXVSs4LYjWMKQBNGlRlyXYGtw1wcmwbfVaeHWEnywHW/
- HhXO/WgRgFp04kF33LY111zCdMGEAhOgs04YoJo4NBEDrWdJzq4DZXITmb8+v79zx0ekd1NUzjc
- frA1IPhEUTHtJpq4J1lXgvBhf+YKD/nCHtttDoVoqAWmr6a8BQ+LxP7eJrD1duWv2K7ZtnEujRO
- vQKi3vM4/+ftA4s7QgV5zD1+0SHCCryBifmMz+hdAarEH2WDYj33bvRLE93tW3Yf/+y7FhKxtGI
- +ePy7dle8Pw1IpsBARJTrA+O9OfsN1TH09trAWVxeZrrAavWc+8rZeWX0SV0QZ/i5vJWhSpVt4g
- o5t59jd7ya8zS4N+m4r7l33EwMSRTMWAKD5vNRruaZujtmiclRmM/d2tr2mWDxWWBaSoHn3lkXy
- PKzNQ4Rl/f5Vy8DcRFs6naZsSRAil0qshaEF5I+2V4KZ108KYPTIqxfhdrfG0=
-X-Received: by 2002:a17:903:468e:b0:2ce:7563:70a5 with SMTP id
- d9443c01a7336-2d37d577d92mr68447035ad.6.1786627333851; 
- Thu, 13 Aug 2026 06:22:13 -0700 (PDT)
-Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.52])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d37c4947cfsm9509705ad.65.2026.08.13.06.22.10
+ d=1e100.net; s=20251104; t=1786620423; x=1787225223;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=NRGBrMNvLSobAjKhMm1lIf6g/DD55p77HOff+VMHwOw=;
+ b=np2QoOCQ9J/OLIufNltNiI0rCcA+g25jtS1eL4WvhMDZThtTsHdzr/pXMjNm1+tuUK
+ 32eFgAGM6kcY8hid8cgZHrAuOj2n38To35DyuPmOYd6tHsjkWJTay9Lh98DQX2dQnPEe
+ kq1stPQxKlKslaoOWGKfTiwRYCFc3MQ9YsP4FToiYNrhtkUVHP2tDNMUcNtcHGAVKi7B
+ W5W5dhfsE257aEgNBaZ02eQWAIHKH6FRxuW8f5tzyaWwxTuwWf1J3O9JH7Xy2tYarYX0
+ j0uOMSpwFJC3y83SBDfvqgHi9yLS3ewe+X0NAi2uJSRReguW5dVrTS7MW8VEdac3zwOh
+ f4JA==
+X-Gm-Message-State: AOJu0Yztfvmh/gtI12x7l/4QD86msdCMFxgDGENMa+ai15z+2o0zk+ye
+ AZvvd9oojnL/yIlrCo3+NmcTDCgV11vJ8gHgepPwSBJhy2T3JRI7jU8v
+X-Gm-Gg: AR+sD10tXTnVMhnigGA+TiiO8DT+xAcz31a4XadnaQ4MHAO5MoqyaLMhwLA/PXh4/35
+ gKRdzwjZ0n+x7tM7GNfpKXiIwSJd4G5vxlfzR9eSyt296MJME3g7CHwpFK+w9Tmgl56RJnIgTVd
+ yIsfNoSDbz2YYkkmJd5jVW63DrsQyGhS3oyPd4dSey3gNuz05lmH1AkXv5j+LNT3xvk3f4dl/zW
+ qVK2pnZMGOUB6kM7gBHqK8qcBi2aBwZraXXm6P2dzWKuRU9SvIvm7tAA2hOSmq8e08nDNHf6+ll
+ X1XNrl4U5LeJj/dWI494ZnSB9+jlDmJczLg+yS8IX1sCRJ8awE2hl4vWNLWPk2U0ny9kTlDI02J
+ JhZSZ9xf4j8YyFmCY8BwnTc5BPnIm0GdAdA1k5l300fr9Ozg+rv3LDTD2r+Nrc22uQuO0LZj+tq
+ BSVUd1qqACGx6QMtH2Iw1KUiWeVuvBGUC1/jp9CMrcXR2M5RRU1jlA3yZflR9PjEqyVYN1hHpUq
+ hynN9zQacz0MvJvGa4DXwAe
+X-Received: by 2002:a05:6a00:2999:b0:848:788a:e7f9 with SMTP id
+ d2e1a72fcca58-84fc6dc62cbmr5033736b3a.18.1786620422989; 
+ Thu, 13 Aug 2026 04:27:02 -0700 (PDT)
+Received: from localhost ([64.176.39.245]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cbef6a59d80sm894282a12.11.2026.08.13.04.27.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2026 06:22:13 -0700 (PDT)
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Thu, 13 Aug 2026 21:21:42 +0800
-Subject: [PATCH] drm/nouveau/svm: drain fault handler before freeing svmm
+ Thu, 13 Aug 2026 04:27:02 -0700 (PDT)
+From: David Weber <weber.aulendorf@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, David Weber <weber.aulendorf@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/amd/display: Skip connector updates without a stream
+Date: Thu, 13 Aug 2026 13:26:33 +0200
+Message-ID: <20260813112634.11455-2-weber.aulendorf@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260813112634.11455-1-weber.aulendorf@gmail.com>
+References: <20260813112634.11455-1-weber.aulendorf@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-nouveau-svm-svmm-uaf-v1-1-2d3112dea734@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAOXEfWoC/yXMQQqDMBCF4avIrDugEYP0KsXFJE7qFIwl04SCe
- PdGu3iLb/H+HZSTsMK92SFxEZUtVnS3BvxC8ckoczWY1th27HqMWy5MGbWs51bMFNA5H3pr7EB
- EUK/vxEG+V/Yx/a3Zvdh/zhYcxw/7gCVYeAAAAA==
-X-Change-ID: 20260813-nouveau-svm-svmm-uaf-bbcf36265aaa
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Ben Skeggs <bskeggs@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786627329; l=2616;
- i=whi4ed0g@gmail.com; h=from:subject:message-id;
- bh=MkqdAWdWz0lutQb8l1T1yO7gmyXKQ04Cgj/5wL4FwHI=;
- b=yWyApmq3N/iL78hHvscIOIj2yoIsiORxcfjfAjWEf97XuifNnsE4SSw4ljisawH+utDwbmttv
- 3Ei8K0VW84RAFRxr9ixUgqc/R/yxG9hg5HPCQE6XMJo06un1mFjA9V1
-X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
- pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Aug 2026 07:04:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,63 +90,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The SVM fault handler nouveau_svm_fault() looks up each fault's
-nouveau_svmm from the per-device instance list under svm->mutex, caches
-it in the fault array, then drops svm->mutex and dereferences the svmm
-across blocking faults (mmu_interval_notifier_insert(), hmm_range_fault()),
-taking svmm->mutex and touching svmm->vmm.
+Atomic DPMS can leave a connector assigned to an enabled but inactive
+CRTC after the driver has removed its DC stream. A later atomic commit
+can then change HDR_OUTPUT_METADATA or Broadcast RGB while leaving the
+CRTC mode, routing and active state unchanged.
 
-nouveau_svmm has no reference of its own. It is freed on DRM file close,
-via nouveau_svmm_fini() -> mmu_notifier_put(), which frees asynchronously
-through call_srcu() without waiting for the handler; svm->mutex is not
-held during the dereference, and mmget_not_zero() pins the mm, not the
-svmm. A fault handled concurrently with a close can therefore dereference
-a freed svmm. flush_work() on the fault buffer otherwise runs only at
-device removal and suspend, never on the per-client close path.
+That property-only commit does not require a modeset, so it reaches the
+connector stream-update path with a NULL stream. An HDR metadata change
+passes the update bailout and reaches dc_stream_get_status(NULL), while
+a Broadcast RGB change dereferences the stream earlier when comparing
+its output color space.
 
-The instance is already unlinked earlier in the same close, by
-nouveau_svmm_part(), so no new fault can resolve to this svmm. Drain the
-fault handler in nouveau_svmm_fini() before the free, so any handler that
-cached the pointer has completed. nouveau_cli_fini() already flushes
-cli->work here, and device-scope teardown already uses the same idiom.
+Skip stream updates until a stream exists. The connector state remains
+stored, and an enabling modeset applies it to the newly created stream.
 
-Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
+The crash was reproduced on a Phoenix1 system with DCN 3.1.4 and Linux
+7.2-rc5 using a one-shot AI-generated DRM atomic reproducer:
+
+https://pastebin.com/KxT1BcSs
+
+The reproducer first sets HDR_OUTPUT_METADATA on an active CRTC, then
+sets CRTC ACTIVE=0 to remove the DC stream while keeping the connector
+routed to the CRTC, and finally changes HDR_OUTPUT_METADATA from one
+non-NULL blob to another. The last commit does not require a modeset and
+reached dc_stream_get_status(NULL) from amdgpu_dm_atomic_commit_tail().
+The same sequence completed without crashing with this fix applied.
+
+Fixes: b232d4ed92ea ("drm/amd/display: Only force modesets when toggling HDR")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: David Weber <weber.aulendorf@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_svm.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index dcc92131488e..01191b126be5 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -304,6 +304,17 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
- {
- 	struct nouveau_svmm *svmm = *psvmm;
- 	if (svmm) {
-+		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
-+
-+		/* The fault handler caches svmm pointers looked up under
-+		 * svm->mutex and then dereferences them after dropping it,
-+		 * across blocking faults.  The instance has already been
-+		 * unlinked (nouveau_svmm_part), so no new fault can resolve to
-+		 * this svmm; drain the handler to release any in-flight
-+		 * reference before the svmm is freed.
-+		 */
-+		flush_work(&svm->buffer[0].work);
-+
- 		mutex_lock(&svmm->mutex);
- 		svmm->vmm = NULL;
- 		mutex_unlock(&svmm->mutex);
-
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260813-nouveau-svm-svmm-uaf-bbcf36265aaa
-
-Best regards,
---  
-Zhenhao Wan <whi4ed0g@gmail.com>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1820547b1dde..13101a6be437 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -11519,6 +11519,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
++		/* DPMS-off leaves the connector routed to a streamless CRTC. */
++		if (!dm_new_crtc_state->stream)
++			continue;
+ 
+ 		scaling_changed = is_scaling_state_different(dm_new_con_state,
+ 							     dm_old_con_state);
+-- 
+2.54.0
 
