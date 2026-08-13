@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AAABC5CFDB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 20:37:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99014C5DF66
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 20:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F3E210F50C;
-	Thu, 13 Aug 2026 20:37:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0D4810E084;
+	Thu, 13 Aug 2026 20:48:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="B63/jdHR";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="QRAuMIUA";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E35210F52F
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 20:37:49 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1C210F53E
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 20:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786653468;
+ s=mimecast20190719; t=1786654095;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5Vrk3PlFsrHnHDBdU/h3yMx32mf+J1iZRQWJGUt9qu0=;
- b=B63/jdHRYRVTEQfjSkEFe03yBXR8O8uA/wmNKBg9ff8s81ZfbeiPfUaAfz6lFP0jqLeqGE
- XfUdhAEj8+HMxy7dujddqM656bgrJYSMvRG09Lc7AdQk9vVGIlL3o8sKMr/ekGlmo0cDXS
- gQahIefcdp4L0imMuOg0YcaOnUj+Iqk=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ content-transfer-encoding:content-transfer-encoding;
+ bh=kDuuOkCH2fbUW8QPsk+U/L/tBxogc365sCLb1ANoKiQ=;
+ b=QRAuMIUAMj/RRIf++QJwNg4m5lmGk3Vr04cr4/YdDpBmTrNgVZLqiKBrdSRK0mcG+BJXxC
+ 5lYnYgaSLof0sYdOO4M6aCvH/SQfxKKwDNSSpWOwNhftfWsvOwjBjEtfDTp7D11fzktCVM
+ OkkgycTjkEdali0goMPVlynDFoc+eG4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-213-04hwDPV1NK2-0cOpJ_I0aA-1; Thu,
- 13 Aug 2026 16:37:44 -0400
-X-MC-Unique: 04hwDPV1NK2-0cOpJ_I0aA-1
-X-Mimecast-MFC-AGG-ID: 04hwDPV1NK2-0cOpJ_I0aA_1786653462
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-158-YeC5sBgxPx64q1wyXftKoA-1; Thu,
+ 13 Aug 2026 16:48:10 -0400
+X-MC-Unique: YeC5sBgxPx64q1wyXftKoA-1
+X-Mimecast-MFC-AGG-ID: YeC5sBgxPx64q1wyXftKoA_1786654088
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8FA19195605E; Thu, 13 Aug 2026 20:37:42 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 397D3180028A; Thu, 13 Aug 2026 20:48:08 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.80.207])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 365E2195608A; Thu, 13 Aug 2026 20:37:41 +0000 (UTC)
+ by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id B04EF422; Thu, 13 Aug 2026 20:48:06 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  nouveau@lists.freedesktop.org
@@ -51,15 +50,13 @@ Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
  "Thomas Zimmermann" <tzimmermann@suse.de>,
  "Maxime Ripard" <mripard@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
  "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v7 5/5] drm/nouveau/kms/nv50-: Enable atomic modesetting by
+Subject: [PATCH RESEND v7 0/5] drm/nouveau: Enable atomic modesetting by
  default
-Date: Thu, 13 Aug 2026 16:27:09 -0400
-Message-ID: <20260813202833.2051778-6-lyude@redhat.com>
-In-Reply-To: <20260813202833.2051778-1-lyude@redhat.com>
-References: <20260813202833.2051778-1-lyude@redhat.com>
+Date: Thu, 13 Aug 2026 16:46:46 -0400
+Message-ID: <20260813204803.2097176-1-lyude@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-MFC-PROC-ID: E0aWidxCYc-sbAy_epnTyNM_KS5ZhjAdBPlMIxZGpDQ_1786653462
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Mimecast-MFC-PROC-ID: YCrfD0HrkcNBbZ8lnN2si19Nxh0pu6QEpTrcIo8fP4o_1786654088
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -92,49 +89,30 @@ I've already fixed quite a number of issues to the point where things seem
 quite stable (excluding a single screen flashing bug on my desktop, which I
 am not particularly convinced has anything to do with atomic modesetting).
 
-Now that we've protected against breaking things for chipsets where atomic
-isn't supported (<nv50) - let's enable it by default on generations of
-hardware that support it. We'll leave the module parameter around for the
-time being, as turning it off may be helpful in the possibility that we hit
-regressions.
+This patch series enables atomic modesetting by default, at least for
+NV50 and newer. NV04 is left unchanged, as atomic modesetting was never
+implemented for it. This series also enforces leaving atomic modesetting
+disabled on <NV50, and adds the value of nouveau.atomic to our kernel
+debug output.
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
+Previous version of this patch series:
+	https://patchwork.freedesktop.org/series/171310/
 
----
-V7:
-* Re-add patch hunk that changes the default value of nouveau_atomic, it
-  got dropped somehow?
-* Correct nouveau_atomic check so we don't spit out errors on old hardware
-  by default.
+(Resent, because of a formatting error on one of the patches)
 
- drivers/gpu/drm/nouveau/nouveau_drm.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Lyude Paul (5):
+  drm/nouveau: Fix cleanup bug in nouveau_drm_device_new()
+  drm/nouveau: Print the nouveau.atomic parameter in
+    nouveau_display_options()
+  drm/nouveau: Fix drm_driver struct/nouveau.atomic parameter handling
+  drm/nouveau/kms: Only allow enabling atomic modesetting on nv50+
+  drm/nouveau/kms/nv50-: Enable atomic modesetting by default
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 82a8061e6d3e2..b0f9fb10a74dd 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -103,8 +103,9 @@ MODULE_PARM_DESC(modeset, "enable driver (default: auto, "
- int nouveau_modeset = -1;
- module_param_named(modeset, nouveau_modeset, int, 0400);
- 
--MODULE_PARM_DESC(atomic, "Expose atomic ioctl (default: disabled)");
--static int nouveau_atomic = 0;
-+MODULE_PARM_DESC(atomic, "Expose atomic ioctl (default: auto, "
-+			 "0 = disabled, 1 = enabled)");
-+static int nouveau_atomic = -1;
- module_param_named(atomic, nouveau_atomic, int, 0400);
- 
- MODULE_PARM_DESC(runpm, "disable (0), force enable (1), optimus only default (-1)");
-@@ -745,7 +746,7 @@ nouveau_drm_device_new(struct device *parent, struct nvkm_device *device)
- 		else
- 			driver = &driver_legacy_kms;
- 	} else {
--		if (nouveau_atomic)
-+		if (nouveau_atomic == 1)
- 			dev_warn(parent, "Atomic modesetting not supported (needs nv50+)\n");
- 
- 		driver = &driver_legacy_kms;
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 116 ++++++++++++++++----------
+ 1 file changed, 71 insertions(+), 45 deletions(-)
+
+
+base-commit: 9b388fc3d0e63a4f5b022d326151e176e8d82e25
 -- 
 2.55.0
 
