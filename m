@@ -4,71 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61CFCC5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8991CC5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D975F10E529;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 994EA10E0F1;
 	Fri, 14 Aug 2026 07:04:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d9X7pXWM";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="f0BUIEg4";
 	dkim-atps=neutral
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC6C210F2D2
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 11:27:00 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-84f38f3b36eso1625576b3a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 04:27:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786620420; x=1787225220; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=NnsKlsQfAgw4TYphFLbsBTyUS9mLXz1EROz2+K+BZeY=;
- b=d9X7pXWMRdgQtSk4EKmHoRHrNslaRra4TyANwEalINqMX0Xfu8wre0QhT4Rpultdh3
- EE2B9AqzyTVhfdC/llD9H909WwQ5aAc7dU4pDYMZZ5vdpZzbPdo77pS6K/gTmIQ2QNTd
- hlPr1JEnOXn4tFG7osLwn7q6COps1iUhfla1Kiokl8Rk01m9JLZj1nTrul3CxuYIjWiR
- PI3wLesnagdrPoE1dFCNfl7lr6yzdaB7XO2zxaXE1UzC19tn8TdnNqOQePw7bTGHstGi
- OQanLjdntu6WTEw0MGwMjU0M31ITzrs7riiz+7fn07gn1mK9jXgeWovQYEe/ggpTlu5H
- fNng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786620420; x=1787225220;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=NnsKlsQfAgw4TYphFLbsBTyUS9mLXz1EROz2+K+BZeY=;
- b=Rfakh6s8J2og882Yr8kFW+mhzCGVleNQz8jHt5fBmNydCCh02v1Lnp1jDQ6YXtaUq6
- nJ5DqL7+W7OEIeoK7hX/qCb6lTGmIIIyDu0pUpcR2toEeuizEPARRnEGeYiVe+DR8wFe
- 670DztlD20BVGrkDXSWUT8iRy9VDiweigmw4SAiKVaDuI5Dg5uJnnbIMU8p244aYEJlM
- bbced4fAVemR2PvnDpCqW2ij1t9i+nCpKe0YxnURDOaKr2hMnoz9A5DSGtGb5tYOW8T3
- u75Ub9uyAvTQ9ahyMQYWYqdwM8CMb48NyqrDUvCQXcyKswmrwhd3gSPJsH3hKxT0girK
- wLaA==
-X-Gm-Message-State: AOJu0Yw6EM9+uXq4eU0Q55OVRKYhcAVf48xVWL2QHnqpgp/Dai6Bcilc
- IX+v83e4UlJqiq1xSwS8MCjLR4lZVUS4R9JSnGiEe5T/iixF8RSX5tBl
-X-Gm-Gg: AR+sD13D83Igt0jtICe2KezrobQ+sMVudku/vhs+hTAqKtlEFdu5N3XrhLDaIUL8flm
- sDdO6HQcPTAOACppJyCVTG/mu8j8+6exV9L0NSkt2Fn0/r3NWigFsATu5tnXxRavOxTLWVVXNsZ
- QbRGrAORiUWMCOixmtcfO64lRjJUwPhwQ+SZCSFpdl19wTXilt+gjBm20mJS1Tu+1myaL/bIMiO
- 4KI1DuO0PAPu/L0el1ugkNtwYt2xMHpgqCrxLwWVwWofHUAl4CizUyFeqBck73i06BAu8ZH8RxY
- 1zKDOxaB1xCDmoPHTSD8pxT1bdTpYHUCxR8kVIAEH4LnKdth433sKiWzuZvLDgVfz4RHtMa32fR
- X2kDV1hqgq5bBjXPDUWAwXY1MRnpJEHQt/KqQzuzEt1izsuHWbyt59/3Gjiy7xb7276+TkTKKGN
- AR5QzQso4rm1+ZqzLnws68giG7O6Mz4KttjqXb7D/m+DlwPtYz0qZpPa7bMUbEP/FgQ9kDI/sHA
- Pk0inxtLQ74m+2m3s6ZBvRN
-X-Received: by 2002:aa7:88d0:0:b0:848:70dd:f5a9 with SMTP id
- d2e1a72fcca58-84fc74958c7mr4544635b3a.38.1786620420195; 
- Thu, 13 Aug 2026 04:27:00 -0700 (PDT)
-Received: from localhost ([64.176.39.245]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cbef6a59d80sm894282a12.11.2026.08.13.04.26.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2026 04:26:59 -0700 (PDT)
-From: David Weber <weber.aulendorf@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, David Weber <weber.aulendorf@gmail.com>
-Subject: [PATCH 0/2] drm/amd/display: Fix streamless connector update and ABM
- modesets
-Date: Thu, 13 Aug 2026 13:26:32 +0200
-Message-ID: <20260813112634.11455-1-weber.aulendorf@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E74310E4EB
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 16:47:15 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=qG1QDrNHWq3VEBbfesMlP0OQ2+mC6waGnwBinaj6rCQ=; 
+ c=simple/simple; d=kaitmazov.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786639633; v=1; x=1787244433;
+ b=f0BUIEg4mXUeS3MWIgn6A7fMrYDnwOA21kMVHpbE7wvmxOLvS00PKrMwAT2eOHJuN8brgtxG
+ CX4RN9pYpu/Si0rCnIJEtneCseUyzVIbjSVEZCZW5ZLWxshQ8gsjEMFDQHpG1Gc1ILXLqzXQQgr
+ 8QzWC8Q2FGAwA5zbpcy2fUuIojmKQvAyWbOMELR6OzaZDVs9jRowNtghJkFf/JgKNXkpQtg1N6c
+ weg3H8Xahci9e3IkvljyLRs/WxFjY0UM7gy4qaCwElM/lK7pWG3nJ9Ngz/TUuiicMpe4m7X/qyj
+ dZMB0T7xP1o4WgKQzFeUcoJUrWSqwv9pUcbKHEURqRBaw==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: from cachyos-26.lan (193.42.111.69)
+ by smtp.migadu.com with ESMTPS id e1b94cff074eb71f;
+ Thu, 13 Aug 2026 16:47:13 +0000
+X-Migadu-Flow: FLOW_OUT
+From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+To: Lizhi Hou <lizhi.hou@amd.com>, Min Ma <mamin506@gmail.com>,
+ Oded Gabbay <ogabbay@kernel.org>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>,
+ Sonal Santan <sonal.santan@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: [PATCH v3 1/3] accel/amdxdna: refuse an I/O memory mapping of an
+ imported BO
+Date: Thu, 13 Aug 2026 19:46:58 +0300
+Message-ID: <20260813164700.43960-2-taimuraz@kaitmazov.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260813164700.43960-1-taimuraz@kaitmazov.com>
+References: <20260813164700.43960-1-taimuraz@kaitmazov.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Aug 2026 07:04:05 +0000
@@ -86,32 +62,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Message-ID: <20260813164658.bXvSEIIEZ2X0aw3Le2xGmDuQSHzT4D-mWJkyiE086Rk@z>
 
-Hi,
+amdxdna_gem_obj_vmap() takes whatever dma_buf_vmap() returns and only
+rejects a NULL vaddr. iosys_map is discriminated by is_iomem, so an
+exporter answering with an I/O mapping leaves a void __iomem pointer in
+abo->mem.kva, which amdxdna_cmd_set_error() memsets and memcpys through.
 
-This series contains two independent fixes for connector property updates
-in amdgpu_dm.
+amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
+buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
+peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
+no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
+object, so an NPU paired with nouveau or radeon does.
 
-The first patch fixes a reproduced NULL-stream dereference and is marked
-for stable.
+Refuse the mapping. vmw_gem_vmap() does the same; unlike that one this
+path is reachable from an unprivileged ioctl, so it does not warn.
 
-The second avoids the visible panel blank caused by modesetting for every
-ABM level change. This is useful for desktop environments that want to
-adjust ABM dynamically for AC, battery and low-battery profiles without
-making the screen go black briefly on every profile transition.
+Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-It would be nice to have the ABM fix in stable kernels too, but I am not
-sure whether this behavior issue justifies a stable backport. I therefore
-kept its Fixes tag but did not explicitly Cc stable.
-
-David
-
-David Weber (2):
-  drm/amd/display: Skip connector updates without a stream
-  drm/amd/display: Avoid modeset for ABM changes
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 1f190b319bb..b66ec9e4828 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *ma
+ 
+ 	dma_resv_assert_held(obj->resv);
+ 
+-	if (is_import_bo(abo))
++	if (is_import_bo(abo)) {
+ 		ret = dma_buf_vmap(abo->dma_buf, map);
+-	else
++		/* Callers use mem.kva as an ordinary kernel address. */
++		if (!ret && map->is_iomem) {
++			dma_buf_vunmap(abo->dma_buf, map);
++			return -EOPNOTSUPP;
++		}
++	} else {
+ 		ret = drm_gem_shmem_object_vmap(obj, map);
++	}
+ 	if (ret)
+ 		return ret;
+ 	if (!map->vaddr)
 -- 
-2.54.0
+2.55.0
+
