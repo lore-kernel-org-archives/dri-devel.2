@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 904C1C5CFEB
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 12:57:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BFA3C5B572
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 13:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E208310E1C4;
-	Thu, 13 Aug 2026 12:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A54010E320;
+	Thu, 13 Aug 2026 13:00:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dx0Kn/HI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t6Gs+TdG";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E29D10E1C4
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 12:57:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B1C6B439AF;
- Thu, 13 Aug 2026 12:57:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0A21F000E9;
- Thu, 13 Aug 2026 12:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786625865;
- bh=13P+MIVoJpPP/g+bE9IBr2XwkZKSxe+YiW6woZbB8pE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dx0Kn/HIg9WD5Zj8AAWW+1KxElX02JZ8ZeYqE4UZIQKTUtRd7aiuAk7KZoATjSOW+
- I5B5FaOEAgclv9FsT27O7uNuQiQsTuxISllbS2U2jGQrjE/NZxHDDRBC9GuKc3dAM0
- dbFTMWe0Moo3Y3SqsRotBit4cEOO3JGCL8mou9pGFpvQ80wS1c8QfLI9YhDvVz8hWM
- ggWqrdiC2z7zs5lJW3Hgkl9Y4uW2HVEFOeHcADV5nIf0JLMdAAftqBeowVLPgI2JQI
- bwLYUrMZRwvPasTMvGgjR7TYmzyV25ixTEuBg6eXfTer8E7pEWDv0Q1Tj851zXzChs
- 3xLT6WKFy7uKg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] fbdev: aty128fb: Convert to managed PCI and ioremap
- API
-To: oushixiong1025@163.com
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260813125015.1097301-1-oushixiong1025@163.com>
-References: <20260813125015.1097301-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset=utf-8
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2B3910E320
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:00:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C9C804120E
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:00:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AC2DAC2BCF4
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 13:00:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1786626050;
+ bh=hJc5FvyWgGR9ginJljhBMaNpHQAA1O60KGsD2JwQrOM=;
+ h=From:To:Subject:Date:From;
+ b=t6Gs+TdGT1iwiz7tdEY1K//V4vkyk1u0dgZT1BwMTID9NEMeHLmMFGqX9h6d8Tkxi
+ FSOk+iJKkCeH7Z+s2nF/rd+IFN0yMEQeFU9reoC0xeOmv9aGNllgM4bK1Ogzwi+3Zm
+ ct/q+i3BLe53gNjbAWW5kvCymCX6Xu7Jn2Y83V3L+cONrS+yyTLu40HkgxkkfEthHm
+ hU8Zij4MXoLn838C05szNqZOcwuT+HXYfTCYxaO6BzAqRs2G/zk6zIBus6Yxk5w8hU
+ HJI2JpSy8TdlC6ECaUfDmTR61iwyl2C86XnG1lQn4I9ZbT/qNGJZXoTq7KtPa7YkEA
+ blpgYVUOQC1Dw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 8CC10C41612; Thu, 13 Aug 2026 13:00:50 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221879] New: Max brightness broken since 6.18.42 / 7.1.6
+Date: Thu, 13 Aug 2026 13:00:50 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: augustin@trancart.eu
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-221879-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 12:57:44 +0000
-Message-Id: <20260813125745.6A0A21F000E9@smtp.kernel.org>
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,89 +71,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Incorrect check of pcim_request_region() return value treats succe=
-ss as failure.
-- [High] The error path for a failed MMIO region request jumps to a cleanup=
- label that calls `framebuffer_release()` with an uninitialized `info` poin=
-ter.
---
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221879
 
---- Patch [1]: [PATCH 1/5] fbdev: aty128fb: Convert to managed PCI and iore=
-map API ---
-commit 1e12b2171d8c5fcb82cbff1de0aa1745b4062be0
-Author: Shixiong Ou <oushixiong@kylinos.cn>
+            Bug ID: 221879
+           Summary: Max brightness broken since 6.18.42 / 7.1.6
+           Product: Drivers
+           Version: 2.5
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: Video(DRI - non Intel)
+          Assignee: drivers_video-dri@kernel-bugs.osdl.org
+          Reporter: augustin@trancart.eu
+        Regression: No
 
-fbdev: aty128fb: Convert to managed PCI and ioremap API
+# Description
 
-Fix missing pci_disable_device() in probe and remove.
-Use pcim_enable_device(), pcim_request_region(), devm_ioremap()
-and devm_ioremap_wc() to replace manual resource management.
+When setting my brightness to 100%, the display becomes very dim. It goes b=
+ack
+to bright when going back to 95%.
 
-> diff --git a/drivers/video/fbdev/aty/aty128fb.c b/drivers/video/fbdev/aty=
-/aty128fb.c
-> index bcb10e66221c8..b76bfe014f41b 100644
-> --- a/drivers/video/fbdev/aty/aty128fb.c
-> +++ b/drivers/video/fbdev/aty/aty128fb.c
+According to some users [1], this affects framework 16=C2=A0laptops (at lea=
+st AMD
+5900HX NVIDIA RTX 3070 Max-Q and FW16 AMD 7840HS without dGPU). One user al=
+so
+reported this with another non-framework laptop.
 
-[ ... ]
+Seemingly all linux distros are affected (at least Fedora Silverblue, NixOS
+26.05, EndeavourOS Linux 7.1.6) and various DEs.
 
->  	fb_addr =3D pci_resource_start(pdev, 0);
-> -	if (!request_mem_region(fb_addr, pci_resource_len(pdev, 0),
-> -				"aty128fb FB")) {
-> +	if (!pcim_request_region(pdev, 0, "aty128fb FB")) {
+I've identified 490ceacd2162de919a142bcb4eff363bb493b1de as a potential cul=
+prit
+(in the 6.18.43 branch) because I don't reproduce any more if I build my ke=
+rnel
+with this commit reverted (The commit is
+1191285ecb4233e5bf907da7e9394d7999055566 for the 7.1.6 branch).
 
-[Severity: High]
-Since pcim_request_region() returns 0 on success and a negative error code
-on failure, does checking it with '!' cause the driver to fail probe when
-the region is actually successfully requested?
+[1]:
+https://community.frame.work/t/screen-goes-very-dim-when-reaching-100-brigh=
+tness/84042
 
->  		printk(KERN_ERR "aty128fb: cannot reserve frame "
->  				"buffer memory\n");
->  		return -ENODEV;
->  	}
-> =20
->  	reg_addr =3D pci_resource_start(pdev, 2);
-> -	if (!request_mem_region(reg_addr, pci_resource_len(pdev, 2),
-> -				"aty128fb MMIO")) {
-> +	if (!pcim_request_region(pdev, 2, "aty128fb MMIO")) {
-
-[Severity: High]
-Does this have the same pcim_request_region() return value check issue as
-the previous block?
-
->  		printk(KERN_ERR "aty128fb: cannot reserve MMIO region\n");
-> -		goto err_free_fb;
-> +		goto err_free_info;
->  	}
-> =20
->  	/* We have the resources. Now virtualize them */
->  	info =3D framebuffer_alloc(sizeof(struct aty128fb_par), &pdev->dev);
-
-[Severity: High]
-If the above goto is taken, the code jumps to err_free_info which calls
-framebuffer_release(info). Since info hasn't been allocated or initialized
-yet at that point, will this dereference an uninitialized pointer during
-the cleanup path?
-
-[ ... ]
-
-> err_free_info:
->  	framebuffer_release(info);
-> -err_free_mmio:
-> -	release_mem_region(pci_resource_start(pdev, 2),
-> -			pci_resource_len(pdev, 2));
-> -err_free_fb:
-> -	release_mem_region(pci_resource_start(pdev, 0),
-> -			pci_resource_len(pdev, 0));
->  	return -ENODEV;
->  }
+Thanks!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813125015.1097=
-301-1-oushixiong1025@163.com?part=3D1
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
