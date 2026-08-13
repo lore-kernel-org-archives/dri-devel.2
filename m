@@ -4,61 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96686C5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A70C5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:04:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C15710F310;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26DEC10F316;
 	Fri, 14 Aug 2026 07:04:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="eWtTwJDC";
-	dkim-atps=neutral
-X-Greylist: delayed 27908 seconds by postgrey-1.36 at gabe;
- Thu, 13 Aug 2026 14:28:03 UTC
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
- [109.224.244.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC3A910E04F
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1786631282; x=1786890482;
- bh=qGFcsBc4bsHSsqqNNBQTtVy8gp5FOx6AGTr/PDwWl7E=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=eWtTwJDCy/bIwpUXJBe2t3IA4YUFyCb23saPmBCfYJIABof9t0Yf47Mir3O16cPq1
- yS3RmapqBO5csmhcf3fj0bMXQxgJalj5K5bqpLe79/LbggQpWROB4XgL2bgJ3mG/j+
- vbpnhJ7zJ/z1nbtyhSLwsQe4dG+6dcx3Ye/Dx/fgs25Cw0EItR4OMyP/Q1A8BDXSNZ
- XWg46hWlhk3Sl4C4Vg7kLQg2cIG82E5NCXkiK+tWXNETgDgqHpgr3Wmc8MuM0hes7e
- NAnrtjIyscj7tl4MtOYopGT0jU+r4RxMglaFVUR8yryr6LQJH6ozvHA4jM3nQgRGEj
- T23lBq5ImrIBA==
-Date: Thu, 13 Aug 2026 14:27:55 +0000
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-From: Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>,
- phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-Message-ID: <3vUDQmfKtaP3e1p0qrjrY9_5SnuA7-cIWQUk2-MElleGKbG4obs96fPT4A_F183UnGt5clbj7belPDQ5CSWLhxTkJ8oXsjN1VS5rCbocPd4=@proton.me>
-In-Reply-To: <61a96635-e143-4d69-b0f7-0f312f5a3a3c@igalia.com>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
- <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
- <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
- <Wgbhe0iRVno6QTXUasXAw96sdk1GzzJ8DW_Yw8EyCtxvwV4-EfRTaUdaF9vYeMYsMyfLVVTmXBOB1Br_d-l8b87D_2CMFyYSJi34eaaGGW4=@proton.me>
- <ylme_dYqb7yeNvmFl3ZeH3v8d_46-oAWr6t95wEZTYGiLMdbNTzXBFoV1zueOeHcKXcFrMMsoF0s_57Hzj0wwEfxDRjPhmu-xquKmeXKehg=@proton.me>
- <61a96635-e143-4d69-b0f7-0f312f5a3a3c@igalia.com>
-Feedback-ID: 214028577:user:proton
-X-Pm-Message-ID: 0a81b811aa2182b5c7686ef92c41cb62fbbf3e67
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
+ [45.254.49.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F167810F38C
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 14:58:19 +0000 (UTC)
+Received: from Mogu.localdomain (unknown [223.73.65.85])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 49e36c9ae;
+ Thu, 13 Aug 2026 22:58:16 +0800 (GMT+08:00)
+From: MoGGuU <Naixumogu@whut.edu.cn>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org,
+	Naixumogu@whut.edu.cn
+Subject: Re: [PATCH] accel/rocket: Fix job submit error handling
+Date: Thu, 13 Aug 2026 22:58:10 +0800
+Message-ID: <20260813145810.177179-1-Naixumogu@whut.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260813143334.81E231F00A3A@smtp.kernel.org>
+References: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
+ <20260813143334.81E231F00A3A@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9ffba18d4403a1kunm78eaa06f3514f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaT0IdVkJNSUoaQhoYS0IaS1YeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VQ05ZV1kWGg8SFR0UWUFZT0tIVUpLSUJNS0
+ pVSktLVUtZBg++
 X-Mailman-Approved-At: Fri, 14 Aug 2026 07:04:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,173 +51,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Looks good, in the 10 minutes I spent this morning doing a quick test, I wa=
-sn't able to reproduce the failure. I will do extended testing tonight. =20
+Thanks for the review.
 
-I will report back later with more details, but given the issue was typical=
-ly reproducible on-demand, this is looking very promising.=20
+I checked the reported partial-submission restart path.  I do not believe
+the new issue is reachable as described.  The interruptible operation in
+this path is drm_gem_lock_reservations().  Its
+dma_resv_lock_interruptible() call returns -EINTR when interrupted, as
+documented by ww_mutex_lock_interruptible(), and drm_ioctl() propagates
+that value unchanged.  It does not return an -ERESTART* value, so the
+kernel will not automatically restart this ioctl from job zero.  The other
+failure paths in rocket_ioctl_submit_job() also do not return an
+-ERESTART* value.  Userspace could still choose to retry an EINTR manually;
+the ordered partial-submit semantics documented in the commit message mean
+that it must not blindly retry the whole batch.
 
-Thanks for all the hard work everyone!
+The duplicate-BO report does not cause a double unlock either.  Trying to
+lock the same WW mutex twice with the same acquisition context returns
+-EALREADY.  drm_gem_lock_reservations() then unlocks the reservations it
+already acquired and finalizes the context before returning the error.
+rocket_job_push() takes its err path in that case, not err_unlock.  I also
+verified this on RK3588: a submission containing the same input BO handle
+twice returned EALREADY without a new warning or error in the kernel log.
 
-On Thursday, August 13th, 2026 at 12:58 AM, Tvrtko Ursulin <tvrtko.ursulin@=
-igalia.com> wrote:
+The two dma-resv fence observations are valid pre-existing issues.  The
+completion fence should be attached with DMA_RESV_USAGE_READ to input BOs
+and DMA_RESV_USAGE_WRITE to output BOs after drm_sched_job_arm() creates
+the finished fence, but before drm_sched_entity_push_job() makes the job
+runnable.  I will address those in a separate follow-up patch so this patch
+remains focused on its stated error-path fixes.
 
->=20
-> On 13/08/2026 07:42, Luke.Wildhardt@proton.me wrote:
-> > Ok, after a lot of A/B testing, it appears that trying your "drm-intel/=
-drm-sched-fair-fixed" branch, the stuttering is still there. It's definitel=
-y paced differently though, I will attach a video. It's "choppier" when it =
-happens. I tested in a few different areas / times of day, in case you noti=
-ce the scenery isn't the same; this is representative of what I experienced=
- in other places. I will note, that I tried playing 4 times, 3/4 times, sho=
-rtly after boot. 1/4 times I left my desktop to idle for about 30 minutes w=
-hile I did something else, and I didn't encounter the issue at all in 10 mi=
-nutes. Not sure how significant that is, or if it's just noise.
-> >
-> > https://www.youtube.com/watch?v=3DGWyIVEuhooM
-> >
-> > To make sure I wasn't insane, I went back to the patch Claude gave me, =
-applied against a clean 7.2.0-rc7. At least again in a few sessions after b=
-oot, no issue. I'll post that exact code below.
->=20
-> Yes, I had a brain fart yesterday and had only pulled the lock out on
-> the pop side. I have now pushed the updated branch, with both the add
-> and pop side made symmetric in lock taking aspect.
->=20
-> If you could pull and re-test once more that would be great.
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> > If you need any other info from me let me know.
-> >
-> >
-> > --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> > @@ -2,6 +2,7 @@
-> >   /* Copyright 2015 Advanced Micro Devices, Inc. */
-> >   /* Copyright (c) 2025 Valve Corporation */
-> >
-> > +#include <linux/moduleparam.h>
-> >   #include <linux/rbtree.h>
-> >
-> >   #include <drm/drm_print.h>
-> > @@ -9,6 +10,32 @@
-> >
-> >   #include "sched_internal.h"
-> >
-> > +/*
-> > + * Diagnostic counters. Not for submission.
-> > + *
-> > + * dbg_pop_stayed  - pops where the entity had another job queued and =
-so stayed
-> > + *                   in the tree. No save/restore of vruntime occurs.
-> > + * dbg_pop_left    - pops where the entity queue drained, so it left t=
-he tree
-> > + *                   and drm_sched_entity_save_vruntime() ran. Only th=
-is path
-> > + *                   arms a later restore.
-> > + * dbg_add_restore - calls to drm_sched_rq_add_entity(), i.e. restores=
-.
-> > + * dbg_add_race    - restores where the entity was still linked in the=
- tree,
-> > + *                   meaning the vruntime being restored is still abso=
-lute.
-> > + *
-> > + * Incremented under rq->lock, so exact per scheduler and only mildly =
-lossy
-> > + * when summed across rings. Writable so they can be reset between run=
-s:
-> > + *   echo 0 > /sys/module/gpu_sched/parameters/dbg_pop_left
-> > + */
-> > +static unsigned long dbg_pop_stayed;
-> > +static unsigned long dbg_pop_left;
-> > +static unsigned long dbg_add_restore;
-> > +static unsigned long dbg_add_race;
-> > +
-> > +module_param(dbg_pop_stayed, ulong, 0644);
-> > +module_param(dbg_pop_left, ulong, 0644);
-> > +module_param(dbg_add_restore, ulong, 0644);
-> > +module_param(dbg_add_race, ulong, 0644);
-> > +
-> >   static __always_inline bool
-> >   drm_sched_entity_compare_before(struct rb_node *a, const struct rb_no=
-de *b)
-> >   {
-> > @@ -266,14 +293,40 @@
-> >   =09sched =3D container_of(rq, typeof(*sched), rq);
-> >   =09spin_lock(&rq->lock);
-> >
-> > +=09dbg_add_restore++;
-> > +=09if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> > +=09=09dbg_add_race++;
-> > +=09=09pr_warn_ratelimited("drm_sched: vruntime race on ring %s (comm %=
-s)\n",
-> > +=09=09=09=09    sched->name, current->comm);
-> > +=09}
-> > +
-> >   =09if (list_empty(&entity->list)) {
-> >   =09=09atomic_inc(sched->score);
-> >   =09=09list_add_tail(&entity->list, &rq->entities);
-> >   =09}
-> >
-> > -=09ts =3D drm_sched_rq_get_min_vruntime(rq);
-> > -=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio)=
-;
-> > -=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-> > +=09/*
-> > +=09 * Only restore the vruntime if the entity actually left the run qu=
-eue.
-> > +=09 *
-> > +=09 * drm_sched_entity_pop_job() dequeues the last job and only afterw=
-ards
-> > +=09 * calls drm_sched_rq_pop_entity(), which is where the entity is re=
-moved
-> > +=09 * from the tree and drm_sched_entity_save_vruntime() converts its
-> > +=09 * vruntime to min_vruntime-relative form. A push landing in that w=
-indow
-> > +=09 * sees an empty queue, takes the "first job" path to here, and wou=
-ld
-> > +=09 * restore a vruntime which is still absolute -- adding min_vruntim=
-e to
-> > +=09 * it a second time. If the entity is also the leftmost one,
-> > +=09 * drm_sched_rq_get_min_vruntime() returns the entity's own vruntim=
-e and
-> > +=09 * the value is doubled, placing it far to the right of the tree wh=
-ere it
-> > +=09 * will not be selected again until the run queue catches up.
-> > +=09 *
-> > +=09 * A still-linked entity never left, so its vruntime is already abs=
-olute
-> > +=09 * and its tree position is valid. The concurrent pop will update b=
-oth.
-> > +=09 */
-> > +=09if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> > +=09=09ts =3D drm_sched_rq_get_min_vruntime(rq);
-> > +=09=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_pr=
-io);
-> > +=09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-> > +=09}
-> >
-> >   =09spin_unlock(&rq->lock);
-> >   =09spin_unlock(&entity->lock);
-> > @@ -330,11 +383,13 @@
-> >   =09if (next_job) {
-> >   =09=09ktime_t ts;
-> >
-> > +=09=09dbg_pop_stayed++;
-> >   =09=09ts =3D drm_sched_entity_update_vruntime(entity);
-> >   =09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-> >   =09} else {
-> >   =09=09ktime_t min_vruntime;
-> >
-> > +=09=09dbg_pop_left++;
-> >   =09=09drm_sched_rq_remove_tree_locked(entity, rq);
-> >   =09=09min_vruntime =3D drm_sched_rq_get_min_vruntime(rq);
-> >   =09=09drm_sched_entity_save_vruntime(entity, min_vruntime);
-> >
-> >
-> >
->=20
-> 
+-- 
+MoGGuU
