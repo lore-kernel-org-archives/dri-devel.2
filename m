@@ -4,135 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6E5C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:29:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01869C5CFCF
+	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 17:29:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25D9B10F455;
-	Thu, 13 Aug 2026 17:29:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E65CC10F472;
+	Thu, 13 Aug 2026 17:29:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="HQiC4ai8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fDPcYlhH";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021099.outbound.protection.outlook.com [52.101.100.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06AF510F455
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 17:29:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L8WAsN0FkDGlu39//WaRXYNJNRCLEAUz6IcHt+kYKVGA+AZIzwotwE4mqwrp9wBYT9h6yF3lI9Y93EZQDZhI2zQnaR553I0tJ75F4MdoARKl+xFSCc4bkYqzcSFnV0I1+CjICk3IZg/4kbcoG34OKKt3tjAdcEKYJXif+OitcgX4tpiasTSJffZvNxhlbE/wVWiUm4K6Gl6UIdmMArKhIlr3as5FAmesloLcvhCie5eTVTi7q2D9n5RaLr/MReiuL8/6DHrSP+c4anNfm4hPfllItPdJyLtHMGFI16xZ6gijQwbGkcogGfNFZTyyJwIheTcDjWcqahwqHKOppJkmIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cK35aN0hEi1ovHKXY3E1pSNxfQeaCu0kY1KQFDMLfDI=;
- b=HHX4qs72HBJ9TqD+9n1UO7CgKmxxsTpSSZ9tfXbH1eVNmPsYuVtOjbwNf3DkQyMgg33I55YRwuqK+rpSSeKROL+hUwPuSavAbSpGo2Wec1wFOE6T42Ih7BbGKvfJB4xeYPxZTlEYUj24Fa6jH/ICGWhNnPvw4CXcaiLxr0YQxgvT1gltUe6ft43DqMgYJy43+4Xy/51yutvqnbalnaA02r6l4ZVl6QXp9XmGJqZLd+jA6efPGfE4svoTS9+nwl2ShXFy0e/bKvBWpiQ0rLP7itZUOzcvyZmg5gQxWb1ug7zDEsIaZaEIURt6ow7I/nOAQQFmo2zhaKeVHvOjYpaItQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cK35aN0hEi1ovHKXY3E1pSNxfQeaCu0kY1KQFDMLfDI=;
- b=HQiC4ai8zo3qCkwba1f8PvoGyhwjqPzTcfTAQbBkubQqrTvkpv0G9awz0hOiwJMwPMORPXaQxSN7KhghthH9yoIw19FgtyRfOcfPdFNwWN66OlZXyMO9qTI1K/FRJ+sQSIxOgDwmFm4UhmAnj1e1FEmXcdm+1eNQN6W3FvHUan4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB6531.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1db::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Thu, 13 Aug
- 2026 17:29:33 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
- 17:29:33 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EC5010F46A
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 17:29:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1E87041A17;
+ Thu, 13 Aug 2026 17:29:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB5211F000E9;
+ Thu, 13 Aug 2026 17:29:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786642191;
+ bh=gUGkV2a1ruamu9o2ux0VSehAz2F32HQnIXuRblmnhJY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fDPcYlhHmMoBKaf64RN7XiGESSlNs8wEUVmGf0EKVmbVNIP0tWd6pTxNT5GJJ4/kS
+ BgffK19snV0BhMl63AIXV1/kVXS4EMB2IPPbZe7d8bmkkTirc+I6imhhoh3pb7gqNB
+ 5WpmIq6YyouESmL2GdDr0niLDmTirin9Nm39np3NaqXfZFxaqgg8/2zRbupbclRAOB
+ HrZGInWbImXGIGl5p2NwbuI/RVGdLoNbfsXgeJTCR2PrmFU+IRKtCPJ0c205dZqrmC
+ dai+xu0k9501V9+mYnYlfnyojWUYWltsPxWIMOrIWnspQDvWnEz13ZX9wtqTbR2Mbc
+ 2YvEq0GJ5blZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/5] drm/amdgpu: add wedge event implementation
+To: "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260813170705.15745-3-pierre-eric.pelloux-prayer@amd.com>
+References: <20260813170705.15745-1-pierre-eric.pelloux-prayer@amd.com>
+ <20260813170705.15745-3-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 13 Aug 2026 18:29:32 +0100
-Message-Id: <DKNZSJ3YXV87.TCOAG98VFTSX@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v2 01/16] rust: io: add static `cast()` method for views
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
- <20260805-typed_register-v2-1-c3ca142220a0@garyguo.net>
- <DKL5P5CJC170.3EFWNHBMTTIPS@nvidia.com>
-In-Reply-To: <DKL5P5CJC170.3EFWNHBMTTIPS@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0485.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a8::22) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB6531:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7db64cf-d3b6-4535-74cc-08def9607061
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|23010399003|10070799003|22082099003|18002099003|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: S/jYB37Ca9/6BOQA55oZhkqNI7EWF6tKSVceT9TXrZxrtxxFfifDoKR39PyYNLxJMt7qzg0Q0PLRDIM3MwS+2di/M5Iy8h4xTK7qL4APChcCH0x7Z3tqsNy3kDVnFiNconwyISw3Ie0PE/ixMVcYKJhnD9XsgqN9oWdak+MIJ6VIfeIGL+0ISOkRDREJwGtlNmQcxbqxNJkFw7VxdhsxPxPLx1AAkdaigoL1vHOcvlzvbvAoM+kOhXzRN2j5aJ7ahQ4ipFa0u9Hv2/ZoMP5x8mb1Jk0PAsBjZmx5pOK1Ze5ngokNZev2GApv37jdih3TYPk3TjFVMoAFTgkC0OQhm0RsKZrHNTl23LXOUnOQb5dSIwCr17lPF7eKV5uRkYPYWDhRC1EY6zQMDmHrUlUPHZrKdfDdWsCXQZAqR/ZRLCC7YWoIbT2vT4TgKyF4cBvk3rNs/tCczutygq+BufXuD3m2HpRq3YPDO/txbMZhFMBIF3me0erGex25MK5cC9pldMo3NzgdUnUqot/khNilYe/i9gwWnEU54FVegN9hYRy30bji/YNYewzLiz0LogdPY0nqSVW6bNvFR7V6sxAaVEJ6GvXNxtbsU9WYMxU3z8n7plS5wTZ4Va5/UrQ6dBPiy7pxtJDvDnbA9sqXIGa/F6v4dIcSTSUVG+bHymyw8ak=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(10070799003)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2FkRy92UkVxamtMVzNSSFl2bi8rcUs2T3F5a0U5TXROWEppMDlMSU92cUVC?=
- =?utf-8?B?YmRoaXFxTDk0bnQzUnZPclQ0OWdUWnJ5VFdLbTRwdEJyY05nSW5hMU1IditI?=
- =?utf-8?B?TFVYOHFteDRhNk1kR2hMTk9vbHA5K0RDeGJ6ckVuZnRnSysyWlRNSzRoQXFx?=
- =?utf-8?B?Z2hXQzNjRVgzYlEvRlQ2anZlR1JoUlJ1U041V3R0U3BoRXEzOFQrOWYxZHFw?=
- =?utf-8?B?MGd0bjkzSmtOc0k3MmhtQkd2ZmlVNWdMY3BCbUxObGwyR2E1UjJVN1NQSDlK?=
- =?utf-8?B?cWpwSnZLbFVIY0pseWdFSlpPdWZOZDVzcmtsc044SkRnTGtLY2dBUzB0aTdP?=
- =?utf-8?B?N2ZIamliS21PNGZLM3VnaVBQdktIdWhES0xxN05RdWlKWVNvZGpNRm96TGpH?=
- =?utf-8?B?Q1pCR1Y2bnhxWTVoMHh5TnFFa0srU05CQm9oOUxpZmQ5RHVRcndRZXNUVkZy?=
- =?utf-8?B?OS80eVpORlgyM3RFeHh3MmlGVldkOFdaYVdjVS95QU5kSVA0amVIV0NhNEt0?=
- =?utf-8?B?WnRINFlnVGwvMnVHY2MxaDZZUklMN0xiT1NobGhwaDFTdGlGRkxqS3VRR0Zy?=
- =?utf-8?B?YXBVc2tnVFhIU1dOYS9pUVhnazJGNUNNVW5IWWRUaVJWckxPbnZMemtpd0tY?=
- =?utf-8?B?dWw5Y0lJT0JuMjdvc3hPdVFSUTR2L3VHTCtLdWVtTFJWREYrRnVMUmhPYzlZ?=
- =?utf-8?B?MHpxMmg1QjZXU2p2K3pQM1Rtam5EOGNGVVBoSlRFSjhGYlR5TEc0Ni9sR1hX?=
- =?utf-8?B?Y2EzR1l0QWo1Umw0VjBSRzI1UmFqYlZZZW1sTlNLNVlObmt6WnM2cVU1SkVl?=
- =?utf-8?B?MjEvYkp3aWJkNUFGWHBVcFcrZWpZMFpYZXF4YSsrMU1YRE4yMURpajlucG1U?=
- =?utf-8?B?cjRod2tMOE56VlV4VC9YVCtJZ2hxZ01KaU03ZHlMMUtCTzErbXcvNEVFb3dQ?=
- =?utf-8?B?UDcyUHdkN2NldWYrbXJxRCtvd0JPZWFiUks5NWx1N3lBYzRHN0NzaEFER2dQ?=
- =?utf-8?B?SHdmTGUvelV6ZnpLL3FRdldsRGZYV0hISUQ0TW51SFpjQ1p0MzdTN1cwQm56?=
- =?utf-8?B?WDZnY2k0UEVZZjh3bzhkK3RBQ1Q2bzNFTHZWdWt3TVlILytSZmZCMWlUelpK?=
- =?utf-8?B?RjZVY1o2UjF5SUZpVVo4a0IrbXBzL2d4TFl0Vy90YTFHd0xIOVk3NmhZTU9T?=
- =?utf-8?B?Y1dpeEp2Y1IzZkdsdTNqQ3RPNlhRTDhJSmFPWHBnSGV0SmpLS3F5VmFpQ0xs?=
- =?utf-8?B?cWVZMUZUT0dqcXoyMXhZNEpBblZiZm5FZFVHenY0MVZMVk1LU2VDdnp3cEJr?=
- =?utf-8?B?Ujc1dzlzQkkzd3k3YWlXQzVVZEk3cVdmSEFQME9nN0ZWWVI1RnZaZVB2Z3BH?=
- =?utf-8?B?NjJuMWlXSithSzAxQkl3WER5aUI3VGZkQUhScUZ5WmNKMUZCaHJZUzVSK0VY?=
- =?utf-8?B?U0JrQ1pQMmdGS3FPNlhkRTdmSDdXUFRmZ2VleUZMZGFMVmpUTDhhczlZR0dw?=
- =?utf-8?B?eVVXbUJyWGlveXI1MUtqM21FWitHcVVpd2RMdVA2cjU3cDdmMkFCZWRYQW1X?=
- =?utf-8?B?aVgxMmlaeDhGcFh4V1llV2ZCSHQ5ZFA3WUQxMUU4ZWs5OVgzd3pqM1Q1N1JH?=
- =?utf-8?B?bWoxSmdVWURQZU9SR1BzOXZWcDNCRGl3WkhNUXRVVDNMd245dGl3Sy9OTU1T?=
- =?utf-8?B?NEsyUktQZTgxaW9HdDQ1K3FzWTJpQWFYb29KQmJ2ZU5UTUNuYklxeTgzU2ZI?=
- =?utf-8?B?VGlpUFlvTjQveUwvUnd1Y28wMzBoQVFmWEhRZmFZTVdBS1IxN09tWG0vaW04?=
- =?utf-8?B?VXo3TDF2ZkI4VzZGazdOS2w5eHYydTBPSDVlMlVzWnowMWNNUm9QemgrL0d5?=
- =?utf-8?B?dWMrV2J5d1Z1UldQbTB2N0ZacDNxUGF5UEdPU1JUT2xkaVBwNzBHWEhmcHhU?=
- =?utf-8?B?bXMrL3haMXFhYkNMWFdNU0tIS0dKd2pRR3NOT0dObXFpNTFqT3F0MjZIVW8x?=
- =?utf-8?B?aTFQZ3RhYVh5SUtKSXN4cHJ2S0luay9OR0JIVnBKV2ZWOU1IRXBPcklWSWZZ?=
- =?utf-8?B?OUdUc1lWMUFzMVhiNm5DSWZCZUVkRkhMSWVHSHhZNVdoUU5VNmRPY2Zhclpn?=
- =?utf-8?B?UlpTck1TWUduQkpXb2NBbi9sVGxlLzM2cXJXQktwSWdGZ0RQL1lJRDZFcDN4?=
- =?utf-8?B?VUZualUvVUd4WG96RlVOdjdDaUc0amRRUHIxWkh3eTFxWEV6ZnBTZ2I1KytB?=
- =?utf-8?B?UStwYmZHMzBraUc4TDF4VjBOd3JsU0IwN0JBV2lvT1YrY2JIYmtwK0p2TktN?=
- =?utf-8?B?R3NCY01NWlNiMFFBNHNPYloxUWNVc0pBTHM3V2N5bDlMTklXNHRWZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7db64cf-d3b6-4535-74cc-08def9607061
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 17:29:33.2006 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kTFdlGBDDfefmVtriqX9ZoD6czKYo0wqzBUbsBEFoMz4AssmEaEyQ5qmsqbApYEnC64l6S4JjDvh+iA3mSxRlg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6531
+Date: Thu, 13 Aug 2026 17:29:50 +0000
+Message-Id: <20260813172950.CB5211F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,72 +53,161 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Aug 10, 2026 at 10:29 AM BST, Alexandre Courbot wrote:
-> On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
->> Add a compile-time checked variant of `try_cast()` using the minimum siz=
-e
->> and alignment information.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->> ---
->>  rust/kernel/io.rs | 39 +++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 39 insertions(+)
->>
->> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
->> index a38c20ba3d23..adfc555de7d0 100644
->> --- a/rust/kernel/io.rs
->> +++ b/rust/kernel/io.rs
->> @@ -436,6 +436,45 @@ fn is_empty<T>(self) -> bool
->>          self.len() =3D=3D 0
->>      }
->> =20
->> +    /// Convert into a different typed I/O view.
->> +    ///
->> +    /// The target type must be known (statically) to be of the same or=
- smaller size to current
->> +    /// type, and the current view is properly aligned for the target t=
-ype.
->
-> grammar nit: s/is/must be.
->
->> +    ///
->> +    /// # Examples
->> +    ///
->> +    /// ```no_run
->> +    /// use kernel::io::{
->> +    ///     io_project,
->> +    ///     Mmio,
->> +    ///     Io,
->> +    ///     Region,
->> +    /// };
->> +    /// #[derive(FromBytes, IntoBytes)]
->> +    /// #[repr(C)]
->> +    /// struct MyStruct { field: u32, }
->> +    ///
->> +    /// # fn test(mmio: &Mmio<'_, Region<0x1000>>) {
->> +    /// // let mmio: Mmio<'_, Region>;
->
-> Should this be `Region<0x1000>`? Because as written the `cast` right
-> below wouldn't build since `Region::MIN_SIZE =3D=3D 0`.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] NULL pointer dereference in `kfd_profiler_pmc` due to TOCTOU race =
+with asynchronous wedge state.
+- [High] Concurrent GPU recovery races with wedge state application in `amd=
+gpu_job_timedout`, leading to PM counter underflow and broken bus master st=
+ate.
+- [High] Top-level ioctl wedge check blocks core DRM cleanup ioctls, leadin=
+g to kernel resource leaks.
+--
 
-Indeed, I forgot to update the comment after copying this from try_cast doc=
-.
+--- Patch [3]: [PATCH v2 3/5] drm/amdgpu: add wedge event implementation ---
+commit e3bfcebac5b33ee92580699914c3fa3365f9d94f
+Author: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: drm/amdgpu: add wedge event implementation
 
->
-> Also, looking at Sashiko's comment about `KnownSize` we should maybe
-> bite the bullet and make it unsafe? There was some talk about it [1] but
-> the reason why we kept it safe back then doesn't seem to protect us
-> here.
->
-> [1] https://lore.kernel.org/rust-for-linux/DGSDGDIVUHO0.P594H9B4LLO5@kern=
-el.org/
+This commit enables the drm wedge framework for amdgpu. When a hang is
+detected, the GPU isn't reset but pending fences are signalled and new
+work is blocked. Runtime PM is also disabled when the device is wedged.
 
-There isn't a way to create !Sized I/O regions safely right now, so I think
-everything is still okay. But making `KnownSize` unsafe sounds reasonable t=
-oo.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 0ab380ca7e645..399e935df7b29 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+[ ... ]
+> @@ -3006,10 +3006,15 @@ long amdgpu_drm_ioctl(struct file *filp,
+>  		      unsigned int cmd, unsigned long arg)
+>  {
+>  	struct drm_file *file_priv =3D filp->private_data;
+> +	struct amdgpu_device *adev;
+>  	struct drm_device *dev;
+>  	long ret;
+> =20
+>  	dev =3D file_priv->minor->dev;
+> +	adev =3D drm_to_adev(dev);
+> +	if (amdgpu_device_is_wedged(adev))
+> +		return -ENODEV;
+> +
 
-Best,
-Gary
+[Severity: High]
+Does this block core resource cleanup ioctls? By returning -ENODEV here,
+it bypasses drm_ioctl() entirely.=20
+
+If a Wayland compositor or X server tries to gracefully clean up a client's
+resources after a GPU hang, won't standard cleanup interfaces like
+DRM_IOCTL_GEM_CLOSE or DRM_IOCTL_SYNCOBJ_DESTROY fail and leak memory in
+the kernel?
+
+>  	ret =3D pm_runtime_get_sync(dev->dev);
+>  	if (ret < 0)
+>  		goto out;
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_job.c
+> index 43511e0419a12..41d083646da59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+[ ... ]
+> @@ -185,9 +186,35 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(s=
+truct drm_sched_job *s_job)
+>  		if (r)
+>  			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
+>  	} else {
+> -		drm_sched_suspend_timeout(&ring->sched);
+> -		if (amdgpu_sriov_vf(adev))
+> +		if (amdgpu_sriov_vf(adev)) {
+> +			drm_sched_suspend_timeout(&ring->sched);
+>  			adev->virt.tdr_debug =3D true;
+> +		} else {
+> +			struct drm_gpu_scheduler *sched;
+> +			struct amdgpu_fence *guilty_fence;
+> +
+> +			/* Declare the device as wedged if it's not already. */
+> +			if (!atomic_xchg(&adev->wedge_status, 1)) {
+> +				pm_runtime_get_sync(adev->dev);
+> +
+> +				pci_clear_master(adev->pdev);
+> +
+
+[Severity: High]
+Can this race with concurrent GPU recovery since it is not holding the
+adev->reset_domain->sem lock?
+
+If a user manually triggers a GPU reset concurrently, the reset thread in
+amdgpu_device_gpu_recover() could clear wedge_status to 0 and call
+pm_runtime_put_autosuspend().=20
+
+If this happens while amdgpu_job_timedout() is preempted before executing
+pm_runtime_get_sync(), will the PM usage count underflow?=20
+
+Furthermore, when amdgpu_job_timedout() resumes, won't it execute
+pci_clear_master() on the newly-recovered healthy GPU, breaking its state?
+
+> +				drm_dev_wedged_event(&adev->ddev, DRM_WEDGE_RECOVERY_REBIND |
+> +						DRM_WEDGE_RECOVERY_BUS_RESET, NULL);
+> +			}
+> +
+> +			guilty_fence =3D to_amdgpu_job(s_job)->hw_fence;
+
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_process.c
+> index 0a7c1900da959..544dc960833b2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+[ ... ]
+> @@ -2433,8 +2433,12 @@ struct kfd_process_device *kfd_process_device_data=
+_by_id(struct kfd_process *p,
+>  		for (i =3D 0; i < p->n_pdds; i++) {
+>  			struct kfd_process_device *pdd =3D p->pdds[i];
+> =20
+> -			if (pdd->user_gpu_id =3D=3D gpu_id)
+> +			if (pdd->user_gpu_id =3D=3D gpu_id) {
+> +				if (amdgpu_device_is_wedged(pdd->dev->adev))
+> +					return NULL;
+> +
+
+[Severity: High]
+Does returning NULL dynamically here introduce a TOCTOU race leading to a
+NULL pointer dereference?
+
+Looking at kfd_profiler_pmc() in kfd_chardev.c, it acquires the pdd pointer
+and immediately dereferences it without checking for NULL:
+
+drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:kfd_profiler_pmc() {
+    ...
+    mutex_lock(&p->mutex);
+    pdd =3D kfd_process_device_data_by_id(p, args->gpu_id);
+    dqm =3D pdd->dev->dqm;
+    mutex_unlock(&p->mutex);
+    ...
+}
+
+Since the device can enter the wedged state asynchronously on a job timeout,
+could this second call to kfd_process_device_data_by_id() return NULL and
+cause a kernel crash when pdd->dev is accessed?
+
+Additionally, does this abort unmapping loops and leak mappings on healthy
+GPUs?
+
+In kfd_ioctl_unmap_memory_from_gpu(), if kfd_process_device_data_by_id()
+returns NULL for a wedged GPU, the loop aborts and goes to=20
+get_mem_obj_from_handle_failed, leaking mappings on any subsequent healthy
+GPUs in the array.
+
+>  				return pdd;
+> +			}
+>  		}
+>  	}
+>  	return NULL;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813170705.1574=
+5-1-pierre-eric.pelloux-prayer@amd.com?part=3D3
