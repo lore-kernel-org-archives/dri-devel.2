@@ -4,81 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF5EC5DF70
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8A31C5DF74
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6406A10E1BC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A2510E2E3;
 	Sun, 16 Aug 2026 14:05:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A/wfYo8p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kBMZKeSb";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1A3E10E0EB
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 14:59:19 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-49954b88fffso22934185e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 07:59:19 -0700 (PDT)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76AF310E094
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:06:14 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2cc891373e0so20177465ad.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 12:06:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786805958; x=1787410758; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786734374; x=1787339174; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Wx5BkprMSKmCIjYgcc1kdDlxBMJZQro9c/22It8R+Vk=;
- b=A/wfYo8p8oJ2VuKLcH+2mZpWc2G5ZKFP33Nj/pJmLJxOIt5YHa0csU4ztF8R4k1phr
- BkTwMH/3vDGBw2TglCW5fSzRnkeLa4M4yKxTz8FNX6SPHv0LFZzE8LVpuFPhx69auDO7
- a/2fPLwpxtZHNgqBNhi9NxYO3oIpW39fwdwU+HpQKgt2udkRmx3gsq29a3FgiT9ytg3E
- 6DeVVLPQd/AMOoOBqs7sWl1B+rcWkRbDf+kn9tVjBbreU/lecgDPB2fD7/PiNkMR9tlb
- Fi+3+OzF2RD2uFJLYYEa/BGGsRa2n4G7qg1v9DcligixgFiMGfzUqQXVD+cngZfIY5zC
- QLCg==
+ bh=My7jF+YOkrbrcPXGk6Gqyp469SMTbOnsjBIhyRnuamA=;
+ b=kBMZKeSbHU6Yo462/5f471CH3FEeLuTXdbXmgkDBlAKFTS84ZpJVfvd3cMs95tWLcg
+ NBfK86qXAAwB1nhNu+g3kd2EIrcDlRTQH6tO9lFsr7uDdNE9VreAUC5hhYjtShBPBoQE
+ 0Kbix+vfX4leGvkjJBI4gVbDUKYWCqaZhkK+1NCdv3reUe5xUySlvvk3aZduvvVBx7Hm
+ 1XwmIBOH6rvBg7MG9arsr5YswEMAe5YXJUSVSIE6J6pZR1yV1Cx1NUY4sayVeq8luASo
+ 5yzaaZTQFiCRZBgkdrts/yWSOqlIOaYI49GRwYfm+m/8Dn0ucbEaDvJMHp/FeGRTf3cb
+ C4bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786805958; x=1787410758;
+ d=1e100.net; s=20251104; t=1786734374; x=1787339174;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Wx5BkprMSKmCIjYgcc1kdDlxBMJZQro9c/22It8R+Vk=;
- b=HVM0/C/1j6tTpCtk0/z8+r0ZiN5BJSblqcyTzsyMxqD3WEI3Zs0Pme5C8mVZrh92zs
- rN0wAWrTX1wHRJo82353mAPcV99zI1MX5DmTjYM/0IC3Wdos9OTU71LXWTn2ICG9Vcdb
- k7xE1J2ZlRbqWHHiCty5LtTjo72lCArBJLe8GvgOzaJbMoJ0NJcGQ+aTCvGphlZQ78Rv
- vtV6vgVd4nERYGl7jUNMgpdtOmo0iCQgjNOGjBx0CfrxhjGe7vACnUxrvAbKBP3xaW+F
- 7b73r7Uktu4VSeN2lacdQrpsWfhI01aTFNI+n22BTc66Vgqx5I+XNez++6tlH9Fi25yI
- iuSA==
+ bh=My7jF+YOkrbrcPXGk6Gqyp469SMTbOnsjBIhyRnuamA=;
+ b=S6S8ohUQj8Uyz+HwnNwliAuTtbYww4nKHw+Ev+Vc/ckizsIPzCFbk29H7Mx1SJVLu4
+ rs9QGru40+S/6yXtQVwobA4vc2UcSQ1zFR6/ogvJae5iphkxO+W43ILrQ75u7Y9Yiwbw
+ mHDHvsQNGReEaUvMo44OmcCIbLnar3HqkJDlM9TB6qO8qh+xsjkBQFW1VCLQEbmqVK8m
+ 4jUYEJCMdPd8FkMbjBTiLQD8KjRkg9jr3yULmm6sviLYcNi+n8dnDqm4zsytvrc8Tscn
+ D6XjlnuukUdCkyuECiJzdx5TQjIYiRk0osYiAkCXE2kPRbhrfofjes70RBqQAD/Vjdf0
+ M65Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpumWge69GWFtXg75UVaQyYxaVmmCgcN2lqpqaPTqTjUQkLPOfmJQWgIztdQnvUAnBGaGOHHXxt07A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzP+10lpQXa3yX5leup10TzBMfnsAtRzenJw4oBvM9uq935gjqf
- An45jLOOGH4NoG6AqtEKqRy5sarKZEOlOg/Wv2/PSVDEcxRgI31BoC05
-X-Gm-Gg: AR+sD13sFvt16CI1rtMnc3CCSM0N4kdr1Rutj/tQ2lH40sMvpRa0Mvf/+DvR8GaRr/r
- 5nvBU/11hrxEugOUUZ2sUiV8bW8aqu9Wnl7mWxl6dIxpZW9QZ0n86Xk1gapswGa9pYnFKHw7tk/
- /a79/2R9oyBM++XsSjwDaYenl9hYWny9rlvKSgLi5YrHz4bb1pFeBgJm5KY92uimOFRNOeCiYqU
- k1peN2WtL8umSDnLpSM8kL5xHMpWmIwlOVGJq9dHd4N35NrhGky1Bgrfh2+Sp8Kt8bMtwuDliGk
- sjSuqpMwdiIjb2Hb5V6CNTpdqpZoWs9wVbzrWf4NrJEDKppHY3mZvQvcPfHEM1gSRJvhqWwwR6Q
- af+UoPAbY5CjK7+sYuvziAi6A/juyH4fKfgLWeykFQjEUu1wiNFPhfxnXBtZxhi1hyYn9QMtGqH
- RoXfGiet8zNHk93c2IgEyRBuAB6ZYvberlQAfj9ykLZxrkqSWRyvBSByS/myfi0ysBpYWRMmcxK
- wGQpgGUb0WUzRmXAjIseLbjHKE1yDia8QsIISkc4o9lWVH6hzsJuPuHc7brDDuJT9DImUaSdq7P
- OTCP5kjzoxuy4imE4UcTH8+GN3kByO0zABHfHSVFms2bxeVLM2gia1gTLeKOIBnxazC2
-X-Received: by 2002:a05:600c:3485:b0:499:726a:a017 with SMTP id
- 5b1f17b1804b1-49987938e19mr207043855e9.1.1786805957923; 
- Sat, 15 Aug 2026 07:59:17 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-2a02-3100-aecb-d601-fc34-eb31-14a1-3704.310.pool.telefonica.de.
- [2a02:3100:aecb:d601:fc34:eb31:14a1:3704])
+ AHgh+RriuKBTtF7H/JIn6HeIgVc4BO1n7XCg/YJ+83hfmcP1PxI68SNIE5oW7Gl7hCr3jAnC+ShyO7ieCyw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMem5WMKQULmiIbB7AFZxiSUW/oMkZrKo6bNKesw+rfDXgfilY
+ HkMbHmoxLPywfuIKHTbAbB+AB8Hk7vYOX4B75jEh+8sUCaSx+6WjNG2skGrmcKfps6Y=
+X-Gm-Gg: AR+sD131QYgFz4uBq49P8TEp/wzDzQd74pBFdTIKjNCR92wIeLtgQmm61FA+LcOWAx5
+ /WC/NYZBDFNxEhRGwvC8KVJEwH3q5qVjywzFz+ork046GG5fmlskOoDfS8m9zTN19h3xJtNfj5C
+ 08P/+ZfkOCDywqwhyBUbhFqa5Floy0j/6PlW4/BA0qrEnbdJhLJ/9I9OT1qsZlkGnTz4kpnyfSJ
+ WO6FZW5m72wFnXbKbIL6lix4Da6nOvyNTD5jpm7ToHYpnKNjT320LNuQ2Ft9HUazBIbgVOtAYpN
+ 0GAe9w76iiAt2pVnyuI9yCt7G0rAwr4AHVDoCIDcDMvIP3ujxB1w1eY7kmR7m23DCGDEQ1Lofru
+ thwHaI1iuh9hF68ZvhPKEbgII0+1I+UaGFgiw+yyLzHsSN9nMa9eFxShzEKaM9esrbqY1t1UAWr
+ d8+pONNVnlgFnd8UfaxZ87y9bInPA7cLEtm+5UIHZ9OqdcpR2fExFnhDGDeHrWgiFRk2dcB8kxz
+ itHyp74AjbvcMGavSE0JMb2BjVKZZdOKI2emSjYYQk/n89Dt5vuCQKUY4zNcjIIboCUY1jcKN16
+ buZUmy2iTIigdg==
+X-Received: by 2002:a17:903:1965:b0:2c0:e5ee:f55e with SMTP id
+ d9443c01a7336-2d3b0db9f3cmr93241755ad.7.1786734373823; 
+ Fri, 14 Aug 2026 12:06:13 -0700 (PDT)
+Received: from localhost.localdomain ([2406:7400:94:ab62:887d:e555:df21:3318])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499899b5f86sm119605645e9.5.2026.08.15.07.59.16
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 15 Aug 2026 07:59:17 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Iago Toral Quiroga <itoral@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/v3d: Fix NULL pointer dereference in CPU job cleanup
-Date: Sat, 15 Aug 2026 16:59:14 +0200
-Message-Id: <20260815145914.84154-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+ 5a478bee46e88-320ea8fe3cdsm7109215eec.28.2026.08.14.12.06.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Aug 2026 12:06:13 -0700 (PDT)
+From: manushprajwal <manushprajwal555@gmail.com>
+To: Paul Kocialkowski <paulk@sys-base.io>
+Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ Manush Prajwal <manushprajwal555@gmail.com>
+Subject: Re: [PATCH] drm: logicvc: fix device_node refcount leak in
+ logicvc_layers_init()
+Date: Sat, 15 Aug 2026 00:35:57 +0530
+Message-ID: <20260814190557.987-1-manushprajwal555@gmail.com>
+X-Mailer: git-send-email 2.46.2.windows.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
@@ -97,61 +90,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-v3d_submit_cpu_ioctl() allocates cpu_job before initializing its embedded
-drm_sched_job. If extension parsing fails, no CPU job extension is
-supplied, or the BO count is invalid, it jumps to fail before
-v3d_job_init().
-v3d_job_cleanup() then calls drm_sched_job_cleanup() with a NULL s_fence,
-causing a NULL pointer dereference.
+From: Manush Prajwal <manushprajwal555@gmail.com>
 
-An empty DRM_IOCTL_V3D_SUBMIT_CPU (flags == 0) is sufficient to trigger it.
+Thanks for the review. I traced this through and the UAF is real,
+though it's independent of this patch, as noted:
 
-Deallocate the job and clear the pointer on these paths, matching the
-existing handling when v3d_job_init() fails.
+- logicvc_layer_init() embeds drm_plane in a devm_kzalloc()'d struct
+  and registers it with the unmanaged drm_universal_plane_init(), so
+  the plane stays linked into drm_dev->mode_config.plane_list.
+- On a later layer's init failure, logicvc_layers_init()'s error path
+  calls logicvc_layer_fini() on every already-succeeded layer, which
+  does list_del() + devm_kfree() immediately, but never calls
+  drm_plane_cleanup() first, so the freed layer's plane is still
+  linked in mode_config.plane_list.
+- drmm_mode_config_init() (drivers/gpu/drm/logicvc/logicvc_drm.c)
+  registers drm_mode_config_cleanup() as a drmm action tied to
+  drm_dev's own refcount, which is only dropped via
+  devm_drm_dev_alloc()'s devres release on the parent device, i.e.
+  later than the explicit devm_kfree() above, not before it.
+- So drm_mode_config_cleanup() later walks plane_list and dereferences
+  the already-freed layer/plane.
 
-v3d_job_deallocate() frees only the top-level job. If extension parsing
-already allocated query or indirect-CSD state, that state still leaks on
-these error paths, turning the former oops into a repeatable leak.
-Fixing this safely is more involved and beyond the scope of this fix. This
-patch therefore addresses only the crash.
+The same devm_kzalloc() plus unmanaged-DRM-object pattern exists in
+logicvc_crtc_init() and logicvc_interface_init(), so this looks
+driver-wide rather than layer-specific.
 
-Fixes: aafc1a2bea674 ("drm/v3d: Add a CPU job submission")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Tested on a Raspberry Pi 400: the unpatched kernel oopses on flags=0; with
-this patch the ioctl returns -EINVAL without an oops.
+That's a separate, pre-existing bug in the error-unwind path and out
+of scope for this one-line of_node_put() fix. A real fix would need
+either drm_plane_cleanup()/drm_encoder_cleanup()/drm_connector_cleanup()
+calls added to the _fini() helpers before devm_kfree(), or switching
+these to drmm-managed allocations. Happy to send that as a follow-up
+patch if there's interest.
 
- drivers/gpu/drm/v3d/v3d_submit.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index 7682b24f13ec5..304950ba42a38 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -1313,6 +1313,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 		ret = v3d_get_extensions(file_priv, args->extensions, &se, cpu_job);
- 		if (ret) {
- 			drm_dbg(dev, "Failed to get extensions.\n");
-+			v3d_job_deallocate((void *)&cpu_job);
- 			goto fail;
- 		}
- 	}
-@@ -1321,12 +1322,14 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	if (!cpu_job->job_type) {
- 		drm_dbg(dev, "CPU job must have a CPU job user extension.\n");
- 		ret = -EINVAL;
-+		v3d_job_deallocate((void *)&cpu_job);
- 		goto fail;
- 	}
- 
- 	if (args->bo_handle_count != cpu_job_bo_handle_count[cpu_job->job_type]) {
- 		drm_dbg(dev, "This CPU job was not submitted with the proper number of BOs.\n");
- 		ret = -EINVAL;
-+		v3d_job_deallocate((void *)&cpu_job);
- 		goto fail;
- 	}
- 
--- 
-2.53.0
+Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
