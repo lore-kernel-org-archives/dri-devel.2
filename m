@@ -4,87 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38370C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 20:33:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C50DFC5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 20:36:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0200D10E5A2;
-	Fri, 14 Aug 2026 20:33:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 849DF10E5A6;
+	Fri, 14 Aug 2026 20:36:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZTgKjOr3";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="cmE01wu/";
 	dkim-atps=neutral
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04E0610E5A2
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 20:33:57 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-836d2861a39so17255237b3.2
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:33:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786739636; cv=none;
- d=google.com; s=arc-20260327;
- b=hclJ5XwwpEAfdxSqNe1d9vwva3JBzd0teHDeK/TuJiOvFqMVAhnd5Hk7S4peK6WjO6
- fZJeaduL1uWl9hS3CGZRwmuTNvczFmTfbsQdEwtmfpiwvK0aJk4TccNAOxKAO0szucqx
- Js9c6ZHkalbgLw1oLYxcIwio9DMR8jjhdjPBgd+eQrlYApomf6QOKbGSr1Xtm6tniOvl
- OL/udhsjcSl/z/KYn24an9/Hu7hv0mlGy4tjZQJMqHXAti7IVvGaJ1h8jB/CXUIsMgHu
- qNmUiaNw0kBMR2McyvyYkwk2L0MUOcoqh6uTQaOWmVF8/CHwf25FP0hJRoycFwZJAad0
- gz0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=DRklc4VkirG7wS5FHk1iGLejFbrPzNHMCuQKtPTQUuc=;
- fh=jB4zzpG4RiBzEqyCtcurCOYtGi/xRIni7Dp2F8WM78o=;
- b=cNKKOKIc44RYdpoMI968gYtLX3QaEnzLu4nzdGT7zcTqYjXjVwdkCpBXpggLUCdf7o
- jIuyi+hkcUDQ43gvVnced+ZiKtJLKu6LlcoMTx2L2oTkzjZO1CIZjldk9T3S0Cg3NusL
- 8lfkNBt0gYWOdWSS9pXkpWTDxCKPT7lPtHz9f/Pnots4EieGnkkF5nGnKXldqZ2vYEhF
- kTJrmrE5Quz92F/uN0/jAlbAJe9IOYIvYyOnEW/JTbwhvWG33w9Cj1cFz4mKyxe+Ef8s
- mR4jsnoOHHj5Bkyk6ygQniA0gUSEItsfGaNYgkMXwMoUlKeK+yRhpHjjUb8ivR7Gc3Si
- qN1g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786739636; x=1787344436; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=DRklc4VkirG7wS5FHk1iGLejFbrPzNHMCuQKtPTQUuc=;
- b=ZTgKjOr3TeQ75cNU9u0B7JDyvTMIZvco7sqeTNCs2z/oQnFIZr27m5tK88gwAHERZC
- ugtnjcDcNhKQgAgnpWrIJCf0HVdRjtHyYWLVwIndRQoVs7YU4YYuouzrqpMpBn+ZdJoQ
- SER01Yl16ACFNhc9Rj8QzycuSuyfWK4WL5DjluCb9fUReP1kK3lqaWcV4Vc9oiVuus+f
- +Kk93bTFnXaIYGk/CfC+rgCmRbrFXs7f7mXRjdmgTDk32HBlhHvPApr9KksDcXLkZ7la
- riD0r/a2TgDukoxChPVuwIGtK81FStYqZxk/cVXtJsF2i1J4iuQzUTBW3kv3kjRbRq1e
- bvCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786739636; x=1787344436;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=DRklc4VkirG7wS5FHk1iGLejFbrPzNHMCuQKtPTQUuc=;
- b=BlYIMO2n7CV/JXZHtOJnF4aWBXt2NtLZcOMg5wdpj4nJm8AB/62ViQmYM1v3LzH1tg
- bDjQASugQMXxtM53Fi6VBuVRT7SwQnaa3kaZTcyCVQgwx4LqpHmUBZ2XLqriLVfB88Q9
- uCsfQjq7J9tpZhVmNXJG3Y98NZkL2lHhGGmPtKxRGhyuYgHLzeif+8txc34XRakcdarG
- VqPeTb3oiul7KWP+/vGsQAbBvjOmK3UWj2Mua2v0qHK3Ua45e9SK/KIICGofK8XG/w2X
- a+hSL6JhycKXwbndVWodJYYNJ0/UaFlEH7ubCckEnEPVVov8dhPzGmJn2wkRnFzBld6R
- pacQ==
-X-Gm-Message-State: AOJu0YwRYjO60M/qxa1qoE390pUjKEhlyIRm9i4UDrO14kcORc17M0EU
- kVmdv16LdM/fzJ58veKy4YSwkuB6+knGNgQBu7ierxAAnUQFsHXWU23GUmLxYFnodeLR89E7/47
- kXtqyV1psJAeM2RlM2KVqbiUsTY/JRow=
-X-Gm-Gg: AR+sD12+0FksLbg3D04/H1Yo71Op27/2Zz+7kojC29a9aRQQEcB5UvZRYie6SB1Qk6M
- CybQ/MWaF4VvofdANucTDDMzjKERsIUpnakoWCmaAM/GndA2JvRut9RU+kRt6MczBtCtpjif5eH
- cyIGXPEyKoxmUkHFiPenKYkW5uVqXDu2jusp5/BzFIRbh+Ya0qBhFOKrdt0LKIwlSW/ytFb0xg2
- EJPqEK2mhsqw+Z0Hje/BUAVJOBhp/KafyLO+aFetKh/PTSrwnYDIPXkxlxiiKEpNkEHAFsRFV6L
- C5nEeldDarr1ySUa5/AC6N36pmgURkZW5sBSgLN9oNZSZU/4U66llWk2w2FTupDLxMGSzJ2QRk1
- EYKAPTiKmlM/Ji5TY5uFuaKYD9PGLUQ==
-X-Received: by 2002:a05:690c:56c9:b0:820:b89:52c6 with SMTP id
- 00721157ae682-83714dd414cmr30945107b3.33.1786739635909; Fri, 14 Aug 2026
- 13:33:55 -0700 (PDT)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6F310E5A7
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 20:36:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786739761;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=XmXy8TGZMtUdUflzhbcwpO5PBzlQNsR1Xi5VVFI9N3E=;
+ b=cmE01wu/y3fIwPnf+28+A3f615QjoCXrZ38KP8nhBUNv8vp79CBxsxY8ckaWQ5iLmc7mtS
+ Am9NzlijryLZKC4KPfFYs0pMcxAQ2VT83f84qoV3BaZutpkCT2W8kSnmWnQ02skm1ijrC0
+ cv1zbV4nE9WWiQajyNE26lC1gpdMtH8=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-500-zePa_GbsMtmTsuH5SevbYw-1; Fri,
+ 14 Aug 2026 16:35:54 -0400
+X-MC-Unique: zePa_GbsMtmTsuH5SevbYw-1
+X-Mimecast-MFC-AGG-ID: zePa_GbsMtmTsuH5SevbYw_1786739751
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id D6B6219560AE; Fri, 14 Aug 2026 20:35:49 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.64.233])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 02CAB197750F; Fri, 14 Aug 2026 20:35:44 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ nouveau@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ asahi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ linux-aspeed@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ imx@lists.linux.dev
+Subject: [PATCH 0/5] drm/vblank: Enforce all-or-nothing vblank support
+Date: Fri, 14 Aug 2026 16:35:28 -0400
+Message-ID: <20260814203542.1405135-1-lyude@redhat.com>
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 15 Aug 2026 06:33:44 +1000
-X-Gm-Features: AcwNN1WapWFJ-TOJxWOWRbZyvzpC_rcOnaLEiYI_TvRxqQBxECIIgfUPkkC--6E
-Message-ID: <CAPM=9tz9+VhERCnDCCiFw3_FF_-C5ygQMUVQTcozjwdVRS7Ppw@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.2 final
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: uxw0v163-G1HXIkgYBFXvTouim-8r_PHWX12YLQ_dSc_1786739751
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,278 +79,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus
+One of the oddities with DRM that is leftover from the old days is how
+vblank support is implemented by drivers. This has caused some minor
+issues for the rust bindings for KMS which could be worked around.
+However, it seems like a much better idea to fix this on the C side.
+Those oddities are mainly:
 
-While this is large for rc8 time but also AI driven fixes is a lot of
-it, we had a more traditional screw up, and a regression was just
-found in the fair scheduling patches that went in back in rc1. This
-reverts the fair scheduler back to an option and sets the default back
-to what it should have been. We might have been a bit overly zealous
-in switching over, but at least it feels more normal than the AI
-driven fixes.
+* There's nothing in the vblank core that actually ensures that all
+  CRTCs implement vblank support if one of them do. On Rust's side, we
+  can't have this and have to ensure either the whole device has vblank
+  support or not - otherwise it would be quite painful ensuring we don't
+  expose vblank methods to drivers that can't use them.
+  This additionally means such a situation would lead to UB.
+* There is a second variable for keeping track of the number of CRTCs
+  and it's kind of broken and confusing. Even worse, we currently allow
+  the vblank API to allow a driver to specify a different number of
+  CRTCs then it actually has.
 
-Apart from the scheduler, it's mostly amdgpu and xe fixes, with some
-misc fixes to the log code and connector code.
+So, let's just go ahead and fix this across the whole tree, and enforce
+that a driver must either implement hardware vblank support for all
+CRTCs or no CRTCs.
 
-Dave
+Lyude Paul (5):
+  drm/vblank: Add drm_device.has_hw_vblank
+  drm/vblank: Remove drm->num_crtcs
+  drm/vblank: Remove num_crtcs argument from drm_vblank_init()
+  drm/vblank: Use drm_for_each_crtc() in drm_vblank_init()
+  drm/vblank: Require all CRTCs implement vblank support in
+    drm_vblank_init()
 
-drm-fixes-2026-08-15:
-drm fixes for 7.2 final:
+ drivers/gpu/drm/adp/adp_drv.c                 |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.c   |  2 +-
+ drivers/gpu/drm/arm/hdlcd_drv.c               |  2 +-
+ drivers/gpu/drm/arm/malidp_drv.c              |  2 +-
+ drivers/gpu/drm/armada/armada_drv.c           |  2 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |  2 +-
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  2 +-
+ drivers/gpu/drm/drm_vblank.c                  | 60 ++++++++++++-------
+ drivers/gpu/drm/exynos/exynos_drm_drv.c       |  2 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |  2 +-
+ drivers/gpu/drm/gma500/psb_drv.c              |  2 +-
+ drivers/gpu/drm/gma500/psb_irq.c              |  4 +-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  2 +-
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |  2 +-
+ .../drm/i915/display/intel_display_driver.c   |  3 +-
+ drivers/gpu/drm/imx/dc/dc-kms.c               |  2 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c           |  2 +-
+ drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |  2 +-
+ drivers/gpu/drm/imx/lcdc/imx-lcdc.c           |  2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  2 +-
+ drivers/gpu/drm/kmb/kmb_drv.c                 |  2 +-
+ drivers/gpu/drm/logicvc/logicvc_mode.c        |  2 +-
+ drivers/gpu/drm/loongson/lsdc_drv.c           |  2 +-
+ drivers/gpu/drm/mcde/mcde_drv.c               |  2 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  2 +-
+ drivers/gpu/drm/meson/meson_drv.c             |  2 +-
+ drivers/gpu/drm/msm/msm_kms.c                 |  2 +-
+ drivers/gpu/drm/mxsfb/lcdif_drv.c             |  2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c             |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_display.c     |  2 +-
+ drivers/gpu/drm/omapdrm/omap_drv.c            |  2 +-
+ drivers/gpu/drm/pl111/pl111_drv.c             |  2 +-
+ drivers/gpu/drm/qxl/qxl_display.c             |  2 +-
+ drivers/gpu/drm/radeon/atombios_crtc.c        |  4 +-
+ drivers/gpu/drm/radeon/radeon_irq_kms.c       |  2 +-
+ drivers/gpu/drm/radeon/radeon_legacy_crtc.c   |  4 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |  2 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c  |  2 +-
+ .../gpu/drm/renesas/shmobile/shmob_drm_drv.c  |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  2 +-
+ drivers/gpu/drm/sprd/sprd_drm.c               |  2 +-
+ drivers/gpu/drm/sti/sti_compositor.c          |  2 +-
+ drivers/gpu/drm/stm/ltdc.c                    |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |  2 +-
+ drivers/gpu/drm/tegra/drm.c                   |  2 +-
+ drivers/gpu/drm/tidss/tidss_kms.c             |  2 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |  2 +-
+ drivers/gpu/drm/tiny/bochs.c                  |  2 +-
+ drivers/gpu/drm/tiny/cirrus-qemu.c            |  2 +-
+ drivers/gpu/drm/tve200/tve200_drv.c           |  2 +-
+ drivers/gpu/drm/vc4/vc4_kms.c                 |  6 +-
+ drivers/gpu/drm/verisilicon/vs_drm.c          |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_display.c      |  2 +-
+ drivers/gpu/drm/vkms/vkms_drv.c               |  3 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c          |  2 +-
+ drivers/gpu/drm/xlnx/zynqmp_kms.c             |  2 +-
+ include/drm/drm_device.h                      | 10 +++-
+ include/drm/drm_vblank.h                      |  2 +-
+ 64 files changed, 114 insertions(+), 92 deletions(-)
 
-scheduler:
-- revert fair scheduler patches due to regression
-- mark fair as experimental
 
-connector:
-- fix OOB read in hdmi audio infoframe
+base-commit: 568d4cb5dcc5ec4e22975699b6ea67a30806884c
+-- 
+2.55.0
 
-log:
-- fix divide by 0 if module param is set to 0
-- fix OOB read on empty message
-- fix infinite loop for too large scale
-
-xe:
-- Fix DPT Allocation paths
-- Fixes around UM queue BO
-- Order ring writes before ring tail updates
-- Add termination on resume for PXP
-- Document Sentinel and make CTX_TIMESTAMP read TOCTOU-safe
-- Fix sync entry leak on OA config emit failure
-- Check managed mutex initilization errors
-- Fix min frequency setting
-- Fix xe_device_probe error path
-
-amdgpu:
-- Bounds checking fix in CS IOCTL
-- Bounds checking fix in GEM IOCTL
-- Display fixes
-- GPUVM fix
-- ASPM fix
-- UVD bounds checking fixes
-- VCE 3 fix
-- BT.2020 fixes
-- NBIF 6.3.1 fix
-- IP discovery fix
-
-radeon:
-- Runtime pm fix
-
-amdxdna:
-- skip attempting to populate unmapped pages
-The following changes since commit db2ddb87143519e20a95aa36c60b36107b736a58:
-
-  Linux 7.2-rc7 (2026-08-09 14:54:50 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-08-15
-
-for you to fetch changes up to b2601e783a2e54f6963d65f0d94f96d96c146a3a:
-
-  Merge tag 'drm-xe-fixes-2026-08-13' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-(2026-08-14 15:41:40 +1000)
-
-----------------------------------------------------------------
-drm fixes for 7.2 final:
-
-scheduler:
-- revert fair scheduler patches due to regression
-- mark fair as experimental
-
-connector:
-- fix OOB read in hdmi audio infoframe
-
-log:
-- fix divide by 0 if module param is set to 0
-- fix OOB read on empty message
-- fix infinite loop for too large scale
-
-xe:
-- Fix DPT Allocation paths
-- Fixes around UM queue BO
-- Order ring writes before ring tail updates
-- Add termination on resume for PXP
-- Document Sentinel and make CTX_TIMESTAMP read TOCTOU-safe
-- Fix sync entry leak on OA config emit failure
-- Check managed mutex initilization errors
-- Fix min frequency setting
-- Fix xe_device_probe error path
-
-amdgpu:
-- Bounds checking fix in CS IOCTL
-- Bounds checking fix in GEM IOCTL
-- Display fixes
-- GPUVM fix
-- ASPM fix
-- UVD bounds checking fixes
-- VCE 3 fix
-- BT.2020 fixes
-- NBIF 6.3.1 fix
-- IP discovery fix
-
-radeon:
-- Runtime pm fix
-
-amdxdna:
-- skip attempting to populate unmapped pages
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu: fix missing check in vm_flush()
-
-Candice Li (1):
-      drm/amdgpu: validate GEM_CREATE domain combinations
-
-Daniele Ceraolo Spurio (1):
-      drm/xe/pxp: add termination on resume
-
-Dave Airlie (3):
-      Merge tag 'amd-drm-fixes-7.2-2026-08-12' of
-https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
-      Merge tag 'drm-misc-fixes-2026-08-13' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-      Merge tag 'drm-xe-fixes-2026-08-13' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-
-David Rosca (6):
-      drm/amdgpu: Reject UVD message with dimensions above 4096
-      drm/amdgpu: Fix UVD dpb min size calculation for H264
-      drm/amdgpu: Fix UVD decode image min size calculation
-      drm/amdgpu: Fix UVD min buffer sizes
-      drm/amdgpu: Implement insert_end for VCE 3
-      drm/amdgpu: Reject UVD message with invalid number of h265 refs
-
-Gajendra Uttamchand (1):
-      drm/xe/lrc: document sentinel and make CTX_TIMESTAMP read TOCTOU-safe
-
-Guangshuo Li (1):
-      drm/radeon: fix autosuspend cleanup during teardown
-
-Jia Yao (3):
-      drm/xe/guc_ads: allocate UM queues in a separate BO
-      drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
-      drm/xe/guc_ads: use uncached mapping for UM queue BO
-
-John Harrison (1):
-      drm/connector/hdmi: Fix out of bounds memory read
-
-Junrui Luo (1):
-      drm/amdgpu: disallow multiple FENCE chunks in one submit
-
-Lijo Lazar (1):
-      drm/amdgpu: Prefer default discovery offset
-
-Linmao Li (2):
-      drm/xe/oa: Fix sync entry leak on OA config emit failure
-      drm/xe/oa: Check managed mutex initialization errors
-
-Lizhi Hou (1):
-      accel/amdxdna: Skip unmapped range in aie2_populate_range()
-
-Maarten Lankhorst (2):
-      Merge remote-tracking branch 'drm/drm-fixes' into drm-misc-fixes
-      drm/xe: Fix DPT allocation paths.
-
-Matthew Brost (1):
-      drm/xe: Order ring writes before ring tail updates
-
-Nathan Lucas (2):
-      drm/amd/display: fix BT.2020 YCbCr limited output CSC matrix
-      drm/amd/display: fix BT.2020 YCbCr output CSC matrices for DCE
-
-Raag Jadav (1):
-      drm/xe: Fix xe_device_probe() failure
-
-Samuel Pitoiset (1):
-      drm/amd/display: Fix NULL pointer dereference in
-amdgpu_dm_crtc_set_vblank()
-
-Shixiong Ou (3):
-      drm/log: Fix division by zero when scale module parameter is 0
-      drm/log: Fix out-of-bounds read on empty message length
-      drm/log: Fix infinite loop when scale is too large for display
-
-Tvrtko Ursulin (19):
-      Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
-      Revert "drm/xe: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/v3d: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/sched: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/panthor: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/panfrost: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/nouveau: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/msm: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/lima: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/imagination: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/etnaviv: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/amdgpu: Remove drm_sched_init_args->num_rqs usage"
-      Revert "accel/ethosu: Remove drm_sched_init_args->num_rqs usage"
-      Revert "accel/rocket: Remove drm_sched_init_args->num_rqs usage"
-      Revert "accel/amdxdna: Remove drm_sched_init_args->num_rqs usage"
-      Revert "drm/sched: Embed run queue singleton into the scheduler"
-      Revert "drm/sched: Remove FIFO and RR and simplify to a single run queue"
-      Revert "drm/sched: Switch default policy to fair"
-      drm/sched: Mark fair policy as experimental
-
-Vinay Belgaumkar (1):
-      drm/xe: Fix a bug in pc_adjust_freq_bounds()
-
-Yang Wang (2):
-      drm/amdgpu: check ASPM on the dGPU host link
-      drm/amdgpu: fix nbif 6.3.1 l1 low power not functional
-
- drivers/accel/amdxdna/aie2_ctx.c                   |  17 +++
- drivers/accel/ethosu/ethosu_job.c                  |   1 +
- drivers/accel/rocket/rocket_job.c                  |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  51 ++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  13 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |  21 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  27 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h            |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h          |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |  85 +++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c        |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c            |   8 +-
- drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c           |  42 +++---
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c              |  26 +++-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |   2 +-
- .../gpu/drm/amd/display/dc/core/dc_hw_sequencer.c  |  31 ++--
- drivers/gpu/drm/amd/display/dc/dce/dce_transform.c |   7 +-
- .../drm/amd/display/dc/dce110/dce110_opp_csc_v.c   |   7 +-
- drivers/gpu/drm/clients/drm_log.c                  |  12 ++
- drivers/gpu/drm/display/drm_hdmi_state_helper.c    |   3 +-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c            |   1 +
- drivers/gpu/drm/imagination/pvr_queue.c            |   1 +
- drivers/gpu/drm/lima/lima_sched.c                  |   1 +
- drivers/gpu/drm/msm/msm_gem_vma.c                  |   1 +
- drivers/gpu/drm/msm/msm_ringbuffer.c               |   1 +
- drivers/gpu/drm/nouveau/nouveau_sched.c            |   1 +
- drivers/gpu/drm/panfrost/panfrost_job.c            |   1 +
- drivers/gpu/drm/panthor/panthor_mmu.c              |   1 +
- drivers/gpu/drm/panthor/panthor_sched.c            |   1 +
- drivers/gpu/drm/radeon/radeon_kms.c                |   1 +
- drivers/gpu/drm/scheduler/sched_entity.c           |  52 +++++--
- drivers/gpu/drm/scheduler/sched_fence.c            |   2 +-
- drivers/gpu/drm/scheduler/sched_internal.h         |  15 +-
- drivers/gpu/drm/scheduler/sched_main.c             | 121 +++++++++++++--
- drivers/gpu/drm/scheduler/sched_rq.c               |  89 +++++++----
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c   |   1 +
- drivers/gpu/drm/v3d/v3d_sched.c                    |   1 +
- drivers/gpu/drm/xe/display/xe_fb_pin.c             |  33 +----
- drivers/gpu/drm/xe/xe_bo.h                         |  14 ++
- drivers/gpu/drm/xe/xe_dep_scheduler.c              |   1 +
- drivers/gpu/drm/xe/xe_device.c                     |   6 +-
- drivers/gpu/drm/xe/xe_execlist.c                   |   1 +
- drivers/gpu/drm/xe/xe_gpu_scheduler.c              |   1 +
- drivers/gpu/drm/xe/xe_guc_ads.c                    |  93 ++++++++----
- drivers/gpu/drm/xe/xe_guc_ads_types.h              |   5 +
- drivers/gpu/drm/xe/xe_guc_pc.c                     |  13 +-
- drivers/gpu/drm/xe/xe_lrc.c                        |  29 +++-
- drivers/gpu/drm/xe/xe_lrc.h                        |   7 +
- drivers/gpu/drm/xe/xe_oa.c                         |  13 +-
- drivers/gpu/drm/xe/xe_pxp.c                        | 162 +++++++++++++++------
- drivers/gpu/drm/xe/xe_pxp_types.h                  |  27 +++-
- include/drm/gpu_scheduler.h                        |  42 +++++-
- 54 files changed, 790 insertions(+), 336 deletions(-)
