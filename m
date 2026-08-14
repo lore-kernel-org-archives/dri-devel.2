@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBF7BC5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 16:55:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E4BFC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 16:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 201EC10F541;
-	Fri, 14 Aug 2026 16:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB5210F6A5;
+	Fri, 14 Aug 2026 16:55:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d2lakXMZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OLT/dFSo";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D60DB10F541
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 16:55:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0527F10F6A5
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 16:55:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0E4F560008;
- Fri, 14 Aug 2026 16:55:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905321F000E9;
- Fri, 14 Aug 2026 16:55:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8F59C402D3;
+ Fri, 14 Aug 2026 16:55:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4864C1F00A3F;
+ Fri, 14 Aug 2026 16:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786726505;
- bh=G7l1auKCNKjVPUgApFFgCCnEVtxb8+vNXCKiXUWt0C4=;
+ s=k20260515; t=1786726521;
+ bh=bRShyHY6w3caeXzLVH632K1d5O7SWTeIyB++6kncZqY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=d2lakXMZHs5K6oteLLExONYLxmVyTQvH/O2r5iRWDUUsBy38OYDtVm4Mt6ngyS37N
- jVVgu8N10fpCV7xSPlmsJjrmyI7DNKRLQrM8mvcLFAEc81V29fh+NdtlLtXVc2R+V+
- 0Q8orBXFq4mA84BJcD0nT3uMoPVnT7oSbhwvEhu/co9EORYntp4ynEHuw4cmB3woyH
- r4dSVITN0UXb6xPeR34rSRedswzmkThLdixqaccsONeO6NcXebMwOwd+l4fwAzWnbZ
- X2iIFVc/bdgBxQZbG0w8fO12LN4/s7veHBktriY6CRJ7wASxGGQ5Ka1ooCAMZtVFHB
- lDpxntDdFABcA==
+ b=OLT/dFSotzVZCRCda0ZbYgkrUnrrp0nhKLENQUWzGx+AXNe8vSl3W4LW79gV95p0C
+ JVPdQfLT0uy1NT3jNd2mFrNgWyBDFq/FecJpvy+zAuUoNKMNfFJNiZNSF00JNpApXr
+ ydlm3487KVUGOrsC+iWcwg01ZMWvEXBgWyJubgEiFRuazF2cwZJyoE97B5igiqqia3
+ 1is+DSyh1CfdRw2RXMU1slTFlT0XmLPcl8WjEtFs74GVg8rxqVCvz0Y/RWmDzV0VND
+ F4aNUDN3VE0Os2kjl6oB2NBkLjoaF4ZGLzDh6Kgp7GnDbeShZl2igo2fPovomJTFsi
+ svJ2DRexdAL7g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/4] drm/amd/display: Add 2.1 FreeSync support for
- AMD VSDB EDID Block
+Subject: Re: [PATCH v4 3/4] drm/amd/display: Add HDMI 2.1 VRR support from
+ HF-VSDB
 To: "Fangzhi Zuo" <jerry.zuo@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814164344.3098143-2-jerry.zuo@amd.com>
+In-Reply-To: <20260814164344.3098143-4-jerry.zuo@amd.com>
 References: <20260811003921.1398292-1-jerry.zuo@amd.com>
  <20260814164344.3098143-1-jerry.zuo@amd.com>
- <20260814164344.3098143-2-jerry.zuo@amd.com>
+ <20260814164344.3098143-4-jerry.zuo@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 16:55:05 +0000
-Message-Id: <20260814165505.905321F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 16:55:20 +0000
+Message-Id: <20260814165521.4864C1F00A3F@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,79 +61,142 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The VTEM info packet incorrectly overwrites the AMD FreeSync (SPD)=
- info packet in the local `vrr_infopacket` variable, causing the FreeSync m=
-etadata to be lost and the VTEM packet to be programmed into the wrong hard=
-ware slot.
-- [High] Unsafe dereference of the deprecated `new_stream->sink` pointer wi=
-thout a NULL check inside a spinlock, risking a kernel panic and system dea=
-dlock.
+
+New issues:
+- [High] The HF-VSDB VRR fallback is negated for HDMI TMDS connections due =
+to a pre-existing AMD FreeSync MCCS check resetting `freesync_capable` to `=
+false`.
+
+Pre-existing issues:
+- [High] The highest refresh rate mode cache (`freesync_vid_base`) is never=
+ invalidated across hotplugs, corrupting `max_vfreq` calculations for subse=
+quently connected displays.
 --
 
---- Patch [1]: [PATCH v4 1/4] drm/amd/display: Add 2.1 FreeSync support for=
- AMD VSDB EDID Block ---
-commit ac51682620be921a897de496468475a6c9820661
-Author: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Subject: drm/amd/display: Add 2.1 FreeSync support for AMD VSDB EDID Block
+--- Patch [3]: [PATCH v4 3/4] drm/amd/display: Add HDMI 2.1 VRR support fro=
+m HF-VSDB ---
+commit cf4d7fc4ac615fcafd91467c91d4c4582773cd6b
+Author: Fangzhi Zuo <jerry.zuo@amd.com>
 
-This commit adds HDMI 2.1 FreeSync support by parsing the AMD VSDB for HDMI
-FRL signals. It updates the FreeSync capabilities and introduces a function=
- to
-build and send the VTEM info packet during the freesync state update.
+drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b=
-/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+This commit updates the FreeSync capabilities logic to fall back to the
+HDMI 2.1 VRR range parsed from the HF-VSDB when the AMD VSDB does not
+provide a valid range.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index 9eaa20ec528ec..2fe7bfb1e88f7 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+
 [ ... ]
-> @@ -229,6 +230,9 @@ void amdgpu_dm_update_freesync_state_on_stream(
->  		&vrr_infopacket,
->  		pack_sdp_v1_3);
-> =20
-> +	if (new_stream->sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_FRL)
+
+> @@ -3856,6 +3865,59 @@ void amdgpu_dm_update_freesync_caps(struct drm_con=
+nector *connector,
+>  				connector->display_info.monitor_range.max_vfreq =3D vsdb_info.max_re=
+fresh_rate_hz;
+>  			}
+>  		}
+> +
+> +		drm_dbg_driver(adev_to_drm(adev),
+> +			       "VRR: amd_vsdb i=3D%d fs_sup=3D%d min=3D%d max=3D%d fs_capable=
+=3D%d\n",
+> +			       i, vsdb_info.freesync_supported,
+> +			       vsdb_info.min_refresh_rate_hz,
+> +			       vsdb_info.max_refresh_rate_hz, freesync_capable);
+> +
+> +		/*
+> +		 * If AMD VSDB didn't provide a valid FreeSync range, fall back to
+> +		 * the HDMI 2.1 VRR capability parsed from the HF-VSDB.
+> +		 */
+> +		if (!freesync_capable && connector->display_info.hdmi.vrr_cap.supporte=
+d) {
+> +			struct drm_hdmi_vrr_cap *vrr_cap =3D
+> +				&connector->display_info.hdmi.vrr_cap;
+> +
+> +			drm_dbg_driver(adev_to_drm(adev),
+> +				       "VRR: HF-VSDB fallback: hdmi_vrr=3D1 vrr_cap[sup=3D%d min=3D%=
+d max=3D%d] mrange_max=3D%d\n",
+> +				       vrr_cap->supported, vrr_cap->vrr_min, vrr_cap->vrr_max,
+> +				       connector->display_info.monitor_range.max_vfreq);
+> +
+> +			if (vrr_cap->supported && vrr_cap->vrr_min > 0) {
+> +				amdgpu_dm_connector->min_vfreq =3D vrr_cap->vrr_min;
+> +				amdgpu_dm_connector->max_vfreq =3D vrr_cap->vrr_max ?
+> +					vrr_cap->vrr_max :
+> +					connector->display_info.monitor_range.max_vfreq;
+> +
+> +				/*
+> +				 * VRRMAX =3D 0 in the HF-VSDB means "up to the Base
+> +				 * Refresh Rate". If the EDID also did not provide a
+> +				 * monitor range max, fall back to the Base Refresh
+> +				 * Rate (the highest refresh rate of the preferred
+> +				 * timing) so a valid VRR range is still reported to
+> +				 * userspace.
+> +				 */
+> +				if (!amdgpu_dm_connector->max_vfreq) {
+> +					struct drm_display_mode *brr_mode =3D
+> +						amdgpu_dm_get_highest_refresh_rate_mode(amdgpu_dm_connector, true);
 
 [Severity: High]
-Is it possible for new_stream->sink to be NULL here?
+This is a pre-existing issue, but does amdgpu_dm_get_highest_refresh_rate_m=
+ode()
+return stale data across hotplugs?
 
-Existing KUnit tests like dm_test_update_freesync_state_default_packet()
-allocate dummy streams with a NULL sink. Phantom streams or writeback setups
-can also have a NULL sink.
+It appears aconnector->freesync_vid_base is never cleared on hotplug:
 
-Since this check occurs inside the event_lock spinlock, would a NULL sink
-cause a kernel panic and a system deadlock? Would it be safer to verify
-new_stream->sink is not NULL before dereferencing it, or use the already
-available new_stream->signal instead?
-
-> +		mod_build_infopacket_vtem(new_stream, &vrr_params, 0, &vrr_infopacket);
-
-[Severity: High]
-Does this overwrite the existing AMD FreeSync metadata stored in
-vrr_infopacket?
-
-Looking at the newly added mod_build_infopacket_vtem(), it calls memset()
-on the passed infopacket:
-
-drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c:mod_build_inf=
-opacket_vtem() {
-	memset(infopacket, 0, sizeof(struct dc_info_packet));
-	...
+amdgpu_dm_get_highest_refresh_rate_mode() {
+    ...
+    if (aconnector->freesync_vid_base.clock !=3D 0)
+        return &aconnector->freesync_vid_base;
+    ...
 }
 
-Since vrr_infopacket was just populated by mod_freesync_build_vrr_infopacke=
-t()
-immediately before this block, the memset() appears to erase the SPD packet=
-.=20
-
-Furthermore, this assigns the VTEM packet to the vrr_infopacket variable,
-which is later routed to the SPD hardware slot in set_spd_info_packet().
-Should the VTEM packet be stored in new_stream->vtem_infopacket instead to
-preserve the FreeSync packet and ensure VTEM is sent in the correct slot?
+If a high-refresh monitor is unplugged and an HDMI 2.1 VRR monitor with
+VRRMAX =3D 0 is plugged into the same port, will this use the cached
+high-refresh mode of the disconnected monitor and calculate an incorrect
+max_vfreq?
 
 > +
->  	new_crtc_state->freesync_vrr_info_changed |=3D
->  		(memcmp(&new_crtc_state->vrr_infopacket,
->  			&vrr_infopacket,
+> +					if (brr_mode)
+> +						amdgpu_dm_connector->max_vfreq =3D
+> +							drm_mode_vrefresh(brr_mode);
+> +				}
+> +
+> +				if (amdgpu_dm_connector->max_vfreq -
+> +				    amdgpu_dm_connector->min_vfreq > 10)
+> +					freesync_capable =3D true;
+
+[Severity: High]
+Does this new fallback get negated later in amdgpu_dm_update_freesync_caps()
+for HDMI TMDS connections?
+
+When an HDMI monitor without an AMD VSDB is connected, freesync_vcp_code
+remains 0. Later in this same function, the pre-existing MCCS check does th=
+is:
+
+    if ((sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A ||
+        as_type =3D=3D FREESYNC_TYPE_PCON_IN_WHITELIST) &&
+        (!sink->edid_caps.freesync_vcp_code ||
+        (sink->edid_caps.freesync_vcp_code && !sink->mccs_caps.freesync_sup=
+ported)))
+        freesync_capable =3D false;
+
+Since !sink->edid_caps.freesync_vcp_code evaluates to true for TMDS,
+could this prevent the HF-VSDB fallback from working for these displays?
+
+> +
+> +				connector->display_info.monitor_range.min_vfreq =3D
+> +					amdgpu_dm_connector->min_vfreq;
+> +				connector->display_info.monitor_range.max_vfreq =3D
+> +					amdgpu_dm_connector->max_vfreq;
+> +			}
+> +		}
+>  	}
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814164344.3098=
-143-1-jerry.zuo@amd.com?part=3D1
+143-1-jerry.zuo@amd.com?part=3D3
