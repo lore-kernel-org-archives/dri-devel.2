@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49051C5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 00:18:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1089BC5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 00:21:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65EB810E0A8;
-	Fri, 14 Aug 2026 00:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FBAC10E25D;
+	Fri, 14 Aug 2026 00:21:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c/xW+J8I";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cXRW1gSq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1DF310E0A8
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 00:18:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 383DC10E25D
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 00:21:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EA964600AF;
- Fri, 14 Aug 2026 00:18:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45AFA1F000E9;
- Fri, 14 Aug 2026 00:18:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D6505408E2;
+ Fri, 14 Aug 2026 00:21:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F7D1F000E9;
+ Fri, 14 Aug 2026 00:21:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786666732;
- bh=RRo//RUuVnZRQfOLlltOs+eFMqdXSbJi39KV9fELxlg=;
+ s=k20260515; t=1786666878;
+ bh=yRRTpjuZs9HB42i4b+pyMh/yJH3A58wKhsJuQ8pQBTQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c/xW+J8IM+sBY0/2YfPmkFAOTwSY5fIm+IjEs233e0gEFf+QreRzVTjuAJE723pcU
- zDMzAc4Yp6t+zV9UC3AXLf4ZnLKyM0J1WohEK3AvSLqZpEyEewRIgYwJYs2fFaVd20
- xArO1LYJCWFEPc5N0u6IYzf2Vq7S7ld2coNVq+X/pRjsPMK3tABGhnu/f24/gXpVCL
- DSnqUbf3ZoJ4rEtUAdrmBVVQim9xpHa3qofRxHRXq/AWnPX0PuAMT4kaJYVc7JiWBq
- M9cxlrUt9Ai5ZXRFdE/IRuy2QUFYQTrLBcinCqUfH5/v8lr/D7nlxEYCbtZIl+hZ6m
- /gySL3z3cIxLQ==
+ b=cXRW1gSqpddJ2zIV4N160wEYokf7NpnA9GaCkT4KVawJ1/32LEZzk07uHVuI1OYMk
+ EGnnAR8n5X7vexguwrTj8TAbONt/bQuhrjry439vVahby7XYUmUo1S2d0bARzppE2a
+ RDn6oRWCjNcuWcUq1sLMlDhNx4Q6os/jmXrNxYP5K8Oc0MsYSCZ9J3QahUw4fJ++9q
+ /aUz88NPrsSwaE+VOF1dXuLURTcSxtjs/6u8yfxbJZQ5C2UPqWG6oL9VfC/8MvPuck
+ gbsqE64QUt402i4NlvCMaSV41qV0sDuUWvfIXNfXaOONzaTYg5g45qzEvbDSarXCdW
+ KfU6yXHHAhZsQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/21] drm/panel: himax-hx8394: set prepare_prev_first
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260413-waveshare-dsi-touch-v3-8-3aeb53022c32@oss.qualcomm.com>
-References: <20260413-waveshare-dsi-touch-v3-8-3aeb53022c32@oss.qualcomm.com>
+Subject: Re: [PATCH v2 04/11] gpu: nova-core: vbios: use checked access in
+ `FwSecBiosImage::header`
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260414-fix-vbios-v2-4-705d30d16bba@nvidia.com>
+References: <20260414-fix-vbios-v2-4-705d30d16bba@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 00:18:47 +0000
-Message-Id: <20260814001852.45AFA1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 00:21:18 +0000
+Message-Id: <20260814002118.80F7D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,72 +57,70 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Incorrectly setting `prepare_prev_first =3D true` reverses the pow=
-er-on sequence, causing the DSI host to drive the PHY (LP-11) before the pa=
-nel is powered on, risking hardware latch-up.
+
+Pre-existing issues:
+- [High] Unchecked slice indexing using a firmware-derived offset can panic=
+ and crash the kernel.
+- [High] Unchecked subtraction on untrusted firmware data can underflow and=
+ panic.
 --
 
---- Patch [8]: [PATCH v3 08/21] drm/panel: himax-hx8394: set prepare_prev_f=
-irst ---
-commit c09b3f2141b3b76647c1bce815022a8389dcf60f
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+--- Patch [4]: [PATCH v2 04/11] gpu: nova-core: vbios: use checked access i=
+n `FwSecBiosImage::header` ---
+commit 90813931dc3fe4cfc37444ced769050fbff9b8d3
+Author: Eliot Courtney <ecourtney@nvidia.com>
 
-drm/panel: himax-hx8394: set prepare_prev_first
+gpu: nova-core: vbios: use checked access in FwSecBiosImage::header
 
-This commit sets the prepare_prev_first flag for the Himax hx8394 panel.
-The flag reverses the pre_enable and prepare ordering in the DRM bridge
-chain so the DSI host powers on before the panel.
+This patch safely handles firmware-derived values in FwSecBiosImage::header
+by using checked access .get() instead of direct slice indexing.
 
-> Sending DSI commands from the prepare() callback requires DSI link to be
-> up at that point.
+> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios=
+.rs
+> index 632c8a90ea765..bc752d135cbfd 100644
+> --- a/drivers/gpu/nova-core/vbios.rs
+> +++ b/drivers/gpu/nova-core/vbios.rs
+[ ... ]
 
-Is this description accurate? Looking at panel-himax-hx8394.c, the DSI
-commands are actually sent in the enable callback, not prepare():
-
-drivers/gpu/drm/panel/panel-himax-hx8394.c:hx8394_enable() {
+drivers/gpu/nova-core/vbios.rs:FwSecBiosBuilder::setup_falcon_data() {
     ...
-    ctx->desc->init_sequence(&dsi_ctx);
+        if pmu_in_first_fwsec {
+            self.pmu_lookup_table =3D Some(PmuLookupTable::new(
+                &self.base.dev,
+                &first_fwsec.base.data[offset..],
+            )?);
+        } else {
+            self.pmu_lookup_table =3D Some(PmuLookupTable::new(
+                &self.base.dev,
+                &self.base.data[offset..],
+            )?);
+        }
     ...
 }
-
-During enable, the DSI host is already fully powered on and initialized,
-rendering prepare_prev_first unnecessary.
-
-> diff --git a/drivers/gpu/drm/panel/panel-himax-hx8394.c b/drivers/gpu/drm=
-/panel/panel-himax-hx8394.c
-> index c4d3e09a228da..d64f3521eb15b 100644
-> --- a/drivers/gpu/drm/panel/panel-himax-hx8394.c
-> +++ b/drivers/gpu/drm/panel/panel-himax-hx8394.c
-> @@ -792,6 +792,8 @@ static int hx8394_probe(struct mipi_dsi_device *dsi)
->  	if (ret)
->  		return ret;
-> =20
-> +	ctx->panel.prepare_prev_first =3D true;
-> +
 
 [Severity: High]
-Does setting this flag reverse the power-on sequence, causing the DSI host
-to drive the PHY (LP-11) before the panel is powered on?
+This is a pre-existing issue, but since this patch addresses unchecked
+firmware accesses, I noticed these slice operations might lack upper bounds
+checks. If a malformed firmware provides a large, out-of-bounds pointer,
+could the offset exceed the length of the vector and cause a panic?
 
-Because of this flag, panel power-on executes after the host has already
-driven the DSI lanes. For example, in hx8394_prepare():
 
-drivers/gpu/drm/panel/panel-himax-hx8394.c:hx8394_prepare() {
+drivers/gpu/nova-core/vbios.rs:FwSecBiosBuilder::setup_falcon_data() {
     ...
-    ret =3D regulator_enable(ctx->vcc);
+            Ok(entry) =3D> {
+                let mut ucode_offset =3D usize::from_safe_cast(entry.data);
+                ucode_offset -=3D pci_at_image.base.data.len();
     ...
 }
 
-This executes after the host is initialized, which is a hardware sequencing
-violation. Could this lead to current leakage, potential hardware latch-up,
-or PHY initialization timeouts on strict DSI hosts?
-
->  	drm_panel_add(&ctx->panel);
-> =20
->  	ret =3D mipi_dsi_attach(dsi);
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible for this
+subtraction on untrusted firmware data to underflow? If entry.data is
+smaller than the PCI-AT image length, could this cause a panic or lead to
+out-of-bounds accesses later?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260413-waveshare-=
-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260414-fix-vbios-=
+v2-0-705d30d16bba@nvidia.com?part=3D4
