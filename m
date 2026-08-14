@@ -4,152 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C728C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 08:53:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E31AEC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 09:01:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E7F010E0E9;
-	Fri, 14 Aug 2026 08:53:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCE310E55C;
+	Fri, 14 Aug 2026 09:01:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GFGpUYde";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eE2MY0m3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC78C10E0E9;
- Fri, 14 Aug 2026 08:53:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786697636; x=1818233636;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=PV4sGQ4N7WWtKktIRkxHHGAreVhvWFdtHX7UWrf7eb8=;
- b=GFGpUYdeRjlKnIOLE/yno2Hs8zq0hhcnOeSNSBLXLIToqfJNxm6cEwye
- mfOF0Gxq/QWkRCpCxy9IFA0D33VFL0vwTbo6JKLmVQIRhI0MyJc3H0L8t
- Pjxq4MAPQnX2gSv8hFuMXTnaicgdN7GCKS5VY8HIrerB1263l/xGsIWTg
- IakrvuxY24MtPTbUGObwa87Crof4qSII9jMPrSHaYkduFPC91Wy3VSxFd
- paKx+xVRHj4NyDQleXe4VlCTeBi96MUFuuedOy9jLICNo7jDx5GGhrJa8
- vEaOs0wUbYDaXzg7iAsJPb/0nyjfG6ArP3twUF2V0MoHvp8j/pKBBpUqy A==;
-X-CSE-ConnectionGUID: NomfQauURziBiJu8BRvcKA==
-X-CSE-MsgGUID: P7REcwVfSFSCdHzZw3XSLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87138403"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="87138403"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2026 01:53:56 -0700
-X-CSE-ConnectionGUID: dX8MYydlQcW8BPnWgz+q8Q==
-X-CSE-MsgGUID: fnyq35t/SA+mDVj4PUJXiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="287650847"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2026 01:53:55 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 14 Aug 2026 01:53:54 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Fri, 14 Aug 2026 01:53:54 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.17) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 14 Aug 2026 01:53:53 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ghclvIsEIvzk5d/XsCM0lwYEnLQLzlXuulUjxg8S4jzTUBgQtVUbCPO3i6bPuf/7BX2ooY+h0m19ZOXovDldUy17E8IHGSR2voINWI8u03ISVmPPgv5s122/TXCMQI8Vt0/tU6+stOF3Xecj8JEQ1Yw8I3qM2uhRC2N7BBElAfueFld5vzCEStMzLScP3VPLiEBiniAXQnvVnF3oP2OS0bQkSd/oJKPOjZu+1J4DfPf4MU5+CQujUrghcDxZquZRvAC2D6a9wT8HdXX2M4hqigs1ewpY2NeO/Ey+quMnEqZy9Q1Xoh6iMc6VdobiBaaudh6pwYoGLIHxetQI7GfnLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x3bYGclMGkbx7dtvYgoCEH3cModBDpA6lbe7lV8nTas=;
- b=CAMGvm9Op+IqBD9vqy7e8inJhDmFlM2+7DHj+vaiUrwor2KpBuCq6rma4QayrRJVhOD1O5FLxAQhDRr1z4vmTGr3yD3TGvZ4rh12CnZFpgn4Dd8FN83qI2Wlk+Ira6s/V0dl8czn0PsHShKnq3EeRl2r2m+UWrNgrtocKMBqpdEt/4Hs6gTmMbRp4pOYrrAX6tDz8DsqHuj9rG2bYQXKVV04+YQeSiycW6Aa8+Yh2tiMryEcwO6qcSmAnVP+ZJgQ4pNhmZ/SanYIXKnaQ/IsXNDJebNVKtB0PJTZxsL4g4QitlCTUZ7TSEjt0KZTpL/B1UX0A2nmGgpwYTGh9BQmUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by BN9PR11MB5321.namprd11.prod.outlook.com (2603:10b6:408:136::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 08:53:46 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0315.011; Fri, 14 Aug 2026
- 08:53:46 +0000
-Date: Fri, 14 Aug 2026 01:53:43 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <kernel-dev@igalia.com>, <Luke.Wildhardt@proton.me>, Christian
- =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, "Pierre-Eric
- Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>, Vitaly Prosyak
- <vitaly.prosyak@amd.com>
-Subject: Re: [PATCH 1/2] drm/sched: Do not restore unsaved virtual runtime
-Message-ID: <an7Xl8fpejcUQfvH@gsse-cloud1.jf.intel.com>
-References: <20260814075739.32481-1-tvrtko.ursulin@igalia.com>
- <20260814075739.32481-2-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260814075739.32481-2-tvrtko.ursulin@igalia.com>
-X-ClientProxiedBy: SJ0PR13CA0224.namprd13.prod.outlook.com
- (2603:10b6:a03:2c1::19) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DADCF10E100;
+ Fri, 14 Aug 2026 09:01:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EBCDD60A58;
+ Fri, 14 Aug 2026 09:01:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3461F000E9;
+ Fri, 14 Aug 2026 09:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786698109;
+ bh=aREJLXh0wxbb3nZihaVcXk40V52DY2xFz9pCSGYdLS4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=eE2MY0m32hJuAJFYme4vl6xadaHzNlx7iLEI2wSMiAd21SBP1eIWzPN+U5ISusgwy
+ e/zxJKt4nezf6hE84mGfy0ZuybyP5UzegNNYXZ6BT9AzK7D0U6vOHfr2c1c6hIRMPS
+ hT3bJaqpWyiCoaHEOaniC/rjigruTHbqpB21Pi/vv5QZaoFe4al/YHR19FLVcfX2Iw
+ w6qfg7IMnwxe+YgpsxnEtiyH23zTEqpx7WJt3me3gGySq0b6/j1GJ7j/6sWlwZv5nz
+ xxa0Kmn9MSnM0G+mBgUABW2FutzhEQM/cqUucU+HFsP10hCYBDEdRpuV0ZaFY8GRRP
+ 2kvAB58Y2ieIQ==
+Date: Fri, 14 Aug 2026 10:01:19 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, syzbot@syzkaller.appspotmail.com
+Subject: Re: [PATCH v5 00/16] mm/rmap: index MAP_PRIVATE file-backed folios
+ by anonymous pgoff
+Message-ID: <an7SkamROquJ7If0@lucifer>
+References: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
+ <20260813115346.2aaad419a351341a4f5f3ae0@linux-foundation.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|BN9PR11MB5321:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d9d0157-24f9-4006-162e-08def9e18cd5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|1800799024|366016|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: TYKgATRz88c75e0U9V+36IHLkrVOalNPYpy9MOQAA8UZyAUJwd/4ryAKGamvu80STi27D0Pn5gc6UgVEnhY27qW4XZoro9EesJvZK4AjI+5TQtT24Yqehaqf1YX/rIea/aLYgJ6/6yPLXDCziuzIJPuzMeEGi8gIpwjsnGKmov2IcULg62E04PVvs8zrwx46n2Pd0BylMEY5gpcX7ZQ+BkMvytJPoy52xiA4npb4UPyePKBb9qbM7Nf085KBrbY9hG23fM1T0SlNj6vEv+ndNQ8Yg0AaTij3vQrVTrSrxiZa3e7jzrUon0sEd+ebG8IW/VyvhIrV9ClXZNogBRK5NzzXC++xVEIYLR9iXk2tDHrO6e5eUBp5KYFPkrqTlTmz3ppL6YxpgtGdkthWuRiYYf+QfSjQgmdbbt087BV7tn+qNa3xh6M1jJkS/lA34oxFHcOpwp5wbLtLwZi/S5Dk4w4NUP/TvzHUs+4s5qyuoD5+Gj8INRSIDnp90w3ejIGeH1RsoMpYCS//lU3YxFOm+LLwFtXOATZAVBqedhLqIDD5iPva9UC0oPTCH1px89l8wcp+dyBsuFhZ5QJGu3rxBhKHS9CBTTE49IQ5sUKgmZWO9Duy3qfBz7I34MiS1JxcPel0bs1yvLyzCbLphMI8DF8WFKWJrndcsZFNdavKX3k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?TW15c7Y7w07aveJC5Aodeyyhx01kKJr2bYTt7Rvf5BaScy1AOz2nVpc7R8?=
- =?iso-8859-1?Q?Bmv/axOYhvGbhaZjr6HKptCR/U2lSz8/DyRISvpQxy67TbEfWRz/10vkzT?=
- =?iso-8859-1?Q?V2rKafTKtePQUbvk2ewL7E9FK3K09pdJdJFozYDqMy9eCTAABPCmRwgOwO?=
- =?iso-8859-1?Q?SxZfnqRU+nUtjVgPqr6xrKwybS0i+2Lu524DRTcI+5OWlj6sy17y33Il0o?=
- =?iso-8859-1?Q?szPoDEz+Psz+4BReKLkyLxx70N9WxgVPUcBxNY+byUKus2Z9B5JDG4aeTn?=
- =?iso-8859-1?Q?AGZNBTpB34IffMS+XIEoiGAlUMtfFrTqI94zVbzMbyvitHqbkG7VuqACCg?=
- =?iso-8859-1?Q?NrNe330VHoes9iEvhbrVSvdzJnFI0IHs5uH4kpdY5q0xxUzEsQpyjD0e20?=
- =?iso-8859-1?Q?7vvgijOYdcvPvDvhJQrotqcp4s9x43ysU3JrQc85LihOKP7wOKRKdj7dIW?=
- =?iso-8859-1?Q?rMV9oFH41L6quaDOHT1hBEcbAqnkV7rMZA9AerP21nXMQo7jqvWzAyiJd+?=
- =?iso-8859-1?Q?kQQsEGNmJQKZj3RGzQwfa7IhebMiN3DBHhRw/NTgh7LFulNiOiM/1S5lBx?=
- =?iso-8859-1?Q?58LcicScSXpUXjacZk8GpO8SOSh0txl1rDyF3GFv3iXxb/RXVbXBXa13Om?=
- =?iso-8859-1?Q?/z1jJzD9BKN7hT2fovS8rVL8JoolqHaAsgblc6pBw8syh31nejK14WCNbE?=
- =?iso-8859-1?Q?TUYMrxxo3KWm88iF7+ms8Abqmt3soPalOsVZk0PqhBH4yNIj0XVaHZJ97m?=
- =?iso-8859-1?Q?CpmOYyN/tVUTzvmywQwdO/ew2XJgyOySJbRbmwXZQah455H92hk2746y3o?=
- =?iso-8859-1?Q?LKhRfNSzvhMD6zRiYwcgzNAo6o3fYzMdWPeMH+C48or9vvAskfhBnFOW3I?=
- =?iso-8859-1?Q?56SxDWIyAKxhPdSGpFlValD+as/Rt+Jch3Nl7+K94Ow3CGv9wGwqBlne7N?=
- =?iso-8859-1?Q?2Oqy5ieN/boLpIcDj8eNNOICz5J6IS1GQ6nLJQSlZymwFEjw/5QDAm7ch1?=
- =?iso-8859-1?Q?XIw++digOknHMcFMPPM0IZEN/M+KNHhGPDHsdQs703I+FfTHH1G4APbGw3?=
- =?iso-8859-1?Q?siK/WmulLz5qMOxE8HgCl37rcOQI/VVcWbfanf4ofn9aWAAbmIg1sXf8yu?=
- =?iso-8859-1?Q?ZIqLlrlGThHcDjGcHrBTmZXOy4aSu+sR/y2lJvaZw6CVU9lk/JMEJMDIqS?=
- =?iso-8859-1?Q?oSLPOR7T1nc0MywEKv2iXqD965ju2Em46lrnateII3Q3VkHp0RRwLsKRrr?=
- =?iso-8859-1?Q?n5p7hJFzFOuN7hKm/XXWctBulte6ghWhpuX9RO0it1iw+6wDXprh0yLdwz?=
- =?iso-8859-1?Q?uH68v+vPAk8zalAtLmjIrt+MKzzGNd9+4+LHp1rHZege4fXT7MgPvgQbqO?=
- =?iso-8859-1?Q?GJLfA2M+S8p8GwOsbe62YV+EXWumk/dbnEm9b6Nd8TXyD4IJprnVenospc?=
- =?iso-8859-1?Q?CgL5hzuMhdYwjRTTEbw4a64+HPcCCWUFqJBxlFr0alEHd1zr1NpSG4Ilic?=
- =?iso-8859-1?Q?U7Sp39R43YxCbf5NCnYVMwSj0dm3/KmZCaL7ZH+My570iImwXqCWeeGetY?=
- =?iso-8859-1?Q?WhyYi9raXBQ3Z5z6WmNpORDQacIQSK1gQaXg/BVZlNj7TXSSIuG2dz9zbH?=
- =?iso-8859-1?Q?3tZMOzWhj9pEmGD/L6v5FeEh5fNwq4bHzVzddOSYxde9q693gjNdn0DCRy?=
- =?iso-8859-1?Q?K+dCLp4s/qrz4IBrTIsBRKxE3Dz6EVU39WidpmgJrwv418MIZcdLn0J4PD?=
- =?iso-8859-1?Q?6pqYVNnfnKR7wrbM+pdOdXNrrnhZC3ABH/+L4hViZa9kGR/cMbPjTS5ZvF?=
- =?iso-8859-1?Q?gB3d7+qEh91W97hK7lyIMoAvBGUQSPE=3D?=
-X-Exchange-RoutingPolicyChecked: FqhbXwsYFLBHISPOl+fAXnFdSGTBi/sh1Ye5Um0842t4WIlK4Oq14q+sk2+ZHAY8NlSfO5D6wmN5oLaA2uTPw0Sx/+8mIonGNvYDHwRx3606ZuAljBBfxIKxmJ8xmOZyfJ4kh0x9A40VTBGeWw1Xv+/pBC8RoHBxuCrHteK1VRN6+GBtwbHZRphOr6mGzje3DvZyRDOLgutNTk2qVvemhKAb3G4OiP3LunORtnxmjomAT7YOJCsigWMpPPom9JZFcMPtGRxYVrdbBN91hulILMLE42/lA8ZiUZgsK1JhXfV7dzIecrxz0pNsCT++vIWiFERZ3u4/QGBd3PXCUNfWlQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d9d0157-24f9-4006-162e-08def9e18cd5
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 08:53:46.1150 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OQZRq7jTydxMz/qL9tRkUZKDt7c6OMdfcnKf7+3M/bd3TSGZ/Pd/rDfGMh9T4JYk/8JOH6to6s02H1kbAsq3bw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR11MB5321
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813115346.2aaad419a351341a4f5f3ae0@linux-foundation.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,144 +116,602 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 14, 2026 at 08:57:38AM +0100, Tvrtko Ursulin wrote:
-> Prevent pushing a new job to an entity seeing it being the first in the
-> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
-> side in drm_sched_entity_pop_job() has de-queued the job but not yet
-> updated the saved virtual time.
-> 
-> We do this by pulling the locked sections out to encompass both the queue
-> push/pop and corresponding rbtree management.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
-> Suggested-by: Luke.Wildhardt@proton.me # via Claude Opus
-> Tested-by: Luke.Wildhardt@proton.me
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
+On Thu, Aug 13, 2026 at 11:53:46AM -0700, Andrew Morton wrote:
+> You'll be mortified to hear that Sashiko wasn't able to find anything
+> to which to apply this.
 
-Ugh. Idiom:
+:))
 
-"How much longer are we going to keep polishing this turd?"
+Well, when it's right it's useful, when it's wrong or suggesting unrelated
+what-nots it's less useful :>)
 
-The revert of FAIR IMO shows it basically time for a rewrite, cough -
-DRM dep.
+I do locally put things through claude + Chris Mason's prompts a lot, I
+don't always invoke local sashiko as it's very slow and token-heavy or has
+been so far, but am planning to do that more also in future.
 
-If we can agree, I'll prioritize, if not we'll be here seemingly
-forever.
+>
+> Sashiko can be guided with a base-commit: tag but I'm not sure how to
+> tell it what tree/branch to try, or even if that's necessary.  Perhaps
+> someone can figure this out sometime.
 
-Matt
+b4 gives a base commit, but I think because the trees are rebased it ends
+up being the incorrect one.
 
-> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> ---
->  drivers/gpu/drm/scheduler/sched_entity.c |  8 +++++++-
->  drivers/gpu/drm/scheduler/sched_rq.c     | 20 +++++++++-----------
->  2 files changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-> index a4a7efdbf229..673ca9cbf362 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -559,9 +559,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->  	 */
->  	smp_wmb();
->  
-> +	spin_lock(&entity->lock);
->  	spsc_queue_pop(&entity->job_queue);
+Not sure what the solution is!
+
+>
+> maybe
+>
+> hp2:/usr/src/linux-next> git log --oneline | grep "mm/vma: introduce VMA anon page offset field and add helpers"
+> 249646a587dc mm/vma: introduce VMA anon page offset field and add helpers
+>
+> base-commit: 249646a587dc^
+>
+> But that requires that Sashiko be able to poke around in linux-next
+> from previous days.
+>
+> > v5:
+> > * Accumulated tags (thanks everybody!)
+> > * Removed the final 4 patches to be handled later as there are nuances with
+> >   the /dev/zero stuff we need to figure out, as discussed with David.
+> > * Updated the cover letter to reflect this.
+> > * Added comments to vma_flags_is_cow_mapping(),
+> >   vma_[desc_]is_cow_mapping() as per Suren.
+> > * Correct typo as per Suren.
+> > * Reworded test comment in patch 16 from 'fault in' to 'trigger a CoW
+> >   fault' as per David.
+> > * Fix -> 75 char limit in patch 12's commit msg.
+>
+> Here's how v5 altered mm.git.  It's rather substantial, but mainly
+> selftests:
+
+Thanks for the diff, always useful!
+
+The noise it's mostly because of dropping the final 4 commits, and as you
+say mostly test stuff that will be sent with whichever approach we decide
+on for MAP_PRIVATE-/dev/zero in the next cycle.
+
+The actual changes elsewhere are rather trivial otherwise.
+
+What remains, targeting 2nd week of the merge window, is heavily tested +
+fully reviewed, so all is still very sane :)
+
+>
+>
+>  drivers/char/mem.c                                     |    8
+>  include/linux/mm.h                                     |   18 -
+>  include/linux/pagemap.h                                |    3
+>  mm/internal.h                                          |   17 -
+>  mm/vma.c                                               |   52 ----
+>  mm/vma.h                                               |    3
+>  mm/vma_internal.h                                      |    1
+>  tools/testing/selftests/mm/merge.c                     |  106 ----------
+>  tools/testing/selftests/proc/proc-self-map-files-001.c |    2
+>  tools/testing/selftests/proc/proc-self-map-files-002.c |    2
+>  tools/testing/vma/include/dup.h                        |   40 ---
+>  tools/testing/vma/tests/mmap.c                         |   50 ----
+>  12 files changed, 40 insertions(+), 262 deletions(-)
+>
+> --- a/drivers/char/mem.c~b
+> +++ a/drivers/char/mem.c
+> @@ -506,7 +506,11 @@ static int mmap_zero_prepare(struct vm_a
+>  	if (vma_desc_test(desc, VMA_SHARED_BIT))
+>  		return shmem_zero_setup_desc(desc);
+>
+> -	/* MAP_PRIVATE semantics are taken care for us by core mm. */
+> +	/*
+> +	 * This is a highly unique situation where we mark a MAP_PRIVATE mapping
+> +	 * of /dev/zero anonymous, despite it not being.
+> +	 */
+> +	vma_desc_set_anonymous(desc);
+>  	return 0;
+>  }
+>
+> @@ -694,7 +698,7 @@ static const struct memdev {
+>  #ifdef CONFIG_DEVPORT
+>  	[4] = { "port", &port_fops, 0, 0 },
+>  #endif
+> -	[DEVZERO_MINOR] = { "zero", &zero_fops, FMODE_NOWAIT, 0666 },
+> +	[5] = { "zero", &zero_fops, FMODE_NOWAIT, 0666 },
+>  	[7] = { "full", &full_fops, 0, 0666 },
+>  	[8] = { "random", &random_fops, FMODE_NOWAIT, 0666 },
+>  	[9] = { "urandom", &urandom_fops, FMODE_NOWAIT, 0666 },
+> --- a/include/linux/mm.h~b
+> +++ a/include/linux/mm.h
+> @@ -740,9 +740,6 @@ static inline bool fault_flag_allow_retr
+>  	{ FAULT_FLAG_INTERRUPTIBLE,	"INTERRUPTIBLE" }, \
+>  	{ FAULT_FLAG_VMA_LOCK,		"VMA_LOCK" }
+>
+> -/* /dev/zero minor device number. Special due to MAP_PRIVATE semantics. */
+> -#define DEVZERO_MINOR	5
 > -
->  	drm_sched_rq_pop_entity(entity);
-> +	spin_unlock(&entity->lock);
->  
->  	/* Jobs and entities might have different lifecycles. Since we're
->  	 * removing the job from the entities queue, set the jobs entity pointer
-> @@ -647,6 +648,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->  	 * Make sure to set the submit_ts first, to avoid a race.
->  	 */
->  	sched_job->submit_ts = submit_ts = ktime_get();
-> +
-> +	spin_lock(&entity->lock);
-> +
->  	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
->  
->  	/* first job wakes up scheduler */
-> @@ -657,5 +661,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->  		if (sched)
->  			drm_sched_wakeup(sched);
->  	}
-> +
-> +	spin_unlock(&entity->lock);
+>  /*
+>   * vm_fault is filled by the pagefault handler and passed to the vma's
+>   * ->fault function. The vma's ->fault is responsible for returning a bitmask
+> @@ -1554,6 +1551,11 @@ static inline void vma_set_anonymous(str
+>  	vma->vm_ops = NULL;
 >  }
->  EXPORT_SYMBOL(drm_sched_entity_push_job);
-> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-> index 0464d324d98d..23f46ec610e7 100644
-> --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> @@ -257,19 +257,17 @@ static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
->  struct drm_gpu_scheduler *
->  drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+>
+> +static inline void vma_desc_set_anonymous(struct vm_area_desc *desc)
+> +{
+> +	desc->vm_ops = NULL;
+> +}
+> +
+>  static inline bool vma_is_anonymous(const struct vm_area_struct *vma)
 >  {
-> +	struct drm_sched_rq *rq = entity->rq;
->  	struct drm_gpu_scheduler *sched;
-> -	struct drm_sched_rq *rq;
->  
->  	/* Add the entity to the run queue */
-> -	spin_lock(&entity->lock);
-> +	lockdep_assert_held(&entity->lock);
-> +
->  	if (entity->stopped) {
-> -		spin_unlock(&entity->lock);
-> -
->  		DRM_ERROR("Trying to push to a killed entity\n");
->  		return NULL;
->  	}
->  
-> -	rq = entity->rq;
->  	spin_lock(&rq->lock);
->  	sched = rq->sched;
->  
-> @@ -289,7 +287,6 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
->  	drm_sched_rq_update_fifo_locked(entity, rq, ts);
->  
->  	spin_unlock(&rq->lock);
-> -	spin_unlock(&entity->lock);
->  
->  	return sched;
->  }
-> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
->   */
->  void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->  {
-> +	struct drm_sched_rq *rq = entity->rq;
->  	struct drm_sched_job *next_job;
-> -	struct drm_sched_rq *rq;
-> +
-> +	lockdep_assert_held(&entity->lock);
-> +
-> +	spin_lock(&rq->lock);
->  
->  	/*
->  	 * Update the entity's location in the min heap according to
->  	 * the timestamp of the next job, if any.
->  	 */
-> -	spin_lock(&entity->lock);
-> -	rq = entity->rq;
-> -	spin_lock(&rq->lock);
->  	next_job = drm_sched_entity_queue_peek(entity);
->  	if (next_job) {
->  		ktime_t ts;
-> @@ -375,8 +373,8 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->  			drm_sched_entity_save_vruntime(entity, min_vruntime);
->  		}
->  	}
-> +
->  	spin_unlock(&rq->lock);
-> -	spin_unlock(&entity->lock);
->  }
->  
+>  	return !vma->vm_ops;
+> @@ -2279,8 +2281,7 @@ void unpin_folios(struct folio **folios,
+>   * All mappings backed by anonymous folios (all anonymous mappings and most
+>   * MAP_PRIVATE-file backed ranges) are CoW mappings.
+>   *
+> - * All other mappings (including all writable MAP_SHARED mappings) are
+> - * non-CoW.
+> + * All other mappings (including all MAP_SHARED mappings) are non-CoW.
+>   *
+>   * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
+>   *
+> @@ -2317,7 +2318,7 @@ static inline bool vma_flags_is_cow_mapp
+>
 >  /**
-> -- 
-> 2.54.0
-> 
+>   * vma_is_cow_mapping() - Is this VMA a CoW mapping?
+> - * @vma: The VMA to check.
+> + * @desc: The VMA to check.
+>   *
+>   * See vma_flags_is_cow_mapping() for details.
+>   *
+> @@ -4407,8 +4408,9 @@ static inline unsigned long vma_pages(co
+>   * If @vma is a MAP_PRIVATE file-backed mapping, then this returns the
+>   * page offset within the file.
+>   *
+> - * Edge cases: nommu does not abide by these and CoW MAP_PRIVATE-pfnmap regions
+> - * have their page offset set to the first PFN in the range.
+> + * Edge cases: nommu does not abide by these, MAP_PRIVATE-/dev/zero satisfies
+> + * vma_is_anonymous() but has file-backed page offset, and MAP_PRIVATE-pfnmap
+> + * regions have their page offset set to the first PFN in the range.
+>   *
+>   * Returns: The page offset of the start of @vma.
+>   */
+> --- a/include/linux/pagemap.h~b
+> +++ a/include/linux/pagemap.h
+> @@ -1128,7 +1128,8 @@ static inline pgoff_t linear_anon_page_i
+>  	const pgoff_t pgoff = __linear_anon_page_index(vma, address);
+>
+>  	VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
+> -	if (vma_is_anonymous(vma))
+> +	/* Account for MAP_PRIVATE-/dev/zero which is only semi-anonymous. */
+> +	if (vma_is_anonymous(vma) && !vma->vm_file)
+>  		VM_WARN_ON_ONCE(pgoff != linear_page_index(vma, address));
+>
+>  	return pgoff;
+> --- a/mm/internal.h~b
+> +++ a/mm/internal.h
+> @@ -240,18 +240,15 @@ static inline int mmap_file(struct file
+>  {
+>  	int err = vfs_mmap(file, vma);
+>
+> +	if (likely(!err))
+> +		return 0;
+> +
+>  	/*
+> -	 * Either we tried to call the file hook for mmap() and an error arose
+> -	 * or a driver set vma->vm_ops = NULL intending there to be no VMA
+> -	 * operations.
+> -	 *
+> -	 * In the former case the VMA is in an inconsistent state and we mustn't
+> -	 * invoke any further hooks on it, in the latter case the hook actually
+> -	 * wanted no further hooks to be invoked, so fix both by setting dummy
+> -	 * VMA ops.
+> +	 * OK, we tried to call the file hook for mmap(), but an error
+> +	 * arose. The mapping is in an inconsistent state and we must not invoke
+> +	 * any further hooks on it.
+>  	 */
+> -	if (unlikely(err || !vma->vm_ops))
+> -		vma->vm_ops = &vma_dummy_vm_ops;
+> +	vma->vm_ops = &vma_dummy_vm_ops;
+>
+>  	return err;
+>  }
+> --- a/mm/vma.c~b
+> +++ a/mm/vma.c
+> @@ -2621,36 +2621,6 @@ static int __mmap_new_file_vma(struct mm
+>  	return 0;
+>  }
+>
+> -static bool map_is_dev_zero(const struct mmap_state *map)
+> -{
+> -	const struct file *file = map->file;
+> -	struct inode *inode;
+> -
+> -	if (!file)
+> -		return false;
+> -	inode = file_inode(file);
+> -	if (!S_ISCHR(inode->i_mode))
+> -		return false;
+> -	return imajor(inode) == MEM_MAJOR && iminor(inode) == DEVZERO_MINOR;
+> -}
+> -
+> -static void map_set_anon(struct mmap_state *map)
+> -{
+> -	map->file = NULL;
+> -	map->vm_ops = NULL;
+> -	map->pgoff = map->addr >> PAGE_SHIFT;
+> -}
+> -
+> -static bool map_is_private(const struct mmap_state *map)
+> -{
+> -	return !vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
+> -}
+> -
+> -static bool map_is_anon(const struct mmap_state *map)
+> -{
+> -	return map_is_private(map) && !map->file;
+> -}
+> -
+>  /*
+>   * __mmap_new_vma() - Allocate a new VMA for the region, as merging was not
+>   * possible.
+> @@ -2664,7 +2634,8 @@ static bool map_is_anon(const struct mma
+>  static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
+>  	struct mmap_action *action)
+>  {
+> -	const bool is_anon = map_is_anon(map);
+> +	const bool is_anon = !map->file &&
+> +		!vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
+>  	struct vma_iterator *vmi = map->vmi;
+>  	int error = 0;
+>  	struct vm_area_struct *vma;
+> @@ -2806,10 +2777,6 @@ static int call_mmap_prepare(struct mmap
+>  	if (err)
+>  		return err;
+>
+> -	/* Hooks cannot mark themselves anonymous. */
+> -	if (!desc->vm_ops)
+> -		return -EINVAL;
+> -
+>  	err = call_action_prepare(map, desc);
+>  	if (err)
+>  		return err;
+> @@ -2826,21 +2793,16 @@ static int call_mmap_prepare(struct mmap
+>  	map->vm_ops = desc->vm_ops;
+>  	map->vm_private_data = desc->private_data;
+>
+> -	/*
+> -	 * MAP_PRIVATE-/dev/zero mappings are an ancient way of getting
+> -	 * anonymous mappings. Rather than allowing these mappings to be odd
+> -	 * outliers, simply make them truly anonymous.
+> -	 */
+> -	if (map_is_private(map) && map_is_dev_zero(map))
+> -		map_set_anon(map);
+> -
+>  	return 0;
+>  }
+>
+>  static void set_vma_user_defined_fields(struct vm_area_struct *vma,
+>  		struct mmap_state *map)
+>  {
+> -	vma->vm_ops = map->vm_ops;
+> +	if (map->vm_ops)
+> +		vma->vm_ops = map->vm_ops;
+> +	else	/* Only /dev/zero should do this. */
+> +		vma_set_anonymous(vma);
+>  	vma->vm_private_data = map->vm_private_data;
+>  }
+>
+> @@ -2920,7 +2882,7 @@ static unsigned long __mmap_region(struc
+>  		allocated_new = true;
+>  	}
+>
+> -	if (have_mmap_prepare && !map_is_anon(&map))
+> +	if (have_mmap_prepare)
+>  		set_vma_user_defined_fields(vma, &map);
+>
+>  	__mmap_complete(&map, vma);
+> --- a/mm/vma.h~b
+> +++ a/mm/vma.h
+> @@ -267,6 +267,9 @@ static inline void assert_sane_pgoff(str
+>  	 */
+>  	if (!vma_is_anonymous(vma))
+>  		return;
+> +	/* MAP_PRIVATE-/dev/zero is anon, non-NULL vm_file, but has file pgoff. */
+> +	if (vma->vm_file)
+> +		return;
+>  	/* If faulted in, could have been remapped. */
+>  	if (vma->anon_vma)
+>  		return;
+> --- a/mm/vma_internal.h~b
+> +++ a/mm/vma_internal.h
+> @@ -23,7 +23,6 @@
+>  #include <linux/ksm.h>
+>  #include <linux/khugepaged.h>
+>  #include <linux/list.h>
+> -#include <linux/major.h>
+>  #include <linux/maple_tree.h>
+>  #include <linux/mempolicy.h>
+>  #include <linux/mm.h>
+> --- a/tools/testing/selftests/mm/merge.c~b
+> +++ a/tools/testing/selftests/mm/merge.c
+> @@ -1324,7 +1324,7 @@ TEST_F(merge, anon_and_page_offset_misma
+>  	ASSERT_NE(ptr, MAP_FAILED);
+>
+>  	/*
+> -	 * Map another separately and trigger a CoW fault, at page offset 5:
+> +	 * Map another separately and trigger a CoW fault at page offset 5:
+>  	 *
+>  	 * |-----------|           |---------|
+>  	 * | unfaulted |           | faulted |
+> @@ -1362,110 +1362,6 @@ TEST_F(merge, anon_and_page_offset_misma
+>  	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 5 * page_size);
+>  }
+>
+> -TEST_F(merge, merge_map_private_dev_zero_unfaulted)
+> -{
+> -	struct procmap_fd *procmap = &self->procmap;
+> -	unsigned int page_size = self->page_size;
+> -	char *carveout = self->carveout;
+> -	char *ptr, *ptr2;
+> -	int fd_zero;
+> -
+> -	if (access("/dev/zero", F_OK))
+> -		SKIP(return, "No /dev/zero.");
+> -	fd_zero = open("/dev/zero", O_RDWR);
+> -	ASSERT_NE(fd_zero, -1);
+> -
+> -	/*
+> -	 * Map two MAP_PRIVATE-/dev/zero VMAs next to one another with offset 0
+> -	 * each.
+> -	 *
+> -	 * With these being made truly anonymous upon mapping, they will
+> -	 * merge. If they were file-backed VMAs the page offsets would prevent
+> -	 * merge:
+> -	 *
+> -	 * |-----||------|    |-------------|
+> -	 * | ptr || ptr2 | -> |     ptr     |
+> -	 * |-----||------|    |-------------|
+> -	 */
+> -	ptr = mmap(carveout, 5 * page_size, PROT_READ | PROT_WRITE,
+> -		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> -	if (ptr == MAP_FAILED) {
+> -		close(fd_zero);
+> -		ASSERT_TRUE(false);
+> -	}
+> -	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
+> -		   PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> -	if (ptr2 == MAP_FAILED) {
+> -		close(fd_zero);
+> -		ASSERT_TRUE(false);
+> -	}
+> -	close(fd_zero);
+> -
+> -	/* Assert that they merged. */
+> -	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
+> -	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
+> -	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 10 * page_size);
+> -}
+> -
+> -TEST_F(merge, merge_map_private_dev_zero_faulted_unfaulted)
+> -{
+> -	struct procmap_fd *procmap = &self->procmap;
+> -	unsigned int page_size = self->page_size;
+> -	char *carveout = self->carveout;
+> -	char *ptr, *ptr2;
+> -	int fd_zero;
+> -
+> -	if (access("/dev/zero", F_OK))
+> -		SKIP(return, "No /dev/zero.");
+> -	fd_zero = open("/dev/zero", O_RDWR);
+> -	ASSERT_NE(fd_zero, -1);
+> -
+> -	/*
+> -	 * Map a MAP_PRIVATE mapping of /dev/zero with page offset 0, then fault
+> -	 * it in:
+> -	 *
+> -	 * |-------------------------------|
+> -	 * |           faulted             |
+> -	 * |-------------------------------|
+> -	 */
+> -	ptr = mmap(carveout, 15 * page_size, PROT_READ | PROT_WRITE,
+> -		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> -	if (ptr == MAP_FAILED) {
+> -		close(fd_zero);
+> -		ASSERT_TRUE(false);
+> -	}
+> -	memset(ptr, 'x', 15 * page_size);
+> -
+> -	/*
+> -	 * Unmap the middle:
+> -	 *
+> -	 * |---------|           |---------|
+> -	 * | faulted |           | faulted |
+> -	 * |---------|           |---------|
+> -	 */
+> -	ASSERT_EQ(munmap(&ptr[5 * page_size], 5 * page_size), 0);
+> -
+> -	/*
+> -	 * Map in a new unfaulted mapping in the middle with page offset 0 -
+> -	 * this should merge and would not if it were treated as a file rather
+> -	 * than pure anon:
+> -	 *
+> -	 * |---------|-----------|---------|
+> -	 * | faulted | unfaulted | faulted |
+> -	 * |---------|-----------|---------|
+> -	 */
+> -	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
+> -		    PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE,
+> -		    fd_zero, 0);
+> -	close(fd_zero);
+> -	ASSERT_NE(ptr2, MAP_FAILED);
+> -
+> -	/* Assert that they merged. */
+> -	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
+> -	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
+> -	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 15 * page_size);
+> -}
+> -
+>  TEST_F(merge_with_fork, mremap_faulted_to_unfaulted_prev)
+>  {
+>  	struct procmap_fd *procmap = &self->procmap;
+> --- a/tools/testing/selftests/proc/proc-self-map-files-001.c~b
+> +++ a/tools/testing/selftests/proc/proc-self-map-files-001.c
+> @@ -51,7 +51,7 @@ int main(void)
+>  	int fd;
+>  	unsigned long a, b;
+>
+> -	fd = open("/proc/self/exe", O_RDONLY);
+> +	fd = open("/dev/zero", O_RDONLY);
+>  	if (fd == -1)
+>  		return 1;
+>
+> --- a/tools/testing/selftests/proc/proc-self-map-files-002.c~b
+> +++ a/tools/testing/selftests/proc/proc-self-map-files-002.c
+> @@ -57,7 +57,7 @@ int main(void)
+>  	int fd;
+>  	unsigned long a, b;
+>
+> -	fd = open("/proc/self/exe", O_RDONLY);
+> +	fd = open("/dev/zero", O_RDONLY);
+>  	if (fd == -1)
+>  		return 1;
+>
+> --- a/tools/testing/vma/include/dup.h~b
+> +++ a/tools/testing/vma/include/dup.h
+> @@ -15,21 +15,6 @@ struct task_struct *get_current(void);
+>  #define MMF_HAS_MDWE	28
+>  #define current get_current()
+>
+> -#define MINORBITS	20
+> -#define MINORMASK	((1U << MINORBITS) - 1)
+> -
+> -#define MAJOR(dev)	((unsigned int) ((dev) >> MINORBITS))
+> -#define MINOR(dev)	((unsigned int) ((dev) & MINORMASK))
+> -#define MKDEV(ma, mi)	(((ma) << MINORBITS) | (mi))
+> -
+> -#define S_IFMT  00170000
+> -#define S_IFCHR  0020000
+> -
+> -#define S_ISCHR(m)	(((m) & S_IFMT) == S_IFCHR)
+> -
+> -#define MEM_MAJOR		1
+> -#define DEVZERO_MINOR	5
+> -
+>  /*
+>   * Define the task command name length as enum, then it can be visible to
+>   * BPF programs.
+> @@ -38,8 +23,6 @@ enum {
+>  	TASK_COMM_LEN = 16,
+>  };
+>
+> -typedef unsigned short		umode_t;
+> -
+>  /* PARTIALLY implemented types. */
+>  struct mm_struct {
+>  	struct maple_tree mm_mt;
+> @@ -62,10 +45,6 @@ struct address_space {
+>  	unsigned long		flags;
+>  	atomic_t		i_mmap_writable;
+>  };
+> -struct inode {
+> -	umode_t			i_mode;
+> -	dev_t			i_rdev;
+> -};
+>  struct file_operations {
+>  	int (*mmap)(struct file *, struct vm_area_struct *);
+>  	int (*mmap_prepare)(struct vm_area_desc *);
+> @@ -73,7 +52,6 @@ struct file_operations {
+>  struct file {
+>  	struct address_space	*f_mapping;
+>  	const struct file_operations	*f_op;
+> -	struct inode			*f_inode;
+>  };
+>  struct anon_vma_chain {
+>  	struct anon_vma *anon_vma;
+> @@ -1660,23 +1638,9 @@ static inline pgoff_t linear_anon_page_i
+>  	const pgoff_t pgoff = __linear_anon_page_index(vma, address);
+>
+>  	VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
+> -	if (vma_is_anonymous(vma))
+> +	/* Account for MAP_PRIVATE-/dev/zero which is only semi-anonymous. */
+> +	if (vma_is_anonymous(vma) && !vma->vm_file)
+>  		VM_WARN_ON_ONCE(pgoff != linear_page_index(vma, address));
+>
+>  	return pgoff;
+>  }
+> -
+> -static inline struct inode *file_inode(const struct file *f)
+> -{
+> -	return f->f_inode;
+> -}
+> -
+> -static inline unsigned iminor(const struct inode *inode)
+> -{
+> -	return MINOR(inode->i_rdev);
+> -}
+> -
+> -static inline unsigned imajor(const struct inode *inode)
+> -{
+> -	return MAJOR(inode->i_rdev);
+> -}
+> --- a/tools/testing/vma/tests/mmap.c~b
+> +++ a/tools/testing/vma/tests/mmap.c
+> @@ -45,57 +45,7 @@ static bool test_mmap_region_basic(void)
+>  	return true;
+>  }
+>
+> -static int dummy_mmap_prepare(struct vm_area_desc *desc)
+> -{
+> -	return 0;
+> -}
+> -
+> -static bool test_pure_anon_dev_zero(void)
+> -{
+> -	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
+> -			VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT);
+> -	const struct file_operations f_op = {
+> -		.mmap_prepare = dummy_mmap_prepare,
+> -	};
+> -	struct inode inode = {
+> -		.i_mode = S_IFCHR,
+> -		.i_rdev = MKDEV(MEM_MAJOR, DEVZERO_MINOR),
+> -	};
+> -	struct file file = {
+> -		.f_inode = &inode,
+> -		.f_op = &f_op,
+> -	};
+> -	struct mm_struct mm = {};
+> -	struct vm_area_struct *vma;
+> -	unsigned long addr;
+> -	VMA_ITERATOR(vmi, &mm, 0);
+> -
+> -	current->mm = &mm;
+> -
+> -	/*
+> -	 * Map a MAP_PRIVATE-/dev/zero mapping at address 0x300000 with a page
+> -	 * offset of 0x10, which we expect to be reset to the anonymous page
+> -	 * offset.
+> -	 */
+> -	addr = __mmap_region(&file, 0x300000, 0x3000, vma_flags, 0x10, NULL);
+> -	ASSERT_EQ(addr, 0x300000);
+> -
+> -	/* Assert that it truly is an anonymous mapping. */
+> -	vma = vma_lookup(&mm, addr);
+> -	ASSERT_NE(vma, NULL);
+> -	ASSERT_TRUE(vma_is_anonymous(vma));
+> -	ASSERT_EQ(vma->vm_file, NULL);
+> -	ASSERT_EQ(vma->vm_private_data, NULL);
+> -	/* Expect anonymous page offsets. */
+> -	ASSERT_EQ(vma->vm_pgoff, 0x300);
+> -	ASSERT_EQ(vma_start_anon_pgoff(vma), 0x300);
+> -
+> -	cleanup_mm(&mm, &vmi);
+> -	return true;
+> -}
+> -
+>  static void run_mmap_tests(int *num_tests, int *num_fail)
+>  {
+>  	TEST(mmap_region_basic);
+> -	TEST(pure_anon_dev_zero);
+>  }
+> _
+>
+
+--
+Cheers, Lorenzo
