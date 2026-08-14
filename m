@@ -4,85 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C103C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 12:56:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2083DC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F10510E54C;
-	Fri, 14 Aug 2026 12:56:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1406010E576;
+	Fri, 14 Aug 2026 13:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e977F/nZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=lechnology.com header.i=@lechnology.com header.b="SqHwWDnR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AB0A10E54C
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 12:56:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 581C560120;
- Fri, 14 Aug 2026 12:56:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54BE81F000E9;
- Fri, 14 Aug 2026 12:56:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786712168;
- bh=cX+72s9o2pIYhrhjJqMobcQWIikVZ9nl0Ljsw77hPx4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=e977F/nZkZ3+kWqrRqgIfVJd/aBqAfJBoJ0g2Jj+dswl1Yg8oI6tRpw4WyEGE1+X5
- ugqpy7w+0PGPzYIzyhQ49UE79ycBGLH814wt5t6VCwpq/fsYz5+oV6IV4OYn2PPgAn
- fv3+Ey1E7u2WkT/SQL0uxiu065pQDQk0viXx9tFYyrgo8quEfA5xgasEuIKFLpRfW4
- 9LtheyIuV7FSxZqP0wPnWpQNgWraqQlCpz1CQlD8dVJ3450cieekXQzAVhaDRThuU6
- /K81KqNxEY9a5Z6oTmwsp7EawXpN2CYk+7qgYfB/RCh2d6ibc/4AAJKcUkji02OGAJ
- P+ZrWGMhbtoHQ==
-Date: Fri, 14 Aug 2026 14:56:05 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, 
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>, 
- pavan.kondeti@oss.qualcomm.com
-Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <an8K2gb1pIqbDj6-@orome>
-References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
- <20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com>
- <an4MEI7lkc2p3nKI@google.com>
+X-Greylist: delayed 1555 seconds by postgrey-1.36 at gabe;
+ Fri, 14 Aug 2026 13:03:46 UTC
+Received: from galaxy.gendns.com (galaxy.gendns.com [66.235.175.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B2DE10E576
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:03:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=AlfjEJJizMLdBMjgo0H22Ja7XJ/jA5YX1v1DHC9vsxE=; b=SqHwWDnRvroVv+SaMnLAF7J+TS
+ X3CMai4d7S2NVPixezBqdmiZ4hbgstb4H3DeZWFi8tSi2pLL9imUulXL/mmf4xmsp6oG1C9SG1mUo
+ 7bSjvJSvsy7WX0ODX5uGsYaHnHBb7bqJOhmf5nfw3kjgpmGRXH03pRxRrmH/wDkVoPmCQljW8PUYl
+ ErahGsOzl9VTupcmfjnE+llbGWwjKvLcArKNBIj6mGeDqlZfwogZo1hZgE9LiEjMFFhN/CnXRntuy
+ vQ2IyHexoO0VQSaCSnWb/Mso0bBRX0CGI3+xUdzAfyMjYYWgTO1IPlRUkhO1q2zZDW1XAkZ3jlDF2
+ 4tb9ty7g==;
+Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:37006
+ helo=[192.168.1.142])
+ by galaxy.gendns.com with essmtpa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (Exim 4.99.5) (envelope-from <david@lechnology.com>)
+ id 1wurAU-00000003LGn-14Gh; Fri, 14 Aug 2026 08:37:48 -0400
+Message-ID: <c2dcc1be-ede4-4f80-83ed-3aeb0590f576@lechnology.com>
+Date: Fri, 14 Aug 2026 07:37:45 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wsqkte2vdducxgiq"
-Content-Disposition: inline
-In-Reply-To: <an4MEI7lkc2p3nKI@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ARM: davinci_all_defconfig: enable the current ST7586
+ symbol
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Bartosz Golaszewski
+ <brgl@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260814075624.16639-1-pengpeng@iscas.ac.cn>
+Content-Language: en-US
+From: David Lechner <david@lechnology.com>
+Autocrypt: addr=david@lechnology.com; keydata=
+ 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
+In-Reply-To: <20260814075624.16639-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - galaxy.gendns.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: galaxy.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: galaxy.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,139 +121,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 8/14/26 2:56 AM, Pengpeng Hou wrote:
+> The ST7586 DRM provider is now built by CONFIG_DRM_ST7586.
+> davinci_all_defconfig still enables the removed DRM_TINYDRM and
+> TINYDRM_ST7586 carrier symbols.
+> 
+> Replace those stale entries with the current provider symbol.
+> 
+> Assisted-by: Codex:gpt-5
 
---wsqkte2vdducxgiq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
-MIME-Version: 1.0
+Probably deserves a fixes tag too. Can just reply with that rather
+than sending a v2.
 
-On Thu, Aug 13, 2026 at 07:25:20PM +0100, Vincent Donnefort wrote:
-> On Fri, Aug 07, 2026 at 05:54:27PM +0200, Thierry Reding wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >=20
-> > NVIDIA Tegra SoCs commonly define a Video-Protection-Region, which is a
-> > region of memory dedicated to content-protected video decode and
-> > playback. This memory cannot be accessed by the CPU and only certain
-> > hardware devices have access to it.
-> >=20
-> > Expose the VPR as a DMA heap so that applications and drivers can
-> > allocate buffers from this region for use-cases that require this kind
-> > of protected memory.
-> >=20
-> > VPR has a few very critical peculiarities. First, it must be a single
-> > contiguous region of memory (there is a single pair of registers that
-> > set the base address and size of the region), which is configured by
-> > calling back into the secure monitor. The memory region also needs to
-> > quite large for some use-cases because it needs to fit multiple video
-> > frames (8K video should be supported), so VPR sizes of ~2 GiB are
-> > expected. However, some devices cannot afford to reserve this amount
-> > of memory for a particular use-case, and therefore the VPR must be
-> > resizable.
-> >=20
-> > Unfortunately, resizing the VPR is slightly tricky because the GPU found
-> > on Tegra SoCs must be in reset during the VPR resize operation. This is
-> > currently implemented by freezing all userspace processes and calling
-> > invoking the GPU's freeze() implementation, resizing and the thawing the
-> > GPU and userspace processes. This is quite heavy-handed, so eventually
-> > it might be better to implement thawing/freezing in the GPU driver in
-> > such a way that they block accesses to the GPU so that the VPR resize
-> > operation can happen without suspending all userspace.
-> >=20
-> > In order to balance the memory usage versus the amount of resizing that
-> > needs to happen, the VPR is divided into multiple chunks. Each chunk is
-> > implemented as a CMA area that is completely allocated on first use to
-> > guarantee the contiguity of the VPR. Once all buffers from a chunk have
-> > been freed, the CMA area is deallocated and the memory returned to the
-> > system.
->=20
-> Hi,
->=20
-> I believe we (the Android team) are trying to solve similar issue to your=
-s: Arm
-> CPUs can still speculatively read memory after it has been transitioned t=
-o the
-> Secure state, as long as they retain a cacheable mapping to it.
->=20
-> As modifying the direct mapping is difficult, the workaround ended up in =
-the
-> hypervisor which unmaps the pages from the host stage-2 on intercepted FF=
--A Lend
-> invocations.
->=20
-> If convenient, this is nonetheless the wrong place to do it. Scattering t=
-he host
-> stage-2 is really terrible for performance and we would like to move it w=
-here it
-> should be, directly into the kernel...
->=20
-> This is what I thought was the attempt in v3, but I am now a bit confused
-> because I see you are using set_direct_map_invalid_noflush()
-> set_direct_map_default_noflush(), but I am not sure that works if rodata=
-=3Dfull is
-> not set? So does the memory for the NVIDIA IP still need to be unmapped?
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+> Changes since v1: https://lore.kernel.org/all/20260624082029.18675-1-pengpeng@iscas.ac.cn/
+> - no source-code changes
+> - rebase davinci_all_defconfig
+> - route the revision to DaVinci and ST7586 maintainers
+> - add the coding-assistant disclosure
+> 
+> The Kconfig/provider mapping was reviewed statically; no DaVinci kernel
+> build was performed.
+> 
+>  arch/arm/configs/davinci_all_defconfig | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm/configs/davinci_all_defconfig b/arch/arm/configs/davinci_all_defconfig
+> index 72703ef0c51c..ac0029701283 100644
+> --- a/arch/arm/configs/davinci_all_defconfig
+> +++ b/arch/arm/configs/davinci_all_defconfig
+> @@ -144,8 +144,7 @@ CONFIG_VIDEO_ADV7343=m
+>  CONFIG_DRM=m
+>  CONFIG_DRM_TILCDC=m
+>  CONFIG_DRM_SIMPLE_BRIDGE=m
+> -CONFIG_DRM_TINYDRM=m
+> -CONFIG_TINYDRM_ST7586=m
+> +CONFIG_DRM_ST7586=m
+>  CONFIG_FB=y
+>  CONFIG_FB_DA8XX=y
+>  CONFIG_BACKLIGHT_PWM=m
 
-Yeah, this currently relies on the circumstances being such that
-can_set_direct_map() returns true, and in the case where we want to use
-the resizable VPR functionality, we're going to have page-granular
-mappings anyway.
-
-> If so, how about having an option where the CMA allocation is backed by a=
- direct
-> map with the same page granularity, or at least a smaller and aligned gra=
-nule?
->=20
-> With that, we know that for whatever CMA allocation we do, we can safely =
-unmap
-> from the direct map without risking splitting blocks. On CMA free, we can=
- safely
-> remap into the direct map as I do not believe we coalesce yet.
-
-This sounds intriguing. For VPR we could possibly make the size a
-multiple of the memblock size (or whatever might be appropriate). If we
-can create a page-granular linear mapping specifically for that region,
-that'd be ideal. I don't know if the linear mapping can be subdivided in
-this fashion, though.
-
-> (This alignment is not necessary for upcoming systems with BBML3)
->=20
-> However, to implement this, we'd need to split memblocks and I believe th=
-e only
-> way at the moment is temporarily mark it as "nomap" which didn't seem very
-> popular in the comments on v3.
-
-Could this be simplified if this type of allocation is always memblock
-aligned?
-
-Looking at map_mem(), it seems like we could add some sort of special-
-casing in the for_each_mem_range() block to check if the memory is VPR
-(or generic, page-granular carveout, or whatever we want to call it) and
-set NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS in that case.
-
-If that works, set_direct_map_*() could be enhanced to detect such cases
-and always work. Or perhaps a more specific API could be introduced.
-
-Thierry
-
---wsqkte2vdducxgiq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp/EGIACgkQ3SOs138+
-s6FIfA/7BDMg2roMkVSyRLt06etjxYFBWHpNzxj/SvOzYROjoeOaUOJR15Xodk18
-HI650LP1luxhtmIKPHRjGxZK30ROvHB6QTsl0lYM0cQZ4tVrv5WTMcL9uCui0WzA
-LkF9SVH4YiJdbE4tCnWc9eJSxxedpCsS8d5cHLfDyI2cKvjAxgTxll8INqCMafAU
-wehMyhd65emp5OYmvSuftsNzYf/uM0Oke8Rf64zZjOyZzpBi7AZG2CdROlrN/v1V
-xODXrjdPaZvdq6HkzFVW0GYsouBaWb2rqzw/IsgO5RbT6vg/oOwo+4z50ZDefimA
-x2mLXvg+gzqjY20hfJ82Bar0sCQ8nNlO6rLPpxwXMn9ICDpFV5aaiGvbaZ9ibDxR
-yScvx4k0i/k6NPFoyuKJFSqNn9s4WGqU6p0j+un2K97HMEPtJ3onKs3Pjj63E38i
-EkVAJZkrbt+PNYGiILRWWnU7dTqd5/CreBR7F0zFvVz0+JYjgfmlWcTdLKPAazag
-PpRU7SZKUfHRd+LnsS54706H2dOP1rq5NXx+AGSdRJcwgw30XbIhZ3CmqYBVjbdN
-Nh/5Y19dBDV5UhRx4o3Cqcb1BV/cuu2w0TpGyxoyIUUTFxgDp59uBi2Qi6nY/8kY
-KdeMys4RVWucUUwpbtpKJamulwDRGtlLjyLEIqVeYZY/FOBiaKU=
-=ERUC
------END PGP SIGNATURE-----
-
---wsqkte2vdducxgiq--
+Reviewed-by: David Lechner <david@lechnology.com>
