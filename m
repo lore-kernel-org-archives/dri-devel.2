@@ -4,58 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A28C5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25579C5DF76
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8795210E2DF;
-	Sun, 16 Aug 2026 14:05:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8C010E2EA;
+	Sun, 16 Aug 2026 14:05:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="NZuQSUXr";
+	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="SDzZijdI";
 	dkim-atps=neutral
-Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com
- [203.205.221.192])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2128610F6AE
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 17:02:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1786726926; bh=/ycu+Mz1AYOaiJzr4JJnqRYKXbW0j7jVDsOSI2to+Zc=;
- h=Date:To:Cc:From:Subject;
- b=NZuQSUXr1AjUxnI8pddUMZp7jpaXxKd+YBt8A821jx4qGwFJTh8lhDlYBXsi1mckV
- DOaN6QDMkYITGNaMpDw9HyDaEA26W8zdOAcBjYOeAUL1W0hmtimY0y2EQSFbI9qQZI
- d7GWy153H3Lg5NnEcTEuOkkNQqNeoJDgZFBPjHLA=
-Received: from [IPV6:240e:604:312:765:1c20:8d58:5c0a:697e]
- ([240e:604:312:765:1c20:8d58:5c0a:697e])
- by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
- id 3807618; Sat, 15 Aug 2026 01:00:56 +0800
-X-QQ-mid: xmsmtpt1786726856twd5idnn0
-Message-ID: <tencent_6D8BD584B67A439FC9CEA4A59A660B78C50A@qq.com>
-X-QQ-XMAILINFO: OHxUmJMhaUaq4R4ae6SDFyVEf3AqIue+q0kuzGA0RjGAEGZZ/vTB0C241/QnW5
- ZuQOd8OblnUsFjEXa8hD6anl21/FQk7NySl6la2lVyov0LZnfrZcT2mxIIlmKTWjRrmFa9x+W4aU
- VH12oDxZ9L8YIJhALSx8HDc7uzuAkxlKzUWwSSDTzXDFMMqGImxcsRwRYBXYDpueZZ1kp81QoTD+
- C3V4lAZAUJ8nA6eIQeLLREEuBD42R6x9eTU9DHYXuZE13dFmw2/bxM0ZNzBIWEyGfdTT7Pfvbvdh
- GJ0SJsrCMbYzA4Op2sfTPwdb3e4uj4DfUo8788dIhLeVYPeLXLTj3XRTe/cZ5HNnK3Az1q/mXRTO
- 6KDXnr1+0YbEDTYBf0SlZX3xYY4EiZ6wWndRqAS287kDP0/2mHaocqzBnobKnXUHXsTNXuoGNRIN
- 3Jpi7WclyRyP7khKPEx2h0O34AyI2t/avAjnQhGpMSnKYT2TVwvs3AKTr0bTPJ5zKWMWKw6pdfbw
- JfwUu6Labih2Ekz4MurQKtoRIAQWzlhXW3lbYtK5Ytk8SbGZjL5UNG3loA1EccJBn/qwSC/sekNo
- wtFP787iCrpC6cxhrigSy5Upl9B7Gdp1njJghJUDXTYQX39ebMHV7uxyU/tbn4TFhYoxIaemGA0A
- IWQ6CjT6TXsQKsEwx6ZxpVF5rye354M8ygHzTktDiwvr4kP6hMrYo4VYFjFlgX/xF/mZaKUM+PdW
- 5YWXpq9aQjgzIMwh4ASwwlB0mBqEVQNjeHlDVSIofjv0FKfjC7hfK/4gESKbYV74IPxCFcx206RI
- mK4v+7MRQq+IPC6ab5sWWGGgCDuAegk4+tL51f73WbWQ3khO0Roa/396GK5BCX06Grw2pJ4TjDp+
- c6+B1mDyiS7jE4s9BBW6iKVlwVFOErosO+iVPCZTaLbzBxKBe/NVCy3DrQYjJ6xS6e4hj9Tk9S8P
- fRjQDvJdeKRKvNkluD/RT5wK8lcFvy/r8RWEbNiHCqzYEuC6DFphDQcZk6MdaZqrN+RazNtS9fgq
- y2Il6vRetihkmA6oRECHiSPw6ThcXTWa6892U839ZvHmxPfd6xUrH/Gdzw/u2QNUxKqISO+QZj8t
- oPXx3L
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-OQ-MSGID: <b27b0c6f-1ee1-44fa-a6ca-57b8a3b54032@qq.com>
-Date: Sat, 15 Aug 2026 01:00:56 +0800
+Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
+ [109.224.244.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 631FA10F66F;
+ Fri, 14 Aug 2026 15:14:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1786720444; x=1786979644;
+ bh=ebHvG8J7OHD1DkAFZuYCk4KhWJsTkQYIAAPyBGxbFw8=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=SDzZijdIUQ8nCxCsFGdVcVfY7Di3O4mgbnUwZeqEoW7YM2Wy6I82CYnItojdFIZgz
+ FA0FOmOXQeS9Iuh7ooFC2qUgjhEZnRUaHompUumGCQxNFzvze56JkmxF8bo8ELPy9+
+ hzqgkCkbxFFEWuPDePKy853hcyGsi1ksF3TUOnSBEh6m/DhUtXFmZf8oUBHC+6NqFj
+ 4fxW2NmKtYYQrvnnkCNlg7Lny3+6RELyRrXhuxFbmxppB87pFg/OuRCX8UxaCBUh53
+ 03S7lUhtuOHWyVt34lStnDR7tE5ObtnrkHrtlrej53Q8XT0v0/YEVxdgiTqRLtJOQh
+ mdTDGYxmrqLag==
+Date: Fri, 14 Aug 2026 15:14:00 +0000
+To: Boqun Feng <boqun@kernel.org>
+From: Umio-Yasuno - coelacanth_dream <coelacanth_dream@protonmail.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Mark Janes <mjanes@netflix.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Priya Hosur <Priya.Hosur@amd.com>,
+ mythilam <mythilam@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/pm: Fix incorrect avg vcn utilization in
+ gpu_metrics
+Message-ID: <rTEGWQn-uThfLOzKzIsvt-Dk_dm9_L0dNXzRGAQd0qYSQbMVpvB5cd_zC5CuMFkC-u2o3KjqDjh_J4jcYWUtXR8O9KEL4suMEV8lJQCOvXA=@protonmail.com>
+In-Reply-To: <an5ESxy8-OMYvD4d@tardis.local>
+References: <20260805140227.44868-1-boqun@kernel.org>
+ <an44yIv7WG7vqTqQ@tardis.local>
+ <CADnq5_PLV1rDw8DSawdHfQxyk8XgPp94TQa0HuFVdZVvZo+zmQ@mail.gmail.com>
+ <an5ESxy8-OMYvD4d@tardis.local>
+Feedback-ID: 19510729:user:proton
+X-Pm-Message-ID: a65a74b293661b0e75435d7cb352b25804818840
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-From: Yang Zi <2959243019@qq.com>
-Subject: [BUG] KASAN: slab-use-after-free Read in drm_buddy_alloc_blocks
- [amdgpu] [syzkaller]
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,194 +69,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Apologies, I forgot to set the CC. Below is my opinion that I wrote outside=
+ the thread.
 
-While fuzzing the amdgpu driver on Linux 6.19.10 with a hardware-free
-device-model approach on syzkaller, I found a slab-use-after-free (read) 
-in the DRM buddy allocator. The faulting object is a drm_buddy_block from 
-the drm_buddy_block slab cache (80-byte region).
+---
+amdgpu_top already divides average_vcn_activity in gpu_metrics_v3_0 by 100,=
+ so this patch would unfortunately end up affecting user-space applications=
+.
 
-The bug is reached through DRM_IOCTL_MODE_CREATE_DUMB on amdgpu, but the root
-cause is in the generic DRM buddy allocator (drivers/gpu/drm/drm_buddy.c), not
-in amdgpu itself.
+In my view, if users want to obtain media engine usage that is properly cor=
+rected based on the firmware (or firmware version) in the AMDGPU driver, th=
+e best option is to use the vcn_busy_percent sysfs interface.
+However, that adds extra reading cost.
 
-Root cause analysis:
+Alternatively, since gpu_metrics is designed as an interface that provides =
+raw data[^1] (but undocumented it[^2]), it would be better to have the corr=
+ection applied on the user-space.
 
-During a single drm_buddy_alloc_blocks() request, a block B is allocated and
-then trimmed via drm_buddy_block_trim(), which marks B free, detaches its
-parent, and calls __alloc_range() over B's subtree. __alloc_range() repeatedly
-splits blocks (split_block) and pushes the left/right children onto its DFS
-list. When a deeper split_block() fails, control reaches the err_undo path
-(drm_buddy.c:885), which calls __drm_buddy_free() on a still-free block. The
-merge loop in __drm_buddy_free() (drm_buddy.c:209-213) frees the current block
-and its buddy via drm_block_free() and climbs upward, re-inserting the merged
-block into the free tree.
+[^1]: https://gitlab.freedesktop.org/drm/amd/-/work_items/3251#note_2904104
+[^2]: https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#gpu-me=
+trics
+---
 
-The problem is that a stale reference to one of the just-freed child blocks
-survives in the allocator's traversal/bookkeeping. When the outer allocation
-loop then allocates again, it revisits that already-freed block and calls
-mark_allocated() -> rbtree_remove() -> rb_erase(&block->rb, root)
-(drm_buddy.c:112), reading from the freed rb-node. This is the reported UAF.
+On Friday, August 14th, 2026 at 7:25, Boqun Feng <boqun@kernel.org> wrote:
 
-Relevant call stacks from the KASAN report:
-
-Use (read), drm_buddy_alloc_blocks -> mark_allocated -> rbtree_remove
-(drm_buddy.c:112) -> rb_erase.
-Freed, drm_buddy_alloc_blocks -> drm_buddy_block_trim -> __alloc_range
-(drm_buddy.c:885) -> __drm_buddy_free -> drm_block_free.
-Allocated, drm_buddy_alloc_blocks -> split_block -> drm_block_alloc.
-The free task and the use task are the same, so the entire free-then-use cycle
-happens within one drm_buddy_alloc_blocks() invocation.
-
-I also found a closely related slab-use-after-free (write) in __drm_buddy_free()
-via the amdgpu_vram_mgr free path, which appears to share the same underlying
-allocator rollback defect. I am reporting it separately.
-
-The crash report attached below:
-
-==================================================================
-BUG: KASAN: slab-use-after-free in __rb_change_child include/linux/rbtree_augmented.h:199 [inline]
-BUG: KASAN: slab-use-after-free in __rb_erase_augmented include/linux/rbtree_augmented.h:242 [inline]
-BUG: KASAN: slab-use-after-free in rb_erase+0x135/0xe20 lib/rbtree.c:443
-Read of size 8 at addr ffff888107266ea8 by task syz.0.131/1294
-
-CPU: 0 UID: 0 PID: 1294 Comm: syz.0.131 Not tainted 6.19.10 #3 PREEMPT(voluntary) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS Arch Linux 1.17.0-2-2 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xa2/0xd0 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0xbc/0x260 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- __rb_change_child include/linux/rbtree_augmented.h:199 [inline]
- __rb_erase_augmented include/linux/rbtree_augmented.h:242 [inline]
- rb_erase+0x135/0xe20 lib/rbtree.c:443
- rbtree_remove drivers/gpu/drm/drm_buddy.c:112 [inline]
- mark_allocated drivers/gpu/drm/drm_buddy.c:132 [inline]
- drm_buddy_alloc_blocks+0x642/0xce0 drivers/gpu/drm/drm_buddy.c:1210
- amdgpu_vram_mgr_new+0x72c/0x10e0 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:539
- ttm_resource_alloc+0x13b/0x230 drivers/gpu/drm/ttm/ttm_resource.c:392
- ttm_bo_alloc_resource+0x2c7/0x8c0 drivers/gpu/drm/ttm/ttm_bo.c:742
- ttm_bo_validate+0x1e8/0x530 drivers/gpu/drm/ttm/ttm_bo.c:858
- ttm_bo_init_reserved+0x32e/0x480 drivers/gpu/drm/ttm/ttm_bo.c:972
- amdgpu_bo_create+0x6a2/0xe00 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:703
- amdgpu_bo_create_user+0x87/0x100 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:768
- amdgpu_gem_object_create drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:188 [inline]
- amdgpu_mode_dumb_create+0x250/0x400 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:1259
- drm_mode_create_dumb drivers/gpu/drm/drm_dumb_buffers.c:227 [inline]
- drm_mode_create_dumb_ioctl+0x211/0x2a0 drivers/gpu/drm/drm_dumb_buffers.c:236
- drm_ioctl_kernel+0x23f/0x300 drivers/gpu/drm/drm_ioctl.c:804
- drm_ioctl+0x644/0xac0 drivers/gpu/drm/drm_ioctl.c:901
- amdgpu_drm_ioctl+0xb0/0x120 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2996
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0xd8/0x360 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f38d47a9c6d
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f38d2ddeff8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f38d49d5fa0 RCX: 00007f38d47a9c6d
-RDX: 0000200000000040 RSI: 00000000c02064b2 RDI: 0000000000000003
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f38d49d5fac
-R13: 0000000000000000 R14: 00007f38d2ddfce4 R15: 00007ffd443c5027
- </TASK>
-
-Allocated by task 1292:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x4b/0x60 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:5045 [inline]
- slab_alloc_node mm/slub.c:5355 [inline]
- kmem_cache_alloc_noprof+0x1f3/0x670 mm/slub.c:5362
- drm_block_alloc drivers/gpu/drm/drm_buddy.c:36 [inline]
- split_block+0xa6/0x7f0 drivers/gpu/drm/drm_buddy.c:437
- __alloc_range+0x4c8/0xa30 drivers/gpu/drm/drm_buddy.c:857
- drm_buddy_block_trim+0x721/0x8e0 drivers/gpu/drm/drm_buddy.c:1055
- drm_buddy_alloc_blocks+0xadb/0xce0 drivers/gpu/drm/drm_buddy.c:1241
- amdgpu_vram_mgr_new+0x72c/0x10e0 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:539
- ttm_resource_alloc+0x13b/0x230 drivers/gpu/drm/ttm/ttm_resource.c:392
- ttm_bo_alloc_resource+0x2c7/0x8c0 drivers/gpu/drm/ttm/ttm_bo.c:742
- ttm_bo_validate+0x1e8/0x530 drivers/gpu/drm/ttm/ttm_bo.c:858
- ttm_bo_init_reserved+0x32e/0x480 drivers/gpu/drm/ttm/ttm_bo.c:972
- amdgpu_bo_create+0x6a2/0xe00 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:703
- amdgpu_bo_create_user+0x87/0x100 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:768
- amdgpu_gem_object_create drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:188 [inline]
- amdgpu_mode_dumb_create+0x250/0x400 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:1259
- drm_mode_create_dumb drivers/gpu/drm/drm_dumb_buffers.c:227 [inline]
- drm_mode_create_dumb_ioctl+0x211/0x2a0 drivers/gpu/drm/drm_dumb_buffers.c:236
- drm_ioctl_kernel+0x23f/0x300 drivers/gpu/drm/drm_ioctl.c:804
- drm_ioctl+0x644/0xac0 drivers/gpu/drm/drm_ioctl.c:901
- amdgpu_drm_ioctl+0xb0/0x120 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2996
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0xd8/0x360 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 1292:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x3a/0x60 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2580 [inline]
- slab_free mm/slub.c:6791 [inline]
- kmem_cache_free+0x180/0x560 mm/slub.c:6906
- drm_block_free drivers/gpu/drm/drm_buddy.c:53 [inline]
- __drm_buddy_free+0x357/0x5a0 drivers/gpu/drm/drm_buddy.c:213
- __alloc_range+0x9ff/0xa30 drivers/gpu/drm/drm_buddy.c:885
- drm_buddy_block_trim+0x721/0x8e0 drivers/gpu/drm/drm_buddy.c:1055
- drm_buddy_alloc_blocks+0xadb/0xce0 drivers/gpu/drm/drm_buddy.c:1241
- amdgpu_vram_mgr_new+0x72c/0x10e0 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:539
- ttm_resource_alloc+0x13b/0x230 drivers/gpu/drm/ttm/ttm_resource.c:392
- ttm_bo_alloc_resource+0x2c7/0x8c0 drivers/gpu/drm/ttm/ttm_bo.c:742
- ttm_bo_validate+0x1e8/0x530 drivers/gpu/drm/ttm/ttm_bo.c:858
- ttm_bo_init_reserved+0x32e/0x480 drivers/gpu/drm/ttm/ttm_bo.c:972
- amdgpu_bo_create+0x6a2/0xe00 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:703
- amdgpu_bo_create_user+0x87/0x100 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:768
- amdgpu_gem_object_create drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:188 [inline]
- amdgpu_mode_dumb_create+0x250/0x400 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:1259
- drm_mode_create_dumb drivers/gpu/drm/drm_dumb_buffers.c:227 [inline]
- drm_mode_create_dumb_ioctl+0x211/0x2a0 drivers/gpu/drm/drm_dumb_buffers.c:236
- drm_ioctl_kernel+0x23f/0x300 drivers/gpu/drm/drm_ioctl.c:804
- drm_ioctl+0x644/0xac0 drivers/gpu/drm/drm_ioctl.c:901
- amdgpu_drm_ioctl+0xb0/0x120 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2996
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0xd8/0x360 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff888107266e70
- which belongs to the cache drm_buddy_block of size 80
-The buggy address is located 56 bytes inside of
- freed 80-byte region [ffff888107266e70, ffff888107266ec0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x107266
-anon flags: 0x200000000000000(node=0|zone=2)
-page_type: f5(slab)
-raw: 0200000000000000 ffff88810497a780 ffffea0004257d00 dead000000000003
-raw: 0000000000000000 0000000000240024 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-
-Memory state around the buggy address:
- ffff888107266d80: fc fc fa fb fb fb fb fb fb fb fb fb fc fc fc fc
- ffff888107266e00: fa fb fb fb fb fb fb fb fb fb fc fc fc fc fa fb
->ffff888107266e80: fb fb fb fb fb fb fb fb fc fc fc fc fa fb fb fb
-                                  ^
- ffff888107266f00: fb fb fb fb fb fb fc fc fc fc 00 00 00 00 00 00
- ffff888107266f80: 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-
-Regards,
-Yang Zi
-
+> On Thu, Aug 13, 2026 at 06:01:47PM -0400, Alex Deucher wrote:
+> > On Thu, Aug 13, 2026 at 5:36=E2=80=AFPM Boqun Feng <boqun@kernel.org> w=
+rote:
+> > >
+> > > On Wed, Aug 05, 2026 at 07:02:21AM -0700, Boqun Feng wrote:
+> > > > In a Strix Halo system, a >100 average_vcn_activity in gpu_metrics =
+can
+> > > > be observed by running the following command:
+> > > >
+> > > >     ffmpeg -hwaccel vappi -vappi_device /dev/dri/renderD128 -i \
+> > > >     ~/sample-10s.mp4 -vf hwupload,scale_vappi=3Dformat=3Dnv12 -c:v =
+\
+> > > >     h264_vappi /tmp/output.mp4
+> > > >
+> > > > This is incorrect because the value is supposed to be in [0-100] ra=
+nge.
+> > > >
+> > > > The cause of the issue is that the metrics.VcnActivity reported by
+> > > > smu_cmn_get_metrics_table() is a permyriad value instead of a perce=
+ntage
+> > > > value (e.g. smu_v14_0_0_get_smu_metrics_data() has a division by 10=
+0 to
+> > > > report the vcn_busy_percent). Therefore fix this by applying the sa=
+me
+> > > > division in smu_v14_0_0_get_gpu_metrics().
+> >
+> > I think this is correct as is.  smu_v14_0_0_get_smu_metrics_data() is
+> > used to fetch data for standardized formats like hwmon while
+> > smu_v14_0_0_get_gpu_metrics() is for dumping the raw metrics data.
+> >
+>=20
+> Well, then kgd_pp_interface.h needs some help?
+>=20
+> struct gpu_metrics_v3_0 {
+> =09...
+> =09/* Utilization */
+> =09/* time filtered GFX busy % [0-100] */
+> =09uint16_t=09=09=09average_gfx_activity;
+> =09/* time filtered VCN busy % [0-100] */
+> =09uint16_t=09=09=09average_vcn_activity;
+> =09...
+> }
+>=20
+> Clearly it's not true.
+>=20
+> [Cc amdgpu_top]
+>=20
+> Regards,
+> Boqun
+>=20
+> > Alex
+> >
+> > > >
+> > > > Reported-by: Mark Janes <mjanes@netflix.com>
+> > > > Signed-off-by: Boqun Feng <boqun@kernel.org>
+> > >
+> > > Ping?
+> > >
+> > > Regards,
+> > > Boqun
+> > >
+> > > > ---
+> > > >  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
+> > > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b=
+/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > > > index 568665265a13..1058338344b0 100644
+> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > > > @@ -566,7 +566,8 @@ static ssize_t smu_v14_0_0_get_gpu_metrics(stru=
+ct smu_context *smu,
+> > > >       gpu_metrics->temperature_skin =3D metrics.SkinTemp;
+> > > >
+> > > >       gpu_metrics->average_gfx_activity =3D metrics.GfxActivity;
+> > > > -     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity;
+> > > > +     /* metrics.VcnActivity is permyriad, convert it to percentage=
+. */
+> > > > +     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity / 1=
+00;
+> > > >       memcpy(&gpu_metrics->average_ipu_activity[0],
+> > > >               &metrics.IpuBusy[0],
+> > > >               sizeof(uint16_t) * 8);
+> > > > --
+> > > > 2.50.1 (Apple Git-155)
+> > > >
+> 
