@@ -4,44 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DBCAC5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 17:01:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41412C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 17:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B955510F6AB;
-	Fri, 14 Aug 2026 17:01:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FF6010E590;
+	Fri, 14 Aug 2026 17:15:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O4Ka6JCQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="djE887sn";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C8B810F6AE
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 17:01:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5385560120;
- Fri, 14 Aug 2026 17:01:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF33C1F000E9;
- Fri, 14 Aug 2026 17:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786726895;
- bh=guktap9pMdSUxhozhTzQB9mI/xYVS/XUW2VwQdET/Po=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=O4Ka6JCQtAKLQ87275oEOZXOsxNl9QtRgUmdotkPWy+05ZS1JAWkbFzJWqDStPsNp
- sS24T9BAkqM2hlmI9sWNxRSOSv7IJLIkJxG1gqSK//5os5XhHRbQxWHl305fKMuzad
- CjXtDER9RKgcc+GC2krt7YmkcZRlvcMOWJAlhtByG3hU3qd3LJXxMosTwZtYOQ8/S+
- Pj2LGdjfKwQf3fyNnz9GXvdUOTRstQn4mQBAc2L+OzBxmFBEzH68av4GcMKC5m5i5K
- zJGqCGVAlYDqeTFbiIjOHS9va3ZOnkreX5GfLk7lEmzM6S9EQjHduvIXP6eHMTBXcM
- h2BAJyAShjCUQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/4] drm/amd/display: Enable HDMI ALLM for Gaming-VRR
-To: "Fangzhi Zuo" <jerry.zuo@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814164344.3098143-5-jerry.zuo@amd.com>
-References: <20260811003921.1398292-1-jerry.zuo@amd.com>
- <20260814164344.3098143-1-jerry.zuo@amd.com>
- <20260814164344.3098143-5-jerry.zuo@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 17:01:34 +0000
-Message-Id: <20260814170134.DF33C1F000E9@smtp.kernel.org>
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEA3410F6AE
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 17:15:31 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4980fe6b3beso16839785e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 10:15:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786727730; x=1787332530; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=NlJYVJ/8GdD4qg+Ajeu5HEDnsi7CdGS+uFMUtLjS2lM=;
+ b=djE887sn2VlrjEj3qJ/EhodRLUs+gBY/Jb61yEHdkS0rzQvoQrLs1d0lCFJcgTcbQw
+ d+tOuF4yvMgnchYnBbOXM2VsNyN1fHo6rJ/DFrE+kC7omKRtkNLJkhBsntWlYjdZiG4b
+ WqywLTfMUa5/cttERyHJosVjOFBqRx3r/eudF4dU4DIweTKty4T1TNeFBs0G21W4vS2/
+ qGIeVwplaf9Ycr5Q5Ik57IDXHwNBtUlrAA57O7S+oGF/7zlpGs8h/9l5WyziqrjI+d+s
+ ucdHDZyEPWqDf1wNsx7Xs6GcCINacM6JXcf+rwR/d3J6lMFDz00SoFJ7qt8DQnchfhQj
+ j8Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786727730; x=1787332530;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=NlJYVJ/8GdD4qg+Ajeu5HEDnsi7CdGS+uFMUtLjS2lM=;
+ b=XfD64uswxx9gSDY5pvg08FODOH/aFcE/yjrjHdxHVVsuW/6it4/qbEs+RPpzZ1D2IV
+ cj7wva12uXP/vIn/wYz3DoXHwy+yCgMPiX0HgNeIEVFLWj9zzBBRU9Dk9KXSbSJbbJpe
+ 9V2AVdge5dM/vbALufOQrX2rkOj5mOVaJQdSsTwWTYAWuWP5QrJMGwQ8FS1bLHtmbarY
+ MR72zuj/BYC0TO+iOdV9E7Vpt85XUePkB9Gs4CFdbwdepIoD6py6xBbJrLhpulmaJnN0
+ EOhzoj3qcH+vQr9biAJHgCDN7Az2ruPp10lcUrDUxlOnW/9M+rGKSl/iDLS+LWV6GkpW
+ +KYA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrZYOfQBEiPmPSTipwucxxxU3QjR5oITDHMcIoZsjeGDO0g6x5rmStlLNMD3bHRMZoapWaU9xXyNFw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzhg0lZTaNtDDD48+nyRiGMvi3lfDycBVkL2MKNbqLWgHsXfjkg
+ kKCLTKYW61s8fSxKqZiNGMrdEHvTvuthB+re5VGjHNwEvZsDEEmKWkKl
+X-Gm-Gg: AR+sD137vwsZa6k349TaSU3WYU2rFXvaoMvN8nFYV1VcvEiEWbXgAXugNvSxMeA7zy9
+ lr0LH+GGMlUp+zbYWeAcfbE3Wha8xLuGSE+xm6TdYqXpxZ5WoAMRduIYsEM1HUraMCpWpRnrcZv
+ YXP6EiATAoHkOIv6g2kjblT6r0ALOk/u4WW3QbzqbqUDBKfbu5kdefergAkxUa3U5qjoIkspGdw
+ w5EnMiW4Kk1oECtze0ayGBrVzyLA7+rtSJv0mdCV4+HZLUE6ahb9uzbjSt/fQIsNMtFR6kcfusf
+ 9IDRLXtk5QD0n8XoYATKCMnnBkTY7CSD3tX3FaJfVc6z4E2nrwSJhlhdKR6Ajav8NMpaPKsq24Q
+ PEsHhvUTVkhOmAmkDSGkClTGfRY8JAFzZct9h6/7zFMApXhEWbrCmDUlXriip2Xumi8AiBQCWNi
+ Bye++E3kdRZZTGUMTVmkmHEvW6xfUWVqaow2LEYP7OXmrleqkcDxXzChmc+rM=
+X-Received: by 2002:a05:600c:5643:b0:499:77ba:4b6 with SMTP id
+ 5b1f17b1804b1-49987ad988emr70687995e9.9.1786727730016; 
+ Fri, 14 Aug 2026 10:15:30 -0700 (PDT)
+Received: from localhost ([5.83.201.220]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-499899b5ad0sm44859855e9.4.2026.08.14.10.15.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Aug 2026 10:15:29 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amd/display: Fix spelling mistake "optmization" ->
+ "optimization"
+Date: Fri, 14 Aug 2026 18:13:35 +0100
+Message-ID: <20260814171335.1099999-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,101 +92,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Overloading `vsp_infopacket` with the HDMI Forum VSIF (HF-VSIF) ov=
-erwrites the standard HDMI 1.4 VSIF, silently dropping the HDMI VIC require=
-d for certain modes.
---
+There is a spelling mistake in a DML_ASSERT_MSG message. Fix it.
 
---- Patch [4]: [PATCH v4 4/4] drm/amd/display: Enable HDMI ALLM for Gaming-=
-VRR ---
-commit d9e1d834d57e6ab1f6bb6abbfa9007cc7a9851fc
-Author: Fangzhi Zuo <jerry.zuo@amd.com>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ .../drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-drm/amd/display: Enable HDMI ALLM for Gaming-VRR
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
+index ab9cadaf5a60..79ec5838c26f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
+@@ -123,7 +123,7 @@ static enum dml2_status dml2_top_perform_stage_optimization(struct dml2_instance
+ 	DML_ASSERT_MSG(worksheet->validation_result.is_mode_support_valid
+ 			&& worksheet->validation_result.is_mcache_allocation_valid
+ 			&& worksheet->validation_result.is_prefetch_valid,
+-			"worksheet must be valid on exit independent from optmization resul!\n");
++			"worksheet must be valid on exit independent from optimization resul!\n");
+ //	DML_ASSERT_MSG(iteration <= MAX_OPTIMIZATION_ITERATIONS,
+ //			"exceeds max optimization iterations!\n"
+ //			"\t is_permissible_found = %s\n"
+-- 
+2.55.0
 
-This commit enables Auto Low-Latency Mode (ALLM) by setting ALLM_Mode=3D1
-in the HF-VSIF when Gaming-VRR is active. It transmits the updated HF-VSIF
-as a stream update when the sink advertises ALLM support.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4029,9 +4029,12 @@ static void amdgpu_dm_commit_planes(struct drm_ato=
-mic_commit *state,
->  		}
-> =20
->  		if (acrtc_state->stream) {
-> -			if (acrtc_state->freesync_vrr_info_changed)
-> +			if (acrtc_state->freesync_vrr_info_changed) {
->  				bundle->stream_update.vrr_infopacket =3D
->  					&acrtc_state->stream->vrr_infopacket;
-> +				bundle->stream_update.vsp_infopacket =3D
-> +					&acrtc_state->stream->vsp_infopacket;
-
-[Severity: High]
-Does updating the stream using vsp_infopacket drop the standard HDMI Vendor
-Specific InfoFrame (VSIF)?
-
-The dc_stream_state structure has a separate hfvsif_infopacket member that
-might be intended for the HF-VSIF payload instead of overloading the
-vsp_infopacket.
-
-> +			}
->  		}
->  	}
-> =20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b=
-/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-
-[ ... ]
-
-> +	if (new_stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A ||
-> +	    new_stream->signal =3D=3D SIGNAL_TYPE_HDMI_FRL) {
-> +		struct dc_info_packet vsp_infopacket =3D {0};
-> +		bool sink_allm =3D aconn && aconn->base.display_info.hdmi.allm;
-> +		bool allm =3D sink_allm &&
-> +			(vrr_params.state =3D=3D VRR_STATE_ACTIVE_VARIABLE ||
-> +			 vrr_params.state =3D=3D VRR_STATE_ACTIVE_FIXED);
-> +		bool allm_changed;
-> +
-> +		mod_build_hf_vsif_infopacket(new_stream, &vsp_infopacket, allm, allm);
-> +
-> +		allm_changed =3D memcmp(&new_stream->vsp_infopacket, &vsp_infopacket,
-> +				      sizeof(vsp_infopacket)) !=3D 0;
-> +		new_crtc_state->freesync_vrr_info_changed |=3D allm_changed;
-> +		new_stream->vsp_infopacket =3D vsp_infopacket;
-
-[Severity: High]
-Does storing the HF-VSIF inside the vsp_infopacket slot overwrite the
-standard HDMI 1.4 VSIF?
-
-When ALLM is active, this assignment appears to silently overwrite the VSIF
-designated for HDMI 1.4, which can result in the display losing format
-information like the hdmi_vic required for certain modes.
-
-Looking at resource_build_info_frame() in dc_resource.c, the hardware
-explicitly supports transmitting both the standard VSIF and the HF-VSIF
-simultaneously via separate slots:
-
-dc/core/dc_resource.c:resource_build_info_frame() {
-    ...
-    set_vendor_info_packet(&info->vendor, pipe_ctx->stream);
-    set_hfvs_info_packet(&info->hfvsif, pipe_ctx->stream);
-    ...
-}
-
-Should this code instead populate the hfvsif_infopacket member of new_strea=
-m?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814164344.3098=
-143-1-jerry.zuo@amd.com?part=3D4
