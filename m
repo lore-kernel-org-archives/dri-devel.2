@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A72D9C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:57:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90747C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:57:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E093610F621;
-	Fri, 14 Aug 2026 14:57:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E633310F61B;
+	Fri, 14 Aug 2026 14:57:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bJzylpFq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QEyLHNvK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 962F010F621
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:57:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3E3110F61B
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:57:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5A1BC44034;
- Fri, 14 Aug 2026 14:57:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57C21F00A3A;
- Fri, 14 Aug 2026 14:57:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DCD2A60A58;
+ Fri, 14 Aug 2026 14:57:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 177691F00A3A;
+ Fri, 14 Aug 2026 14:57:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786719461;
- bh=GoYuOczj9hhHjt3dvsFLccyaVSLrjVDvlOsBnv/KzyY=;
+ s=k20260515; t=1786719463;
+ bh=Nxn0cfgRyKM5YTZ/u+GrACPJFGr2tNTUD14a5jo364M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=bJzylpFqCyZirf23727ZOFQG+Ok7ApYLk1JUmOP10RY/9OQxrZg/PVWZF4W+O4oZY
- 23OrdnT3NoOAM7FItDRisWBQ1cLnpsK1rdzBYyDFfi/1OCjWld+8NBHOwvULA4m7X5
- 680LrV0x15vUq42QyS79B3VdhvqQzaDJJg14ng9jQdS/bIWm97GBeDsVxF7rfQlRyt
- 5i0wWDe+Xq3aKUfYXGWkbIk/XRoxoqCbUQFWtNvfNl6Fje0Y1H6gcmWQ5TebXFOBRv
- VFCabFJkLHu8XnvGCvBZ/eVR4coRjTHcfbxhwkNy0O84WtTjYWrQIAajb5GXvV8bPH
- 7GldzCUgCpGpw==
+ b=QEyLHNvK9GP1boonPghFWQkqL6dxe4JlMJaWD0cZbXox780DSSBiEarm0S4HQzgy9
+ ljnw1qaf0tK4x5trE9lb1WmwSbaBaIGBW1GXp3ddzE2a7VaxKywPtF5Ioi8Gxcwklw
+ HT8rCFDhDM0fZDBMxEjOD/sCT4hNclKmKZhIviBhzUImtruazqDDZC3KitZHlKbhZ4
+ xkZ1O8zCksUzru4o6n3BNzoF7BtlhxcxBRj7krBJZitm+riIlqFYeBxAFaWkoHOCSF
+ TtRgxGN9A/4YIXqNMdoki/Zpe3zgvXtk5Iiflz16iimnImzlbXYQ5vGFrZdwVnpS0h
+ 7DMVjUwSS5ZvQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 14 Aug 2026 16:56:50 +0200
-Subject: [PATCH v2 01/61] drm/simple-kms: Add create_plane_state hook
+Date: Fri, 14 Aug 2026 16:56:51 +0200
+Subject: [PATCH v2 02/61] drm/gem-atomic-helper: Create
+ drm_gem_create_shadow_plane_state()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
+Message-Id: <20260814-drm-no-more-plane-reset-v2-2-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -44,12 +45,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3656; i=mripard@kernel.org;
- h=from:subject:message-id; bh=rgppf2EgB5mHpLt+EzP+oKPLiSSKT4N/Y9naLRIuEBs=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Oke2FlZc+M97yNZZPahOd+KUy/OThBefnJal8VBcw
- eZ9vGdgx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhItT1jw77Gnu2OTNWf8l4d
- 29oZtkozNe6Tb9ilLw9S3jwLfy+nsVhL2653LYPY7wuxV8IWc2tzMTZMkL0yTfPk3neHXl3mcg1
- wjUt4HN55bZ5iRPWSc+WiNt1xN7MYb9g/r3ixmCHXjofzpDAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3856; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=sLZAwypIMfDGvD9CvIUvn1uST5DmIDwWuhcwMu1Pio0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Okfnn+U0/Fi2S/PQD96OsmuymjrGf7+0f+8V2CJ25
+ POKC3nfO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEZI4zNkyO/eG29GKYzDzr
+ 5LiAPV+3ONqkWphtVVQ7daHCsFbwmsF6aanK9G0ZpeatqhtbO+I/MzZMeqHr47n0X3LqtJNls/t
+ O5+/7dv/HPPcZEhOa3H93sjG9/XzJ9cxvrXLz+9v8HCVdJ0YDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,96 +68,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The simple-kms helper provides a reset_plane hook to let drivers
-override the default plane reset. However, the reset hook is
-overloaded: it is used to create the initial software state at probe
-time, but also to reset both the hardware and software state during
-suspend/resume. These two roles have different expectations, and
-reset is not fallible which makes error handling difficult.
+The GEM shadow-plane helpers only expose reset functions
+(drm_gem_reset_shadow_plane and __drm_gem_reset_shadow_plane) that
+handle both the initial state allocation and the reset path. The new
+atomic_create_state hook requires a function that only allocates and
+initializes a pristine state without any side effect.
 
-The atomic_create_state pattern was introduced to untangle this by
-providing a hook that only allocates and initializes a pristine state
-without any side effect.
+Create __drm_gem_shadow_plane_state_init() to initialize a
+pre-allocated shadow plane state, and
+drm_gem_create_shadow_plane_state() to allocate and initialize one
+from scratch.
 
-Add a create_plane_state hook to struct
-drm_simple_display_pipe_funcs. When provided,
-drm_simple_kms_plane_reset() will use it to allocate a fresh state,
-falling back to reset_plane and then to the default
-drm_atomic_helper_plane_reset().
-
-This will allow simple-kms drivers to be converted to the
-atomic_create_state pattern.
-
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_simple_kms_helper.c | 26 ++++++++++++++++++++++++--
- include/drm/drm_simple_kms_helper.h     |  1 +
- 2 files changed, 25 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_gem_atomic_helper.c | 42 +++++++++++++++++++++++++++++++++
+ include/drm/drm_gem_atomic_helper.h     |  3 +++
+ 2 files changed, 45 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/drm_simple_kms_helper.c
-index 8e1d07b9f1e3..528968ea5c4b 100644
---- a/drivers/gpu/drm/drm_simple_kms_helper.c
-+++ b/drivers/gpu/drm/drm_simple_kms_helper.c
-@@ -279,19 +279,41 @@ static const struct drm_plane_helper_funcs drm_simple_kms_plane_helper_funcs = {
- 	.end_fb_access = drm_simple_kms_plane_end_fb_access,
- 	.atomic_check = drm_simple_kms_plane_atomic_check,
- 	.atomic_update = drm_simple_kms_plane_atomic_update,
- };
+diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
+index abef865c5f2c..7ef67c2d77ce 100644
+--- a/drivers/gpu/drm/drm_gem_atomic_helper.c
++++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
+@@ -178,10 +178,52 @@ EXPORT_SYMBOL_GPL(drm_gem_plane_helper_prepare_fb);
  
-+static void drm_simple_kms_plane_destroy_state(struct drm_plane *plane,
-+					       struct drm_plane_state *state);
-+
- static void drm_simple_kms_plane_reset(struct drm_plane *plane)
- {
- 	struct drm_simple_display_pipe *pipe;
+ /*
+  * Shadow-buffered Planes
+  */
  
- 	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
--	if (!pipe->funcs || !pipe->funcs->reset_plane)
-+	if (!pipe->funcs)
- 		return drm_atomic_helper_plane_reset(plane);
++/**
++ * __drm_gem_shadow_plane_state_init - initializes shadow-buffered plane state
++ * @plane: the plane
++ * @shadow_plane_state: the shadow-buffered plane state
++ *
++ * This function initializes a pre-allocated shadow-buffered plane state.
++ * Helpful for drivers that subclass struct drm_shadow_plane_state.
++ */
++void __drm_gem_shadow_plane_state_init(struct drm_plane *plane,
++				       struct drm_shadow_plane_state *shadow_plane_state)
++{
++	__drm_atomic_helper_plane_state_init(&shadow_plane_state->base, plane);
++	drm_format_conv_state_init(&shadow_plane_state->fmtcnv_state);
++}
++EXPORT_SYMBOL(__drm_gem_shadow_plane_state_init);
++
++/**
++ * drm_gem_create_shadow_plane_state - creates a shadow-buffered plane state
++ * @plane: the plane
++ *
++ * This function implements struct &drm_plane_funcs.atomic_create_state for
++ * shadow-buffered planes. It assumes the new state to be of type
++ * struct drm_shadow_plane_state.
++ *
++ * Returns:
++ * A pointer to a new plane state on success, or an ERR_PTR()-encoded
++ * error code otherwise.
++ */
++struct drm_plane_state *drm_gem_create_shadow_plane_state(struct drm_plane *plane)
++{
++	struct drm_shadow_plane_state *shadow_plane_state;
++
++	shadow_plane_state = kzalloc_obj(*shadow_plane_state);
++	if (!shadow_plane_state)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_gem_shadow_plane_state_init(plane, shadow_plane_state);
++
++	return &shadow_plane_state->base;
++}
++EXPORT_SYMBOL(drm_gem_create_shadow_plane_state);
++
+ /**
+  * __drm_gem_duplicate_shadow_plane_state - duplicates shadow-buffered plane state
+  * @plane: the plane
+  * @new_shadow_plane_state: the new shadow-buffered plane state
+  *
+diff --git a/include/drm/drm_gem_atomic_helper.h b/include/drm/drm_gem_atomic_helper.h
+index 3e01c619a25e..43657d8fb1c8 100644
+--- a/include/drm/drm_gem_atomic_helper.h
++++ b/include/drm/drm_gem_atomic_helper.h
+@@ -93,10 +93,13 @@ void __drm_gem_duplicate_shadow_plane_state(struct drm_plane *plane,
+ void __drm_gem_destroy_shadow_plane_state(struct drm_shadow_plane_state *shadow_plane_state);
+ void __drm_gem_reset_shadow_plane(struct drm_plane *plane,
+ 				  struct drm_shadow_plane_state *shadow_plane_state);
  
--	return pipe->funcs->reset_plane(pipe);
-+	if (pipe->funcs->create_plane_state) {
-+		struct drm_plane_state *state;
-+
-+		if (plane->state) {
-+			drm_simple_kms_plane_destroy_state(plane, plane->state);
-+			plane->state = NULL;
-+		}
-+
-+		state = pipe->funcs->create_plane_state(pipe);
-+		if (WARN_ON(IS_ERR(state)))
-+			return;
-+
-+		plane->state = state;
-+		return;
-+	}
-+
-+	if (pipe->funcs->reset_plane)
-+		return pipe->funcs->reset_plane(pipe);
-+
-+	return drm_atomic_helper_plane_reset(plane);
- }
+ void drm_gem_reset_shadow_plane(struct drm_plane *plane);
++void __drm_gem_shadow_plane_state_init(struct drm_plane *plane,
++				       struct drm_shadow_plane_state *shadow_plane_state);
++struct drm_plane_state *drm_gem_create_shadow_plane_state(struct drm_plane *plane);
+ struct drm_plane_state *drm_gem_duplicate_shadow_plane_state(struct drm_plane *plane);
+ void drm_gem_destroy_shadow_plane_state(struct drm_plane *plane,
+ 					struct drm_plane_state *plane_state);
  
- static struct drm_plane_state *drm_simple_kms_plane_duplicate_state(struct drm_plane *plane)
- {
- 	struct drm_simple_display_pipe *pipe;
-diff --git a/include/drm/drm_simple_kms_helper.h b/include/drm/drm_simple_kms_helper.h
-index cb672ce0e856..b58f6d532820 100644
---- a/include/drm/drm_simple_kms_helper.h
-+++ b/include/drm/drm_simple_kms_helper.h
-@@ -42,10 +42,11 @@ struct drm_simple_display_pipe_funcs {
- 	void (*reset_crtc)(struct drm_simple_display_pipe *pipe);
- 	struct drm_crtc_state * (*duplicate_crtc_state)(struct drm_simple_display_pipe *pipe);
- 	void (*destroy_crtc_state)(struct drm_simple_display_pipe *pipe,
- 				   struct drm_crtc_state *crtc_state);
- 	void (*reset_plane)(struct drm_simple_display_pipe *pipe);
-+	struct drm_plane_state * (*create_plane_state)(struct drm_simple_display_pipe *pipe);
- 	struct drm_plane_state * (*duplicate_plane_state)(struct drm_simple_display_pipe *pipe);
- 	void (*destroy_plane_state)(struct drm_simple_display_pipe *pipe,
- 				    struct drm_plane_state *plane_state);
- };
- 
+ /**
 
 -- 
 2.55.0
