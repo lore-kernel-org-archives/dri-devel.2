@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46B8EC5CFC1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D954BC5CFCF
 	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:59:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99A0A10F65D;
-	Fri, 14 Aug 2026 14:59:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03D0710F65F;
+	Fri, 14 Aug 2026 14:59:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ir4BIuds";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iiM437FB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF9A610F65D
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:59:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 375F010F65F
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:59:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C839843210;
- Fri, 14 Aug 2026 14:59:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330D71F000E9;
- Fri, 14 Aug 2026 14:59:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 213654079F;
+ Fri, 14 Aug 2026 14:59:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C4A1F00A3A;
+ Fri, 14 Aug 2026 14:59:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786719594;
- bh=fsV5s4trzzGubdkIublPwEbIcw8geXejr/PL8VS4OXo=;
+ s=k20260515; t=1786719590;
+ bh=7Ls+NvHNklb+Bsu/U28EvAEbavqoLs1ZOqSz3mrEaN8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Ir4BIudstn4TGiIXMMcl8JhUPbLWbQRBJi8Sc4QZ443MqTZygjmaoYCtct6a/B+NK
- Cmm/nyJnapBbZAVt1av0qNiwVX24HA3NOJvkQX7voxhaaH6wKiQSnBd6nlQCkYpbhb
- y9hL0NFqqRhd+U7woZ5VUpgBAPr4MlDEU34kCkAKE2wCboYTKZxnKVfPd4/GMeszhw
- sji/kxz+iNREtJ1/8/aE7/M9myfaM6ZDrhM+RXoelOBGco/x+zXfm4z8F0t5m5HStx
- VvBrb1OevJyRjlpKqIFiddjXP4EE0ifBbDv2+bKezSoSYRFu2ceOdMvNW2lvvVZI4p
- a+GCElW4hcsOQ==
+ b=iiM437FBRyasBK//56rPgaRV2HV2M9vOpZjERtFJTJmlTF0HZu3jQrb3r6yWy9JCy
+ HntuDr0AiYEcYK8Pk/Em+mqdqix71XZreVhuX8PVUbY2jb/B72jOsOqxDJjLSwlXnB
+ ynR//qAQTXBnMhGfeL1Gxnsh/8/ayYXVvasHw4iooUfQ4pIxFKsgK1flcnnCJdYm2Z
+ xBsDqXnA0RTKfJ2Xey40CL2r1CwcraIfNUo/2j/CJBaE/kczyOlTyaARc2CmleI+6O
+ e/j0UgXnCPzBfpbFaEo6bACJUtkIRlpPbWWmtBomBIaP7koM6lUfUBF3jpREuyj4vf
+ PORMj47nD6Jhg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 14 Aug 2026 16:57:46 +0200
-Subject: [PATCH v2 57/61] drm/vc4: Convert to atomic_create_state
+Date: Fri, 14 Aug 2026 16:57:44 +0200
+Subject: [PATCH v2 55/61] drm/shmobile: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260814-drm-no-more-plane-reset-v2-57-82d2963dd134@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260814-drm-no-more-plane-reset-v2-55-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- dave.stevenson@raspberrypi.com, kernel-list@raspberrypi.com, 
- mcanal@igalia.com
+ geert+renesas@glider.be, linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6911; i=mripard@kernel.org;
- h=from:subject:message-id; bh=W2LJnhBHoJer7Km66NVchzPxoWMBfJMiSXjDE93zzj4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1One/5i+ao8/4+17I4g+FMcrMaz/Vl82U2mT6rnAnT
- 5JlztUlHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAit+4y1pnzsu+TCMq4eDTn
- 8WfxyawzLJrPN51h3jlRcmfUz+8M21iye36tiOPffj8g9IRBqZbYccb65Lu94RyXHp7fEP7qt/l
- mPkH+v88v6fG+mOk6ZU24N//DeR5iSZFF+86dUL7CXXvto/ZcAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6989; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=lFb0/r5T37LtcZ/fZlU32akwUACaoc0XZlKURDhjlM8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1OneE5uqJdl+b2pwfPONGTWW86ezHbdPF2n9wz2r6G
+ HFgQvGkjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARtumMtXIbmmTWL69palsl
+ vrdXuainhW/2xjfBE41E5Lc91IhWrI3ZFuUvn9B7at5sgW0TDsQ/YWy4laP46nD0p7awBevFgma
+ f+bImSLPd+dvzqbltMRIJwdlKzWct+uJeT+5VXWBxOurl9/UA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,63 +333,61 @@ expression PS;
 +	return &PS->base;
 }
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: dave.stevenson@raspberrypi.com
-Cc: kernel-list@raspberrypi.com
-Cc: mcanal@igalia.com
+Cc: geert+renesas@glider.be
+Cc: linux-renesas-soc@vger.kernel.org
 ---
- drivers/gpu/drm/vc4/vc4_plane.c | 15 ++++++---------
+ drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c | 15 ++++++---------
  1 file changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
-index 6c433270214d..20c9fc9283a8 100644
---- a/drivers/gpu/drm/vc4/vc4_plane.c
-+++ b/drivers/gpu/drm/vc4/vc4_plane.c
-@@ -361,24 +361,21 @@ static void vc4_plane_destroy_state(struct drm_plane *plane,
- 	__drm_atomic_helper_plane_destroy_state(&vc4_state->base);
- 	kfree(state);
+diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
+index 148de34af785..4dec4d2c941e 100644
+--- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
++++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
+@@ -249,24 +249,21 @@ static void shmob_drm_plane_atomic_destroy_state(struct drm_plane *plane,
+ {
+ 	__drm_atomic_helper_plane_destroy_state(state);
+ 	kfree(to_shmob_plane_state(state));
  }
  
- /* Called during init to allocate the plane's atomic state. */
--static void vc4_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *vc4_plane_create_state(struct drm_plane *plane)
+-static void shmob_drm_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *shmob_drm_plane_create_state(struct drm_plane *plane)
  {
- 	struct vc4_plane_state *vc4_state;
+ 	struct shmob_drm_plane_state *state;
  
--	if (plane->state)
--		__drm_atomic_helper_plane_destroy_state(plane->state);
+-	if (plane->state) {
+-		shmob_drm_plane_atomic_destroy_state(plane, plane->state);
+-		plane->state = NULL;
+-	}
 -
--	kfree(plane->state);
--
- 	vc4_state = kzalloc_obj(*vc4_state);
- 	if (!vc4_state)
+ 	state = kzalloc_obj(*state);
+ 	if (state == NULL)
 -		return;
 +		return ERR_PTR(-ENOMEM);
  
--	__drm_atomic_helper_plane_reset(plane, &vc4_state->base);
-+	__drm_atomic_helper_plane_state_init(&vc4_state->base, plane);
+-	__drm_atomic_helper_plane_reset(plane, &state->base);
++	__drm_atomic_helper_plane_state_init(&state->base, plane);
 +
-+	return &vc4_state->base;
++	return &state->base;
  }
  
- static void vc4_dlist_counter_increment(struct vc4_plane_state *vc4_state)
- {
- 	if (vc4_state->dlist_count == vc4_state->dlist_size) {
-@@ -2493,11 +2490,11 @@ static bool vc4_format_mod_supported(struct drm_plane *plane,
- }
- 
- static const struct drm_plane_funcs vc4_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = vc4_plane_reset,
-+	.atomic_create_state = vc4_plane_create_state,
- 	.atomic_duplicate_state = vc4_plane_duplicate_state,
- 	.atomic_destroy_state = vc4_plane_destroy_state,
- 	.format_mod_supported = vc4_format_mod_supported,
+ static const struct drm_plane_helper_funcs shmob_drm_plane_helper_funcs = {
+ 	.atomic_check = shmob_drm_plane_atomic_check,
+ 	.atomic_update = shmob_drm_plane_atomic_update,
+@@ -281,11 +278,11 @@ static const struct drm_plane_helper_funcs shmob_drm_primary_plane_helper_funcs
  };
  
+ static const struct drm_plane_funcs shmob_drm_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.reset = shmob_drm_plane_reset,
++	.atomic_create_state = shmob_drm_plane_create_state,
+ 	.atomic_duplicate_state = shmob_drm_plane_atomic_duplicate_state,
+ 	.atomic_destroy_state = shmob_drm_plane_atomic_destroy_state,
+ };
+ 
+ static const uint32_t formats[] = {
 
 -- 
 2.55.0
