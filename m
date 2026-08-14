@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6858CC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 08:10:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E02CDC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 08:17:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD9B710F443;
-	Fri, 14 Aug 2026 08:10:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E85110E492;
+	Fri, 14 Aug 2026 08:17:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UYbdVPuq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hj03Bjhm";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCF010F443
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 08:10:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC1A10E492
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 08:17:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2461E40E37;
- Fri, 14 Aug 2026 08:10:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0FAB1F00A3A;
- Fri, 14 Aug 2026 08:10:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 337C343303;
+ Fri, 14 Aug 2026 08:17:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEB7D1F000E9;
+ Fri, 14 Aug 2026 08:17:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786695022;
- bh=asHxFYr6MwhDHVWnhP3JiWHCP+V9KMvbulZFQU80jAk=;
+ s=k20260515; t=1786695436;
+ bh=usM3qXsMmTILRYfMI3HWBsUNaN6t6/G7Zurdz3PDKgM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UYbdVPuqRorfriGL12r0Mv5ctNaMnUurlzbKHXJLsIr16Si8VVJdNgO7wcRk+OT8m
- WTpXVjUvlbNiBI+QUqjBkvgTc8F+sIh05WQFKpzJEB5wakqZ+grZERJsALz3C361xT
- LOx4HxUvmNCZyMPgm4A8Ku264N8+oh6VJoJAIWQcSNk0pzFHzHvmpyhnK4ZWEWW9ug
- 8suW0emQtCJ5bil07OqbO6wqgz89V10bVbjj2buvS94XuF2LspstDcsbmhIeupX9io
- Sl3ETGhBuGEkSLWBBrBY49bVlmnoVlQbSoewdON6TeAVGYlGQnDeykob0Da3wms3ZJ
- kpvDAawiLLamg==
+ b=hj03BjhmxILlvkYIl0WJxgLY2651INPc5QkNBSoVSZiewJajUld17+7MtT/actnoD
+ I7wwQEDYv+YXURnvYLVn5d8xeby7RD7eqporRlR44eh3zFhoPofdAVoswAnK6WYIGx
+ FxUJYf54+LeQvE39kZc7e+o4qamGSm9ZmjbNs+muwpzHa6exCVveLRCgGtyb9zfi13
+ NyD4AHnQkOokyF0ieARGq9mgM4OqbGwtZOAv33gHf5Vrs+H6FVU8G6l72sy8NrngHb
+ NeeBv3SNi/dHq5g5a9LBBrfQBexvlSXBM69XtkOZAyuXX5V8r5KmMvBt0cfiRK6Ptz
+ 15ZIstzq/w5qA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/sched: Do not restore unsaved virtual runtime
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
+Subject: Re: [PATCH v2] drm/nouveau: validate legacy BIT table bounds
+To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814075739.32481-2-tvrtko.ursulin@igalia.com>
-References: <20260814075739.32481-1-tvrtko.ursulin@igalia.com>
- <20260814075739.32481-2-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260814080335.22263-1-pengpeng@iscas.ac.cn>
+References: <20260814080335.22263-1-pengpeng@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 08:10:21 +0000
-Message-Id: <20260814081021.D0FAB1F00A3A@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 08:17:11 +0000
+Message-Id: <20260814081715.DEB7D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,98 +60,79 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] A killed and stopped scheduler entity can be unconditionally added=
- back to the runqueue's rbtree, leading to a use-after-free when the entity=
- is subsequently freed by the driver.
+- [High] Nested VBIOS table pointers parsed from BIT payloads lack bounds c=
+hecks before dereference.
 --
 
---- Patch [1]: [PATCH 1/2] drm/sched: Do not restore unsaved virtual runtim=
-e ---
-commit 8feac77c9420bd8a6d250c6a988250fe755b6870
-Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: drm/sched: Do not restore unsaved virtual runtime
+--- Patch [1]: [PATCH v2] drm/nouveau: validate legacy BIT table bounds ---
+commit 3d3dd9aae1a602cb536b23bfafdac9694396793b
+Author: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-This patch modifies the queue push/pop and runqueue management paths in the
-drm scheduler. It extends the scope of entity->lock to encompass both queue
-management and rbtree updates. This prevents a race condition where a new j=
-ob
-could be pushed to an entity before its virtual runtime was correctly saved.
+drm/nouveau: validate legacy BIT table bounds
 
-> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/sched=
-uler/sched_rq.c
-> index 0464d324d98d5..23f46ec610e78 100644
-> --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+The legacy BIT parser finds the BIT signature and then reads the
+entry shape and entry array directly from the VBIOS image. The signature
+does not prove that the complete header, entry array or referenced table
+payload fits in the image.
 
+Validate each extent before use. Preserve the legacy zero-offset meaning
+for zero-length entries, but reject non-empty entries with a null or
+out-of-range offset.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_bios.c b/drivers/gpu/drm/nou=
+veau/nouveau_bios.c
+> index 38032bb958262..a4ef62928ba3d 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_bios.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_bios.c
+> @@ -972,24 +972,39 @@ bit_table(struct drm_device *dev, u8 id, struct bit=
+_entry *bit)
 [ ... ]
-
-> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
->   */
->  void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->  {
-> +	struct drm_sched_rq *rq =3D entity->rq;
->  	struct drm_sched_job *next_job;
-> -	struct drm_sched_rq *rq;
+> +			offset =3D bit->offset;
+> +			if ((bit->length && !offset) || offset > bios->length ||
+> +			    bit->length > bios->length - offset)
+> +				return -EINVAL;
 > +
-> +	lockdep_assert_held(&entity->lock);
-> +
-> +	spin_lock(&rq->lock);
-> =20
->  	/*
->  	 * Update the entity's location in the min heap according to
->  	 * the timestamp of the next job, if any.
->  	 */
-> -	spin_lock(&entity->lock);
-> -	rq =3D entity->rq;
-> -	spin_lock(&rq->lock);
->  	next_job =3D drm_sched_entity_queue_peek(entity);
->  	if (next_job) {
 
 [Severity: High]
-This is a pre-existing issue, but can this lead to a use-after-free if the
-entity is killed concurrently?
+This isn't a bug introduced by this patch, but since we are hardening VBIOS
+parsing here, are there other nested VBIOS table pointers parsed from BIT
+payloads that lack bounds checks before dereference?
 
-If drm_sched_entity_kill() in drivers/gpu/drm/scheduler/sched_entity.c is
-called on an entity with multiple pending jobs concurrently with the schedu=
-ler
-thread popping a job:
+For example, in parse_bit_A_tbl_entry(), load_table_ptr is extracted and
+used directly without checking if it exceeds bios->length:
 
-drm_sched_entity_kill() {
-    ...
-    spin_lock(&entity->lock);
-    entity->stopped =3D true;
-    drm_sched_rq_remove_entity(entity->rq, entity);
-    spin_unlock(&entity->lock);
-    ...
+drivers/gpu/drm/nouveau/nouveau_bios.c:parse_bit_A_tbl_entry() {
+	...
+	load_table_ptr =3D ROM16(bios->data[bitentry->offset]);
+
+	if (load_table_ptr =3D=3D 0x0) {
+		NV_DEBUG(drm, "Pointer to BIT loadval table invalid\n");
+		return -EINVAL;
+	}
+
+	version =3D bios->data[load_table_ptr];
+	...
 }
 
-Meanwhile, the scheduler thread popping a job calls drm_sched_rq_pop_entity=
-()
-in drivers/gpu/drm/scheduler/sched_rq.c. Since next_job is not NULL, the co=
-de
-takes this path and calls drm_sched_rq_update_fifo_locked(), which
-unconditionally adds the entity back to the runqueue's rbtree, ignoring
-entity->stopped.
+Similarly, in parse_fp_mode_table(), fptablepointer is used as an offset
+without validating against bios->length:
 
-When the killer thread wakes up and finishes, the entity is freed but still
-linked in the rbtree, which corrupts the rbtree.
+drivers/gpu/drm/nouveau/nouveau_bios.c:parse_fp_mode_table() {
+	...
+	fptable =3D &bios->data[bios->fp.fptablepointer];
+	fptable_ver =3D fptable[0];
+	...
+}
 
-Should drm_sched_rq_pop_entity() check entity->stopped before re-adding the
-entity to the runqueue, similar to the check in drm_sched_rq_add_entity()?
+Could these out-of-bounds reads cause a kernel panic if they access unmapped
+memory pages, especially if a malicious hardware device provides a crafted
+VBIOS?
 
->  		ktime_t ts;
-> @@ -375,8 +373,8 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity =
-*entity)
->  			drm_sched_entity_save_vruntime(entity, min_vruntime);
+>  			bit->data =3D ROMPTR(dev, entry[4]);
+>  			return 0;
 >  		}
->  	}
-> +
->  	spin_unlock(&rq->lock);
-> -	spin_unlock(&entity->lock);
->  }
-> =20
->  /**
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814075739.3248=
-1-1-tvrtko.ursulin@igalia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814080335.2226=
+3-1-pengpeng@iscas.ac.cn?part=3D1
