@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C03DC5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:19:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41D00C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8969310EB1F;
-	Fri, 14 Aug 2026 07:19:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AE1210F33A;
+	Fri, 14 Aug 2026 07:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="md9AIqHF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JRczrUNK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7FDA10EB1F
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 07:19:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5386F10F33A
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 07:19:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 312C860A63;
- Fri, 14 Aug 2026 07:19:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD48E1F000E9;
- Fri, 14 Aug 2026 07:19:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 24CBA40286;
+ Fri, 14 Aug 2026 07:19:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1E41F000E9;
+ Fri, 14 Aug 2026 07:19:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786691963;
- bh=rkHSlKrfGPgjow/WFD56NttK+HtzHa91qf6zEPOY8So=;
+ s=k20260515; t=1786691978;
+ bh=Q+fyVvhjJP20EDzEa4k4KNhrLp2VjSVDUoDjTyr41yw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=md9AIqHFNuIDLy6V/TtO55caUo+lTMRNy0Ex/boDtJ9ZPXWkhLu16wId9AHf9lvoT
- sLW/7vF3vjctOlwmiGz90cKF6VBQT5Vq4kTDjMjjQJ2/jCcUILZO6MMFBTfYR6qMIs
- e26OinApqM2XfFcOR6/xc/+1/gt0Mum10cff6PMtAZeHTPT955bXDtzydOBkweKyOV
- YRBfpxyOA+w3fqSCNoTS3u1jLbsUJJ8ekmdAEGA55sEZ1QZcBO6yPG8ftCXh/i2VNd
- kInbKwEtooD7k3jgWHWKLN4yn9amdYJrH8ckRu4LqouMfVdA+7uuKyBWn9KsNj39hg
- iVF2N6B1SpsLw==
+ b=JRczrUNKPmw63fxR65RjZJYOBbOnj9pvKNCLVhPND8Me/QESZ+AT0kn4JojLMLpdb
+ uBa1pxGfzTYFR88sJ9FLwxkIWjHbFYRucJ7gcBXQvdZ1Vd6kGy/ppy1WRiOdxl0ArP
+ qsWQCCzeSznE1GjId1FIKQGtfd/O+7aHTGVZTAe7b0XG40CeorjiGateu30yJSVs9r
+ uO4Qo6C5lTVw2ZJA5fKLrl0yXu6Qta43Iop6ShpCcjC6uHttj2ffo6wiQeqOKkQATZ
+ fvN6kvprpn/mpbRjfUfQeTdrgh1WzxUoDbqlTfTV7Gwi2zB7JDx6Kd0tCm5va1wfNO
+ uNhg5aS+VfBzQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/amd/display: Skip connector updates without a
- stream
-To: "David Weber" <weber.aulendorf@gmail.com>
+Subject: Re: [PATCH] drm: logicvc: fix device_node refcount leak in
+ logicvc_layers_init()
+To: "Manush Prajwal" <manushprajwal555@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260813112634.11455-2-weber.aulendorf@gmail.com>
-References: <20260813112634.11455-1-weber.aulendorf@gmail.com>
- <20260813112634.11455-2-weber.aulendorf@gmail.com>
+In-Reply-To: <20260813111037.724-1-manushprajwal555@gmail.com>
+References: <20260813111037.724-1-manushprajwal555@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 07:19:22 +0000
-Message-Id: <20260814071923.BD48E1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 07:19:37 +0000
+Message-Id: <20260814071937.DF1E41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,99 +57,76 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The function `amdgpu_dm_atomic_commit_tail` uses `kzalloc` with `G=
-FP_KERNEL` and acquires a `mutex`, both of which can sleep, despite being a=
-n atomic commit path.
-- [High] AMDGPU never updates the privacy screen hardware state because pri=
-vacy screen updates force a modeset, but the commit tail skips privacy scre=
-en updates during modesets.
+- [High] DRM mode objects allocated with devm_kzalloc are freed before drmm=
+_mode_config_cleanup() executes, causing a use-after-free during teardown.
 --
 
---- Patch [1]: [PATCH 1/2] drm/amd/display: Skip connector updates without =
-a stream ---
-commit 3a3a91e5bab6bdb82ebcebf89c73cd8b740ca904
-Author: David Weber <weber.aulendorf@gmail.com>
+--- Patch [1]: [PATCH] drm: logicvc: fix device_node refcount leak in logic=
+vc_layers_init() ---
+commit 287cb4b6b0c0c79eff11b1f6730b1461931e959d
+Author: Manush Prajwal <manushprajwal555@gmail.com>
 
-drm/amd/display: Skip connector updates without a stream
-   =20
-Atomic DPMS can leave a connector assigned to an enabled but inactive
-CRTC after the driver has removed its DC stream. A later atomic commit
-can then change HDR_OUTPUT_METADATA or Broadcast RGB while leaving the
-CRTC mode, routing and active state unchanged.
+drm: logicvc: fix device_node refcount leak in logicvc_layers_init()
 
-This patch skips stream updates until a stream exists, preventing null
-pointer dereferences when the connector stream-update path is reached
-with a NULL stream.
+On logicvc_layer_init() failure, logicvc_layers_init() releases the
+parent layers_node reference before jumping to the error path, but
+never releases layer_node, the child node held by the current
+for_each_child_of_node() iteration. Add the missing of_node_put()
+for layer_node alongside the existing one for layers_node.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 567bf04979ee5..712e8d3e0a01d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5050,6 +5050,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm=
-_atomic_commit *state)
+> diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/lo=
+gicvc/logicvc_layer.c
+> index 7f5ba000188ab..e83a2aafed779 100644
+> --- a/drivers/gpu/drm/logicvc/logicvc_layer.c
+> +++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
+> @@ -613,6 +613,7 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
 > =20
->  		dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_state);
->  		dm_old_crtc_state =3D to_dm_crtc_state(old_crtc_state);
+>  		ret =3D logicvc_layer_init(logicvc, layer_node, index);
+>  		if (ret) {
+> +			of_node_put(layer_node);
+>  			of_node_put(layers_node);
+>  			goto error;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this skip logic prevent
-privacy screen updates?
+This isn't a bug introduced by this patch, but does taking this error path
+lead to a use-after-free during driver teardown?
 
-In amdgpu_dm_connector_atomic_check(), any change to the privacy screen
-software state forces a modeset:
+When we jump out of the loop to the error label in logicvc_layers_init(),
+logicvc_layer_fini() is called, which frees the layer memory using
+devm_kfree().
 
-    new_crtc_state->mode_changed =3D true;
+However, in drivers/gpu/drm/logicvc/logicvc_layer.c, logicvc_layer_init()
+allocates the layer with devm_kzalloc() and then registers an unmanaged
+drm_plane using drm_universal_plane_init():
 
-However, earlier in this loop in amdgpu_dm_atomic_commit_tail(), connectors
-undergoing a modeset are skipped:
+	layer =3D devm_kzalloc(dev, sizeof(*layer), GFP_KERNEL);
+	...
+	ret =3D drm_universal_plane_init(drm_dev, &layer->drm_plane, 0,
+				       &logicvc_plane_funcs, formats->formats,
+				       formats_count, NULL, type, NULL);
 
-    /* Skip any modesets/resets */
-    if (!acrtc || drm_atomic_crtc_needs_modeset(new_crtc_state))
-        continue;
+Because the plane is not unregistered before devm_kfree() is called, does t=
+his
+leave a dangling plane pointer in the DRM core list?
 
-Since the only call to update the privacy screen hardware is located at the
-very end of this loop:
+Additionally, when devres unwinds during a probe failure or driver unbind,
+won't it release the devm_kzalloc() memory before the drmm teardown action
+calls drm_mode_config_cleanup() (since drmm_mode_config_init() was used in
+logicvc_drm.c:logicvc_drm_probe())?
 
-    drm_connector_update_privacy_screen(new_con_state);
+If so, drm_mode_config_cleanup() would iterate over the freed plane and call
+its ->funcs->destroy callback, triggering a use-after-free.
 
-Will this cause privacy screen updates to be permanently skipped because th=
-ey
-force a modeset that bypasses the update code?
+A similar devm_kzalloc() and unmanaged DRM object lifecycle mismatch appears
+to exist for logicvc_crtc_init() in drivers/gpu/drm/logicvc/logicvc_crtc.c
+and logicvc_interface_init() in drivers/gpu/drm/logicvc/logicvc_interface.c.
 
-> +		/* DPMS-off leaves the connector routed to a streamless CRTC. */
-> +		if (!dm_new_crtc_state->stream)
-> +			continue;
-> =20
->  		scaling_changed =3D is_scaling_state_different(dm_new_con_state,
->  							     dm_old_con_state);
-
-[Severity: High]
-This is a pre-existing issue, but are there sleeping functions called from
-this atomic context?
-
-Later in amdgpu_dm_atomic_commit_tail(), kzalloc is called with GFP_KERNEL:
-
-    dummy_updates =3D kzalloc(sizeof(struct dc_surface_update) * MAX_SURFAC=
-ES, GFP_KERNEL);
-
-And then a mutex is acquired:
-
-    mutex_lock(&dm->dc_lock);
-
-Since drm_atomic_helper_commit_tail() and its variants execute in an atomic
-context where sleeping is forbidden, could this kzalloc(..., GFP_KERNEL) and
-mutex_lock() cause kernel warnings, system instability, or potential
-deadlocks?
-
-Also, if the memory allocation fails, the subsequent hardware programming in
-dc_update_planes_and_stream() is silently skipped. Can this lead to an
-unrecoverable state mismatch since commit_tail cannot return error codes?
+>  		}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813112634.1145=
-5-1-weber.aulendorf@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813111037.724-=
+1-manushprajwal555@gmail.com?part=3D1
