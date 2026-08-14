@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE8E2C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 08:09:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6858CC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 08:10:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F044410F428;
-	Fri, 14 Aug 2026 08:09:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD9B710F443;
+	Fri, 14 Aug 2026 08:10:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mhb1WyVr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UYbdVPuq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D6BA10F428
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 08:09:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCF010F443
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 08:10:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8338060A69;
- Fri, 14 Aug 2026 08:09:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58E071F000E9;
- Fri, 14 Aug 2026 08:09:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2461E40E37;
+ Fri, 14 Aug 2026 08:10:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0FAB1F00A3A;
+ Fri, 14 Aug 2026 08:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786694983;
- bh=WZjGJqvyOnMvxWs4wLtTq6zplXdp/jLJAmOpjr9LRIk=;
+ s=k20260515; t=1786695022;
+ bh=asHxFYr6MwhDHVWnhP3JiWHCP+V9KMvbulZFQU80jAk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mhb1WyVrzIn6o9Y1/areCdBn1onsxlFZ/CjKSlNothjnXF2gCEF4CQQpvuJm6gU5j
- 2HG7ONEgJRu0zMv+fc7deZBNI1eowaIf2NuvxrnSIHzNsy1tZi5Eqj+FJEaZGrMOHu
- 38CJognO+jY9hktDgTsDcJBCFIIUkWzEK+yw+DuEoQPlGgdXhkmQajKnQqw7sXo/V5
- GQl4w0Cr7CnSL56WJ+r1dmPqcpnzqjXefeECIOlBxkynyaN26egMQpZcGzfEih8q5A
- /cHa7+48/KeNgdh+4MCGDm9DVwmammULV66WRJ9MVODdYyeS0dMtVYxbDKHte7SyKz
- ITWY5N1NOksew==
+ b=UYbdVPuqRorfriGL12r0Mv5ctNaMnUurlzbKHXJLsIr16Si8VVJdNgO7wcRk+OT8m
+ WTpXVjUvlbNiBI+QUqjBkvgTc8F+sIh05WQFKpzJEB5wakqZ+grZERJsALz3C361xT
+ LOx4HxUvmNCZyMPgm4A8Ku264N8+oh6VJoJAIWQcSNk0pzFHzHvmpyhnK4ZWEWW9ug
+ 8suW0emQtCJ5bil07OqbO6wqgz89V10bVbjj2buvS94XuF2LspstDcsbmhIeupX9io
+ Sl3ETGhBuGEkSLWBBrBY49bVlmnoVlQbSoewdON6TeAVGYlGQnDeykob0Da3wms3ZJ
+ kpvDAawiLLamg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/sched: Ensure monotonic min_vruntime
+Subject: Re: [PATCH 1/2] drm/sched: Do not restore unsaved virtual runtime
 To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814075739.32481-3-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260814075739.32481-2-tvrtko.ursulin@igalia.com>
 References: <20260814075739.32481-1-tvrtko.ursulin@igalia.com>
- <20260814075739.32481-3-tvrtko.ursulin@igalia.com>
+ <20260814075739.32481-2-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 08:09:38 +0000
-Message-Id: <20260814080942.58E071F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 08:10:21 +0000
+Message-Id: <20260814081021.D0FAB1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,150 +57,102 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm_sched_entity_save_vruntime() always saves a virtual runtime la=
-g of 0 due to an impossible condition, permanently destroying the entity's =
-relative lag state.
-- [Medium] rq->min_vruntime incorrectly tracks the maximum updated vruntime=
- of the executing entity rather than the true minimum of the runqueue, pena=
-lizing newly enqueued entities.
+
+Pre-existing issues:
+- [High] A killed and stopped scheduler entity can be unconditionally added=
+ back to the runqueue's rbtree, leading to a use-after-free when the entity=
+ is subsequently freed by the driver.
 --
 
---- Patch [2]: [PATCH 2/2] drm/sched: Ensure monotonic min_vruntime ---
-commit 840e24cc75ac9a836c633b23cb95dda0e0dc3b75
+--- Patch [1]: [PATCH 1/2] drm/sched: Do not restore unsaved virtual runtim=
+e ---
+commit 8feac77c9420bd8a6d250c6a988250fe755b6870
 Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: drm/sched: Do not restore unsaved virtual runtime
 
-drm/sched: Ensure monotonic min_vruntime
-
-min_vruntime handling had a bug where if an entity never exited the run-
-queue it could get penalised by its virtual runtime only ever growing,
-while the periodically exiting and re-joining entities could repeatedly
-get pulled ahead of it.
-
-Fix it by making the min_vruntime strictly monotonic by tracking it
-separately (an keeping it always up to date) instead of fetching what
-happens to be the top of the tree sorted by virtual runtime.
-
-While at it replace open coded ktime_t comparison with the correct
-ktime_after() helper.
-
-Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
-Tested-by: Luke.Wildhardt@proton.me
-Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Luke.Wildhardt@proton.me
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+This patch modifies the queue push/pop and runqueue management paths in the
+drm scheduler. It extends the scope of entity->lock to encompass both queue
+management and rbtree updates. This prevents a race condition where a new j=
+ob
+could be pushed to an entity before its virtual runtime was correctly saved.
 
 > diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/sched=
 uler/sched_rq.c
-> index 23f46ec610e78..bc8363974a276 100644
+> index 0464d324d98d5..23f46ec610e78 100644
 > --- a/drivers/gpu/drm/scheduler/sched_rq.c
 > +++ b/drivers/gpu/drm/scheduler/sched_rq.c
 
 [ ... ]
 
-> @@ -151,7 +130,7 @@ drm_sched_entity_save_vruntime(struct drm_sched_entit=
-y *entity,
+> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
+>   */
+>  void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+>  {
+> +	struct drm_sched_rq *rq =3D entity->rq;
+>  	struct drm_sched_job *next_job;
+> -	struct drm_sched_rq *rq;
+> +
+> +	lockdep_assert_held(&entity->lock);
+> +
+> +	spin_lock(&rq->lock);
 > =20
->  	spin_lock(&stats->lock);
->  	vruntime =3D stats->vruntime;
-> -	if (min_vruntime && vruntime > min_vruntime)
-> +	if (ktime_after(vruntime, min_vruntime))
-
-[Severity: High]
-Will this condition always evaluate to false and unconditionally reset the=
-=20
-saved lag to 0?
-
-In drm_sched_rq_pop_entity(), the runqueue's min_vruntime is updated to be
-at least the entity's current vruntime:
-
-drm_sched_rq_pop_entity() {
-    ...
-    ts =3D drm_sched_entity_update_vruntime(entity);
-    if (ktime_after(ts, rq->min_vruntime))
-        rq->min_vruntime =3D ts;
-
-Later in the same function, if the queue is empty, we call:
-
-    drm_sched_entity_save_vruntime(entity, rq->min_vruntime);
-
-Since min_vruntime is guaranteed to be greater than or equal to the entity's
-vruntime at this point, the ktime_after(vruntime, min_vruntime) check here=
-=20
-seems mathematically impossible to satisfy.=20
-
-Does this mean entities that empty their runqueue will permanently lose=20
-their accumulated vruntime penalty?
-
->  		vruntime =3D ktime_sub(vruntime, min_vruntime);
->  	else
->  		vruntime =3D 0;
-
-[ ... ]
-
-> @@ -351,27 +324,27 @@ void drm_sched_rq_pop_entity(struct drm_sched_entit=
-y *entity)
+>  	/*
 >  	 * Update the entity's location in the min heap according to
 >  	 * the timestamp of the next job, if any.
 >  	 */
-> +
-> +	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR) {
-> +		ts =3D drm_sched_entity_update_vruntime(entity);
-> +		if (ktime_after(ts, rq->min_vruntime))
-> +			rq->min_vruntime =3D ts;
-> +	}
-> +
-
-[Severity: Medium]
-Does this unintentionally advance the runqueue's min_vruntime past other
-entities still waiting in the RB tree?
-
-By setting rq->min_vruntime to the newly updated vruntime of the currently
-executing entity, it seems we might ignore the vruntimes of other entities
-that are still queued.=20
-
-When new entities join the runqueue, won't their initial vruntime be based=
-=20
-on this artificially inflated min_vruntime, penalizing them relative to the=
-=20
-existing waiting entities?
-
+> -	spin_lock(&entity->lock);
+> -	rq =3D entity->rq;
+> -	spin_lock(&rq->lock);
 >  	next_job =3D drm_sched_entity_queue_peek(entity);
 >  	if (next_job) {
-> -		ktime_t ts;
-> -
-> -		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR)
-> -			ts =3D drm_sched_entity_get_job_ts(entity);
-> -		else if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> +		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
->  			ts =3D next_job->submit_ts;
-> -		else
-> +		else if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_RR)
->  			ts =3D drm_sched_rq_next_rr_ts(rq, entity);
-> =20
->  		drm_sched_rq_update_fifo_locked(entity, rq, ts);
->  	} else {
-> -		drm_sched_rq_remove_fifo_locked(entity, rq);
-> -
-> -		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR) {
-> -			ktime_t min_vruntime;
-> +		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR)
-> +			drm_sched_entity_save_vruntime(entity,
-> +						       rq->min_vruntime);
-> =20
-> -			min_vruntime =3D drm_sched_rq_get_min_vruntime(rq);
-> -			drm_sched_entity_save_vruntime(entity, min_vruntime);
-> -		}
-> +		drm_sched_rq_remove_fifo_locked(entity, rq);
+
+[Severity: High]
+This is a pre-existing issue, but can this lead to a use-after-free if the
+entity is killed concurrently?
+
+If drm_sched_entity_kill() in drivers/gpu/drm/scheduler/sched_entity.c is
+called on an entity with multiple pending jobs concurrently with the schedu=
+ler
+thread popping a job:
+
+drm_sched_entity_kill() {
+    ...
+    spin_lock(&entity->lock);
+    entity->stopped =3D true;
+    drm_sched_rq_remove_entity(entity->rq, entity);
+    spin_unlock(&entity->lock);
+    ...
+}
+
+Meanwhile, the scheduler thread popping a job calls drm_sched_rq_pop_entity=
+()
+in drivers/gpu/drm/scheduler/sched_rq.c. Since next_job is not NULL, the co=
+de
+takes this path and calls drm_sched_rq_update_fifo_locked(), which
+unconditionally adds the entity back to the runqueue's rbtree, ignoring
+entity->stopped.
+
+When the killer thread wakes up and finishes, the entity is freed but still
+linked in the rbtree, which corrupts the rbtree.
+
+Should drm_sched_rq_pop_entity() check entity->stopped before re-adding the
+entity to the runqueue, similar to the check in drm_sched_rq_add_entity()?
+
+>  		ktime_t ts;
+> @@ -375,8 +373,8 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity =
+*entity)
+>  			drm_sched_entity_save_vruntime(entity, min_vruntime);
+>  		}
 >  	}
-> =20
+> +
 >  	spin_unlock(&rq->lock);
+> -	spin_unlock(&entity->lock);
+>  }
+> =20
+>  /**
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814075739.3248=
-1-1-tvrtko.ursulin@igalia.com?part=3D2
+1-1-tvrtko.ursulin@igalia.com?part=3D1
