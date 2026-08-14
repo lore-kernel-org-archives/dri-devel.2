@@ -4,137 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1107FC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:56:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0E2FC5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:00:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 699CE10F5C9;
-	Fri, 14 Aug 2026 13:56:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3529510F5F9;
+	Fri, 14 Aug 2026 14:00:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Rc6qGYDS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P1yGlzMZ";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012041.outbound.protection.outlook.com
- [40.93.195.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BC5810F5C9
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:56:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KkGK9NTTUd/f7TAxNUvRdg9aD7P6VQnMFUsG9vCarJQ0D+ecpXn8orYFO84VmkapN1RqvQiR9oFIjd0+XxqvqFFp4cm0zmeaBJ5F/wiTs1z6iJmf88Vdz0mx9j9BId63pnli7iddu2WkZAUoQAMs8l368kdGgS+ehZswhfGKs1AhhwWo3dbVEwsJdNyQRj8PAhLLQ1Hui7F15RCzRJ9jxVUFbiPPCe/otWNdYJyJpG+z6AXgqdkpwRuKTZjXEQkzRAB+DLZAC3uy02VjRmOSzg2WOiZb0UsdyTL5urbBXJC1uqtPLwVwLv+p/CrMKd81oaFFYpe6WFfAnokQy1E2zA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j+Khl3NBdsJQ/yYsSsCoq+no6DAIO6NfZg1uD5h9RrA=;
- b=kVshjFKou8V2SkOoEwV5zD1IS+wGsTmmL5hF6qGdF8qcnTCDBxQTZDLP2FK65+alf+i6GrUn7pJJRt2RYciVqCPzNrwUFSoAdkaIQIFIkR/F+b+U6dGLWdO+eqmf6NlHqVRZbh6V5PpAwsGGPdtE3zbB1ECOjwoWPt2i2ty6lQWLzdvAx7vRg8YZt3GAQvQtAMksBQmGWT9ukwvI63zgibPRZi1cn9Of9N321/4oLK0vc6Ll83jwwAfbmhqW/8dNiTgQuTJ8RdsaI01kCOuOrUKJvNeQXH1AxFnUIJzbGR3+/UQVnFXK6NAXGU1hFR3wZl94v4qfLud0dfijvKGh2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j+Khl3NBdsJQ/yYsSsCoq+no6DAIO6NfZg1uD5h9RrA=;
- b=Rc6qGYDSfD3Q0d2itY26udbTZXWnm9vtt5QMP/SnaAtTb1jITowFfwpiUneyGdcwlxkZVGnZfk9Z/8Y1tMbnU35zSlY00DusHsdDmpBSiG6fwNQfIkudhC3nWlUyleO2YcZHV9dvReDtZTnsiaZ8a8WM8PQtFOTrhiksg2fnCzMRxTuKjJHe9XBje+JYgLnRTGFKet99d4H4gfhrUqmEvFICPOy4neOpyQY8KfrjEarSS/O2x2D692x2ECN6T/QBDyyRTPkFtaCpWq111L7qKe038KD/Nns+o7xZV4/AL2fosFAEGSKuxO9x2HfixSQMnxsjIU+1iJkC4ZIUafew6g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by CH3PR12MB8258.namprd12.prod.outlook.com (2603:10b6:610:128::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 13:56:47 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0315.008; Fri, 14 Aug 2026
- 13:56:47 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 14 Aug 2026 22:56:42 +0900
-Message-Id: <DKOPW4JAQQYY.1FJCI2HTRLIPX@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v2 16/16] rust: io: register: unify handling of register
- with/without bitfields
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F98D10F5F9;
+ Fri, 14 Aug 2026 14:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786716009; x=1818252009;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=TQCVbJzN093KkdDUdao1srurBeR5qvLyrNvei/7fvE4=;
+ b=P1yGlzMZaPM2Zw+gFrdXF6y8quTRDrOA7NkqAf5bnxInCBC7qFX8FmVV
+ JHoBw4p5JFMCEZJHV9J7bwc1tQAErBNE0AEZ5W1IpmzHc1BC8uCB5bQ5Z
+ 3WxlkO0oDcQgwvaIVZc/yaaJu0prQ3qPuR3iog2o7VJcISGKCw0f6cDrr
+ rzCFqrhyz6mOUOeE7dmxD49G15tq8U4Yf6DOI6ZhfyoGM1l79Spy9eQnb
+ DLmYoOakjKEo3Nq83i3hmM3ZCxBXjsdAYfNxPKHlm4OnqSv9OGG7n7nIL
+ JIO9haY5YrPKjspZc0SonWnwpSFjWTgmzSZI/xykK6cTwxM1Fiq+HSOex w==;
+X-CSE-ConnectionGUID: j1/vavYDQ9esVoTj9uAMWQ==
+X-CSE-MsgGUID: wFntQP+vQWuahGN7vDB1KQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11875"; a="87316337"
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="87316337"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2026 07:00:09 -0700
+X-CSE-ConnectionGUID: J+37JIwMT1i/d5Cefxbd/A==
+X-CSE-MsgGUID: tBCcGRqrRruokPPv24d6kw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="269418457"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.244.164])
+ ([10.245.244.164])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2026 07:00:07 -0700
+Message-ID: <89b0b1f748a8e971d4f066dcc51c47f167215261.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/ttm: Represent LRU bulk moves as nested sublists
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Date: Fri, 14 Aug 2026 16:00:05 +0200
+In-Reply-To: <20260814134602.9AD981F000E9@smtp.kernel.org>
+References: <20260814133231.3193-1-thomas.hellstrom@linux.intel.com>
+ <20260814134602.9AD981F000E9@smtp.kernel.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
- <20260805-typed_register-v2-16-c3ca142220a0@garyguo.net>
-In-Reply-To: <20260805-typed_register-v2-16-c3ca142220a0@garyguo.net>
-X-ClientProxiedBy: OS7PR01CA0031.jpnprd01.prod.outlook.com
- (2603:1096:604:257::17) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH3PR12MB8258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3378f3d3-3595-4bf1-d0de-08defa0be194
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|376014|7416014|23010399003|1800799024|366016|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: 3LFtyrnRJ/zYDix/sZkwxBlJLyZqsuIMkd9n4jb0CH38Tq6d3+FPoV4T5Km0glc7nzlLSyg/tDvoAl+r9nCOHzj3D+gJ4JjIYBLIZHpkR7L9bZTbh7FW/MMUu6GZTp0yecffuFysKnC9Ov3T7sU/fhbD8swHp2XFPRZjfM4c1A3LRl3awY8YHKyLS5+4yNB/p2f9C9ouzFw0DTgsZIIxMK7ddPOdS5Ini5MmaSxEzaxElo3MURH8s12HibmoH2UCl+zj9My+kIm9q1K7YlhWro53KguKFdKCyop2d1FtYeDjUh2+vkMR4KY2QgB+/4fyJGtymNvTOsB0J4oiN6bFLD0aK41jUtI7OtjmDvInSY9lPY9aN+AGY1s9VqNBK4pvLIlTZqKHfyR7CpPi5ldF2hzBlYtT0DOfg3UQROyFOSXjXweJc+tRjWXPTskaR8/ldV2mDZ16vafCkm4a9SkVMsdIDlkj1rAzmKM1UGYnxy9GZ8cUU5RkJljpIh+KdT4gWHFbXqatPZ8gi2k0B2W9UyQJN0J3QbfulyyZ4z+EEaHv+0hVfeWLiBvx6u1hYJiM25oK5/y4hJE865ZBsIDZLhgO1JCSrj2crtOV/oGhF5TvoRbwgruClIVeOnKPigt0ZqabwgmN8HB5HJ9d2CZfW574wZdGDDj5H2KuiOalvos=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEliUHM1NTgxaHZSNk5BQ3p2VlFYZ055NG42Rlp6cHlvVFZudXd2ZHpkV3Bv?=
- =?utf-8?B?SWNRK1gwcjJ1Si9OWExwOS8yV3lHNTRtN1QzSGVWYURlK3o5aHdkN1lBZ2th?=
- =?utf-8?B?NVVObWpaUWNtUlkyT1g2N2l2MUhYWFZFT00rbU5HM2h4Sm1OMGhId2pUUmVt?=
- =?utf-8?B?ckpMTGtTVm90NW5rMnFwUkZ6dW10NUZ5TTB1N21Vb3VIYy92WUt5WGsvMyt6?=
- =?utf-8?B?c21FaFpkWkVWZlRsUXVZdzM4WER6Y3E3MjB0c3k3WVUzSG1kREIrWlNEWjBq?=
- =?utf-8?B?VU5SY1NPSTlWdndNUDUvM0ltcGs3dWM3em45aU5EcVVGQXRxYUQ0NWVNTG9s?=
- =?utf-8?B?UzdaSGQxbzV0TFlxQUFKZXpibTBmUnZoRkNMOFFVaXlKWHJ5ODZ2UmdOb2Zv?=
- =?utf-8?B?NWpIa1piTGwwM0FuZzVESnhkQjlPbUtjanViSVZxZkNxNlBzT1RmaHBJNFdP?=
- =?utf-8?B?ZGxPcGdoeEZiWWIwM1o3NkZveW1JZytNT1NvTnUwdm5HbFJsdWxpNStZN3VV?=
- =?utf-8?B?aEhYRVAwSmlDcVFZNVEvQ1NES0dtQ29VdmRBTk5LVGNVZjFSeFBoMUtsQUxY?=
- =?utf-8?B?WENUenVTUWwrSy9TY1BrVXg2UjN1M3FvaUZIME1XQVl1bVZBcVJ6V1UrWnla?=
- =?utf-8?B?ODhaeDNDUmNablF1eUtKRWh3TjF0c2VzN3ZVQXYySDlyNnpZY1JKM2pkQVkx?=
- =?utf-8?B?T0p0TmtkVC9CMDZuRW9lMzlCLzBEUkVwNFdjUHhYQyswNFhER3lkamRuMVVV?=
- =?utf-8?B?WlZVVUhSR1RHT2x6WlZxTS9YY2FkOFBhemFnRFk4ZWhPQzAyZ0FURWJVeGNX?=
- =?utf-8?B?L1N6VWwvcXl6bCtoTks4cXNzN2lzbmd4T055QzJYSDkyQUtLTzgyQnpVUS9B?=
- =?utf-8?B?blJKZUF1bUVUdnNyaXQ0aXpGNmdvZlF3NUNab0tYT0JEaDJ1L1FpU0JISVdv?=
- =?utf-8?B?d2t0aG4rMG14c2ErV3ZQM2tjTkR2ek14QXUwTE8zbG9XM3JLdWcycHE5ZzZs?=
- =?utf-8?B?ZzdWVUNZakJSbDljRG01RTd4bG9xRE9HNGt2UFdRSGNWSmo2UFlEZFQ3SXgv?=
- =?utf-8?B?V3JNdCtQSG9OL0RIb1Zndkx5VDd1Rjd5ckhMaXU4MkswMFY5YTJUVVVzdTBw?=
- =?utf-8?B?YzYrdDR3S1NhQ1RWVmJDSjluak94Sm5KNnA4aTZYM0U3ZndqTTVxRWFzZDdq?=
- =?utf-8?B?RTFGTjY4ajBVS3VjWlNyNk01cUwxWlgvRXBtcDFNa01OOXdyK2RWVERNT3dG?=
- =?utf-8?B?TTEvNGFjNjNPeDVyVWFmeUp6aFg3T21IZHBMVitRanRmOXErZDdrbTltSExr?=
- =?utf-8?B?Wk1ab0pRQ1dob1ozOGFwcFF6VVBEMFpPTjYzK1lKemNJS3dnb1BFYkdCUjNq?=
- =?utf-8?B?WGtnN2tsc1VHb1ZpbzdSWGFYdGlkZWQzM1dKMDV5alNWOXNxVnd2MkVBdnlw?=
- =?utf-8?B?ejhTSmtTajh5SU9waHNtb3JocEhULy9jV2M2QWF1dlg0TVM2QUprTEJNajhD?=
- =?utf-8?B?bExsZlM3SHp4TEp0VGRWOHBGN0VVRHBnODhlcmpVVnlrRitydE9jUTQ3Mkl1?=
- =?utf-8?B?VGZpU2trU1hUVWU1N2wvbGVUM0R6eVRzSHdoWnpFOEFKcmJpUkpFdldNaGZC?=
- =?utf-8?B?MFFsK0ZXSVRjS0JIbU1GeWpBVkRYUldEMnFsRFBqYmx0N1BMNXU1czF2L3VJ?=
- =?utf-8?B?ekxadlhpQ0t6WFlyamdVODdDR3krT0pZMHM4Z1N5eVgxY3Z0VWNLM0wrSWVH?=
- =?utf-8?B?bHZXQWxuYjNZL0p3UDFoTHlta0hHNkVQY2o1Q1h4VWVnMjY0d0drZ3RLOEV2?=
- =?utf-8?B?Q3hLUjZOY0NPTm4vU1R2cm42QUJDQ3hKY0cwem0wUm9tSXJMcUpuSFRwZ2VT?=
- =?utf-8?B?eUJCdnJDcmphd3p4RURBRjN6Sk9nTzkvSmVlcFMwTFJ5amJ0MlV1Q2lMNnM5?=
- =?utf-8?B?c1RSd2ZRT3hQVVYzbjYzaFdGZ3JwL0hsWXNEcTEzL0hHM0ZDWmx2a200N01C?=
- =?utf-8?B?dHR1WVRGdEI0MlVCczhFQzg5SG9vZDNrQ2xlcUs5cEFkS2IyakdZdXFFUnFO?=
- =?utf-8?B?aEUvYlZGZlVyRHVtbkpHVWVWVTFGcGxJYWlZb2F5RElPeGpiZVBKTUtnaVR5?=
- =?utf-8?B?K3ljSlpQTjRZZHVQaEJQVUtkRTlRTFZOalNTSThManQ2R0JuSUdiTVBwMU9K?=
- =?utf-8?B?Wi9Tc1NEbVk4Nk9QZTZWOWlUSDhXQW8wRExaVTdSL0Z3T3ZLZVpRSVhZeXd5?=
- =?utf-8?B?SzF2OXBSRDJCT0tJZzRnRDhJbW5zdG84eWRaeVVRTzFNV0Riby9wZmQvckkv?=
- =?utf-8?B?VkdGeXpxT1kwZitDaUczMkh5LzJJdDRYOEdHeEZiWUUvb1MrS3hGSHh1emx3?=
- =?utf-8?Q?qLJoLyD7a3s+20hyXPcjS2s8I/qpBoTa0QMgfoz4PRdKr?=
-X-MS-Exchange-AntiSpam-MessageData-1: l/NBulGj9rx9kw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3378f3d3-3595-4bf1-d0de-08defa0be194
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 13:56:47.0652 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CE1yJv/lXtCnN/Vfx9nlRJRLdEvtBcsjQEfrczS566uPu/FPW/FxfBHt78seFmzraVKG6VReiEGXFzY8d8R/0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8258
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,36 +71,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
-<...>
-> @@ -577,6 +547,9 @@ macro_rules! register {
->      (base: $reg_base:ty;) =3D> {};
-> =20
->      // Creates a register at a fixed offset of the MMIO space with provi=
-ded type.
-> +    //
-> +    // This handles all of the fixed offset `@ offset`, alias of registe=
-r `=3D> alias` and alias of
-> +    // register array element `=3D> alias[idx]` cases.
->      (
->          base: $reg_base:ty;
->          // `$ty` cannot be `:ty` due to follow-set restrictions.
-> @@ -593,10 +566,29 @@ macro_rules! register {
->          $crate::register!(base: $reg_base; $($rest)*);
->      };
-> =20
-> +    // `#[unique]` indicates that this is the only register of this type=
- in this given register.
+On Fri, 2026-08-14 at 13:46 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
+> - [High] Missing cursor adjustment in `ttm_lru_bulk_move_add` when
+> re-seeding an empty bulk move anchor causes recently-used resources
+> to be prematurely evicted.
+> - [Medium] Computing `&man->lru[j]` when `man` is NULL in
+> `ttm_bulk_move_drop_cursors` invokes Undefined Behavior and will
+> trigger UBSAN panics.
 
-Sentence doesn't parse (in this given register?).
+Both issues verified as real and reachable. Will update for v3.
 
-> +    // Thus generate a `FixedIoLoc` impl for it as well.
-> +    (
-> +        base: $reg_base:ty;
-> +        $(#[$attr:meta])* $vis:vis $name:ident: #[unique] $ty: ident $(:=
-: $path_frag:ident)*
-> +            $(@ $offset:literal)?
-> +            $(=3D> $alias:path $([$alias_idx:expr])? )?;
-> +        $($rest:tt)*
+Thanks,
+Thomas
 
-This rule looks like it should be private, or am I mistaken?
+
+> --
+>=20
+> --- Patch [1]: [PATCH] drm/ttm: Represent LRU bulk moves as nested
+> sublists ---
+> commit b97657bee6dc1cddf7841bc260d33b4b040368e4
+> Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> Subject: drm/ttm: Represent LRU bulk moves as nested sublists
+>=20
+> This patch changes the LRU bulk move mechanism to track each group as
+> a
+> real nested sublist instead of ranges. Each group gets a persistent
+> anchor
+> node linked on the manager LRU list along with a sublist holding its
+> member
+> resources, simplifying cursor tracking and eliminating range-
+> corruption bugs.
+>=20
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+>=20
+> > diff --git a/drivers/gpu/drm/ttm/ttm_resource.c
+> > b/drivers/gpu/drm/ttm/ttm_resource.c
+> > index 4e6d3d658d858..195f960b2d738 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+>=20
+> [ ... ]
+>=20
+> > +static void ttm_bulk_move_drop_cursors(struct ttm_device *bdev,
+> > +					struct ttm_lru_bulk_move
+> > *bulk)
+> > +{
+> > +	unsigned int i, j;
+> > +
+> > +	for (i =3D 0; i < TTM_NUM_MEM_TYPES; ++i) {
+> > +		struct ttm_resource_manager *man =3D
+> > ttm_manager_type(bdev, i);
+> > +
+> > +		for (j =3D 0; j < TTM_MAX_BO_PRIORITY; ++j) {
+> > +			struct ttm_lru_bulk_move_pos *pos =3D &bulk-
+> > >pos[i][j];
+> > +			struct ttm_lru_item *lru, *next;
+> > +
+> > +			list_for_each_entry_safe(lru, next, &pos-
+> > >sublist, link) {
+> > +				struct ttm_resource_cursor
+> > *cursor;
+> > +
+> > +				if (ttm_lru_item_is_res(lru)) {
+> > +					WARN_ON_ONCE(1);
+> > +					continue;
+> > +				}
+> > +				/*
+> > +				 * This cursor descended here; its
+> > main hitch
+> > +				 * already sits on the manager
+> > list, so just
+> > +				 * detach it from this sublist.
+> > +				 */
+> > +				cursor =3D container_of(lru,
+> > typeof(*cursor),
+> > +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > sublist_hitch);
+> > +				cursor->cur_list =3D &man->lru[j];
+> > +				list_del_init(&lru->link);
+> > +			}
+> > +			list_splice_tail_init(&pos->sublist, &man-
+> > >lru[j]);
+>=20
+> [Severity: Medium]
+> When ttm_manager_type() returns NULL for unused memory types, doesn't
+> the
+> pointer arithmetic &man->lru[j] result in undefined behavior?
+>=20
+> If the kernel is compiled with UBSAN, this can trigger a panic even
+> if the
+> list operations don't actually dereference the pointer. Should there
+> be a
+> check like if (!man) continue; before the inner loop?
+>=20
+> > +			list_del_init(&pos->marker.link);
+> > +		}
+> > +	}
+> > +}
+>=20
+> [ ... ]
+>=20
+> > +/* Add the resource to a bulk_move sublist */
+> > =C2=A0static void ttm_lru_bulk_move_add(struct ttm_lru_bulk_move *bulk,
+> > =C2=A0				=C2=A0 struct ttm_resource *res)
+> > =C2=A0{
+> > =C2=A0	struct ttm_lru_bulk_move_pos *pos =3D
+> > ttm_lru_bulk_move_pos(bulk, res);
+> > +	struct ttm_resource *first =3D
+> > ttm_lru_first_res_or_null(&pos->sublist);
+> > +	struct ttm_buffer_object *bo =3D res->bo;
+> > +	struct ttm_resource_manager *man =3D
+> > +		ttm_manager_type(bo->bdev, res->mem_type);
+> > =C2=A0
+> > -	if (!pos->first) {
+> > -		pos->first =3D res;
+> > -		pos->last =3D res;
+> > +	if (first) {
+> > -		WARN_ON(pos->first->bo->base.resv !=3D res->bo-
+> > >base.resv);
+> > -		ttm_lru_bulk_move_pos_tail(pos, res);
+> > +		WARN_ON(first->bo->base.resv !=3D res->bo-
+> > >base.resv);
+> > =C2=A0	} else {
+> > +		/*
+> > +		 * Group empty (first activation, or all members
+> > were pinned
+> > +		 * or swapped out); re-seed the anchor at the tail
+> > so it
+> > +		 * counts as recently used.
+> > +		 */
+> > +		list_move_tail(&pos->marker.link, &man->lru[bo-
+> > >priority]);
+> > =C2=A0	}
+>=20
+> [Severity: High]
+> If an active LRU traversal cursor has descended into this sublist and
+> all
+> resources are subsequently removed, the sublist becomes empty except
+> for the
+> cursor's hitch.
+>=20
+> When a new resource is added and 'first' is NULL, we re-seed the
+> anchor to
+> the tail of the manager's LRU list. However, could this leave the
+> descended
+> cursor parked in the sublist without adjusting it?
+>=20
+> If ttm_lru_bulk_move_pos_adjust_cursors() is not called to detach it,
+> the
+> resumed traversal might immediately process and evict this newly
+> added
+> resource, violating the LRU guarantee.
+>=20
+> > +	/*
+> > +	 * The resource may still be on another list (manager LRU
+> > or
+> > +	 * bdev->unevictable); move it unconditionally to keep
+> > group
+> > +	 * membership consistent.
+> > +	 */
+> > +	list_move_tail(&res->lru.link, &pos->sublist);
+> > =C2=A0}
