@@ -4,58 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0E2FC5CFDB
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A208EC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:06:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3529510F5F9;
-	Fri, 14 Aug 2026 14:00:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC1C010E571;
+	Fri, 14 Aug 2026 14:06:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P1yGlzMZ";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Ozkb8yd1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F98D10F5F9;
- Fri, 14 Aug 2026 14:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786716009; x=1818252009;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=TQCVbJzN093KkdDUdao1srurBeR5qvLyrNvei/7fvE4=;
- b=P1yGlzMZaPM2Zw+gFrdXF6y8quTRDrOA7NkqAf5bnxInCBC7qFX8FmVV
- JHoBw4p5JFMCEZJHV9J7bwc1tQAErBNE0AEZ5W1IpmzHc1BC8uCB5bQ5Z
- 3WxlkO0oDcQgwvaIVZc/yaaJu0prQ3qPuR3iog2o7VJcISGKCw0f6cDrr
- rzCFqrhyz6mOUOeE7dmxD49G15tq8U4Yf6DOI6ZhfyoGM1l79Spy9eQnb
- DLmYoOakjKEo3Nq83i3hmM3ZCxBXjsdAYfNxPKHlm4OnqSv9OGG7n7nIL
- JIO9haY5YrPKjspZc0SonWnwpSFjWTgmzSZI/xykK6cTwxM1Fiq+HSOex w==;
-X-CSE-ConnectionGUID: j1/vavYDQ9esVoTj9uAMWQ==
-X-CSE-MsgGUID: wFntQP+vQWuahGN7vDB1KQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11875"; a="87316337"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="87316337"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2026 07:00:09 -0700
-X-CSE-ConnectionGUID: J+37JIwMT1i/d5Cefxbd/A==
-X-CSE-MsgGUID: tBCcGRqrRruokPPv24d6kw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="269418457"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.244.164])
- ([10.245.244.164])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2026 07:00:07 -0700
-Message-ID: <89b0b1f748a8e971d4f066dcc51c47f167215261.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/ttm: Represent LRU bulk moves as nested sublists
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Date: Fri, 14 Aug 2026 16:00:05 +0200
-In-Reply-To: <20260814134602.9AD981F000E9@smtp.kernel.org>
-References: <20260814133231.3193-1-thomas.hellstrom@linux.intel.com>
- <20260814134602.9AD981F000E9@smtp.kernel.org>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29C3A10E571
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:06:27 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id C90A34E411D9;
+ Fri, 14 Aug 2026 14:06:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 896446046D;
+ Fri, 14 Aug 2026 14:06:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 9D61711C4EDA5; 
+ Fri, 14 Aug 2026 16:06:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1786716379; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=Tjzdbymf6RS/Z+tBjOvVpccAHLlxgBk3KM/dTssvFMU=;
+ b=Ozkb8yd18ElouWPyT8/RwDp/dHDRGpArjVyid5bRbrORZkDcf1w9hFcDfbQRlZqeRnk7j4
+ Io+PczuTSPxDZGMn1lRentrZ+0Be+EyqGdbaLLOfaZmz1b+lIBY+y6MYZcWDvVY119rPhI
+ u0JNSGNxj06DUqLs/tAnH0wNAnqg0+dVWvqYDior6Zt3CKA14xFCg2B5McKLFtrTgNTbyB
+ yd4ml7vdS8DdROkGrpVcoxX1JfLJedLyUQzBHq2gf+tyUkB4k5LL0C4YBjmb/Ui136auef
+ AfjqU2dqnO0moVubi0B84fkt9lUd3BI2zyBTuMeDpEzfyWba67B2Q6CrBSY6Ng==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH 00/11] drm/panel: add a panel_bridge to every panel
+Date: Fri, 14 Aug 2026 16:05:48 +0200
+Message-Id: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMUQ6CMBCE4auQfWYT2mgjXIXwUOiga6CQrRIN4
+ e5WffwymX+nBBUkaoqdFJskWWKGKQsabj5ewRKyyVbWVRdjOejMvUrICzbom1cfMbE359oFhxH
+ +RPm8KkZ5/cJt93d69ncMj2+NjuMDmFFaA3oAAAA=
+X-Change-ID: 20260812-drm-bridge-every-panel-a1596d6efea4
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,166 +75,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-08-14 at 13:46 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
-> - [High] Missing cursor adjustment in `ttm_lru_bulk_move_add` when
-> re-seeding an empty bulk move anchor causes recently-used resources
-> to be prematurely evicted.
-> - [Medium] Computing `&man->lru[j]` when `man` is NULL in
-> `ttm_bulk_move_drop_cursors` invokes Undefined Behavior and will
-> trigger UBSAN panics.
+This series makes every drm_panel create a drm_panel_bridge wrapping it, as
+previously discussed [1][2].
 
-Both issues verified as real and reachable. Will update for v3.
+A panel_bridge is currently created only afterwards by the component
+accessing it (such as the previous bridge), but that creates a mismatch
+between the panel and the panel_bridge lifetimes and devm ownership.
 
-Thanks,
-Thomas
+== Series outline
 
+ 1. The most common pattern for panel_bridge creation is:
 
-> --
->=20
-> --- Patch [1]: [PATCH] drm/ttm: Represent LRU bulk moves as nested
-> sublists ---
-> commit b97657bee6dc1cddf7841bc260d33b4b040368e4
-> Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Subject: drm/ttm: Represent LRU bulk moves as nested sublists
->=20
-> This patch changes the LRU bulk move mechanism to track each group as
-> a
-> real nested sublist instead of ranges. Each group gets a persistent
-> anchor
-> node linked on the manager LRU list along with a sublist holding its
-> member
-> resources, simplifying cursor tracking and eliminating range-
-> corruption bugs.
->=20
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
->=20
-> > diff --git a/drivers/gpu/drm/ttm/ttm_resource.c
-> > b/drivers/gpu/drm/ttm/ttm_resource.c
-> > index 4e6d3d658d858..195f960b2d738 100644
-> > --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> > +++ b/drivers/gpu/drm/ttm/ttm_resource.c
->=20
-> [ ... ]
->=20
-> > +static void ttm_bulk_move_drop_cursors(struct ttm_device *bdev,
-> > +					struct ttm_lru_bulk_move
-> > *bulk)
-> > +{
-> > +	unsigned int i, j;
-> > +
-> > +	for (i =3D 0; i < TTM_NUM_MEM_TYPES; ++i) {
-> > +		struct ttm_resource_manager *man =3D
-> > ttm_manager_type(bdev, i);
-> > +
-> > +		for (j =3D 0; j < TTM_MAX_BO_PRIORITY; ++j) {
-> > +			struct ttm_lru_bulk_move_pos *pos =3D &bulk-
-> > >pos[i][j];
-> > +			struct ttm_lru_item *lru, *next;
-> > +
-> > +			list_for_each_entry_safe(lru, next, &pos-
-> > >sublist, link) {
-> > +				struct ttm_resource_cursor
-> > *cursor;
-> > +
-> > +				if (ttm_lru_item_is_res(lru)) {
-> > +					WARN_ON_ONCE(1);
-> > +					continue;
-> > +				}
-> > +				/*
-> > +				 * This cursor descended here; its
-> > main hitch
-> > +				 * already sits on the manager
-> > list, so just
-> > +				 * detach it from this sublist.
-> > +				 */
-> > +				cursor =3D container_of(lru,
-> > typeof(*cursor),
-> > +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > sublist_hitch);
-> > +				cursor->cur_list =3D &man->lru[j];
-> > +				list_del_init(&lru->link);
-> > +			}
-> > +			list_splice_tail_init(&pos->sublist, &man-
-> > >lru[j]);
->=20
-> [Severity: Medium]
-> When ttm_manager_type() returns NULL for unused memory types, doesn't
-> the
-> pointer arithmetic &man->lru[j] result in undefined behavior?
->=20
-> If the kernel is compiled with UBSAN, this can trigger a panic even
-> if the
-> list operations don't actually dereference the pointer. Should there
-> be a
-> check like if (!man) continue; before the inner loop?
->=20
-> > +			list_del_init(&pos->marker.link);
-> > +		}
-> > +	}
-> > +}
->=20
-> [ ... ]
->=20
-> > +/* Add the resource to a bulk_move sublist */
-> > =C2=A0static void ttm_lru_bulk_move_add(struct ttm_lru_bulk_move *bulk,
-> > =C2=A0				=C2=A0 struct ttm_resource *res)
-> > =C2=A0{
-> > =C2=A0	struct ttm_lru_bulk_move_pos *pos =3D
-> > ttm_lru_bulk_move_pos(bulk, res);
-> > +	struct ttm_resource *first =3D
-> > ttm_lru_first_res_or_null(&pos->sublist);
-> > +	struct ttm_buffer_object *bo =3D res->bo;
-> > +	struct ttm_resource_manager *man =3D
-> > +		ttm_manager_type(bo->bdev, res->mem_type);
-> > =C2=A0
-> > -	if (!pos->first) {
-> > -		pos->first =3D res;
-> > -		pos->last =3D res;
-> > +	if (first) {
-> > -		WARN_ON(pos->first->bo->base.resv !=3D res->bo-
-> > >base.resv);
-> > -		ttm_lru_bulk_move_pos_tail(pos, res);
-> > +		WARN_ON(first->bo->base.resv !=3D res->bo-
-> > >base.resv);
-> > =C2=A0	} else {
-> > +		/*
-> > +		 * Group empty (first activation, or all members
-> > were pinned
-> > +		 * or swapped out); re-seed the anchor at the tail
-> > so it
-> > +		 * counts as recently used.
-> > +		 */
-> > +		list_move_tail(&pos->marker.link, &man->lru[bo-
-> > >priority]);
-> > =C2=A0	}
->=20
-> [Severity: High]
-> If an active LRU traversal cursor has descended into this sublist and
-> all
-> resources are subsequently removed, the sublist becomes empty except
-> for the
-> cursor's hitch.
->=20
-> When a new resource is added and 'first' is NULL, we re-seed the
-> anchor to
-> the tail of the manager's LRU list. However, could this leave the
-> descended
-> cursor parked in the sublist without adjusting it?
->=20
-> If ttm_lru_bulk_move_pos_adjust_cursors() is not called to detach it,
-> the
-> resumed traversal might immediately process and evict this newly
-> added
-> resource, violating the LRU guarantee.
->=20
-> > +	/*
-> > +	 * The resource may still be on another list (manager LRU
-> > or
-> > +	 * bdev->unevictable); move it unconditionally to keep
-> > group
-> > +	 * membership consistent.
-> > +	 */
-> > +	list_move_tail(&res->lru.link, &pos->sublist);
-> > =C2=A0}
+      | drm_of_find_panel_or_bridge(..., &panel, &bridge);
+      | if (panel)
+      |     bridge = drm_panel_bridge_add();
+
+    Adapt drm_of_find_panel_or_bridge() so it prioritizes the bridge, not
+    the panel. With this small change all drivers using the above pattern
+    get ready in advance for when every panel will have a bridge
+    (a few commits below).
+
+      drm: of: drm_of_find_panel_or_bridge: simplify freeing the remote node pointer
+      drm: of: drm_of_find_panel_or_bridge: simplify error return paths
+      drm: of: drm_of_find_panel_or_bridge: prioritize the bridge, not the panel
+
+ 2. Address circular module dependency that would arise in the following
+    commit [RFC!]
+ 
+      drm/panel: merge the drm_kms_helper module into the drm module
+
+ 3. The main commit
+
+      drm/bridge: panel: add a panel_bridge to every panel
+
+ 4. After the previous commit, many drivers not using the pattern in (1.)
+    will unconditionally create a second panel_bridge for the same panel.
+    Being an RFC, fix *some* of them as an example; if the approach will
+    be acked, all of them will be converted in a later iteration.
+    
+      drm/bridge: tc358767: don't create a panel_bridge
+      drm/bridge: waveshare-dsi: don't create a panel_bridge
+      drm/mcde: dsi: simplify device_node management using scoped for_each variant
+      drm/mcde: dsi: don't create a panel_bridge
+      drm/bridge: fsl-ldb: don't create a panel_bridge
+      drm/bridge: samsung-dsim: don't create a panel_bridge
+
+== Grand plan
+
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
+
+Here's the work breakdown (➜ marks the current series):
+
+ 1. ➜ add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. ➜ add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. ✔ protect encoder bridge chain with a mutex (v7.2)
+       7. ✔ of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+               convert basic direct users (v7.0-v7.1)
+          b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+          c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+          d. ✔ convert direct of_drm_get_bridge() users, part 4 (v7.1-v7.2)
+          e. ✔ bridge-only drm_of_find_panel_or_bridge() users (v7.2)
+       8. ➜ panel_bridge lifetime
+          a. … cleanup DRM_PANEL in bridge drivers
+	  b. ➜ add a panel_bridge to every panel
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. ✔ handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. ✔ Migrate i.MX LCDIF driver to bridge-connector (v7.2)
+ 6. … DRM bridge hotplug
+    A. … Bridge hotplug management in the DRM core
+       1. ✔ bridge-connector: attach encoder to the connector (v7.2)
+       2. … drm bridge hotplug
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+[1] https://lore.kernel.org/all/emuj2innmp6zmzd7pyakqzjqpdzhly6qfhakya3ydwmd63pl26@5jwxaidpikjw/
+[2] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-8-9d6f2c9c3058@bootlin.com/
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Luca Ceresoli (11):
+      drm: of: drm_of_find_panel_or_bridge: simplify freeing the remote node pointer
+      drm: of: drm_of_find_panel_or_bridge: simplify error return paths
+      drm: of: drm_of_find_panel_or_bridge: prioritize the bridge, not the panel
+      drm/panel: merge the drm_kms_helper module into the drm module
+      drm/bridge: panel: add a panel_bridge to every panel
+      drm/bridge: tc358767: don't create a panel_bridge
+      drm/bridge: waveshare-dsi: don't create a panel_bridge
+      drm/mcde: dsi: simplify device_node management using scoped for_each variant
+      drm/mcde: dsi: don't create a panel_bridge
+      drm/bridge: fsl-ldb: don't create a panel_bridge
+      drm/bridge: samsung-dsim: don't create a panel_bridge
+
+ drivers/gpu/drm/Makefile               |  7 +++--
+ drivers/gpu/drm/bridge/fsl-ldb.c       | 18 ++++---------
+ drivers/gpu/drm/bridge/panel.c         | 47 +++++++++++++++++-----------------
+ drivers/gpu/drm/bridge/samsung-dsim.c  | 19 +++-----------
+ drivers/gpu/drm/bridge/tc358767.c      | 22 +++++-----------
+ drivers/gpu/drm/bridge/waveshare-dsi.c | 16 ++++--------
+ drivers/gpu/drm/drm_of.c               | 36 ++++++++++++--------------
+ drivers/gpu/drm/drm_panel.c            |  3 +++
+ drivers/gpu/drm/mcde/mcde_dsi.c        | 47 ++++++++--------------------------
+ include/drm/drm_panel.h                |  8 ++++++
+ 10 files changed, 83 insertions(+), 140 deletions(-)
+---
+base-commit: c0f5782834718a69465a7169112062d4412856e4
+change-id: 20260812-drm-bridge-every-panel-a1596d6efea4
+
+Best regards,
+--  
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
