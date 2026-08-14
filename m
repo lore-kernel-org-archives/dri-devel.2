@@ -4,127 +4,181 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D999BC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 19:33:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3380FC5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 19:40:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B30BD10E58B;
-	Fri, 14 Aug 2026 19:33:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9313F10E0E7;
+	Fri, 14 Aug 2026 19:40:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BYIlXhx1";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="F5cANw2O";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012031.outbound.protection.outlook.com [40.107.209.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC5010E0E7;
- Fri, 14 Aug 2026 19:33:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YMDlJOX+ocmw4M6OvIQzZXrKgA2I5MCzhrFGtq2c59V9RJF8NE7Zh4wQpgfPQFYjWqFbxCcQ7Wg/IKoYEnHi9z/Gq+Q2dZYE7AX/+1kd17MCAtRka/ySSOsx3cbJGWBBfZvZzDuOrdikLYs85tia44W1GAdYkkDTNmdVwWzFEHpTQGtmIZnT9nqo40CD1bO/ok8pOkIiAx5kalPPHGraATfVyAleKaTVjiNPdkZ6M/oOFoWlSt+BlwMTg62e5WVRC2BNIBxSGhkbsH1ceaanBJmMro7n/oKkXEoN2dA9ps7fLr3RAOCudeAOIkgNn8tqqOWnjwRKnhxOl9PLwARahA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CDC0dA5q8nHO+MKKZOjTKSzdbHgcWe8AIMlJQ7CxD44=;
- b=Zyc9Qlgtt27sxPF7rPjUQ0IYahQSUwz2ScVDEPLdO5mCQJVvil9cmHxfk++fk8jNan0QRKr28RtDE4lGpfNiz55K680xEKvNjQcboodWYMTB3t863l/txibIMPuZO1gUgaHFv4KgZqngLt7ZHSnX+gQ3uGeAxfBu3TcDhwlFFC26kQg2ZLlRgCx0M5bPgrBpzUg56sD9WabeupZlqyGBaAMvwUaDOIMAX19Fg5Ont8zL81UZ4Xp7cwhUhrSuOMFmiUnWj1afOEqRqqzNgZn2Jl29RZbej0uvvqNhDlOp9kDSEEErL/4DxfAWCuHVRhxn0uY0d83Tx6WpjtNNgaS9cA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CDC0dA5q8nHO+MKKZOjTKSzdbHgcWe8AIMlJQ7CxD44=;
- b=BYIlXhx1ZUv+Dvvxdd2o4tpTr0ncPLetgCbklQ8AHeT+1JskuaD2TNOTfpcpx1Iet6tUH/h8EvdletKACraPf5NT7meGoy8aUwCAsczBlJCkTJWYtXcNJU8vwZ7pdjaceDYgXAUOL84AP7ZQ+/35BQ9mQDLBAeUU4V9yWNGgTmQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by MW4PR12MB7213.namprd12.prod.outlook.com (2603:10b6:303:22a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Fri, 14 Aug
- 2026 19:33:04 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0315.011; Fri, 14 Aug 2026
- 19:33:04 +0000
-Message-ID: <8615b361-d250-4fb7-b0e3-057f2ec6786a@amd.com>
-Date: Fri, 14 Aug 2026 15:33:01 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/10] YUV conversion colorop with amdgpu and VKMS
-To: Robert Mader <robert.mader@collabora.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>
-References: <20260731181521.681990-1-harry.wentland@amd.com>
- <1df8715d-5b2f-4c66-9960-635b65dd8e9c@collabora.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <1df8715d-5b2f-4c66-9960-635b65dd8e9c@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0146.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ac::14) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B80010E0E7
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1786736404; x=1787341204; i=deller@gmx.de;
+ bh=l1Zlvqt5uKpJi+oSNqzNZjhNTIZc4WRtX7/0jhyuboU=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=F5cANw2OT7duzZUZMmR8M5mJ3jWy0jk81qIZo2UGlEAEs3uVjYQjuHZ0/wJNvhyW
+ 8b9YxVSB4YSZlWKoX50WHgf09kV7sI1LiDsAYECKRx2a1kdE97xScj73oN9MekDj4
+ 9XwMh59mqKSp32+Eks5WGhZcl5Qzbx+VAOY8mEoL013/PDsCdZwY7ybg0/wBI0AG4
+ XCA+lMrhdapAopmR9S8uVv+YemJTxJl+5RXSFCTuoUT/i+aSFSY/7IdduFNXzGxAA
+ qJ8Xhe6vH/we6uXx0vaE8qnaqgkFcdN1A8KNOHF9EXJ1vOjz9kLDuJwAmWK+p+DC7
+ E43KwXH45eI9ORkI8Q==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M4s4r-1wt1wx1lkl-006ghN; Fri, 14
+ Aug 2026 21:40:04 +0200
+Message-ID: <72639acc-2285-47a7-9f37-2aff593e10eb@gmx.de>
+Date: Fri, 14 Aug 2026 21:40:03 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|MW4PR12MB7213:EE_
-X-MS-Office365-Filtering-Correlation-Id: 991e3cba-1824-4235-06cd-08defa3adc3f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|18002099003|22082099003|3023799007|56012099006|6133799003|11063799006|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info: 6BSnbBWUT74pjpkl3nTkGnMoaO6hplYHZ523biZ2LI+++nnXMNa2ARZGGN08bBs7tbAu6LBPwjTvVi+eO8pHZPnJQpNAswE/jRGest/97wxXzm/tEaOp7GCQ0uvKccVinS8DiAyjMGZgF0++pHpe16Neg3DNIgRl08Ys0zdekg1YBGCxNztF3IDd/jkBbSHS9uriXSTNHIHiBHpAI+0FLNLKKFRwSEEER2AhyKOOm1vc49wg0vBgutqsweb73Jy+l+44ZKLDT1iHw8Tpi/Wx2TZRYpQWn/fJVTS0IkGg3vwbMp6x/bPgpEeSXpWkSPYZySeEZUQtgNkj3EkIko3usVmDq/8ly1ebLb7YAiInirmf2v39iAx0q0ZCBUsoj0V5hTPR3MfCiymQCKmnUlccrl58f7u0Q50Se9s1bjTDgKyQRgdjVX1wFFsO4U7rBZWmlq9hrl9Va3TDMgbIECa+ZmQrrX9jjBwTJbZYFgh/A6Hi9Zh7A1u/VqF296od6s23nlacbFd8aeMDxzxfSoFhmSAJ0fJsFNypMDFMs7fnVgyVOHNNF8+3RueMipqAO4LvwEN5+i/S8U1ZsRaz1M+OVTn06b7GBKWud0sUZxXvrGs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(3023799007)(56012099006)(6133799003)(11063799006)(10067099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDZ2Z2I0SE9hQ1JzSWIvMXBQb1E1QWpwT1dPaUlqZjJqK0RWcGFSeGhTUjI3?=
- =?utf-8?B?OVBUdEFocTdWbkdxdkJqa09Ja1VaaW5sSHpXTWNDeHlKU0FZVXk1M1pnUkxr?=
- =?utf-8?B?a3JhYnBrM1dHMUliNXJPTU95MjFSb2tra1o5R3duSHpDd20vYU9VYzBtS2Mz?=
- =?utf-8?B?NXZLdEdZNk5GVGdpMnJxSGlwZGV2eVdsQTdxVTBlcUdVVHZVWDJ1ckNGekdi?=
- =?utf-8?B?ZGRCM2IxY2xSUWZmZitlV2h4M2x5OHBjeFBxUG5sZTFVQkVhZnNUTFpFV2Fq?=
- =?utf-8?B?bk5uV3FBRlRXcWZiZTdtb2YycDVZT3g3MGUzZ2tFZzExeHNjTUV3NmJkdGZm?=
- =?utf-8?B?cllNU3hnc2d1eFBZWTZwRzlqRjByVS9LSHp1R0xGaElEWndaQ0x4MkF3Vnp2?=
- =?utf-8?B?QzlzdjdIb1k1MCtobWpDbTJHUkxqc2U0UjF4bkFZV08wL25VbFpudFdmbHNW?=
- =?utf-8?B?L0hJZlN5amlQcDZ2RUttVGdxRm1lbTY0OHBXNFcrSHBBYkliaTFVQ2dGZytF?=
- =?utf-8?B?MTh2QjB0cUFncWtqQitQTlU4ZG5icE1jdUQvRUR0eHMyb21XT01oNlo2N1Jz?=
- =?utf-8?B?WGVWQU15dUNWNHB6dGZLZkVGeUxHVUw3bitqVmlwdENwNmw4TzZuRUVOTC8v?=
- =?utf-8?B?MEgwNmZqbzExcWZ2TU8zR0RIeGhWWCticlZUR0YrNk9RUnppL0xoUjlkRVZE?=
- =?utf-8?B?ZGFYSEJ4YmhLcFpXTU44NHREWHBHcmZ5U2tXUW0wS1RDQTR0bytXbjlhckxz?=
- =?utf-8?B?Y0Z3L2krbUs5bnIvcFlraDBVa2FMQy9aeVZuZXE2akFDTFpJM0ZqOE9yYytU?=
- =?utf-8?B?RlVrQjFMV0o2TnRJd2ZwYS9hQU5GZ2l0bk5zeVZ6VDBsakIvQW1aZjJmNGwr?=
- =?utf-8?B?MWZHYzRIMFZPY3JMS3Y0a20wYlBGYUxwTjd2d2gxMUpXV3lhRThNVEgxY0N2?=
- =?utf-8?B?UCtWTUlieE9LcGlJc2dEVmFSU0VGdEhPVWR5Rnp6bHJYQVNjYStkSFlvU0Rs?=
- =?utf-8?B?UmFCZ1g5NFVTdm56RVJCVFBHUjdVbi9ZQURwbUVocHp2a3V2ZU9PNW9KSlJZ?=
- =?utf-8?B?c1YxU2c1U25BOVBZWlAveFVTMlBpMlllak4wMUNYK1JzbUJhcS9ucUZHd1Zu?=
- =?utf-8?B?emJ3QlE0WGZFa3NHSWZpM3V2S1orWlJRYjJhUFVMT0daOFVnVGtFTXVmdWor?=
- =?utf-8?B?bmFoK3VRcmxLY2hZdXovYW5KN0ROSFQxZWwvSFhNQnNzTDhvUCtOaXhIeXhk?=
- =?utf-8?B?ampyNFBsYUt0M1pTZjcxemIrOEs4cVVrNVQzMG1aeFA4cWhDSHlFMnkvejVS?=
- =?utf-8?B?dklsUCt4NU9qUXd2bUxhVFJKTW0vNHk1K3hqb25QQXB3Z3dIVkFZOWNtODRh?=
- =?utf-8?B?UDNFYkNxcHFLV0RVMlY3eVFMMXFXTzN4SUg5TEZwcUdUaWo5SGM0c3psN3Nn?=
- =?utf-8?B?Z1dYSlF6T1BsY0dXQnV3M0VVcTlzQjhPa1RIOW14WTBBTGxWbWpuNlM1UE1P?=
- =?utf-8?B?NUZwMWVZdllKbisyL3IzZDNrS1pCczRwZTlZeWpsRkJCaUM1RWQ0UkU2RDNm?=
- =?utf-8?B?UVk2ZWNvMU1tUFZ4bXRuNlNsYnZmcHE1SFlaZ1c5MGRIa0Zia1lJdTFLS1dn?=
- =?utf-8?B?cEVVY1ZVSmhqR1FvVEFDT0tmdFVuZWIxbFJPVlFpOWNIRi8wN1pXOWhBajI4?=
- =?utf-8?B?bDdhTzdRRXJKZThaVXQwZGN5dXE5MDdOK3NxT2UxSFU1UmdNbmsxb1UwMjdq?=
- =?utf-8?B?UjN2OVAzaVEwVEdwbzJoVmgwZ1hPSUpSNkNQMWUwcUtNZUtmTG16U01VaWFP?=
- =?utf-8?B?eWxqSitDYjl6djZNNmxUb3BMd1JmRUpZaVdxZ1BFMjBqSTRRVXF3M25pZFBz?=
- =?utf-8?B?L29ER21wRXI3amtneXlEbmE3NW5QTEtMdGw1NkJNamppWGthdDNwMkRWdUFw?=
- =?utf-8?B?SFgrUEo5M1haTm80Z2IrZGh5eUhNMldOV0ZZKzNFdUx1cXM3UEVIb055TjZW?=
- =?utf-8?B?RGJNd25qSXFWWERKb25SSlNnb0ZqeWNhMjhJTDUrOHUyNlhESVB4NFVNcXBZ?=
- =?utf-8?B?OUdjVEEvR29pdlZpRUwyd3ZQQkdwOHMyUmpRT1pMLzRTbUQ4RXJYeEpwNE5E?=
- =?utf-8?B?WGZsNkkrdklEancvY09nUnRiWDR5eG1RdTB5RHhwSWQxTzA3ZnM2RWNYUGRW?=
- =?utf-8?B?aHZaT3g2NFJKTXpqMkJpNzhFNzBSVkdMTWxnS1BxczVMeG9seE5IV0xYU1Mr?=
- =?utf-8?B?N29KaUI1NUNsbmgreTM4eHVoeXYvVkxyTXhPandhZ2NOMVd3YW1UTnlpblhQ?=
- =?utf-8?B?V20zT2FNWmNvcDR5RUpZcnV0bElrQkRtcmRUTUYvRThkeU5uMmJPZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 991e3cba-1824-4235-06cd-08defa3adc3f
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 19:33:04.7724 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vw/Xsqd4xLUHfn+5SUMev59noNAPEaWQCs3zbmRlhFLPaKKka+lTit0k/VfhzQZYuqRDfIlD1DuHyoB8emQisQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7213
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: maxine: use MODULE_LICENSE() unconditionally
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>
+References: <20260814184234.3013510-1-rdunlap@infradead.org>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20260814184234.3013510-1-rdunlap@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ZNp+zHfw5tcpMV01ubJJOQ+aNmgq1ffjWe7V/22rxKXdJeTUKTZ
+ 23ieUKvzTfevA76ZHE593Sqer5yjXJlDp+OQnb94mRuTl3zIGTDAXh6vXWS0dbbfi5LJDy2
+ z5GXP/TpiHrQyCG1RbmeIp8yC4sOnOEd6Z30hHD8uUef5UCdhC2NllSdXCNId4VpjQdstmU
+ 2mgIind3oTq9vVOW/Bu0w==
+UI-OutboundReport: notjunk:1;M01:P0:+9MsiIKQxnE=;Wp88lprUkpCNiUMBF+VQA4sLyfk
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,169 +194,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 2026-08-01 05:42, Robert Mader wrote:
-> Hi Harry,
-> 
-> On 31.07.26 20:15, Harry Wentland wrote:
->> When we merged the drm_plane color pipeline API the major gap
->> that existed was the lack of a YUV to RGB conversion colorop.
->> We deprecated any legacy drm_plane color properties, which
->> means that the COLOR_RANGE and COLOR_ENCODING properties can't
->> be used with the COLOR_PIPELINE property on a drm_plane. In
->> practice this means that we can't use a COLOR_PIPELINE on
->> YCbCr encoded framebuffers.
->>
->> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
->> and adds limited range variants of the YCbCr to RGB conversions.
->>
->> His full patchset can be found at
->> https://patchwork.freedesktop.org/patch/709860
->>
->> This code has been tested with IGT and an experimental KWin branch.
->>
->> All patches are now reviewed and tested. We have a Weston and
->> KWin implementation. IGT patches are missing one review. I
->> deem these patches ready to merge once the last IGT patch review
->> comes in.
->>
->> IGT branch:
->> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
->>
->> KWin branch used for testing:
->> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
->>
->> The kernel branch containing these changes, based on drm-misc-next
->> can be found at:
->> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
-> 
-> I wanted to give this a quick go with the Weston implementation [1], however unfortunately the branch doesn't build for me and fails with the error below.
-> 
-
-I forgot to update the series and still had a bad branch sitting on this branch.
-I pushed the latest rebase. There should be no conflicts now.
-
-The rebase from v5 was trivial (what was sitting on my FDO tree was older) so
-no need to send a v6.
-
-Harry
-
-> With that fixed I hope we can land the series - that would be awesome 🤞
-> 
-> Regards
-> 
-> 1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2987:1: error: conflicting types for ‘fill_plane_color_attributes’; have ‘int(struct drm_atomic_commit *, const struct drm_plane_state *, const enum surface_pixel_format,  enum dc_color_space *)’
->  2987 | fill_plane_color_attributes(struct drm_atomic_commit *state,
->       | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> In file included from ./drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:87,
->                  from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:48:
-> ./drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.h:1133:5: note: previous declaration of ‘fill_plane_color_attributes’ with type ‘int(const struct drm_plane_state *, const enum surface_pixel_format,  enum dc_color_space *)’
->  1133 | int fill_plane_color_attributes(const struct drm_plane_state *plane_state,
->       |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> In file included from ./include/linux/linkage.h:7,
->                  from ./include/linux/printk.h:8,
->                  from ./include/asm-generic/bug.h:31,
->                  from ./arch/x86/include/asm/bug.h:195,
->                  from ./include/linux/bug.h:5,
->                  from ./include/linux/slab.h:15,
->                  from ./drivers/gpu/drm/amd/amdgpu/../display/dc/os_types.h:30,
->                  from ./drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services_types.h:29,
->                  from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:30:
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3034:17: error: conflicting types for ‘fill_plane_color_attributes’; have ‘int(struct drm_atomic_commit *, const struct drm_plane_state *, const enum surface_pixel_format,  enum dc_color_space *)’
->  3034 | EXPORT_IF_KUNIT(fill_plane_color_attributes);
->       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> ./include/linux/export.h:76:28: note: in definition of macro ‘__EXPORT_SYMBOL’
->    76 |         extern typeof(sym) sym;      \
->       |                            ^~~
-> ./include/linux/export.h:89:41: note: in expansion of macro ‘_EXPORT_SYMBOL’
->    89 | #define EXPORT_SYMBOL(sym) _EXPORT_SYMBOL(sym, "")
->       |                                         ^~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_kunit_helpers.h:12:33: note: in expansion of macro ‘EXPORT_SYMBOL’
->    12 | #define EXPORT_IF_KUNIT(symbol) EXPORT_SYMBOL(symbol)
->       |                                 ^~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3034:1: note: in expansion of macro ‘EXPORT_IF_KUNIT’
->  3034 | EXPORT_IF_KUNIT(fill_plane_color_attributes);
->       | ^~~~~~~~~~~~~~~
-> ./drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.h:1133:5: note: previous declaration of ‘fill_plane_color_attributes’ with type ‘int(const struct drm_plane_state *, const enum surface_pixel_format,  enum dc_color_space *)’
->  1133 | int fill_plane_color_attributes(const struct drm_plane_state *plane_state,
->       |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 
-> 
->>
->> Further background on this work can be found at:
->> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
->>
->> v5:
->>   - Drop new VKMS kunit tests for conversion matrices
->>   - Added script to show how VKMS kunit test values are computed (Pekka)
->>   - Removed fixed-matrix enums for "YCbCr limtied to full" and
->>     "RGB709 to RGB2020" as they're currently unused by userspace (Robert)
->>
->> v4:
->>   - Specify matrix entries in docs (Pekka)
->>   - Squash limited-range enums into "Add FM" patch (Robert)
->>   - Don't reject RGB planes with fixed matrix in VKMS as
->>     we don't want or need to make a colorop dependent on
->>     the framebuffer's pixel format. (Robert)
->>   - Fix conversion matrices in VKMS and implement kunit
->>     tests (discovered while documenting the matrices)
->>
->> v3:
->> - base on Chaitanya's updated patch and rename code accordingly
->>    to Fixed_Matrix instead of CSC Fixed-Function
->>
->> v2:
->> - use Chaitanya's CSC_FF block for named matrices
->>
->> Cc: Alex Hung <alex.hung@amd.com>
->> Cc: Daniel Stone <daniels@collabora.com>
->> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Cc: Uma Shankar <uma.shankar@intel.com>
->> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
->> Cc: Melissa Wen <mwen@igalia.com>
->> Cc: Simon Ser <contact@emersion.fr>
->> Cc: Robert Mader <robert.mader@collabora.com>
->>
->> Chaitanya Kumar Borah (1):
->>    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
->>
->> Harry Wentland (9):
->>    drm/vkms: Fix limited-range YCbCr to RGB conversion scaling
->>    drm/vkms: Add fixed matrix colorop to color pipeline
->>    drm/vkms: Add atomic check and matrix handling for fixed matrix
->>      colorop
->>    drm/amd/display: Add fixed matrix colorop to color pipeline
->>    drm/amd/display: Implement fixed matrix colorop color space mapping
->>    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
->>    drm/amd/display: Check actual state during commit_tail
->>    drm/amd/display: Set color_space to plane_infos
->>    drm/amd/display: Force GAMCOR for subsampled surfaces with
->>      PQ/Gamma22/HLG
->>
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  85 +++++++++++-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 +++-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
->>   .../amd/display/modules/color/color_gamma.c   |   3 +-
->>   drivers/gpu/drm/drm_atomic.c                  |   4 +
->>   drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
->>   drivers/gpu/drm/drm_colorop.c                 | 107 +++++++++++++++
->>   .../gpu/drm/vkms/tests/gen_yuv_conversion.py  |  87 ++++++++++++
->>   drivers/gpu/drm/vkms/tests/vkms_format_test.c |  40 +++---
->>   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 ++++++---
->>   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
->>   drivers/gpu/drm/vkms/vkms_formats.c           |  64 ++++++---
->>   drivers/gpu/drm/vkms/vkms_formats.h           |   2 +-
->>   drivers/gpu/drm/vkms/vkms_plane.c             |  55 +++++++-
->>   include/drm/drm_colorop.h                     | 127 ++++++++++++++++++
->>   include/uapi/drm/drm_mode.h                   |  12 ++
->>   17 files changed, 639 insertions(+), 68 deletions(-)
->>   create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
->>
->> -- 
->> 2.55.0
->>
-
+On 8/14/26 20:42, Randy Dunlap wrote:
+> This driver cannot be built as a loadable module so testing for
+> "#ifdef MODULE" is not appropriate here.
+> Also, MODULE_LICENSE() is always available.
+>=20
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> ---
+> Cc: Helge Deller <deller@gmx.de>
+> Cc: linux-fbdev@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>
+>=20
+>   drivers/video/fbdev/maxinefb.c |    2 --
+>   1 file changed, 2 deletions(-)
+applied.
+Thanks!
+Helge
