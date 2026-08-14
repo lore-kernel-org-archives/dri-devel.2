@@ -4,134 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D1EC5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A72D9C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:57:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C7810F609;
-	Fri, 14 Aug 2026 14:53:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E093610F621;
+	Fri, 14 Aug 2026 14:57:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="uJSz8Nt0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bJzylpFq";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012043.outbound.protection.outlook.com [52.101.53.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92C0210F609;
- Fri, 14 Aug 2026 14:53:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vpakRn7ul6n331TTXsjAsZzWRfxgD1qxCpUovI5cxYUZG/fwLFlkXwrdYyXwdj8asixTPa8YjE047As4HpwWNazwVqYPZF+P7JbA+xHGs8GsjnETYwH8klnSIc9SqJea1LcdtAOJcxzdaKc1ScNOPaQEKaNGywcQKKBSq0au3KDrW9Ub0VuZazZzlra88AMNTGzFUj3vjCgfsRHqA3dVs+aj96oUXTM0oztARtBiUkeMfmVEi32BuoSjpUuS1CcGkZClrBBTVLkMsJVE1cn/mx615LaP1Kz4R0NA5YQV66aOWf5Yef+NYmHZ4pbD40lRdgnpMXY3lgmIVxLhbfQUzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2v69lxdqnOfcQIGRh4sLGkvX9dV11mB+9gFWwipDk08=;
- b=kcYQmEiEWmlBaOtASXaLrftnSXtU30/jzuK12JqgquvdY9lzpkizWqHIbOS9elYYrtA7aouXfdrGmfYXc1VrfThIBwEDctAUF74EsAkWu+6CkdKm+6Wb6YOBJDT6Fu/lyonI+p4ye1KsVF5gLUGDkDVUFgRinnmDC5HfdigJCsHfPhCql8w654K7VmHl1iQeZccEn8OGHUzKWGX8zORDzS09E6lDBqqii5PAERDV877cTwKCfZUNScwaN3ohvy5jUEeTuAXDLfU15FaD1WGoKgBpWQ8/6cXtzdHHpTVd3Ly+Fh4EnxwtstSk8Mz+RsePZ49pZ3TvOV5d0IWBsIKpYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2v69lxdqnOfcQIGRh4sLGkvX9dV11mB+9gFWwipDk08=;
- b=uJSz8Nt069Rxy3c7rH9dq7DN57iIMeyZOwmrhBI9z2IpoZDgTm47vdpvM5UANrhO3FbNwxb6qQNZn+ZcPZtV4rRs79D9XZCkptZOT0ZAGjJorgDiLl9NXRTW9SU5gez9ABNp6IzSkoHupJJMp+TaXYKJfLWO1Ou+ZnMdzk9K7P0zI4UXHUeEs02QkiQ+CIPZbpbXiVjO1YdMVaOn0/7LFZDcXruEBIqwIC85/ROpfYkzsWcSkICezjhqUtXKtLZG6WF23VT5uXwAX/4pTfxdZWtP5hI7XVzxvynSD+ijkKXYDe30U9wwHD8To7G1k5XYWj0zfah3iZDuijZAVjzgYA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by SA1PR12MB999109.namprd12.prod.outlook.com (2603:10b6:806:4a1::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Fri, 14 Aug
- 2026 14:53:22 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
- 14:53:22 +0000
-Date: Fri, 14 Aug 2026 10:53:21 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Burak Emir <burak.emir@gmail.com>,
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org,
- dri-devel <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-Message-ID: <an8r4VECQ8iFP8ze@yury>
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-5-6c767770b3f4@nvidia.com>
- <anzxKO0X1OrNRD32@yury> <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com>
- <an4NvQBt3389jP6E@yury> <DKO414SNC0B2.248FUBGJGSPLU@kernel.org>
- <an4xDp29VX8Am0uR@yury> <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
- <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <an7bG2bEd28AbNRr@yury>
-X-ClientProxiedBy: MN0PR05CA0024.namprd05.prod.outlook.com
- (2603:10b6:208:52c::32) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 962F010F621
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:57:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A1BC44034;
+ Fri, 14 Aug 2026 14:57:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57C21F00A3A;
+ Fri, 14 Aug 2026 14:57:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786719461;
+ bh=GoYuOczj9hhHjt3dvsFLccyaVSLrjVDvlOsBnv/KzyY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=bJzylpFqCyZirf23727ZOFQG+Ok7ApYLk1JUmOP10RY/9OQxrZg/PVWZF4W+O4oZY
+ 23OrdnT3NoOAM7FItDRisWBQ1cLnpsK1rdzBYyDFfi/1OCjWld+8NBHOwvULA4m7X5
+ 680LrV0x15vUq42QyS79B3VdhvqQzaDJJg14ng9jQdS/bIWm97GBeDsVxF7rfQlRyt
+ 5i0wWDe+Xq3aKUfYXGWkbIk/XRoxoqCbUQFWtNvfNl6Fje0Y1H6gcmWQ5TebXFOBRv
+ VFCabFJkLHu8XnvGCvBZ/eVR4coRjTHcfbxhwkNy0O84WtTjYWrQIAajb5GXvV8bPH
+ 7GldzCUgCpGpw==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 14 Aug 2026 16:56:50 +0200
+Subject: [PATCH v2 01/61] drm/simple-kms: Add create_plane_state hook
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|SA1PR12MB999109:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34707e90-29ad-40a8-7537-08defa13c98b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|23010399003|22082099003|18002099003|11063799006|4143699003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: X2zupriND6A2BngtDbaJ/wmFxJTf/xysA8uQqndHmTz+xpNcN+tSmLFXxZmvlxT7geYP8PUJ+0iUoLx9MQpt1HG8HA4YM3bOmrlmZdDB5nvGpnvH5eIGeXDOO39P5sECvFD7dDy9mWRUkfFWG3BM0c9mRvA81kaca0+T8yf8r6bTTkU2JXA2VxBCimoAjTfzDxMG2U8BSHrz2n9vWfAH2QTOnjXlmN/1Yvq/uafjTS+AMdEjXAOiwfFC/Ns8EIvfcKy2bEGTQUfazeZWqgxZeYJXYXVP+dNqBGvlsnge4ONcOPFuFcvNapykCWnCljKivMfMtmcvk2K+uvQUk0mQIPgID1P87WFRWnirW50hiIXynHc8fyy6FCDgBHCFImCm6exQEaeAKkNIAMp4WWhYDY08hjj/6GCcTMZ8My/yAe9NfcZa8E2nS6MUu0A/Gva/wY76rwg2DlSETGEayTChjzVs1krQ4H8iev2nj5c7q1TWm2ktEvAp30ZXD3QO8rycZLAxbPUGLi1VybN7NQwxQaPsWAr/h6IsMOllcVhmYcOMw9v6RBDrkLBxttF6+f47717a8WXYmiuRGklBYyM7cdGTRXdpIjp12AsquO6sSH62BqOnFQMPnvEsKR9cnFAR2DYWjFqaZs9NB7fFL8U48Hjt9pmc6Jst4pslFMPxvXQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fIvwTEz4TBiRqLIP4748vBIeAMcp6Dw7GxMUMKsVpit8S6jQVt5QVp+e4gMZ?=
- =?us-ascii?Q?1MH3nsJveZE/gDXY1IXX8dS8+KRj5ZGHEDwhCgE+wxUSuMkXjEH6M2QFmJJf?=
- =?us-ascii?Q?5svRfhqJmb9ZR/8COYoADxv7RO5xoJ9m6XgaHTP2zt+H34xPF/KEzmDTin6L?=
- =?us-ascii?Q?DPkyBHOJaTF+k324+ntb2AC/PITCGnBNrXij02rHGncAh04O5ARsJ3jpc/kh?=
- =?us-ascii?Q?dlAo3m9WkMErY59St9UfBp81gLjsx3WEKrKZQVslxA5CfsqJBiGJPLhP7OHF?=
- =?us-ascii?Q?qz5rf/G/2mQ/O19NyxroPoI/Onf/avVXV2ly4BrH43oUx2u2x6YGVmW2HzCE?=
- =?us-ascii?Q?QifkX83ZyBb0y7jn/1zVdRLGGpC/omt+LCl2jaFLi9Av5s7ZMU5m13PmoqR9?=
- =?us-ascii?Q?IH1KYyAZipJ6ypFr7ugqTyM1zUVNrrBORbm+pSXx7rcFwi2aI9FD6nx8qjTf?=
- =?us-ascii?Q?YB2tTt5WBKU4JUb8Ss8DgkHgmhRvYvCaa34YHWXJuYU2OHN5FPxLRRhLxp5M?=
- =?us-ascii?Q?7ccpieLmwBkUp+BtheITBsbysg35hFZoOd+dfY+u51bT1u5fwRiXNW54J51/?=
- =?us-ascii?Q?0EwAcoCb2H2feun3TvIs2a8E6CUz0Tgb82oURonA6nPIGqodOyV29aST40cP?=
- =?us-ascii?Q?V+Mu4Yp3RvW2mtx1WJT5Fp2I5cL8zeTo0/IXOSI/YHZERmMqiLI6kUCrX79/?=
- =?us-ascii?Q?q0I58qva6EX7dCYGQd437ywCx31Vb8Rcf6761cAhOiXR4c3YqAKQNmmOJxuY?=
- =?us-ascii?Q?LgCy1e/K/pjpwXQ8NtEoxuzOzeLS/GovCd0pWkpc40UWAYAlG5cMBJPceryI?=
- =?us-ascii?Q?lF6RrpmN1w0JdcvjILwGAFCYVoa3Zagolj17nGmASSdAO935FDVqZLu7TloQ?=
- =?us-ascii?Q?cSUs5U9vluLEnNZoEhb11U2yRmr2EFUtmOgZp8Kme7Gs3DlS/FEl88UwFiLY?=
- =?us-ascii?Q?jncm1ndxoIW9Z/LaLs4Nr54v8oS3+p3vvJedRZKhT9a7caJ2ZyKfDG/jIcSd?=
- =?us-ascii?Q?KcgFPaPKhPrg9/qZTv/MmsjSqeIAbqOZAmOVPpQ1Wyg8RN18FHChGT6HZXJY?=
- =?us-ascii?Q?ATJPt0H5X6F0GiRA5IWCHtim3SdF3WCdZFqpX5q4bAdCQ1mSp4JkrQJan56p?=
- =?us-ascii?Q?FP16Vh/SPEGCEGHAroj+ZToAH9nZALFMDcFRXVe7FwrR61C9BvYJd/B2UDGz?=
- =?us-ascii?Q?iSm0q2cwhHewdyWRL1XXbPdGBX559mocpMnI+ZmekJnqftmiPOXroztCVZWl?=
- =?us-ascii?Q?IHv4pmly4ypUR7qgioZgGwYyqrWq012CAHr9g63Vy7Qivdki7I+EwxBXHJ0Q?=
- =?us-ascii?Q?8qmQmHs1vasGibHN2qi7l+bGVUl7gGvyeXAuhY+xtGF/5sKJdJrSO5xKOirT?=
- =?us-ascii?Q?VIYGoSH6dVVOqXWbBuaMH4X20q7N8eQCoGFIu7rtnx15G0AktDVWWQeXXFZ0?=
- =?us-ascii?Q?mufs637GhL99o1PyhoS7vJbKOLRTdir3/tI1CWHkFFb2f9NLTwew9w+gTTaT?=
- =?us-ascii?Q?gLxWWS3rp54OGy4S1oLgRGTAyCNUa0/kNqAN5/0ScPzrQw5loooCohopM/mU?=
- =?us-ascii?Q?xANejKSLku9W9GXqkjYv8JmW7rxJRWNyKJvnuYEzlWnueNyEefFGBwf6Fyh8?=
- =?us-ascii?Q?IV4XZrIGgcM/nojD73b/M4jvekDskpKvkPnB58bboCjru8K74qFeklj3IAF2?=
- =?us-ascii?Q?110bZ89ZumnrOTb/VmLTlYHkSGcng5rNsBrDooSRUOVnk1tpo2qzYSQbXog3?=
- =?us-ascii?Q?LOAHypAFcw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34707e90-29ad-40a8-7537-08defa13c98b
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 14:53:22.8059 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WmnNJKJxkHKLuedbM3EL8RKS887p8E0E8YKu4tqmfoKkm3qbiA1m7FDo7FG4gKPXjHerGb3VrJb5IRrWGPuSLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB999109
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
+References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
+In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3656; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=rgppf2EgB5mHpLt+EzP+oKPLiSSKT4N/Y9naLRIuEBs=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Oke2FlZc+M97yNZZPahOd+KUy/OThBefnJal8VBcw
+ eZ9vGdgx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhItT1jw77Gnu2OTNWf8l4d
+ 29oZtkozNe6Tb9ilLw9S3jwLfy+nsVhL2653LYPY7wuxV8IWc2tzMTZMkL0yTfPk3neHXl3mcg1
+ wjUt4HN55bZ5iRPWSc+WiNt1xN7MYb9g/r3ixmCHXjofzpDAA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,38 +67,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 14, 2026 at 05:08:43AM -0400, Yury Norov wrote:
-> On Fri, Aug 14, 2026 at 01:54:24PM +0900, Eliot Courtney wrote:
-> > > 1. Provide a nz! macro to create constant non-zero things. Provide some
-> > >    constants for common alignments
-> > >
-> > > Potentially, we could use build_assert! for cases it is provably
-> > > non-zero but not a literal (although tbh not sure this is a good idea -
-> > > at least not do this initially). 
-> > >
-> > > So either: nz!: const { NonZero::new(value).unwrap() }, or, nz!: some
-> > > build assert gated construction of NonZero. A general nz! macro could
-> > > also help ergonomics for other use cases too.
-> > >
-> > > That looks like this:
-> > >
-> > > pool.alloc_area(nz!(8), Alignment::AL_8)?;
-> > 
-> > Actually found that if we implement SizeConstants for Alignment then we
-> > can get Alignment::SZ_4K etc almost for free.
-> 
-> Then maybe pass SZ_4K directly, and allow the alloc_area() to
-> calculate the alignment:
-> 
->         pool.alloc_area(nz!(8), SZ_4K)?;
+The simple-kms helper provides a reset_plane hook to let drivers
+override the default plane reset. However, the reset hook is
+overloaded: it is used to create the initial software state at probe
+time, but also to reset both the hardware and software state during
+suspend/resume. These two roles have different expectations, and
+reset is not fallible which makes error handling difficult.
 
-Even worse, you can advertise the function like: allocate a contiguous
-set of channel IDs enough to represent XXX bytes of memory with YYY
-alignment. And that way, you'll be able to do:
+The atomic_create_state pattern was introduced to untangle this by
+providing a hook that only allocates and initializes a pristine state
+without any side effect.
 
-          pool.alloc_area(SZ_8K, SZ_4K)?;
+Add a create_plane_state hook to struct
+drm_simple_display_pipe_funcs. When provided,
+drm_simple_kms_plane_reset() will use it to allocate a fresh state,
+falling back to reset_plane and then to the default
+drm_atomic_helper_plane_reset().
 
-If my understanding of the function is right, it would be a clear
-improvement, because the user now doesn't think about ID channels pool
-as a set of bits, but an abstraction over the memory access technique,
-which it really is.
+This will allow simple-kms drivers to be converted to the
+atomic_create_state pattern.
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+ drivers/gpu/drm/drm_simple_kms_helper.c | 26 ++++++++++++++++++++++++--
+ include/drm/drm_simple_kms_helper.h     |  1 +
+ 2 files changed, 25 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/drm_simple_kms_helper.c
+index 8e1d07b9f1e3..528968ea5c4b 100644
+--- a/drivers/gpu/drm/drm_simple_kms_helper.c
++++ b/drivers/gpu/drm/drm_simple_kms_helper.c
+@@ -279,19 +279,41 @@ static const struct drm_plane_helper_funcs drm_simple_kms_plane_helper_funcs = {
+ 	.end_fb_access = drm_simple_kms_plane_end_fb_access,
+ 	.atomic_check = drm_simple_kms_plane_atomic_check,
+ 	.atomic_update = drm_simple_kms_plane_atomic_update,
+ };
+ 
++static void drm_simple_kms_plane_destroy_state(struct drm_plane *plane,
++					       struct drm_plane_state *state);
++
+ static void drm_simple_kms_plane_reset(struct drm_plane *plane)
+ {
+ 	struct drm_simple_display_pipe *pipe;
+ 
+ 	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->reset_plane)
++	if (!pipe->funcs)
+ 		return drm_atomic_helper_plane_reset(plane);
+ 
+-	return pipe->funcs->reset_plane(pipe);
++	if (pipe->funcs->create_plane_state) {
++		struct drm_plane_state *state;
++
++		if (plane->state) {
++			drm_simple_kms_plane_destroy_state(plane, plane->state);
++			plane->state = NULL;
++		}
++
++		state = pipe->funcs->create_plane_state(pipe);
++		if (WARN_ON(IS_ERR(state)))
++			return;
++
++		plane->state = state;
++		return;
++	}
++
++	if (pipe->funcs->reset_plane)
++		return pipe->funcs->reset_plane(pipe);
++
++	return drm_atomic_helper_plane_reset(plane);
+ }
+ 
+ static struct drm_plane_state *drm_simple_kms_plane_duplicate_state(struct drm_plane *plane)
+ {
+ 	struct drm_simple_display_pipe *pipe;
+diff --git a/include/drm/drm_simple_kms_helper.h b/include/drm/drm_simple_kms_helper.h
+index cb672ce0e856..b58f6d532820 100644
+--- a/include/drm/drm_simple_kms_helper.h
++++ b/include/drm/drm_simple_kms_helper.h
+@@ -42,10 +42,11 @@ struct drm_simple_display_pipe_funcs {
+ 	void (*reset_crtc)(struct drm_simple_display_pipe *pipe);
+ 	struct drm_crtc_state * (*duplicate_crtc_state)(struct drm_simple_display_pipe *pipe);
+ 	void (*destroy_crtc_state)(struct drm_simple_display_pipe *pipe,
+ 				   struct drm_crtc_state *crtc_state);
+ 	void (*reset_plane)(struct drm_simple_display_pipe *pipe);
++	struct drm_plane_state * (*create_plane_state)(struct drm_simple_display_pipe *pipe);
+ 	struct drm_plane_state * (*duplicate_plane_state)(struct drm_simple_display_pipe *pipe);
+ 	void (*destroy_plane_state)(struct drm_simple_display_pipe *pipe,
+ 				    struct drm_plane_state *plane_state);
+ };
+ 
+
+-- 
+2.55.0
+
