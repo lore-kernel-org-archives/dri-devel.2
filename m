@@ -4,82 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41412C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 17:15:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E264C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 17:22:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FF6010E590;
-	Fri, 14 Aug 2026 17:15:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB1910E126;
+	Fri, 14 Aug 2026 17:22:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="djE887sn";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="i7M6Kfj1";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEA3410F6AE
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 17:15:31 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4980fe6b3beso16839785e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 10:15:31 -0700 (PDT)
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5364910E126
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 17:22:33 +0000 (UTC)
+Received: by mail-oi1-f171.google.com with SMTP id
+ 5614622812f47-4a45b3f0becso787074b6e.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 10:22:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786727730; x=1787332530; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=NlJYVJ/8GdD4qg+Ajeu5HEDnsi7CdGS+uFMUtLjS2lM=;
- b=djE887sn2VlrjEj3qJ/EhodRLUs+gBY/Jb61yEHdkS0rzQvoQrLs1d0lCFJcgTcbQw
- d+tOuF4yvMgnchYnBbOXM2VsNyN1fHo6rJ/DFrE+kC7omKRtkNLJkhBsntWlYjdZiG4b
- WqywLTfMUa5/cttERyHJosVjOFBqRx3r/eudF4dU4DIweTKty4T1TNeFBs0G21W4vS2/
- qGIeVwplaf9Ycr5Q5Ik57IDXHwNBtUlrAA57O7S+oGF/7zlpGs8h/9l5WyziqrjI+d+s
- ucdHDZyEPWqDf1wNsx7Xs6GcCINacM6JXcf+rwR/d3J6lMFDz00SoFJ7qt8DQnchfhQj
- j8Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786727730; x=1787332530;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ d=chromium.org; s=google; t=1786728152; x=1787332952;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=NlJYVJ/8GdD4qg+Ajeu5HEDnsi7CdGS+uFMUtLjS2lM=;
- b=XfD64uswxx9gSDY5pvg08FODOH/aFcE/yjrjHdxHVVsuW/6it4/qbEs+RPpzZ1D2IV
- cj7wva12uXP/vIn/wYz3DoXHwy+yCgMPiX0HgNeIEVFLWj9zzBBRU9Dk9KXSbSJbbJpe
- 9V2AVdge5dM/vbALufOQrX2rkOj5mOVaJQdSsTwWTYAWuWP5QrJMGwQ8FS1bLHtmbarY
- MR72zuj/BYC0TO+iOdV9E7Vpt85XUePkB9Gs4CFdbwdepIoD6py6xBbJrLhpulmaJnN0
- EOhzoj3qcH+vQr9biAJHgCDN7Az2ruPp10lcUrDUxlOnW/9M+rGKSl/iDLS+LWV6GkpW
- +KYA==
+ bh=tj7E+ruRn21DOx8hBxzrIfOaFa15mTHfWsZCBBG1Pso=;
+ b=i7M6Kfj1MUjUBxGAH5vbDkXPZX9Qr5w+RkAcwMeb/I4+bXzxDeDliTXaBApi/o2zWp
+ qi7UCHzBoRVpMLCF/WN27z+08VNUQBidFUSFK4sV9WAhi9aOyF4CMyTwSngZKzd3KL/Z
+ Zzr6qs5HQAKIFkxNtkI4x8KZJW4KIGuOg/rkY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786728152; x=1787332952;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=tj7E+ruRn21DOx8hBxzrIfOaFa15mTHfWsZCBBG1Pso=;
+ b=WbCknZyaTLECFU0aX0cX/pdzJsriPRawLGs0wCgcdPh+evxDTu6pAgCXidMVSddf2A
+ Q9uMHelhOZBPVv0WvAQ2oXCGwE7m9u7lMtK66ciJli4ELseU0m3Fg9EqMz5c3FNpJvt0
+ 7ptxnOAUZCkhHFqlC2TfTrInSQj2VhEK6PQN30szsg3+HOntodDLuBdA+piI+UyUREKZ
+ aHxLuUxGSFN/rBrBqLbixi8r7JxH2iy9YQ+OUh8cg4GmotXI49EiIZAr3ZFoRPeb2UZg
+ gm+0l8SkdaTIljUva58gul3JYYdR1MbjkD26xf0m6//4INNFqNjCVi23Q7Wydv8CxXjw
+ HENw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrZYOfQBEiPmPSTipwucxxxU3QjR5oITDHMcIoZsjeGDO0g6x5rmStlLNMD3bHRMZoapWaU9xXyNFw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzhg0lZTaNtDDD48+nyRiGMvi3lfDycBVkL2MKNbqLWgHsXfjkg
- kKCLTKYW61s8fSxKqZiNGMrdEHvTvuthB+re5VGjHNwEvZsDEEmKWkKl
-X-Gm-Gg: AR+sD137vwsZa6k349TaSU3WYU2rFXvaoMvN8nFYV1VcvEiEWbXgAXugNvSxMeA7zy9
- lr0LH+GGMlUp+zbYWeAcfbE3Wha8xLuGSE+xm6TdYqXpxZ5WoAMRduIYsEM1HUraMCpWpRnrcZv
- YXP6EiATAoHkOIv6g2kjblT6r0ALOk/u4WW3QbzqbqUDBKfbu5kdefergAkxUa3U5qjoIkspGdw
- w5EnMiW4Kk1oECtze0ayGBrVzyLA7+rtSJv0mdCV4+HZLUE6ahb9uzbjSt/fQIsNMtFR6kcfusf
- 9IDRLXtk5QD0n8XoYATKCMnnBkTY7CSD3tX3FaJfVc6z4E2nrwSJhlhdKR6Ajav8NMpaPKsq24Q
- PEsHhvUTVkhOmAmkDSGkClTGfRY8JAFzZct9h6/7zFMApXhEWbrCmDUlXriip2Xumi8AiBQCWNi
- Bye++E3kdRZZTGUMTVmkmHEvW6xfUWVqaow2LEYP7OXmrleqkcDxXzChmc+rM=
-X-Received: by 2002:a05:600c:5643:b0:499:77ba:4b6 with SMTP id
- 5b1f17b1804b1-49987ad988emr70687995e9.9.1786727730016; 
- Fri, 14 Aug 2026 10:15:30 -0700 (PDT)
-Received: from localhost ([5.83.201.220]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499899b5ad0sm44859855e9.4.2026.08.14.10.15.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Aug 2026 10:15:29 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <Roman.Li@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] drm/amd/display: Fix spelling mistake "optmization" ->
- "optimization"
-Date: Fri, 14 Aug 2026 18:13:35 +0100
-Message-ID: <20260814171335.1099999-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ AHgh+Rp9jwzRNmuKwwjn7EZSlJ+SjBHPuT61C+YwqZQ7ipCNdUxUmN8x3dcOacCXS9NGiooixKz1JAK1wtk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywup6in28NxTaXgXzaUD4Y7lFoaC89GuhrcF/Re0gryiiZcAaaO
+ Lm96pfXwn0j421N5n8RRrVO0t8bN3pD5EtH0UJqtJHb/kcB8/jSquWM4dEDseXBtvFu/MfiOihx
+ dmt0=
+X-Gm-Gg: AR+sD1110cRGZOcDpfTFzssMLBgywzWk177WyzXhFr4j1hRkd/Mr/cGrNjzA2Fx6Tmn
+ MxOB446sD/dWn9Gd92iMRerCtcGkQoCUmT8+Wv2UER+lLJNM6ao52jsDCKaaaZpYQnXLIfrmPlb
+ bxfwmeKIGw2yD506I7ciFL3bjuApjPwaW7W2R4MYwnnAKtCOyuIH/Ph2zWCSTJEDDZKmngc/5VK
+ QBlPT0vwJJoTks7eiFDZrloqP9nfG8gG0CzF7TJv/hN9MG3u5RduaCLAahfAl3BEgjRZNxjzxh1
+ wMabpVpwG1eafPpvGrSJbRFqav8NOUvE/oh82ps9Lo/Q1ZHH3x16lYQIOfYBu5OoMLspBTU43mY
+ WuAiYWfU2hmF1E5DqZwxHLqT+aDn55t8tqPtczbv13Ek9HRa98dUTn14c83W3yP6kGFqHoGQFze
+ NDhvoR1i+lymG7xN1Imutua/hiL5EYKM9GDaDy6+bKBEgqLPfS5BiwZ+T7af1xWogyViXII+Snz
+ EjMCKJt3MA196KmPA3P2+K0Fj2QDFU=
+X-Received: by 2002:a05:6808:4f10:b0:4b1:b9f1:e893 with SMTP id
+ 5614622812f47-4b2412f1004mr6705457b6e.3.1786728152301; 
+ Fri, 14 Aug 2026 10:22:32 -0700 (PDT)
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com.
+ [209.85.167.180]) by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-4b24db6bcb0sm1242577b6e.13.2026.08.14.10.22.30
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Aug 2026 10:22:31 -0700 (PDT)
+Received: by mail-oi1-f180.google.com with SMTP id
+ 5614622812f47-4a45b3f0becso787054b6e.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 10:22:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr7KBlw0osajAHM50k5gi3Gt8kB3pPGZZ9dP6Htq413UD5mBVhoazeSPi/SUC5V4sFKbu97oI3CH94=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:1829:b0:5c2:b001:db5b with SMTP id
+ 71dfb90a1353d-5c591d18a3cmr1347396e0c.6.1786727693732; Fri, 14 Aug 2026
+ 10:14:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20260814120304.887993-1-y-d@ti.com>
+ <20260814120304.887993-3-y-d@ti.com>
+In-Reply-To: <20260814120304.887993-3-y-d@ti.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 14 Aug 2026 10:14:42 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XVoWvfD33Y16UOMZsz_fsOpnxeGK0izEKc-iCbR++J2g@mail.gmail.com>
+X-Gm-Features: AcwNN1Xbr4jyJmLc9m7TmngqM9GEVDTkwaaD5i4mwFGDheHWmnM85sejBoE2ID0
+Message-ID: <CAD=FV=XVoWvfD33Y16UOMZsz_fsOpnxeGK0izEKc-iCbR++J2g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/bridge: ti-sn65dsi86: retrain DP link directly on
+ cable replug
+To: Yashas D <y-d@ti.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ u-kumar1@ti.com, devarsht@ti.com, s-jain1@ti.com, d-mittal@ti.com, 
+ b-padhi@ti.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,26 +113,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There is a spelling mistake in a DML_ASSERT_MSG message. Fix it.
+Hi,
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- .../drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Fri, Aug 14, 2026 at 5:04=E2=80=AFAM Yashas D <y-d@ti.com> wrote:
+>
+> When a cable is replugged while the upstream display pipeline is still
+> active (e.g. a compositor holds the CRTC), the bridge can retrain the
+> DP link and re-enable the video stream directly from the HPD interrupt
+> work handler without requiring a full DRM atomic commit. This allows
+> applications to recover display output after a cable replug.
+>
+> Signed-off-by: Yashas D <y-d@ti.com>
+> ---
+>  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 215 +++++++++++++++++++++-----
+>  1 file changed, 179 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
-index ab9cadaf5a60..79ec5838c26f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
-@@ -123,7 +123,7 @@ static enum dml2_status dml2_top_perform_stage_optimization(struct dml2_instance
- 	DML_ASSERT_MSG(worksheet->validation_result.is_mode_support_valid
- 			&& worksheet->validation_result.is_mcache_allocation_valid
- 			&& worksheet->validation_result.is_prefetch_valid,
--			"worksheet must be valid on exit independent from optmization resul!\n");
-+			"worksheet must be valid on exit independent from optimization resul!\n");
- //	DML_ASSERT_MSG(iteration <= MAX_OPTIMIZATION_ITERATIONS,
- //			"exceeds max optimization iterations!\n"
- //			"\t is_permissible_found = %s\n"
--- 
-2.55.0
+There's a lot of code here and Sashiko has a bunch of feedback [1].
+I'm not personally very familiar with the HPD flows. I'll probably
+skip reviewing this until Sashiko is reasonably happy or until you
+explain why Sashiko is confused.
 
+FWIW, just from the patch description, I'd also question if this is
+really a good idea. If we get an unplug / replug, we could get an
+entirely new display plugged in. This is really something that's OK
+without needing to handle things?
+
+
+[1] https://lore.kernel.org/all/20260814121431.72C701F000E9@smtp.kernel.org=
+/
