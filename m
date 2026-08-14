@@ -4,69 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4402BC5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 20:36:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8513EC5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 20:45:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45C2110F6D7;
-	Fri, 14 Aug 2026 20:36:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A046E10EF2B;
+	Fri, 14 Aug 2026 20:45:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="b38Em92c";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="c/WSDUaz";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C50910F6E0
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 20:36:24 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 390D810F6CD
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 20:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786739783;
+ s=mimecast20190719; t=1786740342;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=UEzS7cgh0s3kpDJoSKFSaeUbfz26XKFwvX4uV6Y0kQg=;
- b=b38Em92c4kCq6gdlSDSaFQ7fzyowCMItxkcA91Bz+0OoBrLe/uy+eGfZP1qEV7qMuAVMG7
- xPbHZF8Q0nImuKZW0q5MGNfCkwVlr5En25D2zV+urwO8TjDO80yYwjSFc1G0x6NYm3rr5C
- Pkf5OVrNZvoQtKeySjcEGIT6b0XpY1U=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-459-oqOvZT7bMEW5oR1aBhdpHw-1; Fri,
- 14 Aug 2026 16:36:07 -0400
-X-MC-Unique: oqOvZT7bMEW5oR1aBhdpHw-1
-X-Mimecast-MFC-AGG-ID: oqOvZT7bMEW5oR1aBhdpHw_1786739765
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8FF7D195608A; Fri, 14 Aug 2026 20:36:04 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.64.233])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 94B5E197751A; Fri, 14 Aug 2026 20:36:00 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- nouveau@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-sunxi@lists.linux.dev,
- asahi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-mediatek@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- linux-aspeed@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- imx@lists.linux.dev
-Subject: [PATCH 4/5] drm/vblank: Use drm_for_each_crtc() in drm_vblank_init()
-Date: Fri, 14 Aug 2026 16:35:32 -0400
-Message-ID: <20260814203542.1405135-5-lyude@redhat.com>
-In-Reply-To: <20260814203542.1405135-1-lyude@redhat.com>
-References: <20260814203542.1405135-1-lyude@redhat.com>
+ bh=VxShuxNWjK6vy6fFi45+c1RKfCy31uup4sL6awRsGyk=;
+ b=c/WSDUazj6QQpcPy8c4JI80hYH2oXZqBKb2/oc37y4Qwzx7/Hmal+i5Tu0AX6jX6v+mC6/
+ xztDAf5CWZKX0nZfE38lIJWWTmKjqQcABgRiMbsQRqAGUjO762wScJrt3/9haqqyhkDxqn
+ Mt5vVu+3YlZVdh+0rCBu02iHMgcfVnk=
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-694-Vxwoyt_9O3evRGYHbuyt8A-1; Fri, 14 Aug 2026 16:45:34 -0400
+X-MC-Unique: Vxwoyt_9O3evRGYHbuyt8A-1
+X-Mimecast-MFC-AGG-ID: Vxwoyt_9O3evRGYHbuyt8A_1786740333
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2d02df2bf09so15369805ad.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:45:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786740333; x=1787345133;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=VxShuxNWjK6vy6fFi45+c1RKfCy31uup4sL6awRsGyk=;
+ b=F9DItlE2TkQjil0i/ewcIOXPxcRzD0XgsInrc15zKX1ivr4mguYeD4F/zBGhV06vTH
+ HyUzA2cgogsKRk7rLcp1ejJ0MqG+mYnq273Whpb1wvnYRpHdGKsUMCnFU0+T32ClC8oM
+ jeq7tJsl/BGm696ovCQBzN4G/9NOFEjdZxRSTOoszAx3Fix4W2CmFlRuclHlwoLWvkkN
+ ULv6WNULF1msorTNH6SRjl09N9231c1OjMAdHUGZctP0hrRMKRIEzFrLxRo5Nyg0i+1H
+ Bk2xLrr3/hWzp71nrRmJRgTYqnTWAqoyGiG7+ZW6k0GyBiLZp69Qk9yRqaLs+adJ6AbI
+ pOhA==
+X-Gm-Message-State: AOJu0YzN1xPdZlsvVZ1bvyh5mTuRnUMz1w+FJI/HKmj3ZPtIm8UG3KVs
+ eA2XLk16s0x0WX2Kp9BJqANnZIvSJkHn+mcNFGIuihWKvA9F/3e/DzWkjC7nPV9eyJuIOZpzaPU
+ iCc+P8gDf+dipMTEsaxAypcv2zNhWuTl6fleX8UKxU3/FyHA0sK3HcuIOfGeQ8BqN3dMjbWeC+S
+ jf+5lcsvnZ7kbW4PtsZTu6KpH2OrvMJ588ozaTA/blqckVBKJsERGu
+X-Gm-Gg: AR+sD13J8KhaYJO16VMkuJAKAy8bUule5tN8Ss4gBNxky23wtJguZV6C9T8zlq2mCH4
+ fRG45if2AXYV806vpeHApu6qVV2siCuejBByLRGs37MBPuWZM8CzwG6RZV+FeaArG/QviA+xG31
+ O2CG0n0cAfo5mDrxpt5jKzoYiFnrgpG+h3xIYf50IyzHjCJYPy98z0oe6BsyuVWuDoTKR67yFUT
+ kx38B6cTtPLxxa9
+X-Received: by 2002:a17:90b:3889:b0:381:11eb:d78e with SMTP id
+ 98e67ed59e1d1-3933b8ace11mr8972414a91.14.1786740333053; 
+ Fri, 14 Aug 2026 13:45:33 -0700 (PDT)
+X-Received: by 2002:a17:90b:3889:b0:381:11eb:d78e with SMTP id
+ 98e67ed59e1d1-3933b8ace11mr8972357a91.14.1786740332584; Fri, 14 Aug 2026
+ 13:45:32 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: n-oec64SmiRyi_Z2b4WWbM3YQvjXi64dZ38aR0yoBMw_1786739765
+References: <20260814194542.781955-1-lyude@redhat.com>
+In-Reply-To: <20260814194542.781955-1-lyude@redhat.com>
+From: David Airlie <airlied@redhat.com>
+Date: Sat, 15 Aug 2026 06:45:21 +1000
+X-Gm-Features: AUfX_my66rtVpLJbBZVMgZwZu3oFOTX2t4ug31ZdJulSxidKcPEsvPNIyHxdcEw
+Message-ID: <CAMwc25pWnT2ScvkhvB3QZ5A5SbB9JrsnyV9HncqpeiGOzQ5bTA@mail.gmail.com>
+Subject: Re: [PATCH v5 0/4] drm/nouveau: GSP runtime PM fixes
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Timur Tabi <ttabi@nvidia.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Ben Skeggs <bskeggs@nvidia.com>, 
+ Kees Cook <kees@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, 
+ Mel Henning <mhenning@darkrefraction.com>, Danilo Krummrich <dakr@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: EM3qszG8RV_xTXTglXAoWFUhRzV6fieDmSS6ZQE0Dac_1786740333
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,43 +100,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-No functional changes yet, we just should be using this iterator here
-instead of manually counting the number of CRTCs anyhow.
+On Sat, Aug 15, 2026 at 5:45=E2=80=AFAM Lyude Paul <lyude@redhat.com> wrote=
+:
+>
+> Runtime suspend/resume has been notoriously flakey since we started
+> using the R570 GSP firmware, and possibly was also flakey for some time
+> when we introduced GSP support initially.
+>
+> These fixes get runtime PM to be dramatically more stable then it was
+> before. Unfortunately even with this patch series, there are still some
+> remaining issues that need to be fixed. These likely stem from the
+> currently different code path that we need to take with these fixes in
+> order to get suspend/resume working.
+>
+> While we're making progress in understanding what exactly we're doing
+> differently from OpenRM that makes this the case, it will likely take us
+> a while before we actually have things working well enough to copy what
+> OpenRM does. Taking precisely the same path that OpenRM takes however,
+> will require some additional work - and at the very least these fixes do
+> appear to get suspend/resume and runtime PM working the vast majority of
+> the time.
+>
+> Thanks for nvidia for providing context into what all of these various
+> flags and settings do!
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/drm_vblank.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+While I did not expect the ending to be make the magic sleep magicer,
+I appreciate I introduced the magic sleep and got to the same point in
+trying to explain it, and failed for it to make any sense.
 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index 17283e8920378..d57405050554f 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -547,19 +547,20 @@ static void drm_vblank_init_release(struct drm_device *dev, void *ptr)
- int drm_vblank_init(struct drm_device *dev)
- {
- 	int ret;
--	unsigned int num_crtcs = dev->mode_config.num_crtc;
--	unsigned int i;
-+	struct drm_crtc *crtc;
- 
- 	spin_lock_init(&dev->vbl_lock);
- 	spin_lock_init(&dev->vblank_time_lock);
- 
--	dev->vblank = drmm_kcalloc(dev, num_crtcs, sizeof(*dev->vblank), GFP_KERNEL);
-+	dev->vblank = drmm_kcalloc(dev, dev->mode_config.num_crtc,
-+				   sizeof(*dev->vblank), GFP_KERNEL);
- 	if (!dev->vblank)
- 		return -ENOMEM;
- 
- 	dev->has_hw_vblank = true;
- 
--	for (i = 0; i < num_crtcs; i++) {
-+	drm_for_each_crtc(crtc, dev) {
-+		unsigned int i = crtc->index;
- 		struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, i);
- 
- 		vblank->dev = dev;
--- 
-2.55.0
+For the series:
+
+Reviewed-by: Dave Airlie <airlied@redhat.com>
+
+>
+> Previous version of this patch series:
+>
+>   https://patchwork.freedesktop.org/series/169457/
+>
+> Patch-wide changes:
+> * Add magic sleep, this seems to get things stable - but boy I wish I
+>   could figure out why.
+>
+> Lyude Paul (4):
+>   Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
+>   drm/nouveau/gsp/r570: Set GcOff =3D 0 in fbsr
+>   drm/nouveau/gsp/r570: Enable S/R Display workaround in GSP
+>   drm/nouveau/gsp: Increase delay for magic sleep in r535_gsp_fini()
+>
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c    | 2 +-
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c     | 8 ++++++--
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 8 ++++----
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c     | 3 ++-
+>  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h    | 8 ++++++++
+>  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h           | 2 +-
+>  6 files changed, 22 insertions(+), 9 deletions(-)
+>
+>
+> base-commit: f29ab62f7ed55eae7b246bb535ede56d3b338674
+> --
+> 2.55.0
+>
 
