@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FD74C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 15:10:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB260C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 15:11:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8771D10F63A;
-	Fri, 14 Aug 2026 15:10:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E72D10F64E;
+	Fri, 14 Aug 2026 15:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AsbtiwsL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fWSFEmVy";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96BB210F63A
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:10:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5520A10F64E
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:11:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 68BE440E59
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:10:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B55C1F000E9;
- Fri, 14 Aug 2026 15:10:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 383E5431C9
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:11:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF76D1F000E9;
+ Fri, 14 Aug 2026 15:11:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786720217;
- bh=Ma9UI4vqLXgsqtw1WWj6SCx8eLMeQFSj8LotSQdbS9k=;
+ s=k20260515; t=1786720268;
+ bh=T40z2riaZC2eRysKOcGE0IuRCgfW5TsSLDHFUJVbORc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AsbtiwsL17ooC/5BY73yWfoItgEuEFIKY+aL/8Wxcr31Cg8z5FkcwJWWEK+5P5il4
- LKoWGYZHEw5T3dtxNTsvsXapkj22WcuMhMnfPz+Q1Lf0VffjamR6G20x5R7jW6gol1
- 9PwSNFa1BnenhHVMba7TtJxjSkgasXaPqwr6rFyuu1NuYKOzKjWJR+vLfNc4J74OfI
- aKoSJyZmL5oNxxLaifuOkxnF0KYr51Qwx8rSSF8NvI2Jq6fY7FHvMsL2+2dkbJfgrj
- gUEj6fbRI1HOrWF5H3iWKu1of0z0hDDhJJsWT29v4ukLukn1WyCNia4k3z/uu4+lap
- WIBspi85JQf/g==
+ b=fWSFEmVyPp0+nl7M0i4z4Z5gsjcijWtqNOYGe89cGl+1XZpz1Ibk8wCtaVLrGAQS8
+ B/mIQuQM4WmkZHFrZC1R8+KzQ6ZHo/Uh8RDYx7MkwLKlowjfueIC9K0pXu/EqJLD8r
+ zIsjRy7Hr1s1Bt8drZFcBzkw+uxKmoNnkbBRENZiFGtI77JylrHgEdSCZmMQGOm3zT
+ 03WluIN9buekSHmCYyE1+5fNYJw8LYzQIvGZLulIRbNHPJEQwh33JvFHfEe2wvxpzS
+ gXwr5TQOABN8Mjkv4AvqAfOmS0S/NjzmuYnTOBnR/heNKukV82jDV6Va+1PzlABhd7
+ MnJvtuVcAykeQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/61] drm/simple-kms: Switch to atomic_create_state
+Subject: Re: [PATCH v2 04/61] drm/gem-atomic-helper: Switch
+ DRM_GEM_SHADOW_PLANE_FUNCS to atomic_create_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814-drm-no-more-plane-reset-v2-7-82d2963dd134@kernel.org>
+In-Reply-To: <20260814-drm-no-more-plane-reset-v2-4-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
- <20260814-drm-no-more-plane-reset-v2-7-82d2963dd134@kernel.org>
+ <20260814-drm-no-more-plane-reset-v2-4-82d2963dd134@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 15:10:16 +0000
-Message-Id: <20260814151017.2B55C1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 15:11:07 +0000
+Message-Id: <20260814151107.EF76D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,47 +60,50 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The `reset_plane` function pointer remains in `struct drm_simple_di=
-splay_pipe_funcs` despite the commit explicitly removing all core support f=
-or it.
+- [Low] The function `drm_gem_reset_shadow_plane` is now dead code and shou=
+ld be removed.
 --
 
---- Patch [7]: [PATCH v2 07/61] drm/simple-kms: Switch to atomic_create_sta=
-te ---
-commit 40c453e97222f62dc64493eb74e4a3f1f2594633
+--- Patch [4]: [PATCH v2 04/61] drm/gem-atomic-helper: Switch DRM_GEM_SHADO=
+W_PLANE_FUNCS to atomic_create_state ---
+commit e875af062658268c58ae3dc27d813b18fda75580
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/simple-kms: Switch to atomic_create_state
+drm/gem-atomic-helper: Switch DRM_GEM_SHADOW_PLANE_FUNCS to atomic_create_s=
+tate
 
-This commit replaces drm_simple_kms_plane_reset() with
-drm_simple_kms_plane_create_state(). It simplifies the initialization by
-dispatching only to the new create_plane_state hook and removing support for
-the old reset_plane hook.
+This commit updates the DRM_GEM_SHADOW_PLANE_FUNCS macro to use
+atomic_create_state instead of reset. It maps the atomic_create_state
+callback to drm_gem_create_shadow_plane_state.
 
-> diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/dr=
-m_simple_kms_helper.c
-> index 528968ea5c4be..c99ff74dca922 100644
-> --- a/drivers/gpu/drm/drm_simple_kms_helper.c
-> +++ b/drivers/gpu/drm/drm_simple_kms_helper.c
+> diff --git a/include/drm/drm_gem_atomic_helper.h b/include/drm/drm_gem_at=
+omic_helper.h
+> index 8a3bb27233db0..da8a4fb442b46 100644
+> --- a/include/drm/drm_gem_atomic_helper.h
+> +++ b/include/drm/drm_gem_atomic_helper.h
+
 [ ... ]
-> -	if (pipe->funcs->reset_plane)
-> -		return pipe->funcs->reset_plane(pipe);
-> +	if (!pipe->funcs || !pipe->funcs->create_plane_state)
-> +		return drm_atomic_helper_plane_create_state(plane);
+
+> @@ -110,7 +110,7 @@ void drm_gem_destroy_shadow_plane_state(struct drm_pl=
+ane *plane,
+>   * macro initializes struct drm_plane_funcs to use the rsp helper functi=
+ons.
+>   */
+>  #define DRM_GEM_SHADOW_PLANE_FUNCS \
+> -	.reset =3D drm_gem_reset_shadow_plane, \
+> +	.atomic_create_state =3D drm_gem_create_shadow_plane_state, \
 
 [Severity: Low]
-Since support for the reset_plane callback is removed here, should the
-reset_plane function pointer also be removed from struct
-drm_simple_display_pipe_funcs in include/drm/drm_simple_kms_helper.h?
+Does this leave drm_gem_reset_shadow_plane() as unused dead code?
 
-Leaving it in the struct means out-of-tree drivers might still compile
-without warnings if they implement a reset_plane callback, but their
-custom logic will be silently ignored at runtime.
+Since it is no longer referenced by this macro, it appears its prototype
+in include/drm/drm_gem_atomic_helper.h and its definition (along with
+the EXPORT_SYMBOL) in drivers/gpu/drm/drm_gem_atomic_helper.c could also
+be removed.
 
-> -	return drm_atomic_helper_plane_reset(plane);
-> +	return pipe->funcs->create_plane_state(pipe);
->  }
+>  	.atomic_duplicate_state =3D drm_gem_duplicate_shadow_plane_state, \
+>  	.atomic_destroy_state =3D drm_gem_destroy_shadow_plane_state
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-drm-no-mor=
-e-plane-reset-v2-0-82d2963dd134@kernel.org?part=3D7
+e-plane-reset-v2-0-82d2963dd134@kernel.org?part=3D4
