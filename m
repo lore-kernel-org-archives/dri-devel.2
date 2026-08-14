@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22540C5CFC1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D19C8C5B572
 	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 18:17:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79F1110E591;
-	Fri, 14 Aug 2026 18:17:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 189B510E593;
+	Fri, 14 Aug 2026 18:17:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D6gbNW9a";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AMaSB3Oq";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E72110E58A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 463BC10E18E
  for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 18:17:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A714E40F17;
+ by sea.source.kernel.org (Postfix) with ESMTP id C872544E8C;
  Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B360C2BCB3;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A7BABC2BCFD;
  Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1786731445;
- bh=05UlI8U8+ox12Iu078tYqJXr6YhBgqKRLtpJyQ3O4/4=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=D6gbNW9a4dhNwa6geMlIiQnzgNhvX8vqfTAq/IiHPAu9vzZACw1lVxev8KevXTHiJ
- Cr5kq0XJ+nhO8Vne8UQcHPNUSvHDdtOp7PX+6lVOZeqWzFDgRw0yiVcU886c3me5sD
- 3j48nVfVcz4XmsOTiHYX8a40DeWE0BQN0ViNFUjiVUwVvC/ht+y19KQ35QyKsOh+2X
- a7wGipyJN15FduaN6G1ahKl6MKTGBqa90KgQXTt8iP2sM3BWOFxZ1/Yr9RSE8HUQCR
- lRwD4SzJe6b6+iAM4mFRWQJB2RpTymtKOuFE3CH0GmCi3mqpXbBeuYK7Y8GJjs+xll
- sl/RSRJASbFYQ==
+ bh=1MPr4rGoFxfu9TCrLGTGX7zedHFXd2bdnPYvUds2ZtQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=AMaSB3OqASGKiW/5XBx+yppEL7QgWgzT4Sxa9qZtBafaW8+RovCdbN1r0GR/PRqJE
+ SwCs2exAxnJXv0Pl9PrrDcKaxCU+19zYZfeo19EH5RlhBEXlwUM3NoX654dizq1qXk
+ /4z03g+eg3IW77dXnGx3UdiVRmBQL6D8Ktg68HUVkZvfj9Sd9OTY6hL0acmjuJoM37
+ 5Bafktfm/hX+a1c3qQq4VwVgqZ9LhBrU8oIew/GkZZKl4aOX8N2CjZdoc+J/tUFRuE
+ kOwTk4qwnh8MZmuhJ6dDnB5VEtsRnYNUng7hSugSgghS/CW/uIX5gLiYd1zYKvc6P1
+ 0TvWGdf618TYQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 57108C5B572;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 8AE04C5DF67;
  Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Subject: [PATCH 0/4] drm/panel: Support Retroid Pocket 6 panel
-Date: Fri, 14 Aug 2026 13:17:14 -0500
-Message-Id: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
+Date: Fri, 14 Aug 2026 13:17:18 -0500
+Subject: [PATCH 4/4] drm/panel: visionox-vtdr6130: Add Retroid Pocket 6 panel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22O0WrDMAxFfyX4eQY5tiXVv1L64CjKZljT1O7CR
- um/L0uhT3s8Qvdw7qZpLdpM6u6m6lpaucwbuLfOyEee39WWcWPTQ4/gHdu6oF3yrJ+W0XGAGAA
- dmu1/qTqV7911PD256vVrU96eRzPkplYu53O5pS4EokzsKeRI4hkOg6M+jx5ENA9jDiyBZFe/U
- lK3h/SObP6Z7VUaxwjWoQAN6EftMa2H/yYMf+2vBUfhQAgTTj6tzpwej1/II9LrDAEAAA==
-X-Change-ID: 20260318-rp6-panel-861840540616
+Message-Id: <20260814-rp6-panel-v1-4-111c1aeccf0f@gmail.com>
+References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
+In-Reply-To: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -56,11 +53,11 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786731444; l=2531;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786731444; l=5955;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=05UlI8U8+ox12Iu078tYqJXr6YhBgqKRLtpJyQ3O4/4=;
- b=scEWgA4YR3TDfadbQQ+muEYFqhjR7300Z8EJM0Yt/Wm2tOSAFBnusy8gRg+Lhwc1gX1yDtSPl
- tOsVyttPGi+CUM4pncKOQzleknM/tkIEDX1QiI0Yc2Oj/uzVpIVtWP/
+ bh=ScONlIwrZwNMIN+M+MGr8r32XLjgu4rOUqB4e+erUgM=;
+ b=p9lT/EMgzOHfrzYKT9P7Pdttysxrovh1I7+q7zIQ9X2FyuG0ekb4kXgPVFrv3g2hWGRg6zNXb
+ WgaXolNh38XCru0gvJoR5DLNz1+kx+nPy+Oen6YGukigzDwdeMuZuMH
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -82,53 +79,156 @@ Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This panel uses a Visionox VTDR6130 DDIC. There is an existing driver
-for this ddic, however it is currently hardcoded for a panel used on
-several Qualcomm devkits. This series sets up the driver to support
-multiple panels, then adds the RP6 panel. It also adds support for
-rotation as the RP6 panel is mounted sideways.
+From: Aaron Kling <webgeek1234@gmail.com>
 
-This depends on the Retroid Pocket dt series [0] for the vendor prefix
-patch. That series depends on the AYN dt series [1] to apply cleanly.
-    
-[0] https://lore.kernel.org/linux-arm-msm/20260808-rp-qcs8550-v1-0-a5a365ba3dc5@gmail.com/
-[1] https://lore.kernel.org/linux-arm-msm/20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com/
+Add support for the 1080x1920 panel used in the Retroid Pocket 6.
 
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
-Aaron Kling (4):
-      dt-bindings: display: visionox,vtdr6130: Add Retroid Pocket 6 panel
-      drm/panel: visionox-vtdr6130: Add panel orientation support
-      drm/panel: visionox-vtdr6130: Modularize panel config
-      drm/panel: visionox-vtdr6130: Add Retroid Pocket 6 panel
+ drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 114 ++++++++++++++++++++++++
+ 1 file changed, 114 insertions(+)
 
- .../bindings/display/panel/visionox,vtdr6130.yaml  |   8 +-
- drivers/gpu/drm/panel/panel-visionox-vtdr6130.c    | 225 ++++++++++++++++++---
- 2 files changed, 201 insertions(+), 32 deletions(-)
----
-base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
-change-id: 20260318-rp6-panel-861840540616
-prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v9
-prerequisite-patch-id: 17ba304f7a8a08cc78f98e198db9c51f4786a22c
-prerequisite-patch-id: 21873631f5dcdb9bbbdb5c20c3f5e9816cc405f9
-prerequisite-patch-id: bf7b5dea0097cbbdf04929a4246d1fc65c607ea8
-prerequisite-patch-id: d7f546eddc96a4f31a1e681abddbc96bd68abb32
-prerequisite-patch-id: d40d784ad8efbb1204c024408be2067725a06cf2
-prerequisite-patch-id: 25bbd55199a8250a912ef542b31f43dd5ccdbc90
-prerequisite-change-id: 20260808-rp-qcs8550-85c84760f6f3:v1
-prerequisite-patch-id: 17ba304f7a8a08cc78f98e198db9c51f4786a22c
-prerequisite-patch-id: 21873631f5dcdb9bbbdb5c20c3f5e9816cc405f9
-prerequisite-patch-id: bf7b5dea0097cbbdf04929a4246d1fc65c607ea8
-prerequisite-patch-id: d7f546eddc96a4f31a1e681abddbc96bd68abb32
-prerequisite-patch-id: d40d784ad8efbb1204c024408be2067725a06cf2
-prerequisite-patch-id: 25bbd55199a8250a912ef542b31f43dd5ccdbc90
-prerequisite-patch-id: c79dacb2a8ca1298387bc9bc4a543de97c670a50
-prerequisite-patch-id: 9c058fb9b13442f5434b8aaa2f1907eff1b43684
-prerequisite-patch-id: c13130099b60aa7c412181e99070718eb2c68ecd
-prerequisite-patch-id: d0dad3c4fa9c4b98e6cc53bbd0874df9113ab5f6
+diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+index 805c9846c2a0b..5c826f95ec478 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
++++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+@@ -64,6 +64,82 @@ static void visionox_vtdr6130_reset(struct visionox_vtdr6130 *ctx)
+ 	usleep_range(10000, 11000);
+ }
+ 
++static int retroidpocket_rp6_on(struct visionox_vtdr6130 *ctx)
++{
++	struct mipi_dsi_device *dsi = ctx->dsi;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
++	struct drm_dsc_picture_parameter_set pps;
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x01);
++	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx,
++				     MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
++	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xff07);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_ADDRESS_MODE, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x11, 0x00, 0x00, 0x89,
++				     0x30, 0x80, 0x07, 0x80, 0x04, 0x38, 0x00,
++				     0x14, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
++				     0x02, 0x25, 0x00, 0x20, 0x01, 0xd5, 0x00,
++				     0x07, 0x00, 0x0d, 0x05, 0x7a, 0x05, 0x16,
++				     0x18, 0x00, 0x10, 0xf0, 0x03, 0x0c, 0x20,
++				     0x00, 0x06, 0x0b, 0x0b, 0x33, 0x0e, 0x1c,
++				     0x2a, 0x38, 0x46, 0x54, 0x62, 0x69, 0x70,
++				     0x77, 0x79, 0x7b, 0x7d, 0x7e, 0x01, 0x02,
++				     0x01, 0x00, 0x09, 0x40, 0x09, 0xbe, 0x19,
++				     0xfc, 0x19, 0xfa, 0x19, 0xf8, 0x1a, 0x38,
++				     0x1a, 0x78, 0x1a, 0xb6, 0x2a, 0xb6, 0x2a,
++				     0xf4, 0x2a, 0xf4, 0x4b, 0x34, 0x63, 0x74,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb1, 0x02, 0x15, 0x00, 0x14,
++				     0x00, 0x20, 0x00, 0x02, 0x16, 0x00, 0x14,
++				     0x07, 0xb4, 0x00, 0x02, 0x16, 0x00, 0x14,
++				     0x00, 0x10, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x14);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb2, 0x03, 0x33);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb4, 0x0a, 0x72, 0x00, 0x00,
++				     0x0a, 0x72, 0x00, 0x00, 0x0a, 0x72, 0x00,
++				     0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5, 0x00, 0x1e, 0x1e, 0x1e,
++				     0x1e, 0x1e, 0x1e, 0x06, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb9, 0x00, 0x00, 0x08, 0x1e,
++				     0x1e, 0x1e);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbc, 0x10, 0x00, 0x00, 0x08,
++				     0x11, 0x1e, 0x7c, 0x1e, 0x7c, 0x1e, 0x7c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbe, 0x10, 0x10, 0x00, 0x0c,
++				     0x22, 0x1e, 0x62, 0x1e, 0x62, 0x1e, 0x62);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x80);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x13);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfd, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x81);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf9, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x83);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x04);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x00);
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 150);
++
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 50);
++
++	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
++	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
++	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
++
++	return dsi_ctx.accum_err;
++}
++
+ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
+ {
+ 	struct mipi_dsi_device *dsi = ctx->dsi;
+@@ -204,6 +280,43 @@ static int visionox_vtdr6130_unprepare(struct drm_panel *panel)
+ 	return 0;
+ }
+ 
++static const struct drm_display_mode retroidpocket_rp6_modes[] = {
++	{
++		.clock = (1080 + 22 + 2 + 16) * (1920 + 16 + 2 + 20) * 120 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 22,
++		.hsync_end = 1080 + 22 + 2,
++		.htotal = 1080 + 22 + 2 + 16,
++		.vdisplay = 1920,
++		.vsync_start = 1920 + 16,
++		.vsync_end = 1920 + 16 + 2,
++		.vtotal = 1920 + 16 + 2 + 20,
++	},
++};
++
++static struct visionox_vtdr6130_desc retroidpocket_rp6_panel_desc = {
++	.modes = retroidpocket_rp6_modes,
++	.num_modes = ARRAY_SIZE(retroidpocket_rp6_modes),
++	.width_mm = 69,
++	.height_mm = 122,
++	.bpc = 8,
++	.lanes = 4,
++	.format = MIPI_DSI_FMT_RGB888,
++	.mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET |
++		      MIPI_DSI_CLOCK_NON_CONTINUOUS,
++	.init_sequence = retroidpocket_rp6_on,
++	.dsc = {
++		.dsc_version_major = 0x1,
++		.dsc_version_minor = 0x1,
++		.slice_height = 12,
++		.slice_width = 540,
++		.slice_count = 2,
++		.bits_per_component = 8,
++		.bits_per_pixel = 8 << 4,
++		.block_pred_enable = true,
++	},
++};
++
+ static const struct drm_display_mode visionox_vtdr6130_modes[] = {
+ 	{
+ 		.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
+@@ -357,6 +470,7 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ }
+ 
+ static const struct of_device_id visionox_vtdr6130_of_match[] = {
++	{ .compatible = "retroidpocket,rp6-panel", .data = &retroidpocket_rp6_panel_desc },
+ 	{ .compatible = "visionox,vtdr6130", .data = &visionox_vtdr6130_panel_desc },
+ 	{ /* sentinel */ }
+ };
 
-Best regards,
 -- 
-Aaron Kling <webgeek1234@gmail.com>
+2.54.0
 
 
