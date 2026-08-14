@@ -4,101 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A40AC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:44:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39A1CC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:46:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A516E10E592;
-	Fri, 14 Aug 2026 13:44:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88FEC10E148;
+	Fri, 14 Aug 2026 13:46:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="MgwGCMz1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H+KsKiRi";
 	dkim-atps=neutral
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCF010E592
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:44:38 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-8486672f03cso941732b3a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 06:44:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786715078; cv=none;
- d=google.com; s=arc-20260327;
- b=i4R7PUmFVe8DQnLHx6cf9vQ+3bR5givvYdnBJoWHY2srHEXG+R9aq/Dr6vTlLJCois
- 3OXOAIGxHveoUAPJOHxGpVajhT7zM+wSI1Q8N4kBUCqbSFSww5JaVi0ILOFaLXKVg5Q5
- RfVRmanJRd+iU31qS5hqxAg4thnr6oaVfJ9c5asVe2EQI4NPmrQL81pmhOPxAKtopKzd
- s7AVzihmsahhJw4PZaY8CNYZLnb6R627ZP3cvS0lcXVD8rScsqQvyT7nHvU8RkA9ZL4E
- 3aul7fK/S4Qnwp/UuuAebocuxdHzqY1EEq2yVwk0o7ijOxhELjYjJiaH+zMTSxlmEHR8
- dcnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=PGl5qaKiumLFItzc4RCpB+NCsINJiOuYGIE0EiK6OhQ=;
- fh=llSrYf+QTFyaymFEkH+owJ6oBNsqswqr4T9/bDU/5jU=;
- b=NfmWRN663SZWQSMA5s1rOWuj68E2X9Sqfq91uDrOrWPUxgFXq7tgDiK4+NC0ZtLDya
- f7VHAomCbwTiPDxV7dEpSTzNQ1WZ545bBWInMUr3/Vw4uzLU22EdZl7hbTBmXRXQunRA
- uo+Sdzc0uV20CyvAbKmhwbdlsc2S+TE32eXZ3XGOUeiFcwxoDKR9piQCvLKmi0iOA0/+
- kifJl7A8BWq2VFTacIWJKQeAx8JEFS349NNrCHtuM3P9epAEaDzRxkGGy5g8c9EKyDF3
- tobCNHGFEIGtFHfWNzlc5d/gz3ouS56pfkpv/q3YZy9Pot3LSbtMlLwc3wVZY3RuLKQp
- iJlw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1786715078; x=1787319878;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=PGl5qaKiumLFItzc4RCpB+NCsINJiOuYGIE0EiK6OhQ=;
- b=MgwGCMz1saMye2X3rQKEDuMzbb3kJkSJ+Bccbtrc8M/utkKwHT4wkkGJIrbjPEUICl
- poFON0MDGgGXXUzASoP5fYyovQ/H4hPX50+6bO7lUHe3goyX/Jf/rHo7UFKoRSa6RMrb
- 0cYuY9uU/0TB/se1jc7kXkZmwYxCdrcQp93TpR4yo5MKUrFT15HubMcfsGbF0Zmoe97o
- CqjOQ+QzSyH8BUagSHjDu11hIF2Qidv6qpKYSKOc4dQ0a0/yumlC7pR29FjeyBcg3W15
- e8oqukYxPR9otg18KgRBA6BajWhPol+1MZaIIM6Jb1FL0kDSINyAmou3PQSNq5K6DO8d
- SC4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786715078; x=1787319878;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=PGl5qaKiumLFItzc4RCpB+NCsINJiOuYGIE0EiK6OhQ=;
- b=btw0Spip54ZV24flTJR2f81DN0x1JebghVabYL0YGAowMyoH4/A/faFOKV7wN879Am
- eSLmwGNTN5UNq/HHzJaJdhZ30WtcUg2CqoCG6BspHEMGI1MuUmZnyS3bxV0JXkBlwHw+
- vYPIhm00xESiR6ksbBWyDoxz1KCaT1IHY1zHklqrOrYIo97r5n3AfWvoygAhuUbxoJyl
- IA80PAzVTX6PYS+8WnUYosGzNvXsnIMCjMSwO0u+u31cZ6s0uLCGx+40J1JGHME/BNY1
- eTLGvLY1hc7Rpk9K9yWE259fT6Umkr5qCjvWiOaJSurw3a2YJB1gMAIxsjuJ8RCW+OyM
- LDcQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrWCJNzDusmSOU1Asz8P3CDPKIcVJA1TOOt0i46tY1K/+SBMtK0yR+JxUoUZFvIqYILk/POxoMyWbE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YykXX5scDnvmeYXJyygR6jeIm7jkBWxoIk33pZf5KgSpl313Kd0
- 7A20oS1EOmM0Z1iyOtX6xhrUMbfhdE8uk76pC0X+JCfvM/bh1bkkGpr/UXFdvbxM1+J6HIYmHR7
- uRckMTErXJIagZnSrrIuSqva8FoR6A89l2DATJ15iMg==
-X-Gm-Gg: AR+sD13KDz3URIf9k3pix8pacw6LJn1GtqCOXC4yAlvSJenap5u++T33c/fMrCKz49Y
- vbeJc0vaJ8wyAVd+SsZbQ4yoii3k1Fq2IMWlRZclNWSvSJ+4hD+8cF+PWbfpLe6WJnni7YeqV0e
- 2g50KdCoOb1RJaOrVkl9+g5j/l/8j4vtzQ8pVbTgbhwO3YRpae2stBndlvU4HHD87eVLiBMYyb6
- rm07Fq7ZjM7uGzMqozwY6t0fc1nr03emZ5X12vy/q+MC8wDgXEYItEL0iymFW7+L9O5O1stDatO
- uywg9b6VP2ZnBhm50kx+tOy1GJTjTztsUzrEZOnjIRcoVOcLULxWapw=
-X-Received: by 2002:a05:6a00:3d88:b0:851:8084:133a with SMTP id
- d2e1a72fcca58-8518084471emr1308894b3a.29.1786715077789; Fri, 14 Aug 2026
- 06:44:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260731154232.37020-1-leandro.ribeiro@collabora.com>
- <20260731154232.37020-2-leandro.ribeiro@collabora.com>
- <46b86d82-6ff4-458a-ac7e-cbbae214b4e5@I-love.SAKURA.ne.jp>
- <d47b8640-c84b-48ae-809e-95294e00859d@I-love.SAKURA.ne.jp>
-In-Reply-To: <d47b8640-c84b-48ae-809e-95294e00859d@I-love.SAKURA.ne.jp>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Fri, 14 Aug 2026 14:44:26 +0100
-X-Gm-Features: AUfX_mz7Dgdl3adBqXaabtVls-DQW7LWpMpK9jzEOR4Dy0DqgaZNgGDxjN_gBY8
-Message-ID: <CAPj87rNEQJyi6_wQsOLJp=nmGGhYAodSqEmOb5nZkKWCfZQ1Dg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] drm: use drm_warn() in
- validate_blend_mode_for_alpha_formats()
-To: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
-Cc: Leandro Ribeiro <leandro.ribeiro@collabora.com>,
- dri-devel@lists.freedesktop.org, 
- airlied@gmail.com, broonie@kernel.org, daniels@collabora.com, 
- jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com, 
- miguel.ojeda.sandonis@gmail.com, mripard@kernel.org, 
- pekka.paalanen@collabora.com, simona@ffwll.ch, tytso@mit.edu, 
- tzimmermann@suse.de, ville.syrjala@linux.intel.com, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5217310E140;
+ Fri, 14 Aug 2026 13:46:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E3E4F40382;
+ Fri, 14 Aug 2026 13:46:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD981F000E9;
+ Fri, 14 Aug 2026 13:46:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786715162;
+ bh=Fg7YqNAyJQPDcv5gbTFUjJjUoUNYFMuNtxPHV7pwwCs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=H+KsKiRif0ig9BwZKtsx5MjCS+mU65+6XSzDFjq1F8j0tFXIbdrFwIsIqZnmJg29p
+ iC3Mc93XXUREc8THINex98Jlzw9xvsTNI5zW+SbD8/pbhPdLb0Q8YQn+pDNpmgPy80
+ mOyBhUZyBjeSTfw45VifASMoGSwID3nWU5nhhnfzzi0V0aVV52uaOuG1+WDO+Hg8nt
+ JjYBTG/ZXmGcKXuOni07mp/RIDKUkAFVwAUqKOez+B+V73VtUGJSvQ3V699FJ3HiZl
+ HQXBeqboj70AwaPNVOPpYV9+2Cq+AnvaLFqSxWC4ktYoJhQBzq/OQrpkX94ttosZNg
+ k7M725usVc0RQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/ttm: Represent LRU bulk moves as nested sublists
+To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260814133231.3193-1-thomas.hellstrom@linux.intel.com>
+References: <20260814133231.3193-1-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 13:46:02 +0000
+Message-Id: <20260814134602.9AD981F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,19 +52,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tetsuo,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Missing cursor adjustment in `ttm_lru_bulk_move_add` when re-seedi=
+ng an empty bulk move anchor causes recently-used resources to be premature=
+ly evicted.
+- [Medium] Computing `&man->lru[j]` when `man` is NULL in `ttm_bulk_move_dr=
+op_cursors` invokes Undefined Behavior and will trigger UBSAN panics.
+--
 
-On Thu, 13 Aug 2026 at 15:47, Tetsuo Handa
-<penguin-kernel@i-love.sakura.ne.jp> wrote:
-> Merge window will open shortly. Can we have this fix applied before
-> commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
-> with alpha exposed") hits upstream?
+--- Patch [1]: [PATCH] drm/ttm: Represent LRU bulk moves as nested sublists=
+ ---
+commit b97657bee6dc1cddf7841bc260d33b4b040368e4
+Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+Subject: drm/ttm: Represent LRU bulk moves as nested sublists
 
-This has now gone into drm-misc-next-fixes for the next pull in the
-cycle, and is already in DRM's for-linux-next.
+This patch changes the LRU bulk move mechanism to track each group as a
+real nested sublist instead of ranges. Each group gets a persistent anchor
+node linked on the manager LRU list along with a sublist holding its member
+resources, simplifying cursor tracking and eliminating range-corruption bug=
+s.
 
-Cheers,
-Daniel
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+
+> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm=
+_resource.c
+> index 4e6d3d658d858..195f960b2d738 100644
+> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+
+[ ... ]
+
+> +static void ttm_bulk_move_drop_cursors(struct ttm_device *bdev,
+> +					struct ttm_lru_bulk_move *bulk)
+> +{
+> +	unsigned int i, j;
+> +
+> +	for (i =3D 0; i < TTM_NUM_MEM_TYPES; ++i) {
+> +		struct ttm_resource_manager *man =3D ttm_manager_type(bdev, i);
+> +
+> +		for (j =3D 0; j < TTM_MAX_BO_PRIORITY; ++j) {
+> +			struct ttm_lru_bulk_move_pos *pos =3D &bulk->pos[i][j];
+> +			struct ttm_lru_item *lru, *next;
+> +
+> +			list_for_each_entry_safe(lru, next, &pos->sublist, link) {
+> +				struct ttm_resource_cursor *cursor;
+> +
+> +				if (ttm_lru_item_is_res(lru)) {
+> +					WARN_ON_ONCE(1);
+> +					continue;
+> +				}
+> +				/*
+> +				 * This cursor descended here; its main hitch
+> +				 * already sits on the manager list, so just
+> +				 * detach it from this sublist.
+> +				 */
+> +				cursor =3D container_of(lru, typeof(*cursor),
+> +						      sublist_hitch);
+> +				cursor->cur_list =3D &man->lru[j];
+> +				list_del_init(&lru->link);
+> +			}
+> +			list_splice_tail_init(&pos->sublist, &man->lru[j]);
+
+[Severity: Medium]
+When ttm_manager_type() returns NULL for unused memory types, doesn't the
+pointer arithmetic &man->lru[j] result in undefined behavior?
+
+If the kernel is compiled with UBSAN, this can trigger a panic even if the
+list operations don't actually dereference the pointer. Should there be a
+check like if (!man) continue; before the inner loop?
+
+> +			list_del_init(&pos->marker.link);
+> +		}
+> +	}
+> +}
+
+[ ... ]
+
+> +/* Add the resource to a bulk_move sublist */
+>  static void ttm_lru_bulk_move_add(struct ttm_lru_bulk_move *bulk,
+>  				  struct ttm_resource *res)
+>  {
+>  	struct ttm_lru_bulk_move_pos *pos =3D ttm_lru_bulk_move_pos(bulk, res);
+> +	struct ttm_resource *first =3D ttm_lru_first_res_or_null(&pos->sublist);
+> +	struct ttm_buffer_object *bo =3D res->bo;
+> +	struct ttm_resource_manager *man =3D
+> +		ttm_manager_type(bo->bdev, res->mem_type);
+> =20
+> -	if (!pos->first) {
+> -		pos->first =3D res;
+> -		pos->last =3D res;
+> +	if (first) {
+> -		WARN_ON(pos->first->bo->base.resv !=3D res->bo->base.resv);
+> -		ttm_lru_bulk_move_pos_tail(pos, res);
+> +		WARN_ON(first->bo->base.resv !=3D res->bo->base.resv);
+>  	} else {
+> +		/*
+> +		 * Group empty (first activation, or all members were pinned
+> +		 * or swapped out); re-seed the anchor at the tail so it
+> +		 * counts as recently used.
+> +		 */
+> +		list_move_tail(&pos->marker.link, &man->lru[bo->priority]);
+>  	}
+
+[Severity: High]
+If an active LRU traversal cursor has descended into this sublist and all
+resources are subsequently removed, the sublist becomes empty except for the
+cursor's hitch.
+
+When a new resource is added and 'first' is NULL, we re-seed the anchor to
+the tail of the manager's LRU list. However, could this leave the descended
+cursor parked in the sublist without adjusting it?
+
+If ttm_lru_bulk_move_pos_adjust_cursors() is not called to detach it, the
+resumed traversal might immediately process and evict this newly added
+resource, violating the LRU guarantee.
+
+> +	/*
+> +	 * The resource may still be on another list (manager LRU or
+> +	 * bdev->unevictable); move it unconditionally to keep group
+> +	 * membership consistent.
+> +	 */
+> +	list_move_tail(&res->lru.link, &pos->sublist);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814133231.3193=
+-1-thomas.hellstrom@linux.intel.com?part=3D1
