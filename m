@@ -4,109 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78E15C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 10:30:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08FCFC5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 10:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA11110F560;
-	Fri, 14 Aug 2026 10:30:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68E9E10E2CC;
+	Fri, 14 Aug 2026 10:31:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qlxl6ACL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GB/Mnohj";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D144F10F515
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 10:30:35 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2cc8311c6ddso1164115ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 03:30:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786703435; cv=none;
- d=google.com; s=arc-20260327;
- b=RxP2U/28Y8ogBbKd520g9+zgHBIRQ10DmfykKnsf87j3yvGuMQBK9fss7qDkTWw15J
- sqNaMokY3HlaKf1T/2fkxYHUntrdWjKeL2hWWysKs3SK06HMGiJDRi6q7sEaYAiBYpG6
- 6Qxf1jpWN3py0JxPeTm/plUr1vLrnOni6omNzC3McruKilQJCY5QYIUMIQO1ADZrA7o5
- PjgN+f+5EpvV+uDZhaVDDiq952EYz3O+IlDbZi+Gi+JUACPj02HgSE+d8mLQZMQPneEm
- 7jC4DVD1vUOqTxkio1zBFC2rlHwtMqtcWZo+6vLgdeH2BZ4am/ccMzfYwZJzLMaPVQvk
- 8JyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=3fehzsHa7Sd9X2tq+C9ScVdD8EMn+jQuH5aGR6j+hWU=;
- fh=k56caGeXxGgxV/WIxX3q3ehkevy8Bg696EPiFJa1eO4=;
- b=VgpqV+4Qwoj49qSzaHzuD9GFmlIkhzcIoHI3tiYS809sJ0VvmFWl4rGVT6EKt+rtO1
- 9qOoP30l2ppML4YFKMW8A3t7N9srX6xoEeFxe3bVC9TD2WUwuQYdKA7s38x+1CVa0joJ
- aQC7AJi0MXjQUKJ6vCXnUttqRTfxQw+cb58qU1droOc+c5SsPSAlT014BXbCf3hyNfMq
- yRkKzLyU/Eu8UkDYhm3HOOgTyaNm83Jade2tScyV3DaN4pFG0NihMmb4j7W7wT9/pWOI
- k4XJZ1U17LC72+TGaA2YfOMtHLRHgWRa1pWNUr4zJYwwvE6KMPuuCXySCkWGSikq6cB9
- Mfyg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786703435; x=1787308235; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=3fehzsHa7Sd9X2tq+C9ScVdD8EMn+jQuH5aGR6j+hWU=;
- b=Qlxl6ACLNMPNJiiQJM0H86sTBFiAHkKoBxh7aV3aO2Nd+hMhYExgyB4ZADzI7tCijn
- WdDOZeZUJ8yqInhqEnfAN+VVco1m56xQyldYpOKGUH8GbOhXz8XkNRcaI9bnEZ8YZgSw
- tMhGreaTj9FOJKuLWg5tm5wUoE757Q64Z5MIHbRY/10Bqs0J6tcM6H53DN6uHP+HmB7N
- 3hn+/tf/7vEpZlx1oaZQlb3VZTOr5+EdryzslHDPdwiB58r0tFTH1ekuEhJGIvXict26
- /HeYSHFT/NHZQAFpzkSLZBJLDlEp5LqyU/FdSzERlnYN69tEjDEluxaAXaJ4P7Mzck0c
- VlXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786703435; x=1787308235;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=3fehzsHa7Sd9X2tq+C9ScVdD8EMn+jQuH5aGR6j+hWU=;
- b=fPUSAlfR08fb3+MKJ46MQQobhV+8fcJracltBA9Wxe1Wu8u7vZ9Nahc6UmfecOiKw3
- FLU/3h8/jbQksVd5jQi73UcBT7X2Vxud3ncynuM5FjvbUWcw0ZhC9z/faF0L8fCWPtbM
- 9/HTcgb+ESSr+HyMLAaf2js5lVq5Mc784t6Wy+/M8KUoQHQghcU2DyizQLUpPezNLfCB
- H3TdO9az95YFTP2v2Qyx4YtkDfi/ydSBfc3L+kI3+R7aTsxZubk4NwYJJ5iMh29g24BE
- WNZh5JLEx47NWEMDDrSJ+4GIAsDVddjRK9u6M7b3WvVG3xQ2SBQaO7RG4kyO/7vsLLnJ
- jg3w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoE8RznMLgpBPn8g0/xTWTpFIdYLlg/R9xAUvCnaV6n0vhjdOA0TTpG1AI5RJ1M/CpMKCEuLTgwoY8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzFUMdjt/i0ZLvXaE9HTkPWZac+RDrut3jjTlL4Uv5z37/D40Lb
- GVBYhOmucsQ0PNt3Y4K1uomxC6E26xQZR/qHtJuLXCw9oX7B34FwaPHHYNzrD1aNxfRXEYQavpI
- y8q/uawEefiYBc4aJ9lVQ43e+uh48fPk=
-X-Gm-Gg: AR+sD10cWeshWb1GRmRiGKPCU0Mz7HfDUqjigunIrvoV4jZ2Eg/bEXxxqIQg11h50EI
- zbguxSlVbwk+OZc2R9K2v1aLYe1paz0TbYHrfZ2d7l91NDXPie/hdiudP0rpsnobiZMH2lPl95/
- oEH5nDktLM1EzKUMAl+TRRpAVmiiFIuq4bVCj70nkocqjG1IfQ5fMrP7DuV/Ksl/pX6wtYWrZYS
- UvNzDbGQOUWLzh0VX4nkt0pLhmQU/6YXdmjkfdbJYudZ7G177BksqgtN3+ANOmaQUoXUBcHJktV
- Q8p0wnYI1SAopnNznvBNKfllcrK+l+CnNIh8hj+tUQX1lQgs2RCVImA/ja2GvXfWaY1GRA6mJlA
- 9NB/tqWiqDQ7vO/GyrFk5CivhxVy6/5slEjyaZdKxXgAvvRnZMk39y5WMpQeR
-X-Received: by 2002:a17:903:22cb:b0:2cf:7dfa:7f56 with SMTP id
- d9443c01a7336-2d3b0c5dd2amr40185465ad.2.1786703434950; Fri, 14 Aug 2026
- 03:30:34 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260806-as_casts-v2-0-cb76a4d3a6ef@nvidia.com>
-In-Reply-To: <20260806-as_casts-v2-0-cb76a4d3a6ef@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 14 Aug 2026 12:30:22 +0200
-X-Gm-Features: AUfX_mzbSVhZjPvAzS9iZYtypbsJ35PZ4Nm04Q-zyNGgr6kR87uRIK7yu3xiGYU
-Message-ID: <CANiq72=UbRsAJ2Hyk68HDkHL+TVzg9n992jMSO5Bt2iEDYhnrQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] rust: add functions and traits for lossless
- integer conversions
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED54610E2CC
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 10:31:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8895E40862;
+ Fri, 14 Aug 2026 10:31:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC3E1F00A3D;
+ Fri, 14 Aug 2026 10:31:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786703490;
+ bh=efsmY90amC3n0X7S65pBhx/ucpHHjHpwbiy0Odk0WDw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=GB/Mnohjuwyrwv6IlY0/iuDWKaHEBc6HUEJOiarf1b9C1Id3etbVNdYLDT0uQzQ7d
+ +lCiuTcv6THH5sM1bfhwxeNwwAYnVUnBNC3U/hR9aBuDn3Q8Y/u0S3pGYJvai0QzMr
+ ludBiYBT37cKmKKMomO4n6Mwr8WgfYSE6ZZLlfQdSGaDBj+G1ZAKuaiMv447UqrhfW
+ XM15N2fStIm5LQAQMtMi5M5tHON3pM+SKqc9I0HN5iMGkEtS8cNZnpLXaIjdHEAzkz
+ Ac8e92AirY6shVWs+6LhFl6xglrlMGp10dtYHFiRhQCfHtq6gUNJsYmxk5Ug4ypK/9
+ 1fHpzCulDxuIg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12] misc: fastrpc: Allocate entire reserved memory for
+ Audio PD in probe
+To: "Jianping Li" <jianping.li@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260814101955.234238-1-jianping.li@oss.qualcomm.com>
+References: <20260814101955.234238-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 10:31:29 +0000
+Message-Id: <20260814103130.4CC3E1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,21 +53,222 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 6, 2026 at 9:36=E2=80=AFAM Alexandre Courbot <acourbot@nvidia.c=
-om> wrote:
->
->       rust: add functions and traits for lossless integer conversions
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Applied (just this one) to `rust-next` yesterday (next-20260813) --
-thanks everyone!
+New issues:
+- [High] TrustZone memory assignment is permanently leaked on probe error p=
+aths.
+- [High] Concurrent ioctl calls can cause the DSP to receive an uninitializ=
+ed static process creation request out-of-order.
+- [Medium] Unconditional TrustZone memory assignment during probe may fail =
+or orphan memory for ADSP devices lacking VMIDs.
+- [Medium] The `audio_init_mem` flag is incorrectly rolled back on remote i=
+nvocation errors, allowing the static heap to be sent multiple times.
 
-    [ Added a few more intra-doc links. - Miguel ]
+Pre-existing issues:
+- [High] Permanent TrustZone memory leak for SDSP domains during driver rem=
+oval.
+--
 
-The second would have a bunch of conflicts when merging in linux-next
--- if you really want it this cycle, please let me know.
+--- Patch [1]: [PATCH v12] misc: fastrpc: Allocate entire reserved memory f=
+or Audio PD in probe ---
+commit f78e580b5ae96a440902b976778bd1f19b384768
+Author: Jianping Li <jianping.li@oss.qualcomm.com>
 
-Cheers,
-Miguel
+misc: fastrpc: Allocate entire reserved memory for Audio PD in probe
+
+This commit allocates the entire Audio PD reserved-memory region during
+rpmsg probe and ties its lifetime to the rpmsg channel. It removes
+userspace-controlled allocation and freeing, ensuring memory is only
+reclaimed when the DSP process is torn down.
+
+Link: https://lore.kernel.org/all/20260731093210.473-1-jianping.li@oss.qual=
+comm.com/
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 90fd669636ec1..3f14a4673698e 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+
+[ ... ]
+
+> @@ -1508,17 +1508,34 @@ static int fastrpc_init_create_static_process(str=
+uct fastrpc_user *fl,
+>  	args[1].length =3D inbuf.namelen;
+>  	args[1].fd =3D -1;
+> =20
+> -	pages[0].addr =3D fl->cctx->remote_heap->dma_addr;
+> -	pages[0].size =3D fl->cctx->remote_heap->size;
+> +	/*
+> +	 * Audio PD is a static PD and retains the remote heap
+> +	 * information across daemon restarts. Therefore only
+> +	 * the first attach should provide heap information to
+> +	 * DSP. Subsequent attaches reuse the previously
+> +	 * initialized memory pool.
+> +	 */
+> +	spin_lock_irqsave(&cctx->lock, flags);
+> +	if (!cctx->audio_init_mem) {
+> +		pages[0].addr =3D cctx->remote_heap_addr;
+> +		pages[0].size =3D cctx->remote_heap_size;
+> +		cctx->audio_init_mem =3D true;
+> +		inbuf.pageslen =3D 1;
+> +		sent_heap =3D true;
+> +	} else {
+> +		pages[0].addr =3D 0;
+> +		pages[0].size =3D 0;
+> +	}
+> +	spin_unlock_irqrestore(&cctx->lock, flags);
+> =20
+>  	args[2].ptr =3D (u64)(uintptr_t) pages;
+>  	args[2].length =3D sizeof(*pages);
+>  	args[2].fd =3D -1;
+> =20
+>  	sc =3D FASTRPC_SCALARS(FASTRPC_RMID_INIT_CREATE_STATIC, 3, 0);
+> =20
+>  	err =3D fastrpc_internal_invoke(fl, true, FASTRPC_INIT_HANDLE,
+>  				      sc, args);
+
+[Severity: High]
+Could this allow the DSP to receive an uninitialized static process creation
+request out-of-order?
+
+Two threads could concurrently execute the ioctl. Thread A acquires the loc=
+k,
+sees audio_init_mem is false, sets it to true, and sets pageslen =3D 1.
+Thread B then acquires the lock, sees audio_init_mem is true, and sets
+pageslen =3D 0.
+
+Because fastrpc_internal_invoke() is called outside the lock, thread execut=
+ion
+order is unconstrained once the lock is released. Thread B could be schedul=
+ed
+such that its RPC payload (with pageslen =3D 0) reaches the DSP before Thre=
+ad
+A's initialization payload.
+
+>  	if (err)
+>  		goto err_invoke;
+> =20
+>  	kfree(args);
+>  	kfree(name);
+> =20
+>  	return 0;
+>  err_invoke:
+> -	if (fl->cctx->vmcount && scm_done) {
+[ ... ]
+> +	if (sent_heap) {
+> +		spin_lock_irqsave(&cctx->lock, flags);
+> +		cctx->audio_init_mem =3D false;
+> +		spin_unlock_irqrestore(&cctx->lock, flags);
+>  	}
+> -err_map:
+> -	fastrpc_buf_free(fl->cctx->remote_heap);
+> -	fl->cctx->remote_heap =3D NULL;
+> -err_name:
+>  	kfree(name);
+>  err:
+
+[Severity: Medium]
+Is it safe to blindly roll back audio_init_mem if fastrpc_internal_invoke()
+returns an error?
+
+Because the DSP operates asynchronously, an interrupted kernel wait (such as
+-ERESTARTSYS due to a received signal) does not necessarily mean the DSP
+failed to process the request. Reverting this flag might allow the next
+process attachment to send the heap configuration pages a second time, which
+would violate the static process lifecycle.
+
+[ ... ]
+
+> @@ -2564,25 +2564,20 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
+e *rpdev)
+[ ... ]
+> -	if (domain_id =3D=3D SDSP_DOMAIN_ID) {
+> +	if (fastrpc_domain_has_reserved_heap(domain_id)) {
+>  		struct resource res;
+>  		u64 src_perms;
+> =20
+>  		err =3D of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
+>  		if (!err) {
+> +			if (fastrpc_domain_uses_static_heap(domain_id)) {
+> +				data->remote_heap_addr =3D res.start;
+> +				data->remote_heap_size =3D resource_size(&res);
+> +			}
+
+[Severity: High]
+This is a pre-existing issue, but does this logic permanently leak TrustZone
+memory for SDSP domains when the driver is removed?
+
+For SDSP domains, fastrpc_domain_has_reserved_heap() returns true, so memory
+is assigned to the DSP VMID below. However,
+fastrpc_domain_uses_static_heap() returns false for SDSP, so
+data->remote_heap_size remains uninitialized as 0.
+
+>  			src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
+> =20
+>  			err =3D qcom_scm_assign_mem(res.start, resource_size(&res), &src_perm=
+s,
+>  				    data->vmperms, data->vmcount);
+
+[Severity: Medium]
+Is it intentional to call qcom_scm_assign_mem() unconditionally here, even
+if data->vmcount is zero?
+
+Previously, this assignment was explicitly guarded by checking vmcount.
+If a device tree without the qcom,vmids property initializes the ADSP domai=
+n,
+could calling this with a destination count of 0 be rejected by TrustZone
+and fail the probe? Additionally, if vmcount is 0, the memory is explicitly
+skipped during cleanup, which would permanently leak it.
+
+>  			if (err)
+>  				goto err_free_data;
+> +		} else {
+> +			err =3D 0;
+>  		}
+> -
+>  	}
+
+[ ... ]
+
+>  err_free_data:
+>  	kfree(data);
+>  	return err;
+>  }
+
+[Severity: High]
+Does this error path permanently leak the TrustZone memory assignment?
+
+If any operation fails after the memory is successfully assigned to the DSP
+VMID (for example, inside fastrpc_device_register() or
+of_platform_populate()), the error handlers only free local data structures.
+They do not appear to call qcom_scm_assign_mem() to revert the TrustZone
+memory ownership back to HLOS.
+
+[ ... ]
+
+> @@ -2684,24 +2684,8 @@ static void fastrpc_rpmsg_remove(struct rpmsg_devi=
+ce *rpdev)
+[ ... ]
+> -	if (cctx->remote_heap)
+> -		fastrpc_buf_free(cctx->remote_heap);
+> +	if (cctx->remote_heap_size && cctx->vmcount) {
+> +		u64 src_perms =3D 0;
+> +		struct qcom_scm_vmperm dst_perms;
+
+[Severity: High]
+This is a pre-existing issue, but does this condition permanently bypass
+memory unassignment for SDSP domains?
+
+Because remote_heap_size is intentionally left as 0 for SDSP domains during
+probe, this cleanup block is skipped. This leaves the reserved memory
+permanently assigned to the DSP VMID after module removal.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814101955.2342=
+38-1-jianping.li@oss.qualcomm.com?part=3D1
