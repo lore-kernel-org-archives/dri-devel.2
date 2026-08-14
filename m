@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8A31C5DF74
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43F27C5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99A2510E2E3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D64A10E2DA;
 	Sun, 16 Aug 2026 14:05:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kBMZKeSb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UdfOXQfg";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76AF310E094
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:06:14 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2cc891373e0so20177465ad.2
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 12:06:14 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81A9710F343
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 07:44:44 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-381b831d535so1044256a91.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 00:44:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786734374; x=1787339174; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786693484; x=1787298284; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=My7jF+YOkrbrcPXGk6Gqyp469SMTbOnsjBIhyRnuamA=;
- b=kBMZKeSbHU6Yo462/5f471CH3FEeLuTXdbXmgkDBlAKFTS84ZpJVfvd3cMs95tWLcg
- NBfK86qXAAwB1nhNu+g3kd2EIrcDlRTQH6tO9lFsr7uDdNE9VreAUC5hhYjtShBPBoQE
- 0Kbix+vfX4leGvkjJBI4gVbDUKYWCqaZhkK+1NCdv3reUe5xUySlvvk3aZduvvVBx7Hm
- 1XwmIBOH6rvBg7MG9arsr5YswEMAe5YXJUSVSIE6J6pZR1yV1Cx1NUY4sayVeq8luASo
- 5yzaaZTQFiCRZBgkdrts/yWSOqlIOaYI49GRwYfm+m/8Dn0ucbEaDvJMHp/FeGRTf3cb
- C4bw==
+ bh=cwYk4ejoNMOniCBgkjcxx38Ml00PjaYwyPcbfZWz9ws=;
+ b=UdfOXQfgURF0wYkowh/dUKAw2d4GuEf/aZVJ7wX8BhOklCqTog6nGbPwtjWoGp11M7
+ 0KNu4uzd5zFzQCyaVPrjwTqJLCXcnCIrcPmN6RNgkD+KvUQji6uOm4SUEcfXwgV9eQzT
+ FGxKAfHbun3rmP3MxYZ+H/J9IDfkuWdL8SRguvjqf8gwHviyyq0JFGLqz0UatdBmldq+
+ UCXwupc+mqeonae3HQm7rPX76bTA47fkRNTjG0ssrJeDkQ1IOts8I6UQh/TcJffNqbgt
+ 9pvHiwZ4ESVneKUhkYDdwaGDvAI/QYPKTaN5O33V3fzlC4Cv+FxcMpSZtT0kSJXva2+L
+ eViA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786734374; x=1787339174;
+ d=1e100.net; s=20251104; t=1786693484; x=1787298284;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=My7jF+YOkrbrcPXGk6Gqyp469SMTbOnsjBIhyRnuamA=;
- b=S6S8ohUQj8Uyz+HwnNwliAuTtbYww4nKHw+Ev+Vc/ckizsIPzCFbk29H7Mx1SJVLu4
- rs9QGru40+S/6yXtQVwobA4vc2UcSQ1zFR6/ogvJae5iphkxO+W43ILrQ75u7Y9Yiwbw
- mHDHvsQNGReEaUvMo44OmcCIbLnar3HqkJDlM9TB6qO8qh+xsjkBQFW1VCLQEbmqVK8m
- 4jUYEJCMdPd8FkMbjBTiLQD8KjRkg9jr3yULmm6sviLYcNi+n8dnDqm4zsytvrc8Tscn
- D6XjlnuukUdCkyuECiJzdx5TQjIYiRk0osYiAkCXE2kPRbhrfofjes70RBqQAD/Vjdf0
- M65Q==
+ bh=cwYk4ejoNMOniCBgkjcxx38Ml00PjaYwyPcbfZWz9ws=;
+ b=PUgVVX+yc94h04G9g0R+kIJJLfGgPCAjnUhBG2CDJde+FhLwlAPrG2HhObfQzXKWDk
+ aX+PHurB79xoOj6AeQTHglOVWMovbQj9XA9laf54QUd4EkMVFX8HhwHM2G+JuJ+MYyfh
+ 34qQNSxsYsSIH3aF5/cVoqBm0rRvWNVBR2mohtCrq+Zk/kdBUEVmgaugt/PGII4pjTuR
+ v3zDzvjw2ub7vGEg4QoKtmdAviHu5g4JdzIwdIKkGZp7sRFZh5mkz5L1GvC7kEyg29Hd
+ 1n4Ent8NJsL8aCR+WPBSzPmzF5OWqRZbeHV/WCXawJBwATd6omi7SSKQZtrGKZUz2D44
+ ub4Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RriuKBTtF7H/JIn6HeIgVc4BO1n7XCg/YJ+83hfmcP1PxI68SNIE5oW7Gl7hCr3jAnC+ShyO7ieCyw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMem5WMKQULmiIbB7AFZxiSUW/oMkZrKo6bNKesw+rfDXgfilY
- HkMbHmoxLPywfuIKHTbAbB+AB8Hk7vYOX4B75jEh+8sUCaSx+6WjNG2skGrmcKfps6Y=
-X-Gm-Gg: AR+sD131QYgFz4uBq49P8TEp/wzDzQd74pBFdTIKjNCR92wIeLtgQmm61FA+LcOWAx5
- /WC/NYZBDFNxEhRGwvC8KVJEwH3q5qVjywzFz+ork046GG5fmlskOoDfS8m9zTN19h3xJtNfj5C
- 08P/+ZfkOCDywqwhyBUbhFqa5Floy0j/6PlW4/BA0qrEnbdJhLJ/9I9OT1qsZlkGnTz4kpnyfSJ
- WO6FZW5m72wFnXbKbIL6lix4Da6nOvyNTD5jpm7ToHYpnKNjT320LNuQ2Ft9HUazBIbgVOtAYpN
- 0GAe9w76iiAt2pVnyuI9yCt7G0rAwr4AHVDoCIDcDMvIP3ujxB1w1eY7kmR7m23DCGDEQ1Lofru
- thwHaI1iuh9hF68ZvhPKEbgII0+1I+UaGFgiw+yyLzHsSN9nMa9eFxShzEKaM9esrbqY1t1UAWr
- d8+pONNVnlgFnd8UfaxZ87y9bInPA7cLEtm+5UIHZ9OqdcpR2fExFnhDGDeHrWgiFRk2dcB8kxz
- itHyp74AjbvcMGavSE0JMb2BjVKZZdOKI2emSjYYQk/n89Dt5vuCQKUY4zNcjIIboCUY1jcKN16
- buZUmy2iTIigdg==
-X-Received: by 2002:a17:903:1965:b0:2c0:e5ee:f55e with SMTP id
- d9443c01a7336-2d3b0db9f3cmr93241755ad.7.1786734373823; 
- Fri, 14 Aug 2026 12:06:13 -0700 (PDT)
-Received: from localhost.localdomain ([2406:7400:94:ab62:887d:e555:df21:3318])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-320ea8fe3cdsm7109215eec.28.2026.08.14.12.06.11
+ AHgh+Rr4yarBZZBJi8lyoL3rJKNPa5jBzuNcWAy+jd6cwus0tfQVGwpcqjSXjl7e1Uex1ja/Jao9niW/FOU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzobVA6WuVecSr7CCDL/UpF7IzLJzWqfnHpcJ1Z3ynym74U50U2
+ jOPSUguqn3ORwuLjP/qnbXKBluWPAf5dmBxAIZ3WVemhWRDArfpdXjvg
+X-Gm-Gg: AR+sD13oLMnd7ficaIrg11R7lt7JjZ7xlrLD+2TWXHhv02a3FN4tsbQ+wUwjjx3udsX
+ TsLQQnUBvsXDr7kAkX50zBOumzur6vR15TJJNEA3Dsij2tjPonNpRRhs1q7ltEsEk0jSVdiLlCl
+ 6jEc99+vMstlhMapI7MQMqLMFiPAFqzRIz5biJf7PWULKJ0fQ/cQC664sMWPHlKCYiDseYfTGoj
+ dP7Stgrln+Yy0UmClXR+udQ1XWN2a7ZNpc0VH6GUcBjW+wGgUid7fCW8xdbOkAkLC4w4S1Ho6f/
+ XFlsyfeIj9vpr0c3m2yRmY5RKhD1zJzwnfLvr1UnnaxxsB76iEz8kv8CaaEdq3oDXqFLiHHYrqJ
+ Ytvkl1JM2CfxA0VJtM31oBOL3TmWvrX8+DdmwufgQJv9r+1JVYSAFiWjE0Eau7jkiUTgAcQE+oT
+ 6GNPuis4ZHo8dmCZ10YMQ7dvYgsaStlezXQhN58rNFjW3YsFMHUw8uuLGGezWuZr5EDELAdZwaz
+ 6c=
+X-Received: by 2002:a17:90a:ec83:b0:381:e74f:8a6a with SMTP id
+ 98e67ed59e1d1-3933b8c1041mr4446396a91.16.1786693483969; 
+ Fri, 14 Aug 2026 00:44:43 -0700 (PDT)
+Received: from ubuntu.. ([49.205.39.116])
+ by smtp.googlemail.com with ESMTPSA id
+ 98e67ed59e1d1-394ebbcc34csm1462260a91.15.2026.08.14.00.44.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Aug 2026 12:06:13 -0700 (PDT)
-From: manushprajwal <manushprajwal555@gmail.com>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- Manush Prajwal <manushprajwal555@gmail.com>
-Subject: Re: [PATCH] drm: logicvc: fix device_node refcount leak in
- logicvc_layers_init()
-Date: Sat, 15 Aug 2026 00:35:57 +0530
-Message-ID: <20260814190557.987-1-manushprajwal555@gmail.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+ Fri, 14 Aug 2026 00:44:43 -0700 (PDT)
+From: Ajith P V <ajithpv.linux@gmail.com>
+To: FlorianSchandinat@gmx.de,
+	deller@gmx.de
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ajith P V <ajithpv.linux@gmail.com>
+Subject: [PATCH v3] video: fbdev: via: refactor strcpy and viafb_name
+Date: Fri, 14 Aug 2026 07:44:35 +0000
+Message-ID: <20260814074435.277441-1-ajithpv.linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
@@ -90,36 +89,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Manush Prajwal <manushprajwal555@gmail.com>
+Replace the deprecated and unbounded strcpy() function with the safer
+strscpy() alternative when setting up the framebuffer fixed screen
+information [1][2].
 
-Thanks for the review. I traced this through and the UAF is real,
-though it's independent of this patch, as noted:
+It aligns this driver with the ongoing kernel-wide security initiative
+to eliminate unbounded string copies, hardening the code against future
+modifications.
 
-- logicvc_layer_init() embeds drm_plane in a devm_kzalloc()'d struct
-  and registers it with the unmanaged drm_universal_plane_init(), so
-  the plane stays linked into drm_dev->mode_config.plane_list.
-- On a later layer's init failure, logicvc_layers_init()'s error path
-  calls logicvc_layer_fini() on every already-succeeded layer, which
-  does list_del() + devm_kfree() immediately, but never calls
-  drm_plane_cleanup() first, so the freed layer's plane is still
-  linked in mode_config.plane_list.
-- drmm_mode_config_init() (drivers/gpu/drm/logicvc/logicvc_drm.c)
-  registers drm_mode_config_cleanup() as a drmm action tied to
-  drm_dev's own refcount, which is only dropped via
-  devm_drm_dev_alloc()'s devres release on the parent device, i.e.
-  later than the explicit devm_kfree() above, not before it.
-- So drm_mode_config_cleanup() later walks plane_list and dereferences
-  the already-freed layer/plane.
+Additionally, convert the file-scope `viafb_name` pointer into a
+`static const char[]` array while preserving its original value "Via".
+This allows the compiler to execute compile-time bounds checking and
+optimize the string copy operation without breaking userspace ABI
+backward compatibility.
 
-The same devm_kzalloc() plus unmanaged-DRM-object pattern exists in
-logicvc_crtc_init() and logicvc_interface_init(), so this looks
-driver-wide rather than layer-specific.
+This is a proactive API cleanup and there is no functional
+performance or truncation risk.
 
-That's a separate, pre-existing bug in the error-unwind path and out
-of scope for this one-line of_node_put() fix. A real fix would need
-either drm_plane_cleanup()/drm_encoder_cleanup()/drm_connector_cleanup()
-calls added to the _fini() helpers before devm_kfree(), or switching
-these to drmm-managed allocations. Happy to send that as a follow-up
-patch if there's interest.
+Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strcpy [1]
+Link: https://github.com/KSPP/linux/issues/88 [2]
 
-Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
+Signed-off-by: Ajith P V <ajithpv.linux@gmail.com>
+---
+v3:
+  - Restore the original "Via" string value to prevent userspace ABI 
+    regressions, while keeping the 'static const char[]' optimization as
+    suggested by Sashiko AI.
+v2:
+  - Keep variable static but change it to a const array
+    'static const char viafb_name[] = "viafb"' as suggested by Helge Deller
+    to let the compiler leverage compile-time checks.
+
+ drivers/video/fbdev/via/viafbdev.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/video/fbdev/via/viafbdev.c b/drivers/video/fbdev/via/viafbdev.c
+index 80f95dac32c8..f6823beb4d7e 100644
+--- a/drivers/video/fbdev/via/viafbdev.c
++++ b/drivers/video/fbdev/via/viafbdev.c
+@@ -16,7 +16,7 @@
+ #define _MASTER_FILE
+ #include "global.h"
+ 
+-static char *viafb_name = "Via";
++static const char viafb_name[] = "Via";
+ static u32 pseudo_pal[17];
+ 
+ /* video mode */
+@@ -144,7 +144,7 @@ static void viafb_setup_fixinfo(struct fb_fix_screeninfo *fix,
+ 	struct viafb_par *viaparinfo)
+ {
+ 	memset(fix, 0, sizeof(struct fb_fix_screeninfo));
+-	strcpy(fix->id, viafb_name);
++	strscpy(fix->id, viafb_name, sizeof(fix->id));
+ 
+ 	fix->smem_start = viaparinfo->fbmem;
+ 	fix->smem_len = viaparinfo->fbmem_free;
+-- 
+2.43.0
+
