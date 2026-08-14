@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8210C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 15:11:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B9F0C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 15:13:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24E0710F65A;
-	Fri, 14 Aug 2026 15:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A672E10F65C;
+	Fri, 14 Aug 2026 15:13:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GclFJtJW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z1wOokNH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9F5C10F65A
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:11:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 007EE10F65C
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:13:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1FA8360120
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:11:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D7D1F000E9;
- Fri, 14 Aug 2026 15:11:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C56AB40421
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:13:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D57B1F000E9;
+ Fri, 14 Aug 2026 15:13:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786720273;
- bh=Ia0LfMRkcsGvxHSwaB9ndNCJMdYvOd6RAy09dlz3Og8=;
+ s=k20260515; t=1786720414;
+ bh=INeoPs+kk3b7cY18SDqwiznql82/B5amIK4WbyCLSgc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GclFJtJW0K0N3sWhiOxz/A8ib1i3X2+xh3zAnEpGPL8yaHNnoj9NPMC0tuQrxcPYA
- B2G+Ouqxr0/8yesvacqtg4u/MQOkPWKjhAGRfOALe5HBT+VkDmk9X4AuekCrIcveY/
- TITitjSWO82kIIG/Mk1uKB0d1pqzAZKcMALOhqZydxvkFziMb4vafiXNyT2Vk0eVnJ
- 1E+bc6wGgDORDCF8J2FivLmRfXDDN4+kmBgqOVkrs94Bw+PyYQRtBG8s6LkCPW6VZj
- zTQu4pH0Rdq2Lxq/TRVR5VFeXZXru3dZjmpkPbTnsC+ZzR3rFmH4jQUv7aEAHkHSy7
- lRhp0HKKbVRmw==
+ b=Z1wOokNHONYqWwxxMmv58Z34FkkPg1MRxI7UwPWiBDCookiKhLfe0W41dOuARrJS1
+ lOzLFv3ZGYxJuKX+VPw7zo88q/K2Vjn79hAnxV8fE7VYFfyMhLesyZYrkn2wSSB2tj
+ ehcYaH5XZWcbPuzsqmKubKScroQ2/YhNMemmjxhxFLS17lzboHu8XxeTIuMzwF7an8
+ O85q/Osl4y3bASFTmOpKoLo/1h85DDV3PjR7yTwjtrjFGtUh2gZomtyxP7Cs6MH1K4
+ yFxaG+diC1FDG4NxCKtgqxsC0XIMplMFOcaND/3+JJdMESlVfLhyCvN99DBA1vOgAt
+ DeFdgevmwPBHg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/61] drm/gem-atomic-helper: Create
- drm_gem_create_shadow_plane_state()
+Subject: Re: [PATCH v2 01/61] drm/simple-kms: Add create_plane_state hook
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814-drm-no-more-plane-reset-v2-2-82d2963dd134@kernel.org>
+In-Reply-To: <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
- <20260814-drm-no-more-plane-reset-v2-2-82d2963dd134@kernel.org>
+ <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 15:11:13 +0000
-Message-Id: <20260814151113.A0D7D1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 15:13:34 +0000
+Message-Id: <20260814151334.7D57B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,65 +59,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The newly introduced `drm_gem_create_shadow_plane_state` callbac=
-k is not added to the `DRM_GEM_SHADOW_PLANE_FUNCS` macro.
+- [Medium] The patch introduces the `atomic_create_state` pattern for simpl=
+e-kms but fails to populate the `.atomic_create_state` hooks in the core DR=
+M vtables, rendering the new pattern unusable.
 --
 
---- Patch [2]: [PATCH v2 02/61] drm/gem-atomic-helper: Create drm_gem_creat=
-e_shadow_plane_state() ---
-commit 04bcd76bbde0146f1fe95d41bdf27b75eecf6aaa
+--- Patch [1]: [PATCH v2 01/61] drm/simple-kms: Add create_plane_state hook=
+ ---
+commit 3bbdad5049ec3ee53628f35efd9dd90d236402b0
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/gem-atomic-helper: Create drm_gem_create_shadow_plane_state()
-   =20
-The GEM shadow-plane helpers only expose reset functions that handle
-both the initial state allocation and the reset path. The new
-atomic_create_state hook requires a function that only allocates and
-initializes a pristine state. Create new helpers to allocate and
-initialize a shadow plane state from scratch.
+drm/simple-kms: Add create_plane_state hook
 
-> diff --git a/include/drm/drm_gem_atomic_helper.h b/include/drm/drm_gem_at=
-omic_helper.h
-> index 3e01c619a25e0..43657d8fb1c8c 100644
-> --- a/include/drm/drm_gem_atomic_helper.h
-> +++ b/include/drm/drm_gem_atomic_helper.h
-> @@ -95,6 +95,9 @@ void __drm_gem_reset_shadow_plane(struct drm_plane *pla=
-ne,
->  				  struct drm_shadow_plane_state *shadow_plane_state);
-> =20
->  void drm_gem_reset_shadow_plane(struct drm_plane *plane);
-> +void __drm_gem_shadow_plane_state_init(struct drm_plane *plane,
-> +				       struct drm_shadow_plane_state *shadow_plane_state);
-> +struct drm_plane_state *drm_gem_create_shadow_plane_state(struct drm_pla=
-ne *plane);
+The simple-kms helper provides a reset_plane hook to let drivers override
+the default plane reset, but the hook is overloaded for multiple roles.
+The atomic_create_state pattern was introduced to untangle this by providing
+a hook that only allocates and initializes a pristine state. This patch adds
+a create_plane_state hook to struct drm_simple_display_pipe_funcs.
+
+> diff --git a/include/drm/drm_simple_kms_helper.h b/include/drm/drm_simple=
+_kms_helper.h
+> index cb672ce0e856d..b58f6d5328201 100644
+> --- a/include/drm/drm_simple_kms_helper.h
+> +++ b/include/drm/drm_simple_kms_helper.h
+> @@ -44,6 +44,7 @@ struct drm_simple_display_pipe_funcs {
+>  	void (*destroy_crtc_state)(struct drm_simple_display_pipe *pipe,
+>  				   struct drm_crtc_state *crtc_state);
+>  	void (*reset_plane)(struct drm_simple_display_pipe *pipe);
+> +	struct drm_plane_state * (*create_plane_state)(struct drm_simple_displa=
+y_pipe *pipe);
 
 [Severity: Medium]
-Should the DRM_GEM_SHADOW_PLANE_FUNCS macro in this file be updated to incl=
-ude
-the newly introduced drm_gem_create_shadow_plane_state for the
-.atomic_create_state hook?
+As the atomic_create_state pattern is being introduced here for simple-kms,
+should drm_simple_kms_plane_funcs also have its .atomic_create_state hook
+populated?
 
-Currently, the macro only sets .reset, .atomic_duplicate_state, and
-.atomic_destroy_state:
+If a driver converts to this new pattern and uses
+drm_mode_config_create_initial_state(), it looks like it will see a NULL
+hook in the core DRM vtables and skip creating the plane state:
 
-include/drm/drm_gem_atomic_helper.h:DRM_GEM_SHADOW_PLANE_FUNCS {
-#define DRM_GEM_SHADOW_PLANE_FUNCS \
-	.reset =3D drm_gem_reset_shadow_plane, \
-	.atomic_duplicate_state =3D drm_gem_duplicate_shadow_plane_state, \
-	.atomic_destroy_state =3D drm_gem_destroy_shadow_plane_state
-}
+static const struct drm_plane_funcs drm_simple_kms_plane_funcs =3D {
+	.update_plane		=3D drm_atomic_helper_update_plane,
+	.disable_plane		=3D drm_atomic_helper_disable_plane,
+	.destroy		=3D drm_plane_cleanup,
+	.reset			=3D drm_simple_kms_plane_reset,
+	.atomic_duplicate_state	=3D drm_simple_kms_plane_duplicate_state,
+	.atomic_destroy_state	=3D drm_simple_kms_plane_destroy_state,
+	.format_mod_supported   =3D drm_simple_kms_format_mod_supported,
+};
 
-Without adding .atomic_create_state to this macro, any driver using it to
-initialize their drm_plane_funcs will have .atomic_create_state left as NUL=
-L.
+This would leave plane->state =3D NULL.
 
-If a driver attempts to migrate to using drm_mode_config_create_initial_sta=
-te()
-or relies on .atomic_create_state for initial allocation without noticing t=
-his
-omission, plane->state would remain NULL, which can lead to crashes from a
-NULL pointer dereference.
+Similarly, is a .atomic_create_state hook also missing for
+drm_simple_kms_crtc_funcs (along with a corresponding create_crtc_state hook
+in drm_simple_display_pipe_funcs) to ensure the CRTC state is also properly
+initialized?
+
+>  	struct drm_plane_state * (*duplicate_plane_state)(struct drm_simple_dis=
+play_pipe *pipe);
+>  	void (*destroy_plane_state)(struct drm_simple_display_pipe *pipe,
+>  				    struct drm_plane_state *plane_state);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-drm-no-mor=
-e-plane-reset-v2-0-82d2963dd134@kernel.org?part=3D2
+e-plane-reset-v2-0-82d2963dd134@kernel.org?part=3D1
