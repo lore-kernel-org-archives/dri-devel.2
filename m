@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B6FC5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C03DC5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2469A10E0DF;
-	Fri, 14 Aug 2026 07:18:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8969310EB1F;
+	Fri, 14 Aug 2026 07:19:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oq1qJOvI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="md9AIqHF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79B4710E0DF
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 07:18:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7FDA10EB1F
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 07:19:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6325D40B4E;
- Fri, 14 Aug 2026 07:18:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197DA1F000E9;
- Fri, 14 Aug 2026 07:18:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 312C860A63;
+ Fri, 14 Aug 2026 07:19:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD48E1F000E9;
+ Fri, 14 Aug 2026 07:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786691909;
- bh=mIFIrVNSsUR7LHEZ/HhymCjqsadDiliMNpd7RF2oFfM=;
+ s=k20260515; t=1786691963;
+ bh=rkHSlKrfGPgjow/WFD56NttK+HtzHa91qf6zEPOY8So=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Oq1qJOvI45uTpPE+vd8LFfyaqjAiQiHVhOy05TR45jIY0Lx1VEBr/UMCFl0bPgTBG
- vDjaFcSFIoCwWlf8RtprcIBTLVe8PdO7iBq4aOI6l2N60+i/Vq0ylIH9B/6HTmZhFn
- qMM0lvDzRE2OnWC+zuBhOzKsl2U9hqpUloVlf0oSngrtIa8q0iMN9O1JL1E6roJE3f
- JVHJgAv9TycEcjuA4a5TH2M+823JFODTtpf0pakTXkXRXiUNbVksJYZZh2Rp4T4RpX
- R/9QERjPcylpGgMJiPQCSW2dWZqkW2SYgQLiZa+bLCXGBWXYonGGGaKIEAwh0GRYaN
- E5BbqAXy3ZCzQ==
+ b=md9AIqHFNuIDLy6V/TtO55caUo+lTMRNy0Ex/boDtJ9ZPXWkhLu16wId9AHf9lvoT
+ sLW/7vF3vjctOlwmiGz90cKF6VBQT5Vq4kTDjMjjQJ2/jCcUILZO6MMFBTfYR6qMIs
+ e26OinApqM2XfFcOR6/xc/+1/gt0Mum10cff6PMtAZeHTPT955bXDtzydOBkweKyOV
+ YRBfpxyOA+w3fqSCNoTS3u1jLbsUJJ8ekmdAEGA55sEZ1QZcBO6yPG8ftCXh/i2VNd
+ kInbKwEtooD7k3jgWHWKLN4yn9amdYJrH8ckRu4LqouMfVdA+7uuKyBWn9KsNj39hg
+ iVF2N6B1SpsLw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] accel/amdxdna: return early from a zero-length
- flush
-To: "Taimuraz Kaitmazov" <taimuraz@kaitmazov.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260813164659.IDBUto6a23fvw6tqWeXNt2bHxg4diPNnnDHJA2p9YYo@z>
-References: <20260813164700.43960-1-taimuraz@kaitmazov.com>
- <20260813164659.IDBUto6a23fvw6tqWeXNt2bHxg4diPNnnDHJA2p9YYo@z>
+Subject: Re: [PATCH 1/2] drm/amd/display: Skip connector updates without a
+ stream
+To: "David Weber" <weber.aulendorf@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260813112634.11455-2-weber.aulendorf@gmail.com>
+References: <20260813112634.11455-1-weber.aulendorf@gmail.com>
+ <20260813112634.11455-2-weber.aulendorf@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 07:18:28 +0000
-Message-Id: <20260814071829.197DA1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 07:19:22 +0000
+Message-Id: <20260814071923.BD48E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,133 +58,99 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The `SYNC_BO` ioctl unconditionally maps the target buffer into ke=
-rnel virtual memory, allowing unprivileged userspace to exhaust `vmalloc` s=
-pace and permanently pin physical memory (DoS).
-- [High] Dangling `abo->client` pointer causes Use-After-Free in `amdxdna_g=
-em_del_bo_usage` when a shared BO outlives its creator client.
-- [High] Lockless access to `abo->base.pages` in `amdxdna_flush_bo` causes =
-Use-After-Free during `SYNC_BO` on DEV BOs if vmap fails.
-- [Medium] Integer overflow in `flush_end` computation causes `SYNC_BO` to =
-silently skip flushing DEV BOs when `args->size` is `U64_MAX`.
+- [High] The function `amdgpu_dm_atomic_commit_tail` uses `kzalloc` with `G=
+FP_KERNEL` and acquires a `mutex`, both of which can sleep, despite being a=
+n atomic commit path.
+- [High] AMDGPU never updates the privacy screen hardware state because pri=
+vacy screen updates force a modeset, but the commit tail skips privacy scre=
+en updates during modesets.
 --
 
---- Patch [2]: [PATCH v3 2/3] accel/amdxdna: return early from a zero-lengt=
-h flush ---
-commit af59e76eb538c56b42cb7c548539fdedd358a3a4
-Author: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+--- Patch [1]: [PATCH 1/2] drm/amd/display: Skip connector updates without =
+a stream ---
+commit 3a3a91e5bab6bdb82ebcebf89c73cd8b740ca904
+Author: David Weber <weber.aulendorf@gmail.com>
 
-accel/amdxdna: return early from a zero-length flush
+drm/amd/display: Skip connector updates without a stream
+   =20
+Atomic DPMS can leave a connector assigned to an enabled but inactive
+CRTC after the driver has removed its DC stream. A later atomic commit
+can then change HDR_OUTPUT_METADATA or Broadcast RGB while leaving the
+CRTC mode, routing and active state unchanged.
 
-SYNC_BO does not constrain its size, so a request for zero bytes reaches
-amdxdna_flush_bo(). On the vmap path that calls drm_clflush_virt_range()
-with a length of zero, which flushes the byte in front of the region
-rather than anything the caller asked to maintain; on the import path it
-flushes the whole scatterlist, since that arm ignores the range.
+This patch skips stream updates until a stream exists, preventing null
+pointer dereferences when the connector stream-update path is reached
+with a NULL stream.
 
-Nothing needs flushing for an empty range, so answer before choosing a
-path.
-
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
-amdxdna_gem.c
-> index d7d36c9523253..1798003cdd45c 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-
-[ ... ]
-
-> static void
-> amdxdna_gem_del_bo_usage(struct amdxdna_gem_obj *abo)
-> {
-> 	struct amdxdna_client *client =3D abo->client;
->=20
-> 	if (amdxdna_gem_skip_bo_usage(abo))
-> 		return;
->=20
-> 	guard(mutex)(&client->mm_lock);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can abo->client be a dangling
-pointer here?
-
-When a BO is exported via PRIME and imported by another process, open_ref
-becomes 2, but abo->client is not updated because amdxdna_gem_obj_open()
-returns early:
-
-amdxdna_gem.c:amdxdna_gem_obj_open() {
-	...
-	abo->open_ref++;
-	if (abo->open_ref > 1)
-		return 0;
-	...
-}
-
-If the creator process closes the BO and exits, its amdxdna_client struct
-is freed, leaving abo->client dangling. When the importing process later
-closes the BO, amdxdna_gem_obj_close() calls amdxdna_gem_del_bo_usage(),
-which attempts to acquire the lock inside the freed client struct.
-Could this lead to a Use-After-Free?
-
-[ ... ]
-
-> @@ -1259,6 +1259,9 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj =
-*abo, u64 offset, u64 size)
->  		return -EINVAL;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 567bf04979ee5..712e8d3e0a01d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5050,6 +5050,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm=
+_atomic_commit *state)
 > =20
->  	size =3D min(abo->mem.size, end) - offset;
-> +	if (!size)
-> +		return 0;
-> +
->  	if (is_import_bo(abo))
->  		drm_clflush_sg(abo->base.sgt);
->  	else if (amdxdna_gem_vmap(abo))
+>  		dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_state);
+>  		dm_old_crtc_state =3D to_dm_crtc_state(old_crtc_state);
 
 [Severity: High]
-This is a pre-existing issue, but does this unconditionally map the target
-buffer into kernel virtual memory without ever unmapping it?
+This isn't a bug introduced by this patch, but does this skip logic prevent
+privacy screen updates?
 
-Any unprivileged user can allocate large BOs and call the SYNC_BO ioctl on
-them. Since amdxdna_gem_vunmap() is only called on free, does this allow an
-attacker to exhaust vmalloc space and permanently pin physical memory?
+In amdgpu_dm_connector_atomic_check(), any change to the privacy screen
+software state forces a modeset:
 
->  		drm_clflush_virt_range(amdxdna_gem_vmap(abo) + offset, size);
->  	else if (abo->base.pages)
+    new_crtc_state->mode_changed =3D true;
+
+However, earlier in this loop in amdgpu_dm_atomic_commit_tail(), connectors
+undergoing a modeset are skipped:
+
+    /* Skip any modesets/resets */
+    if (!acrtc || drm_atomic_crtc_needs_modeset(new_crtc_state))
+        continue;
+
+Since the only call to update the privacy screen hardware is located at the
+very end of this loop:
+
+    drm_connector_update_privacy_screen(new_con_state);
+
+Will this cause privacy screen updates to be permanently skipped because th=
+ey
+force a modeset that bypasses the update code?
+
+> +		/* DPMS-off leaves the connector routed to a streamless CRTC. */
+> +		if (!dm_new_crtc_state->stream)
+> +			continue;
+> =20
+>  		scaling_changed =3D is_scaling_state_different(dm_new_con_state,
+>  							     dm_old_con_state);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is abo->base.pages accessed
-locklessly while the DEV BO is completely unpinned?
+This is a pre-existing issue, but are there sleeping functions called from
+this atomic context?
 
-During SYNC_BO on an AMDXDNA_BO_DEV, the DEV BO and its heaps are not pinne=
-d.
-If amdxdna_gem_vmap() fails, the code falls back here. Since the BO is unpi=
-nned
-and no locks are held, can a concurrent thread unpin the BO and cause the
-shrinker to free the pages array, leading to a Use-After-Free in
-drm_clflush_pages()?
+Later in amdgpu_dm_atomic_commit_tail(), kzalloc is called with GFP_KERNEL:
 
->  		drm_clflush_pages(abo->base.pages, abo->mem.size >> PAGE_SHIFT);
+    dummy_updates =3D kzalloc(sizeof(struct dc_surface_update) * MAX_SURFAC=
+ES, GFP_KERNEL);
 
-[ ... ]
+And then a mutex is acquired:
 
-> 	if (abo->type =3D=3D AMDXDNA_BO_DEV) {
-> 		struct amdxdna_gem_obj *heap;
-> 		unsigned long heap_id;
-> 		u64 bo_start =3D amdxdna_gem_dev_addr(abo);
-> 		u64 flush_start =3D bo_start + args->offset;
-> 		u64 flush_end =3D flush_start + args->size;
+    mutex_lock(&dm->dc_lock);
 
-[Severity: Medium]
-This is a pre-existing issue, but can flush_end overflow here?
+Since drm_atomic_helper_commit_tail() and its variants execute in an atomic
+context where sleeping is forbidden, could this kzalloc(..., GFP_KERNEL) and
+mutex_lock() cause kernel warnings, system instability, or potential
+deadlocks?
 
-If a user passes U64_MAX as args->size, flush_end wraps around to a small
-value. This makes the intersection check (start >=3D end) evaluate to true,
-silently skipping the flush. Could this lead to data corruption for the
-application using the NPU?
+Also, if the memory allocation fails, the subsequent hardware programming in
+dc_update_planes_and_stream() is silently skipped. Can this lead to an
+unrecoverable state mismatch since commit_tail cannot return error codes?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813164700.4396=
-0-1-taimuraz@kaitmazov.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813112634.1145=
+5-1-weber.aulendorf@gmail.com?part=3D1
