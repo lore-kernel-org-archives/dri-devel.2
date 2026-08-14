@@ -4,88 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50814C5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 19:06:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38F25C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 19:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7CCE10E1A8;
-	Fri, 14 Aug 2026 19:06:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96F3C10E094;
+	Fri, 14 Aug 2026 19:11:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="E9R+qVB2";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aUMRL2p2";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UY5Rjpvd";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3C4910E094
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786734413;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EXbV03SglUAVYkcsiKdvgl4+VZ/gbiiscwVTQZEGVe0=;
- b=E9R+qVB2so3N2ZPPiFsq7SkYwiBXN6sExlGEh2T2crrhGqf1SfhofzKyUnMqFlQYx6w4Jz
- fTVBoxLH4Jd+2Eto9seN2TN/HMQNjzZvQ3S4J8jIH6oRkwVHV+2SawXMR11n098N2fMd8T
- iUqqQNxWdUNIelBW4gm4mBs7AG3PUME=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-501-Pu9RjT9JP2acHwyl4uR4dg-1; Fri, 14 Aug 2026 15:06:52 -0400
-X-MC-Unique: Pu9RjT9JP2acHwyl4uR4dg-1
-X-Mimecast-MFC-AGG-ID: Pu9RjT9JP2acHwyl4uR4dg_1786734412
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-52d33c89a29so18424501cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 12:06:52 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF5D810E094
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:11:51 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67EGi7K02608546
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:11:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ SohSU0/9k/ZRs0kvdJIY0QMI2ZHWYJ650KSj2jQWXnE=; b=aUMRL2p2KrH9Lln6
+ YWgnODYNOSTHKwJk4s0D+Q9T9QBJd/0Et5NsQH4vXvyLaNcWcjDsUjSVjEko3Nct
+ aUoBqJ3lzVXyEfRdRAMLfbJiJh8U1SmMrgvtyuAdEBVWc+tGJYGbwYX04aBBJRw1
+ 3MpReoDBtYWnJKVNqdJh5ERpbyCXiOvpxMN/qMgp9lXhUHhxnZ6HNfYJQtTyGPBO
+ AHVQntelMqHjQLysqwl13XZ7vKZ++K51NVq9txc+GHDQ1ZmhFwjxCj6zSgH4C2+y
+ 3agKuVpXftELbHWi36C68kkIsL5XCVybaIIsSNa7BLHgjCwNKmCVXRvyKScIKpOO
+ zOTCBw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g26j6gmsj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:11:50 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-cbedf6e8a42so1539029a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 12:11:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1786734709; x=1787339509;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=SohSU0/9k/ZRs0kvdJIY0QMI2ZHWYJ650KSj2jQWXnE=;
+ b=UY5RjpvdinEyfCZABWpXLEsMKnF2smAMar9KVAQxN7L1g95jqk3W2fKoU9T12Y1OA6
+ 5JyV+UOV2JBNuj0OxsEC4JdX4h1wytHFQDjLF1J8bAlg/EG2tCPf7bD9s2kXq/hAApBE
+ /2sHmrZ3b5QbDw/2G464oWo33NaOROH2MCoUlZHJ13VuekN6Dwt9q0Gr2rGd65wLG98L
+ DsI/8rYK9INTJGM1zEzFDeYHWfz1qNsZXkOR9BFjU6Ieubu6RspBlID+Hjo+zmDsn6QG
+ OSgIpqbbdWlBWiAlnJ0MRPadagUw9Z602jb3NCqRKkGGYcK1jIP5Ni2H9WhT1YNfwlm7
+ oa0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786734412; x=1787339212;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=WxFTX0yOJLZlCl8/a3EJL4yygyDVspCJMhQ7vy8Km48=;
- b=YOYCXdIA+oZjr89npxd21jdLkDnEC235Uu2H9HRUhD/BQ+I/JBsoWg2U7HbXjvINmF
- gkmOWLxgrEvPI28Cz4JDqWUJ1w6ekisp0DLbLbBXEBDIXPqRNqYFVJS/6CpaKQZfeFA0
- 736irNS0bPqnYS++ijIAqis/9qWliuAgbAqEawZsdNePHT0PSn17Wx3IuSFbEoCjKUWC
- rv/UpjkOkTJcn512M4QOx8pNduLAHFXOpixTlQTPoM21/EhrvDyh5i2GNyLdgN2h0wJg
- 7C1PwzGsfzRB/v+/JEI/fWCYLmy86bbyfI9eRzYNBpXJ08dg4SNZdwTex5hxErNQys6V
- 5s3w==
-X-Gm-Message-State: AOJu0YxZUPkkU4Lqpqp4qQsTVT3GdoXV84T1XXtze4NjPdX0RzWa7JMU
- pXG9QVfYfTpnTyuMf7TA0toYdhThtHxd+n31WItk9G4QvpvWvzmEF3NDgYxdOPI5gXUG7oAh7FJ
- 7s7uAMObxWP+CQzmscEW0Djx4P8rLtZcCwJuusQy0ima1jsin7Z/T97HllBmXkmrd2UzybQ==
-X-Gm-Gg: AR+sD11JFWUPhfDtzI1eaCQt2W3f6wYepBzFuJatcSsk3tAPjpt9P7m3Kc2+RLxJsqj
- MRPAWGTWCd2zfqBIHyQbhr9+xk8UatLVrLuQG2h6WrOi8b/djbPpdnNm6HKbOW9yqpXnoXVpK3G
- xWo+TsHckUV2VUoorAs0i4ICBdoJrqHeZExLnfuS1/il2qIBulDj5wvcH1RudB2usldK6nqaIRI
- Nvf1vPPdRJIpIKHiTabqzLc8KOAzLoJM0XoGWkNLg7yKk73GMBy/ZIdFY+bF/tAp0UA7Z2tBS3X
- RYtdJhabsPrNWe8A3Qfu0TuE5ZjL882AJh5cO8DgMTeTifqahrXe0+78oN+U3ifMw0qbxuQW
-X-Received: by 2002:a05:622a:98f:b0:516:d699:a99b with SMTP id
- d75a77b69052e-52d854dfe55mr100186741cf.40.1786734412089; 
- Fri, 14 Aug 2026 12:06:52 -0700 (PDT)
-X-Received: by 2002:a05:622a:98f:b0:516:d699:a99b with SMTP id
- d75a77b69052e-52d854dfe55mr100185681cf.40.1786734411401; 
- Fri, 14 Aug 2026 12:06:51 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-52d83ef920csm27229611cf.8.2026.08.14.12.06.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Aug 2026 12:06:50 -0700 (PDT)
-Message-ID: <fcfc05b3197c0318ecdd8e60597b618f366eb8d3.camel@redhat.com>
-Subject: Re: [PATCH v2 51/61] drm/nouveau: Convert to atomic_create_state
-From: lyude@redhat.com
-To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, dakr@kernel.org, 
- nouveau@lists.freedesktop.org
-Date: Fri, 14 Aug 2026 15:06:49 -0400
-In-Reply-To: <20260814-drm-no-more-plane-reset-v2-51-82d2963dd134@kernel.org>
-References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
- <20260814-drm-no-more-plane-reset-v2-51-82d2963dd134@kernel.org>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+ d=1e100.net; s=20251104; t=1786734709; x=1787339509;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SohSU0/9k/ZRs0kvdJIY0QMI2ZHWYJ650KSj2jQWXnE=;
+ b=M63WQ5kLg0/92G139gLZKyd96bymK5lBjZSpcz+8f/OKB4ImpksQOLWY44BucQ7GnZ
+ BASN1bHZgeIrz83o6xXx0PqrW2uxKziTl/1jT/GEWsQ8OXXkJM4HvqNFImMFT4tidjhI
+ lQUbX5hc9ZQmPuFNel0F6avkliVbsvxFFzP4YToeAfcPZkb5e+xEU1iSshxLqzFIMCAf
+ X2i33MMTc785FtcoiK0JrlbO92w4DTn4C9Zu0u3QdB9gBkCzkgKTXlskhweeSvZ/isCP
+ xtWYC6O563qv2ApYlry750D2b/e3iHY6nVhjJrqnLqWDhYVyfMnfIywXGJxIFbo2p8kK
+ 6GGQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro7TkQAN/aD1Yts14KIgIgFpQ1WmrYf28BxXg+ZuNcEQCwFdkQu4bopVhto1fhjxdcD9H1p6ucvmWE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw18HP40WWDuEZ2xWAg9gQYSs+HqLdEHe2kwVfk4DRdDUneyg0Z
+ HNus4ucIhLO8pzPMODJGZfPaI6MGjwUw8mk9qK4JNJwCT1imrNfxbL830lghlHFrRneFfccdt47
+ SyCyi7UBiQpDfW4z+NVzuR5yN0TYWgxKEJZKWuAsAHr2buqkVjM0A7o04U4kmzpclZ7sDpAQ=
+X-Gm-Gg: AR+sD12Ud8gBZdDwyDJ+nkkEm1to32WW+mZHReVcpDsJ4QK5iOAd6U0MhWgRSZisjT7
+ EUD62FePH6EmIBctr2ZJGEunQZujwbLmEMUzaB/CA9xvKe2hTMonoPhyM4xtwlEHMyV6AHe8Hws
+ LLZMLBiryh2ahRzTxG+qLuYLZZdoPAbaMePktprmAbMPYWqGADpD8mQrk2CBERZoRwLExTsMps/
+ xNXbFwhg3pOFRQV3xR8cr4xS8qWI6OxsOfyOzm+0St1h/1lSdd3BZ9BX+tRUvr818vZ+ScUFBLK
+ 0VBmR3np0VPesXpZVrbGgmlUvnLFhxJzck2CFdE8crpfawg6eorXJetw4x7CF+8fwX1lDJgNTWh
+ m6Xj4sYb4gF/it2512aPAYNuZwT+lF4nWufiE6sn7ADTmr2EnLMcyZQ==
+X-Received: by 2002:a05:6a21:7d02:b0:3bf:ba48:ca88 with SMTP id
+ adf61e73a8af0-3cc71bbf3d4mr10521396637.15.1786734709537; 
+ Fri, 14 Aug 2026 12:11:49 -0700 (PDT)
+X-Received: by 2002:a05:6a21:7d02:b0:3bf:ba48:ca88 with SMTP id
+ adf61e73a8af0-3cc71bbf3d4mr10521306637.15.1786734708928; 
+ Fri, 14 Aug 2026 12:11:48 -0700 (PDT)
+Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-320c6be7f6fsm8152663eec.0.2026.08.14.12.11.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Aug 2026 12:11:48 -0700 (PDT)
+Message-ID: <96e73102-eced-4937-a622-6f2cb5a32ec1@oss.qualcomm.com>
+Date: Fri, 14 Aug 2026 13:11:46 -0600
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: OXQ0Ifz3J8d425PaWb3SRTuqRPeHcFYDJEiQxoRS2Ps_1786734412
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/qaic: Address potential out-of-bounds read in
+ resp_worker()
+To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>,
+ carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com,
+ zachary.mckevitt@oss.qualcomm.com
+Cc: ogabbay@kernel.org, lizhi.hou@amd.com, karol.wachowski@linux.intel.com,
+ ruikai@pwno.io, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <20260731152344.1905882-1-youssef.abdulrahman@oss.qualcomm.com>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <20260731152344.1905882-1-youssef.abdulrahman@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: pt3OkLauHqqJ_CiFx70Rzi_voT55XgB_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDE0NyBTYWx0ZWRfX1uTuhAO+/LjL
+ uxXnzY71cSwJ8uAuxEHPWNdS5/fcFDIjucoPTuFsvPSSoULtMf4Vywrm9iUbjB+zgjpqw/Ve221
+ 3anVNt9tjvEqHAgi/V1a5GZAolsTfuVHAj8fqX60RueD58XjJF2/XrKQWV5ryhxPLw8DKnqPpJE
+ R0n1heevRxvsb+tdl44gPoAdmHhavSHMJUwHgE0ms6xJJ2GTbBtqUuufGwA1X0Je+x7i1UCBKnA
+ TjVK0jz2PZCyqfuahkVYbdsIg7oAWeUHE+jdnRhl+ojg1ITfPVc8oFgYGaWLd6u75g7XZmJbZ13
+ MNV1IT2p2nDNev5/9HVy9uwJ9g8B8kbELZi828ufImeAvhr99gZSnqhLE5YpWDXkCFtn6U3lm6o
+ OE1uurDuVtLZoigdmQgYma351I7qdToQD++61T2+j2p48n2XMyJQ4BHpZgPX8P5s1YIZ4h0UPsY
+ aPTI3i5hh1ggvoBe1eQ==
+X-Authority-Analysis: v=2.4 cv=ZbMt8MVA c=1 sm=1 tr=0 ts=6a7f6876 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=zd2uoN0lAAAA:8 a=DeEPClqeKu6msZ13zAcA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: pt3OkLauHqqJ_CiFx70Rzi_voT55XgB_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDE0NyBTYWx0ZWRfX6DxCKWKkHr/d
+ TGDObvKT6EG5GGyM3fJ5ujFjwfS2paNbeOrqYks2cU7DyFpLrRPNgQvg/dNPpsmK2FOOxKbEJRf
+ nx7ueqkKBhF3i9UIA/MQfZsU3+WUn74=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-14_06,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ spamscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140147
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,339 +147,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-08-14 at 16:57 +0200, Maxime Ripard wrote:
-> The plane reset implementation creates a custom state
-> subclass, but only initializes a pristine state without resetting any
-> hardware. This is equivalent to what atomic_create_state expects.
-> Convert to it.
->=20
-> The conversion was done using the following Coccinelle semantic
-> patch:
->=20
-> @@
-> identifier funcs;
-> symbol drm_atomic_helper_plane_reset;
-> symbol drm_atomic_helper_plane_create_state;
-> @@
->=20
-> struct drm_plane_funcs funcs =3D {
-> =C2=A0 ...,
-> - .reset =3D drm_atomic_helper_plane_reset,
-> + .atomic_create_state =3D drm_atomic_helper_plane_create_state,
-> =C2=A0 ...,
-> };
->=20
-> @match_struct_reset@
-> identifier funcs, reset_func;
-> @@
-> struct drm_plane_funcs funcs =3D {
-> =C2=A0=C2=A0=C2=A0 ...,
-> =C2=A0=C2=A0=C2=A0 .reset =3D reset_func,
-> =C2=A0=C2=A0=C2=A0 ...,
-> };
->=20
-> @reset_uses_helpers depends on match_struct_reset@
-> identifier match_struct_reset.reset_func;
-> @@
->=20
-> =C2=A0void reset_func(...)
-> =C2=A0{
-> =C2=A0=09<+...
-> (
-> =C2=A0=09__drm_atomic_helper_plane_reset(...);
-> >=20
-> =09__drm_gem_reset_shadow_plane(...);
-> )
-> =C2=A0=09...+>
-> =C2=A0}
->=20
-> @match_struct_destroy@
-> identifier funcs, destroy_func;
-> @@
-> struct drm_plane_funcs funcs =3D {
-> =C2=A0=C2=A0=C2=A0 ...,
-> =C2=A0=C2=A0=C2=A0 .atomic_destroy_state =3D destroy_func,
-> =C2=A0=C2=A0=C2=A0 ...,
-> };
->=20
-> @script:python renamed_func@
-> old_name << match_struct_reset.reset_func;
-> new_name;
-> @@
-> if old_name.endswith("_reset"):
-> =C2=A0=C2=A0=C2=A0 coccinelle.new_name =3D old_name.replace("_reset", "_c=
-reate_state")
-> else:
-> =C2=A0=C2=A0=C2=A0 coccinelle.new_name =3D old_name
->=20
-> @update_struct depends on match_struct_reset && reset_uses_helpers@
-> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> @@
-> struct drm_plane_funcs funcs =3D {
-> =C2=A0=C2=A0=C2=A0 ...,
-> -=C2=A0=C2=A0 .reset =3D reset_func,
-> +=C2=A0=C2=A0 .atomic_create_state =3D new_name,
-> =C2=A0=C2=A0=C2=A0 ...,
-> };
->=20
-> @drop_destroy depends on update_struct && match_struct_destroy@
-> identifier match_struct_reset.reset_func;
-> identifier match_struct_destroy.destroy_func;
-> identifier container_func;
-> identifier P;
-> symbol drm_atomic_helper_plane_destroy_state;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> @@
->=20
-> =C2=A0void reset_func(struct drm_plane *P)
-> =C2=A0{
-> =C2=A0=09...
-> (
-> -=09if (P->state) {
-> -=C2=A0=09=09<+...
-> (
-> -=09=09drm_atomic_helper_plane_destroy_state(P, P->state);
-> >=20
-> -=09=09__drm_atomic_helper_plane_destroy_state(P->state);
-> >=20
-> -=09=09P->funcs->atomic_destroy_state(P, P->state);
-> >=20
-> -=09=09destroy_func(P, P->state);
-> )
-> -=C2=A0=09=09...+>
-> -=C2=A0=09}
-> >=20
-> -=09drm_WARN_ON_ONCE(P->dev, P->state);
-> >=20
-> -=09WARN_ON(P->state);
-> )
-> =C2=A0=09...
-> (
-> -=09kfree(P->state);
-> >=20
-> -=09kfree(container_func(P->state));
-> >=20
-> =C2=A0=09// kfree is optional
-> )
-> (
-> -=09P->state =3D NULL;
-> >=20
-> =C2=A0=09// plane->state clearing is optional
-> )
-> =C2=A0=09...
-> =C2=A0}
->=20
-> @drop_destroy_mtk depends on update_struct@
-> identifier P;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> symbol to_mtk_plane_state;
-> @@
->=20
-> =C2=A0void mtk_plane_reset(struct drm_plane *P)
-> =C2=A0{
-> =C2=A0=09...
-> -=09if (P->state) {
-> -=09=09__drm_atomic_helper_plane_destroy_state(P->state);
-> -=09=09...
-> -=09} else {
-> =C2=A0=09=09...
-> -=09}
-> =C2=A0=09...
-> =C2=A0}
->=20
-> @transform_nv50_wndw depends on update_struct@
-> identifier S;
-> @@
->=20
-> =C2=A0void nv50_wndw_reset(...)
-> =C2=A0{
-> =C2=A0=09...
-> -=09if (WARN_ON(!(S =3D kzalloc_obj(*S))))
-> +=09S =3D kzalloc_obj(*S);
-> +=09if (WARN_ON(!S))
-> =C2=A0=09=09return;
-> =C2=A0=09...
-> =C2=A0}
->=20
-> @transform_kzalloc depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier P, S;
-> statement ST;
-> statement list STL;
-> @@
->=20
-> =C2=A0void reset_func(struct drm_plane *P)
-> =C2=A0{
-> =C2=A0=09<...
-> =C2=A0=09S =3D kzalloc_obj(*S);
-> (
-> -=09if (S)
-> -=09{
-> -=09=09STL
-> -=09}
-> +=09if (!S) return;
-> +
-> +=09STL
-> >=20
-> -=09if (S) ST
-> +=09if (!S) return;
-> +
-> +=09ST
-> )
-> =09...>
-> =C2=A0}
->=20
-> @transform_body depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier S, P;
-> expression PS;
-> @@
-> - void reset_func(struct drm_plane *P)
-> + struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> =09...
-> =C2=A0=09S =3D kzalloc_obj(*S);
-> =09...
-> (
-> =C2=A0=09if (!S) {
-> =09=09...
-> -=09=09return;
-> +=09=09return ERR_PTR(-ENOMEM);
-> =C2=A0=09}
-> >=20
-> =C2=A0=09if (WARN_ON(!S)) {
-> =09=09...
-> -=09=09return;
-> +=09=09return ERR_PTR(-ENOMEM);
-> =C2=A0=09}
-> >=20
-> =C2=A0=09if (S =3D=3D NULL) {
-> =C2=A0=09=09...
-> -=09=09return;
-> +=09=09return ERR_PTR(-ENOMEM);
-> =C2=A0=09}
-> )
-> =09...
-> (
-> -=09__drm_atomic_helper_plane_reset(P, PS);
-> +=09__drm_atomic_helper_plane_state_init(PS, P);
-> >=20
-> -=09__drm_gem_reset_shadow_plane(P, PS);
-> +=09__drm_gem_shadow_plane_state_init(P, PS);
-> )
-> =09...
-> }
->=20
-> @update_early_return depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
-> =C2=A0struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> =09<+...
-> -=09return;
-> +=09return ERR_PTR(-EINVAL);
-> =09...+>
-> }
->=20
-> @update_return_plane depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
-> =C2=A0struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> =09...
-> =C2=A0=09__drm_atomic_helper_plane_state_init(PS, P);
-> =09...
-> +
-> +=09return PS;
-> }
->=20
-> @update_return_shadow depends on update_struct@
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
-> =C2=A0struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> =09...
-> =C2=A0=09__drm_gem_shadow_plane_state_init(P, PS);
-> =09...
-> +
-> +=09return &PS->base;
-> }
->=20
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Cc: dakr@kernel.org
-> Cc: lyude@redhat.com
-> Cc: nouveau@lists.freedesktop.org
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/dispnv50/wndw.c | 15 +++++++--------
-> =C2=A01 file changed, 7 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-> b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-> index 15a322422f4e..378095138d12 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-> @@ -750,22 +750,21 @@ nv50_wndw_zpos_default(struct drm_plane *plane)
-> =C2=A0{
-> =C2=A0=09return (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY) ? 0 :
-> =C2=A0=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (plane->type =3D=3D DRM_PLA=
-NE_TYPE_OVERLAY) ? 1 : 255;
-> =C2=A0}
-> =C2=A0
-> -static void
-> -nv50_wndw_reset(struct drm_plane *plane)
-> +static struct drm_plane_state *nv50_wndw_create_state(struct
-> drm_plane *plane)
-> =C2=A0{
-> =C2=A0=09struct nv50_wndw_atom *asyw;
-> =C2=A0
-> -=09if (WARN_ON(!(asyw =3D kzalloc_obj(*asyw))))
-> -=09=09return;
-> +=09asyw =3D kzalloc_obj(*asyw);
-> +=09if (WARN_ON(!asyw))
-> +=09=09return ERR_PTR(-ENOMEM);
+On 7/31/2026 9:23 AM, Youssef Samir wrote:
+> Although 'commit 2feec5ae5df7 ("accel/qaic: Handle DBC deactivation if the
+> owner went away")' fixes the scenario it was intended for by walking the
+> message and only decoding QAIC_TRANS_DEACTIVATE_FROM_DEV, if present, it
+> skipped over the bounds checking code that is included in decode_message().
+> This could lead to issues such as reading past the slab allocation's end,
+> infinite loops or kernel panics. For those issues to happen, a malformed
+> wire message is needed to be sent from the device.
+> 
+> Instead of duplicating the bounds checking code already present in
+> decode_message(), use the function inside resp_worker().
+> 
+> Reported-by: Ruikai Peng <ruikai@pwno.io>
+> Fixes: 2feec5ae5df7 ("accel/qaic: Handle DBC deactivation if the owner went away")
+> Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+> Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
 
-Should this be drm_WARN_ON() while we're at it?
+Applied to drm-misc-fixes.
 
-Otherwise, this looks good to me:
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-
-> =C2=A0
-> -=09if (plane->state)
-> -=09=09plane->funcs->atomic_destroy_state(plane, plane-
-> >state);
-> +=09__drm_atomic_helper_plane_state_init(&asyw->state, plane);
-> =C2=A0
-> -=09__drm_atomic_helper_plane_reset(plane, &asyw->state);
-> +=09return &asyw->state;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void
-> =C2=A0nv50_wndw_destroy(struct drm_plane *plane)
-> =C2=A0{
-> @@ -835,11 +834,11 @@ static bool
-> nv50_plane_format_mod_supported(struct drm_plane *plane,
-> =C2=A0const struct drm_plane_funcs
-> =C2=A0nv50_wndw =3D {
-> =C2=A0=09.update_plane =3D drm_atomic_helper_update_plane,
-> =C2=A0=09.disable_plane =3D drm_atomic_helper_disable_plane,
-> =C2=A0=09.destroy =3D nv50_wndw_destroy,
-> -=09.reset =3D nv50_wndw_reset,
-> +=09.atomic_create_state =3D nv50_wndw_create_state,
-> =C2=A0=09.atomic_duplicate_state =3D nv50_wndw_atomic_duplicate_state,
-> =C2=A0=09.atomic_destroy_state =3D nv50_wndw_atomic_destroy_state,
-> =C2=A0=09.format_mod_supported =3D nv50_plane_format_mod_supported,
-> =C2=A0};
-> =C2=A0
-
+-Jeff
