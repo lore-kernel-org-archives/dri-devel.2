@@ -4,50 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D2A1C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:56:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F190C5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:56:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BC0E10F5D5;
-	Fri, 14 Aug 2026 13:56:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54EEC10F5FB;
+	Fri, 14 Aug 2026 13:56:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fq/01pGL";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="d8LDDHda";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43D6B10F5D5
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:56:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BC50760120;
- Fri, 14 Aug 2026 13:56:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1111F00A3A;
- Fri, 14 Aug 2026 13:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786715786;
- bh=uPAC/fQbCUTc8adZQ/QRyIZuuHGkNYE/wuUzv2iB+PQ=;
- h=Date:From:To:Cc:Subject;
- b=Fq/01pGLwTrNOxYfXAsop/mkoqZ0gH3GnVuqIh0sjFujwQHvkQ+hI7LUEyKiyY4+W
- JD27snz34s3NqGFUJSREzeFpstKayenLoVl0LtGMypW9pfeuFbis/sayuWksAhWJhX
- WfqqBmgilAmV2MLwzs9RqPD3EFBdePOFLc5K006E4RMJ0zv0YF6Q9RfOUo3Saa6jhq
- 2ivBnBt3QW4UGC+2Rcg94OsLXHitTMvaF1QIldb0bZR/J8LwXQ1BIbACZke2kzyNxl
- 6hu+0dld/efbdDW7zGWFXo1J03XpcO+1rp/RizGUOGw/ussjzQYxrEyFYojivU6SFJ
- QwUeE4colM4gQ==
-Date: Fri, 14 Aug 2026 14:56:21 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Laura Nao <laura.nao@collabora.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Matt Roper <matthew.d.roper@intel.com>, Raag Jadav <raag.jadav@intel.com>,
- Riana Tauro <riana.tauro@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: linux-next: manual merge of the drm tree with the mm-unstable, origin
- tree
-Message-ID: <an8ehRJI1gtVIu-J@sirena.org.uk>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012033.outbound.protection.outlook.com
+ [40.93.195.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B51010F5C9
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:56:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UbUtWMm3/nNit+aGEYMlxfx6AjgK23+0KAkUwUxLOm7M2i8Q6Xj5NwtG2ElLFUKBt49AcC+iGuqeAhXfz7QShOQLClmtLCnX6VYnyEFIvwQtU0Q8NbGSFpJHi4WwTuxtWDO92Jfr6d5GhixfhiiPeoCmrXOpQWcPlvxY5C1dmNu9jvmd6Den9hTBA7QITvZ+gUs7YfgNZDxaRdDOc+4BAgvNUUNMYBVI3cSmLa16AKxSN34uKpSPJ+pexnslzQjvYZ68O8O429kzPoLonKD0mJJ0TwtCVHbTU1F5ylrJN3ozqZG73uhZfD2WPHKxCq3kV116B9pzQVXEbQjTFUhBuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JxKYaHqbcCmzeeu25NksX1+F+99mNKrOsJrcaiNJ44E=;
+ b=SdXhTSA6YnkptXWQhyTvIruU4CtmER7Y/mlcBioK85YUZ18hN8W5jj0g/eQklE/XCpEYd71/x1X1VDd9BlJJtarVSa99KYDAW/xPV4wADJrUk9W/PVMrwe3sdZirdHwU3vFCawD+e+A1cEWFmqZrmJAgZ20qroo6/YYjeMOjlFQqEgQ2L2U5P5sfQ46N7NZuyTbSK5FnYllc4hlNhCxKrzS+QWUA8Q/CLr3vITcSAkqN6TsLRt0ZHXU571aznj9gMIw5FSzWlO9Be1JwIgPv8jojK5Yza5zcop+wQUnFhNFQBEk+U8riSdZd+axXrgXaBsS90FMzoTWl7GTX1cGnDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JxKYaHqbcCmzeeu25NksX1+F+99mNKrOsJrcaiNJ44E=;
+ b=d8LDDHda4dPnMajGRDuhgZsnP3kNdZl2bQtTJQCICXa3ncDEpIkcDIUBQHD4vunFxovRfwbTWiB0xl68GtT+4YdbAuhKsjMnEKkL+twZv7WEE1DFPjdEOoCva/umHnLKYYI7Y1+HRjSzdm/c0QMJqgiy3DZFSaXL2locaJ3iN7sUOqosNBycHyp09KJ0dqz+sPzVZjLC5GLmhiEV3TCRX8BGMCmnd0k9o2pmzbDLGf81Bu1xDablHvxa39b6IpT23xvwOXVOpmb5Sz3R69gxIt5lJL6I7ZWubPWf9D34HZLs26vAXdqzwiXUT39rIYvpiFTK/1m615IHeDJ2eqgslA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CH3PR12MB8258.namprd12.prod.outlook.com (2603:10b6:610:128::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
+ 2026 13:56:40 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0315.008; Fri, 14 Aug 2026
+ 13:56:40 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 14 Aug 2026 22:56:36 +0900
+Message-Id: <DKOPW1CN1QBT.1HI40RH52BKCY@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v2 15/16] rust: io: register: remove `Register` trait
+ and cleanup macro
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
+ <20260805-typed_register-v2-15-c3ca142220a0@garyguo.net>
+In-Reply-To: <20260805-typed_register-v2-15-c3ca142220a0@garyguo.net>
+X-ClientProxiedBy: TY6P286CA0029.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b7::19) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="DNBiV+EyaCYJkO7b"
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH3PR12MB8258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78a779f6-76ce-47d8-d054-08defa0bdda2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|376014|7416014|23010399003|1800799024|366016|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: QqCIpvmF9NOC5C3WE93isY7/BwEPTtFZjADTPfyG7eVR79g0npjWizNnp7CmF67d2PHdlS15puGYPAGylC3Wj5wh2JJwwbgd0MQ2mnP6BtYrIkj/iHcv1zCY0GRBmDRHS1uYOQGJTPq9i3DYj3ABoFAkuq+ZXDsx0V0hTEZxjFqkn4lk/gnV+cjIzsHBNWIlz7U4bKBZB5VOmpuaY9z/H+2VEnBXzgZt8JQukXsxO82awbJVRIqilD8JRJXjXbRVgRdkhYzE0Pl0LahkLfQ9lPYQ06KKVxd3B2nU95kGh04FQdM7ubuyhXC26xYmacH8Vklb68sofDKHK8gGHKhAc8PefnAW0PO6OpuylXJctw44noJ2o7iRT4oG0DyXMzvtB4XQy3YjaJ8sTh7PJy83+d9ACq4LMc8+ZRYepRpfuUrIOonBLsWedTcP5Ou8mfO+K4u8CAj0uLk1qHxLrbI3MaoDieeb/GbtH530aCnSxc0m9PJkYxFsgRXzYBWefJoGevOLE4Bfh0inMncgaY6xMN1sbAMIn43W7ftRpPpWSb/newM4LEhoglkRaxCgQd7/P5Ew3GKa+nY+xw26uFDZyq8b3oSNQWvGfdvQLslflDuKiZdYb07VYPVRNV4HG2C6rBzWB+ODlQQsxVcX0vAGGaNjgqOJyR1iAhdhxm8IdjQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1h5WHVOTTVQVFFvcEorVzh4cVVaS3BMYmhPNUJzZmh4RlRLYWtuWjMzclM0?=
+ =?utf-8?B?c2cvU0U5NW1CNzA5OUtJSkxwVXJNWTJUTkxOa2lndmRaTy9sejZoa2RrWEhS?=
+ =?utf-8?B?YWl2VjVoN0toWXV0ZnVydkV6U2NvajRmQmVwWTZLVEwwcXJwQ092NzdINDNr?=
+ =?utf-8?B?V205UHQrOTNjWHdmTXo1RzBPOXhBUnEvZWhlNDltQWpaSCtvMlgrM3Q1Wlpk?=
+ =?utf-8?B?cWxjekV4VlUxRERqbGd3dGhjUDNWdWYrd1BCV0poOVhLZ3BKd2pjaFdhUzZx?=
+ =?utf-8?B?U085Y0dGMnZGS1RBR25iajlaNGkyTUp1czkyRUUzOGM4NzFlRnFtbXAyT2JB?=
+ =?utf-8?B?RVhHYVpsSFFZSXowbmZ1dHYvNXd0cHFYMndsZjlnaEdjbnQ4LzhzNjRyUXFJ?=
+ =?utf-8?B?WTJ4NWtaaXJwZi9zQ0VjVkJ4YWhaNkdTZWV1bVRtSmF0cWRMWEJUWEJEbmxU?=
+ =?utf-8?B?azBqRFhyYlc5NWczYXBueENzQ2xnSW84V1VNYi91bGFCYm84WGRTaDBUa09W?=
+ =?utf-8?B?OXY3blJ2NkJxQnk2dWpKSk1qZDdQc2s4R0w5clNhcTh6d0l6cmFUZ1A2c054?=
+ =?utf-8?B?QVhXZ2lOb2pjMU85NCtLTVYvYWxDMFVxQ3NtZ3JVWXJkNDlZbzQra3cxNVJn?=
+ =?utf-8?B?NVNHYVlGc2JwbHFjdG5sWE9sL0N0SzBrU0RwOG95RmVBSlhRb3hPVXBpTSs3?=
+ =?utf-8?B?LzhqMFNKLy9UbE1SR2tYVkNKVGxyYVpRTW81UXlMS1lIa3ZtTnBwQ2d4UlNp?=
+ =?utf-8?B?cG5qWG1WUk83czMzVUtLcklVYTJ5NjBEYnRDU1Y1YWU3OTZ2V2VtWjBYa0VE?=
+ =?utf-8?B?WVY1cVJYMzl5dXRqVzY2b1pPUEF2TTVRT3ZVQUEyMk1KNkwrZVBQOGNTOHpt?=
+ =?utf-8?B?MHJrQnJ1NVJvU204NEs2cmhPU29pWGhqMmFHUy82NVUyZkFLWGdjVkNZU1Rt?=
+ =?utf-8?B?MFN5ZXRRRkkzRXc5UkFoQktQam9zd1AzUFpDc3FIN05yZERXaXdBNTQxM1A4?=
+ =?utf-8?B?SjNRZWs0Q2d1UnJPMWJXY240WEd1c2pWbGhmRW93SEpydG1FQTQ5cjFYNlFD?=
+ =?utf-8?B?ZHhwdWZ4TXlqOXdMWXZUZ3BmNkRva21uQUNYaGRoemExK1M5SHZ5QXRLU2FK?=
+ =?utf-8?B?Wjh3SlNaSWszamxNRTBKMnZlNlJvSk5xdW5RQ3BlVHVjTFVZaVFvWC9vd2N0?=
+ =?utf-8?B?RXpFenpNNUlnWTN0Y1NQM3ZNa2w1dFQwR1YybkdGZSt0QzdHREIxVm96RW5a?=
+ =?utf-8?B?SWJ3a2I5eE04eVI0RnhpazBRNWF1ZjJmN2Q1V255MnV1ZEFQN0tWOXZ3aWxw?=
+ =?utf-8?B?YkI4U2s5b0hPeE5MRkg1UDg1WWVsZytnVXBZMnV4MlpqWGhlQ3NKcXlGL3d3?=
+ =?utf-8?B?a1dMV2FHVm51b0R2Zi9MK3FQbHJBZEJoelFKblgzTWhyS3ZsTHJLdzNKODJj?=
+ =?utf-8?B?RFBVdVhEbkxQaFk4b1ozVkIrN0VjQnBtcTBhdnVSVVgxaXhiT1g3SzhJakNs?=
+ =?utf-8?B?MkZIT21ieXo3bjBqV3Z6akpnRWR4ZHZ6N0RPN1JCamVyYWlEdHpCQS9lMU5P?=
+ =?utf-8?B?RUpZV0I3VzhqcXhQMHgyRkZVWHF1OGdoRE1lNHV3NWwvSGFnUVlTSFJHZlcz?=
+ =?utf-8?B?cDVibUlVREtGZHBGdzFVUVZQUGZSbXJZQ21XV1ErZGNhS2JhUHFJTGo1U3FT?=
+ =?utf-8?B?UmI3OHlUSkIyS1k1cmY2MW96UGtEUU1KSXRxb0o1Q1JjZGd4N0hWeXZ5M2to?=
+ =?utf-8?B?TkJVVnFLZ21ZaXJYc1pzak5UK0dCYjZ4aXM1ekp1MUtQR3IvQXZqeE5LRVJW?=
+ =?utf-8?B?T0FYVHdvNkZjdjl2Q3FYZ0hHUGhQT2FUYmVpZW9EZXBTZDFFYkp2c0dWUmlN?=
+ =?utf-8?B?ZUFCMmhIK2lVUndhbUJnZjRoSzBhUzFjcm1wTENyc1VzQlB6UlNXTkZiUEE2?=
+ =?utf-8?B?c2FYMmMrakVwWlJ1ck1lUXVTQTNGdUNVR0ZnbkZCMFZaS2RFT3haK21WdnIv?=
+ =?utf-8?B?T2RGam9ZbFpOd2p4QWNRT3ZmZHdtZ0RTSElwTEY5dHo0TlNyT2d3elJ5c3BY?=
+ =?utf-8?B?NUZIZFJwdTdDSkVJKy9jWVAyWUFIRXFNdXFRcnJ6TjV2YnIrYUJuNlpjYWlK?=
+ =?utf-8?B?VDNnd0xldktrbFZrdldFTVRDdW1TUGc2S2dTbHJXbG9qR2NGMnhXTE1jNVJF?=
+ =?utf-8?B?WDBFd0pVaHNUajVDSzg5VmlOdElUYXM2SmVPOVdNU3VGdk5UUnRBK21mSkVM?=
+ =?utf-8?B?ZWJuTWFJc3JmMlVMZ2N3eit4QWlHam5CNVo1c0ErM1Y2UjVBZHE2M1h1eGk2?=
+ =?utf-8?B?THZFWi9iYW9wdDNWMjhMbFpTWjJxekd2cWppZ3p5ZWJ4SDBYUHRQVkVCc24w?=
+ =?utf-8?Q?O9XGn9Z2Q3zruW/RkpoaxlXfQhAtn8+euSNgmFdq1aKJa?=
+X-MS-Exchange-AntiSpam-MessageData-1: O8fPnf5Ux8Shcw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78a779f6-76ce-47d8-d054-08defa0bdda2
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 13:56:40.4806 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IOV+48RmtUOkVXuoIRfKE6UZ6GXYzcETg5HXWJp2orhAQwI7jXCK2H+VEHTe7xrE9AS1nYkelNt2pM1pDS+IDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8258
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,236 +150,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
+<...>
+> @@ -601,11 +605,22 @@ macro_rules! register {
+>          { $($fields:tt)* }
+>          $($rest:tt)*
+>      ) =3D> {
+> -        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($stor=
+age) { $($fields)* });
+> -        $crate::register!(@io_base $reg_base; $name
+> -            @ $crate::register!(@offset $(@ $offset)? $(=3D> $alias $([$=
+alias_idx])?)?)
+> +        $crate::bitfield!(
+> +            #[allow(non_camel_case_types)]
+> +            $(#[$attr])* $vis struct $name($storage) { $($fields)* }
+>          );
+> -        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
+> +
+> +        impl $crate::io::register::FixedRegister for $name {
+> +            type Base =3D $reg_base;
+> +
+> +            const OFFSET: usize =3D
+> +                $crate::register!(@offset $(@ $offset)? $(=3D> $alias $(=
+[$alias_idx])?)?);
 
---DNBiV+EyaCYJkO7b
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-Today's linux-next merge of the drm tree got a conflict in:
-
-  drivers/gpu/drm/xe/xe_device.c
-
-between commits:
-
-  130910bac905a ("drm/xe/pf: Disable display in admin only PF mode")
-  ef526d122b62a ("drm/xe: Fix xe_device_probe() failure")
-
-=66rom the mm-unstable,origin tree and commits:
-
-  21fcb222f0d1e ("drm: Remove DRIVER_GEM_GPUVA feature flag")
-  3799dc5d77855 ("drm/xe/ras: Fix boot-time ras error processing")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/xe/xe_device.c
-index 3e70f2d39df29,71ce153737abe..0000000000000
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@@ -61,6 -61,7 +61,7 @@@
-  #include "xe_psmi.h"
-  #include "xe_pxp.h"
-  #include "xe_query.h"
-+ #include "xe_ras.h"
-  #include "xe_shrinker.h"
-  #include "xe_soc_remapper.h"
-  #include "xe_survivability_mode.h"
-@@@ -281,7 -282,7 +282,7 @@@ static vm_fault_t barrier_fault(struct=20
-  	pgprot_t prot;
-  	int idx;
- =20
- -	prot =3D vm_get_page_prot(vma->vm_flags);
- +	prot =3D vma_get_page_prot(vma);
- =20
-  	if (drm_dev_enter(dev, &idx)) {
-  		unsigned long pfn;
-@@@ -330,7 -331,7 +331,7 @@@ static int xe_pci_barrier_mmap(struct f
-  	if (vma->vm_end - vma->vm_start > SZ_4K)
-  		return -EINVAL;
- =20
- -	if (is_cow_mapping(vma->vm_flags))
- +	if (vma_is_cow_mapping(vma))
-  		return -EINVAL;
- =20
-  	if (vma->vm_flags & (VM_READ | VM_EXEC))
-@@@ -396,7 -397,7 +397,7 @@@ static const struct drm_driver regular_
-  	    XE_DISPLAY_DRIVER_FEATURES |
-  	    DRIVER_GEM |
-  	    DRIVER_RENDER | DRIVER_SYNCOBJ |
-- 	    DRIVER_SYNCOBJ_TIMELINE | DRIVER_GEM_GPUVA,
-+ 	    DRIVER_SYNCOBJ_TIMELINE,
-  	.open =3D xe_file_open,
-  	.postclose =3D xe_file_close,
- =20
-@@@ -426,7 -427,7 +427,7 @@@ static const struct drm_ioctl_desc xe_i
- =20
-  static const struct drm_driver admin_only_driver =3D {
-  	.driver_features =3D
-- 	    DRIVER_GEM | DRIVER_RENDER | DRIVER_GEM_GPUVA,
-+ 	    DRIVER_GEM | DRIVER_RENDER,
-  	.open =3D xe_file_open,
-  	.postclose =3D xe_file_close,
-  	.ioctls =3D xe_ioctls_admin_only,
-@@@ -736,9 -737,11 +737,11 @@@ static void vf_update_device_info(struc
-  	xe->info.probe_display =3D 0;
-  	xe->info.has_heci_cscfi =3D 0;
-  	xe->info.has_heci_gscfi =3D 0;
-+ 	xe->info.has_i2c =3D 0;
-  	xe->info.has_late_bind =3D 0;
-  	xe->info.skip_guc_pc =3D 1;
-  	xe->info.skip_pcode =3D 1;
-+ 	xe->info.has_drm_ras =3D false;
-  }
- =20
-  static int xe_device_vram_alloc(struct xe_device *xe)
-@@@ -918,6 -921,27 +921,27 @@@ static void xe_device_wedged_fini(struc
-  		xe_pm_runtime_put(xe);
-  }
- =20
-+ #ifdef CONFIG_DRM_XE_DEBUG_PAGE_SIZE
-+ static int xe_debug_page_size_alloc_ctrl_init(struct xe_device *xe)
-+ {
-+ 	int err;
-+=20
-+ 	err =3D drmm_mutex_init(&xe->drm, &xe->page_size_alloc_ctrl.lock);
-+ 	if (err)
-+ 		return err;
-+=20
-+ 	xe->page_size_alloc_ctrl.mode =3D XE_PAGE_SIZE_ALLOC_CTRL_MODE_NONE;
-+ 	xe->page_size_alloc_ctrl.cur_index =3D 0;
-+=20
-+ 	return 0;
-+ }
-+ #else
-+ static int xe_debug_page_size_alloc_ctrl_init(struct xe_device *xe)
-+ {
-+ 	return 0;
-+ }
-+ #endif
-+=20
-  int xe_device_probe(struct xe_device *xe)
-  {
-  	struct xe_tile *tile;
-@@@ -947,6 -971,15 +971,15 @@@
-  			return err;
-  	}
- =20
-+ 	/*
-+ 	 * Wa_16029380221: The affected GT will always use non-coherent
-+ 	 * access to page tables, so we must do uncached writes from the
-+ 	 * CPU.
-+ 	 */
-+ 	for_each_gt(gt, xe, id)
-+ 		if (XE_GT_WA(gt, 16029380221))
-+ 			xe->info.has_cached_pt =3D false;
-+=20
-  	for_each_tile(tile, xe, id) {
-  		err =3D xe_ggtt_init_early(tile->mem.ggtt);
-  		if (err)
-@@@ -987,6 -1020,16 +1020,16 @@@
-  	if (err)
-  		return err;
- =20
-+ 	err =3D xe_soc_remapper_init(xe);
-+ 	if (err)
-+ 		return err;
-+=20
-+ 	err =3D xe_sysctrl_init(xe);
-+ 	if (err)
-+ 		return err;
-+=20
-+ 	xe_ras_init(xe);
-+=20
-  	/*
-  	 * Now that GT is initialized (TTM in particular),
-  	 * we can try to init display, and inherit the initial fb.
-@@@ -1027,10 -1070,6 +1070,6 @@@
- =20
-  	xe_nvm_init(xe);
- =20
-- 	err =3D xe_soc_remapper_init(xe);
-- 	if (err)
-- 		return err;
--=20
-  	err =3D xe_heci_gsc_init(xe);
-  	if (err)
-  		return err;
-@@@ -1055,6 -1094,10 +1094,10 @@@
-  	if (err)
-  		return err;
- =20
-+ 	err =3D xe_debug_page_size_alloc_ctrl_init(xe);
-+ 	if (err)
-+ 		return err;
-+=20
-  	err =3D drm_dev_register(&xe->drm, 0);
-  	if (err)
-  		return err;
-@@@ -1069,10 -1112,6 +1112,6 @@@
-  	if (err)
-  		goto err_unregister_display;
- =20
-- 	err =3D xe_sysctrl_init(xe);
-- 	if (err)
-- 		goto err_unregister_display;
--=20
-  	err =3D xe_device_sysfs_init(xe);
-  	if (err)
-  		goto err_unregister_display;
-@@@ -1102,6 -1141,13 +1141,13 @@@
-  	if (err)
-  		goto err_unregister_display;
- =20
-+ 	/*
-+ 	 * Process and log any errors detected by hardware. Possible results can
-+ 	 * include declaring the device as wedged, which must be done only after
-+ 	 * xe_device_wedged_fini() is registered.
-+ 	 */
-+ 	xe_ras_process_errors(xe);
-+=20
-  	err =3D devm_add_action_or_reset(xe->drm.dev, xe_device_sanitize, xe);
-  	if (err)
-  		goto err_unregister_display;
-@@@ -1131,14 -1177,14 +1177,14 @@@ void xe_device_shutdown(struct xe_devic
- =20
-  	drm_dbg(&xe->drm, "Shutting down device\n");
- =20
-- 	xe_display_pm_shutdown(xe);
-+ 	xe_display_shutdown(xe);
- =20
-  	xe_irq_suspend(xe);
- =20
-  	for_each_gt(gt, xe, id)
-  		xe_gt_shutdown(gt);
- =20
-- 	xe_display_pm_shutdown_late(xe);
-+ 	xe_display_shutdown_late(xe);
- =20
-  	if (!xe_driver_flr_disabled(xe)) {
-  		/* BOOM! */
-
---DNBiV+EyaCYJkO7b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp/HoQACgkQJNaLcl1U
-h9D6Fgf/YLRwr85KKi/ROjy4ZerTn7BMEWVjd8luCk53d1n03PsLri9894qQImVB
-2RwOF3+c6ZbHSWEewemGt+Y8H8Aswi8QIydmQgVRgcDShFEe11oanXuq3/P1S0s/
-141seUoN7i0LeoJNvCRWIEGKNmqkRBlUFdLoK/pccB3cEFBG0mRPMTlAAy/aALK6
-23QQWCeLGYaVIRmNYIuYIM0V3Rj/WBpV6cYYkvmd5h0EvWywXxqHINjj9IBDGkgl
-dKRF+vm6xpg/6WAVFlxQ5A1IABoraHG6Ke/XNNN604BsQL7wOzKKAk9KmIrBF3ji
-3K59M59hFyereGZusCA1W+i8xGuIwQ==
-=A6Sz
------END PGP SIGNATURE-----
-
---DNBiV+EyaCYJkO7b--
+Btw, are the bases properly checked when using aliases? It looks like we
+are expecting the base type of the *current* register block instead of
+the one of the alias, which if true could lead to inconsistencies.
