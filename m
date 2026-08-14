@@ -4,44 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29392C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 03:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1999FC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 04:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41EF510E51B;
-	Fri, 14 Aug 2026 03:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 308D310E4FE;
+	Fri, 14 Aug 2026 04:45:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Av6lvXYs";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eHlU0hUT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sl0Hm754";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62DBA10E51B
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 03:33:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 864B5600AD;
- Fri, 14 Aug 2026 03:33:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143E31F000E9;
- Fri, 14 Aug 2026 03:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786678402;
- bh=UMgJ7WlbhignHnMbpuTICj5ilpmNDL7WX+wJKfCe6/s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Av6lvXYskpxG+L5uV7ULRlOpJyvJ8FghIqP+FNWsXAwcRXYher4mz9SPcFHH0NkSL
- jXxHp2+6VRW+YVLaZyIlyTBtY5LplRyUsKo2WP2QbMBEcQUOuHlNe5bHsTE2oCnXNx
- bc7dpQsAc2ZtEVABODcEuhKUOU9HhAoXE1zDiVnK5zcLZXcSqUkeuSwWVP6mBG/ZrU
- BEwDWjtN8M/+X83pKI7rHEib0v82NH+p3U8N3iA1ujWdh5APsGqg8Tv9+vzOPd2SPA
- mw9nBU2r7tUtHZ+EM0XXn8/GQoP3vgVkn6D7EFUdzeuwjN20ph9Vd+b7gLMxLyrwEB
- z+cR6CO0wt7ZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] accel/rocket: Fix the extra iommu_group_get call in
- rocket_job_handle_irq
-To: "Chaoyi Chen" <kernel@airkyi.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814022453.437-4-kernel@airkyi.com>
-References: <20260814022453.437-1-kernel@airkyi.com>
- <20260814022453.437-4-kernel@airkyi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 03:33:21 +0000
-Message-Id: <20260814033322.143E31F000E9@smtp.kernel.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6F7A10E4FE
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 04:45:41 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67E4QWOE4043014
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 04:45:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=kmj37gDYLFmtuqipO2FnJ3qf
+ 8t2h85UqZ/NaV5wPTQA=; b=eHlU0hUTunVcOxqua6c0vcWDLZCDyEOwTthoz17G
+ sgmjCukTdje+2BK1FdA2Lf2Jd6Xepb4o4765r1KeUA3trlidQL0XmgKcO11xkeCq
+ U7pPFKn7cFoQfV2AomSTlD7IK7CT7DbIIrZ3KyDzw9a7nroADUCMZfvHb8bWbqPR
+ EMhYzSaamt6PoSi1MTz7DDvqxDSAdIKW5C3Gml+zu1YeGoB1CtO3KtBHfhy5n6DR
+ 2pA8Eyi3B7p2E5yv91hGEyxlwEuXu5DFN9spdZOn/ghByrbpSJej1kZgWzOOHnb+
+ JgZw2RnvCpXCgZDp2pv0rYTRaLm+sRFfA1PKz9FXNDK5bw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1m42hmyr-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 04:45:41 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-38de4c60f0eso129228a91.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 21:45:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1786682740; x=1787287540;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=kmj37gDYLFmtuqipO2FnJ3qf8t2h85UqZ/NaV5wPTQA=;
+ b=Sl0Hm754EcH8nPOD8yDq9PZFhKDLitLbYSW9zbrHrmJlJvtKDg9y2BXMOc3H6QZzSy
+ uBFqaBLjgh1lm5BegaXETRcrsE+QOexA6kUtlqpHJdCBqqAfMa4kUhlvHLYd+zG0p7iB
+ 28BmA+ZnpM0FwfAtKuTSlTK89H9q2wVMnNuXaMrypByLfzj6qc6GAEECZwEI7UrdjNEX
+ xpVCjOmtL/IFEda7YTPhKtBuY2hk6vfuI4MkSn/l6uC9Etw4JSL1XR5/SMCy8PzIdL0v
+ vpAz23MLAtyjq0se0sxvx96J37tiJEiv6l5R5MLKLUyHcAnua/Qfp7F2W5y0J5OhvQTT
+ 3nTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786682740; x=1787287540;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=kmj37gDYLFmtuqipO2FnJ3qf8t2h85UqZ/NaV5wPTQA=;
+ b=Qa9mFyTRIJUs6vuDUVt6pG0x6Zfpu/qD4K875eEgMjXiKw4/qcY/VSdKw1ddpqyvWC
+ +/d7yNoNRYtfXoyf687/nHxYYZlhs1NufITkd9tUpVk5UGMp1x7qAGAVmaCEUSUg0jsq
+ UeYmbKjIdkxGohtCZVqvqGVLEMiXLxgkMzJQhGyUDU3826xuR0fapmQs4phe1iflmHCK
+ Kf1/4aBO1dMgUvidMjru3oecJVDWbUW/8TmuHbmXwvnsu+EQds5otriP8hpfnTbeCopV
+ CG88J5KO6go+oJcpucGmQu5LBPHoFuGNC+6iYUhRcibvLQ4+SaY28L7t2zXGgt3IU6HC
+ /INw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqEKhc/tGvgCcWiJivgg81A/M4ylGuHmT7jKxnLeUhBDZydDTaRV9jF7EjXWTdNkfGha3cJ3Uf6aI8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzaaI0OB0ONAUd2tEGRon8UCtG3vw+HfKfrqlwUfpgby0xms3xy
+ 9CFwj1Hp/eNsiYd8rQHr9ItCg7S8mLkYwlIpJBz7g2uDlVCJHlAVd5e5JxUQwqD6uTnM+lLLd8t
+ bhKH8uE4kOsydZevP6GIB/lOqnFVbKKKz634xIJ4sjQufx2Cm/iFAGBzuS4V9sZpbvgMFFRg=
+X-Gm-Gg: AR+sD11qDScCX1eYDLEcmB1jaXi6O4BdS14l89xtQU3K364HUr8YlVAPQlrYgaHbEbN
+ IoaU3HTysDEqLGPUblqN/LooDCR29RF7v5tBsJqBzVG3Nnc7Mo+f9TY4REu4caOpXgE3e8V3mFF
+ FcO2UOuzDzocEgBPGyorsFF9QKDWG5bw0Pkn00e2Mozppb/cTwdw7njGI3nJ0FoseKsdtnS0jBg
+ 9v1ytpWWkDQWXbRuPdikOpdESwoB/1/ScGk5PbriHxMvE4HJAI5/bia33CCEjn+TRHGCPQmpYp+
+ o6BFtTVkiTdmEo3dCYkImb4UvmxwkarKcl05dbRenQ8UTnJ8bgKaGnYzjqc2lFLX4mCmV0/syUT
+ E7H3oLDUrmQk8NgekcHOejR9A2F+p55GNtzWR5HzqdRSCKLu7FIwuoSTRQbHeq38ZRba/qscthg
+ UW5bycYM6oxhchRSsjaxZE
+X-Received: by 2002:a17:90b:448c:b0:38e:55ec:e436 with SMTP id
+ 98e67ed59e1d1-3933b4f801dmr2340478a91.0.1786682740384; 
+ Thu, 13 Aug 2026 21:45:40 -0700 (PDT)
+X-Received: by 2002:a17:90b:448c:b0:38e:55ec:e436 with SMTP id
+ 98e67ed59e1d1-3933b4f801dmr2340438a91.0.1786682739812; 
+ Thu, 13 Aug 2026 21:45:39 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3933b79af0esm474831a91.4.2026.08.13.21.45.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Aug 2026 21:45:39 -0700 (PDT)
+Date: Fri, 14 Aug 2026 10:15:31 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Liu Ying <victor.liu@nxp.com>, Sam Ravnborg <sam@ravnborg.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com
+Subject: Re: [PATCH v2 2/2] dt-bindings: display: simple: Add
+ boe,dv215fhm-r01 compatible
+Message-ID: <an6dazZ1WU6vL7Dz@hu-vishsain-blr.qualcomm.com>
+References: <20260810-b4-lvds-panel-doc-v2-0-f2c2fe309989@oss.qualcomm.com>
+ <20260810-b4-lvds-panel-doc-v2-2-f2c2fe309989@oss.qualcomm.com>
+ <20260813-eager-international-limpet-743d6a@quoll>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813-eager-international-limpet-743d6a@quoll>
+X-Authority-Analysis: v=2.4 cv=I+dVgtgg c=1 sm=1 tr=0 ts=6a7e9d75 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=cDQfHJCeRM-fe6_fTbIA:9 a=CjuIK1q_8ugA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-ORIG-GUID: pRTPRZKhSwZuvrxyxuSEfZZeNFAVBID5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDAzNCBTYWx0ZWRfXzShcHT22zdZ1
+ pISYg1VjMTb5m9tvucLFYcqXWgdSR2SZz3YM7xfCp7cvIh0tSrhVqDXI07n91ykQy2cqfAuF+lM
+ T7scDeNKu+QaEBEMieygOgEQVBKTAa2236OQe72KvfHP1o8GJDizut2sogeUN1ZCYT+HHp0QW85
+ 1pb6INBrcdOyEuF3LngW+HhXlgyuzPzFWq6yJLPrCgYtKRepMn68gW8BGz6EhEUyhpUjOxgiN9U
+ 08YXl2nzWV5lc+euWqIyKxMowqrpL5MxItPB36dN20elkT6rVh1gmuFz4NhSmGqTWvlL1rIIzVQ
+ d8Ax0unveeJdQHaSN6jCPeeQZHJ3vfNMzfVVLWsjW89IpZ3zmIUIOWfZmhKbT/XFILmSr3Wb86O
+ gicHtviVwmfiTVma+4tSNY5GvmzjusruLO37DJ+guou329dTOID1X4dFNoFINZH7tE3YODGUZ6W
+ wSyTqCqqT8tMp5kuauQ==
+X-Proofpoint-GUID: pRTPRZKhSwZuvrxyxuSEfZZeNFAVBID5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDAzNCBTYWx0ZWRfX7mLRq3RiZxMP
+ uLfNChry360IBFZOTZocxu2Mtd6pwycOYo8z54fWbNda5+ZgSTKeJ31d/mplqECPjP3L3G7CMxK
+ xvjx57DNYv5aJGeJYoX+bQ6gMRwsZF8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-14_02,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608140034
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,247 +155,26 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
+On Thu, Aug 13, 2026 at 10:23:23AM +0200, Krzysztof Kozlowski wrote:
+> On Mon, Aug 10, 2026 at 08:27:30PM +0530, Vishnu Saini wrote:
+> > Add BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel LVDS panel
+> > compatible string to the panel-simple-lvds-dual-ports binding.
+> > 
+> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> > ---
+> >  .../devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml | 2 ++
+> >  1 file changed, 2 insertions(+)
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> Please organize the patch documenting the compatible (DT bindings)
+> before the patch using that compatible.
+> See also: https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
 
-New issues:
-- [High] The patch introduces a guaranteed NULL pointer dereference in the =
-interrupt handler during device teardown by caching the IOMMU group pointer.
-
-Pre-existing issues:
-- [High] The shared IRQ handler accesses hardware registers on a potentiall=
-y suspended device and lacks `synchronize_irq()` in the runtime suspend pat=
-h.
-- [High] The device can be left permanently powered on with clocks enabled =
-indefinitely after driver removal if an asynchronous suspend is cancelled.
-- [High] Unsafe teardown ordering allows the timeout reset work to derefere=
-nce a freed or NULL IOMMU group.
-- [High] The driver does not verify that an IOMMU group was successfully re=
-trieved during initialization, leading to crashes if no IOMMU is present.
-- [High] The shared IRQ handler is managed by devres but the resources it d=
-epends on are destroyed manually in `rocket_job_fini`, leading to a Use-Aft=
-er-Free.
-- [High] Hardware state (`OPERATION_ENABLE`) is modified outside `core->job=
-_lock` in the threaded IRQ handler, creating a critical TOCTOU race conditi=
-on.
-- [Medium] Timeout reset logic uses `pm_runtime_put_noidle()`, which can pr=
-event the device from entering a suspended state indefinitely.
-- [Medium] Memory leak of the dynamically allocated `scheds` array in `rock=
-et_job_open` on the error path.
---
-
---- Patch [3]: [PATCH 3/4] accel/rocket: Fix the extra iommu_group_get call=
- in rocket_job_handle_irq ---
-commit a3d6f36e63b3077307646b0545b3207616881be9
-Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-
-accel/rocket: Fix the extra iommu_group_get call in rocket_job_handle_irq
-
-This commit removes an extra iommu_group_get() call in rocket_job_handle_ir=
-q()
-that caused a reference count leak. It replaces the call with the cached
-core->iommu_group pointer to ensure the IOMMU group can be released properly
-during teardown.
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 3141f210fcd1b..0fc4d220c48ce 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -355,7 +355,7 @@ static void rocket_job_handle_irq(struct rocket_core =
-*core)
->  				return;
->  			}
-> =20
-> -			iommu_detach_group(NULL, iommu_group_get(core->dev));
-> +			iommu_detach_group(NULL, core->iommu_group);
-
-[Severity: High]
-Does this introduce a NULL pointer dereference during driver removal?
-
-During driver removal, rocket_core_fini() explicitly sets core->iommu_group
-to NULL before the DRM scheduler and devres-managed IRQ handler are stopped.
-If an in-flight job completes or a delayed IRQ thread runs in this window,
-rocket_job_handle_irq() will pass the NULL core->iommu_group to
-iommu_detach_group(), which dereferences it unconditionally and causes a
-kernel panic.
-
->  			dma_fence_signal(core->in_flight_job->done_fence);
->  			pm_runtime_put_autosuspend(core->dev);
->  			core->in_flight_job =3D NULL;
-
-[Severity: High]
-This is a pre-existing issue, but does the shared IRQ handler access hardwa=
-re
-registers on a potentially suspended device?
-
-If a shared interrupt is triggered by another device while the NPU is
-runtime-suspended, the driver will directly read INTERRUPT_RAW_STATUS witho=
-ut
-verifying if the device is active:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-    ...
-    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-    ...
-}
-
-Accessing unclocked hardware registers can cause a bus fault. Additionally,
-rocket_device_runtime_suspend() disables clocks without calling
-synchronize_irq():
-
-drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
-    ...
-    clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
-                               rdev->cores[core].clks);
-    ...
-}
-
-This allows an in-flight IRQ handler to race with hardware power-down.
-
-[Severity: High]
-This is a pre-existing issue, but can the device be left permanently powered
-on with clocks enabled indefinitely after driver removal?
-
-During device removal, rocket_core_fini() calls pm_runtime_disable() which
-cancels any pending asynchronous suspend work:
-
-drivers/accel/rocket/rocket_core.c:rocket_core_fini() {
-    ...
-    pm_runtime_dont_use_autosuspend(core->dev);
-    pm_runtime_disable(core->dev);
-    ...
-}
-
-Because a synchronous suspend is not used prior to disabling runtime PM,
-the device can be left permanently in the RPM_ACTIVE state.
-
-[Severity: High]
-This is a pre-existing issue, but does unsafe teardown ordering allow the
-timeout reset work to dereference a freed or NULL IOMMU group?
-
-During driver removal, rocket_core_fini() frees the IOMMU group and sets it
-to NULL:
-
-drivers/accel/rocket/rocket_core.c:rocket_core_fini() {
-    ...
-    iommu_group_put(core->iommu_group);
-    core->iommu_group =3D NULL;
-    rocket_job_fini(core);
-    ...
-}
-
-rocket_job_fini() then cancels the reset work. If a job timeout occurs
-concurrently and the reset work executes before cancellation, rocket_reset()
-will use the NULL or freed group:
-
-drivers/accel/rocket/rocket_job.c:rocket_reset() {
-    ...
-    iommu_detach_group(NULL, core->iommu_group);
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does the driver fail to verify if an IOMMU
-group was successfully retrieved during initialization?
-
-In rocket_core_init(), core->iommu_group is assigned without validation:
-
-drivers/accel/rocket/rocket_core.c:rocket_core_init() {
-    ...
-    core->iommu_group =3D iommu_group_get(dev);
-    ...
-}
-
-If the device lacks an IOMMU, this returns NULL. When the first job is later
-submitted, rocket_job_run() passes this NULL group to iommu_attach_group(),
-causing a kernel panic:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_run() {
-    ...
-    ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
-    ...
-}
-
-[Severity: Medium]
-This is a pre-existing issue, but does the timeout reset logic cause a power
-leak by failing to queue an idle check?
-
-In rocket_reset(), the PM usage count is dropped using
-pm_runtime_put_noidle():
-
-drivers/accel/rocket/rocket_job.c:rocket_reset() {
-    ...
-    pm_runtime_put_noidle(core->dev);
-    ...
-}
-
-This decrements the usage counter but explicitly avoids queuing an idle che=
-ck
-or autosuspend request. If no further jobs are submitted, the device will
-remain in a powered-on state indefinitely.
-
-[Severity: Medium]
-This is a pre-existing issue, but does this code leak the scheds array on
-the error path?
-
-The scheds array is dynamically allocated, but if drm_sched_entity_init()
-returns an error, the function returns immediately without freeing it:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_open() {
-    ...
-    ret =3D drm_sched_entity_init(&rocket_priv->sched_entity, ...);
-    if (WARN_ON(ret))
-        return ret;
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does manual cleanup race with the devres
-managed IRQ handler, leading to a use-after-free?
-
-The IRQ is managed via devres, but critical data structures are destroyed
-manually in rocket_job_fini() before devres teardown:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_fini() {
-    ...
-    drm_sched_fini(&core->sched);
-    cancel_work_sync(&core->reset.work);
-    destroy_workqueue(core->reset.wq);
-    ...
-}
-
-If an interrupt fires between the manual cleanup and devres teardown, the I=
-RQ
-handler thread will attempt to access destroyed scheduler state or workqueu=
-es.
-
-[Severity: High]
-This is a pre-existing issue, but is there a time-of-check to time-of-use
-race condition when modifying hardware state outside of core->job_lock?
-
-The IRQ thread disables the hardware by writing to OPERATION_ENABLE before
-acquiring the lock:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
-    ...
-    rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
-    rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-
-    scoped_guard(mutex, &core->job_lock)
-    ...
-}
-
-If a job times out, rocket_reset() can restart the scheduler and submit a n=
-ew
-job. If the delayed IRQ thread for the timed-out job executes subsequently,
-it will write 0x0 to OPERATION_ENABLE unprotected, aborting the new job and
-falsely signaling success.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814022453.437-=
-1-kernel@airkyi.com?part=3D3
+Thanks, Krzysztof. I'll reorder the series in the next revision. 
+> Best regards,
+> Krzysztof
+> 
