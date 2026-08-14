@@ -4,42 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 937E5C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 02:26:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27981C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 02:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6A9610E063;
-	Fri, 14 Aug 2026 02:26:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42F0910E03E;
+	Fri, 14 Aug 2026 02:47:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JjOPcAwg";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="ErY2++rI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 079F710E063
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 02:26:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2AE68600B0
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 02:26:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D081F000E9;
- Fri, 14 Aug 2026 02:26:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786674412;
- bh=2nIm3ONQo61f4xkgwHMZKcydlzS+nvMOhYdqJm8QfJg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JjOPcAwgEjgMI+RL5IUNa4Qris8gASOGdA2LkQuvqLtpR/rPsV6uOY9LEbXokb6ru
- tpp3S6D8p+kFxFMWXtxYglvzPz4frEhjobNhYn1f+V1i1M7h8K+5WH+UP296PcH2ts
- X5DEd/mR2AMDyq20ua97tfbVgnMT73T8RqNbjIJNX6f99+SS8TNR0Id2CJzd2AaxVq
- 2NeIaMwfgoiIrk5C9AgnWK4afqJlEo/km231APn91p5c3/Zxr6u4aVQLFr7Ox0UJUz
- MCx3uBlwdR3bkMP51M+t2Ehh7ydbIVvRHhMrTrxguylv8O77PaWOyXOUV165Ksh0uC
- 8XTzR6s3lmiGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 69/78] drm/tidss: encoder: Switch to atomic_create_state
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-69-0a91018bf886@kernel.org>
-References: <20260608-drm-no-more-bridge-reset-v2-69-0a91018bf886@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 02:26:52 +0000
-Message-Id: <20260814022652.B5D081F000E9@smtp.kernel.org>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1222B10E03E
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 02:47:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=IjbqGBh5OA/8x0Qxv8wHfpIOWZltvzeMbsgtQ5FZn6c=; b=ErY2++rIlq4hFGYFf5NKErYUKm
+ d+eaxrk+iTXxK7bFLG19jmmd8QcjLNYkU+InoqDkxUkALpPV3/FQHn5j/W5R3mR9h/6ZKfhxBbM7M
+ aLv7uSJGu3y5tpB9SpiETgvEwu4/XayBvY29NGMz8L7gapfSLVS+6pjG/2a9VcOKeVxMOWVVbc/Eh
+ jnDP76SSY/dd7eXV79jMrMW4P2B5wG116pXWcyDik9P70UxSSnwjcqOsjWerRDLmKIaS+PGfE2Vzm
+ V4pJSH5EgPNEQCM4J4EHRDMM07s+h0OlcDUElj/Jz1pKBM1QxGzUsGrM/Lzg9Di2D9cYhyx18PJuD
+ 1WfXoBmg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wuhwm-00000001sUm-1vPi; Fri, 14 Aug 2026 02:47:04 +0000
+Message-ID: <6cd9df3f-4fec-451b-a3f0-d23b435802fd@infradead.org>
+Date: Thu, 13 Aug 2026 19:46:58 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] fbdev: maxinefb: fix build issues
+From: Randy Dunlap <rdunlap@infradead.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ linux-mips@vger.kernel.org, Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+References: <20260809234810.982500-1-rdunlap@infradead.org>
+ <20260810000251.55AD61F000E9@smtp.kernel.org>
+ <e0488e93-eb19-42d4-a7c0-64657141b398@infradead.org>
+Content-Language: en-US
+In-Reply-To: <e0488e93-eb19-42d4-a7c0-64657141b398@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,59 +58,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Incomplete API migration in the tidss driver leaving a deprecated A=
-PI in use.
---
 
---- Patch [69]: [PATCH v2 69/78] drm/tidss: encoder: Switch to atomic_creat=
-e_state ---
-commit 4b163072222fe41ca874889e053936b933e75ded
-Author: Maxime Ripard <mripard@kernel.org>
 
-drm/tidss: encoder: Switch to atomic_create_state
+On 8/9/26 5:27 PM, Randy Dunlap wrote:
+> [adding Cc:s]
+> 
+> On 8/9/26 5:02 PM, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>>
+>> Pre-existing issues:
+>> - [High] Initialization function returns positive value `1` on failure, breaking module load semantics and causing subsequent `registered_fb` array corruption on unload.
+>> - [High] `maxinefb_fix.smem_start` is initialized with a virtual address (`CKSEG1ADDR`) instead of the hardware physical address, breaking user-space `mmap()`.
+>> --
+>>
+>> --- Patch [1]: [RFC PATCH] fbdev: maxinefb: fix build issues ---
+>> commit e391418fa2f21f8c420eccb513c031674ef184c6
+>> Author: Randy Dunlap <rdunlap@infradead.org>
+>>
+>> fbdev: maxinefb: fix build issues
+>>
+>> This commit fixes build errors and warnings for the maxinefb driver on
+>> 32-bit and 64-bit MACH_DECSTATION. It updates KSEG1ADDR to CKSEG1ADDR and
+>> adds the static keyword to missing prototypes.
+>>
+>>> diff --git a/drivers/video/fbdev/maxinefb.c b/drivers/video/fbdev/maxinefb.c
+>>> index 52528eb4dfb41..8aa1389e2d4c8 100644
+>>> --- a/drivers/video/fbdev/maxinefb.c
+>>> +++ b/drivers/video/fbdev/maxinefb.c
+>> [ ... ]
+>>> @@ -111,7 +98,7 @@ static const struct fb_ops maxinefb_ops = {
+>>>  	.fb_setcolreg	= maxinefb_setcolreg,
+>>>  };
+>>>  
+>>> -int __init maxinefb_init(void)
+>>> +static int __init maxinefb_init(void)
+>>
+>> [Severity: High]
+>> This is a pre-existing issue, but does returning 1 on failure in this function
+>> cause issues with module load semantics?
+>>
+>> In maxinefb_init():
+>>
+>>         if (register_framebuffer(&fb_info) < 0)
+>>                 return 1;
+>>
+>> If register_framebuffer() fails, returning a positive integer causes the kernel
+>> to treat the module as successfully loaded because the module init framework
+>> expects negative error codes for failure.
+> 
+> Ack. I'll change that.
 
-This commit updates the tidss driver to replace the deprecated atomic_reset
-callback with atomic_create_state for the bridge functions.
+I had this fixed locally and then forgot about it in the 3-patch series.
+I'll add it as patch 04/04.
 
-> diff --git a/drivers/gpu/drm/tidss/tidss_encoder.c b/drivers/gpu/drm/tids=
-s/tidss_encoder.c
-> index 34db8d2a3792e..698f8d964ca00 100644
-> --- a/drivers/gpu/drm/tidss/tidss_encoder.c
-> +++ b/drivers/gpu/drm/tidss/tidss_encoder.c
-> @@ -76,7 +76,7 @@ static int tidss_bridge_atomic_check(struct drm_bridge =
-*bridge,
->  static const struct drm_bridge_funcs tidss_bridge_funcs =3D {
->  	.attach				=3D tidss_bridge_attach,
->  	.atomic_check			=3D tidss_bridge_atomic_check,
-> -	.atomic_reset			=3D drm_atomic_helper_bridge_reset,
-> +	.atomic_create_state			=3D drm_atomic_helper_bridge_create_state,
+-- 
+~Randy
 
-[Severity: Low]
-Does this migration also need to update tidss_oldi_bridge_funcs in
-drivers/gpu/drm/tidss/tidss_oldi.c?=20
-
-Looking at the driver, it appears that struct still uses the deprecated
-atomic_reset callback:
-
-drivers/gpu/drm/tidss/tidss_oldi.c:tidss_oldi_bridge_funcs {
-        ...
-        .atomic_reset =3D drm_atomic_helper_bridge_reset,
-        ...
-}
-
-Should this be updated to atomic_create_state as well to completely remove
-dependencies on the deprecated API from the tidss driver?
-
->  	.atomic_duplicate_state		=3D drm_atomic_helper_bridge_duplicate_state,
->  	.atomic_destroy_state		=3D drm_atomic_helper_bridge_destroy_state,
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-drm-no-mor=
-e-bridge-reset-v2-0-0a91018bf886@kernel.org?part=3D69
