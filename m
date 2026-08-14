@@ -4,104 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 846EFC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 09:24:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77610C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 09:33:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D667E10E11E;
-	Fri, 14 Aug 2026 09:24:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7E3D10F49F;
+	Fri, 14 Aug 2026 09:33:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d2N409Mu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aJ7ArCoD";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAE6410E3C7;
- Fri, 14 Aug 2026 09:24:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F3853600C3;
- Fri, 14 Aug 2026 09:24:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A751F000E9;
- Fri, 14 Aug 2026 09:23:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786699444;
- bh=7BDNiSD/TGPAFah4GBukgWpyeTa1R6d2YpvQnMgrjbU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=d2N409MuBnGGenXQIVTUhLYQy/xgOMSTJOVXxi9ZVjJ93EqI18/99Ynmo8/ZKzoUK
- hsU2f7sHDzJDqz23pQND4q5eUFP4xOc5wHLR4JtOjEMIjt7yU+L42ln5V22elUkK5h
- NhMaVB0Q+VtlV/t0hp3aZDk/OVtUcaooh9kDUP6wNcplIzQggyjJNuJDOsp2wKG1Wg
- q9CPiXCGqhAcX4caBqin5H8rmwYz1HQuJPTsdlnI0pt/t1BVNT6fQjv1VjY3LpdHe/
- n3V7nv21MsfuDy6elMFCQ1ja2ia9nGW0FWUNrdyZt6Ru6BTTlWvi6H5bCfl/HKDmU9
- cnWkXsSOPyDpA==
-Date: Fri, 14 Aug 2026 10:23:33 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, syzbot@syzkaller.appspotmail.com
-Subject: Re: [PATCH v5 00/16] mm/rmap: index MAP_PRIVATE file-backed folios
- by anonymous pgoff
-Message-ID: <an7eSrKUHUqPpVGv@lucifer>
-References: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
- <20260813115346.2aaad419a351341a4f5f3ae0@linux-foundation.org>
- <an7SkamROquJ7If0@lucifer> <an7dekaY7IMMrzID@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1BF10E52C;
+ Fri, 14 Aug 2026 09:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786699995; x=1818235995;
+ h=message-id:subject:from:to:cc:date:
+ content-transfer-encoding:mime-version;
+ bh=uvThznsaD0oSQ7UnEUlqaxSjj7O+BDeL6PnOtMWzrNI=;
+ b=aJ7ArCoDLGRc7SBNqnLKQsVXgupdmVBYE6MjGFFHikKA8WNOIKkZMHIZ
+ Q1YlQlwzItqK6NcpgsXEEIwt3dr5EBTN2njFXWF4cbtUElprm+LahcC75
+ ppaPcD8L8W1Z/4YIUPz+dBDGYw3m+MjNU1b8+v9HVpz8zd8/nZeJA2dso
+ Gx1LyXfOoQc/6qgCKnxlqLFqph0WILlFS1X26J83v1KUml6N08bWMh4U+
+ C/6ZQMWslhEhnTgbqP7lIFis1OnM+tIfDKcHDHJMbHd516YZmnfnNARF+
+ jfSGsBeEv3oX6Tsa6liHurzlpiXv4aXk0451sy0mp3UBa8x7bTE8DxaxH A==;
+X-CSE-ConnectionGUID: En1hggDNSge4gFzW1R+37Q==
+X-CSE-MsgGUID: u1+1k+yxSwihGUpYRvxxNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="98636318"
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="98636318"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2026 02:33:10 -0700
+X-CSE-ConnectionGUID: YM2JfACfR4GraFEvVObR6A==
+X-CSE-MsgGUID: 0rxYIRQSRvCMa/csE7IyaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="261537334"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.244.164])
+ ([10.245.244.164])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2026 02:33:07 -0700
+Message-ID: <894f9d44eae62aee5762495b4f90f9bdd2b5585d.camel@linux.intel.com>
+Subject: [RFC] dmisc cgroups controller
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Tejun Heo <tj@kernel.org>, maarten.lankhorst@linux.intel.com
+Cc: intel-xe@lists.freedesktop.org, cgroups@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, pallavi.mishra@intel.com
+Date: Fri, 14 Aug 2026 11:32:54 +0200
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <an7dekaY7IMMrzID@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,48 +69,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 14, 2026 at 12:18:50PM +0300, Mike Rapoport wrote:
-> On Fri, Aug 14, 2026 at 10:01:19AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Thu, Aug 13, 2026 at 11:53:46AM -0700, Andrew Morton wrote:
-> > > You'll be mortified to hear that Sashiko wasn't able to find anything
-> > > to which to apply this.
-> >
-> > :))
-> >
-> > Well, when it's right it's useful, when it's wrong or suggesting unrelated
-> > what-nots it's less useful :>)
-> >
-> > I do locally put things through claude + Chris Mason's prompts a lot, I
-> > don't always invoke local sashiko as it's very slow and token-heavy or has
-> > been so far, but am planning to do that more also in future.
-> >
-> > >
-> > > Sashiko can be guided with a base-commit: tag but I'm not sure how to
-> > > tell it what tree/branch to try, or even if that's necessary.  Perhaps
-> > > someone can figure this out sometime.
-> >
-> > b4 gives a base commit, but I think because the trees are rebased it ends
-> > up being the incorrect one.
->
-> It's not only that the tree is rebased, but also that mm-unstable carries
-> the previous version of the patches.
+Hi!
 
-Yeah that's part of the issue, I can't rebase on mm-unstable as a result
-obviously.
+We (drm/xe GPU driver) have a use-case where we have a very limited
+number of a particular device resource (CLOS slots) that we potentially
+want to expose to unprivlieged processes for reservation / allocation.
+We want to be able to restrict per cgroups the number of CLOS slots
+that are available for reservation / allocation.
 
-Is hard to know what is sensible to rebase on - if I rebase on base of my old
-version of the series in mm-unstable that'll probably be a bogus commit at some
-point due to other rebasing.
+This is not a good fit for the misc controller since these resource
+types may be added and removed similar to dmem regions. Neither is it a
+good fit for the dmem controller.
 
->
-> > Not sure what the solution is!
-> >
-> > --
-> > Cheers, Lorenzo
->
-> --
-> Sincerely yours,
-> Mike.
+Would a dmisc controller be suitable here? It would be similar to the
+misc countroller but with dynamic addition and removal of resource
+types similar to the dmem controller.
 
---
-Cheers, Lorenzo
+Any input greatly appreciated.
+
+Thanks,
+Thomas
