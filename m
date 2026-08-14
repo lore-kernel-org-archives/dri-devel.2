@@ -4,44 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F49DC5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 512A1C5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F82C10F3CA;
-	Fri, 14 Aug 2026 07:51:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 719FB10F3D8;
+	Fri, 14 Aug 2026 07:54:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I5W5OouM";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="nrvIpRT1";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 806CA10E0E4;
- Fri, 14 Aug 2026 07:51:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 16118418C3;
- Fri, 14 Aug 2026 07:51:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A4A1F000E9;
- Fri, 14 Aug 2026 07:51:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786693868;
- bh=RVXHhmaqeb8txP/gcfFZ1wYc6gE3KO8cr1OHEKIV6D8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=I5W5OouMvaBuM062o4eXLscKRnlZb9H4+aF5/wFy65F5QdzYg1cG0K/TMEkACGFjQ
- 2pqCIQ+AbCtLWse6yyuS5w/veU57x+P/eu4OD+ddX/+Ym0WM6wAmYuMLO0ePurOqBd
- xW8lkh3NgZQagsYDv0HT6Yml6qehlP5OnFaLejcDy0o8kmRFKmmzbrhmL15hWam1lj
- VfkgIhJk9rulAm+JyXpKhUDMIaAMtEHPpIXOwhKvx+OT/MOuQ5H0uG3FQ6aGF8tMy0
- Jp5PEXrClgcSQWhc0DjqDBmDdfsFzx10Hp26hVTwpWliaQ8Daag73UC3x2rUF/10k0
- 6V4j8BVSvjnmg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] drm/gpuvm: allow locking external objects in two
- passes
-To: "Matthew Brost" <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260814073258.893007-2-matthew.brost@intel.com>
-References: <20260814073258.893007-1-matthew.brost@intel.com>
- <20260814073258.893007-2-matthew.brost@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 07:51:07 +0000
-Message-Id: <20260814075107.C2A4A1F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D89DB10E0E4
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 07:54:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1786694071;
+ bh=artBgxFCcQumpnGBlpZW+J9Ltf54xe2af+qgnA8uHbw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=nrvIpRT1hJqwctRtlUbTUeO5CMCCl/8OIRfJNm4JoCij4XldzhVuihiTzLXxuyG3e
+ +mEs9IBoA43F88LZrdg+NJ4wZADufWOFjw+1a8fiud8X/OSH/LxhfINJdgYgKAmip3
+ DkWClpL4MQA6FPnt33ZBVsESi+Lv3j8tB+d1tZchpC72ViowL+o1jdjS5rqmVTgBPe
+ nSfLd2ORO8XwgbhsKXWDrJK94PNlnDP8w5Yc9VdQJhZB4wWYwG+mcGsWJNW7+oPTou
+ i6WRHo4187qZGf4nGcXz9WxbnWyXAeB+TVJnCtBfuwQzYDYD2qSBuxolegx9psrbt+
+ JKtM0wzoEy4MA==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D9ACE17E0C90;
+ Fri, 14 Aug 2026 09:54:30 +0200 (CEST)
+Date: Fri, 14 Aug 2026 09:54:24 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, <linux-kernel@vger.kernel.org>
+Cc: "Steven Price" <steven.price@arm.com>, "Liviu Dudau"
+ <liviu.dudau@arm.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <sashiko-bot@kernel.org>, "Danilo
+ Krummrich" <dakr@redhat.com>
+Subject: Re: [PATCH v3 00/17] drm/panthor: Fix the unplug logic
+Message-ID: <20260814095424.458943b5@fedora-21.home>
+In-Reply-To: <DKO1IF9KBS56.2MOSFDEDAYV0A@kernel.org>
+References: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
+ <20260813132320.1682f9bd@fedora-21.home>
+ <DKO1IF9KBS56.2MOSFDEDAYV0A@kernel.org>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,121 +66,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Thu, 13 Aug 2026 20:50:22 +0200
+"Danilo Krummrich" <dakr@kernel.org> wrote:
 
-New issues:
-- [Low] Missing WRITE_ONCE() for vm_bo->evicted causes a data race with a n=
-ewly introduced lockless reader.
+> On Thu Aug 13, 2026 at 1:23 PM CEST, Boris Brezillon wrote:
+> > Just a note I forgot to add to my cover letter. I've already spent way
+> > more time than I wanted on this, not just because Sashiko keeps finding
+> > new issues at each of my attempt, but also because the whole idea of
+> > pretending a device on a platform bus is unplugged and can't harm us is
+> > doomed. This is not an hot-pluggable bus, and the device is still there,
+> > so, unless we can be absolutely sure it's inactive (which a RESET can
+> > provide, but RESETs are fallible) we just have two options:  
+> 
+> I probably need a bit more context about which exact problem(s) you are trying
+> to solve.
 
-Pre-existing issues:
-- [High] The xe driver bypasses drm_gpuvm_bo_evict() when clearing vm_bo->e=
-victed, which permanently leaks the newly introduced num_evicted counter.
---
+Sorry. You can find more context in patch 15.
 
---- Patch [1]: [PATCH 1/3] drm/gpuvm: allow locking external objects in two=
- passes ---
-commit 8dc4616b6b0a651e19f9a8c0a513982ffa694e85
-Author: Matthew Brost <matthew.brost@intel.com>
+> 
+> > 1. prevent the device from going away until we managed to properly
+> >    shutdown the GPU  
+> 
+> I'm not exactly sure what you mean with "device going away". If you mean
+> "prevent the device from being unbound from the driver" this is essentially what
+> you do by waiting for the completion of some HW teardown operation in remove().
+> 
+> In general, the implementation of remove() should ensure that on the one hand
+> the device it torn down (or reset), so it does not mess with system resources
+> anymore (e.g. attempt to do any DMA transfers) and behaves correctly on a
+> subsequent probe of this or another driver.
 
-drm/gpuvm: allow locking external objects in two passes
+So, that's the ideal situation, were a SOFT_RESET works. But because
+SOFT_RESET is a GPU command that has to be acknowledged by the GPU, you
+have no guarantee that this reset actually worked.
 
-This patch introduces an optimization to drm_gpuvm by allowing a split
-in the drm_exec transaction. It locks private and evicted objects first,
-then locks resident external objects later in a second pass. This reduces
-the time locks are held for resident shared objects during migration.
+> 
+> And on the other hand, the driver must release all device assoicated resources,
+> such as DMA mappings, IRQs, I/O memory mappings, etc. and it should also ensure
+> that no more driver code is reachable from any asynchronous paths, such as
+> workqueues, IOCTLs, timers, etc.
 
-> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-> index d1c80ad3deadb..f6ec90640d372 100644
-> --- a/drivers/gpu/drm/drm_gpuvm.c
-> +++ b/drivers/gpu/drm/drm_gpuvm.c
-[ ... ]
-> @@ -1220,16 +1301,88 @@ drm_gpuvm_prepare_vm(struct drm_gpuvm *gpuvm,
->  }
->  EXPORT_SYMBOL_GPL(drm_gpuvm_prepare_vm);
-> =20
-[ ... ]
-> +static bool
-> +drm_gpuvm_prepare_skip(struct drm_gpuvm_bo *vm_bo,
-> +		       enum drm_gpuvm_exec_pass pass)
-> +{
-> +	drm_gpuvm_pass_assert_held(vm_bo->vm, pass);
-> +
-> +	switch (pass) {
-> +	case DRM_GPUVM_EXEC_PASS_EARLY:
-> +		vm_bo->lock_skipped =3D !READ_ONCE(vm_bo->evicted);
-> +		break;
-> +	case DRM_GPUVM_EXEC_PASS_LATE:
-[ ... ]
-> @@ -1959,6 +2389,11 @@ EXPORT_SYMBOL_GPL(drm_gpuvm_bo_extobj_add);
->   * @evict: indicates whether the object is evicted
->   *
->   * Adds a &drm_gpuvm_bo to or removes it from the &drm_gpuvm's evicted l=
-ist.
-> + *
-> + * An external object of a %DRM_GPUVM_RESV_PROTECTED &drm_gpuvm is the
-> + * exception: the evicted list is protected by the GPUVM's common dma-re=
-sv
-> + * there, which this does not hold, so such an object is only accounted =
-for
-> + * and is put on the list later, by drm_gpuvm_prepare_objects().
->   */
->  void
->  drm_gpuvm_bo_evict(struct drm_gpuvm_bo *vm_bo, bool evict)
-> @@ -1966,6 +2401,7 @@ drm_gpuvm_bo_evict(struct drm_gpuvm_bo *vm_bo, bool=
- evict)
->  	struct drm_gpuvm *gpuvm =3D vm_bo->vm;
->  	struct drm_gem_object *obj =3D vm_bo->obj;
->  	bool lock =3D !drm_gpuvm_resv_protected(gpuvm);
-> +	bool was_evicted =3D vm_bo->evicted;
-> =20
->  	dma_resv_assert_held(obj->resv);
->  	vm_bo->evicted =3D evict;
+Yep, we also take care of that in the nominal case (AKA RESET worked,
+and we know the HW is off).
 
-[Severity: Low]
-Does this write need to use WRITE_ONCE()?
+> 
+> The latter obviously also depends on the subsystem and whether the lifetime of
+> userspace structurs and their associated driver private data is cleanly
+> decoupled (e.g. struct drm_file and ->driver_priv).
+> 
+> Since you also mention hot-unplug; those rules are universial regardless of
+> whether remove is triggered by a hot-unplug event or because the driver is
+> unbound for a different reason.
 
-This plain write pairs with the lockless READ_ONCE(vm_bo->evicted) added
-in drm_gpuvm_prepare_skip(). Without a WRITE_ONCE() here, KCSAN will report
-a data race.
+The API doesn't change, but the implication of such a removal do
+change: on an hot-pluggable bus, the device is physically gone, so it
+can't do any harm. On a platform bus, the device is there, and it might
+remain clocked and powered even after the platform_device has been
+unbound, because power domains and clks can be shared across devices,
+so even the clk_disable_unprepare() & co we have in the remove path
+won't guarantee that the GPU is inactive.
 
-> @@ -1974,8 +2410,16 @@ drm_gpuvm_bo_evict(struct drm_gpuvm_bo *vm_bo, boo=
-l evict)
->  	 * internal spinlocks, since in this case the evicted list is protected
->  	 * with the VM's common dma-resv lock.
->  	 */
-> -	if (drm_gpuvm_is_extobj(gpuvm, obj) && !lock)
-> +	if (drm_gpuvm_is_extobj(gpuvm, obj) && !lock) {
-> +		/*
-> +		 * Count them instead, so drm_gpuvm_needs_two_pass() can tell
-> +		 * whether any are evicted without walking the list. The
-> +		 * object's dma-resv is held, so the transition is stable.
-> +		 */
-> +		if (evict !=3D was_evicted)
-> +			atomic_add(evict ? 1 : -1, &gpuvm->extobj.num_evicted);
+> The DRM API is a bit misleading about this,
+> because with drm_dev_unregister() there is no way to prevent DRM IOCTLs from
+> running after remove(), which wrongly suggests that this is not a potential
+> issue.
+> 
+> Not summarizing this because I think you are not aware already, but it may
+> provide a good entry point for you to point out where exactly things are getting
+> tricky.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but the xe driver manually clears
-the evicted flag (vm_bo->evicted =3D false) during validation in
-drivers/gpu/drm/xe/xe_vm.c:xe_gpuvm_validate() instead of using the
-drm_gpuvm_bo_evict() API.
+Things get tricky when we diverge from the nominal case: SOFT_RESET
+didn't work, and we're either stuck in an infinite RESET loop waiting
+for it to eventually work, or we just take the hit and leak any
+resource the HW had access to at the time the RESET command was issued,
+because we can't know for sure that the GPU is in such a bad state it
+can't access memory anymore. All we know is that it's in a bad enough
+state to no longer acknowledge RESET requests.
 
-Because drm_gpuvm_bo_evict() is bypassed for clearing the flag, this counter
-decrement will never execute for the xe driver. Does this mean the
-num_evicted counter will permanently leak, continuously incrementing and
-permanently forcing drm_gpuvm_needs_two_pass() to return true, thereby
-defeating the optimization?
+> 
+> > 2. make sure all resources the HW might have its hands on at the time
+> >    the failure of RESET in the unplug path happened are leaked  
+> 
+> I'm not sure what you mean by this. But it suggests that the problem you try to
+> deal with is a misbehaving device that fails to reset?
 
->  		return;
-> +	}
-> =20
->  	if (evict)
->  		drm_gpuvm_bo_list_add(vm_bo, evict, lock);
+Yes, this.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814073258.8930=
-07-1-matthew.brost@intel.com?part=3D1
+> 
+> Also, what do you mean with leaking the device resources?
+
+I mean leaking all the memory that the GPU had access to (page tables
+and memory pointed by those page tables), so that it's never returned
+to the system with a risk of UAF.
