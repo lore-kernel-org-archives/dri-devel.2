@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 102E5C5CFDB
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9B0C5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 741F110E130;
-	Fri, 14 Aug 2026 13:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB2E10E577;
+	Fri, 14 Aug 2026 13:54:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i+PWK5iz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aw8fxvEb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16BD110E130
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:50:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF28310E571
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:54:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F2C60404DC;
- Fri, 14 Aug 2026 13:50:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F541F000E9;
- Fri, 14 Aug 2026 13:50:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EE88260A59;
+ Fri, 14 Aug 2026 13:54:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933051F00A3A;
+ Fri, 14 Aug 2026 13:54:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786715426;
- bh=Js/druZfICbFHsJVphx5BgfqICMitfY59Y3yOdHvYRk=;
+ s=k20260515; t=1786715654;
+ bh=d9izvf+KOBuPDyUo1qt8IyzEAGLABtlL0r8o+V6Js6Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=i+PWK5izi3Rx1U4uVH1K7IW6cWLfu9t3b6kxCZ+7V1C2XI9f9SgPTWrDV5yOMSLeT
- Ah8p/l5irpUwMkO0Zd69ApbZZKCUoO5o03TSi3loyHIo7SW5MGeclhp1DN8cZPAYoi
- EmbsTTPuyTH844oiYl/Jj6loN5GSl3Uo22e9m6qxqQHlHpTkhDl9BfcNL15//SHAFX
- ihPgHjr2sU6uimjjd9H7lLGE4ucIc4A65J7Nodt0KomCi263UuhKVNMIs068lfdvLy
- aA27bQi67Gx3dMnyW2MjcnBeRHfhVVSqprkpQp0Lcv8acTqLZOHXN2IdMrOQ4+0BUn
- t3NUcLElEBXtg==
+ b=Aw8fxvEbL7DL9oEwXGQVSyQDcT13elOvrekx3eBWjvDlOjnWl1unU8KbgYmpeR1y/
+ h92smOBBHjMZ890zCC+WGZXTN0nPlna8Pz58Tjx0IwsBhI96fQ7IOceMSg4/Yr5R7p
+ TgbYeE4k4CS7zmH8HD1elycntIOOWYrWdc9QVz9OKau4EPIRxS8TwlYNSxB+176CcY
+ B+HbFsjxRtom3KGPA2BqKU6+8/LeN4gFobbJcWSFr7+XAuRtuUGuBr+8fZ3vVwKd1r
+ 3ecGzBSCz0o7z0UXE81KP+AUNFN/w9g5ttMaTrRLiEq1jVRyZvLebnRX+dhU4adpKf
+ E93iRHg5U+lGw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/bridge: tda998x: Handle short CEC register reads
+Subject: Re: [PATCH] component: Release match data on add failure
 To: "Ruoyu Wang" <ruoyuw560@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814133952.1386158-1-ruoyuw560@gmail.com>
-References: <20260814133952.1386158-1-ruoyuw560@gmail.com>
+In-Reply-To: <20260814134132.1387952-1-ruoyuw560@gmail.com>
+References: <20260814134132.1387952-1-ruoyuw560@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 13:50:26 +0000
-Message-Id: <20260814135026.B5F541F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 13:54:14 +0000
+Message-Id: <20260814135414.933051F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +60,66 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Dead code in `cec_enamods()` error check allows overwriting the re=
-gister configuration when `cec_read()` fails.
+- [High] `component_master_add_with_match()` blindly dereferences the `matc=
+h` parameter without checking if it is an `ERR_PTR`, leading to a kernel pa=
+nic.
 --
 
---- Patch [1]: [PATCH] drm/bridge: tda998x: Handle short CEC register reads=
- ---
-commit 2bfd5ce7155e5841764b8ec506e16365cd7190b6
+--- Patch [1]: [PATCH] component: Release match data on add failure ---
+commit c4097bf086b1fb54cc12acc0308e520336458718
 Author: Ruoyu Wang <ruoyuw560@gmail.com>
 
-drm/bridge: tda998x: Handle short CEC register reads
+component: Release match data on add failure
 
-This commit updates the error handling in cec_read() to ensure both messages
-of the I2C transfer complete successfully before using the returned byte. If
-the transfer is short or fails, it preserves the 0 fallback value to avoid
-returning uninitialized stack memory.
+component_match_add_release() accepts a release callback so callers can
+transfer ownership of resources held by the match data. However,
+__component_match_add() returns without invoking that callback when the
+match is already an error pointer or when allocating the match or its
+array fails.
 
-> diff --git a/drivers/gpu/drm/bridge/tda998x_drv.c b/drivers/gpu/drm/bridg=
-e/tda998x_drv.c
-> index 0b966c9844e70..fb414584962b7 100644
-> --- a/drivers/gpu/drm/bridge/tda998x_drv.c
-> +++ b/drivers/gpu/drm/bridge/tda998x_drv.c
-> @@ -438,7 +438,7 @@ cec_read(struct tda998x_priv *priv, u8 addr)
->  	int ret;
+> diff --git a/drivers/base/component.c b/drivers/base/component.c
+> index 655d68deb590c..2b455d7499926 100644
+> --- a/drivers/base/component.c
+> +++ b/drivers/base/component.c
+> @@ -388,14 +388,14 @@ static void __component_match_add(struct device *pa=
+rent,
+>  	struct component_match *match =3D *matchptr;
 > =20
->  	ret =3D i2c_transfer(priv->hdmi->adapter, msg, ARRAY_SIZE(msg));
-> -	if (ret < 0) {
-> +	if (ret !=3D ARRAY_SIZE(msg)) {
->  		dev_err(&priv->hdmi->dev, "Error %d reading from cec:0x%x\n",
->  			ret, addr);
->  		val =3D 0;
->  	}
+>  	if (IS_ERR(match))
+> -		return;
+> +		goto err_release;
 > =20
->  	return val;
+>  	if (!match) {
+>  		match =3D devres_alloc(devm_component_match_release,
+>  				     sizeof(*match), GFP_KERNEL);
+>  		if (!match) {
+>  			*matchptr =3D ERR_PTR(-ENOMEM);
+> -			return;
+> +			goto err_release;
 
 [Severity: High]
-This is a pre-existing issue, but since cec_read() returns a u8, does the
-error handling in callers like cec_enamods() work correctly?
+This is a pre-existing issue, but if __component_match_add() fails here and
+sets *matchptr to ERR_PTR(-ENOMEM), could this result in a kernel panic
+later?
 
-For example, in drivers/gpu/drm/bridge/tda998x_drv.c:cec_enamods():
+Callers such as drm_of_component_probe() in drivers/gpu/drm/drm_of.c often
+pass the resulting match pointer directly to
+component_master_add_with_match() without checking IS_ERR(match):
 
-	int val =3D cec_read(priv, REG_CEC_ENAMODS);
+drivers/gpu/drm/drm_of.c:drm_of_component_probe() {
+    ...
+    return component_master_add_with_match(dev, m_ops, match);
+}
 
-	if (val < 0)
-		return;
+component_master_add_with_match() then appears to blindly dereference the
+pointer:
 
-	if (enable)
-		val |=3D mods;
-	else
-		val &=3D ~mods;
-
-	cec_write(priv, REG_CEC_ENAMODS, val);
-
-Because cec_read() returns an unsigned 8-bit integer, val will be
-zero-extended and can never be negative. If a read fails due to an I2C erro=
-r,
-it returns 0, which bypasses the val < 0 check.
-
-Could this result in writing back a modified 0 to REG_CEC_ENAMODS and
-wiping out other enable bits, potentially causing the CEC module or clocks
-to be disabled unexpectedly until a full reset occurs?
+drivers/base/component.c:component_master_add_with_match() {
+    ...
+    ret =3D component_match_realloc(match, match->num);
+    ...
+}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814133952.1386=
-158-1-ruoyuw560@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814134132.1387=
+952-1-ruoyuw560@gmail.com?part=3D1
