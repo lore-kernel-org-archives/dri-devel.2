@@ -4,42 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28853C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 00:51:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35FF6C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 01:18:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4468110E0C4;
-	Fri, 14 Aug 2026 00:51:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5686C10E0AA;
+	Fri, 14 Aug 2026 01:18:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FyuoLxxd";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="jy6NpMPI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCDAA10E0B1
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 00:51:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7CE2943A09
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 00:51:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 364221F000E9;
- Fri, 14 Aug 2026 00:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786668711;
- bh=JsqqL/deUkNJ2+ZXVRiFsjuN8xS1rdte+9bC2Tqgjmw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FyuoLxxdXet8TuWIFsziIohe2SQJuMumSo99rPhHGJFm3Lolt65pwvOtodIEN3OzY
- QpJbKbY3d007WbjPsKlw9SlqrHqbV6FJAJt3DtuiRwx46dYZDxHc6Ks1/FEXxNnrcO
- +bqKJzD/ryhW6pzW88BBK81MG2x+q/HeI5Gchi837PHhXgNLDMZc9jXof2Raj/q2Ly
- uFBHd8g2wAtooMX98m8pDXlo9LpT9kixUcHW0qg+Ds3oTauyoHt5OkgVqMl2dMxUvQ
- SNgLwZX5d8OphDE/01bV8TMsux73T75yYx6IXpeKtelcCtxLR3lGMtLEzE2t1KIy7a
- Nk88tp2g5yhJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 49/78] drm/mediatek: dp: Switch to atomic_create_state
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-49-0a91018bf886@kernel.org>
-References: <20260608-drm-no-more-bridge-reset-v2-49-0a91018bf886@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 00:51:45 +0000
-Message-Id: <20260814005151.364221F000E9@smtp.kernel.org>
+Received: from mail-m16023653209.xmail.ntesmail.com
+ (mail-m16023653209.xmail.ntesmail.com [160.236.53.209])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A228610E1D1
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 01:18:07 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 49ef6fdfd;
+ Fri, 14 Aug 2026 09:18:03 +0800 (GMT+08:00)
+Message-ID: <8d521014-3202-4f62-ba1a-ebe126506048@rock-chips.com>
+Date: Fri, 14 Aug 2026 09:18:01 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/rockchip: vop2: Scale the AXI clock to the
+ bandwidth the mode needs
+To: Igor Paunovic <royalnet026@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Alexey Charkov <alchark@flipper.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260813094614.9072-1-royalnet026@gmail.com>
+ <20260813100027.349761F000E9@smtp.kernel.org>
+ <20260813101307.10945-1-royalnet026@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260813101307.10945-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9ffdd8f94d03a7kunm270703397b358
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSBpIVh5MSEJCH00eQx4aSlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=jy6NpMPIEbDZlGuNoX291gdYX0VQAcedLCzPYKreLEEpWtqzIYmDm0pR0//ONnM54d4pMnpnGBoyvyiHJ5BPbJ13C2dSPm2V1dB7rQI+u5nFnOKVqmuCURDhrQfFdoMoI6oh1VncTFxhFe76lXnVXqMeRS3loQA0rLwFLLGC+6o=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=3dtL6bOxO5qHs+QF6jriizna7ttJ8SGK3f5tUylWokY=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,72 +66,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Igor,
 
-Pre-existing issues:
-- [High] Modifying persistent driver state in atomic_check callback.
---
+On 8/13/2026 6:13 PM, Igor Paunovic wrote:
+> The review bot found three things on v2 and all three are right. I am
+> answering rather than sending a v3 straight away, because the fix for
+> the two High ones is a single change that touches a file shared by
+> every Rockchip SoC, and I would rather ask about that than guess.
+> 
+> Both High findings come from the same shortcut. v2 keeps the
+> requirement in a global atomic state object, which I still think is the
+> right container, but it applies the rate from vop2_crtc_atomic_enable()
+> and _disable() rather than from the commit tail:
+> 
+>   - Out of order commits. Two non-blocking commits on different CRTCs
+>     share only the private object, and nothing orders them, so a commit
+>     that took its snapshot before another CRTC raised the rate can land
+>     after it and lower it again.
+> 
+>   - Multi-CRTC disable. atomic_disable() runs once per CRTC, and the
+>     first one already sees a state in which every participating CRTC is
+>     off, so the rate drops while the others are still scanning out and
+>     waiting for dsp_hold_completion.
+> 
+> vc4 solves both of these for its core clock, and what I did was take
+> half of that pattern instead of all of it:
+> 
+>   - vc4_atomic_commit_setup() records a pending commit per channel in
+>     the private state and the next commit waits on it with
+>     drm_crtc_commit_wait(). That is the ordering v2 has no equivalent
+>     of.
+> 
+>   - vc4_atomic_commit_tail() holds max(old, new) for the length of the
+>     commit and only drops to the new rate after
+>     drm_atomic_helper_wait_for_flip_done(). That is exactly the window
+>     the second finding describes.
+> 
+> Hence the question. Doing the same in rockchip means adding both
+> .atomic_commit_setup and .atomic_commit_tail to
+> rockchip_mode_config_helpers in rockchip_drm_fb.c, which today carries
+> only .atomic_commit_tail = drm_atomic_helper_commit_tail_rpm and is
+> shared by every SoC this driver supports, VOP as well as VOP2. The
+> commit tail would be a thin wrapper around the rpm helper with the
+> clock work on either side of it, and both hooks would do nothing on
+> anything that is not RK3588.
+>
 
---- Patch [49]: [PATCH v2 49/78] drm/mediatek: dp: Switch to atomic_create_=
-state ---
-commit b93fba0abd0877816145c393b463fd7e217d61b5
-Author: Maxime Ripard <mripard@kernel.org>
+As you said, placing it in atomic_commit_tail is precisely because
+atomic_flush is insufficient to handle multiple CRTC cases. 
+So it's okay for me. Let's see if others have any comments. 
 
-drm/mediatek: dp: Switch to atomic_create_state
+> Is that acceptable, or would you rather this stayed inside vop2 in some
+> other shape? I am happy to write it either way, but I would rather find
+> that out before than after.
+> 
+> The Medium finding needs no discussion: if
+> drm_atomic_private_obj_init() fails, the jump to err_crtcs does not
+> undo rockchip_rgb_init(). It is also new in this patch, since before it
+> nothing after rockchip_rgb_init() could fail, so it is mine and it will
+> be fixed in the next version whatever shape the rest takes.
+> 
+> Igor
+> 
+> 
 
-The drm_bridge_funcs.atomic_reset callback and its
-drm_atomic_helper_bridge_reset() helper are deprecated.
-Switch to the atomic_create_state callback and its counterpart.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index eefbc7e0f9c8d..f656b85b84212 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-> @@ -2578,7 +2578,7 @@ static const struct drm_bridge_funcs mtk_dp_bridge_=
-funcs =3D {
->  	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
->  	.atomic_get_output_bus_fmts =3D mtk_dp_bridge_atomic_get_output_bus_fmt=
-s,
->  	.atomic_get_input_bus_fmts =3D mtk_dp_bridge_atomic_get_input_bus_fmts,
-> -	.atomic_reset =3D drm_atomic_helper_bridge_reset,
-> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
-
-[Severity: High]
-This isn't a bug introduced by this patch, but reviewing changes to the
-bridge functions struct prompted a check of the other callbacks.
-
-Is it safe for mtk_dp_bridge_atomic_check() to modify the persistent
-mtk_dp->info state directly?
-
-mtk_dp_bridge_atomic_check() {
-    ...
-    mtk_dp->info.format =3D DP_PIXELFORMAT_YUV422;
-    ...
-    drm_display_mode_to_videomode(&crtc_state->adjusted_mode, &mtk_dp->info=
-.vm);
-    ...
-}
-
-If a userspace compositor issues a test-only commit with a different
-display mode, atomic_check runs and mutates this persistent state. If
-the system then suspends and resumes, drm_atomic_helper_resume
-directly commits the saved pre-suspend state without re-running
-atomic_check.
-
-Could this cause the bridge's atomic_enable callback to program the
-hardware using the poisoned mtk_dp->info parameters from the aborted
-test commit instead of the actual restored state?
-
->  	.attach =3D mtk_dp_bridge_attach,
->  	.detach =3D mtk_dp_bridge_detach,
->  	.atomic_enable =3D mtk_dp_bridge_atomic_enable,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-drm-no-mor=
-e-bridge-reset-v2-0-0a91018bf886@kernel.org?part=3D49
+-- 
+Best, 
+Chaoyi
