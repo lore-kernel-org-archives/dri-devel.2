@@ -4,99 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A924C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 05:25:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80D0CC5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 05:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5145F10E069;
-	Fri, 14 Aug 2026 05:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A82B610E0EE;
+	Fri, 14 Aug 2026 05:25:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WCUe+Rku";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="errnEtDG";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eDqkPxan";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KwQkKi9L";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64C3010E069
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 05:25:23 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16CB510E0EE
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 05:25:30 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67E4QPbx1741429
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 05:25:23 GMT
+ 67E4QsDc594248
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 05:25:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=Fz5pkkhdikAZTkxO1lt5kY
- qS67cDWlTdJePeYXwFoTg=; b=WCUe+Rkuxl23iy3fGdMOBbiIklKoeA2KgQ0Uf4
- XLDGmotp4tSEn4s2PjV4yAIzXM5HK59JSfScXostCur/tIKQfGDYJ8cGJ4vxWX9C
- 29OykXvYt69Q7zOJK0iO7OVYHYrm2gMxmbDqAVSNCLnnJxoP4kcVK1YF3saTedVa
- vBNtVQdXc6gXOKmijLcMITX/YR6ZSIMwnBwi/S+cUHK+FWTk/2KWZadtoJIikdGP
- EIzMaBV5QDd0+PMzow5oBZc6RmZbLUuogHM8Siq0yhIZmHYJCQB1AppsHVD06R1U
- DkqetoXHGbpt4bly+j46HQ815g1w/tkFBE2I/Z8wV1atItBg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1j2nje5f-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UtRAHnir7bPWxS4ms70wOZ+2NIR1lDRXxWBVrJgXdhM=; b=eDqkPxanpsCjQw53
+ jmwBmY1gU29szTVUTNkaQ3yyCjss/iM66nfcnqMs8rfTdAah3mdqV8D0uIVtTU/f
+ PcZ+xvKJNmzhwvM9YCdyDivzK7dGxAY3XcGAY59LQGMO5y+brOkiSkeA85skW54W
+ 6ZA0lmxjAAvYiMDRHhKmdHyOE6cUB4nwA4I/A+R1uF/0b9uibgRwA5Wg39qZRwpx
+ xi7Y7fkMX0hGivTH5YyysZHyK/uNYbXZHuucSeI9DLjJ8C+/S7ib44jwAaWDm1Hy
+ 2Eg9xqiqPZ5t8VvpG0Rj67bWnvXdcG1hG4+kpeGkoI2l8SmUlbfuanxf2qsTWoRM
+ zGNtaw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1gy4tsek-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 05:25:22 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2cc4c126cf0so1177005ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 22:25:22 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 05:25:29 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2cc4c126cf0so1177115ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 22:25:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786685122; x=1787289922;
+ d=oss.qualcomm.com; s=google; t=1786685129; x=1787289929;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=Fz5pkkhdikAZTkxO1lt5kYqS67cDWlTdJePeYXwFoTg=;
- b=errnEtDGmndznQ37+WIUSLtrwQg/v+B+5DmsO5/mC5QYoBpOEDW8MiKuF25KViXeAx
- J8ZEYxl5HSJYYm53tlFUN4pGMPdF9suEczRGIjwMrw3Ochew1CrpOLG4ZMTlthCHn7La
- U2aCTCUJ9igyh6zFtfm1H2aFLgYgHPj+WODsdEUx078SZggOfYeMZ4BY03zKd5TsoII4
- tUkLm8h2R4hOEqgUXjVX9j+6RVXmxdfEEjGwH4GC2C12ZY0IXLaymvvkpubXplEAtxzj
- ByB3Zm3A0dAKgkRTMV06qj3jlhhy87oElinZ2TzC/FH2n57MNHDMV7LiHkpvsaSRc9+S
- nrYg==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=UtRAHnir7bPWxS4ms70wOZ+2NIR1lDRXxWBVrJgXdhM=;
+ b=KwQkKi9Lieh9GwBtV6EGIX4kzImXyb2EWUWbHFy5b8dTHVLpc7zBNfZkhteSiQRb0n
+ ToSxJwy9x8hYzVY35Sk9xWNKzqabFmed3nC3xk2DDl5DU0iNKlQ1HPtQCaxou72eCEUk
+ q/7iEc+QyNUvADmT8m7GzJeoDwZvkVnK1z84nusNyvt+L6ru4iosF54ppO1d8fx7BloC
+ Yb4f8FW/lWuGL1E/dtxEkrwl4D/Id5wYzVHvcpkoaJvyZblP0Y+qzwz0sVXr0rTLThRs
+ dT38y9v13RSjWwIJZ1DO2/OugKoau8OqyDEmVWiTm8r66/LHMRbyC3oRFk1LyQNvVzy/
+ YPxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786685122; x=1787289922;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Fz5pkkhdikAZTkxO1lt5kYqS67cDWlTdJePeYXwFoTg=;
- b=Nlf7LnDPjX5lmF3XXTDpXU1xsaFkQGgATPoQ1adcpVscdkQ9ctFw554VV9AFvJXtGi
- iVrL6FX4SpYdR2IKkB0WUGS7a4QW36GSAbZzGc8eSQS3CcjeOUr1n7/W5Ya1NNtk717g
- 3UU5dHQSB7a+ROY+OCgN3PY2bul6SaGG9PhM6iwSjSd5oNvbotMUIue6tOLjXXGZQx6V
- BZk0KUYvFz+wz+ujp8v8zjzy76aqgL4OICYngOPCKr9lBmpwyXlha7AmOZZf1WyzkCGD
- vyxW0FQP+2BqrKoi2qZOXuyJ4tENoDoBMtLEyACuV5mSVIB9uY6bBG3pxDWmFeVyVoEQ
- HuIA==
-X-Gm-Message-State: AOJu0YzgsTb4hhD8OKxklD2wOfLC3upF0IM1h2GvD+e+Bymz2pet21TQ
- /1+uHkC/dCvrecVREIO1XNl2BtYbvoAciQGvR9fWlua2NImcR/4GLV8XIMN530aGje9vy1Ze2r9
- f/IaGEpeQNILkDcggGaOKcicsNlbDgFHQZYWYKqkiWPTg69wns2jfmywdS0C3nGmotcMg+1k=
-X-Gm-Gg: AR+sD10aODz82t29psWsUBBvFi+h7qFTrVDDSVDQDCmxJporBeUnUChQ4U+9FpcCnvg
- hgrzp1vMsCJPWXfMhzchTZnQuDOp9DbLVXkh7E9PfVS60HPR6rZBGB94CV4+sMjbW+18G+BO7MD
- EeaBL10XWzgeEkPihc3skLndcWubZDZ/1kHUH7QoUy0BkcZQgOCXoAwREgaGEVFfZMt8AJ79sLQ
- aovOUNZ3Wc3GMUALz/S0bcgQwTiIe1APi2ibZo7ahJsm/2azcLjNNqRTEEbIB/Kh6ufjFsbQVCo
- i1GQjDrYxPJF/HldBZszgbsACiTVstTI9ZyA9Fxa+1RKETklqXWovNWNYQci0p4iiR8FRisONOL
- q0qkWjX1IjKdSvdYf1x8EjNi4Hjzijf5pXv9FoEfVqsag6C+Q9KlWhR4Ey9pDUR5Yevjt7MQ/t3
- ab52Hvr8nOrG724Xm68p1q
-X-Received: by 2002:a17:903:2451:b0:2c9:d298:6c0a with SMTP id
- d9443c01a7336-2d3b0d7af99mr24251395ad.2.1786685122176; 
- Thu, 13 Aug 2026 22:25:22 -0700 (PDT)
-X-Received: by 2002:a17:903:2451:b0:2c9:d298:6c0a with SMTP id
- d9443c01a7336-2d3b0d7af99mr24251045ad.2.1786685121769; 
- Thu, 13 Aug 2026 22:25:21 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1786685129; x=1787289929;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UtRAHnir7bPWxS4ms70wOZ+2NIR1lDRXxWBVrJgXdhM=;
+ b=Is88UfrtnoVTFtHnsKZndSg8MNLADe4AA5uey99YA+GzlKWh2juPondnax/T7muO9I
+ npfaD0/QYJy1I3OAx8FVAHlaSKe48EH85DnNgGLjR+q2baP02U/Wv1/56BgSE4HJ9HaZ
+ Qrvt7e0fxCmLNBGIyCSEY7G/riUZbDd8m1U+UjY6ZUJTZnfdFKQ06J9fIcR1j1CJ+vUw
+ zt2552+HpSEX0HUE/UkEuoHTClQE62b8kdplEs9cw9DN+EbpaLO0Io5PbGT+Yhp0j0Qt
+ qnJa8ey+CZJr4TvdKsA0f0qY2HAvMBED96NYiP22sNNxwhekyNvte5SUmkdq0dt4ZOFL
+ NVrg==
+X-Gm-Message-State: AOJu0YygoO508OP4IkpcbUYJ0q9EAaHB2fPihu1Vh5VZpS0ZcSAWs3Xq
+ YAIWl9+0T89FQeXpksjTNevilzlXdOKynr0WSwwKl6BXpGajezeoDzrCzvYkCY6uaYNlvUWbBAw
+ 5SZQ64NxdzLtnQeyvqg91UZcwupSsvJDvkWdmrOYC5e39RKf7AKXzN8jHzDkNkr+/dMoTuPg=
+X-Gm-Gg: AR+sD12szfzxXjYQfLvS1cgs1MFDrfIXMIMSlO6tz0l3pGU2U+Owex6y1IfK+dpx+eM
+ CDZvzd3z1jQkEiew8MJonae0KfolMRdAkDQs6wgfME7ztwj7FOdVNpHfdvLnpFttx4L9QqWiyiz
+ GuWiNRxr+ZVwP2NXDAmE5cFVd0kvNcBZVBNwqv8BGnOWcsznyNTSY5w8PZoE2AJI6EUcc+sBqdm
+ ZIcB54U5jjPX662wNdlFTJnd6ZGouxBJadkhFTfw8O9mP+PdN8wPVYZeenBdmtLZCDi5CkPyAbM
+ hUpsqzTxPQiviHnXNbtjpQzEygBrw+MIVD8z+2lP7/kC/ee0tYSXeZPTlRZg1OdVlUtDirIxgUv
+ uODCkGw1KBiWy+LWyg550sgztB5FoYxFSdxCK1IWeW1fn7ltmHAhdbfiNNCK1RrIeN9hAY9odRE
+ Wx1KYuAmlw73LrHdQUjw57
+X-Received: by 2002:a17:903:1b2b:b0:2ca:de3:15eb with SMTP id
+ d9443c01a7336-2d3b0739429mr26779925ad.0.1786685128682; 
+ Thu, 13 Aug 2026 22:25:28 -0700 (PDT)
+X-Received: by 2002:a17:903:1b2b:b0:2ca:de3:15eb with SMTP id
+ d9443c01a7336-2d3b0739429mr26779535ad.0.1786685128175; 
+ Thu, 13 Aug 2026 22:25:28 -0700 (PDT)
 Received: from hu-vishsain-blr.qualcomm.com
  (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d3aeb2a0b4sm4545835ad.53.2026.08.13.22.25.15
+ d9443c01a7336-2d3aeb2a0b4sm4545835ad.53.2026.08.13.22.25.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2026 22:25:21 -0700 (PDT)
+ Thu, 13 Aug 2026 22:25:27 -0700 (PDT)
 From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Subject: [PATCH v3 0/2] drm/panel: Add BOE DV215FHM-R01 LVDS panel support
-Date: Fri, 14 Aug 2026 10:55:12 +0530
-Message-Id: <20260814-b4-lvds-panel-doc-v3-0-1ad152a4d3ec@oss.qualcomm.com>
+Date: Fri, 14 Aug 2026 10:55:13 +0530
+Subject: [PATCH v3 1/2] dt-bindings: display: simple: Add boe,dv215fhm-r01
+ compatible
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALimfmoC/33NwQ6CMAyA4VchO1uydYjgyfcwHrZRZAkw3HTRE
- N7dwcUL8dLkb9KvMwvkLQV2zmbmKdpg3ZhCHjJmOjXeCWyTmiHHkp9EDbqAPjYBJjVSD40zYPS
- RS1NohZpYups8tfa9mddb6s6Gp/Of7UUU6/afFgUIKJWoDAppsC0vLoT88VK9ccOQp8FWNOIPq
- gTfgxA4tJgIkryuq3oHWpblC4k8ZN8CAQAA
-X-Change-ID: 20260719-b4-lvds-panel-doc-cb503c4ba2be
+Message-Id: <20260814-b4-lvds-panel-doc-v3-1-1ad152a4d3ec@oss.qualcomm.com>
+References: <20260814-b4-lvds-panel-doc-v3-0-1ad152a4d3ec@oss.qualcomm.com>
+In-Reply-To: <20260814-b4-lvds-panel-doc-v3-0-1ad152a4d3ec@oss.qualcomm.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -114,38 +114,38 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786685115; l=1209;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786685115; l=1225;
  i=vishnu.saini@oss.qualcomm.com; s=20251113; h=from:subject:message-id;
- bh=aNzOFX7p1TZcfpEqI6Fk40hS4UWZP3pk3nIWGwaP5Mc=;
- b=hKUUIMJ7zhbPb+rvehXtpQTXg3IfsIJKDUmlgS6y1bWF6HOEYzCmTmN8XQYUgI1/l0E3eNZwe
- DYygSGK9Nl+A73N7+mvKwSyfy4K/sfWfmCMZnVTHFmA9PnCaPZ+c9t/
+ bh=pazSav7RKprkmz1Mmx/rVxatkvi1ozlV9Wr4tjOqULE=;
+ b=J7tKtEj3LU4J3KwwUVyJBM0ZqGTKrMmb9CsTLDj89MYijHZ8VrpF6CwivSmyngqbjzRT78nwO
+ 49tX9g52MOICcA49rluGoZ6BU+xOSprp8QbaW9UAnSc82e0NJz8U90d
 X-Developer-Key: i=vishnu.saini@oss.qualcomm.com; a=ed25519;
  pk=8hlXlF8j/3GeOaDK3w2LYhkv9FanCQru0c7kRH/It7k=
-X-Authority-Analysis: v=2.4 cv=ApXeGu9P c=1 sm=1 tr=0 ts=6a7ea6c2 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-ORIG-GUID: EJzEdlIz4p0uOtpI0zYIdSFD51BWAb09
+X-Authority-Analysis: v=2.4 cv=ZYAt8MVA c=1 sm=1 tr=0 ts=6a7ea6c9 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dmYVuBIMaTYquxi6TZ4A:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: aJd1wCv0rqpa8cwZQP1c4PZka4HYGZUm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDAzOSBTYWx0ZWRfX5A+mjpGoSSzw
- Vl9tUPfrZvs3hzBJG07IA8r2/fcFIvFkCvl4NA+RgFiCjTAmW7lzwkbwmBuGGfQKX0IjTVwv05c
- 4D/Ogdxd10DWYBEYCz2oSjBeg863+b8=
-X-Proofpoint-GUID: aJd1wCv0rqpa8cwZQP1c4PZka4HYGZUm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDAzOSBTYWx0ZWRfX+sIb3jMuUgeN
- sh8YR9AaFN3Nyc6r1GxK0S0dxMhT7mmqa6epXm3jeSWUPHhSHuqOcghmIZ7FMa6ali1zsiYpBOR
- MzB6ikorOrA6DC7or/yn7M/BtpPQlm8pyi4aDCsodtBZtNyRgTrJiJJtrQ+UrRcgPxvhS7awTAl
- NGTs8RDYbRPTtHBXgrpz1lL4VHBgiG3CGC2Cjg1FWwIHZJadAZEQkzyWJjYEpaBKm+esZfiHhCs
- sdZAwlWIzwVaNr+og4JuS5D4N7sGc8mJtZC3pJlwUhUPS5GHyy/iermv106OTMb4RENTjMRnDvv
- +xR6r483xw2sXKk4a/TxSNASn//gXHXfdDV1Up1dBDCXDrJDRZRzKM6S3CrXBg2u9reblFGsx5B
- BN7E2CObK05hTuwxAeNxzhlSr/4NTRaO1WT3jcTrFjiqFOzgYiHHyaPoWOUa0ZKP7D2xIw8NOCM
- im5SJf/ulW/XBJsWOvw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=fMfOcokNL7symIEKlBMA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDAzOSBTYWx0ZWRfXwPTFUN3uW5o4
+ yOiSjNumhCo5baE4VZHLBHIjoMNHE5jOGpxjkBuYvQy6VhPaVWkhGADrtTftP5eR+gbbj4uXfWz
+ jW3dxmXr7mLw84acJGrJN3RNRpFZ0oM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDAzOSBTYWx0ZWRfX3T4u1rzf56VS
+ CBGQPV534HxJ5h2tZ5lc4EMkr1iLVTlaI/qO98rWMLJ8+IDat/0hftnTN8e9dyah13PmADo/GhY
+ egO0GdNj5xYeAD649u8ytbTaNhZdD3+j0evDVqdcSQovXjQnGWHv3fhdTLIEvMCJMyMi6geXcg0
+ L9qMgpu62tIS0R0VPxt8es3bsT8LAdGEfgeYbwQmMjYWGRcLoAVxY1RKn5OxmgiqpmL4PXftQd/
+ 0uJtWUO4eiNcUYTx4XnY9E3a5bZ56kF6QUiw5m6SgTx3c8cDhsD7Y0qtPbkKwG61sPb7DxmTSv3
+ oN0retyj2o1JU8bo4+emcwxcNVjrf/qpyUHFuaQONkc+RoqascT8ieSBiKCKiU81fULMw4cadNq
+ YO+dYVbysLeSI037eTKdXA/WeXtgNcRLEr8MsjWiVJl8Njy8MQsv6mTIdA+07m4qGacgUNZxWJm
+ +aHYkm6wTTwgB42hrug==
+X-Proofpoint-GUID: EJzEdlIz4p0uOtpI0zYIdSFD51BWAb09
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-14_02,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 adultscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ lowpriorityscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 bulkscore=0 phishscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140039
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -163,34 +163,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for the BOE DV215FHM-R01 21.5" FHD
-(1920x1080) dual-channel LVDS panel.
+Add BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel LVDS panel
+compatible string to the panel-simple-lvds-dual-ports binding.
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 ---
-Changes in v3:
-- Reordered commits, keeping the compatible documentation first [Krzysztof]
-- Link to v2: https://lore.kernel.org/r/20260810-b4-lvds-panel-doc-v2-0-f2c2fe309989@oss.qualcomm.com
+ .../devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Changes in v2:
-- Move panel support into panel-simple-lvds-dual-ports.yaml [Rob]
-- Add  panel timings which were previously added in DT:
-  [https://lore.kernel.org/all/20260719-lvds-support-v1-0-1f1aca3213ba@oss.qualcomm.com/]  
-- Link to v1: https://lore.kernel.org/r/20260719-b4-lvds-panel-doc-v1-1-6a18c213c2f6@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml
+index 8a2f6feafd37..68beb476fb48 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml
+@@ -44,6 +44,8 @@ properties:
+       - auo,t215hvn01
+         # BOE AV123Z7M-N17 12.3" (1920x720) LVDS TFT LCD panel
+       - boe,av123z7m-n17
++        # BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel LVDS panel
++      - boe,dv215fhm-r01
+         # InnoLux 15.6" FHD (1920x1080) TFT LCD panel
+       - innolux,g156hce-l01
+         # Kaohsiung Opto-Electronics Inc. 10.1" WUXGA (1920 x 1200) LVDS TFT LCD panel
 
----
-Vishnu Saini (2):
-      dt-bindings: display: simple: Add boe,dv215fhm-r01 compatible
-      drm/panel: simple: Add BOE DV215FHM-R01 panel
-
- .../panel/panel-simple-lvds-dual-ports.yaml        |  2 ++
- drivers/gpu/drm/panel/panel-simple.c               | 28 ++++++++++++++++++++++
- 2 files changed, 30 insertions(+)
----
-base-commit: 104c00917264c5b9571072471e3a8689cd1a2c4d
-change-id: 20260719-b4-lvds-panel-doc-cb503c4ba2be
-
-Best regards,
 -- 
-Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+2.34.1
 
