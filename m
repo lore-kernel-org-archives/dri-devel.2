@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2622C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:24:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E1EC5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:25:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6096610E578;
-	Fri, 14 Aug 2026 14:24:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8607510E56C;
+	Fri, 14 Aug 2026 14:25:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LNjYvP1h";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ONNh+Lys";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9275610E56C
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:24:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4213410E55D
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:25:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4F3A04023F;
- Fri, 14 Aug 2026 14:24:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128F01F000E9;
- Fri, 14 Aug 2026 14:24:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 141BA41246;
+ Fri, 14 Aug 2026 14:25:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06CC1F000E9;
+ Fri, 14 Aug 2026 14:25:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786717461;
- bh=iQcg3ogX8FJ6wWjk2dgIsIHrwkh6xSYiEXbxhtTL7oc=;
+ s=k20260515; t=1786717512;
+ bh=jxJjQpGONHk3GkAjg4IFA+GKzLQJ8fsZz0zd7hopP/I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LNjYvP1ha7NPLAFGCDhRl1rMPRXjSKaj8PxAevPQL1rw1ugGDclfi68cbn4O9vpJ7
- vfUueQXewz7TRI+vOpdoXBR/mviK5rIoiYn/rDdoA9RYOLIqoek6/j9r5+IYXAUIEE
- 89PgAV779ymeIjqqCw8xoz/K4Bxh3flBFHaPCyn+BQTxEGURfGto00WU3v63LUIm9y
- J9lYzmgMHpfag9Da6WoMQPrNdQ/ZFPXUP+5ZDB/ppwr8rYq1vaFLUJFMeqWS/olZXH
- NfcSQET7TDKxtSa/rrWpNzT63M4xGQI4asl8YghMAMZ4MgkVsOZNMzwKVZ9FQK0tvT
- S9g5UMaosoi1g==
+ b=ONNh+Lys2uxQ7rJjt5vdSJ3QdCN0iPKmVTPRoWiaXLKMuOfwsCdeOfqQ6NXlHqfEC
+ 3Vh2MAdpBfsIPe/iXP3yeo81qvj2XD5Wm9rVVaHYM6ORN0o0JqjW/vVR9tnytOci1h
+ XfvC484UHfiQ3zDyY0fKixRtd1S/8Cgu1RODSotveYVIKnmc44fJ9jZGuljDZTrCk/
+ Ksgc4KhcHxRIvgLp5Wh6IAz+xHESyLU6VhB+XM5sx8R5/ZunIo6JRmXJgxflZ117cp
+ Eryl+iEqjb/O2pml2awdh8rC5kIf7vzn0NbHy73LLQSFVvCIzGjF5tDQ/wvG2gzME5
+ zXakWboT4Q2qA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/11] drm/mcde: dsi: don't create a panel_bridge
+Subject: Re: [PATCH 05/11] drm/bridge: panel: add a panel_bridge to every panel
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814-drm-bridge-every-panel-v1-9-19cd5277cc8d@bootlin.com>
+In-Reply-To: <20260814-drm-bridge-every-panel-v1-5-19cd5277cc8d@bootlin.com>
 References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
- <20260814-drm-bridge-every-panel-v1-9-19cd5277cc8d@bootlin.com>
+ <20260814-drm-bridge-every-panel-v1-5-19cd5277cc8d@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 14:24:20 +0000
-Message-Id: <20260814142421.128F01F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 14:25:11 +0000
+Message-Id: <20260814142511.C06CC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,125 +57,92 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] The reference to the remote bridge (next_bridge) acquired during b=
-ind is permanently leaked on unbind.
+- [Medium] Incorrect error check `WARN_ON(!panel->bridge)` masks bridge all=
+ocation failures, leading to invalid state.
 
 Pre-existing issues:
-- [High] Component unbind is missing drm_bridge_remove(), leading to list c=
-orruption and memory leaks upon rebind or module unload.
-- [High] The driver returns -EINVAL instead of -EPROBE_DEFER when the downs=
-tream bridge is not found, breaking probe deferral.
-- [High] Calling devm_clk_get() inside a repeatable component bind function=
- causes a devres leak.
+- [High] Architectural Use-After-Free on panel memory when the panel unbind=
+s.
 --
 
---- Patch [9]: [PATCH 09/11] drm/mcde: dsi: don't create a panel_bridge ---
-commit 62f9247edbd74ae414416ce89cd9ec90e6811731
+--- Patch [5]: [PATCH 05/11] drm/bridge: panel: add a panel_bridge to every=
+ panel ---
+commit fe7eeb215d441faca3cc4f0f4f95d9a96a4fb587
 Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-drm/mcde: dsi: don't create a panel_bridge
+drm/bridge: panel: add a panel_bridge to every panel
 
-Now a panel_bridge is automatically created for every drm_panel, so this
-code (similar to an open-coded variant of drm_of_find_panel_or_bridge())
-would lead to creating a second panel_bridge for the same panel.
+Adding a panel does currently not add a panel_bridge wrapping it. Usually
+the panel_bridge creation happens later, when some other driver (e.g. the
+previous bridge or the encoder) calls *_of_get_bridge() and the following
+element in the pipeline is a panel.
 
-> diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_=
-dsi.c
-> index ce078aa3910f2..ec45440d20d70 100644
-> --- a/drivers/gpu/drm/mcde/mcde_dsi.c
-> +++ b/drivers/gpu/drm/mcde/mcde_dsi.c
 [ ... ]
-> @@ -1076,7 +1075,6 @@ static int mcde_dsi_bind(struct device *dev, struct=
- device *master,
->  	struct drm_device *drm =3D data;
->  	struct mcde *mcde =3D to_mcde(drm);
->  	struct mcde_dsi *d =3D dev_get_drvdata(dev);
-> -	struct drm_panel *panel =3D NULL;
+
+Switch to the new approach: always create a panel_bridge with a drm_panel,
+thus matching the lifetime of the drm_panel and the panel_bridge wrapping
+it. This makes lifetime much more straightforward to understand and to
+further develop on.
 
 [Severity: High]
-This is a pre-existing issue, but does calling devm_clk_get() inside
-mcde_dsi_bind() cause a devres memory leak?
+This is a pre-existing issue, but does the underlying bridge allocation
+architecture have a use-after-free risk when panels unbind?
 
-Since component drivers can be unbound and rebound multiple times (such as
-via sysfs or master probe deferral), devres allocations in the bind
-path will accumulate every time the component binds, because devres chunks
-are bound to the platform device's lifetime, not the component bind/unbind
-lifecycle.
+Looking at drm_panel_bridge_add_typed() in drivers/gpu/drm/bridge/panel.c:
+
+struct drm_bridge *drm_panel_bridge_add_typed(...)
+{
+        ...
+        panel_bridge =3D devm_drm_bridge_alloc(panel->dev, struct panel_bri=
+dge,
+                                             bridge,
+                                             &panel_bridge_bridge_funcs);
+        ...
+}
+
+Since devres automatically frees the bridge memory when the panel unbinds
+(e.g., via rmmod), this completely ignores the bridge->refcount kref. For
+child-parent topologies like DSI panels where fw_devlink cannot enforce
+unbind ordering, couldn't the DSI host remain bound and retain a dangling
+pointer to the freed bridge in its chain?
 
 [ ... ]
-> @@ -1104,40 +1102,21 @@ static int mcde_dsi_bind(struct device *dev, stru=
-ct device *master,
+
+> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+> index f8f6082e637fd..95fc95d1b4b7a 100644
+> --- a/drivers/gpu/drm/drm_panel.c
+> +++ b/drivers/gpu/drm/drm_panel.c
+> @@ -453,6 +453,9 @@ void *__devm_drm_panel_alloc(struct device *dev, size=
+_t size, size_t offset,
 > =20
->  	/* Look for a panel as a child to this node */
->  	for_each_available_child_of_node_scoped(dev->of_node, child) {
-> -		panel =3D of_drm_find_panel(child);
-> -		if (IS_ERR(panel)) {
-> -			dev_err(dev, "failed to find panel try bridge (%ld)\n",
-> -				PTR_ERR(panel));
-> -			panel =3D NULL;
-> -
-> -			bridge =3D of_drm_find_and_get_bridge(child);
-> -			if (!bridge) {
-> -				dev_err(dev, "failed to find bridge\n");
-> -				return -EINVAL;
-> -			}
-> +		bridge =3D of_drm_find_and_get_bridge(child);
-> +		if (!bridge) {
-> +			dev_err(dev, "failed to find bridge\n");
-> +			return -EINVAL;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but should this return
--EPROBE_DEFER instead of -EINVAL when the downstream bridge is not found?
-
-Returning a hard -EINVAL when of_drm_find_and_get_bridge() returns NULL
-aborts the display probe irrevocably if the downstream panel/bridge probes
-after the MCDE DSI host, rather than deferring the probe until it is ready.
-
-[ ... ]
-> @@ -1159,8 +1138,6 @@ static void mcde_dsi_unbind(struct device *dev, str=
-uct device *master,
->  {
->  	struct mcde_dsi *d =3D dev_get_drvdata(dev);
+>  	drm_panel_init(panel, dev, funcs, connector_type);
 > =20
-> -	if (d->panel)
-> -		drm_panel_bridge_remove(d->bridge.next_bridge);
+> +	panel->bridge =3D devm_drm_panel_bridge_add(dev, panel);
+> +	WARN_ON(!panel->bridge);
 
-[Severity: High]
-Since this patch removes drm_panel_bridge_remove(), is a call to
-drm_bridge_put(d->bridge.next_bridge) needed here to balance the reference
-acquired in mcde_dsi_bind()?
+[Severity: Medium]
+Will this check actually catch failures? devm_drm_panel_bridge_add()
+returns an ERR_PTR on failure, rather than NULL.
 
-In mcde_dsi_bind(), a reference to the downstream bridge is acquired and
-stored via:
+If the allocation fails due to memory pressure or an invalid connector
+type, the warning will be silently bypassed since an ERR_PTR evaluates to
+true.
 
-    d->bridge.next_bridge =3D drm_bridge_get(bridge);
+The panel driver will then complete allocation successfully but with an
+error pointer in panel->bridge, which can cause display controllers to
+defer probing indefinitely without any error logs.
 
-Without a corresponding drm_bridge_put() here, the reference is stranded.
-Upon the next rebind, a new reference is acquired and overwrites the old
-pointer, permanently leaking the downstream bridge reference.
+Should this use IS_ERR() instead of checking for NULL?
 
-[Severity: High]
-This is a pre-existing issue, but is a call to drm_bridge_remove(&d->bridge)
-missing from mcde_dsi_unbind()?
-
-mcde_dsi_bind() registers the bridge globally via
-drm_bridge_add(&d->bridge). Without drm_bridge_remove() in the unbind path,
-a rebind will call drm_bridge_add() on the same bridge object.
-
-This invokes list_del_init(&bridge->list) without holding the bridge_lock,
-introducing a data race that can corrupt the global bridge_list if traversed
-concurrently. Additionally, it prevents the bridge's refcount from ever
-reaching zero.
-
->  	regmap_update_bits(d->prcmu, PRCM_DSI_SW_RESET,
->  			   PRCM_DSI_SW_RESET_DSI0_SW_RESETN, 0);
+> +
+>  	return container;
 >  }
+>  EXPORT_SYMBOL(__devm_drm_panel_alloc);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-drm-bridge=
--every-panel-v1-0-19cd5277cc8d@bootlin.com?part=3D9
+-every-panel-v1-0-19cd5277cc8d@bootlin.com?part=3D5
