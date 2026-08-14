@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E536C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:23:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2622C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:24:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB52210E13F;
-	Fri, 14 Aug 2026 14:23:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6096610E578;
+	Fri, 14 Aug 2026 14:24:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HM+LO37s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LNjYvP1h";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 029C610E56C
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:23:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9275610E56C
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:24:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C65CF42E39;
- Fri, 14 Aug 2026 14:23:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FAE31F000E9;
- Fri, 14 Aug 2026 14:23:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4F3A04023F;
+ Fri, 14 Aug 2026 14:24:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128F01F000E9;
+ Fri, 14 Aug 2026 14:24:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786717394;
- bh=13TeJbDqTCHOpuY7aIZYP2lQRUZh5lQa/x46GTOeWaI=;
+ s=k20260515; t=1786717461;
+ bh=iQcg3ogX8FJ6wWjk2dgIsIHrwkh6xSYiEXbxhtTL7oc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HM+LO37seIVJc2wND8nimXVHQT7BaGMGE26CpcJ4+EHo5tVI2CMvYIpzgp+sKxUao
- MAs2U+d+jkedyPUjsq49ik9EmfSt4owZ9kJygfh435djsRvCeps9ZRrSDTL1bXl+gh
- bqrtlQmasuF/z0Pr/Xu+1QqrCATt/BuzWXywGTwO8LlY4rPSBrXFBSHLYXaOUQMSyn
- bYSljk+GPoWtuPevmXrj4ytZDO9yRAz91yu9BTdBW0ckvIX7S2hHA+2MgJWQPgUXwb
- 6APizfHlY8yXJRupYzjTL4D0pMXnzs8zxQkytLnj1LlRDv+XX1YMku+K+4h8XTgOPd
- g9z85rsGYDRTw==
+ b=LNjYvP1ha7NPLAFGCDhRl1rMPRXjSKaj8PxAevPQL1rw1ugGDclfi68cbn4O9vpJ7
+ vfUueQXewz7TRI+vOpdoXBR/mviK5rIoiYn/rDdoA9RYOLIqoek6/j9r5+IYXAUIEE
+ 89PgAV779ymeIjqqCw8xoz/K4Bxh3flBFHaPCyn+BQTxEGURfGto00WU3v63LUIm9y
+ J9lYzmgMHpfag9Da6WoMQPrNdQ/ZFPXUP+5ZDB/ppwr8rYq1vaFLUJFMeqWS/olZXH
+ NfcSQET7TDKxtSa/rrWpNzT63M4xGQI4asl8YghMAMZ4MgkVsOZNMzwKVZ9FQK0tvT
+ S9g5UMaosoi1g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/11] drm/bridge: samsung-dsim: don't create a
- panel_bridge
+Subject: Re: [PATCH 09/11] drm/mcde: dsi: don't create a panel_bridge
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814-drm-bridge-every-panel-v1-11-19cd5277cc8d@bootlin.com>
+In-Reply-To: <20260814-drm-bridge-every-panel-v1-9-19cd5277cc8d@bootlin.com>
 References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
- <20260814-drm-bridge-every-panel-v1-11-19cd5277cc8d@bootlin.com>
+ <20260814-drm-bridge-every-panel-v1-9-19cd5277cc8d@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 14:23:14 +0000
-Message-Id: <20260814142314.7FAE31F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 14:24:20 +0000
+Message-Id: <20260814142421.128F01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,98 +57,125 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
+New issues:
+- [High] The reference to the remote bridge (next_bridge) acquired during b=
+ind is permanently leaked on unbind.
+
 Pre-existing issues:
-- [Critical] Manual gpiod_put() on a devres-managed GPIO and failure to cle=
-ar the dsi->te_gpio pointer leads to UAF and double free.
+- [High] Component unbind is missing drm_bridge_remove(), leading to list c=
+orruption and memory leaks upon rebind or module unload.
+- [High] The driver returns -EINVAL instead of -EPROBE_DEFER when the downs=
+tream bridge is not found, breaking probe deferral.
+- [High] Calling devm_clk_get() inside a repeatable component bind function=
+ causes a devres leak.
 --
 
---- Patch [11]: [PATCH 11/11] drm/bridge: samsung-dsim: don't create a pane=
-l_bridge ---
-commit 3269367ff66fe6dd842314973873ed18b84437ca
+--- Patch [9]: [PATCH 09/11] drm/mcde: dsi: don't create a panel_bridge ---
+commit 62f9247edbd74ae414416ce89cd9ec90e6811731
 Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-drm/bridge: samsung-dsim: don't create a panel_bridge
+drm/mcde: dsi: don't create a panel_bridge
 
 Now a panel_bridge is automatically created for every drm_panel, so this
-code would lead to creating a second panel_bridge for the same panel. This
-commit simplifies the code by just getting a reference to the already-exist=
-ing
-bridge.
+code (similar to an open-coded variant of drm_of_find_panel_or_bridge())
+would lead to creating a second panel_bridge for the same panel.
 
-> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/brid=
-ge/samsung-dsim.c
-> index e2fc69fc51b60..ca419edb1c1a6 100644
-> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
-> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+> diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_=
+dsi.c
+> index ce078aa3910f2..ec45440d20d70 100644
+> --- a/drivers/gpu/drm/mcde/mcde_dsi.c
+> +++ b/drivers/gpu/drm/mcde/mcde_dsi.c
 [ ... ]
-> @@ -1931,21 +1930,9 @@ static int samsung_dsim_host_attach(struct mipi_ds=
-i_host *host,
->  	if (!remote)
->  		return -ENODEV;
-> =20
-> -	panel =3D of_drm_find_panel(remote);
-> -	if (!IS_ERR(panel)) {
+> @@ -1076,7 +1075,6 @@ static int mcde_dsi_bind(struct device *dev, struct=
+ device *master,
+>  	struct drm_device *drm =3D data;
+>  	struct mcde *mcde =3D to_mcde(drm);
+>  	struct mcde_dsi *d =3D dev_get_drvdata(dev);
+> -	struct drm_panel *panel =3D NULL;
+
+[Severity: High]
+This is a pre-existing issue, but does calling devm_clk_get() inside
+mcde_dsi_bind() cause a devres memory leak?
+
+Since component drivers can be unbound and rebound multiple times (such as
+via sysfs or master probe deferral), devres allocations in the bind
+path will accumulate every time the component binds, because devres chunks
+are bound to the platform device's lifetime, not the component bind/unbind
+lifecycle.
+
 [ ... ]
-> -	} else {
-> -		next_bridge =3D of_drm_find_and_get_bridge(remote);
-> -		if (!next_bridge)
-> -			ret =3D -EINVAL;
-> -	}
-> +	next_bridge =3D of_drm_find_and_get_bridge(remote);
-> +	if (!next_bridge)
-> +		ret =3D -EINVAL;
+> @@ -1104,40 +1102,21 @@ static int mcde_dsi_bind(struct device *dev, stru=
+ct device *master,
 > =20
->  	of_node_put(remote);
+>  	/* Look for a panel as a child to this node */
+>  	for_each_available_child_of_node_scoped(dev->of_node, child) {
+> -		panel =3D of_drm_find_panel(child);
+> -		if (IS_ERR(panel)) {
+> -			dev_err(dev, "failed to find panel try bridge (%ld)\n",
+> -				PTR_ERR(panel));
+> -			panel =3D NULL;
+> -
+> -			bridge =3D of_drm_find_and_get_bridge(child);
+> -			if (!bridge) {
+> -				dev_err(dev, "failed to find bridge\n");
+> -				return -EINVAL;
+> -			}
+> +		bridge =3D of_drm_find_and_get_bridge(child);
+> +		if (!bridge) {
+> +			dev_err(dev, "failed to find bridge\n");
+> +			return -EINVAL;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but should this return
+-EPROBE_DEFER instead of -EINVAL when the downstream bridge is not found?
+
+Returning a hard -EINVAL when of_drm_find_and_get_bridge() returns NULL
+aborts the display probe irrevocably if the downstream panel/bridge probes
+after the MCDE DSI host, rather than deferring the probe until it is ready.
+
+[ ... ]
+> @@ -1159,8 +1138,6 @@ static void mcde_dsi_unbind(struct device *dev, str=
+uct device *master,
+>  {
+>  	struct mcde_dsi *d =3D dev_get_drvdata(dev);
 > =20
+> -	if (d->panel)
+> -		drm_panel_bridge_remove(d->bridge.next_bridge);
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but there is a pre-existing doub=
-le
-free and use-after-free issue in this driver related to the TE IRQ handling,
-which is called from the error path of samsung_dsim_host_attach().
+[Severity: High]
+Since this patch removes drm_panel_bridge_remove(), is a call to
+drm_bridge_put(d->bridge.next_bridge) needed here to balance the reference
+acquired in mcde_dsi_bind()?
 
-When a CMD mode device attaches, samsung_dsim_register_te_irq() allocates
-dsi->te_gpio using devm_gpiod_get_optional(). If it fails later, or when
-samsung_dsim_unregister_te_irq() is called on detach, the code manually cal=
-ls
-gpiod_put(dsi->te_gpio) without clearing the pointer.
+In mcde_dsi_bind(), a reference to the downstream bridge is acquired and
+stored via:
 
-Because the GPIO was allocated with devres, won't this manual gpiod_put()
-cause a double free when the device unbinds and devres cleans up?
+    d->bridge.next_bridge =3D drm_bridge_get(bridge);
 
-drivers/gpu/drm/bridge/samsung-dsim.c:samsung_dsim_unregister_te_irq() {
-	if (dsi->te_gpio) {
-		free_irq(gpiod_to_irq(dsi->te_gpio), dsi);
-		gpiod_put(dsi->te_gpio);
-	}
-}
+Without a corresponding drm_bridge_put() here, the reference is stranded.
+Upon the next rebind, a new reference is acquired and overwrites the old
+pointer, permanently leaking the downstream bridge reference.
 
-This manual cleanup is also present in the error path of
-samsung_dsim_register_te_irq():
+[Severity: High]
+This is a pre-existing issue, but is a call to drm_bridge_remove(&d->bridge)
+missing from mcde_dsi_unbind()?
 
-drivers/gpu/drm/bridge/samsung-dsim.c:samsung_dsim_register_te_irq() {
-	...
-	if (ret) {
-		dev_err(dsi->dev, "request interrupt failed with %d\n", ret);
-		gpiod_put(dsi->te_gpio);
-		return ret;
-	}
-	...
-}
+mcde_dsi_bind() registers the bridge globally via
+drm_bridge_add(&d->bridge). Without drm_bridge_remove() in the unbind path,
+a rebind will call drm_bridge_add() on the same bridge object.
 
-Additionally, since samsung_dsim_unregister_te_irq() leaves a stale pointer
-in dsi->te_gpio, could this lead to a use-after-free?
+This invokes list_del_init(&bridge->list) without holding the bridge_lock,
+introducing a data race that can corrupt the global bridge_list if traversed
+concurrently. Additionally, it prevents the bridge's refcount from ever
+reaching zero.
 
-If a VIDEO mode device subsequently attaches, it skips registering the TE I=
-RQ
-and leaves the stale pointer in place. When it detaches,
-samsung_dsim_host_detach() unconditionally calls
-samsung_dsim_unregister_te_irq(), which would call gpiod_to_irq() on the
-already freed pointer.
+>  	regmap_update_bits(d->prcmu, PRCM_DSI_SW_RESET,
+>  			   PRCM_DSI_SW_RESET_DSI0_SW_RESETN, 0);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-drm-bridge=
--every-panel-v1-0-19cd5277cc8d@bootlin.com?part=3D11
+-every-panel-v1-0-19cd5277cc8d@bootlin.com?part=3D9
