@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82DC5C5DF66
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 02:25:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB1FC5DF69
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 02:25:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6B9F10E356;
-	Fri, 14 Aug 2026 02:25:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 826CC10E04A;
+	Fri, 14 Aug 2026 02:25:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="mdonYydk";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="BxlejEfZ";
 	dkim-atps=neutral
-X-Greylist: delayed 154487 seconds by postgrey-1.36 at gabe;
- Fri, 14 Aug 2026 02:25:44 UTC
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.65.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D5A310E356
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 02:25:44 +0000 (UTC)
+X-Greylist: delayed 154501 seconds by postgrey-1.36 at gabe;
+ Fri, 14 Aug 2026 02:25:54 UTC
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F21410E4E5
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 02:25:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1786674328;
- bh=+JHsOsDckHVo//w2VdgCEPkkctFcuV1bEYTIhxBYox8=;
+ s=altu2504; t=1786674335;
+ bh=zwIQVsJa3bKVMiFSZ+kPNaDWDdjE00ekRDJBwDGVRHQ=;
  h=From:To:Subject:Date:Message-Id;
- b=mdonYydkaZWCy9rPc3xl60ffhU8oiCOL31GMJAkhVcNqN1ZtlLS8MMPQqa0LIvNAT
- pH+VR9m4NvAFMSkp+aFNIELoH7iDxMb5/3il03Q7WNx3zZVrslK65OmsgFfdATwd0H
- XR38N97qhxIq9fHBd6tIjFx+W5YHHHBBHKDZA+W8=
-X-QQ-mid: esmtpgz13t1786674319t3b7866cd
-X-QQ-Originating-IP: GlwC8Vr0+V7hKAQdo72tO4IUyru3W/s/wqJTId8HJ4s=
+ b=BxlejEfZpiHpBD13kqh95waqcwroRvlN0Hz1hOeuKkIcVmMrDR4MEM8Gg+89e1M5L
+ W/2fmz4MobI9hEItALRdKp2gKr4EKO4t4+o9Z6jFpS9r+Ty7P27NFtMhMhfhEqpmb9
+ iaIBy3TykWCxqFPZXDe1HYoRzVkY0QGSNHKf2Xok=
+X-QQ-mid: esmtpgz13t1786674326tbdf7c49c
+X-QQ-Originating-IP: b3yIyDj93Zk6Fw5hzBP5dySljjYsCy8cXF5fAZrH/yE=
 Received: from DESKTOP-8BT1A2O.localdomain ( [58.22.7.114])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 14 Aug 2026 10:25:17 +0800 (CST)
+ id ; Fri, 14 Aug 2026 10:25:20 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9741115489482611219
+X-BIZMAIL-ID: 7240023971590159997
 From: Chaoyi Chen <kernel@airkyi.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Heiko Stuebner <heiko@sntech.de>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: [PATCH 3/4] accel/rocket: Fix the extra iommu_group_get call in
- rocket_job_handle_irq
-Date: Fri, 14 Aug 2026 10:24:52 +0800
-Message-Id: <20260814022453.437-4-kernel@airkyi.com>
+Subject: [PATCH 4/4] MAINTAINERS: accel/rocket: Add rockchip mail list for
+ rocket
+Date: Fri, 14 Aug 2026 10:24:53 +0800
+Message-Id: <20260814022453.437-5-kernel@airkyi.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260814022453.437-1-kernel@airkyi.com>
 References: <20260814022453.437-1-kernel@airkyi.com>
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: OSUW9vQLVhiZnVnT0iJ0+gB+gVXLNLc+u2f6OAwE7CJ5njNmd42e20Ut
- latgoRVgYiij1hDnX0WX3lh2+rd9DNctZgne9HlJTbUM3Ia601EDVm8mbxyfFc+2ZTHJMBN
- f8XFMcgQGKDXGoLDHeNkRBvFJChIJwUn+jXnDEYPmBhM8fdQ7e8VH/lfRIc8nM8fHSnwXIA
- h/nQWo4wl8VVtx4VVMDBbwhFkDnttuwAxBpoum80VUOb2wGgh637zTuHGWtFoXOSfbEsoiW
- JCUogacEmy90vVhQO7U+V6hrXlQTp8fNsm3Jp2tp3P1hh5L7REpjS+JypKJdj+V921kjxOI
- FxdeluE9nHXczk8tES/frfnaGm+FiT/Le6d0tEZm+kA8pODTOibcmD2lWHHkOSjdaQ3OFAM
- M/kFDI7kSGsMYV/1Rx8EGqvpc+aE4U7Og1wlUhj1md9NmLbpyfv0AclmYF9OcEWBKSoJKaU
- sRg9vzD86KPBBXo4+XN1QCC01llJpEwVoCMMMryW7J1yEzUB6huz99AFvEb8F/Ns/HEzIUM
- Ypyv2yoHb/sedSdOa5eFgC/tHpb1yRKUbrT6J8aVlx2GRaIEpH3XUIGO7io+Zs+iL75Ae00
- lj5+w6tkxrf3pLXQ4Z8PiTCqpchgXN/lC9aZFjxO/C4RYlVy4kBJL9koWMiFVWRfk8SzZP+
- q/IRGJX148MwSiCotZpdxVEYH2yC2AkjUttvMtm/qfJNwpnFKzqNXjjCkxqsppwpFF9oWM2
- r76wCw94soR+l6gBGuEEowGA7BJr2wVUrYb2OM4IouovpKrkG4NYTngcBBSCA3QOCVzNg27
- FdgP1DeNPWeqIQebjrw9zJVqT8KCHVYybpyYMC8pOzltOHgLGw4wQAo7+E2AR06fgzbiO/L
- 3032yPvgggi2j9h5NaMJEotRQXhineV99uHId3afSh6MinMIaN2j4VmEKsCIFoABX95iq2m
- YtvI3jzRSdjMlKHv0QsG6e2Fbdte/2+Cs6CCOgy7ZaBSCSRRYrVMAAlGcVFs6DfX12yRZZe
- 0VcxriPYjt8C7Oj5Wl
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: OE1h366RMh4bPIWp9FHW6/AyL21r43hkn7NAzLdL/UoB/ZlYxeaJpgBe
+ jsmaXS+sgNe0JQ+ktXJK+DapnfYapIM8J7P5e3OPctWLYAti++KpBE6pJb7kl3tXGQAhiVf
+ zhYkFdXNLhvWJTHYq+68z/DTy+R9Jqh2KTouquLFmP23/uJVu5dmlx5O/HV/IpcnQk3B1F6
+ hPwpYHjYHciJeCbGnKQrBZBLIC0OobpUjU8GWHsGW+1SVUuGbVBxCT5l75s6DUwjitXgm4r
+ DyRRGtTQ+jYvmfld5drhgavFWEnnLIPaL2pn6GUzZjuO8mmOKJNYyv/8jLB7o3jDN2/VyWD
+ vM6IFkYmt9/Mbei0dOwwzbtYTL7tRS22NLKbJ71q+sRiz5OHAExzzFeBTqtPOsBpyijwkJ/
+ ACgfnCVPIe1Qa4hu+TC3lrg4w8ZId0uDhBpjb2Sjl2+7x3n5KVNftlo5xcZRXCC/APEVedW
+ M/UIpAc0yGfj2n8s8kGALfteq36TI3TeaHKdjVS1DAO5jgdgfdOm0JU+iMsQajlTyUJhnqP
+ sixjDoq0sIIRcxmCt2TVNNqmMXq6xJcvaT/emRnIYKimf/88Jlnw4E6x+WaTipt2IN9SB7z
+ qG+jOyyG/yJQhiDPorbqRBIHOH62kS6JznEN5fTlNrkz4reCff2Osi035wpwBHeHJD2DfK8
+ FpMc0cyRN72K1MwGsHPi65DRq7s3spGgyMUKjjB1dKxRruHhQhozTvI2lxEojBSvZi0QUq6
+ S/aG0yawPQHN8JO2LzTBFkIgoDSEAI3mhXN7SXbQI8eDrwOXCbU7x7iSvFClUXgGI9hfQuq
+ GDTieul7ZVYpUF0qg1WorYi7ZN/HrhTwJmzvAYgTr2D0mtp5u+nZdvcnHW0fwHyGoyKJ1qw
+ bpxC4Fxd5FLU44gAw6EYz9V9Zwj3fJVS0WTSdUeFS1jWjm7eiXp1XY9EhunHFbHNts5XgO+
+ 1EoVSu6m2JN5nS90NJfMfcz+lT/vtMj8xMY8wXSDP/MQLgw2pfaM34z7yt9hrgGjn3hHcBu
+ QNeVWI4HWqdOeZHuTyi4ufGGs/2vC2QGNTX1gNQDV5mHLxpsF+
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,31 +82,26 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-The rocket attaches the IOMMU group in rocket_job_run() and detaches it
-in rocket_job_handle_irq(). Calling  iommu_group_get() in
-rocket_job_handle_irq() causes the reference count to increase
-unexpectedly. And this causes rocket_core_fini() to fail to release the
-IOMMU group, leading to a resource leak.
+The rocket is a DRM accel driver for the Rockchip NPU. Add the Rockchip
+mailing listso that changes can be tracked.
 
-Fixes: 658ebeac3351 ("accel/rocket: Add IOCTL for BO creation")
 Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 ---
- drivers/accel/rocket/rocket_job.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index 2f1861f960cc..db10848926d8 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -340,7 +340,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- 				return;
- 			}
- 
--			iommu_detach_group(NULL, iommu_group_get(core->dev));
-+			iommu_detach_group(NULL, core->iommu_group);
- 			dma_fence_signal(core->in_flight_job->done_fence);
- 			pm_runtime_put_autosuspend(core->dev);
- 			core->in_flight_job = NULL;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4a8b0fd665ce..388ec1758ce7 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7942,6 +7942,7 @@ F:	include/uapi/drm/ivpu_accel.h
+ DRM ACCEL DRIVER FOR ROCKCHIP NPU
+ M:	Tomeu Vizoso <tomeu@tomeuvizoso.net>
+ L:	dri-devel@lists.freedesktop.org
++L:	linux-rockchip@lists.infradead.org
+ S:	Supported
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/accel/rocket/
 -- 
 2.53.0
 
