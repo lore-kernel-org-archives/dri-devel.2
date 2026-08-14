@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22158C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 19:46:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A109C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 19:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A74E10E1BB;
-	Fri, 14 Aug 2026 19:46:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC6910F6AE;
+	Fri, 14 Aug 2026 19:46:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fx3rxH2G";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="AJ5txdR3";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8700A10E1BB
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:46:20 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 001CF10E1BB
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 19:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786736779;
+ s=mimecast20190719; t=1786736781;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kUl4OiIK4x+8eiq0MCPzDAWyD8Ge8fli2WbAll1g3Fc=;
- b=fx3rxH2Gs4AxiCf44UKjxn+XUWinSAwJlGN+Dda/zLia4fsnLC4Pr0aC0Jr9NQW4mdxh4N
- yPdqu+38cNOsYULYYKjKlSIX6NcNAbIrTaiKf6S2vnSfyp4+D8WwtOquyx6fXaL0hAj315
- V6mGbRTMApJCTwocWqdGnR+VnbmTkaM=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=sXRw5HgFBqtMjibe0Tg/q0W0/UG6cgg62YzMlj2W/cQ=;
+ b=AJ5txdR3PifUsILAldYJOzugYvNUk77OpEQCr9qaCKvAoqsysTZVq3vXvFiSpid2+LsYSF
+ BhGH37iq/D5FDYEhBaP//v553NgXgx+ow6shDnoqw7uMKGCQe0jV1LDGu/xEPqi5uRxq8J
+ 8tN+XJM0PHZiEgSoRiVP9YSl10vTSfk=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-25-X4ulqH2_Oc-JPGz7V3G1sA-1; Fri,
- 14 Aug 2026 15:46:06 -0400
-X-MC-Unique: X4ulqH2_Oc-JPGz7V3G1sA-1
-X-Mimecast-MFC-AGG-ID: X4ulqH2_Oc-JPGz7V3G1sA_1786736764
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-168-vaXtKV4FOU-vVFxX8yzNtg-1; Fri,
+ 14 Aug 2026 15:46:15 -0400
+X-MC-Unique: vaXtKV4FOU-vVFxX8yzNtg-1
+X-Mimecast-MFC-AGG-ID: vaXtKV4FOU-vVFxX8yzNtg_1786736771
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 20A721956089; Fri, 14 Aug 2026 19:46:04 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 360F518001DE; Fri, 14 Aug 2026 19:46:11 +0000 (UTC)
 Received: from GoldenWind.lan (unknown [10.22.64.233])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 9981030001A2; Fri, 14 Aug 2026 19:46:01 +0000 (UTC)
+ id 0C11430001A2; Fri, 14 Aug 2026 19:46:08 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
@@ -56,14 +56,15 @@ Cc: stable@vger.kernel.org, "Timur Tabi" <ttabi@nvidia.com>,
  "Maxime Ripard" <mripard@kernel.org>,
  "Mel Henning" <mhenning@darkrefraction.com>,
  "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v5 2/4] drm/nouveau/gsp/r570: Set GcOff = 0 in fbsr
-Date: Fri, 14 Aug 2026 15:43:49 -0400
-Message-ID: <20260814194542.781955-3-lyude@redhat.com>
+Subject: [PATCH v5 3/4] drm/nouveau/gsp/r570: Enable S/R Display workaround in
+ GSP
+Date: Fri, 14 Aug 2026 15:43:50 -0400
+Message-ID: <20260814194542.781955-4-lyude@redhat.com>
 In-Reply-To: <20260814194542.781955-1-lyude@redhat.com>
 References: <20260814194542.781955-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: eII6JTC0JJFuus4KLhiid-MV1g2yb3tmDcHbFKbmKv4_1786736764
+X-Mimecast-MFC-PROC-ID: sr5iqj45G__XAKY0NAw9QQnPAqmi4646KVV6lgIQ52U_1786736771
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -82,47 +83,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Previously, it looked as if we were able to fix suspend/resume on some
-desktops by setting Gcoff based on whether or not we were entering runtime
-PM. This was a mistake though - the only time suspend/resume would end up
-actually working was if Gcoff = 0.
+There's two flags that we've never been setting when asking GSP to suspend
+the GPU, which OpenRM does set:
 
-It seems like it's likely the main reason for this is the FBSR GcOff
-argument actually controls GSP's behavior with regards to which buffers it
-decides to save across suspend/resume. When GcOff = 1, RM reserved regions
-are saved unless they are marked as LOST_ON_SUSPEND, and RM channel-context
-and kernel-client buffers are also saved -including- when they are
-LOST_ON_SUSPEND. This means with GcOff = 1, we end up having GSP save and
-restore buffers that actually need to be reinitialized on resume - causing
-the failures we're setting.
+  GPU_STATE_FLAGS_PRESERVING
+  GPU_STATE_FLAGS_PM_TRANSITION
 
-Thanks to John Hubbard from Nvidia for providing some background on what
-these options do in the GSP firmware do!
+These flags aren't -supposed- to do much in GSP, they're mostly used by
+OpenRM itself for state tracking. The only thing they do from GSP's side is
+control whether or not a single display related workaround is applied
+during suspend.
+
+But as it turns out, that single workaround is actually quite crucial for
+getting runtime PM working with nouveau - and without it set we end up
+seeing a lot more failures with runtime PM resume. So, let's start setting
+it.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
 Cc: <stable@vger.kernel.org> # v6.16+
-
 ---
-V5:
-* Fix commit title, GcOff should be 0 not 1
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c     | 3 ++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h    | 8 ++++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index 2945d5b4e5707..af5aa5065c3dd 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -81,7 +81,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
- 	ctrl->hClient = gsp->internal.client.object.handle;
- 	ctrl->hSysMem = memlist.handle;
- 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
--	ctrl->bEnteringGcoffState = 1;
-+	ctrl->bEnteringGcoffState = 0;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+index 996941c668ba9..3e391646d8f7d 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+@@ -198,7 +198,8 @@ r570_gsp_set_rmargs(struct nvkm_gsp *gsp, bool resume)
+ 		args->srInitArguments.bInPMTransition = 0;
+ 	} else {
+ 		args->srInitArguments.oldLevel = NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3;
+-		args->srInitArguments.flags = 0;
++		args->srInitArguments.flags =
++			GPU_STATE_FLAGS_PRESERVING | GPU_STATE_FLAGS_PM_TRANSITION;
+ 		args->srInitArguments.bInPMTransition = 1;
+ 	}
  
- 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
- 	if (ret)
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+index b6075021e74f5..c458569af9d72 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+@@ -523,6 +523,14 @@ typedef struct
+ 
+ #define NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3            (0x00000003U)
+ 
++#define GPU_STATE_FLAGS_PRESERVING         BIT(0)  // GPU state is preserved
++#define GPU_STATE_FLAGS_VGA_TRANSITION     BIT(1)   // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_PM_TRANSITION      BIT(2)   // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_PM_SUSPEND         BIT(3)
++#define GPU_STATE_FLAGS_PM_HIBERNATE       BIT(4)
++#define GPU_STATE_FLAGS_GC6_TRANSITION     BIT(5)  // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_FAST_UNLOAD        BIT(6)  // Used during windows restart, skips stateDestroy steps
++
+ typedef struct
+ {
+     // Magic for verification by secure ucode
 -- 
 2.55.0
 
