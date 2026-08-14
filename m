@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08FCFC5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 10:31:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40D87C5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 10:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68E9E10E2CC;
-	Fri, 14 Aug 2026 10:31:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E93E10E549;
+	Fri, 14 Aug 2026 10:34:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GB/Mnohj";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Mul0DBDE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED54610E2CC
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 10:31:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8895E40862;
- Fri, 14 Aug 2026 10:31:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC3E1F00A3D;
- Fri, 14 Aug 2026 10:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786703490;
- bh=efsmY90amC3n0X7S65pBhx/ucpHHjHpwbiy0Odk0WDw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GB/Mnohjuwyrwv6IlY0/iuDWKaHEBc6HUEJOiarf1b9C1Id3etbVNdYLDT0uQzQ7d
- +lCiuTcv6THH5sM1bfhwxeNwwAYnVUnBNC3U/hR9aBuDn3Q8Y/u0S3pGYJvai0QzMr
- ludBiYBT37cKmKKMomO4n6Mwr8WgfYSE6ZZLlfQdSGaDBj+G1ZAKuaiMv447UqrhfW
- XM15N2fStIm5LQAQMtMi5M5tHON3pM+SKqc9I0HN5iMGkEtS8cNZnpLXaIjdHEAzkz
- Ac8e92AirY6shVWs+6LhFl6xglrlMGp10dtYHFiRhQCfHtq6gUNJsYmxk5Ug4ypK/9
- 1fHpzCulDxuIg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-To: "Jianping Li" <jianping.li@oss.qualcomm.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC56010E549
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 10:34:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=YkQjnFDCo1dB5BDFIb8WGuaEHaukQCwRTziICDH/SuA=; b=Mul0DBDEEj9W4CaPnW6yRmTnpz
+ nEufwi/PEidJzP5z7wHwbGe9j0EdGE88Z6AOeikUM5cLpX2IqyTEwaDIg6iikmYKAQ4I3U+SQPaF8
+ o1VVWwyNQeEcSV0b4bTB/c+BdLCDQk27wtOV4fP/mtGJcwC2sexv0hAXNPFaWIVHpZ8VwO8tiR+ih
+ OxzMbIByp+XHoFhEtjgJcP513h5eHnfDqUW1Le98j7gqC9Vp0Sl1+GJq+ygJqxiupM7xwpI6olYof
+ bYiYURfN6VCH4Rz+SMp2/mpRkzObmR5ta9ov6urvOU1P+e6IUYdXVZRyfUgQXRy7ycFC1K5HsXhKr
+ 54hFtmzg==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wupEz-001hAO-1O; Fri, 14 Aug 2026 12:34:21 +0200
+Message-ID: <7657d2ea-30c7-4655-be90-04e86fb2212a@igalia.com>
+Date: Fri, 14 Aug 2026 11:34:20 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/sched: Ensure monotonic min_vruntime
+To: sashiko-reviews@lists.linux.dev
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814101955.234238-1-jianping.li@oss.qualcomm.com>
-References: <20260814101955.234238-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 10:31:29 +0000
-Message-Id: <20260814103130.4CC3E1F00A3D@smtp.kernel.org>
+References: <20260814075739.32481-1-tvrtko.ursulin@igalia.com>
+ <20260814075739.32481-3-tvrtko.ursulin@igalia.com>
+ <20260814080942.58E071F000E9@smtp.kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260814080942.58E071F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,222 +56,149 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
 
-New issues:
-- [High] TrustZone memory assignment is permanently leaked on probe error p=
-aths.
-- [High] Concurrent ioctl calls can cause the DSP to receive an uninitializ=
-ed static process creation request out-of-order.
-- [Medium] Unconditional TrustZone memory assignment during probe may fail =
-or orphan memory for ADSP devices lacking VMIDs.
-- [Medium] The `audio_init_mem` flag is incorrectly rolled back on remote i=
-nvocation errors, allowing the static heap to be sent multiple times.
+On 14/08/2026 09:09, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] drm_sched_entity_save_vruntime() always saves a virtual runtime lag of 0 due to an impossible condition, permanently destroying the entity's relative lag state.
+> - [Medium] rq->min_vruntime incorrectly tracks the maximum updated vruntime of the executing entity rather than the true minimum of the runqueue, penalizing newly enqueued entities.
+> --
+> 
+> --- Patch [2]: [PATCH 2/2] drm/sched: Ensure monotonic min_vruntime ---
+> commit 840e24cc75ac9a836c633b23cb95dda0e0dc3b75
+> Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> 
+> drm/sched: Ensure monotonic min_vruntime
+> 
+> min_vruntime handling had a bug where if an entity never exited the run-
+> queue it could get penalised by its virtual runtime only ever growing,
+> while the periodically exiting and re-joining entities could repeatedly
+> get pulled ahead of it.
+> 
+> Fix it by making the min_vruntime strictly monotonic by tracking it
+> separately (an keeping it always up to date) instead of fetching what
+> happens to be the top of the tree sorted by virtual runtime.
+> 
+> While at it replace open coded ktime_t comparison with the correct
+> ktime_after() helper.
+> 
+> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+> Tested-by: Luke.Wildhardt@proton.me
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Luke.Wildhardt@proton.me
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> 
+>> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+>> index 23f46ec610e78..bc8363974a276 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_rq.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+> 
+> [ ... ]
+> 
+>> @@ -151,7 +130,7 @@ drm_sched_entity_save_vruntime(struct drm_sched_entity *entity,
+>>   
+>>   	spin_lock(&stats->lock);
+>>   	vruntime = stats->vruntime;
+>> -	if (min_vruntime && vruntime > min_vruntime)
+>> +	if (ktime_after(vruntime, min_vruntime))
+> 
+> [Severity: High]
+> Will this condition always evaluate to false and unconditionally reset the
+> saved lag to 0?
+> 
+> In drm_sched_rq_pop_entity(), the runqueue's min_vruntime is updated to be
+> at least the entity's current vruntime:
+> 
+> drm_sched_rq_pop_entity() {
+>      ...
+>      ts = drm_sched_entity_update_vruntime(entity);
+>      if (ktime_after(ts, rq->min_vruntime))
+>          rq->min_vruntime = ts;
+> 
+> Later in the same function, if the queue is empty, we call:
+> 
+>      drm_sched_entity_save_vruntime(entity, rq->min_vruntime);
+> 
+> Since min_vruntime is guaranteed to be greater than or equal to the entity's
+> vruntime at this point, the ktime_after(vruntime, min_vruntime) check here
+> seems mathematically impossible to satisfy.
+> 
+> Does this mean entities that empty their runqueue will permanently lose
+> their accumulated vruntime penalty?
 
-Pre-existing issues:
-- [High] Permanent TrustZone memory leak for SDSP domains during driver rem=
-oval.
---
+Okay, it's not a quick fix so I'll drop 2/2 for now and come back to it 
+later. 1/2 stands on it's own anyway.
 
---- Patch [1]: [PATCH v12] misc: fastrpc: Allocate entire reserved memory f=
-or Audio PD in probe ---
-commit f78e580b5ae96a440902b976778bd1f19b384768
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
+Regards,
 
-misc: fastrpc: Allocate entire reserved memory for Audio PD in probe
+Tvrtko
 
-This commit allocates the entire Audio PD reserved-memory region during
-rpmsg probe and ties its lifetime to the rpmsg channel. It removes
-userspace-controlled allocation and freeing, ensuring memory is only
-reclaimed when the DSP process is torn down.
+> 
+>>   		vruntime = ktime_sub(vruntime, min_vruntime);
+>>   	else
+>>   		vruntime = 0;
+> 
+> [ ... ]
+> 
+>> @@ -351,27 +324,27 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+>>   	 * Update the entity's location in the min heap according to
+>>   	 * the timestamp of the next job, if any.
+>>   	 */
+>> +
+>> +	if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
+>> +		ts = drm_sched_entity_update_vruntime(entity);
+>> +		if (ktime_after(ts, rq->min_vruntime))
+>> +			rq->min_vruntime = ts;
+>> +	}
+>> +
+> 
+> [Severity: Medium]
+> Does this unintentionally advance the runqueue's min_vruntime past other
+> entities still waiting in the RB tree?
+> 
+> By setting rq->min_vruntime to the newly updated vruntime of the currently
+> executing entity, it seems we might ignore the vruntimes of other entities
+> that are still queued.
+> 
+> When new entities join the runqueue, won't their initial vruntime be based
+> on this artificially inflated min_vruntime, penalizing them relative to the
+> existing waiting entities?
+> 
+>>   	next_job = drm_sched_entity_queue_peek(entity);
+>>   	if (next_job) {
+>> -		ktime_t ts;
+>> -
+>> -		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
+>> -			ts = drm_sched_entity_get_job_ts(entity);
+>> -		else if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>> +		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>   			ts = next_job->submit_ts;
+>> -		else
+>> +		else if (drm_sched_policy == DRM_SCHED_POLICY_RR)
+>>   			ts = drm_sched_rq_next_rr_ts(rq, entity);
+>>   
+>>   		drm_sched_rq_update_fifo_locked(entity, rq, ts);
+>>   	} else {
+>> -		drm_sched_rq_remove_fifo_locked(entity, rq);
+>> -
+>> -		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
+>> -			ktime_t min_vruntime;
+>> +		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
+>> +			drm_sched_entity_save_vruntime(entity,
+>> +						       rq->min_vruntime);
+>>   
+>> -			min_vruntime = drm_sched_rq_get_min_vruntime(rq);
+>> -			drm_sched_entity_save_vruntime(entity, min_vruntime);
+>> -		}
+>> +		drm_sched_rq_remove_fifo_locked(entity, rq);
+>>   	}
+>>   
+>>   	spin_unlock(&rq->lock);
+> 
 
-Link: https://lore.kernel.org/all/20260731093210.473-1-jianping.li@oss.qual=
-comm.com/
-
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 90fd669636ec1..3f14a4673698e 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-
-[ ... ]
-
-> @@ -1508,17 +1508,34 @@ static int fastrpc_init_create_static_process(str=
-uct fastrpc_user *fl,
->  	args[1].length =3D inbuf.namelen;
->  	args[1].fd =3D -1;
-> =20
-> -	pages[0].addr =3D fl->cctx->remote_heap->dma_addr;
-> -	pages[0].size =3D fl->cctx->remote_heap->size;
-> +	/*
-> +	 * Audio PD is a static PD and retains the remote heap
-> +	 * information across daemon restarts. Therefore only
-> +	 * the first attach should provide heap information to
-> +	 * DSP. Subsequent attaches reuse the previously
-> +	 * initialized memory pool.
-> +	 */
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	if (!cctx->audio_init_mem) {
-> +		pages[0].addr =3D cctx->remote_heap_addr;
-> +		pages[0].size =3D cctx->remote_heap_size;
-> +		cctx->audio_init_mem =3D true;
-> +		inbuf.pageslen =3D 1;
-> +		sent_heap =3D true;
-> +	} else {
-> +		pages[0].addr =3D 0;
-> +		pages[0].size =3D 0;
-> +	}
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
-> =20
->  	args[2].ptr =3D (u64)(uintptr_t) pages;
->  	args[2].length =3D sizeof(*pages);
->  	args[2].fd =3D -1;
-> =20
->  	sc =3D FASTRPC_SCALARS(FASTRPC_RMID_INIT_CREATE_STATIC, 3, 0);
-> =20
->  	err =3D fastrpc_internal_invoke(fl, true, FASTRPC_INIT_HANDLE,
->  				      sc, args);
-
-[Severity: High]
-Could this allow the DSP to receive an uninitialized static process creation
-request out-of-order?
-
-Two threads could concurrently execute the ioctl. Thread A acquires the loc=
-k,
-sees audio_init_mem is false, sets it to true, and sets pageslen =3D 1.
-Thread B then acquires the lock, sees audio_init_mem is true, and sets
-pageslen =3D 0.
-
-Because fastrpc_internal_invoke() is called outside the lock, thread execut=
-ion
-order is unconstrained once the lock is released. Thread B could be schedul=
-ed
-such that its RPC payload (with pageslen =3D 0) reaches the DSP before Thre=
-ad
-A's initialization payload.
-
->  	if (err)
->  		goto err_invoke;
-> =20
->  	kfree(args);
->  	kfree(name);
-> =20
->  	return 0;
->  err_invoke:
-> -	if (fl->cctx->vmcount && scm_done) {
-[ ... ]
-> +	if (sent_heap) {
-> +		spin_lock_irqsave(&cctx->lock, flags);
-> +		cctx->audio_init_mem =3D false;
-> +		spin_unlock_irqrestore(&cctx->lock, flags);
->  	}
-> -err_map:
-> -	fastrpc_buf_free(fl->cctx->remote_heap);
-> -	fl->cctx->remote_heap =3D NULL;
-> -err_name:
->  	kfree(name);
->  err:
-
-[Severity: Medium]
-Is it safe to blindly roll back audio_init_mem if fastrpc_internal_invoke()
-returns an error?
-
-Because the DSP operates asynchronously, an interrupted kernel wait (such as
--ERESTARTSYS due to a received signal) does not necessarily mean the DSP
-failed to process the request. Reverting this flag might allow the next
-process attachment to send the heap configuration pages a second time, which
-would violate the static process lifecycle.
-
-[ ... ]
-
-> @@ -2564,25 +2564,20 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
-e *rpdev)
-[ ... ]
-> -	if (domain_id =3D=3D SDSP_DOMAIN_ID) {
-> +	if (fastrpc_domain_has_reserved_heap(domain_id)) {
->  		struct resource res;
->  		u64 src_perms;
-> =20
->  		err =3D of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
->  		if (!err) {
-> +			if (fastrpc_domain_uses_static_heap(domain_id)) {
-> +				data->remote_heap_addr =3D res.start;
-> +				data->remote_heap_size =3D resource_size(&res);
-> +			}
-
-[Severity: High]
-This is a pre-existing issue, but does this logic permanently leak TrustZone
-memory for SDSP domains when the driver is removed?
-
-For SDSP domains, fastrpc_domain_has_reserved_heap() returns true, so memory
-is assigned to the DSP VMID below. However,
-fastrpc_domain_uses_static_heap() returns false for SDSP, so
-data->remote_heap_size remains uninitialized as 0.
-
->  			src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
-> =20
->  			err =3D qcom_scm_assign_mem(res.start, resource_size(&res), &src_perm=
-s,
->  				    data->vmperms, data->vmcount);
-
-[Severity: Medium]
-Is it intentional to call qcom_scm_assign_mem() unconditionally here, even
-if data->vmcount is zero?
-
-Previously, this assignment was explicitly guarded by checking vmcount.
-If a device tree without the qcom,vmids property initializes the ADSP domai=
-n,
-could calling this with a destination count of 0 be rejected by TrustZone
-and fail the probe? Additionally, if vmcount is 0, the memory is explicitly
-skipped during cleanup, which would permanently leak it.
-
->  			if (err)
->  				goto err_free_data;
-> +		} else {
-> +			err =3D 0;
->  		}
-> -
->  	}
-
-[ ... ]
-
->  err_free_data:
->  	kfree(data);
->  	return err;
->  }
-
-[Severity: High]
-Does this error path permanently leak the TrustZone memory assignment?
-
-If any operation fails after the memory is successfully assigned to the DSP
-VMID (for example, inside fastrpc_device_register() or
-of_platform_populate()), the error handlers only free local data structures.
-They do not appear to call qcom_scm_assign_mem() to revert the TrustZone
-memory ownership back to HLOS.
-
-[ ... ]
-
-> @@ -2684,24 +2684,8 @@ static void fastrpc_rpmsg_remove(struct rpmsg_devi=
-ce *rpdev)
-[ ... ]
-> -	if (cctx->remote_heap)
-> -		fastrpc_buf_free(cctx->remote_heap);
-> +	if (cctx->remote_heap_size && cctx->vmcount) {
-> +		u64 src_perms =3D 0;
-> +		struct qcom_scm_vmperm dst_perms;
-
-[Severity: High]
-This is a pre-existing issue, but does this condition permanently bypass
-memory unassignment for SDSP domains?
-
-Because remote_heap_size is intentionally left as 0 for SDSP domains during
-probe, this cleanup block is skipped. This leaves the reserved memory
-permanently assigned to the DSP VMID after module removal.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814101955.2342=
-38-1-jianping.li@oss.qualcomm.com?part=3D1
