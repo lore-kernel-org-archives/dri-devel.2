@@ -4,129 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A32F9C5B572
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 07:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF59BC5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 08:05:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1A4F10E0E4;
-	Fri, 14 Aug 2026 07:59:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31C2A10F40C;
+	Fri, 14 Aug 2026 08:05:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ui0LQmxe";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mFkprYqm";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011060.outbound.protection.outlook.com [52.101.62.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3B5A10E0E4
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 07:59:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YhC86SMEnErZiwGlZo2sdesR/dShpakfWBE22YDltnHp1C8a8mA++N79DDssJHxGE6tfPST29FFUfHXDObPX3GOu1NetXTtMga+8rwkmfXxfN9Kwz0k6/DrjGodyNF8bN3czH1dnGzvdEJ1UOOOxp8LFlWDJtdpiRxKMc5ChPWZcMjlRLNLTpQ/9F20rfV7uLNU0pqeHmR7v0Tqu9qG+Xh6nG0QfsEr5D/IIQz0aY2tG+0RNR0fGdOj+WL520CEMakP0warbeGnMxmdMPoxX3VzJgXR7rTxmaoYSFWX43KkRKwKF7wy5ZiLz7Sh8fvylzhYHYvQ0KuAtVvzq3XvlFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MW5GM2DBGUxMIXBVysW0y7oQYSIHs0SYufMsc4uuRoo=;
- b=iXC1G+1grsECEf3iwUCv5XpUkbbSwbuqq/i7mtHqXeeNUpUF3h4Ofym7cEL1h0bJi29kqWb2vKiQ4oW1KxSwbxuCBxX7JoCjSDFXz+GNoq8KLS0oG22KSt3ifhLi9WS54cGYaJ28Hkk5hR6bXQgr0eANrt9fmZaH9BtmHmuin4kqoaWcy4WLMaSiZPgi4VVoPKK/8Lr/cK8BTeJxBw/QDfbWWT/h2p6di5n0fJns/dm/YMEGDSpXWwFljbcWRVivbBq/thQQyiZ56rxQXMS4LEZeBemSC/EF9/mEbSXPaoYSwHvKtXJ4LlnQPplrs2dHpUW/aQtYdACBB8Db9hM2Xw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MW5GM2DBGUxMIXBVysW0y7oQYSIHs0SYufMsc4uuRoo=;
- b=ui0LQmxesdD+xym+V+JTTMdOa1kq+PiV/iAZWrLY/sAzIVJR1Zz+XgHIdgr/MZr2plooyBT2twz3JqGFd2qWsEpEoFE6FoIfIgn7EPPSdgh0/AAluRBKQFtaAWsns+YpGkpiz/+kH3sdpnzDyRQ/bpYy4dBHD+vEDpfq7/YVz8w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB5610.namprd12.prod.outlook.com (2603:10b6:a03:423::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 07:59:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Fri, 14 Aug 2026
- 07:59:27 +0000
-Message-ID: <0cde1787-fe35-4832-9a28-6313e006fe38@amd.com>
-Date: Fri, 14 Aug 2026 09:59:22 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
-To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Lizhi Hou <lizhi.hou@amd.com>
-Cc: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>,
- Sonal Santan <sonal.santan@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
- <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
- <224dd281-da48-84b3-a048-016b51aa0362@amd.com>
- <a505f9e5-b416-43e9-934d-c5c29b8a70e9@amd.com>
- <9420bbe5-46a3-84be-eae8-596bc42bddac@amd.com>
- <20260813182905.124248-1-taimuraz@kaitmazov.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260813182905.124248-1-taimuraz@kaitmazov.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR18CA0022.namprd18.prod.outlook.com
- (2603:10b6:208:23c::27) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 438EB10F40C
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 08:05:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1786694741;
+ bh=ObTt+5lFwWXlLZgTeX79sBx49bENG06KP++KQ9UuTkE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=mFkprYqmUVhy5jkDS6CFqa35m/vvscD0L+I23yyL7u1PLXW8kmMu7/cDRd2YBSN3W
+ uGZMzQuzDVWg4v9hm/m7aNpAMeFW/pV4KX32N1NOy4a9f9Jwl3tOIc4DbLIRAbZ+JV
+ qIqFlAriOvKo11bbO8IBo3imzKFQjbdufpxLSQkZLbilHN0Iquob8w0bftmDon5AoC
+ BWYLxu5vW6zIcUQ9WM+Ot5ezMshd4Xcpp4oN6obU+aEVaY5lQk2BhLQjoLtaM4LNwn
+ MSYLXxosOIo8dxumhXqwDxayKg+fQuyYW68f/MQ9F6Tpcg1kelrGMSGgzNPNmt3o/K
+ U7uxlZHm+3sBA==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2FD9917E0C5C;
+ Fri, 14 Aug 2026 10:05:41 +0200 (CEST)
+Date: Fri, 14 Aug 2026 10:05:36 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Steven Price <steven.price@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, Danilo Krummrich
+ <dakr@redhat.com>
+Subject: Re: [PATCH v3 00/17] drm/panthor: Fix the unplug logic
+Message-ID: <20260814100536.15b38514@fedora-21.home>
+In-Reply-To: <an35hWg7K3pzIpm6@e142607>
+References: <20260813-panthor-unplug-fixes-v3-0-3ed4e961bbe7@collabora.com>
+ <20260813132320.1682f9bd@fedora-21.home> <an3eqSUT_FRkye-1@e142607>
+ <20260813175522.0ae2f42d@fedora-21.home> <an35hWg7K3pzIpm6@e142607>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB5610:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07f97123-d704-443b-79f8-08def9d9f64f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|56012099006|11063799006|5023799004|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: cMeOwI/9jIqGomK1Cgik19/EdCw+9DOlGoZpABixNubQJq1aNLxTn/mTo9ESSug38eSA+QjmiKv8+sYQwivsHp9UXxG0aPZ1zNgQaXYBpl0fmDuhT3v9AxaT228eGJpFewSdec3tBO3+HDO4Yg/HKZdc01HgpUQfs0x70eSKoG8qWboZo3jD9mCovl8HmrsmurwZ7sfqOaHZ5mliXwWYZP9Tm77YwIodKppVeQQSfRkGR6Su0+3ht4bzoQmo/jMALBWwbbAqb254KuCmFZVxj5rh75vN3Wy5i7a6fY/QYvgM1c/3cyCXFbb/FhJIpACu+j91d8dajKHz5CZb2oNotdoW8U9wFx0I0Us1ZgSR6XMrh6oGBff+bYC6NeBkzV2Lflfs0y+V56m8TyCihhwGlpkUYPTndnuWo4TPwVUgdCxVIEPwAFPW3z5X0DnOrN1yGZGts1Pa7oMOBQiBgjb9n+PhsPOHZkRYbbT8TIlE5c3ekM2MUEPPrkOTDMnA6w3PpAoAw/w3Gil8Ia407+g1uuHYT8ghS/+nMxzhDIMV/RvWcF1ItML2GKeQPFuMVVZp6NZggxwg/xKK9BYm8SGmrHfv6/KdVb2TguuvsGjnXrHU+Z7qLzSb1fvW8NY7Fb/dAzJB9xFcM/t/jcomoft/kZxl9Cym5Sut//ZZTMiTZmw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(4143699003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUNZNTBEQ2RiMHlhTERFdTZONmd5MGRCaEtzYS9jSi9GWXBUQ2U0SEkwN0V0?=
- =?utf-8?B?Znpkd1REWkZmWHF3MWJNcDdhblB2RkNaazZRQ1pUcjkzNXZLek1FZ0pSZVRW?=
- =?utf-8?B?Nld1WUlrWkl5Z2RWZTR5aUtDSjNxMjRpZW9zMHhreGE5SHZNaXhhUVk1WUxL?=
- =?utf-8?B?M1VuYTVmcm51cUJpcTMzSkdTZW50b2ozc3dwRngzeCtuMmZIZjBtNmd6UjVI?=
- =?utf-8?B?eWRjNyt2dExHb0txcWF1ZkY2QjBxeU5EY0VsbFU5VXBPREVRNFdwTUpsR1M1?=
- =?utf-8?B?cWdUbzJOR1dudnExblU2ZXVObUIzNDNEQ3JDV0JtcGVZTGZMamd2NFJOem9W?=
- =?utf-8?B?YUVtWDdxQmRSOGpncW1acXRiV2dqdVF6NFFxTVZQYWY1dG51dFRyUWpsMUEw?=
- =?utf-8?B?OU03YVhQeUJsZEpCc3laVUl3bHp3Ym9ObkxZbkkzL1JvYnBtdWtrZXdVRmtR?=
- =?utf-8?B?M2RaU1dvQXdmcUloUS9YT01tUDFoT3hySnV5cGhuWWVmbURheVBKbUNlbGRK?=
- =?utf-8?B?Ri8wTjQ0TzVteSsyYlpDSEtNbmhUSjRSWGo5WWRmU1NaUmRFR2pPeU4xbmRK?=
- =?utf-8?B?VnF1LzFaelBGZFlmcnlHK2dLNU1tOUZVWGJ3MjJ3cGRma24yeG9ZU05nOWVM?=
- =?utf-8?B?SUNRS1R2MCt3b0daY1MraWZOdyt1NytIUit0S0tnaTd1cXk1bEk1WTdkbUcx?=
- =?utf-8?B?VFN0OW5RQ2p2c2Z5amVTZ0JGdVAzMXdPT1BYaUt2bGpGbFpoNzV6cHJQaHM4?=
- =?utf-8?B?RlJGcC9ZNTIvM3ZiS010VmtEWnNRNWoxZXJFUU12NXBtMUdoSVpiRER1V0hR?=
- =?utf-8?B?VkNRckFITXgwd2c2MGpKK0tZQnpCMHhzR3pqaUx0ZXpCMVNMaHUxSFRybTZh?=
- =?utf-8?B?Y3oya0IvV3pBMktDSE1Ta3ZjL1l2bWMrd1crU2hYL2xNQ0RDNUd4V2V3dWNk?=
- =?utf-8?B?Y25rdUx6elNXV0FndzNzMlYxWGg3WDM4UHh6amhVQ0VGWUdaVDE5TWcvdldq?=
- =?utf-8?B?MVJ6ZlNhWHNwWHpjcEZ4a040OTFPeW5YTksvTGdUc2xieVpRSmdPNzVlamtn?=
- =?utf-8?B?VnZ2Um9HNk5wbUkwT0cwUmZOd1dQTElaVHhwajRQSHF5ZHMzTlZZU2lkc0kz?=
- =?utf-8?B?NFVhUjhpNVBFQm9xVEUwTVdZL0tsVnlpVGVHL2g0VGtrdGRxVG5OaEJ2aGRB?=
- =?utf-8?B?YURsczFZb1BwTFpKTTluZ2ZDd2ZpQjRuSDNnYnNOdDJkSWlBNnU3dVJpaldQ?=
- =?utf-8?B?UUcycFpwOHA5NUk5RW1nbVRjVXpsQVIzMHR1RVJnYlN6T0ZPSkw0K3Flc2V5?=
- =?utf-8?B?eWtnaTZaaFYvU015UDlmZGFMM2V5aWhtL3lYYTJQalY5bk42YUNJNkVKaDIx?=
- =?utf-8?B?ajU2T1U1NDYwd1h6cm1Bem00MUVOT3FwdjlJbE1zUUN6MnkwNmdsV1o2SDVM?=
- =?utf-8?B?ZWVrVmtEVXpFaStpemltQUc1dVVJNmNIYkNzbWZiYlFzaVhsMlExZmVXLzU1?=
- =?utf-8?B?L1dmdGtOQkdISUtrbE8vbFNtUEkyVWF3T05OaFY1elFLQ1dURFNIdVI5UU1R?=
- =?utf-8?B?M2RyaktySVhaNUpvSzg0QnhCMmIzTUFBVlMxUThYZS9zd3ByUTkxbXpNN0FP?=
- =?utf-8?B?SGxGZkFhTHdkVHNDQ3V4M2VCRDdyQ2NNQ1c3WU4xTEEwWXpuVnAzN3pFME9l?=
- =?utf-8?B?emRLRDQyZmN6V0M1bXd1T0VZZVN5TUhRSFF5UHZhYXNTSThGMjdrOFZ2YkZC?=
- =?utf-8?B?OVE3Ykl4d3RucVpQTkZuc1J3NThyOFBPSXh2RDdTaDdJZjBYTWpYTHpXYXRi?=
- =?utf-8?B?WW1DMElNN2craHdVQ2JqQ3JCdGFWS2J6bUgzUDVybkZvdnpQK29sWXJ4Uk1T?=
- =?utf-8?B?MVY1a0d3VlJKaFNsUkVKNVptMUJmbE56bTQxQlFQYm9qdGw5d1BJdU1YRE04?=
- =?utf-8?B?Um81V1R2UStsQUZSNHNJV0ZMdmp2R29yN0YrcTM3T2tZMXY1REdvdk12R0ha?=
- =?utf-8?B?NHRYZDhzaW9JRHl1SzlLUXJ1Q25iMjJOUkJCU3ZHYy9GTjJnek4rd0w3cFhH?=
- =?utf-8?B?N2w3WFpmWXlVK3luWUt4ckxoNTJnbEN2MktZLzlIUm1yRlFOY1JjcFl4NTBR?=
- =?utf-8?B?NWtsVmllZEIxVm13OVV4aFRhQVB2L1lCY1JUWUIrNjdVZi96bDJhMnY2YlpH?=
- =?utf-8?B?c3NZMEdBazE0TnBXWFFDUWdsM2g2SVNFSkQ3TjVkL04vMU5YMFMvc0tTOHBi?=
- =?utf-8?B?VWRNZTdoSHVPbUsvU3dKU29pcmhoN0RqV3o3Q0NjUFZPOWwrTHV4RTRzZklz?=
- =?utf-8?Q?3y8bnN7VrCjuRSO4bN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07f97123-d704-443b-79f8-08def9d9f64f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 07:59:27.2256 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Boe/u11zYbO0WJPyoWsp4t2QojjX8/9OY6wrvGDj0SXxXdmki6lK/L8uee4SDztu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5610
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,24 +68,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/13/26 20:29, Taimuraz Kaitmazov wrote:
-> On 8/13/26 09:44, Christian König wrote:
->> An alternative would be to use DMA_BUF_IOCTL_SYNC from userspace
+On Thu, 13 Aug 2026 18:06:13 +0100
+Liviu Dudau <liviu.dudau@arm.com> wrote:
+
+> On Thu, Aug 13, 2026 at 05:55:22PM +0200, Boris Brezillon wrote:
+> > On Thu, 13 Aug 2026 16:11:37 +0100
+> > Liviu Dudau <liviu.dudau@arm.com> wrote:
+> >   
+> > > On Thu, Aug 13, 2026 at 01:23:20PM +0200, Boris Brezillon wrote:  
+> > > > +Danilo, since you worked on the 'bound lifetime stuff in rust, and I
+> > > > feel this is related to the problem I'm trying to fix here.
+> > > > 
+> > > > On Thu, 13 Aug 2026 12:56:58 +0200
+> > > > Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> > > >     
+> > > > > The current unplug logic is broken in multiple ways. This is an attempt
+> > > > > at addressing the various problems found along the way (some were
+> > > > > reported by Sashiko, others have been found while trying to address
+> > > > > Sashiko's concerns).
+> > > > > 
+> > > > > Sending a new version even though v2 didn't receive any human review
+> > > > > just to try and address the new stuff pointed out by Sashiko.    
+> > > 
+> > > Sorry, I was on holiday at the beginning of the week, back today.
+> > >   
+> > > > 
+> > > > Just a note I forgot to add to my cover letter. I've already spent way
+> > > > more time than I wanted on this, not just because Sashiko keeps finding
+> > > > new issues at each of my attempt, but also because the whole idea of
+> > > > pretending a device on a platform bus is unplugged and can't harm us is
+> > > > doomed. This is not an hot-pluggable bus, and the device is still there,
+> > > > so, unless we can be absolutely sure it's inactive (which a RESET can
+> > > > provide, but RESETs are fallible) we just have two options:
+> > > > 
+> > > > 1. prevent the device from going away until we managed to properly
+> > > >    shutdown the GPU    
+> > > 
+> > > That's going to be event harder with the upcoming HW where the GPU
+> > > slice can be made inaccessible by an arbiter.
+> > >   
+> > > > 
+> > > > 2. make sure all resources the HW might have its hands on at the time
+> > > >    the failure of RESET in the unplug path happened are leaked    
+> > > 
+> > > There is another option which is to make sure that the HW can only
+> > > access the dummy pages. We're still in control of the MMU and the page
+> > > tables, once we update those and flush them we should be safe in the
+> > > knowledge that the HW cannot access live resources.  
+> > 
+> > That's more for an "active device" situation though. Active as in,
+> > device is probed and ready to accept user requests, even if it might be
+> > temporarily inaccessible because of RESETs (or access-window loss
+> > on new gens).
+> > 
+> > The thing I'm trying to fix here is the unplug logic: device is going
+> > away, we just need to make sure it's either
+> > 
+> > - off
+> > 
+> > or
+> > 
+> > - the resources it had access to are leaked
+> > 
+> > or
+> > 
+> > - we prevent the removal until we're sure it's off (retry the SOFT_RESET
+> >   indefinitely?)
+> >   
+> > > 
+> > >   
+> > > > 
+> > > > Option 1 is no longer possible since platform_driver::remove() can't
+> > > > return an error. That leaves options 2, which is basically what this
+> > > > patchset is doing, but the whole idea of leaking resources when the
+> > > > final RESET in the unplug path fails has various nasty implications,
+> > > > like the fact we end up with dangling drm_device (drm_gpuvm retains a
+> > > > ref, and each GPU mapping we kept alive in the gpuvm is what keeps the
+> > > > gpuvm and the BOs alive). In practice, there should be no one
+> > > > triggering operations on this drm_device, because all the user-facing
+> > > > interfaces have been shutdown by drm_dev_unregister() (which is called
+> > > > by drm_dev_unplug()), but as things stand now, this drm_device still
+> > > > has access to module-specific vtables, and there's nothing retaining
+> > > > the module either.
+> > > > 
+> > > > TLDR; this is all super fragile stuff, on the other hand the current
+> > > > situation is probably even worse. so if anyone has any idea how to
+> > > > handle this properly (or at least a bit better than we do), please let
+> > > > me know. I know a lot of this stuff is currently being considered as
+> > > > part of the drm-rust abstractions, so hopefully we have a long-term
+> > > > solution for rust drivers, but I'd really like a short-term solution
+> > > > for panthor that doesn't involve nasty tricks or overly complex
+> > > > refactoring.    
+> > > 
+> > > I think some of the pain we're suffering comes from the overlap (that
+> > > you've tried to address in this series) between the resources that
+> > > are visible to the HW and the ones that are visible to user space. The
+> > > split of AS and VM is the right thing to do.  
+> > 
+> > Yeah, that definitely makes things harder to disconnect when the device
+> > goes away. But even with this split, there's still the problem that the
+> > "unplug" we have is not HW based (unlike a PCI bus), so the HW still has
+> > access to the memory we shared with it (for its MMU page table, and the
+> > pages those point to).  
 > 
-> Tried it against amdgpu, imported into amdxdna: stale on all 20 runs, no
-> better than no sync at all. SYNC_BO on the same buffer is clean on all
-> 20.
+> There is no copy of the MMU page tables that the FW or the hardware own.
+> Panthor is in charge of the page tables and it can force change them if it
+> wants to be sure that HW doesn't access memory we don't want to. If it
+> does, HW will get a bus access violation and halt.
 
-That is expected, as I said this is for the case when a device which can't snoop the CPU cache exports a buffer.
+Nope, that's not true: AS commands can fail. When that happens, we keep
+the page-table resident until the next RESET, which tells us it's safe
+to assume the HW doesn't have access to this page table. But this relies
+on the assumption the SOFT_RESET command is not fallible.
 
-> Which leaves me no legal way to import a buffer the CPU also reads. Is
-> there one I'm missing, or should a device like this just not import?
+In the unplug path, it's pretty much the same, except it's the end of
+the road, so there's no chance for us to keep the AS (and its page
+table) alive and accessible if the reset fails. We either leak it, or
+we release everything and expose ourselves to HW UAFs.
 
-Yes, exactly that.
+> 
+> >   
+> > > 
+> > > My proposal for handling the unplugging would be to have race as quick
+> > > as possible to the MMU unplug and then free up all BOs and VMs that
+> > > were allocated at the request of user space, then go back and free
+> > > the kernel BOs. Then hopefully we should be in a position where there
+> > > are no GPU mappings and we can unplug the drm_gpuvm.  
+> > 
+> > I mean, that's basically what this patchset is doing. To be accurate,
+> > what the unplug logic does at the end of this patchset is:
+> > 
+> > 1. RESET the GPU, so the HW is inactive => basically faking a real
+> >    unplug on an hot-pluggable bus
+> > 2. unplug each component, and make sure the unplug logic doesn't
+> >    interact with the HW. It just acts as a janitor releasing all the
+> >    objects that were left behind at the moment the unplug happens. The
+> >    only thing left are the user-facing objects (panthor_file) so that
+> >    DRM FDs can be closed after the unplug, but all other operations
+> >    IOCTLs fail with ENODEV. panthor_device also stays around a bit
+> >    longer, but it's mostly here to keep the drm_device around until the
+> >    last ref is dropped
+> > 3. if and only if the RESET failed in step 1, the MMU unplug logic leaks
+> >    the GPU mappings of the resident AS instead of releasing them. This
+> >    leak retains the gpuvm which retains the drm_device/panthor_device
+> > 
+> > Step 3 is only here to cover for failures in step 1 (in a normal
+> > situation, there's no leak and everything is released as expected),
+> > and that's the problematic part. I don't mind refactor the code to
+> > isolate objects containing HW resource from the user-facing objects,
+> > but that won't solve the fact that, on a RESET failure, we either leak
+> > memory, or we expose ourselves to HW UAFs. If you tell me HARD_RESET is
+> > not fallible and is safe, I can go for that. But last I looked, I've
+> > read that it could leave the memory bus in a bad state, with the risk of
+> > impacting the rest of the system.  
+> 
+> My suggestion would be to do step 1, 3 and then 2. But on step 3 I would
+> not leak the GPU mappings, but replace them with the dummy pages and release
+> the resident AS.
 
-For the case where a device which can't snoop imports a buffer we simply don't have an interface at all.
-
-In other words amdxdna can export a buffer which others drivers import, but if the xdna HW is not capable of snooping the CPU cache it is not possible for the driver to provide an import functionality.
-
-Regards,
-Christian.
+That's not possible: if you can't interact with the MMU to tell it to
+flush its TLB, you can't just setup the dummy page in the page table,
+because the TLB might have entries pointing to memory that was returned
+to the system. Again, HW unresponsive != HW not doing mem access using
+the old mappings. Also, 3 is actually a sub-case of 2 in the mmu_unplug
+logic, it's not really a separate step.
