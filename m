@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAC89C5CFC1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97267C5CFCF
 	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:57:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F124E10F61D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFC1F10F61C;
 	Fri, 14 Aug 2026 14:57:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jl+A//Ol";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EYTbcuYy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B5A410F61C
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:57:49 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 313BA10F61C
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:57:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ACBEB60204;
- Fri, 14 Aug 2026 14:57:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDC9A1F000E9;
- Fri, 14 Aug 2026 14:57:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1780543F7E;
+ Fri, 14 Aug 2026 14:57:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7531A1F000E9;
+ Fri, 14 Aug 2026 14:57:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786719468;
- bh=7Kc3Xvc0zPz9yTx3/wfmr+X6PpbmfHMGF+XxfWaLbMA=;
+ s=k20260515; t=1786719466;
+ bh=dnvfRHGVbNNRwlxt7CQzTerXa1uNh3IzVa0smAZESrA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Jl+A//OlAvY64+DByp+R/iufGAR/GyQYM0aZq2WYsJFnESvxDzsc2IkRCvSVL7mP6
- DsbEIc3Ny/HIo5eJsjutP5W1Nla57yrOXds26JjkMSCDFPi1Qm/UA9QElKLBydcITT
- v7zxHvDzOgTZ/cJ2HZPfbc1l7ZkDaOXnslFzRFuwQeO5s+zb/wF3Dh/RAvddwH9Smb
- dsgmNpUCMB+WOYH0rxjDNxm6abHonhoguyQtQOkZ69ivWDkT06kil+1fWNJRgaZzaY
- nPTj0PEKfCGohHmiZbqGXu4sAg6TaOsDqIUZYcIoPVU/5gDzcFYv17K2YqO11VvnSv
- waNJO0Vfcod9Q==
+ b=EYTbcuYy9H+/wPE4fiiofXPlVBQTXy6FtNwFLSmaQ9eQ3FMuPPQCLdYMrvsmFEI+w
+ 7lPbAYAJCZshpchdrvE5RmwkIXkJAK8KUE1M/AB1+00StJxB1gtwi4rSCoN66yhC2p
+ i85/OIGM4IQKcmSGMCTEnQnUjZygPeqvkFb+33PBA4bm/pf7wA1RUCWa2yz0fp5lNu
+ Vl7pBAD5eeFbLmnlJayV/1gLUAiTFHVaV1ND9UtDAJsjIpYmNCCUve9ieZRjuhM2fS
+ qvkLyRk3o8uQnyJi/NK/d83keEeIfnpjoA+55g1c999HC/ODiFuiXu3dgBXeV56XpM
+ sNHCEJUemQtMg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 14 Aug 2026 16:56:53 +0200
-Subject: [PATCH v2 04/61] drm/gem-atomic-helper: Switch
- DRM_GEM_SHADOW_PLANE_FUNCS to atomic_create_state
+Date: Fri, 14 Aug 2026 16:56:52 +0200
+Subject: [PATCH v2 03/61] drm/gem-atomic-helper: Convert simple-kms shadow
+ helpers to create_plane_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-no-more-plane-reset-v2-4-82d2963dd134@kernel.org>
+Message-Id: <20260814-drm-no-more-plane-reset-v2-3-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -45,12 +45,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1470; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Zug22YZtcOPzo2LQAAhzmsBPZfod5ldRkekPJ9UDhX0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1OsemPl6y1U8wYenD6APScyuYLcsePvJ+F8L7Zlalr
- FTNE3fnjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR4zMYG17Y6hx83/ZryyWe
- guKzVrbMdem+Oxg2nljVm9W9NnBX4mbHj/eFlv9XmJVS4Om3xuQWK2N9hW7AZevSxLVJ8juNlkU
- XWr5I235gIs/F6AfBC97r3xZOVNm0eQfv3Oac/ZuXWi3fMl0EAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4045; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=2GClp5z2t6Q6N2qV25q8BwZWTXf1H1jlLuAdBmh7a3M=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1OkdvTKj4vPq2R83qI7Hytn/TZz3aUSr3Q+OgqfzLx
+ b7vAy5pdUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJhMxjbHi+c0rZwWmn5xnf
+ 3BEav05+dlH91w+ce24GCqzsuKBwrHBy5nHr1Hm7I3zf7fQ8cIgr2Y+xPqFyzcz1qiJLX50wm1Q
+ b+7W5qqXwoOREw5bDP+/zn+r+vV828nwJP3fFiZlrnr32m+xzFwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,36 +68,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DRM_GEM_SHADOW_PLANE_FUNCS currently sets .reset to
-drm_gem_reset_shadow_plane. Since
-drm_gem_create_shadow_plane_state() now exists and only handles
-pristine state allocation without conflating it with hardware or
-suspend/resume reset, switch the macro to use .atomic_create_state
-instead.
+drm_gem_simple_kms_reset_shadow_plane() implements the reset_plane
+hook for simple-kms shadow-buffered planes. Since the reset hook
+conflates initial state creation with hardware and software reset
+during suspend/resume, convert it to the create_plane_state pattern.
+
+Replace it with drm_gem_simple_kms_create_shadow_plane_state(), which
+implements the create_plane_state hook using
+drm_gem_create_shadow_plane_state(). Update
+DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS accordingly.
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- include/drm/drm_gem_atomic_helper.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_gem_atomic_helper.c | 15 ++++++++++-----
+ include/drm/drm_gem_atomic_helper.h     |  5 +++--
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
+index 7ef67c2d77ce..ae854555fd12 100644
+--- a/drivers/gpu/drm/drm_gem_atomic_helper.c
++++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
+@@ -448,21 +448,26 @@ void drm_gem_simple_kms_end_shadow_fb_access(struct drm_simple_display_pipe *pip
+ 	drm_gem_end_shadow_fb_access(&pipe->plane, plane_state);
+ }
+ EXPORT_SYMBOL(drm_gem_simple_kms_end_shadow_fb_access);
+ 
+ /**
+- * drm_gem_simple_kms_reset_shadow_plane - resets a shadow-buffered plane
++ * drm_gem_simple_kms_create_shadow_plane_state - creates shadow-buffered plane state
+  * @pipe: the simple display pipe
+  *
+- * This function implements struct drm_simple_display_funcs.reset_plane
++ * This function implements struct drm_simple_display_pipe_funcs.create_plane_state
+  * for shadow-buffered planes.
++ *
++ * Returns:
++ * A pointer to a new plane state on success, or an ERR_PTR()-encoded
++ * error code otherwise.
+  */
+-void drm_gem_simple_kms_reset_shadow_plane(struct drm_simple_display_pipe *pipe)
++struct drm_plane_state *
++drm_gem_simple_kms_create_shadow_plane_state(struct drm_simple_display_pipe *pipe)
+ {
+-	drm_gem_reset_shadow_plane(&pipe->plane);
++	return drm_gem_create_shadow_plane_state(&pipe->plane);
+ }
+-EXPORT_SYMBOL(drm_gem_simple_kms_reset_shadow_plane);
++EXPORT_SYMBOL(drm_gem_simple_kms_create_shadow_plane_state);
+ 
+ /**
+  * drm_gem_simple_kms_duplicate_shadow_plane_state - duplicates shadow-buffered plane state
+  * @pipe: the simple display pipe
+  *
 diff --git a/include/drm/drm_gem_atomic_helper.h b/include/drm/drm_gem_atomic_helper.h
-index 8a3bb27233db..da8a4fb442b4 100644
+index 43657d8fb1c8..8a3bb27233db 100644
 --- a/include/drm/drm_gem_atomic_helper.h
 +++ b/include/drm/drm_gem_atomic_helper.h
-@@ -108,11 +108,11 @@ void drm_gem_destroy_shadow_plane_state(struct drm_plane *plane,
-  *
-  * Drivers may use GEM BOs as shadow buffers over the framebuffer memory. This
-  * macro initializes struct drm_plane_funcs to use the rsp helper functions.
-  */
- #define DRM_GEM_SHADOW_PLANE_FUNCS \
--	.reset = drm_gem_reset_shadow_plane, \
-+	.atomic_create_state = drm_gem_create_shadow_plane_state, \
- 	.atomic_duplicate_state = drm_gem_duplicate_shadow_plane_state, \
- 	.atomic_destroy_state = drm_gem_destroy_shadow_plane_state
+@@ -131,11 +131,12 @@ void drm_gem_end_shadow_fb_access(struct drm_plane *plane, struct drm_plane_stat
  
- int drm_gem_begin_shadow_fb_access(struct drm_plane *plane, struct drm_plane_state *plane_state);
- void drm_gem_end_shadow_fb_access(struct drm_plane *plane, struct drm_plane_state *plane_state);
+ int drm_gem_simple_kms_begin_shadow_fb_access(struct drm_simple_display_pipe *pipe,
+ 					      struct drm_plane_state *plane_state);
+ void drm_gem_simple_kms_end_shadow_fb_access(struct drm_simple_display_pipe *pipe,
+ 					     struct drm_plane_state *plane_state);
+-void drm_gem_simple_kms_reset_shadow_plane(struct drm_simple_display_pipe *pipe);
++struct drm_plane_state *
++drm_gem_simple_kms_create_shadow_plane_state(struct drm_simple_display_pipe *pipe);
+ struct drm_plane_state *
+ drm_gem_simple_kms_duplicate_shadow_plane_state(struct drm_simple_display_pipe *pipe);
+ void drm_gem_simple_kms_destroy_shadow_plane_state(struct drm_simple_display_pipe *pipe,
+ 						   struct drm_plane_state *plane_state);
+ 
+@@ -148,10 +149,10 @@ void drm_gem_simple_kms_destroy_shadow_plane_state(struct drm_simple_display_pip
+  * functions.
+  */
+ #define DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS \
+ 	.begin_fb_access = drm_gem_simple_kms_begin_shadow_fb_access, \
+ 	.end_fb_access = drm_gem_simple_kms_end_shadow_fb_access, \
+-	.reset_plane = drm_gem_simple_kms_reset_shadow_plane, \
++	.create_plane_state = drm_gem_simple_kms_create_shadow_plane_state, \
+ 	.duplicate_plane_state = drm_gem_simple_kms_duplicate_shadow_plane_state, \
+ 	.destroy_plane_state = drm_gem_simple_kms_destroy_shadow_plane_state
+ 
+ #endif /* __DRM_GEM_ATOMIC_HELPER_H__ */
 
 -- 
 2.55.0
