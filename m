@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0808BC5CFDB
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 835ACC5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:07:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FEFF10F5FD;
-	Fri, 14 Aug 2026 14:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFB9810F600;
+	Fri, 14 Aug 2026 14:07:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="WIPS4UAV";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="T2rchZE9";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFAE610F5FD
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:07:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 061E310F5FE
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:07:12 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 7D12B4E41244;
- Fri, 14 Aug 2026 14:07:07 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id C8F904E41210;
+ Fri, 14 Aug 2026 14:07:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 506F56046D;
- Fri, 14 Aug 2026 14:07:07 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9D9436046D;
+ Fri, 14 Aug 2026 14:07:10 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 757E511C4EDA1; 
- Fri, 14 Aug 2026 16:07:03 +0200 (CEST)
+ with ESMTPSA id 810A111C4EDAC; 
+ Fri, 14 Aug 2026 16:07:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786716426; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1786716429; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=trlbVuPsHDRX0y+Dzwj1wjF2hFnAKucY/izeM875Oyc=;
- b=WIPS4UAVR70N55fEk0oZXnD1u6K1ADHbs8NvDuKJJ/MT5gl6IiSusvx+yjUZY4nElWBqOB
- rEzecEnra9M8T/2m5ELwj9d/5Ebbaccm0w3vW8j3/gmbZY76YFLadgviaj9trtZXpbt6eM
- A+sYI1b5HXfTFDBAL4+LnUZLlsOQesWvf2zXX/nX7BNmumJ+OWxgyXBDcdAZakXUEikLVD
- lYVgB6myrxe5fnuRVh13Fv9Dlmq9Ibxc/rTnR8MadH/yw9doDzMdZvzXfcn4sQ+8kHBFbU
- 8IPfElplRrywmcyF5hTQJV0qLaeU5x4eHcm4eEuCjHqp96aGCGzUj7biFMPVnQ==
+ bh=wg9Z6U2nX3MY5HKjLc3CNfSHC+SBoJiWnAqc9hBYIZE=;
+ b=T2rchZE9ru1tYXyFTGeDpkwu88ALQDXMpDtnRZh1hycn2jIK4XkOF5AjJ17ZI92rP7aU8D
+ iGcYag9YQgPe4kIgI20ayvl/UJOeb3AhfTZXhrxqVSLWPaOc4UIj4f0zB6dfvijfczZG9A
+ i8zWsvNH+8iz8n92qRoKUXxgxBST9WsdWXzli3SDN4d5Efrx9HwtyCIM4IDyvCpXvz1h/i
+ egSjpYqktRVCJU17rk/VArIqT8b0gKEx6KKKk6w/7Kd0zk7LWci419JjkSGswHt+1y2ut2
+ rj1g8gKEddIkDY87igs1xRzFQCtfLomwVxq0RMVqpve+mqg9rOsBiJeDdr/qIg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 14 Aug 2026 16:05:56 +0200
-Subject: [PATCH 08/11] drm/mcde: dsi: simplify device_node management using
- scoped for_each variant
+Date: Fri, 14 Aug 2026 16:05:57 +0200
+Subject: [PATCH 09/11] drm/mcde: dsi: don't create a panel_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-bridge-every-panel-v1-8-19cd5277cc8d@bootlin.com>
+Message-Id: <20260814-drm-bridge-every-panel-v1-9-19cd5277cc8d@bootlin.com>
 References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
 In-Reply-To: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,52 +74,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Before further modifying this function, simpify the struct device_node
-management using the scoped variat of for_each_available_child_of_node().
+Now a panel_bridge is automatically created for every drm_panel, so this
+code (similar to an open-coded variant of drm_of_find_panel_or_bridge())
+would lead to creating a second panel_bridge for the same panel.
+
+Fix and simplify the code by just getting a reference to the
+already-existing bridge.
+
+Also keep the "connected to non-panel bridge (unsupported)\n" error logic
+by using the drm_bridge_is_panel() function.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/mcde/mcde_dsi.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/mcde/mcde_dsi.c | 41 +++++++++--------------------------------
+ 1 file changed, 9 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
-index 694372581840..ce078aa3910f 100644
+index ce078aa3910f..ec45440d20d7 100644
 --- a/drivers/gpu/drm/mcde/mcde_dsi.c
 +++ b/drivers/gpu/drm/mcde/mcde_dsi.c
-@@ -1076,7 +1076,6 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
+@@ -39,7 +39,6 @@ struct mcde_dsi {
+ 	struct device *dev;
+ 	struct mcde *mcde;
+ 	struct drm_bridge bridge;
+-	struct drm_panel *panel;
+ 	struct mipi_dsi_host dsi_host;
+ 	struct mipi_dsi_device *mdsi;
+ 	const struct drm_display_mode *mode;
+@@ -1076,7 +1075,6 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
  	struct drm_device *drm = data;
  	struct mcde *mcde = to_mcde(drm);
  	struct mcde_dsi *d = dev_get_drvdata(dev);
--	struct device_node *child;
- 	struct drm_panel *panel = NULL;
+-	struct drm_panel *panel = NULL;
  	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
  
-@@ -1104,7 +1103,7 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
- 	}
+ 	if (!of_get_available_child_count(dev->of_node)) {
+@@ -1104,40 +1102,21 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
  
  	/* Look for a panel as a child to this node */
--	for_each_available_child_of_node(dev->of_node, child) {
-+	for_each_available_child_of_node_scoped(dev->of_node, child) {
- 		panel = of_drm_find_panel(child);
- 		if (IS_ERR(panel)) {
- 			dev_err(dev, "failed to find panel try bridge (%ld)\n",
-@@ -1114,15 +1113,12 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
- 			bridge = of_drm_find_and_get_bridge(child);
- 			if (!bridge) {
- 				dev_err(dev, "failed to find bridge\n");
--				of_node_put(child);
- 				return -EINVAL;
- 			}
+ 	for_each_available_child_of_node_scoped(dev->of_node, child) {
+-		panel = of_drm_find_panel(child);
+-		if (IS_ERR(panel)) {
+-			dev_err(dev, "failed to find panel try bridge (%ld)\n",
+-				PTR_ERR(panel));
+-			panel = NULL;
+-
+-			bridge = of_drm_find_and_get_bridge(child);
+-			if (!bridge) {
+-				dev_err(dev, "failed to find bridge\n");
+-				return -EINVAL;
+-			}
++		bridge = of_drm_find_and_get_bridge(child);
++		if (!bridge) {
++			dev_err(dev, "failed to find bridge\n");
++			return -EINVAL;
  		}
  
--		if (panel || bridge) {
--			of_node_put(child);
-+		if (panel || bridge)
- 			break;
--		}
+-		if (panel || bridge)
+-			break;
++		break;
  	}
- 	if (panel) {
- 		bridge = drm_panel_bridge_add_typed(panel,
+-	if (panel) {
+-		bridge = drm_panel_bridge_add_typed(panel,
+-						    DRM_MODE_CONNECTOR_DSI);
+-		drm_panel_put(panel);
+-		if (IS_ERR(bridge)) {
+-			dev_err(dev, "error adding panel bridge\n");
+-			return PTR_ERR(bridge);
+-		}
+-		drm_bridge_get(bridge);
+-		dev_info(dev, "connected to panel\n");
+-		d->panel = panel;
+-	} else if (bridge) {
++	if (!bridge) {
++		dev_err(dev, "no panel or bridge\n");
++		return -ENODEV;
++	} else if (!drm_bridge_is_panel(bridge)) {
+ 		/* TODO: AV8100 HDMI encoder goes here for example */
+ 		dev_info(dev, "connected to non-panel bridge (unsupported)\n");
+ 		return -ENODEV;
+-	} else {
+-		dev_err(dev, "no panel or bridge\n");
+-		return -ENODEV;
+ 	}
+ 
+ 	d->bridge.next_bridge = drm_bridge_get(bridge);
+@@ -1159,8 +1138,6 @@ static void mcde_dsi_unbind(struct device *dev, struct device *master,
+ {
+ 	struct mcde_dsi *d = dev_get_drvdata(dev);
+ 
+-	if (d->panel)
+-		drm_panel_bridge_remove(d->bridge.next_bridge);
+ 	regmap_update_bits(d->prcmu, PRCM_DSI_SW_RESET,
+ 			   PRCM_DSI_SW_RESET_DSI0_SW_RESETN, 0);
+ }
 
 -- 
 2.55.0
