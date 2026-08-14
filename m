@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF05DC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 084C2C5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:58:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2728110F640;
-	Fri, 14 Aug 2026 14:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6353110F641;
+	Fri, 14 Aug 2026 14:58:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hvH9+e6l";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DS3Gm13J";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71E2F10F640;
- Fri, 14 Aug 2026 14:58:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48F6D10F63B;
+ Fri, 14 Aug 2026 14:58:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5ADCC415F5;
- Fri, 14 Aug 2026 14:58:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5C661F000E9;
- Fri, 14 Aug 2026 14:58:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3238940E3A;
+ Fri, 14 Aug 2026 14:58:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E56F1F000E9;
+ Fri, 14 Aug 2026 14:58:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786719523;
- bh=J1/asScdIgqZCXba+2CTFMQ8oRnF+s2Ldkae2j8yqYo=;
+ s=k20260515; t=1786719516;
+ bh=1ioWxW0tGthHX6wi05+ujNOXb3VrOjFpwcvAXgQyBpM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=hvH9+e6lOF5TKub/vnNs/eFCqX2C9IwCIUl+3J6C88Mh+/uoSXEn7cojSAxrREI2u
- GCZszCcHjdGAsjuuiFtiJb7wVD2dTgpYef1OBReSvCGj7688Jw/xkBI7IOmSDjeZus
- dz3vljnJqY1/eJpL9spVJY9y0vw+T9sDrq/1fxoPnzytqThXQRX1befLVl0vP6uwNM
- 1FRQ8ezGqaGsudfoQcktKU6g4XFpn2efFSzGgLQ7N19AYffwP/QVen13OoRccz97cY
- mjFwgSb4uckqcTYjovtWW+91Ohpv4gpPhsAkPxKShmFuk9mM/uX5vmItW2baJPHaOU
- rEU/O9ho7LIeQ==
+ b=DS3Gm13J4WipcH6aRcw/1DdyeShYXzjrDP2e5u4I01qfsooPHkA0gYKtkg9AD+tLF
+ Y/Fqkqw7x+IL7CWqMbXdAdMN2XFRWu4ddIf+KfJfFBRqCjIrvFOC50pl1u5Pobbj4y
+ Xm82SYNuBx1l3jSa3vBMNssfVMRkCL3pGPyswx2xNUpj1RRYA5ftGBbrLumnw6ugm/
+ EohpSxQSHpLeq9WbaCgZTSoSo0/cO/vg+urrjcdKmI32FxdvvhcnCpJZOJyDe8I2N0
+ S//p3dIJhpNgFEV5iMRGsaD/Gtur3W7DHDC0AfyuO7JqRl5eS5VDYAYcmrqxTsSmOA
+ 3JRLU/YE3KUIQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 14 Aug 2026 16:57:16 +0200
-Subject: [PATCH v2 27/61] drm/qxl: Convert to atomic_create_state
+Date: Fri, 14 Aug 2026 16:57:13 +0200
+Subject: [PATCH v2 24/61] drm/msm/mdp4: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-no-more-plane-reset-v2-27-82d2963dd134@kernel.org>
+Message-Id: <20260814-drm-no-more-plane-reset-v2-24-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- airlied@redhat.com, kraxel@redhat.com, spice-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ abhinav.kumar@linux.dev, freedreno@lists.freedesktop.org, 
+ jesszhan0024@gmail.com, linux-arm-msm@vger.kernel.org, lumag@kernel.org, 
+ marijn.suijten@somainline.org, robin.clark@oss.qualcomm.com, 
+ sean@poorly.run
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6661; i=mripard@kernel.org;
- h=from:subject:message-id; bh=bsKeonj3Crd7q/wfCxemOnQeMGzoZ4V7xF+G5AzyPjk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1OhcCe8KfmE136+DaFy7fdjmTq2EjT0S4lcfhl59dn
- /8/H97XMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACaydyljfWLGRpOiQJdp5zw0
- u6ZI3rbenOvokyv+8nTU4xie7Y6uRib6PauCmne9nPF8hXG0zO04xobDPM+ky8M/Rq7lnCfQ5Hf
- 4t+Q6I9X7NosPB9xbPadF7ugCN9fi4t5Yw/e3dRhnxt31vwQA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6258; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=W3iGkQmRMx9Hukn6EuLLS9otiR/XGqzZNitjikBXtUI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Ouc3Jbip7Z7inlnZuiT29O1rP+XTl0iV7C2dW/hRb
+ H9pRYBqx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZgIkyxjwzL31Ju1M+8cOOOf
+ f/n1uxXfr+xPmZ68hefK15qzAVXLfNcKXz5/Wc9Fe0r0PtPNscv9ZRgbPoTw3HrKcuKbypEvG97
+ 998vckWfxLY7z7L4sv1qvHibB5Azx5gs3bYJ0WjXvi7hrB/YDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -333,46 +336,38 @@ expression PS;
 +	return &PS->base;
 }
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: airlied@redhat.com
-Cc: kraxel@redhat.com
-Cc: spice-devel@lists.freedesktop.org
-Cc: virtualization@lists.linux.dev
+Cc: abhinav.kumar@linux.dev
+Cc: freedreno@lists.freedesktop.org
+Cc: jesszhan0024@gmail.com
+Cc: linux-arm-msm@vger.kernel.org
+Cc: lumag@kernel.org
+Cc: marijn.suijten@somainline.org
+Cc: robin.clark@oss.qualcomm.com
+Cc: sean@poorly.run
 ---
- drivers/gpu/drm/qxl/qxl_display.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 7f4178800afd..76337661c09e 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -927,11 +927,11 @@ static const struct drm_plane_helper_funcs qxl_cursor_helper_funcs = {
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
+index 9459f70ce0ba..f9067e508f4c 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
+@@ -69,11 +69,11 @@ static int mdp4_plane_set_property(struct drm_plane *plane,
  
- static const struct drm_plane_funcs qxl_cursor_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset		= drm_atomic_helper_plane_reset,
-+	.atomic_create_state = drm_atomic_helper_plane_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ static const struct drm_plane_funcs mdp4_plane_funcs = {
+ 		.update_plane = drm_atomic_helper_update_plane,
+ 		.disable_plane = drm_atomic_helper_disable_plane,
+ 		.set_property = mdp4_plane_set_property,
+-		.reset = drm_atomic_helper_plane_reset,
++		.atomic_create_state = drm_atomic_helper_plane_create_state,
+ 		.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 		.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
  };
  
- static const uint32_t qxl_primary_plane_formats[] = {
-@@ -949,11 +949,11 @@ static const struct drm_plane_helper_funcs primary_helper_funcs = {
- 
- static const struct drm_plane_funcs qxl_primary_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset		= drm_atomic_helper_plane_reset,
-+	.atomic_create_state = drm_atomic_helper_plane_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
- };
- 
- static struct drm_plane *qxl_create_plane(struct qxl_device *qdev,
+ static int mdp4_plane_prepare_fb(struct drm_plane *plane,
 
 -- 
 2.55.0
