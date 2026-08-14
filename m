@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52441C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3FF9C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C68910F62B;
-	Fri, 14 Aug 2026 14:58:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED7010F62D;
+	Fri, 14 Aug 2026 14:58:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cPEnHX7Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XLAAcfvw";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAC510F62A
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:58:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3DCF10F625
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:57:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E6C0843FB3;
- Fri, 14 Aug 2026 14:58:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ECEF1F00A3A;
- Fri, 14 Aug 2026 14:58:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AD83E406D5;
+ Fri, 14 Aug 2026 14:57:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CEC1F000E9;
+ Fri, 14 Aug 2026 14:57:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786719482;
- bh=pg5PpAGiEFeKfz1Ng/hw4dD94IH/RyN+TuVIEYsa4Z0=;
+ s=k20260515; t=1786719475;
+ bh=N2TcyASClgdMQqlhOhNvN6whbOW7n4lY9yTEQx5bR+I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=cPEnHX7QCvXRIYa782pHhoFf96Q5GpICIn76YFa6/Gs5sGgNcakLRUSzw0D+Pfsa3
- ScKvyS20rxYCdYLZ2Kzk7p63TiNp5Q84Sro1DvUIOpOW9MyUeGVu+EQ2tPdyBKPxKL
- s3CHIhPj3X/zaY24k0kyKsKJNHFCxBBJbyj4h+SoMCPe5LJqoDy3NdSgjmSydIVX6d
- 4kCJu2sLwmUB4CHSiQuhqt1qEZS7/pJk9LWu7xeYGqz9+XRN8fV5qAtv7ERZaiVEhh
- OsxnzTqq/ZkKf+MdBKSri0E3Ya5bcoOHYA8Lj72igoz1ng7jm9wE31hvi7DWFZJMXQ
- hhsIr4byMRsiQ==
+ b=XLAAcfvwDpg1lSApSGeeeExO6KS0hnf0j5mulyz8pl62A3xu498YPFkgdqZWDQGx2
+ Xvo69ikBJbjwtGiZT+lM9tVwpczcLG5qffvdM2JuDscMhQ8zdKGe2+aseXTjkaLb/0
+ mpKxImFVazPDaFTbRV67V3vh4SRO+yp+q1LwUVMFiphMU704X1JzdBA6UYXQPDQITJ
+ iPGiTLcpdp0PsCER7YoLFT0excrGqP9PubPuPTHk6fVWrHbsISBG7D1l4scXHkQbDh
+ iS7Tz+nE8ke2XrgBj6jDO0EBEmjQig5I47eVZ2cYmZ2JmzfDKcotCyO/6UaJ/JuEvx
+ kawzwCc2ZZkIQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 14 Aug 2026 16:56:59 +0200
-Subject: [PATCH v2 10/61] drm/appletbdrm: Convert to atomic_create_state
+Date: Fri, 14 Aug 2026 16:56:56 +0200
+Subject: [PATCH v2 07/61] drm/simple-kms: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-no-more-plane-reset-v2-10-82d2963dd134@kernel.org>
+Message-Id: <20260814-drm-no-more-plane-reset-v2-7-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Aditya Garg <gargaditya08@proton.me>, admin@kodeit.net, 
- gargaditya08@proton.me
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6915; i=mripard@kernel.org;
- h=from:subject:message-id; bh=YpkbNTOp5lIrCHzs5Jd2vzcW/231hetWFabKu63WaKQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Oid0p0XWNLGuuCKfpHZ/4gMVo5LgzqB3LW/cZ8/ol
- nXQ0WrrmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABP5l8VY73Lsc7rypZmPkucY
- /2vJkOEVbNzXMenivhqhuwci5T4GvOAXcJz0rO33/bm7nnzvvRewgrFhc0Xsq4ye66ofa0/Hl/k
- HCVlvVI+6FVa/f/WcxSL6jT1v5/kUh2zr+bHrmRrvpZtzPLsB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3236; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=lfY29xaSEZTHLiNH77PqB9+rarpf7d8/+5KkgipCILU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1OseFdhg2xm/hWP5GUkxi7h75daubXsa255ppOvG4s
+ 8dGN/3omMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABOZFs3YMPW7bsUSwbAl/f8Z
+ HnfcC+T+8uU8S+PmdWxCcz7nPxRkSCxpO1b99XHzs3WrzX7bfbYWZ2zY8EE84INkatDfn+XmnNl
+ bV86af2Xvowux19m+9e+S3dZR/fgcd/nxlTaKdg+qJ016pq4HAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,321 +67,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The plane reset implementation creates a custom state subclass, but
-only initializes a pristine state without resetting any hardware. This
-is equivalent to what atomic_create_state expects. Convert to it.
+drm_simple_kms_plane_reset() handled three cases: delegating to
+reset_plane, using create_plane_state with manual teardown, or
+falling back to the default helper. This complexity existed to bridge
+the old reset hook with the new create_plane_state hook during the
+transition.
 
-The conversion was done using the following Coccinelle semantic patch:
+Now that all simple-kms drivers implement create_plane_state instead
+of reset_plane, replace drm_simple_kms_plane_reset() with
+drm_simple_kms_plane_create_state() which only dispatches between
+create_plane_state and drm_atomic_helper_plane_create_state(). Wire
+it to .atomic_create_state instead of .reset.
 
-@@
-identifier funcs;
-symbol drm_atomic_helper_plane_reset;
-symbol drm_atomic_helper_plane_create_state;
-@@
-
-struct drm_plane_funcs funcs = {
-  ...,
-- .reset = drm_atomic_helper_plane_reset,
-+ .atomic_create_state = drm_atomic_helper_plane_create_state,
-  ...,
-};
-
-@match_struct_reset@
-identifier funcs, reset_func;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
-    .reset = reset_func,
-    ...,
-};
-
-@reset_uses_helpers depends on match_struct_reset@
-identifier match_struct_reset.reset_func;
-@@
-
- void reset_func(...)
- {
- 	<+...
-(
- 	__drm_atomic_helper_plane_reset(...);
-|
-	__drm_gem_reset_shadow_plane(...);
-)
- 	...+>
- }
-
-@match_struct_destroy@
-identifier funcs, destroy_func;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
-    .atomic_destroy_state = destroy_func,
-    ...,
-};
-
-@script:python renamed_func@
-old_name << match_struct_reset.reset_func;
-new_name;
-@@
-if old_name.endswith("_reset"):
-    coccinelle.new_name = old_name.replace("_reset", "_create_state")
-else:
-    coccinelle.new_name = old_name
-
-@update_struct depends on match_struct_reset && reset_uses_helpers@
-identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
--   .reset = reset_func,
-+   .atomic_create_state = new_name,
-    ...,
-};
-
-@drop_destroy depends on update_struct && match_struct_destroy@
-identifier match_struct_reset.reset_func;
-identifier match_struct_destroy.destroy_func;
-identifier container_func;
-identifier P;
-symbol drm_atomic_helper_plane_destroy_state;
-symbol __drm_atomic_helper_plane_destroy_state;
-@@
-
- void reset_func(struct drm_plane *P)
- {
- 	...
-(
--	if (P->state) {
-- 		<+...
-(
--		drm_atomic_helper_plane_destroy_state(P, P->state);
-|
--		__drm_atomic_helper_plane_destroy_state(P->state);
-|
--		P->funcs->atomic_destroy_state(P, P->state);
-|
--		destroy_func(P, P->state);
-)
-- 		...+>
-- 	}
-|
--	drm_WARN_ON_ONCE(P->dev, P->state);
-|
--	WARN_ON(P->state);
-)
- 	...
-(
--	kfree(P->state);
-|
--	kfree(container_func(P->state));
-|
- 	// kfree is optional
-)
-(
--	P->state = NULL;
-|
- 	// plane->state clearing is optional
-)
- 	...
- }
-
-@drop_destroy_mtk depends on update_struct@
-identifier P;
-symbol __drm_atomic_helper_plane_destroy_state;
-symbol to_mtk_plane_state;
-@@
-
- void mtk_plane_reset(struct drm_plane *P)
- {
- 	...
--	if (P->state) {
--		__drm_atomic_helper_plane_destroy_state(P->state);
--		...
--	} else {
- 		...
--	}
- 	...
- }
-
-@transform_nv50_wndw depends on update_struct@
-identifier S;
-@@
-
- void nv50_wndw_reset(...)
- {
- 	...
--	if (WARN_ON(!(S = kzalloc_obj(*S))))
-+	S = kzalloc_obj(*S);
-+	if (WARN_ON(!S))
- 		return;
- 	...
- }
-
-@transform_kzalloc depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier P, S;
-statement ST;
-statement list STL;
-@@
-
- void reset_func(struct drm_plane *P)
- {
- 	<...
- 	S = kzalloc_obj(*S);
-(
--	if (S)
--	{
--		STL
--	}
-+	if (!S) return;
-+
-+	STL
-|
--	if (S) ST
-+	if (!S) return;
-+
-+	ST
-)
-	...>
- }
-
-@transform_body depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier S, P;
-expression PS;
-@@
-- void reset_func(struct drm_plane *P)
-+ struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	S = kzalloc_obj(*S);
-	...
-(
- 	if (!S) {
-		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-|
- 	if (WARN_ON(!S)) {
-		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-|
- 	if (S == NULL) {
- 		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-)
-	...
-(
--	__drm_atomic_helper_plane_reset(P, PS);
-+	__drm_atomic_helper_plane_state_init(PS, P);
-|
--	__drm_gem_reset_shadow_plane(P, PS);
-+	__drm_gem_shadow_plane_state_init(P, PS);
-)
-	...
-}
-
-@update_early_return depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	<+...
--	return;
-+	return ERR_PTR(-EINVAL);
-	...+>
-}
-
-@update_return_plane depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	__drm_atomic_helper_plane_state_init(PS, P);
-	...
-+
-+	return PS;
-}
-
-@update_return_shadow depends on update_struct@
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	__drm_gem_shadow_plane_state_init(P, PS);
-	...
-+
-+	return &PS->base;
-}
-
-Acked-by: Aditya Garg <gargaditya08@proton.me>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: admin@kodeit.net
-Cc: gargaditya08@proton.me
----
- drivers/gpu/drm/tiny/appletbdrm.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_simple_kms_helper.c | 33 ++++++---------------------------
+ 1 file changed, 6 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
-index cdd35af49892..742478198111 100644
---- a/drivers/gpu/drm/tiny/appletbdrm.c
-+++ b/drivers/gpu/drm/tiny/appletbdrm.c
-@@ -497,21 +497,21 @@ static void appletbdrm_primary_plane_helper_atomic_disable(struct drm_plane *pla
- 	appletbdrm_clear_display(adev);
- 
- 	drm_dev_exit(idx);
- }
- 
--static void appletbdrm_primary_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *appletbdrm_primary_plane_create_state(struct drm_plane *plane)
- {
- 	struct appletbdrm_plane_state *appletbdrm_state;
- 
--	WARN_ON(plane->state);
--
- 	appletbdrm_state = kzalloc_obj(*appletbdrm_state);
- 	if (!appletbdrm_state)
--		return;
-+		return ERR_PTR(-ENOMEM);
- 
--	__drm_gem_reset_shadow_plane(plane, &appletbdrm_state->base);
-+	__drm_gem_shadow_plane_state_init(plane, &appletbdrm_state->base);
-+
-+	return &(&appletbdrm_state->base)->base;
- }
- 
- static struct drm_plane_state *appletbdrm_primary_plane_duplicate_state(struct drm_plane *plane)
- {
- 	struct drm_shadow_plane_state *new_shadow_plane_state;
-@@ -559,11 +559,11 @@ static const struct drm_plane_helper_funcs appletbdrm_primary_plane_helper_funcs
+diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/drm_simple_kms_helper.c
+index 528968ea5c4b..c99ff74dca92 100644
+--- a/drivers/gpu/drm/drm_simple_kms_helper.c
++++ b/drivers/gpu/drm/drm_simple_kms_helper.c
+@@ -279,41 +279,20 @@ static const struct drm_plane_helper_funcs drm_simple_kms_plane_helper_funcs = {
+ 	.end_fb_access = drm_simple_kms_plane_end_fb_access,
+ 	.atomic_check = drm_simple_kms_plane_atomic_check,
+ 	.atomic_update = drm_simple_kms_plane_atomic_update,
  };
  
- static const struct drm_plane_funcs appletbdrm_primary_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = appletbdrm_primary_plane_reset,
-+	.atomic_create_state = appletbdrm_primary_plane_create_state,
- 	.atomic_duplicate_state = appletbdrm_primary_plane_duplicate_state,
- 	.atomic_destroy_state = appletbdrm_primary_plane_destroy_state,
- 	.destroy = drm_plane_cleanup,
+-static void drm_simple_kms_plane_destroy_state(struct drm_plane *plane,
+-					       struct drm_plane_state *state);
+-
+-static void drm_simple_kms_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *
++drm_simple_kms_plane_create_state(struct drm_plane *plane)
+ {
+ 	struct drm_simple_display_pipe *pipe;
+ 
+ 	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs)
+-		return drm_atomic_helper_plane_reset(plane);
++	if (!pipe->funcs || !pipe->funcs->create_plane_state)
++		return drm_atomic_helper_plane_create_state(plane);
+ 
+-	if (pipe->funcs->create_plane_state) {
+-		struct drm_plane_state *state;
+-
+-		if (plane->state) {
+-			drm_simple_kms_plane_destroy_state(plane, plane->state);
+-			plane->state = NULL;
+-		}
+-
+-		state = pipe->funcs->create_plane_state(pipe);
+-		if (WARN_ON(IS_ERR(state)))
+-			return;
+-
+-		plane->state = state;
+-		return;
+-	}
+-
+-	if (pipe->funcs->reset_plane)
+-		return pipe->funcs->reset_plane(pipe);
+-
+-	return drm_atomic_helper_plane_reset(plane);
++	return pipe->funcs->create_plane_state(pipe);
+ }
+ 
+ static struct drm_plane_state *drm_simple_kms_plane_duplicate_state(struct drm_plane *plane)
+ {
+ 	struct drm_simple_display_pipe *pipe;
+@@ -339,11 +318,11 @@ static void drm_simple_kms_plane_destroy_state(struct drm_plane *plane,
+ 
+ static const struct drm_plane_funcs drm_simple_kms_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+ 	.destroy		= drm_plane_cleanup,
+-	.reset			= drm_simple_kms_plane_reset,
++	.atomic_create_state	= drm_simple_kms_plane_create_state,
+ 	.atomic_duplicate_state	= drm_simple_kms_plane_duplicate_state,
+ 	.atomic_destroy_state	= drm_simple_kms_plane_destroy_state,
+ 	.format_mod_supported   = drm_simple_kms_format_mod_supported,
  };
  
 
