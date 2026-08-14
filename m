@@ -4,105 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 798F3C5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 13 Aug 2026 23:50:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E836C5DF66
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 00:11:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A34810E0A6;
-	Thu, 13 Aug 2026 23:50:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94BAF10E2DE;
+	Fri, 14 Aug 2026 00:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rrLFnIiW";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="C/tFuJDs";
 	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3BB710E0A6
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 23:50:48 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-6a0a4a28cbdso634513a12.3
- for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 16:50:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786665047; cv=none;
- d=google.com; s=arc-20260327;
- b=VcGcx+/MQ/hEVmS5eKK2OqR8EMCZn8OD+/6kNkDi5BaaA0YRYf2mVDogCBzVXp54FD
- MSZ3LHr85rJN7qHFYh+vY2ZV8RXCgDVa+7qEsSETGT+xlV3Bi4Hu7H+n50cBfBcSmbf0
- FeTItBWgu+25q6cQgJunjXk/YHmNHLSAwEB88sbq2x9aVf28TEQTkybTgvDqSdj3cgMq
- fkT4WSzsvJrGTiHx+1wP/lL1wWeZYljsoW847kg4fLOczA2r9UKU9JHtOJwCVxDYrL8f
- cZh8VWA/W0bdsSFaUfcx8h1HHOmM4Mq32vGVFvHzBqLECNh/2fMitjFzGGtMl4YD+PhJ
- Gu0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=T/dfQBLHu5s8TsHAIwVzyPX7PzgkH5dDnFw2MKqwf0g=;
- fh=ee1gBx/JbCnzdRIwjeIfYe4TLE9PGqu280c9nE+BW/8=;
- b=nk693nSaXx8iJNOnvMGjoLdo7p0JiccrrOdcXJ68mcHyrWvTjq2tePK0WYrtMar0Xj
- LMtrXhSM/uh3JSjleGqiUxjvTY5k+xg6qAHrbB3kQth2dq1sQOdvhjJF4JZzAtHmwOX7
- SCr1WJhuqnZgtDLd5uvJ7R205EkRtumEoivxUNBNBkZuuGs1+0rVLsy8THnS7Eilqzls
- P8u81bEWj7xEh/+rGPfQNeyBmPiamoAPjBqJy9wNLPMZuJyQbVZs2rbeW3ymECN48Gae
- KdNPR5v8d/CcDnVrrd2OAEZnETStyFDUcp9i8HYL7ejJonzNIWfo9HuZE48kwk5fHCjb
- icrA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786665047; x=1787269847; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=T/dfQBLHu5s8TsHAIwVzyPX7PzgkH5dDnFw2MKqwf0g=;
- b=rrLFnIiWy12MJBvCs0y/e7/QtNPYHWY1KYGD8HHiUuEUKuCrCimbbE4lw1JWak6dgM
- Ge+pUfB/9ePh93t/8dNfOX6XKTxuSNAirSX7qzIOosy7Joc2CNjn2cFAfLUWjLA084vX
- KMzvp/IABYzoAfYD9M8GxArkfN9WRhgelZmrGEEvoYJvkvMOPt5be5VafhjGW+CyiOv5
- 8CLyyhHz2+8HQfHbNZaoNZNKQ/f7ARq8GroPZ2e3nP0+OWnf07T0Pg1+7C0T0FCjpl4p
- Ki1piLfTunnfdIl3hhiwydwMSWbcr9emN7SUvF8ESstGtcYM8dNWYnJbfQ4VXDpjx87J
- IPUQ==
+Received: from mail-vs1-f98.google.com (mail-vs1-f98.google.com
+ [209.85.217.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBE6610E2DE
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 00:11:31 +0000 (UTC)
+Received: by mail-vs1-f98.google.com with SMTP id
+ ada2fe7eead31-7564b7a9490so1010923137.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 17:11:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786665047; x=1787269847;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=T/dfQBLHu5s8TsHAIwVzyPX7PzgkH5dDnFw2MKqwf0g=;
- b=klH+D+pB7ZILtXiJBAG3iq+nSgCSR913A2Kn2yy7nRN9+ZmiCq1Zwf0X5Dury7wEzg
- LkgyivtGjj3JPK1zKPewRMfnJUvcyd5DjTdKou5QqkoMiWpPiE93zZWUMGgwKClnSXoy
- 6YXXj5WTmbqhr0YPqa5LLwFhnBtK+9uwwYny9cHm/EsI3J58jYaXXOVA6m8p3QPri/sh
- Vy374X4DUYeeWqx9rSiKU2uFLHf8fqk56C8i5Q5bZZIpHLh3ZLFTqgNqayYkv6SmZ7Eh
- QdtBgkb0d14VNzpoOQvNju42sJtBFxHmb2gpJyS3bfErnyhxYoXi+uB6hW6vHAxKnTpQ
- gDcw==
+ d=1e100.net; s=20251104; t=1786666290; x=1787271090;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=lPLCjaBrluuYCVSfAFnmUWBEGWcFRCNckcEAwJZW/NY=;
+ b=Tk50LIeexvNQCY4hAOTCDRyRVMHhxMOaK5cSx09R873m3whTLxCMaNB+snMu8xSr+7
+ snkaBD+FhY43C27QhlWrzhSmm4xiHKGYP0+8NafHUYivREFWm0U0+Zab/HoEQIHIYqPx
+ eug4mpr+d1rzbryltPr/PQt7vl9XOVS16Fo5hNyotx+QFMs2W1DEN8B4p7fA1PnOJz+g
+ ceocnJF70jvM2dTz3hadG7P40VvSfGpU1XOmZIkRv3+716EO63iWEgYaN85tkmJyHkqT
+ 2VZnZl7EycRCu3f6byKcfuCw/ZXgHn7Inv90Y5EkuwXLsuvMy8qVoQ07V9E7Dm59GwOv
+ WAwg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqbDimO1NVLM1wiNkTZJfiwulG5MfN316k9h5bcWdRem8X4RNzrCXfpqkkBT1Vw9N0UWWPrpO4vREI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxPUp3nLphzJgTMLInLYA0ca33yFNlloMW1SOvzauFxSDXYK4wf
- 0j9n3qPVFtBOksgPFJL8ZL+3OyNQdj/5enlHgRq5/8wV3AdNbKT35ErwvJoDNG8F/53yb9hHh+G
- iF53HBsykGEFCre04cFCWVGYtZPeKkQg=
-X-Gm-Gg: AR+sD10h0iMTziYYUSyYHxiHQ+KO8q6UEYe6ixxB+2IZmlv9CuNDPRknTkLpDtHAE8v
- /w5tsBK6c1iXnvJC01a69l6TYr9IvyGnUDBO3yyxNnpe7PB9nJuIUJmcolqHJtyTvmSWA/lOPEj
- eSYt7CVVQivAErOM1j0gk95bFpWwqATX8hPg78jc9UpQVgf7WIJ+cOdp/RW3P0ggRHQFQUu6cB2
- DLLsy45UFJK/W3HCsgMHq9vvOjpegeCsundc+Egm59kN4W/jHazf3JNTvHsQSrUyWhqIvKY9TvT
- 5zfimr7hQ07pSxjTBi3UgLWMNDQe/xZNe2clm8cIBUml
-X-Received: by 2002:a05:6402:504a:b0:698:ad4b:abf4 with SMTP id
- 4fb4d7f45d1cf-6a38a8d7c48mr896349a12.3.1786665046571; Thu, 13 Aug 2026
- 16:50:46 -0700 (PDT)
+ AHgh+RrbUQdeQnDE9Ug+7EZf3nlKqEIcrKU2xHApMgC+sxIAwgb9d67SmbMgqiJbKg7ZyQzbsh8H5eVCYm4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy7lryPAX2zAZ5sCM5zZuPhKsVoAtXLIQ0FpOlvW0sjidx+hf/r
+ bkw96nU1sgYlRheGrZFnBB8jdcSo9/06TJAK2MsZv7Xxy6oAGHMJ7JChI0/5iQrCslkNw4ukQ6Q
+ 6WWa38MCDe9t9U9xqetEc2cpY5DmEk2dLnzxNo14pufJjk76p8gIxDudvBnKAo1p82JOfMICCk6
+ DyZIMB1mStr0AQ3BCIzd6VpXriye4wzuScm3FwA+uvST4EIfKSuFLdIP+OoTrT8wjilIGe5yX9W
+ FOiRVdK8DAM1OvoimRZDZL7tGYy
+X-Gm-Gg: AR+sD12iW1dRbskGSPlWa+6RXzWqbYy4a3ElC3JvicFjQyh55oKUq0atUFza4pkADhy
+ FJpObGzfdERgY5ZYaNIKtaQyeU/dxF9M6EQeTNWS20BJXGHlZ9OiISEhdswKwzrKKqzIMpfmFRJ
+ 9Ge5FGeSVWFJ8XDfqmTm1orJntxsB4O29U0oVp0jXesjOwwAkMYiA0PDlWb9Clo+iEsx2pjp/ht
+ OqPFtnrKayg8Ij95kUCCWm9htYHVq59elZV2Mq2pM7zt/PSrWua7FzCgTxD1rpKFeJ0Ihfor3my
+ +1vA9B68fgxy2VkYFl9HKbD5lPh8TeOBxpB6bSdUOKEG4SSkEkSeAFHdUaKRIG1u/qE1uSR55Q9
+ EjW1BeGJ2iiUOkrdyhBE0DKQhAeVqDcq+qTAFuFU0JKuQpYGEhHZKANvBmcU0mSkgSGnpwiLpbi
+ O7Z4FYG1VmRlLz2i+dqaHjhfhqXSZ0kfRq6Y+v6g==
+X-Received: by 2002:a05:6102:2d0d:b0:73e:e4ab:1c84 with SMTP id
+ ada2fe7eead31-76f23aeb969mr267011137.5.1786666290092; 
+ Thu, 13 Aug 2026 17:11:30 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-0.dlp.protect.broadcom.com. [144.49.247.0])
+ by smtp-relay.gmail.com with ESMTPS id
+ ada2fe7eead31-76efa712c46sm7590137.18.2026.08.13.17.11.29
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 13 Aug 2026 17:11:30 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-92e82060977so45529785a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 13 Aug 2026 17:11:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1786666289; x=1787271089;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=lPLCjaBrluuYCVSfAFnmUWBEGWcFRCNckcEAwJZW/NY=;
+ b=C/tFuJDsa6EXS+dobUy6w9gYNX1qJyqKrd9ol/Jr0HynMkWbqrHHxvLziemf4Gp+jC
+ C60HnkYVsi0YbVN3yns9xkEAJ4vwVmML3Rep0N2xQQjiY5vp2FZYqAqev4u0sFn9BKzi
+ qCfrl2j3oEATVnZ5RLCMnfS0pBE68BK1G5gJg=
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro0/WEPBsW1jIoZuX50IWIyR59QI7XhELBBTZsO+7qIfZ8Q1TNph5s9vmBD3xxA4ybHVrCNzPBLY5s=@lists.freedesktop.org
+X-Received: by 2002:a05:620a:3185:b0:92b:9401:7320 with SMTP id
+ af79cd13be357-936c05e1c10mr865753385a.2.1786666289407; 
+ Thu, 13 Aug 2026 17:11:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:3185:b0:92b:9401:7320 with SMTP id
+ af79cd13be357-936c05e1c10mr865749285a.2.1786666288932; 
+ Thu, 13 Aug 2026 17:11:28 -0700 (PDT)
+Received: from [10.211.247.235] ([192.19.50.250])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-936d02b0a91sm66761385a.42.2026.08.13.17.11.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Aug 2026 17:11:28 -0700 (PDT)
+Message-ID: <5a599bdf-e8f6-407b-a6b0-c32b5edec346@broadcom.com>
+Date: Thu, 13 Aug 2026 17:11:22 -0700
 MIME-Version: 1.0
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
- <am2mvECnCcO9IxuI@monoceros> <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
- <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
- <20260810-devout-pig-of-performance-595ccc@houat>
- <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
- <20260812-neon-asp-of-completion-e9349e@houat>
- <CAEUXW=H-o+fqBjH1UQG7=UTm5x1a9Cj++XJM7twvFU4vJC4UrQ@mail.gmail.com>
- <20260813-ethereal-sawfish-of-downpour-c23da9@houat>
-In-Reply-To: <20260813-ethereal-sawfish-of-downpour-c23da9@houat>
-From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
-Date: Fri, 14 Aug 2026 01:50:34 +0200
-X-Gm-Features: AUfX_myW-QMGZXXJ8a5tVXZ3ZTxXNko9mUPevusA5ZZV81bVlEs6TTsn0To5954
-Message-ID: <CAEUXW=GE1atEpG3=SHZhZR4cAXvyMBp-K2n967MVY0YS9AwcWA@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Helge Deller <deller@gmx.de>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vmwgfx: validate pitch coming from userspace
+To: Zack Rusin <zack.rusin@broadcom.com>, dri-devel@lists.freedesktop.org
+Cc: ian.forbes@broadcom.com, stable@vger.kernel.org,
+ Youness HFA <hfa.youness@gmail.com>
+References: <20260809204515.211045-1-zack.rusin@broadcom.com>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <20260809204515.211045-1-zack.rusin@broadcom.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,36 +114,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-You're right, on essentially all of it, and I owe you a clearer account
-than I gave.
+On 8/9/26 1:45 PM, Zack Rusin wrote:
+> Validate the pitch, alongside the box dimensions before trying
+> to copy data from the underlying surface. Fixes possible
+> out of bounds reads with cursor snooping.
+> 
+> Fixes: 2ac863719e51 ("vmwgfx: Snoop DMA transfers with non-covering sizes")
+> Cc: stable@vger.kernel.org
+> Reported-by: Youness HFA <hfa.youness@gmail.com>
+> Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
+> ---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 20 +++++++++++++++++---
+>  1 file changed, 17 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> index d1e7df500190..f4d14b00d7aa 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> @@ -324,6 +324,7 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
+>  	unsigned long kmap_num;
+>  	SVGA3dCopyBox *box;
+>  	u32 box_count;
+> +	u64 src_extent;
+>  	void *virtual;
+>  	bool is_iomem;
+>  	struct vmw_dma_cmd {
+> @@ -372,8 +373,19 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
+>  		return;
+>  	}
+>  
+> +	if (box->w == 0 || box->h == 0)
+> +		return;
+> +
+> +	src_extent = (u64)(box->h - 1) * cmd->dma.guest.pitch +
+> +		     (u64)box->w * desc->pitchBytesPerBlock;
+> +	if (src_extent > bo->base.size) {
+> +		DRM_ERROR("Cursor snoop source of %llu bytes exceeds the %zu byte buffer\n",
+> +			  src_extent, bo->base.size);
+> +		return;
+> +	}
+> +
+>  	kmap_offset = cmd->dma.guest.ptr.offset >> PAGE_SHIFT;
+> -	kmap_num = (VMW_CURSOR_SNOOP_HEIGHT * image_pitch) >> PAGE_SHIFT;
+> +	kmap_num = PFN_UP(src_extent);
+>  
+>  	ret = ttm_bo_reserve(bo, true, false, NULL);
+>  	if (unlikely(ret != 0)) {
+> @@ -387,14 +399,16 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
+>  
+>  	virtual = ttm_kmap_obj_virtual(&map, &is_iomem);
+>  
+> -	if (box->w == VMW_CURSOR_SNOOP_WIDTH && cmd->dma.guest.pitch == image_pitch) {
+> +	if (box->w == VMW_CURSOR_SNOOP_WIDTH &&
+> +	    box->h == VMW_CURSOR_SNOOP_HEIGHT &&
+> +	    cmd->dma.guest.pitch == image_pitch) {
+>  		memcpy(srf->snooper.image, virtual,
+>  		       VMW_CURSOR_SNOOP_HEIGHT * image_pitch);
+>  	} else {
+>  		/* Image is unsigned pointer. */
+>  		for (i = 0; i < box->h; i++)
+>  			memcpy(srf->snooper.image + i * image_pitch,
+> -			       virtual + i * cmd->dma.guest.pitch,
+> +			       virtual + (size_t)i * cmd->dma.guest.pitch,
+>  			       box->w * desc->pitchBytesPerBlock);
+>  	}
+>  	srf->snooper.id++;
 
-The 3.4s I put up was our 4.19 product kernel: not an SPL/Falcon build,
-and not one that has ever been optimized for boot time. I should have
-said which system it was instead of holding it up as if it were the
-floor. "Suboptimal" is fair.
 
-Reaching for an initramfs purely to paint a splash early isn't free on
-my side either: it pushes the start of the actual application out a
-little, so it's a trade rather than a clean win. But that's a detail,
-not a rebuttal.
+LGTM!
 
-The case I actually care about is simpler than the one I was making. As
-someone building products on top of the kernel, I reach for the simplest
-thing that works, and the kernel already draws a boot logo =E2=80=94 so tha=
-t is
-what I used, the built-in CLUT224 image, from day one. What pushed me
-past it was not speed: it was one kernel image feeding four panel
-variants (two sizes, two orientations), where a single compiled-in logo
-no longer fits. Describing the logo per board rather than per build is
-the whole of it.
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 
-I'm well aware that "convenient for the product engineer" and "worth
-carrying in the kernel forever" are different questions, and that the
-second one is yours and Helge's to answer, not mine. If the verdict is
-that this belongs in userspace or the bootloader, I'll take it =E2=80=94 I =
-would
-just rather have it decided than keep guessing downstream.
+Will you also backport this to pre-6.14 LTR kernels when all this code was in vmwgfx_kms.c?
 
-Thanks for taking the time to push back. It was the useful kind.
 
-Max
+-- 
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
