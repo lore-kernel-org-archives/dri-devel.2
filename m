@@ -4,45 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E4BFC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 16:55:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8463C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 16:59:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB5210F6A5;
-	Fri, 14 Aug 2026 16:55:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E29C10F6A8;
+	Fri, 14 Aug 2026 16:59:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OLT/dFSo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YHQrOA3B";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0527F10F6A5
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 16:55:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13F9310F6A8
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 16:59:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F59C402D3;
- Fri, 14 Aug 2026 16:55:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4864C1F00A3F;
- Fri, 14 Aug 2026 16:55:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3910560008;
+ Fri, 14 Aug 2026 16:59:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76841F00A3A;
+ Fri, 14 Aug 2026 16:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786726521;
- bh=bRShyHY6w3caeXzLVH632K1d5O7SWTeIyB++6kncZqY=;
+ s=k20260515; t=1786726747;
+ bh=3yZSO07OihRO6yiyq1bI0AcAZt3Xm7VCe8hQ+eesyCU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OLT/dFSotzVZCRCda0ZbYgkrUnrrp0nhKLENQUWzGx+AXNe8vSl3W4LW79gV95p0C
- JVPdQfLT0uy1NT3jNd2mFrNgWyBDFq/FecJpvy+zAuUoNKMNfFJNiZNSF00JNpApXr
- ydlm3487KVUGOrsC+iWcwg01ZMWvEXBgWyJubgEiFRuazF2cwZJyoE97B5igiqqia3
- 1is+DSyh1CfdRw2RXMU1slTFlT0XmLPcl8WjEtFs74GVg8rxqVCvz0Y/RWmDzV0VND
- F4aNUDN3VE0Os2kjl6oB2NBkLjoaF4ZGLzDh6Kgp7GnDbeShZl2igo2fPovomJTFsi
- svJ2DRexdAL7g==
+ b=YHQrOA3B9gdDBt4gog07uOq4SFNOIOVrYVsOeMRPtjBHq2YyFs8YXPGmbnixtZz9k
+ FHOUxTY2DRDXkJp2/a+ZQulMABuVy096iu2/BqiZCDyqV7YLqQIcBHGdx6T5XE2UAy
+ 4sHjsOCZOfPy2O8m/Fp1osAQCJbzUsJH6sQ/V4ir1qkAB7Lg5jUMG9sXLUoBx3wUqM
+ fOW3LlhCin5UyiQw7s+QCLBs8QzvBXLeiaV77hR4PPs29Dhr50+HQBqK/AzXI0MTdM
+ wZrj4pU+c3/KvLwCREMekDrdDS6p5KDF1k3Fnn8eBiijba4559Q0qeJSwcOfrQw/oP
+ B1ZROun3vT3Qg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/4] drm/amd/display: Add HDMI 2.1 VRR support from
- HF-VSDB
-To: "Fangzhi Zuo" <jerry.zuo@amd.com>
+Subject: Re: [PATCH] accel/qaic: Add support for AI200 virtual functions
+To: "Youssef Samir" <youssef.abdulrahman@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814164344.3098143-4-jerry.zuo@amd.com>
-References: <20260811003921.1398292-1-jerry.zuo@amd.com>
- <20260814164344.3098143-1-jerry.zuo@amd.com>
- <20260814164344.3098143-4-jerry.zuo@amd.com>
+In-Reply-To: <20260814164125.3652876-1-youssef.abdulrahman@oss.qualcomm.com>
+References: <20260814164125.3652876-1-youssef.abdulrahman@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 16:55:20 +0000
-Message-Id: <20260814165521.4864C1F00A3F@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 16:59:07 +0000
+Message-Id: <20260814165907.C76841F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,144 +56,158 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 New issues:
-- [High] The HF-VSDB VRR fallback is negated for HDMI TMDS connections due =
-to a pre-existing AMD FreeSync MCCS check resetting `freesync_capable` to `=
-false`.
+- [High] Missing pci_disable_sriov() in the physical function driver remova=
+l path causes SR-IOV VFs to leak.
+- [High] Device state check in qaic_pci_sriov_configure incorrectly blocks =
+SR-IOV VF teardown when the device is offline or booting.
+- [High] The aic200vf_config structure is never added to the qaic_ids PCI d=
+evice ID table, preventing the driver from matching and binding to VF devic=
+es.
 
 Pre-existing issues:
-- [High] The highest refresh rate mode cache (`freesync_vid_base`) is never=
- invalidated across hotplugs, corrupting `max_vfreq` calculations for subse=
-quently connected displays.
+- [High] Missing pci_free_irq_vectors() in MSI initialization error paths a=
+fter a successful pci_alloc_irq_vectors() call.
 --
 
---- Patch [3]: [PATCH v4 3/4] drm/amd/display: Add HDMI 2.1 VRR support fro=
-m HF-VSDB ---
-commit cf4d7fc4ac615fcafd91467c91d4c4582773cd6b
-Author: Fangzhi Zuo <jerry.zuo@amd.com>
+--- Patch [1]: [PATCH] accel/qaic: Add support for AI200 virtual functions =
+---
+commit c554793b8689d7226dadc15db51370aa624d506a
+Author: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
 
-drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
+accel/qaic: Add support for AI200 virtual functions
 
-This commit updates the FreeSync capabilities logic to fall back to the
-HDMI 2.1 VRR range parsed from the HF-VSDB when the AMD VSDB does not
-provide a valid range.
+Register the qaic_pci_sriov_configure callback to allow VFs to be
+created through AIC200's sysfs numvfs entry. Additionally, define
+a new MHI family for the 5 channels supported by AIC200 VFs: NNC,
+Telemetry, IPCR, Loopback, and SSR.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 9eaa20ec528ec..2fe7bfb1e88f7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+> index 0acf6cdd44f81..cde8eb8c7a71b 100644
+> --- a/drivers/accel/qaic/qaic_drv.c
+> +++ b/drivers/accel/qaic/qaic_drv.c
+> @@ -77,6 +77,13 @@ static const struct qaic_device_config aic200_config =
+=3D {
+>  	.dbc_bar_idx =3D 2,
+>  };
+> =20
+> +static const struct qaic_device_config aic200vf_config =3D {
+> +	.family =3D FAMILY_AIC200_VF,
+> +	.bar_mask =3D BIT(0) | BIT(1) | BIT(2) | BIT(4),
+> +	.mhi_bar_idx =3D 1,
+> +	.dbc_bar_idx =3D 2,
+> +};
+> +
+
+[Severity: High]
+This structure is defined, but is it missing an entry in the qaic_ids
+PCI device ID table?
+
+If the VF's PCI ID is not registered in the table in
+drivers/accel/qaic/qaic_drv.c, won't the driver fail to match and bind
+to the newly created VFs, making this configuration unreachable?
 
 [ ... ]
 
-> @@ -3856,6 +3865,59 @@ void amdgpu_dm_update_freesync_caps(struct drm_con=
-nector *connector,
->  				connector->display_info.monitor_range.max_vfreq =3D vsdb_info.max_re=
-fresh_rate_hz;
->  			}
->  		}
+> @@ -761,6 +768,34 @@ static const struct dev_pm_ops qaic_pm_ops =3D {
+>  	SYSTEM_SLEEP_PM_OPS(qaic_pm_suspend, qaic_pm_resume)
+>  };
+> =20
+> +static int qaic_pci_sriov_configure(struct pci_dev *pdev, int num_vfs)
+> +{
+> +	struct qaic_device *qdev =3D pci_get_drvdata(pdev);
+> +	int ret;
 > +
-> +		drm_dbg_driver(adev_to_drm(adev),
-> +			       "VRR: amd_vsdb i=3D%d fs_sup=3D%d min=3D%d max=3D%d fs_capable=
-=3D%d\n",
-> +			       i, vsdb_info.freesync_supported,
-> +			       vsdb_info.min_refresh_rate_hz,
-> +			       vsdb_info.max_refresh_rate_hz, freesync_capable);
+> +	/* Qaic device must be online to process VF bringup */
+> +	if (qdev->dev_state =3D=3D QAIC_OFFLINE)
+> +		return -ENODEV;
 > +
-> +		/*
-> +		 * If AMD VSDB didn't provide a valid FreeSync range, fall back to
-> +		 * the HDMI 2.1 VRR capability parsed from the HF-VSDB.
-> +		 */
-> +		if (!freesync_capable && connector->display_info.hdmi.vrr_cap.supporte=
-d) {
-> +			struct drm_hdmi_vrr_cap *vrr_cap =3D
-> +				&connector->display_info.hdmi.vrr_cap;
+> +	if (qdev->dev_state =3D=3D QAIC_BOOT)
+> +		return -EBUSY;
 > +
-> +			drm_dbg_driver(adev_to_drm(adev),
-> +				       "VRR: HF-VSDB fallback: hdmi_vrr=3D1 vrr_cap[sup=3D%d min=3D%=
-d max=3D%d] mrange_max=3D%d\n",
-> +				       vrr_cap->supported, vrr_cap->vrr_min, vrr_cap->vrr_max,
-> +				       connector->display_info.monitor_range.max_vfreq);
-> +
-> +			if (vrr_cap->supported && vrr_cap->vrr_min > 0) {
-> +				amdgpu_dm_connector->min_vfreq =3D vrr_cap->vrr_min;
-> +				amdgpu_dm_connector->max_vfreq =3D vrr_cap->vrr_max ?
-> +					vrr_cap->vrr_max :
-> +					connector->display_info.monitor_range.max_vfreq;
-> +
-> +				/*
-> +				 * VRRMAX =3D 0 in the HF-VSDB means "up to the Base
-> +				 * Refresh Rate". If the EDID also did not provide a
-> +				 * monitor range max, fall back to the Base Refresh
-> +				 * Rate (the highest refresh rate of the preferred
-> +				 * timing) so a valid VRR range is still reported to
-> +				 * userspace.
-> +				 */
-> +				if (!amdgpu_dm_connector->max_vfreq) {
-> +					struct drm_display_mode *brr_mode =3D
-> +						amdgpu_dm_get_highest_refresh_rate_mode(amdgpu_dm_connector, true);
+> +	if (num_vfs =3D=3D 0) {
+> +		pci_disable_sriov(pdev);
+> +		return 0;
+> +	}
 
 [Severity: High]
-This is a pre-existing issue, but does amdgpu_dm_get_highest_refresh_rate_m=
-ode()
-return stale data across hotplugs?
+Does the dev_state check in qaic_pci_sriov_configure() correctly handle the
+num_vfs =3D=3D 0 teardown path?
 
-It appears aconnector->freesync_vid_base is never cleared on hotplug:
+If the device encounters a hardware error and enters QAIC_OFFLINE, an admin
+might write 0 to sriov_numvfs to tear down the VFs. Since the state checks
+happen before checking for num_vfs =3D=3D 0, won't this incorrectly return
+-ENODEV and permanently trap the VFs in an enabled state?
 
-amdgpu_dm_get_highest_refresh_rate_mode() {
+Could the num_vfs =3D=3D 0 check be moved before the dev_state validations?
+
+> +
+> +	ret =3D pci_enable_sriov(pdev, num_vfs);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "Failed to enable SR-IOV: %d (requested %d VFs, ma=
+x %d)\n",
+> +			ret, num_vfs, pci_sriov_get_totalvfs(pdev));
+> +		return ret;
+> +	}
+> +
+> +	dev_dbg(&pdev->dev, "Successfully enabled %d VFs\n", num_vfs);
+> +	return num_vfs;
+> +}
+> +
+>  static struct pci_driver qaic_pci_driver =3D {
+>  	.name =3D QAIC_NAME,
+>  	.id_table =3D qaic_ids,
+> @@ -768,6 +803,7 @@ static struct pci_driver qaic_pci_driver =3D {
+>  	.remove =3D qaic_pci_remove,
+>  	.shutdown =3D qaic_pci_shutdown,
+>  	.err_handler =3D &qaic_pci_err_handler,
+> +	.sriov_configure =3D qaic_pci_sriov_configure,
+
+[Severity: High]
+Since this patch enables SR-IOV, does qaic_pci_remove() in=20
+drivers/accel/qaic/qaic_drv.c need to call pci_disable_sriov() before=20
+tearing down the device resources?
+
+If an administrator unbinds the PF driver while VFs are still active,
+won't leaving SR-IOV enabled while destroying the PF's MHI and DRM backing
+state lead to a resource leak and potential use-after-free when the active
+VFs attempt to access the hardware?
+
+[Severity: High]
+This is a pre-existing issue, but looking at init_msi() in=20
+drivers/accel/qaic/qaic_drv.c:
+
+drivers/accel/qaic/qaic_drv.c:init_msi() {
     ...
-    if (aconnector->freesync_vid_base.clock !=3D 0)
-        return &aconnector->freesync_vid_base;
+	mhi_irq =3D pci_irq_vector(pdev, 0);
+	if (mhi_irq < 0)
+		return mhi_irq;
+
+	for (i =3D 0; i < qdev->num_dbc; ++i) {
+		ret =3D devm_request_threaded_irq(&pdev->dev,
+						pci_irq_vector(pdev, qdev->single_msi ? 0 : i + 1),
+						dbc_irq_handler, dbc_irq_threaded_fn, IRQF_SHARED,
+						"qaic_dbc", &qdev->dbc[i]);
+		if (ret)
+			return ret;
     ...
 }
 
-If a high-refresh monitor is unplugged and an HDMI 2.1 VRR monitor with
-VRRMAX =3D 0 is plugged into the same port, will this use the cached
-high-refresh mode of the disconnected monitor and calculate an incorrect
-max_vfreq?
+Are we leaking IRQ vectors here?
 
-> +
-> +					if (brr_mode)
-> +						amdgpu_dm_connector->max_vfreq =3D
-> +							drm_mode_vrefresh(brr_mode);
-> +				}
-> +
-> +				if (amdgpu_dm_connector->max_vfreq -
-> +				    amdgpu_dm_connector->min_vfreq > 10)
-> +					freesync_capable =3D true;
+According to the PCI subsystem guidelines, failing to call
+pci_free_irq_vectors() in error paths after a successful
+pci_alloc_irq_vectors() leaks IRQ resources. If devm_request_threaded_irq()
+fails, this path returns the error code directly without freeing the vector=
+s.
 
-[Severity: High]
-Does this new fallback get negated later in amdgpu_dm_update_freesync_caps()
-for HDMI TMDS connections?
-
-When an HDMI monitor without an AMD VSDB is connected, freesync_vcp_code
-remains 0. Later in this same function, the pre-existing MCCS check does th=
-is:
-
-    if ((sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A ||
-        as_type =3D=3D FREESYNC_TYPE_PCON_IN_WHITELIST) &&
-        (!sink->edid_caps.freesync_vcp_code ||
-        (sink->edid_caps.freesync_vcp_code && !sink->mccs_caps.freesync_sup=
-ported)))
-        freesync_capable =3D false;
-
-Since !sink->edid_caps.freesync_vcp_code evaluates to true for TMDS,
-could this prevent the HF-VSDB fallback from working for these displays?
-
-> +
-> +				connector->display_info.monitor_range.min_vfreq =3D
-> +					amdgpu_dm_connector->min_vfreq;
-> +				connector->display_info.monitor_range.max_vfreq =3D
-> +					amdgpu_dm_connector->max_vfreq;
-> +			}
-> +		}
->  	}
-
-[ ... ]
+>  	.driver =3D {
+>  		.pm =3D pm_sleep_ptr(&qaic_pm_ops),
+>  	},
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814164344.3098=
-143-1-jerry.zuo@amd.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814164125.3652=
+876-1-youssef.abdulrahman@oss.qualcomm.com?part=3D1
