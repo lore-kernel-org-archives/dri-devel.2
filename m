@@ -4,60 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C597C5DF74
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8336BC5DF76
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E14A10E2EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 990AD10E2F1;
 	Sun, 16 Aug 2026 14:05:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="lfa3hg5K";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OXyuvXB8";
 	dkim-atps=neutral
-Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com
- [203.205.221.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F3710E1DE
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 12:26:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1786796762; bh=jTXyFKm0R7DY+Za1M9TAqurhFo7QSaZ9AjGQD+n13oM=;
- h=From:To:Cc:Subject:Date;
- b=lfa3hg5K/rN4rugEfXogI0lSyAOxUGKNQzU5bGIVo+MFShCAERJmLs+rZkOwIj8Zz
- XnAWpzBAXhGe3xvt/yMGeiUVIo77aPTluYQheThY1Wy8cL1iKfQ7yoZIkHll3gtv2D
- QzWW99fzoFX8vjEMF8oq4lSZyHJ/7Rhjx8+tJNmY=
-Received: from allen-xiaomibookpro14.lan
- ([240e:39a:35b:26c0:8997:9440:4da9:9b8a])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id 6741CE0E; Sat, 15 Aug 2026 20:25:52 +0800
-X-QQ-mid: xmsmtpt1786796752tcm8domqh
-Message-ID: <tencent_6CC00E822A788776C8F6E2D6B24C5FE4A909@qq.com>
-X-QQ-XMAILINFO: MzNwb/pqyJTknGIKLCns5qN/q7G0+BxozUGLCzIP+qJXLp0bidUOAA5qR3fYHv
- EzjJCntptfkA80Ol9kYtlRr23hhb/UiCQ/gb7yp3smONLHaZ0ayKHYOIzWDdUWH9fKh8vyTU+Klt
- iMjFqkzdAFNKbZZlOURIqJcnRTHZ5A+uuyVvqqeaW5Ob6MIxLW/yGXiFg8uaVBjbSZ0288sLnOvH
- qwmt99rgPWhs97IYSgmQ45zj7TnLHI8P+OXaEXHuMR72o/9oDrJG5VxhJJqOAJugHSul7b2pXWeq
- ekj1vET1yg4C0HlpyA9iVex12LD7jHrikYneMbcTu3ZD4hDEx4BHbYDA7xA3tzpOz8t5OgtJ2rbg
- DpRt+39c6gF4z81eQU6YJXFOYdf8roAQfSqzlCtUodxbk3b5A2VsyA+qEfTi5fa1wLUPrC9FbCHz
- xkX70kctkvDtJ5oML9QF8q2CEZOLFUvTNyneVZlJGKQnZI5dVHH7um0b0wqS0jSwog1lHaWMUaG+
- 5BNLPNSKkwvP6R9gu7+6xFrhgIVK0jz0LGp2anviSCUZpw+i74M4QqJxQMJTieANX4qQ09HOTfwU
- ggvaEA9QmEeVznSTG4rqNA1P2JGwXWwUSCSfO6dkOsWuqF95tJ04zpQ4maQ2ov8O49lSJUC5jfG3
- yRk419Lev5EnAHVZ8wJaxXtebGfTkMr74w7MhTAJiNpRz+HsQC+EMDTQw3ikwwvL4hiXQQklZr+r
- fYFsYmqiYwqQzmj8w3hlNIytUgarxti23IP2+4qtAK8fM8DCf7yKzAhjeLV5k5YUyldIjsZ3FWB7
- r+/hb5IoY4vDCzI/NbaH6+he8WQElQ4mzJV26rzudVbvI4jSa4XB0N69hRML4hlIwLAqBgwwoyQF
- gmkdj6ESnBEAq9ivqHzHem4eSlO9aBa/4GuQcVvygsYiiVhAWl4wNrEGla66kuDD/NeyFw+s3zpZ
- Qr1oPlGO/HDm1tzhAka1IaDu7kKrIOBReJ9UY4txNoQXtxasvLL6zwn6OQIBOMvpn58xk3dLG6So
- 0DTzJgimaj9EzzGsmn8yIpWSKDxcnGaLpzVpXtislnC4sCT3H7EsSUHsb66YKLZVaIRxhTeg==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: =?UTF-8?q?Chang=20Jiong=28=E5=B8=B8=E7=82=AF=29?= <304750714@qq.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- ville.syrjala@linux.intel.com, stable@vger.kernel.org,
- Chang Jiong <304750714@qq.com>
-Subject: [PATCH] drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in
- bxt_sanitize_cdclk()
-Date: Sat, 15 Aug 2026 20:25:49 +0800
-X-OQ-MSGID: <20260815122550.67009-1-304750714@qq.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEDF210E570
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:41:38 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-ca00f126b7eso618056a12.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 06:41:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786714898; x=1787319698; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZHoa1K49NDPsNuWHGok7ahf8ilm7bb0+sIWpxa8JDrA=;
+ b=OXyuvXB87hn3CiTMbrAv4Df/izV85/pEbGtbsu2EmaU7ack5qT2fnheVF7xtz8dDxQ
+ L9GiCeYvLCJP6LVuNhY9bEN1rROitewOm53/nLdi0EoYCFMyW1G2LzpsCLgHKPGcyB/f
+ 0qv3OAnB99zfEb4x3a+aVmjCer3ZAR6zySKBQI+PrGGWX9K/ZhUhMK+B3BIvPsS1lhFC
+ iWeHikQgLPF3hcCBi5cVzueojMa1lVIO/iiqFDl9YBPyIA/QDNXAX2HXIw/P75Ff8abb
+ 8TaCbRBdZFvzlAv3h7Pc9XrI3hBIMGtrc/vBepl4uzO+L45rTHXTrJ9cYgFCUz9diyzR
+ cQSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786714898; x=1787319698;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZHoa1K49NDPsNuWHGok7ahf8ilm7bb0+sIWpxa8JDrA=;
+ b=lmBNuo9krUn+jbBurUoTqEsurMuO86vqyleHNjYzsg7Y7x2sfKTQcTO5f4Al8/VQ9Q
+ 9ZnkVVpNsoMNRZ3yMtcrGHr1pjuZ+Tu5H0B8TxuG/PRLZyfo7ICU7BepIcrMVL463Sx5
+ lm5H4t64ny3yHQKwuEJX8bCMU2Ua2wqPRvuerbBOIMNWYztnvD2JP7OXZjfLV+BVDSyd
+ ysfl7id6sf3+YrJUC3GfkbpxYCcLA2Z4vyEoQpm/TR99DLEL5l/L/kO8Xa1ewZwCQ5ix
+ eAiaDq8c2lia4gvO3re+pDJtV0r+mwo1j/KJ+pV1XaS3w86e5yAcsOkwpfIWyZzwDiHk
+ Dsww==
+X-Gm-Message-State: AOJu0Yxe+LSWkLqSwtOcPMKgn4tb/DP9Ugz4y0myLhfIyGiBGc9kBLf2
+ /BsapkLEuTQOSABV9IYkkuZj1rVbjhY2UbNi0yrzfADBnG9ZC1i0KkNQ
+X-Gm-Gg: AR+sD11n+x48hrwplZJsFUnn96XlSK1qqt/hk/BH+ARrugjUUYnIV3mEZy6nmEhh1lx
+ NjwSalwJ5sjmZ6VpF3CimYQx+lHbqdfEBFvqGzfcHGROJ5tMMEmVJPksHt5h1EW/J+E+tvXtuh1
+ XQ4YYoRp5zGTH3FcwyH1yPDtsPztm2HregbP//auSfx93Sqq1c5WRYkUYloFjYsEOyT3Z12CyUc
+ jGKstPxiwVrZgVabgz9g8zKLvaYlq1kL6hdAqVczwmIrOICsKnr6d4Zdx4hW2/K8QkW6ORAU0Pw
+ 1sP1NxgeivO+OEdSqbBj2QOO90sRidnedvCCBx+8Mr42awhfU/QqtG7T+hRPV+Y9hjn1Ek2JwJd
+ 8AIsVBhG0nr+ryHoN51ftgPe25sANZ4DwxBKS6hQ4x+btArPGj7JJpJzY+YakjT0+NNL2DPOFdh
+ QcQ7OuxBmXeAqQ9G5jdroRCiQlhgM7FHLzBttczPbF4nhxyrz6bqVztZQHpEEWxn/jJTLiisd2v
+ iYuM2rx
+X-Received: by 2002:a05:6a00:3a12:b0:848:498b:e0d4 with SMTP id
+ d2e1a72fcca58-84fde7d2ecemr5658625b3a.38.1786714897998; 
+ Fri, 14 Aug 2026 06:41:37 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net
+ ([2001:da8:e000:1206:e9af:7c0e:be31:2c3f])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc095a43327sm592201a12.28.2026.08.14.06.41.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Aug 2026 06:41:37 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Russell King <rmk+kernel@arm.linux.org.uk>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH] component: Release match data on add failure
+Date: Fri, 14 Aug 2026 21:41:32 +0800
+Message-ID: <20260814134132.1387952-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,48 +90,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
-without a full PLL re-enable") bxt_sanitize_cdclk() normalizes the
-CD2X pipe select field of the CDCLK_CTL readback to PIPE_NONE before
-comparing against the expected value.
+component_match_add_release() accepts a release callback so callers can
+transfer ownership of resources held by the match data. However,
+__component_match_add() returns without invoking that callback when the
+match is already an error pointer or when allocating the match or its
+array fails.
 
-However bxt_cdclk_ctl() does not include the CD2X pipe select field
-at all on DISPLAY_VER() >= 30, so on Xe3 (PTL) the normalized
-readback (pipe field forced to the PIPE_NONE encoding, 0b111) can
-never match the expected value (pipe field 0). The comparison now
-fails on every boot and we always take the full CDCLK PLL
-disable+re-enable path with the BIOS framebuffer actively scanning
-out - exactly what this code was trying to avoid. On a Panther Lake
-laptop (Arc B390, 8086:b080, eDP 3120x2080@120) this causes
-"CPU pipe A FIFO underrun" during probe and persistent full-screen
-scanout corruption for the first KMS client (the SDDM greeter);
-the corruption lasts until the next full modeset.
+This leaks resources acquired before the call. For example,
+drm_of_component_match_add() takes a reference to its device node before
+adding the match, and ERR_PTR-aware callers can return from probe with
+that reference still held. Calls made after the first allocation failure
+can leak further references.
 
-Only normalize the CD2X pipe select field on platforms where
-bxt_cdclk_ctl() actually programs it, mirroring its DISPLAY_VER()
-check.
+Invoke the release callback whenever the match data cannot be added, and
+document the failure-path ownership rule. Successful match lifetime
+semantics remain unchanged.
 
-Fixes: 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chang Jiong(常炯) <304750714@qq.com>
+This issue was found by a static analysis checker and confirmed by manual
+source review.
+
+Fixes: ce657b1cddf1 ("component: add support for releasing match data")
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/base/component.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2364,8 +2364,10 @@ static void bxt_sanitize_cdclk(struct intel_display *display)
- 	 * dividers both syncing to an active pipe, or asynchronously
- 	 * (PIPE_NONE).
- 	 */
--	cdctl &= ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
--	cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+	if (DISPLAY_VER(display) < 30) {
-+		cdctl &= ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+		cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+	}
-
- 	if (cdctl != expected) {
- 		if (DISPLAY_VER(display) < 20) {
-
+diff --git a/drivers/base/component.c b/drivers/base/component.c
+index 655d68deb590c..2b455d7499926 100644
+--- a/drivers/base/component.c
++++ b/drivers/base/component.c
+@@ -388,14 +388,14 @@ static void __component_match_add(struct device *parent,
+ 	struct component_match *match = *matchptr;
+ 
+ 	if (IS_ERR(match))
+-		return;
++		goto err_release;
+ 
+ 	if (!match) {
+ 		match = devres_alloc(devm_component_match_release,
+ 				     sizeof(*match), GFP_KERNEL);
+ 		if (!match) {
+ 			*matchptr = ERR_PTR(-ENOMEM);
+-			return;
++			goto err_release;
+ 		}
+ 
+ 		devres_add(parent, match);
+@@ -410,7 +410,7 @@ static void __component_match_add(struct device *parent,
+ 		ret = component_match_realloc(match, new_size);
+ 		if (ret) {
+ 			*matchptr = ERR_PTR(ret);
+-			return;
++			goto err_release;
+ 		}
+ 	}
+ 
+@@ -420,6 +420,11 @@ static void __component_match_add(struct device *parent,
+ 	match->compare[match->num].data = compare_data;
+ 	match->compare[match->num].component = NULL;
+ 	match->num++;
++	return;
++
++err_release:
++	if (release)
++		release(parent, compare_data);
+ }
+ 
+ /**
+@@ -438,7 +443,8 @@ static void __component_match_add(struct device *parent,
+  * The allocated match list in @matchptr is automatically released using devm
+  * actions, where upon @release will be called to free any references held by
+  * @compare_data, e.g. when @compare_data is a &device_node that must be
+- * released with of_node_put().
++ * released with of_node_put(). @release is also called if the match cannot be
++ * added.
+  *
+  * See also component_match_add() and component_match_add_typed().
+  */
+-- 
+2.51.0
