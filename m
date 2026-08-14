@@ -4,141 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DEFBC5DF70
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62145C5DF76
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D24610E1FA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CEF210E2E1;
 	Sun, 16 Aug 2026 14:05:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="rL07Ax+q";
+	dkim=pass (2048-bit key; unprotected) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="xfoDB6GZ";
 	dkim-atps=neutral
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazolkn19013083.outbound.protection.outlook.com
- [52.103.33.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE7010F36E
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 07:17:29 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010066.outbound.protection.outlook.com
+ [52.101.193.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2410210E150
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 11:48:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JSas1H90kMycSj+Lq6mIGEimDTpKnpkB7SzI63P94ZeU8EnNbMYdiDBS939anquAs5R6dL3nIi2gXKzVuwcH85q9WzLbO6fKCUSsDmyzM+4WBM0FsbEmm6x1O9CXaFj9Nw3UEtnkyFPCTvuf6ECia+E3h815I0kLHclF19mMjMpx0eEutzRQ+oC6oOw4im0kbjBhzzA83foIfWJsynWXW0MZGTCWRWJW3dqrLi9Q8aCQdcLhY7ZzNTHh+IOeAFuUIZSpVgSSah1g4MhYJFa2qNEjTPDW4YQ37IUjodNjdDtafoBPE3LW5X3pRWPOHA/YuOfVCkl7GqC4664KZTqokw==
+ b=Yv91BivU7dnSRZQpiGKUFRc2+ol4xrtOULAwUVyigZLLx3PEdPgjgRNYql0217zJIV7y/KuRprIz3FEJ5WvDuxsW7JFGzV7GtJaYMk0m2tZxc1QPo243d7Wr2f/cWTm+m7AYkJlJhPaq+R0zFHUZtu/ekdI2+LZKT4siYWZ3WC27HK/SVTsbm9Ym/3kYWK8GfKphWvu6funAOtlo9gfy/kKQfNqSyPJhdUHQW2yFYXPrYR2U05xsfYC4ssb9O9tiAeWiFLHYdRsf/XhvoHcPl9cWMHVJ7b9U8D+ZSTVXDlwQ749eIe3MkKwUtqayeeQtZkCnmJMO9fhzOCNO2Bz4eA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MdWy/DR35dHh76AmVHo78h41MOvwgs14IuZSg/0IHqI=;
- b=phMqh5qKU4YGUiWAaW1fWJ8qj2JpNrBPnHJdEaaRg11ICB7lA6GExDIiRL6ex8yrmHv4GK/165lJLmegOI4MJDDWdPFBMXSQPQvVBerYyMnGc+MejFv6dErYMv0rEBv2i49ucfg4x2d3+UFE3BqIiFZLVS7ConyCGE9pn08aQLjknc9yfPgw+2SaO4toC6yrBqh018cAZpizwluC/MnRIaCLBGoEwf41m2ChRVxTxWvQNWF2GkeXGcCrVqb3MwyZeU12oVQ0qi9Yas5bQW4zQ30Y9er5knmJq+D7HE7a27EFDyZlzY37MpupfOVaNoAaDjaCS4vOKhzSuwkGNKBviQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ bh=JzX5VWC6Mkn/0T3WQt/Utek/gGAlrZ3CPbBdmKxvF9o=;
+ b=bWeWDH24NLaBAo6LAT3rd1WxRsiSi2Mkjkv1LUsQ3ROh9nLp7XNH5nMaX1j+VTpo6Jd++YrRDgM5wLUqeeAXzq+de9rFjeCGu74UI0Bd9gOghgfXosYVgE0Iw5tWipNddeohjq7etxJmyNS3Z4gW8fUsfMzsNa/i+I7Sucja0qIwjPpGISbQey9aRQICW0yekYK4HvnnXm0IkacczToL4w0DglLEYMOGT6IbWwHJeFnc3BqktaM03Dv2M6vATihytApIgp+3POo9q/I2ryt4E7z3CdM2Dpg8rtKMzbG/5tSllZshSJoeaPDMewnZqJ8mErda8/mPO1gTPgZ0lCBXzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MdWy/DR35dHh76AmVHo78h41MOvwgs14IuZSg/0IHqI=;
- b=rL07Ax+qCGmIOOSkUGfdEnHteoVBlDm0hKD6AB4czVXY69YRTGc3ldbmdfiDQ4kvuWo8NNYnsS6s9qjH+j27tOAgBpXZ+qjO6QoJDoEUb/XC1xNoYGGpHSpHf22oVbZP0XcJmu3FQttVSpwmHLEWd8YUgoffTj4hegPagoSGW6j8HbI2yetskF+KmQLY4phER2ZJWvLSR/9QqPWfD4fSx3Z8VqCQa5379Ef5QfSIDwyPbzHHxXLx0X6TyaDV0Hi2FGtvwRiXyRNPUWZIpEg3tpH8YIqzOGXuvOJSk5nOBt50TqRnzR1RQ0Wwhw+ujkaQvi8afmTRg8iVI8iotiDtGw==
-Received: from DU0P190MB2445.EURP190.PROD.OUTLOOK.COM (2603:10a6:10:5a5::8) by
- VE1P190MB0832.EURP190.PROD.OUTLOOK.COM (2603:10a6:800:1b0::8) with
- Microsoft
+ bh=JzX5VWC6Mkn/0T3WQt/Utek/gGAlrZ3CPbBdmKxvF9o=;
+ b=xfoDB6GZ8dfiUgKwnH3GQ62TqOXz9aaCo7lDdke5tojBWRdxZMMZPLQomQCgiwg8uZGHGZTzfEoqaCj2l/Yn8eRbslXjOf9MTRkREWst3v47ZjCRWTk67Xvj3NgBEItK0Xl5WcycRPmiVVOR+ToxRzwnKSq3T3SZmoDTYysvBYyP13R5LT+Vg1/l2RWbe3n0Zst5LMpWEW4iQTTfD+oabFPjma/9+hb7PV38Wq83O6WYzXf4a2vBEkP7fGwF8Ozas14+bSEZKIx5xzYww4dSVaQGbn6EJrswB63gE5RciEPLWN1HT8UYWlgZju3u+vK0OSqaw1cjIXbIW6p9+wV+dQ==
+Received: from BY5PR03CA0013.namprd03.prod.outlook.com (2603:10b6:a03:1e0::23)
+ by CH3PR22MB4406.namprd22.prod.outlook.com (2603:10b6:610:17d::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Fri, 14 Aug
+ 2026 11:48:40 +0000
+Received: from SJ1PEPF000026C5.namprd04.prod.outlook.com
+ (2603:10b6:a03:1e0:cafe::21) by BY5PR03CA0013.outlook.office365.com
+ (2603:10b6:a03:1e0::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Fri,
+ 14 Aug 2026 11:48:40 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 165.85.157.49)
+ smtp.mailfrom=gehealthcare.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay1.compute.ge-healthcare.net;
+Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
+ SJ1PEPF000026C5.mail.protection.outlook.com (10.167.244.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.13; Fri, 14 Aug 2026 07:17:25 +0000
-Received: from DU0P190MB2445.EURP190.PROD.OUTLOOK.COM
- ([fe80::5dcd:351e:4e91:2380]) by DU0P190MB2445.EURP190.PROD.OUTLOOK.COM
- ([fe80::5dcd:351e:4e91:2380%3]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
- 07:17:25 +0000
-From: Muhammed Subair <msubair@hotmail.com>
-To: Maxime Ripard <mripard@kernel.org>, "heiko@sntech.de" <heiko@sntech.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Sebastian Reichel
- <sebastian.reichel@collabora.com>, "hjc@rock-chips.com" <hjc@rock-chips.com>, 
- Alexey Charkov <alchark@flipper.net>, "linux-rockchip@lists.infradead.org"
- <linux-rockchip@lists.infradead.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andy Yan <andy.yan@rock-chips.com>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "royalnet026@gmail.com"
- <royalnet026@gmail.com>
-Subject: RK3576: rockchip-pm-domain fw_devlink device-link failures for nested
- power-domain nodes
-Thread-Topic: RK3576: rockchip-pm-domain fw_devlink device-link failures for
- nested power-domain nodes
-Thread-Index: AQHdKh2u/c0cvWeN902nqdu6wxj8IbadJUBQ
-Date: Fri, 14 Aug 2026 07:17:25 +0000
-Message-ID: <DU0P190MB24456FE9DB02005BCDDEC336BCDA2@DU0P190MB2445.EURP190.PROD.OUTLOOK.COM>
-References: <33aa66b2-cd6d-416d-b1ef-20cc83e0ee10@hotmail.com>
-In-Reply-To: <33aa66b2-cd6d-416d-b1ef-20cc83e0ee10@hotmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU0P190MB2445:EE_|VE1P190MB0832:EE_
-x-ms-office365-filtering-correlation-id: 1ebc216c-038b-499b-5cd1-08def9d41795
-x-microsoft-antispam: BCL:0;
- ARA:14566002|37011999003|51005399006|25031999004|25010399006|31061999003|8062599012|8060799015|19110799012|15080799012|55001999006|13091999003|24021099003|3412199025|440099028|102099032|40105399003|2607281247196008;
-x-microsoft-antispam-message-info: =?utf-8?B?dmJmQUxkWGozUjg1cDRTdVk0SnByS2E5N1QzejIyOTNzem1HN0dEM0ZxdTQx?=
- =?utf-8?B?VHpnS2FjT3pLSWpYNmFaSlFhenZ1bUFwQ2xNMFBuTkUzUEdCdGtZc296UzNa?=
- =?utf-8?B?MG9hdTNJbDQ1TlZES2N0RnBjREJ0Ry9FOHR4YnBZR3p2TDhIelhTVnhTeURW?=
- =?utf-8?B?UStqeU9qUlpZanBBV3diekxhTlNSTEt1dWNkYkRxSklsajc1ak9TUDFTRERN?=
- =?utf-8?B?L2M5MlVNNXR2UzJ3UnlVNzdOTFQydzkrejh3ekJlWDBjS2JhdnplSEFiblM4?=
- =?utf-8?B?L0RTT3FqN1ZKV2kzdllrc2hrME52LzVNekRpa3RpWTNLaW5YRUpxTXY3WHBn?=
- =?utf-8?B?UGVYRzcwNEpRSkhjLzhZRmVVTUpQSGw2ZWFlQXVrTHdpcUl6OTBlZDZYK2hz?=
- =?utf-8?B?MGF1L3RvUWZOSllsbjlWR3RuR0R2NUVzMkZQV3BYRGZQRWxteGdsVUh4MEx6?=
- =?utf-8?B?RU1BNnc3RU1BS3l1eE1HNEY3RUhDeE0yVWtuNkgwTGNkOVpmRUxsakZDaG9Q?=
- =?utf-8?B?azhzRnhrQXd5OWJKZjRVeVVabVlER2FyeWlyOWl0dlNROVVyeVRmWWg3UTlL?=
- =?utf-8?B?Ni9ES1VFUUtka00rSEVoUVV6cUtZSW9qWFZGZlJKS3kwTmMxVjJxa3l1SmJB?=
- =?utf-8?B?MzdIaWwrRUg3OThmbkpFZ3VIT1JlcFBsbTkxZHExZW84eWJBdUQ1b0hPM2Zx?=
- =?utf-8?B?TVNzd2llQm8wMXg5UXRMMkRUOWxra0xxVk9nRGpFVDRsd01USlYxKytOUXlE?=
- =?utf-8?B?NVlHNG1jY1hXS09vUENJSWNHd0FaT09EWllkclJFNGtsZHZtSjRvRVVoOGE2?=
- =?utf-8?B?M2dxaHNoSTl3OUJubWFtYWVmNXI1WkI3TzZ1TVFGTFZLU3plY0lrVDROL1VL?=
- =?utf-8?B?MFNiWXhQdFRsMTFuaTg0WlRNTXcwYWVzZmY1L3hrcWlUQlRsR1BHRFdjeFM5?=
- =?utf-8?B?UG5GVFVLYm1DenN2UUxacURlTXpvZEhCSEtMSlQ5RVJyY1NHUjdXeVpTM0Mv?=
- =?utf-8?B?c3NnZzlSRGhONDhobnFmaWRxNzNwTE9LZHREeU5mMzZUbHlKNmJqOU5hWEtz?=
- =?utf-8?B?bUsrc2t2aUdnT0VDaG1HRjF2RkZlTExzT05YNmt0eWRLK01Yd3Q1VkYrRkJF?=
- =?utf-8?B?a05Sc0pnK0pPVDJxcld4bGxGelVvVm8zN3J5Z21tY3BaMmtERjFSM0RRTFdm?=
- =?utf-8?B?WDJXbUF2bnlnanFWS0t3eEt0aEowN2lrZTVyUkg0Zk9MV3ByRHIxczhSUXhp?=
- =?utf-8?B?dUJ3SjNyaWdkek9zc0hUbWdSYW15blFBYStJUG0vOHhYdklrVkhVSmxwdVNo?=
- =?utf-8?B?RlJFRGtVdEQ1NTBlRDlZazhPNE03dDJnSHFSTUI3YjhoYzZSeU1VS2tnWk5u?=
- =?utf-8?B?enpzQnE3Z0l6M3dSVTVFVzFkenEvTGpXNXhoenZpbjBaUmJkYnhiaVNTVDJj?=
- =?utf-8?Q?GM/TzD4V?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?czFHQkFCT09iUldUbVFrSHpNMkFsQms2bk5JbkRMb2NXL1dUblh0UUR6djJS?=
- =?utf-8?B?N2pOVTZlN0ozbFBtV0VNZHdhSTBTSFJWeURHVENmUmJ4VHA5UFlSbS9uQWpE?=
- =?utf-8?B?S0FtNlR5Ny8xRXZoKzFuZlAzYUoxVkxxWW1hYWNiMUhCeitNN1pwTzdoc2Zt?=
- =?utf-8?B?cXpBU014QmpvUU5rUm4rV2xFZ0V5WWg1Wng2aEhSd1d3TkRndkxqYnRQajBl?=
- =?utf-8?B?SVBCTkVYd1VPd0x6V3hycENCWnpKZ0N3d1VRRmxLTC9wL3lPUy9RT1k0a25u?=
- =?utf-8?B?RFRwTXZoMGZaSWFZeVFKRnpyOTJkOGVVK1R2Y29XOFVyaU9ybkd3cVhlb3pr?=
- =?utf-8?B?cmxxQ24zTGEzbkhNYUR5WEQ4YTRWWXFZODU4a3YvODl2OTNybEF6TjVQckt3?=
- =?utf-8?B?djJQdWs2SktOeEp2eElBZU9ORTRkUzdCZjJUNXZ3cExSdWdLQVpOOGo0K2dD?=
- =?utf-8?B?amc2N2FMaWwvY0hUUmhFNldlTGtHR3llR1lIVDFpVjBUa0sxOW5iRDlyWGtr?=
- =?utf-8?B?S1hWN0ozcHQyWnUzemlxc3dKb1JYU2txeFBmRjNiTEg2R29lbTd4UUUyYWpE?=
- =?utf-8?B?a2tydHhBV1hwMTAzbFFac28yODJ5OVNVK3ExdnFPTlhvL3l4M2VZYXBtQ21O?=
- =?utf-8?B?Tnp6SlU0NFp3MWNnZUpraTNLMm4yQUlqTHA5bk03NXlMc2txVWwyN0kzKzMv?=
- =?utf-8?B?OXVxTU9vUVE0OVVNMHpWZUtEaXNpb1d3c2themMzVDFoR1J1SGtIY09GUmNU?=
- =?utf-8?B?SXU4TkIwKytoM2FBN2xrdDdiYW5JWDdCK3F5WUkvaXNpbHR0MThYRitONUd5?=
- =?utf-8?B?bDJ4dmFMVnFXci9TaVM4aGlnS2RHWENIdXZVaS81VUZEZTYrRXFWS1k3dHJi?=
- =?utf-8?B?dG9rYnk1d0s1eUM0c1ZMcWpTaXh3YllZY3BnNk5VTmZBSUVDV3FRL1VkbWpS?=
- =?utf-8?B?andjRnl3OFV5K0hTMlk4T1Z1S3F2SW9FU1BkWXVsM0pHMVEvbUd0OERPVWJR?=
- =?utf-8?B?dVptN29qb3RoN09ZaU90K1RMdW9ITEZiR0xwcEZORHRPUmdHMVQ2czJ0SDBu?=
- =?utf-8?B?S3h2YnZ6T3NjS2g2SlRQNVVFdEYrVmdRSEJSVDMxUitjRnFKa3dmU2kxUjJ5?=
- =?utf-8?B?cUpPNHdVTlNxYU5BSUlIV250ZHErOWhLNUpmYUcwZElFdFdreFhQcGhLWERm?=
- =?utf-8?B?Z2dQQkVjNkNnZmY2dEJLa2FHdkd2TGF5NGpqZTQvQ1ZETlBMRWNDVW1oMGsr?=
- =?utf-8?B?ek13cWpKNXMyQU1HZjJKUVdYWVh2UjFkdkwzcGU0R01LK0RiN2l5TlRVa2Rh?=
- =?utf-8?B?VmNwNWd4ZmhlRzBUdUt1Ulh3VU5XSFovbHlOa1ZtSVdOZnRYK2hxSVRHTXk0?=
- =?utf-8?B?aW9adEtnc0t6NWN4bWdxamZpelJDNVBRUHh2Z09IMGxoOGJWNkpTczd6KzRY?=
- =?utf-8?B?Mis3NU5lQ2M5R1BEbE5GeEdmN203bk5xQUxvM082TDNVTHZiSXY1NVhVZ1pI?=
- =?utf-8?B?TVViWXI4U0N3RW82WnFSSmlKRWEvaDRKNTVoV3FWZ25PV2RBaUNYNFNxeGRD?=
- =?utf-8?B?YmUvbjFlRWtEeU55Q0UyVnpHNUdNcTY4S3F0bndHeWRTN0lWL1lvQ0ljT1JI?=
- =?utf-8?B?VXllTk9QUjBCU0lneE13NnRWUXNodjdCZXVKbzJIdno4a1AvZVdKR3haQjFq?=
- =?utf-8?B?T2JuOWk3YnR4L0d3NHdwckcra1M5VENEcnpOZXViQ0FvUFFZdUZZOVY0UmZq?=
- =?utf-8?B?RExlSXgyVUxGekVlelFUWHp0a0pieEI3T0w2RkZmMFMrNStzZkVLd0RLRzQr?=
- =?utf-8?Q?19X9UiIl25T3eERoefVEKk5xL7n6V+1b1frUM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 11:48:39 +0000
+Received: from zeus (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+ by builder1.fihel.lab.ge-healthcare.net (Postfix) with SMTP id 89C7DE4DB;
+ Fri, 14 Aug 2026 14:48:36 +0300 (EEST)
+Date: Fri, 14 Aug 2026 14:48:36 +0300
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hui Pu <Hui.Pu@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/12] drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: don't
+ select unused DRM_PANEL
+Message-ID: <an8AlCgNh3E4G5Gc@zeus>
+References: <20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com>
+ <20260812-drm-bridge-drm_panel-cleanup-v1-1-0d86734e908a@bootlin.com>
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-b33f1.templateTenant
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812-drm-bridge-drm_panel-cleanup-v1-1-0d86734e908a@bootlin.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C5:EE_|CH3PR22MB4406:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3f0652d-975f-4a29-b588-08def9f9fbfc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|10067099003|6133799003|56012099006|11063799006|18002099003|4143699003|22082099003;
+X-Microsoft-Antispam-Message-Info: 8C+7gKB3TFlj4H+A+oAwgN1NNK5AH/bazE611OGzdYB/WkOnUwNCNljj1pP92PQH4rXraawnlUvZLP18TwGaSHzvkhwmUv/c+NLQyE2Po2GOTFWSo6RF9GgaxIwT1pF1SsSEc28KetBZ4JX1CybW9dHvVxvIQ05R73KwvLpPSXjItsbCPYOB/mLg4Z1TI8sSrEW5luJkoDNNr7QsNQv2j31QzXpZcunyLjgdrRSJ8cjlg9soOob7+CaxQ4XY8p3sEJuekIvjarH4QJ2PJKoePvl5Abrp4Qgd+L0pxtURiGFi84+NCMTavFogvwnbQszdpbxQv20LmwIwc3JmOlFkhMZSZ/bGd40JM/59Q05TjNACe8ZtfQUh7zBP3ULdKBKW6bV7RYalwZjylj6Pr8/zjgP38Y0i35fKpHHLVsTIQ4xnbxt445eflyDkv9vVfv/JaXInPilanb9oCG2n0QQNngptm1hKaLg23QGLOEF+7aaLF+vuwgTF/tUBTi6x9unHlKvWue8pgvvDOQqxxWXhHCFCubTC4dhyD2UPEy+HskXCMXKuzWBIiV1jwwL2F4lzSxITGe9hLn6zj7vOnIajtsFpLmoBjMkZGRJAVK7WfKDXdGylfFZidbEKqA7p/ciOQqIB5jFU3kC+vauIiBg953ypx+F9JBbmvKNi3OJ6ZUUvqXMYLokWuARfwHMvzQFf2kRGuXfit5DGmth5wv6wZA==
+X-Forefront-Antispam-Report: CIP:165.85.157.49; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:atlrelay1.compute.ge-healthcare.net;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(10067099003)(6133799003)(56012099006)(11063799006)(18002099003)(4143699003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: +wpH+h3XFU9uhVYfBgAWEG/s+cwQYCghb3KaQJZ4RoEivpTJJ30Rz3NBE2o+tBLSZbOPg6uk+tI0VlxEJs0Pgu6BS1yPU465g0x0igUe8m5ITfrAYV5sLQKvbuxfbfcZZf/Eq97P/bgQxcfc5TPAD9jgQEFamhA+vgCe9FAGAtKn+R1d8AFeHWIEIp4UcP+y3Iq6GwLj2/n7x3ex41sOkcTfQlB+CzC6A89T9ihDztXwVDkxewv1HG1Cx+4rfMtsecK29SEQC0Sq30OQ5+AIX5kuf5r4oH/5MIQ4OH/uNc7kD44gx7esr/6bQYEK6vwxT0g183QIEFRbmAqOu4khEaGTMyudgWaMfHdNMAOU/I7JGNbWKOjuLmwvaZea7RinWOYilJW6cXK6812+cemEtV856dr5N+DPErv4DGK0qypSM7ufggp0hAGwvz73fTWR
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 11:48:39.9652 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3f0652d-975f-4a29-b588-08def9f9fbfc
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf; Ip=[165.85.157.49];
+ Helo=[atlrelay1.compute.ge-healthcare.net]
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU0P190MB2445.EURP190.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ebc216c-038b-499b-5cd1-08def9d41795
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2026 07:17:25.7177 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1P190MB0832
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000026C5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR22MB4406
 X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,45 +123,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgUm9ja2NoaXAva2VybmVsIGZvbGtzLCANCg0KSSBhbSBicmluZ2luZyB1cCBhbiBSSzM1NzYg
-Ym9hcmQgb24gYSA3LjEueCBiYXNlZCBrZXJuZWwgYW5kIEkgc2VlIHRoZSBmb2xsb3dpbmcgZWFy
-bHkgYm9vdCBlcnJvcnMgZnJvbQ0KDQpmd19kZXZsaW5rL2RldmljZS1saW5rczogWyAwLjI2MDM4
-OF0gcm9ja2NoaXAtcG0tZG9tYWluDQoyNzM4MDAwMC5wb3dlci1tYW5hZ2VtZW50OnBvd2VyLWNv
-bnRyb2xsZXI6IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsNCigweDE4MCkgd2l0aCBzdXBw
-bGllciBzb2MgZm9yDQovc29jL3Bvd2VyLW1hbmFnZW1lbnRAMjczODAwMDAvcG93ZXItY29udHJv
-bGxlci9wb3dlci1kb21haW5AMC9wb3dlci1kb21haW5AMQ0KWyAwLjI2MjE2OF0gcm9ja2NoaXAt
-cG0tZG9tYWluDQoyNzM4MDAwMC5wb3dlci1tYW5hZ2VtZW50OnBvd2VyLWNvbnRyb2xsZXI6IEZh
-aWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsNCigweDE4MCkgd2l0aCBzdXBwbGllciBzb2MgZm9y
-DQovc29jL3Bvd2VyLW1hbmFnZW1lbnRAMjczODAwMDAvcG93ZXItY29udHJvbGxlci9wb3dlci1k
-b21haW5AMC9wb3dlci1kb21haW5AMS9wb3dlci1kb21haW5AMg0KLi4uIFsgMC4yODU5MjddIHJv
-Y2tjaGlwLXBtLWRvbWFpbg0KMjczODAwMDAucG93ZXItbWFuYWdlbWVudDpwb3dlci1jb250cm9s
-bGVyOiBGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBsaW5rDQooMHgxODApIHdpdGggc3VwcGxpZXIg
-c29jIGZvcg0KL3NvYy9wb3dlci1tYW5hZ2VtZW50QDI3MzgwMDAwL3Bvd2VyLWNvbnRyb2xsZXIv
-cG93ZXItZG9tYWluQDE4L3Bvd2VyLWRvbWFpbkAxNw0KDQpUaGUgYm9hcmQgb3RoZXJ3aXNlIGJv
-b3RzIGFuZCB0aGUgYWZmZWN0ZWQgZG9tYWlucyBhcHBlYXIgZnVuY3Rpb25hbC4gDQpQQ0llL05W
-TWUsIEhETUksIEV0aGVybmV0LCBldGMuIGFyZSB3b3JraW5nLiBUaGUgUkszNTc2IHBvd2VyLWNv
-bnRyb2xsZXIgbm9kZSBoYXMgbmVzdGVkIHBvd2VyLWRvbWFpbiBjaGlsZHJlbi4gDQpUaGVzZSBj
-aGlsZCBkb21haW4gbm9kZXMgY29udGFpbiBwcm9wZXJ0aWVzIHN1Y2ggYXMgYGNsb2Nrc2AgYW5k
-IGBwbV9xb3NgLCBzaW1pbGFyIHRvIFJLMzU4OC9SSzM1NjgsIGFuZCBgI3Bvd2VyLWRvbWFpbi1j
-ZWxsc2AgaXMgcHJlc2VudCBhcyByZXF1aXJlZCBieSBgcm9ja2NoaXAscG93ZXItY29udHJvbGxl
-ci55YW1sYC4gDQpNeSBjdXJyZW50IHVuZGVyc3RhbmRpbmcgaXMgdGhhdCB0aGUgUm9ja2NoaXAg
-UE0gZG9tYWluIGRyaXZlciBjb25zdW1lcyB0aGVzZSBjaGlsZCBub2RlcyBpbnRlcm5hbGx5IGFu
-ZCByZWdpc3RlcnMgdGhlIHByb3ZpZGVyIGZyb20gdGhlIHRvcC1sZXZlbCBgcG93ZXItY29udHJv
-bGxlcmAgdmlhIGBvZl9nZW5wZF9hZGRfcHJvdmlkZXJfb25lY2VsbCgpYC4NCkhvd2V2ZXIsIGZ3
-X2RldmxpbmsgcmVjdXJzZXMgaW50byB0aGUgY2hpbGQgZndub2RlcyBhbmQgdHJpZXMgdG8gY3Jl
-YXRlIHByb3h5IHN1cHBsaWVyIGxpbmtzIGZvciBkZXBlbmRlbmNpZXMgc3VjaCBhcyBgY2xvY2tz
-YC4gDQpTaW5jZSB0aGUgY2hpbGQgcG93ZXItZG9tYWluIG5vZGVzIGFyZSBub3Qgbm9ybWFsIGRl
-dmljZXMsIHRoaXMgZW5kcyB1cCBhcyBmYWlsZWQgbGlua3MgZnJvbSBgcm9ja2NoaXAtcG0tZG9t
-YWluYCB0byBzdXBwbGllciBgc29jYC4gDQpJcyB0aGlzIGV4cGVjdGVkIG5vaXNlIGZvciBuZXN0
-ZWQgUm9ja2NoaXAgcG93ZXItZG9tYWluIG5vZGVzLCBvciBpcyBSSzM1NzYgbWlzc2luZyBhIERU
-L2RyaXZlciBhbm5vdGF0aW9uIHRvIHByZXZlbnQgZndfZGV2bGluayBmcm9tIHRyeWluZyB0byBj
-cmVhdGUgZGV2aWNlIGxpbmtzIGZvciB0aGVzZSBpbnRlcm5hbCBjaGlsZCBub2Rlcz8gDQpJIGNv
-bXBhcmVkIHdpdGggUkszNTg4L1JLMzU2OCBhbmQgZGlkIG5vdCBmaW5kIGFuIG9idmlvdXMgbWlz
-c2luZyBwcm9wZXJ0eSBpbiBSSzM1NzYuIEkgYWxzbyBkbyBub3Qgd2FudCB0byB1c2UgYGZ3X2Rl
-dmxpbms9b2ZmYCwgDQpzaW5jZSB0aGF0IGhpZGVzIHRoZSBpc3N1ZSBnbG9iYWxseS4gQ291bGQg
-eW91IGFkdmlzZSB3aGV0aGVyIHRoZSByaWdodCBmaXggc2hvdWxkIGJlOiANCg0KMS4gYSBEVCBj
-aGFuZ2UgZm9yIFJLMzU3NiBwb3dlci1kb21haW4gbm9kZXMsIA0KMi4gYSBSb2NrY2hpcCBQTS1k
-b21haW4gZHJpdmVyIGNoYW5nZSB0byBtYXJrIGNoaWxkIGZ3bm9kZXMgYXMgaW50ZXJuYWwvbm90
-IGRldmljZXMgZm9yIGZ3X2RldmxpbmssIG9yIA0KMy4gYW4gT0YvZndfZGV2bGluayBjaGFuZ2Ug
-dG8gYXZvaWQgY3JlYXRpbmcgcHJveHkgbGlua3MgZnJvbSBnZW5lcmljIHBvd2VyLWRvbWFpbiBj
-aGlsZCBub2Rlcz8gDQoNCg0KVGhhbmtzLCBTdWJhaXINCg0K
+On Wed, Aug 12, 2026 at 03:42:41PM +0200, Luca Ceresoli wrote:
+> This driver does not use the drm_panel APIs at all, so no need to select
+> DRM_PANEL.
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+Reviewed-by: Ian Ray <ian.ray@gehealthcare.com>
+
+> ---
+>  drivers/gpu/drm/bridge/Kconfig | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+> index 4a57d49b4c6d..a999e57d0cc1 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -225,7 +225,6 @@ config DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW
+>         tristate "MegaChips stdp4028-ge-b850v3-fw and stdp2690-ge-b850v3-fw"
+>         depends on OF
+>         select DRM_KMS_HELPER
+> -       select DRM_PANEL
+>         help
+>           This is a driver for the display bridges of
+>           GE B850v3 that convert dual channel LVDS
+> 
+> --
+> 2.55.0
+> 
