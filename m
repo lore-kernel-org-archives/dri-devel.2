@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC6CEC5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52441C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18E0F10F62A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C68910F62B;
 	Fri, 14 Aug 2026 14:58:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KqnV8TZP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cPEnHX7Q";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3517610F62A
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:58:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAC510F62A
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:58:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ACD0860204;
- Fri, 14 Aug 2026 14:58:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0231F000E9;
- Fri, 14 Aug 2026 14:57:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E6C0843FB3;
+ Fri, 14 Aug 2026 14:58:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ECEF1F00A3A;
+ Fri, 14 Aug 2026 14:58:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786719480;
- bh=EDLAmJka/5V6eFFKsdkLIoPFVJNK1dmrQVOKLial8L4=;
+ s=k20260515; t=1786719482;
+ bh=pg5PpAGiEFeKfz1Ng/hw4dD94IH/RyN+TuVIEYsa4Z0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=KqnV8TZPCKyzrg4+aNNX+KUATnn6bUx9/m1nptQgDfXD/PoCpiDZDZvue8RNl3X4w
- tRQIfz7XaJ/qa6+Iz3/Rqa3RyJemxFO/5MJl1g2vz5/O3lxg+x1JPt1XMDUTCayJVh
- Ue9l0G8k7ozAcauMyxYBXQcQVBMT4oMis+RF7ndOXZvhZNOBfQr+KiPURJZ6YSAk3z
- n29dmK7oPqv393Wj1Nvvr/VAg648UaElkjVttJ6QgMdB45p6+au6kxNG/bmmTpOi+I
- eSgC/D9hxcmh1qBIZ4m991wZ7DLt7pDx/IH+9SCC/HafTiQgPclzEOw0KSXppXZI03
- LQ3oFcdXYW5Dg==
+ b=cPEnHX7QCvXRIYa782pHhoFf96Q5GpICIn76YFa6/Gs5sGgNcakLRUSzw0D+Pfsa3
+ ScKvyS20rxYCdYLZ2Kzk7p63TiNp5Q84Sro1DvUIOpOW9MyUeGVu+EQ2tPdyBKPxKL
+ s3CHIhPj3X/zaY24k0kyKsKJNHFCxBBJbyj4h+SoMCPe5LJqoDy3NdSgjmSydIVX6d
+ 4kCJu2sLwmUB4CHSiQuhqt1qEZS7/pJk9LWu7xeYGqz9+XRN8fV5qAtv7ERZaiVEhh
+ OsxnzTqq/ZkKf+MdBKSri0E3Ya5bcoOHYA8Lj72igoz1ng7jm9wE31hvi7DWFZJMXQ
+ hhsIr4byMRsiQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 14 Aug 2026 16:56:58 +0200
-Subject: [PATCH v2 09/61] drm/st7920: Convert to atomic_create_state
+Date: Fri, 14 Aug 2026 16:56:59 +0200
+Subject: [PATCH v2 10/61] drm/appletbdrm: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-no-more-plane-reset-v2-9-82d2963dd134@kernel.org>
+Message-Id: <20260814-drm-no-more-plane-reset-v2-10-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Iker Pedrosa <ikerpedrosam@gmail.com>, ikerpedrosam@gmail.com
+ Aditya Garg <gargaditya08@proton.me>, admin@kodeit.net, 
+ gargaditya08@proton.me
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6876; i=mripard@kernel.org;
- h=from:subject:message-id; bh=YU3VN6Gaa+I22ulDeI1BP1UPz7MBoOXhgVNgdUe3LA0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1OicCxSUYTe84di78kXbqmFVm+cWI421NJ37eFV8lF
- eTo0XyxYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEwkQY+xzr59s9rBkKupFhc9
- vwar1D09ODW/dCLX4dLCIwe7NaUzlvW5yEXazBf0/nsoqWpX+5rTjA3zk6wWP5qs42Pc/Ca3+P2
- C3h9L771sUzywXV9YoLa+XUKA+7aF129N6V2OOZOtb+oZnwYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6915; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=YpkbNTOp5lIrCHzs5Jd2vzcW/231hetWFabKu63WaKQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Oid0p0XWNLGuuCKfpHZ/4gMVo5LgzqB3LW/cZ8/ol
+ nXQ0WrrmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABP5l8VY73Lsc7rypZmPkucY
+ /2vJkOEVbNzXMenivhqhuwci5T4GvOAXcJz0rO33/bm7nnzvvRewgrFhc0Xsq4ye66ofa0/Hl/k
+ HCVlvVI+6FVa/f/WcxSL6jT1v5/kUh2zr+bHrmRrvpZtzPLsB
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -332,55 +333,56 @@ expression PS;
 +	return &PS->base;
 }
 
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+Acked-by: Aditya Garg <gargaditya08@proton.me>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: ikerpedrosam@gmail.com
+Cc: admin@kodeit.net
+Cc: gargaditya08@proton.me
 ---
- drivers/gpu/drm/sitronix/st7920.c | 12 ++++++------
+ drivers/gpu/drm/tiny/appletbdrm.c | 12 ++++++------
  1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/sitronix/st7920.c b/drivers/gpu/drm/sitronix/st7920.c
-index d320391801f3..0a75e9319080 100644
---- a/drivers/gpu/drm/sitronix/st7920.c
-+++ b/drivers/gpu/drm/sitronix/st7920.c
-@@ -451,21 +451,21 @@ static void st7920_primary_plane_atomic_disable(struct drm_plane *plane,
+diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
+index cdd35af49892..742478198111 100644
+--- a/drivers/gpu/drm/tiny/appletbdrm.c
++++ b/drivers/gpu/drm/tiny/appletbdrm.c
+@@ -497,21 +497,21 @@ static void appletbdrm_primary_plane_helper_atomic_disable(struct drm_plane *pla
+ 	appletbdrm_clear_display(adev);
  
  	drm_dev_exit(idx);
  }
  
- /* Called during init to allocate the plane's atomic state. */
--static void st7920_primary_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *st7920_primary_plane_create_state(struct drm_plane *plane)
+-static void appletbdrm_primary_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *appletbdrm_primary_plane_create_state(struct drm_plane *plane)
  {
- 	struct st7920_plane_state *st7920_state;
+ 	struct appletbdrm_plane_state *appletbdrm_state;
  
--	drm_WARN_ON_ONCE(plane->dev, plane->state);
+-	WARN_ON(plane->state);
 -
- 	st7920_state = kzalloc_obj(*st7920_state);
- 	if (!st7920_state)
+ 	appletbdrm_state = kzalloc_obj(*appletbdrm_state);
+ 	if (!appletbdrm_state)
 -		return;
 +		return ERR_PTR(-ENOMEM);
  
--	__drm_gem_reset_shadow_plane(plane, &st7920_state->base);
-+	__drm_gem_shadow_plane_state_init(plane, &st7920_state->base);
+-	__drm_gem_reset_shadow_plane(plane, &appletbdrm_state->base);
++	__drm_gem_shadow_plane_state_init(plane, &appletbdrm_state->base);
 +
-+	return &(&st7920_state->base)->base;
++	return &(&appletbdrm_state->base)->base;
  }
  
- static struct drm_plane_state *st7920_primary_plane_duplicate_state(struct drm_plane *plane)
+ static struct drm_plane_state *appletbdrm_primary_plane_duplicate_state(struct drm_plane *plane)
  {
  	struct drm_shadow_plane_state *new_shadow_plane_state;
-@@ -505,11 +505,11 @@ static const struct drm_plane_helper_funcs st7920_primary_plane_helper_funcs = {
+@@ -559,11 +559,11 @@ static const struct drm_plane_helper_funcs appletbdrm_primary_plane_helper_funcs
  };
  
- static const struct drm_plane_funcs st7920_primary_plane_funcs = {
+ static const struct drm_plane_funcs appletbdrm_primary_plane_funcs = {
  	.update_plane = drm_atomic_helper_update_plane,
  	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = st7920_primary_plane_reset,
-+	.atomic_create_state = st7920_primary_plane_create_state,
- 	.atomic_duplicate_state = st7920_primary_plane_duplicate_state,
- 	.atomic_destroy_state = st7920_primary_plane_destroy_state,
+-	.reset = appletbdrm_primary_plane_reset,
++	.atomic_create_state = appletbdrm_primary_plane_create_state,
+ 	.atomic_duplicate_state = appletbdrm_primary_plane_duplicate_state,
+ 	.atomic_destroy_state = appletbdrm_primary_plane_destroy_state,
  	.destroy = drm_plane_cleanup,
  };
  
