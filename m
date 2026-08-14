@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14320C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 15:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 642B6C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 15:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 592FF10F66B;
-	Fri, 14 Aug 2026 15:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C873010E162;
+	Fri, 14 Aug 2026 15:25:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fgfvld5M";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M0xOwrJp";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67EDA10F66B
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:14:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFFCC10E162
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:25:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5111D41145
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:14:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F6E1F000E9;
- Fri, 14 Aug 2026 15:14:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9A2ED4326D
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:25:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5319D1F000E9;
+ Fri, 14 Aug 2026 15:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786720471;
- bh=jo5eUJsBjN/u7A6ydeyVsxSSI4m1LaKajOxehynode4=;
+ s=k20260515; t=1786721113;
+ bh=hbE9D5YB/rcYypLT8d0RREVMJJB0zdJRgKJbdmoPf0E=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Fgfvld5MVYKG51mhQpvcaYqt06seBxIRcLMKq1Znz6JWHiMeePnSPke7OZdw9K1f4
- QLreR7Y7KiEFWwd/7mGmSAn/Z0CBQ53IKqTd0E9xqSwQFoFSUzP3bHnhTotUkC1xLW
- pv4Pq3Ipj6K/LPztytZzh5oS0b3JIJGd/plat8sS1AebNXsGeyelW4jZSJgliuI2fu
- xjE4vLsEULQ60o3JisCwgZz0X9dm3nRja9E114CoUt536ZNHQGerzaFL/F5f6AVsyO
- 2tpiuUY85bU2wbNAj8eTE/Y/5RrY6pKDkrmoN8GIGvS9Rrr4agahDzMUHPmSivngtU
- 9ZGJV+MFETRtw==
+ b=M0xOwrJplnnnnK/DXTDXJylPOk3VCLw77lfK8ZEOrgHPf7zzhjqHjsjSF7iWvG/kL
+ 2htAl5byqpWhFDh53j5hUeELspHrM7nY4GEhe3fRUgdp0B9MV87YB+DpdX3xR5PgmL
+ y2NuGP/mQBwCzKqquxlO/o7xBnZaHRHOxSWCAtI0uc+kEC0sl+lUhQiMmxheCRZc/J
+ fmQ2plZcMw/WUSTUe0imFhFosD5znaUXWD9hjOHGF5Rtc9/e4/k3I4IuWyYrDUi/bf
+ KEqio6/saAVq0f6yJ8bcHgh/Ub5Dz+exSEKt4YMUAeBbO1/MdvxjVPlHmU4QJuKf6v
+ QXK334y5InPLA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 20/61] drm/kmb: Convert to atomic_create_state
+Subject: Re: [PATCH v2 40/61] drm/amdgpu_dm: Convert to atomic_create_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814-drm-no-more-plane-reset-v2-20-82d2963dd134@kernel.org>
+In-Reply-To: <20260814-drm-no-more-plane-reset-v2-40-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
- <20260814-drm-no-more-plane-reset-v2-20-82d2963dd134@kernel.org>
+ <20260814-drm-no-more-plane-reset-v2-40-82d2963dd134@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 15:14:30 +0000
-Message-Id: <20260814151431.09F6E1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 15:25:12 +0000
+Message-Id: <20260814152513.5319D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,78 +61,78 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Calling `kfree()` on a devres-managed pointer returned by `drmm_kz=
-alloc()` causes memory corruption and a slab allocator panic.
+- [High] Missing drm_plane_cleanup() on the error path in amdgpu_dm_plane_i=
+nit() causes a Use-After-Free of the plane object when the caller frees the=
+ plane.
 --
 
---- Patch [20]: [PATCH v2 20/61] drm/kmb: Convert to atomic_create_state ---
-commit 20dcd87ff6633adea5f70221b0a5e891634f5f0a
+--- Patch [40]: [PATCH v2 40/61] drm/amdgpu_dm: Convert to atomic_create_st=
+ate ---
+commit 6612d2468dd0e4946eb21b27b9d60498ca111985
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/kmb: Convert to atomic_create_state
+drm/amdgpu_dm: Convert to atomic_create_state
 
-The plane only initializes a pristine state in its reset hook
-using drm_atomic_helper_plane_reset(), which is equivalent to what
-atomic_create_state expects. Convert to it.
+This commit converts the plane reset implementation to use the
+atomic_create_state hook. A custom state subclass is initialized
+without resetting any hardware. The conversion was performed via a
+Coccinelle semantic patch.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/kmb/kmb_plane.c b/drivers/gpu/drm/kmb/kmb_pl=
-ane.c
-> index a0001edb1e21a..1742c2c6dfd89 100644
-> --- a/drivers/gpu/drm/kmb/kmb_plane.c
-> +++ b/drivers/gpu/drm/kmb/kmb_plane.c
-> @@ -561,7 +561,7 @@ static const struct drm_plane_funcs kmb_plane_funcs =
-=3D {
->  	.update_plane =3D drm_atomic_helper_update_plane,
->  	.disable_plane =3D drm_atomic_helper_disable_plane,
->  	.destroy =3D kmb_plane_destroy,
+> @@ -1993,9 +1992,16 @@ int amdgpu_dm_plane_init(struct amdgpu_display_man=
+ager *dm,
+>  		return res;
+>  #endif
+> =20
+> -	/* Create (reset) the plane state */
+> -	if (plane->funcs->reset)
+> -		plane->funcs->reset(plane);
+> +	/* Create the plane state */
+> +	if (plane->funcs->atomic_create_state) {
+> +		struct drm_plane_state *plane_state;
+> +
+> +		plane_state =3D plane->funcs->atomic_create_state(plane);
+> +		if (IS_ERR(plane_state))
+> +			return PTR_ERR(plane_state);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does calling kfree() on a
-drm-managed pointer in kmb_plane_destroy() cause a slab allocator panic?
+This is a pre-existing issue, but I wanted to ask about this error path.
+If plane->funcs->atomic_create_state() fails and returns an error pointer,
+we return the error directly without calling drm_plane_cleanup().
 
-In kmb_plane_init(), the plane structure is allocated using the DRM managed
-allocator:
+Since drm_universal_plane_init() was called earlier in this function, the
+plane is already linked into the mode_config.plane_list. If we return an
+error here, the caller initialize_plane() will free the plane memory:
 
-kmb_plane_init() {
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:initialize_plane() {
     ...
-    plane =3D drmm_kzalloc(drm, sizeof(*plane), GFP_KERNEL);
-    ...
-}
-
-However, the .destroy hook points to kmb_plane_destroy(), which uses
-kfree():
-
-kmb_plane_destroy() {
-    ...
-    kfree(kmb_plane);
+    if (ret) {
+        drm_err(adev_to_drm(dm->adev), "KMS: Failed to initialize plane\n");
+        kfree(plane);
+        return ret;
+    }
     ...
 }
 
-Since drmm_kzalloc() returns an interior pointer embedded within a drmres
-tracking structure, would passing this pointer directly to kfree() bypass
-the DRM managed resource system and cause an immediate SLUB allocator panic?
+Does this leave a freed pointer on the plane list that could cause a
+use-after-free later during device teardown in drm_mode_config_cleanup()?
 
-Also, if the kernel survived the free, would a double-free occur during
-device teardown when the DRM devres framework attempts to clean up the same
-allocation?
+While this problem already existed for dm_plane_init_colorops() failures,
+it appears this patch might expose it to a new allocation failure path.
 
-This path appears reachable on device removal, unbind, or probe failure,
-for example, if drm_crtc_init_with_planes() fails in kmb_setup_crtc():
-
-kmb_setup_crtc() {
-    ...
-    kmb_plane_destroy(&primary->base_plane);
-    ...
-}
-
-> -	.reset =3D drm_atomic_helper_plane_reset,
-> +	.atomic_create_state =3D drm_atomic_helper_plane_create_state,
->  	.atomic_duplicate_state =3D drm_atomic_helper_plane_duplicate_state,
->  	.atomic_destroy_state =3D drm_atomic_helper_plane_destroy_state,
->  };
+> +
+> +		plane->state =3D plane_state;
+> +	}
+> =20
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-drm-no-mor=
-e-plane-reset-v2-0-82d2963dd134@kernel.org?part=3D20
+e-plane-reset-v2-0-82d2963dd134@kernel.org?part=3D40
