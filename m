@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B9F0C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 15:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CA06C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 15:14:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A672E10F65C;
-	Fri, 14 Aug 2026 15:13:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88C0B10F66A;
+	Fri, 14 Aug 2026 15:14:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z1wOokNH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NoJ38faS";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007EE10F65C
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:13:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADB9110F66A
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:14:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C56AB40421
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:13:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D57B1F000E9;
- Fri, 14 Aug 2026 15:13:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 93CE4418AE
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 15:14:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9131F000E9;
+ Fri, 14 Aug 2026 15:14:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786720414;
- bh=INeoPs+kk3b7cY18SDqwiznql82/B5amIK4WbyCLSgc=;
+ s=k20260515; t=1786720455;
+ bh=FFH4d86JqGJcVHFbFPrTzubqxs40y5jn8G5OuxrIoX0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z1wOokNHONYqWwxxMmv58Z34FkkPg1MRxI7UwPWiBDCookiKhLfe0W41dOuARrJS1
- lOzLFv3ZGYxJuKX+VPw7zo88q/K2Vjn79hAnxV8fE7VYFfyMhLesyZYrkn2wSSB2tj
- ehcYaH5XZWcbPuzsqmKubKScroQ2/YhNMemmjxhxFLS17lzboHu8XxeTIuMzwF7an8
- O85q/Osl4y3bASFTmOpKoLo/1h85DDV3PjR7yTwjtrjFGtUh2gZomtyxP7Cs6MH1K4
- yFxaG+diC1FDG4NxCKtgqxsC0XIMplMFOcaND/3+JJdMESlVfLhyCvN99DBA1vOgAt
- DeFdgevmwPBHg==
+ b=NoJ38faSMeTMHGGWF921CsUBNGmVau5go0ofChAfcD7vp/JRrjhnWhE0+HwHqfFLF
+ v3QvEesPm2mQJGg6MUsXvrxytGq5Itt878yH47A2Zd3pilIdomHZIuHsbGBpnb6bvY
+ 0c4s5q/WTjeEyYVUZan2y/X3IQUoJHQfmtEuQS5RICoopIJk+jrnN4Fo8Gbp+xRB0v
+ dXyXSQ3YelWkZNMUzq2wGkBKmxQE5cGTIvZPJucWof+9g4J6WVUxswDk3F8v31Ny5E
+ 8CzisfZei4xvnJjTBBa/SDPxJp9fimf5YrrDoYEDmmzUyd82/WL30QkoaQUXtOnFru
+ Te1I2VOeyUR4w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/61] drm/simple-kms: Add create_plane_state hook
+Subject: Re: [PATCH v2 13/61] drm/amdgpu: Convert to atomic_create_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
+In-Reply-To: <20260814-drm-no-more-plane-reset-v2-13-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
- <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
+ <20260814-drm-no-more-plane-reset-v2-13-82d2963dd134@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 15:13:34 +0000
-Message-Id: <20260814151334.7D57B1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 15:14:14 +0000
+Message-Id: <20260814151415.4B9131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,67 +59,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The patch introduces the `atomic_create_state` pattern for simpl=
-e-kms but fails to populate the `.atomic_create_state` hooks in the core DR=
-M vtables, rendering the new pattern unusable.
+
+Pre-existing issues:
+- [High] The dynamically allocated `drm_plane` structures for AMDGPU VKMS a=
+re never freed, causing a memory leak during driver teardown and on initial=
+ization error paths.
 --
 
---- Patch [1]: [PATCH v2 01/61] drm/simple-kms: Add create_plane_state hook=
+--- Patch [13]: [PATCH v2 13/61] drm/amdgpu: Convert to atomic_create_state=
  ---
-commit 3bbdad5049ec3ee53628f35efd9dd90d236402b0
+commit e8c110baf25c9fbe2352593883aad5a81fdc938b
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/simple-kms: Add create_plane_state hook
+drm/amdgpu: Convert to atomic_create_state
 
-The simple-kms helper provides a reset_plane hook to let drivers override
-the default plane reset, but the hook is overloaded for multiple roles.
-The atomic_create_state pattern was introduced to untangle this by providing
-a hook that only allocates and initializes a pristine state. This patch adds
-a create_plane_state hook to struct drm_simple_display_pipe_funcs.
+This patch converts the reset hook to atomic_create_state for the plane.
+This allows the plane to initialize a pristine state using
+drm_atomic_helper_plane_reset(), matching what atomic_create_state expects.
 
-> diff --git a/include/drm/drm_simple_kms_helper.h b/include/drm/drm_simple=
-_kms_helper.h
-> index cb672ce0e856d..b58f6d5328201 100644
-> --- a/include/drm/drm_simple_kms_helper.h
-> +++ b/include/drm/drm_simple_kms_helper.h
-> @@ -44,6 +44,7 @@ struct drm_simple_display_pipe_funcs {
->  	void (*destroy_crtc_state)(struct drm_simple_display_pipe *pipe,
->  				   struct drm_crtc_state *crtc_state);
->  	void (*reset_plane)(struct drm_simple_display_pipe *pipe);
-> +	struct drm_plane_state * (*create_plane_state)(struct drm_simple_displa=
-y_pipe *pipe);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vkms.c
+> index 170adaf7e76ab..9628239855d23 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> @@ -144,7 +144,7 @@ static const struct drm_plane_funcs amdgpu_vkms_plane=
+_funcs =3D {
+>  	.update_plane		=3D drm_atomic_helper_update_plane,
+>  	.disable_plane		=3D drm_atomic_helper_disable_plane,
+>  	.destroy		=3D drm_plane_cleanup,
 
-[Severity: Medium]
-As the atomic_create_state pattern is being introduced here for simple-kms,
-should drm_simple_kms_plane_funcs also have its .atomic_create_state hook
-populated?
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code leak the
+dynamically allocated plane structure?
 
-If a driver converts to this new pattern and uses
-drm_mode_config_create_initial_state(), it looks like it will see a NULL
-hook in the core DRM vtables and skip creating the plane state:
+The .destroy hook is mapped directly to drm_plane_cleanup(), which tears do=
+wn
+DRM internal objects but does not free the enclosing structure.=20
 
-static const struct drm_plane_funcs drm_simple_kms_plane_funcs =3D {
-	.update_plane		=3D drm_atomic_helper_update_plane,
-	.disable_plane		=3D drm_atomic_helper_disable_plane,
-	.destroy		=3D drm_plane_cleanup,
-	.reset			=3D drm_simple_kms_plane_reset,
-	.atomic_duplicate_state	=3D drm_simple_kms_plane_duplicate_state,
-	.atomic_destroy_state	=3D drm_simple_kms_plane_destroy_state,
-	.format_mod_supported   =3D drm_simple_kms_format_mod_supported,
-};
+In amdgpu_vkms_plane_init(), the plane is dynamically allocated, but during
+driver teardown the DRM core iterates over the planes and calls this .destr=
+oy
+hook, which fails to free the memory. Similarly, this memory appears to leak
+on the error path in amdgpu_vkms_output_init():
 
-This would leave plane->state =3D NULL.
+amdgpu_vkms_output_init() {
+    ...
+err_crtc:
+    drm_plane_cleanup(primary);
 
-Similarly, is a .atomic_create_state hook also missing for
-drm_simple_kms_crtc_funcs (along with a corresponding create_crtc_state hook
-in drm_simple_display_pipe_funcs) to ensure the CRTC state is also properly
-initialized?
+    return ret;
+}
 
->  	struct drm_plane_state * (*duplicate_plane_state)(struct drm_simple_dis=
-play_pipe *pipe);
->  	void (*destroy_plane_state)(struct drm_simple_display_pipe *pipe,
->  				    struct drm_plane_state *plane_state);
+Should there be a custom destroy hook that calls drm_plane_cleanup() follow=
+ed
+by kfree() to prevent this leak?
+
+> -	.reset			=3D drm_atomic_helper_plane_reset,
+> +	.atomic_create_state =3D drm_atomic_helper_plane_create_state,
+>  	.atomic_duplicate_state =3D drm_atomic_helper_plane_duplicate_state,
+>  	.atomic_destroy_state	=3D drm_atomic_helper_plane_destroy_state,
+>  };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-drm-no-mor=
-e-plane-reset-v2-0-82d2963dd134@kernel.org?part=3D1
+e-plane-reset-v2-0-82d2963dd134@kernel.org?part=3D13
