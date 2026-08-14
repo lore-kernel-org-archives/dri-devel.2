@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 522FDC5CFDB
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 16:43:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B89C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 16:43:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92B4710E58C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9265510E585;
 	Fri, 14 Aug 2026 16:43:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vcoWOX0b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VReFLjaf";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013030.outbound.protection.outlook.com
- [40.107.201.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FB5910E584;
- Fri, 14 Aug 2026 16:43:37 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011043.outbound.protection.outlook.com [52.101.62.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7125710E584;
+ Fri, 14 Aug 2026 16:43:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ldLmNQiuWpkOw/R7gQPvzUDK76iOxg2dUpZqa7cxRP5ffauG/NeAgaAVtSGr/sS58dKG2TCi/ynSf/1yJ+J/wAgyDfOpJnujffOJeX9q+Clk7DRPf5TPOScT0LaQyXnlbyr6ECBWvackqpq/LoLhR244oQKp7e9tPg/wrMd45NPdfIYsXH1zfzC232nQuQAVFQV5GiwU2zEyH/SUxxenTbZxVDwTMaLbE/wR8id6W2aqM9kJkKIJoXYnfetljvJwE1zgZW4DnOHYA3HCq9RBPWW+JYx/xF1A/4gbssEwoyxXhghtqj5z+NcgpdhGXZ1fYLEn6pg18i0LRJ5W2WAsFQ==
+ b=U2BFq8RBen+rw8H6GNKL/Q3M7cGOFXEvgtU7etFSQDdnUP7BWwrE6Vinxm/a/8efjn/zoldac+2+A+qKLV0bw8ntcln9mDnleB76eX6mQF8w8mlo/1154NJUKgzI+7nfzfS/FVlVgLbKxwHiWoubPAYhYMV7yh6herAb4Bk0hPvwYvT7VbOP2mPxBHHUyKp4oA2yNYB+UAejKA5uyqSeI39eaXNi+TFYVuP4OZvHdBaSp9ra0rf/ddmOhvhIWHYS5FWlzKuCLfX1t8zfVs7xsPJ8R13KN0Yk2bJdszNaDCk+i71uhVf+kinbFK3I5IHNDEcK60mwsS3GhXR+3y0QaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4DDkXXt/wCXHY7cZODYoEQS2CgGeRdFq2SS2uv9IliA=;
- b=WHLmL93AYBtvm3JygWWJU9xXFRuYL4itzXBOprDyswbSD6dk99shn+aidDiStukIzks7jSppqY6BKLTbKbR0z7BlcPwDCCXGe657LzNeDt7Mh3mag1EjU/MaSVoj4FRNx4AJZjxRwOSA/Ad9HRYxJN6PI9gyRz67HjJkzynY4qwZ/dzShdBEuiQvBUqPoXzkQH84TelK7l01VByFRiFvDhx7//uTLVvQH07Qh0ckfH4+DN+6USYJzSvOf7Gobl9Sv6aj1Qn/4fsXSjz+55ApVMRMfV+3RKZa/ejTAo1RC70iNR1QA5wrsFbq2vZZA9VcQo3nZFsMTbH3eGVROPaIZg==
+ bh=jDqkSutGDtaOPGlpQNv/KaLWhLWrtK4V6TT+I5NSOq0=;
+ b=EO07/rGz+LEFPfHsHN/lUflD/ilXSiKpUouQHBcWNAJLwKYmPZAX+IO1NpiEctqe3vYme/PAXc1vrO9COFG9nRQSDjcMNDAffgmKRLSjnFv8DPnxDqnTqipW5jvlRoWwvCq5nsH1pWlRZuuctzDGVZvC7ozsRQlvws6qjOKFr+mV5oc0AQUdLIemIjRFEMIxjPBzHwr3JOfLk/LCWOkHnHILDl0wdxEnARUeAIL8C66xg62OddRqKpLlMO09Rd1r5yQfguGiJou0BTi/2CI7poaomZMA9vDFRq+A1kJTxDkQFjfDIwwODxOPFkLO28SNl1d1AzUFf0A8S2Sx8qYv3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4DDkXXt/wCXHY7cZODYoEQS2CgGeRdFq2SS2uv9IliA=;
- b=vcoWOX0bXHapcMmZmXD5oXEPX1BQGvh7Uz0f6tzT22/fw/2ZcZ1Q4n4VDg/h2o0iFo1xdwt0T1IioxvKgM0k5ik0o1Ca1UndI9KqtveLRBe9iOl/dOw6L8ezxbTpyen4i/cJaBap+h3XrthE5sizptcfRvB/JN2dkcTN3cgEU+8=
-Received: from BL1PR13CA0013.namprd13.prod.outlook.com (2603:10b6:208:256::18)
- by PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Fri, 14 Aug
- 2026 16:43:30 +0000
+ bh=jDqkSutGDtaOPGlpQNv/KaLWhLWrtK4V6TT+I5NSOq0=;
+ b=VReFLjafYOZ9ymPqUTCrqZdF9jY22b3a/UIKzLxUnFgvr0XuB+g3b2gBqquK170P3j/BU3TA2f4y+9U5uPlO6HYAcXAs2km1SwSVHlWGvu9RX2C/eHC/kz1tqHVM88MaHmzt6j0pIbw0mAyMptnuDum7I/yriR+Byijg6V5NQD0=
+Received: from BL1PR13CA0009.namprd13.prod.outlook.com (2603:10b6:208:256::14)
+ by IA0PPF04DCE520E.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bc5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
+ 2026 16:43:31 +0000
 Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
- (2603:10b6:208:256:cafe::a6) by BL1PR13CA0013.outlook.office365.com
- (2603:10b6:208:256::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.3 via Frontend Transport; Fri, 14
- Aug 2026 16:43:27 +0000
+ (2603:10b6:208:256:cafe::87) by BL1PR13CA0009.outlook.office365.com
+ (2603:10b6:208:256::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.5 via Frontend Transport; Fri, 14
+ Aug 2026 16:43:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,23 +50,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.0 via Frontend Transport; Fri, 14 Aug 2026 16:43:27 +0000
+ 15.21.339.0 via Frontend Transport; Fri, 14 Aug 2026 16:43:31 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 11:43:26 -0500
+ 2026 11:43:27 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <dri-devel@lists.freedesktop.org>, Harry Wentland
  <harry.wentland@amd.com>, =?UTF-8?q?Tomasz=20Paku=C5=82a?=
  <tomasz.pakula.oficjalny@gmail.com>, <daniel@fooishbar.org>, Fangzhi Zuo
- <jerry.zuo@amd.com>
-Subject: [PATCH v4 0/4] HDMI 2.1 VRR and ALLM support
-Date: Fri, 14 Aug 2026 12:43:40 -0400
-Message-ID: <20260814164344.3098143-1-jerry.zuo@amd.com>
+ <Jerry.Zuo@amd.com>, Bernhard Berger <bernhard.berger@gmail.com>
+Subject: [PATCH v4 2/4] drm/edid: parse HDMI 2.1 gaming (ALLM/VRR)
+ capabilities from HF-VSDB
+Date: Fri, 14 Aug 2026 12:43:42 -0400
+Message-ID: <20260814164344.3098143-3-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811003921.1398292-1-jerry.zuo@amd.com>
+In-Reply-To: <20260814164344.3098143-1-jerry.zuo@amd.com>
 References: <20260811003921.1398292-1-jerry.zuo@amd.com>
+ <20260814164344.3098143-1-jerry.zuo@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -76,29 +77,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|PH8PR12MB7301:EE_
-X-MS-Office365-Filtering-Correlation-Id: deca30dc-adca-42a5-13ce-08defa232a6c
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|IA0PPF04DCE520E:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f911497-8b93-4541-18d0-08defa232c87
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|22082099003|18002099003|56012099006|11063799006|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info: N2cVOxEv6yiLJ4O383wVCb7MCKDWMxCsGMiZInvUAWHpXvYqCrrkYLUcphrR+/yzgmHGWHXBlnybKrYPDyyvFJnCwRJTgiqaF8hHGNGrTAjKKWGDGjUrZnRl0YdR/Bq2ZGtDYIY417Akrf996x+/HAR8i2zs/B7YQocxOC1FrSmDvI4iaxf4DjwNKlhzK1iyqc0UX4DXbi5ttBpAX6Afl1atslnoNf1G0sqxhX7qhS9PCt80kMTA+1WK5aRtATZyfninKpVLEPLI87phogHCKkeqIqJQa8zr6ConweyWtX46bIZProF8MmdHA12HcNmtPyTH8ue0OhpCoQHyM1W/Dp78HwtEchg1/qjb1DuihOAhroK6sfYd7nykEkwfL9BW8D9rYaeg75V19h3OgDl9J8PrH/11Ukzvr3+u4SWCrcIEFG56AL6J9OKQLwYf10cVohE6USh/rRCgDA1ojq97+yjTSvWFqi8idyhpZZkEJGxyDOI/TIUQ+27mA4DaIfxiZrObIYzhwfEB++oBW4D8uRfPbsItsaNLXVTaE8Jp2j1ObLE4FLARyk2bDlAMkf4APv/VRhjdCjkW+WqNHX+R16R9Dg3nVoEQrzt4dp1/9MSfjpC9xE33n7ZItPcklFihbvYLETdMDKFZ8amzLIm0U6WLIBugwjf+QaAGTlDh2swvFEQL6moULUoIiHL2vLwhl3rATrgEZxx7CPMeFxuE9w==
+ ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|11063799006|5023799004|56012099006|18002099003|22082099003|10067099003|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info: qbe3puRuU1L7wwBxRs26hOXONez974vFR8XsRdwk4BUdHnN5z7x2+fSWti3K/m3wj97REetzxbxXMV3KAoa7fJ+4yBwcOytsHU+ruQzpvaFpbTyBVZXH066CbUGDc0tpQnV0/CiWpYA62uO380WfQMTRo2vNTZIyGM8QlcENRWuJ8N5cmo/iGKaCvcpHjM00hUA69y+NeuEjlkjn43o/09zN4zcC/w1kW+1O7ZS0eQlkvoBhh5EMktaLL9Pc7wpD4jwFzOmMaMhePRTgjnACMJjkE9oHJEJzs3q5hs8vbS6etw9dVQQ2GOEY9e0AEEjh/G1PHcoRU106rBFKCEhgJSyPGZ8vBm/2X4szlP5daAUWW1xwb4A8QDXQZ937BW0xTUI8xzQnYpoH57VxJgf42S96/n3eil1cfXcxxV+8sd1OSkDReaC+79xaUDfZqAfdYoJZraxmlhkSQWVcLjTR2Hj4SuMVajg3E+ezV9gJSVEoHBYg25VoiZGGAwI18yR6KnDUKbqcammHTNuAtUOFTLhkDVfqx6rnU96mYj38LBpkfD8huYDY7IVQ262hfYNHVadIxox+Z10Wy2L0KM1EPeDZ7m6gVnhzfbIfTTSkGxI9DzIUTCxLA1fKYoO1A3RMPLhZN990KCvDHy0FnAD46J61AnvWc+n6d/fQauO0zZIs0Pt2xh8lUcteW1yB/V9YvC5V4/YK/WlBDnEo9WpSMA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(6133799003);
+ SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(11063799006)(5023799004)(56012099006)(18002099003)(22082099003)(10067099003)(4143699003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 71iMFikWZBjtbPKAhof6a14mmoXWe//JUXQtcdIWTSumg+6ThJ1r6VG4NKLsHzn1lxt/cf1D34eT98AM33uEfnmbPm19Q1907KOgmT7HrfxdU5SrzgPmVPTkhJH6Eerj1o7gZFz3dHhi2KVTfpK0uMrt8p1P8cbCapTNcCp63Iah9ouGUghun4o7CoHxn+QDMSCNxI6GApnRk4tfRHGJVXeo/5HCOGZOUxtNu7/2GyBP4uD+uTm8VtJGUO5SMgV9SDdhw03T6Sf0Ggy1fZcCibAQyEDtAJS2LUEFEmWtFit2v76kgLaxZL8cH4BpNO2z01h/5uJtjJvDPYaWbTfoPWi8rkZ+YrTmEfhzCo7DzOghhK+JgreuInOYkB/d4dMKAoqCJkxSoiwN+Ezj6RRMReZaS+zaE2KUeuIZFtO1To+JZS2l4Ktk6EF5jVrAcE4B
+X-MS-Exchange-AntiSpam-MessageData-0: MofEThZQusohMhxdmtp6O+TOu+ONiPdiwVadBPYzUha6OPzUerxM6YWcP7CrI1JOhJtlTDWXEsQAidOGstQmeRNOrXgv71FjLbQgXdlb1kqlrD483MorWI3Nuekkgq/ZO0CvSvncnxjft30HVYa+M+WxjQJRiekRNw06hVZXXkFNhALxe3aZhDzp9JR+ZiDVdKkOQF+yjyMjWxCeqtsNRRRVy1z5SxPP+n3j8bJDG6X8jHwTENgITSHSRZC09NXOYuorskDYO7pIJsaFIMNKNp5cUkMwY8bHFXmP6NTaEweNUI4+fv2N/w4sS3+bYIrFf8EvYn1UM5q5Nycm8iJwu09W/4jcjGBZl4ob92S3Ovum8JV0QWFMFsMh4chCfBgjtY8WJD1sE2JnlbDriImhgOPxyvrjukkrqjYFDq3tikksuhUqbpTUMpp8OPFQBeBp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 16:43:27.5284 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: deca30dc-adca-42a5-13ce-08defa232a6c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 16:43:31.0604 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f911497-8b93-4541-18d0-08defa232c87
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36E.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7301
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF04DCE520E
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,48 +115,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds HDMI 2.1 gaming support to amdgpu: Variable Refresh Rate
-(VRR) derived from the HDMI Forum VSDB (HF-VSDB), and Auto Low-Latency
-Mode (ALLM). It builds on a drm/edid patch that parses the HF-VSDB gaming
-capabilities into struct drm_hdmi_info.
+From: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 
-  - Patch 1 reports FreeSync from the AMD VSDB (existing mechanism).
-  - Patch 2 (drm/edid) parses the HF-VSDB VRR range and ALLM bit.
-  - Patch 3 enables VRR from the HF-VSDB when the AMD VSDB has no range.
-  - Patch 4 signals ALLM_Mode in the HF-VSIF when Gaming-VRR is active.
+Parse the HDMI 2.1 gaming-related capabilities advertised in the HDMI
+Forum VSDB (HF-VSDB) and expose them through struct drm_hdmi_info so
+drivers can consume them.
 
-v1: https://lore.kernel.org/amd-gfx/20260730171754.704049-1-jerry.zuo@amd.com/
-v2: https://lore.kernel.org/amd-gfx/20260806205449.16806-1-jerry.zuo@amd.com/
-v3: https://lore.kernel.org/amd-gfx/20260811003921.1398292-1-jerry.zuo@amd.com/
+Add struct drm_hdmi_vrr_cap describing the sink's VRR capabilities: Fast
+VActive (Quick Frame Transport), Negative M VRR, Cinema VRR, MDelta, and
+the VRRmin/VRRmax range, together with a "supported" flag derived from
+that range. Add the fapa_start_location and allm (Auto Low Latency Mode)
+flags to struct drm_hdmi_info.
 
-Changes since v3:
-  - Drop the content-type based ALLM heuristic. ALLM_Mode is now set only
-    for the mandatory Gaming-VRR case (VRR_EN=1 with a sink that advertises
-    ALLM), per HDMI 2.1 Section 7.6.6; it is no longer derived from the
-    content type.
+drm_parse_hdmi_gaming_info() reads byte 8 of the HF-VSDB for the
+FAPA/ALLM/FVA/CNMVRR/CinemaVRR/MDelta flags and bytes 9-10 for
+VRRmin/VRRmax. Per HDMI 2.1, VRR is considered supported when VRRmin is
+within 1-48 and VRRmax is either 0 (maximum based on the video mode) or
+>= 100. It is invoked from drm_parse_hdmi_forum_scds(), and the parsed
+values are logged for debugging.
 
-Changes since v2:
-  - Fix coding-style issues in the VTEM info-packet code.
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+---
+ drivers/gpu/drm/drm_edid.c  | 42 +++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h | 47 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 89 insertions(+)
 
-Fangzhi Zuo (3):
-  drm/amd/display: Add 2.1 FreeSync support for AMD VSDB EDID Block
-  drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
-  drm/amd/display: Enable HDMI ALLM for Gaming-VRR
-
-Tomasz Pakuła (1):
-  drm/edid: parse HDMI 2.1 gaming (ALLM/VRR) capabilities from HF-VSDB
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
- .../display/amdgpu_dm/amdgpu_dm_connector.c   |  71 +++++++++++-
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  41 +++++++
- .../amd/display/modules/inc/mod_info_packet.h |   4 +
- .../display/modules/info_packet/info_packet.c | 109 ++++++++++++++++++
- drivers/gpu/drm/drm_edid.c                    |  42 +++++++
- include/drm/drm_connector.h                   |  47 ++++++++
- 7 files changed, 317 insertions(+), 2 deletions(-)
-
-
-base-commit: de2622bbc20276eaaaafa8fdbd374ace1ced28dc
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index ae26618a9a57..d508ec633c9b 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6182,6 +6182,33 @@ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
+ 	hdmi->y420_dc_modes = dc_mask;
+ }
+ 
++static void drm_parse_hdmi_gaming_info(struct drm_hdmi_info *hdmi, const u8 *db)
++{
++	struct drm_hdmi_vrr_cap *vrr = &hdmi->vrr_cap;
++
++	if (cea_db_payload_len(db) < 8)
++		return;
++
++	hdmi->fapa_start_location = db[8] & DRM_EDID_FAPA_START_LOCATION;
++	hdmi->allm = db[8] & DRM_EDID_ALLM;
++	vrr->fva = db[8] & DRM_EDID_FVA;
++	vrr->cnmvrr = db[8] & DRM_EDID_CNMVRR;
++	vrr->cinema_vrr = db[8] & DRM_EDID_CINEMA_VRR;
++	vrr->mdelta = db[8] & DRM_EDID_MDELTA;
++
++	if (cea_db_payload_len(db) < 9)
++		return;
++
++	vrr->vrr_min = db[9] & DRM_EDID_VRR_MIN_MASK;
++	vrr->supported = (vrr->vrr_min > 0 && vrr->vrr_min <= 48);
++
++	if (cea_db_payload_len(db) < 10)
++		return;
++
++	vrr->vrr_max = (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
++	vrr->supported &= (vrr->vrr_max == 0 || vrr->vrr_max >= 100);
++}
++
+ static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
+ 			       const u8 *hf_scds)
+ {
+@@ -6308,6 +6335,8 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 
+ 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
+ 
++	drm_parse_hdmi_gaming_info(&connector->display_info.hdmi, hf_scds);
++
+ 	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
+ 		drm_parse_dsc_info(hdmi_dsc, hf_scds);
+ 		dsc_support = true;
+@@ -6317,6 +6346,19 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
+ 		    connector->base.id, connector->name,
+ 		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] FAPA in blanking: %s, ALLM support: %s, Fast Vactive support: %s\n",
++		    connector->base.id, connector->name, str_yes_no(hdmi->fapa_start_location),
++		    str_yes_no(hdmi->allm), str_yes_no(hdmi->vrr_cap.fva));
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] Negative M VRR support: %s, CinemaVRR support: %s, Mdelta: %d\n",
++		    connector->base.id, connector->name, str_yes_no(hdmi->vrr_cap.cnmvrr),
++		    str_yes_no(hdmi->vrr_cap.cinema_vrr), hdmi->vrr_cap.mdelta);
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] VRRmin: %u, VRRmax: %u, VRR supported: %s\n",
++		    connector->base.id, connector->name, hdmi->vrr_cap.vrr_min,
++		    hdmi->vrr_cap.vrr_max, str_yes_no(hdmi->vrr_cap.supported));
++
+ }
+ 
+ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index cd06a3b914a0..9f8f109c2dd1 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -254,6 +254,44 @@ struct drm_scdc {
+ 	struct drm_scrambling scrambling;
+ };
+ 
++/**
++ * struct drm_hdmi_vrr_cap - Information about VRR capabilities of a HDMI sink
++ *
++ * Describes the VRR support provided by HDMI 2.1 sink. The information is
++ * fetched fom additional HFVSDB blocks defined for HDMI 2.1.
++ */
++struct drm_hdmi_vrr_cap {
++	/** @fva: flag for Fast VActive (Quick Frame Transport) support */
++	bool fva;
++
++	/** @mcnmvrr: flag for Negative M VRR support */
++	bool cnmvrr;
++
++	/** @mcinema_vrr: flag for Cinema VRR support */
++	bool cinema_vrr;
++
++	/** @mdelta: flag for limited frame-to-frame compensation support */
++	bool mdelta;
++
++	/**
++	 * @vrr_min : minimum supported variable refresh rate in Hz.
++	 * Valid values only inide 1 - 48 range
++	 */
++	u16 vrr_min;
++
++	/**
++	 * @vrr_max : maximum supported variable refresh rate in Hz (optional).
++	 * Valid values are either 0 (max based on video mode) or >= 100
++	 */
++	u16 vrr_max;
++
++	/**
++	 * @supported: flag for vrr support based on checking for VRRmin and
++	 * VRRmax values having correct values.
++	 */
++	bool supported;
++};
++
+ /**
+  * struct drm_hdmi_dsc_cap - DSC capabilities of HDMI sink
+  *
+@@ -330,6 +368,15 @@ struct drm_hdmi_info {
+ 	/** @max_lanes: supported by sink */
+ 	u8 max_lanes;
+ 
++	/** @fapa_start_location: flag for the FAPA in blanking support */
++	bool fapa_start_location;
++
++	/** @allm: flag for Auto Low Latency Mode support by sink */
++	bool allm;
++
++	/** @vrr_cap: VRR capabilities of the sink */
++	struct drm_hdmi_vrr_cap vrr_cap;
++
+ 	/** @dsc_cap: DSC capabilities of the sink */
+ 	struct drm_hdmi_dsc_cap dsc_cap;
+ };
 -- 
 2.53.0
 
