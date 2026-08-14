@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D25D1C5CFCF
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:59:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47DD4C5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:59:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE2B10F659;
-	Fri, 14 Aug 2026 14:59:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB8210F65B;
+	Fri, 14 Aug 2026 14:59:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DUFs8LnH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fPcgvPo+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80BD610F654
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:59:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81E2910F654;
+ Fri, 14 Aug 2026 14:59:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 688BA4079F;
- Fri, 14 Aug 2026 14:59:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7EA71F000E9;
- Fri, 14 Aug 2026 14:59:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0637C600C3;
+ Fri, 14 Aug 2026 14:59:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369261F000E9;
+ Fri, 14 Aug 2026 14:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786719573;
- bh=2R8JYeJkzTT6X0fgDFDlCRfqusvGcBkjCw3yq2rsWSA=;
+ s=k20260515; t=1786719575;
+ bh=DkadIlZNcVbnAZ68ZU5tL5FkWdqVj8mjTn8/K0pa6bI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=DUFs8LnHLqGCoqSQwWGx9XFOw2SPP6HUQK9sONRDWD8M/rjESNV/gUnrQl8lqTAre
- J8ylol8khqxdVQKof4o0LmF3ohKWBDftrUZ0WYr4bI+W+wR8xiyZNQtKs9i50J2mjh
- WYa0ZRgaBbibJvny85+EMjIpSqHknOhvPmx8ESFfqZHzNleBtZBFt9A3OABFRwVQjd
- MMKMUYmBuHG1B8olTqUe31vVSedUyPW2QuoP43w8itKnVBqmOW96VyWHr22ybhlrkn
- kcx6KIMmje/IAcIK/4RtUjmY4/w1/U8C7uqeL1EZFfFN9RMB/rphOvuPAvWNu+XD7I
- mufB3uXCOfeEA==
+ b=fPcgvPo+EgaJqc1vkAm9s+ZopeDJISZySGrcNZdwYtkNTIF3GOpj+jAQQWWRpa5z/
+ uimDk9oHRPuxXa/QypaonHpn7twNp8ucaerujqja447tcl0How/8TJZ4+d6HNXkDpT
+ NN1Rfdlh9GJYFnn+2j6fPBeiabwyVpmZq50/lwbA3tMU+2+k2D1ySigXsWtL8Mm+UX
+ e8fz+i98IuzThubhY/9T385QgI4rO++Iy7se+o2nByTzwXgdW2qi+BiRigg5l5Lh/R
+ bPlcRtpnceS7ziPw0acfPf07uZjP8wsl0DiN8NwKkVP5ZGj5ciNeNbxtIl7A1u5A/D
+ zCG2f2VO2bqOQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 14 Aug 2026 16:57:37 +0200
-Subject: [PATCH v2 48/61] drm/mediatek: Convert to atomic_create_state
+Date: Fri, 14 Aug 2026 16:57:38 +0200
+Subject: [PATCH v2 49/61] drm/msm/dpu1: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-no-more-plane-reset-v2-48-82d2963dd134@kernel.org>
+Message-Id: <20260814-drm-no-more-plane-reset-v2-49-82d2963dd134@kernel.org>
 References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- angelogioacchino.delregno@collabora.com, chunkuang.hu@kernel.org, 
- matthias.bgg@gmail.com, p.zabel@pengutronix.de
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ abhinav.kumar@linux.dev, freedreno@lists.freedesktop.org, 
+ jesszhan0024@gmail.com, linux-arm-msm@vger.kernel.org, lumag@kernel.org, 
+ marijn.suijten@somainline.org, robin.clark@oss.qualcomm.com, 
+ sean@poorly.run
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7106; i=mripard@kernel.org;
- h=from:subject:message-id; bh=LWa+3IhIosnrz+UvmRMoO8cROVaYH54R+dk7sWBDpj8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Ojf1ri/TeKxvvUdQIfryAbU7dpwZa/c8OKDSbm3xI
- 1/80nK1jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR7GDGek++i2cniBfoVt9n
- KVoqOD1z223tEtf5KjdO6196wG2xtVDko/+K91nn3x38keB+VHL2J8aGJdceq/4uuWtySlgxd+/
- yxgkK84p82fW0HB0ufZX2U9nhL79B+ErRM10lzSNhqo2WUtkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7408; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=hj+rw2H/qauGbaZLyoLM0VLIQkUzuxTT3q72Ghn0qBY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Oreazsx6ZZt//kkay94b+T3Zj+bHM520burKelPHo
+ 7Zkl75Nx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjI8WWM9V4iVyx+pZSsdGyf
+ euzgkzNzuRd2RZicnv775G1fH6MLi/gqrGJPZy3wavafpa5pmKLwi7HhlGuj8cUio6tnZ2yNunj
+ D7OvVmAnld27Vt83uLOLVtuKS52eu2jdb6ULDqvNz96ht0QkHAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -334,71 +337,81 @@ expression PS;
 +	return &PS->base;
 }
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: angelogioacchino.delregno@collabora.com
-Cc: chunkuang.hu@kernel.org
-Cc: matthias.bgg@gmail.com
-Cc: p.zabel@pengutronix.de
+Cc: abhinav.kumar@linux.dev
+Cc: freedreno@lists.freedesktop.org
+Cc: jesszhan0024@gmail.com
+Cc: linux-arm-msm@vger.kernel.org
+Cc: lumag@kernel.org
+Cc: marijn.suijten@somainline.org
+Cc: robin.clark@oss.qualcomm.com
+Cc: sean@poorly.run
 ---
- drivers/gpu/drm/mediatek/mtk_plane.c | 22 ++++++++--------------
- 1 file changed, 8 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 18 +++++++-----------
+ 1 file changed, 7 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_plane.c b/drivers/gpu/drm/mediatek/mtk_plane.c
-index 2598c8edb443..2a40d72d241e 100644
---- a/drivers/gpu/drm/mediatek/mtk_plane.c
-+++ b/drivers/gpu/drm/mediatek/mtk_plane.c
-@@ -23,30 +23,24 @@
- static const u64 modifiers[] = {
- 	DRM_FORMAT_MOD_LINEAR,
- 	DRM_FORMAT_MOD_INVALID,
- };
- 
--static void mtk_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *mtk_plane_create_state(struct drm_plane *plane)
- {
- 	struct mtk_plane_state *state;
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return ERR_PTR(-ENOMEM);
- 
--	if (plane->state) {
--		__drm_atomic_helper_plane_destroy_state(plane->state);
--
--		state = to_mtk_plane_state(plane->state);
--		memset(state, 0, sizeof(*state));
--	} else {
--		state = kzalloc_obj(*state);
--		if (!state)
--			return;
--	}
--
--	__drm_atomic_helper_plane_reset(plane, &state->base);
-+	__drm_atomic_helper_plane_state_init(&state->base, plane);
- 
- 	state->base.plane = plane;
- 	state->pending.format = DRM_FORMAT_RGB565;
- 	state->pending.modifier = DRM_FORMAT_MOD_LINEAR;
-+
-+	return &state->base;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index 7b92082d35a6..1a471cdf767b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -1726,36 +1726,32 @@ static void dpu_plane_atomic_print_state(struct drm_printer *p,
+ 		drm_printf(p, "\tdst[%d]=" DRM_RECT_FMT "\n", i,
+ 			   DRM_RECT_ARG(&pipe_cfg->dst_rect));
+ 	}
  }
  
- static struct drm_plane_state *mtk_plane_duplicate_state(struct drm_plane *plane)
+-static void dpu_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *dpu_plane_create_state(struct drm_plane *plane)
  {
- 	struct mtk_plane_state *old_state = to_mtk_plane_state(plane->state);
-@@ -219,11 +213,11 @@ static void mtk_plane_atomic_async_update(struct drm_plane *plane,
+ 	struct dpu_plane *pdpu;
+ 	struct dpu_plane_state *pstate;
  
- static const struct drm_plane_funcs mtk_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = drm_plane_cleanup,
--	.reset = mtk_plane_reset,
-+	.atomic_create_state = mtk_plane_create_state,
- 	.atomic_duplicate_state = mtk_plane_duplicate_state,
- 	.atomic_destroy_state = mtk_plane_destroy_state,
- 	.format_mod_supported = mtk_plane_format_mod_supported,
+ 	if (!plane) {
+ 		DPU_ERROR("invalid plane\n");
+-		return;
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+ 	pdpu = to_dpu_plane(plane);
+ 	DPU_DEBUG_PLANE(pdpu, "\n");
+ 
+-	/* remove previous state, if present */
+-	if (plane->state) {
+-		dpu_plane_destroy_state(plane, plane->state);
+-		plane->state = NULL;
+-	}
+-
+ 	pstate = kzalloc_obj(*pstate);
+ 	if (!pstate) {
+ 		DPU_ERROR_PLANE(pdpu, "failed to allocate state\n");
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+-	__drm_atomic_helper_plane_reset(plane, &pstate->base);
++	__drm_atomic_helper_plane_state_init(&pstate->base, plane);
++
++	return &pstate->base;
+ }
+ 
+ #ifdef CONFIG_DEBUG_FS
+ void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
+ {
+@@ -1794,11 +1790,11 @@ static bool dpu_plane_format_mod_supported(struct drm_plane *plane,
+ }
+ 
+ static const struct drm_plane_funcs dpu_plane_funcs = {
+ 		.update_plane = drm_atomic_helper_update_plane,
+ 		.disable_plane = drm_atomic_helper_disable_plane,
+-		.reset = dpu_plane_reset,
++		.atomic_create_state = dpu_plane_create_state,
+ 		.atomic_duplicate_state = dpu_plane_duplicate_state,
+ 		.atomic_destroy_state = dpu_plane_destroy_state,
+ 		.atomic_print_state = dpu_plane_atomic_print_state,
+ 		.format_mod_supported = dpu_plane_format_mod_supported,
  };
- 
 
 -- 
 2.55.0
