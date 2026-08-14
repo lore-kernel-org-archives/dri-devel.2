@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C23B7C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:06:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6370C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:06:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2617710F5E5;
-	Fri, 14 Aug 2026 14:06:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12E5710F5F1;
+	Fri, 14 Aug 2026 14:06:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TL2S42RL";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="EfHXba7b";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D08110F5E5
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:06:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C16710F5F1
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:06:43 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 315C31A163D;
- Fri, 14 Aug 2026 14:06:39 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 6FFF91A163E;
+ Fri, 14 Aug 2026 14:06:42 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 024F76046D;
- Fri, 14 Aug 2026 14:06:39 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 44AF66046D;
+ Fri, 14 Aug 2026 14:06:42 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E054F11C4EDA3; 
- Fri, 14 Aug 2026 16:06:30 +0200 (CEST)
+ with ESMTPSA id 4129111C4EDA1; 
+ Fri, 14 Aug 2026 16:06:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786716393; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1786716401; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=zPffTQY3o0nckhG1kgJsg31X0NrLILf85FpE443vTjw=;
- b=TL2S42RL9GTyEW2CCCc+9L98eUADbRmyuyDUIjPgzgB/cIC2bohquh2rKR+j+MGDVbYylL
- 6mtYmPziJqQe/mDqmDCDIA6v75gPK6RzqGQk3c/MRVbsGAKM8/PSiuuWxfvE5ZztQdCory
- JDMg7+v2cJAXXNWZ/OXUUBT9urqQ/tiqYrXXkJbf95ABWB9oj0rBxRuku4mVD5x69TNfZ2
- JcLsWVp6PKgzIsirFNUweYUB/CFp04FAmMqtE7LlzagAvQqmZMqufbhXtXFixagS73e4+4
- up2IzL4YYumCfjxjYKz+6LvCbzFlzeo82FoUsRrn4mO8/1ShIpzfB/fz9AI1wg==
+ bh=mVDFdzNDfjFRCBlyEIO+dC4L57v118Qe8Mg42pjRsBw=;
+ b=EfHXba7bObx3vA0e53jV/8LKu+0pxhXm7cUHbNlI5OwlUAIKPMAM7wCWYX7WCzT8jM6Tv2
+ 0pl2C9JM3QZyvOagR4mZ0noYaiER83JSqFvYPOWy9y1TKMxb0M/KTuHSulbBBEk3tVT1zY
+ rvIw/rG7bAFenMiVsKJpKOE/VBU0aNiDTFvpO6QpDE91q60MUNcJ5n/n5zSqHfHDIPrzjx
+ X5wbC+T8VZ4UDAJTboVC5L+wIVJu7CLURJs9+bx9cyfEF5NYvimIvERJRUkTomOoHfFuEz
+ yspaawcKwC2Gx625tJQ7wbdn2h2FJUT2U9d3m27HO4+CHYDnVVmwzBGsb9PGcQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 14 Aug 2026 16:05:50 +0200
-Subject: [PATCH 02/11] drm: of: drm_of_find_panel_or_bridge: simplify error
- return paths
+Date: Fri, 14 Aug 2026 16:05:51 +0200
+Subject: [PATCH 03/11] drm: of: drm_of_find_panel_or_bridge: prioritize the
+ bridge, not the panel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-bridge-every-panel-v1-2-19cd5277cc8d@bootlin.com>
+Message-Id: <20260814-drm-bridge-every-panel-v1-3-19cd5277cc8d@bootlin.com>
 References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
 In-Reply-To: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,73 +75,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In prepataion to further modify the logic of this function, simplify the
-error-returning code.
+By the documentation drm_of_find_panel_or_bridge() returns a "drm_panel or
+drm_bridge", without specifying which one is returned in case both exist.
 
-With this change, on any error there is an immediate 'return -<ERRNO>;'
-statement, without having to carry on the return value until the end.
+Definitely it never returns both. If both exist (and @bridge is != NULL),
+the current implementation prioritizes the drm_panel pointer and returns
+that. In most cases (including devm_drm_of_get_bridge() and
+drmm_of_get_bridge()) this is used to implement the following logic
+(simplified):
 
-Additionally, clear both the panel and the bridge pointers at the
-beginning. Even though this is redundant in some code paths, it allows to
-have a simpler code in the rest of the function.
+    drm_of_find_panel_or_bridge(..., &panel, &bridge);
+    if (panel)
+        bridge = [devm_]drm_panel_bridge_add[_typed](panel);
+
+Work is in progress to make every drm_panel automatically create a
+panel_bridge, so a panel_bridge will always be present for every
+drm_panel. This means the above logic would create a panel_bridge that
+already exists. Avoid it by returning the drm_bridge when both are present,
+instead of the drm_panel.
+
+For the case where @bridge == NULL, this commit does not change anything:
+the 'if (bridge)' body is never executed and the drm_panel (if found) is
+always returned.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/drm_of.c | 25 +++++++++++--------------
- 1 file changed, 11 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/drm_of.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
-index b42a321f3052..8ec352f3df93 100644
+index 8ec352f3df93..f92f02f9b202 100644
 --- a/drivers/gpu/drm/drm_of.c
 +++ b/drivers/gpu/drm/drm_of.c
-@@ -287,12 +287,12 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
- 				struct drm_panel **panel,
- 				struct drm_bridge **bridge)
- {
--	int ret = -EPROBE_DEFER;
+@@ -308,14 +308,7 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
+ 	if (!remote)
+ 		return -ENODEV;
+ 
+-	*panel = of_drm_find_panel(remote);
+-	if (!IS_ERR(*panel))
+-		return 0;
 -
- 	if (WARN_ON(!panel))
- 		return -EINVAL;
+-	*panel = NULL;
+-
+ 	if (bridge) {
+-		/* No panel found yet, check for a bridge next. */
+ 		*bridge = of_drm_find_bridge(remote);
+ 		if (*bridge)
+ 			return 0;
+@@ -323,6 +316,13 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
+ 		*bridge = NULL;
+ 	}
  
- 	*panel = NULL;
-+	if (bridge)
-+		*bridge = NULL;
- 
- 	/*
- 	 * of_graph_get_remote_node() produces a noisy error message if port
-@@ -310,23 +310,20 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
- 
- 	*panel = of_drm_find_panel(remote);
- 	if (!IS_ERR(*panel))
--		ret = 0;
--	else
--		*panel = NULL;
++	/* No bridge found yet, check for a panel next. */
++	*panel = of_drm_find_panel(remote);
++	if (!IS_ERR(*panel))
 +		return 0;
 +
 +	*panel = NULL;
- 
- 	if (bridge) {
--		if (ret) {
--			/* No panel found yet, check for a bridge next. */
--			*bridge = of_drm_find_bridge(remote);
--			if (*bridge)
--				ret = 0;
--		} else {
--			*bridge = NULL;
--		}
-+		/* No panel found yet, check for a bridge next. */
-+		*bridge = of_drm_find_bridge(remote);
-+		if (*bridge)
-+			return 0;
- 
-+		*bridge = NULL;
- 	}
- 
--	return ret;
-+	return -EPROBE_DEFER;
++
+ 	return -EPROBE_DEFER;
  }
  EXPORT_SYMBOL_GPL(drm_of_find_panel_or_bridge);
- 
 
 -- 
 2.55.0
