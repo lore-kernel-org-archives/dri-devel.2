@@ -4,136 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A8AC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:05:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78E26C5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 13:33:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FCD610F5D4;
-	Fri, 14 Aug 2026 13:05:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E90D10E555;
+	Fri, 14 Aug 2026 13:33:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="EdLw4fem";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G3ZpjrOU";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021141.outbound.protection.outlook.com [52.101.100.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79CBA10F5B1
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 13:05:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZhY9ZAENzJb8W49vxAahrEkr5E9CnWFVW5UdLZR7NOkwzgbns8O+7cMdkVV0nB8OzU/rhB2bk9JJzD0vYh7/CBGCPkHMVgQGRYd5V+akAuLhesg8xJbA2ZHPIV6bWm6CNIJwqCs3aX9AqnHCflGmf/WcbDiS/GJuTU2Jv8pE0GRUcoJPcgO3Fnj0cwnZo3IPVJ4xR5l5+jo2HB/tVrk88tELBewfQDww5Gzv4oDvhTq1Ut7rjRedjbhBM5KlC/i956gNsf6mIvtOVy4Fit367hJTrXK3HrSUbAJ3uDCwDM1S8McePQhx9FbTJFD5hdGn8DSUUsJFFghd/7O4tT3tHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=heb2WB+gjBpzLcCikgq5lLw1oJ/BlfFSOYMt3NnilFc=;
- b=R+bFI+mVKnj7F6UhTU1u3cPi+qvkcTsgfi5TjJyBZbYagCv3oA86UUXccfAehCztf/MugNq+1KeMB66DOqCDLGCcURbJBYSZmAq9XdmnABuo7mO7FwLSeUDRTOGX7XUE2QNAaLimBbXHHNnUpsRsHq5Mhz2STUkft4rjCXTlrX6ovxSzcTMfbWweUOVjXNZB/SkADiec7DBkp4wWIWb9SOg5XgfXxbD3feeBJdqmmYVWV7lQgnVgPvXdSSl9bSdijsud9TJq8/BUNI56hJXLfIaTe1eURjMcsI6Xq9BU9ID48rTE1D0YwigMmO07UZq0SpW/pRqtHlXvQvF9fIEXdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=heb2WB+gjBpzLcCikgq5lLw1oJ/BlfFSOYMt3NnilFc=;
- b=EdLw4fem3R2al4lMfDhRtFCc5bVuzBzD3BpPICp64ZgC3KNucggbA44ZnmdyII3OSkSR+UqgBxJ2T9RM7k6QK7MIEh1TtzvWm6/fcr2M7G68OjlHMUj4Hnf0CvHuxYzjRCKtPonciqGOZ4xWowW+dxPBimb7Hk6cF4Y9AVpPrfE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO2P265MB3514.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:1a3::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
- 2026 13:05:22 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
- 13:05:22 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 14 Aug 2026 14:05:21 +0100
-Message-Id: <DKOOSSXDVVUK.SY5IAXJXUX5F@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v2 12/16] gpu: nova-core: use projection for PFALCON and
- PFALCON2 registers
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
- <20260805-typed_register-v2-12-c3ca142220a0@garyguo.net>
- <DKN1QEH1HWD1.1ZV0LWLNCZJTH@nvidia.com>
-In-Reply-To: <DKN1QEH1HWD1.1ZV0LWLNCZJTH@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0310.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:197::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9412810E142;
+ Fri, 14 Aug 2026 13:33:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786714385; x=1818250385;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=VZltXhv2FQanNINB4fxYHbDp8TpCh5V8SLq6J3y4Rf8=;
+ b=G3ZpjrOUIHoi4/U4FVhZ/ZNNsrsvzYUATKfJA0zrjmc3kFXIuAmpi50K
+ aQVmg88tIBWuiIj7mrEPHOFnwYUVMa3kLkgG/Ne3kHpQJ1Q/ObHq1QRFt
+ glYdj1C8yTsct9xo+YXPHkIUBboCU4e5Lt8VoU4Zlr/BhXlSlSsYbSIq9
+ 3UQWiEvutQblzF+WgX8wpy74voia+D3V6KbSjJ7sWRxNROsqJtxke6aLh
+ mq0u6ctTw8TQ8vKL101mhjMTTiyTtd9zfYv2E3dxT7j4lpfm4bgdbipjd
+ Qth/ZAQscrzLENRI4sr5W6cce91tLeMjTC0SIKk91gZjltt+Kp6FgHXVq w==;
+X-CSE-ConnectionGUID: oRNySQ1PRrm6lWdKflt6iQ==
+X-CSE-MsgGUID: UIDCZTHjTxiQVSiYD+zPgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="98650165"
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="98650165"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2026 06:33:04 -0700
+X-CSE-ConnectionGUID: OPP+AOj1T6OSfaxaLK83xA==
+X-CSE-MsgGUID: Lwrz1msiScKWTcMWMmRRNA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; d="scan'208";a="258007248"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO fedora) ([10.245.244.164])
+ by fmviesa009-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 06:33:02 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/ttm: Represent LRU bulk moves as nested sublists
+Date: Fri, 14 Aug 2026 15:32:31 +0200
+Message-ID: <20260814133231.3193-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB3514:EE_
-X-MS-Office365-Filtering-Correlation-Id: b28162e1-53dc-4598-6c47-08defa04b2ce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|366016|1800799024|22082099003|18002099003|56012099006|5023799004|4143699003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info: ZtQxL9xQXhbdSmoBV/j7InO/rWadIX47hX9F6k4cjpG1yr+/jsXDRB8m7W8TgqUsYlz6DQ9UqujcKFOUM+jOanq3awuUAlnjMj8CPQy8g7+uIMlWz1K2+DdE1fWKoz2vzQcnWGUYH3O/rTnSEjn7+CtsBjpDgxP46OWWQU6Yr0QJqD4uT+FVr5I9KfjAhPtpjtvGiLrsnXSQQ7OQ9Azej+g12jQIRnB8LWhnx0PPm5ROR2vtrZZQbtZGK0rD4te/qe8t+pSUE6C4xZfF9MsbT6JcfYUSNunEQUXUQS5dSiTxu1tunSpvqytjg4uRaiw7OC8BJ2gPzKOp+zWU5bruX629rV7zh/Hy19ycI3t6SJ6IDMvfiTELR+ONfa/L6T8/LxnffZYpc2Mf9//2tyuaPipgS9bqSRq4G3v9CYjcYqR1aPMtu4lSUfwGf9Ph48f7shB5bMX1nacYI8ZGw8+ch96RX6bDt+Fvn/w5FgyqffnZry6qAj8iRhAmti6ToQWs4N7GamQSXNauq1Jk2crFE6T2PGqY0r2zfiPqqChlIpj04Q4kbqvk8hfAppUBMFp2bP55j8I0ZDw7An2VeG24UZJ0RIu1fERMiyARLTPJaAONH7LUqGiAWw7GRZl8m0sY9LX4vNqNwH8VXUY0+NcfR+YWhmcJeyb8BzyzTdjC9xc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(5023799004)(4143699003)(10067099003)(3023799007);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDVTUlgwZ0k1dE9jQ3VweGtyTW1DVGE4VnM4RkJTMlovbUo0UkJCQ1IvTXFZ?=
- =?utf-8?B?S3M5Q2czTkllZk9ka2k2VGFDcGx5VW5NMWpGazZLL0tkcTBZYllPOThKUCt3?=
- =?utf-8?B?WDdWNkFJTWlaWTdVelBSMHZmeUl3bloyc1BCV3ZrWmpwMHg4RXNmaWRMWkY0?=
- =?utf-8?B?by9GVGxFNGhpRVc4cWtQS21LSzYvc09YVmpja1JpZUVEWnF5MFprQmlrRjB5?=
- =?utf-8?B?OEU1UzlFK3RiUUQ2aVU3N3ZBbC9hUjU2TmcwTkRLM0dCNVpwU3l2b0dEOWVY?=
- =?utf-8?B?WjlhZU9GS2pEYnR4cUV1M2tQV3V6MmphK0lHYmVSay9LSTBZaTA0RXBsYWRy?=
- =?utf-8?B?VnNuRVhIU0Z4YWYzd0FObWp6RVdrTndwaWlaVHdkYUlDS3pZS0dqbXhZZVFj?=
- =?utf-8?B?RE15SzNieXJCN0d0S0gwMzJBTlhYK0ZYZFk1MHBBQ2dXWTlJWVgrdFBSZVZH?=
- =?utf-8?B?dTUxaVQrVFY2Y3BwNnNkYUxVTDYyN2k4VWJMVXp5WUxYMVNGZmhBOXhCUm9Y?=
- =?utf-8?B?Ym1HSEpLVEVJdlJVSmlrN2c0d1RUcTdvWERMcmJEaUZQV0gzK3NwYUR5cmIy?=
- =?utf-8?B?cjc3ZnBPOStEOTVEYmFpMVRzUFhaMkJ2dXl0a0VOa0VmOUlOWWpJNHp1SS96?=
- =?utf-8?B?ZjBTY2liRFcvcXZaNTQxTk9MVU1SajZxUlFaOXI2blIwVkFWMGV0TGVTbkgv?=
- =?utf-8?B?RUd0WEhjaVhJbzB6VERIY0J1QUdSOGdvNjF6SDFRd3YzdXRTZFNpeEZNamMv?=
- =?utf-8?B?RS9WZ2VhSGE1YXdLc1JtTlhUQlkrd3ZzdWRmRlAreUI2T3k2bWpHdmUraGI2?=
- =?utf-8?B?RDl0dUk1aGFZcUJ6NC96cTdsZCtlSXZ6Z2trek1tYUljcjBQSDExWU5sSzE3?=
- =?utf-8?B?RlJESlNwYkN6ZGZUQytINXBqVHA1N0NIbTlSSlo5eXIzV0ZJb3Q4MTRJcUVN?=
- =?utf-8?B?YjZNbmxVNGJQUnFrQitFMzRmMnMyOC9VY1AwQ0IralljcDZ6MDFZZitwTGMz?=
- =?utf-8?B?a29WemF4MnE2a3BBQmdQWUhyTTMvTjdNdTlmOXM5aTRVY0hoNzlIWWRMTkNS?=
- =?utf-8?B?c1kxZzlITWpBU1RvM2FSSFFIODNOQlhSY2RoK01iRkNxMHh5UktoWnBWVkd6?=
- =?utf-8?B?WEIrR2pUY205T1N6RVdyVXFaNHVmR0NDOHc3ZXlPUjZMWXdRMk1IM3NQNDVv?=
- =?utf-8?B?VFA1QVBhYUxGV2Fvc1JWTWdDaDFobGREb3JTYXdOdTN2WHJTQzUzZDJUSFhr?=
- =?utf-8?B?d2NIOC9UMFVoNFBEV2Vpbm5OSC9EdWp2eHgwc3YyZUFDeUtxcVQvS21rdmQ3?=
- =?utf-8?B?V1NJZldVcnY5bnI1OEV1MU1iT09hMStadGxUUVBOaFk2eFFCSkRJTkFOYW5E?=
- =?utf-8?B?SWJlU2VjUWYwOXloSDBMMFBHRWQrd2ROM1RHa0R3Njh2amwrR28vRWxYL3Zs?=
- =?utf-8?B?TUQ5Z2x1VTZXM1p6UTE0N0dWNlloV2Uyb3BEcVpMWGFRQkZ5bXRmcnByTmhy?=
- =?utf-8?B?bjdSMm90U2Y0cjk5ejVYMnNia0p3NkN5ZTdkVk4rK0pHd2RXQ3hKNGRVN3Ny?=
- =?utf-8?B?ai9CN0tyby9yL1NIYzBwZmhYSDBrQ3ozZGQycjZGYllYaTQwOVBkNXI4Rjk3?=
- =?utf-8?B?ZjhHQ0RibHhSd2xwaWI5MVZmY0FMR2x0VGxsaUVnd2JlMGpSUXYxRFRsY3RY?=
- =?utf-8?B?cm5UTDM4aEdEMlBqUHY5Ly82a1c5SVIzTnc1Njc5TVo2M3hrY2JSTWpEcWJv?=
- =?utf-8?B?S0Q0ZzBLa2JOdzl2VmhZLzR0M1NGUlUzNFkxQ2tBdGlFci9zaUhZUS9lOTU1?=
- =?utf-8?B?dW5HTU14c3g1OTljNkZFTWQ3Sm1PL21odElWNVNFRnl3Rk1jRzlRdVVUWm1C?=
- =?utf-8?B?ejVLdEJJMCtjRVQ3Sk54SFV3Q2cwS0hZelFtNGg3N2tkcU0rY3k3YjdocHlm?=
- =?utf-8?B?aUlFZDcxNytDVFgwQ3ZJblFpaWRKWWlXY0sydHpYZVpiUDJsUWU4VndNSEZH?=
- =?utf-8?B?VWx5QWI0Vm1zQlFXZGxSSm5LU3FCVXU5WEoxWFFGTmYwcXpDc0lMOGhqSUc4?=
- =?utf-8?B?S2hsRGx1L3VKeVVkRTV4YitVL3U3dWQvYmlxR2V6cXRkVlJkVVlMbklzZy9G?=
- =?utf-8?B?RmxuTUNqOVVRVkh4T3hHTTlIREJKL1crRlZZVThMaTFmWTJ6eXdKek5pSnNO?=
- =?utf-8?B?ejlIaGNXVU1Ea1ZVR1Z2Uk9YYW5NNCtZQnhrZjFvd3c3R3FpMFRWT0pSRFFi?=
- =?utf-8?B?SDJJbFp1RXpzbVRMa2ljWlMrQU1WYS9NdU1tV25ocDRBZ3ZsY0ZjSGF2OE81?=
- =?utf-8?B?Q1N1YlpKbTFBbUZHRmlwWExDaEtLRGRyUC9CbE54cVNVaTIyK0w2Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: b28162e1-53dc-4598-6c47-08defa04b2ce
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 13:05:22.1014 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GHX4TTEBUazSmNc0u7zKwEP0CIamLDCOaMwaTZfgRSilUS/NY4nDxmHrsrrgPnpgm7cemmm8IFkEW/i0T+ox+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3514
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,82 +69,716 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 12, 2026 at 3:48 PM BST, Alexandre Courbot wrote:
-> On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
->> -/// Type used to represent the `PFALCON` registers address base for a g=
-iven falcon engine.
->> -pub(crate) struct PFalconBase(());
->> +/// Type used to represent the `PFALCON` registers.
->> +#[repr(align(4))]
->> +#[derive(FromBytes, IntoBytes)]
->> +pub(crate) struct PFalconRegisters([u8; SZ_4K]);
->> =20
->> -/// Type used to represent the `PFALCON2` registers address base for a =
-given falcon engine.
->> -pub(crate) struct PFalcon2Base(());
->> +/// Type used to represent the `PFALCON2` registers.
->> +#[repr(align(4))]
->> +#[derive(FromBytes, IntoBytes)]
->> +pub(crate) struct PFalcon2Registers([u8; SZ_4K]);
->> =20
->>  /// Trait defining the parameters of a given Falcon engine.
->>  ///
->>  /// Each engine provides one base for `PFALCON` and `PFALCON2` register=
-s.
->> -pub(crate) trait FalconEngine:
->> -    Send + Sync + RegisterBase<PFalconBase> + RegisterBase<PFalcon2Base=
-> + Sized
->> -{
->> +pub(crate) trait FalconEngine: Send + Sync + Sized {
->> +    fn pfalcon(io: Bar0<'_>) -> Mmio<'_, PFalconRegisters>;
->> +    fn pfalcon2(io: Bar0<'_>) -> Mmio<'_, PFalcon2Registers>;
->
-> Remember on v1 when we contemplated using associated consts? Turns out
-> we can with this version:
->
->     // Need a better name, but you get the idea.
->     pub(crate) type PFalconRegs =3D OffsetLoc<NovaRegisters, PFalconRegis=
-ters>;
->     pub(crate) type PFalcon2Regs =3D OffsetLoc<NovaRegisters, PFalcon2Reg=
-isters>;
->
->     pub(crate) trait FalconEngine: Send + Sync + Sized {
->         const PFALCON: PFalconRegs;
->         const PFALCON2: PFalcon2Regs;
->     }
->
-> ... and make `Falcon::new` call `io_project` directly, and it works! At
-> the cost of importing `OffsetLoc` in `falcon.rs`, but that removes ~30
-> LoCs in total, and I'm not sure `OffsetLoc` should be hidden anyway.
+The LRU bulk move mechanism tracked each (domain, priority) group as a
+{first, last} range of resources threaded directly on the manager LRU
+list. Group membership was implicit, derived from per-buffer-object
+back-pointers, and moving a group required first evacuating every cursor
+that pointed into the range. This range representation was fragile: the
+first/last endpoints could get out of sync with the actual list contents,
+for example on an empty range, or when a member was pinned, swapped out
+and later repopulated. That corrupted the manager LRU lists and caused
+crashes, notably during hibernation.
 
-Originally I want the type of consts created by `register!()` to be conside=
-red
-as implementation detail and thus ideally not to be named by the user. To u=
-ser I
-want them to treat it as just `impl IoLoc<>`.
+Represent each bulk move group as a real nested sublist instead. Each
+(domain, priority) group owns a persistent anchor node, a new
+TTM_LRU_BULK item, linked on the manager LRU list, plus a sublist holding
+its member resources. Adding, removing and reordering members become
+unconditional list_move_tail()/list_del_init() operations that cannot
+leave stale endpoints behind, and moving a whole group is a single
+list_move_tail() of the anchor. The LRU walk descends into a group's
+sublist when it reaches the anchor and resumes the manager list
+afterwards.
 
-However, thinking about this again, I think we might be able to have a sing=
-le
-type for all registers after all the cleanups, so it'd make sense to make t=
-his
-public API. However, I do want a better name than `OffsetLoc` if we're goin=
-g to
-make this use case supported, though.
+The cursor carries two hitches. The main hitch stays parked on the
+manager LRU list while the cursor descends, so that a concurrent bulk
+move of the anchor cannot make the walk skip entries, and a second hitch
+walks the sublist. Re-encountering a moved anchor simply re-walks its
+sublist, which is harmless.
 
-Best,
-Gary
+This removes the per-object back-pointer dereference during traversal and
+simplifies the cursor tracking and adjustment machinery, eliminating the
+class of range-corruption bugs by construction.
 
->
->>  }
->> =20
->>  /// Represents a portion of the firmware to be loaded into a particular=
- memory (e.g. IMEM or DMEM)
->> @@ -358,6 +361,8 @@ pub(crate) struct Falcon<'a, E: FalconEngine> {
->>      hal: KBox<dyn FalconHal<E>>,
->>      dev: &'a device::Device<device::Bound>,
->>      bar: Bar0<'a>,
->> +    pub(crate) pfalcon: Mmio<'a, PFalconRegisters>,
->> +    pfalcon2: Mmio<'a, PFalcon2Registers>,
->>  }
->> =20
+v2: Detach descended cursors on bulk LRU bump.
+- Keep cursor detach on bulk finalize as a separate helper function.
+- Documentation update.
+
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+Assisted-by: GitHub_Copilot:claude-opus-4.8
+Assisted-by: GitHub_Copilot:claude-sonnet-5
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+---
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c |  26 +-
+ drivers/gpu/drm/ttm/ttm_bo.c            |   9 +-
+ drivers/gpu/drm/ttm/ttm_resource.c      | 335 ++++++++++++++----------
+ include/drm/ttm/ttm_resource.h          |  57 ++--
+ 4 files changed, 244 insertions(+), 183 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+index f3103307b5df..b40d93632491 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+@@ -30,6 +30,19 @@ struct ttm_bo_test_case {
+ 	bool no_wait;
+ };
+ 
++/* Return the last resource in a bulk move sublist, or NULL if empty. */
++static struct ttm_resource *
++ttm_bo_test_pos_last_res(struct ttm_lru_bulk_move_pos *pos)
++{
++	struct ttm_lru_item *lru;
++
++	list_for_each_entry_reverse(lru, &pos->sublist, link)
++		if (ttm_lru_item_is_res(lru))
++			return ttm_lru_item_to_res(lru);
++
++	return NULL;
++}
++
+ static const struct ttm_bo_test_case ttm_bo_reserved_cases[] = {
+ 	{
+ 		.description = "Cannot be interrupted and sleeps",
+@@ -371,7 +384,7 @@ static void ttm_bo_unreserve_bulk(struct kunit *test)
+ 	ttm_bo_unreserve(bo1);
+ 
+ 	pos = &lru_bulk_move.pos[mem_type][bo_priority];
+-	KUNIT_ASSERT_PTR_EQ(test, res1, pos->last);
++	KUNIT_ASSERT_PTR_EQ(test, res1, ttm_bo_test_pos_last_res(pos));
+ 
+ 	ttm_resource_free(bo1, &res1);
+ 	ttm_resource_free(bo2, &res2);
+@@ -530,14 +543,13 @@ static void ttm_bo_pin_unpin_resource(struct kunit *test)
+ 	pos = &lru_bulk_move.pos[mem_type][bo_priority];
+ 
+ 	KUNIT_ASSERT_EQ(test, bo->pin_count, 1);
+-	KUNIT_ASSERT_NULL(test, pos->first);
+-	KUNIT_ASSERT_NULL(test, pos->last);
++	KUNIT_ASSERT_NULL(test, ttm_lru_first_res_or_null(&pos->sublist));
+ 
+ 	dma_resv_lock(bo->base.resv, NULL);
+ 	ttm_bo_unpin(bo);
+ 	dma_resv_unlock(bo->base.resv);
+ 
+-	KUNIT_ASSERT_PTR_EQ(test, res, pos->last);
++	KUNIT_ASSERT_PTR_EQ(test, res, ttm_bo_test_pos_last_res(pos));
+ 	KUNIT_ASSERT_EQ(test, bo->pin_count, 0);
+ 
+ 	ttm_resource_free(bo, &res);
+@@ -585,16 +597,14 @@ static void ttm_bo_multiple_pin_one_unpin(struct kunit *test)
+ 	pos = &lru_bulk_move.pos[mem_type][bo_priority];
+ 
+ 	KUNIT_ASSERT_EQ(test, bo->pin_count, 2);
+-	KUNIT_ASSERT_NULL(test, pos->first);
+-	KUNIT_ASSERT_NULL(test, pos->last);
++	KUNIT_ASSERT_NULL(test, ttm_lru_first_res_or_null(&pos->sublist));
+ 
+ 	dma_resv_lock(bo->base.resv, NULL);
+ 	ttm_bo_unpin(bo);
+ 	dma_resv_unlock(bo->base.resv);
+ 
+ 	KUNIT_ASSERT_EQ(test, bo->pin_count, 1);
+-	KUNIT_ASSERT_NULL(test, pos->first);
+-	KUNIT_ASSERT_NULL(test, pos->last);
++	KUNIT_ASSERT_NULL(test, ttm_lru_first_res_or_null(&pos->sublist));
+ 
+ 	dma_resv_lock(bo->base.resv, NULL);
+ 	ttm_bo_unpin(bo);
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index ef56c18ded1b..c24f957a5fae 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -109,11 +109,14 @@ void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
+ 		return;
+ 
+ 	spin_lock(&bo->bdev->lru_lock);
+-	if (bo->resource)
++	if (bo->resource) {
+ 		ttm_resource_del_bulk_move(bo->resource, bo);
+-	bo->bulk_move = bulk;
+-	if (bo->resource)
++		bo->bulk_move = bulk;
+ 		ttm_resource_add_bulk_move(bo->resource, bo);
++		ttm_resource_move_to_lru_tail(bo->resource);
++	} else {
++		bo->bulk_move = bulk;
++	}
+ 	spin_unlock(&bo->bdev->lru_lock);
+ }
+ EXPORT_SYMBOL(ttm_bo_set_bulk_move);
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 4e6d3d658d85..195f960b2d73 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -37,53 +37,6 @@
+ #include <drm/drm_print.h>
+ #include <drm/drm_util.h>
+ 
+-/* Detach the cursor from the bulk move list */
+-static void
+-ttm_resource_cursor_clear_bulk(struct ttm_resource_cursor *cursor)
+-{
+-	lockdep_assert_held(&cursor->man->bdev->lru_lock);
+-
+-	cursor->bulk = NULL;
+-	list_del_init(&cursor->bulk_link);
+-}
+-
+-/* Move the cursor to the end of the bulk move list it's in */
+-static void ttm_resource_cursor_move_bulk_tail(struct ttm_lru_bulk_move *bulk,
+-					       struct ttm_resource_cursor *cursor)
+-{
+-	struct ttm_lru_bulk_move_pos *pos;
+-
+-	lockdep_assert_held(&cursor->man->bdev->lru_lock);
+-
+-	if (WARN_ON_ONCE(bulk != cursor->bulk)) {
+-		list_del_init(&cursor->bulk_link);
+-		return;
+-	}
+-
+-	pos = &bulk->pos[cursor->mem_type][cursor->priority];
+-	if (pos->last)
+-		list_move(&cursor->hitch.link, &pos->last->lru.link);
+-	ttm_resource_cursor_clear_bulk(cursor);
+-}
+-
+-/* Move all cursors attached to a bulk move to its end */
+-static void ttm_bulk_move_adjust_cursors(struct ttm_lru_bulk_move *bulk)
+-{
+-	struct ttm_resource_cursor *cursor, *next;
+-
+-	list_for_each_entry_safe(cursor, next, &bulk->cursor_list, bulk_link)
+-		ttm_resource_cursor_move_bulk_tail(bulk, cursor);
+-}
+-
+-/* Remove a cursor from an empty bulk move list */
+-static void ttm_bulk_move_drop_cursors(struct ttm_lru_bulk_move *bulk)
+-{
+-	struct ttm_resource_cursor *cursor, *next;
+-
+-	list_for_each_entry_safe(cursor, next, &bulk->cursor_list, bulk_link)
+-		ttm_resource_cursor_clear_bulk(cursor);
+-}
+-
+ /**
+  * ttm_resource_cursor_init() - Initialize a struct ttm_resource_cursor
+  * @cursor: The cursor to initialize.
+@@ -96,9 +49,11 @@ void ttm_resource_cursor_init(struct ttm_resource_cursor *cursor,
+ {
+ 	cursor->priority = 0;
+ 	cursor->man = man;
++	cursor->cur_list = NULL;
+ 	ttm_lru_item_init(&cursor->hitch, TTM_LRU_HITCH);
+-	INIT_LIST_HEAD(&cursor->bulk_link);
++	ttm_lru_item_init(&cursor->sublist_hitch, TTM_LRU_HITCH);
+ 	INIT_LIST_HEAD(&cursor->hitch.link);
++	INIT_LIST_HEAD(&cursor->sublist_hitch.link);
+ }
+ 
+ /**
+@@ -113,39 +68,127 @@ void ttm_resource_cursor_fini(struct ttm_resource_cursor *cursor)
+ {
+ 	lockdep_assert_held(&cursor->man->bdev->lru_lock);
+ 	list_del_init(&cursor->hitch.link);
+-	ttm_resource_cursor_clear_bulk(cursor);
++	list_del_init(&cursor->sublist_hitch.link);
++	cursor->cur_list = NULL;
+ }
+ 
+ /**
+  * ttm_lru_bulk_move_init - initialize a bulk move structure
+  * @bulk: the structure to init
+  *
+- * For now just memset the structure to zero.
++ * Initialize the resource sublists and their LRU anchors.
+  */
+ void ttm_lru_bulk_move_init(struct ttm_lru_bulk_move *bulk)
+ {
++	unsigned int i, j;
++
+ 	memset(bulk, 0, sizeof(*bulk));
+-	INIT_LIST_HEAD(&bulk->cursor_list);
++	for (i = 0; i < TTM_NUM_MEM_TYPES; ++i) {
++		for (j = 0; j < TTM_MAX_BO_PRIORITY; ++j) {
++			struct ttm_lru_bulk_move_pos *pos = &bulk->pos[i][j];
++
++			ttm_lru_item_init(&pos->marker, TTM_LRU_BULK);
++			INIT_LIST_HEAD(&pos->sublist);
++		}
++	}
+ }
+ EXPORT_SYMBOL(ttm_lru_bulk_move_init);
+ 
++/*
++ * Detach the bulk move from the manager LRU lists so that it can be
++ * freed. Any cursor still traversing a sublist is repointed at the
++ * manager LRU list, and it is verified that the bulk move holds no
++ * resources.
++ */
++static void ttm_bulk_move_drop_cursors(struct ttm_device *bdev,
++					struct ttm_lru_bulk_move *bulk)
++{
++	unsigned int i, j;
++
++	for (i = 0; i < TTM_NUM_MEM_TYPES; ++i) {
++		struct ttm_resource_manager *man = ttm_manager_type(bdev, i);
++
++		for (j = 0; j < TTM_MAX_BO_PRIORITY; ++j) {
++			struct ttm_lru_bulk_move_pos *pos = &bulk->pos[i][j];
++			struct ttm_lru_item *lru, *next;
++
++			list_for_each_entry_safe(lru, next, &pos->sublist, link) {
++				struct ttm_resource_cursor *cursor;
++
++				if (ttm_lru_item_is_res(lru)) {
++					WARN_ON_ONCE(1);
++					continue;
++				}
++				/*
++				 * This cursor descended here; its main hitch
++				 * already sits on the manager list, so just
++				 * detach it from this sublist.
++				 */
++				cursor = container_of(lru, typeof(*cursor),
++						      sublist_hitch);
++				cursor->cur_list = &man->lru[j];
++				list_del_init(&lru->link);
++			}
++			list_splice_tail_init(&pos->sublist, &man->lru[j]);
++			list_del_init(&pos->marker.link);
++		}
++	}
++}
++
+ /**
+  * ttm_lru_bulk_move_fini - finalize a bulk move structure
+  * @bdev: The struct ttm_device
+  * @bulk: the structure to finalize
+  *
+- * Sanity checks that bulk moves don't have any
+- * resources left and hence no cursors attached.
++ * Detaches the bulk move from the manager LRU lists so that it can be
++ * freed. Any cursor still traversing the bulk move is repointed at the
++ * manager LRU list, and it is verified that the bulk move holds no
++ * resources.
+  */
+ void ttm_lru_bulk_move_fini(struct ttm_device *bdev,
+ 			    struct ttm_lru_bulk_move *bulk)
+ {
+ 	spin_lock(&bdev->lru_lock);
+-	ttm_bulk_move_drop_cursors(bulk);
++	ttm_bulk_move_drop_cursors(bdev, bulk);
+ 	spin_unlock(&bdev->lru_lock);
+ }
+ EXPORT_SYMBOL(ttm_lru_bulk_move_fini);
+ 
++/*
++ * Detach any cursor that has descended into pos's sublist so it
++ * resumes walking the manager LRU list, without walking the
++ * (potentially large) sublist itself, which would defeat the point of
++ * a bulk tail move. It suffices to look at the run of cursor hitches
++ * parked immediately after pos's anchor in the manager list, since
++ * that's exactly where a descended cursor's main hitch sits (see
++ * ttm_resource_manager_next()). A hitch whose cursor has since exited
++ * the sublist on its own is skipped rather than ending the run; only
++ * one still parked in a different, still-live sublist marks the
++ * actual end.
++ */
++static void ttm_lru_bulk_move_pos_adjust_cursors(struct ttm_resource_manager *man,
++						 struct ttm_lru_bulk_move_pos *pos,
++						 unsigned int priority)
++{
++	struct ttm_lru_item *lru = &pos->marker;
++
++	list_for_each_entry_continue(lru, &man->lru[priority], link) {
++		struct ttm_resource_cursor *cursor;
++
++		if (lru->type != TTM_LRU_HITCH)
++			break;
++
++		cursor = container_of(lru, typeof(*cursor), hitch);
++		if (cursor->cur_list == &man->lru[priority])
++			continue;
++		if (cursor->cur_list != &pos->sublist)
++			break;
++
++		list_del_init(&cursor->sublist_hitch.link);
++		cursor->cur_list = &man->lru[priority];
++	}
++}
++
+ /**
+  * ttm_lru_bulk_move_tail - bulk move range of resources to the LRU tail.
+  *
+@@ -156,24 +199,24 @@ EXPORT_SYMBOL(ttm_lru_bulk_move_fini);
+  */
+ void ttm_lru_bulk_move_tail(struct ttm_lru_bulk_move *bulk)
+ {
+-	unsigned i, j;
++	unsigned int i, j;
+ 
+-	ttm_bulk_move_adjust_cursors(bulk);
+ 	for (i = 0; i < TTM_NUM_MEM_TYPES; ++i) {
+ 		for (j = 0; j < TTM_MAX_BO_PRIORITY; ++j) {
+ 			struct ttm_lru_bulk_move_pos *pos = &bulk->pos[i][j];
+ 			struct ttm_resource_manager *man;
++			struct ttm_resource *first;
+ 
+-			if (!pos->first)
++			first = ttm_lru_first_res_or_null(&pos->sublist);
++			if (!first)
+ 				continue;
+ 
+-			lockdep_assert_held(&pos->first->bo->bdev->lru_lock);
+-			dma_resv_assert_held(pos->first->bo->base.resv);
+-			dma_resv_assert_held(pos->last->bo->base.resv);
++			lockdep_assert_held(&first->bo->bdev->lru_lock);
++			dma_resv_assert_held(first->bo->base.resv);
+ 
+-			man = ttm_manager_type(pos->first->bo->bdev, i);
+-			list_bulk_move_tail(&man->lru[j], &pos->first->lru.link,
+-					    &pos->last->lru.link);
++			man = ttm_manager_type(first->bo->bdev, i);
++			ttm_lru_bulk_move_pos_adjust_cursors(man, pos, j);
++			list_move_tail(&pos->marker.link, &man->lru[j]);
+ 		}
+ 	}
+ }
+@@ -186,74 +229,59 @@ ttm_lru_bulk_move_pos(struct ttm_lru_bulk_move *bulk, struct ttm_resource *res)
+ 	return &bulk->pos[res->mem_type][res->bo->priority];
+ }
+ 
+-/* Return the previous resource on the list (skip over non-resource list items) */
+-static struct ttm_resource *ttm_lru_prev_res(struct ttm_resource *cur)
++/* Make sure the bulk move anchor is linked into the manager LRU list */
++static void ttm_lru_bulk_move_link_marker(struct ttm_lru_bulk_move_pos *pos,
++					  struct ttm_resource *res)
+ {
+-	struct ttm_lru_item *lru = &cur->lru;
+-
+-	do {
+-		lru = list_prev_entry(lru, link);
+-	} while (!ttm_lru_item_is_res(lru));
+-
+-	return ttm_lru_item_to_res(lru);
+-}
+-
+-/* Return the next resource on the list (skip over non-resource list items) */
+-static struct ttm_resource *ttm_lru_next_res(struct ttm_resource *cur)
+-{
+-	struct ttm_lru_item *lru = &cur->lru;
+-
+-	do {
+-		lru = list_next_entry(lru, link);
+-	} while (!ttm_lru_item_is_res(lru));
+-
+-	return ttm_lru_item_to_res(lru);
+-}
++	struct ttm_buffer_object *bo = res->bo;
++	struct ttm_resource_manager *man =
++		ttm_manager_type(bo->bdev, res->mem_type);
+ 
+-/* Move the resource to the tail of the bulk move range */
+-static void ttm_lru_bulk_move_pos_tail(struct ttm_lru_bulk_move_pos *pos,
+-				       struct ttm_resource *res)
+-{
+-	if (pos->last != res) {
+-		if (pos->first == res)
+-			pos->first = ttm_lru_next_res(res);
+-		list_move(&res->lru.link, &pos->last->lru.link);
+-		pos->last = res;
+-	}
++	if (list_empty(&pos->marker.link))
++		list_add_tail(&pos->marker.link, &man->lru[bo->priority]);
+ }
+ 
+-/* Add the resource to a bulk_move cursor */
++/* Add the resource to a bulk_move sublist */
+ static void ttm_lru_bulk_move_add(struct ttm_lru_bulk_move *bulk,
+ 				  struct ttm_resource *res)
+ {
+ 	struct ttm_lru_bulk_move_pos *pos = ttm_lru_bulk_move_pos(bulk, res);
++	struct ttm_resource *first = ttm_lru_first_res_or_null(&pos->sublist);
++	struct ttm_buffer_object *bo = res->bo;
++	struct ttm_resource_manager *man =
++		ttm_manager_type(bo->bdev, res->mem_type);
+ 
+-	if (!pos->first) {
+-		pos->first = res;
+-		pos->last = res;
++	if (first) {
++		WARN_ON(first->bo->base.resv != res->bo->base.resv);
+ 	} else {
+-		WARN_ON(pos->first->bo->base.resv != res->bo->base.resv);
+-		ttm_lru_bulk_move_pos_tail(pos, res);
++		/*
++		 * Group empty (first activation, or all members were pinned
++		 * or swapped out); re-seed the anchor at the tail so it
++		 * counts as recently used.
++		 */
++		list_move_tail(&pos->marker.link, &man->lru[bo->priority]);
+ 	}
++	/*
++	 * The resource may still be on another list (manager LRU or
++	 * bdev->unevictable); move it unconditionally to keep group
++	 * membership consistent.
++	 */
++	list_move_tail(&res->lru.link, &pos->sublist);
+ }
+ 
+-/* Remove the resource from a bulk_move range */
++/* Remove the resource from its bulk_move sublist */
+ static void ttm_lru_bulk_move_del(struct ttm_lru_bulk_move *bulk,
+ 				  struct ttm_resource *res)
+ {
+-	struct ttm_lru_bulk_move_pos *pos = ttm_lru_bulk_move_pos(bulk, res);
++	list_del_init(&res->lru.link);
++}
+ 
+-	if (unlikely(WARN_ON(!pos->first || !pos->last) ||
+-		     (pos->first == res && pos->last == res))) {
+-		pos->first = NULL;
+-		pos->last = NULL;
+-	} else if (pos->first == res) {
+-		pos->first = ttm_lru_next_res(res);
+-	} else if (pos->last == res) {
+-		pos->last = ttm_lru_prev_res(res);
+-	} else {
+-		list_move(&res->lru.link, &pos->last->lru.link);
+-	}
++/* Move the resource to the tail of its bulk_move sublist */
++static void ttm_lru_bulk_move_pos_tail(struct ttm_lru_bulk_move_pos *pos,
++				       struct ttm_resource *res)
++{
++	ttm_lru_bulk_move_link_marker(pos, res);
++	list_move_tail(&res->lru.link, &pos->sublist);
+ }
+ 
+ static bool ttm_resource_is_swapped(struct ttm_resource *res, struct ttm_buffer_object *bo)
+@@ -652,28 +680,6 @@ void ttm_resource_manager_debug(struct ttm_resource_manager *man,
+ }
+ EXPORT_SYMBOL(ttm_resource_manager_debug);
+ 
+-static void
+-ttm_resource_cursor_check_bulk(struct ttm_resource_cursor *cursor,
+-			       struct ttm_lru_item *next_lru)
+-{
+-	struct ttm_resource *next = ttm_lru_item_to_res(next_lru);
+-	struct ttm_lru_bulk_move *bulk;
+-
+-	lockdep_assert_held(&cursor->man->bdev->lru_lock);
+-
+-	bulk = next->bo->bulk_move;
+-
+-	if (cursor->bulk != bulk) {
+-		if (bulk) {
+-			list_move_tail(&cursor->bulk_link, &bulk->cursor_list);
+-			cursor->mem_type = next->mem_type;
+-		} else {
+-			list_del_init(&cursor->bulk_link);
+-		}
+-		cursor->bulk = bulk;
+-	}
+-}
+-
+ /**
+  * ttm_resource_manager_first() - Start iterating over the resources
+  * of a resource manager
+@@ -694,7 +700,9 @@ ttm_resource_manager_first(struct ttm_resource_cursor *cursor)
+ 
+ 	lockdep_assert_held(&man->bdev->lru_lock);
+ 
+-	list_move(&cursor->hitch.link, &man->lru[cursor->priority]);
++	cursor->priority = 0;
++	cursor->cur_list = &man->lru[cursor->priority];
++	list_move(&cursor->hitch.link, cursor->cur_list);
+ 	return ttm_resource_manager_next(cursor);
+ }
+ 
+@@ -714,20 +722,50 @@ ttm_resource_manager_next(struct ttm_resource_cursor *cursor)
+ 	lockdep_assert_held(&man->bdev->lru_lock);
+ 
+ 	for (;;) {
+-		lru = &cursor->hitch;
+-		list_for_each_entry_continue(lru, &man->lru[cursor->priority], link) {
++		struct list_head *list = cursor->cur_list;
++		struct ttm_lru_item *hitch;
++		bool in_sublist;
++
++		/* The main hitch stays on the manager list while descended. */
++		in_sublist = list != &man->lru[cursor->priority];
++		hitch = in_sublist ? &cursor->sublist_hitch : &cursor->hitch;
++
++		lru = hitch;
++		list_for_each_entry_continue(lru, list, link) {
+ 			if (ttm_lru_item_is_res(lru)) {
+-				ttm_resource_cursor_check_bulk(cursor, lru);
+-				list_move(&cursor->hitch.link, &lru->link);
++				list_move(&hitch->link, &lru->link);
+ 				return ttm_lru_item_to_res(lru);
+ 			}
++			if (lru->type == TTM_LRU_BULK) {
++				struct ttm_lru_bulk_move_pos *pos =
++					container_of(lru, typeof(*pos), marker);
++
++				/*
++				 * Keep the main hitch parked right after the
++				 * anchor so a concurrent bulk move of the
++				 * anchor cannot make the walk skip entries.
++				 */
++				list_move(&cursor->hitch.link, &lru->link);
++				list_add(&cursor->sublist_hitch.link,
++					 &pos->sublist);
++				cursor->cur_list = &pos->sublist;
++				goto next_list;
++			}
++		}
++
++		if (in_sublist) {
++			list_del_init(&cursor->sublist_hitch.link);
++			cursor->cur_list = &man->lru[cursor->priority];
++			continue;
+ 		}
+ 
+ 		if (++cursor->priority >= TTM_MAX_BO_PRIORITY)
+ 			break;
+ 
+-		list_move(&cursor->hitch.link, &man->lru[cursor->priority]);
+-		ttm_resource_cursor_clear_bulk(cursor);
++		cursor->cur_list = &man->lru[cursor->priority];
++		list_move(&cursor->hitch.link, cursor->cur_list);
++next_list:
++		;
+ 	}
+ 
+ 	return NULL;
+@@ -737,6 +775,8 @@ ttm_resource_manager_next(struct ttm_resource_cursor *cursor)
+  * ttm_lru_first_res_or_null() - Return the first resource on an lru list
+  * @head: The list head of the lru list.
+  *
++ * Resources that are members of a bulk move on the list are also considered.
++ *
+  * Return: Pointer to the first resource on the lru list or NULL if
+  * there is none.
+  */
+@@ -747,6 +787,15 @@ struct ttm_resource *ttm_lru_first_res_or_null(struct list_head *head)
+ 	list_for_each_entry(lru, head, link) {
+ 		if (ttm_lru_item_is_res(lru))
+ 			return ttm_lru_item_to_res(lru);
++		if (lru->type == TTM_LRU_BULK) {
++			struct ttm_lru_bulk_move_pos *pos =
++				container_of(lru, typeof(*pos), marker);
++			struct ttm_resource *res =
++				ttm_lru_first_res_or_null(&pos->sublist);
++
++			if (res)
++				return res;
++		}
+ 	}
+ 
+ 	return NULL;
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index 3f2812743a7e..7c7fc94b2d39 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -68,7 +68,9 @@ enum ttm_lru_item_type {
+ 	/** @TTM_LRU_RESOURCE: The resource subclass */
+ 	TTM_LRU_RESOURCE,
+ 	/** @TTM_LRU_HITCH: The iterator hitch subclass */
+-	TTM_LRU_HITCH
++	TTM_LRU_HITCH,
++	/** @TTM_LRU_BULK: The bulk move sublist anchor subclass */
++	TTM_LRU_BULK
+ };
+ 
+ /**
+@@ -290,23 +292,23 @@ ttm_lru_item_to_res(struct ttm_lru_item *item)
+ }
+ 
+ /**
+- * struct ttm_lru_bulk_move_pos
++ * struct ttm_lru_bulk_move_pos - bulk move sublist for a domain/priority
+  *
+- * @first: first res in the bulk move range
+- * @last: last res in the bulk move range
+- *
+- * Range of resources for a lru bulk move.
++ * @marker: LRU list node linked into the manager's LRU list for the
++ * domain/priority of this range. Acts as an anchor from which the LRU
++ * traversal descends into @sublist.
++ * @sublist: List of resources belonging to this bulk move for the
++ * domain/priority. Resources are threaded here via &ttm_resource.lru,
++ * instead of directly on the manager LRU list.
+  */
+ struct ttm_lru_bulk_move_pos {
+-	struct ttm_resource *first;
+-	struct ttm_resource *last;
++	struct ttm_lru_item marker;
++	struct list_head sublist;
+ };
+ 
+ /**
+- * struct ttm_lru_bulk_move
+- * @pos: first/last lru entry for resources in the each domain/priority
+- * @cursor_list: The list of cursors currently traversing any of
+- * the sublists of @pos. Protected by the ttm device's lru_lock.
++ * struct ttm_lru_bulk_move - bulk move state for a set of resources
++ * @pos: sublist anchor and resources for each domain/priority
+  *
+  * Container for the current bulk move state. Should be used with
+  * ttm_lru_bulk_move_init() and ttm_bo_set_bulk_move().
+@@ -316,32 +318,29 @@ struct ttm_lru_bulk_move_pos {
+  */
+ struct ttm_lru_bulk_move {
+ 	struct ttm_lru_bulk_move_pos pos[TTM_NUM_MEM_TYPES][TTM_MAX_BO_PRIORITY];
+-	struct list_head cursor_list;
+ };
+ 
+ /**
+- * struct ttm_resource_cursor
++ * struct ttm_resource_cursor - iterator over a resource manager's resources
+  * @man: The resource manager currently being iterated over
+- * @hitch: A hitch list node inserted before the next resource
+- * to iterate over.
+- * @bulk_link: A list link for the list of cursors traversing the
+- * bulk sublist of @bulk. Protected by the ttm device's lru_lock.
+- * @bulk: Pointer to struct ttm_lru_bulk_move whose subrange @hitch is
+- * inserted to. NULL if none. Never dereference this pointer since
+- * the struct ttm_lru_bulk_move object pointed to might have been
+- * freed. The pointer is only for comparison.
+- * @mem_type: The memory type of the LRU list being traversed.
+- * This field is valid iff @bulk != NULL.
++ * @hitch: A hitch list node marking the position in the manager's LRU
++ * list for @priority. While the cursor has descended into a bulk move
++ * sublist, this node stays parked right after the bulk move anchor so
++ * that traversal of the manager LRU list resumes from the correct place
++ * even if the anchor is concurrently moved by a bulk move.
++ * @sublist_hitch: A hitch list node marking the position within a bulk
++ * move sublist that the cursor has descended into. Only threaded into a
++ * list while @cur_list points at a sublist.
++ * @cur_list: The list currently being traversed. Either the manager's
++ * LRU list for @priority, or a bulk move sublist that the cursor has
++ * descended into.
+  * @priority: the current priority
+- *
+- * Cursor to iterate over the resources in a manager.
+  */
+ struct ttm_resource_cursor {
+ 	struct ttm_resource_manager *man;
+ 	struct ttm_lru_item hitch;
+-	struct list_head bulk_link;
+-	struct ttm_lru_bulk_move *bulk;
+-	unsigned int mem_type;
++	struct ttm_lru_item sublist_hitch;
++	struct list_head *cur_list;
+ 	unsigned int priority;
+ };
+ 
+-- 
+2.55.0
 
