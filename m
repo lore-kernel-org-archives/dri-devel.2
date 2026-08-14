@@ -4,45 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21769C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 18:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92DEFC5CFCF
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 18:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E87D10E582;
-	Fri, 14 Aug 2026 18:26:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C44610E19C;
+	Fri, 14 Aug 2026 18:35:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z7FFKB6Q";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hmWIu3zb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF8A510E582
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 18:26:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 00B76600AF;
- Fri, 14 Aug 2026 18:26:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE811F000E9;
- Fri, 14 Aug 2026 18:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786732002;
- bh=yqVBX9HcgDDXUNOOTVy5kUaTr4zgNKKoIzW6AFhVYZk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z7FFKB6QkTx5qVYEyx9lt1G8MOZzyb5WbQh/QpnGqSwQmeWgZHseDvobF/2RLGWSy
- lOdYQJsLSjvjRhO7Nk8wKiLOFzEDPjPsCZcJTFR14lfaSkBPEioovVcZztIbYp/QzP
- bvspLd0U/DGb+SuFW1pnhJYyBiVw6bFkz6X23xdGEy9I1TSeqGULgkZh+EVQCYsilk
- 4qrEufdR1cK5GKUszDwEpQcGvBrOzfDVDi++rXO44c+s3x0ussx+pk5VBiNEMCAkVP
- U7jq5Zlo8LCSP2WOKwaxbFT0eM1qAg185Le2VGFGPTVqpHXFuhaD92W5omMGgT1ORs
- hrEXEj0UQ20gQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/panel: visionox-vtdr6130: Add Retroid Pocket 6
- panel
-To: "Aaron Kling" <webgeek1234@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260814-rp6-panel-v1-4-111c1aeccf0f@gmail.com>
-References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
- <20260814-rp6-panel-v1-4-111c1aeccf0f@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 18:26:41 +0000
-Message-Id: <20260814182642.5BE811F000E9@smtp.kernel.org>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 915F510E19C
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 18:35:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786732502;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qTlxxfWDmvssP2owx2iEAGsDpou2bfInlO5vwknPmDE=;
+ b=hmWIu3zbqW/tujAjKlRUFoIoDIGgn8L76kZi/VXVVEK1EiMx16C8z8+EkC6skT2FTNu6kl
+ GcN5lG/LP7P5vRrBIUJmKYfylf1i+Z50L+SsPsK9hrJ6KMo22jTCR+LV9tZfXKvkGKVaic
+ 6JZJrmItC5CN4QMz82dFcgaKAfX0UTU=
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-563-W_DLzArwPVeGoqq-PbqUvg-1; Fri, 14 Aug 2026 14:34:53 -0400
+X-MC-Unique: W_DLzArwPVeGoqq-PbqUvg-1
+X-Mimecast-MFC-AGG-ID: W_DLzArwPVeGoqq-PbqUvg_1786732492
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-cab3e9cd922so874070a12.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 11:34:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786732492; x=1787337292;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qTlxxfWDmvssP2owx2iEAGsDpou2bfInlO5vwknPmDE=;
+ b=ac7GdeDXROHeEuqey1necC6ionsJqDk772yPKa5YuVfalNDBSaR4NFgSOW9216gjAo
+ h6OG2WPDO5+XfGgnEuGknofAxM3gKip/pJDXIOKiiedMlBsOlGrZ8NOZ17ylVtVWkH/r
+ 6epWsORdv1ZsqFvsa8NH/UN0vAkQxU8fXUCkzDwCvGl7HBfnj1T/IxpUgfVJ4/c1L7vG
+ qxrAsmpw9MBSn/M0rY9L4tO6hxp8ee5Y0dI78Pc/nLYWIm5BKgk+F5QRYCmhrGAtlMom
+ eSeful63Bwwyre5DbbR2LvfhmVZNIGIJcfNAvs4Wi3a1CJoRPhK7wyArWh0s5FQtN5On
+ J2xg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq7oNo9fjYYZFofAmr4pN0cFQ4gTildKSxNgrPlYusoSsspQMOFI6TvMkTHk4NDy4aYXtId/vqGz/c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5s8J/uDD9dimR5Yb8OGwaDJAVxLHxg6p22BbYfSo4CDzn15LV
+ JZfor3Ue7tlLgZieT6LbsAxquMz9am/PqA2M7gtE6LphVIrPr0eQuN6BFmwP9puXGzHiacMz/og
+ WNMAsTeQwt4TNf4OVwcqs1wJIU4ofnq0dmbhbLpoAB50M59srIBIDBuydOjkRjI3YGQJudw==
+X-Gm-Gg: AR+sD11B0tfLTR/CtLNxBkEhP+0PR2WanYmMkyIHOTw12PxVyQ6dnI7Sgkml0d15XZU
+ a967LMoUy6Jm9IPZH2cwToiR/WNh9fALShkdRhNE0HkTqRgvPd0bhEn2thA5Zh1Fpypqg7MEpvh
+ coKnmBNAfSG/dPznJDMmXWiq6mGlrTL5IoF25MkGsxbz7jJHedGHx20vdAF9npU4B1ZHWW1W1r1
+ 1FFrelpGXhobTxqbRf9Ca9jkMokFnurVKpZ7Sxel2e+8yqCLOraYYfx9HMcbjGDwF02B1JQ9EPc
+ mdf77pUGREZQ1E4s4wqgw+Wf2lV2bVBpSI1m3VxblARDj1jX883OH6rjcmUjOfyGjgD8X3Pzvtz
+ tAikRLESQADIhK6JQWuY1AicLqzEjeQ==
+X-Received: by 2002:a05:6a20:d4b:b0:3a2:7ef4:81df with SMTP id
+ adf61e73a8af0-3cc71cfd038mr9474641637.26.1786732491572; 
+ Fri, 14 Aug 2026 11:34:51 -0700 (PDT)
+X-Received: by 2002:a05:6a20:d4b:b0:3a2:7ef4:81df with SMTP id
+ adf61e73a8af0-3cc71cfd038mr9474571637.26.1786732491044; 
+ Fri, 14 Aug 2026 11:34:51 -0700 (PDT)
+Received: from localhost ([181.122.135.46]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-320ea8fe4c2sm6425438eec.29.2026.08.14.11.34.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Aug 2026 11:34:50 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Fabio Piparo <holofermes@gmail.com>, dri-devel@lists.freedesktop.org
+Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
+ framebuffer
+In-Reply-To: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
+References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
+Date: Fri, 14 Aug 2026 20:34:47 +0200
+Message-ID: <87v79co8jc.fsf@ocarina.mail-host-address-is-not-set>
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: O24pSIPp6wgB5sMi56fYR-b5Z8yeT_UvvWeZtcQ21qc_1786732492
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,68 +92,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The panel initialization sequence uses a byte-swapped magic numb=
-er (`0xff07`) to set display brightness, exploiting the little-endian behav=
-ior of `mipi_dsi_dcs_set_display_brightness_multi` to send a big-endian seq=
-uence.
---
+Fabio Piparo <holofermes@gmail.com> writes:
 
---- Patch [4]: [PATCH 4/4] drm/panel: visionox-vtdr6130: Add Retroid Pocket=
- 6 panel ---
-commit 2ba31f55071d4cfd213a7bfcbe0e2720a74312ac
-Author: Aaron Kling <webgeek1234@gmail.com>
+Hello Fabio,
 
-drm/panel: visionox-vtdr6130: Add Retroid Pocket 6 panel
+> The symptom
+> ===========
+>
+> I am working with a Raspberry Pi 5 driving a 128x32 SSD1306 over I2C
+> through ssd130x, brought up with dtoverlay=ssd1306, and a GLES client
+> rendering into it. The GPU renders straight into the panel's framebuffer.
+> The panel shows a blocky pattern that is affected by CPU load. The kernel
+> is 6.18.39.
+>
 
-This commit adds support for the 1080x1920 panel used in the Retroid
-Pocket 6 handheld console.
+Thanks for the detailed report. I'm on vacation until September 4, without
+access to a SSD1306 and limited connectivity. But I'll take a look to your
+email in detail once I'm back.
 
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gp=
-u/drm/panel/panel-visionox-vtdr6130.c
-> index 805c9846c2a0b..5c826f95ec478 100644
-> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+-- 
+Best regards,
 
-[ ... ]
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
-> +static int retroidpocket_rp6_on(struct visionox_vtdr6130 *ctx)
-> +{
-> +	struct mipi_dsi_device *dsi =3D ctx->dsi;
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
-> +	struct drm_dsc_picture_parameter_set pps;
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x01);
-> +	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx,
-> +				     MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
-> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xff07);
-
-[Severity: Medium]
-Is this intentionally passing a byte-swapped magic number (0xff07) to
-compensate for mipi_dsi_dcs_set_display_brightness_multi() sending the
-brightness value LSB-first?
-
-The DCS specification requires the brightness parameter to be MSB-first. By
-passing 0xff07, it appears this code intentionally sends 0x07 followed by
-0xff so the panel receives 0x07ff (2047) MSB-first.
-
-If the core helper is ever corrected to comply with the DCS specification,
-this sequence will send 0xff followed by 0x07, which the panel will interpr=
-et
-as 0xff07 (65287), drastically exceeding the intended brightness.
-
-Should this instead send the raw bytes explicitly using
-mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
-0x07, 0xff) to avoid depending on the helper's current endianness behavior?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-rp6-panel-=
-v1-0-111c1aeccf0f@gmail.com?part=3D4
