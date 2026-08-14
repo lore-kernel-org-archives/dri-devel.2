@@ -4,44 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E142BC5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 12:19:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C103C5CFC1
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 12:56:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF5D10E137;
-	Fri, 14 Aug 2026 12:19:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F10510E54C;
+	Fri, 14 Aug 2026 12:56:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vn3MLVfH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e977F/nZ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B60510E137
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 12:19:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AB0A10E54C
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 12:56:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D568F600C3;
- Fri, 14 Aug 2026 12:19:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E18A1F000E9;
- Fri, 14 Aug 2026 12:19:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 581C560120;
+ Fri, 14 Aug 2026 12:56:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54BE81F000E9;
+ Fri, 14 Aug 2026 12:56:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786709942;
- bh=JBzWUe8txcI1Sih5BQCMUW65BsDMCEoPlSNRsvhHJC4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Vn3MLVfHtf1raiLZL7TmffOYQ2/Ko3E7ygNpnXpUTNcDXMfy3Ud0Eq/KhzGi/tvSS
- yv6+Efezw87hLoXJOfqlenX6wNRQzDXtag1egtM2Z4iLwULYpaw7XJTaPojFE/eEI8
- nboJ/guR9T9maG9OcewRn7SsTBsJk3oZQpil0QU/nHXTzjz+3TGc9s/bybY8P7WLKi
- ZuoH0k8qN3/aD0+0E6pFulujPhu64qSrqh03xGVEn9k+NVEjLIlmIs9X9s62+a/eA/
- bK3D22MuKgaCYeY3iT8PQ643SC9aiT+2WtipMtVFr7u2kPHFQRTf0NQHJxsgXOF+Xp
- x/kKyjw4XFCsg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/bridge: ti-sn65dsi86: improve HPD interrupt
- handling
-To: "Yashas D" <y-d@ti.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814120304.887993-2-y-d@ti.com>
-References: <20260814120304.887993-1-y-d@ti.com>
- <20260814120304.887993-2-y-d@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 12:19:01 +0000
-Message-Id: <20260814121902.6E18A1F000E9@smtp.kernel.org>
+ s=k20260515; t=1786712168;
+ bh=cX+72s9o2pIYhrhjJqMobcQWIikVZ9nl0Ljsw77hPx4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=e977F/nZkZ3+kWqrRqgIfVJd/aBqAfJBoJ0g2Jj+dswl1Yg8oI6tRpw4WyEGE1+X5
+ ugqpy7w+0PGPzYIzyhQ49UE79ycBGLH814wt5t6VCwpq/fsYz5+oV6IV4OYn2PPgAn
+ fv3+Ey1E7u2WkT/SQL0uxiu065pQDQk0viXx9tFYyrgo8quEfA5xgasEuIKFLpRfW4
+ 9LtheyIuV7FSxZqP0wPnWpQNgWraqQlCpz1CQlD8dVJ3450cieekXQzAVhaDRThuU6
+ /K81KqNxEY9a5Z6oTmwsp7EawXpN2CYk+7qgYfB/RCh2d6ibc/4AAJKcUkji02OGAJ
+ P+ZrWGMhbtoHQ==
+Date: Fri, 14 Aug 2026 14:56:05 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>, 
+ pavan.kondeti@oss.qualcomm.com
+Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <an8K2gb1pIqbDj6-@orome>
+References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
+ <20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com>
+ <an4MEI7lkc2p3nKI@google.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wsqkte2vdducxgiq"
+Content-Disposition: inline
+In-Reply-To: <an4MEI7lkc2p3nKI@google.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,146 +95,142 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] Early return bypasses secondary status clearing, causing an IR=
-Q storm.
-- [High] Casting opaque `hpd_data` to `struct drm_connector *` causes type =
-confusion and potential kernel panic.
-- [High] Lockless connector access introduces a Use-After-Free window.
-- [Medium] Unconditionally writing 0xFF to write-1-to-clear status register=
-s causes lost hardware events.
-- [Medium] Bitwise ORing negative error codes produces meaningless values.
---
 
---- Patch [1]: [PATCH 1/2] drm/bridge: ti-sn65dsi86: improve HPD interrupt =
-handling ---
-commit 7011d7627c6af8ae9fd09f6d42480bb03a988154
-Author: Yashas D <y-d@ti.com>
+--wsqkte2vdducxgiq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
+MIME-Version: 1.0
 
-drm/bridge: ti-sn65dsi86: improve HPD interrupt handling
+On Thu, Aug 13, 2026 at 07:25:20PM +0100, Vincent Donnefort wrote:
+> On Fri, Aug 07, 2026 at 05:54:27PM +0200, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > NVIDIA Tegra SoCs commonly define a Video-Protection-Region, which is a
+> > region of memory dedicated to content-protected video decode and
+> > playback. This memory cannot be accessed by the CPU and only certain
+> > hardware devices have access to it.
+> >=20
+> > Expose the VPR as a DMA heap so that applications and drivers can
+> > allocate buffers from this region for use-cases that require this kind
+> > of protected memory.
+> >=20
+> > VPR has a few very critical peculiarities. First, it must be a single
+> > contiguous region of memory (there is a single pair of registers that
+> > set the base address and size of the region), which is configured by
+> > calling back into the secure monitor. The memory region also needs to
+> > quite large for some use-cases because it needs to fit multiple video
+> > frames (8K video should be supported), so VPR sizes of ~2 GiB are
+> > expected. However, some devices cannot afford to reserve this amount
+> > of memory for a particular use-case, and therefore the VPR must be
+> > resizable.
+> >=20
+> > Unfortunately, resizing the VPR is slightly tricky because the GPU found
+> > on Tegra SoCs must be in reset during the VPR resize operation. This is
+> > currently implemented by freezing all userspace processes and calling
+> > invoking the GPU's freeze() implementation, resizing and the thawing the
+> > GPU and userspace processes. This is quite heavy-handed, so eventually
+> > it might be better to implement thawing/freezing in the GPU driver in
+> > such a way that they block accesses to the GPU so that the VPR resize
+> > operation can happen without suspending all userspace.
+> >=20
+> > In order to balance the memory usage versus the amount of resizing that
+> > needs to happen, the VPR is divided into multiple chunks. Each chunk is
+> > implemented as a CMA area that is completely allocated on first use to
+> > guarantee the contiguity of the VPR. Once all buffers from a chunk have
+> > been freed, the CMA area is deallocated and the memory returned to the
+> > system.
+>=20
+> Hi,
+>=20
+> I believe we (the Android team) are trying to solve similar issue to your=
+s: Arm
+> CPUs can still speculatively read memory after it has been transitioned t=
+o the
+> Secure state, as long as they retain a cacheable mapping to it.
+>=20
+> As modifying the direct mapping is difficult, the workaround ended up in =
+the
+> hypervisor which unmaps the pages from the host stage-2 on intercepted FF=
+-A Lend
+> invocations.
+>=20
+> If convenient, this is nonetheless the wrong place to do it. Scattering t=
+he host
+> stage-2 is really terrible for performance and we would like to move it w=
+here it
+> should be, directly into the kernel...
+>=20
+> This is what I thought was the attempt in v3, but I am now a bit confused
+> because I see you are using set_direct_map_invalid_noflush()
+> set_direct_map_default_noflush(), but I am not sure that works if rodata=
+=3Dfull is
+> not set? So does the memory for the NVIDIA IP still need to be unmapped?
 
-Fix the interrupt handler to clear all three IRQ status registers
-to fully de-assert the IRQ pin, enable replug event detection, and
-use per-connector hotplug notification instead of polling all
-connectors on every DP HPD event.
+Yeah, this currently relies on the circumstances being such that
+can_set_direct_map() returns true, and in the case where we want to use
+the resizable VPR functionality, we're going to have page-granular
+mappings anyway.
 
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/brid=
-ge/ti-sn65dsi86.c
-> index 48b83df9aed61..d9bd4ef8f0e21 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> If so, how about having an option where the CMA allocation is backed by a=
+ direct
+> map with the same page granularity, or at least a smaller and aligned gra=
+nule?
+>=20
+> With that, we know that for whatever CMA allocation we do, we can safely =
+unmap
+> from the direct map without risking splitting blocks. On CMA free, we can=
+ safely
+> remap into the direct map as I do not believe we coalesce yet.
 
-[ ... ]
+This sounds intriguing. For VPR we could possibly make the size a
+multiple of the memblock size (or whatever might be appropriate). If we
+can create a page-granular linear mapping specifically for that region,
+that'd be ideal. I don't know if the linear mapping can be subdivided in
+this fashion, though.
 
-> @@ -1387,23 +1391,35 @@ static irqreturn_t ti_sn_bridge_interrupt(int irq=
-, void *private)
->  		return IRQ_NONE;
->  	}
-> =20
-> -	hpd_event =3D status & (HPD_REMOVAL_STATUS | HPD_INSERTION_STATUS);
-> +	hpd_event =3D status & (HPD_REMOVAL_STATUS | HPD_INSERTION_STATUS |
-> +			      HPD_REPLUG_STATUS);
-> =20
->  	dev_dbg(pdata->dev, "(SN_IRQ_STATUS_REG =3D %#x)\n", status);
->  	if (!status)
->  		return IRQ_NONE;
+> (This alignment is not necessary for upcoming systems with BBML3)
+>=20
+> However, to implement this, we'd need to split memblocks and I believe th=
+e only
+> way at the moment is temporarily mark it as "nomap" which didn't seem very
+> popular in the comments on v3.
 
-[Severity: Critical]
-Is this a regression where the early return bypasses the newly added cleari=
-ng
-logic?=20
+Could this be simplified if this type of allocation is always memblock
+aligned?
 
-If the interrupt was triggered exclusively by an event in SN_IRQ_STATUS2_RE=
-G=20
-or SN_IRQ_STATUS3_REG, status will be 0 and the handler returns immediately=
-.=20
-Will the hardware IRQ pin remain asserted, leading to an infinite interrupt
-loop?
+Looking at map_mem(), it seems like we could add some sort of special-
+casing in the for_each_mem_range() block to check if the memory is VPR
+(or generic, page-granular carveout, or whatever we want to call it) and
+set NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS in that case.
 
-> =20
-> -	ret =3D regmap_write(pdata->regmap, SN_IRQ_STATUS_REG, status);
-> +	/*
-> +	 * Clear all three IRQ status registers to fully de-assert
-> +	 * the IRQ pin
-> +	 */
-> +	ret  =3D regmap_write(pdata->regmap, SN_IRQ_STATUS2_REG, 0xFF);
+If that works, set_direct_map_*() could be enhanced to detect such cases
+and always work. Or perhaps a more specific API could be introduced.
 
-[Severity: Medium]
-Will this unconditionally acknowledge and clear all pending events in these=
-=20
-write-1-to-clear registers?=20
+Thierry
 
-Because the registers aren't read first, might this cause the driver to=20
-permanently lose secondary hardware interrupt events or error flags?
+--wsqkte2vdducxgiq
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +	ret |=3D regmap_write(pdata->regmap, SN_IRQ_STATUS3_REG, 0xFF);
-> +	ret |=3D regmap_write(pdata->regmap, SN_IRQ_STATUS_REG, status);
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Medium]
-Does bitwise ORing the returns of regmap_write() corrupt the error values?
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp/EGIACgkQ3SOs138+
+s6FIfA/7BDMg2roMkVSyRLt06etjxYFBWHpNzxj/SvOzYROjoeOaUOJR15Xodk18
+HI650LP1luxhtmIKPHRjGxZK30ROvHB6QTsl0lYM0cQZ4tVrv5WTMcL9uCui0WzA
+LkF9SVH4YiJdbE4tCnWc9eJSxxedpCsS8d5cHLfDyI2cKvjAxgTxll8INqCMafAU
+wehMyhd65emp5OYmvSuftsNzYf/uM0Oke8Rf64zZjOyZzpBi7AZG2CdROlrN/v1V
+xODXrjdPaZvdq6HkzFVW0GYsouBaWb2rqzw/IsgO5RbT6vg/oOwo+4z50ZDefimA
+x2mLXvg+gzqjY20hfJ82Bar0sCQ8nNlO6rLPpxwXMn9ICDpFV5aaiGvbaZ9ibDxR
+yScvx4k0i/k6NPFoyuKJFSqNn9s4WGqU6p0j+un2K97HMEPtJ3onKs3Pjj63E38i
+EkVAJZkrbt+PNYGiILRWWnU7dTqd5/CreBR7F0zFvVz0+JYjgfmlWcTdLKPAazag
+PpRU7SZKUfHRd+LnsS54706H2dOP1rq5NXx+AGSdRJcwgw30XbIhZ3CmqYBVjbdN
+Nh/5Y19dBDV5UhRx4o3Cqcb1BV/cuu2w0TpGyxoyIUUTFxgDp59uBi2Qi6nY/8kY
+KdeMys4RVWucUUwpbtpKJamulwDRGtlLjyLEIqVeYZY/FOBiaKU=
+=ERUC
+-----END PGP SIGNATURE-----
 
-Since regmap_write() returns negative error codes (e.g., -EIO), ORing them=
-=20
-combines their two's complement bits to produce an unrelated negative numbe=
-r,=20
-which could mangle the error code passed to dev_err().
-
->  	if (ret) {
->  		dev_err(pdata->dev, "Failed to clear IRQ status: %d\n", ret);
->  		return IRQ_NONE;
->  	}
-> =20
-> -	/* Only send the HPD event if we are bound with a device. */
-> +	/* Notify only the DP connector, not all connectors on the device. */
->  	mutex_lock(&pdata->hpd_mutex);
-> -	if (pdata->hpd_enabled && hpd_event)
-> -		drm_kms_helper_hotplug_event(dev);
-> -	mutex_unlock(&pdata->hpd_mutex);
-> +	if (pdata->hpd_enabled && hpd_event && pdata->bridge.hpd_data) {
-> +		struct drm_connector *connector =3D
-> +			(struct drm_connector *)pdata->bridge.hpd_data;
-
-[Severity: High]
-Does casting the opaque bridge.hpd_data directly to a drm_connector pointer=
-=20
-cause type confusion?=20
-
-The hpd_data pointer is an opaque private context owned by the bridge=20
-consumer. If a driver passes a different structure or a drm_device pointer,=
-=20
-will this cause a kernel panic when dereferenced by=20
-drm_connector_helper_hpd_irq_event()?
-
-> +		mutex_unlock(&pdata->hpd_mutex);
-> +		drm_connector_helper_hpd_irq_event(connector);
-
-[Severity: High]
-Does dropping the hpd_mutex lock here introduce a use-after-free regression=
-?=20
-
-The lifetime of hpd_data is only guaranteed until drm_bridge_hpd_disable()=
-=20
-returns. If a concurrent unbind operation completes and frees the connector=
-=20
-memory while this interrupt handler is executing=20
-drm_connector_helper_hpd_irq_event(), can this result in memory corruption?=
-=20
-
-Would it be safer to retain the lock or take a reference via=20
-drm_connector_get() before unlocking?
-
-> +	} else {
-> +		mutex_unlock(&pdata->hpd_mutex);
-> +	}
-> =20
->  	return IRQ_HANDLED;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814120304.8879=
-93-1-y-d@ti.com?part=3D1
+--wsqkte2vdducxgiq--
