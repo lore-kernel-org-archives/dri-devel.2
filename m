@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE161C5CFDB
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79DF1C5CFDB
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 14:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 527DA10F5F8;
-	Fri, 14 Aug 2026 14:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5CBB10F5FC;
+	Fri, 14 Aug 2026 14:07:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GfLApfCD";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="zD2lVxK/";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CDBE10F5F8
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:07:02 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9FB10F5FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 14:07:05 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id EE0874E41210;
- Fri, 14 Aug 2026 14:07:00 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 740FD1A163D;
+ Fri, 14 Aug 2026 14:07:04 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BFB776046D;
- Fri, 14 Aug 2026 14:07:00 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 489F36046D;
+ Fri, 14 Aug 2026 14:07:04 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E232811C4EDAB; 
- Fri, 14 Aug 2026 16:06:51 +0200 (CEST)
+ with ESMTPSA id 02C4B11C4EDAF; 
+ Fri, 14 Aug 2026 16:06:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1786716415; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1786716423; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=dT6AqRBbgI42Tlee7k0qD3Mg6uWqZG1Wn4SiXDAn13E=;
- b=GfLApfCDHtz13LkAvF2GtvMiVcXAJE+yu9aEpdtUlkoX8r6dQrrnikJHoEGvMRh7umijCG
- tBMxB0nnrj/FQQwVStpzsoyQ8ghHk0C47VTzE0LhvhV3PawtLovOb2SUaS7z745NUVFBu1
- aolP7JW8OQOaweJ+YuUCpq8ips8YY2UXzEKESp3NnSYrMLxSby1D4UPI5ed13zUE3iYf/h
- 96DI1TeV62rSFJWhOpLHLXd6PRdm+5Hm2KfJy+OWWltOxpLJpuS9nf2ClTYMUrU14x5orW
- scD+5RtbvS+GaP2q9oO1yTvIkhJ2VRYjA6boTOwoFLKQ/b+lw5+r+88s1l141Q==
+ bh=W47g4Q+NYk342rCC6QpiuRC+u7VsigF4CoJiynORV1Y=;
+ b=zD2lVxK/VXoKuOuAbtULGsk9nbiSaPBmFJLXxe4bs81JWRPnhaZn7vmRdR2Y7FbhJKCn9K
+ a0n6r9jpHe7jgIfLI3EpJKiCydHJWRceaHvsMfMS9Qu2UkMd7Ud9TOKeLEg/Y/8+aYeCti
+ ZVfN6jkCHJxui+c7KIncPZCSSpRbBXUI/sN+EsuZvToq5oQO7eEwOXGx3phhuIpgoutpE2
+ 0l16xqQXmCQdnZh05mezWRssxshA3ZpTiyiOQfsyPmOsKqTZVBjVYP9iRimdGElmEQIHqO
+ sETv5AGk3bWFThYa8URcUtUr3kqWrXzo6+iAJbciMu0cdQCmpmT1lQM80UUaEw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 14 Aug 2026 16:05:54 +0200
-Subject: [PATCH 06/11] drm/bridge: tc358767: don't create a panel_bridge
+Date: Fri, 14 Aug 2026 16:05:55 +0200
+Subject: [PATCH 07/11] drm/bridge: waveshare-dsi: don't create a panel_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-drm-bridge-every-panel-v1-6-19cd5277cc8d@bootlin.com>
+Message-Id: <20260814-drm-bridge-every-panel-v1-7-19cd5277cc8d@bootlin.com>
 References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
 In-Reply-To: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -82,56 +82,61 @@ Fix and simplify the code by just getting a reference to the
 already-existing panel_bridge using of_drm_get_bridge_by_endpoint().
 
 As of_drm_get_bridge_by_endpoint() returns a refcouncted bridge, take care
-of putting the bridge reference on removal.
+of putting the bridge reference by using bridge->next_bridge.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/tc358767.c | 22 +++++++---------------
- 1 file changed, 7 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/bridge/waveshare-dsi.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
-index ac83af7902cd..d282db507d59 100644
---- a/drivers/gpu/drm/bridge/tc358767.c
-+++ b/drivers/gpu/drm/bridge/tc358767.c
-@@ -2347,24 +2347,15 @@ static int tc_probe_dpi_bridge_endpoint(struct tc_data *tc)
- static int tc_probe_edp_bridge_endpoint(struct tc_data *tc)
+diff --git a/drivers/gpu/drm/bridge/waveshare-dsi.c b/drivers/gpu/drm/bridge/waveshare-dsi.c
+index 420f3b870a74..b79a1d32e679 100644
+--- a/drivers/gpu/drm/bridge/waveshare-dsi.c
++++ b/drivers/gpu/drm/bridge/waveshare-dsi.c
+@@ -20,7 +20,6 @@
+ 
+ struct ws_bridge {
+ 	struct drm_bridge bridge;
+-	struct drm_bridge *next_bridge;
+ 	struct backlight_device *backlight;
+ 	struct device *dev;
+ 	struct regmap *reg_map;
+@@ -89,7 +88,7 @@ static int ws_bridge_bridge_attach(struct drm_bridge *bridge,
  {
- 	struct device *dev = tc->dev;
--	struct drm_panel *panel;
--	int ret;
-+	struct drm_bridge *bridge;
+ 	struct ws_bridge *ws = bridge_to_ws_bridge(bridge);
  
- 	/* port@2 is the output port */
--	ret = drm_of_find_panel_or_bridge(dev->of_node, 2, 0, &panel, NULL);
--	if (ret && ret != -ENODEV)
--		return dev_err_probe(dev, ret,
--				     "Could not find DSI panel or bridge\n");
-+	bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 2, 0);
-+	if (IS_ERR(bridge) && PTR_ERR(bridge) != -ENODEV)
-+		return dev_err_probe(dev, PTR_ERR(bridge), "Could not find DSI bridge\n");
- 
--	if (panel) {
--		struct drm_bridge *panel_bridge;
--
--		panel_bridge = devm_drm_panel_bridge_add(dev, panel);
--		drm_panel_put(panel);
--		if (IS_ERR(panel_bridge))
--			return PTR_ERR(panel_bridge);
--
--		tc->panel_bridge = panel_bridge;
-+	if (!IS_ERR(bridge)) {
-+		tc->panel_bridge = bridge;
- 		tc->bridge.type = DRM_MODE_CONNECTOR_eDP;
- 	} else {
- 		tc->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
-@@ -2607,6 +2598,7 @@ static void tc_remove(struct i2c_client *client)
- {
- 	struct tc_data *tc = i2c_get_clientdata(client);
- 
-+	drm_bridge_put(tc->panel_bridge);
- 	drm_bridge_remove(&tc->bridge);
+-	return drm_bridge_attach(encoder, ws->next_bridge,
++	return drm_bridge_attach(encoder, ws->bridge.next_bridge,
+ 				 &ws->bridge, flags);
  }
  
+@@ -150,7 +149,6 @@ static struct backlight_device *ws_bridge_create_backlight(struct ws_bridge *ws)
+ static int ws_bridge_probe(struct i2c_client *i2c)
+ {
+ 	struct device *dev = &i2c->dev;
+-	struct drm_panel *panel;
+ 	struct ws_bridge *ws;
+ 	int ret;
+ 
+@@ -164,14 +162,10 @@ static int ws_bridge_probe(struct i2c_client *i2c)
+ 	if (IS_ERR(ws->reg_map))
+ 		return dev_err_probe(dev, PTR_ERR(ws->reg_map), "Failed to allocate regmap\n");
+ 
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, -1, &panel, NULL);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "Failed to find remote panel\n");
+-
+-	ws->next_bridge = devm_drm_panel_bridge_add(dev, panel);
+-	drm_panel_put(panel);
+-	if (IS_ERR(ws->next_bridge))
+-		return PTR_ERR(ws->next_bridge);
++	ws->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, -1);
++	if (IS_ERR(ws->bridge.next_bridge))
++		return dev_err_probe(dev, PTR_ERR(ws->bridge.next_bridge),
++				     "Failed to find remote panel\n");
+ 
+ 	ws->backlight = ws_bridge_create_backlight(ws);
+ 	if (IS_ERR(ws->backlight)) {
 
 -- 
 2.55.0
