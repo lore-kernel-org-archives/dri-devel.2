@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB72C5CFC1
-	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 23:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9FA1C5B572
+	for <dri-devel@archiver.kernel.org>; Fri, 14 Aug 2026 23:59:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B784210F797;
-	Fri, 14 Aug 2026 23:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3646910F783;
+	Fri, 14 Aug 2026 23:59:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h3WxaGuO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NNlP0XlJ";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D0AD10F77C
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 23:59:07 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4957eefd361so11840975e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 16:59:07 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC8E510F77C
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 23:59:12 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4998590d392so16296125e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 16:59:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786751945; x=1787356745; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786751951; x=1787356751; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=wjOzV0q5U0Ngoj2QziahFo4rb8HC53Ty4Vt3SiFJTto=;
- b=h3WxaGuOieE34RZKuwWkjRHsg6BbN70XI5L/UUhI5t2uG1gc6OIoQ/ujEaZjXiRN/d
- G0+g3o+43KCNKGaBWNfcs4ifvJugJmC42w5n4zGX+drYAzXreGnMfUYgr1BQ9xEb7z9q
- jQWSdEWkYfclUq7G12yN+IdyCQyK2YN0jGS1YKD/VVr2khvVnxMtA8eemWoMof/AVGxf
- kXMDUCm9rAIzOOkcXaly2Qn8cQXNLSJf6tx0ZyC0t4UGjA4RoXhqAOyxnocxhvxlwxoT
- 8s7wYCij3nY8nXIQNm5yRewr6x1MO2BD9q/3nN2KHa7tVdHiHxqm3li8wIxbllUBkccD
- z8rQ==
+ bh=u0S1MWlZnT8V7WsJC3Fb0Hyhumpns/uKtAWCZnuFLhc=;
+ b=NNlP0XlJAjVeWJ5Td0D131d7rn3Dz7srypFder63hgmut53Tvbp7D6UVpHykBooQxt
+ w5aMlHKX0F/7zt3yLnpIFb6Ee3ELi5lQY5gaffe2gOhUbxkQhsfIs16P2ZUjZahSHjkm
+ efQuLkp0O5YzvFoIz5xyg85YHhBmtsD/2u3qcDnXZqfnVjGo94LO8IOxGV/Gc3GuC0GO
+ tUBGnlX6QsbvJybDISQUxHq4kDc4VK47XNo5BnJ4zGy1rsItbYtnLA6eq/GJlE3mWzjp
+ shLhcPX8d97w3am6SdKqFmAlVp+F8IKhsBBTNXg7VylI5uoX1P7ygqLJGY51ZPlb8LxQ
+ n9Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786751945; x=1787356745;
+ d=1e100.net; s=20251104; t=1786751951; x=1787356751;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=wjOzV0q5U0Ngoj2QziahFo4rb8HC53Ty4Vt3SiFJTto=;
- b=BZuMrUG7eq+OUPjkiwHSm0kjY0QJC8onUZM/bwNaNumiQwJT0/2uYTBB78uj2qszUS
- Ws0SiolJYHWdAaNPd2NCnJAIgVRqBVp8piLdg3z9x0J82dt1fNRusEwc3GRhLN+RLYCK
- TbQluzI+5aJCUYQcZA7KTcsk82e/JP9n3KXmamKnTjBjUq5lZVhWVmUosNFumAceLNPh
- bt1LIf00F+3KhH1reCgBEAeLlpwm/2dbTBH6oDbfk3A6dOmUGxru0uuYIGbWR51hWBFO
- MIyqznE2CWeMvsEqinD5My2NFMKDc+AZRBCO/S8kyknK/aHJ2lrBaRZ/wUGp8CxkIHMr
- GnqA==
-X-Gm-Message-State: AOJu0Yxg/qlsqeuVXy66Fht8K37HcbnXtuSNC2R1UHQWknYRVZtk+9Fk
- Tbq5RuAMI7Gi3OOUcOe7atk/hOTvQ1qj/9od4pkf8I/fpSQPVwvyYMEG
-X-Gm-Gg: AR+sD11HPa2GEQk2iN6Lk0TZRXVyaRcJD/2frfQLCtZdcZ64vMbo0sXyOAKpfOz8Nul
- XmvMA5NSGgIQe5lxBvZMIs1qokNKNDy434nMpF+NbLkggRvCb5iStm+NZQ/jjhEz1FGZvD7ZuVi
- 47gLpGFBoOgGMcpKdFHQ7M6Lve0zztcfCex1aKiKk5AYSrhqvLlIpz8ETyWE9USEevF3GApHR/7
- 0V1niZ09CopL2JcVurcIdmo4Wclryhocw4rUtLS04d30hKixp3iGVMg8v7lb7Csoqw6c7TWPABc
- hJLlQhMaEUgfZ+XQxahd0dObrD771F1Xm5qeStZbngLE3ht3Spx35HxzMLi6D/fGuJiKxlqRMXL
- tdcZLA76gDjUNTlIZbhVIN7LPCTYGZ4Z8px9bKObsm3oQGL3OvRdL6Uo1SJTJjZki4CPnRazrEP
- vIg/aVdr0Xkv50EOMZrbW40WQxSSY3d65MN4TuWvTI2NGV0aTMhal8FgCSHLK6F6rMPpo=
-X-Received: by 2002:a05:600c:3114:b0:499:84fe:5f3e with SMTP id
- 5b1f17b1804b1-4998795c12bmr121642805e9.9.1786751945540; 
- Fri, 14 Aug 2026 16:59:05 -0700 (PDT)
+ bh=u0S1MWlZnT8V7WsJC3Fb0Hyhumpns/uKtAWCZnuFLhc=;
+ b=pPoyvRC4ejfBibQTBF/5s7BaRSHjoJVTF26dqCGFmEa3s+YaSVCUxHU18Es+2VUMWB
+ Dogs8boHRjUM0smntOCN/adbqVhM8aOWFmFH22WVventj/irrKTRHmHoU9sSIA8492B4
+ 74WpfkY9ze2aKTF4W+M/xv8oXexB4aT3G+6jpZBjlao6Jv6qc+vYwnnHS6dFCN7Vt184
+ Y/PAGv1ebCXbl90IhCUozYqQCpf0iZerWSfIEkY6JI8GVxIB7xNE3zWyU8vWH6HCrztT
+ bIX0KCUCDj+b5o6GNfJCyW64ZxNmZZLTWCTVGS7pMDGJURJ4YBhluG0INHGfd58APNJ5
+ SJ8A==
+X-Gm-Message-State: AOJu0Yx18pDLU+SmdhyAO/STtDZm8C/VkSxM9A+gNmqc/88iwUDEIFnb
+ ZNx/I5ftcqcIVYZqoJxrjHTpgpmy6DzevRUgDqjyjjGiS5eBZbSusOgJ
+X-Gm-Gg: AR+sD12ZUDH9fTmSZ5/IJ7e5cplUMzeo6d00MaR7LoOhb7MyceRqOUK6WIRiIMtTzeM
+ 0q90vjZEqTVdJ0S4ZqODVddMNijAcwYFaNjOUH+zHd18YN94F2fxicJQmTIwHqNrh+dvurRgBDH
+ xwA/ysg2jcj5EsNj1T7cpsF7DBX0sErbz1FgZbFjjA/ZJS6IacymaBS9KBWBzgagy3dHzmw24vq
+ 1Ng+XP/ZH2rlYdKxzUGTKaPTYbeZX5R57HVSItW06PGV7JGiMjz6t+LJN5HDpv1Avuc0ZrxvTgS
+ 0c6bTK3BziRP3ZWb4SuXzcGUAg4wRuBcLRwxPCLotvPioyqB9XKN4FkrtE24Fxumgzdl0WWOpUJ
+ pU2wBHLMQ/2IyjJKNPiSNXQFuOB9qzhNjC2tILvnI9URcYKWF6QdHLfWNhb3vuh2RsuR086xy/B
+ YYGZkMWg+Uz5qD2J6QiswUvRMlC66HY7z4MkpEgQoLv4EQk8UYU+5uswhwUtFwYCrQOCY=
+X-Received: by 2002:a05:600c:1d0e:b0:495:4fd4:619b with SMTP id
+ 5b1f17b1804b1-49987941a4amr95937065e9.1.1786751950878; 
+ Fri, 14 Aug 2026 16:59:10 -0700 (PDT)
 Received: from fedora ([5.31.134.170]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499899753ccsm77751245e9.0.2026.08.14.16.59.02
+ 5b1f17b1804b1-499899753ccsm77751245e9.0.2026.08.14.16.59.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Aug 2026 16:59:04 -0700 (PDT)
+ Fri, 14 Aug 2026 16:59:10 -0700 (PDT)
 From: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
@@ -69,10 +69,10 @@ Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
  Simona Vetter <simona@ffwll.ch>, Mary Guillemard <mary@mary.zone>,
  nouveau@lists.freedesktop.org,
  Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
-Subject: [PATCH 6/7] nouveau/dispnv50: program pixel clocks above 2.147GHz on
- GB20x
-Date: Sat, 15 Aug 2026 03:57:04 +0400
-Message-ID: <20260814235705.59132-7-mohamedahmedegypt2001@gmail.com>
+Subject: [PATCH 7/7] nouveau: honor HF-EEODB EDIDs by converting to struct
+ drm_edid
+Date: Sat, 15 Aug 2026 03:57:05 +0400
+Message-ID: <20260814235705.59132-8-mohamedahmedegypt2001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260814235705.59132-1-mohamedahmedegypt2001@gmail.com>
 References: <20260814235705.59132-1-mohamedahmedegypt2001@gmail.com>
@@ -93,88 +93,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HEAD_SET_PIXEL_CLOCK_FREQUENCY(_MAX) methods carry only 31 HERTZ
-bits. Starting with C97D the upper bits live in separate
-HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI(_MAX) methods, which nouveau never
-programmed and headca7d_mode() computed m->clock * 1000 into the 31-bit
-field. NVVAL's mask then silently truncates anything past 2^31 Hz, which
-means that every mode scanned out at pclk modulo 2^31.
+HDMI 2.1 sinks ship HF-EEODB EDIDs. Byte 126 deliberately claims one
+extension block for legacy sources, and the true count lives in the CTA
+block's first data block. Their high-refresh timings (e.g., 4K240, 6K165,
+etc) sit in DisplayID extension blocks 2+.
 
-No mode nouveau can currently commit crosses the boundary (an
-uncompressed HDMI FRL mode tops out around 1.78GHz at 8bpc), but this is
-a prerequisite for the upcoming DSC work, which makes 2.147GHz+ modes
-reachable.
+The kernel already reads these EDIDs whole, and on GSP boards RM returns
+the full EDID with its true size. However, nouveau then hands the buffer
+to the legacy API which sizes the EDID from byte 126 so the DisplayID
+blocks are not parsed/exposed and the sysfs blob truncates to 256 bytes.
 
-Program the full value split across the low and HI methods, exactly
-as OpenRM's EvoSetRasterParams9() does (nvkms-evo4.c, 31-bit low word
-plus the 4 HI HERTZ bits, giving 35 bits of range).
+Convert to the struct drm_edid API, which carries the real size.
+Read via drm_edid_read_ddc()/drm_edid_read_switcheroo() where an
+adapter exists, and serve RM's buffer through drm_edid_read_custom()
+with a block-reading callback where not, which also routes the GSP
+path through drm's block validation and the debugfs EDID override
+(previously dead on GSP boards, since nothing consulted it outside
+the i2c readers).
+
+The connector keeps a borrowed const drm_edid_raw() view in ->edid, same
+as i915's detect_edid so the raw-EDID consumers (SAD parsing, deep-color
+flags, the DVI dual-link byte, DP CEC) are untouched. Ownership and
+freeing move to the drm_edid. The OF path additionally now frees any
+previous EDID itself rather than relying on the callers. MST connectors
+keep their separate legacy path.
 
 Signed-off-by: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 ---
- drivers/gpu/drm/nouveau/dispnv50/headca7d.c   | 21 ++++++++++++++++---
- .../drm/nouveau/include/nvhw/class/clca7d.h   |  4 ++++
- 2 files changed, 22 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv50/disp.c     |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 95 ++++++++++++++++-----
+ drivers/gpu/drm/nouveau/nouveau_connector.h |  7 +-
+ 3 files changed, 80 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/headca7d.c b/drivers/gpu/drm/nouveau/dispnv50/headca7d.c
-index eeaeb15aa664..2046e38a4d79 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/headca7d.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/headca7d.c
-@@ -219,10 +219,11 @@ headca7d_mode(struct nv50_head *head, struct nv50_head_atom *asyh)
- {
- 	struct nvif_push *push = &head->disp->core->chan.push;
- 	struct nv50_head_mode *m = &asyh->mode;
-+	const u64 hz = (u64)m->clock * 1000;
- 	const int i = head->base.index;
- 	int ret;
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 364227f5456f..c3b7fd29c077 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1804,7 +1804,7 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
+ 			lvds_8bpc = bios->fp.if_is_24bit;
+ 		} else {
+ 			if (nv_connector->type == DCB_CONNECTOR_LVDS_SPWG) {
+-				if (((u8 *)nv_connector->edid)[121] == 2)
++				if (((const u8 *)nv_connector->edid)[121] == 2)
+ 					lvds_dual = true;
+ 			} else
+ 			if (mode->clock >= bios->fp.duallink_transition_clk) {
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
+index b0b0ad9a0c24..4105555151c9 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.c
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+@@ -397,7 +397,7 @@ nouveau_connector_destroy(struct drm_connector *connector)
+ 	struct nouveau_connector *nv_connector = nouveau_connector(connector);
+ 	nvif_event_dtor(&nv_connector->irq);
+ 	nvif_event_dtor(&nv_connector->hpd);
+-	kfree(nv_connector->edid);
++	drm_edid_free(nv_connector->drm_edid);
+ 	drm_connector_unregister(connector);
+ 	drm_connector_cleanup(connector);
+ 	if (nv_connector->aux.transfer)
+@@ -490,8 +490,11 @@ nouveau_connector_of_detect(struct drm_connector *connector)
+ 		int idx = name ? name[strlen(name) - 1] - 'A' : 0;
  
--	ret = PUSH_WAIT(push, 11);
-+	ret = PUSH_WAIT(push, 15);
- 	if (ret)
- 		return ret;
- 
-@@ -245,11 +246,25 @@ headca7d_mode(struct nv50_head *head, struct nv50_head_atom *asyh)
- 	PUSH_MTHD(push, NVCA7D, HEAD_SET_CONTROL(i),
- 		  NVDEF(NVCA7D, HEAD_SET_CONTROL, STRUCTURE, PROGRESSIVE));
- 
-+	/* The FREQUENCY methods carry only 31 HERTZ bits; the upper bits
-+	 * of anything past 2.147GHz live in the HI methods
-+	 * (EvoSetRasterParams9()). Truncation here scans out at pclk modulo 2^31.
-+	 */
- 	PUSH_MTHD(push, NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY(i),
--		  NVVAL(NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY, HERTZ, m->clock * 1000));
-+		  NVVAL(NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY, HERTZ,
-+			(u32)(hz & 0x7fffffff)));
- 
- 	PUSH_MTHD(push, NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY_MAX(i),
--		  NVVAL(NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY_MAX, HERTZ, m->clock * 1000));
-+		  NVVAL(NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY_MAX, HERTZ,
-+			(u32)(hz & 0x7fffffff)));
-+
-+	PUSH_MTHD(push, NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI(i),
-+		  NVVAL(NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI, HERTZ,
-+			(u32)(hz >> 31)));
-+
-+	PUSH_MTHD(push, NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI_MAX(i),
-+		  NVVAL(NVCA7D, HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI_MAX, HERTZ,
-+			(u32)(hz >> 31)));
- 
- 	return 0;
+ 		if (nv_encoder->dcb->i2c_index == idx && edid) {
++			drm_edid_free(nv_connector->drm_edid);
++			nv_connector->drm_edid =
++				drm_edid_alloc(edid, EDID_LENGTH);
+ 			nv_connector->edid =
+-				kmemdup(edid, EDID_LENGTH, GFP_KERNEL);
++				drm_edid_raw(nv_connector->drm_edid);
+ 			return nv_encoder;
+ 		}
+ 	}
+@@ -546,17 +549,42 @@ nouveau_connector_set_encoder(struct drm_connector *connector,
+ 	}
  }
-diff --git a/drivers/gpu/drm/nouveau/include/nvhw/class/clca7d.h b/drivers/gpu/drm/nouveau/include/nvhw/class/clca7d.h
-index 0fec6fc21d44..1ab12d91c9d9 100644
---- a/drivers/gpu/drm/nouveau/include/nvhw/class/clca7d.h
-+++ b/drivers/gpu/drm/nouveau/include/nvhw/class/clca7d.h
-@@ -653,6 +653,10 @@
- #define NVCA7D_HEAD_SET_PIXEL_CLOCK_FREQUENCY_MAX_ADJ1000DIV1001                31:31
- #define NVCA7D_HEAD_SET_PIXEL_CLOCK_FREQUENCY_MAX_ADJ1000DIV1001_FALSE          (0x00000000)
- #define NVCA7D_HEAD_SET_PIXEL_CLOCK_FREQUENCY_MAX_ADJ1000DIV1001_TRUE           (0x00000001)
-+#define NVCA7D_HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI(a)                             (0x000020C0 + (a)*0x00000800)
-+#define NVCA7D_HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI_HERTZ                          3:0
-+#define NVCA7D_HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI_MAX(a)                         (0x000020C4 + (a)*0x00000800)
-+#define NVCA7D_HEAD_SET_PIXEL_CLOCK_FREQUENCY_HI_MAX_HERTZ                      3:0
- #define NVCA7D_HEAD_SET_HEAD_USAGE_BOUNDS(a)                                    (0x00002030 + (a)*0x00000800)
- #define NVCA7D_HEAD_SET_HEAD_USAGE_BOUNDS_CURSOR                                2:0
- #define NVCA7D_HEAD_SET_HEAD_USAGE_BOUNDS_CURSOR_USAGE_NONE                     (0x00000000)
+ 
++struct nouveau_rm_edid {
++	u8 *data;
++	int size;
++};
++
++static int
++nouveau_connector_rm_edid_block(void *context, u8 *buf, unsigned int block,
++				size_t len)
++{
++	struct nouveau_rm_edid *rm = context;
++	size_t offset = (size_t)block * EDID_LENGTH;
++
++	if (offset + len > rm->size)
++		return -EINVAL;
++
++	memcpy(buf, rm->data + offset, len);
++	return 0;
++}
++
+ static void
+ nouveau_connector_set_edid(struct nouveau_connector *nv_connector,
+-			   struct edid *edid)
++			   const struct drm_edid *drm_edid)
+ {
+-	if (nv_connector->edid != edid) {
+-		struct edid *old_edid = nv_connector->edid;
++	if (nv_connector->drm_edid == drm_edid)
++		return;
+ 
+-		drm_connector_update_edid_property(&nv_connector->base, edid);
+-		kfree(old_edid);
+-		nv_connector->edid = edid;
+-	}
++	/* Updates the EDID property and display_info with HF-EEODB-aware
++	 * sizing. The legacy helpers truncate both to what EDID byte 126
++	 * admits, hiding the DisplayID extension blocks that carry every
++	 * timing a DTD can't express (>655.35 MHz).
++	 */
++	drm_edid_connector_update(&nv_connector->base, drm_edid);
++
++	drm_edid_free(nv_connector->drm_edid);
++	nv_connector->drm_edid = drm_edid;
++	nv_connector->edid = drm_edid_raw(drm_edid);
+ }
+ 
+ static enum drm_connector_status
+@@ -590,20 +618,36 @@ nouveau_connector_detect(struct drm_connector *connector, bool force)
+ 
+ 	nv_encoder = nouveau_connector_ddc_detect(connector);
+ 	if (nv_encoder) {
+-		struct edid *new_edid = NULL;
++		const struct drm_edid *new_edid = NULL;
+ 
+ 		if (nv_encoder->i2c) {
+ 			if ((vga_switcheroo_handler_flags() & VGA_SWITCHEROO_CAN_SWITCH_DDC) &&
+ 			    nv_connector->type == DCB_CONNECTOR_LVDS)
+-				new_edid = drm_get_edid_switcheroo(connector, nv_encoder->i2c);
++				new_edid = drm_edid_read_switcheroo(connector, nv_encoder->i2c);
+ 			else
+-				new_edid = drm_get_edid(connector, nv_encoder->i2c);
++				new_edid = drm_edid_read_ddc(connector, nv_encoder->i2c);
+ 		} else {
+-			ret = nvif_outp_edid_get(&nv_encoder->outp, (u8 **)&new_edid);
++			struct nouveau_rm_edid rm = {};
++
++			ret = nvif_outp_edid_get(&nv_encoder->outp, &rm.data);
+ 			if (ret < 0)
+ 				return connector_status_disconnected;
++
++			/* ret is RM's true buffer size: an HF-EEODB EDID is
++			 * larger than its byte 126 admits, and RM (which
++			 * owns the DDC pads on GSP boards) reads it whole.
++			 * Serve it through drm's block reader so EEODB
++			 * sizing, block validation, and the debugfs EDID
++			 * override all apply.
++			 */
++			rm.size = ret;
++			new_edid = drm_edid_read_custom(connector,
++							nouveau_connector_rm_edid_block,
++							&rm);
++			kfree(rm.data);
+ 		}
+ 
++
+ 		nouveau_connector_set_edid(nv_connector, new_edid);
+ 		if (!nv_connector->edid) {
+ 			NV_ERROR(drm, "DDC responded, but no EDID for %s\n",
+@@ -686,7 +730,7 @@ nouveau_connector_detect_lvds(struct drm_connector *connector, bool force)
+ 	struct nouveau_drm *drm = nouveau_drm(dev);
+ 	struct nouveau_connector *nv_connector = nouveau_connector(connector);
+ 	struct nouveau_encoder *nv_encoder = NULL;
+-	struct edid *edid = NULL;
++	const struct drm_edid *edid = NULL;
+ 	enum drm_connector_status status = connector_status_disconnected;
+ 
+ 	nv_encoder = find_encoder(connector, DCB_OUTPUT_LVDS);
+@@ -697,7 +741,7 @@ nouveau_connector_detect_lvds(struct drm_connector *connector, bool force)
+ 	if (!drm->vbios.fp_no_ddc) {
+ 		status = nouveau_connector_detect(connector, force);
+ 		if (status == connector_status_connected) {
+-			edid = nv_connector->edid;
++			edid = nv_connector->drm_edid;
+ 			goto out;
+ 		}
+ 	}
+@@ -712,7 +756,13 @@ nouveau_connector_detect_lvds(struct drm_connector *connector, bool force)
+ 	 * valid - it's not (rh#613284)
+ 	 */
+ 	if (nv_encoder->dcb->lvdsconf.use_acpi_for_edid) {
+-		edid = nouveau_acpi_edid(dev, connector);
++		struct edid *raw = nouveau_acpi_edid(dev, connector);
++
++		if (raw) {
++			edid = drm_edid_alloc(raw,
++					      EDID_LENGTH * (1 + raw->extensions));
++			kfree(raw);
++		}
+ 		if (edid) {
+ 			status = connector_status_connected;
+ 			goto out;
+@@ -733,9 +783,10 @@ nouveau_connector_detect_lvds(struct drm_connector *connector, bool force)
+ 	 * stored for the panel stored in them.
+ 	 */
+ 	if (!drm->vbios.fp_no_ddc) {
+-		edid = (struct edid *)nouveau_bios_embedded_edid(dev);
+-		if (edid) {
+-			edid = kmemdup(edid, EDID_LENGTH, GFP_KERNEL);
++		const void *embedded = nouveau_bios_embedded_edid(dev);
++
++		if (embedded) {
++			edid = drm_edid_alloc(embedded, EDID_LENGTH);
+ 			if (edid)
+ 				status = connector_status_connected;
+ 		}
+@@ -915,7 +966,7 @@ nouveau_connector_detect_depth(struct drm_connector *connector)
+ 	 */
+ 	if (nv_connector->edid &&
+ 	    nv_connector->type == DCB_CONNECTOR_LVDS_SPWG)
+-		duallink = ((u8 *)nv_connector->edid)[121] == 2;
++		duallink = ((const u8 *)nv_connector->edid)[121] == 2;
+ 	else
+ 		duallink = mode->clock >= bios->fp.duallink_transition_clk;
+ 
+@@ -973,8 +1024,8 @@ nouveau_connector_get_modes(struct drm_connector *connector)
+ 		nv_connector->native_mode = NULL;
+ 	}
+ 
+-	if (nv_connector->edid)
+-		ret = drm_add_edid_modes(connector, nv_connector->edid);
++	if (nv_connector->drm_edid)
++		ret = drm_edid_connector_add_modes(connector);
+ 	else
+ 	if (nv_encoder->dcb->type == DCB_OUTPUT_LVDS &&
+ 	    (nv_encoder->dcb->lvdsconf.use_straps_for_mode ||
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
+index 0608cabed058..ca8f310b3680 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.h
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
+@@ -137,7 +137,12 @@ struct nouveau_connector {
+ 	int scaling_mode;
+ 
+ 	struct nouveau_encoder *detected_encoder;
+-	struct edid *edid;
++	/* Borrowed decoded view of ->drm_edid for the raw-EDID consumers
++	 * (SADs, deep-colour flags, dual-link byte); do not free.
++	 */
++	const struct edid *edid;
++	/* Owner of the sink's EDID, HF-EEODB-complete. */
++	const struct drm_edid *drm_edid;
+ 	struct drm_display_mode *native_mode;
+ #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
+ 	struct nouveau_backlight *backlight;
 -- 
 2.55.0
 
