@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D984C5B572
-	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 00:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E658C5B572
+	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 00:13:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5974E10F796;
-	Sat, 15 Aug 2026 00:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FF8610E10F;
+	Sat, 15 Aug 2026 00:13:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i7gw5nJt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JgMHF8BS";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F61310F793
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 00:08:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3510610E10F
+ for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 00:13:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 889674018F;
- Sat, 15 Aug 2026 00:08:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E9E1F000E9;
- Sat, 15 Aug 2026 00:08:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2DBC560008;
+ Sat, 15 Aug 2026 00:13:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A747B1F000E9;
+ Sat, 15 Aug 2026 00:13:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786752525;
- bh=OH0Y4saNg4iMQ2NPzh+/QWV5+c+M4phGdApT9c/DHr0=;
+ s=k20260515; t=1786752793;
+ bh=7RB1lhsdwTLATapkCkGHzJDUND5eo8fYYFpa82FOWJU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=i7gw5nJtcb+hXDpU4+VC/NVpa3OkKUp4wuZSWJ/Kt8WsxsjFB3Wk2hdAjpiEacMgB
- 48D789jVjxsbUGjg4pOHpP8Y81RePYHli4Th/b6+Rzp1nhpoTvtLZv3JxfULtEA6xq
- 8Ujtt19DfTd6XGrMtzgL4VxMuC+I8p7zSwYwN54WWPM4JpxaNsvLAaBT1Bx4ood2nk
- vtXeh7VEZej5/+B9DQl3fm1XgDxOiJW+42zrzdaSSN/pLvAy6GSZu7LfE+dIJMnZuf
- YcnrAMve6ZNy8a/ebmUY5VX940xJPUJizqQb8K4kgnDBjOcphOwSUtcdcAUuT2VUVk
- 6Lg3JNXVrjygA==
+ b=JgMHF8BS0ESWrekmZsxaN/0l9PrGrtpgNLuEAcHyEebgXY5mOOPmqjfU4PulL5Vln
+ prqhKTHjaSSsAYqkFQbztBPQ3evH+pphIM4GD6+qNzNUe9xv7LKJkR29wD7KjOgpC3
+ TBz3vvHzDQ9nLys/L4cAIxP2YxK8zDFx+gYcyPAXqBZKIBFTpCV14rRBrVMlH/3Efy
+ 4fBhQPuzQbLsaI4jP9t96jYumKhZz8xmLC0F9zWVtXYdbaCM3+/oOd20WLauC33Fjx
+ CL4eh23OoorpC2mtLkEXZaBihSBy67X+I7bIsCmMyW8gZnYXnAvbUh7Jmljece1roT
+ jJUeMzKUiy1+Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/7] nouveau/gsp: fix vblank interrupts on GB20x
+Subject: Re: [PATCH 4/7] nouveau/gsp: use per-version DP_CONFIG_STREAM
+ params on r570 firmware
 To: "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260814235705.59132-6-mohamedahmedegypt2001@gmail.com>
+In-Reply-To: <20260814235705.59132-5-mohamedahmedegypt2001@gmail.com>
 References: <20260814235705.59132-1-mohamedahmedegypt2001@gmail.com>
- <20260814235705.59132-6-mohamedahmedegypt2001@gmail.com>
+ <20260814235705.59132-5-mohamedahmedegypt2001@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 00:08:44 +0000
-Message-Id: <20260815000845.41E9E1F000E9@smtp.kernel.org>
+Date: Sat, 15 Aug 2026 00:13:13 +0000
+Message-Id: <20260815001313.A747B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +58,67 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] NULL pointer dereference in `nvkm_uhead_mthd_scanoutpos` due to mi=
-ssing `.rgpos` callback in `gb202_head`.
-- [Low] Build failure due to undeclared identifier `r535_head_state` in `gb=
-202_head` struct.
+
+Pre-existing issues:
+- [High] Integer underflow when computing MST.slotEnd for disabled outputs,=
+ leading to a massive slotEnd value (0xFFFFFFFF).
 --
 
---- Patch [5]: [PATCH 5/7] nouveau/gsp: fix vblank interrupts on GB20x ---
-commit f0249296d0fe470f2e8d8e3f163056c84c1f8f5d
+--- Patch [4]: [PATCH 4/7] nouveau/gsp: use per-version DP_CONFIG_STREAM pa=
+rams on r570 firmware ---
+commit d855125b895d27bafd2aaed0c330ae6eae007aef
 Author: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 
-nouveau/gsp: fix vblank interrupts on GB20x
+nouveau/gsp: use per-version DP_CONFIG_STREAM params on r570 firmware
 
-The GSP path programs per-head timing (vblank) interrupts the same way on
-every generation. NVD5.0 (GB20x) reworked the FE interrupt frontend
-around four message-based kernel vectors and moved RM head-timing
-interrupts to the dedicated low-latency vector. This patch selects the
-head functions and interrupt handler per generation to fix vblank interrupt=
-s.
+This commit separates the DP_CONFIG_STREAM_PARAMS structure and its related
+functions into r535 and r570 variants. This handles the structure shrinking
+that occurred in the 570 firmware version.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/dri=
-vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> index fd473b4d12a82..bc91d46e646d5 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/disp.c b/dri=
+vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/disp.c
+> index a96e31c2d80b2..61f82e15ff398 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/disp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/disp.c
 [ ... ]
-> @@ -692,6 +692,33 @@ r535_head =3D {
->  	.vblank_put =3D r535_head_vblank_put,
->  };
+> @@ -74,6 +75,67 @@ r570_disp_chan_set_pushbuf(struct nvkm_disp *disp, s32=
+ oclass, int inst, struct
+>  	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
+>  }
 > =20
+> +static void
+> +r570_dp_vcpi(struct nvkm_ior *sor, int head, u8 slot, u8 slot_nr, u16 pb=
+n, u16 aligned_pbn)
+> +{
+> +	struct nvkm_disp *disp =3D sor->disp;
+> +	NV0073_CTRL_CMD_DP_CONFIG_STREAM_PARAMS *ctrl;
 [ ... ]
-> +static const struct nvkm_head_func
-> +gb202_head =3D {
-> +	.state =3D r535_head_state,
-
-[Severity: Low]
-Does r535_head_state exist? It appears this might cause a build failure
-due to an undeclared identifier. The existing r535_head struct uses
-gv100_head_state for this field.
+> +	ctrl->MST.slotStart =3D slot;
+> +	ctrl->MST.slotEnd =3D slot + slot_nr - 1;
 
 [Severity: High]
-Is it safe to omit the rgpos callback here?
+This isn't a bug introduced by this patch, but this preexisting issue gets
+copied into the new r570_dp_vcpi() function from the r535 code.
 
-When userspace queries the head scanout position via NVIF_HEAD_V0_SCANOUTPO=
-S,
-execution goes to nvkm_uhead_mthd_scanoutpos(), which unconditionally
-dereferences head->func->rgpos:
+When an MST output is disabled, nv50_msto_prepare() (in dispnv50/disp.c)
+calls nvif_outp_dp_mst_vcpi() with num_slots=3D0. This propagates here, set=
+ting
+slot_nr to 0.
 
-    head->func->rgpos(head, &args->v0.hline, &args->v0.vline);
+With slot_nr =3D 0, does the expression "slot + slot_nr - 1" evaluate to -1?
+Since MST.slotEnd is an NvU32, this would underflow to 0xFFFFFFFF, passing
+a maximal bound for a time slot range to the GSP firmware.=20
 
-Without rgpos being set on gb202_head, will this cause a NULL pointer
-dereference when accessed from userspace?
+Could this potentially cause out-of-bounds accesses or hangs in the firmwar=
+e?
+Should this logic be updated to handle slot_nr =3D 0 safely before it evalu=
+ates
+to -1 and underflows?
 
-> +	.vblank_get =3D gb202_head_vblank_get,
-> +	.vblank_put =3D gb202_head_vblank_put,
-> +};
-> +
+> +	ctrl->MST.PBN =3D pbn;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814235705.5913=
-2-1-mohamedahmedegypt2001@gmail.com?part=3D5
+2-1-mohamedahmedegypt2001@gmail.com?part=3D4
