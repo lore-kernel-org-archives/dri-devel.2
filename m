@@ -4,81 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37621C5DF6A
-	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 19:54:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3B6C5AD5A
+	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 20:09:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70A4A10E5FE;
-	Sat, 15 Aug 2026 19:54:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9392310E1C1;
+	Sat, 15 Aug 2026 20:09:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AJmWT0e/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FK768pQW";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A630210E613
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 19:54:32 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4995df974b3so1084545e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 12:54:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786823671; x=1787428471; darn=lists.freedesktop.org;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=LRzhc3yRX4X2M0pP9m+t3D39cWjJJWO0zjbMTBO7W2E=;
- b=AJmWT0e/X8gYukuiyWRCWhhhwj1HlHXqdFDaGuFZCC7gi+f1IjAAUKKpONgie04XZl
- SbPrn/f1RC0P/vc5pShPEkJwcpQtXVDvq5KQokojZNRUATXpYS++cpwFIUUUt2Phiz1G
- IvZMXsi/3UvSK0/mKUhwAcKcnxbs8Daek0Y6D7OmXAjOgQ3y4BrxIS8xy8ILJsPSzZif
- zI/Gj1xRRUccRc9tdPRZRRhNXneU490w6BiSyZQLiFMTzvs2Xs9HLvwKt7gSGrK1KmCs
- BxJDadQNTfWv4maKjtyfEvYMr8o9CQ8YZFaARSuOptcsUIkDP1qaCBDuqPfW31HmcDkx
- mVgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786823671; x=1787428471;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=LRzhc3yRX4X2M0pP9m+t3D39cWjJJWO0zjbMTBO7W2E=;
- b=J5/nM8Ne8JoYdO/p/jfofFzqFoLCsLMUf9zQq3g/kz0WhK1QqAgJDVE0Et69FCVZdA
- nX+tXigdLhZpbXLJHrJYoxhQUxoo0FhijBa2ZUZJ+KRNEKlcsswwgyA7kehJeMxNwdCU
- 3W6VrpeAgq5Cp+PoEDHPeSS256bwoXvJuPURKMOCTlsVi7pwtOVcoHtW+27K+scYK1q0
- rZ1qAIJkDJu/GU8R0oZve7ugM7VFkC5vz2WC7VuRmC/fQeocKCA5IAfL2miGQxSCoG+s
- 1T1LJFU6A0yijD72Gbpnp2ZLuihNidkpuoQ5WM4XN2lMRrGCIGfNiUhbnCESnXOCu7Va
- 97cQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpI6zpjuDJIIgYemqgQwTBChUHBV+Y7tdPDLNPqDwDlonpPoWeS1fP8b9YJpGKCTH+jNIzGW3aoQRM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz/3IlP50wX+AbBdH+O4ie6Sc6fws8WWwXcN2n/RQlWmrH9/iai
- KWV7nm4ey3XO3ogtq5o24jJJOdTZaa6lQ8KWhP8653RX73PP2SqknmqK
-X-Gm-Gg: AR+sD10WKOiKYvPcmZhSJHE7tYubqBCTqd38g+A3uKvKxWl8NLSew/vO70z400mloLW
- ep9YAqeHcYVaGCGoARGWvxXjHMxuJVxbhYr00g79jLw05yWxGzaxBmFH3Ug34rlRGhH8CyXHpOF
- 7sKoLwJEU0xNcFRhrGUSSod8761t5uSC51QPPTAcZTduQiD7+xStqccz3qF6qnq8zyT04Se+M20
- 5uriTZX5ypn/N7MHDO5eqoTgAuvIpm6G/fWWWHBmdhHiEiPat8d8q37PEWYPB79T1cPnswk0MMD
- UGK2wwgI23L8AJyfuF9Sclp/aW0PdsQ5UmlSVAibSMZa91SRxTIl/Rjschx+xKfYaZGOggH0NVO
- 8rmL1BmyVJttkD4rpem3vcR4aqULITHgn1oKI3hMV3H2wLOUZXm1faIPKHKjX6apKddos13+4au
- pZgX2VhCL9JaR7riu38tOTEh7+FNXzLx5kzbtYACuxEIJSh9zrbYqrsdAMSLBCezEnNfM1zUBsr
- kfm7mIPn4BiyZkuQfL0BPmMmX11thgEoPJjbW4y4g==
-X-Received: by 2002:a05:600c:1c05:b0:492:4a7a:e415 with SMTP id
- 5b1f17b1804b1-4998795db2bmr142400025e9.2.1786823670870; 
- Sat, 15 Aug 2026 12:54:30 -0700 (PDT)
-Received: from [127.0.0.1] (ip-109-193-028-127.um39.pools.vodafone-ip.de.
- [109.193.28.127]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499899bff2csm133743775e9.7.2026.08.15.12.54.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 15 Aug 2026 12:54:30 -0700 (PDT)
-From: Marek Czernohous <mczernohous@gmail.com>
-To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH 3/3] drm/nouveau: don't dereference outp before checking it in
- nouveau_dp_irq
-Date: Sat, 15 Aug 2026 21:54:20 +0200
-Message-ID: <178682366004.3748010.14933649768375463967@gmail.com>
-X-Mailer: python-smtplib
-In-Reply-To: <178682366001.3748010.7798811159846779765@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1327610E1C1
+ for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 20:09:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0BBAB60052;
+ Sat, 15 Aug 2026 20:09:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1131F000E9;
+ Sat, 15 Aug 2026 20:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786824554;
+ bh=Gt9+r6vyCV1URF6sdF9ZMK+bNyTp0pyuHBy6PBKQ+UE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FK768pQWgA3Pezmd7Ih4D+nnSczhe0+yEEAOEAB729sRrvm/z2BdkuAmWtu11Nj3n
+ rGBtIgvGJV/rexMApu/ij/QfvKcDX4XhEdbWj/cmU9hNPrN66qu7rQeJUljQByexRg
+ jXrV6uEnvRAzvuRDRUVfrBE6s3YH+6++wYyU7kXTNgOhmfXRttBiGk9VhChbwtgPdE
+ 8u/5D155aoNHwDQLeCfQ+EmQzSHGxPBapMNMBfd4EQreiOoPZCE0jcbwxtVEXDLDgh
+ 6e3N7z8QQC8Y3AqzqTE9+DjDO9fBj1qDgayPnBiryAjuXOYVXcyTWFRdioqrDx3tXe
+ OTpSu/QXR7hhA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] drm/nouveau: destroy the fence event before
+ cancelling its work
+To: "Marek Czernohous" <mczernohous@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <178682366002.3748010.12779628082366287968@gmail.com>
 References: <178682366001.3748010.7798811159846779765@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
+ <178682366002.3748010.12779628082366287968@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 15 Aug 2026 20:09:14 +0000
+Message-Id: <20260815200914.8A1131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,64 +54,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Marek Czernohous <marek@czernohous.de>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Moving `nvif_event_dtor()` before `nouveau_fence_context_kill(=
+)` introduces an unprotected Time-of-Check to Time-of-Use (TOCTOU) race con=
+dition that results in a NULL pointer dereference in `nvif_object_ioctl`.
+--
 
-nouveau_dp_irq() looks the encoder up and dereferences it in the same
-breath, five lines before testing it:
+--- Patch [1]: [PATCH 1/3] drm/nouveau: destroy the fence event before canc=
+elling its work ---
+commit 248f9b5f2479dc65d3572babf739eb3883d7b9f7
+Author: Marek Czernohous <marek@czernohous.de>
 
-	struct nouveau_encoder *outp = find_encoder(connector, DCB_OUTPUT_DP);
-	struct nouveau_drm *drm = nouveau_drm(outp->base.base.dev);
+drm/nouveau: destroy the fence event before cancelling its work
+
+This commit reorders the teardown sequence in nouveau_fence_context_del() by
+moving nvif_event_dtor() before cancel_work_sync() and
+nouveau_fence_context_kill(). It aims to prevent a newly arriving interrupt
+from re-arming the work that was just cancelled.
+
+Link: https://sashiko.dev/#/patchset/20260812231330.705425-1-mczernohous@gm=
+ail.com?part=3D1
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/no=
+uveau/nouveau_fence.c
+> index edbe9e08ba0fd..4a3698dc2cd14 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_fence.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
+> @@ -96,9 +96,9 @@ nouveau_fence_context_kill(struct nouveau_fence_chan *f=
+ctx, int error)
+>  void
+>  nouveau_fence_context_del(struct nouveau_fence_chan *fctx)
+>  {
+> +	nvif_event_dtor(&fctx->event);
+>  	cancel_work_sync(&fctx->uevent_work);
+>  	nouveau_fence_context_kill(fctx, 0);
+
+[Severity: Critical]
+Does moving nvif_event_dtor() before nouveau_fence_context_kill() introduce=
+ a
+Time-of-Check to Time-of-Use (TOCTOU) race condition?
+
+Since nouveau_fence_context_kill() hasn't run yet, the fences are still
+active and unsignaled. If Thread A is polling a fence and calls
+nouveau_fence_enable_signaling() which reaches nvif_event_allow(), it might
+evaluate nvif_event_constructed() right before Thread B destroys the event:
+
+Thread A:
+drivers/gpu/drm/nouveau/nvif/event.c:nvif_event_allow() {
+	if (nvif_event_constructed(event)) {
+
+Thread B concurrently cleans up the channel:
+drivers/gpu/drm/nouveau/nouveau_fence.c:nouveau_fence_context_del() {
+	nvif_event_dtor(&fctx->event);
 	...
-	if (!outp)
-		return;
+drivers/gpu/drm/nouveau/nvif/object.c:nvif_object_dtor() {
+	nvif_object_ioctl(object, &args, sizeof(args), NULL);
+	object->client =3D NULL;
 
-find_encoder() walks the connector's possible encoders and returns NULL
-when none of them matches the requested type, so the NULL test is not
-decoration: it is the author saying this can happen. The initialiser
-above it dereferences the same pointer regardless.
+Thread A then continues and calls into nvif_mthd():
+drivers/gpu/drm/nouveau/nvif/event.c:nvif_event_allow() {
+		int ret =3D nvif_mthd(&event->object, NVIF_EVENT_V0_ALLOW, ...);
+		...
+drivers/gpu/drm/nouveau/nvif/object.c:nvif_object_ioctl() {
+	struct nvif_client *client =3D object->client;
+	/* ... */
+	return client->driver->ioctl(client->object.priv, data, size, hack);
 
-The NULL test predates the dereference. commit 773eb04d14a1
-("drm/nouveau/disp: expose conn event class") turned nouveau_dp_irq()
-into a work callback, and since the drm pointer was no longer passed in
-as an argument it was recovered from the encoder in the declaration
-block, which put the dereference above the existing test.
+Could Thread A read the stale object->client as NULL and fatally dereference
+it here, since both polling on an exported sync_file fd and channel cleanup
+are accessible to unprivileged userspace?
 
-Move the drm lookup below the test. No functional change when outp is
-non-NULL.
+> -	nvif_event_dtor(&fctx->event);
+>  	fctx->dead =3D 1;
+> =20
+>  	/*
 
-Fixes: 773eb04d14a1 ("drm/nouveau/disp: expose conn event class")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Marek Czernohous <marek@czernohous.de>
----
- drivers/gpu/drm/nouveau/nouveau_dp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
-index 55691ec44aba..738802358d85 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dp.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
-@@ -486,7 +486,7 @@ nouveau_dp_irq(struct work_struct *work)
- 		container_of(work, typeof(*nv_connector), irq_work);
- 	struct drm_connector *connector = &nv_connector->base;
- 	struct nouveau_encoder *outp = find_encoder(connector, DCB_OUTPUT_DP);
--	struct nouveau_drm *drm = nouveau_drm(outp->base.base.dev);
-+	struct nouveau_drm *drm;
- 	struct nv50_mstm *mstm;
- 	u64 hpd = 0;
- 	int ret;
-@@ -494,6 +494,8 @@ nouveau_dp_irq(struct work_struct *work)
- 	if (!outp)
- 		return;
- 
-+	drm = nouveau_drm(outp->base.base.dev);
-+
- 	mstm = outp->dp.mstm;
- 	NV_DEBUG(drm, "service %s\n", connector->name);
- 
--- 
-2.54.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178682366001.374801=
+0.7798811159846779765@gmail.com?part=3D1
