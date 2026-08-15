@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 099FAC5AD5A
-	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 17:40:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C275AC5DF6A
+	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 18:22:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52F0610E1EF;
-	Sat, 15 Aug 2026 17:40:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0741510E16F;
+	Sat, 15 Aug 2026 18:22:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WIhprDT0";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="iyqNM1eM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F99510E1EF
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 17:40:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0438341E5B;
- Sat, 15 Aug 2026 17:40:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0ED91F000E9;
- Sat, 15 Aug 2026 17:40:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786815656;
- bh=xijNIYips6LjntRdo0u408llkVxWhN9bXKJPLtYCo7Q=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WIhprDT0IxL/Jvq+S4WOCuw5y4MnH1Ez4lS7rABLRmTZdMDez1AacuiFhSWWtMRHR
- d3vtO3qjXZhj5M3jCgjYI6QSEf4YRItQzUMZ1BNksznh2sDA7r37q4LVysjh0YBZ0m
- 9ijKiGQp8j9N002Sz9QODeLuZgVog8JeSmA+j/AVU+o9kX1WbAjnPubhN9fyBP2bY/
- s8H794xCDZTpofNYfx87H8W/ufsMFgRK9QbaWYa6lyu+I/WXXOleNLW6KH8HkgHcol
- /q/T8BCKXgGlPtesL08m43VEzHIMLK8ZtWNPfGub1eqoLytZf6vPS9NA+azMUnb7KW
- KPfN95zbNtG7A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/nouveau: Fix NULL pointer dereferences in
- GETPARAM ioctl
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260815-null-fixes-v1-1-0df9dda951fb@gmail.com>
-References: <20260815-null-fixes-v1-0-0df9dda951fb@gmail.com>
- <20260815-null-fixes-v1-1-0df9dda951fb@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 17:40:56 +0000
-Message-Id: <20260815174056.B0ED91F000E9@smtp.kernel.org>
+X-Greylist: delayed 1300 seconds by postgrey-1.36 at gabe;
+ Sat, 15 Aug 2026 18:22:27 UTC
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D218310E16F;
+ Sat, 15 Aug 2026 18:22:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=n1XUA6JsCg5ABZi9kKk3iM45wBqRvOp8op6pAdXLI28=; b=iyqNM1eMfrbS8MXy
+ wzCoXp1moYc6SAFGA5OqCq9NmV2sV5xyy+9tvhLv7hIDfPoU0KxRF3vzjhhPrUUPJc20YXscN/GNb
+ Wt6JprThDs15388O+ZECo4ihLLteAgJtSZV3miVK4kY+Hlz0GA72AOy+oLKbHQIWMzVrFtL4q20zC
+ JyBH94+Hat7RuN3LkCYPYKt5Ki+RzKOE6ODk6y02nJrvWXuZlRkkOC34zGgZcGJA4V1bnZvYqGJP/
+ fVRsYPXtrMmu7TA6CVNd+HuVSSZ/rE28cSQVhNlthGR7RXoemTzvWuvTBBCyBWa50q6eELyP7Hy11
+ iSqsefyFV7OqML+tkQ==;
+Received: from localhost ([127.0.0.1] helo=dalek)
+ by mx.treblig.org with esmtp (Exim 4.98.2)
+ (envelope-from <linux@treblig.org>) id 1wvIga-00000002HFi-2Tm5;
+ Sat, 15 Aug 2026 18:00:48 +0000
+From: linux@treblig.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
+Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH 4/4] drm/amdgpu: Remove is_idle
+Date: Sat, 15 Aug 2026 19:00:33 +0100
+Message-ID: <20260815180033.8958-5-linux@treblig.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260815180033.8958-1-linux@treblig.org>
+References: <20260815180033.8958-1-linux@treblig.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,79 +55,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-Pre-existing issues:
-- [Critical] The patch fixes a NULL pointer dereference in the `GETPARAM` i=
-octl when the graphics engine (`gr`) fails to initialize but misses an iden=
-tical issue in `nouveau_abi16_ioctl_get_zcull_info`.
---
+Remove the actual is_idle member, since it's never read/called and
+the previous patches have remove all the assignments.
 
---- Patch [1]: [PATCH 1/2] drm/nouveau: Fix NULL pointer dereferences in GE=
-TPARAM ioctl ---
-commit 6569813c05cdc1cf39cfd469b6745e81e7cad86d
-Author: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+---
+ drivers/gpu/drm/amd/include/amd_shared.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-drm/nouveau: Fix NULL pointer dereferences in GETPARAM ioctl
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index 6d0c74ebdb58..e3baef809cd1 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -437,7 +437,6 @@ enum amd_dpm_forced_level;
+  * @suspend: handles IP specific hw/sw changes for suspend
+  * @resume: handles IP specific hw/sw changes for resume
+  * @complete: handles IP specific changes after resume
+- * @is_idle: returns current IP block idle status
+  * @wait_for_idle: poll for idle
+  * @soft_reset: soft reset the IP block
+  * @set_clockgating_state: enable/disable cg for the IP block
+@@ -466,7 +465,6 @@ struct amd_ip_funcs {
+ 	int (*suspend)(struct amdgpu_ip_block *ip_block);
+ 	int (*resume)(struct amdgpu_ip_block *ip_block);
+ 	void (*complete)(struct amdgpu_ip_block *ip_block);
+-	bool (*is_idle)(struct amdgpu_ip_block *ip_block);
+ 	int (*wait_for_idle)(struct amdgpu_ip_block *ip_block);
+ 	int (*soft_reset)(struct amdgpu_ip_block *ip_block);
+ 	int (*set_clockgating_state)(struct amdgpu_ip_block *ip_block,
+-- 
+2.55.0
 
-This patch adds safety checks for the graphics engine and device functions
-in the GETPARAM ioctl handler. It returns -ENODEV to signal missing
-hardware state to userspace, preventing a kernel NULL pointer dereference
-when initialization fails.
-
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c b/drivers/gpu/drm/no=
-uveau/nouveau_abi16.c
-> index 291203121f0c2..c9270c5b0fac8 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> @@ -306,7 +306,12 @@ nouveau_abi16_ioctl_getparam(ABI16_IOCTL_ARGS)
->  		getparam->value =3D 1;
->  		break;
->  	case NOUVEAU_GETPARAM_GRAPH_UNITS:
-> -		getparam->value =3D nvkm_gr_units(gr);
-> +		if (gr && gr->func) {
-> +			getparam->value =3D nvkm_gr_units(gr);
-> +		} else {
-> +			NV_ERROR_ONCE(drm, "GETPARAM_GRAPH_UNITS: no gr engine or func\n");
-> +			return -ENODEV;
-> +		}
->  		break;
-
-[Severity: Critical]
-This is a pre-existing issue, but while you are fixing the NULL pointer
-dereference of the gr pointer here, is there a similar vulnerability
-in the adjacent nouveau_abi16_ioctl_get_zcull_info() function?
-
-If the graphics engine fails to initialize and gr is NULL, as addressed by
-this patch, it looks like an unprivileged userspace process could still
-trigger an Oops by calling the DRM_IOCTL_NOUVEAU_GET_ZCULL_INFO ioctl,
-which only requires DRM_RENDER_ALLOW.
-
-Looking at the nouveau_abi16_ioctl_get_zcull_info() function in
-drivers/gpu/drm/nouveau/nouveau_abi16.c, the gr pointer is unconditionally
-dereferenced:
-
-int
-nouveau_abi16_ioctl_get_zcull_info(ABI16_IOCTL_ARGS)
-{
-	struct nouveau_drm *drm =3D nouveau_drm(dev);
-	struct nvkm_gr *gr =3D nvxx_gr(drm);
-	struct drm_nouveau_get_zcull_info *out =3D data;
-
-	if (gr->has_zcull_info) {
-		const struct nvkm_gr_zcull_info *i =3D &gr->zcull_info;
-		...
-
-Would it make sense to add a similar check for gr being NULL before
-dereferencing gr->has_zcull_info?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260815-null-fixes=
--v1-0-0df9dda951fb@gmail.com?part=3D1
