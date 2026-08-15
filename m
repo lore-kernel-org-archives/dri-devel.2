@@ -4,72 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FEF4C5DF67
-	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 06:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D838C5AD5A
+	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 10:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7434210E151;
-	Sat, 15 Aug 2026 06:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 839D189160;
+	Sat, 15 Aug 2026 10:25:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IOomPtrM";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="XBpg2vXM";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4EFE10E151
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 06:37:16 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B134F60A92;
- Sat, 15 Aug 2026 06:37:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D3CBC2BCC7;
- Sat, 15 Aug 2026 06:37:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786775835;
- bh=9T77PimmZzMHSJlCsZUQkkkVxlGA/4YGsi6l6j74tiY=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=IOomPtrMNDPPp53vAXQbOGNGLBrlqX0s7E+Lp2dQCDYaebYb+v62dkXEo9wMY0Nfs
- Bv6JqsuYEThgjj4EaiwpBUAAgv2vxH89F7xBPF8LhnP8MqAgPAlzyeuYzwR4s5Xpp7
- c5dSHITMLrA0WFV+yf0uxUm2Ydss8nJ8XC9M75O3zJbICruV/QZA9V7GYnjReDWJK5
- lX2Wybn7I3+xvs5eamC7ury3scjRk7P+ArSEqmMy1XhzzxXv/zMPFPJ8sS0Q9PP+vc
- eppjKbRMBSJsrAOhNDhzMFbYRNd+facWIdVbhniE/+xaPCYX1YdntmYpuSgWVAVhJW
- gE9n+0yqo31cw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3677BC5AD5A;
- Sat, 15 Aug 2026 06:37:15 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Sat, 15 Aug 2026 14:37:08 +0800
-Subject: [PATCH] drm: check for NULL master in drm_getunique() and
- drm_getmagic()
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch
+ [109.224.244.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E2C389160
+ for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 10:25:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=protonmail; t=1786789522; x=1787048722;
+ bh=Ch3h5EXUnpKlpxmhyEmT2bdi9jXmVtmNTyU/FIKOMuE=;
+ h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=XBpg2vXMOkMk9BKwc0VI2UIwLaNiZjPjrLbhw5OkOufGWJytdHV4PS5CLmHxICo1r
+ PIBNOxRojSlq0n8e/fRv3UsbRcO8lVsTOQq1hYMtoDDmLi2UhNFRJr2bQViYYWZPcP
+ 19xX3yPDOkKHDgQ7r0p3ziPDCa0xcfF7udG6EDTpLkWhhoj8XN00uHRKoIpCTRL23H
+ 8xRMnr1v1jpUziDKQW5+78Et/a3oGVnzP9xu5nZy8DEoDcm5ixHMTdgFyBsY/sXGh2
+ 7BXxpgkaQJN/qKT4TwzkUTxQKZdxxiieaDeO5f7uNhZ5qU/oHSKn0/97JsxakNm6fp
+ AhMkP909i3Kuw==
+X-Pm-Submission-Id: 4hMZws3GSKz2SchM
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
+ airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+ a.hindborg@kernel.org, tmgross@umich.edu,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: [PATCH v4 0/4] drm/tyr: GPU reset infrastructure
+Date: Sat, 15 Aug 2026 13:23:56 +0300
+Message-ID: <20260815-tyr-reset-impl-v4-0-578df9a5e576@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260815-drm-accel-null-master-v1-1-93bdd3ba52f1@outlook.com>
-X-B4-Tracking: v=1; b=H4sIABMJgGoC/x3MQQqAIBBA0avErBtQqYiuEi1Mpxowi7EiiO6et
- HyL/x9IJEwJuuIBoYsTbzFDlwW4xcaZkH02GGUa1eoavaxonaOA8QwBV5sOElTe1NRoUyk7Qm5
- 3oYnv/9sP7/sBoCUOC2cAAAA=
-X-Change-ID: 20260815-drm-accel-null-master-0d25e61240ab
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Melissa Wen <mwen@igalia.com>, 
- Dave Airlie <airlied@redhat.com>, 
- Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>, 
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org, 
- Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2581;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=14Xmewi+giltRJel9Gjr6ymfbKDBgR2rRdumGxnoDdQ=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrAZOqUOeDpPN7Pz9l2+SO3q5OeDTruefTzwPf/LY6
- ZuA7fLQ6uMdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMBFfJkaGl3PW9f0Pn6O1
- 4cQG7wWnzQ3eMz3nmLtm7rXIl/ptsn/L7BgZri59ujdx2WNLpQdRbSulfvv77rly723cwdN7N87
- Njw//xAAAUWlPag==
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+X-Change-ID: 20260813-tyr-reset-impl-93e951f996b4
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,77 +56,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: moonafterrain@outlook.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Junrui Luo <moonafterrain@outlook.com>
+Add support for scheduling GPU resets on a dedicated workqueue. Track
+the reset state to avoid queueing another reset while one is already
+pending or in progress.
 
-drm_getunique() and drm_getmagic() dereference file_priv->master without
-checking it, and both ioctls are registered with flags of 0.
-drm_open_helper() only calls drm_master_open() for primary clients, so a
-drm_file opened on a non-primary minor keeps master == NULL. Render
-clients are already rejected by the DRM_RENDER_ALLOW test in
-drm_ioctl_permit(), so before commit 2c204f3d5321 ("accel: add dedicated
-minor for accelerator devices") every drm_file reaching these ioctls had
-a master.
+Use an SRCU based gate with mutex-protected reader admission to block
+hardware accesses while reset work runs and wait for current users
+before resetting.
 
-DRM_MINOR_ACCEL is neither primary nor render: it gets no master in
-drm_open_helper() and is not covered by drm_is_render_client(). Issuing
-DRM_IOCTL_GET_UNIQUE or DRM_IOCTL_GET_MAGIC on /dev/accel/accel* leads
-to a NULL pointer dereference, in drm_getunique() with dev->master_mutex
-held. The compat entry point reaches drm_getunique() through
-drm_ioctl_kernel() with flags of 0 as well.
+Stop new reset requests during teardown and drain any queued or running
+reset work before releasing the device resources.
 
-Return -EINVAL when master is NULL, matching drm_setmaster_ioctl().
+This is the initial reset infrastructure only. It is not wired to a reset
+source yet as those will follow in separate work.
 
-Fixes: 2c204f3d5321 ("accel: add dedicated minor for accelerator devices")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+Based on 'commit 53441a9cae3c ("drm/tyr: program CSF global interface")'
+from tyr-for-upstream with the following patch series on the ML:
+  - rust: workqueue: add cancel_sync support [1]
+  - rust: add SRCU abstraction [2]
+  - rust: workqueue: add ScopedQueue for lifetime bound items [3]
+  - Creation of workqueues in Rust [4]
+
+TODOs:
+  - On reset failure, we don't do anything for now. We should unplug
+	  the GPU (that's what Panthor does) but we don't have the infrastructure
+    for that yet [5].
+  - In schedule(), similar to panthor_device_schedule_reset(), we should
+  	have a PM check but similar to the note above, we don't have the
+    infrastructure for that yet.
+
+Changes since v4:
+  - Moved iomem behind the HwGate.
+  - Renamed the guard names in hw_gate (after the iomem patch, I realized
+    the old names were confusing).
+
+Changes since v3:
+  - Dropped Resettable, ActiveHwState, pre/post-reset hooks and typestate.
+  - Removed ResetState::Enqueueing and teardown spinning.
+  - Replaced fail-fast try_access() and epoch tracking with a blocking
+    hardware-access gate.
+  - Used b4 for the prerequisites.
+
+Changes since v2:
+  - Replaced Work::disable_sync with Work::cancel_sync.
+  - Used type state pattern for reset stages.
+  - Using ScopedQueue with device lifetime instead of a static workqueue.
+  - Removed SRCU patch from this series.
+
+Changes since v1:
+  - Removed OrderedQueue and using Alice's workqueue implementation [1]
+    instead.
+  - Added Resettable trait with pre_reset and post_reset hooks to be
+    implemented by reset-managed hardwares.
+  - Added SRCU abstraction and used it to synchronize the reset work and
+    hardware access.
+
+v1: https://lore.kernel.org/rust-for-linux/20260313091646.16938-1-work@onurozkan.dev
+v2: https://lore.kernel.org/rust-for-linux/20260416171728.205141-1-work@onurozkan.dev
+v3: https://lore.kernel.org/all/20260708114358.957305-1-work@onurozkan.dev
+v4: https://lore.kernel.org/all/20260813-tyr-reset-impl-v4-0-b36fcd0805b2@onurozkan.dev
+
+Link: https://lore.kernel.org/all/20260617131731.145337-1-work@onurozkan.dev [1]
+Link: https://lore.kernel.org/all/20260613065348.96750-1-work@onurozkan.dev [2]
+Link: https://lore.kernel.org/all/20260617144645.253444-1-work@onurozkan.dev [3]
+Link: https://lore.kernel.org/all/20260312-create-workqueue-v4-0-ea39c351c38f@google.com [4]
+Link: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/29#note_3391826 [5]
+Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28
+Signed-off-by: Onur Özkan <work@onurozkan.dev>
 ---
- drivers/gpu/drm/drm_auth.c  | 3 +++
- drivers/gpu/drm/drm_ioctl.c | 5 +++++
- 2 files changed, 8 insertions(+)
+Onur Özkan (4):
+      rust: workqueue: impl Send and Sync for OwnedQueue
+      drm/tyr: clear stale IRQ state before soft reset
+      drm/tyr: add GPU reset infrastructure
+      drm/tyr: put iomem behind the hardware gate
 
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index e5013b870ba0..cb9e02c486f0 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -97,6 +97,9 @@ int drm_getmagic(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 	int ret = 0;
- 
- 	guard(mutex)(&dev->master_mutex);
-+	if (!file_priv->master)
-+		return -EINVAL;
-+
- 	if (!file_priv->magic) {
- 		ret = idr_alloc(&file_priv->master->magic_map, file_priv,
- 				1, 0, GFP_KERNEL);
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 9039a39c4324..083722d8dd44 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -120,6 +120,11 @@ int drm_getunique(struct drm_device *dev, void *data,
- 
- 	mutex_lock(&dev->master_mutex);
- 	master = file_priv->master;
-+	if (!master) {
-+		mutex_unlock(&dev->master_mutex);
-+		return -EINVAL;
-+	}
-+
- 	if (u->unique_len >= master->unique_len) {
- 		if (copy_to_user(u->unique, master->unique, master->unique_len)) {
- 			mutex_unlock(&dev->master_mutex);
-
+ drivers/gpu/drm/tyr/driver.rs            |  61 +++-----
+ drivers/gpu/drm/tyr/fw.rs                |  16 +-
+ drivers/gpu/drm/tyr/mmu.rs               |   9 +-
+ drivers/gpu/drm/tyr/mmu/address_space.rs |  49 +++---
+ drivers/gpu/drm/tyr/reset.rs             | 252 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/reset/hw_gate.rs     | 102 +++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs               |   1 +
+ rust/kernel/workqueue/mod.rs             |   8 +
+ 8 files changed, 421 insertions(+), 77 deletions(-)
 ---
-base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
-change-id: 20260815-drm-accel-null-master-0d25e61240ab
-
-Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
-
+base-commit: 53441a9cae3c4be552fa8aefa6e61b0f1bceb8a5
+change-id: 20260813-tyr-reset-impl-93e951f996b4
+prerequisite-message-id: <20260312-create-workqueue-v4-0-ea39c351c38f@google.com>
+prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
+prerequisite-patch-id: 0bf6ae4abcef7090d0e48921d6ec627a59dc6a7a
+prerequisite-patch-id: f2bd17b7ba9f4626ddec56fec8e108872ddc6af1
+prerequisite-message-id: <20260617144645.253444-1-work@onurozkan.dev>
+prerequisite-patch-id: 5b966d09cfd455dd09fb0911d174b123efa02a16
+prerequisite-message-id: <20260613065348.96750-1-work@onurozkan.dev>
+prerequisite-patch-id: 9e1efee190d212ba1b01cd0acb5a4357e0b4da42
+prerequisite-patch-id: 26aba035f4d1e212fa6ea7078095febefff5c5ba
+prerequisite-patch-id: ffa25d5aadec4c04589af2bdd59a9c022f0fc9b0
+prerequisite-patch-id: c2e05a4ac9d665d331952b291a622df6be673e41
+prerequisite-patch-id: c14a4bd8a68b045356d61f7fa94690bd037ad08b
+prerequisite-message-id: <20260617131731.145337-1-work@onurozkan.dev>
+prerequisite-patch-id: b40e7a218c4e0467933e83c45b09eb78c7ebace2
 
