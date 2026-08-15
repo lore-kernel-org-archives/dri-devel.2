@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3B6C5AD5A
-	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 20:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB02FC5CFC1
+	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 20:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9392310E1C1;
-	Sat, 15 Aug 2026 20:09:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3686310E485;
+	Sat, 15 Aug 2026 20:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FK768pQW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ibTyF3tB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1327610E1C1
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 20:09:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4020710E485
+ for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 20:11:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0BBAB60052;
- Sat, 15 Aug 2026 20:09:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1131F000E9;
- Sat, 15 Aug 2026 20:09:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B9EAC43D52;
+ Sat, 15 Aug 2026 20:11:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BDDF1F000E9;
+ Sat, 15 Aug 2026 20:11:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786824554;
- bh=Gt9+r6vyCV1URF6sdF9ZMK+bNyTp0pyuHBy6PBKQ+UE=;
+ s=k20260515; t=1786824690;
+ bh=+SlKUex6kmzAkO9SdmYskwRG7H1dVBHo2PV44ytZwz8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FK768pQWgA3Pezmd7Ih4D+nnSczhe0+yEEAOEAB729sRrvm/z2BdkuAmWtu11Nj3n
- rGBtIgvGJV/rexMApu/ij/QfvKcDX4XhEdbWj/cmU9hNPrN66qu7rQeJUljQByexRg
- jXrV6uEnvRAzvuRDRUVfrBE6s3YH+6++wYyU7kXTNgOhmfXRttBiGk9VhChbwtgPdE
- 8u/5D155aoNHwDQLeCfQ+EmQzSHGxPBapMNMBfd4EQreiOoPZCE0jcbwxtVEXDLDgh
- 6e3N7z8QQC8Y3AqzqTE9+DjDO9fBj1qDgayPnBiryAjuXOYVXcyTWFRdioqrDx3tXe
- OTpSu/QXR7hhA==
+ b=ibTyF3tBikMQEmEzxGT9R2/KphnovaFzrLCK+EyNnKbrhpFvMTQ8kRYmaz2KmPtNS
+ KQS3xXonL6Jmq33vuo7k0NpYom5eq4Q4/l40hVCwG2BhFcM2p8ouRnjqz7zuyj/wRl
+ kLybwyqZsvdz/SoRU6Jvn3O/cqj8V83BrfjRJQyLN5/ql5AW9Aj7b1liUT/huItA2r
+ S7lzOVBmFQi+Bxahg8zZGjBycidNAZzC32mn3QmxyW0fR7JmWOH20l5JWDHT6JG0qt
+ QShJkcALeD3WtKqByUC+1effxU7U+Lo+3W725LGTYyzD05VjEWiV0WIxD7+zzSSXR1
+ nMhF8Em5be0TA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] drm/nouveau: destroy the fence event before
- cancelling its work
+Subject: Re: [PATCH 2/3] drm/nouveau: cancel the DP IRQ work before freeing
+ the connector
 To: "Marek Czernohous" <mczernohous@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <178682366002.3748010.12779628082366287968@gmail.com>
+In-Reply-To: <178682366002.3748010.4096452389040554615@gmail.com>
 References: <178682366001.3748010.7798811159846779765@gmail.com>
- <178682366002.3748010.12779628082366287968@gmail.com>
+ <178682366002.3748010.4096452389040554615@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 20:09:14 +0000
-Message-Id: <20260815200914.8A1131F000E9@smtp.kernel.org>
+Date: Sat, 15 Aug 2026 20:11:30 +0000
+Message-Id: <20260815201130.7BDDF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,82 +58,116 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Moving `nvif_event_dtor()` before `nouveau_fence_context_kill(=
-)` introduces an unprotected Time-of-Check to Time-of-Use (TOCTOU) race con=
-dition that results in a NULL pointer dereference in `nvif_object_ioctl`.
+
+Pre-existing issues:
+- [High] Use-After-Free / Memory Leak in nouveau_connector_create() on LVDS=
+ initialization error path.
+- [High] NULL pointer dereference in nouveau_dp_irq() when initializing the=
+ drm variable.
+- [High] Use-After-Free on the drm object due to late irq_work cancellation.
 --
 
---- Patch [1]: [PATCH 1/3] drm/nouveau: destroy the fence event before canc=
-elling its work ---
-commit 248f9b5f2479dc65d3572babf739eb3883d7b9f7
+--- Patch [2]: [PATCH 2/3] drm/nouveau: cancel the DP IRQ work before freei=
+ng the connector ---
+commit f68e09b38970f3b87ae7ed5977b718c0b00485df
 Author: Marek Czernohous <marek@czernohous.de>
 
-drm/nouveau: destroy the fence event before cancelling its work
+drm/nouveau: cancel the DP IRQ work before freeing the connector
 
-This commit reorders the teardown sequence in nouveau_fence_context_del() by
-moving nvif_event_dtor() before cancel_work_sync() and
-nouveau_fence_context_kill(). It aims to prevent a newly arriving interrupt
-from re-arming the work that was just cancelled.
+This patch adds a cancel_work_sync() call to nouveau_connector_destroy()
+to ensure the DP IRQ work is cancelled before the connector is freed. This
+prevents a use-after-free where the irq_work remains on the system queue
+past the kfree().
 
 Link: https://sashiko.dev/#/patchset/20260812231330.705425-1-mczernohous@gm=
 ail.com?part=3D1
 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/no=
-uveau/nouveau_fence.c
-> index edbe9e08ba0fd..4a3698dc2cd14 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_fence.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
-> @@ -96,9 +96,9 @@ nouveau_fence_context_kill(struct nouveau_fence_chan *f=
-ctx, int error)
->  void
->  nouveau_fence_context_del(struct nouveau_fence_chan *fctx)
->  {
-> +	nvif_event_dtor(&fctx->event);
->  	cancel_work_sync(&fctx->uevent_work);
->  	nouveau_fence_context_kill(fctx, 0);
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/dr=
+m/nouveau/nouveau_connector.c
+> index b0b0ad9a0c248..e49dcaa6d210b 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_connector.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> @@ -397,6 +397,7 @@ nouveau_connector_destroy(struct drm_connector *conne=
+ctor)
+>  	struct nouveau_connector *nv_connector =3D nouveau_connector(connector);
+>  	nvif_event_dtor(&nv_connector->irq);
+>  	nvif_event_dtor(&nv_connector->hpd);
+> +	cancel_work_sync(&nv_connector->irq_work);
 
-[Severity: Critical]
-Does moving nvif_event_dtor() before nouveau_fence_context_kill() introduce=
- a
-Time-of-Check to Time-of-Use (TOCTOU) race condition?
+[Severity: High]
+This isn't a bug introduced by this patch, but does cancelling the work here
+leave a race condition that causes a use-after-free on the drm object?
 
-Since nouveau_fence_context_kill() hasn't run yet, the fences are still
-active and unsignaled. If Thread A is polling a fence and calls
-nouveau_fence_enable_signaling() which reaches nvif_event_allow(), it might
-evaluate nvif_event_constructed() right before Thread B destroys the event:
+During driver teardown, nouveau_display_fini() cancels drm->hpd_work. Later,
+drm_mode_config_cleanup() calls nouveau_connector_destroy(), which now waits
+on nv_connector->irq_work here.
 
-Thread A:
-drivers/gpu/drm/nouveau/nvif/event.c:nvif_event_allow() {
-	if (nvif_event_constructed(event)) {
+If irq_work is actively running on a worker thread when this executes,
+cancel_work_sync() will block. While finishing, nouveau_dp_irq() calls
+nouveau_connector_hpd(), which unconditionally schedules drm->hpd_work:
 
-Thread B concurrently cleans up the channel:
-drivers/gpu/drm/nouveau/nouveau_fence.c:nouveau_fence_context_del() {
-	nvif_event_dtor(&fctx->event);
-	...
-drivers/gpu/drm/nouveau/nvif/object.c:nvif_object_dtor() {
-	nvif_object_ioctl(object, &args, sizeof(args), NULL);
-	object->client =3D NULL;
+nouveau_dp_irq() {
+    ...
+    nouveau_connector_hpd(nv_connector, NVIF_CONN_EVENT_V0_IRQ | hpd);
+}
 
-Thread A then continues and calls into nvif_mthd():
-drivers/gpu/drm/nouveau/nvif/event.c:nvif_event_allow() {
-		int ret =3D nvif_mthd(&event->object, NVIF_EVENT_V0_ALLOW, ...);
-		...
-drivers/gpu/drm/nouveau/nvif/object.c:nvif_object_ioctl() {
-	struct nvif_client *client =3D object->client;
-	/* ... */
-	return client->driver->ioctl(client->object.priv, data, size, hack);
+Since drm->hpd_work was already cancelled and is never cancelled again, it =
+is
+placed back on the system workqueue. After teardown completes and the drm
+object is freed in nouveau_drm_device_remove(), the workqueue could execute
+nouveau_display_hpd_work(), dereferencing the freed pointer. Should this
+cancellation happen earlier, such as in nouveau_display_fini()?
 
-Could Thread A read the stale object->client as NULL and fatally dereference
-it here, since both polling on an exported sync_file fd and channel cleanup
-are accessible to unprivileged userspace?
+[Severity: High]
+This is a pre-existing issue, but looking at nouveau_connector_create() in
+nouveau_connector.c, does the LVDS initialization error path leak the
+connector and cause a use-after-free?
 
-> -	nvif_event_dtor(&fctx->event);
->  	fctx->dead =3D 1;
-> =20
->  	/*
+nouveau_connector_create() {
+    ...
+    drm_connector_init(dev, &nv_connector->base, funcs, type);
+    ...
+    if (type =3D=3D DRM_MODE_CONNECTOR_LVDS) {
+        ...
+        ret =3D nouveau_bios_parse_lvds_table(dev, 0, &dummy, &dummy);
+        if (ret) {
+            NV_ERROR(drm, "Error parsing LVDS table, disabling\n");
+            kfree(nv_connector);
+            return ERR_PTR(ret);
+        }
+    ...
+}
+
+drm_connector_init() adds the connector to dev->mode_config.connector_list =
+and
+allocates an IDA. If the LVDS table parsing fails, the error path frees
+nv_connector with kfree() but doesn't call drm_connector_cleanup(). Does th=
+is
+leave a dangling pointer in the global connector list that will crash when
+traversed, and leak the allocated IDA?
+
+[Severity: High]
+This is a pre-existing issue, but looking at nouveau_dp_irq() in
+nouveau_dp.c, can we encounter a NULL pointer dereference here?
+
+nouveau_dp_irq() {
+    ...
+    struct nouveau_encoder *outp =3D find_encoder(connector, DCB_OUTPUT_DP);
+    struct nouveau_drm *drm =3D nouveau_drm(outp->base.base.dev);
+    ...
+    if (!outp)
+        return;
+    ...
+}
+
+find_encoder() can return NULL if a valid DisplayPort encoder isn't found,
+which the code anticipates. However, outp is immediately dereferenced during
+variable initialization to fetch the dev pointer for nouveau_drm() before t=
+he
+null check executes. Can this cause a kernel oops if outp is NULL?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178682366001.374801=
-0.7798811159846779765@gmail.com?part=3D1
+0.7798811159846779765@gmail.com?part=3D2
