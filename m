@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB8BC5DF70
-	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 20:25:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9C4C5DF67
+	for <dri-devel@archiver.kernel.org>; Sat, 15 Aug 2026 20:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA48A10E5EE;
-	Sat, 15 Aug 2026 20:25:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDC3E10E60A;
+	Sat, 15 Aug 2026 20:42:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jiTwSg9L";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rdUI/dIA";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD09F10E609
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 20:25:31 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4957799b92fso2739175e9.1
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 13:25:31 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6F2010E60F
+ for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 20:42:54 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-47f502ff678so249771f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 13:42:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786825530; x=1787430330; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786826573; x=1787431373; darn=lists.freedesktop.org;
  h=mime-version:content-transfer-encoding:content-type:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=+ZlAyzPLsV68fOC9YLcWPEXPgYOdEPUukx8GNRQ7w8g=;
- b=jiTwSg9LNdtzNtmaFKSyaAZkxPUqs24apWBa8SgUi2/PzQWXJiJJnNnr3Y0zEPNoe9
- 4ubqU2c6bJPFIk3zv79N0FW+cV2RY5gtt8EKGe2hEDoP/E6GtPH25Xg7Hbugk8OjoZsH
- F87gcbXfnmGDbldb40A7buhHwhQvosz12m32AisQKjtIj3SNXPxTUowaAGxddIGH9SE1
- kkzmWYct3maGiYP009qLikSOH57WSk/5JLBm1tFBoi46bbUKHZguOs9bMZ3xJqkAAgSr
- RyytnmEtm3QL4J2OssErgtAZZWVj900lkfPKMUgYw8tAOYKPt+P82tOcX6szzq7FupGb
- DtiA==
+ bh=g3g0AYahBP3aN4rc9/ufJfxyt9G+mfOpDwe9Ft7yd84=;
+ b=rdUI/dIAnv2Xvq6rGHzm6m3NBm0wd2xwWB1whqXTJh7P9n95WYwkFNz0h4C97HbGAu
+ OdixsszI65tYlTgsKELPesdg+fYEYmRFR6zTtK0eG8ZmWwGBAjegwxmV6OymLIA/b3BS
+ awEGaK9eC7c6HmZGQKxcdZpS+CUXTx3c3oDE+MA9Z9KSHCNfd72tGStc8hkFu6vImg1J
+ /PcPuwXrOiOMjjTEEFdbNHYtSynpiISYV53L0awVTMdeYfFXz9NxXvX1elynS83MJ163
+ SrmuQ4rl9dkwOGHVmDIu+NQueDYWyA6W5rkm3wSJXqr6qeHt1o5pvWFQZQVih2bD6LU/
+ g/Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786825530; x=1787430330;
+ d=1e100.net; s=20251104; t=1786826573; x=1787431373;
  h=mime-version:content-transfer-encoding:content-type:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+ZlAyzPLsV68fOC9YLcWPEXPgYOdEPUukx8GNRQ7w8g=;
- b=pyf3G8r/ycSt1bQXARPg0GHZt0d4GX8U50lZZktseedug834V3FIox8NXlyfvAdQbQ
- sVgeEfLEkSu6Yw7y9e0RarOWckNehyawK2qcszkLCb8faQtdlI8Ay5PE1gUfSOgl6yet
- 2lH52GeNbtIxe5sa6en7qPDC2X9exdRj6GLfLhgKJ4kUQa3AftBsJpVIxihPSHBh4x0j
- vM2S/pnBBegwWYH+OeqBHuOtXh72yH4UN1hZjPwtps1+4lWEsZzVXW+Q57xfz9ooY6jv
- LVLZHVi2AaF+z7AY5KAm/ET2la7Dqu05fXjRRX8V/W3yZm8FY/l1HtvHbna5h3wNfDcO
- BoWQ==
+ bh=g3g0AYahBP3aN4rc9/ufJfxyt9G+mfOpDwe9Ft7yd84=;
+ b=qzSxEJRRZV9865jFJBtbjysBXD6InX4ORZFCM52adWPA7n+NFbBc8O9uHct6sOZL6N
+ r7rY/OTBOdRhXA4CV36P6VH58CY170Og5Fj2LjHOC+u0lPpx/2XygxGqWjsTeAQ1hCmz
+ EBlncQE/tJlIOXHicdfpFuikddpfUzmnPMUi6QPWvaWzsJnUbSnxRlxKpbnTuwQ0K18q
+ lET0qFgOXy23L41fP2MYSwDtTEyHYlk83tV3+UvriSRTgTSoWqGuDmFw+Uar2CDEW61P
+ ioBDY3Er51eY4SUVjAuCE3qkIi8wOsPAbrcr3IWGDdQueAgM9uJE9iaYdb3yz3gthh7a
+ Ym3g==
 X-Forwarded-Encrypted: i=1;
- AHgh+RobW/xzErYPWsaQH0n4MoS9w4IfRhqI5Lb3TdwRRzvz015gCA8S0IvIj5T0Gzs7ZTddaBiaSIQ+De8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZXoUH2SjkAB1kr8PbAltasUm6hFSezbRUQJOLxH2x+I9PBCNl
- UBG+wSM7r/MU9Whlcc3XSKnxowEKMpCpocAy2hUoGx22U6WVZ/bI5/XK
-X-Gm-Gg: AR+sD119ktAV+1SMVnHE6UiQnUZbpVb7sp9S39FqZDuZcdGyDQk6JmonHwfVuxcgyQW
- BXLgrA9uCQaCT2BvKNltr5rQhVU7KK7jS2CqCkADWlKbcdNXUdHDDarFHKKSOsUbbfZj/lN80eF
- y+tqKzy1oqDd3hODU71xZEtcUx3nFjmoxJumZg0zlyJl1N9ieeP+FX3tcOQS+kHUevgCst6vo+J
- 8tjCICzcEIYUA729fNBr4UtjxwZUZ04+JR6+jykC2lDKxkyBYa5EUfy8EAyOtKxllbjB4CKPHkY
- puRWWsTI0i+5PCTHVa3RtnYyVueI5JyBY9aFWTMYs7j2phaAyTSoeaQqL+CCatZyHzl/F2JSp33
- ThR6ex1kHmwmibF0fR4wmG7s/ytlZybYm6Y/sM7AZHCkN9UBITRFZThQQZcXD809O8HB/UIYxrM
- 4mqn2ezQDRD2n4UB0x7xNBI45EekqMGooEwkYwROVllrHvuSU4guovdwgNJCWJ2Lj71NsAgWTlF
- 0oa4MLU1ayFNhnHMBNNtA46oM6PylHW1cV+DjByY485hLbJs+7i
-X-Received: by 2002:a05:6000:60b:b0:47f:946b:d3fc with SMTP id
- ffacd0b85a97d-481607a9661mr9883130f8f.2.1786825529846; 
- Sat, 15 Aug 2026 13:25:29 -0700 (PDT)
+ AHgh+Rp725wIZJFcZvLpWqT9ufRBbaJJkVgBo3KwWLP4JbOz7/usAkCveEzE9rT0ih9lbycwOmbBkUKYA0Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySgZCkgxrZv/6IQKobhJzcWZ3xef7hux+c782r0ZTM12XFn/st
+ 2kYEvjx1c0e9Oct7a94HB+qZSCmuG8hNutukQLDpCtfR2x1HXkT8C3Ge
+X-Gm-Gg: AR+sD12GnuJcvExVPL+cREwThIe5yBOEYTWtjsAtcQBwobq7ixsJE9y4DPZfUxZ2lgH
+ rUUC0pwg/RP/2ExS0RAVr+JP5Bf1ld90a/8V4ajuhOsVVFKeeDvjXq0RwrFvbL/1D+tkcpw7Tyx
+ Bwsr0UI9gjjaeKcBslLCCLqHtPyljuDuJg/l99SRbLsb4VmODNRwoc/6yCjoahndGE63wx1QD3O
+ TDnnujspRTxSGwb/nSwKP85CtkhyUNuqXQWIrbMlKuWmXv+tVutY9zb98FhIJ5oKhJKZ7lmsS4k
+ U+V6gRJw7sKGG5WXJlccOivqzeQAEwy+RHt3gboY24VK6/d+c1aoX+yfMT4pEptQuMdJW3qOoag
+ MJA1MMsT4Z3sAVnrSM0bg1YNBNouEf6dB5z5/Q85uB9JwPSRFEQrRADRlrC3ZcMMSPW/2Pob9/p
+ WHE5s2fg2mwRsj680Gv4OrDUXj95+0W9w96bw4Ji/X7f1B/b37XTo6Emq2OBjNsE4dLRQWGOEfE
+ +QdSAVQ1riO1opCOcS9tCNsTpAasmh8a7q1jnsTcw==
+X-Received: by 2002:a05:600c:354f:b0:495:650b:4c61 with SMTP id
+ 5b1f17b1804b1-499879690acmr105425405e9.3.1786826572997; 
+ Sat, 15 Aug 2026 13:42:52 -0700 (PDT)
 Received: from [127.0.0.1] (ip-109-193-028-127.um39.pools.vodafone-ip.de.
  [109.193.28.127]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4815f2b1fc2sm19576914f8f.20.2026.08.15.13.25.29
+ 5b1f17b1804b1-499899afa39sm164118155e9.2.2026.08.15.13.42.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 15 Aug 2026 13:25:29 -0700 (PDT)
+ Sat, 15 Aug 2026 13:42:52 -0700 (PDT)
 From: Marek Czernohous <mczernohous@gmail.com>
 To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Cc: sashiko-bot@kernel.org, linux-kernel@vger.kernel.org,
  Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH 1/3] drm/nouveau: destroy the fence event before
- cancelling its work
-Date: Sat, 15 Aug 2026 22:25:28 +0200
-Message-ID: <178682552848.3774290.16460050233438707000@gmail.com>
-In-Reply-To: <20260815200914.8A1131F000E9@smtp.kernel.org>
+Subject: Re: [PATCH 2/3] drm/nouveau: cancel the DP IRQ work before freeing
+ the connector
+Date: Sat, 15 Aug 2026 22:42:51 +0200
+Message-ID: <178682657122.3795552.6920623796751043528@gmail.com>
+In-Reply-To: <20260815201130.7BDDF1F000E9@smtp.kernel.org>
 References: <178682366001.3748010.7798811159846779765@gmail.com>
- <178682366002.3748010.12779628082366287968@gmail.com>
- <20260815200914.8A1131F000E9@smtp.kernel.org>
+ <178682366002.3748010.4096452389040554615@gmail.com>
+ <20260815201130.7BDDF1F000E9@smtp.kernel.org>
 X-Mailer: python-smtplib
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -96,51 +96,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bot is right, and this is worse than a wording problem: 1/3 does
-introduce the race, it does not merely fail to rule it out.  Please
-do not apply 1/3.  2/3 and 3/3 are independent of it and unaffected.
+Three findings, three different answers, so let me take them in turn.
 
-What I missed is why the old order was safe in the first place.  It was
-not an accident of ordering, it was load-bearing:
+The NULL dereference in nouveau_dp_irq() is 3/3 of this series.  Same
+thread, sent alongside this patch.  Nothing further needed there, and
+the two are related on purpose: 2/3 drains the work, 3/3 fixes the
+handler that work runs.
 
-  nouveau_fence_context_kill() signals every fence on fctx->pending,
-  and dma_fence_add_callback() returns -ENOENT for an already signalled
-  fence before it ever reaches __dma_fence_enable_signaling()
-  (drivers/dma-buf/dma-fence.c:707-710).  So once the kill has run,
-  nouveau_fence_enable_signaling() is no longer reachable for those
-  fences, and nvif_event_dtor() afterwards has nobody left to race
-  with.
+The LVDS error path in nouveau_connector_create() is real as far as I
+can see, and independent of anything here.  drm_connector_init() has
+already put the connector on dev->mode_config.connector_list when the
+nouveau_bios_parse_lvds_table() failure path kfree()s it without
+drm_connector_cleanup().  I am not touching it in this series; it wants
+its own patch and I have no way to reach that path on my hardware.
 
-Moving the dtor to the front puts it exactly where those fences are
-still live, so nvif_event_allow() can be in flight on another CPU with
-nvif_event_constructed() already evaluated to true.  There is nothing to
-serialise the two: nouveau_fence_context_del() takes no lock at all,
-enable_signaling() runs under fence->lock, which for nouveau is
-fctx->lock (nouveau_fence.c:218-219), and the dtor cannot take that,
-since the nvif ioctl may sleep and fctx->lock is taken with interrupts
-off.  The window is then held open for the whole of cancel_work_sync(),
-which can block arbitrarily long.
+The hpd_work point is the interesting one, and I owe a correction on it.
 
-So my patch traded a narrow re-arm window for a wider NULL-deref window.
-That is a bad trade and my commit message argued for it with a "guard"
-that is a plain unsynchronised read of object->client.
+2/3 does not create that path.  Without this patch the same already
+queued irq_work still runs to completion and still ends in
+nouveau_connector_hpd(), which schedules drm->hpd_work under
+drm->hpd_lock; the only thing this patch adds is that the destroy now
+waits for it.  If anything that narrows the exposure, because without
+the wait the work can run later still, potentially after the connector
+is gone.  That is the bug 2/3 is about.
 
-The re-arm problem the patch was aimed at is real, but the fix has to
-keep the kill in front of the dtor.  The obvious shape is to move the
-drain to the back instead of the dtor to the front:
+But the wider question the bot is asking is fair, and my cover letter
+answered it too confidently.  It says "there is no fourth patch here"
+on the strength of drm->hpd_work being drained in
+nouveau_display_fini().  Having looked again after the bot's mail: that
+drain runs at nouveau_display.c:600 under "if (!runtime &&
+!drm->headless)", and disp->fini() drains it a second time under the
+same condition (dispnv50/disp.c:2686, dispnv04/disp.c:72, which I had
+not spotted when I wrote the cover).  Both of those are before
+drm_mode_config_cleanup() reaches nouveau_connector_destroy().  So a
+late irq_work really can re-arm hpd_work after every drain, and nothing
+drains it again.  Whether that is reachable in practice I do not know:
+nvif_event_block() on conn->irq has already run by then, so it needs
+work that was queued before the block and has not run yet.
 
-	nouveau_fence_context_kill(fctx, 0);
-	nvif_event_dtor(&fctx->event);
-	cancel_work_sync(&fctx->uevent_work);
+I cannot rule it out, so I should not have written that sentence as a
+finding.  It should have said that I looked and did not find a fourth
+patch, not that there is none.  If the maintainers want, the shape of a
+fix is probably a drain of hpd_work after the connectors are gone, or
+making nouveau_connector_hpd() a no-op once teardown has started, but
+that is a separate change from this series and I would rather someone
+who knows the hotplug path weighs in before I write it.
 
-The kill closes enable_signaling(), the dtor then stops the handler, and
-the drain last picks up anything the handler queued on its way out.  I
-want to convince myself properly that kill-before-drain is safe, rather
-than send a second version tonight on the strength of it looking right,
-so I will post a v2 once I have.
-
-Thanks to the bot for catching this before anyone applied it.  For what
-it is worth, my own review pass had found the same mechanism a few hours
-earlier and I mis-filed it as a wording problem in the commit message
-instead of asking whether the patch itself was wrong.  That one is on
-me.
+For the avoidance of doubt: 2/3 and 3/3 still stand as posted.  1/3 is
+withdrawn, for an unrelated reason, in the sibling thread.
