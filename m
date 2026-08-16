@@ -4,106 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37907C5DF6D
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 15:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63DCFC5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 15:18:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCA210E31A;
-	Sun, 16 Aug 2026 15:08:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFA6A10E31C;
+	Sun, 16 Aug 2026 15:18:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QQbvyrhy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ye+A8880";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012056.outbound.protection.outlook.com [52.101.53.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 044FF10E31A
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 15:07:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DbyLC7T+XlKHoLm7p4pnAZ2zwq+iC9eupE5ZzClZPbTZkQN5YiuXxxlNh8Otvd2O+O+kHGdrw39NbVMDN+2rYqDZTUvXrjp0UPXEePBQ9tePSstipDg3ODXAQfCjc1t39CyXMRf4kKOZzVX7+13oKVxNFkQC3FVztTIEllHZFhU/jLfwflB3KM5jMpOCPjmCBU1671TLobB7ksn1lU6P+btc+UbkRfgZRXyl6PrHitLgIoUC5h6CQxINz9TVKSqS4tx9T5jzFj/Xm2xOlOuKj/uCNmwK4t+3e9RXNduvKTTaaOVTblcR+xqNuBjnJR+KeI5PrP6vNechusXOLWKOKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wWiEbjvB6KG8r35ElgGB2hSjNOPcqL39sj13KUsV9Qk=;
- b=Zvxvf28vbdE89NkEwTZ69N17oKvFyD2BqO7RQYXw7ZPXhSn1pis9LWhl1pzWaXwS2kuvoOgeSRglj79GjR7ipIQ4Q764ORnAuVnRNVMWywwZ1QDlAWcUxu9xyegZzJuDBJpkYSVl4fzKpUn43EtYLOquCytobWjVomlIQ6qwqMAa9CNfDIh3vVpT+3tWaW/VX6P94cuTS1+/Kh8/coU5bzDec/NDacQmosAREC3KiAxpFNhqBNsuH5YzROqWt/hR+L+RiXFe0Vw9Xsj4QSnetaZau/dn2R+NeaFvCjxIng0kWDOzK1XjNGd75fpOOrjG/HWpTQFpeirgvh+uS2itcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wWiEbjvB6KG8r35ElgGB2hSjNOPcqL39sj13KUsV9Qk=;
- b=QQbvyrhyw2ojZiuUrrsFVVxqhXMKLGmy5Ja9aUWfjg1zHmzWOPIzhd5+C2XqxjhrEoa1FHJPo41KN4U852iI6qnRZJ3FkDlzTNUUW/Wg4iJFBApklNzTv2VB4NdDeSaoyKR308o42BAV0Zah5qm77hSSqVokDOlKlCRkYElv8GI=
-Received: from CH0PR03CA0332.namprd03.prod.outlook.com (2603:10b6:610:11a::9)
- by DS0PR12MB6655.namprd12.prod.outlook.com (2603:10b6:8:d0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Sun, 16 Aug
- 2026 15:07:54 +0000
-Received: from DM2PEPF00003FC2.namprd04.prod.outlook.com
- (2603:10b6:610:11a:cafe::64) by CH0PR03CA0332.outlook.office365.com
- (2603:10b6:610:11a::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Sun,
- 16 Aug 2026 15:07:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DM2PEPF00003FC2.mail.protection.outlook.com (10.167.23.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Sun, 16 Aug 2026 15:07:53 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 16 Aug
- 2026 10:07:53 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 16 Aug
- 2026 10:07:52 -0500
-Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via
- Frontend Transport; Sun, 16 Aug 2026 10:07:48 -0500
-From: Aravind Thokala <aravind.thokala@amd.com>
-To: <mdf@kernel.org>, <yilun.xu@intel.com>, <trix@redhat.com>,
- <sumit.semwal@linaro.org>, <christian.koenig@amd.com>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <linux-kernel@vger.kernel.org>, <linux-fpga@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <linux-doc@vger.kernel.org>, <git@amd.com>, 
- <aravind.thokala@amd.com>, <nava.kishore.manne@amd.com>
-Subject: [PATCH 2/2] fpga: versal: add dma-buf programming support
-Date: Sun, 16 Aug 2026 20:37:34 +0530
-Message-ID: <20260816150734.2092802-3-aravind.thokala@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260816150734.2092802-1-aravind.thokala@amd.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2AE10E31C
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 15:18:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6DD68600E2;
+ Sun, 16 Aug 2026 15:18:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C241F000E9;
+ Sun, 16 Aug 2026 15:18:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786893512;
+ bh=ChGnMkWQa5EzRSOSa/ks9sMr8lpamJJC9dCgovmhCeQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Ye+A8880PhANh05CpqVfiBFRVzZJ8L8CbgtDat0bQRw9KQWBhLoywxz2wGfvzwTll
+ iclsR16Uey76mbCnK121qC/GZwJZy5Y7oMZo7CjlFayPnh4ohd3NIBJwSqKyFaC7Hl
+ ny6z8aVU3UQQdsoGfm0DmE///V/fqnmgsLaj/m0qibzb2nleg07UdC9jfAiIAIXnfN
+ Okt/tmWDPs6B/g96MPYi/YdZnO1nrYe557rdwird1xMshWUqD3d0lROt4MRCeWFBXk
+ KuTt/nv+mzHWEQkdgKWyGG1N48JpnjioJP4nbxM1pDMZkLufNdYXFy5Ds203UDuZiH
+ CQ/IzbQsiD62Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] fpga: versal: add dma-buf programming support
+To: "Aravind Thokala" <aravind.thokala@amd.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20260816150734.2092802-3-aravind.thokala@amd.com>
 References: <20260816150734.2092802-1-aravind.thokala@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC2:EE_|DS0PR12MB6655:EE_
-X-MS-Office365-Filtering-Correlation-Id: efcbe18b-b801-423f-dba7-08defba825ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|23010399003|7416014|376014|82310400026|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: lZswCj3PVPVaVCL5WPjHVFMhqAyDpAbNh8Yl7jgrFmSl4D44O9vMXjnjhLRnsaOwzX8/FbQUutW1xlGVEcuGrQBAOclInru5RFFTUfq9i0wJtaPbuQtwyv80agfygrgaWwin8/ZsjXhC8KMkzcgkj7Pfw1mdH3+wEmNmplcgeacGla4crUNiXsjTvidiqHjVWDQFIW8QGTaxZRkFm4qvRbBImcvOAA1A5kSoS4Jn4eXL2Y1rsFkaup+sbZm/v7iKicVMEPnlGe2CTdG54D3uqx/QjikCIrobqqhUMD5uqCgXkJ5LaSGhr4mdc4C3PrPOgACRb7IXOyDLPG3nhkMooBZZDzX0m6Iw5v48Fc1aeST39PzL9FdbjyO89TbqhH7m/vhUDrIbTClentw5VUwpa08RRtUyJk1CXK997t055Pq3AxWgpyL8UbksARsq3ypBnasdJY2kL6OsURHa+AfakLfHpd2r8UwvcJ3kQukPC//HSj/BsOuTg4YneNywd7HFa6EiD9umRlqWQaw+Bued00owFQF3EhFujpIkZXsm33RcpNdEAcf0y1QCyvLpfSIn6nitSTuiRdLyOql1dubZLhbIYCwhahbilz84F5qIg/twoPSvQuF22g4htAqyRNcRyFfjiklKIdXx3iHoBcEZFSJNsrO5jp0L15Prm2FrhaaDO/pCG0/FPU6ynekg9hUvRGMWX/S1RFegaaNOUAcHrg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(23010399003)(7416014)(376014)(82310400026)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: fVGE6v7EbWk/7532ZASAA3wrQbPh8L3YakVYJ4ckP9AWRQO6SPCl3S7DsQveQH7/NpwpIAJye3Jdxt80N0ocLiFOV4bHRafhJt0EOLv5iItb1smvBAFE7X76kRsI521LOaxSy2FHUqI6pMZBcWQtfSgQS1bXa3bUWMCsd9VTB+fJHFC7etCX2yCVso6CIxx0RygDQwxThLElTYnj3hw9LGuSI8vm/rPA5Bm4nYR7UK2Y2NYChVSO5Ghbhok3I/bO5mEftpCLaIWXIXHHu5vXKRdhlujU87Wlln94vy/yySCuCQndUJvKmgEoa7azCne37ZVH+4Fn54niLQe7aMnPC2+eBC14ozUd0QiC5fvjssr59lWXcy7c6Cbf74ZHEIW80WwuvffxQo8xMDb6B9cHnPt9KAE96izh2jWZskQXnPVU8wZAkv0uQvA+m06DepaN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2026 15:07:53.8477 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: efcbe18b-b801-423f-dba7-08defba825ba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM2PEPF00003FC2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6655
+ <20260816150734.2092802-3-aravind.thokala@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 16 Aug 2026 15:18:31 +0000
+Message-Id: <20260816151831.E3C241F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,88 +53,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The existing .write callback allocates a DMA-coherent buffer and
-copies the image into it before passing the address to firmware. With
-dma-buf, the buffer is already DMA-mapped by userspace.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Passing a user-accessible dma-buf directly to the PMC firmware i=
+ntroduces a speculative Time-of-Check to Time-of-Use (TOCTOU) vulnerability=
+ that can potentially bypass FPGA bitstream authentication.
+--
 
-Add a .write_sg callback that extracts the DMA address directly from
-the scatter-gather table and passes it to zynqmp_pm_load_pdi(),
-avoiding the intermediate copy. Register the dma-buf interface in
-probe with devres-managed cleanup.
+--- Patch [2]: [PATCH 2/2] fpga: versal: add dma-buf programming support ---
+commit 92384704c37fbbfe16cd9659151fbb8646c178cc
+Author: Aravind Thokala <aravind.thokala@amd.com>
 
-Co-developed-by: Nava kishore Manne <nava.kishore.manne@amd.com>
-Signed-off-by: Nava kishore Manne <nava.kishore.manne@amd.com>
-Signed-off-by: Aravind Thokala <aravind.thokala@amd.com>
----
- drivers/fpga/versal-fpga.c | 33 ++++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+fpga: versal: add dma-buf programming support
 
-diff --git a/drivers/fpga/versal-fpga.c b/drivers/fpga/versal-fpga.c
-index e6189106c468..bdaa15a6c991 100644
---- a/drivers/fpga/versal-fpga.c
-+++ b/drivers/fpga/versal-fpga.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <linux/dma-mapping.h>
-+#include <linux/fpga/fpga-dmabuf.h>
- #include <linux/fpga/fpga-mgr.h>
- #include <linux/io.h>
- #include <linux/kernel.h>
-@@ -37,11 +38,34 @@ static int versal_fpga_ops_write(struct fpga_manager *mgr,
- 	return ret;
- }
- 
-+static int versal_fpga_ops_write_sg(struct fpga_manager *mgr,
-+				    struct sg_table *sgt)
-+{
-+	dma_addr_t dma_addr;
-+
-+	/* zynqmp_pm_load_pdi() takes a single base address */
-+	if (sgt->nents != 1) {
-+		dev_err(&mgr->dev, "dma-buf has %u segments, need exactly 1\n",
-+			sgt->nents);
-+		return -EINVAL;
-+	}
-+
-+	dma_addr = sg_dma_address(sgt->sgl);
-+
-+	return zynqmp_pm_load_pdi(PDI_SRC_DDR, dma_addr);
-+}
-+
- static const struct fpga_manager_ops versal_fpga_ops = {
- 	.write_init = versal_fpga_ops_write_init,
- 	.write = versal_fpga_ops_write,
-+	.write_sg = versal_fpga_ops_write_sg,
- };
- 
-+static void versal_fpga_dmabuf_remove(void *data)
-+{
-+	fpga_dmabuf_unregister(data);
-+}
-+
- static int versal_fpga_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -56,7 +80,14 @@ static int versal_fpga_probe(struct platform_device *pdev)
- 
- 	mgr = devm_fpga_mgr_register(dev, "Xilinx Versal FPGA Manager",
- 				     &versal_fpga_ops, NULL);
--	return PTR_ERR_OR_ZERO(mgr);
-+	if (IS_ERR(mgr))
-+		return PTR_ERR(mgr);
-+
-+	ret = fpga_dmabuf_register(mgr);
-+	if (ret)
-+		return ret;
-+
-+	return devm_add_action_or_reset(dev, versal_fpga_dmabuf_remove, mgr);
- }
- 
- static const struct of_device_id versal_fpga_of_match[] = {
--- 
-2.34.1
+This commit adds a .write_sg callback to the Versal FPGA driver to support
+dma-buf based programming. It extracts the DMA address from the scatter-gat=
+her
+table and passes it directly to the firmware, avoiding an intermediate buff=
+er
+copy.
 
+> diff --git a/drivers/fpga/versal-fpga.c b/drivers/fpga/versal-fpga.c
+> index e6189106c4686..bdaa15a6c9913 100644
+> --- a/drivers/fpga/versal-fpga.c
+> +++ b/drivers/fpga/versal-fpga.c
+
+[ ... ]
+
+> @@ -37,11 +38,34 @@ static int versal_fpga_ops_write(struct fpga_manager =
+*mgr,
+>  	return ret;
+>  }
+> =20
+> +static int versal_fpga_ops_write_sg(struct fpga_manager *mgr,
+> +				    struct sg_table *sgt)
+> +{
+> +	dma_addr_t dma_addr;
+> +
+> +	/* zynqmp_pm_load_pdi() takes a single base address */
+> +	if (sgt->nents !=3D 1) {
+> +		dev_err(&mgr->dev, "dma-buf has %u segments, need exactly 1\n",
+> +			sgt->nents);
+> +		return -EINVAL;
+> +	}
+> +
+> +	dma_addr =3D sg_dma_address(sgt->sgl);
+> +
+> +	return zynqmp_pm_load_pdi(PDI_SRC_DDR, dma_addr);
+
+[Severity: Medium]
+Does this expose the firmware to a Time-of-Check to Time-of-Use (TOCTOU)
+vulnerability if the Xilinx PMC firmware double-fetches the payload?
+
+By extracting the DMA address from the user-provided dma-buf and passing
+it directly to zynqmp_pm_load_pdi() without copying it to a kernel-owned
+isolated buffer, a process could potentially modify the bitstream
+concurrently during the firmware's authentication and loading process.
+
+If a user with CAP_SYS_RAWIO maintains a writable memory mapping to the
+dma-buf (for instance, using udmabuf) and invokes FPGA_IOCTL_LOAD_DMA_BUF,
+they could overwrite the memory while the firmware reads it.
+
+If the firmware re-reads any part of the bitstream after authentication,
+could this be abused to bypass secure boot boundaries?
+
+> +}
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816150734.2092=
+802-1-aravind.thokala@amd.com?part=3D2
