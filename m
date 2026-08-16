@@ -4,84 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83191C5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:58:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D5C4C5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE6910E353;
-	Sun, 16 Aug 2026 19:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA6610E351;
+	Sun, 16 Aug 2026 19:59:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="Av7Tesgu";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="R3JewFIL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gNbX86M9";
 	dkim-atps=neutral
-Received: from flow-b1-smtp.messagingengine.com
- (flow-b1-smtp.messagingengine.com [202.12.124.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B652910E351
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 19:58:44 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailflow.stl.internal (Postfix) with ESMTP id D959E13002F3;
- Sun, 16 Aug 2026 15:58:43 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Sun, 16 Aug 2026 15:58:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1786910323; x=
- 1786913923; bh=XnBStf3gY35JgbeiLlY3OyQBN22mjeVyLGOlqZ8Olm0=; b=A
- v7Tesgu9KkldXPQiDym0PZqnbClXw4HR/76tMtifOgpm3PxQ2jIS7MSBxxwrSDsM
- kGC+Ku0h2W+bOd7LMayA0jz+OCLzV9YKIJYCOCFAyEV06ew0XeS1RKuqcszcvxtW
- StXw0FlGBHFOJh/tsFiGyFXJtNdOpM7W6bP3uuqkfRjQ4+PmK1XCyaQlmO1mZcq0
- aiqdkY5Ex0yU12p+VXA8N0wL617CiEnFKxnzQG03T/LJG6PJPP6yeArLlghnkmMV
- 15hdeqD7WryIElretzrb0gB1NsVFr/v6wIu+6Nal4qVXlQZ48TCY8gc8VWpLyKcJ
- k6LEE0wO29McilmNHD6Cg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1786910323; x=1786913923; bh=X
- nBStf3gY35JgbeiLlY3OyQBN22mjeVyLGOlqZ8Olm0=; b=R3JewFILGvZjSj+9X
- jU7efgOYjE9AiSf70wqr3iqnTlZuZgy28ljQ/RJDGkHpBjNgguVBq3swfLcAZgZ/
- g5Rl7Bdvh6phHDb3xgq3RUCQCXHPeYUvLNfOQBU4N7E0/+TZdUt+4ujhhM9oJgT6
- wHgrujhc6ZwtAdS/SwpgAs70rWXa37HRi6h2s4YIna1yyQF5h4dHUMnFacfhzUmM
- MB6B+wP9QrF4jYWDCybM4gbA3Orja5BD+pdgE01vruZ/BdveDNgZPJbgQruamien
- N/nGQXCLnekXnrersn+8AiZ5GEDfoGfzxLj92cyTs5CYVFxm2ZkT54yHejpY3H/I
- bBd6g==
-X-ME-Sender: <xms:cxaCalrKA_EFNYHkr5PAX2Lu_aGKB1rN4UhwviaA_v0JA8jbg-5odw>
- <xme:cxaCav0U1F-cpevEUC8ie0AkNeWK5uGT89ZP8MlSNgeyZBL_VM7pdtBGcLk7N5Gu5
- sNQqh9fu_vFPNQwjSPkiS81750QVihmC-XccO_-WyUBqwJXhVHRzUiV>
-X-ME-Received: <xmr:cxaCatz_3qD7zxzycAcwO_WM6VC98ocj4vLrkGEhsRIn2MRuVfqeMQs1rNYtk7vb52rEPQcV-A>
-X-ME-Proxy-Cause: dmFkZTEdlirJvxcfGQ+WBsgr+9hxCRNQxQEcOKrpxNyi8WDOAmXAzN11cnXB8HJmbqFqBS
- xtc1oy/Jvg5YFuB5a7cM1vsDrKjpvdxzHL6eKsttkvr9s9qnCehwuQTpcvoXKqfspIfa41
- MbiEjZ/21VO49M+isqQxz7pPASLn515eeGV7RKRRWuUUpFxIxSGHJj5mAR7awOxSxLW7SH
- cVURYyNhn4osDEuqsFDw3SRG9pRa7ZHB4foIEOnpWn1jjexsF7hLjKSn8/ETyRaaurqTEr
- GoOKat559S2zZQp5qGm+OAZRKYj/jLwCA3ic+UZsN91e8thYkAa9MjE+dp9RFBpM0UTcLE
- Jualy7VLSaJv/6beoFPaIdHkpHfFnr+SYl17ZX8EQH71m8HlmWHiFRJVW67ofJWnhbOET4
- RGoeLRm4c14OiQnLxgJ0xDORcWxXh/NfS8395LJ4FYRSrLz7WsCfzcHrqMEn12oAJrwWmI
- cwyyzHGhvsVD9nLE2g2W++fdrJFetqqGM0pFnGIrFjy8tqhZwuqBYl2mx+rfP3Wi3W9KxP
- wBmv4wn5jr9gs6un++qLKuXf545nFNI+rcPO3bKMHQW3n/Iqpc5WclTDM/7OhZIZDlB79V
- askSqi8M032Jc3s12ziNS6JfshhQCnj773P5fQqZMD1DwR03Ya7TawCXfXfA
-X-ME-Proxy: <xmx:cxaCargeG-LqeC9k-KyXokMlhG5cJjKWK7nMnO_4rdV8bai8aMW9gw>
- <xmx:cxaCagqoE3ylQ0UZMlNjGBwYGHxyjjW1Nlc75MD-EIATG3Z3X_HCVw>
- <xmx:cxaCaihbdAlK49ddmJ7Yo5sVosQzCDk1jt8BKKNn74GVqvSgE3A4rg>
- <xmx:cxaCaiPbGxljNVevn3sws6NPuDfAezQdtMh0tXpx0ba6gX-hudrybQ>
- <xmx:cxaCamIPlp7D9jLXir41S3bfCEN_jPhrVybyr9xNbCqZEuTAYhmyZrEf>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 16 Aug 2026 15:58:40 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: royalnet026@gmail.com
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, chaoyi.chen@rock-chips.com,
- alchark@flipper.net, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Mon, 17 Aug 2026 07:58:37 +1200
-Message-ID: <20260816195837.497735-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAEWPSH54fhzKEYR1cgTskNgKryDEMaZOY1y5aFdKQQyzfKbYfg@mail.gmail.com>
-References: <CAEWPSH54fhzKEYR1cgTskNgKryDEMaZOY1y5aFdKQQyzfKbYfg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98B9610E351
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 19:59:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 55EAC4011C;
+ Sun, 16 Aug 2026 19:59:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC431F000E9;
+ Sun, 16 Aug 2026 19:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786910352;
+ bh=+smZHeL6xiBG4VzXD9Hq0avAvKvZdhFa7BTeGdPWZyI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gNbX86M9WwIgyGS78xp914rMJ2R1jZlU3s2f/KlvE/PlA1gX3GJZdH8U0cJ6U7OYg
+ rQGop79SH28Fpw0x+xudxvOsBAIP+kFIwnJ9OKaIK0t/PFT5l2xbuc8CJdHpPFEQGs
+ K99IKoI2puh8ZevrlByaiiRexMS4c8M/vZGIpktbxK5rhUCZnCO5fv5Q1s9TuxcWtf
+ SCoMEKtT9E4M0sc2S80fYfeDvlYcZjOUHA0C0edl8ZqYMpYiUpe9Zl3WYeCPSkrvbO
+ 7NnXPHW0CMv10FzU56Rvye4Baq/K2WBQWxXZBsaVJaLtISNpBz15przD5nCq1uHiuK
+ BmebrVsmevsNA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] drm/imagination: Fix the vm_bo split mappings are
+ linked to
+To: "Gyeyoung Baek" <gye976@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20260817-pvr-vm-bind-v1-1-0a0f21be7d38@gmail.com>
+References: <20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com>
+ <20260817-pvr-vm-bind-v1-1-0a0f21be7d38@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 16 Aug 2026 19:59:11 +0000
+Message-Id: <20260816195912.0CC431F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,52 +54,128 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-You are right that it is fitted, and decoding it against registers.xml was
-worth more than the fit was. I had been treating those two words as opaque
-constants and comparing predicates, when the thing that varies is one bit.
+Pre-existing issues:
+- [High] Unbalanced `pvr_gem_object_get()` in `pvr_vm_gpuva_remap()` causes=
+ a permanent memory leak of GEM objects.
+- [High] Missing `dma_resv` locking during `drm_gpuva_link()` and `drm_gpuv=
+a_unlink()` causes data races and list corruption.
+- [High] Missing `vm_ctx->lock` acquisition in `pvr_vm_map()` causes concur=
+rent execution data races and potential RB tree corruption.
+--
 
-Your reading also named an experiment I had never run. Every measurement this
-board has produced was of the value my predicate happens to emit, so 16 and 41
-output channels had only ever run with SIZE_E_2 0, and 56, 64 and 128 only with
-1. The cell nobody had filled in was SIZE_E_2 1 at the small counts. Forcing
-the constant fills it.
+--- Patch [1]: [PATCH 1/4] drm/imagination: Fix the vm_bo split mappings ar=
+e linked to ---
+commit c145cb50bdcd3046dfd6222a4b0282d9524af76c
+Author: Gyeyoung Baek <gye976@gmail.com>
 
-  output channels    predicate     forced SIZE_E_2 1
-   16                16 of 16      NPU job timed out, 0 of 16
-   41                41 of 41      0 of 41
-   56                56 of 56      56 of 56
-  128              128 of 128    128 of 128
+drm/imagination: Fix the vm_bo split mappings are linked to
 
-So each form fails on the shapes the other handles, which makes it a two sided
-measurement rather than the one sided fit it started as. Taken with your RK3588
-result, RK3588 does not need the toggle and RK3576 does, and what the toggle
-selects is SIZE_E_2 rather than anything about the channel count as such. I
-will write it that way, as the field with a reason, rather than as a modulo or
-a parity of something.
+A remap does not map anything new. It splits an existing mapping and
+re-creates the parts the request did not cover, and that mapping is handed
+to the callback in op->remap.unmap->va, carrying the &drm_gpuvm_bo those
+parts belong to.
 
-The other bits you flagged I cannot defend yet. RGP_CNTER 8, OW_SRC 1 and the
-two in the reserved range came from vendor captures and have never been varied
-one at a time. That is a sweep this board can run and I will do it before the
-Mesa series goes out, since a value nobody can explain is a value nobody should
-be asked to review.
+> diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
+nation/pvr_vm.c
+> index 396d349fb6ce4..608e8c0467dce 100644
+> --- a/drivers/gpu/drm/imagination/pvr_vm.c
+> +++ b/drivers/gpu/drm/imagination/pvr_vm.c
+> @@ -434,18 +436,18 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *o=
+p_ctx)
+> =20
+>  	if (op->remap.prev) {
+>  		pvr_gem_object_get(gem_to_pvr_gem(ctx->prev_va->base.gem.obj));
+> -		drm_gpuva_link(&ctx->prev_va->base, ctx->gpuvm_bo);
+> +		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
 
-On the unclamped reference, thank you for using it. It changed what I thought I
-had here as well. The clamp is only free where the quantised output range
-starts at zero, and on a middle zero point layer it rewrites about half the
-surface. conv2d-cal is out_zp 128 with no fused activation, and against the
-unclamped output it is 0 of 128 channels rather than 128 of 128, with the
-hardware equal to max(cpu, out_zp) to within one everywhere. Where that clamp
-comes from is still open. It is not the output offset, not the BS block, not
-any register in the stream, and not the coefficient records, all four measured
-rather than argued.
+[Severity: High]
+This is a pre-existing issue, but does this code permanently leak GEM objec=
+ts?
 
-If you want another shape, an output channel count of 88 or 120 on RK3576 would
-tell us whether the toggle follows the same rule up there, and those are exactly
-the counts you already have on the other SoC.
+During a remap operation, this explicitly calls pvr_gem_object_get() to take
+references on the backing GEM objects for the new split mappings (prev_va a=
+nd
+next_va).
 
-Jiaxing
+However, the teardown paths like pvr_vm_gpuva_unmap() and the unmap phase
+of pvr_vm_gpuva_remap() just call drm_gpuva_unlink() and kfree() without a
+corresponding pvr_gem_object_put(). Since the DRM GPUVM framework internally
+manages GEM object lifetimes through vm_bo structures, are these manual
+references redundant and never released?
+
+[Severity: High]
+This is another pre-existing issue, but can this cause data races and list
+corruption?
+
+pvr_vm does not use DRM_GPUVM_IMMEDIATE_MODE, so it relies on the GEM objec=
+t's
+dma_resv lock to protect gpuva.list operations. When a new mapping overlaps=
+ an
+existing mapping belonging to a different GEM object, the core calls
+pvr_vm_gpuva_remap() or pvr_vm_gpuva_unmap().
+
+These callbacks then invoke drm_gpuva_link() and drm_gpuva_unlink() on the
+mappings without holding their GEM object's dma_resv lock. Since pvr_vm_map=
+()
+only locks the new GEM object being mapped (via pvr_vm_lock_extra()) and
+doesn't populate the GPUVM's extobj list, does this concurrent lockless
+modification of gpuva.list result in list corruption?
+
+>  		ctx->prev_va =3D NULL;
+>  	}
+> =20
+>  	if (op->remap.next) {
+>  		pvr_gem_object_get(gem_to_pvr_gem(ctx->next_va->base.gem.obj));
+> -		drm_gpuva_link(&ctx->next_va->base, ctx->gpuvm_bo);
+> +		drm_gpuva_link(&ctx->next_va->base, vm_bo);
+>  		ctx->next_va =3D NULL;
+>  	}
+> =20
+> -	drm_gpuva_unlink(op->remap.unmap->va);
+> -	kfree(to_pvr_vm_gpuva(op->remap.unmap->va));
+> +	drm_gpuva_unlink(unmap_va);
+> +	kfree(to_pvr_vm_gpuva(unmap_va));
+> =20
+>  	return 0;
+>  }
+
+[Severity: High]
+This is a pre-existing issue in this file outside of the diff, but does
+pvr_vm_map() have a data race that could corrupt the GPUVM RB-tree?
+
+In pvr_vm_unmap(), the driver acquires vm_ctx->lock before searching the
+GPUVM's RB-tree via drm_gpuva_find(). However, pvr_vm_map() mutates the RB-=
+tree
+via pvr_vm_bind_op_exec() invoking drm_gpuvm_sm_map() but doesn't acquire
+vm_ctx->lock:
+
+drivers/gpu/drm/imagination/pvr_vm.c:pvr_vm_map() {
+    ...
+    err =3D pvr_vm_bind_op_exec(&bind_op);
+    ...
+}
+
+While pvr_vm_map() acquires the VM's dma_resv lock, pvr_vm_unmap() does not
+hold this lock during its traversal:
+
+drivers/gpu/drm/imagination/pvr_vm.c:pvr_vm_unmap() {
+    ...
+    va =3D drm_gpuva_find(&vm_ctx->gpuvm_mgr, device_addr, size);
+    ...
+}
+
+Since there is no shared lock between the reader and writer of the RB-tree,=
+ can
+a map operation modify the tree concurrently with an unmap operation's
+traversal?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-pvr-vm-bin=
+d-v1-0-0a0f21be7d38@gmail.com?part=3D1
