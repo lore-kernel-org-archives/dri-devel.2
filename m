@@ -4,43 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7557FC5DF66
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:55:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83191C5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D24710E34D;
-	Sun, 16 Aug 2026 19:55:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE6910E353;
+	Sun, 16 Aug 2026 19:58:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D3vNRLSm";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="Av7Tesgu";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="R3JewFIL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3117710E34D
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 19:55:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B5604411FC;
- Sun, 16 Aug 2026 19:55:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B4F1F000E9;
- Sun, 16 Aug 2026 19:55:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786910152;
- bh=qCKJiiMDNZSBlyXYcD5zJGiO24QQFz+MwY/EOr04EY8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=D3vNRLSmrrQWLSEzZz/9p68vr3SOF0mDIOrkGtcCiqM/XALV/u13dO+KKR5nf/aRf
- EKj3LRACT97iiaufVI90GpPK2E2iy4j6ve8eepY75xyGoH3SCzWBGWxZsMu8scFtmR
- u1/npQWnQwYa/1IXK2xQ+SG2kz93zaOG/FJve1c0++CRNo8S5KRBY2KrnYF3s085Fu
- Q/Jfp9vOnc82BRtj+sw6sSD+MeqJsj3pB/xhLv7roRaVxY9LAbCAGmfyuJXjGF0O2C
- pQXXGdnofmDVim/pu8LQdHMIekdS2L+YfdT3OlzhWvuIunuOCDZ0Gt81QINOO2k5S5
- 4AAaygv3BV1hw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] drm/imagination: Switch the GPUVM to immediate mode
-To: "Gyeyoung Baek" <gye976@gmail.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817-pvr-vm-bind-v1-2-0a0f21be7d38@gmail.com>
-References: <20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com>
- <20260817-pvr-vm-bind-v1-2-0a0f21be7d38@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 19:55:51 +0000
-Message-Id: <20260816195552.60B4F1F000E9@smtp.kernel.org>
+Received: from flow-b1-smtp.messagingengine.com
+ (flow-b1-smtp.messagingengine.com [202.12.124.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B652910E351
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 19:58:44 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.stl.internal (Postfix) with ESMTP id D959E13002F3;
+ Sun, 16 Aug 2026 15:58:43 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Sun, 16 Aug 2026 15:58:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm2; t=1786910323; x=
+ 1786913923; bh=XnBStf3gY35JgbeiLlY3OyQBN22mjeVyLGOlqZ8Olm0=; b=A
+ v7Tesgu9KkldXPQiDym0PZqnbClXw4HR/76tMtifOgpm3PxQ2jIS7MSBxxwrSDsM
+ kGC+Ku0h2W+bOd7LMayA0jz+OCLzV9YKIJYCOCFAyEV06ew0XeS1RKuqcszcvxtW
+ StXw0FlGBHFOJh/tsFiGyFXJtNdOpM7W6bP3uuqkfRjQ4+PmK1XCyaQlmO1mZcq0
+ aiqdkY5Ex0yU12p+VXA8N0wL617CiEnFKxnzQG03T/LJG6PJPP6yeArLlghnkmMV
+ 15hdeqD7WryIElretzrb0gB1NsVFr/v6wIu+6Nal4qVXlQZ48TCY8gc8VWpLyKcJ
+ k6LEE0wO29McilmNHD6Cg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; t=1786910323; x=1786913923; bh=X
+ nBStf3gY35JgbeiLlY3OyQBN22mjeVyLGOlqZ8Olm0=; b=R3JewFILGvZjSj+9X
+ jU7efgOYjE9AiSf70wqr3iqnTlZuZgy28ljQ/RJDGkHpBjNgguVBq3swfLcAZgZ/
+ g5Rl7Bdvh6phHDb3xgq3RUCQCXHPeYUvLNfOQBU4N7E0/+TZdUt+4ujhhM9oJgT6
+ wHgrujhc6ZwtAdS/SwpgAs70rWXa37HRi6h2s4YIna1yyQF5h4dHUMnFacfhzUmM
+ MB6B+wP9QrF4jYWDCybM4gbA3Orja5BD+pdgE01vruZ/BdveDNgZPJbgQruamien
+ N/nGQXCLnekXnrersn+8AiZ5GEDfoGfzxLj92cyTs5CYVFxm2ZkT54yHejpY3H/I
+ bBd6g==
+X-ME-Sender: <xms:cxaCalrKA_EFNYHkr5PAX2Lu_aGKB1rN4UhwviaA_v0JA8jbg-5odw>
+ <xme:cxaCav0U1F-cpevEUC8ie0AkNeWK5uGT89ZP8MlSNgeyZBL_VM7pdtBGcLk7N5Gu5
+ sNQqh9fu_vFPNQwjSPkiS81750QVihmC-XccO_-WyUBqwJXhVHRzUiV>
+X-ME-Received: <xmr:cxaCatz_3qD7zxzycAcwO_WM6VC98ocj4vLrkGEhsRIn2MRuVfqeMQs1rNYtk7vb52rEPQcV-A>
+X-ME-Proxy-Cause: dmFkZTEdlirJvxcfGQ+WBsgr+9hxCRNQxQEcOKrpxNyi8WDOAmXAzN11cnXB8HJmbqFqBS
+ xtc1oy/Jvg5YFuB5a7cM1vsDrKjpvdxzHL6eKsttkvr9s9qnCehwuQTpcvoXKqfspIfa41
+ MbiEjZ/21VO49M+isqQxz7pPASLn515eeGV7RKRRWuUUpFxIxSGHJj5mAR7awOxSxLW7SH
+ cVURYyNhn4osDEuqsFDw3SRG9pRa7ZHB4foIEOnpWn1jjexsF7hLjKSn8/ETyRaaurqTEr
+ GoOKat559S2zZQp5qGm+OAZRKYj/jLwCA3ic+UZsN91e8thYkAa9MjE+dp9RFBpM0UTcLE
+ Jualy7VLSaJv/6beoFPaIdHkpHfFnr+SYl17ZX8EQH71m8HlmWHiFRJVW67ofJWnhbOET4
+ RGoeLRm4c14OiQnLxgJ0xDORcWxXh/NfS8395LJ4FYRSrLz7WsCfzcHrqMEn12oAJrwWmI
+ cwyyzHGhvsVD9nLE2g2W++fdrJFetqqGM0pFnGIrFjy8tqhZwuqBYl2mx+rfP3Wi3W9KxP
+ wBmv4wn5jr9gs6un++qLKuXf545nFNI+rcPO3bKMHQW3n/Iqpc5WclTDM/7OhZIZDlB79V
+ askSqi8M032Jc3s12ziNS6JfshhQCnj773P5fQqZMD1DwR03Ya7TawCXfXfA
+X-ME-Proxy: <xmx:cxaCargeG-LqeC9k-KyXokMlhG5cJjKWK7nMnO_4rdV8bai8aMW9gw>
+ <xmx:cxaCagqoE3ylQ0UZMlNjGBwYGHxyjjW1Nlc75MD-EIATG3Z3X_HCVw>
+ <xmx:cxaCaihbdAlK49ddmJ7Yo5sVosQzCDk1jt8BKKNn74GVqvSgE3A4rg>
+ <xmx:cxaCaiPbGxljNVevn3sws6NPuDfAezQdtMh0tXpx0ba6gX-hudrybQ>
+ <xmx:cxaCamIPlp7D9jLXir41S3bfCEN_jPhrVybyr9xNbCqZEuTAYhmyZrEf>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 16 Aug 2026 15:58:40 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: royalnet026@gmail.com
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, chaoyi.chen@rock-chips.com,
+ alchark@flipper.net, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Mon, 17 Aug 2026 07:58:37 +1200
+Message-ID: <20260816195837.497735-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAEWPSH54fhzKEYR1cgTskNgKryDEMaZOY1y5aFdKQQyzfKbYfg@mail.gmail.com>
+References: <CAEWPSH54fhzKEYR1cgTskNgKryDEMaZOY1y5aFdKQQyzfKbYfg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,89 +94,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Igor,
 
-Pre-existing issues:
-- [High] When splitting an existing mapping, `pvr_vm_gpuva_remap` permanent=
-ly leaks references to the GEM object by explicitly calling `pvr_gem_object=
-_get` for `prev_va` and `next_va` without any corresponding put in the unma=
-p path.
---
+You are right that it is fitted, and decoding it against registers.xml was
+worth more than the fit was. I had been treating those two words as opaque
+constants and comparing predicates, when the thing that varies is one bit.
 
---- Patch [2]: [PATCH 2/4] drm/imagination: Switch the GPUVM to immediate m=
-ode ---
-commit 62abfc02f1a7752ea9adac50d4fa08b736d27170
-Author: Gyeyoung Baek <gye976@gmail.com>
+Your reading also named an experiment I had never run. Every measurement this
+board has produced was of the value my predicate happens to emit, so 16 and 41
+output channels had only ever run with SIZE_E_2 0, and 56, 64 and 128 only with
+1. The cell nobody had filled in was SIZE_E_2 1 at the small counts. Forcing
+the constant fills it.
 
-drm/imagination: Switch the GPUVM to immediate mode
+  output channels    predicate     forced SIZE_E_2 1
+   16                16 of 16      NPU job timed out, 0 of 16
+   41                41 of 41      0 of 41
+   56                56 of 56      56 of 56
+  128              128 of 128    128 of 128
 
-This commit switches the PowerVR GPUVM implementation to use
-DRM_GPUVM_IMMEDIATE_MODE instead of the deferred execution model. This chan=
-ge
-aims to avoid deadlocks during asynchronous VM_BIND operations by removing
-the use of drm_gpuvm_exec and directly protecting the gpuva list with the G=
-EM
-object's gpuva.lock.
+So each form fails on the shapes the other handles, which makes it a two sided
+measurement rather than the one sided fit it started as. Taken with your RK3588
+result, RK3588 does not need the toggle and RK3576 does, and what the toggle
+selects is SIZE_E_2 rather than anything about the channel count as such. I
+will write it that way, as the field with a reason, rather than as a modulo or
+a parity of something.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
-nation/pvr_vm.c
-> index 608e8c0467dce..45df76e61f7cf 100644
-> --- a/drivers/gpu/drm/imagination/pvr_vm.c
-> +++ b/drivers/gpu/drm/imagination/pvr_vm.c
+The other bits you flagged I cannot defend yet. RGP_CNTER 8, OW_SRC 1 and the
+two in the reserved range came from vendor captures and have never been varied
+one at a time. That is a sweep this board can run and I will do it before the
+Mesa series goes out, since a value nobody can explain is a value nobody should
+be asked to review.
 
-[ ... ]
+On the unclamped reference, thank you for using it. It changed what I thought I
+had here as well. The clamp is only free where the quantised output range
+starts at zero, and on a middle zero point layer it rewrites about half the
+surface. conv2d-cal is out_zp 128 with no fused activation, and against the
+unclamped output it is 0 of 128 channels rather than 128 of 128, with the
+hardware equal to max(cpu, out_zp) to within one everywhere. Where that clamp
+comes from is still open. It is not the output offset, not the BS block, not
+any register in the stream, and not the coefficient records, all four measured
+rather than argued.
 
-> @@ -436,17 +441,21 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *o=
-p_ctx)
-> =20
->  	if (op->remap.prev) {
->  		pvr_gem_object_get(gem_to_pvr_gem(ctx->prev_va->base.gem.obj));
-> +		mutex_lock(&obj->gpuva.lock);
->  		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
-> +		mutex_unlock(&obj->gpuva.lock);
->  		ctx->prev_va =3D NULL;
->  	}
-> =20
->  	if (op->remap.next) {
->  		pvr_gem_object_get(gem_to_pvr_gem(ctx->next_va->base.gem.obj));
-> +		mutex_lock(&obj->gpuva.lock);
->  		drm_gpuva_link(&ctx->next_va->base, vm_bo);
-> +		mutex_unlock(&obj->gpuva.lock);
->  		ctx->next_va =3D NULL;
->  	}
+If you want another shape, an output channel count of 88 or 120 on RK3576 would
+tell us whether the toggle follows the same rule up there, and those are exactly
+the counts you already have on the other SoC.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does pvr_vm_gpuva_remap()
-permanently leak references to the GEM object here?
-
-When splitting an existing mapping (e.g., when an unprivileged userspace
-client unmaps a subset or hole of an existing mapping), this code explicitly
-calls pvr_gem_object_get() for prev_va and next_va to take an additional
-reference to the GEM object for the newly split mappings.
-
-Looking at the unmap path in pvr_vm_gpuva_unmap(), it relies purely on the
-vm_bo lifecycle and does not appear to drop these per-VA GEM references:
-
-pvr_vm_gpuva_unmap() {
-        ...
-        drm_gpuva_unmap(&op->unmap);
-        drm_gpuva_unlink_defer(op->unmap.va);
-        kfree(to_pvr_vm_gpuva(op->unmap.va));
-        ...
-}
-
-Because these extra references taken during the remap operation are never
-dropped when the mapping is subsequently unmapped, can this lead to a
-permanent memory leak of GEM objects and eventual memory exhaustion if
-userspace repeatedly splits mappings?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-pvr-vm-bin=
-d-v1-0-0a0f21be7d38@gmail.com?part=3D2
+Jiaxing
