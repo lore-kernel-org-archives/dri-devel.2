@@ -4,52 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0266C5DF74
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B17C5DF70
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6583D10E30B;
-	Sun, 16 Aug 2026 14:05:17 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21BEC10F422
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 08:03:40 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.241.250])
- by APP-01 (Coremail) with SMTP id qwCowACnffHXy35q_MOeBQ--.48866S2;
- Fri, 14 Aug 2026 16:03:36 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Pengpeng Hou <pengpeng@iscas.ac.cn>
-Subject: [PATCH v2] drm/nouveau: validate legacy BIT table bounds
-Date: Fri, 14 Aug 2026 16:03:35 +0800
-Message-ID: <20260814080335.22263-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3DB389226;
+	Sun, 16 Aug 2026 14:06:16 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KSNK8VYE";
+	dkim-atps=neutral
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0972310E265
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 06:24:02 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-38a0c7e841fso3260632a91.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 23:24:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786861441; x=1787466241; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=2+VXnP47ytTguI11i1PKxSzDAJacSIz5jyC8KDUI+I4=;
+ b=KSNK8VYExEi1leXEykG+e54H3uTw9vDn3O6ibsb5glj71JpThhjEa9oj70hBLegnbN
+ ALU9APYIT9PYvbcPUm+8oj5qCs4iEz2YUrdxLL7Tp2M+MiqqXGu6HZ+NlUT4YEjz7glx
+ aU8/cP4WCFjpOrZ948+E4vJdh7nkMEl/1luw41/kwjpz6aHgmsyLOzRX8n5txRIlWc/1
+ ZXvGhZHzlziAtm7bou8ULhwsiDSxISMT6dZ1IKNsGr0TvLF7kVhbqIivTls4xJxiqUHt
+ wYc5l5/URSPAzw/OaAdABgOTQLhhZUmL+ri9hFieU4kawjcttu05ea3nWDpYThUgaG7X
+ c9pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786861441; x=1787466241;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=2+VXnP47ytTguI11i1PKxSzDAJacSIz5jyC8KDUI+I4=;
+ b=X1ht7WUCW0ucbz2NhD9Ng68aYlrJVgx9QbyAtumH+p++OtXUdPeTNB/T2sEFk3vmpi
+ 1+jX7RkdXU1P0nfwbgvQDPKmCoSj/f0XRrHOcM3BvhOmSFXZKAcymO0kiKpMzoD4sOaA
+ tHv+aJdzgJnHNXpDf+szAXYoehoZh1roFuD1+scwJ2EUXdzRFx90UApxM2RJCvMiq8Tp
+ woBwlzBLI2xHLrFVRFYPo/7YGVe0gAMgrdnjWXYG/5Iq5g/ZklyijMcV9lYOuYi8e5b7
+ gcg1Y5MHJycHmMjwg5xbQVXeiOSSqAwxo5l1uxURTv3Hxrh64RP1Vk4CmBcARMNdGsKm
+ duAw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr0s62zxP4UokPRwHkGDUJf4lME+Y8eTVPjGuhVZiVQUmv7VPAx+zaIOCeigaacYMshb6JPlSRLd5U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YykX0tY3r6Nls4N/Wea81qy1T+vAbjg5dTNm8l7lf6LIX6n3Ksv
+ +wwL3FrTu6I7X36yo7vvjkSZQt3VEfQjCkFGwl+w2sGoLt9Txt7uM3My
+X-Gm-Gg: AR+sD12VDoeAp7IsK28OYPjz4YE44fGHLg+ueAgM7Rn7jGzQhjlHRf2HR6DLtbWV8Aa
+ UTwbnNz/Nuceqdyb1ZXFPtbd9gW8jMEGLsbC5omP0GEIv/UUEJaO8QW+IzIR1XtVbLcHDf4r/w9
+ TfCKb2SSaCL/ccs3V9ridN/pCDVPFhSljSJkA0J3nmo8ImdfHEHwCbfeRJ720y2hFLnPdev7Drs
+ QEzervkyfCDkmG/opM3iOoLgzcoYM5utbm+wzNcIx1fYBnu7inU59i3XTttFcTH44k2p8siV+LJ
+ T7pPqJ4lV7tAx+4hOPBdC8FU0axS5cibR3BKXnPEnTAL3xCKDeDXjmNv6LBXPuBid1qdlxS1YpE
+ rXbQugP/ENBCK2ziL/3b15eLZVh0Hu6V+EgZRAV+Xiskn1JwoyQV7pSJOQnEv1Kh1YI6WG7FRJo
+ 3FlewxWCg3kzHvmaUn1wXy/DScrKWoVK0/VxLYYE32T4STGLByo0lLIURFeLN2WLE89a47FNaeW
+ nLmpNPw5pAUbT48qC1Z8okgVldT9aiQdA==
+X-Received: by 2002:a17:90b:5450:b0:38e:655c:6516 with SMTP id
+ 98e67ed59e1d1-3933b4f3238mr18629232a91.0.1786861441487; 
+ Sat, 15 Aug 2026 23:24:01 -0700 (PDT)
+Received: from allen-xiaomibookpro14.lan ([2600:1900:4030:ad65:0:1::])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39531e14346sm686330a91.4.2026.08.15.23.23.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 15 Aug 2026 23:24:00 -0700 (PDT)
+From: =?UTF-8?q?Chang=20Jiong=28=E5=B8=B8=E7=82=AF=29?= <xspeed1989@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Chang=20Jiong=28=E5=B8=B8=E7=82=AF=29?= <xspeed1989@gmail.com>, 
+ stable@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
+ intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in
+ bxt_sanitize_cdclk()
+Date: Sun, 16 Aug 2026 14:23:44 +0800
+Message-ID: <20260816062344.796615-1-xspeed1989@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <tencent_6CC00E822A788776C8F6E2D6B24C5FE4A909@qq.com>
+References: <tencent_6CC00E822A788776C8F6E2D6B24C5FE4A909@qq.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowACnffHXy35q_MOeBQ--.48866S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww45Zw18ZrW5ur13WryfJFb_yoW5JryUpF
- W7WasrAr4rtr4agr4Iyr45Aa4fZws3Wr9rGFy3KryY9ryftF10k3W8Ar1Yg345JryDuryY
- yF4DKa4Uur45t3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
- xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
- 6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
- 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
- 8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
- Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
- x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
- yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
- 6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
- IYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-Originating-IP: [111.196.241.250]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,77 +103,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The legacy BIT parser finds the BIT signature and then reads the
-entry shape and entry array directly from the VBIOS image. The signature
-does not prove that the complete header, entry array or referenced table
-payload fits in the image.
+Since commit 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
+without a full PLL re-enable") bxt_sanitize_cdclk() normalizes the
+CD2X pipe select field of the CDCLK_CTL readback to PIPE_NONE before
+comparing against the expected value.
 
-Validate each extent before use. Preserve the legacy zero-offset meaning
-for zero-length entries, but reject non-empty entries with a null or
-out-of-range offset.
+However bxt_cdclk_ctl() does not include the CD2X pipe select field
+at all on DISPLAY_VER() >= 30, so on Xe3 (PTL) the normalized
+readback (pipe field forced to the PIPE_NONE encoding, 0b111) can
+never match the expected value (pipe field 0). The comparison now
+fails on every boot and we always take the full CDCLK PLL
+disable+re-enable path with the BIOS framebuffer actively scanning
+out - exactly what this code was trying to avoid. On a Panther Lake
+laptop (Arc B390, 8086:b080, eDP 3120x2080@120) this causes
+"CPU pipe A FIFO underrun" during probe and persistent full-screen
+scanout corruption for the first KMS client (the SDDM greeter);
+the corruption lasts until the next full modeset.
 
-Fixes: 6ee738610f41 ("drm/nouveau: Add DRM driver for NVIDIA GPUs")
-Assisted-by: Codex:gpt-5
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Only normalize the CD2X pipe select field on platforms where
+bxt_cdclk_ctl() actually programs it, mirroring its DISPLAY_VER()
+check.
+
+Fixes: 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chang Jiong(常炯) <xspeed1989@gmail.com>
 ---
-Changes since v1: https://lore.kernel.org/all/20260706093856.81984-1-pengpeng@iscas.ac.cn/
-- validate the complete BIT header and entry array
-- validate each referenced payload extent
-- preserve zero-offset semantics for zero-length entries only
+v2: No code changes. Resent with From matching Signed-off-by
+    (v1 was sent from 304750714@qq.com, which is not on the
+    Intel CI allowlist).
 
-The legacy BIT and ROMPTR contracts were reviewed statically; no malformed
-VBIOS image was exercised.
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/nouveau/nouveau_bios.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bios.c b/drivers/gpu/drm/nouveau/nouveau_bios.c
-index 38032bb95826..a4ef62928ba3 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bios.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bios.c
-@@ -972,24 +972,39 @@ bit_table(struct drm_device *dev, u8 id, struct bit_entry *bit)
- {
- 	struct nouveau_drm *drm = nouveau_drm(dev);
- 	struct nvbios *bios = &drm->vbios;
--	u8 entries, *entry;
-+	u32 entry_size, entries, offset;
-+	u8 *entry;
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 7bc9b956554b..0438f5ac78c0 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2366,8 +2366,10 @@ static void bxt_sanitize_cdclk(struct intel_display *display)
+ 	 * dividers both syncing to an active pipe, or asynchronously
+ 	 * (PIPE_NONE).
+ 	 */
+-	cdctl &= ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
+-	cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++	if (DISPLAY_VER(display) < 30) {
++		cdctl &= ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++		cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++	}
  
- 	if (bios->type != NVBIOS_BIT)
- 		return -ENODEV;
- 
-+	if (bios->offset > bios->length || bios->length - bios->offset < 12)
-+		return -EINVAL;
-+
-+	entry_size = bios->data[bios->offset + 9];
- 	entries = bios->data[bios->offset + 10];
--	entry   = &bios->data[bios->offset + 12];
-+	if (entry_size < 6 ||
-+	    entries > (bios->length - bios->offset - 12) / entry_size)
-+		return -EINVAL;
-+
-+	entry = &bios->data[bios->offset + 12];
- 	while (entries--) {
- 		if (entry[0] == id) {
- 			bit->id = entry[0];
- 			bit->version = entry[1];
- 			bit->length = ROM16(entry[2]);
- 			bit->offset = ROM16(entry[4]);
-+
-+			offset = bit->offset;
-+			if ((bit->length && !offset) || offset > bios->length ||
-+			    bit->length > bios->length - offset)
-+				return -EINVAL;
-+
- 			bit->data = ROMPTR(dev, entry[4]);
- 			return 0;
- 		}
- 
--		entry += bios->data[bios->offset + 9];
-+		entry += entry_size;
- 	}
- 
- 	return -ENOENT;
+ 	if (cdctl != expected) {
+ 		if (DISPLAY_VER(display) < 20) {
 -- 
-2.50.1 (Apple Git-155)
+2.55.0
 
