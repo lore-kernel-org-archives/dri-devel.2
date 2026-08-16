@@ -4,65 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 318B8C5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:06:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 890E7C5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:13:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9024610E305;
-	Sun, 16 Aug 2026 14:06:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0CED10E08E;
+	Sun, 16 Aug 2026 14:13:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EUeKhmBH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UE345Vg7";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3223A89349
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 14:06:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=ySmnWO3XBpCyGmRmqJ/3VJ0DyjSd0CyWUVKuIAJPxQA=; b=EUeKhmBHdTI3GQh50iJI+1DD3x
- FdmxLfejc5u1j+gVHq/KAQHeboTMFJLyU9guKoAM+ztORGP5cgvfOGilTWuZ0c8vAlwz5rqKJZPtY
- 3wlYcACMf9od3SHZKIB0cS6xIKLFwDXy0MirLeAqczBYd/o2Abuo514iePwYds1jL2fZzOvS21SbK
- 700ZCbP5kvWhcZPI2o/kCkAFJUaT/vVyBrvQQ80Cd8VdZUJJRSTzht3ui2TyvmR4i3Xu9YB4Kyl05
- U5cZG5F2jfEtlTvfR8pJ/9hRevYphjN10rxSP59UF7FmuQp9qfxBzVWbPyjZ3EYpq1CZd6RX6EZ9w
- Dl/5pwCQ==;
-Received: from [179.105.94.163] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wvbUp-002tuI-9v; Sun, 16 Aug 2026 16:05:55 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 16 Aug 2026 11:05:40 -0300
-Subject: [PATCH 1/4] drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260816-vc4-reset-control-v1-1-896444373716@igalia.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE03810E08E
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 14:13:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F3812600E2;
+ Sun, 16 Aug 2026 14:13:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599D71F000E9;
+ Sun, 16 Aug 2026 14:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786889581;
+ bh=l1QZPl/tceDt7rjvwQgpO08fJ1JcCsaQkuLZ65wWNZ0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UE345Vg7pe7eMGO66riEFuXjYc8Ed779pF4QeydSiCQoirS6kh3tXQ0Xd7fXqim18
+ cgSSxuhGd1IAUrQyeiHUx890R7Gl+zTYyE2+WWxkZG4niBaUBSj/GS60V2GFVmZeed
+ MMdA6IopsDRoSc+tNqAPAnAFr74Sy56lsM9J360gFNPNZMhUp7Wsdy3kNRggM9dX/Z
+ QxdFUFPn8oPNVL1glTcZ8nbpO2LMBHwV6XRXC9CSVexvI0FXKcla2wqw69pdDrtd+z
+ kiPhh/gsr5MyOi2lYPVNn9abJdAn8AaLJD9/omtOIcNvQCofsIJMcCUWgVxUpLUa+x
+ rmY+ezMfcx+Mw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
+To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260816-vc4-reset-control-v1-1-896444373716@igalia.com>
 References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
-In-Reply-To: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
-To: Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1958; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=nuaMYYTQqhqKJlPaF30SikTyAbBlUrVsMa8qr5TuWQw=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqgcO4xQgyy+Sd0RwL+2JuA7vOYeeRX5MzP8osz
- 8qfiCfLgReJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoHDuAAKCRA/8w6Kdoj6
- qiG3B/4k2ZV0kbJKQ8+DXSOrcbsRJl4t7l9wsGcIFFXPrnUG0pjHTTFB3E/cGDy55tvX60jAQC7
- nWuCPpgxp5DLpAJyFLS4sKh3mIpDtUanp8FFtL1SnGukXNC/piw+7zqMq6zFAz9kSTEXIPOXxxq
- UDCuPO6CA+UISwThAOMYYgMWPC0JQMK8YyvlUki+Re/lbsWzGro5zUj7xYlIyX6ngOg7hJNWrRb
- cPDnoX78Cr94Rfald1BVdB/64M7i2CncxJvFG8YIN42N6Fq14Qp/RPWP5gI4AMOKrY+r3IZARtW
- Rm5izgR4NhxHpfWRXgc57zTZG8oTX42qYwyB8adaKgdBdhET
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+ <20260816-vc4-reset-control-v1-1-896444373716@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 16 Aug 2026 14:13:00 +0000
+Message-Id: <20260816141301.599D71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,57 +54,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-"brcm,vc4-v3d" is the compatible string V3D support originally shipped
-with in commit d3f5168a0810 ("drm/vc4: Bind and initialize the V3D
-engine."). Commit 90d7116061f8 ("drm/vc4: Recognize a more specific
-compatible string for V3D.") added "brcm,bcm2835-v3d" in v4.6 and kept
-the original one around, because the Raspberry Pi firmware was shipping
-device trees that used it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Removing the 'brcm,vc4-v3d' compatible string breaks Device Tr=
+ee ABI compatibility with older Raspberry Pi firmware.
+--
 
-That string was never part of the binding: the documentation added in
-commit 4653f22e9ab0 ("dt-bindings: Add binding docs for V3D.") describes
-only "brcm,bcm2835-v3d", and no upstream device tree has ever used
-"brcm,vc4-v3d": the first in-tree V3D node, from commit 49ac67e0c39c
-("ARM: bcm2835: Add VC4 to the device tree."), already carried the
-specific name. The firmware device trees the compatible was kept for
-predate v4.6, released in 2016.
+--- Patch [1]: [PATCH 1/4] drm/vc4: Drop the undocumented brcm,vc4-v3d comp=
+atible ---
+commit 0d9402a3018a535c49f9c7ef653bfa693de83e10
+Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-Drop it from both match tables.
+drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
 
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/vc4/vc4_drv.c | 1 -
- drivers/gpu/drm/vc4/vc4_v3d.c | 1 -
- 2 files changed, 2 deletions(-)
+This commit removes the "brcm,vc4-v3d" compatible string from the VC4 drive=
+r's
+match tables. It notes that the string was never part of the upstream device
+tree bindings and was only kept for older Raspberry Pi firmware.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index 616caf9d9915..eb859c65a453 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -279,7 +279,6 @@ static const struct of_device_id vc4_dma_range_matches[] = {
- 	{ .compatible = "brcm,bcm2835-hvs" },
- 	{ .compatible = "brcm,bcm2835-v3d" },
- 	{ .compatible = "brcm,cygnus-v3d" },
--	{ .compatible = "brcm,vc4-v3d" },
- 	{}
- };
- 
-diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-index d31b906cb8e7..379ab77243ad 100644
---- a/drivers/gpu/drm/vc4/vc4_v3d.c
-+++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-@@ -531,7 +531,6 @@ static void vc4_v3d_dev_remove(struct platform_device *pdev)
- const struct of_device_id vc4_v3d_dt_match[] = {
- 	{ .compatible = "brcm,bcm2835-v3d" },
- 	{ .compatible = "brcm,cygnus-v3d" },
--	{ .compatible = "brcm,vc4-v3d" },
- 	{}
- };
- 
+> diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
+> --- a/drivers/gpu/drm/vc4/vc4_drv.c
+> +++ b/drivers/gpu/drm/vc4/vc4_drv.c
+> @@ -279,7 +279,6 @@ static const struct of_device_id vc4_dma_range_matche=
+s[] =3D {
+>  	{ .compatible =3D "brcm,bcm2835-hvs" },
+>  	{ .compatible =3D "brcm,bcm2835-v3d" },
+>  	{ .compatible =3D "brcm,cygnus-v3d" },
+> -	{ .compatible =3D "brcm,vc4-v3d" },
 
--- 
-2.55.0
+[Severity: Critical]
+Does removing this compatible string break Device Tree ABI compatibility?
 
+The commit message mentions that firmware device trees predating v4.6
+(released in 2016) use this string. Since the Linux kernel generally
+treats Device Tree as a stable ABI, will dropping this cause users
+who upgrade their kernel but not their boot firmware to lose DMA
+range matching and 3D hardware acceleration?
+
+>  	{}
+>  };
+> =20
+> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
+> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+> @@ -531,7 +531,6 @@ static void vc4_v3d_dev_remove(struct platform_device=
+ *pdev)
+>  const struct of_device_id vc4_v3d_dt_match[] =3D {
+>  	{ .compatible =3D "brcm,bcm2835-v3d" },
+>  	{ .compatible =3D "brcm,cygnus-v3d" },
+> -	{ .compatible =3D "brcm,vc4-v3d" },
+
+[Severity: Critical]
+Similarly here in vc4_v3d_dt_match, does removing this prevent the VC4
+V3D driver from successfully probing on those older firmware device trees?
+
+>  	{}
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816-vc4-reset-=
+control-v1-0-896444373716@igalia.com?part=3D1
