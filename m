@@ -4,45 +4,175 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5275C5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:22:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FE4CC5DF70
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 15:04:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36E0810E30D;
-	Sun, 16 Aug 2026 14:22:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 628B210E248;
+	Sun, 16 Aug 2026 15:04:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IkxOimCg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="doBg41iP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22D4810E30D
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 14:22:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE1D740503;
- Sun, 16 Aug 2026 14:22:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72BF31F000E9;
- Sun, 16 Aug 2026 14:22:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786890125;
- bh=DBQvGg8JH2zzX4H370i8mdL8y1P8q3oyIm63hRx5I8c=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IkxOimCgsTac4X4NrpC76H1dSiq9abI/h1dWDIW4PnZJieXi4UCI0OSXWLpqFGWbP
- AtL/LJfOMlr/EkCSCrn2HYyUWRtdoL8HhLkd0nuQ8xxllDFmKf+7IN1S7xcwJZmDgY
- nfHYsQopUEipzvXbXjzgi7fWPlFwIIFUQkI8UbH9xfv9DYGUaJu7oCl0Wk+ogn4c3T
- Hw2WxCDMyZsFSm6ADsNXw60qgUyT7773Om2KUVN4IsEvz7/JOCWvoH4uzVPDJ0rjzx
- 6IzNJyUaXH45EWSryuK0gITjFAwIaJTANe4AZa6NmHDo1KGv/lJbKJi+FXdSdmFrGd
- o6PP9ref4lYtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/vc4: Use the reset controller to recover from a
- GPU hang
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260816-vc4-reset-control-v1-3-896444373716@igalia.com>
-References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
- <20260816-vc4-reset-control-v1-3-896444373716@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 14:22:05 +0000
-Message-Id: <20260816142205.72BF31F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96D3A10E248;
+ Sun, 16 Aug 2026 15:04:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786892666; x=1818428666;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=wMF1CVn10o8VhdSBV++w0DB3yMAtKPrNZCNDiQx4ooM=;
+ b=doBg41iPVN9KxoLbITy2kQ2RX6lSJP67h9LIIHVT1lpxSAkobJVDVmng
+ Z39o8w19Csc9fp7Kb2TIMg1QKH8+G516JVI2xYT9l+UumV8jZuL0XDCXD
+ jPWhaPk3Z2z6PKmBlLEbXzQjzjF+MacQ55GmHFFThMq2vLL2HdU5W83kr
+ 7yvgff/38/K5pVM+sWyFk81fZwFO+BaC1UPbWMEtNYV/7cQELAgF4vqcH
+ qmL7/DnW/9odug+JWjTpgx8kTJuGGTLdTsZk57RomXED0BunFvx0HtdTV
+ RZmW8kuu0MWuJmo1nNnIbzufYNC87igB1l2irYHWoXKGDLvQh+7HbrRik w==;
+X-CSE-ConnectionGUID: I74MsvXFQde/UTvUFo4G2A==
+X-CSE-MsgGUID: MfeAdET/Qji8pUiwA0n7Dw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="112932067"
+X-IronPort-AV: E=Sophos;i="6.25,227,1779174000"; d="scan'208";a="112932067"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2026 08:04:25 -0700
+X-CSE-ConnectionGUID: M33YmcpXQKC+TCE83pc8dg==
+X-CSE-MsgGUID: ygr7i+oWQxa19HOmzSmDUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,227,1779174000"; d="scan'208";a="268535707"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2026 08:04:25 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sun, 16 Aug 2026 08:04:24 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Sun, 16 Aug 2026 08:04:24 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.55) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sun, 16 Aug 2026 08:04:24 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UF/VyoyODSmaIrWEskqI4ipqdHl8y69hm9q1TjoQdlGXoB9YXuLMXkjMPO/5poZppZTxWWsPNbqIn13P6dCNn9T3zipNVov+xc8gHGmA/CLDHxrGmfTtU9x5YvFeFgZm804lMsJ2nBBPX9DsBiJeRO25An7OANBM1utnEH4L5PlUqhZLDrY+ZvDAUuhGSSHK1DDpDaUoQcem0p7FBD/sxdocz5qKorNQ7HugZkgfkdbIcfm3hfJ7hX1GVyscTffzUnCnlwehAczOQ6KaKJ64EEcef6z3ReLr4f1PugOl16YaRBKcVc+sR9yGxTebvGfZzbsWce/Im7Ia57tvIiy5mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MgoiTqLSmuPuQaSwT8viA9jFigFV26MHK13gzYRgYdI=;
+ b=juW26+ZnvtTk6Xq0BkaFb4vUGnqwbKlH+ytu95Af67d2dAzwyEHM4bQyrZqngWRvKEtNfAhNAYqRY2+TX+WqaUtxkPinvG//FezdwQRGQYQEzrx7LK7CX4GghJiLPHEc6cNJ/swz0eNZWjWKxU3qKAD6ra5AVqvLrZSwa47BtWCsXcNMNV04lm1SfD8CTcdrHHREwoLmenrWjAyAxFHZuCdgQwnIu1/O4gXLVamIFH4Sf044JfB2HoUTm3HWVXYg3E80x0OtWS2nmhdIQ2/886cEmHhChppbX4PG+s40Yttk90Vsp7ch9qa+obPZzaaLIL5cL9di3GH1e+cRayHz8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::2a) by DM3PPF74831EF4B.namprd11.prod.outlook.com
+ (2603:10b6:f:fc00::f2e) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Sun, 16 Aug
+ 2026 15:04:21 +0000
+Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
+ ([fe80::5a5c:9c7a:cd1d:d687]) by DS4PPF691668CDD.namprd11.prod.outlook.com
+ ([fe80::5a5c:9c7a:cd1d:d687%6]) with mapi id 15.21.0315.016; Sun, 16 Aug 2026
+ 15:04:21 +0000
+Message-ID: <9e986d7c-d561-4a63-8b14-6380ac289db5@intel.com>
+Date: Sun, 16 Aug 2026 20:34:06 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/6] drm/pagemap: dma-unmap pages before handling
+ migration errors
+To: Matthew Brost <matthew.brost@intel.com>, <intel-xe@lists.freedesktop.org>, 
+ <dri-devel@lists.freedesktop.org>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>
+CC: Sashiko <sashiko-bot@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, "Dev
+ Jain" <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park
+ <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, "Balbir
+ Singh" <balbirs@nvidia.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, Francois Dugast
+ <francois.dugast@intel.com>, <stable@vger.kernel.org>
+References: <20260805231041.3791771-1-matthew.brost@intel.com>
+ <20260805231041.3791771-5-matthew.brost@intel.com>
+Content-Language: en-US
+From: "Ghimiray, Himal Prasad" <himal.prasad.ghimiray@intel.com>
+In-Reply-To: <20260805231041.3791771-5-matthew.brost@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA0P287CA0003.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:d9::20) To DS4PPF691668CDD.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::2a)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF691668CDD:EE_|DM3PPF74831EF4B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64f7cbc1-a7b4-4ca7-e471-08defba7a6ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|23010399003|376014|366016|1800799024|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: sycKyIegXa5EzPuP5Fa3RYet4m/dm1KzieNSqZtt2WP8UHW8BaoXF5+XuT1cRIKB2nDKR6IN3upf90UrpMXI1TQLJEoE8cS66icy7xZFtN96TLHZJjbJQ28qm3XDOg9GgzIQXkwkUo46HxcbB5LU2jFqqN8rmxrkfZ2zNhdFWZhjZ32mfGfkYvmVZ0ghaLFU2xyVgdfZ4sNFk3LyjT8wznq6VrBzOJaqgJvcFyjypzfkBWGt1W3Y6t5zxNJmKSfhw0R7OGX4VO74PWVUoX8PqI98XLLlYVoUhmYKruKaX3736y1ywC1qnN+L7OrqlbPU0t0ThEsW4Euu9DzwgMtg/yjdZLBvsbID+t9+rPB+FEcvfriykdkNN6ws4niG4xgiVARGZvyM6MjEBw0ZrHvXywqCwecmID7egmc+QBQERaQi8h2z6EUzu+9KEQWfgLEWgT5NbxlFuxrFk6eVPQEKMlMvAN4/hiXD+Qc6EmFs15R9BHFoJUVbP2y8IX8SsFhjAnvr86KIet872EnlbPNRxPsl51Rq9IxHzlbvxErr8skGOgsSnDsbBOskJXEj/pG+xArpqrz/SM6UASBs6gYKw34t3CFUl8Z6DBI7NgfADdVGwm/Uf7gcZJkoyFMDhk6utm8h1y2LrjpCPD91KBMWgY8QgHZBjMaZvndiVhgkYdc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PPF691668CDD.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ODFObDduVkV6UWphSUQvejN1c00zQmo5UldQclpoOGhpSDk3U2lYTGdHR2tF?=
+ =?utf-8?B?RzBTbW5JQThmRW5rWm4waFJYenRaTkhmUXhVb25vYm1kd082RWVmSkYvLzNF?=
+ =?utf-8?B?SFBYOSs1QzhleEVxazltakRvVGE1S2lGUkh0VlhmbUJva2tlZmEwNlJtMkw2?=
+ =?utf-8?B?aTRUTk1HM2ZLTHk0QS9rSTlQOWFncHMvQkxLSHgvQ1RyWHZPMDA2SlVLRlR5?=
+ =?utf-8?B?ZFdORHd0czN2NW1NWmFrZG1ONmxPWWRnemg2RTlqbUZJUFAyQVhFaVV6dmJD?=
+ =?utf-8?B?cDVaVnVkTGIzUExpZkxzYWlSOVVYYmVQZ2JoVzRMZ2lGZ1IxL0lsZnVwZTZS?=
+ =?utf-8?B?Ui9Td0RodzZuQjlrei9jdGZlc241YVBvU1pZcDZ5OUZURlYyM0tGd3lrRzRk?=
+ =?utf-8?B?eUp6cmI2RFZqNldVTjVkRUd4d016TDltbzRPeFdVa1FWa2pHcnVZZXhRR2Np?=
+ =?utf-8?B?K2hvbGNnNERWQW93ckNUSGgzak1CcW0yeVk2MFlLdEduTUR1Z0drak1iYnlk?=
+ =?utf-8?B?RlpGYzJxSUNDa0c2cjlEMEZPY2RTRXlRdnNEcWFocGFKVjBJd3lqL3Uxcjdw?=
+ =?utf-8?B?NU8zckorYlgrVHhEakMvL0ZMaEc5bTVEeWQ2V0ZGM1RtQmpteFJnd3ZSVlZ6?=
+ =?utf-8?B?WjlQT0JqNmVqblFiUTZOd0o5WjRXSGEvdENDYmVCVHM1WHJjcFVhN1RURDZQ?=
+ =?utf-8?B?Zm13R0NJa25mYjFBa3cxUWJ6ZkRNLzVnLzZ4bThRdkZLZzlZcjhQZ1loQjYw?=
+ =?utf-8?B?YXVNbVpEVmVNZSsrZGREM3h6ZlJyMEZPc0RHNzNVa2hkRkVWdmM3SzRNbXpT?=
+ =?utf-8?B?OVZPYTNLSXBQRm0za3RrUG9peW5WeHVmSUo5aFF4TFhJaUxySkFuZ2dicDhY?=
+ =?utf-8?B?ZURpUW5lNnJKczRVQ3Z6U21RVWx5aUw3M2t2R1RVMjFERm5mc3p0YXFFeWpQ?=
+ =?utf-8?B?ajZHT204a213SStCVXFEc2l6cm9US3hqWDVKWnZBQ1NqTlg1bVFSUlJhR2o2?=
+ =?utf-8?B?WjErZll6Z3ZYaEhBMmV1QjVFQk91NU1TOXorM1BsREVTemVRT1VuLzZYU0tj?=
+ =?utf-8?B?MzM3T2gyNVhEOFRrUXJmUUk5NksvM29JaVdUVCtYajVYckhNWklKS3dGQVgy?=
+ =?utf-8?B?Mlhpa1JqUDZQL0tXRXMrcWp6NmxmS3NrZlhSS2pnSkVHdXI2T0RUaVU0YmlE?=
+ =?utf-8?B?MnFuemVjNTdwQ0lYTy96MmQ3dURxRWJTL1pGbHJobGxMOHlXTjNwMFVEaURS?=
+ =?utf-8?B?eTJ0SVlxZ2dPblBFcmFMeUlETXVSMHZjZGloV3ZaUzNkRUp2dEpSRUNFM2lk?=
+ =?utf-8?B?bGYweEx3aVI4UnhEV3NtU3J4SzhhU1ZvcTI5Nkp1amFmS0hZNThDM25Fb3ps?=
+ =?utf-8?B?cFY0RTRuTHFvbEh6RlhrcUNIU0c1UUpUWjhOVWNYU1l3T0JsWHlGem83RjNT?=
+ =?utf-8?B?Wm9iN2loRVYzMzAzRzU2eE5zWktKbmVGYS91ZUIzZEJWbWxnYkVLNFNiY3Q3?=
+ =?utf-8?B?RTlHRWNXOHRUNGhyMHRRTzJONGw0MmZldGpEZmJndFErMDI0K0xIZ01CTlRZ?=
+ =?utf-8?B?WlBwT0tmM01iYUFndlA1b25IUUV6Q1RETW5DVWgyZmNvTkdScFNmdklidHV1?=
+ =?utf-8?B?NnppZmV0RlJhVWp6OFJkT2VRWTRhRExjMHVmMUVDMEpiTHE1TnBHanVlOXg0?=
+ =?utf-8?B?OFlCSWlGZjhraFV5S2hEcVdaaG5UKzN1YnZxem4xL0w1RUpiYTYxclNnSHZy?=
+ =?utf-8?B?MjM2MTRZMlk0RmtvV1o0clhUUDV1Y0FZMERpeE1HRkM4ZWM0SElCUDdRY1hn?=
+ =?utf-8?B?NjUwTVRlR2pyVVUrencvcE1iMXpmbExVcVFEU0lXNXFVUTAwQzhLNnYvQm02?=
+ =?utf-8?B?RFFHb2gxbGZFRzdobUUwWURoQlBJMkhiL2I0c1VUV290cXlhb3BoeWF0bFRZ?=
+ =?utf-8?B?dlFRQ05kQnphM0xqbldHbktKNExUMkwvbVdacnI3SzVMYWNWNTNGSHBHNGov?=
+ =?utf-8?B?anlhUUE2ZEdLNllSb0ptRERObnpWUGNFSzdRWlFVUVJzaDBPOTdzVUpNaVQ2?=
+ =?utf-8?B?YnlMcmpRYVk0Q0k2UXNncWdmZ25aZXk3ZlRUQ0tyVVZ4Wlh4NkpZclo2WVVE?=
+ =?utf-8?B?K3h0VXJTTUJJRUFLaExiMGM4eUpNb1ovOTZJMzJyTitwNkpnQWJIbkhULy9R?=
+ =?utf-8?B?dHpTaFd2TnQ1S3VWSFhyRXVqN28xL1RRNDd3NjQyb296amUxVFZXT2h2Z0Jj?=
+ =?utf-8?B?dmJXdm9yRit4MHZhbjBTb1JwT2tlSUUvWmtSVmZPby9GaFE2K3lXREZsMmln?=
+ =?utf-8?B?WUNaZ1M1WURFc1VwQWhtaWZCQVRpaTdDTlFkbVNJdDArL1hUWXlTNFBGcWZG?=
+ =?utf-8?Q?f+NxFgWIiSnSDxwE=3D?=
+X-Exchange-RoutingPolicyChecked: hvwsUJwkNmjyYqQhHJ2gg77pl0BE3wHxu5l9Nc3TCeDfJ2VEHckV0p5rnkc91g/z52UJb9qWeNP4387c5xKYCl3rv1GgYKFPgQBYRpS/rKA1LgY8eNooWQrdJqLKECSDLGwKGLe9li1Sd6k4h29RiJQTeTaxnsFwxN7228rXefJkqrizVScGtqxnds1l1G/7m0Va70kJyMfWQqxkcwUUbyCVwUMBWZvftte08wGpgsAz9rldgN0ha3DqhT1dUPfpnVH0Y6BdAVWLijpXE5lbWhbqqMmeg3NdFIv8CkODw3wNzauubu7JqWov4/5L7qrTSK56gikF4OM/YcNxtz/Iow==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64f7cbc1-a7b4-4ca7-e471-08defba7a6ce
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF691668CDD.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2026 15:04:21.1783 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +JctoxGkPP5Ef/oEaAqk04xcm51j18W2ptTwCjEyVMLiORdeEmMgePDD7gF4OjZHaQOXWC0smdMn174o9tXi+O92ntQmkUlEDYIoOO0KqwA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF74831EF4B
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,180 +185,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-New issues:
-- [Critical] Removing the fallback GPU power-cycle reset mechanism breaks G=
-PU hang recovery and introduces a critical DMA Use-After-Free vulnerability=
- on older device trees lacking a reset line.
 
-Pre-existing issues:
-- [High] The hangcheck timer and associated work items are never canceled d=
-uring device teardown, leading to a Use-After-Free if they execute after th=
-e DRM device is freed.
-- [High] Requesting exclusive resources using `devm_` APIs inside a compone=
-nt `bind` callback causes re-bind operations to fail with -EBUSY.
---
+On 06-08-2026 04:40, Matthew Brost wrote:
+> drm_pagemap_migrate_unmap_pages() relies on the pages array to determine
+> which pages require DMA unmapping. However,
+> drm_pagemap_migration_unlock_put_pages() clears the array as part of its
+> cleanup, leaving drm_pagemap_migrate_unmap_pages() with no valid page
+> information if it is called afterward.
+> 
+> Call drm_pagemap_migrate_unmap_pages() before
+> drm_pagemap_migration_unlock_put_pages() so the pages array remains
+> valid during DMA unmapping.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Fixes: f86ad0ed620c ("drm/gpusvm, drm/pagemap: Move migration functionality to drm_pagemap")
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Cc: Liam R. Howlett <liam@infradead.org>
+> Cc: Nico Pache <nico.pache@linux.dev>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Dev Jain <dev.jain@arm.com>
+> Cc: Barry Song <baohua@kernel.org>
+> Cc: Lance Yang <lance.yang@linux.dev>
+> Cc: Usama Arif <usama.arif@linux.dev>
+> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Cc: Rakie Kim <rakie.kim@sk.com>
+> Cc: Byungchul Park <byungchul@sk.com>
+> Cc: Gregory Price <gourry@gourry.net>
+> Cc: Ying Huang <ying.huang@linux.alibaba.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: Balbir Singh <balbirs@nvidia.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Francois Dugast <francois.dugast@intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>   drivers/gpu/drm/drm_pagemap.c | 12 ++++++------
+>   1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> index 892b325fa99b..aef1fcea663d 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+> @@ -1175,12 +1175,12 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+>   		goto err_finalize;
+>   
+>   err_finalize:
+> +	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
+> +					DMA_FROM_DEVICE, &state);
+>   	if (err)
+>   		drm_pagemap_migration_unlock_put_pages(npages, dst);
+>   	migrate_device_pages(src, dst, npages);
+>   	migrate_device_finalize(src, dst, npages);
+> -	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
+> -					DMA_FROM_DEVICE, &state);
+>   
+>   err_free:
+>   	kvfree(buf);
+> @@ -1305,14 +1305,14 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
+>   		goto err_finalize;
+>   
+>   err_finalize:
+> -	if (err)
+> -		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+> -	migrate_vma_pages(&migrate);
+> -	migrate_vma_finalize(&migrate);
+>   	if (dev)
+>   		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
+>   						npages, DMA_FROM_DEVICE,
+>   						&state);
+> +	if (err)
+> +		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+> +	migrate_vma_pages(&migrate);
+> +	migrate_vma_finalize(&migrate);
 
---- Patch [3]: [PATCH 3/4] drm/vc4: Use the reset controller to recover fro=
-m a GPU hang ---
-commit 1ede01913981622e3c76606cafec272dc32b7700
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+LGTM
+Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 
-drm/vc4: Use the reset controller to recover from a GPU hang
+>   err_free:
+>   	kvfree(buf);
+>   err_out:
 
-vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
-zero so that the power domain goes down, and then taking it again. Such an
-unconventional approach only works if the driver knows exactly how many
-references it holds, which is why vc4 wrapped every pm_runtime_get_sync()
-call in a private refcount and mutex.
-
-Commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
-under a new binding.") exposed a V3D reset line for exactly this reason,
-so that the block can be reset without power-cycling its domain, but the
-vc4 driver never picked it up. Use it now, which removes the need for the
-private refcount and leaves vc4_v3d_pm_get/put() as plain runtime PM
-wrappers.
-
-The reset line is optional, to accommodate older device trees. Device
-trees that do not describe one still get the driver-side recovery in
-vc4_irq_reset(), but the hardware is left untouched. Two in-tree platforms
-use the VC4 V3D block: BCM2835 gains the resets property in the next
-commit, and Cygnus is no worse off than it was, as its V3D node has no
-power domain and the power-cycle only ever gated its clock.
-
-Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-
-> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-> index e231c906709c1..3212b91676201 100644
-> --- a/drivers/gpu/drm/vc4/vc4_gem.c
-> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-
-[ ... ]
-
-> @@ -292,19 +292,22 @@ vc4_save_hang_state(struct drm_device *dev)
->  static void
->  vc4_reset(struct drm_device *dev)
->  {
-> -	struct vc4_dev *vc4 =3D to_vc4_dev(dev);
-> +	struct vc4_v3d *v3d =3D to_vc4_dev(dev)->v3d;
-> +	int ret;
-> =20
-> -	DRM_INFO("Resetting GPU.\n");
-> +	vc4_irq_disable(dev);
-> =20
-> -	mutex_lock(&vc4->power_lock);
-> -	if (vc4->power_refcount) {
-> -		/* Power the device off and back on the by dropping the
-> -		 * reference on runtime PM.
-> -		 */
-> -		pm_runtime_put_sync_suspend(&vc4->v3d->pdev->dev);
-> -		pm_runtime_get_sync(&vc4->v3d->pdev->dev);
-> +	if (v3d->reset) {
-> +		drm_info(dev, "Resetting GPU.\n");
-> +
-> +		ret =3D reset_control_reset(v3d->reset);
-> +		if (ret)
-> +			drm_err(dev, "Failed to reset the GPU: %d\n", ret);
-> +
-> +		vc4_v3d_init_hw(dev);
-> +	} else {
-> +		drm_info_once(dev, "No reset line; GPU state is not reset.\n");
->  	}
-> -	mutex_unlock(&vc4->power_lock);
-> =20
->  	vc4_irq_reset(dev);
-
-[Severity: Critical]
-Does removing the fallback GPU power-cycle reset mechanism break GPU hang
-recovery and introduce a DMA use-after-free regression on older device
-trees lacking a reset line?
-
-If the device tree lacks a reset line, vc4_reset() skips resetting the
-hardware since v3d->reset is NULL, but still proceeds to call
-vc4_irq_reset().
-
-This cancels the active software jobs, unreferences their buffer objects,
-and frees the backing memory in vc4_irq_reset() and vc4_cancel_bin_job().
-Because the GPU hardware was not actually stopped or reset, it
-asynchronously continues executing the hanging command stream and performs
-DMA reads/writes into the newly freed memory pages.
-
-Could this memory corruption be triggered by any unprivileged user that
-submits a hanging shader?
-
-[ ... ]
-
-> @@ -1177,10 +1189,6 @@ int vc4_gem_init(struct drm_device *dev)
-> =20
->  	INIT_WORK(&vc4->job_done_work, vc4_job_done_work);
-> =20
-> -	ret =3D drmm_mutex_init(dev, &vc4->power_lock);
-> -	if (ret)
-> -		return ret;
-> -
->  	INIT_LIST_HEAD(&vc4->purgeable.list);
-
-[Severity: High]
-This is a pre-existing issue, but is there a use-after-free regression
-because the hangcheck timer and associated work items are never canceled
-during device teardown?
-
-In vc4_gem_init(), the driver initializes the hangcheck.timer,
-hangcheck.reset_work, and job_done_work.
-
-However, neither vc4_gem_destroy() nor vc4_irq_disable() appears to
-cancel these asynchronous workers using del_timer_sync() or
-cancel_work_sync().
-
-If the driver is unloaded or unbound while a hangcheck timer is pending
-or work is scheduled, will the callbacks fire after the vc4_dev memory
-has been freed, leading to a kernel panic?
-
-> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-> index 379ab77243ad3..d2da8d2f8eebb 100644
-> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
-> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-
-[ ... ]
-
-> @@ -447,6 +427,14 @@ static int vc4_v3d_bind(struct device *dev, struct d=
-evice *master, void *data)
->  	if (IS_ERR(v3d->clk))
->  		return dev_err_probe(dev, PTR_ERR(v3d->clk), "Failed to get V3D clock\=
-n");
-> =20
-> +	v3d->reset =3D devm_reset_control_get_optional_exclusive(dev, NULL);
-> +	if (IS_ERR(v3d->reset))
-> +		return dev_err_probe(dev, PTR_ERR(v3d->reset),
-> +				     "Failed to get reset control\n");
-> +
-> +	if (!v3d->reset)
-> +		drm_warn(drm, "No V3D reset line in the device tree");
-> +
->  	ret =3D platform_get_irq(pdev, 0);
->  	if (ret < 0)
->  		return ret;
-
-[Severity: High]
-This is a pre-existing issue, but does requesting exclusive resources using
-devm_ APIs inside a component bind callback cause re-bind operations to
-fail with -EBUSY?
-
-The vc4_v3d_bind() function uses devm_ APIs attached to the component's
-device (pdev->dev). When the component unbinds, these resources are not
-freed because the platform device itself is not removed.
-
-If the DRM master defers probing and retries, or is unbound and rebound,
-vc4_v3d_bind() is called again. Does the second attempt to acquire
-exclusive resources like the reset control fail with -EBUSY, permanently
-breaking V3D initialization?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816-vc4-reset-=
-control-v1-0-896444373716@igalia.com?part=3D3
