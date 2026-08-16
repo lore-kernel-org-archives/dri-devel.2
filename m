@@ -4,67 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBB3C5DF70
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:06:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2641C5DF7B
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:06:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC3810E2F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B70010E309;
 	Sun, 16 Aug 2026 14:06:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hdeUW5Ek";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="TDcjE4fh";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8FA489226
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 14:06:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:From:From:Reply-To;
- bh=6U+o+LtByJrl528SG+t8HUNDNoQonun4hjUClgQ20+A=; b=hdeUW5EkSbGSgYO3JiAViGaGrC
- BNGthEErlBOewtNFYcBGxwo8QZLFy8dU0+XCH8WEVAOsFACT0N4D8xTA+Oe5xd8m5jCHGSC8ry/6u
- IDnSKTSm38ph4M7xqC6hm4yKywduZb5UIIGMZJ7ezGzY7GVAW+bLEBrpJlv5/QdlVm6CindxRrWck
- a62amdxfglGpESQhOlSuWPW89lyLyGEcVbv7IXPeQDkgExEGgZA6yWegjCuqW7KesYyoq+DgqdYqh
- SQzgxkdXmFmTma3krC2gnA6K8xBZ7jtBSh8R/z0jQ7vr6Js4e+0CI0SaLZJdDxVP12W7vxRxGnghH
- t6eFaHfA==;
-Received: from [179.105.94.163] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wvbUj-002tuI-O1; Sun, 16 Aug 2026 16:05:50 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: [PATCH 0/4] drm/vc4: Reset the V3D block through the reset controller
-Date: Sun, 16 Aug 2026 11:05:39 -0300
-Message-Id: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazolkn19010002.outbound.protection.outlook.com [52.103.43.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A14F10E1ED
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 03:39:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JVhomIFvGahk3TwUzcQGWDIK2dcHsNY+sjbONcXVMESuPZw29LrJ+Uxr/y87n9Hw6UaojOFEwGRlwdBl+7AUnCcUSlP4WU9DHhoePYivEwPuefuBCAmyQ5YWAqJ+j9U8V8s7E5aSXVthLlx74IuUfA2ugw/5sG6Mamyyh/7Vy2AuApFRUsxmQV8XohLmZtLPQQaUtqyd1D1wFMUbQr0S/5u2Xn5JquLRLSngu/LhmwHfEUtluQL6PSQqjB2yE0VHrUAnu3UeLceDbEPm8iAMKFDiYmR0DR+bj0oz05SROCUgp2bBUMmURmd6v4foKP07LbiWP1SPyGsw7xe4WZS8/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MnNVP407JdL9QViGEhsKmFHMiOdU46kCQp+5ESv1D7I=;
+ b=WGAu2JqPWDVAdO1PVZncXjuCuUh+sCaGb9ibgQ+/ShG5Z9DABFEJvRk595zFG2hSZCa/kAgJSzwykDf8OUCqGhgYaXvNRB4ysKPMQEWVm32rShrtAxfFwBVXCkEuZn3N4bRffagJiwitBM6dAPRcc5SyzYyX8n7ru+EiciZQm+H7WkA1Q8frWloVSmabUbF5g8w0MsiEx3KbfFBGtY7Nsq3lsQW97p1AVAujmvdW20tkXYOnWD+nGKUxtoDWNIFKY4F8Tgxb2b6rpZqZTUh7HzBrSIrJyv8+FcnScKPFaCX3e6/FEveZ+XI6rJ2GKzcg1QRSJbXnVQKSQ8tpd1yN6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MnNVP407JdL9QViGEhsKmFHMiOdU46kCQp+5ESv1D7I=;
+ b=TDcjE4fhiESkdFQw/a6Pg3fIah5SABaKzcuSGx+hmyCJx1IAL9Sxb30Gaux+ZU0Oqn8y4264y1oXI5Kcrvq9EhIsrdLGMDB9TpHvIIdrNVh/GppfhoCH5XluRqk07zLraQCjl3YVe1ILXWg5UKCldoVQoud35/pwHBG5nYTX6eB4pAe94fVD4wNpNVO5jWGtGGvJKui/ENHLBGuM37ukjPRmVulSxkLPaErLIIYNGX80zyUghkS8WHN98o5g11arY3mtOenOd7DKgenE/95dShZmS9UKciP7DSMqgt6oW96QTjjQHRLvMZ/eJhLJegVfW4+A9fp9cJw+qR6TXu9JNQ==
+Received: from TY4PR01MB15735.jpnprd01.prod.outlook.com
+ (2603:1096:405:28d::12) by TYCPR01MB8141.jpnprd01.prod.outlook.com
+ (2603:1096:400:102::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Sun, 16 Aug
+ 2026 03:39:22 +0000
+Received: from TY4PR01MB15735.jpnprd01.prod.outlook.com
+ ([fe80::629b:bf8d:87d4:d3f3]) by TY4PR01MB15735.jpnprd01.prod.outlook.com
+ ([fe80::629b:bf8d:87d4:d3f3%4]) with mapi id 15.21.0315.016; Sun, 16 Aug 2026
+ 03:39:21 +0000
+From: "zhangn1985@outlook.com" <zhangn1985@outlook.com>
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>
+Subject: Fix a kernel warning in dw_hdmi-rockchip
+Thread-Topic: Fix a kernel warning in dw_hdmi-rockchip
+Thread-Index: AQHdLS+y/yQ3fJmDUkGK5RTdqMC5HA==
+Date: Sun, 16 Aug 2026 03:39:21 +0000
+Message-ID: <TY4PR01MB1573507FFA8BE821721E1B0E9CDD82@TY4PR01MB15735.jpnprd01.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY4PR01MB15735:EE_|TYCPR01MB8141:EE_
+x-ms-office365-filtering-correlation-id: 209ac5d2-9eb4-4d2d-f713-08defb47f5d3
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|15080799012|15030799006|31061999003|8062599012|8060799015|19110799012|24021099003|41001999006|25031999004|25010399006|4140399003|52005399003|40105399003|2607281247196008|56899033|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info: =?windows-1258?Q?ruKNi0V/9gNlUpfhiUjn6mjFs0uZgIafe9NqTnLNOjCaGpJpzRuwLyy3?=
+ =?windows-1258?Q?r8pFN4Vd7IaPp9tyYnOPeSiFI38DsZuBaN8CWGkPfvO8AevALZs9JgbI?=
+ =?windows-1258?Q?ZFktTiM5HF08uI71fOpcoYIwufF7Ck/JqIzGjhkwerIpyVg6Ijqkfwy5?=
+ =?windows-1258?Q?BzXD8Qkt6BaKVhi9TNRDsZD7CC2vGCfbAehLH8sDZkA792rEb8QpPUOd?=
+ =?windows-1258?Q?pit4Re6qOc5b9TtGDBne4Yft5Fl9viUSHGlou6bW7FdR4+Ssx0wIA4oy?=
+ =?windows-1258?Q?P/uLVMXuCvgYw2PJ++8q4votLrqK7Of1KnifENV4PvHnjA2JcN9psS5W?=
+ =?windows-1258?Q?GCistZiK/744od7RILloWmOTLHPuN7+DMsfMz/wpfeoH4N2RBiW7/983?=
+ =?windows-1258?Q?VuwIqBO8ibLJeTASOchkwiP2njwWfiUaX4eX8Brg94ZcOYC5Bc1ezjmJ?=
+ =?windows-1258?Q?j/J0j4BMuOYMRQV4ZxjCzOv3lAsLjP3KKS231/hfAzLt8z+9s5L1Z8AD?=
+ =?windows-1258?Q?TPMXws2iFcQxUB4AnfU/eT91QYkjELpMDigyFT7D+tJZ97+Fz9rWWJSR?=
+ =?windows-1258?Q?nZvmykDUGXWEdeuJpqcVqghOqB275ZpZaRmf6JH5UyaekQNQlZYcEeP0?=
+ =?windows-1258?Q?Pyi9V39ztsj45Mqq2J0iEyAFZYQWmdL6VwCLZycql5ZwB5qkjSnbdvrX?=
+ =?windows-1258?Q?dPkVNlf9P9isZnme2KvrT8rlYSCtgBRWkhbXw64C8qyVbMTUZFH6tvpH?=
+ =?windows-1258?Q?L6yqbXnNv5EXLsr92BULvpCtBmCwUJxmk371+3zymeNhdtS03Qfzq9Hx?=
+ =?windows-1258?Q?/EHlAcaHMbsq8T4uk1nE7nhBZnwCUe7SJqdUONMDIjbwIXnRoZW2NLvk?=
+ =?windows-1258?Q?26oVGjsxOL1xhC9F78Fue3ZfP4O6AAAQprLsRd4zS2IvBqpthJa3J417?=
+ =?windows-1258?Q?gbnyRfBwxZbIiyW4WZ+dUN0BjFWgzkjeN7t//HobHZR+ml9ZwLBqk8Af?=
+ =?windows-1258?Q?rKHZ761EYSoYfDfTMIncElMX4uhODwoi+SmE3lZMxLoIM26q2jTR/Dnp?=
+ =?windows-1258?Q?T1IqGdMfVXPA8zhMgxV4qkefIvIG87KYeQoue7RC3G6LzNccQemB3XCi?=
+ =?windows-1258?Q?EVE=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?windows-1258?Q?Er91F4121W+O1VYzIXhZpc5lmX1AwmERD3IJQi7YLPHy3goYMKuk+Xm5?=
+ =?windows-1258?Q?brJ/IxLn4KuNsvazubcWJPkzUtsjaZvG6JpC7UbiUOhVavXN/0KyuNJ7?=
+ =?windows-1258?Q?WBgR+NIEKLVGHLrrBv6Oo7NwN5KgKwUk7FtWLB2+yKxte3IUu3GQLqwg?=
+ =?windows-1258?Q?TXEmX3UojJ8YuqCjBubgN7A6QJenjCZwPEsiSdPi5ZoSyaRcaMl/4FfZ?=
+ =?windows-1258?Q?4HAA5I63PfsltSzEQYtQYvyDWVSFyqPhOi+qPxKahvePkimW6k0PGfzu?=
+ =?windows-1258?Q?bRDB4i1UFsg6Bd9AsMWqnW8LRT3O20bsH1aBMPU2+bqOlr2rVYDLyFKU?=
+ =?windows-1258?Q?aH2cpGQ+L0hOypMeWHqHOLci2rrqL52CtGio2Gmvw10b7w6yJucF/Bsr?=
+ =?windows-1258?Q?r/LmSV5kWND1xSDX6ugpf+DBTbonimYh/X6JN5BvTGE+QbEK94vrspeo?=
+ =?windows-1258?Q?FZnOEs61hSttRnO/42y9gl0Qtii6heJnfqOksUww/RewEd1y1qPB8j3t?=
+ =?windows-1258?Q?EyyUu6C1TTmHdci+IN/nC51j4VN85IdzycS2qE0z7NWDv9rJjxrhHYJ8?=
+ =?windows-1258?Q?RpV4qV+ei7J7GCAq3qNNSc2VMNFfbAbBkV6Ox+/kHaicxz3iPPP12o66?=
+ =?windows-1258?Q?HMrFKtggUuAar9PMttamIT0v+gw7LJXePHGA4wsjjLIsZfnth+iqDBFQ?=
+ =?windows-1258?Q?QD4dzh3JxOiXhjrVZ48C1TmCmDfs7U2ow2Coxa15PjXUTKf0z8wQIuh/?=
+ =?windows-1258?Q?BopnRykH6RDbp/OOUg1ynHQVbt7+1eHHCHXHO0t1fK/xiaRumxjm6bUW?=
+ =?windows-1258?Q?j1cfao1B0P6rBehB5NzPsqgbWjG6aqvSI6rgsFIbM8bAjwBgaIhp1sFX?=
+ =?windows-1258?Q?iQkKP77rn/p6cq1Kra/1Ulh2R4k6/prEo47Kw2LU/7C1Rcpk7ofRWGMz?=
+ =?windows-1258?Q?9C6e3C3jJ0fJ+f3eGsZroVfUyYT5bWVqS9SqTPJQdJpnvyRX6cvlFfX7?=
+ =?windows-1258?Q?H+fnu7oqYRwnJ5pC7lNnREpVGBwui2N3B5W13GsdXaKqKVWiLTp+hbi5?=
+ =?windows-1258?Q?WZTnUHK+hVe/1J158wTe4D1gd21+rrYyzNwu5ihGAZfBtMU0kFjvfTWx?=
+ =?windows-1258?Q?pfXl4LGz6uN1VHAFVmldTKd2UYPK/9MXuC/KmGR9lgstc1fD3k0HMCzq?=
+ =?windows-1258?Q?9wHA5VZxEa27pH0WYObC+N0ILQ7ouuZfVBwoMcTMOGdcUb8qLY5GM5G+?=
+ =?windows-1258?Q?c1N1gJbAsbr9SzNsxVHDDOowGU7dIpdq97fcONWcjFdnFWqiCORXqN2z?=
+ =?windows-1258?Q?9A5CQG8ZZCE6KEv74Tc4ncpV88s2AxTd98Av8EVK0fbiobSg1LMaMOYp?=
+ =?windows-1258?Q?L3I8IjTOBv+5mJz97K312JEjZPqROxOhKXpquIN7vPLdbycGOmPsOhXK?=
+ =?windows-1258?Q?LwB3guQ2p6pli/i/W1/Gjxq1TFI2pOl5PH+SOf67s1M=3D?=
+Content-Type: text/plain; charset="windows-1258"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQpAQBRG4VfRXbvFkPAqsmDmxy3N6I6k5N1Nl
- t/inIciVBCpzx5SXBIl+IQyz8huk1/B4pLJFKYp2tLwZWtWRJxsgz817GydWyrM7dSho9QdikX
- u/zmM7/sBVsH7F2MAAAA=
-X-Change-ID: 20260812-vc4-reset-control-cddf3eb8a9e9
-To: Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2340; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=fCR0DhMM/c4JoZx1VI8ywyO79TCxSceFBK4cwUgoVk0=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqgcO4kEdNiHpKBu/9hcn2xxZAN+OUwb/oj6Ase
- 5eS9azUrwyJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoHDuAAKCRA/8w6Kdoj6
- qpNSB/41kda5XFtrP1Y7QQRulv5vHOaUp+qWemo/JFfnlmpCmF8MPtaqIzatSvXrtvJwIkoty0U
- z3LPRMIrEL1WUFZz7PUcFon6XP2LVeciB2ODQoUCXAW7NdV/O4hYgjyuOBgQIRZthAcCxlYAzhT
- lIyqwQA4jGAPJit422r/YQ5VaceaL5Bqjt/4Sj+bSw1YKoWFmtFOjsHo12o10hKJYzsLKr4L74e
- FXaiA0+QMv9t4IN0LPs3K7qGztzTMxO/67+ILY+8jdsp+2CGGeyjlJDcLk+FyVRuJBQ3ey39cg7
- lyf2ryMNUG3WCJWDj4ld0xZucAgdNed47yi0TFGOCCnkaMkS
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY4PR01MB15735.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 209ac5d2-9eb4-4d2d-f713-08defb47f5d3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Aug 2026 03:39:21.8257 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB8141
+X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,53 +133,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
-zero so that the V3D power domain goes down, and then taking it again.
-Forcing the count to zero only works if the driver knows exactly how many
-references it holds, which is why vc4 unconventionaly wraps every
-pm_runtime_get_sync() call in a private refcount and mutex, making the
-code cumbersome.
-
-The BCM2835 PM block has exposed a reset line for the V3D block since
-commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
-under a new binding."), added for exactly this reason, but vc4 never
-picked it up. This series switches vc4 over to it and drops the private
-refcount, leaving vc4_v3d_pm_get/put() as plain runtime PM wrappers.
-
-The reset line is optional, so device trees that do not describe one keep
-working: they get the driver-side recovery in vc4_irq_reset() while the
-hardware is left untouched. Of the two in-tree platforms,
-
-  1. BCM2835 gains the property in PATCH 4.
-  2. Cygnus has no V3D power domain to begin with, so the power-cycle
-     only ever gated its clock there.
-
-PATCH 1 is an independent cleanup. "brcm,vc4-v3d" was never documented
-and was never used by any in-tree device tree, so it is a candidate for
-removal on its own. It can be dropped from the series if it turns out
-to be contentious.
-
-This series was tested on the Raspberry Pi 3B and 3B+.
-
-Best regards,
-- Maíra
-
----
-Maíra Canal (4):
-      drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
-      dt-bindings: display: bcm2835-v3d: Add an optional reset line
-      drm/vc4: Use the reset controller to recover from a GPU hang
-      ARM: dts: bcm2835: Add the V3D reset line
-
- .../bindings/display/brcm,bcm2835-v3d.yaml         |  3 ++
- arch/arm/boot/dts/broadcom/bcm2835-common.dtsi     |  1 +
- drivers/gpu/drm/vc4/vc4_drv.c                      |  1 -
- drivers/gpu/drm/vc4/vc4_drv.h                      | 13 ++++---
- drivers/gpu/drm/vc4/vc4_gem.c                      | 40 +++++++++++++---------
- drivers/gpu/drm/vc4/vc4_irq.c                      |  7 ++--
- drivers/gpu/drm/vc4/vc4_v3d.c                      | 37 +++++++-------------
- 7 files changed, 51 insertions(+), 51 deletions(-)
----
-base-commit: 09b47186a4164f3aaa3591313f80794443117342
-change-id: 20260812-vc4-reset-control-cddf3eb8a9e9
-
+Hi, Maintainers.=0A=
+=0A=
+I send this email for fix a kernel warning=0A=
+=0A=
+`=0A=
+=A0 =A0 =A0 =A0 if (!bridge->container)=0A=
+=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 DRM_WARN("DRM bridge corrupted or not alloc=
+ated by devm_drm_bridge_alloc()\n");=0A=
+`=0A=
+I see this warning since 6.18.X, but until 7.1.X, this still unfixed..=A0=
+=0A=
+=0A=
+I don't have a env to follow kernel patching process, thus write a email, a=
+nd leave it as is.=0A=
+=0A=
+anyone who has interesting to follow up, welcome, you don't have to keep my=
+ name in your patch.=0A=
+=0A=
+here is the patch:=0A=
+`=0A=
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_hdmi-rockchip.c=0A=
+index c72504033e4b..89c1c13cbabc 100644=0A=
+--- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c=0A=
++++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c=0A=
+@@ -749,7 +749,7 @@ static int dw_hdmi_rockchip_bind(struct device *dev, st=
+ruct device *master,=0A=
+=A0 =A0 =A0 =A0 if (!pdev->dev.of_node)=0A=
+=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 return -ENODEV;=0A=
+=A0=0A=
+- =A0 =A0 =A0 hdmi =3D devm_kzalloc(&pdev->dev, sizeof(*hdmi), GFP_KERNEL);=
+=0A=
++ =A0 =A0 =A0 hdmi =3D devm_drm_bridge_alloc(&pdev->dev, struct rockchip_hd=
+mi, bridge, &dw_hdmi_rockchip_bridge_funcs);=0A=
+=A0 =A0 =A0 =A0 if (!hdmi)=0A=
+=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 return -ENOMEM;=0A=
+=A0=0A=
+@@ -811,7 +811,6 @@ static int dw_hdmi_rockchip_bind(struct device *dev, st=
+ruct device *master,=0A=
+=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 goto err_disable_clk;=0A=
+=A0 =A0 =A0 =A0 }=0A=
+=A0=0A=
+- =A0 =A0 =A0 hdmi->bridge.funcs =3D &dw_hdmi_rockchip_bridge_funcs;=0A=
+=A0 =A0 =A0 =A0 drm_bridge_attach(encoder, &hdmi->bridge, NULL, 0);=0A=
+=A0=0A=
+=A0 =A0 =A0 =A0 platform_set_drvdata(pdev, hdmi);=0A=
+--=A0=0A=
+2.55.0=0A=
+`=
