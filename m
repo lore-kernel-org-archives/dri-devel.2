@@ -4,98 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348D9C5CFC1
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 00:01:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D88EC5CFC1
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 01:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2FA910E08B;
-	Sun, 16 Aug 2026 00:01:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44CEC10E23F;
+	Sun, 16 Aug 2026 01:46:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="RL5AzT3H";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HUC++z9+";
 	dkim-atps=neutral
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8886010E08B
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 00:01:37 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-4a427e628a9so649804b6e.0
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 17:01:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1786838496; x=1787443296;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ZPPcb+6L1tSSLsANqwKI7loeM1EwHu96h0gKbDhNEvI=;
- b=RL5AzT3HA/VYH4H2lexh+wtwq54PFudg2kVWa5ABOAjHyQ8uw/b5JxTXvMxgfUtwd7
- /klVrPnQDz5jvVj2Np/m/1ZomYYdWNorascfDnD5P06r8IdHgb63oSw5U/6lu6BIqCdB
- j0U3Fu4RmcJK5Zxtc/PviNfG33QhkgVYmJkPxYJ2pv+ozrlcyfhzyZiF8xHOWLNR3uw5
- fu+YhXnJN/axhDobvajQFPrWMn9ZTaBNkCu/Sawi/MqdtiGHIaIvmkHH2OQ4fGJA1HdV
- hJ2WDIhWJmeYsJFpKk1zkwCPJkE4yYKl1rK71TMQp7TC2ZsHmqbw2tmzTpj/9OTJd1TT
- vXkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786838496; x=1787443296;
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZPPcb+6L1tSSLsANqwKI7loeM1EwHu96h0gKbDhNEvI=;
- b=gUiHE/rN2PKpIMS86Avsl5ZRDfWDzdhooZP120I1w7PqChyjezNshoDzREdJ38FSs2
- XrnHZjR1ugsAzspkPiyqKzrQk8Wf6NPPDWQxHIRSAyArK2N8m2Vgze0zxZcJ/5NMjIvP
- wltpqO+JlnrOTE+08sR9XcGRIx+yLQblQGMb7CU6Q/p1VS7kz2Hj0RxSwDIxcqtIy9j9
- BLFdclvSA9aobWC9rDMB0hdtpaxqUbTCNgleX6r05xwGoD66iwISdyzpndfTOT1Y8Bz3
- dsZ5EmDcBOZGKyxktCYPQkm73e0sDlHctyAxNdWl8UTpmYDkzYFml3grH34HIIhnDUV/
- QEfA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrBb1F/s2P0kTQO+bXr4fzhLucIxYAuayPEGaVNtF3IAJLtwelvhtliH+7TiCbr8xwS5z/UscpqwRQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkmYBYfLL9lKceyYp9SuBdTNo7lE0LMs9pcJ8Uixu9k5axrQuK
- mEbwVTCGtNyd8PFfv9jMzSFuoDMBTDy98uxiiZkh6xKkWv7H6xy0XFBfAXuqd/kuzLc=
-X-Gm-Gg: AR+sD11xSXS4BeY/bhajqynR/SpKxZnT6u1ACO+uxF1yMClPusTo2WhKctSIFtrzDwK
- f98julFuTzU3+qRxnR5+XvzHAQQOmiQZ1gEaK+/WM6Ce1dIh1mIN0MKEcf6MuDFlbrKSsNd9n6k
- ZZR+RYFtUdAam9dBxiDgZdEUqfVLPp9P6cUeAvbw4pPXjyosnccR/g93b3V9p78yZNdIWycrI8s
- 39jLGEElZVUuc+xYHn4TdbEhuCE67cPvx9X28RXD3H9j0SScUqpJSdFEo4xVLiTupgThh3dAutW
- SxWIDsjyS5yETVNrhMDfp+4d5tSbIk90JA5eWeIvE40A2CnWzEP38GhITi616Yxc/ynQI82bTCu
- DN9uxSFfkEJXClUBKfes0YvfXj4PVacmbj9iW5ClEen7+ZvpYnZ19w0FjobWzrrXdjRYyMC6fDf
- D2keiFpHxtOl3fS4Uwm7lcEDhf+Xflum1FVGrI76wECmfxwPt7phx5YLt/Iln6i6YUaVotGdjyn
- epL3YNxCDW+olfwSAa9ueZYldsBgZcbXtZlk4ZkDw==
-X-Received: by 2002:a05:6808:23d4:b0:4a4:ddde:5207 with SMTP id
- 5614622812f47-4b24198f27dmr12801839b6e.8.1786838496365; 
- Sat, 15 Aug 2026 17:01:36 -0700 (PDT)
-Received: from [127.0.0.1] ([198.8.77.157]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-4b24d92462dsm4347729b6e.5.2026.08.15.17.01.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 15 Aug 2026 17:01:17 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
- Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, 
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, Pavel Begunkov <asml.silence@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, 
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>, 
- William Power <william.power@intel.com>, 
- Phil Cayton <phil.cayton@intel.com>, Damien Le Moal <dlemoal@kernel.org>, 
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
- Mikulas Patocka <mpatocka@redhat.com>, 
- Benjamin Marzinski <bmarzins@redhat.com>, 
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>, 
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev, 
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org, 
- ceph-devel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-In-Reply-To: <cover.1785596451.git.asml.silence@gmail.com>
-References: <cover.1785596451.git.asml.silence@gmail.com>
-Subject: Re: (subset) [PATCH v5 00/16] Add dmabuf read/write via io_uring
-Message-Id: <178683847578.1984298.10059277109543676478.b4-ty@b4>
-Date: Sat, 15 Aug 2026 18:01:15 -0600
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5758510E23F;
+ Sun, 16 Aug 2026 01:46:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786844761; x=1818380761;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=It30WGELctoJSQf1hi57IpECUFR9aIkATg1Jg7hD7nw=;
+ b=HUC++z9+C5b7G+0JykFOjs8+RsxTMpFkOxJqCt3GJGYKC6JucF+9TlzS
+ e82huse5MrfKMSkQ++Xd/PmtwiydjPPP7qH+OiJcrCCxoDdu0oBuBanbP
+ KOrbPVDSvghUSP/cWrJHEQwLOuo5uYQXtagkkUNt3mgGi6iYWPfcf6eBD
+ 5j+2ZhVslPM13P6F5uameYNoYl5ahGDZOK+NOFi+qY2g7HWKrBa8CmUZ6
+ weW5OdyLOrkysVMsmYKRsSfMlLYgy3oBQ+3sxkgpA9TuOYodF5P816fTH
+ YW9SA95hdAHN4RgQjy4Mu5yXdCcOyRLFMTTY9TmTpThH+qxt9maBUuiO9 w==;
+X-CSE-ConnectionGUID: IRkCMf+OTIO5bGDQm7i1OQ==
+X-CSE-MsgGUID: lUW79Mb7TWWxRTcG7Q+AJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11876"; a="98729442"
+X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; d="scan'208";a="98729442"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2026 18:46:00 -0700
+X-CSE-ConnectionGUID: Wm91vM66T9qkYSiYchjHDg==
+X-CSE-MsgGUID: kQauwJtHQKemrJyICo5qIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; d="scan'208";a="269760674"
+Received: from clke06vm103.fm.intel.com (HELO clke06vm103.amr.corp.intel.com)
+ ([10.80.128.218])
+ by fmviesa005.fm.intel.com with ESMTP; 15 Aug 2026 18:46:00 -0700
+From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, matthew.auld@intel.com,
+ thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
+ Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+Subject: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+Date: Sat, 15 Aug 2026 18:45:52 -0700
+Message-ID: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,27 +68,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
 
-On Sat, 01 Aug 2026 16:46:12 +0100, Pavel Begunkov wrote:
-> The patch set allows to register a dmabuf to an io_uring instance for
-> a specified file and use it with io_uring read / write requests. The
-> infrastructure is not tied to io_uring and there could be more users
-> in the future. A similar idea was attempted some years ago by Keith [1]
-> (from where I borrowed a good number of changes). Later it was brough
-> back up to life by Tushar and Vishal.
-> 
-> [...]
+When i915 needs to make an imported dma-buf coherent for GPU access on
+non-LLC platforms, or for objects that bypass LLC, it currently calls
+wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
+pinned, so this triggers a whole-cache write-back and invalidate,
+broadcast by IPI to every CPU, on every execbuf submission involving an
+imported dma-buf. That stalls the entire machine for milliseconds and
+starves latency-sensitive work on unrelated cores (e.g. USB isochronous
+audio serviced on the VMM's main thread).
 
-Applied, thanks!
+Flush only the pages that actually need it instead:
 
-[05/16] block: move bvec init into __bio_clone
-        commit: e228404b05c8293f6a1286856e49ba3e55da1933
-[06/16] block: introduce bio_iov_iter_set()
-        commit: 8b8755e00847da1027fe6624277e43d289e2300e
+ - If we imported one of our own dma-bufs, the backing object is
+   struct-page backed once migrated to SMEM, so flush it directly with
+   drm_clflush_sg(), exactly as we flush our other objects. This also
+   avoids re-entering the exporter through dma_buf_vmap(), which would
+   recurse into i915_gem_object_pin_map() on the source object we
+   already hold locked (and fails the igt_dmabuf_import_same_driver
+   selftest with -EBUSY).
 
-Best regards,
+ - For a foreign dma-buf the sg_table is not guaranteed to be backed by
+   struct pages, and the importer has no way to tell, so drm_clflush_sg()
+   cannot be used. vmap the buffer and flush that virtual range with
+   drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
+   one virtual alias evicts the cache lines for every alias of the same
+   physical pages. The dma_resv lock required by dma_buf_vmap() is
+   already held here via the imported object.
+
+Fall back to wbinvd only when the buffer cannot be vmapped or is backed
+by I/O memory, where there is no CPU-side range to clflush.
+
+Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
+Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+---
+v2:
+ - Flush our own imported dma-bufs directly with drm_clflush_sg() instead of
+   dma_buf_vmap(), which re-entered i915_gem_object_pin_map() on the source
+   object and failed igt_dmabuf_import_same_driver_smem with -EBUSY (reported
+   by Intel CI on v1). Foreign dma-bufs still use dma_buf_vmap() +
+   drm_clflush_virt_range(); wbinvd only as fallback.
+ - Link to v1: https://patchwork.freedesktop.org/patch/744955/?series=171760
+
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 55 ++++++++++++++++++----
+ 1 file changed, 47 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index b43d34c7d641..c798a90f1c0f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -10,6 +10,8 @@
+ 
+ #include <asm/smp.h>
+ 
++#include <drm/drm_cache.h>
++
+ #include "gem/i915_gem_dmabuf.h"
+ #include "i915_drv.h"
+ #include "i915_gem_object.h"
+@@ -249,16 +251,53 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
+ 	 * DG1 is special here since it still snoops transactions even with
+ 	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
+ 	 * might need to revisit this as we add new discrete platforms.
+-	 *
+-	 * XXX: Consider doing a vmap flush or something, where possible.
+-	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
+-	 * the underlying sg_table might not even point to struct pages, so we
+-	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
+-	 * the driver.
+ 	 */
+ 	if (i915_gem_object_can_bypass_llc(obj) ||
+-	    (!HAS_LLC(i915) && !IS_DG1(i915)))
+-		wbinvd_on_all_cpus();
++	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
++		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
++
++		if (dma_buf->ops == &i915_dmabuf_ops) {
++			struct drm_i915_gem_object *dma_obj =
++				dma_buf_to_obj(dma_buf);
++
++			/*
++			 * We imported one of our own dma-bufs. The backing
++			 * object is struct-page backed once migrated to SMEM,
++			 * so flush it directly, the same way we flush our
++			 * other objects. This also avoids re-entering the
++			 * exporter through dma_buf_vmap(), which would recurse
++			 * into i915_gem_object_pin_map() on the source object
++			 * we already hold locked.
++			 */
++			if (i915_gem_object_has_struct_page(dma_obj))
++				drm_clflush_sg(dma_obj->mm.pages);
++			else
++				wbinvd_on_all_cpus();
++		} else {
++			struct iosys_map map;
++
++			/*
++			 * A foreign sg_table is not guaranteed to be backed by
++			 * struct pages, so we cannot use drm_clflush_sg(). vmap
++			 * the buffer and flush the virtual range instead; x86
++			 * uses PIPT caches, so flushing one alias evicts the
++			 * lines for every alias of the same physical pages.
++			 *
++			 * We already hold the dma_resv lock via the imported
++			 * obj, so use the locked dma_buf_vmap() variant.
++			 */
++			if (!dma_buf_vmap(dma_buf, &map)) {
++				if (!map.is_iomem)
++					drm_clflush_virt_range(map.vaddr,
++							       obj->base.size);
++				else
++					wbinvd_on_all_cpus();
++				dma_buf_vunmap(dma_buf, &map);
++			} else {
++				wbinvd_on_all_cpus();
++			}
++		}
++	}
+ 
+ 	__i915_gem_object_set_pages(obj, sgt);
+ 
+
+base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
 -- 
-Jens Axboe
-
-
+2.43.0
 
