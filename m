@@ -4,42 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FD5CC5DF66
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 09:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1296C5DF66
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 11:04:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C70B10E195;
-	Sun, 16 Aug 2026 09:00:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B544F10E1D3;
+	Sun, 16 Aug 2026 11:04:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IwMAkixC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J4D4hN1D";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C15010E278
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 09:00:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF9D10E1D3
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 11:04:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AED044332C;
- Sun, 16 Aug 2026 09:00:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D5B1F000E9;
- Sun, 16 Aug 2026 09:00:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3E6146001D;
+ Sun, 16 Aug 2026 11:04:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 845E21F000E9;
+ Sun, 16 Aug 2026 11:04:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786870840;
- bh=7EBAAmsRKuxArLWW43/WVOwXnZRf9NBEcl9SgaW6408=;
+ s=k20260515; t=1786878241;
+ bh=9dASDDZxU/aATZBFp2TVto24ZOzqm9T5n9Eh/VZgRf8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IwMAkixCIH1e3Fg0MQ+choOKBHvi/iJcC/ZrIv/y/yvWgONW8330Jfsylr2mGt0F9
- HhjPUoZ0LyERo6FYr35ITXIEweY4pdhLrF+akC6AcjXh85/3CIHzvhm2B2YVm/frNp
- GcBVMcovnkd896bnjcmgp+LHDCIAAKrcyrhpdsfDMxOyF1J1SX4hF8kkXHFyebWffy
- cd2I8H4HFBiWNHxKzlW8QyJu8cGPCbW3M8LfksOgORP9NWEG14ui4uKXq7mZT1MSu+
- HpH1/2ydPf5W8Z+pB6f0YNw4lg7Nl7rtQ/GJaXDkZZgIeUir/J7nDWoAEIUpfEMDbb
- FmHRTdUb2WD5g==
+ b=J4D4hN1DuCdx0cRcO98WW4tzTPYX8kxiROKmOpPig7q4dMIs2ztzTkrDk/6H0uPe/
+ no8eCt+Judgfq5NvXPSoy7OjGPoX5LZTDrZDZNXWHMvDnmdN7HfbSo+HtdqD2mQFo6
+ z04mmrcb5mU+ZufkjCP7/VAKjP0y/4/bhqGTsyYPiFct8r1UK/m4CBdT2lb4HeDVLj
+ 0FhVDPxtFaTM4f9oSCu4nvQ2R476nhVWM7kw1UEob62k14Wg5LYKgOU5y+x1PPFNFy
+ HjdNbo0o1dT9th9zmn4cRUcErcnqa4Iz+s0AO1QDw+nqI5ORhLi5CCVaTsL0oapJOG
+ IvIuTDSUGncug==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/gud: NUL-terminate TV mode names read from the device
-To: "Deepanshu Kartikey" <kartikey406@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260816085234.22053-1-kartikey406@gmail.com>
-References: <20260816085234.22053-1-kartikey406@gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: backlight: Add Orient Chip OCP8178
+To: "Wim de With" <wf@dewith.io>
+Cc: lee@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260816-ocp8178-backlight-v3-1-caf95c453c50@dewith.io>
+References: <20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io>
+ <20260816-ocp8178-backlight-v3-1-caf95c453c50@dewith.io>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 09:00:39 +0000
-Message-Id: <20260816090040.68D5B1F000E9@smtp.kernel.org>
+Date: Sun, 16 Aug 2026 11:04:00 +0000
+Message-Id: <20260816110400.845E21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,115 +59,14 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+> Add device tree bindings for the Orient Chip OCP8178 LED backlight
+> driver.
+>=20
+> Signed-off-by: Wim de With <wf@dewith.io>
 
-Pre-existing issues:
-- [High] A malicious or misconfigured USB device can cause a NULL pointer d=
-ereference and kernel panic in `drm_object_attach_property` by returning `G=
-UD_PROPERTY_TV_MODE` after any other non-margin TV property (such as `GUD_P=
-ROPERTY_TV_BRIGHTNESS` or `GUD_PROPERTY_TV_HUE`).
---
-
---- Patch [1]: [PATCH] drm/gud: NUL-terminate TV mode names read from the d=
-evice ---
-commit 789868bcbf6cc6ddf0d3b74feab3a22914863ec8
-Author: Deepanshu Kartikey <kartikey406@gmail.com>
-
-drm/gud: NUL-terminate TV mode names read from the device
-
-This commit fixes a potential out-of-bounds read by explicitly NUL-terminat=
-ing
-TV mode names read from the USB device. This ensures strlen() won't run past
-the end of the allocation when passed to drm_mode_create_tv_properties_lega=
-cy().
-
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Reported-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3D916c888ba5f1a54c9526
-Tested-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-
-> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gu=
-d_connector.c
-> index ea0cca58b7c89..5c0065c876a77 100644
-> --- a/drivers/gpu/drm/gud/gud_connector.c
-> +++ b/drivers/gpu/drm/gud/gud_connector.c
-> @@ -396,8 +396,13 @@ static int gud_connector_add_tv_mode(struct gud_devi=
-ce *gdrm, struct drm_connect
->  	}
-> =20
->  	num_modes =3D ret / GUD_CONNECTOR_TV_MODE_NAME_LEN;
-> -	for (i =3D 0; i < num_modes; i++)
-> -		modes[i] =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-> +	for (i =3D 0; i < num_modes; i++) {
-> +		char *mode =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-> +
-> +		/* The device is not trusted to NUL-terminate the name */
-> +		mode[GUD_CONNECTOR_TV_MODE_NAME_LEN - 1] =3D '\0';
-> +		modes[i] =3D mode;
-> +	}
-> =20
->  	ret =3D drm_mode_create_tv_properties_legacy(connector->dev, num_modes,=
- modes);
-
-[Severity: High]
-This is a pre-existing issue, but could a malicious or misconfigured USB de=
-vice
-cause a NULL pointer dereference and kernel panic by returning
-GUD_PROPERTY_TV_MODE after another non-margin TV property?
-
-In gud_connector_add_properties(), properties from the USB device are proce=
-ssed
-sequentially. If a property like GUD_PROPERTY_TV_BRIGHTNESS is processed fi=
-rst,
-drm_mode_create_tv_properties_legacy() creates the baseline TV properties b=
-ut
-leaves legacy_tv_mode_property as NULL since num_modes is 0.
-
-If GUD_PROPERTY_TV_MODE is processed next, it calls gud_connector_add_tv_mo=
-de()
-which then calls drm_mode_create_tv_properties_legacy() here:
-
-drivers/gpu/drm/drm_connector.c:drm_mode_create_tv_properties_legacy() {
-    ...
-	if (dev->mode_config.tv_select_subconnector_property)
-		return 0;
-    ...
-}
-
-This early return prevents dev->mode_config.legacy_tv_mode_property from
-being created.
-
-Then in gud_connector_add_properties(), gud_connector_property_lookup()
-will return NULL for legacy_tv_mode_property:
-
-drivers/gpu/drm/gud/gud_connector.c:gud_connector_add_properties() {
-    ...
-		property =3D gud_connector_property_lookup(connector, prop);
-		if (drm_WARN_ON(drm, IS_ERR(property)))
-			continue;
-    ...
-}
-
-Since IS_ERR() ignores NULL, the NULL property pointer bypasses this check =
-and
-is passed to drm_object_attach_property(), which unconditionally dereferenc=
-es
-it:
-
-drivers/gpu/drm/drm_mode_object.c:drm_object_attach_property() {
-    ...
-	struct drm_device *dev =3D property->dev;
-    ...
-}
-
-Could this lead to a local denial of service?
-
->  free:
->  	kfree(buf);
->  	if (ret < 0)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816085234.2205=
-3-1-kartikey406@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816-ocp8178-ba=
+cklight-v3-0-caf95c453c50@dewith.io?part=3D1
+
