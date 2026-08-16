@@ -4,53 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D88EC5CFC1
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 01:46:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76E76C5DF66
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 04:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44CEC10E23F;
-	Sun, 16 Aug 2026 01:46:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39D6A10E1ED;
+	Sun, 16 Aug 2026 04:12:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HUC++z9+";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="N9UiwR5Y";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ONomEOrE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5758510E23F;
- Sun, 16 Aug 2026 01:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786844761; x=1818380761;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=It30WGELctoJSQf1hi57IpECUFR9aIkATg1Jg7hD7nw=;
- b=HUC++z9+C5b7G+0JykFOjs8+RsxTMpFkOxJqCt3GJGYKC6JucF+9TlzS
- e82huse5MrfKMSkQ++Xd/PmtwiydjPPP7qH+OiJcrCCxoDdu0oBuBanbP
- KOrbPVDSvghUSP/cWrJHEQwLOuo5uYQXtagkkUNt3mgGi6iYWPfcf6eBD
- 5j+2ZhVslPM13P6F5uameYNoYl5ahGDZOK+NOFi+qY2g7HWKrBa8CmUZ6
- weW5OdyLOrkysVMsmYKRsSfMlLYgy3oBQ+3sxkgpA9TuOYodF5P816fTH
- YW9SA95hdAHN4RgQjy4Mu5yXdCcOyRLFMTTY9TmTpThH+qxt9maBUuiO9 w==;
-X-CSE-ConnectionGUID: IRkCMf+OTIO5bGDQm7i1OQ==
-X-CSE-MsgGUID: lUW79Mb7TWWxRTcG7Q+AJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11876"; a="98729442"
-X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; d="scan'208";a="98729442"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2026 18:46:00 -0700
-X-CSE-ConnectionGUID: Wm91vM66T9qkYSiYchjHDg==
-X-CSE-MsgGUID: kQauwJtHQKemrJyICo5qIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; d="scan'208";a="269760674"
-Received: from clke06vm103.fm.intel.com (HELO clke06vm103.amr.corp.intel.com)
- ([10.80.128.218])
- by fmviesa005.fm.intel.com with ESMTP; 15 Aug 2026 18:46:00 -0700
-From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, matthew.auld@intel.com,
- thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
- Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-Subject: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
-Date: Sat, 15 Aug 2026 18:45:52 -0700
-Message-ID: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+Received: from flow-a1-smtp.messagingengine.com
+ (flow-a1-smtp.messagingengine.com [103.168.172.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 302E910E1ED
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 04:12:40 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailflow.phl.internal (Postfix) with ESMTP id 316191380153;
+ Sun, 16 Aug 2026 00:12:40 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Sun, 16 Aug 2026 00:12:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm1; t=1786853560; x=
+ 1786857160; bh=lJ3os724hSt3ktSUr45GRnoaHyq1InmNCTom8Lp4Cp0=; b=N
+ 9UiwR5YdgCDMjHjyIwwI2D8MI8jwnFMtBufcYW9sGtahJNn+IZXWCxj/dZAy16H2
+ CEbKBQVbC5jN+nQ+iFEGkCXwBaZekCw+cPW5O4bjTlFZtp84SgRDsqvWu9SEOCSu
+ F4AIqYzlq7RC/o6F1uBrkfjqgTK14yOTUKdygs65q1siYukeYEgfrJaB8Wfv2rMb
+ nL2kdQbp1KfndVUgEyXjUirABp0x+uWQv97XPYKSrqK5oilPs9UINGHCgyd9O1+a
+ zPZvlQQzPpf0p9I9Yr4QfT3y4j7kYekFBpbDldd91dIWAWvrwuT8m/8l3QYqNBLL
+ Vc8vhDStYOOQjHRMfd1sg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; t=1786853560; x=1786857160; bh=l
+ J3os724hSt3ktSUr45GRnoaHyq1InmNCTom8Lp4Cp0=; b=ONomEOrEFd5CcI2QG
+ +P42rYjDC82valwj7k7SklEnlnwq88itdEBnHzbCk4/2HC7QbTp03HLDWhvqd+7N
+ g5bk1gjF/kUBpgq5gQlWSNE89mdyjAznHkFrjTF8gWKJxHHB+5USZQxx6u3zpOLo
+ 80wm1HSiVyDbuI91xD+xVkUiT0tF4wbKaj5LO4QPoJdooSPuafGdrOiTnFwB2Dki
+ dGSGusH7SUyCXNyVJ+JCTFrbsBfsHBXVGoNGieE1LxjGbkcEPnAt9MuoBi1J8DOo
+ xtAxNfjKX5XfxTbSAhJLhqHgpTQ6XS0J/YP9DgPxrdVyoK6FJm2yU9k3CX8s01Vz
+ 3AP7g==
+X-ME-Sender: <xms:tjiBauRFar-Q-qEQ6nVwaD1Q4ONkH3HvIo8yVXfBtWmFppxAq1v3GA>
+ <xme:tjiBar-qrOM47lYStBzgZPLr3kmZAO5KknmczWlHDDy4KiTndbKW8YCYwHqmsGFEl
+ J5vZWrM7LTrCiX49ByJgupZig1doJY9Aw3zHGtbYRmXJHGgD0r2prw>
+X-ME-Received: <xmr:tjiBanYPe6WXWHDtQY-M780_Ia5UgfvbSwle6WsXIG9aHrfAV8B3DIAsEPoHEsdj6yiKyC-J8w>
+X-ME-Proxy-Cause: dmFkZTFas/+GXIf2+2Hy21pKo1/GKerUN9Ajhwld/TvCJzBGNf4sYLQxUc6KVmATaijvaF
+ VifnljgyxDMkhJGC5y2bWPTCM7k+R/0uS91FvQbeVrn8XlXSf8nYzbK1+KyR/lAoxd7eSe
+ iB9DflzfFdkcdlZ+Kb2NdZpuw2cmf7pM/dHcY0YaJtw4xPL4O70AOWW8JKuAX3AskA26JV
+ 5rISjyY8j1JAmbG5jSdJHZqWLO+2clgZCR4uQ2nFakxrsMIDgdOMahN0y0U31TLt+zlzsN
+ 1wmoMIIXZLvEZ08N4Ma0Ds+JXs4LyOo1GiM1Tkt10TF5sgX9+XjVInu8rwe/p/5kZkQSMd
+ vy23pZVJQ4MWjz2519yr6dsyQblKT0jO9Y6QsBH7pC5eYBoh6GJVTKd5ZtJRVfiEOgOg4S
+ TNB76rYicjIXiXdFZPe/f1+5X36mCYg6h3ErX3fOT8dEuA2Yudy9q+qHAuc1wE05MgjDkl
+ OegRpxQkAC7VsRoMC2fHZE1Ied/lyO4zvig745AYQx5lP9ufAKZLALVuekSzJrH9roOTLm
+ FzWF1ITagxVxMi9h8xfLMsjfX7G9o/tK+5jHssGJS+yPHuV7SXW5vDTajmEbmM2eSK6lAh
+ 2BYXf+3jpE+TEGgWJDxAxIlcuoqe+CtaqjIrbsRsuhbSuKkp1Acf6CrXPkjA
+X-ME-Proxy: <xmx:tjiBakofivz3WHuZmwPrCW6BdEbqD7eGhNz2uaD9JoLABuCFFXmsEQ>
+ <xmx:tjiBajQScpr1UzLu6OY1fIlyEAYp_5-yL6VS11bjYT-OiW70th5cyg>
+ <xmx:tjiBagpLwRXPBBlzZ4kojgTrg-bzqjGM_JX9068Z1sLPyIpWLmK7-g>
+ <xmx:tjiBal0Ku5Vgfk05A413k3jcitqrXQNLwRWQIzThkUP6Bx5Vs6lYKA>
+ <xmx:uDiBarT9haR-XsKxP4MNik_NpQKNm0NrqhuyWGmadiZ1YWfqK_Jd_I2d>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 16 Aug 2026 00:12:35 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: royalnet026@gmail.com
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, chaoyi.chen@rock-chips.com,
+ alchark@flipper.net, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Sun, 16 Aug 2026 16:12:33 +1200
+Message-ID: <20260816041233.3566625-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260815130556.68876-1-royalnet026@gmail.com>
+References: <20260815130556.68876-1-royalnet026@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,129 +97,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+Hi Igor,
 
-When i915 needs to make an imported dma-buf coherent for GPU access on
-non-LLC platforms, or for objects that bypass LLC, it currently calls
-wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
-pinned, so this triggers a whole-cache write-back and invalidate,
-broadcast by IPI to every CPU, on every execbuf submission involving an
-imported dma-buf. That stalls the entire machine for milliseconds and
-starves latency-sensitive work on unrelated cores (e.g. USB isochronous
-audio serviced on the VMM's main thread).
+Thank you for running it, and for the unclamped reference.
 
-Flush only the pages that actually need it instead:
+Your 1001 does not discriminate between the two forms, which I should have said
+when I described them. DIV_ROUND_UP(1001,16) is 63, odd, so the parity form
+gives 0x80011011 there and so does oc % 32. They differ only where a count is a
+multiple of neither 32 nor 16. On RK3576 the failing one was 56, and 88 or 120
+would do as well. So your clean result rules nothing out, and I am not reading
+it as support either way.
 
- - If we imported one of our own dma-bufs, the backing object is
-   struct-page backed once migrated to SMEM, so flush it directly with
-   drm_clflush_sg(), exactly as we flush our other objects. This also
-   avoids re-entering the exporter through dma_buf_vmap(), which would
-   recurse into i915_gem_object_pin_map() on the source object we
-   already hold locked (and fails the igt_dmabuf_import_same_driver
-   selftest with -EBUSY).
+On my side that register turned out to be the whole of it. A 1x1 layer with 56
+output channels had timed out in every round it ever ran, 32 of 56, and with
+the parity form it is 56 of 56 every channel correct, with the old form
+reproducing the timeout in the same log.
 
- - For a foreign dma-buf the sg_table is not guaranteed to be backed by
-   struct pages, and the importer has no way to tell, so drm_clflush_sg()
-   cannot be used. vmap the buffer and flush that virtual range with
-   drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
-   one virtual alias evicts the cache lines for every alias of the same
-   physical pages. The dma_resv lock required by dma_buf_vmap() is
-   already held here via the imported object.
+You are right about perch.py and there were three of them rather than one. The
+inner maxdiff, the interior statistics and the raw row dump all assume a
+surface with an interior, and all three raise on a 1x1x1001 classifier after
+the useful lines have printed. Fixed here, and checked on the host at 1x1x1001,
+5x5x8 and 56x56x64 before flashing, which is a check I should have been running
+all along.
 
-Fall back to wbinvd only when the buffer cannot be vmapped or is backed
-by I/O memory, where there is no CPU-side range to clflush.
+And I will re-score operator 28 against the unclamped output. The max(cpu, zp)
+reference does move channels that are not wrong, and reading an empty
+convolution off it is the kind of mistake I would rather not make twice.
 
-Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
-Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
----
-v2:
- - Flush our own imported dma-bufs directly with drm_clflush_sg() instead of
-   dma_buf_vmap(), which re-entered i915_gem_object_pin_map() on the source
-   object and failed igt_dmabuf_import_same_driver_smem with -EBUSY (reported
-   by Intel CI on v1). Foreign dma-bufs still use dma_buf_vmap() +
-   drm_clflush_virt_range(); wbinvd only as fallback.
- - Link to v1: https://patchwork.freedesktop.org/patch/744955/?series=171760
-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 55 ++++++++++++++++++----
- 1 file changed, 47 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index b43d34c7d641..c798a90f1c0f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -10,6 +10,8 @@
- 
- #include <asm/smp.h>
- 
-+#include <drm/drm_cache.h>
-+
- #include "gem/i915_gem_dmabuf.h"
- #include "i915_drv.h"
- #include "i915_gem_object.h"
-@@ -249,16 +251,53 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 	 * DG1 is special here since it still snoops transactions even with
- 	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
- 	 * might need to revisit this as we add new discrete platforms.
--	 *
--	 * XXX: Consider doing a vmap flush or something, where possible.
--	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
--	 * the underlying sg_table might not even point to struct pages, so we
--	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
--	 * the driver.
- 	 */
- 	if (i915_gem_object_can_bypass_llc(obj) ||
--	    (!HAS_LLC(i915) && !IS_DG1(i915)))
--		wbinvd_on_all_cpus();
-+	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
-+		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
-+
-+		if (dma_buf->ops == &i915_dmabuf_ops) {
-+			struct drm_i915_gem_object *dma_obj =
-+				dma_buf_to_obj(dma_buf);
-+
-+			/*
-+			 * We imported one of our own dma-bufs. The backing
-+			 * object is struct-page backed once migrated to SMEM,
-+			 * so flush it directly, the same way we flush our
-+			 * other objects. This also avoids re-entering the
-+			 * exporter through dma_buf_vmap(), which would recurse
-+			 * into i915_gem_object_pin_map() on the source object
-+			 * we already hold locked.
-+			 */
-+			if (i915_gem_object_has_struct_page(dma_obj))
-+				drm_clflush_sg(dma_obj->mm.pages);
-+			else
-+				wbinvd_on_all_cpus();
-+		} else {
-+			struct iosys_map map;
-+
-+			/*
-+			 * A foreign sg_table is not guaranteed to be backed by
-+			 * struct pages, so we cannot use drm_clflush_sg(). vmap
-+			 * the buffer and flush the virtual range instead; x86
-+			 * uses PIPT caches, so flushing one alias evicts the
-+			 * lines for every alias of the same physical pages.
-+			 *
-+			 * We already hold the dma_resv lock via the imported
-+			 * obj, so use the locked dma_buf_vmap() variant.
-+			 */
-+			if (!dma_buf_vmap(dma_buf, &map)) {
-+				if (!map.is_iomem)
-+					drm_clflush_virt_range(map.vaddr,
-+							       obj->base.size);
-+				else
-+					wbinvd_on_all_cpus();
-+				dma_buf_vunmap(dma_buf, &map);
-+			} else {
-+				wbinvd_on_all_cpus();
-+			}
-+		}
-+	}
- 
- 	__i915_gem_object_set_pages(obj, sgt);
- 
-
-base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
--- 
-2.43.0
-
+Jiaxing
