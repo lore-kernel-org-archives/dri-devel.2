@@ -4,43 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90440C5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 20:03:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D201BC5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 20:21:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 419CC10E357;
-	Sun, 16 Aug 2026 20:03:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0D18892F2;
+	Sun, 16 Aug 2026 20:21:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cxj9giKn";
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=wahrenst@gmx.net header.b="mNViS2r/";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23D4710E357
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 20:03:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 12C736013A;
- Sun, 16 Aug 2026 20:03:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870791F000E9;
- Sun, 16 Aug 2026 20:03:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786910606;
- bh=NbKfPVvrM9F0HPsAnuR+lyP4PE/fiNDIwQ0Gdo3se94=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cxj9giKniLBQlurXquGmKf+rBDLkbR94F46KcSTYZTAUpCB/tcSbR1k5d5FsLO46q
- Y/72bmNvrDnX/+e89ViT2UlwSCZS8Q0cPDLMn8f9iUc1oiD9rxwnxI269c6oCd3Ns6
- LIrAUjMJSt1zVUoDWC6yZteW/qSJ8PcnvOpmNov0bm1qFkz8mT+HhYjt6I6IpAr6y5
- mrH6oSNrnHxUIQDA2PFlpsHeQIDYBeqzkkILGjcA4WClULnlHhTFlUalYAOP/XMr+Q
- 03cBOSz/7zsEfYQv0PWFF2m3YwlTEhy2uP22NVi6xUHqi1ZkPYWaRjWckbxvmLozih
- Tv4eH3cw/LIgw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/imagination: Add sparse mappings to VM_BIND
-To: "Gyeyoung Baek" <gye976@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260817-pvr-vm-bind-v1-4-0a0f21be7d38@gmail.com>
-References: <20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com>
- <20260817-pvr-vm-bind-v1-4-0a0f21be7d38@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB1D1892F2
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 20:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+ s=s31663417; t=1786911663; x=1787516463; i=wahrenst@gmx.net;
+ bh=8q4r+CxV8T2OpfAJrQVLivtJ+lvy7BRdyIs5z6tntkE=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=mNViS2r/HfI3F6H9gNpBH6CSXafG4ZbHwI0jRX05Muzo1rFs877RFeSMsioRwo9d
+ ZFTdIydVo31iRC7/wIe4ZT8D2se0AyDacNYTfVQGcT2beOyEVa5m1co3WAz5BwukX
+ ime6BINJKyxQudMhRLAZyfX0w6Y725cWF2vcgptMEsPb5eKhlYKk5suE+uJU5PKGh
+ M3ojUkrN5wXbyYAjQYiTZT2B6Mq3BLketk0cBSxHLOy2FlQFXhC2GRk70DFVPf2Zc
+ /QVgoihkN4JrWBUpY7vkdC9GMHY0v+n1jbSZWQJlfvyyycCOsWDuOC8nW+D4rW/Ab
+ QqcNGu8RSkNGZXKOjA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MQe5u-1xIIi90Rao-00Uj1H; Sun, 16
+ Aug 2026 22:21:03 +0200
+Message-ID: <1c0138d9-ed43-4d4b-80eb-6757491e9a98@gmx.net>
+Date: Sun, 16 Aug 2026 22:20:55 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
+ reset line
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+ <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
+Content-Language: en-US
+From: Stefan Wahren <wahrenst@gmx.net>
+Autocrypt: addr=wahrenst@gmx.net; keydata=
+ xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
+ IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
+ NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
+ JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
+ TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
+ f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
+ V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
+ aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
+In-Reply-To: <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 20:03:26 +0000
-Message-Id: <20260816200326.870791F000E9@smtp.kernel.org>
+X-Provags-ID: V03:K1:oA7RNTxRz0mixa+lfc6Ds+lN57ss1KUthwZjJapdjMfZibzsfjw
+ MyN9oEbgaj6BX+Up1h83yG5N0qa8oXKav/DlCiC88HHhwQfsqbYPDki0cfhITGLXhDuNnKR
+ 3U5SyrTqxxKydgsAobXJm66rmtoKnLH1UFcDLTMztgKaX+Z8ount41AhFpVbvGfWvdj6ubK
+ g4/68EdghvodiYxOCOasQ==
+UI-OutboundReport: notjunk:1;M01:P0:rJQwaVJJZMg=;YBjxDy7GoLcf/c/sqfTRi3GKEuU
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,164 +169,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi Ma=C3=ADra,
 
-Pre-existing issues:
-- [Critical] Integer underflow in page table preallocation size calculation=
- allows unprivileged users to cause OOM panic.
-- [High] Page table preallocation calculates requirements using object offs=
-et instead of device address, leading to -ENOMEM during valid mappings.
-- [High] Mapping errors are masked during scatterlist processing, leaving h=
-oles in hardware page tables.
---
+Am 16.08.26 um 16:05 schrieb Ma=C3=ADra Canal:
+> The BCM2835 PM block has exposed a reset line for the V3D block since
+> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domain=
+s
+> under a new binding."), which allows the GPU to be reset without
+> power-cycling its domain. Document it so that the vc4 driver can use it =
+to
+> recover from a GPU hang.
+not sure the last sentence is necessary for a DT binding. Except of this:
 
---- Patch [4]: [PATCH 4/4] drm/imagination: Add sparse mappings to VM_BIND =
----
-commit 8758f312b45a84c218f5a0a8c5687d9c21928110
-Author: Gyeyoung Baek <gye976@gmail.com>
-Subject: drm/imagination: Add sparse mappings to VM_BIND
+Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
+>
+> Keep the property optional, as existing device trees do not describe it.
+>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+>   Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml | 3 ++=
++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.=
+yaml b/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
+> index c55a8217de25..1063e686647c 100644
+> --- a/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
+> +++ b/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
+> @@ -27,6 +27,9 @@ properties:
+>     power-domains:
+>       maxItems: 1
+>  =20
+> +  resets:
+> +    maxItems: 1
+> +
+>   required:
+>     - compatible
+>     - reg
+>
 
-This commit adds support for Vulkan sparse residency by allowing ranges
-to be mapped without naming a buffer object. It introduces
-DRM_PVR_VM_BIND_OP_MAP_SPARSE, where every page table entry in the range
-points to the same file-specific dummy page.
-
-> diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imag=
-ination/pvr_mmu.c
-> index 3cac482e10347..fc1347d6f233b 100644
-> --- a/drivers/gpu/drm/imagination/pvr_mmu.c
-> +++ b/drivers/gpu/drm/imagination/pvr_mmu.c
-> @@ -2558,6 +2558,77 @@ pvr_mmu_map_sgl(struct pvr_mmu_op_context *op_ctx,=
- struct scatterlist *sgl,
->  	return err;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but does pvr_mmu_map_sgl() mask the original
-error code on failure?
-
-If an error occurs during page table entry creation in pvr_mmu_map_sgl(), t=
-he
-code jumps to the err_destroy_pages label:
-
-drivers/gpu/drm/imagination/pvr_mmu.c:pvr_mmu_map_sgl() {
-    ...
-err_destroy_pages:
-	memcpy(&op_ctx->curr_page, &ptr_copy, sizeof(op_ctx->curr_page));
-	err =3D pvr_mmu_op_context_unmap_curr_page(op_ctx, page);
-
-	return err;
-}
-
-Since pvr_mmu_op_context_unmap_curr_page() typically succeeds and returns 0,
-the original error code is overwritten with 0. The function then incorrectly
-signals success to the caller, leaving holes in the hardware page tables.
-This could cause unpredictable hardware page faults when accessed by the GP=
-U.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
-nation/pvr_vm.c
-> index f92bfeacd7ac4..d11e192c7726d 100644
-> --- a/drivers/gpu/drm/imagination/pvr_vm.c
-> +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-> @@ -267,7 +273,7 @@ static int
->  pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
->  			struct pvr_vm_context *vm_ctx,
->  			struct pvr_gem_object *pvr_obj, u64 offset,
-> -			u64 device_addr, u64 size)
-> +			u64 device_addr, u64 size, bool sparse)
->  {
->  	struct drm_gem_object *obj =3D gem_from_pvr_gem(pvr_obj);
->  	const bool is_user =3D vm_ctx !=3D vm_ctx->pvr_dev->kernel_vm_ctx;
-> @@ -285,11 +291,19 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind=
-_op,
->  	}
-> =20
->  	if (!pvr_device_addr_and_size_are_valid(vm_ctx, device_addr, size) ||
-> -	    offset & ~PAGE_MASK || size & ~PAGE_MASK ||
-> -	    offset >=3D pvr_obj_size || offset_plus_size > pvr_obj_size)
-> +	    offset & ~PAGE_MASK || size & ~PAGE_MASK)
-> +		return -EINVAL;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the page table prealloc=
-ation
-calculate requirements using the object offset instead of the device addres=
-s?
-
-When a VM_BIND request is made, pvr_vm_bind_op_map_init() calls
-pvr_mmu_op_context_create(), passing offset as the sgt_offset:
-
-drivers/gpu/drm/imagination/pvr_mmu.c:pvr_mmu_op_context_create() {
-    ...
-		const u32 l0_start_idx =3D pvr_page_table_l1_idx(sgt_offset);
-		const u32 l0_end_idx =3D pvr_page_table_l1_idx(sgt_offset + size);
-		const u32 l0_count =3D l0_end_idx - l0_start_idx + 1;
-    ...
-}
-
-If the device_addr alignment causes the mapping to span more 2MB or 1GB
-boundaries than sgt_offset does, this will under-allocate page tables.
-For instance, mapping an 8KB chunk with offset=3D0 to a device_addr that cr=
-osses
-a 2MB boundary requires 2 L0 page tables, but the logic using sgt_offset
-calculates only 1.
-
-When the driver attempts to insert the second page, the preallocated pool is
-empty and returns -ENOMEM. This would cause valid mappings to fail, and for
-the newly introduced sparse mappings where offset is always 0, it guarantees
-this failure whenever a sparse mapping crosses a 2MB boundary.
-
-[Severity: Critical]
-This is a pre-existing issue related to the above calculation, but can this
-integer underflow allow unprivileged users to cause an OOM panic?
-
-In the same calculation:
-
-drivers/gpu/drm/imagination/pvr_mmu.c:pvr_mmu_op_context_create() {
-    ...
-		const u32 l0_start_idx =3D pvr_page_table_l1_idx(sgt_offset);
-		const u32 l0_end_idx =3D pvr_page_table_l1_idx(sgt_offset + size);
-		const u32 l0_count =3D l0_end_idx - l0_start_idx + 1;
-    ...
-}
-
-The function pvr_page_table_l1_idx() masks out higher bits to return a boun=
-ded
-9-bit local index:
-
-drivers/gpu/drm/imagination/pvr_mmu.c:pvr_page_table_l1_idx() {
-	return (device_addr & ~ROGUE_MMUCTRL_VADDR_PD_INDEX_CLRMSK) >>
-	       ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT;
-}
-
-If an unprivileged user calls the VM_BIND ioctl with an offset and size such
-that offset + size crosses a 1GB page directory boundary, l0_end_idx will be
-smaller than l0_start_idx (e.g., 0 < 511).
-
-This causes l0_count to underflow to roughly 4.29 billion, leading to an
-immediate kernel out-of-memory (OOM) panic as the driver attempts to alloca=
-te
-billions of page table structures in a tight loop.
-
-> +	/*
-> +	 * A sparse mapping repeats one page over a deliberately wider range,
-> +	 * so the containment check only applies to ordinary mappings.
-> +	 */
-> +	if (!sparse &&
-> +	    (offset >=3D pvr_obj_size || offset_plus_size > pvr_obj_size))
->  		return -EINVAL;
-> =20
->  	bind_op->type =3D PVR_VM_BIND_TYPE_MAP;
-> +	bind_op->sparse =3D sparse;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-pvr-vm-bin=
-d-v1-0-0a0f21be7d38@gmail.com?part=3D4
