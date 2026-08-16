@@ -4,61 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBD0C5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 12:25:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57222C5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 12:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08FBD10E211;
-	Sun, 16 Aug 2026 12:25:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D0ED8984C;
+	Sun, 16 Aug 2026 12:46:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lY9ySZin";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="icdqjbty";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 099F710E211
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 12:25:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6126643F93
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 12:25:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374A21F00ACF
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 12:25:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786883139;
- bh=TkiLh9VOhdssJC2FCfvKMlpQ3w7S+D/K/oaLB8bYzhw=;
- h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
- b=lY9ySZinctZuj+haz5hLxiQUDxCElY3uu9FDgqSEsYo7wADXYhrQRwV5wTUEAhkee
- AonoMkTfq3/AVQScHmgV3e4m5ZEshnMgG8SPzQfrIfODLoT436dQxi46pM/MPZgSSB
- efQPXvh1Mjwu+8gJeAyoEABki+2ZUbhWJQKl8PnfrojWy1YYdI5viz9AMz4/uYrTV1
- 5J3b0iA6Dlo9hx1v2TEKfUj/HpH9homlh2ZdlGq8VWqnV0USa1MYM0U3lXE4qZZ6TP
- 2VVDnkEhGZJ73xiQMVG6IteJ6j9XjhiPSbXbRQ1pCChDu6OB4LdlSv2jmsLajRy3+e
- dcQDnSDdJe27g==
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-5b457a0b4e5so2548584e87.1
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 05:25:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqeo0OOBNWk4zshuPSGOjacuK7cStyQBVkJUd21tTsrY4a9qDxieRKDbdsZmOaiJeRHOK7A9e/908M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzOOHHYzoeTN3d2wAAp8lJ2bLA7OkFu3/KX3H1AqdEjJ3E71PZE
- 9Hh2kou+EYJ4c23h/M6ehT1yAaF0EfBQrYyBTN8pj+6hEmUOtvpPs71r/tpGdMJpxnHl+YdVwFl
- miC4Y1GqtL/wueQzdPOP6m5MZECFWLAw=
-X-Received: by 2002:a2e:8a89:0:b0:39a:e1c5:6f38 with SMTP id
- 38308e7fff4ca-3a1324cd706mr17281661fa.24.1786883137563; Sun, 16 Aug 2026
- 05:25:37 -0700 (PDT)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C56AC10E2A5
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 12:45:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=eLDYI6fB0d2RCJjuamTPArJ83NXYqhVS5jBkxi4e8nE=; b=i
+ cdqjbty2HcUwGqwUSQDQpLv7LKObNqt+0gDTPkLZ2w5OiYFLCYUEVmoJrER/mnCp
+ 82FzloM1NSyi4UrjsO2gEPC0gXkRSAKmWdA/nfFwg3ALI82nRfU4cWOmoJhlymzD
+ iAH2usfbHroliFCCDfz5ci4uGeQSVWKjfwnwbQFuOg=
+Received: from andyshrk$163.com ( [61.154.14.86] ) by
+ ajax-webmail-wmsvr-40-100 (Coremail) ; Sun, 16 Aug 2026 20:41:30 +0800
+ (CST)
+X-Originating-IP: [61.154.14.86]
+Date: Sun, 16 Aug 2026 20:41:30 +0800 (CST)
+From: "Andy Yan" <andyshrk@163.com>
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: "Sandy Huang" <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ "Andy Yan" <andy.yan@rock-chips.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>,
+ "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+ "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>,
+ "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
+ "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>,
+ "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>,
+ "Damon Ding" <damon.ding@rock-chips.com>,
+ "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Alexey Charkov" <alchark@flipper.net>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
+ Sashiko <sashiko-bot@kernel.org>
+Subject: Re:[PATCH v11 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect
+ resource lifetimes in bind callback
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-2-0d508505f383@collabora.com>
+References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-2-0d508505f383@collabora.com>
+X-NTES-SC: AL_Qu2TBPSTu0gi5iWbZekfmUgWjuw/WsG1v/Ul1YBSP556jCrp6yoHelRJMXX9zsmrEg+xlzSHfCNT0M9dRK11eZMX4h+Bq+VJD5qckXiOYYPbKw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 MIME-Version: 1.0
-References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
- <20260814-drm-no-more-plane-reset-v2-32-82d2963dd134@kernel.org>
-In-Reply-To: <20260814-drm-no-more-plane-reset-v2-32-82d2963dd134@kernel.org>
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 16 Aug 2026 20:25:23 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66PcWDgD=LjSPBWT6JQ8y3WwK6C3z2VuD37ZRDckev5AQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XmyExYj_GyxGcsVrwnbOt-0i9XNk3O88oB0lAIhgv7ZyXTo4OjeXMD8eM
-Message-ID: <CAGb2v66PcWDgD=LjSPBWT6JQ8y3WwK6C3z2VuD37ZRDckev5AQ@mail.gmail.com>
-Subject: Re: [PATCH v2 32/61] drm/sun4i: sun8i: Convert to atomic_create_state
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev, 
- samuel@sholland.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <78ac4580.18bf.1a00a976aac.Coremail.andyshrk@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: ZCgvCgD3fwz6r4FqR8cyAA--.25129W
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbCxholg2qBr-q+aQAA3T
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,336 +84,174 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: wens@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 14, 2026 at 10:58=E2=80=AFPM Maxime Ripard <mripard@kernel.org>=
- wrote:
->
-> The plane only initializes a pristine state in its reset hook
-> using drm_atomic_helper_plane_reset(), which is equivalent to what
-> atomic_create_state expects. Convert to it.
->
-> The conversion was done using the following Coccinelle semantic patch:
->
-> @@
-> identifier funcs;
-> symbol drm_atomic_helper_plane_reset;
-> symbol drm_atomic_helper_plane_create_state;
-> @@
->
-> struct drm_plane_funcs funcs =3D {
->   ...,
-> - .reset =3D drm_atomic_helper_plane_reset,
-> + .atomic_create_state =3D drm_atomic_helper_plane_create_state,
->   ...,
-> };
->
-> @match_struct_reset@
-> identifier funcs, reset_func;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
->     .reset =3D reset_func,
->     ...,
-> };
->
-> @reset_uses_helpers depends on match_struct_reset@
-> identifier match_struct_reset.reset_func;
-> @@
->
->  void reset_func(...)
->  {
->         <+...
-> (
->         __drm_atomic_helper_plane_reset(...);
-> |
->         __drm_gem_reset_shadow_plane(...);
-> )
->         ...+>
->  }
->
-> @match_struct_destroy@
-> identifier funcs, destroy_func;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
->     .atomic_destroy_state =3D destroy_func,
->     ...,
-> };
->
-> @script:python renamed_func@
-> old_name << match_struct_reset.reset_func;
-> new_name;
-> @@
-> if old_name.endswith("_reset"):
->     coccinelle.new_name =3D old_name.replace("_reset", "_create_state")
-> else:
->     coccinelle.new_name =3D old_name
->
-> @update_struct depends on match_struct_reset && reset_uses_helpers@
-> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
-> -   .reset =3D reset_func,
-> +   .atomic_create_state =3D new_name,
->     ...,
-> };
->
-> @drop_destroy depends on update_struct && match_struct_destroy@
-> identifier match_struct_reset.reset_func;
-> identifier match_struct_destroy.destroy_func;
-> identifier container_func;
-> identifier P;
-> symbol drm_atomic_helper_plane_destroy_state;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> @@
->
->  void reset_func(struct drm_plane *P)
->  {
->         ...
-> (
-> -       if (P->state) {
-> -               <+...
-> (
-> -               drm_atomic_helper_plane_destroy_state(P, P->state);
-> |
-> -               __drm_atomic_helper_plane_destroy_state(P->state);
-> |
-> -               P->funcs->atomic_destroy_state(P, P->state);
-> |
-> -               destroy_func(P, P->state);
-> )
-> -               ...+>
-> -       }
-> |
-> -       drm_WARN_ON_ONCE(P->dev, P->state);
-> |
-> -       WARN_ON(P->state);
-> )
->         ...
-> (
-> -       kfree(P->state);
-> |
-> -       kfree(container_func(P->state));
-> |
->         // kfree is optional
-> )
-> (
-> -       P->state =3D NULL;
-> |
->         // plane->state clearing is optional
-> )
->         ...
->  }
->
-> @drop_destroy_mtk depends on update_struct@
-> identifier P;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> symbol to_mtk_plane_state;
-> @@
->
->  void mtk_plane_reset(struct drm_plane *P)
->  {
->         ...
-> -       if (P->state) {
-> -               __drm_atomic_helper_plane_destroy_state(P->state);
-> -               ...
-> -       } else {
->                 ...
-> -       }
->         ...
->  }
->
-> @transform_nv50_wndw depends on update_struct@
-> identifier S;
-> @@
->
->  void nv50_wndw_reset(...)
->  {
->         ...
-> -       if (WARN_ON(!(S =3D kzalloc_obj(*S))))
-> +       S =3D kzalloc_obj(*S);
-> +       if (WARN_ON(!S))
->                 return;
->         ...
->  }
->
-> @transform_kzalloc depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier P, S;
-> statement ST;
-> statement list STL;
-> @@
->
->  void reset_func(struct drm_plane *P)
->  {
->         <...
->         S =3D kzalloc_obj(*S);
-> (
-> -       if (S)
-> -       {
-> -               STL
-> -       }
-> +       if (!S) return;
-> +
-> +       STL
-> |
-> -       if (S) ST
-> +       if (!S) return;
-> +
-> +       ST
-> )
->         ...>
->  }
->
-> @transform_body depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier S, P;
-> expression PS;
-> @@
-> - void reset_func(struct drm_plane *P)
-> + struct drm_plane_state *new_name(struct drm_plane *P)
-> {
->         ...
->         S =3D kzalloc_obj(*S);
->         ...
-> (
->         if (!S) {
->                 ...
-> -               return;
-> +               return ERR_PTR(-ENOMEM);
->         }
-> |
->         if (WARN_ON(!S)) {
->                 ...
-> -               return;
-> +               return ERR_PTR(-ENOMEM);
->         }
-> |
->         if (S =3D=3D NULL) {
->                 ...
-> -               return;
-> +               return ERR_PTR(-ENOMEM);
->         }
-> )
->         ...
-> (
-> -       __drm_atomic_helper_plane_reset(P, PS);
-> +       __drm_atomic_helper_plane_state_init(PS, P);
-> |
-> -       __drm_gem_reset_shadow_plane(P, PS);
-> +       __drm_gem_shadow_plane_state_init(P, PS);
-> )
->         ...
-> }
->
-> @update_early_return depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
->         <+...
-> -       return;
-> +       return ERR_PTR(-EINVAL);
->         ...+>
-> }
->
-> @update_return_plane depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
->         ...
->         __drm_atomic_helper_plane_state_init(PS, P);
->         ...
-> +
-> +       return PS;
-> }
->
-> @update_return_shadow depends on update_struct@
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
->         ...
->         __drm_gem_shadow_plane_state_init(P, PS);
->         ...
-> +
-> +       return &PS->base;
-> }
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Cc: linux-sunxi@lists.linux.dev
-> Cc: samuel@sholland.org
-> Cc: wens@kernel.org
-> ---
->  drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 2 +-
->  drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun=
-4i/sun8i_ui_layer.c
-> index 00756ab78b4e..bad102134726 100644
-> --- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-> @@ -211,11 +211,11 @@ static const struct drm_plane_helper_funcs sun8i_ui=
-_layer_helper_funcs =3D {
->  static const struct drm_plane_funcs sun8i_ui_layer_funcs =3D {
->         .atomic_destroy_state   =3D drm_atomic_helper_plane_destroy_state=
-,
->         .atomic_duplicate_state =3D drm_atomic_helper_plane_duplicate_sta=
-te,
->         .destroy                =3D drm_plane_cleanup,
->         .disable_plane          =3D drm_atomic_helper_disable_plane,
-> -       .reset                  =3D drm_atomic_helper_plane_reset,
-> +       .atomic_create_state =3D drm_atomic_helper_plane_create_state,
->         .update_plane           =3D drm_atomic_helper_update_plane,
->  };
->
->  static const u32 sun8i_ui_layer_formats[] =3D {
->         DRM_FORMAT_ABGR1555,
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun=
-4i/sun8i_vi_layer.c
-> index 09f668c8af24..2e9cda45c04e 100644
-> --- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-> @@ -291,11 +291,11 @@ static const struct drm_plane_helper_funcs sun8i_vi=
-_layer_helper_funcs =3D {
->  static const struct drm_plane_funcs sun8i_vi_layer_funcs =3D {
->         .atomic_destroy_state   =3D drm_atomic_helper_plane_destroy_state=
-,
->         .atomic_duplicate_state =3D drm_atomic_helper_plane_duplicate_sta=
-te,
->         .destroy                =3D drm_plane_cleanup,
->         .disable_plane          =3D drm_atomic_helper_disable_plane,
-> -       .reset                  =3D drm_atomic_helper_plane_reset,
-> +       .atomic_create_state =3D drm_atomic_helper_plane_create_state,
-
-Looks like a pretty standard replacement.
-
-
-Acked-by: Chen-Yu Tsai <wens@kernel.org>
-
->         .update_plane           =3D drm_atomic_helper_update_plane,
->  };
->
->  /*
->   * While DE2 VI layer supports same RGB formats as UI layer, alpha
->
-> --
-> 2.55.0
->
+CkhlbGxvIFNlYmFzdGlhbiwKCkF0IDIwMjYtMDgtMDcgMDE6MDI6MDgsICJTZWJhc3RpYW4gUmVp
+Y2hlbCIgPHNlYmFzdGlhbi5yZWljaGVsQGNvbGxhYm9yYS5jb20+IHdyb3RlOgo+Q3VycmVudGx5
+IHRoZSBTeW5vcHN5cyBEZXNpZ25XYXJlIERQIGNvbnRyb2xsZXIgZHJpdmVyJ3MgYmluZCBmdW5j
+dGlvbgo+cmVxdWVzdHMgbG90cyBvZiByZXNvdXJjZXMgdXNpbmcgZGV2aWNlIG1hbmFnZWQgZnVu
+Y3Rpb25zLiBUaGVzZSBhcmUKPmZyZWUnZCBvbiBkcml2ZXIgcmVtb3ZhbCBpbnN0ZWFkIG9mIGF0
+IHVuYmluZCB0aW1lLiBGaXggdGhpcyBkaXNjcmVwYW5jeQo+YnkgaW50cm9kdWNpbmcgYSBuZXcg
+cHJvYmUgaGVscGVyIGZ1bmN0aW9uIGFuZCBtb3Zpbmcgb3ZlciB0aGUgd2hvbGUKPmJpbmQgZnVu
+Y3Rpb24uIFRoaXMgcmVzdWx0cyBpbiBhIGZ1bGx5IGZ1bmN0aW9uYWwgRFJNIGJyaWRnZSBvbmNl
+IHByb2JlCj5zdWNjZWVkZWQuIFRoZSBvbmx5IHRoaW5nIHN0aWxsIGhhcHBlbmluZyB3aGVuIHRo
+ZSBjb21wb25lbnQgaXMgYm91bmQKPmlzIHRoZSBicmlkZ2UgYXR0YWNobWVudCwgd2hpY2ggcmVx
+dWlyZXMgdGhlIGVuY29kZXIuCj4KPlRoZSBpbnRlcnJ1cHQgaXMga2VwdCBkaXNhYmxlZCB3aGls
+ZSB0aGUgYnJpZGdlIGlzIGRldGFjaGVkIHRvIGVuc3VyZSBubwo+c3B1cmlvdXMgaW50ZXJydXB0
+cyBjYW4gYXJyaXZlIGFzIHRoZSBpbnRlcnJ1cHQgaGFuZGxlciB0cmlnZ2VycyBhCj53b3JrZXIs
+IHdoaWNoIGFjY2Vzc2VzIHRoZSBEUk0gZGV2aWNlLgo+Cj5GaXhlczogODZlZWNjM2E5YzJlICgi
+ZHJtL2JyaWRnZTogc3lub3BzeXM6IEFkZCBEVyBEUFRYIENvbnRyb2xsZXIgc3VwcG9ydCBsaWJy
+YXJ5IikKPlJlcG9ydGVkLWJ5OiBTYXNoaWtvIDxzYXNoaWtvLWJvdEBrZXJuZWwub3JnPgo+U2ln
+bmVkLW9mZi1ieTogU2ViYXN0aWFuIFJlaWNoZWwgPHNlYmFzdGlhbi5yZWljaGVsQGNvbGxhYm9y
+YS5jb20+CgogICBBY2tlZC1ieTogQW5keSBZYW4gPGFuZHkueWFuQHJvY2stY2hpcHMuY29tPgoK
+Pi0tLQo+IGRyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctZHAuYyAgIHwgNzMgKysr
+KysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLQo+IGRyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9k
+d19kcC1yb2NrY2hpcC5jIHwgNTMgKysrKysrKysrKysrLS0tLS0tLS0tLQo+IGluY2x1ZGUvZHJt
+L2JyaWRnZS9kd19kcC5oICAgICAgICAgICAgICAgIHwgIDUgKystCj4gMyBmaWxlcyBjaGFuZ2Vk
+LCA3MiBpbnNlcnRpb25zKCspLCA1OSBkZWxldGlvbnMoLSkKPgo+ZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctZHAuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlk
+Z2Uvc3lub3BzeXMvZHctZHAuYwo+aW5kZXggNjBmZWIzZDFlMTRiLi5kNzk0NWY3ZmU5ZjAgMTAw
+NjQ0Cj4tLS0gYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWRwLmMKPisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctZHAuYwo+QEAgLTE4MjcsMTYgKzE4
+MjcsMjIgQEAgc3RhdGljIGludCBkd19kcF9icmlkZ2VfYXR0YWNoKHN0cnVjdCBkcm1fYnJpZGdl
+ICpicmlkZ2UsCj4gCWRwLT5hdXgudHJhbnNmZXIgPSBkd19kcF9hdXhfdHJhbnNmZXI7Cj4gCj4g
+CXJldCA9IGRybV9kcF9hdXhfcmVnaXN0ZXIoJmRwLT5hdXgpOwo+LQlpZiAocmV0KQo+KwlpZiAo
+cmV0KSB7Cj4gCQlkZXZfZXJyKGRldiwgIkF1eCByZWdpc3RlciBmYWlsZWQ6ICVkXG4iLCByZXQp
+Owo+KwkJcmV0dXJuIHJldDsKPisJfQo+IAo+LQlyZXR1cm4gcmV0Owo+KwllbmFibGVfaXJxKGRw
+LT5pcnEpOwo+Kwo+KwlyZXR1cm4gMDsKPiB9Cj4gCj4gc3RhdGljIHZvaWQgZHdfZHBfYnJpZGdl
+X2RldGFjaChzdHJ1Y3QgZHJtX2JyaWRnZSAqYnJpZGdlKQo+IHsKPiAJc3RydWN0IGR3X2RwICpk
+cCA9IGJyaWRnZV90b19kcChicmlkZ2UpOwo+IAo+KwlkaXNhYmxlX2lycShkcC0+aXJxKTsKPisJ
+Y2FuY2VsX3dvcmtfc3luYygmZHAtPmhwZF93b3JrKTsKPiAJZHJtX2RwX2F1eF91bnJlZ2lzdGVy
+KCZkcC0+YXV4KTsKPiB9Cj4gCj5AQCAtMTk4Miw2ICsxOTg4LDE4IEBAIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgcmVnbWFwX2NvbmZpZyBkd19kcF9yZWdtYXBfY29uZmlnID0gewo+IAkucmRfdGFibGUg
+PSAmZHdfZHBfcmVhZGFibGVfdGFibGUsCj4gfTsKPiAKPitpbnQgZHdfZHBfYmluZChzdHJ1Y3Qg
+ZHdfZHAgKmRwLCBzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIpCj4rewo+KwlyZXR1cm4gZHJt
+X2JyaWRnZV9hdHRhY2goZW5jb2RlciwgJmRwLT5icmlkZ2UsIE5VTEwsIERSTV9CUklER0VfQVRU
+QUNIX05PX0NPTk5FQ1RPUik7Cj4rfQo+K0VYUE9SVF9TWU1CT0xfR1BMKGR3X2RwX2JpbmQpOwo+
+Kwo+K3ZvaWQgZHdfZHBfdW5iaW5kKHN0cnVjdCBkd19kcCAqZHApCj4rewo+KwkvKiBub3RoaW5n
+IHRvIGRvIGFzIGJyaWRnZSBpcyBkZXRhY2hlZCBhdXRvbWF0aWNhbGx5ICovCj4rfQo+K0VYUE9S
+VF9TWU1CT0xfR1BMKGR3X2RwX3VuYmluZCk7Cj4rCj4gc3RhdGljIHZvaWQgZHdfZHBfcGh5X2V4
+aXQodm9pZCAqZGF0YSkKPiB7Cj4gCXN0cnVjdCBkd19kcCAqZHAgPSBkYXRhOwo+QEAgLTE5ODks
+MTMgKzIwMDcsMTIgQEAgc3RhdGljIHZvaWQgZHdfZHBfcGh5X2V4aXQodm9pZCAqZGF0YSkKPiAJ
+cGh5X2V4aXQoZHAtPnBoeSk7Cj4gfQo+IAo+LXN0cnVjdCBkd19kcCAqZHdfZHBfYmluZChzdHJ1
+Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwKPi0JCQkgY29uc3Qg
+c3RydWN0IGR3X2RwX3BsYXRfZGF0YSAqcGxhdF9kYXRhKQo+K3N0cnVjdCBkd19kcCAqZHdfZHBf
+cHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwgY29uc3Qgc3RydWN0IGR3X2RwX3Bs
+YXRfZGF0YSAqcGxhdF9kYXRhKQo+IHsKPi0Jc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiA9
+IHRvX3BsYXRmb3JtX2RldmljZShkZXYpOwo+LQlzdHJ1Y3QgZHdfZHAgKmRwOwo+KwlzdHJ1Y3Qg
+ZGV2aWNlICpkZXYgPSAmcGRldi0+ZGV2Owo+IAlzdHJ1Y3QgZHJtX2JyaWRnZSAqYnJpZGdlOwo+
+IAl2b2lkIF9faW9tZW0gKnJlczsKPisJc3RydWN0IGR3X2RwICpkcDsKPiAJaW50IHJldDsKPiAK
+PiAJZHAgPSBkZXZtX2RybV9icmlkZ2VfYWxsb2MoZGV2LCBzdHJ1Y3QgZHdfZHAsIGJyaWRnZSwg
+JmR3X2RwX2JyaWRnZV9mdW5jcyk7Cj5AQCAtMjAwNCw5ICsyMDIxLDggQEAgc3RydWN0IGR3X2Rw
+ICpkd19kcF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRybV9lbmNvZGVyICplbmNv
+ZGVyLAo+IAo+IAlkcC0+ZGV2ID0gZGV2Owo+IAlkcC0+cGl4ZWxfbW9kZSA9IHBsYXRfZGF0YS0+
+cGl4ZWxfbW9kZTsKPi0KPiAJZHAtPnBsYXRfZGF0YS5tYXhfbGlua19yYXRlID0gcGxhdF9kYXRh
+LT5tYXhfbGlua19yYXRlOwo+LQlicmlkZ2UgPSAmZHAtPmJyaWRnZTsKPisKPiAJbXV0ZXhfaW5p
+dCgmZHAtPmlycV9sb2NrKTsKPiAJSU5JVF9XT1JLKCZkcC0+aHBkX3dvcmssIGR3X2RwX2hwZF93
+b3JrKTsKPiAJaW5pdF9jb21wbGV0aW9uKCZkcC0+Y29tcGxldGUpOwo+QEAgLTIwNjMsMTggKzIw
+NzksMTQgQEAgc3RydWN0IGR3X2RwICpkd19kcF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3Ry
+dWN0IGRybV9lbmNvZGVyICplbmNvZGVyLAo+IAkJcmV0dXJuIEVSUl9DQVNUKGRwLT5yc3RjKTsK
+PiAJfQo+IAo+LQlicmlkZ2UtPm9mX25vZGUgPSBkZXYtPm9mX25vZGU7Cj4tCWJyaWRnZS0+b3Bz
+ID0gRFJNX0JSSURHRV9PUF9ERVRFQ1QgfCBEUk1fQlJJREdFX09QX0VESUQgfCBEUk1fQlJJREdF
+X09QX0hQRDsKPi0JYnJpZGdlLT50eXBlID0gRFJNX01PREVfQ09OTkVDVE9SX0Rpc3BsYXlQb3J0
+Owo+LQlicmlkZ2UtPnljYmNyXzQyMF9hbGxvd2VkID0gdHJ1ZTsKPi0KPi0JcmV0ID0gZGV2bV9k
+cm1fYnJpZGdlX2FkZChkZXYsIGJyaWRnZSk7Cj4tCWlmIChyZXQpCj4tCQlyZXR1cm4gRVJSX1BU
+UihyZXQpOwo+KwlkcC0+aXJxID0gcGxhdGZvcm1fZ2V0X2lycShwZGV2LCAwKTsKPisJaWYgKGRw
+LT5pcnEgPCAwKQo+KwkJcmV0dXJuIEVSUl9QVFIoZHAtPmlycSk7Cj4gCj4tCXJldCA9IGRybV9i
+cmlkZ2VfYXR0YWNoKGVuY29kZXIsIGJyaWRnZSwgTlVMTCwgRFJNX0JSSURHRV9BVFRBQ0hfTk9f
+Q09OTkVDVE9SKTsKPisJcmV0ID0gZGV2bV9yZXF1ZXN0X3RocmVhZGVkX2lycShkZXYsIGRwLT5p
+cnEsIE5VTEwsIGR3X2RwX2lycSwKPisJCQkJCUlSUUZfT05FU0hPVCB8IElSUUZfTk9fQVVUT0VO
+LCBkZXZfbmFtZShkZXYpLCBkcCk7Cj4gCWlmIChyZXQpIHsKPi0JCWRldl9lcnJfcHJvYmUoZGV2
+LCByZXQsICJGYWlsZWQgdG8gYXR0YWNoIGJyaWRnZVxuIik7Cj4rCQlkZXZfZXJyX3Byb2JlKGRl
+diwgcmV0LCAiZmFpbGVkIHRvIHJlcXVlc3QgaXJxXG4iKTsKPiAJCXJldHVybiBFUlJfUFRSKHJl
+dCk7Cj4gCX0KPiAKPkBAIC0yMDkwLDI4ICsyMTAyLDE5IEBAIHN0cnVjdCBkd19kcCAqZHdfZHBf
+YmluZChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwKPiAJ
+aWYgKHJldCkKPiAJCXJldHVybiBFUlJfUFRSKHJldCk7Cj4gCj4tCWRwLT5pcnEgPSBwbGF0Zm9y
+bV9nZXRfaXJxKHBkZXYsIDApOwo+LQlpZiAoZHAtPmlycSA8IDApIHsKPi0JCXJldCA9IGRwLT5p
+cnE7Cj4tCQlyZXR1cm4gRVJSX1BUUihyZXQpOwo+LQl9Cj4rCWJyaWRnZSA9ICZkcC0+YnJpZGdl
+Owo+KwlicmlkZ2UtPm9mX25vZGUgPSBkZXYtPm9mX25vZGU7Cj4rCWJyaWRnZS0+b3BzID0gRFJN
+X0JSSURHRV9PUF9ERVRFQ1QgfCBEUk1fQlJJREdFX09QX0VESUQgfCBEUk1fQlJJREdFX09QX0hQ
+RDsKPisJYnJpZGdlLT50eXBlID0gRFJNX01PREVfQ09OTkVDVE9SX0Rpc3BsYXlQb3J0Owo+Kwli
+cmlkZ2UtPnljYmNyXzQyMF9hbGxvd2VkID0gdHJ1ZTsKPiAKPi0JcmV0ID0gZGV2bV9yZXF1ZXN0
+X3RocmVhZGVkX2lycShkZXYsIGRwLT5pcnEsIE5VTEwsIGR3X2RwX2lycSwKPi0JCQkJCUlSUUZf
+T05FU0hPVCwgZGV2X25hbWUoZGV2KSwgZHApOwo+LQlpZiAocmV0KSB7Cj4tCQlkZXZfZXJyX3By
+b2JlKGRldiwgcmV0LCAiZmFpbGVkIHRvIHJlcXVlc3QgaXJxXG4iKTsKPisJcmV0ID0gZGV2bV9k
+cm1fYnJpZGdlX2FkZChkZXYsIGJyaWRnZSk7Cj4rCWlmIChyZXQpCj4gCQlyZXR1cm4gRVJSX1BU
+UihyZXQpOwo+LQl9Cj4gCj4gCXJldHVybiBkcDsKPiB9Cj4tRVhQT1JUX1NZTUJPTF9HUEwoZHdf
+ZHBfYmluZCk7Cj4tCj4tdm9pZCBkd19kcF91bmJpbmQoc3RydWN0IGR3X2RwICpkcCkKPi17Cj4t
+CS8qIG5vdGhpbmcgdG8gZG8gKi8KPi19Cj4tRVhQT1JUX1NZTUJPTF9HUEwoZHdfZHBfdW5iaW5k
+KTsKPitFWFBPUlRfU1lNQk9MX0dQTChkd19kcF9wcm9iZSk7Cj4gCj4gTU9EVUxFX0FVVEhPUigi
+QW5keSBZYW4gPGFuZHlzaHJrQDE2My5jb20+Iik7Cj4gTU9EVUxFX0RFU0NSSVBUSU9OKCJEVyBE
+UCBDb3JlIExpYnJhcnkiKTsKPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAv
+ZHdfZHAtcm9ja2NoaXAuYyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19kcC1yb2NrY2hp
+cC5jCj5pbmRleCBiMjNlZmIxNTNjOWUuLjM4ZThmZTc1NzE4ZSAxMDA2NDQKPi0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9yb2NrY2hpcC9kd19kcC1yb2NrY2hpcC5jCj4rKysgYi9kcml2ZXJzL2dwdS9k
+cm0vcm9ja2NoaXAvZHdfZHAtcm9ja2NoaXAuYwo+QEAgLTI2LDcgKzI2LDcgQEAKPiBzdHJ1Y3Qg
+cm9ja2NoaXBfZHdfZHAgewo+IAlzdHJ1Y3QgZHdfZHAgKmJhc2U7Cj4gCXN0cnVjdCBkZXZpY2Ug
+KmRldjsKPi0Jc3RydWN0IHJvY2tjaGlwX2VuY29kZXIgZW5jb2RlcjsKPisJc3RydWN0IHJvY2tj
+aGlwX2VuY29kZXIgKmVuY29kZXI7Cj4gfTsKPiAKPiBzdGF0aWMgaW50IGR3X2RwX2VuY29kZXJf
+YXRvbWljX2NoZWNrKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwKPkBAIC03MywzNyArNzMs
+MjggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fZW5jb2Rlcl9oZWxwZXJfZnVuY3MgZHdfZHBf
+ZW5jb2Rlcl9oZWxwZXJfZnVuY3MgPSB7Cj4gCj4gc3RhdGljIGludCBkd19kcF9yb2NrY2hpcF9i
+aW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAqbWFzdGVyLCB2b2lkICpkYXRh
+KQo+IHsKPi0Jc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiA9IHRvX3BsYXRmb3JtX2Rldmlj
+ZShkZXYpOwo+LQljb25zdCBzdHJ1Y3QgZHdfZHBfcGxhdF9kYXRhICpwbGF0X2RhdGE7Cj4rCXN0
+cnVjdCByb2NrY2hpcF9kd19kcCAqZHAgPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsKPiAJc3RydWN0
+IGRybV9kZXZpY2UgKmRybV9kZXYgPSBkYXRhOwo+LQlzdHJ1Y3Qgcm9ja2NoaXBfZHdfZHAgKmRw
+Owo+IAlzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7Cj4gCXN0cnVjdCBkcm1fY29ubmVjdG9y
+ICpjb25uZWN0b3I7Cj4gCWludCByZXQ7Cj4gCj4tCWRwID0gZHJtbV9remFsbG9jKGRybV9kZXYs
+IHNpemVvZigqZHApLCBHRlBfS0VSTkVMKTsKPi0JaWYgKCFkcCkKPisJZHAtPmVuY29kZXIgPSBk
+cm1tX2t6YWxsb2MoZHJtX2Rldiwgc2l6ZW9mKCpkcC0+ZW5jb2RlciksIEdGUF9LRVJORUwpOwo+
+KwlpZiAoIWRwLT5lbmNvZGVyKQo+IAkJcmV0dXJuIC1FTk9NRU07Cj4gCj4tCWRwLT5kZXYgPSBk
+ZXY7Cj4tCXBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIGRwKTsKPi0KPi0JcGxhdF9kYXRhID0g
+b2ZfZGV2aWNlX2dldF9tYXRjaF9kYXRhKGRldik7Cj4tCWlmICghcGxhdF9kYXRhKQo+LQkJcmV0
+dXJuIC1FTk9ERVY7Cj4tCj4tCWVuY29kZXIgPSAmZHAtPmVuY29kZXIuZW5jb2RlcjsKPisJZW5j
+b2RlciA9ICZkcC0+ZW5jb2Rlci0+ZW5jb2RlcjsKPiAJZW5jb2Rlci0+cG9zc2libGVfY3J0Y3Mg
+PSBkcm1fb2ZfZmluZF9wb3NzaWJsZV9jcnRjcyhkcm1fZGV2LCBkZXYtPm9mX25vZGUpOwo+LQly
+b2NrY2hpcF9kcm1fZW5jb2Rlcl9zZXRfY3J0Y19lbmRwb2ludF9pZCgmZHAtPmVuY29kZXIsIGRl
+di0+b2Zfbm9kZSwgMCwgMCk7Cj4rCXJvY2tjaGlwX2RybV9lbmNvZGVyX3NldF9jcnRjX2VuZHBv
+aW50X2lkKGRwLT5lbmNvZGVyLCBkZXYtPm9mX25vZGUsIDAsIDApOwo+IAo+IAlyZXQgPSBkcm1t
+X2VuY29kZXJfaW5pdChkcm1fZGV2LCBlbmNvZGVyLCBOVUxMLCBEUk1fTU9ERV9FTkNPREVSX1RN
+RFMsIE5VTEwpOwo+IAlpZiAocmV0KQo+IAkJcmV0dXJuIHJldDsKPiAJZHJtX2VuY29kZXJfaGVs
+cGVyX2FkZChlbmNvZGVyLCAmZHdfZHBfZW5jb2Rlcl9oZWxwZXJfZnVuY3MpOwo+IAo+LQlkcC0+
+YmFzZSA9IGR3X2RwX2JpbmQoZGV2LCBlbmNvZGVyLCBwbGF0X2RhdGEpOwo+LQlpZiAoSVNfRVJS
+KGRwLT5iYXNlKSkKPi0JCXJldHVybiBQVFJfRVJSKGRwLT5iYXNlKTsKPisJcmV0ID0gZHdfZHBf
+YmluZChkcC0+YmFzZSwgZW5jb2Rlcik7Cj4rCWlmIChyZXQpCj4rCQlyZXR1cm4gZGV2X2Vycl9w
+cm9iZShkZXYsIHJldCwgImZhaWxlZCB0byBiaW5kIERXLURQIGJyaWRnZVxuIik7Cj4gCj4gCWNv
+bm5lY3RvciA9IGRybV9icmlkZ2VfY29ubmVjdG9yX2luaXQoZHJtX2RldiwgZW5jb2Rlcik7Cj4g
+CWlmIChJU19FUlIoY29ubmVjdG9yKSkgewo+QEAgLTEyOCwxMiArMTE5LDMwIEBAIHN0YXRpYyBj
+b25zdCBzdHJ1Y3QgY29tcG9uZW50X29wcyBkd19kcF9yb2NrY2hpcF9jb21wb25lbnRfb3BzID0g
+ewo+IAkudW5iaW5kID0gZHdfZHBfcm9ja2NoaXBfdW5iaW5kLAo+IH07Cj4gCj4tc3RhdGljIGlu
+dCBkd19kcF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+K3N0YXRpYyBpbnQg
+ZHdfZHBfcm9ja2NoaXBfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiB7Cj4r
+CWNvbnN0IHN0cnVjdCBkd19kcF9wbGF0X2RhdGEgKnBsYXRfZGF0YTsKPisJc3RydWN0IGRldmlj
+ZSAqZGV2ID0gJnBkZXYtPmRldjsKPisJc3RydWN0IHJvY2tjaGlwX2R3X2RwICpkcDsKPisKPisJ
+cGxhdF9kYXRhID0gb2ZfZGV2aWNlX2dldF9tYXRjaF9kYXRhKGRldik7Cj4rCWlmICghcGxhdF9k
+YXRhKQo+KwkJcmV0dXJuIC1FTk9ERVY7Cj4rCj4rCWRwID0gZGV2bV9remFsbG9jKGRldiwgc2l6
+ZW9mKCpkcCksIEdGUF9LRVJORUwpOwo+KwlpZiAoIWRwKQo+KwkJcmV0dXJuIC1FTk9NRU07Cj4r
+CXBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIGRwKTsKPisJZHAtPmRldiA9IGRldjsKPisKPisJ
+ZHAtPmJhc2UgPSBkd19kcF9wcm9iZShwZGV2LCBwbGF0X2RhdGEpOwo+KwlpZiAoSVNfRVJSKGRw
+LT5iYXNlKSkKPisJCXJldHVybiBQVFJfRVJSKGRwLT5iYXNlKTsKPisKPiAJcmV0dXJuIGNvbXBv
+bmVudF9hZGQoJnBkZXYtPmRldiwgJmR3X2RwX3JvY2tjaGlwX2NvbXBvbmVudF9vcHMpOwo+IH0K
+PiAKPi1zdGF0aWMgdm9pZCBkd19kcF9yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRl
+dikKPitzdGF0aWMgdm9pZCBkd19kcF9yb2NrY2hpcF9yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2Rl
+dmljZSAqcGRldikKPiB7Cj4gCWNvbXBvbmVudF9kZWwoJnBkZXYtPmRldiwgJmR3X2RwX3JvY2tj
+aGlwX2NvbXBvbmVudF9vcHMpOwo+IH0KPkBAIC0xNjEsOCArMTcwLDggQEAgc3RhdGljIGNvbnN0
+IHN0cnVjdCBvZl9kZXZpY2VfaWQgZHdfZHBfb2ZfbWF0Y2hbXSA9IHsKPiBNT0RVTEVfREVWSUNF
+X1RBQkxFKG9mLCBkd19kcF9vZl9tYXRjaCk7Cj4gCj4gc3RydWN0IHBsYXRmb3JtX2RyaXZlciBk
+d19kcF9kcml2ZXIgPSB7Cj4tCS5wcm9iZQk9IGR3X2RwX3Byb2JlLAo+LQkucmVtb3ZlID0gZHdf
+ZHBfcmVtb3ZlLAo+KwkucHJvYmUJPSBkd19kcF9yb2NrY2hpcF9wcm9iZSwKPisJLnJlbW92ZSA9
+IGR3X2RwX3JvY2tjaGlwX3JlbW92ZSwKPiAJLmRyaXZlciA9IHsKPiAJCS5uYW1lID0gImR3LWRw
+IiwKPiAJCS5vZl9tYXRjaF90YWJsZSA9IGR3X2RwX29mX21hdGNoLAo+ZGlmZiAtLWdpdCBhL2lu
+Y2x1ZGUvZHJtL2JyaWRnZS9kd19kcC5oIGIvaW5jbHVkZS9kcm0vYnJpZGdlL2R3X2RwLmgKPmlu
+ZGV4IDIyMTA1YzNlOGU0ZC4uYTgyNDEyYTllNzY5IDEwMDY0NAo+LS0tIGEvaW5jbHVkZS9kcm0v
+YnJpZGdlL2R3X2RwLmgKPisrKyBiL2luY2x1ZGUvZHJtL2JyaWRnZS9kd19kcC5oCj5AQCAtMjIs
+NyArMjIsOCBAQCBzdHJ1Y3QgZHdfZHBfcGxhdF9kYXRhIHsKPiAJdTggcGl4ZWxfbW9kZTsKPiB9
+Owo+IAo+LXN0cnVjdCBkd19kcCAqZHdfZHBfYmluZChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVj
+dCBkcm1fZW5jb2RlciAqZW5jb2RlciwKPi0JCQkgY29uc3Qgc3RydWN0IGR3X2RwX3BsYXRfZGF0
+YSAqcGxhdF9kYXRhKTsKPitpbnQgZHdfZHBfYmluZChzdHJ1Y3QgZHdfZHAgKmRwLCBzdHJ1Y3Qg
+ZHJtX2VuY29kZXIgKmVuY29kZXIpOwo+IHZvaWQgZHdfZHBfdW5iaW5kKHN0cnVjdCBkd19kcCAq
+ZHApOwo+Kwo+K3N0cnVjdCBkd19kcCAqZHdfZHBfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2Rldmlj
+ZSAqcGRldiwgY29uc3Qgc3RydWN0IGR3X2RwX3BsYXRfZGF0YSAqcGxhdF9kYXRhKTsKPiAjZW5k
+aWYgLyogX19EV19EUF9fICovCj4KPi0tIAo+Mi41My4wCj4K
