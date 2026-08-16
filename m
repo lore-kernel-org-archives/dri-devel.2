@@ -4,79 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B31BC5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE9AC5DF76
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:05:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6080110E2F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 634B610E2FC;
 	Sun, 16 Aug 2026 14:05:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FPknFBT7";
+	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="apIwzkcI";
 	dkim-atps=neutral
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC46B10E133
- for <dri-devel@lists.freedesktop.org>; Sat, 15 Aug 2026 05:08:33 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5b28c91fba5so1920256e87.1
- for <dri-devel@lists.freedesktop.org>; Fri, 14 Aug 2026 22:08:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786770512; x=1787375312; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=NgkFZajAQJmzi//1l9aIpRfIFvgCaKKT8i3Z0CDYaWs=;
- b=FPknFBT79+skyxmr3REZWLlfUOUfHx3YaD1YEFHPhmgmmqTZkLQzueCj18c6TmAF3b
- 8zsH79lH5YAxz7Guoaz3c2DLqQ/7J7SqGn7Y8GQfVSbZ27bmXehW7cC6ZdGKyM3gLKEW
- KhLUQDwhajpQ4N8VUS2n0vnZPK7vxHWx3RFKoLNilcIi++vrgITR4eZaFtLXA2oOybA8
- M6R81x7iIKJ9hN+FCpqZFnRjPdjShObgSn1c+rQV2ZkCw1AYTvntHa3sTcwVgVyqF6/y
- e1h/ORxTzuKAPuKq2xfmOHviEQWlk7wDgkoP5spJ7MHlnfDZXy5CJenRC9Oe3y33X+NQ
- 3bag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786770512; x=1787375312;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=NgkFZajAQJmzi//1l9aIpRfIFvgCaKKT8i3Z0CDYaWs=;
- b=g1WzxSs9EK5HNl1El/Uv0SRnSax8oYCz6eeAOfndn+1ZmlEaRzpWXF8Jom9+VcdBDD
- FI1u3EifXgIdHtB6yQ6Aor/FPxU2oSIr/2Fp89MyCazWgA1MgT0HoJc0g25/EZWdw7N4
- prfZoUJoX2k6qE5Fs01KnA/wwR1mIRAswGuxDm2q1kx0ZeZ8QmGXKT6VpKxeNpg5hzss
- annDx5lKWSgMN37HCvSWlfbCCEidz5fnP2EXM0sAWWSCqzQQ39tt1mND1m2bANufMkAp
- ckM3GfQ0QSaxTU1rOyhB4WXLbg4Nu5vO55dvMzZF5Re8uf2IbIQAwGfW346bGqEjaMZk
- 69FQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpLZ+cYFGOcldMImXw4UHG/l0zBwMV8BGbt9KnXwvhFS1MF3JuL4/phIDqGXZuBslOgMxVk5Kt8pLY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzivAdoPZgsvyyXmci5a5niTHqmVF3LcEd0gCQKcP2zZxhAxLDX
- rqBTi0TvF41JOGq6o4H/QWJtr1eKh48Hx5hxdukXHWwKunT/GAt3Gzs0
-X-Gm-Gg: AR+sD138M5CQ1nC8WTLDLzWkoMnNZRkZ3eHst9Op+ZeimmAsdDX1vZcTcT+jHpaAI/D
- kIcRIcTdroqzHpcpem68CLFmLmK1sTn7SSjZCPCjePw5kJ2IuDg7RlK7rX4oSpqNxxUIHdX/YLM
- BnDsdR9HpTjwVtw/HU2ckVmVYUDq5Stz6a4KSyXvPOzh10DWzD2eeiTFPNO2R3U3YOUarKbIQm+
- 1O3+mBbKAYZ29trWoWwzxmaQiBXaUUWFqQlbEWDb43+4Cf3BOQNywcTa+6bus20UX2odEX9e6Iy
- vBTwKIMfe6Aq5lMkRkdgXYYJkiUvzFpN/ylZZ/fTIBNpRRy5obVF/6lWK17hgpjxdCNIaqtRFTJ
- WbHER08/JJv55h2VS94jpkhudRuJWtScIGvBd+Fpue3mGTQjFpwtWqP8HS7fyXt568mVdeiZBVd
- 4PiWkRtEegzH21q8lBzcS0t3g0q/ooKxLcH9nh1Bzrc0LR3nhcqQVrDmibMMiQhokvdsE=
-X-Received: by 2002:a05:6512:150e:20b0:5ad:68aa:8a78 with SMTP id
- 2adb3069b0e04-5b453b9adeemr2672003e87.5.1786770511539; 
- Fri, 14 Aug 2026 22:08:31 -0700 (PDT)
-Received: from localhost ([95.190.110.153]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b458b9a9a7sm932354e87.13.2026.08.14.22.08.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Aug 2026 22:08:31 -0700 (PDT)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
- gary@garyguo.net, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Vladislav Zaharov <vladazaharova2018@gmail.com>
-Subject: [PATCH v2 2/2] Documentation: nova: remove completed GSP log buffer
- task
-Date: Sat, 15 Aug 2026 12:08:26 +0700
-Message-ID: <20260815050826.306717-3-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260815050826.306717-1-vladazaharova2018@gmail.com>
-References: <20260815050826.306717-1-vladazaharova2018@gmail.com>
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B54D10E1D3
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 10:57:12 +0000 (UTC)
+Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
+ server-digest SHA256) (No client certificate requested)
+ by meve.dewith.io (Postfix) with ESMTPSA id 424DA24E97;
+ Sun, 16 Aug 2026 10:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
+ t=1786877830;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uXApw21u7kFbyUeBtXMbtGKYUhRfHXU4v8DzWnU9RlU=;
+ b=apIwzkcItKrxUCYq30CHuOQvNhXiok5dEpgh+/6PtOLBcKlc5bLaAJrVCoU2NdrAdblEPK
+ fjvFL15iD9yFvodRNcbXHvIUyt9rCfI/5KBQjn2dued+WPxf/cmBF6DrLM+sLZU8Io6JTv
+ MjOiuzajs/8BbDck0+/n3gPegKPJYas=
+From: Wim de With <wf@dewith.io>
+Date: Sun, 16 Aug 2026 12:57:04 +0200
+Subject: [PATCH v3 2/2] backlight: Add support for Orient Chip OCP8178
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260816-ocp8178-backlight-v3-2-caf95c453c50@dewith.io>
+References: <20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io>
+In-Reply-To: <20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io>
+To: Wim de With <wf@dewith.io>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,39 +65,307 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Exposing the GSP-RM log buffers through debugfs is implemented, and with
-the gsp_keep_logs module parameter they now also survive a failed probe,
-which was the part of the task that was still missing.
+Add a driver for the Orient Chip OCP8178 backlight controller.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
+The OCP8178 supports either PWM or a vendor-specific onewire protocol
+over GPIO. This driver implements the onewire protocol, which enables
+setting static brightness levels without requiring a continuous PWM
+signal from the host CPU. Note that while the vendor calls the protocol
+1-Wire, it is not the 1-Wire protocol from Dallas Semiconductor as
+implemented in drivers/w1.
+
+Signed-off-by: Wim de With <wf@dewith.io>
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 ---
- Documentation/gpu/nova/core/todo.rst | 12 ------------
- 1 file changed, 12 deletions(-)
+ MAINTAINERS                          |   1 +
+ drivers/video/backlight/Kconfig      |  10 ++
+ drivers/video/backlight/Makefile     |   1 +
+ drivers/video/backlight/ocp8178_bl.c | 231 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 243 insertions(+)
 
-diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-index d5130b2b08fb..cae0578d32f1 100644
---- a/Documentation/gpu/nova/core/todo.rst
-+++ b/Documentation/gpu/nova/core/todo.rst
-@@ -141,18 +141,6 @@ Implement support for instmem (bar2) used to store page tables.
- GPU System Processor (GSP)
- ==========================
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3ca99d9c32ef1..7146e4dea8d78 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19682,6 +19682,7 @@ OCP8178 BACKLIGHT DRIVER
+ M:	Wim de With <wf@dewith.io>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
++F:	drivers/video/backlight/ocp8178_bl.c
  
--Export GSP log buffers
------------------------
--
--Recent patches from Timur Tabi [1] added support to expose GSP-RM log buffers
--(even after failure to probe the driver) through debugfs.
--
--This is also an interesting feature for nova-core, especially in the early days.
--
--| Link: https://lore.kernel.org/nouveau/20241030202952.694055-2-ttabi@nvidia.com/ [1]
--| Reference: Debugfs abstractions
--| Complexity: Intermediate
--
- GSP firmware abstraction
- ------------------------
+ OCXL (Open Coherent Accelerator Processor Interface OpenCAPI) DRIVER
+ M:	Mahesh J Salgaonkar <mahesh@linux.ibm.com>
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index 7aa1c4b21111f..aa845230c5f58 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -226,6 +226,16 @@ config BACKLIGHT_LOCOMO
+ 	  If you have a Sharp Zaurus SL-5500 (Collie) or SL-5600 (Poodle) say y to
+ 	  enable the LCD/backlight driver.
  
++config BACKLIGHT_OCP8178
++	tristate "OCP8178 Backlight Driver"
++	depends on GPIOLIB
++	help
++	  If you have an Orient Chip OCP8178, say Y to enable the backlight
++	  driver.
++
++	  To compile this driver as a module, choose M here: the module will
++	  be called ocp8178_bl.
++
+ config BACKLIGHT_OMAP1
+ 	tristate "OMAP1 PWL-based LCD Backlight"
+ 	depends on ARCH_OMAP1 || COMPILE_TEST
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index 21c8313cfb121..c4e87b708ae21 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -51,6 +51,7 @@ obj-$(CONFIG_BACKLIGHT_MAX25014)	+= max25014.o
+ obj-$(CONFIG_BACKLIGHT_MAX8925)		+= max8925_bl.o
+ obj-$(CONFIG_BACKLIGHT_MP3309C)		+= mp3309c.o
+ obj-$(CONFIG_BACKLIGHT_MT6370)		+= mt6370-backlight.o
++obj-$(CONFIG_BACKLIGHT_OCP8178)		+= ocp8178_bl.o
+ obj-$(CONFIG_BACKLIGHT_OMAP1)		+= omap1_bl.o
+ obj-$(CONFIG_BACKLIGHT_PANDORA)		+= pandora_bl.o
+ obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
+diff --git a/drivers/video/backlight/ocp8178_bl.c b/drivers/video/backlight/ocp8178_bl.c
+new file mode 100644
+index 0000000000000..6c1e8c9451f12
+--- /dev/null
++++ b/drivers/video/backlight/ocp8178_bl.c
+@@ -0,0 +1,231 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Orient Chip OCP8178 Backlight Driver
++ *
++ * Copyright (C) 2026 Wim de With
++ *
++ * Author: Wim de With <wf@dewith.io>
++ */
++
++#include <linux/backlight.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/gpio/consumer.h>
++#include <linux/irqflags.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++
++#define OCP8178_MAX_BRIGHTNESS 0x1F /* 5 bits */
++
++#define OCP8178_DEVICE_ADDRESS 0x72
++
++#define OCP8178_DATA_RFA BIT(7)
++#define OCP8178_DATA_ADDR GENMASK(6, 5)
++#define OCP8178_DATA_VALUE GENMASK(4, 0)
++
++#define OCP8178_1W_INIT_MAX_RETRIES 5
++#define OCP8178_1W_INIT_SLEEP_US (50 * 1000)
++
++#define OCP8178_T_OFF_US (3 * 1000) /* datasheet specifies at least 2.5 ms */
++#define OCP8178_1W_T_DELAY_US (100 + 10) /* 10 us as safety factor */
++#define OCP8178_1W_T_DETECT_US (260 + 10) /* 10 us as safety factor */
++#define OCP8178_1W_T_START_US 2
++#define OCP8178_1W_T_EOS_US 2
++#define OCP8178_1W_T_WIN_NS (1000 * 1000)
++
++/*
++ * The datasheet specifies 1.7 Kbps to 160 Kbps.
++ * 1 / (160 Kbps) is about 6.67 us, so using 7 us per bit should be fine.
++ * T_HIGH + T_LOW = 7 us
++ * T_HIGH > 2 * T_LOW for high bits
++ * T_LOW > 2 * T_HIGH for low bits
++ */
++#define OCP8178_1W_HIGH_BIT_T_LOW_US 2
++#define OCP8178_1W_HIGH_BIT_T_HIGH_US 5
++#define OCP8178_1W_LOW_BIT_T_LOW_US 5
++#define OCP8178_1W_LOW_BIT_T_HIGH_US 2
++
++struct ocp8178_bl {
++	struct device *dev;
++	struct gpio_desc *gpiod;
++};
++
++static int ocp8178_bl_enable_onewire(struct ocp8178_bl *ocp8178)
++{
++	u64 start, duration;
++
++	gpiod_set_value(ocp8178->gpiod, 0);
++	fsleep(OCP8178_T_OFF_US);
++
++	start = ktime_get_ns();
++
++	gpiod_set_value(ocp8178->gpiod, 1);
++	udelay(OCP8178_1W_T_DELAY_US);
++	gpiod_set_value(ocp8178->gpiod, 0);
++	udelay(OCP8178_1W_T_DETECT_US);
++	gpiod_set_value(ocp8178->gpiod, 1);
++
++	duration = ktime_get_ns() - start;
++
++	if (duration >= OCP8178_1W_T_WIN_NS) {
++		dev_err(ocp8178->dev,
++			"onewire detection window exceeded (%llu ns)\n",
++			duration);
++		return -EAGAIN;
++	}
++
++	return 0;
++}
++
++static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
++{
++	unsigned long flags;
++
++	gpiod_set_value(ocp8178->gpiod, 1);
++	udelay(OCP8178_1W_T_START_US);
++
++	local_irq_save(flags);
++
++	for (int i = 7; i >= 0; i--) {
++		if ((value >> i) & 1) {
++			gpiod_set_value(ocp8178->gpiod, 0);
++			udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
++			gpiod_set_value(ocp8178->gpiod, 1);
++			udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
++		} else {
++			gpiod_set_value(ocp8178->gpiod, 0);
++			udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
++			gpiod_set_value(ocp8178->gpiod, 1);
++			udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
++		}
++	}
++
++	gpiod_set_value(ocp8178->gpiod, 0);
++	udelay(OCP8178_1W_T_EOS_US);
++	gpiod_set_value(ocp8178->gpiod, 1);
++
++	local_irq_restore(flags);
++}
++
++static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
++{
++	u8 data = 0;
++
++	/*
++	 * We cannot set RFA (request for acknowledge) unless the GPIO pin is
++	 * configured as open drain.
++	 */
++	data |= FIELD_PREP(OCP8178_DATA_RFA, 0);
++	data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
++	data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
++
++	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
++	ocp8178_bl_write_u8(ocp8178, data);
++}
++
++static int ocp8178_bl_update_status(struct backlight_device *bl)
++{
++	struct ocp8178_bl *ocp8178 = bl_get_data(bl);
++	u8 brightness = backlight_get_brightness(bl);
++
++	ocp8178_bl_set_brightness(ocp8178, brightness);
++	return 0;
++}
++
++static const struct backlight_ops ocp8178_bl_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.update_status = ocp8178_bl_update_status,
++};
++
++static int ocp8178_bl_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct backlight_device *bl;
++	struct backlight_properties props;
++	struct ocp8178_bl *ocp8178;
++	u32 max_brightness, brightness;
++	int ret, retries;
++
++	ocp8178 = devm_kzalloc(dev, sizeof(*ocp8178), GFP_KERNEL);
++	if (!ocp8178)
++		return -ENOMEM;
++
++	ocp8178->dev = dev;
++
++	ret = device_property_read_u32(dev, "max-brightness", &max_brightness);
++	if (ret)
++		max_brightness = OCP8178_MAX_BRIGHTNESS;
++	if (max_brightness > OCP8178_MAX_BRIGHTNESS) {
++		dev_warn(dev, "max brightness exceeds hardware limit\n");
++		max_brightness = OCP8178_MAX_BRIGHTNESS;
++	}
++
++	ret = device_property_read_u32(dev, "default-brightness", &brightness);
++	if (ret)
++		brightness = max_brightness;
++	if (brightness > max_brightness) {
++		dev_warn(dev, "default brightness exceeds max brightness\n");
++		brightness = max_brightness;
++	}
++
++	ocp8178->gpiod = devm_gpiod_get(dev, "ctrl", GPIOD_OUT_LOW);
++	if (IS_ERR(ocp8178->gpiod))
++		return dev_err_probe(dev, PTR_ERR(ocp8178->gpiod),
++				     "GPIO missing or invalid\n");
++	if (gpiod_cansleep(ocp8178->gpiod))
++		return dev_err_probe(dev, -EINVAL,
++				     "sleeping GPIO not supported\n");
++	gpiod_set_consumer_name(ocp8178->gpiod, dev_name(dev));
++
++	for (retries = 0; retries < OCP8178_1W_INIT_MAX_RETRIES; retries++) {
++		ret = ocp8178_bl_enable_onewire(ocp8178);
++		if (!ret)
++			break;
++		if (ret != -EAGAIN)
++			return ret;
++		fsleep(OCP8178_1W_INIT_SLEEP_US);
++	}
++	if (retries >= OCP8178_1W_INIT_MAX_RETRIES)
++		return dev_err_probe(dev, -ETIMEDOUT,
++				     "failed to initialize onewire protocol\n");
++
++	props = (typeof(props)){
++		.type = BACKLIGHT_RAW,
++		.brightness = brightness,
++		.max_brightness = max_brightness,
++		.power = BACKLIGHT_POWER_ON,
++		.scale = BACKLIGHT_SCALE_NON_LINEAR,
++	};
++
++	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ocp8178,
++					    &ocp8178_bl_ops, &props);
++	if (IS_ERR(bl))
++		return dev_err_probe(dev, PTR_ERR(bl),
++				     "failed to register backlight\n");
++
++	platform_set_drvdata(pdev, bl);
++	backlight_update_status(bl);
++
++	return 0;
++}
++
++static const struct of_device_id ocp8178_bl_of_match[] = {
++	{ .compatible = "ocs,ocp8178" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ocp8178_bl_of_match);
++
++static struct platform_driver ocp8178_bl_driver = {
++	.driver = {
++		.name = "ocp8178-bl",
++		.of_match_table = ocp8178_bl_of_match,
++	},
++	.probe = ocp8178_bl_probe,
++};
++module_platform_driver(ocp8178_bl_driver);
++
++MODULE_AUTHOR("Wim de With <wf@dewith.io>");
++MODULE_DESCRIPTION("Orient Chip OCP8178 Backlight Driver");
++MODULE_LICENSE("GPL");
+
 -- 
 2.55.0
 
