@@ -4,87 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80D3DC5DF66
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:43:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7557FC5DF66
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:55:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6705B10E34A;
-	Sun, 16 Aug 2026 19:43:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D24710E34D;
+	Sun, 16 Aug 2026 19:55:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HsyB060l";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D3vNRLSm";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 900D810E352
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 19:43:32 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-cbedd5aece4so2593601a12.0
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 12:43:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786909412; x=1787514212; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=TmS/O1rRWa79hgNz7Dg/kJ8vBv2DQsi5CP/JVSYodyI=;
- b=HsyB060lHDYkm9xw+kQN0tgNZQTDPr1d0GaiYKOgZ3ygxhUP30y1SYtjWRkTBGbhnR
- gxUCayBKBci9zLZlzEYzXHmJ+NYc82fW5Okb6LEmlep5hDmIWVR5pZtZh596k+y8QMuR
- ORwPuqfX1ZQBD8a5p14SwF7BQF7pBgeUUp7trCmejPgdclUoPbqvHpkLUfU8wP+DBXYc
- Y0n8aOu8z8eSycSSbavOsNcmVX0k4zZHYxrhlwwWiPWFsmNx32g637BUiV/7V47MklQf
- NJlFYDxvkpyhF7sadGjxYHZIXhBm7LV1mQIBVS8Mv5DQIjCDh1XLYiMpEFh2LTdJGcUg
- wiHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786909412; x=1787514212;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=TmS/O1rRWa79hgNz7Dg/kJ8vBv2DQsi5CP/JVSYodyI=;
- b=PqhP5TE4MFkGVLgNjA3/wy16NuAU6slmDoQ5Iw/DGrBTRJ5MG0woht8KKssYpqr85k
- iP3WDrfzmrmZSCg1BtS3JmS+J/d7uIZZEr+UrTH1U24Mi2DpJK7V4SaaW9GGUvkHr/qT
- d9x2sCoKotnQooATpxZnij2pY8Yl2OCxvOkwuO58LcVEsmSszprdanUh8Jh3AEf9R5Uw
- cIf1zhm73IbJOvMGniX8kU5J3IyMRMJ1WgMqUDpYIzymo9M9rucecCn9RCdijofdgCnX
- Kw7DAg+71/ChpUgwjQwLv5lH4z6OO5lNCYni4OYGcBbjUg4SMNdgrTVAAJfQXuFSoihZ
- C7vw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqEvtpGLs2d0VhzRpaqnPAkO73jajAywTvOEvG6vi7dpecaWvguTT+Db2BLRoMe3IeLbszgmQj1I7I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRoebu0YQ+6z1RbRhyLWD/Z2nL1HYvMzn4reu2r5ewwfvmfL0q
- iJ0oJdTHJJtMDc4mOuRcaWRg5tDIX8TpbhX2SbueN47CM0YzkgOfiMxP
-X-Gm-Gg: AR+sD11HRMGYJBzIzDK/Ps2Jfgf/vbpiJMQNCDu9Di+AgInQb4u4wgNWIspF222Q4Y5
- 5/PGCRfl9gHsPWUJ7yNuhMKypZRPUNQnhZeKSwl5NcLCP2qHh2+k1cEaLMLV71XcThGaryedghc
- ey6rsbkn1ovTYED+bj/cb7NYfjZPQjTKp3vUnklc3RAT5smI6R1Kxx1GroKq7E6/nWW1AFrN/Xi
- /75TJ1/nUkk/pSqanONHpDUx1Ds5lA3YlrVfQGMiGV+TZlF9TNXrgjuAbvJ2AGAzkIZpp+b2udw
- UlDjxGAvckJyWahW+qFgLep8ar2xAEbKE4KHeBMqeav1IALBVcQXsonVxs0Es14HJNFHeSonS2s
- tOuEdhz8yDmxTgDdZNc0pyOEZPNBu9m1ifGjCrADvpLRJHsAjimRg1zt408b+eERg/v+NhRCb8p
- 44eOOP6+uhY+baNiJMew03xI7CrQ4HeRhnKi8QwUVdAW0wQkM9/SU8Ag==
-X-Received: by 2002:a17:90b:1dcb:b0:38e:5ce1:ae30 with SMTP id
- 98e67ed59e1d1-3933b0d37ebmr14980176a91.14.1786909411881; 
- Sun, 16 Aug 2026 12:43:31 -0700 (PDT)
-Received: from [127.0.1.1] ([1.243.227.27]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-395320229f4sm2141310a91.15.2026.08.16.12.43.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Aug 2026 12:43:31 -0700 (PDT)
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Mon, 17 Aug 2026 04:42:11 +0900
-Subject: [PATCH 4/4] drm/imagination: Add sparse mappings to VM_BIND
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-pvr-vm-bind-v1-4-0a0f21be7d38@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3117710E34D
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 19:55:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B5604411FC;
+ Sun, 16 Aug 2026 19:55:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B4F1F000E9;
+ Sun, 16 Aug 2026 19:55:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786910152;
+ bh=qCKJiiMDNZSBlyXYcD5zJGiO24QQFz+MwY/EOr04EY8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=D3vNRLSmrrQWLSEzZz/9p68vr3SOF0mDIOrkGtcCiqM/XALV/u13dO+KKR5nf/aRf
+ EKj3LRACT97iiaufVI90GpPK2E2iy4j6ve8eepY75xyGoH3SCzWBGWxZsMu8scFtmR
+ u1/npQWnQwYa/1IXK2xQ+SG2kz93zaOG/FJve1c0++CRNo8S5KRBY2KrnYF3s085Fu
+ Q/Jfp9vOnc82BRtj+sw6sSD+MeqJsj3pB/xhLv7roRaVxY9LAbCAGmfyuJXjGF0O2C
+ pQXXGdnofmDVim/pu8LQdHMIekdS2L+YfdT3OlzhWvuIunuOCDZ0Gt81QINOO2k5S5
+ 4AAaygv3BV1hw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] drm/imagination: Switch the GPUVM to immediate mode
+To: "Gyeyoung Baek" <gye976@gmail.com>
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260817-pvr-vm-bind-v1-2-0a0f21be7d38@gmail.com>
 References: <20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com>
-In-Reply-To: <20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com>
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Matt Coster <opensource@mtcoster.net>, 
- Donald Robson <donald.robson@imgtec.com>, 
- Sarah Walker <sarah.walker@imgtec.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, Gyeyoung Baek <gye976@gmail.com>
-X-Mailer: b4 0.15.1
+ <20260817-pvr-vm-bind-v1-2-0a0f21be7d38@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 16 Aug 2026 19:55:51 +0000
+Message-Id: <20260816195552.60B4F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,380 +53,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Vulkan sparse residency requires that an access to an unbound part of a
-sparse resource does not fault, so a range has to be mappable without
-naming any buffer object.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Add DRM_PVR_VM_BIND_OP_MAP_SPARSE:
-every page table entry of the range points at the same dummy page,
-so the mapping costs one physical page however wide it is.
+Pre-existing issues:
+- [High] When splitting an existing mapping, `pvr_vm_gpuva_remap` permanent=
+ly leaks references to the GEM object by explicitly calling `pvr_gem_object=
+_get` for `prev_va` and `next_va` without any corresponding put in the unma=
+p path.
+--
 
-The dummy is created per file rather than per device - writes to a sparse
-range stay in this page, and one shared device-wide would let clients see
-each other's writes.
+--- Patch [2]: [PATCH 2/4] drm/imagination: Switch the GPUVM to immediate m=
+ode ---
+commit 62abfc02f1a7752ea9adac50d4fa08b736d27170
+Author: Gyeyoung Baek <gye976@gmail.com>
 
-Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
----
- drivers/gpu/drm/imagination/pvr_device.h |  9 ++++
- drivers/gpu/drm/imagination/pvr_drv.c    | 14 ++++++-
- drivers/gpu/drm/imagination/pvr_drv.h    |  1 +
- drivers/gpu/drm/imagination/pvr_mmu.c    | 71 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_mmu.h    |  2 +
- drivers/gpu/drm/imagination/pvr_vm.c     | 52 ++++++++++++++++++-----
- include/uapi/drm/pvr_drm.h               | 32 +++++++++++---
- 7 files changed, 164 insertions(+), 17 deletions(-)
+drm/imagination: Switch the GPUVM to immediate mode
 
-diff --git a/drivers/gpu/drm/imagination/pvr_device.h b/drivers/gpu/drm/imagination/pvr_device.h
-index d51c57cf933..133b5c789bf 100644
---- a/drivers/gpu/drm/imagination/pvr_device.h
-+++ b/drivers/gpu/drm/imagination/pvr_device.h
-@@ -380,6 +380,15 @@ struct pvr_file {
- 	 */
- 	struct xarray hwrt_handles;
- 
-+	/**
-+	 * @sparse_dummy_bo: Single page every sparse mapping made through this
-+	 * file points at.
-+	 *
-+	 * Writes to a sparse range land here, so it is kept per file rather
-+	 * than per device to keep them out of other clients' view.
-+	 */
-+	struct pvr_gem_object *sparse_dummy_bo;
-+
- 	/**
- 	 * @vm_ctx_handles: Array of VM contexts belonging to this file. Array
- 	 * members are of type "struct pvr_vm_context *".
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index ec6ed610e29..ae11fbf7528 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1402,11 +1402,21 @@ static int
- pvr_drm_driver_open(struct drm_device *drm_dev, struct drm_file *file)
- {
- 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
-+	struct pvr_gem_object *dummy_bo;
- 	struct pvr_file *pvr_file;
- 
-+	dummy_bo = pvr_gem_object_create(pvr_dev, PVR_DEVICE_PAGE_SIZE,
-+					 DRM_PVR_BO_BYPASS_DEVICE_CACHE);
-+	if (IS_ERR(dummy_bo))
-+		return PTR_ERR(dummy_bo);
-+
- 	pvr_file = kzalloc_obj(*pvr_file);
--	if (!pvr_file)
-+	if (!pvr_file) {
-+		pvr_gem_object_put(dummy_bo);
- 		return -ENOMEM;
-+	}
-+
-+	pvr_file->sparse_dummy_bo = dummy_bo;
- 
- 	/*
- 	 * Store reference to base DRM file private data for use by
-@@ -1460,6 +1470,8 @@ pvr_drm_driver_postclose(__always_unused struct drm_device *drm_dev,
- 	pvr_destroy_hwrt_datasets_for_file(pvr_file);
- 	pvr_destroy_vm_contexts_for_file(pvr_file);
- 
-+	pvr_gem_object_put(pvr_file->sparse_dummy_bo);
-+
- 	kfree(pvr_file);
- 	file->driver_priv = NULL;
- }
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
-index 9ca8f8780a3..109b99ea062 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.h
-+++ b/drivers/gpu/drm/imagination/pvr_drv.h
-@@ -14,6 +14,7 @@
-  * Driver interface version:
-  *  - 1.0: Initial interface
-  *  - 1.1: adds DRM_IOCTL_PVR_VM_BIND
-+ *         adds DRM_PVR_VM_BIND_OP_MAP_SPARSE flag
-  */
- #define PVR_DRIVER_MAJOR 1
- #define PVR_DRIVER_MINOR 1
-diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imagination/pvr_mmu.c
-index 3cac482e103..fc1347d6f23 100644
---- a/drivers/gpu/drm/imagination/pvr_mmu.c
-+++ b/drivers/gpu/drm/imagination/pvr_mmu.c
-@@ -2558,6 +2558,77 @@ pvr_mmu_map_sgl(struct pvr_mmu_op_context *op_ctx, struct scatterlist *sgl,
- 	return err;
- }
- 
-+/**
-+ * pvr_mmu_map_dummy() - Point a range of device-virtual memory at a single
-+ * repeated physical page.
-+ * @op_ctx: Target MMU op context.
-+ * @size: Size of memory to be mapped in bytes. Must be a non-zero multiple
-+ * of the device page size.
-+ * @flags: Flags from pvr_gem_object associated with the mapping.
-+ * @device_addr: Virtual device address to map to. Must be device page-aligned.
-+ *
-+ * Every entry of the range is pointed at the first page of
-+ * &pvr_mmu_op_context.map.sgt, so the mapping costs one page whatever @size is.
-+ *
-+ * Return:
-+ *  * 0 on success,
-+ *  * -%EINVAL if @size or @device_addr is misaligned, or
-+ *  * Any error encountered while creating a page with pvr_page_create(), or
-+ *  * Any error encountered while advancing @op_ctx.curr_page.
-+ */
-+int pvr_mmu_map_dummy(struct pvr_mmu_op_context *op_ctx, u64 size, u64 flags,
-+		      u64 device_addr)
-+{
-+	const u64 pages = size >> PVR_DEVICE_PAGE_SHIFT;
-+	struct pvr_page_table_ptr ptr_copy;
-+	struct pvr_page_flags_raw flags_raw;
-+	dma_addr_t dma_addr;
-+	u64 page;
-+	int err;
-+
-+	if (!size)
-+		return 0;
-+
-+	if (size & ~PVR_DEVICE_PAGE_MASK)
-+		return -EINVAL;
-+
-+	dma_addr = sg_dma_address(op_ctx->map.sgt->sgl);
-+
-+	err = pvr_mmu_op_context_set_curr_page(op_ctx, device_addr, true);
-+	if (err)
-+		return -EINVAL;
-+
-+	memcpy(&ptr_copy, &op_ctx->curr_page, sizeof(ptr_copy));
-+
-+	flags_raw = pvr_page_flags_raw_create(false, false,
-+					      flags & DRM_PVR_BO_BYPASS_DEVICE_CACHE,
-+					      flags & DRM_PVR_BO_PM_FW_PROTECT);
-+
-+	err = pvr_page_create(op_ctx, dma_addr, flags_raw);
-+	if (err)
-+		return err;
-+
-+	for (page = 1; page < pages; ++page) {
-+		err = pvr_mmu_op_context_next_page(op_ctx, true);
-+		if (err)
-+			goto err_destroy_pages;
-+
-+		err = pvr_page_create(op_ctx, dma_addr, flags_raw);
-+		if (err)
-+			goto err_destroy_pages;
-+	}
-+
-+	pvr_mmu_op_context_require_sync(op_ctx, PVR_MMU_SYNC_LEVEL_0);
-+
-+	return 0;
-+
-+err_destroy_pages:
-+	memcpy(&op_ctx->curr_page, &ptr_copy, sizeof(op_ctx->curr_page));
-+	pvr_mmu_op_context_unmap_curr_page(op_ctx, page);
-+
-+	return err;
-+}
-+
- /**
-  * pvr_mmu_map() - Map an object's virtual memory to physical memory.
-  * @op_ctx: Target MMU op context.
-diff --git a/drivers/gpu/drm/imagination/pvr_mmu.h b/drivers/gpu/drm/imagination/pvr_mmu.h
-index a8ecd460168..b014ea8efb0 100644
---- a/drivers/gpu/drm/imagination/pvr_mmu.h
-+++ b/drivers/gpu/drm/imagination/pvr_mmu.h
-@@ -101,6 +101,8 @@ struct pvr_mmu_op_context *
- pvr_mmu_op_context_create(struct pvr_mmu_context *ctx,
- 			  struct sg_table *sgt, u64 sgt_offset, u64 size);
- 
-+int pvr_mmu_map_dummy(struct pvr_mmu_op_context *op_ctx, u64 size, u64 flags,
-+		      u64 device_addr);
- int pvr_mmu_map(struct pvr_mmu_op_context *op_ctx, u64 size, u64 flags,
- 		u64 device_addr);
- int pvr_mmu_unmap(struct pvr_mmu_op_context *op_ctx, u64 device_addr, u64 size);
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index f92bfeacd7a..d11e192c772 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -200,6 +200,12 @@ struct pvr_vm_bind_op {
- 	 */
- 	struct pvr_vm_gpuva *next_va;
- 
-+	/**
-+	 * @sparse: The mapping repeats the file's dummy page rather than
-+	 * covering real pages of @pvr_obj.
-+	 */
-+	bool sparse;
-+
- 	/** @offset: Offset into @pvr_obj to begin mapping from. */
- 	u64 offset;
- 
-@@ -267,7 +273,7 @@ static int
- pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
- 			struct pvr_vm_context *vm_ctx,
- 			struct pvr_gem_object *pvr_obj, u64 offset,
--			u64 device_addr, u64 size)
-+			u64 device_addr, u64 size, bool sparse)
- {
- 	struct drm_gem_object *obj = gem_from_pvr_gem(pvr_obj);
- 	const bool is_user = vm_ctx != vm_ctx->pvr_dev->kernel_vm_ctx;
-@@ -285,11 +291,19 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
- 	}
- 
- 	if (!pvr_device_addr_and_size_are_valid(vm_ctx, device_addr, size) ||
--	    offset & ~PAGE_MASK || size & ~PAGE_MASK ||
--	    offset >= pvr_obj_size || offset_plus_size > pvr_obj_size)
-+	    offset & ~PAGE_MASK || size & ~PAGE_MASK)
-+		return -EINVAL;
-+
-+	/*
-+	 * A sparse mapping repeats one page over a deliberately wider range,
-+	 * so the containment check only applies to ordinary mappings.
-+	 */
-+	if (!sparse &&
-+	    (offset >= pvr_obj_size || offset_plus_size > pvr_obj_size))
- 		return -EINVAL;
- 
- 	bind_op->type = PVR_VM_BIND_TYPE_MAP;
-+	bind_op->sparse = sparse;
- 
- 	bind_op->gpuvm_bo = drm_gpuvm_bo_create(&vm_ctx->gpuvm_mgr, obj);
- 	if (!bind_op->gpuvm_bo)
-@@ -396,8 +410,12 @@ pvr_vm_gpuva_map(struct drm_gpuva_op *op, void *op_ctx)
- 	if ((op->map.gem.offset | op->map.va.range) & ~PVR_DEVICE_PAGE_MASK)
- 		return -EINVAL;
- 
--	err = pvr_mmu_map(ctx->mmu_op_ctx, op->map.va.range, pvr_gem->flags,
--			  op->map.va.addr);
-+	if (ctx->sparse)
-+		err = pvr_mmu_map_dummy(ctx->mmu_op_ctx, op->map.va.range,
-+					pvr_gem->flags, op->map.va.addr);
-+	else
-+		err = pvr_mmu_map(ctx->mmu_op_ctx, op->map.va.range,
-+				  pvr_gem->flags, op->map.va.addr);
- 	if (err)
- 		return err;
- 
-@@ -790,7 +808,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
- 
- 	int err = pvr_vm_bind_op_map_init(&bind_op, vm_ctx, pvr_obj,
- 					  pvr_obj_offset, device_addr,
--					  size);
-+					  size, false);
- 
- 	if (err)
- 		return err;
-@@ -1475,14 +1493,25 @@ pvr_vm_bind_op_init_from_uapi(struct pvr_vm_bind_op *bind_op,
- 
- 	switch (uapi_op->flags & DRM_PVR_VM_BIND_OP_TYPE_MASK) {
- 	case DRM_PVR_VM_BIND_OP_TYPE_MAP:
--		pvr_obj = pvr_gem_object_from_handle(pvr_file, uapi_op->handle);
--		if (!pvr_obj)
--			return -ENOENT;
-+		if (uapi_op->flags & DRM_PVR_VM_BIND_OP_MAP_SPARSE) {
-+			if (uapi_op->handle || uapi_op->offset)
-+				return -EINVAL;
-+
-+			pvr_obj = pvr_file->sparse_dummy_bo;
-+			pvr_gem_object_get(pvr_obj);
-+		} else {
-+			pvr_obj = pvr_gem_object_from_handle(pvr_file,
-+							     uapi_op->handle);
-+			if (!pvr_obj)
-+				return -ENOENT;
-+		}
- 
- 		err = pvr_vm_bind_op_map_init(bind_op, vm_ctx, pvr_obj,
- 					      uapi_op->offset,
- 					      uapi_op->device_addr,
--					      uapi_op->size);
-+					      uapi_op->size,
-+					      uapi_op->flags &
-+					      DRM_PVR_VM_BIND_OP_MAP_SPARSE);
- 		if (err) {
- 			pvr_gem_object_put(pvr_obj);
- 			return err;
-@@ -1494,6 +1523,9 @@ pvr_vm_bind_op_init_from_uapi(struct pvr_vm_bind_op *bind_op,
- 		if (uapi_op->handle || uapi_op->offset)
- 			return -EINVAL;
- 
-+		if (uapi_op->flags & DRM_PVR_VM_BIND_OP_MAP_SPARSE)
-+			return -EINVAL;
-+
- 		return pvr_vm_bind_op_unmap_init(bind_op, vm_ctx, NULL,
- 						 uapi_op->device_addr,
- 						 uapi_op->size);
-diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
-index eb1535cd513..5cb63eb8182 100644
---- a/include/uapi/drm/pvr_drm.h
-+++ b/include/uapi/drm/pvr_drm.h
-@@ -1309,27 +1309,45 @@ struct drm_pvr_ioctl_submit_jobs_args {
-  * DOC: Flags for VM_BIND operations.
-  *
-  * The type of a VM bind operation is stored in the top four bits of
-- * &drm_pvr_vm_bind_op.flags.
-+ * &drm_pvr_vm_bind_op.flags. The remaining bits carry modifiers, each of which
-+ * is only valid with one type.
-+ *
-+ * .. c:macro:: DRM_PVR_VM_BIND_OP_MAP_SPARSE
-+ *
-+ *    Sparsely map a range of virtual addresses, without naming a buffer
-+ *    object. Only valid with %DRM_PVR_VM_BIND_OP_TYPE_MAP;
-+ *    &drm_pvr_vm_bind_op.handle and &drm_pvr_vm_bind_op.offset must both be
-+ *    zero.
-+ *
-+ *    GPU accesses to the range do not fault. Reads return undefined values,
-+ *    and writes may become visible through other sparse mappings. Nothing
-+ *    more is guaranteed; in particular
-+ *    %VkPhysicalDeviceSparseProperties.residencyNonResidentStrict is not
-+ *    provided.
-  *
-  * .. c:macro:: DRM_PVR_VM_BIND_OP_TYPE_MAP
-  *
-  *    Create a new mapping. &drm_pvr_vm_bind_op.handle must be a valid buffer
-- *    object handle.
-+ *    object handle, unless %DRM_PVR_VM_BIND_OP_MAP_SPARSE is also set.
-  *
-  * .. c:macro:: DRM_PVR_VM_BIND_OP_TYPE_UNMAP
-  *
-  *    Remove existing mappings. &drm_pvr_vm_bind_op.handle and
-- *    &drm_pvr_vm_bind_op.offset must both be zero.
-+ *    &drm_pvr_vm_bind_op.offset must both be zero, as must
-+ *    %DRM_PVR_VM_BIND_OP_MAP_SPARSE.
-  *
-  * .. c:macro:: DRM_PVR_VM_BIND_OP_TYPE_MASK
-  *
-  *    Mask used to extract the operation type.
-  */
-+#define DRM_PVR_VM_BIND_OP_MAP_SPARSE _BITUL(0)
-+
- #define DRM_PVR_VM_BIND_OP_TYPE_MAP (0u << 28)
- #define DRM_PVR_VM_BIND_OP_TYPE_UNMAP (1u << 28)
- #define DRM_PVR_VM_BIND_OP_TYPE_MASK (0xfu << 28)
- 
--#define DRM_PVR_VM_BIND_OP_FLAGS_MASK DRM_PVR_VM_BIND_OP_TYPE_MASK
-+#define DRM_PVR_VM_BIND_OP_FLAGS_MASK \
-+	(DRM_PVR_VM_BIND_OP_MAP_SPARSE | DRM_PVR_VM_BIND_OP_TYPE_MASK)
- 
- /**
-  * struct drm_pvr_vm_bind_op - A single VM bind operation.
-@@ -1342,13 +1360,15 @@ struct drm_pvr_vm_bind_op {
- 	 * @handle: [IN] Handle of the target buffer object.
- 	 *
- 	 * Must be a valid handle returned by %DRM_IOCTL_PVR_CREATE_BO for map
--	 * operations. MBZ for unmap operations.
-+	 * operations. MBZ for unmap operations, and for sparse map operations,
-+	 * which have no buffer object to name.
- 	 */
- 	__u32 handle;
- 
- 	/**
- 	 * @offset: [IN] Offset into the target buffer object from which to
--	 * begin the mapping. MBZ for unmap operations.
-+	 * begin the mapping. MBZ for unmap operations and for sparse map
-+	 * operations.
- 	 */
- 	__u64 offset;
- 
+This commit switches the PowerVR GPUVM implementation to use
+DRM_GPUVM_IMMEDIATE_MODE instead of the deferred execution model. This chan=
+ge
+aims to avoid deadlocks during asynchronous VM_BIND operations by removing
+the use of drm_gpuvm_exec and directly protecting the gpuva list with the G=
+EM
+object's gpuva.lock.
 
--- 
-2.43.0
+> diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
+nation/pvr_vm.c
+> index 608e8c0467dce..45df76e61f7cf 100644
+> --- a/drivers/gpu/drm/imagination/pvr_vm.c
+> +++ b/drivers/gpu/drm/imagination/pvr_vm.c
 
+[ ... ]
+
+> @@ -436,17 +441,21 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *o=
+p_ctx)
+> =20
+>  	if (op->remap.prev) {
+>  		pvr_gem_object_get(gem_to_pvr_gem(ctx->prev_va->base.gem.obj));
+> +		mutex_lock(&obj->gpuva.lock);
+>  		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
+> +		mutex_unlock(&obj->gpuva.lock);
+>  		ctx->prev_va =3D NULL;
+>  	}
+> =20
+>  	if (op->remap.next) {
+>  		pvr_gem_object_get(gem_to_pvr_gem(ctx->next_va->base.gem.obj));
+> +		mutex_lock(&obj->gpuva.lock);
+>  		drm_gpuva_link(&ctx->next_va->base, vm_bo);
+> +		mutex_unlock(&obj->gpuva.lock);
+>  		ctx->next_va =3D NULL;
+>  	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does pvr_vm_gpuva_remap()
+permanently leak references to the GEM object here?
+
+When splitting an existing mapping (e.g., when an unprivileged userspace
+client unmaps a subset or hole of an existing mapping), this code explicitly
+calls pvr_gem_object_get() for prev_va and next_va to take an additional
+reference to the GEM object for the newly split mappings.
+
+Looking at the unmap path in pvr_vm_gpuva_unmap(), it relies purely on the
+vm_bo lifecycle and does not appear to drop these per-VA GEM references:
+
+pvr_vm_gpuva_unmap() {
+        ...
+        drm_gpuva_unmap(&op->unmap);
+        drm_gpuva_unlink_defer(op->unmap.va);
+        kfree(to_pvr_vm_gpuva(op->unmap.va));
+        ...
+}
+
+Because these extra references taken during the remap operation are never
+dropped when the mapping is subsequently unmapped, can this lead to a
+permanent memory leak of GEM objects and eventual memory exhaustion if
+userspace repeatedly splits mappings?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-pvr-vm-bin=
+d-v1-0-0a0f21be7d38@gmail.com?part=3D2
