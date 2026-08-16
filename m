@@ -4,65 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 237C1C5DF70
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A42C5DF77
 	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 14:06:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86AE110E30E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C5F110E310;
 	Sun, 16 Aug 2026 14:06:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="O6KFrZkL";
+	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="RAjD3M27";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B35189349
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 14:06:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=BgltKba5DUL8ktAPlC2pa1q04TIfIhh7EmL3+FTkAf4=; b=O6KFrZkLlE7jBnqfe8TMorQFKC
- 3BwOFaXOFtvQ+uu/8ykRAUksJM/5b10/JStYcFb8FXH5RcAvT/AJcByzhOWfGul8sTCa9tq0zFUtd
- vy8iIKtCzcVQLk4o28kT6+YHg04ScgsstpTKxE0rlatuR+RX+n3L4Wk5EkGQu6DSl5MA6/LcJjoLe
- 0xVum/KfQtm+UPIe0FymIKAiODaPy9BnoZ66KNFMGr2MTEH48tagvSe6RudPwPZebMf+djzzFoiOo
- 5Fz33k2881HRmsDBwAb6MkQUKFr1+bFkgBggCi+qcq1FJSOl6IqIQDkPuV0mZ1ove3J2CnjEtIcoP
- GVAoUDGg==;
-Received: from [179.105.94.163] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wvbV5-002tuI-Eb; Sun, 16 Aug 2026 16:06:11 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 16 Aug 2026 11:05:43 -0300
-Subject: [PATCH 4/4] ARM: dts: bcm2835: Add the V3D reset line
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FDD110E27E
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 10:57:12 +0000 (UTC)
+Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
+ server-digest SHA256) (No client certificate requested)
+ by meve.dewith.io (Postfix) with ESMTPSA id 750D01FC51;
+ Sun, 16 Aug 2026 10:57:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
+ t=1786877829;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=q9BkWOqbRPbwZZ0c97zc9geVYk3/KI/cL1rJzpM75Ow=;
+ b=RAjD3M27ilzzPmNQ4ciaobOEiyYwYadP4Qowga+NRPzH/mmKFAFaVHD+HiH/39f0h58g7n
+ KjijL8+slRQ+EcVCta66y2vLV6lW1nqliRJQCNbVgzFkuMmIRbcEjRnc0kOjCR1XX6hGNY
+ HOtMv47anmunYSymwKDYVT+AbOrkSeA=
+From: Wim de With <wf@dewith.io>
+Date: Sun, 16 Aug 2026 12:57:03 +0200
+Subject: [PATCH v3 1/2] dt-bindings: backlight: Add Orient Chip OCP8178
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260816-vc4-reset-control-v1-4-896444373716@igalia.com>
-References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
-In-Reply-To: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
-To: Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>, 
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260816-ocp8178-backlight-v3-1-caf95c453c50@dewith.io>
+References: <20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io>
+In-Reply-To: <20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io>
+To: Wim de With <wf@dewith.io>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=923; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=QjW5FtN3UmQIj/so/SS0WHmGYCiNglIrR2CAelpRBHY=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqgcO4ASZcagjs+hTuprttcTy1r7V+HtWoGUMaC
- Ly7M5v7KFeJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoHDuAAKCRA/8w6Kdoj6
- qmQ+B/wLNmVCbLGXL9JmqNTIEFFxtkm2TnwjaOppIHWi72TV46bzZkiZr/ChdKpjhCn4hmrHesy
- EOUYayq60/CWaBsMmWpmrhoTXAT0Kj2kRXwr/Ln78KapZKmIairNkKrkgOibCrxScqFCmIWSkXh
- etTef9Xp61tYcIiOTGbW0r3jGmwkm4F9YWDC10VqB/EAV5HH4QVDjlBR5gU9cNfM4vEdfV0W6kG
- RxDdKVvY3d7g++xPhaYiAwUu9JSTK6+rbfKsHI4V2D77OV1XfZOB4+lxhrsLImEbXPdIJyd0HJ4
- i+Qsb0Oh2/UqdxDHSCLGHVuIjYejvbG2Gny//QBft5uGm5hW
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Mailman-Approved-At: Sun, 16 Aug 2026 14:05:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,30 +65,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The PM block exposes a reset line for the V3D block, which the vc4 driver
-uses to reset the GPU when recovering from a hang instead of forcing its
-power domain down. Wire it up in the shared V3D node, covering BCM2835,
-BCM2836 and BCM2837.
+Add device tree bindings for the Orient Chip OCP8178 LED backlight
+driver.
 
-BCM2711 already describes the same reset line for its V3D node.
-
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Signed-off-by: Wim de With <wf@dewith.io>
 ---
- arch/arm/boot/dts/broadcom/bcm2835-common.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/leds/backlight/ocs,ocp8178.yaml       | 47 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 +++
+ 2 files changed, 52 insertions(+)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi b/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
-index 1e76b290510d..39eea8ce1058 100644
---- a/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
-@@ -139,6 +139,7 @@ v3d: v3d@7ec00000 {
- 			compatible = "brcm,bcm2835-v3d";
- 			reg = <0x7ec00000 0x1000>;
- 			interrupts = <1 10>;
-+			resets = <&pm BCM2835_RESET_V3D>;
- 		};
+diff --git a/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
+new file mode 100644
+index 0000000000000..1cd95aac0d168
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
+@@ -0,0 +1,47 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/backlight/ocs,ocp8178.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Orient Chip OCP8178 backlight
++
++maintainers:
++  - Wim de With <wf@dewith.io>
++
++description:
++  The Orient Chip OCP8178 is a white LED backlight driver controlled by a single
++  GPIO line with a vendor-specific onewire protocol.
++
++allOf:
++  - $ref: common.yaml#
++
++properties:
++  compatible:
++    const: ocs,ocp8178
++
++  ctrl-gpios:
++    description: GPIO to use to enable/disable and dim the backlight.
++    maxItems: 1
++
++  default-brightness:
++    maximum: 31
++
++  max-brightness:
++    maximum: 31
++
++required:
++  - compatible
++  - ctrl-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    backlight {
++        compatible = "ocs,ocp8178";
++        ctrl-gpios = <&gpio2 5 GPIO_ACTIVE_HIGH>;
++        default-brightness = <13>;
++        max-brightness = <31>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cfee5d47b214d..3ca99d9c32ef1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19678,6 +19678,11 @@ F:	drivers/mfd/ocelot*
+ F:	drivers/net/dsa/ocelot/ocelot_ext.c
+ F:	include/linux/mfd/ocelot.h
  
- 	};
++OCP8178 BACKLIGHT DRIVER
++M:	Wim de With <wf@dewith.io>
++S:	Maintained
++F:	Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
++
+ OCXL (Open Coherent Accelerator Processor Interface OpenCAPI) DRIVER
+ M:	Mahesh J Salgaonkar <mahesh@linux.ibm.com>
+ R:	Andrew Donnellan <andrew+kernel@donnellan.id.au>
 
 -- 
 2.55.0
