@@ -4,78 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47665C5DF6E
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 12:58:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2470CC5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 13:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB9710E2BE;
-	Sun, 16 Aug 2026 12:58:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 536FA10E27F;
+	Sun, 16 Aug 2026 13:09:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="r9Ar92Ar";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hHgKN8hZ";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF9810E2BE
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 12:58:56 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-495773ee3edso2290725e9.3
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 05:58:56 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3653F10E27F
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 13:09:07 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-47f611b3af9so281112f8f.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 06:09:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786885135; x=1787489935; darn=lists.freedesktop.org;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jTmygf1/JyUF8FN6We5SdcT/ctQ4+SGdYMt719yqvrw=;
- b=r9Ar92ArOUFm7uFSAEXjQdHE6a8jPY4UetDLXBPRs0ykhjgw5Mxgp1AuWYEN3LlDj1
- 0CeWqHMFr08MOmYGNtMiZ+e0pFF9z5dBq+W8VnAkuQpvCHwG7ag52hJ+zmqgS7POPoqP
- 1I+sLUhwM2zQUdPkgUunZ4H5SyCsyJn+avRvCfiOxBypeYfaCBmYTVVO4y6UmiIVRkkT
- cdwpI+hNESumvXzTqOiYt8YzRihZx9/jGO80EGnIaSuMpfX4xWdRmZs63Y8W0v4QK7/u
- LcN9mjZhx1GZfmY/semiTevh1pitdsCHPdcibjDQ+EH5gKw+n0CJXPiSFltYJr/CT2wL
- jRhQ==
+ d=gmail.com; s=20251104; t=1786885745; x=1787490545; darn=lists.freedesktop.org;
+ h=mime-version:content-transfer-encoding:content-type:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=uV4eLziIu7+6QdHB29PuLklAT6W4mEnmwjhDwjBVNpo=;
+ b=hHgKN8hZ4kK/3isIadrFNAuqtlXU6T6EbXh79ggTj0TMFGQv0bki4rp3ESonIeImKM
+ hZv3BqvgXqg5/+sUFElY9jdGOFKtJjSRb8bhogXu0KxH6h/lMLHxeZYbSqlAtKbtdlqK
+ 2d8D/QxHsZSb9Vx6K4Qd/Bi/biQ9tQul7+WRmDpLP2zDvAvm8n5azqlvxIhb7m5XzzAv
+ 7kyKfZmLZxOvYSZ/+0Uq41yxkOWx8iO8VT/PPBUIBaGEimj7qMgVSuuAZvVf2L5KBY8K
+ MhJ928RzkyHjuGU0HRfmojLTgZWpA6obPuClXF/YUKBm8TimZBKwMBN380eIypt11tnj
+ QKUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786885135; x=1787489935;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=jTmygf1/JyUF8FN6We5SdcT/ctQ4+SGdYMt719yqvrw=;
- b=GQZkYOP3ilqjbX6EfDJn8jUF0W0OMNyXARw5AX3hBYzLT7HakSFQeOaseWhtKDUUIf
- j2d7EUvoBvgcXggW8uUCCVMPOwaO1MJ+gpAoPfDgnsHuRdPVaT+9UuY6Xp+FKQ3j8e0J
- t+aQ0EAA5mAbOPqiay83z6D2g7TnZQTItihx13GvRfeUaojsMWFphZ3PDowBJDvtRGS5
- WLQaNo1/slks/XXy5YRzHpw1QkXLemrqnlfzQVwwXH5uA5CeHQaD086+/0Qeq7+wW2kE
- NF7LD5/V23xs07Z6737BMsQiVn2oR17ZYcapcgXO3Gul08Lt+oFn6h+OVCMAQpm0ySFg
- hXqw==
+ d=1e100.net; s=20251104; t=1786885745; x=1787490545;
+ h=mime-version:content-transfer-encoding:content-type:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=uV4eLziIu7+6QdHB29PuLklAT6W4mEnmwjhDwjBVNpo=;
+ b=qApzLeVtLYCSMsubFMbhTfsv2V7Yw4bq717jwQEG78tXozKbo9K5m5Pr9BdcYvQ8rq
+ OozIi6jiWvj6e6A/AlnXf8zYWHqd4Lga+ZB8na80vhYpOBEOytGM0yFnDdb3f/UUtCpB
+ 6kAqudmE6hWbiHUE1ivMrnGqmR/7jFJbCmelgi6jp6VUSuf8Y5djuMy5bBg2WHU1doi+
+ j/noQUjkwefHTrQfop4RVEkzT09g2EoppijbsZLfkxgGb7l+ccJ60vYT9npkIdovswAg
+ iRpS7A74TwpyEyjCfTdsCpJyaavTOQrsNh7VUijVLJJx2UcKsHfqs9vnI2sYppFlhJDB
+ jb/A==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rqpo2OZS3mLlBqAblF/5kzIGWxn3jUBbEgBeMzaJw5toJzj+zGhItkut8nwb3sNJQi2peHCpfSYbwU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy/Qq9LlXU4in5MbEGutlqMpnDD1eyCLU2tmF6x+oysVjhuhktI
- Omh3fDLkCBpC8xEHHBwxW+N6XbE15bxU8oxfieSqdXBPWtFHAkDsldW/
-X-Gm-Gg: AR+sD12vBBy+1+8Hx2bfWuTHBg284X3cwRni8RsHn/a+SFncXrAMVuApB5Dq8NjBx2r
- TqxyLNMpW55FdPynH2EWJfIIkqfGmc478SaomPUt5euY0xuzJfbzjV6s1F9yXejzmuWruHAIaEv
- 7ZRYzW2ovNB7JX66BOiDjdrL7pYg+FbyzKpbaBiNVbUpF7DDPcjPl7F1PTc/n6ujgykCbyvRClw
- aC5QJ6rNSP0R/0Wiabe0a2msBIzFdNNJdn0kftfkcfS7S8BIodrrJuRDpLmcz+XxP1oNF6CaNFJ
- Vhw/DMCLBS/WbYfXvYcgbiyuV4BbBAeX+qQOXArF1+JClpzj6Bi3HoDk3sBxsFC6v2bf7uyJ4FZ
- 1OTNqX5vaw6pGlw+puChL8ll9IoowDDo4qXTotang7Ax5Yj2UrIYPvn60ojGykaGZbK9tIAP+Mj
- MWsVxaDc1kPwT3ENhP2ByDEf0dV0LNVfk9zkTlx1ljwO4GaAA2eia4zPOFRc2V4JxWk9nSfBDeu
- LIAfNZU+VywBjQOK67ChaasucfWEQZIrz8A4U4cgQw=
-X-Received: by 2002:a05:600c:358d:b0:493:bea7:6b67 with SMTP id
- 5b1f17b1804b1-49987960f4bmr160582535e9.3.1786885134413; 
- Sun, 16 Aug 2026 05:58:54 -0700 (PDT)
+ AHgh+RpHwf9nCGtH1spZoqmhryxxQnfTvjuRf+MeV3U9NNLdlzt9JrhvwEF6bioP0okAQwzlMb+M5Z3c9WQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzG9ZmpqnvamzbgeZDtXr7vZj4zl8hk7+NBqCYOTu2uI5V3Jkf1
+ EXUCiEKHcUjw9KHzxoLTONK2BiHr6Mll92IuJ5m/ZNPIJccOrHM55o+R
+X-Gm-Gg: AR+sD13WPVdDH0zbjtGtkpBdtPcaIiE6leylvXrwRID2M+TyPX6rhmje+Pklz4x44fw
+ V/qxOvAXjFN9BC0+rFJZp2c4mccwHST4wEfB5ALNaU/imCuRUZTY8NL2oT9t5xzugvMLq/3mXV8
+ aaEGbIkrGn8iCxzp30a6E5I4bPWKp/yNTP7NcUWJVUsskTme7dgluGBmn4WdwF+Ylp8zYU6cJws
+ x6YtTGpO76+dMjs2bU2NDcPAAB+jncAY1BHofiEloQptw9IEwE3kZ8bnV22Mx8l8xYshobz+kJv
+ zphF2Zmo8NwX1LYJ1SSqogTInfqEo6kcbhwXYGxmkYN6mLtnhJ/L8yK4malXeTRsANFrNhrQumM
+ 9VR2DDsxLGAlimtzwQxZWsX/LQbCka4zhXXZ4oB8ulWcHA2b3u9idue+duZORdrfIhCtLrXKD4W
+ B8DGXe5tOzW0gLJcfLb1dgiw8UGuCDYfHRS0gyyvRdigLc41DaewO4aL5VwIQMm7BrhBJq6XDxI
+ wtMEdKp0daE/w7QCtMByOdNiuE/43Wno1DQ4YUYQA==
+X-Received: by 2002:a05:600c:a0d:b0:498:1371:660c with SMTP id
+ 5b1f17b1804b1-499878d5e0dmr133443125e9.0.1786885745481; 
+ Sun, 16 Aug 2026 06:09:05 -0700 (PDT)
 Received: from [127.0.0.1] (ip-109-193-028-127.um39.pools.vodafone-ip.de.
  [109.193.28.127]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49996188217sm108278675e9.13.2026.08.16.05.58.53
+ 5b1f17b1804b1-49996105c0bsm66548375e9.4.2026.08.16.06.09.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Aug 2026 05:58:53 -0700 (PDT)
+ Sun, 16 Aug 2026 06:09:05 -0700 (PDT)
 From: Marek Czernohous <mczernohous@gmail.com>
 To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
  Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v2] drm/nouveau: disable the fence uevent work instead of just
- cancelling it
-Date: Sun, 16 Aug 2026 14:58:52 +0200
-Message-ID: <178688513268.513871.3468844663561639695@gmail.com>
-In-Reply-To: <178682366002.3748010.12779628082366287968@gmail.com>
-References: <178682366001.3748010.7798811159846779765@gmail.com>
- <178682366002.3748010.12779628082366287968@gmail.com>
+Subject: [PATCH v4 0/2] drm/nouveau: NVAC (MCP79) stability: MSI rearm and a
+ NULL crtc guard
+Date: Sun, 16 Aug 2026 15:09:04 +0200
+Message-ID: <178688574400.522643.6695278742335367229@gmail.com>
 X-Mailer: python-smtplib
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -97,133 +92,73 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Marek Czernohous <marek@czernohous.de>
 
-nouveau_fence_context_del() drains the uevent work while the event that
-feeds it is still armed:
+This is v4 of two NVAC (MCP79) stability fixes.  v3 went out on 11 June
+and has had no replies:
 
-	cancel_work_sync(&fctx->uevent_work);
-	nouveau_fence_context_kill(fctx, 0);
-	nvif_event_dtor(&fctx->event);
+  https://lore.kernel.org/all/20260611124535.527275-1-mczernohous@gmail.com/
 
-nouveau_fence_wait_uevent_handler() queues the work unconditionally:
+Nothing in either patch changed.  Same diffs, same reasoning, same
+trailers.  The reason this is a v4 and not a ping is that 2/2 no longer
+applies to mainline, so a ping would have pointed at a series nobody can
+test.
 
-	schedule_work(&fctx->uevent_work);
-	return NVIF_EVENT_KEEP;
+What moved was somebody else's context, not this code.
+Commit 5164f7e7ff8e ("drm: Rename struct drm_atomic_state to
+drm_atomic_commit") changed the callback signature, so
+nv50_sor_atomic_disable() now takes a struct drm_atomic_commit *state.
+2/2 is rebased onto that by hand.  1/2 applies unchanged and is
+byte-identical to v3.
 
-so a non-stall interrupt arriving after cancel_work_sync() has returned
-re-arms the work that was just drained.  The window closes in two steps,
-neither of which is the drain.  The kill blocks the event when the last
-fence holding a notify_ref is signalled, which reaches
-atomic_xchg(&ntfy->allowed, 0) (nvkm/core/event.c:104), and
-nvkm_event_ntfy() skips a ntfy that is not allowed (:183).  That stops
-further handlers from starting, but not one that is already inside
-nvkm_event_ntfy(): the event is created with wait = false
-(nouveau_fence.c:201), so nvkm_event_ntfy_block_() leaves it on the list
-and never takes event->list_lock.  Only nvif_event_dtor() waits that one
-out: nvkm_event_ntfy_del() (:141) goes through nvkm_event_ntfy_remove(),
-which takes write_lock_irq() on that same list_lock (:84).
+Both bugs are still live in c21bb4193868.  dispnv50/disp.c:1568 still
+does nv50_head(nv_encoder->crtc) with no NULL check, and there is no
+guard anywhere in the function.  Immediately below it, :1570 takes
+nv50_outp_get_old_connector() and :1572 dereferences the result without
+checking it.
 
-Either way the re-arm happens after the drain, and the caller drops its
-reference immediately afterwards, for example nv84_fence_context_del():
+1/2 drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A (NVAC)
 
-	nouveau_fence_context_del(&fctx->base);
-	chan->fence = NULL;
-	nouveau_fence_context_free(&fctx->base);
+    NVAC re-arms MSI through the MMIO mirror of PCI config space, which
+    is unreliable on this IGP.  A missed re-arm leaves the interrupt
+    line dead, submission times out and the GPU looks hung until
+    reboot.  Give NVAC its own pci func that re-arms through real
+    config space, the way commit 5112abc6a433 ("drm/nouveau/pci/g92:
+    Fix rearm") already did for g92.  Only NVAC is switched, because
+    that is the part this was validated on.
 
-That is a kref_put() on fctx->fence_ref, so the context outlives the
-teardown only while emitted fences still hold a reference of their own.
-That is no safety net: whenever none do, the count reaches zero right
-there and nouveau_fence_context_put() kfree()s fctx while the work is
-still queued.  &fctx->uevent_work is embedded in that allocation, so the
-workqueue already dereferences freed memory when it picks the item up,
-and nouveau_fence_uevent_work() can then take fctx->lock on it.  With
-CONFIG_DEBUG_OBJECTS_WORK and CONFIG_DEBUG_OBJECTS_FREE, kfree() of a
-still-queued work item is reported as the free of an active object.
+2/2 drm/nouveau/kms: guard NULL crtc in nv50_sor_atomic_disable()
 
-On live memory the re-armed work has nothing left to do:
-nouveau_fence_context_kill() empties fctx->pending and sets fctx->killed
-under fctx->lock, nouveau_fence_emit() then returns -ENODEV rather than
-queueing anything new, and nouveau_fence_update() only reaches
-nvif_event_block() if it signalled something off that list.  The defect
-is the access to freed memory, not what the work would have found.
+    Restore the NULL check that
+    commit f575f2bdb6c3 ("drm/nouveau/kms/nv50-: Remove
+    (nv_encoder->crtc) checks in ->disable callbacks") removed, as a
+    drm_WARN_ON_ONCE() rather than a silent return, since a NULL crtc
+    here is a state-tracking inconsistency worth seeing.  The guard is
+    hoisted above the backlight teardown so the old connector is only
+    used after it has been checked; without that the oops would just
+    move a few lines down.
 
-Only chips from G84 on can reach this at all: nouveau_fence_context_new()
-returns before nvif_event_ctor() when priv->uevent is clear, and
-nv84_fence_create() is the only place that sets it.
-nv84_fence_context_del() is the context_del for all of those, because
-nvc0_fence_create() and gv100_fence_create() build on nv84_fence_create()
-and override only context_new.
+Testing.  The MSI change continues to run here on the Mac mini as a
+daily driver, and Fab Stz confirmed it independently on an iMac9,1.
+Both Tested-by tags are carried over unchanged from v3; the
+diffs they were given are the diffs sent here, apart from the mechanical
+rebase of 2/2.  For v4 I rebuilt 2/2 with CONFIG_DRM_NOUVEAU_BACKLIGHT
+set to y and to n, because the patch splits the #ifdef block in two and
+that is where a change of this shape tends to break.
 
-Use disable_work_sync() instead.  It drains the work exactly like
-cancel_work_sync() does, and additionally increments the work item's
-disable count, after which "any attempt to queue @work will fail and
-return %false" (kernel/workqueue.c, disable_work()).  The handler's
-schedule_work() then has nothing to re-arm, and the teardown order stays
-as it is.
+If something about the shape of the series is what is holding it up, I
+would rather hear that than keep rebasing it.
 
-Draining a second time after nvif_event_dtor() would close the window as
-well, and without the newer API: once nvkm_event_ntfy_remove() has
-returned, no handler can start or still be running, so nothing re-arms
-the work past that point.  disable_work_sync() is preferred here because
-it needs one synchronisation point instead of two, it keeps the work
-from being queued at all rather than cleaning up after it, and it is
-what drm has settled on for this (drm/xe, drm/panthor, drm_pagemap).
-Blocking the event rather than the work is not an option: fctx->event is
-created with wait = false, so a handler already inside nvkm_event_ntfy()
-can still queue the work.
+Marek Czernohous (2):
+  drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A (NVAC)
+  drm/nouveau/kms: guard NULL crtc in nv50_sor_atomic_disable()
 
-Note for backports: disable_work_sync() arrived in v6.10 with
-commit 86898fa6b8cd ("workqueue: Implement disable/enable for (delayed)
-work items"), while the fix being corrected here reached 6.6.18 and
-6.7.6.  linux-6.6.y therefore carries this bug without the API, and this
-patch would apply there and then fail to build.  A 6.6.y backport wants
-the second drain described above instead, as its own patch.
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       | 30 +++++++++++++---
+ .../gpu/drm/nouveau/include/nvkm/subdev/pci.h |  1 +
+ .../gpu/drm/nouveau/nvkm/engine/device/base.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/pci/Kbuild    |  1 +
+ .../gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c   | 35 +++++++++++++++++++
+ 5 files changed, 63 insertions(+), 6 deletions(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
 
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/nouveau/20260812231330.705425-1-mczernohous@gmail.com/
-Fixes: 39126abc5e20 ("nouveau: offload fence uevents work to workqueue")
-Cc: <stable@vger.kernel.org> # 6.10.x
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Marek Czernohous <marek@czernohous.de>
----
-
-Changes in v2:
- - Do not reorder the teardown.  v1 moved nvif_event_dtor() ahead of
-   nouveau_fence_context_kill(); with the fences still unsignalled that
-   leaves nouveau_fence_enable_signaling() reachable, and
-   nvif_event_constructed() is a plain unlocked read of object->client,
-   so the dtor could race an nvif_event_allow() already past that check.
-   Reported as [Critical] by the bot, and withdrawn:
-   https://lore.kernel.org/all/20260815200914.8A1131F000E9@smtp.kernel.org/
- - Change cancel_work_sync() to disable_work_sync() instead, which leaves
-   every ordering alone.
- - Pin the damage down.  Both versions call it a use-after-free; this one
-   adds that &fctx->uevent_work is embedded in the freed allocation, and
-   that the re-armed work has nothing left to do on a live context, so
-   the access to freed memory is the whole of it.
- - Correct the backport note.  v1 claimed no longterm tree sat in the gap
-   between the bug and disable_work_sync(); 6.6.y does.  The stable tag is
-   annotated accordingly.
-
-This replaces 1/3 of
-https://lore.kernel.org/all/178682366002.3748010.12779628082366287968@gmail.com/
-2/3 and 3/3 of that series are unaffected and still stand.
-
- drivers/gpu/drm/nouveau/nouveau_fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
-index edbe9e08ba0f..11e95c37ce50 100644
---- a/drivers/gpu/drm/nouveau/nouveau_fence.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
-@@ -96,7 +96,7 @@ nouveau_fence_context_kill(struct nouveau_fence_chan *fctx, int error)
- void
- nouveau_fence_context_del(struct nouveau_fence_chan *fctx)
- {
--	cancel_work_sync(&fctx->uevent_work);
-+	disable_work_sync(&fctx->uevent_work);
- 	nouveau_fence_context_kill(fctx, 0);
- 	nvif_event_dtor(&fctx->event);
- 	fctx->dead = 1;
 
 base-commit: c21bb4193868a8de71fc4693fa741e195fdf5d86
 -- 
