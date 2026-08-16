@@ -4,46 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2403AC5DF74
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B9B5C5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:55:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF2410E66B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB6FC10E66D;
 	Mon, 17 Aug 2026 06:55:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=grrlz.net header.i=@grrlz.net header.b="lb0pJc2t";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=accessweb.be header.i=@accessweb.be header.b="lvVYU8on";
 	dkim-atps=neutral
-Received: from confino.investici.org (confino.investici.org [93.190.126.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A48BD10E359
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 20:29:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
- s=stigmate; t=1786912161;
- bh=hcCfQYCMHdop2vJaxONF9fSuleEm4S66lilNaHay7CA=;
- h=Date:From:To:CC:Subject:In-Reply-To:References:From;
- b=lb0pJc2tcM+lnGNZj4MbuylhAMaq4u6+lnetP5TnbVXEPmR1oCPHLdoOOTZ7tEpje
- ZNolQZ6VpKlVrXKbnwb2DBm7lLvkRCXmMm1oHEwFYuFc5xLKcKxc+17BLGqBKB/Wx1
- d3l+2umU5IpDZi576kL2MMjkvgDKkMquspRtUxZU=
-Received: from mx1.investici.org (unknown [127.0.0.1])
- by confino.investici.org (Postfix) with ESMTP id 4hNSHP1DXLz10nN;
- Sun, 16 Aug 2026 20:29:21 +0000 (UTC)
-Received: by mx1.investici.org (Postfix) id 4hNSHN2P9Zz10nM;
- Sun, 16 Aug 2026 20:29:20 +0000 (UTC)
-Date: Sun, 16 Aug 2026 21:29:20 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
-CC: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- Chia-I Wu <olv@google.com>, Tejun Heo <tj@kernel.org>
-Subject: Re: [RFC v4 1/2] workqueue: Add support for real-time workers
-In-Reply-To: <20260804101925.55414-2-tvrtko.ursulin@igalia.com>
-References: <20260804101925.55414-1-tvrtko.ursulin@igalia.com>
- <20260804101925.55414-2-tvrtko.ursulin@igalia.com>
-Message-ID: <7BD75DC2-CA88-4A4A-AA0F-2A108967EB76@grrlz.net>
+Received: from pan.awservers.eu (pan.awservers.eu [149.202.17.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5226810E1D0
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 16:57:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=accessweb.be; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=FHYtgoKs4djsrIkLu05EIcHe7zGrwjIZrw7SUr6DVH0=; b=lvVYU8onmUfSL4pD5bvqycWyHk
+ XZroT++kkzQCO95JTGKe+mIqCCOwNsi2lbJD2KKwFQ3YJPbLt+LNQ5QY+LR6Qsoco9Kzd1mQsg90O
+ TcWOqXO/4m4/c/+hingn5tFt6/iD74OaL+NCy+WmddT9gFlT/xlNWnrq3L2nyZc9sfaRJV4pC8KyE
+ 12OFQIbsIxgkUANwH5Fpko9GLBNC3PG9sryRzWpwKQLqCCK5jw01aofD3Yzb/TOws7khdOFN8UFWj
+ 84IOLZmmqNcr3V9RDt7Z5itdybLUXt3Hyrtc5WNQHrJdxS2lndEffhkT0CkpeM2RImNDK5EvTlc0r
+ FgiuZfOA==;
+Received: from [195.240.176.17] (port=47176 helo=[192.168.2.230])
+ by pan.awservers.eu with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (Exim 4.99.5) (envelope-from <jellis@accessweb.be>)
+ id 1wveBA-00000001cLu-0gSE; Sun, 16 Aug 2026 18:57:47 +0200
+Message-ID: <363bcf88-1f13-46c0-9dbc-aa21102ab397@accessweb.be>
+Date: Sun, 16 Aug 2026 18:57:46 +0200
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
+ are released
+To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>, zack.rusin@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
+References: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
+ <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
+Content-Language: en-US
+From: Jellis Onsea | AccessWeb <jellis@accessweb.be>
+In-Reply-To: <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pan.awservers.eu
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - accessweb.be
+X-Get-Message-Sender-Via: pan.awservers.eu: authenticated_id:
+ jellis@accessweb.be
+X-Authenticated-Sender: pan.awservers.eu: jellis@accessweb.be
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-Mailman-Approved-At: Mon, 17 Aug 2026 06:55:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,366 +74,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4 August 2026 11:19:24 BST, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-wrote:
->For use cases such as the DRM scheduler submitting work to the GPU on
->behalf of low latency userspace applications, where latter have sufficient
->privileges to have had successfully obtained realtime Vulkan global
->priority, competing with random background CPU load can create large
->latency spikes which gets in the way of a smooth user experience.
->
->For these situations the existing WQ_HIGHPRI does not bring a noticeable
->improvement and a stronger hint is needed.
->
->Lets add WQ_RTPRI which creates workers with a SCHED_FIFO scheduling class
->to improve this.
->
->We use a minimum priority level since we only care about winning the
->contest against normal background CPU load.
->
->Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->Cc: Boris Brezillon <boris.brezillon@collabora.com>
->Cc: Bradley Morgan <include@grrlz.net>
->Cc: Chia-I Wu <olv@google.com>
->Cc: Liviu Dudau <liviu.dudau@arm.com>
->Cc: Matthew Brost <matthew.brost@intel.com>
->Cc: Steven Price <steven.price@arm.com>
->Cc: Tejun Heo <tj@kernel.org>
->---
->v2:
-> * Limit WQ_RTPRI to unbound workqueues and make it have strict CPU
->   affinitity. (Tejun)
-> * Fixed commit message typos. (AI)
-> * Fixed sysfs handling, max_active setting and user modified nice
->   application. (AI)
->
->v3:
-> * Fix worker->pool null pointer dereference race by moving the
->   global decrement to detach_dying_workers().
-> * Rebase for upstream changes.
->
->v4:
-> * Fixed onion unwind.
-> * Moved affinity setting to default attributes.
->
->v5:
-> * Dropped global and local limits.
-> * Documented in workqueue.rst.
-> * Added NR_WQ_ATTRIBUTES.
-> * Reverted BH handling changes.
->---
-> Documentation/core-api/workqueue.rst |  5 ++
-> include/linux/workqueue.h            | 23 ++++++--
-> kernel/workqueue.c                   | 80 ++++++++++++++++++++++------
-> 3 files changed, 86 insertions(+), 22 deletions(-)
->
->diff --git a/Documentation/core-api/workqueue.rst b/Documentation/core-api/workqueue.rst
->index 411e1b28b8de..6b6179e0a38a 100644
->--- a/Documentation/core-api/workqueue.rst
->+++ b/Documentation/core-api/workqueue.rst
->@@ -225,6 +225,11 @@ resources, scheduled and executed.
->   each other.  Each maintains its separate pool of workers and
->   implements concurrency management among its workers.
-> 
->+``WQ_RTPRI``
->+  Real time priority workqueues must be created as unbound and have the strict
->+  CPU affinity set.  Their worker threads use the FIFO scheduling policy with
->+  the lowest priority.
->+
-> ``WQ_CPU_INTENSIVE``
->   Work items of a CPU intensive wq do not contribute to the
->   concurrency level.  In other words, runnable CPU intensive
->diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
->index a283766a192a..e9ab53568e0c 100644
->--- a/include/linux/workqueue.h
->+++ b/include/linux/workqueue.h
->@@ -140,6 +140,13 @@ enum wq_affn_scope {
-> 	WQ_AFFN_NR_TYPES,
-> };
-> 
->+enum wq_priority {
->+	WQ_PRIO_NORMAL = 0,
->+	WQ_PRIO_HIGH = 1,
->+	WQ_PRIO_RT = 2,
->+	NUM_WQ_PRIO, /* Keep last */
->+};
->+
-> /**
->  * struct workqueue_attrs - A struct for workqueue attributes.
->  *
->@@ -147,7 +154,12 @@ enum wq_affn_scope {
->  */
-> struct workqueue_attrs {
-> 	/**
->-	 * @nice: nice level
->+	 * @prio: priority level
->+	 */
->+	enum wq_priority prio;
->+
->+	/**
->+	 * @nice: nice level for WQ_PRIO_HIGH
-> 	 */
-> 	int nice;
-> 
->@@ -374,8 +386,9 @@ enum wq_flags {
-> 	WQ_FREEZABLE		= 1 << 2, /* freeze during suspend */
-> 	WQ_MEM_RECLAIM		= 1 << 3, /* may be used for memory reclaim */
-> 	WQ_HIGHPRI		= 1 << 4, /* high priority */
->-	WQ_CPU_INTENSIVE	= 1 << 5, /* cpu intensive workqueue */
->-	WQ_SYSFS		= 1 << 6, /* visible in sysfs, see workqueue_sysfs_register() */
->+	WQ_RTPRI		= 1 << 5, /* real-time priority, valid only with WQ_UNBOUND */
->+	WQ_CPU_INTENSIVE	= 1 << 6, /* cpu intensive workqueue */
->+	WQ_SYSFS		= 1 << 7, /* visible in sysfs, see workqueue_sysfs_register() */
-> 
-> 	/*
-> 	 * Per-cpu workqueues are generally preferred because they tend to
->@@ -402,8 +415,8 @@ enum wq_flags {
-> 	 *
-> 	 * http://thread.gmane.org/gmane.linux.kernel/1480396
-> 	 */
+Hi Maaz, Zack,
 
-I feel we could clean this link up.
+Yes, it does, and I have to correct my message of 8 August as well.
 
-The link doesn't even resolve, smh man. + Its http and all of that nonsense
+-- Short answer
 
->-	WQ_POWER_EFFICIENT	= 1 << 7,
->-	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
->+	WQ_POWER_EFFICIENT	= 1 << 8,
->+	WQ_PERCPU		= 1 << 9, /* bound to a specific cpu */
-> 
-> 	__WQ_DESTROYING		= 1 << 15, /* internal: workqueue is destroying */
-> 	__WQ_DRAINING		= 1 << 16, /* internal: workqueue is draining */
->diff --git a/kernel/workqueue.c b/kernel/workqueue.c
->index 78068ae8f28a..6b60380a8742 100644
->--- a/kernel/workqueue.c
->+++ b/kernel/workqueue.c
->@@ -105,6 +105,7 @@ enum work_cancel_flags {
-> 
-> enum wq_internal_consts {
-> 	NR_STD_WORKER_POOLS	= 2,		/* # standard pools per cpu */
->+	NR_WQ_ATTRIBUTES	= NUM_WQ_PRIO,	/* # of attributes */
-> 
-> 	UNBOUND_POOL_HASH_ORDER	= 6,		/* hashed by pool->attrs */
-> 	BUSY_WORKER_HASH_ORDER	= 6,		/* 64 pointers */
->@@ -509,10 +510,10 @@ static DEFINE_IDR(worker_pool_idr);	/* PR: idr of all pools */
-> static DEFINE_HASHTABLE(unbound_pool_hash, UNBOUND_POOL_HASH_ORDER);
-> 
-> /* I: attributes used when instantiating standard unbound pools on demand
-> */
->-static struct workqueue_attrs *unbound_std_wq_attrs[NR_STD_WORKER_POOLS];
->+static struct workqueue_attrs *unbound_std_wq_attrs[NR_WQ_ATTRIBUTES];
-> 
-> /* I: attributes used when instantiating ordered pools on demand */
->-static struct workqueue_attrs *ordered_wq_attrs[NR_STD_WORKER_POOLS];
->+static struct workqueue_attrs *ordered_wq_attrs[NR_WQ_ATTRIBUTES];
-> 
-> /*
->  * I: kthread_worker to release pwq's. pwq release needs to be bounced to a
->@@ -2871,7 +2872,11 @@ static struct worker *create_worker(struct worker_pool *pool)
-> 			goto fail;
-> 		}
-> 
->-		set_user_nice(worker->task, pool->attrs->nice);
->+		if (pool->attrs->prio == WQ_PRIO_RT)
->+			sched_set_fifo_low(worker->task);
->+		else
->+			set_user_nice(worker->task, pool->attrs->nice);
->+
-> 		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
-> 	}
-> 
->@@ -4780,6 +4785,7 @@ struct workqueue_attrs *alloc_workqueue_attrs_noprof(void)
-> static void copy_workqueue_attrs(struct workqueue_attrs *to,
-> 				 const struct workqueue_attrs *from)
-> {
->+	to->prio = from->prio;
-> 	to->nice = from->nice;
-> 	cpumask_copy(to->cpumask, from->cpumask);
-> 	cpumask_copy(to->__pod_cpumask, from->__pod_cpumask);
->@@ -4811,6 +4817,7 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
-> {
-> 	u32 hash = 0;
-> 
->+	hash = jhash_1word(attrs->prio, hash);
-> 	hash = jhash_1word(attrs->nice, hash);
-> 	hash = jhash_1word(attrs->affn_strict, hash);
-> 	hash = jhash(cpumask_bits(attrs->__pod_cpumask),
->@@ -4825,6 +4832,8 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
-> static bool wqattrs_equal(const struct workqueue_attrs *a,
-> 			  const struct workqueue_attrs *b)
-> {
->+	if (a->prio != b->prio)
->+		return false;
-> 	if (a->nice != b->nice)
-> 		return false;
-> 	if (a->affn_strict != b->affn_strict)
->@@ -5601,11 +5610,17 @@ static void unbound_wq_update_pwq(struct workqueue_struct *wq, int cpu)
-> 
-> static int alloc_and_link_pwqs(struct workqueue_struct *wq)
-> {
->-	bool highpri = wq->flags & WQ_HIGHPRI;
->-	int cpu, ret;
->+	int prio, cpu, ret;
-> 
-> 	lockdep_assert_held(&wq_pool_mutex);
-> 
->+	if (wq->flags & WQ_RTPRI)
->+		prio = WQ_PRIO_RT;
->+	else if (wq->flags & WQ_HIGHPRI)
->+		prio = WQ_PRIO_HIGH;
->+	else
->+		prio = WQ_PRIO_NORMAL;
->+
-> 	wq->cpu_pwq = alloc_percpu(struct pool_workqueue *);
-> 	if (!wq->cpu_pwq)
-> 		goto enomem;
->@@ -5622,7 +5637,7 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
-> 			struct pool_workqueue **pwq_p;
-> 			struct worker_pool *pool;
-> 
->-			pool = &(per_cpu_ptr(pools, cpu)[highpri]);
->+			pool = &(per_cpu_ptr(pools, cpu)[prio]);
-> 			pwq_p = per_cpu_ptr(wq->cpu_pwq, cpu);
-> 
-> 			*pwq_p = kmem_cache_alloc_node(pwq_cache, GFP_KERNEL,
->@@ -5642,14 +5657,14 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
-> 	if (wq->flags & __WQ_ORDERED) {
-> 		struct pool_workqueue *dfl_pwq;
-> 
->-		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[highpri]);
->+		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[prio]);
-> 		/* there should only be single pwq for ordering guarantee */
-> 		dfl_pwq = rcu_access_pointer(wq->dfl_pwq);
-> 		WARN(!ret && (wq->pwqs.next != &dfl_pwq->pwqs_node ||
-> 			      wq->pwqs.prev != &dfl_pwq->pwqs_node),
-> 		     "ordering guarantee broken for workqueue %s\n", wq->name);
-> 	} else {
->-		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[highpri]);
->+		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[prio]);
-> 	}
-> 
-> 	if (ret)
->@@ -5814,6 +5829,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
-> 			return NULL;
-> 	}
-> 
->+	if (flags & WQ_RTPRI) {
->+		if (WARN_ON_ONCE((flags & (WQ_HIGHPRI | WQ_UNBOUND)) !=
->+			         WQ_UNBOUND))
->+			return NULL;
->+	}
->+
-> 	/* see the comment above the definition of WQ_POWER_EFFICIENT */
-> 	if ((flags & WQ_POWER_EFFICIENT) && wq_power_efficient)
-> 		flags = (flags & ~WQ_PERCPU) | WQ_UNBOUND;
->@@ -7302,7 +7323,11 @@ static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
-> 	int written;
-> 
-> 	mutex_lock(&wq->mutex);
->-	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->unbound_attrs->nice);
->+	if (wq->unbound_attrs->prio != WQ_PRIO_RT)
->+		written = scnprintf(buf, PAGE_SIZE, "%d\n",
->+				    wq->unbound_attrs->nice);
->+	else
->+		written = -EINVAL;
-> 	mutex_unlock(&wq->mutex);
-> 
-> 	return written;
->@@ -7328,13 +7353,20 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
-> {
-> 	struct workqueue_struct *wq = dev_to_wq(dev);
-> 	struct workqueue_attrs *attrs;
->-	int ret = -ENOMEM;
->+	int ret;
-> 
-> 	mutex_lock(&wq_pool_mutex);
-> 
-> 	attrs = wq_sysfs_prep_attrs(wq);
->-	if (!attrs)
->+	if (!attrs) {
->+		ret = -ENOMEM;
-> 		goto out_unlock;
->+	}
->+
->+	if (attrs->prio == WQ_PRIO_RT) {
->+		ret = -EINVAL;
->+		goto out_unlock;
->+	}
-> 
-> 	if (sscanf(buf, "%d", &attrs->nice) == 1 &&
-> 	    attrs->nice >= MIN_NICE && attrs->nice <= MAX_NICE)
->@@ -7942,12 +7974,13 @@ static void __init restrict_unbound_cpumask(const char *name, const struct cpuma
-> 	cpumask_and(wq_unbound_cpumask, wq_unbound_cpumask, mask);
-> }
-> 
->-static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int nice)
->+static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, enum wq_priority prio, int nice)
-> {
-> 	BUG_ON(init_worker_pool(pool));
-> 	pool->cpu = cpu;
-> 	cpumask_copy(pool->attrs->cpumask, cpumask_of(cpu));
-> 	cpumask_copy(pool->attrs->__pod_cpumask, cpumask_of(cpu));
->+	pool->attrs->prio = prio;
-> 	pool->attrs->nice = nice;
-> 	pool->attrs->affn_strict = true;
-> 	pool->node = cpu_to_node(cpu);
->@@ -7971,7 +8004,8 @@ static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int n
-> void __init workqueue_init_early(void)
-> {
-> 	struct wq_pod_type *pt = &wq_pod_types[WQ_AFFN_SYSTEM];
->-	int std_nice[NR_STD_WORKER_POOLS] = { 0, HIGHPRI_NICE_LEVEL };
->+	int std_prio[NR_WQ_ATTRIBUTES] = { 0, WQ_PRIO_HIGH, WQ_PRIO_RT };
->+	int std_nice[NR_WQ_ATTRIBUTES] = { 0, HIGHPRI_NICE_LEVEL, 0 };
-> 	void (*irq_work_fns[NR_STD_WORKER_POOLS])(struct irq_work *) =
-> 		{ bh_pool_kick_normal, bh_pool_kick_highpri };
-> 	int i, cpu;
->@@ -8023,23 +8057,34 @@ void __init workqueue_init_early(void)
-> 
-> 		i = 0;
-> 		for_each_bh_worker_pool(pool, cpu) {
->-			init_cpu_worker_pool(pool, cpu, std_nice[i]);
->+			init_cpu_worker_pool(pool, cpu, std_prio[i], std_nice[i]);
-> 			pool->flags |= POOL_BH;
-> 			init_irq_work(bh_pool_irq_work(pool), irq_work_fns[i]);
-> 			i++;
-> 		}
-> 
-> 		i = 0;
->-		for_each_cpu_worker_pool(pool, cpu)
->-			init_cpu_worker_pool(pool, cpu, std_nice[i++]);
->+		for_each_cpu_worker_pool(pool, cpu) {
->+			init_cpu_worker_pool(pool, cpu, std_prio[i], std_nice[i]);
->+			i++;
->+		}
-> 	}
-> 
-> 	/* create default unbound and ordered wq attrs */
->-	for (i = 0; i < NR_STD_WORKER_POOLS; i++) {
->+	for (i = 0; i < NR_WQ_ATTRIBUTES; i++) {
-> 		struct workqueue_attrs *attrs;
-> 
-> 		BUG_ON(!(attrs = alloc_workqueue_attrs()));
->+		attrs->prio = std_prio[i];
-> 		attrs->nice = std_nice[i];
->+		if (i == WQ_PRIO_RT) {
->+			/*
->+			 * RT workqueues have strict CPU affinity for low
->+			 * latency execution.
->+			 */
->+			attrs->affn_scope = WQ_AFFN_CPU;
->+			attrs->affn_strict = true;
->+		}
-> 		unbound_std_wq_attrs[i] = attrs;
-> 
-> 		/*
->@@ -8047,6 +8092,7 @@ void __init workqueue_init_early(void)
-> 		 * guaranteed by max_active which is enforced by pwqs.
-> 		 */
-> 		BUG_ON(!(attrs = alloc_workqueue_attrs()));
->+		attrs->prio = std_prio[i];
-> 		attrs->nice = std_nice[i];
-> 		attrs->ordered = true;
-> 		ordered_wq_attrs[i] = attrs;
->
+With 3D disabled again, kernel 7.1.8, stock mesa 26.1.6-arch3.1. Object
+counts from vmwgfx_gem_info, sampled every 15 minutes:
 
-Thanks!
+   2026-08-15 14:22 - 23:53      idle, 9.5 h     370 ->  370 objects
+   2026-08-15 23:53 - 16 01:08   in use          370 ->  772 objects
+   2026-08-16 03:54 - 13:53      idle, 9.8 h    1274 -> 1274 objects
+   2026-08-16 13:55 - 17:57      working day    1274 -> 2387 objects
+
+Both idle windows are identical in every single sample: 39 and 40 
+consecutive samples with the same object count and the same pool 
+figures. Not approximately flat - identical. Nothing accumulates while 
+the machine sits there, and nothing is handed back either.
+
+I lead with counts rather than volume because of the caveat in my first 
+mail: the summed object sizes exceed physical RAM, so I do not trust the 
+totals. For what it is worth, the pools moved 2.16 -> 4.57 GB and 6.73
+-> 13.85 GB across those two active windows.
+
+-- This confirms my original report rather than adding to it:
+
+The second window was a browser video call, with no RDP session
+involved. In some of my later messages I linked the heavy phases to RDP,
+because that was the heaviest thing running here. That was my own
+mistake: my first report already said it plainly - "a browser window
+with a looping CSS animation makes it measurable within minutes.
+Opening and closing 32 windows produced no growth at all, so it is the
+continuous rendering that drives it." The idle-versus-active split I
+described then is exactly what these four windows show.
+
+-- Correction to my message of 8 August:
+
+I wrote that enabling 3D acceleration made the leak go away. That was
+based on two svga sessions of 15.6 and 18.2 hours, and it does not
+survive a longer measurement.
+
+The problem was the length of those sessions, not the pools - I did
+report both, and mob_ttm was already moving in that table. But at 18.2
+hours it stood at 0.555 GB. That same boot ran on for 115.5 hours in
+total, and by the end mob_ttm was at 15.15 GB.
+
+For reference, the two pools swap roles with the configuration:
+
+     3D off (llvmpipe)   system_ttm grows,  mob_ttm flat at 0.023 GB
+     3D on  (svga)       system_ttm flat,   mob_ttm 0.27 -> 15.15 GB
+
+Per boot, both pools added together:
+
+   boot            hours  kernel  3D    sys+mob     objects
+   2026-08-02 16:02   7.8   7.1.5  off  +1355 MB/h   753 -> 2184
+   2026-08-03 04:33  34.8   7.1.5  off  +1367 MB/h    23 -> 8211
+   2026-08-04 15:34  33.1   7.1.6  off   +989 MB/h    31 -> 5586
+   2026-08-06 00:56  25.7   7.1.6  off   +667 MB/h    49 -> 2680
+   2026-08-07 02:45  15.6   7.1.6  on      +5 MB/h    85 ->  244
+   2026-08-07 18:32 115.5   7.1.6  on    +161 MB/h  1357 -> 9128
+   2026-08-12 14:20  62.9   7.1.8  on     +30 MB/h  1405 -> 4418
+   2026-08-15 12:03  29.6   7.1.8  off   +442 MB/h    30 -> 2236
+
+The 2026-08-07 18:32 row is the one I got wrong. I reported +22 MB/h
+for its first 18.2 hours; over the full 115.5 hours it is +161 MB/h.
+I drew a conclusion from a session that had not run long enough.
+
+So enabling 3D reduces it substantially - roughly a factor 3 to 30
+depending on the session - but it does not remove it. The per-boot
+averages also flatten something that is not gradual: long flat
+stretches, then a jump inside a single 15-minute sample.
+
+-- The kernel changed twice and I did not mention it:
+
+7.1.5 -> 7.1.6 on 4 August, 7.1.6 -> 7.1.8 on 12 August, each taking
+effect at the boot immediately after. Since vmwgfx is a kernel module I
+should have said so at the time. Mesa stayed at 3:26.1.6-1 throughout,
+so that is not a variable.
+
+I do not think it explains anything - 7.1.8 with 3D off leaks harder
+than 7.1.5 did - but it belongs in the data.
+
+-- The patch:
+
+Still built and still verified here:
+
+     /usr/lib/libgallium-26.1.6-arch3.1.so   vmw_winsys_to_dma_buffer absent
+     my staging/26.1 build at 2ed36c6        vmw_winsys_to_dma_buffer 
+present
+                                             "Mesa 26.1.6 (git-2ed36c6b5d)"
+
+Arch has not shipped a mesa containing it; 3:26.1.6-1 is still the
+current package here, so the fix has not reached this machine through
+the distribution.
+
+In the 3D-off configuration llvmpipe is in use and the buffers are dumb
+buffers of 1920x1088x4, so I would not expect gallium svga to be
+involved at all. If the mechanism Zack described - prime exports with no
+deref/destroy ioctl, so gem_close does nothing - also applies on the
+dumb-buffer path, that would explain why this configuration keeps
+leaking while the mesa-side fix sits in svga.
+
+I can run any of these, whichever is most useful to you. All four are
+set up here, so it is a matter of you saying which:
+
+   1. the patched build with 3D OFF, in the current configuration. This
+      is the quickest - the build is in place and it takes a re-login.
+      I expect it to change nothing, since svga is not loaded here, but
+      that is worth establishing rather than assuming.
+   2. the patched build with 3D ON, 48 hours or more, against the
+      +161 MB/h baseline above. Needs the VM powered down to change the
+      host setting, so give me a day for it.
+   3. stock Arch kernel instead of the CachyOS one. Arch currently ships
+      linux 7.1.8.arch1-3, which is the same version as the CachyOS
+      7.1.8 I am running, so that isolates the patch set rather than the
+      version. I offered a vanilla kernel in my first mail and never did
+      it; it installs alongside the current one, so it is low risk here.
+   4. any instrumentation you want, on either configuration - extra
+      debugfs reads, a debug patch, different sampling.
+
+Say which and I will run it.
+
+-- One correction on the plasmashell crash:
+
+In my 8 August mail I said the dmabuf import crash looked like a KDE bug
+and that I would report it to them. That was wrong. The message comes
+from libgallium, not from any KDE or Qt library, and the faulting thread
+is an llvmpipe rasteriser thread. It matches mesa issue #6438, which is
+still open. I will add my reproduction there instead.
+
+Regards,
+
+Jellis Onsea
+AccessWeb
+
+Op 13-08-2026 om 23:12 schreef Maaz Mombasawala:
+> That is good to know. Do you still see a memory leak with 3D off?
+> 
+
+-- 
+Met vriendelijke groeten,
+AccessWeb ICT Solutions
+AccessWeb.
+	
+ONSEA Jellis
+AccessWeb ICT Solutions
+Europaplein 29/7
+3630 Maasmechelen
+Tel BE +32 470 96 43 15 <tel:+32470964315>
+Tel NL +31 6 492 757 98 <tel:+31649275798>
+E-mail jellis@accessweb.be <mailto:jellis@accessweb.be>
+
+Indien u een SLA-contract heeft, gelieve alle communicatie te voeren met
+het e-mailadres gekoppeld aan uw SLA. Dit verzekert de correcte en
+tijdige opvolging van uw vraag.
+
+
