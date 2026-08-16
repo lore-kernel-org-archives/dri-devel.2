@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FF75C5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 20:00:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90440C5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 20:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9312210E352;
-	Sun, 16 Aug 2026 20:00:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 419CC10E357;
+	Sun, 16 Aug 2026 20:03:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YWpPEzDE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cxj9giKn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 405C810E352
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 20:00:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23D4710E357
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 20:03:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0750640550;
- Sun, 16 Aug 2026 20:00:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E4E1F000E9;
- Sun, 16 Aug 2026 20:00:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 12C736013A;
+ Sun, 16 Aug 2026 20:03:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870791F000E9;
+ Sun, 16 Aug 2026 20:03:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786910423;
- bh=tR8jLx4020xj4WRUM2RX4uTeZlN0WZpTDCdLKmQGCQE=;
+ s=k20260515; t=1786910606;
+ bh=NbKfPVvrM9F0HPsAnuR+lyP4PE/fiNDIwQ0Gdo3se94=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YWpPEzDEVOBrgrpwLq7vhxQervKixCkLLYQtTP1fbFUyy0Mrk+61OlpTbPD8/92rn
- IqbOhpkmNXFor1GS53t/Y1S+SLv6HLx3zZPkYGP43jGUmXa9XQTTqHEKL7gJ79SKOC
- 155PUhBQbK+CoGcCCfceiBZATX+QsXagkE24ZAzBv9jLxGEEjr9XtQW7YliQChqV27
- wVnygotrECdauO/4m2zLQpjX3wl1gVx7GuXk/mxAWcj/ndvvYgUPnKOMoRcFmTCsMk
- lwqMNjLjMm6uz1DMgSG/1F9vkHcgq9RMq5B1XpNB/hIOMWBFYy0QeZzbLs1hIsN4/P
- jtJ/CKAS/ooIA==
+ b=cxj9giKniLBQlurXquGmKf+rBDLkbR94F46KcSTYZTAUpCB/tcSbR1k5d5FsLO46q
+ Y/72bmNvrDnX/+e89ViT2UlwSCZS8Q0cPDLMn8f9iUc1oiD9rxwnxI269c6oCd3Ns6
+ LIrAUjMJSt1zVUoDWC6yZteW/qSJ8PcnvOpmNov0bm1qFkz8mT+HhYjt6I6IpAr6y5
+ mrH6oSNrnHxUIQDA2PFlpsHeQIDYBeqzkkILGjcA4WClULnlHhTFlUalYAOP/XMr+Q
+ 03cBOSz/7zsEfYQv0PWFF2m3YwlTEhy2uP22NVi6xUHqi1ZkPYWaRjWckbxvmLozih
+ Tv4eH3cw/LIgw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/imagination: Add async VM_BIND ioctl
+Subject: Re: [PATCH 4/4] drm/imagination: Add sparse mappings to VM_BIND
 To: "Gyeyoung Baek" <gye976@gmail.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817-pvr-vm-bind-v1-3-0a0f21be7d38@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20260817-pvr-vm-bind-v1-4-0a0f21be7d38@gmail.com>
 References: <20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com>
- <20260817-pvr-vm-bind-v1-3-0a0f21be7d38@gmail.com>
+ <20260817-pvr-vm-bind-v1-4-0a0f21be7d38@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 20:00:23 +0000
-Message-Id: <20260816200023.B2E4E1F000E9@smtp.kernel.org>
+Date: Sun, 16 Aug 2026 20:03:26 +0000
+Message-Id: <20260816200326.870791F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,134 +57,160 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Taking `vm_ctx->lock` inside a dma-fence signalling critical secti=
-on creates a deadlock risk because legacy ioctl paths hold this lock during=
- `GFP_KERNEL` memory allocations.
-- [High] The `DRM_IOCTL_PVR_VM_BIND` ioctl accepts an unbounded number of o=
-perations, allowing a local denial-of-service via unbounded kernel memory a=
-llocations.
+
+Pre-existing issues:
+- [Critical] Integer underflow in page table preallocation size calculation=
+ allows unprivileged users to cause OOM panic.
+- [High] Page table preallocation calculates requirements using object offs=
+et instead of device address, leading to -ENOMEM during valid mappings.
+- [High] Mapping errors are masked during scatterlist processing, leaving h=
+oles in hardware page tables.
 --
 
---- Patch [3]: [PATCH 3/4] drm/imagination: Add async VM_BIND ioctl ---
-commit d69b2e6682fdd9c9fc81f9944e1b72971b7b0c0f
+--- Patch [4]: [PATCH 4/4] drm/imagination: Add sparse mappings to VM_BIND =
+---
+commit 8758f312b45a84c218f5a0a8c5687d9c21928110
 Author: Gyeyoung Baek <gye976@gmail.com>
-Subject: drm/imagination: Add async VM_BIND ioctl
+Subject: drm/imagination: Add sparse mappings to VM_BIND
 
-This commit adds a DRM_IOCTL_PVR_VM_BIND ioctl to the PowerVR driver to=20
-support Vulkan sparse binding needs. It allows batching bind and sync=20
-operations into a single request. Requests can be run asynchronously=20
-as drm_sched jobs when the DRM_PVR_VM_BIND_ASYNC flag is provided.
+This commit adds support for Vulkan sparse residency by allowing ranges
+to be mapped without naming a buffer object. It introduces
+DRM_PVR_VM_BIND_OP_MAP_SPARSE, where every page table entry in the range
+points to the same file-specific dummy page.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imag=
-ination/pvr_drv.c
-> index 5c965ef0274ff..ec6ed610e29e1 100644
-> --- a/drivers/gpu/drm/imagination/pvr_drv.c
-> +++ b/drivers/gpu/drm/imagination/pvr_drv.c
-[ ... ]
-> @@ -1130,6 +1130,93 @@ pvr_ioctl_vm_unmap(struct drm_device *drm_dev, voi=
-d *raw_args,
-[ ... ]
-> +static int
-> +pvr_ioctl_vm_bind(struct drm_device *drm_dev, void *raw_args,
-> +		  struct drm_file *file)
-> +{
-> +	struct drm_pvr_ioctl_vm_bind_args *args =3D raw_args;
-[ ... ]
-> +	vm_ctx =3D pvr_vm_context_lookup(pvr_file, args->vm_context_handle);
-> +	if (!vm_ctx) {
-> +		err =3D -EINVAL;
-> +		goto err_drm_dev_exit;
-> +	}
-> +
+> diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imag=
+ination/pvr_mmu.c
+> index 3cac482e10347..fc1347d6f233b 100644
+> --- a/drivers/gpu/drm/imagination/pvr_mmu.c
+> +++ b/drivers/gpu/drm/imagination/pvr_mmu.c
+> @@ -2558,6 +2558,77 @@ pvr_mmu_map_sgl(struct pvr_mmu_op_context *op_ctx,=
+ struct scatterlist *sgl,
+>  	return err;
+>  }
+
 [Severity: High]
-Could args->ops.count or args->sync_ops.count be arbitrarily large here?
-Without an upper bound, could an unprivileged user exhaust system memory by
-passing an extremely large count, as these allocations bypass memory cgroup
-limits?
+This is a pre-existing issue, but does pvr_mmu_map_sgl() mask the original
+error code on failure?
 
-> +	if (args->ops.count) {
-> +		err =3D PVR_UOBJ_GET_ARRAY(uapi_ops, &args->ops);
-> +		if (err)
-> +			goto err_put_vm_context;
-> +	}
-> +
-> +	if (args->sync_ops.count) {
-> +		err =3D PVR_UOBJ_GET_ARRAY(sync_ops, &args->sync_ops);
-> +		if (err)
-> +			goto err_free_uapi_ops;
-> +	}
+If an error occurs during page table entry creation in pvr_mmu_map_sgl(), t=
+he
+code jumps to the err_destroy_pages label:
+
+drivers/gpu/drm/imagination/pvr_mmu.c:pvr_mmu_map_sgl() {
+    ...
+err_destroy_pages:
+	memcpy(&op_ctx->curr_page, &ptr_copy, sizeof(op_ctx->curr_page));
+	err =3D pvr_mmu_op_context_unmap_curr_page(op_ctx, page);
+
+	return err;
+}
+
+Since pvr_mmu_op_context_unmap_curr_page() typically succeeds and returns 0,
+the original error code is overwritten with 0. The function then incorrectly
+signals success to the caller, leaving holes in the hardware page tables.
+This could cause unpredictable hardware page faults when accessed by the GP=
+U.
+
+[ ... ]
+
 > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
 nation/pvr_vm.c
-> index 45df76e61f7cf..f92bfeacd7ac4 100644
+> index f92bfeacd7ac4..d11e192c7726d 100644
 > --- a/drivers/gpu/drm/imagination/pvr_vm.c
 > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-[ ... ]
-> @@ -1174,3 +1242,439 @@ pvr_vm_get_fw_mem_context(struct pvr_vm_context *=
-vm_ctx)
-[ ... ]
-> +static struct dma_fence *
-> +pvr_vm_bind_run_job(struct drm_sched_job *sched_job)
-> +{
-> +	struct pvr_vm_bind_job *job =3D to_pvr_vm_bind_job(sched_job);
-> +	struct pvr_vm_context *vm_ctx =3D job->vm_ctx;
-> +	int err =3D 0;
-> +	bool cookie;
-> +
-> +	if (pvr_vm_context_is_unusable(vm_ctx))
-> +		return ERR_PTR(-ECANCELED);
-> +
-> +	cookie =3D dma_fence_begin_signalling();
-> +
+> @@ -267,7 +273,7 @@ static int
+>  pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
+>  			struct pvr_vm_context *vm_ctx,
+>  			struct pvr_gem_object *pvr_obj, u64 offset,
+> -			u64 device_addr, u64 size)
+> +			u64 device_addr, u64 size, bool sparse)
+>  {
+>  	struct drm_gem_object *obj =3D gem_from_pvr_gem(pvr_obj);
+>  	const bool is_user =3D vm_ctx !=3D vm_ctx->pvr_dev->kernel_vm_ctx;
+> @@ -285,11 +291,19 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind=
+_op,
+>  	}
+> =20
+>  	if (!pvr_device_addr_and_size_are_valid(vm_ctx, device_addr, size) ||
+> -	    offset & ~PAGE_MASK || size & ~PAGE_MASK ||
+> -	    offset >=3D pvr_obj_size || offset_plus_size > pvr_obj_size)
+> +	    offset & ~PAGE_MASK || size & ~PAGE_MASK)
+> +		return -EINVAL;
+
 [Severity: High]
-Does acquiring vm_ctx->lock inside the dma-fence signalling critical section
-create a circular deadlock risk?
+This isn't a bug introduced by this patch, but does the page table prealloc=
+ation
+calculate requirements using the object offset instead of the device addres=
+s?
 
-The legacy pvr_vm_unmap() path acquires vm_ctx->lock to look up the mapping,
-and then calls pvr_vm_unmap_obj_locked() -> pvr_vm_bind_op_unmap_init().
-That init function performs GFP_KERNEL allocations under this same lock:
+When a VM_BIND request is made, pvr_vm_bind_op_map_init() calls
+pvr_mmu_op_context_create(), passing offset as the sgt_offset:
 
-	bind_op->prev_va =3D kzalloc_obj(*bind_op->prev_va);
-	bind_op->next_va =3D kzalloc_obj(*bind_op->next_va);
-	...
-	bind_op->mmu_op_ctx =3D
-		pvr_mmu_op_context_create(vm_ctx->mmu_ctx, NULL, 0, 0);
+drivers/gpu/drm/imagination/pvr_mmu.c:pvr_mmu_op_context_create() {
+    ...
+		const u32 l0_start_idx =3D pvr_page_table_l1_idx(sgt_offset);
+		const u32 l0_end_idx =3D pvr_page_table_l1_idx(sgt_offset + size);
+		const u32 l0_count =3D l0_end_idx - l0_start_idx + 1;
+    ...
+}
 
-Direct memory reclaim during these allocations might wait on dma-fences to =
-be
-signalled, which could deadlock if this lock is held.
+If the device_addr alignment causes the mapping to span more 2MB or 1GB
+boundaries than sgt_offset does, this will under-allocate page tables.
+For instance, mapping an 8KB chunk with offset=3D0 to a device_addr that cr=
+osses
+a 2MB boundary requires 2 L0 page tables, but the logic using sgt_offset
+calculates only 1.
 
-> +	mutex_lock(&vm_ctx->lock);
-> +
-> +	for (u32 i =3D 0; i < job->op_count; i++) {
-> +		err =3D pvr_vm_bind_op_exec(&job->ops[i]);
-> +		if (err)
-> +			break;
-> +	}
-[ ... ]
-> +static struct pvr_vm_bind_op *
-> +pvr_vm_bind_ops_create_from_uapi(struct pvr_vm_context *vm_ctx,
-> +				 struct pvr_file *pvr_file,
-> +				 const struct drm_pvr_vm_bind_op *uapi_ops,
-> +				 u32 op_count)
-> +{
-> +	struct pvr_vm_bind_op *ops;
-> +	int err;
-> +
-[Severity: High]
-Could op_count be unbounded here? Since this allocates using GFP_KERNEL
-without __GFP_ACCOUNT, large allocations won't be charged to a memcg,
-potentially leading to system memory exhaustion or soft lockups during the
-subsequent loop.
+When the driver attempts to insert the second page, the preallocated pool is
+empty and returns -ENOMEM. This would cause valid mappings to fail, and for
+the newly introduced sparse mappings where offset is always 0, it guarantees
+this failure whenever a sparse mapping crosses a 2MB boundary.
 
-> +	ops =3D kvzalloc_objs(*ops, op_count, GFP_KERNEL);
-> +	if (!ops)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	for (u32 prepared =3D 0; prepared < op_count; prepared++) {
-> +		err =3D pvr_vm_bind_op_init_from_uapi(&ops[prepared], vm_ctx,
+[Severity: Critical]
+This is a pre-existing issue related to the above calculation, but can this
+integer underflow allow unprivileged users to cause an OOM panic?
+
+In the same calculation:
+
+drivers/gpu/drm/imagination/pvr_mmu.c:pvr_mmu_op_context_create() {
+    ...
+		const u32 l0_start_idx =3D pvr_page_table_l1_idx(sgt_offset);
+		const u32 l0_end_idx =3D pvr_page_table_l1_idx(sgt_offset + size);
+		const u32 l0_count =3D l0_end_idx - l0_start_idx + 1;
+    ...
+}
+
+The function pvr_page_table_l1_idx() masks out higher bits to return a boun=
+ded
+9-bit local index:
+
+drivers/gpu/drm/imagination/pvr_mmu.c:pvr_page_table_l1_idx() {
+	return (device_addr & ~ROGUE_MMUCTRL_VADDR_PD_INDEX_CLRMSK) >>
+	       ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT;
+}
+
+If an unprivileged user calls the VM_BIND ioctl with an offset and size such
+that offset + size crosses a 1GB page directory boundary, l0_end_idx will be
+smaller than l0_start_idx (e.g., 0 < 511).
+
+This causes l0_count to underflow to roughly 4.29 billion, leading to an
+immediate kernel out-of-memory (OOM) panic as the driver attempts to alloca=
+te
+billions of page table structures in a tight loop.
+
+> +	/*
+> +	 * A sparse mapping repeats one page over a deliberately wider range,
+> +	 * so the containment check only applies to ordinary mappings.
+> +	 */
+> +	if (!sparse &&
+> +	    (offset >=3D pvr_obj_size || offset_plus_size > pvr_obj_size))
+>  		return -EINVAL;
+> =20
+>  	bind_op->type =3D PVR_VM_BIND_TYPE_MAP;
+> +	bind_op->sparse =3D sparse;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-pvr-vm-bin=
-d-v1-0-0a0f21be7d38@gmail.com?part=3D3
+d-v1-0-0a0f21be7d38@gmail.com?part=3D4
