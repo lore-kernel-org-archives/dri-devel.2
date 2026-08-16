@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F36FDC5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:10:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D59D4C5DF6D
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC56010E33B;
-	Sun, 16 Aug 2026 19:10:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F7610E33D;
+	Sun, 16 Aug 2026 19:11:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EbRqHbsD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lk58hIJQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7165010E33B
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 19:10:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9716710E33D;
+ Sun, 16 Aug 2026 19:11:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DA04B41720;
- Sun, 16 Aug 2026 19:10:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CAD11F000E9;
- Sun, 16 Aug 2026 19:10:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BE6AF601DE;
+ Sun, 16 Aug 2026 19:10:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9AE1F000E9;
+ Sun, 16 Aug 2026 19:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786907414;
- bh=iR6IAKOZKy95BLSUHFK6MXY/YV8hSVxpWjFmKYp0jfo=;
+ s=k20260515; t=1786907459;
+ bh=65xm/BJ2ILV0+VnpFw5xUmzgOfgFFFEa6yjAp0pX8N0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EbRqHbsD0/rBMibGFOOl7INVE0luZOFQtxgi2IDt9g9KbchSYVW+GrdYqOFvHCmG6
- bRWSklYRoB1kptd6GwcMdmxDYDEiF+tjdoXmGXG1S4Wwn+q93ofkNMuWMt8Z+cDu0F
- UMqcICrNZQR8hTKpVL8TNZESjRTjGHz0YAQTj6OIxJ1c6WOhf46oPfionArHcYrUoq
- FnKohcxQ10A9KbOcykR4MEkoZxZq26Qvvfihth920V0fIbPuVGSyZCsa4BNS4wLM9L
- 7OJmMxaXDnAXE38y507iPTEDcUUGda6Tu6oFGtLVY1SRJ4Yg1kyYbYc+M2YbGqWNLI
- ESUmOdM74wceQ==
-Date: Sun, 16 Aug 2026 09:10:13 -1000
+ b=lk58hIJQhP2tQmKfHOYxDKjHbnzQCpKafIxj92z2lAMUf0yVPjuSdF1GNIZY0YCWr
+ VNLXhZ0E20ngfkXVAG7HLy9KdnzRdkjiWhNJSdgnHou/PcrKv3g/8MUfBUzXFQcgVz
+ oK+/xGIfa9TPn5cBC+N1hfZwlba1YqcGMtcLzfLxzHZq1pXj45OHUDk5O5KSCSriLb
+ UXjsWPdH9jCPZoLVtHznBaBBkzU9JwMN/UIU1XZM6Y4rQmSegEd6N7IS+Kq2Xxfv51
+ bonXk2oiqHc+O59K8bonyUk3zxTo1JPSddtknK60zuyPKNqacYEHxC7hS6CVqYbiDQ
+ 15zDN/ITjZExQ==
+Date: Sun, 16 Aug 2026 09:10:58 -1000
 From: Tejun Heo <tj@kernel.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>, kernel-dev@igalia.com,
- linux-kernel@vger.kernel.org, Bradley Morgan <include@grrlz.net>,
- Chia-I Wu <olv@google.com>, Breno Leitao <leitao@debian.org>
-Subject: Re: [RFC v4 1/2] workqueue: Add support for real-time workers
-Message-ID: <aoILFR3SNYBbMOOz@slm.duckdns.org>
-References: <20260804101925.55414-1-tvrtko.ursulin@igalia.com>
- <20260804101925.55414-2-tvrtko.ursulin@igalia.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: maarten.lankhorst@linux.intel.com, intel-xe@lists.freedesktop.org,
+ cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ pallavi.mishra@intel.com
+Subject: Re: [RFC] dmisc cgroups controller
+Message-ID: <aoILQuck_EuxQgVh@slm.duckdns.org>
+References: <894f9d44eae62aee5762495b4f90f9bdd2b5585d.camel@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260804101925.55414-2-tvrtko.ursulin@igalia.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <894f9d44eae62aee5762495b4f90f9bdd2b5585d.camel@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,59 +59,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(cc'ing Breno as he has been working in the area)
+On Fri, Aug 14, 2026 at 11:32:54AM +0200, Thomas Hellström wrote:
+> Hi!
+> 
+> We (drm/xe GPU driver) have a use-case where we have a very limited
+> number of a particular device resource (CLOS slots) that we potentially
+> want to expose to unprivlieged processes for reservation / allocation.
+> We want to be able to restrict per cgroups the number of CLOS slots
+> that are available for reservation / allocation.
+> 
+> This is not a good fit for the misc controller since these resource
+> types may be added and removed similar to dmem regions. Neither is it a
+> good fit for the dmem controller.
+> 
+> Would a dmisc controller be suitable here? It would be similar to the
+> misc countroller but with dynamic addition and removal of resource
+> types similar to the dmem controller.
+> 
+> Any input greatly appreciated.
 
-Hello,
-
-Sorry about the delay.
-
-On Tue, Aug 04, 2026 at 11:19:24AM +0100, Tvrtko Ursulin wrote:
->  struct workqueue_attrs {
->  	/**
-> -	 * @nice: nice level
-> +	 * @prio: priority level
-> +	 */
-> +	enum wq_priority prio;
-> +
-> +	/**
-> +	 * @nice: nice level for WQ_PRIO_HIGH
->  	 */
->  	int nice;
-
-I find this rather confusing. We're scattering the same internal state
-across multiple fields. If you look at scheduler code, rt and normal nice
-values are encoded into a single prio value, maybe we can do the same?
-
->  static int alloc_and_link_pwqs(struct workqueue_struct *wq)
->  {
-> -	bool highpri = wq->flags & WQ_HIGHPRI;
-> -	int cpu, ret;
-> +	int prio, cpu, ret;
->  
->  	lockdep_assert_held(&wq_pool_mutex);
->  
-> +	if (wq->flags & WQ_RTPRI)
-> +		prio = WQ_PRIO_RT;
-> +	else if (wq->flags & WQ_HIGHPRI)
-> +		prio = WQ_PRIO_HIGH;
-> +	else
-> +		prio = WQ_PRIO_NORMAL;
-> +
->  	wq->cpu_pwq = alloc_percpu(struct pool_workqueue *);
->  	if (!wq->cpu_pwq)
->  		goto enomem;
-> @@ -5622,7 +5637,7 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
->  			struct pool_workqueue **pwq_p;
->  			struct worker_pool *pool;
->  
-> -			pool = &(per_cpu_ptr(pools, cpu)[highpri]);
-> +			pool = &(per_cpu_ptr(pools, cpu)[prio]);
-
-And this looks a bit confusing too because there's no per-cpu counterpart
-but it looks like there should be.
-
-I wonder whether this would look better after the percpu and unbound pool
-unification that Breno is working on.
+Would extending the existing misc controller be an option?
 
 Thanks.
 
