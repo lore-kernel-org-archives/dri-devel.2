@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D5C4C5B572
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 19:59:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FF75C5B572
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 20:00:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA6610E351;
-	Sun, 16 Aug 2026 19:59:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9312210E352;
+	Sun, 16 Aug 2026 20:00:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gNbX86M9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YWpPEzDE";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B9610E351
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 19:59:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 405C810E352
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 20:00:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 55EAC4011C;
- Sun, 16 Aug 2026 19:59:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC431F000E9;
- Sun, 16 Aug 2026 19:59:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0750640550;
+ Sun, 16 Aug 2026 20:00:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E4E1F000E9;
+ Sun, 16 Aug 2026 20:00:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786910352;
- bh=+smZHeL6xiBG4VzXD9Hq0avAvKvZdhFa7BTeGdPWZyI=;
+ s=k20260515; t=1786910423;
+ bh=tR8jLx4020xj4WRUM2RX4uTeZlN0WZpTDCdLKmQGCQE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gNbX86M9WwIgyGS78xp914rMJ2R1jZlU3s2f/KlvE/PlA1gX3GJZdH8U0cJ6U7OYg
- rQGop79SH28Fpw0x+xudxvOsBAIP+kFIwnJ9OKaIK0t/PFT5l2xbuc8CJdHpPFEQGs
- K99IKoI2puh8ZevrlByaiiRexMS4c8M/vZGIpktbxK5rhUCZnCO5fv5Q1s9TuxcWtf
- SCoMEKtT9E4M0sc2S80fYfeDvlYcZjOUHA0C0edl8ZqYMpYiUpe9Zl3WYeCPSkrvbO
- 7NnXPHW0CMv10FzU56Rvye4Baq/K2WBQWxXZBsaVJaLtISNpBz15przD5nCq1uHiuK
- BmebrVsmevsNA==
+ b=YWpPEzDEVOBrgrpwLq7vhxQervKixCkLLYQtTP1fbFUyy0Mrk+61OlpTbPD8/92rn
+ IqbOhpkmNXFor1GS53t/Y1S+SLv6HLx3zZPkYGP43jGUmXa9XQTTqHEKL7gJ79SKOC
+ 155PUhBQbK+CoGcCCfceiBZATX+QsXagkE24ZAzBv9jLxGEEjr9XtQW7YliQChqV27
+ wVnygotrECdauO/4m2zLQpjX3wl1gVx7GuXk/mxAWcj/ndvvYgUPnKOMoRcFmTCsMk
+ lwqMNjLjMm6uz1DMgSG/1F9vkHcgq9RMq5B1XpNB/hIOMWBFYy0QeZzbLs1hIsN4/P
+ jtJ/CKAS/ooIA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] drm/imagination: Fix the vm_bo split mappings are
- linked to
+Subject: Re: [PATCH 3/4] drm/imagination: Add async VM_BIND ioctl
 To: "Gyeyoung Baek" <gye976@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260817-pvr-vm-bind-v1-1-0a0f21be7d38@gmail.com>
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260817-pvr-vm-bind-v1-3-0a0f21be7d38@gmail.com>
 References: <20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com>
- <20260817-pvr-vm-bind-v1-1-0a0f21be7d38@gmail.com>
+ <20260817-pvr-vm-bind-v1-3-0a0f21be7d38@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 19:59:11 +0000
-Message-Id: <20260816195912.0CC431F000E9@smtp.kernel.org>
+Date: Sun, 16 Aug 2026 20:00:23 +0000
+Message-Id: <20260816200023.B2E4E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,124 +57,134 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Unbalanced `pvr_gem_object_get()` in `pvr_vm_gpuva_remap()` causes=
- a permanent memory leak of GEM objects.
-- [High] Missing `dma_resv` locking during `drm_gpuva_link()` and `drm_gpuv=
-a_unlink()` causes data races and list corruption.
-- [High] Missing `vm_ctx->lock` acquisition in `pvr_vm_map()` causes concur=
-rent execution data races and potential RB tree corruption.
+- [High] Taking `vm_ctx->lock` inside a dma-fence signalling critical secti=
+on creates a deadlock risk because legacy ioctl paths hold this lock during=
+ `GFP_KERNEL` memory allocations.
+- [High] The `DRM_IOCTL_PVR_VM_BIND` ioctl accepts an unbounded number of o=
+perations, allowing a local denial-of-service via unbounded kernel memory a=
+llocations.
 --
 
---- Patch [1]: [PATCH 1/4] drm/imagination: Fix the vm_bo split mappings ar=
-e linked to ---
-commit c145cb50bdcd3046dfd6222a4b0282d9524af76c
+--- Patch [3]: [PATCH 3/4] drm/imagination: Add async VM_BIND ioctl ---
+commit d69b2e6682fdd9c9fc81f9944e1b72971b7b0c0f
 Author: Gyeyoung Baek <gye976@gmail.com>
+Subject: drm/imagination: Add async VM_BIND ioctl
 
-drm/imagination: Fix the vm_bo split mappings are linked to
+This commit adds a DRM_IOCTL_PVR_VM_BIND ioctl to the PowerVR driver to=20
+support Vulkan sparse binding needs. It allows batching bind and sync=20
+operations into a single request. Requests can be run asynchronously=20
+as drm_sched jobs when the DRM_PVR_VM_BIND_ASYNC flag is provided.
 
-A remap does not map anything new. It splits an existing mapping and
-re-creates the parts the request did not cover, and that mapping is handed
-to the callback in op->remap.unmap->va, carrying the &drm_gpuvm_bo those
-parts belong to.
+> diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imag=
+ination/pvr_drv.c
+> index 5c965ef0274ff..ec6ed610e29e1 100644
+> --- a/drivers/gpu/drm/imagination/pvr_drv.c
+> +++ b/drivers/gpu/drm/imagination/pvr_drv.c
+[ ... ]
+> @@ -1130,6 +1130,93 @@ pvr_ioctl_vm_unmap(struct drm_device *drm_dev, voi=
+d *raw_args,
+[ ... ]
+> +static int
+> +pvr_ioctl_vm_bind(struct drm_device *drm_dev, void *raw_args,
+> +		  struct drm_file *file)
+> +{
+> +	struct drm_pvr_ioctl_vm_bind_args *args =3D raw_args;
+[ ... ]
+> +	vm_ctx =3D pvr_vm_context_lookup(pvr_file, args->vm_context_handle);
+> +	if (!vm_ctx) {
+> +		err =3D -EINVAL;
+> +		goto err_drm_dev_exit;
+> +	}
+> +
+[Severity: High]
+Could args->ops.count or args->sync_ops.count be arbitrarily large here?
+Without an upper bound, could an unprivileged user exhaust system memory by
+passing an extremely large count, as these allocations bypass memory cgroup
+limits?
 
+> +	if (args->ops.count) {
+> +		err =3D PVR_UOBJ_GET_ARRAY(uapi_ops, &args->ops);
+> +		if (err)
+> +			goto err_put_vm_context;
+> +	}
+> +
+> +	if (args->sync_ops.count) {
+> +		err =3D PVR_UOBJ_GET_ARRAY(sync_ops, &args->sync_ops);
+> +		if (err)
+> +			goto err_free_uapi_ops;
+> +	}
 > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
 nation/pvr_vm.c
-> index 396d349fb6ce4..608e8c0467dce 100644
+> index 45df76e61f7cf..f92bfeacd7ac4 100644
 > --- a/drivers/gpu/drm/imagination/pvr_vm.c
 > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-> @@ -434,18 +436,18 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *o=
-p_ctx)
-> =20
->  	if (op->remap.prev) {
->  		pvr_gem_object_get(gem_to_pvr_gem(ctx->prev_va->base.gem.obj));
-> -		drm_gpuva_link(&ctx->prev_va->base, ctx->gpuvm_bo);
-> +		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
-
+[ ... ]
+> @@ -1174,3 +1242,439 @@ pvr_vm_get_fw_mem_context(struct pvr_vm_context *=
+vm_ctx)
+[ ... ]
+> +static struct dma_fence *
+> +pvr_vm_bind_run_job(struct drm_sched_job *sched_job)
+> +{
+> +	struct pvr_vm_bind_job *job =3D to_pvr_vm_bind_job(sched_job);
+> +	struct pvr_vm_context *vm_ctx =3D job->vm_ctx;
+> +	int err =3D 0;
+> +	bool cookie;
+> +
+> +	if (pvr_vm_context_is_unusable(vm_ctx))
+> +		return ERR_PTR(-ECANCELED);
+> +
+> +	cookie =3D dma_fence_begin_signalling();
+> +
 [Severity: High]
-This is a pre-existing issue, but does this code permanently leak GEM objec=
-ts?
+Does acquiring vm_ctx->lock inside the dma-fence signalling critical section
+create a circular deadlock risk?
 
-During a remap operation, this explicitly calls pvr_gem_object_get() to take
-references on the backing GEM objects for the new split mappings (prev_va a=
-nd
-next_va).
+The legacy pvr_vm_unmap() path acquires vm_ctx->lock to look up the mapping,
+and then calls pvr_vm_unmap_obj_locked() -> pvr_vm_bind_op_unmap_init().
+That init function performs GFP_KERNEL allocations under this same lock:
 
-However, the teardown paths like pvr_vm_gpuva_unmap() and the unmap phase
-of pvr_vm_gpuva_remap() just call drm_gpuva_unlink() and kfree() without a
-corresponding pvr_gem_object_put(). Since the DRM GPUVM framework internally
-manages GEM object lifetimes through vm_bo structures, are these manual
-references redundant and never released?
+	bind_op->prev_va =3D kzalloc_obj(*bind_op->prev_va);
+	bind_op->next_va =3D kzalloc_obj(*bind_op->next_va);
+	...
+	bind_op->mmu_op_ctx =3D
+		pvr_mmu_op_context_create(vm_ctx->mmu_ctx, NULL, 0, 0);
 
+Direct memory reclaim during these allocations might wait on dma-fences to =
+be
+signalled, which could deadlock if this lock is held.
+
+> +	mutex_lock(&vm_ctx->lock);
+> +
+> +	for (u32 i =3D 0; i < job->op_count; i++) {
+> +		err =3D pvr_vm_bind_op_exec(&job->ops[i]);
+> +		if (err)
+> +			break;
+> +	}
+[ ... ]
+> +static struct pvr_vm_bind_op *
+> +pvr_vm_bind_ops_create_from_uapi(struct pvr_vm_context *vm_ctx,
+> +				 struct pvr_file *pvr_file,
+> +				 const struct drm_pvr_vm_bind_op *uapi_ops,
+> +				 u32 op_count)
+> +{
+> +	struct pvr_vm_bind_op *ops;
+> +	int err;
+> +
 [Severity: High]
-This is another pre-existing issue, but can this cause data races and list
-corruption?
+Could op_count be unbounded here? Since this allocates using GFP_KERNEL
+without __GFP_ACCOUNT, large allocations won't be charged to a memcg,
+potentially leading to system memory exhaustion or soft lockups during the
+subsequent loop.
 
-pvr_vm does not use DRM_GPUVM_IMMEDIATE_MODE, so it relies on the GEM objec=
-t's
-dma_resv lock to protect gpuva.list operations. When a new mapping overlaps=
- an
-existing mapping belonging to a different GEM object, the core calls
-pvr_vm_gpuva_remap() or pvr_vm_gpuva_unmap().
-
-These callbacks then invoke drm_gpuva_link() and drm_gpuva_unlink() on the
-mappings without holding their GEM object's dma_resv lock. Since pvr_vm_map=
-()
-only locks the new GEM object being mapped (via pvr_vm_lock_extra()) and
-doesn't populate the GPUVM's extobj list, does this concurrent lockless
-modification of gpuva.list result in list corruption?
-
->  		ctx->prev_va =3D NULL;
->  	}
-> =20
->  	if (op->remap.next) {
->  		pvr_gem_object_get(gem_to_pvr_gem(ctx->next_va->base.gem.obj));
-> -		drm_gpuva_link(&ctx->next_va->base, ctx->gpuvm_bo);
-> +		drm_gpuva_link(&ctx->next_va->base, vm_bo);
->  		ctx->next_va =3D NULL;
->  	}
-> =20
-> -	drm_gpuva_unlink(op->remap.unmap->va);
-> -	kfree(to_pvr_vm_gpuva(op->remap.unmap->va));
-> +	drm_gpuva_unlink(unmap_va);
-> +	kfree(to_pvr_vm_gpuva(unmap_va));
-> =20
->  	return 0;
->  }
-
-[Severity: High]
-This is a pre-existing issue in this file outside of the diff, but does
-pvr_vm_map() have a data race that could corrupt the GPUVM RB-tree?
-
-In pvr_vm_unmap(), the driver acquires vm_ctx->lock before searching the
-GPUVM's RB-tree via drm_gpuva_find(). However, pvr_vm_map() mutates the RB-=
-tree
-via pvr_vm_bind_op_exec() invoking drm_gpuvm_sm_map() but doesn't acquire
-vm_ctx->lock:
-
-drivers/gpu/drm/imagination/pvr_vm.c:pvr_vm_map() {
-    ...
-    err =3D pvr_vm_bind_op_exec(&bind_op);
-    ...
-}
-
-While pvr_vm_map() acquires the VM's dma_resv lock, pvr_vm_unmap() does not
-hold this lock during its traversal:
-
-drivers/gpu/drm/imagination/pvr_vm.c:pvr_vm_unmap() {
-    ...
-    va =3D drm_gpuva_find(&vm_ctx->gpuvm_mgr, device_addr, size);
-    ...
-}
-
-Since there is no shared lock between the reader and writer of the RB-tree,=
- can
-a map operation modify the tree concurrently with an unmap operation's
-traversal?
+> +	ops =3D kvzalloc_objs(*ops, op_count, GFP_KERNEL);
+> +	if (!ops)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	for (u32 prepared =3D 0; prepared < op_count; prepared++) {
+> +		err =3D pvr_vm_bind_op_init_from_uapi(&ops[prepared], vm_ctx,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-pvr-vm-bin=
-d-v1-0-0a0f21be7d38@gmail.com?part=3D1
+d-v1-0-0a0f21be7d38@gmail.com?part=3D3
