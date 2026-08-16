@@ -4,44 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 325ADC5DF6E
-	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 13:17:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB09BC5DF6E
+	for <dri-devel@archiver.kernel.org>; Sun, 16 Aug 2026 13:21:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F40C10E136;
-	Sun, 16 Aug 2026 13:17:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B44710E2CA;
+	Sun, 16 Aug 2026 13:21:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mCfe19ds";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AIZyTRqN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79C0610E136
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 13:17:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8DE25600E2;
- Sun, 16 Aug 2026 13:17:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B99B1F000E9;
- Sun, 16 Aug 2026 13:17:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786886275;
- bh=IugcH3Qq9avsEIv1LPH3JlUxe564U1MEbhpB3Dh87SE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mCfe19dsmg1R4ckN2I/OSyNVUWknuHVf4CovnV5kri3paDrhnmXYB7+a0YYdrUf/i
- adzS1IE3cSDkaSr3oIlECYJHbiFBGohoTsiNhi5OlUKErD3BicdFal2vJ4q5bb2MfS
- hcLWX2pSuxxVvS89PcH9BmLtY+qeeUC7RcK7mZ8mUzX98j7iecz1br4cD4c66nNrUr
- bI+g3Oj7yfV2Ic+6Ouvqmj6ygOb3+aTnCRAUOFtz7Q/ps9V54Ki7Tz2inc8/rmRwa6
- VjvgkPgTGIi9YP4Z3jimX9pMd8uZhlurrgru/+lKPbjyKXbpykA6qoUX02y/QlEHJU
- 2xfBswx9YuboA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] drm/nouveau/kms: guard NULL crtc in
- nv50_sor_atomic_disable()
-To: "Marek Czernohous" <mczernohous@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <178688574402.522643.5471719764843371376@gmail.com>
-References: <178688574400.522643.6695278742335367229@gmail.com>
- <178688574402.522643.5471719764843371376@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 13:17:54 +0000
-Message-Id: <20260816131755.1B99B1F000E9@smtp.kernel.org>
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 935AC10E2CB
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 13:21:55 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4954c08a7c8so2414025e9.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 06:21:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786886514; x=1787491314; darn=lists.freedesktop.org;
+ h=mime-version:content-transfer-encoding:content-type:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=vwi4ydnsAAyRjtAJ6OmNzoOX8cU0AryA5emhiyqpUtg=;
+ b=AIZyTRqN1EIegFJDCwyjym+iLlKB0IRL3o+AtY3BSBXxNx8L+hBcvAk9Exrkr+a/UF
+ XCDsgsnNMk/hZHePaK1OSE+HRadx8LsPkPUTpUROIdu9Rqb1i9g53fsrgDpEy2rZyBXy
+ qhA/kMEGINkN7ElIxGS0w2Cxfs+c8jKgnfKkhauudxGnXo5YMeslI+zwObSfaq8z95jc
+ pWXwH4lqftXOm3srOC7puVQgSdIHAyxQfMFHDaUGup/fajJSDttg6KznWOwLEx5OfK1I
+ cdnAXz5V/MiIkGWWRLk/qBOGWuSEmtMd6Tw295bLYVZaaXerE1Mcp2mvzIhR6UBr5hw4
+ oC8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786886514; x=1787491314;
+ h=mime-version:content-transfer-encoding:content-type:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=vwi4ydnsAAyRjtAJ6OmNzoOX8cU0AryA5emhiyqpUtg=;
+ b=jgLEDN6AvIZGoNREpmuFmfcNCcxv9jk5hzlVtdjUMtOC4sx7QMCzdR/tHfHjxM9I38
+ XrFpX1fMFjd6MlMaglhdStSnhqllCnel5bNEAsOeSXlD8ysGN/cqw6JlTpA7P3u6QP40
+ Gk2mrgw77Yyo251TRFh30GCM3bz6zcqMTZd5tqNf63UDewjBFKGgMmI5pEBY8Nwbt/kF
+ i34A6mwLmBZ3/N1zCCgdmbBu94Ehu13EeFTnOH9JFhdjgMJFSe616VtS4UjGuAEqjcir
+ F+WjX/APv+VW7nhoWz8+WaNVndLPZLac4zh6zg04QMxn1r1ZQG7M76n5EDHFAixITCHe
+ 9Xuw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq1bfA8Ct+RE256Wnyf2LBH5dw+nQ3CPk/ywhkOfXFb6D6+9n3Ap4ofRoRebSlzx1r3vB9iuUbbc8M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxn9gPplAvAXea1o9rei0TR+VliT6DKtsXXkeJ18wtsY/aYmCSb
+ NBf17uumSB/N0UjmTF65EN7xX4z7HiKta+jWoIgbY4J6+w/NTUJusHqhXWc6qjKS
+X-Gm-Gg: AR+sD11fol1dkQ9nFpX1CiSsSxyJC8C0Nw7bxcOoWzHZJjaErp8y97++NLhFrZDQCGz
+ WBBuDD/C2UXqyyPcT6/hsWhvktkWDhXdq8HWr0xx5SqZ9jQ3sIgPWzO9e2mmQMxaE0cwixjUqtN
+ t/F1VCR+COwshgG0UIu+EIYvmC+hyohv+VfV8fdkT7eFNpPDbmkEGKFW5HI9mzVPBC0F3J9VVT9
+ P4xQqvshdzdphI7pC1bMpDWqmbJqM7bkEeFUCFGRFffIiK1korNDHZnXUmDBTJJpo5GmUIvzXi6
+ sR6ymy3zrd+F/dL41ojhR6GnczqC8nbE3alAqOB8je2TYgdBFjydsQvj0SLfgYc5kfw2GA+Kssh
+ F6hGRnjgugiwZO3G1VE8pTRuGt8I8NmgS4DFIbBiUf3zWNSlfKdiYXXr4UiTV6FLhP2/LRWF2u3
+ GnKBF5qcbA0uUeqCyod5N6Hp+FrxlcipOoYxJHk8B8GUcP988WxdsRIQxgQFxVqkEmEgG4fIrnK
+ F2pRvIk9/ec3GzXTfHcKQ+jWW+FQBIo68r1OgQdBg==
+X-Received: by 2002:a05:600c:1395:b0:499:77de:78ba with SMTP id
+ 5b1f17b1804b1-499879826b2mr135612495e9.2.1786886513900; 
+ Sun, 16 Aug 2026 06:21:53 -0700 (PDT)
+Received: from [127.0.0.1] (ip-109-193-028-127.um39.pools.vodafone-ip.de.
+ [109.193.28.127]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4815f2b1fb7sm24093936f8f.17.2026.08.16.06.21.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 16 Aug 2026 06:21:53 -0700 (PDT)
+From: Marek Czernohous <mczernohous@gmail.com>
+To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v2] drm/nouveau: disable the fence uevent work instead of
+ just cancelling it
+Date: Sun, 16 Aug 2026 15:21:52 +0200
+Message-ID: <178688651234.533102.4891184749713137564@gmail.com>
+In-Reply-To: <178688513268.513871.3468844663561639695@gmail.com>
+References: <178682366001.3748010.7798811159846779765@gmail.com>
+ <178682366002.3748010.12779628082366287968@gmail.com>
+ <178688513268.513871.3468844663561639695@gmail.com>
+X-Mailer: python-smtplib
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,89 +93,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+One correction to a trailer in this patch, before anyone picks it up.
 
-Pre-existing issues:
-- [High] The patch adds a guard against disable-without-enable or double-di=
-sable in `nv50_sor_atomic_disable()`, but misses an identical structural vu=
-lnerability in `nv50_msto_atomic_disable()`.
---
+The Closes: line points at the cover of the series the bot was reviewing:
 
---- Patch [2]: [PATCH v4 2/2] drm/nouveau/kms: guard NULL crtc in nv50_sor_=
-atomic_disable() ---
-commit 7ccc8c2fed1546597f7a2ed45ab47da4012b6d66
-Author: Marek Czernohous <marek@czernohous.de>
+  https://lore.kernel.org/nouveau/20260812231330.705425-1-mczernohous@gmail.com/
 
-drm/nouveau/kms: guard NULL crtc in nv50_sor_atomic_disable()
+That URL resolves, but it is the nouveau view of the thread, and the
+bot's replies are not in it: that view has five messages and none of
+them is the report.  The bot posts to dri-devel only, so /nouveau/
+returns 404 for its message-id.  A tag that sends the reader somewhere
+the report demonstrably is not seems worse than no tag, so it should be
 
-nv50_sor_atomic_disable() unconditionally computes
-nv50_head(nv_encoder->crtc) and dereferences the result a few lines
-later. nv_encoder->crtc is nouveau's own shadow pointer, set in
-.atomic_enable and cleared at the end of .atomic_disable.
-This patch restores the guard, as drm_WARN_ON_ONCE() instead of a
-silent return.
+  Closes: https://lore.kernel.org/all/20260812233022.159301F000E9@smtp.kernel.org/
 
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
-uveau/dispnv50/disp.c
-> index 364227f5456f1..f532b0ed88809 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -1565,16 +1565,36 @@ static void
->  nv50_sor_atomic_disable(struct drm_encoder *encoder, struct drm_atomic_c=
-ommit *state)
->  {
->  	struct nouveau_encoder *nv_encoder =3D nouveau_encoder(encoder);
-> -	struct nv50_head *head =3D nv50_head(nv_encoder->crtc);
-> +	struct nv50_head *head;
->  #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
+which is the report itself:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but while fixing the
-disable-without-enable issue here, does a similar vulnerability
-exist in nv50_msto_atomic_disable() in the same file?
+  "[High] Canceling `uevent_work` before destroying `fctx->event` in
+   `nouveau_fence_context_del` leaves a window for use-after-free."
 
-Looking at nv50_msto_atomic_disable():
+That also fits this version of the commit message better than the cover
+link did, since the report says use-after-free and so does the patch now.
 
-static void
-nv50_msto_atomic_disable(struct drm_encoder *encoder, struct drm_atomic_com=
-mit *state)
-{
-	struct nv50_msto *msto =3D nv50_msto(encoder);
-	struct nv50_mstc *mstc =3D msto->mstc;
-	struct nv50_mstm *mstm =3D mstc->mstm;
-
-If this is called during session teardown without a matching
-.atomic_enable, couldn't msto->mstc be NULL, leading to a NULL pointer
-dereference when accessing mstc->mstm?
-
-> -	struct nouveau_connector *nv_connector =3D nv50_outp_get_old_connector(=
-state, nv_encoder);
->  	struct nouveau_drm *drm =3D nouveau_drm(nv_encoder->base.base.dev);
-> -	struct nouveau_backlight *backlight =3D nv_connector->backlight;
-> -	struct drm_dp_aux *aux =3D &nv_connector->aux;
->  	int ret;
-> +#endif
-> =20
-> +	/* nv_encoder->crtc is the driver's shadow pointer, set in
-> +	 * .atomic_enable (and by the boot-time hardware readback) and
-> +	 * cleared at the end of this function.  NULL here
-> +	 * means disable-without-enable or a double disable; bail before
-> +	 * container_of() turns it into a bogus head pointer (checking the
-> +	 * result would not work, container_of(NULL) is never NULL).  The
-> +	 * encoder release is handled by the commit_tail release loop, so
-> +	 * there is nothing to clean up here.
-> +	 */
-> +	if (drm_WARN_ON_ONCE(encoder->dev, !nv_encoder->crtc))
-> +		return;
-> +	head =3D nv50_head(nv_encoder->crtc);
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178688574400.522643=
-.6695278742335367229@gmail.com?part=3D2
+I can send a v3 with the corrected trailer if you would rather have it
+right in the patch than fixed up on apply.  The diff is the same one
+word either way, and it did not seem worth a respin without asking.
