@@ -4,88 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16FE9C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 09:06:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05D27C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 09:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3713D88CE4;
-	Mon, 17 Aug 2026 09:06:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 447A410E3E6;
+	Mon, 17 Aug 2026 09:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aYu2ye9H";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="MObPZKY0";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA2F988CE4
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 09:06:42 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so29038895e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 02:06:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1786957601; x=1787562401; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :user-agent:references:in-reply-to:subject:cc:to:from:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=3ngolhcvbMqLUeFoPbLYsoQGaTEjccLb93LdN0z4Iq0=;
- b=aYu2ye9HPKLwuQvwWBtHTMJOnfQ/AdWeYepUcbg5HSH3QDhPBhPtVgaAIT13qPH2ng
- Mvkhco+4LxO94lOQSpItk39XMT3vFXP2YyxFHhExf33K+pczZyo6psr3oYSkA8cy0XsH
- hT5UGCgsBAyRB62dwiVyZzs9GlB4W9wT5fxdTN+lL0a0ZecdGiKmGgP7pNNA5PtxvKpb
- AtaFyIugxLfyT8L+iNOAGz98RI4LltPbHhowZkupwV4Hf7NZgpXKDznnxTQo80v2WFBW
- o9F+1M+hHlkojWQNPwvZ7EeKS0GLlh1sdSeXF+5fcJm67B4KYjzJNYb0VphnCyNMgPf3
- H/ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786957601; x=1787562401;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :user-agent:references:in-reply-to:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=3ngolhcvbMqLUeFoPbLYsoQGaTEjccLb93LdN0z4Iq0=;
- b=oToop5GMg0Fz2pWP7q+wP07Blj86wFZb6hAWcGruN1fcMgZM0a1MeobV4LQqvXEXyp
- 0BXehmSpJSKBitGS998il4YmZ3sakS0CH1ZMP40dVLMGHfABzMmbvTwG63xTfNm/jo10
- 7gB1ZYz875u4V+RJViEAKG3ICdaNvob3Tv1RCGW+/en9R4iQK61zqctZRscqEQ70Ou5U
- +d+Efkf29YE71hjVMzW+ifCLbk8kG5e6VOmlEoGVem1uY4cG08jS8qeXgC0W9RyENWeR
- bAqHMdje0IGI00JWEesf4dtCsigjUbU3ahvV+hfmTUJIXb5daTrEeQ7LVNGymoV0rdLf
- axFQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoQtuHcR1QS8KoyCNcPeRd5DnqrujCIrU9n2e5Cvpmh+A8Fml0dkMsGQMOFAEYlhARQK6PJFTQHAM8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkiXNQXyjKrQQAndfoAUKTBiM82ZcRvTBQijPGEc7WKs3SjmRp
- 9MmMoIfOQTXwT3DELbKuyBcTt2XhE/n/adzJv6PWcP1nWIknlTxiKvd5oFGTM47sg7I=
-X-Gm-Gg: AR+sD117MDKHUOe00UYdQ+3yTgPvaiy8Y2AVLMsw3hrUF8aHn2VcoUO8E02NnoQipQN
- GDORuTvuIrD+V6RtKDU+6/AmDK20wnipv0CJrBQpcpat46dHNp51oh8kfsRoP+Seu9X0oOFDKhX
- PbDm3aSzfKsXGsVFmGGZmllQqfn3l1iF1V6I28xFg++AQp8puNSy+LUcJnwJG5gHlVihis/M5HM
- hhRRffoWx44GXuZ8dApUolyAqGZs96b7dPPbrR/6gIXgNRz3+J4GLjO7SfdcU/XUSoJYvIAmlXn
- mbHsBt7+uLYjjOtFCKoJPPRivJ7yTP7bSDrd+zMwWBC5uNxUb5NE1rJTJTEAtPy30EbQ9moRlLS
- PNRzb63kf43DcG/7++4sXzl1QrkI0cGTYXbHMKQkvj6scgcKwRlEADBIb0nFoVKdjD+7drRMn4U
- rXji6rqchT81l5oIgwNNSUJQr8enC0+gP0d7n6tWncVTHYWnT8TsQJ+yZu6moq
-X-Received: by 2002:a05:600c:820d:b0:499:7a36:88b with SMTP id
- 5b1f17b1804b1-4998794402emr411655325e9.5.1786957601263; 
- Mon, 17 Aug 2026 02:06:41 -0700 (PDT)
-Received: from draig.lan ([185.124.0.156]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4999d0fb872sm34734505e9.9.2026.08.17.02.06.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 02:06:40 -0700 (PDT)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 3F3B55F86C;
- Mon, 17 Aug 2026 10:06:39 +0100 (BST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: "Huang, Honglei" <honghuan@amd.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,  Dmitry Osipenko
- <dmitry.osipenko@collabora.com>,  Akihiko Odaki
- <odaki@rsg.ci.i.u-tokyo.ac.jp>,  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau
- <marcandre.lureau@redhat.com>,  Stefano Garzarella <sgarzare@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,  David Airlie <airlied@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>,  qemu-devel@nongnu.org,
- virtio-comment@lists.oasis-open.org,  dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev,  Honglei Huang <honglei1.huang@amd.com>,
- Huang Rui <Ray.Huang@amd.com>
-Subject: Re: About new backend for GPU compute ROCm in qemu
-In-Reply-To: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com> (Honglei Huang's
- message of "Mon, 17 Aug 2026 11:19:44 +0800")
-References: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com>
-User-Agent: mu4e 1.14.3; emacs 30.1
-Date: Mon, 17 Aug 2026 10:06:39 +0100
-Message-ID: <87v799ru8w.fsf@draig.linaro.org>
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24E7C10E3E6
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 09:20:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1786958436; x=1787563236; i=markus.elfring@web.de;
+ bh=Da/aAndga0dQhjoefJG6gAAFX3CTUe3zoKIET1mqGmQ=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=MObPZKY0lEl3dqwmBmJRbCQePfWcE3MB8OCKeaCWtg1440/QdbQT0tngE1Uqg5OR
+ NSDJgA3i0HXDBhQmMQBAA0ulaYZ2mQZ6LqPmGjSXpKEEpFo98qcGPuiSeyDZIVqpv
+ SjHn8OlO7ZC1WuW1Ojc0UKUM2kEFlDfrx1zteWZYa4x2wPk7PLOfE522N9jcLOG80
+ eyRE/PUtftVc5R7GHNid1b6cmy/fjtoeyise49DHntqgzx6d4tthJUKTuvpLRDrZ6
+ Dj0WjfAyT9bbr+RvzhdnEsgu9Vtr4JO03FSOPct608i1+UVyoM7DO6qBmo3Ekbcl1
+ 94/C/dgsHkRc2yg/yA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MCogm-1x4jCu1u9Q-008hyX; Mon, 17
+ Aug 2026 11:20:36 +0200
+Message-ID: <fbc4211c-d98b-458e-9dd6-3c3ec867df3a@web.de>
+Date: Mon, 17 Aug 2026 11:20:34 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+To: Triet Hoang <triet.hoang.dev@gmail.com>, dri-devel@lists.freedesktop.org, 
+ Oded Gabbay <ogabbay@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+References: <20260817072045.876042-1-triet.hoang.dev@gmail.com>
+Subject: Re: [PATCH v2] drm/rocket: Check allocations before use
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260817072045.876042-1-triet.hoang.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:bnXHQmAPVOusXq6jLiIxpw/99y59MuiLhQo6Dd95eM04zqfLOjN
+ dSzvxfWCWl7AVuUhNSgD81gFnP4FdL97tmQL+At27g4xJSg3s7IOXIOFb/NIBBrDZDR4+ml
+ 3VuHjhYOBceEQDe/SneqdH8YryjGKTfyf+8UrmNIvVvmZJsQHocUSUnhETNZwFwxuGiAOEX
+ R1nTBF8coIrBnSgNH1Pug==
+UI-OutboundReport: notjunk:1;M01:P0:OrkxXDKSgSU=;6//V3f6xZNiskWAK3+w8nu0lbjy
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,72 +150,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-"Huang, Honglei" <honghuan@amd.com> writes:
+> Check the result of kvmalloc_array() in rocket_job_push() and
+> kmalloc_objs() in rocket_job_open() before using
+> the allocated buffer.
 
-> Hi Michael, Alex, Dmitry, Akihiko,
->
-> I'm bringing AMD GPU compute ROCm based on virtio. I posted a ROCm
-> over virtio
-> implementation to virglrenderer nine months ago (MR !1568 [1]). The
-> ROCm side has
-> been supportted by ROCm offical.
->
-> Current implementation is a virtio gpu context type capset handled inside
-> virglrenderer, sharing the display path. That's an awkward fit, many
-> compute GPUs have no display engine at all.
->
-> Beyond that, sharing the display path is increasingly painful:
->
->   - Compute hammers the queues more than graphics, so sharing
->     virtio gpu's single control queue with display/virgl causes contention
->     and display stutter.
+See also:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.2-rc7#n669
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.2-rc7#n145
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/stable-kernel-rules.rst?h=3Dv7.2-rc7#n34
 
-Is this just due to iteration? From a layman's point of view I'm curious
-as to what the queues are doing.
 
->   - Compute contexts need far more blob / shared memory than a display
->   one.
+> Changes in v2:
+=E2=80=A6
+> ---
+>  drivers/accel/rocket/rocket_job.c | 12 +++++++++---
+=E2=80=A6
 
-I guess weights and context are long lived blobs compared to rendering asse=
-ts?
+Please move patch version descriptions behind the marker line.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.2-rc7#n795
 
->   - Maybe needs a wider ROCm / compute stack, cause the render model
->     fits poorly:
->     rocprofiler (PC sampling, SQTT/SPM, counters, high bandwidth streams)
->     and ROCgdb (wave control, address watch, async exceptions an
->     out of band channel that must not block display).
->   - Events, faults and GPU reset/SMI are async and don't map onto fences.
->   - All of this is hard to extend cleanly inside a display capset.
->
-> On the QEMU/host side, would something like this be OK? One step, two par=
-ts:
->
->   - a dedicated headless virtio gpu instance for compute.
-
-An oft-asked for VirtIO model is virtio-npu but I wonder if there is
-enough commonality for a virtio-compute device with the same sort native
-context type handling to deal with the those that want to have guests
-targeting specific hardware rather than going through an abstraction
-like Vulkan Computer or OpenGL CL.
-
->   - that instance served by a separate ROCm backend library loaded
->     in-process by QEMU.
-
-Is this library a binary blob or open source? The last time I looked at
-ROCm I had to give up as my AMD card was in an Aarch64 AVA machine.
-
-> That reuses the existing pluggable backend model, a second virtio gpu + a
-> backend library. It doesn't add dedicated queues for debug/profiling
-> currently.
->
-> Waiting for reply and  happy to share more detail. Thanks!
->
-> [1] https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1=
-568
->
-> Regards,
-> Honglei
-
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+Regards,
+Markus
