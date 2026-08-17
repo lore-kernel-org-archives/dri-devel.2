@@ -4,117 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0ACFC5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1EE2C5DF7E
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A40610E87F;
-	Mon, 17 Aug 2026 15:39:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CBCD10E884;
+	Mon, 17 Aug 2026 15:41:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="W6L6Y2jc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CSkDZ8/f";
 	dkim-atps=neutral
-Received: from sonic311-24.consmr.mail.gq1.yahoo.com
- (sonic311-24.consmr.mail.gq1.yahoo.com [98.137.65.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD7710E87F
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:39:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1786981171; bh=FnroDMq+TIWZaCevDkmSnaq5pcpRYrayMMGCj2OI1Sw=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=W6L6Y2jciun7U4IEsYmeDepSazJYQtF1pTy6VUYv3pHK71+dpphbagS9F3ATgAh6xzEatinfb4XWYOOboDUcIDC2nh9a9B0tgU7ybBPCNid2oBUjtB84rrP38/aR9Ho+3Qpqr+2trYHds8xXKt3VlpV8bcje4CEtvxQF6/nsyvClXwQItf6yEzxInPok1yajKA7HujUgVG6Z3FPfh6+gigZL/hsnTnUrziDgdFFJYLfbLtYEkuNkt66mP9amm0OcL0qjCC+na1uyKwdPfER4G1UZ8VBVZ8/HtLW5E36OEfudd+nEtoD/UrEbQ9uzjalNnywyJ63m1KCfbcxYAJU8yA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1786981171; bh=b8hSkb7Abub+KfSkAjmLl/AP4ziTG+o1aA8eBuxNM7W=;
- h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
- b=XXvqzpLPgpkQIlOswtBRrDtZ1SnZwMtIIRxTqSMKLOt1f1wuu4Zq7kNYvjeYlJrnHOi9vZ7G9EEirXliWIYq/xixh662208bUwQFVaXe+O/ndXZNO6Wsf4f5n2ufw7TXtEKxDfgt+ab6Bwv+JnPECKl+AsP+g/eVEDVQTfFXUkmfq9J9+7CTF5FeWofpameLGBCcI333+6/wOZOQlY+OW6I1QUtnlvALcbzEINcFC3ESY943chTZz4tqL21ZquU/HgrOm6410Q/F6CqNAAWbJ6SyQSEduHB/g0KBdddA9iBng9PwgFprocbGeT8pWaTzS5qL+2NjMcUKbLtaCdc6pg==
-X-YMail-OSG: emg6c_cVM1l0mUkWQfggLTFODrquXMJ_yILO7BsKLs16EXrRu53V4sfzgvWJ5T4
- I45TiXCWP2WQ7lY8udOfNg7HgGeQFKwC0AGVH1ude.AD.JNd3QGn91syiP07GAo.nIidU5Yg_xO8
- Ae04WmSAd822iWA9bZ8w7WejT3G3NOERdnMmpMBJBKMvdztabXPCVvoufIbkfXnbalGNHyDge_mx
- UZPmxvaG1AtlyTTsw5ESWl9KSnVCvCtqyzWdZeBY_42Cl_kTDWVVxwkZ.OjFYCaJ7NBX8AAtGOYh
- tvIGDkv48cvMAvAWruWBYSI1H5FDotwrXeBbNhuSYBv6mhLrgLuqhEHuRupoZ9YdcPJSzhGFkB2.
- ntkGOaJlUsUQ2cKdeACfu1.jaUuWcmTr36orX8NVI4toc.XJ5IsOf_zEiBPZUtdHL2mmCh9P2mj6
- HnrynKjRABwVGjTN8lNsIuZJUnfDXYK.hYBEZZfDcn8TOhiRHbIebEJncUor60rHjc6BUbV1jTLG
- k.hHvNsl1yySV.8BVTm4J.cctZAIosMM3LZ4YluLsVtGQNGcCCnGTakdsT1oGlqFbfRY.SkuaEbz
- p0gM9qdvfxYC_cT4ENstq_v5g2Xg8z8FpCQb3yqnhoYAoKK7G08TFGfPamGjfy2b0ZLzonLh5UZg
- EWrLKuj5U1IB8ZQEiOUK0YXq96P7YjNh6zWUzTqyByky4ZktCUSZIa_t7zcRBXfhm7J_i_XLJAak
- uX8UzMve8sRuDtSP2acGQrQgd0NbvBegnkKcvTud3IhX_3ixlKWdXJYBMz9Mr5Au45G1bjjk4_c_
- bCRY.T1BI5bAl5FW0c5EF3k5qZAmqvuZmpi6l83wm3GW5Rf65QvAxmxyBvSyj4e9SVhIvl3DvMSF
- kjxDDzHS1TwB5DvxKaAZ3HS2YhZGFJizx1GLxJl5tlB26KAQixnLGqcacovvdWuyBvw43lmzI44x
- F55wKcb0KdCbesmYlq.FytnpqSE0XziDDKR7t.a6zSvn.Ing2wSPLcAy5TlRmFR5mNhMfpcFPYMg
- U..imvreXfLxZtKahBLaJdF2iP8Dq.X8LFwDQxbgrASc9_QC8IE2vGBx30v_DzD2DPzuz0f2r3Ep
- wFojma0ddqIrLdbGtNkLu0oXgaj6kQDD6iEyaVqKh9QhA22VXa9.Jaq8cylVCjAXXw_uOeT_LWZm
- 4v2wYVelDwyJtOCk_uFDfJV2DDeidEnvprXdNoVQuQd.l8MRCWa2DlC2Nqbd_WTt3WFfEjCm4Zp_
- CcUMZWUtediaN5AZXmhQkSj1x75Gv77v3DnyVdxxHPVWf5bnqXLC05mYCGmURyo0gcSn09AeDr4E
- 2TIbKri5ovBkDG_DDVmJ.kogkjdg_aNbSso2s9hqkWZmdkviDx2GQBm2D9TjlX69SYfhpMgWlfCT
- 3gbYSnI6KIdvUiwnlPLpcxJaMuq7fKst2_RPtD5EoGLFEpMy1yCLqpNOOcQ84_TdFbjn2ejnRQaE
- KFe9DP_x1jRv3yb.DTuNrEiKHLeLhcJrUPXrnqC8EUzd56aLMgD6BvWGrGd5VqLXYSyKNltODTSo
- ms66naYkrnIwEB2_XBTBMuqH85q9jCoLj3TU_i8.A5r3Au1oliJYrtGC9A919QxtjWUjfINdOuV1
- CzwhWHNnXXdO1JN23Eh0h4naEPHJzQNsb3DM0uUHSpVMaaIELsOozBzXpt2mc_0JBAqm7hq8OpH6
- 8mI8Atp9v1ZGnD7QImHM_XmTsXT4sDXmgNtK7sqYLvyaBIQ7khQmj04unIPEAr1VRrMsQSarqtCl
- bxxOt9U6Fu1QXEvf0dPxOevHWyp.kIYHBCtDAZK9v5Ac8Dshv4QFg2BNxPpFKlsAwq6e8geR7EAt
- fR52kNKGSiRUWGJx4q52UhRG97bCtiSUwst2njLfFcJA5zBJQgWhgOHj0CguGIUgdKI0QPyOVPIy
- RNK8NBBcjFJzd6Q88PKaUdYT_dFt0Cw3KE.200q2scVMnUWRv7M3qDwx07DKG45HMGAUgUKly1Ii
- rcPUxofonoPZvft73WUEYoMKDtqnlk_10h88_X6FACFCdKPpcpKtfA7MmPJ.w2lAC16Ngpw1mBk.
- 6ZS4_VMZhEc2S6xvfrSqQy8_iVmPGywlxjajyV9facQ55nYlbegxa9CGdTqRN0zbsVfNBhsTC4Ct
- YvJmgQUxtM50icGvO6Mlcyhxz0rC5VnJOWx2ZHXfL294AkYEpy6vlEFB3iX_3W_EiXPJ8kOi9G4d
- t1usiVe141Sa3l0jxEzojUrTRt1.6AOypwOc6FuiMKYUttPVVnrVek26.wkoyIHmHFrI936AI7az
- bScah3MI-
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: daf3c7f7-dda3-4cff-8e25-14c4dd9e854a
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic311.consmr.mail.gq1.yahoo.com with HTTP; Mon, 17 Aug 2026 15:39:31 +0000
-Received: by hermes--production-ir2-cddf86dcf-w95gp (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 93ce5bcfbe1a688feff3ddb16045ee60; 
- Mon, 17 Aug 2026 15:39:26 +0000 (UTC)
-Message-ID: <5c34319974b4968841f7e1a700643b6d626b2747.camel@aol.com>
-Subject: Re: [PATCH] drm: Optimized by adding the TV modes attribute
-From: Ruben Wauters <rubenru09@aol.com>
-To: Edward Adam Davis <eadavis@qq.com>, 
- syzbot+1944765c3659f63d3777@syzkaller.appspotmail.com
-Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
- tzimmermann@suse.de
-Date: Mon, 17 Aug 2026 16:39:23 +0100
-In-Reply-To: <tencent_C6A625E0BAF4BB77334C9E0F1B244B7B1B08@qq.com>
-References: <6a829a95.dbb3a75c.20434b.0043.GAE@google.com>
- <tencent_C6A625E0BAF4BB77334C9E0F1B244B7B1B08@qq.com>
-Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
- keydata=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
- eIvzsqg==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-HmUUdfRcoGgo6G3FWtsa"
-User-Agent: Evolution 3.58.3 
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1500210E884
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:41:18 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c197eaaab00so666879166b.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:41:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786981276; x=1787586076; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=VoBtZfhuywbVuLLdP5All4NoUQGWiUJ7pstL6sIhZxI=;
+ b=CSkDZ8/fDeql3eyrjPXiEqYG1GmIqVk35CZyGxiQp2wHghJA0b0J9/AGQXUiMKvjyI
+ BF3MOjexG8YoOA9Srxl7UOBpJoffV2RQpLWWrH+lDrMVMVc/slIfXL0kX2qk+v0e/P8p
+ NFoQ0DljLK9rn8s4IRru2TaZzet9Fh/DhOePZVcoQEsWnBzmTO0rBxsVIAGM7FsMkmtV
+ gNcfieR3R1Kuj49ZSP+8xZJMuvdofprvSf02yNSb7p8c3H/k+L4Li0fAJAJZjGaJcbN5
+ kw1XJThutedBsNISBmZRRH+Y0uR5WRPHH3sFAL8woyt1vKoslgmGv9V1UWQVZuCQ+6tD
+ WONw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786981276; x=1787586076;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=VoBtZfhuywbVuLLdP5All4NoUQGWiUJ7pstL6sIhZxI=;
+ b=cQgbWU+2ffy6YkSN9MN3zLLkuqWXJOvKLDwEkZJHEMyUk35tD264ueXUhcQRNdYQe2
+ KzIWQGCdFD17z+Duqrc9En+gzgU9y9l0eM1jCd9XWO/fvmda9sgO/9Aa9x3EJEZ/149R
+ 40qE7nTC/BTDdC6aGbepB6kpv3IxDhe7k5x2lDHlvWolsc2FiHF1X/40q+B7pEqK5u6o
+ 5JT49tMM81Bc6XIBtLeJKGge7JJwyaTwREOWaibgBua1OfnOSVmN1ye0KdfXbl3eUTdm
+ nruTMR5E7K2xwXhBW+zl3CCueuzs+239+EU/M9CWlct62+a9FhG5mU+8A0GWsWg9VskZ
+ 7fLQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpqVOfyKtRmuDfy8hYvetXQwPd8XBK3NTu22Jx+QoxLPUkidCzfTqNMa51AY0/Y4AH9X8b6cmtNl4U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNcliGGRKxDy3TOW3wJBjaOVYPicvB4BDagLQuZFvgPk4RGOub
+ PmCCgNxy3wOt1atC2Ru8gcxLfLM3bXHkipPEU3hDAJ2i3ufrFWMPc+6M
+X-Gm-Gg: AR+sD1170BA50+nwWdeNCJh0TaL5meMeA7fr0RelObwWwY01QPZgUzJjLVpC9N10uu/
+ GFL77XUSU5q7zYG3Mr3bnAoJcn/+Ki435B0FeEKzxtqphlJ2FsyG9hjCUj3vgjvOBO8AWv24MH3
+ fSnfKr+rzBc4KYR7m6oKE3aGYSf6e6SJjD4WawTvZAgokxw6oOk474f8HzRk5CO/p/Nx4cpu7FT
+ a49VPpYja1NNzVYQdq/TDPcRrV5jTT7ZbqPJVITqgpkYrW2h5rMRNoLCg7E6WgP1nG0LxQH2eD7
+ bEVe55+a90FMgDKzevKkblk5t5Nl4SpMLGQsQxZt5q+cL/dkhm9+Tly8e82XFsvwii9YvXsmh9N
+ hNfY2MUubFZiO4dPuUl6u9fFDbCIxOTUiXegUkF/mc6dpGOmOECVENaHNabxxeLzKZu1+RMS2c3
+ 9/A5s757cW1ZfmaJG19WRkZSPsKw9y9QI98JoxYaCFb7C89D58oWB+Y/n4hziuu9eGuUlsN7rj
+X-Received: by 2002:a17:906:ee84:b0:c20:eeaa:ec85 with SMTP id
+ a640c23a62f3a-c212a1857cfmr1355311566b.17.1786981275977; 
+ Mon, 17 Aug 2026 08:41:15 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c2185bc9697sm44467766b.61.2026.08.17.08.41.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Aug 2026 08:41:15 -0700 (PDT)
+Message-ID: <b63e93e4-2f4c-4cad-b726-e1b0565379d7@gmail.com>
+Date: Mon, 17 Aug 2026 17:41:11 +0200
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26254
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] qcom PAS TZ API migration breaks GPU and modem on
+ TrustZone without PAS (sc7180 trogdor)
+To: Paul Hollinsky <phollinsky@holtechnik.com>, sumit.garg@oss.qualcomm.com,
+ andersson@kernel.org
+Cc: mathieu.poirier@linaro.org, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, abhinav.kumar@linux.dev, akhilpo@oss.qualcomm.com,
+ konradybcio@kernel.org, mukesh.ojha@oss.qualcomm.com,
+ cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+References: <20260808034716.58888-1-phollinsky@holtechnik.com>
+Content-Language: en-US
+From: Konrad Dybcio <konradybcio@gmail.com>
+In-Reply-To: <20260808034716.58888-1-phollinsky@holtechnik.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,100 +99,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 8/8/26 5:47 AM, Paul Hollinsky wrote:
+> Hi,
+> 
+> Two commits from the "firmware: qcom: Add OP-TEE PAS service support"
+> series break the GPU and the modem on SC7180 Chromebooks (trogdor):
+> 
+>   f3b1357673dd ("remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs")
+>   0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs")
+> 
+> Both are in linux-next as of next-20260805 and neither is in a released
+> kernel yet, so there is still time to fix this before v7.3.
 
---=-HmUUdfRcoGgo6G3FWtsa
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+First of all, thank you for the amazingly thorough write-up. I've been on
+holiday so I couldn't look into it quicker.
 
-On Mon, 2026-08-17 at 20:37 +0800, Edward Adam Davis wrote:
-> When adding gud properties for drm connector within the function
-> gud_connector_add_properties(), if the TV modes property is not added
-> first, drm_mode_create_tv_properties_legacy() would fail to add the TV
-> modes property because the tv_select_subconnector_property has already
-> been added.
->=20
-> This causes gud_connector_property_lookup() to fail when looking for
-> the TV modes property (returning NULL), which subsequently triggers
-> issue [1] when a NULL property is passed to drm_object_attach_property().
->=20
-> The fix ensures that within drm_mode_create_tv_properties_legacy(), the
-> TV modes property is correctly added regardless of whether the subconnect=
-or
-> property exists.
->=20
-> [1]
-> Oops: general protection fault, probably for non-canonical address 0xdfff=
-fc000000000c: 0000 [#1] SMP KASAN NOPTI
-> KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-> RIP: 0010:drm_object_attach_property+0x85/0x3b0 drivers/gpu/drm/drm_mode_=
-object.c:240
-> Call Trace:
->  gud_connector_add_properties drivers/gpu/drm/gud/gud_connector.c:572 [in=
-line]
->  gud_connector_create drivers/gpu/drm/gud/gud_connector.c:680 [inline]
->  gud_get_connectors+0x86e/0x1700 drivers/gpu/drm/gud/gud_connector.c:717
->  gud_probe+0x17aa/0x1c20 drivers/gpu/drm/gud/gud_drv.c:635
-> =20
-> Fixes: f453ba046074 ("DRM: add mode setting support")
-> Reported-by: syzbot+1944765c3659f63d3777@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D1944765c3659f63d3777
-> Tested-by: syzbot+1944765c3659f63d3777@syzkaller.appspotmail.com
-> Signed-off-by: Edward Adam Davis <eadavis@qq.com>
-Acked-by: Ruben Wauters <rubenru09@aol.com>
-> ---
->  drivers/gpu/drm/drm_connector.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 11646453aaac..ecbbc967f51f 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -2175,8 +2175,12 @@ int drm_mode_create_tv_properties_legacy(struct dr=
-m_device *dev,
->  	struct drm_property *tv_subconnector;
->  	unsigned int i;
-> =20
-> -	if (dev->mode_config.tv_select_subconnector_property)
-> +	if (dev->mode_config.tv_select_subconnector_property) {
-> +		if (num_modes && !dev->mode_config.legacy_tv_mode_property)
-> +			goto other;
-> +
->  		return 0;
+[...]
+
+> Suggested fix, drm/msm
+> ======================
+> 
+> Given the above, I think the right fix is to move the availability check
+> behind the DT discovery rather than restore the SCM check. Boards with no
+> zap-shader node then never consult PAS at all, and boards that do have one
+> keep the qcom_pas_is_available() gate the original patch was going for:
+> 
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -52,6 +52,12 @@
+>  		return -ENODEV;
+>  	}
+>  
+> +	/* We need PAS to be able to load the firmware */
+> +	if (!qcom_pas_is_available()) {
+> +		DRM_DEV_ERROR(dev, "PAS is not available\n");
+> +		return -EPROBE_DEFER;
 > +	}
-> =20
->  	/*
->  	 * Basic connector properties
-> @@ -2199,6 +2203,7 @@ int drm_mode_create_tv_properties_legacy(struct drm=
-_device *dev,
->  		goto nomem;
->  	dev->mode_config.tv_subconnector_property =3D tv_subconnector;
-> =20
-> +other:
->  	/*
->  	 * Other, TV specific properties: margins & TV modes.
->  	 */
+> +
+>  	ret = of_reserved_mem_region_to_resource(np, 0, &r);
+>  	if (ret) {
+>  		zap_available = false;
+> @@ -170,18 +176,11 @@
+>  int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+>  {
+>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> -	struct platform_device *pdev = gpu->pdev;
+>  
+>  	/* Short cut if we determine the zap shader isn't available/needed */
+>  	if (!zap_available)
+>  		return -ENODEV;
+>  
+> -	/* We need PAS to be able to load the firmware */
+> -	if (!qcom_pas_is_available()) {
+> -		DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
+> -		return -EPROBE_DEFER;
+> -	}
+> -
+>  	return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+>  }
 
---=-HmUUdfRcoGgo6G3FWtsa
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+I believe this is the right fix
 
------BEGIN PGP SIGNATURE-----
+> I have this booting here: the GPU initialises and logs "Zap shader not
+> enabled - using SECVID_TRUST_CNTL instead", as it did before the
+> regression.
+> 
+> 
+> Suggested fix, remoteproc
+> =========================
+> 
+> Keep an SCM gate for need_mem_protection and add a separate PAS gate for
+> need_pas_mem_setup. This is what I did to get it working:
+> 
+> --- a/drivers/remoteproc/qcom_q6v5_mss.c
+> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
+> @@ -2079,7 +2079,16 @@ static int q6v5_probe(struct platform_device *pdev)
+>  	if (!desc)
+>  		return -EINVAL;
+>  
+> -	if (desc->need_mem_protection && !qcom_pas_is_available())
+> +	/*
+> +	 * Memory protection is done through qcom_scm_assign_mem(), which needs
+> +	 * SCM but not PAS. Only the memory setup path issues PAS calls, so
+> +	 * requiring PAS for every need_mem_protection platform prevents the
+> +	 * modem from probing at all on TZ firmware that offers no PAS.
+> +	 */
+> +	if (desc->need_mem_protection && !qcom_scm_is_available())
+> +		return -EPROBE_DEFER;
+> +
+> +	if (desc->need_pas_mem_setup && !qcom_pas_is_available())
+>  		return -EPROBE_DEFER;
 
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqDKysbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzh/qkP/33EARU9YdD+Uqv67N/R
-FeA+5Yq6MrkWRVWu7EXo3RPrliHkuqkJ9pZeolmCWGYedPVlda5k1iwXVLuT7omE
-8dNC+Pb+0rROEt/i+Pvk/YN2rW9uU307RaEsuSaX9+A2WAR9NaCq3N6zGgX4gENR
-eiT5MIqD9AKVGcDRQH+aquPjPLUxTSxfHAtlYuVUBeQP5ZxEvQ1SaX2sd4aPe3bx
-uChCU8/22E2t36DeH4JKphYDyvKHG/+HHj4wOCYkgfYetZ6Yi1MIoKZmo8QStuYK
-W4xQyrxhSHwAXorKbQdsdIaN1IXxaa8CDibpzyKCsaV4/lzceZDZMvuuyk5Zmcgs
-FE1vgDgQCQnn1OqdTs5vEbmvhBkY/zxNsUHCXnuqZ76Dg5FEihlaUBBZUjiH23FZ
-5m51r6ETM2fYwrlGOzs35wVzPwasE7jGIoxg0HmO/L8U5yXcjtp68Y1b4XE3AfYc
-yl2tUIhAKDf++/VTMFVGHJkoGMR64NdL2IIkNyU1oagknmLJMxo0MByb6i/4B2AJ
-M44VS+Lb/HbZSsTl8IBmotazqnsl4UKbY7iKkjGHsaQqNXVaXizsFLAiGEFmk0vX
-aOZldItxZ0CbGmXOYMkS+5uNB0E9KrrRgD4k8UtCgg6b4TM5YJm+aKvYUBPdxN0k
-d9M+pGEPS8gCEBTMsWxOw0In
-=7f31
------END PGP SIGNATURE-----
+And likewise this looks like the correct fix too, feel free to submit
+both as patches
 
---=-HmUUdfRcoGgo6G3FWtsa--
+[...]
+
+> On the API contract
+> ===================
+> 
+> For what it is worth, the kernel-doc for qcom_pas_is_available()
+> (qcom_pas.c:256) reads:
+> 
+>   Note that it is mandatory for any PAS client to invoke this API.
+>   If it returns true then only any other PAS API can be invoked.
+> 
+> That is a guard to call before invoking a PAS API, not a statement that a
+> driver touching TZ at all should refuse to probe without PAS.
+> ipa_main.c:764 consults it only on the loader path that genuinely needs
+> PAS rather than as a blanket probe precondition, which is the shape both
+> fixes above are aiming for.
+
+This is a sloppiness that got through the transition patchset.. previously
+as you mentioned, qcom_scm_is_available() was a blanket "can we talk to TZ
+yet"?, and as the conversion happened, it was largely just find-and-replaced..
+
+Konrad
