@@ -4,51 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ADCAC5DF70
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:18:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A91C5DF70
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:22:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFCBB10E6AD;
-	Mon, 17 Aug 2026 17:18:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A17F10E827;
+	Mon, 17 Aug 2026 17:22:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="HONfpzuy";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="o24w8KvZ";
 	dkim-atps=neutral
-X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
- Mon, 17 Aug 2026 17:18:24 UTC
-Received: from mta-64-226.siemens.flowmailer.net
- (mta-64-226.siemens.flowmailer.net [185.136.64.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C885C10E780
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:18:24 +0000 (UTC)
-Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id
- 20260817170820c01e7ae2150002079f
- for <dri-devel@lists.freedesktop.org>;
- Mon, 17 Aug 2026 19:08:20 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=WZtFRdjtUq4dQ6GfrNDN0rLs1QYiDRrW26BnNAqYuKY=;
- b=HONfpzuyeX/3OelD72snOljwUw1dKrE2bMjNryEEnhQC75Zrf0GCiB+zqx+Ff+ydxZaFfL
- T+mcEqjR69jfs3332EJAnpvnTAYOejCL0QUmU+1TkxrbJOSq5+dkIAHz6R7Tb1y5Bwmk/EC1
- D9Vo9eYG8DXeuHYoHkemfQkchfQ+ghJ78DOEH54nM9qx3O3CXwWq0PrcI0M7W4T70HIPmAgs
- /IrlsZlbzNVunvc+f+D2mYa1Pp18xAltbsx/GOQTMr2Rt3gIrutIRjN9ZQ8+q5bTTqCgDXAN
- /ji1axz5z/HpDnPGewv4ZkW8MLaf76MRX4MMYppfCVeVrCJnRiDc1S/g==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
- Andrew Davis <afd@ti.com>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
-Subject: [PATCH 1/2] backlight: led_bl: Add devm_led_backlight_register()
- helper
-Date: Mon, 17 Aug 2026 19:08:14 +0200
-Message-ID: <20260817170817.1933046-2-alexander.sverdlin@siemens.com>
-In-Reply-To: <20260817170817.1933046-1-alexander.sverdlin@siemens.com>
-References: <20260817170817.1933046-1-alexander.sverdlin@siemens.com>
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97C1310E827
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:22:19 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-49545ba3d4eso18032175e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 10:22:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1786987338; x=1787592138;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=c63lTPw0sJ/0kiyWxvGmU6Nz+vfC7FNZqHlcFwaoBHw=;
+ b=o24w8KvZKoigMm3H1rC29q2BLLWU9Snp8yKehmM1G1yX6iEwz/94KRjJIocOS1V1gi
+ iWA6w7MTAYErdSTCHW1ZrVEYBLE8zKsflpimtAcTkt4LF06Ime3SYcPGbmml94rtUgf1
+ PcBz5wbvbrVyovRgFOXDb3dAl4n/y82gv2PISA2y/LeQ0F14zwguX9toCShS5Z7u9TQN
+ ThR3HNuKoAii7YpDrJJidjEHj2YHj+msJQBthx7UR4Qp4CTE8iPSW2A0V0HC2/qJ5w4n
+ 83ClfvBD392KR17n8SgSaaqcuvP7f7KneEBKusNzUQuwAyQT92oELH/nf6t0ifgExSE1
+ RaXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786987338; x=1787592138;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=c63lTPw0sJ/0kiyWxvGmU6Nz+vfC7FNZqHlcFwaoBHw=;
+ b=Ns9HwkxAAljPls5r0CK63pQFMBt1LEvHNSunHiqLKKvdgDm0Z2hhtDS/nD4n6lVFS1
+ qgIs1CUDREijycN+cr8YtkjZb+lrnop0/PKN0i8JJerZj6AXOi202YexT9tusmhPhtIa
+ 8OIYa5FLmZcEdo7wpzMXBKu/5B8I400zPpZ+7Mp+D/uHNWwls6yuuvYgtk2KrTT1tnsk
+ eW3/qXGIW1vFUJUZ5Kj/wjyw8xkDf+AlrokYA3T8Rk0Ey8/BeoFbJ752lGpx0nlkyXx3
+ bYQUz6NZd9RK+u16WgqZOTz1yspjEHvuNT6438NbZFH+T3kveLGIexk2bjMsbGHLn8tz
+ ZTOQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpd3zryoXWWKwTWGWMMw6FlFQ/ZXvnhrrZZAsQLobvzLUBEXnmLL1g50pnVUpyECnCdfnDU0itqC4o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyd7rIkDygmuU0L+J6d6NPm8cmBcrwaCGpJMmwgSXRPOXYyc4G6
+ xvwLcGV+LHwF/+fxCfoB9aVx9WwQ8C7gEP0+7N5OJ/VoIgEbvvPCnP0ML1Q0x65lNw==
+X-Gm-Gg: AR+sD10UlIsSO2nunRlzAy8j9cOl62MPsolUAmPEoA8L+kNXlUNa8X64WZEankhMVRm
+ hzf9zfU2SxO3ea9ZZ5JDRat7UTAwKLrFnwdV5tUMZHB0AXwhk5Ov8Lb17kZz7Mgr77j7DGJgbqS
+ fGWRKLVNX8c/rkVxGc0mZ0Qp+P/T9eRDAv2/GwHHJHx27e9gkHnFOK0QBwEEYyQGeiEqeM3DI6A
+ QAOjMHPMos4lO45K1d4z5b8p9zKr0ST8kn/mfRoStOHTJDKYINaB4Rzq+6QxT0iCtkqizQBfLHp
+ qVG1qUG18sLUAv8qDnS4WSXUxSz9+1IhXnhS5t4RbQRENWI3ZhgP/cL9pmPl3iBDp5KWV65Fbtt
+ V5ZccdImKO6o7SBt4p5Vy/e6LmHaObwVd4mutRO9534keow339v6PxEvBV5bgGFFKuzpggTbWHc
+ terH5yvfs6confhNa/Lu9kGHEYcalNuHvPdy/NDPBGk2TbChqbcWD3NY0UT0pmY+qMvwWEiFyEE
+ 6r+nDNcNC7BxpjhU0fqFrN1jZfUmS2N
+X-Received: by 2002:a05:600c:c171:b0:499:7f38:d77 with SMTP id
+ 5b1f17b1804b1-4999fb2e1dbmr33554105e9.6.1786987337398; 
+ Mon, 17 Aug 2026 10:22:17 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com.
+ [104.155.91.135]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482a5a3b51asm5583583f8f.11.2026.08.17.10.22.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 10:22:16 -0700 (PDT)
+Date: Mon, 17 Aug 2026 18:22:13 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-s390@vger.kernel.org, linux-mm@kvack.org,
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-trace-kernel@vger.kernel.org,
+ Thierry Reding <treding@nvidia.com>, pavan.kondeti@oss.qualcomm.com
+Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <aoNDRTKCUkzd2n5G@google.com>
+References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
+ <20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com>
+ <an4MEI7lkc2p3nKI@google.com> <an8K2gb1pIqbDj6-@orome>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <an8K2gb1pIqbDj6-@orome>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,258 +133,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+On Fri, Aug 14, 2026 at 02:56:05PM +0200, Thierry Reding wrote:
+> On Thu, Aug 13, 2026 at 07:25:20PM +0100, Vincent Donnefort wrote:
+> > On Fri, Aug 07, 2026 at 05:54:27PM +0200, Thierry Reding wrote:
+> > > From: Thierry Reding <treding@nvidia.com>
+> > > 
+> > > NVIDIA Tegra SoCs commonly define a Video-Protection-Region, which is a
+> > > region of memory dedicated to content-protected video decode and
+> > > playback. This memory cannot be accessed by the CPU and only certain
+> > > hardware devices have access to it.
+> > > 
+> > > Expose the VPR as a DMA heap so that applications and drivers can
+> > > allocate buffers from this region for use-cases that require this kind
+> > > of protected memory.
+> > > 
+> > > VPR has a few very critical peculiarities. First, it must be a single
+> > > contiguous region of memory (there is a single pair of registers that
+> > > set the base address and size of the region), which is configured by
+> > > calling back into the secure monitor. The memory region also needs to
+> > > quite large for some use-cases because it needs to fit multiple video
+> > > frames (8K video should be supported), so VPR sizes of ~2 GiB are
+> > > expected. However, some devices cannot afford to reserve this amount
+> > > of memory for a particular use-case, and therefore the VPR must be
+> > > resizable.
+> > > 
+> > > Unfortunately, resizing the VPR is slightly tricky because the GPU found
+> > > on Tegra SoCs must be in reset during the VPR resize operation. This is
+> > > currently implemented by freezing all userspace processes and calling
+> > > invoking the GPU's freeze() implementation, resizing and the thawing the
+> > > GPU and userspace processes. This is quite heavy-handed, so eventually
+> > > it might be better to implement thawing/freezing in the GPU driver in
+> > > such a way that they block accesses to the GPU so that the VPR resize
+> > > operation can happen without suspending all userspace.
+> > > 
+> > > In order to balance the memory usage versus the amount of resizing that
+> > > needs to happen, the VPR is divided into multiple chunks. Each chunk is
+> > > implemented as a CMA area that is completely allocated on first use to
+> > > guarantee the contiguity of the VPR. Once all buffers from a chunk have
+> > > been freed, the CMA area is deallocated and the memory returned to the
+> > > system.
+> > 
+> > Hi,
+> > 
+> > I believe we (the Android team) are trying to solve similar issue to yours: Arm
+> > CPUs can still speculatively read memory after it has been transitioned to the
+> > Secure state, as long as they retain a cacheable mapping to it.
+> > 
+> > As modifying the direct mapping is difficult, the workaround ended up in the
+> > hypervisor which unmaps the pages from the host stage-2 on intercepted FF-A Lend
+> > invocations.
+> > 
+> > If convenient, this is nonetheless the wrong place to do it. Scattering the host
+> > stage-2 is really terrible for performance and we would like to move it where it
+> > should be, directly into the kernel...
+> > 
+> > This is what I thought was the attempt in v3, but I am now a bit confused
+> > because I see you are using set_direct_map_invalid_noflush()
+> > set_direct_map_default_noflush(), but I am not sure that works if rodata=full is
+> > not set? So does the memory for the NVIDIA IP still need to be unmapped?
+> 
+> Yeah, this currently relies on the circumstances being such that
+> can_set_direct_map() returns true, and in the case where we want to use
+> the resizable VPR functionality, we're going to have page-granular
+> mappings anyway.
+> 
+> > If so, how about having an option where the CMA allocation is backed by a direct
+> > map with the same page granularity, or at least a smaller and aligned granule?
+> > 
+> > With that, we know that for whatever CMA allocation we do, we can safely unmap
+> > from the direct map without risking splitting blocks. On CMA free, we can safely
+> > remap into the direct map as I do not believe we coalesce yet.
+> 
+> This sounds intriguing. For VPR we could possibly make the size a
+> multiple of the memblock size (or whatever might be appropriate). If we
+> can create a page-granular linear mapping specifically for that region,
+> that'd be ideal. I don't know if the linear mapping can be subdivided in
+> this fashion, though.
 
-The led-backlight driver could so far only be instantiated from a
-device-tree node with the "led-backlight" compatible. This makes it
-impossible for a self-contained LED provider (e.g. a hot-pluggable I2C
-LED controller) to expose a backlight interface tied to its own
-lifetime.
+Actually I don't think modifying the memblock is necessary at all!
 
-Factor the actual backlight registration out of the probe path into a
-shared led_bl_register() helper and export devm_led_backlight_register(),
-which registers a backlight class device driven by a single LED, without
-device tree and bound to the caller's device lifetime. The backlight
-device and the LED sysfs handover are now devres-managed, so the probe
-path shrinks and the explicit .remove callback is no longer needed.
+Here's what I have so far:
 
-The exported helper is a no-op when the led-backlight support is not
-reachable (IS_REACHABLE(CONFIG_BACKLIGHT_LED)), so callers do not need
-any Kconfig plumbing and are not force-selected to build it.
-
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
- MAINTAINERS                      |   1 +
- drivers/video/backlight/led_bl.c | 130 ++++++++++++++++++++-----------
- include/linux/led_bl.h           |  20 +++++
- 3 files changed, 107 insertions(+), 44 deletions(-)
- create mode 100644 include/linux/led_bl.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8014b9f8253ed..d525a7c4043aa 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4508,6 +4508,7 @@ F:	Documentation/ABI/testing/sysfs-class-backlight
- F:	Documentation/devicetree/bindings/leds/backlight
- F:	drivers/video/backlight/
- F:	include/linux/backlight.h
-+F:	include/linux/led_bl.h
- F:	include/linux/pwm_backlight.h
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index d4de88770ecf..a9f81413b70d 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -22,6 +22,7 @@
+ #include <linux/fs.h>
+ #include <linux/io.h>
+ #include <linux/mm.h>
++#include <linux/of_fdt.h>
+ #include <linux/vmalloc.h>
+ #include <linux/set_memory.h>
+ #include <linux/kfence.h>
+@@ -1138,6 +1139,27 @@ static inline void arm64_kfence_map_pool(void) { }
  
- BARCO P50 GPIO DRIVER
-diff --git a/drivers/video/backlight/led_bl.c b/drivers/video/backlight/led_bl.c
-index f7ab9b3607313..f87a48f74186a 100644
---- a/drivers/video/backlight/led_bl.c
-+++ b/drivers/video/backlight/led_bl.c
-@@ -7,6 +7,7 @@
-  */
+ #endif /* CONFIG_KFENCE */
  
- #include <linux/backlight.h>
-+#include <linux/led_bl.h>
- #include <linux/leds.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -173,29 +174,25 @@ static int led_bl_parse_levels(struct device *dev,
- 	return 0;
- }
- 
--static int led_bl_probe(struct platform_device *pdev)
-+static void led_bl_disable(void *data)
++#define MAX_FORCE_PTE_REGIONS 64 /* Greater or equal to MAX_RESERVED_REGIONS */
++
++static struct {
++       phys_addr_t start;
++       phys_addr_t end;
++} force_pte_regions[MAX_FORCE_PTE_REGIONS] __initdata;
++
++void __init early_init_dt_force_pte_arch(phys_addr_t start, phys_addr_t end)
++{
++       static int count;
++
++       if (force_pte_mapping())
++               return;
++
++       if (count >= MAX_FORCE_PTE_REGIONS)
++               return;
++
++       force_pte_regions[count].start = start;
++       force_pte_regions[count++].end = end;
++}
++
+ static void __init map_mem(void)
  {
--	struct backlight_properties props;
--	struct led_bl_data *priv;
--	int ret, i;
--
--	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
--	if (!priv)
--		return -ENOMEM;
--
--	platform_set_drvdata(pdev, priv);
-+	struct led_bl_data *priv = data;
-+	int i;
+        static const u64 direct_map_end = _PAGE_END(VA_BITS_MIN);
+@@ -1186,6 +1208,15 @@ static void __init map_mem(void)
+        __map_memblock(init_end, kernel_end, pgprot_tagged(PAGE_KERNEL),
+                       flags);
  
--	priv->dev = &pdev->dev;
-+	led_bl_power_off(priv);
-+	for (i = 0; i < priv->nb_leds; i++) {
-+		mutex_lock(&priv->leds[i]->led_access);
-+		led_sysfs_enable(priv->leds[i]);
-+		mutex_unlock(&priv->leds[i]->led_access);
-+	}
-+}
- 
--	ret = led_bl_get_leds(&pdev->dev, priv);
--	if (ret)
--		return ret;
-+static int led_bl_register(struct device *dev, struct led_bl_data *priv)
-+{
-+	struct backlight_properties props;
-+	int ret, i;
- 
--	ret = led_bl_parse_levels(&pdev->dev, priv);
--	if (ret < 0) {
--		dev_err(&pdev->dev, "Failed to parse DT data\n");
--		return ret;
--	}
-+	priv->dev = dev;
- 
- 	memset(&props, 0, sizeof(struct backlight_properties));
- 	props.type = BACKLIGHT_RAW;
-@@ -203,24 +200,28 @@ static int led_bl_probe(struct platform_device *pdev)
- 	props.brightness = priv->default_brightness;
- 	props.power = (priv->default_brightness > 0) ? BACKLIGHT_POWER_OFF :
- 		      BACKLIGHT_POWER_ON;
--	priv->bl_dev = backlight_device_register(dev_name(&pdev->dev),
--			&pdev->dev, priv, &led_bl_ops, &props);
--	if (IS_ERR(priv->bl_dev)) {
--		dev_err(&pdev->dev, "Failed to register backlight\n");
--		return PTR_ERR(priv->bl_dev);
--	}
-+	priv->bl_dev = devm_backlight_device_register(dev, dev_name(dev), dev,
-+						      priv, &led_bl_ops, &props);
-+	if (IS_ERR(priv->bl_dev))
-+		return dev_err_probe(dev, PTR_ERR(priv->bl_dev),
-+				     "Failed to register backlight\n");
- 
- 	for (i = 0; i < priv->nb_leds; i++) {
-+		struct device *supplier = priv->leds[i]->dev->parent;
- 		struct device_link *link;
- 
--		link = device_link_add(&pdev->dev, priv->leds[i]->dev->parent,
--				       DL_FLAG_AUTOREMOVE_CONSUMER);
--		if (!link) {
--			dev_err(&pdev->dev, "Failed to add devlink (consumer %s, supplier %s)\n",
--				dev_name(&pdev->dev), dev_name(priv->leds[i]->dev->parent));
--			backlight_device_unregister(priv->bl_dev);
--			return -EINVAL;
--		}
-+		/*
-+		 * BL and the LED are the same device if instantiated via
-+		 * devm_led_backlight_register()
-+		 */
-+		if (supplier == dev)
-+			continue;
++       for (i = 0; i < ARRAY_SIZE(force_pte_regions); i++) {
++               if (!force_pte_regions[i].end)
++                       break;
 +
-+		link = device_link_add(dev, supplier, DL_FLAG_AUTOREMOVE_CONSUMER);
-+		if (!link)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "Failed to add devlink (consumer %s, supplier %s)\n",
-+					     dev_name(dev), dev_name(supplier));
- 	}
- 
- 	for (i = 0; i < priv->nb_leds; i++) {
-@@ -229,26 +230,68 @@ static int led_bl_probe(struct platform_device *pdev)
- 		mutex_unlock(&priv->leds[i]->led_access);
- 	}
- 
-+	ret = devm_add_action_or_reset(dev, led_bl_disable, priv);
-+	if (ret)
-+		return ret;
++               __map_memblock(force_pte_regions[i].start, force_pte_regions[i].end,
++                              pgprot_tagged(PAGE_KERNEL),
++                              flags | NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS);
++       }
 +
- 	backlight_update_status(priv->bl_dev);
- 
- 	return 0;
+        /* map all the memory banks */
+        for_each_mem_range(i, &start, &end) {
+                /*
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 42e3e2d8a2b8..445f204f01e4 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -136,6 +136,8 @@ static int __init early_init_dt_reserve_memory(phys_addr_t base,
+        return memblock_reserve(base, size);
  }
  
--static void led_bl_remove(struct platform_device *pdev)
-+static int led_bl_probe(struct platform_device *pdev)
- {
--	struct led_bl_data *priv = platform_get_drvdata(pdev);
--	struct backlight_device *bl = priv->bl_dev;
--	int i;
-+	struct led_bl_data *priv;
-+	int ret;
++void __weak early_init_dt_force_pte_arch(phys_addr_t start, phys_addr_t end) { }
++
+ /*
+  * __reserved_mem_reserve_reg() - reserve memory described in the
+  * first entry in 'reg' property
+@@ -168,6 +170,9 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
+        size = s;
  
--	backlight_device_unregister(bl);
-+	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
+        if (size && early_init_dt_reserve_memory(base, size, nomap) == 0) {
++               if (of_get_flat_dt_prop(node, "force-pte", NULL))
++                       early_init_dt_force_pte_arch(base, base + size);
++
+                fdt_fixup_reserved_mem_node(node, base, size);
+                pr_debug("Reserved memory: reserved region for node '%s': base %pa, size %lu MiB\n",
+                         uname, &base, (unsigned long)(size / SZ_1M));
+@@ -517,6 +522,9 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
+                return -ENOMEM;
+        }
  
--	led_bl_power_off(priv);
--	for (i = 0; i < priv->nb_leds; i++) {
--		mutex_lock(&priv->leds[i]->led_access);
--		led_sysfs_enable(priv->leds[i]);
--		mutex_unlock(&priv->leds[i]->led_access);
-+	ret = led_bl_get_leds(&pdev->dev, priv);
-+	if (ret)
-+		return ret;
++       if (of_get_flat_dt_prop(node, "force-pte", NULL))
++               early_init_dt_force_pte_arch(base, base + size);
 +
-+	ret = led_bl_parse_levels(&pdev->dev, priv);
-+	if (ret < 0) {
-+		dev_err(&pdev->dev, "Failed to parse DT data\n");
-+		return ret;
- 	}
-+
-+	return led_bl_register(&pdev->dev, priv);
-+}
-+
-+/**
-+ * devm_led_backlight_register - expose a LED as a backlight device
-+ * @dev: LED provider device, also the parent and lifecycle owner
-+ * @led: LED class device to drive the backlight
-+ *
-+ * Registers a backlight class device driven by @led, without device tree and
-+ * tied to the lifetime of @dev. This lets self-contained (e.g. hot-pluggable
-+ * I2C) LED drivers offer a backlight interface without static platform
-+ * plumbing. It is a no-op when the led-backlight support is not built in.
-+ *
-+ * Return: 0 on success, negative errno otherwise.
-+ */
-+int devm_led_backlight_register(struct device *dev, struct led_classdev *led)
-+{
-+	struct led_bl_data *priv;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->leds = devm_kmalloc(dev, sizeof(*priv->leds), GFP_KERNEL);
-+	if (!priv->leds)
-+		return -ENOMEM;
-+	priv->leds[0] = led;
-+	priv->nb_leds = 1;
-+	priv->max_brightness = led->max_brightness;
-+	priv->default_brightness = led->brightness;
-+
-+	return led_bl_register(dev, priv);
- }
-+EXPORT_SYMBOL_GPL(devm_led_backlight_register);
+        fdt_fixup_reserved_mem_node(node, base, size);
+        fdt_init_reserved_mem_node(node, uname, base, size);
+diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
+index 51dadbaa3d63..6c73c76dee1b 100644
+--- a/include/linux/of_fdt.h
++++ b/include/linux/of_fdt.h
+@@ -74,6 +74,7 @@ extern void early_init_dt_check_for_usable_mem_range(void);
+ extern int early_init_dt_scan_chosen_stdout(void);
+ extern void early_init_fdt_scan_reserved_mem(void);
+ extern void early_init_fdt_reserve_self(void);
++extern void early_init_dt_force_pte_arch(phys_addr_t start, phys_addr_t end);
+ extern void early_init_dt_add_memory_arch(u64 base, u64 size);
+ extern u64 dt_mem_next_cell(int s, const __be32 **cellp);
  
- static const struct of_device_id led_bl_of_match[] = {
- 	{ .compatible = "led-backlight" },
-@@ -263,7 +306,6 @@ static struct platform_driver led_bl_driver = {
- 		.of_match_table	= led_bl_of_match,
- 	},
- 	.probe		= led_bl_probe,
--	.remove		= led_bl_remove,
- };
- 
- module_platform_driver(led_bl_driver);
-diff --git a/include/linux/led_bl.h b/include/linux/led_bl.h
-new file mode 100644
-index 0000000000000..e38e4d62bf653
---- /dev/null
-+++ b/include/linux/led_bl.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _LINUX_LED_BL_H
-+#define _LINUX_LED_BL_H
-+
-+#include <linux/kconfig.h>
-+
-+struct device;
-+struct led_classdev;
-+
-+#if IS_REACHABLE(CONFIG_BACKLIGHT_LED)
-+int devm_led_backlight_register(struct device *dev, struct led_classdev *led);
-+#else
-+static inline int devm_led_backlight_register(struct device *dev,
-+					      struct led_classdev *led)
-+{
-+	return 0;
-+}
-+#endif
-+
-+#endif /* _LINUX_LED_BL_H */
+> 
+> > (This alignment is not necessary for upcoming systems with BBML3)
+> > 
+> > However, to implement this, we'd need to split memblocks and I believe the only
+> > way at the moment is temporarily mark it as "nomap" which didn't seem very
+> > popular in the comments on v3.
+> 
+> Could this be simplified if this type of allocation is always memblock
+> aligned?
+> 
+> Looking at map_mem(), it seems like we could add some sort of special-
+> casing in the for_each_mem_range() block to check if the memory is VPR
+> (or generic, page-granular carveout, or whatever we want to call it) and
+> set NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS in that case.
+> 
+> If that works, set_direct_map_*() could be enhanced to detect such cases
+> and always work. Or perhaps a more specific API could be introduced.
+> 
+> Thierry
+
+for set_direct_map() I think we could extend it to check if it is mapped at the
+PTE-level and if it is we can proceed?
+
+I am currently looking at extending CMA with an option "unmap-on-alloc;" that
+would only be available if CONFIG_ARCH_HAS_SET_DIRECT_MAP, or
+cma_set_unmap_on_alloc, or if "force-pte;" is set. 
+
+Hopefully I can share something this week.
+
 -- 
-2.55.0
-
+Vincent
