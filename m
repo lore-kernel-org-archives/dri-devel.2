@@ -4,79 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ABD2C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 14:38:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6873C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0B110E808;
-	Mon, 17 Aug 2026 14:38:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 497BB10E825;
+	Mon, 17 Aug 2026 15:10:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RbSBNuz8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="alfYxwYF";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3536510E808
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 14:38:01 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-482938466a7so2097658f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 07:38:01 -0700 (PDT)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
+ [209.85.221.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F111E10E82D
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:10:10 +0000 (UTC)
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-5c2b6d3f2f6so129082e0c.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:10:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786979410; cv=none;
+ d=google.com; s=arc-20260327;
+ b=cY9CxFpZbfssGi2DzJUICGK5OWQ3Om5TIoEkcoXFh/gD5qm2MUoCx7arsANlt3wved
+ Em5X7bISj0gy8SMB4H20RohutDaPbRsdimi+TQ8Rvhp3zSAaNX/N2ag6xHlRHiV5W9nv
+ CfZzrD1Ox8jvijwBm3kKnPCxFt/4NjAByPozyCdJ9qIoKpgx8aEbFcq6uUjc25Np/z4e
+ c+ZocC1pEhEZzaMzYzCbyOQeTKFVcqo3B7c6l3RzQYV85LhNCFOzG3FTaYvNexX/FzG0
+ VaSkin32PxcGhdMXe/u6v9x09RsaLFVla7ID7bKNeK2V7yUpAnqz80yBlZIAZ+jyp0cL
+ yKsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=5Vs4z9VETMAlhC8TDC7AO7aGvoR74ABE5Di5IsBaUZI=;
+ fh=6t4MUmALxcIZ11ICyXdyFkJoSqd17y3oyGYBqDKJBvs=;
+ b=hRKOlQdF9l1gWc3aGUoXDLZ+PfKRsc1oU8g4Aogz0vWij/+07m1PJ1NiLct7cu//uw
+ wlbvCq659mMXBF6LU65FuiZlQNgjiPvJZLuWtn/0FxRc+4TyiyMpruHPdxcDn/zoTuSB
+ Rs19WDsQ8s6WV7NT54FQXuD5KQG+VvCBsUcdEFW0EzYLiPCrvEt7SqHPecVYv42Idixc
+ HPXDovZBdWty0VK3xEZ8zTnpptbH14F1tehAq8D9285LOHBCpIqW9ZZwewPFmJv6P0u2
+ A7vK9HFwEt9FJVfQR7kJCAoy4uCSw5Xvcnsy4pwSldVSa/pwlCPhvua1zzjBXZvHlrBc
+ 4pRw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786977479; x=1787582279; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1786979410; x=1787584210; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=OBLew5lB37WQynm1dR6uSGp6+f7VUP2zu8Ib7jym3v8=;
- b=RbSBNuz8BhRlP6qj7+hTy5BIJbj9W+yXniuvVnPq4YvrYEtf2tywykkCn6Ul8zTkAg
- sI1PU1czsqEanR1hRuco2zKhYO2+k9v3kMIX8kmp4lQ2f2XaBfYiC5gCSUdd+Yt4h0LV
- sDUdDhGad/S7FDST7zOzUMcV/tNDba1rsEp0Fnb9yJ4BdkoiOPiqwjZKx1T/alR9qHtv
- nW/NiFkSvpfM0DBehU9UJ0CVgtWGyuD1GIcpj1vlOH6W/gwLpF29HZ188PMr2BA9pBon
- igRC1eYWDYZVOb0S8Pwcu+6J7lAK3U4iYukAb33kFRFEP8w4cK3zx/HGRzzzgo8A0RIv
- Wmrw==
+ bh=5Vs4z9VETMAlhC8TDC7AO7aGvoR74ABE5Di5IsBaUZI=;
+ b=alfYxwYF08F3Ogx4epenZyquUGzrSDaoBUYJTJk1rrk/Mg7J+DE83YDFWRYJxvASWf
+ vlwlmn+TNbT10j2SIpF1U5AjoMoKTyDWzuA4ZmQj5p7B71gux4Oei0Mox0gzccDk9lbO
+ VDDnKsiVQkw/bmQYz800QNYAeT174OS0w++2kQHfi7Ml1ySkzMjjzkQ4JKiDTj8Qy/62
+ 5wDRGOjjfe/PdnHC4bJbJzd9QadA7Y2XZLuxPGdRwvTHcrLloIUMX40mW0Cjz2N5D1jZ
+ ZOhzOyVydrOzIn3qNZc6+KWtkrhh/XLL6DgI/EP0SUayz8+Ypo6zru4NjxPq1nboQO9Y
+ 9+3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786977479; x=1787582279;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20251104; t=1786979410; x=1787584210;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=OBLew5lB37WQynm1dR6uSGp6+f7VUP2zu8Ib7jym3v8=;
- b=YdUM916IY9eiQ7F+ZhXuTEJYwNTE10AIqYFD99tYcmaFqihaJEKzWML7UM6eLf/yuF
- dDE5ArMxhTz3/PUhpjTwmd2eS8I/QABI9pnYnq7qNk/oU+1vuwdCgygsETgfePE3ZYAO
- EyEoQayFDZu4+vpMH/G1MQMaOqwmoOnLP9qcGFKOd6T7wkZZHbBDW6TCKQyTo5XzoLAr
- DPSj8Rsh5Hn17vPqRGIbpUVVksYLn9niBeSL9xpzM+7KsJuAAiAPjzs0L04p8fbBizvT
- 1H1HM4KykeHaf2kAmRfJTfJlp6zXsHrR3FKk/omHjE70LL7wAq5Z64WEctyXcfyR0WBN
- qAUQ==
+ bh=5Vs4z9VETMAlhC8TDC7AO7aGvoR74ABE5Di5IsBaUZI=;
+ b=J0MtNNSxPuWG3CRL5zr0VTiZZcdpINfxNLTdnThZ9sKrRundr4WSC3hJAYIfMCSADb
+ I03DgCc484IU6sPx0apCtfZxxXQKV+uKtI31x+RM4VY99iS9cC2jIt3In0bJQ1QqjlbS
+ QJZiKbrIcpBa61ra7HFeDqI8nI193BK0eZEmChWFasO/pFlB+MpjtZtfAMS0+LsZ3DnW
+ 4TZMZFRQSi5xXnKJqkfnIs1QyTXVyWRqMvli3xyCBEiyQE6TZX87dpX6zrlPV5T9WtF7
+ Aild0rCcG8PyCpyYHM9Ye/lw5ho1vP+c8gKQ7ZFUWY1I9qP8z5KT5xyaOudrLkGkQJw3
+ FxTA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrcMvjiLmAhZvqe/MEFLqH0rTGVv4s5V9zJPE2Q66tBMH5GBQ6S6iiEVmRB7F5LNduwnBeqHplI+fQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhrMHd6RaHbkNimVr74IBERowicLCHmt4FcS+ylOLfmQPFa7zh
- TODRC+DBSEFhM2USH08CKC/0RnI3Q7qdXW98i2YQA91/4+aA4gwi15LUCELeSEI4
-X-Gm-Gg: AR+sD122xkq7d1lgcu7lp8lYkVi+4AJh4jp0Sr7EvdyQDwRhKBPD6B8yy8WAab2X0Hn
- LXO8ZOHgLofR9mnbLYRjEZ9IMR9Bo01AtZyc38nr5YJfcS05LpMpDNClr8HKtcdHqoPFOEBX6lm
- QoebaW9liC3yQJruQcgoodzH+P+/nIeHdZiymoNDcTs+Af+2oKQA8VoK/FUqe83NiIfBILsDuul
- N+2PjQcFBTte5uFG1qVuI3Qk9VhITsXmMC6pWKtt5zgj628roY0DLZWxmM4Ew4yJLlPl8JWKlHF
- fP//uMQ9sOSAMDb2sOl2jz6ZFUX2FlWFvKUHRK8c9+PpHKURra0qWrSzzDIqbuHcwwV0uUluS/d
- 74FEuaoljpdgQJhbv1lk+cx1HilGxAXxxYAuyPuLVJhZRev7zinD+VW/8xLV5Ey1F1P4mrS8xbC
- z3nZAbuRrcrP5+XEwmPTwcKzeRyyPgngkQFM3uO+kxNWO9mso0vecT82rAghu9jxqdmUsmF5bNx
- a2u03nDPnNRV89+x/5XPLHH/ByHwkq8bWpv
-X-Received: by 2002:a05:6000:3109:b0:47f:e748:3ae3 with SMTP id
- ffacd0b85a97d-4816070bf1fmr37790737f8f.3.1786977479416; 
- Mon, 17 Aug 2026 07:37:59 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-482a5b816f7sm4136493f8f.34.2026.08.17.07.37.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 07:37:59 -0700 (PDT)
-Date: Mon, 17 Aug 2026 15:37:57 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: yuebingkun <yuebingkun@kylinos.cn>
-Cc: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fbdev: platinumfb: replace strcpy with strscpy
-Message-ID: <20260817153757.4a683d24@pumpkin>
-In-Reply-To: <20260817031816.188833-1-yuebingkun@kylinos.cn>
-References: <20260817031816.188833-1-yuebingkun@kylinos.cn>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ AHgh+RqR0B6IIaZotQYarYszAjUkxbamx8N3lravUsy3dM1Re2Vu/J+0NUrAiOQm7IdFT8K06q1PftdhniY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwllphWa5kBdXyi9n8AmLP1XXjjZw1WVo4KPB857Ep5GdTFSql+
+ YBWqG5fSICnqt0imuvnhKARFQNCqBBw8t6BMqxhO2JWfPMWuxMW/KITHWULqcbqz6mltPB4jOda
+ cqHogH0gCAAMIR3bcKEQ4MR7Fg0UsIAY=
+X-Gm-Gg: AR+sD133BHK1iFyjuLq1lhOqHjhJY6PKMbQoJ6xSFD6nNbHzLI2X1k8JQlK8t9LOFj8
+ h3q0SIPpzaoCW+9TV5GJwnuJghdZ0tkerW2dZ5bQD2pJ2BWVLEMVHKsKhqlv4/7+Dnh9+9/s6F+
+ X/X5SAuEQ5ED4ZhkfM56bRvJWmFa3vLG0Vz92xRmo08YysjNPREfmv25aaAkYmH/PEl4TjS9dfp
+ DvrYH53J/WMUmKkEJkhknlGq+1MQZ+tWcntJr6YQDRzQJCUCeoyQHdBaLaxJ2v16a4rA6te3Qys
+ AVCdyXRj2Q24beCP5GSstl3hNjUcjUlU2gG/+0NpSD872kBw/e0jtwJU/XfrysaM+xxsfY7Zqky
+ KCsdXLnpo6FK4AS8tt5CKwjZXPpi/7etlJwlh
+X-Received: by 2002:a05:6102:2ad0:b0:756:32ba:1a83 with SMTP id
+ ada2fe7eead31-76f2c9430damr1845779137.2.1786979409622; Mon, 17 Aug 2026
+ 08:10:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <180318e7-0432-403a-b87b-6f9a455bb86a@gmail.com>
+ <20260817004326.3192-1-gilles.risch@gmail.com>
+In-Reply-To: <20260817004326.3192-1-gilles.risch@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 17 Aug 2026 11:09:56 -0400
+X-Gm-Features: AcwNN1XLOqNILg4yZI4rdPExnRh06Vw-U8A0OXdUm9EOG9yczYIphNcdXXJDLto
+Message-ID: <CADnq5_N9-3fF4UFur3oA7+AkNLTiBg_CHdP4SJd0w4UmWZLR8A@mail.gmail.com>
+Subject: Re: [PATCH v6] drm/radeon: fix internal display on iMac11,
+ 1 (RV770/DCE3.1)
+To: Gilles Risch <gilles.risch@gmail.com>
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, lukas@wunner.de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,42 +109,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 17 Aug 2026 11:18:16 +0800
-yuebingkun <yuebingkun@kylinos.cn> wrote:
+Applied.  Thanks!
 
-> strcpy() is deprecated for use on fixed-size buffers. Replace it with
-> strscpy() to avoid potential buffer overflow issues.
+Alex
 
-There is no point using strscpy() to copy quoted strings into arrays.
-Indeed, if the string is too long the kernel build will fail if strcpy()
-is used but strscpy() will silently truncate the strings.
-So strscpy() is actually worse here.
-
-There are plenty of places where the destination size isn't known.
-Which might be worth fixing.
-
-	David
-
-> 
-> Found by checkpatch.pl:
-> WARNING: Prefer strscpy over strcpy
-> 
-> Signed-off-by: yuebingkun <yuebingkun@kylinos.cn>
+On Sun, Aug 16, 2026 at 8:43=E2=80=AFPM Gilles Risch <gilles.risch@gmail.co=
+m> wrote:
+>
+> The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
+> (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
+> DisplayPort path. Without this fix the display stays dark under KMS.
+>
+> This machine suffers from the same issue as iMac10,1 and iMac11,2:
+> Apple routes the internal display through Link B of the DIG encoder
+> instead of Link A. Add iMac11,1 to the existing DMI quirk and move
+> the Apple-specific encoder assignment into its own block, independent
+> of the DCE version check.
+>
+> Additionally, the 2560x1440 panel requires RADEON_PLL_USE_FRAC_FB_DIV
+> and ATOM_ENCODER_CMD_DP_VIDEO_ON, limited to iMac11,1 via dmi_match()
+> to avoid affecting other boards.
+>
+> Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
+>
+> Good morning,
+>
+> this is v6 of the patch, rebased on top of amd-staging-drm-next
+> (agd5f/linux).
+>
+> There are no functional or code changes since v5.
+>
+> Regarding Lukas Wunner's previous Reviewed-by (which was provided on v2),
+> I have kept him in CC so he can confirm if his review still stands given
+> the changes between v2 and v5.
+>
+> Could you have a look at this when you have a spare moment?
+>
+> Regards,
+> Gilles
+>
+> Changes in v6:
+> - Rebased on amd-staging-drm-next (no functional/code changes since v5)
 > ---
->  drivers/video/fbdev/platinumfb.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/video/fbdev/platinumfb.c b/drivers/video/fbdev/platinumfb.c
-> index a08d955d9b43..fa27a3a4f05b 100644
-> --- a/drivers/video/fbdev/platinumfb.c
-> +++ b/drivers/video/fbdev/platinumfb.c
-> @@ -320,7 +320,7 @@ static void platinum_init_info(struct fb_info *info,
->  	fb_alloc_cmap(&info->cmap, 256, 0);
->  
->  	/* Fill fix common fields */
-> -	strcpy(info->fix.id, "platinum");
-> +	strscpy(info->fix.id, "platinum", sizeof(info->fix.id));
->  	info->fix.mmio_start = pinfo->platinum_regs_phys;
->  	info->fix.mmio_len = 0x1000;
->  	info->fix.type = FB_TYPE_PACKED_PIXELS;
-
+>  drivers/gpu/drm/radeon/atombios_crtc.c     |  5 ++++-
+>  drivers/gpu/drm/radeon/atombios_encoders.c | 23 ++++++++++++----------
+>  2 files changed, 17 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/rad=
+eon/atombios_crtc.c
+> index 2fc0334e0d6c..075eba2d47f3 100644
+> --- a/drivers/gpu/drm/radeon/atombios_crtc.c
+> +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+> @@ -24,6 +24,8 @@
+>   *          Alex Deucher
+>   */
+>
+> +#include <linux/dmi.h>
+> +
+>  #include <drm/drm_fixed.h>
+>  #include <drm/drm_fourcc.h>
+>  #include <drm/drm_framebuffer.h>
+> @@ -594,7 +596,8 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
+>                 if (((rdev->family =3D=3D CHIP_RS780) || (rdev->family =
+=3D=3D CHIP_RS880))
+>                     && !radeon_crtc->ss_enabled)
+>                         radeon_crtc->pll_flags |=3D RADEON_PLL_USE_FRAC_F=
+B_DIV;
+> -               if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
+> +               if ((ASIC_IS_DCE32(rdev) || dmi_match(DMI_PRODUCT_NAME, "=
+iMac11,1"))
+> +                   && mode->clock > 165000)
+>                         radeon_crtc->pll_flags |=3D RADEON_PLL_USE_FRAC_F=
+B_DIV;
+>         } else {
+>                 radeon_crtc->pll_flags |=3D RADEON_PLL_LEGACY;
+> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm=
+/radeon/atombios_encoders.c
+> index 5cfd8fcfa5e8..8b3f8303a967 100644
+> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
+> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+> @@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *en=
+coder, int mode)
+>                 if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encoder)=
+) && connector) {
+>                         /* DP_SET_POWER_D0 is set in radeon_dp_link_train=
+ */
+>                         radeon_dp_link_train(encoder, connector);
+> -                       if (ASIC_IS_DCE4(rdev))
+> +                       if (ASIC_IS_DCE4(rdev) || dmi_match(DMI_PRODUCT_N=
+AME, "iMac11,1"))
+>                                 atombios_dig_encoder_setup(encoder, ATOM_=
+ENCODER_CMD_DP_VIDEO_ON, 0);
+>                 }
+>                 if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)) =
+{
+> @@ -2123,17 +2123,20 @@ int radeon_atom_pick_dig_encoder(struct drm_encod=
+er *encoder, int fe_idx)
+>         }
+>
+>         /*
+> -        * On DCE32 any encoder can drive any block so usually just use c=
+rtc id,
+> -        * but Apple thinks different at least on iMac10,1 and iMac11,2, =
+so there use linkb,
+> -        * otherwise the internal eDP panel will stay dark.
+> +        * Apple routes the internal eDP panel through Link B of the DIG =
+encoder
+> +        * instead of Link A on the iMac10,1, iMac11,1 and iMac11,2.
+> +        * Use linkb to avoid a dark display.
+>          */
+> -       if (ASIC_IS_DCE32(rdev)) {
+> -               if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
+> -                   dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
+> -                       enc_idx =3D (dig->linkb) ? 1 : 0;
+> -               else
+> -                       enc_idx =3D radeon_crtc->crtc_id;
+> +       if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
+> +           dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
+> +           dmi_match(DMI_PRODUCT_NAME, "iMac11,2")) {
+> +               enc_idx =3D (dig->linkb) ? 1 : 0;
+> +               goto assigned;
+> +       }
+>
+> +       /* on DCE32 and encoder can driver any block so just crtc id */
+> +       if (ASIC_IS_DCE32(rdev)) {
+> +               enc_idx =3D radeon_crtc->crtc_id;
+>                 goto assigned;
+>         }
+>
+>
+> base-commit: 21c50d41af7c46e138b542dba2dcf6d2a978ae99
+> --
+> 2.47.3
+>
