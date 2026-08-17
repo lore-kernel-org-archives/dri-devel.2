@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B98C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:52:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 576E7C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72D9410E779;
-	Mon, 17 Aug 2026 11:52:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACCDA10E775;
+	Mon, 17 Aug 2026 11:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eFQp0ilo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CJP/Jf+j";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B921C10E776
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:52:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B24410E774
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:53:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5F7E24067E;
- Mon, 17 Aug 2026 11:52:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9CB01F000E9;
- Mon, 17 Aug 2026 11:52:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4422F43A6E;
+ Mon, 17 Aug 2026 11:53:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3951F000E9;
+ Mon, 17 Aug 2026 11:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786967550;
- bh=c3JuC82Ira9B4K76DVYQKEvOWtnFSnFONhGBjjkEiSE=;
+ s=k20260515; t=1786967596;
+ bh=oXwCi74vhX8XCR1asdMFQyXeo0u/PZQn7r1sg63fA8c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eFQp0ilo501ypAq6nTsIRO2rjyDPNIplfoszodQFCo2BwEEK6AJBnOcobInRf72EP
- xl4ur2KpYYGkuIHi7JoEjrR5otdhOLErjUW92LtcacCoQR6ih0ZUGw2rjsPJLTQ6Yn
- zEi6vZcoxJGCTbnT8H1z4lI6wRlhGWeOI3YzdYxMJE/s/IojHcrQL/5wxlzPsJlegS
- P1dQpZEKG1FeL5mDalyx6/cQ+ZlwFjmZUW13dawkiRNR9xFcZh/PTuPUd5H6TQ6mdV
- Z5weLRCdk6CJKl+v5Rnx9xmk0HG5i0uiUGqHFsyFAxJ30bvKyRw0k2qWxwqQPcut+M
- RQ0kIQfF0HGVQ==
+ b=CJP/Jf+j/7yIoDjdSGrrFT2SDCkr1dyNoVfDKBvSZS3o3lHYAfYrgFm0NS5gGWQtH
+ qlY19xxqC3+9Smuj7Uct+mJQqZ3eQlAzQQ9OM0A4mcHR8PA8skP90aS8aKemSdMM6T
+ XYHFdD5wMJUt4p9i0iPtopdFeMO0RtihWFL4dKAe78qQcNBt16j2oIptLUrWnWUNBF
+ z7qPZ+i1jLGHRqFYFYDtrL7UM4fY+rlTaIiJ6dozWXWf+toKyvQlyHl6VUgvJ0YsQb
+ hjgTI6Cw9uA2RtI5EsfTB2SSCe3x2FFSDP/yiup680hilw5gcZadwZ03afinG71bIu
+ cWlXQS0DWkDeA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] rust: drm: add KUnit tests for panel
+Subject: Re: [PATCH 4/5] rust: drm: add panel producer abstractions
 To: "Albert Esteve" <aesteve@redhat.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- ojeda@kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260817-drm_panel_bindings-v1-5-1f974508a31c@redhat.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, ojeda@kernel.org
+In-Reply-To: <20260817-drm_panel_bindings-v1-4-1f974508a31c@redhat.com>
 References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
- <20260817-drm_panel_bindings-v1-5-1f974508a31c@redhat.com>
+ <20260817-drm_panel_bindings-v1-4-1f974508a31c@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 11:52:29 +0000
-Message-Id: <20260817115229.E9CB01F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 11:53:15 +0000
+Message-Id: <20260817115315.CD3951F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,124 +62,212 @@ Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 New issues:
-- [Low] Missing Kconfig dependency on DRM for RUST_DRM_PANEL_KUNIT_TEST
-- [Low] Horizontal import formatting violates subsystem guidelines.
+- [Critical] `Panel::new` steals the devres-owned reference count initializ=
+ed by `__devm_drm_panel_alloc`, leading to a double-free on device unbind o=
+r drop.
+- [Critical] The destructor of the driver data `T` is tied to device unbind=
+ via devres, rather than the panel's actual reference count, creating a spl=
+it-lifetime Use-After-Free.
+- [High] Missing `Send`, `Sync`, and `'static` bounds on the driver data ty=
+pe `T` in `Panel::new` allows data races and Use-After-Free via non-thread-=
+safe or short-lived types.
 
 Pre-existing issues:
-- [Critical] `Panel::from_of_node` creates an `ARef<Panel>` without increme=
-nting the reference count, leading to premature free and use-after-free.
-- [Critical] `Panel::new` improperly steals the devres-managed reference co=
-unt, leading to use-after-free and double-free.
+- [Critical] `Panel::from_of_node` improperly converts the result of `of_dr=
+m_find_panel` into an `ARef<Panel>` without incrementing the refcount, caus=
+ing a premature free.
 --
 
---- Patch [5]: [PATCH 5/5] rust: drm: add KUnit tests for panel ---
-commit 075cc8b6578147fc552359e30a2b237e1bdb801a
+--- Patch [4]: [PATCH 4/5] rust: drm: add panel producer abstractions ---
+commit 0e243089bb12e5256a62894a39811280cadcb027
 Author: Albert Esteve <aesteve@redhat.com>
+Subject: rust: drm: add panel producer abstractions
 
-rust: drm: add KUnit tests for panel
+This commit adds abstractions for DRM panel drivers, introducing the
+PanelFuncs trait and PanelContainer struct. It provides devres-managed
+allocation via __devm_drm_panel_alloc and ties the lifetime of the=20
+data to the device.
 
-Add a test module to verify basic data type conversions and layout for
-the Rust DRM panel API.
-
-> diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-> index e6a5c7a795f0f..397b916dca0d4 100644
-> --- a/rust/kernel/Kconfig.test
-> +++ b/rust/kernel/Kconfig.test
-> @@ -83,4 +83,14 @@ config RUST_BITFIELD_KUNIT_TEST
-> =20
->  	  If unsure, say N.
-> =20
-> +config RUST_DRM_PANEL_KUNIT_TEST
-> +	bool "KUnit tests for Rust panel API" if !KUNIT_ALL_TESTS
-
-[Severity: Low]
-Will this Kconfig option be available even when CONFIG_DRM is disabled?
-
-Since the tests reside in rust/kernel/drm/panel.rs which is compiled
-conditionally under CONFIG_DRM, could this result in a dead configuration
-option where Kconfig allows enabling the test without DRM, causing the
-code to be silently skipped during compilation?
-
-> +	default KUNIT_ALL_TESTS
-> +	help
-> +	  This option enables KUnit tests for the Rust panel API.
-> +	  These are only for development and testing, not for regular
-> +	  kernel use cases.
-> +
-> +	  If unsure, say N.
-> +
->  endif
 > diff --git a/rust/kernel/drm/panel.rs b/rust/kernel/drm/panel.rs
-> index 8f87774e06ed7..3da203c39edd6 100644
+> index fd21cc2236685..8f87774e06ed7 100644
 > --- a/rust/kernel/drm/panel.rs
 > +++ b/rust/kernel/drm/panel.rs
-> @@ -595,3 +595,90 @@ pub(crate) const fn build() -> &'static bindings::dr=
-m_panel_funcs {
->          &Self::VTABLE
->      }
->  }
-> +
-> +#[cfg(CONFIG_RUST_DRM_PANEL_KUNIT_TEST)]
-> +#[macros::kunit_tests(rust_kernel_drm_panel)]
-> +mod tests {
-> +    use super::*;
-> +    use core::mem::{align_of, offset_of, size_of, ManuallyDrop, MaybeUni=
-nit};
-
-[Severity: Low]
-Does this horizontal import list violate the Rust subsystem guidelines?
-
-The guidelines mandate following the kernel vertical import style when
-commits touch imports, so shouldn't each import be placed on its own line?
 
 [ ... ]
 
-While reviewing this file, I noticed a couple of pre-existing issues in
-rust/kernel/drm/panel.rs:
-
-rust/kernel/drm/panel.rs:from_of_node() {
-    ...
-    // SAFETY: `from_err_ptr` guarantees a non-null pointer on success.
-    // `of_drm_find_panel` returns a kref-incremented reference.
-    Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(panel).cast()) })
-}
+> @@ -139,6 +143,66 @@ pub fn from_of_node(node: &of::Node) -> Result<ARef<=
+Self>> {
+>          // `of_drm_find_panel` returns a kref-incremented reference.
+>          Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(panel).cast())=
+ })
+>      }
 
 [Severity: Critical]
-This is a pre-existing issue, but I noticed that of_drm_find_panel() returns
-a pointer without calling drm_panel_get() to increment its reference count.
+This is a pre-existing issue, but does of_drm_find_panel actually increment
+the reference count?
 
-Since ARef::from_raw() takes ownership of a reference count increment that
-doesn't actually exist, will dropping the returned ARef<Panel> decrement the
-panel's kref via drm_panel_put(), effectively stealing a reference and
-causing the panel to be prematurely freed?
+Looking at the C implementation, of_drm_find_panel iterates over the global
+panel_list and returns the pointer without calling kref_get or
+drm_panel_get. If we consume the pointer directly with ARef::from_raw(),
+dropping the ARef will decrement the refcount. Could this drop the refcount
+to zero and prematurely free the panel while the provider driver's devres
+still owns it?
 
+> +
+> +    /// Allocates and initialises a device-managed panel.
+> +    ///
+> +    /// `data` is embedded in the same allocation as the `drm_panel` and=
+ its
+> +    /// destructor is called automatically when `dev` is unbound.
+> +    ///
+> +    /// Use [`Registration::register`] to add the panel to the global re=
+gistry
+> +    /// once it is ready to be used by display drivers.
+> +    pub fn new<T: PanelFuncs>(
+> +        dev: &Device,
+> +        data: T,
+> +        connector_type: ConnectorType,
+> +    ) -> Result<ARef<Self>> {
 
-rust/kernel/drm/panel.rs:new() {
-    ...
-    let raw =3D unsafe {
-        (container as *mut u8)
-            .add(core::mem::offset_of!(PanelContainer<T>, panel))
-            .cast::<bindings::drm_panel>()
-    };
+[Severity: High]
+Does T need Send, Sync, and 'static bounds here?
 
-    // SAFETY: `__devm_drm_panel_alloc` was successful, hence `raw` is valid
-    // and the refcount is non-zero.
-    Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(raw).cast()) })
-}
+Since Panel::new takes ownership of T and stores it in a heap allocation
+accessed by the concurrent C DRM subsystem, safe Rust code could provide a
+non-thread-safe type (like one containing Cell or Rc) or a short-lived
+reference. Would this allow data races or use-after-free when the C DRM
+core concurrently invokes vtable callbacks?
+
+> +        // SAFETY: `dev` is valid by its type invariants; `PanelFuncsVTa=
+ble::build()`
+> +        // returns a valid, static `drm_panel_funcs` pointer.
+> +        let container =3D error::from_err_ptr(unsafe {
+> +            bindings::__devm_drm_panel_alloc(
+> +                dev.as_raw(),
+> +                core::mem::size_of::<PanelContainer<T>>(),
+> +                core::mem::offset_of!(PanelContainer<T>, panel),
+> +                PanelFuncsVTable::<T>::build(),
+> +                connector_type as i32,
+> +            )
+> +        })? as *mut PanelContainer<T>;
+> +
+> +        // SAFETY: `container` is a valid pointer to uninitialized memor=
+y.
+> +        unsafe {
+> +            core::ptr::write(
+> +                core::ptr::addr_of_mut!((*container).data),
+> +                ManuallyDrop::new(data),
+> +            )
+> +        };
+> +
+> +        // SAFETY:
+> +        // - `dev.as_raw()` is a pointer to a valid and bound device.
+> +        // - `container.cast()` is a valid pointer to the initialized `P=
+anelContainer<T>`.
+> +        error::to_result(unsafe {
+> +            // `devm_add_action_or_reset` calls `drop_panel_data` on fai=
+lure, so `data`
+> +            // is dropped even if this registration fails.
+> +            // Registering after `__devm_drm_panel_alloc` ensures devres=
+ LIFO order:
+> +            // `drop_panel_data` runs before `kfree(container)`.
+> +            bindings::devm_add_action_or_reset(
+> +                dev.as_raw(),
+> +                Some(drop_panel_data::<T>),
+> +                container.cast(),
+> +            )
 
 [Severity: Critical]
-This isn't a bug introduced by this patch, but does Panel::new steal the
-devres-managed reference count here?
+Is it safe to tie the destruction of T to device unbind rather than the
+panel's reference count?
 
-__devm_drm_panel_alloc() allocates the panel, initializes the kref to 1,
-and registers a devres action that owns this initial kref. By wrapping the
-returned pointer in ARef::from_raw(), we assume ownership of an existing
-reference count without incrementing it.
+Since the panel is reference-counted and exposed as an ARef<Panel>, consumer
+drivers could keep the panel alive after the provider device unbinds. When
+unbind occurs, drop_panel_data will destroy T. If a consumer later calls
+a panel method like get_modes, the C code will invoke the Rust vtable
+callbacks which operate on the dropped T, potentially leading to a
+use-after-free.
 
-If the ARef is dropped, the kref reaches 0 and the panel is freed. Later,
-when the device unbinds, won't devres execute its action on the freed
-memory, causing a use-after-free or double-free?
+> +        })?;
+> +
+> +        // SAFETY: `__devm_drm_panel_alloc` was successful, hence `conta=
+iner` is
+> +        // valid and the `drm_panel` at this offset is initialised.
+> +        let raw =3D unsafe {
+> +            (container as *mut u8)
+> +                .add(core::mem::offset_of!(PanelContainer<T>, panel))
+> +                .cast::<bindings::drm_panel>()
+> +        };
+> +
+> +        // SAFETY: `__devm_drm_panel_alloc` was successful, hence `raw` =
+is valid
+> +        // and the refcount is non-zero.
+> +        Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(raw).cast()) })
+
+[Severity: Critical]
+Does ARef::from_raw steal the devres-owned reference count here?
+
+__devm_drm_panel_alloc initializes the panel's refcount to 1 and immediately
+registers a devres action (drm_panel_put_void) that owns this reference.
+Wrapping the raw pointer directly with ARef::from_raw without incrementing
+the refcount means both ARef and devres think they own the same refcount.
+
+When the ARef is dropped, won't it free the panel via __drm_panel_free,
+causing a double-free later when device unbind triggers the devres action?
+
+> +    }
+>  }
+
+[ ... ]
+
+> +/// Operations implemented by a DRM panel driver.
+> +///
+> +/// Implement this trait to provide a DRM panel driver and its callbacks=
+. Use
+> +/// [`Panel::new`] to allocate the panel, passing the driver data as `T`.
+> +///
+> +/// C header: [`include/drm/drm_panel.h`](srctree/include/drm/drm_panel.=
+h)
+> +#[vtable]
+> +pub trait PanelFuncs {
+
+[Severity: High]
+Should this trait require Send, Sync, and 'static supertraits?
+
+Similar to the missing bounds in Panel::new(), without these supertraits,
+types implementing PanelFuncs might contain thread-unsafe primitives
+or short-lived references, which could cause data races or use-after-free
+when accessed concurrently by the DRM subsystem.
+
+> +    /// Turn on panel and perform set up.
+
+[ ... ]
+
+> +// Devres action: run T's destructor before `kfree(container)`.
+> +//
+> +// # Safety
+> +//
+> +// `ptr` must be the base of a live `PanelContainer<T>` whose `data` fie=
+ld was
+> +// initialised by `Panel::new` and has not yet been dropped.
+> +unsafe extern "C" fn drop_panel_data<T>(ptr: *mut core::ffi::c_void) {
+> +    // SAFETY: Caller guarantees `ptr` is the base of a live `PanelConta=
+iner<T>`
+> +    // with an initialised `data` field. `data` is at offset 0, so `ptr =
+as *mut T`
+> +    // is valid.
+> +    unsafe { core::ptr::drop_in_place(ptr as *mut T) };
+
+[Severity: Critical]
+Does this execute the destructor while the container might still be alive?
+
+If a consumer driver still holds an ARef<Panel>, the container's reference
+count is non-zero. Since drop_panel_data is called unconditionally on
+device unbind, won't drop_in_place destroy T while it could still be
+accessed via the panel's vtable callbacks?
+
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-drm_panel_=
-bindings-v1-0-1f974508a31c@redhat.com?part=3D5
+bindings-v1-0-1f974508a31c@redhat.com?part=3D4
