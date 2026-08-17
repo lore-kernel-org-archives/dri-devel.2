@@ -4,67 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31A16C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 21:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEFC7C5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 21:15:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EA3310E44A;
-	Mon, 17 Aug 2026 21:06:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DC6110E950;
+	Mon, 17 Aug 2026 21:15:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hVVnlp3r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jOwZxTkk";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D039D10E94B;
- Mon, 17 Aug 2026 21:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=JOdEnDPQG70atwX6UwnG6mi3Usldc7fzPlg8dJlEHuk=; b=hVVnlp3rDmJq9ATDk4+473BzSd
- MaYjIYHj3muZlCmGUwR8zmQoJVZVMPP3hTn227m5ZR9DunBcOuQhMc5ioltBjC1YYPfUM0Jr7k/ak
- zh/3INxb3stEX5I13eE2B9MTwo9d06HEUAAOvXQMV2NINxL45r0S3sy5AYudeDr832Q25S4GaQPhN
- J7/OW5ijjP5TKAIEA9xVnOfEvSXnXx/Tn/Wd2HSDJ/s7xIB9dvFvjotf0wAc3z+GMfkLL9U3q0Rrj
- 8Bxi4F0VG9udLVMFUZUl0Vdnsli1kWi163m6LWyJdCNk1P/a80/9vuPiHXjfBJnJuf7M2EiemFUuy
- XOs7vSGA==;
-Received: from [179.105.94.163] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ww4XO-00504Q-I5; Mon, 17 Aug 2026 23:06:30 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Mon, 17 Aug 2026 18:05:46 -0300
-Subject: [PATCH v2 6/6] drm/vc4: Use drm_timeout_rel_to_jiffies()
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260817-drm-timeout-helpers-v2-6-73052b669f49@igalia.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD8D10E950;
+ Mon, 17 Aug 2026 21:15:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2ED2D601DE;
+ Mon, 17 Aug 2026 21:15:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E9D1F000E9;
+ Mon, 17 Aug 2026 21:15:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787001332;
+ bh=QEr0rRA21WjCDIBRI70eBUz7M8prDjj0zBXStrFdDyU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jOwZxTkktgTIyKLsmu1S0JLCpLosLQO7ddGejEJrIQRVIQ6yzLJSFF42fms1tqZwc
+ WIQMVgbYV0SeKC2YNHjrfovXOcwLlG7tSDMD7aDmRlsBD6hjCMvVgUe6hzjNe3XIJj
+ zUVNtbuo+2kiU3qU+FjXxJIK0eUpcCN6sfDV3zI1r7Dmkr9TPflC79LBeHqCyF40fT
+ 48FD+j1Ggi4myfJB9FpfD7td+Xoa9wMQuANMIh8hcRXqk9eWOIs9hPTGb+nxlzOb21
+ DatGJuFPZbPeOzyFChG6F8L/ohOMJ2ujRnEHkIEqL39cKxPSM/qQjXEigvUPx4bzD3
+ 5AdOi79axU/sg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
+To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
 References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
-In-Reply-To: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1393; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=6SdIesJwo2rWJks6lF/ReWhhuuB2IJ1mkY2yW7OSC2Y=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqg3eq05LK5reYtUuqBNlSdTpAtV7F+0oswm2x6
- uVSsSwseVaJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoN3qgAKCRA/8w6Kdoj6
- qpXvB/4teituWpU8b2Xvi6/EslifsLnsv3/hMH3ArKzRRVnc5oTPhnBDnza1SzYByt/qpjfEP2V
- r1U6JvyEyW2fgdVh2EpycdrMlv8SHPFSJN4XdcZH6OX+YYCzzp/SlNR7NDtbf72k9gAX2z/XHbh
- WiCiFdJGbILIVoWm7Pb9wz0WsCbC/1LgCMrfaYqvXzi2utHbBXHS4qaGqg796VgQPPxOWIpk3Ag
- ervjUAyFlMY+UhMRjDgq8aIl5LxsuEC62qZw0vBbQRfCgg0vF31HYCWtGxbNZe9QzCZIyaLoYdZ
- ygq4QK3Ovw7mrqN/RcxbJu9TU1VxrL0Xa0RaBmYAcfGEc7FQ
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+ <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 21:15:32 +0000
+Message-Id: <20260817211532.A3E9D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,46 +53,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vc4_wait_bo_ioctl() converts its timeout with usecs_to_jiffies(), which
-takes an unsigned int. The microsecond value derived from the u64
-timeout_ns is narrowed to fit, so any timeout above UINT_MAX microseconds,
-around ~71 minutes, wraps into a much shorter one. Unlike the equivalent
-problem in the other drivers, this one is not limited to 32-bit.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Inadequate overflow check in `drm_timeout_rel_to_jiffies` allows=
+ `nsecs_to_jiffies64` to wrap around for large timeouts on 64-bit systems.
+--
 
-Use the shared helper, which takes the duration in ns and clamps the
-result to MAX_JIFFY_OFFSET.
+--- Patch [2]: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies() ---
+commit 8056b58ff81363ebaf4bcf9d659c346706fc5b99
+Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-Fixes: 21bd85f82ec2 ("drm/vc4: Use DMA Resv to implement VC4 wait BO IOCTL")
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/vc4/vc4_gem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+drm: Add drm_timeout_rel_to_jiffies()
 
-diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index e231c906709c..781aeb8967b1 100644
---- a/drivers/gpu/drm/vc4/vc4_gem.c
-+++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -32,6 +32,7 @@
- #include <drm/drm_exec.h>
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
-+#include <drm/drm_utils.h>
- 
- #include "vc4_drv.h"
- #include "vc4_regs.h"
-@@ -970,7 +971,7 @@ vc4_wait_bo_ioctl(struct drm_device *dev, void *data,
- 	int ret;
- 	struct drm_vc4_wait_bo *args = data;
- 	unsigned long timeout_jiffies =
--		usecs_to_jiffies(div_u64(args->timeout_ns, 1000));
-+		drm_timeout_rel_to_jiffies(args->timeout_ns);
- 	ktime_t start = ktime_get();
- 	u64 delta_ns;
- 
+This commit introduces a core helper to convert a relative timeout in
+nanoseconds to jiffies. It aims to unify similar conversions currently done
+in drivers like i915 and v3d.
 
--- 
-2.55.0
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> index 78e9f65e54779..18c2719d1fe92 100644
+> --- a/drivers/gpu/drm/drm_timeout.c
+> +++ b/drivers/gpu/drm/drm_timeout.c
+[ ... ]
+> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout=
+_nsec)
+>  	return timeout_jiffies64 + 1;
+>  }
+>  EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> +
+> +/**
+> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative =
+value
+[ ... ]
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
+> +{
+> +	/* make 0 timeout means poll, as for the absolute variant */
+> +	if (timeout_nsec =3D=3D 0)
+> +		return 0;
+> +
+> +	/* nsecs_to_jiffies64() does not guard against overflow */
+> +	if ((NSEC_PER_SEC % HZ) !=3D 0 &&
+> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >=3D MAX_JIFFY_OFFSET / HZ)
+> +		return MAX_JIFFY_OFFSET;
 
+[Severity: Medium]
+Is it possible this overflow guard is ineffective on 64-bit systems?=20
+
+Since MAX_JIFFY_OFFSET is extremely large on 64-bit architectures, and
+nsecs_to_jiffies64() internally uses a multiplication that can overflow a u=
+64
+at roughly 65 years, a very large timeout_nsec might bypass this check.=20
+
+If it bypasses this check, the value could still wrap around during the
+nsecs_to_jiffies64() conversion, causing the wait to return almost
+immediately instead of blocking as requested.
+
+> +
+> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + =
+1);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-drm-timeou=
+t-helpers-v2-0-73052b669f49@igalia.com?part=3D2
