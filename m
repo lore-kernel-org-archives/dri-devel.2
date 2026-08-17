@@ -4,97 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9407BC5CFC1
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 04:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D62E0C5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 04:48:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F34BC10E3D7;
-	Mon, 17 Aug 2026 04:48:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2835410E3DD;
+	Mon, 17 Aug 2026 04:48:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jBMwGdK9";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X/P6MIZH";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="n2b/U8IE";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cwna5HXP";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 709E210E3D7
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:40 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F10710E3DD
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:49 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67GLCcWj3657048
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:40 GMT
+ 67H44c6O1176161
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:48 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- gnJNXuCmyusrhVQ5qCCdytU60hZXzPi/toGazcunr3U=; b=jBMwGdK9HwDpevJ+
- rux7M8rbogOqak+z1h8o0F/65/2ZWH1ceAO30uzQBJUSrdJXjjM4Rn15gqkkwBfx
- 2KNRpNz8UDNVWf67s5UhXkTS+lauL2K3oI++tWL6uGOynfDxyzG477686ru+x27J
- X3To5VgsZehwbqBVQHiwd5DFmyF2uE+2OkF/unhanTD1bPSuID4fuqqnG5lp7s2N
- haqkZmFX8ATkcodAvMgIrXLtfdt7vjm4xQtI5/y4uJVuYWgODthskV7DKDGI6z9b
- iy5pmHWIS7c8miVAMaqcWfHjYzAQTnUCHT+54C/fOceqcRZ1JbMNgprII9qEFbKZ
- h8Bthw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2h9gn3qd-1
+ aPj5EJGXrEX2vogNN/02LdGACyu356VG9c1DNI0DIvE=; b=n2b/U8IExnaC7eGz
+ JdB4ByAXC7gVbRPE6Zc2qleOH1WuiLXJHs4YMmiS8zEHucKqIVdtjmCsIq6DG3Vp
+ wiJlWcyLWplTCsguwMLMY8c4l8mx4LtrXWjIPA3oq5HLV+AB0awTmnmaheoSirAZ
+ +Mv6jnvVrrlrNTwzytUom2yRwRpuIuPxMdQUXaS9FjUsU7+nf6rTlc5iaiu9rgLY
+ 8NBkxvDEej0L2cf2q36VnUYojVGlvW1evL1EMSAOBfjmlUstFHqbQbTJn76otMUT
+ pGXmUG1SQXhudq1+dA8opoOjuXCBC0MZbuYS1I36pziTPASC+IblG3f10LPU2Sys
+ zvIuRQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3txy83jv-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:39 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-8487ed7f7beso2933097b3a.0
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 21:48:39 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:48 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-84c4cd31b51so4376713b3a.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 21:48:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786942119; x=1787546919;
+ d=oss.qualcomm.com; s=google; t=1786942128; x=1787546928;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=gnJNXuCmyusrhVQ5qCCdytU60hZXzPi/toGazcunr3U=;
- b=X/P6MIZHD7PPqPqxyW7YwPbbQZ0iGuaPmiqeVDhXXUeoW3gt/P2A7gEl+/5xgAHW8/
- J6fcPWLOAhxVe8BWJmlFyqBZbqkGr/MjHi3uL8N7m6NrQ8QYx4JNJefs73ODVajkfvKS
- hZBi8U5duBzQqCBVKmd9XpeEy2ZL6vn9WTCLSBF445fLnR18TpUmSWNqVSl8SyUUpaIy
- jvFsfVktNL4m956ddp9GR9tLDE9IQw7jvYG7WoMc5C8olrsCg6OVI6HebEPTbbvzO1h0
- 6z9Li3sfgNl17JsT+GBR93nklOP0+t4CNx0MP7rdmS7ot6Rco8/cYXIMmo4iDnPL69Tb
- iS9Q==
+ bh=aPj5EJGXrEX2vogNN/02LdGACyu356VG9c1DNI0DIvE=;
+ b=cwna5HXPbB0ECznet5TpkYdd6NrZf0aJc3UJVmxvMdZaSPPUAPryjgQl8HssQLmbz7
+ 1tUEe8R89eWwlIOwLQ2ZswShd/eb/6KM7iTZw4Ng+pZyi11kPivBZAW7+kxMl9Po2jxy
+ fRaRdsDRjtLLu0AtFqiQH3uuqbxb73v3RYOjOvGM+Q6L/yAqMdqacaiS3HEX4fvAFVCN
+ 7Rp8Bjuez5H3SNXTD19aUsLwbEgHpm6v2sGS3NaZfKO/61VzE6x91S3b0c9MewK4cK2c
+ QhRzVG2ZnTzZYNGr6skisQMbnh8T6wbqwljxJ1wmwYhutinGeEITP3OWtkyFt0cQybBU
+ P0lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786942119; x=1787546919;
+ d=1e100.net; s=20251104; t=1786942128; x=1787546928;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=gnJNXuCmyusrhVQ5qCCdytU60hZXzPi/toGazcunr3U=;
- b=R3pcuBWdgb6Z3skvFXkyEleZUXbK2OM3aN2VQ4sw0qAHZ8NL2cJoA9v0cTiEDw2F1g
- HLiqR/LJ9fZu3EYtyBQQmsFE5rtbV+fSmwilCCaYud0QvvYuhxhF+HkcR7ZNnoCX3gYN
- Dlq/CqqxZ6hVaGIpYssoaEhoSu/VvBo9QccDoJKHMcbgntnZVm7quDYMLV/LA1Fz+5lz
- 2lfP9b/Y7bJPelc5kgi+3X4vPqdFib5YLAS5Dl4BMdspA2hEhMcj6nU/+kK4mQqSrpl7
- qv/InDF9Bt+A5DZKNV61B1pmAD4q/VYYGUylHoxYknaWoSeL2NvdFIjuMQ/TPP+xUH3o
- fyhA==
+ bh=aPj5EJGXrEX2vogNN/02LdGACyu356VG9c1DNI0DIvE=;
+ b=XbvSiHo9uhJ23Ch3cFuIQf5dAwGkNByuPT6Zfb5ihCd3HV+mCo80+sJvdNtxFXuLTq
+ /2/tUJmQ8h8oqswkbiYmlm5jhYweltE63P+G1Zd7SW2PdKdNr+thtHnAbo5YA6yQdByp
+ 0ImYDLZCNkAw9WiyqG0x31NOlUOd9thS136GrtqdHs3IVZx1ZR4+L+67AHRP1PrJgrgl
+ vcwKc6Bvm7t6OxFaXkrtkpUZXGSUmJwOzm+DhXc16NWWJeVVizsKqKdzzBU7Kiptk1y2
+ I6GC4kqDf0j8whm8uc/yHDiKpiN8EsDzu8dY5hayUOkO+Aq3PWGW1xA3dP/IQQ9w3/SN
+ RU7Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoD5oQ1ovsypRt38D81bjjUv1Y0Mw1G1L8XHjP4UAgm19pmJkHuAVWqTs+jvLOy2rGUvo4k5jFyxlQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw79YERp6O43H8cuXK29hK22bI6xEJVXm+df1SNB8cq4pDANLn/
- cMV8Ic1mB2ZHVEUYan5S4MAU10SO+cgkRB+Fr/WskON3icayoHW4p+zSHQmDU04cW1QtTwj6GYM
- lQGoxcIkX4XyM3ErRNUzEFZAmEazlSezI7oYCiEZ7Xx0Bi5/JtZVivlyZKXJr1m0IyD6StpI=
-X-Gm-Gg: AR+sD13vRFz++Mivk1t5X8SjdgS/w0Yj268sG9GUxXJ/QH6nQ6bqXEbVvBFjbyAHMVE
- 0MQjPv3lxzCxyhpuaF+U26wPci8q12ZKvnRR8JV/uP20krAuhMmqSYaTzPEUPW6B/leq9IWNtTl
- ikI2YEZQ9ZrM+j9GVBjVuEZ0rr+FTrvQoWKqeURlbfs3T+zpR0AuohbK984uuzDlz/OmBGj4MfT
- U20ErTD/46cu8Gd3H996qtxuNBK4Ds/LMqr3FIR7LqWEPKJx17vAlX2x1aZq+kSH/Nwcksm5s36
- lJ3pR29r8Yi2btLDfvXDXqvQyGUJ8ckogeYFb7+wa2KoGeQRQj15AB1MftFUb7gYtIhV/n98oSk
- Q9iKJmFG+TTAddai4aAIvm9AgWnilQu7U
-X-Received: by 2002:a05:6a00:32c3:b0:847:881c:7026 with SMTP id
- d2e1a72fcca58-84fde1501cemr21344786b3a.3.1786942118801; 
- Sun, 16 Aug 2026 21:48:38 -0700 (PDT)
-X-Received: by 2002:a05:6a00:32c3:b0:847:881c:7026 with SMTP id
- d2e1a72fcca58-84fde1501cemr21344741b3a.3.1786942118322; 
- Sun, 16 Aug 2026 21:48:38 -0700 (PDT)
+ AHgh+RpuYxQQKKqU2v/KORNorzxTbgto9CskQp141NVlkn5nqnVU2eaMZedfinQ2qfWpsGzxSmcHIij5310=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YypNzF4ynBHYgDmsZSk1f+R16NgtwLGJcbtHvskDf/YAsf8kmut
+ SPTDUlfPLtD/Sg1H+y1UBlg8SMPRTDPblASZoJqxgpX/5uzMhoI91dHZlvVRzKJ1rUSGHFuUwNj
+ uPWBw+fFHcZikf/2Q8VZnZDCrA4rz3/x6Wb41LeFsJr2yKtmJckb2mRPhB9wR7H3C1oiQwh8=
+X-Gm-Gg: AR+sD13NtXJre7pmNlhhmoz5zyHSf28fPcDpOB9QnFiQiFC3nrt0MoygmZ6tQDRc+jc
+ Ru+4IcdG7lWX+D6YVfuslo70egnb4kzQ0wCDhaaXLwfpzvfW/HvKkUlPvRAgPQU4EAdhOykFgr6
+ 3VgidbCc5Zua5SU2faQx+pSDKqcrxl/ccFayNhhPrJu3GoVDr0WLqlXKzzfdxGCUCRTtrj2S2Q6
+ KG4khoCJhQxx+sGObvXibgil6aLwdXZRpdM0MdjV/QkIka7hiMSH/WVUMtAqNyQ94Jlo7Cdfjt8
+ iJS1jspVnG2uDFFIV50nInCiaSYOhqH1j5kUcuXNxo16k7/8tN3HBG+vBxYZpa2SU760jawYarZ
+ pDhFDaWfDC3oJqb9g98a4aQ9P4Rn8Il/n
+X-Received: by 2002:a05:6a00:8d3:b0:84e:242:4bb2 with SMTP id
+ d2e1a72fcca58-84fdc60d04fmr16090824b3a.4.1786942127421; 
+ Sun, 16 Aug 2026 21:48:47 -0700 (PDT)
+X-Received: by 2002:a05:6a00:8d3:b0:84e:242:4bb2 with SMTP id
+ d2e1a72fcca58-84fdc60d04fmr16090785b3a.4.1786942126872; 
+ Sun, 16 Aug 2026 21:48:46 -0700 (PDT)
 Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8517d046638sm2149250b3a.27.2026.08.16.21.48.30
+ d2e1a72fcca58-8517d046638sm2149250b3a.27.2026.08.16.21.48.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Aug 2026 21:48:37 -0700 (PDT)
+ Sun, 16 Aug 2026 21:48:46 -0700 (PDT)
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Date: Mon, 17 Aug 2026 10:17:41 +0530
-Subject: [PATCH v2 06/15] accel/qda: Create compute context bank devices on
- QDA compute bus
+Date: Mon, 17 Aug 2026 10:17:42 +0530
+Subject: [PATCH v2 07/15] accel/qda: Add memory manager for CB devices
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-qda-v2-v2-6-69a02e9090d4@oss.qualcomm.com>
+Message-Id: <20260817-qda-v2-v2-7-69a02e9090d4@oss.qualcomm.com>
 References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
 In-Reply-To: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -121,40 +120,41 @@ Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
  linaro-mm-sig@lists.linaro.org,
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786942058; l=7659;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786942058; l=13022;
  i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=vyyAKW+sDxkJvnWkRtGMDfJQbird7CY22fXpG75dfI8=;
- b=9iSkBuK0+IvRZzeuUuxCA3txvr7RXBv9HocPubw7VSQhNZIb23asi+VU2A7GF556vKccuuFT5
- CEcv2JEnaPyDLM5cvWl2HDbdbG6+lkEv61S+iefHgPM0Vj8R3WH6BDD
+ bh=GaNC5KyOUVtedEM4vDcIA16sNrsUeYMBbVNb53m92G4=;
+ b=GfuE4LhP/BpkV4+a1axBEb5F/Y3cGT6YUiuCkqe7Iate+aoFiad2Zl5T4ERz7o3flsfL/4KD0
+ DEW/SXR/rdjBJ+yexhI+/znK1oRdH1FTLdLSQWeCpQJ25egA8TyVept
 X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
-X-Proofpoint-ORIG-GUID: y4_1KAz8iHRLDv8rT2z0AYTDoiy9u-MA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX6tBFQfNqBaAg
- gBnp8to407UJnvto8BwOZS2eHKrHbRrgwrMZxGZR/sDKxxnCWSCVQGmJqr1ZaLiqZGOzsJfVN7F
- tvJTGstZ/5oKJNx/mF/dmGeiKkrGU/s=
-X-Proofpoint-GUID: y4_1KAz8iHRLDv8rT2z0AYTDoiy9u-MA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX9T2tfmdvVez+
- HO+nzsFIvC7ICGCQd8SNBO9qfeKBeAPjEGGXQ0W2zz3QpIySA9zWB1GBslIdzm5I2zw1hU0VxXk
- EHSVg4cpWhRhlVp89UYASZjUqBKpFERiWGclfFq/xxllWqS+FuOj5qLeI72Qa9S6vTr5kwWvHp5
- /yhfxIK8rbMX70mxt2EY4dJG4Na8hklXbBquaEEuADgEewnlSWQXT5Wf39Ecs9Xe1dMuRAWvXr/
- PqTkr8I6XfWFmyhRkUPo7bKPek/7E0x+CYmoIkltj5SusSLYx+XiWtyi1QHciDD1iPNKBrm923i
- 8FsHj+0+5sMGd3wwN9jAP/8nn6nGvU1/m04Jtsj1ZaGd8zzZ2YLHhZtigAVe8SgEtCwtJr416pJ
- 2vlAvbrDATIL/HGDe93lc530pku/WWjJ++L/Xk+xgydOnDk6Svh275/oLO9XFEJChxEI5tASOEW
- Adq/CNSqeLmfrqNuZBQ==
-X-Authority-Analysis: v=2.4 cv=XM4AjwhE c=1 sm=1 tr=0 ts=6a8292a7 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX3404tgQgaPFo
+ 7UX302xDvvXdIDsfcfnmhx4OC4xDVx4Uc6Mp6ONWxjE6DRR/9mmoCOw0Ib7QL7DV6vMwHEvHEs4
+ BmtuntPK89NnbiMNPUgcIAJEn212n+0=
+X-Authority-Analysis: v=2.4 cv=auGCzyZV c=1 sm=1 tr=0 ts=6a8292b0 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=_bi6IaUD7rjJwiY1G1oA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=Q8zVK8GgYyqMKIWl2h0A:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX7+Et0frzEMNB
+ jegwlfOSDuuU5/Mje9BDCzId5VnKDMLwFT4DQLSgNM1TI9o4OgJch2vNyEouNJ2mUv9hhriIFxp
+ GsE+qv0Seq2Eu1TrMVAwiDUJSVp0uO7tBc3JX9I8nVU9DVwJ4oWxjt/ptIMYePMtx96YzildgxK
+ tFZsuwK89hmefAPs+roZyeK5Zbs/RoJ1KwjZRf2qKnQ9QOMhbD8C5y37NEQjFegRSM/32bqpb8K
+ fwZImMgkT9nKSTHfU5at0mX0crof/tQzxKtnqrV87hgCvXthZI7jfmbJqxQkOWctlTUfQwUd2Lz
+ uDhpPa2JVPWc3d0Hrpa25nlNj0MVNwUJRLy/brbr40ZIjoDxlRkxWK5W+I/rfqS8E5hRQlT8xiN
+ tJv1WnGTlJSNUnKxvN/LOdtbIegI61Lyk84qmb+473qvpzlr90t6vEyZOoJhWkUwbjMYeTUnftE
+ pbREBjShzEP96+TQD/g==
+X-Proofpoint-GUID: 5e-yhN_tYWxGI_lTww3iCQdb41bSVhqP
+X-Proofpoint-ORIG-GUID: 5e-yhN_tYWxGI_lTww3iCQdb41bSVhqP
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-16_06,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 clxscore=1015 malwarescore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170033
+ spamscore=0 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ clxscore=1015 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608170033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,260 +170,420 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce the CB (compute context bank) device management layer. Each
-DSP domain node in the device tree may contain child nodes with
-compatible "qcom,fastrpc-compute-cb", each representing one IOMMU
-context bank. Enumerate those child nodes during RPMsg probe and create
-a corresponding device on the qda-compute-cb bus for each one, so that
-the IOMMU subsystem assigns each of them its own domain and DSP buffer
-mappings are isolated per session.
+Introduce the QDA memory manager (qda_memory_manager) to track the
+IOMMU devices that back each compute context bank (CB).
 
-qda_cb_populate() walks the child nodes and creates one CB device each,
-unwinding everything it created if any single creation fails.
-qda_destroy_cb_device() removes a device from its IOMMU group before
-unregistering it so the domain is released cleanly.
+Each CB device registered on the qda-compute-cb bus is wrapped in a
+qda_iommu_device descriptor recording the device pointer and its stream
+ID, and stored in the memory manager's registry. Later patches use this
+registry to resolve the IOMMU device a session should allocate from.
 
-CB devices are created before the DRM device is registered and destroyed
-after it is unplugged, so user space cannot reach a CB that does not
-exist yet, and no ioctl can be in flight while one is torn down.
+The registry is a plain array sized to the number of
+"qcom,fastrpc-compute-cb" nodes present in the device tree: the RPMsg
+probe counts those nodes and passes the count to qda_init_device(),
+which allocates the array in qda_memory_manager_init(). The memory
+manager is created before CB devices are populated and destroyed after
+they are torn down, so no dangling descriptors remain.
+
+qda_cb_setup_device() is called immediately after a CB device is
+registered on the bus: it allocates the descriptor, registers it with
+the memory manager, and stores it as the CB device's driver data so
+that qda_destroy_cb_device() can unregister and free it during teardown.
 
 Assisted-by: Claude:claude-sonnet-5
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 ---
 Changes in v2:
-- Use qda_cb_device_create() and pass the name as a format string
-  instead of formatting into a stack buffer (Dmitry Baryshkov)
-- Fail probe on the first CB creation error and unwind, instead of
-  counting successes and continuing (Dmitry Baryshkov)
-- Drop the impossible NULL check in qda_destroy_cb_device()
-  (Dmitry Baryshkov)
-- Use drm_*() logging consistently instead of mixing with dev_*()
-  (Dmitry Baryshkov)
+- Replace the XArray with a plain array sized to the device tree's CB
+  node count instead of a fixed 16-entry table (Dmitry Baryshkov)
+- Fold the init_memory_manager()/cleanup_memory_manager() wrappers into
+  qda_init_device()/qda_deinit_device() (Dmitry Baryshkov)
+- Drop the pr_debug() calls (Dmitry Baryshkov)
+- Use goto labels to unwind probe failures instead of open-coding the
+  cleanup at each error site (Dmitry Baryshkov)
 ---
- drivers/accel/qda/Makefile    |  1 +
- drivers/accel/qda/qda_cb.c    | 86 +++++++++++++++++++++++++++++++++++++++++++
- drivers/accel/qda/qda_cb.h    | 32 ++++++++++++++++
- drivers/accel/qda/qda_drv.c   |  1 +
- drivers/accel/qda/qda_drv.h   |  3 ++
- drivers/accel/qda/qda_rpmsg.c | 16 +++++++-
- 6 files changed, 138 insertions(+), 1 deletion(-)
+ drivers/accel/qda/Makefile             |  1 +
+ drivers/accel/qda/qda_cb.c             | 39 ++++++++++++++
+ drivers/accel/qda/qda_drv.c            | 26 +++++++++
+ drivers/accel/qda/qda_drv.h            |  5 ++
+ drivers/accel/qda/qda_memory_manager.c | 98 ++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_memory_manager.h | 55 +++++++++++++++++++
+ drivers/accel/qda/qda_rpmsg.c          | 23 +++++++-
+ 7 files changed, 246 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
-index 424176f652a5..143c9e4e789e 100644
+index 143c9e4e789e..701fad5ffb50 100644
 --- a/drivers/accel/qda/Makefile
 +++ b/drivers/accel/qda/Makefile
-@@ -6,6 +6,7 @@
- obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
- 
+@@ -8,6 +8,7 @@ obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
  qda-y := \
-+	qda_cb.o \
+ 	qda_cb.o \
  	qda_drv.o \
++	qda_memory_manager.o \
  	qda_rpmsg.o
  
+ obj-$(CONFIG_DRM_ACCEL_QDA_COMPUTE_BUS) += qda_compute_bus.o
 diff --git a/drivers/accel/qda/qda_cb.c b/drivers/accel/qda/qda_cb.c
-new file mode 100644
-index 000000000000..9c5ef32f351e
---- /dev/null
+index 9c5ef32f351e..cd32d6df6318 100644
+--- a/drivers/accel/qda/qda_cb.c
 +++ b/drivers/accel/qda/qda_cb.c
-@@ -0,0 +1,86 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+#include <linux/dma-mapping.h>
-+#include <linux/device.h>
-+#include <linux/of.h>
-+#include <linux/iommu.h>
-+#include <linux/qda_compute_bus.h>
-+#include <linux/slab.h>
-+#include <drm/drm_print.h>
-+#include "qda_drv.h"
-+#include "qda_cb.h"
-+
-+int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node)
+@@ -8,13 +8,40 @@
+ #include <linux/slab.h>
+ #include <drm/drm_print.h>
+ #include "qda_drv.h"
++#include "qda_memory_manager.h"
+ #include "qda_cb.h"
+ 
++static int qda_cb_setup_device(struct qda_dev *qdev, struct device *cb_dev, u32 sid)
 +{
-+	struct qda_cb_dev *entry;
-+	struct device *cb_dev;
-+	u32 sid = 0;
++	struct qda_iommu_device *iommu_dev;
++	int ret;
 +
-+	if (of_property_read_u32(cb_node, "reg", &sid))
-+		drm_info(&qdev->drm_dev, "No stream ID in DT node %pOFn, using 0\n", cb_node);
-+
-+	cb_dev = qda_cb_device_create(qdev->dev, DMA_BIT_MASK(32), cb_node,
-+				      "qda-cb-%s-%u", qdev->dsp_name, sid);
-+	if (IS_ERR(cb_dev)) {
-+		drm_err(&qdev->drm_dev, "Failed to create CB device for SID %u: %ld\n",
-+			sid, PTR_ERR(cb_dev));
-+		return PTR_ERR(cb_dev);
-+	}
-+
-+	entry = kzalloc_obj(*entry);
-+	if (!entry) {
-+		qda_destroy_cb_device(cb_dev);
++	iommu_dev = kzalloc_obj(*iommu_dev);
++	if (!iommu_dev)
 +		return -ENOMEM;
++
++	iommu_dev->dev = cb_dev;
++	iommu_dev->qdev = qdev;
++	iommu_dev->sid = sid;
++
++	ret = qda_memory_manager_register_device(qdev->iommu_mgr, iommu_dev);
++	if (ret) {
++		drm_err(&qdev->drm_dev, "Failed to register IOMMU device: %d\n", ret);
++		kfree(iommu_dev);
++		return ret;
 +	}
 +
-+	entry->dev = cb_dev;
-+	list_add_tail(&entry->node, &qdev->cb_devs);
++	dev_set_drvdata(cb_dev, iommu_dev);
 +
 +	return 0;
 +}
 +
-+void qda_cb_unpopulate(struct qda_dev *qdev)
-+{
-+	struct qda_cb_dev *entry, *tmp;
+ int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node)
+ {
+ 	struct qda_cb_dev *entry;
+ 	struct device *cb_dev;
+ 	u32 sid = 0;
++	int ret;
+ 
+ 	if (of_property_read_u32(cb_node, "reg", &sid))
+ 		drm_info(&qdev->drm_dev, "No stream ID in DT node %pOFn, using 0\n", cb_node);
+@@ -27,6 +54,12 @@ int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node)
+ 		return PTR_ERR(cb_dev);
+ 	}
+ 
++	ret = qda_cb_setup_device(qdev, cb_dev, sid);
++	if (ret) {
++		device_unregister(cb_dev);
++		return ret;
++	}
 +
-+	list_for_each_entry_safe(entry, tmp, &qdev->cb_devs, node) {
-+		list_del(&entry->node);
-+		qda_destroy_cb_device(entry->dev);
-+		kfree(entry);
+ 	entry = kzalloc_obj(*entry);
+ 	if (!entry) {
+ 		qda_destroy_cb_device(cb_dev);
+@@ -74,8 +107,14 @@ int qda_cb_populate(struct qda_dev *qdev, struct device_node *parent_node)
+ 
+ void qda_destroy_cb_device(struct device *cb_dev)
+ {
++	struct qda_iommu_device *iommu_dev;
+ 	struct iommu_group *group;
+ 
++	iommu_dev = dev_get_drvdata(cb_dev);
++	if (iommu_dev && iommu_dev->qdev->iommu_mgr)
++		qda_memory_manager_unregister_device(iommu_dev->qdev->iommu_mgr,
++						     iommu_dev);
++
+ 	group = iommu_group_get(cb_dev);
+ 	if (group) {
+ 		iommu_group_remove_device(cb_dev);
+diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
+index 09b6d5ac390b..fdc909facd95 100644
+--- a/drivers/accel/qda/qda_drv.c
++++ b/drivers/accel/qda/qda_drv.c
+@@ -56,6 +56,32 @@ struct qda_dev *qda_alloc_device(struct device *dev)
+ 	return qdev;
+ }
+ 
++void qda_deinit_device(struct qda_dev *qdev)
++{
++	if (qdev->iommu_mgr) {
++		qda_memory_manager_exit(qdev->iommu_mgr);
++		kfree(qdev->iommu_mgr);
++		qdev->iommu_mgr = NULL;
 +	}
 +}
 +
-+int qda_cb_populate(struct qda_dev *qdev, struct device_node *parent_node)
++int qda_init_device(struct qda_dev *qdev, int num_cbs)
 +{
-+	struct device_node *child;
 +	int ret;
 +
-+	for_each_child_of_node(parent_node, child) {
-+		if (!of_device_is_compatible(child, "qcom,fastrpc-compute-cb"))
++	qdev->iommu_mgr = kzalloc_obj(*qdev->iommu_mgr);
++	if (!qdev->iommu_mgr)
++		return -ENOMEM;
++	ret = qda_memory_manager_init(qdev->iommu_mgr, num_cbs);
++	if (ret) {
++		drm_err(&qdev->drm_dev, "Failed to initialize memory manager: %d\n", ret);
++		kfree(qdev->iommu_mgr);
++		qdev->iommu_mgr = NULL;
++	}
++
++	return ret;
++}
++
+ int qda_register_device(struct qda_dev *qdev)
+ {
+ 	int ret;
+diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
+index 3bd41b9593fa..690a833d732b 100644
+--- a/drivers/accel/qda/qda_drv.h
++++ b/drivers/accel/qda/qda_drv.h
+@@ -13,6 +13,7 @@
+ #include <drm/drm_device.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
++#include "qda_memory_manager.h"
+ 
+ /* Driver identification */
+ #define QDA_DRIVER_NAME "qda"
+@@ -40,6 +41,8 @@ struct qda_dev {
+ 	struct device *dev;
+ 	/** @cb_devs: Compute context-bank (CB) child devices */
+ 	struct list_head cb_devs;
++	/** @iommu_mgr: IOMMU/memory manager instance */
++	struct qda_memory_manager *iommu_mgr;
+ 	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
+ 	const char *dsp_name;
+ };
+@@ -59,6 +62,8 @@ static inline struct qda_dev *qda_dev_from_drm(struct drm_device *dev)
+ struct qda_dev *qda_alloc_device(struct device *dev);
+ 
+ /* Core device lifecycle */
++int qda_init_device(struct qda_dev *qdev, int num_cbs);
++void qda_deinit_device(struct qda_dev *qdev);
+ int qda_register_device(struct qda_dev *qdev);
+ 
+ #endif /* __QDA_DRV_H__ */
+diff --git a/drivers/accel/qda/qda_memory_manager.c b/drivers/accel/qda/qda_memory_manager.c
+new file mode 100644
+index 000000000000..b1a80ee77c35
+--- /dev/null
++++ b/drivers/accel/qda/qda_memory_manager.c
+@@ -0,0 +1,98 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++
++#include <linux/slab.h>
++#include "qda_drv.h"
++#include "qda_memory_manager.h"
++
++static void cleanup_all_memory_devices(struct qda_memory_manager *mem_mgr)
++{
++	int i;
++
++	for (i = 0; i < mem_mgr->num_devices; i++) {
++		struct qda_iommu_device *iommu_dev = mem_mgr->devices[i];
++
++		if (!iommu_dev)
 +			continue;
 +
-+		ret = qda_create_cb_device(qdev, child);
-+		if (ret) {
-+			drm_err(&qdev->drm_dev, "Failed to create CB device for: %s\n",
-+				child->name);
-+			of_node_put(child);
-+			qda_cb_unpopulate(qdev);
-+			return ret;
++		mem_mgr->devices[i] = NULL;
++		kfree(iommu_dev);
++	}
++	mem_mgr->num_devices = 0;
++}
++
++/**
++ * qda_memory_manager_register_device() - Register an IOMMU device
++ * @mem_mgr: Pointer to memory manager
++ * @iommu_dev: Pointer to IOMMU device to register
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int qda_memory_manager_register_device(struct qda_memory_manager *mem_mgr,
++				       struct qda_iommu_device *iommu_dev)
++{
++	if (mem_mgr->num_devices >= mem_mgr->max_devices)
++		return -ENOSPC;
++
++	iommu_dev->id = mem_mgr->num_devices;
++	mem_mgr->devices[mem_mgr->num_devices++] = iommu_dev;
++
++	return 0;
++}
++
++/**
++ * qda_memory_manager_unregister_device() - Unregister an IOMMU device
++ * @mem_mgr: Pointer to memory manager
++ * @iommu_dev: Pointer to IOMMU device to unregister
++ *
++ * Removes the device from the registry and frees it.
++ */
++void qda_memory_manager_unregister_device(struct qda_memory_manager *mem_mgr,
++					  struct qda_iommu_device *iommu_dev)
++{
++	int i;
++
++	for (i = 0; i < mem_mgr->num_devices; i++) {
++		if (mem_mgr->devices[i] == iommu_dev) {
++			mem_mgr->devices[i] = NULL;
++			break;
 +		}
 +	}
 +
++	kfree(iommu_dev);
++}
++
++/**
++ * qda_memory_manager_init() - Initialize the memory manager
++ * @mem_mgr: Pointer to memory manager structure to initialize
++ * @max_devices: Number of IOMMU context bank devices to make room for
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int qda_memory_manager_init(struct qda_memory_manager *mem_mgr, int max_devices)
++{
++	if (max_devices <= 0)
++		return -EINVAL;
++
++	mem_mgr->devices = kcalloc(max_devices, sizeof(*mem_mgr->devices), GFP_KERNEL);
++	if (!mem_mgr->devices)
++		return -ENOMEM;
++
++	mem_mgr->num_devices = 0;
++	mem_mgr->max_devices = max_devices;
++
 +	return 0;
 +}
 +
-+void qda_destroy_cb_device(struct device *cb_dev)
++/**
++ * qda_memory_manager_exit() - Clean up the memory manager
++ * @mem_mgr: Pointer to memory manager structure to clean up
++ */
++void qda_memory_manager_exit(struct qda_memory_manager *mem_mgr)
 +{
-+	struct iommu_group *group;
++	cleanup_all_memory_devices(mem_mgr);
 +
-+	group = iommu_group_get(cb_dev);
-+	if (group) {
-+		iommu_group_remove_device(cb_dev);
-+		iommu_group_put(group);
-+	}
-+
-+	device_unregister(cb_dev);
++	kfree(mem_mgr->devices);
++	mem_mgr->devices = NULL;
++	mem_mgr->max_devices = 0;
 +}
-diff --git a/drivers/accel/qda/qda_cb.h b/drivers/accel/qda/qda_cb.h
+diff --git a/drivers/accel/qda/qda_memory_manager.h b/drivers/accel/qda/qda_memory_manager.h
 new file mode 100644
-index 000000000000..bd83d64fa425
+index 000000000000..7e38c8a18284
 --- /dev/null
-+++ b/drivers/accel/qda/qda_cb.h
-@@ -0,0 +1,32 @@
++++ b/drivers/accel/qda/qda_memory_manager.h
+@@ -0,0 +1,55 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#ifndef __QDA_CB_H__
-+#define __QDA_CB_H__
++#ifndef __QDA_MEMORY_MANAGER_H__
++#define __QDA_MEMORY_MANAGER_H__
 +
 +#include <linux/device.h>
-+#include <linux/list.h>
-+#include <linux/of.h>
-+#include "qda_drv.h"
 +
-+struct qda_cb_dev {
-+	struct list_head node;
++/* Forward declarations */
++struct qda_dev;
++
++/**
++ * struct qda_iommu_device - IOMMU device instance for memory management
++ *
++ * Represents a single IOMMU-enabled device managed by the memory manager.
++ * Each device can be assigned to a specific process session.
++ */
++struct qda_iommu_device {
++	/** @dev: Pointer to the underlying device */
 +	struct device *dev;
++	/** @qdev: Back-pointer to the parent QDA device */
++	struct qda_dev *qdev;
++	/** @id: Unique identifier assigned by the memory manager */
++	u32 id;
++	/** @sid: Stream ID for IOMMU transactions */
++	u32 sid;
 +};
 +
-+/*
-+ * Compute bus (CB) device management
++/**
++ * struct qda_memory_manager - Central memory management coordinator
++ *
++ * Coordinates memory management across multiple IOMMU devices. Maintains
++ * a registry of devices in an array sized to the number of context banks
++ * described in the device tree.
 + */
-+int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node);
-+void qda_destroy_cb_device(struct device *cb_dev);
++struct qda_memory_manager {
++	/** @devices: Array storing registered IOMMU devices */
++	struct qda_iommu_device **devices;
++	/** @num_devices: Number of registered IOMMU devices */
++	int num_devices;
++	/** @max_devices: Capacity of the @devices array */
++	int max_devices;
++};
 +
-+/*
-+ * Transport-agnostic CB device population/teardown.
-+ * Called by any transport layer (RPMsg, etc.) during probe/remove.
-+ */
-+int qda_cb_populate(struct qda_dev *qdev, struct device_node *parent_node);
-+void qda_cb_unpopulate(struct qda_dev *qdev);
++int qda_memory_manager_init(struct qda_memory_manager *mem_mgr, int max_devices);
++void qda_memory_manager_exit(struct qda_memory_manager *mem_mgr);
 +
-+#endif /* __QDA_CB_H__ */
-diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-index 9a64f7dfcb6e..09b6d5ac390b 100644
---- a/drivers/accel/qda/qda_drv.c
-+++ b/drivers/accel/qda/qda_drv.c
-@@ -52,6 +52,7 @@ struct qda_dev *qda_alloc_device(struct device *dev)
- 	if (IS_ERR(qdev))
- 		return ERR_CAST(qdev);
- 
-+	INIT_LIST_HEAD(&qdev->cb_devs);
- 	return qdev;
- }
- 
-diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-index 4a27fb40c280..3bd41b9593fa 100644
---- a/drivers/accel/qda/qda_drv.h
-+++ b/drivers/accel/qda/qda_drv.h
-@@ -7,6 +7,7 @@
- #define __QDA_DRV_H__
- 
- #include <linux/device.h>
-+#include <linux/list.h>
- #include <linux/rpmsg.h>
- #include <linux/types.h>
- #include <drm/drm_device.h>
-@@ -37,6 +38,8 @@ struct qda_dev {
- 	struct rpmsg_device *rpdev;
- 	/** @dev: Underlying Linux device */
- 	struct device *dev;
-+	/** @cb_devs: Compute context-bank (CB) child devices */
-+	struct list_head cb_devs;
- 	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
- 	const char *dsp_name;
- };
++int qda_memory_manager_register_device(struct qda_memory_manager *mem_mgr,
++				       struct qda_iommu_device *iommu_dev);
++void qda_memory_manager_unregister_device(struct qda_memory_manager *mem_mgr,
++					  struct qda_iommu_device *iommu_dev);
++
++#endif /* __QDA_MEMORY_MANAGER_H__ */
 diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
-index 6a6e58333a68..723b3e61bf0a 100644
+index 723b3e61bf0a..64bf503106d9 100644
 --- a/drivers/accel/qda/qda_rpmsg.c
 +++ b/drivers/accel/qda/qda_rpmsg.c
-@@ -5,6 +5,7 @@
- #include <linux/rpmsg.h>
- #include <drm/drm_print.h>
- 
-+#include "qda_cb.h"
- #include "qda_drv.h"
- 
- static struct qda_dev *qda_rpmsg_alloc_and_init_qdev(struct rpmsg_device *rpdev)
-@@ -40,6 +41,7 @@ static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
- 	 */
+@@ -42,11 +42,25 @@ static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
  	drm_dev_unplug(&qdev->drm_dev);
  	qdev->rpdev = NULL;
-+	qda_cb_unpopulate(qdev);
+ 	qda_cb_unpopulate(qdev);
++	qda_deinit_device(qdev);
++}
++
++static int qda_count_cb_nodes(struct device_node *parent_node)
++{
++	struct device_node *child;
++	int count = 0;
++
++	for_each_child_of_node(parent_node, child)
++		if (of_device_is_compatible(child, "qcom,fastrpc-compute-cb"))
++			count++;
++
++	return count;
  }
  
  static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
-@@ -57,7 +59,19 @@ static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
+ {
+ 	struct qda_dev *qdev;
++	int num_cbs;
+ 	int ret;
+ 
+ 	qdev = qda_rpmsg_alloc_and_init_qdev(rpdev);
+@@ -59,10 +73,15 @@ static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
  		return ret;
  	}
  
--	return qda_register_device(qdev);
+-	ret = qda_cb_populate(qdev, rpdev->dev.of_node);
++	num_cbs = qda_count_cb_nodes(rpdev->dev.of_node);
++	ret = qda_init_device(qdev, num_cbs);
+ 	if (ret)
+ 		return ret;
+ 
 +	ret = qda_cb_populate(qdev, rpdev->dev.of_node);
 +	if (ret)
-+		return ret;
++		goto err_deinit;
 +
-+	ret = qda_register_device(qdev);
-+	if (ret)
-+		goto err_unpopulate;
-+
-+	return 0;
-+
-+err_unpopulate:
-+	qda_cb_unpopulate(qdev);
-+	return ret;
+ 	ret = qda_register_device(qdev);
+ 	if (ret)
+ 		goto err_unpopulate;
+@@ -71,6 +90,8 @@ static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
+ 
+ err_unpopulate:
+ 	qda_cb_unpopulate(qdev);
++err_deinit:
++	qda_deinit_device(qdev);
+ 	return ret;
  }
  
- static const struct of_device_id qda_rpmsg_id_table[] = {
 
 -- 
 2.34.1
