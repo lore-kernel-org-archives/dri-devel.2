@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BB67C5CFC1
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 08:22:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2036C5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 08:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C694A10E6CC;
-	Mon, 17 Aug 2026 08:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 504CB10E6C3;
+	Mon, 17 Aug 2026 08:23:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HhYY6moW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="opeJTfKV";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E5AA10E6C3
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:21:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 012FB10E6C3
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:23:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B406600AE;
- Mon, 17 Aug 2026 08:21:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED421F000E9;
- Mon, 17 Aug 2026 08:21:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 21B8E600AE;
+ Mon, 17 Aug 2026 08:23:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595D41F000E9;
+ Mon, 17 Aug 2026 08:23:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786954916;
- bh=Ef0ua4Ttfoj+asp7ypW4wkTI0YANY/GvBEggsgUakx4=;
+ s=k20260515; t=1786955033;
+ bh=IAnRoYYaCcNWXVO+kY6gx/NoZuY4LVjT6MxFmX622og=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=HhYY6moWpOOtjBnpTs18KKJW/nf4ROvXVN5+6wQjPzWzyjgeoo3TSqvDsbscsXRYd
- RUaXwbkkkG3iFIJX1ZqZktJDixHSvVNs5pGc1veNoQW7AfW0pVp3EMBoWQPud9xz9a
- 8aWksD7r5eRvOyf44m1RZfrK/ZXx+F0ysJGv6WC3V1ondaAyJ7kk40vO0uq5fyJdn1
- Q8KR6CSloHuFdPhLhQ45OJrfuN/yJvUKuBV+eyafulRg0AmK8zXMquqprFOoGklZoZ
- EQ5m0+0UvJFacwvsmwaTrG0CGDWpBr2wm3hTS9bfOoYfPPw1I0JV5x/06ihiw87gN4
- Xkfd048D4Znwg==
-Message-ID: <7fb00bfaa9eceb30eda8c0ad37f4a9e4@kernel.org>
-Date: Mon, 17 Aug 2026 08:21:54 +0000
+ b=opeJTfKVf1z1Ebyby4IxVs0DSH1L8WeOY0Cu0AXsh0Vk1KfEAZsXB69fwnzmpDrb3
+ GE22/mzYHQXWgjnrV1Tgo11Moh1ilzoK3AXROcFXl9tNhoWRGZGgdCgb7RMOYw88nP
+ b/maZ5e2xc+nzYWT/EjmTKrVkzgk8J0hYfMuE2hUo9exb86r9xrBFMIjIor6oXUFD8
+ 2n0f/r0ffs3tpmoXSRtG1PuRFlW1Ls6cwFWYctyUUgGkZm59hcPdWWPBmOxeY1q8pr
+ +Ag0ki5gKIrGnRqn6abjiMenpm3HS95Rs++ndOrsExSpnSnM7z9fMPXD6Hn/MKyOmy
+ 7H2pnGwxDXb8g==
+Message-ID: <cf21ed9cd15d6f6d6e41dcb73872244b@kernel.org>
+Date: Mon, 17 Aug 2026 08:23:51 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 01/11] drm: of: drm_of_find_panel_or_bridge: simplify
- freeing the remote node pointer
-In-Reply-To: <20260814-drm-bridge-every-panel-v1-1-19cd5277cc8d@bootlin.com>
-References: <20260814-drm-bridge-every-panel-v1-1-19cd5277cc8d@bootlin.com>
+Subject: Re: [PATCH 02/11] drm: of: drm_of_find_panel_or_bridge: simplify
+ error return paths
+In-Reply-To: <20260814-drm-bridge-every-panel-v1-2-19cd5277cc8d@bootlin.com>
+References: <20260814-drm-bridge-every-panel-v1-2-19cd5277cc8d@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Andrzej
  Hajda" <andrzej.hajda@intel.com>, "David Airlie" <airlied@gmail.com>, "Dmitry
  Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
@@ -71,11 +71,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 14 Aug 2026 16:05:49 +0200, Luca Ceresoli wrote:
-> In prepataion to further modify the logic of this function, simplify
-> putting the struct device_node pointer by using a cleanup action.
+On Fri, 14 Aug 2026 16:05:50 +0200, Luca Ceresoli wrote:
+> In prepataion to further modify the logic of this function, simplify the
+> error-returning code.
 > 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> With this change, on any error there is an immediate 'return -<ERRNO>;'
+> statement, without having to carry on the return value until the end.
+> 
+> [ ... ]
 
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
