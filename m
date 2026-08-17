@@ -4,86 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9993C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 10:20:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB52C5DF70
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 10:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36E8A10E3FF;
-	Mon, 17 Aug 2026 10:20:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7362910E32D;
+	Mon, 17 Aug 2026 10:29:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="kDorzMwY";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="e3tfk1Rb";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="yT8vJ4p5";
 	dkim-atps=neutral
-Received: from flow-a4-smtp.messagingengine.com
- (flow-a4-smtp.messagingengine.com [103.168.172.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 811B310E3FF
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 10:20:28 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailflow.phl.internal (Postfix) with ESMTP id E5BB21380339;
- Mon, 17 Aug 2026 06:20:27 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Mon, 17 Aug 2026 06:20:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1786962027; x=
- 1786965627; bh=toFR7CttO5z3jj5XX70w7xnXop6+YeM2N8EtwJ/xROQ=; b=k
- DorzMwYWQ8UBd9lF3s3l7x240IkaADZR/qmhJImi43reP/RpGw0Lbu8OAq9xnPQJ
- N7d55p43sb5FzAvi4RbwoUsUNTSgUU/Co47Q72YK1hOBet7Q4mU1gNCLLTihyNCJ
- P/y6bv2M9o2Z+Pozqojf5zHKPrVMjkhaKa79Jwqr6CZdSQyQp74B5iAIIL7Y7F7k
- nFTRYUICHD4j4s9McTdyx1bxK7EoxBAMw76vZKD8aJaQylZ/C4xEASxTZx8fR2ym
- In+qbVeW4qi1/4zE/NhXoiYGdoBkZrt+X8sr6DJfueX0YIVbd2/YQ2oE1CdVupoz
- 17VxenK02M5e5aV243Eww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1786962027; x=1786965627; bh=t
- oFR7CttO5z3jj5XX70w7xnXop6+YeM2N8EtwJ/xROQ=; b=e3tfk1RbNVgZiG35n
- O1IDh52BayR9W1ZybJoiZ3gIRPMmNN/ayQ4CH8+Bgk/mAcwTTsZYRR/aF1hKXz88
- i1xq12MI/QccS5FyR/Y+gJE3Q5tDzBRRVE6rH0XXTfSOEQHmIIUnWRxv/hIkkKDG
- 94GGZgjwvtXFpRGBsOvYRARUeLjlKySU51SOrST8BiKe/U+SnhjlPeua07PMrfaJ
- VgorMmfxPCdh6SRisZbcKw3JBLrY0Srmz510jZhGNap5koExL/prWg5yGTLuMIyj
- ZaEGXuHmk3IF/SZsnO/saOKeTlfuxwB+uaWjvB7xfjfEQ3N3hKx2Qv+HRmL55Vuq
- ESMrQ==
-X-ME-Sender: <xms:a-CCapERq42D396F-WvEVMS96cfIQpAnBdoH8ZhjiBu5uHf62e_z9g>
- <xme:a-CCamjRvLUwTyKji24L2J8LzcTsf-CZVVrGuhEjG_dLcr-tstYU1q4IasUzwN8WU
- AuyXDCOX2OinHA8mSW6x4yQMNlkhECJQtanYzgOSUq6NW38-9-cYcYi>
-X-ME-Received: <xmr:a-CCamtb48pTVq1-_GmEXWLUeeCExlicdF9y_ppU39qcTLHc6Gse3F2uDARsa2zbRn7uJMx3Mg>
-X-ME-Proxy-Cause: dmFkZTEav12/xox9dW6FBrGBtqGDntmQw+BK8FNwTWmRZjxu8LmOPvxJLoqU5ERQ2bc4Sh
- EZTMtc+O1uYQzV11Wxoj4DcdyOim58v1EwZW/KjHoqAFyJ007NUBR20UItdIgPWS9PsXBq
- pe89jlsR9mJe7k2fRZhSktW/8sOxkpzOe09fjNRCMBiwIlBCHVI5VwWaxGXFrYZdVsWD8T
- 52vMwRkhQIUUgsZdZbEZDtRTbJeWJLpufjCQGCpqCBp5wclqROY2LMMw7OpGz3JD5/Nek5
- dQqSB/RHcDywRRL7dKDqNv+L32U/Ay+fbsSTUemig8p/3vpdA1ucfND8A/hlnoTuRgaYAs
- ia75Cchp0mALQLn46Kyahjr00cWOSvN4PUWbMS4ZUD0d7q5xX22cQBTydSFgzjQBnfYhyD
- TC7Aww6EcaQA9DmAwX1AdDmnHdKv65rcIFjiBijOgxck90DvV3KSAI4UAT6df3la9rS8A+
- 38cOjyG52g/faS8m/k0/X/BQ72gfpc41DePsIED6qD2DLDN7TNZagYSGiPJckbjOjaAJNm
- gD1p8MNV+iDXIA5UzTTqc1/6bOxxDJomY031pSrkDl61UP/LFvMxFCrRzQdBowoWwZ+hyv
- EL04bPEmGMesAMuTStxaJrd3yF6LEpoubwOo7Ijdzk3uG2W63mNtaea9UcKg
-X-ME-Proxy: <xmx:a-CCapuUDBoxg3wQqwBDLCTLeE6ojJfspPFPx9t6i-6bXRe3xrrRzQ>
- <xmx:a-CCarHLEMWt-uZZGYsjvuc3CuDxAgGxZdkCkXbTL-Ar8xC-c5HtBQ>
- <xmx:a-CCakOTODvED21m5GbAqXQWdXOXa685f0DJXuNxvjFE4f3EBgR2yw>
- <xmx:a-CCaqIA9LYla2ZnkHi8uK840Ywz6pofG89dde6PybG2zRZz9-jkpg>
- <xmx:a-CCauVITsaLWtdqyqOfeHeI_8QESZofbuGcX4DUxRTD7NpkHa1RrfwD>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 17 Aug 2026 06:20:23 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: royalnet026@gmail.com
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, chaoyi.chen@rock-chips.com,
- alchark@flipper.net, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Mon, 17 Aug 2026 22:20:21 +1200
-Message-ID: <20260817102021.1226525-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260817100046.24872-1-royalnet026@gmail.com>
-References: <CAEWPSH7ETfw2TDjUfOvcVtDm19FC43x2vP=Lh7m+XPOGptnPWA@mail.gmail.com>
- <20260817094544.1159366-1-gahing@gahingwoo.com>
- <20260817100046.24872-1-royalnet026@gmail.com>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021081.outbound.protection.outlook.com [52.101.100.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7E1A10E32D
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 10:29:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ckUO/J6fHu0qWvq/RBUwAl3an91I+Csfy+xsIiYLjlw5VsJ4ynpG/3fEfrIE1lIrrOtcj8oUV6+GjwUcuWV4xJxS7rUmYc48TnKYErLGGo/vveWPrzc/pmju15zJKlDgSYy7KDKygGZqgVjA48ARMKFE2dqGhn/DP1hXNoZ00DzMxGUJuevm4UfhFOL0iJXAKvbpm0d6/qxUba/ZAbcJ1tRzZeI5w4O3wqikrpNXceC5iQYMgLU09EXXvsgvu3hpM50FOWXJkbwHfjEWqY79St51GlTr4RufYb7UXOX0+RMO8M8//jMNN2wtYDFrX1fhgYzSXdBNx90JuKbdNzXKjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=apmGA4hIUP8uTYx3choU5CABx4jvZDa50mvde9/9ZFg=;
+ b=M5m1VQbeWo13UZPHzSC83ds+r2rUduhUpGyLibj9IeJPwWdL88M6aHClqr3lukecyRZuIapia37cRSkT13LsSfBcZqegX7x0gjtASsM4uRnwKBNj1lS5XZZ3r5ygkKwwDguW9kASUU6OCsHmD/YZ0TTMS+y3xdcmgueoLkgM144MKya0UYbRzlROvf1Iq4DTj2HEOjA90LqFMBmTCQnq8dDyT13j795T0WNKAjSArwzxVeq2nFIkpK1O5mfTXy+j2suUyy0SP3UfFAJwDzkh32fSr3a68KnCeU4UW58s1MH0QXkifv0hd9OJDCqUbRbW+fMFjBUIbHEaRbX5VdgHIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=apmGA4hIUP8uTYx3choU5CABx4jvZDa50mvde9/9ZFg=;
+ b=yT8vJ4p5ygjkNA3wCKq+QAxY7jkXzyN/uPbB/eB8IijMxy6+TDZEEpOrfvMJDV8HFlZMmDuj4/eYaJyIpIa05k8tWVPDcYpQTUmfV+aH6LWducTjp75RUDwvoRKiquKaB1j9HH6Oe/FU5qyha9rHdP/ctaY4Z1eRcm7UPr8r+cs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWLP265MB7177.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1f1::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
+ 2026 10:29:24 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 10:29:24 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 17 Aug 2026 11:29:22 +0100
+Message-Id: <DKR5D0EQTMIG.15W9AGBY0I7YM@garyguo.net>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "Yury Norov"
+ <ynorov@nvidia.com>
+Subject: Re: [PATCH v7 01/10] rust: bitmap: use function-level cfg on kunit
+ test
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.22.0
+References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
+ <20260817-chid-v7-1-a5872e64d8f4@nvidia.com>
+In-Reply-To: <20260817-chid-v7-1-a5872e64d8f4@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0415.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18b::6) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB7177:EE_
+X-MS-Office365-Filtering-Correlation-Id: d653f5ab-65a8-47fa-c43d-08defc4a6808
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|921020|56012099006|10067099003|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: s9HtqjT1K7gc9YHGmybmZFlP27qxExOhMD+OE92HF/pgI50z0F6DbA0HGsinEjc9Y7XwWTyYT4IVVpIqutYpeAR9Jk2ukeFmV9OANJMtKQ5gL3mR57UELDv2vKfVg2U6ITi0pS9HLA12tdm6CFm0d8mtPPekTikX7OchYqz9gjCsnzB8YQDLMoyBsT8QzMEf5Qy3gEVMzWADDNj7ZqFn33SVDeFPuo9wBQHcDHyDgn8oCbeCM5DVMLQePwu3rYdw8ITSAlsqjfqT+Ca7PXwgh/ML29VSLMBWlRXK7QVd4AZVfAE61ep2j5ZdDRQ75GXZh52FPhmPMOFLLCzH5mjy4WJ6eZrk2Oyk3fbzqhGXwQ3qRtc+8NhTBJY2Lp9MTEm14vaKDnlUt+PW/w06wZozh/+OqmZyYjrZ7V03bk41y5XrbpebSzXgADeVd4zkp4KnqlLijXd02xDFuY4gdYoq769mXMzbXQoTxiXlaJz+GHwmepJmj1n3hmhBergLKOR0eH9umFczSwclTXW46oVPa378HBpDht0JEZel8lzK89BC6rZdRvGqyNcwe+O58YKO0RnCY9QWcB/G6xv4vUvxEeHZ+xnrxfxCahza5+CQAdzWJYo98UcGYKuqk3t0V8CuVLM0l8qD36MkF0lgz0cbyBLlfyY9McUzRDf5ih4Gok/MyQwv/Lq/XNdJ9aIXy24LyVQC1Ys+nFBCalB4yu2Qtg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(921020)(56012099006)(10067099003)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDZ1ZTcwcVRwdkp1U3pPN2VFZzExUlVaRzBRajlGaldWRFVUZG5rZEE1MkNO?=
+ =?utf-8?B?U2l6Y0U5b2ZVL0NqbHBXd2VoUTlVeXFUWDdsVkVwaUlOblZVNHp6Z3puRTc2?=
+ =?utf-8?B?a01TdHEwVWRiNlVVQnRYdVRQdXZ1R2dJbC93ZHc5OTl6ZldQQ2cxbG5mVmVs?=
+ =?utf-8?B?VDJvazJIYURBSGRZQ0x6SEVUVjNWRFdQdHA5OFlUTEJmQjh5YS9CckxHb2t3?=
+ =?utf-8?B?Vk1SMGwzTjNaNkV1NGFNQThvUCsyUTdkT0FQSWFGNGJuVmlaajhSanVWUXdR?=
+ =?utf-8?B?OU1iY1piTVBxWEw2aFRacXczSnNQaC80Y2t6RExIMDFvanpCVzdhVjVlcXQy?=
+ =?utf-8?B?Q3pmZVJXbVVCMWlEZDJ5c2RHVFVRUDM3UzdmUU15YmVqdFIxWC9aancwTGli?=
+ =?utf-8?B?RWpRQ0NMS094MUlTOVlrcC9Ray9pcjFtemEyVC9rZldQbGtxR0tNRHNWR1pt?=
+ =?utf-8?B?bkVxeTk4U25OYWU2NkpncEpoeTJhZkdHQU9xTWFaQm5sRk5jMWFRN3hYSlU4?=
+ =?utf-8?B?UXdOa01oSkd0Tm1CN20xRUtrcTNuUXF3SE02R3pJSW05NUVKMXY5ZFdvTGo2?=
+ =?utf-8?B?YlJOazhMN29GS0RHQWVRSy9WT0N1cDVublBaR01QMlZTUUgvTDR0QWJMMXNO?=
+ =?utf-8?B?WGhxVzIvaHdQQXQ2YUZsemxuU1YwV2ZpNXZ0U0hTdzhpeWpjdndDMFZQV0Rh?=
+ =?utf-8?B?akxCVko0Z2pvKzQwTmNmY2daRXh3UlFhWU52SWdnTE5ZK1VsWVMyQXp5N2w3?=
+ =?utf-8?B?eXJEN0RzdTFZUXBEMDErTmZKelhMVkZvYy9wZjM1ZTlqdWpyTjQyQ05aSERM?=
+ =?utf-8?B?czJUQ3l3NHEvQ2ZWNFZMemZhbG5uamx4UHBZTXJYY05qZnJEOVVRdFFsUXFT?=
+ =?utf-8?B?bVBDTHM4ZHBTaFV0bFlML3BVaDYxSTcyYm9pSjZVMnRLSnlYQldkaGxJQUZx?=
+ =?utf-8?B?NGZGcVVQTEpyZzZhYi9QdjhtcDhRMTkvaks2eHoyYnZzWlBjaWUyUDgrQzhq?=
+ =?utf-8?B?VnpiVGdQZXJIK3V6QURMdjNQd2pOVDRSMUp1T1pLeExLSVFOSFdWZENmL3BT?=
+ =?utf-8?B?WllhMEEyU29JcnlmWnF2TCtvekFwRVZDdWMvczZlYjhTaVk1c3JoZ0hVOFFI?=
+ =?utf-8?B?REptZGNhSGxRcTd6WnQ4SWxwVEc3RHFRRFNRV1RmenhydmVqS0xOT3FLT0NR?=
+ =?utf-8?B?bkpqaTV5MUlsQU5VNWZocTQvbkU0VUExWW5TR04zLyt2S3UxdWRtNE84SXZ3?=
+ =?utf-8?B?alJacUd6MEErdUM2eE15Y2JPN2l1QUZIOStSTE0rNWdZSkRiOHJ0MWNHRHRX?=
+ =?utf-8?B?YXR5cXNkMGQ4bmJOdmdFakV5ZE1qL2hsOU5ZZFkva2twR1FRbW9QSi9EN0Z5?=
+ =?utf-8?B?ZzRoanQ4TEc1Y3gxOEN5MWprZEhPOVJadGlpWlZSTUJKYi9OVmxsaVdyajV4?=
+ =?utf-8?B?aVBaNjdDVUV1Q2hjTkpzM3ZwRjFtOGZaVmFHbG02TVVZajdtUzllV1JqUnVJ?=
+ =?utf-8?B?RWJ3Qkc3ckEycERUejM5aGo3RGtMV294SER5bEswcHNZT3dXWjBYL29pakpD?=
+ =?utf-8?B?UTR3cmxhOTBZWTFjU3AxK0lMNWxGUEMxd2tVQjVoeGZ1dlRhdVhlRkVVQmp4?=
+ =?utf-8?B?WjA2eGx5RkNLMHBFWDlSOHBCV2lycFBESHB0OGpBS045VnNpUzhlbEdXTEwx?=
+ =?utf-8?B?QVFiVDdJVDNNVXp3Tlc5eWRrd3YySW1BdEVuSlV5VS9FdU5oZTg4VzcyQVJU?=
+ =?utf-8?B?OEsveGtLQ3ZYbjFmeCswdmpIalJ2OHBRZ2VhLzNQWE83ckhRZEdGZFJrOUZu?=
+ =?utf-8?B?c3BXRE41bC9MdDdxQXhqUG1SSGRlQWtoQ3o0eThqU2ZwVlNnK0NBVzVKaHhy?=
+ =?utf-8?B?aE1rYjBrS1FJQkpFU1I4M3FQc0hGbVhyYkFXb3dGcEpZRnNvbURVaktTeXJz?=
+ =?utf-8?B?WWc0c2xVNndOaThZTjIrdVJGWHVmMGNWd2ZxdEhuRkl6QW5OVnlmSU8xbVFO?=
+ =?utf-8?B?MmlWRXNQTVBaTHIzbmNReERJeVhHWFh1bTFUaGlDVHpJN1ZTdlZNVFRUNzV1?=
+ =?utf-8?B?MFZZRFF4SW1Ud3JaLzdPUFVHbG1zOVhzR3B3bWljMzBhT1hnSGRsdHZKajdQ?=
+ =?utf-8?B?NVg3NUFFMmVZMkZNYWVwZ0hicjVsYmFjVlQzWktRUDhxRHVLd2tBbW9aRHQ2?=
+ =?utf-8?B?YWgzVlYrcmh3RXJUUWFNU2o3eFc2cTZ3OHREV3lja2hPdG5HMzdML2Y4aFhi?=
+ =?utf-8?B?TUg2czA4UTRCWFVLSHBSVUtGNWJVTlBwWjVMQVRaMjFRd3Jpd05ucFVLTVUx?=
+ =?utf-8?B?R0tEODFoUHpOcE1LZFBFSWoyVThsVEp4MGNqQno1UmoyUCtNSHJCdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: d653f5ab-65a8-47fa-c43d-08defc4a6808
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 10:29:23.8974 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: P1ZWwv2v9tYbf4XpKacaVqq4iWFVEhqgNNiZUY91N7OrP4B0go9D16QI1I75R4ruibQ8OWhGzwsej2MeTYT7sQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB7177
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,62 +151,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+On Mon Aug 17, 2026 at 8:04 AM BST, Eliot Courtney wrote:
+> Since commit c652dc44192d ("rust: kunit: allow `cfg` on `test`s"),
+> we no longer need this workaround.
+>=20
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Reviewed-by: Yury Norov <ynorov@nvidia.com>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-First, I sent you to the wrong counts. The two predicates disagree only
-where oc mod 32 falls between 17 and 31, since modulo true implies parity
-true and never the reverse. At 40 and 72 both forms emit the same word, so
-I withdraw them. By the same arithmetic only 56, 88 and 120 of your eight
-carry any parity versus modulo content. The rest still establish something
-better, that the upstream constant computes whole at five remainders on
-RK3588. Discriminating counts nobody has run are 20, 50, 60, 90 and 114.
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-Take the code from the merge request rather than my working branch, it has
-no knobs in it.
+> ---
+>  rust/kernel/bitmap.rs | 25 +++++++++++--------------
+>  1 file changed, 11 insertions(+), 14 deletions(-)
 
-  https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/43804
-
-  R_DPU(0x4050, (DIV_ROUND_UP(output_channels, FEATURE_ATOMIC_SIZE) & 1)
-                   ? 0x80011011 : 0x80011111);
-
-output_channels is task->output_channels_real, the unpadded count, and
-FEATURE_ATOMIC_SIZE is 16.
-
-Do not put my two words in an RK3588 build. Against registers.xml
-
-  field         upstream 0x124   mine 0x80011111   mine 0x80011011
-  RGP_CNTER            0                8                 8
-  RESERVED_0           0               34                34
-  SIZE_E_2             1                1                 0
-  SIZE_E_1             1                0                 0
-  SIZE_E_0             1                4                 4
-  OW_SRC               0                1                 1
-
-Mine differ from each other in SIZE_E_2 alone and from yours in five
-further fields. Those five are common to both of my words so they do not
-confound an A against B, but none of them has ever run on an RK3588, and
-if both arms fail for that reason the oc 64 control goes down with them.
-
-Use your own constant with bit 8 cleared instead, 0x124 where the
-predicate is true and 0x024 where it is false. That takes SIZE_E_2 from 1
-to 0, the same move my words make. It assumes the three SIZE_E fields move
-independently, which neither of us has shown.
-
-Bit 8 does something on RK3576. The table I sent on the 16th forced
-SIZE_E_2 to 1 with every other field identical, and 16 output channels
-went from 16 of 16 to a job timeout, 41 from 41 of 41 to 0 of 41. Whether
-it is the only field that matters is open, and the sweep I promised before
-the series went out covers RGP_CNTER, OW_SRC and two reserved bits but not
-SIZE_E_1 or SIZE_E_0, which are just as fitted.
-
-Of your three offers the oc 64 control is the one I want, both ways, since
-that is the side I lost. A count at 20 or 60 would be the first
-discriminating point outside 24 modulo 32. And yes to the generator and
-the scorer, the refusal to emit a constant reference channel is a better
-guard than mine.
-
-You are right that none of this touches the timeout. Every modulo run that
-lost channels also raised one, at three counts, and I cannot yet tell
-whether the register causes it or both follow from something else.
-
-Jiaxing
