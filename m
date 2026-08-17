@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CC00C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:51:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B98C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:52:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C414A10E76E;
-	Mon, 17 Aug 2026 11:51:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72D9410E779;
+	Mon, 17 Aug 2026 11:52:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O//bsols";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eFQp0ilo";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4BD10E76E
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:51:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B921C10E776
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:52:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A798D600AE;
- Mon, 17 Aug 2026 11:51:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051941F000E9;
- Mon, 17 Aug 2026 11:51:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F7E24067E;
+ Mon, 17 Aug 2026 11:52:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9CB01F000E9;
+ Mon, 17 Aug 2026 11:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786967499;
- bh=e0bGdnm8gRxZo2ivvklFYmnYg+NzW38/eoWNM9UR4oE=;
+ s=k20260515; t=1786967550;
+ bh=c3JuC82Ira9B4K76DVYQKEvOWtnFSnFONhGBjjkEiSE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=O//bsols/qO85DM2I8khQWy61T+JVWrlnKDpcVdYaaNRKkGpxkS3JrSB7gV7grvg4
- 3fkENCtOvV0IDtGisq2juyRwyjlIeeXtvO2tx9rpxPYxdiwmavjIrsaDxkJISkltfc
- B4w+eHuZn4rQyomi61ENbD9eHRHVzBdB0ChmJkeDreilhUcoFzvjdVf7HOxZyJD7FK
- 1uQ2DdtFjpUANtHTQLLIAF4re0xTu97qo8UGV8znJZYotJqbbt4Pxn6nudLQw3m3qn
- hBbcY0luSTo1GpA2Tnac8Y3R/E2FnLoMWzM/AAxGFe2kvz3mk1BxQJW5Xw4WuYKtOA
- JtX8k6LS72EJg==
+ b=eFQp0ilo501ypAq6nTsIRO2rjyDPNIplfoszodQFCo2BwEEK6AJBnOcobInRf72EP
+ xl4ur2KpYYGkuIHi7JoEjrR5otdhOLErjUW92LtcacCoQR6ih0ZUGw2rjsPJLTQ6Yn
+ zEi6vZcoxJGCTbnT8H1z4lI6wRlhGWeOI3YzdYxMJE/s/IojHcrQL/5wxlzPsJlegS
+ P1dQpZEKG1FeL5mDalyx6/cQ+ZlwFjmZUW13dawkiRNR9xFcZh/PTuPUd5H6TQ6mdV
+ Z5weLRCdk6CJKl+v5Rnx9xmk0HG5i0uiUGqHFsyFAxJ30bvKyRw0k2qWxwqQPcut+M
+ RQ0kIQfF0HGVQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] rust: drm: add panel consumer abstractions
+Subject: Re: [PATCH 5/5] rust: drm: add KUnit tests for panel
 To: "Albert Esteve" <aesteve@redhat.com>
-Cc: devicetree@vger.kernel.org, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260817-drm_panel_bindings-v1-3-1f974508a31c@redhat.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260817-drm_panel_bindings-v1-5-1f974508a31c@redhat.com>
 References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
- <20260817-drm_panel_bindings-v1-3-1f974508a31c@redhat.com>
+ <20260817-drm_panel_bindings-v1-5-1f974508a31c@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 11:51:38 +0000
-Message-Id: <20260817115139.051941F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 11:52:29 +0000
+Message-Id: <20260817115229.E9CB01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,175 +58,128 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Refcount underflow and use-after-free vulnerability in `Panel::fro=
-m_of_node`.
-- [High] Soundness hole in `Registration::register` allowing memory corrupt=
-ion from safe Rust.
-- [Low] Missing conditional compilation guard for `panel` module causing bu=
-ild failures.
-- [Low] Improper `#[cfg]` guard on `of_backlight` breaks the build for modu=
-le configurations.
-- [Low] Missing `#[inline]` annotations on small forwarding functions.
-- [Low] Imports violate the kernel vertical import style.
+
+New issues:
+- [Low] Missing Kconfig dependency on DRM for RUST_DRM_PANEL_KUNIT_TEST
+- [Low] Horizontal import formatting violates subsystem guidelines.
+
+Pre-existing issues:
+- [Critical] `Panel::from_of_node` creates an `ARef<Panel>` without increme=
+nting the reference count, leading to premature free and use-after-free.
+- [Critical] `Panel::new` improperly steals the devres-managed reference co=
+unt, leading to use-after-free and double-free.
 --
 
---- Patch [3]: [PATCH 3/5] rust: drm: add panel consumer abstractions ---
-commit e330c1b98aba78a95f008b2fccb2105d337a8df8
+--- Patch [5]: [PATCH 5/5] rust: drm: add KUnit tests for panel ---
+commit 075cc8b6578147fc552359e30a2b237e1bdb801a
 Author: Albert Esteve <aesteve@redhat.com>
-rust: drm: add panel consumer abstractions
 
-This commit adds a Rust abstraction for the DRM panel subsystem, providing
-wrappers for the consumer side of the panel API. It introduces the `Panel`,
-`PanelOrientation`, and `Registration` types, handling refcounting and devi=
-ce
-tree lookups.
+rust: drm: add KUnit tests for panel
 
-> diff --git a/rust/kernel/drm/mod.rs b/rust/kernel/drm/mod.rs
-> index 672ea8728e1c3..d1de5d448a1a5 100644
-> --- a/rust/kernel/drm/mod.rs
-> +++ b/rust/kernel/drm/mod.rs
-> @@ -9,6 +9,7 @@
->  pub mod gem;
->  pub mod gpuvm;
->  pub mod ioctl;
-> +pub mod panel;
+Add a test module to verify basic data type conversions and layout for
+the Rust DRM panel API.
+
+> diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
+> index e6a5c7a795f0f..397b916dca0d4 100644
+> --- a/rust/kernel/Kconfig.test
+> +++ b/rust/kernel/Kconfig.test
+> @@ -83,4 +83,14 @@ config RUST_BITFIELD_KUNIT_TEST
+> =20
+>  	  If unsure, say N.
+> =20
+> +config RUST_DRM_PANEL_KUNIT_TEST
+> +	bool "KUnit tests for Rust panel API" if !KUNIT_ALL_TESTS
 
 [Severity: Low]
-Does this module need a conditional compilation guard?
+Will this Kconfig option be available even when CONFIG_DRM is disabled?
 
-If `CONFIG_DRM=3Dy` but `CONFIG_DRM_PANEL` is disabled, `panel.rs` will sti=
-ll
-be compiled.
+Since the tests reside in rust/kernel/drm/panel.rs which is compiled
+conditionally under CONFIG_DRM, could this result in a dead configuration
+option where Kconfig allows enabling the test without DRM, causing the
+code to be silently skipped during compilation?
 
-However, `panel.rs` relies on C functions like `drm_panel_prepare`
-which become static inline dummies in C when the config is disabled,
-meaning bindgen won't export them and the Rust build will fail.
-
-[ ... ]
-
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  This option enables KUnit tests for the Rust panel API.
+> +	  These are only for development and testing, not for regular
+> +	  kernel use cases.
+> +
+> +	  If unsure, say N.
+> +
+>  endif
 > diff --git a/rust/kernel/drm/panel.rs b/rust/kernel/drm/panel.rs
-> new file mode 100644
-> index 0000000000000..fd21cc2236685
-> --- /dev/null
+> index 8f87774e06ed7..3da203c39edd6 100644
+> --- a/rust/kernel/drm/panel.rs
 > +++ b/rust/kernel/drm/panel.rs
-> @@ -0,0 +1,227 @@
-> +// SPDX-License-Identifier: GPL-2.0
+> @@ -595,3 +595,90 @@ pub(crate) const fn build() -> &'static bindings::dr=
+m_panel_funcs {
+>          &Self::VTABLE
+>      }
+>  }
 > +
-> +//! DRM panel abstractions.
-> +//!
-> +//! C header: [`include/drm/drm_panel.h`](srctree/include/drm/drm_panel.=
-h)
-> +
-> +use crate::drm::connector::Connector;
-> +use crate::{
-> +    bindings, error, of,
-> +    prelude::*,
-> +    sync::aref::{ARef, AlwaysRefCounted},
-> +    types::Opaque,
-> +};
+> +#[cfg(CONFIG_RUST_DRM_PANEL_KUNIT_TEST)]
+> +#[macros::kunit_tests(rust_kernel_drm_panel)]
+> +mod tests {
+> +    use super::*;
+> +    use core::mem::{align_of, offset_of, size_of, ManuallyDrop, MaybeUni=
+nit};
 
 [Severity: Low]
-Could these imports be reformatted to follow the kernel's vertical import
-style guidelines?
+Does this horizontal import list violate the Rust subsystem guidelines?
+
+The guidelines mandate following the kernel vertical import style when
+commits touch imports, so shouldn't each import be placed on its own line?
 
 [ ... ]
 
-> +    /// Returns the raw pointer to the underlying `struct drm_panel`.
-> +    pub fn as_raw(&self) -> *mut bindings::drm_panel {
-> +        self.0.get()
-> +    }
+While reviewing this file, I noticed a couple of pre-existing issues in
+rust/kernel/drm/panel.rs:
 
-[Severity: Low]
-Should small forwarding functions like this one and `prepare()` below
-have `#[inline]` annotations, as recommended by the Rust subsystem
-guidelines for abstractions?
+rust/kernel/drm/panel.rs:from_of_node() {
+    ...
+    // SAFETY: `from_err_ptr` guarantees a non-null pointer on success.
+    // `of_drm_find_panel` returns a kref-incremented reference.
+    Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(panel).cast()) })
+}
 
-[ ... ]
+[Severity: Critical]
+This is a pre-existing issue, but I noticed that of_drm_find_panel() returns
+a pointer without calling drm_panel_get() to increment its reference count.
 
-> +    /// A typical implementation for a panel driver supporting device tr=
-ee
-> +    /// will call this function at probe time. Backlight will then be ha=
-ndled
-> +    /// transparently without requiring any intervention from the driver.
-> +    #[cfg(CONFIG_BACKLIGHT_CLASS_DEVICE)]
-> +    pub fn of_backlight(&self) -> Result<()> {
-> +        // SAFETY: The type invariant guarantees the pointer is valid.
-> +        error::to_result(unsafe { bindings::drm_panel_of_backlight(self.=
-as_raw()) })?;
-> +        Ok(())
-> +    }
+Since ARef::from_raw() takes ownership of a reference count increment that
+doesn't actually exist, will dropping the returned ARef<Panel> decrement the
+panel's kref via drm_panel_put(), effectively stealing a reference and
+causing the panel to be prematurely freed?
 
-[Severity: Low]
-Does this `#[cfg]` attribute handle the module build correctly?
 
-If `CONFIG_BACKLIGHT_CLASS_DEVICE=3Dm`, the `#[cfg(CONFIG_BACKLIGHT_CLASS_D=
-EVICE)]`
-attribute evaluates to false, which entirely strips the `of_backlight` meth=
-od
-from the Rust API.
+rust/kernel/drm/panel.rs:new() {
+    ...
+    let raw =3D unsafe {
+        (container as *mut u8)
+            .add(core::mem::offset_of!(PanelContainer<T>, panel))
+            .cast::<bindings::drm_panel>()
+    };
 
-This would cause build failures for any Rust driver trying to call it, even
-though the C fallback `drm_panel_of_backlight` stub exists.
+    // SAFETY: `__devm_drm_panel_alloc` was successful, hence `raw` is valid
+    // and the refcount is non-zero.
+    Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(raw).cast()) })
+}
 
-> +
-> +    /// Look up the panel associated with the given device tree node.
-> +    ///
-> +    /// Searches the set of registered panels for one that matches the g=
-iven device
-> +    /// tree node. If a matching panel is found, return a pointer to it.
-> +    pub fn from_of_node(node: &of::Node) -> Result<ARef<Self>> {
-> +        // SAFETY: `node.as_raw()` is a valid device_node pointer.
-> +        let panel =3D error::from_err_ptr(unsafe { bindings::of_drm_find=
-_panel(node.as_raw()) })?;
-> +
-> +        // SAFETY: `from_err_ptr` guarantees a non-null pointer on succe=
-ss.
-> +        // `of_drm_find_panel` returns a kref-incremented reference.
-> +        Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(panel).cast())=
- })
-> +    }
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does Panel::new steal the
+devres-managed reference count here?
 
-[Severity: High]
-Does `of_drm_find_panel` actually increment the refcount as the comment sta=
-tes?
+__devm_drm_panel_alloc() allocates the panel, initializes the kref to 1,
+and registers a devres action that owns this initial kref. By wrapping the
+returned pointer in ARef::from_raw(), we assume ownership of an existing
+reference count without incrementing it.
 
-Looking at the C implementation, `of_drm_find_panel()` returns a raw pointer
-but does not increment the panel's `kref` internally.
-
-By wrapping this pointer directly in `ARef::from_raw()`, the Rust code assu=
-mes
-ownership of a refcount increment that didn't happen. When the resulting
-`ARef` is dropped, it will call `drm_panel_put()` and cause a refcount
-underflow, leading to a use-after-free.
-
-[ ... ]
-
-> +/// A registration of a panel to the global panel registry.
-> +pub struct Registration(ARef<Panel>);
-> +
-> +impl Registration {
-> +    /// Registers a panel with the global panel registry.
-> +    pub fn register(panel: ARef<Panel>) -> Self {
-> +        // SAFETY: The type invariant guarantees the pointer is valid.
-> +        unsafe { bindings::drm_panel_add(panel.as_raw()) };
-> +        Self(panel)
-> +    }
-
-[Severity: High]
-Is it safe to expose this as a safe function taking an `ARef<Panel>`?
-
-If a safe caller passes an already registered panel (for instance, one
-obtained via `from_of_node`, or by cloning the `ARef` and calling
-`Registration::register()` twice), this will unconditionally call
-`drm_panel_add()`.
-
-In C, `drm_panel_add()` executes `list_add_tail(&panel->list, &panel_list)`.
-If the panel is already on a list, this will corrupt the global linked list
-pointers. This seems to allow memory corruption from entirely safe Rust cod=
-e.
+If the ARef is dropped, the kref reaches 0 and the panel is freed. Later,
+when the device unbinds, won't devres execute its action on the freed
+memory, causing a use-after-free or double-free?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-drm_panel_=
-bindings-v1-0-1f974508a31c@redhat.com?part=3D3
+bindings-v1-0-1f974508a31c@redhat.com?part=3D5
