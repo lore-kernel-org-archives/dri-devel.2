@@ -4,153 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF358C5CFC1
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 08:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6066C5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 08:20:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26F6710E6BE;
-	Mon, 17 Aug 2026 08:02:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED6BB10E6B2;
+	Mon, 17 Aug 2026 08:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gUv509Hg";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZLJ2f0R1";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Fqtkb6qr";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5973910E6B6
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:02:45 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67H76l8C663012
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:02:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- A3326y2xRLc4LUOS/GitWc6Ks0gAYMdIYlQfHxMHMgg=; b=gUv509HgWGlG+Cy5
- EE3RDEv0i9vuuJLaeB8aJ0tzpS9EjAqjMv1f11Yz9lx0tSWcVl+etNQzRDOoTVdC
- 6AewY63wPCRhV9z1flQunFjlcHqDFAHeSuSarwETSe1Nw1XdvdGyo0Y/hwR6rVIm
- Zsi7XHeokjsYt+9ous1BsY44KEu/t/qdbu15C9vmJIRW7E90tu8qErSaS/ECR+tB
- Vb354AaMMaKw4O1fYxf79SeRhmMLEryUwFKxsTTH+437vd0CrTUr8yvLLVJz65UL
- Ap6+6FCmn3BUwAvncNCkyadR7GT3NYJu9tkcL7n4A44z3JT+umYVz4YEohrPNDz9
- Zmw7tg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2ghnwxy7-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:02:44 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51c19493ac2so32876061cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 01:02:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786953763; x=1787558563;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=A3326y2xRLc4LUOS/GitWc6Ks0gAYMdIYlQfHxMHMgg=;
- b=ZLJ2f0R1jrBocKuk9BNKRDfluwaULXg2BUjyH9O48MSK1YlM2B2ew1GkRNYGd2MBKV
- Yl3LaK+KK99/2SEgDwVsTZRFjx6alANqI1KUIdty+PgHT3D4jvkQbamfDurkJuTDFGbC
- VDGuLtvoMxTB2tgcp2UFN9to4JLjNFjQ6tgz+8lI25iiB0YfyMETMgP/7DZGakRH7pZG
- fYyW6Q1ZcbznRHVg4/IIn0z223bzvnDaSJ2uYSUJC+8mSKEb44kjEg3wMGZCsC4+ATn6
- wbkGEmd9V4XgJKW4iPIHR2pt/mMX6rIy3KsqhTYd8gvRWKgm6gozHCz/hFxkZCz/iX8i
- rxhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786953763; x=1787558563;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=A3326y2xRLc4LUOS/GitWc6Ks0gAYMdIYlQfHxMHMgg=;
- b=bcrLyQ0jTmQLWHadN+S6NeHfrPtIxEqd7TYjB8wSz1Z+IzY1Rr3YzhGwlbAA7O5qIw
- ouCCIf4JE5rFKcwDzQ3U2g0q1l6K5YNY77ze+KJlBPNEhCj1qpUkirAFAanYGMeNmswS
- VAl2O4hv1c+DncNNCuVSPm+DpcuxVGLLjDBlXt1QG/rbmijQVk1NWG2+A58YPLgpKYUM
- madaYI6xGpQyFeSH1vYMmkT2aO4WuISJEDAScVkBkw2dB3+HIFQx8KXxQwDysd8yrtzJ
- d8zkKNC0m0m8FpLhDW3zZIqyisoew8DWGhp4EdMXFSSdl8g8E5z1nWtb2Y3FnWZUhFGV
- 2MYw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrDjQqrSwo7PuDVkWYCYMTfci72NfCMmIwQxCVb4nKLa1AmWN7PQois2ecFfYmvV+2BzO47Rdu+qZo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzqSAdr5vtgK1bGPW9yyBcR7xqvbiJfPWhKzuxmdnMFO4Xhvs2p
- s9QqfnbX3M/IRNVAizOqBSXXH4x18KCvgiAI8CX5O1G7yOVeuxJptZSGE1GHJEk1Y30aCdC0ZDP
- FxDU5od0iTSwxKnBxy0TSaWpCo6nawMUaH8C0YRMAqPcI8HB5cWjo++IyH9hZzPblndXHiKk=
-X-Gm-Gg: AR+sD13doj6T5sdQxWjAGu2bsS9A6sQwuKHPzohtvh0O8a3x6UAkhDrXIgueETOJ/pb
- eKm57lUsebFozNwezxdF+98osfzakL/a9nwmNG/bzmVZ/3405nPFyyBw8tnekmLqC6jl+X65BgH
- LBHxAlrDGewYLLbgWlEsKonvXfsuJ/ACp1hRpEESGQeJpu6A8VVmoNwmgKKzPgaKxFgqLfwo8HD
- ky1w7M61Hr0cSX8pstJTWAGMHPx4hfbtFoIlJLwaoVc1HAUg6R+NiVEgnb96A3F6oBkfwAJGnyv
- 6kJ6AT/pu/rkfriIMGwsHlmNvJrtQN4fczo95YA/c/n8lKFxEP4fk80Dy9DaslsarqWGMA4kk9S
- +532Mwd5KY/K1V+o8H/40vcbbG13eMZ6qeD895zeu1s/hrvcHHxejVa/WEbCQmDIT9g==
-X-Received: by 2002:a05:622a:1308:b0:52d:41d0:89e8 with SMTP id
- d75a77b69052e-52d85519b7amr231184621cf.33.1786953763459; 
- Mon, 17 Aug 2026 01:02:43 -0700 (PDT)
-X-Received: by 2002:a05:622a:1308:b0:52d:41d0:89e8 with SMTP id
- d75a77b69052e-52d85519b7amr231183591cf.33.1786953762519; 
- Mon, 17 Aug 2026 01:02:42 -0700 (PDT)
-Received: from [10.111.162.109] (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-52db623aed9sm8394031cf.23.2026.08.17.01.02.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Aug 2026 01:02:42 -0700 (PDT)
-Message-ID: <c36875c1-2d22-4c16-ac2f-4f4a947ed69c@oss.qualcomm.com>
-Date: Mon, 17 Aug 2026 16:02:31 +0800
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011045.outbound.protection.outlook.com
+ [40.93.194.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D208E10E6B2;
+ Mon, 17 Aug 2026 08:20:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AGFQbr3Twq+QYICYcw2i/LfMbpSyyBgK4cHG/TgyNf49agB75N1SxKRotdAjWBgO50CIPV2jnWNzdegx8VcrD4qQyOMpLXeklWtyZQ263J3Uv6AdHqMMVRSrge1V9KwHPoXD8Ut0Xmm+/O7+x1lDQrnRcPbQiFvrcHSt7OXyaw8M6S8dj0lZK4ARtRCgvewtofi1HtZ2XmGLtACd9it7V6+Yomeu+ooKKwVxLHu7rBbtOytqh6mlXGzOPjKKXMZED0834OZC7tabPSochyrQzJXHvmaINt3M4w0p8e9cvOUddOnyt5QSpzPs2HeDDfaiQ6G50FHMaivFo0T4Thuyyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QjnLP7jK9SR09/DND74jgQIrS87CrHG23HcFp7XIbWM=;
+ b=VW3ube5zbOieQjA52mTIxOAVfOkTngJHG5rdWjfhVyOgY0mfOYJhtfieYR6VufqrQkfsqOttS2fmTiNXPwe0D0/2ci8yTRSKG9anF5bHSfs4zX/01AHG48wGz4ChbFixmWBBlXVqWNOaf62Jpkv1eaNE0C0Oe2h1+FCCqB9ciMxP2NzQH0k8T0PaJ7z6IbG/PZ1NJJQ9FCPKw/AyIiJv+tIKq0Ka1IFQgoH5p+0Y9+k84hAvVENLfxHLgm500TScr76pjNf3kt7nxKVujmVE1t1WI4BkfN8WwtzKDNoixykmaqwXl03J1xQ+bYDz1EdfnnZuMrCwu1UDSyFd+N+Cww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QjnLP7jK9SR09/DND74jgQIrS87CrHG23HcFp7XIbWM=;
+ b=Fqtkb6qrMmfFrZ5HgYRuDkrbYip6i+j/bZNjN8pPT70pvkzp011EzsQQuB/QJ+SbU250viFoPIFnGEui8Wd2FISz4fv+/WLV7yuqONbBqY9/T9uGL/Y6MTNhPfR57mDPKfmiU4EPwlZB9aKv+uZs+/zHCEMQXr7kzwIV7sc3FkdudM8yPTtqps9CpSSvBwEP441U5/zsD39m3ZoVh1L8iiGJGOgc93+Q84m4QDbYB/SvmEB7o2sDPZSo0AN6zJmmYIashbkGF90zo1xZiMsb/2nLFsk2kRUT42Q2AF/4p2aLrHDxrslheWFZY+/aRJH7Hi7+iM8KDe7j14Y+GgPDrw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by IA4PR12MB9810.namprd12.prod.outlook.com (2603:10b6:208:551::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Mon, 17 Aug
+ 2026 08:20:36 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 08:20:36 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 17 Aug 2026 17:20:32 +0900
+Message-Id: <DKR2MD987IX1.11I18NM3UNVQO@nvidia.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-doc@vger.kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 04/12] gpu: nova-core: mm: Add VramAddress type
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
+ <20260810-pramin-split-v2-4-65a00b3c7309@nvidia.com>
+ <aoKfPchpfmTVguQf@nvdebian.thelocal>
+In-Reply-To: <aoKfPchpfmTVguQf@nvdebian.thelocal>
+X-ClientProxiedBy: TY4PR01CA0105.jpnprd01.prod.outlook.com
+ (2603:1096:405:378::19) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] drm/bridge_connector: preserve connector status for
- IRQ-only HPD events
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20260629-msm-dp-msttypec-v1-0-646a10256233@oss.qualcomm.com>
- <20260629-msm-dp-msttypec-v1-2-646a10256233@oss.qualcomm.com>
- <famoeog5snpvj24b6izwox2gy74ywnwmybflfv2tvr4hjuix5q@cbtce5s7k7sv>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <famoeog5snpvj24b6izwox2gy74ywnwmybflfv2tvr4hjuix5q@cbtce5s7k7sv>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDA1OSBTYWx0ZWRfX7z8+GvDjWVSO
- kk6bDhGtHdFCB9cM3navBW3+Bv2mbdPzDmJ+NMa+luqwPyEIZMUDWpDUXEcNip5zEA8tBhkJ+MR
- WcnUdKcuBlUSOMREy9giHB+swD+5hvcpG0VKvxxXNM7C2Qd0O+F+FMP/IrOjYp9tOlyzKGs8Ac5
- vx8GoDKq3XkbiWkWMP/M1S/Odo+u4LSeI5nuTnjnzghVxyXNcqu6gLGr2FfbeZc9pwepk5FjL+6
- gzlsh4bJROE4cTS8FDHM2CmkrRy3T58i2W2dxaH95MGg92UukYAjfMjyjf/7SPFQsFKjATYg2EM
- N46Xmvdu9/ndXGTD1touIQ3oHNOEnVKXKYlaHvZ3ns9yKbhnTBQRgcGrPnH3D/p0akVBQ1ye0jY
- b454wfrjNdldtKsJZ+vXKC05wVz5HpLkT3fE/TG5YiQ3Abj/BAio9OuiWSD19WTvHgphikz9SZI
- hZ+QRRfWIKU8SSJ9T4w==
-X-Proofpoint-ORIG-GUID: z8QiKAomOAM2QRN5AwuJCuzXCbZekTx2
-X-Authority-Analysis: v=2.4 cv=QN5YgALL c=1 sm=1 tr=0 ts=6a82c024 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=3XZL1g37JtqLMPLRk5sA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDA1OSBTYWx0ZWRfXwozAUXdO5xj+
- gJkY/Cdn0FxXeTXn1TkCpbou+XL1rHtmooX3GlmNYdMJOXULEtdL3Gt0rNMLdS6kncdgyFH1V6L
- 7JS6KElIidyiE469+DUweqozBawSomg=
-X-Proofpoint-GUID: z8QiKAomOAM2QRN5AwuJCuzXCbZekTx2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-16_06,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 malwarescore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170059
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA4PR12MB9810:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87e02104-b5e8-4dcc-83af-08defc3869ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|10070799003|7416014|366016|11063799006|6133799003|10067099003|4143699003|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: OB7yWHxSdyaBhRWZZGcp07kzx/jgt5UlIVYVuafdwdJ28achiFs3kVNDm/4pIjn25GKtRXHyvMaw7bwQYP+jWREpHP/a6OOrPybR1xz/MJoSXLnN0sQMpy8L7FXLZI4fbxQOlmA1cZ8tpfEG3qMBWKh+1Yv8hJyQJwi9oYEMy+rP6Gp8FPzMzF/noKoQtU+Awytp1W3lFHeMyF6TsbW+mqkjZ1akD+7oOcIx4goWths1SJfFsFwnZc/ZLMcI+WLAMJRQaQBMlGvpA/UvwVoWH8GhwFa2iI3IpJXzzopDN0mthtWakeem8U+ZtbAky3jamxc9S4VQ9HB9abhWaqpKZAnA1ohb9zXp/i+u0O20bKCxmHyiAF1JcIk+FeDV8HQFhPzmCqHnw3Pv3wACvuT9xMV/rracyOzNHbO+ujrw7LyugiAL8R+LWQt/tEq92tGwLB90if1r2wvQDrfnlpux7DcnwaQxgdFyZUG+a+AwTz1hhzyO9O9eoZO2zHm2iBkN8mvGo75K8fGTXDmASzWt+MSJOu+LGxe6qi99uNX2K6oIiO2GYrvGT+Yq+o86+DJvseCoJSkttbCyi8J/UOKUoUa5I/lBnTe4ftq0HpHEPIgJ97HEzVHQ3gSdjlPdDuRvu+OuxnfAWSQItbepAv3jDC7qCSVIOlchnnORpDYFOgs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(10070799003)(7416014)(366016)(11063799006)(6133799003)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1QyM2MrMVE3RUNmM08vMnJFZ2l1UlNqOXY5MHFQUkhjdVppUGs1UStLWEV5?=
+ =?utf-8?B?WjRpMGYrR0kxYnB3MDIwdHhvMEhlNHc0eVVaT3IrdXdBc3pyYTE3YXEraE16?=
+ =?utf-8?B?RnpobnViVFkwclpKTTFURXNJaStJNHFCazBxUlJQeEltSnRrUlBRQ2RwcjFJ?=
+ =?utf-8?B?QmRubk9NOHE5ZkszZjUyOXNlMTVaUjR1NmJQVGFmSGFuTWhpZTBqVW0rNEtE?=
+ =?utf-8?B?KzJVb0pHMmpxRlMyblZqYW1VSmhTQmNVbk1MWFNTN2FWSzFWZ09ucE9VWkdK?=
+ =?utf-8?B?OXFBemhrdEhSRjQ5TTFqb1RmbGdaTG5hUlRXbnJZR3I4MDk0dDJxWFFLeHFp?=
+ =?utf-8?B?TzNCTDFVN3Z1aEtnckFsYWdaeDFSZWt5ZXdHU1BvaXVRMHQxSGNQOWY1RWRs?=
+ =?utf-8?B?dHQ1V1RQYy9TTVlHSXlxaWJGN1hKb3JZVzJxdkx0cC9CYUw4ei9nTk1ReTV3?=
+ =?utf-8?B?K21SZ1hzQkR2Q0F4ZldRMEdVbjhMM0hBbDB6WkxRZDlwRytsVk1KelZzYkVo?=
+ =?utf-8?B?c2xQTjIyRjM4Smx0YkZCYkRlODNqdDNnWXYxWHFpdXpoa3ZIcEtkT2ljS2M2?=
+ =?utf-8?B?ditFbldvc3UyeWJ2Z1BOaEFwQ0VqbC85WnRFQlhWMG9HSEYzRjJ6Y1NWL3Rk?=
+ =?utf-8?B?dXlBMkdsaVI2anlvVEgvd2pWR0JBY1puVTJyU3g4OXptS0k5SWE0ZWlLSWZX?=
+ =?utf-8?B?MnFPZVA3cE1oN3NQeUs1NXRXT3c2V1hmaUZOdjdXaTNGTituSVNSUk9ETFdB?=
+ =?utf-8?B?Z0R6NEdNWWQ2a2NBMFpmVHgrS2hMb1A3dUVJZ2VpVVBLYzVWckZtN0JaY1RQ?=
+ =?utf-8?B?cmJGT2N5VG9RSisvMWxxaXEvNlN2Zm1zdzZUVFMralhIdFJEcUcvYjg2OUxj?=
+ =?utf-8?B?VlMxbDBzcmw0dk5LeDF3cnVNN1oxbWRRbHFDb1RIUjVXbHMvdXdiaGY2aStB?=
+ =?utf-8?B?SW5hVGpHMXcxZm5CdFZnSHh0RWVwM2JjMVdlNXd0UDJoVC9QMGs3MTNFZVc3?=
+ =?utf-8?B?bVpoSWgxWVZNbm0ybWQ5cGdTNUxVeWp5U2dpN3dyMjk3eHRzazBpN1pXeDY5?=
+ =?utf-8?B?NVZQZFVjTXFYb3V4RVhFeWgzQ29SRHExMEdQQTRvMXduNDJMUHYxbTlmSnFZ?=
+ =?utf-8?B?U0ZUeHVwWitkT2VuWm5JNmRtSmVERFRjYnIzQURUbWhSUitoUzdvS0xWNHRv?=
+ =?utf-8?B?S0lhWStjVjdHWXhJWUVmNksvd2Nkays2d1JNYWlhOGNlKzVuRE4rL0NTdFZ2?=
+ =?utf-8?B?UGhESmhQa2NxTjVSUGRCS3crZ1JTRTBtUnQwUEJVOGprSkNVK3hncDZKNnpi?=
+ =?utf-8?B?a242Q0ROdHFBQnR4NHY3VlVDM0tzc2lnL3EwUytGNU5zcUdDMG5RazR2M0NE?=
+ =?utf-8?B?Y0tRQ0VyZ0NCY0ZxWWN2bmNuQndCeU1KelkzM2dWV09RVkNhbThXeWV2OXN4?=
+ =?utf-8?B?M1E4TlFSM2ZEL2NpRkVJSmg2dFdFZWlRa1hyTkhWaTROdnErVDRJamx1eGJS?=
+ =?utf-8?B?MExwcytUN1U4RDZOU0lXaUhNbVpOS1BGWDFpbkF1QTByM0xXV2dKSzVUNnZT?=
+ =?utf-8?B?cmdOM1FuTjg1U1I0MFhGSk84N2Voa2ZnL0JmL01GN3MvS1dHbnNEd3A2ZjVY?=
+ =?utf-8?B?dFRmR01Ja0JSRnlWTGhLT3RrK3dYMDVIL3FNY09BR2VhUWEyTVBmRUJMeDdM?=
+ =?utf-8?B?L1ZReC80NVZ1aklSb1ZLTkFBaFpvQm5uRWMzQWgrQWlnK2lWaXo4cWh4YmJk?=
+ =?utf-8?B?UkVQemZEZ0YrSHhPVkNDYmQwR3BJb0JnUTlCTFNNZWVoN01najVGSjVEUXV0?=
+ =?utf-8?B?U1NaMEFlRk9GV0I2ZENORWxQZGdlb3ZJQ0VqOG1SSHMxUTNQN0hFMGZjMkdu?=
+ =?utf-8?B?VTlPaDR2SnQ0VE9TYTFVeEdFVHhIL0ppb3JNQVMyZEpLS0Jwa3JYNHhISWZ0?=
+ =?utf-8?B?U1MwbU12RXBpRHYwQWdIdmc2UElQNFlFc09obVY3anVzV2hJYlVaQU9yQ1py?=
+ =?utf-8?B?Y3BaSXQwT3l0QkMrUWlzYkxmZ3RBRUdMcUV3cDY2MTJKRWNRYnBTSDloRThS?=
+ =?utf-8?B?T1ppek5sWUJhNjJBemFUc2IwWHplbGRDMFl2QkFpamp2WlhXYXFYeEhJTy82?=
+ =?utf-8?B?TzhWY0NwUzJJT2VLaVM3WHh3SVZtRlJTNDNtb3pVR2U1R1o5emlucVllU0Rj?=
+ =?utf-8?B?K01EQms1RTVzU3dmWWFiUVF6clIyZG9FYloyN01WUC9JcWYzZ3ZWNjVVb1BS?=
+ =?utf-8?B?emZGais2QTJGVlBqUXhRZWlIUUIxZ1JVOVdrSlo4ZngrYTlLc3BoMlhLNkYv?=
+ =?utf-8?B?dzQrT1RFcWI5SEt1NWd0eXE1WmlXekJweDBHQ2NpN21hbzh0NmNlQU1sSGJr?=
+ =?utf-8?Q?bf2la9rjZvjML5ta8YfTxUAgyo0aFVcE1KtXdEMT/wSOw?=
+X-MS-Exchange-AntiSpam-MessageData-1: iMD6vKTITzPIxw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87e02104-b5e8-4dcc-83af-08defc3869ed
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 08:20:36.0202 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OlEA9zQeB5wT/GHpkztBXFcdA+X8Fb7v1pLNbI0yn81BAUAtQipYUhTbp7EXF3ZSr85V4OZCc+AYC5WFW0imwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9810
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,119 +157,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 7/12/2026 6:33 PM, Dmitry Baryshkov wrote:
-> On Mon, Jun 29, 2026 at 10:48:04PM +0800, Yongxing Mou wrote:
->> The bridge connector HPD handling path currently updates
->> connector->status for every hpd_notify() invocation.
->>
->> This does not work well for IRQ-only notifications where the event being
->> reported is carried by extra_status and no connector status transition is
->> associated with it.
->>
->> One example is DP MST. HPD IRQs are propagated through
->> drm_bridge_hpd_notify_*() so that bridge drivers can process the
->> notification. During MST operation, however, the SST connector attached
->> to the bridge connector is intentionally kept disconnected while the MST
->> topology manager handles all connector creation, removal and hotplug
->> processing.
->>
->> Updating connector->status for an IRQ-only MST notification may cause
->> the SST connector state to oscillate between connected and disconnected
->> depending on the notification path. These artificial state transitions
->> can later be detected by the polling logic and result in unnecessary
->> hotplug events being generated. Userspace then re-probes connector
->> status, potentially triggering the same sequence again.
-> 
-> Then the API might need to be adjusted.
-> 
-> Remember, we have two usecases, which we must be able to interpret
-> correctly:
-> - The driver gets separate HPD and IRQ_HPD events.
-> - The driver gets HPD and IRQ_HPD at the same time.
-> 
-Ohh yes, here need to rework.
->>
->> Treat notifications with status == connector_status_unknown and a valid
->> extra_status as IRQ-only events. Forward the notification to bridge
->> drivers without modifying connector->status.
->>
->> This keeps IRQ delivery working while leaving connector state management
->> to the component that actually owns it, such as the DP MST topology
->> framework.
-> 
-> How is it handled by other drivers (i915, amd, nouveau)?
-> 
-i915, amdgpu, and nouveau don't go through the drm_bridge_hpd_notify()
-bridge chain -- their DP controllers are integrated into the SoC, and
-HPD interrupts are handled directly in their own encoder code.
-
-MSM DP is different in that HPD comes from Type-C / pmic_glink altmode
-via aux-hpd-bridge, so it has to go through the bridge chain, which
-means this semantic needs to be extended to the bridge API.
->>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+On Mon Aug 17, 2026 at 3:00 PM JST, Alistair Popple wrote:
+> On 2026-08-10 at 23:55 +1000, Eliot Courtney <ecourtney@nvidia.com> wrote=
+...
+>> From: Joel Fernandes <joelagnelf@nvidia.com>
+>>=20
+>> Add the `VramAddress` type representing a physical address in VRAM. Also
+>> add an arithmetic helper, comparison, and operator overloads which are
+>> required in later patches for address arithmetic.
+>>=20
+>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>> [ecourtney: create mm.rs here, squashing in the arithmetic patch]
+>> [ecourtney: splice the two commit bodies]
+>> [ecourtney: drop the Pfn fields, open-coding what bitfield! generated]
+>> [ecourtney: drop align_down and the IntoVramOffset/IntoVramRange traits]
+>> [ecourtney: make checked_add() const over a plain u64, derive the orderi=
+ng]
+>> [ecourtney: doc wording, header, import, and signature cleanups]
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 >> ---
->>   drivers/gpu/drm/display/drm_bridge_connector.c | 12 ++++++++++++
->>   1 file changed, 12 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
->> index 5edca47a025f..7334d6677604 100644
->> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
->> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
->> @@ -163,6 +163,18 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
->>   	struct drm_connector *connector = &drm_bridge_connector->base;
->>   	struct drm_device *dev = connector->dev;
->>   
->> +	/*
->> +	 * IRQ-only notification: extra_status carries the event but
->> +	 * status is unknown — do not overwrite connector->status.
-> 
-> But it's not unknown at this point. The connector status is reported
-> following the HPD status.
-> 
-You are right, in the SST case the bridge_connector status does follow
-HPD / link status -- because the bridge_connector itself represents
-that SST connector, so its status naturally is the link status.
-
-The MST case has a key difference though: the SST connector must be
-explicitly marked disconnected (to prevent the DRM framework from
-enabling it), consistent with what i915, amdgpu and nouveau do. In
-other words, once MST is enabled, the SST connector that the
-bridge_connector represents no longer equates to the link status --
-the real link is managed by the MST topology, and the SST connector
-is just a placeholder at that point.
-
-The issue is that IRQ_HPD still travels through the bridge_connector
-chain and takes the old "update the SST connector's status -> emit
-hotplug" path. Under MST that runs into two constraints -- and this
-is exactly what this series is trying to address:
-
-1. The SST connector represented by bridge_connector no longer stands
-    for the link, so its status must not be overwritten by IRQ_HPD
-    events.
-2. IRQ_HPD needs a clean path that does not trigger a hotplug on the
-    bridge_connector -- the MST framework already manages hotplugs
-    independently.
-
-Using connector_status_unknown as a sentinel here does feel a bit odd;
-let me think about whether there is a cleaner approach.
->> +	 */
->> +	if (status == connector_status_unknown &&
->> +	    extra_status != DRM_CONNECTOR_NO_EXTRA_STATUS) {
->> +		drm_bridge_connector_hpd_notify(connector,
->> +						connector->status,
->> +						extra_status, NULL);
->> +		return;
->> +	}
+>>  drivers/gpu/nova-core/mm.rs        | 60 +++++++++++++++++++++++++++++++=
++++++++
+>>  drivers/gpu/nova-core/nova_core.rs |  1 +
+>>  2 files changed, 61 insertions(+)
+>>=20
+>> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+>> new file mode 100644
+>> index 000000000000..dcd5e5e919bf
+>> --- /dev/null
+>> +++ b/drivers/gpu/nova-core/mm.rs
+>> @@ -0,0 +1,60 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFI=
+LIATES. All rights reserved.
 >> +
->>   	mutex_lock(&dev->mode_config.mutex);
->>   	connector->status = status;
->>   	mutex_unlock(&dev->mode_config.mutex);
->>
->> -- 
->> 2.43.0
->>
-> 
+>> +//! Memory management subsystems.
+>> +
+>> +#![expect(dead_code)]
+>> +
+>> +use core::{
+>> +    fmt::LowerHex,
+>> +    ops, //
+>> +};
+>> +
+>> +use kernel::fmt;
+>> +
+>> +/// Physical VRAM address in GPU video memory.
+>> +#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+>> +#[repr(transparent)]
+>> +pub(crate) struct VramAddress(u64);
+>
+> Is this the best type here, or should this be bounded via runtime checkin=
+g to
+> ensure it refers to a valid address?
+>
+> I was going to ask if it should be bounded to reflect the physical addres=
+sing
+> capabilities of the GPU in question, but that would actually need to be a
+> different type as GPU physical addresses might not even refer to local vi=
+dmem.
+>
+> Although I think that's a concern for future series - AFAIK PRAMIN can on=
+ly
+> access local VRAM.
+
+Yeah good question. I am looking at memory management stuff after this,
+and e.g. how many bits the hardware actually accept for physical
+addresses (e.g. page table structures) is different depending on the
+hardware. So it's not trivial to determine if the address is valid
+without a bunch of extra info.
+
+So the approach here IMO is just to tag it as a general VRAM address at
+the type level and gradually apply runtime checks to narrow the type
+into code that is more specific. Since our HALs use dynamic dispatch
+based on the chipid we can't avoid some kind of runtime checks here
+anyway.
+
+I think it makes sense to say VramAddress is a local vidmem address, and
+later we could e.g. add an enum to distinguish local vidmem, sysmem,
+peer memory etc. This appears to be essentially what UVM does
+(uvm_gpu_phys_address_t), AFAICT. What do you think?
+
+And yeah I believe PRAMIN can only access local VRAM and sysmem (on pre
+hopper).
+
+>
+>> +
+>> +impl VramAddress {
+>> +    /// Creates an address from a raw value.
+>> +    pub(crate) const fn from_raw(addr: u64) -> Self {
+>> +        Self(addr)
+>> +    }
+>> +
+>> +    /// Returns the address as a raw value.
+>> +    pub(crate) const fn into_raw(self) -> u64 {
+>> +        self.0
+>> +    }
+>> +
+>> +    /// Adds `rhs` to this address, returning [`None`] on overflow.
+>> +    pub(crate) const fn checked_add(self, rhs: u64) -> Option<Self> {
+>> +        match self.into_raw().checked_add(rhs) {
+>> +            Some(addr) =3D> Some(Self::from_raw(addr)),
+>> +            None =3D> None,
+>> +        }
+>> +    }
+>> +}
+>> +
+>> +impl LowerHex for VramAddress {
+>> +    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+>> +        LowerHex::fmt(&self.into_raw(), f)
+>> +    }
+>> +}
+>> +
+>> +impl ops::Add<u64> for VramAddress {
+>> +    type Output =3D Self;
+>> +
+>> +    fn add(self, rhs: u64) -> Self::Output {
+>> +        Self::from_raw(self.into_raw() + rhs)
+>> +    }
+>> +}
+>> +
+>> +impl ops::Sub for VramAddress {
+>> +    type Output =3D u64;
+>> +
+>> +    fn sub(self, rhs: Self) -> Self::Output {
+>> +        self.into_raw() - rhs.into_raw()
+>> +    }
+>> +}
+>> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/=
+nova_core.rs
+>> index 35a8b1214b0e..8f59cfa97017 100644
+>> --- a/drivers/gpu/nova-core/nova_core.rs
+>> +++ b/drivers/gpu/nova-core/nova_core.rs
+>> @@ -18,6 +18,7 @@
+>>  mod gpu;
+>>  mod gsp;
+>>  mod mctp;
+>> +mod mm;
+>>  #[macro_use]
+>>  mod num;
+>>  mod regs;
+>>=20
+>> --=20
+>> 2.55.0
+>>=20
 
