@@ -4,85 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FC84C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:35:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA826C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 150A310E8C1;
-	Mon, 17 Aug 2026 17:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A57310E8C2;
+	Mon, 17 Aug 2026 17:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="E8aUfmqK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ifgn5lnu";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74A7210E8C1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:35:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786988118;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=dFdQfkrF9IWQwBtpGMM2MAg+txMnWXxTBIf2qu+5h6w=;
- b=E8aUfmqK2/DSVHmQ65kfAGltdWTSRWcSx9b841+MFN+rbL/LFty89KBYPh+QhWO34+PJLj
- 1BgRhG9aQTsdTbXKETpgukQflSKlivxa1TZyaMTka0uRfrD9dlkKzUcBSIdU0QGNZ/JyH0
- Mr+k3CkgtgQ9ak1cyzxP0LeLbJlpYhs=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-332-n023J8A_PmOwpPXl1xK9zw-1; Mon, 17 Aug 2026 13:35:17 -0400
-X-MC-Unique: n023J8A_PmOwpPXl1xK9zw-1
-X-Mimecast-MFC-AGG-ID: n023J8A_PmOwpPXl1xK9zw_1786988117
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-92e63df032bso16498785a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 10:35:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786988117; x=1787592917;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=dFdQfkrF9IWQwBtpGMM2MAg+txMnWXxTBIf2qu+5h6w=;
- b=P3ZQwCiUFC7quOcSYYtdZNosIMDfw5oPdNfC25cUoTchxf4E2FbA+AdvkJAxN3+OoZ
- WBNvwnhOMoD2DApdnjJmrmngODD3gNl53a03jNeEB4FH0lgdklkHBe0xl4VCRpoldDv6
- HMRFjfNRRDHmMfBGcHnF/NHL0s4TDwugH8eBiyO8Tk2ZuETnkHmUADZyQRDipAag+8M5
- JQHU4rPC6fgn624cSqKsmHQM7ywUk+9vYvhGA4QP0TycO6CmI02t9cd8bkt62Fxxp9DI
- Q2BJqBFOGxhPchhaPkgAG9eH6Lum1HpCNSP935L/Rb6JrsALWjEX3vb+Bq1lIlzD2zT0
- f5Pw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Roo19WwhLAeIqFKChC+dPv7RQ9SKi++zQSzt/FYSOH/9NTuMG1Mbl5L5OmGDtBU82dsMUCnRRJfxWQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxpmqNmiBslJeWm7yXE/vD1Kks7JZ8ztiKYMmpo+HqwWy3YUg4r
- ECtG/JV9lfv/RqoXEnbK6xW/M1V/gJmocmJIlfxcZnsPzx++ZCO4TqZCd11hGs5xWV2Gcm85WVD
- pgANlzzhkYe/wIQoVu7dL/wybofjwJdZxjk6rMJj9nEJydrWVM8/YSGE1GURX89zeA2evpw==
-X-Gm-Gg: AR+sD12sHcULx9z8aVAC0AwZh1K/fyO/bsFsAD7zbmfKB7DfLk0zfzpPwbPW/WkUDCn
- ii8JXH6jwCeYQ16Jxq4/UhOQkU2wyqDDn9y3biFSFbL+ppawWA+czQS6i7KRE2SviqSCbcZ0NCR
- 1KT6GNZMhs1oiqR/8JKoEN4htY0BHBXPL06ImCHGe4ThmyDB27IGPjrn994+9Ohmqa2oiRHh1ox
- 5v4eCAEcJ9uOekaUWlTEHTQedhwEqtBgv2jhNNfdC+42Sjco2bgMJ2u0UW64Sr7C48esdOcyK54
- 7uHg5bdUJFvSKL+5lzxd2fIYrhupYrJLSVNB3fSq5vhcc+w3e4lZ3P8sWnrAayn6K8+0
-X-Received: by 2002:a05:620a:8514:b0:915:9f30:23cb with SMTP id
- af79cd13be357-937063c9670mr75002585a.0.1786988116241; 
- Mon, 17 Aug 2026 10:35:16 -0700 (PDT)
-X-Received: by 2002:a05:620a:8514:b0:915:9f30:23cb with SMTP id
- af79cd13be357-937063c9670mr74995585a.0.1786988115555; 
- Mon, 17 Aug 2026 10:35:15 -0700 (PDT)
-Received: from x1.local ([174.91.117.74]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-937033d2ccdsm94691585a.30.2026.08.17.10.35.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 10:35:15 -0700 (PDT)
-Date: Mon, 17 Aug 2026 13:35:03 -0400
-From: Peter Xu <peterx@redhat.com>
-To: Natalie Vock <nat@pixelcluster.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: userfaultfd wp-async support for (GPU) special mappings?
-Message-ID: <aoNGR04WaFkqde8a@x1.local>
-References: <d5ea3344-24e7-4834-b743-4dec812ada70@pixelcluster.dev>
-MIME-Version: 1.0
-In-Reply-To: <d5ea3344-24e7-4834-b743-4dec812ada70@pixelcluster.dev>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: R6NWCoxOGeRO6C6aau3j8al8sVIfE20OAixIhVt3MIE_1786988117
-X-Mimecast-Originator: redhat.com
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1405410E2DD
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:35:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8BF86600AE;
+ Mon, 17 Aug 2026 17:35:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143D21F000E9;
+ Mon, 17 Aug 2026 17:35:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786988154;
+ bh=FpzT0v1cRUPESt2bDvGvM8vB+H3T8gdYEnTfhOqi6e0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ifgn5lnu6ZuqGh+m2qmRfzBiXkXDd+RHn8eAjHepdbAO/dn5bjr9OxkrwMp7vhucc
+ zvvML74oGpL2MU/CgPohJRhe/DKO9MTmp1tytGKbomX2XU4B/ke9/K2gV+XztME4ba
+ V0SrLkEj24qtT4iVgBGya6z4ZaBr5Ki8i8mMMiv6tlTJ5VRakUpqNwiS4QB8AQ7cY/
+ KyIiqILurDTcizOWRj9Bua6mexGbC2zDX9fis0f8hzkJ7H9XOA/QDKr6+j6ZUiAMCu
+ Fwc36XDxnbYYgJzn3HLegqq10fWnufM+bh/kbqEqQ8S8FiS/Z7h3Cf6ZzCwYbFEWQZ
+ PtkwJovqZ1ydQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/9] netfilter/nf_tables: Add folio_scratchpad collector
+ to struct nftables_pernet
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Cc: bpf@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260817-folio-pool-v1-v1-2-0c1d230aa3af@gmail.com>
+References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
+ <20260817-folio-pool-v1-v1-2-0c1d230aa3af@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 17:35:53 +0000
+Message-Id: <20260817173554.143D21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,226 +54,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 11:01:55PM +0200, Natalie Vock wrote:
-> Hi all,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] Asynchronous reset and synchronous abort paths cause severe us=
+e-after-free, memory corruption, and spinlock corruption due to sharing a s=
+ingle per-net scratchpad across overlapping batch lifecycles.
+- [High] Transaction batches that consist exclusively of creation operation=
+s permanently leak the memory used for their `nft_trans` objects.
+- [Medium] Re-initialization of the scratchpad during an abort drops the fe=
+ature-toggle static key and hardcodes the allocation order, causing memory =
+over-allocation on some architectures.
+--
 
-Hi, Natalie,
+--- Patch [2]: [PATCH 2/9] netfilter/nf_tables: Add folio_scratchpad collec=
+tor to struct nftables_pernet ---
+commit 210be9d0ffcaa1541a9b10d23109de51629b6996
+Author: Jim Cromie <jim.cromie@gmail.com>
 
-> 
-> lately I've been investigating some ways to efficiently query for whether
-> particular memory has been written to or not. The functionality I'm looking
-> for is pretty much exactly what userfaultfd's wp-async mode exposes, but
-> with a twist: The memory I'm interested in is GPU memory mapped into users'
-> address spaces.
-> 
-> The broader context here is writing a "capture/replay" tool for the Vulkan
-> graphics API: The tool lives in a .so that is injected into some app at
-> runtime (LD_PRELOAD style). All graphics API calls (rendering commands etc.)
-> are then intercepted, making a copy of any call parameters and writing
-> ("capturing") them to disk. Later, these calls can be read back from the
-> file and "replayed", reproducing the exact same sequence of rendering
-> commands again (hopefully leading to the same rendering output, too).
-> However, one of the commands is a simple wrapper over mmap(), where the
-> input is a GPU resource and the output is a mapped pointer for free use by
-> applications. To correctly reproduce the behavior of apps using this
-> command, the capture/replay tool needs some side-channel to know which parts
-> of this mapped memory have been overwritten by the CPU, so that it can
-> perform the same modifications when replaying API calls.
-> 
-> The only part I'm interested here are writes done by the CPU. The GPU may
-> also write to the mapped memory itself, but there's no need to track where
-> it wrote.
-> 
-> userfaultfd wp-async tracking would be a pretty great match for this, if
-> only it could be made to work with GPU mappings, too. I've been hacking
-> around in the kernel and I did get my use case working fairly well with only
-> a few modifications:
-> 
-> First, I mostly-reverted commit 3c58f641e81 ("userfaultfd: prevent
-> registration of special VMAs") for rather obvious reasons :)
-> Then, all I had to change to get things to work was add handling for
-> encountering uffd-wp marker PTEs on a read fault inside insert_pfn(), and
-> allow the PM_SCAN ioctl for /proc/<pid>/pagemap to process vmas marked with
-> VM_PFNMAP if ioctl only does uffd wp-async bookkeeping.
-> 
-> I included a complete diff of these changes at the end of this email, but
-> their quality is very much proof-of-concept only; it's not remotely in an
-> upstreamable state.
-> 
-> Is this something upstream would consider supporting at all? I'm not
-> familiar enough with memory management to judge whether there are
-> fundamental pitfalls making this whole idea impossible (but for what it's
-> worth, it worked really well on every program I tried capturing/replaying
-> :P)
+netfilter/nf_tables: Add folio_scratchpad collector to struct nftables_pern=
+et
 
-I believe the VM_FAULT_NOPAGE path was used to be overlooked.. bypassing
-finish_fault() completely.  It's good to see that we have forbidden SPECIAL
-mappings for now.
+This commit introduces a folio_scratchpad to struct nftables_pernet to hand=
+le
+variable-sized transaction object allocations. It aims to improve allocation
+and teardown speed by replacing standard SLUB allocations with bulk teardow=
+n.
 
-On the use case alone, it looks like a valid one. Said that, I think it'll
-be slightly more involved than what you have proposed below.
+> --- a/net/netfilter/nf_tables_api.c
+> +++ b/net/netfilter/nf_tables_api.c
+> [ ... ]
+> @@ -221,7 +238,7 @@ static void nft_trans_list_del(struct nft_trans *tran=
+s)
+>  static void nft_trans_destroy(struct nft_trans *trans)
+>  {
+>         nft_trans_list_del(trans);
+> -       kfree(trans);
+> +       nft_trans_free(trans);
+>  }
 
-> 
-> Best,
-> Natalie
-> 
-> ---
-> 
-> Here's the diff for my dirty hacks making uffd work with GPU mappings, based
-> on commit f5098b6bae ("Linux 7.2-rc5"):
-> 
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index d32408f7cd5ed..7ac75ac0a7794 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -2426,6 +2426,19 @@ struct pagemap_scan_private {
->  	struct page_region __user *vec_out;
->  };
-> 
-> +static bool pagemap_exclusively_mark_wp(struct pagemap_scan_private *p)
-> +{
-> +	return (p->arg.flags & PM_SCAN_WP_MATCHING) && !p->vec_out;
-> +}
+[Severity: High]
+During commit for creation operations, nft_trans_destroy() unlinks the
+transaction and calls nft_trans_free(), which is a no-op for scratchpad
+chunks.
+
+By the time the code reaches nf_tables_commit_release(), the commit_list is
+completely empty.
+
+This causes nf_tables_commit_release() to return early and skip scheduling
+the destroy worker. Since the asynchronous worker never runs,
+folio_scratchpad_reset() is never called.
+
+Can batches consisting only of creation operations permanently leak memory?
+
+> [ ... ]
+> @@ -10267,6 +10286,8 @@ static void nf_tables_trans_destroy_work(struct w=
+ork_struct *w)
+>                 nft_trans_list_del(trans);
+>                 nft_commit_release(trans);
+>         }
 > +
-> +static bool
-> +pagemap_exclusively_mark_and_query_wp(struct pagemap_scan_private *p)
-> +{
-> +	return !p->arg.category_anyof_mask && !p->arg.category_inverted &&
-> +	       p->arg.category_mask == PAGE_IS_WRITTEN &&
-> +	       p->arg.return_mask == PAGE_IS_WRITTEN;
-> +}
+> +       folio_scratchpad_reset(&nft_net->trans_scratchpad);
+>  }
+
+[Severity: Critical]
+When nf_tables_commit_release() schedules nf_tables_trans_destroy_work()
+and drops the commit_mutex, a new batch can immediately begin allocating
+transactions from this exact same scratchpad.
+
+Meanwhile, the asynchronous worker for the previous batch will unconditiona=
+lly
+call folio_scratchpad_reset() here.
+
+This rewinds the allocator's free pointer and destroys the memory actively
+being used by the new batch.
+
+Does this shared per-net scratchpad suffer from a race condition between
+concurrent batches?
+
+> [ ... ]
+> @@ -11491,6 +11514,9 @@ static int nf_tables_abort(struct net *net, struc=
+t sk_buff *skb,
+>         else
+>                 nf_tables_module_autoload_cleanup(net);
+> =20
+> +       folio_scratchpad_free(&nft_net->trans_scratchpad);
+> +       folio_scratchpad_init(&nft_net->trans_scratchpad, 4);
 > +
->  static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
->  					   struct vm_area_struct *vma,
->  					   unsigned long addr, pte_t pte)
-> @@ -2689,7 +2702,9 @@ static int pagemap_scan_test_walk(unsigned long start,
-> unsigned long end,
->  		 */
->  	}
-> 
-> -	if (vma->vm_flags & VM_PFNMAP)
-> +	if ((vma->vm_flags & VM_PFNMAP) &&
-> +	    !(pagemap_exclusively_mark_wp(p) ||
-> +	      pagemap_exclusively_mark_and_query_wp(p)))
->  		return 1;
-> 
->  	if (wp_allowed)
-> @@ -2844,7 +2859,7 @@ static int pagemap_scan_pmd_entry(pmd_t *pmd, unsigned
-> long start,
-> 
->  	lazy_mmu_mode_enable();
-> 
-> -	if ((p->arg.flags & PM_SCAN_WP_MATCHING) && !p->vec_out) {
-> +	if (pagemap_exclusively_mark_wp(p)) {
->  		/* Fast path for performing exclusive WP */
->  		for (addr = start; addr != end; pte++, addr += PAGE_SIZE) {
->  			pte_t ptent = ptep_get(pte);
-> @@ -2860,9 +2875,7 @@ static int pagemap_scan_pmd_entry(pmd_t *pmd, unsigned
-> long start,
->  		goto flush_and_return;
->  	}
-> 
-> -	if (!p->arg.category_anyof_mask && !p->arg.category_inverted &&
-> -	    p->arg.category_mask == PAGE_IS_WRITTEN &&
-> -	    p->arg.return_mask == PAGE_IS_WRITTEN) {
-> +	if (pagemap_exclusively_mark_and_query_wp(p)) {
->  		for (addr = start; addr < end; pte++, addr += PAGE_SIZE) {
->  			unsigned long next = addr + PAGE_SIZE;
->  			pte_t ptent = ptep_get(pte);
-> diff --git a/mm/memory.c b/mm/memory.c
-> index ff338c2abe923..a06a31f7f45cc 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2698,6 +2698,10 @@ static vm_fault_t insert_pfn(struct vm_area_struct
-> *vma, unsigned long addr,
->  			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->  			if (ptep_set_access_flags(vma, addr, pte, entry, 1))
->  				update_mmu_cache(vma, addr, pte);
-> +		} else if (pte_uffd_wp(entry)) {
-> +			entry = pte_mkspecial(pfn_pte(pfn, prot));
-> +			entry = pte_mkuffd_wp(entry);
-> +			goto out_set_pte;
->  		}
+>         mutex_unlock(&nft_net->commit_mutex);
 
-I don't think I understand how this current patch works so far at least
-here..  Logically this path should need to at very minimum take care of pte
-markers, which async uffd-wp tracking requires.  I think it means we may
-need to pass *vmf over to check orig_pte, atomically install the pte with
-the knowledge of what is orig_pte, especially if it was a marker.
+[Severity: Critical]
+If the first batch's async worker is currently accessing the folios or
+waiting on the internal scratchpad spinlock, calling
+folio_scratchpad_free() and folio_scratchpad_init() here will free the
+underlying folios and re-initialize the spinlock.
 
-Maybe in your case the pfnmap VMA doesn't dynamically do .fault()s, but
-install the pgtables either with remap_pfn_range(), or something always
-populated in mmap() time?  If all the entries were populated at pte level
-properly, uffd-wp could have worked all fine indeed even for pfnmap.
-However it may not work fine with pfnmaps that either allow ptes to be
-dynamcally faulted in, or being zapped and repopulated somehow.
+Does this synchronous abort corrupt the allocator state if the previous
+batch's asynchronous worker is still running?
 
-Currently, for any holes that are tracked (e.g. pfnmaps that can lazily be
-faulted into the pgtable with fault()s), the async uffd-wp tracking relies
-on the pte markers installed in the pgtables when wr-protection happened
-without a mapping.
+[Severity: Medium]
+In nf_tables_init_net(), the scratchpad is initialized properly using
+folio_scratchpad_init_key() with get_order(SZ_64K) and the
+nft_trans_scratchpad_key.
 
-To support pfnmap with uffd-wp async in a generic way, IIUC we need to make
-sure all VM_FAULT_NOPAGE users be able to properly process pte markers with
-uffd-wp bit set, then install a RO+UFFD_WP pte instead, leaving the rest
-processing to do_wp_page().
+Passing the literal 4 here instead of get_order(SZ_64K) forces the
+allocator to request 1MB pages on systems with 64KB pages.
 
-That's why the current change of insert_pfn() doesn't look like to have
-achieved what is needed to me.  The other thing is, insert_pfn() may also
-not be the only path that can be used by pfnmaps.  E.g. I saw at least
-insert_page_in_batch_locked() that may need similar care.
+Additionally, folio_scratchpad_init() sets sp->key =3D NULL, which
+permanently strips the feature toggle validation from all subsequent
+allocations in this network namespace.
 
-So supporting pfnmaps with uffd-wp async tracking might be more challenging
-to be done in one shot, and that may need careful look.  We need to make
-sure all paths like that to be properly covered, and AFAIU it's not easy,
-because VM_FAULT_NOPAGE can be randomly used in special drivers.. unlike
-the other normal case where __do_fault() will bring back a page within
-vmf->page, then finish_fault() will do the pgtable job in one place.
+Does this re-initialization hardcode the allocation order and drop the
+feature toggle?
 
-Nowadays, with vm_uffd_ops, maybe one viable approach is to allow drivers
-opt-in with uffd-wp on pfnmaps, that might be slightly easier to achieve
-with a custom .can_userfault() after justifying the driver works, either
-the driver should make sure all pfnmaps will be populated upfront and never
-zapped, or the driver should be able to identify things like pte markers
-when injecting pfnmaps.
-
-Thanks,
-
->  		goto out_unlock;
->  	}
-> @@ -2710,6 +2714,7 @@ static vm_fault_t insert_pfn(struct vm_area_struct
-> *vma, unsigned long addr,
->  		entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->  	}
-> 
-> +out_set_pte:
->  	set_pte_at(mm, addr, pte, entry);
->  	update_mmu_cache(vma, addr, pte); /* XXX: why not for insert_page? */
-> 
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index c3adedaaf7d54..aa1553ec5a3bb 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -2114,8 +2114,8 @@ static bool vma_can_userfault(struct vm_area_struct
-> *vma, vm_flags_t vm_flags,
->  	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
->  		return false;
-> 
-> -	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
-> -		return false;
-> +	//if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
-> +	//	return false;
-> 
->  	vm_flags &= __VM_UFFD_FLAGS;
-> 
-> -- 
-> 2.55.0
-> 
-> 
-
--- 
-Peter Xu
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-folio-pool=
+-v1-v1-0-0c1d230aa3af@gmail.com?part=3D2
