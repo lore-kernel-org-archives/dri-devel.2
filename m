@@ -4,89 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2643FC5DF7A
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:38:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA92AC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82DBB10E760;
-	Mon, 17 Aug 2026 11:38:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36EB910E3F1;
+	Mon, 17 Aug 2026 11:41:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="UC6wXu8v";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="H1GOyFvU";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Hjm/Gblz";
 	dkim-atps=neutral
-Received: from flow-a6-smtp.messagingengine.com
- (flow-a6-smtp.messagingengine.com [103.168.172.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2745510E760
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:38:15 +0000 (UTC)
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
- by mailflow.phl.internal (Postfix) with ESMTP id 9224B138014E;
- Mon, 17 Aug 2026 07:38:14 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-11.internal (MEProxy); Mon, 17 Aug 2026 07:38:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1786966694; x=
- 1786970294; bh=yyAlnjllRJoc8EnuoheqRfmGGLiMMzIInITnv3UMbRQ=; b=U
- C6wXu8vzA5KTRsum1Hv57itUDhGNlDDKahmNsuxgF2YX7zRphrSBdny8pybxzZEp
- bbLtl2INgh3Ki6IHBfjBBFSM4i/kGv0oNUTUUQoJoLLNosy95EVyzQNHgVSUBnsF
- CWUFCLB/x2yo8GM6kdZqFF0i6gP1uEUlerGtP6cQzQPL4dYeBz/ZAb0jAdcDiZ70
- 1WFqSYLr7+tl7xcNHKj5O0dmEv4sf7dF90kDo4OYX7W4dqXUf9k9YUGzHTzNSMef
- kwSd3I0kYwvVT7ZdcKBs7hc+pkUhZv3G6EaM9J9eY7OiQy5clOclO2KzTTdJO5Zc
- JWuzMcE82tGYv0cpxmQlA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1786966694; x=1786970294; bh=y
- yAlnjllRJoc8EnuoheqRfmGGLiMMzIInITnv3UMbRQ=; b=H1GOyFvU2D9cY8bGn
- CQduY643hst0y4Df6rpLRDMtNi+VbmpVATovQP9iKyY3YLOKAiv7IQ51bW5WJAgF
- cej56PbW+Q2Np2/y2KLbQKhc3QpThc917+9v3kXMVzSkcTmzGS/hL0b6sx+4o+Q9
- QO+Ukh4sHxDK+R6uxCoIquArN6YuBvzFWAJEc3XBBPiSMVKqeUuJJdvWgLqFgIF0
- Cc07Gy+xgN7hm2kcHT//DxevgjJ3JmyBMWOOQe+dr05DEpSdJfcLU5idYtwrgbb1
- 1JXoY7uQREkB+EmTUBFJU3RbrVgIA0sEzWQwxuWUFXQ83D8z29jnq0dHZ/tlFPqu
- /9Z4A==
-X-ME-Sender: <xms:pvKCagYqCmrr3DWX6tlQgGORhEcF56bN9PR6AwAM1_JsE-bfk6t0Ow>
- <xme:pvKCanh3P5IAiKXpW6kPuosAgT_r_J5t2HFOgTf87hSproRHCUQtru50qFVFdvLcm
- AF4uS4ONyqzyA350Qd2WW_V_Kgnsza6yS93AvYFSX45k3ktsjmng4c>
-X-ME-Received: <xmr:pvKCamz6RaW__STif3I47ItLLGovIrMbGVjnXybdbSGKXHu7PCmMfcA_gVPMxVasnTF-R7vZnA>
-X-ME-Proxy-Cause: dmFkZTFJpbjkSDT6AcryrIHhgbEVj8SvkD3tgmT76I8WU6lQDo3YUCdtzXxAeg/zKqpB+E
- Srz/I8ZJc3N7HCrgkTkwyaBZdvHNOdURxqLv8+rxKpfV73gGv9LWiSebktKgvlTsmvhDvl
- 7z8e7P5tVZXD1XfHmjG3x7RlOqfrClYofT98201dsDsGzeGalaNI/cy87SBMyHKVxLpD1H
- cf8c4VtlmLV27PNqhGPBVow9iGRSY0ganIZ7M7ursi5UKI38krV8lOdP4K1YQOgw9wIEpu
- SQtDihQpP3WqB+Si6LCioT5pFEw0karkUBJswAF2S4IqKtJUmYgRgB9BVHgg2tCz+ac+s9
- epDgVkO1FTH2DrfrjlowXOa+VdD4IUyGBQAAqcCFT0Lcs6PlYJ4YcbQ+tZT8CbcX7vs/WZ
- pt8R+i7JQFMFcw1yjpAyQbbfcPaPGKdkhycUsl0htYzlfl2oIk0yDX2ggsV5fl1nVLAFr0
- dgl266Gp+IJ9IFQjRk8vrshqbDYhh94/pGxW16HcOhGtHxK/HxWiHdf/Q5NMTvgiSW/da5
- 5Z282k6IQtO580HhuRbYF4I/7m49p0OVQTf7OmVFiABhF1B4nQGIPHVpycbGQ9g+JaD6c0
- 40KKE/5EHpextBZxpKXawkitOhohNrUMZReC9KfZTd2OQLqgKjtZvf3YCyag
-X-ME-Proxy: <xmx:pvKCaj9DtVQT2Kmjn1gjQvOMhfxdVR9KhPj1taeShUbPCHveWYNc6w>
- <xmx:pvKCarzsqohJXjiOBRBfvzBO-GkszcinWehSj3uAAYQAIgPKZOyngA>
- <xmx:pvKCasWpNmDCfovS3gIQVRLyNBTX12ejR_6ySwfli0REutuVZUaS5w>
- <xmx:pvKCauaj1W-tqM99YvKPWnr074IftRvD2CGSHp8FgAK7XCROb6dXCg>
- <xmx:pvKCaps1LB9jOslpzMTc4hVbm_jGnBA96E_HidWVQp6YWhLTppKKrVTd>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 17 Aug 2026 07:38:07 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, chaoyi.chen@rock-chips.com, diederik@cknow-tech.com,
- alchark@flipper.net, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v8 12/12] arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-Date: Mon, 17 Aug 2026 23:36:03 +1200
-Message-ID: <20260817113603.1436067-13-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260817113603.1436067-1-gahing@gahingwoo.com>
-References: <20260817113603.1436067-1-gahing@gahingwoo.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABF7510E3F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:41:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1786966864;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=mY1l25E03ZXeteA83B/irMr+xfrr1Cyvpdg7ez8aiZA=;
+ b=Hjm/GblzJoz5BNhfwER+1JRZTDj3sOBvHYUIp4pyYmSB9kd2OAJlR1FD46td/kFgQNvOj9
+ A+4oeaj1AZyVzIr84qYqhjYbv1OixQyl5ju5M96P4852SNco3CyXoOtQiAjTdLKPB0ZD3Y
+ Ed0mKQit6tbfA4aJBpe94qNnn8HmTJE=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-372-modafi1CNrugVqv0LZDfcA-1; Mon,
+ 17 Aug 2026 07:40:59 -0400
+X-MC-Unique: modafi1CNrugVqv0LZDfcA-1
+X-Mimecast-MFC-AGG-ID: modafi1CNrugVqv0LZDfcA_1786966856
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B9B671956095; Mon, 17 Aug 2026 11:40:55 +0000 (UTC)
+Received: from [192.168.1.153] (headnet03.pony-001.prod.iad2.dc.redhat.com
+ [10.2.32.114])
+ by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 42E9E426; Mon, 17 Aug 2026 11:40:50 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH 0/5] rust: drm: add panel bindings
+Date: Mon, 17 Aug 2026 13:40:45 +0200
+Message-Id: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0atI1hZaf6hXESnRRg1olBZEkN7d4
+ vItZl4I5JkC9NkLnm4OfEqCyTOYN5SVFLtkKHTR6NZUyvnDXii024nFsaxBdQZLRKqd7mZI4eV
+ p4eefDmOMHyHK6E1kAAAA
+X-Change-ID: 20260814-drm_panel_bindings-91a3aae5d09c
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: devicetree@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Albert Esteve <aesteve@redhat.com>, mripard@kernel.org
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786966849; l=3774;
+ i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
+ bh=JSrjBrj5BTLlADlVdzs5WU3IgxBDvOu7+w58WHPWh9s=;
+ b=D3PTPWJDVJra3G0gCMgII6Ru+zOM+IXnQuj4lFWmw/PcW+U/qZ0NJErSw6SZ7cUml9C9LDxru
+ bIkOTCidznpBWwKH8ishi1j3UsHRM3NMdo/o47t33+r+ZQ1JyAWIl2b
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Mimecast-MFC-PROC-ID: 0mmon5nsw5pl60O-cep1ZXfJHxNJCD7L13jDK45X-kY_1786966856
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,59 +94,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable rknn_core_0 and its IOMMU on the Radxa ROCK 4D, and hand
-vdd_npu_s0 to the NPU power domain as its domain-supply, so the rail is
-switched by the domain that gates the block.
+This series adds Rust abstractions for the DRM panel subsystem,
+covering both the consumer and producer sides of the API.
+This helps closing the gap so that future panel drivers
+can be written directly in Rust.
 
-Measured on a ROCK 4D with this in place. The rail's regulator debugfs
-reports open_count 1, so the domain is the consumer that took it. A
-sampler running beside an inference caught use_count at 1, and three
-reads at rest report use_count 0 with the rail disabled, so it follows
-the domain rather than staying on. Over the same run the genpd
-active_time of all four NPU domains rises by roughly 60ms per inference,
-and the inferences either side of that are 128 of 128 channels against
-the CPU reference.
+Background
+----------
+The DRM panel C API has been progressively hardened over the past
+year (see [1], [2], and [3]). All panel drivers were fully migrated
+to kref-based allocation via devm_drm_panel_alloc(). Panel lookup
+functions (i.e., of_drm_find_panel() and find_panel_by_fwnode())
+were also updated to acquire a reference before returning.
 
-rknn_core_0 keeps npu-supply on the same rail, which the binding
-requires. Only rknn_core_0 is enabled: the driver binds one core per
-node and the second core is left to whoever can test it.
+Note this series depends on [3] being merged in the base
+tree. Currently it has been only applied to drm-misc-next.
+The other series mentioned above are already part of the
+base for the current version of this series.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+As a personal note, part of my motivation for creating this series
+was learning more about Rust in the kernel. I would appreciate
+feedback on Rust-specific idioms or kernel conventions used here
+that I may have missed.
+
+What this series does
+---------------------
+Patch 1 adds of::Node, a Rust wrapper for struct device_node
+implementing AlwaysRefCounted. C helpers are added so that of_node_get()
+and of_node_put() are reachable from Rust independently of CONFIG_OF_DYNAMIC.
+
+Patch 2 adds drm::Connector, a minimal Rust wrapper for
+struct drm_connector. Its sole purpose is to provide a typed reference
+for the get_modes() callback argument; no ownership or refcounting is
+exposed at this stage.
+
+Patch 3 adds the consumer side of the panel abstraction:
+- Panel wraps struct drm_panel and implements AlwaysRefCounted via
+  drm_panel_get/put. Consumer lifecycle methods are exposed as safe wrappers.
+- PanelOrientation wraps enum drm_panel_orientation and provides
+  from_of_node() to read the "rotation" device tree property.
+- Registration manages the panel's presence in the global registry
+  via drm_panel_add/remove, decoupling registry lifetime from
+  reference count lifetime.
+
+Patch 4 adds the producer side:
+- PanelFuncs is a #[vtable] trait that panel drivers implement to
+  provide their callbacks. All but get_modes are optional.
+- Panel::new wraps __devm_drm_panel_alloc, returning an ARef<Panel>.
+  Registration with the global registry is kept separate via
+  Registration::register, following the pattern of drm::Device::new.
+- ConnectorType mirrors the DRM_MODE_CONNECTOR_* defines from
+  include/uapi/drm/drm_mode.h, required by Panel::new to specify the
+  panel's connector type.
+
+Patch 5 adds gated tests, covering data type conversions and layout
+invariants.
+
+[1] https://lore.kernel.org/all/20250331-b4-panel-refcounting-v4-0-dad50c60c6c9@redhat.com/
+[2] https://lore.kernel.org/all/20260508-drm_panel_init_rm-v2-0-0bd4ac429971@redhat.com/
+[3] https://lore.kernel.org/all/20260717-drm_refcount_wiring-v3-0-023900c32e01@redhat.com/
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Albert Esteve (5):
+      rust: of: add Node type
+      rust: drm: add connector abstraction
+      rust: drm: add panel consumer abstractions
+      rust: drm: add panel producer abstractions
+      rust: drm: add KUnit tests for panel
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index 272af1012..79e039bee 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -722,6 +722,10 @@ &pcie0 {
- 	status = "okay";
- };
- 
-+&pd_npu {
-+	domain-supply = <&vdd_npu_s0>;
-+};
-+
- &pinctrl {
- 	hdmi {
- 		hdmi_tx_on_h: hdmi-tx-on-h {
-@@ -779,6 +783,15 @@ wifi_en_h: wifi-en-h {
- 	};
- };
- 
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
-+
- &sai6 {
- 	status = "okay";
- };
+ rust/bindings/bindings_helper.h |   2 +
+ rust/helpers/drm.c              |  15 +
+ rust/helpers/of.c               |  10 +
+ rust/kernel/Kconfig.test        |  10 +
+ rust/kernel/drm/connector.rs    |  33 ++
+ rust/kernel/drm/mod.rs          |   2 +
+ rust/kernel/drm/panel.rs        | 684 ++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/of.rs               |  43 +++
+ 8 files changed, 799 insertions(+)
+---
+base-commit: c21bb4193868a8de71fc4693fa741e195fdf5d86
+change-id: 20260814-drm_panel_bindings-91a3aae5d09c
+
+Best regards,
 -- 
-2.43.0
+Albert Esteve <aesteve@redhat.com>
 
