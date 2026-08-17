@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3334C5DF7E
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 21:06:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31A16C5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 21:06:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E183910E948;
-	Mon, 17 Aug 2026 21:06:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EA3310E44A;
+	Mon, 17 Aug 2026 21:06:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QQjmN1El";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hVVnlp3r";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8612610E947;
- Mon, 17 Aug 2026 21:06:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D039D10E94B;
+ Mon, 17 Aug 2026 21:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=lw3psvBeh1SE1nFc8VfpjEE8M7kEBECR1jNY8g4tKvs=; b=QQjmN1ElLBTLu2PIVfueuSZ161
- AID0ql3taLS/koWEEf+wBibh1P1I5BNgXlUcXbESM48TSPYrNa5bRlXvsJmTxcxTkAPZhuoz1o7kw
- OMUVudTiSBErY/gg68Jz7FxTo4H9XMeDC5kmHu0Ob5WF/MgWy1kH7lbEcN8MCMKlcDV4VMi7ib9H8
- 7QfbnWs5evavNIIapROS+9Zwz/iTrbgniqatmZWMTbmHfTsanISjR4mEC4Pzz0FNyABG3yu5TLniV
- sB67IX35UBKbpbwtBtw9tIEFxfpXOjc2FFLVVKRKxb1qZj0yb7O5lSSkhtB3S3OM/qEJP36VkUaI/
- uNJz10Og==;
+ bh=JOdEnDPQG70atwX6UwnG6mi3Usldc7fzPlg8dJlEHuk=; b=hVVnlp3rDmJq9ATDk4+473BzSd
+ MaYjIYHj3muZlCmGUwR8zmQoJVZVMPP3hTn227m5ZR9DunBcOuQhMc5ioltBjC1YYPfUM0Jr7k/ak
+ zh/3INxb3stEX5I13eE2B9MTwo9d06HEUAAOvXQMV2NINxL45r0S3sy5AYudeDr832Q25S4GaQPhN
+ J7/OW5ijjP5TKAIEA9xVnOfEvSXnXx/Tn/Wd2HSDJ/s7xIB9dvFvjotf0wAc3z+GMfkLL9U3q0Rrj
+ 8Bxi4F0VG9udLVMFUZUl0Vdnsli1kWi163m6LWyJdCNk1P/a80/9vuPiHXjfBJnJuf7M2EiemFUuy
+ XOs7vSGA==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ww4XH-00504Q-Tl; Mon, 17 Aug 2026 23:06:24 +0200
+ id 1ww4XO-00504Q-I5; Mon, 17 Aug 2026 23:06:30 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Mon, 17 Aug 2026 18:05:45 -0300
-Subject: [PATCH v2 5/6] drm/i915: Use drm_timeout_rel_to_jiffies()
+Date: Mon, 17 Aug 2026 18:05:46 -0300
+Subject: [PATCH v2 6/6] drm/vc4: Use drm_timeout_rel_to_jiffies()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260817-drm-timeout-helpers-v2-5-73052b669f49@igalia.com>
+Message-Id: <20260817-drm-timeout-helpers-v2-6-73052b669f49@igalia.com>
 References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
 In-Reply-To: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,15 +54,15 @@ Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1499; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=PsGoN4+6l5T0DQgCz7JXX4O+5Rg5wQ/vxnQpeUTRTsQ=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqg3eqf5VnKUic/OUEOkLvJzvny88SgYRt0DhAT
- peSrIIjYhqJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoN3qgAKCRA/8w6Kdoj6
- qvL8B/9NXb9WEkGIYyh2MkFCUZF2mbRJ5Q1GI3LSZURojiDEfqAth6EZzO06JE0uyFRor+aJ5vL
- iAfN+ODMdCJn4Gj4bqieWZ9xP19PkirxBxmKmui+q7WZ0MYTLFbAHLOS2IR4Gy9UMBBTFDKmjVD
- dtYmGtj8dgJMnGZZWlaCAbTchuA26ZFjqnVvmvU2lAl5QPWoExKOfhTIrV7lHvzO24ctedmjkoW
- ZKVq7LOddUkpdVgpJSfO+p2EYEdC69Aou0vJ1Ta1vF3BrHepZhLZovAimNeDxtRsrmJytkzbD1i
- tpHFxVCVC5VYb8ARJlqleBiBVgd2ab9Np7hBlTtgyrIuIDAc
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1393; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=6SdIesJwo2rWJks6lF/ReWhhuuB2IJ1mkY2yW7OSC2Y=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqg3eq05LK5reYtUuqBNlSdTpAtV7F+0oswm2x6
+ uVSsSwseVaJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoN3qgAKCRA/8w6Kdoj6
+ qpXvB/4teituWpU8b2Xvi6/EslifsLnsv3/hMH3ArKzRRVnc5oTPhnBDnza1SzYByt/qpjfEP2V
+ r1U6JvyEyW2fgdVh2EpycdrMlv8SHPFSJN4XdcZH6OX+YYCzzp/SlNR7NDtbf72k9gAX2z/XHbh
+ WiCiFdJGbILIVoWm7Pb9wz0WsCbC/1LgCMrfaYqvXzi2utHbBXHS4qaGqg796VgQPPxOWIpk3Ag
+ ervjUAyFlMY+UhMRjDgq8aIl5LxsuEC62qZw0vBbQRfCgg0vF31HYCWtGxbNZe9QzCZIyaLoYdZ
+ ygq4QK3Ovw7mrqN/RcxbJu9TU1VxrL0Xa0RaBmYAcfGEc7FQ
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,55 +80,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nsecs_to_jiffies_timeout() originated here and has since been copied into
-another driver. It is now available in "drm_timeout.c", so use it and drop
-the local definition.
+vc4_wait_bo_ioctl() converts its timeout with usecs_to_jiffies(), which
+takes an unsigned int. The microsecond value derived from the u64
+timeout_ns is narrowed to fit, so any timeout above UINT_MAX microseconds,
+around ~71 minutes, wraps into a much shorter one. Unlike the equivalent
+problem in the other drivers, this one is not limited to 32-bit.
 
+Use the shared helper, which takes the duration in ns and clamps the
+result to MAX_JIFFY_OFFSET.
+
+Fixes: 21bd85f82ec2 ("drm/vc4: Use DMA Resv to implement VC4 wait BO IOCTL")
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 17 +++--------------
- 1 file changed, 3 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/vc4/vc4_gem.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index 2893df65c359..1c189d4d7ad8 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -7,6 +7,8 @@
- #include <linux/dma-fence-chain.h>
- #include <linux/jiffies.h>
- 
+diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+index e231c906709c..781aeb8967b1 100644
+--- a/drivers/gpu/drm/vc4/vc4_gem.c
++++ b/drivers/gpu/drm/vc4/vc4_gem.c
+@@ -32,6 +32,7 @@
+ #include <drm/drm_exec.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_syncobj.h>
 +#include <drm/drm_utils.h>
-+
- #include "gt/intel_engine.h"
- #include "gt/intel_rps.h"
  
-@@ -184,25 +186,12 @@ i915_gem_object_wait(struct drm_i915_gem_object *obj,
- 	return !timeout ? -ETIME : 0;
- }
+ #include "vc4_drv.h"
+ #include "vc4_regs.h"
+@@ -970,7 +971,7 @@ vc4_wait_bo_ioctl(struct drm_device *dev, void *data,
+ 	int ret;
+ 	struct drm_vc4_wait_bo *args = data;
+ 	unsigned long timeout_jiffies =
+-		usecs_to_jiffies(div_u64(args->timeout_ns, 1000));
++		drm_timeout_rel_to_jiffies(args->timeout_ns);
+ 	ktime_t start = ktime_get();
+ 	u64 delta_ns;
  
--static inline unsigned long nsecs_to_jiffies_timeout(const u64 n)
--{
--	/* nsecs_to_jiffies64() does not guard against overflow */
--	if ((NSEC_PER_SEC % HZ) != 0 &&
--	    div_u64(n, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
--		return MAX_JIFFY_OFFSET;
--
--	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(n) + 1);
--}
--
- static unsigned long to_wait_timeout(s64 timeout_ns)
- {
- 	if (timeout_ns < 0)
- 		return MAX_SCHEDULE_TIMEOUT;
- 
--	if (timeout_ns == 0)
--		return 0;
--
--	return nsecs_to_jiffies_timeout(timeout_ns);
-+	return drm_timeout_rel_to_jiffies(timeout_ns);
- }
- 
- /**
 
 -- 
 2.55.0
