@@ -4,102 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D194AC5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:51:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E2CC5DF7A
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:53:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3745F10E2B6;
-	Mon, 17 Aug 2026 12:51:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B2AC10E7B8;
+	Mon, 17 Aug 2026 12:53:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EA4nafOh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DLxUrTPi";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2565110E2B6
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 12:51:25 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-836c8cd38beso2032697b3.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:51:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786971084; cv=none;
- d=google.com; s=arc-20260327;
- b=CWadv7/mXQ6lw6NDlRj+z7ZE97bzCU5INHrRI0bJy+SLYSMTMSaWdsKzqvD3AIjhDi
- 64a8hKWcbqEp/k5LjPOx9UuaYZt2670h5VbtL2eDmcyHhct3IdTY9LfQ1tR6gHMj7Hm2
- 1UBuDhhfhZM85DgdHbAuV+3HWAufE91HuaopnZv1B9P+UY5oBQq3QGOaTFV8TtgfAA40
- wmTr1QDDk+FpNDnmZyyDl5MeYv5hgPRQM8lwvU5qmhst2Nu5eLl9gPZxxpIu2YCbMDRu
- rj/z7aUue7FRMqMuFdXI5UpJ4BxMI5e8qhnECDvLtfGV218qRfzl/OQndGk+nSASF4h1
- nnwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
- fh=PVZAG0Tk236lfq3LcnL5qIZVTET81wZ0oGj2bbsiHQE=;
- b=MgonoO4Ua3SdH0tMxzEmV3yXZ2D7432zDFMhuwlxOsetgppksI1yoZZGXtmFm1Ghj4
- 4fgrRVgEqYkHCHW+wcPWfNkvAEil5/rsmWTUgI+uhRSQhQkuqkzzdR2n8ye8nkhyam3L
- 5wmn8P2BNyzjDUUE646qF85eDMjSIVPKMvrh4MkXxweX7Rnq4HfGt3muJa9EhWoyNvVq
- IrRFwWfKCmoX2XzlsLOGIoMPhQbtqktnJR2zJxT3xqEXtKZ2zcOVaX6zOS0OwbK74m7O
- SXsNsLlxWyrCnb+NK8gCXHAdq6DExANpr5dc8TSwXMhwncyWuoaABTydq5fPImcz3sE1
- Hfjw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786971084; x=1787575884; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
- b=EA4nafOhkZBtdv28LVHIyUJnPrH+Gp8yfuXE/HPZQq1pMm88/HNZ7wk3lZIsLzwOqb
- HevOoCBZQULZgKzsJz0ln4IdYeicMT+Bv4rwG9cNu5sTDJjDFv/RsBlqq9uxf/04yCem
- ZG8Wu4F9bGyamf6Eg/QpWf/B3he7XQMQceXuUmgh5b3hEJIPZVTILGRV4Hgp5GmPGXcs
- KNadUuriUXnxMUvW2e7HXNU7nCWK1CPL1qgpmDZ9qWh7dgl4qDjDh51yVJCKlGjm+ohU
- 4aWPjFXY0Expa3YDY99ef9PVBELWNy0+ashnjCE02Bkt5U0/6o4Kj9Z05A+YLg9LKb2x
- HByA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786971084; x=1787575884;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
- b=fs5TAqoMYObgqsc2D/EoizHOrxTDexIuQTLdOkPYIxhHBE0jEB6+JB0fEzJMj3nxAq
- XRNpH2npHMHkg+bMYWfq5+z7g07ndFpCri490gbdz3sG4uizkkVuMnkQfsi4KTmHe72X
- ceQz9R21eaAT1uHoT3s+dTJV2qsVTi7ALfXBZjTwIWwEpEMstlJnkJjtieXqgP91F5wq
- C5JKdachHEl6lSvpZP0AiJx+Mz+9QsaVAqAnAlA+NBT+2JtR4DuTpNc6BFwTNWZPywqt
- Zi/874TfosKL3SAlO/MyKSJGRhiYZdSqPehrKpCSIr/NRChC9cOXLSjucu35pSVLiTpI
- C/Kw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoqgFdVlWLuhrb0BrHpNZsLeSvh5Sg2FmQC91eskLr1eyz9PEsylZGiIEiLPZAXPcc1V9ihj+NjnvE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+8rGzl9oFO/aBCODdVg9WGCmsBO6QXvwWXFpVmf8ZBkJvq3fG
- q69rhwRIJjsa2RWB+YxmqB6Jkk6qa/uu11RDQJztnAajHhQjdhJqaS9QJhETtY1BRBp2oEPEB7c
- Ld8UOzfiB+zzzByuI2UuFcHZS9O08aCk=
-X-Gm-Gg: AR+sD11WwktaVuo4cW65neeJztEGlmybWmjFC/004FcnrsVqmRPpCBJslRRg9n06gCA
- xjstFz1PJ9qOlwQgJJRjNTG3eragYceaJgpCtPRrBqXNvArQ7GYlj1kM00jGsvwzp5kZ6gHO/rq
- fVf6u1+XI2uMPlZ/MgTTYiSZwBWmA2Anvrj4ev3oUKSDq3Mv4xYxJ5dF8jGCN0YuxswYgMCCaDG
- uVHs0uiLuVooS6ZEKKJPxVEd+5Qi+I0z4BqzOtpGhkKgjHqqGpV+hrmxxoys9j9u7b6rK0VGUZV
- S9GACf8pVQseH7Pga80Fkq19zlRdxbhxhpnLGVydH7/+rqIg5AD18g41F8hc9yAiRWMdDmrqn30
- 1Chc=
-X-Received: by 2002:a05:690c:b0f:b0:80d:5c71:d08c with SMTP id
- 00721157ae682-8371308c88amr90606897b3.3.1786971083604; Mon, 17 Aug 2026
- 05:51:23 -0700 (PDT)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6238F10E7B3;
+ Mon, 17 Aug 2026 12:53:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M0dySB6Tp39l/thXoLaiFCUCYfGn5zZqDuH9hx9HPCOOji1sa1XfhqoYM/A71/E4HolL3pWjLPkE/1PLGHu8ghQJZduSfFxvqWoLyruNzX2l7bVm2EWHG5FIR0rYWemhLdw5NMxWFBCJb9ctxu2MMlarBDzwFDEXL6hdoHEazEK4CGyfD/LuIq2wFmG06/9zoBbcMk5kuMS9W6hIJqf2QQ9KlXK5GtJrR9DvfiHPQPdxdq+yEnvdaJaCVi+Er/tNQpry5y9S1N+TMfsfoYfPTjaKm++2QwmupgIO8vaDcVONcpzA3QM8GyVC1W2A8yzhDg64NUEiJFQDRawDFLxmiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K37ngRS4OvQZ6joPbdsJmQ0jZu9wDyznpGiuYGGtRNk=;
+ b=yulIeMGIwLucxS2iJn9Mnjxnk2aWQXV6BGfrWhNIBTDXt4SlVSHFONyxT2ooYetBaXrRkRCHKtT5bztE05BJuSeiLTT0L/sMeEfZTRnPoJOOTPU99viLF46//KhCtX8zMObnsaEBbArk7inhwXTJjbbbJQ76L4333JEtMddwybO7AvSGdz7DFb7dj2EhHkdhZDoHCqLiqfEHYdkphQh64N179GU0GawmmFSQiE1DRH12ZE3l03mbDMd8jDNFsrN1HoIbNTm0eFnu29FI3KB3qJXB9GUpgjkIa1X2+4z+vpyB93sDtyqk0b/g9KXy+9FTPqg1dYW0Wr+SDxm8/3uV7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K37ngRS4OvQZ6joPbdsJmQ0jZu9wDyznpGiuYGGtRNk=;
+ b=DLxUrTPi9bUQXZx6tBxi7hc3hKlMNY1JLzIB6RFaXvd5ztbppHq16nKedR8Y9pOv45pjbrlr28rJzGEeMaNzWLo0+Kh65HHaZwKHrpg9s9m5ouG91wRKB49aFdTnd0oteWwH1tcGllupctFP+udGUX1uVbkUmRd//RXQwuj3N18=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by PH8PR12MB6964.namprd12.prod.outlook.com (2603:10b6:510:1bf::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
+ 2026 12:53:24 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 12:53:24 +0000
+Message-ID: <1cb5dc7c-c342-4687-a7ce-2f8e2e39109e@amd.com>
+Date: Mon, 17 Aug 2026 18:23:16 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 1/2] gpu/buddy: replace dual-tree/force_merge with
+ decoupled dirty tracker
+To: Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, Anand.Raghavendra@amd.com
+References: <20260811133435.1027099-1-Arunpravin.PaneerSelvam@amd.com>
+ <767c8eba-56d3-4449-9605-99a3f5e57af8@amd.com>
+ <0b92672e-dee7-4ef1-83fd-ea9f31729eca@intel.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <0b92672e-dee7-4ef1-83fd-ea9f31729eca@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PNYPR01CA0054.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25b::12) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 MIME-Version: 1.0
-References: <20260817113603.1436067-1-gahing@gahingwoo.com>
- <20260817113603.1436067-4-gahing@gahingwoo.com>
-In-Reply-To: <20260817113603.1436067-4-gahing@gahingwoo.com>
-From: Igor Paunovic <royalnet026@gmail.com>
-Date: Mon, 17 Aug 2026 14:51:12 +0200
-X-Gm-Features: AcwNN1W5X2wGC2Q1I1TaTBqzvN2kUY3psEQZvOBiX0NX6cHaLHwnhi2fG-mcjGs
-Message-ID: <CAEWPSH4VAR5VTJUW4PdJczrtueQzPzzo6og8PzWaupwd-t=BFQ@mail.gmail.com>
-Subject: Re: [PATCH v8 03/12] accel/rocket: factor the completion tail out of
- the IRQ handler
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, 
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de, 
- ogabbay@kernel.org, zhangqing@rock-chips.com, chaoyi.chen@rock-chips.com, 
- diederik@cknow-tech.com, alchark@flipper.net, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev, 
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|PH8PR12MB6964:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0d8f002-8d64-4ca9-f0d9-08defc5e85c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|18002099003|22082099003|10067099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: R5mp1+FuYtsOS/BEUpNYdTc9gNWw8mnmFvAGMDYJyWr4oVqz7zSxVkEk76gHRqk4vqXvjGKWP2VolH4iWTxDTRcNGfWajhTShjbvPQYfwk88rzH1CY1u9x1pKJU9uixjodtn8EkVefCois2r8Kjzo9Sfr77rRND+1X5QRcV7Kat9hgb4mol3fYjiNSgPPpmfkSw62QNC8t9rn26pQpNJde1i9zHMIXoCpylkjmR0F9q+il4WUpv3+0QMLpmeEuL3hi2gbagCteeT1g9KvY8mQk9L8gTOxgKfKyvWxt9VeYQc6Z3L1+oSjPsxkTKfIUGvuJIhBhzGpZ3sZ+1vfalXdfE813cv/+0pTajBRnYwjSr6xhoxxRuM0PUZdR+rW8TT2Z0OP+DKzRQXgCYPagNx3Dsy1N+jI5Y7QOuJQBUO20xnbOyJeOoll6fGQbb5985E7Jzvtx0ffrXSfJF1QcTjnk3mg8rhVirodIA2Rs8XfV/0X7tIuRjNLJeUM1M+9HsK0FUwzcSaStq6eknBlbOTdd4fyQLDRwVyGMVrU1IT72goV0OXgJ6g4qtILXY1MO8gA6jiYE2C6iTPxjTeplA1lW0dDGCBuJy8dboB+Mru3o7To6+gGibFbAJAjgazL6eq3yG9yr39PISGJ79BwvsVI3wU5n51xepPB5Da0AvHaLU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?djBiaUpnRVFKbmIySWRBSHNaMWlZV0ttOFJzRlh0aml5eDluQ0M1Y1p5QlZF?=
+ =?utf-8?B?MDNwdGo1Y3ViNTM0YTVPY3FpeDY2TWVkdTRZYVNaSy8xY3Jud0tVRGU1OGxZ?=
+ =?utf-8?B?V0FRSXVOSjJueHlRdjdHc0JEWmRuVkprR25jVkhtWmtURURmZ3FpMllianBj?=
+ =?utf-8?B?MS9PbVJrRG9sSmtSdkNyMVQ3LytnTldxQzFPWUtMT0dlbjk4aTRWSkViM2dl?=
+ =?utf-8?B?TnZoVUZSbTN6M2NjQUFURVlYL21DR3ZvSUlnd05nekM5MGZaVDRFUzJJbm9q?=
+ =?utf-8?B?d3BGVEpSNkdRWmRPUk9DMVRTZVlzU09SZjlDLzVuYzNVYUFsUTdFR1hTc2Vo?=
+ =?utf-8?B?V2t4YmZsa09oamVCNDh4SHl6bTVvZXNrczVjOWZKd0p6MzJVbmpkbFRsUzRT?=
+ =?utf-8?B?YkFBVlJRT2ZvY2NLd0N4QnpFd1ZMdnRWOG1rRWdPVytCczZVZnR4NWc0U2sz?=
+ =?utf-8?B?UzZnMWIrdnRCMXpPdHNMVk5SR3lzL1B5N3BkcFNKbm1RWGgxWUorTkw3T3ND?=
+ =?utf-8?B?VVRRWlR1V0xoY3ZFeHlqM0ZwN1UzQUMyelVQTnpUUkRmUnQyclIwdGNxWURa?=
+ =?utf-8?B?emJ2NUpyTnBWRGE5TFN6aS9udDF0R08zNnFpditjMEloUWhVc1BFOEdaYmxa?=
+ =?utf-8?B?Uys3VW54V0FodG1HVXZ4SlcvMkNLTXVmZjZvL3RwYXY2a0o5SEJwelpPdVM5?=
+ =?utf-8?B?d1lzK0pwZUdEZ3kzM2JxOVhlOHUyZ2R2a3h5eTVuMnQzSTJjUWpWdmRyM3RW?=
+ =?utf-8?B?RjlqYUZTdWJDcWI0QVdvcG1IYmN1MTgrVUM0OWYyQndNRG5wQXhIYmtEMDdR?=
+ =?utf-8?B?WCtod1lDVTBwaVR4aHJWQUVZZXZMZkVJN1JpRHlmT0RTak9ESmFtcmFEUjNY?=
+ =?utf-8?B?VVUwWmlqU08xYktGeDJQM1ZkMTRjbHc4NGE1Q3J5Qjg3N1liZzREOVMwb01p?=
+ =?utf-8?B?RTZDb2RyWTZFT0xIWndISm9DVjJsdzQvdlIvd1lHTzVEMElTTXc1OVZyTjNF?=
+ =?utf-8?B?VWRqOUR3aFZCZ2U4ZlBjMnp1eHpTOEg5RlMwMTMydjdnU3VHYncrSTVJRW1o?=
+ =?utf-8?B?QXFIOHJMTmJzUFVTWGxwMlVVMFVTaHNTMDIvODVqYmVMajdiMEtSa0EwWnhu?=
+ =?utf-8?B?UmNaaS9qRmpVWElwOGxTV01Xb0pCeWwwWE9QOC90MUpEejdEeEZnY3Bvdkwv?=
+ =?utf-8?B?YjM1eDFMS3YzRlFubXdkVVZoa0VyOFFCQ094eDA0eVVrOEhHUStXbTU0ZmtJ?=
+ =?utf-8?B?T00vVHl1NVZ0eWVIZDlUamRjMXIvaVg1N1VaNzE5am80RVV6VWZFSlJKamFN?=
+ =?utf-8?B?QW1DWXFodzI5TGp3Z09JTjhiYVFWR21DYjFVNmJ3dGl0WXF2bU9iVHRiN09z?=
+ =?utf-8?B?ZWJuZC9EcUdyb2dUYUlCTFFsZkRuRzIvYUw0VTZXOGJiWFp0N252cUJFcUxx?=
+ =?utf-8?B?VWF2WXViV1NyeC9lc0diTEI5bFVmbGNKRm5NcjVQS0pGS0dMaXhZNEFZbks2?=
+ =?utf-8?B?MDNXdkVjU0hTUHErUFhBOVNCYlRINHFFLzN2b3p6UTVScDdEUlNadDZUNnNQ?=
+ =?utf-8?B?dEw2U3V0VnhWTHNkVTRRWFhmWHpUWmtuQUdTU0JtRW9YMjljMlY3dnNlTjdx?=
+ =?utf-8?B?Q3YyMlBoVEsrU3VrREFJOHlDWlZva1ZWSVkrdzZsaXBmUTQ1ZXVGYTBzMHlG?=
+ =?utf-8?B?NnFrUzhtZW0vRWh1emQ2QTEwdTdOTzg2ZnRiam9FUEdqU2tZMTZvWkdsLzBY?=
+ =?utf-8?B?VkY4ZWFjOTR0Sk5GVjdZUWc0ZEV6L2s1MWEwZ1R4VnZXcTFBOEVGMEpQZHN0?=
+ =?utf-8?B?dTVQSEtFUCtGWTJtUXY5QzVjbG9HMzhFVUtFd1JqWlZZMWUxd0lrM1VDWGM1?=
+ =?utf-8?B?R1hxYmhhMUFQL0dpREo3ZEhhSTkzdXAyTFd5Ritwak4zQVdLRTArd2VhRkxm?=
+ =?utf-8?B?YTRvbUZXbEhKQlN0c252ZGMrRHRySm1IZFczNkNGU0xTZnUyR0h1UmhGdFJx?=
+ =?utf-8?B?OVVYWXhpOG9kcXllZVYxbW9NMEpPNTNrVVZkaXR0UmlSdk14QkwvdzIwazhF?=
+ =?utf-8?B?TlNaNjlnWnJYSnlGQ3d1SFI5SklUazl0clZFLzBXVmNoNkpTMmxVR1hCWHNJ?=
+ =?utf-8?B?UDIyLzZIRzZsbXdHWmtiUGFjTFh6eTlMVGFDdUtSMUxxem9HcFluZ05xUmFJ?=
+ =?utf-8?B?Z1p6VUxyYTZvZzg0aDNHL1U0dTM3SWQ0YVlCS3NvZmhlVGMyd3k5R1dQZDlB?=
+ =?utf-8?B?TitjellRWnA5RVJhaXhXc0VwMEoyVU5jbkVxaUdyM3JBWXc1QzFxS3p5TGVE?=
+ =?utf-8?B?cHllcGJoT3Z2ZlFHclBuWkRPOWg0cmp5TWlOeFFRRlJ2Z294ZzZLZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0d8f002-8d64-4ca9-f0d9-08defc5e85c8
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 12:53:24.0939 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0uQFZvh18ZLMbp9PrJn1fxvftkXUzy4AO5tsVKm35IszSaHvHbOnYKeNu0yIatYw0AaRmNSQTpKHTLmj4n25aw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6964
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,125 +139,2319 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jiaxing,
-
-You asked for a look at this one, so I checked it as a no functional
-change refactor rather than only reading it. It holds.
-
-I reconstructed the three source states from the posted diffs and built
-the before and after with the driver's own kernel flags for arm64.
-rocket_job_handle_irq() is static and inlines into
-rocket_job_irq_handler_thread(); at -O2 both states emit the same calls
-and the same stack frame, and differ only in which side of the branch
-the rocket_job_hw_submit() call is laid out on.
-
-The load bearing sentence in your message is the early return, and that
-checks out too. At -O1 the pre-3/12 code emits mutex_unlock twice, once
-on the path straight after rocket_job_hw_submit() and once at the guard
-exit. That is the scoped_guard cleanup firing on the early return. After
-3/12 there is one, because the return leaves the helper and all three
-paths converge on the guard exit. Both versions unlock exactly once on
-every path.
-
-"Nothing follows it" also holds through the rest of the series, not only
-here. 10/12 is the only later patch that touches rocket_job.c, and its
-two hunks are the defines at the top and the PC_TASK_CON write inside
-rocket_job_hw_submit(). Nothing is added after the scoped_guard in the
-handler anywhere in v8.
-
-While reconstructing the base I checked where the series sits.
-drivers/accel/rocket/rocket_job.c in next-20260814 hashes to 3141f210f,
-which is exactly 1/12's pre-image, and applying 1, 2 and 3 in order
-reproduces 5f0f9682e, d484a3a6f and 0bb11c718 byte for byte. So these
-three apply to an unmodified linux-next rocket_job.c and need neither
-the RK3576 patches nor my clocks-by-name patch. Tomeu, that is meant as
-information in case you want to pick them up independently, not as a
-request for a re-cut.
-
-Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
-
-Regards,
-Igor
 
 
-On Mon, Aug 17, 2026 at 1:36=E2=80=AFPM Jiaxing Hu <gahing@gahingwoo.com> w=
-rote:
+On 8/17/2026 3:27 PM, Matthew Auld wrote:
+> Hey,
 >
-> rocket_job_handle_irq() stops the block and then either starts the job's
-> next task or retires the job. The second half is a step of its own and
-> reads better with a name, now that taking the register writes under
-> job_lock has moved it a level deeper inside the scoped guard.
+> Sorry, was OoO last week. I think you missed some feedback/questions 
+> here: 
+> https://lore.kernel.org/intel-xe/c63399c5-8507-4f4e-9ef1-241efac4d024@intel.com/ 
 >
-> Move it to rocket_job_next_locked(). The early return that used to leave
-> the handler now leaves the helper, which is the same thing here: the
-> scoped guard drops job_lock either way and nothing follows it.
+I missed that email and don't see it in my inbox. Thanks for sharing the 
+link.
+I will go through the comments and reply on the thread.
+
+Thanks,
+Arun.
 >
-> Doing it as its own patch keeps the locking fix at the head of the
-> series minimal, so a bisect that stops before this one gets that fix and
-> nothing else. There is one caller, and no functional change.
+> Main question was around GPU_DIRTY_EXTENT_POOL_MIN.
 >
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> ---
->  drivers/accel/rocket/rocket_job.c | 31 ++++++++++++++++++++-----------
->  1 file changed, 20 insertions(+), 11 deletions(-)
+> On 13/08/2026 14:37, Arunpravin Paneer Selvam wrote:
+>> Hi Matthew,
+>>
+>> Do you have any objections or concerns with the patches? If not, 
+>> should I proceed with merging them,
+>> or are you still in the process of reviewing/validating them?
+>>
+>> Regards,
+>> Arun.
+>>
+>> On 8/11/2026 7:04 PM, Arunpravin Paneer Selvam wrote:
+>>> The current buddy allocator maintains separate clear_tree[] and
+>>> dirty_tree[] rbtrees per order, preventing coalescing between cleared
+>>> and dirty buddies. Under mixed workloads, this creates a merge barrier:
+>>> adjacent buddies frequently end up split across trees, forcing reliance
+>>> on __force_merge() during allocation.
+>>>
+>>> __force_merge() performs an O(N x max_order) scan under the VRAM 
+>>> manager
+>>> lock, leading to allocation stalls and failures for large contiguous
+>>> requests even when sufficient total free memory is available.
+>>>
+>>> Solution
+>>>
+>>> Replace the dual-tree design with:
+>>> - A single free_tree[order] rbtree for dirty and mixed free blocks
+>>>    (fully cleared free blocks float outside this tree)
+>>> - A lightweight out-of-band dirty tracker (gpu_dirty_tracker)
+>>>
+>>> Fully cleared free blocks are tracked outside the buddy trees using an
+>>> augmented interval rbtree, enabling O(log E) lookup of the largest
+>>> cleared extents.
+>>>
+>>> Buddy coalescing is now unconditional in __gpu_buddy_free(), regardless
+>>> of clear/dirty state. This removes the merge barrier and eliminates the
+>>> need for __force_merge().
+>>>
+>>> Benefits
+>>>
+>>> - Correct high-order allocations after mixed clear/dirty workloads
+>>> - Elimination of O(N x max_order) merge cost from the allocation path
+>>> - O(log E) cleared-extent lookup replacing O(N) scans
+>>> - Predictable allocation latency under fragmentation
+>>> - Reduced complexity with a single tree per order
+>>>
+>>> Test:
+>>> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000
+>>>
+>>> Below data is from /sys/kernel/debug/dri/1/amdgpu_vram_mm:
+>>>
+>>> Base (dual-tree), before VKCTS test:
+>>>    order- 6 free:   6 MiB,  blocks: 26
+>>>    order- 5 free:   1 MiB,  blocks: 15
+>>>    order- 4 free: 960 KiB,  blocks: 15
+>>>    order- 3 free:   5 MiB,  blocks: 171
+>>>    order- 2 free:   2 MiB,  blocks: 176
+>>>    order- 1 free:   1 MiB,  blocks: 165
+>>>    order- 0 free:  16 KiB,  blocks: 4
+>>>
+>>> Base (dual-tree), after VKCTS test:
+>>>    order- 6 free: 768 KiB,  blocks: 3
+>>>    order- 5 free: 499 MiB,  blocks: 3999
+>>>    order- 4 free: 250 MiB,  blocks: 4001
+>>>    order- 3 free: 129 MiB,  blocks: 4157
+>>>    order- 2 free:  65 MiB,  blocks: 4161
+>>>    order- 1 free:  63 MiB,  blocks: 8138
+>>>    order- 0 free:  20 KiB,  blocks: 5
+>>>
+>>> Dirty tracker, before VKCTS test:
+>>>    order- 6 free:   4 MiB,  blocks: 19
+>>>    order- 5 free:   2 MiB,  blocks: 18
+>>>    order- 4 free: 704 KiB,  blocks: 11
+>>>    order- 3 free:   5 MiB,  blocks: 168
+>>>    order- 2 free:   2 MiB,  blocks: 174
+>>>    order- 1 free:   1 MiB,  blocks: 167
+>>>    order- 0 free:  32 KiB,  blocks: 8
+>>>
+>>> Dirty tracker, after VKCTS test:
+>>>    order- 6 free:   4 MiB,  blocks: 19
+>>>    order- 5 free:   2 MiB,  blocks: 18
+>>>    order- 4 free: 704 KiB,  blocks: 11
+>>>    order- 3 free:   5 MiB,  blocks: 168
+>>>    order- 2 free:   2 MiB,  blocks: 174
+>>>    order- 1 free:   1 MiB,  blocks: 167
+>>>    order- 0 free:  28 KiB,  blocks: 7
+>>>
+>>> v2:
+>>>   - Code-style cleanup and minor refactoring
+>>>   - Renamed locals for clarity
+>>>
+>>> v3:
+>>>   - Keep cleared blocks inside free_tree[] instead of floating them.
+>>>   - Add subtree_has_dirty rbtree augment for O(log N) dirty-first walk.
+>>>
+>>> v4:
+>>>   - Fixed checkpatch warnings.
+>>>   - Optimized gpu_buddy_reset_clear() to a single post-order walk that
+>>>     flips block headers and recomputes the rbtree augment in one pass.
+>>>   - Propagate subtree_max_size top-down in insert_extent() so ancestors
+>>>     are not left with stale values on no-rotation inserts. (sashiko)
+>>>   - Drop the whole extent in gpu_dirty_tracker_mark_dirty() when the
+>>>     inside-split allocation fails, avoiding a stale clear claim. 
+>>> (sashiko)
+>>>   - Make gpu_dirty_tracker_find() alignment-aware and fall back to the
+>>>     dirty tree on steered failure to avoid spurious -ENOSPC. (sashiko)
+>>>
+>>> v5:
+>>>   - Track dirty extents instead of cleared ones: steer dirty allocs 
+>>> onto
+>>>     tracked dirty windows and pick clear allocs via a free-tree 
+>>> augment,
+>>>     avoiding clear-memory wastage by keeping cleared free blocks 
+>>> untouched
+>>>     during dirty allocation.
+>>>
+>>> v6:
+>>>   - Make __alloc_range_bias() return the highest/right-most address by
+>>>     default, establishing top-down as the intended placement for
+>>>     range-biased allocations.
+>>>   - Honour GPU_BUDDY_CLEAR_ALLOCATION in __alloc_range_bias() by 
+>>> steering
+>>>     the descent towards clear subtrees for non-top-down clear
+>>>     requests. (sashiko)
+>>>   - Skip dirty-tracker steering for offset-aligned requests so they 
+>>> keep
+>>>     their min_block_size alignment. (sashiko)
+>>>   - sashiko reported that the __GFP_NOFAIL dirty-extent allocations on
+>>>     the free path could deadlock during memory reclaim, since that is a
+>>>     GFP_KERNEL allocation on the free path; move to a per-tracker
+>>>     mempool so extent nodes are guaranteed without __GFP_NOFAIL.
+>>>     (sashiko)
+>>>   - Derive each free block's clear/dirty class from the blocks already
+>>>     in hand on split, free, alloc, trim and init instead of querying 
+>>> the
+>>>     dirty tracker, removing the tracker lookups from the hot paths.
+>>>
+>>> v7:
+>>>   - Preserve mixed-block clear state in __gpu_buddy_free() when a mixed
+>>>     split child is re-merged after an undone split. (sashiko)
+>>>   - Prefer a fully-clear block over a mixed one of the same order via a
+>>>     single ordered clear-state max augment on free_tree[].
+>>>
+>>> v8:
+>>>   - Coalesce contiguous dirty blocks in __gpu_buddy_free_list() into 
+>>> one
+>>>     dirty extent update instead of one mark_dirty() per block. 
+>>> (Matthew)
+>>>
+>>> v9:
+>>>   - Reset has_clear on allocation so a mixed block taken whole and 
+>>> later
+>>>     freed fully dirty is not re-tracked as mixed. (sashiko)
+>>>
+>>> Assisted-by: Claude:claude-opus-4-8
+>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>> <Arunpravin.PaneerSelvam@amd.com>
+>>> ---
+>>>   drivers/gpu/buddy.c                | 1370 
+>>> ++++++++++++++++++++--------
+>>>   drivers/gpu/tests/gpu_buddy_test.c |   32 +-
+>>>   include/linux/gpu_buddy.h          |   97 +-
+>>>   3 files changed, 1083 insertions(+), 416 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>>> index 4d5ac375a538..7d50156a5bc7 100644
+>>> --- a/drivers/gpu/buddy.c
+>>> +++ b/drivers/gpu/buddy.c
+>>> @@ -8,6 +8,7 @@
+>>>   #include <linux/kmemleak.h>
+>>>   #include <linux/module.h>
+>>>   #include <linux/sizes.h>
+>>> +#include <linux/slab.h>
+>>>   #include <linux/gpu_buddy.h>
+>>> @@ -34,6 +35,447 @@
+>>>   #endif
+>>>   static struct kmem_cache *slab_blocks;
+>>> +static struct kmem_cache *slab_extents;
+>>> +
+>>> +/*
+>>> + * A single reserved extent suffices. Every allocation uses GFP_KERNEL
+>>> + * from sleepable context and waits for reclaim, so it almost always
+>>> + * succeeds; the reserve only backstops the rare NULL return without
+>>> + * __GFP_NOFAIL and need not scale with extents added in one locked
+>>> + * section (e.g. by gpu_buddy_reset_clear()).
+>>> + */
+>>> +#define GPU_DIRTY_EXTENT_POOL_MIN 1
+>>> +
+>>> +/*
+>>> + * Dirty tracker
+>>> + * -------------
+>>> + *
+>>> + * The dirty tracker maintains an augmented interval rbtree of 
+>>> contiguous
+>>> + * dirty address ranges, decoupled from the buddy free trees.
+>>> + * Each node covers a maximal coalesced run; adjacent extents are 
+>>> merged
+>>> + * on insertion so the tree always holds the smallest possible 
+>>> number of
+>>> + * extents.  The augmentation field @subtree_max_size lets the 
+>>> allocator
+>>> + * locate the largest dirty extent in O(log E).
+>>> + *
+>>> + * Free trees (mm->free_tree[])
+>>> + * ----------------------------
+>>> + *
+>>> + * Per-order augmented rbtrees of FREE buddy blocks, keyed by offset.
+>>> + * Every node carries:
+>>> + *   - subtree_max_alignment: largest natural alignment in the 
+>>> subtree,
+>>> + *     used by aligned/range allocations to skip unsuitable 
+>>> subtrees in
+>>> + *     O(log N).
+>>> + *   - subtree_block_state: the highest clear class (DIRTY < MIXED 
+>>> < CLEAR)
+>>> + *     of any block in the subtree, maintained as a max augment. A 
+>>> value of
+>>> + *     >= MIXED means a clear-or-mixed block exists; == CLEAR means a
+>>> + *     fully-clear block exists.
+>>> + *
+>>> + * Block classes
+>>> + * -------------
+>>> + *
+>>> + * Each FREE block falls into one of three classes, determined in
+>>> + * mark_free() by querying the dirty tracker for the block's range:
+>>> + *
+>>> + *   clear   -- HEADER_CLEAR set; no dirty extent overlaps the range.
+>>> + *   mixed   -- HEADER_CLEAR unset; range has both dirty and clear 
+>>> bytes.
+>>> + *   dirty   -- HEADER_CLEAR unset; range is fully dirty.
+>>> + *
+>>> + * Clear allocation
+>>> + * ----------------
+>>> + *
+>>> + * A clear (CLEAR_ALLOCATION) request prefers clear -> mixed -> dirty.
+>>> + * Climbing from the requested order up to max_order, 
+>>> rbtree_last_clear_free_block()
+>>> + * returns, in one O(log N) descent per order, the right-most 
+>>> clear- or-mixed block
+>>> + * (fully-clear preferred over mixed) at the lowest order whose 
+>>> free tree contains
+>>> + * such a block. Only if no clear-or-mixed block exists at any 
+>>> order >= the
+>>> + * requested one does it fall back to a dirty block.
+>>> + *
+>>> + * Clear state is reported to the driver per whole block via 
+>>> HEADER_CLEAR, so a
+>>> + * fully-clear block of the requested order lets the driver skip 
+>>> the clear pass.
+>>> + *
+>>> + * The effective allocation preference depends on how the driver 
+>>> handles
+>>> + * freed blocks:
+>>> + *
+>>> + *   1) Never clear on free:
+>>> + *      No free block contains clear bytes, so clear allocations 
+>>> always
+>>> + *      fall back to dirty blocks.
+>>> + *
+>>> + *   2) Always clear on free:
+>>> + *      Freed blocks become clear while untouched blocks remain dirty.
+>>> + *      Merging clear and dirty buddies produces mixed blocks, 
+>>> which are
+>>> + *      reclassified when split. Over time, clear blocks become 
+>>> dominant,
+>>> + *      so clear allocations are typically satisfied from clear 
+>>> blocks,
+>>> + *      following a clear -> mixed -> dirty preference.
+>>> + *
+>>> + *   3) Selective clear on free:
+>>> + *      For each order examined, fully-clear blocks are preferred over
+>>> + *      mixed blocks, and mixed blocks are preferred over dirty 
+>>> blocks.
+>>> + *      If a clear or mixed block is found at an order, it is selected
+>>> + *      without searching higher orders. Dirty blocks are used only 
+>>> when
+>>> + *      no clear or mixed block exists at any eligible order.
+>>> + */
+>>> +
+>>> +static u64 extent_size(struct gpu_dirty_extent *dirty_extent)
+>>> +{
+>>> +    return dirty_extent->end - dirty_extent->start;
+>>> +}
+>>> +
+>>> +RB_DECLARE_CALLBACKS_MAX(static, gpu_dirty_augment_cb,
+>>> +             struct gpu_dirty_extent, rb,
+>>> +             u64, subtree_max_size,
+>>> +             extent_size)
+>>> +
+>>> +static struct gpu_dirty_extent *extent_alloc(struct 
+>>> gpu_dirty_tracker *dirty_tracker)
+>>> +{
+>>> +    /*
+>>> +     * The void free/reset paths must record an extent and cannot 
+>>> handle
+>>> +     * failure, so the mempool reserve guarantees a non-NULL return
+>>> +     * without __GFP_NOFAIL. GFP_KERNEL is safe under the buddy 
+>>> lock: no
+>>> +     * driver frees buddy blocks from a shrinker, so reclaim cannot
+>>> +     * recurse into the lock we hold.
+>>> +     */
+>>> +    return mempool_alloc(dirty_tracker->extent_pool, GFP_KERNEL);
+>>> +}
+>>> +
+>>> +static void extent_free(struct gpu_dirty_tracker *dirty_tracker,
+>>> +            struct gpu_dirty_extent *dirty_extent)
+>>> +{
+>>> +    mempool_free(dirty_extent, dirty_tracker->extent_pool);
+>>> +}
+>>> +
+>>> +/* Return the rightmost extent whose start is strictly below 
+>>> @offset. */
+>>> +static struct gpu_dirty_extent *
+>>> +prev_extent(struct gpu_dirty_tracker *dirty_tracker, u64 offset)
+>>> +{
+>>> +    struct rb_node *rb = dirty_tracker->root.rb_node;
+>>> +    struct gpu_dirty_extent *dirty_extent = NULL;
+>>> +
+>>> +    while (rb) {
+>>> +        struct gpu_dirty_extent *tmp_extent =
+>>> +            rb_entry(rb, struct gpu_dirty_extent, rb);
+>>> +
+>>> +        if (tmp_extent->start < offset) {
+>>> +            dirty_extent = tmp_extent;
+>>> +            rb = rb->rb_right;
+>>> +        } else {
+>>> +            rb = rb->rb_left;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    return dirty_extent;
+>>> +}
+>>> +
+>>> +/* Return the leftmost extent whose start is at or above @offset. */
+>>> +static struct gpu_dirty_extent *
+>>> +next_extent(struct gpu_dirty_tracker *dirty_tracker, u64 offset)
+>>> +{
+>>> +    struct rb_node *rb = dirty_tracker->root.rb_node;
+>>> +    struct gpu_dirty_extent *dirty_extent = NULL;
+>>> +
+>>> +    while (rb) {
+>>> +        struct gpu_dirty_extent *tmp_extent =
+>>> +            rb_entry(rb, struct gpu_dirty_extent, rb);
+>>> +
+>>> +        if (tmp_extent->start >= offset) {
+>>> +            dirty_extent = tmp_extent;
+>>> +            rb = rb->rb_left;
+>>> +        } else {
+>>> +            rb = rb->rb_right;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    return dirty_extent;
+>>> +}
+>>> +
+>>> +static void insert_extent(struct gpu_dirty_tracker *dirty_tracker,
+>>> +              struct gpu_dirty_extent *dirty_extent)
+>>> +{
+>>> +    struct rb_node **link = &dirty_tracker->root.rb_node;
+>>> +    struct rb_node *parent = NULL;
+>>> +    u64 size = extent_size(dirty_extent);
+>>> +
+>>> +    while (*link) {
+>>> +        struct gpu_dirty_extent *tmp_extent;
+>>> +
+>>> +        parent = *link;
+>>> +        tmp_extent = rb_entry(parent, struct gpu_dirty_extent, rb);
+>>> +
+>>> +        if (tmp_extent->subtree_max_size < size)
+>>> +            tmp_extent->subtree_max_size = size;
+>>> +
+>>> +        if (dirty_extent->start < tmp_extent->start)
+>>> +            link = &parent->rb_left;
+>>> +        else
+>>> +            link = &parent->rb_right;
+>>> +    }
+>>> +
+>>> +    dirty_extent->subtree_max_size = size;
+>>> +    rb_link_node(&dirty_extent->rb, parent, link);
+>>> +    rb_insert_augmented(&dirty_extent->rb, &dirty_tracker->root, 
+>>> &gpu_dirty_augment_cb);
+>>> +}
+>>> +
+>>> +static void remove_extent(struct gpu_dirty_tracker *dirty_tracker,
+>>> +              struct gpu_dirty_extent *dirty_extent)
+>>> +{
+>>> +    rb_erase_augmented(&dirty_extent->rb, &dirty_tracker->root, 
+>>> &gpu_dirty_augment_cb);
+>>> +    RB_CLEAR_NODE(&dirty_extent->rb);
+>>> +}
+>>> +
+>>> +static int gpu_dirty_tracker_init(struct gpu_dirty_tracker 
+>>> *dirty_tracker)
+>>> +{
+>>> +    dirty_tracker->root = RB_ROOT;
+>>> +    dirty_tracker->total_dirty = 0;
+>>> +
+>>> +    dirty_tracker->extent_pool =
+>>> +        mempool_create_slab_pool(GPU_DIRTY_EXTENT_POOL_MIN, 
+>>> slab_extents);
+>>> +    if (!dirty_tracker->extent_pool)
+>>> +        return -ENOMEM;
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static void gpu_dirty_tracker_empty(struct gpu_dirty_tracker 
+>>> *dirty_tracker)
+>>> +{
+>>> +    struct rb_node *rb;
+>>> +
+>>> +    while ((rb = rb_first(&dirty_tracker->root))) {
+>>> +        struct gpu_dirty_extent *dirty_extent =
+>>> +            rb_entry(rb, struct gpu_dirty_extent, rb);
+>>> +
+>>> +        remove_extent(dirty_tracker, dirty_extent);
+>>> +        extent_free(dirty_tracker, dirty_extent);
+>>> +    }
+>>> +
+>>> +    dirty_tracker->total_dirty = 0;
+>>> +}
+>>> +
+>>> +static void gpu_dirty_tracker_fini(struct gpu_dirty_tracker 
+>>> *dirty_tracker)
+>>> +{
+>>> +    gpu_dirty_tracker_empty(dirty_tracker);
+>>> +    mempool_destroy(dirty_tracker->extent_pool);
+>>> +    dirty_tracker->extent_pool = NULL;
+>>> +}
+>>> +
+>>> +/*
+>>> + * Mark the range [start, start + size] as dirty. Merge with the 
+>>> neighbour on
+>>> + * each side if they are contiguous, so the tree never holds two 
+>>> adjacent ranges.
+>>> + */
+>>> +static void gpu_dirty_tracker_mark_dirty(struct gpu_dirty_tracker 
+>>> *dirty_tracker,
+>>> +                     u64 start, u64 size)
+>>> +{
+>>> +    struct gpu_dirty_extent *left, *right, *dirty_extent;
+>>> +    u64 end = start + size;
+>>> +
+>>> +    if (!size)
+>>> +        return;
+>>> +
+>>> +    /* Find contiguous neighbours, if any. */
+>>> +    left = prev_extent(dirty_tracker, start);
+>>> +    if (left && left->end != start)
+>>> +        left = NULL;
+>>> +
+>>> +    right = next_extent(dirty_tracker, end);
+>>> +    if (right && right->start != end)
+>>> +        right = NULL;
+>>> +
+>>> +    if (left && right) {
+>>> +        /* Merge left + new + right into a single extent. */
+>>> +        remove_extent(dirty_tracker, left);
+>>> +        remove_extent(dirty_tracker, right);
+>>> +        left->end = right->end;
+>>> +        extent_free(dirty_tracker, right);
+>>> +        insert_extent(dirty_tracker, left);
+>>> +    } else if (left) {
+>>> +        /* Extend left neighbour rightwards. */
+>>> +        remove_extent(dirty_tracker, left);
+>>> +        left->end = end;
+>>> +        insert_extent(dirty_tracker, left);
+>>> +    } else if (right) {
+>>> +        /* Extend right neighbour leftwards. */
+>>> +        remove_extent(dirty_tracker, right);
+>>> +        right->start = start;
+>>> +        insert_extent(dirty_tracker, right);
+>>> +    } else {
+>>> +        /* Standalone extent. */
+>>> +        dirty_extent = extent_alloc(dirty_tracker);
+>>> +        dirty_extent->start = start;
+>>> +        dirty_extent->end   = end;
+>>> +        insert_extent(dirty_tracker, dirty_extent);
+>>> +    }
+>>> +
+>>> +    dirty_tracker->total_dirty += size;
+>>> +}
+>>> +
+>>> +/*
+>>> + * Remove the range [start, start + size] from the dirty tracker. 
+>>> Punch the
+>>> + * range out of every overlapping dirty extent, splitting one 
+>>> extent in two if
+>>> + * the removed range falls strictly inside it.
+>>> + */
+>>> +static void gpu_dirty_tracker_remove_range(struct gpu_dirty_tracker 
+>>> *dirty_tracker,
+>>> +                       u64 start, u64 size)
+>>> +{
+>>> +    struct gpu_dirty_extent *dirty_extent, *next;
+>>> +    u64 end = start + size;
+>>> +
+>>> +    if (!size)
+>>> +        return;
+>>> +
+>>> +    dirty_extent = prev_extent(dirty_tracker, start + 1);
+>>> +    if (!dirty_extent)
+>>> +        dirty_extent = next_extent(dirty_tracker, start);
+>>> +
+>>> +    while (dirty_extent && dirty_extent->start < end) {
+>>> +        struct rb_node *next_node = rb_next(&dirty_extent->rb);
+>>> +        u64 extent_start = dirty_extent->start;
+>>> +        u64 extent_end = dirty_extent->end;
+>>> +
+>>> +        if (next_node)
+>>> +            next = rb_entry(next_node, struct gpu_dirty_extent, rb);
+>>> +        else
+>>> +            next = NULL;
+>>> +
+>>> +        /* Skip a non-overlapping neighbour returned by 
+>>> prev_extent(). */
+>>> +        if (extent_end <= start) {
+>>> +            dirty_extent = next;
+>>> +            continue;
+>>> +        }
+>>> +
+>>> +        if (extent_start < start && extent_end > end) {
+>>> +            /*
+>>> +             * Removed range lies strictly inside this dirty extent:
+>>> +             * split it into the dirty left and right halves.
+>>> +             */
+>>> +            struct gpu_dirty_extent *right = 
+>>> extent_alloc(dirty_tracker);
+>>> +
+>>> +            remove_extent(dirty_tracker, dirty_extent);
+>>> +
+>>> +            dirty_extent->end = start;
+>>> +            right->start = end;
+>>> +            right->end   = extent_end;
+>>> +
+>>> +            insert_extent(dirty_tracker, dirty_extent);
+>>> +            insert_extent(dirty_tracker, right);
+>>> +
+>>> +            dirty_tracker->total_dirty -= size;
+>>> +        } else if (extent_start >= start && extent_end <= end) {
+>>> +            /* Extent fully covered: drop it. */
+>>> +            remove_extent(dirty_tracker, dirty_extent);
+>>> +            extent_free(dirty_tracker, dirty_extent);
+>>> +
+>>> +            dirty_tracker->total_dirty -= (extent_end - extent_start);
+>>> +        } else if (extent_start < start) {
+>>> +            /* Extent overlaps from the left: trim its right end. */
+>>> +            remove_extent(dirty_tracker, dirty_extent);
+>>> +            dirty_extent->end = start;
+>>> +            insert_extent(dirty_tracker, dirty_extent);
+>>> +
+>>> +            dirty_tracker->total_dirty -= (extent_end - start);
+>>> +        } else {
+>>> +            /* Extent overlaps from the right: trim its left end. */
+>>> +            remove_extent(dirty_tracker, dirty_extent);
+>>> +            dirty_extent->start = end;
+>>> +            insert_extent(dirty_tracker, dirty_extent);
+>>> +
+>>> +            dirty_tracker->total_dirty -= (end - extent_start);
+>>> +        }
+>>> +
+>>> +        dirty_extent = next;
+>>> +    }
+>>> +}
+>>> +
+>>> +static enum gpu_block_state
+>>> +gpu_dirty_range_state(struct gpu_dirty_tracker *dirty_tracker,
+>>> +              u64 start, u64 size)
+>>> +{
+>>> +    struct gpu_dirty_extent *dirty_extent;
+>>> +    u64 end = start + size;
+>>> +
+>>> +    dirty_extent = prev_extent(dirty_tracker, start + 1);
+>>> +    if (dirty_extent) {
+>>> +        if (dirty_extent->start <= start && dirty_extent->end >= end)
+>>> +            return GPU_BLOCK_DIRTY;
+>>> +        if (dirty_extent->start < end && dirty_extent->end > start)
+>>> +            return GPU_BLOCK_MIXED;
+>>> +    }
+>>> +
+>>> +    dirty_extent = next_extent(dirty_tracker, start);
+>>> +    if (dirty_extent && dirty_extent->start < end)
+>>> +        return GPU_BLOCK_MIXED;
+>>> +
+>>> +    return GPU_BLOCK_CLEAR;
+>>> +}
+>>> +
+>>> +static struct rb_node *
+>>> +dirty_tracker_descend_right(struct rb_node *node, u64 min_size)
+>>> +{
+>>> +    while (node->rb_right) {
+>>> +        struct gpu_dirty_extent *tmp_extent;
+>>> +
+>>> +        tmp_extent = rb_entry(node->rb_right, struct 
+>>> gpu_dirty_extent, rb);
+>>> +
+>>> +        if (tmp_extent->subtree_max_size < min_size)
+>>> +            break;
+>>> +        node = node->rb_right;
+>>> +    }
+>>> +
+>>> +    return node;
+>>> +}
+>>> +
+>>> +static struct gpu_dirty_extent *
+>>> +gpu_dirty_tracker_find(struct gpu_dirty_tracker *dirty_tracker,
+>>> +               u64 min_size, u64 *aligned_start_out)
+>>> +{
+>>> +    struct rb_node *rb = dirty_tracker->root.rb_node;
+>>> +    struct gpu_dirty_extent *root_extent;
+>>> +    struct rb_node *parent;
+>>> +
+>>> +    if (!min_size || !is_power_of_2(min_size))
+>>> +        return NULL;
+>>> +
+>>> +    if (!rb)
+>>> +        return NULL;
+>>> +
+>>> +    root_extent = rb_entry(rb, struct gpu_dirty_extent, rb);
+>>> +    if (root_extent->subtree_max_size < min_size)
+>>> +        return NULL;
+>>> +
+>>> +    rb = dirty_tracker_descend_right(rb, min_size);
+>>> +
+>>> +    while (rb) {
+>>> +        struct gpu_dirty_extent *dirty_extent;
+>>> +        u64 aligned_start;
+>>> +
+>>> +        dirty_extent = rb_entry(rb, struct gpu_dirty_extent, rb);
+>>> +        aligned_start = ALIGN(dirty_extent->start, min_size);
+>>> +
+>>> +        /* Check if a min_size block fits after the alignment skip. */
+>>> +        if (aligned_start <= dirty_extent->end &&
+>>> +            dirty_extent->end - aligned_start >= min_size) {
+>>> +            *aligned_start_out = aligned_start;
+>>> +            return dirty_extent;
+>>> +        }
+>>> +
+>>> +        if (rb->rb_left) {
+>>> +            struct gpu_dirty_extent *tmp_extent;
+>>> +
+>>> +            tmp_extent = rb_entry(rb->rb_left, struct 
+>>> gpu_dirty_extent, rb);
+>>> +            if (tmp_extent->subtree_max_size >= min_size) {
+>>> +                rb = dirty_tracker_descend_right(rb->rb_left, 
+>>> min_size);
+>>> +                continue;
+>>> +            }
+>>> +        }
+>>> +
+>>> +        /* Walk up until we exit a node via its right child. */
+>>> +        parent = rb_parent(rb);
+>>> +        while (parent && parent->rb_right != rb) {
+>>> +            rb = parent;
+>>> +            parent = rb_parent(rb);
+>>> +        }
+>>> +        rb = parent;
+>>> +    }
+>>> +
+>>> +    return NULL;
+>>> +}
+>>>   static unsigned int
+>>>   gpu_buddy_block_state(struct gpu_buddy_block *block)
+>>> @@ -67,10 +509,97 @@ static unsigned int 
+>>> gpu_buddy_block_offset_alignment(struct gpu_buddy_block *blo
+>>>       return __ffs64(offset);
+>>>   }
+>>> -RB_DECLARE_CALLBACKS_MAX(static, gpu_buddy_augment_cb,
+>>> -             struct gpu_buddy_block, rb,
+>>> -             unsigned int, subtree_max_alignment,
+>>> -             gpu_buddy_block_offset_alignment);
+>>> +static inline enum gpu_block_state
+>>> +gpu_block_cached_state(struct gpu_buddy_block *block)
+>>> +{
+>>> +    if (gpu_buddy_block_is_clear(block))
+>>> +        return GPU_BLOCK_CLEAR;
+>>> +    if (block->has_clear)
+>>> +        return GPU_BLOCK_MIXED;
+>>> +    return GPU_BLOCK_DIRTY;
+>>> +}
+>>> +
+>>> +static inline void gpu_buddy_augment_compute(struct gpu_buddy_block 
+>>> *block)
+>>> +{
+>>> +    enum gpu_block_state block_state;
+>>> +    struct gpu_buddy_block *right;
+>>> +    struct gpu_buddy_block *left;
+>>> +    unsigned int max_align;
+>>> +
+>>> +    max_align = gpu_buddy_block_offset_alignment(block);
+>>> +    block_state = gpu_block_cached_state(block);
+>>> +
+>>> +    left = rb_entry_safe(block->rb.rb_left, struct gpu_buddy_block, 
+>>> rb);
+>>> +    if (left) {
+>>> +        if (left->subtree_max_alignment > max_align)
+>>> +            max_align = left->subtree_max_alignment;
+>>> +
+>>> +        block_state = max(block_state, left->subtree_block_state);
+>>> +    }
+>>> +
+>>> +    right = rb_entry_safe(block->rb.rb_right, struct 
+>>> gpu_buddy_block, rb);
+>>> +    if (right) {
+>>> +        if (right->subtree_max_alignment > max_align)
+>>> +            max_align = right->subtree_max_alignment;
+>>> +
+>>> +        block_state = max(block_state, right->subtree_block_state);
+>>> +    }
+>>> +
+>>> +    block->subtree_max_alignment = max_align;
+>>> +    block->subtree_block_state = block_state;
+>>> +}
+>>> +
+>>> +static void gpu_buddy_augment_propagate(struct rb_node *rb, struct 
+>>> rb_node *stop)
+>>> +{
+>>> +    while (rb != stop) {
+>>> +        struct gpu_buddy_block *block;
+>>> +        unsigned int old_align;
+>>> +        enum gpu_block_state old_block_state;
+>>> +
+>>> +        block = rb_entry(rb, struct gpu_buddy_block, rb);
+>>> +        old_align = block->subtree_max_alignment;
+>>> +        old_block_state = block->subtree_block_state;
+>>> +
+>>> +        gpu_buddy_augment_compute(block);
+>>> +        if (block->subtree_max_alignment == old_align &&
+>>> +            block->subtree_block_state == old_block_state)
+>>> +            break;
+>>> +
+>>> +        rb = rb_parent(&block->rb);
+>>> +    }
+>>> +}
+>>> +
+>>> +static void gpu_buddy_augment_copy(struct rb_node *rb_old, struct 
+>>> rb_node *rb_new)
+>>> +{
+>>> +    struct gpu_buddy_block *old;
+>>> +    struct gpu_buddy_block *new;
+>>> +
+>>> +    old = rb_entry(rb_old, struct gpu_buddy_block, rb);
+>>> +    new = rb_entry(rb_new, struct gpu_buddy_block, rb);
+>>> +
+>>> +    new->subtree_max_alignment = old->subtree_max_alignment;
+>>> +    new->subtree_block_state = old->subtree_block_state;
+>>> +}
+>>> +
+>>> +static void gpu_buddy_augment_rotate(struct rb_node *rb_old, struct 
+>>> rb_node *rb_new)
+>>> +{
+>>> +    struct gpu_buddy_block *old;
+>>> +    struct gpu_buddy_block *new;
+>>> +
+>>> +    old = rb_entry(rb_old, struct gpu_buddy_block, rb);
+>>> +    new = rb_entry(rb_new, struct gpu_buddy_block, rb);
+>>> +
+>>> +    new->subtree_max_alignment = old->subtree_max_alignment;
+>>> +    new->subtree_block_state = old->subtree_block_state;
+>>> +
+>>> +    gpu_buddy_augment_compute(old);
+>>> +}
+>>> +
+>>> +static const struct rb_augment_callbacks gpu_buddy_augment_cb = {
+>>> +    .propagate = gpu_buddy_augment_propagate,
+>>> +    .copy      = gpu_buddy_augment_copy,
+>>> +    .rotate    = gpu_buddy_augment_rotate,
+>>> +};
+>>>   static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
+>>>                              struct gpu_buddy_block *parent,
+>>> @@ -81,6 +610,10 @@ static struct gpu_buddy_block 
+>>> *gpu_block_alloc(struct gpu_buddy *mm,
+>>>       BUG_ON(order > GPU_BUDDY_MAX_ORDER);
+>>> +    /*
+>>> +     * GFP_KERNEL is safe under the buddy lock: no consumer runs a
+>>> +     * shrinker that re-enters it during direct reclaim.
+>>> +     */
+>>>       block = kmem_cache_zalloc(slab_blocks, GFP_KERNEL);
+>>>       if (!block)
+>>>           return NULL;
+>>> @@ -101,13 +634,6 @@ static void gpu_block_free(struct gpu_buddy *mm,
+>>>       kmem_cache_free(slab_blocks, block);
+>>>   }
+>>> -static enum gpu_buddy_free_tree
+>>> -get_block_tree(struct gpu_buddy_block *block)
+>>> -{
+>>> -    return gpu_buddy_block_is_clear(block) ?
+>>> -           GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+>>> -}
+>>> -
+>>>   static struct gpu_buddy_block *
+>>>   rbtree_get_free_block(const struct rb_node *node)
+>>>   {
+>>> @@ -120,24 +646,64 @@ rbtree_last_free_block(struct rb_root *root)
+>>>       return rbtree_get_free_block(rb_last(root));
+>>>   }
+>>> -static bool rbtree_is_empty(struct rb_root *root)
+>>> +static struct gpu_buddy_block *
+>>> +rbtree_last_clear_free_block(struct rb_root *root,
+>>> +                 enum gpu_block_state min_block_state)
+>>> +{
+>>> +    struct rb_node *node = root->rb_node;
+>>> +    struct gpu_buddy_block *block = NULL;
+>>> +    struct gpu_buddy_block *root_block;
+>>> +    enum gpu_block_state target_state;
+>>> +
+>>> +    root_block = rbtree_get_free_block(node);
+>>> +    if (!root_block || root_block->subtree_block_state < 
+>>> min_block_state)
+>>> +        return NULL;
+>>> +
+>>> +    target_state = root_block->subtree_block_state;
+>>> +
+>>> +    while (node) {
+>>> +        struct gpu_buddy_block *right_block;
+>>> +        struct gpu_buddy_block *node_block;
+>>> +
+>>> +        node_block = rbtree_get_free_block(node);
+>>> +        right_block = rbtree_get_free_block(node->rb_right);
+>>> +
+>>> +        if (right_block && right_block->subtree_block_state >= 
+>>> target_state) {
+>>> +            node = node->rb_right;
+>>> +            continue;
+>>> +        }
+>>> +
+>>> +        if (gpu_block_cached_state(node_block) == target_state) {
+>>> +            block = node_block;
+>>> +            break;
+>>> +        }
+>>> +
+>>> +        node = node->rb_left;
+>>> +    }
+>>> +
+>>> +    return block;
+>>> +}
+>>> +
+>>> +static inline void gpu_buddy_sync_clear_avail(struct gpu_buddy *mm)
+>>>   {
+>>> -    return RB_EMPTY_ROOT(root);
+>>> +    mm->clear_avail = mm->avail - mm->dirty.total_dirty;
+>>>   }
+>>>   static void rbtree_insert(struct gpu_buddy *mm,
+>>> -              struct gpu_buddy_block *block,
+>>> -              enum gpu_buddy_free_tree tree)
+>>> +              struct gpu_buddy_block *block)
+>>>   {
+>>>       struct rb_node **link, *parent = NULL;
+>>> -    unsigned int block_alignment, order;
+>>> +    enum gpu_block_state block_state;
+>>>       struct gpu_buddy_block *node;
+>>> +    unsigned int block_alignment;
+>>>       struct rb_root *root;
+>>> +    unsigned int order;
+>>>       order = gpu_buddy_block_order(block);
+>>>       block_alignment = gpu_buddy_block_offset_alignment(block);
+>>> +    block_state = gpu_block_cached_state(block);
+>>> -    root = &mm->free_trees[tree][order];
+>>> +    root = &mm->free_tree[order];
+>>>       link = &root->rb_node;
+>>>       while (*link) {
+>>> @@ -147,10 +713,12 @@ static void rbtree_insert(struct gpu_buddy *mm,
+>>>            * Manual augmentation update during insertion traversal. 
+>>> Required
+>>>            * because rb_insert_augmented() only calls rotate 
+>>> callback during
+>>>            * rotations. This ensures all ancestors on the insertion 
+>>> path have
+>>> -         * correct subtree_max_alignment values.
+>>> +         * correct subtree_max_alignment / subtree_block_state values.
+>>>            */
+>>>           if (node->subtree_max_alignment < block_alignment)
+>>>               node->subtree_max_alignment = block_alignment;
+>>> +        if (node->subtree_block_state < block_state)
+>>> +            node->subtree_block_state = block_state;
+>>>           if (gpu_buddy_block_offset(block) < 
+>>> gpu_buddy_block_offset(node))
+>>>               link = &parent->rb_left;
+>>> @@ -159,6 +727,7 @@ static void rbtree_insert(struct gpu_buddy *mm,
+>>>       }
+>>>       block->subtree_max_alignment = block_alignment;
+>>> +    block->subtree_block_state = block_state;
+>>>       rb_link_node(&block->rb, parent, link);
+>>>       rb_insert_augmented(&block->rb, root, &gpu_buddy_augment_cb);
+>>>   }
+>>> @@ -167,53 +736,55 @@ static void rbtree_remove(struct gpu_buddy *mm,
+>>>                 struct gpu_buddy_block *block)
+>>>   {
+>>>       unsigned int order = gpu_buddy_block_order(block);
+>>> -    enum gpu_buddy_free_tree tree;
+>>> -    struct rb_root *root;
+>>> -
+>>> -    tree = get_block_tree(block);
+>>> -    root = &mm->free_trees[tree][order];
+>>> -    rb_erase_augmented(&block->rb, root, &gpu_buddy_augment_cb);
+>>> +    rb_erase_augmented(&block->rb, &mm->free_tree[order], 
+>>> &gpu_buddy_augment_cb);
+>>>       RB_CLEAR_NODE(&block->rb);
+>>>   }
+>>> -static void clear_reset(struct gpu_buddy_block *block)
+>>> -{
+>>> -    block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+>>> -}
+>>> -
+>>> -static void mark_cleared(struct gpu_buddy_block *block)
+>>> -{
+>>> -    block->header |= GPU_BUDDY_HEADER_CLEAR;
+>>> -}
+>>> -
+>>>   static void mark_allocated(struct gpu_buddy *mm,
+>>>                  struct gpu_buddy_block *block)
+>>>   {
+>>>       block->header &= ~GPU_BUDDY_HEADER_STATE;
+>>>       block->header |= GPU_BUDDY_ALLOCATED;
+>>> +    block->has_clear = false;
+>>> +
+>>>       mm->free_scoreboard[gpu_buddy_block_order(block)]--;
+>>>       mm->used_scoreboard[gpu_buddy_block_order(block)]++;
+>>>       rbtree_remove(mm, block);
+>>>   }
+>>> -static void mark_free(struct gpu_buddy *mm,
+>>> -              struct gpu_buddy_block *block)
+>>> +static void __mark_free(struct gpu_buddy *mm,
+>>> +            struct gpu_buddy_block *block,
+>>> +            enum gpu_block_state block_state)
+>>>   {
+>>> -    enum gpu_buddy_free_tree tree;
+>>> -
+>>>       if (gpu_buddy_block_is_allocated(block))
+>>> mm->used_scoreboard[gpu_buddy_block_order(block)]--;
+>>>       block->header &= ~GPU_BUDDY_HEADER_STATE;
+>>>       block->header |= GPU_BUDDY_FREE;
+>>> +    block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+>>> +
+>>> +    block->has_clear = (block_state != GPU_BLOCK_DIRTY);
+>>> +    if (block_state == GPU_BLOCK_CLEAR)
+>>> +        block->header |= GPU_BUDDY_HEADER_CLEAR;
+>>> +
+>>>       mm->free_scoreboard[gpu_buddy_block_order(block)]++;
+>>> -    tree = get_block_tree(block);
+>>> -    rbtree_insert(mm, block, tree);
+>>> +    rbtree_insert(mm, block);
+>>> +}
+>>> +
+>>> +static void mark_free(struct gpu_buddy *mm,
+>>> +              struct gpu_buddy_block *block)
+>>> +{
+>>> +    enum gpu_block_state block_state;
+>>> +
+>>> +    block_state = gpu_dirty_range_state(&mm->dirty,
+>>> +                        gpu_buddy_block_offset(block),
+>>> +                        gpu_buddy_block_size(mm, block));
+>>> +    __mark_free(mm, block, block_state);
+>>>   }
+>>>   static void mark_split(struct gpu_buddy *mm,
+>>> @@ -253,37 +824,31 @@ __get_buddy(struct gpu_buddy_block *block)
+>>>   }
+>>>   static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
+>>> -                     struct gpu_buddy_block *block,
+>>> -                     bool force_merge)
+>>> +                     struct gpu_buddy_block *block)
+>>>   {
+>>> +    enum gpu_block_state block_state;
+>>>       struct gpu_buddy_block *parent;
+>>>       unsigned int order;
+>>> -    while ((parent = block->parent)) {
+>>> -        struct gpu_buddy_block *buddy;
+>>> +    block_state = gpu_block_cached_state(block);
+>>> -        buddy = __get_buddy(block);
+>>> +    while ((parent = block->parent)) {
+>>> +        struct gpu_buddy_block *buddy = __get_buddy(block);
+>>>           if (!gpu_buddy_block_is_free(buddy))
+>>>               break;
+>>> -        if (!force_merge) {
+>>> -            /*
+>>> -             * Check the block and its buddy clear state and exit
+>>> -             * the loop if they both have the dissimilar state.
+>>> -             */
+>>> -            if (gpu_buddy_block_is_clear(block) !=
+>>> -                gpu_buddy_block_is_clear(buddy))
+>>> -                break;
+>>> +        if (block_state != GPU_BLOCK_MIXED) {
+>>> +            enum gpu_block_state buddy_state;
+>>> +
+>>> +            buddy_state = gpu_block_cached_state(buddy);
+>>> -            if (gpu_buddy_block_is_clear(block))
+>>> -                mark_cleared(parent);
+>>> +            if (buddy_state != block_state)
+>>> +                block_state = GPU_BLOCK_MIXED;
+>>>           }
+>>>           rbtree_remove(mm, buddy);
+>>> mm->free_scoreboard[gpu_buddy_block_order(buddy)]--;
+>>> -        if (force_merge && gpu_buddy_block_is_clear(buddy))
+>>> -            mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
+>>>           if (gpu_buddy_block_is_allocated(block))
+>>> mm->used_scoreboard[gpu_buddy_block_order(block)]--;
+>>> @@ -295,74 +860,11 @@ static unsigned int __gpu_buddy_free(struct 
+>>> gpu_buddy *mm,
+>>>       }
+>>>       order = gpu_buddy_block_order(block);
+>>> -    mark_free(mm, block);
+>>> +    __mark_free(mm, block, block_state);
+>>>       return order;
+>>>   }
+>>> -static int __force_merge(struct gpu_buddy *mm,
+>>> -             u64 start,
+>>> -             u64 end,
+>>> -             unsigned int min_order)
+>>> -{
+>>> -    unsigned int tree, order;
+>>> -    int i;
+>>> -
+>>> -    if (!min_order)
+>>> -        return -ENOMEM;
+>>> -
+>>> -    if (min_order > mm->max_order)
+>>> -        return -EINVAL;
+>>> -
+>>> -    for_each_free_tree(tree) {
+>>> -        for (i = min_order - 1; i >= 0; i--) {
+>>> -            struct rb_node *iter = rb_last(&mm->free_trees[tree][i]);
+>>> -
+>>> -            while (iter) {
+>>> -                struct gpu_buddy_block *block, *buddy;
+>>> -                u64 block_start, block_end;
+>>> -
+>>> -                block = rbtree_get_free_block(iter);
+>>> -                iter = rb_prev(iter);
+>>> -
+>>> -                if (!block || !block->parent)
+>>> -                    continue;
+>>> -
+>>> -                block_start = gpu_buddy_block_offset(block);
+>>> -                block_end = block_start + gpu_buddy_block_size(mm, 
+>>> block) - 1;
+>>> -
+>>> -                if (!contains(start, end, block_start, block_end))
+>>> -                    continue;
+>>> -
+>>> -                buddy = __get_buddy(block);
+>>> -                if (!gpu_buddy_block_is_free(buddy))
+>>> -                    continue;
+>>> -
+>>> - gpu_buddy_assert(gpu_buddy_block_is_clear(block) !=
+>>> -                         gpu_buddy_block_is_clear(buddy));
+>>> -
+>>> -                /*
+>>> -                 * Advance to the next node when the current node 
+>>> is the buddy,
+>>> -                 * as freeing the block will also remove its buddy 
+>>> from the tree.
+>>> -                 */
+>>> -                if (iter == &buddy->rb)
+>>> -                    iter = rb_prev(iter);
+>>> -
+>>> -                rbtree_remove(mm, block);
+>>> - mm->free_scoreboard[gpu_buddy_block_order(block)]--;
+>>> -                if (gpu_buddy_block_is_clear(block))
+>>> -                    mm->clear_avail -= gpu_buddy_block_size(mm, 
+>>> block);
+>>> -
+>>> -                order = __gpu_buddy_free(mm, block, true);
+>>> -                if (order >= min_order)
+>>> -                    return 0;
+>>> -            }
+>>> -        }
+>>> -    }
+>>> -
+>>> -    return -ENOMEM;
+>>> -}
+>>> -
+>>>   /**
+>>>    * gpu_buddy_init - init memory manager
+>>>    *
+>>> @@ -377,7 +879,7 @@ static int __force_merge(struct gpu_buddy *mm,
+>>>    */
+>>>   int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+>>>   {
+>>> -    unsigned int i, j, root_count = 0;
+>>> +    unsigned int root_count = 0;
+>>>       u64 offset = 0;
+>>>       if (size < chunk_size)
+>>> @@ -411,22 +913,14 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 
+>>> size, u64 chunk_size)
+>>>       if (!mm->used_scoreboard)
+>>>           goto out_free_free_scoreboard;
+>>> -    mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
+>>> -                       sizeof(*mm->free_trees),
+>>> -                       GFP_KERNEL);
+>>> -    if (!mm->free_trees)
+>>> +    mm->free_tree = kcalloc(mm->max_order + 1,
+>>> +                sizeof(struct rb_root),
+>>> +                GFP_KERNEL);
+>>> +    if (!mm->free_tree)
+>>>           goto out_free_used_scoreboard;
+>>> -    for_each_free_tree(i) {
+>>> -        mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
+>>> -                          sizeof(struct rb_root),
+>>> -                          GFP_KERNEL);
+>>> -        if (!mm->free_trees[i])
+>>> -            goto out_free_tree;
+>>> -
+>>> -        for (j = 0; j <= mm->max_order; ++j)
+>>> -            mm->free_trees[i][j] = RB_ROOT;
+>>> -    }
+>>> +    if (gpu_dirty_tracker_init(&mm->dirty))
+>>> +        goto out_free_tree;
+>>>       mm->n_roots = hweight64(size);
+>>> @@ -452,7 +946,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 
+>>> size, u64 chunk_size)
+>>>           if (!root)
+>>>               goto out_free_roots;
+>>> -        mark_free(mm, root);
+>>> +        gpu_dirty_tracker_mark_dirty(&mm->dirty, offset, root_size);
+>>> +        __mark_free(mm, root, GPU_BLOCK_DIRTY);
+>>>           BUG_ON(root_count > mm->max_order);
+>>>           BUG_ON(gpu_buddy_block_size(mm, root) < chunk_size);
+>>> @@ -474,9 +969,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 
+>>> size, u64 chunk_size)
+>>>           gpu_block_free(mm, mm->roots[root_count]);
+>>>       kfree(mm->roots);
+>>>   out_free_tree:
+>>> -    while (i--)
+>>> -        kfree(mm->free_trees[i]);
+>>> -    kfree(mm->free_trees);
+>>> +    gpu_dirty_tracker_fini(&mm->dirty);
+>>> +    kfree(mm->free_tree);
+>>>   out_free_used_scoreboard:
+>>>       kfree(mm->used_scoreboard);
+>>>   out_free_free_scoreboard:
+>>> @@ -494,7 +988,7 @@ EXPORT_SYMBOL(gpu_buddy_init);
+>>>    */
+>>>   void gpu_buddy_fini(struct gpu_buddy *mm)
+>>>   {
+>>> -    u64 root_size, size, start;
+>>> +    u64 root_size, size;
+>>>       unsigned int order;
+>>>       int i;
+>>> @@ -502,14 +996,10 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
+>>>       for (i = 0; i < mm->n_roots; ++i) {
+>>>           order = ilog2(size) - ilog2(mm->chunk_size);
+>>> -        start = gpu_buddy_block_offset(mm->roots[i]);
+>>> -        __force_merge(mm, start, start + size, order);
+>>> +        root_size = mm->chunk_size << order;
+>>> gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]));
+>>> -
+>>>           gpu_block_free(mm, mm->roots[i]);
+>>> -
+>>> -        root_size = mm->chunk_size << order;
+>>>           size -= root_size;
+>>>       }
+>>> @@ -518,9 +1008,8 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
+>>>       for (i = 0; i <= mm->max_order; ++i)
+>>>           gpu_buddy_assert(!mm->used_scoreboard[i]);
+>>> -    for_each_free_tree(i)
+>>> -        kfree(mm->free_trees[i]);
+>>> -    kfree(mm->free_trees);
+>>> +    gpu_dirty_tracker_fini(&mm->dirty);
+>>> +    kfree(mm->free_tree);
+>>>       kfree(mm->roots);
+>>>       kfree(mm->free_scoreboard);
+>>>       kfree(mm->used_scoreboard);
+>>> @@ -532,6 +1021,7 @@ static int split_block(struct gpu_buddy *mm,
+>>>   {
+>>>       unsigned int block_order = gpu_buddy_block_order(block) - 1;
+>>>       u64 offset = gpu_buddy_block_offset(block);
+>>> +    enum gpu_block_state parent_state;
+>>>       BUG_ON(!gpu_buddy_block_is_free(block));
+>>>       BUG_ON(!gpu_buddy_block_order(block));
+>>> @@ -547,17 +1037,18 @@ static int split_block(struct gpu_buddy *mm,
+>>>           return -ENOMEM;
+>>>       }
+>>> +    parent_state = gpu_block_cached_state(block);
+>>> +
+>>>       mark_split(mm, block);
+>>> -    if (gpu_buddy_block_is_clear(block)) {
+>>> -        mark_cleared(block->left);
+>>> -        mark_cleared(block->right);
+>>> -        clear_reset(block);
+>>> +    if (parent_state == GPU_BLOCK_MIXED) {
+>>> +        mark_free(mm, block->left);
+>>> +        mark_free(mm, block->right);
+>>> +    } else {
+>>> +        __mark_free(mm, block->left, parent_state);
+>>> +        __mark_free(mm, block->right, parent_state);
+>>>       }
+>>> -    mark_free(mm, block->left);
+>>> -    mark_free(mm, block->right);
+>>> -
+>>>       return 0;
+>>>   }
+>>> @@ -572,45 +1063,55 @@ static int split_block(struct gpu_buddy *mm,
+>>>    */
+>>>   void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear)
+>>>   {
+>>> -    enum gpu_buddy_free_tree src_tree, dst_tree;
+>>> -    u64 root_size, size, start;
+>>> -    unsigned int order;
+>>> -    int i;
+>>> +    unsigned int i;
+>>>       gpu_buddy_driver_lock_held(mm);
+>>> -    size = mm->size;
+>>> -    for (i = 0; i < mm->n_roots; ++i) {
+>>> -        order = ilog2(size) - ilog2(mm->chunk_size);
+>>> -        start = gpu_buddy_block_offset(mm->roots[i]);
+>>> -        __force_merge(mm, start, start + size, order);
+>>> -        root_size = mm->chunk_size << order;
+>>> -        size -= root_size;
+>>> -    }
+>>> -
+>>> -    src_tree = is_clear ? GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+>>> -    dst_tree = is_clear ? GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+>>> +    gpu_dirty_tracker_empty(&mm->dirty);
+>>>       for (i = 0; i <= mm->max_order; ++i) {
+>>> -        struct rb_root *root = &mm->free_trees[src_tree][i];
+>>>           struct gpu_buddy_block *block, *tmp;
+>>> -        rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
+>>> -            rbtree_remove(mm, block);
+>>> +        rbtree_postorder_for_each_entry_safe(block, tmp,
+>>> +                             &mm->free_tree[i], rb) {
+>>>               if (is_clear) {
+>>> -                mark_cleared(block);
+>>> -                mm->clear_avail += gpu_buddy_block_size(mm, block);
+>>> +                if (!gpu_buddy_block_is_clear(block))
+>>> +                    block->header |= GPU_BUDDY_HEADER_CLEAR;
+>>> +                block->has_clear = true;
+>>> +            } else if (gpu_buddy_block_is_clear(block)) {
+>>> +                block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+>>> +                block->has_clear = false;
+>>> + gpu_dirty_tracker_mark_dirty(&mm->dirty,
+>>> + gpu_buddy_block_offset(block),
+>>> +                                 gpu_buddy_block_size(mm, block));
+>>>               } else {
+>>> -                clear_reset(block);
+>>> -                mm->clear_avail -= gpu_buddy_block_size(mm, block);
+>>> +                block->has_clear = false;
+>>> + gpu_dirty_tracker_mark_dirty(&mm->dirty,
+>>> + gpu_buddy_block_offset(block),
+>>> +                                 gpu_buddy_block_size(mm, block));
+>>>               }
+>>> -            rbtree_insert(mm, block, dst_tree);
+>>> +            gpu_buddy_augment_compute(block);
+>>>           }
+>>>       }
+>>> +
+>>> +    gpu_buddy_sync_clear_avail(mm);
+>>>   }
+>>>   EXPORT_SYMBOL(gpu_buddy_reset_clear);
+>>> +static void __gpu_buddy_free_block_internal(struct gpu_buddy *mm,
+>>> +                        struct gpu_buddy_block *block)
+>>> +{
+>>> +    u64 size = gpu_buddy_block_size(mm, block);
+>>> +
+>>> +    gpu_buddy_driver_lock_held(mm);
+>>> +    BUG_ON(!gpu_buddy_block_is_allocated(block));
+>>> +
+>>> +    mm->avail += size;
+>>> +    gpu_buddy_sync_clear_avail(mm);
+>>> +    __gpu_buddy_free(mm, block);
+>>> +}
+>>> +
+>>>   /**
+>>>    * gpu_buddy_free_block - free a block
+>>>    *
+>>> @@ -620,13 +1121,12 @@ EXPORT_SYMBOL(gpu_buddy_reset_clear);
+>>>   void gpu_buddy_free_block(struct gpu_buddy *mm,
+>>>                 struct gpu_buddy_block *block)
+>>>   {
+>>> -    gpu_buddy_driver_lock_held(mm);
+>>> -    BUG_ON(!gpu_buddy_block_is_allocated(block));
+>>> -    mm->avail += gpu_buddy_block_size(mm, block);
+>>> -    if (gpu_buddy_block_is_clear(block))
+>>> -        mm->clear_avail += gpu_buddy_block_size(mm, block);
+>>> +    if (!gpu_buddy_block_is_clear(block))
+>>> +        gpu_dirty_tracker_mark_dirty(&mm->dirty,
+>>> +                         gpu_buddy_block_offset(block),
+>>> +                         gpu_buddy_block_size(mm, block));
+>>> -    __gpu_buddy_free(mm, block, false);
+>>> +    __gpu_buddy_free_block_internal(mm, block);
+>>>   }
+>>>   EXPORT_SYMBOL(gpu_buddy_free_block);
+>>> @@ -689,17 +1189,48 @@ static void __gpu_buddy_free_list(struct 
+>>> gpu_buddy *mm,
+>>>                     bool mark_dirty)
+>>>   {
+>>>       struct gpu_buddy_block *block, *on;
+>>> +    u64 dirty_start = 0, dirty_size = 0;
+>>>       gpu_buddy_assert(!(mark_dirty && mark_clear));
+>>>       list_for_each_entry_safe(block, on, objects, link) {
+>>> +        u64 offset = gpu_buddy_block_offset(block);
+>>> +        u64 size = gpu_buddy_block_size(mm, block);
+>>> +
+>>>           if (mark_clear)
+>>> -            mark_cleared(block);
+>>> +            block->header |= GPU_BUDDY_HEADER_CLEAR;
+>>>           else if (mark_dirty)
+>>> -            clear_reset(block);
+>>> -        gpu_buddy_free_block(mm, block);
+>>> +            block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+>>> +
+>>> +        /*
+>>> +         * Coalesce contiguous dirty blocks into one extent update so
+>>> +         * a multi-block contiguous free costs a single mark_dirty().
+>>> +         * Flush the pending extent and start over on a gap.
+>>> +         */
+>>> +        if (!gpu_buddy_block_is_clear(block)) {
+>>> +            if (dirty_size &&
+>>> +                (dirty_start + dirty_size == offset ||
+>>> +                 offset + size == dirty_start)) {
+>>> +                dirty_start = min(dirty_start, offset);
+>>> +                dirty_size += size;
+>>> +            } else {
+>>> +                if (dirty_size)
+>>> + gpu_dirty_tracker_mark_dirty(&mm->dirty,
+>>> +                                     dirty_start,
+>>> +                                     dirty_size);
+>>> +                dirty_start = offset;
+>>> +                dirty_size = size;
+>>> +            }
+>>> +        }
+>>> +
+>>> +        __gpu_buddy_free_block_internal(mm, block);
+>>>           cond_resched();
+>>>       }
+>>> +
+>>> +    if (dirty_size)
+>>> +        gpu_dirty_tracker_mark_dirty(&mm->dirty, dirty_start, 
+>>> dirty_size);
+>>> +
+>>> +    gpu_buddy_sync_clear_avail(mm);
+>>>       INIT_LIST_HEAD(objects);
+>>>   }
+>>> @@ -732,13 +1263,6 @@ void gpu_buddy_free_list(struct gpu_buddy *mm,
+>>>   }
+>>>   EXPORT_SYMBOL(gpu_buddy_free_list);
+>>> -static bool block_incompatible(struct gpu_buddy_block *block, 
+>>> unsigned int flags)
+>>> -{
+>>> -    bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
+>>> -
+>>> -    return needs_clear != gpu_buddy_block_is_clear(block);
+>>> -}
+>>> -
+>>>   static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
+>>>                       struct gpu_buddy_block *block)
+>>>   {
+>>> @@ -749,7 +1273,7 @@ static void __gpu_buddy_undo_splits(struct 
+>>> gpu_buddy *mm,
+>>>            gpu_buddy_block_is_free(buddy))) {
+>>>           rbtree_remove(mm, block);
+>>> mm->free_scoreboard[gpu_buddy_block_order(block)]--;
+>>> -        __gpu_buddy_free(mm, block, false);
+>>> +        __gpu_buddy_free(mm, block);
+>>>       }
+>>>   }
+>>> @@ -757,8 +1281,7 @@ static struct gpu_buddy_block *
+>>>   __alloc_range_bias(struct gpu_buddy *mm,
+>>>              u64 start, u64 end,
+>>>              unsigned int order,
+>>> -           unsigned long flags,
+>>> -           bool fallback)
+>>> +           unsigned long flags)
+>>>   {
+>>>       u64 req_size = mm->chunk_size << order;
+>>>       struct gpu_buddy_block *block;
+>>> @@ -768,7 +1291,15 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>       end = end - 1;
+>>> -    for (i = 0; i < mm->n_roots; ++i)
+>>> +    /*
+>>> +     * This range-constrained search hands back the highest/right-most
+>>> +     * address that satisfies the request: the roots are seeded 
+>>> high- to-low
+>>> +     * and the right (higher-address) child is descended first, making
+>>> +     * top-down the default placement here. A non-top-down clear 
+>>> request is
+>>> +     * the only exception, where the descent is biased towards 
+>>> clear or
+>>> +     * clear-containing subtrees to satisfy the clear preference.
+>>> +     */
+>>> +    for (i = mm->n_roots - 1; i >= 0; --i)
+>>>           list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+>>>       do {
+>>> @@ -804,9 +1335,6 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>                   continue;
+>>>           }
+>>> -        if (!fallback && block_incompatible(block, flags))
+>>> -            continue;
+>>> -
+>>>           if (contains(start, end, block_start, block_end) &&
+>>>               order == gpu_buddy_block_order(block)) {
+>>>               /*
+>>> @@ -824,8 +1352,38 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>                   goto err_undo;
+>>>           }
+>>> -        list_add(&block->right->tmp_link, &dfs);
+>>> -        list_add(&block->left->tmp_link, &dfs);
+>>> +        /*
+>>> +         * Top-down is a strict address-placement policy, so when 
+>>> it is
+>>> +         * requested we ignore clear steering and simply descend the
+>>> +         * right (higher-address) child first. Only a non-top-down 
+>>> clear
+>>> +         * request biases the descent towards clear/has_clear 
+>>> subtrees.
+>>> +         */
+>>> +        if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+>>> +            !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
+>>> +            struct gpu_buddy_block *prefer;
+>>> +
+>>> +            if (gpu_buddy_block_is_clear(block->right))
+>>> +                prefer = block->right;
+>>> +            else if (gpu_buddy_block_is_clear(block->left))
+>>> +                prefer = block->left;
+>>> +            else if (block->right->has_clear)
+>>> +                prefer = block->right;
+>>> +            else if (block->left->has_clear)
+>>> +                prefer = block->left;
+>>> +            else
+>>> +                prefer = block->right;
+>>> +
+>>> +            if (prefer == block->right) {
+>>> +                list_add(&block->left->tmp_link, &dfs);
+>>> +                list_add(&block->right->tmp_link, &dfs);
+>>> +            } else {
+>>> +                list_add(&block->right->tmp_link, &dfs);
+>>> +                list_add(&block->left->tmp_link, &dfs);
+>>> +            }
+>>> +        } else {
+>>> +            list_add(&block->left->tmp_link, &dfs);
+>>> +            list_add(&block->right->tmp_link, &dfs);
+>>> +        }
+>>>       } while (1);
+>>>       return ERR_PTR(-ENOSPC);
+>>> @@ -840,48 +1398,32 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>       return ERR_PTR(err);
+>>>   }
+>>> -static struct gpu_buddy_block *
+>>> -__gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
+>>> -                 u64 start, u64 end,
+>>> -                 unsigned int order,
+>>> -                 unsigned long flags)
+>>> -{
+>>> -    struct gpu_buddy_block *block;
+>>> -    bool fallback = false;
+>>> -
+>>> -    block = __alloc_range_bias(mm, start, end, order,
+>>> -                   flags, fallback);
+>>> -    if (IS_ERR(block))
+>>> -        return __alloc_range_bias(mm, start, end, order,
+>>> -                      flags, !fallback);
+>>> -
+>>> -    return block;
+>>> -}
+>>> -
+>>> +/* Return the highest-address free block of at least @order. */
+>>>   static struct gpu_buddy_block *
+>>>   get_maxblock(struct gpu_buddy *mm,
+>>> -         unsigned int order,
+>>> -         enum gpu_buddy_free_tree tree)
+>>> +         unsigned int order)
+>>>   {
+>>> -    struct gpu_buddy_block *max_block = NULL, *block = NULL;
+>>> -    struct rb_root *root;
+>>> +    struct gpu_buddy_block *max_block;
+>>> +    struct gpu_buddy_block *block;
+>>>       unsigned int i;
+>>> +    /*
+>>> +     * Top-down allocation is a strict address-placement policy: 
+>>> the block
+>>> +     * is chosen purely by offset, regardless of its clear/dirty 
+>>> state.
+>>> +     * Clear state is re-derived from the dirty tracker once the 
+>>> allocation
+>>> +     * completes, and the driver is responsible for issuing the 
+>>> clear pass
+>>> +     * if a clear region is required.
+>>> +     */
+>>> +    max_block = NULL;
+>>> +
+>>>       for (i = order; i <= mm->max_order; ++i) {
+>>> -        root = &mm->free_trees[tree][i];
+>>> -        block = rbtree_last_free_block(root);
+>>> +        block = rbtree_last_free_block(&mm->free_tree[i]);
+>>>           if (!block)
+>>>               continue;
+>>> -        if (!max_block) {
+>>> +        if (!max_block ||
+>>> +            gpu_buddy_block_offset(block) > 
+>>> gpu_buddy_block_offset(max_block))
+>>>               max_block = block;
+>>> -            continue;
+>>> -        }
+>>> -
+>>> -        if (gpu_buddy_block_offset(block) >
+>>> -            gpu_buddy_block_offset(max_block)) {
+>>> -            max_block = block;
+>>> -        }
+>>>       }
+>>>       return max_block;
+>>> @@ -893,45 +1435,34 @@ alloc_from_freetree(struct gpu_buddy *mm,
+>>>               unsigned long flags)
+>>>   {
+>>>       struct gpu_buddy_block *block = NULL;
+>>> -    struct rb_root *root;
+>>> -    enum gpu_buddy_free_tree tree;
+>>>       unsigned int tmp;
+>>>       int err;
+>>> -    tree = (flags & GPU_BUDDY_CLEAR_ALLOCATION) ?
+>>> -        GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+>>> -
+>>>       if (flags & GPU_BUDDY_TOPDOWN_ALLOCATION) {
+>>> -        block = get_maxblock(mm, order, tree);
+>>> +        block = get_maxblock(mm, order);
+>>>           if (block)
+>>> -            /* Store the obtained block order */
+>>>               tmp = gpu_buddy_block_order(block);
+>>>       } else {
+>>> -        for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>>> -            /* Get RB tree root for this order and tree */
+>>> -            root = &mm->free_trees[tree][tmp];
+>>> -            block = rbtree_last_free_block(root);
+>>> -            if (block)
+>>> -                break;
+>>> +        if (flags & GPU_BUDDY_CLEAR_ALLOCATION) {
+>>> +            for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>>> +                block = rbtree_last_clear_free_block(&mm- 
+>>> >free_tree[tmp],
+>>> +                                     GPU_BLOCK_MIXED);
+>>> +                if (block)
+>>> +                    break;
+>>> +            }
+>>>           }
+>>> -    }
+>>> -
+>>> -    if (!block) {
+>>> -        /* Try allocating from the other tree */
+>>> -        tree = (tree == GPU_BUDDY_CLEAR_TREE) ?
+>>> -            GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+>>> -
+>>> -        for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>>> -            root = &mm->free_trees[tree][tmp];
+>>> -            block = rbtree_last_free_block(root);
+>>> -            if (block)
+>>> -                break;
+>>> +        if (!block) {
+>>> +            for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>>> +                block = rbtree_last_free_block(&mm->free_tree[tmp]);
+>>> +                if (block)
+>>> +                    break;
+>>> +            }
+>>>           }
+>>> -
+>>> -        if (!block)
+>>> -            return ERR_PTR(-ENOSPC);
+>>>       }
+>>> +    if (!block)
+>>> +        return ERR_PTR(-ENOSPC);
+>>> +
+>>>       BUG_ON(!gpu_buddy_block_is_free(block));
+>>>       while (tmp != order) {
+>>> @@ -939,7 +1470,26 @@ alloc_from_freetree(struct gpu_buddy *mm,
+>>>           if (unlikely(err))
+>>>               goto err_undo;
+>>> -        block = block->right;
+>>> +        if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+>>> +            !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
+>>> +            bool right_clear, left_clear;
+>>> +
+>>> +            right_clear = gpu_buddy_block_is_clear(block->right);
+>>> +            left_clear = gpu_buddy_block_is_clear(block->left);
+>>> +
+>>> +            if (right_clear)
+>>> +                block = block->right;
+>>> +            else if (left_clear)
+>>> +                block = block->left;
+>>> +            else if (block->right->has_clear)
+>>> +                block = block->right;
+>>> +            else if (block->left->has_clear)
+>>> +                block = block->left;
+>>> +            else
+>>> +                block = block->right;
+>>> +        } else {
+>>> +            block = block->right;
+>>> +        }
+>>>           tmp--;
+>>>       }
+>>>       return block;
+>>> @@ -966,12 +1516,10 @@ static bool 
+>>> gpu_buddy_subtree_can_satisfy(struct rb_node *node,
+>>>   static struct gpu_buddy_block *
+>>>   gpu_buddy_find_block_aligned(struct gpu_buddy *mm,
+>>> -                 enum gpu_buddy_free_tree tree,
+>>>                    unsigned int order,
+>>> -                 unsigned int alignment,
+>>> -                 unsigned long flags)
+>>> +                 unsigned int alignment)
+>>>   {
+>>> -    struct rb_root *root = &mm->free_trees[tree][order];
+>>> +    struct rb_root *root = &mm->free_tree[order];
+>>>       struct rb_node *rb = root->rb_node;
+>>>       while (rb) {
+>>> @@ -1004,12 +1552,10 @@ gpu_buddy_find_block_aligned(struct 
+>>> gpu_buddy *mm,
+>>>   static struct gpu_buddy_block *
+>>>   gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+>>>                       u64 size,
+>>> -                    u64 min_block_size,
+>>> -                    unsigned long flags)
+>>> +                    u64 min_block_size)
+>>>   {
+>>>       struct gpu_buddy_block *block = NULL;
+>>>       unsigned int order, tmp, alignment;
+>>> -    enum gpu_buddy_free_tree tree;
+>>>       unsigned long pages;
+>>>       int err;
+>>> @@ -1017,19 +1563,15 @@ gpu_buddy_offset_aligned_allocation(struct 
+>>> gpu_buddy *mm,
+>>>       pages = size >> ilog2(mm->chunk_size);
+>>>       order = fls(pages) - 1;
+>>> -    tree = (flags & GPU_BUDDY_CLEAR_ALLOCATION) ?
+>>> -        GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+>>> -
+>>> +    /*
+>>> +     * Offset-aligned allocation is a strict address-placement 
+>>> policy: the
+>>> +     * block is chosen purely by its offset alignment, regardless 
+>>> of its
+>>> +     * clear/dirty state. Clear state is re-derived from the dirty 
+>>> tracker
+>>> +     * once the allocation completes, and the driver is responsible 
+>>> for
+>>> +     * issuing the clear pass if a clear region is required.
+>>> +     */
+>>>       for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>>> -        block = gpu_buddy_find_block_aligned(mm, tree, tmp,
+>>> -                             alignment, flags);
+>>> -        if (!block) {
+>>> -            tree = (tree == GPU_BUDDY_CLEAR_TREE) ?
+>>> -                GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+>>> -            block = gpu_buddy_find_block_aligned(mm, tree, tmp,
+>>> -                                 alignment, flags);
+>>> -        }
+>>> -
+>>> +        block = gpu_buddy_find_block_aligned(mm, tmp, alignment);
+>>>           if (block)
+>>>               break;
+>>>       }
+>>> @@ -1068,6 +1610,7 @@ gpu_buddy_offset_aligned_allocation(struct 
+>>> gpu_buddy *mm,
+>>>   static int __alloc_range(struct gpu_buddy *mm,
+>>>                struct list_head *dfs,
+>>>                u64 start, u64 size,
+>>> +             unsigned long flags,
+>>>                struct list_head *blocks,
+>>>                u64 *total_allocated_on_err)
+>>>   {
+>>> @@ -1104,16 +1647,33 @@ static int __alloc_range(struct gpu_buddy *mm,
+>>>           if (contains(start, end, block_start, block_end)) {
+>>>               if (gpu_buddy_block_is_free(block)) {
+>>> +                bool block_clear = false;
+>>> +                u64 block_offset;
+>>> +                u64 block_size;
+>>> +
+>>> +                block_size = gpu_buddy_block_size(mm, block);
+>>> +                block_offset = gpu_buddy_block_offset(block);
+>>> +
+>>> +                if (flags & GPU_BUDDY_CLEAR_ALLOCATION)
+>>> +                    block_clear = gpu_buddy_block_is_clear(block);
+>>> +
+>>> +                if (!gpu_buddy_block_is_clear(block))
+>>> + gpu_dirty_tracker_remove_range(&mm->dirty,
+>>> +                                       block_offset,
+>>> +                                       block_size);
+>>> +
+>>>                   mark_allocated(mm, block);
+>>> -                total_allocated += gpu_buddy_block_size(mm, block);
+>>> -                mm->avail -= gpu_buddy_block_size(mm, block);
+>>> -                if (gpu_buddy_block_is_clear(block))
+>>> -                    mm->clear_avail -= gpu_buddy_block_size(mm, 
+>>> block);
+>>> +                total_allocated += block_size;
+>>> +                mm->avail -= block_size;
+>>> +
+>>> +                block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+>>> +                if (block_clear)
+>>> +                    block->header |= GPU_BUDDY_HEADER_CLEAR;
+>>> +
+>>> +                gpu_buddy_sync_clear_avail(mm);
+>>> +
+>>>                   list_add_tail(&block->link, &allocated);
+>>>                   continue;
+>>> -            } else if (!mm->clear_avail) {
+>>> -                err = -ENOSPC;
+>>> -                goto err_free;
+>>>               }
+>>>           }
+>>> @@ -1158,6 +1718,7 @@ static int __alloc_range(struct gpu_buddy *mm,
+>>>   static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+>>>                      u64 start,
+>>>                      u64 size,
+>>> +                   unsigned long flags,
+>>>                      u64 *total_allocated_on_err,
+>>>                      struct list_head *blocks)
+>>>   {
+>>> @@ -1167,20 +1728,23 @@ static int __gpu_buddy_alloc_range(struct 
+>>> gpu_buddy *mm,
+>>>       for (i = 0; i < mm->n_roots; ++i)
+>>>           list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+>>> -    return __alloc_range(mm, &dfs, start, size,
+>>> +    return __alloc_range(mm, &dfs, start, size, flags,
+>>>                    blocks, total_allocated_on_err);
+>>>   }
+>>>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>>>                        u64 size,
+>>>                        u64 min_block_size,
+>>> +                     unsigned long flags,
+>>>                        struct list_head *blocks)
+>>>   {
+>>>       u64 rhs_offset, lhs_offset, lhs_size, filled;
+>>>       struct gpu_buddy_block *block;
+>>> -    unsigned int tree, order;
+>>>       LIST_HEAD(blocks_lhs);
+>>> +    struct rb_root *root;
+>>> +    struct rb_node *iter;
+>>>       unsigned long pages;
+>>> +    unsigned int order;
+>>>       u64 modify_size;
+>>>       int err;
+>>> @@ -1190,45 +1754,40 @@ static int __alloc_contig_try_harder(struct 
+>>> gpu_buddy *mm,
+>>>       if (order == 0)
+>>>           return -ENOSPC;
+>>> -    for_each_free_tree(tree) {
+>>> -        struct rb_root *root;
+>>> -        struct rb_node *iter;
+>>> -
+>>> -        root = &mm->free_trees[tree][order];
+>>> -        if (rbtree_is_empty(root))
+>>> -            continue;
+>>> +    root = &mm->free_tree[order];
+>>> +    if (RB_EMPTY_ROOT(root))
+>>> +        return -ENOSPC;
+>>> -        iter = rb_last(root);
+>>> -        while (iter) {
+>>> -            block = rbtree_get_free_block(iter);
+>>> -
+>>> -            /* Allocate blocks traversing RHS */
+>>> -            rhs_offset = gpu_buddy_block_offset(block);
+>>> -            err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>>> -                               &filled, blocks);
+>>> -            if (!err || err != -ENOSPC)
+>>> -                return err;
+>>> -
+>>> -            lhs_size = max((size - filled), min_block_size);
+>>> -            if (!IS_ALIGNED(lhs_size, min_block_size))
+>>> -                lhs_size = round_up(lhs_size, min_block_size);
+>>> -
+>>> -            /* Allocate blocks traversing LHS */
+>>> -            lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+>>> -            err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+>>> -                               NULL, &blocks_lhs);
+>>> -            if (!err) {
+>>> -                list_splice(&blocks_lhs, blocks);
+>>> -                return 0;
+>>> -            } else if (err != -ENOSPC) {
+>>> -                gpu_buddy_free_list_internal(mm, blocks);
+>>> -                return err;
+>>> -            }
+>>> -            /* Free blocks for the next iteration */
+>>> +    iter = rb_last(root);
+>>> +    while (iter) {
+>>> +        block = rbtree_get_free_block(iter);
+>>> +
+>>> +        /* Allocate blocks traversing RHS */
+>>> +        rhs_offset = gpu_buddy_block_offset(block);
+>>> +        err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>>> +                           flags, &filled, blocks);
+>>> +        if (!err || err != -ENOSPC)
+>>> +            return err;
+>>> +
+>>> +        lhs_size = max((size - filled), min_block_size);
+>>> +        if (!IS_ALIGNED(lhs_size, min_block_size))
+>>> +            lhs_size = round_up(lhs_size, min_block_size);
+>>> +
+>>> +        /* Allocate blocks traversing LHS */
+>>> +        lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+>>> +        err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+>>> +                           flags, NULL, &blocks_lhs);
+>>> +        if (!err) {
+>>> +            list_splice(&blocks_lhs, blocks);
+>>> +            return 0;
+>>> +        } else if (err != -ENOSPC) {
+>>>               gpu_buddy_free_list_internal(mm, blocks);
+>>> -
+>>> -            iter = rb_prev(iter);
+>>> +            return err;
+>>>           }
+>>> +        /* Free blocks for the next iteration */
+>>> +        gpu_buddy_free_list_internal(mm, blocks);
+>>> +
+>>> +        iter = rb_prev(iter);
+>>>       }
+>>>       return -ENOSPC;
+>>> @@ -1262,6 +1821,7 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+>>>       struct gpu_buddy_block *block;
+>>>       u64 block_start, block_end;
+>>>       LIST_HEAD(dfs);
+>>> +    bool was_clear;
+>>>       u64 new_start;
+>>>       int err;
+>>> @@ -1304,22 +1864,38 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+>>>       }
+>>>       list_del(&block->link);
+>>> -    mark_free(mm, block);
+>>> +
+>>> +    was_clear = gpu_buddy_block_is_clear(block);
+>>> +    block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+>>> +
+>>> +    if (!was_clear)
+>>> +        gpu_dirty_tracker_mark_dirty(&mm->dirty,
+>>> +                         gpu_buddy_block_offset(block),
+>>> +                         gpu_buddy_block_size(mm, block));
+>>> +
+>>> +    __mark_free(mm, block, was_clear ? GPU_BLOCK_CLEAR : 
+>>> GPU_BLOCK_DIRTY);
+>>>       mm->avail += gpu_buddy_block_size(mm, block);
+>>> -    if (gpu_buddy_block_is_clear(block))
+>>> -        mm->clear_avail += gpu_buddy_block_size(mm, block);
+>>> +    gpu_buddy_sync_clear_avail(mm);
+>>>       /* Prevent recursively freeing this node */
+>>>       parent = block->parent;
+>>>       block->parent = NULL;
+>>>       list_add(&block->tmp_link, &dfs);
+>>> -    err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
+>>> +    err =  __alloc_range(mm, &dfs, new_start, new_size,
+>>> +                 was_clear ? GPU_BUDDY_CLEAR_ALLOCATION : 0,
+>>> +                 blocks, NULL);
+>>>       if (err) {
+>>>           mark_allocated(mm, block);
+>>>           mm->avail -= gpu_buddy_block_size(mm, block);
+>>> -        if (gpu_buddy_block_is_clear(block))
+>>> -            mm->clear_avail -= gpu_buddy_block_size(mm, block);
+>>> +        if (!was_clear) {
+>>> +            gpu_dirty_tracker_remove_range(&mm->dirty,
+>>> +                               gpu_buddy_block_offset(block),
+>>> +                               gpu_buddy_block_size(mm, block));
+>>> +        }
+>>> +        if (was_clear)
+>>> +            block->header |= GPU_BUDDY_HEADER_CLEAR;
+>>> +        gpu_buddy_sync_clear_avail(mm);
+>>>           list_add(&block->link, blocks);
+>>>       }
+>>> @@ -1328,6 +1904,22 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+>>>   }
+>>>   EXPORT_SYMBOL(gpu_buddy_block_trim);
+>>> +static bool dirty_steer_window(struct gpu_buddy *mm, u64 req_size,
+>>> +                   u64 *start, u64 *end, unsigned long *flags)
+>>> +{
+>>> +    u64 aligned_start;
+>>> +    struct gpu_dirty_extent *ext =
+>>> +        gpu_dirty_tracker_find(&mm->dirty, req_size, &aligned_start);
+>>> +
+>>> +    if (!ext)
+>>> +        return false;
+>>> +
+>>> +    *start  = aligned_start;
+>>> +    *end    = ext->end;
+>>> +    *flags |= GPU_BUDDY_RANGE_ALLOCATION;
+>>> +    return true;
+>>> +}
+>>> +
+>>>   static struct gpu_buddy_block *
+>>>   __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>>                u64 start, u64 end,
+>>> @@ -1335,18 +1927,36 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>>                unsigned int order,
+>>>                unsigned long flags)
+>>>   {
+>>> -    if (flags & GPU_BUDDY_RANGE_ALLOCATION)
+>>> +    struct gpu_buddy_block *block;
+>>> +    bool steered = false;
+>>> +
+>>> +    /* Allocate from dirty tracker */
+>>> +    if (!(flags & GPU_BUDDY_RANGE_ALLOCATION) &&
+>>> +        !(flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+>>> +        size >= min_block_size &&
+>>> +        mm->clear_avail && mm->dirty.total_dirty) {
+>>> +        u64 block_size = mm->chunk_size << order;
+>>> +
+>>> +        steered = dirty_steer_window(mm, block_size,
+>>> +                         &start, &end, &flags);
+>>> +    }
+>>> +
+>>> +    if (flags & GPU_BUDDY_RANGE_ALLOCATION) {
+>>>           /* Allocate traversing within the range */
+>>> -        return  __gpu_buddy_alloc_range_bias(mm, start, end,
+>>> -                             order, flags);
+>>> -    else if (size < min_block_size)
+>>> +        block = __alloc_range_bias(mm, start, end, order, flags);
+>>> +        if (!IS_ERR(block) || !steered)
+>>> +            return block;
+>>> +
+>>> +        flags &= ~GPU_BUDDY_RANGE_ALLOCATION;
+>>> +    }
+>>> +
+>>> +    if (size < min_block_size)
+>>>           /* Allocate from an offset-aligned region without size 
+>>> rounding */
+>>>           return gpu_buddy_offset_aligned_allocation(mm, size,
+>>> -                               min_block_size,
+>>> -                               flags);
+>>> -    else
+>>> -        /* Allocate from freetree */
+>>> -        return alloc_from_freetree(mm, order, flags);
+>>> +                               min_block_size);
+>>> +
+>>> +    /* Allocate from freetree */
+>>> +    return alloc_from_freetree(mm, order, flags);
+>>>   }
+>>>   /**
+>>> @@ -1407,7 +2017,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>>           if (!IS_ALIGNED(start | end, min_block_size))
+>>>               return -EINVAL;
+>>> -        return __gpu_buddy_alloc_range(mm, start, size, NULL, blocks);
+>>> +        return __gpu_buddy_alloc_range(mm, start, size, flags, 
+>>> NULL, blocks);
+>>>       }
+>>>       original_size = size;
+>>> @@ -1433,12 +2043,15 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy 
+>>> *mm,
+>>>           if ((flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) &&
+>>>               !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+>>>               return __alloc_contig_try_harder(mm, original_size,
+>>> -                             original_min_size, blocks);
+>>> +                             original_min_size,
+>>> +                             flags, blocks);
+>>>           return -EINVAL;
+>>>       }
+>>>       do {
+>>> +        bool block_clear = false;
+>>> +
+>>>           order = min(order, (unsigned int)fls(pages) - 1);
+>>>           BUG_ON(order > mm->max_order);
+>>>           /*
+>>> @@ -1448,8 +2061,6 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>>           BUG_ON(size >= min_block_size && order < min_order);
+>>>           do {
+>>> -            unsigned int fallback_order;
+>>> -
+>>>               block = __gpu_buddy_alloc_blocks(mm, start,
+>>>                                end,
+>>>                                size,
+>>> @@ -1459,48 +2070,48 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy 
+>>> *mm,
+>>>               if (!IS_ERR(block))
+>>>                   break;
+>>> -            if (size < min_block_size) {
+>>> -                fallback_order = order;
+>>> -            } else if (order == min_order) {
+>>> -                fallback_order = min_order;
+>>> -            } else {
+>>> +            if (size >= min_block_size && order > min_order) {
+>>>                   order--;
+>>>                   continue;
+>>>               }
+>>> -            /* Try allocation through force merge method */
+>>> -            if (mm->clear_avail &&
+>>> -                !__force_merge(mm, start, end, fallback_order)) {
+>>> -                block = __gpu_buddy_alloc_blocks(mm, start,
+>>> -                                 end,
+>>> -                                 size,
+>>> -                                 min_block_size,
+>>> -                                 fallback_order,
+>>> -                                 flags);
+>>> -                if (!IS_ERR(block)) {
+>>> -                    order = fallback_order;
+>>> -                    break;
+>>> -                }
+>>> -            }
+>>> -
+>>>               /*
+>>>                * Try contiguous block allocation through
+>>>                * try harder method.
+>>>                */
+>>>               if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
+>>> -                !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+>>> -                return __alloc_contig_try_harder(mm,
+>>> -                                 original_size,
+>>> -                                 original_min_size,
+>>> -                                 blocks);
+>>> +                !(flags & GPU_BUDDY_RANGE_ALLOCATION)) {
+>>> +                err = __alloc_contig_try_harder(mm,
+>>> +                                original_size,
+>>> +                                original_min_size,
+>>> +                                flags,
+>>> +                                blocks);
+>>> +                if (!err)
+>>> +                    return 0;
+>>> +                if (err != -ENOSPC)
+>>> +                    return err;
+>>> +                goto err_free;
+>>> +            }
+>>>               err = -ENOSPC;
+>>>               goto err_free;
+>>>           } while (1);
+>>> +        if (flags & GPU_BUDDY_CLEAR_ALLOCATION)
+>>> +            block_clear = gpu_buddy_block_is_clear(block);
+>>> +
+>>> +        if (!gpu_buddy_block_is_clear(block))
+>>> +            gpu_dirty_tracker_remove_range(&mm->dirty,
+>>> +                               gpu_buddy_block_offset(block),
+>>> +                               gpu_buddy_block_size(mm, block));
+>>> +
+>>>           mark_allocated(mm, block);
+>>>           mm->avail -= gpu_buddy_block_size(mm, block);
+>>> -        if (gpu_buddy_block_is_clear(block))
+>>> -            mm->clear_avail -= gpu_buddy_block_size(mm, block);
+>>> +
+>>> +        block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+>>> +        if (block_clear)
+>>> +            block->header |= GPU_BUDDY_HEADER_CLEAR;
+>>> +
+>>> +        gpu_buddy_sync_clear_avail(mm);
+>>>           kmemleak_update_trace(block);
+>>>           list_add_tail(&block->link, &allocated);
+>>> @@ -1595,6 +2206,7 @@ EXPORT_SYMBOL(gpu_buddy_print);
+>>>   static void gpu_buddy_module_exit(void)
+>>>   {
+>>> +    kmem_cache_destroy(slab_extents);
+>>>       kmem_cache_destroy(slab_blocks);
+>>>   }
+>>> @@ -1604,7 +2216,15 @@ static int __init gpu_buddy_module_init(void)
+>>>       if (!slab_blocks)
+>>>           return -ENOMEM;
+>>> +    slab_extents = KMEM_CACHE(gpu_dirty_extent, 0);
+>>> +    if (!slab_extents)
+>>> +        goto err_destroy_blocks;
+>>> +
+>>>       return 0;
+>>> +
+>>> +err_destroy_blocks:
+>>> +    kmem_cache_destroy(slab_blocks);
+>>> +    return -ENOMEM;
+>>>   }
+>>>   module_init(gpu_buddy_module_init);
+>>> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/ 
+>>> gpu_buddy_test.c
+>>> index ed4c1c3acb3c..198d8dc4e3f0 100644
+>>> --- a/drivers/gpu/tests/gpu_buddy_test.c
+>>> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+>>> @@ -38,7 +38,7 @@ static void 
+>>> gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+>>>       };
+>>>       struct list_head allocated[ARRAY_SIZE(alignments)];
+>>>       unsigned int i, max_subtree_align = 0;
+>>> -    int ret, tree, order;
+>>> +    int ret, order;
+>>>       struct gpu_buddy mm;
+>>>       KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
+>>> @@ -78,15 +78,11 @@ static void 
+>>> gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+>>>           }
+>>>           for (order = mm.max_order; order >= 0 && !root; order--) {
+>>> -            for (tree = 0; tree < 2; tree++) {
+>>> -                node = mm.free_trees[tree][order].rb_node;
+>>> -                if (node) {
+>>> -                    root = container_of(node,
+>>> -                                struct gpu_buddy_block,
+>>> -                                rb);
+>>> -                    break;
+>>> -                }
+>>> -            }
+>>> +            node = mm.free_tree[order].rb_node;
+>>> +            if (node)
+>>> +                root = container_of(node,
+>>> +                            struct gpu_buddy_block,
+>>> +                            rb);
+>>>           }
+>>>           KUNIT_ASSERT_NOT_NULL(test, root);
+>>> @@ -97,15 +93,13 @@ static void 
+>>> gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+>>>           gpu_buddy_free_list(&mm, &allocated[i], 0);
+>>>           for (order = 0; order <= mm.max_order; order++) {
+>>> -            for (tree = 0; tree < 2; tree++) {
+>>> -                node = mm.free_trees[tree][order].rb_node;
+>>> -                if (!node)
+>>> -                    continue;
+>>> -
+>>> -                block = container_of(node, struct gpu_buddy_block, 
+>>> rb);
+>>> -                max_subtree_align = max(max_subtree_align,
+>>> -                            block->subtree_max_alignment);
+>>> -            }
+>>> +            node = mm.free_tree[order].rb_node;
+>>> +            if (!node)
+>>> +                continue;
+>>> +
+>>> +            block = container_of(node, struct gpu_buddy_block, rb);
+>>> +            max_subtree_align = max(max_subtree_align,
+>>> +                        block->subtree_max_alignment);
+>>>           }
+>>>           KUNIT_EXPECT_GE(test, max_subtree_align, 
+>>> ilog2(alignments[i]));
+>>> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+>>> index 2c36124bb696..1fe7b61db484 100644
+>>> --- a/include/linux/gpu_buddy.h
+>>> +++ b/include/linux/gpu_buddy.h
+>>> @@ -8,6 +8,7 @@
+>>>   #include <linux/bitops.h>
+>>>   #include <linux/list.h>
+>>> +#include <linux/mempool.h>
+>>>   #include <linux/slab.h>
+>>>   #include <linux/sched.h>
+>>>   #include <linux/rbtree.h>
+>>> @@ -43,8 +44,8 @@
+>>>   /**
+>>>    * GPU_BUDDY_CLEAR_ALLOCATION - Prefer pre-cleared (zeroed) memory
+>>>    *
+>>> - * Attempt to allocate from the clear tree first. If insufficient 
+>>> clear
+>>> - * memory is available, falls back to dirty memory. Useful when the
+>>> + * Attempt to allocate outside dirty-tracked ranges first. If 
+>>> insufficient
+>>> + * clear memory is available, falls back to dirty memory. Useful 
+>>> when the
+>>>    * caller needs zeroed memory and wants to avoid GPU clear 
+>>> operations.
+>>>    */
+>>>   #define GPU_BUDDY_CLEAR_ALLOCATION        BIT(3)
+>>> @@ -53,8 +54,8 @@
+>>>    * GPU_BUDDY_CLEARED - Mark returned blocks as cleared
+>>>    *
+>>>    * Used with gpu_buddy_free_list() to indicate that the memory being
+>>> - * freed has been cleared (zeroed). The blocks will be placed in the
+>>> - * clear tree for future GPU_BUDDY_CLEAR_ALLOCATION requests.
+>>> + * freed has been cleared (zeroed). The blocks will be removed from 
+>>> the
+>>> + * dirty tracker for future GPU_BUDDY_CLEAR_ALLOCATION requests.
+>>>    */
+>>>   #define GPU_BUDDY_CLEARED            BIT(4)
+>>> @@ -67,15 +68,6 @@
+>>>    */
+>>>   #define GPU_BUDDY_TRIM_DISABLE            BIT(5)
+>>> -enum gpu_buddy_free_tree {
+>>> -    GPU_BUDDY_CLEAR_TREE = 0,
+>>> -    GPU_BUDDY_DIRTY_TREE,
+>>> -    GPU_BUDDY_MAX_FREE_TREES,
+>>> -};
+>>> -
+>>> -#define for_each_free_tree(tree) \
+>>> -    for ((tree) = 0; (tree) < GPU_BUDDY_MAX_FREE_TREES; (tree)++)
+>>> -
+>>>   /**
+>>>    * struct gpu_buddy_block - Block within a buddy allocator
+>>>    *
+>>> @@ -88,6 +80,17 @@ enum gpu_buddy_free_tree {
+>>>    * @private: Private data owned by the allocator user (e.g., 
+>>> driver- specific data)
+>>>    * @link: List node for user ownership while block is allocated
+>>>    */
+>>> +/*
+>>> + * Clear/dirty state of a free block. Ordered so a numerically 
+>>> larger value
+>>> + * is "more clear" (DIRTY < MIXED < CLEAR) which lets 
+>>> subtree_block_state be
+>>> + * maintained as a simple max-augment over the per-order free tree.
+>>> + */
+>>> +enum gpu_block_state {
+>>> +    GPU_BLOCK_DIRTY = 0,
+>>> +    GPU_BLOCK_MIXED = 1,
+>>> +    GPU_BLOCK_CLEAR = 2,
+>>> +};
+>>> +
+>>>   struct gpu_buddy_block {
+>>>   /* private: */
+>>>       /*
+>>> @@ -103,6 +106,13 @@ struct gpu_buddy_block {
+>>>   #define   GPU_BUDDY_ALLOCATED       (1 << 10)
+>>>   #define   GPU_BUDDY_FREE       (2 << 10)
+>>>   #define   GPU_BUDDY_SPLIT       (3 << 10)
+>>> +/*
+>>> + * GPU_BUDDY_HEADER_CLEAR has two roles:
+>>> + *  - FREE state:      set when the block's full range is cleared 
+>>> (dirty
+>>> + *                     tracker confirmed no overlap).
+>>> + *  - ALLOCATED state: set when the block was served from cleared 
+>>> memory,
+>>> + *                     informing the caller that no GPU clear pass 
+>>> is needed.
+>>> + */
+>>>   #define GPU_BUDDY_HEADER_CLEAR  GENMASK_ULL(9, 9)
+>>>   /* Free to be used, if needed in the future */
+>>>   #define GPU_BUDDY_HEADER_UNUSED GENMASK_ULL(8, 6)
+>>> @@ -128,13 +138,51 @@ struct gpu_buddy_block {
+>>>           struct list_head link;
+>>>       };
+>>>   /* private: */
+>>> -    struct list_head tmp_link;
+>>> +    enum gpu_block_state subtree_block_state;
+>>>       unsigned int subtree_max_alignment;
+>>> +    struct list_head tmp_link;
+>>> +    bool has_clear;
+>>>   };
+>>>   /* Order-zero must be at least SZ_4K */
+>>>   #define GPU_BUDDY_MAX_ORDER (63 - 12)
+>>> +/**
+>>> + * struct gpu_dirty_extent - a contiguous dirty address range
+>>> + *
+>>> + * Tracks a single contiguous address range whose memory content is 
+>>> known
+>>> + * to be dirty.  Extents are non-overlapping and stored in an 
+>>> augmented
+>>> + * red-black tree sorted by @start.  The augmented value 
+>>> @subtree_max_size
+>>> + * allows O(log N) search for an extent of at least a given size.
+>>> + */
+>>> +struct gpu_dirty_extent {
+>>> +/* private: */
+>>> +    struct rb_node    rb;
+>>> +    u64        start;
+>>> +    u64        end;
+>>> +    u64        subtree_max_size;
+>>> +};
+>>> +
+>>> +/**
+>>> + * struct gpu_dirty_tracker - tracks dirty address intervals
+>>> + *
+>>> + * Maintains a set of non-overlapping dirty extents as an augmented
+>>> + * red-black tree.
+>>> + *
+>>> + * @total_dirty: Total bytes of dirty memory currently tracked.
+>>> + * @extent_pool: Mempool backing extent node allocations. sashiko 
+>>> reported
+>>> + *         that a __GFP_NOFAIL allocation on the free path could
+>>> + *         deadlock during memory reclaim, so a per-tracker mempool is
+>>> + *         used to guarantee extent nodes without __GFP_NOFAIL.
+>>> + */
+>>> +struct gpu_dirty_tracker {
+>>> +/* private: */
+>>> +    struct rb_root    root;
+>>> +    mempool_t    *extent_pool;
+>>> +/* public: */
+>>> +    u64        total_dirty;
+>>> +};
+>>> +
+>>>   /**
+>>>    * struct gpu_buddy - GPU binary buddy allocator
+>>>    *
+>>> @@ -152,20 +200,25 @@ struct gpu_buddy_block {
+>>>    * @chunk_size: Minimum allocation granularity in bytes. Must be 
+>>> at least SZ_4K.
+>>>    * @size: Total size of the address space managed by this 
+>>> allocator in bytes.
+>>>    * @avail: Total free space currently available for allocation in 
+>>> bytes.
+>>> - * @clear_avail: Free space available in the clear tree (zeroed 
+>>> memory) in bytes.
+>>> - *               This is a subset of @avail.
+>>> + * @clear_avail: Free space that is clear (zeroed) in bytes. A 
+>>> subset of @avail.
+>>> + *               Maintained as @avail - dirty.total_dirty, since 
+>>> the tracker
+>>> + *               records the dirty extents. Zero at init, as a 
+>>> fresh pool is
+>>> + *               fully dirty.
+>>>    * @lock_dep_map: Annotates gpu_buddy API with a driver provided 
+>>> lock.
+>>>    */
+>>>   struct gpu_buddy {
+>>>   /* private: */
+>>> +    /* Tracker of dirty address ranges (decoupled from free_tree). */
+>>> +    struct gpu_dirty_tracker dirty;
+>>>       /*
+>>> -     * Array of red-black trees for free block management.
+>>> -     * Indexed as free_trees[clear/dirty][order] where:
+>>> -     * - Index 0 (GPU_BUDDY_CLEAR_TREE): blocks with zeroed content
+>>> -     * - Index 1 (GPU_BUDDY_DIRTY_TREE): blocks with unknown content
+>>> -     * Each tree holds free blocks of the corresponding order.
+>>> +     * One RB-tree per order containing all free blocks (clear and
+>>> +     * dirty alike).  The augment field subtree_block_state (a max 
+>>> over
+>>> +     * the subtree of each block's state) lets clear allocations
+>>> +     * find the right-most fully-clear or mixed block in O(log N).
+>>> +     * Dirty free blocks coexist here but are also indexed by the
+>>> +     * @dirty tracker for fast dirty allocation lookups.
+>>>        */
+>>> -    struct rb_root **free_trees;
+>>> +    struct rb_root *free_tree;
+>>>       /*
+>>>        * Array of root blocks representing the top-level blocks of the
+>>>        * binary tree(s). Multiple roots exist when the total size is 
+>>> not
+>>>
+>>> base-commit: b961eb36d7b04147104cff2fd8bc0e94f4713324
+>>
 >
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index d484a3a6f..0bb11c718 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -341,6 +341,25 @@ static struct dma_fence *rocket_job_run(struct drm_s=
-ched_job *sched_job)
->         return ERR_PTR(ret);
->  }
->
-> +/* Start the job's next task, or retire it. Caller holds job_lock. */
-> +static void rocket_job_next_locked(struct rocket_core *core)
-> +{
-> +       lockdep_assert_held(&core->job_lock);
-> +
-> +       if (!core->in_flight_job)
-> +               return;
-> +
-> +       if (core->in_flight_job->next_task_idx < core->in_flight_job->tas=
-k_count) {
-> +               rocket_job_hw_submit(core, core->in_flight_job);
-> +               return;
-> +       }
-> +
-> +       iommu_detach_group(NULL, iommu_group_get(core->dev));
-> +       dma_fence_signal(core->in_flight_job->done_fence);
-> +       pm_runtime_put_autosuspend(core->dev);
-> +       core->in_flight_job =3D NULL;
-> +}
-> +
->  static void rocket_job_handle_irq(struct rocket_core *core)
->  {
->         pm_runtime_mark_last_busy(core->dev);
-> @@ -354,17 +373,7 @@ static void rocket_job_handle_irq(struct rocket_core=
- *core)
->                 rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
->                 rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
->
-> -               if (core->in_flight_job) {
-> -                       if (core->in_flight_job->next_task_idx < core->in=
-_flight_job->task_count) {
-> -                               rocket_job_hw_submit(core, core->in_fligh=
-t_job);
-> -                               return;
-> -                       }
-> -
-> -                       iommu_detach_group(NULL, iommu_group_get(core->de=
-v));
-> -                       dma_fence_signal(core->in_flight_job->done_fence)=
-;
-> -                       pm_runtime_put_autosuspend(core->dev);
-> -                       core->in_flight_job =3D NULL;
-> -               }
-> +               rocket_job_next_locked(core);
->         }
->  }
->
-> --
-> 2.43.0
->
+
