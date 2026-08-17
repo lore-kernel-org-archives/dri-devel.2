@@ -4,42 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C74C5DF6E
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:49:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D97C5DF74
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 607D910E39A;
-	Mon, 17 Aug 2026 06:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4B0A10E648;
+	Mon, 17 Aug 2026 06:50:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y8n5yT/V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oQHfE9h0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E45C10E39A
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:49:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 05F5B41859;
- Mon, 17 Aug 2026 06:49:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B264C1F000E9;
- Mon, 17 Aug 2026 06:49:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786949396;
- bh=AvmFz3nUKb8pvFYC0g++MD4RLobRZe1hE8JaoMTRsgM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Y8n5yT/Vhcmc7RFyh1Hh313lAl07XATiv8f5Jj68ihR5j6mqBQqX2iJGwKFJdSwiI
- VBTiHVhMANhTq46WeB7wC3+YQYQ6VE++GQmX32R/OC5dVYQrdQV9VeaSzLOzrVSEQu
- fLak/Bkv/OjlyuZ/tE+pCYHPmuly1Rod3Y8y3/JOWpPfHBWYFf2rFJzKux8uHHtv4b
- tkzvcMaeYWbNzM5u0zaj6yqTullX7/+Olg4w3LWRvig1CQ+vO06B1tFkgWt0alOeG9
- /prTd24LBUk1pnSWKMDJBzK2QF3wi+aeB8SYryZ8Fa5zTw+1RPFbmSIfeMbc1u1+XK
- 1FtDBF2jrftjA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] fbdev: platinumfb: add error checking for ioremap calls
-To: yuebingkun <yuebingkun@kylinos.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817063942.308926-1-yuebingkun@kylinos.cn>
-References: <20260817063942.308926-1-yuebingkun@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 06:49:56 +0000
-Message-Id: <20260817064956.B264C1F000E9@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24E6310E648;
+ Mon, 17 Aug 2026 06:50:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0707A41B5F;
+ Mon, 17 Aug 2026 06:50:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D2937C2BCB3;
+ Mon, 17 Aug 2026 06:50:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1786949442;
+ bh=u/VaKggcAOLEcGn3Y0lUjyHfOlHj39Ku/qCdC+XjX+M=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=oQHfE9h04Fb5MICfUSIokRTDbI2UqOnZfklYwq15HIiDRGX9yIfaIsF57i0VZEVP1
+ SHcqREuVIz0ShnqobyCSELwcWnR+sBV7COkxCl1RpdtM1q5nwpzKfSEt0mQG2tZaJy
+ +YYCSknN2lqxJ7TMh1T9lVgmhHFYCD1chgUDtL8vOx1mwtx6K02ZJO9xYQ93XP0ZpA
+ V8hYpil8CpytroBzBjsHRnGvcSHPklbt4feOXN1vapMjsJfLb3FfH09ZcLgszFHkzv
+ YoBPXRuEv1TXbzM6IIN3uUvBMxUxTbFzjMSzEoLuQCKvc3E7pAmolddV4GM80HvUbq
+ RSWchTuwSQ5zw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id BB1ACC5DF74;
+ Mon, 17 Aug 2026 06:50:42 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Subject: [PATCH 0/2] drm/nouveau: fix out-of-bounds VRAM access and VM_BIND
+ page-size mismatch
+Date: Mon, 17 Aug 2026 14:50:39 +0800
+Message-Id: <20260817-nouveau-fixes-v1-0-f518d0c735f3@outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD+vgmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC0Nz3bz80rLUxFLdtMyK1GJdI2MLc3MLE9Nk48QkJaCegqJUsARQS3R
+ sbS0AIPyWx18AAAA=
+X-Change-ID: 20260817-nouveau-fixes-23877845c3ab
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Balbir Singh <balbirs@nvidia.com>, Mary Guillemard <mary@mary.zone>, 
+ Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
+ James Jones <jajones@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1329;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=u/VaKggcAOLEcGn3Y0lUjyHfOlHj39Ku/qCdC+XjX+M=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrKb1DskN65l1HvV2Gn0WWd6l+6pxq8KdBMs357hnN
+ vsvjuD/u6yjlIVBjItBVkyR5XjBpW8Wvlt0t/hsSYaZw8oEMoSBi1MAJjLvKMN/n93uaXl7lH71
+ 1PQdu5PkcFuIQ8bm/rFZF7nfTKpRul9yg5HhSv2bRfWmDg8lLzxYPynz1d1VPnPquyp/v2qXF2n
+ qm72bGwBBAE9E
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,70 +82,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: moonafterrain@outlook.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Two unrelated fixes; they touch different files and can be applied
+independently.
 
-Pre-existing issues:
-- [High] Unchecked request_mem_region combined with unconditional release_m=
-em_region causes resource corruption and Use-After-Free.
---
+Patch 1 sizes the VRAM buffer object backing a device-private region to
+the region it actually backs. The region grew to DMEM_CHUNK_SIZE *
+NR_CHUNKS while the buffer object stayed at DMEM_CHUNK_SIZE, so
+nouveau_dmem_page_addr() resolves every page past the first chunk to VRAM
+outside the object.
 
---- Patch [1]: [PATCH v2] fbdev: platinumfb: add error checking for ioremap=
- calls ---
-commit a9dd2a2a25aeae119ea17d0f40c6cbdddde67dfd
-Author: yuebingkun <yuebingkun@kylinos.cn>
+Patch 2 rejects a VM_BIND that replaces a mapping with one using a
+different page size. A new mapping takes over the page tables of the
+mappings it replaces, which only holds while they all use the same page
+size. Since select_page_shift() started deriving one per mapping it no
+longer does, and the new mapping ends up mapping at a size its page
+tables were never built for.
 
-fbdev: platinumfb: add error checking for ioremap calls
-   =20
-This commit adds error checking for ioremap() and ioremap_wt() calls in
-platinumfb_probe(), avoiding NULL pointer dereferences by introducing
-goto-based cleanup paths on failure.
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+---
+Junrui Luo (2):
+      drm/nouveau/dmem: pin VRAM for the whole registered range
+      drm/nouveau/uvmm: reject replace across page sizes
 
-> diff --git a/drivers/video/fbdev/platinumfb.c b/drivers/video/fbdev/plati=
-numfb.c
-> index a08d955d9b439..f74c937c839f8 100644
-> --- a/drivers/video/fbdev/platinumfb.c
-> +++ b/drivers/video/fbdev/platinumfb.c
-[ ... ]
-> @@ -567,15 +567,30 @@ static int platinumfb_probe(struct platform_device*=
- odev)
-[ ... ]
->  	pinfo->cmap_regs_phys =3D 0xf301b000;	/* XXX not in prom? */
->  	request_mem_region(pinfo->cmap_regs_phys, 0x1000, "platinumfb cmap");
->  	pinfo->cmap_regs =3D ioremap(pinfo->cmap_regs_phys, 0x1000);
-> +	if (!pinfo->cmap_regs) {
-> +		dev_err(&odev->dev, "failed to ioremap cmap registers\n");
-> +		rc =3D -ENOMEM;
-> +		goto err_release_cmap;
-> +	}
-[ ... ]
-> +err_unmap_cmap:
-> +	iounmap(pinfo->cmap_regs);
-> +err_release_cmap:
-> +	release_mem_region(pinfo->cmap_regs_phys, 0x1000);
+ drivers/gpu/drm/nouveau/nouveau_dmem.c |  4 ++--
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c | 33 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 34 insertions(+), 3 deletions(-)
+---
+base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
+change-id: 20260817-nouveau-fixes-23877845c3ab
 
-[Severity: High]
-This is a pre-existing issue, but I noticed the return value of
-request_mem_region() is ignored just before the ioremap() call.
+Best regards,
+-- 
+Junrui Luo <moonafterrain@outlook.com>
 
-If request_mem_region() fails because the physical resource is already
-claimed by platform code or another driver, probe continues. If a subsequent
-step then fails, such as ioremap() returning NULL or platinum_init_fb()
-failing, this newly added error path branches to err_release_cmap.
 
-Since err_release_cmap unconditionally calls release_mem_region(), does this
-risk freeing a resource that wasn't actually acquired? If the region size
-and start address exactly match an existing claim, this could unlink and
-free a resource owned by another driver, potentially causing a
-use-after-free later.
-
-Could we add a check for the return value of request_mem_region() so we
-only release it if the driver successfully claimed it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817063942.3089=
-26-1-yuebingkun@kylinos.cn?part=3D1
