@@ -4,48 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0770C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 09:25:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A254DC5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 09:30:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC6D10E3F3;
-	Mon, 17 Aug 2026 09:25:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07CE710E6F4;
+	Mon, 17 Aug 2026 09:30:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=picoheart.com header.i=@picoheart.com header.b="lg4o7hnh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AiVa0IUy";
 	dkim-atps=neutral
-Received: from va-2-36.ptr.blmpb.com (va-2-36.ptr.blmpb.com [209.127.231.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19B6710E3F3
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 09:25:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1786958728; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=JtxrnRjowchCXBeWvFyHWS+4do82EKRXxLpUgdFZjUE=;
- b=lg4o7hnhwZRJrhGeVyxfBRJu/dkvdeA1z8EtG7VqQDIN/ypiaoJ7pxSuu7a495CuNIM05J
- 8Bf9Q5qWuFTEc46vBBfKjhFco/yfdoNbCyJyLSpWmf3z1QAb+aXwiTSZ9xqOk6UIfKTDRB
- 9hqV7QGdlc97HRhk4p7kq1MW+C1V+Ce1jOleIBH/4P1IKw6NLg0IsPWb1D00VechwrcemI
- oViHMI/t32ysx7BXQUdo6gBC5TL0rAJ5w7be66EX2STLvpaR8yBweZ1WOnqVOmRIifF467
- lhHrhsYNdw1pq9xc3ohQGDNSELyOOvB75Xf73eWPK4yGOZeFz6K9OjaXPUeMnw==
-Content-Type: text/plain; charset=UTF-8
-To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, 
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>, 
- <thomas.hellstrom@linux.intel.com>, <akpm@linux-foundation.org>, 
- <david@kernel.org>, <matthew.brost@intel.com>, <ljs@kernel.org>, 
- <ziy@nvidia.com>
-X-Original-From: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-In-Reply-To: <ansV/e7ByOyzHJzM@hostpc>
-References: <anSKZabjuhl5Ojl4@hostpc> <ansV/e7ByOyzHJzM@hostpc>
-Received: from hostpc ([124.160.26.250]) by smtp.feishu.cn with ESMTPS;
- Mon, 17 Aug 2026 17:25:25 +0800
-From: "Zhaoyu Liu" <liuzhaoyu.zackary@picoheart.com>
-Date: Mon, 17 Aug 2026 17:25:23 +0800
-Content-Disposition: inline
-X-Lms-Return-Path: <lba+26a82d386+244b87+lists.freedesktop.org+liuzhaoyu.zackary@picoheart.com>
-Content-Transfer-Encoding: 7bit
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/pagemap: no need to recheck own pagemap in
- migrate_to_devmem
-Message-Id: <aoLTg6dKKQ99KcmM@hostpc>
-Mime-Version: 1.0
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9519F10E6F4
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 09:30:38 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-495773ee3edso2788685e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 02:30:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786959037; x=1787563837; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Vg/Jh1xJqMzCAOU1msGZarPzfg6nU4pDbrQ+dCgsG9U=;
+ b=AiVa0IUyfG+U/WKZPV1OqOf1lQknzSBSliUSYXWvxo6fOF2kV5FAOFEgtPrJ8o3Nyc
+ 4vwXpe4Q/k10uDm30RP7oDdRlV4hFWLj6kae6qilBc/mc1gIh24GoSOi4wUw4EL/FiHT
+ d31s4vCuCvUN44MPxJfNPNXGEvizvd4rmhsHxJ5AqHoJOz/imBQcaTFXWAsg7K8gIfIj
+ ZCLrcX+RGekOT1KYsVFWDz/sk0hymDdyx3QcZiHPPCoTrn9LZFZaHLnCZ0wuLCmLGfbK
+ f78P4PhLjeXzwGzZPDjJpKNQuOXoFCyfVfsvYzDhTEEXC3b/57FwRILTcICChmjQTQkL
+ 7HFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786959037; x=1787563837;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Vg/Jh1xJqMzCAOU1msGZarPzfg6nU4pDbrQ+dCgsG9U=;
+ b=ApV935P1HcQtuDsyOmwTi0SpIE4JiVEw4QQst42zbkK9Dy4rKpY78oNtPJXBRG5I2h
+ ELHUX1aAd25Y1MonyLxUNJfA8zrMwZys/JRiQd8ji5khJlLSV7V8VZiWdYDf01vmcxix
+ bWMIvwheGNjHBBN08r8d9HDJ1CLZ1SIpN0x5sR2+L2llcv0kc9aDPbrMJk4o9G8Zic4s
+ 3Cb6vHZbxWbNMaXTTF8UeJmVZ7xnDfCE0F9OzOz9OV+8OTBwKDmRg6h4Chk5KaR3fT9P
+ +LpjKGYfYN0D1eSNAkP01xyyzu58njZ1H3o2UIT4+QF6h31dqVB7AkPohbOn0dr/tZuS
+ iotg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrnQ1+DySvzdfSyTF2L/hHS6EpRNeEQX5yTj4BiDQftFCxZjsRp90qns4+S/hoEamWdVIERVhEKB4Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyO95FvMH0VRoHLXYaNCCGXRcltsSwiVI4Ws2eRIkhzVCb/OIRp
+ t8Up15qiCuUbKFBBW3IhbHSEDhWPYV6K+lsNuQiFhbE+nq6/Q2eqRrh8
+X-Gm-Gg: AR+sD1155m5Ch/XLdElwsPFqpDlzonXOtxSc2GIW1L43eMF0Vi1SJN1syb72E2UY/vQ
+ IL9tAykCo3/GsjUwxPCOUqMmVvzKBkhTYojxihBS1MOSCA5r35Zg9Phoj2lYNcOPGlVuMXKlaxi
+ +YtYrekX8nmFgW+JWoneVJ3s7VC26Qi7g0sP3gMWSGMyc1L4eZsuARRrM6nWX1lZzPeynXmZ7tq
+ 3qnBABkwBuN8GFk8sLrQJ5NXDN4OeLFoFmxznvhgXdeY9lq+aaKbO9hxFCv1aVCELI33BJA8KaY
+ 33NmExZDDvhVzaxEoJs5uBuP3Zxyyv0vut6WRf7qxKB/50F+rOmxtdLehjM2Ql+ZU8XCaRFzm65
+ zoWD7EgeN3ah7yuGnAxQNRO1PgzmX4KSnDJrbaUeXIh0BqMqL9khwwkZqbhB72P6WVBrEKVHBzh
+ 9Wd5yx8/Jj2zBlrSc2++0vgTxg3RKDs5PleEuSGMGgD7L3GPAPY9NVhqjLkEf9y/FJiTFsdocwh
+ bFBtWwBNrSk0Mo1oZa6epUnt3VKBbRrcMijuBD9nCY7UmtYX6A/7+hpkERrXXwUSItWow==
+X-Received: by 2002:a05:600c:1d23:b0:499:59a1:96f7 with SMTP id
+ 5b1f17b1804b1-4998792aab8mr184494205e9.1.1786959036570; 
+ Mon, 17 Aug 2026 02:30:36 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B8FC50027494B64639367E4.dsl.pool.telekom.hu.
+ [2001:4c4e:1b8f:c500:2749:4b64:6393:67e4])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482a5a31396sm2474365f8f.2.2026.08.17.02.30.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 02:30:36 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Triet Hoang <triet.hoang.dev@gmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Igor Paunovic <royalnet026@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/rocket: Check allocations before use
+Date: Mon, 17 Aug 2026 11:30:04 +0200
+Message-ID: <20260817093009.22359-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260817072045.876042-1-triet.hoang.dev@gmail.com>
+References: <20260817055315.C9AA41F000E9@smtp.kernel.org>
+ <20260817072045.876042-1-triet.hoang.dev@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,107 +94,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-Could you please help review this patch?
+Hi Triet,
 
-Thanks,
-zackary
+Thanks for picking this up -- the rocket driver has few enough eyes on it
+that allocation-check patches are welcome.
 
-> On Thu, Aug 06, 2026 at 09:21:41PM +0800, Zhaoyu Liu wrote:
-> > The second loop in drm_pagemap_migrate_to_devmem() checks
-> > `page_pgmap(src_page) == pagemap && !can_migrate_same_pagemap` to skip
-> > pages already on the target pagemap. However, this condition is always
-> > false at this point: if can_migrate_same_pagemap is false and any own
-> > pages exist, the first loop already returns -EBUSY before reaching here.
-> > 
-> > v2:
-> >   - Skip the no-op migrate_vma_pages() when all pages already reside on
-> >     the target pagemap.
-> > 
-> > Signed-off-by: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-> > ---
-> >  drivers/gpu/drm/drm_pagemap.c | 21 ++++++---------------
-> >  1 file changed, 6 insertions(+), 15 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> > index 15c78eca180b..64922b944092 100644
-> > --- a/drivers/gpu/drm/drm_pagemap.c
-> > +++ b/drivers/gpu/drm/drm_pagemap.c
-> > @@ -698,7 +698,7 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
-> >  		 * nothing. Raced or unknown device pages.
-> >  		 */
-> >  		err = -EBUSY;
-> > -		goto err_aborted_migration;
-> > +		goto direct_finalize;
-> >  	}
-> >  
-> >  	/* Count device-private pages to migrate */
-> > @@ -719,19 +719,17 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
-> >  	if (own_pages == npages) {
-> >  		err = 0;
-> >  		drm_dbg(dpagemap->drm, "Migration wasn't necessary.\n");
-> > -		goto err_aborted_migration;
-> > +		goto direct_finalize;
-> >  	} else if (own_pages && !mdetails->can_migrate_same_pagemap) {
-> >  		err = -EBUSY;
-> >  		drm_dbg(dpagemap->drm, "Migration aborted due to fragmentation.\n");
-> > -		goto err_aborted_migration;
-> > +		goto direct_finalize;
-> >  	}
-> >  
-> >  	err = ops->populate_devmem_pfn(devmem_allocation, npages, migrate.dst);
-> >  	if (err)
-> >  		goto err_aborted_migration;
-> >  
-> > -	own_pages = 0;
-> > -
-> >  	for (i = 0; i < npages;) {
-> >  		unsigned long j;
-> >  		struct page *page = pfn_to_page(migrate.dst[i]);
-> > @@ -744,12 +742,7 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
-> >  			struct drm_pagemap_zdd *src_zdd =
-> >  				drm_pagemap_page_zone_device_data(src_page);
-> >  
-> > -			if (page_pgmap(src_page) == pagemap &&
-> > -			    !mdetails->can_migrate_same_pagemap) {
-> > -				migrate.dst[i] = 0;
-> > -				own_pages++;
-> > -				goto next;
-> > -			}
-> > +			/* Own or peer device private page */
-> >  			cur.dpagemap = src_zdd->dpagemap;
-> >  			cur.ops = src_zdd->devmem_allocation->ops;
-> >  			cur.device = cur.dpagemap->drm->dev;
-> > @@ -786,7 +779,6 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
-> >  			goto err_finalize;
-> >  		}
-> >  
-> > -next:
-> >  		i += NR_PAGES(order);
-> >  	}
-> >  
-> > @@ -797,8 +789,6 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
-> >  	if (err)
-> >  		goto err_finalize;
-> >  
-> > -	drm_WARN_ON(dpagemap->drm, !!own_pages);
-> > -
-> >  	dma_fence_put(devmem_allocation->pre_migrate_fence);
-> >  	devmem_allocation->pre_migrate_fence = NULL;
-> >  
-> > @@ -822,11 +812,12 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
-> >  		i += nr_pages;
-> >  	}
-> >  
-> > -	if (!err && migrated_pages < npages - own_pages) {
-> > +	if (!err && migrated_pages < npages) {
-> >  		drm_dbg(dpagemap->drm, "Raced while finalizing migration.\n");
-> >  		err = -EBUSY;
-> >  	}
-> >  
-> > +direct_finalize:
-> >  	migrate_vma_finalize(&migrate);
-> >  err_free:
-> >  	drm_pagemap_zdd_put(zdd);
-> > -- 
-> > 2.34.1
+The rocket_job_push() half looks right to me. The early return skips the
+err: label, but bos is NULL there anyway, and the caller
+(rocket_ioctl_submit_job()) takes the goto out_cleanup_job path, which
+does drm_sched_job_cleanup() and rocket_job_put(). Nothing is leaked and
+nothing is armed yet, so returning early is safe.
+
+On rocket_job_open(), the v2 change fixes the error path, but I think it
+only covers half of what was reported. The other half is still there:
+the array leaks on a single-core device even when nothing fails.
+
+drm_sched_entity_init() stores the caller's array only when it will
+actually need it:
+
+	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+
+(drivers/gpu/drm/scheduler/sched_entity.c, unchanged in current
+mainline). And rocket_job_close() frees exactly that field:
+
+	kfree(entity->sched_list);
+	drm_sched_entity_destroy(entity);
+
+So when rdev->num_cores == 1, drm_sched_entity_init() succeeds,
+entity->sched_list is NULL, rocket_job_close() frees NULL, and the array
+that rocket_job_open() allocated is never freed. One pointer per open(),
+unbounded across open/close cycles.
+
+That is not a hypothetical configuration. The RK3576 series currently on
+the list enables exactly one core on the ROCK 4D -- its commit message
+says so in as many words ("Only rknn_core_0 is enabled: the driver binds
+one core per node and the second core is left to whoever can test it").
+Any RK3588 DT that leaves a single core enabled lands in the same place.
+
+I would suggest not depending on drm_sched_entity_init()'s internal
+choice about sched_list at all: keep the pointer in rocket_file_priv and
+free it unconditionally in rocket_job_close(). That covers one core and
+many cores with the same line, and it stops rocket_job_close() from
+reaching into a scheduler-internal field to decide what it owns. But
+that is a bigger change than the one you set out to make, so it may be
+better as a separate patch -- Tomeu's call.
+
+Two smaller things:
+
+  - With the check added, ret is assigned unconditionally from
+    drm_sched_entity_init(), so the "int ret = 0" initialiser in v2 is
+    no longer doing anything.
+
+  - Heads-up on collision: I have a patch in flight that touches these
+    same lines of rocket_job_open() ("accel/rocket: keep core slots
+    stable across unbind and rebind", part of a two-patch lifecycle
+    series). Whichever of us lands first, the other rebases -- I am happy
+    for that to be me. Worth mentioning because in my version the count
+    passed to drm_sched_entity_init() is the number of *live* cores, so
+    once cores are unbound down to one, the leak above starts happening
+    on a multi-core board too, at runtime.
+
+I have not run your patch, so no tag from me. If it would help, I can
+test it on RK3588 with three cores and again with two of them unbound,
+and check the single-core case with kmemleak.
+
+Regards,
+Igor
