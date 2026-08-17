@@ -4,43 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC1F5C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 10:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9993C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 10:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDD0D10E70E;
-	Mon, 17 Aug 2026 10:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36E8A10E3FF;
+	Mon, 17 Aug 2026 10:20:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c6quof9b";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="kDorzMwY";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="e3tfk1Rb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CDE10E3ED;
- Mon, 17 Aug 2026 10:11:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EF4C8600AE;
- Mon, 17 Aug 2026 10:11:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799001F000E9;
- Mon, 17 Aug 2026 10:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786961470;
- bh=6Som8vlNfZLuSjF8FYgXhkMJXuB15ZoSkS2/KaXFr2U=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c6quof9b14T+iMxgA0QfSufxxzSc0LbSnIe4rLHqBEiAmIB7S5Y0NOM16yBgvxY6A
- NHPgSVxp1A3WcwkoK/jtJd2FReeWSLdZgb+EfDXGEn0NrUj/j17unelgu2IQHV7rh0
- tMofqIExsm6I5kOxfszHi8LkQtWCjjdXzQ1zY4ZkCV1uZOxjjdvTq3XV7nXe4/LCuR
- ZJhMC8sAKT5Yp0gTbQciyv5wEZtDopjCsSt9T22a4O/gV4/4jpmXqMirkGTQkt7BYl
- sJKa1X14mKcppG2MSv6MnY9KhEs/1bV+cvqwWisVTCZ1WoMtuZQ7/3toSyihCKxd5y
- T83aNx9J0GmwA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/6] iommu/dma: Catch scatterlist length overflows
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817095648.2438192-4-krzysztof.karas@intel.com>
-References: <20260817095648.2438192-1-krzysztof.karas@intel.com>
- <20260817095648.2438192-4-krzysztof.karas@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 10:11:10 +0000
-Message-Id: <20260817101110.799001F000E9@smtp.kernel.org>
+Received: from flow-a4-smtp.messagingengine.com
+ (flow-a4-smtp.messagingengine.com [103.168.172.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 811B310E3FF
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 10:20:28 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailflow.phl.internal (Postfix) with ESMTP id E5BB21380339;
+ Mon, 17 Aug 2026 06:20:27 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Mon, 17 Aug 2026 06:20:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm2; t=1786962027; x=
+ 1786965627; bh=toFR7CttO5z3jj5XX70w7xnXop6+YeM2N8EtwJ/xROQ=; b=k
+ DorzMwYWQ8UBd9lF3s3l7x240IkaADZR/qmhJImi43reP/RpGw0Lbu8OAq9xnPQJ
+ N7d55p43sb5FzAvi4RbwoUsUNTSgUU/Co47Q72YK1hOBet7Q4mU1gNCLLTihyNCJ
+ P/y6bv2M9o2Z+Pozqojf5zHKPrVMjkhaKa79Jwqr6CZdSQyQp74B5iAIIL7Y7F7k
+ nFTRYUICHD4j4s9McTdyx1bxK7EoxBAMw76vZKD8aJaQylZ/C4xEASxTZx8fR2ym
+ In+qbVeW4qi1/4zE/NhXoiYGdoBkZrt+X8sr6DJfueX0YIVbd2/YQ2oE1CdVupoz
+ 17VxenK02M5e5aV243Eww==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; t=1786962027; x=1786965627; bh=t
+ oFR7CttO5z3jj5XX70w7xnXop6+YeM2N8EtwJ/xROQ=; b=e3tfk1RbNVgZiG35n
+ O1IDh52BayR9W1ZybJoiZ3gIRPMmNN/ayQ4CH8+Bgk/mAcwTTsZYRR/aF1hKXz88
+ i1xq12MI/QccS5FyR/Y+gJE3Q5tDzBRRVE6rH0XXTfSOEQHmIIUnWRxv/hIkkKDG
+ 94GGZgjwvtXFpRGBsOvYRARUeLjlKySU51SOrST8BiKe/U+SnhjlPeua07PMrfaJ
+ VgorMmfxPCdh6SRisZbcKw3JBLrY0Srmz510jZhGNap5koExL/prWg5yGTLuMIyj
+ ZaEGXuHmk3IF/SZsnO/saOKeTlfuxwB+uaWjvB7xfjfEQ3N3hKx2Qv+HRmL55Vuq
+ ESMrQ==
+X-ME-Sender: <xms:a-CCapERq42D396F-WvEVMS96cfIQpAnBdoH8ZhjiBu5uHf62e_z9g>
+ <xme:a-CCamjRvLUwTyKji24L2J8LzcTsf-CZVVrGuhEjG_dLcr-tstYU1q4IasUzwN8WU
+ AuyXDCOX2OinHA8mSW6x4yQMNlkhECJQtanYzgOSUq6NW38-9-cYcYi>
+X-ME-Received: <xmr:a-CCamtb48pTVq1-_GmEXWLUeeCExlicdF9y_ppU39qcTLHc6Gse3F2uDARsa2zbRn7uJMx3Mg>
+X-ME-Proxy-Cause: dmFkZTEav12/xox9dW6FBrGBtqGDntmQw+BK8FNwTWmRZjxu8LmOPvxJLoqU5ERQ2bc4Sh
+ EZTMtc+O1uYQzV11Wxoj4DcdyOim58v1EwZW/KjHoqAFyJ007NUBR20UItdIgPWS9PsXBq
+ pe89jlsR9mJe7k2fRZhSktW/8sOxkpzOe09fjNRCMBiwIlBCHVI5VwWaxGXFrYZdVsWD8T
+ 52vMwRkhQIUUgsZdZbEZDtRTbJeWJLpufjCQGCpqCBp5wclqROY2LMMw7OpGz3JD5/Nek5
+ dQqSB/RHcDywRRL7dKDqNv+L32U/Ay+fbsSTUemig8p/3vpdA1ucfND8A/hlnoTuRgaYAs
+ ia75Cchp0mALQLn46Kyahjr00cWOSvN4PUWbMS4ZUD0d7q5xX22cQBTydSFgzjQBnfYhyD
+ TC7Aww6EcaQA9DmAwX1AdDmnHdKv65rcIFjiBijOgxck90DvV3KSAI4UAT6df3la9rS8A+
+ 38cOjyG52g/faS8m/k0/X/BQ72gfpc41DePsIED6qD2DLDN7TNZagYSGiPJckbjOjaAJNm
+ gD1p8MNV+iDXIA5UzTTqc1/6bOxxDJomY031pSrkDl61UP/LFvMxFCrRzQdBowoWwZ+hyv
+ EL04bPEmGMesAMuTStxaJrd3yF6LEpoubwOo7Ijdzk3uG2W63mNtaea9UcKg
+X-ME-Proxy: <xmx:a-CCapuUDBoxg3wQqwBDLCTLeE6ojJfspPFPx9t6i-6bXRe3xrrRzQ>
+ <xmx:a-CCarHLEMWt-uZZGYsjvuc3CuDxAgGxZdkCkXbTL-Ar8xC-c5HtBQ>
+ <xmx:a-CCakOTODvED21m5GbAqXQWdXOXa685f0DJXuNxvjFE4f3EBgR2yw>
+ <xmx:a-CCaqIA9LYla2ZnkHi8uK840Ywz6pofG89dde6PybG2zRZz9-jkpg>
+ <xmx:a-CCauVITsaLWtdqyqOfeHeI_8QESZofbuGcX4DUxRTD7NpkHa1RrfwD>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 17 Aug 2026 06:20:23 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: royalnet026@gmail.com
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, chaoyi.chen@rock-chips.com,
+ alchark@flipper.net, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Mon, 17 Aug 2026 22:20:21 +1200
+Message-ID: <20260817102021.1226525-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260817100046.24872-1-royalnet026@gmail.com>
+References: <CAEWPSH7ETfw2TDjUfOvcVtDm19FC43x2vP=Lh7m+XPOGptnPWA@mail.gmail.com>
+ <20260817094544.1159366-1-gahing@gahingwoo.com>
+ <20260817100046.24872-1-royalnet026@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,112 +96,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Igor,
 
-Pre-existing issues:
-- [High] Error path `out_restore_sg` corrupts unprocessed elements of reuse=
-d scatterlists.
-- [High] Accumulator `iova_len` silently overflows on 32-bit systems for ma=
-ppings exceeding 4GB.
---
+First, I sent you to the wrong counts. The two predicates disagree only
+where oc mod 32 falls between 17 and 31, since modulo true implies parity
+true and never the reverse. At 40 and 72 both forms emit the same word, so
+I withdraw them. By the same arithmetic only 56, 88 and 120 of your eight
+carry any parity versus modulo content. The rest still establish something
+better, that the upstream constant computes whole at five remainders on
+RK3588. Discriminating counts nobody has run are 20, 50, 60, 90 and 114.
 
---- Patch [3]: [PATCH v5 3/6] iommu/dma: Catch scatterlist length overflows=
- ---
-commit 955c8f50877d1e47058e0056fd63e5f20f4d62b9
-Author: Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: iommu/dma: Catch scatterlist length overflows
+Take the code from the merge request rather than my working branch, it has
+no knobs in it.
 
-This commit introduces overflow detection for scatterlist length fields to
-prevent silent wrapping when very large mappings use only one scatterlist.
-It adds check_add_overflow() and overflows_type() checks to
-iommu_dma_map_sg(), failing early if limits are exceeded.
+  https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/43804
 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 9a07eb39336eb..61cb64bcbd3cc 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-[ ... ]
-> @@ -1476,7 +1478,22 @@ int iommu_dma_map_sg(struct device *dev, struct sc=
-atterlist *sg, int nents,
->  		sg_dma_address(s) =3D s_iova_off;
->  		sg_dma_len(s) =3D s_length;
->  		s->offset -=3D s_iova_off;
-> -		s_length =3D iova_align(iovad, s_length + s_iova_off);
-> +
-> +		if (check_add_overflow(s_length, s_iova_off, &s_length_tmp)) {
-> +			ret =3D -EOVERFLOW;
-> +			goto out_restore_sg;
-> +		}
+  R_DPU(0x4050, (DIV_ROUND_UP(output_channels, FEATURE_ATOMIC_SIZE) & 1)
+                   ? 0x80011011 : 0x80011111);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but these newly added early retu=
-rn
-paths make it much more likely to trigger a pre-existing issue in
-__invalidate_sg().
+output_channels is task->output_channels_real, the unpadded count, and
+FEATURE_ATOMIC_SIZE is 16.
 
-If a driver reuses a scatterlist without calling sg_init_table(), and the
-subsequent mapping fails here during element iteration, __invalidate_sg() w=
-ill
-loop over all elements rather than just the processed ones.
+Do not put my two words in an RK3588 build. Against registers.xml
 
-For unvisited elements, sg_dma_address(s) retains the stale IOVA from a
-previous mapping. __invalidate_sg() erroneously adds this stale IOVA to
-s->offset:
+  field         upstream 0x124   mine 0x80011111   mine 0x80011011
+  RGP_CNTER            0                8                 8
+  RESERVED_0           0               34                34
+  SIZE_E_2             1                1                 0
+  SIZE_E_1             1                0                 0
+  SIZE_E_0             1                4                 4
+  OW_SRC               0                1                 1
 
-drivers/iommu/dma-iommu.c:__invalidate_sg() {
-    ...
-    if (sg_dma_address(s) !=3D DMA_MAPPING_ERROR)
-        s->offset +=3D sg_dma_address(s);
-    ...
-}
+Mine differ from each other in SIZE_E_2 alone and from yours in five
+further fields. Those five are common to both of my words so they do not
+confound an A against B, but none of them has ever run on an RK3588, and
+if both arms fail for that reason the oc 64 control goes down with them.
 
-Will this corrupted offset lead to wild physical address calculations in
-sg_phys() upon retry or buffer access, resulting in arbitrary DMA memory
-corruption?
+Use your own constant with bit 8 cleared instead, 0x124 where the
+predicate is true and 0x024 where it is false. That takes SIZE_E_2 from 1
+to 0, the same move my words make. It assumes the three SIZE_E fields move
+independently, which neither of us has shown.
 
-[ ... ]
-> @@ -1493,7 +1510,18 @@ int iommu_dma_map_sg(struct device *dev, struct sc=
-atterlist *sg, int nents,
->  		 *   time through here (i.e. before it has a meaningful value).
->  		 */
->  		if (pad_len && pad_len < s_length - 1) {
-> -			prev->length +=3D pad_len;
-> +			unsigned int new_prev_len;
-> +			/*
-> +			 * For large mappings spanning multiple GBs we
-> +			 * may not be able to fit all needed padding into
-> +			 * sg->length.
-> +			 */
-> +			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
-> +				ret =3D -EOVERFLOW;
-> +				goto out_restore_sg;
-> +			}
-> +
-> +			prev->length =3D new_prev_len;
->  			iova_len +=3D pad_len;
+Bit 8 does something on RK3576. The table I sent on the 16th forced
+SIZE_E_2 to 1 with every other field identical, and 16 output channels
+went from 16 of 16 to a job timeout, 41 from 41 of 41 to 0 of 41. Whether
+it is the only field that matters is open, and the sweep I promised before
+the series went out covers RGP_CNTER, OW_SRC and two reserved bits but not
+SIZE_E_1 or SIZE_E_0, which are just as fitted.
 
-[Severity: High]
-This is a pre-existing issue, but since the patch addresses scatterlist len=
-gth
-overflows, could iova_len silently overflow here on 32-bit systems for
-mappings exceeding 4GB?
+Of your three offers the oc 64 control is the one I want, both ways, since
+that is the side I lost. A count at 20 or 60 would be the first
+discriminating point outside 24 modulo 32. And yes to the generator and
+the scorer, the refusal to emit a constant reference channel is a better
+guard than mine.
 
-If the size_t iova_len accumulator wraps around when adding pad_len or
-s_length, it would lead to an undersized IOVA allocation. iommu_map_sg()
-would then map the full physical memory range, overrunning the allocated IO=
-VA
-space and corrupting IOMMU page tables.
+You are right that none of this touches the timeout. Every modulo run that
+lost channels also raised one, at three counts, and I cannot yet tell
+whether the register causes it or both follow from something else.
 
-Should there be overflow checks for iova_len accumulation as well?
-
->  		}
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817095648.2438=
-192-1-krzysztof.karas@intel.com?part=3D3
+Jiaxing
