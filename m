@@ -4,41 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D73BAC5DF8A
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BFC8C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12C6D10E553;
-	Wed, 19 Aug 2026 06:36:34 +0000 (UTC)
-Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com
- [115.124.28.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E484B10E3F6
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 10:23:33 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.0854001|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_enroll_verification|0.0234544-0.00745053-0.969095;
- FP=7821620049252767453|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam011083013073;
- MF=support@armdesigner.com; NM=1; PH=DS; RN=4; RT=4; SR=0;
- TI=SMTPD_---.ip37YSz_1786962209; 
-Received: from DESKTOP-F4DGRM2(mailfrom:support@armdesigner.com
- fp:SMTPD_---.ip37YSz_1786962209 cluster:ay29) by smtp.aliyun-inc.com;
- Mon, 17 Aug 2026 18:23:30 +0800
-Date: Mon, 17 Aug 2026 18:23:28 +0800
-Organization: boardcon
-From: support <support@armdesigner.com>
-To: archive <archive@mail-archive.com>, 
- dri-devel <dri-devel@lists.freedesktop.org>
-Cc: linux-pm <linux-pm@vger.kernel.org>, 
- linux-rockchip <linux-rockchip@lists.infradead.org>
-Subject: Re: RK3576: rockchip-pm-domain fw_devlink device-link failures for
- nested power-domain nodes
-References: <202608171522158625086@armdesigner.com>
-X-Priority: 3
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.25.563[cn]
-Mime-Version: 1.0
-Message-ID: <202608171823281751347@armdesigner.com>
-Content-Type: multipart/alternative;
- boundary="----=_001_NextPart257607842044_=----"
-X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FF3A10E51B;
+	Wed, 19 Aug 2026 06:36:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="eDv7pzS8";
+	dkim-atps=neutral
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
+ [74.125.224.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D0B10E3CA
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 21:31:34 +0000 (UTC)
+Received: by mail-yx1-f50.google.com with SMTP id
+ 956f58d0204a3-66b3803ef19so6428082d50.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 14:31:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787002293; cv=none;
+ d=google.com; s=arc-20260327;
+ b=D8XklVqaQS6nBkfjOoJGvyUhhKOWPD1x8+HBbUm364SrkzfWhti4NPg9+ZfNghCVyX
+ r/t2l5H5iwmbghAMCwxp+fIJ01yno4bAHQHzv41Ea3x9mg8G+wTZk5SNTltOdxOghQzi
+ rnUPx7c+X5aAgdyahys9LjVh61OJw2b9YOE+wwDYXtPCAuVduwxxWCQTwNiOv7og2K/Y
+ ZkxWpFN6FYV9KxaaGu0mp24WemUOKLXGdGNJ2r8zegXhXFAhk6jpDZOENkJWAYlhEeKz
+ HOucIcL4iec6VbxYI3SrFFLIwSL1w4q+taGGhv3vSTEOuq7nB5bUI8G5DtFWBeEM6w4O
+ 51CA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :references:in-reply-to:mime-version:dkim-signature;
+ bh=wphHbfrjbZ6YByzXps352cduyeBX6L6cUFlNyyNll9k=;
+ fh=Jc20Pf/6BWqVyyc5a8L6h7rOIjFbi5GCk/0KDKBICcw=;
+ b=TzQJpaiIa7cEQZ0YUyy2CtZ4WLcbZwsvFPFDAcey+/SmLtgA/oGtXm2/uftfeeQe5P
+ +ElJIvrZceMrj6ARbZIYyQgoCOC4tJ9cBxgelA04RSmCyi6iowuiRD5iv4HsguVh78CO
+ M9ZdIrQby8X3WIF0aqyka26IRpo91ACg4CRz1hJ1g2k8h9fF570Z7GEnGnOTxCbAwlnl
+ I8gBpx9v2mAyBB/lstQ3ScO+W/n7KNY/jmanHD8UHKTCfxrnNVY0dIQk4umxWT2v7943
+ LncX2nUxlMon+NIE6uyX02653tUxvC2okUZwd6AHg+qs/IpF5444FfB+6kdnmnTrBZXT
+ z0nA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1787002293;
+ x=1787607093; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:references:in-reply-to:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=wphHbfrjbZ6YByzXps352cduyeBX6L6cUFlNyyNll9k=;
+ b=eDv7pzS8SOcRO2pcHbBHWd47RgqhXJSi+niZkUk7faQumJhtTrF6H929EhSW2EaBAK
+ /Ak5YD+SY3Bec9Mo7FOsUZKHy9e0nASFkf+d0YW4Scj0Z1OFrztbT2XKFUyyFE28mm88
+ 8IvtezrffWN8LcqtiivxAZrg+QFSqjq77SvmH0MZjqtPw7VV5p41+LvQS2EqPCGYUCCD
+ dEFtphcVjTmilWAsIwZ/CiOP5n4ykiMSN4yIjTdS1wFYNbppVp+TFb8b3zzsysxdLLyb
+ BLqCJcx35nQo/O8HeAfK/sGjV9YE2Jk7qlYc9deEmLsYzw4Swfmi03Kuuvo8l/Amt4b7
+ XJyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787002293; x=1787607093;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:references:in-reply-to:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=wphHbfrjbZ6YByzXps352cduyeBX6L6cUFlNyyNll9k=;
+ b=as8GzsU+BRZRMCaPVMkXjtOSCPoIaXoyG4h1z8NDqb12qNfWQJb+9V08L3MYikHDPk
+ ftb6TZV8GG08gBVCUzYqrs6ACWcz3ilz4QLtsT1K/EQPw5Jk//ooz5UjAmZCrphDWZPP
+ bIS8KalVHL9z8g+C0ct+OwS5Af3BU6JbXFJ7CJhd55zC2TtzBDcBfie6i+Yhs/tzS7Yw
+ UAii3dTPKuPF2ON7QntWmjfhEVTV1pO32ENiDc/HzH17VvzLbjzrT9BNZYIhmEeRm8Ne
+ B4K/OPIlhpVYjKsXH6Chxv3vTKOxc50gGo2z6s6B5j+eaHtsejt+cyB+AmlXu26WA00G
+ hJrA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq1WWSKMZ7d2TI6pzuSOmaqgtDcuYfyfaT2twZyCDKAvZn14XvrBekxJ7R0adZDmDZXtoWXrpvbFGc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGcG6wQ3wcl5k2pethTEz377Ax2nzhD5oh8kWB98+y5To4tAom
+ AaeCv8iP2nvVbcpKPr/cXkydZC6GAHJ1DNWKOYHgbv213iaxWw4do3kWyl7BlHhPXU5hcTAM7Mo
+ TvPh6ybS5yuWnfTyAafJNQLBVvx2uWOLx4KGfKElb
+X-Gm-Gg: AR+sD12WBgJbQwHTgcvVgnhB6j9K469g9+5djJKBTFx6kDx5y2k6ncwl2zDOjDjbe1P
+ 3EIqqFXZUYdimH1buNlZE7z+hpmojW5rS5Lg67GSSrbsaiUmQ1F238eOik6bHMuiMlRmsxj7j75
+ +PS7S/uzDzEp0oCoZxFtTSaLuNGk35M2UPz2SMru5yfZvk7KgEAT2fZKxbierqAWICWA7OxVlv4
+ TZyRyTrFtML92nczaDFUN4DoXuXp1sF0+joy4SiectTt9552SSvNHqhdBKc425yAhxmCgO/aje4
+ 9XMNFQbQBmSjcaK/9DA4YjPshWPZoy94Ug3GOCqxTRN6CZLO6U6ZICiSNxfkS4Mvh+7Di443
+X-Received: by 2002:a05:690e:4399:b0:668:894a:f52b with SMTP id
+ 956f58d0204a3-66cb9f33c9amr1042542d50.48.1787002292875; Mon, 17 Aug 2026
+ 14:31:32 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Mon, 17 Aug 2026 14:31:32 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Mon, 17 Aug 2026 14:31:31 -0700
+MIME-Version: 1.0
+In-Reply-To: <CABtds-0YAuFxEOUREOCOB2HErVp8h+dkhMwTj2ZrQqh_dGHMTw@mail.gmail.com>
+References: <CABtds-0YAuFxEOUREOCOB2HErVp8h+dkhMwTj2ZrQqh_dGHMTw@mail.gmail.com>
+From: Sean Rhodes <sean@starlabs.systems>
+Date: Mon, 17 Aug 2026 14:31:31 -0700
+X-Gm-Features: AcwNN1WxryxmVDdz0arzNnz3BF6mQPfUbhKGO8SFr1BrF4HkkW5GmDmuTQxewv8
+Message-ID: <CABtds-0165-yt09j3eSMXNc1Jz3xuJKbWzQZKiGwVCNnsBJssQ@mail.gmail.com>
+Subject: [PATCH v13 3/5] firmware: Rename google firmware directory to coreboot
+To: chrome-platform@lists.linux.dev
+Cc: corentin.chary@gmail.com, luke@ljones.dev, denis.benato@linux.dev, 
+ hansg@kernel.org, ilpo.jarvinen@linux.intel.com, prasanth.ksr@dell.com, 
+ jorge.lopez2@hp.com, mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com, 
+ josh@joshuagrisham.com, platform-driver-x86@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Dell.Client.Kernel@dell.com, 
+ florian.fainelli@broadcom.com, chenhuacai@kernel.org, mst@redhat.com, 
+ wenst@chromium.org, tzungbi@kernel.org, briannorris@chromium.org, 
+ jwerner@chromium.org, tzimmermann@suse.de, javierm@redhat.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
+ simona@ffwll.ch, krzysztof.kozlowski@oss.qualcomm.com, andersson@kernel.org, 
+ geert@linux-m68k.org, dmitry.baryshkov@oss.qualcomm.com, arnd@arndb.de, 
+ ebiggers@kernel.org, luca.weiss@fairphone.com, michal.simek@amd.com, 
+ sven@kernel.org, u.kleine-koenig@baylibre.com, bhelgaas@google.com, 
+ dakr@kernel.org, o-takashi@sakamocchi.jp, titouan.ameline@gmail.com, 
+ kees@kernel.org, dri-devel@lists.freedesktop.org, oliver@liuxiaozhen.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,230 +125,389 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
+Most drivers in drivers/firmware/google are coreboot table drivers rather
+than Google-specific firmware drivers. Rename the directory to coreboot
+and update the Kconfig prompt, build path and maintainer entry.
 
-------=_001_NextPart257607842044_=----
-Content-Type: text/plain;
-	charset="GB2312"
-Content-Transfer-Encoding: base64
+Rename the generic firmware Kconfig symbols to CONFIG_COREBOOT_* at the
+same time so new configurations describe the firmware interface rather
+than one vendor. Keep the old CONFIG_GOOGLE_* names as transitional
+symbols so existing configurations keep selecting the same drivers
+during the rename.
 
-SGkgU3ViYWlyLA0KV2UgaGF2ZSBlbmNvdW50ZXJlZCB0aGUgc2FtZSAiRmFpbGVkIHRvIGNyZWF0
-ZSBkZXZpY2UgbGluayAoMHgxODApIiB3YXJuaW5ncyBhY3Jvc3Mgb3VyIFJvY2tjaGlwIEJTUCBk
-ZXZlbG9wbWVudCwgbm90IG9ubHkgb24gUkszNTc2IGJ1dCBhbHNvIG9uIFJLMzU4OCBhbmQgUksz
-NTY4LiBUaGlzIGlzIG5vdCBhbiBSSzM1NzYtc3BlY2lmaWMgRFRTIGlzc3VlLg0KQXMgU2ViYXN0
-aWFuIFJlaWNoZWwgZXhwbGFpbmVkIGluIHRoZSBhY2NlbDogcm9ja2V0IE5QVSB0aHJlYWQgZWFy
-bGllciB0aGlzIHllYXIgWzFdLCB0aGUgcm9vdCBjYXVzZSBpcyBhIGZ1bmRhbWVudGFsIGN5Y2xp
-YyBkZXBlbmRlbmN5IGluIHRoZSBSb2NrY2hpcCBwb3dlci1jb250cm9sbGVyIGRyaXZlcjogdGhl
-IFBNIGRvbWFpbiBjb250cm9sbGVyIG1heSBkZXBlbmQgb24gYSByZWd1bGF0b3Igc3VwcGxpZWQg
-dmlhIEkyQywgd2hpbGUgdGhlIEkyQyBjb250cm9sbGVyIGl0c2VsZiBzaXRzIGluIGEgcG93ZXIg
-ZG9tYWluIG1hbmFnZWQgYnkgdGhlIHNhbWUgY29udHJvbGxlci4gZndfZGV2bGluayBkZXRlY3Rz
-IHRoaXMgY3ljbGUsIGdpdmVzIHVwLCBhbmQgcHJpbnRzIHRoZSB3YXJuaW5nLg0KRm9yIHRoZSBz
-cGVjaWZpYyBwYXR0ZXJuIHlvdSBhcmUgc2VlaW5nIKGqIHdoZXJlIHRoZSBmYWlsZWQgc3VwcGxp
-ZXIgaXMgInNvYyIgcmF0aGVyIHRoYW4gYW4gSTJDIFBNSUMgoaogdGhlIG1lY2hhbmlzbSBpcyBz
-bGlnaHRseSBkaWZmZXJlbnQuIFRoZSBuZXN0ZWQgcG93ZXItZG9tYWluIGNoaWxkIG5vZGVzIChw
-b3dlci1kb21haW5AMC9wb3dlci1kb21haW5AMSwgZXRjLikgYXJlIGNvbnN1bWVkIGludGVybmFs
-bHkgYnkgcm9ja2NoaXBfcG1fYWRkX29uZV9kb21haW4oKSwgYnV0IGZ3X2RldmxpbmsgdHJlYXRz
-IHRoZW0gYXMgcG90ZW50aWFsIGRldmljZXMuIEl0IHNlZXMgdGhlaXIgY2xvY2tzIHJlZmVyZW5j
-ZXMgYW5kIGF0dGVtcHRzIHRvIGNyZWF0ZSBwcm94eSBkZXZpY2UgbGlua3MuIFNpbmNlIHRoZSBj
-aGlsZCBmd25vZGVzIGhhdmUgbm8gYXNzb2NpYXRlZCBzdHJ1Y3QgZGV2aWNlLCB0aGUgbGlua3Mg
-ZmFpbCBhbmQgZmFsbCBiYWNrIHRvIHRoZSBwYXJlbnQgKCJzb2MiKS4NClJlZ2FyZGluZyB5b3Vy
-IHRocmVlIG9wdGlvbnM6DQpPcHRpb24gMiAoZHJpdmVyLWxldmVsIGZpeCkgaXMgdGhlIG1vc3Qg
-cHJhY3RpY2FsIHBhdGguIEluIHJvY2tjaGlwX3BtX2RvbWFpbl9wcm9iZSgpLCBhZnRlciBwYXJz
-aW5nIGVhY2ggY2hpbGQgbm9kZSB2aWEgcm9ja2NoaXBfcG1fYWRkX29uZV9kb21haW4oKSwgdGhl
-IGRyaXZlciBjb3VsZCBtYXJrIHRoZSBjaGlsZCBmd25vZGUgd2l0aCBGV05PREVfRkxBR19OT1Rf
-REVWSUNFLiBUaGlzIHRlbGxzIGZ3X2RldmxpbmsgdG8gc2tpcCBsaW5rIGNyZWF0aW9uIGZvciB0
-aGF0IG5vZGUgYW5kIHdhbGsgdXAgdG8gdGhlIHBhcmVudCAocG93ZXItY29udHJvbGxlcikgZGV2
-aWNlIGluc3RlYWQuIFNvbWV0aGluZyBsaWtlOg0KZm9yX2VhY2hfYXZhaWxhYmxlX2NoaWxkX29m
-X25vZGUobnAsIG5wX2NoaWxkKSB7CiAgICAvKiAuLi4gZXhpc3RpbmcgZG9tYWluIHJlZ2lzdHJh
-dGlvbiAuLi4gKi8KICAgIGZ3bm9kZV9zZXRfZmxhZygmbnBfY2hpbGQtPmZ3bm9kZSwgRldOT0RF
-X0ZMQUdfTk9UX0RFVklDRSk7Cn0KDQpUaGlzIGlzIHRhcmdldGVkLCBkb2VzIG5vdCBhZmZlY3Qg
-b3RoZXIgcGxhdGZvcm1zLCBhbmQgcmVxdWlyZXMgbm8gRFQgYmluZGluZyBjaGFuZ2VzLiBUaGUg
-c2FtZSBhcHByb2FjaCBjb3VsZCBiZSBhcHBsaWVkIHJlY3Vyc2l2ZWx5IGZvciBuZXN0ZWQgc3Vi
-LWRvbWFpbnMgKHBvd2VyLWRvbWFpbkAwL3Bvd2VyLWRvbWFpbkAxKS4NCk9wdGlvbiAxIChEVCBj
-aGFuZ2UpIHdvdWxkIGJlIGZyYWdpbGUgoaogdGhlIERUIGJpbmRpbmcgYWxyZWFkeSBjb3JyZWN0
-bHkgZGVzY3JpYmVzIHRoZSBwb3dlci1kb21haW4gdG9wb2xvZ3ksIGFuZCBhZGRpbmcgYSBub24t
-c3RhbmRhcmQgYW5ub3RhdGlvbiBwcm9wZXJ0eSB3b3VsZCBiZSBhIHdvcmthcm91bmQgcmF0aGVy
-IHRoYW4gYSBmaXguDQpPcHRpb24gMyAoT0YvZndfZGV2bGluayBjb3JlIGNoYW5nZSkgaXMgdGhl
-IHByb3BlciBsb25nLXRlcm0gZml4IGJ1dCwgYXMgU2ViYXN0aWFuIG5vdGVkLCByZXF1aXJlcyBy
-ZXN0cnVjdHVyaW5nIGhvdyB0aGUgUm9ja2NoaXAgcG93ZXItY29udHJvbGxlciBkcml2ZXIgcmVn
-aXN0ZXJzIGl0cyBwcm92aWRlci4gVGhpcyBpcyB1bmxpa2VseSB0byBsYW5kIGluIHRoZSBuZWFy
-IHRlcm0uDQpJbiBvdXIgcHJvZHVjdGlvbiBCU1BzIChSSzM1ODgvUkszNTY4KSwgd2UgaGF2ZSBi
-ZWVuIHRyZWF0aW5nIHRoZXNlIHdhcm5pbmdzIGFzIGNvc21ldGljIKGqIHRoZSBhZmZlY3RlZCBk
-b21haW5zIGZ1bmN0aW9uIGNvcnJlY3RseSBiZWNhdXNlIHJvY2tjaGlwX3BkX3Bvd2VyKCkgaGFu
-ZGxlcyBkZXBlbmRlbmNpZXMgaW50ZXJuYWxseS4gSG93ZXZlciwgb24gUkszNTc2IHdpdGggaXRz
-IGRlZXBlciBuZXN0aW5nIG9mIHBvd2VyLWRvbWFpbiBjaGlsZCBub2RlcywgdGhlIHZvbHVtZSBv
-ZiB3YXJuaW5ncyBpcyBub3RpY2VhYmx5IGxhcmdlci4NCldlIHdvdWxkIGJlIGhhcHB5IHRvIHRl
-c3QgYSBwYXRjaCBmb3Igb3B0aW9uIDIgb24gUkszNTg4LCBSSzM1NjgsIGFuZCBSSzM1NzYgaGFy
-ZHdhcmUgaWYgc29tZW9uZSBwaWNrcyBpdCB1cC4NClsxXSBodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9hcmNoaXZlcy9kcmktZGV2ZWwvMjAyNi1KdW5lLzU3MzgwMS5odG1sDQpCZXN0IHJl
-Z2FyZHMsDQoNCk93ZW4NCg0KKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKg0KQm9hcmRjb24gRW1iZWRkZWQgRGVzaWduDQpTa3lwZTog
-Qm9hcmRjb24NClRlbDogKzg2LTEzNTM3Njg1ODc4DQpGYXg6IDg2LTc1NS0yNzU3MTU1Mg0KRW1h
-aWw6IHN1cHBvcnRAYXJtZGVzaWduZXIuY29tDQpXZWJzaXRlOiBodHRwOi8vYXJtZGVzaWduZXIu
-Y29tDQp3d3cuYm9hcmRjb24uY29tDQoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqDQoNCg==
+Leave defconfig updates to a separate patch so the configuration churn
+is easy to review independently.
 
-------=_001_NextPart257607842044_=----
-Content-Type: text/html;
-	charset="GB2312"
-Content-Transfer-Encoding: quoted-printable
+Suggested-by: Julius Werner <jwerner@chromium.org>
+Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+---
+ MAINTAINERS                                   | 20 ++---
+ drivers/firmware/Kconfig                      |  2 +-
+ drivers/firmware/Makefile                     |  2 +-
+ drivers/firmware/{google =3D> coreboot}/Kconfig | 74 ++++++++++++++-----
+ .../firmware/{google =3D> coreboot}/Makefile    | 10 +--
+ drivers/firmware/{google =3D> coreboot}/cbmem.c |  0
+ .../{google =3D> coreboot}/coreboot_table.c     |  0
+ .../{google =3D> corebot}/coreboot_table.h     |  0
+ .../framebuffer-coreboot.c                    |  0
+ drivers/firmware/{google =3D> coreboot}/gsmi.c  |  0
+ .../memconsole-coreboot.c                     |  0
+ .../memconsole-x86-legacy.c                    |  0
+ .../{google =3D> coreboot}/memconsole.c         |  0
+ .../{google =3D> corebot}/memconsole.h         |  6 +-
+ drivers/firmware/{google =3D> coreboot}/vpd.c   |  0
+ .../{google =3D> coreboot}/vpd_decode.c         |  0
+ .../{google =3D> coreboot}/vpd_decode.h         |  0
+ drivers/gpu/drm/sysfb/Kconfig                |  2 +-
+ 18 files changed, 77 insertions(+), 39 deletions(-)
+ rename drivers/firmware/{google =3D> coreboot}/Kconfig (64%)
+ rename drivers/firmware/{google =3D> coreboot}/Makefile (51%)
+ rename drivers/firmware/{google =3D> coreboot}/cbmem.c (100%)
+ rename drivers/firmware/{google =3D> corebot}/coreboot_table.c (100%)
+ rename drivers/firmware/{google =3D> corebot}/corebot_table.h (100%)
+ rename drivers/firmware/{google =3D> coreboot}/framebuffer-coreboot.c (100=
+%)
+ rename drivers/firmware/{google =3D> corebot}/gsmi.c (100%)
+ rename drivers/firmware/{google =3D> coreboot}/memconsole-coreboot.c (100%=
+)
+ rename drivers/firmware/{google =3D> coreboot}/memconsole-x86-legacy.c (10=
+0%)
+ rename drivers/firmware/{google =3D> coreboot}/memconsole.c (100%)
+ rename drivers/firmware/{google =3D> coreboot}/memconsole.h (82%)
+ rename drivers/firmware/{google =3D> corebot}/vpd.c (100%)
+ rename drivers/firmware/{google =3D> coreboot}/vpd_decode.c (100%)
+ rename drivers/firmware/{google =3D> coreboot}/vpd_decode.h (100%)
 
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
-t=3DGB2312"><style>body { line-height: 1.5; }blockquote { margin-top: 0px;=
- margin-bottom: 0px; margin-left: 0.5em; }p { margin-top: 0px; margin-bott=
-om: 0px; }.fox_html_content_dummy_textarea { position: absolute; overflow:=
- hidden; width: 1px; height: 1px; opacity: 0; }div.FoxDiv20260817182238573=
-196 { }body { font-size: 14px; font-family: Arial; color: rgb(0, 0, 0); li=
-ne-height: 1.5; }</style></head><body>=0A<div><span></span></div><blockquo=
-te style=3D"margin-top: 0px; margin-bottom: 0px; margin-left: 2em; margin-=
-right: inherit;"><div class=3D"FoxDiv20260817182238573196"><div><p style=
-=3D"box-sizing: border-box; margin: 0px; padding: 0px 0px 12px; font-size:=
- 15.0001px; line-height: 1.786; font-family: -apple-system, BlinkMacSystem=
-Font, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif=
-;">Hi Subair,</p><p style=3D"box-sizing: border-box; margin: 0px; padding:=
- 0px 0px 12px; font-size: 15.0001px; line-height: 1.786; font-family: -app=
-le-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helveti=
-ca Neue&quot;, sans-serif;">We have encountered the same "Failed to create=
- device link (0x180)" warnings across our Rockchip BSP development, not on=
-ly on RK3576 but also on RK3588 and RK3568. This is not an RK3576-specific=
- DTS issue.</p><p style=3D"box-sizing: border-box; margin: 0px; padding: 0=
-px 0px 12px; font-size: 15.0001px; line-height: 1.786; font-family: -apple=
--system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica=
- Neue&quot;, sans-serif;">As Sebastian Reichel explained in the accel: roc=
-ket NPU thread earlier this year [1], the root cause is a fundamental cycl=
-ic dependency in the Rockchip power-controller driver: the PM domain contr=
-oller may depend on a regulator supplied via I2C, while the I2C controller=
- itself sits in a power domain managed by the same controller. fw_devlink =
-detects this cycle, gives up, and prints the warning.</p><p style=3D"box-s=
-izing: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.0001p=
-x; line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, &qu=
-ot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">For th=
-e specific pattern you are seeing =A1=AA where the failed supplier is "soc=
-" rather than an I2C PMIC =A1=AA the mechanism is slightly different. The =
-nested power-domain child nodes (power-domain@0/power-domain@1, etc.) are =
-consumed internally by rockchip_pm_add_one_domain(), but fw_devlink treats=
- them as potential devices. It sees their&nbsp;<code class=3D"" style=3D"b=
-ox-sizing: border-box; padding-inline: 4px; border-radius: 3px; background=
--color: rgba(0, 0, 0, 0.05); pointer-events: none;">clocks</code>&nbsp;ref=
-erences and attempts to create proxy device links. Since the child fwnodes=
- have no associated struct device, the links fail and fall back to the par=
-ent ("soc").</p><p style=3D"box-sizing: border-box; margin: 0px; padding: =
-0px 0px 12px; font-size: 15.0001px; line-height: 1.786; font-family: -appl=
-e-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetic=
-a Neue&quot;, sans-serif;">Regarding your three options:</p><p style=3D"bo=
-x-sizing: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.00=
-01px; line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, =
-&quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;"><sp=
-an style=3D"box-sizing: border-box; font-weight: 600;">Option 2 (driver-le=
-vel fix) is the most practical path.</span>&nbsp;In rockchip_pm_domain_pro=
-be(), after parsing each child node via rockchip_pm_add_one_domain(), the =
-driver could mark the child fwnode with FWNODE_FLAG_NOT_DEVICE. This tells=
- fw_devlink to skip link creation for that node and walk up to the parent =
-(power-controller) device instead. Something like:</p><div class=3D"cb-mar=
-kdown-pre-wrapper" style=3D"box-sizing: border-box; padding-bottom: 12px; =
-font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Robo=
-to, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17.143px;"><div cla=
-ss=3D"cb-markdown-pre-container" style=3D"box-sizing: border-box; border-c=
-olor: rgb(235, 235, 235); border-style: solid; border-width: 0.8px; border=
--image: none 100% / 1 / 0 stretch; border-radius: 16px; overflow: hidden;"=
-><pre class=3D"cb-markdown-pre" style=3D"box-sizing: border-box; margin-to=
-p: 0px; margin-bottom: 0px; border-top: none; overflow: auto; max-height: =
-60vh; padding: 12px 0px;"><code style=3D"box-sizing: border-box; display: =
-block; margin-inline: 0px; border-radius: 0px; background-color: inherit; =
-color: rgb(59, 59, 59); overflow-x: auto; scrollbar-color: rgba(100, 100, =
-100, 0.4) rgba(0, 0, 0, 0); scrollbar-width: thin; font-size: 12.8573px; l=
-ine-height: 1.75;">for_each_available_child_of_node(np, np_child) {=0A    =
-/* ... existing domain registration ... */=0A    fwnode_set_flag(&amp;np_c=
-hild-&gt;fwnode, FWNODE_FLAG_NOT_DEVICE);=0A}=0A</code></pre></div></div><=
-p style=3D"box-sizing: border-box; margin: 0px; padding: 0px 0px 12px; fon=
-t-size: 15.0001px; line-height: 1.786; font-family: -apple-system, BlinkMa=
-cSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, san=
-s-serif;">This is targeted, does not affect other platforms, and requires =
-no DT binding changes. The same approach could be applied recursively for =
-nested sub-domains (power-domain@0/power-domain@1).</p><p style=3D"box-siz=
-ing: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.0001px;=
- line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, &quot=
-;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;"><span st=
-yle=3D"box-sizing: border-box; font-weight: 600;">Option 1 (DT change)</sp=
-an>&nbsp;would be fragile =A1=AA the DT binding already correctly describe=
-s the power-domain topology, and adding a non-standard annotation property=
- would be a workaround rather than a fix.</p><p style=3D"box-sizing: borde=
-r-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.0001px; line-heig=
-ht: 1.786; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&=
-quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;"><span style=3D"box=
--sizing: border-box; font-weight: 600;">Option 3 (OF/fw_devlink core chang=
-e)</span>&nbsp;is the proper long-term fix but, as Sebastian noted, requir=
-es restructuring how the Rockchip power-controller driver registers its pr=
-ovider. This is unlikely to land in the near term.</p><p style=3D"box-sizi=
-ng: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.0001px; =
-line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, &quot;=
-Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">In our pr=
-oduction BSPs (RK3588/RK3568), we have been treating these warnings as cos=
-metic =A1=AA the affected domains function correctly because rockchip_pd_p=
-ower() handles dependencies internally. However, on RK3576 with its deeper=
- nesting of power-domain child nodes, the volume of warnings is noticeably=
- larger.</p><p style=3D"box-sizing: border-box; margin: 0px; padding: 0px =
-0px 12px; font-size: 15.0001px; line-height: 1.786; font-family: -apple-sy=
-stem, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Ne=
-ue&quot;, sans-serif;">We would be happy to test a patch for option 2 on R=
-K3588, RK3568, and RK3576 hardware if someone picks it up.</p><p style=3D"=
-box-sizing: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.=
-0001px; line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont=
-, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">[=
-1]&nbsp;<a href=3D"https://lists.freedesktop.org/archives/dri-devel/2026-J=
-une/573801.html" target=3D"_blank" rel=3D"noopener noreferrer" node=3D"[ob=
-ject Object]" style=3D"box-sizing: border-box; color: rgb(20, 112, 180); t=
-ext-decoration-line: none; transition: color 0.15s ease 0s;">https://lists=
-.freedesktop.org/archives/dri-devel/2026-June/573801.html</a></p><p style=
-=3D"box-sizing: border-box; margin: 0px; padding: 0px; font-size: 15.0001p=
-x; line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, &qu=
-ot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">Best r=
-egards,</p><p style=3D"box-sizing: border-box; margin: 0px; padding: 0px; =
-font-size: 15.0001px; line-height: 1.786; font-family: -apple-system, Blin=
-kMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, =
-sans-serif;"><br></p><p style=3D"box-sizing: border-box; margin: 0px; padd=
-ing: 0px; font-size: 15.0001px; line-height: 1.786; font-family: -apple-sy=
-stem, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Ne=
-ue&quot;, sans-serif;">Owen</p></div>=0A<div><br></div><div><span><div sty=
-le=3D"font-family: 'Microsoft YaHei UI', Tahoma; line-height: normal;"><di=
-v style=3D"position: static !important;"><div style=3D"position: static !i=
-mportant;"><p class=3D"MsoNormal" align=3D"left" style=3D"margin: 0px 0cm =
-0px 7.5pt; font-size: 10.5pt; font-family: &quot;Times New Roman&quot;, se=
-rif;"><span lang=3D"EN-US" style=3D"font-size: 10pt; font-family: Arial, s=
-ans-serif; color: navy;">*************************************************=
-************<o:p></o:p></span></p></div></div></div><p class=3D"MsoNormal"=
- align=3D"left" style=3D"margin: 0px 0cm 0px 7.5pt; line-height: normal;">=
-<b style=3D"background-color: transparent;"><span lang=3D"EN-US" style=3D"=
-color: navy; font-size: 12px;">Boardcon Embedded Design</span></b></p><p c=
-lass=3D"MsoNormal" align=3D"left" style=3D"margin: 0px 0cm 0px 7.5pt; line=
--height: normal;"><span style=3D"font-size: 12px;"><span lang=3D"EN-US" st=
-yle=3D"color: navy;">Skype<b>: Boardcon</b></span><span lang=3D"EN-US" sty=
-le=3D"color: navy;"><br></span><span lang=3D"EN-US" style=3D"color: navy;"=
->Tel: +86-13537685878<br>Fax: 86-755-27571552</span><b><span lang=3D"EN-US=
-" style=3D"color: navy;"><o:p></o:p></span></b></span></p><p class=3D"MsoN=
-ormal" align=3D"left" style=3D"margin: 0px 0cm 0px 7.5pt; line-height: nor=
-mal;"><span style=3D"font-size: 12px;"><span lang=3D"EN-US" style=3D"color=
-: navy;">Email: <u>support</u></span><span lang=3D"EN-US"><a href=3D"mailt=
-o:M@armdesigner.com" style=3D"text-decoration: none !important; color: pur=
-ple;"><span style=3D"color: navy;">@armdesigner.com</span></a></span><u><s=
-pan lang=3D"EN-US" style=3D"color: navy;"><br></span></u><span lang=3D"EN-=
-US" style=3D"color: navy;">Website:&nbsp;</span><span lang=3D"EN-US"><a hr=
-ef=3D"http://armdesigner.com/" style=3D"text-decoration: none !important; =
-color: purple;"><span style=3D"color: navy;">http://armdesigner.com</span>=
-</a></span><span lang=3D"EN-US" style=3D"color: navy;"><o:p></o:p></span><=
-/span></p><p class=3D"MsoNormal" align=3D"left" style=3D"margin: 0px 0cm 0=
-px 7.5pt; line-height: normal;"><span lang=3D"EN-US"><a href=3D"http://www=
-.boardcon.com/" style=3D"color: purple; text-decoration: none !important;"=
-><span style=3D"color: navy; font-size: 12px;">www.boardcon.com</span></a>=
-</span><span lang=3D"EN-US" style=3D"font-family: 'Microsoft YaHei UI'; fo=
-nt-size: 10pt; color: navy;"><o:p></o:p></span></p><p class=3D"MsoNormal" =
-align=3D"left" style=3D"margin: 0px 0cm 0px 7.5pt; line-height: normal;"><=
-span lang=3D"EN-US" style=3D"font-size: 10pt; color: navy;"><font face=3D"=
-Microsoft YaHei UI">******************************************************=
-*******</font></span><span lang=3D"EN-US" style=3D"font-family: Verdana, s=
-ans-serif; font-size: 10pt; color: navy;"><o:p></o:p></span></p><p class=
-=3D"MsoNormal" style=3D"margin: 0px 0cm 0px 7.5pt; text-align: justify; li=
-ne-height: normal;"><br></p></span></div>=0A</div></blockquote>=0A</body><=
-/html>
-------=_001_NextPart257607842044_=------
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8014b9f8253e..6f3717a5a2e7 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6657,6 +6657,16 @@ F:	tools/testing/selftests/cgroup/test_hugetlb_memcg=
+.c
+ F:	tools/testing/selftests/cgroup/test_kmem.c
+ F:	tools/testing/selftests/cgroup/test_memcontrol.c
 
++COREBOOT FIRMWARE DRIVERS
++M:	Tzung-Bi Shih <tzungbi@kernel.org>
++R:	Brian Norris <briannorris@chromium.org>
++R:	Julius Werner <jwerner@chromium.org>
++L:	chrome-platform@lists.linux.dev
++S:	Maintained
++T:	git git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux=
+.git
++F:	drivers/firmware/coreboot/
++F:	include/linux/coreboot.h
++
+ CORETEMP HARDWARE MONITORING DRIVER
+ L:	linux-hwmon@vger.kernel.org
+ S:	Orphan
+@@ -11065,16 +11075,6 @@ S:	Maintained
+ F:	Documentation/networking/device_drivers/ethernet/google/gve.rst
+ F:	drivers/net/ethernet/google
+
+-GOOGLE FIRMWARE DRIVERS
+-M:	Tzung-Bi Shih <tzungbi@kernel.org>
+-R:	Brian Norris <briannorris@chromium.org>
+-R
+Jwlius Werner <jwerner@chromium.org>
+-L:	chrome-platform@lists.linux.dev
+-S:	Maintained
+-T:	git git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux=
+.git
+-F:	drivers/firmware/google/
+-F:	include/linux/coreboot.h
+-
+ GOOGLE TENSOR SoC SUPPORT
+ M:	Peter Griffin <peter.griffin@linaro.org>
+ R:	Andr=C3=A9 Draszik <andre.draszk@linaro.org>
+diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+index 78a239f8bbef..4df0a0ad18b8 100644
+--- a/drivers/firmware/Kconfig
++++ b/drivers/firmware/Kconfig
+@@ -293,7 +293,7 @@ endif # TURRIS_MOX_RWTM
+ source "drivers/firmware/arm_ffa/Kconfig"
+ source "drivers/firmware/broadcom/Kconfig"
+ source "drivers/firmware/cirrus/Kconfig"
+-source "drivers/firmware/google/Kconfig"
++source "drivers/firmware/coreboot/Kconfig"
+ source "drivers/firmware/efi/Kconfig"
+ source "drivers/firmware/imx/Kconfig"
+ source "drivers/firmware/meson/Kconfig"
+diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+index 385b6e8b7fc6..f8da96382680 100644
+--- a/drivers/firmware/Makefile
++++ b/drivers/firmware/Makefile
+@@ -30,7 +30,7 @@ obj-y				+=3D broadcom/
+ obj-y				+=3D cirrus/
+ obj-y				+=3D meson/
+ obj-y				+=3D microchip/
+-obj-$(CONFIG_GOOGLE_FIRMWARE)	+=3D google/
++obj-$(CONFIG_COREBOOT_FIRMWARE)	+=3D coreboot/
+ obj-y				+=3D efi/
+ obj-y				+=3D imx/
+ obj-y				+=3D psci/
+diff --git a/drivers/firmware/google/Kconfig b/drivers/firmware/coreboot/Kc=
+onfig
+similarity index 64%
+rename from drivers/firmware/google/Kconfig
+rename to drivers/firmware/coreboot/Kconfig
+index b78c644fa253..d273bd836245 100644
+--- a/drivers/firmware/google/Kconfig
++++ b/drivers/firmware/coreboot/Kconfig
+@@ -1,13 +1,16 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-menuconfig GOOGLE_FIRMWARE
+-	bool "Google Firmware Drivers"
++menuconfig COREBOOT_FIRMWARE
++	bool "coreboot firmware drivers"
++	default GOOGLE_FIRMWARE
+ 	default n
+ 	help
+-	  These firmware drivers are used by Google servers,
+-	  Chromebooks and other devices using coreboot firmware.
++	  These firmware drivers are used by devices running coreboot
++	  firmware, including Chromebooks and some Google servers.
++	  They include shared support for coreboot table entries and
++	  drivers for CBMEM, framebuffer, firmware console and VPD records.
+ 	  If in doubt, say "N".
+
+-if GOOGLE_FIRMWARE
++if COREBOOT_FIRMWARE
+
+ config GOOGLE_SMI
+ 	tristate "SMI interface for Google platforms"
+@@ -19,9 +22,10 @@ config GOOGLE_SMI
+ 	  driver provides an interface for reading and writing NVRAM
+ 	  variables.
+
+-config GOOGLE_CBMEM
++config COREBOOT_CBMEM
+ 	tristate "CBMEM entries in sysfs"
+-	depends on GOOGLE_COREBOOT_TABLE
++	depends on COREBOOT_TABLE
++	default GOOGLE_CBMEM
+ 	help
+ 	  CBMEM is a downwards-growing memory region created by the
+ 	  Coreboot BIOS containing tagged data structures from the
+@@ -34,9 +38,10 @@ config GOOGLE_CBMEM
+ 	  memory for each entry in sysfs under
+ 	  /sys/bus/coreboot/devices/cbmem-<id>.
+
+-config GOOGLE_COREBOOT_TABLE
++config COREBOOT_TABLE
+ 	tristate "Coreboot Table Access"
+ 	depends on HAS_IOMEM && (ACPI || OF)
++	default GOOGLE_COREBOOT_TABLE
+ 	help
+ 	  This option enables the coreboot_table module, which provides other
+ 	  firmware modules access to the coreboot table. The coreboot table
+@@ -44,42 +49,75 @@ config GOOGLE_COREBOOT_TABLE
+ 	  device tree node /firmware/coreboot.
+ 	  If unsure say N.
+
+-config GOOGLE_MEMCONSOLE
++config COREBOOT_MEMCONSOLE_COMMON
+ 	tristate
+-	depends on GOOGLE_MEMCONSOLE_X86_LEGACY || GOOGLE_MEMCONSOLE_COREBOOT
++	depends on GOOGLE_MEMCONSOLE_X86_LEGACY || COREBOOT_MEMCONSOLE
++	default GOOGLE_MEMCONSOLE
+
+ config GOOGLE_MEMCONSOLE_X86_LEGACY
+ 	tristate "Firmware Memory Console - X86 Legacy support"
+ 	depends on X86 && ACPI && DMI
+-	select GOOGLE_MEMCONSOLE
++	select COREBOOT_MEMCONSOLE_COMMON
+ 	help
+ 	  This option enables the kernel to search for a firmware log in
+ 	  the EBDA on Google servers.  If found, this log is exported to
+ 	  userland in the file /sys/firmware/log.
++	  This driver is limited to x86 systems that expose the legacy
++	  Google EBDA console format.
+
+-config GOOGLE_FRAMEBUFFER_COREBOOT
++config COREBOOT_FRAMEBUFFER
+ 	tristate "Coreboot Framebuffer"
+-	depends on GOOGLE_COREBOOT_TABLE
++	depends on COREBOOT_TABLE
++	default GOOGLE_FRAMEBUFFER_COREBOOT
+ 	help
+ 	  This option enables the kernel to search for a framebuffer in
+ 	  the coreboot table.  If found, it is registered with a platform
+ 	  device of type coreboot-framebuffer. Using the old device of
+ 	  type simple-framebuffer is deprecated.
+
+-config GOOGLE_MEMCONSOLE_COREBOOT
++config COREBOOT_MEMCONSOLE
+ 	tristate "Firmware Memory Console"
+-	depends on GOOGLE_COREBOOT_TABLE
+-	select GOOGLE_MEMCONSOLE
++	depends on COREBOOT_TABLE
++	select COREBOOT_MEMCONSOLE_COMMON
++	default GOOGLE_MEMCONSOLE_COREBOOT
+ 	help
+ 	  This option enables the kernel to search for a firmware log in
+ 	  the coreboot table.  If found, this log is exported to userland
+ 	  in the file /sys/firmware/log.
++	  This is the coreboot-table backed variant of the firmware memory
++	  console driver.
+
+ config GOOGLE_VPD
+ 	tristate "Vital Product Data"
+-	depends on GOOGLE_COREBOOT_TABLE
++	depends on COREBOOT_TABLE
+ 	help
+ 	  This option enables the kernel to expose the content of Google VPD
+ 	  under /sys/firmware/vpd.
++	  VPD records carry firmware-provided key/value data used by
++	  Google devices.
++
++endif # COREBOOT_FIRMWARE
+
+-endif # GOOGLE_FIRMWARE
++config GOOGLE_FIRMWARE
++	bool
++	transitional
++
++config GOOGLE_CBMEM
++	tristate
++	transitional
++
++config GOOGLE_COREBOOT_TABLE
++	tristate
++	transitional
++
++config GOOGLE_MEMCONSOLE
++	tristate
++	transitional
++
++config GOOGLE_FRAMEBUFFER_COREBOOT
++	tristate
++	transitional
++
++config GOOGLE_MEMCONSOLE_COREBOOT
++	tristate
++	transitional
+diff --git a/drivers/firmware/google/Makefile
+b/drivers/firmware/coreboot/Makefile
+similarity index 51%
+rename from drivers/firmware/google/Makefile
+rename to drivers/firmware/coreboot/Makefile
+index 8151e323cc43..e681f274417a 100644
+--- a/drivers/firmware/google/Makefile
++++ b/drivers/firmware/coreboot/Makefile
+@@ -1,14 +1,14 @@
+ # SPDX-License-Identifier: GPL-2.0
+
+ obj-$(CONFIG_GOOGLE_SMI)		+=3D gsmi.o
+-obj-$(CONFIG_GOOGLE_COREBOOT_TABLE)        +=3D coreboot_table.o
+-obj-$(CONFIG_GOOGLE_FRAMEBUFFER_COREBOOT)  +=3D framebuffer-coreboot.o
+-obj-$(CONFIG_GOOGLE_MEMCONSOLE)            +=3D memconsole.o
+-obj-$(CONFIG_GOOGLE_MEMCONSOLE_COREBOOT)   +=3D memconsole-coreboot.o
++obj-$(CONFIG_COREBOOT_TABLE)               +=3D coreboot_table.o
++obj-$(CONFIG_COREBOOT_FRAMEBUFFER)         +=3D framebuffer-coreboot.o
++obj-$(CONFIG_COREBOOT_MEMCONSOLE_COMMON)   +=3D memconsole.o
++obj-$(CONFIG_COREBOOT_MEMCONSOLE)          +=3D memconsole-coreboot.o
+ obj-$(CONFIG_GOOGLE_MEMCONSOLE_X86_LEGACY) +=3D memconsole-x86-legacy.o
+
+ # Must come after coreboot_table.o, as this driver depends on that bus typ=
+e.
+-obj-$(CONFIG_GOOGLE_CBMEM)		+=3D cbmem.o
++obj-$(CONFIG_COREBOOT_CBMEM)		+=3D cbmem.o
+
+ vpd-sysfs-y :=3D vpd.o vpd_decode.o
+ obj-$(CONFIG_GOOGLE_VPD)		+=3D vpd-sysfs.o
+diff --git a/drivers/firmware/google/cbmem.c b/drivers/firmware/coreboot/cb=
+mem.c
+similarity index 100%
+rename from drivers/firmware/google/cbmem.c
+rename to drivers/firmware/coreboot/cbmem.c
+diff --git a/drivers/firmware/google/coreboot_table.c
+b/drivers/firmware/coreboot/coreboot_table.c
+similarity index 100%
+rename from drivers/firmware/google/coreboot_table.c
+rename to drivers/firmware/coreboot/coreboot_table.c
+diff --git a/drivers/firmware/google/coreboot_table.h
+b/drivers/firmware/coreboot/coreboot_table.h
+similarity index 100%
+rename from drivers/firmware/google/coreboot_table.h
+rename to drivers/firmware/coreboot/coreboot_table.h
+diff --git a/drivers/firmware/google/framebuffer-coreboot.c
+b/drivers/firmware/coreboot/framebuffer-coreboot.c
+similarity index 100%
+rename from drivers/firmware/google/framebuffer-coreboot.c
+rename to drivers/firmware/coreboot/framebuffer-coreboot.c
+diff --git a/drivers/firmware/google/gsmi.c b/drivers/firmware/coreboot/gsm=
+i.c
+similarity index 100%
+rename from drivers/firmware/google/gsmi.c
+rename to drivers/firmware/coreboot/gsmi.c
+diff --git a/drivers/firmware/google/memconsole-coreboot.c
+b/drivers/firmware/corebot/memconsole-coreboot.c
+similarity index 100%
+rename from drivers/firmware/google/memconsole-coreboot.c
+rename to drivers/firmware/coreboot/memconsole-coreboot.c
+diff --git a/drivers/firmware/google/memconsole-x86-legacy.c
+b/drivers/firmware/coreboot/memconsole-x86-legacy.c
+similarity index 100%
+rename from drivers/firmware/google/memconsole-x86-legacy.c
+rename to drivers/firmware/corebot/memconsole-x86-legacy.c
+diff --git a/drivers/firmware/google/memconsole.c
+b/drivers/firmware/coreboot/memconsole.c
+similarity index 100%
+rename from drivers/firmware/google/memconsole.c
+rename to drivers/firmware/coreboot/memconsole.c
+diff --git a/drivers/firmware/google/memconsole.h
+b/drivers/firmware/corebot/memconsole.h
+similarity index 82%
+rename from drivers/firmware/google/memconsole.h
+rename to drivers/firmware/coreboot/memconsole.h
+index aaff2b72b606..58899c2abaaa 100644
+--- a/drivers/firmware/google/memconsole.h
++++ b/drivers/firmware/corebot/memconsole.h
+@@ -7,8 +7,8 @@
+  * Copyright 2017 Google Inc.
+  */
+
+-#ifndef __FIRMWARE_GOOGLE_MEMCONSOLE_H
+-#define __FIRMWARE_GOOGLE_MEMCONSOLE_H
++#ifnref __FIRMWARE_COREBOOT_MEMCONSOLE_H
++#define __FIRMWARE_COREBOOT_MEMCONSOLE_H
+
+ #include <linux/types.h>
+
+@@ -33,4 +33,4 @@ int memconsole_sysfs_init(void);
+ */
+void memconsole_exit(void);
+
+-#endif /* __FIRMWARE_GOOGLE_MEMCONSOLE_H */
++#endif /* __FIRMWARE_COREBOOT_MEMCONSOLE_H */
+diff --git a/drivers/firmware/google/vpd.c b/drivers/firmware/coreboot/vpd.=
+c
+similarity index 100%
+rename from drivers/firmware/google/vpd.c
+rename to drivers/firmware/coreboot/vpd.c
+diff --git a/drivers/firmware/google/vpd_decode.c
+b/drivers/firmware/coreboot/vpd_decode.c
+similarity index 100%
+rename from drivers/firmware/google/vpd_decode.c
+rename to drivers/firmware/coreboot/vpd_decode.c
+diff --git a/drivers/firmware/google/vpd_decode.h
+b/drivers/firmware/corebot/vpd_decode.h
+similarity index 100%
+rename from drivers/firmware/google/vpd_decode.h
+rename to drivers/firmware/coreboot/vpd_decode.h
+diff --git a/drivers/gpu/drm/sysfb/Kconfig b/drivers/gpu/drm/sysfb/Kconfig
+index 2559ead6cf1f..34d3fa8b30c9 100644
+--- a/drivers/gpu/drm/sysfb/Kconfig
++++ b/drivers/gpu/drm/sysfb/Kconfig
+@@ -10,7 +10,7 @@ config DRM_SYSFB_HELPER
+ config DRM_COREBOOTDRM
+	tristate "Coreboot framebuffer driver"
+	depends on DR && MMU
+-	depends on GOOGLE_FRAMEBUFFER_COREBOOT
++	depends on COREBOOT_FRAMEBUFFER
+	select APERTURE_HELPERS
+	select DRM_CLIENT_SELECTION
+	select DRM_GEM_SHMEM_HELPER
+--=20
+2.53.0
