@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41248C5DF66
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E181EC5B572
 	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:22:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E33410E8AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA2BE10E8B1;
 	Mon, 17 Aug 2026 17:22:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rf+B59Ae";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kG43H0jB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B95B010E780
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:22:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E5710E780
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1589844E57;
- Mon, 17 Aug 2026 17:22:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E416BC2BCFC;
+ by sea.source.kernel.org (Postfix) with ESMTP id 3F0C143427;
+ Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1D4A9C2BD04;
  Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786987352;
- bh=oTzXI58WXBQ7S7irZsNVmatUb+eJJWJo5/oxSAo9JLY=;
+ s=k20201202; t=1786987351;
+ bh=kuEHwBXtGwctLu6qKXdhOx+wx0UojFjK0d0zFur0xrI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Rf+B59Ae4GVvYCAuSdGJn/7wuVLJPyQfkIeq2IrGp4Oi1Y0FDTJARPAlCZGux/hRV
- EnHm707HtVzIWJhfchdkYCcZK3InK/37Js2oPwisawCdw1BcJdC/3yj/v397wBkHGT
- FAsRIeaELJkdOYpHYn7WaD3ncOIhmx2B+XzifJMEaAtMXEdyMEY0DT631e/mmO7yKE
- Rf5obpA0+YBfjyf+mABOFOFC1LxbYs0nQpqP96VxYqYzEizKhxLPRN0aPENmGO+ssH
- /GIEWN4hEJ8hwrK4cgoKmFdsQqIpzpfZ9IesGZtDkmZuieAYVx3N9SPJ8HMk3BMFf2
- 4BHyswX9oGmAQ==
+ b=kG43H0jBu0rVsrd1NgkPvUPGMVMYK1kcKXsqFvXQLFPW25EqEaT4L8YJtveEm67Xp
+ xC2Eo58kMX6Xkx0/UTlExtNVLTnnDeS7WAheSzyLL2lYCwJ6gkfBLmDDmMlX70yQ/h
+ 5j2WkCHzpipz91qd/luctZvN68eIOKYZ/+nl3PYMicNksHUsDxpxIcCt72EqAuE113
+ uSbjPK0MfO5S1+wbLj5kwrYh72yXDi+OgaEZ/I8oBGhrtc4ExYRjMSb1QycWxONZOh
+ Btzx7BoGq3Xq7JiAoNB73R5znsZd6vQwAYUuYUZerPMkj6dgBlKV4B/Hp4XlUyt0n+
+ ztyybcMMTRNxA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id C151FC5DF66;
- Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id F0E31C5DF66;
+ Mon, 17 Aug 2026 17:22:30 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Mon, 17 Aug 2026 11:22:22 -0600
-Subject: [PATCH 8/9] locking/lockdep: Shrink static list_entries array to
- early bootstrap buffer
+Date: Mon, 17 Aug 2026 11:22:18 -0600
+Subject: [PATCH 4/9] drm/gpuvm: Route gpuva_op allocations to folio_scratchpad
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-folio-pool-v1-v1-8-0c1d230aa3af@gmail.com>
+Message-Id: <20260817-folio-pool-v1-v1-4-0c1d230aa3af@gmail.com>
 References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
 In-Reply-To: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -71,11 +70,11 @@ Cc: netfilter-devel@vger.kernel.org, bpf@vger.kernel.org,
  linux-mm@kvack.org, coreteam@netfilter.org, netdev@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786987349; l=4389;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786987349; l=2727;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=ZoAPPwe75kYWQBnnaiZlpzm8KKVLAq8UQwudQC9NlbE=;
- b=KNAOo/eQMuy5erfpSMg/oT8JjN3sqRwBgko6OmdykAuJj2sOkIfPf1RxIxulBDQLthiMvgmmd
- NmWIc7T/EjfBohB3EMTwfUSxsxhPMAP5h7s7rWhuP12qQAR2uE+yRiK
+ bh=hfnn2JXUUX2MnAJuI+XocbzOzt9nFPPM4gsyoKFfaV8=;
+ b=tOf7FwZgeFhwjRf2P61V+1ciBVYTcBIRJ4/DWzCwZDYpfrvSen9nBPACUBxDKUMeVVJ8v4CaP
+ mkzXUqlmIs3DYZ8/WvkgAQUjjUavZdG8d4TJsDC7vinDqpN8OckRK7E
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -99,116 +98,91 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Shrink the static compile-time list_entries[] array and its tracking
-bitmap from MAX_LOCKDEP_ENTRIES (32,768 entries, ~1.31 MB BSS) down to
-a 4096-entry early boot bootstrap buffer (~160 KB BSS).
-
-During early boot before mem_init(), lockdep records initial spinlock
-dependencies in the static bootstrap buffer. Once the buddy page
-allocator is online, alloc_list_entry() seamlessly spills all subsequent
-lock dependency allocations directly into lockdep_pool in 64KB direct-map
-folios.
-
-Adds a core_initcall telemetry hook (lockdep_boot_report) to log the
-exact count of bootstrap entries consumed prior to buddy initialization.
-
-Empirical boot telemetry confirms zero regressions and validates the
-two-tier spillway on x86 SMP:
-  - Pre-buddy watermark: 668/4096 bootstrap entries consumed (16.3%).
-  - Post-buddy scaling: 5,058 total direct dependencies and 22,577
-    indirect paths validated, with 962 entries operating dynamically
-    inside lockdep_pool direct-map folios.
-
-Reclaims ~1.15 MB of static unswappable kernel .bss memory (88% reduction)
-while enabling unbounded lockdep scaling on dense NUMA/container workloads.
+Embed a struct folio_scratchpad inside struct drm_gpuvm and route
+default gpuva_op allocations in gpuva_op_alloc() to
+folio_scratchpad_alloc_obj(), with O(1) bulk teardown in
+drm_gpuvm_fini().
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- kernel/locking/lockdep.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_gpuvm.c | 11 +++++++++--
+ include/drm/drm_gpuvm.h     |  6 ++++++
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index c8975c9282bb..5968a976bf8e 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -229,9 +229,11 @@ static inline int debug_locks_off_graph_unlock(void)
- 	return ret;
+diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+index c422c5af1f4b..6bb82ac9e2d6 100644
+--- a/drivers/gpu/drm/drm_gpuvm.c
++++ b/drivers/gpu/drm/drm_gpuvm.c
+@@ -1109,6 +1109,8 @@ drm_gpuvm_init(struct drm_gpuvm *gpuvm, const char *name,
+ 	spin_lock_init(&gpuvm->evict.lock);
+ 
+ 	init_llist_head(&gpuvm->bo_defer);
++	folio_scratchpad_init_key(&gpuvm->va_scratchpad, get_order(SZ_64K),
++				  &gpuvm_scratchpad_key);
+ 
+ 	kref_init(&gpuvm->kref);
+ 
+@@ -1155,6 +1157,7 @@ drm_gpuvm_fini(struct drm_gpuvm *gpuvm)
+ 	drm_WARN(gpuvm->drm, !llist_empty(&gpuvm->bo_defer),
+ 		 "VM BO cleanup list should be empty.\n");
+ 
++	folio_scratchpad_free(&gpuvm->va_scratchpad);
+ 	drm_gem_object_put(gpuvm->r_obj);
  }
  
-+#define BOOTSTRAP_LOCKDEP_ENTRIES 4096UL
-+
- unsigned long nr_list_entries;
--static struct lock_list list_entries[MAX_LOCKDEP_ENTRIES];
--static DECLARE_BITMAP(list_entries_in_use, MAX_LOCKDEP_ENTRIES);
-+static struct lock_list list_entries[BOOTSTRAP_LOCKDEP_ENTRIES];
-+static DECLARE_BITMAP(list_entries_in_use, BOOTSTRAP_LOCKDEP_ENTRIES);
+@@ -2849,6 +2852,9 @@ drm_gpuvm_sm_unmap_exec_lock(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
+ }
+ EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap_exec_lock);
  
- /*
-  * All data structures here are protected by the global debug_lock.
-@@ -6271,6 +6273,12 @@ static void remove_class_from_lock_chains(struct pending_free *pf,
- 	}
++DEFINE_FOLIO_POOL_STATIC_KEY_PARAM(gpuvm_scratchpad_key, va_scratchpad,
++				   "Toggle DRM GPUVM range folio scratchpad allocator");
++
+ static struct drm_gpuva_op *
+ gpuva_op_alloc(struct drm_gpuvm *gpuvm)
+ {
+@@ -2858,7 +2864,8 @@ gpuva_op_alloc(struct drm_gpuvm *gpuvm)
+ 	if (fn && fn->op_alloc)
+ 		op = fn->op_alloc();
+ 	else
+-		op = kzalloc_obj(*op);
++		op = folio_scratchpad_alloc_obj(gpuvm, va_scratchpad,
++						struct drm_gpuva_op, GFP_KERNEL);
+ 
+ 	if (unlikely(!op))
+ 		return NULL;
+@@ -2875,7 +2882,7 @@ gpuva_op_free(struct drm_gpuvm *gpuvm,
+ 	if (fn && fn->op_free)
+ 		fn->op_free(op);
+ 	else
+-		kfree(op);
++		folio_scratchpad_free_elem(op);
  }
  
-+static inline bool is_bootstrap_entry(const struct lock_list *entry)
-+{
-+	return entry >= list_entries &&
-+	       entry < list_entries + ARRAY_SIZE(list_entries);
-+}
-+
- /*
-  * Remove all references to a lock class. The caller must hold the graph lock.
-  */
-@@ -6287,26 +6295,30 @@ static void zap_class(struct pending_free *pf, struct lock_class *class)
- 	list_for_each_entry_safe(entry, tmp, &class->locks_after, entry) {
- 		list_for_each_entry_safe(other, other_tmp, &entry->links_to->locks_before, entry) {
- 			if (other->links_to == class) {
--				__clear_bit(other - list_entries, list_entries_in_use);
-+				if (is_bootstrap_entry(other))
-+					__clear_bit(other - list_entries, list_entries_in_use);
- 				nr_list_entries--;
- 				list_del_rcu(&other->entry);
- 				break;
- 			}
- 		}
--		__clear_bit(entry - list_entries, list_entries_in_use);
-+		if (is_bootstrap_entry(entry))
-+			__clear_bit(entry - list_entries, list_entries_in_use);
- 		nr_list_entries--;
- 		list_del_rcu(&entry->entry);
- 	}
- 	list_for_each_entry_safe(entry, tmp, &class->locks_before, entry) {
- 		list_for_each_entry_safe(other, other_tmp, &entry->links_to->locks_after, entry) {
- 			if (other->links_to == class) {
--				__clear_bit(other - list_entries, list_entries_in_use);
-+				if (is_bootstrap_entry(other))
-+					__clear_bit(other - list_entries, list_entries_in_use);
- 				nr_list_entries--;
- 				list_del_rcu(&other->entry);
- 				break;
- 			}
- 		}
--		__clear_bit(entry - list_entries, list_entries_in_use);
-+		if (is_bootstrap_entry(entry))
-+			__clear_bit(entry - list_entries, list_entries_in_use);
- 		nr_list_entries--;
- 		list_del_rcu(&entry->entry);
- 	}
-@@ -6718,6 +6730,15 @@ void __init lockdep_init(void)
- 	       sizeof(((struct task_struct *)NULL)->held_locks));
- }
+ static int
+diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
+index 655bd9104ffb..362b1d88d30d 100644
+--- a/include/drm/drm_gpuvm.h
++++ b/include/drm/drm_gpuvm.h
+@@ -30,6 +30,7 @@
+ #include <linux/llist.h>
+ #include <linux/rbtree.h>
+ #include <linux/types.h>
++#include <linux/folio_pool.h>
  
-+static int __init lockdep_boot_report(void)
-+{
-+	pr_info("lockdep: %lu/%lu bootstrap entries used before buddy init, folio_pool active\n",
-+		min_t(unsigned long, nr_list_entries, ARRAY_SIZE(list_entries)),
-+		ARRAY_SIZE(list_entries));
-+	return 0;
-+}
-+core_initcall(lockdep_boot_report);
+ #include <drm/drm_device.h>
+ #include <drm/drm_gem.h>
+@@ -338,6 +339,11 @@ struct drm_gpuvm {
+ 	 * @bo_defer: structure holding vm_bos that need to be destroyed
+ 	 */
+ 	struct llist_head bo_defer;
 +
- static void
- print_freed_lock_bug(struct task_struct *curr, const void *mem_from,
- 		     const void *mem_to, struct held_lock *hlock)
++	/**
++	 * @va_scratchpad: folio scratchpad for transient GPU VA range allocations
++	 */
++	struct folio_scratchpad va_scratchpad;
+ };
+ 
+ void drm_gpuvm_init(struct drm_gpuvm *gpuvm, const char *name,
 
 -- 
 2.55.0
