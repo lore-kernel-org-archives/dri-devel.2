@@ -4,66 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6A12C5DF7E
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:41:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB93FC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2639010E79B;
-	Mon, 17 Aug 2026 12:41:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33BD810E79A;
+	Mon, 17 Aug 2026 12:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aoCANBg2";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="Ndx9FCLc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1FB89950;
- Mon, 17 Aug 2026 12:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786970471; x=1818506471;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=7X4st2dfy1l8lT+fjQAQC0tAfIF/QQdIXAwtTks4e/k=;
- b=aoCANBg23f6hM++EUWX5525byy5v5c6zWGrwg/KiAVFSp/WghxX3Ar3m
- /6zwcHjA/VxbxfPx6xfEoGl3eis8ImmuA7sz7utu+t6IpCOXy8InG0CSM
- T0yqDPiqXnCnC9nLrr0cBEA/RTaiVY3IaPbr+FUpghBU+ZYyUvP+RgkQV
- 4f/ei+2e4YH7ftlpbzZyPf5UyU7PYOiwv8OmQB8sWtKxDOw8auU2eWZi5
- 6k9ow65XPdSkFxNrWZWEGerJkJjZC1VxXb2x3V2wRpN9VzK6hqYS+uzoz
- UpG0wwIKwRWP9tDRzfv1i+flskA5/w0Pm/gjeLH8rxGStuKtc/dZnLe9f Q==;
-X-CSE-ConnectionGUID: zVExrwOfTteSR+ES02wJsw==
-X-CSE-MsgGUID: ULosGrymTAeUFWWaJfYo1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="98598085"
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="98598085"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2026 05:41:10 -0700
-X-CSE-ConnectionGUID: kO9/n7EERguTo2l7wfOCtw==
-X-CSE-MsgGUID: 7ox5dl61Tw6To4e/rrOiGw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="266887598"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.110])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2026 05:41:05 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-sunxi@lists.linux.dev, asahi@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-mediatek@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- linux-aspeed@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- imx@lists.linux.dev
-Subject: Re: [PATCH 0/5] drm/vblank: Enforce all-or-nothing vblank support
-In-Reply-To: <20260814203542.1405135-1-lyude@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260814203542.1405135-1-lyude@redhat.com>
-Date: Mon, 17 Aug 2026 15:41:02 +0300
-Message-ID: <5f06e91a5ff0e5bb887b72e4ff9077c45cd9216e@intel.com>
+X-Greylist: delayed 444 seconds by postgrey-1.36 at gabe;
+ Mon, 17 Aug 2026 12:45:20 UTC
+Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com
+ [203.205.221.149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F246910E799
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 12:45:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1786970717; bh=qkhm4uDqTcn61rxXD17rLcN6hVGKjX3nV8ymNLxK7UU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Ndx9FCLc9+u1Q5TysOpKI0nqwOi6kaEChloliDgA6jLNEkNbyXleAyhIPcx9N5Z28
+ hfqJMKwfk6WqHcCDhpEdsgvZM4+AVI35UHN2eYKAT0A7gHaQCH+hpax8TLHJo9rwOj
+ STaru17ikAU4jsR2IN5toGoEXMTqXQpc7FDGSKc0=
+Received: from lxu-ped-host.. ([111.198.231.89])
+ by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+ id 9732E29F; Mon, 17 Aug 2026 20:37:51 +0800
+X-QQ-mid: xmsmtpt1786970271t6v8z49n9
+Message-ID: <tencent_C6A625E0BAF4BB77334C9E0F1B244B7B1B08@qq.com>
+X-QQ-XMAILINFO: MSPab3JKqisNXcta34i6a2/T2XWDsBD1fF8aY6I/yqQhKf4ixVHwZrHwdOz3JU
+ vaorDWsjNuBDXYm7eniiNvdX/X5vhvYX8WcRihqR2iNSOZBJLJ3YxjcWlY1Mx8M7PK85CeJ7Dw3N
+ M77txHpGuvo8yRh8tLwJ4srb8zImbYjBfr48IZYduEZVpltm495E4Lsv7MVtYK5WSOsvaR2is6Fo
+ XOjWcpyYrLf4+V78bITN1NCc8O37+daTmErx2vRake4q5gnpdrbtTs+Q3mp0ztdTF95QUCSfM8Y1
+ qHSmA9l9fkdNSFVNH3wk/isKljZX3nca0DMFv1g0LtaE5pI7+AYPH5uG2DLziyeo2sHtHxEo0yKj
+ nu8J9eT0eJGMvDDYb+WGtAL56Nr/FPxDwREVaNsALe7/4RY/f1q4N+cjwepXHIvSCjTDlqscnQjO
+ q+68JGfwMQOpx0Gcc0JQZg12I1tZd5+iLw9eoj6KobGe00ZJ+c18RKBCZWc1xhzMGIfaiHeQyZPX
+ Xw8BBJ+A3dFVA+hdgZFsrswpYNAkch5v8Z+cI9G5RBfQEAoBZMxkXg5C+Eu9KKr82Y84ClS2T8k2
+ F9WW1M/GSVqytsJ81HwYx8HT3vmfb0I+8jeXvwlB3LC0wvBGDFldQsGUVsy84ERbJaTWfoRHe9iu
+ x+q+m0dL3Rqrx3gb+hBu10AT7CT/ZFW3sdOCdDzQovkpfGQXxE+bf1vB3qSmjLvuUegsLzQZjllb
+ Vp1ZJJ0/JRe1HLqB7KxKfvuzmiZ1N4gwM3Qo5RLvif82HQ59B/weoXh6EdKL5IMuf9KNBda9Gp4q
+ xVUvGE9x1m9gYSv2p3w3S0dOUvgk6aakDFCh03P7F4z+chf4GYzm4v4rdfxyYDCCB77Ir1DXMVTG
+ 5O1akft+YUapCN8XhnAFrrGuslAjf3auBeajtr1gqPJ3tXgWYD5FFg4XhZw9r86RzQysbv5NwVaW
+ HpmgKEDwqbOjGOsupzKMaPibqc69lxrE+RY883ECytlTndo/T7gUlFEMLXWPJ2+BMapPU79GW+vC
+ PJpDosgK5wGBHsLwEz6R/loFVsBbUYg3pia4pq5w==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: Edward Adam Davis <eadavis@qq.com>
+To: syzbot+1944765c3659f63d3777@syzkaller.appspotmail.com
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, rubenru09@aol.com, simona@ffwll.ch,
+ syzkaller-bugs@googlegroups.com, tzimmermann@suse.de
+Subject: [PATCH] drm: Optimized by adding the TV modes attribute
+Date: Mon, 17 Aug 2026 20:37:51 +0800
+X-OQ-MSGID: <20260817123750.364706-2-eadavis@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6a829a95.dbb3a75c.20434b.0043.GAE@google.com>
+References: <6a829a95.dbb3a75c.20434b.0043.GAE@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,121 +74,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 14 Aug 2026, Lyude Paul <lyude@redhat.com> wrote:
-> One of the oddities with DRM that is leftover from the old days is how
-> vblank support is implemented by drivers. This has caused some minor
-> issues for the rust bindings for KMS which could be worked around.
-> However, it seems like a much better idea to fix this on the C side.
-> Those oddities are mainly:
->
-> * There's nothing in the vblank core that actually ensures that all
->   CRTCs implement vblank support if one of them do. On Rust's side, we
->   can't have this and have to ensure either the whole device has vblank
->   support or not - otherwise it would be quite painful ensuring we don't
->   expose vblank methods to drivers that can't use them.
->   This additionally means such a situation would lead to UB.
-> * There is a second variable for keeping track of the number of CRTCs
->   and it's kind of broken and confusing. Even worse, we currently allow
->   the vblank API to allow a driver to specify a different number of
->   CRTCs then it actually has.
->
-> So, let's just go ahead and fix this across the whole tree, and enforce
-> that a driver must either implement hardware vblank support for all
-> CRTCs or no CRTCs.
+When adding gud properties for drm connector within the function
+gud_connector_add_properties(), if the TV modes property is not added
+first, drm_mode_create_tv_properties_legacy() would fail to add the TV
+modes property because the tv_select_subconnector_property has already
+been added.
 
-For i915, the relevant init order is currently:
+This causes gud_connector_property_lookup() to fail when looking for
+the TV modes property (returning NULL), which subsequently triggers
+issue [1] when a NULL property is passed to drm_object_attach_property().
 
-- drm_vblank_init()
-- drm_mode_config_init()
-- drm_crtc_init_with_planes() for each CRTC
+The fix ensures that within drm_mode_create_tv_properties_legacy(), the
+TV modes property is correctly added regardless of whether the subconnector
+property exists.
 
-For the patch series to work, drm_vblank_init() would have to happen
-after mode config and CRTC init. Off-hand, I couldn't say if there are
-dependencies that make this change difficult.
+[1]
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+RIP: 0010:drm_object_attach_property+0x85/0x3b0 drivers/gpu/drm/drm_mode_object.c:240
+Call Trace:
+ gud_connector_add_properties drivers/gpu/drm/gud/gud_connector.c:572 [inline]
+ gud_connector_create drivers/gpu/drm/gud/gud_connector.c:680 [inline]
+ gud_get_connectors+0x86e/0x1700 drivers/gpu/drm/gud/gud_connector.c:717
+ gud_probe+0x17aa/0x1c20 drivers/gpu/drm/gud/gud_drv.c:635
+ 
+Fixes: f453ba046074 ("DRM: add mode setting support")
+Reported-by: syzbot+1944765c3659f63d3777@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1944765c3659f63d3777
+Tested-by: syzbot+1944765c3659f63d3777@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@qq.com>
+---
+ drivers/gpu/drm/drm_connector.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-I'd be surprised if i915 were the only driver like this.
-
-
-BR,
-Jani.
-
->
-> Lyude Paul (5):
->   drm/vblank: Add drm_device.has_hw_vblank
->   drm/vblank: Remove drm->num_crtcs
->   drm/vblank: Remove num_crtcs argument from drm_vblank_init()
->   drm/vblank: Use drm_for_each_crtc() in drm_vblank_init()
->   drm/vblank: Require all CRTCs implement vblank support in
->     drm_vblank_init()
->
->  drivers/gpu/drm/adp/adp_drv.c                 |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
->  .../gpu/drm/arm/display/komeda/komeda_kms.c   |  2 +-
->  drivers/gpu/drm/arm/hdlcd_drv.c               |  2 +-
->  drivers/gpu/drm/arm/malidp_drv.c              |  2 +-
->  drivers/gpu/drm/armada/armada_drv.c           |  2 +-
->  drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |  2 +-
->  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  2 +-
->  drivers/gpu/drm/drm_vblank.c                  | 60 ++++++++++++-------
->  drivers/gpu/drm/exynos/exynos_drm_drv.c       |  2 +-
->  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |  2 +-
->  drivers/gpu/drm/gma500/psb_drv.c              |  2 +-
->  drivers/gpu/drm/gma500/psb_irq.c              |  4 +-
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  2 +-
->  .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  2 +-
->  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |  2 +-
->  .../drm/i915/display/intel_display_driver.c   |  3 +-
->  drivers/gpu/drm/imx/dc/dc-kms.c               |  2 +-
->  drivers/gpu/drm/imx/dcss/dcss-kms.c           |  2 +-
->  drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |  2 +-
->  drivers/gpu/drm/imx/lcdc/imx-lcdc.c           |  2 +-
->  drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  2 +-
->  drivers/gpu/drm/kmb/kmb_drv.c                 |  2 +-
->  drivers/gpu/drm/logicvc/logicvc_mode.c        |  2 +-
->  drivers/gpu/drm/loongson/lsdc_drv.c           |  2 +-
->  drivers/gpu/drm/mcde/mcde_drv.c               |  2 +-
->  drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  2 +-
->  drivers/gpu/drm/meson/meson_drv.c             |  2 +-
->  drivers/gpu/drm/msm/msm_kms.c                 |  2 +-
->  drivers/gpu/drm/mxsfb/lcdif_drv.c             |  2 +-
->  drivers/gpu/drm/mxsfb/mxsfb_drv.c             |  2 +-
->  drivers/gpu/drm/nouveau/nouveau_display.c     |  2 +-
->  drivers/gpu/drm/omapdrm/omap_drv.c            |  2 +-
->  drivers/gpu/drm/pl111/pl111_drv.c             |  2 +-
->  drivers/gpu/drm/qxl/qxl_display.c             |  2 +-
->  drivers/gpu/drm/radeon/atombios_crtc.c        |  4 +-
->  drivers/gpu/drm/radeon/radeon_irq_kms.c       |  2 +-
->  drivers/gpu/drm/radeon/radeon_legacy_crtc.c   |  4 +-
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |  2 +-
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c  |  2 +-
->  .../gpu/drm/renesas/shmobile/shmob_drm_drv.c  |  2 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  2 +-
->  drivers/gpu/drm/sprd/sprd_drm.c               |  2 +-
->  drivers/gpu/drm/sti/sti_compositor.c          |  2 +-
->  drivers/gpu/drm/stm/ltdc.c                    |  2 +-
->  drivers/gpu/drm/sun4i/sun4i_drv.c             |  2 +-
->  drivers/gpu/drm/tegra/drm.c                   |  2 +-
->  drivers/gpu/drm/tidss/tidss_kms.c             |  2 +-
->  drivers/gpu/drm/tilcdc/tilcdc_drv.c           |  2 +-
->  drivers/gpu/drm/tiny/bochs.c                  |  2 +-
->  drivers/gpu/drm/tiny/cirrus-qemu.c            |  2 +-
->  drivers/gpu/drm/tve200/tve200_drv.c           |  2 +-
->  drivers/gpu/drm/vc4/vc4_kms.c                 |  6 +-
->  drivers/gpu/drm/verisilicon/vs_drm.c          |  2 +-
->  drivers/gpu/drm/virtio/virtgpu_display.c      |  2 +-
->  drivers/gpu/drm/vkms/vkms_drv.c               |  3 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c          |  2 +-
->  drivers/gpu/drm/xlnx/zynqmp_kms.c             |  2 +-
->  include/drm/drm_device.h                      | 10 +++-
->  include/drm/drm_vblank.h                      |  2 +-
->  64 files changed, 114 insertions(+), 92 deletions(-)
->
->
-> base-commit: 568d4cb5dcc5ec4e22975699b6ea67a30806884c
-
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 11646453aaac..ecbbc967f51f 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2175,8 +2175,12 @@ int drm_mode_create_tv_properties_legacy(struct drm_device *dev,
+ 	struct drm_property *tv_subconnector;
+ 	unsigned int i;
+ 
+-	if (dev->mode_config.tv_select_subconnector_property)
++	if (dev->mode_config.tv_select_subconnector_property) {
++		if (num_modes && !dev->mode_config.legacy_tv_mode_property)
++			goto other;
++
+ 		return 0;
++	}
+ 
+ 	/*
+ 	 * Basic connector properties
+@@ -2199,6 +2203,7 @@ int drm_mode_create_tv_properties_legacy(struct drm_device *dev,
+ 		goto nomem;
+ 	dev->mode_config.tv_subconnector_property = tv_subconnector;
+ 
++other:
+ 	/*
+ 	 * Other, TV specific properties: margins & TV modes.
+ 	 */
 -- 
-Jani Nikula, Intel
+2.43.0
+
