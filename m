@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CD5EC5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:36:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2290DC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E82B689FC9;
-	Mon, 17 Aug 2026 17:36:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4289610E2DD;
+	Mon, 17 Aug 2026 17:39:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MCxNdOOc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BCpYCXua";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6009089FC9
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:36:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E8BC10E2DD
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:39:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C3E7401D9;
- Mon, 17 Aug 2026 17:36:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59EE1F000E9;
- Mon, 17 Aug 2026 17:36:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 06E1241234;
+ Mon, 17 Aug 2026 17:39:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7F91F000E9;
+ Mon, 17 Aug 2026 17:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786988175;
- bh=CoekG0a3uNSGXf4IkS2/4//XmpC00cK/0oFy3wlviwc=;
+ s=k20260515; t=1786988355;
+ bh=3iWlrZdt8C/JPdh67yos7xGTdEsQoODVr2SaSRLdMyc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MCxNdOOc+qEu/9biGAnPH+0DRu6xrsXqCh3DSiuChl+iwnlkbLApaIEY7PecWzlky
- yvwrYO+UI2G2kl4yC5a6xFO59mUtoc3mMGCbSv061p/pXBjTOVgiuEddx4MI444etO
- KJLkK5nksmLo2/Ic5dEV+OSNL5jskSygr7MQX+6Z7DZbx9biiQXakaSgQZmnMuE7nb
- rt9VeMXybkVQAXwi/aoW8pkg5O3nTHH9jRjejP2uznflcYBRgL7VUl0gZDHwcxlCG3
- 67ZsQ2uu/qxPW2WMJq5OpaDHoyNUgDKrH7PzbfmjCxxhIl0n/yE3J9n7h6lRg40b53
- MI5OW6Tmapntg==
+ b=BCpYCXuaxOvrS3iUVmXmEPMiB+yqLy4NhHng7GPuc9TWBkXKmBqzAfNzHdA2Po+Su
+ Eg6MzY2YcKu7A9DSm/FoZBHP51NouzYIKkJHMpGQLzESFTO9C5qWiux4MjogEHb3WP
+ YjNOQcpnN6KNEZD/fHyWjgf1DbbltyY/0z0Ox3qkbW900PO+/FBtw/4qHgwBrPluKW
+ oEiP0cZeWcxS2txxePYM6mJvGYVnr7OsS1G9EWhRV5d/K1rwdQaQldpdmu4Bq1r1xg
+ V1hE+sd5f5W2uWTbwp1XGHc3LMtnM/HnbkcpEgGw+tikT7Koq51tMHjlMaqhKuqk2+
+ gvdttq9j1VvdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/9] locking/lockdep: Fallback to folio_pool in
- alloc_list_entry when static pool is full
+Subject: Re: [PATCH 7/9] locking/lockdep: Traverse adjacency lists directly
+ in zap_class()
 To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: bpf@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817-folio-pool-v1-v1-6-0c1d230aa3af@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, bpf@vger.kernel.org
+In-Reply-To: <20260817-folio-pool-v1-v1-7-0c1d230aa3af@gmail.com>
 References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
- <20260817-folio-pool-v1-v1-6-0c1d230aa3af@gmail.com>
+ <20260817-folio-pool-v1-v1-7-0c1d230aa3af@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 17:36:14 +0000
-Message-Id: <20260817173614.C59EE1F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 17:39:15 +0000
+Message-Id: <20260817173915.AF7F91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,126 +60,103 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Atomic context violation and RT-deadlock in lockdep dynamic alloca=
-tion.
-- [High] Use-After-Free and memory leak due to untracked dynamic lock depen=
-dencies.
-- [Low] Undefined behavior in pointer arithmetic for dynamically allocated =
-lock entries.
+
+New issues:
+- [High] zap_class() incorrectly searches the zapped class's own dependency=
+ lists instead of the connected classes' lists, failing to remove remote ba=
+ck-edges and causing Use-After-Free.
+- [High] Out-of-bounds memory write in zap_class() due to unsafe pointer ar=
+ithmetic on dynamically allocated lock_list entries.
+
+Pre-existing issues:
+- [High] lock_list entries are synchronously returned to the allocator befo=
+re an RCU grace period expires, exposing lockless RCU readers to torn data =
+(RCU-001 violation).
 --
 
---- Patch [6]: [PATCH 6/9] locking/lockdep: Fallback to folio_pool in alloc=
-_list_entry when static pool is full ---
-commit 618b3b19dc7c789afe3ea0f17bf4c674f06ef1f3
+--- Patch [7]: [PATCH 7/9] locking/lockdep: Traverse adjacency lists direct=
+ly in zap_class() ---
+commit 71cf1d3ff4ec0c990dff428fe396cff0df9ba08d
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-locking/lockdep: Fallback to folio_pool in alloc_list_entry when static poo=
-l is full
+locking/lockdep: Traverse adjacency lists directly in zap_class()
 
-Use struct folio_pool to dynamically expand lock dependency storage when
-the static list_entries pool is exhausted, avoiding premature lockdep
-disabling.
+Rework zap_class() to traverse class->locks_after and class->locks_before
+directly, unlinking each edge and its matching counterpart on the
+connected lock class via RCU while clearing the respective allocation
+slot bits.
 
 > diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-> index 2d4c5bab5af88..f0f58db090fff 100644
+> index f0f58db090fff..c8975c9282bb9 100644
 > --- a/kernel/locking/lockdep.c
 > +++ b/kernel/locking/lockdep.c
-[ ... ]
-> @@ -1404,11 +1429,19 @@ static struct lock_list *alloc_list_entry(void)
->  				      ARRAY_SIZE(list_entries));
-> =20
->  	if (idx >=3D ARRAY_SIZE(list_entries)) {
-> +		struct lock_list *p;
-> +
-> +		p =3D folio_pool_alloc_type(&lockdep_pool, struct lock_list,
-> +					  GFP_ATOMIC);
+> @@ -6285,11 +6284,29 @@ static void zap_class(struct pending_free *pf, st=
+ruct lock_class *class)
+>  	 * Remove all dependencies this lock is
+>  	 * involved in:
+>  	 */
+> -	for_each_set_bit(i, list_entries_in_use, ARRAY_SIZE(list_entries)) {
+> -		entry =3D list_entries + i;
+> -		if (entry->class !=3D class && entry->links_to !=3D class)
+> -			continue;
+> -		__clear_bit(i, list_entries_in_use);
+> +	list_for_each_entry_safe(entry, tmp, &class->locks_after, entry) {
+> +		list_for_each_entry_safe(other, other_tmp, &entry->links_to->locks_bef=
+ore, entry) {
+> +			if (other->links_to =3D=3D class) {
 
 [Severity: High]
-Does dynamically allocating via folio_pool while holding a raw spinlock
-violate atomic context rules?
+Does this code iterate the correct list to find the remote edge?
 
-alloc_list_entry() is called by add_lock_to_list() during lockdep graph upd=
-ates,
-which always run under the raw lockdep_lock (via graph_lock()).
+If entry->links_to points to the zapped class itself, iterating over
+&entry->links_to->locks_before traverses the zapped class's own incoming
+edges rather than the remote class's edges. Furthermore, the condition
+(other->links_to =3D=3D class) trivially matches elements in its own list.
 
-Even with GFP_ATOMIC, folio_pool_alloc_type() acquires a standard spinlock_t
-(sp->lock) and can call into the page allocator. On PREEMPT_RT, acquiring a
-sleepable spinlock_t or calling the page allocator from within a raw spinlo=
-ck
-section causes a kernel panic (sleeping in atomic context). On non-RT kerne=
-ls,
-calling the allocator inside lockdep's graph lock violates its strict
-non-reentrancy rules, which risks deadlocks if the allocator triggers warni=
-ngs
-or console output.
+Does this regression cause the actual reciprocal edges in the remote
+classes to be skipped, leaving dangling pointers to the freed class that
+could trigger a use-after-free during subsequent lockdep graph traversals?
 
-> +		if (p) {
-> +			nr_list_entries++;
-> +			return p;
+> +				__clear_bit(other - list_entries, list_entries_in_use);
+
+[Severity: High]
+Could this pointer arithmetic regression cause out-of-bounds memory writes?
+
+Lockdep supports allocating lock_list entries dynamically via a folio pool
+when the static list_entries array is exhausted. By calculating bit indices
+with (other - list_entries), this produces an out-of-bounds offset for
+dynamically allocated entries, causing __clear_bit() to overwrite arbitrary
+kernel memory.
+
+Also, does this regression leak the dynamically allocated lock_list entries
+since they are never freed back to their pool?
+
+> +				nr_list_entries--;
+> +				list_del_rcu(&other->entry);
+
+[Severity: High]
+This is a pre-existing issue, but does synchronously clearing the allocation
+bit before an RCU grace period expose lockless RCU readers to torn data?
+
+zap_class() unlinks dependency edges using list_del_rcu() but immediately
+marks them as available by clearing their bit in the list_entries_in_use
+bitmap above. This allows concurrent calls to alloc_list_entry() to
+reallocate the struct lock_list block and insert it into a different list,
+modifying its next pointer.
+
+Could lockless readers traversing the original list observe the modified
+next pointer and be steered into unrelated lists or infinite loops?
+
+> +				break;
+> +			}
 > +		}
+> +		__clear_bit(entry - list_entries, list_entries_in_use);
+> +		nr_list_entries--;
+> +		list_del_rcu(&entry->entry);
+> +	}
 
-[Severity: High]
-Could these dynamically allocated lock entries cause a use-after-free and
-memory leak when modules are unloaded?
-
-Dynamically allocated dependencies are not tracked in the list_entries_in_u=
-se
-bitmap.
-
-When a module is unloaded, zap_class() unlinks dependencies:
-
-kernel/locking/lockdep.c:zap_class() {
-    ...
-	for_each_set_bit(i, list_entries_in_use, ARRAY_SIZE(list_entries)) {
-		entry =3D list_entries + i;
-		if (entry->class !=3D class && entry->links_to !=3D class)
-			continue;
-		__clear_bit(i, list_entries_in_use);
-		nr_list_entries--;
-		list_del_rcu(&entry->entry);
-	}
-    ...
-}
-
-Because dynamic entries aren't in this bitmap, zap_class() will skip them
-and fail to unlink them from class->locks_after and class->locks_before.
-When the module's memory is freed, lockdep retains dangling pointers to
-the module's lock structures. Furthermore, the folio_pool bump allocator
-does not support freeing individual elements, making the leaked
-dependencies permanently unrecoverable.
-
-[Severity: Low]
-Could this result in undefined behavior when logging lock errors?
-
-When lockdep detects a structural mismatch, it prints an error using pointer
-subtraction:
-
-kernel/locking/lockdep.c:class_lock_list_valid() {
-    ...
-	list_for_each_entry(e, h, entry) {
-		if (e->links_to !=3D c) {
-			printk(KERN_INFO "class %s: mismatch for lock entry %ld; class %s <> %s",
-			       c->name ? : "(?)",
-			       (unsigned long)(e - list_entries),
-    ...
-}
-
-If the entry e was dynamically allocated via folio_pool, it does not reside
-within the static list_entries array. Subtracting pointers from different
-memory objects is undefined behavior and produces a nonsensical array
-index in the log.
-
->  		if (!debug_locks_off_graph_unlock())
->  			return NULL;
-> =20
->  		nbcon_cpu_emergency_enter();
-> -		print_lockdep_off("BUG: MAX_LOCKDEP_ENTRIES too low!");
-> +		print_lockdep_off("BUG: MAX_LOCKDEP_ENTRIES too low and folio_pool exh=
-austed!");
->  		dump_stack();
->  		nbcon_cpu_emergency_exit();
->  		return NULL;
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-folio-pool=
--v1-v1-0-0c1d230aa3af@gmail.com?part=3D6
+-v1-v1-0-0c1d230aa3af@gmail.com?part=3D7
