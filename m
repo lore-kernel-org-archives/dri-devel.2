@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01C8EC5DF70
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 16:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4180FC5DF77
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 16:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6462810E1F5;
-	Mon, 17 Aug 2026 16:57:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95BB510E32E;
+	Mon, 17 Aug 2026 16:57:18 +0000 (UTC)
 Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9902D10E1F5
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 16:57:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0888810E32E
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 16:57:17 +0000 (UTC)
 Received: by angie.orcam.me.uk (Postfix, from userid 500)
- id 4B9589200C0; Mon, 17 Aug 2026 18:56:59 +0200 (CEST)
+ id 6E3D39200C0; Mon, 17 Aug 2026 18:57:16 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by angie.orcam.me.uk (Postfix) with ESMTP id 448929200BB;
- Mon, 17 Aug 2026 17:56:59 +0100 (BST)
-Date: Mon, 17 Aug 2026 17:56:59 +0100 (BST)
+ by angie.orcam.me.uk (Postfix) with ESMTP id 6A8FD9200BB;
+ Mon, 17 Aug 2026 17:57:16 +0100 (BST)
+Date: Mon, 17 Aug 2026 17:57:16 +0100 (BST)
 From: "Maciej W. Rozycki" <macro@orcam.me.uk>
 To: Randy Dunlap <rdunlap@infradead.org>
 cc: linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>, 
  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 01/03] fbdev: maxine: make functions static
-In-Reply-To: <20260813232934.2718291-2-rdunlap@infradead.org>
-Message-ID: <alpine.DEB.2.21.2608171756000.14132@angie.orcam.me.uk>
+Subject: Re: [PATCH 02/03] fbdev: maxine: elide an unused function
+In-Reply-To: <20260813232934.2718291-3-rdunlap@infradead.org>
+Message-ID: <alpine.DEB.2.21.2608171757050.14132@angie.orcam.me.uk>
 References: <20260813232934.2718291-1-rdunlap@infradead.org>
- <20260813232934.2718291-2-rdunlap@infradead.org>
+ <20260813232934.2718291-3-rdunlap@infradead.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -47,8 +47,9 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Thu, 13 Aug 2026, Randy Dunlap wrote:
 
-> Make 3 functions static so that they don't need to be declared in a
-> header file.
+> maxinefb_ims332_read_register() is not used, but since it describes a
+> hardware interface, leave it in the source file as documentation
+> and surround it inside an #if 0/#endif block.
 
 Acked-by: Maciej W. Rozycki <macro@orcam.me.uk>
 
