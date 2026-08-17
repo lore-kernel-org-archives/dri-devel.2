@@ -4,96 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 186A1C5CFC1
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 04:49:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6883C5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 04:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A41210E632;
-	Mon, 17 Aug 2026 04:49:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B21710E630;
+	Mon, 17 Aug 2026 04:49:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GORcGXfI";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JgBKMjP+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TL3zGvRk";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fgH7e9Va";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCD7310E632
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:49:32 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43D1310E630
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:49:42 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67H44OxG1175417
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:49:32 GMT
+ 67GLCgjh343000
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:49:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- gDtLBWuCbkOxBmc0eZv0TqM7Pb2V+DCsoe5Uj7Lx9to=; b=GORcGXfI6SnlYv5I
- E8Jyu8oLAKrYZ95ARvKxDUdR/YsSlzqOwA0rygJiHQhILWkr8lUi2BeaI5BBCkUl
- V99VqT7oIM81kPLESsgUkdoPlBrlb+ZyFOurnc8Boa9H/jAPDN1VO8usoNbyADDo
- pIa1wChT3XPvo9PQA56oUgffylz5YLHfDA/2xgNGQI9++6YVrVJox5YcJD/42wVu
- v6g5+hhGtyXqkVnkjEGRWc9SAar2AF/bEGbCdp+L9f2ErnriJ4DoF98+FRDbMg2X
- NqzqbeqnJr6z+THYIo/tytq5CMoThURuHYYASIQMlmiu4Q1JZvEy0rQhD42e7j8B
- BEPHbw==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3txy83nj-1
+ EelcHbrMk4t4hxuoaT5ipMx8vAXXXCtq/Ty/eqBecnw=; b=TL3zGvRkdkrvGIQQ
+ cSdVEvpr9HSSl6ThiepFCzY3nH42sgR8lfImscZllMbbL+Bipf16srtqIKHT/Igg
+ D5GM5mLhBjCrAAPsrtyZq71Qf++3s2aV9Oz2i+5ZH7JUBBFQVB8xccFtm4fKgLhg
+ kitnrU9wxGdMRDqsV7U+Wl06z6frfhpgv7FvnWouq6wiY/2Gh8YE7wIQWU5vC/Xt
+ f6BcQZegiYdHTbvMEiu7YPspMfx5bTyDUVIdL6XTT/WXiQVwWeYS+N7YMDPXBt53
+ FkAONB+NiK9FI+0+5epBP4KFxNOe2p5QEGbG5lmrB7XrztImYq4mzJ7vt66d3GUE
+ GsKXFQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2ghenaag-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:49:32 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-84a251c2e3eso4481229b3a.1
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 21:49:32 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:49:41 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-84a251c2e3eso4481366b3a.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 21:49:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786942171; x=1787546971;
+ d=oss.qualcomm.com; s=google; t=1786942180; x=1787546980;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=gDtLBWuCbkOxBmc0eZv0TqM7Pb2V+DCsoe5Uj7Lx9to=;
- b=JgBKMjP+TqfsAh9DGh1o9qNlbYjIWO42n//UtiGWwav8jBjw9yfcm0H4KGr0t2rVu3
- A+quwGx/LGC1MvMwcMF/u/kR8fe0sVqD7sim24HUTAxVoqtOn55hVmytc0iCxFDefIjk
- R6asQpq4LT9dwToN3h14ajJOdtQZ7NnFHfQARe852xJmwcwqd3iKgaB6GMU6deSclGR6
- ajLGESYxF6UfwBAe9Svm8q1sEIZWJPKHMw4RHQXfG44XTebflyKRCpFyh9zj448voCn3
- MDn7tZDGZu0YAgO6ZR6N3fjfzmMiDdplMINr0N5TvgHnh5kt2ZC/5ll/Ov2i3kIE1eQ+
- BW4g==
+ bh=EelcHbrMk4t4hxuoaT5ipMx8vAXXXCtq/Ty/eqBecnw=;
+ b=fgH7e9Vaaaoj6UuFJMJd47f0xIwAYga979ClIxI+uE+4+s36wyUJQkEdcIASvfGaga
+ EA7MVKutU4arqp95NGYrJjn+pIyXvf+z+vrLQinMyg7CUDtS6KSbpuw7ys2tdpIroQzg
+ FZIcnaBZmc0e/hucc4INgqa15a15Ld5oTg9hxfyP13ImNqQzqt8U3J3vM9SCA4jIX6WY
+ 3/bezDfC5q/1V4K4ppojxqs5mN8eULSSIUG7jcHQCeG+U13gecwlX2OUqh4Qr4IHUn3E
+ gy3Yez3sFGopCxMVO4BHAheGoZyPkCm7Ymny0dtBy45EmObL7x93DjMeMZq20+C7x6in
+ +h/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786942171; x=1787546971;
+ d=1e100.net; s=20251104; t=1786942180; x=1787546980;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=gDtLBWuCbkOxBmc0eZv0TqM7Pb2V+DCsoe5Uj7Lx9to=;
- b=QZUX54aUvC/Z2SzT0+m1fZNyira3NOSJemaZBrJJdb+DyXf5cOoia5T/3VGuu35owE
- /TLL4oZMpJAdySz7cL/Si/D0X9fWpvYa5YpC9AeSMRRdvutWOcQpF59wym34+BxIUDru
- tpq6e8Ncfgk4GMaj2wwDCpsxyY94sCWe1UbbcmWfQj4VvaTM/yXa/v2OG+2pVY9vDWFf
- UBNtgVEL0q2bpOX4a6lypW+DdcKA4dNoV/g3KyANfi6BBTIsxHwdWyRorNwwRqexQvyS
- IpJmcwjrKy/CLoyc0owpWgAAF0+xV54oFanZ4aHzEK3rJRpF0zeXJT+DZQkI5P+9J/OG
- H5fA==
+ bh=EelcHbrMk4t4hxuoaT5ipMx8vAXXXCtq/Ty/eqBecnw=;
+ b=sV58g6cVVhDxeBu/reMY+l15tiz4NjgL4h/9fT2x6PVszhFKKI7gGp8a4CIid+VrGC
+ PiWb+AQU/uq48Qhm5QgNPVDc4YG9H+GhBr6Gnh5OHxm4U6BOaCfwvtV/gddRAKGuN/Dm
+ mQYWMYUth+DdFF7odLbyqavHaR5b6X+bg+H4fV2CsOjen9cgH4WubspCdiu1RsjB3jvj
+ W3yiwCsWiy1e4U0BRjsEqnts4lSE9s2V6Zcvlpwnl6p69idr5S6Z2Qu+u0Ng8mq16FvN
+ e1TlGf0uCa/A/DMqOMEAQ2E4VsSKxp7PnNY247kOLw7o1YRk7DxhF9JQpA6Hw8khxaow
+ ExvQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ron2isZCxem91M+aeSFqYNkCoXFKr6PEqDRfGASqCwukQ9450pkcROVn9iXDfSfr6PMyQ3tMbaCtz8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YygdtDeap3/HwOslwveKoyqVHV4KDbjmzB8qV/L3SBkrUVUJJ1P
- /jPlw045gqCzeRl+HRPBiCO1DWHwvLvUN26D8g6mGYujoPNwoiyamnuF5QKfreoFNgRqtAZy2cy
- wB2IhXl8EGwnfrp6rLYYs2V2zPVwaQL+SMHkfxHDHLhspm/Nrv2SxZ4mVXwSkMewdcsOuDkY=
-X-Gm-Gg: AR+sD12CvXuDcecHmrCkAQ/DoxN5YLetri5C4gowzqhyBo1guRDHP7So4Fgvn77B3LC
- jSly+IVDQcactNTtf7rEnE4YLlr3/b010BGRLq8/yi+Zza1b2hYsMf+Zx0HSkzzKR/E1oDDbCjt
- E7Glu1m3J7Gt2QSl0nVIO+VMYUupA5CsRW+N7/kIfa0VrCkQHza9+bk9aqml2jnEOvAKxZQJEQv
- dN90x0wHfRGThKQhfTkbb0vL3pgoWKj6km5sKZOFnnQakE63ySglvy0x9hsTtToO+5gbSJPgpHT
- r6oRYQLc0gFG5EiSL7jzW5uj4BBfyfIrR7Pidkh7M0rt9Erm0rmlNLGsKiY5TUCs76UWB1BGDcL
- qVKV8FaekriBNpUbRbK7nKAiwWVLeIdB0
-X-Received: by 2002:a05:6a00:1f18:b0:84c:2d22:7307 with SMTP id
- d2e1a72fcca58-84fdc7c68edmr16016514b3a.13.1786942171030; 
- Sun, 16 Aug 2026 21:49:31 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1f18:b0:84c:2d22:7307 with SMTP id
- d2e1a72fcca58-84fdc7c68edmr16016481b3a.13.1786942170335; 
- Sun, 16 Aug 2026 21:49:30 -0700 (PDT)
+ AHgh+RqVlD33kOR8De9bsU3f7x8XyxbXYvOkkGKTdbx61y4qCsPxCqiJ07RsNYCExiEeuAExdWbFyLAeO34=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzptyiFefk6dby2hiEWAlIhYSY/GpmD0m1Gi3I5nPpVIrLH9JzV
+ /5hBv/U7+EAifGeDARDYwUushxC6XxfpllpwRNdWqeIDRi632Dv6k8QFss5GLJPawK0CZekTl8O
+ Cpn/s3EjgBnMnRC/eD5QH81xNF5JcUVTXxGtq0GTN+shtvH81D/97d7HS/2CJzORCLslvb94=
+X-Gm-Gg: AR+sD11jbVENm9yhY7LwB1M7ZKChuxVR7KIF9liIPsY/xopOd0RkrevQzKumc7LSKV/
+ LEU03J84HLBHStrxort5DpqFgNLdboH8j//Tru9PGUWdGiLjYyMXR3fyAu3qqqAbc3UHOiVr/GF
+ avpG8URFTwJsv0YVf0w2yJgGRVz5G2tR5+5wYvi7npAkSqopIwXZpqRXAxTqRPr0Pc8K8AAJuKa
+ vqFHsGiYKX8d16oh3m19Z5+FZZ0o8qVDkdQTugd5r2r0NtWWNSb+BgfffGqJLsA3X0IlG74Tk5a
+ bPefwz56Ct2FEICbeNqOHLEu0fey7wGDtpJoHKw3JRAZBxw9D2wx6QHZVDPOvMa8MgZAMkZpNq3
+ Jy/5JNaUQojLR7vx3EHYdKpCXefVyFBfu
+X-Received: by 2002:a05:6a00:4f96:b0:84e:c851:a058 with SMTP id
+ d2e1a72fcca58-84fc7c1d1e1mr26336060b3a.10.1786942179692; 
+ Sun, 16 Aug 2026 21:49:39 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4f96:b0:84e:c851:a058 with SMTP id
+ d2e1a72fcca58-84fc7c1d1e1mr26336021b3a.10.1786942179087; 
+ Sun, 16 Aug 2026 21:49:39 -0700 (PDT)
 Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8517d046638sm2149250b3a.27.2026.08.16.21.49.21
+ d2e1a72fcca58-8517d046638sm2149250b3a.27.2026.08.16.21.49.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Aug 2026 21:49:29 -0700 (PDT)
+ Sun, 16 Aug 2026 21:49:38 -0700 (PDT)
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Date: Mon, 17 Aug 2026 10:17:47 +0530
-Subject: [PATCH v2 12/15] accel/qda: Add FastRPC invocation support
+Date: Mon, 17 Aug 2026 10:17:48 +0530
+Subject: [PATCH v2 13/15] accel/qda: Add DSP process creation and release
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-qda-v2-v2-12-69a02e9090d4@oss.qualcomm.com>
+Message-Id: <20260817-qda-v2-v2-13-69a02e9090d4@oss.qualcomm.com>
 References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
 In-Reply-To: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -120,41 +120,40 @@ Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
  linaro-mm-sig@lists.linaro.org,
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786942058; l=38176;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786942058; l=21446;
  i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=faPSpiMU/UDJ/Rhq0xMjXMaeeGGftU8OE4Hssm0rnfE=;
- b=1uWwICgsqZlq31ySFKn7Wt8ccMCXGc/bSL19Qk3mSzv7+eUFi7UPXmrvmGmB5A0dcdZh+aS+m
- YTjdUATZ+gsB+o+JBBu3BdeWsbCfIBNZItY5R5uDaQp5pvRBpZngkh/
+ bh=NldMkuy73LLnkLPBXuTsIGnZv9EVThGY8v60jDP9NrA=;
+ b=pRu2HYsbAdCG53NU+X8s68ivP9CH0zC9PX7MDu+nT2g0Mq54DTZNmkwRoGktBAmOxymSKNBqZ
+ f5DRFhqY3ncCOb7fjRT1HHoAePhlrd8k4ZAWoPHFICLpP0aaFqmd4bi
 X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX9T2ONOmZklG6
- O86b2nTcF+S4oV1heFjae9zJfSgxbs21fT7B4blcFv1EXtdvU3TGTvOxJdjewbMD6d70BwG3ynA
- rVY+EusbIGFqJkcvyCJ65aOBJoXUjlg=
-X-Authority-Analysis: v=2.4 cv=auGCzyZV c=1 sm=1 tr=0 ts=6a8292dc cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Authority-Analysis: v=2.4 cv=EKc2FVZC c=1 sm=1 tr=0 ts=6a8292e5 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=EfUomybT7ZR8fUktwZEA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX8WdHzAoE8Kep
- f8+FNwGvx07hLpLp1fiOC+HRDrHyIhg060cjAVuFRucYPcRXLNv+tE9gGum2sFmE39h6vpSc5KI
- 9KfZgwm+Z53EbOGPOCSblA+dzgpTnQJmgPpGQ7AG25cL7FjEayGHOd9STOoVb+tuXkv/L1eMSi4
- C9XhSGBjEgFd/7BcfYEN39nJyNvci4mU3twkgVIM4ZeNORLzZSZEd3neLIr5lQg5+7ssmVlOkMX
- 4L4bbK56UKVkiDyzyWjm6uT89UpHZ1n/4zQrUGGASiAOrKNvux0xirAgeSlOfoKyKBN0m30+HgE
- 5+eUUw3PNg/blQCcuwrbAF6T83CVlJc0sodTd6qRE0W7EQ+NvWcBvazVb+mpg8SPi6T1WRXOMhZ
- zxuuOE1nPZLBTQAOVjfUGLgDIBD1f3GMx6jhhUbvRSeQ/Cqia4ToiNSmlYPOU4UaR6xSBJR8NIU
- +jIH+BCgITJAWHYK85A==
-X-Proofpoint-GUID: pokMU0jGFNGXco2nrCoHsk_Kvsm_mxbL
-X-Proofpoint-ORIG-GUID: pokMU0jGFNGXco2nrCoHsk_Kvsm_mxbL
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=8eApmlP4N-50VBB0dCUA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfXxa93ETk5VNlb
+ ZLCJ6kMq6sEYPjrpkctuYgbtd3UttNVRRvI3i1qw9pxT7xgkbBMOHz2hXKo4HvrwB6i9yhCCV3b
+ cJHyOnspGDCPn3jrWvT3Y+Kd/QEP5Bg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX6o1ddckBP6O9
+ DpAxfUy+FC8r5gDjFD8N1AabymBWj6cMgEsGfcINzUBf/GdsgUm1WVMxktS/ES6+DHaLCq5z5UH
+ owb97iJefOMQJgD/IZMij9IV0MBJPBh4dPPh2x6IwJu+8v7/LoORCBqJ3XU06au4619M/+NFLgA
+ RjVkpzWrEu4hQ56fcPIRLGncZ8Swz+EFfRQ6rGEzTb3WNN4bJXV8EdAFmU8MiTuQYQIadTopYmr
+ f5B6V6Ut0chCXubKZcGkIx+qpWVg3MzqmCBMV5eFEUOyPPyMJ9wSLQN4WNgwsLCu2qkSGNcn7DA
+ w5+n71r+tQSiKi//pGB6+LQ4bhcaVF9gqnaXw0THOWlSJS4opzyTu/f+tOrWWEbfY//ECZ8zKr/
+ ach7/jAqwfQULx05SPKkRX3cW86Gc2olSI2G2/vhzaY4fOvgoRLhEWe5czWGbDWjDv1vMH4y+ns
+ g7WbgZu6OieoVIqkiRA==
+X-Proofpoint-GUID: u4qH26dfp4h8tWm75SRf8GmvKzs4Fxvu
+X-Proofpoint-ORIG-GUID: u4qH26dfp4h8tWm75SRf8GmvKzs4Fxvu
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-16_06,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 lowpriorityscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608170033
+ phishscore=0 spamscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,1187 +169,592 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement the FastRPC remote procedure call path, allowing user-space to
-invoke methods on the DSP via DRM_IOCTL_QDA_REMOTE_INVOKE.
+Implement the REMOTE_SESSION_CREATE and INIT_RELEASE FastRPC operations,
+which establish and tear down a user process on the DSP.
 
-qda_fastrpc.c / qda_fastrpc.h
-  Implements the FastRPC protocol layer: argument marshalling
-  (qda_fastrpc_invoke_pack), response unmarshalling
-  (qda_fastrpc_invoke_unpack), and invocation context lifecycle
-  management. Each invocation allocates a qda_fastrpc_invoke_ctx which
-  tracks buffer descriptors, GEM objects, and the completion used to
-  synchronise with the DSP response.
+DRM_IOCTL_QDA_REMOTE_SESSION_CREATE (drm_qda_init_create)
+  Creates a new process on the DSP by sending an INIT_CREATE message via
+  the FastRPC INIT_HANDLE. The caller provides the ELF image as a GEM
+  handle along with optional process attributes. A GEM buffer is
+  allocated per session to hold the DSP process image; it is cached in
+  qda_file_priv and reused for the lifetime of the session.
 
-  Buffer arguments are identified by GEM handles. Userspace imports any
-  DMA-BUF fd to a GEM handle with DRM_IOCTL_PRIME_FD_TO_HANDLE before
-  invoking; the driver never accepts DMA-BUF fds directly. Each argument
-  is described by its GEM handle, the user virtual address of the data
-  and its length, from which the driver derives the offset within the
-  buffer and the page-aligned range to describe to the DSP. Packing
-  several arguments into one buffer, and any overlap handling, is left
-  to user space.
+  If attrs is non-zero the INIT_CREATE_ATTR message is used instead of
+  INIT_CREATE. Both create the protection domain and load the process
+  image; INIT_CREATE_ATTR additionally carries the process attributes
+  and signature length, which the DSP applies to the domain it creates.
 
-qda_rpmsg.c
-  Implements qda_rpmsg_send_msg() which sends the wire-format
-  fastrpc_msg (embedded as the first member of qda_msg) directly via
-  rpmsg_send(), and qda_rpmsg_wait_for_rsp() which blocks on the context
-  completion. The RPMsg callback dispatches responses to waiting
-  contexts via the ctx_xa XArray.
+  Issuing INIT_CREATE again on the same file without an intervening
+  INIT_RELEASE replaces the process image, so the initialisation memory
+  cached for the previous attempt is released first.
 
-qda_ioctl.c
-  qda_ioctl_invoke() drives the full invocation lifecycle: it builds the
-  invocation context from the user-supplied arguments, packs the
-  arguments into the message buffer, sends the message to the DSP, waits
-  for the response, unpacks the output arguments back to user space and
-  releases the context.
+INIT_RELEASE
+  Tears the DSP process down. It is issued from qda_release_dsp_process()
+  on postclose, guarded by drm_dev_enter() so the message is only sent
+  while the device is still accessible. Once the DSP has torn down the
+  protection domain the initialisation memory is released.
 
-include/uapi/drm/qda_accel.h
-  Adds DRM_IOCTL_QDA_REMOTE_INVOKE with struct drm_qda_invoke_args and
-  the per-argument descriptor struct drm_qda_fastrpc_invoke_args.
+The initialisation memory is referenced both by the invocation context
+and by the file private data that caches it across invocations, so each
+takes a reference of its own and drops it independently.
 
 Assisted-by: Claude:claude-sonnet-5
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 ---
 Changes in v2:
-- Drop the DMA-BUF fd argument path. Buffer arguments are now identified
-  by GEM handles only; user space is responsible for importing fds to
-  GEM handles before invoking (Dmitry Baryshkov)
-- Leave argument packing and overlap handling to user space rather than
-  supporting several buffer-passing formats in the driver
+- Explain how INIT_CREATE_ATTR differs from INIT_CREATE
   (Dmitry Baryshkov)
+- Take a separate reference on the process initialisation memory for the
+  file private data and the invocation context, so it is no longer
+  leaked when process creation fails
+- Document why a second INIT_CREATE releases the previous initialisation
+  memory
 ---
- drivers/accel/qda/Makefile      |   1 +
- drivers/accel/qda/qda_drv.c     |   8 +
- drivers/accel/qda/qda_drv.h     |   8 +
- drivers/accel/qda/qda_fastrpc.c | 434 ++++++++++++++++++++++++++++++++++++++++
- drivers/accel/qda/qda_fastrpc.h | 242 ++++++++++++++++++++++
- drivers/accel/qda/qda_ioctl.c   |  83 ++++++++
+ drivers/accel/qda/qda_drv.c     |  12 +++
+ drivers/accel/qda/qda_drv.h     |   5 +
+ drivers/accel/qda/qda_fastrpc.c | 213 ++++++++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_fastrpc.h |  35 +++++++
+ drivers/accel/qda/qda_ioctl.c   |  77 +++++++++++++++
  drivers/accel/qda/qda_ioctl.h   |   1 +
- drivers/accel/qda/qda_rpmsg.c   |  91 ++++++++-
- drivers/accel/qda/qda_rpmsg.h   |  26 +++
- include/uapi/drm/qda_accel.h    |  42 ++++
- 10 files changed, 934 insertions(+), 2 deletions(-)
+ include/uapi/drm/qda_accel.h    |  31 +++++-
+ 7 files changed, 373 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
-index fb092e56d7f3..2d10420cd1ec 100644
---- a/drivers/accel/qda/Makefile
-+++ b/drivers/accel/qda/Makefile
-@@ -8,6 +8,7 @@ obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
- qda-y := \
- 	qda_cb.o \
- 	qda_drv.o \
-+	qda_fastrpc.o \
- 	qda_gem.o \
- 	qda_ioctl.o \
- 	qda_memory_dma.o \
 diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-index a68a07d0ae56..f925bbcfa6e9 100644
+index f925bbcfa6e9..4c3a37cbf49e 100644
 --- a/drivers/accel/qda/qda_drv.c
 +++ b/drivers/accel/qda/qda_drv.c
-@@ -25,6 +25,8 @@ static int qda_open(struct drm_device *dev, struct drm_file *file)
+@@ -12,6 +12,7 @@
+ #include <drm/qda_accel.h>
  
- 	qda_file_priv->pid = current->pid;
- 	qda_file_priv->qda_dev = qda_dev_from_drm(dev);
-+	qda_file_priv->remote_session_id =
-+		atomic_inc_return(&qda_file_priv->qda_dev->remote_session_id_counter);
- 	file->driver_priv = qda_file_priv;
+ #include "qda_drv.h"
++#include "qda_gem.h"
+ #include "qda_ioctl.h"
+ #include "qda_prime.h"
  
- 	return 0;
-@@ -47,6 +49,7 @@ static const struct drm_ioctl_desc qda_ioctls[] = {
+@@ -35,6 +36,16 @@ static int qda_open(struct drm_device *dev, struct drm_file *file)
+ static void qda_postclose(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct qda_file_priv *qda_file_priv = file->driver_priv;
++	int idx;
++
++	/* Only send the DSP release message while the device is accessible */
++	if (drm_dev_enter(dev, &idx)) {
++		qda_release_dsp_process(qda_file_priv->qda_dev, file);
++		drm_dev_exit(idx);
++	}
++
++	if (qda_file_priv->init_mem_gem_obj)
++		drm_gem_object_put(&qda_file_priv->init_mem_gem_obj->base);
+ 
+ 	if (qda_file_priv->assigned_iommu_dev)
+ 		qda_memory_manager_release_device(qda_file_priv->assigned_iommu_dev);
+@@ -49,6 +60,7 @@ static const struct drm_ioctl_desc qda_ioctls[] = {
  	DRM_IOCTL_DEF_DRV(QDA_QUERY, qda_ioctl_query, 0),
  	DRM_IOCTL_DEF_DRV(QDA_GEM_CREATE, qda_ioctl_gem_create, 0),
  	DRM_IOCTL_DEF_DRV(QDA_GEM_MMAP_OFFSET, qda_ioctl_gem_mmap_offset, 0),
-+	DRM_IOCTL_DEF_DRV(QDA_REMOTE_INVOKE, qda_ioctl_invoke, 0),
++	DRM_IOCTL_DEF_DRV(QDA_REMOTE_SESSION_CREATE, qda_ioctl_init_create, 0),
+ 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_INVOKE, qda_ioctl_invoke, 0),
  };
- 
- static const struct drm_driver qda_drm_driver = {
-@@ -82,6 +85,7 @@ void qda_deinit_device(struct qda_dev *qdev)
- 		kfree(qdev->iommu_mgr);
- 		qdev->iommu_mgr = NULL;
- 	}
-+	xa_destroy(&qdev->ctx_xa);
- }
- 
- int qda_init_device(struct qda_dev *qdev, int num_cbs)
-@@ -90,8 +94,11 @@ int qda_init_device(struct qda_dev *qdev, int num_cbs)
- 
- 	mutex_init(&qdev->import_lock);
- 	qdev->current_import_file_priv = NULL;
-+	atomic_set(&qdev->remote_session_id_counter, 0);
-+	xa_init_flags(&qdev->ctx_xa, XA_FLAGS_ALLOC1);
- 	qdev->iommu_mgr = kzalloc_obj(*qdev->iommu_mgr);
- 	if (!qdev->iommu_mgr) {
-+		xa_destroy(&qdev->ctx_xa);
- 		mutex_destroy(&qdev->import_lock);
- 		return -ENOMEM;
- 	}
-@@ -100,6 +107,7 @@ int qda_init_device(struct qda_dev *qdev, int num_cbs)
- 		drm_err(&qdev->drm_dev, "Failed to initialize memory manager: %d\n", ret);
- 		kfree(qdev->iommu_mgr);
- 		qdev->iommu_mgr = NULL;
-+		xa_destroy(&qdev->ctx_xa);
- 		mutex_destroy(&qdev->import_lock);
- 	}
  
 diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-index 422e70b971b8..8332108c362f 100644
+index 8332108c362f..4337894ff22d 100644
 --- a/drivers/accel/qda/qda_drv.h
 +++ b/drivers/accel/qda/qda_drv.h
-@@ -6,10 +6,12 @@
- #ifndef __QDA_DRV_H__
- #define __QDA_DRV_H__
- 
-+#include <linux/atomic.h>
- #include <linux/device.h>
- #include <linux/list.h>
- #include <linux/rpmsg.h>
- #include <linux/types.h>
-+#include <linux/xarray.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-@@ -28,6 +30,8 @@ struct qda_file_priv {
+@@ -28,6 +28,8 @@ struct qda_file_priv {
+ 	struct qda_dev *qda_dev;
+ 	/** @assigned_iommu_dev: IOMMU device assigned to this process */
  	struct qda_iommu_device *assigned_iommu_dev;
++	/** @init_mem_gem_obj: GEM object for PD initialization memory */
++	struct qda_gem_obj *init_mem_gem_obj;
  	/** @pid: Process ID for tracking */
  	pid_t pid;
-+	/** @remote_session_id: Unique session identifier */
-+	u32 remote_session_id;
- };
+ 	/** @remote_session_id: Unique session identifier */
+@@ -82,4 +84,7 @@ int qda_init_device(struct qda_dev *qdev, int num_cbs);
+ void qda_deinit_device(struct qda_dev *qdev);
+ int qda_register_device(struct qda_dev *qdev);
  
- /**
-@@ -51,8 +55,12 @@ struct qda_dev {
- 	struct mutex import_lock;
- 	/** @current_import_file_priv: Current file_priv during prime import */
- 	struct drm_file *current_import_file_priv;
-+	/** @ctx_xa: XArray for FastRPC context management */
-+	struct xarray ctx_xa;
- 	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
- 	const char *dsp_name;
-+	/** @remote_session_id_counter: Atomic counter for unique session IDs */
-+	atomic_t remote_session_id_counter;
- };
- 
- /**
++/* DSP process / protection domain management */
++int qda_release_dsp_process(struct qda_dev *qdev, struct drm_file *file_priv);
++
+ #endif /* __QDA_DRV_H__ */
 diff --git a/drivers/accel/qda/qda_fastrpc.c b/drivers/accel/qda/qda_fastrpc.c
-new file mode 100644
-index 000000000000..3c0ce5040500
---- /dev/null
+index 3c0ce5040500..2c72f86130aa 100644
+--- a/drivers/accel/qda/qda_fastrpc.c
 +++ b/drivers/accel/qda/qda_fastrpc.c
-@@ -0,0 +1,434 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+#include <linux/slab.h>
-+#include <linux/uaccess.h>
-+#include <linux/completion.h>
-+#include <linux/dma-buf.h>
-+#include <drm/drm_gem.h>
-+#include "qda_fastrpc.h"
-+#include "qda_drv.h"
-+#include "qda_gem.h"
-+#include "qda_memory_manager.h"
+@@ -130,6 +130,9 @@ void qda_fastrpc_context_free(struct kref *ref)
+ 	if (ctx->msg_gem_obj)
+ 		drm_gem_object_put(&ctx->msg_gem_obj->base);
+ 
++	if (ctx->init_mem_gem_obj)
++		drm_gem_object_put(&ctx->init_mem_gem_obj->base);
 +
+ 	kfree(ctx->args);
+ 	kfree(ctx);
+ }
+@@ -192,6 +195,45 @@ struct qda_fastrpc_invoke_ctx *qda_fastrpc_context_alloc(struct qda_dev *qdev)
+ 	return ctx;
+ }
+ 
 +/*
-+ * The driver only accepts GEM handles from user space; userspace imports
-+ * DMA-BUF fds with DRM_IOCTL_PRIME_FD_TO_HANDLE before issuing any ioctl that
-+ * carries a buffer reference.
++ * Allocate a single DMA-coherent GEM object holding all kernel-internal
++ * buffers of one invocation, so the total DMA footprint is
++ * PAGE_ALIGN(sum of sizes) - typically a single page.
 + *
-+ * The caller owns the returned reference and must drop it with
-+ * drm_gem_object_put().
++ * The caller wires each argument slot with assign_kernel_gem_arg(), which
++ * takes a reference per slot, then drops the initial reference returned here.
 + */
-+static int get_gem_obj_from_handle(struct qda_fastrpc_invoke_ctx *ctx, u32 handle,
-+				   struct drm_gem_object **gem_obj)
++static struct qda_gem_obj *alloc_kernel_gem(struct qda_fastrpc_invoke_ctx *ctx,
++					    size_t total_size)
 +{
-+	*gem_obj = drm_gem_object_lookup(ctx->file_priv, handle);
-+	if (!*gem_obj)
-+		return -ENOENT;
-+
-+	return 0;
-+}
-+
-+static void setup_pages_from_gem_obj(struct qda_gem_obj *qda_gem_obj,
-+				     struct fastrpc_phy_page *pages)
-+{
-+	pages->addr = qda_gem_obj->dma_addr;
-+	pages->size = qda_gem_obj->size;
-+}
-+
-+static u64 calculate_vma_offset(u64 user_ptr)
-+{
-+	struct vm_area_struct *vma;
-+	u64 vma_offset = 0;
-+
-+	mmap_read_lock(current->mm);
-+	vma = find_vma(current->mm, user_ptr);
-+	if (vma)
-+		vma_offset = (user_ptr & PAGE_MASK) - vma->vm_start;
-+	mmap_read_unlock(current->mm);
-+
-+	return vma_offset;
-+}
-+
-+static u64 calculate_page_aligned_size(u64 ptr, u64 len)
-+{
-+	u64 pg_start = (ptr & PAGE_MASK) >> PAGE_SHIFT;
-+	u64 pg_end = ((ptr + len - 1) & PAGE_MASK) >> PAGE_SHIFT;
-+
-+	return (pg_end - pg_start + 1) * PAGE_SIZE;
-+}
-+
-+static struct fastrpc_invoke_buf *fastrpc_invoke_buf_start(union fastrpc_remote_arg *pra, int len)
-+{
-+	return (struct fastrpc_invoke_buf *)(&pra[len]);
-+}
-+
-+static struct fastrpc_phy_page *fastrpc_phy_page_start(struct fastrpc_invoke_buf *buf, int len)
-+{
-+	return (struct fastrpc_phy_page *)(&buf[len]);
-+}
-+
-+static size_t fastrpc_get_meta_size(struct qda_fastrpc_invoke_ctx *ctx)
-+{
-+	return (sizeof(struct fastrpc_remote_buf) +
-+		sizeof(struct fastrpc_invoke_buf) +
-+		sizeof(struct fastrpc_phy_page)) * ctx->nscalars +
-+		sizeof(u64) * FASTRPC_MAX_HANDLELIST +
-+		sizeof(u32) * FASTRPC_MAX_CRCLIST;
-+}
-+
-+/**
-+ * qda_fastrpc_cleanup_handlelist() - Release DMA handles the DSP no longer needs
-+ * @ctx: Invocation context whose response buffer contains the handle list
-+ *
-+ * The DSP signals handle release by writing GEM handles into the handle list
-+ * region of the response buffer. Walk the list and close each handle, which
-+ * drops the GEM reference and tears down the IOMMU mapping. This must be called
-+ * after dma_rmb() has made the DSP's writes visible.
-+ */
-+void qda_fastrpc_cleanup_handlelist(struct qda_fastrpc_invoke_ctx *ctx)
-+{
-+	u64 *handlelist;
-+	int i;
-+
-+	handlelist = (u64 *)(ctx->pages + ctx->nscalars);
-+	for (i = 0; i < FASTRPC_MAX_HANDLELIST; i++) {
-+		if (!handlelist[i])
-+			break;
-+		drm_gem_handle_delete(ctx->file_priv, (u32)handlelist[i]);
-+	}
-+}
-+
-+/**
-+ * qda_fastrpc_context_free() - Release an invocation context
-+ * @ref: Reference counter embedded in the context
-+ *
-+ * Called when the last reference is dropped, which may be either the caller
-+ * that issued the invocation or the response callback. The context is removed
-+ * from the lookup table here so that a late response can never find a context
-+ * that is already being destroyed.
-+ *
-+ * ctx->req, ctx->rsp, ctx->inbuf and ctx->input_pages point into kernel-owned
-+ * GEM mappings and are released along with ctx->gem_objs[].
-+ */
-+void qda_fastrpc_context_free(struct kref *ref)
-+{
-+	struct qda_fastrpc_invoke_ctx *ctx;
-+	int i;
-+
-+	ctx = container_of(ref, struct qda_fastrpc_invoke_ctx, refcount);
-+
-+	xa_erase(&ctx->qdev->ctx_xa, ctx->ctxid >> 4);
-+
-+	if (ctx->gem_objs) {
-+		for (i = 0; i < ctx->nscalars; ++i) {
-+			if (ctx->gem_objs[i])
-+				drm_gem_object_put(ctx->gem_objs[i]);
-+		}
-+		kfree(ctx->gem_objs);
-+	}
-+
-+	if (ctx->msg_gem_obj)
-+		drm_gem_object_put(&ctx->msg_gem_obj->base);
-+
-+	kfree(ctx->args);
-+	kfree(ctx);
-+}
-+
-+/**
-+ * qda_fastrpc_flush_pending() - Fail every outstanding invocation
-+ * @qdev: Device whose contexts should be flushed
-+ *
-+ * Called when the remote processor goes away. The DSP will never answer the
-+ * in-flight invocations, so this stands in for the response callback: it wakes
-+ * each waiter with an error and drops the reference the send path took for that
-+ * callback. The waiter then tears the context down, releasing the GEM objects
-+ * it pinned.
-+ *
-+ * Must run after drm_dev_unplug() has drained qda_rpmsg_cb(), so the real
-+ * callback can no longer run and this is the only path completing a context.
-+ */
-+void qda_fastrpc_flush_pending(struct qda_dev *qdev)
-+{
-+	struct qda_fastrpc_invoke_ctx *ctx;
-+	unsigned long idx;
-+
-+	xa_for_each(&qdev->ctx_xa, idx, ctx) {
-+		ctx->retval = -EPIPE;
-+		complete(&ctx->work);
-+		kref_put(&ctx->refcount, qda_fastrpc_context_free);
-+	}
-+}
-+
-+/**
-+ * qda_fastrpc_context_alloc() - Allocate a FastRPC invocation context
-+ * @qdev: Device whose lookup table the context is registered in
-+ *
-+ * Return: Pointer to the new context, or ERR_PTR on failure
-+ */
-+struct qda_fastrpc_invoke_ctx *qda_fastrpc_context_alloc(struct qda_dev *qdev)
-+{
-+	struct qda_fastrpc_invoke_ctx *ctx;
-+	int ret;
-+	u32 id;
-+
-+	ctx = kzalloc_obj(*ctx);
-+	if (!ctx)
-+		return ERR_PTR(-ENOMEM);
-+
-+	INIT_LIST_HEAD(&ctx->node);
-+	init_completion(&ctx->work);
-+	kref_init(&ctx->refcount);
-+	ctx->qdev = qdev;
-+	ctx->retval = -1;
-+	ctx->pid = current->pid;
-+
-+	ret = xa_alloc(&qdev->ctx_xa, &id, ctx, xa_limit_32b, GFP_KERNEL);
-+	if (ret) {
-+		kfree(ctx);
-+		return ERR_PTR(ret);
-+	}
-+	ctx->ctxid = id << 4;
-+
-+	return ctx;
-+}
-+
-+/*
-+ * Resolve the physical address of an in/out buffer argument.  The buffer is
-+ * backed either by a kernel-owned GEM object already recorded in
-+ * ctx->gem_objs[i], or by a user-supplied GEM handle in ctx->args[i].handle.
-+ */
-+static int process_msg_buffer(struct qda_fastrpc_invoke_ctx *ctx, int i,
-+			      union fastrpc_remote_arg *rpra,
-+			      struct fastrpc_phy_page *pages)
-+{
-+	u64 len = ctx->args[i].length;
++	struct qda_file_priv *qda_priv = ctx->file_priv->driver_priv;
++	struct qda_dev *qdev = qda_priv->qda_dev;
 +	struct qda_gem_obj *qda_gem_obj;
-+
-+	rpra[i].buf.pv = ctx->args[i].ptr;
-+
-+	if (ctx->gem_objs[i]) {
-+		u64 unaligned_addr, offset;
-+
-+		qda_gem_obj = to_qda_gem_obj(ctx->gem_objs[i]);
-+		offset = ctx->args[i].ptr - (u64)(uintptr_t)qda_gem_obj->virt;
-+
-+		unaligned_addr = qda_gem_obj->dma_addr + offset;
-+		pages[i].addr = unaligned_addr & PAGE_MASK;
-+		pages[i].size = calculate_page_aligned_size(unaligned_addr, len);
-+	} else if (ctx->args[i].handle) {
-+		struct drm_gem_object *gem_obj;
-+		int err;
-+
-+		err = get_gem_obj_from_handle(ctx, ctx->args[i].handle, &gem_obj);
-+		if (err)
-+			return err;
-+
-+		ctx->gem_objs[i] = gem_obj;
-+		qda_gem_obj = to_qda_gem_obj(gem_obj);
-+
-+		pages[i].addr = qda_gem_obj->dma_addr +
-+				calculate_vma_offset(ctx->args[i].ptr);
-+		pages[i].size = calculate_page_aligned_size(ctx->args[i].ptr, len);
-+	} else {
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Resolve a DMA-handle argument.  The kernel needs the physical page
-+ * descriptor, while the DSP identifies the buffer by its GEM handle.
-+ */
-+static int process_dma_handle(struct qda_fastrpc_invoke_ctx *ctx, int i,
-+			      union fastrpc_remote_arg *rpra,
-+			      struct fastrpc_phy_page *pages)
-+{
 +	struct drm_gem_object *gem_obj;
-+	int err;
 +
-+	if (!ctx->args[i].handle) {
-+		rpra[i].buf.pv = ctx->args[i].ptr;
-+		rpra[i].buf.len = ctx->args[i].length;
-+		return 0;
-+	}
++	gem_obj = qda_gem_create_object(&qdev->drm_dev, qdev->iommu_mgr,
++					total_size, ctx->file_priv);
++	if (IS_ERR(gem_obj))
++		return ERR_CAST(gem_obj);
 +
-+	err = get_gem_obj_from_handle(ctx, ctx->args[i].handle, &gem_obj);
-+	if (err)
-+		return err;
++	qda_gem_obj = to_qda_gem_obj(gem_obj);
++	/* Zero-initialise so OUT slots start clean */
++	memset(qda_gem_obj->virt, 0, qda_gem_obj->size);
 +
-+	ctx->gem_objs[i] = gem_obj;
-+	setup_pages_from_gem_obj(to_qda_gem_obj(gem_obj), &pages[i]);
-+
-+	/* The DSP-facing offset and length fields are 32-bit by wire format */
-+	rpra[i].dma.handle = ctx->args[i].handle;
-+	rpra[i].dma.len = (u32)ctx->args[i].length;
-+	rpra[i].dma.offset = (u32)ctx->args[i].ptr;
-+
-+	return 0;
++	return qda_gem_obj;
 +}
 +
-+/**
-+ * qda_fastrpc_get_header_size() - Compute the FastRPC message header size
-+ * @ctx: FastRPC invocation context
-+ *
-+ * Also caches the intermediate metadata and packet sizes in @ctx for the
-+ * subsequent pack step.
-+ *
-+ * Return: Page-aligned size of the message payload buffer in bytes
-+ */
-+size_t qda_fastrpc_get_header_size(struct qda_fastrpc_invoke_ctx *ctx)
++static void assign_kernel_gem_arg(struct drm_qda_fastrpc_invoke_args *args,
++				  struct drm_gem_object **gem_objs, int idx,
++				  struct qda_gem_obj *kernel_gem, void *ptr, size_t len)
 +{
-+	ctx->inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
-+	ctx->metalen = fastrpc_get_meta_size(ctx);
-+	ctx->pkt_size = ALIGN(ctx->metalen, FASTRPC_ALIGN);
-+	ctx->aligned_pkt_size = PAGE_ALIGN(ctx->pkt_size);
-+
-+	return ctx->aligned_pkt_size;
++	args[idx].ptr = (u64)(uintptr_t)ptr;
++	args[idx].length = len;
++	args[idx].handle = 0;
++	drm_gem_object_get(&kernel_gem->base);
++	gem_objs[idx] = &kernel_gem->base;
 +}
 +
-+static int qda_fastrpc_get_args(struct qda_fastrpc_invoke_ctx *ctx)
-+{
-+	struct fastrpc_invoke_buf *list;
-+	struct fastrpc_phy_page *pages;
-+	union fastrpc_remote_arg *rpra;
-+	int i, err;
-+
-+	ctx->msg->buf = ctx->msg_gem_obj->virt;
-+	ctx->msg->phys = ctx->msg_gem_obj->dma_addr;
-+	memset(ctx->msg->buf, 0, ctx->aligned_pkt_size);
-+
-+	rpra = ctx->msg->buf;
-+	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
-+	pages = fastrpc_phy_page_start(list, ctx->nscalars);
-+	ctx->rpra = rpra;
-+	ctx->list = list;
-+	ctx->pages = pages;
-+
-+	for (i = 0; i < ctx->nbufs; ++i) {
-+		rpra[i].buf.pv = 0;
-+		rpra[i].buf.len = ctx->args[i].length;
-+		list[i].num = ctx->args[i].length ? 1 : 0;
-+		list[i].pgidx = i;
-+
-+		if (!ctx->args[i].length)
-+			continue;
-+
-+		err = process_msg_buffer(ctx, i, rpra, pages);
-+		if (err)
-+			return err;
-+	}
-+
-+	for (i = ctx->nbufs; i < ctx->nscalars; ++i) {
-+		list[i].num = ctx->args[i].length ? 1 : 0;
-+		list[i].pgidx = i;
-+
-+		err = process_dma_handle(ctx, i, rpra, pages);
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * qda_fastrpc_invoke_pack() - Pack an invocation context into a QDA message
-+ * @ctx: FastRPC invocation context
-+ * @msg: QDA message to fill in
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int qda_fastrpc_invoke_pack(struct qda_fastrpc_invoke_ctx *ctx, struct qda_msg *msg)
-+{
-+	int err;
-+
-+	ctx->msg = msg;
-+
-+	err = qda_fastrpc_get_args(ctx);
-+	if (err)
-+		return err;
-+
-+	/* Ensure the payload is visible to the DSP before the doorbell */
-+	dma_wmb();
-+
-+	if (ctx->handle == FASTRPC_INIT_HANDLE)
-+		msg->fastrpc.remote_session_id = 0;
-+	else
-+		msg->fastrpc.remote_session_id = ctx->remote_session_id;
-+
-+	msg->fastrpc.tid = ctx->pid;
-+	msg->fastrpc.ctx = ctx->ctxid | ctx->pd;
-+	msg->fastrpc.handle = ctx->handle;
-+	msg->fastrpc.sc = ctx->sc;
-+	msg->fastrpc.addr = msg->phys;
-+	msg->fastrpc.size = roundup(ctx->pkt_size, PAGE_SIZE);
-+	msg->fastrpc_ctx = ctx;
-+	msg->file_priv = ctx->file_priv;
-+
-+	return 0;
-+}
-+
+ /*
+  * Resolve the physical address of an in/out buffer argument.  The buffer is
+  * backed either by a kernel-owned GEM object already recorded in
+@@ -368,6 +410,169 @@ int qda_fastrpc_invoke_pack(struct qda_fastrpc_invoke_ctx *ctx, struct qda_msg *
+ 	return 0;
+ }
+ 
 +/*
-+ * INVOKE_DYNAMIC: the argument descriptors are supplied by user space, which
-+ * is also responsible for having imported every buffer to a GEM handle.
++ * INIT_RELEASE packed layout:
++ *   [0] remote_session_id	sizeof(int)	IN
 + */
-+static int qda_fastrpc_prepare_args_invoke(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
++static int qda_fastrpc_prepare_args_release_process(struct qda_fastrpc_invoke_ctx *ctx)
 +{
-+	struct drm_qda_invoke_args *invoke_args = argp;
 +	struct drm_qda_fastrpc_invoke_args *args;
++	struct qda_gem_obj *kernel_gem;
 +	u32 nscalars;
++	int err;
 +
-+	ctx->handle = invoke_args->handle;
-+	ctx->sc = invoke_args->sc;
-+
++	ctx->sc = FASTRPC_SCALARS(FASTRPC_RMID_INIT_RELEASE, 1, 0);
++	ctx->handle = FASTRPC_INIT_HANDLE;
 +	nscalars = REMOTE_SCALARS_LENGTH(ctx->sc);
-+	if (!nscalars)
-+		return 0;
 +
 +	args = kzalloc_objs(*args, nscalars);
 +	if (!args)
 +		return -ENOMEM;
 +
-+	if (copy_from_user(args, u64_to_user_ptr(invoke_args->args),
-+			   nscalars * sizeof(*args))) {
-+		kfree(args);
-+		return -EFAULT;
++	ctx->gem_objs = kzalloc_objs(*ctx->gem_objs, nscalars);
++	if (!ctx->gem_objs) {
++		err = -ENOMEM;
++		goto err_free_args;
 +	}
++
++	kernel_gem = alloc_kernel_gem(ctx, sizeof(ctx->remote_session_id));
++	if (IS_ERR(kernel_gem)) {
++		err = PTR_ERR(kernel_gem);
++		goto err_free_gem_objs;
++	}
++
++	memcpy(kernel_gem->virt, &ctx->remote_session_id,
++	       sizeof(ctx->remote_session_id));
++
++	assign_kernel_gem_arg(args, ctx->gem_objs, 0, kernel_gem, kernel_gem->virt,
++			      sizeof(ctx->remote_session_id));
++	drm_gem_object_put(&kernel_gem->base);
 +
 +	ctx->args = args;
 +
 +	return 0;
-+}
 +
-+/**
-+ * qda_fastrpc_prepare_args() - Prepare arguments for a FastRPC invocation
-+ * @ctx: FastRPC invocation context
-+ * @argp: Kernel-side ioctl argument buffer owned by the DRM core
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int qda_fastrpc_prepare_args(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
-+{
-+	int err;
-+
-+	switch (ctx->type) {
-+	case FASTRPC_RMID_INVOKE_DYNAMIC:
-+		err = qda_fastrpc_prepare_args_invoke(ctx, argp);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+	if (err)
-+		return err;
-+
-+	ctx->nscalars = REMOTE_SCALARS_LENGTH(ctx->sc);
-+	ctx->nbufs = REMOTE_SCALARS_INBUFS(ctx->sc) + REMOTE_SCALARS_OUTBUFS(ctx->sc);
-+
-+	if (ctx->nscalars && !ctx->gem_objs) {
-+		ctx->gem_objs = kzalloc_objs(*ctx->gem_objs, ctx->nscalars);
-+		if (!ctx->gem_objs)
-+			return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
-diff --git a/drivers/accel/qda/qda_fastrpc.h b/drivers/accel/qda/qda_fastrpc.h
-new file mode 100644
-index 000000000000..a25818923a6e
---- /dev/null
-+++ b/drivers/accel/qda/qda_fastrpc.h
-@@ -0,0 +1,242 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __QDA_FASTRPC_H__
-+#define __QDA_FASTRPC_H__
-+
-+#include <linux/completion.h>
-+#include <linux/kref.h>
-+#include <linux/list.h>
-+#include <linux/types.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
-+#include <drm/qda_accel.h>
-+
-+struct qda_dev;
-+struct qda_gem_obj;
-+struct qda_msg;
-+
-+/*
-+ * FastRPC scalar extraction macros
-+ *
-+ * These macros extract different fields from the scalar value that describes
-+ * the arguments passed in a FastRPC invocation.
-+ */
-+#define REMOTE_SCALARS_INBUFS(sc)	(((sc) >> 16) & 0x0ff)
-+#define REMOTE_SCALARS_OUTBUFS(sc)	(((sc) >> 8) & 0x0ff)
-+#define REMOTE_SCALARS_INHANDLES(sc)	(((sc) >> 4) & 0x0f)
-+#define REMOTE_SCALARS_OUTHANDLES(sc)	((sc) & 0x0f)
-+#define REMOTE_SCALARS_LENGTH(sc)	(REMOTE_SCALARS_INBUFS(sc) +   \
-+					 REMOTE_SCALARS_OUTBUFS(sc) +  \
-+					 REMOTE_SCALARS_INHANDLES(sc) + \
-+					 REMOTE_SCALARS_OUTHANDLES(sc))
-+
-+/* FastRPC configuration constants */
-+#define FASTRPC_ALIGN		128		/* Alignment requirement */
-+#define FASTRPC_MAX_HANDLELIST	16		/* Maximum handles the DSP can release */
-+#define FASTRPC_MAX_CRCLIST	64		/* Maximum CRC list entries */
-+
-+/*
-+ * FastRPC scalar construction macros
-+ *
-+ * These macros build the scalar value that describes the arguments
-+ * for a FastRPC invocation.
-+ */
-+#define FASTRPC_BUILD_SCALARS(attr, method, in, out, oin, oout)		\
-+				(((attr & 0x07) << 29) |		\
-+				((method & 0x1f) << 24) |		\
-+				((in & 0xff) << 16) |			\
-+				((out & 0xff) <<  8) |			\
-+				((oin & 0x0f) <<  4) |			\
-+				(oout & 0x0f))
-+
-+#define FASTRPC_SCALARS(method, in, out) \
-+		FASTRPC_BUILD_SCALARS(0, method, in, out, 0, 0)
-+
-+/**
-+ * struct fastrpc_remote_dmahandle - Remote DMA handle descriptor
-+ */
-+struct fastrpc_remote_dmahandle {
-+	/** @handle: Handle of the buffer */
-+	s32 handle;
-+	/** @offset: Byte offset within the buffer object */
-+	u32 offset;
-+	/** @len: Length of the region in bytes */
-+	u32 len;
-+};
-+
-+/**
-+ * struct fastrpc_remote_buf - Remote buffer descriptor
-+ */
-+struct fastrpc_remote_buf {
-+	/** @pv: Buffer pointer (user virtual address) */
-+	u64 pv;
-+	/** @len: Length of the buffer in bytes */
-+	u64 len;
-+};
-+
-+/**
-+ * union fastrpc_remote_arg - Remote argument (buffer or DMA handle)
-+ */
-+union fastrpc_remote_arg {
-+	/** @buf: Inline buffer descriptor */
-+	struct fastrpc_remote_buf buf;
-+	/** @dma: DMA-BUF handle descriptor */
-+	struct fastrpc_remote_dmahandle dma;
-+};
-+
-+/**
-+ * struct fastrpc_phy_page - Physical page descriptor
-+ */
-+struct fastrpc_phy_page {
-+	/** @addr: Physical (IOMMU) address of the page */
-+	u64 addr;
-+	/** @size: Size of the contiguous region in bytes */
-+	u64 size;
-+};
-+
-+/**
-+ * struct fastrpc_invoke_buf - Invoke buffer descriptor
-+ */
-+struct fastrpc_invoke_buf {
-+	/** @num: Number of contiguous physical regions */
-+	u32 num;
-+	/** @pgidx: Index into the physical page array */
-+	u32 pgidx;
-+};
-+
-+/**
-+ * struct fastrpc_msg - FastRPC wire message for remote invocations
-+ *
-+ * Sent to the remote processor via RPMsg. This is the exact layout
-+ * the DSP expects; do not reorder or add fields without DSP firmware
-+ * coordination.
-+ */
-+struct fastrpc_msg {
-+	/** @remote_session_id: Session identifier on the remote processor */
-+	int remote_session_id;
-+	/** @tid: Thread ID of the invoking thread */
-+	int tid;
-+	/** @ctx: Context identifier for matching request/response */
-+	u64 ctx;
-+	/** @handle: Handle of the remote method to invoke */
-+	u32 handle;
-+	/** @sc: Scalars value encoding in/out buffer counts */
-+	u32 sc;
-+	/** @addr: Physical address of the message payload buffer */
-+	u64 addr;
-+	/** @size: Size of the message payload in bytes */
-+	u64 size;
-+};
-+
-+/**
-+ * struct qda_fastrpc_invoke_ctx - Remote procedure call invocation context
-+ *
-+ * Maintains all state for a single remote procedure call, including buffer
-+ * management, synchronisation, and result handling.
-+ */
-+struct qda_fastrpc_invoke_ctx {
-+	/** @node: List node for linking contexts in a queue */
-+	struct list_head node;
-+	/** @qdev: Device owning the XArray this context is registered in */
-+	struct qda_dev *qdev;
-+	/** @ctxid: Unique context identifier (XArray key shifted left by 4) */
-+	u64 ctxid;
-+	/** @inbufs: Number of input buffers */
-+	int inbufs;
-+	/** @nscalars: Total number of scalar arguments */
-+	int nscalars;
-+	/** @nbufs: Total number of buffer arguments (inbufs + outbufs) */
-+	int nbufs;
-+	/** @pid: Process ID of the calling process */
-+	int pid;
-+	/** @retval: Status code reported by the DSP for this invocation */
-+	int retval;
-+	/** @remote_session_id: Session identifier on the remote processor */
-+	int remote_session_id;
-+	/** @pd: Protection domain identifier encoded into the context ID */
-+	int pd;
-+	/** @type: Invocation type (e.g. FASTRPC_RMID_INVOKE_DYNAMIC) */
-+	u32 type;
-+	/** @sc: Scalars value encoding in/out buffer counts */
-+	u32 sc;
-+	/** @handle: Handle of the remote method being invoked */
-+	u32 handle;
-+	/** @metalen: Length of the FastRPC metadata header in bytes */
-+	size_t metalen;
-+	/** @pkt_size: Total payload size in bytes */
-+	u64 pkt_size;
-+	/** @aligned_pkt_size: Page-aligned payload size for GEM allocation */
-+	u64 aligned_pkt_size;
-+	/** @list: Array of invoke buffer descriptors */
-+	struct fastrpc_invoke_buf *list;
-+	/** @pages: Array of physical page descriptors for all arguments */
-+	struct fastrpc_phy_page *pages;
-+	/** @input_pages: Array of physical page descriptors for input buffers */
-+	struct fastrpc_phy_page *input_pages;
-+	/** @work: Completion used to synchronise with the DSP response */
-+	struct completion work;
-+	/** @msg: Pointer to the QDA message structure for this invocation */
-+	struct qda_msg *msg;
-+	/** @rpra: Array of remote procedure arguments */
-+	union fastrpc_remote_arg *rpra;
-+	/** @gem_objs: Array of GEM objects imported for argument buffers */
-+	struct drm_gem_object **gem_objs;
-+	/** @args: Invoke argument descriptors */
-+	struct drm_qda_fastrpc_invoke_args *args;
-+	/** @refcount: Reference counter for context lifetime management */
-+	struct kref refcount;
-+	/** @msg_gem_obj: GEM object backing the message payload buffer */
-+	struct qda_gem_obj *msg_gem_obj;
-+	/** @file_priv: DRM file private data */
-+	struct drm_file *file_priv;
-+	/**
-+	 * @req: Request buffer for the internal init/map/unmap calls.  Points
-+	 * into a kernel-owned GEM mapping tracked by @gem_objs, so it must
-+	 * never be freed directly.
-+	 */
-+	void *req;
-+	/** @rsp: Response buffer, same lifetime rules as @req */
-+	void *rsp;
-+	/** @inbuf: Process-create input buffer, same lifetime rules as @req */
-+	void *inbuf;
-+};
-+
-+/**
-+ * struct qda_msg - FastRPC message with kernel-internal bookkeeping
-+ */
-+struct qda_msg {
-+	/**
-+	 * @fastrpc: Wire-format message sent to the DSP via RPMsg.
-+	 * Must be the first member.
-+	 */
-+	struct fastrpc_msg fastrpc;
-+	/** @buf: Kernel virtual address of the payload buffer */
-+	void *buf;
-+	/** @phys: Physical/DMA address of the payload buffer */
-+	u64 phys;
-+	/** @ret: Return value from the remote processor */
-+	int ret;
-+	/** @fastrpc_ctx: Back-pointer to the owning invocation context */
-+	struct qda_fastrpc_invoke_ctx *fastrpc_ctx;
-+	/** @file_priv: DRM file private data for GEM object lookup */
-+	struct drm_file *file_priv;
-+};
-+
-+/* Remote Method ID table - identifies initialization and control operations */
-+#define FASTRPC_RMID_INVOKE_DYNAMIC	0xFFFFFFFFU	/* Dynamic method invocation */
-+
-+/* Common handle for initialization operations */
-+#define FASTRPC_INIT_HANDLE		0x1
-+
-+void qda_fastrpc_context_free(struct kref *ref);
-+void qda_fastrpc_cleanup_handlelist(struct qda_fastrpc_invoke_ctx *ctx);
-+void qda_fastrpc_flush_pending(struct qda_dev *qdev);
-+struct qda_fastrpc_invoke_ctx *qda_fastrpc_context_alloc(struct qda_dev *qdev);
-+int qda_fastrpc_prepare_args(struct qda_fastrpc_invoke_ctx *ctx, void *argp);
-+size_t qda_fastrpc_get_header_size(struct qda_fastrpc_invoke_ctx *ctx);
-+int qda_fastrpc_invoke_pack(struct qda_fastrpc_invoke_ctx *ctx, struct qda_msg *msg);
-+
-+#endif /* __QDA_FASTRPC_H__ */
-diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
-index f65325c80a12..b7ee4899ba74 100644
---- a/drivers/accel/qda/qda_ioctl.c
-+++ b/drivers/accel/qda/qda_ioctl.c
-@@ -1,10 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0-only
- // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
- #include <drm/drm_ioctl.h>
-+#include <drm/drm_print.h>
- #include <drm/qda_accel.h>
- #include "qda_drv.h"
-+#include "qda_fastrpc.h"
- #include "qda_gem.h"
- #include "qda_ioctl.h"
-+#include "qda_rpmsg.h"
- 
- /**
-  * qda_ioctl_query() - Query DSP device information
-@@ -83,3 +86,83 @@ int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_fil
- 
- 	return drm_gem_dumb_map_offset(file_priv, dev, args->handle, &args->offset);
- }
-+
-+static int qda_fastrpc_invoke(u32 type, struct drm_device *dev, void *data,
-+			      struct drm_file *file_priv)
-+{
-+	struct qda_file_priv *qda_file_priv = file_priv->driver_priv;
-+	struct qda_dev *qdev = qda_file_priv->qda_dev;
-+	struct qda_fastrpc_invoke_ctx *ctx;
-+	struct drm_gem_object *gem_obj;
-+	struct qda_msg msg;
-+	size_t hdr_size;
-+	int err;
-+
-+	ctx = qda_fastrpc_context_alloc(qdev);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->type = type;
-+	ctx->file_priv = file_priv;
-+	ctx->remote_session_id = qda_file_priv->remote_session_id;
-+
-+	err = qda_fastrpc_prepare_args(ctx, data);
-+	if (err)
-+		goto err_context_free;
-+
-+	hdr_size = qda_fastrpc_get_header_size(ctx);
-+
-+	gem_obj = qda_gem_create_object(dev, qdev->iommu_mgr, hdr_size, file_priv);
-+	if (IS_ERR(gem_obj)) {
-+		err = PTR_ERR(gem_obj);
-+		goto err_context_free;
-+	}
-+
-+	ctx->msg_gem_obj = to_qda_gem_obj(gem_obj);
-+
-+	err = qda_fastrpc_invoke_pack(ctx, &msg);
-+	if (err)
-+		goto err_context_free;
-+
-+	err = qda_rpmsg_send_msg(qdev, &msg);
-+	if (err)
-+		goto err_context_free;
-+
-+	err = qda_rpmsg_wait_for_rsp(ctx);
-+	if (err)
-+		goto err_context_free;
-+
-+	/* Ensure the results written by the DSP are visible before reading */
-+	dma_rmb();
-+
-+	err = ctx->retval;
-+	if (err) {
-+		drm_dbg_driver(dev, "DSP returned status 0x%x for type %u\n",
-+			       ctx->retval, type);
-+		goto err_context_free;
-+	}
-+
-+	qda_fastrpc_cleanup_handlelist(ctx);
-+
-+	kref_put(&ctx->refcount, qda_fastrpc_context_free);
-+
-+	return 0;
-+
-+err_context_free:
-+	kref_put(&ctx->refcount, qda_fastrpc_context_free);
++err_free_gem_objs:
++	kfree(ctx->gem_objs);
++	ctx->gem_objs = NULL;
++err_free_args:
++	kfree(args);
 +
 +	return err;
 +}
 +
++/*
++ * INIT_CREATE / INIT_CREATE_ATTR packed layout:
++ *   [0] inbuf	sizeof(fastrpc_create_process_inbuf)	IN
++ *   [1] comm	TASK_COMM_LEN				IN
++ *   [2] ELF	user-supplied GEM handle, not packed	IN
++ *   [3] pages	sizeof(fastrpc_phy_page)		IN
++ *   [4] attrs	sizeof(u32)				IN
++ *   [5] siglen	sizeof(u32)				IN
++ */
++static int qda_fastrpc_prepare_args_init_create(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
++{
++	struct drm_qda_init_create *init = argp;
++	struct fastrpc_create_process_inbuf *inbuf;
++	struct drm_qda_fastrpc_invoke_args *args;
++	struct qda_gem_obj *kernel_gem;
++	u32 nscalars;
++	int err;
++	u8 *gv;
++
++	const size_t off_inbuf = 0;
++	const size_t off_comm = off_inbuf + sizeof(*inbuf);
++	const size_t off_pages = off_comm + TASK_COMM_LEN;
++	const size_t off_attrs = off_pages + sizeof(struct fastrpc_phy_page);
++	const size_t off_siglen = off_attrs + sizeof(u32);
++	const size_t total_size = off_siglen + sizeof(u32);
++
++	if (init->filelen > FASTRPC_INIT_FILELEN_MAX)
++		return -EINVAL;
++
++	/* Reject an unusable ELF handle before involving the DSP */
++	if (init->filelen && init->filehandle) {
++		struct drm_gem_object *file_gem_obj;
++
++		err = get_gem_obj_from_handle(ctx, init->filehandle, &file_gem_obj);
++		if (err)
++			return err;
++		drm_gem_object_put(file_gem_obj);
++	}
++
++	ctx->sc = init->attrs ? FASTRPC_SCALARS(FASTRPC_RMID_INIT_CREATE_ATTR, 4, 0)
++			      : FASTRPC_SCALARS(FASTRPC_RMID_INIT_CREATE, 4, 0);
++	ctx->handle = FASTRPC_INIT_HANDLE;
++	nscalars = REMOTE_SCALARS_LENGTH(ctx->sc);
++
++	args = kzalloc_objs(*args, FASTRPC_CREATE_PROCESS_NARGS);
++	if (!args)
++		return -ENOMEM;
++
++	ctx->gem_objs = kzalloc_objs(*ctx->gem_objs, nscalars);
++	if (!ctx->gem_objs) {
++		err = -ENOMEM;
++		goto err_free_args;
++	}
++
++	kernel_gem = alloc_kernel_gem(ctx, total_size);
++	if (IS_ERR(kernel_gem)) {
++		err = PTR_ERR(kernel_gem);
++		goto err_free_gem_objs;
++	}
++	gv = kernel_gem->virt;
++
++	inbuf = (struct fastrpc_create_process_inbuf *)(gv + off_inbuf);
++	inbuf->remote_session_id = ctx->remote_session_id;
++	inbuf->namelen = strlen(current->comm) + 1;
++	inbuf->filelen = init->filelen;
++	inbuf->pageslen = 1;
++	inbuf->attrs = init->attrs;
++	inbuf->siglen = init->siglen;
++
++	memcpy(gv + off_comm, current->comm, inbuf->namelen);
++
++	ctx->input_pages = (struct fastrpc_phy_page *)(gv + off_pages);
++	setup_pages_from_gem_obj(ctx->init_mem_gem_obj, ctx->input_pages);
++
++	*(u32 *)(gv + off_attrs) = inbuf->attrs;
++	*(u32 *)(gv + off_siglen) = inbuf->siglen;
++
++	/*
++	 * ctx->sc encodes 4 inbufs, so gem_objs[] only has 4 slots.  args[4]
++	 * and args[5] are packed for the DSP but must not be registered there,
++	 * and are never walked because the argument loops stop at nscalars.
++	 */
++	assign_kernel_gem_arg(args, ctx->gem_objs, 0, kernel_gem,
++			      gv + off_inbuf, sizeof(*inbuf));
++	assign_kernel_gem_arg(args, ctx->gem_objs, 1, kernel_gem,
++			      gv + off_comm, inbuf->namelen);
++	args[2].ptr = init->file;
++	args[2].length = inbuf->filelen;
++	args[2].handle = init->filehandle;
++	assign_kernel_gem_arg(args, ctx->gem_objs, 3, kernel_gem,
++			      gv + off_pages, sizeof(struct fastrpc_phy_page));
++	args[4].ptr = (u64)(uintptr_t)(gv + off_attrs);
++	args[4].length = sizeof(u32);
++	args[5].ptr = (u64)(uintptr_t)(gv + off_siglen);
++	args[5].length = sizeof(u32);
++
++	drm_gem_object_put(&kernel_gem->base);
++
++	ctx->args = args;
++	ctx->inbuf = inbuf;
++
++	return 0;
++
++err_free_gem_objs:
++	kfree(ctx->gem_objs);
++	ctx->gem_objs = NULL;
++err_free_args:
++	kfree(args);
++
++	return err;
++}
++
+ /*
+  * INVOKE_DYNAMIC: the argument descriptors are supplied by user space, which
+  * is also responsible for having imported every buffer to a GEM handle.
+@@ -412,6 +617,14 @@ int qda_fastrpc_prepare_args(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
+ 	int err;
+ 
+ 	switch (ctx->type) {
++	case FASTRPC_RMID_INIT_RELEASE:
++		err = qda_fastrpc_prepare_args_release_process(ctx);
++		break;
++	case FASTRPC_RMID_INIT_CREATE:
++	case FASTRPC_RMID_INIT_CREATE_ATTR:
++		ctx->pd = QDA_USER_PD;
++		err = qda_fastrpc_prepare_args_init_create(ctx, argp);
++		break;
+ 	case FASTRPC_RMID_INVOKE_DYNAMIC:
+ 		err = qda_fastrpc_prepare_args_invoke(ctx, argp);
+ 		break;
+diff --git a/drivers/accel/qda/qda_fastrpc.h b/drivers/accel/qda/qda_fastrpc.h
+index a25818923a6e..6beaa9538983 100644
+--- a/drivers/accel/qda/qda_fastrpc.h
++++ b/drivers/accel/qda/qda_fastrpc.h
+@@ -107,6 +107,27 @@ struct fastrpc_invoke_buf {
+ 	u32 pgidx;
+ };
+ 
 +/**
-+ * qda_ioctl_invoke() - Perform a dynamic FastRPC method invocation
++ * struct fastrpc_create_process_inbuf - Input buffer for process creation
++ *
++ * This structure defines the input buffer format for creating a new
++ * process on the remote DSP.
++ */
++struct fastrpc_create_process_inbuf {
++	/** @remote_session_id: Client identifier for the session */
++	int remote_session_id;
++	/** @namelen: Length of the process name string including NUL terminator */
++	u32 namelen;
++	/** @filelen: Length of the ELF shell file in bytes */
++	u32 filelen;
++	/** @pageslen: Number of physical page descriptors */
++	u32 pageslen;
++	/** @attrs: Process attribute flags */
++	u32 attrs;
++	/** @siglen: Length of the signature data in bytes */
++	u32 siglen;
++};
++
+ /**
+  * struct fastrpc_msg - FastRPC wire message for remote invocations
+  *
+@@ -192,6 +213,8 @@ struct qda_fastrpc_invoke_ctx {
+ 	struct qda_gem_obj *msg_gem_obj;
+ 	/** @file_priv: DRM file private data */
+ 	struct drm_file *file_priv;
++	/** @init_mem_gem_obj: GEM object for PD initialization memory */
++	struct qda_gem_obj *init_mem_gem_obj;
+ 	/**
+ 	 * @req: Request buffer for the internal init/map/unmap calls.  Points
+ 	 * into a kernel-owned GEM mapping tracked by @gem_objs, so it must
+@@ -226,11 +249,23 @@ struct qda_msg {
+ };
+ 
+ /* Remote Method ID table - identifies initialization and control operations */
++#define FASTRPC_RMID_INIT_RELEASE	1	/* Release DSP process */
++#define FASTRPC_RMID_INIT_CREATE	6	/* Create DSP process */
++#define FASTRPC_RMID_INIT_CREATE_ATTR	7	/* Create DSP process with attributes */
+ #define FASTRPC_RMID_INVOKE_DYNAMIC	0xFFFFFFFFU	/* Dynamic method invocation */
+ 
+ /* Common handle for initialization operations */
+ #define FASTRPC_INIT_HANDLE		0x1
+ 
++/* Protection Domain (PD) identifiers */
++#define QDA_ROOT_PD		(0)
++#define QDA_USER_PD		(1)
++
++/* Number of arguments for process creation */
++#define FASTRPC_CREATE_PROCESS_NARGS	6
++/* Maximum initialization file size (4 MB) */
++#define FASTRPC_INIT_FILELEN_MAX	(4 * 1024 * 1024)
++
+ void qda_fastrpc_context_free(struct kref *ref);
+ void qda_fastrpc_cleanup_handlelist(struct qda_fastrpc_invoke_ctx *ctx);
+ void qda_fastrpc_flush_pending(struct qda_dev *qdev);
+diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
+index b7ee4899ba74..34b71b82a020 100644
+--- a/drivers/accel/qda/qda_ioctl.c
++++ b/drivers/accel/qda/qda_ioctl.c
+@@ -106,6 +106,40 @@ static int qda_fastrpc_invoke(u32 type, struct drm_device *dev, void *data,
+ 	ctx->file_priv = file_priv;
+ 	ctx->remote_session_id = qda_file_priv->remote_session_id;
+ 
++	if (type == FASTRPC_RMID_INIT_CREATE) {
++		/*
++		 * A second INIT_CREATE on the same file without an intervening
++		 * INIT_RELEASE replaces the process image, so drop the
++		 * initialisation memory cached for the previous attempt.
++		 */
++		if (qda_file_priv->init_mem_gem_obj) {
++			drm_gem_object_put(&qda_file_priv->init_mem_gem_obj->base);
++			qda_file_priv->init_mem_gem_obj = NULL;
++		}
++
++		gem_obj = qda_gem_create_object(dev, qdev->iommu_mgr,
++						FASTRPC_INIT_FILELEN_MAX, file_priv);
++		if (IS_ERR(gem_obj)) {
++			err = PTR_ERR(gem_obj);
++			goto err_context_free;
++		}
++
++		ctx->init_mem_gem_obj = to_qda_gem_obj(gem_obj);
++
++		/*
++		 * The file private data caches the initialisation memory for
++		 * the lifetime of the DSP process, so it holds a reference of
++		 * its own; the context drops the one taken here when it is
++		 * released.
++		 */
++		drm_gem_object_get(gem_obj);
++		qda_file_priv->init_mem_gem_obj = ctx->init_mem_gem_obj;
++	} else if (type == FASTRPC_RMID_INIT_RELEASE) {
++		ctx->init_mem_gem_obj = qda_file_priv->init_mem_gem_obj;
++		if (ctx->init_mem_gem_obj)
++			drm_gem_object_get(&ctx->init_mem_gem_obj->base);
++	}
++
+ 	err = qda_fastrpc_prepare_args(ctx, data);
+ 	if (err)
+ 		goto err_context_free;
+@@ -144,16 +178,59 @@ static int qda_fastrpc_invoke(u32 type, struct drm_device *dev, void *data,
+ 
+ 	qda_fastrpc_cleanup_handlelist(ctx);
+ 
++	/*
++	 * The DSP has torn down the protection domain, so the initialisation
++	 * memory can be released now.
++	 */
++	if (type == FASTRPC_RMID_INIT_RELEASE && qda_file_priv->init_mem_gem_obj) {
++		drm_gem_object_put(&qda_file_priv->init_mem_gem_obj->base);
++		qda_file_priv->init_mem_gem_obj = NULL;
++	}
++
+ 	kref_put(&ctx->refcount, qda_fastrpc_context_free);
+ 
+ 	return 0;
+ 
+ err_context_free:
++	/*
++	 * Process creation failed, so release the initialisation memory cached
++	 * in the file private data; the context drops its own reference below.
++	 */
++	if (type == FASTRPC_RMID_INIT_CREATE && qda_file_priv->init_mem_gem_obj) {
++		drm_gem_object_put(&qda_file_priv->init_mem_gem_obj->base);
++		qda_file_priv->init_mem_gem_obj = NULL;
++	}
++
+ 	kref_put(&ctx->refcount, qda_fastrpc_context_free);
+ 
+ 	return err;
+ }
+ 
++/**
++ * qda_ioctl_init_create() - Create a DSP process
 + * @dev: DRM device structure
-+ * @data: User-space data (struct qda_invoke_args)
++ * @data: User-space data (struct drm_qda_init_create)
 + * @file_priv: DRM file private data
 + *
 + * Return: 0 on success, negative error code on failure
 + */
-+int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_priv)
++int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *file_priv)
 +{
-+	return qda_fastrpc_invoke(FASTRPC_RMID_INVOKE_DYNAMIC, dev, data, file_priv);
++	return qda_fastrpc_invoke(FASTRPC_RMID_INIT_CREATE, dev, data, file_priv);
 +}
-diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
-index d1cbbfb6d965..3bb9cfd98370 100644
---- a/drivers/accel/qda/qda_ioctl.h
-+++ b/drivers/accel/qda/qda_ioctl.h
-@@ -11,5 +11,6 @@
- int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_gem_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_file *file_priv);
-+int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_priv);
- 
- #endif /* __QDA_IOCTL_H__ */
-diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
-index 64bf503106d9..7a5e0d3e20ca 100644
---- a/drivers/accel/qda/qda_rpmsg.c
-+++ b/drivers/accel/qda/qda_rpmsg.c
-@@ -1,12 +1,17 @@
- // SPDX-License-Identifier: GPL-2.0-only
- // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+#include <linux/completion.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/rpmsg.h>
-+#include <linux/sched.h>
-+#include <linux/wait.h>
- #include <drm/drm_print.h>
- 
- #include "qda_cb.h"
- #include "qda_drv.h"
-+#include "qda_fastrpc.h"
-+#include "qda_rpmsg.h"
- 
- static struct qda_dev *qda_rpmsg_alloc_and_init_qdev(struct rpmsg_device *rpdev)
- {
-@@ -23,11 +28,92 @@ static struct qda_dev *qda_rpmsg_alloc_and_init_qdev(struct rpmsg_device *rpdev)
- 	return qdev;
- }
- 
++
 +/**
-+ * qda_rpmsg_send_msg() - Send a packed invocation to the remote processor
++ * qda_release_dsp_process() - Release DSP process resources for a file
 + * @qdev: QDA device structure
-+ * @msg: Packed message to send
-+ *
-+ * Takes a reference on the invocation context on behalf of the response
-+ * callback, which keeps the context alive until the DSP has replied.
++ * @file_priv: DRM file private data
 + *
 + * Return: 0 on success, negative error code on failure
 + */
-+int qda_rpmsg_send_msg(struct qda_dev *qdev, struct qda_msg *msg)
++int qda_release_dsp_process(struct qda_dev *qdev, struct drm_file *file_priv)
 +{
-+	struct qda_fastrpc_invoke_ctx *ctx = msg->fastrpc_ctx;
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(&qdev->drm_dev, &idx))
-+		return -ENODEV;
-+
-+	if (!qdev->rpdev) {
-+		ret = -ENODEV;
-+		goto out_exit;
-+	}
-+
-+	kref_get(&ctx->refcount);
-+
-+	ret = rpmsg_send(qdev->rpdev->ept, &msg->fastrpc, sizeof(msg->fastrpc));
-+	if (ret) {
-+		drm_err_ratelimited(&qdev->drm_dev, "Failed to send rpmsg: %d\n", ret);
-+		kref_put(&ctx->refcount, qda_fastrpc_context_free);
-+	}
-+
-+out_exit:
-+	drm_dev_exit(idx);
-+
-+	return ret;
++	return qda_fastrpc_invoke(FASTRPC_RMID_INIT_RELEASE, &qdev->drm_dev, NULL, file_priv);
 +}
 +
-+/**
-+ * qda_rpmsg_wait_for_rsp() - Wait for the DSP to answer an invocation
-+ * @ctx: FastRPC invocation context
-+ *
-+ * Return: 0 once the response arrived, or -ERESTARTSYS if a signal
-+ * interrupted the wait
-+ */
-+int qda_rpmsg_wait_for_rsp(struct qda_fastrpc_invoke_ctx *ctx)
-+{
-+	return wait_for_completion_interruptible(&ctx->work);
-+}
-+
- static int qda_rpmsg_cb(struct rpmsg_device *rpdev, void *data, int len,
- 			void *priv, u32 src)
- {
--	/* Placeholder: responses will be dispatched here */
--	return 0;
-+	struct qda_dev *qdev = dev_get_drvdata(&rpdev->dev);
-+	struct qda_invoke_rsp *resp_msg = data;
-+	struct qda_fastrpc_invoke_ctx *ctx;
-+	int ret = 0, idx;
-+
-+	if (!qdev)
-+		return -ENODEV;
-+
-+	if (!drm_dev_enter(&qdev->drm_dev, &idx))
-+		return -ENODEV;
-+
-+	if (len < sizeof(*resp_msg)) {
-+		ret = -EINVAL;
-+		goto out_exit;
-+	}
-+
-+	ctx = xa_load(&qdev->ctx_xa, resp_msg->ctx >> 4);
-+	if (!ctx) {
-+		drm_dbg_driver(&qdev->drm_dev, "No context matches response 0x%llx\n",
-+			       resp_msg->ctx);
-+		ret = -ENOENT;
-+		goto out_exit;
-+	}
-+
-+	ctx->retval = resp_msg->retval;
-+	complete(&ctx->work);
-+
-+	/* Release the reference taken by qda_rpmsg_send_msg() */
-+	kref_put(&ctx->refcount, qda_fastrpc_context_free);
-+
-+out_exit:
-+	drm_dev_exit(idx);
-+
-+	return ret;
- }
+ /**
+  * qda_ioctl_invoke() - Perform a dynamic FastRPC method invocation
+  * @dev: DRM device structure
+diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
+index 3bb9cfd98370..192565434363 100644
+--- a/drivers/accel/qda/qda_ioctl.h
++++ b/drivers/accel/qda/qda_ioctl.h
+@@ -9,6 +9,7 @@
+ #include "qda_drv.h"
  
- static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
-@@ -41,6 +127,7 @@ static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
- 	 */
- 	drm_dev_unplug(&qdev->drm_dev);
- 	qdev->rpdev = NULL;
-+	qda_fastrpc_flush_pending(qdev);
- 	qda_cb_unpopulate(qdev);
- 	qda_deinit_device(qdev);
- }
-diff --git a/drivers/accel/qda/qda_rpmsg.h b/drivers/accel/qda/qda_rpmsg.h
-new file mode 100644
-index 000000000000..a70f4a80808d
---- /dev/null
-+++ b/drivers/accel/qda/qda_rpmsg.h
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __QDA_RPMSG_H__
-+#define __QDA_RPMSG_H__
-+
-+#include "qda_drv.h"
-+#include "qda_fastrpc.h"
-+
-+/**
-+ * struct qda_invoke_rsp - Response structure for FastRPC invocations
-+ */
-+struct qda_invoke_rsp {
-+	/** @ctx: Invoke caller context for matching request/response */
-+	u64 ctx;
-+	/** @retval: Return value from the remote invocation */
-+	int retval;
-+};
-+
-+/* RPMsg transport layer functions */
-+int qda_rpmsg_send_msg(struct qda_dev *qdev, struct qda_msg *msg);
-+int qda_rpmsg_wait_for_rsp(struct qda_fastrpc_invoke_ctx *ctx);
-+
-+#endif /* __QDA_RPMSG_H__ */
+ int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv);
++int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
+ int qda_ioctl_gem_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
+ int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_file *file_priv);
+ int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_priv);
 diff --git a/include/uapi/drm/qda_accel.h b/include/uapi/drm/qda_accel.h
-index 1d699f00e7be..5cf0fec1d91c 100644
+index 5cf0fec1d91c..d12b8dc44fdd 100644
 --- a/include/uapi/drm/qda_accel.h
 +++ b/include/uapi/drm/qda_accel.h
-@@ -21,6 +21,8 @@ extern "C" {
+@@ -21,7 +21,8 @@ extern "C" {
  #define DRM_QDA_QUERY		0x00
  #define DRM_QDA_GEM_CREATE		0x01
  #define DRM_QDA_GEM_MMAP_OFFSET	0x02
-+/* Command numbers 0x03-0x06 reserved for INIT_ATTACH, INIT_CREATE, MAP, MUNMAP */
-+#define DRM_QDA_REMOTE_INVOKE			0x07
+-/* Command numbers 0x03-0x06 reserved for INIT_ATTACH, INIT_CREATE, MAP, MUNMAP */
++/* Command number 0x03 reserved for INIT_ATTACH; 0x05-0x06 reserved for MAP, MUNMAP */
++#define DRM_QDA_REMOTE_SESSION_CREATE		0x04
+ #define DRM_QDA_REMOTE_INVOKE			0x07
  
  /*
-  * QDA IOCTL definitions
-@@ -35,6 +37,8 @@ extern "C" {
+@@ -37,6 +38,9 @@ extern "C" {
  					  struct drm_qda_gem_create)
  #define DRM_IOCTL_QDA_GEM_MMAP_OFFSET	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_GEM_MMAP_OFFSET, \
  					  struct drm_qda_gem_mmap_offset)
-+#define DRM_IOCTL_QDA_REMOTE_INVOKE	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_INVOKE, \
-+					  struct drm_qda_invoke_args)
++#define DRM_IOCTL_QDA_REMOTE_SESSION_CREATE					\
++	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_SESSION_CREATE,		\
++		 struct drm_qda_init_create)
+ #define DRM_IOCTL_QDA_REMOTE_INVOKE	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_INVOKE, \
+ 					  struct drm_qda_invoke_args)
  
- /* Query type definitions for drm_qda_query */
- #define QDA_QUERY_DSP_NAME	1
-@@ -84,6 +88,44 @@ struct drm_qda_gem_mmap_offset {
- 	__u32 pad;
+@@ -126,6 +130,31 @@ struct drm_qda_invoke_args {
+ 	__u64 args;
  };
  
 +/**
-+ * struct drm_qda_fastrpc_invoke_args - FastRPC invocation argument descriptor
-+ * @ptr: Pointer to argument data (user virtual address)
-+ * @length: Length of the argument data in bytes
-+ * @handle: GEM handle for buffer arguments; 0 for scalar arguments
-+ * @attr: Argument attributes and flags
++ * struct drm_qda_init_create - Accelerator process initialization parameters
++ * @filelen: Length of the ELF file in bytes
++ * @filehandle: GEM handle for the buffer containing the ELF file; 0 if using
++ *              the direct file pointer instead
++ * @attrs: Process attributes flags
++ * @siglen: Length of signature data in bytes
++ * @file: Pointer to ELF file data if not using filehandle
 + *
-+ * This structure describes a single argument passed to a FastRPC invocation.
-+ * Arguments can be either scalar values or buffer references (via GEM handle).
-+ * Userspace must import any DMA-BUF fd to a GEM handle before populating
-+ * this field; the driver never accepts DMA-BUF fds directly.
-+ */
-+struct drm_qda_fastrpc_invoke_args {
-+	__u64 ptr;
-+	__u64 length;
-+	__u32 handle;
-+	__u32 attr;
-+};
-+
-+/**
-+ * struct drm_qda_invoke_args - Dynamic FastRPC invocation parameters
-+ * @handle: Remote handle to invoke on the DSP
-+ * @sc: FastRPC scalars value encoding the number of in/out buffers
-+ * @args: User-space pointer to array of drm_qda_fastrpc_invoke_args descriptors;
-+ *        the handle field in each entry must be a GEM handle (or 0 for
-+ *        inline scalar buffers). Userspace must import DMA-BUF fds to GEM
-+ *        handles before passing them here.
++ * This structure is used with DRM_IOCTL_QDA_INIT_CREATE to initialize
++ * a new process on the accelerator. The process code is provided either
++ * via a GEM handle (filehandle) or a direct pointer (file).
++ * Set file to 0 if using filehandle.
 + *
-+ * This structure is used with DRM_IOCTL_QDA_REMOTE_INVOKE to perform a
-+ * dynamic remote procedure call on the DSP. The args pointer must reference
-+ * an array of REMOTE_SCALARS_LENGTH(sc) drm_qda_fastrpc_invoke_args entries.
++ * The attrs field contains bit flags for debug mode, privileged execution,
++ * and other process attributes.
 + */
-+struct drm_qda_invoke_args {
-+	__u32 handle;
-+	__u32 sc;
-+	__u64 args;
++struct drm_qda_init_create {
++	__u32 filelen;
++	__u32 filehandle;
++	__u32 attrs;
++	__u32 siglen;
++	__u64 file;
 +};
 +
  #if defined(__cplusplus)
