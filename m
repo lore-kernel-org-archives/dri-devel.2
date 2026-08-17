@@ -4,78 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61041C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5090C5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E810810E0F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E926110E4FE;
 	Wed, 19 Aug 2026 06:36:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k12vjpFA";
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="tT5rLvao";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00E4610E508
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 16:13:21 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-cbe6295f05bso32547a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 09:13:21 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F74610E477
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 21:54:56 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-47fde295992so261761f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 14:54:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786983201; x=1787588001; darn=lists.freedesktop.org;
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1787003694;
+ x=1787608494; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=xJefdQ0fcifSAbmN42YkvhRzBSsRE/Tok4/E/KLKe4w=;
- b=k12vjpFAgWCu/0zCO6MY3sbqO/mmEmY7JoADlJcxLMR1WTJXVdeKJSNAXKzmozG8wM
- Zzk9bCuJY/L92avB/XJqDIIWkvwc58kpJd9+/EuXGmhYZsn8VpoRLI22D6yRG83p2nyA
- L51B3PM8E12dmVnb9ox/zDcsaSlq88SXgkPG+XgxrBi6bQZUvIDjlRQ9SxtzrYn+719E
- hltcNe44z4eqNSJphtrMBLNCJ2S9uLbO1eIlk/tp5UoqS4lmoEgN4LfpEzypwwXqavFk
- 7dcZj/ELgQk4l2DCfV4/q79O/ZuvN3oA/jhW+uwQQmpeQLQ5MazpNkvEsM4RR2W2G6Mv
- FQyA==
+ bh=eyYlZFVCc06FCgom6L11YucB1au+iuvrVnF7FufZeZ4=;
+ b=tT5rLvaor/ZksuyBrHCafwjmKajnkMZUEFpj5gRGw3vRwpBMtSKNfq4wC5ANW3wAaE
+ i9lBPXmr1de9vp1k3HxSM7lLpR64XtSZnDaUR/BZe3ZR0lvsCf6biKpcvWwT0glmiww4
+ XYjUhe7EwlfVIPDuKAi+GOdJJWHE9LQGeJEk/C4DWXj2NHYc7LGg+qQlWjhiPT8odeUP
+ 0/7dVmxLg+r21tJLnlOltuiCU9UXJ9gUPD9gBZ/24Gf5swOVs6E6OXzPIGKh9y+3AiJe
+ Hx8/HQhOYHPR2VyM+qNvl1P6bZQ8QWjveIhgV/AJZcZSaTMpwG/VoQUAt2F47B2dPsqj
+ inPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786983201; x=1787588001;
+ d=1e100.net; s=20251104; t=1787003694; x=1787608494;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=xJefdQ0fcifSAbmN42YkvhRzBSsRE/Tok4/E/KLKe4w=;
- b=K2JkxXv0rYnBBg4xiRh6/RnOEA01aYgu24HMn34sYr+CLbla6YC+LC+GznK4PtSVF5
- 6hYTr7JiFzjSFvvG/sdxskEeXZ+MDWEmO+T6q7SdJauAfuTd6vOR5BFCeUI3YO3VjzHx
- 3mITSicltoy3TrZFOzD7aLqq8/ucrd8Ne8Oh4SLFIMnaCVInYBVqO0+hTQRTFRZ349CS
- VI8EoT7tAWJQz5Odd/tatu1Bnany5cutIw+fLaY3vhT3061HGnzyZLP/PcFUjwXQBaqO
- 1LlgpjH+ggXh48nWxxrZlk48fybkNSvzvQu/wenD51QZ9GD38esF9EHXGS1aDovLjgW1
- tJAQ==
+ bh=eyYlZFVCc06FCgom6L11YucB1au+iuvrVnF7FufZeZ4=;
+ b=sWUR84trlny3lvaPnowpPBAS2d7pjRd/gc6aNGzHsSIbFiI2brGcebOlwR6YcBbDsE
+ m3hBAZN/pOLQe+wdJ5fG4HWuBqu4h+WX1Ti+kzC3jK2yMYD2Ec7ckzKVGmQaErns4ZDi
+ eRSQDj+gCT/UoEbcfl86h73iKVMUaixiiYYNjCgXLkMpZffQqujhtWeTEVGl7Muu9LN/
+ SLbAggqDWZQQ0piqFjIZ98DRk8UKAZriftv+kImL77nL7YWXQHtFiSS+IiTZu7oYRHdY
+ A/CU2QRecrI4dxNVW97kiMp+jSz1+M2F9RPaLoXfucVLD1X7pN6175iycral1PmQYEfo
+ xudw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqE9o0Fs5wUsBBDxIiIUDurtP0u4ixiPvFfX5bPR4lLg/abbWgYinUHDJqsdeO8oXpsjJ9In3iGqQY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+pgUEN30Hi+mHSVvQ4FaOOJodD/lbMib6xTGZ1qFqU5v+SBwy
- 3fvWZT+vx96NwAwrubbT+VabS9R3BNhSF4XA0MG4LJ0csVHR/ohDXGtU
-X-Gm-Gg: AR+sD12VgUuD7nXObfK2Gy0vFySqg8jLLJuHqbN0I8GJdRy0SVB+g3dafAPZW6a7bst
- SSHo6VpkCetmCMjXKFKMeLx3jPSHbL90Cf0zfWBZ/e+1Z5gd8Y2OcMC0Rc3uzO0kNqCKCW8ikZ6
- DTeCYzF6FJO8ESzRrW+1PkanEAU/7nK0GmyCJj0xo6sYOIub7lkhL9VrlO7NtfuRLsZqAkaw2tY
- ExWFeTX+q6i3nYAi+F6YLevs+ijMXl1GZ9vcBwNJpabMdiqHFseMXlRGq3MAU6eQAihCfjsdHCA
- lvAbEGKZjCaI1Hh2NAILRmDl+9dn4sABjYGhrOWLBGf+vqeWfglAy/rvYw3g/ysrkayRvHDSDC0
- CiSYZPErT8JtruWBVAFiTBDxdlqVAOQKoixvL1rteGWXK8Bblbd5/U3rZhaL0+pj2eyFQG4gueQ
- QbGSsNDfI5ZupkapnCVbRQ9dcoxpEePe/uuy8KkG0HWx9vvhT4LZ76pWjCGd0=
-X-Received: by 2002:a17:90a:d005:b0:38e:4f42:d0d6 with SMTP id
- 98e67ed59e1d1-3955f1d0d60mr113069a91.12.1786983201436; 
- Mon, 17 Aug 2026 09:13:21 -0700 (PDT)
-Received: from ubuntu.. ([2405:201:8026:213e:faaa:24d8:b961:4887])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-32678dd22f7sm11391087eec.1.2026.08.17.09.13.14
+ AHgh+RpLcJWgCkTI9ttjAElKKFXDFa0sZPRlKwtcFD9nCk2x5EZsl2pZapI3OnrKRk3WjCN6r2qc7HBg3p0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw9AHnMvQEV5JGeYMQA7pSIRtE7pqO5ApuDtrl1cxcyaQSwyygl
+ 8MRl3SlXHuuTdCykDnlBbg6yznxijogM0iVehEfjSTGI+GC9SZUnfEkKTIuievQlmg==
+X-Gm-Gg: AR+sD1131fzlA0y9S0Y7GKYZk4goKHsQp7f7xR6S/R0gRqB4WzKt8p1whQGswO5Hyn3
+ 6YFdl8Rc7YuYLzKAKsdPx1GU1XzYxJ9xHw37VLHueQHGjMzgWh4JrzbTEfrso408x0b1286Z2dT
+ O85BdxgJqpprI0PKnG2v866SSuZk4OHx/P24dwIJgNFdNVjtHTJtFLLZRPpP1r7pzaoACFLO4Zm
+ 8pFx+44rqe2BaMXK3C/ctjzKzd4UlwzG1EqmwIoXWJFi9k6LHlW7S1cXKSMVE0YmAW9uE4N6YJO
+ 7CQiriIIxKCNAvhO40R6byhWOcuHzbeyRAYHIuaXKY8X7N+LqzSMulmt3NjEBsBMX72kWSda6Tj
+ qGYBK0efqDLre4GBLHOmNZ5hVoQHj/u9CrEBRXUpF8DbKC3qI9hw76GOoW2gQMhPRTnxa06tBZa
+ 0VGMhyNoSh2gMOn8Vry54PluBFRj1HAsRzyIkIaMHGYb8ESYx/d70MQv1EKx0tXEy768hpAz9P+
+ v93EpAfil9Lzg==
+X-Received: by 2002:a05:6000:4028:b0:47f:fcff:6b05 with SMTP id
+ ffacd0b85a97d-482aab887d9mr1314805f8f.13.1787003694601; 
+ Mon, 17 Aug 2026 14:54:54 -0700 (PDT)
+Received: from horizon ([217.155.46.38]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482a5a3b3f0sm6060954f8f.14.2026.08.17.14.54.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 09:13:20 -0700 (PDT)
-From: mdshahid03@gmail.com
-To: daeinki@gmail.com
-Cc: airlied@gmail.com, alim.akhtar@samsung.com,
- dri-devel@lists.freedesktop.org, krzk@kernel.org,
- kyungmin.park@samsung.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- peter.griffin@linaro.org, simona@ffwll.ch, sw0312.kim@samsung.com
-Subject: Re: [PATCH] drm/exynos: vidi: use memdup_user() instead of kmalloc()
- and copy_from_user()
-Date: Mon, 17 Aug 2026 21:42:47 +0530
-Message-ID: <20260817161247.156884-1-mdshahid03@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAAQKjZPwb00MePpUTmKZbn67jXp=UWX7m81evttd29L+9UcVxw@mail.gmail.com>
-References: <CAAQKjZPwb00MePpUTmKZbn67jXp=UWX7m81evttd29L+9UcVxw@mail.gmail.com>
+ Mon, 17 Aug 2026 14:54:53 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: chrome-platform@lists.linux.dev
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Joshua Grisham <josh@joshuagrisham.com>,
+ platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com,
+ Sean Rhodes <sean@starlabs.systems>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Huacai Chen <chenhuacai@kernel.org>,
+ Tzung-Bi Shih <tzungbi@kernel.org>,
+ Brian Norris <briannorris@chromium.org>,
+ Julius Werner <jwerner@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>, 
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+ Kees Cook <kees@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>,
+ Eric Biggers <ebiggers@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>,
+ linux-kernel@vger.kernel.org, oliver@liuxiaozhen.dev
+Subject: [PATCH v13 RESEND 1/5] platform/x86: Sort firmware attributes class
+ includes
+Date: Mon, 17 Aug 2026 22:54:47 +0100
+Message-ID: <b967ec0f8adb69417a3d81ee5546e4a238e29e11.1787003659.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1787003659.git.sean@starlabs.systems>
+References: <cover.1787003659.git.sean@starlabs.systems>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
@@ -94,12 +124,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Inki,
+Move firmware_attributes_class.h into the main include block and sort the
+affected includes. This lets the header move replace each include in place.
 
-Thanks for the response. I appreciate you taking the time to review the patch.
+Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+---
+ drivers/platform/x86/asus-armoury.c                | 2 +-
+ drivers/platform/x86/dell/dell-wmi-sysman/sysman.c | 9 +++++----
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c       | 9 +++++----
+ drivers/platform/x86/lenovo/think-lmi.c            | 5 +++--
+ drivers/platform/x86/lenovo/wmi-other.c            | 2 +-
+ drivers/platform/x86/samsung-galaxybook.c          | 3 ++-
+ 6 files changed, 17 insertions(+), 13 deletions(-)
 
-For context, a similar cleanup patch of mine was recently accepted by Greg KH and is now in linux-next.
-
-Thanks,
-Shahid
-
+diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
+index 495dc1e31d40..f3d8c5a85762 100644
+--- a/drivers/platform/x86/asus-armoury.c
++++ b/drivers/platform/x86/asus-armoury.c
+@@ -20,6 +20,7 @@
+ #include <linux/dmi.h>
+ #include <linux/err.h>
+ #include <linux/errno.h>
++#include "firmware_attributes_class.h"
+ #include <linux/fs.h>
+ #include <linux/kernel.h>
+ #include <linux/kmod.h>
+@@ -34,7 +35,6 @@
+ #include <linux/sysfs.h>
+ 
+ #include "asus-armoury.h"
+-#include "firmware_attributes_class.h"
+ 
+ #define ASUS_NB_WMI_EVENT_GUID "0B3CBB35-E3C2-45ED-91C2-4C5A6D195D1C"
+ 
+diff --git a/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c b/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c
+index ab46a023cc34..4ff9003c6589 100644
+--- a/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c
++++ b/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c
+@@ -8,18 +8,19 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+ #include <linux/align.h>
+-#include <linux/fs.h>
+ #include <linux/dmi.h>
+-#include <linux/module.h>
++#include "../../firmware_attributes_class.h"
++#include <linux/fs.h>
+ #include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/nls.h>
+ #include <linux/string.h>
+ #include <linux/sysfs.h>
+ #include <linux/wmi.h>
++
+ #include "dell-wmi-sysman.h"
+-#include "../../firmware_attributes_class.h"
+ 
+ #define MAX_TYPES  4
+-#include <linux/nls.h>
+ 
+ struct wmi_sysman_priv wmi_priv = {
+ 	.mutex = __MUTEX_INITIALIZER(wmi_priv.mutex),
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+index 27fd6cd21529..1965a329be48 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+@@ -7,16 +7,17 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
++#include <linux/errno.h>
++#include "../../firmware_attributes_class.h"
+ #include <linux/fs.h>
+-#include <linux/module.h>
+ #include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/nls.h>
+ #include <linux/printk.h>
+ #include <linux/string.h>
+ #include <linux/wmi.h>
++
+ #include "bioscfg.h"
+-#include "../../firmware_attributes_class.h"
+-#include <linux/nls.h>
+-#include <linux/errno.h>
+ 
+ MODULE_AUTHOR("Jorge Lopez <jorge.lopez2@hp.com>");
+ MODULE_DESCRIPTION("HP BIOS Configuration Driver");
+diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
+index e215e86e3db7..9e4b3e973de9 100644
+--- a/drivers/platform/x86/lenovo/think-lmi.c
++++ b/drivers/platform/x86/lenovo/think-lmi.c
+@@ -13,14 +13,15 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/array_size.h>
++#include <linux/dmi.h>
+ #include <linux/errno.h>
++#include "../firmware_attributes_class.h"
+ #include <linux/fs.h>
+ #include <linux/mutex.h>
+ #include <linux/string_helpers.h>
+ #include <linux/types.h>
+-#include <linux/dmi.h>
+ #include <linux/wmi.h>
+-#include "../firmware_attributes_class.h"
++
+ #include "think-lmi.h"
+ 
+ static bool debug_support;
+diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x86/lenovo/wmi-other.c
+index fbb32bf404f2..fdebaa0a9992 100644
+--- a/drivers/platform/x86/lenovo/wmi-other.c
++++ b/drivers/platform/x86/lenovo/wmi-other.c
+@@ -33,6 +33,7 @@
+ #include <linux/container_of.h>
+ #include <linux/device.h>
+ #include <linux/export.h>
++#include "../firmware_attributes_class.h"
+ #include <linux/gfp_types.h>
+ #include <linux/hwmon.h>
+ #include <linux/idr.h>
+@@ -50,7 +51,6 @@
+ #include "wmi-capdata.h"
+ #include "wmi-events.h"
+ #include "wmi-helpers.h"
+-#include "../firmware_attributes_class.h"
+ 
+ #define LENOVO_OTHER_MODE_GUID "DC2A8805-3A8C-41BA-A6F7-092E0089CD3B"
+ 
+diff --git a/drivers/platform/x86/samsung-galaxybook.c b/drivers/platform/x86/samsung-galaxybook.c
+index 6382af0b106c..74103c00b0c8 100644
+--- a/drivers/platform/x86/samsung-galaxybook.c
++++ b/drivers/platform/x86/samsung-galaxybook.c
+@@ -14,6 +14,7 @@
+ #include <linux/acpi.h>
+ #include <linux/bits.h>
+ #include <linux/err.h>
++#include "firmware_attributes_class.h"
+ #include <linux/i8042.h>
+ #include <linux/init.h>
+ #include <linux/input.h>
+@@ -27,8 +28,8 @@
+ #include <linux/sysfs.h>
+ #include <linux/uuid.h>
+ #include <linux/workqueue.h>
++
+ #include <acpi/battery.h>
+-#include "firmware_attributes_class.h"
+ 
+ #define DRIVER_NAME "samsung-galaxybook"
+ 
