@@ -4,138 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3DEAC5CFC1
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41CE1C5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:37:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 231B710E647;
-	Mon, 17 Aug 2026 06:28:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82DF110E0CD;
+	Mon, 17 Aug 2026 06:37:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="WZ/QZS6D";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="KZVCLxyp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7cS0R+eB";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PvTB0upO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xfDUkkO1";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CDB010E647
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:28:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1786948101; x=1787552901; i=markus.elfring@web.de;
- bh=sbmd7hHup//wXEXvt7HizuXg4aizx7FkRF0NQWAUaLs=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=WZ/QZS6D+OYv1KjoQwPsZNunyykXy8rlPstDerVDfpN8OsR6/OEs1NLwQkz4v5Fe
- 7Z1iF8zp5ldKR3ofiUzzpl3eCsrJzMZ7nhQ+6MJJ2LG6u3hxlGbK99o2iH2yLIZn7
- I/eGowN1pqP86OxVI4m5TrJE6BMKMzi1FXPI/dO7URirpqFVXZ4Jz+Ur59/yYlQ6l
- KwtKtx+RCEk8xd3oDPJ6WWUbYOjs2OUZiSfjPolFpAde5Mf7dFRh98vDGprAkPw9+
- igMOn9y3t08jcuCQWKw5VCC9I7wXJCPTCFyeauVJ/ZaSE5ANpdTN7k7QzVODnmX46
- MQFoVhiydKqvEb4vVQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MZSBG-1xRFlT1fBm-00KLP0; Mon, 17
- Aug 2026 08:28:21 +0200
-Message-ID: <672fbb47-7836-4a02-97e6-30ccf53b9e97@web.de>
-Date: Mon, 17 Aug 2026 08:28:07 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE37E10E0CD
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:37:27 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 19D8083E71;
+ Mon, 17 Aug 2026 06:37:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1786948642; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1wormoBA75VWGaAABUKotH38R2gQSdzcl2jp7Ezy9/A=;
+ b=KZVCLxyphZbr5xakso0DLaWZqnHnGxh9R199Nm3/HElpQv9jUv9aw1lGQDBqlOsqFp7oty
+ i+GC2t0II9VKc0QGGnih5gnFWMFm/mtEvoKvxi3j/oXtQc0Diseoj7gCN1wFKdkVL+jPec
+ VAKidfLe9v4PmbuVJ2zbZHSzKA2oywg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1786948642;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1wormoBA75VWGaAABUKotH38R2gQSdzcl2jp7Ezy9/A=;
+ b=7cS0R+eBPZySeYpvEgyGuzSExAwkmQLjzv/GENy5clm4N5Qjs1yFIiovWjCfWJ+WJCCR7+
+ zra+dHh3ldItVNCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PvTB0upO;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xfDUkkO1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1786948638; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1wormoBA75VWGaAABUKotH38R2gQSdzcl2jp7Ezy9/A=;
+ b=PvTB0upOeVz8uAXAYRWIlWeL+fbrvScxy3cbpMqdgeUe3+cexFvU2e8PrcOLQfb4zQuZ29
+ kt9OzawZkMIR0r5i+LeT6DQjNPUnzrmp4uVP+Vt+W/y1MBAXVgTnucvAQZR77C7LNeJqOc
+ sNisF6Iwr6EuoEGSrsWS9gWjz5aD8tU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1786948638;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1wormoBA75VWGaAABUKotH38R2gQSdzcl2jp7Ezy9/A=;
+ b=xfDUkkO1oaf2Ua88FHqldkNXHq79T3gUI31XLfCPAA7EGfXwtT+L/vQj5Qtsora0/EDrS0
+ HTu1wdjC1Ust5wDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D829E79314;
+ Mon, 17 Aug 2026 06:37:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ZLxPMx2sgmoPGQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 17 Aug 2026 06:37:17 +0000
+Message-ID: <90771e15-fa75-4915-a681-709c6010d998@suse.de>
+Date: Mon, 17 Aug 2026 08:37:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: yuebingkun@kylinos.cn, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Helge Deller <deller@gmx.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
-References: <20260817055625.276500-1-yuebingkun@kylinos.cn>
-Subject: Re: [PATCH] fbdev: platinumfb: add error checking for ioremap calls
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260817055625.276500-1-yuebingkun@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Y9PbHmOMtHZEHk8Nfin7EHmni4ZfjkzAfKnsMSoLi340W6v32E0
- C2J7pGSWXJDusztq7wf6Uyrf7w5VZbmqRBk1UMaEafPiCU+2RxYLdth4R5M95X3h7G09Aif
- hHOadaTyhFJOHakwt6ro+iOoTJ6jKkgGav7wuVopMvWGhzPkCxavc0hfXS14ULTVOuCXliM
- pm97lRt6+orK8zYystjHA==
-UI-OutboundReport: notjunk:1;M01:P0:CiSKlY/MWT0=;apmhAC8ewegoHlVLKgG+3NACNWY
- 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
- V1ZXu6w==
+Subject: Re: [PATCH] drm/gem: Handle shadow plane state allocation failure
+To: Triet Hoang <triet.hoang.dev@gmail.com>, maarten.lankhorst@linux.intel.com
+Cc: mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260816165852.44558-1-triet.hoang.dev@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260816165852.44558-1-triet.hoang.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 19D8083E71
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_TO(0.00)[gmail.com,linux.intel.com];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_CC(0.00)[kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[7]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.de:mid, suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,26 +149,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E2=80=A6
-> Add proper error checking and cleanup for all three ioremap calls in
-> the probe function, ensuring that any resources already allocated are
-> properly released on failure.
+Hi,
 
-* Please avoid duplicate source code also in the implementation of the fun=
-ction =E2=80=9Cplatinumfb_probe=E2=80=9D.
-  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
-Documentation/process/coding-style.rst?h=3Dv7.2-rc7#n526
+the whole reset mechanism has never worked well IMHO. Maxime currently 
+reworks it entirely. Not sure if we meanwhile want to paper over the 
+reset issue.
 
-* How do you think about to increase the application of scope-based resour=
-ce management?
+Best regards
+Thomas
 
-* Would you like to add any tags (like =E2=80=9CFixes=E2=80=9D and =E2=80=
-=9CCc=E2=80=9D) accordingly?
-  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
-Documentation/process/submitting-patches.rst?h=3Dv7.2-rc7#n145
-  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
-Documentation/process/stable-kernel-rules.rst?h=3Dv7.2-rc7#n34
+Am 16.08.26 um 18:58 schrieb Triet Hoang:
+> Allocate the new shadow plane state before destroying the existing
+> state, so that an allocation failure leaves the current state intact.
+>
+> Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+> ---
+>   drivers/gpu/drm/drm_gem_atomic_helper.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
+> index abef865c5..24a0b9398 100644
+> --- a/drivers/gpu/drm/drm_gem_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
+> @@ -308,14 +308,16 @@ EXPORT_SYMBOL(__drm_gem_reset_shadow_plane);
+>    */
+>   void drm_gem_reset_shadow_plane(struct drm_plane *plane)
+>   {
+> -	struct drm_shadow_plane_state *shadow_plane_state;
+> +	struct drm_shadow_plane_state *shadow_plane_state = kzalloc_obj(*shadow_plane_state);
+> +
+> +	if (!shadow_plane_state)
+> +		return;
+>   
+>   	if (plane->state) {
+>   		drm_gem_destroy_shadow_plane_state(plane, plane->state);
+>   		plane->state = NULL; /* must be set to NULL here */
+>   	}
+>   
+> -	shadow_plane_state = kzalloc_obj(*shadow_plane_state);
+>   	__drm_gem_reset_shadow_plane(plane, shadow_plane_state);
+>   }
+>   EXPORT_SYMBOL(drm_gem_reset_shadow_plane);
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
 
-Regards,
-Markus
