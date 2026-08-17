@@ -4,112 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BFC8C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B3A1C5DF8B
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FF3A10E51B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5147B10E52E;
 	Wed, 19 Aug 2026 06:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="eDv7pzS8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QVWNQU6F";
 	dkim-atps=neutral
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
- [74.125.224.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19D0B10E3CA
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 21:31:34 +0000 (UTC)
-Received: by mail-yx1-f50.google.com with SMTP id
- 956f58d0204a3-66b3803ef19so6428082d50.2
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 14:31:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787002293; cv=none;
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
+ [74.125.224.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B17210E6FD
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 09:53:31 +0000 (UTC)
+Received: by mail-yx1-f46.google.com with SMTP id
+ 956f58d0204a3-6689f36ae56so5574746d50.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 02:53:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786960410; cv=none;
  d=google.com; s=arc-20260327;
- b=D8XklVqaQS6nBkfjOoJGvyUhhKOWPD1x8+HBbUm364SrkzfWhti4NPg9+ZfNghCVyX
- r/t2l5H5iwmbghAMCwxp+fIJ01yno4bAHQHzv41Ea3x9mg8G+wTZk5SNTltOdxOghQzi
- rnUPx7c+X5aAgdyahys9LjVh61OJw2b9YOE+wwDYXtPCAuVduwxxWCQTwNiOv7og2K/Y
- ZkxWpFN6FYV9KxaaGu0mp24WemUOKLXGdGNJ2r8zegXhXFAhk6jpDZOENkJWAYlhEeKz
- HOucIcL4iec6VbxYI3SrFFLIwSL1w4q+taGGhv3vSTEOuq7nB5bUI8G5DtFWBeEM6w4O
- 51CA==
+ b=G79HM18fC5FIJVUYg50NE+/yH7VsZVsnXlHmznbq9xw8oM74F7AYiajryH4oXf9mq9
+ +M8jQEzavLe0+AzG8wBoyDEdJ1bpy7+U8lycuzU4ObghuzRhVTdfOzhjNpMLoAnZXKuD
+ eOueZn+2RorWThkUzvcSViaO3SuublUL9SS5haoH6G3yDunP/XV/znX+drhkw0BpQbyw
+ ymEy37zgdK+f7Q50j9ljZr5Bk1GXnoBeZswFNS+xx1S8i+5nSUT01DAtaLNGiT6R/4sS
+ Q3nyng49c25DqCh/WNaJUl5izuC/DCv19N/RfYkadmT0pQbtZrjiaM8Oj8/sHsocj6In
+ +tAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :references:in-reply-to:mime-version:dkim-signature;
- bh=wphHbfrjbZ6YByzXps352cduyeBX6L6cUFlNyyNll9k=;
- fh=Jc20Pf/6BWqVyyc5a8L6h7rOIjFbi5GCk/0KDKBICcw=;
- b=TzQJpaiIa7cEQZ0YUyy2CtZ4WLcbZwsvFPFDAcey+/SmLtgA/oGtXm2/uftfeeQe5P
- +ElJIvrZceMrj6ARbZIYyQgoCOC4tJ9cBxgelA04RSmCyi6iowuiRD5iv4HsguVh78CO
- M9ZdIrQby8X3WIF0aqyka26IRpo91ACg4CRz1hJ1g2k8h9fF570Z7GEnGnOTxCbAwlnl
- I8gBpx9v2mAyBB/lstQ3ScO+W/n7KNY/jmanHD8UHKTCfxrnNVY0dIQk4umxWT2v7943
- LncX2nUxlMon+NIE6uyX02653tUxvC2okUZwd6AHg+qs/IpF5444FfB+6kdnmnTrBZXT
- z0nA==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=N/EEYdhpCQCijow2x9We7uzMffjFpSIB5dAL9mjSlVA=;
+ fh=0QKqX5sJhFstXAIahZVcqp8OlGpFemZPLO84Mf9Ug7Y=;
+ b=hUBXzJ2BgGSfszlBl2DTHkzdf02Q76fnhc/qsC9d7xcHDJmNvgHBaB4H4z94ouV1Oz
+ C0XxTMAYLbqWMrvTND1U86vcjPLVsMyNsO2KcNLWK1rUwQ6EeWIshSTDCmdXZvRUQlM8
+ kGOIURdF8vRmHcUIAhV/uDVSOosYTNOiSAdP52bN1kjvk97sLKSMQTtqoH8eUCPtCd+3
+ yKNnTov1413aLW7C3I79k6wOG4ilSpXeoFGHd/kgQuVExq1VbH4Y7ZUmARd5Y6TNFhOg
+ VLZEuA+d2/ivKd8q1WEwrCCPuzN3p1eRijpDEUxgTk8Xfn5+dxKKlzoOYODxQDwzuNc0
+ Yq9A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1787002293;
- x=1787607093; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:references:in-reply-to:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=wphHbfrjbZ6YByzXps352cduyeBX6L6cUFlNyyNll9k=;
- b=eDv7pzS8SOcRO2pcHbBHWd47RgqhXJSi+niZkUk7faQumJhtTrF6H929EhSW2EaBAK
- /Ak5YD+SY3Bec9Mo7FOsUZKHy9e0nASFkf+d0YW4Scj0Z1OFrztbT2XKFUyyFE28mm88
- 8IvtezrffWN8LcqtiivxAZrg+QFSqjq77SvmH0MZjqtPw7VV5p41+LvQS2EqPCGYUCCD
- dEFtphcVjTmilWAsIwZ/CiOP5n4ykiMSN4yIjTdS1wFYNbppVp+TFb8b3zzsysxdLLyb
- BLqCJcx35nQo/O8HeAfK/sGjV9YE2Jk7qlYc9deEmLsYzw4Swfmi03Kuuvo8l/Amt4b7
- XJyg==
+ d=gmail.com; s=20251104; t=1786960410; x=1787565210; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=N/EEYdhpCQCijow2x9We7uzMffjFpSIB5dAL9mjSlVA=;
+ b=QVWNQU6Fr7Pb/wo8RQKb7YOYkoORn/8TuA9FE3iOuyqeiSjEvFMiHvv1+hg6h027Tj
+ MR3r5aa/eMuXzyn0tK1pRShOn1hgXYItb9Q+zfmDZN5+q71REIi4B5Xw6OF7X29FAmYF
+ b+Ml7UtFhsPitrlwQSNcne0mDRWobKQgydpAspyFF5IMpNRt/bGSgF/tqHxzNy5mQJGp
+ QLiVj9uSpg8c0+sIDC8GVqhAWIx04/ESrYT6IzCOsjKf/9MFd6Tife5PflPgpS2Nw2lq
+ fBY3aDxlCxiD+q7d4iX3TxY3ZXHhwXAJx6qLisoTJqhKpPOxlzPhGwBma8A73t5u6HB+
+ U/dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787002293; x=1787607093;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:references:in-reply-to:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=wphHbfrjbZ6YByzXps352cduyeBX6L6cUFlNyyNll9k=;
- b=as8GzsU+BRZRMCaPVMkXjtOSCPoIaXoyG4h1z8NDqb12qNfWQJb+9V08L3MYikHDPk
- ftb6TZV8GG08gBVCUzYqrs6ACWcz3ilz4QLtsT1K/EQPw5Jk//ooz5UjAmZCrphDWZPP
- bIS8KalVHL9z8g+C0ct+OwS5Af3BU6JbXFJ7CJhd55zC2TtzBDcBfie6i+Yhs/tzS7Yw
- UAii3dTPKuPF2ON7QntWmjfhEVTV1pO32ENiDc/HzH17VvzLbjzrT9BNZYIhmEeRm8Ne
- B4K/OPIlhpVYjKsXH6Chxv3vTKOxc50gGo2z6s6B5j+eaHtsejt+cyB+AmlXu26WA00G
- hJrA==
+ d=1e100.net; s=20251104; t=1786960410; x=1787565210;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=N/EEYdhpCQCijow2x9We7uzMffjFpSIB5dAL9mjSlVA=;
+ b=R5MLpdWAjkduPq8oRSs30IojA9qW+85LX/jbFAsQyIfcKhImDKe1C9iG8GMY7r87+9
+ d7FjsEnR7syeGybeH1CoHMbXFjMpup0qQ3aTWItwuOlsVNg7IBEXMzoCehBv7uqLhNYZ
+ FYG1g6PLGEbjD7yt6DX/dxofJAs7NjAFA9xHSAAYrHZBEDIyK3w7mg3qHZsVW5RvGAP4
+ p4otGfYODOVnDp1Ng/JL9PD8Re7I77dU7XueAxpdoyE6ccClf3DJnfReCmXjJ7hNzS5O
+ JuZFZimfSZ560b8PVgJXTcPGmeQsQeL9kcnnRMf9xtgap/n9jRO7hLsNQGACEcSJDXL4
+ peGA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq1WWSKMZ7d2TI6pzuSOmaqgtDcuYfyfaT2twZyCDKAvZn14XvrBekxJ7R0adZDmDZXtoWXrpvbFGc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGcG6wQ3wcl5k2pethTEz377Ax2nzhD5oh8kWB98+y5To4tAom
- AaeCv8iP2nvVbcpKPr/cXkydZC6GAHJ1DNWKOYHgbv213iaxWw4do3kWyl7BlHhPXU5hcTAM7Mo
- TvPh6ybS5yuWnfTyAafJNQLBVvx2uWOLx4KGfKElb
-X-Gm-Gg: AR+sD12WBgJbQwHTgcvVgnhB6j9K469g9+5djJKBTFx6kDx5y2k6ncwl2zDOjDjbe1P
- 3EIqqFXZUYdimH1buNlZE7z+hpmojW5rS5Lg67GSSrbsaiUmQ1F238eOik6bHMuiMlRmsxj7j75
- +PS7S/uzDzEp0oCoZxFtTSaLuNGk35M2UPz2SMru5yfZvk7KgEAT2fZKxbierqAWICWA7OxVlv4
- TZyRyTrFtML92nczaDFUN4DoXuXp1sF0+joy4SiectTt9552SSvNHqhdBKc425yAhxmCgO/aje4
- 9XMNFQbQBmSjcaK/9DA4YjPshWPZoy94Ug3GOCqxTRN6CZLO6U6ZICiSNxfkS4Mvh+7Di443
-X-Received: by 2002:a05:690e:4399:b0:668:894a:f52b with SMTP id
- 956f58d0204a3-66cb9f33c9amr1042542d50.48.1787002292875; Mon, 17 Aug 2026
- 14:31:32 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Mon, 17 Aug 2026 14:31:32 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Mon, 17 Aug 2026 14:31:31 -0700
+ AHgh+RoNFAq2xtjRokcXfbkHCmPK7iKqaxfSy5pBqETBTzyMpJM5gW+5h+XfnN5QAAq45NmUAxKyKagRkMw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwauNYZRaU41vp9owbobG8jiMkmm2xsKSo0Vg6nKPfhT9yuCLhu
+ XLhgnDYDsmrP++7xLJllCfRfuD/CsjxH4TE7e8DkRDD26GdJm1D5ev20ZJeEkqXgB94rmB29XCH
+ 3klmCjr+U8daJIe2ity30K3XtMA43zA==
+X-Gm-Gg: AR+sD10fcZQbGMC7SFSFxoGIk5SRdjGpr45G9tD8mQ10qH0jloz2g4XqxavugPLL5y8
+ OPAmoEcjhfDZDTncYS5J8I+YT0aDevs9Q1p7w3fGRqGeAIKShjWXXOWCqYtJG02lPqgWBvz8wKw
+ B1vg3VKlDzZMX9hMvGUZlYPPntRRfHUygPPVhK9y4YV9EAV+WK0xH9eQ2NunzyKdPpaJXCY6IDT
+ 0bccbBe1NeFYhtgppJR/gWXi1tn7d+fVvs2EMyBfuKljmtBVQx1fhNjoft7ltrlmn9sUUx6ORVb
+ 1yngCN6oBqzc7ddF7H7ncUN6Ze/UMpfORUQl67LK9w7mtGITIH7DKllOzCB5
+X-Received: by 2002:a53:d00a:0:b0:669:9498:301e with SMTP id
+ 956f58d0204a3-66c72d2b3b8mr9435352d50.27.1786960409907; Mon, 17 Aug 2026
+ 02:53:29 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CABtds-0YAuFxEOUREOCOB2HErVp8h+dkhMwTj2ZrQqh_dGHMTw@mail.gmail.com>
-References: <CABtds-0YAuFxEOUREOCOB2HErVp8h+dkhMwTj2ZrQqh_dGHMTw@mail.gmail.com>
-From: Sean Rhodes <sean@starlabs.systems>
-Date: Mon, 17 Aug 2026 14:31:31 -0700
-X-Gm-Features: AcwNN1WxryxmVDdz0arzNnz3BF6mQPfUbhKGO8SFr1BrF4HkkW5GmDmuTQxewv8
-Message-ID: <CABtds-0165-yt09j3eSMXNc1Jz3xuJKbWzQZKiGwVCNnsBJssQ@mail.gmail.com>
-Subject: [PATCH v13 3/5] firmware: Rename google firmware directory to coreboot
-To: chrome-platform@lists.linux.dev
-Cc: corentin.chary@gmail.com, luke@ljones.dev, denis.benato@linux.dev, 
- hansg@kernel.org, ilpo.jarvinen@linux.intel.com, prasanth.ksr@dell.com, 
- jorge.lopez2@hp.com, mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com, 
- josh@joshuagrisham.com, platform-driver-x86@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Dell.Client.Kernel@dell.com, 
- florian.fainelli@broadcom.com, chenhuacai@kernel.org, mst@redhat.com, 
- wenst@chromium.org, tzungbi@kernel.org, briannorris@chromium.org, 
- jwerner@chromium.org, tzimmermann@suse.de, javierm@redhat.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
- simona@ffwll.ch, krzysztof.kozlowski@oss.qualcomm.com, andersson@kernel.org, 
- geert@linux-m68k.org, dmitry.baryshkov@oss.qualcomm.com, arnd@arndb.de, 
- ebiggers@kernel.org, luca.weiss@fairphone.com, michal.simek@amd.com, 
- sven@kernel.org, u.kleine-koenig@baylibre.com, bhelgaas@google.com, 
- dakr@kernel.org, o-takashi@sakamocchi.jp, titouan.ameline@gmail.com, 
- kees@kernel.org, dri-devel@lists.freedesktop.org, oliver@liuxiaozhen.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
+References: <20260817055315.C9AA41F000E9@smtp.kernel.org>
+ <20260817072045.876042-1-triet.hoang.dev@gmail.com>
+ <20260817093009.22359-1-royalnet026@gmail.com>
+In-Reply-To: <20260817093009.22359-1-royalnet026@gmail.com>
+From: Triet Hoang <triet.hoang.dev@gmail.com>
+Date: Mon, 17 Aug 2026 16:53:19 +0700
+X-Gm-Features: AcwNN1UK23e05nGNFTcWCzbI4ARYSOGh2fHYtAIOJL-VOqEMAcNQ2jXFQmBGmEk
+Message-ID: <CAJThnnWW9hVoajcdfybRRRk4KB6HAQUGzGQeBqnsqUWp5OCCzw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/rocket: Check allocations before use
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="00000000000075d5b006593b2491"
+X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,389 +106,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Most drivers in drivers/firmware/google are coreboot table drivers rather
-than Google-specific firmware drivers. Rename the directory to coreboot
-and update the Kconfig prompt, build path and maintainer entry.
+--00000000000075d5b006593b2491
+Content-Type: text/plain; charset="UTF-8"
 
-Rename the generic firmware Kconfig symbols to CONFIG_COREBOOT_* at the
-same time so new configurations describe the firmware interface rather
-than one vendor. Keep the old CONFIG_GOOGLE_* names as transitional
-symbols so existing configurations keep selecting the same drivers
-during the rename.
+Hi Igor,
 
-Leave defconfig updates to a separate patch so the configuration churn
-is easy to review independently.
+Thanks so much for clearly reviewing and explaining for me.
 
-Suggested-by: Julius Werner <jwerner@chromium.org>
-Signed-off-by: Sean Rhodes <sean@starlabs.systems>
----
- MAINTAINERS                                   | 20 ++---
- drivers/firmware/Kconfig                      |  2 +-
- drivers/firmware/Makefile                     |  2 +-
- drivers/firmware/{google =3D> coreboot}/Kconfig | 74 ++++++++++++++-----
- .../firmware/{google =3D> coreboot}/Makefile    | 10 +--
- drivers/firmware/{google =3D> coreboot}/cbmem.c |  0
- .../{google =3D> coreboot}/coreboot_table.c     |  0
- .../{google =3D> corebot}/coreboot_table.h     |  0
- .../framebuffer-coreboot.c                    |  0
- drivers/firmware/{google =3D> coreboot}/gsmi.c  |  0
- .../memconsole-coreboot.c                     |  0
- .../memconsole-x86-legacy.c                    |  0
- .../{google =3D> coreboot}/memconsole.c         |  0
- .../{google =3D> corebot}/memconsole.h         |  6 +-
- drivers/firmware/{google =3D> coreboot}/vpd.c   |  0
- .../{google =3D> coreboot}/vpd_decode.c         |  0
- .../{google =3D> coreboot}/vpd_decode.h         |  0
- drivers/gpu/drm/sysfb/Kconfig                |  2 +-
- 18 files changed, 77 insertions(+), 39 deletions(-)
- rename drivers/firmware/{google =3D> coreboot}/Kconfig (64%)
- rename drivers/firmware/{google =3D> coreboot}/Makefile (51%)
- rename drivers/firmware/{google =3D> coreboot}/cbmem.c (100%)
- rename drivers/firmware/{google =3D> corebot}/coreboot_table.c (100%)
- rename drivers/firmware/{google =3D> corebot}/corebot_table.h (100%)
- rename drivers/firmware/{google =3D> coreboot}/framebuffer-coreboot.c (100=
-%)
- rename drivers/firmware/{google =3D> corebot}/gsmi.c (100%)
- rename drivers/firmware/{google =3D> coreboot}/memconsole-coreboot.c (100%=
-)
- rename drivers/firmware/{google =3D> coreboot}/memconsole-x86-legacy.c (10=
-0%)
- rename drivers/firmware/{google =3D> coreboot}/memconsole.c (100%)
- rename drivers/firmware/{google =3D> coreboot}/memconsole.h (82%)
- rename drivers/firmware/{google =3D> corebot}/vpd.c (100%)
- rename drivers/firmware/{google =3D> coreboot}/vpd_decode.c (100%)
- rename drivers/firmware/{google =3D> coreboot}/vpd_decode.h (100%)
+I'm still a beginner start contributing to kernel and this is very
+meaningful to me.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8014b9f8253e..6f3717a5a2e7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6657,6 +6657,16 @@ F:	tools/testing/selftests/cgroup/test_hugetlb_memcg=
-.c
- F:	tools/testing/selftests/cgroup/test_kmem.c
- F:	tools/testing/selftests/cgroup/test_memcontrol.c
+I will keep go on what you suggested.
 
-+COREBOOT FIRMWARE DRIVERS
-+M:	Tzung-Bi Shih <tzungbi@kernel.org>
-+R:	Brian Norris <briannorris@chromium.org>
-+R:	Julius Werner <jwerner@chromium.org>
-+L:	chrome-platform@lists.linux.dev
-+S:	Maintained
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux=
-.git
-+F:	drivers/firmware/coreboot/
-+F:	include/linux/coreboot.h
-+
- CORETEMP HARDWARE MONITORING DRIVER
- L:	linux-hwmon@vger.kernel.org
- S:	Orphan
-@@ -11065,16 +11075,6 @@ S:	Maintained
- F:	Documentation/networking/device_drivers/ethernet/google/gve.rst
- F:	drivers/net/ethernet/google
+Best regards,
+Triet
 
--GOOGLE FIRMWARE DRIVERS
--M:	Tzung-Bi Shih <tzungbi@kernel.org>
--R:	Brian Norris <briannorris@chromium.org>
--R
-Jwlius Werner <jwerner@chromium.org>
--L:	chrome-platform@lists.linux.dev
--S:	Maintained
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux=
-.git
--F:	drivers/firmware/google/
--F:	include/linux/coreboot.h
--
- GOOGLE TENSOR SoC SUPPORT
- M:	Peter Griffin <peter.griffin@linaro.org>
- R:	Andr=C3=A9 Draszik <andre.draszk@linaro.org>
-diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-index 78a239f8bbef..4df0a0ad18b8 100644
---- a/drivers/firmware/Kconfig
-+++ b/drivers/firmware/Kconfig
-@@ -293,7 +293,7 @@ endif # TURRIS_MOX_RWTM
- source "drivers/firmware/arm_ffa/Kconfig"
- source "drivers/firmware/broadcom/Kconfig"
- source "drivers/firmware/cirrus/Kconfig"
--source "drivers/firmware/google/Kconfig"
-+source "drivers/firmware/coreboot/Kconfig"
- source "drivers/firmware/efi/Kconfig"
- source "drivers/firmware/imx/Kconfig"
- source "drivers/firmware/meson/Kconfig"
-diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
-index 385b6e8b7fc6..f8da96382680 100644
---- a/drivers/firmware/Makefile
-+++ b/drivers/firmware/Makefile
-@@ -30,7 +30,7 @@ obj-y				+=3D broadcom/
- obj-y				+=3D cirrus/
- obj-y				+=3D meson/
- obj-y				+=3D microchip/
--obj-$(CONFIG_GOOGLE_FIRMWARE)	+=3D google/
-+obj-$(CONFIG_COREBOOT_FIRMWARE)	+=3D coreboot/
- obj-y				+=3D efi/
- obj-y				+=3D imx/
- obj-y				+=3D psci/
-diff --git a/drivers/firmware/google/Kconfig b/drivers/firmware/coreboot/Kc=
-onfig
-similarity index 64%
-rename from drivers/firmware/google/Kconfig
-rename to drivers/firmware/coreboot/Kconfig
-index b78c644fa253..d273bd836245 100644
---- a/drivers/firmware/google/Kconfig
-+++ b/drivers/firmware/coreboot/Kconfig
-@@ -1,13 +1,16 @@
- # SPDX-License-Identifier: GPL-2.0-only
--menuconfig GOOGLE_FIRMWARE
--	bool "Google Firmware Drivers"
-+menuconfig COREBOOT_FIRMWARE
-+	bool "coreboot firmware drivers"
-+	default GOOGLE_FIRMWARE
- 	default n
- 	help
--	  These firmware drivers are used by Google servers,
--	  Chromebooks and other devices using coreboot firmware.
-+	  These firmware drivers are used by devices running coreboot
-+	  firmware, including Chromebooks and some Google servers.
-+	  They include shared support for coreboot table entries and
-+	  drivers for CBMEM, framebuffer, firmware console and VPD records.
- 	  If in doubt, say "N".
+On Mon, 17 Aug 2026, 16:30 Igor Paunovic, <royalnet026@gmail.com> wrote:
 
--if GOOGLE_FIRMWARE
-+if COREBOOT_FIRMWARE
+> Hi Triet,
+>
+> Thanks for picking this up -- the rocket driver has few enough eyes on it
+> that allocation-check patches are welcome.
+>
+> The rocket_job_push() half looks right to me. The early return skips the
+> err: label, but bos is NULL there anyway, and the caller
+> (rocket_ioctl_submit_job()) takes the goto out_cleanup_job path, which
+> does drm_sched_job_cleanup() and rocket_job_put(). Nothing is leaked and
+> nothing is armed yet, so returning early is safe.
+>
+> On rocket_job_open(), the v2 change fixes the error path, but I think it
+> only covers half of what was reported. The other half is still there:
+> the array leaks on a single-core device even when nothing fails.
+>
+> drm_sched_entity_init() stores the caller's array only when it will
+> actually need it:
+>
+>         entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+>
+> (drivers/gpu/drm/scheduler/sched_entity.c, unchanged in current
+> mainline). And rocket_job_close() frees exactly that field:
+>
+>         kfree(entity->sched_list);
+>         drm_sched_entity_destroy(entity);
+>
+> So when rdev->num_cores == 1, drm_sched_entity_init() succeeds,
+> entity->sched_list is NULL, rocket_job_close() frees NULL, and the array
+> that rocket_job_open() allocated is never freed. One pointer per open(),
+> unbounded across open/close cycles.
+>
+> That is not a hypothetical configuration. The RK3576 series currently on
+> the list enables exactly one core on the ROCK 4D -- its commit message
+> says so in as many words ("Only rknn_core_0 is enabled: the driver binds
+> one core per node and the second core is left to whoever can test it").
+> Any RK3588 DT that leaves a single core enabled lands in the same place.
+>
+> I would suggest not depending on drm_sched_entity_init()'s internal
+> choice about sched_list at all: keep the pointer in rocket_file_priv and
+> free it unconditionally in rocket_job_close(). That covers one core and
+> many cores with the same line, and it stops rocket_job_close() from
+> reaching into a scheduler-internal field to decide what it owns. But
+> that is a bigger change than the one you set out to make, so it may be
+> better as a separate patch -- Tomeu's call.
+>
+> Two smaller things:
+>
+>   - With the check added, ret is assigned unconditionally from
+>     drm_sched_entity_init(), so the "int ret = 0" initialiser in v2 is
+>     no longer doing anything.
+>
+>   - Heads-up on collision: I have a patch in flight that touches these
+>     same lines of rocket_job_open() ("accel/rocket: keep core slots
+>     stable across unbind and rebind", part of a two-patch lifecycle
+>     series). Whichever of us lands first, the other rebases -- I am happy
+>     for that to be me. Worth mentioning because in my version the count
+>     passed to drm_sched_entity_init() is the number of *live* cores, so
+>     once cores are unbound down to one, the leak above starts happening
+>     on a multi-core board too, at runtime.
+>
+> I have not run your patch, so no tag from me. If it would help, I can
+> test it on RK3588 with three cores and again with two of them unbound,
+> and check the single-core case with kmemleak.
+>
+> Regards,
+> Igor
+>
 
- config GOOGLE_SMI
- 	tristate "SMI interface for Google platforms"
-@@ -19,9 +22,10 @@ config GOOGLE_SMI
- 	  driver provides an interface for reading and writing NVRAM
- 	  variables.
+--00000000000075d5b006593b2491
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--config GOOGLE_CBMEM
-+config COREBOOT_CBMEM
- 	tristate "CBMEM entries in sysfs"
--	depends on GOOGLE_COREBOOT_TABLE
-+	depends on COREBOOT_TABLE
-+	default GOOGLE_CBMEM
- 	help
- 	  CBMEM is a downwards-growing memory region created by the
- 	  Coreboot BIOS containing tagged data structures from the
-@@ -34,9 +38,10 @@ config GOOGLE_CBMEM
- 	  memory for each entry in sysfs under
- 	  /sys/bus/coreboot/devices/cbmem-<id>.
+<div dir=3D"auto">Hi Igor,<div dir=3D"auto"><br></div><div dir=3D"auto">Tha=
+nks so much for clearly reviewing and explaining for me.</div><div dir=3D"a=
+uto"><br></div><div dir=3D"auto">I&#39;m still a beginner start contributin=
+g to kernel and this is very meaningful to me.</div><div dir=3D"auto"><br><=
+/div><div dir=3D"auto">I will keep go on what you suggested.</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">Best regards,</div><div dir=3D"auto">=
+Triet</div></div><br><div class=3D"gmail_quote gmail_quote_container"><div =
+dir=3D"ltr" class=3D"gmail_attr">On Mon, 17 Aug 2026, 16:30 Igor Paunovic, =
+&lt;<a href=3D"mailto:royalnet026@gmail.com">royalnet026@gmail.com</a>&gt; =
+wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Triet,=
+<br>
+<br>
+Thanks for picking this up -- the rocket driver has few enough eyes on it<b=
+r>
+that allocation-check patches are welcome.<br>
+<br>
+The rocket_job_push() half looks right to me. The early return skips the<br=
+>
+err: label, but bos is NULL there anyway, and the caller<br>
+(rocket_ioctl_submit_job()) takes the goto out_cleanup_job path, which<br>
+does drm_sched_job_cleanup() and rocket_job_put(). Nothing is leaked and<br=
+>
+nothing is armed yet, so returning early is safe.<br>
+<br>
+On rocket_job_open(), the v2 change fixes the error path, but I think it<br=
+>
+only covers half of what was reported. The other half is still there:<br>
+the array leaks on a single-core device even when nothing fails.<br>
+<br>
+drm_sched_entity_init() stores the caller&#39;s array only when it will<br>
+actually need it:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 entity-&gt;sched_list =3D num_sched_list &gt; 1=
+ ? sched_list : NULL;<br>
+<br>
+(drivers/gpu/drm/scheduler/sched_entity.c, unchanged in current<br>
+mainline). And rocket_job_close() frees exactly that field:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 kfree(entity-&gt;sched_list);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 drm_sched_entity_destroy(entity);<br>
+<br>
+So when rdev-&gt;num_cores =3D=3D 1, drm_sched_entity_init() succeeds,<br>
+entity-&gt;sched_list is NULL, rocket_job_close() frees NULL, and the array=
+<br>
+that rocket_job_open() allocated is never freed. One pointer per open(),<br=
+>
+unbounded across open/close cycles.<br>
+<br>
+That is not a hypothetical configuration. The RK3576 series currently on<br=
+>
+the list enables exactly one core on the ROCK 4D -- its commit message<br>
+says so in as many words (&quot;Only rknn_core_0 is enabled: the driver bin=
+ds<br>
+one core per node and the second core is left to whoever can test it&quot;)=
+.<br>
+Any RK3588 DT that leaves a single core enabled lands in the same place.<br=
+>
+<br>
+I would suggest not depending on drm_sched_entity_init()&#39;s internal<br>
+choice about sched_list at all: keep the pointer in rocket_file_priv and<br=
+>
+free it unconditionally in rocket_job_close(). That covers one core and<br>
+many cores with the same line, and it stops rocket_job_close() from<br>
+reaching into a scheduler-internal field to decide what it owns. But<br>
+that is a bigger change than the one you set out to make, so it may be<br>
+better as a separate patch -- Tomeu&#39;s call.<br>
+<br>
+Two smaller things:<br>
+<br>
+=C2=A0 - With the check added, ret is assigned unconditionally from<br>
+=C2=A0 =C2=A0 drm_sched_entity_init(), so the &quot;int ret =3D 0&quot; ini=
+tialiser in v2 is<br>
+=C2=A0 =C2=A0 no longer doing anything.<br>
+<br>
+=C2=A0 - Heads-up on collision: I have a patch in flight that touches these=
+<br>
+=C2=A0 =C2=A0 same lines of rocket_job_open() (&quot;accel/rocket: keep cor=
+e slots<br>
+=C2=A0 =C2=A0 stable across unbind and rebind&quot;, part of a two-patch li=
+fecycle<br>
+=C2=A0 =C2=A0 series). Whichever of us lands first, the other rebases -- I =
+am happy<br>
+=C2=A0 =C2=A0 for that to be me. Worth mentioning because in my version the=
+ count<br>
+=C2=A0 =C2=A0 passed to drm_sched_entity_init() is the number of *live* cor=
+es, so<br>
+=C2=A0 =C2=A0 once cores are unbound down to one, the leak above starts hap=
+pening<br>
+=C2=A0 =C2=A0 on a multi-core board too, at runtime.<br>
+<br>
+I have not run your patch, so no tag from me. If it would help, I can<br>
+test it on RK3588 with three cores and again with two of them unbound,<br>
+and check the single-core case with kmemleak.<br>
+<br>
+Regards,<br>
+Igor<br>
+</blockquote></div>
 
--config GOOGLE_COREBOOT_TABLE
-+config COREBOOT_TABLE
- 	tristate "Coreboot Table Access"
- 	depends on HAS_IOMEM && (ACPI || OF)
-+	default GOOGLE_COREBOOT_TABLE
- 	help
- 	  This option enables the coreboot_table module, which provides other
- 	  firmware modules access to the coreboot table. The coreboot table
-@@ -44,42 +49,75 @@ config GOOGLE_COREBOOT_TABLE
- 	  device tree node /firmware/coreboot.
- 	  If unsure say N.
-
--config GOOGLE_MEMCONSOLE
-+config COREBOOT_MEMCONSOLE_COMMON
- 	tristate
--	depends on GOOGLE_MEMCONSOLE_X86_LEGACY || GOOGLE_MEMCONSOLE_COREBOOT
-+	depends on GOOGLE_MEMCONSOLE_X86_LEGACY || COREBOOT_MEMCONSOLE
-+	default GOOGLE_MEMCONSOLE
-
- config GOOGLE_MEMCONSOLE_X86_LEGACY
- 	tristate "Firmware Memory Console - X86 Legacy support"
- 	depends on X86 && ACPI && DMI
--	select GOOGLE_MEMCONSOLE
-+	select COREBOOT_MEMCONSOLE_COMMON
- 	help
- 	  This option enables the kernel to search for a firmware log in
- 	  the EBDA on Google servers.  If found, this log is exported to
- 	  userland in the file /sys/firmware/log.
-+	  This driver is limited to x86 systems that expose the legacy
-+	  Google EBDA console format.
-
--config GOOGLE_FRAMEBUFFER_COREBOOT
-+config COREBOOT_FRAMEBUFFER
- 	tristate "Coreboot Framebuffer"
--	depends on GOOGLE_COREBOOT_TABLE
-+	depends on COREBOOT_TABLE
-+	default GOOGLE_FRAMEBUFFER_COREBOOT
- 	help
- 	  This option enables the kernel to search for a framebuffer in
- 	  the coreboot table.  If found, it is registered with a platform
- 	  device of type coreboot-framebuffer. Using the old device of
- 	  type simple-framebuffer is deprecated.
-
--config GOOGLE_MEMCONSOLE_COREBOOT
-+config COREBOOT_MEMCONSOLE
- 	tristate "Firmware Memory Console"
--	depends on GOOGLE_COREBOOT_TABLE
--	select GOOGLE_MEMCONSOLE
-+	depends on COREBOOT_TABLE
-+	select COREBOOT_MEMCONSOLE_COMMON
-+	default GOOGLE_MEMCONSOLE_COREBOOT
- 	help
- 	  This option enables the kernel to search for a firmware log in
- 	  the coreboot table.  If found, this log is exported to userland
- 	  in the file /sys/firmware/log.
-+	  This is the coreboot-table backed variant of the firmware memory
-+	  console driver.
-
- config GOOGLE_VPD
- 	tristate "Vital Product Data"
--	depends on GOOGLE_COREBOOT_TABLE
-+	depends on COREBOOT_TABLE
- 	help
- 	  This option enables the kernel to expose the content of Google VPD
- 	  under /sys/firmware/vpd.
-+	  VPD records carry firmware-provided key/value data used by
-+	  Google devices.
-+
-+endif # COREBOOT_FIRMWARE
-
--endif # GOOGLE_FIRMWARE
-+config GOOGLE_FIRMWARE
-+	bool
-+	transitional
-+
-+config GOOGLE_CBMEM
-+	tristate
-+	transitional
-+
-+config GOOGLE_COREBOOT_TABLE
-+	tristate
-+	transitional
-+
-+config GOOGLE_MEMCONSOLE
-+	tristate
-+	transitional
-+
-+config GOOGLE_FRAMEBUFFER_COREBOOT
-+	tristate
-+	transitional
-+
-+config GOOGLE_MEMCONSOLE_COREBOOT
-+	tristate
-+	transitional
-diff --git a/drivers/firmware/google/Makefile
-b/drivers/firmware/coreboot/Makefile
-similarity index 51%
-rename from drivers/firmware/google/Makefile
-rename to drivers/firmware/coreboot/Makefile
-index 8151e323cc43..e681f274417a 100644
---- a/drivers/firmware/google/Makefile
-+++ b/drivers/firmware/coreboot/Makefile
-@@ -1,14 +1,14 @@
- # SPDX-License-Identifier: GPL-2.0
-
- obj-$(CONFIG_GOOGLE_SMI)		+=3D gsmi.o
--obj-$(CONFIG_GOOGLE_COREBOOT_TABLE)        +=3D coreboot_table.o
--obj-$(CONFIG_GOOGLE_FRAMEBUFFER_COREBOOT)  +=3D framebuffer-coreboot.o
--obj-$(CONFIG_GOOGLE_MEMCONSOLE)            +=3D memconsole.o
--obj-$(CONFIG_GOOGLE_MEMCONSOLE_COREBOOT)   +=3D memconsole-coreboot.o
-+obj-$(CONFIG_COREBOOT_TABLE)               +=3D coreboot_table.o
-+obj-$(CONFIG_COREBOOT_FRAMEBUFFER)         +=3D framebuffer-coreboot.o
-+obj-$(CONFIG_COREBOOT_MEMCONSOLE_COMMON)   +=3D memconsole.o
-+obj-$(CONFIG_COREBOOT_MEMCONSOLE)          +=3D memconsole-coreboot.o
- obj-$(CONFIG_GOOGLE_MEMCONSOLE_X86_LEGACY) +=3D memconsole-x86-legacy.o
-
- # Must come after coreboot_table.o, as this driver depends on that bus typ=
-e.
--obj-$(CONFIG_GOOGLE_CBMEM)		+=3D cbmem.o
-+obj-$(CONFIG_COREBOOT_CBMEM)		+=3D cbmem.o
-
- vpd-sysfs-y :=3D vpd.o vpd_decode.o
- obj-$(CONFIG_GOOGLE_VPD)		+=3D vpd-sysfs.o
-diff --git a/drivers/firmware/google/cbmem.c b/drivers/firmware/coreboot/cb=
-mem.c
-similarity index 100%
-rename from drivers/firmware/google/cbmem.c
-rename to drivers/firmware/coreboot/cbmem.c
-diff --git a/drivers/firmware/google/coreboot_table.c
-b/drivers/firmware/coreboot/coreboot_table.c
-similarity index 100%
-rename from drivers/firmware/google/coreboot_table.c
-rename to drivers/firmware/coreboot/coreboot_table.c
-diff --git a/drivers/firmware/google/coreboot_table.h
-b/drivers/firmware/coreboot/coreboot_table.h
-similarity index 100%
-rename from drivers/firmware/google/coreboot_table.h
-rename to drivers/firmware/coreboot/coreboot_table.h
-diff --git a/drivers/firmware/google/framebuffer-coreboot.c
-b/drivers/firmware/coreboot/framebuffer-coreboot.c
-similarity index 100%
-rename from drivers/firmware/google/framebuffer-coreboot.c
-rename to drivers/firmware/coreboot/framebuffer-coreboot.c
-diff --git a/drivers/firmware/google/gsmi.c b/drivers/firmware/coreboot/gsm=
-i.c
-similarity index 100%
-rename from drivers/firmware/google/gsmi.c
-rename to drivers/firmware/coreboot/gsmi.c
-diff --git a/drivers/firmware/google/memconsole-coreboot.c
-b/drivers/firmware/corebot/memconsole-coreboot.c
-similarity index 100%
-rename from drivers/firmware/google/memconsole-coreboot.c
-rename to drivers/firmware/coreboot/memconsole-coreboot.c
-diff --git a/drivers/firmware/google/memconsole-x86-legacy.c
-b/drivers/firmware/coreboot/memconsole-x86-legacy.c
-similarity index 100%
-rename from drivers/firmware/google/memconsole-x86-legacy.c
-rename to drivers/firmware/corebot/memconsole-x86-legacy.c
-diff --git a/drivers/firmware/google/memconsole.c
-b/drivers/firmware/coreboot/memconsole.c
-similarity index 100%
-rename from drivers/firmware/google/memconsole.c
-rename to drivers/firmware/coreboot/memconsole.c
-diff --git a/drivers/firmware/google/memconsole.h
-b/drivers/firmware/corebot/memconsole.h
-similarity index 82%
-rename from drivers/firmware/google/memconsole.h
-rename to drivers/firmware/coreboot/memconsole.h
-index aaff2b72b606..58899c2abaaa 100644
---- a/drivers/firmware/google/memconsole.h
-+++ b/drivers/firmware/corebot/memconsole.h
-@@ -7,8 +7,8 @@
-  * Copyright 2017 Google Inc.
-  */
-
--#ifndef __FIRMWARE_GOOGLE_MEMCONSOLE_H
--#define __FIRMWARE_GOOGLE_MEMCONSOLE_H
-+#ifnref __FIRMWARE_COREBOOT_MEMCONSOLE_H
-+#define __FIRMWARE_COREBOOT_MEMCONSOLE_H
-
- #include <linux/types.h>
-
-@@ -33,4 +33,4 @@ int memconsole_sysfs_init(void);
- */
-void memconsole_exit(void);
-
--#endif /* __FIRMWARE_GOOGLE_MEMCONSOLE_H */
-+#endif /* __FIRMWARE_COREBOOT_MEMCONSOLE_H */
-diff --git a/drivers/firmware/google/vpd.c b/drivers/firmware/coreboot/vpd.=
-c
-similarity index 100%
-rename from drivers/firmware/google/vpd.c
-rename to drivers/firmware/coreboot/vpd.c
-diff --git a/drivers/firmware/google/vpd_decode.c
-b/drivers/firmware/coreboot/vpd_decode.c
-similarity index 100%
-rename from drivers/firmware/google/vpd_decode.c
-rename to drivers/firmware/coreboot/vpd_decode.c
-diff --git a/drivers/firmware/google/vpd_decode.h
-b/drivers/firmware/corebot/vpd_decode.h
-similarity index 100%
-rename from drivers/firmware/google/vpd_decode.h
-rename to drivers/firmware/coreboot/vpd_decode.h
-diff --git a/drivers/gpu/drm/sysfb/Kconfig b/drivers/gpu/drm/sysfb/Kconfig
-index 2559ead6cf1f..34d3fa8b30c9 100644
---- a/drivers/gpu/drm/sysfb/Kconfig
-+++ b/drivers/gpu/drm/sysfb/Kconfig
-@@ -10,7 +10,7 @@ config DRM_SYSFB_HELPER
- config DRM_COREBOOTDRM
-	tristate "Coreboot framebuffer driver"
-	depends on DR && MMU
--	depends on GOOGLE_FRAMEBUFFER_COREBOOT
-+	depends on COREBOOT_FRAMEBUFFER
-	select APERTURE_HELPERS
-	select DRM_CLIENT_SELECTION
-	select DRM_GEM_SHMEM_HELPER
---=20
-2.53.0
+--00000000000075d5b006593b2491--
