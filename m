@@ -4,53 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58B1EC5DF89
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5561FC5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6051F10EB4F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60E5810EBEE;
 	Wed, 19 Aug 2026 06:36:37 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E08210E0B9;
- Wed, 19 Aug 2026 05:47:54 +0000 (UTC)
-X-UUID: 81237c649b9111f19a56ed5b684f684d-20260819
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:935162e1-4b5d-4aed-acbb-16546980a9ef, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:25
-X-CID-META: VersionHash:7db8b62, CLOUDID:061688282109be565fb1e26fb1d5117b,
- BulkI
- D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:5|-
- 100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
- ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 81237c649b9111f19a56ed5b684f684d-20260819
-X-User: gonglinkai@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <gonglinkai@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 191839397; Wed, 19 Aug 2026 13:47:46 +0800
-From: Linkai Gong <gonglinkai@kylinos.cn>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Mario Limonciello <superm1@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Ray Wu <ray.wu@amd.com>,
- Chenyu Chen <chen-yu.chen@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, gonglinkai@kylinos.cn, stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: fix dc_lock leak on GPU reset error paths
-Date: Wed, 19 Aug 2026 13:47:42 +0800
-Message-Id: <20260819054742.3143856-1-gonglinkai@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hf7go0QT";
+	dkim-atps=neutral
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4CF310E7CE
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 13:15:13 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-84830c774a0so2907855b3a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:15:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786972513; x=1787577313; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=GyZCF5uP4B3rvD8O5xkX/N4jG8v6SQk6Acn1gYu2ozE=;
+ b=hf7go0QTh6oqHq0uuPvklVBgOOyDzSU0A7V5u1IELFVE5uc32/FyCRk3m99kgIflAy
+ 9XXYL0Gejm0Pix3qHthavIzXNIa4N0jWxuTtb9ELX/0ZIKG9ABb+IzPVw7E4qaWMGwyj
+ H9LvYM3KswOwn9lBl3A48oOC48swVPWUMCVc2syNne5LezggQPIodh2+kNfzF+ZGRQye
+ my/oLkHbT5NlhOqQEpAyVWcznjzVWaO+4rwbWK6ECFUJh08/almkTAiGed29t8HKB9Ox
+ DW0UoEwe86ZTOA3Su4FcelTjvGRhlSNakNgw5Nfju9solgHdYnYwxskdVu/thXmPYWsK
+ avBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786972513; x=1787577313;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=GyZCF5uP4B3rvD8O5xkX/N4jG8v6SQk6Acn1gYu2ozE=;
+ b=hO56t2WrrpvXMfkgKIsjiUZjQLm4QjbvT0IYkFD/7/jBHj6+HNUPIZ5bGhFo5gRa2P
+ UWOjsufcXISt4kXRHXHYtEXseZ46TCMHibYNuJYGWA2xzhfX740lcUYon7m+eSiWGkYo
+ lY8PPKsJTkA6SAaniZycjl48HtXMD1vQSliag7cZGSBvzHLo6isuUjrz8uJqT+aEbPbZ
+ z5vmDDr1jawHbKJGVptE4D6t0KHSnJp8Pp0jkIRWXSCyx+zFXNXqtqIEkdkurax0GW1P
+ SzzjLP+BmGDeNKHSwK5/522cu91PzjwupxflJoY26MTcoBx18fDFksP1MrEBN5feszLJ
+ n+kQ==
+X-Gm-Message-State: AOJu0Yzq0hL1Beek46dH1woFucQR4EEK8HcHed2Qm5nsvbsrjyOamXs9
+ H0alWBysH3brfjKVaxrc5EjYUg1nM1Yf2FSRYATmJjE48OIIK/4cZGs=
+X-Gm-Gg: AR+sD10uBoi5mhpxTkAchP7JMuH9XgA1iysOFeJwcqbu/BRAd0urD6xhjPj2cTwt9zE
+ afSqFvUt5YxkqCf7T5pumdROjYYhWxUoq5yp1Y6U6YpliSVu2LnjMnjGrk8+NMHPRuaXRxqH3qB
+ okyLXLJXutaaRaDik0PiiqJNMep1FVOPyhyF0HEKKPHb/fqCa+tJmLR95ryaNiMB+aNpOhYUI5C
+ hsBxt7jCEXjflYtXZlkkak1F9x5imqXKO2SmkcDyPC20CVlF7/04Hx1R6gc855RMCCBxp23tWSb
+ UDI35HMqqKTYmgEIS4qODWICrcE7OBmb4UL/chiQZ04x7vx0Yn2rSVKVpMk9JYu9Sw7NfZC3LAj
+ gjhqTHBo0bSwqnvDtNqE55KeGuP/qu1tXQX4vRVDnluEmY2rKfYa83xb0OL4V434Fy+IQWwjaP1
+ iDOM1GYa2eFlcfz46lW1nyhIk+kbcHt8FI8ZVoBJgCI5oabWzZb8ry96xxUPNDFHIFwa0Q8eVIl
+ y9JYM6/7UTb+vW1Nrw9LyRR/4XMfnET4ifQByD9of+jPw2k0Gl/fKkvnymXAy7P62MkGad7PNn5
+ 0wMeS2Kq
+X-Received: by 2002:a05:6a00:f07:b0:847:9c06:2bef with SMTP id
+ d2e1a72fcca58-84fde3e691cmr27536209b3a.29.1786972513281; 
+ Mon, 17 Aug 2026 06:15:13 -0700 (PDT)
+Received: from
+ codespaces-2db70c.m2fxbej512jepnsor2itp05j3d.ix.internal.cloudapp.net
+ ([207.46.224.82]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-851b6fc20dasm273457b3a.46.2026.08.17.06.15.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 06:15:13 -0700 (PDT)
+From: Triet Hoang <triet.hoang.dev@gmail.com>
+X-Google-Original-From: Triet Hoang <89897892+HMTCT@users.noreply.github.com>
+To: royalnet026@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ogabbay@kernel.org, tomeu@tomeuvizoso.net, triet.hoang.dev@gmail.com
+Subject: Re: [PATCH v2] drm/rocket: Check allocations before use
+Date: Mon, 17 Aug 2026 13:14:59 +0000
+Message-ID: <20260817131459.49019-1-89897892+HMTCT@users.noreply.github.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260817093009.22359-1-royalnet026@gmail.com>
+References: <20260817093009.22359-1-royalnet026@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
@@ -69,43 +92,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On GPU reset, dm_suspend() takes dc_lock and leaves it for dm_resume()
-to drop. If amdgpu_dm_commit_zero_streams() or dm_dmub_hw_init() fails,
-the function returns with the lock still held. The matching resume path
-is then skipped, so every later dc_lock take hangs.
+From: Triet Hoang <triet.hoang.dev@gmail.com>
 
-Release the cached DC state and unlock before returning the error.
+Hi Igor,
 
-Fixes: 3cf7a0bc87f0 ("drm/amd/display: Catch failures for amdgpu_dm_commit_zero_streams()")
-Fixes: 2b6943df5413 ("drm/amd/display: Pass up errors for reset GPU that fails to init HW")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 941c1a312824..214aca906fe1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3511,6 +3511,9 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 		res = amdgpu_dm_commit_zero_streams(dm->dc);
- 		if (res != DC_OK) {
- 			drm_err(adev_to_drm(adev), "Failed to commit zero streams: %d\n", res);
-+			dc_state_release(dm->cached_dc_state);
-+			dm->cached_dc_state = NULL;
-+			mutex_unlock(&dm->dc_lock);
- 			return -EINVAL;
- 		}
- 
-@@ -3824,6 +3827,9 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 		r = dm_dmub_hw_init(adev);
- 		if (r) {
- 			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
-+			dc_state_release(dm->cached_dc_state);
-+			dm->cached_dc_state = NULL;
-+			mutex_unlock(&dm->dc_lock);
- 			return r;
- 		}
- 
--- 
-2.25.1
+Thanks for the suggestion. I agree that keeping the allocation in rocket_file_priv 
+would make the ownership clearer. I will implement this idea as a seperate patch.
+
+Best Regards,
+Triet
