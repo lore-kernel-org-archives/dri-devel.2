@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A5EC5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:31:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8BD8C5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:32:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C013010E7A8;
-	Mon, 17 Aug 2026 17:31:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2773010E8CC;
+	Mon, 17 Aug 2026 17:32:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RS/K17pp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VnFJ7C+m";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5C910E7A8
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:31:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F38310E8CC
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:32:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 61061600AE;
- Mon, 17 Aug 2026 17:31:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C311F000E9;
- Mon, 17 Aug 2026 17:31:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2341D600AE;
+ Mon, 17 Aug 2026 17:32:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E7D61F000E9;
+ Mon, 17 Aug 2026 17:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786987911;
- bh=CKN+q9tl7lYQI8ZJfGj6rsvGpVNeb9NI0bd+MDRTfck=;
+ s=k20260515; t=1786987921;
+ bh=Rgz5IJza+L9F6wQs4yyzWZI3Tcp/Bq/LPrRNfIJLonk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RS/K17ppXCbPL9BgwgLzJXDYsPnWtqDtA55DpmT0SMp8vu91GCp1egvMuS8SqDbdh
- mov88INkrje32MQxB35pHAvC/6mN4qFXYpkQocpSlMMThdX5SjAeG+3ymadYZPXwC7
- Irou67FJNEmIlaltp/Q3b16zQmigBL3NC6861baxYSX02HVH37/P0gPWUa6YI9vStm
- S+kzGVysjDRb7q2NyR1z3SNzlY32FHq+jyGKAqDxJGOjB/j+XKH/cd1pJwuOfaUGVs
- nTN7VmbIq3anKjgNcDDGNzMD7yWhdKSQ6TSJLvPlYFgF6tvzSozKcru5WytgpDT9K6
- kKm68r4qCebxQ==
+ b=VnFJ7C+mu7y85ebYaCxzARuZKUA1+nKN8qvdmFVF4D4JwGLKJiXj8s8DSi9PxkiAL
+ bKQqwXQpBKRorxhDRfwPEKJYrln3c0woa//YV768QBrVx5tUbyjHr+RYbyBqmqf6Ky
+ rN5+3BQzUn2+udftAQ/3YIxOdjyZ1dTKxgZaEh/DrnTjqTt8ZplpLhC2wzGA0E4YX4
+ GCT8Mu8/VjYuQuN0tczOJXQoDG02K9W7hig60MwrmbAMHgzY4d0UUYK6QJNDlS/QVw
+ iVdGGsXLZ5HMgvRjBmpsL4yR0fMNIW5TE6H5IuRRdUH1R4J+tTRvRF5obj12QyOQsK
+ rbsHSVw3dXMuw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/9] drm/gpuvm: Route gpuva_op allocations to
- folio_scratchpad
+Subject: Re: [PATCH 5/9] bpf/syscall: Route generic_map_update_batch
+ key/value allocations to folio_scratchpad
 To: "Jim Cromie" <jim.cromie@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, bpf@vger.kernel.org
-In-Reply-To: <20260817-folio-pool-v1-v1-4-0c1d230aa3af@gmail.com>
+In-Reply-To: <20260817-folio-pool-v1-v1-5-0c1d230aa3af@gmail.com>
 References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
- <20260817-folio-pool-v1-v1-4-0c1d230aa3af@gmail.com>
+ <20260817-folio-pool-v1-v1-5-0c1d230aa3af@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 17:31:50 +0000
-Message-Id: <20260817173150.D1C311F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 17:32:01 +0000
+Message-Id: <20260817173201.9E7D61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,76 +58,110 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Unbounded memory leak of transient `struct drm_gpuva_op` objects d=
-ue to bump allocator usage without intermediate resets.
-- [Low] Undeclared static key variable 'gpuvm_scratchpad_key' used in drm_g=
-puvm_init().
+- [Critical] Batch map updates fail with -ENOMEM for maps with keys or valu=
+es larger than ~4072 bytes due to order=3D0 chunk limits.
+- [High] Missing folio_scratchpad_free on the key allocation error path cau=
+ses a permanent kernel memory leak when map->key_size exceeds the chunk cap=
+acity.
+- [Low] Incompatible pointer type passed to folio_scratchpad_init_key cause=
+s a compiler warning.
 --
 
---- Patch [4]: [PATCH 4/9] drm/gpuvm: Route gpuva_op allocations to folio_s=
-cratchpad ---
-commit 6e27181fef6cb87688764c9745ab2086b2091e88
+--- Patch [5]: [PATCH 5/9] bpf/syscall: Route generic_map_update_batch key/=
+value allocations to folio_scratchpad ---
+commit d64109fbe5280b8aca05d025f4ea39aceb7430e9
 Author: Jim Cromie <jim.cromie@gmail.com>
-Subject: drm/gpuvm: Route gpuva_op allocations to folio_scratchpad
 
-This commit modifies the DRM GPUVM subsystem to route default gpuva_op
-allocations to a folio scratchpad embedded in struct drm_gpuvm. It updates
-gpuva_op_alloc() to use folio_scratchpad_alloc_obj() and handles the bulk
-teardown during drm_gpuvm_fini().
+bpf/syscall: Route generic_map_update_batch key/value allocations to folio_=
+scratchpad
 
-> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-> --- a/drivers/gpu/drm/drm_gpuvm.c
-> +++ b/drivers/gpu/drm/drm_gpuvm.c
-> @@ -1109,6 +1109,8 @@ drm_gpuvm_init(struct drm_gpuvm *gpuvm, const char =
-*name,
->  	spin_lock_init(&gpuvm->evict.lock);
+Use struct folio_scratchpad to allocate transient key and value buffers
+during map update batch operations, bypassing SLUB cache churn.
+
+> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+> index 6db306d23b479..8ef48673b9339 100644
+> --- a/kernel/bpf/syscall.c
+> +++ b/kernel/bpf/syscall.c
+[ ... ]
+> @@ -2083,13 +2087,17 @@ int generic_map_update_batch(struct bpf_map *map,=
+ struct file *map_file,
+>  	if (put_user(0, &uattr->batch.count))
+>  		return -EFAULT;
 > =20
->  	init_llist_head(&gpuvm->bo_defer);
-> +	folio_scratchpad_init_key(&gpuvm->va_scratchpad, get_order(SZ_64K),
-> +				  &gpuvm_scratchpad_key);
+> -	key =3D kvmalloc(map->key_size, GFP_USER | __GFP_NOWARN);
+> +	folio_scratchpad_init_key(&batch_sp, 0, &bpf_batch_scratchpad_key);
+
+[Severity: Critical]
+Does this restrict the size of map elements, causing failures for large
+elements?
+
+By passing 0 for the chunk order in folio_scratchpad_init_key(), the
+allocation limit is now restricted to a single page. Before this change, the
+code used kvmalloc() which supported much larger sizes.
+
+Since folio_scratchpad_alloc() returns NULL if the requested size exceeds t=
+he
+remaining space in a single page:
+
+lib/folio_pool.c:folio_scratchpad_alloc() {
+    ...
+    if (sp->remaining < aligned_size) {
+        spin_unlock_irqrestore(&sp->lock, flags);
+        return NULL;
+    }
+}
+
+Will this cause legitimate bpf batch map updates with large keys or values =
+to
+unconditionally fail with -ENOMEM?
 
 [Severity: Low]
-Does this cause a compilation failure?
+Are we passing an incompatible pointer type here?
 
-In drm_gpuvm_init(), the code references gpuvm_scratchpad_key, but this
-static key is not defined until later in the file via the
-DEFINE_FOLIO_POOL_STATIC_KEY_PARAM macro.
+The variable bpf_batch_scratchpad_key is defined as struct static_key_true
+via DEFINE_STATIC_KEY_TRUE, but folio_scratchpad_init_key() expects a
+struct static_key *. Passing it directly might trigger strict aliasing
+warnings and break builds.
 
-[ ... ]
-
-> @@ -2814,7 +2820,8 @@ gpuva_op_alloc(struct drm_gpuvm *gpuvm)
->  	if (fn && fn->op_alloc)
->  		op =3D fn->op_alloc();
->  	else
-> -		op =3D kzalloc_obj(*op);
-> +		op =3D folio_scratchpad_alloc_obj(gpuvm, va_scratchpad,
-> +						struct drm_gpuva_op, GFP_KERNEL);
-> =20
->  	if (unlikely(!op))
->  		return NULL;
-> @@ -2831,7 +2838,7 @@ gpuva_op_free(struct drm_gpuvm *gpuvm,
->  	if (fn && fn->op_free)
->  		fn->op_free(op);
->  	else
-> -		kfree(op);
-> +		folio_scratchpad_free_elem(op);
->  }
+> +
+> +	key =3D folio_scratchpad_alloc(&batch_sp, map->key_size,
+> +				     sizeof(void *), GFP_USER | __GFP_NOWARN);
+>  	if (!key)
+>  		return -ENOMEM;
 
 [Severity: High]
-Will this cause an unbounded memory leak for long-lived VMs?
+Could this lead to a memory leak if the key allocation fails?
 
-In gpuva_op_alloc(), struct drm_gpuva_op objects are allocated using
-gpuvm->va_scratchpad, which acts as a bump allocator. However, the
-folio_scratchpad_free_elem() called here in gpuva_op_free() cannot reclaim
-individual elements from a scratchpad bump allocator.
+If map->key_size exceeds the capacity of the order-0 chunk,
+folio_scratchpad_alloc() allocates a new folio and adds it to the chunks
+list, but still returns NULL because the chunk is too small:
 
-Since the memory is only fully reclaimed during bulk teardown in
-drm_gpuvm_fini(), and these objects are transiently allocated per map/unmap
-operation, could this result in continuous memory leakage over the lifetime
-of the GPU VM?
+lib/folio_pool.c:folio_scratchpad_alloc() {
+    ...
+    list_add(&chunk->link, &sp->chunks);
+    ...
+    if (sp->remaining < aligned_size) {
+        spin_unlock_irqrestore(&sp->lock, flags);
+        return NULL;
+    }
+}
+
+Returning -ENOMEM here in generic_map_update_batch() without calling
+folio_scratchpad_free() leaves the newly allocated folio on the
+sp->chunks list, leaking the memory.
+
+> =20
+> -	value =3D kvmalloc(value_size, GFP_USER | __GFP_NOWARN);
+> +	value =3D folio_scratchpad_alloc(&batch_sp, value_size,
+> +				       sizeof(void *), GFP_USER | __GFP_NOWARN);
+>  	if (!value) {
+> -		kvfree(key);
+> +		folio_scratchpad_free(&batch_sp);
+>  		return -ENOMEM;
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-folio-pool=
--v1-v1-0-0c1d230aa3af@gmail.com?part=3D4
+-v1-v1-0-0c1d230aa3af@gmail.com?part=3D5
