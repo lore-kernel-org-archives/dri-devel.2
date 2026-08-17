@@ -4,109 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47594C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:56:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAE19C5DF7E
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 18:17:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A39C310E6A5;
-	Mon, 17 Aug 2026 17:56:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D522D10E1F8;
+	Mon, 17 Aug 2026 18:17:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="du/ZPEA/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A87kljH6";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011020.outbound.protection.outlook.com
- [40.93.194.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98F6610E6A5
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:56:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IoOnx7c52ewnqJvgL9k4UwDZsuQao3DwpW7ZUNCp6p1E9olz3cOHG92yuHQM6uZGKFW1h8up4wGpXybqHZIytveMMN1gRTGzF0QNZal9LBj0A2FD+7ETIq+UJ8JQN0+MKILov15P2K3w9cGiY7nWLR9gUUlAl1bq0/culeQKxCwaXeY6NEeGUcxv9U3E+WjEaEVFSocl6rxh/ivuvhi23IqSQtVy0l1sNYkAFMEqA2hxbFoTHZg0pTjAOI3XUs8TK+/x6mTBMnSmDJQU8sh7Sgkpvt5koDwGyewl3f/Lo9p/3u/8TveQ8r0lSpog7MxAsW0V6blRoSx/xNnn9UfAfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nTedkcnqYCkIR47sGmH+H9JPd8QzOzuHy/JD1BichtE=;
- b=IZmOmYpr5hfPKRYNqEVBXzzVt3ZJgxQLWD1ekRmL9vOQl8uGFo6AuspZ1MuK+ZO1+/bQCycu0oflz4lBRrk8wrCltTMwIxmZqTSdpUQp2Sqwbf7CLh2YKb7YyO7flfYTVUFT1akSPCbqU8bxbX3onBJGs6Mqwe7scXxkR3TFIJtzgYL0hqboMBCfHfgCuf63EQtPWZ1yrHfARB+9diRg4bpM4Xow5BEGLzxRPPtnKVLt4eNHnJhaIJ6vcBieppc/7kusxLWd2j1KKzYGBTv0nq9g/vWgwAVaMm1AKQikrGH/1+XtXcETQlM8dzSS2cqfkwzayC+RRfpaseLlYAiDmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nTedkcnqYCkIR47sGmH+H9JPd8QzOzuHy/JD1BichtE=;
- b=du/ZPEA/jHK7/aaxUJIMPIn6LaSMw1Rennl9PTlFb6YGsVsl7jocbFLIvCnY8mKNPJuGnhP0edn/J1XKx5SGepBne+Arxjol6MPNfuQQspxRXE6lhBhg2oKv+haL5XXUKUYQ/wku56FI2PIkU/iqHy7amqtS3hojucyiRR3eOJ0=
-Received: from SJ0PR13CA0041.namprd13.prod.outlook.com (2603:10b6:a03:2c2::16)
- by DS7PR12MB9526.namprd12.prod.outlook.com (2603:10b6:8:251::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 17:56:07 +0000
-Received: from SJ1PEPF00001CE3.namprd05.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::88) by SJ0PR13CA0041.outlook.office365.com
- (2603:10b6:a03:2c2::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Mon, 17
- Aug 2026 17:56:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CE3.mail.protection.outlook.com (10.167.242.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Mon, 17 Aug 2026 17:56:06 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 17 Aug
- 2026 12:56:06 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 17 Aug 2026 12:56:05 -0500
-Message-ID: <1aba31b8-36a6-d3f0-8624-a603d319c54d@amd.com>
-Date: Mon, 17 Aug 2026 10:56:00 -0700
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EDDF10E1F8
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 18:17:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 28CDB43A0A;
+ Mon, 17 Aug 2026 18:17:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170771F000E9;
+ Mon, 17 Aug 2026 18:17:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786990673;
+ bh=Lox5beP3DWjOeR55v0A2q5EwAzNvW2GMNuP3wFJiXQY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=A87kljH6QMe1mfh+7tKpGwq/QvZDIPvgAdindrhBg5loAuQSdi4lJBo/TJEm8/rCD
+ Hq9TK538xQfBYmvp+U4qA+iLRQsNk3U8jCmAGKDw4668yAX1hddzQPiEyFv9dx/qOu
+ Kx+9FHDm7gLxQ5BHJbme0EZKN3G9iT6obOWoVZ2axosUzXy5TVbznsLJ6Y7DL8QGcS
+ 2Ig1pfPDWN1ZQqLzOxaYT4aStDZIex2Vz2QaV/aStvDrUoh9tPfndeUQhRoAn9Um83
+ RTnvJV6cxo/gRIHAfRibgz2V10L9BO0qCAOa5ZoL3oA+i0xVcaag0tFXzxNvNmKmEg
+ tY3UV22I8wDCw==
+Message-ID: <85302865-4181-43d4-9c38-eb6ac57e3aa7@kernel.org>
+Date: Mon, 17 Aug 2026 20:17:37 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] lib/folio_pool: Direct-Map Large Folio Pool &
+ Scratchpad bump allocators
+To: jim.cromie@gmail.com, Andrew Morton <akpm@linux-foundation.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ John Fastabend <john.fastabend@gmail.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Boqun Feng <boqun@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Zi Yan <ziy@nvidia.com>
+Cc: netfilter-devel@vger.kernel.org, bpf@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, coreteam@netfilter.org, netdev@vger.kernel.org
+References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>, Sonal Santan
- <sonal.santan@amd.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>
-References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
- <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
- <224dd281-da48-84b3-a048-016b51aa0362@amd.com>
- <a505f9e5-b416-43e9-934d-c5c29b8a70e9@amd.com>
- <9420bbe5-46a3-84be-eae8-596bc42bddac@amd.com>
- <20260813182905.124248-1-taimuraz@kaitmazov.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260813182905.124248-1-taimuraz@kaitmazov.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE3:EE_|DS7PR12MB9526:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56d22b77-2273-428d-c4d7-08defc88cfd9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|36860700016|82310400026|376014|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: 0/KCSY5XmLpnTmZ45JU9qEc9s6/qQnnVnfQ+6t96sR2uFctpj/M/yUlGmQeI74iEdkwGNyJC9M6MLTEhp4IOnwneVSui5OQ4e326cT/VF7+wIvwzOHPlD4JPSMF/AIaxFD+Shad2vGVJ1lu76c5NAHQGea2aOOgclOWZnyLHQe8DkeW5fkwd8I5c4sxNUlkE/L8YL/qMb2qVi+B3xZwryrw5aKk8rZ74WrEJWgB+fk6GchROW6UiioAxWFC5d31MJioQ+esEuT4mUR3wCCW5xTrqS4MF9jMHPiFOkVTNTAo8sUmDAHHxcDXmCEufmIpHbleRbx5MC84QierbjkNfM4jeONNZJW+f2iJxP+gooTKfYqijOXFdTMidwUr1uwRfboHDD8kEmzIvZtzRIPUWlcdkSbBu/Y/2EaPpHRL4TJLcQzmO/9SkHFNYI0SaMcNULHxI9Rn7EisdCF00EQ2CYiCHiBaXQG1i4sXfAWh612r7latMUTPUkhwNSM6fPi83KWMjVuQuD3IzZZpJTz5LPtyQ18T2vGXYQd5H94K59xLhzo7Bq7TjpPU9ZdE0EcECu5D4yFf2uD8WqhXZMynckdVqVEuG3jxPKnW+p1Xde6QKNRFOf4axqDR6CBWFpCOsWbk18OW8z7jCtRDIfEJhKuFIgPNvVWLl0w+y5F0dk5CqPKritxJXw1isCTux9RgO4AVRlCyKS6bVlvdAcRq3zQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(36860700016)(82310400026)(376014)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Fci0jueljnmOg7ICnOJcWbotkyZhgV2aPyDzmjqNfyx6n9ycrrxufsIq9ZFdtAqvHIA8YMbEUkQXnXoY9XOa0lrUZenY7kWutOsG2u9io9dgcdDE3j6A/6LIgitE1aBjE3trlWhldkHUBgIIhXm4H3bwRN6obnrBFCvI/wrspelkJSvVDoMAIk4qhq6iOsLSKxYOsVqTNt0luZc2ZnRvbPGDot8GJ2lnBodQJzqFuK+GonrW2HimQ6j8xfCTMGkLDBfD70nJG4OiYQuPowW2XpeMz2UrfE1GrvNVO10+Zf4Oi7yQsn+LESOEJj1WnDBpwT4MG72+ojpwm+0qorbFtro3cI/lJ+g7q+J6G+VoJbx4OOJ+8leUf0GHhGvoMCpaiJBORcSm0DP+e9Lrrk2nkBDB1DZwrwt2nes4Areo81XOP8VnZyZdt0He4O6Lbai6
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 17:56:06.5412 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56d22b77-2273-428d-c4d7-08defc88cfd9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9526
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,60 +127,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 8/17/26 19:22, Jim Cromie via B4 Relay wrote:
+> Introduce two light-weight bump allocators backed directly by compound
+> folio pages from the buddy allocator (skipping SLUB metadata overhead):
 
-On 8/13/26 11:29, Taimuraz Kaitmazov wrote:
-> Resending: my earlier reply does not appear on the lists, so I assume it
-> did not reach you either.
->
-> On 8/13/26 20:08, Lizhi Hou wrote:
->> The legacy NPU device is not cache coherent. And the next generation
->> (aie4) devices will be cache coherent.
-> Confirming that with numbers, since I had measured it before your reply
-> landed. On npu4, without a flush the CPU reads what the buffer held
-> before the NPU wrote it, and the NPU reads what DRAM held before the CPU
-> wrote it. Both reproduce on all 20 runs, and the stale read is most of
-> the buffer, not a stray line: 3931 of 4096 values on average.
->
-> Good to know aie4 is coherent -- that makes anything we do here a
-> legacy-only concern.
->
-> On 8/13/26 09:44, Christian König wrote:
->> An alternative would be to use DMA_BUF_IOCTL_SYNC from userspace
-> Tried it against amdgpu, imported into amdxdna: stale on all 20 runs, no
-> better than no sync at all. SYNC_BO on the same buffer is clean on all
-> 20.
->
-> Which leaves me no legal way to import a buffer the CPU also reads. Is
-> there one I'm missing, or should a device like this just not import?
->
-> On 8/12/26 17:45, Lizhi Hou wrote:
->> we need to unconditionally return -EOPNOTSUPP for imported BO
-> is_import_bo() also covers ubuf and cbuf, so that stops maintaining our
-> own userptr and carve-out BOs too. They take that arm today: on a 64 MiB
-> userptr BO a 4 KiB sync and a full sync both cost 659 us, so the range
-> is already being ignored there.
->
-> Keying on dma_buf->ops instead would confine it to foreign buffers.
-> Either is fine by me, tell me which you want.
->
-> Separately: XRT's buffer::sync() clflushes in userspace unless
-> Debug.force_driver_sync is set, so the stack does this to foreign
-> dma-bufs whatever the driver does. And when the ioctl is used, a
-> FROM_DEVICE sync returns -EINVAL after the flush has already run, out of
-> amdxdna_hwctx_sync_debug_bo() when the BO has no assigned hwctx. Happy
-> to send that as its own patch; the helper has one caller, so returning 0
-> there is the obvious shape unless you want it done elsewhere.
->
-> v3 is sent: patches 1, 3 and 4 only. Patch 5 is dropped, and 2 with it
-> since it only serves 5. I have not tested 5 on a matching tree and its
-> numbers came from the foreign import case.
+We are running into a bit of a naming problem here: folios are really supposed
+to describe things that we will map to user space, whereby we have to track
+mapping/index/mapcount etc. That's really just anon + pagecache memory.
 
-Based on the discussion, could you add one patch to unconditionally 
-return -EOPNOTSUPP for imported BO at the beginning of amdxdna_flush_bo()?
+Right now that naming difference doesn't matter, because each compound page
+really is a folio.
 
-Lizhi
+But once we start decoupling folios from the rest (memdescs), we really only
+expect anon+pagecache to resemble "folios".
 
->
-> Taimuraz
->
->
+There will be other compound page types (similar to slab pages), and things like
+page_folio() will fail for them (like slab pages). And we are actually working
+on making page_folio() fail earlier for anything that didn't go through
+page_rmappable_folio() as part of the (folio) allocation.
+
+So, does what you do here fit the definition of folios, or is it really just
+some kind of compound pages?
+
+-- 
+Cheers,
+
+David
