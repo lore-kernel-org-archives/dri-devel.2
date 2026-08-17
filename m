@@ -4,61 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E89C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9E30C5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BACFC10ED1B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF4A710ED28;
 	Wed, 19 Aug 2026 06:37:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="PFMxBmXR";
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="ldYIcR6D";
 	dkim-atps=neutral
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D2E510E187
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 07:51:00 +0000 (UTC)
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 67I7odLW079539
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Tue, 18 Aug 2026 16:50:40 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=Vwiqk5pa6ku96ihGdmvAVoDZ5w/BFMtY+w6kGAy56Os=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1787039440; v=1;
- b=PFMxBmXRazPmMGEiq7NmLOpjze2cuG5kU58P+m34bDCWKpIxVfk65PNwYe4ne21/
- cclPDAAcb/Ssk40vg6JMedSMS8EMwjgaB6qJpuB2OqfuwMkQMjp381vywUuyRKAd
- IlpiNA07Xc1v8cldkDo5VMtVOy4LAqtQPhVIhYvBR/lc6d4rVJ0QTjFDXTDk74/e
- i8aBbcY8iqe+bzXabvm9PzsBUQYK2UYkwEtORjPFv4aWIUM+4Q2g0YFkoopMc1d1
- bo4JUuW1ON6CJ22Qz++N/G47EFq8bnTe31hIm0y+FPw1otgt/Hmqy0AJhBjcZwOv
- rCrmwmGZU0ZD5tPCp0FIYw==
-Message-ID: <7fa93963-880b-47fd-a51b-880a651be963@rsg.ci.i.u-tokyo.ac.jp>
-Date: Tue, 18 Aug 2026 16:50:39 +0900
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEBA710E477
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 21:55:02 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-472326ca506so2746719f8f.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 14:55:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1787003701;
+ x=1787608501; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=waubqiuCOYRQ2QTo7ozti7dFGxycb8EqFHbDI6qm6Lk=;
+ b=ldYIcR6D+Gp/jJ9a2QT1xI6Crl16DXMrIMj0EtC2nJjVzC7TJoouXHdsISKDY8+0nG
+ A7GhlZdCOhU0BimD2BSRhVUXpX6HjMi+nkuhZGa2cmQxDCMn1ZixWT5rXHGFl1tnmxEq
+ OY837HUk39tM7mLxZwIpexha/UZ3dhQIvsCAqlut6/37PvkG8WQCwYjZXBXXsngwy/Um
+ vrooFAXJLPe8NSIV3X5QVhvhy8u/+S94uDNk1ElBllrOqqwyANJhTxm10rTMLngkJe7U
+ PGXb0POKvKaL6kP5yRiyS9Tc70U9VaKopRm4mXnmcL7p6UMaRsf+k4dz+FrP5w7m0hGL
+ DDbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787003701; x=1787608501;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=waubqiuCOYRQ2QTo7ozti7dFGxycb8EqFHbDI6qm6Lk=;
+ b=OpcoiHsC1OR36RIhk0x9qOCBDeAM2Fh58aPeO60OYUDes5aXhMTUlvv9XpSqPzwWtn
+ I6GEMe5DZJ1pNLQgyajhAVFvrjy3cgeBaNoNSj2GXPPgv2yONyLZtdCxPKHYLAyHjYP8
+ V+730sXaFBriVbbBB5JCa4romlXrJujlpNsbpNKscsCh258rX4XX3toPlxIIRb8Vef46
+ nBRLT66U5FAUbhJzUO79i+Zqmb6MFg1P/3ivYwqzjIHe9N93TWs5QczW0Gu3c6s/gufs
+ YnbjQCuIoqfXx5z6OMNRfQWi5DoKOHFmefpZEr+Jc7dNKwAvjCCC2XCylbntK1rOiYkb
+ Tydg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpqCJncNJJ0oKCg0YUjBp4r5igh40ByxCBxj0Z10Dwggqopiw0kJ6MHJD9OOnBLIzGNsLWB2S+aUZc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzge7/7IgMur2qu/5z89PRL+2dljcpaZBZIy8Zlv+YA5slamRud
+ 1MtqWn7xxzfV51YLu8Ld7WFkJmHLcMpeHqF3ZwcABCT74l9EH/EX4acBnACiUO/Sww==
+X-Gm-Gg: AR+sD10X6WFXMkshJ/VqHPKhQy8wFOv+2Z4cq//MaSJd7Zl803wMO0ud/Ok+YEzajzF
+ 5kiNd/7QOv8M3GMtGhN2F6jYlFIatH30ifE87Z4JGddJynQmSUOev/RemZCTqAkxqU146APxNJY
+ zuB1rY+5qE0XQ36qQ0KkHNU7DJqGzkwB48hkNcoaIHNBL+Cc6FLEywS/uB4T2kcWgndqPKQsfsa
+ V8+I6UHj6CHi5mdLZHg3/EgZX8I1ArQL6tCo/TPZ9973a7yM/XNMWb6jglh8vDXoZ2uc0QgeQfT
+ erKYbOtdI6fdK2+uF39vg27XzyQLxuk1q4oYu/3t7SJmATz+zZzGVyePSt/DEH8fZvYWY3HOBdO
+ oSfRqx3DgUEuzoRCQWTBSXJbk8elMOHk0hj99HBmj3g70qfphEnosTGpmQbV6Byty+A2qXCIu/g
+ X+Kx3HNWydvGrXLpZ8Xezz3j3kWo671cqi9VCkPM/NryU3KDqm/FaaGLOg6XHjvh5eUDv70oB82
+ U0ezzeibfLD1A==
+X-Received: by 2002:a05:6000:4a01:b0:47f:8f8f:e493 with SMTP id
+ ffacd0b85a97d-482a8fe9b5amr6047922f8f.3.1787003701113; 
+ Mon, 17 Aug 2026 14:55:01 -0700 (PDT)
+Received: from horizon ([217.155.46.38]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482a5a3b3f0sm6060954f8f.14.2026.08.17.14.54.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 14:55:00 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: chrome-platform@lists.linux.dev
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Joshua Grisham <josh@joshuagrisham.com>,
+ platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com,
+ Sean Rhodes <sean@starlabs.systems>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Huacai Chen <chenhuacai@kernel.org>,
+ Tzung-Bi Shih <tzungbi@kernel.org>,
+ Brian Norris <briannorris@chromium.org>,
+ Julius Werner <jwerner@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>, 
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+ Kees Cook <kees@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>,
+ Eric Biggers <ebiggers@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>,
+ linux-kernel@vger.kernel.org, oliver@liuxiaozhen.dev
+Subject: [PATCH v13 RESEND 5/5] arm64: defconfig: Update coreboot firmware
+ symbols
+Date: Mon, 17 Aug 2026 22:54:51 +0100
+Message-ID: <540bd3107a81da9555655ed2d5a9252ed04a620a.1787003659.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1787003659.git.sean@starlabs.systems>
+References: <cover.1787003659.git.sean@starlabs.systems>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: About new backend for GPU compute ROCm in qemu
-To: "Huang, Honglei" <honghuan@amd.com>
-Cc: qemu-devel@nongnu.org, virtio-comment@lists.oasis-open.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- Honglei Huang <honglei1.huang@amd.com>, Huang Rui <Ray.Huang@amd.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>
-References: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com>
- <ea899a6b-0a59-4a9c-9e81-3ed70711da59@rsg.ci.i.u-tokyo.ac.jp>
- <78f0583f-93c0-4374-ba37-fd36f6388f0e@amd.com>
- <c79bbd91-0057-4e9a-bc56-28ca4c4ccae2@rsg.ci.i.u-tokyo.ac.jp>
- <3c3eb833-8026-44ad-8e33-dea346752db2@amd.com>
- <33bf6649-c1b9-43f6-94dd-09167d8e5db6@rsg.ci.i.u-tokyo.ac.jp>
- <63d485c3-a418-493d-aad0-26b3c115f5b8@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <63d485c3-a418-493d-aad0-26b3c115f5b8@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
+X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,389 +124,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026/08/18 13:26, Huang, Honglei wrote:
-> 
-> 
-> On 8/18/2026 12:05 PM, Akihiko Odaki wrote:
->> On 2026/08/18 11:50, Huang, Honglei wrote:
->>>
->>>
->>> On 8/18/2026 12:29 AM, Akihiko Odaki wrote:
->>>> On 2026/08/17 22:44, Huang, Honglei wrote:
->>>>>
->>>>>
->>>>> On 8/17/2026 7:44 PM, Akihiko Odaki wrote:
->>>>>> On 2026/08/17 12:19, Huang, Honglei wrote:
->>>>>>>
->>>>>>> Hi Michael, Alex, Dmitry, Akihiko,
->>>>>>
->>>>>> Hi Honglei,
->>>>>>
->>>>>>>
->>>>>>> I'm bringing AMD GPU compute ROCm based on virtio. I posted a 
->>>>>>> ROCm over virtio
->>>>>>> implementation to virglrenderer nine months ago (MR !1568 [1]). 
->>>>>>> The ROCm side has
->>>>>>> been supportted by ROCm offical.
->>>>>>>
->>>>>>> Current implementation is a virtio gpu context type capset 
->>>>>>> handled inside
->>>>>>> virglrenderer, sharing the display path. That's an awkward fit, many
->>>>>>> compute GPUs have no display engine at all.
->>>>>>
->>>>>> I think "sharing the display path" conflates several layers and 
->>>>>> makes the problem difficult to assess. It would help to identify 
->>>>>> the concrete constraint behind "awkward fit."
->>>>>>
->>>>>> End-to-end, there are four relevant layers:
->>>>>>
->>>>>> 1. Host GPU stack: hardware, host kernel, and host userspace
->>>>>> 2. Paravirtualization stack: virglrenderer and QEMU
->>>>>
->>>>> Yes we are asking can we add a new file like virtio-gpu specific 
->>>>> for compute, but maybe we can only add a new backend like 
->>>>> virglrenderer specific for compute.
->>>>>
->>>>>> 3. Host/guest interface: virtio and the capset-specific command 
->>>>>> stream
->>>>>
->>>>> In this plan we may need just add a capset id.
->>>>>
->>>>>> 4. Guest GPU stack: guest kernel and guest userspace
->>>>>
->>>>> Won't modify the guest kernel in this plan, this email list.
->>>>>
->>>>>>
->>>>>> Orthogonally, acceleration is separate from display and scanout. A
->>>>>> physical device may provide both, but acceleration does not require a
->>>>>> display engine. Linux likewise exposes render and compute interfaces
->>>>>> separately from modesetting. The userspace interface virglrenderer 
->>>>>> uses is messy; there is Vulkan, EGL, OpenGL, and now you are 
->>>>>> adding ROCm. But there is one thing I must note is that 
->>>>>> acceleration and display is decoupled, and acceleration does not 
->>>>>> require display.
->>>>>
->>>>> Yes totally agreed.
->>>>>
->>>>>>
->>>>>> At the protocol layer, context command buffers are carried by 
->>>>>> VIRTIO_GPU_CMD_SUBMIT_3D. Scanout uses separate core virtio-gpu 
->>>>>> commands, and VIRTIO_GPU_CMD_GET_DISPLAY_INFO may report no 
->>>>>> enabled displays. At the implementation layer, QEMU handles 
->>>>>> scanout presentation. virgl_cmd_set_scanout() obtains resource 
->>>>>> information through virgl_renderer_resource_get_info() or 
->>>>>> virgl_renderer_resource_get_info_ext(). That does not make scanout 
->>>>>> a virglrenderer-owned display path.
->>>>>
->>>>> Yes, agreed.
->>>>>
->>>>>>
->>>>>> Therefore, if "sharing the display path" means sharing the same 
->>>>>> device, control queue, and QEMU execution context, that identifies 
->>>>>> a possible source of contention. If it means that capsets or 
->>>>>> virglrenderer are inherently tied to display, I do not think that 
->>>>>> is accurate. Vulkan compute is already used through Venus with 
->>>>>> libkrun [2], and VCL proposes OpenCL support through virglrenderer 
->>>>>> [3].
->>>>>
->>>>> Yes，but the vulkan is for GFX originally, and for some formal AI 
->>>>> frame work like pytorch, it's support is limited, and it 
->>>>> performance is lower than ROCm, and vulkan also lacks many AI 
->>>>> infrastructure, like composable kernel.
->>>>> And for virCL, actually it is came from same project with ROCm 
->>>>> native context, but the original author didn't continue to support 
->>>>> it, they handed it over to someone else to take over. And in the 
->>>>> first version of
->>>>> virCL, it didn't pass the test of actual projects.
->>>>>
->>>>> And it seems like virCL didn't upstream into virglrenderer also, 
->>>>> correct me if I am wrong.
->>>>
->>>> I cited Venus and VCL only as examples showing that virtio-gpu and
->>>> virglrenderer are not intrinsically tied to display. I did not suggest
->>>> either as a substitute for ROCm.
->>>>
->>>>>
->>>>>>> Beyond that, sharing the display path is increasingly painful:
->>>>>>>
->>>>>>>    - Compute hammers the queues more than graphics, so sharing
->>>>>>>      virtio gpu's single control queue with display/virgl causes 
->>>>>>> contention
->>>>>>>      and display stutter.
->>>>>>
->>>>>> All non-cursor commands do share one control queue, but a fence 
->>>>>> avoids serialization.
->>>>>
->>>>> yes, agreed.
->>>>>
->>>>>>
->>>>>> There may still be implementation-level contention, and it is not
->>>>>> necessarily specific to compute. A sufficiently busy graphics 
->>>>>> workload
->>>>>> could expose the same bottlenecks. Possible contributors in 
->>>>>> current QEMU
->>>>>> include:
->>>>>>
->>>>>> a) qemu_console_hw_gl_block() blocks the entire queue when QEMU only
->>>>>>     needs to fence scanout commands.
->>>>>
->>>>> Yes, agreed.
->>>>>
->>>>>>
->>>>>> b) virtio_gpu_virgl_unmap_resource_blob() may also block the entire
->>>>>>     queue just to delay one command.
->>>>>
->>>>> Yes, but it is seems like it is must, someone else in AMD tried to 
->>>>> use async method to relase blob, but it failed to consistency 
->>>>> issue, then
->>>>> reverted to sync version.
->>>>
->>>> Queue-wide suspension is not inherently required. Commit 
->>>> 4eb0aace85f5 ("virtio-gpu: Support mapping hostmem blobs with 
->>>> map_fixed") added a path that avoids per-blob MemoryRegion teardown 
->>>> when virgl_renderer_resource_map_fixed() succeeds. The remaining 
->>>> path is also being improved with:
->>>>
->>>> https://lore.kernel.org/qemu-devel/20260424-force_rcu-v4-0- 
->>>> feccfaca0568@rsg.ci.i.u-tokyo.ac.jp/
->>>> ("[PATCH v4 0/6] virtio-gpu: Force RCU when unmapping blob")
->>>
->>> Thanks. force_rcu is a clean fix for the RCU-reclamation part, but it 
->>> still keeps the unmap synchronous and serial.
->>>
->>>>
->>>>>
->>>>>>
->>>>>> c) QEMU dispatches the control queue and calls into virglrenderer 
->>>>>> from
->>>>>>     its main-loop thread along with display work and many other 
->>>>>> things.
->>>>>>     Venus's render server can offload renderer work, but control- 
->>>>>> queue
->>>>>>     dispatch remains in QEMU's main loop.
->>>>>
->>>>> Yes, we did some async optimization in ROCm context, but its 
->>>>> effectiveness is limited, see bellow.
->>>>>
->>>>>>
->>>>>> In any case, I think you need to do some experiments to track down 
->>>>>> the real cause. a) is easy to check: just comment out all 
->>>>>> qemu_console_hw_gl_block() calls; it may corrupt display but 
->>>>>> removes the blocking. b) can also be tested by leaking the 
->>>>>> mappings instead of blocking the whole queue. Using a different 
->>>>>> display device like qxl tells whether c) is causing contention.
->>>>>
->>>>> Yes, totally agreed. following is my findings. In short words:
->>>>>
->>>>> Optimization can reduce queue pressure, but it can't withstand 
->>>>> absolute overload because each command has some overhead. Making 
->>>>> all commands asynchronous would lead to a debugging hell about 
->>>>> asynchronous issues.
->>>>> And we have high load applications rocmprofiler  that continuously 
->>>>> catch information need virtio queue to handle. But create a new 
->>>>> backend can not solve it simply, we are trying to find a way. like 
->>>>> shmem between guest and host, then use cpu polling, bypass the 
->>>>> virtqueue.
->>>>
->>>> Most commands are fast on the CPU side, while heavy processing
->>>> happens asynchronously on the GPU. Cases (a) and (b) are exceptions.
->>>>
->>>>>
->>>>> The load is mostly memory management. Running an AI model allocates 
->>>>> and frees a large number of blobs. We already did some optimization 
->>>>> release them asynchronously, but the host processing is a single 
->>>>> queue one
->>>>> process_cmdq, this is where the main bottleneck in my debugging 
->>>>> work / my understanding so far. I'm not certain it's the whole 
->>>>> picture, so please correct if I am wrong.
->>>>>
->>>>> A model load or unload frees a large batch of BOs and allocates 
->>>>> another. Some of those commands are async in the virtio-gpu guest 
->>>>> driver, but QEMU still has to work through them on the one queue, 
->>>>> which takes time; so even though any single command is quick, there 
->>>>> are simply too many of them, the single queue backs up, and 
->>>>> everything behind it, gets delayed.
->>>>>
->>>>> real work load (a few downstream customisations): loading one 16 GB 
->>>>> model (gemm4 e4b), drives ~1200 blob creates, a burst of
->>>>> ~1400 resource frees at teardown, ~3700 submits and ~6000 virtqueue 
->>>>> notifies, caused a 22 s guest soft lockup. And the behavior of 
->>>>> memory operations are controlled by upper layer like pytorch / 
->>>>> HIP / runtime,
->>>>> we can not control it.
->>>>>
->>>>> To be honest, a separate backend won't fix this. But the real 
->>>>> solution maybe is compute specific. That logic is only useful to 
->>>>> the compute path, and folding it into the shared display device / 
->>>>> renderer would mean churning code that is mature and stable for 
->>>>> graphics, with regression risk. Keeping compute on its own instance 
->>>>> and backend lets us iterate on these compute only optimisations.
->>>>
->>>> A 22-second lockup is too long for those command counts.
->>>>
->>>> The most probable explanation I have is that the ROCm integration 
->>>> blocks QEMU's main loop thread while synchronously waiting for GPU 
->>>> execution. Creating separate devices won't resolve this because the 
->>>> main loop thread is shared, and synchronously waiting on the GPU 
->>>> should be avoided in the first place.
->>>
->>> No synchronously waiting in ROCm backend, we are using user queue, 
->>> and event waiting, no sync operation in CMD wait. all the resource 
->>> release in ROCm are all async now.
->>> Only the sync thing is memory thing mapping/unmapping in qemu, as 
->>> long as it remains synchronous, it will be overwhelmed by the massive 
->>> number of requests.
->>
->> Mapping and unmapping should not block QEMU's main-loop thread for that
->> long. The command counts you reported are relatively small. That is why
->> I suspect something else went wrong, such as the main-loop thread being
->> inadvertently blocked while waiting for the GPU.
-> 
-> Will investigate it.
-> 
->>
->>>
->>>>
->>>> In any case, profiling is necessary before touching the implementation.
->>>>
->>>>>
->>>>>>
->>>>>>>    - Compute contexts need far more blob / shared memory than a 
->>>>>>> display one.
->>>>>>
->>>>>> It is not a problem by itself. Frequent mapping and unmapping 
->>>>>> might amplify the second issue above, but that needs to be measured.
->>>>>
->>>>> Yes, agreed. I can give more detailed information.
->>>>>
->>>>>>
->>>>>>>    - Maybe needs a wider ROCm / compute stack, cause the render 
->>>>>>> model fits poorly:
->>>>>>>      rocprofiler (PC sampling, SQTT/SPM, counters, high bandwidth 
->>>>>>> streams)
->>>>>>>      and ROCgdb (wave control, address watch, async exceptions an
->>>>>>>      out of band channel that must not block display).
->>>>>>
->>>>>> virglrenderer does not impose a particular render model. That's 
->>>>>> why Vulkan Compute just works with Venus.
->>>>>
->>>>> Yes but vulkan is used for GFX initally. And can not support many 
->>>>> AI application.>
->>>>>>>    - Events, faults and GPU reset/SMI are async and don't map 
->>>>>>> onto fences.>    - All of this is hard to extend cleanly inside a 
->>>>>>> display capset.
->>>>>> Capset is not about display but determines the protocol of the 
->>>>>> VIRTIO_GPU_CMD_SUBMIT_3D command stream. You have described 
->>>>>> events, faults and GPU reset/SMI are async don't map onto fences 
->>>>>> that may be associated with VIRTIO_GPU_CMD_SUBMIT_3D which is 
->>>>>> dictated by capset. An additional feature may be necessary, and it 
->>>>>> may or may not be dictated by capset. The other things are 
->>>>>> irrelevant with the protocol capset represents; they are either 
->>>>>> behavioral or about different commands.
->>>>>
->>>>> A fence is the one shot, but event is stateful and repeatable.
->>>>> That may or may not be tied to capset. Agreed.
->>>>>
->>>>>>
->>>>>>>
->>>>>>> On the QEMU/host side, would something like this be OK? One step, 
->>>>>>> two parts:
->>>>>>>
->>>>>>>    - a dedicated headless virtio gpu instance for compute.
->>>>>>
->>>>>> A second device would isolate its virtqueues and device-wide
->>>>>> renderer_blocked state. That may be useful if measurements show that
->>>>>> these are the bottlenecks, but it is not yet clear that they are 
->>>>>> or that
->>>>>> a second device is the appropriate solution.
->>>>>>
->>>>>>>    - that instance served by a separate ROCm backend library loaded
->>>>>>>      in-process by QEMU.
->>>>>>
->>>>>> First, I think we need to establish why ROCm cannot or should not 
->>>>>> remain
->>>>>> in virglrenderer. The virglrenderer, Venus, and VCL maintainers are
->>>>>> likely better placed to advise on that boundary. Once the protocol
->>>>>> requirements and performance measurements are clear, we can assess 
->>>>>> the
->>>>>> appropriate QEMU integration.
->>>>>
->>>>> venus is borned for GFX.
->>>>> virCL not merged.
->>>>>
->>>>> To be clear, I'm not saying virglrenderer can't host a ROCm native 
->>>>> context it clearly can. My hesitation is more about fit and 
->>>>> direction: virglrenderer has grown up around GL/graphics, and I 
->>>>> haven't yet found compute oriented plumbing there to build on, 
->>>>> while ROCm moves very fast and I need something I can keep current 
->>>>> with low friction.
->>>>
->>>> Whether keeping ROCm in virglrenderer would create extra friction is 
->>>> primarily a question for the virglrenderer maintainers. Its graphics 
->>>> origins do not by themselves motivate adding a separate backend 
->>>> interface to QEMU.
->>>
->>> Fair. The first draft version in virglrenderer was in May 2024, and 
->>> ROCm has gone 5.7 → 7.14 in that window.
->>
->> One point to note is that virtio-gpu development in QEMU is somewhat
->> less active. crosvm is the most active user of virglrenderer, and QEMU
->> sometimes lags behind it. If you are considering moving the ROCm 
->> integration from virglrenderer to QEMU solely because ROCm evolves 
->> rapidly, I do not think that would be a good idea. A rapidly evolving 
->> component is better kept in virglrenderer unless there is another 
->> reason to place it in QEMU.
-> 
-> Actually didn't see something new about compute merged in to 
-> virglrenderer this recently 2 years.
+The generic coreboot firmware Kconfig symbols were renamed from
+CONFIG_GOOGLE_* to CONFIG_COREBOOT_* while keeping the old names as
+transitional compatibility symbols.
 
-Neither QEMU nor virglrenderer has seen new compute-related additions in 
-the past two years.
+Select the new names directly in the arm64 defconfig so the checked-in
+defconfig follows the visible Kconfig symbols. Keep this separate from
+the rename patch so the configuration churn is easy to review
+independently.
 
-While you have regularly updated the merge request, initiating 
-discussions around it is necessary to move review forward. Open-source 
-projects like QEMU and virglrenderer need proactive driving to complete 
-reviews. Simply shifting the ROCm integration to QEMU will not resolve 
-this bottleneck.
+Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+---
+ arch/arm64/configs/defconfig | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Besides, looking at the "Architecture Components" in the description, 
-most of them haven't been merged yet. The virglrenderer code cannot be 
-merged in its current state, so focusing on those dependencies first is 
-essential.
-
-However, taking a naive approach can lead to a chicken-and-egg problem: 
-component maintainers want the virglrenderer side stabilized first, 
-while virglrenderer maintainers want the component side stabilized. To 
-break this deadlock, I suggest seeking consensus on the interfaces 
-before completing the implementation. Once an interface agreement is 
-reached, changes to each component can land independently:
-
-- virtio interface: I raised a concern regarding the interface [1][2]
-   that needs to be addressed.
-- amdkfd patches: There are interface-level concerns [3] that still need
-   resolution.
-- ROCm runtime: The description lists this as "90% complete," but the
-   linked pull requests were closed due to inactivity. They need to be
-   reopened and seek for a consensus on its interface.
-
-Once these items are addressed, you can update the merge request and ask 
-for a fresh review.
-
-In parallel, you can request review of self-contained parts of 
-components that do not depend on those decisions. Once the interfaces 
-are agreed, the implementations can be reviewed in parallel and merged 
-in dependency order.
-
-These steps can proceed in parallel alongside investigating the 
-performance bottleneck.
-
-Regards,
-Akihiko Odaki
-
-[1] 
-https://lore.kernel.org/lkml/b69439ec-0ebd-4527-873b-85b283e03888@rsg.ci.i.u-tokyo.ac.jp/
-[2] 
-https://lore.kernel.org/qemu-devel/35a8add7-da49-4833-9e69-d213f52c771a@amd.com/
-[3] 
-https://lore.kernel.org/lkml/20260104072122.3045656-1-honglei1.huang@amd.com/
-[4] https://www.spinics.net/lists/amd-gfx/msg137231.html
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 654a102cb5bc..32ec89a872d9 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -267,9 +267,9 @@ CONFIG_RASPBERRYPI_FIRMWARE=y
+ CONFIG_INTEL_STRATIX10_SERVICE=y
+ CONFIG_INTEL_STRATIX10_RSU=m
+ CONFIG_MTK_ADSP_IPC=m
+-CONFIG_GOOGLE_FIRMWARE=y
+-CONFIG_GOOGLE_CBMEM=m
+-CONFIG_GOOGLE_COREBOOT_TABLE=m
++CONFIG_COREBOOT_FIRMWARE=y
++CONFIG_COREBOOT_CBMEM=m
++CONFIG_COREBOOT_TABLE=m
+ CONFIG_EFI_CAPSULE_LOADER=y
+ CONFIG_IMX_SCU=y
+ CONFIG_QCOM_TZMEM_MODE_SHMBRIDGE=y
