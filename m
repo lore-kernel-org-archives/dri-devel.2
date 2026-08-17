@@ -4,130 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 631F1C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:00:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3DEAC5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:28:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 665B388647;
-	Mon, 17 Aug 2026 06:00:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 231B710E647;
+	Mon, 17 Aug 2026 06:28:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="eTHWE4U7";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="WZ/QZS6D";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011054.outbound.protection.outlook.com [40.107.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD8B10E643
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:00:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AyaMGfASFHu6DRvXTtH4arKndHD/IGR53RvwTLFmkXlG8invJ6BDIkTwmJeURzk4EpSz/6NTlREJconw0VzM2OQlMGpcCPC0l848EVLUnd6hsNt+G0AjD2kS9IRJt3JKsqO0gRzxLMff4K+4Kav2qlv3VZ0oSWZz3Vbq6IMkY77CzpzRrqyVd4vTOVNP4zbksGJjFn73zyRUTq/CSMCwFC/t2SkFe0MTlkBzL5JQfjihxfsjgZ3CP2CJMxbbDwNbOu7QBB6ypw5mGyMfmJzVu1kO+859BpNIZf19q3h8Gow3gvUpJTwoDSrL8tTEyd3iyeq+Wenocy9Yn4NQMP3NuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s+3X26aSBY/vkTPA8xeYChNqrkJa0dDJy5I9N9pJCII=;
- b=XshkJFT3/y6uJlk16IRbZjFy9QmR/HLLD1i9X2/TJOjogxlNPRUDks0mtI1+RL099VLIe9tbOIPLHfJq/R5bHvEGP3s35vwRlLxECe1gKtMlnZyhJTSlIt/xmmcF7aywX/VyH3qsQxpmfP5yLLBe+Bh8JkeDmySLeq77r8GUuUkJmqN/UMH/bGs2YgVb6oeZb20o/w8tk898VAE6ZsIR0SuYrpHi/dQDj8iGl/6LYsy2nODFFyGMzS0CU7qthnkmSDymIwm/SLPv7jxV5iVjx+PjgdGyn3C/I00z1SGBOo+MnmKkZK5IRf5dmMkExk15nx5XHJF8IQuHOM9NNg0KoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s+3X26aSBY/vkTPA8xeYChNqrkJa0dDJy5I9N9pJCII=;
- b=eTHWE4U7V5cvMaouKAzmHXE/mBWGfVVD5HQ9Zl4dA9qurRSyOwdR8Nbz1i7uSNrjWnvzqGjLxw7sy2t2Qwh1SXhHIhdejn6IE3w4Jxdia2INjuUDYwXLxr0mISrBgxUOZce/Pbz4TeDAeUT7oIV1mTP4ml78rqRTJQqKIQKUplJ0h+MipWRFXPmWWxPhTXtIpZqxzenURpKQ8up2l/mRNFVHFdgoyooNORfwvGLgpldpI1JhGMuXmls1H7ufLFqu1bG1fFz0K5oRZM7ZGaDwAS5gq+hQgHSJMu/oBHISl+sTZMP42+y2FCK1ZMbTr0wzbI383fEqQXKyCAQQYeJp5A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- IA1PR12MB6458.namprd12.prod.outlook.com (2603:10b6:208:3aa::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 06:00:43 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 06:00:43 +0000
-Date: Mon, 17 Aug 2026 16:00:37 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>,
- Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
- Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: Re: [PATCH v2 04/12] gpu: nova-core: mm: Add VramAddress type
-Message-ID: <aoKfPchpfmTVguQf@nvdebian.thelocal>
-References: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
- <20260810-pramin-split-v2-4-65a00b3c7309@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810-pramin-split-v2-4-65a00b3c7309@nvidia.com>
-X-ClientProxiedBy: SY6PR01CA0085.ausprd01.prod.outlook.com
- (2603:10c6:10:110::18) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CDB010E647
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:28:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1786948101; x=1787552901; i=markus.elfring@web.de;
+ bh=sbmd7hHup//wXEXvt7HizuXg4aizx7FkRF0NQWAUaLs=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=WZ/QZS6D+OYv1KjoQwPsZNunyykXy8rlPstDerVDfpN8OsR6/OEs1NLwQkz4v5Fe
+ 7Z1iF8zp5ldKR3ofiUzzpl3eCsrJzMZ7nhQ+6MJJ2LG6u3hxlGbK99o2iH2yLIZn7
+ I/eGowN1pqP86OxVI4m5TrJE6BMKMzi1FXPI/dO7URirpqFVXZ4Jz+Ur59/yYlQ6l
+ KwtKtx+RCEk8xd3oDPJ6WWUbYOjs2OUZiSfjPolFpAde5Mf7dFRh98vDGprAkPw9+
+ igMOn9y3t08jcuCQWKw5VCC9I7wXJCPTCFyeauVJ/ZaSE5ANpdTN7k7QzVODnmX46
+ MQFoVhiydKqvEb4vVQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MZSBG-1xRFlT1fBm-00KLP0; Mon, 17
+ Aug 2026 08:28:21 +0200
+Message-ID: <672fbb47-7836-4a02-97e6-30ccf53b9e97@web.de>
+Date: Mon, 17 Aug 2026 08:28:07 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|IA1PR12MB6458:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a01f37e-df40-4de4-7062-08defc24df1d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|10067099003|3023799007|6133799003|18002099003|22082099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: 0Tkk20boQhgNbqRPILXyyWaQ1ASR7FJa2Gbt7N9GZw2uZRBkwNQ+OdQ3yIAhriFwhINs/kfZFIjy5itmSAwlKtgJ7XE3zxK3jcjJH7V+bRzPzfRELSqWWZUgcsw6GIHO59tdZ0ZNCADLFfJ2A01fDqun2BvK+7BMRtPZYG18S04oSdMIsT4o7tQtkIeYQhNq+VoXRF+tJr4SBpXboo/A2mZzoGbzOO4ZBm/EUMmp6K1bKU9fWQtgSQGNMYxOUthFb6zcdWld9+V1IJFYt1afCWd4bHUNc8cdVQqR22lompooKNdPNKlmy1l+wbfIfG56eO47JhA+ysbGpgHuiFk3SOWWOZYFyemDl6te88YjHEQBqc5+Q0dDwwJNc+VZkHdb8dhr7nT3ZejiAnR0yXYNOpZyskRFBdi5Kab4hpp5zZg570XHnmHTg8LLhF2ijWqH0IahyL4PgwtCCgfGtA67M2Zu3Na7TnjvJqwnR+va5vt+CRwUqZ/jcWKSamw/B73zqZtzvg3ORex+enA4Mlagdy2Pv9WxOjJo0XS0EEhQJdoPxem9DFU5s3jAMZ5jmW+uNE/QwYv8f83JnmbNBD6T+FG2XZ/9KZ98tZnC047RlDxE21G9h7GEJIIW2QEgFXcvoUqG7UWW9hBpHyiBFyemc6yXgLS9xS2KyAwbQTupQo0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(10067099003)(3023799007)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VSZraR13LbVwm5XhR2ajbK/qXchEGj61+seYOvyZarjEAVX8QKsqWY8lT8KS?=
- =?us-ascii?Q?gWEqn6lNZF6TnnMTGGygjXM/B0bvZdoNGwGLx/hTvcdz48UP+M/s4GD+V8jj?=
- =?us-ascii?Q?EE0zDaUDThhCNQG+qazrBNKCjmElWiN7uLTUTvQcBvfE7QnwY7Zc0yxut/Wf?=
- =?us-ascii?Q?WxSUZFduFi3TAUFi+fmpzb03YHAOAFZiQZ2J2NMd+SXclENw6l5Q6qwC6cen?=
- =?us-ascii?Q?BIahcDc5gHFrUvRdBkGX8MdopAuTYs5uZsOnC+ghFktavPy+fVm9HAIOdE1s?=
- =?us-ascii?Q?ts1Afr7RzWlNIuyPopnfOceYKt2IsubS7TpuRvQij6z9iVBv+Iomy30CIzfW?=
- =?us-ascii?Q?j2en6+0iwj1MOdBiODDP17bJSKMFv32jfBXZW1EYTvT86QKmapgKY3BLv3SW?=
- =?us-ascii?Q?WAXLUR7LT2bTtwv9uc+0seQn7KdakSCsWy7Brt560xyOoBGjD52dGKWsqHQ9?=
- =?us-ascii?Q?hB6q0TaS46x+vr5aV9M+wJ06QNLJQsjni+tRJwJ91bJ+aNN2DRd4K97biayY?=
- =?us-ascii?Q?fUsKO1ntmxdIR7c0Ul+003metsPk8ahvZr8p6gRhKaw2qd1cBvxtAnSwUA0/?=
- =?us-ascii?Q?A4ChMe03DDWgq9sbtgvRMozpv/C8o9e2oN2zV07znTWpMUwQ7dxWL5UupHRd?=
- =?us-ascii?Q?PWjo8ADp5H+tkifcYFQGonK1IoIzpwF5zU2fznAIU7c7Hpnm3F2AXTnPcQQg?=
- =?us-ascii?Q?VXMnfCzmJ/gl5Ui3BRmND1A1uQIzyR0tKp2fJDsM0O5TOsSmJJQl2MVD5JjM?=
- =?us-ascii?Q?fx2IcCKl+dPH0h42xg7Nxylp2ZvsUnHtb76lV9mS9kVNrQAFHIkq9WzU48DE?=
- =?us-ascii?Q?CRoGrCv0HUcZijZu3f9PuKvA3eqcJDR2PbQIqHCTJgJuJw+d56WiG3ya5hS1?=
- =?us-ascii?Q?E73dfgDcYdR+I/yxI0km0Zu43VfX5dPuC93OMhZeAeBxat8TO+t/+dBti5A4?=
- =?us-ascii?Q?D5KqVpWiRsyQVl/5uLo822stAeYK4S1J9ZgJdpPIhV6ZnrQAxTPRS9M3Soun?=
- =?us-ascii?Q?CCPWNFZApgajK/1Sam2sUHay/lzy8HjLrP6sK/n9umGKKagPnjSEPtD/AA3w?=
- =?us-ascii?Q?r2fj6Ur7GTfhFbkMMDCkfznqKZ7AqgQpib35BNwww55kdQHLm5XJLvFt34Vw?=
- =?us-ascii?Q?szYGXvzwT0ZejeSUXy5maulvF3hEge2quXN52gX0bPGvnZko+hcY8HMGbNzZ?=
- =?us-ascii?Q?JUawgvJDNT1dOzhZUS9TfUt5AM8u/QXCp53yQoxNIpOrMqrnng6+45/3jW/7?=
- =?us-ascii?Q?+y/ON+0Y0SMvi61mQ8Av8Iuvf632meXSVWecB3pTcTXEaN4UKcIIrCxGLFQW?=
- =?us-ascii?Q?7GRL7+rB3D/eifJB4F33eP7wEq57QGUjFzqGQsvsKB6PAD57KS825lQ7w/W4?=
- =?us-ascii?Q?2PAkZtOMKo+sr6XodrD1htudy0jIe2vIw86b2Uex/zUru8NR6oMxRB/42dCX?=
- =?us-ascii?Q?3EmeUa9UTBUMqVQQ1Tetg+idjbTUYISif4TSDDyyZUNF1j+choxUSrOhfnoN?=
- =?us-ascii?Q?aLzlwvlBqv6EjwD6Skix7ipAnGBb2+qNdVrFKlsVsPQLZon33dRhdzmt5rZE?=
- =?us-ascii?Q?8hWaMDxzDrdp8wS8xiuOUwymu3A1/OFYEfxGbqOZdatMWm+oFzuuKSVHq4pC?=
- =?us-ascii?Q?NWE6H8ePfpja9Olp5ca1LoR2L51clJ4yU0HlTZ13xQ7yQlOSU4zRR4nFT+m1?=
- =?us-ascii?Q?CvsKkunZYKx5DzanKtlIuV5nZ3YRFxr3D5xbtq5Rqq1ESmAFOYtBuOAbChFr?=
- =?us-ascii?Q?cNJwd3mBDA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a01f37e-df40-4de4-7062-08defc24df1d
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 06:00:42.9390 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /7ey6w6Nk4OWxyTF1N6UccCXl3FlINX6M8Avh93rr/mZjw9Agp4+Q+Ob0ogxVHQ2ICSGFRDJBpy7NNpzJePZ6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6458
+User-Agent: Mozilla Thunderbird
+To: yuebingkun@kylinos.cn, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Helge Deller <deller@gmx.de>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+References: <20260817055625.276500-1-yuebingkun@kylinos.cn>
+Subject: Re: [PATCH] fbdev: platinumfb: add error checking for ioremap calls
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260817055625.276500-1-yuebingkun@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Y9PbHmOMtHZEHk8Nfin7EHmni4ZfjkzAfKnsMSoLi340W6v32E0
+ C2J7pGSWXJDusztq7wf6Uyrf7w5VZbmqRBk1UMaEafPiCU+2RxYLdth4R5M95X3h7G09Aif
+ hHOadaTyhFJOHakwt6ro+iOoTJ6jKkgGav7wuVopMvWGhzPkCxavc0hfXS14ULTVOuCXliM
+ pm97lRt6+orK8zYystjHA==
+UI-OutboundReport: notjunk:1;M01:P0:CiSKlY/MWT0=;apmhAC8ewegoHlVLKgG+3NACNWY
+ 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
+ V1ZXu6w==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,116 +151,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-08-10 at 23:55 +1000, Eliot Courtney <ecourtney@nvidia.com> wrote...
-> From: Joel Fernandes <joelagnelf@nvidia.com>
-> 
-> Add the `VramAddress` type representing a physical address in VRAM. Also
-> add an arithmetic helper, comparison, and operator overloads which are
-> required in later patches for address arithmetic.
-> 
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> [ecourtney: create mm.rs here, squashing in the arithmetic patch]
-> [ecourtney: splice the two commit bodies]
-> [ecourtney: drop the Pfn fields, open-coding what bitfield! generated]
-> [ecourtney: drop align_down and the IntoVramOffset/IntoVramRange traits]
-> [ecourtney: make checked_add() const over a plain u64, derive the ordering]
-> [ecourtney: doc wording, header, import, and signature cleanups]
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/mm.rs        | 60 ++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/nova-core/nova_core.rs |  1 +
->  2 files changed, 61 insertions(+)
-> 
-> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-> new file mode 100644
-> index 000000000000..dcd5e5e919bf
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/mm.rs
-> @@ -0,0 +1,60 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-> +
-> +//! Memory management subsystems.
-> +
-> +#![expect(dead_code)]
-> +
-> +use core::{
-> +    fmt::LowerHex,
-> +    ops, //
-> +};
-> +
-> +use kernel::fmt;
-> +
-> +/// Physical VRAM address in GPU video memory.
-> +#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-> +#[repr(transparent)]
-> +pub(crate) struct VramAddress(u64);
+=E2=80=A6
+> Add proper error checking and cleanup for all three ioremap calls in
+> the probe function, ensuring that any resources already allocated are
+> properly released on failure.
 
-Is this the best type here, or should this be bounded via runtime checking to
-ensure it refers to a valid address?
+* Please avoid duplicate source code also in the implementation of the fun=
+ction =E2=80=9Cplatinumfb_probe=E2=80=9D.
+  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
+Documentation/process/coding-style.rst?h=3Dv7.2-rc7#n526
 
-I was going to ask if it should be bounded to reflect the physical addressing
-capabilities of the GPU in question, but that would actually need to be a
-different type as GPU physical addresses might not even refer to local vidmem.
+* How do you think about to increase the application of scope-based resour=
+ce management?
 
-Although I think that's a concern for future series - AFAIK PRAMIN can only
-access local VRAM.
+* Would you like to add any tags (like =E2=80=9CFixes=E2=80=9D and =E2=80=
+=9CCc=E2=80=9D) accordingly?
+  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
+Documentation/process/submitting-patches.rst?h=3Dv7.2-rc7#n145
+  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
+Documentation/process/stable-kernel-rules.rst?h=3Dv7.2-rc7#n34
 
-> +
-> +impl VramAddress {
-> +    /// Creates an address from a raw value.
-> +    pub(crate) const fn from_raw(addr: u64) -> Self {
-> +        Self(addr)
-> +    }
-> +
-> +    /// Returns the address as a raw value.
-> +    pub(crate) const fn into_raw(self) -> u64 {
-> +        self.0
-> +    }
-> +
-> +    /// Adds `rhs` to this address, returning [`None`] on overflow.
-> +    pub(crate) const fn checked_add(self, rhs: u64) -> Option<Self> {
-> +        match self.into_raw().checked_add(rhs) {
-> +            Some(addr) => Some(Self::from_raw(addr)),
-> +            None => None,
-> +        }
-> +    }
-> +}
-> +
-> +impl LowerHex for VramAddress {
-> +    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-> +        LowerHex::fmt(&self.into_raw(), f)
-> +    }
-> +}
-> +
-> +impl ops::Add<u64> for VramAddress {
-> +    type Output = Self;
-> +
-> +    fn add(self, rhs: u64) -> Self::Output {
-> +        Self::from_raw(self.into_raw() + rhs)
-> +    }
-> +}
-> +
-> +impl ops::Sub for VramAddress {
-> +    type Output = u64;
-> +
-> +    fn sub(self, rhs: Self) -> Self::Output {
-> +        self.into_raw() - rhs.into_raw()
-> +    }
-> +}
-> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-> index 35a8b1214b0e..8f59cfa97017 100644
-> --- a/drivers/gpu/nova-core/nova_core.rs
-> +++ b/drivers/gpu/nova-core/nova_core.rs
-> @@ -18,6 +18,7 @@
->  mod gpu;
->  mod gsp;
->  mod mctp;
-> +mod mm;
->  #[macro_use]
->  mod num;
->  mod regs;
-> 
-> -- 
-> 2.55.0
-> 
+
+Regards,
+Markus
