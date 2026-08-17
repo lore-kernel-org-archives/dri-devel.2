@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79639C5CFC1
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 05:14:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34424C5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 05:20:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCB0210E63A;
-	Mon, 17 Aug 2026 05:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9053F10E3C3;
+	Mon, 17 Aug 2026 05:20:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kcroa1S2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c19eMyp4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50E2710E63A
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:14:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8DEA10E3C3
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:20:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5ADBE6013A;
- Mon, 17 Aug 2026 05:14:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF6BE1F000E9;
- Mon, 17 Aug 2026 05:14:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8D8814035D;
+ Mon, 17 Aug 2026 05:20:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E851F000E9;
+ Mon, 17 Aug 2026 05:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786943680;
- bh=ErHt/Qdo9sj6EPcR1iNrYjspwKvhRcI/ituwVmbEiFA=;
+ s=k20260515; t=1786944026;
+ bh=z54b1mZ+B87i7QnrfIkVbMQ6tydgrFl+u9gbTzdSuaY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kcroa1S2618Q4VV8FoNRlXGTbWa7h+afL1LqX2+E+LjbrbXmAfVvkLrAFTryZLnFJ
- IQns0m9dRDLuLbNGfok8D9+F2gNKP/VAlgZqBM0Bex4P7TAwv6QitbK4A8fjUIoRBC
- 5IfSexwqEvIgFgA2ZrjecJhSr3a7dBkPfWz24Pw7kdzk37PPJhzYFEjLEzZpa7mUWX
- an5NS43aEAfPg7lT1zfN0ZQLpRd45IZlIFldc43crhEL550P/k7sozomBMfcpgyD0v
- cLo1QmKbjHz9sKmJg2+3r+urfg7nE3q/yZWUoTZJsUr1YGblgzaxxVqFJLV38qyiDi
- myM6D413ZSJJg==
+ b=c19eMyp4DegHQbgTF6RXz5pb21U1cqSZ3ovCuS3hpiy2GMHvbFfnQtjPLsHl4/7UE
+ IyFfLKilS4WfCVLaOb+kNOpBkOHcvzG3XR1cw4xXmlArErm8pSlomts/MnH2c5CzEL
+ UrHZKM/8tlkScjMbFxP00VfkUubZh4wOxF4Cyn27lucttLfa/E6jHXLG3Mko44x/V7
+ 8nBl614mV81Dmu5yS/uB3HJDFpLbFca7sAq0tppIK+pptuUFsxKRRy4U6Uj8kcO98Y
+ tIK/lpYJbzTJNtqLra6Ai8qZ4/7wCkaSsH+f/4X/GF8hiR9U7ZNsrAgGsj5QaYwlJ3
+ 6gtJNvBob5iqg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/4] drm/prime: use dma_buf_fd_install() to preserve
- export tracing
+Subject: Re: [PATCH v7 2/4] misc: fastrpc: don't publish fd before
+ copy_to_user() succeeds
 To: "Baineng Shou" <shoubaineng@gmail.com>
 Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817050457.1005285-4-shoubaineng@gmail.com>
+In-Reply-To: <20260817050457.1005285-3-shoubaineng@gmail.com>
 References: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
  <20260817050457.1005285-1-shoubaineng@gmail.com>
- <20260817050457.1005285-4-shoubaineng@gmail.com>
+ <20260817050457.1005285-3-shoubaineng@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 05:14:39 +0000
-Message-Id: <20260817051439.CF6BE1F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 05:20:25 +0000
+Message-Id: <20260817052026.47E851F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,77 +63,76 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The file descriptor is published to userspace before copy_to_user(=
-) succeeds, violating the dma_buf_fd_install() API contract and causing a r=
-esource leak on error.
+- [Critical] Exported DMA buffers maintain a raw pointer to `fastrpc_user` =
+(`buf->fl`) without holding a reference, leading to a Use-After-Free if the=
+ DMA buffer outlives the fastrpc device descriptor.
 --
 
---- Patch [3]: [PATCH v7 3/4] drm/prime: use dma_buf_fd_install() to preser=
-ve export tracing ---
-commit edfa3fdf8153dcc15c693c10359892f042189a1c
+--- Patch [2]: [PATCH v7 2/4] misc: fastrpc: don't publish fd before copy_t=
+o_user() succeeds ---
+commit f5005f3a9100abf2f83ab45f3bc5e948d9e97e67
 Author: Baineng Shou <shoubaineng@gmail.com>
 
-drm/prime: use dma_buf_fd_install() to preserve export tracing
-   =20
-This commit replaces fd_install() with dma_buf_fd_install() in
-drm_gem_prime_handle_to_fd() to restore tracepoint coverage for DRM PRIME
-exports. It asserts that the file descriptor lifecycle is already correct.
+misc: fastrpc: don't publish fd before copy_to_user() succeeds
 
-Link: https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubainen=
-g@gmail.com/
+This commit fixes an issue where a DMA buffer file descriptor is installed
+into the fd table before successfully copying the fd number back to
+userspace. It updates the allocation path to reserve the fd first, attempt
+the user copy, and only publish the fd upon success to prevent leaking
+access to the fd on failure.
 
-> No functional change; the fd lifecycle (get_unused_fd_flags
-> -> work -> install) is already correct.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is this claim about the fd
-lifecycle being correct accurate?
-
-The new dma_buf_fd_install() API requires that it must only be called after
-all fallible work (such as copy_to_user) has succeeded.
-
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 9b44c78cd77fc..fe3436d1235db 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-[ ... ]
-> @@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->  		return PTR_ERR(dmabuf);
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -1709,24 +1709,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_us=
+er *fl, char __user *argp)
+>  		return err;
 >  	}
 > =20
-> -	fd_install(fd, dmabuf->file);
-> +	dma_buf_fd_install(dmabuf, fd);
+> -	bp.fd =3D dma_buf_fd(buf->dmabuf, O_ACCMODE);
+> +	bp.fd =3D get_unused_fd_flags(O_ACCMODE);
+>  	if (bp.fd < 0) {
+>  		dma_buf_put(buf->dmabuf);
+> -		return -EINVAL;
+> +		return bp.fd;
+>  	}
+> =20
+>  	if (copy_to_user(argp, &bp, sizeof(bp))) {
+> -		/*
+> -		 * The usercopy failed, but we can't do much about it, as
+> -		 * dma_buf_fd() already called fd_install() and made the
+> -		 * file descriptor accessible for the current process. It
+> -		 * might already be closed and dmabuf no longer valid when
+> -		 * we reach this point. Therefore "leak" the fd and rely on
+> -		 * the process exit path to do any required cleanup.
+> -		 */
+> +		put_unused_fd(bp.fd);
+> +		dma_buf_put(buf->dmabuf);
+>  		return -EFAULT;
+>  	}
+> =20
+> +	dma_buf_fd_install(buf->dmabuf, bp.fd);
 
-[Severity: High]
-This is a pre-existing issue, but by adopting the new dma_buf_fd_install()
-API, doesn't this code path violate its documented contract?
+[Severity: Critical]
+This is a pre-existing issue, but does exporting this dma-buf introduce a
+use-after-free risk if the dma-buf fd outlives the fastrpc device fd?
 
-Can this lead to a file descriptor leak if a userspace application calls the
-DRM_IOCTL_PRIME_HANDLE_TO_FD ioctl with an invalid userspace pointer?
+When the fastrpc device fd is closed, the fastrpc_user struct (fl) is
+released. However, the exported dma-buf maintains a raw pointer to it via
+buf->fl without holding a reference.
 
-If drm_gem_prime_handle_to_fd() publishes the file descriptor to the
-userspace fdtable here:
+If an unprivileged user allocates a dma-buf here, closes the fastrpc device
+fd, and then calls close() or mmap() on the dma-buf fd, it triggers
+dma_buf_put() or mmap(). Those paths call into fastrpc_buf_free() or
+fastrpc_mmap(), which dereference the dangling buf->fl pointer:
 
-dma_buf_fd_install(dmabuf, fd);
-*prime_fd =3D fd;
-return 0;
+fastrpc_buf_free()
+    fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr)
 
-Then the DRM core ioctl dispatcher attempts to copy the result to userspace
-after the handler returns, which can fail:
-
-drivers/gpu/drm/drm_ioctl.c:drm_ioctl() {
-    ...
-    retcode =3D func(dev, kdata, file_priv);
-    ...
-    if (copy_to_user((void __user *)arg, kdata, out_size) !=3D 0)
-        retcode =3D -EFAULT;
-    ...
-}
-
-Wouldn't the failed copy_to_user() return -EFAULT and leave the already
-installed fd orphaned in the process's fdtable, without the application
-ever receiving the fd number to close it?
+Is there a missing reference count increment on fastrpc_user when exporting
+the buffer, or should the dma-buf release operations handle the device
+teardown differently?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817050457.1005=
-285-1-shoubaineng@gmail.com?part=3D3
+285-1-shoubaineng@gmail.com?part=3D2
