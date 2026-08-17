@@ -4,80 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 190B6C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:41:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EEFEC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7918910E767;
-	Mon, 17 Aug 2026 11:41:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 999AC10E763;
+	Mon, 17 Aug 2026 11:41:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Hk+vgNJU";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="GyOq1L8d";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 421AA10E767
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786966893;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eye+Imc/4M3S1qY3eqjb5bqUcZ4zH/Id72nS2Qv+iaA=;
- b=Hk+vgNJUJoxKiRTVFFFnCTWszdDov+oeeAtBz/kFpKcHgjl3H0AtvPYkxsGIe5c4hremFy
- YAj4kWyta5MlQnkcnNJBD2mFUPVWhpaPegz0I9tJvOVN9tBlWXVQ6GKWO1q4cWVcjPxn7/
- BOYexGhYP2V3mHQxr5UtlhZDElbC+So=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-145-NV6esz-kNvSZhbgo-XL6oQ-1; Mon,
- 17 Aug 2026 07:41:26 -0400
-X-MC-Unique: NV6esz-kNvSZhbgo-XL6oQ-1
-X-Mimecast-MFC-AGG-ID: NV6esz-kNvSZhbgo-XL6oQ_1786966883
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 6222018001DE; Mon, 17 Aug 2026 11:41:23 +0000 (UTC)
-Received: from [192.168.1.153] (headnet03.pony-001.prod.iad2.dc.redhat.com
- [10.2.32.114])
- by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3F601422; Mon, 17 Aug 2026 11:41:18 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 17 Aug 2026 13:40:50 +0200
-Subject: [PATCH 5/5] rust: drm: add KUnit tests for panel
-MIME-Version: 1.0
-Message-Id: <20260817-drm_panel_bindings-v1-5-1f974508a31c@redhat.com>
-References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
-In-Reply-To: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010025.outbound.protection.outlook.com [52.101.46.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16A6510E763;
+ Mon, 17 Aug 2026 11:41:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ezav2Zqre/bNo/8cxSqf0CuUV9N+W4Reg31yP4RnmOQ6sMY8k9T8Y/55l6+8T/FPekA2WsZVG35q0SnGXP9+vyH6la0rcJrPWUS8plEd8terPgPPalpmXlXepb1DW/xLKcOykQsm7CBc9Afw+gsfDVV8TewRNQ3iSRGGFVdu/R9wCjHcYnytrokJyf7rxMfP4R9Y9q0aShEY7nDXB6vQg2M/vINc0iyf8blL3pgGG8S3dgg3dkHVEeR2zfKLDcBNv7pSsn1+1hp1eN7vIbIGy7e67cXXNvn1kKxoLYftgeAbe50sRVIY/CxLQ/rDopVx27pEKrg16FnHdqZehu8mEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JI1SIZqkmxEiWe6gMNKkxii7AynElJeFBwZwekDt4Uo=;
+ b=KF/8+MFqrBATAQfNkd1MigGJbCag/hTyr1cbh7RZDgXAZzuhyir0jxkKFDtAgIlF0KCVBmTChUq0D4+GAcmAGHYKXpKNji7jGtglRHWwxL27s/UMwtZ5OCt35PQd0yiYdzWLVNP0M6Q2BXEtGwio7KYkTjMLX0b81NLT0N9JoR+qn/RCyrigD5VjbzqM+t7J2uWwK8AXz//XiDguzw+rP3qRB1L8dC/7Z5NDSHTid4qi3+v07A8iQOB8QffBCefrqhhTdKrx7BJQvznlF8Kvx+Cuz9tVFINgidbIHPJ89J42h3H9YG7tnEPzUb/Qnse80W683gnO0RzrnXiP3H5Ftg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JI1SIZqkmxEiWe6gMNKkxii7AynElJeFBwZwekDt4Uo=;
+ b=GyOq1L8dmEl4WBl4PrODi9nfmfEuK+h3/Et0GyYDiIEkFlQxQQkqNr/lOgp5GLvJgb9yuOxSxo2tYXZWUrCC5W1BeJA14rh1vhx/1PcC6x9uHOnUNDHqAatZYTGL8W0TRqKZuZjvKfdoHS7SUhKdpymrhOstYF6VqRD+RTDzgMNcCUV572HIKRSn5qQ3Cj2cyY3vxf9eO87A95gjbWbH1bJDT3U+d9ssM/Cv9cpJTylQdaax/oo3/zIV02Ex77ZgaepyybIJlRBLlif/fSiB25bICr3t91l81fy4gAE/1Y1e7H+db/XxuV64AhrRC6jLh28YLeBQrDp9OVP6/jmLAQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ BL3PR12MB6618.namprd12.prod.outlook.com (2603:10b6:208:38d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
+ 2026 11:41:45 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 11:41:45 +0000
+Date: Mon, 17 Aug 2026 21:41:39 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>,
  Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: devicetree@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Albert Esteve <aesteve@redhat.com>, mripard@kernel.org
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786966849; l=4048;
- i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=oTsFEHigKZDagVoAOr5IwLFtvYBBWBCaIx6vNhGa6+8=;
- b=6QwxHfNOkF/90Z13R5XUwzf52g9t5Ni068MYbGJL53bg9fbDgOYsTTjn3hXH5mBfps9ZKPqmb
- /2hmNzKs8CTBesR2zwdbQqUwz1eeXDavHMnJRjf4n8IR+assQYCtN9x
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
-X-Mimecast-MFC-PROC-ID: iy02Pl3OQwdGue6ebjzCySmakvuoEq3UEobKfL2RMwI_1786966883
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+ Tamir Duberstein <tamird@kernel.org>,
+ Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>,
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 04/12] gpu: nova-core: mm: Add VramAddress type
+Message-ID: <aoLxGqKx8h54MtES@nvdebian.thelocal>
+References: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
+ <20260810-pramin-split-v2-4-65a00b3c7309@nvidia.com>
+ <aoKfPchpfmTVguQf@nvdebian.thelocal>
+ <DKR2MD987IX1.11I18NM3UNVQO@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKR2MD987IX1.11I18NM3UNVQO@nvidia.com>
+X-ClientProxiedBy: SY5P282CA0060.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:20a::20) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|BL3PR12MB6618:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03330090-290f-4d7f-7c93-08defc548384
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|23010399003|6133799003|3023799007|56012099006|10067099003|4143699003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: jwDJ72bqSx51JUJHRcJEVkF/58KIprhjKMzw5qaCHa+69fsnp3LAGV3Jp7qYC7RjpxLEzoFz7Pe9L6RdgDO0aNntKB6bgrH6hBPiwvs8brEjAr1JHElYuZXbWkTdeGwz42hAJLW8lnUV3+J5U9moL9Ll3iZKml03llg81lOgYGyQUuHzuwaGTJU+4FFrVOaASU2potN7eH4JFqykHwdZjuAAR9CFd9DLzRfah8K5+Pb/eANdetNO4OMEataJS+7u7vIi8vvSTnrZalSS/OTccbvrQwbdnlOfUr2HYqrtiZ1Hh35CV/ZY3MOOc6rIXdaHnWRlO54gMoldGJ03MQ3EwCOtkOoCihBDhV2a5lafyyXObo8je5Zc4yp85lrvkxzG9jJr2MhZ4bLHIkfkfxF5zgdS1AVaCgfvicp+pZgTpRgnCQuPtJps4kuvi7QBCvtYGd93ykIWuWSGnboe0qtZgip44+iMW+f3sRWC46/257Ri6dDjXXL0D5r0pdM9VgasK2GMXtT99O0qOLmk+fTEbO9+KSyOxJI05QQIgSxgcXqGD3gjjjWWU0EKJJuB4DEFd54ttt2G47s8Q7+YGDF9NhSPB2/C6TvDVtSmuE3I7rOReDK0FobOoWxJwfReCWSVtSW2VyimEcTiWCVnEBQ8Um6Yr2MyR3OA/6mXfqYCZ8g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(6133799003)(3023799007)(56012099006)(10067099003)(4143699003)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VbkB9c435tL5qR/vuyJUJk1GAXydo0fUeP4JyIxR72scUvBrJp169xPmjO/u?=
+ =?us-ascii?Q?WW+2BebYkopx1Gd+eC2ld7aG3H4w7BfGwSgm3FgG9Uaz7mm7ttzCUXbXJGof?=
+ =?us-ascii?Q?vbJAUGbCkTNto3PMQTxPtTn6QgYEOubZ639poFMTQluMhvQStH9QiPejHZi5?=
+ =?us-ascii?Q?CP36VH5NhNxDndTuwyU0ynCDQUphjU7kYUBNnuGnYHf95yhJ4kpz8xAtsCfM?=
+ =?us-ascii?Q?dvqjyHa3Xozop3WrKwsBwbl0GIe4PEtg92hu31qo9tO1UsuB0EHu1DnOIfY2?=
+ =?us-ascii?Q?y39yuFwi9UQ0RyaIy/vWlbuw3HfU7Tie7IenCcd7IyriCn0ZT2EaMUVvWJPA?=
+ =?us-ascii?Q?SGrgeF7mShe4BaoYGtydZlqHZ4PeOTnHT21yelUcu5Vs47u0pNFuFB3EGqQS?=
+ =?us-ascii?Q?Vz6r1gQa7xTorYTRkHHvYg929qittJcbhjObFNLIO3/0vfrTqhj3qev9VAFS?=
+ =?us-ascii?Q?mhi3A4LwdnEuuomMo51oqkMeYCx8neZwOAT1S2tGLmXqnk9l6+9KpAzygXWm?=
+ =?us-ascii?Q?HepcbkNpE5bsRZVbEbvtwyzy/tVp5SS4rZ3aqYAaxRuGlhso8SQYI8iJhZo7?=
+ =?us-ascii?Q?QE2QuwGh2NnD03rw0zkWRRnNkvUxzG+DaaaBmaciwSXtBdESp1g3R3uslFRg?=
+ =?us-ascii?Q?m04sifZnvYFQvt4zGFhZ7fg7N1QKlNCWgXBs4HQh2Dq+Stbmkf/j9AGSarMu?=
+ =?us-ascii?Q?ZSQtEIGplyotacoa9RMr9FJKV5Likw86tJmmBwLovYdnXZEF4lEfu9igOyhV?=
+ =?us-ascii?Q?jAegxYSPUhotrww6z4ksG+vrgv3kW8AU1UPIams7b06H58zhg6iN2jeGY+Dc?=
+ =?us-ascii?Q?lIg4t6lZqipoJzDjSl9Y6wWT9n05tW4em3qNbb1SB94adpn5ETjIYq1L4EWL?=
+ =?us-ascii?Q?1f00pEvA9LoJUrr3KZF805O1WqyHCAl3xcvn5LCk6MbTDdPM5+qhzdjYs4vW?=
+ =?us-ascii?Q?TFUvdg5ahLtA6u0v9qPE0ip0+pxqZWDlRLFIvThKwFsYFUVoHnZEbF4h9MiF?=
+ =?us-ascii?Q?l+drTMpYvE+vipLME4E5RpKVR51Nl+ILqRhojsl4Qzqa3pKBywENaFUd6tA1?=
+ =?us-ascii?Q?xPVvC+wybcA4rKvSXYg41QWH+O/be268Q8Ry+oqIOQRO8438LMamM7tATwV6?=
+ =?us-ascii?Q?f+X9n1BSNuy24hZSgl0Hfcz/5JBZY1FiqUyWmnPVtz1RTFW0c0pVCVVXPj6r?=
+ =?us-ascii?Q?XA1AanV8vTyPoqx7Y3iUY8dB027yAZulnR/gaWmzUsv1xNEz9iApjnhW2tP3?=
+ =?us-ascii?Q?hmPZVVbrOG/a7IiZiFXCLE4jP+eNArkdghYYqlZoLUHLvP7cvmFzcMTxdkv2?=
+ =?us-ascii?Q?R0VdhzKvKvqw8m9E2T9SsdOk7R2hDYXHxk2ZdzxDBcfDLxOeTT+OnpB+J79z?=
+ =?us-ascii?Q?Sori3FJQgvo0mIv3uh6LS74WSDnX4BuZOhEMBDOuWBTqplLCxla2A+B69rRL?=
+ =?us-ascii?Q?uoFm026IMr2nKm/DWgpgWZegZ6VEs7Tz+CGeCzpenDNoFAyLA0wbdQ9ut1uj?=
+ =?us-ascii?Q?nQmXHLFzgIW5FwI5p6VKziPJc7B+pT9Im+ilqWC1zHc94U1zqS71KLt2+eqE?=
+ =?us-ascii?Q?wgobvH6cef/+d9dzj7TxPeF9XO8OVMZkgbZXm3rUUWLw/Cgn+CO+BVofQNRE?=
+ =?us-ascii?Q?yx90qS1oHcJyy4Tt4clFwWFEpFcTY6Q/hyzQe9pcHpCYvRv+mY6X7pdyNIFq?=
+ =?us-ascii?Q?QTkP3TfBEIKjwfZoA1X1wkCi7kcst+RdLm+ru9RhJeg6eBv1WVizygHbjR2t?=
+ =?us-ascii?Q?MqS6uOgdSQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03330090-290f-4d7f-7c93-08defc548384
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 11:41:45.0473 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gCYgnU42pErbxwzBnBvfkAOqVn7g4TgeahzNqIy1wAikJNqa1QC8Xm18jwbikhnsVvEAUDVnBNWkq7PBFAwutg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6618
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,137 +146,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a test module to verify basic data type conversions
-and layout. The tests covers:
+On 2026-08-17 at 18:20 +1000, Eliot Courtney <ecourtney@nvidia.com> wrote...
+> On Mon Aug 17, 2026 at 3:00 PM JST, Alistair Popple wrote:
+> > On 2026-08-10 at 23:55 +1000, Eliot Courtney <ecourtney@nvidia.com> wrote...
+> >> From: Joel Fernandes <joelagnelf@nvidia.com>
+> >> 
+> >> Add the `VramAddress` type representing a physical address in VRAM. Also
+> >> add an arithmetic helper, comparison, and operator overloads which are
+> >> required in later patches for address arithmetic.
+> >> 
+> >> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> >> [ecourtney: create mm.rs here, squashing in the arithmetic patch]
+> >> [ecourtney: splice the two commit bodies]
+> >> [ecourtney: drop the Pfn fields, open-coding what bitfield! generated]
+> >> [ecourtney: drop align_down and the IntoVramOffset/IntoVramRange traits]
+> >> [ecourtney: make checked_add() const over a plain u64, derive the ordering]
+> >> [ecourtney: doc wording, header, import, and signature cleanups]
+> >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> >> ---
+> >>  drivers/gpu/nova-core/mm.rs        | 60 ++++++++++++++++++++++++++++++++++++++
+> >>  drivers/gpu/nova-core/nova_core.rs |  1 +
+> >>  2 files changed, 61 insertions(+)
+> >> 
+> >> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+> >> new file mode 100644
+> >> index 000000000000..dcd5e5e919bf
+> >> --- /dev/null
+> >> +++ b/drivers/gpu/nova-core/mm.rs
+> >> @@ -0,0 +1,60 @@
+> >> +// SPDX-License-Identifier: GPL-2.0
+> >> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+> >> +
+> >> +//! Memory management subsystems.
+> >> +
+> >> +#![expect(dead_code)]
+> >> +
+> >> +use core::{
+> >> +    fmt::LowerHex,
+> >> +    ops, //
+> >> +};
+> >> +
+> >> +use kernel::fmt;
+> >> +
+> >> +/// Physical VRAM address in GPU video memory.
+> >> +#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+> >> +#[repr(transparent)]
+> >> +pub(crate) struct VramAddress(u64);
+> >
+> > Is this the best type here, or should this be bounded via runtime checking to
+> > ensure it refers to a valid address?
+> >
+> > I was going to ask if it should be bounded to reflect the physical addressing
+> > capabilities of the GPU in question, but that would actually need to be a
+> > different type as GPU physical addresses might not even refer to local vidmem.
+> >
+> > Although I think that's a concern for future series - AFAIK PRAMIN can only
+> > access local VRAM.
+> 
+> Yeah good question. I am looking at memory management stuff after this,
+> and e.g. how many bits the hardware actually accept for physical
+> addresses (e.g. page table structures) is different depending on the
+> hardware. So it's not trivial to determine if the address is valid
+> without a bunch of extra info.
+> 
+> So the approach here IMO is just to tag it as a general VRAM address at
+> the type level and gradually apply runtime checks to narrow the type
+> into code that is more specific. Since our HALs use dynamic dispatch
+> based on the chipid we can't avoid some kind of runtime checks here
+> anyway.
+> 
+> I think it makes sense to say VramAddress is a local vidmem address, and
+> later we could e.g. add an enum to distinguish local vidmem, sysmem,
+> peer memory etc. This appears to be essentially what UVM does
+> (uvm_gpu_phys_address_t), AFAICT. What do you think?
 
-- PanelOrientation and ConnectorType: TryFrom conversion for valid
-  values and also out-of-range invalid inputs.
-- PanelContainer: layout invariants (offset, alignment, size) on which
-  Panel::new relies on for memory access.
+Yeah, after reading the rest of the series I think this is where I landed as
+well - VramAddress as a local vidmem address that we use as one component when
+building up the more complicated physical address. As much as anything though
+just wanted to check we weren't accidentally conflating this with physical
+addressing which is more complicated than just VramAddress.
 
-Tests are gated on CONFIG_RUST_DRM_PANEL_KUNIT_TEST.
+Also seeing as you've obviously been looking at UVM source it's worth noting
+that UVM's physical address type is not exhaustive either as it currently only
+deals with some aspects of physical memory addressing and leaves the rest to RM.
 
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- rust/kernel/Kconfig.test | 10 ++++++
- rust/kernel/drm/panel.rs | 87 ++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 97 insertions(+)
-
-diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-index e6a5c7a795f0f..397b916dca0d4 100644
---- a/rust/kernel/Kconfig.test
-+++ b/rust/kernel/Kconfig.test
-@@ -83,4 +83,14 @@ config RUST_BITFIELD_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config RUST_DRM_PANEL_KUNIT_TEST
-+	bool "KUnit tests for Rust panel API" if !KUNIT_ALL_TESTS
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This option enables KUnit tests for the Rust panel API.
-+	  These are only for development and testing, not for regular
-+	  kernel use cases.
-+
-+	  If unsure, say N.
-+
- endif
-diff --git a/rust/kernel/drm/panel.rs b/rust/kernel/drm/panel.rs
-index 8f87774e06ed7..3da203c39edd6 100644
---- a/rust/kernel/drm/panel.rs
-+++ b/rust/kernel/drm/panel.rs
-@@ -595,3 +595,90 @@ pub(crate) const fn build() -> &'static bindings::drm_panel_funcs {
-         &Self::VTABLE
-     }
- }
-+
-+#[cfg(CONFIG_RUST_DRM_PANEL_KUNIT_TEST)]
-+#[macros::kunit_tests(rust_kernel_drm_panel)]
-+mod tests {
-+    use super::*;
-+    use core::mem::{align_of, offset_of, size_of, ManuallyDrop, MaybeUninit};
-+
-+    struct TestData {
-+        _ptr: *const u8,
-+        _byte: u8,
-+    }
-+
-+    #[test]
-+    fn panel_orientation() {
-+        // Test valid values.
-+        assert!(matches!(
-+            PanelOrientation::try_from(-1),
-+            Ok(PanelOrientation::Unknown)
-+        ));
-+        assert!(matches!(
-+            PanelOrientation::try_from(0),
-+            Ok(PanelOrientation::Normal)
-+        ));
-+        assert!(matches!(
-+            PanelOrientation::try_from(1),
-+            Ok(PanelOrientation::BottomUp)
-+        ));
-+        assert!(matches!(
-+            PanelOrientation::try_from(2),
-+            Ok(PanelOrientation::LeftUp)
-+        ));
-+        assert!(matches!(
-+            PanelOrientation::try_from(3),
-+            Ok(PanelOrientation::RightUp)
-+        ));
-+
-+        // Test invalid values.
-+        assert!(PanelOrientation::try_from(4).is_err());
-+        assert!(PanelOrientation::try_from(-2).is_err());
-+    }
-+
-+    #[test]
-+    fn connector_type() {
-+        // Test valid values.
-+        assert!(matches!(
-+            ConnectorType::try_from(0),
-+            Ok(ConnectorType::Unknown)
-+        ));
-+        assert!(matches!(
-+            ConnectorType::try_from(10),
-+            Ok(ConnectorType::DisplayPort)
-+        ));
-+        assert!(matches!(
-+            ConnectorType::try_from(14),
-+            Ok(ConnectorType::eDP)
-+        ));
-+        assert!(matches!(
-+            ConnectorType::try_from(16),
-+            Ok(ConnectorType::DSI)
-+        ));
-+        assert!(matches!(
-+            ConnectorType::try_from(20),
-+            Ok(ConnectorType::USB)
-+        ));
-+
-+        // Test invalid values.
-+        assert!(ConnectorType::try_from(21).is_err());
-+    }
-+
-+    #[test]
-+    fn panel_container_layout() {
-+        assert_eq!(offset_of!(PanelContainer<TestData>, data), 0);
-+
-+        assert_eq!(size_of::<ManuallyDrop<TestData>>(), size_of::<TestData>());
-+
-+        let panel_offset = offset_of!(PanelContainer<TestData>, panel);
-+        assert_eq!(
-+            panel_offset % align_of::<MaybeUninit<bindings::drm_panel>>(),
-+            0
-+        );
-+
-+        assert!(
-+            size_of::<PanelContainer<TestData>>()
-+                >= panel_offset + size_of::<bindings::drm_panel>()
-+        );
-+    }
-+}
-
--- 
-2.55.0
-
+> And yeah I believe PRAMIN can only access local VRAM and sysmem (on pre
+> hopper).
+> 
+> >
+> >> +
+> >> +impl VramAddress {
+> >> +    /// Creates an address from a raw value.
+> >> +    pub(crate) const fn from_raw(addr: u64) -> Self {
+> >> +        Self(addr)
+> >> +    }
+> >> +
+> >> +    /// Returns the address as a raw value.
+> >> +    pub(crate) const fn into_raw(self) -> u64 {
+> >> +        self.0
+> >> +    }
+> >> +
+> >> +    /// Adds `rhs` to this address, returning [`None`] on overflow.
+> >> +    pub(crate) const fn checked_add(self, rhs: u64) -> Option<Self> {
+> >> +        match self.into_raw().checked_add(rhs) {
+> >> +            Some(addr) => Some(Self::from_raw(addr)),
+> >> +            None => None,
+> >> +        }
+> >> +    }
+> >> +}
+> >> +
+> >> +impl LowerHex for VramAddress {
+> >> +    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+> >> +        LowerHex::fmt(&self.into_raw(), f)
+> >> +    }
+> >> +}
+> >> +
+> >> +impl ops::Add<u64> for VramAddress {
+> >> +    type Output = Self;
+> >> +
+> >> +    fn add(self, rhs: u64) -> Self::Output {
+> >> +        Self::from_raw(self.into_raw() + rhs)
+> >> +    }
+> >> +}
+> >> +
+> >> +impl ops::Sub for VramAddress {
+> >> +    type Output = u64;
+> >> +
+> >> +    fn sub(self, rhs: Self) -> Self::Output {
+> >> +        self.into_raw() - rhs.into_raw()
+> >> +    }
+> >> +}
+> >> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+> >> index 35a8b1214b0e..8f59cfa97017 100644
+> >> --- a/drivers/gpu/nova-core/nova_core.rs
+> >> +++ b/drivers/gpu/nova-core/nova_core.rs
+> >> @@ -18,6 +18,7 @@
+> >>  mod gpu;
+> >>  mod gsp;
+> >>  mod mctp;
+> >> +mod mm;
+> >>  #[macro_use]
+> >>  mod num;
+> >>  mod regs;
+> >> 
+> >> -- 
+> >> 2.55.0
+> >> 
+> 
