@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87FC2C5DF77
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF777C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:16:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E23A310E84A;
-	Mon, 17 Aug 2026 15:15:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 474B310E83B;
+	Mon, 17 Aug 2026 15:16:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="l8KN3Qli";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h0hlB0Rl";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FF1810E83B
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:15:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAEE810E83B
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:16:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=4g6HBxsN8h+FDW5Ik0e00KHHFJ5VsPbCBZwyVHmf/so=; b=l8KN3Qli39Luu2MpVDpdCrAtRM
- Y6LszgqkYbeRzXW8/i8UQKaHWOnicn6IPKuH4X7M0EYC7KXXvnfQeRxBmZs9zCPOvEt/tUTfPyG+E
- 7qDoLg4grQjAmuSUL8FD5hwehk93KADlLTm4rs6cS0mGdTgSbhb12x4wLf3yY0bxoUuJalOs+V+H4
- AwyUkggJmrCqgaqMe0BU5/Z7l2l5n+vFc88bv38j4P8s+VzksieVuzjFIOiwTmk8O9BWSBF5Dl+cA
- VWyqueuNh2wwHFA4f1iphJiSAooJkTfNJcC2i7VeR5ZaVOf5gSxHxXY9YXoDY4QC/NvtH183AUo/E
- sOs9bcRA==;
+ bh=tGcDLIv1hlmM1u6L2elYNagyWFy5NU+7a81O7slofw8=; b=h0hlB0RlARGz/vh2np4nX6Ufc9
+ m+rTB+ezso/V/pDCoMQ3oyQkjbiZp+lEZTI1moPemEp5+3lVWL/9U7exz/wyNmrscq/ICgr/sF/a3
+ o4vagOtA99m+l5zRM7PfQrvhrqN9Kwf3N6rkG0EqUB9BBj8yTOG5bzireKohOg7yAc54ZDxrTvat9
+ bMprUyTVAs78BTwgRdj7laC+R4XuEmxCAaAA9rfVBOOlFzoImZvHWTj4aWHVjs+AXNC6Q+s/DMbrH
+ c7DCswl5e8yh2Pf/j20NfqNIoXAfuL/yYSDLrR1Q0xpKXkf5iBujzhCPhEqYL8ckiA5Wl9nTWuo4w
+ ZY0MFT5w==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wvz46-004eWD-Dy; Mon, 17 Aug 2026 17:15:54 +0200
+ id 1wvz49-004eWD-2D; Mon, 17 Aug 2026 17:15:57 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Mon, 17 Aug 2026 12:15:34 -0300
-Subject: [PATCH 4/6] drm/vc4: Rebuild the V3D interrupt mask on every power
- transition
+Date: Mon, 17 Aug 2026 12:15:35 -0300
+Subject: [PATCH 5/6] drm/vc4: Hold a runtime PM reference in the binner
+ overflow work
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260817-vc4-irq-cleanup-v1-4-ee6c592b3836@igalia.com>
+Message-Id: <20260817-vc4-irq-cleanup-v1-5-ee6c592b3836@igalia.com>
 References: <20260817-vc4-irq-cleanup-v1-0-ee6c592b3836@igalia.com>
 In-Reply-To: <20260817-vc4-irq-cleanup-v1-0-ee6c592b3836@igalia.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -47,15 +47,15 @@ To: Maxime Ripard <mripard@kernel.org>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4051; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=eTFvZpEiluwb3pdIJq+88P72lfMaVlw1wy/CGN7DCIE=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqgyWd3OPv2b3QbzqAacq5jXaBwQE3xfZgWq1bA
- jS5q77xjf+JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoMlnQAKCRA/8w6Kdoj6
- qrauB/0REGK1JUAEbJ/S17oAhc25hOEaH8Nva2UEXptRYE5Tfn0E5bpIqYBJiXAvO1OunKAL7c1
- kb2Sdu8ZLP8ywzTOjlnvMpTDlhY0/QzrAaxD0WsM2d5z6wVqWzhn1vkgQSUTYDjVM55tIBe2GSM
- 9k360H6GXzrnwjeJOzFN8TvkwTAQeqE7Lq6TW1cFeuiOR6OE77ZEM3Q1nAUwOi91IiIxCXOJUaM
- dmnpwJhPWrojV6erRqRMSSmCM3PM9sSJ4ZxQlU4j/RIrbQ0HiXVQbIvS4Kigbhu4gW2RuOAqqzK
- /SYBtxUNEP+kxOH9q9XHzBbogV8EemUH1vNz0qDACbIB7BnP
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1471; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=TZtKcoXuSXgkL7eh0lrDELhoQt4909BkOTACrjm/ds0=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqgyWdaFftSo86k8zhOt945rTfSLfvRSYZ91uE7
+ Y/Ajl60CZyJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoMlnQAKCRA/8w6Kdoj6
+ qh7eB/9pq60VDmUWAXPPzeSh2x4D+E+sTUee+N0G9m322xGjdhqlJaHSJxz6MRyk0ZBrBAyAObj
+ MHzBpdp2G5q26hbLvwmTikDuDJKpF6lSiaUbDEYPjKiFDRIDEqOC0JmMH70gU902iIQ3Xfvay4M
+ C+V1dLrp5Y3jApKCeG+p4WxW2FN0ijNh84RJeyV/gtWB9X/A9+PmN7uEVokLmzZrnIOv1R+q7/r
+ 5VrEP+Jw3t39DIiTAkpPiTXCfbQKquDU7oy/CALvxHD6UgrHliXt1w473u6CLLJfGSHe8S71/ow
+ tctfaOfXjxse/7i2mYkDyg3R6I4iosluVleB5pr0RpjkmYuK
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,122 +73,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The out-of-memory interrupt is armed once, by bin_bo_alloc(), when the
-binner BO is allocated. vc4_irq_disable() masks it on the way down,
-vc4_irq_enable() brings back only the render bits, and bin_bo_alloc() does
-not run again for a binner BO that is still referenced. An overflow after
-an autosuspend therefore raises nothing and the binner stalls, until the
-hangcheck resets the GPU and arms the interrupt again.
+The out-of-memory interrupt only queues vc4_overflow_mem_work(), so the
+V3D block can be runtime suspended before the work runs. It then hands the
+binner a new overflow slot through V3D_BPOA and V3D_BPOS, registers that
+are unreachable once the block is down.
 
-Therefore, derive the out-of-memory bit in vc4_irq_enable() from whether a
-binner BO exists, which is the condition bin_bo_alloc() was standing in
-for.
+Take a runtime PM reference in the work and give up when the block is no
+longer active. Nothing is lost by giving up: the interrupt mask is rebuilt
+on resume, and the binner can ask again as soon as it is short of memory.
 
-While here, clear the complement of the wanted mask while enabling.
-V3D_INTENA and V3D_INTDIS are set/clear registers and the driver only ever
-set bits, so a source left enabled will stay enabled and can reach
-vc4_irq(), which returns IRQ_NONE for anything outside the three bits it
-handles.
-
-Fixes: 35c8b4b2c0fe ("drm/vc4: Allocate binner bo when starting to use the V3D")
+Fixes: 001bdb55d9eb ("drm/vc4: Enable runtime PM.")
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_irq.c | 42 +++++++++++++++++-------------------------
- 1 file changed, 17 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/vc4/vc4_irq.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
-index a1004c64e71b..2efed552c08a 100644
+index 2efed552c08a..999010381da1 100644
 --- a/drivers/gpu/drm/vc4/vc4_irq.c
 +++ b/drivers/gpu/drm/vc4/vc4_irq.c
-@@ -53,10 +53,6 @@
- #include "vc4_regs.h"
- #include "vc4_trace.h"
+@@ -46,6 +46,7 @@
+  */
  
--#define V3D_DRIVER_IRQS (V3D_INT_OUTOMEM | \
--			 V3D_INT_FLDONE | \
--			 V3D_INT_FRDONE)
--
- #define VC4_OVERFLOW_SLOT_TIMEOUT_NS	NSEC_PER_SEC
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ 
+ #include <drm/drm_print.h>
+ 
+@@ -65,6 +66,9 @@ vc4_overflow_mem_work(struct work_struct *work)
+ 	struct vc4_exec_info *exec;
+ 	unsigned long irqflags;
+ 
++	if (pm_runtime_get_if_active(&vc4->v3d->pdev->dev) <= 0)
++		return;
++
+ 	mutex_lock(&vc4->bin_bo_lock);
+ 
+ 	if (!vc4->bin_bo)
+@@ -109,6 +113,7 @@ vc4_overflow_mem_work(struct work_struct *work)
+ 
+ complete:
+ 	mutex_unlock(&vc4->bin_bo_lock);
++	pm_runtime_put_autosuspend(&vc4->v3d->pdev->dev);
+ }
  
  static void
-@@ -247,6 +243,7 @@ void
- vc4_irq_enable(struct drm_device *dev)
- {
- 	struct vc4_dev *vc4 = to_vc4_dev(dev);
-+	u32 mask = V3D_INT_FLDONE | V3D_INT_FRDONE;
- 
- 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
- 		return;
-@@ -254,10 +251,18 @@ vc4_irq_enable(struct drm_device *dev)
- 	if (!vc4->v3d)
- 		return;
- 
--	/* Enable the render done interrupts. The out-of-memory interrupt is
--	 * enabled as soon as we have a binner BO allocated.
-+	/* Arming the OOM interrupt before there is a binner BO would raise an
-+	 * interrupt nothing can clear.
- 	 */
--	V3D_WRITE(V3D_INTENA, V3D_INT_FLDONE | V3D_INT_FRDONE);
-+	if (vc4->bin_bo)
-+		mask |= V3D_INT_OUTOMEM;
-+
-+	/* Clear any pending interrupts someone might have left around for us. */
-+	V3D_WRITE(V3D_INTCTL, mask);
-+
-+	/* Enable our set of interrupts, masking out any others. */
-+	V3D_WRITE(V3D_INTDIS, ~mask);
-+	V3D_WRITE(V3D_INTENA, mask);
- }
- 
- void
-@@ -272,14 +277,14 @@ vc4_irq_disable(struct drm_device *dev)
- 		return;
- 
- 	/* Disable sending interrupts for our driver's IRQs. */
--	V3D_WRITE(V3D_INTDIS, V3D_DRIVER_IRQS);
--
--	/* Clear any pending interrupts we might have left. */
--	V3D_WRITE(V3D_INTCTL, V3D_DRIVER_IRQS);
-+	V3D_WRITE(V3D_INTDIS, ~0);
- 
- 	/* Finish any interrupt handler still in flight. */
- 	synchronize_irq(vc4->irq);
- 
-+	/* Clear any pending interrupts we might have left. */
-+	V3D_WRITE(V3D_INTCTL, ~0);
-+
- 	cancel_work_sync(&vc4->overflow_mem_work);
- }
- 
-@@ -297,11 +302,6 @@ int vc4_irq_install(struct drm_device *dev)
- 	init_waitqueue_head(&vc4->job_wait_queue);
- 	INIT_WORK(&vc4->overflow_mem_work, vc4_overflow_mem_work);
- 
--	/* Clear any pending interrupts someone might have left around
--	 * for us.
--	 */
--	V3D_WRITE(V3D_INTCTL, V3D_DRIVER_IRQS);
--
- 	ret = devm_request_irq(dev->dev, vc4->irq, vc4_irq, 0,
- 			       dev_name(dev->dev), dev);
- 	if (ret)
-@@ -331,15 +331,7 @@ void vc4_irq_reset(struct drm_device *dev)
- 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
- 		return;
- 
--	/* Acknowledge any stale IRQs. */
--	V3D_WRITE(V3D_INTCTL, V3D_DRIVER_IRQS);
--
--	/*
--	 * Turn all our interrupts on. Binner out of memory is the only
--	 * one we expect to trigger at this point, since the reset cleared
--	 * the overflow memory address and none has been supplied yet.
--	 */
--	V3D_WRITE(V3D_INTENA, V3D_DRIVER_IRQS);
-+	vc4_irq_enable(dev);
- 
- 	spin_lock_irqsave(&vc4->job_lock, irqflags);
- 	vc4_cancel_bin_job(dev);
 
 -- 
 2.55.0
