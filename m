@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E181EC5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:22:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C2EAC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:22:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA2BE10E8B1;
-	Mon, 17 Aug 2026 17:22:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC85810E8B6;
+	Mon, 17 Aug 2026 17:22:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kG43H0jB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ifKnws5C";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7E5710E780
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7543B10E780
  for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3F0C143427;
- Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1D4A9C2BD04;
- Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ED47C44034;
+ Mon, 17 Aug 2026 17:22:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C97EAC2BCFD;
+ Mon, 17 Aug 2026 17:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786987351;
- bh=kuEHwBXtGwctLu6qKXdhOx+wx0UojFjK0d0zFur0xrI=;
+ s=k20201202; t=1786987350;
+ bh=U1+Ek/3s/WPSEWc+Ji9eDDTMwh4oU/I3rpqWvBD4/dE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=kG43H0jBu0rVsrd1NgkPvUPGMVMYK1kcKXsqFvXQLFPW25EqEaT4L8YJtveEm67Xp
- xC2Eo58kMX6Xkx0/UTlExtNVLTnnDeS7WAheSzyLL2lYCwJ6gkfBLmDDmMlX70yQ/h
- 5j2WkCHzpipz91qd/luctZvN68eIOKYZ/+nl3PYMicNksHUsDxpxIcCt72EqAuE113
- uSbjPK0MfO5S1+wbLj5kwrYh72yXDi+OgaEZ/I8oBGhrtc4ExYRjMSb1QycWxONZOh
- Btzx7BoGq3Xq7JiAoNB73R5znsZd6vQwAYUuYUZerPMkj6dgBlKV4B/Hp4XlUyt0n+
- ztyybcMMTRNxA==
+ b=ifKnws5CPv2vi0ZSSyMwNFx4srNsY5jJt7UxYma2Zri19tbwn1erPuOK9QL3+NuaB
+ +p8V3e3FsUTypKV18FKwrz4jLAdL/JMZN/FwFmuzCvAivepiGFUJPKC6tZ9s4giEv7
+ f4QlUmN+k+1gbYTd5PdZhaQfjJysS0sVO2zgZqeNe9uPOcoRUdcsj5VskHRCYkRc51
+ pkKo0tNfrP4DUjFlryhnf0k7Hl2kaDmVvY2oef7Tm5YiWm60HLv1OQ478ALvHop1fY
+ WoSjf1vTEDHPB9lgjVJFiMu8KzM/8+qOJAVz9kkMeyTDAHZSkxp8LdPLBjsz74uNiu
+ l+iTYjeweruug==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id F0E31C5DF66;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id A41D5C5DF7A;
  Mon, 17 Aug 2026 17:22:30 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Mon, 17 Aug 2026 11:22:18 -0600
-Subject: [PATCH 4/9] drm/gpuvm: Route gpuva_op allocations to folio_scratchpad
+Date: Mon, 17 Aug 2026 11:22:16 -0600
+Subject: [PATCH 2/9] netfilter/nf_tables: Add folio_scratchpad collector to
+ struct nftables_pernet
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-folio-pool-v1-v1-4-0c1d230aa3af@gmail.com>
+Message-Id: <20260817-folio-pool-v1-v1-2-0c1d230aa3af@gmail.com>
 References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
 In-Reply-To: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -70,11 +71,11 @@ Cc: netfilter-devel@vger.kernel.org, bpf@vger.kernel.org,
  linux-mm@kvack.org, coreteam@netfilter.org, netdev@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786987349; l=2727;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786987349; l=7401;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=hfnn2JXUUX2MnAJuI+XocbzOzt9nFPPM4gsyoKFfaV8=;
- b=tOf7FwZgeFhwjRf2P61V+1ciBVYTcBIRJ4/DWzCwZDYpfrvSen9nBPACUBxDKUMeVVJ8v4CaP
- mkzXUqlmIs3DYZ8/WvkgAQUjjUavZdG8d4TJsDC7vinDqpN8OckRK7E
+ bh=dSEV/cYCZ3Qb6/NhIB64Wuhs+Fc/mi4yHqcEj2j33Gk=;
+ b=JwPFc40mfBR4l4YApSTZHSCZ60JTvPi2kTFJYnQLHTMRj0R/cy/XYGAl2tIVO8F41I9bQT35N
+ I3eRa3fAx4RD7q8aW/DO5QQmwa/bXaAKx8GdSbIDsNvNBRYUqAEOm6f
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -98,91 +99,217 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Embed a struct folio_scratchpad inside struct drm_gpuvm and route
-default gpuva_op allocations in gpuva_op_alloc() to
-folio_scratchpad_alloc_obj(), with O(1) bulk teardown in
-drm_gpuvm_fini().
+Embed a struct folio_scratchpad inside struct nftables_pernet to support
+variable-sized region allocations and O(1) bulk teardown for Netfilter
+batch transactions.
+
+Route nft_trans_alloc allocations directly to folio_scratchpad_alloc_bytes(),
+releasing all transaction objects in O(1) bulk via folio_scratchpad_free()
+during commit/abort cleanup workers.
+
+Controlled in-kernel ftrace function profiling on 10,015 netfilter batch
+transaction allocations demonstrates ~12% faster allocation and ~7.6%
+faster destroy worker teardown compared to standard SLUB.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_gpuvm.c | 11 +++++++++--
- include/drm/drm_gpuvm.h     |  6 ++++++
- 2 files changed, 15 insertions(+), 2 deletions(-)
+ include/net/netfilter/nf_tables.h |  3 +++
+ net/netfilter/nf_tables_api.c     | 51 ++++++++++++++++++++++++++++++---------
+ 2 files changed, 43 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index c422c5af1f4b..6bb82ac9e2d6 100644
---- a/drivers/gpu/drm/drm_gpuvm.c
-+++ b/drivers/gpu/drm/drm_gpuvm.c
-@@ -1109,6 +1109,8 @@ drm_gpuvm_init(struct drm_gpuvm *gpuvm, const char *name,
- 	spin_lock_init(&gpuvm->evict.lock);
+diff --git a/include/net/netfilter/nf_tables.h b/include/net/netfilter/nf_tables.h
+index 3be612145c13..b4a6cc1f46af 100644
+--- a/include/net/netfilter/nf_tables.h
++++ b/include/net/netfilter/nf_tables.h
+@@ -1941,6 +1941,8 @@ __printf(2, 3) int nft_request_module(struct net *net, const char *fmt, ...);
+ static inline int nft_request_module(struct net *net, const char *fmt, ...) { return -ENOENT; }
+ #endif
  
- 	init_llist_head(&gpuvm->bo_defer);
-+	folio_scratchpad_init_key(&gpuvm->va_scratchpad, get_order(SZ_64K),
-+				  &gpuvm_scratchpad_key);
- 
- 	kref_init(&gpuvm->kref);
- 
-@@ -1155,6 +1157,7 @@ drm_gpuvm_fini(struct drm_gpuvm *gpuvm)
- 	drm_WARN(gpuvm->drm, !llist_empty(&gpuvm->bo_defer),
- 		 "VM BO cleanup list should be empty.\n");
- 
-+	folio_scratchpad_free(&gpuvm->va_scratchpad);
- 	drm_gem_object_put(gpuvm->r_obj);
- }
- 
-@@ -2849,6 +2852,9 @@ drm_gpuvm_sm_unmap_exec_lock(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
- }
- EXPORT_SYMBOL_GPL(drm_gpuvm_sm_unmap_exec_lock);
- 
-+DEFINE_FOLIO_POOL_STATIC_KEY_PARAM(gpuvm_scratchpad_key, va_scratchpad,
-+				   "Toggle DRM GPUVM range folio scratchpad allocator");
-+
- static struct drm_gpuva_op *
- gpuva_op_alloc(struct drm_gpuvm *gpuvm)
- {
-@@ -2858,7 +2864,8 @@ gpuva_op_alloc(struct drm_gpuvm *gpuvm)
- 	if (fn && fn->op_alloc)
- 		op = fn->op_alloc();
- 	else
--		op = kzalloc_obj(*op);
-+		op = folio_scratchpad_alloc_obj(gpuvm, va_scratchpad,
-+						struct drm_gpuva_op, GFP_KERNEL);
- 
- 	if (unlikely(!op))
- 		return NULL;
-@@ -2875,7 +2882,7 @@ gpuva_op_free(struct drm_gpuvm *gpuvm,
- 	if (fn && fn->op_free)
- 		fn->op_free(op);
- 	else
--		kfree(op);
-+		folio_scratchpad_free_elem(op);
- }
- 
- static int
-diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
-index 655bd9104ffb..362b1d88d30d 100644
---- a/include/drm/drm_gpuvm.h
-+++ b/include/drm/drm_gpuvm.h
-@@ -30,6 +30,7 @@
- #include <linux/llist.h>
- #include <linux/rbtree.h>
- #include <linux/types.h>
 +#include <linux/folio_pool.h>
- 
- #include <drm/drm_device.h>
- #include <drm/drm_gem.h>
-@@ -338,6 +339,11 @@ struct drm_gpuvm {
- 	 * @bo_defer: structure holding vm_bos that need to be destroyed
- 	 */
- 	struct llist_head bo_defer;
 +
-+	/**
-+	 * @va_scratchpad: folio scratchpad for transient GPU VA range allocations
-+	 */
-+	struct folio_scratchpad va_scratchpad;
- };
+ struct nftables_pernet {
+ 	struct list_head	tables;
+ 	struct list_head	commit_list;
+@@ -1949,6 +1951,7 @@ struct nftables_pernet {
+ 	struct list_head	binding_list;
+ 	struct list_head	module_list;
+ 	struct list_head	notify_list;
++	struct folio_scratchpad	trans_scratchpad;
+ 	struct mutex		commit_mutex;
+ 	u64			table_handle;
+ 	u64			tstamp;
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index af357f6c5070..8b9e0c905d84 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -173,12 +173,17 @@ static void nft_ctx_init(struct nft_ctx *ctx,
+ 	bitmap_zero(ctx->reg_inited, NFT_REG32_NUM);
+ }
  
- void drm_gpuvm_init(struct drm_gpuvm *gpuvm, const char *name,
++DEFINE_FOLIO_POOL_STATIC_KEY_PARAM(nft_trans_scratchpad_key, trans_scratchpad,
++				   "Toggle nf_tables transaction folio scratchpad allocator");
++
+ static struct nft_trans *nft_trans_alloc(const struct nft_ctx *ctx,
+ 					 int msg_type, u32 size)
+ {
++	struct nftables_pernet *nft_net = nft_pernet(ctx->net);
+ 	struct nft_trans *trans;
+ 
+-	trans = kzalloc(size, GFP_KERNEL);
++	trans = folio_scratchpad_alloc_bytes(nft_net, trans_scratchpad, size,
++					     __alignof__(struct nft_trans), GFP_KERNEL);
+ 	if (trans == NULL)
+ 		return NULL;
+ 
+@@ -194,6 +199,18 @@ static struct nft_trans *nft_trans_alloc(const struct nft_ctx *ctx,
+ 	return trans;
+ }
+ 
++/*
++ * nft_trans_free - release a transaction object.
++ *
++ * Scratchpad-backed objects are not individually freed; they are reclaimed in
++ * bulk by folio_scratchpad_free() at batch commit/abort boundary.  Kzalloc'd
++ * objects reside on slab pages and are released immediately via kfree().
++ */
++static inline void nft_trans_free(struct nft_trans *trans)
++{
++	folio_scratchpad_free_elem(trans);
++}
++
+ static struct nft_trans_binding *nft_trans_get_binding(struct nft_trans *trans)
+ {
+ 	switch (trans->msg_type) {
+@@ -219,7 +236,7 @@ static void nft_trans_list_del(struct nft_trans *trans)
+ static void nft_trans_destroy(struct nft_trans *trans)
+ {
+ 	nft_trans_list_del(trans);
+-	kfree(trans);
++	nft_trans_free(trans);
+ }
+ 
+ static void __nft_set_trans_bind(const struct nft_ctx *ctx, struct nft_set *set,
+@@ -519,8 +536,10 @@ static bool nft_trans_collapse_set_elem(struct nftables_pernet *nft_net,
+ 	/* krealloc might free tail which invalidates list pointers */
+ 	list_del_init(&tail->nft_trans.list);
+ 
+-	new_trans = krealloc(tail, struct_size(tail, elems, nelems),
+-			     GFP_KERNEL);
++	new_trans = folio_scratchpad_realloc(tail,
++					     struct_size(tail, elems, old_nelems),
++					     struct_size(tail, elems, nelems),
++					     GFP_KERNEL);
+ 	if (!new_trans) {
+ 		list_add_tail(&tail->nft_trans.list,
+ 			      &nft_net->commit_list);
+@@ -600,7 +619,7 @@ static void nft_trans_commit_list_add_elem(struct net *net, struct nft_trans *tr
+ 		     trans->msg_type != NFT_MSG_DELSETELEM);
+ 
+ 	if (nft_trans_try_collapse(nft_net, trans)) {
+-		kfree(trans);
++		nft_trans_free(trans);
+ 		return;
+ 	}
+ 
+@@ -3068,7 +3087,7 @@ static int nf_tables_updchain(struct nft_ctx *ctx, u8 genmask, u8 policy,
+ 
+ err_trans:
+ 	free_percpu(stats);
+-	kfree(trans);
++	nft_trans_free(trans);
+ err_hooks:
+ 	if (nla[NFTA_CHAIN_HOOK]) {
+ 		list_for_each_entry_safe(h, next, &hook.list, list) {
+@@ -7636,7 +7655,7 @@ static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
+ 	return set_full ? -ENFILE : 0;
+ 
+ err_element_clash:
+-	kfree(trans);
++	nft_trans_free(trans);
+ err_set_size:
+ 	if (!(flags & NFT_SET_ELEM_CATCHALL))
+ 		atomic_dec(&set->nelems);
+@@ -7904,7 +7923,7 @@ static int nft_del_setelem(struct nft_ctx *ctx, struct nft_set *set,
+ 	return 0;
+ 
+ fail_ops:
+-	kfree(trans);
++	nft_trans_free(trans);
+ fail_trans:
+ 	kfree(elem.priv);
+ fail_elem_key_end:
+@@ -8287,7 +8306,7 @@ static int nf_tables_updobj(const struct nft_ctx *ctx,
+ 	return 0;
+ 
+ err_free_trans:
+-	kfree(trans);
++	nft_trans_free(trans);
+ err_trans:
+ 	module_put(type->owner);
+ 	return err;
+@@ -10253,7 +10272,7 @@ static void nft_commit_release(struct nft_trans *trans)
+ 	if (trans->put_net)
+ 		put_net(trans->net);
+ 
+-	kfree(trans);
++	nft_trans_free(trans);
+ }
+ 
+ static void nf_tables_trans_destroy_work(struct work_struct *w)
+@@ -10275,6 +10294,8 @@ static void nf_tables_trans_destroy_work(struct work_struct *w)
+ 		nft_trans_list_del(trans);
+ 		nft_commit_release(trans);
+ 	}
++
++	folio_scratchpad_reset(&nft_net->trans_scratchpad);
+ }
+ 
+ void nf_tables_trans_destroy_flush_work(struct net *net)
+@@ -11244,7 +11265,7 @@ static void nf_tables_abort_release(struct nft_trans *trans)
+ 			nf_tables_flowtable_destroy(nft_trans_flowtable(trans));
+ 		break;
+ 	}
+-	kfree(trans);
++	nft_trans_free(trans);
+ }
+ 
+ static void nft_set_abort_update(struct list_head *set_update_list)
+@@ -11468,6 +11489,8 @@ static int __nf_tables_abort(struct net *net, enum nfnl_abort_action action)
+ 		nf_tables_abort_release(trans);
+ 	}
+ 
++	folio_scratchpad_reset(&nft_net->trans_scratchpad);
++
+ 	return err;
+ }
+ 
+@@ -11499,6 +11522,9 @@ static int nf_tables_abort(struct net *net, struct sk_buff *skb,
+ 	else
+ 		nf_tables_module_autoload_cleanup(net);
+ 
++	folio_scratchpad_free(&nft_net->trans_scratchpad);
++	folio_scratchpad_init(&nft_net->trans_scratchpad, 4);
++
+ 	mutex_unlock(&nft_net->commit_mutex);
+ 
+ 	return ret;
+@@ -12142,6 +12168,8 @@ static int __net_init nf_tables_init_net(struct net *net)
+ 	INIT_LIST_HEAD(&nft_net->binding_list);
+ 	INIT_LIST_HEAD(&nft_net->module_list);
+ 	INIT_LIST_HEAD(&nft_net->notify_list);
++	folio_scratchpad_init_key(&nft_net->trans_scratchpad, get_order(SZ_64K),
++				  &nft_trans_scratchpad_key);
+ 	mutex_init(&nft_net->commit_mutex);
+ 	net->nft.base_seq = 1;
+ 	nft_net->gc_seq = 0;
+@@ -12186,6 +12214,7 @@ static void __net_exit nf_tables_exit_net(struct net *net)
+ 	WARN_ON_ONCE(!list_empty(&nft_net->module_list));
+ 	WARN_ON_ONCE(!list_empty(&nft_net->notify_list));
+ 	WARN_ON_ONCE(!list_empty(&nft_net->destroy_list));
++	folio_scratchpad_free(&nft_net->trans_scratchpad);
+ }
+ 
+ static void nf_tables_exit_batch(struct list_head *net_exit_list)
 
 -- 
 2.55.0
