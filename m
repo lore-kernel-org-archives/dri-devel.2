@@ -4,50 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A861AC5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 05:22:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F67AC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 05:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E720A10E63B;
-	Mon, 17 Aug 2026 05:22:30 +0000 (UTC)
-Received: from mail-oo1-f79.google.com (mail-oo1-f79.google.com
- [209.85.161.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2E1910E63B
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:22:29 +0000 (UTC)
-Received: by mail-oo1-f79.google.com with SMTP id
- 006d021491bc7-6a0f261aeb6so3941574eaf.3
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 22:22:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A40B010E640;
+	Mon, 17 Aug 2026 05:44:48 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZB+O1Wf5";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ERw4+9CS";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F98910E640
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:44:47 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67GLEaHF246919
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:44:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=DxIV54bZW0mbknxQlawpAwW+
+ cPAeEoPsp3aYvzyr9hY=; b=ZB+O1Wf53eu36mBtTwPud49KO9hQowP2gfnqPgwE
+ 2shvJmDSi8qJt95K4SnQn+tyaY45tCdf4ZJzHSb/H62tfWwBX/py+yXLoG1Aq1ze
+ vrGICIKVmH2QZGLg3CXfySNST6xBwDI1l4E+6lOz8Uq6kjDJ1I8iZzMwp7E/CtSl
+ notJcVzkiYG0MEc1Dmjezk/FlFAmf47khwLJA9xeJLp1hnS+cPQ94KNNCiY9c0oC
+ U7U/GsExkWKnkQvDcRF0aZqXTv7GfOkm4wgsmUtmSp9zk9IUmdQY4Z61fR9b+4+N
+ TYENKCzlYJXUcJ6Ub0KcwZ0FD3fYl+H++JFzkgr4z3sLKw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2ghf5b8r-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:44:46 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-51a8db414c7so43483181cf.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 22:44:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1786945486; x=1787550286;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=DxIV54bZW0mbknxQlawpAwW+cPAeEoPsp3aYvzyr9hY=;
+ b=ERw4+9CS7x++pC4DpPNSMGOW6klCBF2V5bU4UUIl2i2OnrwJxTbIpQ17uR9nPe7mad
+ NPhiMiFq8s99S2mIsPxnu8u2lcrSJeQLnXZV2QA6TlYctypiOecBUjVNTVD0MD07zwUa
+ gN0rRLiCi5IaCsy0oXqH0K2snKbbYioCUGuysVuDCdVEARrjIygYs5+GI6RY98EQ2OXt
+ tnW8/D1Ihah8mRaqlSrp0oE4prqEMcEqVuQrtRz3M0phK/LE4TInApTH8X+TCoxEpPTt
+ FnhbRF+uHHZ8TOe7yWf838jvcuJlzrKzxr3XSti3QATTDhmp00mdJrV7sPpiL00LsH5u
+ HaGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786944149; x=1787548949;
- h=content-type:to:from:subject:message-id:date:mime-version
+ d=1e100.net; s=20251104; t=1786945486; x=1787550286;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Qnk6cwSyeEX6jno7Ve/N46AWuc9z6oV7XNaJ+fF+w3Q=;
- b=pThdu/zlDNpGCUl6iaYbmd0pdsVj/mLnB0PwOzqYsEElbKtoVn/lP1wIXPZySc1yQM
- ypu/tU/8ClP/DlpWVp+ubF8CjFIjvzgzkqeF9aowY8MnngvWFsNXWnI+Z6Fmfr+mVLkb
- PBvapJDS35k41Aig9rHOJ6nTAXX9KG+iZeNwHwxxZFZqD/r1ocHZvIUMjfxIaWe+DFGE
- SzwNjRsQ2hgjjCgYwbK1UMwOGAHC/q7q+UW795/NooJWc00YvrAqTNcsNyBJXtSJno19
- CiTz/5u6Wy21H3Z0Nc1bBXcjrstt31cIewP06BcQnDe2+fFZgFk+SJtzaKC5w/AbuW0+
- Rflw==
+ bh=DxIV54bZW0mbknxQlawpAwW+cPAeEoPsp3aYvzyr9hY=;
+ b=JDzzL2zVo8CpvizDQmc9oC6QtPQbU7z0g+jWcF/TBsBB9WsgZhj4xkSzeyxehhhJL5
+ G6kPkdfgEGkM84LatwJP1UYNjtJZ18wugeDtq89L/o4tv0/1ZfSoqPhH4ZnzKEX6Xjmy
+ rRZOLC5aPfyY1M5gDChhATBTMXMoCjKKeqnsPVruKCNNnQQu4RXPu5O65A0ezbWwHCvE
+ +SwbVmolHGFEOK4VBz7hjohnmxrP32+5C9s5GU2jI4Uxj5rtZFlM5hCnGN7Eyw7dYVIH
+ iIu0o0rbvQDEz0MmxjhMy9Sj60JFhj+87XjQQgAdGukRl4VisMudh+4KTncJRnNGRsZd
+ A/vQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrTE08Hn2UnMkQDQQtLRlYdAAQV1TA3KU+oLPYfnCMzLKMS4ABiw5LWN6Sywe34bAmyLZMpKvJ4n6A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxS9gZ0RYeDDKX/hsmjsE3H1xeYsZOOHBPg6N45xXtleKQaWG7j
- 3skgre0y6m3a2yD1XPnt77bYWaOQfWsavDxtiJY+G8vE282TUZWzwcZjf3MDEz/MlLOetlE0qpS
- n61JvcNSBAT3te2HiNVUDX52ki2o+Q7GY4WbFB0C0FlIoGm7fCpIQe3X4y18=
+ AHgh+RrKtxJk/hXY2yoUA2qu7V+5DbfkNlSIq/Hvf0KwtIl+XGQ8a99XAWyCzKqfId62gAp/kC4acIfPteY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzGrDvn96M7Vgbc6tXDpw93KsTDSHmzKE5drtIY3QcFZLw2UFNe
+ yDGjI24x8kOREAKGYLZbdreQW+yW5XDm/WfJP7fSWamLkY0BJbmNY7t+ITQ+5CX2Qac6t+l1N34
+ 1tDZ1D0wB/5QtBU41q+GJZ0vSVNtEasyIlEyb3MAPYDT/Xo4AMvfAhRI3XMUBnBL0jiYjxU0=
+X-Gm-Gg: AR+sD11ALBnNBu5NpQh+ymAPDH0lIHX8VoaAMbASZBZkW/5lXy06zSAtnQWmAEeNN+7
+ IwTfq24qVSlH9NVrcwUsXrGFHAQBd1jpbn62F6KKQZ1b/W/4onJS2karXbHi526n9XnVFEQN+HW
+ Hv5ygiYhT7jkchG4AMay9V9I8BYIJalbLQ7QAXG4XqPPzT5R8uL02FU3qYX2x3NEMUKfOml7LfR
+ oi0ltr8exs+0Dm2ynmdXo/jvYB/6vuLaCHDsBDTIElKgTkIxMKk4eosDmMnpL08gQ6jLb1wKgUH
+ rFpSCpX9RT64U0AtS0du2R1n6VfTChhcMCtSd9wy3Chza9lpoq+mEA1LG/vA0oKjwWZPTa/x74l
+ RwlRAyd0CrayG1WYmOQxn49gs3gPatCqsmPeTAtSrkUdSVq8zEpatk033r+MqeZXS4J1SISQKYK
+ wG71R3MmCl+vF4
+X-Received: by 2002:a05:622a:8451:20b0:52d:882e:4986 with SMTP id
+ d75a77b69052e-52d882e4c7emr139157171cf.4.1786945485921; 
+ Sun, 16 Aug 2026 22:44:45 -0700 (PDT)
+X-Received: by 2002:a05:622a:8451:20b0:52d:882e:4986 with SMTP id
+ d75a77b69052e-52d882e4c7emr139156871cf.4.1786945485468; 
+ Sun, 16 Aug 2026 22:44:45 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b46cffea7bsm89313e87.50.2026.08.16.22.44.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 16 Aug 2026 22:44:43 -0700 (PDT)
+Date: Mon, 17 Aug 2026 08:44:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH v2 15/15] accel/qda: Add remote memory unmap from DSP
+ address space
+Message-ID: <6k6ogbosxx4z5bh7uriu4fnj24ycuakylq6g2gnuwsbckl2zww@e66jgj5xo52o>
+References: <20260817-qda-v2-v2-0-757ab8ed2f64@oss.qualcomm.com>
+ <20260817-qda-v2-v2-15-757ab8ed2f64@oss.qualcomm.com>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:edc9:0:b0:6a3:7af2:90ef with SMTP id
- 006d021491bc7-6b0d5fdc3a6mr22129152eaf.6.1786944149106; Sun, 16 Aug 2026
- 22:22:29 -0700 (PDT)
-Date: Sun, 16 Aug 2026 22:22:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a829a95.dbb3a75c.20434b.0043.GAE@google.com>
-Subject: [syzbot] [dri?] general protection fault in drm_object_attach_property
-From: syzbot <syzbot+1944765c3659f63d3777@syzkaller.appspotmail.com>
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, rubenru09@aol.com, simona@ffwll.ch, 
- syzkaller-bugs@googlegroups.com, tzimmermann@suse.de
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817-qda-v2-v2-15-757ab8ed2f64@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=QsVuG1yd c=1 sm=1 tr=0 ts=6a829fce cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=Fyn7aR8NovT3rRngz-oA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: QnnuH0XJeRjh3VqPsJMz7OlAo5gvMVNi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDA0MCBTYWx0ZWRfX7gy5sSIkxPra
+ ffYGxYaWETDoGki38Q0qADgSEKVw5QGeQeck68O4Ht1Lb92adRrP8/6EL7wYvn2vfnzJeo3RFZu
+ oaE0C8jNXoyY2J8qO6sUf8nN6r5F9NvCTnlTF+ccTrYR7haA7nvPwkrTU9kFKAmByRjYxEN15NF
+ w9rVr6GAbLxYu8YsxU7GqNBdcA2ZrIymSoV2LVgxawD/q2TL/UvoUBP4TVrOYvpjyLA9Xe1QJrD
+ XVcFnGhG6XppidMeq+DkTB42HLF0FeKUgMaimao/LEk4efba2jq2/W7ThP5UVt+X77qYSmphCUe
+ dJnfwszn6HM5W5u1qtSo5GNYkBmFNB2HnEi50UbtFU+XWLRwXUmq9x/FH6VksWUZmsoxqde3APz
+ nLlqV9Oe5CwRa1XjG4CKOV4FiLfvTn1/MY1wXONvhuQj8OLm8Geldd4ZXiaXe6Q6qkEXMQlsF1K
+ ftUdIlsR1mfBqcSXg1A==
+X-Proofpoint-ORIG-GUID: QnnuH0XJeRjh3VqPsJMz7OlAo5gvMVNi
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDA0MCBTYWx0ZWRfX8UnNfra4wE5H
+ AZLQXNIR9JKCbfhejgQEFErIqkfEb0H+IiiDpwhFSdZV5l+Lkr8HmKvqUsKveQ/Ew5bfMtE+wDx
+ 52v3aZz8Lhhi3OYf6Jk3uYlQvYykkvc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-16_06,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170040
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,145 +163,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+On Mon, Aug 17, 2026 at 10:38:45AM +0530, Ekansh Gupta wrote:
+> Add DRM_IOCTL_QDA_REMOTE_MUNMAP, which removes a mapping previously
+> established with DRM_IOCTL_QDA_REMOTE_MAP from the DSP address space of
+> the calling process.
+> 
+> Mirroring the map path, the DSP exposes two unmap operations, both
+> reachable through this IOCTL and selected by the request field of
+> struct drm_qda_mem_unmap:
+> 
+>   QDA_REQUEST_MUNMAP unmaps a region by the DSP address that the
+>   corresponding map call returned. It uses the vaddrout and size fields.
+> 
+>   QDA_REQUEST_MEM_UNMAP unmaps a region by buffer identity, using the
+>   GEM handle, the DSP virtual address and the size.
 
-syzbot found the following issue on:
+Why do we need two different operations? Can you just pass the GEM
+handle to the IOCTL?
 
-HEAD commit:    3d6d817622b0 Merge tag 'scsi-fixes' of git://git.kernel.or..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15432c79580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8a233ed2ce9a8096
-dashboard link: https://syzkaller.appspot.com/bug?extid=1944765c3659f63d3777
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10b78ac6580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14735149580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-3d6d8176.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/b5f85cb20f42/vmlinux-3d6d8176.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/8ee2de80a3a1/bzImage-3d6d8176.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1944765c3659f63d3777@syzkaller.appspotmail.com
-
-usb 5-1: config 1 interface 0 altsetting 0 bulk endpoint 0x1 has invalid maxpacket 0
-usb 5-1: config 1 interface 0 altsetting 0 has 1 endpoint descriptor, different from the interface descriptor's value: 2
-usb 5-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-CPU: 2 UID: 0 PID: 852 Comm: kworker/2:2 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:drm_object_attach_property+0x85/0x3b0 drivers/gpu/drm/drm_mode_object.c:240
-Code: 0f b6 04 02 84 c0 74 08 3c 03 0f 8e 93 02 00 00 49 8d 7c 24 60 49 63 5d 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 a2 02 00 00 48 8d 7d 04 4d 8b 74 24 60 48 b8 00
-RSP: 0000:ffffc900038f6e60 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: 0000000000000007 RCX: ffffffff86574465
-RDX: 000000000000000c RSI: ffffffff85c3beb2 RDI: 0000000000000060
-RBP: ffff888012bfe040 R08: 0000000000000007 R09: fffffffffffff000
-R10: ffff888012bfece4 R11: 0000000000000000 R12: 0000000000000000
-R13: ffff888012bfe228 R14: ffff888012bfece4 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888096df3000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000561c6bdd7168 CR3: 000000005d115000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- gud_connector_add_properties drivers/gpu/drm/gud/gud_connector.c:572 [inline]
- gud_connector_create drivers/gpu/drm/gud/gud_connector.c:680 [inline]
- gud_get_connectors+0x86e/0x1700 drivers/gpu/drm/gud/gud_connector.c:717
- gud_probe+0x17aa/0x1c20 drivers/gpu/drm/gud/gud_drv.c:635
- usb_probe_interface+0x303/0x8f0 drivers/usb/core/driver.c:396
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3772
- usb_set_configuration+0xd97/0x1c60 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0xa1/0xe0 drivers/usb/core/generic.c:250
- usb_probe_device+0xef/0x400 drivers/usb/core/driver.c:291
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3772
- usb_new_device.part.0+0xcc2/0x1686 drivers/usb/core/hub.c:2703
- usb_new_device include/linux/workqueue.h:714 [inline]
- hub_port_connect drivers/usb/core/hub.c:5575 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5715 [inline]
- port_event drivers/usb/core/hub.c:5879 [inline]
- hub_event.cold+0x1e3/0xe90 drivers/usb/core/hub.c:5961
- process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
- process_scheduled_works kernel/workqueue.c:3405 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
- kthread+0x370/0x450 kernel/kthread.c:436
- ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:drm_object_attach_property+0x85/0x3b0 drivers/gpu/drm/drm_mode_object.c:240
-Code: 0f b6 04 02 84 c0 74 08 3c 03 0f 8e 93 02 00 00 49 8d 7c 24 60 49 63 5d 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 a2 02 00 00 48 8d 7d 04 4d 8b 74 24 60 48 b8 00
-RSP: 0000:ffffc900038f6e60 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: 0000000000000007 RCX: ffffffff86574465
-RDX: 000000000000000c RSI: ffffffff85c3beb2 RDI: 0000000000000060
-RBP: ffff888012bfe040 R08: 0000000000000007 R09: fffffffffffff000
-R10: ffff888012bfece4 R11: 0000000000000000 R12: 0000000000000000
-R13: ffff888012bfe228 R14: ffff888012bfece4 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888096df3000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000561c6bdd7168 CR3: 000000005d115000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax
-   4:	84 c0                	test   %al,%al
-   6:	74 08                	je     0x10
-   8:	3c 03                	cmp    $0x3,%al
-   a:	0f 8e 93 02 00 00    	jle    0x2a3
-  10:	49 8d 7c 24 60       	lea    0x60(%r12),%rdi
-  15:	49 63 5d 00          	movslq 0x0(%r13),%rbx
-  19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  20:	fc ff df
-  23:	48 89 fa             	mov    %rdi,%rdx
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
-  2e:	0f 85 a2 02 00 00    	jne    0x2d6
-  34:	48 8d 7d 04          	lea    0x4(%rbp),%rdi
-  38:	4d 8b 74 24 60       	mov    0x60(%r12),%r14
-  3d:	48                   	rex.W
-  3e:	b8                   	.byte 0xb8
+Also, what happens if the buffer is still in use on the DSP side? Will
+the DSP crash? Will the whole board crash?
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+> Each request type has its own argument builder in qda_fastrpc.c,
+> documented with the packed argument layout the DSP expects. Unknown
+> request types are rejected with -EINVAL.
+> 
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
+>  drivers/accel/qda/qda_drv.c     |   1 +
+>  drivers/accel/qda/qda_fastrpc.c | 119 ++++++++++++++++++++++++++++++++++++++++
+>  drivers/accel/qda/qda_fastrpc.h |  34 ++++++++++++
+>  drivers/accel/qda/qda_ioctl.c   |  22 ++++++++
+>  drivers/accel/qda/qda_ioctl.h   |   1 +
+>  include/uapi/drm/qda_accel.h    |  39 ++++++++++++-
+>  6 files changed, 215 insertions(+), 1 deletion(-)
+> 
+> 
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+-- 
+With best wishes
+Dmitry
