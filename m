@@ -4,81 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBDE0C5DF74
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 776DFC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF12510E679;
-	Mon, 17 Aug 2026 06:55:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD87B10E676;
+	Mon, 17 Aug 2026 06:58:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XR7J7ifh";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WvjKzKS6";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OaToO5wq";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A378410E322
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 15:20:44 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49556f97a9dso17328945e9.1
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 08:20:44 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A587310E676
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:58:06 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67H44OQI1175358
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:58:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=SBRrabcYBEIHtygqtEKhQW0Z
+ lUPvQs3RPnhnKjeoIdY=; b=WvjKzKS6qRwZItZ88u09pS5Z6G+fORseRx1d6A58
+ lj0rfbvKkjjQrvUuvpCDbnJ4LOuKnkaYZVZgPB8Nj5aHW+mW0DBKjhX/FhaYLXjk
+ qjA/QbRWnA5nxpiSWq9vMFjKidb0HVYQBJE64FEbkqTHnP+SdHIxK5d5T9D5DXr4
+ jw9yL5CgJbbng9gt0M/PwgTMGNz5Z831gaiGoluNwLmYcRBtO2ByLBNseZvy4X/d
+ bKRtfIPIiXJ1q5N60gR+uYq7gX4eDJgyE86lFLKTJd8MmBAtLt08pYWuqcPbiWCd
+ nskBHBZ2kmXKO7zV8I1mNf0Xhi+lyn81+Yf/p1ihxrzlvw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3txy8h6w-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:58:06 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-92e53b8a302so320320985a.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 23:58:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786893643; x=1787498443; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=hA6ZcSIXBspwUlSfeLJa7+a0Uc2KtuRzGYFFOPOHJWU=;
- b=XR7J7ifhH/25v/Jn55NIxoWUB0uE5pFIoLhRNq2gk4neXihCHDB298xYJBsNPo64qI
- shLpXal3UHDtfJ3FweuebtY2b/2fKRXDd8BgnAQW0pqqlM1Ln+FY3o3zjlo4qd8c5mjy
- OdVI/vaEM1HTJ+0y6WMPrHmnN9tjlaenYiSA+v0JZ7FUjaBpR+EI8LOVUCrWh4AH5rkM
- cOGeCYxRYKx0NRImtd2xw9gZjrYJXrHo1V7NhGE4vqZ1vGDoSjuJM+Czly11OciRzNLW
- 1GWEcqzKjye6gcMHB4ZMHmwqhUpgMgtzZNL1kcr1219iz2HSnJrqZfn/ltcz/avmdYO/
- XJUA==
+ d=oss.qualcomm.com; s=google; t=1786949885; x=1787554685;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=SBRrabcYBEIHtygqtEKhQW0ZlUPvQs3RPnhnKjeoIdY=;
+ b=OaToO5wqGFteWSX6EfPgLcU0BPUHOQ9jqDN+5nKYZdcFda+zmJQ7f29i+ND3ai8NBh
+ tkzFPjo/7mFMfiKHuQV/gwdK5L3whkhuLX6bKqMKWrxRvJvf1fRWyfnoL4d7BI/CrVMO
+ doDw+Qm7dXxvSkf9Nlg41dtbBvcOE+EcU4BccC2Z3BO53YY69pDvWMeMv+wTe4SocXzG
+ i4XOOz0whdrDVFUP3Z6E57PTBAbXT9QmyUv8CAWbTWprI73vC8nENq6FvJ2Igst+yf2R
+ girceO65avfSHiPnsGhKi4hBBRWWEydCHuXUyMXRTq/Dmipl+iMVQYmscDN/CqSywyPi
+ VSPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786893643; x=1787498443;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hA6ZcSIXBspwUlSfeLJa7+a0Uc2KtuRzGYFFOPOHJWU=;
- b=Vkx6iduejMz8hqUdAGoK/HD7hAltjmYV/w+stBTzL+6vbXEIebt/sRTchS+bmvmPZa
- AYI7jck9SR2B4oqXptNf/FwuKxUyqStHYIUAvTd7vjr1JD0VVjE+y0FKQMr7GhAyqL2H
- VGI2Jyaxw3w+sNDOxpvUA3A7DRl+HvKLpUblGFJfhk+D5qpACkKJZqIrRDbeZEyNElDT
- xPe7khyU8p5DkqayBvT5kErgOMBCVF/kMCS9QJIBiwzp7G7rls2Zd2atN12VbFq2n3xL
- ySH6QtNvM5l/GOPKUiYRyeqQFtRfIXkY1iBGMaK6GWUtb0EnQKY6+xQRrjjPB5uiDrtU
- QIfw==
+ d=1e100.net; s=20251104; t=1786949885; x=1787554685;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=SBRrabcYBEIHtygqtEKhQW0ZlUPvQs3RPnhnKjeoIdY=;
+ b=c9o/kMtUgbpgqw+MPiEK8Srmu6PThnz7Q6Fdnu7tFMy5NYhew+6HKcWyaZB2vJdQ56
+ GnMQULf3BlNmNozUETLWIuiWtTwmlUaaR99hYbs7rcdhAk3SBPU9N5ix4hmpkRYubEBa
+ usgb1LNVR1DZ+cPkzt9wDQkAaWDJLmQWKoGkObpOBLb4w+jdqCXyp7s9AdY+E7FXxXcS
+ 9mS4OEIlTAdaspMz2C5fWy90hh2DOOzplyDWxrf22jX/dP4+qSnLHOMYda1GdYnZcYtQ
+ 3MnIifTsPMKJsULiy6xnpQ4jgANWQKkU2aP/L8rbEaAZB8dIPTNQJiHhSuYSVnym2aB/
+ o8QQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoCBYk6ttZ3HYQnRP5gDPV+9JX/0jWP8YPcB6alf5iMW3NbW7SkP94LCkSUnZ2uM4EFzGAxqbKMep8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0LLPTqLvtYaRzZ07PyUEjy3U5P3ilFhidxX/d9YV/SumIPywP
- Qciwq7u42WesGrq5jBpsXirIq/J9NLX510Az8JIiONz9YmTZsyUblzqd
-X-Gm-Gg: AR+sD12M06CumCACb8foEmf9YO+gRiiS3zK8zT/Ziosu852nEsnYU6P271H7VRniH04
- oIsvu1exmvlzb0nZx5kWU+D1KOIfjUhyD/s9PH1YNHg1YhX3ZK1DhqxSBBhj2VzMF4jIEiSbkYV
- m6y1f0gxrbdKcxN46SzZ0R/63JAxIMscOd+v4X1Z1v2begkw+WcGHYsu/1sutyUIVW7dJgJJUAD
- v1aBOdPcqbg7yiV+/FCCTsBIPSbgdj4BD3woSkOaaKgqcsbWhYhkNak9zuxnYuFzogWDeYYB71M
- /l0jLN51HqiElC5ytXF/e7/6oZASSILbCdBCX/8fbzUDPYuFBJTEqYr7V0aWIXshgRmOh4OleVY
- okBVrf86OncLnpLuolpZxRbZJ0UbVgrGU1VJS7N8DV5aXcTUv8jKdajzdVmEVqOQG7w/D8E0FlD
- aOeR/mpKehQBhvaooRc0UrX22367Lov6q+JAfHmW0g6+t6ym01Dqo5cTloVUOHLfLbyUoFKVual
- xHD04TBuQUwWa/pgH7Gpw==
-X-Received: by 2002:a05:600c:4e8a:b0:499:7a4f:d13d with SMTP id
- 5b1f17b1804b1-499879441bdmr265663485e9.4.1786893642518; 
- Sun, 16 Aug 2026 08:20:42 -0700 (PDT)
-Received: from cachyos-x8664 ([45.141.148.169])
+ AHgh+Rq6G4oL2jazExO5cIJvr0qyJnkQ7zbCS8RLlMDEWhqthWx4U8b5/A/Tu3CkOYw2oOYzzNlWqOzF9Mc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwC8mDM0SsR0bofEJ9zja23q/joKENUsbLRenZfzyZFuSsYsIXm
+ TgR0pvWr6PFIz5X1ReKkvfmXrbfYqCYdKg+1krY3T7Fd2BZYUTX8irAdh/Z1FXChiavdk7DLrEn
+ 2a0r1sSUG/NE2AjmEqatTu7U6jjbukwEzy7e1CKvwgcGxvQZqv2GP4ORWzk/SjCUIkOpuZxM=
+X-Gm-Gg: AR+sD10ZaSo9qLtapsrmkOwEbPOuso31RhO6zXkwSsB2C8qQa+YVjKaBhmJSiRPvA/4
+ o9bgqadNIVwP7qUx7K9Z3eqj0M1Die0PdcvfdaeGWVtHxJSoSJW+CR2gpiY/MQwLp6RDRyVHlGG
+ t9rfYHyivFGjRs786R1/uN/IDUoaaF21/Hpi8mAcwXr7DPLj9mukA4ZmYpK//89tgPrAYvPpadN
+ 6NmAbubwY2xVJXhZEnVX3T84sI3kbiwfdHeAQoTcUbkD6v9dl5GSIJ3P/604BsrtyyjgttrCJVe
+ 1X0NNQY4Ib8/qCyNfP/G11uX7kgLMcioWmHc/7GtTuu7JHWs8+7rHaewqtIpALi6BylVxQ/3NCP
+ jk79fZSENJpCUxW7kvlpbRiLzyM9mHeGeuNG3G/QIFHwRFp/w17kKgDfjUggqr0F7Ijm8U9RI6z
+ 37+sCmngldeUIS
+X-Received: by 2002:a05:620a:43a4:b0:92e:b1ca:8ea3 with SMTP id
+ af79cd13be357-936d2356ef3mr2575749885a.47.1786949885105; 
+ Sun, 16 Aug 2026 23:58:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:43a4:b0:92e:b1ca:8ea3 with SMTP id
+ af79cd13be357-936d2356ef3mr2575745085a.47.1786949884607; 
+ Sun, 16 Aug 2026 23:58:04 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49996109652sm73425265e9.4.2026.08.16.08.20.38
+ 2adb3069b0e04-5b46d02851csm139928e87.84.2026.08.16.23.58.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Aug 2026 08:20:42 -0700 (PDT)
-From: Akhmed Zhitaev <zhitaevakh@gmail.com>
-To: amd-gfx@lists.freedesktop.org,
-	linux-sound@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sun, 16 Aug 2026 23:58:03 -0700 (PDT)
+Date: Mon, 17 Aug 2026 09:58:01 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: AMD Phoenix 1002:1640 Radeon HDA WALLCLK becomes 5.76 MHz after
- s2idle resume
-Date: Sun, 16 Aug 2026 20:17:54 +0500
-Message-ID: <20260816151754.7555-1-zhitaevakh@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH v2 08/15] accel/qda: Add QUERY IOCTL and QDA UAPI header
+Message-ID: <r7bx25akbxomzhxxyqd644efy2vc65etwcnhlyha7wm7xrt7ea@p4v5sesn5rzw>
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-8-69a02e9090d4@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 17 Aug 2026 06:55:17 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817-qda-v2-v2-8-69a02e9090d4@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDA1MCBTYWx0ZWRfXyShBAy49Ez5o
+ rtONfmJJtYluWaTM9+AR6u6QohgRzwlivJ7UZPzGzotTWEMPgXhNRI8kXa2pmN/1T2E5AfUbw69
+ vdUkNFGBcE8AXi7RiOcFTP/TwQRCeGc=
+X-Authority-Analysis: v=2.4 cv=auGCzyZV c=1 sm=1 tr=0 ts=6a82b0fe cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=WSzJgX5NAZKvnqDBNMEA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDA1MCBTYWx0ZWRfX3iCeyFXpQlDZ
+ Sjwb5EffnxGGvpdeZhmXpWhfLm3UXgwp9hiam+mDxatRJXWXDaAyppaxUu+CWmKQshIw9Zmb1Ep
+ 1icRHMPPW5/UipJtn0K7IKBJT993v39ySBSWISlHaLkpCHgL2sB8MlP4klTQWozVXhV/iP3HvLD
+ W387nRt9GR5cAHvPd5k+BZN6Zz4YPXjVPnusVnlw6uIPRtIO6Sto5gBxZ+38fYdLFMo9xO3isbc
+ 6CXib9q74F8RKBZz6J+CpAEEKgXhpQN0oi7M+2sXGkmeCR2za/wzVBFZKzZJtVNc6rr+dwG3DOr
+ MNm3OD9n/ZsXkHBt49F1g7Umqzm3nkg1qOHo5hnMhkB3EemcCLzWL0M20gCuWbin2O/DWeXkxtD
+ x70GvVosqbPd0wQ0w4RYt9zDwVBUyzNHW+fOIHE6h2kkuJjzUzaN+vc2cL8AcQR3ZZA2DCSB9At
+ n/n0LLFTlGUB6cSuq0g==
+X-Proofpoint-GUID: yFc6pWlICBc5k5l_WFhM3D70VAO9YpiH
+X-Proofpoint-ORIG-GUID: yFc6pWlICBc5k5l_WFhM3D70VAO9YpiH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-16_06,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ clxscore=1015 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608170050
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,170 +163,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+On Mon, Aug 17, 2026 at 10:17:43AM +0530, Ekansh Gupta wrote:
+> Introduce DRM_IOCTL_QDA_QUERY, a query IOCTL that lets user-space
+> retrieve information about the DSP a given /dev/accel/accel* node
+> represents.
+> 
+> The IOCTL takes a query_type selector as input, so it can be extended
+> to return additional parameters (capabilities, attributes) in the
+> future without adding new IOCTLs: drm_ioctl() zero-extends the argument
+> structure, so new fields can be appended to struct drm_qda_query as
+> long as they go at the end. The first supported query,
+> QDA_QUERY_DSP_NAME, returns the DSP domain name (e.g. "cdsp", "adsp").
+> 
+> The UAPI header include/uapi/drm/qda_accel.h defines the command number,
+> the DRM_IOWR IOCTL definition, the query_type values, and struct
+> drm_qda_query. It follows the standard DRM UAPI conventions: fixed-width
+> types, a C++ extern "C" guard, and GPL-2.0-only WITH Linux-syscall-note
+> licensing.
+> 
+> qda_ioctl_query() validates the reserved pad field, dispatches on
+> query_type, and copies the DSP name from qda_dev.dsp_name into the
+> user-supplied buffer with strscpy(). Unknown query types are rejected
+> with -EINVAL.
+> 
+> qda_drv.c registers the qda_ioctls[] table with the drm_driver so the
+> DRM core dispatches DRM_IOCTL_QDA_QUERY to qda_ioctl_query().
 
-I am investigating an AMD Phoenix/Hawk Point laptop with an integrated Radeon GPU and a reproducible audio-timing failure after s2idle resume.
+Please tell your AI agent to stop describing patch contents. Ask it to
+describe the reasons for the change.
 
-Hardware:
+> 
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Add a query_type input selector so the IOCTL can return different
+>   parameters in future, and switch DRM_IOR -> DRM_IOWR so the input
+>   reaches the kernel (Dmitry Baryshkov)
+> - Reject unknown query types and a non-zero pad with -EINVAL
 
-  GPU:        0000:6e:00.0, PCI ID 1002:1900
-  Radeon HDA: 0000:6e:00.1, PCI ID 1002:1640
-  Analog HDA: 0000:6e:00.6
-  Parent:     0000:00:08.1, Phoenix internal GPP bridge
-  DCN:        3.1.4
-  NBIO:       7.7.0, nbio_v7_7_funcs
-  MP1/SMU:    13.0.10, smu_v13_0_0
+> +
+> +/*
+> + * QDA IOCTL command numbers
+> + *
+> + * These define the command numbers for QDA-specific IOCTLs.
+> + * They are used with DRM_COMMAND_BASE to create the full IOCTL numbers.
+> + */
+> +#define DRM_QDA_QUERY		0x00
+> +
+> +/*
+> + * QDA IOCTL definitions
+> + *
+> + * These macros define the actual IOCTL numbers used by userspace applications.
+> + * They combine the command numbers with DRM_COMMAND_BASE and specify the
+> + * data structure and direction (read/write) for each IOCTL.
 
-The internal eDP panel is active. No external HDMI/DP sink is connected; Radeon HDA ELD entries report no monitor present and invalid ELD.
+Is it not obvious?
 
-After cold boot, Radeon HDMI/DP playback is normal. After a reproducing s2idle cycle, playback stutters in Firefox, Telegram/AyuGram, and mpv. The failure reproduces with direct ALSA, without PipeWire; with hardware decoding enabled or disabled; and with Vulkan or OpenGL rendering. The Ryzen analog HDA remains smooth.
+> + */
+> +#define DRM_IOCTL_QDA_QUERY		DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_QUERY, \
+> +					 struct drm_qda_query)
+> +
+> +/* Query type definitions for drm_qda_query */
+> +#define QDA_QUERY_DSP_NAME	1
 
-With mpv, normal A/V synchronization, display-resample, and display-vdrop stutter. --video-sync=desync makes video smooth while A/V drifts by seconds.
+Why is it necessary for the userspace?
 
-Direct HDA controller measurements were taken through the existing kernel MMIO mapping. The active stream used S32_LE, 8 channels, 48000 Hz, buffer_size 32768 frames. Expected transport rate is 1,536,000 bytes/s.
+> +
+> +/**
+> + * struct drm_qda_query - Device information query structure
+> + * @query_type: Type of query (input)
+> + * @pad: Padding for 64-bit alignment (must be zero)
+> + * @dsp_name: Null-terminated name of the DSP (returned when query_type is QDA_QUERY_DSP_NAME)
+> + *
+> + * This structure is used with DRM_IOCTL_QDA_QUERY to query device attributes
+> + * based on @query_type.
+> + */
+> +struct drm_qda_query {
+> +	__u32 query_type;
+> +	__u32 pad;
 
-GOOD cold boot:
-  WALLCLK approximately 23,999,690 Hz
-  LPIB approximately 1,535,987 bytes/s
-  approximately 47,999 frames/s
+What for? If you have u8 array afterwards, you don't need the padding.
 
-BAD after s2idle:
-  WALLCLK approximately 5,759,926 Hz
-  LPIB approximately 368,638 bytes/s
-  approximately 11,519 frames/s
+> +	__u8 dsp_name[16];
+> +};
+> +
+> +#if defined(__cplusplus)
+> +}
+> +#endif
+> +
+> +#endif /* __QDA_ACCEL_H__ */
+> 
+> -- 
+> 2.34.1
+> 
 
-The BAD/GOOD ratio is approximately 0.24, close to 6/25. System monotonic timestamps advance normally, so this is not merely an ALSA timestamp or hw_ptr accounting error.
-
-HDA PM-boundary probes show:
-
-  GOOD cold boot: hda_intel_init_chip() -> approximately 24 MHz
-  BAD resume:     hda_intel_init_chip() -> approximately 5.76 MHz
-
-A complete runtime suspend/resume of 0000:6e:00.1 produced:
-
-  runtime-suspend-entry:       approximately 5.76 MHz
-  after controller shutdown:   0
-  runtime-resume-entry:        0
-  after azx_init_pci():        0
-  after hda_intel_init_chip(): approximately 5.76 MHz
-
-The bad source clock therefore survives the local HDA controller power cycle.
-
-The following did not restore 24 MHz:
-
-  snd_hda_intel unbind/bind of 0000:6e:00.1
-  PCI PM reset of 0000:6e:00.1
-  full runtime suspend/resume of 0000:6e:00.1
-  amdgpu MODE2 GPU recovery followed by SMU resume
-
-MODE1 was attempted once, but GFX/MES resume failed. No post-MODE1 HDA WALLCLK measurement was obtained, so no conclusion about MODE1 HDA recovery is drawn.
-
-The HDAU ACPI power resource performs OFF -> ON successfully. Radeon HDA normal resume is ordered after completion of the amdgpu parent resume.
-
-The active AMDGPU resume path in the v7.1.8 tree is:
-
-  amdgpu_pmops_resume()
-    -> amdgpu_device_resume()
-       -> amdgpu_device_ip_resume()
-          phase1: soc21_common_resume, gmc_v11_0_resume, ih_v6_0_resume
-          phase2: smu_resume, gfx_v11_0_resume, sdma_v6_0_resume,
-                  vcn_v4_0_resume, jpeg_v4_0_resume, mes_v11_0_resume
-          phase3: dm_resume
-
-On normal non-SR-IOV resume, PSP is excluded from the IP resume phases. For S0ix, PSP is also intentionally skipped during suspend because the source describes it as always-on hardware whose firmware/TMR state is reused.
-
-The active smu_v13_0_0_ppt_funcs has no gfx_state_change_set member, so the generic D0-entry call has no ASIC-specific implementation on this path.
-
-The active NBIO discovery dispatch is:
-
-  IP_VERSION(7, 7, 0) / (7, 7, 1)
-    -> adev->nbio.funcs = &nbio_v7_7_funcs
-
-soc21_common_resume() invokes soc21_common_hw_init(), which calls nbio_v7_7_init_registers() during resume as well as cold initialization.
-
-Read-only NBIO snapshots of the registers referenced by the active implementation were bit-identical at pre-s0ix, post-resume-pre-atomic, and post-atomic-restore:
-
-  BIF0_PCIE_MST_CTRL_3
-  BIF0_CPM_CONTROL
-  BIF0_PCIE_CNTL2
-  BIF0_PCIE_TX_POWER_CTRL_1
-  RCC_DEV0_EPF5_STRAP4
-
-The logged DCN audio DTO and clock-manager state did not show a corresponding 6/25 change. These display-side DTO registers are distinct from the PCI HDA WALLCLK register.
-
-The v7.1.8 tree contains BacoAudioD3PME and EnableAudioStutterWA definitions, but BacoAudioD3PME is not mapped in the active smu_v13_0_0 message map and the active PPT implementation has no set_azalia_d3_pme callback. EnableAudioStutterWA has no active Phoenix mapping or callback. Neither is being presented as a known fix, and neither was sent.
-
-The evidence establishes that the Radeon HDA WALLCLK itself changes from approximately 24 MHz to approximately 5.76 MHz after s2idle; the stream DMA follows the same ratio; the state survives local HDA recovery and MODE2 recovery; and it is not explained by the logged DCN DTO or NBIO state. The remaining hypothesis is a platform- or firmware-owned reference-clock mux/divider or power-domain state affecting GP17/HDAU that is not restored correctly across S0ix. This is a hypothesis, not a demonstrated register-level root cause.
-
-I would appreciate guidance on whether Phoenix/Hawk Point PMFW has a documented HDA/Azalia clock restore sequence, whether an audio-specific SMU message is expected for this ASIC, and whether PSP or platform firmware is expected to restore the GP17/HDAU reference clock during S0ix resume.
-
-No kernel workaround has been added, and no undocumented SMU message has been issued.
-
-======================================================================
-Appendix A: Representative GOOD/BAD HDA measurements
-======================================================================
-
-HDA controller timing samples (PCI 0000:6e:00.1, PCM8, S32_LE, 8ch, 48000 Hz)
-
-GOOD cold boot:
-  WALLCLK_Hz=23999690
-  LPIB_Bps=1535987
-  frames_per_sec=47999
-  configured_rate=48000
-
-BAD after s2idle + AC wake:
-  WALLCLK_Hz=5759926
-  LPIB_Bps=368638
-  frames_per_sec=11519
-  configured_rate=48000
-
-BAD/GOOD ratio: approximately 0.24 (approximately 6/25).
-
-======================================================================
-Appendix B: HDA PM-boundary measurements
-======================================================================
-
-Radeon HDA PM-boundary WALLCLK measurements (0000:6e:00.1, 1002:1640)
-
-GOOD cold-boot initialization:
-  hda_intel_init_chip(): approximately 24 MHz
-
-Failing system resume after s2idle:
-  hda_intel_init_chip(): approximately 5.76 MHz
-
-BAD runtime suspend/resume:
-  runtime-suspend-entry:       approximately 5.76 MHz
-  after controller shutdown:   0
-  runtime-resume-entry:        0
-  after azx_init_pci():        0
-  after hda_intel_init_chip(): approximately 5.76 MHz
-
-======================================================================
-Appendix C: NBIO/DCN state snapshots
-======================================================================
-
-NBIO 7.7.0, implementation nbio_v7_7_funcs.
-
-Read-only NBIO snapshots were bit-identical at:
-
-  pre-s0ix
-  post-resume-pre-atomic
-  post-atomic-restore
-
-Registers:
-  BIF0_PCIE_MST_CTRL_3
-  BIF0_CPM_CONTROL
-  BIF0_PCIE_CNTL2
-  BIF0_PCIE_TX_POWER_CTRL_1
-  RCC_DEV0_EPF5_STRAP4
-
-Relevant DCN phase state:
-  xtalin=24000, dccg_ref=24000
-  audio_dtb_dto=00000001/00000000
-  audio_dto_src=00000030
-  dtb_p=00000492
-
-The visible DCN audio DTO state did not change by the 6/25 ratio across the failing resume. These display-side DTO registers are distinct from the PCI HDA controller WALLCLK register.
-
-Thanks,
-Akhmed Zhitaev
+-- 
+With best wishes
+Dmitry
