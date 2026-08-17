@@ -4,60 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B9B5C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:55:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 590C2C5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:55:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB6FC10E66D;
-	Mon, 17 Aug 2026 06:55:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8FFA10E66F;
+	Mon, 17 Aug 2026 06:55:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=accessweb.be header.i=@accessweb.be header.b="lvVYU8on";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="LNe9pJAh";
 	dkim-atps=neutral
-Received: from pan.awservers.eu (pan.awservers.eu [149.202.17.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5226810E1D0
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 16:57:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=accessweb.be; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=FHYtgoKs4djsrIkLu05EIcHe7zGrwjIZrw7SUr6DVH0=; b=lvVYU8onmUfSL4pD5bvqycWyHk
- XZroT++kkzQCO95JTGKe+mIqCCOwNsi2lbJD2KKwFQ3YJPbLt+LNQ5QY+LR6Qsoco9Kzd1mQsg90O
- TcWOqXO/4m4/c/+hingn5tFt6/iD74OaL+NCy+WmddT9gFlT/xlNWnrq3L2nyZc9sfaRJV4pC8KyE
- 12OFQIbsIxgkUANwH5Fpko9GLBNC3PG9sryRzWpwKQLqCCK5jw01aofD3Yzb/TOws7khdOFN8UFWj
- 84IOLZmmqNcr3V9RDt7Z5itdybLUXt3Hyrtc5WNQHrJdxS2lndEffhkT0CkpeM2RImNDK5EvTlc0r
- FgiuZfOA==;
-Received: from [195.240.176.17] (port=47176 helo=[192.168.2.230])
- by pan.awservers.eu with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.99.5) (envelope-from <jellis@accessweb.be>)
- id 1wveBA-00000001cLu-0gSE; Sun, 16 Aug 2026 18:57:47 +0200
-Message-ID: <363bcf88-1f13-46c0-9dbc-aa21102ab397@accessweb.be>
-Date: Sun, 16 Aug 2026 18:57:46 +0200
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BABED10E3A7;
+ Mon, 17 Aug 2026 03:22:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/B
+ TS0YnDiCPCTjdhpYHGy2UZT5ZE2ofB1EIK8zfKQEE=; b=LNe9pJAh4Y7mw+WEYk
+ umsQuSnCoY8ckvwyRbWrDmw5N2X3hCMWf9y8QZZWYDI0CvFf9khagdW/MApLiA7G
+ 4DiIuLYsnvWWTh2KMo7RNPwrT3XRRsuxPqT58ZLHzX2kcn7j2/guXEWLoYGqGp/b
+ myadYND8MFlpAzrH8FjRxXvxc=
+Received: from debian.lenovo.com (unknown [])
+ by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id
+ _____wA31gLffIJqrnqiPQ--.59422S2; 
+ Mon, 17 Aug 2026 11:15:44 +0800 (CST)
+From: rh_king@163.com
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: siqueira@igalia.com, dillon.varone@amd.com, gaghik.khachatrian@amd.com,
+ pinglei.lin@amd.com, zhikai.zhai@amd.com, robin.chen@amd.com,
+ alex.hung@amd.com, Matthew.Stewart2@amd.com, jack.chang@amd.com,
+ clayking@amd.com, chuntao.tso@amd.com, PeiChen.Huang@amd.com,
+ Derek.Lai@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kean Ren <rh_king@163.com>
+Subject: [PATCH] drm/amdgpu/dc: Avoid PSR AUX WARN on unhealthy eDP link
+Date: Mon, 17 Aug 2026 11:16:39 +0800
+Message-ID: <20260817031640.2097973-1-rh_king@163.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
- are released
-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>, zack.rusin@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
-References: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
- <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
-Content-Language: en-US
-From: Jellis Onsea | AccessWeb <jellis@accessweb.be>
-In-Reply-To: <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pan.awservers.eu
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - accessweb.be
-X-Get-Message-Sender-Via: pan.awservers.eu: authenticated_id:
- jellis@accessweb.be
-X-Authenticated-Sender: pan.awservers.eu: jellis@accessweb.be
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wA31gLffIJqrnqiPQ--.59422S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3CFy8AFWkurWkCr1kWFyUZFb_yoWkJFy7p3
+ yfKFy5GrW8Zr4Ivr4UJ3W09ry5Z3W7Aa47JrZ3Kr1kZ3W5Aw15WF18Zw1a9F98Grsrta13
+ XF1Dua4Ig3WjkaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_WlkJUUUUU=
+X-Originating-IP: [36.141.44.3]
+X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC3wCSQWqCfOAr4gAA3x
 X-Mailman-Approved-At: Mon, 17 Aug 2026 06:55:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,160 +64,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maaz, Zack,
+From: Kean Ren <rh_king@163.com>
 
-Yes, it does, and I have to correct my message of 8 August as well.
+When an eDP panel is still recovering right after resume (e.g. lid open
+or AC return on a ThinkPad that has been in s2idle for hours), AUX/DPCD
+writes may transiently fail. Two distinct code paths compound this into
+a kernel WARN at dce_aux_transfer_raw():
 
--- Short answer
+  1. dpcd_set_link_settings() reuses a single `status` variable for
+     four core_link_write_dpcd() calls and only emits DC_LOG_ERROR on
+     failure. The first failing write gets overwritten by the next
+     call, so the function can return DC_OK even when every DPCD write
+     failed. Callers therefore cannot tell that the link is unhealthy
+     and continue with PSR setup on a dead AUX channel.
 
-With 3D disabled again, kernel 7.1.8, stock mesa 26.1.6-arch3.1. Object
-counts from vmwgfx_gem_info, sampled every 15 minutes:
+  2. edp_setup_psr() does not consult link->link_status.link_active
+     before pushing the PSR enable DPCD writes. When the link training
+     failed, the sink is not actually there to ACK, so
+     dm_helpers_dp_write_dpcd() -> dce_aux_transfer_raw() hangs until
+     AUX_SW_DONE times out and triggers ASSERT_CRITICAL().
 
-   2026-08-15 14:22 - 23:53      idle, 9.5 h     370 ->  370 objects
-   2026-08-15 23:53 - 16 01:08   in use          370 ->  772 objects
-   2026-08-16 03:54 - 13:53      idle, 9.8 h    1274 -> 1274 objects
-   2026-08-16 13:55 - 17:57      working day    1274 -> 2387 objects
+Observed on a Lenovo ThinkPad 21XHZDY2CN (BIOS R3HET22W 1.08) running
+Ubuntu 24.04 with 6.17.0-1030-oem. The user-visible trigger is usually
+a network event right after resume (unplug/replug the r8169 Ethernet
+cable, NetworkManager roaming to wlan, or a lid-close -> lid-open
+cycle). The dbus signal from those events causes a Wayland compositor
+(gnome-shell) or an X11 client running under XWayland to issue
+DRM_IOCTL_MODE_SETCRTC, which reaches amdgpu_dm_enable_self_refresh()
+and then edp_setup_psr(). The "Xorg" comm name in the WARN trace is
+XWayland, since this box boots into a GNOME Wayland session.
 
-Both idle windows are identical in every single sample: 39 and 40 
-consecutive samples with the same object count and the same pool 
-figures. Not approximately flat - identical. Nothing accumulates while 
-the machine sits there, and nothing is handed back either.
+```
+amdgpu 0000:c6:00.0: [drm] enabling link 0 failed: 15
+amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1122: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed
+amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1127: core_link_write_dpcd (DP_LANE_COUNT_SET) failed
+amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1144: core_link_write_dpcd (DP_LINK_BW_SET) failed
+amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1149: core_link_write_dpcd (DP_LINK_RATE_SET) failed
+[- cut here -]
+WARNING: CPU: 0 PID: 2615 at drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_aux.c:393 dce_aux_transfer_raw+0x296/0x2e0 [amdgpu]
+CPU: 0 UID: 1000 PID: 2615 Comm: Xorg Tainted: G           O        6.17.0-1030-oem #30-Ubuntu PREEMPT(voluntary)
+Tainted: [O]=OOT_MODULE
+Hardware name: LENOVO 21XHZDY2CN/21XHZDY2CN, BIOS R3HET22W (1.08 ) 06/24/2026
+RIP: 0010:dce_aux_transfer_raw+0x296/0x2e0 [amdgpu]
+Code: ff e9 49 ff ff ff 41 c7 04 24 04 00 00 00 eb eb 3c 01 0f 87 4c f4 34 00 83 e0 01 3c 01 19 c0 83 e0 c0 83 c0 50 e9 3f fe ff ff <0f> 0b 41 c7 04 24 03 00 00 00 eb c5 41 c7 04 24 03 00 00 00 eb bb
+RSP: 0018:ffffcdd6c53272f8 EFLAGS: 00010246
+RAX: 0000000062000000 RBX: ffff8d353020fc80 RCX: 0000000000000000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: ffffcdd6c5327358 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: ffffcdd6c53273ac
+R13: ffffcdd6c53273b0 R14: 0000000000000001 R15: ffff8d3562690000
+FS:  00007b3cc831aac0(0000) GS:ffff8d4c6d669000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000700f940020f8 CR3: 000000012fe37000 CR4: 0000000000f50ef0
+PKRU: 55555554
+Call stack:
+ <TASK>
+ link_aux_transfer_raw+0x48/0x80 [amdgpu]
+ dc_link_aux_transfer_raw+0x24/0x40 [amdgpu]
+ dm_dp_aux_transfer+0xee/0x2b0 [amdgpu]
+ drm_dp_dpcd_access+0xbe/0x160 [drm_display_helper]
+ drm_dp_dpcd_write+0xc4/0x120 [drm_display_helper]
+ dm_helpers_dp_write_dpcd+0x29/0x60 [amdgpu]
+ edp_setup_psr+0x156/0x5a0 [amdgpu]
+ dc_link_setup_psr+0x20/0x40 [amdgpu]
+ amdgpu_dm_link_setup_psr+0x155/0x1a0 [amdgpu]
+ ? dm_write_reg_func+0x47/0xc0 [amdgpu]
+ amdgpu_dm_enable_self_refresh+0xaa/0x240 [amdgpu]
+ amdgpu_dm_commit_planes+0x636/0x1740 [amdgpu]
+ ? manage_dm_interrupts+0xa5/0x280 [amdgpu]
+ amdgpu_dm_atomic_commit_tail+0xb04/0x1270 [amdgpu]
+ ? __set_output_tf.constprop.0+0xfd/0x1a0 [amdgpu]
+ commit_tail+0xc6/0x1b0
+ drm_atomic_helper_commit+0x132/0x160
+ drm_atomic_commit+0xac/0xf0
+ ? __pfx___drm_printfn_info+0x10/0x10
+ drm_atomic_helper_set_config+0x82/0xd0
+ drm_mode_setcrtc+0x3ff/0x9e0
+ ? rmapiMapWithSecInfo+0x230/0x2b0 [nvidia]
+ ? __pfx_drm_mode_setcrtc+0x10/0x10
+ drm_ioctl_kernel+0xb4/0x110
+ drm_ioctl+0x2ec/0x5b0
+ ? __pfx_drm_mode_setcrtc+0x10/0x10
+ amdgpu_drm_ioctl+0x4b/0xa0 [amdgpu]
+ __x64_sys_ioctl+0xa2/0x100
+ x64_sys_call+0x1226/0x2680
+ do_syscall_64+0x80/0x8b0
+ ? check_heap_object+0x17f/0x1c0
+ ? nvidia_unlocked_ioctl+0x175/0x9a0 [nvidia]
+ ? __x64_sys_ioctl+0xbf/0x100
+ ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
+ ? do_syscall_64+0xb6/0x8b0
+ ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
+ ? do_syscall_64+0xb6/0x8b0
+ ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
+ ? do_syscall_64+0xb6/0x8b0
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+RIP: 0033:0x7b3cc8724f1d
+Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+RSP: 002b:00007ffe65c05b80 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000617240d63e10 RCX: 00007b3cc8724f1d
+RDX: 00007ffe65c05c10 RSI: 00000000c06864a2 RDI: 0000000000000010
+RBP: 00007ffe65c05bd0 R08: 0000000000000000 R09: 0000617240c4b700
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe65c05c10
+R13: 00000000c06864a2 R14: 0000000000000010 R15: 000061723f332b30
+ </TASK>
+[- end trace 0000000000000000 -]
+```
 
-I lead with counts rather than volume because of the caveat in my first 
-mail: the summed object sizes exceed physical RAM, so I do not trust the 
-totals. For what it is worth, the pools moved 2.16 -> 4.57 GB and 6.73
--> 13.85 GB across those two active windows.
+Fix both issues:
 
--- This confirms my original report rather than adding to it:
+  - dpcd_set_link_settings(): use a separate `result` variable for each
+    core_link_write_dpcd() call and return immediately on the first
+    failure, so callers see the real AUX/DPCD state.
 
-The second window was a browser video call, with no RDP session
-involved. In some of my later messages I linked the heavy phases to RDP,
-because that was the heaviest thing running here. That was my own
-mistake: my first report already said it plainly - "a browser window
-with a looping CSS animation makes it measurable within minutes.
-Opening and closing 32 windows produced no growth at all, so it is the
-continuous rendering that drives it." The idle-versus-active split I
-described then is exactly what these four windows show.
+  - edp_setup_psr(): short-circuit when link->link_status.link_active
+    is false, so we never push PSR configuration over a dead AUX
+    channel.
 
--- Correction to my message of 8 August:
+Signed-off-by: Kean Ren <rh_king@163.com>
+---
+ drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c       | 33 ++++++++++++++++----
+ drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c | 11 +++++++
+ 2 files changed, 38 insertions(+), 6 deletions(-)
 
-I wrote that enabling 3D acceleration made the leak go away. That was
-based on two svga sessions of 15.6 and 18.2 hours, and it does not
-survive a longer measurement.
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+index 605bf19dc4f2..881cba95427f 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+@@ -1097,6 +1097,7 @@ enum dc_status dpcd_set_link_settings(
+ {
+ 	uint8_t rate;
+ 	enum dc_status status;
++	enum dc_status result;
 
-The problem was the length of those sessions, not the pools - I did
-report both, and mob_ttm was already moving in that table. But at 18.2
-hours it stood at 0.555 GB. That same boot ran on for 115.5 hours in
-total, and by the end mob_ttm was at 15.15 GB.
+ 	union down_spread_ctrl downspread = {0};
+ 	union lane_count_set lane_count_set = {0};
+@@ -1117,15 +1118,25 @@ enum dc_status dpcd_set_link_settings(
+ 				link->dpcd_caps.max_ln_count.bits.POST_LT_ADJ_REQ_SUPPORTED;
+ 	}
 
-For reference, the two pools swap roles with the configuration:
+-	status = core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
+-		&downspread.raw, sizeof(downspread));
+-	if (status != DC_OK)
++	/* Bail out on the first DPCD write failure so callers can react and
++	 * subsequent operations (e.g. PSR setup) do not keep poking an
++	 * unhealthy AUX channel. Without this, a transient AUX/HPD glitch
++	 * during resume leads to a cascade of DPCD errors and ultimately a
++	 * WARN at dce_aux_transfer_raw() because AUX_SW_DONE never asserts.
++	 */
++	result = core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
++				      &downspread.raw, sizeof(downspread));
++	if (result != DC_OK) {
+ 		DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed\n", __func__, __LINE__);
++		return result;
++	}
 
-     3D off (llvmpipe)   system_ttm grows,  mob_ttm flat at 0.023 GB
-     3D on  (svga)       system_ttm flat,   mob_ttm 0.27 -> 15.15 GB
+-	status = core_link_write_dpcd(link, DP_LANE_COUNT_SET,
+-		&lane_count_set.raw, 1);
+-	if (status != DC_OK)
++	result = core_link_write_dpcd(link, DP_LANE_COUNT_SET,
++				      &lane_count_set.raw, 1);
++	if (result != DC_OK) {
+ 		DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LANE_COUNT_SET) failed\n", __func__, __LINE__);
++		return result;
++	}
 
-Per boot, both pools added together:
+ 	if (link->dpcd_caps.dpcd_rev.raw >= DPCD_REV_13 &&
+ 			lt_settings->link_settings.use_link_rate_set == true) {
+@@ -1140,20 +1151,26 @@ enum dc_status dpcd_set_link_settings(
+ 			core_link_read_dpcd(link, DP_SUPPORTED_LINK_RATES,
+ 					supported_link_rates, sizeof(supported_link_rates));
+ 		}
+-		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
+-		if (status != DC_OK)
++		result = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
++		if (result != DC_OK) {
+ 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_BW_SET) failed\n", __func__, __LINE__);
++			return result;
++		}
 
-   boot            hours  kernel  3D    sys+mob     objects
-   2026-08-02 16:02   7.8   7.1.5  off  +1355 MB/h   753 -> 2184
-   2026-08-03 04:33  34.8   7.1.5  off  +1367 MB/h    23 -> 8211
-   2026-08-04 15:34  33.1   7.1.6  off   +989 MB/h    31 -> 5586
-   2026-08-06 00:56  25.7   7.1.6  off   +667 MB/h    49 -> 2680
-   2026-08-07 02:45  15.6   7.1.6  on      +5 MB/h    85 ->  244
-   2026-08-07 18:32 115.5   7.1.6  on    +161 MB/h  1357 -> 9128
-   2026-08-12 14:20  62.9   7.1.8  on     +30 MB/h  1405 -> 4418
-   2026-08-15 12:03  29.6   7.1.8  off   +442 MB/h    30 -> 2236
+-		status = core_link_write_dpcd(link, DP_LINK_RATE_SET,
+-				&lt_settings->link_settings.link_rate_set, 1);
+-		if (status != DC_OK)
++		result = core_link_write_dpcd(link, DP_LINK_RATE_SET,
++					      &lt_settings->link_settings.link_rate_set, 1);
++		if (result != DC_OK) {
+ 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_RATE_SET) failed\n", __func__, __LINE__);
++			return result;
++		}
+ 	} else {
+ 		rate = get_dpcd_link_rate(&lt_settings->link_settings);
 
-The 2026-08-07 18:32 row is the one I got wrong. I reported +22 MB/h
-for its first 18.2 hours; over the full 115.5 hours it is +161 MB/h.
-I drew a conclusion from a session that had not run long enough.
+-		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
+-		if (status != DC_OK)
++		result = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
++		if (result != DC_OK) {
+ 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_BW_SET) failed\n", __func__, __LINE__);
++			return result;
++		}
+ 	}
 
-So enabling 3D reduces it substantially - roughly a factor 3 to 30
-depending on the session - but it does not remove it. The per-boot
-averages also flatten something that is not gradual: long flat
-stretches, then a jump inside a single 15-minute sample.
+ 	if (rate) {
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index 80a372ceaa51..43a0facc8884 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -699,6 +699,17 @@ bool edp_setup_psr(struct dc_link *link,
+ 	if (!link)
+ 		return false;
 
--- The kernel changed twice and I did not mention it:
-
-7.1.5 -> 7.1.6 on 4 August, 7.1.6 -> 7.1.8 on 12 August, each taking
-effect at the boot immediately after. Since vmwgfx is a kernel module I
-should have said so at the time. Mesa stayed at 3:26.1.6-1 throughout,
-so that is not a variable.
-
-I do not think it explains anything - 7.1.8 with 3D off leaks harder
-than 7.1.5 did - but it belongs in the data.
-
--- The patch:
-
-Still built and still verified here:
-
-     /usr/lib/libgallium-26.1.6-arch3.1.so   vmw_winsys_to_dma_buffer absent
-     my staging/26.1 build at 2ed36c6        vmw_winsys_to_dma_buffer 
-present
-                                             "Mesa 26.1.6 (git-2ed36c6b5d)"
-
-Arch has not shipped a mesa containing it; 3:26.1.6-1 is still the
-current package here, so the fix has not reached this machine through
-the distribution.
-
-In the 3D-off configuration llvmpipe is in use and the buffers are dumb
-buffers of 1920x1088x4, so I would not expect gallium svga to be
-involved at all. If the mechanism Zack described - prime exports with no
-deref/destroy ioctl, so gem_close does nothing - also applies on the
-dumb-buffer path, that would explain why this configuration keeps
-leaking while the mesa-side fix sits in svga.
-
-I can run any of these, whichever is most useful to you. All four are
-set up here, so it is a matter of you saying which:
-
-   1. the patched build with 3D OFF, in the current configuration. This
-      is the quickest - the build is in place and it takes a re-login.
-      I expect it to change nothing, since svga is not loaded here, but
-      that is worth establishing rather than assuming.
-   2. the patched build with 3D ON, 48 hours or more, against the
-      +161 MB/h baseline above. Needs the VM powered down to change the
-      host setting, so give me a day for it.
-   3. stock Arch kernel instead of the CachyOS one. Arch currently ships
-      linux 7.1.8.arch1-3, which is the same version as the CachyOS
-      7.1.8 I am running, so that isolates the patch set rather than the
-      version. I offered a vanilla kernel in my first mail and never did
-      it; it installs alongside the current one, so it is low risk here.
-   4. any instrumentation you want, on either configuration - extra
-      debugfs reads, a debug patch, different sampling.
-
-Say which and I will run it.
-
--- One correction on the plasmashell crash:
-
-In my 8 August mail I said the dmabuf import crash looked like a KDE bug
-and that I would report it to them. That was wrong. The message comes
-from libgallium, not from any KDE or Qt library, and the faulting thread
-is an llvmpipe rasteriser thread. It matches mesa issue #6438, which is
-still open. I will add my reproduction there instead.
-
-Regards,
-
-Jellis Onsea
-AccessWeb
-
-Op 13-08-2026 om 23:12 schreef Maaz Mombasawala:
-> That is good to know. Do you still see a memory leak with 3D off?
-> 
-
--- 
-Met vriendelijke groeten,
-AccessWeb ICT Solutions
-AccessWeb.
-	
-ONSEA Jellis
-AccessWeb ICT Solutions
-Europaplein 29/7
-3630 Maasmechelen
-Tel BE +32 470 96 43 15 <tel:+32470964315>
-Tel NL +31 6 492 757 98 <tel:+31649275798>
-E-mail jellis@accessweb.be <mailto:jellis@accessweb.be>
-
-Indien u een SLA-contract heeft, gelieve alle communicatie te voeren met
-het e-mailadres gekoppeld aan uw SLA. Dit verzekert de correcte en
-tijdige opvolging van uw vraag.
-
++	/* Skip PSR setup when the eDP link is not active. When AUX/DPCD
++	 * writes are failing (e.g. after a resume where the panel has not
++	 * fully come back yet), edp_setup_psr() will still try to push
++	 * configuration over the AUX channel. That auxiliary transfer never
++	 * completes and triggers ASSERT_CRITICAL() in dce_aux_transfer_raw().
++	 * The DPCD read of the PSR cap below is also unsafe on a dead link,
++	 * so bail out early before touching the sink.
++	 */
++	if (!link->link_status.link_active)
++		return false;
++
+ 	/* This is a workaround: some vendors require the source to
+ 	 * read the PSR cap; otherwise, the vendor's PSR feature will
+ 	 * fall back to its default behavior, causing a misconfiguration
+--
+2.47.3
 
