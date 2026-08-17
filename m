@@ -4,83 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DC3BC5DF8C
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 093BAC5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1242F10E7F0;
-	Wed, 19 Aug 2026 06:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36A6D10E61A;
+	Wed, 19 Aug 2026 06:36:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V1SpfVxj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nCZH9vQJ";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41CCC10E7E6
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 14:03:13 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2d049069377so35710665ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 07:03:13 -0700 (PDT)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4CEE10E453
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 20:14:08 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-cbb7926836eso2731535a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 13:14:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786997648; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ejr87WSh/gGJdGzRqZKRqnycojxe25+1T6ydqsiHLog2VQr4r4dtq1QZQeWxDDVxja
+ VKSol0fXEQjRYX2WKTg1KYf8YgKSuD/aRb5OdCZEjXyGARA9XexZwV5xwK6mk1lPatAT
+ EdMv+m6FcsiX88N7JNqDfN2XoIi7hhiLd9GbPFRMX52xYFbqTLXjcwC2TnI+6A95O5ia
+ z9SLWrStZWZe7P+C6EdzNfB4+ZFk4sEo5yRWT5IOrAUFqaIdLkHLb5nAsEJ98SfbF4HV
+ KZ4u1Y46J+fJDx3hF1uWfOz1dT0uQgIraZopVUbOP9MrL5QBgv4YRXN77uMIQcjB8U8B
+ qnjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=XLVsMWdtExaM9s+oU+lazgOsPzVgtcsSdhrjyJ2RQxM=;
+ fh=2RkMa5QawuwenycGbpm8JfH3k+1xDqV/h1Z+/Z9Zzxg=;
+ b=rBPqqj5rWVH3J1679Y9akiW3PsrUyuMCbUeXwa4/hI7i8bhU9JOwj0p3qCkOXm+8b/
+ Tz/0LzmTsIGYbNVrWl1z0vHBTr8FGFKJAIaZJpx2+IMZF81TdZVV3lZWKuKXD2A5apFX
+ PaEdzpreCN8iCpcGHtCs+aalCqRA0ZCDkr97h/GznJZUDVEMPyojrGP7SDxdta+kNV4b
+ jYpV5UjHvS3usBxB5y2tU/QWjA/8J0e7QzLpgbTdm03FiWP2SzeZWKtDGzciWjC3u8b1
+ cmF8Q80vU1d67dUMZ3LtbfzC8Pqe/XrT09/1mxGq0VFyiZJGlBpltJA0zg1rVH+G48w3
+ 1QWQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786975393; x=1787580193; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=izcVO6R3v4+neqjC7EnHrbwsHX05E2W9qHGBbkC6pXk=;
- b=V1SpfVxj0FqE8KuI9bYtuCp+gsO43nnRGO9np10ehl+6ZnN6ANiWHhaBT5HroLQzU3
- arFQXmMnSx6tGbWTDBcmtuJS5IA+ouIvMTYLWqe3P/W17+64GNL8opYgAW1lr4cnNf9o
- wkBecrwE2mCZZgEyiUBMsvJFVbX1FLCSG0cL008Xx9XtwPTsF5U+46WkGkXaxToKm5fL
- n8zSczobsPwhgqDOVcpXnz/ouafb8ZiYha+0nBqwscV0KgVfJh7ulT4uw8HBE5aAaMa7
- FEk5CRJSfDe/n7nW0KBxCjIEZau8lYvg17+9lXZXzVJObm9IbOjHudfwh9h7ciD1sPw8
- EsTg==
+ d=gmail.com; s=20251104; t=1786997648; x=1787602448; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=XLVsMWdtExaM9s+oU+lazgOsPzVgtcsSdhrjyJ2RQxM=;
+ b=nCZH9vQJIYt3epmL1vpN55Dk+WwIOMXBZ3j9yiPA1gGSl0gKkAQl9Tr+WcBFckdf6w
+ Xqlwi7EkdcG5I6CTXXjmuUy4saSbcvNowNQQ/5TP85KPUG+lw/tfTAgJAZ7nAsAu+Lx0
+ rx4lDXpesSE0NFtIBx7jjDd1KRXTLonHRNR7JJy1dO2tfxJFfR6se2EH3TQ1hv70QSSK
+ W4jU2rQyhkFMPoF7tare1ONnd5Uh6wj1UWuRtCWtcglNLi02cIZldlxM+58eBtqnbIie
+ GjS4DwVIN0Fkbh7F2272iDDojEEq0GUVrXCD4hmZICIyK4iXPd5IAjOU2tV6L/HFFYgi
+ VWgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786975393; x=1787580193;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=izcVO6R3v4+neqjC7EnHrbwsHX05E2W9qHGBbkC6pXk=;
- b=NX0ZZIUs7luWvlX+oRJzR0pEHyeTD+DSNWhS47/uXxvPE66a0XyVw+5eYRD8aVot6P
- uoCUTfnetjcaPlpehOCyoQcrYOisq1QoXo7VuepcZ/moIMUWSshEebPv3wx3SUIPlAuZ
- L7U3DBNe1d++F3c126qtRa61lzMjyDZ0KS3bcMu6i1MlBEQoquiQ4CnKKYxoVhRDp5SU
- XvZakPXAqzUM5/s8i1eU5v3fNHko9uXkBVhn0DP7Ee6N7RWxNMLrzY0RiFOAq8lEr6Kt
- HY5VVBcMNEpyuGonFamj1EiGqOqLzks+1oV5cI2ff+374OQ/eI1n3yrnE0HK1MI/DQvF
- /Hhw==
+ d=1e100.net; s=20251104; t=1786997648; x=1787602448;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=XLVsMWdtExaM9s+oU+lazgOsPzVgtcsSdhrjyJ2RQxM=;
+ b=EPhiHgRkGi3dmoz//kELr3RLu7wDE3olOOPbHHfCvlzUqWf2fHqhn4waDTC3gNGj1m
+ 3kzglU3B2N11/yk7L2NTyOtjj0B/ess9/ats15CkcO15M0AoM1dHYBWbp6U2Xu+da8AX
+ vTFS9DfYJoONd/ueDW9RhKZFaqDlvJTLXk858w/zZje3dVH/ua5qKeGhzW5Gyl70kNe1
+ Sg+ltQkX778i7ChfG3MeyQ/898um7rtUzT6xtOp00pw3XxGvodCaADfqj1rdGF+KDjzO
+ DbR2f+6C3WhPxyED4ztM+yhEF8BBcDCWQyffEkOzPnDjKQh7P9a8WYnTeiN4yTfbuSzj
+ 0FeQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RodTypTQtFcjNkuzB2isKm/gLsenxeAZZpXhUj21lxBHuk1LfPjDJmlpZV55cXK7ScgOjegCg4DOrs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjxwXkiYn3QWVmPgafwtUmjLghi1Z2/98zJ1BnHMm1ZbIQrHRm
- t8TybN4oL03SPzZpBSjoeyNoXH6+MdFhqmDenERw4CsMkj3HLnDuMcFgvlRSsbtLcVKAVaQ=
-X-Gm-Gg: AR+sD10FuZwHaH+PJI7r+OKyP7i8yNcI2jUMlfSChVprI4mMHjHXwzkjtoMuK8A/1Os
- mSSWPQfjiBJQoLuK/yXouHd8LJWbIV/KnasrEDGZaBG/kPQ/yDE0SVujanMEXTSHsdm1MY4bn9Q
- wuKBcdXNSqFT3yEqdHpPszmLrv0w68MYXbdHg7S3eRIDcQ8uOGzHGq7H65cnhwG8Y4yhlqYiVn5
- aGbIsoeBYhs587F209P7aOgv2ByvjpzM1ElyS4dMUKFuY+p5gtNjo2g+SBjHXk4X46tbSP0Bh1t
- WE2GBHYMQ5Iha2r1J1pGOr+7GGd3B0t6odvZYelPtUW960UVwnD5K0/ALu6Wh7LmY6L+pw5THSP
- 34EXSXYrBdPVgq9x2TVhAiYRkIEfBWk63tq/kkSGFPSLVLMeBBfERASRTIZarTzYPlsFgfNAaFM
- FkwyyZvy7oo2wYUXJYc4JfrwDDkY+nigZeIo0o4rD54YLlyMTT8UHO0mEllyAAupJ2lhSoVZBIh
- miBjn5gm9Es6kWeCcXjBYKJmqN8dQMNXQPgfJUE65onzv5iYOD4bm53BxpbikpdABuiH4wLw1tR
- Ij/3bWwY
-X-Received: by 2002:a17:902:f68a:b0:2ca:eea:eb5c with SMTP id
- d9443c01a7336-2d3b0da664amr251108225ad.18.1786975392648; 
- Mon, 17 Aug 2026 07:03:12 -0700 (PDT)
-Received: from
- codespaces-2db70c.m2fxbej512jepnsor2itp05j3d.ix.internal.cloudapp.net
- ([207.46.224.82]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d5bb4dfe6dsm6364195ad.18.2026.08.17.07.03.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 07:03:12 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-X-Google-Original-From: Triet Hoang <89897892+HMTCT@users.noreply.github.com>
-To: tomeu@tomeuvizoso.net
-Cc: ogabbay@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, royalnet026@gmail.com, Markus.Elfring@web.de,
- Triet Hoang <triet.hoang.dev@gmail.com>
-Subject: [PATCH v4 2/2] drm/rocket: Keep scheduler allocation in
- rocket_file_priv
-Date: Mon, 17 Aug 2026 14:01:10 +0000
-Message-ID: <20260817140110.148873-2-89897892+HMTCT@users.noreply.github.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260817140110.148873-1-89897892+HMTCT@users.noreply.github.com>
-References: <20260817093009.22359-1-royalnet026@gmail.com>
- <20260817140110.148873-1-89897892+HMTCT@users.noreply.github.com>
+ AHgh+RrWFxxgMkmFmdmrIU1R5tgrm9dsTr2CJhiuC1BpLBBw6FHs2RwAB1TDQdlWRvH/fHPOQKFiKICiRcg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYncuUnxeaxE0eqUt3x2Z0fl9TYpnD3LEHODIx6OQGT17aS7sq
+ vRL4LudnGlgcY5zKzAZ/9W/+LCQubl6p3ze7rE1MR2gK6awChkcf0m+5TK5pFrdyOp5O4YEpJ3N
+ DPRJIlHNpu9rGlhNSRfMiG99yb9CoBkc=
+X-Gm-Gg: AR+sD11z3ZOEptegW8aLC4wB9zhebBN1up5Vr3mm4OT2R9ucr7W5A7kzBo+OnI2sFKW
+ DccC1uuO+bOOkH4YkPdiCajF+GMhqYgWs6oamH+WiBdIO2Ku2euvdPgbIJOfwqINZWrQTRIlfJX
+ r9ghjm9J7v69xpXOlt3pwFXuY2Nro0BWtKXxGR2BmlyFL7hBD8Lz8ntcmryFzH/uVM57cydC3Yg
+ U72gZWr+beQa/TVD2CuakMNBDv0EIBSc3Zlae4/x2DSx5A0HCMInjWBuA6Ig2/g7F6eWvODHrnf
+ 0bClPdvTJBh9VJPjqdP5st/OrDws4pW15J+fJJfM9eYu89VzDOb6XTpKVUjYVH5AaUocmOFlJe2
+ amV6uaN2dTZlLa3XbIVfVKT65h3UXcw==
+X-Received: by 2002:a05:6a21:150c:b0:3c3:af85:85e7 with SMTP id
+ adf61e73a8af0-3cc72094353mr31538761637.34.1786997648060; Mon, 17 Aug 2026
+ 13:14:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
+ <20260817-chid-v7-6-a5872e64d8f4@nvidia.com>
+In-Reply-To: <20260817-chid-v7-6-a5872e64d8f4@nvidia.com>
+From: Burak Emir <burak.emir@gmail.com>
+Date: Mon, 17 Aug 2026 22:13:56 +0200
+X-Gm-Features: AcwNN1VtNSRUVX_S4c1aAwvBlBumGK9sX5NggnTFPh0VlTehKX72W5UNOW-1T3s
+Message-ID: <CABwQupOTqnF8iSccT+imXKeOBbTxeUWHR--em3C3LAnwVBwWZw@mail.gmail.com>
+Subject: Re: [PATCH v7 06/10] rust: id_pool: take a NonZero capacity in
+ with_capacity
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,55 +125,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Triet Hoang <triet.hoang.dev@gmail.com>
+On Mon, Aug 17, 2026 at 9:04=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
+m> wrote:
+>
+> There is no good reason to allocate an IdPool with zero capacity.
+> Reflect this in IdPool::with_capacity.
+>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-Keep the scheduler allocation in rocket_file_priv
-and free it unconditionally in rocket_job_close().
-
-Suggested-by: Igor Paunovic <royalnet026@gmail.com>
-Link: https://lore.kernel.org/all/20260817093009.22359-1-royalnet026@gmail.com/#t
-Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
----
- drivers/accel/rocket/rocket_drv.h | 1 +
- drivers/accel/rocket/rocket_job.c | 4 ++++
- 2 files changed, 5 insertions(+)
-
-diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
-index 2c673bb99ccc..9421e48ec5d8 100644
---- a/drivers/accel/rocket/rocket_drv.h
-+++ b/drivers/accel/rocket/rocket_drv.h
-@@ -23,6 +23,7 @@ struct rocket_file_priv {
- 	struct drm_mm mm;
- 	struct mutex mm_lock;
- 
-+	struct drm_gpu_scheduler **scheds;
- 	struct drm_sched_entity sched_entity;
- };
- 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index adcc792541ec..ff1d9e802024 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -514,8 +514,11 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
- 				    DRM_SCHED_PRIORITY_NORMAL,
- 				    scheds,
- 				    rdev->num_cores, NULL);
-+
- 	if (WARN_ON(ret))
- 		kfree(scheds);
-+	else
-+		rocket_priv->scheds = scheds;
- 
- 	return ret;
- }
-@@ -525,6 +528,7 @@ void rocket_job_close(struct rocket_file_priv *rocket_priv)
- 	struct drm_sched_entity *entity = &rocket_priv->sched_entity;
- 
- 	kfree(entity->sched_list);
-+	kfree(rocket_priv->scheds);
- 	drm_sched_entity_destroy(entity);
- }
- 
--- 
-2.53.0
-
+Reviewed-by: Burak Emir <burak.emir@gmail.com>
