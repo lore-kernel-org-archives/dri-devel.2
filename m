@@ -4,90 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53791C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 14:24:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ABD2C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 14:38:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 673CC10E7E8;
-	Mon, 17 Aug 2026 14:24:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0B110E808;
+	Mon, 17 Aug 2026 14:38:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="todHf1/6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RbSBNuz8";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 508C410E7E6
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 14:24:56 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-49545ba3d4eso16817365e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 07:24:56 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3536510E808
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 14:38:01 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-482938466a7so2097658f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 07:38:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1786976695; x=1787581495; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :user-agent:references:in-reply-to:subject:cc:to:from:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=/DTqqG3V7U7WfD1BzSnvfO5TKElZ9Vr+nrizGyb2ukE=;
- b=todHf1/6Lee1pVfwV42+birTAzmjP2WpMb9LfMPG/lVHN7Tpyib5VlZ4hJhlMTdynL
- FJkgy1iAoDfDqPgctE3zSLVvN+shT/l99oJGv3l8YDrJrFEjxELxsoQ5aDUpSulHxBPZ
- mVkqYAXUHneUyXira212/9/1yfZVUdCYM1yXLL8E02EORp4sijrvTY4MXSGuvdfCWhHO
- ZNJOuVDTyPiLQH9CqmlOqdYRCCcStOV+2eshuRpo5RUVfEXPnQr/ItWRhRIuIwzq4rFk
- OHwuRGKndEBViAyhT+AFHCVvq1M2NyDj6det+a++qypHZsnLACs6FNQeZu+1BCDtlYis
- 6urQ==
+ d=gmail.com; s=20251104; t=1786977479; x=1787582279; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=OBLew5lB37WQynm1dR6uSGp6+f7VUP2zu8Ib7jym3v8=;
+ b=RbSBNuz8BhRlP6qj7+hTy5BIJbj9W+yXniuvVnPq4YvrYEtf2tywykkCn6Ul8zTkAg
+ sI1PU1czsqEanR1hRuco2zKhYO2+k9v3kMIX8kmp4lQ2f2XaBfYiC5gCSUdd+Yt4h0LV
+ sDUdDhGad/S7FDST7zOzUMcV/tNDba1rsEp0Fnb9yJ4BdkoiOPiqwjZKx1T/alR9qHtv
+ nW/NiFkSvpfM0DBehU9UJ0CVgtWGyuD1GIcpj1vlOH6W/gwLpF29HZ188PMr2BA9pBon
+ igRC1eYWDYZVOb0S8Pwcu+6J7lAK3U4iYukAb33kFRFEP8w4cK3zx/HGRzzzgo8A0RIv
+ Wmrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786976695; x=1787581495;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :user-agent:references:in-reply-to:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20251104; t=1786977479; x=1787582279;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=/DTqqG3V7U7WfD1BzSnvfO5TKElZ9Vr+nrizGyb2ukE=;
- b=C3vRvLyt+KmJaXe3pKnNjBCubHxjnqZi2ZeP/UCKkD/Bc4mScLUJfw12/+foCcy6CL
- ceZ+darR83K/n9lrgEj2BPb3gap6vh5ItTH8VA474et3noOZ4kHq5tP7TExMmBTFfGZT
- sFwlnxPYrouUo5q1pbIipwcfoAaEcyYjcdb8AZ6ZsE0wQSNQIqTWGUJPgSptpytou4fS
- CW3NahA93OiyAq4JOspeSKvovUYgPp0+dkw1k7C7U03EBQHBF1mfcO7F5iirjZU9KYvb
- hlG9Rx26LRsnlOXzxaZulS9Av3vmnwaYKIUOwx5h71vaEZd/bFtuFy8Vs6nFHx4cwQHU
- 9fRw==
+ bh=OBLew5lB37WQynm1dR6uSGp6+f7VUP2zu8Ib7jym3v8=;
+ b=YdUM916IY9eiQ7F+ZhXuTEJYwNTE10AIqYFD99tYcmaFqihaJEKzWML7UM6eLf/yuF
+ dDE5ArMxhTz3/PUhpjTwmd2eS8I/QABI9pnYnq7qNk/oU+1vuwdCgygsETgfePE3ZYAO
+ EyEoQayFDZu4+vpMH/G1MQMaOqwmoOnLP9qcGFKOd6T7wkZZHbBDW6TCKQyTo5XzoLAr
+ DPSj8Rsh5Hn17vPqRGIbpUVVksYLn9niBeSL9xpzM+7KsJuAAiAPjzs0L04p8fbBizvT
+ 1H1HM4KykeHaf2kAmRfJTfJlp6zXsHrR3FKk/omHjE70LL7wAq5Z64WEctyXcfyR0WBN
+ qAUQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoNzsUFO+eSR+Mnn2Ns7a1S06uQGrJy/iFQFW81/zKb8kdLRnuixJahZEVsgeTzsAqU3iZYsCNPi1g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYOm0pXve1XMGoWtim0YRcdaFw9aOwC53bh3rrwFSR8QCqgWN9
- EfjB5H1FsFeJRBouIcCsJBZZbb0YV7xWeYIVnGuYyYOgeBUScyw4XmE04yoz5SvJY3A=
-X-Gm-Gg: AR+sD10pwNvhTrF90JXe0d3S1ugOAB/FfmmaNb/V13D373T6Je9Ribk/nBjhQrOzMB/
- cN+0S/am26z9e9Xh9ElcJTa5V4SjlreN7UswUhGowAerj1hgyqd0FSSvB2aagQ8anEfw4t/o2nP
- zOJ9WX/R7ipGJSje7LnYiAbIVlTCysPUAiHOpRQrwakxTGt/Clgv+n2TWYk6TiAKPUyDlXHkFwo
- uYy46Jmi3hcA5dhoE+FudVsow7QjgZHq0fdFQEhltFPeAQMq0Po/rkpEZcTVTCLKMRukgcIq3zp
- ZXe0DbeDqvzVfsyxF86WOj7mi0WahaZ+1JkMjFPmtF3OqPeAvHKPcTlEASH1KYXrmCvbWTqC9Df
- a4E0pJpLUKSLCP+f2jq7ysOcQLtshVcbNUA/qudC7v2SEHQ+Umuz4GXxz4ETUS/71i2f18gOv9n
- u2iNU31qJhegLBNKEQEtdrfrLecGm0wGmSJpm53Ii73l39SMjsLM3/x+0PhX2E
-X-Received: by 2002:a05:600c:348b:b0:499:5282:f8d1 with SMTP id
- 5b1f17b1804b1-4999fb76c29mr9022705e9.12.1786976694599; 
- Mon, 17 Aug 2026 07:24:54 -0700 (PDT)
-Received: from draig.lan ([185.124.0.156]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49996183b89sm185398105e9.12.2026.08.17.07.24.53
+ AHgh+RrcMvjiLmAhZvqe/MEFLqH0rTGVv4s5V9zJPE2Q66tBMH5GBQ6S6iiEVmRB7F5LNduwnBeqHplI+fQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyhrMHd6RaHbkNimVr74IBERowicLCHmt4FcS+ylOLfmQPFa7zh
+ TODRC+DBSEFhM2USH08CKC/0RnI3Q7qdXW98i2YQA91/4+aA4gwi15LUCELeSEI4
+X-Gm-Gg: AR+sD122xkq7d1lgcu7lp8lYkVi+4AJh4jp0Sr7EvdyQDwRhKBPD6B8yy8WAab2X0Hn
+ LXO8ZOHgLofR9mnbLYRjEZ9IMR9Bo01AtZyc38nr5YJfcS05LpMpDNClr8HKtcdHqoPFOEBX6lm
+ QoebaW9liC3yQJruQcgoodzH+P+/nIeHdZiymoNDcTs+Af+2oKQA8VoK/FUqe83NiIfBILsDuul
+ N+2PjQcFBTte5uFG1qVuI3Qk9VhITsXmMC6pWKtt5zgj628roY0DLZWxmM4Ew4yJLlPl8JWKlHF
+ fP//uMQ9sOSAMDb2sOl2jz6ZFUX2FlWFvKUHRK8c9+PpHKURra0qWrSzzDIqbuHcwwV0uUluS/d
+ 74FEuaoljpdgQJhbv1lk+cx1HilGxAXxxYAuyPuLVJhZRev7zinD+VW/8xLV5Ey1F1P4mrS8xbC
+ z3nZAbuRrcrP5+XEwmPTwcKzeRyyPgngkQFM3uO+kxNWO9mso0vecT82rAghu9jxqdmUsmF5bNx
+ a2u03nDPnNRV89+x/5XPLHH/ByHwkq8bWpv
+X-Received: by 2002:a05:6000:3109:b0:47f:e748:3ae3 with SMTP id
+ ffacd0b85a97d-4816070bf1fmr37790737f8f.3.1786977479416; 
+ Mon, 17 Aug 2026 07:37:59 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482a5b816f7sm4136493f8f.34.2026.08.17.07.37.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 07:24:53 -0700 (PDT)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 0C3B05F86C;
- Mon, 17 Aug 2026 15:24:53 +0100 (BST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: "Huang, Honglei" <honghuan@amd.com>
-Cc: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,  qemu-devel@nongnu.org,
- virtio-comment@lists.oasis-open.org,  dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev,  Honglei Huang <honglei1.huang@amd.com>,
- Huang Rui <Ray.Huang@amd.com>,  "Michael S. Tsirkin" <mst@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,  =?utf-8?Q?Marc-Andr?=
- =?utf-8?Q?=C3=A9?= Lureau
- <marcandre.lureau@redhat.com>,  Stefano Garzarella <sgarzare@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,  David Airlie <airlied@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>
-Subject: Re: About new backend for GPU compute ROCm in qemu
-In-Reply-To: <78f0583f-93c0-4374-ba37-fd36f6388f0e@amd.com> (Honglei Huang's
- message of "Mon, 17 Aug 2026 21:44:21 +0800")
-References: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com>
- <ea899a6b-0a59-4a9c-9e81-3ed70711da59@rsg.ci.i.u-tokyo.ac.jp>
- <78f0583f-93c0-4374-ba37-fd36f6388f0e@amd.com>
-User-Agent: mu4e 1.14.3; emacs 30.1
-Date: Mon, 17 Aug 2026 15:24:52 +0100
-Message-ID: <87pkzgsu2z.fsf@draig.linaro.org>
+ Mon, 17 Aug 2026 07:37:59 -0700 (PDT)
+Date: Mon, 17 Aug 2026 15:37:57 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: yuebingkun <yuebingkun@kylinos.cn>
+Cc: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fbdev: platinumfb: replace strcpy with strscpy
+Message-ID: <20260817153757.4a683d24@pumpkin>
+In-Reply-To: <20260817031816.188833-1-yuebingkun@kylinos.cn>
+References: <20260817031816.188833-1-yuebingkun@kylinos.cn>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,84 +92,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-"Huang, Honglei" <honghuan@amd.com> writes:
+On Mon, 17 Aug 2026 11:18:16 +0800
+yuebingkun <yuebingkun@kylinos.cn> wrote:
 
-> On 8/17/2026 7:44 PM, Akihiko Odaki wrote:
->> On 2026/08/17 12:19, Huang, Honglei wrote:
->>>
->>> Hi Michael, Alex, Dmitry, Akihiko,
->> Hi Honglei,
->>=20
->>>
->>> I'm bringing AMD GPU compute ROCm based on virtio. I posted a ROCm
->>> over virtio
->>> implementation to virglrenderer nine months ago (MR !1568 [1]). The
->>> ROCm side has
->>> been supportted by ROCm offical.
->>>
->>> Current implementation is a virtio gpu context type capset handled insi=
-de
->>> virglrenderer, sharing the display path. That's an awkward fit, many
->>> compute GPUs have no display engine at all.
-<snip>
->>> =C2=A0=C2=A0 - that instance served by a separate ROCm backend library =
-loaded
->>> =C2=A0=C2=A0=C2=A0=C2=A0 in-process by QEMU.
->> First, I think we need to establish why ROCm cannot or should not
->> remain
->> in virglrenderer. The virglrenderer, Venus, and VCL maintainers are
->> likely better placed to advise on that boundary. Once the protocol
->> requirements and performance measurements are clear, we can assess the
->> appropriate QEMU integration.
->
-> venus is borned for GFX.
-> virCL not merged.
->
-> To be clear, I'm not saying virglrenderer can't host a ROCm native
-> context it clearly can. My hesitation is more about fit and direction:
-> virglrenderer has grown up around GL/graphics, and I haven't yet found
-> compute oriented plumbing there to build on, while ROCm moves very
-> fast and I need something I can keep current with low friction.
+> strcpy() is deprecated for use on fixed-size buffers. Replace it with
+> strscpy() to avoid potential buffer overflow issues.
 
-I'm unsure what the current development status of virglrenderer is but
-it does see a continuing stream of merges. However the threading model
-does make things tricky for QEMU when we are sharing lifetime of blobs
-between QEMU proper and the virglrenderer thread. Perhaps there is a
-better way to organise things?
+There is no point using strscpy() to copy quoted strings into arrays.
+Indeed, if the string is too long the kernel build will fail if strcpy()
+is used but strscpy() will silently truncate the strings.
+So strscpy() is actually worse here.
 
-Could we do the marshalling of VirtIO GPU commands into ROCm directly
-inside QEMU rather than going through additional plumbing? Are the
-sequences we need to handle more or less complex than your general gfx
-rendering? How might this work with other frameworks?
+There are plenty of places where the destination size isn't known.
+Which might be worth fixing.
 
->
-> Regards,
-> Honglei
->
->
->> [2]
->> https://developers.redhat.com/articles/2025/06/05/how-we-improved-
->> ai-inference-macos-podman-containers
->> [3] https://www.qualcomm.com/developer/blog/2024/10/vcl-virtio-gpu-
->> opencl-driver
->> Regards,
->> Akihiko Odaki
->>=20
->>>
->>> That reuses the existing pluggable backend model, a second virtio gpu +=
- a
->>> backend library. It doesn't add dedicated queues for
->>> debug/profiling currently.
->>>
->>> Waiting for reply and=C2=A0 happy to share more detail. Thanks!
->>>
->>> [1] https://gitlab.freedesktop.org/virgl/virglrenderer/-/
->>> merge_requests/1568
->>>
->>> Regards,
->>> Honglei
->>=20
+	David
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+> 
+> Found by checkpatch.pl:
+> WARNING: Prefer strscpy over strcpy
+> 
+> Signed-off-by: yuebingkun <yuebingkun@kylinos.cn>
+> ---
+>  drivers/video/fbdev/platinumfb.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/video/fbdev/platinumfb.c b/drivers/video/fbdev/platinumfb.c
+> index a08d955d9b43..fa27a3a4f05b 100644
+> --- a/drivers/video/fbdev/platinumfb.c
+> +++ b/drivers/video/fbdev/platinumfb.c
+> @@ -320,7 +320,7 @@ static void platinum_init_info(struct fb_info *info,
+>  	fb_alloc_cmap(&info->cmap, 256, 0);
+>  
+>  	/* Fill fix common fields */
+> -	strcpy(info->fix.id, "platinum");
+> +	strscpy(info->fix.id, "platinum", sizeof(info->fix.id));
+>  	info->fix.mmio_start = pinfo->platinum_regs_phys;
+>  	info->fix.mmio_len = 0x1000;
+>  	info->fix.type = FB_TYPE_PACKED_PIXELS;
+
