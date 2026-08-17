@@ -4,114 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAE19C5DF7E
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 18:17:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4157CC5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 18:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D522D10E1F8;
-	Mon, 17 Aug 2026 18:17:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D99F10E439;
+	Mon, 17 Aug 2026 18:22:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A87kljH6";
+	dkim=pass (2048-bit key; unprotected) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="S3tudvW/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EDDF10E1F8
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 18:17:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 28CDB43A0A;
- Mon, 17 Aug 2026 18:17:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170771F000E9;
- Mon, 17 Aug 2026 18:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786990673;
- bh=Lox5beP3DWjOeR55v0A2q5EwAzNvW2GMNuP3wFJiXQY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=A87kljH6QMe1mfh+7tKpGwq/QvZDIPvgAdindrhBg5loAuQSdi4lJBo/TJEm8/rCD
- Hq9TK538xQfBYmvp+U4qA+iLRQsNk3U8jCmAGKDw4668yAX1hddzQPiEyFv9dx/qOu
- Kx+9FHDm7gLxQ5BHJbme0EZKN3G9iT6obOWoVZ2axosUzXy5TVbznsLJ6Y7DL8QGcS
- 2Ig1pfPDWN1ZQqLzOxaYT4aStDZIex2Vz2QaV/aStvDrUoh9tPfndeUQhRoAn9Um83
- RTnvJV6cxo/gRIHAfRibgz2V10L9BO0qCAOa5ZoL3oA+i0xVcaag0tFXzxNvNmKmEg
- tY3UV22I8wDCw==
-Message-ID: <85302865-4181-43d4-9c38-eb6ac57e3aa7@kernel.org>
-Date: Mon, 17 Aug 2026 20:17:37 +0200
+Received: from mail-qk2-f9.google.com (mail-qk2-f9.google.com [74.125.230.201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE11F10E2AF
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 18:22:12 +0000 (UTC)
+Received: by mail-qk2-f9.google.com with SMTP id
+ d75a77b69052e-52838fe2172so8428791cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:22:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1786990932; x=1787595732;
+ darn=lists.freedesktop.org; 
+ h=mime-version:user-agent:content-type:autocrypt:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=cy7EcQJSpnXZMIEn2xYEeGMt8Vb7G/dRmaRGic/8Zt4=;
+ b=S3tudvW/xLI3Jo8AtdqrlkE2eIIsUCFGkThc/TLby42CgzhEETFkzANHV5irRDRcS9
+ 5xXYFVAyNwUmtNqFb3q4yQ8w0ewYkgizI+3HJhTlPIW34zccBkrSQk8+fBLusE2wtFJU
+ dob07zBJ5SUI/a+OBIi//B+l7Q2du3bgZxDXQnhoCh2nkgJrXfGRVS6vF3k+Q9M3QJyJ
+ zmHtgmPB/WDJRH2KE+/PGeijyom/7XQVCHGFQITnQQ8iHFx+1H5hLwqZ9DgNKG54bAOv
+ NudUhRqBT5Jz+TKHGLQwR9eSNx9Np0xgMCE2XaFh7F2hndg9o4Qya0CQ7o+HbfZX8JZf
+ lMuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786990932; x=1787595732;
+ h=mime-version:user-agent:content-type:autocrypt:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=cy7EcQJSpnXZMIEn2xYEeGMt8Vb7G/dRmaRGic/8Zt4=;
+ b=Rnz8ZAAl+EUk6p1Hl0OmziYnNa4SIXApGnEAfZirUK5vsjgqZ6T1llqE9UmlR0SWaz
+ XXrg5GpMsJ99EebLFhXficS/WphwhnxRVCY4/y0OLtjPCajNBp7vyLQRkiQu1oE7/m9S
+ NDdFVYT6Y62kdY9akrCJxm+C7AqKcAffffD3BdyZuTe9yvUS7vyGhDFLimj1Hftj15KX
+ 9W06N4xYOjsFAxs0QZrJEZAntli5zOiAtBnYdPslps0Ymt3Go5gsuU8uet0qJRkVOnhA
+ 8bvTXNUaFOfkdZAI9pP5Ga+LcANBt2FF8CYT+1//b8zK7fyHfN1yuYiO57tUr5PUyeI/
+ ofzA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqkbuONKr0T0dqtVbC6pbKrlM1qoPaW0r1LBan5XRTZ4JFuL7kn/c1WSObTXQlaiIPG2CL/7cvt0is=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzC5s9qQDj/QXm5UzHCZJDob0MectmeO7c504oX/WuoMT7+RX5S
+ mCCkR5qvmCWu/JhuH9mjo8cSn7q82ygA9Kpir93yPuWuWgPPFv6dDysaKziQ2VDAVa4=
+X-Gm-Gg: AR+sD11z3EWereVUb7aZLUBN1Zepd1sjv237KEhaGsNbYrarUf7XBGSeBJpB4oZSiAh
+ OQePGtVmeDXM5UvP9gBMYdsAjnDo2R/Ce3V8LfFG8I9hJM8NXOuOcb8Tx71nWBScXuIcYf+zDl6
+ JBovon29uwrLrJKK2aDcNHq3w8yVLhi8wo6rgboQaS4ClxtAoAF/hFqGT/6JCud7zzcJ2cr65KR
+ nB2ll42+FhVNupVbAfBPXBgF9b61j9StBXZaYysZLmUwL6b7Wr99ALFua+TGO9itFiG8OnpOlb8
+ rlEwbIiT1aDHTrjNAao+NYtTrUKuNUln0vsoKqwg017mRcDR5Rz3/X6DA8W5bjzO0IGC3PMMJTb
+ L1ly5JJiQx4gWbrPxjpsB+TNDx1pL+V6n5hyU+atsCIGZvC5VYfT2GgwU08dwWvmu0gYOOKP4hB
+ NrrSSm/nEvgwyInlz6MWZQIDdh5phE3kGdbMIoQ7Ve1k22r2ws2eNvFkkOZZ6AqLgi
+X-Received: by 2002:ac8:5d14:0:b0:52d:a4e5:6b3c with SMTP id
+ d75a77b69052e-52dbd638fedmr30677991cf.15.1786990931320; 
+ Mon, 17 Aug 2026 11:22:11 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e221::c41? ([2606:6d00:15:e221::c41])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-52db6136569sm20543191cf.12.2026.08.17.11.22.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 11:22:10 -0700 (PDT)
+Message-ID: <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
+Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint, and
+ some numbers
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Igor Paunovic <royalnet026@gmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Heiko Stuebner <heiko@sntech.de>, Jiaxing Hu <gahing@gahingwoo.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org
+Date: Mon, 17 Aug 2026 14:22:08 -0400
+In-Reply-To: <20260801131656.58450-1-royalnet026@gmail.com>
+References: <20260801131656.58450-1-royalnet026@gmail.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-Uj4DXSO5nfw2UYdvSayp"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] lib/folio_pool: Direct-Map Large Folio Pool &
- Scratchpad bump allocators
-To: jim.cromie@gmail.com, Andrew Morton <akpm@linux-foundation.org>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- John Fastabend <john.fastabend@gmail.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Boqun Feng <boqun@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Zi Yan <ziy@nvidia.com>
-Cc: netfilter-devel@vger.kernel.org, bpf@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, coreteam@netfilter.org, netdev@vger.kernel.org
-References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,29 +106,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/17/26 19:22, Jim Cromie via B4 Relay wrote:
-> Introduce two light-weight bump allocators backed directly by compound
-> folio pages from the buddy allocator (skipping SLUB metadata overhead):
 
-We are running into a bit of a naming problem here: folios are really supposed
-to describe things that we will map to user space, whereby we have to track
-mapping/index/mapcount etc. That's really just anon + pagecache memory.
+--=-Uj4DXSO5nfw2UYdvSayp
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Right now that naming difference doesn't matter, because each compound page
-really is a folio.
+Hi Igor,
 
-But once we start decoupling folios from the rest (memdescs), we really only
-expect anon+pagecache to resemble "folios".
+Le samedi 01 ao=C3=BBt 2026 =C3=A0 15:16 +0200, Igor Paunovic a =C3=A9crit=
+=C2=A0:
+> Hi Tomeu,
+>=20
+> Since you asked for fixes to be sent upfront I have kept poking at the
+> RK3588 NPU, and I ended up implementing devfreq for rocket locally.  It
+> works, but on the way there I hit a crash class that I could not find
+> documented anywhere, and I also measured something about the vendor OPP
+> table that I did not expect.  Both seem worth sharing before I clean any
+> of it up for posting, so I would rather ask first than send a series you
+> may not want in this shape.
+>=20
+> Cc'ing Jiaxing since he is working on the clocks and on RK3576.
 
-There will be other compound page types (similar to slab pages), and things like
-page_folio() will fail for them (like slab pages). And we are actually working
-on making page_folio() fail earlier for anything that didn't go through
-page_rmappable_folio() as part of the (folio) allocation.
+Tomeu just notified me that you had sent this RFC. Without any precise
+commitment, I was also interested in this and have used AI to come up with =
+a
+proof of concept. I'm only looking at the RK3588, I suppose all the issues =
+below
+related to RK3576 ? The main constraints on RK3588 is that there is one clo=
+ck
+rate for all cores. the PM part allow suspending the cores independently, b=
+ut a
+special case is needed once all core are suspended, since you cannot resume
+reliable at any other rate then 200MHz. This part still feels like a hack t=
+o me,
+I might just hand rewrite it once I have a plan.
 
-So, does what you do here fit the definition of folios, or is it really just
-some kind of compound pages?
+https://gitlab.collabora.com/nicolas/linux/-/commits/rock5b-npu-poc-4?ref_t=
+ype=3Dheads
 
--- 
-Cheers,
+I have saved my work here, even though its far from ready to be sent to an =
+ML.
+You will feel the AI vibe in the comment/commit, this all needs to be rewri=
+tten
+for human readers. All this work depends on upstream ATF, I have no idea if=
+ the
+ABI is the same as downstream, and to be honest, I'm not very interested in
+that.
 
-David
+Please, feel free to take whatever you like, I'm still working on it, but i=
+ts
+possible my timeline will endup too long for you. Some important note:
+
+**operating-points-v2**
+
+My view of it is that its not that useful for devfreq in general, you mostl=
+y
+want a max/lower rate effect, since throughput is generally more important.=
+ But:
+
+1. I was adding it anyway with the idea that a future thermal (which you re=
+port
+having) would be able to throttle it in small increment. As you reported, t=
+he
+chip itself does not seem to heat up, but my view is that if you can balanc=
+e the
+throttle across CPU/GPU and NPU, you may be able to sustain better overall
+performance (to be proven).
+
+2. Even though we always hit max rate, having the OPP makes it really easy =
+for
+someone with low power constraints change it per board.
+
+The other problem of the OPP implementation is the driver and DTS side. The
+bindings seems sane, we don't require it for backward compatibility reason,=
+ but
+the driver is modified in a way that it will fail if you don't provide it. =
+I
+think it would be fixed, and driver should keep working without the OPP in =
+the
+DTS. In the DTS, I've removed the assigned clock/freq, to me keeping it wou=
+ld be
+toward forward compatibility, and is fine, but I don't always fully grasp a=
+ll
+the subtil trap of DT compatibility. Its something I will want to ask an ex=
+pert
+before hitting the ML.
+
+cheers,
+Nicolas
+
+>=20
+>=20
+> 1. The hardware constraint
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+>=20
+> An NPU power domain cannot be switched on or off while the NPU compute
+> clock is above its DT assigned-clock-rate of 200 MHz.
+>=20
+> Changing the rate while a domain is already on is fine - I have taken it
+> to 1 GHz and back many times without a single error.  It is the domain
+> transition that breaks.
+>=20
+> What happens when a domain is moved at a high rate:
+>=20
+>   rockchip-pm-domain ...: failed to get ack on domain 'nputop', val=3D0xa=
+9ffe
+>   rocket fdab0000.npu: devfreq: cannot power up for rate change: -110
+>=20
+> The domain is then wedged: genpd still believes it is on, but the first
+> MMIO into it raises an asynchronous SError and the box panics.  Captured
+> over the serial console:
+>=20
+>   Kernel panic - not syncing: Asynchronous SError Interrupt
+>   Comm: rmmod
+>    _regmap_read
+>    regmap_read
+>    rockchip_pd_power
+>    rockchip_pd_power_off
+>    _genpd_power_off        <- rollback
+>    genpd_power_off
+>    genpd_power_on          <- failed
+>    genpd_runtime_resume
+>    device_release_driver
+>=20
+> This is not specific to nputop.  I have the same message for 'npu2'
+> (val=3D0xa9fff), which matches the DT: all three NPU domains list the NPU
+> clock among their handshake clocks - rk3588-base.dtsi lines 864, 877 and
+> 885, for RK3588_PD_NPUTOP, RK3588_PD_NPU1 and RK3588_PD_NPU2.
+>=20
+> So the clock the domains need for their idle/ack handshake is the same
+> clock we would be scaling.  My best explanation is that the PLL that
+> produces it lives inside the domain, so once the domain drops, the clock
+> state goes with it and the handshake can never complete.  I cannot
+> confirm that part - reading the PVTPLL registers is documented as
+> hanging the machine, so I have not tried.  The behaviour itself is
+> reproducible and cost me four hard hangs before I understood it.
+>=20
+> I mention it because it is a trap for anyone adding DVFS here, including
+> the RK3576 work, and because it is invisible until the first time you
+> let the NPU idle at a raised clock.
+>=20
+>=20
+> 2. What ended up working
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> Runtime PM callbacks are not enough.  The domains are powered on by the
+> driver core before probe, powered off from a workqueue after detach, and
+> system sleep bypasses runtime PM references entirely - so the driver
+> never sees all the transitions.
+>=20
+> What does work is hooking the transitions themselves:
+> dev_pm_genpd_add_notifier() on all three cores, and on GENPD_NOTIFY_PRE_O=
+N
+> and GENPD_NOTIFY_PRE_OFF force the clock back to the DT rate, vetoing the
+> transition with notifier_from_errno() if that fails.  Every path -
+> runtime PM, system sleep, attach at probe, detach after unbind - goes
+> through _genpd_power_on()/_genpd_power_off(), so nothing can slip past.
+> If a transition does happen, the boost cancels itself and says so,
+> rather than leaving the driver claiming a rate the hardware is not
+> running.
+>=20
+> This has now survived everything that used to kill the box, including
+> repeated sleep/wake cycles at a raised clock and rmmod while boosted.
+>=20
+>=20
+> 3. The numbers, which are the surprising part
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> Measured with MobileNetV1 through Teflon, one inference thread pinned to
+> one A76, and a bit-exact oracle: sha256 over intermediate tensors on
+> every iteration, zero tolerance.  The 600, 900 and 1000 MHz rows are
+> 30-minute runs of 275k-280k inferences each and the oracle passed
+> bit-exact in all three, so none of this is instability; the 200 MHz row
+> is a shorter control from the same session.
+>=20
+>   nominal    supply    throughput
+>   200 MHz    800 mV     68.5 inf/s      (the current fixed rate)
+>   600 MHz    800 mV    155.4 inf/s
+>   900 MHz    850 mV    152.4 inf/s
+>   1000 MHz   850 mV    152.9 inf/s
+>=20
+> 600 MHz is the optimum.  900 and 1000 are indistinguishable from each
+> other and both land about 4% below 600, on a quieter and cooler machine.
+> The vendor OPP table decoded from the downstream DTB asks for 700 mV up
+> to 700 MHz, 750 mV at 800, 800 mV at 900 and 850 mV at 1000, and I ran
+> the top of that range at the voltage it asks for - it does not help.
+>=20
+> Backing out an effective clock from the per-chunk time, nominal 600
+> appears to deliver more than nominal 900 or 1000 do.  I would not lean
+> on that decode, but the throughput ordering does not depend on it.
+>=20
+> Thermals were never a factor: the highest I saw all day was 50.8 degC,
+> against a critical trip at 115.  This is one board and one model, and
+> MobileNetV1 is memory-heavy, so a compute-dense network may well behave
+> differently - but for this workload the top half of the vendor table
+> buys nothing.
+>=20
+> If that holds up elsewhere, an OPP table for rocket probably should not
+> simply mirror the vendor one.
+>=20
+>=20
+> 4. Thermal, separately
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> While looking at this I noticed npu-thermal has only a critical trip at
+> 115 degC - no passive trip, no cooling map, polling-delay-passive is 0 -
+> while gpu-thermal, a few lines above in the same file and on the same
+> tsadc, has both.  That was harmless while the NPU was pinned at 200 MHz
+> because it could not be slowed down anyway; with DVFS it stops being
+> harmless.
+>=20
+> I have two small patches for that (a #cooling-cells binding update and
+> the thermal zone itself), but they only make sense once something
+> registers a cooling device, so they would belong with the driver work
+> rather than on their own.
+>=20
+>=20
+> 5. What I am asking
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> - Is DVFS for rocket something you want upstream at all, or is it better
+>   left alone for now?
+>=20
+> - Does the genpd-notifier approach look right to you, or is there a
+>   cleaner hook I have missed?
+>=20
+> - Given the measurements, would you want the OPP table to stop at
+>   600 MHz rather than follow the vendor range?
+>=20
+> - If you do want a series, I will need to clean the code up first - it
+>   still keeps its state file-static rather than in rocket_device, and it
+>   bypasses the OPP layer for the rate change because our own direct
+>   writes leave the OPP cache stale.  Both are fixable; I would rather
+>   know the shape you want before rewriting.
+>=20
+> Happy to send the current code as-is off-list if that is easier to
+> comment on than prose.
+>=20
+> Thanks,
+> Igor
+
+--=-Uj4DXSO5nfw2UYdvSayp
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoNRUAAKCRDZQZRRKWBy
+9HZgAQDrkxvYskLAw8gEIVI2Q4ae04HdIWafP+WTfZPgHyu4nwEAzUKPjLWWOT8+
+QI/lXNLGXy4kPVK1pFCd2Vnic1mtlgg=
+=h+ql
+-----END PGP SIGNATURE-----
+
+--=-Uj4DXSO5nfw2UYdvSayp--
