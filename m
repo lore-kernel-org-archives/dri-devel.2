@@ -4,73 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0A5EC5DF70
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 16:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01C8EC5DF70
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 16:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C1610E110;
-	Mon, 17 Aug 2026 16:51:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EpKwzPjO";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB2B10E110
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 16:51:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 241F1600AE;
- Mon, 17 Aug 2026 16:51:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C4284C2BCB3;
- Mon, 17 Aug 2026 16:51:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786985481;
- bh=vBF53RkKWf59SV1ajSCbgB60MzipkHjcJte5TnIymNQ=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=EpKwzPjOPiJRRCYD5EqXjY6RQoEslttJjsPcVKB6AcB6W0iAIfWHz4gaLfkYYKlkK
- RnCV03+AaiE3DuNNF0f4PtcZ68j5Yyxm7itUi3qciSPbliCiBSf1zJcio0wtcWsVU6
- jM9Ul+USS9or03JwRU2s19emg4QTX9/saM0i8tljGftylJNwBDMRJSzEU2WyQUuIt2
- Vb1WuXNJ+TXnS2scBC6NP/7xo4rGk6mcNM4N/mpvhfUjaU0qxf+7CXKj2Wo1mX3qxG
- o5S2XsRY7NLswmp+H6W3NW0emIEQj1ay7BKa8t6PStGUx8ky1j2GGAlhdSe1lj6Mo+
- 24OvhD7qBcs+w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id AD941C5DF70;
- Mon, 17 Aug 2026 16:51:21 +0000 (UTC)
-From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Mon, 17 Aug 2026 18:51:08 +0200
-Subject: [PATCH v2] gpu: nova-core: Extract PMC registers definitions
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6462810E1F5;
+	Mon, 17 Aug 2026 16:57:03 +0000 (UTC)
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9902D10E1F5
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 16:57:01 +0000 (UTC)
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+ id 4B9589200C0; Mon, 17 Aug 2026 18:56:59 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by angie.orcam.me.uk (Postfix) with ESMTP id 448929200BB;
+ Mon, 17 Aug 2026 17:56:59 +0100 (BST)
+Date: Mon, 17 Aug 2026 17:56:59 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Randy Dunlap <rdunlap@infradead.org>
+cc: linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>, 
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 01/03] fbdev: maxine: make functions static
+In-Reply-To: <20260813232934.2718291-2-rdunlap@infradead.org>
+Message-ID: <alpine.DEB.2.21.2608171756000.14132@angie.orcam.me.uk>
+References: <20260813232934.2718291-1-rdunlap@infradead.org>
+ <20260813232934.2718291-2-rdunlap@infradead.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-b4-extract-pmc-registers-to-gpu-mod-v2-1-9dd1d599deb4@nanonej.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOQQqDMBBFryJZd0qMVqOr3qO4iHGqEUxkEsUi3
- r3RnqDLB5/3/s48kkHP6mRnhKvxxtkI4pYwPSjbI5guMhNcFFzyHNoccAukdIB50kDYGx+QPAQ
- H/bzA5DooqwxR8FIqkbFomgnfZrsqr+bHfmlH1OFUn4shShx9rhtreu7+K64ppCALzWX1aAtei
- qdV1lkc79pNrDmO4wsvNfip6gAAAA==
-X-Change-ID: 20260804-b4-extract-pmc-registers-to-gpu-mod-793ee2078a23
-To: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9357; i=dev@nanonej.com;
- h=from:subject:message-id;
- bh=98NidU/GWke4x9fxgV7rWcy4dd8JhZ32lej/Yml+1VA=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqgzwILpHS3vi1dKPyEv7Lg9SY4u5WOwohGrtME
- zfZA2H/IXOJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCaoM8CAAKCRBmh/EjChUV
- /f59EACThr7kbKuHCTQvbWnJWHJBfdiL9tj2afMMGA6nVjrQhPgdeP5W80/V7caj0xSNPtNE/Vv
- rSwF8RBTXFuWp6kSMmnF5ylHXZ+wbYousN/w81L99/nGGkLFOEN0xypTRL0AhIdq0aW+rRZjkoA
- /nM1nYe3uIUpiaF3vXhAC7PBoaGNsSXMgTSBNjOb4ldakLxn9+g84ctAUgLLM1a3BBGBeBhiGZT
- nMYaEojFfwnbSPlaj3O6M7Twit+1vbtOk9fIpeovKtJ6C7EvPOyViej7mcqZK3HarKPphf1BXi6
- ngt66YPV6HUKOgvgvVWBm0cIzvYHSX5CZ1/fdEMeB6CDTcuV+WZMWWB4PVCWCK2W6H0e3LCywVh
- +vfJ/HYxFeHvPFEnh+wO1dTryvaQ3kvYKsU5/oeoIcd4tdakFqxvpvDFmFeFfeqhdHFvnuxpZFq
- Za5MFbkIAlQLGrWqT0JNkIsmDBqIsn75LN5a+/rv7ok4Bfq3JF0Tk6BPA1OIjFPAJEA6vSO/UZr
- kSS21koKsjb/00xzb3HudFO/+li0uNRp7lCRGZtXLMIWkc1K2Ie1Rd7bPnktz0IFySIT4Cd4zNA
- 4bYnuKOWMEntIErtlvAnVUbJ5mZ6aI1e0hF2cB4LjVEgTTXu1T2utQIuG6SMJedCIx066mVLQkD
- 6GphSHE6L3QzirQ==
-X-Developer-Key: i=dev@nanonej.com; a=openpgp;
- fpr=83B64FB07C91212F5285227D6687F1230A1515FD
-X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
-X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,285 +42,14 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: dev@nanonej.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+On Thu, 13 Aug 2026, Randy Dunlap wrote:
 
-Move PMC register definitions (NV_PMC_BOOT_0, NV_PMC_BOOT_42) and
-their associated implementations from the root regs.rs file into the
-gpu module that own them, in the new gpu/regs.rs file.
+> Make 3 functions static so that they don't need to be declared in a
+> header file.
 
-This follows the same pattern established by previous commits for
-GSP, PDISP, PFB, and PBUS registers: register definitions move to
-the module that owns them, visibility changes to pub(super), and
-cross-module access is provided via pub(crate) helper functions.
+Acked-by: Maciej W. Rozycki <macro@orcam.me.uk>
 
-Since falcon.rs (outside the gpu module) also reads NV_PMC_BOOT_0 for
-its raw value, a pub(crate) helper function boot_0_raw() is added in
-gpu.rs to provide that access without exposing the register type
-directly.
-
-Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
----
-Move PMC register definitions (NV_PMC_BOOT_0, NV_PMC_BOOT_42) and
-their associated implementations from the root regs.rs file into the
-gpu module that own them, in the new gpu/regs.rs file.
-
-This follows the same pattern established by previous commits for
-GSP, PDISP, PFB, and PBUS registers: register definitions move to
-the module that owns them, visibility changes to pub(super), and
-cross-module access is provided via pub(crate) helper functions.
-
-Since falcon.rs (outside the gpu module) also reads NV_PMC_BOOT_0 for
-its raw value, a pub(crate) helper function boot_0_raw() is added in
-gpu.rs to provide that access without exposing the register type
-directly.
----
-Changes in v2:
-- Fix unused import warning
-- Add forgotten `Suggested-by` tags to the commit
-- Link to v1: https://patch.msgid.link/20260804-b4-extract-pmc-registers-to-gpu-mod-v1-1-86c0895b6072@nanonej.com
----
- drivers/gpu/nova-core/falcon.rs   |  2 +-
- drivers/gpu/nova-core/gpu.rs      |  7 +++-
- drivers/gpu/nova-core/gpu/regs.rs | 82 +++++++++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/regs.rs     | 76 ------------------------------------
- 4 files changed, 89 insertions(+), 78 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 65cb12d26e2b..11c1008b7d1e 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -394,7 +394,7 @@ pub(crate) fn reset(&self) -> Result {
- 
-         self.bar.write(
-             WithBase::of::<E>(),
--            regs::NV_PFALCON_FALCON_RM::from(self.bar.read(regs::NV_PMC_BOOT_0).into_raw()),
-+            regs::NV_PFALCON_FALCON_RM::from(crate::gpu::boot_0_raw(self.bar)),
-         );
- 
-         Ok(())
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 42a4cd7971fa..9e4232645a7e 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -29,11 +29,11 @@
-         Gsp,
-         GspBootContext, //
-     },
--    regs,
-     vgpu::VgpuManager, //
- };
- 
- mod hal;
-+mod regs;
- 
- macro_rules! define_chipset {
-     ({ $($variant:ident = $value:expr),* $(,)* }) =>
-@@ -414,3 +414,8 @@ pub(crate) fn new(
-         })
-     }
- }
-+
-+/// Reads the boot0 register and returns its raw value.
-+pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
-+    bar.read(regs::NV_PMC_BOOT_0).into_raw()
-+}
-diff --git a/drivers/gpu/nova-core/gpu/regs.rs b/drivers/gpu/nova-core/gpu/regs.rs
-new file mode 100644
-index 000000000000..1c4db9625250
---- /dev/null
-+++ b/drivers/gpu/nova-core/gpu/regs.rs
-@@ -0,0 +1,82 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::{
-+    io::register,
-+    prelude::*, //
-+};
-+
-+use super::{
-+    Architecture,
-+    Chipset, //
-+};
-+
-+// PMC
-+
-+register! {
-+    /// Basic revision information about the GPU.
-+    pub(super) NV_PMC_BOOT_0(u32) @ 0x00000000 {
-+        /// Lower bits of the architecture.
-+        28:24   architecture_0;
-+        /// Implementation version of the architecture.
-+        23:20   implementation;
-+        /// MSB of the architecture.
-+        8:8     architecture_1;
-+        /// Major revision of the chip.
-+        7:4     major_revision;
-+        /// Minor revision of the chip.
-+        3:0     minor_revision;
-+    }
-+
-+    /// Extended architecture information.
-+    pub(super) NV_PMC_BOOT_42(u32) @ 0x00000a00 {
-+        /// Architecture value.
-+        29:24   architecture ?=> Architecture;
-+        /// Implementation version of the architecture.
-+        23:20   implementation;
-+        /// Major revision of the chip.
-+        19:16   major_revision;
-+        /// Minor revision of the chip.
-+        15:12   minor_revision;
-+    }
-+}
-+
-+impl NV_PMC_BOOT_0 {
-+    pub(super) fn is_older_than_fermi(self) -> bool {
-+        // From https://github.com/NVIDIA/open-gpu-doc/tree/master/manuals :
-+        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u32 = 0xc;
-+
-+        // Older chips left arch1 zeroed out. That, combined with an arch0 value that is less than
-+        // GF100, means "older than Fermi".
-+        self.architecture_1() == 0 && self.architecture_0() < NV_PMC_BOOT_0_ARCHITECTURE_GF100
-+    }
-+}
-+
-+impl NV_PMC_BOOT_42 {
-+    /// Combines `architecture` and `implementation` to obtain a code unique to the chipset.
-+    pub(super) fn chipset(self) -> Result<Chipset> {
-+        self.architecture()
-+            .map(|arch| {
-+                ((arch as u32) << Self::IMPLEMENTATION_RANGE.len())
-+                    | u32::from(self.implementation())
-+            })
-+            .and_then(Chipset::try_from)
-+    }
-+
-+    /// Returns the raw architecture value from the register.
-+    fn architecture_raw(self) -> u8 {
-+        ((self.into_raw() >> Self::ARCHITECTURE_RANGE.start())
-+            & ((1 << Self::ARCHITECTURE_RANGE.len()) - 1)) as u8
-+    }
-+}
-+
-+impl kernel::fmt::Display for NV_PMC_BOOT_42 {
-+    fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
-+        write!(
-+            f,
-+            "boot42 = 0x{:08x} (architecture 0x{:x}, implementation 0x{:x})",
-+            self.inner,
-+            self.architecture_raw(),
-+            self.implementation()
-+        )
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index caeef4d85874..3422b49df7a7 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -7,7 +7,6 @@
-         register::WithBase,
-         Io, //
-     },
--    prelude::*,
-     sizes::SizeConstants,
-     time, //
- };
-@@ -28,83 +27,8 @@
-         PFalconBase,
-         PeregrineCoreSelect, //
-     },
--    gpu::{
--        Architecture,
--        Chipset, //
--    },
- };
- 
--// PMC
--
--register! {
--    /// Basic revision information about the GPU.
--    pub(crate) NV_PMC_BOOT_0(u32) @ 0x00000000 {
--        /// Lower bits of the architecture.
--        28:24   architecture_0;
--        /// Implementation version of the architecture.
--        23:20   implementation;
--        /// MSB of the architecture.
--        8:8     architecture_1;
--        /// Major revision of the chip.
--        7:4     major_revision;
--        /// Minor revision of the chip.
--        3:0     minor_revision;
--    }
--
--    /// Extended architecture information.
--    pub(crate) NV_PMC_BOOT_42(u32) @ 0x00000a00 {
--        /// Architecture value.
--        29:24   architecture ?=> Architecture;
--        /// Implementation version of the architecture.
--        23:20   implementation;
--        /// Major revision of the chip.
--        19:16   major_revision;
--        /// Minor revision of the chip.
--        15:12   minor_revision;
--    }
--}
--
--impl NV_PMC_BOOT_0 {
--    pub(crate) fn is_older_than_fermi(self) -> bool {
--        // From https://github.com/NVIDIA/open-gpu-doc/tree/master/manuals :
--        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u32 = 0xc;
--
--        // Older chips left arch1 zeroed out. That, combined with an arch0 value that is less than
--        // GF100, means "older than Fermi".
--        self.architecture_1() == 0 && self.architecture_0() < NV_PMC_BOOT_0_ARCHITECTURE_GF100
--    }
--}
--
--impl NV_PMC_BOOT_42 {
--    /// Combines `architecture` and `implementation` to obtain a code unique to the chipset.
--    pub(crate) fn chipset(self) -> Result<Chipset> {
--        self.architecture()
--            .map(|arch| {
--                ((arch as u32) << Self::IMPLEMENTATION_RANGE.len())
--                    | u32::from(self.implementation())
--            })
--            .and_then(Chipset::try_from)
--    }
--
--    /// Returns the raw architecture value from the register.
--    fn architecture_raw(self) -> u8 {
--        ((self.into_raw() >> Self::ARCHITECTURE_RANGE.start())
--            & ((1 << Self::ARCHITECTURE_RANGE.len()) - 1)) as u8
--    }
--}
--
--impl kernel::fmt::Display for NV_PMC_BOOT_42 {
--    fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
--        write!(
--            f,
--            "boot42 = 0x{:08x} (architecture 0x{:x}, implementation 0x{:x})",
--            self.inner,
--            self.architecture_raw(),
--            self.implementation()
--        )
--    }
--}
--
- // PBUS
- 
- register! {
-
----
-base-commit: 4c9ba407018e8deb06dbc643112bac8f40404f95
-change-id: 20260804-b4-extract-pmc-registers-to-gpu-mod-793ee2078a23
-
-Best regards,
---  
-Antonin Malzieu Ridolfi <dev@nanonej.com>
-
-
+  Maciej
