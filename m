@@ -4,43 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09A7EC5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:50:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D194AC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29C2C10E7B0;
-	Mon, 17 Aug 2026 12:50:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3745F10E2B6;
+	Mon, 17 Aug 2026 12:51:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lvueciUw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EA4nafOh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81F5810E7B0
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 12:50:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 272FC40AF4;
- Mon, 17 Aug 2026 12:50:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDCF81F000E9;
- Mon, 17 Aug 2026 12:49:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786971000;
- bh=//ikxSj9SzSISfMd9QfdIFtPXxTmC1vIOctbdD73WlI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lvueciUwKoMwAA0RHLTJT29FyXUwEBN4Cw1gWozdW/rQR57h4PZDno+InkoqVnm/L
- m42dvaPO9EWkUoLmLIvmIspQZy5OITz5872llZR4y0yBvprvMt4yoUSQ3BrHEHgyzv
- 5LlJDe5JV8O/nIcB9eX5nEoug3lOhAGq/sIYTIY3YDXazS9732NSx3LcBj2Sb3HOUx
- 7ZJ10PNG248sfYifI8S30b0fjubCyhiY8y4Lq2nTMSsnXiugWdqkwI1ga7iKA9CS4Z
- MwTh7Ihi7baTF270ptKaBYQRkVmSbZX2yW1Agrhuq+pUOqutQVF2JGJt9lJvDU4o+m
- F+sqtORyCif2Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm: Optimized by adding the TV modes attribute
-To: "Edward Adam Davis" <eadavis@qq.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <tencent_C6A625E0BAF4BB77334C9E0F1B244B7B1B08@qq.com>
-References: <6a829a95.dbb3a75c.20434b.0043.GAE@google.com>
- <tencent_C6A625E0BAF4BB77334C9E0F1B244B7B1B08@qq.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2565110E2B6
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 12:51:25 +0000 (UTC)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-836c8cd38beso2032697b3.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:51:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786971084; cv=none;
+ d=google.com; s=arc-20260327;
+ b=CWadv7/mXQ6lw6NDlRj+z7ZE97bzCU5INHrRI0bJy+SLYSMTMSaWdsKzqvD3AIjhDi
+ 64a8hKWcbqEp/k5LjPOx9UuaYZt2670h5VbtL2eDmcyHhct3IdTY9LfQ1tR6gHMj7Hm2
+ 1UBuDhhfhZM85DgdHbAuV+3HWAufE91HuaopnZv1B9P+UY5oBQq3QGOaTFV8TtgfAA40
+ wmTr1QDDk+FpNDnmZyyDl5MeYv5hgPRQM8lwvU5qmhst2Nu5eLl9gPZxxpIu2YCbMDRu
+ rj/z7aUue7FRMqMuFdXI5UpJ4BxMI5e8qhnECDvLtfGV218qRfzl/OQndGk+nSASF4h1
+ nnwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
+ fh=PVZAG0Tk236lfq3LcnL5qIZVTET81wZ0oGj2bbsiHQE=;
+ b=MgonoO4Ua3SdH0tMxzEmV3yXZ2D7432zDFMhuwlxOsetgppksI1yoZZGXtmFm1Ghj4
+ 4fgrRVgEqYkHCHW+wcPWfNkvAEil5/rsmWTUgI+uhRSQhQkuqkzzdR2n8ye8nkhyam3L
+ 5wmn8P2BNyzjDUUE646qF85eDMjSIVPKMvrh4MkXxweX7Rnq4HfGt3muJa9EhWoyNvVq
+ IrRFwWfKCmoX2XzlsLOGIoMPhQbtqktnJR2zJxT3xqEXtKZ2zcOVaX6zOS0OwbK74m7O
+ SXsNsLlxWyrCnb+NK8gCXHAdq6DExANpr5dc8TSwXMhwncyWuoaABTydq5fPImcz3sE1
+ Hfjw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786971084; x=1787575884; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
+ b=EA4nafOhkZBtdv28LVHIyUJnPrH+Gp8yfuXE/HPZQq1pMm88/HNZ7wk3lZIsLzwOqb
+ HevOoCBZQULZgKzsJz0ln4IdYeicMT+Bv4rwG9cNu5sTDJjDFv/RsBlqq9uxf/04yCem
+ ZG8Wu4F9bGyamf6Eg/QpWf/B3he7XQMQceXuUmgh5b3hEJIPZVTILGRV4Hgp5GmPGXcs
+ KNadUuriUXnxMUvW2e7HXNU7nCWK1CPL1qgpmDZ9qWh7dgl4qDjDh51yVJCKlGjm+ohU
+ 4aWPjFXY0Expa3YDY99ef9PVBELWNy0+ashnjCE02Bkt5U0/6o4Kj9Z05A+YLg9LKb2x
+ HByA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786971084; x=1787575884;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
+ b=fs5TAqoMYObgqsc2D/EoizHOrxTDexIuQTLdOkPYIxhHBE0jEB6+JB0fEzJMj3nxAq
+ XRNpH2npHMHkg+bMYWfq5+z7g07ndFpCri490gbdz3sG4uizkkVuMnkQfsi4KTmHe72X
+ ceQz9R21eaAT1uHoT3s+dTJV2qsVTi7ALfXBZjTwIWwEpEMstlJnkJjtieXqgP91F5wq
+ C5JKdachHEl6lSvpZP0AiJx+Mz+9QsaVAqAnAlA+NBT+2JtR4DuTpNc6BFwTNWZPywqt
+ Zi/874TfosKL3SAlO/MyKSJGRhiYZdSqPehrKpCSIr/NRChC9cOXLSjucu35pSVLiTpI
+ C/Kw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoqgFdVlWLuhrb0BrHpNZsLeSvh5Sg2FmQC91eskLr1eyz9PEsylZGiIEiLPZAXPcc1V9ihj+NjnvE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+8rGzl9oFO/aBCODdVg9WGCmsBO6QXvwWXFpVmf8ZBkJvq3fG
+ q69rhwRIJjsa2RWB+YxmqB6Jkk6qa/uu11RDQJztnAajHhQjdhJqaS9QJhETtY1BRBp2oEPEB7c
+ Ld8UOzfiB+zzzByuI2UuFcHZS9O08aCk=
+X-Gm-Gg: AR+sD11WwktaVuo4cW65neeJztEGlmybWmjFC/004FcnrsVqmRPpCBJslRRg9n06gCA
+ xjstFz1PJ9qOlwQgJJRjNTG3eragYceaJgpCtPRrBqXNvArQ7GYlj1kM00jGsvwzp5kZ6gHO/rq
+ fVf6u1+XI2uMPlZ/MgTTYiSZwBWmA2Anvrj4ev3oUKSDq3Mv4xYxJ5dF8jGCN0YuxswYgMCCaDG
+ uVHs0uiLuVooS6ZEKKJPxVEd+5Qi+I0z4BqzOtpGhkKgjHqqGpV+hrmxxoys9j9u7b6rK0VGUZV
+ S9GACf8pVQseH7Pga80Fkq19zlRdxbhxhpnLGVydH7/+rqIg5AD18g41F8hc9yAiRWMdDmrqn30
+ 1Chc=
+X-Received: by 2002:a05:690c:b0f:b0:80d:5c71:d08c with SMTP id
+ 00721157ae682-8371308c88amr90606897b3.3.1786971083604; Mon, 17 Aug 2026
+ 05:51:23 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260817113603.1436067-1-gahing@gahingwoo.com>
+ <20260817113603.1436067-4-gahing@gahingwoo.com>
+In-Reply-To: <20260817113603.1436067-4-gahing@gahingwoo.com>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Mon, 17 Aug 2026 14:51:12 +0200
+X-Gm-Features: AcwNN1W5X2wGC2Q1I1TaTBqzvN2kUY3psEQZvOBiX0NX6cHaLHwnhi2fG-mcjGs
+Message-ID: <CAEWPSH4VAR5VTJUW4PdJczrtueQzPzzo6og8PzWaupwd-t=BFQ@mail.gmail.com>
+Subject: Re: [PATCH v8 03/12] accel/rocket: factor the completion tail out of
+ the IRQ handler
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, 
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de, 
+ ogabbay@kernel.org, zhangqing@rock-chips.com, chaoyi.chen@rock-chips.com, 
+ diederik@cknow-tech.com, alchark@flipper.net, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev, 
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 12:49:59 +0000
-Message-Id: <20260817124959.DDCF81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,120 +112,128 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Jiaxing,
 
-New issues:
-- [High] Unconditional recreation of DRM TV properties breaks atomic uAPI p=
-roperty updates and causes memory leaks of `drm_property` objects.
+You asked for a look at this one, so I checked it as a no functional
+change refactor rather than only reading it. It holds.
 
-Pre-existing issues:
-- [High] Out-of-bounds read in TV mode name processing via `strlen()` due t=
-o missing null-termination guarantees.
---
+I reconstructed the three source states from the posted diffs and built
+the before and after with the driver's own kernel flags for arm64.
+rocket_job_handle_irq() is static and inlines into
+rocket_job_irq_handler_thread(); at -O2 both states emit the same calls
+and the same stack frame, and differ only in which side of the branch
+the rocket_job_hw_submit() call is laid out on.
 
---- Patch [1]: [PATCH] drm: Optimized by adding the TV modes attribute ---
-commit 5de13986f93b84f8b4c689b55a18d298dfc7431d
-Author: Edward Adam Davis <eadavis@qq.com>
+The load bearing sentence in your message is the early return, and that
+checks out too. At -O1 the pre-3/12 code emits mutex_unlock twice, once
+on the path straight after rocket_job_hw_submit() and once at the guard
+exit. That is the scoped_guard cleanup firing on the early return. After
+3/12 there is one, because the return leaves the helper and all three
+paths converge on the guard exit. Both versions unlock exactly once on
+every path.
 
-drm: Optimized by adding the TV modes attribute
+"Nothing follows it" also holds through the rest of the series, not only
+here. 10/12 is the only later patch that touches rocket_job.c, and its
+two hunks are the defines at the top and the PC_TASK_CON write inside
+rocket_job_hw_submit(). Nothing is added after the scoped_guard in the
+handler anywhere in v8.
 
-When adding gud properties for drm connector within the function
-gud_connector_add_properties(), if the TV modes property is not added
-first, drm_mode_create_tv_properties_legacy() would fail to add the TV
-modes property because the tv_select_subconnector_property has already
-been added.
+While reconstructing the base I checked where the series sits.
+drivers/accel/rocket/rocket_job.c in next-20260814 hashes to 3141f210f,
+which is exactly 1/12's pre-image, and applying 1, 2 and 3 in order
+reproduces 5f0f9682e, d484a3a6f and 0bb11c718 byte for byte. So these
+three apply to an unmodified linux-next rocket_job.c and need neither
+the RK3576 patches nor my clocks-by-name patch. Tomeu, that is meant as
+information in case you want to pick them up independently, not as a
+request for a re-cut.
 
-Closes: https://syzkaller.appspot.com/bug?extid=3D1944765c3659f63d3777
+Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 8b4baed060f3a..7728c2941a701 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -2201,8 +2201,12 @@ int drm_mode_create_tv_properties_legacy(struct dr=
-m_device *dev,
->  	struct drm_property *tv_subconnector;
->  	unsigned int i;
-> =20
-> -	if (dev->mode_config.tv_select_subconnector_property)
-> +	if (dev->mode_config.tv_select_subconnector_property) {
-> +		if (num_modes && !dev->mode_config.legacy_tv_mode_property)
-> +			goto other;
+Regards,
+Igor
+
+
+On Mon, Aug 17, 2026 at 1:36=E2=80=AFPM Jiaxing Hu <gahing@gahingwoo.com> w=
+rote:
+>
+> rocket_job_handle_irq() stops the block and then either starts the job's
+> next task or retires the job. The second half is a step of its own and
+> reads better with a name, now that taking the register writes under
+> job_lock has moved it a level deeper inside the scoped guard.
+>
+> Move it to rocket_job_next_locked(). The early return that used to leave
+> the handler now leaves the helper, which is the same thing here: the
+> scoped guard drops job_lock either way and nothing follows it.
+>
+> Doing it as its own patch keeps the locking fix at the head of the
+> series minimal, so a bisect that stops before this one gets that fix and
+> nothing else. There is one caller, and no functional change.
+>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  drivers/accel/rocket/rocket_job.c | 31 ++++++++++++++++++++-----------
+>  1 file changed, 20 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index d484a3a6f..0bb11c718 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -341,6 +341,25 @@ static struct dma_fence *rocket_job_run(struct drm_s=
+ched_job *sched_job)
+>         return ERR_PTR(ret);
+>  }
+>
+> +/* Start the job's next task, or retire it. Caller holds job_lock. */
+> +static void rocket_job_next_locked(struct rocket_core *core)
+> +{
+> +       lockdep_assert_held(&core->job_lock);
 > +
->  		return 0;
-> +	}
-> =20
->  	/*
->  	 * Basic connector properties
-
-[ ... ]
-
-> @@ -2225,6 +2229,7 @@ int drm_mode_create_tv_properties_legacy(struct drm=
-_device *dev,
->  		goto nomem;
->  	dev->mode_config.tv_subconnector_property =3D tv_subconnector;
-> =20
-> +other:
->  	/*
->  	 * Other, TV specific properties: margins & TV modes.
->  	 */
-
-[Severity: High]
-Does this goto path unconditionally recreate properties like
-tv_brightness_property?
-
-If a GUD USB device exposes multiple TV properties, the driver calls
-drm_mode_create_tv_properties_legacy() multiple times. For subsequent
-properties, the goto other path is hit, but it proceeds to unconditionally
-call drm_property_create_range() for brightness, contrast, etc.
-
-Would this overwrite the pointers in dev->mode_config and leak the orphaned
-drm_property objects?
-
-Furthermore, during a userspace atomic commit to update the brightness
-property on the first connector, wouldn't the pointer mismatch cause the
-kernel to reject the valid property update with -EINVAL?
-
-drivers/gpu/drm/drm_atomic_uapi.c:drm_atomic_connector_set_property() {
-	...
-	} else if (property =3D=3D config->tv_brightness_property) {
-		state->tv.brightness =3D val;
-	...
-}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the TV mode name
-processing in gud_connector_add_tv_mode() have an out-of-bounds read?
-
-Untrusted data is read from the USB device into buf without enforcing
-null-termination:
-
-drivers/gpu/drm/gud/gud_connector.c:gud_connector_add_tv_mode() {
-	...
-	ret =3D gud_usb_get(gdrm, GUD_REQ_GET_CONNECTOR_TV_MODE_VALUES,
-			  connector->index, buf, buf_len);
-	...
-	for (i =3D 0; i < num_modes; i++)
-		modes[i] =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-	...
-}
-
-If the USB device payload contains full 16-byte chunks without any null
-terminators, would the strlen() in drm_property_add_enum() read past the
-end of the kmalloced buffer?
-
-drivers/gpu/drm/drm_property.c:drm_property_add_enum() {
-	...
-	if (WARN_ON(strlen(name) >=3D DRM_PROP_NAME_LEN))
-		return -EINVAL;
-	...
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_C6A625E0BAF=
-4BB77334C9E0F1B244B7B1B08@qq.com?part=3D1
+> +       if (!core->in_flight_job)
+> +               return;
+> +
+> +       if (core->in_flight_job->next_task_idx < core->in_flight_job->tas=
+k_count) {
+> +               rocket_job_hw_submit(core, core->in_flight_job);
+> +               return;
+> +       }
+> +
+> +       iommu_detach_group(NULL, iommu_group_get(core->dev));
+> +       dma_fence_signal(core->in_flight_job->done_fence);
+> +       pm_runtime_put_autosuspend(core->dev);
+> +       core->in_flight_job =3D NULL;
+> +}
+> +
+>  static void rocket_job_handle_irq(struct rocket_core *core)
+>  {
+>         pm_runtime_mark_last_busy(core->dev);
+> @@ -354,17 +373,7 @@ static void rocket_job_handle_irq(struct rocket_core=
+ *core)
+>                 rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+>                 rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+>
+> -               if (core->in_flight_job) {
+> -                       if (core->in_flight_job->next_task_idx < core->in=
+_flight_job->task_count) {
+> -                               rocket_job_hw_submit(core, core->in_fligh=
+t_job);
+> -                               return;
+> -                       }
+> -
+> -                       iommu_detach_group(NULL, iommu_group_get(core->de=
+v));
+> -                       dma_fence_signal(core->in_flight_job->done_fence)=
+;
+> -                       pm_runtime_put_autosuspend(core->dev);
+> -                       core->in_flight_job =3D NULL;
+> -               }
+> +               rocket_job_next_locked(core);
+>         }
+>  }
+>
+> --
+> 2.43.0
+>
