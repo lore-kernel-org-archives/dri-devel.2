@@ -4,67 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8321BC5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DD3FC5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4DC010E417;
-	Mon, 17 Aug 2026 12:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91ECC10E78C;
+	Mon, 17 Aug 2026 12:23:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JnR8+8TT";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="fJDBLQ5j";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDA8B10E417;
- Mon, 17 Aug 2026 12:16:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 400E941A28;
- Mon, 17 Aug 2026 12:16:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0514C1F000E9;
- Mon, 17 Aug 2026 12:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786969000;
- bh=YsFezqXngYw0ipBV8w0+hVr74IpQ/Tubdp71JF7fU+4=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=JnR8+8TT8uZAWGwezJSIUHQXW4d7xO4f5D5yisaphhSfbjr/4KkG7Nlnk2148OEXE
- WVA29rCZXOrWRiT2jRtnBTAqqpBXfmTYvNbcObGZFP2SFPoFDM1wAHAAPYV+4sg7wp
- fsZk/p3vrfJAnQTgNIt6Uk1D3AHH0tHJQsgbhm+jS51edmjUVju8QPHwdk8a05/s1r
- GyIj2O2ODldEBlGAFvPGHc5t/mJ6oeESONEpop/27+JuZJTCcxOMdWitqHQs4H4ajB
- 5B2EBj2UfimDYqETjkl/BTxWjeycwpCIf00ihNFnUzQnJjan6p/s4n4GiIXoVmwVJN
- acrLFrncRw18w==
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0A0A10E788
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 12:23:18 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 0BC651A16D0;
+ Mon, 17 Aug 2026 12:23:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C7F0460352;
+ Mon, 17 Aug 2026 12:23:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id D62DE11C706C9; 
+ Mon, 17 Aug 2026 14:23:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1786969395; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=c/gdv7OZId9fPe0L7xLsAdhtfCiya83tRQmqh4pfoNo=;
+ b=fJDBLQ5jhg+K2ia8B0EzwSDJdVgkPUC2BVFEOT5PE6axTO6exff5GA04uwvea9NqCWnaNe
+ ls+YuksYEUoXRdXPrde4U+V7dM7OjSQtiCPAbNs+1hyNj8ZyTsX5vFJKPC6znFvznmDa5O
+ OFv1PSYhn/NimL15wIL+4f08GWEJA8ICdoi/So2MXWR/0JNtwA1zVLnD5T6r7NojSVaiU5
+ PjkxTTXXpR3K0hJcSv93WeDTMPSDHhNjmE0spQSHLWuLxGx7Zf4Ufyb6EU9D3Zpm4p9RW6
+ myF/hBpsyG1QgxPOcXKBpuQBi0jnIgA8+uvYs9mZD7HubI1A86e9kLv0DfO69g==
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 17 Aug 2026 14:23:05 +0200
+Message-Id: <DKR7S2SRVHJG.2Z6RK35N9X4JU@bootlin.com>
+To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 03/11] drm: of: drm_of_find_panel_or_bridge: prioritize
+ the bridge, not the panel
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
+ "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 17 Aug 2026 14:16:33 +0200
-Message-Id: <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
-Cc: "Gary Guo" <gary@garyguo.net>, "Yury Norov" <ynorov@nvidia.com>, "Alice
- Ryhl" <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury
- Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-5-6c767770b3f4@nvidia.com> <anzxKO0X1OrNRD32@yury>
- <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com> <an4NvQBt3389jP6E@yury>
- <DKO414SNC0B2.248FUBGJGSPLU@kernel.org> <an4xDp29VX8Am0uR@yury>
- <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
- <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
- <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
- <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
- <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
- <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
-In-Reply-To: <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
+ <20260814-drm-bridge-every-panel-v1-3-19cd5277cc8d@bootlin.com>
+ <20260817-wonderful-helpful-falcon-db81c9@houat>
+In-Reply-To: <20260817-wonderful-helpful-falcon-db81c9@houat>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,55 +78,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Aug 17, 2026 at 1:49 PM CEST, Eliot Courtney wrote:
-> On Mon Aug 17, 2026 at 8:18 PM JST, Danilo Krummrich wrote:
->> On Mon Aug 17, 2026 at 12:54 PM CEST, Gary Guo wrote:
->>> IMO we can just support zero-sized allocation by always succeeding, sim=
-ilar to
->>> how ZST allocation is handled in memory allocation.
->>
->> Probably, but in contrast to ZST allocations it wouldn't be very useful,=
- so we'd
->> silently succeed on something that never was a reasonable argument in th=
-e first
->> palce.
+Hi Maxime,
+
+thanks for the quick feedback!
+
+On Mon Aug 17, 2026 at 10:26 AM CEST, Maxime Ripard wrote:
+> Hi,
 >
-> Yeah I agree that supporting a generalised zero sized alloc is in some
-> ways conceptually nicer, but I also can't see any good reason why you
-> would want to do it, it sounds like a bug. That's also why in the latest
-> version I made IdPool also not allow a zero capacity [1] (incidentally
-> required to not have to change the grow code to avoid trying to double a
-> zero capacity thing every time).
+> On Fri, Aug 14, 2026 at 04:05:51PM +0200, Luca Ceresoli wrote:
+>> By the documentation drm_of_find_panel_or_bridge() returns a "drm_panel =
+or
+>> drm_bridge", without specifying which one is returned in case both exist=
+.
+>>
+>> Definitely it never returns both. If both exist (and @bridge is !=3D NUL=
+L),
+>> the current implementation prioritizes the drm_panel pointer and returns
+>> that. In most cases (including devm_drm_of_get_bridge() and
+>> drmm_of_get_bridge()) this is used to implement the following logic
+>> (simplified):
+>>
+>>     drm_of_find_panel_or_bridge(..., &panel, &bridge);
+>>     if (panel)
+>>         bridge =3D [devm_]drm_panel_bridge_add[_typed](panel);
+>>
+>> Work is in progress to make every drm_panel automatically create a
+>> panel_bridge, so a panel_bridge will always be present for every
+>> drm_panel. This means the above logic would create a panel_bridge that
+>> already exists. Avoid it by returning the drm_bridge when both are prese=
+nt,
+>> instead of the drm_panel.
+>>
+>> For the case where @bridge =3D=3D NULL, this commit does not change anyt=
+hing:
+>> the 'if (bridge)' body is never executed and the drm_panel (if found) is
+>> always returned.
+>>
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>
+> I'm always a bit concerned about that kind of change, because you
+> basically change some part of the API we don't really know if a driver
+> relies on.
 
-(I assume this is more a reply to Gary?)
+Indeed, this was a pretty wild attempt to start discussion. And in fact
+Sashiko found 3 drivers which would break: sun4i, fsl-dcu and tegra. I had
+a look, some could possibly be fixed quite simply, but not all.
 
-> Tbh, I feel that NonZero (and Alignment) is hard to use currently
-> because of these ergonomics issues. But I reckon they're useful, so I
-> like the idea of trying to making them easier to use. Maybe you can make
-> an argument to not use NonZero here, but what about all the other times
-> we will want to use it?
+> That being said, if we do create a panel_bridge for every panel, why do
+> we still need drm_of_find_panel_or_bridge()? We'll only really need
+> of_drm_find_bridge(), no?
 
-Personally, I don't see the argument for not using NonZero (or Alignment); =
-the
-invariants required by the API are expressed very well by those types.
+Yes, in the long term we can get rid of drm_of_find_panel_or_bridge(), but
+not in the short term due to the above mentioned drivers, and others which
+use it in "creative" ways.
 
-I also don't see a reason to step back from using those types for this API.=
- If
-we'd do so it would question all the other new types we have over primitive=
-s
-carrying certain invariants to a certain extend as well.
+The point is about the transition. This patch was an attempt to convert at
+once all the many drivers which use the most common pattern:
 
-I understand the ergonomics concern, and I also see that for compile time
-evaluation turbofish syntax is not that popular, but this can be improved.
+      | drm_of_find_panel_or_bridge(..., &panel, &bridge);
+      | if (panel)
+      |     bridge =3D drm_panel_bridge_add();
 
-The fundamental value remains that it nicely separates the invariants calle=
-rs
-need to uphold about certain arguments from the API itself. It makes the co=
-de
-more maintainable (e.g. we don't need 10 different variants of a function
-depending on whether the value is a compile time, build time or run time va=
-lue)
-and it makes the code more readable and robust (e.g. the semantic meaning o=
-f
-arguments is very obvious and confusing arguments becomes almost impossible=
-).
+to then fix manually the remaining drivers (patches 6-11).
+
+But this approach doesn't fly due to the legacy users of
+drm_of_find_panel_or_bridge() as mentioned above.
+
+So what about this other approach instead:
+
+ 1. leave drm_of_find_panel_or_bridge() as is (it's already deprecated anyw=
+ay)
+ 2. keep patch 5 (which "breaks" mayt drivers which would create an additio=
+nal
+    panel_bridge)
+ 3. perhaps add a warning when an additional bridge is created for the
+    some panel
+ 4. *in the same series*, manually convert *all* drivers to use
+    of_drm_find_bridge() or of_drm_get_bridge_by_endpoint() -- like patches
+    6-11, but done on all drivers
+ 5. apply the series atomically, because it wouldn't be bisectable between
+    items 2 and 4
+
+Your opinion?
+
+Kind regards,
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
