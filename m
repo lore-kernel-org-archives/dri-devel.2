@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2EA1C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:28:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF3C3C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D95010E17C;
-	Mon, 17 Aug 2026 15:28:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5505E10E865;
+	Mon, 17 Aug 2026 15:29:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j3B3x5HA";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Hfv/oony";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A88B10E877
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:27:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 773D560204;
- Mon, 17 Aug 2026 15:27:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5B4E1F00A3A;
- Mon, 17 Aug 2026 15:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786980477;
- bh=jxfpnvbhiaHLnsy8VZZheLUiY+p7GB7+Q0WLzAeRaB0=;
- h=Date:From:To:Cc:Subject;
- b=j3B3x5HAWGzV92wItQaUzF4qMFuxVK2CMn8vqJBxHYlafXG0NaCN7qZ3exgqiLzKA
- 0lKwrLoZa+AKrFH+kOTDVKG1yXjUxZ5+1SEzBizwNJ0eP+KjpPMRilBqE0OGfGIYSG
- OlcIqo4YefYY9GJOCcSfEhZe9tcvE2OETUGQWkrbZctmD92cJH3/DPS5xuhTBo4jBd
- 02nnEAYfFphx9uoX8noX+MgYebts6g3FZdCjsHLlriXobCm1Yao4mpmALt0m9P8ODx
- xpTBHA6tQ/xibc9FvGtULG6BJ9G/LzVwkTpDo5b9ZGX8Pq+X1N9NwcD6EbbEaSyXZn
- UazoutKBqj0BA==
-Date: Mon, 17 Aug 2026 16:27:52 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Yang Wang <kevinyang.wang@amd.com>
-Subject: linux-next: manual merge of the drm tree with the origin tree
-Message-ID: <aoMoeEtvdJzu6cS2@sirena.org.uk>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6688210E865
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:29:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 03B8C143D;
+ Mon, 17 Aug 2026 08:29:52 -0700 (PDT)
+Received: from [10.57.6.69] (unknown [10.57.6.69])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 710753F673;
+ Mon, 17 Aug 2026 08:29:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786980596; bh=3uOFOnepx4XAg6jx2IvSYiTiAnYOt6HEK6SB/kCd0yA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Hfv/oonyuBC1uvVh5e2838eCJRk0c2AMzDab1jak8Dmpc57UM3R6m/ivhjdD5dMU8
+ T6whm+SGP29USmYNrhdGOjl7s8mn2UhdHH8rfvo06Yc0kxDIwLU0lCQ23z08aofFnj
+ +ErFvhBgnL2ieALsuWjpo7lc6WIF3Z7XQmE7lGvE=
+Message-ID: <62a109c0-cf0a-4a29-a92e-76c4d11054bc@arm.com>
+Date: Mon, 17 Aug 2026 16:29:42 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="XytuleQJXo+FUOAx"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 7/9] drm/panthor: Don't defer job completion checks
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com>
+ <20260811-panthor-signal-from-irq-v6-7-12f2ab53d735@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260811-panthor-signal-from-irq-v6-7-12f2ab53d735@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,341 +60,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 11/08/2026 12:23, Boris Brezillon wrote:
+> Call group_check_job_completion() directly from
+> csg_slot_sync_update_locked() instead of deferring it.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 182 +++++++++++++++-----------------
+>  1 file changed, 87 insertions(+), 95 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 794105e239e6..1ef9da55030c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -697,9 +697,6 @@ struct panthor_group {
+>  	 */
+>  	struct panthor_kernel_bo *protm_suspend_buf;
+>  
+> -	/** @sync_upd_work: Work used to check/signal job fences. */
+> -	struct work_struct sync_upd_work;
+> -
+>  	/** @tiler_oom_work: Work used to process tiler OOM events happening on this group. */
+>  	struct work_struct tiler_oom_work;
+>  
+> @@ -1762,6 +1759,92 @@ static void csg_slot_process_idle_event_locked(struct panthor_device *ptdev, u32
+>  	sched_queue_delayed_work(sched, tick, 0);
+>  }
+>  
+> +static void update_fdinfo_stats(struct panthor_job *job)
+> +{
+> +	struct panthor_group *group = job->group;
+> +	struct panthor_queue *queue = group->queues[job->queue_idx];
+> +	struct panthor_gpu_usage *fdinfo = &group->fdinfo.data;
+> +	struct panthor_job_profiling_data *slots = queue->profiling.slots->kmap;
+> +	struct panthor_job_profiling_data *data = &slots[job->profiling.slot];
+> +
+> +	scoped_guard(spinlock_irqsave, &group->fdinfo.lock) {
 
---XytuleQJXo+FUOAx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+You've switched to spinlock_irqsave here, but
+panthor_fdinfo_gather_group_samples() is still using plain spinlock. I
+don't think we need the _irqsave as things stand here (we're in a
+threaded IRQ handler).
 
-Hi all,
+With that fixed:
 
-Today's linux-next merge of the drm tree got a conflict in:
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-  drivers/gpu/drm/amd/pm/amdgpu_pm.c
+Thanks,
+Steve
 
-between commit:
+> +		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_CYCLES)
+> +			fdinfo->cycles += data->cycles.after - data->cycles.before;
+> +		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP)
+> +			fdinfo->time += data->time.after - data->time.before;
+> +	}
+> +}
+> +
+> +static bool queue_check_job_completion(struct panthor_queue *queue)
+> +{
+> +	struct panthor_syncobj_64b *syncobj = NULL;
+> +	struct panthor_job *job, *job_tmp;
+> +	bool cookie, progress = false;
+> +	LIST_HEAD(done_jobs);
+> +
+> +	cookie = dma_fence_begin_signalling();
+> +	scoped_guard(spinlock_irqsave, &queue->fence_ctx.lock) {
+> +		list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
+> +			if (!syncobj) {
+> +				struct panthor_group *group = job->group;
+> +
+> +				syncobj = group->syncobjs->kmap +
+> +					  (job->queue_idx * sizeof(*syncobj));
+> +			}
+> +
+> +			if (syncobj->seqno < job->done_fence->seqno)
+> +				break;
+> +
+> +			list_move_tail(&job->node, &done_jobs);
+> +			dma_fence_signal_locked(job->done_fence);
+> +		}
+> +
+> +		if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
+> +			/* If we have no job left, we cancel the timer, and reset remaining
+> +			 * time to its default so it can be restarted next time
+> +			 * queue_resume_timeout() is called.
+> +			 */
+> +			queue_suspend_timeout_locked(queue);
+> +
+> +			/* If there's no job pending, we consider it progress to avoid a
+> +			 * spurious timeout if the timeout handler and the sync update
+> +			 * handler raced.
+> +			 */
+> +			progress = true;
+> +		} else if (!list_empty(&done_jobs)) {
+> +			queue_reset_timeout_locked(queue);
+> +			progress = true;
+> +		}
+> +	}
+> +	dma_fence_end_signalling(cookie);
+> +
+> +	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
+> +		if (job->profiling.mask)
+> +			update_fdinfo_stats(job);
+> +		list_del_init(&job->node);
+> +		panthor_job_put(&job->base);
+> +	}
+> +
+> +	return progress;
+> +}
+> +
+> +static void group_check_job_completion(struct panthor_group *group)
+> +{
+> +	u32 queue_idx;
+> +	bool cookie;
+> +
+> +	cookie = dma_fence_begin_signalling();
+> +	for (queue_idx = 0; queue_idx < group->queue_count; queue_idx++) {
+> +		struct panthor_queue *queue = group->queues[queue_idx];
+> +
+> +		if (!queue)
+> +			continue;
+> +
+> +		queue_check_job_completion(queue);
+> +	}
+> +	dma_fence_end_signalling(cookie);
+> +}
+> +
+>  static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
+>  					u32 csg_id)
+>  {
+> @@ -1771,7 +1854,7 @@ static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
+>  	lockdep_assert_held(&ptdev->scheduler->events_lock);
+>  
+>  	if (group)
+> -		group_queue_work(group, sync_upd);
+> +		group_check_job_completion(group);
+>  
+>  	sched_queue_work(ptdev->scheduler, sync_upd);
+>  }
+> @@ -3043,22 +3126,6 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
+>  	}
+>  }
+>  
+> -static void update_fdinfo_stats(struct panthor_job *job)
+> -{
+> -	struct panthor_group *group = job->group;
+> -	struct panthor_queue *queue = group->queues[job->queue_idx];
+> -	struct panthor_gpu_usage *fdinfo = &group->fdinfo.data;
+> -	struct panthor_job_profiling_data *slots = queue->profiling.slots->kmap;
+> -	struct panthor_job_profiling_data *data = &slots[job->profiling.slot];
+> -
+> -	scoped_guard(spinlock, &group->fdinfo.lock) {
+> -		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_CYCLES)
+> -			fdinfo->cycles += data->cycles.after - data->cycles.before;
+> -		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP)
+> -			fdinfo->time += data->time.after - data->time.before;
+> -	}
+> -}
+> -
+>  void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
+>  {
+>  	struct panthor_group_pool *gpool = pfile->groups;
+> @@ -3079,80 +3146,6 @@ void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
+>  	xa_unlock(&gpool->xa);
+>  }
+>  
+> -static bool queue_check_job_completion(struct panthor_queue *queue)
+> -{
+> -	struct panthor_syncobj_64b *syncobj = NULL;
+> -	struct panthor_job *job, *job_tmp;
+> -	bool cookie, progress = false;
+> -	LIST_HEAD(done_jobs);
+> -
+> -	cookie = dma_fence_begin_signalling();
+> -	scoped_guard(spinlock_irqsave, &queue->fence_ctx.lock) {
+> -		list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
+> -			if (!syncobj) {
+> -				struct panthor_group *group = job->group;
+> -
+> -				syncobj = group->syncobjs->kmap +
+> -					  (job->queue_idx * sizeof(*syncobj));
+> -			}
+> -
+> -			if (syncobj->seqno < job->done_fence->seqno)
+> -				break;
+> -
+> -			list_move_tail(&job->node, &done_jobs);
+> -			dma_fence_signal_locked(job->done_fence);
+> -		}
+> -
+> -		if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
+> -			/* If we have no job left, we cancel the timer, and reset remaining
+> -			 * time to its default so it can be restarted next time
+> -			 * queue_resume_timeout() is called.
+> -			 */
+> -			queue_suspend_timeout_locked(queue);
+> -
+> -			/* If there's no job pending, we consider it progress to avoid a
+> -			 * spurious timeout if the timeout handler and the sync update
+> -			 * handler raced.
+> -			 */
+> -			progress = true;
+> -		} else if (!list_empty(&done_jobs)) {
+> -			queue_reset_timeout_locked(queue);
+> -			progress = true;
+> -		}
+> -	}
+> -	dma_fence_end_signalling(cookie);
+> -
+> -	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
+> -		if (job->profiling.mask)
+> -			update_fdinfo_stats(job);
+> -		list_del_init(&job->node);
+> -		panthor_job_put(&job->base);
+> -	}
+> -
+> -	return progress;
+> -}
+> -
+> -static void group_sync_upd_work(struct work_struct *work)
+> -{
+> -	struct panthor_group *group =
+> -		container_of(work, struct panthor_group, sync_upd_work);
+> -	u32 queue_idx;
+> -	bool cookie;
+> -
+> -	cookie = dma_fence_begin_signalling();
+> -	for (queue_idx = 0; queue_idx < group->queue_count; queue_idx++) {
+> -		struct panthor_queue *queue = group->queues[queue_idx];
+> -
+> -		if (!queue)
+> -			continue;
+> -
+> -		queue_check_job_completion(queue);
+> -	}
+> -	dma_fence_end_signalling(cookie);
+> -
+> -	group_put(group);
+> -}
+> -
+>  struct panthor_job_ringbuf_instrs {
+>  	u64 buffer[MAX_INSTRS_PER_JOB];
+>  	u32 count;
+> @@ -3718,7 +3711,6 @@ int panthor_group_create(struct panthor_file *pfile,
+>  	INIT_LIST_HEAD(&group->wait_node);
+>  	INIT_LIST_HEAD(&group->run_node);
+>  	INIT_WORK(&group->term_work, group_term_work);
+> -	INIT_WORK(&group->sync_upd_work, group_sync_upd_work);
+>  	INIT_WORK(&group->tiler_oom_work, group_tiler_oom_work);
+>  	INIT_WORK(&group->release_work, group_release_work);
+>  
+> 
 
-  1849a64165ccc ("drm/amd/pm: use milliwatts for GPU power sensors")
-
-=66rom the origin tree and commits:
-
-  757ba0790bafe ("drm/amd/pm: use milliwatts for GPU power sensors")
-  f5998f4d71b23 ("drm/amd/pm: Simplify SoC power printing in debugfs")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 85b089a3dc414,c0e677328af57..0000000000000
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@@ -34,6 -34,7 +34,7 @@@
-  #include <linux/nospec.h>
-  #include <linux/pm_runtime.h>
-  #include <linux/string_choices.h>
-+ #include <linux/units.h>
-  #include <asm/processor.h>
- =20
-  #define MAX_NUM_OF_FEATURES_PER_SUBSET		8
-@@@ -98,6 -99,37 +99,37 @@@ const char * const amdgpu_pp_profile_na
-  	"UNCAPPED",
-  };
- =20
-+ static int amdgpu_pm_parse_long_params(char *str, long *params,
-+ 				       uint32_t max_params,
-+ 				       uint32_t *num_params)
-+ {
-+ 	const char delimiter[] =3D { ' ', '\n', '\0' };
-+ 	uint32_t count =3D 0;
-+ 	char *sub_str;
-+ 	int ret;
-+=20
-+ 	if (!params || !num_params)
-+ 		return -EINVAL;
-+=20
-+ 	while ((sub_str =3D strsep(&str, delimiter)) !=3D NULL) {
-+ 		if (strlen(sub_str) =3D=3D 0)
-+ 			continue;
-+ 		if (count >=3D max_params)
-+ 			return -EINVAL;
-+ 		ret =3D kstrtol(sub_str, 0, &params[count]);
-+ 		if (ret)
-+ 			return -EINVAL;
-+ 		count++;
-+ 		if (!str)
-+ 			break;
-+ 		while (isspace(*str))
-+ 			str++;
-+ 	}
-+ 	*num_params =3D count;
-+=20
-+ 	return 0;
-+ }
-+=20
-  /**
-   * amdgpu_pm_dev_state_check - Check if device can be accessed.
-   * @adev: Target device.
-@@@ -761,8 -793,6 +793,6 @@@ static ssize_t amdgpu_set_pp_od_clk_vol
-  	long parameter[64];
-  	char buf_cpy[128];
-  	char *tmp_str;
-- 	char *sub_str;
-- 	const char delimiter[3] =3D {' ', '\n', '\0'};
-  	uint32_t type;
- =20
-  	if (count > 127 || count =3D=3D 0)
-@@@ -797,22 -827,10 +827,10 @@@
-  		tmp_str++;
-  	while (isspace(*++tmp_str));
- =20
-- 	while ((sub_str =3D strsep(&tmp_str, delimiter)) !=3D NULL) {
-- 		if (strlen(sub_str) =3D=3D 0)
-- 			continue;
-- 		if (parameter_size >=3D ARRAY_SIZE(parameter))
-- 			return -EINVAL;
-- 		ret =3D kstrtol(sub_str, 0, &parameter[parameter_size]);
-- 		if (ret)
-- 			return -EINVAL;
-- 		parameter_size++;
--=20
-- 		if (!tmp_str)
-- 			break;
--=20
-- 		while (isspace(*tmp_str))
-- 			tmp_str++;
-- 	}
-+ 	ret =3D amdgpu_pm_parse_long_params(
-+ 		tmp_str, parameter, ARRAY_SIZE(parameter), &parameter_size);
-+ 	if (ret)
-+ 		return ret;
- =20
-  	ret =3D amdgpu_pm_get_access(adev);
-  	if (ret < 0)
-@@@ -1385,11 -1403,9 +1403,9 @@@ static ssize_t amdgpu_set_pp_power_prof
-  	struct amdgpu_device *adev =3D drm_to_adev(ddev);
-  	uint32_t parameter_size =3D 0;
-  	long parameter[64];
-- 	char *sub_str, buf_cpy[128];
-- 	char *tmp_str;
-+ 	char buf_cpy[128];
-  	char tmp[2];
-  	long int profile_mode =3D 0;
-- 	const char delimiter[3] =3D {' ', '\n', '\0'};
- =20
-  	/* Reject empty/whitespace strings - fuzzing found this is not validated=
- */
-  	if (count =3D=3D 0 || sysfs_streq(buf, ""))
-@@@ -1407,19 -1423,11 +1423,11 @@@
-  		while (isspace(*buf))
-  			buf++;
-  		strscpy(buf_cpy, buf, sizeof(buf_cpy));
-- 		tmp_str =3D buf_cpy;
-- 		while ((sub_str =3D strsep(&tmp_str, delimiter)) !=3D NULL) {
-- 			if (strlen(sub_str) =3D=3D 0)
-- 				continue;
-- 			ret =3D kstrtol(sub_str, 0, &parameter[parameter_size]);
-- 			if (ret)
-- 				return -EINVAL;
-- 			parameter_size++;
-- 			if (!tmp_str)
-- 				break;
-- 			while (isspace(*tmp_str))
-- 				tmp_str++;
-- 		}
-+ 		ret =3D amdgpu_pm_parse_long_params(buf_cpy, parameter,
-+ 						  ARRAY_SIZE(parameter) - 1,
-+ 						  &parameter_size);
-+ 		if (ret)
-+ 			return ret;
-  	}
-  	parameter[parameter_size] =3D profile_mode;
- =20
-@@@ -2015,6 -2023,7 +2023,7 @@@ static int pp_dpm_clk_default_attr_upda
-  		      gc_ver =3D=3D IP_VERSION(11, 0, 1) ||
-  		      gc_ver =3D=3D IP_VERSION(11, 0, 4) ||
-  		      gc_ver =3D=3D IP_VERSION(11, 5, 0) ||
-+ 		      gc_ver =3D=3D IP_VERSION(11, 5, 1) ||
-  		      gc_ver =3D=3D IP_VERSION(11, 0, 2) ||
-  		      gc_ver =3D=3D IP_VERSION(11, 0, 3) ||
-  		      amdgpu_is_multi_aid(adev)))
-@@@ -2023,7 -2032,8 +2032,8 @@@
-  		if (!((gc_ver =3D=3D IP_VERSION(10, 3, 1) ||
-  		       gc_ver =3D=3D IP_VERSION(10, 3, 0) ||
-  		       gc_ver =3D=3D IP_VERSION(11, 0, 2) ||
-- 		       gc_ver =3D=3D IP_VERSION(11, 0, 3)) && adev->vcn.num_vcn_inst >=
-=3D 2))
-+ 		       gc_ver =3D=3D IP_VERSION(11, 0, 3) ||
-+ 		       gc_ver =3D=3D IP_VERSION(11, 5, 1)) && adev->vcn.num_vcn_inst >=
-=3D 2))
-  			*states =3D ATTR_STATE_UNSUPPORTED;
-  	} else if (DEVICE_ATTR_IS(pp_dpm_dclk)) {
-  		if (!(gc_ver =3D=3D IP_VERSION(10, 3, 1) ||
-@@@ -2036,6 -2046,7 +2046,7 @@@
-  		      gc_ver =3D=3D IP_VERSION(11, 0, 1) ||
-  		      gc_ver =3D=3D IP_VERSION(11, 0, 4) ||
-  		      gc_ver =3D=3D IP_VERSION(11, 5, 0) ||
-+ 		      gc_ver =3D=3D IP_VERSION(11, 5, 1) ||
-  		      gc_ver =3D=3D IP_VERSION(11, 0, 2) ||
-  		      gc_ver =3D=3D IP_VERSION(11, 0, 3) ||
-  		      amdgpu_is_multi_aid(adev)))
-@@@ -2044,7 -2055,8 +2055,8 @@@
-  		if (!((gc_ver =3D=3D IP_VERSION(10, 3, 1) ||
-  		       gc_ver =3D=3D IP_VERSION(10, 3, 0) ||
-  		       gc_ver =3D=3D IP_VERSION(11, 0, 2) ||
-- 		       gc_ver =3D=3D IP_VERSION(11, 0, 3)) && adev->vcn.num_vcn_inst >=
-=3D 2))
-+ 		       gc_ver =3D=3D IP_VERSION(11, 0, 3) ||
-+ 		       gc_ver =3D=3D IP_VERSION(11, 5, 1)) && adev->vcn.num_vcn_inst >=
-=3D 2))
-  			*states =3D ATTR_STATE_UNSUPPORTED;
-  	} else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
-  		if (amdgpu_is_multi_aid(adev))
-@@@ -3943,18 -3955,14 +3955,14 @@@ out_pm_put
-  	return size;
-  }
- =20
-- static int parse_input_od_command_lines(const char *buf,
-- 					size_t count,
-- 					u32 *type,
-- 					long *params,
-- 					size_t params_max,
-+ static int parse_input_od_command_lines(const char *buf, size_t count,
-+ 					u32 *type, long *params,
-+ 					uint32_t max_params,
-  					uint32_t *num_of_params)
-  {
-- 	const char delimiter[3] =3D {' ', '\n', '\0'};
-  	uint32_t parameter_size =3D 0;
-  	char buf_cpy[128] =3D {0};
-- 	char *tmp_str, *sub_str;
-- 	int ret;
-+ 	char *tmp_str;
- =20
-  	if (count > sizeof(buf_cpy) - 1)
-  		return -EINVAL;
-@@@ -3979,28 -3987,8 +3987,8 @@@
-  		break;
-  	}
- =20
-- 	while ((sub_str =3D strsep(&tmp_str, delimiter)) !=3D NULL) {
-- 		if (strlen(sub_str) =3D=3D 0)
-- 			continue;
--=20
-- 		if (parameter_size >=3D params_max)
-- 			return -EINVAL;
--=20
-- 		ret =3D kstrtol(sub_str, 0, &params[parameter_size]);
-- 		if (ret)
-- 			return -EINVAL;
-- 		parameter_size++;
--=20
-- 		if (!tmp_str)
-- 			break;
--=20
-- 		while (isspace(*tmp_str))
-- 			tmp_str++;
-- 	}
--=20
-- 	*num_of_params =3D parameter_size;
--=20
-- 	return 0;
-+ 	return amdgpu_pm_parse_long_params(tmp_str, params, max_params,
-+ 					   num_of_params);
-  }
- =20
-  static int
-@@@ -4013,10 -4001,7 +4001,7 @@@ amdgpu_distribute_custom_od_settings(st
-  	long parameter[64];
-  	int ret;
- =20
-- 	ret =3D parse_input_od_command_lines(in_buf,
-- 					   count,
-- 					   &cmd_type,
-- 					   parameter,
-+ 	ret =3D parse_input_od_command_lines(in_buf, count, &cmd_type, parameter,
-  					   ARRAY_SIZE(parameter),
-  					   &parameter_size);
-  	if (ret)
-@@@ -4892,9 -4877,8 +4877,8 @@@ static int amdgpu_debugfs_pm_info_pp(st
-  {
-  	uint32_t mp1_ver =3D amdgpu_ip_version(adev, MP1_HWIP, 0);
-  	uint32_t gc_ver =3D amdgpu_ip_version(adev, GC_HWIP, 0);
-- 	uint32_t value, mwatt, centiwatt;
-  	uint64_t value64 =3D 0;
-- 	uint32_t query =3D 0;
-+ 	uint32_t value;
-  	int size;
- =20
-  	/* GPU Clocks */
-@@@ -4915,25 -4899,22 +4899,22 @@@
-  		seq_printf(m, "\t%u mV (VDDGFX)\n", value);
-  	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_VDDNB, (void *)&value=
-, &size))
-  		seq_printf(m, "\t%u mV (VDDNB)\n", value);
-- 	size =3D sizeof(uint32_t);
-- 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER, (void =
-*)&query, &size)) {
-- 		mwatt =3D query;
-- 		centiwatt =3D DIV_ROUND_CLOSEST(mwatt, 10);
-+ 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER, (void =
-*)&value, &size)) {
-  		if (adev->flags & AMD_IS_APU)
-- 			seq_printf(m, "\t%u.%02u W (average SoC including CPU)\n", centiwatt /=
- 100, centiwatt % 100);
-+ 			seq_printf(m, "\t%u.%02u W (average SoC including CPU)\n",
-+ 				   (u32)(value / MILLIWATT_PER_WATT), (u32)(value % MILLIWATT_PER_WAT=
-T) / 10);
-  		else
-- 			seq_printf(m, "\t%u.%02u W (average SoC)\n", centiwatt / 100, centiwat=
-t % 100);
-+ 			seq_printf(m, "\t%u.%02u W (average SoC)\n",
-+ 				   (u32)(value / MILLIWATT_PER_WATT), (u32)(value % MILLIWATT_PER_WAT=
-T) / 10);
-  	}
-- 	size =3D sizeof(uint32_t);
-- 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER, (voi=
-d *)&query, &size)) {
-- 		mwatt =3D query;
-- 		centiwatt =3D DIV_ROUND_CLOSEST(mwatt, 10);
-+ 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER, (voi=
-d *)&value, &size)) {
-  		if (adev->flags & AMD_IS_APU)
-- 			seq_printf(m, "\t%u.%02u W (current SoC including CPU)\n", centiwatt /=
- 100, centiwatt % 100);
-+ 			seq_printf(m, "\t%u.%02u W (current SoC including CPU)\n",
-+ 				   (u32)(value / MILLIWATT_PER_WATT), (u32)(value % MILLIWATT_PER_WAT=
-T) / 10);
-  		else
-- 			seq_printf(m, "\t%u.%02u W (current SoC)\n", centiwatt / 100, centiwat=
-t % 100);
-+ 			seq_printf(m, "\t%u.%02u W (current SoC)\n",
-+ 				   (u32)(value / MILLIWATT_PER_WATT), (u32)(value % MILLIWATT_PER_WAT=
-T) / 10);
-  	}
-- 	size =3D sizeof(value);
-  	seq_printf(m, "\n");
- =20
-  	/* GPU Temp */
-
---XytuleQJXo+FUOAx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqDKHgACgkQJNaLcl1U
-h9DZBQf/eNAsmIZK8Etkb64PLV2NFGZKa3vhLC8EIOFwp1MWUw4T58JLzdFMBozN
-YJlVSzGUHP9K3YGVqanPtYzoxiyZNAZNwzybeJwXNV9OU5CRemXHVUgOTwb032Jv
-MUT8gpfKOmmp5AulhsUMsK5BrF1kSyCuVlWOKnw1fJ7U7x8OflHzVChytBPqERE2
-ZAFrJmMiw08y6qXyF6E8B5a37isPAjzx/fuhnPI31sJ69st5Q7riw41DKnBWP7ne
-0dvTAdx2wUMId4c1jCIuRA+YM7IRmG7meZy26ZJVY09CJ0GcKnDV2nNf/COBtqcQ
-du7/7sBgM6V4ODrGs1V7tkOb7IzYzA==
-=HG6f
------END PGP SIGNATURE-----
-
---XytuleQJXo+FUOAx--
