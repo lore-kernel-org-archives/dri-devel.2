@@ -4,41 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5C22C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 23:07:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6A58C5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 23:07:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B7FB10E980;
-	Mon, 17 Aug 2026 23:07:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A4E110E989;
+	Mon, 17 Aug 2026 23:07:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="zSvurWKy";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="FgXxACm9";
 	dkim-atps=neutral
-Received: from mta1.migadu.com (out-149.mta1.migadu.com [95.215.58.149])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 717EE10E9A7
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 23:07:14 +0000 (UTC)
+Received: from mta1.migadu.com (out-154.mta1.migadu.com [95.215.58.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19C1C10E989
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 23:07:26 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=bt/7+fJ4r+GDoo6DgzEOQChvQi99s8eQC7TAlqrTS50=; 
+DKIM-Signature: a=rsa-sha256; bh=8mh+gMKm2Kq9UgpcMVnmdCOPhEonRamdsvBb6eKpz/k=; 
  c=simple/simple; d=kaitmazov.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787008032; v=1; x=1787612832;
- b=zSvurWKyllz51nb6IYwu/p1xebGQ4tFu4ly/VECGK9qrpNcPlT1ObqPu5BExG/toT4sa9F6s
- YqOdebcl8JGfyYScQt6PYvthMUU0iyIHzBfeigqYGEhLI12guu/jeuwipTsQBv2vDAGJ564Ji6j
- cKKIeEP9x2dzl9HGV5Tlal5iuaIU2iUX33Tsv5/hokG9IrPowfRpNt86dJjvVEmz0vP65M/hjLh
- OrdsNUtgDCkzVFnCod2MIzNyMkEHiTa8SxHxU3bHggQbywBBgLUMCKxe3xtQfOOOEvlbv1GxgJM
- bwRD6JwHdh9rCUI0EzCdJKfQ7aaVejtSVjdfxGm3aYh1A==
+ t=1787008045; v=1; x=1787612845;
+ b=FgXxACm9nTQ4oqlUILHrF1ndJqe9+mNfh3UU4oyK2whK+QbhtotL6T8JUpdSNVEygZu/a4ff
+ 4VcB7Vzfk6/V44VZTp+CWkjPH/7JMMTJVA16+mZbq/KL1oTcEeHiV4NXm3eUoz5cED/d8ogdBWF
+ SEkCi2HFo6e0crUNy2jt5J1P8ZxtVIbLsjmKTnH0KnuJptxB5iTEaM+hciaN6iZ/fQysHau7Yrs
+ bDF4X7jiYKn/7YB0/yFf86mt3JL3/3i9Hd0lGCQrhzO4yZpbGwRpmseQfMFu4PN9ONDhLFu7fY1
+ vKjHUL2EyJ6Ai/r9cEed229v8ZKdiuxEzkE4+PoMkWGFw==
 X-Envelope-To: dri-devel@lists.freedesktop.org
 Received: from cachyos-26.lan (193.42.111.69)
- by smtp.migadu.com with ESMTPS id 585beebf9fe66aa7;
- Mon, 17 Aug 2026 23:07:01 +0000
+ by smtp.migadu.com with ESMTPS id b98ff7bb7de7f142;
+ Mon, 17 Aug 2026 23:07:25 +0000
 X-Migadu-Flow: FLOW_OUT
 From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 To: lizhi.hou@amd.com,
 	mamin506@gmail.com,
 	ogabbay@kernel.org
-Cc: jacek.lawrynowicz@linux.intel.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-Subject: [PATCH] accel/amdxdna: return early from a zero-length flush
-Date: Tue, 18 Aug 2026 02:06:55 +0300
-Message-ID: <20260817230655.356785-1-taimuraz@kaitmazov.com>
+Cc: christian.koenig@amd.com, sumit.semwal@linaro.org, alexdeucher@gmail.com,
+ max.zhen@amd.com, sonal.santan@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+Subject: [PATCH v4 0/5] accel/amdxdna: SYNC_BO correctness fixes
+Date: Tue, 18 Aug 2026 02:07:02 +0300
+Message-ID: <20260817230707.356828-1-taimuraz@kaitmazov.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -57,57 +59,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SYNC_BO does not constrain its size, so a request for zero bytes reaches
-drm_clflush_virt_range(), which ends with an unconditional
-clflushopt(end - 1). For an empty range that is the byte before the
-mapping, and abo->mem.kva comes from vmap(), so the access lands in the
-guard page below the vmalloc area and faults:
+Five fixes in and around amdxdna_drm_sync_bo_ioctl().
 
-  BUG: unable to handle page fault for address: ffffd16fbbc70fff
-  #PF: supervisor read access in kernel mode
-  Oops: Oops: 0000 [#1] SMP NOPTI
-  CPU: 7 UID: 1000 Comm: sync_bo_probe
-  RIP: 0010:drm_clflush_virt_range+0x3c/0x70
-  Call Trace:
-   amdxdna_drm_sync_bo_ioctl+0x124/0x430 [amdxdna]
-   drm_ioctl+0x301/0x4c0
-   __x64_sys_ioctl+0x115/0x2f0
-   do_syscall_64+0xa6/0x3d0
+Patch 1 refuses an I/O memory mapping the driver would otherwise store as
+if it were an ordinary kernel address. Patch 2 checks the device-BO range
+for overflow. Patch 4 refuses a flush of an imported BO, which is why
+patch 3 comes first: the ioctl answers a rejected flush with drm_WARN(),
+so without it an ordinary sync on an imported BO splats. Patch 5 stops
+the ioctl reporting failure for a flush that succeeded.
 
-Any process that can open the render node can do this. Reproduced 3 of 3
-times on a Strix Point NPU (1022:17f0), by calling SYNC_BO with size 0 on
-an AMDXDNA_BO_SHARE object. The import arm takes the same request but
-flushes the whole scatterlist, so it survives it.
+v3's zero-length patch has left this series. On hardware it turns out to
+be a page fault in drm_clflush_virt_range() rather than the tidy-up its
+commit message described, so it is a -fixes patch now, sent separately as
+"accel/amdxdna: return early from a zero-length flush" with Fixes: and
+Cc: stable. Patch 4 here needs its hunk, so this series wants that one
+first.
 
-Nothing needs flushing for an empty range, so answer before choosing a
-path.
+Changes in v4:
+  - patch 1: the is_iomem check moved from the .vmap callback into
+    amdxdna_gem_vmap(), per Lizhi, and it logs at debug level rather than
+    error, since an unprivileged caller can repeat it.
+  - new patch 3: an unprivileged SYNC_BO with an out-of-range offset
+    already reaches that drm_WARN() today. Sashiko's review of v3 3/3
+    flagged the same thing.
+  - new patch 4: refuses the flush for every imported BO, as asked.
+  - new patch 5: the debug-BO sync I mentioned on the v2 thread. Only a BO
+    attached with ATTACH_DEBUG_BO has an assigned hwctx, so every other
+    FROM_DEVICE sync ends in -EINVAL with its flush already done. The
+    -EINVAL reproduces on a Strix Point NPU.
 
-Fixes: e252e3f3488a ("accel/amdxdna: Revise device bo creation and free")
-Cc: stable@vger.kernel.org
-Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
----
-Trees before amdxdna_flush_bo() existed carry the same call inline in
-amdxdna_drm_sync_bo_ioctl(), with args->size passed to
-drm_clflush_virt_range() unclamped, so a backport wants the guard at that
-call site instead.
+On patch 4, one consequence worth deciding before it lands. A heap BO is
+created through amdxdna_drm_create_share_bo(), so a device running on
+carveout memory reaches its heap through a cbuf, is_import_bo() is true of
+it, and SYNC_BO on every AMDXDNA_BO_DEV now answers -EOPNOTSUPP. Today
+that path flushes nothing anyway -- amdxdna_cbuf_map() fills in only the
+DMA address and length, so drm_clflush_sg() walks zero pages -- so the
+change is silent no-op to hard error, and XRT's dbg_buffer::sync() reaches
+it without Debug.force_driver_sync. If you would rather keep our own
+exporters working, I have the variant keyed on the exporter's ops, which
+confines the refusal to foreign buffers. Say which you prefer.
 
- drivers/accel/amdxdna/amdxdna_gem.c | 3 +++
- 1 file changed, 3 insertions(+)
+v3: https://lore.kernel.org/all/20260813164700.43960-1-taimuraz@kaitmazov.com/
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 1c63eff0a4a8..2a16de96e6a4 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -1247,6 +1247,9 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
- 		return -EINVAL;
- 
- 	size = min(abo->mem.size, end) - offset;
-+	if (!size)
-+		return 0;
-+
- 	if (is_import_bo(abo))
- 		drm_clflush_sg(abo->base.sgt);
- 	else if (amdxdna_gem_vmap(abo))
+Built on drm-misc-next, each commit on its own: x86_64 with
+DRM_ACCEL_AMDXDNA=m, clang 22.1.8, no warnings. Patch 5's reproducer was
+run against 7.1.8's in-tree driver, where that call is unchanged.
+
+Taimuraz Kaitmazov (5):
+  accel/amdxdna: refuse an I/O memory mapping of an imported BO
+  accel/amdxdna: check the sync range for overflow on a device BO
+  accel/amdxdna: do not warn when a sync request is rejected
+  accel/amdxdna: refuse to flush an imported BO
+  accel/amdxdna: do not fail a sync for a BO with no debug context
+
+ drivers/accel/amdxdna/amdxdna_ctx.c |  3 ++-
+ drivers/accel/amdxdna/amdxdna_gem.c | 27 +++++++++++++++++++--------
+ 2 files changed, 21 insertions(+), 9 deletions(-)
+
 -- 
 2.55.0
 
