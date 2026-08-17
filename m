@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D3C5C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 08:43:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B943C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 09:01:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7913B10E3E4;
-	Mon, 17 Aug 2026 08:43:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B66BF10E3E2;
+	Mon, 17 Aug 2026 09:01:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fBSVvjwY";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="V0aFfuJF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 774A310E3E4
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:43:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5E59B42B76;
- Mon, 17 Aug 2026 08:43:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28A01F000E9;
- Mon, 17 Aug 2026 08:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786956187;
- bh=mU6pVFAWVqWxgPrcZbwb+Zn8c8/zFY+0DV8i1qqRCEA=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=fBSVvjwYD0AVpssAdaX1ioFIGe0WM0N7/EQn3i0OfsXseLhJmST+2/ibPuTv5d4sa
- QytxVfcif/4dInafEBZ8LWauVO9vq8T0JQHqhgVLb0WbiIPvruPoM8GT0+oMtpFwkv
- 7VQ+nCdK5ca3+VpD4quQhGfhZSHF3OiQFuXH5XEUkxzqSyW7m4rl0W4Jp5aS61ndXP
- b/8J4mreZAcPe/mW9nDdRbioolWh/V7vwDikL4wVmlxtMd76ymhQGmSKDChekGZKLL
- HxymwrZytyWrD+HJKnFOKpUrAxnPfg059dFH9GLjkzUSFhqMqjPkBpHNkRoEI4VilO
- Di3BsSNtIFSxA==
-Message-ID: <9bf7fd48dc8ce392fb6608677b039f57@kernel.org>
-Date: Mon, 17 Aug 2026 08:43:05 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 08/11] drm/mcde: dsi: simplify device_node management
- using scoped for_each variant
-In-Reply-To: <20260814-drm-bridge-every-panel-v1-8-19cd5277cc8d@bootlin.com>
-References: <20260814-drm-bridge-every-panel-v1-8-19cd5277cc8d@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Andrzej
- Hajda" <andrzej.hajda@intel.com>, "David Airlie" <airlied@gmail.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
- "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian
- Ray" <ian.ray@gehealthcare.com>, "Inki Dae" <inki.dae@samsung.com>, "Jagan
- Teki" <jagan@amarulasolutions.com>, "Jernej Skrabec" <jernej.skrabec@gmail.com>,
- "Jessica
- Zhang" <jesszhan0024@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Linus Walleij" <linusw@kernel.org>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maxime
- Ripard" <mripard@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert
- Foss" <rfoss@kernel.org>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: quoted-printable
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10B8C10E3E2
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 09:01:13 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 31CCD4E41286;
+ Mon, 17 Aug 2026 09:01:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 0363760352;
+ Mon, 17 Aug 2026 09:01:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id E7BD611C4FF4A; 
+ Mon, 17 Aug 2026 11:01:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1786957267; h=from:subject:date:message-id:to:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=7qD0FXlzYm6rn5234QgYrEDLLeicDWUkbqtOU7mj7IE=;
+ b=V0aFfuJFV5O1SO0AZMQqsFLPYoKN0ov0QWvarioCe14bHF/CmkNnfjGe04+e02U9EdqDE/
+ 6Cj2DzdpdBqoL8x8lYb1EiqbeRjSlJf5JwtWttORjGbpUxVjXKJEd3xTXJm745ut2IA/4F
+ kq4KZhHZtfFod19KeyhozrfUa9QehAGd4zkDQaGCS0hIyYqOuhfh2i8Tn4o6e8aa1IoFB1
+ BIEFI2ER69buMKK47MuivqNrMzMTFutjoH/10o30v9rsziLVMKDVQKeUBKFa3GbMokQcvD
+ P2mxgZpNYR4lmG1p240AfR4mJxQGRNoreJfPEyzFUYa1diCdMHkExa7xlscfSA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Jagan Teki <jagan@amarulasolutions.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Osama Abdelkader <osama.abdelkader@gmail.com>
+In-Reply-To: <20260521212529.151493-1-osama.abdelkader@gmail.com>
+References: <20260521212529.151493-1-osama.abdelkader@gmail.com>
+Subject: Re: [PATCH] drm/bridge: chipone-icn6211: use devm_mipi_dsi_attach
+Message-Id: <178695726167.98988.12193203980659651177.b4-ty@b4>
+Date: Mon, 17 Aug 2026 11:01:01 +0200
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,13 +69,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 14 Aug 2026 16:05:56 +0200, Luca Ceresoli wrote:
-> Before further modifying this function, simpify the struct device_node
-> management using the scoped variat of for_each_available_child_of_node().
->=20
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+On Thu, 21 May 2026 23:25:28 +0200, Osama Abdelkader wrote:
+> Follow up on the previous devm_drm_bridge_add() conversion by
+> converting the remaining manual cleanup in chipone-icn6211 to the
+> managed helper.
 
-Thanks!
-Maxime
+Applied, thanks!
+
+[1/1] drm/bridge: chipone-icn6211: use devm_mipi_dsi_attach
+      commit: 5d2584e2ffaabf2d420edcb2d120209e151f8dce
+
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
