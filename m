@@ -4,112 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF555C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:36:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87A8BC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:36:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 407B310E861;
-	Mon, 17 Aug 2026 15:36:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8BEF10E873;
+	Mon, 17 Aug 2026 15:36:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="MI4u0l5e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RLy0T37k";
 	dkim-atps=neutral
-Received: from sonic311-24.consmr.mail.gq1.yahoo.com
- (sonic311-24.consmr.mail.gq1.yahoo.com [98.137.65.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45B7F10E861
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:36:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1786980981; bh=bJys1aGQPMgWHV3MKBItpjusUbxXaRTmedSIYMIIMac=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=MI4u0l5ezF6kZqnU8jLw/Bw40JPK8V2HlHDK1u7Ui7cU/aKZ7/mBOcpD5B+AU5PUYzPL0e/xiKGL4d66daSZWS1hQ+YChyi9kZzmD+1EOqV8wbLpUApqzTVIo9Bmv5Zj+EdjUdkz51SYg4k7gQc9ZOAFcPaAoTDn3nSl18+qsDy+BvAY5MtV1s3bO+CV1YuzsNhCfDws9rRuYdy6s4lVEtxkAG9scbzWFVa187qLBPFblBvt7lysOXxNeZ1/9FwsY5EiqShx55gcNhvoV3zMFU4gt4ROTKYHSmr4aA4aGEdTLGc/VJfA3CBR1scAXtckp6d6mxQ7Ey7HX/Aegyvy/g==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1786980981; bh=KVRNAotI6kCCXq6O7zA8Ez7ZytlBKwvpT1p5Q2S90vh=;
- h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
- b=bSmKcnd6QiQuJKtNe5XTuu1oGSFbgABhrAmyBf7UsTJTp/FGlO4npA02CVfuwDIp0TydNxIsq8bAtldUIAMuj5KEufTlsTtgTxYFN/eUNoepEtLXPhDexsu3to86CXce3m2taXvS55/kg1elSaRh+gf6MxHfG8syydPtLYPE2VDo4ZO4wI7rMkP5+p9D5PpuW6Gy2S8mQqeXhRG8pRVaaCMePShsGOC+iBrhguDpQmdy3cPv4XoIuPQ080cStDQtT2kGbsllwG/GOFWqJnnx6RdKF/O6aeV3zuXaw1Pu/cd+rUcVSJT4EMRs54kGmrQCiqskUA0m48a2mTuolPoO1Q==
-X-YMail-OSG: 5E8ZIakVM1mb_8O9cX7wtvf1OVj3G6.aG_itUG63hPOBgml.4B0BVWIr2wDpW1j
- VTmoxnDri_7yhOHPtX7qkQ5eUr44eJGJLPjU7YVLPUQ6cOQRAHPlsKiK.hUABkWqko_srAZVUuFH
- xRF2smODdwdvXn96suSJ81gFShH8BCO15iK01I4M6B7CewKDzS96pVMOLjKonwwXea89hneLOwmP
- jlUcYK8vlagNfrz4Tc3IMYYcobGnO9JXJM0jzzeL61RQQ0Piz5a2LqO1pMrMprs2PV92DFE9HJax
- 55zauxUovuU0eYgXu3WDvfp3lVK.F_5sD0Ppjez_mGXfgMsGOW2CtEwRU15wuKKMdhUpPSsELsrK
- YfbUTDJ2qfWOgMnfYzl7rSlby7Lelg29veJStPkaBUyVbMFxFDF5Eov4k6gxpyb9ww9eoRDVruHy
- WYJZU7Zn0f.euu45Xt8OCrXDvE_piP_CK37ouAvfDRlCCCn6S2nUrRv0uU7ouVwM2blu_Lf_ZwnV
- eT59SM2EDPlh8qmx_GE.YVFifLuCaaB.4H.zSH5AxJ6TKTMHnQfnb8878or800gxMTp0850uxeQ7
- wWnwocshZNp.e9eEDFQu8E47dXLbRP3LvcjsdUjR3hLQbadNlKep5GdR3NWV.kVIvtE_p48e3Ima
- IXSIRbb3ySv9Eplpxs5zM9FwKjDpt_6IhUW02uY95r0mzouf1RQvBOCkqnFwFDGv5EQlFXROhAIL
- leykZ7USuT6gVjabiNfPPjcxZlYyS2t4joGZDjm4tIe9YCjt1LyxYnbOvKsI7fFy9JGXOzSacJDr
- HBgDgjmvv60DuY54WwTtOVK2qHRoE40iUfvwsZBaMXHtE.MYPyux4fZztl_A.Gi6d2G6AR56Q2F2
- cWzDdy0Yb2nTrV5iZtZv1gXrD.vv9.yQb2McElCmKMkFnHmcaTGeaxTim4BGH4Q6eQms34tlGPRz
- LMzgNai.pWhd9qULeo_GPJxszqseXzbC79kGFMfSSIcxAqMwpiK0icStNvDHMP5iWMEfAhMr5.Eg
- kC32w3BYkpJaTl5h3qKW8PvEkoVIHsH6cajzZ8mVC32JU80zn8oVEQc_8yFhdwZWXHT8RNJRCwK5
- 5lHoAr1q2xAgdiFg.f9PXiU5WoztUP6V0H7hPCaVgBGREFTlLXvIp5zMDTDe7on4ScA5j4IWk.NN
- M0DfSmPZQ.dx1utc5MKj.GLZU4bi6ws46IVN2VmZedHOR8JGVufVD3iHoETuBeyiwMsKG_JjTw3Y
- MgjPg45tB26._qWale5R.gdFAnIZ94kjIkopLAek4eRovw_g5fa.G3HOlM5vkXEYxf74kA3_hF.K
- aj81vG51u.JwoJeqNQeY73LLoTEvdyxJ_hX_7Zkb1g_cN_htDomFKjPVMB5gjUU8juT3teWuYBEt
- viEkFGe9UUsbROyRRCs5asIVplWor9UUst3b.25IwXjUMdk3P3e1uOfk5_k8KP4bR2K2o_Z630DF
- oetEOLubz2y3afIIjjz2d5EHhGeWpe4DmgOeal1p5o7rr0jsylBetX01xxHVvzZkkHvwsef4dZM6
- lPrSy93hBJELJ_Ah.wA3W.BUSO3J6nfLTkxddIw1OyUnXu2DHdxy60ZG0elsUI6yHX2JIYzi.qWa
- SzG9L.vJ1a8Moi_FyZfmHvK222hO_mea7IKqh0jI4WryA9VqH6YnGSdk6MRLa__5TG42EJlLPa_s
- oxfi1cy1c4CVXqQ.w2sWHo1pAIcHv9KtXe9sbznXVu9Ea179b7dGx4KWTCDBqdgm9d98ITZpB9wE
- LvTf79pW4Nr1IJacNz0fUMOf9guseGLaINyeO16trQ6vid8A1fLcLkZeIT.r.D1DXL1svQbzBP5_
- v0fgz1hd_xkmdBLQsb1xMBrg4MbMOuGGBAhkZJJQy9BTyZ0r_j6scjwZQGCuLbTQLqdunGjCcLi0
- 7g9PScGLWJgXKXyZjbPMtwPbfFUjEF.i2jEvSI0y4MHxmQOnHxVGaq..UQS1h4qH_X8rzi1FVh.P
- s8_HYKIGp_qLXAB2HvI0plll6glur.piDJWpHYRjfzOO2E0gnW256_Vt0.F.vurMrF3Dp2OjaaJS
- n7vcAro3wLyIr6RMKsNGQ24nsCgTtel.dyKtgxf_IgS7059Fhq76XRpLNsWX5imYXdedlcQD6Iko
- 8Jt1Yqnko469zY7N3QgBy3ohwtRyhYKvyNWRct.u23Al5hfrRz4Vh7KyyWFPO6E1FnFhiS09DuUF
- iWr776QNVFhk9i6wehJk71JZmou8.0pThBBEYcjsaXzr9zix5x7CFFvuqNHzz5pE-
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 98d46879-23d4-428d-a047-059edf85f148
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic311.consmr.mail.gq1.yahoo.com with HTTP; Mon, 17 Aug 2026 15:36:21 +0000
-Received: by hermes--production-ir2-cddf86dcf-8g22t (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID c894d37d1cf016843d41759a37b023ac; 
- Mon, 17 Aug 2026 15:36:15 +0000 (UTC)
-Message-ID: <e5c8fc07de22470d27cf25b3169f2dd85804698f.camel@aol.com>
-Subject: Re: [PATCH] drm/gud: NUL-terminate TV mode names read from the device
-From: Ruben Wauters <rubenru09@aol.com>
-To: sashiko-reviews@lists.linux.dev, Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 17 Aug 2026 16:36:09 +0100
-In-Reply-To: <20260816090040.68D5B1F000E9@smtp.kernel.org>
-References: <20260816085234.22053-1-kartikey406@gmail.com>
- <20260816090040.68D5B1F000E9@smtp.kernel.org>
-Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
- keydata=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
- eIvzsqg==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-ntfMb4Va7jjgS/pTxUQk"
-User-Agent: Evolution 3.58.3 
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011042.outbound.protection.outlook.com [40.107.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 457D210E873;
+ Mon, 17 Aug 2026 15:36:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WJVQ59RjhVYvSk/0z8Teb3jtFuSgfCTuoP9kTUZlV+TRrXuGF5SuUmAGfjH5YnRHZ7u79Knital+x6+W3oERwwkKE5Tip2ABP545+SHpm1UzeGY8f0AWYReKHELfzXB+HqRAtLGrNLZh4sCJxiggXoczaLc+pdvSiSppcjapJK4xDsceOyv4vpgiMFw9sjSytV3bsSZpRo6PyWCvJJucD3PFBdBmcV6l9V08vVeFQjqTcufgFeKUlFFbsagQTwrTPSfFaMmwcUnFS/TyDkW/4hf98Nrb7CBSQMWnE4vPd+b93FgwGgvW1F72UJCbZBJAzeQSmt4oYGIuddXr9fiN+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eht0E/oVuN0tyvzM9XOBkZa3ZIjd5iFemMNdaaZRdx8=;
+ b=fjzA9x7JjPpHDTuLLIUn9jVBZJFf5O8jlk9kiY1pAsBDRjVcDj8AfJsp4BXETYUqWsdaK/nxDMtcoVe8VyjHafulI7q0DquV2SSajwFrchixxxZ8rMkYRY0TssUqM8jDlS5w10dIqxLD52GDwoE3Wi8kNQDp8q1LmB7qghhHGVpCZaI1MwGTGgLR2KqCpearxUIzRdh4jR4WMF/M6xyVSlOH1hKv2UXYEF+PPvQEtNmrof4S4NCQuIX4tuMlN/MYB5WYeK2S/4UObPStpbuyI43yqxvYv4aJGd0RwpKuhafy/dyCESGpHhcoNvz7s7v3fy9FLeoJtI3Vu/MHC6+3BA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eht0E/oVuN0tyvzM9XOBkZa3ZIjd5iFemMNdaaZRdx8=;
+ b=RLy0T37kxod8HiR3d5sPidqU61ndy3v/dhrgrgEuILdtxLuZCzrAvd+yNEC6tswAkD0dBprI8tqoU0lJ059RljhtBEB6s3e/gDW20+wGRBTjHTX7jN9+J5oPJgtrlTv3snV06nBne4dRh8oYKyoF75NXmWgHQ+yhR7LNhpk1iHg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by DM4PR12MB7671.namprd12.prod.outlook.com (2603:10b6:8:104::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
+ 2026 15:36:42 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 15:36:40 +0000
+Message-ID: <c9e2cbd8-b488-417b-8f37-e34aa0c339e0@amd.com>
+Date: Mon, 17 Aug 2026 11:36:35 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 00/10] YUV conversion colorop with amdgpu and VKMS
+To: Robert Mader <robert.mader@collabora.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>
+References: <20260814211816.1219597-1-harry.wentland@amd.com>
+ <c0d5a2bd-eb17-4ec0-aeb7-1fa9debb8154@collabora.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <c0d5a2bd-eb17-4ec0-aeb7-1fa9debb8154@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0189.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:110::7) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26254
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|DM4PR12MB7671:EE_
+X-MS-Office365-Filtering-Correlation-Id: 025dadf1-385d-4081-6776-08defc7554e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|7416014|376014|6133799003|4143699003|10067099003|56012099006|11063799006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: q62VaaNaD6e9ByNPVQ1+GBJBFrZuXpC8distj9W5hdeoicfXcUEZa+wcB6RU/ktjE1eGc5bzUvmRkWwoh7iix43ID48KAzStbngEkftiMhJwHWPgrWkxA6U4+uVGBvzf7PhIg2X9UTeUPfB3wK6BzbrmrqUB6SQtNWd4x2Pmtcq/cDemhDdvnNI5D+SYXKgUwhbryfAszo9hYDWugPU+uluMn+4V2rvfTdMlFHUEeuBFyhQzbggL1qvZChtC5zJrM3OGKOSsFYIPHAG/ZgTnpVvWGIAd+BU8uATKy2C2CdAyMXNHnhT+5GG88oFXqWRmQkKsxep2zdaM98lfdiEskAxwX27lWpXWQZy178d/6CBIY6XLNYKy9RD0zj0cZ6FceBJ1Wi/y+BQBWRhIfzVk2gSTXscLQH2Q+2oGGZcUvlr61IoBIbEIMEmP4GFgnFWEMOx0wA5YkK97rfeD881JbAJi1L/WCq+t/AS7fKhplYgqMwLJtGdh/eZiUYDEqRlMfhDZg9Yqv5ImQgjjBpjuh/5UsmbJHsKKPWqmqs/vPJRkEWi9JOSmSUWJe/AB2xp6XfSoaupPvt4KGvC7ZmmlfwwUylltwRYyjGgRB2e9rYQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(6133799003)(4143699003)(10067099003)(56012099006)(11063799006)(3023799007)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eG94OCt1OWRFQ2xUakN6L1dSRmNvdkNkblR1U1RjMzgrN0g0cXdkWkpNTktL?=
+ =?utf-8?B?d2NlOUpTV2lxazh5UnZVOFBWb2NRcEdNRnBqb05CcDA2RmM0ZkFvWVlPWlpj?=
+ =?utf-8?B?Tjd1NXU3anFDWEVlRnU0M1N5RXBBV0thS1hpZW9IamJmUGRrdy9weERqTTlN?=
+ =?utf-8?B?dlBuM3RwdTFrOGszVVUrdldPQXg1Y1VyQ0x2OUJFMkRxVGpHWHNuU2N3VHdn?=
+ =?utf-8?B?Qzc4ZzAySlBBSVdHdVZZcy91WWR3TUR2NFBZNmM3V3NiSGZzbnAzRzRmb0ht?=
+ =?utf-8?B?WEpyZVVMaFA4RzRQRjVJMHFzVWdKWnpodFhENG9VaDlnTnpVSWpyaGFCZVRs?=
+ =?utf-8?B?R0FNUGp3djdpa0pnYU9PbTBHMmxFNGlJMlE4N0M0YmMvRmVXZ2plaEQ2YmFP?=
+ =?utf-8?B?NmJUZWlXaTdkVVlZcHIybFpyaktXWm9NNlNVQm84aDFiSVlKZ3g1WHVJY2c4?=
+ =?utf-8?B?aVAxMFJ0RTVKV1lmUW8zajllR0RtaEVic1lkNlhJbEZBcTFSM3VzdlovbGtx?=
+ =?utf-8?B?SkpSZ0tEK3liUDdVbDZuTW1VWCtJYTRPeXM3ZzVsYWNuaDg5OHhQc1JJRjls?=
+ =?utf-8?B?eWl1bW40ZUtUSnE1OUJvVU8xZDE3NnEzZXRlbWJlRk9Hc1BlNGZ6OG9hVWlm?=
+ =?utf-8?B?UktiMTNsZ2U0ZUJGd1FnYlJkNWxRNW9KSmJiek10bUl2Mkw0eVNvVG1HNFhM?=
+ =?utf-8?B?S3Z0SmphT0UwdzlRQk54SzBBTTFpWHYrWTMzZWY4enRhWlRYREVuNW1WNEVT?=
+ =?utf-8?B?RXltRE1GM3ZFRk8zMWQ3dWlWWk1PVnpRUko5RGJHMEpva1AwOHJzSkhGeSs4?=
+ =?utf-8?B?R1BoeW14U2FNSEhsYWxLOEVNK0RYZXZOb3JaSG0zUURaaVNvaFZxYzZWaytS?=
+ =?utf-8?B?WVdBRFZJeXNpeG1tcno1a3k4R3g4eS9kZ3g1VEpRVGZQVDZNWkRIcFN0TGk5?=
+ =?utf-8?B?VHh1YnBqalZ2Wnl0WjluSnM3VkR1a2pNZGtqakN6RWNqVWFJNlYwOHBjbTZm?=
+ =?utf-8?B?VDZJdjlaZndMQTZCRUc1elAzSC9CS0k3YWRlUDJzOUZ5ZUNEL0dBN1lRSjJ6?=
+ =?utf-8?B?clozbFQ4ZUgxK1NYWXVFY1piWUp3UUc2dGRxMGlLM2hWZFNxc2Q0WWx5V1RR?=
+ =?utf-8?B?TFo3Nm1NN2JkVXVieFhkdUxrYWRRaTBtZ2tpUytCLzlOczJjVXBzU01jN1Ri?=
+ =?utf-8?B?MUpRdTVYSEZKY09WZVRaRHlXaFc0WjZIWlUzQnhGWGRZTWJma2J5S21lYm4y?=
+ =?utf-8?B?YmtBMjl0U1c4WjFKK0t6ZnFNT2VnQ0xQMk05ci9vNG91YjNDRnY5Y0FTd3h6?=
+ =?utf-8?B?R0FoS0lFZEdBRGpDQittZVNvY0kzYzZMSzBRdEgxOXdkOVNUMCtOWmZiZUQ0?=
+ =?utf-8?B?MFU4OUxnYmhWU1VDcXNtNXU2NXUxUmgxZzFMeDBlZXdLdFYzVGxQWVdYRzJF?=
+ =?utf-8?B?QU5NOWZjcldqMG1YTFpHSW5QYk9Sd254UzROR3h0OU43ZWZVUjgyWDl6cUFL?=
+ =?utf-8?B?anYzdkl4UWlId3J3YWp3TXRZcDVhamJmY041RFBlc1pXM2tYMUlKSHZ5Wlov?=
+ =?utf-8?B?WUkxWndNWnVQdmlTSnBxL25OdzBJcUVGRmYrdnhjQjB1NTROREJxbC9KeXFX?=
+ =?utf-8?B?cVo4YW5SWTBaYXZBeno5eTB3bklISTUzZE11bEZNMzBKSHZEZXZEdkdxdzZn?=
+ =?utf-8?B?MkhJSHBCeXg2YnB1eTRab08zQktxRUtmcUNpTHRhbmVFY1FNbUhmRHhvOHBa?=
+ =?utf-8?B?a3VZSlVkRkRYUnp2SThpSCs1M0pFUHNFY1VtY0lvbUd6dmZPUFhMYkFSV1pt?=
+ =?utf-8?B?NGpnRDl6bVBNSGIrdXVQQzJuSFdlbnFlYkt3YWFnSE4xM3UvdERkNXdlV3pI?=
+ =?utf-8?B?TytacE1ISllmYms0WUsySkNIQ1RmcGpQTDl2Yk5iT0ZyZWQ3UnFSNUhkcURY?=
+ =?utf-8?B?RHFQY3FXUlpaSkorcWlrTmhLZlRxdVRoQ2pXV0p1K2VsbVJjcGFOTzlEbzNP?=
+ =?utf-8?B?Z1lRTU14M0RsbkY5bEtRR2xkL1pLcm1BRTNNNkw4czhWY0Q2WXNZQkVlY1lt?=
+ =?utf-8?B?VzdUdWpZRHc3Nk4yYXlLdmlqQzNSalpJalh6SUdRTit2K0t4aWtEWFN2NHc4?=
+ =?utf-8?B?MHVyelZpaWVRRG8wVUhzeGhrL09UTU5CNUVBVmRiUjBhU3haS010aHI2dE9y?=
+ =?utf-8?B?OVhWVGFnbjk0RmN4eTV6eVYyWnVhV29NQWkzNHJJNHpHd3NQRjdWOGFSUGlW?=
+ =?utf-8?B?NG9RM0ZVNHBwTm5LTHF4aVRLUGFHWS95Z2JRQzltaDNEdjRubWdsZjd0ZzVv?=
+ =?utf-8?B?alY2N2xGVzRtS1MxZUt6RFM5UzU1Uk0zWHZJaHVzSFdxbW5wQlN6QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 025dadf1-385d-4081-6776-08defc7554e8
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 15:36:40.0340 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MBYlsJFc94ZXf8ljd9ADsBysGFSaB+f80lwJ12PsWN04lGdW9RM/Mq5+JsoR2nJvTOL84jF+zJNuBU/hpxyt/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7671
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,150 +144,152 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---=-ntfMb4Va7jjgS/pTxUQk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, 2026-08-16 at 09:00 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
->=20
-> Pre-existing issues:
-> - [High] A malicious or misconfigured USB device can cause a NULL pointer=
- dereference and kernel panic in `drm_object_attach_property` by returning =
-`GUD_PROPERTY_TV_MODE` after any other non-margin TV property (such as `GUD=
-_PROPERTY_TV_BRIGHTNESS` or `GUD_PROPERTY_TV_HUE`).
-> --
->=20
-> --- Patch [1]: [PATCH] drm/gud: NUL-terminate TV mode names read from the=
- device ---
-> commit 789868bcbf6cc6ddf0d3b74feab3a22914863ec8
-> Author: Deepanshu Kartikey <kartikey406@gmail.com>
->=20
-> drm/gud: NUL-terminate TV mode names read from the device
->=20
-> This commit fixes a potential out-of-bounds read by explicitly NUL-termin=
-ating
-> TV mode names read from the USB device. This ensures strlen() won't run p=
-ast
-> the end of the allocation when passed to drm_mode_create_tv_properties_le=
-gacy().
->=20
-> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-> Reported-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D916c888ba5f1a54c9526
-> Tested-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
->=20
-> > diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/=
-gud_connector.c
-> > index ea0cca58b7c89..5c0065c876a77 100644
-> > --- a/drivers/gpu/drm/gud/gud_connector.c
-> > +++ b/drivers/gpu/drm/gud/gud_connector.c
-> > @@ -396,8 +396,13 @@ static int gud_connector_add_tv_mode(struct gud_de=
-vice *gdrm, struct drm_connect
-> >  	}
-> > =20
-> >  	num_modes =3D ret / GUD_CONNECTOR_TV_MODE_NAME_LEN;
-> > -	for (i =3D 0; i < num_modes; i++)
-> > -		modes[i] =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-> > +	for (i =3D 0; i < num_modes; i++) {
-> > +		char *mode =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-> > +
-> > +		/* The device is not trusted to NUL-terminate the name */
-> > +		mode[GUD_CONNECTOR_TV_MODE_NAME_LEN - 1] =3D '\0';
-> > +		modes[i] =3D mode;
-> > +	}
-> > =20
-> >  	ret =3D drm_mode_create_tv_properties_legacy(connector->dev, num_mode=
-s, modes);
->=20
-> [Severity: High]
-> This is a pre-existing issue, but could a malicious or misconfigured USB =
-device
-> cause a NULL pointer dereference and kernel panic by returning
-> GUD_PROPERTY_TV_MODE after another non-margin TV property?
->=20
-> In gud_connector_add_properties(), properties from the USB device are pro=
-cessed
-> sequentially. If a property like GUD_PROPERTY_TV_BRIGHTNESS is processed =
-first,
-> drm_mode_create_tv_properties_legacy() creates the baseline TV properties=
- but
-> leaves legacy_tv_mode_property as NULL since num_modes is 0.
->=20
-> If GUD_PROPERTY_TV_MODE is processed next, it calls gud_connector_add_tv_=
-mode()
-> which then calls drm_mode_create_tv_properties_legacy() here:
->=20
-> drivers/gpu/drm/drm_connector.c:drm_mode_create_tv_properties_legacy() {
->     ...
-> 	if (dev->mode_config.tv_select_subconnector_property)
-> 		return 0;
->     ...
-> }
->=20
-> This early return prevents dev->mode_config.legacy_tv_mode_property from
-> being created.
->=20
+On 2026-08-17 03:51, Robert Mader wrote:
+> Hi Harry, thanks!
+> 
+> I retested the series with the Weston branch[1], both on an AMD device as well as the CI tests [2] with VKMS, and it looks all good to me. Naveen Kumar also confirmed that the corresponding Intel series works with the same Weston branch [3].
+> 
+> So I think we're all set, assuming we defer the discussed legacy properties helper[4] to after the uapi changes and first implementations have landed.
+> 
 
-Hello
-> Then in gud_connector_add_properties(), gud_connector_property_lookup()
-> will return NULL for legacy_tv_mode_property:
->=20
-> drivers/gpu/drm/gud/gud_connector.c:gud_connector_add_properties() {
->     ...
-> 		property =3D gud_connector_property_lookup(connector, prop);
-> 		if (drm_WARN_ON(drm, IS_ERR(property)))
-> 			continue;
->     ...
-> }
->=20
-It might be an idea to add a null check here, however, I am inclined to
-accept this patch without it, as it does fix an issue with the current
-code, and while this issue is related, it is somewhat separate. It
-would be a good idea to have this as a separate patch instead.
+Agree.
 
-Ruben Wauters
+I'm still a bit on the fence about the value of the legacy properties helpers but might take a look again if I can find time. Happy to review patches from anyone else interested in it.
 
-> Since IS_ERR() ignores NULL, the NULL property pointer bypasses this chec=
-k and
-> is passed to drm_object_attach_property(), which unconditionally derefere=
-nces
-> it:
->=20
-> drivers/gpu/drm/drm_mode_object.c:drm_object_attach_property() {
->     ...
-> 	struct drm_device *dev =3D property->dev;
->     ...
-> }
->=20
-> Could this lead to a local denial of service?
->=20
-> >  free:
-> >  	kfree(buf);
-> >  	if (ret < 0)
+> Who's reviews/acks do we still need to get the series landed? I suppose one from Louis for the VKMS changes - and one for the uapi changes from a maintainer?
+> 
 
---=-ntfMb4Va7jjgS/pTxUQk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Louis, want to review the VKMS patches here or are you happy with the existing reviews?
 
------BEGIN PGP SIGNATURE-----
+Dave, Simona, Maarten, Maxime, Thomas, would you like to review the uapi changes or are you happy with the existing reviews?
 
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqDKmkbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzh/HUP/3TDTvQJrfxYQfNkATfc
-cL0umHNxLECQ53GiQ3oCjTMB9FL405N82bJKLKrZQ8T0zpcsafJ5Y9jKIqwyMi5d
-yXJtV5ED8dR201yi49WR8Wv+x9Kj7EPgmgHJ5NpOPBZ2waLrj3eu0rnSOxtT1W0t
-CVp390raZHS9Qq14l7oPH/VhNS0jqY/vKPpiea75/yrNICKWDn57hQfHkoMCAF+n
-CnW4jb6PLgB/hVgUKNIk/h/r1WeMIbwAGfStmSRyQPG6EbBS/MKtmMpdU3+32wo4
-XTCf969F+KMGQisH1XGRlk2WzagbnBzySu3twvJG4zLbT694VxZmomBnRU+K9gCn
-7o/vi9YQn1HxBeQcyZ5cn3juApUyVyePK/5w5/t1VmrXmCMGAh2IdMuOfrg/lN+P
-syoDEdQzvYvrY12RfSpXI5MkhxXaZBgCoByebEyRv1hJ9biUnPw28K4gauw5zGgF
-jrd1WBa7L4Hx+uXaovqkKnKKx0h3FlWDnNScFRPCyORu2MCdaZSRMThHIeBhFoMN
-4Kfcv1R2b5jCFdG4Pf8bnDF8+fsfrAp5Q9e0alZ97xl8HgIUD/glPhlYNItmbyX9
-h9kwtbd+fMj7xu4L4Wcu5RJ6KLP5uzCpGcyKMxRfQR0GKHj7W+Awjf221toAqjoH
-qj766qYMhTA7heluFbpaE9Af
-=AK1u
------END PGP SIGNATURE-----
+If there are no objections I think these are ready to merge this week or next.
 
---=-ntfMb4Va7jjgS/pTxUQk--
+Harry
+
+> Best regards,
+> 
+> Robert
+> 
+> 
+> 1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133
+> 
+> 2: this also needs https://lore.kernel.org/dri-devel/20260709115855.53725-1-robert.mader@collabora.com/, but that's unrelated to this series
+> 
+> 3: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133#note_3615800
+> 
+> 4: https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/
+> 
+> On 14.08.26 23:18, Harry Wentland wrote:
+>> When we merged the drm_plane color pipeline API the major gap
+>> that existed was the lack of a YUV to RGB conversion colorop.
+>> We deprecated any legacy drm_plane color properties, which
+>> means that the COLOR_RANGE and COLOR_ENCODING properties can't
+>> be used with the COLOR_PIPELINE property on a drm_plane. In
+>> practice this means that we can't use a COLOR_PIPELINE on
+>> YCbCr encoded framebuffers.
+>>
+>> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
+>> and adds limited range variants of the YCbCr to RGB conversions.
+>>
+>> His full patchset can be found at
+>> https://patchwork.freedesktop.org/patch/709860
+>>
+>> This code has been tested with IGT and an experimental KWin branch.
+>>
+>> All patches are now reviewed and tested. We have a Weston and
+>> KWin implementation. IGT patches are missing one review. I
+>> deem these patches ready to merge once the last IGT patch review
+>> comes in.
+>>
+>> IGT branch:
+>> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
+>>
+>> KWin branch used for testing:
+>> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
+>>
+>> The kernel branch containing these changes, based on drm-misc-next
+>> can be found at:
+>> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
+>>
+>> Further background on this work can be found at:
+>> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
+>>
+>> v6:
+>>   - Fix fill_plane_color_attributes build failure in Patch 8 when
+>>     building with KUNIT (Robert)
+>>
+>> v5:
+>>   - Drop new VKMS kunit tests for conversion matrices
+>>   - Added script to show how VKMS kunit test values are computed (Pekka)
+>>   - Removed fixed-matrix enums for "YCbCr limtied to full" and
+>>     "RGB709 to RGB2020" as they're currently unused by userspace (Robert)
+>>
+>> v4:
+>>   - Specify matrix entries in docs (Pekka)
+>>   - Squash limited-range enums into "Add FM" patch (Robert)
+>>   - Don't reject RGB planes with fixed matrix in VKMS as
+>>     we don't want or need to make a colorop dependent on
+>>     the framebuffer's pixel format. (Robert)
+>>   - Fix conversion matrices in VKMS and implement kunit
+>>     tests (discovered while documenting the matrices)
+>>
+>> v3:
+>> - base on Chaitanya's updated patch and rename code accordingly
+>>    to Fixed_Matrix instead of CSC Fixed-Function
+>>
+>> v2:
+>> - use Chaitanya's CSC_FF block for named matrices
+>>
+>> Cc: Alex Hung <alex.hung@amd.com>
+>> Cc: Daniel Stone <daniels@collabora.com>
+>> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>> Cc: Uma Shankar <uma.shankar@intel.com>
+>> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+>> Cc: Melissa Wen <mwen@igalia.com>
+>> Cc: Simon Ser <contact@emersion.fr>
+>> Cc: Robert Mader <robert.mader@collabora.com>
+>>
+>> Chaitanya Kumar Borah (1):
+>>    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+>>
+>> Harry Wentland (9):
+>>    drm/vkms: Fix limited-range YCbCr to RGB conversion scaling
+>>    drm/vkms: Add fixed matrix colorop to color pipeline
+>>    drm/vkms: Add atomic check and matrix handling for fixed matrix
+>>      colorop
+>>    drm/amd/display: Add fixed matrix colorop to color pipeline
+>>    drm/amd/display: Implement fixed matrix colorop color space mapping
+>>    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
+>>    drm/amd/display: Check actual state during commit_tail
+>>    drm/amd/display: Set color_space to plane_infos
+>>    drm/amd/display: Force GAMCOR for subsampled surfaces with
+>>      PQ/Gamma22/HLG
+>>
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +-
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +-
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  85 +++++++++++-
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 +++-
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
+>>   .../display/amdgpu_dm/tests/amdgpu_dm_test.c  |  16 +--
+>>   .../amd/display/modules/color/color_gamma.c   |   3 +-
+>>   drivers/gpu/drm/drm_atomic.c                  |   4 +
+>>   drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
+>>   drivers/gpu/drm/drm_colorop.c                 | 107 +++++++++++++++
+>>   .../gpu/drm/vkms/tests/gen_yuv_conversion.py  |  87 ++++++++++++
+>>   drivers/gpu/drm/vkms/tests/vkms_format_test.c |  40 +++---
+>>   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 ++++++---
+>>   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
+>>   drivers/gpu/drm/vkms/vkms_formats.c           |  64 ++++++---
+>>   drivers/gpu/drm/vkms/vkms_formats.h           |   2 +-
+>>   drivers/gpu/drm/vkms/vkms_plane.c             |  55 +++++++-
+>>   include/drm/drm_colorop.h                     | 127 ++++++++++++++++++
+>>   include/uapi/drm/drm_mode.h                   |  12 ++
+>>   19 files changed, 651 insertions(+), 79 deletions(-)
+>>   create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
+>>
+>> -- 
+>> 2.55.0
+>>
+
