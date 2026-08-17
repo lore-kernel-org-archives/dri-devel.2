@@ -4,119 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A473C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:35:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82EAEC5DF7A
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 12:37:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6640910E797;
-	Mon, 17 Aug 2026 12:35:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DD310E3BC;
+	Mon, 17 Aug 2026 12:37:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YbgPbpXj";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="i5ClTi/t";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013030.outbound.protection.outlook.com [40.107.159.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E167D10E794
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 12:35:14 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F56410E3BC;
+ Mon, 17 Aug 2026 12:37:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xCKQm90XuAajymeOUV2LkSR1JTvGwNwwt8LZQsAH92/9Mo3eWjazQLfEij1YOa2yNETGmKAQ1/4CWZ2XX7YIm+KXOrBvQvhjqUNwHtY0Sd06RlEFi3cbS95njvh7q1nx9o+xHWZSPaDX20cHWRLditEnDn9bBFYfCSh92gbyjSCEWn8VjRfTQdRQOYqlcSVsfRmjcznQVF5fu6OlgmL+rc064OneoznRM1FcxOpophk9Ik6zQ5LdqoN4Q7tDOgF0TYvkOtDQLELqyi7AyvpruuW4L1YTRxBaKmkm9D6JVjj7uwQQZPgO0wTYkttXwLWRgVSx9LpHpbAwUKNf0ef30Q==
+ b=Cio8FWPihkWS/jJVVNvC9MMw9kI4bE0pMjlTUMbx/B/o9+ig0AovbuyggR9qQsuFMu0MvONk2Gd6kx0ZzFQzBiWfnxs3bQWOZcvK+6nfFtRwZQFbQuJcQw1HCQUHlkDWyCSSExN39ExWGZoCaUhEV4dgiJ5tDx5qZ3vQcdxVd2S9RqYKo4+AI0MTS4UNOVElpV2j4RKNZxFRzan93M3cREY9KGC0VpfGAxEy8+9Knpyr2k804/LnOR9TvoajSWsJBAdUOTztDZ3JFhY5JxEXXQ2m3YCmNB17Am0+y9FDo7tIkF6SMmupXkqoJ8gUvGmZB9jktChSq/9ofLkAIcLzBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/XHqtesdvt/9oFnNyaorD49lg1HnlBxKGtBMEh4uLmU=;
- b=tK25JyYYdDMMOtsEKZ7YiGAp0mI4d9/xrdgfM/e51DBB7y/bG65WeCGlj037G4Q+ZzZbb030urvWr41f69tHZDdi7HhBCjxr8x950RZ5hzjzmVTQvqgABJqThPGHbMREn/udtjCFfzTd7zi4i+08pM7yBZZ4gubl0pFlDsQNZKvKu4w+4MBInC5i9og1Pbxxw5y4clmYTG13HP8QKupyrUbb+K0AwbSUs2j+j3GjTHSyd2H7zZDnoWLrKwJltqgbi5Y2r/srqvP76cnKFCXc+1e+nF9db9jGcG64Z1YXii+Q39+pUJtPg1F5hvyy+bi0lfXcOM/FTK/O+LdEjLH9MA==
+ bh=q/Q4uk1h2CgpK14SljQ/E+fCGjmd2Y2q2ztjLHMl7mw=;
+ b=C+t/MogZAAgtJCkseVrHiBsp4mzUHTI71j93NjUKsS3UTpkA4DZbpjgXNLIV8/hpp/Z4p225q6dYn0GvUieqy1NfKFetoro3PyW2mvFuqw08A+waMTP7zHCFRi5EN+1NnhuERSyT65kuhzxiJAFNHizn3rAfLwTAYNWv7F/GJ3qweJzTvZta4soPb24qY3SnfWnECQZWuWskS8+ry8De5jkzFyIXpu0V8UkzkP1jHbhYBQS6bOtq/TVG+BX/FQOtyOsRFUyqcfglvW7Do86Fz2SzQJYz/AZhZQac5ha+UU5FxGgPTSqnGEmYhweEKIs10vbkf+YMpSId3931MZfkmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/XHqtesdvt/9oFnNyaorD49lg1HnlBxKGtBMEh4uLmU=;
- b=YbgPbpXj2qQ/UVHAgDIoT9F8LBfEb3ej/7VEE4u9w2zrFGo/94MpbQXysSU+/cIvYvcB5LPt5+/2GLfifcFS0zJz478IZvXqEBR8fVSanZu4yNFqSAFmwVqXWcMBASWljvWXcZVDriNEFP1116hBa5Cq9OUCrSXMxRAmY+6mtujOi9xyarvI46CneNZsgfRGlLuPNgvWzc2T67mz2c2M2cFZx8O97c649u3pnWMVPxbX1pKIwKLJLYkYwilxAHrrumiryYjwtSDBS94KD9aM/YTh1xELTY8lvtjj6mxiPuKKsrg8qAEzTDltpFuTk8Mg68dmanan39mR6u4LdA1Ing==
+ bh=q/Q4uk1h2CgpK14SljQ/E+fCGjmd2Y2q2ztjLHMl7mw=;
+ b=i5ClTi/t9b1WvJPzsflBsgtpwmBvTz9pYCfVJ0zfbRpLYHaW/KJSYEw9uASYAYRNjZ7zlxLB9mFpp2FtdpEI71dfGXA44RgjHUFc1QarpzKi6xEYOXhN7CzH7G+s04D9YyQb6z0nl1BdC+fan0PqhI+zx8RE1++aYRyaMIwpBr2Q8ZPywTZ6QDSJ+89H4dK81cY7j0zFXvsHfBlf7Q1mlTXHjfI+fv987L5E153nQEvkO3hRsAHFdrVNyl1r7P3VnQqtns11E1uoMmJNSjgOZezeY/vM2E5Sc03bir5KJQRcUXLhSewMwcvx4X2AsRKiqvQFUnVzMMj9UU93CFLVxg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by AS8PR04MB9191.eurprd04.prod.outlook.com
- (2603:10a6:20b:44e::6) with Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by CYYPR12MB8701.namprd12.prod.outlook.com (2603:10b6:930:bf::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 12:35:08 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%5]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 12:35:07 +0000
-Date: Mon, 17 Aug 2026 15:35:03 +0300
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Frank.Li@nxp.com, 
- Sascha Hauer <s.hauer@pengutronix.de>, festevam@gmail.com, imx@lists.linux.dev,
- kernel@pengutronix.de, l.stach@pengutronix.de
-Subject: Re: [PATCH v2 18/61] drm/imx/dcss: Convert to atomic_create_state
-Message-ID: <xvedve5evh2myckam3fmtbyuh3wqyqnasnx7ij2jnnqecraahx@e4tvvyqf2czv>
-References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
- <20260814-drm-no-more-plane-reset-v2-18-82d2963dd134@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814-drm-no-more-plane-reset-v2-18-82d2963dd134@kernel.org>
-X-ClientProxiedBy: AS4P195CA0008.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e2::13) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+ 2026 12:37:28 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 12:37:28 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 17 Aug 2026 21:37:24 +0900
+Message-Id: <DKR831I268F0.38IYGHOPEZ9PR@nvidia.com>
+Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+Cc: "Gary Guo" <gary@garyguo.net>, "Yury Norov" <ynorov@nvidia.com>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury
+ Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
+ <20260812-chid-v5-5-6c767770b3f4@nvidia.com> <anzxKO0X1OrNRD32@yury>
+ <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com> <an4NvQBt3389jP6E@yury>
+ <DKO414SNC0B2.248FUBGJGSPLU@kernel.org> <an4xDp29VX8Am0uR@yury>
+ <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
+ <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
+ <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
+ <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
+ <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
+ <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
+ <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
+In-Reply-To: <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
+X-ClientProxiedBy: TY4P286CA0115.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37c::18) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AS8PR04MB9191:EE_
-X-MS-Office365-Filtering-Correlation-Id: bed47479-eee5-46a0-0a1d-08defc5bf864
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|CYYPR12MB8701:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ea5313d-a142-4a02-a794-08defc5c4c49
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|19092799006|1800799024|376014|7416014|366016|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: GAN8UkG4dJ7RoZxWXl+jYBOhTNV7ROtZi/hUmvY4vHvAgWttaGcd0IzNcxe6kfs/3ism+i6BzwHh4ASlm5GCpvGG3btdz1IERH7wqjbe+hTqTJLiZCBZ+YQU0rr6AemhtVnHV55spAGIL/jOAUIY8x0/djglwCULHnLXTl2fux7Jd7rNhepjzAhOiqex8MGAs/MjjJaiZIOsQoPV2F6lIzvFK8AxoqPXmcLb9vFgIcxpXoE8uxhsd/UcwSJ2M1E6LpSlikor6PrQIrG5jHY6kPTGdeXVhlMK8p0a3rj2053vqMNvy6DB/ZCGofsQAmIpVQLzutalj4k6jDr9ixNOTFJzHbxi/IIcrgy97lpnED7dSNxvzDgt8PGeiu0SvOb5nTLjso2dkJnAhdPCPs3Bpr+hPbdjpxS6yAqGFTZpEvF6p2VNWKofc2LQqEdox5E2bNC5J9Aot+vboz8O97e5OQzvsGmBZDN6ET+N9LUYzlelkCntGCGCx5K+NbW6SwYVWyOiOhBAn4rAhlsziaks+JNKABw3rNDYPVZPxlAWsn4TMdfcc/JC6RTbsfuviHSSLCXgTkKOKm0kCV8nO9eJ2v05pnee2pIGWtcCyymJFXPI6RVIlg/ROPfGYNYrg3HvhR3VRvEjH8ivBIMF9wkW/yQyq+JB+3bDgK5bql7TGc4=
+ ARA:13230040|23010399003|366016|10070799003|1800799024|376014|7416014|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 4KVSItoW2o90bXJGQCsuoYEED/ZDQ4atBBC+EX+wrf/mpKuh89qVX0WFC9xRbThTINj7K46NZfZZOz6NRWcvX4yEm9+w9xbausRuot973kqlB6gv08VOuvytc3blkq9LVj4wvAcXfsQ8IO3XQRmnBP2fq9Ty9Tas900uRiYeX8CMPMlCjzbtXYXFDqT0NRcaTcd2MtRRX1P5M6vLx2ALRjXISkXRlqOTuxRilYKpg1lsm5N5X7CoRX9aEZPhhct9LH04vFbBvCsVl4v9WFjyUD0M1D51mqqSOQwRxqRfslpyRo0bLlmWyXTSURhCXIQ7hLUNkcPh3l+wXXqT8WN/jyRqtBYL5cSk2gi0aQzCMlHMcorWib6QHBKRx7mfLC21dP4TWXJiDiM80kSFrFg2fgbE0wAGTqJ9FV1iMAJQ4Jw7mhlHdmQgwWoXy5Pn078LEaEN8+djIsNK1BALLDYEeW8RuOIbDfK0usHGNlSHgNXZY7seBCamtJ9y1zy7N2CRMVB0mMTzYPpp1o2Mp3t/AU78l4MouOsVnXcmN4OmD1X8V/kMr0WLFkjvYjCMvk/vlhJbIK/SQeCv+ZMKyS/qgZ9vRJSEvLWnn46yZTuk39sJryQNmcwNIH2W5drIEdTaCmGSNPpAaplqGPvD7Y6bAdTIIdYI0fjIOjDAoR2GC+w=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(19092799006)(1800799024)(376014)(7416014)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(10070799003)(1800799024)(376014)(7416014)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kTyttU37gMIkb4H+IHN9Iofs57Qg8HUpJqLqP7aVQh5lPVyLhBrX1Pic1EXP?=
- =?us-ascii?Q?Jy5l5+FRwyWCMs/okz5xmmbzW3cnqww6n4ZAZxCjJ+SF2Kgd8Q2bZtNLcN5y?=
- =?us-ascii?Q?liYYeVXjTY6ZedH07X+AXGRd0mURLnreHIsVDlOV7d7NbvZ7yhICCu3OvZUx?=
- =?us-ascii?Q?YILNmOsNkNCSuN/oyKHcaHaokU+ESwhXPgLRMO3ULybErI8M5c2BFh6lPp5H?=
- =?us-ascii?Q?dvsRu0PN/HxT9O6MKhWqchJHDzY5cGSEwfh2P1Sufc6eXO7In3wfTrcSR3rq?=
- =?us-ascii?Q?/1RA+grNN+C4JjCvQKkr0GpZjFJ13P3BwAQMXvKjlKB3ud8Mqb8akxJgXrQl?=
- =?us-ascii?Q?0FRrMzB5hNVMA8xOWCuLWJMcKQNF3cByTiOVYfwtVBN5srbQ7mSFZCvbzcFN?=
- =?us-ascii?Q?n6+OmbvM7WZkHO+UY3vhTPAYH3g7W5ng5hWiBiIzN3Gq7tRtiI15wqueXW25?=
- =?us-ascii?Q?t3ks1cC5d3Hg/yJDAMmpjrpNVOpgBAVJhkdXJAPFa2f3yJ6bdj5yBegbKmqD?=
- =?us-ascii?Q?g5UpwgHUeCBqpjr9tPz591HD/X+cXdYmiPbP5rkhR/jtnqmCMICUrGdn3MId?=
- =?us-ascii?Q?0DJrk9Kh+yeVvP3vuEvDHxIO6F1IH2CujfmYxRoPI9jFviW949c+HWCaFj9d?=
- =?us-ascii?Q?5jiljTlQ36f33RR5QGv3ijgmUlzd8ARlrvyR/81oD9++QPi/5MpPEo/C5Kw/?=
- =?us-ascii?Q?dFjMbC0KZqO1teKx9xj7trJa3r3hnHRW8j1wLv6iKS8WZTKMJXUv/Ob1pe22?=
- =?us-ascii?Q?liOHP3M2K+t1kp+8Sw2QqbXY0euf6Bg7pZfy6S8E/Y/jG8YobMewgyVCmsSm?=
- =?us-ascii?Q?zLRiPh6e3+OLzKUUL9+Fj6PMJ5w6w5o1EvqRv0ThreRPr8xeF1RLgNRyTbs5?=
- =?us-ascii?Q?pFvoaPEYN72QsOeDrAUDSGJ3+jxGEUi4WpKV7pNrgwW2vmIFQ3LVz7nJ0uHT?=
- =?us-ascii?Q?iKLOFnQxGFvSvVFd7biO9w+73hDjVnGlv734N/yFCsYoFhgHphyejh0Wc737?=
- =?us-ascii?Q?8TG8UmKMR5uFK2b8h4M5LzLAcb4dis8yd5QqOdf+P1/D7WBtwGrLnZv5rRGa?=
- =?us-ascii?Q?BCeNflxGQpYBG8gEwMPPwBO+sFX8ElRjlj8rQrpDKGlSs1Tl2zHLVLb4p6+s?=
- =?us-ascii?Q?g5zJcoY/XTRBFsCKYGZL/eveN+GCLGFgCTiZ0/PE9Tz/XTzj76SFn9y6wf+c?=
- =?us-ascii?Q?uUN/WWBwUHEa3f7Z++gMKPyoN7Y+VUwTnkci41LspK6E+/vkqXkYH4i2+f2z?=
- =?us-ascii?Q?6RGpsgdGNHiPYlO/KKRirXvyhribj+zOyPFcaEbShUCo/rUh9dpjm4l58cRA?=
- =?us-ascii?Q?SaMEuKq0c8ApTEsmHLGpEI+2/Fg1RT1D14twSNPAVPJvxSmygRRDWX0hgKPR?=
- =?us-ascii?Q?nrbb7ee8tK4yu4H0udMQDhTMzjzhFxbdi4SDfzYEutJlCBPjRsIbUV3h3zyq?=
- =?us-ascii?Q?/XJGjjqGuGdknKuzvNVp3soWrjiKvsow6aN2ROBXKH+7g3fKu7OVqqjj+YGU?=
- =?us-ascii?Q?FeQrMN3QR/Yy98Wo5CTwRvZ65IY4qy+61/cfE2VftxGyVP1aJeXCz6M0Cdh0?=
- =?us-ascii?Q?s1S48b1DdSYYNQoG2/GsGlZrrTLRSC3wcrv0spJSplopVrOPns8HNF/MgEQK?=
- =?us-ascii?Q?x+Gu2OI8Cagnc6N6kXJRWPV8E5zb2LjYYqOIxrJIzphmR8gZrG/K0jpagk0/?=
- =?us-ascii?Q?Emqy3tnTIw1rDaITjM02AWPiJuQ3BDwo1W6xOKeHwOwf4MwX7GklLNzbtLVM?=
- =?us-ascii?Q?0wNKM/t/QTdMmuRr+ztkSVke86xrZgo=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bed47479-eee5-46a0-0a1d-08defc5bf864
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekFpTnFHKzIyNzZYdVhzMEQxbXNpa0lsOG9YaEJCci83ZUMxS1JadnA4WE9I?=
+ =?utf-8?B?U1Njb0orQm5QUWFEU1FJYUFpd2d5S0JGd0VtR2thY3ZHNW5iOVlMbHcxNDVx?=
+ =?utf-8?B?SkdzbWU5U2hwb2R6TzNSWUpvcmExQ3F2YUxtSC93Rm5DWHplaGh2RTZaTjNw?=
+ =?utf-8?B?TEtQTHBhVWNQL1JINldtZlRsNmp1TytncG03YjFYODBPODRtaFM2TExXY1BO?=
+ =?utf-8?B?b2FjUXY1NVlLZXE5RkIxNk41ZXp1bzRaQlhvSGFIenA5TTBhWElMTDlUMjZK?=
+ =?utf-8?B?aTJOblNZK3hTSkJoekNvS0tlMXhXNGozSEMwa3JMV3JBOVBLak9Uc2ZHWnpv?=
+ =?utf-8?B?NzVYYmU4QW9kOTF1OVlVSE8reHUzU25JTVhuV2FiOFRXdWl3d2Q0WHpzVDZM?=
+ =?utf-8?B?OHNnUHk2YU45Q0NReUdHb0s0R3lOcWorTkZyWXpwSU9GS0RDbklTWmJLLzZ4?=
+ =?utf-8?B?cWNReHdmVVdUMWFZSks2MHVCOENPb1ZLWEY4MkpxZUtMcitxRm9KTUR0S1hI?=
+ =?utf-8?B?c3h2aExIeUVIVno3U1RYenl0dmJFa0FEN2dJa1AxQVk0bnd6T3dnZklxRHp6?=
+ =?utf-8?B?R0FSc0dJRWxra1pzczZib0RiMy9aVmYwVGtYZWtWemVrSnRDQSsrQnZOTVFq?=
+ =?utf-8?B?WXF4VzYwclltcTlnNjBmeWorRGN4dHppc3lTYUhpQzBQZzB1VUVZZXZ5WUwy?=
+ =?utf-8?B?NlRqWFBsT3E1NFROUHNmQW5PUFYvVk1VTWdIbVpZa0FQWitFK1hIODVhQ3g4?=
+ =?utf-8?B?bEQ0OFB2Qyswa3lkdGFkVWhXZVdFc1YvR0l5YWFmNkxMWE9mYVF2aDFNR3o4?=
+ =?utf-8?B?YWE2Wk9tbWRGOUd1cStuem1WVndRbDJMYTN0NWJmelBsTWdaa01UV0lmdmpr?=
+ =?utf-8?B?d1AxeEdWbG91dWFMSDFITE1zOWZleU1lSThReStVRU5uRWVPWU5YSjBoOGh0?=
+ =?utf-8?B?WWp0K3JaYmhScmkyNWdINEMxVDZkT0tmcFBrdWVPMGlkNjJPdXZDY0QydGZs?=
+ =?utf-8?B?QlR6UzVkWFI4bmZodEI3ZjRJNTNVbDZrU1A1WS9ZQ1FDN0U3anNpaDFPY3k4?=
+ =?utf-8?B?Y0lXbndSSFJQRTFaU1FlSTJNWStXQlpwS3g2a1pUMy8zUUd0Q2dITFhnUnYz?=
+ =?utf-8?B?Tm5RMGdzM1JTeThlckpEVHhTZ1lSc1FMNkJabFdQTnJWNUh6NHREWDVBS2hV?=
+ =?utf-8?B?ZVVuaDZUK29DbWxXbzlTbkpqbmJVeWZZUSs5SUZGRnA3cXk5L2tKRVJPMHlM?=
+ =?utf-8?B?ajZIa05YUml0WC9XVlVXNEVVa3cyVENRZDQyazRVVnpGd3Y3cHRrQXVyY3h2?=
+ =?utf-8?B?TWRlbnAwZkw1cEgycDZPWVFvNFZ4eExwTXBKcHN5a0xWcCsrTGJqeDRNRWtn?=
+ =?utf-8?B?bFBSWmgzc0dWSGdQeXI0OXhtcldTS3c4SlZtTlcvS1M0ZFFBT0lvSHU5bHdp?=
+ =?utf-8?B?cnVkK253ZG5QRHZ1OTM4cnV4cDR0b0FqU3pFaldwU1M5MENyaEJCK1EweWp6?=
+ =?utf-8?B?ZWNzaklxcGVMQWZxMmJNbXF6UWxYZ2MxaEZaaEFwRnFCTjJ5NW9ncUhiWWU0?=
+ =?utf-8?B?UW5jYldNcUpkb0o5d1pHUTljeWUvMVBBYXZHWnIvaGZtS0F2ME5EK29YTkUv?=
+ =?utf-8?B?SVl5aXd3YWZ6TDFjZHRGU1RzVG9RUzhWdUMwVTRnSU02ZUJxVEdzWmxWUURz?=
+ =?utf-8?B?UTRPK0c1c3RHYVJaZDI2NzZjU2VCOTZPeWZCWTRLdHZGNjVsRE9RNmdLT0lY?=
+ =?utf-8?B?M253cnE5TTEyUUFab29GckhDMXQ2SDBGcG5wd2ZaWGVVNkJNWFhzTy80b0hS?=
+ =?utf-8?B?WlZVRE9DVm0wcUFWYUJFYW9jQ3lEYzBEaWRneFZ1aXFOOTd1alIxZFBFUnRk?=
+ =?utf-8?B?UDViU092b0U3K20yQUNXSXZxaHJtTkFRZElabXc5bjJYdUNEWXNPbmpSYkt4?=
+ =?utf-8?B?UXMzSHRtaUlFNVBmdFdnZjlhR3RKSXpBMW1tSDNSSEEwSkhydEZuOGJ2R2J2?=
+ =?utf-8?B?aG01eHNOeG0rUnhubVBOekNEMTB4bDlja1FGUzhaS21LRFpVTEJyWXlDL2h3?=
+ =?utf-8?B?aVNiR2krekN2eWFlTWZJSWlkdXVDRVJsWEMxKzFmOG5vR080bGs0emZOZ09k?=
+ =?utf-8?B?K043N3RHTVpsSTB0aEZoeUExSkx2V21kTnRDQ0FhaWZ3R0Rjb2Qzb0EwTGo3?=
+ =?utf-8?B?d2dQTnhuTTJQRVI5SElWUkxiRi8zMkRWRGw0TEQybXBGbzFWWDZkaGhVckpr?=
+ =?utf-8?B?UlRwOHQyV05JV3dhNjk1SmJER3ZCVkROdDMxdk43Z2FSNnZ4TVhsRmlWM1Ay?=
+ =?utf-8?B?elZFdGtkajd2VVpzK2NkS2ZPVHY2M3hGSXVuL3NtS0NkaVIyVTMxclRsMjRB?=
+ =?utf-8?Q?rNwgZabyP0gdzxXIlQoVPFTxx7XwK4MvB/nNcePeNJ4aY?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4vE0N7Wk7dlicQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ea5313d-a142-4a02-a794-08defc5c4c49
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 12:35:07.8165 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 12:37:28.2124 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Mu+4J8LSnos0C3EvSZgC8/2uBSUY2YmglB9Dbp8Q8tHy55pVTwESKpEiolebLRZGTkq1E16Bl+dlNRJxuNhAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9191
+X-MS-Exchange-CrossTenant-UserPrincipalName: ARkRm2xgwRJtSGh43UJdVk+gWpN0pgsaySb0PG6xzkTzb2rZNr1XpXlkoOHKjklJoded79bH9une5CVVSYJzag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8701
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,275 +162,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 14, 2026 at 04:57:07PM +0200, Maxime Ripard wrote:
-> The plane only initializes a pristine state in its reset hook
-> using drm_atomic_helper_plane_reset(), which is equivalent to what
-> atomic_create_state expects. Convert to it.
-> 
-> The conversion was done using the following Coccinelle semantic patch:
-> 
-> @@
-> identifier funcs;
-> symbol drm_atomic_helper_plane_reset;
-> symbol drm_atomic_helper_plane_create_state;
-> @@
-> 
-> struct drm_plane_funcs funcs = {
->   ...,
-> - .reset = drm_atomic_helper_plane_reset,
-> + .atomic_create_state = drm_atomic_helper_plane_create_state,
->   ...,
-> };
-> 
-> @match_struct_reset@
-> identifier funcs, reset_func;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
->     .reset = reset_func,
->     ...,
-> };
-> 
-> @reset_uses_helpers depends on match_struct_reset@
-> identifier match_struct_reset.reset_func;
-> @@
-> 
->  void reset_func(...)
->  {
->  	<+...
-> (
->  	__drm_atomic_helper_plane_reset(...);
-> |
-> 	__drm_gem_reset_shadow_plane(...);
-> )
->  	...+>
->  }
-> 
-> @match_struct_destroy@
-> identifier funcs, destroy_func;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
->     .atomic_destroy_state = destroy_func,
->     ...,
-> };
-> 
-> @script:python renamed_func@
-> old_name << match_struct_reset.reset_func;
-> new_name;
-> @@
-> if old_name.endswith("_reset"):
->     coccinelle.new_name = old_name.replace("_reset", "_create_state")
-> else:
->     coccinelle.new_name = old_name
-> 
-> @update_struct depends on match_struct_reset && reset_uses_helpers@
-> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
-> -   .reset = reset_func,
-> +   .atomic_create_state = new_name,
->     ...,
-> };
-> 
-> @drop_destroy depends on update_struct && match_struct_destroy@
-> identifier match_struct_reset.reset_func;
-> identifier match_struct_destroy.destroy_func;
-> identifier container_func;
-> identifier P;
-> symbol drm_atomic_helper_plane_destroy_state;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> @@
-> 
->  void reset_func(struct drm_plane *P)
->  {
->  	...
-> (
-> -	if (P->state) {
-> - 		<+...
-> (
-> -		drm_atomic_helper_plane_destroy_state(P, P->state);
-> |
-> -		__drm_atomic_helper_plane_destroy_state(P->state);
-> |
-> -		P->funcs->atomic_destroy_state(P, P->state);
-> |
-> -		destroy_func(P, P->state);
-> )
-> - 		...+>
-> - 	}
-> |
-> -	drm_WARN_ON_ONCE(P->dev, P->state);
-> |
-> -	WARN_ON(P->state);
-> )
->  	...
-> (
-> -	kfree(P->state);
-> |
-> -	kfree(container_func(P->state));
-> |
->  	// kfree is optional
-> )
-> (
-> -	P->state = NULL;
-> |
->  	// plane->state clearing is optional
-> )
->  	...
->  }
-> 
-> @drop_destroy_mtk depends on update_struct@
-> identifier P;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> symbol to_mtk_plane_state;
-> @@
-> 
->  void mtk_plane_reset(struct drm_plane *P)
->  {
->  	...
-> -	if (P->state) {
-> -		__drm_atomic_helper_plane_destroy_state(P->state);
-> -		...
-> -	} else {
->  		...
-> -	}
->  	...
->  }
-> 
-> @transform_nv50_wndw depends on update_struct@
-> identifier S;
-> @@
-> 
->  void nv50_wndw_reset(...)
->  {
->  	...
-> -	if (WARN_ON(!(S = kzalloc_obj(*S))))
-> +	S = kzalloc_obj(*S);
-> +	if (WARN_ON(!S))
->  		return;
->  	...
->  }
-> 
-> @transform_kzalloc depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier P, S;
-> statement ST;
-> statement list STL;
-> @@
-> 
->  void reset_func(struct drm_plane *P)
->  {
->  	<...
->  	S = kzalloc_obj(*S);
-> (
-> -	if (S)
-> -	{
-> -		STL
-> -	}
-> +	if (!S) return;
-> +
-> +	STL
-> |
-> -	if (S) ST
-> +	if (!S) return;
-> +
-> +	ST
-> )
-> 	...>
->  }
-> 
-> @transform_body depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier S, P;
-> expression PS;
-> @@
-> - void reset_func(struct drm_plane *P)
-> + struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	S = kzalloc_obj(*S);
-> 	...
-> (
->  	if (!S) {
-> 		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> |
->  	if (WARN_ON(!S)) {
-> 		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> |
->  	if (S == NULL) {
->  		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> )
-> 	...
-> (
-> -	__drm_atomic_helper_plane_reset(P, PS);
-> +	__drm_atomic_helper_plane_state_init(PS, P);
-> |
-> -	__drm_gem_reset_shadow_plane(P, PS);
-> +	__drm_gem_shadow_plane_state_init(P, PS);
-> )
-> 	...
-> }
-> 
-> @update_early_return depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	<+...
-> -	return;
-> +	return ERR_PTR(-EINVAL);
-> 	...+>
-> }
-> 
-> @update_return_plane depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	__drm_atomic_helper_plane_state_init(PS, P);
-> 	...
-> +
-> +	return PS;
-> }
-> 
-> @update_return_shadow depends on update_struct@
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	__drm_gem_shadow_plane_state_init(P, PS);
-> 	...
-> +
-> +	return &PS->base;
-> }
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+On Mon Aug 17, 2026 at 9:16 PM JST, Danilo Krummrich wrote:
+> On Mon Aug 17, 2026 at 1:49 PM CEST, Eliot Courtney wrote:
+>> On Mon Aug 17, 2026 at 8:18 PM JST, Danilo Krummrich wrote:
+>>> On Mon Aug 17, 2026 at 12:54 PM CEST, Gary Guo wrote:
+>>>> IMO we can just support zero-sized allocation by always succeeding, si=
+milar to
+>>>> how ZST allocation is handled in memory allocation.
+>>>
+>>> Probably, but in contrast to ZST allocations it wouldn't be very useful=
+, so we'd
+>>> silently succeed on something that never was a reasonable argument in t=
+he first
+>>> palce.
+>>
+>> Yeah I agree that supporting a generalised zero sized alloc is in some
+>> ways conceptually nicer, but I also can't see any good reason why you
+>> would want to do it, it sounds like a bug. That's also why in the latest
+>> version I made IdPool also not allow a zero capacity [1] (incidentally
+>> required to not have to change the grow code to avoid trying to double a
+>> zero capacity thing every time).
+>
+> (I assume this is more a reply to Gary?)
 
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Yes, and so was the below too kinda. Sorry for the confusion.
 
--- 
-Thanks,
-Laurentiu
+>
+>> Tbh, I feel that NonZero (and Alignment) is hard to use currently
+>> because of these ergonomics issues. But I reckon they're useful, so I
+>> like the idea of trying to making them easier to use. Maybe you can make
+>> an argument to not use NonZero here, but what about all the other times
+>> we will want to use it?
+>
+> Personally, I don't see the argument for not using NonZero (or Alignment)=
+; the
+> invariants required by the API are expressed very well by those types.
+>
+> I also don't see a reason to step back from using those types for this AP=
+I. If
+> we'd do so it would question all the other new types we have over primiti=
+ves
+> carrying certain invariants to a certain extend as well.
+>
+> I understand the ergonomics concern, and I also see that for compile time
+> evaluation turbofish syntax is not that popular, but this can be improved=
+.
+>
+> The fundamental value remains that it nicely separates the invariants cal=
+lers
+> need to uphold about certain arguments from the API itself. It makes the =
+code
+> more maintainable (e.g. we don't need 10 different variants of a function
+> depending on whether the value is a compile time, build time or run time =
+value)
+> and it makes the code more readable and robust (e.g. the semantic meaning=
+ of
+> arguments is very obvious and confusing arguments becomes almost impossib=
+le).
+
