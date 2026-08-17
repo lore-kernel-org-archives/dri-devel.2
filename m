@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9470AC5DF74
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 13:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2387BC5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 13:06:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6397F10E0D0;
-	Mon, 17 Aug 2026 13:06:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8172910E7CD;
+	Mon, 17 Aug 2026 13:06:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L1mVJMLU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CVjIvn60";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E13710E0D0
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 13:06:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40AF110E7CD
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 13:06:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2DF44600AE;
- Mon, 17 Aug 2026 13:06:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF9D1F000E9;
- Mon, 17 Aug 2026 13:06:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B843E601DE;
+ Mon, 17 Aug 2026 13:06:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9C51F00A3A;
+ Mon, 17 Aug 2026 13:06:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786972002;
- bh=EvYq/QyGTpVzPNrkzC6ie+ETpqIzv869JUVysI+XkzI=;
+ s=k20260515; t=1786972014;
+ bh=qEfqV/7ihVUMLu6uNDu1ihb8wAj13tvscnwwClh2mc4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=L1mVJMLUVKtvQq4v17BuOaswersI4wq9So5i13wlyd94AlTln1EtZTX+38Kglyvck
- mc9FQfoJzvX9TDc/KajduuUdF/XqvLgEv8bXVactpvt15jP3YmkQVkmGeW7KzGobej
- qc+Zx9ijEvmtDIDU1k5qIRMuPjJFNXyBjc3uD1kjzNejR2D3Qu15JXEK8r3GpT4WsD
- GqmplLqVLBLZ0wcohHMjNHAZZgn2XWLK4YmxWK76/lUPmyp8uPNjx1QSoBs7g4H+zP
- FZtJDmklUOEdDnQ6Gbjyask/P+rOW2M04zNBo5Xw4Ya7MQb9dFUzg4RnZVqa06EMpA
- ZmkRfZ5A42xIQ==
+ b=CVjIvn606++0L9AssBzOMUeDdsPjaIbiU52pylDILr/BYy7uFDM0E8jbdS8iKnV7O
+ pn+swfTkvNDc5pqC4soa7qHa1B/g9y0kcsXN17sMy9JQEwCQBiHmYRlv1lg3aar2ea
+ EFLT6L5R7XLU/Q7J79fawOU0Vsf5Oq4mGBYeSonwHJ6B/tFlFC9JtEOkfvIsKJlz4T
+ 8ByeY370Edv2foOaM2ReuwopXRXq8naoKlqSoLOND5FgsJntKMKFVp3yvWZyjNNySj
+ FmIYa0/JobBnQ42uKJR5vyW3vm1Kwf/WLJ7XuOh2bI3O512vRIrt2d6rnUdb11U+93
+ Dr0rWcEPw15xw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] gpu: nova-core: add NVKV encoder
+Subject: Re: [PATCH 3/6] gpu: nova-core: add NVKV decoder
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260817-b4-nvkv-v1-2-b84db5e84b67@nvidia.com>
+Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260817-b4-nvkv-v1-3-b84db5e84b67@nvidia.com>
 References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
- <20260817-b4-nvkv-v1-2-b84db5e84b67@nvidia.com>
+ <20260817-b4-nvkv-v1-3-b84db5e84b67@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 13:06:42 +0000
-Message-Id: <20260817130642.8BF9D1F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 13:06:53 +0000
+Message-Id: <20260817130654.2B9C51F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,88 +60,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] NVKV array encoding relies on host memory layout, causing endianne=
-ss corruption and unconditional KUnit test failures on big-endian architect=
-ures.
+- [High] NVKV decoder uses host-endian memory pointer casts and byte castin=
+g, breaking big-endian compatibility.
 --
 
---- Patch [2]: [PATCH 2/6] gpu: nova-core: add NVKV encoder ---
-commit 0223916dc52ad28f6ad72c2fdc7087b7939c7ed3
+--- Patch [3]: [PATCH 3/6] gpu: nova-core: add NVKV decoder ---
+commit 462ea319dececf0891b941e125a3a7cd586a70f8
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-gpu: nova-core: add NVKV encoder
+gpu: nova-core: add NVKV decoder
 
-This commit adds an encoder for the NVKV wire format, which encodes calls
-as a sequence of 64-bit values. It includes functions to encode single
-values and arrays, and adds a test for the encoding.
+This commit adds a decoder for NVKV to process GMCAPI call messages from
+the GSP. It introduces a Schema visitor trait to process the (key, index,
+value) sequences from the encoded stream.
 
-> diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova-=
-core/gsp/nvkv/encode.rs
-> index 0000000000000..6da81a371651a 100644
+> diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova-=
+core/gsp/nvkv/decode.rs
+> new file mode 100644
+> index 0000000000000..ee8b6ab5a3a43
 > --- /dev/null
-> +++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+> +++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
 [ ... ]
-> +    fn push_bytes_with_padding(&mut self, bytes: &[u8]) -> Result {
-[ ... ]
-> +        // SAFETY: At least bytes.len() bytes of space are guaranteed si=
-nce num_entries
-> +        // worth of space was just reserved.
-> +        unsafe { core::ptr::copy_nonoverlapping(bytes.as_ptr(), dst, byt=
-es.len()) };
-> +
-> +        let padding =3D num_entries * size_of::<u64>() - bytes.len();
-> +        if padding > 0 {
-> +            // SAFETY: At least num_entries * size_of::<u64>() bytes of =
-space are guaranteed.
-> +            unsafe { core::ptr::write_bytes(dst.add(bytes.len()), 0, pad=
-ding) };
-> +        }
-> +
-> +        // SAFETY: These bytes were just initialized and every bit patte=
-rn is valid for u64.
-> +        unsafe { self.backing.inc_len(num_entries) };
-> +
-> +        Ok(())
-> +    }
-[ ... ]
-> +    pub(crate) fn encode_array32(&mut self, key: KeyId, index: Index, ar=
-ray: &[u32]) -> Result {
-[ ... ]
-> +        self.push_bytes_with_padding(array.as_bytes())?;
-> +        Ok(())
-> +    }
-[ ... ]
-> +    pub(crate) fn encode_array64(&mut self, key: KeyId, index: Index, ar=
-ray: &[u64]) -> Result {
-[ ... ]
-> +        self.push_bytes_with_padding(array.as_bytes())?;
-> +        Ok(())
-> +    }
+> +    fn take_u8s(&mut self, count: usize) -> Result<&[u8]> {
+> +        let values =3D self.take_u64s(count.div_ceil(8))?;
+> +        values.as_bytes().get(..count).ok_or(EINVAL)
 
 [Severity: High]
-Will this produce an incorrect byte stream on big-endian architectures?
+Does casting a native [u64] to [u8] using as_bytes() expose the native
+byte order of the host? If the GSP sends data in little-endian format, won't
+this yield reversed 8-byte chunks on big-endian architectures?
 
-Because push_bytes_with_padding() in drivers/gpu/nova-core/gsp/nvkv/encode.=
-rs
-copies host memory directly into the u64 backing storage, and encode_array3=
-2()
-and encode_array64() extract host-endian bytes via array.as_bytes(), the
-endianness of the generated stream depends on the host.
-
-[ ... ]
-> +        assert_eq!(
-> +            encoded[4],
-> +            u64::from_le_bytes([0xaa, 0xbb, 0xcc, 0, 0, 0, 0, 0])
-> +        );
+> +    }
+> +
+> +    fn take_u32s(&mut self, count: usize) -> Result<&[u32]> {
+> +        let values =3D self.take_u64s(count.div_ceil(2))?;
+> +        // SAFETY: `values` is 8 byte aligned and only 4 byte alignment =
+is required. All bit
+> +        // patterns are valid for `u32`.
+> +        Ok(unsafe { core::slice::from_raw_parts(values.as_ptr().cast::<u=
+32>(), count) })
 
 [Severity: High]
-Will this test unconditionally fail on big-endian systems?
+Could this raw pointer cast from u64 to u32 cause issues on big-endian
+systems? This appears to change the order of the 32-bit words compared to
+the original little-endian GSP message layout.
 
-The test in drivers/gpu/nova-core/gsp/nvkv/encode.rs explicitly asserts that
-the generated u64 must match a little-endian layout, which seems to prove
-the host-endian implementation above will produce unexpected results on
-big-endian architectures.
+> +    }
+> +
+> +    fn take_u64s(&mut self, count: usize) -> Result<&[u64]> {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-b4-nvkv-v1=
--0-b84db5e84b67@nvidia.com?part=3D2
+-0-b84db5e84b67@nvidia.com?part=3D3
