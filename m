@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEFC7C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 21:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADC6FC5DF74
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 21:15:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DC6110E950;
-	Mon, 17 Aug 2026 21:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC5E10E956;
+	Mon, 17 Aug 2026 21:15:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jOwZxTkk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TwHlR4nh";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD8D10E950;
- Mon, 17 Aug 2026 21:15:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A6E110E956;
+ Mon, 17 Aug 2026 21:15:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2ED2D601DE;
- Mon, 17 Aug 2026 21:15:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E9D1F000E9;
- Mon, 17 Aug 2026 21:15:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B48E0435A8;
+ Mon, 17 Aug 2026 21:15:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3551F000E9;
+ Mon, 17 Aug 2026 21:15:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787001332;
- bh=QEr0rRA21WjCDIBRI70eBUz7M8prDjj0zBXStrFdDyU=;
+ s=k20260515; t=1787001348;
+ bh=gFpnFAZY88hh6G8cS1ekK4LYfaNjOVz8BXzuyS3FOYg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jOwZxTkktgTIyKLsmu1S0JLCpLosLQO7ddGejEJrIQRVIQ6yzLJSFF42fms1tqZwc
- WIQMVgbYV0SeKC2YNHjrfovXOcwLlG7tSDMD7aDmRlsBD6hjCMvVgUe6hzjNe3XIJj
- zUVNtbuo+2kiU3qU+FjXxJIK0eUpcCN6sfDV3zI1r7Dmkr9TPflC79LBeHqCyF40fT
- 48FD+j1Ggi4myfJB9FpfD7td+Xoa9wMQuANMIh8hcRXqk9eWOIs9hPTGb+nxlzOb21
- DatGJuFPZbPeOzyFChG6F8L/ohOMJ2ujRnEHkIEqL39cKxPSM/qQjXEigvUPx4bzD3
- 5AdOi79axU/sg==
+ b=TwHlR4nhED3uxqkuey+gPHcblhJgUuHoSmyOGZ92XvncpsdNFBOUNaUHG9kxq//UW
+ w5c8HnOX1oxIGJStESHKWc5YYujDdV1wsYG42qpWh9Xgz393p/Do8lFW3fHuVBQK0r
+ jBtGQ+ZDF9DNuvpjxPIlFTqNncjo7CA9zqIgOGcFXKVg9crz2xiHyFlxmeB4YAY7gG
+ dwIpDJPWzzLy9/FqKBVd2WJCixHjn29PK+qMefn9c2RPEelNWLjDnUbr6V82Uk4EZz
+ qrgs/erbIjqLMy2nn0UbU5H+iinl6gD9v5/gV+NubsWXrISK/NKPs1RECHtA3ssve0
+ p3E3u3E+7ZgHw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
+Subject: Re: [PATCH v2 6/6] drm/vc4: Use drm_timeout_rel_to_jiffies()
 To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+In-Reply-To: <20260817-drm-timeout-helpers-v2-6-73052b669f49@igalia.com>
 References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
- <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-6-73052b669f49@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 21:15:32 +0000
-Message-Id: <20260817211532.A3E9D1F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 21:15:48 +0000
+Message-Id: <20260817211548.6A3551F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,63 +59,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Inadequate overflow check in `drm_timeout_rel_to_jiffies` allows=
- `nsecs_to_jiffies64` to wrap around for large timeouts on 64-bit systems.
+
+Pre-existing issues:
+- [High] Incomplete Fix / Unhandled 32-bit Overflow in `vc4_wait_for_seqno`
 --
 
---- Patch [2]: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies() ---
-commit 8056b58ff81363ebaf4bcf9d659c346706fc5b99
+--- Patch [6]: [PATCH v2 6/6] drm/vc4: Use drm_timeout_rel_to_jiffies() ---
+commit 4c26550a287cbb245dc4be4698ea36a63eca121d
 Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-drm: Add drm_timeout_rel_to_jiffies()
+drm/vc4: Use drm_timeout_rel_to_jiffies()
 
-This commit introduces a core helper to convert a relative timeout in
-nanoseconds to jiffies. It aims to unify similar conversions currently done
-in drivers like i915 and v3d.
+This patch updates vc4_wait_bo_ioctl() to use drm_timeout_rel_to_jiffies()
+instead of usecs_to_jiffies(). This prevents long timeout values from
+wrapping around into much shorter timeouts due to unsigned int narrowing.
 
-> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
-> index 78e9f65e54779..18c2719d1fe92 100644
-> --- a/drivers/gpu/drm/drm_timeout.c
-> +++ b/drivers/gpu/drm/drm_timeout.c
-[ ... ]
-> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout=
-_nsec)
->  	return timeout_jiffies64 + 1;
->  }
->  EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
-> +
-> +/**
-> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative =
-value
-[ ... ]
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
-> +{
-> +	/* make 0 timeout means poll, as for the absolute variant */
-> +	if (timeout_nsec =3D=3D 0)
-> +		return 0;
-> +
-> +	/* nsecs_to_jiffies64() does not guard against overflow */
-> +	if ((NSEC_PER_SEC % HZ) !=3D 0 &&
-> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >=3D MAX_JIFFY_OFFSET / HZ)
-> +		return MAX_JIFFY_OFFSET;
+> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+> index e231c906709c1..781aeb8967b15 100644
+> --- a/drivers/gpu/drm/vc4/vc4_gem.c
+> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
+> @@ -970,7 +971,7 @@ vc4_wait_bo_ioctl(struct drm_device *dev, void *data,
+>  	int ret;
+>  	struct drm_vc4_wait_bo *args =3D data;
+>  	unsigned long timeout_jiffies =3D
+> -		usecs_to_jiffies(div_u64(args->timeout_ns, 1000));
+> +		drm_timeout_rel_to_jiffies(args->timeout_ns);
 
-[Severity: Medium]
-Is it possible this overflow guard is ineffective on 64-bit systems?=20
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed that
+vc4_wait_for_seqno() also appears to need a similar fix.
 
-Since MAX_JIFFY_OFFSET is extremely large on 64-bit architectures, and
-nsecs_to_jiffies64() internally uses a multiplication that can overflow a u=
-64
-at roughly 65 years, a very large timeout_nsec might bypass this check.=20
+Could this lead to immediate early expiration on 32-bit systems for large
+timeout values?
 
-If it bypasses this check, the value could still wrap around during the
-nsecs_to_jiffies64() conversion, causing the wait to return almost
-immediately instead of blocking as requested.
+It calculates timeout_expire using nsecs_to_jiffies() without clamping to
+MAX_JIFFY_OFFSET:
 
-> +
-> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + =
-1);
-> +}
+drivers/gpu/drm/vc4/vc4_gem.c:vc4_wait_for_seqno() {
+    ...
+	if (timeout_ns =3D=3D 0)
+		return -ETIME;
+
+	timeout_expire =3D jiffies + nsecs_to_jiffies(timeout_ns);
+    ...
+}
+
+If the resulting jiffies offset exceeds MAX_JIFFY_OFFSET, adding it to jiff=
+ies
+would result in a value that time_after_eq() evaluates as being in the past,
+causing the wait loop to exit immediately with -ETIME.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-drm-timeou=
-t-helpers-v2-0-73052b669f49@igalia.com?part=3D2
+t-helpers-v2-0-73052b669f49@igalia.com?part=3D6
