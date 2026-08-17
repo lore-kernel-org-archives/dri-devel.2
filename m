@@ -4,97 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CA81C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 04:48:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9407BC5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 04:48:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7FE510E3D5;
-	Mon, 17 Aug 2026 04:48:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F34BC10E3D7;
+	Mon, 17 Aug 2026 04:48:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="J6OWgqQo";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PCPB3txu";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jBMwGdK9";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X/P6MIZH";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78F7E10E3D5
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:31 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 709E210E3D7
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:40 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67GLCiua855296
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:31 GMT
+ 67GLCcWj3657048
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yCIa0tqjHElgbgb0AfTikV7EqDsfsowgkNcvnaxzF5w=; b=J6OWgqQooQ/gjJ0D
- 1npGrsLwqRYD4bz7tU/atzjJynju00cIfiTQaAdgo/zq5JN9/fUJQ22Gvrm7X75i
- AV5KCfSxa7db3/LNOM/g8wIJgddB2nP+E0mJos7rvwTZ9ie7GaOVbuT3ghs1GAkc
- 0Zu6TxU2vC1PlDJod8bennphPbHGoPz/MBJJ8e8JcepnGZweDGuUDUzocWWARn9Y
- P+p2cI5KqsEcZ8Q9Yajz1XT1oJYg+RMi7ad0FBwKD/UvHDIPWVsiJ2ka8Hk3rpy2
- 389MEfu8qcFRpskh1NdNTYmreeV7jIbSmv1r8MzXXDkC2/SnbxIn3Xsacggdda58
- rRQwuQ==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2ghwn54s-1
+ gnJNXuCmyusrhVQ5qCCdytU60hZXzPi/toGazcunr3U=; b=jBMwGdK9HwDpevJ+
+ rux7M8rbogOqak+z1h8o0F/65/2ZWH1ceAO30uzQBJUSrdJXjjM4Rn15gqkkwBfx
+ 2KNRpNz8UDNVWf67s5UhXkTS+lauL2K3oI++tWL6uGOynfDxyzG477686ru+x27J
+ X3To5VgsZehwbqBVQHiwd5DFmyF2uE+2OkF/unhanTD1bPSuID4fuqqnG5lp7s2N
+ haqkZmFX8ATkcodAvMgIrXLtfdt7vjm4xQtI5/y4uJVuYWgODthskV7DKDGI6z9b
+ iy5pmHWIS7c8miVAMaqcWfHjYzAQTnUCHT+54C/fOceqcRZ1JbMNgprII9qEFbKZ
+ h8Bthw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2h9gn3qd-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:30 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-cbef1d25500so2982590a12.1
- for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 21:48:30 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:48:39 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-8487ed7f7beso2933097b3a.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 16 Aug 2026 21:48:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786942110; x=1787546910;
+ d=oss.qualcomm.com; s=google; t=1786942119; x=1787546919;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=yCIa0tqjHElgbgb0AfTikV7EqDsfsowgkNcvnaxzF5w=;
- b=PCPB3txuGT/XYJrhm133To+WfZoBK7ENJpe50AaDypKUupgpvUVy/MaTSBgzqKx541
- AZKmTA1c0JHK54N7SSHA3YllU4AvQIADog3uxQMkXhaYUfdrTTIbz4AeCtOXWgqetby+
- 32pVyxUp04r9mZYVXSZVBVwVbyuo9D0z1hJDCYKsQtsl3K7IU7hDluXUX8V9al8jmbTN
- 1O4HKGSjovd6xuAJBEQ8cCuHrSNn03m+uHmp67mGmdsQYA7KGKZMSjTM0eN7q91PrdHT
- yXTR8v/Bqhp+LiiFXbffVpCgQ9svvIZPH/J/O523uDM7d+LQa8XULl3egBr8KbCJINa0
- Zuvw==
+ bh=gnJNXuCmyusrhVQ5qCCdytU60hZXzPi/toGazcunr3U=;
+ b=X/P6MIZHD7PPqPqxyW7YwPbbQZ0iGuaPmiqeVDhXXUeoW3gt/P2A7gEl+/5xgAHW8/
+ J6fcPWLOAhxVe8BWJmlFyqBZbqkGr/MjHi3uL8N7m6NrQ8QYx4JNJefs73ODVajkfvKS
+ hZBi8U5duBzQqCBVKmd9XpeEy2ZL6vn9WTCLSBF445fLnR18TpUmSWNqVSl8SyUUpaIy
+ jvFsfVktNL4m956ddp9GR9tLDE9IQw7jvYG7WoMc5C8olrsCg6OVI6HebEPTbbvzO1h0
+ 6z9Li3sfgNl17JsT+GBR93nklOP0+t4CNx0MP7rdmS7ot6Rco8/cYXIMmo4iDnPL69Tb
+ iS9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786942110; x=1787546910;
+ d=1e100.net; s=20251104; t=1786942119; x=1787546919;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=yCIa0tqjHElgbgb0AfTikV7EqDsfsowgkNcvnaxzF5w=;
- b=BpxivMtt/qJjSJUQPiH83y51S3aJ5GIbxh6ylDhBpHB3C2XQlTWk4v0lMEG3fTw9w2
- uknjlX38FZBeQis+v7JTlQztsESO6BOCo+9yYcCXn+et+5Wj+oaYIa5eU8mkyOmQXpAo
- BMFLojt8EfJmwcVkQQ1xKT2+P4BXzOFnoMOOMjhqCYvXdWdMfl71jx2tB/LB5I+vdB/X
- R/ddk4Nbmb2W6UCQj1yRUO8SzAwJc/t0zOQQnbms+ZaJQKPowHYXsVZVgafOd1TP5yux
- ehN6GCMIXjhvs9kSrWDpAfuSfvgE0+r5duWPH7awavzTtHA8MisoVPgMPKRV2VNOIl1G
- 1ddg==
+ bh=gnJNXuCmyusrhVQ5qCCdytU60hZXzPi/toGazcunr3U=;
+ b=R3pcuBWdgb6Z3skvFXkyEleZUXbK2OM3aN2VQ4sw0qAHZ8NL2cJoA9v0cTiEDw2F1g
+ HLiqR/LJ9fZu3EYtyBQQmsFE5rtbV+fSmwilCCaYud0QvvYuhxhF+HkcR7ZNnoCX3gYN
+ Dlq/CqqxZ6hVaGIpYssoaEhoSu/VvBo9QccDoJKHMcbgntnZVm7quDYMLV/LA1Fz+5lz
+ 2lfP9b/Y7bJPelc5kgi+3X4vPqdFib5YLAS5Dl4BMdspA2hEhMcj6nU/+kK4mQqSrpl7
+ qv/InDF9Bt+A5DZKNV61B1pmAD4q/VYYGUylHoxYknaWoSeL2NvdFIjuMQ/TPP+xUH3o
+ fyhA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqGInd/fznbCihV3PegcyuVkv+anGDwFwsKga2qAdBOJ/SZVLGsl6dxMorA5g2XfGhOLK+beUcMlhw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxw6mhDR58f9/+51Gua5bRtXPRE7YToQgIk0cQMlJPTx8S4gurc
- gBYEPgVn6c5auFtBeFCUa4f3ubmKFhj1BkULLxUOm0IrOOh7NhZ2Z8N7XKBNuwFNecv2MHrMGv+
- LqRMgeSyJWkukQgZ4NlojljzkGg4tut8slzV4OFXUD+LtJfzz4gbmoXtcTYf6AYaphq2F9RE=
-X-Gm-Gg: AR+sD12w+GWJO1l/SFEJASPMpFHIV2JrDU05ThZgHU3F+YvMoAMgGFGFPkX4IarSOUS
- iDGaEKeConOWjJUMbeb/mMpTlqb8PJEnDZW7tH38dASizWq7FaXa/3sOdE5OJ+Jd4g46dMmue5d
- OMZidGurZdXXi5X6MEHes3bJK1ytOy3ZFH2dnmczLz/o+BBd0JT49+sHepfo4oyW0RAKrYkgRbC
- b+25+RLxTyVSykExXssH/LzrUJ42i12FwKn2GhPX+YJkizXumDG8aeQJRYD1rU+nY6Ba7SRadrv
- My3anx0d4JFfl98jd+8Q+DuIDIP8c+xclKp+tnztJCeKLttphnnxN+CpTa4YuPIXD/obbtccbJN
- /qZA5Duo1WJg99rg27Gr6fZ/BMFWeHSpD
-X-Received: by 2002:a05:6a00:3cca:b0:848:2c5e:305e with SMTP id
- d2e1a72fcca58-84fddfbf1a9mr22168484b3a.6.1786942110189; 
- Sun, 16 Aug 2026 21:48:30 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3cca:b0:848:2c5e:305e with SMTP id
- d2e1a72fcca58-84fddfbf1a9mr22168441b3a.6.1786942109648; 
- Sun, 16 Aug 2026 21:48:29 -0700 (PDT)
+ AHgh+RoD5oQ1ovsypRt38D81bjjUv1Y0Mw1G1L8XHjP4UAgm19pmJkHuAVWqTs+jvLOy2rGUvo4k5jFyxlQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw79YERp6O43H8cuXK29hK22bI6xEJVXm+df1SNB8cq4pDANLn/
+ cMV8Ic1mB2ZHVEUYan5S4MAU10SO+cgkRB+Fr/WskON3icayoHW4p+zSHQmDU04cW1QtTwj6GYM
+ lQGoxcIkX4XyM3ErRNUzEFZAmEazlSezI7oYCiEZ7Xx0Bi5/JtZVivlyZKXJr1m0IyD6StpI=
+X-Gm-Gg: AR+sD13vRFz++Mivk1t5X8SjdgS/w0Yj268sG9GUxXJ/QH6nQ6bqXEbVvBFjbyAHMVE
+ 0MQjPv3lxzCxyhpuaF+U26wPci8q12ZKvnRR8JV/uP20krAuhMmqSYaTzPEUPW6B/leq9IWNtTl
+ ikI2YEZQ9ZrM+j9GVBjVuEZ0rr+FTrvQoWKqeURlbfs3T+zpR0AuohbK984uuzDlz/OmBGj4MfT
+ U20ErTD/46cu8Gd3H996qtxuNBK4Ds/LMqr3FIR7LqWEPKJx17vAlX2x1aZq+kSH/Nwcksm5s36
+ lJ3pR29r8Yi2btLDfvXDXqvQyGUJ8ckogeYFb7+wa2KoGeQRQj15AB1MftFUb7gYtIhV/n98oSk
+ Q9iKJmFG+TTAddai4aAIvm9AgWnilQu7U
+X-Received: by 2002:a05:6a00:32c3:b0:847:881c:7026 with SMTP id
+ d2e1a72fcca58-84fde1501cemr21344786b3a.3.1786942118801; 
+ Sun, 16 Aug 2026 21:48:38 -0700 (PDT)
+X-Received: by 2002:a05:6a00:32c3:b0:847:881c:7026 with SMTP id
+ d2e1a72fcca58-84fde1501cemr21344741b3a.3.1786942118322; 
+ Sun, 16 Aug 2026 21:48:38 -0700 (PDT)
 Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8517d046638sm2149250b3a.27.2026.08.16.21.48.21
+ d2e1a72fcca58-8517d046638sm2149250b3a.27.2026.08.16.21.48.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Aug 2026 21:48:29 -0700 (PDT)
+ Sun, 16 Aug 2026 21:48:37 -0700 (PDT)
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Date: Mon, 17 Aug 2026 10:17:40 +0530
-Subject: [PATCH v2 05/15] iommu: Add QDA compute context bank bus to
- iommu_buses
+Date: Mon, 17 Aug 2026 10:17:41 +0530
+Subject: [PATCH v2 06/15] accel/qda: Create compute context bank devices on
+ QDA compute bus
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-qda-v2-v2-5-69a02e9090d4@oss.qualcomm.com>
+Message-Id: <20260817-qda-v2-v2-6-69a02e9090d4@oss.qualcomm.com>
 References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
 In-Reply-To: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -121,41 +121,40 @@ Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
  linaro-mm-sig@lists.linaro.org,
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786942058; l=1398;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786942058; l=7659;
  i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=ZCBL1c+Td4SRNnF1oGxWDvquDAKasF3yV4ZUllxnUMQ=;
- b=Ff62ct5FmLcrlR2W0PjFIkBz9F7OfuR0BbENpIURCRwvY/7zltm8SoqrH5Z+oE3RorVE+0N1m
- xMOtTZldlZKDrKhhHfkpJU6wCmrnxMlgi6CSe/Y8KovXD4az5vfrhhD
+ bh=vyyAKW+sDxkJvnWkRtGMDfJQbird7CY22fXpG75dfI8=;
+ b=9iSkBuK0+IvRZzeuUuxCA3txvr7RXBv9HocPubw7VSQhNZIb23asi+VU2A7GF556vKccuuFT5
+ CEcv2JEnaPyDLM5cvWl2HDbdbG6+lkEv61S+iefHgPM0Vj8R3WH6BDD
 X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
-X-Proofpoint-ORIG-GUID: EBlSWvoCcSlvHS5rTLYp5vZp5JEoVM4V
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX8bIX/HqpYzmC
- IgUSGI9n2MJmqntQV65lNcK6kWCUK3LPRR2K1moPOntbdS3mTDXptyNbC9hKvDfnzyDnK+h6+fd
- BQXRpDGgm7qI6g3TC9uy5dp4/1lzF6IorYt+CUzUgy2oDdDDSuG5YyV5SspynJL0HvFTF96oRbd
- sUCEA7XNMjUgAdgbFMNbVcGmxGnV271Bq3GDgtiAFAkuWP06OLKEjXuDED9aE/2YIOEaA0ES5B/
- pV3nNAzMG5db6jKrQmkOeWW38bQBQFkB8K1DuDl3kPbg9yiHNZBIYnvp81wWFQwHt9aq0lVEN0i
- K8XCkPQOpe7WNxrQDF5ytu0DtyRiQivJHwPvueUPBYlJee8H6uWPhoP24frcaTNhaaGA/nHNtRv
- bCwLg6Fet/R01cp44m3/gaKRbkoYhTWFBVJjTvjrLh5P3BHulJJr5iV8Td3o8510UEDtQjKKbmi
- 0L+T3gTeo5RYEoZ/f9Q==
-X-Proofpoint-GUID: EBlSWvoCcSlvHS5rTLYp5vZp5JEoVM4V
-X-Authority-Analysis: v=2.4 cv=DdknbPtW c=1 sm=1 tr=0 ts=6a82929e cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: y4_1KAz8iHRLDv8rT2z0AYTDoiy9u-MA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX6tBFQfNqBaAg
+ gBnp8to407UJnvto8BwOZS2eHKrHbRrgwrMZxGZR/sDKxxnCWSCVQGmJqr1ZaLiqZGOzsJfVN7F
+ tvJTGstZ/5oKJNx/mF/dmGeiKkrGU/s=
+X-Proofpoint-GUID: y4_1KAz8iHRLDv8rT2z0AYTDoiy9u-MA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX9T2tfmdvVez+
+ HO+nzsFIvC7ICGCQd8SNBO9qfeKBeAPjEGGXQ0W2zz3QpIySA9zWB1GBslIdzm5I2zw1hU0VxXk
+ EHSVg4cpWhRhlVp89UYASZjUqBKpFERiWGclfFq/xxllWqS+FuOj5qLeI72Qa9S6vTr5kwWvHp5
+ /yhfxIK8rbMX70mxt2EY4dJG4Na8hklXbBquaEEuADgEewnlSWQXT5Wf39Ecs9Xe1dMuRAWvXr/
+ PqTkr8I6XfWFmyhRkUPo7bKPek/7E0x+CYmoIkltj5SusSLYx+XiWtyi1QHciDD1iPNKBrm923i
+ 8FsHj+0+5sMGd3wwN9jAP/8nn6nGvU1/m04Jtsj1ZaGd8zzZ2YLHhZtigAVe8SgEtCwtJr416pJ
+ 2vlAvbrDATIL/HGDe93lc530pku/WWjJ++L/Xk+xgydOnDk6Svh275/oLO9XFEJChxEI5tASOEW
+ Adq/CNSqeLmfrqNuZBQ==
+X-Authority-Analysis: v=2.4 cv=XM4AjwhE c=1 sm=1 tr=0 ts=6a8292a7 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=Spc4k6fihxjec1dDB2sA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDAzMyBTYWx0ZWRfX/HceYVgYWseM
- sxOOa6hL7H1nVrX4DVZNI6ntbglyOEAJPQV6i4JRcOjna1EhyU8jUBMaH+VlJymA37h2poy9gO6
- ssKVnOEQnLoiVMR1pF7kjEtRvXwg47o=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=_bi6IaUD7rjJwiY1G1oA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-16_06,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 priorityscore=1501 adultscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 spamscore=0 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608170033
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 clxscore=1015 malwarescore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,45 +170,260 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Register the QDA compute context bank bus (qda-compute-cb) with the
-IOMMU subsystem by adding it to the iommu_buses[] array.
+Introduce the CB (compute context bank) device management layer. Each
+DSP domain node in the device tree may contain child nodes with
+compatible "qcom,fastrpc-compute-cb", each representing one IOMMU
+context bank. Enumerate those child nodes during RPMsg probe and create
+a corresponding device on the qda-compute-cb bus for each one, so that
+the IOMMU subsystem assigns each of them its own domain and DSP buffer
+mappings are isolated per session.
 
-The QDA driver creates synthetic devices on this bus to represent
-IOMMU context banks (CBs). Each CB device needs its own IOMMU domain
-so that the DSP memory manager can enforce per-session address space
-isolation. Without this registration, the IOMMU subsystem does not
-probe CB devices for IOMMU groups and of_dma_configure() in the bus
-dma_configure callback has no IOMMU domain to attach to.
+qda_cb_populate() walks the child nodes and creates one CB device each,
+unwinding everything it created if any single creation fails.
+qda_destroy_cb_device() removes a device from its IOMMU group before
+unregistering it so the domain is released cleanly.
+
+CB devices are created before the DRM device is registered and destroyed
+after it is unplugged, so user space cannot reach a CB that does not
+exist yet, and no ioctl can be in flight while one is torn down.
 
 Assisted-by: Claude:claude-sonnet-5
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 ---
- drivers/iommu/iommu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes in v2:
+- Use qda_cb_device_create() and pass the name as a format string
+  instead of formatting into a stack buffer (Dmitry Baryshkov)
+- Fail probe on the first CB creation error and unwind, instead of
+  counting successes and continuing (Dmitry Baryshkov)
+- Drop the impossible NULL check in qda_destroy_cb_device()
+  (Dmitry Baryshkov)
+- Use drm_*() logging consistently instead of mixing with dev_*()
+  (Dmitry Baryshkov)
+---
+ drivers/accel/qda/Makefile    |  1 +
+ drivers/accel/qda/qda_cb.c    | 86 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_cb.h    | 32 ++++++++++++++++
+ drivers/accel/qda/qda_drv.c   |  1 +
+ drivers/accel/qda/qda_drv.h   |  3 ++
+ drivers/accel/qda/qda_rpmsg.c | 16 +++++++-
+ 6 files changed, 138 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index cd1bca7ede9a..4c4f7e732773 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -26,6 +26,7 @@
- #include <linux/bitops.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
-+#include <linux/qda_compute_bus.h>
- #include <linux/fsl/mc.h>
- #include <linux/module.h>
- #include <linux/cc_platform.h>
-@@ -200,6 +201,9 @@ static const struct bus_type * const iommu_buses[] = {
- #ifdef CONFIG_CDX_BUS
- 	&cdx_bus_type,
- #endif
-+#ifdef CONFIG_DRM_ACCEL_QDA_COMPUTE_BUS
-+	&qda_cb_bus_type,
-+#endif
- };
+diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
+index 424176f652a5..143c9e4e789e 100644
+--- a/drivers/accel/qda/Makefile
++++ b/drivers/accel/qda/Makefile
+@@ -6,6 +6,7 @@
+ obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
  
- /*
+ qda-y := \
++	qda_cb.o \
+ 	qda_drv.o \
+ 	qda_rpmsg.o
+ 
+diff --git a/drivers/accel/qda/qda_cb.c b/drivers/accel/qda/qda_cb.c
+new file mode 100644
+index 000000000000..9c5ef32f351e
+--- /dev/null
++++ b/drivers/accel/qda/qda_cb.c
+@@ -0,0 +1,86 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++#include <linux/dma-mapping.h>
++#include <linux/device.h>
++#include <linux/of.h>
++#include <linux/iommu.h>
++#include <linux/qda_compute_bus.h>
++#include <linux/slab.h>
++#include <drm/drm_print.h>
++#include "qda_drv.h"
++#include "qda_cb.h"
++
++int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node)
++{
++	struct qda_cb_dev *entry;
++	struct device *cb_dev;
++	u32 sid = 0;
++
++	if (of_property_read_u32(cb_node, "reg", &sid))
++		drm_info(&qdev->drm_dev, "No stream ID in DT node %pOFn, using 0\n", cb_node);
++
++	cb_dev = qda_cb_device_create(qdev->dev, DMA_BIT_MASK(32), cb_node,
++				      "qda-cb-%s-%u", qdev->dsp_name, sid);
++	if (IS_ERR(cb_dev)) {
++		drm_err(&qdev->drm_dev, "Failed to create CB device for SID %u: %ld\n",
++			sid, PTR_ERR(cb_dev));
++		return PTR_ERR(cb_dev);
++	}
++
++	entry = kzalloc_obj(*entry);
++	if (!entry) {
++		qda_destroy_cb_device(cb_dev);
++		return -ENOMEM;
++	}
++
++	entry->dev = cb_dev;
++	list_add_tail(&entry->node, &qdev->cb_devs);
++
++	return 0;
++}
++
++void qda_cb_unpopulate(struct qda_dev *qdev)
++{
++	struct qda_cb_dev *entry, *tmp;
++
++	list_for_each_entry_safe(entry, tmp, &qdev->cb_devs, node) {
++		list_del(&entry->node);
++		qda_destroy_cb_device(entry->dev);
++		kfree(entry);
++	}
++}
++
++int qda_cb_populate(struct qda_dev *qdev, struct device_node *parent_node)
++{
++	struct device_node *child;
++	int ret;
++
++	for_each_child_of_node(parent_node, child) {
++		if (!of_device_is_compatible(child, "qcom,fastrpc-compute-cb"))
++			continue;
++
++		ret = qda_create_cb_device(qdev, child);
++		if (ret) {
++			drm_err(&qdev->drm_dev, "Failed to create CB device for: %s\n",
++				child->name);
++			of_node_put(child);
++			qda_cb_unpopulate(qdev);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++void qda_destroy_cb_device(struct device *cb_dev)
++{
++	struct iommu_group *group;
++
++	group = iommu_group_get(cb_dev);
++	if (group) {
++		iommu_group_remove_device(cb_dev);
++		iommu_group_put(group);
++	}
++
++	device_unregister(cb_dev);
++}
+diff --git a/drivers/accel/qda/qda_cb.h b/drivers/accel/qda/qda_cb.h
+new file mode 100644
+index 000000000000..bd83d64fa425
+--- /dev/null
++++ b/drivers/accel/qda/qda_cb.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef __QDA_CB_H__
++#define __QDA_CB_H__
++
++#include <linux/device.h>
++#include <linux/list.h>
++#include <linux/of.h>
++#include "qda_drv.h"
++
++struct qda_cb_dev {
++	struct list_head node;
++	struct device *dev;
++};
++
++/*
++ * Compute bus (CB) device management
++ */
++int qda_create_cb_device(struct qda_dev *qdev, struct device_node *cb_node);
++void qda_destroy_cb_device(struct device *cb_dev);
++
++/*
++ * Transport-agnostic CB device population/teardown.
++ * Called by any transport layer (RPMsg, etc.) during probe/remove.
++ */
++int qda_cb_populate(struct qda_dev *qdev, struct device_node *parent_node);
++void qda_cb_unpopulate(struct qda_dev *qdev);
++
++#endif /* __QDA_CB_H__ */
+diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
+index 9a64f7dfcb6e..09b6d5ac390b 100644
+--- a/drivers/accel/qda/qda_drv.c
++++ b/drivers/accel/qda/qda_drv.c
+@@ -52,6 +52,7 @@ struct qda_dev *qda_alloc_device(struct device *dev)
+ 	if (IS_ERR(qdev))
+ 		return ERR_CAST(qdev);
+ 
++	INIT_LIST_HEAD(&qdev->cb_devs);
+ 	return qdev;
+ }
+ 
+diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
+index 4a27fb40c280..3bd41b9593fa 100644
+--- a/drivers/accel/qda/qda_drv.h
++++ b/drivers/accel/qda/qda_drv.h
+@@ -7,6 +7,7 @@
+ #define __QDA_DRV_H__
+ 
+ #include <linux/device.h>
++#include <linux/list.h>
+ #include <linux/rpmsg.h>
+ #include <linux/types.h>
+ #include <drm/drm_device.h>
+@@ -37,6 +38,8 @@ struct qda_dev {
+ 	struct rpmsg_device *rpdev;
+ 	/** @dev: Underlying Linux device */
+ 	struct device *dev;
++	/** @cb_devs: Compute context-bank (CB) child devices */
++	struct list_head cb_devs;
+ 	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
+ 	const char *dsp_name;
+ };
+diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
+index 6a6e58333a68..723b3e61bf0a 100644
+--- a/drivers/accel/qda/qda_rpmsg.c
++++ b/drivers/accel/qda/qda_rpmsg.c
+@@ -5,6 +5,7 @@
+ #include <linux/rpmsg.h>
+ #include <drm/drm_print.h>
+ 
++#include "qda_cb.h"
+ #include "qda_drv.h"
+ 
+ static struct qda_dev *qda_rpmsg_alloc_and_init_qdev(struct rpmsg_device *rpdev)
+@@ -40,6 +41,7 @@ static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	 */
+ 	drm_dev_unplug(&qdev->drm_dev);
+ 	qdev->rpdev = NULL;
++	qda_cb_unpopulate(qdev);
+ }
+ 
+ static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
+@@ -57,7 +59,19 @@ static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		return ret;
+ 	}
+ 
+-	return qda_register_device(qdev);
++	ret = qda_cb_populate(qdev, rpdev->dev.of_node);
++	if (ret)
++		return ret;
++
++	ret = qda_register_device(qdev);
++	if (ret)
++		goto err_unpopulate;
++
++	return 0;
++
++err_unpopulate:
++	qda_cb_unpopulate(qdev);
++	return ret;
+ }
+ 
+ static const struct of_device_id qda_rpmsg_id_table[] = {
 
 -- 
 2.34.1
