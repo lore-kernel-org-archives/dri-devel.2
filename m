@@ -4,44 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A08F2C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 07:14:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6795EC5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 07:27:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE55A10E65C;
-	Mon, 17 Aug 2026 07:14:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3C4789613;
+	Mon, 17 Aug 2026 07:27:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GyOETB1K";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BAG8YZ9T";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44D2910E65C
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 07:14:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46196898F0
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 07:27:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 668C4600AE;
- Mon, 17 Aug 2026 07:14:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50251F000E9;
- Mon, 17 Aug 2026 07:14:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9E47F600AE;
+ Mon, 17 Aug 2026 07:27:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F101F000E9;
+ Mon, 17 Aug 2026 07:27:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786950842;
- bh=E/M06geur84ARxO/DQeGing6QMBaPH7fTpTLiQ4syqo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GyOETB1K+LgKowK84+4Ox5kHiIhRh4vWJM+bSQY1IRDbZKJ13O5b63HJl7gxPtmUu
- Atb5w+fugf/xkPD5FZ2vdn1Y4AzYjj2dVQz2L5Nf1WFfar7kSC8+spBV71H9+W3x8K
- 1p2avtRKvCjv2aPhDVGvL88cjm/Ra3GXgzzpuBoje2QBxUFcHAzjfX/lkG93N/2eFR
- B2rOVQcA4BDjZIU91bhBFI5Ee/xQOJ+eLpy+0F2hpuf8/b5rJPS3yKESEBPLzz3Paf
- dnJ/NJpJFK45xk+dfIQC/TFNa08glvoXxgnUnbkI8MLEfbOmi0u3UbvJQduQWeUFGh
- jyVV3AU5/7zBA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 07/10] rust: id_pool: add contiguous ID reservation
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260817-chid-v7-7-a5872e64d8f4@nvidia.com>
-References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
- <20260817-chid-v7-7-a5872e64d8f4@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 07:14:01 +0000
-Message-Id: <20260817071401.C50251F000E9@smtp.kernel.org>
+ s=k20260515; t=1786951623;
+ bh=sWuJzYTV6+aCAtr11d8N7ZjT/WOZ3Cg9QHdseH39gl8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=BAG8YZ9T8tuUssFTi2ulRx6xrLDcC9ni/b8hH34swERrV6HGJeB5d22blczHOtgvG
+ eM53ZsesMfQYD3wSSGGq0edFgf7MGiYL46wE2ubQ1yx8RTEKsHW43eMAP25S/aoviJ
+ LPlLbR8VaRwU3zsGIufGFbLZqvwBmNC5WyU6NOqnh+3x6cVI/i+5bxeT1eSF2vVfXa
+ l3oEecAgubWIo5TvffNJkRJP2Je1Znm7dZQU7qPevgVJtlz//cCQvpePk40fhgQIfa
+ C5J/3VnXJKFqDemZ3JQCpCch6hF2ZP/ZLYrBlMvgunKDvd470t1xoUDa/hfFV3a+g1
+ X6uGCn/E+TUIA==
+Date: Mon, 17 Aug 2026 09:27:00 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Yashas D <y-d@ti.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ u-kumar1@ti.com, 
+ devarsht@ti.com, s-jain1@ti.com, d-mittal@ti.com, b-padhi@ti.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/bridge: ti-sn65dsi86: retrain DP link directly
+ on cable replug
+Message-ID: <20260817-enlightened-dodo-of-satiation-cfd4b0@houat>
+References: <20260814120304.887993-1-y-d@ti.com>
+ <20260814120304.887993-3-y-d@ti.com>
+ <CAD=FV=XVoWvfD33Y16UOMZsz_fsOpnxeGK0izEKc-iCbR++J2g@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="3gyq6cf45szc6omf"
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=XVoWvfD33Y16UOMZsz_fsOpnxeGK0izEKc-iCbR++J2g@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,123 +68,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-New issues:
-- [Medium] The `reserve_ids` method modifies the pool state immediately and=
- returns a plain `Range<usize>`, breaking the typestate pattern and risking=
- ID leaks.
-- [Low] Imports from `crate::` are not formatted using the vertical import =
-style.
+--3gyq6cf45szc6omf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] drm/bridge: ti-sn65dsi86: retrain DP link directly
+ on cable replug
+MIME-Version: 1.0
 
-Pre-existing issues:
-- [High] `reserve_ids` and existing iteration methods panic under `CONFIG_R=
-UST_BITMAP_HARDENED` if `offset >=3D pool.capacity()`.
---
+On Fri, Aug 14, 2026 at 10:14:42AM -0700, Doug Anderson wrote:
+> Hi,
+>=20
+> On Fri, Aug 14, 2026 at 5:04=E2=80=AFAM Yashas D <y-d@ti.com> wrote:
+> >
+> > When a cable is replugged while the upstream display pipeline is still
+> > active (e.g. a compositor holds the CRTC), the bridge can retrain the
+> > DP link and re-enable the video stream directly from the HPD interrupt
+> > work handler without requiring a full DRM atomic commit. This allows
+> > applications to recover display output after a cable replug.
+> >
+> > Signed-off-by: Yashas D <y-d@ti.com>
+> > ---
+> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 215 +++++++++++++++++++++-----
+> >  1 file changed, 179 insertions(+), 36 deletions(-)
+>=20
+> There's a lot of code here and Sashiko has a bunch of feedback [1].
+> I'm not personally very familiar with the HPD flows. I'll probably
+> skip reviewing this until Sashiko is reasonably happy or until you
+> explain why Sashiko is confused.
+>=20
+> FWIW, just from the patch description, I'd also question if this is
+> really a good idea. If we get an unplug / replug, we could get an
+> entirely new display plugged in. This is really something that's OK
+> without needing to handle things?
 
---- Patch [7]: [PATCH v7 07/10] rust: id_pool: add contiguous ID reservatio=
-n ---
-commit 1c4cba33204f36d476fe12dc8cb9f2594da796ce
-Author: Eliot Courtney <ecourtney@nvidia.com>
+The expectation is that the output should remain the same unless
+userspace decides on a modeset. So, we should send the hotplug event,
+and reenable the output as is.
 
-rust: id_pool: add contiguous ID reservation
+I'm not sure if there's only link-training in DP's case, but for HDMI we
+have a similar issue with the scrambling setup that gets reset by the
+unplug/replug cycle.
 
-This commit adds `IdPool::reserve_ids` to allow allocating a contiguous
-range of IDs from the pool with a specified offset, count, and alignment.
+The easier thing to do in that case is to create a new empty commit and
+disable/enable the whole display chain starting with the CRTC, since it
+doesn't create a new path to test. We have
+drm_atomic_helper_reset_crtc() and drm_bridge_helper_reset_crtc() to do
+just that.
 
-diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-index 9494fde701eea..382a5645767fb 100644
---- a/rust/kernel/id_pool.rs
-+++ b/rust/kernel/id_pool.rs
-@@ -4,8 +4,14 @@
-=20
- //! Rust API for an ID pool backed by a [`BitmapVec`].
-=20
-+use core::{
-+    num::NonZero,
-+    ops::Range, //
-+};
-+
- use crate::alloc::{AllocError, Flags};
- use crate::bitmap::BitmapVec;
-+use crate::ptr::Alignment;
+Maxime
 
-[Severity: Low]
-This isn't a bug, but could we format these crate:: imports vertically?
+--3gyq6cf45szc6omf
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The Rust subsystem coding guidelines request that new imports follow the
-kernel vertical import style, rather than adding standalone single-line
-imports to existing blocks.
+-----BEGIN PGP SIGNATURE-----
 
-=20
- /// Represents a dynamic ID pool backed by a [`BitmapVec`].
- ///
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaoK3vQAKCRAnX84Zoj2+
+dgJVAYCXyD3EbL2Ke5uPexdVLW+Ir0JVuebL8p76DncL8N701PQwZlWxjLk0kor9
+bJkEyYgBf1UbZlcQrXwLIA0yeoIC21+XFDwFkFWvs62b7/mSbtDtDqg/lfebMMCl
+0qc6DjHCEw==
+=FvpB
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-@@ -244,6 +250,32 @@ pub fn find_unused_id(&mut self, offset: usize) -> Opt=
-ion<UnusedId<'_>> {
-     pub fn release_id(&mut self, id: usize) {
-         self.map.clear_bit(id);
-     }
-+
-+    /// Reserves a contiguous area of `count` IDs at or after `offset`.
-+    ///
-+    /// The start of the returned area is a multiple of `align`.
-+    ///
-+    /// Returns the reserved range upon success, or [`None`] if no such ar=
-ea could be found.
-+    #[inline]
-+    #[must_use]
-+    pub fn reserve_ids(
-+        &mut self,
-+        offset: usize,
-+        count: NonZero<usize>,
-+        align: Alignment,
-+    ) -> Option<Range<usize>> {
-+        let start =3D self.map.next_zero_area(offset, count, align)?;
-
-[Severity: High]
-This is a pre-existing issue, but does passing an offset equal to the pool
-capacity cause a kernel panic under CONFIG_RUST_BITMAP_HARDENED?
-
-If a caller iterates through the ID pool and the offset reaches the end
-of the pool, it appears that self.map.next_zero_area() triggers the
-bitmap_assert!(start < self.len()) bounds assertion inside the underlying
-bitmap implementation (like next_zero_area_off) instead of gracefully
-returning None.
-
-Could this strict assertion be overly restrictive and unsafe for standard l=
-oop
-patterns over the ID pool?
-
-> +        self.map.set(start, count);
-> +        Some(start..start + count.get())
-> +    }
-
-[Severity: Medium]
-Does returning a plain Range<usize> here risk leaking IDs if the caller
-returns early on a subsequent fallible operation?
-
-Since this method modifies the pool state immediately by calling
-self.map.set(start, count) but returns a type without a Drop implementation,
-any error path (such as memory allocation failing) that propagates with `?`
-after the reservation would permanently lock these IDs.
-
-Could this be updated to use the RAII/typestate pattern (similar to UnusedId
-used by find_unused_id) to either defer setting the bitmap or properly rele=
-ase
-the IDs when dropped?
-
-+
-+    /// Releases a contiguous area of IDs.
-+    #[inline]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-chid-v7-0-=
-a5872e64d8f4@nvidia.com?part=3D7
+--3gyq6cf45szc6omf--
