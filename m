@@ -4,42 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2EEC5DF70
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 08:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51443C5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 08:32:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A057510E6D2;
-	Mon, 17 Aug 2026 08:31:52 +0000 (UTC)
-X-Greylist: delayed 373 seconds by postgrey-1.36 at gabe;
- Mon, 17 Aug 2026 08:31:51 UTC
-Received: from mailout2.hostsharing.net (mailout2.hostsharing.net
- [83.223.78.233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64E3510E6CD;
- Mon, 17 Aug 2026 08:31:51 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net
- [IPv6:2a01:37:1000::53df:5f1c:0])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
- client-signature ECDSA (secp384r1) client-digest SHA384)
- (Client CN "*.hostsharing.net",
- Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
- by mailout2.hostsharing.net (Postfix) with ESMTPS id 6C61710DF5;
- Mon, 17 Aug 2026 10:25:36 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id 4D435602C817; Mon, 17 Aug 2026 10:25:36 +0200 (CEST)
-Date: Mon, 17 Aug 2026 10:25:36 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Gilles Risch <gilles.risch@gmail.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v6] drm/radeon: fix internal display on iMac11,1
- (RV770/DCE3.1)
-Message-ID: <aoLFgErQKXoxYE3H@wunner.de>
-References: <180318e7-0432-403a-b87b-6f9a455bb86a@gmail.com>
- <20260817004326.3192-1-gilles.risch@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B188110E6D3;
+	Mon, 17 Aug 2026 08:32:00 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oGduTKlK";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0AD210E6D3
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:31:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 05307600AE;
+ Mon, 17 Aug 2026 08:31:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB091F000E9;
+ Mon, 17 Aug 2026 08:31:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786955517;
+ bh=DjvN9I+WiqrDRVWKGAcxEQxe3u5A5q92qU/dyJKtweY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=oGduTKlKZtNGH0fL0vjCr4oOuG53BSVJXccrMN+T9IjX8zTXh60uHYABRw8jn3LEq
+ OjqXOJ+bjk8DSSlQZrWH28ekGsEkSqNGt+rD1xb0vS9KUeEt5JWY60ZPo6bqqRg4gW
+ +kHDsn/TEeZyoHfKFLJ68B6ynlR9lMOmbNVJPVUTxJp5eEh+8DRwsS7hNFrYOeofjL
+ y0wEucSJDRJBApcOiBuYzoIlnd670V/WMUtIAgrqr0+AaOVS1uAnVdCJKVDoMuWnzu
+ wu1mM3ykqM8uVDObX/HFUasdNLs/6nv7LPPVqfuCk/p4pqjNZxmpeKZGUjxUSrb7hk
+ DZUl5smbyI/ow==
+Date: Mon, 17 Aug 2026 10:31:55 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
+ the drm module
+Message-ID: <20260817-lumpy-wooden-bird-4bdfb4@houat>
+References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
+ <20260814-drm-bridge-every-panel-v1-4-19cd5277cc8d@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="f22edln4f6seruam"
 Content-Disposition: inline
-In-Reply-To: <20260817004326.3192-1-gilles.risch@gmail.com>
+In-Reply-To: <20260814-drm-bridge-every-panel-v1-4-19cd5277cc8d@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,67 +73,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2026 at 02:43:26AM +0200, Gilles Risch wrote:
-> The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
-> (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
-> DisplayPort path. Without this fix the display stays dark under KMS.
-> 
-> This machine suffers from the same issue as iMac10,1 and iMac11,2:
-> Apple routes the internal display through Link B of the DIG encoder
-> instead of Link A. Add iMac11,1 to the existing DMI quirk and move
-> the Apple-specific encoder assignment into its own block, independent
-> of the DCE version check.
-> 
-> Additionally, the 2560x1440 panel requires RADEON_PLL_USE_FRAC_FB_DIV
-> and ATOM_ENCODER_CMD_DP_VIDEO_ON, limited to iMac11,1 via dmi_match()
-> to avoid affecting other boards.
-> 
-> Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
 
-Reviewed-by: Lukas Wunner <lukas@wunner.de>
+--f22edln4f6seruam
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
+ the drm module
+MIME-Version: 1.0
 
-> Good morning,
-> 
-> this is v6 of the patch, rebased on top of amd-staging-drm-next
-> (agd5f/linux).
-> 
-> There are no functional or code changes since v5.
-> 
-> Regarding Lukas Wunner's previous Reviewed-by (which was provided on v2),
-> I have kept him in CC so he can confirm if his review still stands given
-> the changes between v2 and v5.
-> 
-> Could you have a look at this when you have a spare moment?
-> 
-> Regards,
-> Gilles
-> 
-> Changes in v6:
-> - Rebased on amd-staging-drm-next (no functional/code changes since v5)
-> ---
+On Fri, Aug 14, 2026 at 04:05:52PM +0200, Luca Ceresoli wrote:
+> Work is in progress to make every drm_panel automatically create a
+> panel_bridge [0][1].
+>=20
+> This requires the panel code to call the drm_panel_bridge APIs. However
+> this would create a circular dependency loop on modular builds:
+>=20
+> __devm_drm_panel_alloc() [drm]
+>    -> drm_panel_bridge_add() [drm_kms_helper]
+>       -> drm_bridge.c APIs [drm]
+>=20
+> Moving just the panel_brige.o file from [drm_kms_helper] to [drm] does not
+> work because the panel bridge code uses the drm_atomic_helper and
+> drm_probe_helper which add further dependencies on symbols in the
+> [drm_kms_helper] module.
+>=20
+> So take a simple approach, and move the entire drm_kms_helper into the
+> [drm] module.
+>=20
+> Link: https://lore.kernel.org/all/emuj2innmp6zmzd7pyakqzjqpdzhly6qfhakya3=
+ydwmd63pl26@5jwxaidpikjw/ [0]
+> Link: https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-8-9d6f2=
+c9c3058@bootlin.com/ [1]
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Put additional information like this below the three dashes
-so that it's not committed to the git repo when the maintainer
-applies your patch.
+So, that's not an option. However, why do we need drm_panel_bridge_add()
+after this work is done? If we want to create a bridge for every panel,
+then the bridge implementation can live in drm_panel.c, which is part of
+the drm module.
 
-> -	if (ASIC_IS_DCE32(rdev)) {
-> -		if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
-> -		    dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
-> -			enc_idx = (dig->linkb) ? 1 : 0;
-> -		else
-> -			enc_idx = radeon_crtc->crtc_id;
-> +	if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
-> +	    dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
-> +	    dmi_match(DMI_PRODUCT_NAME, "iMac11,2")) {
-> +		enc_idx = (dig->linkb) ? 1 : 0;
-> +		goto assigned;
-> +	}
+And we'd essentially move drm_panel_bridge into drm_panel.c, and make it
+private.
 
-Nit:
-If the number of dmi_match() calls exceeds one or two, for readability
-it's usually a good idea to create a table and match against that with
-dmi_check_system().
+Maxime
 
-Thanks,
+--f22edln4f6seruam
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Lukas
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaoLG+wAKCRAnX84Zoj2+
+dutBAX0T7wF4IXEZg8CkFyzW4tBIz9tMu/FMHfXQc7tpKZYnKkZV7lXA//AIl7vk
+0odgEEABgOFBtDMl9SoXyhqJFzh7YNbWgX2xm5TZ7YU3k3ncEWyI3o0hAye6MYH9
+bsliHhEkbw==
+=4hMm
+-----END PGP SIGNATURE-----
+
+--f22edln4f6seruam--
