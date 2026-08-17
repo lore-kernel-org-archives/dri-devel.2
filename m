@@ -4,93 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4157CC5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 18:22:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56B0AC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 18:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D99F10E439;
-	Mon, 17 Aug 2026 18:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9518C10E2AF;
+	Mon, 17 Aug 2026 18:35:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="S3tudvW/";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="vX/A6JUR";
 	dkim-atps=neutral
-Received: from mail-qk2-f9.google.com (mail-qk2-f9.google.com [74.125.230.201])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE11F10E2AF
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 18:22:12 +0000 (UTC)
-Received: by mail-qk2-f9.google.com with SMTP id
- d75a77b69052e-52838fe2172so8428791cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:22:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1786990932; x=1787595732;
- darn=lists.freedesktop.org; 
- h=mime-version:user-agent:content-type:autocrypt:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=cy7EcQJSpnXZMIEn2xYEeGMt8Vb7G/dRmaRGic/8Zt4=;
- b=S3tudvW/xLI3Jo8AtdqrlkE2eIIsUCFGkThc/TLby42CgzhEETFkzANHV5irRDRcS9
- 5xXYFVAyNwUmtNqFb3q4yQ8w0ewYkgizI+3HJhTlPIW34zccBkrSQk8+fBLusE2wtFJU
- dob07zBJ5SUI/a+OBIi//B+l7Q2du3bgZxDXQnhoCh2nkgJrXfGRVS6vF3k+Q9M3QJyJ
- zmHtgmPB/WDJRH2KE+/PGeijyom/7XQVCHGFQITnQQ8iHFx+1H5hLwqZ9DgNKG54bAOv
- NudUhRqBT5Jz+TKHGLQwR9eSNx9Np0xgMCE2XaFh7F2hndg9o4Qya0CQ7o+HbfZX8JZf
- lMuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786990932; x=1787595732;
- h=mime-version:user-agent:content-type:autocrypt:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=cy7EcQJSpnXZMIEn2xYEeGMt8Vb7G/dRmaRGic/8Zt4=;
- b=Rnz8ZAAl+EUk6p1Hl0OmziYnNa4SIXApGnEAfZirUK5vsjgqZ6T1llqE9UmlR0SWaz
- XXrg5GpMsJ99EebLFhXficS/WphwhnxRVCY4/y0OLtjPCajNBp7vyLQRkiQu1oE7/m9S
- NDdFVYT6Y62kdY9akrCJxm+C7AqKcAffffD3BdyZuTe9yvUS7vyGhDFLimj1Hftj15KX
- 9W06N4xYOjsFAxs0QZrJEZAntli5zOiAtBnYdPslps0Ymt3Go5gsuU8uet0qJRkVOnhA
- 8bvTXNUaFOfkdZAI9pP5Ga+LcANBt2FF8CYT+1//b8zK7fyHfN1yuYiO57tUr5PUyeI/
- ofzA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqkbuONKr0T0dqtVbC6pbKrlM1qoPaW0r1LBan5XRTZ4JFuL7kn/c1WSObTXQlaiIPG2CL/7cvt0is=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzC5s9qQDj/QXm5UzHCZJDob0MectmeO7c504oX/WuoMT7+RX5S
- mCCkR5qvmCWu/JhuH9mjo8cSn7q82ygA9Kpir93yPuWuWgPPFv6dDysaKziQ2VDAVa4=
-X-Gm-Gg: AR+sD11z3EWereVUb7aZLUBN1Zepd1sjv237KEhaGsNbYrarUf7XBGSeBJpB4oZSiAh
- OQePGtVmeDXM5UvP9gBMYdsAjnDo2R/Ce3V8LfFG8I9hJM8NXOuOcb8Tx71nWBScXuIcYf+zDl6
- JBovon29uwrLrJKK2aDcNHq3w8yVLhi8wo6rgboQaS4ClxtAoAF/hFqGT/6JCud7zzcJ2cr65KR
- nB2ll42+FhVNupVbAfBPXBgF9b61j9StBXZaYysZLmUwL6b7Wr99ALFua+TGO9itFiG8OnpOlb8
- rlEwbIiT1aDHTrjNAao+NYtTrUKuNUln0vsoKqwg017mRcDR5Rz3/X6DA8W5bjzO0IGC3PMMJTb
- L1ly5JJiQx4gWbrPxjpsB+TNDx1pL+V6n5hyU+atsCIGZvC5VYfT2GgwU08dwWvmu0gYOOKP4hB
- NrrSSm/nEvgwyInlz6MWZQIDdh5phE3kGdbMIoQ7Ve1k22r2ws2eNvFkkOZZ6AqLgi
-X-Received: by 2002:ac8:5d14:0:b0:52d:a4e5:6b3c with SMTP id
- d75a77b69052e-52dbd638fedmr30677991cf.15.1786990931320; 
- Mon, 17 Aug 2026 11:22:11 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e221::c41? ([2606:6d00:15:e221::c41])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-52db6136569sm20543191cf.12.2026.08.17.11.22.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 11:22:10 -0700 (PDT)
-Message-ID: <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint, and
- some numbers
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Igor Paunovic <royalnet026@gmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Heiko Stuebner <heiko@sntech.de>, Jiaxing Hu <gahing@gahingwoo.com>, 
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org
-Date: Mon, 17 Aug 2026 14:22:08 -0400
-In-Reply-To: <20260801131656.58450-1-royalnet026@gmail.com>
-References: <20260801131656.58450-1-royalnet026@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-Uj4DXSO5nfw2UYdvSayp"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0509E10E2AF
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 18:35:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=7shnazFeFjFhvWi4xctYX+yRJGMgipdv+99SjZFKDrw=; b=vX/A6JUR7JJc1Cu7W/sJL7JG1D
+ frHOMMcqPcHEgd0Vrbuv+MMSslzyzlbfX/oydkNbZJQmgOXpZY8Jepof4R0FEhzDF0E7SO4eFytDi
+ XnxMcciSgsLCtG0lINrYWr5PraWLmFYk/XpH7OQ6XXENzduwLndKOX+NMGo3YoSB/r6rDUpB8GXCI
+ q5fCiEiIKEWeZZ4WvVQ9aB8ynh9wREs5USUSOT4SRRBtNZtwZN6xMYm7oXugC6qkfKsnY8j4hqucM
+ 0zP1hqOGmWQlLwWOBOoHvvl8WXxIvvGMQVmY6WbRsvfH7b9o4Oca/WhxBGBLXqGaUJavW9up0Cjg4
+ 8P1soEHQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red
+ Hat Linux)) id 1ww2Ak-0000000Ad5q-0PAP;
+ Mon, 17 Aug 2026 18:34:58 +0000
+Date: Mon, 17 Aug 2026 19:34:57 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: jim.cromie@gmail.com
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+ Waiman Long <longman@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Boqun Feng <boqun@kernel.org>, netfilter-devel@vger.kernel.org,
+ bpf@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ coreteam@netfilter.org, netdev@vger.kernel.org,
+ Byungchul Park <byungchul@sk.com>
+Subject: Re: [PATCH 0/9] lib/folio_pool: Direct-Map Large Folio Pool &
+ Scratchpad bump allocators
+Message-ID: <aoNUUTG2DPS3kGzp@casper.infradead.org>
+References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,258 +85,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Aug 17, 2026 at 11:22:14AM -0600, Jim Cromie via B4 Relay wrote:
+> Introduce two light-weight bump allocators backed directly by compound
+> folio pages from the buddy allocator (skipping SLUB metadata overhead):
+> 
+> 1. struct folio_scratchpad - Variable-sized, alignment-aware bump allocator
+>    for bursty, append-mostly lifecycles with bulk teardown.
+> 2. struct folio_pool - Fixed uniform-slot bump allocator for homogeneous
+>    descriptors.
 
---=-Uj4DXSO5nfw2UYdvSayp
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This is an inappropriate use of folios.  Folios are for memory that's
+in the page cache and anonymous user memory, not for general kernel
+use.  They would need their own memdesc type.
 
-Hi Igor,
+But Byungchul is already doing that work.  So you should just reuse what
+he's done.
 
-Le samedi 01 ao=C3=BBt 2026 =C3=A0 15:16 +0200, Igor Paunovic a =C3=A9crit=
-=C2=A0:
-> Hi Tomeu,
->=20
-> Since you asked for fixes to be sent upfront I have kept poking at the
-> RK3588 NPU, and I ended up implementing devfreq for rocket locally.  It
-> works, but on the way there I hit a crash class that I could not find
-> documented anywhere, and I also measured something about the vendor OPP
-> table that I did not expect.  Both seem worth sharing before I clean any
-> of it up for posting, so I would rather ask first than send a series you
-> may not want in this shape.
->=20
-> Cc'ing Jiaxing since he is working on the clocks and on RK3576.
-
-Tomeu just notified me that you had sent this RFC. Without any precise
-commitment, I was also interested in this and have used AI to come up with =
-a
-proof of concept. I'm only looking at the RK3588, I suppose all the issues =
-below
-related to RK3576 ? The main constraints on RK3588 is that there is one clo=
-ck
-rate for all cores. the PM part allow suspending the cores independently, b=
-ut a
-special case is needed once all core are suspended, since you cannot resume
-reliable at any other rate then 200MHz. This part still feels like a hack t=
-o me,
-I might just hand rewrite it once I have a plan.
-
-https://gitlab.collabora.com/nicolas/linux/-/commits/rock5b-npu-poc-4?ref_t=
-ype=3Dheads
-
-I have saved my work here, even though its far from ready to be sent to an =
-ML.
-You will feel the AI vibe in the comment/commit, this all needs to be rewri=
-tten
-for human readers. All this work depends on upstream ATF, I have no idea if=
- the
-ABI is the same as downstream, and to be honest, I'm not very interested in
-that.
-
-Please, feel free to take whatever you like, I'm still working on it, but i=
-ts
-possible my timeline will endup too long for you. Some important note:
-
-**operating-points-v2**
-
-My view of it is that its not that useful for devfreq in general, you mostl=
-y
-want a max/lower rate effect, since throughput is generally more important.=
- But:
-
-1. I was adding it anyway with the idea that a future thermal (which you re=
-port
-having) would be able to throttle it in small increment. As you reported, t=
-he
-chip itself does not seem to heat up, but my view is that if you can balanc=
-e the
-throttle across CPU/GPU and NPU, you may be able to sustain better overall
-performance (to be proven).
-
-2. Even though we always hit max rate, having the OPP makes it really easy =
-for
-someone with low power constraints change it per board.
-
-The other problem of the OPP implementation is the driver and DTS side. The
-bindings seems sane, we don't require it for backward compatibility reason,=
- but
-the driver is modified in a way that it will fail if you don't provide it. =
-I
-think it would be fixed, and driver should keep working without the OPP in =
-the
-DTS. In the DTS, I've removed the assigned clock/freq, to me keeping it wou=
-ld be
-toward forward compatibility, and is fine, but I don't always fully grasp a=
-ll
-the subtil trap of DT compatibility. Its something I will want to ask an ex=
-pert
-before hitting the ML.
-
-cheers,
-Nicolas
-
->=20
->=20
-> 1. The hardware constraint
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
->=20
-> An NPU power domain cannot be switched on or off while the NPU compute
-> clock is above its DT assigned-clock-rate of 200 MHz.
->=20
-> Changing the rate while a domain is already on is fine - I have taken it
-> to 1 GHz and back many times without a single error.  It is the domain
-> transition that breaks.
->=20
-> What happens when a domain is moved at a high rate:
->=20
->   rockchip-pm-domain ...: failed to get ack on domain 'nputop', val=3D0xa=
-9ffe
->   rocket fdab0000.npu: devfreq: cannot power up for rate change: -110
->=20
-> The domain is then wedged: genpd still believes it is on, but the first
-> MMIO into it raises an asynchronous SError and the box panics.  Captured
-> over the serial console:
->=20
->   Kernel panic - not syncing: Asynchronous SError Interrupt
->   Comm: rmmod
->    _regmap_read
->    regmap_read
->    rockchip_pd_power
->    rockchip_pd_power_off
->    _genpd_power_off        <- rollback
->    genpd_power_off
->    genpd_power_on          <- failed
->    genpd_runtime_resume
->    device_release_driver
->=20
-> This is not specific to nputop.  I have the same message for 'npu2'
-> (val=3D0xa9fff), which matches the DT: all three NPU domains list the NPU
-> clock among their handshake clocks - rk3588-base.dtsi lines 864, 877 and
-> 885, for RK3588_PD_NPUTOP, RK3588_PD_NPU1 and RK3588_PD_NPU2.
->=20
-> So the clock the domains need for their idle/ack handshake is the same
-> clock we would be scaling.  My best explanation is that the PLL that
-> produces it lives inside the domain, so once the domain drops, the clock
-> state goes with it and the handshake can never complete.  I cannot
-> confirm that part - reading the PVTPLL registers is documented as
-> hanging the machine, so I have not tried.  The behaviour itself is
-> reproducible and cost me four hard hangs before I understood it.
->=20
-> I mention it because it is a trap for anyone adding DVFS here, including
-> the RK3576 work, and because it is invisible until the first time you
-> let the NPU idle at a raised clock.
->=20
->=20
-> 2. What ended up working
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->=20
-> Runtime PM callbacks are not enough.  The domains are powered on by the
-> driver core before probe, powered off from a workqueue after detach, and
-> system sleep bypasses runtime PM references entirely - so the driver
-> never sees all the transitions.
->=20
-> What does work is hooking the transitions themselves:
-> dev_pm_genpd_add_notifier() on all three cores, and on GENPD_NOTIFY_PRE_O=
-N
-> and GENPD_NOTIFY_PRE_OFF force the clock back to the DT rate, vetoing the
-> transition with notifier_from_errno() if that fails.  Every path -
-> runtime PM, system sleep, attach at probe, detach after unbind - goes
-> through _genpd_power_on()/_genpd_power_off(), so nothing can slip past.
-> If a transition does happen, the boost cancels itself and says so,
-> rather than leaving the driver claiming a rate the hardware is not
-> running.
->=20
-> This has now survived everything that used to kill the box, including
-> repeated sleep/wake cycles at a raised clock and rmmod while boosted.
->=20
->=20
-> 3. The numbers, which are the surprising part
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->=20
-> Measured with MobileNetV1 through Teflon, one inference thread pinned to
-> one A76, and a bit-exact oracle: sha256 over intermediate tensors on
-> every iteration, zero tolerance.  The 600, 900 and 1000 MHz rows are
-> 30-minute runs of 275k-280k inferences each and the oracle passed
-> bit-exact in all three, so none of this is instability; the 200 MHz row
-> is a shorter control from the same session.
->=20
->   nominal    supply    throughput
->   200 MHz    800 mV     68.5 inf/s      (the current fixed rate)
->   600 MHz    800 mV    155.4 inf/s
->   900 MHz    850 mV    152.4 inf/s
->   1000 MHz   850 mV    152.9 inf/s
->=20
-> 600 MHz is the optimum.  900 and 1000 are indistinguishable from each
-> other and both land about 4% below 600, on a quieter and cooler machine.
-> The vendor OPP table decoded from the downstream DTB asks for 700 mV up
-> to 700 MHz, 750 mV at 800, 800 mV at 900 and 850 mV at 1000, and I ran
-> the top of that range at the voltage it asks for - it does not help.
->=20
-> Backing out an effective clock from the per-chunk time, nominal 600
-> appears to deliver more than nominal 900 or 1000 do.  I would not lean
-> on that decode, but the throughput ordering does not depend on it.
->=20
-> Thermals were never a factor: the highest I saw all day was 50.8 degC,
-> against a critical trip at 115.  This is one board and one model, and
-> MobileNetV1 is memory-heavy, so a compute-dense network may well behave
-> differently - but for this workload the top half of the vendor table
-> buys nothing.
->=20
-> If that holds up elsewhere, an OPP table for rocket probably should not
-> simply mirror the vendor one.
->=20
->=20
-> 4. Thermal, separately
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->=20
-> While looking at this I noticed npu-thermal has only a critical trip at
-> 115 degC - no passive trip, no cooling map, polling-delay-passive is 0 -
-> while gpu-thermal, a few lines above in the same file and on the same
-> tsadc, has both.  That was harmless while the NPU was pinned at 200 MHz
-> because it could not be slowed down anyway; with DVFS it stops being
-> harmless.
->=20
-> I have two small patches for that (a #cooling-cells binding update and
-> the thermal zone itself), but they only make sense once something
-> registers a cooling device, so they would belong with the driver work
-> rather than on their own.
->=20
->=20
-> 5. What I am asking
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->=20
-> - Is DVFS for rocket something you want upstream at all, or is it better
->   left alone for now?
->=20
-> - Does the genpd-notifier approach look right to you, or is there a
->   cleaner hook I have missed?
->=20
-> - Given the measurements, would you want the OPP table to stop at
->   600 MHz rather than follow the vendor range?
->=20
-> - If you do want a series, I will need to clean the code up first - it
->   still keeps its state file-static rather than in rocket_device, and it
->   bypasses the OPP layer for the rate change because our own direct
->   writes leave the OPP cache stale.  Both are fixable; I would rather
->   know the shape you want before rewriting.
->=20
-> Happy to send the current code as-is off-list if that is easier to
-> comment on than prose.
->=20
-> Thanks,
-> Igor
-
---=-Uj4DXSO5nfw2UYdvSayp
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoNRUAAKCRDZQZRRKWBy
-9HZgAQDrkxvYskLAw8gEIVI2Q4ae04HdIWafP+WTfZPgHyu4nwEAzUKPjLWWOT8+
-QI/lXNLGXy4kPVK1pFCd2Vnic1mtlgg=
-=h+ql
------END PGP SIGNATURE-----
-
---=-Uj4DXSO5nfw2UYdvSayp--
+> These serve 2 kinds of use-cases:
+> 
+> 1: Ephemeral Batch/transaction Lifecycles (Netfilter, BPF, DRM GPUVM)
+> 
+> - Transactional subsystems allocate bursts of hundreds or thousands of
+>   homogeneous or heterogeneous objects, only to tear them all down
+>   simultaneously at batch completion or error abort.
+> 
+> - Under SLUB: Each descriptor incurs freelist traversal, lock
+>   contention, and O(N) kfree() loops on teardown.
+> 
+> - Under Folio-Scratchpad: Allocations are straight-line pointer bumps,
+>   bulk teardown is O(1) folio_put(), and consecutive Netlink
+>   transactions reuse warm L1/L2 cachelines without buddy lock churn
+>   via folio_scratchpad_reset().
+> 
+> 2: Dynamic Long-Lived Graph Scaling (Lockdep)
+> 
+> - Core subsystems historically avoided SLUB by statically
+>   preallocating massive compile-time arrays in .bss
+>   (e.g. list_entries[32768], 1.31 MB) to prevent SLUB allocator
+>   recursion deadlocks.
+> 
+> - Fixed arrays exhaust their limit and permanently disable validation
+>   (BUG: MAX_LOCKDEP_ENTRIES too low!).
+>   
+> - Under Folio-Pool: Lockdep uses a 4,096-entry __initdata bootstrap
+>   buffer for early boot prior to buddy initialization, then seamlessly
+>   migrates and compacts all dependency edges into 64 KB direct-map
+>   folios at late_initcall.
+>   
+> - Permanent static .bss allocation for dependency edges is reduced
+>   from 1.31 MB to 0 KB (100% reclamation at free_initmem()).
+> 
+> Core Primitives in include/linux/folio_pool.h & lib/folio_pool.c:
+> -----------------------------------------------------------------
+> 0. struct folio_scratchpad (Variable-Sized Elements):
+>    - Dynamic alignment-aware bump pointer with zero padding waste.
+>    - API: folio_scratchpad_init(), folio_scratchpad_alloc(),
+>      folio_scratchpad_reset(), folio_scratchpad_free(),
+>      folio_scratchpad_stats().
+>    - Typed macros: folio_scratchpad_alloc_obj(),
+>      folio_scratchpad_alloc_bytes(), DEFINE_FREE(folio_scratchpad, ...).
+> 
+> 1. struct folio_pool (Fixed Uniform Elements):
+>    - Thin wrapper embedding struct folio_scratchpad for homogeneous objects.
+>    - API: folio_pool_init(), folio_pool_alloc(), folio_pool_free(),
+>      folio_pool_stats().
+>    - Typed macros: folio_pool_alloc_obj(), folio_pool_alloc_type().
+> 
+> 2. Encapsulated Slab Discrimination & Reallocation:
+>    - is_folio_pool_ptr(ptr): Direct-map folios are identified via
+>      virt_to_folio(ptr) && !folio_test_slab(f), avoiding custom bitflags.
+>    - folio_scratchpad_free_elem(ptr): Safe no-op for folio-backed objects;
+>      delegates to kvfree() for SLUB/vmalloc fallback objects.
+>    - folio_scratchpad_realloc(ptr, old_size, new_size, gfp): Delegates to
+>      krealloc() for SLUB objects; allocates a fresh SLUB buffer and copies
+>      payload for folio-backed descriptors.
+> 
+> 3. Subsystem Autonomy & Runtime Static-Key Control:
+>    - DEFINE_FOLIO_POOL_STATIC_KEY_PARAM() allows maintainers of each
+>      subsystem (Netfilter, Lockdep, DRM, BPF) to choose their own default
+>      enablement policy (DECLARE_STATIC_KEY_TRUE vs FALSE) and independent
+>      module/boot parameters (e.g. lockdep.folio_pool, nf_tables.trans_scratchpad).
+>    - Enables isolated, zero-overhead A/B benchmarking and production triage
+>      without cross-subsystem coupling or kernel recompilation.
+> 
+> Active Proofs & Performance Profiling:
+> --------------------------------------
+> 0. Virtualized Guest Netfilter Benchmark (KVM / virtme-ng ftrace):
+>    Controlled A/B benchmark across 10,025 Netlink transaction descriptors
+>    and 5 asynchronous commit/abort teardown passes:
+> 
+>    Function: nft_trans_alloc (10,025 descriptor allocations)
+>    -----------------------------------------------------------------------------
+>    Mode                                 Total Time       Avg / Alloc      Delta
+>    -----------------------------------------------------------------------------
+>    folio_scratchpad Enabled (Bump)      9,158.02 us          0.914 us    -19.4%
+>    SLUB Fallback (kzalloc)             11,366.53 us          1.134 us  Baseline
+>    -----------------------------------------------------------------------------
+>    Net allocation latency reduction:   -2,208.52 us (-2.21 ms)
+> 
+>    Function: nf_tables_trans_destroy_work (5 asynchronous teardown passes)
+>    -----------------------------------------------------------------------------
+>    Mode                                 Total Time       Avg / Pass       Delta
+>    -----------------------------------------------------------------------------
+>    folio_scratchpad Enabled (Bulk)     36,065.65 us          7.21 ms      -8.6%
+>    SLUB Fallback (O(N) kfree)          39,449.65 us          7.89 ms   Baseline
+>    -----------------------------------------------------------------------------
+>    Net teardown latency reduction:     -3,384.00 us (-3.38 ms)
+> 
+>    Combined In-Kernel Netlink Transaction Lifecycle Savings: -5.59 ms (-13.3%)
+> 
+> 1. Bare-Metal Host Netfilter Profile (AMD Zen 3 Hardware PMU & ftrace):
+>    - Asynchronous Teardown: 53.77 ms vs 56.03 ms (-2.26 ms / -4.0%).
+>    - Instruction Retirement: 281.29M -> 282.46M (-1,174,062 instructions).
+>    - Branch Instructions:     62.94M ->  63.20M (-265,961 branches).
+> 
+> 2. Bare-Metal Host Lockdep Telemetry (Physical Host frodo, AMD Zen SMP):
+>    - Pre-Buddy Watermark: 928/4096 bootstrap entries consumed during boot.
+>    - Graph Compaction: Migrated and compacted bootstrap dependency edges
+>      into folio_pool at late_initcall; bootstrap array reclaimed by
+>      free_initmem() (0 KB permanent .bss cost).
+>    - Live procfs Telemetry (/proc/lockdep_stats):
+>      lock-classes:                          996 [max: 8192]
+>      direct dependencies:                  2324 [dynamic: 7 x 64 kB, tail: 17 kB/64 kB]
+>      indirect dependencies:               24612
+>      all direct dependencies:             81884
+>      zapped classes:                          2
+>      zapped lock chains:                    173
+>    - Active Invariant Validation: Live module unloads exercised modernized
+>      zap_class() direct list unlinking across dynamic folios with zero
+>      global bitmap scans and zero assertions.
+> 
+> What's Unchanged:
+> -----------------
+> - All consumer object structures, alignment rules, and lifecycle boundaries
+>   remain strictly identical.
+> - Memory safety invariants are preserved: individual deallocation is a safe
+>   no-op for arena-backed objects while SLUB objects continue to use kfree().
+> 
+> Subsystem Adoptions in this Series:
+> -----------------------------------
+> 0. lib/folio_pool: Core direct-map large-folio pool and scratchpad allocators.
+> 1. netfilter/nf_tables: Pack netlink transaction descriptors into per-net
+>    trans_scratchpad with bulk reclaim & warm chunk reset.
+> 2. bpf/verifier: Route verifier stack state node allocations to folio_pool.
+> 3. drm/gpuvm: Route gpuva_op allocations to folio_scratchpad.
+> 4. bpf/syscall: Route generic_map_update_batch key/value allocations to
+>    folio_scratchpad.
+> 5. locking/lockdep: Fallback to folio_pool in alloc_list_entry when static
+>    pool is full and expose dynamic folio telemetry in /proc/lockdep_stats.
+> 6. locking/lockdep: Traverse adjacency lists directly in zap_class().
+> 7. locking/lockdep: Shrink static list_entries array to early bootstrap buffer.
+> 8. locking/lockdep: Migrate and compact boot-time dependency graph from __initdata.
+> 
+> Patches in this series:
+> -----------------------
+> [PATCH 1/9] lib/folio_pool: Introduce Direct-Map Large Folio Pool & Scratchpad bump allocators
+> [PATCH 2/9] netfilter/nf_tables: Add folio_scratchpad collector to struct nftables_pernet
+> [PATCH 3/9] bpf/verifier: Route verifier stack state node allocations to folio_pool
+> [PATCH 4/9] drm/gpuvm: Route gpuva_op allocations to folio_scratchpad
+> [PATCH 5/9] bpf/syscall: Route generic_map_update_batch key/value allocations to folio_scratchpad
+> [PATCH 6/9] locking/lockdep: Fallback to folio_pool in alloc_list_entry when static pool is full
+> [PATCH 7/9] locking/lockdep: Traverse adjacency lists directly in zap_class()
+> [PATCH 8/9] locking/lockdep: Shrink static list_entries array to early bootstrap buffer
+> [PATCH 9/9] locking/lockdep: Migrate and compact boot-time dependency graph from __initdata
+> 
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+> Jim Cromie (9):
+>       lib/folio_pool: Introduce Direct-Map Large Folio Pool & Scratchpad bump allocators
+>       netfilter/nf_tables: Add folio_scratchpad collector to struct nftables_pernet
+>       bpf/verifier: Route verifier stack state node allocations to folio_pool
+>       drm/gpuvm: Route gpuva_op allocations to folio_scratchpad
+>       bpf/syscall: Route generic_map_update_batch key/value allocations to folio_scratchpad
+>       locking/lockdep: Fallback to folio_pool in alloc_list_entry when static pool is full
+>       locking/lockdep: Traverse adjacency lists directly in zap_class()
+>       locking/lockdep: Shrink static list_entries array to early bootstrap buffer
+>       locking/lockdep: Migrate and compact boot-time dependency graph from __initdata
+> 
+>  drivers/gpu/drm/drm_gpuvm.c        |  11 +-
+>  include/drm/drm_gpuvm.h            |   6 +
+>  include/linux/bpf_verifier.h       |   3 +
+>  include/linux/folio_pool.h         | 279 +++++++++++++++++++++++++++++++++++++
+>  include/net/netfilter/nf_tables.h  |   3 +
+>  kernel/bpf/syscall.c               |  17 ++-
+>  kernel/bpf/verifier.c              |  16 ++-
+>  kernel/locking/lockdep.c           | 278 +++++++++++++++++++++++++++++-------
+>  kernel/locking/lockdep_internals.h |   2 +
+>  kernel/locking/lockdep_proc.c      |  16 ++-
+>  lib/Makefile                       |   2 +-
+>  lib/folio_pool.c                   | 230 ++++++++++++++++++++++++++++++
+>  net/netfilter/nf_tables_api.c      |  51 +++++--
+>  13 files changed, 837 insertions(+), 77 deletions(-)
+> ---
+> base-commit: 1a7ac48cd3e62f281ce62f8ed89dc2cc8866eaa4
+> change-id: 20260815-folio-pool-v1-cb75c247692c
+> 
+> Best regards,
+> -- 
+> Jim Cromie <jim.cromie@gmail.com>
+> 
+> 
+> 
