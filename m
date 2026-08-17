@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7F64C5CFC1
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 05:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79639C5CFC1
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 05:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8C9310E3C4;
-	Mon, 17 Aug 2026 05:14:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCB0210E63A;
+	Mon, 17 Aug 2026 05:14:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oatvzpic";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kcroa1S2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C50910E3C4
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:14:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50E2710E63A
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 05:14:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5446643BEE;
- Mon, 17 Aug 2026 05:14:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E9B1F000E9;
- Mon, 17 Aug 2026 05:14:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5ADBE6013A;
+ Mon, 17 Aug 2026 05:14:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF6BE1F000E9;
+ Mon, 17 Aug 2026 05:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786943674;
- bh=rM3Cfx8BELR+J9tg8oyQlRA6O4nPe1RmE6DLFRP+TtY=;
+ s=k20260515; t=1786943680;
+ bh=ErHt/Qdo9sj6EPcR1iNrYjspwKvhRcI/ituwVmbEiFA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oatvzpicRnhL4Vi0kkyJPK+RNqMv+quaK1j/cQvTErUQh0nmm9V+2xg27Jq3z3aUx
- F83aqPaUynqIqCSX0t6W9MFoVutqTpqOY0iTYNK6yuWMOfU34JHgkrWpxfeIW/bR3x
- Frbz3fpZC7jea2aURApyTWqUCaQs4tXxa4Xcg0oV+x6CnEgs2FFTRW7ql3UAAPNN+A
- MWzZki8puJTQbG97sFT41Jsn0FJPXXUi22pUr8nIbVqZwyB/fiNt8xv3vmnCiDkedz
- MHHu3ZemURWW764WZYcq1RZxKcKawNaUKAry93RWYVNzbZ9FPCm8pUO4NAlMRjmK6H
- fq+CG6IK+8qIA==
+ b=kcroa1S2618Q4VV8FoNRlXGTbWa7h+afL1LqX2+E+LjbrbXmAfVvkLrAFTryZLnFJ
+ IQns0m9dRDLuLbNGfok8D9+F2gNKP/VAlgZqBM0Bex4P7TAwv6QitbK4A8fjUIoRBC
+ 5IfSexwqEvIgFgA2ZrjecJhSr3a7dBkPfWz24Pw7kdzk37PPJhzYFEjLEzZpa7mUWX
+ an5NS43aEAfPg7lT1zfN0ZQLpRd45IZlIFldc43crhEL550P/k7sozomBMfcpgyD0v
+ cLo1QmKbjHz9sKmJg2+3r+urfg7nE3q/yZWUoTZJsUr1YGblgzaxxVqFJLV38qyiDi
+ myM6D413ZSJJg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/4] selftests: dmabuf-heaps: add fd-leak-on-EFAULT
- regression test
+Subject: Re: [PATCH v7 3/4] drm/prime: use dma_buf_fd_install() to preserve
+ export tracing
 To: "Baineng Shou" <shoubaineng@gmail.com>
 Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817050457.1005285-5-shoubaineng@gmail.com>
+In-Reply-To: <20260817050457.1005285-4-shoubaineng@gmail.com>
 References: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
  <20260817050457.1005285-1-shoubaineng@gmail.com>
- <20260817050457.1005285-5-shoubaineng@gmail.com>
+ <20260817050457.1005285-4-shoubaineng@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 05:14:33 +0000
-Message-Id: <20260817051433.F3E9B1F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 05:14:39 +0000
+Message-Id: <20260817051439.CF6BE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,89 +59,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The test does not verify that `errno =3D=3D EFAULT` when `ioctl`=
- fails, which can lead to false positives if the allocation fails for other=
- reasons.
-- [Low] The return value of the first `mprotect` call is ignored.
-- [Low] An unnecessary `mprotect` call is made to restore `PROT_WRITE` befo=
-re `munmap`, accompanied by an inaccurate comment.
-- [Low] If the `ioctl` unexpectedly succeeds, the newly allocated file desc=
-riptor is leaked.
+
+Pre-existing issues:
+- [High] The file descriptor is published to userspace before copy_to_user(=
+) succeeds, violating the dma_buf_fd_install() API contract and causing a r=
+esource leak on error.
 --
 
---- Patch [4]: [PATCH v7 4/4] selftests: dmabuf-heaps: add fd-leak-on-EFAUL=
-T regression test ---
-commit 1be53f13852770ff6e3074adac5bd4f146ea6110
+--- Patch [3]: [PATCH v7 3/4] drm/prime: use dma_buf_fd_install() to preser=
+ve export tracing ---
+commit edfa3fdf8153dcc15c693c10359892f042189a1c
 Author: Baineng Shou <shoubaineng@gmail.com>
 
-selftests: dmabuf-heaps: add fd-leak-on-EFAULT regression test
+drm/prime: use dma_buf_fd_install() to preserve export tracing
+   =20
+This commit replaces fd_install() with dma_buf_fd_install() in
+drm_gem_prime_handle_to_fd() to restore tracepoint coverage for DRM PRIME
+exports. It asserts that the file descriptor lifecycle is already correct.
 
-Add a test case that verifies no file descriptor is leaked when
-DMA_HEAP_IOCTL_ALLOC succeeds internally but copy_to_user() fails
-to deliver the fd number back to userspace.
+Link: https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubainen=
+g@gmail.com/
 
-> diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/t=
-esting/selftests/dmabuf-heaps/dmabuf-heap.c
-> index fc9694fc4e89e..1d49df6719198 100644
-> --- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> +++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+> No functional change; the fd lifecycle (get_unused_fd_flags
+> -> work -> install) is already correct.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is this claim about the fd
+lifecycle being correct accurate?
+
+The new dma_buf_fd_install() API requires that it must only be called after
+all fallible work (such as copy_to_user) has succeeded.
+
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 9b44c78cd77fc..fe3436d1235db 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
 [ ... ]
-> @@ -390,6 +390,116 @@ static void test_alloc_errors(char *heap_name)
-[ ... ]
-> +static void test_alloc_no_fd_leak_on_efault(char *heap_name)
-> +{
-[ ... ]
-> +	/*
-> +	 * Make the page read-only so copy_to_user() will fault.  The
-> +	 * ioctl must fail with -1; if it returns success the test setup
-> +	 * is broken (mprotect is synchronous, so there is no race).
-> +	 */
-> +	mprotect(req, page_size, PROT_READ);
+> @@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+>  		return PTR_ERR(dmabuf);
+>  	}
+> =20
+> -	fd_install(fd, dmabuf->file);
+> +	dma_buf_fd_install(dmabuf, fd);
 
-[Severity: Low]
-Does this code handle the case where mprotect() fails? If it fails, the mem=
-ory
-would remain writable, the ioctl would succeed, and the test would fail
-confusingly instead of reporting a setup failure.
+[Severity: High]
+This is a pre-existing issue, but by adopting the new dma_buf_fd_install()
+API, doesn't this code path violate its documented contract?
 
-> +
-> +	ret =3D ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, req);
-> +
-> +	/* Re-allow writes so munmap can clean up */
-> +	mprotect(req, page_size, PROT_READ | PROT_WRITE);
+Can this lead to a file descriptor leak if a userspace application calls the
+DRM_IOCTL_PRIME_HANDLE_TO_FD ioctl with an invalid userspace pointer?
 
-[Severity: Low]
-Is this mprotect() call necessary? munmap() manipulates the kernel's memory=
- map
-directly and doesn't require the underlying memory pages to have write
-permissions to be unmapped.
+If drm_gem_prime_handle_to_fd() publishes the file descriptor to the
+userspace fdtable here:
 
-> +	munmap(req, page_size);
-> +
-> +	if (ret !=3D -1) {
+dma_buf_fd_install(dmabuf, fd);
+*prime_fd =3D fd;
+return 0;
 
-[Severity: Low]
-If the ioctl unexpectedly succeeds (for example if mprotect failed), does t=
-his
-code leak the newly allocated file descriptor? By the time success is detec=
-ted,
-req has been unmapped, making it impossible to read req->fd to close it.
+Then the DRM core ioctl dispatcher attempts to copy the result to userspace
+after the handler returns, which can fail:
 
-[Severity: Medium]
-Does this code verify that the failure was actually caused by the expected
-EFAULT? If the ioctl fails for unrelated reasons like -ENOMEM, ret will sti=
-ll
-be -1, fd_before will equal fd_after, and the test will erroneously report =
-PASS
-even though the copy_to_user() fault path was never tested.
+drivers/gpu/drm/drm_ioctl.c:drm_ioctl() {
+    ...
+    retcode =3D func(dev, kdata, file_priv);
+    ...
+    if (copy_to_user((void __user *)arg, kdata, out_size) !=3D 0)
+        retcode =3D -EFAULT;
+    ...
+}
 
-> +		ksft_test_result_fail("ioctl returned %d, expected -1 EFAULT\n",
-> +				      ret);
-> +		goto out;
-> +	}
+Wouldn't the failed copy_to_user() return -EFAULT and leave the already
+installed fd orphaned in the process's fdtable, without the application
+ever receiving the fd number to close it?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817050457.1005=
-285-1-shoubaineng@gmail.com?part=3D4
+285-1-shoubaineng@gmail.com?part=3D3
