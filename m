@@ -4,72 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56B0AC5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 18:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A6D0C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 18:43:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9518C10E2AF;
-	Mon, 17 Aug 2026 18:35:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79ADA10E1E5;
+	Mon, 17 Aug 2026 18:43:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="vX/A6JUR";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MtdT0+ti";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0509E10E2AF
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 18:35:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=7shnazFeFjFhvWi4xctYX+yRJGMgipdv+99SjZFKDrw=; b=vX/A6JUR7JJc1Cu7W/sJL7JG1D
- frHOMMcqPcHEgd0Vrbuv+MMSslzyzlbfX/oydkNbZJQmgOXpZY8Jepof4R0FEhzDF0E7SO4eFytDi
- XnxMcciSgsLCtG0lINrYWr5PraWLmFYk/XpH7OQ6XXENzduwLndKOX+NMGo3YoSB/r6rDUpB8GXCI
- q5fCiEiIKEWeZZ4WvVQ9aB8ynh9wREs5USUSOT4SRRBtNZtwZN6xMYm7oXugC6qkfKsnY8j4hqucM
- 0zP1hqOGmWQlLwWOBOoHvvl8WXxIvvGMQVmY6WbRsvfH7b9o4Oca/WhxBGBLXqGaUJavW9up0Cjg4
- 8P1soEHQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red
- Hat Linux)) id 1ww2Ak-0000000Ad5q-0PAP;
- Mon, 17 Aug 2026 18:34:58 +0000
-Date: Mon, 17 Aug 2026 19:34:57 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: jim.cromie@gmail.com
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Pablo Neira Ayuso <pablo@netfilter.org>,
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
- Waiman Long <longman@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF2EF10E1E5
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 18:43:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+ From:Reply-To; bh=921MT1MCybA/bNAvIEBIXf7DfKR7GUAt0AQdTDfqnoY=; b=MtdT0+ti3O7
+ bFlHDOv9yLbLPd2gSNRTLS6Qx+M8n3EYuxehyGAhR8qJUeFKdTlq/GHR+6+D47MvrUCbrRstRz/67
+ Ja6kbVcov0gcZbyKFUENi/nQY21Cq1MXzFAxTxH40dX8BmGEHH8peyf00aE4EBrAob2XTKE2tD2GW
+ PrnpzOp19KyevikPDcFIX3nDNrcJBd3Oa4lKItKcEpbNKprQ1R0FBIcYyQdoAiyRuiQmvlf4XM64n
+ 2L1tldPa+h80TXuhe8+jYBFNKtqlT+fV6vNPTGifXDkmDrPp++EbIWKhJHkg9GiIFY3S4d9V3vzRv
+ gIqEzSn4MtwJP9HryHt2Zfg==;
+Received: from 189-69-160-4.dial-up.telesp.net.br ([189.69.160.4]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1ww2IL-004roK-Vw; Mon, 17 Aug 2026 20:42:50 +0200
+Date: Mon, 17 Aug 2026 15:42:41 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Melissa Wen <mwen@igalia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Boqun Feng <boqun@kernel.org>, netfilter-devel@vger.kernel.org,
- bpf@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- coreteam@netfilter.org, netdev@vger.kernel.org,
- Byungchul Park <byungchul@sk.com>
-Subject: Re: [PATCH 0/9] lib/folio_pool: Direct-Map Large Folio Pool &
- Scratchpad bump allocators
-Message-ID: <aoNUUTG2DPS3kGzp@casper.infradead.org>
-References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com
+Subject: Re: [PATCH] drm/atomic: remove bogus check for file_priv
+Message-ID: <aoNWIaq9uot338J_@quatroqueijos.cascardo.eti.br>
+References: <20260729-drm_atomic_bogus_check-v1-1-a4d5bd4ae4c8@igalia.com>
+ <a64e03f4-dcd5-4842-ab21-b59dce159540@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
+In-Reply-To: <a64e03f4-dcd5-4842-ab21-b59dce159540@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,204 +61,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2026 at 11:22:14AM -0600, Jim Cromie via B4 Relay wrote:
-> Introduce two light-weight bump allocators backed directly by compound
-> folio pages from the buddy allocator (skipping SLUB metadata overhead):
+On Wed, Aug 12, 2026 at 06:19:34PM +0200, Melissa Wen wrote:
 > 
-> 1. struct folio_scratchpad - Variable-sized, alignment-aware bump allocator
->    for bursty, append-mostly lifecycles with bulk teardown.
-> 2. struct folio_pool - Fixed uniform-slot bump allocator for homogeneous
->    descriptors.
+> 
+> On 29/07/2026 09:52, Thadeu Lima de Souza Cascardo wrote:
+> > Skipping the rest of the block here would cause the drm_pending_vblank_event
+> > object to leak and fail to set up the fence in case out_fence_ptr is set.
+> > 
+> > Since file_priv can never be NULL at prepare_signaling() as it is only
+> > called by drm_mode_atomic_ioctl(), simply remove the check.
+> 
+> Hey,
+> 
+> The change looks correct, but I'm a little confused by the first sentence,
+> because, if `file_priv` can never be NULL, there's no real leak, right?
+> 
 
-This is an inappropriate use of folios.  Folios are for memory that's
-in the page cache and anonymous user memory, not for general kernel
-use.  They would need their own memdesc type.
+That is correct!
 
-But Byungchul is already doing that work.  So you should just reuse what
-he's done.
+> Could you clarify the first sentence by saying it's currently an unreachable
+> bug? That way, people will not think it's a live bug and will understand
+> that
+> a Fixes tag isn't necessary.
+> 
 
-> These serve 2 kinds of use-cases:
+Agreed!
+
+Let me resend.
+
+Cascardo.
+
+> With this small clarification added:
 > 
-> 1: Ephemeral Batch/transaction Lifecycles (Netfilter, BPF, DRM GPUVM)
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
 > 
-> - Transactional subsystems allocate bursts of hundreds or thousands of
->   homogeneous or heterogeneous objects, only to tear them all down
->   simultaneously at batch completion or error abort.
+> Thanks!
 > 
-> - Under SLUB: Each descriptor incurs freelist traversal, lock
->   contention, and O(N) kfree() loops on teardown.
-> 
-> - Under Folio-Scratchpad: Allocations are straight-line pointer bumps,
->   bulk teardown is O(1) folio_put(), and consecutive Netlink
->   transactions reuse warm L1/L2 cachelines without buddy lock churn
->   via folio_scratchpad_reset().
-> 
-> 2: Dynamic Long-Lived Graph Scaling (Lockdep)
-> 
-> - Core subsystems historically avoided SLUB by statically
->   preallocating massive compile-time arrays in .bss
->   (e.g. list_entries[32768], 1.31 MB) to prevent SLUB allocator
->   recursion deadlocks.
-> 
-> - Fixed arrays exhaust their limit and permanently disable validation
->   (BUG: MAX_LOCKDEP_ENTRIES too low!).
->   
-> - Under Folio-Pool: Lockdep uses a 4,096-entry __initdata bootstrap
->   buffer for early boot prior to buddy initialization, then seamlessly
->   migrates and compacts all dependency edges into 64 KB direct-map
->   folios at late_initcall.
->   
-> - Permanent static .bss allocation for dependency edges is reduced
->   from 1.31 MB to 0 KB (100% reclamation at free_initmem()).
-> 
-> Core Primitives in include/linux/folio_pool.h & lib/folio_pool.c:
-> -----------------------------------------------------------------
-> 0. struct folio_scratchpad (Variable-Sized Elements):
->    - Dynamic alignment-aware bump pointer with zero padding waste.
->    - API: folio_scratchpad_init(), folio_scratchpad_alloc(),
->      folio_scratchpad_reset(), folio_scratchpad_free(),
->      folio_scratchpad_stats().
->    - Typed macros: folio_scratchpad_alloc_obj(),
->      folio_scratchpad_alloc_bytes(), DEFINE_FREE(folio_scratchpad, ...).
-> 
-> 1. struct folio_pool (Fixed Uniform Elements):
->    - Thin wrapper embedding struct folio_scratchpad for homogeneous objects.
->    - API: folio_pool_init(), folio_pool_alloc(), folio_pool_free(),
->      folio_pool_stats().
->    - Typed macros: folio_pool_alloc_obj(), folio_pool_alloc_type().
-> 
-> 2. Encapsulated Slab Discrimination & Reallocation:
->    - is_folio_pool_ptr(ptr): Direct-map folios are identified via
->      virt_to_folio(ptr) && !folio_test_slab(f), avoiding custom bitflags.
->    - folio_scratchpad_free_elem(ptr): Safe no-op for folio-backed objects;
->      delegates to kvfree() for SLUB/vmalloc fallback objects.
->    - folio_scratchpad_realloc(ptr, old_size, new_size, gfp): Delegates to
->      krealloc() for SLUB objects; allocates a fresh SLUB buffer and copies
->      payload for folio-backed descriptors.
-> 
-> 3. Subsystem Autonomy & Runtime Static-Key Control:
->    - DEFINE_FOLIO_POOL_STATIC_KEY_PARAM() allows maintainers of each
->      subsystem (Netfilter, Lockdep, DRM, BPF) to choose their own default
->      enablement policy (DECLARE_STATIC_KEY_TRUE vs FALSE) and independent
->      module/boot parameters (e.g. lockdep.folio_pool, nf_tables.trans_scratchpad).
->    - Enables isolated, zero-overhead A/B benchmarking and production triage
->      without cross-subsystem coupling or kernel recompilation.
-> 
-> Active Proofs & Performance Profiling:
-> --------------------------------------
-> 0. Virtualized Guest Netfilter Benchmark (KVM / virtme-ng ftrace):
->    Controlled A/B benchmark across 10,025 Netlink transaction descriptors
->    and 5 asynchronous commit/abort teardown passes:
-> 
->    Function: nft_trans_alloc (10,025 descriptor allocations)
->    -----------------------------------------------------------------------------
->    Mode                                 Total Time       Avg / Alloc      Delta
->    -----------------------------------------------------------------------------
->    folio_scratchpad Enabled (Bump)      9,158.02 us          0.914 us    -19.4%
->    SLUB Fallback (kzalloc)             11,366.53 us          1.134 us  Baseline
->    -----------------------------------------------------------------------------
->    Net allocation latency reduction:   -2,208.52 us (-2.21 ms)
-> 
->    Function: nf_tables_trans_destroy_work (5 asynchronous teardown passes)
->    -----------------------------------------------------------------------------
->    Mode                                 Total Time       Avg / Pass       Delta
->    -----------------------------------------------------------------------------
->    folio_scratchpad Enabled (Bulk)     36,065.65 us          7.21 ms      -8.6%
->    SLUB Fallback (O(N) kfree)          39,449.65 us          7.89 ms   Baseline
->    -----------------------------------------------------------------------------
->    Net teardown latency reduction:     -3,384.00 us (-3.38 ms)
-> 
->    Combined In-Kernel Netlink Transaction Lifecycle Savings: -5.59 ms (-13.3%)
-> 
-> 1. Bare-Metal Host Netfilter Profile (AMD Zen 3 Hardware PMU & ftrace):
->    - Asynchronous Teardown: 53.77 ms vs 56.03 ms (-2.26 ms / -4.0%).
->    - Instruction Retirement: 281.29M -> 282.46M (-1,174,062 instructions).
->    - Branch Instructions:     62.94M ->  63.20M (-265,961 branches).
-> 
-> 2. Bare-Metal Host Lockdep Telemetry (Physical Host frodo, AMD Zen SMP):
->    - Pre-Buddy Watermark: 928/4096 bootstrap entries consumed during boot.
->    - Graph Compaction: Migrated and compacted bootstrap dependency edges
->      into folio_pool at late_initcall; bootstrap array reclaimed by
->      free_initmem() (0 KB permanent .bss cost).
->    - Live procfs Telemetry (/proc/lockdep_stats):
->      lock-classes:                          996 [max: 8192]
->      direct dependencies:                  2324 [dynamic: 7 x 64 kB, tail: 17 kB/64 kB]
->      indirect dependencies:               24612
->      all direct dependencies:             81884
->      zapped classes:                          2
->      zapped lock chains:                    173
->    - Active Invariant Validation: Live module unloads exercised modernized
->      zap_class() direct list unlinking across dynamic folios with zero
->      global bitmap scans and zero assertions.
-> 
-> What's Unchanged:
-> -----------------
-> - All consumer object structures, alignment rules, and lifecycle boundaries
->   remain strictly identical.
-> - Memory safety invariants are preserved: individual deallocation is a safe
->   no-op for arena-backed objects while SLUB objects continue to use kfree().
-> 
-> Subsystem Adoptions in this Series:
-> -----------------------------------
-> 0. lib/folio_pool: Core direct-map large-folio pool and scratchpad allocators.
-> 1. netfilter/nf_tables: Pack netlink transaction descriptors into per-net
->    trans_scratchpad with bulk reclaim & warm chunk reset.
-> 2. bpf/verifier: Route verifier stack state node allocations to folio_pool.
-> 3. drm/gpuvm: Route gpuva_op allocations to folio_scratchpad.
-> 4. bpf/syscall: Route generic_map_update_batch key/value allocations to
->    folio_scratchpad.
-> 5. locking/lockdep: Fallback to folio_pool in alloc_list_entry when static
->    pool is full and expose dynamic folio telemetry in /proc/lockdep_stats.
-> 6. locking/lockdep: Traverse adjacency lists directly in zap_class().
-> 7. locking/lockdep: Shrink static list_entries array to early bootstrap buffer.
-> 8. locking/lockdep: Migrate and compact boot-time dependency graph from __initdata.
-> 
-> Patches in this series:
-> -----------------------
-> [PATCH 1/9] lib/folio_pool: Introduce Direct-Map Large Folio Pool & Scratchpad bump allocators
-> [PATCH 2/9] netfilter/nf_tables: Add folio_scratchpad collector to struct nftables_pernet
-> [PATCH 3/9] bpf/verifier: Route verifier stack state node allocations to folio_pool
-> [PATCH 4/9] drm/gpuvm: Route gpuva_op allocations to folio_scratchpad
-> [PATCH 5/9] bpf/syscall: Route generic_map_update_batch key/value allocations to folio_scratchpad
-> [PATCH 6/9] locking/lockdep: Fallback to folio_pool in alloc_list_entry when static pool is full
-> [PATCH 7/9] locking/lockdep: Traverse adjacency lists directly in zap_class()
-> [PATCH 8/9] locking/lockdep: Shrink static list_entries array to early bootstrap buffer
-> [PATCH 9/9] locking/lockdep: Migrate and compact boot-time dependency graph from __initdata
-> 
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> ---
-> Jim Cromie (9):
->       lib/folio_pool: Introduce Direct-Map Large Folio Pool & Scratchpad bump allocators
->       netfilter/nf_tables: Add folio_scratchpad collector to struct nftables_pernet
->       bpf/verifier: Route verifier stack state node allocations to folio_pool
->       drm/gpuvm: Route gpuva_op allocations to folio_scratchpad
->       bpf/syscall: Route generic_map_update_batch key/value allocations to folio_scratchpad
->       locking/lockdep: Fallback to folio_pool in alloc_list_entry when static pool is full
->       locking/lockdep: Traverse adjacency lists directly in zap_class()
->       locking/lockdep: Shrink static list_entries array to early bootstrap buffer
->       locking/lockdep: Migrate and compact boot-time dependency graph from __initdata
-> 
->  drivers/gpu/drm/drm_gpuvm.c        |  11 +-
->  include/drm/drm_gpuvm.h            |   6 +
->  include/linux/bpf_verifier.h       |   3 +
->  include/linux/folio_pool.h         | 279 +++++++++++++++++++++++++++++++++++++
->  include/net/netfilter/nf_tables.h  |   3 +
->  kernel/bpf/syscall.c               |  17 ++-
->  kernel/bpf/verifier.c              |  16 ++-
->  kernel/locking/lockdep.c           | 278 +++++++++++++++++++++++++++++-------
->  kernel/locking/lockdep_internals.h |   2 +
->  kernel/locking/lockdep_proc.c      |  16 ++-
->  lib/Makefile                       |   2 +-
->  lib/folio_pool.c                   | 230 ++++++++++++++++++++++++++++++
->  net/netfilter/nf_tables_api.c      |  51 +++++--
->  13 files changed, 837 insertions(+), 77 deletions(-)
-> ---
-> base-commit: 1a7ac48cd3e62f281ce62f8ed89dc2cc8866eaa4
-> change-id: 20260815-folio-pool-v1-cb75c247692c
-> 
-> Best regards,
-> -- 
-> Jim Cromie <jim.cromie@gmail.com>
-> 
-> 
+> > 
+> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > ---
+> >   drivers/gpu/drm/drm_atomic_uapi.c | 3 ---
+> >   1 file changed, 3 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> > index e997917819e8..657c15474ed5 100644
+> > --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> > +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> > @@ -1445,9 +1445,6 @@ static int prepare_signaling(struct drm_device *dev,
+> >   		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT) {
+> >   			struct drm_pending_vblank_event *e = crtc_state->event;
+> > -			if (!file_priv)
+> > -				continue;
+> > -
+> >   			ret = drm_event_reserve_init(dev, file_priv, &e->base,
+> >   						     &e->event.base);
+> >   			if (ret) {
+> > 
+> > ---
+> > base-commit: d5efb1e1b1d7cd27c642654042f80d19a7ba3caf
+> > change-id: 20260729-drm_atomic_bogus_check-456d5fb6eee9
+> > 
+> > Best regards,
+> > --
+> > Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > 
 > 
