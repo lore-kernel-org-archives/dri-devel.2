@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF80CC5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C74C5DF6E
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 06:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32C5410E3DC;
-	Mon, 17 Aug 2026 06:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 607D910E39A;
+	Mon, 17 Aug 2026 06:49:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M8AvXp/e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y8n5yT/V";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8F3310E3DC
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:45:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E45C10E39A
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 06:49:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ACDD5601DE;
- Mon, 17 Aug 2026 06:44:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361DD1F00A3A;
- Mon, 17 Aug 2026 06:44:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 05F5B41859;
+ Mon, 17 Aug 2026 06:49:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B264C1F000E9;
+ Mon, 17 Aug 2026 06:49:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786949099;
- bh=DBsGFKwV9nm0a75cswuHFOgYmlarN4m9D2CCxRmTbq0=;
+ s=k20260515; t=1786949396;
+ bh=AvmFz3nUKb8pvFYC0g++MD4RLobRZe1hE8JaoMTRsgM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=M8AvXp/eaixxI96yUez/eNlHbQ0tqfI2FxXRaPjrkNU/eXE/XBagKtv1p+GTc3vZd
- 0/ZDhVGfUZP3vSv0TpJ1SiyBTw1Cobc5N+3ep6jgn+LKmO5Azjzzr/oUXJjRcMed04
- cKQz5pL9IiC91BJfrwf3R4UBvK/WkxXdYtzxc2YTD8UCOiMCIeFuGubRhp/o42NYv8
- LXLJrueR2EZvnJnP51ykw3YWIs9A1/Yvs7kPofiBUHo3cG62hSAJk67p4oF5fUt7Bh
- S8aD8KoyUsEUJSq3HedoqRY9Fs7doRNvUZEXCZ/oPwoNpfauxrFQtmjzL+HtAOo7q+
- b18b4JkKbDBwQ==
+ b=Y8n5yT/Vhcmc7RFyh1Hh313lAl07XATiv8f5Jj68ihR5j6mqBQqX2iJGwKFJdSwiI
+ VBTiHVhMANhTq46WeB7wC3+YQYQ6VE++GQmX32R/OC5dVYQrdQV9VeaSzLOzrVSEQu
+ fLak/Bkv/OjlyuZ/tE+pCYHPmuly1Rod3Y8y3/JOWpPfHBWYFf2rFJzKux8uHHtv4b
+ tkzvcMaeYWbNzM5u0zaj6yqTullX7/+Olg4w3LWRvig1CQ+vO06B1tFkgWt0alOeG9
+ /prTd24LBUk1pnSWKMDJBzK2QF3wi+aeB8SYryZ8Fa5zTw+1RPFbmSIfeMbc1u1+XK
+ 1FtDBF2jrftjA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fbdev: platinumfb: add error checking for ioremap calls
+Subject: Re: [PATCH v2] fbdev: platinumfb: add error checking for ioremap calls
 To: yuebingkun <yuebingkun@kylinos.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817063637.306865-1-yuebingkun@kylinos.cn>
-References: <20260817063637.306865-1-yuebingkun@kylinos.cn>
+In-Reply-To: <20260817063942.308926-1-yuebingkun@kylinos.cn>
+References: <20260817063942.308926-1-yuebingkun@kylinos.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 06:44:58 +0000
-Message-Id: <20260817064459.361DD1F00A3A@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 06:49:56 +0000
+Message-Id: <20260817064956.B264C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,78 +60,62 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The return value of `request_mem_region` for `cmap_regs_phys` is i=
-gnored, and the error path unconditionally calls `release_mem_region` on it.
+- [High] Unchecked request_mem_region combined with unconditional release_m=
+em_region causes resource corruption and Use-After-Free.
 --
 
---- Patch [1]: [PATCH] fbdev: platinumfb: add error checking for ioremap ca=
-lls ---
-commit 71a977c44688a9c49d5d28cb513b56fa5a810a1d
+--- Patch [1]: [PATCH v2] fbdev: platinumfb: add error checking for ioremap=
+ calls ---
+commit a9dd2a2a25aeae119ea17d0f40c6cbdddde67dfd
 Author: yuebingkun <yuebingkun@kylinos.cn>
 
 fbdev: platinumfb: add error checking for ioremap calls
-
+   =20
 This commit adds error checking for ioremap() and ioremap_wt() calls in
-platinumfb_probe() to prevent NULL pointer dereferences. It also transitions
-the function to use goto-based cleanup for handling initialization failures.
+platinumfb_probe(), avoiding NULL pointer dereferences by introducing
+goto-based cleanup paths on failure.
 
 > diff --git a/drivers/video/fbdev/platinumfb.c b/drivers/video/fbdev/plati=
 numfb.c
 > index a08d955d9b439..f74c937c839f8 100644
 > --- a/drivers/video/fbdev/platinumfb.c
 > +++ b/drivers/video/fbdev/platinumfb.c
-
 [ ... ]
-
-> @@ -623,13 +638,22 @@ static int platinumfb_probe(struct platform_device*=
+> @@ -567,15 +567,30 @@ static int platinumfb_probe(struct platform_device*=
  odev)
->  	dev_set_drvdata(&odev->dev, info);
-> =20
->  	rc =3D platinum_init_fb(info);
-> -	if (rc !=3D 0) {
-> -		iounmap(pinfo->frame_buffer);
-> -		iounmap(pinfo->platinum_regs);
-> -		iounmap(pinfo->cmap_regs);
-> -		framebuffer_release(info);
-> -	}
-> +	if (rc !=3D 0)
-> +		goto err_unmap_cmap;
-> +
-> +	return 0;
-> =20
+[ ... ]
+>  	pinfo->cmap_regs_phys =3D 0xf301b000;	/* XXX not in prom? */
+>  	request_mem_region(pinfo->cmap_regs_phys, 0x1000, "platinumfb cmap");
+>  	pinfo->cmap_regs =3D ioremap(pinfo->cmap_regs_phys, 0x1000);
+> +	if (!pinfo->cmap_regs) {
+> +		dev_err(&odev->dev, "failed to ioremap cmap registers\n");
+> +		rc =3D -ENOMEM;
+> +		goto err_release_cmap;
+> +	}
+[ ... ]
 > +err_unmap_cmap:
 > +	iounmap(pinfo->cmap_regs);
 > +err_release_cmap:
 > +	release_mem_region(pinfo->cmap_regs_phys, 0x1000);
 
 [Severity: High]
-This is a pre-existing issue, but by adding this new error path, the code
-propagates an unsafe assumption.
+This is a pre-existing issue, but I noticed the return value of
+request_mem_region() is ignored just before the ioremap() call.
 
-Earlier in platinumfb_probe(), the return value of request_mem_region()
-is ignored:
+If request_mem_region() fails because the physical resource is already
+claimed by platform code or another driver, probe continues. If a subsequent
+step then fails, such as ioremap() returning NULL or platinum_init_fb()
+failing, this newly added error path branches to err_release_cmap.
 
-	request_mem_region(pinfo->cmap_regs_phys, 0x1000, "platinumfb cmap");
-	pinfo->cmap_regs =3D ioremap(pinfo->cmap_regs_phys, 0x1000);
+Since err_release_cmap unconditionally calls release_mem_region(), does this
+risk freeing a resource that wasn't actually acquired? If the region size
+and start address exactly match an existing claim, this could unlink and
+free a resource owned by another driver, potentially causing a
+use-after-free later.
 
-If request_mem_region() fails (for instance, if the region is already
-claimed), execution continues. If a subsequent step like ioremap() or
-platinum_init_fb() then fails, the code will jump to this newly added
-err_release_cmap label and unconditionally release the region.
-
-Because __release_region() searches by address and doesn't verify the calle=
-r,
-could this forcefully free an I/O memory region that actually belongs to
-another driver, potentially leading to resource tree corruption or a
-use-after-free?
-
-> +err_unmap_regs:
-> +	iounmap(pinfo->platinum_regs);
-> +err_unmap_fb:
-> +	iounmap(pinfo->frame_buffer);
-
-[ ... ]
+Could we add a check for the return value of request_mem_region() so we
+only release it if the driver successfully claimed it?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817063637.3068=
-65-1-yuebingkun@kylinos.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817063942.3089=
+26-1-yuebingkun@kylinos.cn?part=3D1
