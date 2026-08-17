@@ -4,105 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DEE3C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 19:11:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF58EC5DF7A
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 20:05:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E699D10E8D2;
-	Mon, 17 Aug 2026 19:11:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C864910E44F;
+	Mon, 17 Aug 2026 20:05:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XI/JdEaG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DvyaA1+7";
 	dkim-atps=neutral
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D42589109
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 19:11:25 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-5b14d1f9315so3158815e87.2
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 12:11:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786993883; cv=none;
- d=google.com; s=arc-20260327;
- b=pPFn08pRi7O3z9T6VRT+D37Ftc6KjwwHCXliQG0SIwe3FtK034Lu1KJjsQcaa8L2dF
- uRQQn0A1lrQJgzxAZwKSFDnjdgl0VYRaTbjqycr/IHmmrdsMxWKkDOvJRiBi1l/fHahD
- g2FqrOAsW/rDveZECRWYEeqsL8k5s56cQ4kOB2UPDOALKZjX5JUl75zLic8ahrwTmkL6
- WZfI6V9NucPr1jdggFU+VfbJt/EMBgnUUD/lrXXFlnliDLm30ErtI2i3jjVg5G/LP9xD
- L5eF17sJdKHgJhwFr/vive86+/V+n9ILFJ2ckcGfpSl74tRwKi9ZrUKAR5WCCzUojN8s
- 6xaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=o9Xq57ZK871Bs82fmpBhlH3gJ0wVVRq6jr0byiqzgis=;
- fh=UXPND32Lujmp8lseZ7cbXav+Sc1GacyzNYXUnzX5DKQ=;
- b=Z42GGpP3QoK58T63UkVqUnVcA7Yc70YZilEG0XLDiCXdSSw6gg3Xe6ZPGPQw7tK/Nj
- +KNMX3CzuHOVtduu86ccDt6zTS9WJYKnCnbNrANgiebos8DxTzmhcaADmbIeOilZmtxm
- VGhs+mErk+d1utPJ7XudgAxc3NiLqbR2xjiFIHOljq77SVkZtSCFu5N+2YvyCBwRogGk
- DZotFbnzYhYitVXoPj+C40pKmfN89DLmt9h62GNMzzeTPTf/gvnGHgdpZPQ5O6luWzWg
- 30cDqstaxcnBslGGRVohywsUb9Ts5FTI3Gm/duqIByd9L8ym+qHbIt/tGllkoe0JMuTg
- +FWg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786993883; x=1787598683; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=o9Xq57ZK871Bs82fmpBhlH3gJ0wVVRq6jr0byiqzgis=;
- b=XI/JdEaGZgc3TdRhVftoTPzri7ynpadc4QRgYuj5SRHjf9kKvG3eb94tqC3sW9KqSM
- /lxwusCaM9s7OoLG9N/Rk78MtFYxtd92vQweZhJszT2x65FNPlq9NmXrDUEuMFbE/Wgy
- +Ed3ZGYu4mHDSnFG0bYOHbfcgyVToLT0HyXRXExUlriku2PKmW1Iv+S0XdFy0/shlW90
- I+Yw6iWsD2nHYYWpukizIM0YCcK9GS8HBec7HOp0EJu8IYw7wpKnjPRRrAWz7/4FKUD9
- bRyDlaksWBSnneU4OXPyWLAmwqWa5HI2TGC6ORGiKaWFkEswFCvtJx5IH+ECGn1UMx1C
- cp3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786993883; x=1787598683;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=o9Xq57ZK871Bs82fmpBhlH3gJ0wVVRq6jr0byiqzgis=;
- b=GKBq81dOxB0vJ4bdpkxFO7iTFq47T6iZlvjE7SQbmrwcifNjHwlKqmxJ2g7NUhLac6
- AuCiFf2g/F1j4XbVmVHJrKgtRCovGQlydzQ6Uc3ibb0cL3Q/mCU2J83KAdrHE+NdMd9E
- Ab0Z4i9eNHH/Cb+e6tUqUtVFoYu9r/XwLf/igTEJcR2SqxscdkODiK/tUGnjoXuP3TNW
- 6+2ZjOo90s7fGr6OkPErOuoyImnvqEtH+3f9nHd2Seie6oCu6Eq+B/Pjhdv2Q9KW+RWH
- ko8OWAe7I3FUJFpywtjy8NixBXgFrXuC5HO1jW66k78XTuyXwgDiStKf2HSA5U2ujxNq
- LnkA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro5tb6l2b+xS4rKxbzVsxeFamwsXDQZYsK7cALbQEWSO429lcpt9GFb0q7vthh7umA4aGSAr3AYf8Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywc9z/kCNwXfJeyedxUV22tgdnzLOvHEv2vKVzbmcclnbORSApD
- 6aWaY0j+5WLVHtc06fAkz+E8uSMDPVVNviSY6vwf40eqL3TVc/3iwBn04cdNhCnygr+0H0PDhLs
- gNAY/PKJFPGDSOjywWfTRc/rBscUUl8w=
-X-Gm-Gg: AR+sD13/jcUobLfZkJ/yZrDty/LkprkAg9TWMd+Mrwzmkeqf8Lzv2vFgoddkp6hNDDN
- oItNs7sCxpAgHwlacIwq0smtQdKQ9swaGF8GWLlzHJJfusYGZsBA5BzSQJ1jLt0C0Hys/C/1U4d
- 2LihpvmZBwytuub+UAoU8Ei9Y6T9Kge01DYRZsrONOpuIvIPNo9781YE7zF0y2C/e3TKV4L0LTg
- Q4ygnY9bZwWyGlVJZbTaEbfmBb/GZyIlWCeOcqbfzdwaA7SRuPHLMyeDrsC9yX4jPbmLDcL9Zpc
- jv61f0ued4iwJafc7Yb6uqvY14iKGnHughdjm2ucGTWY4tKutDbVGGU+84EM2rTX0MLqh+u/hOZ
- 2GA3qQmh0V4y/Kb3S6WXImIomId/5DQ==
-X-Received: by 2002:a05:6512:2382:b0:5b1:4e5e:559c with SMTP id
- 2adb3069b0e04-5b47069e8a9mr442389e87.30.1786993882910; Mon, 17 Aug 2026
- 12:11:22 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEDEB10E44F
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 20:05:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 23044601E0;
+ Mon, 17 Aug 2026 20:05:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C3D47C2BCB3;
+ Mon, 17 Aug 2026 20:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1786997122;
+ bh=i1mPXR0qSjylTx+iZz4VjsALSsmL38b5KB99VC7pfE0=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=DvyaA1+7J7x3bj+fYjS+DzqYfSAnV0T0iAzvWjWDWmJs9Cm7ed1duQlgf+10/cCbJ
+ rGLASRAxlj0sM3KszZDYOGdgWbjHAGYmK/rkyX/icsEWQc5NJrVM/EBdQQ0QqHDk5p
+ TGA3cBxjv3T3Lk541YhJhYhUF/SgtvkB94N4v3KPvFE1Ooh5SINc4hvmHOzcj/4kHx
+ bJXzugm+G4OF8ah467p3ce8DF29QNCCKNc2I6qkmqzBSIF4a//tQznrrenbmRE7z5J
+ IU0Mn3aiFRaN7Aa8uJSaz+vVLcytJ2lHkKXyQ2JUq0mI5AlDHSoNw9A11egHe9572g
+ CTzUfQS8sn2zw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id A0A63C5DF66;
+ Mon, 17 Aug 2026 20:05:22 +0000 (UTC)
+From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
+Date: Mon, 17 Aug 2026 22:04:47 +0200
+Subject: [PATCH] gpu: nova-core: Extract FUSE registers definitions
 MIME-Version: 1.0
-References: <20260525-tegra194-qspi-iommu-v2-0-a11c53f804b2@gmail.com>
- <20260525-tegra194-qspi-iommu-v2-2-a11c53f804b2@gmail.com>
-In-Reply-To: <20260525-tegra194-qspi-iommu-v2-2-a11c53f804b2@gmail.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Mon, 17 Aug 2026 14:11:11 -0500
-X-Gm-Features: AcwNN1VtAz3TzQxDcDRv29ZIlK7LcvZGlrKziZlK_QH60cI6-b_6Gt0v_fcOAnw
-Message-ID: <CALHNRZ8F85rJZ4+v+B_jsETeG9cUJWeWSe9vw77AVHcRMasw=Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] arm64: tegra: Enable DMA Support on Tegra194 QSPI
-To: webgeek1234@gmail.com
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Laxman Dewangan <ldewangan@nvidia.com>, 
- Mark Brown <broonie@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- linux-tegra@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260817-b4-extract-fuse-registers-to-gpu-mod-v1-1-c4924070bbb0@nanonej.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NSwqDMBSF4a1Ixr2QhzTqVoqDmFxtCj56kxRB3
+ HvTWmgHHf5wON/GApLHwJpiY4QPH/w85RCngtmrmQYE73IzyeWZV0JDVwKukYyN0KeAQDj4EJE
+ CxBmGJcE4OxBOcSf62ijNWb5aCHu/vplLe3RI3Q1tfH1/FoT3lP14zL58Uxw4L3/xZbT/bV0rR
+ Ml1ZaRi7b4/AaB8s4vjAAAA
+X-Change-ID: 20260817-b4-extract-fuse-registers-to-gpu-mod-1d30d1f9a370
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6957; i=dev@nanonej.com;
+ h=from:subject:message-id;
+ bh=TEU3cGdfr+0GsbAb4FDIovW/u3AWeIqXEMHGfNEojoU=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqg2lf1ctcM1fOoXqnXns/xyOEyIi9J+nyLlPLR
+ Cn+mqLhPKOJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCaoNpXwAKCRBmh/EjChUV
+ /eE2D/0eLW6yf5bwty+dotJUzHYlwaA7/HPEFsBGLyEhw08Tn0WSAnaUAgGYirdItO25j5Ihowg
+ tOfe9zBnHXLNQMQERfBsO+PuSCFOyFoXO6N4TqOnmz9SV4wxH4OqiZpNwszQmdj0rhtB5Xo4vtc
+ oZi5B25PhDItCqlPPLbW98bcdAJzYTi5WIWhNF5N3zg9TJ6WkIMWPcROZvtUrdhwqiynU+T9N6U
+ PD1lVxiJ0QYAJMLxcpIN4X3rzFzBSzyrSPyt7GFJZGXOWjp+gxmk4kQfK1Hx40le/diaR8wHG53
+ PXBXKobDFp93UFecq5pGJ5//7mpUajPKS2s1lRG4AmL4p/yAw9m1EhkcqVibPzZ6jpaa4klrwH5
+ 5fFzpgZP7lodtnxDld3Bo2oBdegLK7OUIUmRE94tmRqEkKv0sPxHWv6Z22KOtD0Ntspt9GToveh
+ rvcsQIero237HsT5w5bctHf157QY+9MLY/dscCf3DWOuSPKtY1EYnqAPwddjqM7ROezg1PaaIvi
+ nnQtIc8YoVSx01FfMAJ1kLz5pDmO2qj1lw9HHohMBaONtXdnUcZAUwj/NkekBG/4RUT1ES98vHG
+ PvB9YwPKk/w/azFWnlgXYVA0+Z1K3q5h5M0Lv+845ljb4E0zaTx1fzYqXx4LtQxUnzGkGsy4WD/
+ kFqM+BXxR24ejPg==
+X-Developer-Key: i=dev@nanonej.com; a=openpgp;
+ fpr=83B64FB07C91212F5285227D6687F1230A1515FD
+X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
+X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,55 +83,210 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: dev@nanonej.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 25, 2026 at 1:47=E2=80=AFAM Aaron Kling via B4 Relay
-<devnull+webgeek1234.gmail.com@kernel.org> wrote:
->
-> From: Aaron Kling <webgeek1234@gmail.com>
->
-> Without dma enabled pio mode is used and flash storage such as the one
-> on the p3668 module times out and cannot complete any transfers. In some
-> cases, these timeouts cause hangs and cbb faults.
->
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->  arch/arm64/boot/dts/nvidia/tegra194.dtsi | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/d=
-ts/nvidia/tegra194.dtsi
-> index 1d659454a6f9fe..e2ddbc6715d5e8 100644
-> --- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> +++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> @@ -923,6 +923,8 @@ spi@3270000 {
->                                  <&bpmp TEGRA194_CLK_QSPI0_PM>;
->                         clock-names =3D "qspi", "qspi_out";
->                         resets =3D <&bpmp TEGRA194_RESET_QSPI0>;
-> +                       dmas =3D <&gpcdma 5>, <&gpcdma 5>;
-> +                       dma-names =3D "rx", "tx";
->                         status =3D "disabled";
->                 };
->
-> @@ -1013,6 +1015,8 @@ spi@3300000 {
->                                  <&bpmp TEGRA194_CLK_QSPI1_PM>;
->                         clock-names =3D "qspi", "qspi_out";
->                         resets =3D <&bpmp TEGRA194_RESET_QSPI1>;
-> +                       dmas =3D <&gpcdma 6>, <&gpcdma 6>;
-> +                       dma-names =3D "rx", "tx";
->                         status =3D "disabled";
->                 };
->
->
-> --
-> 2.53.0
->
->
+From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-Thierry,
+Move FUSE register definitions from the root regs.rs file into the
+gpu module that own them, in the existing gpu/regs.rs file.
 
-The driver change was picked up some time ago and is part of 7.2. Can
-this be picked up for 7.3?
+This follows the same pattern established by previous commits for
+GSP, PDISP, PFB, PBUS and PMC registers: register definitions move to
+the module that owns them, visibility changes to pub(super), and
+cross-module access is provided via pub(crate) helper functions.
 
-Aaron
+Since gal102.rs (outside the gpu module) also reads fuse registers to
+infer fuse version, a pub(crate) helper function fuse_ucode_version()
+is added in gpu.rs to provide that information without exposing the
+register type directly.
+
+Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
+---
+I got several doubts regarding this patch:
+- I didn't touch the comment in falcon/hal/ga102.rs:71 cause I didn't
+  know if this information should stay there
+- I'm not sure if the re-export of NV_FUSE_OPT_FPF_SIZE in gpu.rs is the
+  right way to keep the read in gal102.rs or if I should also make an
+helper to get its value
+- Then, as I'm not quite sure to understand the exact purpose of the
+code I'm not sure of the `fuse_ucode_version` naming and the comment
+explaining what it do
+---
+ drivers/gpu/nova-core/falcon/hal/ga102.rs | 17 ++++-------------
+ drivers/gpu/nova-core/gpu.rs              | 31 ++++++++++++++++++++++++++++++-
+ drivers/gpu/nova-core/gpu/regs.rs         | 18 ++++++++++++++++++
+ drivers/gpu/nova-core/regs.rs             | 18 ------------------
+ 4 files changed, 52 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/falcon/hal/ga102.rs b/drivers/gpu/nova-core/falcon/hal/ga102.rs
+index 7600ee07ca2e..590e30218527 100644
+--- a/drivers/gpu/nova-core/falcon/hal/ga102.rs
++++ b/drivers/gpu/nova-core/falcon/hal/ga102.rs
+@@ -7,7 +7,6 @@
+     io::{
+         poll::read_poll_timeout,
+         register::{
+-            Array,
+             WithBase, //
+         },
+         Io, //
+@@ -26,7 +25,8 @@
+         FalconModSelAlgo,
+         PeregrineCoreSelect, //
+     },
+-    regs,
++    gpu,
++    regs, //
+ };
+ 
+ use super::FalconHal;
+@@ -59,7 +59,7 @@ fn signature_reg_fuse_version_ga102(
+ ) -> Result<u32> {
+     // Each engine has 16 ucode version registers numbered from 1 to 16.
+     let ucode_idx = match usize::from(ucode_id) {
+-        ucode_id @ 1..=regs::NV_FUSE_OPT_FPF_SIZE => ucode_id - 1,
++        ucode_id @ 1..=gpu::NV_FUSE_OPT_FPF_SIZE => ucode_id - 1,
+         _ => {
+             dev_err!(dev, "invalid ucode id {:#x}\n", ucode_id);
+             return Err(EINVAL);
+@@ -68,16 +68,7 @@ fn signature_reg_fuse_version_ga102(
+ 
+     // `ucode_idx` is guaranteed to be in the range [0..15], making the `read` calls provable valid
+     // at build-time.
+-    let reg_fuse_version: u16 = if engine_id_mask & 0x0001 != 0 {
+-        bar.read(regs::NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION::at(ucode_idx))
+-            .data()
+-    } else if engine_id_mask & 0x0004 != 0 {
+-        bar.read(regs::NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION::at(ucode_idx))
+-            .data()
+-    } else if engine_id_mask & 0x0400 != 0 {
+-        bar.read(regs::NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION::at(ucode_idx))
+-            .data()
+-    } else {
++    let Some(reg_fuse_version) = gpu::fuse_ucode_version(bar, engine_id_mask, ucode_idx) else {
+         dev_err!(dev, "unexpected engine_id_mask {:#x}\n", engine_id_mask);
+         return Err(EINVAL);
+     };
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 9e4232645a7e..746a7dec8906 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -6,7 +6,10 @@
+     device,
+     dma::Device,
+     fmt,
+-    io::Io,
++    io::{
++        register::Array,
++        Io, //
++    },
+     num::Bounded,
+     pci,
+     prelude::*,
+@@ -35,6 +38,8 @@
+ mod hal;
+ mod regs;
+ 
++pub(crate) use regs::NV_FUSE_OPT_FPF_SIZE;
++
+ macro_rules! define_chipset {
+     ({ $($variant:ident = $value:expr),* $(,)* }) =>
+     {
+@@ -419,3 +424,27 @@ pub(crate) fn new(
+ pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
+     bar.read(regs::NV_PMC_BOOT_0).into_raw()
+ }
++
++/// Returns the fuse version matching `engine_id_mask`,
++/// at the given `ucode_idx`.
++/// Returns `None` if no engine matches `engine_id_mask`.
++pub(crate) fn fuse_ucode_version(
++    bar: Bar0<'_>,
++    engine_id_mask: u16,
++    ucode_idx: usize,
++) -> Option<u16> {
++    let version = if engine_id_mask & 0x0001 != 0 {
++        bar.read(regs::NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION::at(ucode_idx))
++            .data()
++    } else if engine_id_mask & 0x0004 != 0 {
++        bar.read(regs::NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION::at(ucode_idx))
++            .data()
++    } else if engine_id_mask & 0x0400 != 0 {
++        bar.read(regs::NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION::at(ucode_idx))
++            .data()
++    } else {
++        return None;
++    };
++
++    Some(version)
++}
+diff --git a/drivers/gpu/nova-core/gpu/regs.rs b/drivers/gpu/nova-core/gpu/regs.rs
+index 1c4db9625250..a6ce4ff44cd1 100644
+--- a/drivers/gpu/nova-core/gpu/regs.rs
++++ b/drivers/gpu/nova-core/gpu/regs.rs
+@@ -80,3 +80,21 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+         )
+     }
+ }
++
++// FUSE
++
++pub(crate) const NV_FUSE_OPT_FPF_SIZE: usize = 16;
++
++register! {
++    pub(super) NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824100 {
++        15:0    data => u16;
++    }
++
++    pub(super) NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824140 {
++        15:0    data => u16;
++    }
++
++    pub(super) NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x008241c0 {
++        15:0    data => u16;
++    }
++}
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 3422b49df7a7..562499ff6e08 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -94,24 +94,6 @@ pub(crate) fn usable_fb_size(self) -> u64 {
+     }
+ }
+ 
+-// FUSE
+-
+-pub(crate) const NV_FUSE_OPT_FPF_SIZE: usize = 16;
+-
+-register! {
+-    pub(crate) NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824100 {
+-        15:0    data => u16;
+-    }
+-
+-    pub(crate) NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824140 {
+-        15:0    data => u16;
+-    }
+-
+-    pub(crate) NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x008241c0 {
+-        15:0    data => u16;
+-    }
+-}
+-
+ // PFALCON
+ 
+ register! {
+
+---
+base-commit: 60b5976d1367cd50314e867bc1169e759ab309b9
+change-id: 20260817-b4-extract-fuse-registers-to-gpu-mod-1d30d1f9a370
+prerequisite-change-id: 20260804-b4-extract-pmc-registers-to-gpu-mod-793ee2078a23
+
+Best regards,
+--  
+Antonin Malzieu Ridolfi <dev@nanonej.com>
+
+
