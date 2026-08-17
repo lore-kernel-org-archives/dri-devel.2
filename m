@@ -4,82 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2604BC5DF85
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D73BAC5DF8A
 	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9FA10E53D;
-	Wed, 19 Aug 2026 06:36:33 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nPiJRZuU";
-	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3C2810E2A2
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 12:17:31 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2d032846c95so64715035ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:17:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787055451; x=1787660251; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=C6sELIhv1S+5sf5c4uqOjdCGgTBs3Sk91TiW2PizCkk=;
- b=nPiJRZuUsNAT5n5mS7IDdxlzFFAOZ5NK1F/QOQxouPC2cuzgJA43WwQNDTHcj1Yhwa
- tmnTFMmwPu2R+mRSkAgH2nlAQfAFFruU0qclO+93TmbTfMDwGvEzKIoI5hbpcWyADGpn
- ZyMe4NnwAhVUeEoEOtGbhscdd4GBFDPEbfEO3FpsjWqoW/zHyz68D5ibavORriOty3QD
- jWlsw+WO0SFO76AXEgDEUoI4o9FhNbmuMUHfznTnw1+xN1z6FoXkOmK5wHHrJqx5DCSp
- Hq3r9VA815QtVMglBm4A5id2pn3RjSx5ZyROZ7IVzwU+Beg2bagCiZp2KbcrVKxE0zbg
- 9eHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787055451; x=1787660251;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=C6sELIhv1S+5sf5c4uqOjdCGgTBs3Sk91TiW2PizCkk=;
- b=n9yQFIjpjBkRZX9gsknQcvP783yRX0FWhZBia3iEXJ53p8RIopp4cIFzGxTBeTcJhC
- eECV9/NK8Li5r0Y01fKS7QyIws/6hgIhuci4w9MS47WKo5LKy007PCuJfVv1u1Jz8+aA
- 63LIBWGy+utc1ekiFHjF73lA69p1WtVNMFPEpjbQMyWzSMvfZJwJsfuL3tO2eqLKM0lZ
- 6k0/CCaFMStHrGgllFsQy56m8cgZ/L0I2RT2SScJwXKBnOHHFYM7Qtjs1nABPTbGzCa2
- fBIu1BkFQS7VukwvmSO39NySohYQ458uKfezVJB7pDoYfhf/UQbkp8GwwwGTLr2GChLC
- iRLQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqdaZttRIZzQbcciave1DLKNDDVPsm6UZ+r353Jjl6SFrFRKx1W0w/gdVMS+NH64SY5jjZXmZr3B1E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkwCAFltziUGf/TVf+hLCOmW7kBZPg1pwVxNpLkDrx+7vn2i89
- jOgDCdKrQkywj7wzsVkNd4k5s573DZ5DYHpI0i11JTK/YzQXeEAI7kM=
-X-Gm-Gg: AR+sD12zGfAEYH6hfTo4UjwlXP+9AS+UDybDXMJwg+/T1injlrVcHx1HWUnkWtGCom1
- YIqrgtpCpOxn8IMN8FH2j+NVHfZVAIXt2aLZXQl51PGCU5XWL9jDROMHmU68OZxoOjKtrJGO3LH
- tSFLR71dI2RLG/cbglP9CpkHFhTiWSEdXQU6QkWkN3UR/EwkLp1SW4jkUihZTFdLUcoM1LrfBKQ
- Zbl8YpG7pPTDUuMjm73QjhWqZQjogj/G/SwVvBVafBj9DiGCMILJ0tjpm3wXqkIIIpZsDKSzN6a
- ABQmz8u6JNqb2RzoMgXI1C3cpr4YEpsdzR7PD1LfbWxEuOsqxNrilhBRuMaoPqTGoFoZvgOH519
- YilJBQXOQlx6w+eWMsPkRI4A1PlWFlRmqHXbFBGwqgfG7OWECt8rfkA+NrtnsfRMGwDV0+bCsE4
- PNLw+nLfGus6NjidEl92eVAvWOeZvvDCOCpypQocfR14EFBWUWus4LxWNvIDJ7HCcj3iJSx9VuV
- RDt4qRbv6eAq+o1zxGXMhUFh/s4Xo3XOrVt3GMzvvSWlHMmWzhnUjM8l9TMsqdXmYPp
-X-Received: by 2002:a17:902:eb83:b0:2cf:b68a:2050 with SMTP id
- d9443c01a7336-2d5c5370140mr111173305ad.15.1787055451082; 
- Tue, 18 Aug 2026 05:17:31 -0700 (PDT)
-Received: from
- codespaces-2db70c.ktkhmpmw22vebpok31ngjx2qsb.ix.internal.cloudapp.net
- ([23.97.62.119]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d5c1ed8b0csm13769275ad.74.2026.08.18.05.17.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 05:17:30 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: triet.hoang.dev@gmail.com
-Cc: airlied@redhat.com, dmitry.osipenko@collabora.com,
- dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org,
- kraxel@redhat.com, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com,
- simona@ffwll.ch, tzimmermann@suse.de, virtualization@lists.linux.dev
-Subject: Re: [PATCH] drm/virtio: Fix possible memory allocation failure
-Date: Tue, 18 Aug 2026 12:17:14 +0000
-Message-ID: <20260818121714.47251-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260818113256.27848-1-triet.hoang.dev@gmail.com>
-References: <20260818113256.27848-1-triet.hoang.dev@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12C6D10E553;
+	Wed, 19 Aug 2026 06:36:34 +0000 (UTC)
+Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com
+ [115.124.28.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E484B10E3F6
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 10:23:33 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.0854001|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_enroll_verification|0.0234544-0.00745053-0.969095;
+ FP=7821620049252767453|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam011083013073;
+ MF=support@armdesigner.com; NM=1; PH=DS; RN=4; RT=4; SR=0;
+ TI=SMTPD_---.ip37YSz_1786962209; 
+Received: from DESKTOP-F4DGRM2(mailfrom:support@armdesigner.com
+ fp:SMTPD_---.ip37YSz_1786962209 cluster:ay29) by smtp.aliyun-inc.com;
+ Mon, 17 Aug 2026 18:23:30 +0800
+Date: Mon, 17 Aug 2026 18:23:28 +0800
+Organization: boardcon
+From: support <support@armdesigner.com>
+To: archive <archive@mail-archive.com>, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Cc: linux-pm <linux-pm@vger.kernel.org>, 
+ linux-rockchip <linux-rockchip@lists.infradead.org>
+Subject: Re: RK3576: rockchip-pm-domain fw_devlink device-link failures for
+ nested power-domain nodes
+References: <202608171522158625086@armdesigner.com>
+X-Priority: 3
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.25.563[cn]
+Mime-Version: 1.0
+Message-ID: <202608171823281751347@armdesigner.com>
+Content-Type: multipart/alternative;
+ boundary="----=_001_NextPart257607842044_=----"
+X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,7 +54,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a stupid idea. Sorry about that and just forget the PATCH.
+This is a multi-part message in MIME format.
 
-Regards,
-Triet
+------=_001_NextPart257607842044_=----
+Content-Type: text/plain;
+	charset="GB2312"
+Content-Transfer-Encoding: base64
+
+SGkgU3ViYWlyLA0KV2UgaGF2ZSBlbmNvdW50ZXJlZCB0aGUgc2FtZSAiRmFpbGVkIHRvIGNyZWF0
+ZSBkZXZpY2UgbGluayAoMHgxODApIiB3YXJuaW5ncyBhY3Jvc3Mgb3VyIFJvY2tjaGlwIEJTUCBk
+ZXZlbG9wbWVudCwgbm90IG9ubHkgb24gUkszNTc2IGJ1dCBhbHNvIG9uIFJLMzU4OCBhbmQgUksz
+NTY4LiBUaGlzIGlzIG5vdCBhbiBSSzM1NzYtc3BlY2lmaWMgRFRTIGlzc3VlLg0KQXMgU2ViYXN0
+aWFuIFJlaWNoZWwgZXhwbGFpbmVkIGluIHRoZSBhY2NlbDogcm9ja2V0IE5QVSB0aHJlYWQgZWFy
+bGllciB0aGlzIHllYXIgWzFdLCB0aGUgcm9vdCBjYXVzZSBpcyBhIGZ1bmRhbWVudGFsIGN5Y2xp
+YyBkZXBlbmRlbmN5IGluIHRoZSBSb2NrY2hpcCBwb3dlci1jb250cm9sbGVyIGRyaXZlcjogdGhl
+IFBNIGRvbWFpbiBjb250cm9sbGVyIG1heSBkZXBlbmQgb24gYSByZWd1bGF0b3Igc3VwcGxpZWQg
+dmlhIEkyQywgd2hpbGUgdGhlIEkyQyBjb250cm9sbGVyIGl0c2VsZiBzaXRzIGluIGEgcG93ZXIg
+ZG9tYWluIG1hbmFnZWQgYnkgdGhlIHNhbWUgY29udHJvbGxlci4gZndfZGV2bGluayBkZXRlY3Rz
+IHRoaXMgY3ljbGUsIGdpdmVzIHVwLCBhbmQgcHJpbnRzIHRoZSB3YXJuaW5nLg0KRm9yIHRoZSBz
+cGVjaWZpYyBwYXR0ZXJuIHlvdSBhcmUgc2VlaW5nIKGqIHdoZXJlIHRoZSBmYWlsZWQgc3VwcGxp
+ZXIgaXMgInNvYyIgcmF0aGVyIHRoYW4gYW4gSTJDIFBNSUMgoaogdGhlIG1lY2hhbmlzbSBpcyBz
+bGlnaHRseSBkaWZmZXJlbnQuIFRoZSBuZXN0ZWQgcG93ZXItZG9tYWluIGNoaWxkIG5vZGVzIChw
+b3dlci1kb21haW5AMC9wb3dlci1kb21haW5AMSwgZXRjLikgYXJlIGNvbnN1bWVkIGludGVybmFs
+bHkgYnkgcm9ja2NoaXBfcG1fYWRkX29uZV9kb21haW4oKSwgYnV0IGZ3X2RldmxpbmsgdHJlYXRz
+IHRoZW0gYXMgcG90ZW50aWFsIGRldmljZXMuIEl0IHNlZXMgdGhlaXIgY2xvY2tzIHJlZmVyZW5j
+ZXMgYW5kIGF0dGVtcHRzIHRvIGNyZWF0ZSBwcm94eSBkZXZpY2UgbGlua3MuIFNpbmNlIHRoZSBj
+aGlsZCBmd25vZGVzIGhhdmUgbm8gYXNzb2NpYXRlZCBzdHJ1Y3QgZGV2aWNlLCB0aGUgbGlua3Mg
+ZmFpbCBhbmQgZmFsbCBiYWNrIHRvIHRoZSBwYXJlbnQgKCJzb2MiKS4NClJlZ2FyZGluZyB5b3Vy
+IHRocmVlIG9wdGlvbnM6DQpPcHRpb24gMiAoZHJpdmVyLWxldmVsIGZpeCkgaXMgdGhlIG1vc3Qg
+cHJhY3RpY2FsIHBhdGguIEluIHJvY2tjaGlwX3BtX2RvbWFpbl9wcm9iZSgpLCBhZnRlciBwYXJz
+aW5nIGVhY2ggY2hpbGQgbm9kZSB2aWEgcm9ja2NoaXBfcG1fYWRkX29uZV9kb21haW4oKSwgdGhl
+IGRyaXZlciBjb3VsZCBtYXJrIHRoZSBjaGlsZCBmd25vZGUgd2l0aCBGV05PREVfRkxBR19OT1Rf
+REVWSUNFLiBUaGlzIHRlbGxzIGZ3X2RldmxpbmsgdG8gc2tpcCBsaW5rIGNyZWF0aW9uIGZvciB0
+aGF0IG5vZGUgYW5kIHdhbGsgdXAgdG8gdGhlIHBhcmVudCAocG93ZXItY29udHJvbGxlcikgZGV2
+aWNlIGluc3RlYWQuIFNvbWV0aGluZyBsaWtlOg0KZm9yX2VhY2hfYXZhaWxhYmxlX2NoaWxkX29m
+X25vZGUobnAsIG5wX2NoaWxkKSB7CiAgICAvKiAuLi4gZXhpc3RpbmcgZG9tYWluIHJlZ2lzdHJh
+dGlvbiAuLi4gKi8KICAgIGZ3bm9kZV9zZXRfZmxhZygmbnBfY2hpbGQtPmZ3bm9kZSwgRldOT0RF
+X0ZMQUdfTk9UX0RFVklDRSk7Cn0KDQpUaGlzIGlzIHRhcmdldGVkLCBkb2VzIG5vdCBhZmZlY3Qg
+b3RoZXIgcGxhdGZvcm1zLCBhbmQgcmVxdWlyZXMgbm8gRFQgYmluZGluZyBjaGFuZ2VzLiBUaGUg
+c2FtZSBhcHByb2FjaCBjb3VsZCBiZSBhcHBsaWVkIHJlY3Vyc2l2ZWx5IGZvciBuZXN0ZWQgc3Vi
+LWRvbWFpbnMgKHBvd2VyLWRvbWFpbkAwL3Bvd2VyLWRvbWFpbkAxKS4NCk9wdGlvbiAxIChEVCBj
+aGFuZ2UpIHdvdWxkIGJlIGZyYWdpbGUgoaogdGhlIERUIGJpbmRpbmcgYWxyZWFkeSBjb3JyZWN0
+bHkgZGVzY3JpYmVzIHRoZSBwb3dlci1kb21haW4gdG9wb2xvZ3ksIGFuZCBhZGRpbmcgYSBub24t
+c3RhbmRhcmQgYW5ub3RhdGlvbiBwcm9wZXJ0eSB3b3VsZCBiZSBhIHdvcmthcm91bmQgcmF0aGVy
+IHRoYW4gYSBmaXguDQpPcHRpb24gMyAoT0YvZndfZGV2bGluayBjb3JlIGNoYW5nZSkgaXMgdGhl
+IHByb3BlciBsb25nLXRlcm0gZml4IGJ1dCwgYXMgU2ViYXN0aWFuIG5vdGVkLCByZXF1aXJlcyBy
+ZXN0cnVjdHVyaW5nIGhvdyB0aGUgUm9ja2NoaXAgcG93ZXItY29udHJvbGxlciBkcml2ZXIgcmVn
+aXN0ZXJzIGl0cyBwcm92aWRlci4gVGhpcyBpcyB1bmxpa2VseSB0byBsYW5kIGluIHRoZSBuZWFy
+IHRlcm0uDQpJbiBvdXIgcHJvZHVjdGlvbiBCU1BzIChSSzM1ODgvUkszNTY4KSwgd2UgaGF2ZSBi
+ZWVuIHRyZWF0aW5nIHRoZXNlIHdhcm5pbmdzIGFzIGNvc21ldGljIKGqIHRoZSBhZmZlY3RlZCBk
+b21haW5zIGZ1bmN0aW9uIGNvcnJlY3RseSBiZWNhdXNlIHJvY2tjaGlwX3BkX3Bvd2VyKCkgaGFu
+ZGxlcyBkZXBlbmRlbmNpZXMgaW50ZXJuYWxseS4gSG93ZXZlciwgb24gUkszNTc2IHdpdGggaXRz
+IGRlZXBlciBuZXN0aW5nIG9mIHBvd2VyLWRvbWFpbiBjaGlsZCBub2RlcywgdGhlIHZvbHVtZSBv
+ZiB3YXJuaW5ncyBpcyBub3RpY2VhYmx5IGxhcmdlci4NCldlIHdvdWxkIGJlIGhhcHB5IHRvIHRl
+c3QgYSBwYXRjaCBmb3Igb3B0aW9uIDIgb24gUkszNTg4LCBSSzM1NjgsIGFuZCBSSzM1NzYgaGFy
+ZHdhcmUgaWYgc29tZW9uZSBwaWNrcyBpdCB1cC4NClsxXSBodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9hcmNoaXZlcy9kcmktZGV2ZWwvMjAyNi1KdW5lLzU3MzgwMS5odG1sDQpCZXN0IHJl
+Z2FyZHMsDQoNCk93ZW4NCg0KKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKg0KQm9hcmRjb24gRW1iZWRkZWQgRGVzaWduDQpTa3lwZTog
+Qm9hcmRjb24NClRlbDogKzg2LTEzNTM3Njg1ODc4DQpGYXg6IDg2LTc1NS0yNzU3MTU1Mg0KRW1h
+aWw6IHN1cHBvcnRAYXJtZGVzaWduZXIuY29tDQpXZWJzaXRlOiBodHRwOi8vYXJtZGVzaWduZXIu
+Y29tDQp3d3cuYm9hcmRjb24uY29tDQoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqDQoNCg==
+
+------=_001_NextPart257607842044_=----
+Content-Type: text/html;
+	charset="GB2312"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
+t=3DGB2312"><style>body { line-height: 1.5; }blockquote { margin-top: 0px;=
+ margin-bottom: 0px; margin-left: 0.5em; }p { margin-top: 0px; margin-bott=
+om: 0px; }.fox_html_content_dummy_textarea { position: absolute; overflow:=
+ hidden; width: 1px; height: 1px; opacity: 0; }div.FoxDiv20260817182238573=
+196 { }body { font-size: 14px; font-family: Arial; color: rgb(0, 0, 0); li=
+ne-height: 1.5; }</style></head><body>=0A<div><span></span></div><blockquo=
+te style=3D"margin-top: 0px; margin-bottom: 0px; margin-left: 2em; margin-=
+right: inherit;"><div class=3D"FoxDiv20260817182238573196"><div><p style=
+=3D"box-sizing: border-box; margin: 0px; padding: 0px 0px 12px; font-size:=
+ 15.0001px; line-height: 1.786; font-family: -apple-system, BlinkMacSystem=
+Font, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif=
+;">Hi Subair,</p><p style=3D"box-sizing: border-box; margin: 0px; padding:=
+ 0px 0px 12px; font-size: 15.0001px; line-height: 1.786; font-family: -app=
+le-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helveti=
+ca Neue&quot;, sans-serif;">We have encountered the same "Failed to create=
+ device link (0x180)" warnings across our Rockchip BSP development, not on=
+ly on RK3576 but also on RK3588 and RK3568. This is not an RK3576-specific=
+ DTS issue.</p><p style=3D"box-sizing: border-box; margin: 0px; padding: 0=
+px 0px 12px; font-size: 15.0001px; line-height: 1.786; font-family: -apple=
+-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica=
+ Neue&quot;, sans-serif;">As Sebastian Reichel explained in the accel: roc=
+ket NPU thread earlier this year [1], the root cause is a fundamental cycl=
+ic dependency in the Rockchip power-controller driver: the PM domain contr=
+oller may depend on a regulator supplied via I2C, while the I2C controller=
+ itself sits in a power domain managed by the same controller. fw_devlink =
+detects this cycle, gives up, and prints the warning.</p><p style=3D"box-s=
+izing: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.0001p=
+x; line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, &qu=
+ot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">For th=
+e specific pattern you are seeing =A1=AA where the failed supplier is "soc=
+" rather than an I2C PMIC =A1=AA the mechanism is slightly different. The =
+nested power-domain child nodes (power-domain@0/power-domain@1, etc.) are =
+consumed internally by rockchip_pm_add_one_domain(), but fw_devlink treats=
+ them as potential devices. It sees their&nbsp;<code class=3D"" style=3D"b=
+ox-sizing: border-box; padding-inline: 4px; border-radius: 3px; background=
+-color: rgba(0, 0, 0, 0.05); pointer-events: none;">clocks</code>&nbsp;ref=
+erences and attempts to create proxy device links. Since the child fwnodes=
+ have no associated struct device, the links fail and fall back to the par=
+ent ("soc").</p><p style=3D"box-sizing: border-box; margin: 0px; padding: =
+0px 0px 12px; font-size: 15.0001px; line-height: 1.786; font-family: -appl=
+e-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetic=
+a Neue&quot;, sans-serif;">Regarding your three options:</p><p style=3D"bo=
+x-sizing: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.00=
+01px; line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, =
+&quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;"><sp=
+an style=3D"box-sizing: border-box; font-weight: 600;">Option 2 (driver-le=
+vel fix) is the most practical path.</span>&nbsp;In rockchip_pm_domain_pro=
+be(), after parsing each child node via rockchip_pm_add_one_domain(), the =
+driver could mark the child fwnode with FWNODE_FLAG_NOT_DEVICE. This tells=
+ fw_devlink to skip link creation for that node and walk up to the parent =
+(power-controller) device instead. Something like:</p><div class=3D"cb-mar=
+kdown-pre-wrapper" style=3D"box-sizing: border-box; padding-bottom: 12px; =
+font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Robo=
+to, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17.143px;"><div cla=
+ss=3D"cb-markdown-pre-container" style=3D"box-sizing: border-box; border-c=
+olor: rgb(235, 235, 235); border-style: solid; border-width: 0.8px; border=
+-image: none 100% / 1 / 0 stretch; border-radius: 16px; overflow: hidden;"=
+><pre class=3D"cb-markdown-pre" style=3D"box-sizing: border-box; margin-to=
+p: 0px; margin-bottom: 0px; border-top: none; overflow: auto; max-height: =
+60vh; padding: 12px 0px;"><code style=3D"box-sizing: border-box; display: =
+block; margin-inline: 0px; border-radius: 0px; background-color: inherit; =
+color: rgb(59, 59, 59); overflow-x: auto; scrollbar-color: rgba(100, 100, =
+100, 0.4) rgba(0, 0, 0, 0); scrollbar-width: thin; font-size: 12.8573px; l=
+ine-height: 1.75;">for_each_available_child_of_node(np, np_child) {=0A    =
+/* ... existing domain registration ... */=0A    fwnode_set_flag(&amp;np_c=
+hild-&gt;fwnode, FWNODE_FLAG_NOT_DEVICE);=0A}=0A</code></pre></div></div><=
+p style=3D"box-sizing: border-box; margin: 0px; padding: 0px 0px 12px; fon=
+t-size: 15.0001px; line-height: 1.786; font-family: -apple-system, BlinkMa=
+cSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, san=
+s-serif;">This is targeted, does not affect other platforms, and requires =
+no DT binding changes. The same approach could be applied recursively for =
+nested sub-domains (power-domain@0/power-domain@1).</p><p style=3D"box-siz=
+ing: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.0001px;=
+ line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, &quot=
+;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;"><span st=
+yle=3D"box-sizing: border-box; font-weight: 600;">Option 1 (DT change)</sp=
+an>&nbsp;would be fragile =A1=AA the DT binding already correctly describe=
+s the power-domain topology, and adding a non-standard annotation property=
+ would be a workaround rather than a fix.</p><p style=3D"box-sizing: borde=
+r-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.0001px; line-heig=
+ht: 1.786; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&=
+quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;"><span style=3D"box=
+-sizing: border-box; font-weight: 600;">Option 3 (OF/fw_devlink core chang=
+e)</span>&nbsp;is the proper long-term fix but, as Sebastian noted, requir=
+es restructuring how the Rockchip power-controller driver registers its pr=
+ovider. This is unlikely to land in the near term.</p><p style=3D"box-sizi=
+ng: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.0001px; =
+line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, &quot;=
+Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">In our pr=
+oduction BSPs (RK3588/RK3568), we have been treating these warnings as cos=
+metic =A1=AA the affected domains function correctly because rockchip_pd_p=
+ower() handles dependencies internally. However, on RK3576 with its deeper=
+ nesting of power-domain child nodes, the volume of warnings is noticeably=
+ larger.</p><p style=3D"box-sizing: border-box; margin: 0px; padding: 0px =
+0px 12px; font-size: 15.0001px; line-height: 1.786; font-family: -apple-sy=
+stem, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Ne=
+ue&quot;, sans-serif;">We would be happy to test a patch for option 2 on R=
+K3588, RK3568, and RK3576 hardware if someone picks it up.</p><p style=3D"=
+box-sizing: border-box; margin: 0px; padding: 0px 0px 12px; font-size: 15.=
+0001px; line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont=
+, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">[=
+1]&nbsp;<a href=3D"https://lists.freedesktop.org/archives/dri-devel/2026-J=
+une/573801.html" target=3D"_blank" rel=3D"noopener noreferrer" node=3D"[ob=
+ject Object]" style=3D"box-sizing: border-box; color: rgb(20, 112, 180); t=
+ext-decoration-line: none; transition: color 0.15s ease 0s;">https://lists=
+.freedesktop.org/archives/dri-devel/2026-June/573801.html</a></p><p style=
+=3D"box-sizing: border-box; margin: 0px; padding: 0px; font-size: 15.0001p=
+x; line-height: 1.786; font-family: -apple-system, BlinkMacSystemFont, &qu=
+ot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">Best r=
+egards,</p><p style=3D"box-sizing: border-box; margin: 0px; padding: 0px; =
+font-size: 15.0001px; line-height: 1.786; font-family: -apple-system, Blin=
+kMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, =
+sans-serif;"><br></p><p style=3D"box-sizing: border-box; margin: 0px; padd=
+ing: 0px; font-size: 15.0001px; line-height: 1.786; font-family: -apple-sy=
+stem, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Ne=
+ue&quot;, sans-serif;">Owen</p></div>=0A<div><br></div><div><span><div sty=
+le=3D"font-family: 'Microsoft YaHei UI', Tahoma; line-height: normal;"><di=
+v style=3D"position: static !important;"><div style=3D"position: static !i=
+mportant;"><p class=3D"MsoNormal" align=3D"left" style=3D"margin: 0px 0cm =
+0px 7.5pt; font-size: 10.5pt; font-family: &quot;Times New Roman&quot;, se=
+rif;"><span lang=3D"EN-US" style=3D"font-size: 10pt; font-family: Arial, s=
+ans-serif; color: navy;">*************************************************=
+************<o:p></o:p></span></p></div></div></div><p class=3D"MsoNormal"=
+ align=3D"left" style=3D"margin: 0px 0cm 0px 7.5pt; line-height: normal;">=
+<b style=3D"background-color: transparent;"><span lang=3D"EN-US" style=3D"=
+color: navy; font-size: 12px;">Boardcon Embedded Design</span></b></p><p c=
+lass=3D"MsoNormal" align=3D"left" style=3D"margin: 0px 0cm 0px 7.5pt; line=
+-height: normal;"><span style=3D"font-size: 12px;"><span lang=3D"EN-US" st=
+yle=3D"color: navy;">Skype<b>: Boardcon</b></span><span lang=3D"EN-US" sty=
+le=3D"color: navy;"><br></span><span lang=3D"EN-US" style=3D"color: navy;"=
+>Tel: +86-13537685878<br>Fax: 86-755-27571552</span><b><span lang=3D"EN-US=
+" style=3D"color: navy;"><o:p></o:p></span></b></span></p><p class=3D"MsoN=
+ormal" align=3D"left" style=3D"margin: 0px 0cm 0px 7.5pt; line-height: nor=
+mal;"><span style=3D"font-size: 12px;"><span lang=3D"EN-US" style=3D"color=
+: navy;">Email: <u>support</u></span><span lang=3D"EN-US"><a href=3D"mailt=
+o:M@armdesigner.com" style=3D"text-decoration: none !important; color: pur=
+ple;"><span style=3D"color: navy;">@armdesigner.com</span></a></span><u><s=
+pan lang=3D"EN-US" style=3D"color: navy;"><br></span></u><span lang=3D"EN-=
+US" style=3D"color: navy;">Website:&nbsp;</span><span lang=3D"EN-US"><a hr=
+ef=3D"http://armdesigner.com/" style=3D"text-decoration: none !important; =
+color: purple;"><span style=3D"color: navy;">http://armdesigner.com</span>=
+</a></span><span lang=3D"EN-US" style=3D"color: navy;"><o:p></o:p></span><=
+/span></p><p class=3D"MsoNormal" align=3D"left" style=3D"margin: 0px 0cm 0=
+px 7.5pt; line-height: normal;"><span lang=3D"EN-US"><a href=3D"http://www=
+.boardcon.com/" style=3D"color: purple; text-decoration: none !important;"=
+><span style=3D"color: navy; font-size: 12px;">www.boardcon.com</span></a>=
+</span><span lang=3D"EN-US" style=3D"font-family: 'Microsoft YaHei UI'; fo=
+nt-size: 10pt; color: navy;"><o:p></o:p></span></p><p class=3D"MsoNormal" =
+align=3D"left" style=3D"margin: 0px 0cm 0px 7.5pt; line-height: normal;"><=
+span lang=3D"EN-US" style=3D"font-size: 10pt; color: navy;"><font face=3D"=
+Microsoft YaHei UI">******************************************************=
+*******</font></span><span lang=3D"EN-US" style=3D"font-family: Verdana, s=
+ans-serif; font-size: 10pt; color: navy;"><o:p></o:p></span></p><p class=
+=3D"MsoNormal" style=3D"margin: 0px 0cm 0px 7.5pt; text-align: justify; li=
+ne-height: normal;"><br></p></span></div>=0A</div></blockquote>=0A</body><=
+/html>
+------=_001_NextPart257607842044_=------
+
