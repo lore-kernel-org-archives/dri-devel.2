@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27372C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:22:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 491FDC5B572
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:22:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49E2B10E8AC;
-	Mon, 17 Aug 2026 17:22:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C89E10E8B0;
+	Mon, 17 Aug 2026 17:22:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vgm6nGYx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P52QHUq3";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6059810E780
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:22:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF7210E780
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9DCC044015;
+ by sea.source.kernel.org (Postfix) with ESMTP id 1858744588;
  Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7AE43C2BCF6;
- Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3897C2BCFF;
+ Mon, 17 Aug 2026 17:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1786987351;
- bh=RVVE5r0NGUE4k5ybuOlp+7aHs2IlhNHimZ4YfYSSYDE=;
+ bh=zTdYOCGpPbvo6ufi809Rri+YRM94kX0f0IXePRW5ia8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Vgm6nGYxPCpnhsPyBgdcgF8JbuxFF/gy/YpTLAh4AKZLyV0AmkmhdqB4ijiDN8khe
- d340Rr/KNdjeRaI8m59OUPzO92PqxbPW8i3f3zry1G9MtF/bAX8+tbShkp742iWpyO
- WfY44+cLHZhbzyyWPz6Txlra1l3JKspyLvgK3BBASHhU+Z2E2AFGwEvsJ7yhzVerx1
- 5v5mnOrdoDy/qA8hk+7aDRJ6j9GQ2IwAj2VkSCRpYdCvRZcljSxlE7ex2jcvYIfaQ6
- d5uQdEcENIC0s+Px4jfZxngrNy+jKzR6HQvWyTgsY4H/zIr9QwVXyJZkBEMtkk1avG
- 4kb03jlxCo8oQ==
+ b=P52QHUq3/xcorcXZu7r6tCjygUQFwidPFzHoCJgQuXjwkzo58DSIP80l4FJrf3if4
+ IGJxZWmoAC6om3/Pwce84778ATkDQKcLgVIMAL0vOMFlBmmca6FD8oaYdBTTYcRfZ5
+ EwrO5S4MitRZmQnMm/3v8xxyfFsB1FsDgnA7FwMEr8WSS5Yb6prfvV8wyAyRX+eCnc
+ esGFRuBzJWG3k2DAO7rcs6fN0+sDoukjnFGeEJUdWErwJzMVBxQvpKluM3rNFGa/V7
+ iNCV3jOh4HXj8ubJZ22K3sPGKlOfUxoRrbJPaJtK7kADVDB/zshSt1nESuDBIygr9W
+ zIG63CTRAn3Xw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 56928C5B572;
- Mon, 17 Aug 2026 17:22:31 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C5935C5B572;
+ Mon, 17 Aug 2026 17:22:30 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Mon, 17 Aug 2026 11:22:20 -0600
-Subject: [PATCH 6/9] locking/lockdep: Fallback to folio_pool in
- alloc_list_entry when static pool is full
+Date: Mon, 17 Aug 2026 11:22:17 -0600
+Subject: [PATCH 3/9] bpf/verifier: Route verifier stack state node
+ allocations to folio_pool
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-folio-pool-v1-v1-6-0c1d230aa3af@gmail.com>
+Message-Id: <20260817-folio-pool-v1-v1-3-0c1d230aa3af@gmail.com>
 References: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
 In-Reply-To: <20260817-folio-pool-v1-v1-0-0c1d230aa3af@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -71,11 +71,11 @@ Cc: netfilter-devel@vger.kernel.org, bpf@vger.kernel.org,
  linux-mm@kvack.org, coreteam@netfilter.org, netdev@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786987349; l=4052;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786987349; l=3668;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=Hw9H0XS3lRz/8Cusmj0TdRoN7GOnkgdGE/QpF+OTKZE=;
- b=7ApQuwEsLmNusDVgP3wGCUer5jWN1Mvb2G7RmfE1VdvcfA0Sc3zPBxPrhepGf2Qoooi58cGiI
- /JMtsQaQwZxAKM58qj6awvp+EWf0JxWRjrcSmYqhuYL91ZsT2xJmsy6
+ bh=wd43RzukeW/QIRUOsguKGysZSVWNap+EkJQwmYjEf9A=;
+ b=RF7O0cJ6UhuZWtoBFwIEZu/Uet9+m63ZwGntlkc7HifWVQ9cB6lvVPZZZ7oAkyvhDWt0UEWjL
+ GN7mnVJCnK5CEvsqbKbNn1jrRMc23jiFMLCZ23LsNR5YNbIQiBnNZdV
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -99,120 +99,101 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Use struct folio_pool to dynamically expand lock dependency storage when
-the static list_entries pool is exhausted, avoiding premature lockdep
-disabling.
+Embed a struct folio_pool inside struct bpf_verifier_env to allocate
+transient bpf_verifier_stack_elem frames using direct-map large folios,
+releasing all frames in bulk at the end of bpf_check().
+
+Use folio_pool_alloc_obj() to preserve strict type specificity at callsites.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- kernel/locking/lockdep.c           | 35 ++++++++++++++++++++++++++++++++++-
- kernel/locking/lockdep_internals.h |  2 ++
- kernel/locking/lockdep_proc.c      | 16 ++++++++++++++--
- 3 files changed, 50 insertions(+), 3 deletions(-)
+ include/linux/bpf_verifier.h |  3 +++
+ kernel/bpf/verifier.c        | 16 +++++++++++++---
+ 2 files changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index 2d4c5bab5af8..f0f58db090ff 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -58,12 +58,37 @@
- #include <linux/context_tracking.h>
- #include <linux/console.h>
- #include <linux/kasan.h>
+diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+index 39a851e690ec..43f5f0eaffac 100644
+--- a/include/linux/bpf_verifier.h
++++ b/include/linux/bpf_verifier.h
+@@ -898,6 +898,8 @@ struct bpf_scc_info {
+ 
+ struct bpf_liveness;
+ 
 +#include <linux/folio_pool.h>
 +
-+DEFINE_STATIC_KEY_TRUE(lockdep_pool_key);
-+static struct folio_pool lockdep_pool =
-+	FOLIO_POOL_INIT_KEY(lockdep_pool, sizeof(struct lock_list),
-+			    FOLIO_POOL_64K_ORDER, &lockdep_pool_key);
+ /* single container for all structs
+  * one verifier_env per bpf_check() call
+  */
+@@ -907,6 +909,7 @@ struct bpf_verifier_env {
+ 	struct bpf_prog *prog;		/* eBPF program being verified */
+ 	const struct bpf_verifier_ops *ops;
+ 	struct module *attach_btf_mod;	/* The owner module of prog->aux->attach_btf */
++	struct folio_pool state_pool;	/* pool for transient state nodes */
+ 	struct bpf_verifier_stack_elem *head; /* stack of verifier states to be processed */
+ 	int stack_size;			/* number of states to be processed */
+ 	bool strict_alignment;		/* perform strict pointer alignment checks */
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index fdc5fbb1f78c..8a9e66ce4dc8 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -1725,7 +1725,7 @@ static int pop_stack(struct bpf_verifier_env *env, int *prev_insn_idx,
+ 		*prev_insn_idx = head->prev_insn_idx;
+ 	elem = head->next;
+ 	bpf_free_verifier_state(&head->st, false);
+-	kfree(head);
++	folio_pool_free_elem(head);
+ 	env->head = elem;
+ 	env->stack_size--;
+ 	return 0;
+@@ -1743,6 +1743,8 @@ static bool error_recoverable_with_nospec(int err)
+ 	return err == -EPERM || err == -EACCES || err == -EINVAL;
+ }
+ 
++DEFINE_STATIC_KEY_TRUE(bpf_state_pool_key);
 +
-+static int __init setup_lockdep_folio_pool(char *str)
-+{
-+	bool enable;
+ static struct bpf_verifier_state *push_stack(struct bpf_verifier_env *env,
+ 					     int insn_idx, int prev_insn_idx,
+ 					     bool speculative)
+@@ -1751,7 +1753,9 @@ static struct bpf_verifier_state *push_stack(struct bpf_verifier_env *env,
+ 	struct bpf_verifier_stack_elem *elem;
+ 	int err;
+ 
+-	elem = kzalloc_obj(struct bpf_verifier_stack_elem, GFP_KERNEL_ACCOUNT);
++	elem = folio_pool_alloc_obj(env, state_pool,
++				    struct bpf_verifier_stack_elem,
++				    GFP_KERNEL_ACCOUNT);
+ 	if (!elem)
+ 		return ERR_PTR(-ENOMEM);
+ 
+@@ -2275,7 +2279,9 @@ static struct bpf_verifier_state *push_async_cb(struct bpf_verifier_env *env,
+ 	struct bpf_verifier_stack_elem *elem;
+ 	struct bpf_func_state *frame;
+ 
+-	elem = kzalloc_obj(struct bpf_verifier_stack_elem, GFP_KERNEL_ACCOUNT);
++	elem = folio_pool_alloc_obj(env, state_pool,
++				    struct bpf_verifier_stack_elem,
++				    GFP_KERNEL_ACCOUNT);
+ 	if (!elem)
+ 		return ERR_PTR(-ENOMEM);
+ 
+@@ -19789,6 +19795,9 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
+ 	if (!env)
+ 		return -ENOMEM;
+ 
++	folio_pool_init_key(&env->state_pool, sizeof(struct bpf_verifier_stack_elem),
++			    get_order(SZ_64K), &bpf_state_pool_key);
 +
-+	if (!kstrtobool(str, &enable)) {
-+		if (enable)
-+			static_branch_enable(&lockdep_pool_key);
-+		else
-+			static_branch_disable(&lockdep_pool_key);
-+	}
-+	return 1;
-+}
-+__setup("lockdep.folio_pool=", setup_lockdep_folio_pool);
+ 	env->bt.env = env;
  
- #include <asm/sections.h>
- 
- #include "lockdep_internals.h"
- #include "lock_events.h"
- 
-+void lockdep_pool_stats(unsigned int *nr_chunks, size_t *chunk_size, size_t *tail_used)
-+{
-+	folio_pool_stats(&lockdep_pool, nr_chunks, chunk_size, tail_used);
-+}
-+
- #include <trace/events/lock.h>
- 
- #ifdef CONFIG_PROVE_LOCKING
-@@ -1404,11 +1429,19 @@ static struct lock_list *alloc_list_entry(void)
- 				      ARRAY_SIZE(list_entries));
- 
- 	if (idx >= ARRAY_SIZE(list_entries)) {
-+		struct lock_list *p;
-+
-+		p = folio_pool_alloc_type(&lockdep_pool, struct lock_list,
-+					  GFP_ATOMIC);
-+		if (p) {
-+			nr_list_entries++;
-+			return p;
-+		}
- 		if (!debug_locks_off_graph_unlock())
- 			return NULL;
- 
- 		nbcon_cpu_emergency_enter();
--		print_lockdep_off("BUG: MAX_LOCKDEP_ENTRIES too low!");
-+		print_lockdep_off("BUG: MAX_LOCKDEP_ENTRIES too low and folio_pool exhausted!");
- 		dump_stack();
- 		nbcon_cpu_emergency_exit();
- 		return NULL;
-diff --git a/kernel/locking/lockdep_internals.h b/kernel/locking/lockdep_internals.h
-index 0e5e6ffe91a3..f802160c0dd5 100644
---- a/kernel/locking/lockdep_internals.h
-+++ b/kernel/locking/lockdep_internals.h
-@@ -159,6 +159,8 @@ extern unsigned long max_lock_class_idx;
- extern struct lock_class lock_classes[MAX_LOCKDEP_KEYS];
- extern unsigned long lock_classes_in_use[];
- 
-+void lockdep_pool_stats(unsigned int *nr_chunks, size_t *chunk_size, size_t *tail_used);
-+
- #ifdef CONFIG_PROVE_LOCKING
- extern unsigned long lockdep_count_forward_deps(struct lock_class *);
- extern unsigned long lockdep_count_backward_deps(struct lock_class *);
-diff --git a/kernel/locking/lockdep_proc.c b/kernel/locking/lockdep_proc.c
-index 1916db9aa46b..3e6f24ae9b34 100644
---- a/kernel/locking/lockdep_proc.c
-+++ b/kernel/locking/lockdep_proc.c
-@@ -288,8 +288,20 @@ static int lockdep_stats_show(struct seq_file *m, void *v)
- 			nr_lock_classes, MAX_LOCKDEP_KEYS);
- 	seq_printf(m, " dynamic-keys:                  %11lu\n",
- 			nr_dynamic_keys);
--	seq_printf(m, " direct dependencies:           %11lu [max: %lu]\n",
--			nr_list_entries, MAX_LOCKDEP_ENTRIES);
-+	{
-+		unsigned int fp_chunks = 0;
-+		size_t fp_chunk_sz = 0, fp_tail_used = 0;
-+
-+		lockdep_pool_stats(&fp_chunks, &fp_chunk_sz, &fp_tail_used);
-+		if (fp_chunks) {
-+			seq_printf(m, " direct dependencies:           %11lu [dynamic: %u x %zu kB, tail: %zu kB/%zu kB]\n",
-+				   nr_list_entries, fp_chunks, fp_chunk_sz / 1024,
-+				   fp_tail_used / 1024, fp_chunk_sz / 1024);
-+		} else {
-+			seq_printf(m, " direct dependencies:           %11lu [max: %lu]\n",
-+				   nr_list_entries, MAX_LOCKDEP_ENTRIES);
-+		}
-+	}
- 	seq_printf(m, " indirect dependencies:         %11lu\n",
- 			sum_forward_deps);
- 
+ 	len = (*prog)->len;
+@@ -20055,6 +20064,7 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
+ 	bpf_clear_insn_aux_data(env, 0, env->prog->len);
+ err_free_env:
+ 	bpf_stack_liveness_free(env);
++	folio_pool_free(&env->state_pool);
+ 	kvfree(env->cfg.insn_postorder);
+ 	kvfree(env->scc_info);
+ 	kvfree(env->succ);
 
 -- 
 2.55.0
