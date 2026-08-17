@@ -4,86 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1EE2C5DF7E
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C678C5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 15:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CBCD10E884;
-	Mon, 17 Aug 2026 15:41:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEE6D10E886;
+	Mon, 17 Aug 2026 15:41:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CSkDZ8/f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eX7QuQ24";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1500210E884
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:41:18 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c197eaaab00so666879166b.0
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 08:41:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786981276; x=1787586076; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=VoBtZfhuywbVuLLdP5All4NoUQGWiUJ7pstL6sIhZxI=;
- b=CSkDZ8/fDeql3eyrjPXiEqYG1GmIqVk35CZyGxiQp2wHghJA0b0J9/AGQXUiMKvjyI
- BF3MOjexG8YoOA9Srxl7UOBpJoffV2RQpLWWrH+lDrMVMVc/slIfXL0kX2qk+v0e/P8p
- NFoQ0DljLK9rn8s4IRru2TaZzet9Fh/DhOePZVcoQEsWnBzmTO0rBxsVIAGM7FsMkmtV
- gNcfieR3R1Kuj49ZSP+8xZJMuvdofprvSf02yNSb7p8c3H/k+L4Li0fAJAJZjGaJcbN5
- kw1XJThutedBsNISBmZRRH+Y0uR5WRPHH3sFAL8woyt1vKoslgmGv9V1UWQVZuCQ+6tD
- WONw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786981276; x=1787586076;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=VoBtZfhuywbVuLLdP5All4NoUQGWiUJ7pstL6sIhZxI=;
- b=cQgbWU+2ffy6YkSN9MN3zLLkuqWXJOvKLDwEkZJHEMyUk35tD264ueXUhcQRNdYQe2
- KzIWQGCdFD17z+Duqrc9En+gzgU9y9l0eM1jCd9XWO/fvmda9sgO/9Aa9x3EJEZ/149R
- 40qE7nTC/BTDdC6aGbepB6kpv3IxDhe7k5x2lDHlvWolsc2FiHF1X/40q+B7pEqK5u6o
- 5JT49tMM81Bc6XIBtLeJKGge7JJwyaTwREOWaibgBua1OfnOSVmN1ye0KdfXbl3eUTdm
- nruTMR5E7K2xwXhBW+zl3CCueuzs+239+EU/M9CWlct62+a9FhG5mU+8A0GWsWg9VskZ
- 7fLQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpqVOfyKtRmuDfy8hYvetXQwPd8XBK3NTu22Jx+QoxLPUkidCzfTqNMa51AY0/Y4AH9X8b6cmtNl4U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNcliGGRKxDy3TOW3wJBjaOVYPicvB4BDagLQuZFvgPk4RGOub
- PmCCgNxy3wOt1atC2Ru8gcxLfLM3bXHkipPEU3hDAJ2i3ufrFWMPc+6M
-X-Gm-Gg: AR+sD1170BA50+nwWdeNCJh0TaL5meMeA7fr0RelObwWwY01QPZgUzJjLVpC9N10uu/
- GFL77XUSU5q7zYG3Mr3bnAoJcn/+Ki435B0FeEKzxtqphlJ2FsyG9hjCUj3vgjvOBO8AWv24MH3
- fSnfKr+rzBc4KYR7m6oKE3aGYSf6e6SJjD4WawTvZAgokxw6oOk474f8HzRk5CO/p/Nx4cpu7FT
- a49VPpYja1NNzVYQdq/TDPcRrV5jTT7ZbqPJVITqgpkYrW2h5rMRNoLCg7E6WgP1nG0LxQH2eD7
- bEVe55+a90FMgDKzevKkblk5t5Nl4SpMLGQsQxZt5q+cL/dkhm9+Tly8e82XFsvwii9YvXsmh9N
- hNfY2MUubFZiO4dPuUl6u9fFDbCIxOTUiXegUkF/mc6dpGOmOECVENaHNabxxeLzKZu1+RMS2c3
- 9/A5s757cW1ZfmaJG19WRkZSPsKw9y9QI98JoxYaCFb7C89D58oWB+Y/n4hziuu9eGuUlsN7rj
-X-Received: by 2002:a17:906:ee84:b0:c20:eeaa:ec85 with SMTP id
- a640c23a62f3a-c212a1857cfmr1355311566b.17.1786981275977; 
- Mon, 17 Aug 2026 08:41:15 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2185bc9697sm44467766b.61.2026.08.17.08.41.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Aug 2026 08:41:15 -0700 (PDT)
-Message-ID: <b63e93e4-2f4c-4cad-b726-e1b0565379d7@gmail.com>
-Date: Mon, 17 Aug 2026 17:41:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] qcom PAS TZ API migration breaks GPU and modem on
- TrustZone without PAS (sc7180 trogdor)
-To: Paul Hollinsky <phollinsky@holtechnik.com>, sumit.garg@oss.qualcomm.com,
- andersson@kernel.org
-Cc: mathieu.poirier@linaro.org, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev, akhilpo@oss.qualcomm.com,
- konradybcio@kernel.org, mukesh.ojha@oss.qualcomm.com,
- cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-References: <20260808034716.58888-1-phollinsky@holtechnik.com>
-Content-Language: en-US
-From: Konrad Dybcio <konradybcio@gmail.com>
-In-Reply-To: <20260808034716.58888-1-phollinsky@holtechnik.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C59D10E886
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 15:41:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4971D601DE;
+ Mon, 17 Aug 2026 15:41:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D13271F000E9;
+ Mon, 17 Aug 2026 15:41:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786981287;
+ bh=Iyl531ck+0fRSAQwc4mjGKJKCnx6mUdXw4C5HkmXiZ8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eX7QuQ24OgjyFbfmL66nNKZ+2eBmh5uIMnPrSvoeIyflncMGtbgbugkz2t685IX9M
+ d89bsSkwNrDsGUPFl520sGpz2BEBJGDlB2YEzSsOBbpZ0izsJlSWPGCy1ysQATIbJI
+ ZMEN6yxuyIH8Z2hdL2tZ+TAS9ulePPWkdu5uBXPkFMClmaKNmluBHX4qg0Lg9jf/rJ
+ LIQcC1lwdyyq+LUIXd9kG8cR+QbMo/aCV8SztUSsTpWvIlnjDF49UcNl0r+Z4vOpi/
+ RJmvX4NmNIBBL0aswprQ8wG3H3R+cNP1IJrbnmNUWchwU66f6U7HHSlqez5WOf0J8D
+ b7b8McFbxeVXw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/ssd130x: Set the address window in
+ ssd132x_clear_screen()
+To: "Fabio Piparo" <holofermes@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260817152500.703770-1-holofermes@gmail.com>
+References: <20260817152500.703770-1-holofermes@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 15:41:26 +0000
+Message-Id: <20260817154126.D13271F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,122 +53,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/8/26 5:47 AM, Paul Hollinsky wrote:
-> Hi,
-> 
-> Two commits from the "firmware: qcom: Add OP-TEE PAS service support"
-> series break the GPU and the modem on SC7180 Chromebooks (trogdor):
-> 
->   f3b1357673dd ("remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs")
->   0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs")
-> 
-> Both are in linux-next as of next-20260805 and neither is in a released
-> kernel yet, so there is still time to fix this before v7.3.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-First of all, thank you for the amazingly thorough write-up. I've been on
-holiday so I couldn't look into it quicker.
+Pre-existing issues:
+- [High] 1-byte out-of-bounds read in ssd132x_update_rect() when the device=
+ width is configured to an odd number.
+- [High] Pre-existing logic error in atomic_disable callbacks causes ssd132=
+x_clear_screen() to be completely unreachable dead code, meaning the patch =
+applies a fix to a code path that never executes.
+--
 
-[...]
+--- Patch [1]: [PATCH] drm/ssd130x: Set the address window in ssd132x_clear=
+_screen() ---
+commit ce857c983f38da1567b74e3e8854ddf27505140a
+Author: Fabio Piparo <holofermes@gmail.com>
 
-> Suggested fix, drm/msm
-> ======================
-> 
-> Given the above, I think the right fix is to move the availability check
-> behind the DT discovery rather than restore the SCM check. Boards with no
-> zap-shader node then never consult PAS at all, and boards that do have one
-> keep the qcom_pas_is_available() gate the original patch was going for:
-> 
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -52,6 +52,12 @@
->  		return -ENODEV;
->  	}
->  
-> +	/* We need PAS to be able to load the firmware */
-> +	if (!qcom_pas_is_available()) {
-> +		DRM_DEV_ERROR(dev, "PAS is not available\n");
-> +		return -EPROBE_DEFER;
-> +	}
-> +
->  	ret = of_reserved_mem_region_to_resource(np, 0, &r);
->  	if (ret) {
->  		zap_available = false;
-> @@ -170,18 +176,11 @@
->  int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+    drm/ssd130x: Set the address window in ssd132x_clear_screen()
+   =20
+    ssd132x_clear_screen() sends its zeroes without setting the column and
+    row ranges first, so they land in whatever window the last
+    ssd132x_update_rect() left programmed. A partial final update then
+    leaves the rest of the screen uncleared, with fbcon the last damage is
+    typically the cursor cell, so blanking keeps the console content on
+    the panel.
+   =20
+    Set the full-screen window first, as ssd130x_clear_screen() already
+    does.
+
+> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
+ssd130x.c
+> index 0b0fc6fe3df23..256d370e24034 100644
+> --- a/drivers/gpu/drm/solomon/ssd130x.c
+> +++ b/drivers/gpu/drm/solomon/ssd130x.c
+> @@ -900,9 +900,20 @@ static void ssd132x_clear_screen(struct ssd130x_devi=
+ce *ssd130x, u8 *data_array)
 >  {
->  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> -	struct platform_device *pdev = gpu->pdev;
->  
->  	/* Short cut if we determine the zap shader isn't available/needed */
->  	if (!zap_available)
->  		return -ENODEV;
->  
-> -	/* We need PAS to be able to load the firmware */
-> -	if (!qcom_pas_is_available()) {
-> -		DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
-> -		return -EPROBE_DEFER;
-> -	}
-> -
->  	return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+
+[Severity: High]
+This is a pre-existing issue, but is ssd132x_clear_screen() ever actually
+called during plane disable?
+
+Looking at ssd132x_primary_plane_atomic_disable() where this is used, the
+function returns early if the new plane state's crtc is NULL:
+
+drivers/gpu/drm/solomon/ssd130x.c:ssd132x_primary_plane_atomic_disable() {
+    ...
+	if (!plane_state->crtc)
+		return;
+    ...
+	ssd132x_clear_screen(ssd130x, ssd130x_crtc_state->data_array);
+}
+
+Since drm_atomic_get_new_plane_state() returns a state with a NULL crtc
+pointer during a disable transition, doesn't this early return always
+trigger, preventing the clear_screen fix from executing?
+
+>  	unsigned int columns =3D DIV_ROUND_UP(ssd130x->width, SSD132X_SEGMENT_W=
+IDTH);
+>  	unsigned int height =3D ssd130x->height;
+> +	int ret;
+> =20
+>  	memset(data_array, 0, columns * height);
+> =20
+> +	/* Set column start and end */
+> +	ret =3D ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, 0, columns=
+ - 1);
+> +	if (ret < 0)
+> +		return;
+> +
+> +	/* Set row start and end */
+> +	ret =3D ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, 0, height =
+- 1);
+> +	if (ret < 0)
+> +		return;
+> +
+>  	/* Write out update in one go since horizontal addressing mode is used =
+*/
+>  	ssd130x_write_data(ssd130x, data_array, columns * height);
 >  }
 
-I believe this is the right fix
+[Severity: High]
+This isn't a bug introduced by this patch, but can ssd132x_update_rect() re=
+ad
+out of bounds if the device tree configures an odd solomon,width (e.g., 127=
+)?
 
-> I have this booting here: the GPU initialises and logs "Zap shader not
-> enabled - using SECVID_TRUST_CNTL instead", as it did before the
-> regression.
-> 
-> 
-> Suggested fix, remoteproc
-> =========================
-> 
-> Keep an SCM gate for need_mem_protection and add a separate PAS gate for
-> need_pas_mem_setup. This is what I did to get it working:
-> 
-> --- a/drivers/remoteproc/qcom_q6v5_mss.c
-> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
-> @@ -2079,7 +2079,16 @@ static int q6v5_probe(struct platform_device *pdev)
->  	if (!desc)
->  		return -EINVAL;
->  
-> -	if (desc->need_mem_protection && !qcom_pas_is_available())
-> +	/*
-> +	 * Memory protection is done through qcom_scm_assign_mem(), which needs
-> +	 * SCM but not PAS. Only the memory setup path issues PAS calls, so
-> +	 * requiring PAS for every need_mem_protection platform prevents the
-> +	 * modem from probing at all on TZ firmware that offers no PAS.
-> +	 */
-> +	if (desc->need_mem_protection && !qcom_scm_is_available())
-> +		return -EPROBE_DEFER;
-> +
-> +	if (desc->need_pas_mem_setup && !qcom_pas_is_available())
->  		return -EPROBE_DEFER;
+In ssd132x_primary_plane_atomic_check(), the shadow buffer is allocated as
+exactly width * height bytes for DRM_FORMAT_R8:
 
-And likewise this looks like the correct fix too, feel free to submit
-both as patches
+drivers/gpu/drm/solomon/ssd130x.c:ssd132x_primary_plane_atomic_check() {
+    ...
+	ssd130x_state->buffer =3D kcalloc(pitch, ssd130x->height, GFP_KERNEL);
+    ...
+}
 
-[...]
+In ssd132x_update_rect(), the loop increments by segment_width (2):
 
-> On the API contract
-> ===================
-> 
-> For what it is worth, the kernel-doc for qcom_pas_is_available()
-> (qcom_pas.c:256) reads:
-> 
->   Note that it is mandatory for any PAS client to invoke this API.
->   If it returns true then only any other PAS API can be invoked.
-> 
-> That is a guard to call before invoking a PAS API, not a statement that a
-> driver touching TZ at all should refuse to probe without PAS.
-> ipa_main.c:764 consults it only on the loader path that genuinely needs
-> PAS rather than as a blanket probe precondition, which is the shape both
-> fixes above are aiming for.
+drivers/gpu/drm/solomon/ssd130x.c:ssd132x_update_rect() {
+    ...
+	for (i =3D 0; i < height; i++) {
+		for (j =3D 0; j < width; j +=3D segment_width) {
+			u8 n1 =3D buf[i * width + j];
+			u8 n2 =3D buf[i * width + j + 1];
+    ...
+}
 
-This is a sloppiness that got through the transition patchset.. previously
-as you mentioned, qcom_scm_is_available() was a blanket "can we talk to TZ
-yet"?, and as the conversion happened, it was largely just find-and-replaced..
+If width is 127, on the last iteration of the last row (i =3D height - 1,
+j =3D 126), doesn't buf[i * width + j + 1] read buf[height * 127], which is
+1 byte past the end of the allocated buffer?
 
-Konrad
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817152500.7037=
+70-1-holofermes@gmail.com?part=3D1
