@@ -4,44 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7AB2C5DF7D
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 21:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11196C5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 21:06:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 818A410E93C;
-	Mon, 17 Aug 2026 21:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 382D810E927;
+	Mon, 17 Aug 2026 21:06:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="S1uTTx0s";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="b+DVfo2U";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC88410E957;
- Mon, 17 Aug 2026 21:05:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1175910E468;
+ Mon, 17 Aug 2026 21:06:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:From:From:Reply-To;
- bh=qioboRxmHCrsUgl5E1w4yi2cZ9jMCdSa5588K9II6Sg=; b=S1uTTx0sJScH6sEFMZ07JkQzOy
- 8j5SLjHMCeNfLy+er2s6IgYsrZ1xLjdCEW6Xe3gfENyLbYqalBPXE7C4IsX0zVZbg+ivRgUjwkuUQ
- 5MCcwbsL93fvNvK84ueA3VP5WxTGaAtfBo+iOQEbhZUlT++QwZDwjhWU3JQCcmfIt1PzXS1N9h4HG
- rdk2rLCAAuif6MXYL944SUvxfyf/W0WlzlbLweyQumZSCLZ26V8gmq1l5i5YL3C0rKgLNxMTb0UUY
- qymFnyEv5edHCRQdq3vLFvfjdnUKFlzobLiJrZ5WbMhq2YIQbdgAK8MJq4yMp3+pYnsxdyhqSb7nm
- Tqn3P1og==;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=GOiih112IF4qvl6Tdu0625xlcBMjCPj4P2KK6AXRbTg=; b=b+DVfo2UhzYoLl+hGK++U+RsXF
+ 54tDOnKfHT0MivyEJDJSooEYuXybd2M0ZnvdSTP290FTvgWO+yCeigwaEFgzRQRk2EOS1srPoVcJa
+ tvyK4TTqKYXEOpUmwB5d3lxPWlvzDfRWOGI5jE29nxfJr1//udTzeUhZM+lgf9uaRxr37BeV1jKL9
+ fzTRnGl517IQB2PTzo23BXeVwtyloKXzkVJ8I9MZlaWdv1xMLRnDXNiIe7f1sVl3l48pjeaiC6WED
+ NrADYcCjrRb95dEFGSoW7OMmTxwbM7RxTNUIqwfrr/WRPWT+qlbfJxAbiVMLD7HSdz95tKYejwM3X
+ t678XCMQ==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ww4Wm-00504Q-SH; Mon, 17 Aug 2026 23:05:53 +0200
+ id 1ww4Wt-00504Q-Dr; Mon, 17 Aug 2026 23:05:59 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: [PATCH v2 0/6] drm: Consolidate the wait timeout conversion
- helpers
-Date: Mon, 17 Aug 2026 18:05:40 -0300
-Message-Id: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+Date: Mon, 17 Aug 2026 18:05:41 -0300
+Subject: [PATCH v2 1/6] drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NTQ6CMBBGr0Jm7Zi2tvytvIdh0dARJgFK2ko0h
- LtbOYDL95LvfTtECkwR2mKHQBtH9ksGdSmgH+0yELLLDEqoUtSiQRdmTDyTfyUcaVopRDRGVzf
- SddU4CXm5Bnry+6w+uswjx+TD5zzZ5M/+720SBSpHZaWFsVKbOw92Ynvt/QzdcRxfE0QaqbcAA
- AA=
-X-Change-ID: 20260809-drm-timeout-helpers-55473e4879d1
+Message-Id: <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+In-Reply-To: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -58,15 +54,15 @@ Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2687; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=GUh8F5lEe6i/zjTsxPjU+mqzjJe7zSNpz2GJCrYo454=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqg3epMX0yZwqs4H6zFe0JYiuTejnXOmu7AzPcJ
- YZQ5ieX4ZeJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoN3qQAKCRA/8w6Kdoj6
- qlrfCADSaAly/2OtMAnS8UvY3HgGWhCpyR3Dj0bLuM5iiunBscHMfU1JSbl8MjDN8MF+I4lFtr0
- AVdtuVRRS28tyAGeqrJyC7xEZGtyKM6SmLEIZvy1PeyxnC9P8jQ+bqKrTPXR1nxHo8hbFjNgq22
- 65kaXOVLZsRc1IMtpDBth0p6IIW673Czt5crs5WES5SxlUsT5qoBQalVlAD9ugPjtVN4PWkIvIR
- N2VR+JNsMiwu9zvemAmO7aARGujNB4nEP1SBOGnWtYOZW6EYC+5UFs0oz2gqviYbGCs1m0imYTp
- J+MJ172DpxWOW9MfW4XBllwpTBS3i3lS4INnKOoRf8pZZLKA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4028; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=Itvq22A+UCopDH3ddQA2XO3z3mhutCFuUiSFKH9lZ7s=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqg3eqDpP3TAIruX1lywhqyAehmCI35tj48+G5p
+ 8vxfINhmNmJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoN3qgAKCRA/8w6Kdoj6
+ qqOHCACq8THrR00MTnN8yzZ1YjpIYydMLw/NRZE4BqPGzzgoF4+MmzuzSlGouUZwpi9+sV2UIFa
+ 6aAibsFZXu9DzBng6PEM5X7PDWYHY3jvJecGbrhBOkJ8mHGDRhdp8EyaCLQ8JSnM715j7QhSjvJ
+ IBIE+rPGHp+boa0H6jRgJcDxucY+5yvBTzeI96Aj5esLxeiM9MqvjpGm7SQybozv137aQe97B97
+ rY5kHXN96JVpeArGgfdBv5bH+C5ryNs2wsfyPFzM0KRuFjLAFJcScdgrj7ZoLyJqK5/SA34+rjD
+ MIONGuzMts3SR9zVBj0jGV20Du8+8PlnBeXt+BP7/80ldJzq
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,61 +80,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DRM wait ioctls express their timeout in one of two ways: as an absolute
-deadline in ns, or as a duration in ns. The core has a helper for the first
-form, drm_timeout_abs_to_jiffies(), which panfrost, lima, tegra, xe and
-some accel drivers use. However, there is no equivalent for the second
-form, so the drivers that take a duration convert it themselves.
+drm_timeout_abs_to_jiffies() began as a static helper inside the syncobj
+wait implementation and was later exported in place, so that it could be
+called by multiple drivers (e.g. panfrost, lima, tegra and accel
+drivers). All of them reach it through drm_utils.h.
 
-For example, i915 has a local helper to handle the relative timeout case,
-and v3d carries a copy of it. This series moves that conversion into a DRM
-helper called drm_timeout_rel_to_jiffies(), next to the absolute variant,
-and converts the drivers that were open-coding either form.
+Give it a file of its own, so that timeout conversion helpers have a
+home, which will be useful when we add new timeout handlers. The
+declaration stays in drm_utils.h, so no caller changes.
 
-This series becomes particularly relevant as the new helper will be used
-in the next version of the series "drm/vc4: Switch to DRM GPU scheduler"
-[1]. With this series, we avoid another duplication of the
-nsecs_to_jiffies_timeout() function (and thanks Tvrtko for the suggestion).
+No functional change.
 
-PATCH 1 moves drm_timeout_abs_to_jiffies() out of drm_syncobj.c and into a
-file of its own, so that both helpers live together. PATCH 2 adds a helper
-for the relative variant. Patches 3 to 6 convert amdgpu, v3d, i915 and vc4.
-
-Let me know your thoughts about it.
-
-[1] https://lore.kernel.org/dri-devel/20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com/T/
-
-Best regards,
-- Maíra
-
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
-v1 -> v2: https://lore.kernel.org/r/20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com
+ drivers/gpu/drm/Makefile      |  1 +
+ drivers/gpu/drm/drm_syncobj.c | 33 ------------------------------
+ drivers/gpu/drm/drm_timeout.c | 47 +++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 48 insertions(+), 33 deletions(-)
 
-- [2/6] Add comment discouraging the use of relative timeouts in uAPIs
-        (Christian König)
-- [3/6] Make it more explicit that any timeout that doesn't fit in a s64
-        is mapped into an infinite wait (Christian König)
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e97faabcd783..0a0d7ea08347 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -68,6 +68,7 @@ drm-y := \
+ 	drm_rect.o \
+ 	drm_syncobj.o \
+ 	drm_sysfs.o \
++	drm_timeout.o \
+ 	drm_trace_points.o \
+ 	drm_vblank.o \
+ 	drm_vblank_work.o \
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index 2fa170a29a62..cf03681de6f7 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -1193,39 +1193,6 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 	return timeout;
+ }
+ 
+-/**
+- * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+- *
+- * @timeout_nsec: timeout nsec component in ns, 0 for poll
+- *
+- * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+- */
+-signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+-{
+-	ktime_t abs_timeout, now;
+-	u64 timeout_ns, timeout_jiffies64;
+-
+-	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+-	if (timeout_nsec == 0)
+-		return 0;
+-
+-	abs_timeout = ns_to_ktime(timeout_nsec);
+-	now = ktime_get();
+-
+-	if (!ktime_after(abs_timeout, now))
+-		return 0;
+-
+-	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+-
+-	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+-	/*  clamp timeout to avoid infinite timeout */
+-	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+-		return MAX_SCHEDULE_TIMEOUT - 1;
+-
+-	return timeout_jiffies64 + 1;
+-}
+-EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+-
+ static int drm_syncobj_array_wait(struct drm_device *dev,
+ 				  struct drm_file *file_private,
+ 				  struct drm_syncobj_wait *wait,
+diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+new file mode 100644
+index 000000000000..78e9f65e5477
+--- /dev/null
++++ b/drivers/gpu/drm/drm_timeout.c
+@@ -0,0 +1,47 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Timeout conversion helpers for wait ioctls.
++ *
++ * Copyright 2017 Red Hat
++ * Copyright 2016 Advanced Micro Devices, Inc.
++ */
++
++#include <linux/export.h>
++#include <linux/jiffies.h>
++#include <linux/ktime.h>
++#include <linux/sched.h>
++
++#include <drm/drm_utils.h>
++
++/**
++ * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
++ *
++ * @timeout_nsec: timeout nsec component in ns, 0 for poll
++ *
++ * Calculate the timeout in jiffies from an absolute time in sec/nsec.
++ */
++signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
++{
++	ktime_t abs_timeout, now;
++	u64 timeout_ns, timeout_jiffies64;
++
++	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
++	if (timeout_nsec == 0)
++		return 0;
++
++	abs_timeout = ns_to_ktime(timeout_nsec);
++	now = ktime_get();
++
++	if (!ktime_after(abs_timeout, now))
++		return 0;
++
++	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
++
++	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
++	/*  clamp timeout to avoid infinite timeout */
++	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
++		return MAX_SCHEDULE_TIMEOUT - 1;
++
++	return timeout_jiffies64 + 1;
++}
++EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
 
----
-Maíra Canal (6):
-      drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
-      drm: Add drm_timeout_rel_to_jiffies()
-      drm/amdgpu: Use drm_timeout_abs_to_jiffies()
-      drm/v3d: Use drm_timeout_rel_to_jiffies()
-      drm/i915: Use drm_timeout_rel_to_jiffies()
-      drm/vc4: Use drm_timeout_rel_to_jiffies()
-
- drivers/gpu/drm/Makefile                 |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  | 20 ++------
- drivers/gpu/drm/drm_syncobj.c            | 33 -------------
- drivers/gpu/drm/drm_timeout.c            | 81 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 17 ++-----
- drivers/gpu/drm/v3d/v3d_bo.c             |  3 +-
- drivers/gpu/drm/v3d/v3d_drv.h            | 10 ----
- drivers/gpu/drm/vc4/vc4_gem.c            |  3 +-
- include/drm/drm_utils.h                  |  1 +
- 9 files changed, 94 insertions(+), 75 deletions(-)
----
-base-commit: 5d2584e2ffaabf2d420edcb2d120209e151f8dce
-change-id: 20260809-drm-timeout-helpers-55473e4879d1
+-- 
+2.55.0
 
