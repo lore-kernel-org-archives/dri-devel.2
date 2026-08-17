@@ -4,31 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70ED6C5B572
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A32C5DF70
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 17:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92DA7892ED;
-	Mon, 17 Aug 2026 17:09:49 +0000 (UTC)
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9DA28892ED
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:09:48 +0000 (UTC)
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
- id ECE559200B3; Mon, 17 Aug 2026 19:09:47 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by angie.orcam.me.uk (Postfix) with ESMTP id E9C8192009D;
- Mon, 17 Aug 2026 18:09:47 +0100 (BST)
-Date: Mon, 17 Aug 2026 18:09:47 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Randy Dunlap <rdunlap@infradead.org>
-cc: linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>, 
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] fbdev: maxine: use MODULE_LICENSE() unconditionally
-In-Reply-To: <20260814184234.3013510-1-rdunlap@infradead.org>
-Message-ID: <alpine.DEB.2.21.2608171800240.14132@angie.orcam.me.uk>
-References: <20260814184234.3013510-1-rdunlap@infradead.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3C1310E42A;
+	Mon, 17 Aug 2026 17:15:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MwMoC0+K";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA4510E42A
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 17:15:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 859D4600AE;
+ Mon, 17 Aug 2026 17:15:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FF111F000E9;
+ Mon, 17 Aug 2026 17:15:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786986938;
+ bh=vqpl9F2i8d57XZXPuTpGkt/yJ+MUgRhR3pJM+vtCdo8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MwMoC0+Kglq9E9f+00Xg4gxv5nPnA177Xmw8/KzEXMiTtOgzJJ+n0hsD2N+EakHsU
+ UrdIgnmkYl2HkcqFUI5LpbwMlGEWC3BaYEPmRoiJLE8y2n1KmVmY7HTGSm3Aksfl8t
+ RQ76ks4TTzgugYTSnQ6/JYvBupRl9XuDWVV45mDKcz3/zypb1WjNnCLIs8mHcDvrfO
+ OPR3RPeIgitG9mZWLK8iqzAZCi+1I9vkfjzLE/0dfDnF0PW8jrTrw7CEouCHwdrkFP
+ CQ+TPjb2NadFymas/iUddtrhTDXXdXqCFXbwaQXJuIBspkVQV8RZ1YvIVZLNhxUlsO
+ 14aFNSAxRVKOg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] leds: lp8864: Register a backlight device
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: linux-leds@vger.kernel.org, dri-devel@lists.freedesktop.org, lee@kernel.org
+In-Reply-To: <20260817170817.1933046-3-alexander.sverdlin@siemens.com>
+References: <20260817170817.1933046-1-alexander.sverdlin@siemens.com>
+ <20260817170817.1933046-3-alexander.sverdlin@siemens.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 17:15:37 +0000
+Message-Id: <20260817171538.0FF111F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,23 +53,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 14 Aug 2026, Randy Dunlap wrote:
+> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+>=20
+> The LP8864/LP8866 is a display-cluster LED backlight driver. Expose a
+> standard backlight class interface in addition to the LED class device,
+> so it can be used by display/panel stacks that expect a backlight.
+>=20
+> Use the new devm_led_backlight_register() helper, which spawns a
+> led-backlight device driven by our LED and tied to the I2C device
+> lifetime. This keeps the driver a plain LED driver, requires no
+> device-tree changes and remains backwards compatible with existing DTs.
+> It is a no-op when the led-backlight support is not enabled.
+>=20
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-> This driver cannot be built as a loadable module so testing for
-> "#ifdef MODULE" is not appropriate here.
-> Also, MODULE_LICENSE() is always available.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
- It might best be reordered to the end of file, cf. pmagb-b-fb.c, though 
-I'm not sure if we want to be pedantic enough to do it with a separate 
-change.  Anyway:
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817170817.1933=
+046-1-alexander.sverdlin@siemens.com?part=3D2
 
-Acked-by: Maciej W. Rozycki <macro@orcam.me.uk>
-
- NB making the driver modular ought to be trivial once this has become a 
-platform device; I have converted all the TURBOchannel drivers already.  
-I have hesitated poking at this one without a live specimen though.
-
-  Maciej
