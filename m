@@ -4,142 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F069C5DF66
-	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 10:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AFFCC5DF66
+	for <dri-devel@archiver.kernel.org>; Mon, 17 Aug 2026 11:06:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC11910E3EE;
-	Mon, 17 Aug 2026 10:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E89610E3F4;
+	Mon, 17 Aug 2026 11:06:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="r9js3G5T";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a72IcK/h";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021089.outbound.protection.outlook.com [52.101.100.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D3410E3EE;
- Mon, 17 Aug 2026 10:54:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mMgVoRXxm04Lx5cLMNVoqi5MwLabbzVBFszPNECL/5LxYeBOSQr2DM7YnfZLlxVmUVu8L6RnzCU3fv1ck+6Ok30cxPMRcK6Y4FodbFBRPzU7+uyujYcCe91dDTDgcm3aBx6wCtg5ShShIq9KUYvH81OWqftKLzlLwq3Ew0k8PeCo8vYXeeSARp/ccBQC34/42cyaWCRpPibBZhk1g5t+pRNxj/WuB2hzRNF0b6uGjbAFBCiY1ZtzFtK8V3OlOZV6Ut+SV/Y3/KDaoqQ0wUeQP3K/pdZmg7mbfC9qKz8MsqTm5S/rEsvfpqIGBKvReaIxx7VvyZzRBJ2VAZSqo4E88w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MEa2IODyt7bmNb5nrSbU60LhVcoiqET7hHjRvV1uVWU=;
- b=E62hV0ZX88QqhqWSHIyCAMBIbVHFJJJJDQ/M8YfwLEasLL6Z7qPWXgIpeSu6yOeu2Ln30jW8DkdYoqp4hmATXjSLDtJgcKl5F+fGzxitPuXitEBuZgSZVE7SzEJ1F3sY+D9rqh78hluPJgCGSN66YGXiWHom6viDLZLRycIDZlGjGOD8D8+RWo16PipjuQZgr8IrylPT1CttWvdCUrzamT+S0GLtAneGT0SOm1mGQh3Yb5sSwCsh/6HaAUSv+OZhgFLtuMYVvwMAfs5lrz34JDFX5By5Tm2w6Rno5tRbp8Cm63qD6CrkK3jgwYu9Mmt25fh1FbT7ihb2iNNhDVyABA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MEa2IODyt7bmNb5nrSbU60LhVcoiqET7hHjRvV1uVWU=;
- b=r9js3G5TkHtuTCt9w5yy6eW146+G9upKsAQ2WI7OpN239/z2YzdeyaZxLPabXeiCex8eMqqbh6LGE2Nzliv1JyjNXKbM8wiONPArbzz9d3IdtOpdNUpKWTTAAlUi5bFRZBpuhkrOmKAlGNp1YnQbhC0JNbqk5ZAxjzDv9BGjXBc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB2036.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:6a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 10:54:24 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 10:54:23 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 17 Aug 2026 11:54:22 +0100
-Message-Id: <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John
- Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Yury Norov" <ynorov@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-5-6c767770b3f4@nvidia.com> <anzxKO0X1OrNRD32@yury>
- <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com> <an4NvQBt3389jP6E@yury>
- <DKO414SNC0B2.248FUBGJGSPLU@kernel.org> <an4xDp29VX8Am0uR@yury>
- <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
- <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
- <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
-In-Reply-To: <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
-X-ClientProxiedBy: LO4P265CA0030.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ae::15) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2E6C10E3F4
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:06:24 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47c2ae992beso208604f8f.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:06:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786964783; x=1787569583; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6OwP5HDWaliFgti3Iscv9ilvEY9jqmGVYGbAyk7tFDg=;
+ b=a72IcK/hSw7gOOCDhvuReCj4/NQ+I5lUFvblJa6VBE0nzW8y6q4O9RtS+YVB1izkkJ
+ fEAlWcnIqgw37+Waa7QxzZqVTchGN/cTUlJt4XX4QnL+YXFzbnJw6V4AanHRl5p1mIwN
+ QlRYUxxq+HrD92p3HuTkjLXTiLnpqxHJNnYmzqHfn7SSR9bTshJgEWwVdbVKBIQWEeZi
+ 8XuTrBqgfp4MwyqcMeoeMgN8kjTvhi+13ARAgDgZfDw+moW5OMyC6XoRmAFF9Q8XcvTV
+ E9191noRvyQPIuvem0d98pCrXr579q37aBrCL2KVD3ceNxSl27r4+tSutVnBo3E5hjRM
+ de+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786964783; x=1787569583;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6OwP5HDWaliFgti3Iscv9ilvEY9jqmGVYGbAyk7tFDg=;
+ b=djnf+t8UbcNjZWeDipOHx5zDKCIGhK82ue0nedE15EuYXv6s3zpCQUA1Cds867UvVY
+ 4YJ6qMvI1V6o/J3ILdhqWVWsAu7e6VpDiSVaAz9184lPDvpZrE2Ofea7TN34+zUnABOv
+ DZwykEvlxbzNPSjpcHIrmug0pNtnbr580BetC4xLUJlqzT0uL76as3W9ldBWoQykOCpV
+ biLgKuygM1Yg8Ok4UrNf6IRBXJ33/j5vMwOmFi2k41LPbj45wzHHLI+E1rYs7vAPWEB3
+ pINO9bYi7jrdGOZr7c210DlN/EWHLSOYKNfYs8/ZARt/X5E/f27ekm8KY5/Swt9qM7Ut
+ ARJg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpfXN1+MduwYtWBJ0lu9vOFF4Mz3z5yvogv3nLGfXA2WLRZt3yuWRrib6A+BfnN/7dHtfxOCEet43w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxEYphbS7rAs3DKYruGE+hJzLgnMxdfzIJPciauzw/0zf5Bhrdu
+ ncY4NOTK9fqI6FpwNYRjdV3Iz6Kb6hisNuFrQJ3kUIpamLV1otVUBF8K
+X-Gm-Gg: AR+sD13unkGcljciTBcqbZZNipjeotBkXd8XodFW3d0dzmaAI8zFxdHAen1Oi5BCob4
+ 3m0zzJGWof85unVRODwnZ3QCZNw7uMEuBE44gIdX2KgYhCo/T7FVXL9rlkMk3Sk1WOefWXArUyC
+ fflz9+OoOpHpSdjuUXvj5Zh0+nUse9t8IYzuxeinMvidvuRy1Q4KW9B7XE0fjzUmwJnhmJ37Ai5
+ yH0vVdEIQZNwlfNzIwitCK/zx9+viy/VtaeB45WD+3cDBYErnDaCI1+NzyM2s4OQObOE/UkRTsv
+ Nam2LUM0c1O5MbZArZkxtK2WNm2JifjUoAedbRrO/QsxFO6EZYKa8NzXJGNYeilQMmbw19+unHa
+ V0lNoVlvNYy3yUNYGm1dfWcHcMRnjvg+/YI2wB1+WSJrM2uCPFxbsqp1h8RtUU2CTaxj/Cqg6Fo
+ pH9vU2E/+YWoZFosPvCS3VyWE8Bet6DfprF/BQskNMdxOH/AIJ8+QmpVlXiLC8oR+58vNYFJiqt
+ LUmg8YkaB8h9e4IhzapXT0AkUCbBWnql1xlpGqIbwweC9/pDfqr41lfWfjqnpf/svb0HQ==
+X-Received: by 2002:a05:6000:2585:b0:46f:7d90:8124 with SMTP id
+ ffacd0b85a97d-481607738d1mr17922081f8f.2.1786964783101; 
+ Mon, 17 Aug 2026 04:06:23 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B8FC50027494B64639367E4.dsl.pool.telekom.hu.
+ [2001:4c4e:1b8f:c500:2749:4b64:6393:67e4])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482a5a3b43dsm2982833f8f.12.2026.08.17.04.06.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 04:06:22 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Mon, 17 Aug 2026 13:05:53 +0200
+Message-ID: <20260817110556.31613-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260817102021.1226525-1-gahing@gahingwoo.com>
+References: <CAEWPSH7ETfw2TDjUfOvcVtDm19FC43x2vP=Lh7m+XPOGptnPWA@mail.gmail.com>
+ <20260817094544.1159366-1-gahing@gahingwoo.com>
+ <20260817100046.24872-1-royalnet026@gmail.com>
+ <20260817102021.1226525-1-gahing@gahingwoo.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB2036:EE_
-X-MS-Office365-Filtering-Correlation-Id: e39e07f0-530a-4fcd-3edf-08defc4de5fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|376014|7416014|366016|1800799024|10067099003|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ZzoIARB9Jo3jCml4wlYbYLmRmqisyudtvyfA167amErawjo5VOu5r9Otm8UZOgW3s5LCqM0txPXd+BZ8DUucukJa3/LwcWKCAmmFrG1IXHnAauJ7uIXmGCT2NkXd+YJOCdUURh6iq/sV3odhlWovPODhwbklgb1oSFM1iOJgSB6KwP53MykEPXWUp/t9XCJXTB1jamTKf7LjVAT5tcCCB/Dp3+lgNzBjBOcS65eATnR2nv8yMrybHgzOjnwVtRGzu/I0MUsFMD7Y3l86Rg9Ov//Hj/GUzetC6hXu8jyxCp1vrU1bDRqWhCcZtkpNW0rfpc27VFY3tszu3y4wgmAktiVXqLLf8iObtYVqNtBW0bQWHtFg6lKAAnGl5CgO5ZANjWwjVQdUNNr3mkWJXFCF+YX8YlneY0vcz4GFbqci2Jl+KKOVN+sB6W4nxBksEhCYpYfAVFe1vFn0/vaXQD5Sbk8OIBFyUY3XTl8+kb4DSw2w1o4sBGRWrmwbrJITz3+aDx/DEYhK8Nlv2OEf6iCgJANNaoYJcNMyqx0rZcjb76iXG+s3BQ8TSKncLj9I2yHdVbqJ4zFrxF+r+2IuKkipHjkE136VUD8bNCuv3xpO7VLQkBMXROTAeZLoE7UapD8kcN0ESoBYd+mUyaei1oWAQa3nuP3JV5ZXxKEJiMTjF/w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aEVmcFpxcUNuMWR4TUFLNmpYQ2pwSC8rMnhiNFRkdVFBbUw5OG9CV2NuMEpq?=
- =?utf-8?B?K2Nnem0vekROS0Zwdm9oNWwwUWFFN2ZRU2Y5SXA5eDRDMDk2OGQ2SHV5VmJt?=
- =?utf-8?B?NkZjL0N3am05ZEhSTFlzWTJ5QXpyTHViZ1VWREZDUG9mcmZyWFhYV3N4U2xK?=
- =?utf-8?B?Ry9LNytMNVQ2WWhVZGo0R2JpdGNsd0tKZFZOWS9kdHF2d2RsMlpFcTNaWUxX?=
- =?utf-8?B?TmsrNGhaQ2tDZXd1Y2dybGJ5SVArcUR3eHYvTmpNaVlZMnBoUnRsVndNamlw?=
- =?utf-8?B?V25WU2xHQ0pNb0ZEWjNXcFd6Y3JzYnN4d2RaOHV4czZmQmRUaWNQYUxNWE0y?=
- =?utf-8?B?TFlnSENvUjhTeXRDM2pXQUV5QUZkVklJYW5VRFFZY0Y4eTdKZ21TMkQ1aXYy?=
- =?utf-8?B?RnlqRC9NYmJQZExaWE5neHliQldDSUw2NXJybGRQUUVvNzBiTHN3T0R5RHg3?=
- =?utf-8?B?R1ZyeFh5SWdCbEhkWXF1T2lZWDZtOWlCR3EwWDR1bXl0ZDBkK0IwVkZ6dVov?=
- =?utf-8?B?Ykh3V3NUKzIzVnBvenppVUV2UVRhS2FjZWxYcEkyTU9DT1hOSjhOdXBuRW5p?=
- =?utf-8?B?elZWemV6dDVtMDA4VW5MeEtya0g4QWg1S0wyMURTSHRyU2cwTGpsMUpUWEZW?=
- =?utf-8?B?WGJtblBqaXdLcE1BZ2xOY3pGd2w5TnQyWFJpL3FZZTRRTDd2enFXc0w4S0hj?=
- =?utf-8?B?ck11aHI5SThpV3BiL1c3d3RUTm13VlB4bWhsQUtPanlVQVhTMFNKTGdqNFpn?=
- =?utf-8?B?bFBEc3NPWVlEY2JIMTBkRFJnd3N5OUNuZ3hnWHd0QUlQNWprRTIySXhwak9L?=
- =?utf-8?B?NmdEYkt5V2RnbkVVeVZWU3F5TU9FQWRjTGpseHRadWxLTzMyam9lanJEZEdt?=
- =?utf-8?B?OXJwZlEzQ2Q3YkhhdU5ZWkliaG1aMWFMUGdnWWh4R2dFRmpJc3lwTDF2RXFy?=
- =?utf-8?B?Q05LMkhuYzg3T29GQU1YNlZIYU16ZlMyQ0p4dndSSnFDdzVRajYrSEpvZStI?=
- =?utf-8?B?elNCUVVvUlFoanZrY1RHWm9zU1FUYjNSMTJsY2pIR2g0U1VKcFFZa2tDNTBu?=
- =?utf-8?B?QkZicVZqcWJKQnNaZ2s1VjFMUVZHV1c5KzV3VUZQcUNLTVJ4MVgyc1pDanJY?=
- =?utf-8?B?T3I0T1dIbnJRQk40a3E4MXhiS3JWT3dOZTdxRWJ6U3I1MC9aVVlFQVlJekVL?=
- =?utf-8?B?TGZRSnJVOW55dm53eElvam5vZk5Kd2tiZFJMZENmbVh6Tit0cGlFTmVRY3Uv?=
- =?utf-8?B?RGd0ZEgzWTRlM29iMzlrT2tSOVJRS0xZRjJ0TGYvenlHallCZFRYY2Z6c3Zm?=
- =?utf-8?B?ZEx3M0JkS0M0VllBMFJCS0pENE9UZHB1RjMzaVkrNjNYZFpSMWtNREhzaUNm?=
- =?utf-8?B?NS9iYS9FWlRJdjBrb2kwMEFCbEZ5UkRGbW9JcFlVTVJlSEU3VDF6dGQwS2tn?=
- =?utf-8?B?VllVNDdNU1RoT2tuRUNnUjhjR0lKZmg1WlE1WENMNklFYTRuQ3ZDcEE3aGVo?=
- =?utf-8?B?WVdua1BaMEpneDVKeExheGV2ckRuZnBDbTlBVHVxMmt3eDVOemVydm5hS1F1?=
- =?utf-8?B?aEZlc3BQZS92T2tEc2gySDNXUGhBbWo1VjBMNk5NbHZpQ2FwbHlkaHB0Tm54?=
- =?utf-8?B?RTV0Z3ZOL2JaZTRpb2h1U3h1OGZaQjZmM21nejdPbnJ3WXI2SWpXcjFEVERS?=
- =?utf-8?B?N1o0MEdYTENPaUxhMmZGQ01lam5Ha3JLZktsanZYeDZhT1RKZ0k3MDJWS3FX?=
- =?utf-8?B?d0NYRmRYcjEydWNDdDZaRDlNNk0zTUg4SXpJNXJPU2llZmlLZ00wbDUweXpn?=
- =?utf-8?B?c2w5SjhqT282MUM5N2VYbHMwM2hSM2pIMHJwc296UGhkVUpMNnFtMk5ZWW01?=
- =?utf-8?B?dXRMYVJWTG51YjY0M0FUVlZYaTdJOCsrYVVmWko3OUpNa3N5Q2xhZndhZXJS?=
- =?utf-8?B?SHppRG1VN2JmYWtxOE9UbDRVdU5DSUp4OFQ5Y2xRbDNBYjhOc3Mwa3FZdnNw?=
- =?utf-8?B?MGd1Y2JPY1RFYWVCMzBVMkdvd2gyMHdIYmxWMlZpN3JTUDFDamZaQ2FBc1Q1?=
- =?utf-8?B?QkNFWGE0ajc2bmkzSHZEZjdxT3F3MzB6ZUlISDIvbjN4RzE3aDdsSndQeHhq?=
- =?utf-8?B?U0xhOTdKUDNKeXdZTHR2VExya1dxTHhnSGhQR1liWXdpZUZacEVpYVJmeFRu?=
- =?utf-8?B?bmt3R2ZCbWNSNUNqYzgvOFZXaWJmMmlmY2pSRmVOdGJ4em1xeDQ4M2lBcEd5?=
- =?utf-8?B?aFFFMHM5MlVIMHR3NHpTSHdydlFmeEJGSjdKczJHeTcrc0hyS0MrVW5zemEw?=
- =?utf-8?B?WG11VGdWdTA3S3AvOTdodS9wbmFRd2ZGTi9NYUVrM3FvYWFPdktzZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: e39e07f0-530a-4fcd-3edf-08defc4de5fe
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 10:54:23.6003 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x1jhCo/UqCLoDC7WJnwrGBVTjt4zC5tj7JwVflAeiABUgbJuZRqlY0/rIOnY8nayKCR/8vR9kf+/TTDrSFR7qg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB2036
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,61 +99,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Aug 17, 2026 at 8:03 AM BST, Eliot Courtney wrote:
-> On Fri Aug 14, 2026 at 11:53 PM JST, Yury Norov wrote:
->> On Fri, Aug 14, 2026 at 05:08:43AM -0400, Yury Norov wrote:
->>> On Fri, Aug 14, 2026 at 01:54:24PM +0900, Eliot Courtney wrote:
->>> > > 1. Provide a nz! macro to create constant non-zero things. Provide =
-some
->>> > >    constants for common alignments
->>> > >
->>> > > Potentially, we could use build_assert! for cases it is provably
->>> > > non-zero but not a literal (although tbh not sure this is a good id=
-ea -
->>> > > at least not do this initially).=20
->>> > >
->>> > > So either: nz!: const { NonZero::new(value).unwrap() }, or, nz!: so=
-me
->>> > > build assert gated construction of NonZero. A general nz! macro cou=
-ld
->>> > > also help ergonomics for other use cases too.
->>> > >
->>> > > That looks like this:
->>> > >
->>> > > pool.alloc_area(nz!(8), Alignment::AL_8)?;
->>> >=20
->>> > Actually found that if we implement SizeConstants for Alignment then =
-we
->>> > can get Alignment::SZ_4K etc almost for free.
->>>=20
->>> Then maybe pass SZ_4K directly, and allow the alloc_area() to
->>> calculate the alignment:
->>>=20
->>>         pool.alloc_area(nz!(8), SZ_4K)?;
->>
->> Even worse, you can advertise the function like: allocate a contiguous
->> set of channel IDs enough to represent XXX bytes of memory with YYY
->> alignment. And that way, you'll be able to do:
->>
->>           pool.alloc_area(SZ_8K, SZ_4K)?;
->>
->> If my understanding of the function is right, it would be a clear
->> improvement, because the user now doesn't think about ID channels pool
->> as a set of bits, but an abstraction over the memory access technique,
->> which it really is.
->
-> If we pass SZ_4K directly, we are back to using plain integers, which is
-> not what we should be doing for rust interfaces according to Miguel. Let
-> me send a new version of this with my Alignment constants + nz! macro
-> idea, IMO it helps with the verbosity.
+Hi Jiaxing,
 
-I'm still not convinced with the `nz!` idea. Having to have a macro invocat=
-ion
-for each call is excessive.
+Thank you for withdrawing 40 and 72 before I built anything on them, and for
+the field table. I checked the table against registers.xml and it is right in
+all eighteen cells, including RESERVED_0 = 34, which is bits 12 and 16 and is
+not obvious. I also confirmed the part of your reasoning that matters most:
+your two words XOR to 0x100, and 0x124 against 0x80011111 and 0x024 against
+0x80011011 both XOR to 0x80011035. The five-field offset really is common mode
+across the two arms and cancels in an A against B.
 
-IMO we can just support zero-sized allocation by always succeeding, similar=
- to
-how ZST allocation is handled in memory allocation.
+One thing I cannot resolve on my own before I write code.
 
-Best,
-Gary
+You wrote: "Use your own constant with bit 8 cleared instead, 0x124 where the
+predicate is true and 0x024 where it is false." The merge request line you told
+me to take instead of your branch reads
+
+  R_DPU(0x4050, (DIV_ROUND_UP(output_channels, FEATURE_ATOMIC_SIZE) & 1)
+                   ? 0x80011011 : 0x80011111);
+
+which puts the SIZE_E_2 = 0 word on the true arm. Read with that predicate your
+sentence gives me 0x024 at oc = 64, where your merge request emits 0x80011111
+and current upstream emits 0x124, both SIZE_E_2 = 1. Read with "the predicate"
+meaning output_channels % 32 == 0, your sentence is exactly your modulo form at
+every count. Both readings agree at every count with oc mod 32 in 17..31, so
+your five discriminating counts are unaffected either way. They disagree only at
+oc mod 32 == 0 and 1..16 - and oc = 64 is the count you said you most want.
+
+So, concretely, so that I do not guess: at oc = 64, do you want SIZE_E_2 = 1 or
+SIZE_E_2 = 0? And if you meant your own form rather than the merge request's,
+send me the expression.
+
+I would rather we name the arms by value and by count than by the word
+predicate, since it now refers to two different things in this thread.
+
+Now the part I think is worth more than the A against B.
+
+I went looking for what SIZE_E means rather than which value works, and I think
+it falls out of the padding. In upstream rkt_task.c the output channel count is
+padded to a multiple of 32 for the normal case (line 87,
+align(MAX2(oc, 32), 32)) and to 64 for depthwise (lines 88-91), and
+FEATURE_ATOMIC_SIZE is 16 (rkt_ml.h:18). So the padded bank is 2 atoms of 16 in
+the normal case and 4 in the depthwise case. Upstream writes SIZE_E = 1 and
+SIZE_E = 3 respectively. That is 2 - 1 and 4 - 1.
+
+  SIZE_E_n + 1 = the number of 16-channel atoms in the final output channel bank
+
+If that reading is right, your parity predicate is not a fit at all, it is this
+same statement: I checked over oc = 1..512 with no exceptions that
+DIV_ROUND_UP(oc, 16) being odd is exactly the condition that the final
+32-channel bank holds one atom rather than two. Odd atom count means a
+half-populated last bank means SIZE_E_2 should be 0. That is the reason you said
+on 16 August you wanted for the field, and it is arithmetically identical to
+what you already wrote.
+
+It also explains why my eight counts said nothing, which had been bothering me.
+Upstream hands the padded count to the write path, not the real one -
+rkt_regcmd.c lines 201, 226 and 247 all take task->output_channels, and only
+ORIG_CHANNEL at line 225 takes output_channels_real. So on RK3588 the final bank
+is always declared full, the atom count is always 2, and SIZE_E_2 = 1 is simply
+correct at every remainder. My five new counts could not have discriminated
+anything; they were confirming that upstream never under-declares the last bank.
+
+And it predicts your losses arithmetically rather than describing them. An
+under-declared last bank keeps floor(oc/32) * 32 channels, which is 32, 64 and
+96 at oc = 56, 88 and 120 - your three numbers, including the lost ranges 32-55,
+64-87 and 96-119.
+
+Please treat that as a hypothesis. I derived it from the encoder's arithmetic,
+not from a TRM or a vendor document, and it assumes the three SIZE_E fields are
+independent, which is the same assumption you flagged. It also does not touch
+the timeout, and I agree with you that the timeout is unexplained.
+
+What I will run, once the polarity above is settled:
+
+  - oc = 64 both ways with the constant forced, no predicate in the build at
+    all, so the ambiguity cannot reach it. I will patch only the non-depthwise
+    branch at rkt_regcmd.c:239-241; clearing bit 8 in the depthwise arm would be
+    0x36c -> 0x26c, SIZE_E 3 -> 2, a different move. I will verify the emitted
+    word from the submitted register stream rather than the source, because at
+    oc = 64 real and padded are equal and a build that read the wrong one would
+    be invisible.
+  - oc = 20 and oc = 60 on stock upstream as the reference arm. Those need no
+    patch and no answer from you, so I can send them whenever. They also add
+    residues 20 and 28 to the table, which so far only has 1, 4, 8, 16 and 24.
+
+Generator and scorer are on the way in a separate mail.
+
+Two small things. Your sentence "modulo true implies parity true and never the
+reverse" is the wrong way round - parity true is residues 1..16, which is a
+subset of not-a-multiple-of-32, so the implication runs the other way. Nothing
+downstream of it changes. And your five are a sample rather than the set: below
+128 there are sixty counts with oc mod 32 in 17..31, and odd ones are fine since
+33 already ran, so 17, 25, 51, 83 and 117 would do just as well as 20 and 50.
+
+Regards,
+Igor
