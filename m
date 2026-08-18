@@ -4,132 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 562F3C5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 02:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85DB3C5DF74
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 03:01:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2C0A10E9B3;
-	Tue, 18 Aug 2026 02:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF6C510E4B1;
+	Tue, 18 Aug 2026 03:01:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BYlT8ll1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CCt8SSDx";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IY+RN6Q/";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012010.outbound.protection.outlook.com
- [40.107.200.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C269310E9B6
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 02:50:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tFMnyoFdJ4gtWNOpFZEJkwThp4tt2a+cWc2m/4tLMUJs9GDwvgXrCoPVidoxL/jUPj91P4W5lG67+j+jFmJss4DuH6kyQZ1QO0N8FqkIeYC2F0+7Nzl+OX5XeNXBIKytarHXVCLEeAYhWnf7utGs20/KD3IPfZp4HCTWGBj9FTx00Y60N1oQ4eQsQ4W7sslxkc2ythiPfT1W5c7IhIDpv8kykqVeLjf6B6O+/HtDBbDVDfzuCBjrTeNhAvgykjbS9fahHfGoNziPUohyq9fIeZzFFohuwnnvZImNWN8RmNVAOJxM3ta2gZeWu5IyavUeiGCnSSJxyxiGb/uxJghCEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=itzBNaL62UWSqpGxP5Z3DAJ22deJl+AcMRTLqJVL7iU=;
- b=HOusaLwJQc43Iqt8nGCQFi0LF2ApN5/fZKI1c7Vk0QjgPhtU5O7EM5dJPvBvYw56XigInAOEURaQsg0syqmno5f6cLuGDC2fwH9Yi8h4xEujNNtmd+gbEx2JwJ72JLnawVdEwjhNSkpFxTWxKTxdqC0abdIUCRIxVYT3cmtgYUk0CpQ/syc3CDhtqyb6iT0zc7eyO+6c58UtyzKveuOsrvYQ+IapAB0y6Kz7JTf2Y1SDzQlLFsZeMNJhikvCobLaR649RpNreacKNyJOihhxZ/z5CZ+U/FZYHb1VjqukTh1mrwzIS/w+/23DYjlmjZn1gnp/EdfJ1FevuqxnhCpjXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=itzBNaL62UWSqpGxP5Z3DAJ22deJl+AcMRTLqJVL7iU=;
- b=BYlT8ll1hCCW1HrZqfYbTQr1bSFLE1EFi5DIjLsWvU2GuR+0Q855tX0Hxb9HxV8lXnqYT+d8Qb/K3oOkAguCPn3EMk8IK9bSRNEzF7V/bVavKI7t/BTZtm7hqQRY9f5ZpqiKMutQvU2WI8qeA3MRJpYl55oPDXAvv2Jf6MBmfmY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by LV3PR12MB9186.namprd12.prod.outlook.com (2603:10b6:408:197::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 02:50:34 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%6]) with mapi id 15.21.0315.016; Tue, 18 Aug 2026
- 02:50:34 +0000
-Message-ID: <3c3eb833-8026-44ad-8e33-dea346752db2@amd.com>
-Date: Tue, 18 Aug 2026 10:50:25 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: About new backend for GPU compute ROCm in qemu
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Cc: qemu-devel@nongnu.org, virtio-comment@lists.oasis-open.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- Honglei Huang <honglei1.huang@amd.com>, Huang Rui <Ray.Huang@amd.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- David Airlie <airlied@redhat.com>, Peter Maydell <peter.maydell@linaro.org>
-References: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com>
- <ea899a6b-0a59-4a9c-9e81-3ed70711da59@rsg.ci.i.u-tokyo.ac.jp>
- <78f0583f-93c0-4374-ba37-fd36f6388f0e@amd.com>
- <c79bbd91-0057-4e9a-bc56-28ca4c4ccae2@rsg.ci.i.u-tokyo.ac.jp>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <c79bbd91-0057-4e9a-bc56-28ca4c4ccae2@rsg.ci.i.u-tokyo.ac.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TP0P295CA0003.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:2::9)
- To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC3710E491
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:01:55 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67HLkhMb3566540
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:01:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ZBz2J/YR064wcCDlSxnx2LWj
+ NaH5A+0wFaq4Q0GwWVY=; b=CCt8SSDxuZAlXZCuVF7FdA4BBarebF0vi6DR6AUJ
+ RohD5U3q065fxZ/SPY/Rj9yA0N/spjaxzfI6evKJnGwG9NZwKtYfIZlE+CAZ+VJm
+ +jDyQlAqD6yFHtqJ7Y/wBOCet2HFnWUm/P6QKmnOVY0B5rQvXm5xag7Z1AEDvHLy
+ 0FTqbuMBdjcecjzVJ2w4QjuEt7kFy75e57f3gZXsF5/YLP4xJ8LViC0as/IfBbAB
+ EKf/ZpbDUvXuMWFlBjjtUHGs+pPDy9yb2Eh+SYO7vc0nOv8KoOtrO9XMAmdGGJdx
+ srrZQGKI+SrtZoXjSwkJsdqp0jzPrqsap/sri0fjwskkAg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g48q0sfsv-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:01:54 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-9349c5af52bso686294785a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 20:01:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787022114; x=1787626914;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ZBz2J/YR064wcCDlSxnx2LWjNaH5A+0wFaq4Q0GwWVY=;
+ b=IY+RN6Q/Kj78p1WzCBKBt2gFldt4yJF55lC97mpytjZ9Ai6fEtXFtR7TcIlSgceXDP
+ Yipk4bk6k8APLb7TVCh4cxjSH+epT67LA07NAMN2p33i7WYNvFB8xd9jVehn1KhqnZgM
+ TJlmXES4pi1r9U26CUNYJ4zdPUisPd/0qMBbneJ/IYSwGs1xHV9W40a2j3CCe5eo1otN
+ QbEnYIRd0+bmIB1XFIUk6tGu5rCkfs/fG+HDv7Kkee+9eCk0Y/c01URd6vqRTA+xkfT2
+ ulUamRur7IQn2zppbC6KYVOjFYvO10lU059hfgZcY4gAdzkcnakisZShKrKzzcRXZYRL
+ OSXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787022114; x=1787626914;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ZBz2J/YR064wcCDlSxnx2LWjNaH5A+0wFaq4Q0GwWVY=;
+ b=hazfdi/mo2Mnww4/R1nin8+m9Dkk9dQ0Xr+1SrSi2NGL9N8+7b1cxSTtfQOEhiwvyZ
+ b5hVpiofENmwXEPPSaoB7XWRsXboc1AXNg1RGHzqHR6hikDSdx6FsYj50TvxgF8ZGgld
+ +mUE+e3P33UBW1I/+6/CfzDygvnyQWrHVjMG77KdSRKMrtGurhQ839ra6As2imTLkjf4
+ cBjgoVNyTNOSY9LdyrIch8v17aaurv9oOUhYbJolCGXdL9AnNWCd9edi2kArv03ZzQoS
+ 96z2UH2B2qXeT5SXwmpoJPb9mTmKSXccDu2f8oFFfuxak0TYuoXkOAup8ggQI/qWUsel
+ OaNw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoplaY1pkF3C6BLyzcJJYQxzPXPWTHgo5FynFoE5/a5d8QfNfPro9qx9GJ/etScHkOWnymEqhdiSIU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyqlbheppls1I8EB2dWdZNz9aUn7ZbmIe3Ppubg6hhzvOpjTvcn
+ OfQiTVgKkYIDLWvfH2PFKE+szI6fGzuGbRtF7ZymRW2IHV+Qsqbdxx2wB6MIz/uRq/lT9JcnMJO
+ xlNVnT7r2qDTarEs62cucRct/VXQ7tq3cDzWe1ZOsw92f/73cqjeemtiTKkIEZC7D/buTxTo=
+X-Gm-Gg: AR+sD10lcHPVsFxCWc16AsXUZ9eXXEocujSyNwqT04kRKcAKbPKRsD3k3xzgjZRYS/f
+ dD+2jNHGWxjIztavFbde5op8i4Z0ygTkgvqJZQ0VckcgvnJMYdujpIzNZj2b/0Y2bTt8Ie/vTld
+ sP55ogSHRc4HaPHRmXECpfqThXQFxAXp5NfTubUC0+l4c2k8llHajWPoQDBrIg6OhgtN/6lLlFE
+ 6Di8GYjQL+SYx2LD5/++dWxQOEDcVhEgoSV3z/GUmnWYkgGZsUsbxb7eRX/dxik15MoJzzHKxiq
+ x9D0rJZqhH3YFBaPo9hqLVZL/Q+6fP6QUVXrbPHiPAB1MqJvu4DdyVXgEAQhYxGzbWuU3DoF8vG
+ umZXj6qzNnK7aIoVMg+D+MCk0gIY3bBrzXeN8FIoeWwu8NiyeKcL9x05IdJixbu6wcr+4frO7Gn
+ sm4Cw3okeLx2T4
+X-Received: by 2002:a05:620a:28d1:b0:932:df7e:b31d with SMTP id
+ af79cd13be357-936d227ee03mr2727444385a.12.1787022113818; 
+ Mon, 17 Aug 2026 20:01:53 -0700 (PDT)
+X-Received: by 2002:a05:620a:28d1:b0:932:df7e:b31d with SMTP id
+ af79cd13be357-936d227ee03mr2727440185a.12.1787022113404; 
+ Mon, 17 Aug 2026 20:01:53 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3a16b1bcc39sm8342611fa.29.2026.08.17.20.01.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 20:01:51 -0700 (PDT)
+Date: Tue, 18 Aug 2026 06:01:47 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 1/5] drm/bridge: allow hpd_notify() to suppress connector
+ hotplug events
+Message-ID: <pyqpajtjcnslk6g5ysn3ce2csrb76fhd5bif4vdb6wezomlmsg@fsl55exyufx2>
+References: <20260629-msm-dp-msttypec-v1-0-646a10256233@oss.qualcomm.com>
+ <20260629-msm-dp-msttypec-v1-1-646a10256233@oss.qualcomm.com>
+ <cgk2httvebzm2jnjnb437mutez66tfozzdk77mjwukfzngdioh@mu46u3pwlf2u>
+ <af5f2e4f-42a2-49f3-9c6c-0f910c5f9208@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|LV3PR12MB9186:EE_
-X-MS-Office365-Filtering-Correlation-Id: 401a8135-a7dd-4787-ae9f-08defcd37954
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|7416014|366016|10067099003|56012099006|11063799006|5023799004|6133799003|4143699003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: OUBItjAx/Z4fuuuV9qDzQc0RIc1WcXynRhnr+Ok43IUA2rg4K+J4sPUDAf7bSFmrbHAypsfTj/4usAa2cmV9NF03FvXxzpSpiGNCCLRh9BXYCckY/7gXMNwv4gX4NC7Vb6ZrJ3kof28TQ3fUcGtL/D98nzBQV/vmm7w0KRVtfFx/OtuiWW3TQtNrWz2AQqQSnJgs7VCWOjj2rbK41Dp8mM+wPUkDO/DNGSJQrXZVWvaYgv9pegTUBVT6dZ48kJ05OZeE/lhIkdVQnv/0t00EYc7NwjtwCykR05hiZkR4+PelOp5qPSB7HVEgiIgqxpH31b/WY7Jif3jN5dRhqM+CAktPAMrxUyb+WhXiTz4DycNFvNUw9yVggIoFrLZW/rxqdQlZ7eRUzBPeMDVEMSSnMjub75pMwMki9UCHRne+IQ0ff2itUnJM6Yf2U4Sk7Dr5AjGfhFyUwHgyEw89FYKg/Slz0W5zhQOqqRcPKVwXSBX2tJZHDBMB8VMUbbv4ziUmyrf6b59nOesm0nhaV/+gPwbJDD7Hq6gMepk0SkqVTEh2KqX+rfuBgXFOplnZkRS/NzxosSge/DSMdop8RCsNv797W34BD3Gf+ZQyNA3W5jHT2KT/5BmJUtk5p2LVTIiH
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10067099003)(56012099006)(11063799006)(5023799004)(6133799003)(4143699003)(3023799007)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2RYSVQ4ZFFFRkhiamRacWRFQk41K2RENkNJK0FPKzl2Qmg0RkpYclJVdHJ2?=
- =?utf-8?B?RkdISkp2dGRnZE9Ub0RDSUZRSThSZlVaRngweWtuWFZkbGU5UkVBYWx0Vmc1?=
- =?utf-8?B?a2hZZDFyajVQSWJnYzVLTUJSS0c2Z2xvVGx5RWNlWlE4UW1SNVNrOFFmaFNr?=
- =?utf-8?B?WFNLUEJGMThqVlFDUGdzaWE5VXQyUFF2REtoVGExK1NDeUNSK2xWYUkzNGZz?=
- =?utf-8?B?WVVvMlJTNnBJMnNZN09JYXlLbGV5UGJvOEM0OEFOTUlKbTlFWGR0OVJJQWxz?=
- =?utf-8?B?VGI3YUYzQXJVanNESXpWYWdMbHl1TmJyRDBuWDZLRXFoODI2VkRId1VPeWYz?=
- =?utf-8?B?YWl3OW02ckx3ZmpWc3pkbDA1Z0R2YjVyYW1SVW9KN0g3N296NnpyMWNBcXNk?=
- =?utf-8?B?LzFWTXJ4UDhTYkIvVThrZkErYkJhL3JrZFNnbmpIUGJVSFBPZHE4Vkd0QXcy?=
- =?utf-8?B?MmVhbW1SUnZCMFpIejF2RTlnTzJleEduTXhPZGlqTWdSdkJzb0RPOUptSDh1?=
- =?utf-8?B?R3UwVklrN0lNTVNVZU5CRWVXT2tEZkZOdjNOVXFQM2M1K2JJQS9CUUk3NVlt?=
- =?utf-8?B?MjhRR2FMa3R3UHVrVEtjakUreFRFQlk2VnZzU3ZheUlqWjF5MjE0RFZZQjcy?=
- =?utf-8?B?TGMvVGNTdFVuenphQjA0QVFtenRGcGdWcE5HL2dSL2hZSnVsbi9sTVNuS250?=
- =?utf-8?B?bCtMMW5jUENoZlJvbnp6akwyQldBZzNOMlVKc2NvWGhodmVxTGxDSHZseDhj?=
- =?utf-8?B?UGFEMWpJeldydEJUSDFTUGd0SWVFcmU3M2dpeGE2MURHL21PRzJCRkZrUDZG?=
- =?utf-8?B?SWtyQ2VjRXdURW9oOFBqOUpuNWFyRTJ5Nm43Tm4vV3ArcXpiNkpFMDdGcHda?=
- =?utf-8?B?Y0hWekNtZnBoRUp5Nmd5YUZYWWVOVkJsSmJMaGtCTjNEMTY0eXRRdjJPSzRY?=
- =?utf-8?B?dUdnenVxT3RuaDYvV0pKaEdiVithYnYySVpFY0d4MUFzcmsvSGtYMUhlMkNS?=
- =?utf-8?B?Y2ZYRVRvWmNjOHB1R1RrVGFsWUdCSjUvMTZXL082K20rS2ZQeXF2QWk3bnhi?=
- =?utf-8?B?czBzbnNxZWxjS0JSU1E2ZndxQzZXeUg1RWxOVkp6Z0ZBeFdCeDVrQzhNV1N0?=
- =?utf-8?B?dDNkL0lwK1NCUTF3R1diamdHREdUMUxzZmRTVlBlTVc0cElncXVFN2MzeU9S?=
- =?utf-8?B?eitxL2NDV3BYemk0b2tTdzN4ck5yWHd4Nm0xRlVOZFJqRVpSUStXd2V2UGRU?=
- =?utf-8?B?ampiOHlTc2oxc2R0RVVTa1FvU2NIZUMyWmdTajBscTVMUVBXRE8xZE1ZZzRP?=
- =?utf-8?B?UjIxb2tCbGM3NnczallEdlc1dVZicGUvYXgvTGpSWGJUVnY0SzZOeTQxYWtY?=
- =?utf-8?B?TEhQVTkwWnQvakVkZjR5aWYvb1kwcHJsNmx1VXNqUE5ib1ZiRjBDTEVhcitn?=
- =?utf-8?B?SGR4RThGL2Z6WkRGTksxaC9kZE13bUpXTWdMQ1VTWlJRU29Kb2xUWFpTMDV0?=
- =?utf-8?B?V0g4S1plN0dIYkF2ckJaQnRJdTA1TjNiOG9USUtTU2xzaXpmbHQ5UldhK2kw?=
- =?utf-8?B?T1JqMEhrTXI1T3cvZjVSN1VoTVQvMWgxTXlxSFQ2Um9Zc3ZwNU9Kcmdaa1hq?=
- =?utf-8?B?eFhBY3R0c0g2d2RtRmI2djgxYVRTbGxTRkE4QmdnOEttRmRZSFJTYndvaElu?=
- =?utf-8?B?TlZSWkVjcDVYa1dPU214Sk1XcllFbk55V0tZQm11dXZSdHVlaHZhcEFRejFO?=
- =?utf-8?B?b3d2blFKY2FDWXhNNVBZaTJubVBiYmlEdjM5SWkvaVFNUit0SzZZQjFBeTF5?=
- =?utf-8?B?STFpV3kwMlc3RXRUbHdOaHpXOTNyMGhmVUxCdDlpMHdJaGdWcGZJZjlSVUpt?=
- =?utf-8?B?OUlmTG8vRWlyVTNNNUVjVUtIcW1hVk9tWG4yYWNvUGFsVUJsZjVkODZwM0NK?=
- =?utf-8?B?VG41RnF4RmRiQS9DZ0JCSGZMSG5HNmg1ait5NjM0L0ZrenFGdEVNNm5FU2Fr?=
- =?utf-8?B?MTJ4QTRvTnJ5SnBjRkxmVWZPTk85MEgwY0h4STBHRFlPVG01ZDVzSVVTaTlh?=
- =?utf-8?B?dk5WOXpOaDNNOEZQck84WEJPY0ZpVlBuUFA1SnJsdk1lQmxsejZHTjR1R1lR?=
- =?utf-8?B?QndMMDJxTU9BbVI5LzZuMHNYYk11VXlYNWdPdTJUbDhBU1RLazZGalJhQXVy?=
- =?utf-8?B?MmxWbjh2TisyYkR4TzBYd2lKTjFyTEhDekYvNGk4QjFlbHhBdHViN0swSUJn?=
- =?utf-8?B?VENqZjY1bGdtemswQ1d0T1FJVWlweVVyUFBuZXdLK2UzTjdQNDBqV3J3OUc0?=
- =?utf-8?Q?CnojPfYId8DiQKB9Uo?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 401a8135-a7dd-4787-ae9f-08defcd37954
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 02:50:33.9704 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +j9H+OmO0YLeJfvycZ043NEcm5jHfA+NjpNeMlfuJkp5t/7u1wETlfpXeigCGat7DT3E3bx3LuwGVG5ESR5Zjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9186
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <af5f2e4f-42a2-49f3-9c6c-0f910c5f9208@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDAyMSBTYWx0ZWRfX2OjMbMp2WRDP
+ FcJcZ0h38DPIwe4VhWsfVnCkIOIxS8IgWzwMPlsn87Yk68tsdXvRvZYY95Y0SxgLUF2T/RKJ1BE
+ DTR59Qj4qfL78lwbvZqav1ZVWYgjvB8=
+X-Authority-Analysis: v=2.4 cv=VuITxe2n c=1 sm=1 tr=0 ts=6a83cb22 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=WMPlNdQLU-vNwlj8jccA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: 7BFjUtN8ViaVXcFDFA3CBAe_aM3yUaiq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDAyMSBTYWx0ZWRfX7R0qxsNELCZr
+ HMpfUDzemzKQlixWOGobCHvnOHkJLefk4bq49T3dbadZV08ayYjWTP9+hRJLk2y+y80G6na/XFJ
+ Qb+8aih81U5NpSQd8ONM4YmxukNDYZC+E0qcgK9YEA+N8CLPUtt/23Zp67Mo8KryIvCKTG9pE0Q
+ rCUqllTLCkjgE8Q9KI+Vf1AgCVcjpyJNs1aD4Azn+KqYuZsIWmbE2Zj9QCm9OFUEkgZHeEaqPzR
+ RbWuuwXSO0zFLXXaw/Mob9jmC8mdBE3J/LDLtEcjwSIVYFkWedFbn3ElTr90TQ0xg7gPGy8iEGY
+ BbytOODS+qBPLsLoLeATfuB7akmkgJXkoRqeyo32ihHp2GY/b1AN/VTrhdTdRuap4j3rF1In4TX
+ 5rrIILaSM30MBeuN3cC3mwHQ8V09413O0g3KVl5y0XR2zXPSUORTLB/+NrUsPZ2ZujASblVMGS2
+ tiVs1+04iUcXwwSa8yg==
+X-Proofpoint-ORIG-GUID: 7BFjUtN8ViaVXcFDFA3CBAe_aM3yUaiq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 spamscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180021
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,336 +167,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Aug 17, 2026 at 04:01:41PM +0800, Yongxing Mou wrote:
+> 
+> 
+> On 7/12/2026 6:21 PM, Dmitry Baryshkov wrote:
+> > On Mon, Jun 29, 2026 at 10:48:03PM +0800, Yongxing Mou wrote:
+> > > The bridge connector framework currently invokes all bridge
+> > > hpd_notify() callbacks and unconditionally emits a connector hotplug
+> > > event afterwards.
+> > > 
+> > > However, not every HPD notification requires a userspace hotplug event.
+> > > 
+> > > In particular, DP MST bridges may use hpd_notify() to propagate HPD and
+> > > IRQ notifications through the bridge chain while the actual hotplug
+> > > handling is performed by the DRM DP MST core. Connector creation,
+> > > removal and userspace hotplug events are already managed by the MST
+> > > topology framework.
+> > > 
+> > > Allow hpd_notify() implementations to suppress the bridge connector
+> > > hotplug event by introducing a bool *send_hotplug parameter. Drivers
+> > > can clear this flag when HPD processing should not result in a
+> > > connector hotplug notification.
+> > 
+> > Why? Worst case the kernel receives another hotplug notification which
+> > gets ignored by the driver.
+> > 
+> Hi, thanks for reviwing those patches.
+> Let me try to explain the motivation.
+> 
+> Semantically, IRQ_HPD is just an IRQ notification, not a connection state
+> transition, and shouldn't be turned into a userspace hotplug in the first
+> place. However, drm_bridge_connector_handle_hpd() currently calls
+> drm_kms_helper_connector_hotplug_event() unconditionally after processing
+> the event, so every IRQ_HPD ends up reported as a hotplug.
 
+What if the IRQ_HPD is delivered together with the first HPD event (for
+example because of the TCPM processing those events)? See the mechanism
+in the displayport.c AltMode driver.
 
-On 8/18/2026 12:29 AM, Akihiko Odaki wrote:
-> On 2026/08/17 22:44, Huang, Honglei wrote:
->>
->>
->> On 8/17/2026 7:44 PM, Akihiko Odaki wrote:
->>> On 2026/08/17 12:19, Huang, Honglei wrote:
->>>>
->>>> Hi Michael, Alex, Dmitry, Akihiko,
->>>
->>> Hi Honglei,
->>>
->>>>
->>>> I'm bringing AMD GPU compute ROCm based on virtio. I posted a ROCm 
->>>> over virtio
->>>> implementation to virglrenderer nine months ago (MR !1568 [1]). The 
->>>> ROCm side has
->>>> been supportted by ROCm offical.
->>>>
->>>> Current implementation is a virtio gpu context type capset handled 
->>>> inside
->>>> virglrenderer, sharing the display path. That's an awkward fit, many
->>>> compute GPUs have no display engine at all.
->>>
->>> I think "sharing the display path" conflates several layers and makes 
->>> the problem difficult to assess. It would help to identify the 
->>> concrete constraint behind "awkward fit."
->>>
->>> End-to-end, there are four relevant layers:
->>>
->>> 1. Host GPU stack: hardware, host kernel, and host userspace
->>> 2. Paravirtualization stack: virglrenderer and QEMU
->>
->> Yes we are asking can we add a new file like virtio-gpu specific for 
->> compute, but maybe we can only add a new backend like virglrenderer 
->> specific for compute.
->>
->>> 3. Host/guest interface: virtio and the capset-specific command stream
->>
->> In this plan we may need just add a capset id.
->>
->>> 4. Guest GPU stack: guest kernel and guest userspace
->>
->> Won't modify the guest kernel in this plan, this email list.
->>
->>>
->>> Orthogonally, acceleration is separate from display and scanout. A
->>> physical device may provide both, but acceleration does not require a
->>> display engine. Linux likewise exposes render and compute interfaces
->>> separately from modesetting. The userspace interface virglrenderer 
->>> uses is messy; there is Vulkan, EGL, OpenGL, and now you are adding 
->>> ROCm. But there is one thing I must note is that acceleration and 
->>> display is decoupled, and acceleration does not require display.
->>
->> Yes totally agreed.
->>
->>>
->>> At the protocol layer, context command buffers are carried by 
->>> VIRTIO_GPU_CMD_SUBMIT_3D. Scanout uses separate core virtio-gpu 
->>> commands, and VIRTIO_GPU_CMD_GET_DISPLAY_INFO may report no enabled 
->>> displays. At the implementation layer, QEMU handles scanout 
->>> presentation. virgl_cmd_set_scanout() obtains resource information 
->>> through virgl_renderer_resource_get_info() or 
->>> virgl_renderer_resource_get_info_ext(). That does not make scanout a 
->>> virglrenderer-owned display path.
->>
->> Yes, agreed.
->>
->>>
->>> Therefore, if "sharing the display path" means sharing the same 
->>> device, control queue, and QEMU execution context, that identifies a 
->>> possible source of contention. If it means that capsets or 
->>> virglrenderer are inherently tied to display, I do not think that is 
->>> accurate. Vulkan compute is already used through Venus with libkrun 
->>> [2], and VCL proposes OpenCL support through virglrenderer [3].
->>
->> Yes，but the vulkan is for GFX originally, and for some formal AI 
->> frame work like pytorch, it's support is limited, and it performance 
->> is lower than ROCm, and vulkan also lacks many AI infrastructure, like 
->> composable kernel.
->> And for virCL, actually it is came from same project with ROCm native 
->> context, but the original author didn't continue to support it, they 
->> handed it over to someone else to take over. And in the first version of
->> virCL, it didn't pass the test of actual projects.
->>
->> And it seems like virCL didn't upstream into virglrenderer also, 
->> correct me if I am wrong.
-> 
-> I cited Venus and VCL only as examples showing that virtio-gpu and
-> virglrenderer are not intrinsically tied to display. I did not suggest
-> either as a substitute for ROCm.
-> 
->>
->>>> Beyond that, sharing the display path is increasingly painful:
->>>>
->>>>    - Compute hammers the queues more than graphics, so sharing
->>>>      virtio gpu's single control queue with display/virgl causes 
->>>> contention
->>>>      and display stutter.
->>>
->>> All non-cursor commands do share one control queue, but a fence 
->>> avoids serialization.
->>
->> yes, agreed.
->>
->>>
->>> There may still be implementation-level contention, and it is not
->>> necessarily specific to compute. A sufficiently busy graphics workload
->>> could expose the same bottlenecks. Possible contributors in current QEMU
->>> include:
->>>
->>> a) qemu_console_hw_gl_block() blocks the entire queue when QEMU only
->>>     needs to fence scanout commands.
->>
->> Yes, agreed.
->>
->>>
->>> b) virtio_gpu_virgl_unmap_resource_blob() may also block the entire
->>>     queue just to delay one command.
->>
->> Yes, but it is seems like it is must, someone else in AMD tried to use 
->> async method to relase blob, but it failed to consistency issue, then
->> reverted to sync version.
-> 
-> Queue-wide suspension is not inherently required. Commit 4eb0aace85f5 
-> ("virtio-gpu: Support mapping hostmem blobs with map_fixed") added a 
-> path that avoids per-blob MemoryRegion teardown when 
-> virgl_renderer_resource_map_fixed() succeeds. The remaining path is also 
-> being improved with:
-> 
-> https://lore.kernel.org/qemu-devel/20260424-force_rcu-v4-0- 
-> feccfaca0568@rsg.ci.i.u-tokyo.ac.jp/
-> ("[PATCH v4 0/6] virtio-gpu: Force RCU when unmapping blob")
+> Second, MST IRQ_HPD is level-sticky -- as long as the ACK has not been
+> cleared, the IRQ keeps firing repeatedly, and MST bring-up (link training
+> / MST enable handshake) itself generates a burst of IRQ_HPDs. So this is
+> not about "one extra hotplug", but about a burst of them within a short
+> window.
 
-Thanks. force_rcu is a clean fix for the RCU-reclamation part, but it 
-still keeps the unmap synchronous and serial.
+Ok, if it is level-sticky, it should be handled as such.
 
 > 
->>
->>>
->>> c) QEMU dispatches the control queue and calls into virglrenderer from
->>>     its main-loop thread along with display work and many other things.
->>>     Venus's render server can offload renderer work, but control-queue
->>>     dispatch remains in QEMU's main loop.
->>
->> Yes, we did some async optimization in ROCm context, but its 
->> effectiveness is limited, see bellow.
->>
->>>
->>> In any case, I think you need to do some experiments to track down 
->>> the real cause. a) is easy to check: just comment out all 
->>> qemu_console_hw_gl_block() calls; it may corrupt display but removes 
->>> the blocking. b) can also be tested by leaking the mappings instead 
->>> of blocking the whole queue. Using a different display device like 
->>> qxl tells whether c) is causing contention.
->>
->> Yes, totally agreed. following is my findings. In short words:
->>
->> Optimization can reduce queue pressure, but it can't withstand 
->> absolute overload because each command has some overhead. Making all 
->> commands asynchronous would lead to a debugging hell about 
->> asynchronous issues.
->> And we have high load applications rocmprofiler  that continuously 
->> catch information need virtio queue to handle. But create a new 
->> backend can not solve it simply, we are trying to find a way. like 
->> shmem between guest and host, then use cpu polling, bypass the virtqueue.
-> 
-> Most commands are fast on the CPU side, while heavy processing
-> happens asynchronously on the GPU. Cases (a) and (b) are exceptions.
-> 
->>
->> The load is mostly memory management. Running an AI model allocates 
->> and frees a large number of blobs. We already did some optimization 
->> release them asynchronously, but the host processing is a single queue 
->> one
->> process_cmdq, this is where the main bottleneck in my debugging work / 
->> my understanding so far. I'm not certain it's the whole picture, so 
->> please correct if I am wrong.
->>
->> A model load or unload frees a large batch of BOs and allocates 
->> another. Some of those commands are async in the virtio-gpu guest 
->> driver, but QEMU still has to work through them on the one queue, 
->> which takes time; so even though any single command is quick, there 
->> are simply too many of them, the single queue backs up, and everything 
->> behind it, gets delayed.
->>
->> real work load (a few downstream customisations): loading one 16 GB 
->> model (gemm4 e4b), drives ~1200 blob creates, a burst of
->> ~1400 resource frees at teardown, ~3700 submits and ~6000 virtqueue 
->> notifies, caused a 22 s guest soft lockup. And the behavior of memory 
->> operations are controlled by upper layer like pytorch / HIP / runtime,
->> we can not control it.
->>
->> To be honest, a separate backend won't fix this. But the real solution 
->> maybe is compute specific. That logic is only useful to the compute 
->> path, and folding it into the shared display device / renderer would 
->> mean churning code that is mature and stable for graphics, with 
->> regression risk. Keeping compute on its own instance and backend lets 
->> us iterate on these compute only optimisations.
-> 
-> A 22-second lockup is too long for those command counts.
-> 
-> The most probable explanation I have is that the ROCm integration blocks 
-> QEMU's main loop thread while synchronously waiting for GPU execution. 
-> Creating separate devices won't resolve this because the main loop 
-> thread is shared, and synchronously waiting on the GPU should be avoided 
-> in the first place.
+> Every one of those hotplugs is delivered to userspace via udev and
+> prompts the compositor to re-probe the connector. In the window before
+> mst_active is set, that re-probe walks back into msm_dp_bridge_detect()
+> and performs aux/DPCD accesses, racing with the MST enable flow.
 
-No synchronously waiting in ROCm backend, we are using user queue, and 
-event waiting, no sync operation in CMD wait. all the resource release 
-in ROCm are all async now.
-Only the sync thing is memory thing mapping/unmapping in qemu, as long 
-as it remains synchronous, it will be overwhelmed by the massive number 
-of requests.
+If there is a race, the path needs to have a lock, preventing concurrent
+access. Otherwise, you are just shortening the window instead of solving
+the problem.
 
 > 
-> In any case, profiling is necessary before touching the implementation.
-> 
->>
->>>
->>>>    - Compute contexts need far more blob / shared memory than a 
->>>> display one.
->>>
->>> It is not a problem by itself. Frequent mapping and unmapping might 
->>> amplify the second issue above, but that needs to be measured.
->>
->> Yes, agreed. I can give more detailed information.
->>
->>>
->>>>    - Maybe needs a wider ROCm / compute stack, cause the render 
->>>> model fits poorly:
->>>>      rocprofiler (PC sampling, SQTT/SPM, counters, high bandwidth 
->>>> streams)
->>>>      and ROCgdb (wave control, address watch, async exceptions an
->>>>      out of band channel that must not block display).
->>>
->>> virglrenderer does not impose a particular render model. That's why 
->>> Vulkan Compute just works with Venus.
->>
->> Yes but vulkan is used for GFX initally. And can not support many AI 
->> application.>
->>>>    - Events, faults and GPU reset/SMI are async and don't map onto 
->>>> fences.>    - All of this is hard to extend cleanly inside a display 
->>>> capset.
->>> Capset is not about display but determines the protocol of the 
->>> VIRTIO_GPU_CMD_SUBMIT_3D command stream. You have described events, 
->>> faults and GPU reset/SMI are async don't map onto fences that may be 
->>> associated with VIRTIO_GPU_CMD_SUBMIT_3D which is dictated by capset. 
->>> An additional feature may be necessary, and it may or may not be 
->>> dictated by capset. The other things are irrelevant with the protocol 
->>> capset represents; they are either behavioral or about different 
->>> commands.
->>
->> A fence is the one shot, but event is stateful and repeatable.
->> That may or may not be tied to capset. Agreed.
->>
->>>
->>>>
->>>> On the QEMU/host side, would something like this be OK? One step, 
->>>> two parts:
->>>>
->>>>    - a dedicated headless virtio gpu instance for compute.
->>>
->>> A second device would isolate its virtqueues and device-wide
->>> renderer_blocked state. That may be useful if measurements show that
->>> these are the bottlenecks, but it is not yet clear that they are or that
->>> a second device is the appropriate solution.
->>>
->>>>    - that instance served by a separate ROCm backend library loaded
->>>>      in-process by QEMU.
->>>
->>> First, I think we need to establish why ROCm cannot or should not remain
->>> in virglrenderer. The virglrenderer, Venus, and VCL maintainers are
->>> likely better placed to advise on that boundary. Once the protocol
->>> requirements and performance measurements are clear, we can assess the
->>> appropriate QEMU integration.
->>
->> venus is borned for GFX.
->> virCL not merged.
->>
->> To be clear, I'm not saying virglrenderer can't host a ROCm native 
->> context it clearly can. My hesitation is more about fit and direction: 
->> virglrenderer has grown up around GL/graphics, and I haven't yet found 
->> compute oriented plumbing there to build on, while ROCm moves very 
->> fast and I need something I can keep current with low friction.
-> 
-> Whether keeping ROCm in virglrenderer would create extra friction is 
-> primarily a question for the virglrenderer maintainers. Its graphics 
-> origins do not by themselves motivate adding a separate backend 
-> interface to QEMU.
+> The amplification also isn't limited to a single connector: on Hamoa
+> there are 4 connectors (3x DP + eDP), and we observe that a hotplug on
+> any one connector causes the compositor to re-query all 4. So this burst
 
-Fair. The first draft version in virglrenderer was in May 2024, and ROCm 
-has gone 5.7 → 7.14 in that window.
+Please fix the compositor, it should not need to query all 4 connectors
+if the HPD event came from the single one.
 
-Regards,
-Honglei
+> of spurious IRQ_HPDs during MST enable ends up amplified across the
+> whole card.
 
-> 
-> Regards,
-> Akihiko Odaki
-> 
->>
->> Regards,
->> Honglei
->>
->>
->>>
->>> [2] https://developers.redhat.com/articles/2025/06/05/how-we- 
->>> improved- ai-inference-macos-podman-containers
->>> [3] https://www.qualcomm.com/developer/blog/2024/10/vcl-virtio-gpu- 
->>> opencl-driver
->>>
->>> Regards,
->>> Akihiko Odaki
->>>
->>>>
->>>> That reuses the existing pluggable backend model, a second virtio 
->>>> gpu + a
->>>> backend library. It doesn't add dedicated queues for debug/profiling 
->>>> currently.
->>>>
->>>> Waiting for reply and  happy to share more detail. Thanks!
->>>>
->>>> [1] https://gitlab.freedesktop.org/virgl/virglrenderer/-/ 
->>>> merge_requests/1568
->>>>
->>>> Regards,
->>>> Honglei
->>>
->>
+How do i915, amdgpu and nouveau respond to IRQ_HPD? When do they send
+the HPD event to the userspace?
+
+> > > A NULL pointer indicates that hotplug suppression is not supported by
+> > > the caller, such as the connector detect polling path.
+> > 
+> > And nothing in this patch makes any use of it. I'd say, it's
+> > questionable addition. Let me check other patches...
+> > 
+> You are right, I will reorganize the patches in next patchset.
+> > > 
+> > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> > > ---
+> > >   drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 ++-
+> > >   drivers/gpu/drm/display/drm_bridge_connector.c | 15 +++++++++------
+> > >   drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 ++-
+> > >   drivers/gpu/drm/msm/dp/dp_display.c            |  3 ++-
+> > >   drivers/gpu/drm/msm/dp/dp_drm.h                |  3 ++-
+> > >   drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 ++-
+> > >   include/drm/drm_bridge.h                       |  3 ++-
+> > >   7 files changed, 21 insertions(+), 12 deletions(-)
+> > 
 > 
 
+-- 
+With best wishes
+Dmitry
