@@ -4,100 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69DD2C5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 17:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C21FFC5DF82
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 17:48:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B089210EC29;
-	Tue, 18 Aug 2026 17:39:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B94610E4EB;
+	Tue, 18 Aug 2026 17:48:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KZu7ETWi";
+	dkim=pass (2048-bit key; unprotected) header.d=edera.io header.i=@edera.io header.b="IGzMkFex";
 	dkim-atps=neutral
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
- [209.85.221.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88D8610E51D
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 17:39:40 +0000 (UTC)
-Received: by mail-vk1-f170.google.com with SMTP id
- 71dfb90a1353d-5bfa1e7e123so5118e0c.1
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:39:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787074779; cv=none;
- d=google.com; s=arc-20260327;
- b=GAe2SyHeRgxLGvi25ncqHOLYEbomzZrtuLImfcTPuVaT1xl6lg6xjYP7X+AdNdA3FF
- x69ejQx/0W7CshOR4bSeOKq08vqmgw8ntpojdh9Qq0+zneFpNDEyKPkGuznbK9XwoxTw
- O99VGunHhe3ZPbovqt32B1OgHqV8cwwtkWJpHmCHcPBscI9GxIaH+sFFUblxqYD1VELn
- uTSSy3i9DBAy+vSeiCAE7Zv/JjXGtOzUIQIHNUR4Bjh8N4uUWlwXydlE3PUveSuV3eFB
- zQ9ICqPFMaigjHBh7TZsxauoX60Az1mtQO1s3+UXsPgleQD2wLkf3wRfKAe28ixm3hur
- 3H+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=eEckY2/FWef46lUE2RU5Sdg+eCXq1PHhVlFbUmRSmPA=;
- fh=paqoLFvoFCMayeVZ2N/AiSyndYowW2kxQk5yu8fubR0=;
- b=TsilWTaZgqu77ENYddbtrVkjAHQ4K4iHGOUpyHsSwGtI/693v7sYPfC7C6LQmzWhFN
- PxzHLGnl1d/0m32+nFTJVrcQDn0dJs5f7/x0dCU01TNhg7wNAYcxQzw6baJBVtOQQGcl
- PSIZhFmGehmKG1sCj7AhfvXKEA2OXbsCHFBbjksQ2akSojNGOKICXFbTWGyvW1qaHmO5
- Rt84IHEvjb5JEHDvdS38Y0Qhek+kcFU6eseTr76p+JYvzeLkZ2higuHt6bx4XOpm8cgI
- X/WSXUyQWxX1emO3nwhGXA1W9OR/kb83UxzQKzp3SzRQ1kLidWt3nMK8t1puDUysln0M
- k7rQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8DC10E4EB
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 17:48:42 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-8efbafa1bacso1597196d6.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:48:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787074779; x=1787679579; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=eEckY2/FWef46lUE2RU5Sdg+eCXq1PHhVlFbUmRSmPA=;
- b=KZu7ETWi/JPtcmIdqIsk1ycfh1Q0h81/6ip/C31gWWjTUGsAssy4C//8y2JHCHAm0F
- X3tgIlVapYLfpjmhYpyeVMs0ch79puMbLjfHl8Mwv4plK7cJ5gJvd2iyvY3KFDu9vaZ9
- HLXsQJUjLnk5eERkuydQeP8RYC27dPi9mHq/EhPgbp3/PJWNfSesRvh7rD9q8f2H2aNK
- yhJ/nxAK5gw1Gf3BRwHlALG5VSIN3Cv/d8l/WQf8wRDLqUp2JmVsKTTGw9eDtlf+x8CO
- ycqV9TnvBN2Isfyh05ryA2ioisc5+aAguaT6Vsol7kseFCr+Hdcx84rEBvwKZoC3RLxX
- jPAw==
+ d=edera.io; s=google; t=1787075321; x=1787680121; darn=lists.freedesktop.org; 
+ h=content-type:mime-version:message-id:date:user-agent:references
+ :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=sZfKlpmmAGMPY0pYQ5qB8sNVCzbuLBNICRyvhJ/UKoY=;
+ b=IGzMkFexZkGUyebuYhvkvpOkYfgqsmMklpWzZ3102U3fkrqSJsDUEEgBlbbzNqofo2
+ b5H4mrPULSP1fu8/00Dlq8Y0giMptTI8jSYA9ouO1zL4USBoBwhJvnmQejLHGwu3u926
+ Em6B5gtcuTg3Hjq35QAcs3BGlYepznRhhOFdMEfFtTTWOgwaSd7qMr//NZX0NwXbb133
+ zzQGc1IB2mV2pnC/TpRa5Uq8yQ6a2PeSCDRCucxNtjY1G6wZ8hosSd218sAU7B2FNtDg
+ OskGDnWr2zkcXVcznfEYvD14ZoG7r9jCpy2aPY0fk1AElQ3d/XSqhv38lh24u7jbSR5F
+ VuCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787074779; x=1787679579;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=eEckY2/FWef46lUE2RU5Sdg+eCXq1PHhVlFbUmRSmPA=;
- b=tVDwqqwD5Bip2vVM1i0AebczG9gQ7ddpZroDyqUGjWPodtorQU5Pxd8zJc6OztntoF
- sHrGkxNAs6hi5qo0Sum6a/V34WnMAYbcBEdbFKQVFg89rzbnTrs2QiztQTfRnJ0TvEkt
- B0jROv1fWUfuHz61gkDUBWMzBapao6Mdn9LLVHkI2hnZY4HhTblvzjmkhvmpVG69cb5g
- YULDsBISfj2HF9gl/6ILz6b7TqlG9qZKt815NTIW7Ge/8yErDuuLTQU2mI5ilD4aXuw6
- nE0E9wkQv8Jp5JC/PFWcJweZX8rH8rk5EEShP+P33fu7rwqQTsryjcdqFKg/qF6f/fja
- H7TQ==
+ d=1e100.net; s=20251104; t=1787075321; x=1787680121;
+ h=content-type:mime-version:message-id:date:user-agent:references
+ :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=sZfKlpmmAGMPY0pYQ5qB8sNVCzbuLBNICRyvhJ/UKoY=;
+ b=r7pPJETq1IFXPUuARW55x769lBHkbxKjN2mHDYKdHAq3kn4wqCKo/FXmp+mWvQ08Yp
+ LhLW4d+01mas0sVKogKMW9dwcv7NfAluGZe77CJgHogMElFmLmUrX+uYskJBZv/9NfiB
+ XCNnH9o5L0ETj9efsolLErk12qdU1bU6OUiH9FVRQlXzBujYvMxpJ7VPNKDFcfQSHwlZ
+ CKXIjcrwzYMdgn2aBHz8Q1OTHsDd3L9evXa5SRE3wV5KGRuxo8g0rWeb+Vz+uIr2y74z
+ l94fcWKdaWB7374XZJTWn2oYMYPOM8PLvV1sRYp+B8ZBnbPdJLaR5gavRbYIAri/OIui
+ Fbag==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqfAZenQ9OC2pkQPnUOXmkOXBt/QQLPUwkHTTRCYcVNJzI1bNpX0NKp920Rmf9eki+JLuompuhLvwo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxqubguRFtu6nimMNaS2hIkwwKf52KhYqGy0Djpt6G4zmY9WEPz
- z5ndELBkQqVk0D8bfcA1+9F29Fnl2WRLZT4sRtgkYoGEe8/y6FCp0P/dAR4hscsOTSgmgiRk6FS
- vjYrnm7XjvAi3Go8a5eqw4vKE/P5XHj4=
-X-Gm-Gg: AR+sD11aLX5knX0mpogJhhJVNWCfG37/6SeBwU2Ab6/zEEVWvdgVs+45MsFLvq3JIgw
- 4vvLtw4q06nGYYsg2qE8dX35InvRzF8uPxIkBKbD5xU+ZAd7QfaRYjLyI/yLaetfJSqxLFmBfof
- ISrtDsyrP17bz7NaNo0TNsqMLKU5hcdR2/VDnVf1pj5JyXsDMnfemfFOTRB8a+Kv+rNW6DOJi8E
- 6wtSNh23klc1zNpdBW0YqS9PpMzpuaTzapvwJsp2rInYRvFA9deXGG/cug3uErA5d6FeiZGwVOa
- aOviSa8WJIodKzW0ZP5PaK7Ae518IBOK8jcD6LBrsSc0usnVTX/jFZCl8gYdn0OEOUwJF8DDWDx
- egj4IBPp5NtA4UARUSr/O2ev83H010so=
-X-Received: by 2002:a05:6122:6d03:b0:5bd:ae1c:afcf with SMTP id
- 71dfb90a1353d-5c591f935b9mr3387342e0c.3.1787074779223; Tue, 18 Aug 2026
- 10:39:39 -0700 (PDT)
+ AHgh+RqTToMIJ/Yp8W1R/bL9mIxT4Lg87fn0P/8dxX5gnCOEL9zvMy+RN/fFe1WhrE1VI3LcXfZ6NxXN7Wk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1yXMCy26N+8ZL4kY8x/0fQCQH6KnepnQlPY0NFgQyjFLixnAk
+ lXSgJ8O54cVEjqpFDSDOeCevr4tHxQMAafW/OC45wASEmM0hGuTjDplmN3xCCbWwfOU=
+X-Gm-Gg: AR+sD11Y30v+ZKg/APxbVJzc0YmJEPH/LeRA+bIpPsJMQiMGE2SfOl54Koi8BzF5Tfk
+ bU5ahuFI+wgV5QCGAZpS9Xw8OMCQMZccE3O2Fb1tKTGH+0nZsm74f+q8CgiQj9t+j/4B9pCgveK
+ HKK/bpQOZTa+5EfX7V47bQNwB5a0Qcg4/D8e1Jx+Biy29NvVcCj7itb7eTIb7GglFxGniSjC/O+
+ osmAMN/ahJXaO2oANo25cUUis0kCOoY+ZbU8QsuNOpRrtpUrrZaTfBpb1aJbl7KJwGio7IdyJXp
+ YmyySW46oZmfQFQffq001cy8WAGYZmi7vAyulcfVcTl1ni+ZiYpwSSysg/rVNFid+n6LjCOw5Rc
+ E4yft8miiwGvY0Ff+5NSRsidWJt+8MZVweGODVctHBqeOoz95vBtOCoz06+ew79SiLIoVvQtjQf
+ WIqGJTThNO79lTP68e+aOaTM5RKRvmpH0GTp7rOcggdsjSn4qy0HnEK9FOORmzr20icOmCJlo9H
+ Q2gtsdgalkFCAAJTt5/uK6hkd2/Y4BYiToHM+N9RjIn
+X-Received: by 2002:a05:6214:860d:b0:8ec:235c:7a66 with SMTP id
+ 6a1803df08f44-90c5c12de8dmr1581236d6.27.1787075321126; 
+ Tue, 18 Aug 2026 10:48:41 -0700 (PDT)
+Received: from StolidWingnut ([174.80.170.224])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-90c4597b7desm36800736d6.46.2026.08.18.10.48.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Aug 2026 10:48:40 -0700 (PDT)
+From: Benjamin Leggett <benjamin@edera.io>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: David Airlie <airlied@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,  Chia-I Wu
+ <olvaffe@gmail.com>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,  Simona Vetter
+ <simona@ffwll.ch>,  dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/virtio: use the DMA API for resource backing on Xen
+In-Reply-To: <657a88d7-e1d4-46ee-9b79-b33144e749dd@collabora.com>
+References: <20260806-virtgpu-xen-dma-v1-1-e499b345bbad@edera.io>
+ <657a88d7-e1d4-46ee-9b79-b33144e749dd@collabora.com>
+User-Agent: mu4e 1.12.12; emacs 32.0.50
+Date: Tue, 18 Aug 2026 13:48:37 -0400
+Message-ID: <875x17tj4a.fsf@edera.io>
 MIME-Version: 1.0
-References: <20260818-amdgpu-strcpy-v1-1-3ee9b111fafe@gmail.com>
- <CADnq5_NZQrSAqV4cTz8HaJYsatb9VWgc4J3--gTWvF8NTz6-xg@mail.gmail.com>
- <20260818152113.31b72e30@pumpkin>
-In-Reply-To: <20260818152113.31b72e30@pumpkin>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Aug 2026 13:39:26 -0400
-X-Gm-Features: AcwNN1UdAawiuNlezTn1mx5MGXf0fGYUPgu4-splMDm1iIm25D8BbUfMfTsnfsM
-Message-ID: <CADnq5_MOSxt4=15C941PyuKH0V6bubx7Wi55x5zoWjAsBS2ffg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Replace deprecated strcpy with strscpy
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Amin Gattout <amin.gattout@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,94 +96,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 18, 2026 at 10:21=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Tue, 18 Aug 2026 09:01:43 -0400
-> Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> > Applied.  Thanks!
-> >
-> > On Tue, Aug 18, 2026 at 7:10=E2=80=AFAM Amin Gattout <amin.gattout@gmai=
-l.com> wrote:
-> > >
-> > > strcpy() has been deprecated because it performs no bounds checking
-> > > on the destination buffer, which can lead to buffer overflows. Replac=
-e
-> > > it with the safer strscpy().  No functional changes.
-> > >
-> > > Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 6 +++---
-> > >  1 file changed, 3 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_mca.c
-> > > index cc6d1a4e4c3a..1caa393c44d5 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-> > > @@ -97,7 +97,7 @@ int amdgpu_mca_mp0_ras_sw_init(struct amdgpu_device=
- *adev)
-> > >                 return err;
-> > >         }
-> > >
-> > > -       strcpy(ras->ras_block.ras_comm.name, "mca.mp0");
-> > > +       strscpy(ras->ras_block.ras_comm.name, "mca.mp0");
->
-> I missed this being proposed.
-> Both strcpy() and strscpy() get converted to the same memcpy()
-> (which might itself get converted to writing a 64bit constant).
->
-> But if the string were too long strcpy() would generate a compile error
-> whereas strscpy() just trunctates the string.
->
-> Which one is better?
+Dmitry Osipenko <dmitry.osipenko@collabora.com> writes:
 
-I don't know.  I can go either way on this.
-
-Alex
-
-
+> On 8/7/26 01:54, Benjamin Leggett via B4 Relay wrote:
+>> From: Benjamin Leggett <benjamin@edera.io>
+>> 
+>> On a Xen PV domain page addresses bear no relation to the real machine
+>> addresses the host would have to use to reach it.
+>> virtio_ring.c handles this correctly, vring_use_map_api() returns true
+>> for any xen_domain() regardless of VIRTIO_F_ACCESS_PLATFORM.
+>> 
+>> virtio-gpu makes the same decision independently, but its copy
+>> looks only at the feature bit:
+>> 
+>> 	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
+>> 
+>> QEMU does not set iommu_platform on virtio-vga by default, so
+>> VIRTIO_F_ACCESS_PLATFORM is not negotiated, use_dma_api is false, and
+>> virtio_gpu_object_shmem_init() describes the framebuffer's backing pages
+>> to the host with sg_phys().  Those are guest-physical addresses. In a PV
+>> domain they resolve, on the host side, to pages belonging to some other
+>> domain, so the host scans out unrelated memory.
+>> 
+>> Move the decision into virtio_gpu_use_dma_api() and give it the
+>> xen_domain() check, like vring_use_map_api() has. This
+>> additionally enables the dma_sync_sgtable_for_device() calls in
+>> virtgpu_vq.c, which are required for correctness whenever swiotlb
+>> is in play.
+>> 
+>> Reproduced with a Xen 4.21 PV dom0 nested inside QEMU 8.2 with
+>> virtio-vga, on both a distro 6.8 kernel and 6.18 LTS. A PVH dom0
+>> works fine and doesn't need this fix because it is identity-mapped,
+>> only PV dom0s are affected.
+>> 
+>> Fixes: a3b815f09bb8 ("drm/virtio: add iommu support.")
+>> Signed-off-by: Ben Leggett <benjamin@edera.io>
+>> ---
+>>  drivers/gpu/drm/virtio/virtgpu_drv.h    | 20 ++++++++++++++++++++
+>>  drivers/gpu/drm/virtio/virtgpu_object.c |  2 +-
+>>  drivers/gpu/drm/virtio/virtgpu_vq.c     |  6 +++---
+>>  3 files changed, 24 insertions(+), 4 deletions(-)
 >
->         David
+> Feel free to send follow-up patches to fix problems reported by the
+> Sashiko bot.
 >
-> > >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
-> > >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MCA_BL=
-OCK__MP0;
-> > >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCO=
-RRECTABLE;
-> > > @@ -122,7 +122,7 @@ int amdgpu_mca_mp1_ras_sw_init(struct amdgpu_devi=
-ce *adev)
-> > >                 return err;
-> > >         }
-> > >
-> > > -       strcpy(ras->ras_block.ras_comm.name, "mca.mp1");
-> > > +       strscpy(ras->ras_block.ras_comm.name, "mca.mp1");
-> > >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
-> > >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MCA_BL=
-OCK__MP1;
-> > >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCO=
-RRECTABLE;
-> > > @@ -147,7 +147,7 @@ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_dev=
-ice *adev)
-> > >                 return err;
-> > >         }
-> > >
-> > > -       strcpy(ras->ras_block.ras_comm.name, "mca.mpio");
-> > > +       strscpy(ras->ras_block.ras_comm.name, "mca.mpio");
-> > >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
-> > >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MCA_BL=
-OCK__MPIO;
-> > >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCO=
-RRECTABLE;
-> > >
-> > > ---
-> > > base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
-> > > change-id: 20260818-amdgpu-strcpy-0e92d18299c6
-> > >
-> > > Best regards,
-> > > --
-> > > Amin Gattout <amin.gattout@gmail.com>
-> > >
-> >
->
+> Applied to drm-misc-fixes, thanks!
+
+Thanks, a proposed followup for the Sashiko-bot reported issue
+submitted: https://lore.kernel.org/dri-devel/20260814-virtgpu-from-host-sync-v4-1-64dd736b1779@edera.io/
