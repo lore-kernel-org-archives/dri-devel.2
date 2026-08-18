@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FFEEC5DF67
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 08:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15D4EC5DF7E
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 08:06:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1F8F10E44D;
-	Tue, 18 Aug 2026 08:06:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D9CE10EA2E;
+	Tue, 18 Aug 2026 08:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rGiBNu4I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mn9qXtb+";
 	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586CD10E1BE
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 08:06:47 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-c20e70a0962so569306066b.2
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 01:06:47 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C230110E44D
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 08:06:50 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4996f1ee4a4so35038815e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 01:06:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787040406; x=1787645206; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787040409; x=1787645209; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9ky5AAenkhb8FlnMl43V7nWMO27MSh6zMgGttM+QAy0=;
- b=rGiBNu4Il3fQhnMC9xX8EyhXKJX3g+SLxa2NCeNpZ5SbQ9H+VsMG3ycn7+zvOlVX8L
- p3uT3CX+iQymJ9sjLy2afa1bJMzmjd5ZSyZcqK23AMTXiwNugN2DgoHq/3g4QJ1yiuHt
- auQRwg8XGck0VINEqPRGvKyTcttOHojYzILh0K+DTuPZpedKa/uK4Ci6qCWxmzwppJxc
- PqOPfuepNmPbO/rS5MDSb8A8D/tkXjf7uT/v3xz8Pj4hioq+ydr0qyzSEGCnG5lZgmPN
- 5AoSxFH+hOrmMqfPiJSDsuK4hnuy/423UPqVTEF1tsLqagU7m9g+p/yAS3+Gb/DbyXfw
- ATgA==
+ bh=hDobaOMuKjNNpK+xr0rXVpHpoQTLjSO4XFTBJQNN0Ug=;
+ b=mn9qXtb+4PVZljICOJiOWypgR0+cN/qgp8YrSg2hBWLSNmQNBIabmQbG/HKvSKgo46
+ 493kjltztFgdd+leOC7rVowW+Zsc/jz5I+Dki43g1fUqPUXp/cWayOlCtDNjQ5cHIa1R
+ 1Q5mViLc41470XW5VAd9KIe6fGA3F2ZPuzHjQpD9CWNU5GdBxQAOb2kJwC6T+CjkwpnE
+ yk+mWZn3Q4MjmYYy11Xjhvebs2L7wfdyyQWjkacSgyElpFcQixuQQVAPX/OoUfKcpZkh
+ w2wcnQz7eTxDuCmA4Nm3ryl6StxbMW0FkWTCtU10qcoTfxZ94Z9P+M0/ptlSXCh3c3/0
+ bBCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787040406; x=1787645206;
+ d=1e100.net; s=20251104; t=1787040409; x=1787645209;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=9ky5AAenkhb8FlnMl43V7nWMO27MSh6zMgGttM+QAy0=;
- b=AxwiowW5v+BxflCnTEk+g9UdVPDUAb2IvNqrrd0vQhf6keqQv+VRuQW8K9dWd5qeQa
- zCFxxBCZlD7WqOXCoKlW9vjqKudVn/PFEryXyhsm7/I1DJbTn7XilarSuGpdaNv5N5Sp
- uTU1CUicDyozf/qCMaoPDtMahC73GqA08CkSdU2+R0vN2K36x36W3HYCuU8LsbNZSbUT
- 8n3eWtoF8IwxqrTWzfWlmhe5ILkRBHmtfBedFMC9aFGp2dWe3j4CsgnGaQ1Yd+ln6yiN
- mKTmjbnNXxeN92+i61jlXxNQFbKXcNOdJdL0/+pO9kkOwPe6hLLh4I5oiC/Tmiwc/kMt
- lHQw==
+ bh=hDobaOMuKjNNpK+xr0rXVpHpoQTLjSO4XFTBJQNN0Ug=;
+ b=ZyXcr+aIpWgW3xkFLwl57N2czQgEeBIrDkf5odVabgp+biX6SSla/APkWLnaRVl79p
+ 7c6ILNhi5l51sJto0VNL3DYQDNOnBpYz83X5OLxllaCcVjtuUk2LCwOCYRM5b/ACr+yJ
+ 8kgXZqFXoJUHp/ZeJgrAXLpZ4hMPttzT04V0Nhla1weyQIR5TJDrhV4IAJy00MyxV0AK
+ mdrCij+3VH8j6yjvNVVK797QsiSwqOJf9Uq8oxu3r7TXyrg4BeBwxnpvt/RN2I2tk9SK
+ /pR+GUU1eNHLa9DVCg3bBUBNpwLDqFBnjrkFgckTcaRclORmxVDq4EMaxkK8t5zNSVfK
+ 3Qcg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoKMWo/iOIDZETIUGea9vuU2IW/YzKvGTVCFBQ7jbaZEYbl4wk4Rlk24ToFX+j4zo/kDzbpNAeCZg0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5OMycsvsv5gLG+JJqEMHAs0EFfFszAzkS/3rYqJsBssbLmCiS
- 4KQULJrP6Dq3zt+Puy4H13vuc5DG5CZqZihXkS+FJc0WAOP3ONmIW6y4
-X-Gm-Gg: AR+sD11XULDuofExPx5vr5h4XucWJYurvPtzJ/ckIc+k4VgWH0NVHM33rqC41wHBaLj
- 737dT/rQCCo1olheYjSZKy9cdqUI+Ke/EOiHq8+jVXhRRjYcEBwMwSAF4Zw7CYab2dTWUPvJX+R
- /WZ9UyLwocTihryQdpTSce8nNxa86/cnimPAv4ULHY0suR1ZwhLuXI+UUjDNFfMMse019ljhzSa
- v9+DWcpGDH5BaTv3ObSyc030QUaTmlNfoZcsuRwViEzoUTGOAbIcWEEKlWE5sYae4iMgv0X13Oq
- hMCHGoLcEmgjqmbdIzryhUos2hbJTYcc2G82UOovU0EmCn1XbvIG67jBmJAqk6JNcNDRjULVugh
- V0kTLBFpGqog/m8auohZ0F3HDN0F81+f4/hXyCCoX65jZITIyzJ0xV4o1H22+lA8e5tNRgCGcLO
- knEVSE+f84TUzKildboLO8TLRFYPuVv8XiS1pGa6rWfDUo3VXoMpskmouojIj1hvm4qjFlRf9gR
- Upk
-X-Received: by 2002:a17:906:a8c:b0:c20:31d1:a899 with SMTP id
- a640c23a62f3a-c2188470ce8mr280058166b.4.1787040405261; 
- Tue, 18 Aug 2026 01:06:45 -0700 (PDT)
+ AHgh+Rqam7PZ/I2uiIv1D9rHeEZ5bTqdTeiNKORBFZGOOco7zzaoYNNrR3XIA0OPokVVvBGR0R3lL4PK3t4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyzH0KpMb3gAfOrcnUkNVgQRx8k+OKvX8ZPXhmOyeJYUXqMEDCA
+ yiUACXRh+p53faGQb+WZcaQ3mfOxETXXp9fJzDBtkQkf9spUi4ffCVWj
+X-Gm-Gg: AR+sD11zq3QvqerhG9anEwvbH0fmTukpAA+iug+YljCmPszZpba34Z6DhQCtdp34cyq
+ 0t9BUa6VLlZ/qM+Sv/RBjCjUi8YQ0p/16xuvrjosWgKL561Ea9r1VCMSV5EiWoo6T1fS4dHxBq5
+ oIbf2GbKIuax9r3RoSB1NvJWWfcrBIvfSD+dNqn/De7SjyltjL6UcMP1fev0ZPhGwkiwQJ4wn9T
+ 9iDS8sRl/bqaTapkPQF7SEFFbaDA7DPZ7HUjpRyi1poFP4RaUk4KfYz4VSryJq5sYok6V5t+nwc
+ mlEMPIn8g5NYiFZGOadh9gDk6f4YaMts2WIuAU7OOh1qtN3P4Ie2x8CVedo0eSoucn50mzW+unx
+ mQuxn80pD7G/3OkXWglLPoPjBc3P2tKaENGJkzMMkTIDjGGJ+vemNKSvXXobgpZpQzHPJP14Pwi
+ ClrjXO1Av1fejRYEt42emB2V1KGpaPbqdBs7RzU8EIZ06nWt5eSrTrV6DYvhCNwVPK8rSWEPEft
+ ZI=
+X-Received: by 2002:a05:6000:4a01:b0:47f:7b75:9dfe with SMTP id
+ ffacd0b85a97d-482a9109c9bmr10864250f8f.8.1787040409063; 
+ Tue, 18 Aug 2026 01:06:49 -0700 (PDT)
 Received: from anthony.local ([2a06:c701:9cc4:c200:33d8:8ea2:e077:ebe1])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-482a5a3b2e9sm10367223f8f.9.2026.08.18.01.06.43
+ ffacd0b85a97d-482a5a3b2e9sm10367223f8f.9.2026.08.18.01.06.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 01:06:44 -0700 (PDT)
+ Tue, 18 Aug 2026 01:06:48 -0700 (PDT)
 From: Amit Barzilai <amit.barzilai22@gmail.com>
 To: Javier Martinez Canillas <javierm@redhat.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -75,10 +75,10 @@ Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
  Fabio Piparo <holofermes@gmail.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH v4 2/6] drm/ssd130x: Change SSD133X color format to RGB565
- from RGB332
-Date: Tue, 18 Aug 2026 11:06:22 +0300
-Message-ID: <20260818080626.30430-3-amit.barzilai22@gmail.com>
+Subject: [PATCH v4 4/6] drm/ssd130x: Replace positional ssd130x_spi_id[]
+ initialization with C99
+Date: Tue, 18 Aug 2026 11:06:24 +0300
+Message-ID: <20260818080626.30430-5-amit.barzilai22@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260818080626.30430-1-amit.barzilai22@gmail.com>
 References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
@@ -99,120 +99,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
-Switch the SSD133X data path to RGB565.
+ssd130x_spi_id[] is initialized with positional initializers, which
+easily create easy-to-miss bugs when changing the members of the target
+struct (struct spi_device_id in this example).
 
-Assisted-by: Claude:claude-opus-4-8
+Change this to C99 initializers to guarantee each member is initialized
+with the correct value.
+
 Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/solomon/ssd130x.c | 45 +++++++++++++++++++------------
- 1 file changed, 28 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/solomon/ssd130x-spi.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index 0b0fc6fe3df2..1110aa63d066 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -146,6 +146,11 @@
- #define SSD133X_DEFAULT_CONTRAST_B		0x50
- #define SSD133X_DEFAULT_CONTRAST_C		0x7d
- 
-+/* ssd133x remap byte (data of SSD13XX_SET_SEG_REMAP) */
-+#define SSD133X_SET_REMAP_COM_SPLIT		BIT(5)
-+#define SSD133X_SET_REMAP_COLOR_DEPTH_MASK	GENMASK(7, 6)
-+#define SSD133X_COLOR_DEPTH_65K			0x1
-+
- #define MAX_CONTRAST 255
- 
- const struct ssd130x_deviceinfo ssd130x_variants[] = {
-@@ -618,17 +623,17 @@ static int ssd133x_set_contrast(struct ssd130x_device *ssd130x, u32 brightness)
- static int ssd133x_init(struct ssd130x_device *ssd130x)
- {
- 	int ret;
-+	/*
-+	 * Horizontal address increment, normal SA,SB,SC (e.g. RGB) sub-pixel
-+	 * order, COM split odd even and 65k (RGB565) color depth.
-+	 */
-+	u8 remap = SSD133X_SET_REMAP_COM_SPLIT |
-+		   FIELD_PREP(SSD133X_SET_REMAP_COLOR_DEPTH_MASK, SSD133X_COLOR_DEPTH_65K);
- 	const u8 cmds[] = {
- 		2, SSD133X_SET_MASTER_CURRENT, 0x06,
- 		3, SSD133X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
- 		3, SSD133X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
--		/*
--		 * Horizontal Address Increment
--		 * Normal order SA,SB,SC (e.g. RGB)
--		 * COM Split Odd Even
--		 * 256 color format
--		 */
--		2, SSD13XX_SET_SEG_REMAP, 0x20,
-+		2, SSD13XX_SET_SEG_REMAP, remap,
- 		2, SSD133X_SET_DISPLAY_START, 0x00,
- 		2, SSD133X_SET_DISPLAY_OFFSET, 0x00,
- 		1, SSD133X_SET_DISPLAY_NORMAL,
-@@ -829,14 +834,20 @@ static int ssd133x_update_rect(struct ssd130x_device *ssd130x,
- 	 * COM0 to COM[N - 1] are the rows and SEG0 to SEG[M - 1] are
- 	 * the columns.
- 	 *
--	 * Each Segment has a 8-bit pixel and each Common output has a
--	 * row of pixels. When using the (default) horizontal address
--	 * increment mode, each byte of data sent to the controller has
--	 * a Segment (e.g: SEG0).
-+	 * Each Segment holds one pixel and each Common output has a row
-+	 * of pixels. A pixel is 8 bits (one byte) in the 256 color
-+	 * (RGB332) format or 16 bits (two bytes) in the 65k color
-+	 * (RGB565) format. When using the (default) horizontal address
-+	 * increment mode, the pixel data is sent Segment by Segment
-+	 * (e.g: SEG0 first).
- 	 *
- 	 * When using the 256 color depth format, each pixel contains 3
--	 * sub-pixels for color A, B and C. These have 3 bit, 3 bit and
--	 * 2 bits respectively.
-+	 * sub-pixels for color A, B and C. These have 3, 3 and 2 bits
-+	 * respectively.
-+	 *
-+	 * When using the 65k color depth format, each pixel contains 3
-+	 * sub-pixels for color A, B and C. These have 5, 6 and 5 bits
-+	 * respectively.
- 	 */
- 
- 	/* Set column start and end */
-@@ -909,7 +920,7 @@ static void ssd132x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
- 
- static void ssd133x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
- {
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB565);
- 	unsigned int pitch;
- 
- 	if (!fi)
-@@ -978,7 +989,7 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
- 				struct drm_format_conv_state *fmtcnv_state)
- {
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(fb->dev);
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB565);
- 	unsigned int dst_pitch;
- 	struct iosys_map dst;
- 
-@@ -988,7 +999,7 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
- 	dst_pitch = drm_format_info_min_pitch(fi, 0, drm_rect_width(rect));
- 
- 	iosys_map_set_vaddr(&dst, data_array);
--	drm_fb_xrgb8888_to_rgb332(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
-+	drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
- 
- 	ssd133x_update_rect(ssd130x, rect, data_array, dst_pitch);
- 
-@@ -1446,7 +1457,7 @@ static int ssd133x_crtc_atomic_check(struct drm_crtc *crtc,
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
- 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
- 	struct ssd130x_crtc_state *ssd130x_state = to_ssd130x_crtc_state(crtc_state);
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB565);
- 	unsigned int pitch;
- 	int ret;
- 
+diff --git a/drivers/gpu/drm/solomon/ssd130x-spi.c b/drivers/gpu/drm/solomon/ssd130x-spi.c
+index b52f5fd592a1..be50e5aa2c87 100644
+--- a/drivers/gpu/drm/solomon/ssd130x-spi.c
++++ b/drivers/gpu/drm/solomon/ssd130x-spi.c
+@@ -160,17 +160,17 @@ MODULE_DEVICE_TABLE(of, ssd130x_of_match);
+  */
+ static const struct spi_device_id ssd130x_spi_id[] = {
+ 	/* ssd130x family */
+-	{ "sh1106",  SH1106_ID },
+-	{ "ssd1305", SSD1305_ID },
+-	{ "ssd1306", SSD1306_ID },
+-	{ "ssd1307", SSD1307_ID },
+-	{ "ssd1309", SSD1309_ID },
++	{ .name = "sh1106", .driver_data = SH1106_ID },
++	{ .name = "ssd1305", .driver_data = SSD1305_ID },
++	{ .name = "ssd1306", .driver_data = SSD1306_ID },
++	{ .name = "ssd1307", .driver_data = SSD1307_ID },
++	{ .name = "ssd1309", .driver_data = SSD1309_ID },
+ 	/* ssd132x family */
+-	{ "ssd1322", SSD1322_ID },
+-	{ "ssd1325", SSD1325_ID },
+-	{ "ssd1327", SSD1327_ID },
++	{ .name = "ssd1322", .driver_data = SSD1322_ID },
++	{ .name = "ssd1325", .driver_data = SSD1325_ID },
++	{ .name = "ssd1327", .driver_data = SSD1327_ID },
+ 	/* ssd133x family */
+-	{ "ssd1331", SSD1331_ID },
++	{ .name = "ssd1331", .driver_data = SSD1331_ID },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(spi, ssd130x_spi_id);
 -- 
 2.55.0
 
