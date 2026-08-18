@@ -4,153 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73961C5DF74
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 05:10:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FECFC5DF70
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 05:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67AF910E4A9;
-	Tue, 18 Aug 2026 05:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A3A310E43C;
+	Tue, 18 Aug 2026 05:49:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KeBhHxQZ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SunHNU+T";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="ZNU/HA32";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5A8110E49F
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:10:38 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67I45lqa4187015
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:10:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Rp3lIMjCbjVBjSLiXhtJRxpN1gXNwjBR1B2cE1UgyMk=; b=KeBhHxQZWxpTR36D
- Psjvj/wq85jpkNoelRCr7GA7IQCCNbmQzbbatB7HF/+kMmEmIX47iSfKo78TrcSi
- zRz5ZSG449nqvSpSoNWzt68dQQgrrECiYvvocNwe0bQUC3g/OuRn/tEfNoxb24oC
- O9wbXTcyPL56yRHFNej8KVXdeaEMBbZEEIPNDfRrpfJcoG68OgijLhbpI6ejiKy9
- 0/VB2vb/qCwEl8lPPqalgpvM78u5K5Sp+CNMHTxsKImtrqVSh44YqH9H+pABffO5
- hr6Tf/yxspMv8oPqYzuJdIWNp2SdtEDSQsiwbvkCPxvoGVfB+nOTF1tlZ9n7YP78
- D4B/iQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4g2p083y-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:10:37 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-84e1da97175so5312866b3a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 22:10:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787029836; x=1787634636;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Rp3lIMjCbjVBjSLiXhtJRxpN1gXNwjBR1B2cE1UgyMk=;
- b=SunHNU+Tf0yQV/ElhXXGrBkiIB2la35PulOYNrMwrBPzXAA03hChWJv2YqacFw3MoQ
- B7f/Da9BwsYLdkZKl4YqWR2WlxBghBKlzdOs06H1QoGtExC1E+lyKUSJr75e7ep+8cs8
- UICo71K9imo/qwjrsYEEijvC/uwbiTGcA6nbGufR5+ba6WoX/PHDGE50oZwlgGzTsFg9
- TfZvfXP+2myjrLAVotuIiio1w+VCfOVsB39PUVqD7zQEdnttMjboo3rgntL/dzIeVJzj
- h93MQZmV0P9kkXOwKLIPLyt6oHQvw3D2XiFB/nfvNxfmoUKZ8UItGIJ2nHQWptbSLv+/
- jAmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787029836; x=1787634636;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Rp3lIMjCbjVBjSLiXhtJRxpN1gXNwjBR1B2cE1UgyMk=;
- b=V5HoFCzxf/kWfXctNmKEXRUaT86MPNvPhBwBuPU2tzP5DS34C9cC5LK8G9PYRQUAF+
- 9R+Cu0hmaF1rRoP5SvvpUTz8NY5KuXPv6ZfN8w2NyXpQhlwFNc+5EMjN6T8xKl78wX1Y
- 549IBW23TCRm2RWlYp4LD7rcQiUm1fPtKTwEXvLVzCl1IlrupnCSDwI9O/6wd1nOh8je
- XsWk6qDsBqTRVRTjzed/3kfv3YgHP4wCjS8Y6ECiLUe1tDuF5QgGTTJMHV2oKcofQ6dM
- 7ArJal+dCi7thWBeLrIfqfPHqdnKCVe+hS1J6yPeV5RVnuxsA6swd6j06YFtEIC62Vh/
- uo8w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpOdb5rArFPiAkz1Vyj5I7O7Uj7X7kaJVKICnDL+T/Lk+JkkP41dE2VUiz/AdjC19s0F+hU1GOByek=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3vQ94XQcLqkI5mRUL3palNxeUdBPC+QRtKkvOVt143Xs6yQAX
- Z2HWHrb9wS2dnb1SHsbFsk1kgNJYm+bqXiS7fyrzmp8BdPyyOt/Nk+i+8B1L78vTR+XvAXpRJIP
- wsX2DoxVktBjgO9Xop2FEHpltICE7hSRLMIeKGC9cqrkLTLyezBvG/u5G5MraVOTmt9+VGJA=
-X-Gm-Gg: AR+sD1230/mHcmnCjT1XacqcOEgAoKIfV7PDNMOI0cDGA3/yla2A4C99mZ8Nln7bbN/
- McBCy3UawAUiQ7Wmgtw9jClv4ymDMGQLLYcD7KtTpv1NAcBxlah1O3Z/Vly+WQ+23ABia1z0T+H
- vxcivKLuF1CiwZjDXVFK2Mc+asQbxuc4QwSlQiUTEW5ln9OnX+djKVX6c27SGtHrgg4gyrBGfgd
- touITBYBQo9Ul+FFR6FU8igwYv4nkLRkp05KSaCFbimZ4bqtchaJ5JlN3zCsQ2MrJZOCZI7NIqS
- JxkzHbi++y9566C7A0l3Gd4UY2YyMWGvXpqZlIVaovjkwZE+4mY9L7mhBRYtyu4KgRWFxfce6sg
- QT6iEfCILJOq4SREg2YUj5UgBcmgpPw==
-X-Received: by 2002:a05:6a00:188b:b0:845:e8b9:347 with SMTP id
- d2e1a72fcca58-84fddfe099cmr29499674b3a.13.1787029836095; 
- Mon, 17 Aug 2026 22:10:36 -0700 (PDT)
-X-Received: by 2002:a05:6a00:188b:b0:845:e8b9:347 with SMTP id
- d2e1a72fcca58-84fddfe099cmr29499576b3a.13.1787029835654; 
- Mon, 17 Aug 2026 22:10:35 -0700 (PDT)
-Received: from [10.219.56.166] ([202.46.23.19])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-851b6ff2232sm1015652b3a.52.2026.08.17.22.10.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Aug 2026 22:10:35 -0700 (PDT)
-Message-ID: <89ec74da-15ed-4278-b651-5c753fa4f146@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 10:40:25 +0530
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A872610E43C
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:49:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1787032135; x=1787636935; i=markus.elfring@web.de;
+ bh=pCBCtAiE+vvWZ1cnuOPDOCGP7CSKJvkCAtS/Lp6tFbE=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=ZNU/HA32UkLKutPIRif/hEYYFeiqbwQ7OeaDDRnSBE0bpt0rBB5Corf09vmBKCZZ
+ tfLwW2dVAd7oeWXwflzXmlBaGayf5Xw3tG+8pLlgEwHdpg6/KUnl8qlaucRu24VPc
+ Kd5MqWKuYsa4I2t8pc9fMaI2R1tH4GEjUUhf6nGy54aqwelDby8buZI3TYOqhbZPs
+ 940piOMoZAKHxQKQNGjinjWQz3m4np1qgT/gs7keYH6eyrd7OThEfyMfV2irD4xcJ
+ UYKiHVNz1hOMbdWzUXbT9+seFecK5JL+sjms3Z3udXSp7uG8EjjSoG7OgAo4NhIxj
+ hWMk9bQorp5gzWnjtQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mq1CC-1wZSs83vWc-00l8vO; Tue, 18
+ Aug 2026 07:48:54 +0200
+Message-ID: <67dc50c5-19ab-4612-857b-59d6a850f76b@web.de>
+Date: Tue, 18 Aug 2026 07:48:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/15] iommu: Add QDA compute context bank bus to
- iommu_buses
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com,
- dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-5-69a02e9090d4@oss.qualcomm.com>
- <20260817134416.GA1415075@ziepe.ca>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260817134416.GA1415075@ziepe.ca>
+Subject: Re: [v4 1/2] drm/rocket: Check allocations before use
+To: Triet Hoang <triet.hoang.dev@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Igor Paunovic <royalnet026@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>
+References: <d593bdeb-e6f8-44d2-a444-e9197a8ed1a3@web.de>
+ <20260818013130.1482249-1-triet.hoang@datalogic.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260818013130.1482249-1-triet.hoang@datalogic.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: O-lx--F9yj6_TNfvXc12jt_TPrFdd697
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDAzNiBTYWx0ZWRfX7qzwUVa5Kvsz
- iSijXsS1Nxahv9AAkH6YkDF4GVn7h/nOk40nV6ENq1hJ2L5vgkVCZN6ZMFpbwjht8zlgZbebqN7
- fGZ1Bu423H4jAuUbmqz+kuWsHvHZVLI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDAzNiBTYWx0ZWRfX7eVCrhzh37b8
- AeImh3ysei4OCLgb5NIYPduWzqZp/R/PhsnbM4GiejvNZZk5Q4Qh9m38+Gn5Ch9A94eElIkjqIF
- YBntlEobQUPoJI914e/+uc0bhqsVrB1EYZbw3Dh6iIISwIfZzehFqrAr7a48LF1LKc5U3atvHEC
- azgC+jp0GeTtcbq7+dYfs9a+o3dF4Dm52JmVH2020wok+IYYRD/JgdfY+zZuAfafvGu0Jwqfmt3
- Z7NSHUNH3D2S1qsVjoJtjKEbpkQEATUe9cIa0UBCEfSbTQoYj/x413R3uuD2R6oAOj8p2zeq/VL
- OWAuXkr24vZMQT+teo1FjRS/v/HQBXdt88jYFfLld3JutrkmFNiB63O1sDimm41ebxnRYcVxwBg
- LLUGtrpPHEJafeTMOvCj5I6FOwwXnS3wUMkTwUC7ScuS1fSNVghja4C/ad8Ozp81WxAjgnuu3S3
- F+/8oOTBf7eDbC4mgLg==
-X-Proofpoint-ORIG-GUID: O-lx--F9yj6_TNfvXc12jt_TPrFdd697
-X-Authority-Analysis: v=2.4 cv=bfRbluPB c=1 sm=1 tr=0 ts=6a83e94d cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=UlZBYPnkdO8YS_jrOJUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- phishscore=0 impostorscore=0 bulkscore=0 spamscore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608180036
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:KP7rrl5ZsiWitVg0Pnq5fRsQI0+k6pnD/OFD/IY1tDzFnkrOR7P
+ TtRfMS3qEdtgk91jYe5ptAHU2PjNu4dKTelw9cZ2ekbTmh8T3KF/uJosWTJWkPKUZmur+d1
+ YR5YNz/+cqpW27JIU6//DLM24TvLvBend0lZqCOJAj1pw7BRl3awxmSW06pMI6K7lNDLIU3
+ SykL1v6yGQcAnYoI+U9Jw==
+UI-OutboundReport: notjunk:1;M01:P0:+JrPqNxy5pc=;rMP7XkfAQr3xAtX/85CF9RcEnZM
+ 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
+ mNGl6mg==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,47 +154,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17-08-2026 19:14, Jason Gunthorpe wrote:
-> On Mon, Aug 17, 2026 at 10:17:40AM +0530, Ekansh Gupta wrote:
->> Register the QDA compute context bank bus (qda-compute-cb) with the
->> IOMMU subsystem by adding it to the iommu_buses[] array.
->>
->> The QDA driver creates synthetic devices on this bus to represent
->> IOMMU context banks (CBs). Each CB device needs its own IOMMU domain
->> so that the DSP memory manager can enforce per-session address space
->> isolation. Without this registration, the IOMMU subsystem does not
->> probe CB devices for IOMMU groups and of_dma_configure() in the bus
->> dma_configure callback has no IOMMU domain to attach to.
-> 
-> I didn't notice a clear explanation of the proposed DT schema for this
-The context banks are described in DT as child nodes of the fastrpc
-RPMsg endpoint with compatible "qcom,fastrpc-compute-cb" and a `reg`
-property for the stream ID, this is the existing binding in
-Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml. QDA reuses
-this schema unchanged.
-> 
-> But it looks awfully similar to the other driver that was creating a
-> kernel synthetic bus for actual real HW, that wasn't well liked.
-> 
-> What is this for? Why can't you have a normal DT binding for the
-> iommu with normal devices?
-The CB child nodes are not separate addressable hardware — they are SMMU
-stream-ID assignments described as sub-resources of the parent DSP
-interface. Using platform devices for them was explicitly rejected by
-Greg KH [1] and subsequently using a generic shared bus in drivers/base/
-was also rejected [2]. Greg's conclusion was that each driver needing
-this pattern should have its own custom bus type.
+>> I see opportunities for corresponding collateral evolution.
+>> How do you think about to apply the attribute =E2=80=9C__free(kvfree)=
+=E2=80=9D also in such
+>> a function implementation by another update step?
+>=20
+> I am not sure I understand your idea.
+> Could you explain more? This attribute is a new thing to media
+There are programming interfaces supported to some degree
+for the application of scope-based resource management.
+https://elixir.bootlin.com/linux/v7.2-rc7/source/include/linux/cleanup.h#L=
+10
 
-That is exactly what QDA does: the qda-compute-cb bus is a per-driver
-bus type with a dma_configure callback, following the same pattern as
-the existing host1x_context_device_bus_type that has been in the
-iommu_buses[] array since 2021. The bus creates devices synchronously in
-probe, calls of_dma_configure() via its bus callback so the IOMMU
-subsystem probes them normally, and tears them down on remove.
+Would you like to take any adjustment possibilities better into account ac=
+cordingly?
 
-[1] https://lore.kernel.org/all/2025062434-reviving-grumble-1e53@gregkh/
-[2] https://lore.kernel.org/all/2026042442-luxurious-antonym-f20c@gregkh/
-
-//Ekansh>
-> Jason
-
+Regards,
+Markus
