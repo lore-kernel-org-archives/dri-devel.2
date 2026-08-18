@@ -4,111 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8521EC5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B743FC5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 651AB10ED1C;
-	Wed, 19 Aug 2026 06:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC26E10ED31;
+	Wed, 19 Aug 2026 06:39:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E0XJqZjF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A1SVTt1l";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9852C10E076
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 20:40:07 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2d032846c95so56093415ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 13:40:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786999207; cv=none;
- d=google.com; s=arc-20260327;
- b=GIelXa4+bWemSCmAzFrTJMi6jP7Fg9DwpWGqC72sjCp6KMh5Y0rFM7/M0wM9Q5wwg9
- ygMeuzAl+BRAEc0p7+sPDGUKkkMMP4beWBfQm+77SK1ZRlQLXmJrdsoJG2zM8Eqpemjt
- ImFK4Z/Z97PISZLePhFB6LlhZBCBPKbo1CwScuBRctGWiCpxHqMTFCzMeJNtIerbVNUG
- H+UEgEO9QuudnzzG2204xAkEVvBe4/Aw6WKlwGBIwQboNBAW/Fplwqw1Jm5zCUl1/uP3
- +maEkTqYny0NcJwEqzZrgYUmj1cqoZbEOnHZAnp3ramGfy1yPrky0eweKgyxtLeyGzNO
- V7dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=tJ3MqtcDmZdkhQroQUtoHRF7FRZVKalhzLPmlyTLoiA=;
- fh=lRqbZLPUnSWHxqZ3ihxMFNch2Rch70ZpBbIdUn580ek=;
- b=ae+OXq0s8aUoHeSoALz/ow4zLF2E3SUymn+x435w7pdcA3HOocGsYjlmgslF0wF/V/
- DghNHf4kBwghdLRW769ldGRVJBEvYqooGmgcqQJxJYN6P0KhuYQIV1QbKIsxF0VypMZK
- GW6fxa7bg1DN5lKtO3zQCze4TjIdDy9Y+AUY9moYz861AkKdhV/ut6PMoIcwRALZZRj/
- eOkstQjxwRjhJFz7uLeTJQNrk715eZ6k+paoPMCVRglBJMs/n6YUvutvb7dcmZFUrBPf
- +Txt8u5vYMh1ToGsYnAykuBIiWmXvcFFH1r5aF9u1GifzWCRqNfebqTpaM4Bc6ihyT9Y
- vCsQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D77B10E9D4
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 04:15:22 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-cbedf318752so2871101a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 21:15:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786999207; x=1787604007; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=tJ3MqtcDmZdkhQroQUtoHRF7FRZVKalhzLPmlyTLoiA=;
- b=E0XJqZjFuwxbNdd8xlE8r3E3gwvzyC2xyoOo3Twx13F9qfBNW878EerzDT2TRNtzCl
- BeLX3DfKs2A/iYnDYa3fmljFFWrgcqwf65nh5V15myqhrd7YKsQ/SB4eUTsOcqwMwapB
- BrklCzBjDLQLOECJ3fxG2sk3phbHBAMeRPmGKAoSYGvgsIJ/meue+nx7q0X0mZiswQCf
- kJZX4kehe14eGVNBFhsTCEXNhjl3XLDJbdj/LMg2cUTm/IfMKXQJcZ32tlygx9juG9uW
- vA3uiafahJaiIk27w40p6xo9YFcb806rUvser2rp8Io2LhlVqbzCI64X1hw4HPUIAkAQ
- yPaA==
+ d=gmail.com; s=20251104; t=1787026522; x=1787631322; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=TSUoNKxgsogZ06aAWwzyG9s03gy2yOBd81qFJRq6Ii0=;
+ b=A1SVTt1lfP+7diuisHICdu1FucED6qpWYutZLPQXujmtgLCHFepPQwoHc+8LeiPQ2s
+ LyJOihDAArBboZL/bbxbgkfBSyT71zQOFfq3yANP1fdM1EMKRGd5vBOTfGtM3G2P1dQy
+ D3yhdhq45YZEnj//7ULFVNaIJgEwDbbKFvQTYOZdoWqxuGzWm0qi72gbboMJ/RKFIYj7
+ LU+LMYJkvJFuFhLGLW/jkw8fX30NDesooyev0zs9ooB6okXCGM131KOaenIetC5DsFmD
+ ycMY1+mFtLAtQkPdHDorO6z8r1ky4BJOZWwECRrSUdmrgKejScEE9Cs/XRHsDQ8Oc5Sc
+ ErnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786999207; x=1787604007;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=tJ3MqtcDmZdkhQroQUtoHRF7FRZVKalhzLPmlyTLoiA=;
- b=Ssxbn0JicOUfZT9pGsOGzJujUplLhmBJ3b01nHLZEiI87VzyvgJpy+9KYPjrzVLMC+
- YDjvPjYKjANBW2a6tmQNsmjfQhYiHpGn5OO/ee3fTia7tOzBIFCNBakk3yzCbj2zboQ1
- jKPbgAyMnul66srL/qI8wHnkIaG0tg2DtDveM4xHphljBDOHfE6oYfYQkJ6dLjIyogY9
- WnW6+pxqj/jWzpHgQTMT2ypTdDZuqC4HtJqmIxS07Dx/pTGfTD+f1wdutUJDhQ51gQyz
- Etor78Mh5pv7EAiQkNyD1l7Xr9JjnjlZpAf7J5CHYdxKYRZoBkE4fEZNpLihuFBYxbP3
- 0WlQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqUUh4pLr5hsPIkXGqdpBZCFVFT+12yFls8UxekenXGBkv6J6IOFQRQBDJCVBKtSFpTYudHvthhYnc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYoRSGnIyiknMU/LN3M8LR+3cKKoRs5PBUtdFaMKuiHz8mf4oV
- rieFNQtiwy75W6jW1HhQ0NqjB93BZK/cWgIvPNfzoi29+u2uCUdj2xk6Gf9i1UqAjpKTD6Xlq97
- GIEQUdxDcOIeHHZKPkIYLvuk0y3eRJm7JL8DOoho=
-X-Gm-Gg: AR+sD11jGFN5gB+haCmCv6GPnb9/86mJsGbnVPKPIWqY+aguvDjDnUN90YvXDeMGg1u
- r3o2GPk0+PSiM/gcqFelmZVDRbdnzLrP2UDPXS1IYY1FhGS2sGh0JkWrqgiiZd+3cMmgIiNvmCy
- 00hL52EsR24+H3V/MDyABZsK/b7/690XqeBq4Bc6sIHk7IiMqHSP0nsOZAILw3B8tF4mAnYD/n7
- 6KdiLd1N2Osxca1tbwmi2ei5p91iavfwQkG20pBjsuVme4v4cYZE1s9bkJrGiJMMOgdPDpv0zG/
- D+P+v1BXEQrK42NRuTiVl9NyswK9JDNBY0v2WVeMJlkg5qCw/xb31uaeDfKq/ZlOfSxm6W89q2i
- GQoYLrfz3alzswT6oK/21rsC7GGLRhg==
-X-Received: by 2002:a05:6a20:43a3:b0:3bf:9aa9:b2a4 with SMTP id
- adf61e73a8af0-3ccda966591mr3211458637.20.1786999206862; Mon, 17 Aug 2026
- 13:40:06 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1787026522; x=1787631322;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=TSUoNKxgsogZ06aAWwzyG9s03gy2yOBd81qFJRq6Ii0=;
+ b=T9+JduFzV+1NLPFym90FSbu8/kaQuGIrty63MeKiLHjwRG5sTDv2UzEaLaaFwbjqLy
+ Htz+hjwtfzBiTGslR+u+xpIouztjU0siW6xStfoX4G1LvTMYrMtxUln34ku5UgLqO/jG
+ KEOJXcXZfmRYMCDev/b81dMB7aIELzz2EDTa2u8aZktbngyNFLYhR74bXkooOCxMejVd
+ x/KmtYgSmKfmOMHrFXhVcEOfHlj+C9rkaAXGJz0KNCGEN5bnE5b6+MPU1quHl08vQzjQ
+ TTqy+shJJINXCL26krezArxBBnmJhflBRNv2/QeFsuhFryqqWU0EEiOEAS8Zc2gMYKk1
+ IGpA==
+X-Gm-Message-State: AOJu0Yx4kl9q2s+Lk9DxkHVvzSJSzaRlps0+dnDS8yFmIy8wvqkPR932
+ ucGNQHDPGW6Z0/y+witowFH8wFJkAessmeGCGCRxGsLfjPem+BR6x+E=
+X-Gm-Gg: AR+sD12tbx7GD9bbVC99X9pr3KAseWUEbP2nkl8blKZOUPn9mBI7IuAxvmo96gBOWaC
+ ZIdUQoyulXVa5gbd/cnZSwn/1TTMBvtROp1inZY1UWtlFRW8CLLtym+VmCyPEfehQZeeDx2QMxf
+ pi8cuhTs36NQJ3y5VjFJhOSymfK2vFN5hkAnzZJ05K1bvuUXoYN3IJ19cdcNAhclauFK+Mi+PRF
+ OEZIJJTk1bye16zpXO+Q8ZyeHCrTAY9tPbxlY3aB92Dd4Yyz34SDRJ3an+7tUKjLY6xPhBVMZs6
+ TVAaMVkYtwlEqmhfKH8lIeAluiRR63FDL5bTsk1b13Byyy4tie7YatyyEL/HZxQZNsFJy/51uTE
+ +NyHO0W+i7rXPDo91jFVlh5z/QygIYZNFNV226dEyWnM0EsjFP9cm3NF3R2bF6YopFqMFDuX/nE
+ 17bryMqgxjy2bl/m4RL25ZxFItUcVmeo8yzMtfBXzVPcMRqg0h6gLDxyoBKDL7XRFPU+W97j8=
+X-Received: by 2002:a17:90b:3c02:b0:380:f389:447b with SMTP id
+ 98e67ed59e1d1-3933b8938f9mr32518274a91.11.1787026521518; 
+ Mon, 17 Aug 2026 21:15:21 -0700 (PDT)
+Received: from DL2XHKPB4.dl.net ([103.63.104.162])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39531e84244sm7206458a91.6.2026.08.17.21.15.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 21:15:20 -0700 (PDT)
+From: Triet Hoang <triet.hoang.dev@gmail.com>
+To: royalnet026@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ogabbay@kernel.org, tomeu@tomeuvizoso.net, triet.hoang.dev@gmail.com,
+ markus.elfring@web.de
+Subject: [PATCH v5 2/2] drm/rocket: Keep scheduler allocation in
+ rocket_file_priv
+Date: Tue, 18 Aug 2026 11:15:05 +0700
+Message-ID: <20260818041505.1579320-2-triet.hoang.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260818041505.1579320-1-triet.hoang.dev@gmail.com>
+References: <20260817093009.22359-1-royalnet026@gmail.com>
+ <20260818041505.1579320-1-triet.hoang.dev@gmail.com>
 MIME-Version: 1.0
-References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
- <20260817-chid-v7-8-a5872e64d8f4@nvidia.com>
-In-Reply-To: <20260817-chid-v7-8-a5872e64d8f4@nvidia.com>
-From: Burak Emir <burak.emir@gmail.com>
-Date: Mon, 17 Aug 2026 22:39:54 +0200
-X-Gm-Features: AcwNN1V3e1yEbV4HQwbBf0qIGYbj3GVTsQ2fE2mh4DfZX2sLIE0e2kB1-JqFpmo
-Message-ID: <CABwQupOweosKS1hP188GdZZrik9E1Ab7r9DZBuwnO6X5zD4F-g@mail.gmail.com>
-Subject: Re: [PATCH v7 08/10] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,44 +91,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2026 at 9:04=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
-m> wrote:
->
-> Current code in IdPool::with_capacity rounds the capacity up to
-> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
-> smaller than this and still uses an inline representation. Remove this
-> behaviour.
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  rust/kernel/id_pool.rs | 7 +------
->  1 file changed, 1 insertion(+), 6 deletions(-)
->
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 382a5645767f..3e7c3d0c9dd9 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -115,14 +115,9 @@ pub fn new() -> Self {
->      }
->
->      /// Constructs a new [`IdPool`] with space for a specific number of =
-bits.
-> -    ///
-> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_=
-LEN`].
-> -    ///
-> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
->      #[inline]
->      pub fn with_capacity(num_ids: NonZero<usize>, flags: Flags) -> Resul=
-t<Self, AllocError> {
-> -        let num_ids =3D usize::max(num_ids.get(), BitmapVec::MAX_INLINE_=
-LEN);
-> -        let map =3D BitmapVec::new(num_ids, flags)?;
-> +        let map =3D BitmapVec::new(num_ids.get(), flags)?;
->          Ok(Self { map })
->      }
+Keep the scheduler allocation in rocket_file_priv
+and free it unconditionally in rocket_job_close().
 
-Could you modify the rustdoctest unit tests of shrink_request and
-grow_request to cover a few cases where capacity is < MAX_INLINE_LEN?
+Suggested-by: Igor Paunovic <royalnet026@gmail.com>
+Link: https://lore.kernel.org/all/20260817093009.22359-1-royalnet026@gmail.com/
+Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+---
+Changses in v5:
+- Free rocket_priv->scheds instead of entity->sched_list in rocket_job_close().
+---
+ drivers/accel/rocket/rocket_drv.h | 1 +
+ drivers/accel/rocket/rocket_job.c | 4 +++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-- Burak
+diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
+index 2c673bb99ccc..9421e48ec5d8 100644
+--- a/drivers/accel/rocket/rocket_drv.h
++++ b/drivers/accel/rocket/rocket_drv.h
+@@ -23,6 +23,7 @@ struct rocket_file_priv {
+ 	struct drm_mm mm;
+ 	struct mutex mm_lock;
+ 
++	struct drm_gpu_scheduler **scheds;
+ 	struct drm_sched_entity sched_entity;
+ };
+ 
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index 15e93c355c38..50b6e0e06ed8 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -519,6 +519,8 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
+ 				    rdev->num_cores, NULL);
+ 	if (WARN_ON(ret))
+ 		kfree(scheds);
++	else
++		rocket_priv->scheds = scheds;
+ 
+ 	return ret;
+ }
+@@ -527,7 +529,7 @@ void rocket_job_close(struct rocket_file_priv *rocket_priv)
+ {
+ 	struct drm_sched_entity *entity = &rocket_priv->sched_entity;
+ 
+-	kfree(entity->sched_list);
++	kfree(rocket_priv->scheds);
+ 	drm_sched_entity_destroy(entity);
+ }
+ 
+-- 
+2.53.0
+
