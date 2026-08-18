@@ -4,108 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7667C5DF7D
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 19:22:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDFD1C5DF81
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 19:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0124F10E059;
-	Tue, 18 Aug 2026 19:22:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB55F10EC4C;
+	Tue, 18 Aug 2026 19:26:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cozlw0Qf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pFf5caEE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52C9D10E059
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 19:22:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9B3A6601DE;
- Tue, 18 Aug 2026 19:22:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E761F00A3A;
- Tue, 18 Aug 2026 19:22:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787080974;
- bh=Rzk1GGwEpF9d61XcbipzC6FveqTGcP36U1flWmeEvl0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Cozlw0QfOS4w4VIjC0kGzKw7aT5aQnToUMMdhbm/Dwllvc8RWmeAkpkLOIFQ7LJiI
- Dr+WfADNY8sa9c6Udq2hK9opX38A3rj0dd1S0iAbHOuYuyOISwn+pUbm/fUUzArdgL
- tqrC0KgRl9O7O/FCNayx9JL1bdO80ZD99XLmoh4867/W5R8O8BDgPjZ3LekU63gwje
- SDpfFgfKMYRL3TZPLf+x4f3PH9Zs38I0fTI9EXln/5c9ITcltgFIyyuR5eEcFOdNok
- U4+Dv3zeb1vXTcANuTm5PEr9Udx1M/rxfWMj4v6WTTNzjdHgUdFI6XO9MrXiylP7St
- Lxntvp2Ae1IFQ==
-Message-ID: <cc43a545-20a1-4f15-a7b9-ca48842bffca@kernel.org>
-Date: Tue, 18 Aug 2026 21:22:40 +0200
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A861410EC5E
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 19:25:59 +0000 (UTC)
+Received: by mail-ot1-f45.google.com with SMTP id
+ 46e09a7af769-7e6b5737bb2so228936a34.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 12:25:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787081158; cv=none;
+ d=google.com; s=arc-20260327;
+ b=qaqiKIJcs3cr46zKkmsS8DWFgPxs/44H0kTcEbCMWTT70Y4/P1LLgo3rlY881HIeYP
+ 1jN0DTFVU2+cQSAnfG1dqbt7T2iIhLj7mF+q8c2exgWK/jwCMhTMkdD1qWw0oPfMbqY5
+ eeHjUgzEdh4MAmJl+iu4065VzBcivfJQ/yKLkByOZNDXFt6N8wb9NyMrxmHBSB5aexw4
+ bT2nTupeO6s6bJfx3VC1Yu+i353bYtW7u82K+nxMC0QAwwSeUgRmuE4p9uJ16h5dJDkJ
+ 4AhECD378wsiJt0u3957mX5U01cIaXR3J0rCjDTINmP89h9FjUvC0plax+oEx7imGrYt
+ 6iAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=q4R+heqJ1jW1B9R5mRMe5BfQRFgnqTQc8TRqWj0es9U=;
+ fh=MvDdi+tB429YX+QpXVYlpmaSP+ZU1x0D6iaOW6ChB1I=;
+ b=EDMqwxDcMLmGLGVmYzsTWICFpOpb96w1AnsTfCmPwVjk0MnOqDJo2KkSvfEdDJJUPv
+ uTeDcuEOiFGDza6cbpVs9ZWp4xmpSo8uHxWUmoMuferxQ8gFeXMkBJZQC1Wb2dO914dg
+ T4ulyHfnwL5bGIIH1S7fC+FA48b6trjizfyFn1+dmXOE4n2/39oE6Z5oI5dil9/9j8Lp
+ 0I3SnH+va4gzP2cavuH2eU7LKmOofq6MQ8u+wqFITJAA7cX+dimKBFn0USjMYkIwDdEO
+ lI9O5u10YABRZDPCfzUoIGAfO/KdUmKZoNF1nllz3dcC27VjhHE8wYHK9P6z/PFj3NA9
+ 4h+w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787081158; x=1787685958; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=q4R+heqJ1jW1B9R5mRMe5BfQRFgnqTQc8TRqWj0es9U=;
+ b=pFf5caEEZ+P1Vapsi0eG7o5NhKNUKJfvVUOopn8F593BW0c7GcKLWo7UxWaSVjjv/E
+ UxT5lKlY+tVLMJ74zjN9dvIEQUnImcbmklkJ42kBGvWG8+mn5CvOQa2hWLjEHySCm0xW
+ P0f9UjfqE0hh9C+I0ZEzXHTp6SjyC+9QVSRG2SQY5OKvdYYBlhJbKJYZl0chyUxAp0WS
+ h8Q2HyH5M/E1jB7nI9uKdRwWB0IY4N8k9jw9qa9E183WouzDALStGSUVkzjbwu52kQ8L
+ VWqXASJ0a0+rWSgxrvjIwr/XelKoHiS+BWXTKAC+LNGUSY7YXb8bWj2uMTeefJ449rbN
+ NW6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787081158; x=1787685958;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=q4R+heqJ1jW1B9R5mRMe5BfQRFgnqTQc8TRqWj0es9U=;
+ b=tHtZNSYTsSjjnZER037xrSveTcPvjEy/eknlEvJC1whfzidf4z8YNWgzJej72mG5vc
+ GLAVcIvvdf5rj/2+H8sVu9AqfZIGKw7fEErKv/TeGTIKzSExBmVRUGiSFQ2u7KAaMWXk
+ PXjElzpZiAPGVYCk7bkH6sXs/LSdrcxkHYkWjBfFrppmhfxOdmg5OH1OQ3kggoYm/Tkf
+ 1+ERiAheZOD4jG8OkehNc9wqR7GZ9qRUjX9RnvoEdp7Rw1qxePzrACFKVJ9bdcn494lW
+ pfQEkw4vEOmT2Tlgo5+rPMWYyg4DXAaArC5QlTK0fSixUZrHszwNo4F8z0PrMs0nZUGs
+ uR+w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp3uZI8mBpgo8zDYPEPKGHnUwVG770QrJ9KelfzQ3hWEmL3l4/CfPmcGaajU6QMYUFoX2p8Fz8hx/w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YweMDSC0Z6oxyLsvbkfJc6v54VmPRV8AVwV/3z4sUt9o/qtVC3i
+ 9FDhO+btrZKdNdmI0bzSezPHzDtRpHyL74vpZUg/CO4Dzonc0U3MP7U/3tXuaG4jAE9kBxg7lWw
+ bC5JFypOAxVnWHUQxuW+pxFCYXWPiLyY=
+X-Gm-Gg: AR+sD13Zjf357w4B4m8sFCuN3zOHZDzi12jOK7bSvEam2G6D/2KD8Ext7fJgLpAEiGC
+ rN3TvkhiABt9lR/AV3u1sJg2rqMAGUmVjRsdSOHRhpT45N8E335QE03OrEpKpR/xYggsnKp0Fmy
+ p4jj6xO7QeWvdail3viCNkF6BL7pMTK8O/MATyvPtwFyq822nLB74criIuyrMhZlvAKTeDf60Rf
+ ftnp1M+QNyC0CJwVor1u5zrgUJBSV1fGKWpLJ+gWvMMqi9UEqX5+JKPbq/Xon4cW5zJmwOJmVw6
+ 5JB3qg+tguGgriNtFxJzjUVcn1RkA8df16V+fLBooQ19X4M8baKWfi37FG+G0A0gy0jyXuITK/c
+ EnPPMWFDTTqaKqcY=
+X-Received: by 2002:a05:6820:1787:b0:6ae:9e00:c8ef with SMTP id
+ 006d021491bc7-6b11dd6581emr9168780eaf.14.1787081158039; Tue, 18 Aug 2026
+ 12:25:58 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/15] MAINTAINERS: Add entry for Qualcomm DSP
- Accelerator (QDA) driver
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
+ <20260818080626.30430-5-amit.barzilai22@gmail.com>
+ <aoQalR40NMFSg8zS@ashevche-desk.local>
+In-Reply-To: <aoQalR40NMFSg8zS@ashevche-desk.local>
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+Date: Tue, 18 Aug 2026 22:25:47 +0300
+X-Gm-Features: AUfX_mxSHb-78EKn8JdKVlMLMgR765ctFD8-Qvs1aN8nzyH7_8okoURw2uODcNk
+Message-ID: <CAOEgbEoMOR+WS7TzY5+k6G464uUdp+rHJqvhY+6gRE8nCaT=gQ@mail.gmail.com>
+Subject: Re: [PATCH v4 4/6] drm/ssd130x: Replace positional ssd130x_spi_id[]
+ initialization with C99
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-1-69a02e9090d4@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260817-qda-v2-v2-1-69a02e9090d4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Fabio Piparo <holofermes@gmail.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,35 +116,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17/08/2026 06:47, Ekansh Gupta wrote:
-> Add a MAINTAINERS entry for the Qualcomm DSP Accelerator (QDA) driver,
-> covering the driver source under drivers/accel/qda, documentation under
-> Documentation/accel/qda, and the UAPI header
-> include/uapi/drm/qda_accel.h. The linux-arm-msm and dri-devel mailing
-> lists are listed as the relevant review lists.
-> 
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> ---
->  MAINTAINERS | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 912837dd4640..75fa90c137c7 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22388,6 +22388,17 @@ S:	Supported
->  F:	Documentation/devicetree/bindings/crypto/qcom-qce.yaml
->  F:	drivers/crypto/qce/
->  
-> +QUALCOMM DSP ACCELERATOR (QDA) DRIVER
-> +M:	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> +L:	linux-arm-msm@vger.kernel.org
-> +L:	dri-devel@lists.freedesktop.org
-> +S:	Supported
-> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> +F:	Documentation/accel/qda/
+On Tue, Aug 18, 2026 at 11:41=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
 
-There is no such directory.
+> >  static const struct spi_device_id ssd130x_spi_id[] =3D {
+> >       /* ssd130x family */
+> > +     { .name =3D "sh1106", .driver_data =3D SH1106_ID },
+>
+> Hmm... Is the comment correct for sh1106?
+>
+> >       /* ssd132x family */
+> >       /* ssd133x family */
+>
+> Overall, what do these comment bring us? Are those families have somethin=
+g in
+> common? Because the driver data is unique for each device, so I assume it=
+'s not
+> that compatible inside even the same families.
+>
+> TL;DR: Perhaps simply drop those comments for once?
 
-Best regards,
-Krzysztof
+Agreed, I'll remove the comments in v5.
+
+--=20
+Thanks,
+Amit
