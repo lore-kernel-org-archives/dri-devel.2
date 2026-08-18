@@ -4,78 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46491C5DF80
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 08:32:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC1EC5DF81
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 08:37:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B6ED10E0D2;
-	Tue, 18 Aug 2026 08:32:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E66110E510;
+	Tue, 18 Aug 2026 08:37:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ngZCna4b";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Lm3wg2Nf";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55B7310E0D2
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 08:32:11 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so41488045e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 01:32:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787041930; x=1787646730; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=QG/UVFd2ACFMYaMnp0CQ6c77bR9FNNHaHabNi47aSho=;
- b=ngZCna4b8tAbDzhdwn9WEBP77UV+1znuwKRSPD4YccJjAgQ++rs8bd6+F7n0n/BPz4
- DfxUTqW/OScBhU21she9IX/l+4ffeyXNa51EztkfyWx0H9ruU2FoTW4lfxgyt7xfUHE+
- I+Jh21+dBYsOFnzYCSHNkw1iImDBZc6jAZm/eskI4AIoA1UFdFeZnSbWwUk4GDHZ7KKe
- IOyx34rsGyktIy++z1U6sSKzFdBX9WSzTxwMH7V6LgbbxQDZdMDZvDZBxZ1o2bVtNrk0
- Gf0ETwXcq8nSPFJUorUgjgBpWfzNeb5xcKMFl0E2liQ9PCxHqzg+EoYewbixk0b2YkMW
- 4PEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787041930; x=1787646730;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=QG/UVFd2ACFMYaMnp0CQ6c77bR9FNNHaHabNi47aSho=;
- b=HjkOXaB3P3ExifEVH+IbL2LMyGx4reim409cwtiBQs9NvY8Czb7VqPU09mO36TgV7s
- IeSOSn5OGV94afD1klGuocSb6l5eGC6dshHS4GM90tY4XrBmc43dbvPCM1iaDJbqyCEa
- 9FKL4vsBR7XOuns1AZ9GPCziXv8oAXDlGh4oAv/FaT9iT5ZJcpsnJI2TLKk7kFHKWsPD
- v0fwNvu7vndOQPRciXrfinJUUW7zOdW36Ye5czzduHgXDdRSYl8USW2uKPhRVapsYXbB
- eO1MdP/ukmo0jp+XLrseAqXp9Udies9X2PzdNEPwi7tnVFctTGEyVlXahT7PijzVaglo
- 2yRQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqrb+lRDE18s9Scf6Cbahz24i2nOKlKqB/lAwiJGo0GsC7zbGYhpn2hiuRSppZROrrVnQVc+YDsM5Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxlTr83aEI/d4WLnNuWcGgWinlCRvM4ecvLI30OoOFYu/E32veR
- yYjDwNijdRcRvZNDQNUEK/Zrqt5GR2JLW9WNaql14E27DEGEq5T9T65N
-X-Gm-Gg: AR+sD13TuhD66yOqu6KoTWrnHwhEudchd5Wux5NvGnsrj7pV0rSs7t9578K8BHtm9kz
- 3TYKBHvQ8y0BrpSt2iVPFfmw8NsXfnOZuGQqppaGl6mNWHvkv2XSQIJBLH4lRAs4gWLM26hVg6B
- KTXtRS4jjT04AmSU9DkHFDzatMZBrHuivkNB9H/lAK5OqIgV8mVk9JZxGT0ujlOTXIvUXLCpdNk
- d8A3BI3jv4si32hKHH5wqjJE9l0C5/wIGmNQ7xMV6ees2skyB/vcrWOnfpjDrojh8C3YIOXO4La
- FCLkp2sF6Kmw9YzDOC60LBBF8QDv5dC9lANpOOpzFJlrJhXK8h9ASIL/L2GPW+f20iUUNOV3v9C
- agk98RSwPRAQr0CmVtc6UDQ9SiSIr0F4J25OkJgew8oOFBpHIsSWq2+xqPEMSMtPHWuhZ/joD0d
- dznMEul3E74XZUlQCKmq3R64VZ75OnZi7fKwq5HFwTmR8akklpFdHyhRgY8Cm5GE+m/U0qxkVSd
- HhZygyftOTLZg==
-X-Received: by 2002:a05:600c:5397:b0:493:bb6b:5bb5 with SMTP id
- 5b1f17b1804b1-499879857d0mr519017545e9.13.1787041919339; 
- Tue, 18 Aug 2026 01:31:59 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:9cc4:c200:33d8:8ea2:e077:ebe1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49996109652sm289304505e9.4.2026.08.18.01.31.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 01:31:58 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: Fabio Piparo <holofermes@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75ED010E4FA
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 08:37:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787042225; x=1818578225;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4b7I6huqeATBrGSn+Z3OSgkdRFOhUFuXxaN24NMCxmQ=;
+ b=Lm3wg2NfOyz8OfyHcHX/6HmsrkR/C7VlI8rqB9kiOupK4eqz9HeGTLEG
+ gSIJI2kdaH4QxVosX7SkbRzGdpMkbGUtgCBORu2riYrr4ED+hmjGmBXm5
+ 8kAgTpqKL0jCkxJkQbUV2Te5nmD7JpeHzoFFMk0tAEPOqb+6zkoSvtkdg
+ 4btRroShhIuq+CTUtmLw8lYq72h0fjs3ehrq1r3FaROs5gkU1V/J5vYC9
+ NKIWUCgqVAEsnS8w5TFAqWcwHVZ2d6nNUJh5sPs/i3pdiY46iuHHJOUAH
+ 4PndoNxjTUOuY3tma9VUs3YQn0SeGiYVKTpGs0JdzSVMg94DUROr6YHk8 g==;
+X-CSE-ConnectionGUID: ZyExHLfbTY2gzb1mkgHjXw==
+X-CSE-MsgGUID: +K6HUDHBQwKgp0t/4jC6gw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="90040426"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="90040426"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2026 01:37:05 -0700
+X-CSE-ConnectionGUID: dbiVEkfwSVqyGrHS2NSAng==
+X-CSE-MsgGUID: 2MyR2/xpRr24LqqdGdKAHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="269007555"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.209])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2026 01:37:01 -0700
+Date: Tue, 18 Aug 2026 11:36:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>
 Cc: Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/ssd130x: Set the address window in
- ssd132x_clear_screen()
-Date: Tue, 18 Aug 2026 11:31:40 +0300
-Message-ID: <20260818083143.37939-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817152500.703770-1-holofermes@gmail.com>
-References: 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Fabio Piparo <holofermes@gmail.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/6] drm/ssd130x: Change SSD133X color format to
+ RGB565 from RGB332
+Message-ID: <aoQZqnbqoiOw6MKt@ashevche-desk.local>
+References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
+ <20260818080626.30430-3-amit.barzilai22@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818080626.30430-3-amit.barzilai22@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,52 +80,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Fabio,
+On Tue, Aug 18, 2026 at 11:06:22AM +0300, Amit Barzilai wrote:
+> SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
+> Switch the SSD133X data path to RGB565.
 
-> ssd132x_clear_screen() sends its zeroes without setting the column and
-> row ranges first, so they land in whatever window the last
-> ssd132x_update_rect() left programmed.
+> +	/*
+> +	 * Horizontal address increment, normal SA,SB,SC (e.g. RGB) sub-pixel
+> +	 * order, COM split odd even and 65k (RGB565) color depth.
+> +	 */
+> +	u8 remap = SSD133X_SET_REMAP_COM_SPLIT |
+> +		   FIELD_PREP(SSD133X_SET_REMAP_COLOR_DEPTH_MASK, SSD133X_COLOR_DEPTH_65K);
+>  	const u8 cmds[] = {
+>  		2, SSD133X_SET_MASTER_CURRENT, 0x06,
+>  		3, SSD133X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
+>  		3, SSD133X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
+> -		/*
+> -		 * Horizontal Address Increment
+> -		 * Normal order SA,SB,SC (e.g. RGB)
+> -		 * COM Split Odd Even
+> -		 * 256 color format
+> -		 */
+> -		2, SSD13XX_SET_SEG_REMAP, 0x20,
+> +		2, SSD13XX_SET_SEG_REMAP, remap,
 
-Good catch, I noticed the same asymmetry. But as Sashiko pointed out and
-you confirmed, ssd132x_clear_screen() is not reachable today, so there is
-no user-visible bug being fixed here. I don't think this should go to
-stable, and I would drop both the Cc: stable and the Fixes: tag in a v2.
+Strictly speaking this is now initialisation of const object by non-const value
+(yes, since it's a simple integer  there is nothing in between to modify it,
+ but still...).
 
-There is a second reason the clear cannot work in its current form. The
-driver does not override .atomic_commit_tail, so
-drm_atomic_helper_commit_tail() runs
-drm_atomic_helper_commit_modeset_disables() before
-drm_atomic_helper_commit_planes(). By the time the plane's atomic_disable
-runs, ssd130x_encoder_atomic_disable() has already sent DISPLAY_OFF and
-called ssd130x_power_off(). So even with the !plane_state->crtc guard
-fixed, the clear would be writing pixels into a controller that is
-already powered down.
-
-None of this makes the patch wrong - I do believe in making functions do
-what they are supposed to do. It does mean this is a cleanup rather than
-a fix, though, and that it cannot be verified on hardware until the
-disable path itself is sorted out.
-
-> +	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, 0, columns - 1);
-> +	if (ret < 0)
-> +		return;
-> +
-> +	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, 0, height - 1);
-> +	if (ret < 0)
-> +		return;
-
-This duplicates the window setup that ssd132x_update_rect() already does.
-I would rather see those two commands factored out into a small helper
-(e.g. ssd132x_set_window()) and called from both places.
-
-Note that ssd132x_update_rect() cannot just be called from
-ssd132x_clear_screen() the way ssd133x_update_rect() could be from
-ssd133x_clear_screen(): it takes the R8 shadow buffer and packs pairs of
-pixels into data_array, and clear_screen() only has the data_array from
-the CRTC state. In the SSD135x series I have in flight,
-ssd135x_clear_screen() does call ssd135x_update_rect() with a full-screen
-rect, but only because no pixel conversion is involved there.
+>  		2, SSD133X_SET_DISPLAY_START, 0x00,
+>  		2, SSD133X_SET_DISPLAY_OFFSET, 0x00,
+>  		1, SSD133X_SET_DISPLAY_NORMAL,
 
 -- 
-Thanks,
-Amit
+With Best Regards,
+Andy Shevchenko
+
+
