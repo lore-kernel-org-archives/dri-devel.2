@@ -4,139 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62B37C5DF7D
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 10:48:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6AC4C5DF7D
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 11:32:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C867810EAC6;
-	Tue, 18 Aug 2026 10:48:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1061410E0AE;
+	Tue, 18 Aug 2026 11:32:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="exqpR0Ck";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A6sK7a/f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OUjMg+XC";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5369D10EAC6
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:48:25 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67IABScp919338
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:48:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yAFsf6cYUOKN4O63zPVQPesFKfVCdN+ihDwBZVmkijI=; b=exqpR0CkTbGbCS9r
- QbO1M5RuD50HDIdz7A8/CDsJldXF18r1DLJ28WhtAKNr1gmcCT98Cud6xzrQlR4q
- hsb4qP8h87cc92ADqd4nUknuyeSxyb39oIwxGFyLPOaBXHbWEsOQiiD0X8WA8323
- 2IyxV0pFT/UNnTyddD++Rdg1bbxXQoFwrArriQzDs22Uu1guDwIXQ7XcVk+lvJbl
- 341V9vAeuKiC8BKQvx6ymVMe3dSdo4bcMnO+aruW6NJKvlpxgOwJaJTP5smA0Fjc
- tziJj3oT9x4kDZBp0dbGaIRSxjdEGf/MHmjMiEWcohfBxqCByM8kloZ41ZBSPLVq
- EF9oNw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4nb184wy-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:48:24 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93494b1e35cso5262685a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:48:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787050104; x=1787654904;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=yAFsf6cYUOKN4O63zPVQPesFKfVCdN+ihDwBZVmkijI=;
- b=A6sK7a/fjiGwuOEv+ssytanCh9uCAOVYFS5UA2XEEVoPHWg+OY8mu70417RcsEF6XS
- TJumLg3TW3/mb6D6EYqSY7bb+9HGzJ20EzHBMUusfsFzfsv8fipCNbM56lo2rdajV/qT
- g+xfhM2abKvvvx7T3aC39GvSQPS84k1uySW80t1PS4IxfYjA3/ad++pK7FC4999VNxBE
- iQ7bMsBo4/rOYcZH58tlfU0iPA223lZ8HbfaBkQ0S2yhrFMo8en/XAUCt4Lnst3kzrUg
- 71068MCX9zUxbMLKJWm8qxIMpfvA0B4cLhxKMiDOyyxTTnT730u3+UXGOYroFaDLnMLD
- P2KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787050104; x=1787654904;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yAFsf6cYUOKN4O63zPVQPesFKfVCdN+ihDwBZVmkijI=;
- b=nqEYgtnanDW79sxy0weuhLMhDRtteDEO9tKNvCSklKS6PFLUtQwEIuywcKTeZrY+eH
- q15lVfu8b4keEsF2clpmNip2PXl5bT03FoulFcFvVqcBtrKwNcaGVLprKv1GxuDENR/3
- F5ezTzjyZylNv61mn0Sp1S6LF4VBXAdEc0m9hkoR2dxhuHA2W+0MYkGJ6HzX6/Pr6Z/b
- 13eAACeiQms79eKFqfxED9wvx8H+L5VVZMfX1adEUsW2ZJkrlSt74flccK1BRqNp9+xc
- BfEHxRO5StbRGxTrYy+tZ7u9KNCJL3BmCbwWw++IDmo1jjd5L2/OVLWlrnTCTtSJpNsk
- b7Pg==
-X-Gm-Message-State: AOJu0YyuDwgbw5CQKYP7BL8h0Iotu/JTjXrxjxwIEbUlbAbhf/0yNFYh
- uakOnT83I991uolQumnIudSs8lpDPyCVIbRTSAl15/RiRvrR7NDQfoU/nbLJnWiSaSzASE/KFc8
- 2vKqTY5cnhmzB089ZimINgDqWKEAqdTv1pqdVYilIckA7gNYJxWap/4VRanAwHICzZd1rgHg=
-X-Gm-Gg: AR+sD11ugXbIaEaFNlZOsz5UmRUoI0D1bEZBtwO4C7nF0KlODq5HLTAxQx9wKOska5M
- Qpr4TeeymI5DIOVXZY0Wa0q/vUlhzWulAvrpOFVRKjedzxSccckwkV74YmTv+g5csMrw0p+30RD
- 8yH/rpGWCRqxgaAituyZObOMD6n7qLqMX/1m4FMbKzWIMlzWHLKisKdqRpQ6TXlh1hJ5cnt8ZHB
- tfaiIzPjjrMQ7PLr0CwwOBQZv+w2LSKX7aZuispHx0/Go50EF3cyyQBjqdjf6ldCilE0lzSpjo9
- PSjjfaR7oRiXljXpoiTLFf81wslOkhXYutz81cCxPfoZOBLPknkEfmlgteaaZIryc19E4wfpTIY
- LQTqQ1PaLiGNOAFmPcoPyHpOr
-X-Received: by 2002:a05:620a:600f:b0:931:23a:83ca with SMTP id
- af79cd13be357-936d23849admr2557382685a.4.1787050103802; 
- Tue, 18 Aug 2026 03:48:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:600f:b0:931:23a:83ca with SMTP id
- af79cd13be357-936d23849admr2557377985a.4.1787050103310; 
- Tue, 18 Aug 2026 03:48:23 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c217fe6aa89sm167518466b.2.2026.08.18.03.48.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Aug 2026 03:48:22 -0700 (PDT)
-Message-ID: <1cdfb3e1-8a89-4b52-a5db-0359a9f68878@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 12:48:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm8250: add device tree for the
- Xiaomi Mi Pad 5 Pro 5G
-To: me@dawidwrobel.com, Jianhua Lu <lujianhua000@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com>
- <20260730-sm8250-xiaomi-enuma-v1-4-ed6d8fb99668@dawidwrobel.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260730-sm8250-xiaomi-enuma-v1-4-ed6d8fb99668@dawidwrobel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA3OSBTYWx0ZWRfXzSkV8kJ2ntVf
- qUlj2knd/oU2ftUT1+0ua9br6gTUdW9FqRbm/Rd8dbpAr5/vyUgb1WI+gWzLtlS4DiEe4gYvIYN
- vN7HKKLsScAtjjGUsa9ZulTcN3nsEfhu06b+hIgyBNbuXt9mTWjMONgjRIcEkCiVNcufgjbKZDZ
- MaK+aV4/G+l/4ooHpgQmroRnHlXbqJMBl66tuIQc3v9RYqIYl7NtvkGG0Cp5YphNOQ9sdUkTLZE
- 8qJVayA8v/MIJURrqis84hvLjna8ae6dK3MCFeIXvOVUWZMeB/pq/pXRl1N/E3jYwaU+c2jXeG3
- VjgNCC0axiuBsaGN0HIdg6xxaJ846+vMib9K7uYrtRe+4aW9lWDZrvpjp3+WxMV/3zaPU3/6Xbs
- KW2YwFLNqv4YTaOfaNIGq0YZfg1Zr2RXEhhY6z10n2VYZW+ZufaUw4T+NevIJ+fsiQVE0IKUe/D
- UGSE0mW29lxC3cprEqg==
-X-Proofpoint-GUID: TGEnGCM0xaj8h0ORBktfwdMiUqIEvxmh
-X-Authority-Analysis: v=2.4 cv=Ze4t8MVA c=1 sm=1 tr=0 ts=6a843878 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=VoYNWTs0KIJBnnxc:21 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=br21HGidAAAA:8 a=EUspDBNiAAAA:8 a=16WXXSGXZCMmNkSL7LsA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=rq5_1Q1BYlbxkLLkNd_B:22
-X-Proofpoint-ORIG-GUID: TGEnGCM0xaj8h0ORBktfwdMiUqIEvxmh
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA3OSBTYWx0ZWRfX4ISUcRzGqBnu
- ti7aYbM86w8Uq5DDLVWI6ekldp8KSFeHpfwM2r+lcrGNhrzKqUAaYWItNuKrr1AVGg6+YIqaVNo
- ZpjXsIBRjnzz1DpeAKjV8UhlN81sUDE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-18_01,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0
- adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180079
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31C3910E0AE
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 11:32:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 10FC4601DE;
+ Tue, 18 Aug 2026 11:32:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BEE1F00A3A;
+ Tue, 18 Aug 2026 11:32:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787052758;
+ bh=zQfVQHqfKk/sEsNHsGIrowezH9lDw3CxWEt0xhODO6s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=OUjMg+XCsPCZwOlSZQk9/LwPdLFD2E/MbEwCdIGRbXWmBnZk+9mmuWxLEYIoYoQQ/
+ Y89VemZ94FMmeaV8QHqsTZ7xzLC3aI/SooSualz742OFVj9yBMTNfAV7k0y3WpO02p
+ QNUnzHST4SbQySz7ufnENtiEHVE3BNu5uovwh8EbvMGhAW5NeAaX5KWaUG/4BQgsfG
+ AcQdpP1P8QaqbPnnUBiRPdNSDURIJWrJCXWaVG25JV0iV4MYDWQomY1BTNxxJh9gmG
+ 7J8R0iCmrs/8RD3/3XBFUuUDFtmXNh8/c3VkFQtF0H3HHpL1/sdcp0enReSIxKzZeo
+ WIgzRsbx0Ybeg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] video: fbdev: via: refactor strcpy and viafb_name
+To: "Ajith P V" <ajithpv.linux@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260818111722.471340-1-ajithpv.linux@gmail.com>
+References: <20260818111722.471340-1-ajithpv.linux@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 11:32:37 +0000
+Message-Id: <20260818113238.90BEE1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,48 +52,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/30/26 11:52 PM, Dawid Wróbel via B4 Relay wrote:
-> From: Dawid Wróbel <me@dawidwrobel.com>
-> 
-> The Mi Pad 5 Pro 5G (enuma, 2021) is the modem-equipped variant of the
-> Mi Pad 5 Pro. The board is otherwise the elish design, so describe it as
-> the common device tree plus its own board ID, panel compatible and WiFi
-> board data variant.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-[...]
+Pre-existing issues:
+- [Critical] Struct memory copy corrupts `bl_curve_mutex` state inside the =
+allocated secondary framebuffer structure.
+--
 
-> +++ b/arch/arm64/boot/dts/qcom/sm8250-xiaomi-enuma.dts
-> @@ -0,0 +1,26 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) 2025 Dawid Wróbel <me@dawidwrobel.com>
+--- Patch [1]: [PATCH v4] video: fbdev: via: refactor strcpy and viafb_name=
+ ---
+commit 89ff079954842cbfcf9a3daa9bead9f4e5a2902d
+Author: Ajith P V <ajithpv.linux@gmail.com>
 
-Happy new year!
+video: fbdev: via: refactor strcpy and viafb_name
 
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "sm8250-xiaomi-elish-common.dtsi"
-> +
-> +/ {
-> +	model = "Xiaomi Mi Pad 5 Pro 5G";
-> +	compatible = "xiaomi,enuma", "xiaomi,elish", "qcom,sm8250";
-> +
-> +	/* Platform type differs from elish; msm-id is inherited unchanged. */
-> +	qcom,board-id = <0x2e 0>;
-> +};
-> +
-> +&display_panel {
-> +	compatible = "xiaomi,enuma-csot-nt36523", "xiaomi,elish-csot-nt36523",
-> +		     "novatek,nt36523";
-> +	status = "okay";
+Eliminate the single-use file-scope variable viafb_name and pass the
+"Via" string literal directly to strcpy().
 
-ultra nit: \n before status is preferred
+> diff --git a/drivers/video/fbdev/via/viafbdev.c b/drivers/video/fbdev/via=
+/viafbdev.c
+> index 80f95dac32c8c..dd9374e8ad098 100644
+> --- a/drivers/video/fbdev/via/viafbdev.c
+> +++ b/drivers/video/fbdev/via/viafbdev.c
+> @@ -16,7 +16,6 @@
+>  #define _MASTER_FILE
+>  #include "global.h"
+> =20
+> -static char *viafb_name =3D "Via";
+>  static u32 pseudo_pal[17];
+> =20
+>  /* video mode */
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+[ ... ]
 
-Konrad
+[Severity: Critical]
+This is a pre-existing issue, but does this struct memory copy cause a
+regression by corrupting the bl_curve_mutex state inside the allocated
+secondary framebuffer structure?
+
+drivers/video/fbdev/via/viafbdev.c:via_fb_pci_probe() {
+    ...
+		viaparinfo->iga_path =3D IGA1;
+		viaparinfo1->iga_path =3D IGA2;
+		memcpy(viafbinfo1, viafbinfo, sizeof(struct fb_info));
+		viafbinfo1->par =3D viaparinfo1;
+    ...
+}
+
+During dual framebuffer initialization, viafbinfo1 is allocated using
+framebuffer_alloc(), which properly initializes bl_curve_mutex.
+
+This memcpy() performs a bitwise copy of a struct fb_info over another,
+which blindly overwrites the initialized mutex with the bitwise state of
+viafbinfo's mutex.
+
+Because a mutex contains a self-referencing list head for its wait list,
+would viafbinfo1's wait list pointers now incorrectly point to viafbinfo's
+wait list?
+
+When backlight support is enabled, an unprivileged user space program
+can trigger concurrent reads or writes to /sys/class/graphics/fb1/bl_curve,
+which attempts to take viafbinfo1->bl_curve_mutex.
+
+Could modifying this corrupted wait list cause severe list corruption across
+both framebuffers or a kernel panic?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818111722.4713=
+40-1-ajithpv.linux@gmail.com?part=3D1
