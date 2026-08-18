@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE0EC5DF67
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 03:42:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0077C5DF67
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 03:48:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03C3010E47C;
-	Tue, 18 Aug 2026 03:42:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA5E610E9C7;
+	Tue, 18 Aug 2026 03:48:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="R1GwYAHq";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aJduqSPK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jrJR1hkk";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HgxpbEav";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3E2310E47C
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:42:24 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2B6B10E9C7
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:48:27 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67HLkP6Y398584
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:42:24 GMT
+ 67I34D3H3299176
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:48:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=MaABp0/faTANtVcerTDacDQd
- lb7pXZWcETU4q2gt11c=; b=R1GwYAHqL8EDVwyhfRXBq4LeLrPDpen8Be1zsRaX
- XWcXJhOYiY3/auiFO2HbPN7yF4/QJ1KCGEOCw2iLndJ8FVKA+nADhGeo6qst9tCw
- P3bFDv8C6VafbPcV0gPjV9IFpHGN3JqVvHk9x+IhhVNlqKzMiJIBVw+35KXmZDnc
- /Wx9GiURAGiOU2T/DDfWSEXxjbRe/D0ZLTE7nOlkauAXfJpsBi0ykiRwhQ94ayEF
- 2sh/eLmcHZLqo1qTPNCjzDlHIoNoiHOgAFOVi/ywV0oMHnIaeQnoNg1nOZr/gTEb
- NLwXlJSaHoGkw7VVmcznRBUBZ1IazoywpwY9OO42hEllTg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3y7kv6aa-1
+ :references:subject:to; s=qcppdkim1; bh=bXRS5rh9jAJP3tYbTw91AwAt
+ 64eiYAnV5pL1NFBS+kw=; b=jrJR1hkkjxicDvKwYQNE2jU5RTmV0lIIVKelab3P
+ UfYbP+Y4otWMjtQPr2NntdzTvuK8Z0twLgKCUklVQZiblZ87nW7yLziXFSAyg1Mc
+ SB7i/7uF9kKZC9CeCbbGn50T+BC8BqHuNHiQzEpnFvI/TFbdhP5S84SutqyeQKrq
+ qOtTeOZF2GsTpUVy5MH15pluhblIgj2phoVDZypSKrgUgq3FOXSznXWMTgeD/uhR
+ T8+JqIt31HrqiPF47XL99in9izUGbiJhINLMAdWJ2X18ysQof9b9HHqpMnsKFdBm
+ kmdIBexMbo64W9BhFfWxjX93EwR0BNWYKcOWbN2hjF9kHw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4f5pr4cp-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:42:24 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-51c1b4d961dso5636511cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 20:42:23 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 03:48:27 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-936aa3d9dfbso390499085a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 20:48:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787024543; x=1787629343;
+ d=oss.qualcomm.com; s=google; t=1787024906; x=1787629706;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=MaABp0/faTANtVcerTDacDQdlb7pXZWcETU4q2gt11c=;
- b=aJduqSPK1PH1+YkAIG4ZyCdmZ2DP4h2denSaNoSGWtYf2jl+AVMaZQfUK2QNX7Cs0Y
- nZ97FZO+ZWOJopZJS8Cx1b6T1BtqQkm3LTukdw1IxII79rx1Kiawejhkj/o36YV84OCk
- kvKkK/BNh6ks67Bwn7LtPkTVE8y5JRvvsodbxg7Ewzt6qnHfeQr6TaxLnuaG9k5OY67o
- 8tKXOJAWDRswuzcHpqssQhi6DpREDGwps339v6knlBqd3qHvtqWcTxUn3Woj6JFdBAOC
- N7+DX5M/OkA15lvMRwmJSMaZPkRP/L6iNXADzfENgoGMBm3fumsXEYey23/LIJQjUn9C
- mYeg==
+ bh=bXRS5rh9jAJP3tYbTw91AwAt64eiYAnV5pL1NFBS+kw=;
+ b=HgxpbEavwmdOGgYCug7DSnTDeIaycOQdStHle66uEhEKIEmmEJF46TyppJx3p+QbfE
+ 0wLR5u/UId5vQhmNFkS0MUHEOCE73WHL3Et3swUxibSw8xtWI01XHNZagWfzDDQFGHwc
+ RkIFAB3NXgupkmhAYatG6CC/GLIw0KAvBVAfyDe9C26BBBwQsAFGif3vHljF4/nevzPX
+ T7scdDuoiGMivn3ORFd/sXItOgBVPUleqUYYfebqsVyUk7N2NU+OK76mfMWy+6cmxOJu
+ 9rLvIa8/VdqQxmAGPYTtZsfWYidbJyD07MAttr1ktouufpOJSEMKHEK15M4Rhit5AvWs
+ NZ6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787024543; x=1787629343;
+ d=1e100.net; s=20251104; t=1787024906; x=1787629706;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=MaABp0/faTANtVcerTDacDQdlb7pXZWcETU4q2gt11c=;
- b=lhxgrw/TKFAk3GDPXW2gNUObjB8Tj2BCa7AQ5DE3vNpOZ73naUydBU+FJQVLLjZX27
- +zA8+8Ycg9rVui2DZktId9QKjWPFyddsEqkx3ZPX/tdSDJ0tvrivSN8qycHhOzq1GEu7
- 2PDtpO7nXYncol1stN2a8Fy7DIuPdXUv4pp4PV6+SgBp92aiskw3Ijj0A6e1cxaItKzK
- j2cC/wk+gCLusFArFd9D7eczV793OAFeD2iSm1t8lSV24m0/kRtMPmazeERuSj1zhKvH
- vrxvC+gq/Wy6/ZOJo2kj4VLd5toi1vCUZ/b/Svnw0XN8AVDrrXacJ74CIAkgOz1Mo2qJ
- sJyg==
+ bh=bXRS5rh9jAJP3tYbTw91AwAt64eiYAnV5pL1NFBS+kw=;
+ b=jyOUib1CsTpMTkeILUaRPQAeaae0nJbA16FjXifDJFgq95gcNrG3ycDZeeR4Fm/nT6
+ i2yxsU4gTjvbzCALQVUsQ4yw1RTuwyOlcLihhw5E6wB66zt/zi94PvYpFom1XODfJ4BN
+ 64Ojnj5GcNXHmSFGE86qYKxYxjn7NyGZLHpRZ4wkGrkPb/IKL6tzwrklxbkUAeFKHzmG
+ C1P6Enx3UeomvYuRPCMLSJCoyhJvPcf8PCHorxlG8lAe+DfZ8E4ZVt+jY5g8yagLgXpa
+ D5IGryNmroJ3YliO8SlxWXso/v6jywKS0+38Xl451yTRX+6mEAa8kB56sN2CIKkAA7ob
+ G5kQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoEYjnnX1Etib7AHlxg0+M24gcQ/61PTzGRKjm68y0oBzUFVr9W4mN3QSwB/p49WL1lrJA6B2N/hFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8aX3MugepDeIHFWrb4TEr6otGCOxQkLctdsIG4k9GKWErb33M
- EsVxtaveM9sQjQPd2VVRcI4OxkNOkwqfGaDHZWPymss1e93tHgB+9dCFvEoQhWfkSemkblgGU3G
- LQmHv+0tFvOsuo3p1mITF6xilyZZ1ccK087DYQWvhbiShrmWOh6IkNAYV3Da9HI8G9qcuVRc=
-X-Gm-Gg: AR+sD12PgOBQFU4gfhh/bcBf0THvGhff0Q2lBiQkaxN8Kl3tPFqfwL8RukJFANfCV2o
- SBaFuc4t5hhA/iphJgQ9PFL8M8ijFaXQ0xitFOG/GfIOUMeT3jO1+QmpX3ZeXpH34swMIQJHIqM
- uL22TEo7Q1kHBrITJyCJod1M1mantVtkLdOIQl90NTlhqFxxoZkQ5WvJDYw9o+N1oOBSF3i5ZLt
- UHoNqZZ6G5D3fbMfsYYp/JYUXaFqyoygRrGSsHZ90VFPHybA8rdmuOmiy97inrwIEQM9j4sYDD+
- 9GzDkYnTyqqTafsW2+K6rGP7C1nnvI+OuAyIyzjx4w7W8dyUvom+Vj4JkdzdV+0/x3rkXtkI6OO
- WkGftrfHqgw6NCR5eKHV93ZZD67ECASWngDO27O+e9zQ121jxLnOqIBiYLkHdt0npk0t1hGlBcL
- GYslbLYEAG3JeL
-X-Received: by 2002:a05:622a:5592:b0:528:ce0:e9f8 with SMTP id
- d75a77b69052e-52dbecc2fbcmr42318781cf.3.1787024543125; 
- Mon, 17 Aug 2026 20:42:23 -0700 (PDT)
-X-Received: by 2002:a05:622a:5592:b0:528:ce0:e9f8 with SMTP id
- d75a77b69052e-52dbecc2fbcmr42318371cf.3.1787024542626; 
- Mon, 17 Aug 2026 20:42:22 -0700 (PDT)
+ AHgh+RoIz644DXHz8gY9zMjG5ULJCYcOO64oGR3eAPLiUsk9futKYImUVEriM4D/9CexHo567nM69ZlklNw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyoycKgavj8vEPqKMVHWr+Xrzq2HHq4ZO54qjELt2arXgo7qcsx
+ Y/6pdg5J2SgVM4CTPCLtzBKg7G7xKxvzb+SyyOcBp24PWatq2AerGOw4BfmgiV3nCaica6ZPMDh
+ lq55QGFwqgyqXSyKJAv6AZFywVewSHdWSLxNNnc3jOThR/8So7NKPiERtewLTHrSLTzoGk/s=
+X-Gm-Gg: AR+sD11z/8QK4NClAlb1w89dMSHMnrFK6pyS2yE4JUicM1n4I+UF+tj5sakcOVc62Vc
+ nkHDPvxYDz+FbUQp2ETMtjtlD1Bo+L3elaMrQTwWsGCATUdOFjB7f9D3efnyTtmfsqdkcK4/15a
+ ZnYz9o+Gi49uG7BLiwzGg3PfsnUeqBGsKWamETBBZKY5gTKvx2V29vrT4/i7VWRc9Dhodfuf+eV
+ acjTnWgv0kjbRxzA3Oa+ohKkj+msdRoin76fy4MEg1jq41HpzigcxezZ1abBFQMggcbE/FP/1ZC
+ 5nhvRiWJM4tJABlsfRuyxfufng5MLCze2bkIE9NloI3lCLNvDtIQpSqHSrHD2A+mEFugG0fFQYm
+ TQTMGIiCmWTwdyiKAo37KU9M4/VBWwT+fUZZ6viPLJ7KkmnA8rRbkT5DiuR4cpRLN+tXwa/u89h
+ hVrm6qWu3qSYEz
+X-Received: by 2002:a05:620a:4153:b0:930:fad2:fd with SMTP id
+ af79cd13be357-93704b523fbmr526537585a.17.1787024906254; 
+ Mon, 17 Aug 2026 20:48:26 -0700 (PDT)
+X-Received: by 2002:a05:620a:4153:b0:930:fad2:fd with SMTP id
+ af79cd13be357-93704b523fbmr526535185a.17.1787024905805; 
+ Mon, 17 Aug 2026 20:48:25 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b46cfa1811sm866041e87.30.2026.08.17.20.42.21
+ 2adb3069b0e04-5b46cfa0e5esm861092e87.25.2026.08.17.20.48.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 20:42:21 -0700 (PDT)
-Date: Tue, 18 Aug 2026 06:42:19 +0300
+ Mon, 17 Aug 2026 20:48:23 -0700 (PDT)
+Date: Tue, 18 Aug 2026 06:48:20 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -115,39 +115,39 @@ Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
  linaro-mm-sig@lists.linaro.org
 Subject: Re: [PATCH v2 09/15] accel/qda: Add DMA-backed GEM objects and
  memory manager integration
-Message-ID: <g3dkltejtlzrrelv77kjteqbkny6vhedyuet7d6b2p7yfix3ys@sop7vjvpdvzb>
+Message-ID: <pm5yr7fovkav4cuat5zqn3ngf2fxzrqutsgyaobwp5djv4xkuv@in7n4o3x3x6y>
 References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
  <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
-X-Proofpoint-GUID: rLhqqKQFWFXNvNyy7Nr-XEuG6EM7kzN8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDAyNCBTYWx0ZWRfX7JPT/wF0iXer
- gOmMxpeBmtMFbe8DqphkTKT7i2YiP8EzsFTSNIIg5KB/wZL2qgLugpckwjtGSKMBShMiHZbJApy
- ZXrzVjdzxIMEl+waJ4q1VhBtrYbxqrk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDAyNCBTYWx0ZWRfX5nSzWGcznAlj
- yrc0Xz8+SJs4/F2ImY75dM4jFf13FXg4U8NKkve+/ZuB8ngrScOWVlePrBtnkPLBkT19YuHGn1a
- hcVXGIwZasEzpGZDy27fmuPlqRbWiNz8kMs92xJyy2qcfQdUZ2RajzmrVxYZxGEYIlQiOW8fqYb
- Kah5xHyW2/alij9i494EooFuemccHMrZ1tlw7xDBgPWeVdWjeRrpRiF7tvrwKmn+Qge2ZJisxfD
- 0BDPVCxpt5ROt6cZedcl38XJ0uPtC4S+SyHt289ev0tm9rkQs7ApFgWvEMiNfRJ1NF9PYUFlug1
- M/SUCoEIZpYELbyHedkETa46JAqX5CV2Mc2fqlA0HAaM7iZILScyp9+eGZC6jzzTRrmxQZXAOz1
- E6t0XwCx06vXbfRkoaZVVtkVHHq+QE5MiXSrEthag/AteGNEtQTUy6bv2dOZHUXaNNnjMeIXvyC
- niHCtlDkL7FPWsEMb0Q==
-X-Authority-Analysis: v=2.4 cv=HYEkiCE8 c=1 sm=1 tr=0 ts=6a83d4a0 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+X-Authority-Analysis: v=2.4 cv=S+/pBosP c=1 sm=1 tr=0 ts=6a83d60b cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=BBVwHIhhcn0rA1_HgMAA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: rLhqqKQFWFXNvNyy7Nr-XEuG6EM7kzN8
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=biWI9kQzUyu7Ho-RK_UA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: dbVYCGUjG_Hr3X1GpTuu7FEP3-MYwhaX
+X-Proofpoint-ORIG-GUID: dbVYCGUjG_Hr3X1GpTuu7FEP3-MYwhaX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDAyNSBTYWx0ZWRfXwEnkskKcsrsN
+ oR8YoMPXLIld/lACi+u+VIziK3mCb5t1Px6eRZRtFWtNj2blogs7mDs6QyltkAkfJt6B6O9sX4q
+ TcEBziw+Cr5PAZQQygX1jnReaF/ttxY5BmAxSBNp0KJFlCef9oRV6t1OUFZ8Ms2LwGgxHERyHhN
+ d3TzKpj2wOTTG062dYeTG9YwSgpytSz90VLhsjWUdlnrfKCXdGqLyhkFBr8dmIyg/EyisNJKlLU
+ th8OKUdDWlk1jOlgRpNe3PuhCD5DqZgAkoXbPv2Jg6e3pAmPgMh2Pc1GOYCK+eEYT4YhKgeRDsq
+ 0O9lqhQaoubSjTc6LekcJXCU888XLhEicGYvhTLwue/QeMNhSi58Znbl7WLXrS8djhoiw10fdNZ
+ 53+slcLUi+/7vpAfVzl8g+TqbxeqjMAXdPkGN8VzwFcDXjG6pgCrVuOQL/wFPVBjMH0z2ojnGtU
+ xsbFVO8pOekg17tzc4g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDAyNSBTYWx0ZWRfX91sxwAnuvO1s
+ 2Gr9TwgsGhsVVcLoOOQIdRTR0YPu2LqhRfrqfKLXpnFlYKhNP1c+e1PRjBAAAMtrud51KU66z0D
+ 302/FaLyADHxy7dXd1vF05Hw4j2Xy3c=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0 malwarescore=0
- spamscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 phishscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 adultscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180024
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180025
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,64 +168,42 @@ On Mon, Aug 17, 2026 at 10:17:44AM +0530, Ekansh Gupta wrote:
 > together the GEM subsystem, the IOMMU memory manager, and a DMA
 > allocation backend.
 > 
-> qda_gem.c / qda_gem.h
->   Implements the GEM object lifecycle for QDA buffers. Each buffer is
->   represented by a qda_gem_obj which embeds a drm_gem_object and
->   carries the kernel virtual address, DMA address, and a pointer to
->   the IOMMU device that performed the allocation. The .free callback
->   delegates to the memory manager, and the .mmap callback uses
->   dma_mmap_coherent() via the DMA backend.
-> 
-> qda_memory_dma.c / qda_memory_dma.h
->   DMA coherent allocation backend. qda_dma_alloc() calls
->   dma_alloc_coherent() on the CB device and encodes the stream ID
->   (SID) in the upper 32 bits of the returned DMA address, following
->   the Qualcomm FastRPC convention for IOMMU address space tagging.
->   qda_dma_free() strips the SID prefix before calling
->   dma_free_coherent().
-> 
-> qda_memory_manager.c
->   Adds process-to-device assignment: each DRM file (process) is
->   assigned one IOMMU context bank device for the lifetime of the
->   session. qda_memory_manager_assign_device() first checks whether
->   the process already has a device (reusing it with a refcount
->   increment), then falls back to claiming an unassigned device.
->   qda_memory_manager_alloc() and qda_memory_manager_free() delegate
->   to the DMA backend after resolving the correct CB device for the
->   calling process.
-> 
-> qda_drv.c / qda_drv.h
->   qda_file_priv gains an assigned_iommu_dev pointer and a pid field.
->   The .postclose callback decrements the IOMMU device refcount and
->   clears the process assignment when the last reference is dropped.
+> +
+> +/*
+> + * The DSP identifies the IOMMU context bank from the upper bits of the address,
+> + * so the stream ID is folded into every address handed to it. The DMA API only
+> + * ever sees the plain 32-bit address, which is why the context bank devices are
+> + * created with a 32-bit DMA mask.
+> + */
+> +static dma_addr_t get_actual_dma_addr(struct qda_gem_obj *gem_obj)
 
-This provides a nice summary of the patch, which is pretty useless.
-Please teach your AI instead to describe the reasons and the design
-decisions instead of just assessing what the code does. Why do you need
-memory manager? Why can't you use existing GEM helpers?
+Let me propose a very simple rule for you. Unless you know what you are
+doing, all function, struct and macro names should start with qda_. The
+to_qda_foo(), I think, is the only example up to now where you don't need
+to have the prefix.
 
-> 
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Adapt to the dynamically-sized device array introduced in patch 07
->   (kcalloc'd from DT node count, replaces fixed QDA_IOMMU_DEVICES_MAX)
-> - Protect register/unregister with the process_assignment_lock mutex so
->   the device-assignment and device-registration paths are serialised
-> - No functional changes requested by reviewers on this patch
-> ---
->  drivers/accel/qda/Makefile             |   2 +
->  drivers/accel/qda/qda_drv.c            |   4 +
->  drivers/accel/qda/qda_drv.h            |   4 +
->  drivers/accel/qda/qda_gem.c            | 134 ++++++++++++++++++
->  drivers/accel/qda/qda_gem.h            |  52 +++++++
->  drivers/accel/qda/qda_memory_dma.c     |  82 +++++++++++
->  drivers/accel/qda/qda_memory_dma.h     |  17 +++
->  drivers/accel/qda/qda_memory_manager.c | 239 ++++++++++++++++++++++++++++++++-
->  drivers/accel/qda/qda_memory_manager.h |  30 +++++
->  9 files changed, 559 insertions(+), 5 deletions(-)
-> 
+> +{
+> +	return gem_obj->dma_addr - ((u64)gem_obj->iommu_dev->sid << 32);
+> +}
+> +
+> +static void setup_gem_object(struct qda_gem_obj *gem_obj, void *virt,
+> +			     dma_addr_t dma_addr, struct qda_iommu_device *iommu_dev)
+> +{
+> +	gem_obj->virt = virt;
+> +	gem_obj->dma_addr = dma_addr;
+> +	gem_obj->iommu_dev = iommu_dev;
+> +}
+> +
+> +static void cleanup_gem_object_fields(struct qda_gem_obj *gem_obj)
+> +{
+> +	gem_obj->virt = NULL;
+> +	gem_obj->dma_addr = 0;
+> +	gem_obj->iommu_dev = NULL;
+> +}
+
+These functions are called only once. Inline them.
+
+> +
 
 -- 
 With best wishes
