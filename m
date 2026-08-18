@@ -4,47 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D9D7C5DF84
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 13:19:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB89C5DF84
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 13:35:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8154E10EB73;
-	Tue, 18 Aug 2026 13:19:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4114C10EB78;
+	Tue, 18 Aug 2026 13:35:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UYEG/X31";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UWI9TRkb";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A14110E2BB;
- Tue, 18 Aug 2026 13:19:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 250DF10EB78
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 13:35:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DA021601DE;
- Tue, 18 Aug 2026 13:19:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154171F000E9;
- Tue, 18 Aug 2026 13:19:51 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 47D83601DE;
+ Tue, 18 Aug 2026 13:34:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD11F1F000E9;
+ Tue, 18 Aug 2026 13:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787059191;
- bh=3OECFuID8OxfFZMZwe/XajbxGBf8JR2K20Q4oEs4U2Q=;
+ s=k20260515; t=1787060099;
+ bh=pvwulaLNeM2vxICvFkjpTG3yxBdO98nZJ064v5rzKcM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UYEG/X31bZkTUQFI/ZpxOc2kan1QWVtxrh8pRMcEKKxEG32Ud3uvggwqHRfvjYipm
- vyJDRpeEQSrB3LihrjglGHNt778bsqo0PP9vPAUdM7c7ut8HDxnau/mJUCRFPsNUS3
- NSbO/U9cjvPYhk6x4N2/isU4wprCXu504BHpXvWhRZXrzQqZXeo7wq++3ZxfWpMs3W
- 7LQjyOhhNlptBUsB/BMWl6Fz5MbqEvboVxmJ9Z3fmm2ZkO5cnRVyF7h7WC5Zvl99/Y
- l1KWJrRllm7SLJ7hksJQ9DS3InFWwMaS5y12PvO4REt0EXDkN4+wN+KCELfaO0OCcm
- jrD80Qb/eKJ4w==
+ b=UWI9TRkbMxuiLgHDXuj++KxmWZBwXvlT4sSm+zgEm7YquXUhXZfxpRWCU3bY00vVj
+ uWLRHvfLudPYXTKSSx1Ix1+SCPrvmtcUZDReI1GycSISUBC9RUyKJ34LqtAjsUrN+f
+ FdgulLfRnim67136As54Miblk4v//WneqtROl+Tt4NN2DzVbwmI+dt5XnNma9mTtBV
+ EReXASLI01rjTWgRYX8HvNO9LqvSUh1Z3RZKX8sqro2zOFpC74oKRQQ8gUNUQ08xYR
+ OY3uHldDlCt2tUlTXQujacT5CeVLVugOynQahuzGJUMjI0ONofYVbjKOVD4asKrstj
+ gFtq5mOORxsmA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/12] drm/panic: Display panic screen via per-plane
- callback
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Frank.Li@kernel.org, linux-hyperv@vger.kernel.org,
- wsa+renesas@sang-engineering.com, ojeda@kernel.org
-In-Reply-To: <20260818125012.468092-10-tzimmermann@suse.de>
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-10-tzimmermann@suse.de>
+Subject: Re: [PATCH] drm/sun4i: frontend: fix clock leak on reset failure in
+ runtime resume
+To: "Jiawen Liu" <1298662399@qq.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <tencent_3AEE86932EE0F9AF7D6549FD705139A4AF06@qq.com>
+References: <tencent_3AEE86932EE0F9AF7D6549FD705139A4AF06@qq.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 13:19:50 +0000
-Message-Id: <20260818131951.154171F000E9@smtp.kernel.org>
+Date: Tue, 18 Aug 2026 13:34:58 +0000
+Message-Id: <20260818133458.BD11F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,118 +57,98 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The `drm_plane_helper_display_panic_screen` helper unconditionally=
- dereferences `plane->helper_private` and `plane->helper_private->get_scano=
-ut_buffer`. However, by adding `DRM_PANIC_PLANE_FUNCS` to shared plane func=
-tion tables (like `skl_plane_funcs` in i915 and `dm_plane_funcs` in amdgpu)=
-, the `display_panic_screen` callback is now applied to all planes (includi=
-ng cursors and overlays). These non-primary planes use different helper fun=
-ctions (e.g., `intel_plane_helper_funcs` or `dm_plane_helper_funcs`) that d=
-o not implement `get_scanout_buffer`. This causes `drm_panic_register` to m=
-istakenly register panic dumpers for these planes, and upon a panic, the ha=
-ndler executes a NULL pointer dereference, triggering a nested panic.
-- [Medium] The patch replaces `get_scanout_buffer` with `display_panic_scre=
-en` as the signal for panic support. However, it fails to add `DRM_PANIC_PL=
-ANE_FUNCS` to the legacy fallback `primary_plane_funcs` in `drm_modeset_hel=
-per.c`. Older AMDGPU DCE drivers (e.g., DCE 6.0, 8.0, 10.0) use `drm_crtc_i=
-nit()` which implicitly relies on this legacy structure for their primary p=
-lanes. Although these drivers implement `get_scanout_buffer` in their helpe=
-r functions (`dce_v10_0_drm_primary_plane_helper_funcs`), their planes now =
-lack the `display_panic_screen` callback. Consequently, `drm_panic_is_enabl=
-ed()` returns false and their panic dumpers are never registered, silently =
-breaking panic screen support on these hardware generations.
-- [Low] `drm_plane_helper_display_panic_screen` accepts a `panic_type` para=
-meter (an `enum drm_panic_type`). However, when it calls `draw_panic_dispat=
-ch()`, it passes the global module parameter `drm_panic_type` instead of th=
-e passed-in `panic_type`. This logic bug prevents drivers from tailoring th=
-e panic screen implementation via the helper as intended.
+
+Pre-existing issues:
+- [High] Unhandled error from sun4i_frontend_init leads to kernel panic on =
+hardware register access.
+- [High] Plane atomic update callback invokes sleeping functions via pm_run=
+time_get_sync.
 --
 
---- Patch [9]: [PATCH 09/12] drm/panic: Display panic screen via per-plane =
-callback ---
-commit 69fa8c39afc844867e193df3659c6f6f1fb762f3
-Author: Thomas Zimmermann <tzimmermann@suse.de>
+--- Patch [1]: [PATCH] drm/sun4i: frontend: fix clock leak on reset failure=
+ in runtime resume ---
+commit 545a5eac90415ee6d6efb1f3f808e86b0dd094da
+Author: Jiawen Liu <1298662399@qq.com>
 
-drm/panic: Display panic screen via per-plane callback
+drm/sun4i: frontend: fix clock leak on reset failure in runtime resume
 
-This commit adds display_panic_screen to struct drm_plane_funcs to replace
-get_scanout_buffer as the signal for panic support. It provides the helper
-drm_plane_helper_display_panic_screen() and the DRM_PANIC_PLANE_FUNCS macro
-to update drivers that implement panic support.
+sun4i_frontend_runtime_resume() can fail after enabling the bus, mod,
+and ram clocks if reset_control_reset() returns an error. The function
+previously returned without disabling those clocks, leaking them and
+leaving the hardware in an inconsistent state.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 824ef3ce5de0a..eadc22a255bb5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-[ ... ]
-> @@ -2177,6 +2178,7 @@ static const struct drm_plane_funcs dm_plane_funcs =
-=3D {
->  	.atomic_set_property =3D dm_atomic_plane_set_property,
->  	.atomic_get_property =3D dm_atomic_plane_get_property,
->  #endif
-> +	DRM_PANIC_PLANE_FUNCS,
->  };
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_frontend.c b/drivers/gpu/drm/sun=
+4i/sun4i_frontend.c
+> index 5e9c4b97c84c3..db3fad9d8617a 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_frontend.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_frontend.c
+> @@ -647,14 +647,22 @@ static int sun4i_frontend_runtime_resume(struct dev=
+ice *dev)
+> =20
+>  	clk_set_rate(frontend->mod_clk, 300000000);
+> =20
+> -	clk_prepare_enable(frontend->bus_clk);
+> -	clk_prepare_enable(frontend->mod_clk);
+> -	clk_prepare_enable(frontend->ram_clk);
+> +	ret =3D clk_prepare_enable(frontend->bus_clk);
 
 [Severity: High]
-Does adding this macro to shared plane function tables (like dm_plane_funcs
-or skl_plane_funcs) apply the panic screen callback to all planes, including
-cursors and overlays?
+This is a pre-existing issue, but does calling clk_prepare_enable() here
+violate atomic context rules?
 
-Non-primary planes use different helper functions that do not implement
-get_scanout_buffer. Since drm_plane_helper_display_panic_screen()
-unconditionally dereferences plane->helper_private->get_scanout_buffer,
-could this cause a NULL pointer dereference in the panic handler for these
-planes and trigger a nested panic?
+During display updates, sun4i_backend_layer_atomic_update() executes in an
+atomic context where sleeping is forbidden. It calls sun4i_frontend_init()
+which synchronously calls pm_runtime_get_sync(). If the device is suspended,
+this executes sun4i_frontend_runtime_resume() and reaches these sleeping
+clk_prepare_enable() functions, which can cause scheduling while atomic
+warnings.
 
-> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-> index 2263a11efdf63..2ecb4d1f6d470 100644
-> --- a/drivers/gpu/drm/drm_panic.c
-> +++ b/drivers/gpu/drm/drm_panic.c
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D clk_prepare_enable(frontend->mod_clk);
+
 [ ... ]
-> +void drm_plane_helper_display_panic_screen(struct drm_plane *plane, cons=
-t char *description,
-> +					   enum drm_panic_type panic_type,
-> +					   u32 fg_color, u32 bg_color, unsigned int qr_version)
->  {
->  	struct drm_scanout_buffer sb =3D { };
->  	int ret;
 
-[Severity: Low]
-Is the panic_type parameter correctly passed to the dispatch function?
+> @@ -664,6 +672,14 @@ static int sun4i_frontend_runtime_resume(struct devi=
+ce *dev)
+>  	sun4i_frontend_scaler_init(frontend);
+> =20
+>  	return 0;
+> +
+> +err_disable_ram_clk:
+> +	clk_disable_unprepare(frontend->ram_clk);
+> +err_disable_mod_clk:
+> +	clk_disable_unprepare(frontend->mod_clk);
+> +err_disable_bus_clk:
+> +	clk_disable_unprepare(frontend->bus_clk);
+> +	return ret;
 
-The function accepts a panic_type argument, but the implementation appears
-to pass the global module parameter drm_panic_type to draw_panic_dispatch()
-instead of the passed-in argument. Does this discard the caller's requested
-panic type?
+[Severity: High]
+This isn't a bug introduced by this patch, but does returning this error wi=
+th
+the bus clock disabled now risk a kernel panic?
 
-> diff --git a/include/drm/drm_panic_helper.h b/include/drm/drm_panic_helpe=
-r.h
-> new file mode 100644
-> index 0000000000000..e296620bbe34b
-> --- /dev/null
-> +++ b/include/drm/drm_panic_helper.h
-[ ... ]
-> +#if IS_ENABLED(CONFIG_DRM_PANIC)
-> +#define DRM_PANIC_PLANE_FUNCS \
-> +	.display_panic_screen =3D drm_plane_helper_display_panic_screen
-> +#else
-> +#define DRM_PANIC_PLANE_FUNCS \
-> +	.display_panic_screen =3D NULL
-> +#endif
+In drivers/gpu/drm/sun4i/sun4i_layer.c:sun4i_backend_layer_atomic_update(),
+the return value of sun4i_frontend_init() is ignored:
 
-[Severity: Medium]
-Does the legacy fallback primary_plane_funcs in drm_modeset_helper.c also
-need to be updated with DRM_PANIC_PLANE_FUNCS?
+	sun4i_frontend_init(frontend);
+	sun4i_frontend_update_coord(frontend, layer);
 
-Older AMDGPU DCE drivers use drm_crtc_init(), which implicitly relies on
-this legacy structure for their primary planes. Although these drivers
-implement get_scanout_buffer() in their helper functions, lacking this
-macro in the fallback could cause drm_panic_is_enabled() to return false
-and silently drop panic screen support on these hardware generations.
+If sun4i_frontend_runtime_resume() fails (e.g., reset failure) and this
+unwinding path successfully disables frontend->bus_clk, the frontend is left
+without its bus clock. When sun4i_frontend_update_coord() and other functio=
+ns
+subsequently attempt to write to hardware registers, accessing them while t=
+he
+bus clock is disabled can trigger a synchronous external abort on ARM.
+
+>  }
+> =20
+>  static int sun4i_frontend_runtime_suspend(struct device *dev)
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818125012.4680=
-92-1-tzimmermann@suse.de?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_3AEE86932EE=
+0F9AF7D6549FD705139A4AF06@qq.com?part=3D1
