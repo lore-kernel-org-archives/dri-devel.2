@@ -4,51 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57989C5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 08:37:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB7D4C5DF80
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 08:41:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CFDB10EA6B;
-	Tue, 18 Aug 2026 08:37:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52F0B89E33;
+	Tue, 18 Aug 2026 08:41:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Eg4v5As3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hcj6dbTG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E07D10E29C;
- Tue, 18 Aug 2026 08:37:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7A9C2601FB;
- Tue, 18 Aug 2026 08:37:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C2B1F000E9;
- Tue, 18 Aug 2026 08:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787042274;
- bh=UWOItxshjgunutowy4O4GM5w0tL4xTShpPtcGHO8dpI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Eg4v5As3JImBNdvq/sy+ojWBL8t1/NW2eHOE8BBo9uONA+8i734cdQvdkx+8M1qBz
- VnyJFh8HLBqI8svLslKz63fNPLJ4nzSY7TaBXU3EyKpteLwW+LbFlxoUOtm4ya+PJX
- KveJIj9HBv3fjaMYH95Fac3yCVJ8JT3c18tZ/2+wDtOZ+pjIWa2YFLoreQ7+wjOaQe
- /4U+mTELzo1jRoYLwz3TAAybGWToz2u5inSfEIebifnpW11UqYdR9mPZZEqZl5atoC
- /499MNE3tCfVZq0eHBn7DJNBKoBvRL/L12skhHJNUd5I1iJ63FUkgYtnYoB7KSYVre
- EL1uOwmzj91Cw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
- (envelope-from <johan@kernel.org>) id 1wwFKR-00000000nYZ-3y4R;
- Tue, 18 Aug 2026 10:37:51 +0200
-Date: Tue, 18 Aug 2026 10:37:51 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D2F489E33
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 08:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787042461; x=1818578461;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Oa/B4ErRDtcBhjxdDl6vzU+r+CGXjmtAt52cbbTCtWo=;
+ b=Hcj6dbTG7yUvCMTBylM7TFL175gV7VOxomgFoeeRocHYdWmUme5QTuca
+ HDaMsmi0vE57mWITN8QPEPPVxz520u7XtSKJRtfN0jru8Amp6CrLta435
+ 9CQ8haTGAU/tbAnivYdcKrwuuXQktL6y01ARbmcaIhiaE/elQV3hx7Zxa
+ yDoxz5TLous/DIf7Xpx26o6NOBUQyy+zi8WmuT7aZnZr+3L4Hbjx75F5q
+ 9fZrhvP6+LDsb/9TqZknyirZuVwHtT454seIFM6VihsIQefOUCWZcv8Oa
+ LF0gCW9TCCNvrtXHvDCcfhjyhKww3wEkF1CKtI7JlWqH/1gJDnxLxAgFl g==;
+X-CSE-ConnectionGUID: 6NCnexLSSByIUdLwWSaQiA==
+X-CSE-MsgGUID: 6wAtAMmESs+38H02vfLKnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="98892671"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="98892671"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2026 01:41:00 -0700
+X-CSE-ConnectionGUID: 8UYax+CUR9yN0iPGYnJXSg==
+X-CSE-MsgGUID: GKfjqWuBSem9vlcYvnQ0yQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="263432723"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.209])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2026 01:40:56 -0700
+Date: Tue, 18 Aug 2026 11:40:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/etnaviv: fix runtime PM cleanup during teardown
-Message-ID: <aoQZ3zhnyRuiHJlF@hovoldconsulting.com>
-References: <20260808121434.2815841-1-lgs201920130244@gmail.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Fabio Piparo <holofermes@gmail.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/6] drm/ssd130x: Replace positional ssd130x_spi_id[]
+ initialization with C99
+Message-ID: <aoQalR40NMFSg8zS@ashevche-desk.local>
+References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
+ <20260818080626.30430-5-amit.barzilai22@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260808121434.2815841-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260818080626.30430-5-amit.barzilai22@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +80,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Aug 08, 2026 at 08:14:34PM +0800, Guangshuo Li wrote:
-> etnaviv_gpu_platform_probe() calls pm_runtime_use_autosuspend() and
-> enables runtime PM before registering the component. If component_add()
-> fails, the probe path returns without undoing the autosuspend setting
-> or disabling runtime PM. The remove path also disables runtime PM
-> without calling the matching pm_runtime_dont_use_autosuspend().
+On Tue, Aug 18, 2026 at 11:06:24AM +0300, Amit Barzilai wrote:
+> ssd130x_spi_id[] is initialized with positional initializers, which
+> easily create easy-to-miss bugs when changing the members of the target
+> struct (struct spi_device_id in this example).
 > 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped and usage_count remains
-> unbalanced.
+> Change this to C99 initializers to guarantee each member is initialized
+> with the correct value.
 
-As I've explained elsewhere, this is just misleading. There is no usage
-count leak here as the count is balanced whenever the user re-enables
-autosuspend through sysfs (by writing a non-negative timeout).
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Drivers should clean up after themselves and disable autosuspend, but
-this is more of a clean up than a fix and should not be backported.
+...
 
-You've sent upwards of 60 of these in the matter of a just a few days,
-some which have even been picked up. Please send follow-ups (replies or
-v2s) as soon as possible to prevent further of these from getting
-merged.
+>  static const struct spi_device_id ssd130x_spi_id[] = {
+>  	/* ssd130x family */
+> +	{ .name = "sh1106", .driver_data = SH1106_ID },
 
-> The documentation for pm_runtime_use_autosuspend() also notes that it
-> is important to undo it with pm_runtime_dont_use_autosuspend() at
-> driver exit time, unless runtime PM was initially enabled with
-> devm_pm_runtime_enable().
-> 
-> Undo the autosuspend setting on both probe failure and device removal,
-> and disable runtime PM on the component registration failure path.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: a8c21a5451d8 ("drm/etnaviv: add initial etnaviv DRM driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Hmm... Is the comment correct for sh1106?
 
-Johan
+>  	/* ssd132x family */
+>  	/* ssd133x family */
+
+Overall, what do these comment bring us? Are those families have something in
+common? Because the driver data is unique for each device, so I assume it's not
+that compatible inside even the same families.
+
+TL;DR: Perhaps simply drop those comments for once?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
