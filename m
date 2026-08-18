@@ -4,55 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A04C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C65C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60CC610EA01;
-	Wed, 19 Aug 2026 06:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB1010EB4B;
+	Wed, 19 Aug 2026 06:36:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="BQTdu1Nh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OUMCQKVK";
 	dkim-atps=neutral
-X-Greylist: delayed 2171 seconds by postgrey-1.36 at gabe;
- Mon, 17 Aug 2026 12:21:13 UTC
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F2A810E785
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 12:21:13 +0000 (UTC)
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 67HBifTx071369
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Mon, 17 Aug 2026 20:44:41 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=lPUNZG6ebfDXN3Bnz8ZUjlswPwbP+Dv8XgcC/jdD9FY=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1786967081; v=1;
- b=BQTdu1NhLrpTqEthG4vddOeuDZDU6eR+DR5NxuttTitagRXgcK5w7MF78mtpcs4d
- oLICXB0ko9V0gNAmkduYBm7VLaOxnfOVs//Kcvif52TVz7f+5II/54D2HHwNfcoo
- Y6PdSjZlo8inqW7mroTq6576KysePCRPtSBn829t+qfXeXaK4Dn2OgUfst9PKAhK
- /bvubIt0kBUNxjjso5ZrsZFozl0xpiyIIJTS7zKOAUR4ChN/JXWY0yGascMXk9t6
- MybV9CUyNE1G2EpilBYDDt3R0nntwIor6Gu1NwQlVodTZxJ+iU6GD2c9wZHUqkRb
- ERnr5Wx4KUsvNfUqHOl2qA==
-Message-ID: <ea899a6b-0a59-4a9c-9e81-3ed70711da59@rsg.ci.i.u-tokyo.ac.jp>
-Date: Mon, 17 Aug 2026 20:44:40 +0900
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EF4210E4E6
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 16:37:30 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-38dfe910e9dso167798a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 09:37:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787071050; x=1787675850; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Ftdf9TYd3IItf3p0WR38TYPK1ZF7cfzR1m81D5DmLvo=;
+ b=OUMCQKVK05XTKcBLNgbxpwwjsMIKC1r7PwAbqa/rYwtxhkua63woKEdxIX/jKwOlkE
+ Qhxb9tlHbZiVd9s+FgVVRGqi79NmRpHrAXXqPjDuulEIWyG8j02blpvYvptLePXLCGRU
+ TxIgPB7T73BX9K+Yk+MoQZoMj84zKShY4vB3c3b+yzQ8cBJCBRa0OcvOfcPRdUpw816S
+ ounXO7d3qU+4QAwgCxmG73axX2OdO1N3pqEV2Sd6fmFfC/rBo0an9WjlPf6dYK6uEwl1
+ IOQY4KHBDlhu13IURLT4UWGvJPV9Ij+V0+FU+v7DgA159G82yqkr4BfjOiSoPGzl6FPM
+ 6pyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787071050; x=1787675850;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Ftdf9TYd3IItf3p0WR38TYPK1ZF7cfzR1m81D5DmLvo=;
+ b=VfASS93koVMaEG4cr8yRORjsZFkgQ0+7Fsf43ceQ6DsKDaDqweYvowPQfVvKfZVa3A
+ 8oSdc2dhD3RRR3K0HIWKaEV97BFBv1r1O1O4N5u4p8727lnr5bElOii1MGGrtqmJVcQr
+ q4glna+kWXGZIRMz2fxCO+58hX/Zqr/wYUxlwxgBnG9RobTYc+HYfEnRJenvRbFGcGx+
+ SKPzmdJFRZ/Nd0S/a1gsFWkS9Dja2IOzZ30X1VZqkACPwnK4Mm2+QvRt67KjAgtze2sP
+ Iu1gA4HtH3Fs6KO3XB9BzODC2W4OFYKLfc9buy7dwLtxP+12OF2Fj4tKcGIuE0SYKj42
+ mIfQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpBijd4VnEZPW8Xq5mIWTun7LKkFR/ukNrYuTZV28VWaK2/E/0edHaT4zdY9kvMoC86go1sGp7zLyQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYVxa53C/5FV1siEO5gnntZV9/y4ttV9KwsYt4WLTvgzbiIMpg
+ CmW1DiAOJ8ufqBPFNgB8BDXTxfuGy33jT/U0hRKjvxpwftDUMLXWeUIDI0Y+3g==
+X-Gm-Gg: AR+sD106OFy1ps1ZU2oaVX13D5FIMziXhlNe789I8Aa3G+eCm2Bo+TgPYefh/dquN5Z
+ INmyt3Q87XdDtpzDCZ77y4KdOZ2RxV2KmGeaDOkTdl5YLmJY4ij8eW5uZuWtxz7/t6YUpFqdO0f
+ POMZukNHlymTpNPHGQHHur0cxo3U8SoBosbhJW0uJB4A9Clmb7Z5t9itu8XD/8svpSNcDq1AVAV
+ DfzhVyP/PpzkzfLo0xORynUU4Tl+Qw+Z7sQe1v7lxb/SJY5ouj+DlsyBKKKpv2kYgTZDGNC3t7A
+ ut9wUTqKkj6xgC1sMHytwiUxaZv96XdsPW7+uge6EJwbK+SfE6AdopsRNArfrygKsDdy8KxrNSZ
+ 0tLc/DFBYODnMRiHnNqI5DDIEoW5tSeT2+tVD6wCCiSDvxVYNOhgds7n3zNTS+7nLK373+p88hA
+ XjgOfwSFzfjGXqdATqVCbKWzRzlyLyaMptX3TcS8xhkYbIAYFA428tOYesGXeZ2N5e8VaJDWxUT
+ ruFmeIGXbGBrB93k4WRhfwEECYgZvCNX+AfUZwQRF+2dIkezKJMPKZB9A==
+X-Received: by 2002:a17:90b:274e:b0:38d:dfd1:7c1 with SMTP id
+ 98e67ed59e1d1-3955a3dd549mr14819014a91.2.1787071050008; 
+ Tue, 18 Aug 2026 09:37:30 -0700 (PDT)
+Received: from LAPTOP-M4N25KQ5.tail73068d.ts.net
+ (1-160-197-194.dynamic-ip.hinet.net. [1.160.197.194])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39531ff679fsm9195992a91.14.2026.08.18.09.37.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Aug 2026 09:37:29 -0700 (PDT)
+From: Sean Chang <seanwascoding@gmail.com>
+To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Sean Chang <seanwascoding@gmail.com>
+Subject: [PATCH v2 1/2] drm/ttm: drop stale @ctx kernel-doc entry
+Date: Wed, 19 Aug 2026 00:37:18 +0800
+Message-ID: <20260818163719.115946-2-seanwascoding@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260818163719.115946-1-seanwascoding@gmail.com>
+References: <20260818163719.115946-1-seanwascoding@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: About new backend for GPU compute ROCm in qemu
-To: "Huang, Honglei" <honghuan@amd.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>
-Cc: qemu-devel@nongnu.org, virtio-comment@lists.oasis-open.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- Honglei Huang <honglei1.huang@amd.com>, Huang Rui <Ray.Huang@amd.com>
-References: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,151 +97,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026/08/17 12:19, Huang, Honglei wrote:
-> 
-> Hi Michael, Alex, Dmitry, Akihiko,
+ttm_bo_alloc_at_place no longer has a ctx member, but its kernel-doc
+comment still documents @ctx. Remove the stale entry so the
+documentation matches the struct.
 
-Hi Honglei,
+Signed-off-by: Sean Chang <seanwascoding@gmail.com>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-> 
-> I'm bringing AMD GPU compute ROCm based on virtio. I posted a ROCm over 
-> virtio
-> implementation to virglrenderer nine months ago (MR !1568 [1]). The ROCm 
-> side has
-> been supportted by ROCm offical.
-> 
-> Current implementation is a virtio gpu context type capset handled inside
-> virglrenderer, sharing the display path. That's an awkward fit, many
-> compute GPUs have no display engine at all.
-
-I think "sharing the display path" conflates several layers and makes 
-the problem difficult to assess. It would help to identify the concrete 
-constraint behind "awkward fit."
-
-End-to-end, there are four relevant layers:
-
-1. Host GPU stack: hardware, host kernel, and host userspace
-2. Paravirtualization stack: virglrenderer and QEMU
-3. Host/guest interface: virtio and the capset-specific command stream
-4. Guest GPU stack: guest kernel and guest userspace
-
-Orthogonally, acceleration is separate from display and scanout. A
-physical device may provide both, but acceleration does not require a
-display engine. Linux likewise exposes render and compute interfaces
-separately from modesetting. The userspace interface virglrenderer uses 
-is messy; there is Vulkan, EGL, OpenGL, and now you are adding ROCm. But 
-there is one thing I must note is that acceleration and display is 
-decoupled, and acceleration does not require display.
-
-At the protocol layer, context command buffers are carried by 
-VIRTIO_GPU_CMD_SUBMIT_3D. Scanout uses separate core virtio-gpu 
-commands, and VIRTIO_GPU_CMD_GET_DISPLAY_INFO may report no enabled 
-displays. At the implementation layer, QEMU handles scanout 
-presentation. virgl_cmd_set_scanout() obtains resource information 
-through virgl_renderer_resource_get_info() or 
-virgl_renderer_resource_get_info_ext(). That does not make scanout a 
-virglrenderer-owned display path.
-
-Therefore, if "sharing the display path" means sharing the same device, 
-control queue, and QEMU execution context, that identifies a possible 
-source of contention. If it means that capsets or virglrenderer are 
-inherently tied to display, I do not think that is accurate. Vulkan 
-compute is already used through Venus with libkrun [2], and VCL proposes 
-OpenCL support through virglrenderer [3].
-> Beyond that, sharing the display path is increasingly painful:
-> 
->    - Compute hammers the queues more than graphics, so sharing
->      virtio gpu's single control queue with display/virgl causes contention
->      and display stutter.
-
-All non-cursor commands do share one control queue, but a fence avoids 
-serialization.
-
-There may still be implementation-level contention, and it is not
-necessarily specific to compute. A sufficiently busy graphics workload
-could expose the same bottlenecks. Possible contributors in current QEMU
-include:
-
-a) qemu_console_hw_gl_block() blocks the entire queue when QEMU only
-    needs to fence scanout commands.
-
-b) virtio_gpu_virgl_unmap_resource_blob() may also block the entire
-    queue just to delay one command.
-
-c) QEMU dispatches the control queue and calls into virglrenderer from
-    its main-loop thread along with display work and many other things.
-    Venus's render server can offload renderer work, but control-queue
-    dispatch remains in QEMU's main loop.
-
-In any case, I think you need to do some experiments to track down the 
-real cause. a) is easy to check: just comment out all 
-qemu_console_hw_gl_block() calls; it may corrupt display but removes the 
-blocking. b) can also be tested by leaking the mappings instead of 
-blocking the whole queue. Using a different display device like qxl 
-tells whether c) is causing contention.
-
->    - Compute contexts need far more blob / shared memory than a display 
-> one.
-
-It is not a problem by itself. Frequent mapping and unmapping might 
-amplify the second issue above, but that needs to be measured.
-
->    - Maybe needs a wider ROCm / compute stack, cause the render model 
-> fits poorly:
->      rocprofiler (PC sampling, SQTT/SPM, counters, high bandwidth streams)
->      and ROCgdb (wave control, address watch, async exceptions an
->      out of band channel that must not block display).
-
-virglrenderer does not impose a particular render model. That's why 
-Vulkan Compute just works with Venus.
-
->    - Events, faults and GPU reset/SMI are async and don't map onto fences.>    - All of this is hard to extend cleanly inside a display capset.
-Capset is not about display but determines the protocol of the 
-VIRTIO_GPU_CMD_SUBMIT_3D command stream. You have described events, 
-faults and GPU reset/SMI are async don't map onto fences that may be 
-associated with VIRTIO_GPU_CMD_SUBMIT_3D which is dictated by capset. An 
-additional feature may be necessary, and it may or may not be dictated 
-by capset. The other things are irrelevant with the protocol capset 
-represents; they are either behavioral or about different commands.
-
-> 
-> On the QEMU/host side, would something like this be OK? One step, two 
-> parts:
-> 
->    - a dedicated headless virtio gpu instance for compute.
-
-A second device would isolate its virtqueues and device-wide
-renderer_blocked state. That may be useful if measurements show that
-these are the bottlenecks, but it is not yet clear that they are or that
-a second device is the appropriate solution.
-
->    - that instance served by a separate ROCm backend library loaded
->      in-process by QEMU.
-
-First, I think we need to establish why ROCm cannot or should not remain
-in virglrenderer. The virglrenderer, Venus, and VCL maintainers are
-likely better placed to advise on that boundary. Once the protocol
-requirements and performance measurements are clear, we can assess the
-appropriate QEMU integration.
-
-[2] 
-https://developers.redhat.com/articles/2025/06/05/how-we-improved-ai-inference-macos-podman-containers
-[3] 
-https://www.qualcomm.com/developer/blog/2024/10/vcl-virtio-gpu-opencl-driver
-
-Regards,
-Akihiko Odaki
-
-> 
-> That reuses the existing pluggable backend model, a second virtio gpu + a
-> backend library. It doesn't add dedicated queues for debug/profiling 
-> currently.
-> 
-> Waiting for reply and  happy to share more detail. Thanks!
-> 
-> [1] https://gitlab.freedesktop.org/virgl/virglrenderer/-/ 
-> merge_requests/1568
-> 
-> Regards,
-> Honglei
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index ef56c18ded1b..943297b49dc5 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -506,7 +506,6 @@ struct ttm_bo_alloc_state {
+  *
+  * @bo: The buffer to allocate the backing store of
+  * @place: The place to attempt allocation in
+- * @ctx: ttm_operation_ctx associated with this allocation
+  * @force_space: If we should evict buffers to force space
+  * @res: On allocation success, the resulting struct ttm_resource.
+  * @alloc_state: Object holding allocation state such as charged cgroups.
+-- 
+2.43.0
 
