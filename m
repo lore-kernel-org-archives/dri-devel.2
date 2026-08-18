@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C64D6C5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 00:25:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3962C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 00:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B60D710E35D;
-	Tue, 18 Aug 2026 00:25:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03C4E10E3E1;
+	Tue, 18 Aug 2026 00:38:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="vx3MsWTx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pqw0UePC";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6CFB10E35D
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:25:17 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=8K8dMgk2NbNEbRYKKtw5Zyi/B6uIgdliRfHQzzunMPQ=; 
- c=simple/simple; d=kaitmazov.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787012715; v=1; x=1787617515;
- b=vx3MsWTxPWWOY2wEIa4+YUQUeDc7E0cO7Xr2H5QFKWZ679DLOpBtoe849hWHHMZX7FdjPkiU
- NAbAzw+rlpRXT59jxIOdh3sHZjcs1M6BlhWrbgZxueLn8bQ3Jxemt1a4y4zm6GbLXk1hFeOLSdb
- sZDi6iYf9vCxGAwxoVxvJk6v2Zf8wOwemv5YlClxSrx3Wy+Sj+uxLLFZittMd8WLooKjHlvozRS
- 5+fJdaGhWC2jWfJFzVcWDuj5DRvJlSDyfYNOdjKgdyBPOVeMArqXZEo+SHh0QF9rTqVsBXCSfyx
- gnJZLuxfRHQWIBjNaWco6q8N6+UzojXU/rhg0Jl/LpZLw==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: from cachyos-26.lan (193.42.111.69)
- by smtp.migadu.com with ESMTPS id 04c42f14d49d2633;
- Tue, 18 Aug 2026 00:25:05 +0000
-X-Migadu-Flow: FLOW_OUT
-From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-To: lizhi.hou@amd.com,
-	mamin506@gmail.com,
-	ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-Subject: [PATCH] accel/amdxdna: check the command payload before using it
-Date: Tue, 18 Aug 2026 03:24:59 +0300
-Message-ID: <20260818002459.377641-1-taimuraz@kaitmazov.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F123810E3E1
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:38:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4CEB043443;
+ Tue, 18 Aug 2026 00:38:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE871F000E9;
+ Tue, 18 Aug 2026 00:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787013508;
+ bh=/YhfxYxLLnViO5nZ8X43Pzm2yRTiJT02z13fOH7uPjQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Pqw0UePCThSFyKRcH+oKDQuhi6HMSOUtL/3HNDWuyuWw5Ewxtp0oD3EEP7fQjLYM7
+ 1zcmdRadqVJQiFTfzHPcIzPHVMtOuhhuMS7RFSh1qF329Rfkh+D/CVDtTraoduQ75M
+ AhSaOP87VWMLYa4ESdhXk65k3m47iATMxJ4FhLZfQ9WS98BxnfHl5QnsH9kxHGxxrc
+ 7xRmToEtUxFcOIDga8vU535dR07389DPum1NVN6HkjZkHAr7exfebzHgl1n2Jf4g9/
+ VnzDiYC0j3U+5LCz+zJ7Q1qFeGghenEVbWFVCoLZcAwlzpfQvI1lnhUTocIUsV858Z
+ juKlw3IILi/8w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] accel/amdxdna: check the command payload before using it
+To: "Taimuraz Kaitmazov" <taimuraz@kaitmazov.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260818002459.377641-1-taimuraz@kaitmazov.com>
+References: <20260818002459.377641-1-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 00:38:27 +0000
+Message-Id: <20260818003828.0CE871F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,123 +52,139 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_cmd_get_payload() answers NULL when the command BO cannot be
-mapped, and on that path it returns before writing *size, so the caller's
-length keeps whatever the stack held. Its eight callers in aie2_message.c
-use both without checking either:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-	cmd = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-	if (cmd_len > sizeof(cu_req->payload))
+Pre-existing issues:
+- [Critical] An out-of-bounds write of 4 bytes in `aie2_cmdlist_fill_npu_el=
+f` leads to an integer underflow in `aie2_cmdlist_multi_execbuf`, enabling =
+massive out-of-bounds memory corruption.
+- [High] Leaked GEM object reference on error path in amdxdna_cmd_set_error=
+().
+--
+
+--- Patch [1]: [PATCH] accel/amdxdna: check the command payload before usin=
+g it ---
+commit ec2f075309e2dcb4167331b4d2cc9a7b02abaa4a
+Author: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+
+accel/amdxdna: check the command payload before using it
+
+This commit fixes an issue where amdxdna_cmd_get_payload() could return NULL
+without setting the size output parameter. Callers in aie2_message.c were u=
+sing
+the uninitialized size for bounds checking and copying from the NULL pointe=
+r.
+The fix clears the length before an early return and adds checks for the NU=
+LL
+pointer in callers.
+
+> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna=
+/aie2_message.c
+> index dfe0fbdf066d2..6f258206d5080 100644
+> --- a/drivers/accel/amdxdna/aie2_message.c
+> +++ b/drivers/accel/amdxdna/aie2_message.c
+
+[ ... ]
+
+> @@ -798,6 +812,8 @@ aie2_cmdlist_fill_npu_elf(struct amdxdna_gem_obj *cmd=
+_bo, void *slot, size_t *si
+>  	u32 arg_sz;
+> =20
+>  	pd =3D amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
+> +	if (!pd)
+> +		return -EINVAL;
+>  	arg_sz =3D cmd_len - sizeof(*pd);
+>  	if (cmd_len < sizeof(*pd) || arg_sz > MAX_NPU_ARGS_SIZE)
+>  		return -EINVAL;
+
+[Severity: Critical]
+This is a pre-existing issue, but if arg_sz is 0, the bounds check incorrec=
+tly
+permits a size of exactly sizeof(*npu_slot), yet args[0] is unconditionally
+written:
+
+drivers/accel/amdxdna/aie2_message.c:aie2_cmdlist_fill_npu_elf() {
+    ...
+	if (*size < sizeof(*npu_slot) + arg_sz)
 		return -EINVAL;
-	...
-	memcpy(cu_req->payload, cmd, cmd_len);
 
-so an uninitialised length decides the bounds check and then a NULL
-source is copied from. The mapping fails under vmalloc pressure today,
-and any future reason for amdxdna_gem_vmap() to refuse widens it.
+	memset(npu_slot, 0, sizeof(*npu_slot));
+    ...
+	npu_slot->arg_cnt =3D 1;
+	npu_slot->args[0] =3D AIE2_EXEC_BUFFER_KERNEL_OP_TXN;
 
-Check the pointer, and clear the length before the early return so a
-caller that ignores the pointer still reads a defined value.
+	*size =3D struct_size(npu_slot, args, npu_slot->arg_cnt);
+    ...
+}
 
-Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
----
- drivers/accel/amdxdna/aie2_message.c | 16 ++++++++++++++++
- drivers/accel/amdxdna/amdxdna_ctx.c  |  3 +++
- 2 files changed, 19 insertions(+)
+Does this unconditionally write args[0], causing a 4-byte out-of-bounds
+write?
 
-diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
-index dfe0fbdf066d..6f258206d508 100644
---- a/drivers/accel/amdxdna/aie2_message.c
-+++ b/drivers/accel/amdxdna/aie2_message.c
-@@ -555,6 +555,8 @@ static int aie2_init_exec_cu_req(struct amdxdna_gem_obj *cmd_bo, void *req,
- 	void *cmd;
- 
- 	cmd = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-+	if (!cmd)
-+		return -EINVAL;
- 	if (cmd_len > sizeof(cu_req->payload))
- 		return -EINVAL;
- 
-@@ -577,6 +579,8 @@ static int aie2_init_exec_dpu_req(struct amdxdna_gem_obj *cmd_bo, void *req,
- 	u32 cmd_len;
- 
- 	sn = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-+	if (!sn)
-+		return -EINVAL;
- 	if (cmd_len - sizeof(*sn) > sizeof(dpu_req->payload))
- 		return -EINVAL;
- 
-@@ -622,6 +626,8 @@ aie2_cmdlist_fill_cf(struct amdxdna_gem_obj *cmd_bo, void *slot, size_t *size)
- 	void *cmd;
- 
- 	cmd = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-+	if (!cmd)
-+		return -EINVAL;
- 	if (*size < sizeof(*cf_slot) + cmd_len)
- 		return -EINVAL;
- 
-@@ -645,6 +651,8 @@ aie2_cmdlist_fill_dpu(struct amdxdna_gem_obj *cmd_bo, void *slot, size_t *size)
- 	u32 arg_sz;
- 
- 	sn = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-+	if (!sn)
-+		return -EINVAL;
- 	arg_sz = cmd_len - sizeof(*sn);
- 	if (cmd_len < sizeof(*sn) || arg_sz > MAX_DPU_ARGS_SIZE)
- 		return -EINVAL;
-@@ -705,6 +713,8 @@ aie2_cmdlist_fill_npu_cf(struct amdxdna_gem_obj *cmd_bo, void *slot, size_t *siz
- 	void *cmd;
- 
- 	cmd = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-+	if (!cmd)
-+		return -EINVAL;
- 	if (*size < sizeof(*npu_slot) + cmd_len)
- 		return -EINVAL;
- 
-@@ -730,6 +740,8 @@ aie2_cmdlist_fill_npu_dpu(struct amdxdna_gem_obj *cmd_bo, void *slot, size_t *si
- 	u32 arg_sz;
- 
- 	sn = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-+	if (!sn)
-+		return -EINVAL;
- 	arg_sz = cmd_len - sizeof(*sn);
- 	if (cmd_len < sizeof(*sn) || arg_sz > MAX_NPU_ARGS_SIZE)
- 		return -EINVAL;
-@@ -762,6 +774,8 @@ aie2_cmdlist_fill_npu_preempt(struct amdxdna_gem_obj *cmd_bo, void *slot, size_t
- 	u32 arg_sz;
- 
- 	pd = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-+	if (!pd)
-+		return -EINVAL;
- 	arg_sz = cmd_len - sizeof(*pd);
- 	if (cmd_len < sizeof(*pd) || arg_sz > MAX_NPU_ARGS_SIZE)
- 		return -EINVAL;
-@@ -798,6 +812,8 @@ aie2_cmdlist_fill_npu_elf(struct amdxdna_gem_obj *cmd_bo, void *slot, size_t *si
- 	u32 arg_sz;
- 
- 	pd = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-+	if (!pd)
-+		return -EINVAL;
- 	arg_sz = cmd_len - sizeof(*pd);
- 	if (cmd_len < sizeof(*pd) || arg_sz > MAX_NPU_ARGS_SIZE)
- 		return -EINVAL;
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 31a414c3f0d9..505c249e142e 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -117,6 +117,9 @@ void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj *abo, u32 *size)
- 	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
- 	u32 num_masks, count;
- 
-+	if (size)
-+		*size = 0;
-+
- 	if (!cmd)
- 		return NULL;
- 
--- 
-2.55.0
+And if so, does it also lead to an integer underflow in
+aie2_cmdlist_multi_execbuf()?
 
+drivers/accel/amdxdna/aie2_message.c:aie2_cmdlist_multi_execbuf() {
+    ...
+		size =3D cmdbuf_abo->mem.size - offset;
+		ret =3D aie2_cmdlist_fill_slot(cmd_buf + offset, abo, &size, &op);
+		amdxdna_gem_put_obj(abo);
+		if (ret)
+			return ret;
+
+		offset +=3D size;
+    ...
+}
+
+If the previous 4-byte overflow artificially inflates size, can offset exce=
+ed
+cmdbuf_abo->mem.size, causing size to underflow on the next loop iteration
+and disable bounds checks for subsequent payloads?
+
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/=
+amdxdna_ctx.c
+> index 31a414c3f0d96..505c249e142e6 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+> @@ -117,6 +117,9 @@ void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj =
+*abo, u32 *size)
+>  	struct amdxdna_cmd *cmd =3D amdxdna_gem_vmap(abo);
+>  	u32 num_masks, count;
+> =20
+> +	if (size)
+> +		*size =3D 0;
+> +
+>  	if (!cmd)
+>  		return NULL;
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but does the error path in
+amdxdna_cmd_set_error() leak a GEM object reference?
+
+drivers/accel/amdxdna/amdxdna_ctx.c:amdxdna_cmd_set_error() {
+    ...
+	if (amdxdna_cmd_get_op(abo) =3D=3D ERT_CMD_CHAIN) {
+		cc =3D amdxdna_cmd_get_payload(abo, NULL);
+		cc->error_index =3D (cmd_idx < cc->command_count) ? cmd_idx : 0;
+		abo =3D amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
+		if (!abo)
+			return -EINVAL;
+		cmd =3D amdxdna_gem_vmap(abo);
+		if (!cmd)
+			return -ENOMEM;
+    ...
+}
+
+If amdxdna_gem_vmap() fails, it returns -ENOMEM without calling
+amdxdna_gem_put_obj() to release the abo obtained from amdxdna_gem_get_obj(=
+).
+Does this lead to a memory leak of the GEM object under memory pressure?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818002459.3776=
+41-1-taimuraz@kaitmazov.com?part=3D1
