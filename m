@@ -4,53 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23134C5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25830C5DF89
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD9310ED16;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 544C010ED21;
 	Wed, 19 Aug 2026 06:37:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="FnDhUm9J";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="QudSGv8f";
 	dkim-atps=neutral
-X-Greylist: delayed 84203 seconds by postgrey-1.36 at gabe;
- Tue, 18 Aug 2026 02:42:00 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 273D610E495;
- Tue, 18 Aug 2026 02:41:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=WO
- 8FyUC4HwnkJnyEzBvf1tqLaeA8/0Z4r64+dWiiiOI=; b=FnDhUm9JJpk6qrtczi
- Of6bd+w3mjQgg6loGcD9abFLT4rUmqmTWSYDupVnzNZlPSw9xwNyRATzXGdH7N4o
- 8Yi35Lan1CmM+apZ72pr8r4nzKdUodWLrMLztjmv82tz6CDjtgq3ZiXNeHVID1qc
- 0pcVUuhTE+Vro2xr+r4kEH3QI=
-Received: from debian.lenovo.com (unknown [])
- by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDX3V9VxoNqomgEOQ--.254S2;
- Tue, 18 Aug 2026 10:41:29 +0800 (CST)
-From: rh_king@163.com
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, dillon.varone@amd.com, gaghik.khachatrian@amd.com,
- pinglei.lin@amd.com, zhikai.zhai@amd.com, robin.chen@amd.com,
- alex.hung@amd.com, Matthew.Stewart2@amd.com, jack.chang@amd.com,
- clayking@amd.com, chuntao.tso@amd.com, PeiChen.Huang@amd.com,
- Derek.Lai@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kean Ren <rh_king@163.com>
-Subject: [PATCH v2] drm/amdgpu/dc: Avoid PSR AUX WARN on unhealthy eDP link
-Date: Tue, 18 Aug 2026 10:42:19 +0800
-Message-ID: <20260818024219.2921012-1-rh_king@163.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260817031640.2097973-1-rh_king@163.com>
-References: <20260817031640.2097973-1-rh_king@163.com>
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazolkn19013086.outbound.protection.outlook.com
+ [52.103.35.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6293210EA65
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 09:04:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dkIAqNe9WTcBUrEBUGlWLhMmydpKfCK30t9JvuU8MCPDVApub2bLTRGUjAVjk6LJZXWOdewZiG9xgP4aJophu4YPO8AV2zqAlxxBzwEGFUf5OcJTD6z47tqXgKvn5sEpA0M/VWlzICfgoOhASFGpq2u6UY/jPQnbo4+RLGuZQIQ9W7frvl7Y1uFCPKzfFdJgUHs6kHvZrqGlWefqIfGdVLg8SVn0BfRngib2pVYFqFkWpGCR1k0UdDF47hIuyrW7/wqi1w0AFCgi3AD9aZIukGf1L/uiEpDogpj+d8V4nQeTAhzqYsUsDR8JOca6sR+iAcg8QSrakqa6MR1Oz5iIHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E37irka3ASR0e0P6hO2AODC03Uu9R7rXSxtAsmGlTxI=;
+ b=jv01gYTM+89YmJ4AFG1SaYeFis8mORDKyGKYddTPZmV1u95ibOYri0v3NTt6v5O6PeDznRJ9Jtvn50ojgQZLycodUau7fjOPzTvUmJt+HPakdadX05DsaTVnXox1KH/83HrmFntFGrkt8/MNySC2B32HVflb+Vw2ND9oBA88TSn22pbyJxMrs9qBmKoYERF43Np65WZWYlQm1zlV+ftxnDkoAOAJldWGN5MMC0c5968Gkrr8KuidPqWM0iHV7oLIAIn56rUcxue9tkBsIEWS63kA2QXi2tyCS4erLQd3TqkRFKnF62WfBYo46RRljNNgh5VX7QrcH2cVsNQuIiXVnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E37irka3ASR0e0P6hO2AODC03Uu9R7rXSxtAsmGlTxI=;
+ b=QudSGv8fs/Fgh/OBlACZqoSh/vlAy/WSnI+UfYY6TMMRmkjxZLWRziNgi1B/eYrSYkcBWdjyL2T0QTxwcbPqL9vpgEbcX6gK/9wCCo9MAyCsEDlb/RzB8GtZJ4XEowfXG2psxV+4g08yzXj++1MwjXmks/ui2IP2caefsi8OILG1Ght4q5ozpGknZoFzlTEouvGrNl5C94xy6ij9Ou3dZgrgH4vFJdeIIA7tj9Bft2+c5eNOe3Y/YeM7+09i3DDroMrFdw6UXRenYcd/x/voOSWZ9uxS/rwfDFJFdkdbs8YVsvFp+4EFFUkfEun7KsPA7hFjHItqMyHd45U0FEhULw==
+Received: from DU0P190MB2445.EURP190.PROD.OUTLOOK.COM (2603:10a6:10:5a5::8) by
+ DB9P190MB1290.EURP190.PROD.OUTLOOK.COM (2603:10a6:10:22d::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.17; Tue, 18 Aug 2026 09:04:33 +0000
+Received: from DU0P190MB2445.EURP190.PROD.OUTLOOK.COM
+ ([fe80::5dcd:351e:4e91:2380]) by DU0P190MB2445.EURP190.PROD.OUTLOOK.COM
+ ([fe80::5dcd:351e:4e91:2380%3]) with mapi id 15.21.0315.016; Tue, 18 Aug 2026
+ 09:04:18 +0000
+From: Muhammed Subair <msubair@hotmail.com>
+To: Maxime Ripard <mripard@kernel.org>, "'heiko@sntech.de'" <heiko@sntech.de>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Sebastian Reichel
+ <sebastian.reichel@collabora.com>, "'hjc@rock-chips.com'"
+ <hjc@rock-chips.com>, Alexey Charkov <alchark@flipper.net>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Andy Yan <andy.yan@rock-chips.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "'royalnet026@gmail.com'"
+ <royalnet026@gmail.com>
+Subject: RE: RK3576: rockchip-pm-domain fw_devlink device-link failures 
+Thread-Topic: RK3576: rockchip-pm-domain fw_devlink device-link failures 
+Thread-Index: AQHdLvCMNWbWHsFh9EaBFwHuViS45g==
+Date: Tue, 18 Aug 2026 09:04:18 +0000
+Message-ID: <DU0P190MB24453BCF26CFB4E7B391F609BCA62@DU0P190MB2445.EURP190.PROD.OUTLOOK.COM>
+References: <33aa66b2-cd6d-416d-b1ef-20cc83e0ee10@hotmail.com>
+ <DU0P190MB24456FE9DB02005BCDDEC336BCDA2@DU0P190MB2445.EURP190.PROD.OUTLOOK.COM>
+In-Reply-To: <DU0P190MB24456FE9DB02005BCDDEC336BCDA2@DU0P190MB2445.EURP190.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU0P190MB2445:EE_|DB9P190MB1290:EE_
+x-ms-office365-filtering-correlation-id: db16e965-e848-4f94-2da2-08defd07af56
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|15080799012|51005399006|24021099003|31061999003|55001999006|13091999003|8060799015|19110799012|8062599012|37011999003|25031999004|25010399006|40105399003|2607281247196008|102099032|440099028|3412199025;
+x-microsoft-antispam-message-info: =?utf-8?B?Y2xuR2RCTjRXODRyam8zNGtoNlpmSjh1dndJWUdMakhLV2s2TVZSMTBBbE1r?=
+ =?utf-8?B?RnlVeGZzVERiclg4S2loL0FReENYQmdHclZrajQ0cTZmWTBvZnF3NFdYbmNR?=
+ =?utf-8?B?ajlYd3AvQ1lEMGRHVUg4SnRtc25yRE1DTmpIM3VqZS9JRFFBbkVFTG9wS1B6?=
+ =?utf-8?B?NG9HN2dmcGtFSjhQYmtjamptcVNLZDFtNFB1MlQ1MW9JVFVRNDBoZjRlTUI5?=
+ =?utf-8?B?WG9NL2NWNEYzb2kzN0dVV0FmMTlqQmNyckRld0MwRURVTDdaVDA2WFM3RkRH?=
+ =?utf-8?B?a2IwMWx0WGxkaU01TDg1andsS09ZNEdEcC9tUjRsS2R4TW1CNE5DVG5Vano1?=
+ =?utf-8?B?TGZaK3c4TzJlY0RzL1Q0czc4MEE0UzhnZGVxeDVlTXBBSjVKK3gwK3FUZDk2?=
+ =?utf-8?B?L0ErMXB1cjN4QzZrRGViTGZGN1l5aTBtaDl5YTUyaU5aTDdubDRTcHRVQ3E2?=
+ =?utf-8?B?L2pqdkhEM3YreUNyTjBKZEhCcGZsdUVNSE82SzRWM2Ztck5sYVZqN1QyeXln?=
+ =?utf-8?B?VFNja2hFaEVaWk40Nll6QWZ0ZXN1RWF0eGsrd1JOMUZGL0NqVmNBTG9ZL01V?=
+ =?utf-8?B?ZHdMWlhIODRxczJyUXQ0N0tPa3JIYk9sRXoxTVNBTk9ER1RoU0RFY0tZaU0x?=
+ =?utf-8?B?bUpnYlFoUm1VQ293cHhOUDJFbkZGL2xzVHZsRko2MWg0Ni9jMkFHZ0VpWjNO?=
+ =?utf-8?B?dUZWZWpjbnZkWmVvd2pwY0UxbnJ2eEZ2bVJNOVRNaldWalU0SHZwSld5UzIx?=
+ =?utf-8?B?alA3U0pvQkYzVWFCTEs5Z2xOaE1NZlVFdFV3NVJEQjVBcTdReEs3aTFMWXU5?=
+ =?utf-8?B?UE5GbWRNbFh5SElDWDU2K3BQQVExcys5eUc5QWNLOXZ3Z01COVM2a3NvWVU4?=
+ =?utf-8?B?am5qWlRIbnI2VUUzU3BxeDhmYWx0d052SDM0Vm1OK2lYOENkUUhUc1VMZHRr?=
+ =?utf-8?B?WVZaVWxHVHJJQTFiTXNwdUpDZTRROVVwUVNlZ1NRcVdWclM3dHFtTnk1QTBP?=
+ =?utf-8?B?Z0NiWGhuOHJ0RFE5ckMycHRvWjNhVTlNWEdHWXkyaTFTVHlmbzhsSGZERG5y?=
+ =?utf-8?B?c2hEUmFsbFdkZEErd29mL3Bva1N1dmxxM1BRbXZlbzFpaGxSMG5TUUlPU3Vl?=
+ =?utf-8?B?QnBTcFZmcHNYcFhyeWZrSmRPQkNINHBrcTBwcjV6dmk4NTNjZHA1dkdJeE41?=
+ =?utf-8?B?SmgvaUdnVGc2T0UwdjU5Qnd1TFJCZ0tuU1c1WTd2ZC8yVGpUQ004ZFVvQ1hk?=
+ =?utf-8?B?ZGZkeHg5djBFTlJoaU5lWmphQTBubjg4eitaK2JReDFwOHBqRlZoQll2Y3hz?=
+ =?utf-8?B?Qmd2QjNzeWlJS2V0TzBhcDJ0QXozME5WNE1CUXZySDdOVVhBczBubi9NV3Ru?=
+ =?utf-8?B?dnB4amhUVzBYQmJXMVhLN2hOZEcvaGFaanAvWnQ3UE9QNERCdkl2MFVwWHFp?=
+ =?utf-8?Q?V/f3znYL?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Umk3Qjk3VDJ5WWgvUnU2R2ZGSUhZY1BPSVV1Vi9iZVczKzd2Ri8xTCtsb2Q0?=
+ =?utf-8?B?RXk1RERNbTZoSmhENWNoOFlvazIvcUVJNkZvVi9Ia2w3ckNlZ2xxRTY0Zmhy?=
+ =?utf-8?B?emt1M2pLb0FUZng1bmQvV0FyTjJUaVIxVWFoQ3Z1NjBudXBHZVllWDBUelZW?=
+ =?utf-8?B?N1gxNCswbFFjM0ZmTzA2QTZRRmRCQjFnNm1BUzhHaSt5NkNDL052UEtJNURi?=
+ =?utf-8?B?Nmp6bEFGdVJnUnFqekhCSFlXdVcxUTdUdEg0Njh1ZTNKQ3pXRGRUQWN0WHFK?=
+ =?utf-8?B?ZVZrWUN6cmZJR2t2RlBUVEt5TFBMbHNOblN6clo5ZzIvVFRyOUJZMlM1VVlM?=
+ =?utf-8?B?MnN5WDRWekhoMUJPN2Y3KzhLd2prNXhuMXRBRlQ1Z3JXZWxsZm9YSEFyblEr?=
+ =?utf-8?B?ZEVtc0xmZk1NV24rK2doQmhwNmFoUXZEc2t6U3JyR2pvVnVRdTQ4b1AxWVpR?=
+ =?utf-8?B?SWhaVW1tNW41M2hTaEducG55eW5DM09nc2p6RkFRbVBKbDI4SXBGdDU0eFJZ?=
+ =?utf-8?B?VlB5ZUNWMWZLdU1WT3VUU05LbmNMSXBUTGV6MG9pSzJraGUzQzgrTzNtdGJp?=
+ =?utf-8?B?QkcwNnZrbHFOc1phNEkraTBOUk5YQ2t3ZUNudzIzaUlVWVZ4VHdFSHMxaCtw?=
+ =?utf-8?B?SHpoc0tOUnJuUHVmUm9WSVVSU094dDRVaXErYXJRUVpvbkZRbXpmdmdWWmxu?=
+ =?utf-8?B?Z0J1dCtkdWRsczRyaVpQdy9GeDVYbEIra0QyU2lrOS82bmZrbThRTjcvSnBk?=
+ =?utf-8?B?V2I1TkpqMGtCUjA2UG9lV2tGbVF5aVNVSDVFT2RlMWF6aFE3VFdNT3UvWmpQ?=
+ =?utf-8?B?bVNQcWZtSlJxV29tZEVVUGdsWjVmZzlIc1V3SUFaU3BPSkZmR1pCUEdTdEhv?=
+ =?utf-8?B?R2hENkZLdXpqOEZBU1B1QjRhcFkxTThlcFdncklJc3V3aHErZ3FHTzNnRE9L?=
+ =?utf-8?B?VDFPZURIaEZId0lvaDl5WUpxMmhUbjh5VHJIZFNIVzk4Z09xWXhZdlpPUGxr?=
+ =?utf-8?B?YVBvTWxRNThkVHFtMm00L0NFZTltTDJnSFJrSnRLeFZPOFF0S3cyaUE2QnRq?=
+ =?utf-8?B?NE1UdVgzdG8wWUFaMHhYZHQya1phcWsybU1LKzVTR3hKb1d6dldrbDROeENw?=
+ =?utf-8?B?WmpYdUE5SXdxcFF4MHQvOWJYNkswRkEwMFM1Y0tUOGU0eWhLbkV2cUdGdFVh?=
+ =?utf-8?B?Tmo4Tm5FbFl1c01OdFVLZHFEUEVTSEJmVkdmOWFWYm5LdGpHT0c3QUkxUzBW?=
+ =?utf-8?B?eHNPYVBhT0czRU92ZjYvcWlNVmZhZ09FUDhFUjF4Ylp5dWNZR2VzYy9GK1dH?=
+ =?utf-8?B?QUVBYmVOVnh5NTRGRDVSOUdHN25KMkd3c0RtMDNyZDBmdnZ6NHh2QlZVdXo2?=
+ =?utf-8?B?Mkk4WUo4c3NvN3JCY3h3a2Y2ZGg4SXpsS0YrS3gyUDdHZkVyM05IbHczWDgw?=
+ =?utf-8?B?TkV3dGp1WmFnQ1A2OHpZeElDdHZUNWkzNThSY0p0SGtkYWZQT2d0RmJJckpU?=
+ =?utf-8?B?MnA5MmRkSUtHR0RaZjF6a2o3WXpHUkorbGpFNGtXd2ZRekVmYjkydzM1MTdN?=
+ =?utf-8?B?N2tkajdHOC8wc1JuK3RVWWdhS016bDJqaWEwMytZRzhsUWRuSkJhR0dkY0li?=
+ =?utf-8?B?anpSN3FqbzBsYWZsZjV0S2d0TlNPRWw4Zm5YdVNwWXlCOWo1Y1htRUpVdlJz?=
+ =?utf-8?B?YXp6Vm1FaWdRdWlVUVpsSEMzVEluMFJZZzdsbGIzVkdSRWhDNGV3d2k4bzB6?=
+ =?utf-8?B?cGI0NXA3WEFIZXZYaTBFZjNJL0d2eDdtbDdibDdKSEFjS1BnWHlFdHRJZG1z?=
+ =?utf-8?Q?PXVQxTrGuDIx8+nrg+FH38YdAXLuk9nX8VCgc=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDX3V9VxoNqomgEOQ--.254S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3CFy8AFWkurWkCr1kWFyUZFb_yoWDKFyrp3
- yfKFW5GrW8Zr42vF47J3W09rW5Z3W7Aa47JrZ3Gr1kZ3W5Aw1UuF18Zr1agF98GrZrJa13
- JF1kua4Ig3Wqkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_WlkJUUUUU=
-X-Originating-IP: [36.141.44.3]
-X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC-BlD8WqDxlln9QAA3z
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-b33f1.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU0P190MB2445.EURP190.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: db16e965-e848-4f94-2da2-08defd07af56
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2026 09:04:18.0545 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P190MB1290
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,237 +155,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Kean Ren <rh_king@163.com>
-
-v2: Keep the original `status` variable, just add `return status;` on
-    each error path. The previous v1 attempt renamed `status` to a new
-    `result` variable to avoid masking failures across the four
-    core_link_write_dpcd() calls, but missed that the function's final
-    `return status;` was then left returning uninitialised stack memory
-    on the success path (caught by Sashiko AI review). Restoring the
-    `status` name and only adding the early returns gives a smaller,
-    more obvious diff.
-
-When an eDP panel is still recovering right after resume (e.g. lid open
-or AC return on a ThinkPad that has been in s2idle for hours), AUX/DPCD
-writes may transiently fail. Two distinct code paths compound this into
-a kernel WARN at dce_aux_transfer_raw():
-
-  1. dpcd_set_link_settings() reuses a single `status` variable for
-     four core_link_write_dpcd() calls and only emits DC_LOG_ERROR on
-     failure. The first failing write gets overwritten by the next
-     call, so the function can return DC_OK even when every DPCD write
-     failed. Callers therefore cannot tell that the link is unhealthy
-     and continue with PSR setup on a dead AUX channel.
-
-  2. edp_setup_psr() does not consult link->link_status.link_active
-     before pushing the PSR enable DPCD writes. When the link training
-     failed, the sink is not actually there to ACK, so
-     dm_helpers_dp_write_dpcd() -> dce_aux_transfer_raw() hangs until
-     AUX_SW_DONE times out and triggers ASSERT_CRITICAL().
-
-Observed on a Lenovo ThinkPad 21XHZDY2CN (BIOS R3HET22W 1.08) running
-Ubuntu 24.04 with 6.17.0-1030-oem. The user-visible trigger is usually
-a network event right after resume (unplug/replug the r8169 Ethernet
-cable, NetworkManager roaming to wlan, or a lid-close -> lid-open
-cycle). The dbus signal from those events causes a Wayland compositor
-(gnome-shell) or an X11 client running under XWayland to issue
-DRM_IOCTL_MODE_SETCRTC, which reaches amdgpu_dm_enable_self_refresh()
-and then edp_setup_psr(). The "Xorg" comm name in the WARN trace is
-XWayland, since this box boots into a GNOME Wayland session.
-
-```
-amdgpu 0000:c6:00.0: [drm] enabling link 0 failed: 15
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1122:
-        core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1127:
-        core_link_write_dpcd (DP_LANE_COUNT_SET) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1144:
-        core_link_write_dpcd (DP_LINK_BW_SET) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1149:
-        core_link_write_dpcd (DP_LINK_RATE_SET) failed
-[- cut here -]
-WARNING: CPU: 0 PID: 2615 at drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_aux.c:393
-        dce_aux_transfer_raw+0x296/0x2e0 [amdgpu]
-CPU: 0 UID: 1000 PID: 2615 Comm: Xorg Tainted: G           O
-        6.17.0-1030-oem #30-Ubuntu PREEMPT(voluntary)
-Tainted: [O]=OOT_MODULE
-Hardware name: LENOVO 21XHZDY2CN/21XHZDY2CN, BIOS R3HET22W (1.08 )
-        06/24/2026
-RIP: 0010:dce_aux_transfer_raw+0x296/0x2e0 [amdgpu]
-Code: ff e9 49 ff ff ff 41 c7 04 24 04 00 00 00 eb eb 3c 01
-       0f 87 4c f4 34 00 83 e0 01 3c 01 19 c0 83 e0 c0 83 c0 50
-       e9 3f fe ff ff <0f> 0b 41 c7 04 24 03 00 00 00 eb c5
-       41 c7 04 24 03 00 00 00 eb bb
-RSP: 0018:ffffcdd6c53272f8 EFLAGS: 00010246
-RAX: 0000000062000000 RBX: ffff8d353020fc80 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffcdd6c5327358 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: ffffcdd6c53273ac
-R13: ffffcdd6c53273b0 R14: 0000000000000001 R15: ffff8d3562690000
-FS:  00007b3cc831aac0(0000) GS:ffff8d4c6d669000(0000)
-    knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000700f940020f8 CR3: 000000012fe37000 CR4: 0000000000f50ef0
-PKRU: 55555554
-Call stack:
- <TASK>
- link_aux_transfer_raw+0x48/0x80 [amdgpu]
- dc_link_aux_transfer_raw+0x24/0x40 [amdgpu]
- dm_dp_aux_transfer+0xee/0x2b0 [amdgpu]
- drm_dp_dpcd_access+0xbe/0x160 [drm_display_helper]
- drm_dp_dpcd_write+0xc4/0x120 [drm_display_helper]
- dm_helpers_dp_write_dpcd+0x29/0x60 [amdgpu]
- edp_setup_psr+0x156/0x5a0 [amdgpu]
- dc_link_setup_psr+0x20/0x40 [amdgpu]
- amdgpu_dm_link_setup_psr+0x155/0x1a0 [amdgpu]
- ? dm_write_reg_func+0x47/0xc0 [amdgpu]
- amdgpu_dm_enable_self_refresh+0xaa/0x240 [amdgpu]
- amdgpu_dm_commit_planes+0x636/0x1740 [amdgpu]
- ? manage_dm_interrupts+0xa5/0x280 [amdgpu]
- amdgpu_dm_atomic_commit_tail+0xb04/0x1270 [amdgpu]
- ? __set_output_tf.constprop.0+0xfd/0x1a0 [amdgpu]
- commit_tail+0xc6/0x1b0
- drm_atomic_helper_commit+0x132/0x160
- drm_atomic_commit+0xac/0xf0
- ? __pfx___drm_printfn_info+0x10/0x10
- drm_atomic_helper_set_config+0x82/0xd0
- drm_mode_setcrtc+0x3ff/0x9e0
- ? rmapiMapWithSecInfo+0x230/0x2b0 [nvidia]
- ? __pfx_drm_mode_setcrtc+0x10/0x10
- drm_ioctl_kernel+0xb4/0x110
- drm_ioctl+0x2ec/0x5b0
- ? __pfx_drm_mode_setcrtc+0x10/0x10
- amdgpu_drm_ioctl+0x4b/0xa0 [amdgpu]
- __x64_sys_ioctl+0xa2/0x100
- x64_sys_call+0x1226/0x2680
- do_syscall_64+0x80/0x8b0
- ? check_heap_object+0x17f/0x1c0
- ? nvidia_unlocked_ioctl+0x175/0x9a0 [nvidia]
- ? __x64_sys_ioctl+0xbf/0x100
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-RIP: 0033:0x7b3cc8724f1d
-Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8
- 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8
- 64 48 2b 04 25 28 00 00 00
-RSP: 002b:00007ffe65c05b80 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000617240d63e10 RCX: 00007b3cc8724f1d
-RDX: 00007ffe65c05c10 RSI: 00000000c06864a2 RDI: 0000000000000010
-RBP: 00007ffe65c05bd0 R08: 0000000000000000 R09: 0000617240c4b700
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe65c05c10
-R13: 00000000c06864a2 R14: 0000000000000010 R15: 000061723f332b30
- </TASK>
-[- end trace 0000000000000000 -]
-```
-
-Fix both issues:
-
-  - dpcd_set_link_settings(): add an early `return status;` after each
-    failed core_link_write_dpcd() check, so callers see the real
-    AUX/DPCD state instead of the last successful write.
-
-  - edp_setup_psr(): short-circuit when link->link_status.link_active
-    is false, so we never push PSR configuration over a dead AUX
-    channel.
-
-Signed-off-by: Kean Ren <rh_king@163.com>
----
- drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c       | 30 ++++++++++++++++----
- drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c | 11 +++++++
- 2 files changed, 36 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-index 605bf19dc4f2..f15a5e7ea43a 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-@@ -1117,15 +1117,25 @@ enum dc_status dpcd_set_link_settings(
- 				link->dpcd_caps.max_ln_count.bits.POST_LT_ADJ_REQ_SUPPORTED;
- 	}
-
-+	/* Bail out on the first DPCD write failure so callers can react and
-+	 * subsequent operations (e.g. PSR setup) do not keep poking an
-+	 * unhealthy AUX channel. Without this, a transient AUX/HPD glitch
-+	 * during resume leads to a cascade of DPCD errors and ultimately a
-+	 * WARN at dce_aux_transfer_raw() because AUX_SW_DONE never asserts.
-+	 */
- 	status = core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
--		&downspread.raw, sizeof(downspread));
--	if (status != DC_OK)
-+				      &downspread.raw, sizeof(downspread));
-+	if (status != DC_OK) {
- 		DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed\n", __func__, __LINE__);
-+		return status;
-+	}
-
- 	status = core_link_write_dpcd(link, DP_LANE_COUNT_SET,
--		&lane_count_set.raw, 1);
--	if (status != DC_OK)
-+				      &lane_count_set.raw, 1);
-+	if (status != DC_OK) {
- 		DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LANE_COUNT_SET) failed\n", __func__, __LINE__);
-+		return status;
-+	}
-
- 	if (link->dpcd_caps.dpcd_rev.raw >= DPCD_REV_13 &&
- 			lt_settings->link_settings.use_link_rate_set == true) {
-@@ -1141,19 +1151,25 @@ enum dc_status dpcd_set_link_settings(
- 					supported_link_rates, sizeof(supported_link_rates));
- 		}
- 		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
--		if (status != DC_OK)
-+		if (status != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_BW_SET) failed\n", __func__, __LINE__);
-+			return status;
-+		}
-
- 		status = core_link_write_dpcd(link, DP_LINK_RATE_SET,
--				&lt_settings->link_settings.link_rate_set, 1);
--		if (status != DC_OK)
-+					      &lt_settings->link_settings.link_rate_set, 1);
-+		if (status != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_RATE_SET) failed\n", __func__, __LINE__);
-+			return status;
-+		}
- 	} else {
- 		rate = get_dpcd_link_rate(&lt_settings->link_settings);
-
- 		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
--		if (status != DC_OK)
-+		if (status != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_BW_SET) failed\n", __func__, __LINE__);
-+			return status;
-+		}
- 	}
-
- 	if (rate) {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 80a372ceaa51..43a0facc8884 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -699,6 +699,17 @@ bool edp_setup_psr(struct dc_link *link,
- 	if (!link)
- 		return false;
-
-+	/* Skip PSR setup when the eDP link is not active. When AUX/DPCD
-+	 * writes are failing (e.g. after a resume where the panel has not
-+	 * fully come back yet), edp_setup_psr() will still try to push
-+	 * configuration over the AUX channel. That auxiliary transfer never
-+	 * completes and triggers ASSERT_CRITICAL() in dce_aux_transfer_raw().
-+	 * The DPCD read of the PSR cap below is also unsafe on a dead link,
-+	 * so bail out early before touching the sink.
-+	 */
-+	if (!link->link_status.link_active)
-+		return false;
-+
- 	/* This is a workaround: some vendors require the source to
- 	 * read the PSR cap; otherwise, the vendor's PSR feature will
- 	 * fall back to its default behavior, causing a misconfiguration
---
-2.47.3
-
+DQpIaSBSb2NrY2hpcC9rZXJuZWwgZm9sa3MsIA0KDQpJIGFtIGJyaW5naW5nIHVwIGFuIFJLMzU3
+NiBib2FyZCBvbiBhIDcuMS54IGJhc2VkIGtlcm5lbCBhbmQgSSBzZWUgdGhlIGZvbGxvd2luZyBl
+YXJseSBib290IGVycm9ycyBmcm9tDQoNCmZ3X2RldmxpbmsvZGV2aWNlLWxpbmtzOiBbIDAuMjYw
+Mzg4XSByb2NrY2hpcC1wbS1kb21haW4NCjI3MzgwMDAwLnBvd2VyLW1hbmFnZW1lbnQ6cG93ZXIt
+Y29udHJvbGxlcjogRmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluaw0KKDB4MTgwKSB3aXRoIHN1
+cHBsaWVyIHNvYyBmb3INCi9zb2MvcG93ZXItbWFuYWdlbWVudEAyNzM4MDAwMC9wb3dlci1jb250
+cm9sbGVyL3Bvd2VyLWRvbWFpbkAwL3Bvd2VyLWRvbWFpbkAxDQpbIDAuMjYyMTY4XSByb2NrY2hp
+cC1wbS1kb21haW4NCjI3MzgwMDAwLnBvd2VyLW1hbmFnZW1lbnQ6cG93ZXItY29udHJvbGxlcjog
+RmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgbGluaw0KKDB4MTgwKSB3aXRoIHN1cHBsaWVyIHNvYyBm
+b3INCi9zb2MvcG93ZXItbWFuYWdlbWVudEAyNzM4MDAwMC9wb3dlci1jb250cm9sbGVyL3Bvd2Vy
+LWRvbWFpbkAwL3Bvd2VyLWRvbWFpbkAxL3Bvd2VyLWRvbWFpbkAyDQouLi4gWyAwLjI4NTkyN10g
+cm9ja2NoaXAtcG0tZG9tYWluDQoyNzM4MDAwMC5wb3dlci1tYW5hZ2VtZW50OnBvd2VyLWNvbnRy
+b2xsZXI6IEZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGxpbmsNCigweDE4MCkgd2l0aCBzdXBwbGll
+ciBzb2MgZm9yDQovc29jL3Bvd2VyLW1hbmFnZW1lbnRAMjczODAwMDAvcG93ZXItY29udHJvbGxl
+ci9wb3dlci1kb21haW5AMTgvcG93ZXItZG9tYWluQDE3DQoNClRoZSBib2FyZCBvdGhlcndpc2Ug
+Ym9vdHMgYW5kIHRoZSBhZmZlY3RlZCBkb21haW5zIGFwcGVhciBmdW5jdGlvbmFsLiANClBDSWUv
+TlZNZSwgSERNSSwgRXRoZXJuZXQsIGV0Yy4gYXJlIHdvcmtpbmcuIFRoZSBSSzM1NzYgcG93ZXIt
+Y29udHJvbGxlciBub2RlIGhhcyBuZXN0ZWQgcG93ZXItZG9tYWluIGNoaWxkcmVuLiANClRoZXNl
+IGNoaWxkIGRvbWFpbiBub2RlcyBjb250YWluIHByb3BlcnRpZXMgc3VjaCBhcyBgY2xvY2tzYCBh
+bmQgYHBtX3Fvc2AsIHNpbWlsYXIgdG8gUkszNTg4L1JLMzU2OCwgYW5kIGAjcG93ZXItZG9tYWlu
+LWNlbGxzYCBpcyBwcmVzZW50IGFzIHJlcXVpcmVkIGJ5IGByb2NrY2hpcCxwb3dlci1jb250cm9s
+bGVyLnlhbWxgLiANCk15IGN1cnJlbnQgdW5kZXJzdGFuZGluZyBpcyB0aGF0IHRoZSBSb2NrY2hp
+cCBQTSBkb21haW4gZHJpdmVyIGNvbnN1bWVzIHRoZXNlIGNoaWxkIG5vZGVzIGludGVybmFsbHkg
+YW5kIHJlZ2lzdGVycyB0aGUgcHJvdmlkZXIgZnJvbSB0aGUgdG9wLWxldmVsIGBwb3dlci1jb250
+cm9sbGVyYCB2aWEgYG9mX2dlbnBkX2FkZF9wcm92aWRlcl9vbmVjZWxsKClgLg0KSG93ZXZlciwg
+ZndfZGV2bGluayByZWN1cnNlcyBpbnRvIHRoZSBjaGlsZCBmd25vZGVzIGFuZCB0cmllcyB0byBj
+cmVhdGUgcHJveHkgc3VwcGxpZXIgbGlua3MgZm9yIGRlcGVuZGVuY2llcyBzdWNoIGFzIGBjbG9j
+a3NgLiANClNpbmNlIHRoZSBjaGlsZCBwb3dlci1kb21haW4gbm9kZXMgYXJlIG5vdCBub3JtYWwg
+ZGV2aWNlcywgdGhpcyBlbmRzIHVwIGFzIGZhaWxlZCBsaW5rcyBmcm9tIGByb2NrY2hpcC1wbS1k
+b21haW5gIHRvIHN1cHBsaWVyIGBzb2NgLiANCklzIHRoaXMgZXhwZWN0ZWQgbm9pc2UgZm9yIG5l
+c3RlZCBSb2NrY2hpcCBwb3dlci1kb21haW4gbm9kZXMsIG9yIGlzIFJLMzU3NiBtaXNzaW5nIGEg
+RFQvZHJpdmVyIGFubm90YXRpb24gdG8gcHJldmVudCBmd19kZXZsaW5rIGZyb20gdHJ5aW5nIHRv
+IGNyZWF0ZSBkZXZpY2UgbGlua3MgZm9yIHRoZXNlIGludGVybmFsIGNoaWxkIG5vZGVzPyANCkkg
+Y29tcGFyZWQgd2l0aCBSSzM1ODgvUkszNTY4IGFuZCBkaWQgbm90IGZpbmQgYW4gb2J2aW91cyBt
+aXNzaW5nIHByb3BlcnR5IGluIFJLMzU3Ni4gSSBhbHNvIGRvIG5vdCB3YW50IHRvIHVzZSBgZndf
+ZGV2bGluaz1vZmZgLCBzaW5jZSB0aGF0IGhpZGVzIHRoZSBpc3N1ZSBnbG9iYWxseS4gQ291bGQg
+eW91IGFkdmlzZSB3aGV0aGVyIHRoZSByaWdodCBmaXggc2hvdWxkIGJlOiANCg0KMS4gYSBEVCBj
+aGFuZ2UgZm9yIFJLMzU3NiBwb3dlci1kb21haW4gbm9kZXMsIA0KMi4gYSBSb2NrY2hpcCBQTS1k
+b21haW4gZHJpdmVyIGNoYW5nZSB0byBtYXJrIGNoaWxkIGZ3bm9kZXMgYXMgaW50ZXJuYWwvbm90
+IGRldmljZXMgZm9yIGZ3X2RldmxpbmssIG9yIA0KMy4gYW4gT0YvZndfZGV2bGluayBjaGFuZ2Ug
+dG8gYXZvaWQgY3JlYXRpbmcgcHJveHkgbGlua3MgZnJvbSBnZW5lcmljIHBvd2VyLWRvbWFpbiBj
+aGlsZCBub2Rlcz8gDQoNCg0KVGhhbmtzLCANCg0KU3ViYWlyDQoNCg==
