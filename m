@@ -4,56 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52DFAC5DF74
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 13:48:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E776C5DF74
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 13:53:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B881C10E053;
-	Tue, 18 Aug 2026 13:48:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9785010E00A;
+	Tue, 18 Aug 2026 13:53:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="BPwkbCNL";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="G0qBUXxe";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719C810E053
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 13:48:54 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hPWJM4TP4zKnRY;
- Tue, 18 Aug 2026 15:48:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1787060931; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vnCWKIEbXnzvERwfK57jvlqaRf+FfEFLIfp/6YtNPbc=;
- b=BPwkbCNLIRSHMz8a++I5W/oFHKAzHQo2XlZbuIXvTF/MpufdGACpfczf5uR0x991kUDogu
- Myzy3mGafM/reD5OIbqoPPQEtfxdhh9RxHQlboAszqL4J95N79pv9UE5XcKHJxWPKac+aS
- TiHy+j2lZ5Yz9d+9dFC4NQhFgdo5YlWMGr2mhuV32jud9hwWkPLdezODVV8ZlHWYfpwPzF
- B5C2WWq96Rdx1TAyNGj7h0tYszEVrzBaWybTcocdoMqNcAjVXqEUTU5WLwRG3Q3IwGD71q
- f2RikpnNY9nYIF3+5moIJeApXt9yxL4ThOT5/1T6iYjBDXD3rGvkdjzlu1pA3Q==
-Message-ID: <c65a016801f3151a042f46366c99bbce5597fc91.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Lock drm_sched_entity_is_idle()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
- <phasta@kernel.org>,  Matthew Brost <matthew.brost@intel.com>, Danilo
- Krummrich <dakr@kernel.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <ckoenig.leichtzumerken@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie	 <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Tue, 18 Aug 2026 15:48:46 +0200
-In-Reply-To: <2dd34398-3ef2-4573-8311-60e5f6b346aa@ursulin.net>
-References: <20260813094539.2407911-2-phasta@kernel.org>
- <2dd34398-3ef2-4573-8311-60e5f6b346aa@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
+ [45.254.49.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF6010E00A
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 13:53:28 +0000 (UTC)
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4a6d2cde8;
+ Tue, 18 Aug 2026 21:53:24 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Helge Deller <deller@gmx.de>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dave Airlie <airlied@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, linux-omap@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Runyu Xiao <runyu.xiao@seu.edu.cn>, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] fbdev: omapfb: panel-dsi-cm: initialize lock before
+ registering display
+Date: Tue, 18 Aug 2026 21:53:18 +0800
+Message-Id: <20260818135318.1957283-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MBO-RS-ID: 02b1ec67361eff4ea6a
-X-MBO-RS-META: 9se6gi9dodrtjawr1k5b5kosz8jwnyt7
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa01525f6e303a1kunm72eec736112e9a
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQhlPVkIaSxgfSkpPQ0lMSlYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=G0qBUXxeocdkLCIoutjgBg2bW2KZzL0MMhhr5go1jone8lqArYrEx392j8fvU7hKyeADD48P3x9yYzvSsZZxZmw+XGGj5N0i2tv9yKx74lWGwpObIE5iRlIxJymIB4BgTxSH6XNiQrB4AheC42H9pWUbPvEGU4wuWrwklBQDJXI=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=s8wa7yiZYDJ20bpSxGQc5WMiume6jdmMCtn+WJuBMr4=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,31 +56,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-08-13 at 11:37 +0100, Tvrtko Ursulin wrote:
->=20
-> On 13/08/2026 10:45, Philipp Stanner wrote:
-> > drm_sched_entity_is_idle() contains a badly documented memory barrier
-> > and an invalid lockless access to entity->stopped. Moreover, it also
-> > accesses entity->list which is at all other places protected by
-> > entity->lock.
-> >=20
-> > This function is in no way performance critical, so it is safer, more
-> > readable and more maintainable to take the spinlock.
-> >=20
-> > Add locking to drm_sched_entity_is_idle().
-> >=20
->=20
+dsicm_probe() registers the display before initializing ddata->lock.
+Once omapdss_register_display() publishes the display, another consumer
+can reach a dsicm callback that takes this mutex while it is still
+uninitialized.
 
-[=E2=80=A6]
+Initialize the mutex before registering the display so the published
+callbacks always see a valid lock.
 
-> Spotted by chance on the mailing list but I believe I gave you r-b for=
-=20
-> this one already.
+Fixes: f76ee892a99e ("omapfb: copy omapdss & displays for omapfb")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Applied to misc-next with your r-b.
+diff --git a/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c b/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
+index 1d75f27c6b80..ce1d4d5f4034 100644
+--- a/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
++++ b/drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c
+@@ -1151,14 +1151,14 @@ static int dsicm_probe(struct platform_device *pdev)
+ 	dssdev->caps = OMAP_DSS_DISPLAY_CAP_MANUAL_UPDATE |
+ 		OMAP_DSS_DISPLAY_CAP_TEAR_ELIM;
+ 
++	mutex_init(&ddata->lock);
++
+ 	r = omapdss_register_display(dssdev);
+ 	if (r) {
+ 		dev_err(dev, "Failed to register panel\n");
+ 		goto err_reg;
+ 	}
+ 
+-	mutex_init(&ddata->lock);
+-
+ 	atomic_set(&ddata->do_update, 0);
+ 
+ 	ddata->reset_gpio = devm_gpiod_get(&pdev->dev, "reset", GPIOD_OUT_LOW);
+-- 
+2.34.1
 
-Thx
