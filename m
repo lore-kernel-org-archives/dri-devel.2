@@ -4,42 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3962C5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 00:38:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E33E4C5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 02:05:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03C4E10E3E1;
-	Tue, 18 Aug 2026 00:38:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0289110E484;
+	Tue, 18 Aug 2026 02:05:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pqw0UePC";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="dFywGsdB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F123810E3E1
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:38:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4CEB043443;
- Tue, 18 Aug 2026 00:38:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE871F000E9;
- Tue, 18 Aug 2026 00:38:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787013508;
- bh=/YhfxYxLLnViO5nZ8X43Pzm2yRTiJT02z13fOH7uPjQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Pqw0UePCThSFyKRcH+oKDQuhi6HMSOUtL/3HNDWuyuWw5Ewxtp0oD3EEP7fQjLYM7
- 1zcmdRadqVJQiFTfzHPcIzPHVMtOuhhuMS7RFSh1qF329Rfkh+D/CVDtTraoduQ75M
- AhSaOP87VWMLYa4ESdhXk65k3m47iATMxJ4FhLZfQ9WS98BxnfHl5QnsH9kxHGxxrc
- 7xRmToEtUxFcOIDga8vU535dR07389DPum1NVN6HkjZkHAr7exfebzHgl1n2Jf4g9/
- VnzDiYC0j3U+5LCz+zJ7Q1qFeGghenEVbWFVCoLZcAwlzpfQvI1lnhUTocIUsV858Z
- juKlw3IILi/8w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/amdxdna: check the command payload before using it
-To: "Taimuraz Kaitmazov" <taimuraz@kaitmazov.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260818002459.377641-1-taimuraz@kaitmazov.com>
-References: <20260818002459.377641-1-taimuraz@kaitmazov.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 00:38:27 +0000
-Message-Id: <20260818003828.0CE871F000E9@smtp.kernel.org>
+Received: from mail-m9373.xmail.ntesmail.com (mail-m9373.xmail.ntesmail.com
+ [103.126.93.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B148410E484
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 02:05:37 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4a55d3d6b;
+ Tue, 18 Aug 2026 10:05:32 +0800 (GMT+08:00)
+Message-ID: <364f223e-15c6-44c4-a909-134754cfd0e1@rock-chips.com>
+Date: Tue, 18 Aug 2026 10:05:30 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] drm/bridge: allow hpd_notify() to suppress connector
+ hotplug events
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20260629-msm-dp-msttypec-v1-0-646a10256233@oss.qualcomm.com>
+ <20260629-msm-dp-msttypec-v1-1-646a10256233@oss.qualcomm.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260629-msm-dp-msttypec-v1-1-646a10256233@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa0129de44003a7kunmc0fc8708438ed0
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSktKVh9PTxlCTx4ZSExIGVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=dFywGsdBtvZRVJemi0N+HjQrvA6VMmVIb18ZLdmsL3Ic4tBAFCATiNU/Da+GZgXDhVSIz8U03oEwrpR2JOwTUMa86YCerIdWVCjLHaFxL6qKBFk7HX5dLjWzoHtrTg669GS8iIuCxS7iYK64SHSLCH8Bhi513UXjUValaG6NxLo=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=QuPkMCmr0GH+tbEEJBOzYqXRVTh/Jjq7Xd3/Zg44YS0=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,139 +76,189 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hello Yongxing,
 
-Pre-existing issues:
-- [Critical] An out-of-bounds write of 4 bytes in `aie2_cmdlist_fill_npu_el=
-f` leads to an integer underflow in `aie2_cmdlist_multi_execbuf`, enabling =
-massive out-of-bounds memory corruption.
-- [High] Leaked GEM object reference on error path in amdxdna_cmd_set_error=
-().
---
+On 6/29/2026 10:48 PM, Yongxing Mou wrote:
+> The bridge connector framework currently invokes all bridge
+> hpd_notify() callbacks and unconditionally emits a connector hotplug
+> event afterwards.
+> 
+> However, not every HPD notification requires a userspace hotplug event.
+> 
+> In particular, DP MST bridges may use hpd_notify() to propagate HPD and
+> IRQ notifications through the bridge chain while the actual hotplug
+> handling is performed by the DRM DP MST core. Connector creation,
+> removal and userspace hotplug events are already managed by the MST
+> topology framework.
+> 
+> Allow hpd_notify() implementations to suppress the bridge connector
+> hotplug event by introducing a bool *send_hotplug parameter. Drivers
+> can clear this flag when HPD processing should not result in a
+> connector hotplug notification.
+> 
+> A NULL pointer indicates that hotplug suppression is not supported by
+> the caller, such as the connector detect polling path.
+>
 
---- Patch [1]: [PATCH] accel/amdxdna: check the command payload before usin=
-g it ---
-commit ec2f075309e2dcb4167331b4d2cc9a7b02abaa4a
-Author: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+Should we add an API to distinguish between regular HPD events and
+the IRQ-only notifications you mentioned?
 
-accel/amdxdna: check the command payload before using it
+I've recently seen similar approaches. For example, this patch[0] adds
+handling for internal events, which I think is somewhat similar to the
+IRQ-only notification here.
 
-This commit fixes an issue where amdxdna_cmd_get_payload() could return NULL
-without setting the size output parameter. Callers in aie2_message.c were u=
-sing
-the uninitialized size for bounds checking and copying from the NULL pointe=
-r.
-The fix clears the length before an early return and adds checks for the NU=
-LL
-pointer in callers.
+[0]: https://lore.kernel.org/all/20260806-synopsys-dw-dp-improvements-v11-11-0d508505f383@collabora.com/
 
-> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna=
-/aie2_message.c
-> index dfe0fbdf066d2..6f258206d5080 100644
-> --- a/drivers/accel/amdxdna/aie2_message.c
-> +++ b/drivers/accel/amdxdna/aie2_message.c
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 ++-
+>  drivers/gpu/drm/display/drm_bridge_connector.c | 15 +++++++++------
+>  drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 ++-
+>  drivers/gpu/drm/msm/dp/dp_display.c            |  3 ++-
+>  drivers/gpu/drm/msm/dp/dp_drm.h                |  3 ++-
+>  drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 ++-
+>  include/drm/drm_bridge.h                       |  3 ++-
+>  7 files changed, 21 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+> index 8cb17bd0e238..42e1cadcd3fb 100644
+> --- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+> @@ -430,7 +430,8 @@ static const struct drm_edid *lt9611uxc_bridge_edid_read(struct drm_bridge *brid
+>  static void lt9611uxc_bridge_hpd_notify(struct drm_bridge *bridge,
+>  					struct drm_connector *connector,
+>  					enum drm_connector_status status,
+> -					enum drm_connector_status_extra extra_status)
+> +					enum drm_connector_status_extra extra_status,
+> +					bool *send_hotplug)
+>  {
+>  	const struct drm_edid *drm_edid;
+>  
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+> index 8f7075fd2aa5..5edca47a025f 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -142,7 +142,8 @@ struct drm_bridge_connector {
+>  
+>  static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
+>  					    enum drm_connector_status status,
+> -					    enum drm_connector_status_extra extra_status)
+> +					    enum drm_connector_status_extra extra_status,
+> +					    bool *send_hotplug)
+>  {
+>  	struct drm_bridge_connector *bridge_connector =
+>  		to_drm_bridge_connector(connector);
+> @@ -150,13 +151,14 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
+>  	/* Notify all bridges in the pipeline of hotplug events. */
+>  	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
+>  		if (bridge->funcs->hpd_notify)
+> -			bridge->funcs->hpd_notify(bridge, connector, status, extra_status);
+> +			bridge->funcs->hpd_notify(bridge, connector, status,
+> +						  extra_status, send_hotplug);
+>  	}
+>  }
+>  
+>  static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bridge_connector,
+> -					    enum drm_connector_status status,
+> -					    enum drm_connector_status_extra extra_status)
+> +	enum drm_connector_status status,
+> +	enum drm_connector_status_extra extra_status)
+>  {
+>  	struct drm_connector *connector = &drm_bridge_connector->base;
+>  	struct drm_device *dev = connector->dev;
+> @@ -165,7 +167,7 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
+>  	connector->status = status;
+>  	mutex_unlock(&dev->mode_config.mutex);
+>  
+> -	drm_bridge_connector_hpd_notify(connector, status, extra_status);
+> +	drm_bridge_connector_hpd_notify(connector, status, extra_status, NULL);
+>  
+>  	drm_kms_helper_connector_hotplug_event(connector);
+>  }
+> @@ -227,7 +229,8 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
+>  		if (hdmi)
+>  			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
+>  
+> -		drm_bridge_connector_hpd_notify(connector, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
+> +		drm_bridge_connector_hpd_notify(connector, status,
+> +						DRM_CONNECTOR_NO_EXTRA_STATUS, NULL);
+>  	} else {
+>  		switch (connector->connector_type) {
+>  		case DRM_MODE_CONNECTOR_DPI:
+> diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+> index 4aecf0ffcf75..a67e7b365c5b 100644
+> --- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+> +++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+> @@ -324,7 +324,8 @@ static int meson_encoder_hdmi_atomic_check(struct drm_bridge *bridge,
+>  static void meson_encoder_hdmi_hpd_notify(struct drm_bridge *bridge,
+>  					  struct drm_connector *connector,
+>  					  enum drm_connector_status status,
+> -					  enum drm_connector_status_extra extra_status)
+> +					  enum drm_connector_status_extra extra_status,
+> +					  bool *send_hotplug)
+>  {
+>  	struct meson_encoder_hdmi *encoder_hdmi = bridge_to_meson_encoder_hdmi(bridge);
+>  
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index fcfee26f0078..6835c68fe510 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1763,7 +1763,8 @@ void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge)
+>  void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+>  			      struct drm_connector *connector,
+>  			      enum drm_connector_status status,
+> -			      enum drm_connector_status_extra extra_status)
+> +			      enum drm_connector_status_extra extra_status,
+> +			      bool *send_hotplug)
+>  {
+>  	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(bridge);
+>  	struct msm_dp *msm_dp_display = msm_dp_bridge->msm_dp_display;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
+> index f6b96c27408a..07ddcd055962 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.h
+> @@ -32,6 +32,7 @@ void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge);
+>  void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+>  			      struct drm_connector *connector,
+>  			      enum drm_connector_status status,
+> -			      enum drm_connector_status_extra extra_status);
+> +			      enum drm_connector_status_extra extra_status,
+> +			      bool *send_hotplug);
+>  
+>  #endif /* _DP_DRM_H_ */
+> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> index d02d432abde4..ad659cef16f5 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> @@ -430,7 +430,8 @@ static void hdmi4_bridge_disable(struct drm_bridge *bridge,
+>  static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
+>  				    struct drm_connector *connector,
+>  				    enum drm_connector_status status,
+> -				    enum drm_connector_status_extra extra_status)
+> +				    enum drm_connector_status_extra extra_status,
+> +				    bool *send_hotplug)
+>  {
+>  	struct omap_hdmi *hdmi = drm_bridge_to_hdmi(bridge);
+>  
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index 9c4c88024cc5..e6de665ce8f6 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm/drm_bridge.h
+> @@ -616,7 +616,8 @@ struct drm_bridge_funcs {
+>  	void (*hpd_notify)(struct drm_bridge *bridge,
+>  			   struct drm_connector *connector,
+>  			   enum drm_connector_status status,
+> -			   enum drm_connector_status_extra extra_status);
+> +			   enum drm_connector_status_extra extra_status,
+> +			   bool *send_hotplug);
+>  
+>  	/**
+>  	 * @hpd_enable:
+> 
 
-[ ... ]
-
-> @@ -798,6 +812,8 @@ aie2_cmdlist_fill_npu_elf(struct amdxdna_gem_obj *cmd=
-_bo, void *slot, size_t *si
->  	u32 arg_sz;
-> =20
->  	pd =3D amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
-> +	if (!pd)
-> +		return -EINVAL;
->  	arg_sz =3D cmd_len - sizeof(*pd);
->  	if (cmd_len < sizeof(*pd) || arg_sz > MAX_NPU_ARGS_SIZE)
->  		return -EINVAL;
-
-[Severity: Critical]
-This is a pre-existing issue, but if arg_sz is 0, the bounds check incorrec=
-tly
-permits a size of exactly sizeof(*npu_slot), yet args[0] is unconditionally
-written:
-
-drivers/accel/amdxdna/aie2_message.c:aie2_cmdlist_fill_npu_elf() {
-    ...
-	if (*size < sizeof(*npu_slot) + arg_sz)
-		return -EINVAL;
-
-	memset(npu_slot, 0, sizeof(*npu_slot));
-    ...
-	npu_slot->arg_cnt =3D 1;
-	npu_slot->args[0] =3D AIE2_EXEC_BUFFER_KERNEL_OP_TXN;
-
-	*size =3D struct_size(npu_slot, args, npu_slot->arg_cnt);
-    ...
-}
-
-Does this unconditionally write args[0], causing a 4-byte out-of-bounds
-write?
-
-And if so, does it also lead to an integer underflow in
-aie2_cmdlist_multi_execbuf()?
-
-drivers/accel/amdxdna/aie2_message.c:aie2_cmdlist_multi_execbuf() {
-    ...
-		size =3D cmdbuf_abo->mem.size - offset;
-		ret =3D aie2_cmdlist_fill_slot(cmd_buf + offset, abo, &size, &op);
-		amdxdna_gem_put_obj(abo);
-		if (ret)
-			return ret;
-
-		offset +=3D size;
-    ...
-}
-
-If the previous 4-byte overflow artificially inflates size, can offset exce=
-ed
-cmdbuf_abo->mem.size, causing size to underflow on the next loop iteration
-and disable bounds checks for subsequent payloads?
-
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/=
-amdxdna_ctx.c
-> index 31a414c3f0d96..505c249e142e6 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-> @@ -117,6 +117,9 @@ void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj =
-*abo, u32 *size)
->  	struct amdxdna_cmd *cmd =3D amdxdna_gem_vmap(abo);
->  	u32 num_masks, count;
-> =20
-> +	if (size)
-> +		*size =3D 0;
-> +
->  	if (!cmd)
->  		return NULL;
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but does the error path in
-amdxdna_cmd_set_error() leak a GEM object reference?
-
-drivers/accel/amdxdna/amdxdna_ctx.c:amdxdna_cmd_set_error() {
-    ...
-	if (amdxdna_cmd_get_op(abo) =3D=3D ERT_CMD_CHAIN) {
-		cc =3D amdxdna_cmd_get_payload(abo, NULL);
-		cc->error_index =3D (cmd_idx < cc->command_count) ? cmd_idx : 0;
-		abo =3D amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
-		if (!abo)
-			return -EINVAL;
-		cmd =3D amdxdna_gem_vmap(abo);
-		if (!cmd)
-			return -ENOMEM;
-    ...
-}
-
-If amdxdna_gem_vmap() fails, it returns -ENOMEM without calling
-amdxdna_gem_put_obj() to release the abo obtained from amdxdna_gem_get_obj(=
-).
-Does this lead to a memory leak of the GEM object under memory pressure?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818002459.3776=
-41-1-taimuraz@kaitmazov.com?part=3D1
+-- 
+Best, 
+Chaoyi
