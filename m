@@ -4,78 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 431C3C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31143C5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6E310EA25;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D67A10E893;
 	Wed, 19 Aug 2026 06:36:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BawctR3U";
-	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1294910E74D
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 11:23:03 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-382ef647e20so3025088a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 04:23:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786965782; x=1787570582; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=P5TTthgk+Rg78pTtJpD/DUUy985t633wbAtev7NEJS0=;
- b=BawctR3U2ioi9cEc+8B8oqpawmRq6GeaSsCzlmR0GKz0kgzBIAmx3UF9uPAN6JQSq3
- P4oC4ugOIWHqEnB35tsj6iz4Q0Mh7hJSEJP8YVxw4ZfeBE9EUcE5RQeHlWxEPErzo4r5
- WbmhVSmarKNv0NdJ/XqwI/P/XCaoudbJyNgICFNUmaaBDTi1bQVU5acTp5scdq7G5KnU
- 9VUZShl7MGwrGmxFhe81Qp9JmfOAu8JHW+Mb3picbxA1a6UMMOss5EDdFefea8jjsZVP
- Wysjsq3aeW6j3+xtdSzCPv78i6OmhSvv9/0nWaLSK7bDsIzSkqlq0Gqs0ViAaSF8RtpI
- 4bZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786965782; x=1787570582;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=P5TTthgk+Rg78pTtJpD/DUUy985t633wbAtev7NEJS0=;
- b=AmOUgWXJRoIy658CCgesp0JvIM+lxmXCaMC2tP+qIqQX5e2h8Sj3H7rbMqDuVrKoHo
- bIELsZ5zDc0cIbLn6po7GVLa7zQtxlp+H+vEwSrKllyAYn11advf4dCTlQhcX+rQwpeG
- A2ooOlQIvh6DUkcZsrofpOj+/zQKmCeBO5eZS6LRhZc12CglTuRtROAnwkUQ3AXg+6iX
- pT4rAvVx0mVN3XsbKsEeo41RCdOUZoffCbQ4CyLGGXelH8I2cOXTB1ShbQScydxcDImB
- dr2TE0phUJjNBws6Y6mUgz3nhiLUXIWqKRD1xxA8Jh6Q9tETc3TgKmiW7/7ZwA5ZgG85
- YTQA==
-X-Gm-Message-State: AOJu0Yzsmfaxf3ijA4WZ23wIGhvPUa7fHfaEqIIQ3x+mSUfkL9uMQn8r
- ZndDp5yqUqcvZxWoAdJWuE4ULwFp7DpBe8FSoHWkR87vJ5VLGD5Mv6g=
-X-Gm-Gg: AR+sD13mWQ2mcukuOVXoo6C4vc4+laHBaju+oz/1A8qtrx1paPZa8fl7guNDPRzBRmM
- NntBOR3yTdGFAdemsxr/xr4dFpArkUZXrwFcIJQIR00lsrYpnuqLLjp+HFFdYCEMIlBTDzHX0hZ
- PDfTmxVtXQOn9xoaB1zBULwtq8JOjSbVK7JVNZBy6HNFYcciRgTloXZCGyh3DPZpCDKyCd66S5z
- jzeblaomNvK/xHX3dwCOqQ5xTuZE8ndiK3RE831WrjvNGg3xO2roTcbjmzNIxESb+EWlyxD0sZZ
- KJ1nue9g2/13J5hfBD7RqVs+WJFRHHQF/YuOGLRzebUy2umATdizpzy8bbzdqLcmXhn68hrWT9u
- 82/3187gxNmkcib4HqkvAEonojfkOBoLf6t2i+BncDE3G1aBkU8PSJ0rHCl08tzvgQQDIagDkjo
- JjGAb2EGYT70aHooJtpT77pTwbbHaSmUTWcUMLF/ly0S5XI0QDsHPUWJrGWjM040TK/Bx9gCur+
- TC6cF24DwEYld4FTNMyo0FEHt7g5mOQ7pGVrJ+CH/wkOhhU46R2SZUM2Y+Lvkd6
-X-Received: by 2002:a17:90b:5291:b0:36a:5d1f:7b6 with SMTP id
- 98e67ed59e1d1-3933bd18849mr25980349a91.2.1786965782511; 
- Mon, 17 Aug 2026 04:23:02 -0700 (PDT)
-Received: from
- codespaces-a1fa80.ktkhmpmw22vebpok31ngjx2qsb.ix.internal.cloudapp.net
- ([23.97.62.112]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3954d2e64dbsm1953571a91.8.2026.08.17.04.23.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 04:23:02 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: Markus.Elfring@web.de
-Cc: dri-devel@lists.freedesktop.org, ogabbay@kernel.org, tomeu@tomeuvizoso.net,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- royalnet026@gmail.com
-Subject: [PATCH v3] drm/rocket: Check allocations before use
-Date: Mon, 17 Aug 2026 11:22:53 +0000
-Message-ID: <20260817112253.26086-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <eb5a74fd-8db4-4ea6-8fb0-96ade2f3566d@web.de>
-References: <eb5a74fd-8db4-4ea6-8fb0-96ade2f3566d@web.de>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6FD810E46A
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:54:36 +0000 (UTC)
+X-UUID: 5f0f4aba9a9f11f19a56ed5b684f684d-20260818
+X-CID-CACHE: Type:Local,Time:202608180848+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:5590525d-0ecd-43bb-bdf6-14b92fc9c399, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:7db8b62, CLOUDID:73029acdd14f5997fa35d963f8f7ebc8,
+ BulkI
+ D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50,EDM
+ :-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+ ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5f0f4aba9a9f11f19a56ed5b684f684d-20260818
+X-User: yuebingkun@kylinos.cn
+Received: from tushenkeke2-pc.. [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yuebingkun@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 353780189; Tue, 18 Aug 2026 08:54:31 +0800
+From: yuebingkun <yuebingkun@kylinos.cn>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fbdev: platinumfb: replace strcpy with strscpy
+Date: Tue, 18 Aug 2026 08:54:28 +0800
+Message-ID: <20260818005428.47917-1-yuebingkun@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260817153757.4a683d24@pumpkin>
+References: <20260817153757.4a683d24@pumpkin>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
+X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,9 +62,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Markus,
+On Mon, 17 Aug 2026, David Laight wrote:
+> There is no point using strscpy() to copy quoted strings into arrays.
+> Indeed, if the string is too long the kernel build will fail if strcpy()
+> is used but strscpy() will silently truncate the strings.
+> So strscpy() is actually worse here.
 
-Thanks for the review. I'll update the patch accordingly in the next version.
+Thank you for the explanation. You are right, for copying a known
+string literal into a fixed-size array, strcpy() is actually safer
+because the compiler can catch overflow at build time. I will drop
+this patch.
 
-Regards,
-Triet
+---
