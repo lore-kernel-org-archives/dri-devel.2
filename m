@@ -4,54 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 581D4C5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 23:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2BDC5DF81
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 23:47:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 565AC10E077;
-	Tue, 18 Aug 2026 23:09:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61B9710E6FA;
+	Tue, 18 Aug 2026 23:47:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j/Z+JW4e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OtNqmMWM";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5616310E077
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:09:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05A2F10E0A2
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:47:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 45754601DE;
- Tue, 18 Aug 2026 23:09:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08901F000E9;
- Tue, 18 Aug 2026 23:09:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 49CFA601FB;
+ Tue, 18 Aug 2026 23:47:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68E31F000E9;
+ Tue, 18 Aug 2026 23:47:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787094558;
- bh=B2rI3b8Hia0vW/fa4o3rfnpG+Pj+Dz6m9hUtKiuIVMA=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject;
- b=j/Z+JW4eF5i8XfXi6M+/mKNpwaMAMODOHQT8SFusgY5fdkEatnADBM7Qas860H2yH
- upzwxOdrb/zsix7A6tyuhp/j6nCW6wDoeUmHOP8oluGm4lOAlZzkcVMnp6Prk71NW8
- GY+Bl1B52OJ5nqyhickvKFJ+U7nWCtAOxdfkNVq0XFg+w01h4ip5N9YO9PUgDRVDyY
- JOBWRGyPSyju2XrHbP2YN7AltitifSQtE9s/aTr9mRkuUU64swBlmdOy8TdmootFl4
- qMe/tgRLjkJOIca2Juc8bYDy66XYKvJojMopIc0skNKkA8iL7oL5/sO98GgWNAWl36
- 2Kko/la8nfTQQ==
-Date: Tue, 18 Aug 2026 18:09:15 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
+ s=k20260515; t=1787096870;
+ bh=XGdv0RPOWe/xI6/BGdKprEdeW/PFOM5P0htoiHIhNCk=;
+ h=From:To:Cc:Subject:Date;
+ b=OtNqmMWMB8OOrCPC9pwgxmbJh22movI2zM5rX0dASUCE6tyXOTANnC445CfwnwqbT
+ Rl5WjaAHhSIXs3YV3HsxA7dsQS/3w5Ky2oq+JXa7za6lZX88T5jIs/q6NRhJAiES+E
+ tM7Kec1NZ5hzKFtNtfUIyc+RRxFyXTUjAV3osOEAmptvAHPPUtO43GJZRPag1jKGZw
+ NJugVwtS0RCAQtUsGdHTqHBffbmoEzI4jStTEOAzPPy0LPzhVcS3AlyX/Xn+LrvnRc
+ EyIDzJHuwHi+qnWK1/maxsvt8+AYDPJkPRrwflTa3BSr0y0iBNzT3D3wgavUq4Sw8L
+ UjX4Mut8uVElg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, tomeu@tomeuvizoso.net, 
- p.zabel@pengutronix.de, ulfh@kernel.org, will@kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- conor+dt@kernel.org, chaoyi.chen@rock-chips.com, 
- dri-devel@lists.freedesktop.org, zhangqing@rock-chips.com, 
- linux-arm-kernel@lists.infradead.org, joro@8bytes.org, 
- devicetree@vger.kernel.org, iommu@lists.linux.dev, linux-pm@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, krzk+dt@kernel.org, alchark@flipper.net, 
- ogabbay@kernel.org, royalnet026@gmail.com, diederik@cknow-tech.com, 
- robin.murphy@arm.com, heiko@sntech.de
-To: Jiaxing Hu <gahing@gahingwoo.com>
-In-Reply-To: <20260817113603.1436067-5-gahing@gahingwoo.com>
-References: <20260817113603.1436067-1-gahing@gahingwoo.com>
- <20260817113603.1436067-5-gahing@gahingwoo.com>
-Message-Id: <178709455518.1014304.1443906758035976924.robh@kernel.org>
-Subject: Re: [PATCH v8 04/12] dt-bindings: npu: rockchip: add
- rockchip,rk3576-rknn-core
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
+Date: Tue, 18 Aug 2026 18:46:20 -0500
+Message-ID: <20260818234621.1265415-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,48 +63,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The "sil,i2s-data-lanes" binding and in-tree DTS files use normal
+uint32 cells. Reading the array as u8 only works because the values are
+small, but it does not match the documented DT element size.
 
-On Mon, 17 Aug 2026 23:35:55 +1200, Jiaxing Hu wrote:
-> The RK3576 NPU has two cores of the same RKNN block the RK3588 binding
-> already describes, but it wires them up differently: two extra CBUF
-> clocks, two power domains per core, and a single reset instead of two.
-> It also has no NPU SRAM supply.
-> 
-> Widen the property ranges to cover both, then pin each SoC back to its
-> own shape in allOf so nothing loosens for RK3588, and keep sram-supply
-> required for rockchip,rk3588-rknn-core only.
-> 
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++++++++++--
->  1 file changed, 44 insertions(+), 3 deletions(-)
-> 
+Use the u32 array helper so the driver follows the binding. Changing to
+u32 increases a potential OOB access range due to using unchecked
+values, so add a check on the read values.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+v2:
+ - Add bounds check for property values as reported by sashiko
+---
+ drivers/gpu/drm/bridge/sii902x.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml: Unresolvable reference: /schemas/input/qcom,spmi-haptics.yaml#
-
-doc reference errors (make refcheckdocs):
-Documentation/translations/pt_BR/process/security-bugs.rst: :doc:`regular path submission </../../../process/submitting-patches>`
-Documentation/translations/zh_CN/how-to.rst: Documentation/translations/zh_CN/xxx.rst
-arch/arm/xen/enlighten.c: Documentation/devicetree/bindings/arm/xen.txt
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260817113603.1436067-5-gahing@gahingwoo.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+index 9aac44ed5b67..241b472ab13e 100644
+--- a/drivers/gpu/drm/bridge/sii902x.c
++++ b/drivers/gpu/drm/bridge/sii902x.c
+@@ -862,7 +862,7 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
+ 		.max_i2s_channels = 0,
+ 		.no_capture_mute = 1,
+ 	};
+-	u8 lanes[4];
++	u32 lanes[4];
+ 	int num_lanes, i;
+ 
+ 	if (!of_property_present(dev->of_node, "#sound-dai-cells")) {
+@@ -871,10 +871,10 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
+ 		return 0;
+ 	}
+ 
+-	num_lanes = of_property_read_variable_u8_array(dev->of_node,
+-						       "sil,i2s-data-lanes",
+-						       lanes, 1,
+-						       ARRAY_SIZE(lanes));
++	num_lanes = of_property_read_variable_u32_array(dev->of_node,
++							"sil,i2s-data-lanes",
++							lanes, 1,
++							ARRAY_SIZE(lanes));
+ 
+ 	if (num_lanes == -EINVAL) {
+ 		dev_dbg(dev,
+@@ -890,9 +890,12 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
+ 	}
+ 	codec_data.max_i2s_channels = 2 * num_lanes;
+ 
+-	for (i = 0; i < num_lanes; i++)
++	for (i = 0; i < num_lanes; i++) {
++		if (WARN_ON(lanes[i] >= ARRAY_SIZE(i2s_lane_id)))
++			break;
+ 		sii902x->audio.i2s_fifo_sequence[i] |= audio_fifo_id[i] |
+ 			i2s_lane_id[lanes[i]] |	SII902X_TPI_I2S_FIFO_ENABLE;
++	}
+ 
+ 	sii902x->audio.mclk = devm_clk_get_optional(dev, "mclk");
+ 	if (IS_ERR(sii902x->audio.mclk)) {
+-- 
+2.53.0
 
