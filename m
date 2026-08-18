@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD22EC5DF7D
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 23:57:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA69EC5DF86
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 23:57:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1180710E708;
-	Tue, 18 Aug 2026 23:57:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B8810E8FA;
+	Tue, 18 Aug 2026 23:57:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="h0VBPweg";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NUnWehfw";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53DC410E708
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:57:23 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCA1A10E8FA
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:57:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787097442;
+ s=mimecast20190719; t=1787097448;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+AiUvg3f0tmCvkZK9tohm8bvMedZbKf/cdnpoumO1Tw=;
- b=h0VBPweg9WTqdcuNSJKsyETpGO85m6qwGjTCz/yY8JIVCNro3b4Vn+YHs1UH2I+2fpXUIC
- exfZS4VYIs4BrLrK2hiop0sIgsmYtEWQDI1TOYXVTIk02F2eGJzRKnHyrJaesnp9wjkLyx
- tnZbum/8l+8Etx5jnmJeGRAR1VRops0=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=6joxchIjpSKAZuVd8UNWe0u9ndTjKFHdE9rh6/DiW54=;
+ b=NUnWehfwH5O4Hz+foDPnUSWxEQ3igMXjvq2vtKflKp/TdCL1ATLVW38HlaRxdxWx6rUNei
+ qWqa8pO6XH8CewI4vomcZWLvbiesVkK4JnuMJzCTNZ5eV8SjFE128z0vvuDVrNMveeIysJ
+ LINRq+a+ubbYpO+ZWejouKz3txmUNJI=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-330-aqiblKe4MkGyJoEF2yAsqQ-1; Tue,
- 18 Aug 2026 19:57:12 -0400
-X-MC-Unique: aqiblKe4MkGyJoEF2yAsqQ-1
-X-Mimecast-MFC-AGG-ID: aqiblKe4MkGyJoEF2yAsqQ_1787097430
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-711-rwbj6aTuNea1z1EyPRRfDQ-1; Tue,
+ 18 Aug 2026 19:57:18 -0400
+X-MC-Unique: rwbj6aTuNea1z1EyPRRfDQ-1
+X-Mimecast-MFC-AGG-ID: rwbj6aTuNea1z1EyPRRfDQ_1787097436
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1B8C41800637; Tue, 18 Aug 2026 23:57:10 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4890B1956041; Tue, 18 Aug 2026 23:57:16 +0000 (UTC)
 Received: from GoldenWind.lan (unknown [10.22.80.100])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 1C9D41800347; Tue, 18 Aug 2026 23:57:07 +0000 (UTC)
+ id C0329180049F; Tue, 18 Aug 2026 23:57:13 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Marek Czernohous <mczernohous@gmail.com>
-Cc: Marek Czernohous <marek@czernohous.de>,
- "Faith Ekstrand" <faith.ekstrand@collabora.com>,
+Cc: "Faith Ekstrand" <faith.ekstrand@collabora.com>,
  "Dave Airlie" <airlied@redhat.com>,
+ "Marek Czernohous" <marek@czernohous.de>,
  "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
  "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Kees Cook" <kees@kernel.org>,
  "Marco Crivellari" <marco.crivellari@suse.com>,
@@ -58,15 +58,14 @@ Cc: Marek Czernohous <marek@czernohous.de>,
  "Maxime Ripard" <mripard@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
  "Jani Nikula" <jani.nikula@intel.com>, "James Jones" <jajones@nvidia.com>,
  "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 4/6] drm/nouveau/kms/nv50-: Stop using nv_encoder->crtc in
- nv50_disp_atomic_commit_core()
-Date: Tue, 18 Aug 2026 19:48:46 -0400
-Message-ID: <20260818235637.1738055-5-lyude@redhat.com>
+Subject: [PATCH 5/6] drm/nouveau/kms/nv50-: Add nouveau_encoder->audio.crtc
+Date: Tue, 18 Aug 2026 19:48:47 -0400
+Message-ID: <20260818235637.1738055-6-lyude@redhat.com>
 In-Reply-To: <20260818235637.1738055-1-lyude@redhat.com>
 References: <20260818235637.1738055-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: 9lgK_1kKspArIs_Bld3qC6d3Occ_-HNigjinxww_kv4_1787097430
+X-Mimecast-MFC-PROC-ID: qdcqzE9YBnvrT97GYCQj1LU7SkLIqagfdHq-jLmPR3A_1787097436
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -85,37 +84,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Another leftover spot where we still use nv_encoder->crtc. Get rid of it
-and do the right thing: get the currently assigned CRTC from the new atomic
-state.
+This is the only spot in nouveau where we do actually need to keep track of
+the currently assigned CRTC for an encoder, and it ideally should be
+happening outside of the modesetting locks.
+
+So in preparation for obliterating nouveau_encoder->crtc, let's just add a
+variable into nouveau_encoder->audio for tracking this and use it instead
+of nouveau_encoder->crtc. This makes it a lot more obvious that this is
+only intended for state-tracking for audio.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reported-by: Marek Czernohous <marek@czernohous.de>
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv50/disp.c   | 4 +++-
+ drivers/gpu/drm/nouveau/nouveau_encoder.h | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index f19820dc055ae..63d554e97fb62 100644
+index 63d554e97fb62..3bfc04f7ef602 100644
 --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
 +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -2171,10 +2171,14 @@ nv50_disp_atomic_commit_core(struct drm_atomic_commit *state, u32 *interlock)
- 	list_for_each_entry(outp, &atom->outp, head) {
- 		if (outp->encoder->encoder_type != DRM_MODE_ENCODER_DPMST) {
- 			struct nouveau_encoder *nv_encoder = nouveau_encoder(outp->encoder);
-+			struct nouveau_crtc *nv_crtc = nv50_outp_get_new_crtc(state, nv_encoder);
-+
-+			if (drm_WARN_ON(drm->dev, !nv_crtc))
-+				continue;
+@@ -636,7 +636,7 @@ nv50_audio_component_get_eld(struct device *kdev, int port, int dev_id,
  
- 			if (outp->enabled) {
--				nv50_audio_enable(outp->encoder, nouveau_crtc(nv_encoder->crtc),
--						  nv_encoder->conn, NULL, NULL);
-+				nv50_audio_enable(outp->encoder, nv_crtc, nv_encoder->conn, NULL,
-+						  NULL);
- 				outp->enabled = outp->disabled = false;
- 			} else {
- 				if (outp->disabled) {
+ 		nv_encoder = nouveau_encoder(encoder);
+ 		nv_connector = nv_encoder->conn;
+-		nv_crtc = nouveau_crtc(nv_encoder->crtc);
++		nv_crtc = nv_encoder->audio.crtc;
+ 
+ 		if (!nv_crtc || nv_encoder->outp.or.id != port || nv_crtc->index != dev_id)
+ 			continue;
+@@ -757,6 +757,7 @@ nv50_audio_disable(struct drm_encoder *encoder, struct nouveau_crtc *nv_crtc)
+ 	mutex_lock(&drm->audio.lock);
+ 	if (nv_encoder->audio.enabled) {
+ 		nv_encoder->audio.enabled = false;
++		nv_encoder->audio.crtc = NULL;
+ 		nvif_outp_hda_eld(&nv_encoder->outp, nv_crtc->index, NULL, 0);
+ 	}
+ 	mutex_unlock(&drm->audio.lock);
+@@ -781,6 +782,7 @@ nv50_audio_enable(struct drm_encoder *encoder, struct nouveau_crtc *nv_crtc,
+ 	nvif_outp_hda_eld(&nv_encoder->outp, nv_crtc->index, nv_connector->base.eld,
+ 			  drm_eld_size(nv_connector->base.eld));
+ 	nv_encoder->audio.enabled = true;
++	nv_encoder->audio.crtc = nv_crtc;
+ 
+ 	mutex_unlock(&drm->audio.lock);
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_encoder.h b/drivers/gpu/drm/nouveau/nouveau_encoder.h
+index 4422c6185d498..647322ac1c8df 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_encoder.h
++++ b/drivers/gpu/drm/nouveau/nouveau_encoder.h
+@@ -62,6 +62,7 @@ struct nouveau_encoder {
+ 	/* Protected by nouveau_drm.audio.lock */
+ 	struct {
+ 		bool enabled;
++		struct nouveau_crtc *crtc;
+ 	} audio;
+ 
+ 	struct drm_display_mode mode;
 -- 
 2.55.0
 
