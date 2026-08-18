@@ -4,136 +4,182 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30EFEC5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 08:53:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6325DC5DF70
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 08:53:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78BD510E02C;
-	Tue, 18 Aug 2026 08:53:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7F110E4E8;
+	Tue, 18 Aug 2026 08:53:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4956vE8R";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="MTPtUmWM";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013011.outbound.protection.outlook.com
- [40.107.201.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 708FA10E02C
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 08:53:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VxpUvezp8czNufb1vx9AZx4M8Q/0MpoPBAhPthzN1I3sTNkQUajj8hZsehU5U/NXrsJC/66VXBPTLj0O0iFTq67gTFFRccgo7kQyshsJgmSijuLprFnlXbVxb/Oi6sxxEpbZyO7JEWar1vZihiNWn8kv1NuwiCLOsOEy7b2qEr6kD0tVyAyzWU1KGyM3CkjZc+4fRauCCAGK7GvO+bPuVDsm4T2WBlUAvRIyGnJ9bYy89rjRtbFmCF9e9KLv8+k8l4/77n2k/R8MRJ+AfT464EUHNQkXFiLk4A2wI/spS4/hjbhJC84VddMd6oPa3sUNN7P03XfYSQTiEKBobNGPfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SK+PfpoLV2N6/L9FcV4wsGDjjfd+pYck9JqdJfErCZk=;
- b=qsLtt4CdrUZyKvMESVP/PH7hPKEzJRl1Bnt2mjyC8AJJ0lnJ17xCtpCMzlZ78StvJj1n8jE/qHnTEB4MrDQYF4GLnMGlk1/F6ZoNDxZCxephcHjni5BBs2UqNGfBqDW8WfW/K2m5X6xwV2MxeAJBZNyAayC55YNRp0Z74ygMMiUTnbQ30Q4zxUyCmloYoOpuVanOMsTm2YnQFHm1TlDSqAAW8IaBEfBNCEomBWpxRqCkU98/ntmAGbQeRVxnpnduyQmg/YfITHW7Rs+r8z7tLsg02vEPOs2Gto+iYtv7+Z7WXIsckEANN62UgUWG5hc1o5rcXyY7VJtjblyUc1BvRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SK+PfpoLV2N6/L9FcV4wsGDjjfd+pYck9JqdJfErCZk=;
- b=4956vE8RkEHi6mvGfDX5g9TtI4ajVmuXzCyr4sozLfUVuXfmYqIydMpDgcF7zT2VGwQOPYa2K0Gj+jGf4SNAHZrqTZ676u+iPQEVZSVUrrr7j4mq7o7nKaR62Adm7TQ0OBoAvF5J6FAu5Y0r+FYqTG1HdWzcS6DClV1F9s43Px8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by MN6PR12MB8471.namprd12.prod.outlook.com (2603:10b6:208:473::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 08:53:27 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%6]) with mapi id 15.21.0339.007; Tue, 18 Aug 2026
- 08:53:27 +0000
-Message-ID: <ef751787-8688-4e30-8bc4-f1740ef162fc@amd.com>
-Date: Tue, 18 Aug 2026 16:53:18 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: About new backend for GPU compute ROCm in qemu
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Cc: qemu-devel@nongnu.org, virtio-comment@lists.oasis-open.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- Honglei Huang <honglei1.huang@amd.com>, Huang Rui <Ray.Huang@amd.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- David Airlie <airlied@redhat.com>, Peter Maydell <peter.maydell@linaro.org>
-References: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com>
- <ea899a6b-0a59-4a9c-9e81-3ed70711da59@rsg.ci.i.u-tokyo.ac.jp>
- <78f0583f-93c0-4374-ba37-fd36f6388f0e@amd.com>
- <c79bbd91-0057-4e9a-bc56-28ca4c4ccae2@rsg.ci.i.u-tokyo.ac.jp>
- <3c3eb833-8026-44ad-8e33-dea346752db2@amd.com>
- <33bf6649-c1b9-43f6-94dd-09167d8e5db6@rsg.ci.i.u-tokyo.ac.jp>
- <63d485c3-a418-493d-aad0-26b3c115f5b8@amd.com>
- <7fa93963-880b-47fd-a51b-880a651be963@rsg.ci.i.u-tokyo.ac.jp>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <7fa93963-880b-47fd-a51b-880a651be963@rsg.ci.i.u-tokyo.ac.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: KU2P306CA0051.MYSP306.PROD.OUTLOOK.COM
- (2603:1096:d10:3d::12) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B0C10E4E8
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 08:53:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1787043217; x=1787648017; i=deller@gmx.de;
+ bh=+ny0jzfx9IHfHBFixW1zioinnmV5fnO6gJd6nwTBX7g=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=MTPtUmWMtWATeKbZnasHc+s7Bph/IihhMRq7O/n54tsUOXvmdiZP6aQWyPE61jWV
+ DEzrZHODScQtB4vOrUTPrXTHMgcQsfnDfhYVhhUfBTYHXqrB53uaCJI0F9yGaFXw/
+ iFgseMXcBUxHQP//zStk26TJ57tIUDoH694Bt4WNhB81Vfm3PiPWlGRYZtf2Wl6cs
+ 0bOTcXyViX+zwrBxTXnGZ2txsUh89tFgR+jc2cCjhP2B5d+dcpNqLIWgX2OGu+N8Z
+ 6TESId+q2cAkQMeSffiSxgwMUGP9yEFv3qJYJK4SGKIxblM3F2aTI0sE6GZjXK9ur
+ W47EwHPyr4b/weBVCg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MRmjw-1xPUmR3AHy-00VAZc; Tue, 18
+ Aug 2026 10:53:37 +0200
+Message-ID: <40410af6-5fbc-4b7e-826a-24d93e8e65c5@gmx.de>
+Date: Tue, 18 Aug 2026 10:53:36 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|MN6PR12MB8471:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d8833d2-d7c0-4745-cb06-08defd062b13
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|7416014|10067099003|56012099006|3023799007|6133799003|18002099003|22082099003|5023799004|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: m4Ij//bfr5hPi4KQLt+M6snt+SIHyOuwGrDPbPouEoETlapQ/MQQ4ZM5qs5+eR6x7rplXy+2vrSTL//VJOV2B6hwaoILNGTLYj3Xz3T8lktcBRWK29jjdkyyok4hOptHqnZQIhHCRLhcMKYCGvSupR0apQRCljkibZBc+jet+bGt+Shw7Nlx9eFdXgr0IRhtyi8m/mDwWHFNltRVqkMMhHbTPasHXBuqLRgonJm21Mjt29i4SP2xt+2j12dbjqeqrw1a9P1yOgK8hqiBX8dhfG7MWXH9ccAaRbhJss+Ri3DcdDIqEBE0arimiuKbPA6sBTfuWcMKE8HZphahkrWA7KcwY5flRzZMOGN8z2p4uVbAMaz/PAcWemAnJ3wvQ8C5buvRXa/avFajyr6Hu3/3IfDf+FxeOPHxxhWaqB3GIq2KyKSfKSAzE4w91GFHWqD/kncVAdVhdxKYCJPmYcRrm2OwZ2wkzIgjX6xNtsymPipehpg+qQg/goqUo4DmHA+GJsWw9KY2sVQHGyh5OhlUzeauC4vzeSB1ls8Y3UB+629UqknX/ipcjXnPw6lbd7dHHvcXzyEul/cr5KNmfryxmS6cvdQjKSdmwUlzgO8E2uWC4HBDmIzDusPFd3K1GxMk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(10067099003)(56012099006)(3023799007)(6133799003)(18002099003)(22082099003)(5023799004)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXRESk9lSHMrekpQVTBINEU0YThPMHB5RWpUN04vMVVZOUlqNEkyTmttNXhG?=
- =?utf-8?B?bi9EVkJlVENOTHQ3SksrVllkR05LSUUvUEdJOC9LSTFHRjdrQW1NSzQrNHMz?=
- =?utf-8?B?RmlxR0FFZUZmOGpOTFJERWZzNmg4VnlJd0doWDdWeGVRck5PSjczYVZtdHhs?=
- =?utf-8?B?cytFeWxub0JjT0h1WkVrMmQzdVR1ZHZTejM4TU9mQ3d1UWdxV01XNnJPQWw5?=
- =?utf-8?B?SG1VTk9tRXlaTXg0T0QrUDk4Mmc1citneTNXT1YyQlFIQUUvQXgvTWM1ZEI5?=
- =?utf-8?B?NDlVU2l3YWV3K2RrRU8wc3JURFU2N01XQkpsNmkzVmFvcnRocjRGd3VkcVVV?=
- =?utf-8?B?WC9DWmIwbnFsNnNKd3kzaVhTR3VIR2NxZjZqV3JQUHd2QWVVUUNuQlF6ZXpG?=
- =?utf-8?B?dzAxME0wWGFvZUlOZXdwZHFXQ3lOK0ZjU0k0eUFvWUh3UVdmV0k0S0Viak1l?=
- =?utf-8?B?RXV5cE5vTGpuMVRuOTE2WTRyT2R4cEVmbmlHVndXU0RrWHNhMnhocGdpcnNX?=
- =?utf-8?B?TEFlTW5WVmxtL0d4RlRGQXVvc0txRW9wWndaMlV2dFBwbldGT1JQaGZIakpO?=
- =?utf-8?B?dmhlM0o0ZUJHWGRSZ0xjOVZ2YWhCcTJTRjV5NWJlM3o4bWEvZ3k1OXV1RlI5?=
- =?utf-8?B?L05DQnpJNXNHT0xEUjdES21paU1mWlJrYzJQQkZIRXg1VlVCMUErRGNrYTd4?=
- =?utf-8?B?ckJhakhSSitnbjA3Y2RCRExnWmZqc1NCSzM4MHFmeWRySnluTm1sTnoyOHFV?=
- =?utf-8?B?SkRVS1hlWXU0ZTA1dlY3M2RycU5MRHRoQUE0d25pK1VQcWF2S1J2U09PRlMw?=
- =?utf-8?B?VW1BbHN0dHJIcTJZMjc3V01oTllkWEpISGxqMm5xRDlHNStPbHc2TnFiY085?=
- =?utf-8?B?R0s3WHovUFloRTJDd2c1RVpTOTlHOE13UEJoZkxlZmxhZEpid1RPZzlab2pq?=
- =?utf-8?B?Wm1HajJGZFMvRGJWdVJ1V2FSVWJrRzdPZDhENUhENHVrenU2dk0wcEdncDNW?=
- =?utf-8?B?Y3R5QkJIaTlSN21ISjJkdUNIbkphR0VQNktKSGpadS9DY1pZYmlPU25KeE9B?=
- =?utf-8?B?UXpFRU51QnJwK2Rjd0RaTDVhdWtXSHRUSk5ld0J2Z0M4Y2xaNmNhaitHMWYv?=
- =?utf-8?B?aklNK2FGWUUvaVZJWGJtMUdtWVlzV0pVaFFta21RbVJMRVdIN0JBS2NYWVFx?=
- =?utf-8?B?MW9BMURXcjdVUVRSdlo3MzlEMWo3RktRVE1COFRLY2RwZi8yNFl4amRRTmxE?=
- =?utf-8?B?WUhDc3l0Uis0ZUlDR0d6bVdHaXAxVjhOOFBkNk9MV2FrMjFnZDZab0Q1d1R6?=
- =?utf-8?B?d2hDdkUvdGt1T0didGJWUmxBNUxkMUhRWVpwSTJQWUc2dmtPYkpXOGg1ZUs5?=
- =?utf-8?B?YTZrQlc0WjVUUHcxanRoVW1SU0VxRU1uSURZYWhwampKZUUvZFI2RkRzTzg1?=
- =?utf-8?B?RXhvaXlRMU4vbDlOdVZDa29tMjRyZXdvVTJQZ3EvMXFFanVueHlmYnlnekJG?=
- =?utf-8?B?RS92bklIRCtGVkVzSEVBbXA3Q2g2MjdSVFlWaDFtaHZZejVHSHIvNlF5YU8r?=
- =?utf-8?B?ZDBYc3IzYy8xY09kZXU4S2QvWGY2Q1hBYmFRbHpFRWlHQXl0NmV1Y3VNblJn?=
- =?utf-8?B?bTVWUHFkTmxlTU83eEFPQTdRVmdmRTJRT1QrYjFNeGRadjM2bnJMWFlaeWVL?=
- =?utf-8?B?QThod3EyZWErZTFoZHRLNDhiWk11cnFxWGJuRy9hcEdlQnhocllrTVhMOTd1?=
- =?utf-8?B?alNFNkJLUWV0Kys4T21tbG5nT0ZqQ00vQVhxVkRJdG9VZG5hTit4dDdydEVh?=
- =?utf-8?B?cVlsRERPckRsTnZRUituQ1pRRjV2akF5NkEzbWEvb25hTVdJUlFxdjJDelRa?=
- =?utf-8?B?MW4zODNlOThlMFpxcE1vMVZXY2hEZlhONGw2UitpYWhGWGVFRUlaeDZWbmRs?=
- =?utf-8?B?N2VUVnhId3ZmaEJlN2hRMkFTSXZLN2NJd1dFV1UrdlloT0FYWDJ2N2t3dm0y?=
- =?utf-8?B?NnM0UjNMTzhiT2loZHE3ayt3VEZIV1RqRUlmZHNlY2REWFRkdTV6MXVnUFBs?=
- =?utf-8?B?SnVuSVhhS1lrYlRBSVV5c285dTl6M08xZjhOcStEV1VlQk8zTHMzeVFYd3Na?=
- =?utf-8?B?MHlDUXZsM3d0K2VOM1RuS3dObENVTjZuY2lSYUVoMy9wMTFyaHhOblloQ21t?=
- =?utf-8?B?bElIWGt0bWx6Y3A5S1pvVC9nS0E5ZVZPbWZuc3R6UTF6SEVneUpIMTllQnpw?=
- =?utf-8?B?OHpsU1pkYTVxcjBGRHRIa2JiQlV6amxUME1GazB6RnBpWDJKeTFLRk9KS05t?=
- =?utf-8?Q?5JqGVhp2Lys08sRREQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d8833d2-d7c0-4745-cb06-08defd062b13
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 08:53:27.1371 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A6OPijnjkcGVtGoX3fmbH0v/jSwOwvRd2TjpUNw+ibZHneRN7UF/W+udlpjlA0DBl31Qv+VJeaAByPgeOSnfDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8471
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] video: fbdev: via: refactor strcpy and viafb_name
+To: Ajith P V <ajithpv.linux@gmail.com>, FlorianSchandinat@gmx.de
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260814074435.277441-1-ajithpv.linux@gmail.com>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20260814074435.277441-1-ajithpv.linux@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:eZ3v6JMV0vmMrmJw54BroutUFyW7f4nbtqZEsSBq0nGoA9TDAQN
+ IpMRuTq0q0mUwa09CQjOMHJia21usW9XnKEb9LLIvc4WpzI9TeaRvi/9ispyts+CRmvMjgE
+ 0eecoqu3nkrQJj9FSAqkQto35/CQmBQYpKyVvAQeZUProXZXAesusgg0SsD6fo+cRVZ3m/R
+ fvoX2EaWab4Tg/wIaitUQ==
+UI-OutboundReport: notjunk:1;M01:P0:9MvLFBY4f24=;ydoPV8fgqqRmr3L4rL6SIVIO8Qp
+ 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
+ aNlGRfQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,438 +195,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 8/14/26 09:44, Ajith P V wrote:
+> Replace the deprecated and unbounded strcpy() function with the safer
+> strscpy() alternative when setting up the framebuffer fixed screen
+> information [1][2].
+>=20
+> It aligns this driver with the ongoing kernel-wide security initiative
+> to eliminate unbounded string copies, hardening the code against future
+> modifications.
+>=20
+> Additionally, convert the file-scope `viafb_name` pointer into a
+> `static const char[]` array while preserving its original value "Via".
+> This allows the compiler to execute compile-time bounds checking and
+> optimize the string copy operation without breaking userspace ABI
+> backward compatibility.
+>=20
+> This is a proactive API cleanup and there is no functional
+> performance or truncation risk.
+>=20
+> Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#str=
+cpy [1]
+> Link: https://github.com/KSPP/linux/issues/88 [2]
+>=20
+> Signed-off-by: Ajith P V <ajithpv.linux@gmail.com>
+> ---
+> v3:
+>    - Restore the original "Via" string value to prevent userspace ABI
+>      regressions, while keeping the 'static const char[]' optimization a=
+s
+>      suggested by Sashiko AI.
+> v2:
+>    - Keep variable static but change it to a const array
+>      'static const char viafb_name[] =3D "viafb"' as suggested by Helge =
+Deller
+>      to let the compiler leverage compile-time checks.
+>=20
+>   drivers/video/fbdev/via/viafbdev.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/video/fbdev/via/viafbdev.c b/drivers/video/fbdev/vi=
+a/viafbdev.c
+> index 80f95dac32c8..f6823beb4d7e 100644
+> --- a/drivers/video/fbdev/via/viafbdev.c
+> +++ b/drivers/video/fbdev/via/viafbdev.c
+> @@ -16,7 +16,7 @@
+>   #define _MASTER_FILE
+>   #include "global.h"
+>  =20
+> -static char *viafb_name =3D "Via";
+> +static const char viafb_name[] =3D "Via";
+>   static u32 pseudo_pal[17];
+>  =20
+>   /* video mode */
+> @@ -144,7 +144,7 @@ static void viafb_setup_fixinfo(struct fb_fix_screen=
+info *fix,
+>   	struct viafb_par *viaparinfo)
+>   {
+>   	memset(fix, 0, sizeof(struct fb_fix_screeninfo));
+> -	strcpy(fix->id, viafb_name);
+> +	strscpy(fix->id, viafb_name, sizeof(fix->id));
+Please make it simple:
 
+	strcpy(fix->id, "Via");
 
-On 8/18/2026 3:50 PM, Akihiko Odaki wrote:
-> On 2026/08/18 13:26, Huang, Honglei wrote:
->>
->>
->> On 8/18/2026 12:05 PM, Akihiko Odaki wrote:
->>> On 2026/08/18 11:50, Huang, Honglei wrote:
->>>>
->>>>
->>>> On 8/18/2026 12:29 AM, Akihiko Odaki wrote:
->>>>> On 2026/08/17 22:44, Huang, Honglei wrote:
->>>>>>
->>>>>>
->>>>>> On 8/17/2026 7:44 PM, Akihiko Odaki wrote:
->>>>>>> On 2026/08/17 12:19, Huang, Honglei wrote:
->>>>>>>>
->>>>>>>> Hi Michael, Alex, Dmitry, Akihiko,
->>>>>>>
->>>>>>> Hi Honglei,
->>>>>>>
->>>>>>>>
->>>>>>>> I'm bringing AMD GPU compute ROCm based on virtio. I posted a 
->>>>>>>> ROCm over virtio
->>>>>>>> implementation to virglrenderer nine months ago (MR !1568 [1]). 
->>>>>>>> The ROCm side has
->>>>>>>> been supportted by ROCm offical.
->>>>>>>>
->>>>>>>> Current implementation is a virtio gpu context type capset 
->>>>>>>> handled inside
->>>>>>>> virglrenderer, sharing the display path. That's an awkward fit, 
->>>>>>>> many
->>>>>>>> compute GPUs have no display engine at all.
->>>>>>>
->>>>>>> I think "sharing the display path" conflates several layers and 
->>>>>>> makes the problem difficult to assess. It would help to identify 
->>>>>>> the concrete constraint behind "awkward fit."
->>>>>>>
->>>>>>> End-to-end, there are four relevant layers:
->>>>>>>
->>>>>>> 1. Host GPU stack: hardware, host kernel, and host userspace
->>>>>>> 2. Paravirtualization stack: virglrenderer and QEMU
->>>>>>
->>>>>> Yes we are asking can we add a new file like virtio-gpu specific 
->>>>>> for compute, but maybe we can only add a new backend like 
->>>>>> virglrenderer specific for compute.
->>>>>>
->>>>>>> 3. Host/guest interface: virtio and the capset-specific command 
->>>>>>> stream
->>>>>>
->>>>>> In this plan we may need just add a capset id.
->>>>>>
->>>>>>> 4. Guest GPU stack: guest kernel and guest userspace
->>>>>>
->>>>>> Won't modify the guest kernel in this plan, this email list.
->>>>>>
->>>>>>>
->>>>>>> Orthogonally, acceleration is separate from display and scanout. A
->>>>>>> physical device may provide both, but acceleration does not 
->>>>>>> require a
->>>>>>> display engine. Linux likewise exposes render and compute interfaces
->>>>>>> separately from modesetting. The userspace interface 
->>>>>>> virglrenderer uses is messy; there is Vulkan, EGL, OpenGL, and 
->>>>>>> now you are adding ROCm. But there is one thing I must note is 
->>>>>>> that acceleration and display is decoupled, and acceleration does 
->>>>>>> not require display.
->>>>>>
->>>>>> Yes totally agreed.
->>>>>>
->>>>>>>
->>>>>>> At the protocol layer, context command buffers are carried by 
->>>>>>> VIRTIO_GPU_CMD_SUBMIT_3D. Scanout uses separate core virtio-gpu 
->>>>>>> commands, and VIRTIO_GPU_CMD_GET_DISPLAY_INFO may report no 
->>>>>>> enabled displays. At the implementation layer, QEMU handles 
->>>>>>> scanout presentation. virgl_cmd_set_scanout() obtains resource 
->>>>>>> information through virgl_renderer_resource_get_info() or 
->>>>>>> virgl_renderer_resource_get_info_ext(). That does not make 
->>>>>>> scanout a virglrenderer-owned display path.
->>>>>>
->>>>>> Yes, agreed.
->>>>>>
->>>>>>>
->>>>>>> Therefore, if "sharing the display path" means sharing the same 
->>>>>>> device, control queue, and QEMU execution context, that 
->>>>>>> identifies a possible source of contention. If it means that 
->>>>>>> capsets or virglrenderer are inherently tied to display, I do not 
->>>>>>> think that is accurate. Vulkan compute is already used through 
->>>>>>> Venus with libkrun [2], and VCL proposes OpenCL support through 
->>>>>>> virglrenderer [3].
->>>>>>
->>>>>> Yes，but the vulkan is for GFX originally, and for some formal AI 
->>>>>> frame work like pytorch, it's support is limited, and it 
->>>>>> performance is lower than ROCm, and vulkan also lacks many AI 
->>>>>> infrastructure, like composable kernel.
->>>>>> And for virCL, actually it is came from same project with ROCm 
->>>>>> native context, but the original author didn't continue to support 
->>>>>> it, they handed it over to someone else to take over. And in the 
->>>>>> first version of
->>>>>> virCL, it didn't pass the test of actual projects.
->>>>>>
->>>>>> And it seems like virCL didn't upstream into virglrenderer also, 
->>>>>> correct me if I am wrong.
->>>>>
->>>>> I cited Venus and VCL only as examples showing that virtio-gpu and
->>>>> virglrenderer are not intrinsically tied to display. I did not suggest
->>>>> either as a substitute for ROCm.
->>>>>
->>>>>>
->>>>>>>> Beyond that, sharing the display path is increasingly painful:
->>>>>>>>
->>>>>>>>    - Compute hammers the queues more than graphics, so sharing
->>>>>>>>      virtio gpu's single control queue with display/virgl causes 
->>>>>>>> contention
->>>>>>>>      and display stutter.
->>>>>>>
->>>>>>> All non-cursor commands do share one control queue, but a fence 
->>>>>>> avoids serialization.
->>>>>>
->>>>>> yes, agreed.
->>>>>>
->>>>>>>
->>>>>>> There may still be implementation-level contention, and it is not
->>>>>>> necessarily specific to compute. A sufficiently busy graphics 
->>>>>>> workload
->>>>>>> could expose the same bottlenecks. Possible contributors in 
->>>>>>> current QEMU
->>>>>>> include:
->>>>>>>
->>>>>>> a) qemu_console_hw_gl_block() blocks the entire queue when QEMU only
->>>>>>>     needs to fence scanout commands.
->>>>>>
->>>>>> Yes, agreed.
->>>>>>
->>>>>>>
->>>>>>> b) virtio_gpu_virgl_unmap_resource_blob() may also block the entire
->>>>>>>     queue just to delay one command.
->>>>>>
->>>>>> Yes, but it is seems like it is must, someone else in AMD tried to 
->>>>>> use async method to relase blob, but it failed to consistency 
->>>>>> issue, then
->>>>>> reverted to sync version.
->>>>>
->>>>> Queue-wide suspension is not inherently required. Commit 
->>>>> 4eb0aace85f5 ("virtio-gpu: Support mapping hostmem blobs with 
->>>>> map_fixed") added a path that avoids per-blob MemoryRegion teardown 
->>>>> when virgl_renderer_resource_map_fixed() succeeds. The remaining 
->>>>> path is also being improved with:
->>>>>
->>>>> https://lore.kernel.org/qemu-devel/20260424-force_rcu-v4-0- 
->>>>> feccfaca0568@rsg.ci.i.u-tokyo.ac.jp/
->>>>> ("[PATCH v4 0/6] virtio-gpu: Force RCU when unmapping blob")
->>>>
->>>> Thanks. force_rcu is a clean fix for the RCU-reclamation part, but 
->>>> it still keeps the unmap synchronous and serial.
->>>>
->>>>>
->>>>>>
->>>>>>>
->>>>>>> c) QEMU dispatches the control queue and calls into virglrenderer 
->>>>>>> from
->>>>>>>     its main-loop thread along with display work and many other 
->>>>>>> things.
->>>>>>>     Venus's render server can offload renderer work, but control- 
->>>>>>> queue
->>>>>>>     dispatch remains in QEMU's main loop.
->>>>>>
->>>>>> Yes, we did some async optimization in ROCm context, but its 
->>>>>> effectiveness is limited, see bellow.
->>>>>>
->>>>>>>
->>>>>>> In any case, I think you need to do some experiments to track 
->>>>>>> down the real cause. a) is easy to check: just comment out all 
->>>>>>> qemu_console_hw_gl_block() calls; it may corrupt display but 
->>>>>>> removes the blocking. b) can also be tested by leaking the 
->>>>>>> mappings instead of blocking the whole queue. Using a different 
->>>>>>> display device like qxl tells whether c) is causing contention.
->>>>>>
->>>>>> Yes, totally agreed. following is my findings. In short words:
->>>>>>
->>>>>> Optimization can reduce queue pressure, but it can't withstand 
->>>>>> absolute overload because each command has some overhead. Making 
->>>>>> all commands asynchronous would lead to a debugging hell about 
->>>>>> asynchronous issues.
->>>>>> And we have high load applications rocmprofiler  that continuously 
->>>>>> catch information need virtio queue to handle. But create a new 
->>>>>> backend can not solve it simply, we are trying to find a way. like 
->>>>>> shmem between guest and host, then use cpu polling, bypass the 
->>>>>> virtqueue.
->>>>>
->>>>> Most commands are fast on the CPU side, while heavy processing
->>>>> happens asynchronously on the GPU. Cases (a) and (b) are exceptions.
->>>>>
->>>>>>
->>>>>> The load is mostly memory management. Running an AI model 
->>>>>> allocates and frees a large number of blobs. We already did some 
->>>>>> optimization release them asynchronously, but the host processing 
->>>>>> is a single queue one
->>>>>> process_cmdq, this is where the main bottleneck in my debugging 
->>>>>> work / my understanding so far. I'm not certain it's the whole 
->>>>>> picture, so please correct if I am wrong.
->>>>>>
->>>>>> A model load or unload frees a large batch of BOs and allocates 
->>>>>> another. Some of those commands are async in the virtio-gpu guest 
->>>>>> driver, but QEMU still has to work through them on the one queue, 
->>>>>> which takes time; so even though any single command is quick, 
->>>>>> there are simply too many of them, the single queue backs up, and 
->>>>>> everything behind it, gets delayed.
->>>>>>
->>>>>> real work load (a few downstream customisations): loading one 16 
->>>>>> GB model (gemm4 e4b), drives ~1200 blob creates, a burst of
->>>>>> ~1400 resource frees at teardown, ~3700 submits and ~6000 
->>>>>> virtqueue notifies, caused a 22 s guest soft lockup. And the 
->>>>>> behavior of memory operations are controlled by upper layer like 
->>>>>> pytorch / HIP / runtime,
->>>>>> we can not control it.
->>>>>>
->>>>>> To be honest, a separate backend won't fix this. But the real 
->>>>>> solution maybe is compute specific. That logic is only useful to 
->>>>>> the compute path, and folding it into the shared display device / 
->>>>>> renderer would mean churning code that is mature and stable for 
->>>>>> graphics, with regression risk. Keeping compute on its own 
->>>>>> instance and backend lets us iterate on these compute only 
->>>>>> optimisations.
->>>>>
->>>>> A 22-second lockup is too long for those command counts.
->>>>>
->>>>> The most probable explanation I have is that the ROCm integration 
->>>>> blocks QEMU's main loop thread while synchronously waiting for GPU 
->>>>> execution. Creating separate devices won't resolve this because the 
->>>>> main loop thread is shared, and synchronously waiting on the GPU 
->>>>> should be avoided in the first place.
->>>>
->>>> No synchronously waiting in ROCm backend, we are using user queue, 
->>>> and event waiting, no sync operation in CMD wait. all the resource 
->>>> release in ROCm are all async now.
->>>> Only the sync thing is memory thing mapping/unmapping in qemu, as 
->>>> long as it remains synchronous, it will be overwhelmed by the 
->>>> massive number of requests.
->>>
->>> Mapping and unmapping should not block QEMU's main-loop thread for that
->>> long. The command counts you reported are relatively small. That is why
->>> I suspect something else went wrong, such as the main-loop thread being
->>> inadvertently blocked while waiting for the GPU.
->>
->> Will investigate it.
->>
->>>
->>>>
->>>>>
->>>>> In any case, profiling is necessary before touching the 
->>>>> implementation.
->>>>>
->>>>>>
->>>>>>>
->>>>>>>>    - Compute contexts need far more blob / shared memory than a 
->>>>>>>> display one.
->>>>>>>
->>>>>>> It is not a problem by itself. Frequent mapping and unmapping 
->>>>>>> might amplify the second issue above, but that needs to be measured.
->>>>>>
->>>>>> Yes, agreed. I can give more detailed information.
->>>>>>
->>>>>>>
->>>>>>>>    - Maybe needs a wider ROCm / compute stack, cause the render 
->>>>>>>> model fits poorly:
->>>>>>>>      rocprofiler (PC sampling, SQTT/SPM, counters, high 
->>>>>>>> bandwidth streams)
->>>>>>>>      and ROCgdb (wave control, address watch, async exceptions an
->>>>>>>>      out of band channel that must not block display).
->>>>>>>
->>>>>>> virglrenderer does not impose a particular render model. That's 
->>>>>>> why Vulkan Compute just works with Venus.
->>>>>>
->>>>>> Yes but vulkan is used for GFX initally. And can not support many 
->>>>>> AI application.>
->>>>>>>>    - Events, faults and GPU reset/SMI are async and don't map 
->>>>>>>> onto fences.>    - All of this is hard to extend cleanly inside 
->>>>>>>> a display capset.
->>>>>>> Capset is not about display but determines the protocol of the 
->>>>>>> VIRTIO_GPU_CMD_SUBMIT_3D command stream. You have described 
->>>>>>> events, faults and GPU reset/SMI are async don't map onto fences 
->>>>>>> that may be associated with VIRTIO_GPU_CMD_SUBMIT_3D which is 
->>>>>>> dictated by capset. An additional feature may be necessary, and 
->>>>>>> it may or may not be dictated by capset. The other things are 
->>>>>>> irrelevant with the protocol capset represents; they are either 
->>>>>>> behavioral or about different commands.
->>>>>>
->>>>>> A fence is the one shot, but event is stateful and repeatable.
->>>>>> That may or may not be tied to capset. Agreed.
->>>>>>
->>>>>>>
->>>>>>>>
->>>>>>>> On the QEMU/host side, would something like this be OK? One 
->>>>>>>> step, two parts:
->>>>>>>>
->>>>>>>>    - a dedicated headless virtio gpu instance for compute.
->>>>>>>
->>>>>>> A second device would isolate its virtqueues and device-wide
->>>>>>> renderer_blocked state. That may be useful if measurements show that
->>>>>>> these are the bottlenecks, but it is not yet clear that they are 
->>>>>>> or that
->>>>>>> a second device is the appropriate solution.
->>>>>>>
->>>>>>>>    - that instance served by a separate ROCm backend library loaded
->>>>>>>>      in-process by QEMU.
->>>>>>>
->>>>>>> First, I think we need to establish why ROCm cannot or should not 
->>>>>>> remain
->>>>>>> in virglrenderer. The virglrenderer, Venus, and VCL maintainers are
->>>>>>> likely better placed to advise on that boundary. Once the protocol
->>>>>>> requirements and performance measurements are clear, we can 
->>>>>>> assess the
->>>>>>> appropriate QEMU integration.
->>>>>>
->>>>>> venus is borned for GFX.
->>>>>> virCL not merged.
->>>>>>
->>>>>> To be clear, I'm not saying virglrenderer can't host a ROCm native 
->>>>>> context it clearly can. My hesitation is more about fit and 
->>>>>> direction: virglrenderer has grown up around GL/graphics, and I 
->>>>>> haven't yet found compute oriented plumbing there to build on, 
->>>>>> while ROCm moves very fast and I need something I can keep current 
->>>>>> with low friction.
->>>>>
->>>>> Whether keeping ROCm in virglrenderer would create extra friction 
->>>>> is primarily a question for the virglrenderer maintainers. Its 
->>>>> graphics origins do not by themselves motivate adding a separate 
->>>>> backend interface to QEMU.
->>>>
->>>> Fair. The first draft version in virglrenderer was in May 2024, and 
->>>> ROCm has gone 5.7 → 7.14 in that window.
->>>
->>> One point to note is that virtio-gpu development in QEMU is somewhat
->>> less active. crosvm is the most active user of virglrenderer, and QEMU
->>> sometimes lags behind it. If you are considering moving the ROCm 
->>> integration from virglrenderer to QEMU solely because ROCm evolves 
->>> rapidly, I do not think that would be a good idea. A rapidly evolving 
->>> component is better kept in virglrenderer unless there is another 
->>> reason to place it in QEMU.
->>
->> Actually didn't see something new about compute merged in to 
->> virglrenderer this recently 2 years.
-> 
-> Neither QEMU nor virglrenderer has seen new compute-related additions in 
-> the past two years.
-
-Maybe that is the reason we need a compute specific path? But I think 
-the VFIO or vDPA are all can be used for compute, they are really 
-active. We only need a small file for compute, providing the basic 
-mechanisms, this code will also benefit other computing devices, such as 
-NPU, I believe there will be more and more computing devices in the future.
-
-
-> 
-> While you have regularly updated the merge request, initiating 
-> discussions around it is necessary to move review forward. Open-source 
-> projects like QEMU and virglrenderer need proactive driving to complete 
-> reviews. Simply shifting the ROCm integration to QEMU will not resolve 
-> this bottleneck.
-
-Yes I have actively promoted it, but I haven't received substantial 
-reviews regarding virtio gpu userptr and virglrenderer. Hard to make MR 
-move forward without a substantial review. So I am finding a another way.
-
-> 
-> Besides, looking at the "Architecture Components" in the description, 
-> most of them haven't been merged yet. The virglrenderer code cannot be 
-> merged in its current state, so focusing on those dependencies first is 
-> essential.
-
-Yes, I must admit that most of them not merged.
-But actually for para virtualization those components are need merged 
-together because they are closely connected.
-
-> 
-> However, taking a naive approach can lead to a chicken-and-egg problem: 
-> component maintainers want the virglrenderer side stabilized first, 
-> while virglrenderer maintainers want the component side stabilized. To 
-> break this deadlock, I suggest seeking consensus on the interfaces 
-> before completing the implementation. Once an interface agreement is 
-> reached, changes to each component can land independently:
-
-I've seen amdgpu native context (for GFX) and msm native context merged 
-quickly. And actually ROCm native context is using the same method. 
-That's why I think this is a problem of direction.
-
-> 
-> - virtio interface: I raised a concern regarding the interface [1][2]
->    that needs to be addressed.
-
-I'm open to any feedback from the virtio maintainer, but since it's 
-really just you and me discussing this, I can immediately modify your 
-proposal if the maintainer agrees.
-
-> - amdkfd patches: There are interface-level concerns [3] that still need
->    resolution.
-
-We have a another solution to solve it, it is already done in virglrender.
-
-> - ROCm runtime: The description lists this as "90% complete," but the
->    linked pull requests were closed due to inactivity. They need to be
->    reopened and seek for a consensus on its interface.
-
-It was completed using another PR, so it was closed.
-
-> 
-> Once these items are addressed, you can update the merge request and ask 
-> for a fresh review.
-> 
-> In parallel, you can request review of self-contained parts of 
-> components that do not depend on those decisions. Once the interfaces 
-> are agreed, the implementations can be reviewed in parallel and merged 
-> in dependency order.
-> 
-> These steps can proceed in parallel alongside investigating the 
-> performance bottleneck.
-
-Really thanks for the suggestion. I think the compute specific path 
-still worth discussing.
-
-Regards,
-Honglei
-
-> 
-> Regards,
-> Akihiko Odaki
-> 
-> [1] https://lore.kernel.org/lkml/ 
-> b69439ec-0ebd-4527-873b-85b283e03888@rsg.ci.i.u-tokyo.ac.jp/
-> [2] https://lore.kernel.org/qemu-devel/35a8add7-da49-4833-9e69- 
-> d213f52c771a@amd.com/
-> [3] https://lore.kernel.org/lkml/20260104072122.3045656-1- 
-> honglei1.huang@amd.com/
-> [4] https://www.spinics.net/lists/amd-gfx/msg137231.html
-
+Helge
