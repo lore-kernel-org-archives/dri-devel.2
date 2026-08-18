@@ -4,144 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 633B0C5DF7D
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 21:50:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 677D7C5DF81
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 22:32:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B808110E039;
-	Tue, 18 Aug 2026 21:50:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8A7110E3CB;
+	Tue, 18 Aug 2026 22:32:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="m8PTKP+u";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L+hrUYjO";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GhhRRYgm";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB3210E039
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 21:50:00 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67ILbfY92073525
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 21:49:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=P7BPpuyOAx/6G4Ser6+Spcf7
- 5yZCb3TK3+4BU1JJ8sw=; b=m8PTKP+uoPf28BKwFVEPaZACdGfC1JG0lYxtMX5M
- VUdEthTZTTwB/p0lDcBx5VuPtR74dDaMZj5TPbTLr+sQwHLtrW0b0poVrAJHWO3t
- /nQLFy4m+TN6FCLudcaHGld7FvqHyRSy6jHH8qupq4uCkHCNtyC/3pLhRnhWaxeC
- ufqYDztxEGVdckiSlOQeAe5BKiByD8AUm9dg8/vp7Bn3/SlhgJaIc+GVBFZZD6ti
- rxUhPOwL4pqXbUTjYomA0PkMaeeHN+Q2lL6M8AWKQ765irYdjky08JI7iOOPXtuY
- nVTA7yoIzua3aV+tOJIKX3BS65YFEpql5M7ztGx3pP2c0w==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfm81gw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 21:49:59 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-92e62e3459fso48710085a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 14:49:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787089799; x=1787694599;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=P7BPpuyOAx/6G4Ser6+Spcf75yZCb3TK3+4BU1JJ8sw=;
- b=L+hrUYjOCaLTau2VE2VWYfXaJjjgMp4bZFZtATWILGyhNHugxyOKQfPFoeWDS7FkBj
- +jY/HG3VbJRxTT5pXFuhHRyoTpTYlds3u+Q0RqyqJ7WyOzybPsODafDcrI5VokO6pBis
- 7CJyYy7wdL9VMaKFvbq7Z0nUGK4V78Kza9aSVR95Agac6Qoh888K/yRPrZC/2n7w0X/G
- K31+QZqTSTWQTq1RmOUuFESP3f0nh9bcWjv60Cr+zowMLlXSfo9bcLTsjVnXWii4QEne
- Xo+BvvtvvSuxE/3v5HZtCllyKXl3fpiTFxOMzI6PvJg9jGOlYXrKz95AGCkznhqQr7S8
- KirA==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B73810E3CB
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 22:32:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787092362;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=sTUm+GAgh5332QrOBQAb36npGn/mxQsgSbSIFRFLtWk=;
+ b=GhhRRYgmqDY1OWnltaavgKOXRLqWFddcn/wRznuqx3doRQdC3rd4b/JCsTNWnB8CGBYfSa
+ h0DUMZn7reSM4a8/eqZo1BicFosaBC43kuIhdF+BraypwNZfHqyGRb/Mdl50XyXIiw3da6
+ spXVyHy+ROKC4GbxrffzC9g7Mq1ruMc=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-678-TTJjhpKhPr2WkrVLV6Ojtg-1; Tue, 18 Aug 2026 18:32:35 -0400
+X-MC-Unique: TTJjhpKhPr2WkrVLV6Ojtg-1
+X-Mimecast-MFC-AGG-ID: TTJjhpKhPr2WkrVLV6Ojtg_1787092355
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-52d28f8737eso5723031cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 15:32:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787089799; x=1787694599;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20251104; t=1787092355; x=1787697155;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=P7BPpuyOAx/6G4Ser6+Spcf75yZCb3TK3+4BU1JJ8sw=;
- b=k4gJvDCtepQZzk75DAqtUtZU9WZ8HLQT7PX874V5wkRuyIeBJpqM0ZOMtg80mHcJSC
- STqDjxh4CpiafGiUQTsELajK7mkmP2mM2tXCIm2AH1oj1G/NPSDsMfbHntU0RR4AWEVx
- tZlDF2nZHL4932oxSdl6yCGa5ATme3GYT9PYmF+eIO3/EOjRRk3vpxddNT5uN6IjwF9g
- 0yftqjE0GQ0OY0Pr8/5qqVxRwX9Zv5pBk/e7315YuUtkcnAXcV99Ndo21xxF73dJwZ6e
- vcjZ1etLKNFLspaVyzQMY35zB6IEKJTLqNv0mSrihc93/GX0hCWiSecDkNnIzSS+O614
- r2bw==
+ bh=Riz2A5UuSViG3JVLoC0bGAkxf2EfZnfcPl3QvTwCNF0=;
+ b=RYRkwXSk5qZ9YHCfcg3WW2T1kcofWzzDGc+WnDS/tLFpzGB1Cs5Ug0XvuwjMbCzB/M
+ iyZssnyI/lHC9k5bOCLw+GGL4n5KYdorfCI8Fu3O7VkzVOqMu9e002FNaNBt6hAj/J5X
+ FkFfy8qlu2iEsJrtEbxLuZ2EFCqjqHtNBB5mHuUjbPCfXzASjgbIhgh4KQ5bOQT15cgK
+ 9Spl4066JUVU8T5NvsAiYl+K8UrJl39g1tXHwd3ML0bqt07kigY1a8Nd5oFFWRsNnh+D
+ P/d4Y8+neKoQrJajUEAy6qSxr19Hljb0HO/x8ZqPve0l1AMP1auslTqPHbuWg2o9yFiq
+ tyeQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoklW2YpISyNlQ72HGMPa345d10SiARWYkVBzq1YIZhWauMqykNzAALBRTgA8ayBTCTZWIWMaLPUqw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHFqtrm4le9BMX5QnsD2lQy31yJgJpoxTnYvkMb3t1tHrHiUaV
- 07SAub3PVDw7PUbggcUGvW6JJ2uw4dh2Em2tE+mk92YeXm600n4xocZjzc+5JDAPv1KPhqjHUIF
- IU9GyNzRf8FHg6JNWsLdHYJHBaZuNTADl0dwb6jFSCXSbvnBVWh7XoDz3ccP5Cqs5ARFvGS0=
-X-Gm-Gg: AR+sD11Pvs/fDoTA8tIPBfTuO+mUZeax+4ZGr6sV13aPu18e8LYRAAxqM16L6fR9o/Q
- uwW/40jDq8BxqNrJ9096xeVUUjIYIM6PtZIzHQuBncl5Jc3Svvy2xazYycCceo5t2dMRVTmpKTk
- mdhzxhBhHeQP2+XaeAeXbMTqKAq+I7pwmqSpaTBke9dSb1x07pCxzR/7xZfsR7lRWRs6iS1K5St
- L1HkLqs2mKvtl9Vnq1DEJpHtZT+sKuzWzWzoOk7nsCysMhgRmH7STsa40cxycVdXhje5fGIGt6b
- P6tK3Pcvi8IRWSFUMyCF6UOogMidatu8mJhom9FGrbgOgZphA0w5OutSFUhrEZv4DqThegIeqNJ
- L7sb21TLC+Jl2eUoYEMitSQAEg7KE/yvfUgCmCkEg/ChWiwtewwnKgKrpCdClkkhz03IzCGQeYa
- ibvhT9MC1/55rE
-X-Received: by 2002:a05:620a:600a:b0:930:b4f9:f327 with SMTP id
- af79cd13be357-9371e316b8bmr44562285a.33.1787089798625; 
- Tue, 18 Aug 2026 14:49:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:600a:b0:930:b4f9:f327 with SMTP id
- af79cd13be357-9371e316b8bmr44556785a.33.1787089798036; 
- Tue, 18 Aug 2026 14:49:58 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a16b1f31c0sm15151191fa.40.2026.08.18.14.49.55
+ AHgh+RqLw+IzOtDgtnOGXfs6kV/uO/KJkL32OEhp2aWzwMGExiOyFmvhUAO0Sx2/2IQ5K1krhAZc/NzgGAY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsKTRwoFbtpe7BrbW4OJTybkJopVsl3tJKBR+6h+bw34wS9eFy
+ COneUYQr0ysi7v+GqksNT1pOcFDnMI/Uftd/zthb7sk4ijxyUwLkaq9FfrIb7O9Bgd4iwEGpgH3
+ cYSzDLfXmn+x6HyovRgtJBNnIYrA6szgTqM3Sp1j5iHkHhgYfDRzDCm+zAqlAgf+a8QIIgQ==
+X-Gm-Gg: AR+sD13fSsRMALkxS1cy0JcOZotCnYeNWOWV53aN35PbveQ6aNYkGEKHOovMDWuSAIt
+ 1XXC0hnttvCJIA/tOYNyfgorAfIO6YrayOwJ50/HRdcA2SsB3NSHHpVv+3XD0h83yhCGW6uaeLb
+ TPuAHNVuBwLns436QPQDNEI4yUmdnkzc1m7x4pxiZRDYlcbuR9B7u/CsOR+Dr1V/F5CI7/K1ECJ
+ c9Ci0ltA3UaSu0ZBsMPptedTS36rtYbo9ExihNrT555qTS4ULLdsXNjBwaWu54Cb/yv3dhhNp6L
+ PYeKYQGnUSEyX05SmSbW4C97sm+bzPTd503AwoxLbkOMLuLq2HYVT+AnRB0qZ/IHidI6F5eF
+X-Received: by 2002:ac8:7f41:0:b0:52d:918b:92e9 with SMTP id
+ d75a77b69052e-52dd5cb02b9mr4146971cf.33.1787092354684; 
+ Tue, 18 Aug 2026 15:32:34 -0700 (PDT)
+X-Received: by 2002:ac8:7f41:0:b0:52d:918b:92e9 with SMTP id
+ d75a77b69052e-52dd5cb02b9mr4146391cf.33.1787092354173; 
+ Tue, 18 Aug 2026 15:32:34 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-52db60eb025sm49583821cf.5.2026.08.18.15.32.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 14:49:56 -0700 (PDT)
-Date: Wed, 19 Aug 2026 00:49:53 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: mohit.dsor@oss.qualcomm.com
-Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- vishnu.saini@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v10 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <uuuph37ftuyuqpbayqbotnsqgqn367ytdam627jl3cqcxkzana@xq2pky3dobyx>
-References: <20260808-lt9611c-v7-v10-0-ee90a136d82a@oss.qualcomm.com>
- <20260808-lt9611c-v7-v10-2-ee90a136d82a@oss.qualcomm.com>
+ Tue, 18 Aug 2026 15:32:32 -0700 (PDT)
+Message-ID: <4b354d80857386b0dfb4b38615d707f6da65b66a.camel@redhat.com>
+Subject: Re: [PATCH v4 2/2] drm/nouveau/kms: guard NULL crtc in
+ nv50_sor_atomic_disable()
+From: lyude@redhat.com
+To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Date: Tue, 18 Aug 2026 18:32:32 -0400
+In-Reply-To: <e428a3e8d4c0500c112d8deb756fdec884790623.camel@redhat.com>
+References: <178688574400.522643.6695278742335367229@gmail.com>
+ <178688574402.522643.5471719764843371376@gmail.com>
+ <e428a3e8d4c0500c112d8deb756fdec884790623.camel@redhat.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260808-lt9611c-v7-v10-2-ee90a136d82a@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDE2MCBTYWx0ZWRfX98MkPTsXm+Om
- WVgfRfNbarFCgvqH05vE1Y+ii8vOSKaYS9GcX/0XFqcLTjXY/bxVg4oDe8zyf6kANqYhswoLTPl
- aQbyKQt2qn1KX1Y8+yXZhBaD6OY4g4oSMacVTpJSGZMGBU05xwM9S5GRIGCLFyy7CL1k7IlnMgF
- 0o7CiytXq3F6vcrYfFZ8a7QRQUD0PeKKL6FwI3IyZIRDTD/Wq1deeZcHt1I9WvYU4AcM3mRzNSZ
- GUxd4nGTT/JYWKfh5hCAaT6QOZwvqgY1hlLjgEppWFiG7zqDEA61oCNBLm+OOk4Kyqo+CfPb6vq
- G5LZFyTPAlt+5wLcH+t38QAr4esVMSGCD8BbqQoxymi4RzuE7PdKHqU26i7sgLVmbRTIl3vnenA
- AvxxvKq1aD89ApeheP0M2XDl0xw+UT5r9/Z+pGrxNXStwrN8Jy/Jj02QJkY9B8LGkmRu7/ZaKR3
- oGjnwr/6NxBtyBOQ/sw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDE2MCBTYWx0ZWRfX7kZEPtMmb7ZX
- MwWGXPZV5P1ZSSKuHF+jSMdyJV9xn2H/tM2+DVAwEsyigVI1G/72/crzFg4B+gPFPfga/9bfPwa
- ltdxhMSIwnXHMOZKJ8ZZKplxGfvrR8o=
-X-Proofpoint-GUID: Bi5JIyqqaZjPO3q_ZWmqsq867opI1wkN
-X-Proofpoint-ORIG-GUID: Bi5JIyqqaZjPO3q_ZWmqsq867opI1wkN
-X-Authority-Analysis: v=2.4 cv=J+SaKgnS c=1 sm=1 tr=0 ts=6a84d387 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=Kz8-B0t5AAAA:8 a=6b6BgIowys52Drpq0AoA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-18_04,2026-08-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180160
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: O2bc4VyQ6DwvYhnsuiJi3bYTnILBGXxusvUicHe77hg_1787092355
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,134 +103,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Aug 08, 2026 at 01:37:51PM +0530, mohit.dsor@oss.qualcomm.com wrote:
-> From: Sunyun Yang <syyang@lontium.com>
-> 
-> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> mipi dsi and output hdmi, differences in hardware features:
-> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> 
-> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> Co-developed-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> ---
->  Documentation/ABI/testing/sysfs-lontium-firmware |   10 +
->  drivers/gpu/drm/bridge/Kconfig                   |   18 +
->  drivers/gpu/drm/bridge/Makefile                  |    1 +
->  drivers/gpu/drm/bridge/lontium-lt9611c.c         | 1283 ++++++++++++++++++++++
->  4 files changed, 1312 insertions(+)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-lontium-firmware b/Documentation/ABI/testing/sysfs-lontium-firmware
-> new file mode 100644
-> index 000000000000..8700933ba0f0
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-lontium-firmware
-> @@ -0,0 +1,10 @@
-> +What:		/sys/bus/i2c/drivers/<driver>/.../firmware
-> +Date:		July 2026
-> +KernelVersion:	7.3
-> +Contact:	Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> +Description:
-> +		Read: Returns the current firmware version loaded on the
-> +		Lontium bridge chip in hex format (e.g. "0x0105").
-> +
-> +		Write: Triggers a firmware upgrade of the chip using the
-> +		firmware file loaded via the firmware loader.
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-> index 4a57d49b4c6d..d1597548e578 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -177,6 +177,24 @@ config DRM_LONTIUM_LT9611
->  	  HDMI signals
->  	  Please say Y if you have such hardware.
->  
-> +config DRM_LONTIUM_LT9611C
-> +	tristate "Lontium LT9611C DSI/HDMI bridge"
-> +	select SND_SOC_HDMI_CODEC if SND_SOC
-> +	depends on OF && I2C
-> +	select CRC8
-> +	select FW_LOADER
-> +	select DRM_PANEL_BRIDGE
-> +	select DRM_KMS_HELPER
-> +	select DRM_MIPI_DSI
-> +	select DRM_DISPLAY_HELPER
-> +	select DRM_DISPLAY_HDMI_STATE_HELPER
-> +	select REGMAP_I2C
-> +	help
-> +	  Driver for the Lontium LT9611C(EX/UXD) DSI to HDMI bridge chip.
-> +	  It converts single or dual MIPI DSI and I2S signals to HDMI
-> +	  output. Supports HDMI 1.4 (LT9611C/EX) and HDMI 2.0 (LT9611UXD).
-> +	  Say Y if you have hardware using this chip.
-> +
->  config DRM_LONTIUM_LT9611UXC
->  	tristate "Lontium LT9611UXC DSI/HDMI bridge"
->  	select SND_SOC_HDMI_CODEC if SND_SOC
-> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-> index 15cc821d85b7..f322f3f89f6b 100644
-> --- a/drivers/gpu/drm/bridge/Makefile
-> +++ b/drivers/gpu/drm/bridge/Makefile
-> @@ -16,6 +16,7 @@ obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
->  obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
->  obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
->  obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
-> +obj-$(CONFIG_DRM_LONTIUM_LT9611C) += lontium-lt9611c.o
->  obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) += lontium-lt9611uxc.o
->  obj-$(CONFIG_DRM_LONTIUM_LT8713SX) += lontium-lt8713sx.o
->  obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> new file mode 100644
-> index 000000000000..e6887f2c89a6
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> @@ -0,0 +1,1283 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 Lontium Semiconductor, Inc.
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/crc8.h>
-> +#include <linux/firmware.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/media-bus-format.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/of_graph.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/unaligned.h>
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_bridge.h>
-> +#include <drm/drm_connector.h>
-> +#include <drm/drm_drv.h>
-> +#include <drm/drm_edid.h>
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_of.h>
-> +#include <drm/drm_print.h>
-> +#include <drm/drm_probe_helper.h>
-> +#include <drm/display/drm_hdmi_audio_helper.h>
-> +#include <drm/display/drm_hdmi_state_helper.h>
-> +#include <sound/hdmi-codec.h>
-> +
-> +#define FW_SIZE (64 * 1024)
-> +#define LT_PAGE_SIZE 256
-> +#define FW_FILE  "lt9611c_fw.bin"
+On Tue, 2026-08-18 at 16:44 -0400, lyude@redhat.com wrote:
+> > +=09 * .atomic_enable (and by the boot-time hardware readback)
+> > and
+>=20
+> We don't set nv_encoder->crtc at the boot-time hardware state
+> readback.
 
-Lontium/lt9611c_fw.bin
+...this was wrong, oops!
 
-With that fixed:
-
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
-
--- 
-With best wishes
-Dmitry
