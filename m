@@ -4,77 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C76FC5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20F8EC5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63F9F10ED2F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CBF210ED30;
 	Wed, 19 Aug 2026 06:37:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PVpAeSDU";
+	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="w/uT14aL";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66AA110E3E5
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 09:31:47 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-38dcbade417so3125093a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 02:31:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786959107; x=1787563907; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=mr+TqHpD4NfH87dyjxCAi72h/kE3hW+J/KRhRismO0I=;
- b=PVpAeSDULbrXF5UlKwuH3AZP+h2YFpA4qbOIUldZLGDOXNLyK8jR3Vcg4oEM8OUjM1
- by3nvBxc11ta+QMz87fN+kPcmYoIcYqtz72cVXkz3sxsBfv1klvs9uCYm/EedXktPXz8
- I7h6q9LlcgW98DuiX6RZZYk2pdEkonQWaivkK4eeRyT5t0PBIncA6wLLqTqUHnqdjxuF
- DLHB8UJZLVR/iXhXsG2tVDOXNVg1j80dF7+9MiVusQ3uPKbffYvAJJq2EPcGzqNqJbIu
- XwWJ5kXbVGFPdXaA4EIBly8/2U2Tml6XltGDUlipoDdF4kn7GN9iwbiRCPhpe7i8FUVi
- ZCMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786959107; x=1787563907;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=mr+TqHpD4NfH87dyjxCAi72h/kE3hW+J/KRhRismO0I=;
- b=dy65eJTEyH8TS+4gpOUT6IN0trtjG/MUPOuo7bbajEWx4pDgUp1AWKnIUOrkja1w0H
- rcaSr94l34sBB81NJ9iYyMYFYDDY1l+RIH8e7ltQARPs5o13raQ80GVGi5r0w1UxpGUK
- ZmVDHN0lSwlXlx9QDN6womQdmK8APUb5WEGK8sA5NQQQvwptQvgmy4GDyWSM4gKMh6tz
- vq89Uf0Znuv176WuZZhyPzXzJWiTOKiiJ7/n9vii4xwHM7u3p68Mff2EwTemqz+U4Pzf
- lpZpVGvMhGo2oozcw5ZaX9CJq1Rh3ffopg2I68HYRvIwWfb36eREcnrzkl/ckSOyuQhY
- KYxw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqFfpjNY+e1JcpTWqu89E2DsjRsS5LUVa0puZiXAgdm0RqfJW6oppZTaK5QPOSj/jzvLEKPpOPVn4g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwstF736PLzmiYI9dbl+e4eTVcBbuQV9reuLrVaQM8oY+s5wzoH
- tHmGZb+J9hQpDCz2+n3Td0dQ+4qqKg8bhIIHY776tJVF4CXKaoxN6yo=
-X-Gm-Gg: AR+sD12gJ0zYTorhZpGHW722Pp94DgEw7dEYeQ1P0w1KOx5b5VT+yjl/Jcr19tA9c3N
- azF2CLAvtjZPfZHoO5z3rdDz+3TGFk7f7hIZzbM9LG2PjAzZpaqY4CkT9NCd5P3AJy5Nj1p+ubJ
- BE/pvJ0IaQzCUWtGwRdCg3SNrrMb9osKeHtCDve8oVe1LLN7WzSlNilfRZnQ9FRR97qQQBuJdLl
- YwLPjJ7slEeb2ha+VUHtFoLpAJBjogJyUfPkEBlpAgLRkfM2DS7dOMPgjrnb3Hvg8IZphis7B6y
- +AUnhN+5CFNQXoTnnSppMDRbKchapdQ7GGrFWN6yGHFuJtKavjCLuQeeQNgGioaupRN4PEgYacT
- x56lx6UtCHLXtEKi7eF14wfNlJdAiw9TMDqfZm0RNaR/gD2Cd/KmHO550YSAPgLydECe1H8tSol
- qpfX+qLMdEUyuVFz1KDuqT1Fr7QKw5H8Sx9W4eh7oN5rsw1+qxWOlPgY6JU7w=
-X-Received: by 2002:a17:90b:38d2:b0:381:6c5:3f63 with SMTP id
- 98e67ed59e1d1-3933b807a97mr22444654a91.6.1786959106729; 
- Mon, 17 Aug 2026 02:31:46 -0700 (PDT)
-Received: from DL2XHKPB4.dl.net ([103.63.104.162])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3954d2e1a09sm1616832a91.7.2026.08.17.02.31.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 02:31:46 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: tomeu@tomeuvizoso.net
-Cc: ogabbay@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Triet Hoang <triet.hoang.dev@gmail.com>
-Subject: [PATCH v3] drm/rocket: Check allocations before use
-Date: Mon, 17 Aug 2026 16:31:42 +0700
-Message-ID: <20260817093142.975407-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <fbc4211c-d98b-458e-9dd6-3c3ec867df3a@web.de>
-References: <fbc4211c-d98b-458e-9dd6-3c3ec867df3a@web.de>
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90EF910EA3A
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 08:19:53 +0000 (UTC)
+Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
+ server-digest SHA256) (No client certificate requested)
+ by meve.dewith.io (Postfix) with ESMTPSA id 82B4B23D8B;
+ Tue, 18 Aug 2026 08:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
+ t=1787041191;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Sme0lWRlPwues+3nXUDbIzXVcq97z1tTJyjaUWjJXfw=;
+ b=w/uT14aL41UZVnue474ddxJFYpVEu9H3ifWdHXBj28vdbAkOOMwCZwBaY48TxpLfuzvEGh
+ lyNf9jmOosbpdIbqQdFwCoKVjVyKdIEEo7DCJ+Pn7kxl+NU289awLWGbspvf7cUr0PAdfV
+ pH2RRbdZaZCh81jBtT1xUynlgs+xdmI=
+Date: Tue, 18 Aug 2026 10:19:45 +0200
+From: Wim de With <wf@dewith.io>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] backlight: Add support for Orient Chip OCP8178
+Message-ID: <aoQVofK2EK6Tjsw8@dewith.io>
+References: <20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io>
+ <20260816-ocp8178-backlight-v3-2-caf95c453c50@dewith.io>
+ <20260818-crazy-corgi-of-sorcery-abaa23@quoll>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818-crazy-corgi-of-sorcery-abaa23@quoll>
+X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,60 +65,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Check the result of kvmalloc_array() in rocket_job_push() and
-kmalloc_objs() in rocket_job_open() before using
-the allocated buffer.
+On Tue, Aug 18, 2026 at 09:34:14AM +0200, Krzysztof Kozlowski wrote:
+> On Sun, Aug 16, 2026 at 12:57:04PM +0200, Wim de With wrote:
+> > +static int ocp8178_bl_enable_onewire(struct ocp8178_bl *ocp8178)
+> > +{
+> > +	u64 start, duration;
+> > +
+> 
+> It seems you re-implemented one-wire interface instead of using w1. Why?
+> What sort of one-wire bus/interface is this?
+> 
+> Best regards,
+> Krzysztof
+> 
 
-Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
----
-Changes in v2:
-- Free scheds when drm_sched_entity_init() fails.
-- Initialize ret to 0.
+It's not actually w1, it's just some non-standard protocol that the
+vendor confusingly calls '1-Wire' in the datasheet, to distinguish it
+from the PWM mode.
 
-Changes in v3:
-- Move patch version descriptions below the '---' marker.
-
- drivers/accel/rocket/rocket_job.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index ac51bff39833..24e1a61f71e7 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -192,6 +192,9 @@ static int rocket_job_push(struct rocket_job *job)
- 
- 	bos = kvmalloc_array(job->in_bo_count + job->out_bo_count, sizeof(void *),
- 			     GFP_KERNEL);
-+	if (!bos)
-+		return -ENOMEM;
-+
- 	memcpy(bos, job->in_bos, job->in_bo_count * sizeof(void *));
- 	memcpy(&bos[job->in_bo_count], job->out_bos, job->out_bo_count * sizeof(void *));
- 
-@@ -499,7 +502,10 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
- 	struct drm_gpu_scheduler **scheds = kmalloc_objs(*scheds,
- 							 rdev->num_cores);
- 	unsigned int core;
--	int ret;
-+	int ret = 0;
-+
-+	if (!scheds)
-+		return -ENOMEM;
- 
- 	for (core = 0; core < rdev->num_cores; core++)
- 		scheds[core] = &rdev->cores[core].sched;
-@@ -509,9 +515,9 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
- 				    scheds,
- 				    rdev->num_cores, NULL);
- 	if (WARN_ON(ret))
--		return ret;
-+		kfree(scheds);
- 
--	return 0;
-+	return ret;
- }
- 
- void rocket_job_close(struct rocket_file_priv *rocket_priv)
--- 
-2.53.0
-
+Regards,
+Wim
