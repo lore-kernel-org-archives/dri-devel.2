@@ -4,77 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D80C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B3D7C5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:36:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA1710E607;
-	Wed, 19 Aug 2026 06:36:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800FE10E548;
+	Wed, 19 Aug 2026 06:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FxkTTply";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Iq371aHY";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0394810E3CB
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 07:20:54 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-84e0688b859so204193b3a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 00:20:53 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA7C310E36F
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 06:21:38 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-38e041ea211so4116038a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 23:21:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786951253; x=1787556053; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787034098; x=1787638898; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=jtd38hsH3dGNiUrGGPtNYK9qHwfFDcPb/sf8PmxKYhs=;
- b=FxkTTply5ggq0xuVdVcHGwhMMlKNdKRv91TWzesC+HMALFfocLRYIUN/IWoV3SFbjB
- juVhJ1mUAf6hReJNcRoYGq7DGO3aVuykgWsiRHMgbXwltqeulSvlqperZm9Bct6boyAs
- E7oyMO1oKPiQcRVtUZjys8I7C3nHfk7dAjwErpsbxoXmr5cm6TVLRB94bVd7tYcC/75F
- +HFIZeVgmZ6weMU2zNaLk6ep/0KcmOBUOxZcYA4UEPVqoBjUlsj0cvhe5K80LVrXXVz2
- ZAo8jKckBDk39f6OjpetmtN3ZQ0iILdVI2zwes/s3qV63eZEbkMrA3HXEmrELokYIUoF
- +iIA==
+ bh=yLs/RlrXlKm3gliodn6KiIGRLWy/mBk6EHfck2hwzM0=;
+ b=Iq371aHYmRCGdYBHwnzD7A+ywxSPrx7nqAqnFSKJIqKppgAZAswNv605a38lNzPMgv
+ KtFUP/sVDLvvogq79ldaUKevlLBJVy+Jc9srHLL2LRcvcvAOIy/0SUJbDRwsM2BYSSXH
+ 08a5Af0wmnOCR/onPRBGtuz+D2W3KzkoBy3tAVHmJv+RHyX5YkQXYkjB5xP5BiFBQmOH
+ QWUZrbf2EHj+ARt/9TWKopqq6GRUuwcKlsLrC+KRHwsJayjWpyMmZ43RvwERdG25QcYL
+ 6VazXYn/aVdZcMzRcrIju1sOMpNxQYdyO72sniEh/jTGa633inZ3GOlSNfLS+PexqHV2
+ HkEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786951253; x=1787556053;
+ d=1e100.net; s=20251104; t=1787034098; x=1787638898;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=jtd38hsH3dGNiUrGGPtNYK9qHwfFDcPb/sf8PmxKYhs=;
- b=p9fPfuxf6BSgQKmSWbWDnX+mdHqO/wy6RNufVMhgIczEWl55Rqylo6JxOx21BEqzTA
- qgUBHwCngB/EciuivOngd3WubmcPooxSiQiR0c4wJhMLpvO97sr664HYOb1jRP2JpoBF
- xyNhOjBwLWCW9qlv4hT/fsivSXx3UkxHErK4e7jDkH+xWvJW1DmgnxWPDK7j+w9AjrqG
- 9DgEVhDGtBCniKIoDu0NJPYY+dzAkYx36ucHkePcFzC3YBtmrhFr4ks5zrqeJx5UfNAG
- 6q2c40CNaEVOmJUAXOryoAr5jS05zcdQZpyRB7JZlFyMop4EHNBN6DJPlYEixZbheI8F
- EV/g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrpLpIFj+0MMCKY9VNcPrG1L5u94Dk2ryLwI6XyQbtME9xmVZHeFTeK3KOuYjbOfTb5RYHy50cBiQY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2ptTLBUTEQHSYOZ+zO8BfPOaEKdqk8XnST0R2N/8V737hBN29
- CSJyS4ytlrrOqee7rfs6k1fbF8NK+A6GylLokjb7sEJ1OjEn105Hhy75qN5XeQlR7rpq
-X-Gm-Gg: AR+sD13Ec5lHyhyIQ60kLxaTxN8xlpJkAsXQPYbidRDCbNlRmk8cig2srgHKrNoAMPA
- agLTEZq5s/cIYqxLE//ZWvbuEAMBtkP23/MVb0NPtakWmHPF2huCzemvxeK8pEjz5CcHoOp6/0b
- Ca79w+V2bXUAGnvaEKuw/uXmVhZO2rpmnUblmGTUjoPRpgJK/OvzJ6dqlJlJo4i6DA/mICK+m17
- PROJP0UKZjal0it3f9ixVnFeszxFIyfWu+Io37GIT7H8hHprtbQLnDlG3W5IDTphNbq0Us9gwN3
- e7XQNvyTpLyDmGtvXKv2B6ug2EZ85MucUdlK6givMLv9L7E6ZbPv9r8uxQadPWItDggwUgwElVU
- /jchSo299qQFKuauS1IxL5q2FbIuCIY/kgL7zhL7wRHDMn9G6TiAIQnG+x0+2dyHZ9cZb24cAv+
- t2yO7f5jQZIHNgTJMxiZ4zLBiytjzM/5MsZiCsJ2yovZ3/dge8zSggfF8+5pY=
-X-Received: by 2002:a05:6a00:2383:b0:84e:89a:b8ec with SMTP id
- d2e1a72fcca58-84fde3d4d3emr20738437b3a.11.1786951253271; 
- Mon, 17 Aug 2026 00:20:53 -0700 (PDT)
+ bh=yLs/RlrXlKm3gliodn6KiIGRLWy/mBk6EHfck2hwzM0=;
+ b=Eocr8CTByrxQXlBHXJJcHYLWUWfAtW5Irjz4cmKSUl5tdFZNT4SC6VcSpTv292Mtgh
+ nkXCGEiZqP/lXgpQtTKmoIfYXQ20vdpH9reie7b5w9atLDVlPd4xQ4UCa1NCmNEGPX0g
+ w645gMWFLizIytQO2n+H0NMYlv5jH8ws3PPPBLPUs7GICgNqr7nUWX/Vy2Ngi+0G6Vbs
+ z6eQqRuzIrITa9tO/s/g7NaetwbqcNs3TIolmuB9dJjwxEsKGUn6MO+Y27u71NeoditA
+ Mliy9+tAisaGppiZtHO3yC1GJLhYI7NhOP9zpfBi0K/aXYL7PM1c7I7tawT48D41v1EV
+ Kgow==
+X-Gm-Message-State: AOJu0YxRFmzS7s7EvVSBpa1Ej3bEmsHrvbXryhT2MpP2m6BrAkP6kl6l
+ UFUltLT0HXncijxmmUTbNVezaBumR0R7vBryvkDE8pTMe4ti+HSR7Zo=
+X-Gm-Gg: AR+sD12Ia05SeHrVrdGfEEKqExu9BjhiFNGmOlwkBGFYZaoULUcvT/IvlqdcLy8ZkWZ
+ kbBb5eoJMAdZMdbaV8d3jGpV332+Sja1nnbwATilSrFfRsmiroih/4FLwtQAPoUh28FpoBFy7SL
+ O6eka2v8hQWQJyuELijk0yO3DWZMKhe+rKmKN160LGP4V9nkvMZD3hYkg8QUjqGMcq9HDP9TrVa
+ zdkOqMhXTh+arwdf34iMtpZQv5lKA6LAKDE9AX4K1iA6CKm/PDnlts51YBATkg2c/omJr47iiaY
+ Bu1l63gB6mQMcrqdaDuBIKafMyXi08OEN1FRCiOkp3jCxAzvtodVEvtKdSBQhj0UCQdE5SF0ddH
+ nsDRPCCtvXYoV1HK/5XEYuXdnN/Kaf49iEqjS0q9lWtJ6eo8i0b+bbGrs/QADGLfejbt63tCJSK
+ gQA4BAiP1UzuaZLWoeT+oISwfG/KT6qBWW1zPfOnBsAuUsh+D4vtLffYrd2ysKaNTVquIru8fSr
+ nwEYCpxdYFU
+X-Received: by 2002:a17:90b:3b84:b0:37f:e326:6557 with SMTP id
+ 98e67ed59e1d1-3955a3dae07mr4907995a91.4.1787034098391; 
+ Mon, 17 Aug 2026 23:21:38 -0700 (PDT)
 Received: from DL2XHKPB4.dl.net ([103.63.104.162])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cc13bf02fbcsm284780a12.3.2026.08.17.00.20.50
+ 98e67ed59e1d1-3954d2b85b1sm4859020a91.2.2026.08.17.23.21.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2026 00:20:52 -0700 (PDT)
+ Mon, 17 Aug 2026 23:21:38 -0700 (PDT)
 From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: tomeu@tomeuvizoso.net
-Cc: ogabbay@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Triet Hoang <triet.hoang.dev@gmail.com>
-Subject: [PATCH v2] drm/rocket: Check allocations before use
-Date: Mon, 17 Aug 2026 14:20:45 +0700
-Message-ID: <20260817072045.876042-1-triet.hoang.dev@gmail.com>
+To: markus.elfring@web.de
+Cc: dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ogabbay@kernel.org, royalnet026@gmail.com,
+ tomeu@tomeuvizoso.net, triet.hoang.dev@gmail.com
+Subject: Re: [PATCH] drm/rocket: Check allocations before use
+Date: Tue, 18 Aug 2026 13:21:34 +0700
+Message-ID: <20260818062134.1634572-1-triet.hoang.dev@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260817055315.C9AA41F000E9@smtp.kernel.org>
-References: <20260817055315.C9AA41F000E9@smtp.kernel.org>
+In-Reply-To: <67dc50c5-19ab-4612-857b-59d6a850f76b@web.de>
+References: <67dc50c5-19ab-4612-857b-59d6a850f76b@web.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
+X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,57 +90,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Check the result of kvmalloc_array() in rocket_job_push() and
-kmalloc_objs() in rocket_job_open() before using
-the allocated buffer.
+> > There are programming interfaces supported to some degree
+> for the application of scope-based resource management.
+> https://elixir.bootlin.com/linux/v7.2-rc7/source/include/linux/cleanup.h#L10
+> 
+> Would you like to take any adjustment possibilities better into account accordingly?
 
-Changes in v2:
-- Free scheds when drm_sched_entity_init() fails.
-- Initialize ret to 0.
+Thanks for explaining. I am happy to continue working on this, but I think
+this would be more of a refactoring to use the new API than a bug fix.
+Furthermore, I don't have much experience with the new cleanup API yet, so
+I think it would be better to consider this as a separate change in the
+future, after these patches have been reviewed and I have gained more
+experience with the new API.
 
-Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
----
- drivers/accel/rocket/rocket_job.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+Anyway, thanks for suggesting this. I'll take a look at it and keep it in
+mind for future changes.
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index ac51bff39833..24e1a61f71e7 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -192,6 +192,9 @@ static int rocket_job_push(struct rocket_job *job)
- 
- 	bos = kvmalloc_array(job->in_bo_count + job->out_bo_count, sizeof(void *),
- 			     GFP_KERNEL);
-+	if (!bos)
-+		return -ENOMEM;
-+
- 	memcpy(bos, job->in_bos, job->in_bo_count * sizeof(void *));
- 	memcpy(&bos[job->in_bo_count], job->out_bos, job->out_bo_count * sizeof(void *));
- 
-@@ -499,7 +502,10 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
- 	struct drm_gpu_scheduler **scheds = kmalloc_objs(*scheds,
- 							 rdev->num_cores);
- 	unsigned int core;
--	int ret;
-+	int ret = 0;
-+
-+	if (!scheds)
-+		return -ENOMEM;
- 
- 	for (core = 0; core < rdev->num_cores; core++)
- 		scheds[core] = &rdev->cores[core].sched;
-@@ -509,9 +515,9 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
- 				    scheds,
- 				    rdev->num_cores, NULL);
- 	if (WARN_ON(ret))
--		return ret;
-+		kfree(scheds);
- 
--	return 0;
-+	return ret;
- }
- 
- void rocket_job_close(struct rocket_file_priv *rocket_priv)
--- 
-2.53.0
-
+Regards,
+Triet
