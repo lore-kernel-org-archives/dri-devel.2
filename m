@@ -4,116 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C2ACC5DF67
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 06:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DA2EC5DF67
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 06:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C88F10E1FF;
-	Tue, 18 Aug 2026 06:41:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8075F10E39D;
+	Tue, 18 Aug 2026 06:43:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NuGMAc0Y";
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="EjUSkCVD";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9FC10E39D
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 06:41:24 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2d03fcd26a6so6832255ad.2
- for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 23:41:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787035284; cv=none;
- d=google.com; s=arc-20260327;
- b=qAxCwUevZWyiv2NXH9rqCIiVb/OGhUftq7n0LVq7TpeSaYfFSUQ1snyBRJerc0arC9
- htvxEC20Fm0pxMR0Vu/q7L4zGErGuXe3dmJvpkeX7b+UK6enm1k0cso/6D1IRSKmpoff
- RRc/g/Fiw4VqeWWCl/05m/dqmQ17fnPnR8bCnqs0bWGlC4Rw0QFb71e4kh1nk2x8ouGE
- PtwfF61Wse0t6903IB29/LBEyxXALf1eXhanKbkA834JnxaAy926KcFUH8tfsui3tBAC
- vBck70kPhPjgLOroRz+Y7IGytd+bdjzhGsBhuCAL9fhV/Iy2v4nntXhx6Ld3cVJklsRD
- a1bA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=F66vDlwnqNRvpNa85V4+GIKOYUyq40PQaHNUdB5z/NM=;
- fh=fIyFsabarI2FNfQULC46CSnbPvhqVaB/o58z5/nDNTo=;
- b=f0UW2ie3cZHqI4GDiRiI8xwKyKY4adzhpKIdT36AvYiW5bIWGkV2p9R9k+4d0AH4Rr
- pWdU4wCwKdALt+mJ3VfWU21gC7HmFtBS5kcZNXyLOlAsSRjZYROfLphfsYThCKja1oXc
- u5YpStnH05nRtrQ4DqRJh1XIvEnrBB9RISgOOJEPLVw0x4a3Re06L9QmZgy2RIGVQOe3
- v466R7/64PeLjopThUIBsWmjn9I63kqxqst9naBvEV7Br/pPsSKZu0L7vQNav8NGqkfo
- zlcbjLxHnHflBDET67Cesq2/YVOWQPkRueqOT0pIox+TMIrJbgVrJ4qTAlCMAEWue8xe
- 6KuQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787035284; x=1787640084; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=F66vDlwnqNRvpNa85V4+GIKOYUyq40PQaHNUdB5z/NM=;
- b=NuGMAc0YBTieAC7FDX4ib+PseADKJVZ5JBd4w81W4q4xkZOJYKqc/HjGNWiAqw4NMo
- RksUXPOZNcxVjtVF8ccVbHu0byLlpNAd2SmtbrggJl6Pfs4YqsHort1h6lm38O86HYIb
- s9qI6p7G8O8HXuHgGQ9cu090E3Y8dxAM1etreOxYS/mubK/EKbdQ6KY7jJH0Bj4MIlWX
- +YuHdk8argu8jGz6xTmzHAIFypEq1Y9r6nHt0y0eKil7OLBJ9LICjJA+1Dwnw02mbmpy
- Xd3fb6lWoGujgJ+Z0Alm189AmMJOYfrZ2s4dfoptNBIrwPnxtYMBeQmujORX1KmN3bXC
- QuJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787035284; x=1787640084;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=F66vDlwnqNRvpNa85V4+GIKOYUyq40PQaHNUdB5z/NM=;
- b=SA/LD2tP1fwHRufyhib7WcQR0A6q5ipOTosakuKFM3q2SccmupZ0GEhBTBu/q6p6bT
- Y+iH6Cgn725pCCRyTEfBHKQOOjUBC1jzdhUaC+bLJqJ3dpAa4uxr2JqjogCyEjMQw8yY
- i/lmiPNnFGgP6fRJ5uapvfHnuCoYiwStpz2/AGVSvxMYwwD2/lsFuIrjtL5K2W9RnRBi
- gIiNPUmx4P+GhzNZfNUoZknQkHeEh2Db5i0ncrG/uAdvGQp21REKrCI6caT+FiGa106T
- YgG6kSiJBugJXHIgmRUI3DB2Dp0JlvQMjHK7nWjMV++TL4Y4awALZwD8k8PupUs3oxC0
- jO1Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr6HCIs/TgTjhBCD2OrK1oYdLRREpYRKEd1oO30U5oNIL41kuGB5vzgBcfeNJIW8ZAbfPrKQ1nndxE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZmrmBX0BtcENp3k91jriVf7C+IkDMA7O/PbqMd8NfBB65IQU3
- mnPOWKev+LsefM7iZGPvziEBPlRV9edt/du59eFIYGgziXwKPalgbVK9pSuR8eBunAG8CrKr14r
- c+hjz4Phbc8yGI9B+GSGAwU46zV6HMFE=
-X-Gm-Gg: AR+sD13VLGBJ5akbK+M+fWELZa3n1++SHpcRblv0ejU70/cuF4wZPPdreiBzWMlItgN
- L7gg1ryuiohGkGQMf+/DtvcHMXLMv3qiKbEcTd2JsQhQCVGpurBsBrhK8cEC260XgI2DUpmtUUk
- 1fTy5KUx7ag3m/pT9COkfA/gmCNOwYuydcI2/mvNTnqpVZkSrqdyKD2xfAgE5EVul84lHyq3mve
- BvKjxNTSccPpxdlupDlMNQ90rACmHuHBfA92a1M8GTYSBtcXIjvt5SnjZD7wDG5YhiBBEKUnnDE
- LKTK+FgpbyPC2br91axOGZmaIe8LOh2UX6N7O+K5Z+oZA9kMmDoOJMVbEUYHklpGfsvLUM0XFBw
- tBId1eKf/Fj6tomXar3f4r+MoBMn1u8t2dnHSJ/x6LMYHRiFZMInlk9X5+cGxgeb2Nyb0sKI=
-X-Received: by 2002:a17:902:e54c:b0:2c9:ed4a:c3a4 with SMTP id
- d9443c01a7336-2d3b0503575mr218175045ad.0.1787035284410; Mon, 17 Aug 2026
- 23:41:24 -0700 (PDT)
-MIME-Version: 1.0
-References: <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
- <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
- <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
- <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
- <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
- <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
- <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net>
- <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org> <aoON0FepAUw1b003@yury>
-In-Reply-To: <aoON0FepAUw1b003@yury>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 18 Aug 2026 08:41:09 +0200
-X-Gm-Features: AcwNN1XoW3I66H8usbqd_WxG6tEFGRwBY_Sn9lhKHblIF3shDY3QyhmlBc9AX_0
-Message-ID: <CANiq72nFwdXcN+C8nJhd5Yq-cdUp1CDw_2u-D+zkgvW1-a5dLQ@mail.gmail.com>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
- Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- dri-devel <dri-devel-bounces@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from OS8PR02CU002.outbound.protection.outlook.com
+ (mail-japanwestazon11022124.outbound.protection.outlook.com [40.107.75.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB4C10E39D
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 06:43:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dPeWl+dko0Kuu2mNwbJnxfTZL7lrqwry7zvQaidkmSbDdF0l9+CAE24I/A6tuaCEqv/SjD4yAlLLJ4+PaWQyOai/sdMgmpyetxhRbcn0XAHDnQMRcipLAdGPhdQl/zjUn/Yw8hX1CleXIpjV8YUznSaieOw7fzXY2wJYQ/mmr1mHdjtM429DQCtOGJkpp8ayqwDBrp0NHiEDV009ocXqjhXDlr4S/zS+pzGMeAB+1v391Ebb2S+bPJksF0x+lPJuIwhMhwfXvYNpHYFc7qmlFBkT+YO3IwFIakRcNWt4UJqFpmbrUuW194B8tll92FJzCZRS/TzI9U4omXWyl47WSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JMUqAPoBmTW6C3xYm4jtX/Rpm5+aVDfMkdXW6iOCQco=;
+ b=SF4ExWUrNRNe4mYp00b2tGp8dSXPcq0HY8nHgXYzZ6N5XHME/8KPR7EVVf333sxNwq8t41kNAHhFL+umEtpvxrGR/ZjOWoaX26+9ATp9AFVhzDw+G6z3+ESibp0RzuncM98qoAdYaFVt8ltQysS0SuV+xrhRMTrkMx65a06BaT7M2W4J1J+oguA3AAqoZZH0Hyat3TcQbTBOF7rmqTM4lM7qZ2C+rTqyIRcr9fBrKWH2miEkhhyRdM3osQG7ul/U7U6/uA2iA44DZJirkFtPBM9ijd6fXjTpof6VLcTzXGYTDCjegIaoIqPoCX2CRKgCvEK4GHAnENvudxEPbmZ3jA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JMUqAPoBmTW6C3xYm4jtX/Rpm5+aVDfMkdXW6iOCQco=;
+ b=EjUSkCVDf4IFQrA/cFOce8lDALehkhJ3Eh5I/jDuKo4GLtuTv71nw23f/woSYWd2SaaQvSD9dNEtSksBVpOhmHbBY5Yuk958tpi6bNg+Wb5u1CDpX0+WV6iQCnF3Dt+o/kMp13UsAc+XneWHDrX2DyIgn+It1276euKkSeu9GObX+WrlPhGbY6EMHEr8hsenfpjwmh/os9d6xE4Xco8qS7fFCRfPpFjQRoUWN2/nTyGkEJ7PTBdKXKIlVa89QASCaZomD0MilJl5+QmAMNtQub2PYJ2MjZqPSwc9T05GaZQknYy9coMCv6aMgJjvXswMSB6GFBlYvPxRqJgpo5jfpA==
+Received: from SI6PR06MB7590.apcprd06.prod.outlook.com (2603:1096:4:21e::5) by
+ SE3PR06MB8740.apcprd06.prod.outlook.com (2603:1096:101:330::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.17; Tue, 18 Aug 2026 06:43:50 +0000
+Received: from SI6PR06MB7590.apcprd06.prod.outlook.com
+ ([fe80::2327:95aa:3d30:2cd5]) by SI6PR06MB7590.apcprd06.prod.outlook.com
+ ([fe80::2327:95aa:3d30:2cd5%6]) with mapi id 15.21.0315.016; Tue, 18 Aug 2026
+ 06:43:50 +0000
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+To: Jammy Huang <jammy_huang@aspeedtech.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, Dave
+ Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, =?iso-8859-1?Q?Ville_Syrj=E4l=E4?=
+ <ville.syrjala@linux.intel.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2] drm/ast: DisplayPort edid supports 256 bytes
+Thread-Topic: [PATCH v2] drm/ast: DisplayPort edid supports 256 bytes
+Thread-Index: AQHctghLcM60vWSjB0q2hmYy6od4zrWz5cqAgB8T2UCAruV5AIAEv6LwgB2uTnA=
+Date: Tue, 18 Aug 2026 06:43:50 +0000
+Message-ID: <SI6PR06MB7590EB0C73CC9229B3A867D9F1A62@SI6PR06MB7590.apcprd06.prod.outlook.com>
+References: <20260317-upstream_ast_dp_edid-v2-1-31166703c491@aspeedtech.com>
+ <2efefedd-a36a-4b3c-a2cd-89db3499ebdb@suse.de>
+ <TYZPR06MB6568D830FCFB93A9776333ECF1C22@TYZPR06MB6568.apcprd06.prod.outlook.com>
+ <b601f8842b959f6d8a2bd22bf6743dabad6d980c@intel.com>
+ <TYZPR06MB65681FB22E654846896F81A4F1C92@TYZPR06MB6568.apcprd06.prod.outlook.com>
+In-Reply-To: <TYZPR06MB65681FB22E654846896F81A4F1C92@TYZPR06MB6568.apcprd06.prod.outlook.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SI6PR06MB7590:EE_|SE3PR06MB8740:EE_
+x-ms-office365-filtering-correlation-id: bee4b7fa-7d55-460e-5948-08defcf41016
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|1800799024|376014|366016|921020|38070700021|6133799003|56012099006|10067099003|4143699003|18002099003|22082099003;
+x-microsoft-antispam-message-info: 81kqJ5yScScQie79UTvYSiObT/R2c4skcGBYOgM6WlspEYFN9grncAP640r+XoPdVIMqom8qQkQQ2s2IzTjSLr7N0nnePaqR+mOVwWinXT9sHnyKd7Xxjvs0mF2dUcwTf/SUlYabsmEmwXkVNvS0KhXCKy32r/wJSJ3dUGV5MVRc84EjpHesQxgmus/asAFfp5fe6Aw1YvvBBAjd8Vx4lzlHbPb9tB7nQLo48gmfgJtIj5T2xTlbBAscfr8XU1htsIMmeKxrvxazBa5SyWuqK2vwVQmpI8XFsxDEkIUxIfIzZSa0hSXm54JcV5aBlWAWZRqBnwycFV0GW0gAT409Nqmneb9X357yRYoBvu+92f6SXrczprP/9vAB1yjQLXKL7y2TmdYW1vhINyv0m6yu3N63cNxNPsgEL7k3J31dTL6q3+73+N+CG8vvV4je7nNeAC0uYFb1Re41rDm/CMp/ggfaDfkLnav7RXo3m2FLU1FlMAYi3ZPmMM95GMPu7zPlnWAlM3Vn2MK2yW2r0oC9ez2vbASKcduIG23oX/c+JMyBo9SEYyZgtvfmrnrrq0pfx102nXunHM36YklZKHew2TrQRCMGJZUcLKSfX7gEG2WZb8agN1Dy5CnVdNpXDdw1C7bwmOLMVJTKk7QkOM+uJplX891+RozWecb0aGteyM+I0b0rs/OVxur0q1HA894QK1xm2r3lFeu9kPDUMNneOfWkFpfe901bS+OCIBXoI1j9v6FNisyMmVeu2UAPrMTf
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:zh-tw; SCL:1;
+ SRV:; IPV:NLI; SFV:NSPM; H:SI6PR06MB7590.apcprd06.prod.outlook.com; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(366016)(921020)(38070700021)(6133799003)(56012099006)(10067099003)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?wiM5JWprDl5ugNDuuq7wr9qivLKKopmKvaEHBpac2pfTGyJsETkF0m3wRx?=
+ =?iso-8859-1?Q?3YUJ0MRVLFaYU6HyodAwUoYdYrJw2N0VS1Y5bTpRUwD+SVvMMdGCruhnI5?=
+ =?iso-8859-1?Q?7x47kN7y8Bb3s0DMjggxOyo3tbNLsc/HnaOBREzFcQvjkm35Uu0AgE/c5E?=
+ =?iso-8859-1?Q?0v6v2kNsomoT8ZH1azDvsCTukyLF4d2v6xiFdtdU/JQMPzdsIEfxN6KAC5?=
+ =?iso-8859-1?Q?zxmr7lOHLtGv4zF269PdFq8iC4CH4CrZAxVf5Hs185Uym3mo+rP9PvBBc2?=
+ =?iso-8859-1?Q?zfMYDx1+WWEJudulJ/i3pWoDq3BeVEj8W/VSqRIIDF1DVS4nJFX7niUiqV?=
+ =?iso-8859-1?Q?SN0i7GaKMmGSx0SN2E3NewJsRkV43+vA+NEpXoewq3KZBDMykcJhRNlDCj?=
+ =?iso-8859-1?Q?0xQ5yBx8//ljpHlKSwEt1TfvUAm17cLHsLvAluWM5D8Y86WzEYGUcgIs/T?=
+ =?iso-8859-1?Q?fxNGOazVFyqkhvnWRLDAI4scTP2A5CfLonIwaV/1YFcQyGNnRdQ+B0A+b4?=
+ =?iso-8859-1?Q?P9sqaZ6a3o90pkBO5qru6H9TZQ/72LDVtW8tLTxqpNsqtTRwMdvil7lISF?=
+ =?iso-8859-1?Q?0kALd7HCLRF5jaky5WuvCVdd+7cd4gRwTFTa3TIcFpFo5lRECma+i8xx5z?=
+ =?iso-8859-1?Q?lMBvqCq0kX3PL7pWvs/1cUurLS51PrugVY+92vEV+pKW9/PG2AcSlA+s+0?=
+ =?iso-8859-1?Q?9Md2QWVtaehs+rKsMEnpykeyBnwKxytlsccHaVstYGTEBnyVRQfBZmPH7Y?=
+ =?iso-8859-1?Q?CSH+oFpQPLYA+xKiCLL6wT+qOBIQBHXLMSWtNp81oWLkcqug55D3PYZqGh?=
+ =?iso-8859-1?Q?1JxoPT8RLTFDgz3MG2agpy8fEYZcqy4eq7hrxMz+lD+GdTRea6iE95TpPg?=
+ =?iso-8859-1?Q?VGSjUu3my642ahMWJN0izIQwdAe0t8IKjQhCDXGyng/t6qxMEXj4wIbZpH?=
+ =?iso-8859-1?Q?2sjpzpoQDOijDRSQzj5ScDD+DdQNqHgwZnsWaP28jFkALyyB/CQRVzuo98?=
+ =?iso-8859-1?Q?SNPGsvZSv7PTVx6VewX7LtD/Jv1rZj4S/GJN7txrnfjE92xHoMqSMXTsTr?=
+ =?iso-8859-1?Q?R+9NBGeaMAcSTYmQFbgC1MG++Jo1Vd7Zyu75ycGHAhw6j/+ZDWODbb/Jty?=
+ =?iso-8859-1?Q?lx8jsTAdQ3lG9LZzGPc6Nu4loSgqdVkEIZZlo3FNZXWVx2Glg3ALIeBObv?=
+ =?iso-8859-1?Q?Mx7tgrTe25WtampO3xulyR8xPeY9YR2qOj+zTY8ITgYrrzx4kWiiMMYFST?=
+ =?iso-8859-1?Q?eVxYy3llu4+9BRAmZsjUmLxb41DfHjq+TIa0kc4HJi/5xdrJhpFWa2AvmL?=
+ =?iso-8859-1?Q?e8KfquErYQn9gyqu8oWrdxFdk6znk6z/DsIvJTupCbgwYK3+hFzuNnClfB?=
+ =?iso-8859-1?Q?DOhuq8Oc8q8gwSgmDO2Jyxmyc/fKdIKho6X1DTaFZ3VhAUrMFa2O4LA9oZ?=
+ =?iso-8859-1?Q?6Fk6Bo+AdWnkaZ1xWUoginn1JmKv7Lyy7esEx3rCylVkOXtUF2tE5t0vNn?=
+ =?iso-8859-1?Q?xZx4Beu6SRL8rf4l8AHREQpaFrmolMZIEJP9Qj2+0e/p/h+N30iSt062Rg?=
+ =?iso-8859-1?Q?2bzBtG14Sjgs5xDmSv70Zs8nIelcFcPGGSyugWj9kmz1TcLGqvEQ6/jFPX?=
+ =?iso-8859-1?Q?fFZM4EyomBGS+IFcko5Hm6xjly/oLH732R0VRl7p7bDMdLpXnKVZFi0TNs?=
+ =?iso-8859-1?Q?nGXkWyrWKE7NirvOAkcu7KiaBhdsPP9uwe3/KEbh6GjtFzIdAE8Ij/OwVP?=
+ =?iso-8859-1?Q?R0YFFVGUIMNCFyPkhJkxboUSEHy80oZFs2cCQ276vdfl4h3kWjP8W3q8nn?=
+ =?iso-8859-1?Q?gUaQ1uxeLw=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: AOfdJx8BUWmwzAAJess6RY00IwE+Jyuu1ZM1J52KQ+tyJSe/t465vrZVj0Nz9dExJcZIndONlCUGZqokLC2gZbVghByZ4bqRdS00reowPP5t9R5E4C41oiDDaq7i6ICbNfqpiJnVwZRmUn4dpf+tTz8e4nwvXbomrduCZCKXcySQeCQ0c76FJ5fB+zwRNwIwes3N7nbUZ8QNQ1JFt1JbR1IiQGhq2qOw4VnxWBGNGF+hW/fi64cE/udvOfObEAZFWJ/jV3JiDFdueQnEiW0q8arK/Mmg4lqVVdJyrbKyFjtTdtA6bH9DKWyY1d2BUmhQ7A9H4LmoJzbMMrMZ0JqvBg==
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SI6PR06MB7590.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bee4b7fa-7d55-460e-5948-08defcf41016
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2026 06:43:50.4713 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nTd+7UxT9iXDnYybpkAJBRqyrwC1zXF6aPAipfa+qa29IfXh6rtJmgDLWsgSvKv4CiFWCv5gqNiLUkZWyPnjfGbwEOqHxUq5zY81psB3Wn4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8740
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,36 +141,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 18, 2026 at 12:40=E2=80=AFAM Yury Norov <ynorov@nvidia.com> wro=
-te:
->
-> Again, any kernel API trusts it's caller. It holds for assembler,
-> for C, and I don't see any reason why it shouldn't hold for Rust.
+Hi Thomas,
 
-Because the more you trust callers, the more complexity you are adding
-to keep everything dancing in sync, and thus the more perfect you have
-to be on every subsequent patch that modifies any code.
+I'd like to get your thoughts on Jani's point that the kernel should avoid =
+modifying EDID and instead expose the data as-is to userspace.
 
-So this is all about not having to trust callers as much as possible
--- the point of using Rust in the kernel is to prevent mistakes using
-the stronger type system.
+In practice, most monitors I have encountered only contain two EDID blocks,=
+ so simply returning block 0 and block 1 already works for the majority of =
+cases.
 
-And preventing mistakes is not just about memory safety. That is, even
-if `f(0)` is not UB, we still want to consider whether it is worth
-using the type system to prevent such an input.
+Given that, would you agree that it may be acceptable to stop modifying the=
+ EDID in the driver and only support the blocks the hardware can actually r=
+ead now?
 
-In other words, yes, restricting inputs to functions as much as
-possible allows us to convert certain functions from unsafe to safe
-ones, but it doesn't mean we have to stop there: we use the type
-system to prevent other mistakes too.
+Best regards,
+Jammy
 
-We can even have types that do not restrict in any way the inputs
-value-wise, i.e. they may be pure wrappers of a primitive integer, to
-prevent mishandling such as passing the wrong kind of unit or mixing
-up two parameters.
+>=20
+> Hi Jani,
+>=20
+> Thanks for your input. So, your suggestion is go back to return -EIO for =
+block >
+> 1, and stop trying to modify the EDID.
+> In this way, we can handle EDID whose blocks is less than 2.
+>=20
+> BR,
+> Jammy
+>=20
+> > > Hi Thomas,
+> > >
+> > > Good catch - returning 0 without writing to buf wasn't safe. But I
+> > > also found that returning -EIO isn't right either:
+> > > _drm_do_get_edid() treats EDID_BLOCK_READ_FAIL as fatal for any
+> > > block index, not just block 0, so that would have discarded the
+> > > whole EDID for any monitor reporting more than one extension.
+> > >
+> > > In v3, for block > 1 I now zero the buffer explicitly and return 0.
+> > > That makes drm_edid's block checker classify it as EDID_BLOCK_ZERO
+> > > instead, which is non-fatal - it gets trimmed via
+> > > edid_filter_invalid_blocks() (extensions count reduced, checksum
+> > > recomputed), and blocks 0 and 1 still come through fine. This also
+> > > directly addresses your point about the buffer not being guaranteed
+> > > zeroed, since we zero it ourselves now.
+> >
+> > There's a long-term goal to *not* modify the EDID in kernel, but
+> > rather return even the broken EDID extensions to userspace, if that's w=
+hat
+> the display has.
+> >
+> > There are probably a bunch of hurdles in making that happen, but
+> > intentionally returning zeroed out EDID blocks is just adding another
+> unnecessary hurdle.
+> >
+> >
+> > BR,
+> > Jani.
+> >
+> >
+> > --
+> > Jani Nikula, Intel
 
-Now, particular cases may or may not be worth it, but the general
-principle stands.
-
-Cheers,
-Miguel
