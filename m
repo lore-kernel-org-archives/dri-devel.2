@@ -4,107 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC523C5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 19:10:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA4ACC5DF81
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 19:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 067AB10E027;
-	Tue, 18 Aug 2026 19:10:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 166E810E047;
+	Tue, 18 Aug 2026 19:10:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iW5D/etU";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FhoRbbHH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 040C310E027
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 19:10:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9E6E8601DE;
- Tue, 18 Aug 2026 19:10:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800931F000E9;
- Tue, 18 Aug 2026 19:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787080223;
- bh=ccFMWOxNKjDpDqqKY61JHW3XQyzuiNVYIrLOTJN7zxI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=iW5D/etUOoeVF5co6vfjmeIuhqx0O1t53qDNyrHrV/3PZ5ZidYUpcfUBM366CIGxY
- WYIY+0xzkOxRu0TN5hz+qn9kdorqXWeaRGZcsv6cKGXZc7d6eaAPzx2O/RrvBV5zB8
- wQ+4j1gBBLKS8XrbV7agOAOCIuyHz0UAJpzs8DSVbZ1KdP8VHm02H2xUEvFtkdPMYa
- Nq1sfrN4A3Xfa78wKk8Vs8KeBs+0fz+LT3aDJeYwcAA/Q38WB2SmMrwVSB138zC4Ho
- j1UrBUqSdyJX/Lq43IOIRKtSH7Ztek63Ot7aA1oxpEn45b+ieMxgfgJN1YtfSWgrMy
- 7AjTe0uWDHo2Q==
-Message-ID: <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
-Date: Tue, 18 Aug 2026 21:10:10 +0200
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49A7710E047
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 19:10:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787080235;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1C21gLMhd/u+qmfcqS0pqk/SXD/LCoXj54HlBv66NyA=;
+ b=FhoRbbHHplQxPysKKhaTY0CzxnwxJaMXnzc0wevDSi5byQevQx6kmBEaFdmCGowUNQdRYR
+ qDP6ANznthyc6EiRNAPvhbp0cbIlyzMVUNcBf9VNFx9B09mX1tx2irwEVeZKTpuQZKXEEJ
+ an5FcWIFG/vFANqrZiV+/ABMD3oQR8w=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-643-9Ph2Vv8UPYKwAs7I4udn-Q-1; Tue, 18 Aug 2026 15:10:34 -0400
+X-MC-Unique: 9Ph2Vv8UPYKwAs7I4udn-Q-1
+X-Mimecast-MFC-AGG-ID: 9Ph2Vv8UPYKwAs7I4udn-Q_1787080234
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-52b4f6ac06aso2666161cf.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 12:10:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787080233; x=1787685033;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=9kbwhzYfa9+JR+FXCNWXDj5upifP6ZSYoTxSiBsZODs=;
+ b=XmcqObKTV0GdAFGO1wYkZLEzGZjCCIot5m3T/mf2sha226rvjwSvgonlDZEOZSnuFl
+ aomfTophFVpK26wteC2OaIeelEYlq94Srl4gmISrdHFlF867lp7UVlm2m08MT9unwj/x
+ jhvJ8O3hljC6gzCOO6d1a4t2nLVzxbOA5vOj7cMHdzwcpWd72osybvEfQwEIVE51oCQg
+ Q1owhaPYeywAFj9XfA6yo+u/cyffnY+3l6kNZ2U1kokBFy3ccImm6WNOWqyLPQKOvi7U
+ QUpz5i7WSPpmgi5qRwyieyLbevWwMf20IhhPCYMnPTmqRPa8Rmwxb4lmZKx/zBW3BxMR
+ 2fQw==
+X-Gm-Message-State: AOJu0YwwaFG9JTZL03Xm0CDQAm9/O9g0iTqjxW8pDw+4sv/Wl6ErBcfx
+ y2VrcBaYJMXsNic0Hvp4gVgbeBn/8i2vRm5mxVrnmOO9T0czJtM2ua4B0zT8rCGlCx5M0EIggWs
+ u5t23XxzBYe1y6s7mnFg+EVmRGrTW5UnyjK0h2paH7sgBvpL6/ZmKQ26QdXDA44DG7H+YYA==
+X-Gm-Gg: AR+sD10dbwB6OMRQFvVgsN/z6imlJOk5p+llOraeqLnckhcEts1xkTO/Gl60lVLYuuJ
+ kmv+WpglTJOcxIZc7iWTbLkemBFnh3EV1VXWyOihkO7xrgS9X9+LrobdSstRXEyRl3ns54JfNJJ
+ rJT/QfKm2c7hbMdMlkC6OBzkn0XgnCUQI6SKA1pRWJVvpTjVqMNdB1E0JEtFZWvBWxHsVyHZ7Vi
+ CNCOc645bcNG9W4UHvK6fcaA95OI5XFCiZCfVzuHXcU7FfJ9nSLKc7ZGdoKpRIDMbnlzMUeCzMJ
+ A/QB5F41wTzd9TewC1MidapX+s24KEc7pF9JECIdUHDAtrlOPWD9LZI7A+ieMrVWgmp+UuHF
+X-Received: by 2002:ac8:5749:0:b0:52b:4e1f:941d with SMTP id
+ d75a77b69052e-52dd30d0802mr3569301cf.6.1787080233479; 
+ Tue, 18 Aug 2026 12:10:33 -0700 (PDT)
+X-Received: by 2002:ac8:5749:0:b0:52b:4e1f:941d with SMTP id
+ d75a77b69052e-52dd30d0802mr3568331cf.6.1787080232870; 
+ Tue, 18 Aug 2026 12:10:32 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-52db623bfb0sm44781051cf.24.2026.08.18.12.10.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Aug 2026 12:10:31 -0700 (PDT)
+Message-ID: <7ba5804dccefb1fde985f19242f6bad94aaefcc8.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau: reject zero-size notifier object allocation
+From: lyude@redhat.com
+To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Ben Skeggs
+ <bskeggs@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org
+Date: Tue, 18 Aug 2026 15:10:30 -0400
+In-Reply-To: <20260813-nouveau-abi16-notifierobj-zero-size-v1-1-20dee38077cb@gmail.com>
+References: <20260813-nouveau-abi16-notifierobj-zero-size-v1-1-20dee38077cb@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator driver
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: wRzXyfqYf3wrN8pMSZAj_io-qxE3Q9mlWIVxUci5t_4_1787080234
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,84 +102,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17/08/2026 06:47, Ekansh Gupta wrote:
-> Add the skeleton of the Qualcomm DSP Accelerator (QDA) driver, a DRM
-> accel driver for the Hexagon DSPs found on Qualcomm SoCs.
-> 
-> This patch registers a DRM accel device, exposing a /dev/accel/accelN
-> character device node, and binds it to the RPMsg channel used to reach
-> the DSP. Buffer management, IOMMU context banks and the FastRPC
-> protocol are added by later patches in this series.
-> 
-> qda_drv.c / qda_drv.h define the drm_driver ops table, the per-file
-> private state (qda_file_priv) and the main device structure (qda_dev),
-> which embeds drm_device so that it can be recovered with container_of().
-> 
-> qda_rpmsg.c binds to the "qcom,fastrpc" compatible via
-> module_rpmsg_driver(), reads the DSP domain name from the "label"
-> device-tree property, and registers the DRM device.
-> 
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+
+Will push to drm-misc-fixes in a moment
+
+On Thu, 2026-08-13 at 21:14 +0800, Zhenhao Wan wrote:
+> nouveau_abi16_ioctl_notifierobj_alloc() passes the userspace-
+> controlled
+> info->size to nvkm_mm_head() as both size_max and size_min without a
+> lower
+> bound.=C2=A0 A zero size satisfies the allocator's "e - s < size_min" gat=
+e
+> (size_min =3D=3D 0 makes the unsigned comparison inert) and yields a
+> zero-length node, after which
+>=20
+> =09args.limit =3D ntfy->node->offset + ntfy->node->length - 1;
+>=20
+> underflows (offset 0, length 0 -> 0xffffffff) into an oversized ~4
+> GiB DMA
+> window.=C2=A0 The dma object constructor only rejects start > limit, so
+> the
+> validly ordered [base, base + 0xffffffff] range passes and is
+> programmed
+> into the GPU DMA context.=C2=A0 The ioctl is DRM_RENDER_ALLOW, so any
+> render
+> node client can trigger this on pre-Fermi hardware.
+>=20
+> Reject a zero-size request before allocating anything.
+>=20
+> Fixes: ebb945a94bba ("drm/nouveau: port all engines to new engine
+> module format")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 > ---
-> Changes in v2:
-> - Use module_rpmsg_driver() and drop the qda_rpmsg_register()/
->   _unregister() wrappers, module_init()/module_exit() and
->   qda_rpmsg.h entirely (Dmitry Baryshkov)
-> - Read the "label" property directly into qdev->dsp_name (Dmitry Baryshkov)
-> - Drop the probe/remove/init log messages (Dmitry Baryshkov)
-> - Return the result of qda_register_device() directly (Dmitry Baryshkov)
-> - Clarify the Kconfig help text (Dmitry Baryshkov)
-> ---
->  drivers/accel/Kconfig         |  1 +
->  drivers/accel/Makefile        |  1 +
->  drivers/accel/qda/Kconfig     | 30 ++++++++++++++++
->  drivers/accel/qda/Makefile    | 10 ++++++
->  drivers/accel/qda/qda_drv.c   | 71 ++++++++++++++++++++++++++++++++++++++
->  drivers/accel/qda/qda_drv.h   | 61 +++++++++++++++++++++++++++++++++
->  drivers/accel/qda/qda_rpmsg.c | 79 +++++++++++++++++++++++++++++++++++++++++++
->  7 files changed, 253 insertions(+)
-> 
-> diff --git a/drivers/accel/Kconfig b/drivers/accel/Kconfig
-> index bdf48ccafcf2..74ac0f71bc9d 100644
-> --- a/drivers/accel/Kconfig
-> +++ b/drivers/accel/Kconfig
-> @@ -29,6 +29,7 @@ source "drivers/accel/ethosu/Kconfig"
->  source "drivers/accel/habanalabs/Kconfig"
->  source "drivers/accel/ivpu/Kconfig"
->  source "drivers/accel/qaic/Kconfig"
-> +source "drivers/accel/qda/Kconfig"
->  source "drivers/accel/rocket/Kconfig"
->  
->  endif
-> diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
-> index 1d3a7251b950..58c08dd5f389 100644
-> --- a/drivers/accel/Makefile
-> +++ b/drivers/accel/Makefile
-> @@ -5,4 +5,5 @@ obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
->  obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
->  obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
->  obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
-> +obj-$(CONFIG_DRM_ACCEL_QDA)		+= qda/
->  obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
-> \ No newline at end of file
-
-You have trivial patch errors.
-
-...
-
-> +}
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c | 4 ++++
+> =C2=A01 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c
+> b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+> index 291203121f0c..8d139bbb2934 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+> @@ -660,6 +660,10 @@
+> nouveau_abi16_ioctl_notifierobj_alloc(ABI16_IOCTL_ARGS)
+> =C2=A0=09if (unlikely(device->info.family >=3D
+> NV_DEVICE_INFO_V0_FERMI))
+> =C2=A0=09=09return nouveau_abi16_put(abi16, -EINVAL);
+> =C2=A0
+> +=09/* zero size yields a zero-length node, underflowing
+> args.limit */
+> +=09if (unlikely(!info->size))
+> +=09=09return nouveau_abi16_put(abi16, -EINVAL);
 > +
-> +static const struct of_device_id qda_rpmsg_id_table[] = {
-> +	{ .compatible = "qcom,fastrpc" },
-> +	{},
+> =C2=A0=09chan =3D nouveau_abi16_chan(abi16, info->channel);
+> =C2=A0=09if (!chan)
+> =C2=A0=09=09return nouveau_abi16_put(abi16, -ENOENT);
+>=20
+> ---
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> change-id: 20260813-nouveau-abi16-notifierobj-zero-size-5d3888d36b57
+>=20
+> Best regards,
+> --=C2=A0=20
+> Zhenhao Wan <whi4ed0g@gmail.com>
 
-Device node with this compatible is already populated, so this looks
-simply wrong or you are adding a duplicated driver.
-
-That's a no-go, you are supposed to work with existing drivers and grow
-them.
-
-
-Best regards,
-Krzysztof
