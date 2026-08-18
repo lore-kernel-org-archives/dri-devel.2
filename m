@@ -4,48 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 271FDC5DF7E
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 12:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 009C1C5DF7E
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 12:18:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA7D10E02E;
-	Tue, 18 Aug 2026 12:10:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 660A910EAE3;
+	Tue, 18 Aug 2026 12:18:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="PSzyDs5V";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="jShF+R5h";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3752810E02E;
- Tue, 18 Aug 2026 12:10:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 914E914BF;
- Tue, 18 Aug 2026 05:10:51 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E1963F85F;
- Tue, 18 Aug 2026 05:10:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787055055; bh=gPQBa9KcGWS0r9ToFsywECZH43XCjCsQKv6COXNFFxw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=PSzyDs5VtnqKSk8EMFuTeQWMCqVF4gvA4k/i4fsxsl25+BxU6Isdi5qvludgV0nYI
- gVkfXsGoptPxJsanWP+W4dqCbSnTp6x5gTGC45UcfmzaukRkvNFlaX4r2bPlpxNUWD
- 3AcOKbLM9G4AOXqKeblyX3Vm9cIZYNbSu8htc5lA=
-Message-ID: <8c9066f6-e460-458b-bad4-26d441a742ab@arm.com>
-Date: Tue, 18 Aug 2026 13:10:52 +0100
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED23010EAE3
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 12:18:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1787055512;
+ bh=IIl9f09sAtLyS8+D8lm8fCz9k0/RNdLNbkzXeNjbF6w=;
+ b=jShF+R5hUR37kztgNbMutr5kJFnV7BQkl1B3rx0+g2BpDI49U4MYAExo1H5YozNdYYxcjKy8W
+ oKAPZotGY044g8ZKVeKseK8dFlSEd+7kozAoQFTppyoXXtO3OQYxXYWDTvlkXnSD828N1iobG+C
+ 8hbXSbTwquw8QbfDOHE31MryJjQbNTeC4nnzX8wq5OdMVLVIUR9GroTR3mx3sRjn7ZU2qGtxNWW
+ eXeuzTHh9Zhguz+H/kf2L1eYmy2PiG2Lt2HwODZ2YWzLTKGi556ZxVDpXfBGhOM/nYQ+pTrSegG
+ hhUMFmwVwnWGMGnPPDgSA5+zjCjcu5txjzQ5SiONpXjQ==
+X-Forward-Email-ID: 6a844c23b1ee0df32f73bdb3
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.13.16
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
+Date: Tue, 18 Aug 2026 14:12:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/6] iommu/dma: Catch scatterlist length overflows
-To: Krzysztof Karas <krzysztof.karas@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-References: <20260817095648.2438192-1-krzysztof.karas@intel.com>
- <20260817095648.2438192-4-krzysztof.karas@intel.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260817095648.2438192-4-krzysztof.karas@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint, and
+ some numbers
+To: Igor Paunovic <royalnet026@gmail.com>,
+ Nicolas Dufresne <nicolas@ndufresne.ca>, Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Heiko Stuebner <heiko@sntech.de>, Jiaxing Hu <gahing@gahingwoo.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org
+References: <20260801131656.58450-1-royalnet026@gmail.com>
+ <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
+ <20260818072936.41844-1-royalnet026@gmail.com>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <20260818072936.41844-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,105 +67,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17/08/2026 10:56 am, Krzysztof Karas wrote:
-> It is possible, when a very large mapping uses only one
-> scatterlist, that padding overflows scatterlist's length field.
-> This results in:
->   1) silently wrapping the value
->   2) smaller than desired mappings produced by iommu_map_sg
->   3) leaving mapped bytes in memory (no iommu_unmap)
+Hi Igor,
+
+On 8/18/2026 9:27 AM, Igor Paunovic wrote:
+> Hi Nicolas,
 > 
-> Address this issue by adding overflow detection for scatterlist
-> length field.
+>> I'm only looking at the RK3588, I suppose all the issues below
+>> related to RK3576 ?
 > 
-> Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
-> v5 (sashiko review):
->   * Included overflow checking on addition, previously silently
->   omitted inside iova_align arguments.
->   * Added check for zero-mapping via temporary variable comparison.
->   * Added overflows_type on s->length to satisfy 64 bit systems.
+> No - everything in the RFC is RK3588 (Orange Pi 5 Plus, all three
+> cores). RK3576 is Jiaxing's enablement series and has its own set of
+> problems; nothing I reported came from there.
 > 
->   drivers/iommu/dma-iommu.c | 32 ++++++++++++++++++++++++++++++--
->   1 file changed, 30 insertions(+), 2 deletions(-)
+> I went through the four commits on rock5b-npu-poc-4 today. We
+> converged on the same shape independently, which is encouraging:
+> 200 MHz kept as the suspend rate, a single devfreq instance modelled
+> on panfrost with busy time aggregated across the three cores, and a
+> cooling device on top. Your ~2.5x on the SSD pipeline also matches
+> the 2.58x I measured here with simple_ondemand against the 200 MHz
+> pin.
 > 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 9abaec0703ef..0bd5b13f006f 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -21,6 +21,7 @@
->   #include <linux/iommu-dma.h>
->   #include <linux/iova.h>
->   #include <linux/irq.h>
-> +#include <linux/limits.h>
->   #include <linux/list_sort.h>
->   #include <linux/memremap.h>
->   #include <linux/mm.h>
-> @@ -1445,6 +1446,7 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->   	for_each_sg(sg, s, nents, i) {
->   		size_t s_iova_off = iova_offset(iovad, s->offset);
->   		size_t s_length = s->length;
-> +		size_t s_length_tmp;
->   		size_t pad_len = (mask - iova_len + 1) & mask;
->   
->   		switch (pci_p2pdma_state(&p2pdma_state, dev, sg_page(s))) {
-> @@ -1476,7 +1478,22 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->   		sg_dma_address(s) = s_iova_off;
->   		sg_dma_len(s) = s_length;
->   		s->offset -= s_iova_off;
-> -		s_length = iova_align(iovad, s_length + s_iova_off);
-> +
-> +		if (check_add_overflow(s_length, s_iova_off, &s_length_tmp)) {
-> +			ret = -EOVERFLOW;
-> +			goto out_restore_sg;
-> +		}
+> The TF-A pointer (rk3588_clk.c, PVTPLL vs normal path) is the most
+> valuable part for me - it names the mechanism behind the power-on
+> ack failure I could only demonstrate empirically. I will reference
+> it in the cover letter once I have checked the firmware source
+> myself.
 
-This is unnecessary - s_iova_off will always be <= sg->offset, and since 
-the maximum possible segment boundary mask is 32 bits, if sg->offset + 
-sg->length would overflow then by definition it must cross a segment 
-boundary, so the segment is malformed to begin with and all bets are off.
+Based on what I learnt when playing around with the SCMI GPU pvtpll [1],
+we must keep core block clock enabled as long as PVTPLL mode is enabled
+instead of the normal PLL mode.
 
-> +		s_length = iova_align(iovad, s_length_tmp);
-> +
-> +		if (s_length_tmp != 0 && s_length == 0) {
-> +			ret = -EOVERFLOW;
-> +			goto out_restore_sg;
-> +		}
+When PVTPLL mode is enabled, the PVTPLL GRF, PD and GPU block is fully
+provided by the PVTPLL clock, i.e. SError when accessing hw regs in
+case Linux disables CLK_GPU.
 
-Similarly, a 0-length segment wouldn't be valid either (consider in the 
-simple case it would end up with sg_dma_len() == 0 which means "end of 
-mapping")
+Linux does not know anything about PVTPLL mode, the SCMI clocks are
+fully controlled by firmware (tf-a) and basically switches to use PVTPLL
+mode for all rates above 100/200/300 MHz.
 
-Thanks,
-Robin.
+Vendor kernel typically always changes to use 100/200/300 MHz at system
+and runtime suspend to disable use of PVTPLL.
 
-> +
-> +		if (overflows_type(s_length, s->length)) {
-> +			ret = -EOVERFLOW;
-> +			goto out_restore_sg;
-> +		}
->   		s->length = s_length;
->   
->   		/*
-> @@ -1493,7 +1510,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->   		 *   time through here (i.e. before it has a meaningful value).
->   		 */
->   		if (pad_len && pad_len < s_length - 1) {
-> -			prev->length += pad_len;
-> +			unsigned int new_prev_len;
-> +			/*
-> +			 * For large mappings spanning multiple GBs we
-> +			 * may not be able to fit all needed padding into
-> +			 * sg->length.
-> +			 */
-> +			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
-> +				ret = -EOVERFLOW;
-> +				goto out_restore_sg;
-> +			}
-> +
-> +			prev->length = new_prev_len;
->   			iova_len += pad_len;
->   		}
->   
+Because this PVTPLL dependency is not really known to Linux we must
+use workarounds to hide this, ideally we should fully implement PVTPLL
+handling in Linux or ensure firmware always keep dependent clocks
+enabled to avoid SError when accessing regs.
+
+For GPU case I depend on the opp-suspend rate to ensure opp and runtime
+pm framework make best effort to restore normal mode when GPU is unused.
+
+However, opp framework does not provide any integration into pm runtime
+so it will happily clk_set_rate() when pm runtime is suspended. My
+workaround to avoid SError was to use a custom .config_clks() ops in
+struct dev_pm_opp_config that just checks pm_runtime_suspended().
+
+The RFC series at [1] was never posted on mailing list, but is currently
+in use by e.g. Armbian to allow use of full 1 GHz rate of GPU on RK3588.
+
+I am guessing NPU have similar limitations/requirements as the GPU block.
+
+[1] https://github.com/Kwiboo/linux-rockchip/commits/next-20260619-rk35xx-scmi-gpu-clk/
+
+Regards,
+Jonas
+
+> 
+> Status here: after Tomeu's go-ahead I am preparing the series -
+> bindings, a full-range OPP table in the DT (300-1000 MHz plus the
+> 200 MHz suspend point, so essentially the table you ended up with),
+> a safe-rate-on-suspend guard, the devfreq itself, and a hold-all
+> guard that resumes all cores around any rate change. The guard is
+> ordered before the devfreq patch so no bisect point has scaling
+> without it. The one hard dependency is my "request the core clocks
+> by name" v2, still waiting for pickup.
+> 
+> Agreed on OPP staying optional - the plan in my series is that the
+> driver keeps working with no OPP table in the DT, which I saw you
+> intend to fix on your side as well.
+> 
+> One path worth checking in your PoC, because it is the one that
+> made me write the hold-all guard: a sysfs min_freq/max_freq write
+> while all three cores are runtime-suspended goes straight to
+> clk_set_rate, which can select the PVTPLL path while the domain is
+> off - exactly the case your TF-A reference explains. With the guard
+> in place I measured that write waking the cores and completing
+> cleanly.
+> 
+> One difference in test conditions worth keeping in mind: my numbers
+> are with the vendor bl31 that EDK2 bundles, yours is upstream TF-A.
+> Comparing SCMI behaviour on both seems wise before either of us
+> claims anything firmware-specific.
+> 
+> Thank you for the "take whatever you like" - anything I lift will
+> carry credit, and I will Cc you on the series.
+> 
+> Regards,
+> Igor
+> 
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
 
