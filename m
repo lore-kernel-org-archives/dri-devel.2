@@ -4,50 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2BDC5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 23:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB61AC5DF7D
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 23:56:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61B9710E6FA;
-	Tue, 18 Aug 2026 23:47:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62C7710E043;
+	Tue, 18 Aug 2026 23:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OtNqmMWM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MvsjrZNt";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05A2F10E0A2
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:47:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94AB710E043
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:56:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 49CFA601FB;
- Tue, 18 Aug 2026 23:47:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68E31F000E9;
- Tue, 18 Aug 2026 23:47:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D9A01601FB
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:56:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ABA81F000E9;
+ Tue, 18 Aug 2026 23:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787096870;
- bh=XGdv0RPOWe/xI6/BGdKprEdeW/PFOM5P0htoiHIhNCk=;
- h=From:To:Cc:Subject:Date;
- b=OtNqmMWMB8OOrCPC9pwgxmbJh22movI2zM5rX0dASUCE6tyXOTANnC445CfwnwqbT
- Rl5WjaAHhSIXs3YV3HsxA7dsQS/3w5Ky2oq+JXa7za6lZX88T5jIs/q6NRhJAiES+E
- tM7Kec1NZ5hzKFtNtfUIyc+RRxFyXTUjAV3osOEAmptvAHPPUtO43GJZRPag1jKGZw
- NJugVwtS0RCAQtUsGdHTqHBffbmoEzI4jStTEOAzPPy0LPzhVcS3AlyX/Xn+LrvnRc
- EyIDzJHuwHi+qnWK1/maxsvt8+AYDPJkPRrwflTa3BSr0y0iBNzT3D3wgavUq4Sw8L
- UjX4Mut8uVElg==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
-Date: Tue, 18 Aug 2026 18:46:20 -0500
-Message-ID: <20260818234621.1265415-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1787097375;
+ bh=4LbfR1ZPkW6cFNY63XzyEZSq9rNJefkl55JVORkS9v8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MvsjrZNt4kEft4Q+2jBol1D9HBFi8qIFN4GMOb/NllIyH3m/8Pt4kPVRe7WZ/RjXu
+ 4XVORlSlSCf/T4d5dOuoK0KAFNm3rD036j/oR6mQq6E3PR1NEByjZ9CWup4dAzQL4x
+ eVer17ZWUtgh7q4Y80FSEQ+sIJgaTOyuLlJDd66bh4HHKSAUK/ZlcktZfA6tezgeKZ
+ MGUalblw7a6MqbQIg9ZOBO314sD39pjmGmdYgn4FW8f08xLP0BBW2U2Ea1N/uNqnEV
+ 4IIaJFBhb0Gi9vT3zMXfiBRD/0226TkYxhjCyuIJv0nvkYmxvn9br7zCi9lYlcnjWQ
+ pfESiBLWfI1SQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260818234621.1265415-1-robh@kernel.org>
+References: <20260818234621.1265415-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 23:56:15 +0000
+Message-Id: <20260818235615.7ABA81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +52,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The "sil,i2s-data-lanes" binding and in-tree DTS files use normal
-uint32 cells. Reading the array as u8 only works because the values are
-small, but it does not match the documented DT element size.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Using WARN_ON() to validate device tree input causes unnecessary=
+ kernel splats and potential kernel panics.
+- [Medium] Breaking out of the initialization loop on invalid lane values l=
+eaves the audio data structures in an inconsistent state.
+--
 
-Use the u32 array helper so the driver follows the binding. Changing to
-u32 increases a potential OOB access range due to using unchecked
-values, so add a check on the read values.
+--- Patch [1]: [PATCH] drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u3=
+2 ---
+commit a4b4eceb945fa6ac0b81acc248b81fdebf849bd9
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
-v2:
- - Add bounds check for property values as reported by sashiko
----
- drivers/gpu/drm/bridge/sii902x.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
 
-diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-index 9aac44ed5b67..241b472ab13e 100644
---- a/drivers/gpu/drm/bridge/sii902x.c
-+++ b/drivers/gpu/drm/bridge/sii902x.c
-@@ -862,7 +862,7 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
- 		.max_i2s_channels = 0,
- 		.no_capture_mute = 1,
- 	};
--	u8 lanes[4];
-+	u32 lanes[4];
- 	int num_lanes, i;
- 
- 	if (!of_property_present(dev->of_node, "#sound-dai-cells")) {
-@@ -871,10 +871,10 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
- 		return 0;
- 	}
- 
--	num_lanes = of_property_read_variable_u8_array(dev->of_node,
--						       "sil,i2s-data-lanes",
--						       lanes, 1,
--						       ARRAY_SIZE(lanes));
-+	num_lanes = of_property_read_variable_u32_array(dev->of_node,
-+							"sil,i2s-data-lanes",
-+							lanes, 1,
-+							ARRAY_SIZE(lanes));
- 
- 	if (num_lanes == -EINVAL) {
- 		dev_dbg(dev,
-@@ -890,9 +890,12 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
- 	}
- 	codec_data.max_i2s_channels = 2 * num_lanes;
- 
--	for (i = 0; i < num_lanes; i++)
-+	for (i = 0; i < num_lanes; i++) {
-+		if (WARN_ON(lanes[i] >= ARRAY_SIZE(i2s_lane_id)))
-+			break;
- 		sii902x->audio.i2s_fifo_sequence[i] |= audio_fifo_id[i] |
- 			i2s_lane_id[lanes[i]] |	SII902X_TPI_I2S_FIFO_ENABLE;
-+	}
- 
- 	sii902x->audio.mclk = devm_clk_get_optional(dev, "mclk");
- 	if (IS_ERR(sii902x->audio.mclk)) {
--- 
-2.53.0
+This patch updates the sii902x bridge driver to read the "sil,i2s-data-lane=
+s"
+property as a u32 array instead of a u8 array to match the device tree
+bindings. It also introduces a bounds check on the array values to prevent
+out-of-bounds accesses.
 
+> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/si=
+i902x.c
+> --- a/drivers/gpu/drm/bridge/sii902x.c
+> +++ b/drivers/gpu/drm/bridge/sii902x.c
+[ ... ]
+> @@ -890,9 +890,12 @@ static int sii902x_audio_codec_init(struct sii902x *=
+sii902x,
+>  	}
+>  	codec_data.max_i2s_channels =3D 2 * num_lanes;
+> =20
+> -	for (i =3D 0; i < num_lanes; i++)
+> +	for (i =3D 0; i < num_lanes; i++) {
+> +		if (WARN_ON(lanes[i] >=3D ARRAY_SIZE(i2s_lane_id)))
+
+[Severity: Medium]
+Is it safe to use WARN_ON() for validating device tree properties?
+
+If panic_on_warn is enabled, couldn't this crash the system when parsing
+malformed or untrusted device tree data?
+
+Would it be better to use dev_err() and gracefully fail initialization?
+
+[Severity: Medium]
+If this loop breaks early due to an invalid lane, codec_data.max_i2s_channe=
+ls
+remains set to 2 * num_lanes.
+
+Could this cause an inconsistent state where ALSA exposes support for more
+channels than the hardware has actually configured in i2s_fifo_sequence?
+
+Should this path return an error (like -EINVAL) to abort audio
+initialization, or update the channel count?
+
+> +			break;
+>  		sii902x->audio.i2s_fifo_sequence[i] |=3D audio_fifo_id[i] |
+>  			i2s_lane_id[lanes[i]] |	SII902X_TPI_I2S_FIFO_ENABLE;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818234621.1265=
+415-1-robh@kernel.org?part=3D1
