@@ -4,93 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55B1CC5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 20:06:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A1BFC5DF7D
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 20:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8830010E36D;
-	Tue, 18 Aug 2026 20:06:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8248710E4E0;
+	Tue, 18 Aug 2026 20:09:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="W2s3kQNp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TiFRc4Xo";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 161E610E36D
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 20:06:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787083595;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kC/dDzPkhBKmqZfRJaxYKTQVcVVSzYp8W1GJeiC+MzU=;
- b=W2s3kQNphsCwMvSDEL5VkBLwO+uvQZiK7XGgPnDkR0xTbPgjYjydq/FOJn01AnuKiM6DSw
- Wb66rvUIWDWUnCdnNAhZoWj7Dcjb2t0gjXm+5t0W0XMYL2mNF8WGm80blW/ficmmcTz1dT
- XkT4MSGDB9oo+lnRh3gpOITbMHGsBnA=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-649-4hcKjRUxO8CcSOQKd5Uhrw-1; Tue, 18 Aug 2026 16:06:33 -0400
-X-MC-Unique: 4hcKjRUxO8CcSOQKd5Uhrw-1
-X-Mimecast-MFC-AGG-ID: 4hcKjRUxO8CcSOQKd5Uhrw_1787083593
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-52dca87b4d1so2072391cf.3
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 13:06:33 -0700 (PDT)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3715310EC50
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 20:09:42 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-2d58efc7356so2867005ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 13:09:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787083782; cv=none;
+ d=google.com; s=arc-20260327;
+ b=osiWqAO0xr5q/oEwyF1FUH2CSa0a0yC1aFQcAggGykyYY/t8k9NYRi2r2E6tJK4Tih
+ 6urbIDl6PoFAgus6zhp7Nz2xBo5IRTNjo1oZf2V7YLjqytDUDOcIcaGITWEC6p6H2/9v
+ sDTe91LihxCe1Qtyf45CknKuq4JqhUWgTUcA0O4hlBX5E7cN89Gr9fPvj4rvEGUnHpK3
+ 3MAfRLPenxtiHBmPwzk4iL/7YpTDqV1HXOtgZy2SczoRpG+AEdop1FVXXSYt18CC7ID6
+ 7mLeRVpKzORWCUA936mMYJb/CCefZegrmMWKO+YbqNb5glcq43+H4IyAJKVOhjcs1s1d
+ q7dQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=jZYskyW08zgMImgX0YFcFXsxVtNqFp2DmI9fJNn8/bM=;
+ fh=Ct6mUbVL6tviW8KjtCBBitd/++fuXa3Sr/f92ZeV2mw=;
+ b=azvniD6JeQ9OksWJVHOuqhNvK1n5XO2x5UakSTOSkfjckX6Q6TxUw3KgmMOqVFLyP9
+ mrD0Pz6jjiMeiuIZu4amk+NYvdI/De6ZY9Kg2nWXUEzsV9hWpoEfhV8fQAn1JQ3yN39Y
+ SppGDha4+DsJmuX1tKrtPrd3787CCOaSdGX7wOxEIKWf7swM19Pr5QzybarsCjkS213M
+ uCvd0YkBQ+RKut1XdbEpjBV8+Qu7BGqJGh6+jPx08SvejXR59Bec4RJI+/hKSe5qrKG9
+ CnKny8IYQvpoLGDh1OKdupZX+F8latLRPVx7VP992mWsUi6vZsaIxfQPblP+2qSgc3Mq
+ coXQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787083782; x=1787688582; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=jZYskyW08zgMImgX0YFcFXsxVtNqFp2DmI9fJNn8/bM=;
+ b=TiFRc4XobPJsuHx+Dx/yoR0QCN53Tv9jXqvQ3x1jalZW4edRoycvyDfEbvdP/bwcIu
+ wA6TOl/OuVOLRuxOtWpmTnYL3EIhlAscH301ResNNwUE/LHteP963E1AINUyZrCDwb3j
+ A+QMm6rYhtB3aN5qamxYJL6XiJPmQicWKBaRlmDdzDk+W1zhjV6ziYF3oEEdLCwf6/7+
+ VS/kFlQX6Qn6EowECS+gp2zlG34jOQmfyROul7GPzDHOCTBmXib7YtjFQeRoatTlu05p
+ RLmjgHG7VAEn08Hju6SktTa5yS4z1sOMNz2qUnwcP/8jR+G2P+6ZmChpu2i86joXrsGi
+ DQ/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787083593; x=1787688393;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ d=1e100.net; s=20251104; t=1787083782; x=1787688582;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=W0aG3oVjVh9wvRvxA+7YAWsrda/70h7qzTFUlFLOBEk=;
- b=WsHctbEkntTbEaZtKPaWZM8DnWbzkt/lSDpo98mRnmCYhuPT5gBTWjnzCpttZGUT/I
- HlEQWOc4CO3ALWBRiQfcsdJ26gFhXJaTbSP3DXUysmfVM4NW/pCeV63DTt/MI4NN7aAq
- dX/QP+FVFKmGw0HOzQqgEudotiJO4xke7Py7WLy6dHwgEnpiyMNmJaNkMbUPXjFnJK1s
- ZLKdMM1hc3fCg+mWnMa70cD/mbw6SmKVNBbOmzsJNHY3ZOk6an3tl6EXGtnJhqePXEo2
- EQiZVAXz10Vcly++x/os6DkH/IPCqKuedH5Bv97DCuLlcUAu2Kg0QuBVI1/C+knjwk2u
- R8xg==
+ bh=jZYskyW08zgMImgX0YFcFXsxVtNqFp2DmI9fJNn8/bM=;
+ b=LEKWSBooANniI7OIOoNH3CzvCA47CmGdQUpd8feQlSPuVpaE+1M/zHcd4IM2sBnHC8
+ sKaGOwHhr10Ob9l0Aj6dF3ce2Bi5ufh6VJOyfYFg84HZPZdJueANhy5jtvHJhvHuDvlp
+ AlXpc/Mv7gp7vwAL5QNmDT79fBJ7x0XDUatMMqox1qCQI2zYqlwzmvpx5GzHsfhXySzc
+ RD7S3lHdv6s7thV91bW+nsDwHGJbJQxS7LhSURu8pw2XApgNGcjrRLoGI3bOGfvCgWaL
+ 0pVSBzm2Bwgn6fS73VNpfTTglHYjX7cgg7Xliw/oPMDntrbbCkbTxsBzwV8WHpyxpxqJ
+ bo0g==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro7nlq0IWkM54p9RabbrDmmfIqwI3HbS5cEKZ7WFqVG81+M/w7w0KyO+Wtr/hZICLQuWmpzQgLUieI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyLzJnJj5KlbIgzzep0Exgiu9aiXqF1SYiD0ssi8+8+pa+Govm+
- UC6YH+FFi5Zx0BzT0mVs94K43wNh1pmCsZ6RoixInXAPSDvs5MzSjCKsLbOUNNG/SIN6maRO79b
- kL3uzN3/fsqPzc5BuIsdB6tdL/Jckiw4ebJJGjHHRMCu46AZyRo6yau/EcWS0gLRwr3qVdA==
-X-Gm-Gg: AR+sD11y8NtL4v0auDh4E2md8s0FvtSocrWsANQ+f91vl1WRcWvPvPWhtiFR1leoh8o
- SVs0tKul5vw4wRwT8h9LXGsR0hAgjhZD7DERjh7TjHljWWUs12Enocc6LnCR54hZdxWejjz5B8F
- lDMGdUFq7tclIBHxKTeMV2Q1tYJo/xsa5BZSjjgWpFkIQR9giVnllZSilHpcgCNKUqTpLCazEdv
- kt4u0q5B1SENIqE6Bu6+Fa7H6k3IwgATUM8BPj++9RzjcZnm2QsewAYFe0WaY8cKcEm1SjnWHyU
- ibLkicx8kO9T9pnuxSky8n1YN5FReFWPohgpSF736P69JYYnaa7/7W8FpDNSzFMbSosBvRGj
-X-Received: by 2002:a05:622a:1cce:b0:517:7e26:36a4 with SMTP id
- d75a77b69052e-52dd3217f71mr6824591cf.34.1787083592910; 
- Tue, 18 Aug 2026 13:06:32 -0700 (PDT)
-X-Received: by 2002:a05:622a:1cce:b0:517:7e26:36a4 with SMTP id
- d75a77b69052e-52dd3217f71mr6823861cf.34.1787083592378; 
- Tue, 18 Aug 2026 13:06:32 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-52db625afc2sm47274971cf.26.2026.08.18.13.06.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 13:06:31 -0700 (PDT)
-Message-ID: <6a9619f71c1f033044ba01c6ff6ba78af4a0aff1.camel@redhat.com>
-Subject: Re: [PATCH 5/7] nouveau/gsp: fix vblank interrupts on GB20x
-From: lyude@redhat.com
-To: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Danilo
- Krummrich <dakr@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie	 <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Mary Guillemard	 <mary@mary.zone>,
- nouveau@lists.freedesktop.org
-Date: Tue, 18 Aug 2026 16:06:30 -0400
-In-Reply-To: <CAA+WOBvj2Q3-P9F5JgA4S+C0E46Zkyt6bLcVzWhfvaWWmTH7Vg@mail.gmail.com>
+ AHgh+Rr/8xuRfwnCBT21PvbFCphskH8vBvfAZBYTYKPDVMKMxmwKB8oOfIvplZtZb+DZ0u7kBOXGFXLmSAc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzrgl5DNL5rCdHosxcFLmxpETOxtxYvWQJqR7bHSu121OSE1UmR
+ 4JQTb031rlgfbAP7sUKj/bh6XBCR9KQ32ke4icZstvjahWuFMClt3gm+7Uj1Jnr+QIK5vkLzJW5
+ u1HQWfsEdjcPRfKc8XNnhLRnNA5b/Keg=
+X-Gm-Gg: AR+sD10bI1KlWLQe7qwyjoxhLXXpf+TpmOS7xCvyZwEcCbW27AwZc6xzMikCbIB92nf
+ 447gwlBZyoJOqQk8ml2BJFXIWakm4q54IfS0fBwA0YEYzFtRQoxnYc1TZYx6mecBukeDJbipSZD
+ PuU5QHOpqUp0H2T1vI+eKFKG+iubTSVPGMo9np6SVvFeVIeGgTStB6SQQg/BG2QcO/VDJL8qEa/
+ 6Ik6dssaxoMPVplVaugSVo+DBtEtxSmzfTfrJWB2+k8PGNKWGVGrqM2emyutc1nA6LNRngA0TXa
+ Bk5JUygSFcEqklBTuhKXerp8BhaXAdYgXElmV12dyNA097WjAXZ6lw==
+X-Received: by 2002:a17:90b:4490:b0:393:288:29e3 with SMTP id
+ 98e67ed59e1d1-3957b2527c3mr403834a91.10.1787083781624; Tue, 18 Aug 2026
+ 13:09:41 -0700 (PDT)
+MIME-Version: 1.0
 References: <20260814235705.59132-1-mohamedahmedegypt2001@gmail.com>
  <20260814235705.59132-6-mohamedahmedegypt2001@gmail.com>
  <996d2033b1522090867e50f181e9b4daaab19861.camel@redhat.com>
  <CAA+WOBvj2Q3-P9F5JgA4S+C0E46Zkyt6bLcVzWhfvaWWmTH7Vg@mail.gmail.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: y05LFrIbi1iqXjoZpfovfuftYreHVmXPzUnCmaZZObQ_1787083593
-X-Mimecast-Originator: redhat.com
+ <6a9619f71c1f033044ba01c6ff6ba78af4a0aff1.camel@redhat.com>
+In-Reply-To: <6a9619f71c1f033044ba01c6ff6ba78af4a0aff1.camel@redhat.com>
+From: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
+Date: Wed, 19 Aug 2026 00:09:29 +0400
+X-Gm-Features: AcwNN1W_auS0i7vhE5u1Af6pg4eCo3cKJPP2Rl5vF5JZ1RJWuxPIS13GyvwK7hI
+Message-ID: <CAA+WOBtbC176yVMZ1OZHQANNdNhHuGVtNMdiDLeSvHKmsD3L-A@mail.gmail.com>
+Subject: Re: [PATCH 5/7] nouveau/gsp: fix vblank interrupts on GB20x
+To: lyude@redhat.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mary Guillemard <mary@mary.zone>, nouveau@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,122 +114,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAyMDI2LTA4LTE5IGF0IDAwOjAyICswNDAwLCBNb2hhbWVkIEFobWVkIHdyb3RlOgo+
-IE9uIFR1ZSwgQXVnIDE4LCAyMDI2IGF0IDI6NTnigK9BTSA8bHl1ZGVAcmVkaGF0LmNvbT4gd3Jv
-dGU6Cj4gPiAKPiA+IE9uIFNhdCwgMjAyNi0wOC0xNSBhdCAwMzo1NyArMDQwMCwgTW9oYW1lZCBB
-aG1lZCB3cm90ZToKPiA+ID4gCj4gPiA+ICsKPiA+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgbnZr
-bV9oZWFkX2Z1bmMKPiA+ID4gK2diMjAyX2hlYWQgPSB7Cj4gPiA+ICvCoMKgwqDCoCAuc3RhdGUg
-PSByNTM1X2hlYWRfc3RhdGUsCj4gPiA+ICvCoMKgwqDCoCAudmJsYW5rX2dldCA9IGdiMjAyX2hl
-YWRfdmJsYW5rX2dldCwKPiA+ID4gK8KgwqDCoMKgIC52YmxhbmtfcHV0ID0gZ2IyMDJfaGVhZF92
-YmxhbmtfcHV0LAo+ID4gPiArfTsKPiA+ID4gKwo+ID4gCj4gPiBZb3Ugc2hvdWxkIHByb2JhYmx5
-IGFkZCB0aGVzZSB0d28gYXMgd2VsbDoKPiA+IAo+ID4gwqDCoMKgwqDCoMKgwqAgLnN0YXRlID0g
-Z3YxMDBfaGVhZF9zdGF0ZSwKPiA+IMKgwqDCoMKgwqDCoMKgIC5yZ3BvcyA9IGd2MTAwX2hlYWRf
-cmdwb3MsCj4gPiAKPiA+IEkgZG9uJ3QgdGhpbmsgdGhleSd2ZSBhY3R1YWxseSBjaGFuZ2VkIGlu
-IGJsYWNrd2VsbCwgYnV0IGl0J3MKPiA+IHBvc3NpYmxlCj4gPiBtYXliZSB0aGV5IGRvIGNoYW5n
-ZSBpbiBHQjIwMHggc28geW91IHByb2JhYmx5IHdhbnQgdG8gZG91YmxlIGNoZWNrCj4gPiBzbwo+
-ID4gd2UgZG9uJ3QgbG9zZSBwcmVjaXNlIHZibGFuayB0aW1lc3RhbXBzIGFnYWluLgo+ID4gCj4g
-VGhlIGhlYWQgc3RhdGUgY2hhbmdlZCBhY3R1YWxseSAoYnV0IFJHIHBvc2l0aW9uIGRpZG4ndCks
-IHNvIGFkZGluZwo+IHRoaXMgaW4gd291bGQgYmUgYSByZWdyZXNzaW9uLiBJIGhhdmUgc29tZSB3
-b3JrIHRvIHdpcmUgaXQgdXAKPiBwcm9wZXJseQo+IChwYXJ0IG9mIFZSUiBicmluZ3VwKSBidXQg
-SSB3YXNuJ3Qgc3VyZSB3aGV0aGVyIHRvIGluY2x1ZGUgaXQgaW4gdGhpcwo+IHNlcmllcyBvciBu
-b3QuIFdlIGRvbid0IGhhdmUgcHJlY2lzZSB2YmxhbmsgdGltZXN0YW1wcyBmb3IgYW55dGhpbmcK
-PiBHU1AgYXRtIGFuZCBldmVyeXRoaW5nIGZhbGxzIGJhY2sgdG8gdGhlIGludGVycnVwdCBwYXRo
-LCBzbyBpdCB3b3VsZAo+IHRlY2huaWNhbGx5IGJlIGEgbmV3IGZlYXR1cmUgcmF0aGVyIHRoYW4g
-Zml4IHVwcy4KCkFjdHVhbGx5IHdlIGRlZmluaXRlbHkgZG8gbm93ISBXZSBkaWRuJ3QgdXNlZCB0
-byBmb3IgYWdlcywgYnV0IEkgd3JvdGUKYSBwYXRjaCB0aGF0IGdvdCB1cHN0cmVhbWVkIGZvciBp
-dCBhIGZldyB3ZWVrcyBhZ28sIHlvdSBjYW4gc2VlIGl0CmhlcmU6CgpzdGF0aWMgY29uc3Qgc3Ry
-dWN0IG52a21faGVhZF9mdW5jCnI1MzVfaGVhZCA9IHsKCS5zdGF0ZSA9IGd2MTAwX2hlYWRfc3Rh
-dGUsCgkucmdwb3MgPSBndjEwMF9oZWFkX3JncG9zLAoJLnZibGFua19nZXQgPSByNTM1X2hlYWRf
-dmJsYW5rX2dldCwKCS52YmxhbmtfcHV0ID0gcjUzNV9oZWFkX3ZibGFua19wdXQsCn07CgpJZiB0
-aGUgcGF0Y2ggZm9yIGFkZGluZyB0aGlzIHRvIGJsYWNrd2VsbCBpcyBhbHJlYWR5IHJlYWR5IEkg
-d291bGRuJ3QKbWluZCB0YWtpbmcgaXQgYXMgcGFydCBvZiB0aGlzIHNlcmllcywgYnV0IHRoYXQn
-cyB1cCB0byB5b3UKCj4gPiA+IMKgc3RhdGljIHN0cnVjdCBudmttX2Nvbm4gKgo+ID4gPiDCoHI1
-MzVfY29ubl9uZXcoc3RydWN0IG52a21fZGlzcCAqZGlzcCwgdTMyIGlkKQo+ID4gPiDCoHsKPiA+
-ID4gQEAgLTE0OTYsNiArMTUyMywyMCBAQCByNTM1X2Rpc3BfaW50cihzdHJ1Y3QgbnZrbV9pbnRo
-ICppbnRoKQo+ID4gPiDCoMKgwqDCoMKgIHJldHVybiBJUlFfSEFORExFRDsKPiA+ID4gwqB9Cj4g
-PiA+IAo+ID4gPiArc3RhdGljIGlycXJldHVybl90Cj4gPiA+ICtnYjIwMl9kaXNwX2ludHIoc3Ry
-dWN0IG52a21faW50aCAqaW50aCkKPiA+ID4gK3sKPiA+ID4gK8KgwqDCoMKgIHN0cnVjdCBudmtt
-X2Rpc3AgKmRpc3AgPSBjb250YWluZXJfb2YoaW50aCwgdHlwZW9mKCpkaXNwKSwKPiA+ID4gZW5n
-aW5lLnN1YmRldi5pbnRoKTsKPiA+ID4gK8KgwqDCoMKgIGlycXJldHVybl90IHJldCA9IHI1MzVf
-ZGlzcF9pbnRyKGludGgpOwo+ID4gPiArCj4gPiA+ICvCoMKgwqDCoCAvKiBUaGUgRkUgaW50ZXJy
-dXB0IHZlY3RvcnMgYXJlIG1lc3NhZ2UtYmFzZWQgb24gTlZENS4wLgo+ID4gPiBSZS0KPiA+ID4g
-YXJtIHRoZQo+ID4gPiArwqDCoMKgwqDCoCAqIGxvdy1sYXRlbmN5IHZlY3RvciBzbyBpdCBmaXJl
-cyBhZ2FpbiBmb3IgYW55IGV2ZW50IHRoYXQKPiA+ID4gbGF0Y2hlZAo+ID4gPiArwqDCoMKgwqDC
-oCAqIHdoaWxlIHdlIHdlcmUgc2VydmljaW5nLgo+ID4gPiArwqDCoMKgwqDCoCAqLwo+ID4gPiAr
-wqDCoMKgwqAgbnZrbV93cjMyKGRpc3AtPmVuZ2luZS5zdWJkZXYuZGV2aWNlLCAweDYxMWYzNCwK
-PiA+ID4gMHgwMDAwMDAwMSk7Cj4gPiA+ICvCoMKgwqDCoCByZXR1cm4gcmV0Owo+ID4gPiArfQo+
-ID4gPiArCj4gPiA+IMKgc3RhdGljIHZvaWQKPiA+ID4gwqByNTM1X2Rpc3BfZmluaShzdHJ1Y3Qg
-bnZrbV9kaXNwICpkaXNwLCBib29sIHN1c3BlbmQpCj4gPiA+IMKgewo+ID4gPiBAQCAtMTU2OCw3
-ICsxNjA5LDkgQEAgcjUzNV9kaXNwX29uZWluaXQoc3RydWN0IG52a21fZGlzcCAqZGlzcCkKPiA+
-ID4gwqDCoMKgwqDCoCBzdHJ1Y3QgbnZrbV9kZXZpY2UgKmRldmljZSA9IGRpc3AtPmVuZ2luZS5z
-dWJkZXYuZGV2aWNlOwo+ID4gPiDCoMKgwqDCoMKgIHN0cnVjdCBudmttX2dzcCAqZ3NwID0gZGV2
-aWNlLT5nc3A7Cj4gPiA+IMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0IG52a21fcm1fYXBpICpybWFw
-aSA9IGdzcC0+cm0tPmFwaTsKPiA+ID4gK8KgwqDCoMKgIGNvbnN0IHN0cnVjdCBudmttX3JtX2dw
-dSAqZ3B1ID0gZ3NwLT5ybS0+Z3B1Owo+ID4gPiDCoMKgwqDCoMKgIE5WMjA4MF9DVFJMX0lOVEVS
-TkFMX0RJU1BMQVlfV1JJVEVfSU5TVF9NRU1fUEFSQU1TICpjdHJsOwo+ID4gPiArwqDCoMKgwqAg
-bnZrbV9pbnRoX2Z1bmMgaW50cl9mdW5jOwo+ID4gPiDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcg
-bWFzazsKPiA+ID4gwqDCoMKgwqDCoCBpbnQgcmV0LCBpOwo+ID4gPiAKPiA+ID4gQEAgLTE3MjIs
-NyArMTc2NSwxMiBAQCByNTM1X2Rpc3Bfb25laW5pdChzdHJ1Y3QgbnZrbV9kaXNwICpkaXNwKQo+
-ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBudmttX2dzcF9ybV9jdHJsX2RvbmUoJmRp
-c3AtPnJtLm9iamNvbSwgY3RybCk7Cj4gPiA+IAo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBmb3JfZWFjaF9zZXRfYml0KGksICZkaXNwLT5oZWFkLm1hc2ssIGRpc3AtCj4gPiA+ID5o
-ZWFkLm5yKQo+ID4gPiB7Cj4gPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHJldCA9IG52a21faGVhZF9uZXdfKCZyNTM1X2hlYWQsIGRpc3AsIGkpOwo+ID4gPiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdCBzdHJ1Y3QgbnZr
-bV9oZWFkX2Z1bmMgKmZ1bmMgPQo+ID4gPiAmcjUzNV9oZWFkOwo+ID4gPiArCj4gPiA+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChncHUtPmRpc3AuY2xhc3Mu
-cm9vdCA+PSBHQjIwMl9ESVNQKQo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZnVuYyA9ICZnYjIwMl9oZWFkOwo+ID4gPiArCj4g
-PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldCA9IG52a21f
-aGVhZF9uZXdfKGZ1bmMsIGRpc3AsIGkpOwo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgaWYgKHJldCkKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+ID4gPiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4gPiA+IEBAIC0xNzY2LDEyICsxODE0LDIxIEBAIHI1
-MzVfZGlzcF9vbmVpbml0KHN0cnVjdCBudmttX2Rpc3AgKmRpc3ApCj4gPiA+IMKgwqDCoMKgwqAg
-aWYgKHJldCkKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPiA+
-ID4gCj4gPiA+IC3CoMKgwqDCoCByZXQgPSBudmttX2dzcF9pbnRyX3N0YWxsKGdzcCwgZGlzcC0+
-ZW5naW5lLnN1YmRldi50eXBlLAo+ID4gPiBkaXNwLT5lbmdpbmUuc3ViZGV2Lmluc3QpOwo+ID4g
-PiArwqDCoMKgwqAgaWYgKGdwdS0+ZGlzcC5jbGFzcy5yb290ID49IEdCMjAyX0RJU1ApIHsKPiA+
-ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKiBHQjIweCBkZWxpdmVyIGhlYWQtdGltaW5n
-IGludGVycnVwdHMgb24gdGhlCj4gPiA+IGRpc3BsYXkncwo+ID4gPiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgKiBzZXBhcmF0ZSBsb3ctbGF0ZW5jeSB2ZWN0b3IgKGludGVycnVwdCB0YWJs
-ZQo+ID4gPiBpbnN0YW5jZSAxKS4KPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICov
-Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gbnZrbV9nc3BfaW50cl9zdGFs
-bChnc3AsIGRpc3AtCj4gPiA+ID4gZW5naW5lLnN1YmRldi50eXBlLCAxKTsKPiA+ID4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBpbnRyX2Z1bmMgPSBnYjIwMl9kaXNwX2ludHI7Cj4gPiA+ICvC
-oMKgwqDCoCB9IGVsc2Ugewo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldCA9IG52
-a21fZ3NwX2ludHJfc3RhbGwoZ3NwLCBkaXNwLQo+ID4gPiA+IGVuZ2luZS5zdWJkZXYudHlwZSwg
-ZGlzcC0+ZW5naW5lLnN1YmRldi5pbnN0KTsKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBpbnRyX2Z1bmMgPSByNTM1X2Rpc3BfaW50cjsKPiA+ID4gK8KgwqDCoMKgIH0KPiA+ID4gwqDC
-oMKgwqDCoCBpZiAocmV0IDwgMCkKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0
-dXJuIHJldDsKPiA+ID4gCj4gPiA+IMKgwqDCoMKgwqAgcmV0ID0gbnZrbV9pbnRoX2FkZCgmZGV2
-aWNlLT52Zm4tPmludHIsIHJldCwKPiA+ID4gTlZLTV9JTlRSX1BSSU9fTk9STUFMLCAmZGlzcC0+
-ZW5naW5lLnN1YmRldiwKPiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByNTM1X2Rpc3BfaW50ciwgJmRpc3AtCj4gPiA+ID4gZW5naW5lLnN1YmRl
-di5pbnRoKTsKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBpbnRyX2Z1bmMsICZkaXNwLT5lbmdpbmUuc3ViZGV2LmludGgpOwo+ID4gPiDCoMKg
-wqDCoMKgIGlmIChyZXQpCj4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBy
-ZXQ7Cj4gPiA+IAo+ID4gPiBkaWZmIC0tZ2l0Cj4gPiA+IGEvZHJpdmVycy9ncHUvZHJtL25vdXZl
-YXUvbnZrbS9zdWJkZXYvZ3NwL3JtL3I1NzAvZ3NwLmMKPiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0v
-bm91dmVhdS9udmttL3N1YmRldi9nc3Avcm0vcjU3MC9nc3AuYwo+ID4gPiBpbmRleCA5OTY5NDFj
-NjY4YmEuLjI1OTBiMjI2NjNjYiAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL25v
-dXZlYXUvbnZrbS9zdWJkZXYvZ3NwL3JtL3I1NzAvZ3NwLmMKPiA+ID4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL25vdXZlYXUvbnZrbS9zdWJkZXYvZ3NwL3JtL3I1NzAvZ3NwLmMKPiA+ID4gQEAgLTQ0
-LDYgKzQ0LDE0IEBAIHI1NzBfZ3NwX3hsYXRfbWNfZW5naW5lX2lkeCh1MzIgbWNfZW5naW5lX2lk
-eCwKPiA+ID4gZW51bSBudmttX3N1YmRldl90eXBlICpwdHlwZSwgaW50Cj4gPiA+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgICpwdHlwZSA9IE5WS01fRU5HSU5FX0RJU1A7Cj4gPiA+IMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgICpwaW5zdCA9IDA7Cj4gPiA+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHJldHVybiB0cnVlOwo+ID4gPiArwqDCoMKgwqAgY2FzZSBNQ19FTkdJTkVfSURY
-X0RJU1BfTE9XOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIEdCMjB4KyByZXBv
-cnQgYSBzZXBhcmF0ZSBsb3ctbGF0ZW5jeSBkaXNwbGF5Cj4gPiA+IHZlY3RvciwgdXNlZAo+ID4g
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiBmb3IgaGVhZC10aW1pbmcgaW50ZXJydXB0
-cy4gRXhwb3NlIGl0IGFzIGEKPiA+ID4gc2Vjb25kCj4gPiA+IERJU1AKPiA+ID4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgICogaW50ZXJydXB0IGluc3RhbmNlLgo+ID4gPiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgKi8KPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqcHR5
-cGUgPSBOVktNX0VOR0lORV9ESVNQOwo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICpw
-aW5zdCA9IDE7Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHRydWU7Cj4g
-PiA+IMKgwqDCoMKgwqAgY2FzZSBNQ19FTkdJTkVfSURYX0NFMCAuLi4gTUNfRU5HSU5FX0lEWF9D
-RTE5Ogo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqcHR5cGUgPSBOVktNX0VOR0lO
-RV9DRTsKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKnBpbnN0ID0gbWNfZW5naW5l
-X2lkeCAtIE1DX0VOR0lORV9JRFhfQ0UwOwo+ID4gCg0K
-
+On Wed, Aug 19, 2026 at 12:06=E2=80=AFAM <lyude@redhat.com> wrote:
+>
+> On Wed, 2026-08-19 at 00:02 +0400, Mohamed Ahmed wrote:
+> > On Tue, Aug 18, 2026 at 2:59=E2=80=AFAM <lyude@redhat.com> wrote:
+> > >
+> > > On Sat, 2026-08-15 at 03:57 +0400, Mohamed Ahmed wrote:
+> > > >
+> > > > +
+> > > > +static const struct nvkm_head_func
+> > > > +gb202_head =3D {
+> > > > +     .state =3D r535_head_state,
+> > > > +     .vblank_get =3D gb202_head_vblank_get,
+> > > > +     .vblank_put =3D gb202_head_vblank_put,
+> > > > +};
+> > > > +
+> > >
+> > > You should probably add these two as well:
+> > >
+> > >         .state =3D gv100_head_state,
+> > >         .rgpos =3D gv100_head_rgpos,
+> > >
+> > > I don't think they've actually changed in blackwell, but it's
+> > > possible
+> > > maybe they do change in GB200x so you probably want to double check
+> > > so
+> > > we don't lose precise vblank timestamps again.
+> > >
+> > The head state changed actually (but RG position didn't), so adding
+> > this in would be a regression. I have some work to wire it up
+> > properly
+> > (part of VRR bringup) but I wasn't sure whether to include it in this
+> > series or not. We don't have precise vblank timestamps for anything
+> > GSP atm and everything falls back to the interrupt path, so it would
+> > technically be a new feature rather than fix ups.
+>
+> Actually we definitely do now! We didn't used to for ages, but I wrote
+> a patch that got upstreamed for it a few weeks ago, you can see it
+> here:
+>
+> static const struct nvkm_head_func
+> r535_head =3D {
+>         .state =3D gv100_head_state,
+>         .rgpos =3D gv100_head_rgpos,
+>         .vblank_get =3D r535_head_vblank_get,
+>         .vblank_put =3D r535_head_vblank_put,
+> };
+>
+> If the patch for adding this to blackwell is already ready I wouldn't
+> mind taking it as part of this series, but that's up to you
+>
+Ohh woops, sorry. I missed that. Yes, I'll rebase on top of the latest
+then and re-test.
+> > > >  static struct nvkm_conn *
+> > > >  r535_conn_new(struct nvkm_disp *disp, u32 id)
+> > > >  {
+> > > > @@ -1496,6 +1523,20 @@ r535_disp_intr(struct nvkm_inth *inth)
+> > > >       return IRQ_HANDLED;
+> > > >  }
+> > > >
+> > > > +static irqreturn_t
+> > > > +gb202_disp_intr(struct nvkm_inth *inth)
+> > > > +{
+> > > > +     struct nvkm_disp *disp =3D container_of(inth, typeof(*disp),
+> > > > engine.subdev.inth);
+> > > > +     irqreturn_t ret =3D r535_disp_intr(inth);
+> > > > +
+> > > > +     /* The FE interrupt vectors are message-based on NVD5.0.
+> > > > Re-
+> > > > arm the
+> > > > +      * low-latency vector so it fires again for any event that
+> > > > latched
+> > > > +      * while we were servicing.
+> > > > +      */
+> > > > +     nvkm_wr32(disp->engine.subdev.device, 0x611f34,
+> > > > 0x00000001);
+> > > > +     return ret;
+> > > > +}
+> > > > +
+> > > >  static void
+> > > >  r535_disp_fini(struct nvkm_disp *disp, bool suspend)
+> > > >  {
+> > > > @@ -1568,7 +1609,9 @@ r535_disp_oneinit(struct nvkm_disp *disp)
+> > > >       struct nvkm_device *device =3D disp->engine.subdev.device;
+> > > >       struct nvkm_gsp *gsp =3D device->gsp;
+> > > >       const struct nvkm_rm_api *rmapi =3D gsp->rm->api;
+> > > > +     const struct nvkm_rm_gpu *gpu =3D gsp->rm->gpu;
+> > > >       NV2080_CTRL_INTERNAL_DISPLAY_WRITE_INST_MEM_PARAMS *ctrl;
+> > > > +     nvkm_inth_func intr_func;
+> > > >       unsigned long mask;
+> > > >       int ret, i;
+> > > >
+> > > > @@ -1722,7 +1765,12 @@ r535_disp_oneinit(struct nvkm_disp *disp)
+> > > >               nvkm_gsp_rm_ctrl_done(&disp->rm.objcom, ctrl);
+> > > >
+> > > >               for_each_set_bit(i, &disp->head.mask, disp-
+> > > > >head.nr)
+> > > > {
+> > > > -                     ret =3D nvkm_head_new_(&r535_head, disp, i);
+> > > > +                     const struct nvkm_head_func *func =3D
+> > > > &r535_head;
+> > > > +
+> > > > +                     if (gpu->disp.class.root >=3D GB202_DISP)
+> > > > +                             func =3D &gb202_head;
+> > > > +
+> > > > +                     ret =3D nvkm_head_new_(func, disp, i);
+> > > >                       if (ret)
+> > > >                               return ret;
+> > > >               }
+> > > > @@ -1766,12 +1814,21 @@ r535_disp_oneinit(struct nvkm_disp *disp)
+> > > >       if (ret)
+> > > >               return ret;
+> > > >
+> > > > -     ret =3D nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type,
+> > > > disp->engine.subdev.inst);
+> > > > +     if (gpu->disp.class.root >=3D GB202_DISP) {
+> > > > +             /* GB20x deliver head-timing interrupts on the
+> > > > display's
+> > > > +              * separate low-latency vector (interrupt table
+> > > > instance 1).
+> > > > +              */
+> > > > +             ret =3D nvkm_gsp_intr_stall(gsp, disp-
+> > > > > engine.subdev.type, 1);
+> > > > +             intr_func =3D gb202_disp_intr;
+> > > > +     } else {
+> > > > +             ret =3D nvkm_gsp_intr_stall(gsp, disp-
+> > > > > engine.subdev.type, disp->engine.subdev.inst);
+> > > > +             intr_func =3D r535_disp_intr;
+> > > > +     }
+> > > >       if (ret < 0)
+> > > >               return ret;
+> > > >
+> > > >       ret =3D nvkm_inth_add(&device->vfn->intr, ret,
+> > > > NVKM_INTR_PRIO_NORMAL, &disp->engine.subdev,
+> > > > -                         r535_disp_intr, &disp-
+> > > > > engine.subdev.inth);
+> > > > +                         intr_func, &disp->engine.subdev.inth);
+> > > >       if (ret)
+> > > >               return ret;
+> > > >
+> > > > diff --git
+> > > > a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> > > > b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> > > > index 996941c668ba..2590b22663cb 100644
+> > > > --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> > > > +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> > > > @@ -44,6 +44,14 @@ r570_gsp_xlat_mc_engine_idx(u32 mc_engine_idx,
+> > > > enum nvkm_subdev_type *ptype, int
+> > > >               *ptype =3D NVKM_ENGINE_DISP;
+> > > >               *pinst =3D 0;
+> > > >               return true;
+> > > > +     case MC_ENGINE_IDX_DISP_LOW:
+> > > > +             /* GB20x+ report a separate low-latency display
+> > > > vector, used
+> > > > +              * for head-timing interrupts. Expose it as a
+> > > > second
+> > > > DISP
+> > > > +              * interrupt instance.
+> > > > +              */
+> > > > +             *ptype =3D NVKM_ENGINE_DISP;
+> > > > +             *pinst =3D 1;
+> > > > +             return true;
+> > > >       case MC_ENGINE_IDX_CE0 ... MC_ENGINE_IDX_CE19:
+> > > >               *ptype =3D NVKM_ENGINE_CE;
+> > > >               *pinst =3D mc_engine_idx - MC_ENGINE_IDX_CE0;
+> > >
+>
