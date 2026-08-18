@@ -4,100 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 626A1C5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 17:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA4C3C5DF81
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 18:24:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4826B10EC2F;
-	Tue, 18 Aug 2026 17:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0021A10EC31;
+	Tue, 18 Aug 2026 18:24:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n/EOBuP7";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="XbjiPu+4";
 	dkim-atps=neutral
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com
- [209.85.222.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07A7F89EAC
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 17:56:20 +0000 (UTC)
-Received: by mail-ua1-f52.google.com with SMTP id
- a1e0cc1a2514c-977c81214bcso2697241.0
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:56:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787075779; cv=none;
- d=google.com; s=arc-20260327;
- b=eO+ROTZzjHKVAfd5sO46+4ZTtnghlTWW9NnQnkJSquyHuDrUg31dLtcRERVu5HMT6r
- RDS3NI58+mCvq7gG76ZI1XH6G0SEnYa7w2QFEb4T5ALLSb4qYMXmiSrE69HLqHmpA3yz
- cGdy6jmQAIsd/Z+kJPmSzZNozddjZJUkZzUkkrGVuFt9H6ictvt8Ju6ne0GrShIdSCGi
- u5j4ECj0JVjCU3j4R3MxEZM3/t1/dPZwzZzFVSTbM0AQJZ85moD6X8/ninMeSNggrw8h
- e1he2a6DJKKycqBJ8brebyembZh6OR3DVQinD1rIhTbgz7yyYtEFGB9LeflEtVufU2pj
- q/vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=O2Guo2cfQRnj9tcFfEAaGvAISaRSftC/+14D5jKa588=;
- fh=0RW11OuIBysmMcTVWE2KQhlCr58/sR1F0Cqr6EEY2fk=;
- b=bfahQ++tKjc+iWlF8lBftUZmOZu5UKMW2tXHJ07JyTwqrx1k7uu4TYnOpdUaBezq1Q
- qPMnGx55j9cllj373jT3Shvod8ZVSyVKj/8kCM13lLyRqxiBGgB7mh7kFnVRQcSD5J4t
- TjP0n575g8n36hutiKNGzdgRyeGaIQ5L3odLKNjf8LSU3sh2pNWnCOnl7wSKzL2E0DA5
- UKXqjJ1mz5DCOWZVg+HFCUxvB7j8aYD1MjEn1AtAkoimL3GMDJFSwvKszFpBz9qjdTjf
- yK533QMVE2xi+gT7M7cY8g3gOjBKS4iZppMS2Ut/xzAdBrrtTttyqCid7m5PhXqxx07x
- NCuQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787075779; x=1787680579; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=O2Guo2cfQRnj9tcFfEAaGvAISaRSftC/+14D5jKa588=;
- b=n/EOBuP7y6maEoZ+y3fT8TzcheUxorEy8DFa4p+jRIlhzM3V2xsnj0iu2T/gfxC0Op
- dsc0XAta8VkowaWb8kAlbDQY7U+wXLscks3g/zY7kpnVMiFLCtDzzJa+qp5TV1F89OiC
- LQIKcOQS9RwKRHbMqPfCyVR6Nz1+iPFqOrsC6GlEwKHOrJk2YOws3QaoF5tsnT+IsVFg
- +KMGEVl71X3YwuEYgVJr8yswVvkkywMKw+DZWVpt5cyBeAKvz1J0Yr809lvVGJP3Auso
- FUdcUHJGwjzNHo8A6kkEKb/tk9cMxwHj32jEsMfiVxjDuiqGAVmTZOBITyn+F7Moa8iA
- 92bw==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A89C10E050
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 18:24:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787077465;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NRSlLd9Q7zWH/n4ZBhenQN+P3DSgLgejYrqhKOuEwfo=;
+ b=XbjiPu+46V6We+b6832JAQQKak8i5yZZKfFxD86DhLT7N/l4tAWXa/k/Iq8+hCLaVEd3aU
+ ByKkiHT85LayZiDGf9GEWVgAR3QzuVrqZcr+oUUiGFO3a+R+XDYAOu9xfJY6l5QoEBBgLE
+ G+bbj3+EwXGyC2cXNVPfguSQ76en09Y=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-387-jHv4PYKjNXCIuPj9Kwu2yw-1; Tue, 18 Aug 2026 14:24:24 -0400
+X-MC-Unique: jHv4PYKjNXCIuPj9Kwu2yw-1
+X-Mimecast-MFC-AGG-ID: jHv4PYKjNXCIuPj9Kwu2yw_1787077464
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-8f0ed4fe79aso4614166d6.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 11:24:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787075779; x=1787680579;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1787077464; x=1787682264;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=O2Guo2cfQRnj9tcFfEAaGvAISaRSftC/+14D5jKa588=;
- b=XfPEtMxssslJcjBDwkbFJglgRCHqaDbOVsiPTIeDUwFCVbrLBEFStMZTTzCdn1S0L7
- p+C0JW/3QYgi2t6ASbcXP6HeNQUBZBGtsHLp0Avp6ntA2mo7GqHVLlq2vC9Vw0yiWcJC
- xOZI1UfDgY3OggQEwVwgiCiWrKiWIXZbsldlIKaGaU+MNrWKu2EZeyhi/1BYGgMvLLBA
- 0PdGjm5ufToYTH+9zeWlLt4XIakHcrC5GeQ19EqV3eAJmWVSVz7D+Z9X5N43VGts+Z0q
- aGBNvC5d6TEi0MMcjOSdDTWBfngNP82dgAiAYTk/f00WC3vnkDXy3vv8+XqR42yRKLqU
- 3B9Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpbI/hIbs2AjEfIoq17CfuLdznNgCb4fIR1WwtX1LIlA7tBJkAGbz7b7DZFUJ9aSZDtZypKShSdwT8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYZ4GUKxrA1DF8rOIyu7TUM0UYU8hYiywDJQ5Ee1sABVIJyrGZ
- tibDzR1wDfxas0LbEtACmxArsr40RIMC37zFoyai1K5kqBQBzp0xHzrAZHy88jo2sxheelkzz3E
- v5WDN86A928ebBAL6Cxr7ji1Gcd4OzKM=
-X-Gm-Gg: AR+sD13IsyxZz/SbHFACUDsOCBc8BU9kp8nTnyVs7KL5oAo6TL5pbg6RErFsWiY+g4b
- TgON4owStneSDobcuXZKhJbX9G58QII+mfT0MS67pZZjgoTylq43/zYSDSd0ILtWy0DXdlNZlg1
- ZE+7tZocNWEpxcIo3D8ld77DF5X1EJnWoxiyszzFBl7fdW9sZFj89spSSjCfU8R43fq+HWJzTRC
- slpob8jbzNHxhDXJKghDk4jNYlX6OQ7lMu4D/42GR3+KDQlMR8egW+xoMs47cDelPX1MaCo+Mbf
- ydAjRB/k8r6qe4XA2OjFHxECu5J7qJ5CX8xL0DXZW/5+Jr9Ytcgehx8ZaKr9dXqSDtZI/vngAkR
- JUHX2simNefD6gay72P8S7a1mSKXl+oEMi4PLnH5QBQ==
-X-Received: by 2002:a05:6122:6d03:b0:5bd:ae1c:afcf with SMTP id
- 71dfb90a1353d-5c591f935b9mr3403639e0c.3.1787075778874; Tue, 18 Aug 2026
- 10:56:18 -0700 (PDT)
+ bh=5EjK1grTNkC5kVSY96HRtQJcSC7mxO3Y6rELa2KIFGI=;
+ b=sqLai7uFxYBNMEPiDGtp4pFKh3F34BCdiidmbblP5LnyZ7JxkosTs/FedVhYNZwfoT
+ NiBN/o2fvJiClRgHVCfQiDTSuP+vHZkG/hpaSsbBx35/8+GDu8jVWaXWfOwUDoVPwpCd
+ Dms8SLemZdE8/IwfL75fILQJqgFK4FNZzFNExiv6PWrT4xuKKbO0F2ZCYZfYCZrsJGQR
+ Iv1hJJFbiFd+ybPb3pnoMfeu/KDNMd4SwL251nFxWKZZ3OqtO2ndJlSo9PKtHcLaX6H3
+ nRBwRvdhjALkOhAYl/J5vfP4s5mcBxW4igk9NLhCYzwJx8TxgsYiGyvPzfN/Lujs93fq
+ splg==
+X-Gm-Message-State: AOJu0YzNgIIjhf7D4XdDejmHBp1Br8+S8b838UK0kj2be5qyi0qnwPgu
+ T3ElOMRQul0zCmLTDHjwOk1XjyG7cgL1MfFXZe/MSqPqVtCBLuWN+4JJ5y7E3uuWE5SGNniMvs4
+ l2TaYw0z/5MdFPKq0Q406nwzyD0NqXB6MNzVGEw8U4nkpcc4rsM72fN/j9hvWuphd2drTxw==
+X-Gm-Gg: AR+sD13rJLhvVzzpVo8hu91LQDTu56Cv/5Y7G3ol34dhJdhNOAs5MvOhbe5StNO85gg
+ aJ6yv9px6Qbyl0KCH/PjuisQgLED0jWLxbIIQgm0+Yq33YuoyeqXHkc9VxrsJuOkd2996bzxanz
+ wmHjkKrKpF67dy9J2AA7bUGw+TGiy5WBOhZrzb5YGk6XcGXuGT2l7Yj7YQfDh8ObhJHoOxA1PVa
+ eche5nSF62BiOqeZqTyRla0cFsjotggokAVCgBtAAb/wDNA42DjNSpKGbpU5l5cLbMH7eNwiQeR
+ zS90n6Mdui/Qixh1RSWfbFfnpdhLNSrRYMFYj832Gnw1h10nHakOk1T7CU79R/ArfPiw30x/
+X-Received: by 2002:ad4:5aea:0:b0:8f7:43f4:fe8d with SMTP id
+ 6a1803df08f44-90c5c423802mr2387056d6.29.1787077462539; 
+ Tue, 18 Aug 2026 11:24:22 -0700 (PDT)
+X-Received: by 2002:ad4:5aea:0:b0:8f7:43f4:fe8d with SMTP id
+ 6a1803df08f44-90c5c423802mr2386196d6.29.1787077461736; 
+ Tue, 18 Aug 2026 11:24:21 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-90c4597695csm37005146d6.40.2026.08.18.11.24.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Aug 2026 11:24:20 -0700 (PDT)
+Message-ID: <25ccdb08f6d84982fb211444dd766d054258e41c.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau/nv04: check cursor buffer object size
+ before upload
+From: lyude@redhat.com
+To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Dave Airlie
+ <airlied@redhat.com>, Ben Skeggs	 <bskeggs@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org
+Date: Tue, 18 Aug 2026 14:24:19 -0400
+In-Reply-To: <20260813-nouveau-nv04-cursor-oob-v1-1-3f3eb37d213d@gmail.com>
+References: <20260813-nouveau-nv04-cursor-oob-v1-1-3f3eb37d213d@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-References: <20260818-amdgpu-strcpy-v1-1-3ee9b111fafe@gmail.com>
- <CADnq5_NZQrSAqV4cTz8HaJYsatb9VWgc4J3--gTWvF8NTz6-xg@mail.gmail.com>
- <20260818152113.31b72e30@pumpkin>
- <CADnq5_MOSxt4=15C941PyuKH0V6bubx7Wi55x5zoWjAsBS2ffg@mail.gmail.com>
- <CAHfa7xV-pPN0nAdd4q=bDYS59snoMf563OwS96_LLg4eb3yqQQ@mail.gmail.com>
-In-Reply-To: <CAHfa7xV-pPN0nAdd4q=bDYS59snoMf563OwS96_LLg4eb3yqQQ@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Aug 2026 13:56:06 -0400
-X-Gm-Features: AcwNN1UV1BDx6Pxjqmx1q4CmVpcvGtmNjpr811EmS5vHb4kE8vmCcTuMpJjKRpk
-Message-ID: <CADnq5_NhH0WC_r7SVPyXOG4r36O++sUGis2Ej-A9J4MNJu7GoA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Replace deprecated strcpy with strscpy
-To: Amin <amin.gattout@gmail.com>
-Cc: David Laight <david.laight.linux@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: zgZRD7plGRv2h6f8RPB0Qft-1HCs7G_PgS6vTQSctO4_1787077464
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -115,118 +103,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 18, 2026 at 1:51=E2=80=AFPM Amin <amin.gattout@gmail.com> wrote=
-:
->
-> You raise a fair point about the compile-time truncation check.
-> My reasoning follows the kernel's own deprecation guidance, which
-> explicitly lists strcpy() as deprecated and names strscpy() as the
-> safe replacement:
->
-> https://www.kernel.org/doc/html/latest/process/deprecated.html#strcpy
+On Thu, 2026-08-13 at 18:35 +0800, Zhenhao Wan wrote:
+>  struct drm_file *file_priv,
+> =C2=A0=09=09return -ENOENT;
+> =C2=A0=09cursor =3D nouveau_gem_object(gem);
+> =C2=A0
+> +=09if (gem->size < width * height * 4) {
+> +=09=09ret =3D -EINVAL;
+> +=09=09goto out;
+> +=09}
+> +
 
-RIght.  My thinking was that strscpy() would be preferred to avoid
-static checkers from complaining about strcpy().
+A good start - but width and/or height could be UINT32_MAX, so a caller
+could still overflow width or height. Would you mind adding an overflow
+multiply check?
 
-Alex
+> =C2=A0=09ret =3D nouveau_bo_map(cursor);
+> =C2=A0=09if (ret)
+> =C2=A0=09=09goto out;
+>=20
+> ---
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> change-id: 20260813-nouveau-nv04-cursor-oob-ad2b6001de3d
+>=20
+> Best regards,
+> --=C2=A0=20
+> Zhenhao Wan <whi4ed0g@gmail.com>
 
->
-> Regards.
-> Amin.
->
-> Le mar. 18 ao=C3=BBt 2026 =C3=A0 19:39, Alex Deucher <alexdeucher@gmail.c=
-om> a =C3=A9crit :
-> >
-> > On Tue, Aug 18, 2026 at 10:21=E2=80=AFAM David Laight
-> > <david.laight.linux@gmail.com> wrote:
-> > >
-> > > On Tue, 18 Aug 2026 09:01:43 -0400
-> > > Alex Deucher <alexdeucher@gmail.com> wrote:
-> > >
-> > > > Applied.  Thanks!
-> > > >
-> > > > On Tue, Aug 18, 2026 at 7:10=E2=80=AFAM Amin Gattout <amin.gattout@=
-gmail.com> wrote:
-> > > > >
-> > > > > strcpy() has been deprecated because it performs no bounds checki=
-ng
-> > > > > on the destination buffer, which can lead to buffer overflows. Re=
-place
-> > > > > it with the safer strscpy().  No functional changes.
-> > > > >
-> > > > > Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 6 +++---
-> > > > >  1 file changed, 3 insertions(+), 3 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_mca.c
-> > > > > index cc6d1a4e4c3a..1caa393c44d5 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-> > > > > @@ -97,7 +97,7 @@ int amdgpu_mca_mp0_ras_sw_init(struct amdgpu_de=
-vice *adev)
-> > > > >                 return err;
-> > > > >         }
-> > > > >
-> > > > > -       strcpy(ras->ras_block.ras_comm.name, "mca.mp0");
-> > > > > +       strscpy(ras->ras_block.ras_comm.name, "mca.mp0");
-> > >
-> > > I missed this being proposed.
-> > > Both strcpy() and strscpy() get converted to the same memcpy()
-> > > (which might itself get converted to writing a 64bit constant).
-> > >
-> > > But if the string were too long strcpy() would generate a compile err=
-or
-> > > whereas strscpy() just trunctates the string.
-> > >
-> > > Which one is better?
-> >
-> > I don't know.  I can go either way on this.
-> >
-> > Alex
-> >
-> >
-> > >
-> > >         David
-> > >
-> > > > >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
-> > > > >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MC=
-A_BLOCK__MP0;
-> > > > >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_=
-UNCORRECTABLE;
-> > > > > @@ -122,7 +122,7 @@ int amdgpu_mca_mp1_ras_sw_init(struct amdgpu_=
-device *adev)
-> > > > >                 return err;
-> > > > >         }
-> > > > >
-> > > > > -       strcpy(ras->ras_block.ras_comm.name, "mca.mp1");
-> > > > > +       strscpy(ras->ras_block.ras_comm.name, "mca.mp1");
-> > > > >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
-> > > > >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MC=
-A_BLOCK__MP1;
-> > > > >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_=
-UNCORRECTABLE;
-> > > > > @@ -147,7 +147,7 @@ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu=
-_device *adev)
-> > > > >                 return err;
-> > > > >         }
-> > > > >
-> > > > > -       strcpy(ras->ras_block.ras_comm.name, "mca.mpio");
-> > > > > +       strscpy(ras->ras_block.ras_comm.name, "mca.mpio");
-> > > > >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
-> > > > >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MC=
-A_BLOCK__MPIO;
-> > > > >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_=
-UNCORRECTABLE;
-> > > > >
-> > > > > ---
-> > > > > base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
-> > > > > change-id: 20260818-amdgpu-strcpy-0e92d18299c6
-> > > > >
-> > > > > Best regards,
-> > > > > --
-> > > > > Amin Gattout <amin.gattout@gmail.com>
-> > > > >
-> > > >
-> > >
