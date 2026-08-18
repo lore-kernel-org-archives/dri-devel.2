@@ -4,63 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54A3EC5DF7D
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 10:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E05C5DF7E
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 10:31:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF06E10E00F;
-	Tue, 18 Aug 2026 10:28:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8675410E36C;
+	Tue, 18 Aug 2026 10:31:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jwja8jcl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IW+N6zqa";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4796D10E00F;
- Tue, 18 Aug 2026 10:28:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=uO/nAH6WXiGHz4KEvvjqTPxJpxO7ml5cqr41kxbTfG8=; b=jwja8jcl4hSH2EoViAkbWiQ2nY
- TavYJdKNyYNt6Vkkb77dHre2LcYIIhzX+HNdMxuMPC8fs3R3LFmHi+IYR+iM7YzlgKUBE5089lwlj
- jLUGluo7vPJyZp86S5tgSPmI3+/ZX99DBc5RaBKFB+BJxKiczl2Abs5racTmQPJYD1vMsEH99u7TM
- 1q+7SatVbL2GExx07rNVRuOg8G1H/r04T9MKM6C+P67YfbbQhKXPG7Y1OQ4YLW4zsthD0tnXQogRe
- hB7uB+cjtKWTsCnUe7v0lvfbzb2USWtE14JM0BPFZkmzHTS04bnspBCI/iHYmO/YiqX+McNTh9R7U
- 5DHlUcJg==;
-Received: from [31.4.136.12] (helo=[192.168.1.126])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wwH3Q-005ZE6-Rc; Tue, 18 Aug 2026 12:28:24 +0200
-Message-ID: <6d601f3b-c531-42c8-a2c9-fd1da1b74c1b@igalia.com>
-Date: Tue, 18 Aug 2026 12:28:23 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA78510E36C
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:31:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6CBD443403;
+ Tue, 18 Aug 2026 10:31:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91A41F00AC4;
+ Tue, 18 Aug 2026 10:31:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787049104;
+ bh=jFkVtkhfIN2OPkHgRPQWKQH8YUG9gSxbS0ZY6l1Jjxc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=IW+N6zqalf5ue6MbY/NYFy5rfNOP4ny4WrTlx29LOOroKpepb8INcoAZyP3Q38uUe
+ rtn5OxDscdQn2clNV0KQXDNPKkULH0e30u/zrlme71fT4czlaDFZJWx8vXzxUypAZN
+ 2MvslvtAX3bdkL3XyvadtfB1LvASVFihAw7Ss3E3Y/FoF5A1wVsevOSToY0L2nTNP9
+ IvNkcw0H9PhrlpQx9nmhhG0RTnpBrjaEYunS7jZE3bmtevpOpDSC5P5tYyGpUZ18rE
+ ZAGgqiDhxM35f2TlqfVjHlYBVWbSEXXo6x0THZrnuOtU/c0LnM/fZK+e1I11vnCY/0
+ Apn/vSXlV3EEA==
+Date: Tue, 18 Aug 2026 12:31:41 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: webgeek1234@gmail.com
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>, 
+ Mark Brown <broonie@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-tegra@vger.kernel.org, 
+ linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: tegra: Enable DMA Support on Tegra194 QSPI
+Message-ID: <aoQ0gWCmTiaWXbjW@orome>
+References: <20260525-tegra194-qspi-iommu-v2-0-a11c53f804b2@gmail.com>
+ <20260525-tegra194-qspi-iommu-v2-2-a11c53f804b2@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
- warning
-To: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "daniels@collabora.com" <daniels@collabora.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- "leandro.ribeiro@collabora.com" <leandro.ribeiro@collabora.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "pekka.paalanen@collabora.com" <pekka.paalanen@collabora.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>
-Cc: "Hung, Alex" <Alex.Hung@amd.com>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
- Lyude Paul <lyude@redhat.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20260813143605.106104-1-mwen@igalia.com>
- <DS0PR12MB65342A796015C57DCD287AB99CDB2@DS0PR12MB6534.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <DS0PR12MB65342A796015C57DCD287AB99CDB2@DS0PR12MB6534.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4lsigaiunpjf6ftk"
+Content-Disposition: inline
+In-Reply-To: <20260525-tegra194-qspi-iommu-v2-2-a11c53f804b2@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,92 +70,47 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+--4lsigaiunpjf6ftk
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 2/2] arm64: tegra: Enable DMA Support on Tegra194 QSPI
+MIME-Version: 1.0
 
-On 13/08/2026 19:58, Wheeler, Daniel wrote:
-> Public
->
-> Thanks for the fixes Melissa, we'll re-add them to next week's promotion and re-test.
+On Mon, May 25, 2026 at 01:47:45AM -0500, Aaron Kling via B4 Relay wrote:
+> From: Aaron Kling <webgeek1234@gmail.com>
+>=20
+> Without dma enabled pio mode is used and flash storage such as the one
+> on the p3668 module times out and cannot complete any transfers. In some
+> cases, these timeouts cause hangs and cbb faults.
+>=20
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+>  arch/arm64/boot/dts/nvidia/tegra194.dtsi | 4 ++++
+>  1 file changed, 4 insertions(+)
 
-Nice!
+Applied now, thanks.
 
-Thank you!
+Thierry
 
-Melissa
+--4lsigaiunpjf6ftk
+Content-Type: application/pgp-signature; name="signature.asc"
 
->
-> Thank you,
->
-> Dan Wheeler
-> Sr. Technologist | AMD
-> SW Display
-> ------------------------------------------------------------------------------------------------------------------
-> 1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-> amd.com
->
->
-> -----Original Message-----
-> From: Melissa Wen <mwen@igalia.com>
-> Sent: Thursday, August 13, 2026 10:30 AM
-> To: airlied@gmail.com; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; daniels@collabora.com; Wentland, Harry <Harry.Wentland@amd.com>; leandro.ribeiro@collabora.com; maarten.lankhorst@linux.intel.com; mripard@kernel.org; pekka.paalanen@collabora.com; simona@ffwll.ch; siqueira@igalia.com; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; tzimmermann@suse.de
-> Cc: Hung, Alex <Alex.Hung@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>; kernel-dev@igalia.com; Lyude Paul <lyude@redhat.com>; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
-> Subject: [PATCH v3 0/3] drm/atomic-state-helper: fixes for blend-mode-prop warning
->
-> PREMULTI was the default DRM blend mode until 9813e158d13d
-> ("drm/drm_blend: allow blend mode property without PREMULTI") introduced the possibility of exposing the blend mode property without PREMULTI being supported. However, __drm_atomic_helper_plane_state_init() still resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported mode in this property. In the same series, 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed") starts warning drivers that supports alpha formats in a given planes but doesn't support blend mode property, which includes AMD primary and cursor planes.
->
-> For AMD DCN families, overlay and primary planes support the three blend modes, and therefore PREMULTI is still the default mode. So the warning can be fixed by just creating blend mode properties for primary planes too. PREMULTI is the default/unique mode for cursor planes in DCN and DCE driver. However, looks like PIXEL_NONE is the unique blend mode supported by DCE-generation driver. I don't have the hardware to check it out, but looking at the code I understand that, even if the hardware can do PREMULTI or COVERAGE, the way it programs registers doesn't make these other blend modes actually available.
->
-> Bearing this in mind, this series is organized as follow:
->
-> - Patch 1 fixes the pixel_blend_mode reset when the blend mode property
->    is advertised without PREMULTI support. It's needed for AMD
->    DCE-generation (patch 3) and I think with this we can also remove a
->    workaround in nouveau nv50_wndw_default_state() caused by the
->    hardcoded PREMULTI default value [1].
->
-> - Patch 2 fixes the missing-blend-mode-property warning for DCN primary
->    plane and for DCN+DCE cursor plane. The alpha property keeps only on
->    overlay planes because looks like this is not supported by AMD primary
->    planes and it doesn't affect the blend mode warning we are targetting.
->    Enabling alpha properties to primary was also causing -EINVAL on IGT
->    alpha tests because it started testing primary planes and disabling it
->    (which is not allowed by the AMD display driver).
->
-> - Patch 3 fixes the warning for DCE primary plane, but I detached this
->    solution from the previous patch because I don't have hardware to
->    validate if my assumption about PIXEL_NONE-only is correct.
->
-> [1] https://lore.kernel.org/dri-devel/20260720215058.398210-3-lyude@redhat.com/
->
-> [v1]: https://lore.kernel.org/dri-devel/20260722183240.626522-1-mwen@igalia.com/
-> Changes:
-> - new patch for pixel_blend_mode default value other than PREMULTI.
-> - remove DCE11 which supports per_pixel_alpha but doesn't support DCN_UNIVERSAL_PLANE.
-> - new patch for the primary plane blend mode on DCE-generations
->
-> [v2]: https://lore.kernel.org/dri-devel/20260804140758.107683-1-mwen@igalia.com/
-> Changes:
-> - keep alpha property only for overlay planes (looks like primary plane
->    doesn't actually support it) - alpha prop in primary planes causes IGT
->    test failures with RX 7900 XT on a 4k60 HP U27 as reported by Daniel
->    Wheeler.
-> - improve readability of if conditions (Alex H)
-> - add Leandro's r-b tags.
->
-> Best Regards,
->
-> Melissa
->
-> Melissa Wen (3):
->    drm/atomic-state-helper: set pixel_blend_mode to prop default on reset
->    drm/amd/display: fix missing blend-mode-prop warning for DCN
->    drm/amd/display: advertise PIXEL_NONE as blend mode for DCE generations
->
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 25 ++++++++++++++++---
->   drivers/gpu/drm/drm_atomic_state_helper.c     |  7 ++++++
->   2 files changed, 29 insertions(+), 3 deletions(-)
->
-> --
-> 2.53.0
->
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqENIoACgkQ3SOs138+
+s6GLyBAAhq36NYEJpIF+BYwEPBGirYi9UVsxxIjMKPjUMcnKL3utg6pKPVJv7ej4
+8mlXE0z14O+W2VuK/g8/45CpPrZgutUo1kkR5TxxsNEVdi06I4oCOuUcP+FfO7bj
+iBuzAHgSSZsbBlQ2/Dwz2mmK5cIkzy9/zOLdgxZjdir1uft+0mRkLlxsGwlmnwf8
+UDpYGNeTE/agVs594aJNnnIDsh2fvS7oym9EMeMGCFXaR0UWt0Bl/rK6C+ccOqt4
+1RYUw+S5YbffBAzJOn0boRkPb8+qIExRTYWExcKK442doQRhECGi+zqV2CgYtdLd
+LCQJI/jSsnCT3sx/KsplfBL1vUiB6Bl2zfaVIYgJ6vT9h6u9wFlw0hXl5Rn++iYf
+dYDuav/AFVVlLAGp/YBrO21PCUNBqXJwaeFz7ngKOz28Qq4QYK61i/YuS2/u4exI
+BQYIyB2yeTOqUhwFzrcigBszsPNzyPd38pZYSiJMJSHgwx+lC+ii0/alVQWkmQe8
+wi9hyniJoGYCZNKDdGd8dc6j5NZXXUxo/LfkK24aiYurdGC6QsmzB1Eudv6UaH7j
+C7HLIH61E7F7l5xPUVR4mxTOHOl4QFSh4+YYZJudidKV9FVg/6PTUMDo1T2T0w6C
+yvHzgRBlE3Rm+yahBtBPNg13buXtNLyX9Y2NCieemreuvMZcBJ0=
+=52eR
+-----END PGP SIGNATURE-----
+
+--4lsigaiunpjf6ftk--
