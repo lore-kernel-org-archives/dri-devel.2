@@ -4,55 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0686DC5DF7D
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 12:31:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58EAFC5DF7E
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 12:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EBF489AAE;
-	Tue, 18 Aug 2026 12:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB77610EB1D;
+	Tue, 18 Aug 2026 12:43:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="fIjgEwpt";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HUCPP/Fj";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC8B389AAE
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 12:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: References: Cc:
- To: From: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-e1b5cab7be; t=1787056297;
- bh=ARJYzWHRK1/tvlajVYaQEpB+8GLZSMIM76Ejf69JEc0=;
- b=fIjgEwptE0jhPm/sucBfoItPXR3xusk4tktkyLWsGtYGEN01HE3IgVhXpudiPDH9aihZZR8Ln
- Eyh5SLp3/x9F1QYE4cIs5LcG9Ert5IRvbtSa4X0NmvMYwYxx3GpBSF4cZu+HS61CC2VQyOomRDy
- SA8q8EGVmjkRI80QBfL1DoKD6Zwsm8l8O2+J05A2ArgmSh+4bPJs9pkZobC5YuNGaLlMGMvcKL1
- G8xq8rIu+yA2x2mpLB0yk6jL/7jAL0MsWzge7UitZDyR6EIKs7YFjUO0txsAN18HQgatkeZhzVu
- Q5FruHLugD8OANaV3pHo0Va8V9lFhW0WtaTpw1qrU87g==
-X-Forward-Email-ID: 6a845087b1ee0df32f73c58b
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.13.16
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
-Date: Tue, 18 Aug 2026 14:30:59 +0200
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D749610EAF0
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 12:43:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787057020;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=J9G3iSxs63cmwbUmYiEX69zc+tabrPwShtlbbS8QAMw=;
+ b=HUCPP/FjWPi9LOpaQAeZW+I8Ng4QSrrWt7yU/ZFyY0YEsoMC2fHviuNEHe8vTncPLnSOb9
+ P7GHmwag7RkQx3oBiFI0wU7NRUKZtNqPtc1ppr6C94iXt+fjjY1GSiHhN/eZnQ6X2dh8EL
+ LU591ghoPLQRQOFBEBZZYHwB7ONcAAM=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-562-5M21xHSaMzOe-e4d_OvB7g-1; Tue, 18 Aug 2026 08:43:36 -0400
+X-MC-Unique: 5M21xHSaMzOe-e4d_OvB7g-1
+X-Mimecast-MFC-AGG-ID: 5M21xHSaMzOe-e4d_OvB7g_1787057016
+Received: by mail-yw1-f200.google.com with SMTP id
+ 00721157ae682-81e735bcceaso75699327b3.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:43:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787057016; x=1787661816;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=J9G3iSxs63cmwbUmYiEX69zc+tabrPwShtlbbS8QAMw=;
+ b=MErLOWeYxtcoEXK2TvJ/L4zcCgIAfheUnDCRFKoTT+HWcLsifosF8qCfbhrtOIuFTc
+ Y5VBtcDPDlnm88L1MalOd5zzbkTERCunBHv6oi10pAtyv4MbxiF+fGDEJLa/O9Gubf1Q
+ zHixiF91Y2mckwkRd4ewhAnLIvbnWXXdiaJ9898P/8w8MRtEElBEMp1d/RGIvJE+yQmZ
+ pX6Br0XQJ3S6uJFIvfHb4yNGMDNtByw4b/NkKVHUkwwteM19rVzWZIbIeg1qEsnrCok7
+ S0f6/Z8g7dorw4rSMwoL1KO0Vs2Jsb4YVGDcBNad50aTfb36PzDWWAUqdn/6GNImVU2v
+ xW+g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RozgUdpPXjEDjyUqaXrKtsu1vVTUY4ihHLpYyMzLg6Nkygm0U51Mk9s1COJY8QuI3CwbBMi2WPGCdE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrQvWqgFlfGJDKsKpYlJiGjs79XmEqMXm1cveqViLHMuri97C4
+ AYCfc2swwLX0TPSK5NCG6A1C5z1mLNSliX6MZFeRu5VHf/2EGMSI5qNDuSev27xYoDlgLu3waFP
+ FIq9HZ4lGMyxNEfGIVOmEsSGKk6ty/Snh15HPtGAZU/afadxkIukgN2UVzRP2Shy72jNwbRxne2
+ IOyw4We9LLKtwktYDl8ZBWv/ZDCXuIhDmvf81Iz3kSpSCL
+X-Gm-Gg: AR+sD12WW4i4ZSyVnLD+AHj8d8unsVMpZEkPblnS37gPm0py3anScpLyXEzPRbgsoHP
+ GGlJQDVjr+ca70TR8HF7QR9h0/g+UrYe6YnsBp53IlnXl9mt/Ykw5TQwcKtqpRplLLe1Ij4gXIX
+ UYDp4cMpyer2licYul4VcHjALeW8p85FlPeJJPx0tOi9v1SpLUGQLYg4w=
+X-Received: by 2002:a05:690c:6807:b0:81e:45a6:bd5a with SMTP id
+ 00721157ae682-83707af976cmr125335307b3.0.1787057016200; 
+ Tue, 18 Aug 2026 05:43:36 -0700 (PDT)
+X-Received: by 2002:a05:690c:6807:b0:81e:45a6:bd5a with SMTP id
+ 00721157ae682-83707af976cmr125334917b3.0.1787057015697; Tue, 18 Aug 2026
+ 05:43:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint, and
- some numbers
-From: Jonas Karlman <jonas@kwiboo.se>
-To: Igor Paunovic <royalnet026@gmail.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>, Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Heiko Stuebner <heiko@sntech.de>, Jiaxing Hu <gahing@gahingwoo.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org
-References: <20260801131656.58450-1-royalnet026@gmail.com>
- <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
- <20260818072936.41844-1-royalnet026@gmail.com>
- <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
-Content-Language: en-US
-In-Reply-To: <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
+ <20260818-encouraging-lime-kestrel-d0d819@houat>
+In-Reply-To: <20260818-encouraging-lime-kestrel-d0d819@houat>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 18 Aug 2026 14:43:24 +0200
+X-Gm-Features: AcwNN1Xf5TcQWb8-1dGKED6s68kinvfHK33o_OU_E9S6-z4zydpISHNRJ6-TMKU
+Message-ID: <CADSE00JgK-CYnBiCA8aB2tGXG2CqC-zB_Tvz3eU=2ap00th3bw@mail.gmail.com>
+Subject: Re: [PATCH 0/5] rust: drm: add panel bindings
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ devicetree@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 8i0dYu-vvV6C-WgCJ4nKPFHBTWdcfWqtGaNXm-qUxo0_1787057016
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,119 +107,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi again,
+On Tue, Aug 18, 2026 at 1:45=E2=80=AFPM Maxime Ripard <mripard@kernel.org> =
+wrote:
+>
+> Hi,
+>
+> On Mon, Aug 17, 2026 at 01:40:45PM +0200, Albert Esteve wrote:
+> > This series adds Rust abstractions for the DRM panel subsystem,
+> > covering both the consumer and producer sides of the API.
+> > This helps closing the gap so that future panel drivers
+> > can be written directly in Rust.
+> >
+> > Background
+> > ----------
+> > The DRM panel C API has been progressively hardened over the past
+> > year (see [1], [2], and [3]). All panel drivers were fully migrated
+> > to kref-based allocation via devm_drm_panel_alloc(). Panel lookup
+> > functions (i.e., of_drm_find_panel() and find_panel_by_fwnode())
+> > were also updated to acquire a reference before returning.
+> >
+> > Note this series depends on [3] being merged in the base
+> > tree. Currently it has been only applied to drm-misc-next.
+> > The other series mentioned above are already part of the
+> > base for the current version of this series.
+> >
+> > As a personal note, part of my motivation for creating this series
+> > was learning more about Rust in the kernel. I would appreciate
+> > feedback on Rust-specific idioms or kernel conventions used here
+> > that I may have missed.
+> >
+> > What this series does
+> > ---------------------
+> > Patch 1 adds of::Node, a Rust wrapper for struct device_node
+> > implementing AlwaysRefCounted. C helpers are added so that of_node_get(=
+)
+> > and of_node_put() are reachable from Rust independently of CONFIG_OF_DY=
+NAMIC.
+> >
+> > Patch 2 adds drm::Connector, a minimal Rust wrapper for
+> > struct drm_connector. Its sole purpose is to provide a typed reference
+> > for the get_modes() callback argument; no ownership or refcounting is
+> > exposed at this stage.
+> >
+> > Patch 3 adds the consumer side of the panel abstraction:
+> > - Panel wraps struct drm_panel and implements AlwaysRefCounted via
+> >   drm_panel_get/put. Consumer lifecycle methods are exposed as safe wra=
+ppers.
+> > - PanelOrientation wraps enum drm_panel_orientation and provides
+> >   from_of_node() to read the "rotation" device tree property.
+> > - Registration manages the panel's presence in the global registry
+> >   via drm_panel_add/remove, decoupling registry lifetime from
+> >   reference count lifetime.
+> >
+> > Patch 4 adds the producer side:
+> > - PanelFuncs is a #[vtable] trait that panel drivers implement to
+> >   provide their callbacks. All but get_modes are optional.
+> > - Panel::new wraps __devm_drm_panel_alloc, returning an ARef<Panel>.
+> >   Registration with the global registry is kept separate via
+> >   Registration::register, following the pattern of drm::Device::new.
+> > - ConnectorType mirrors the DRM_MODE_CONNECTOR_* defines from
+> >   include/uapi/drm/drm_mode.h, required by Panel::new to specify the
+> >   panel's connector type.
+> >
+> > Patch 5 adds gated tests, covering data type conversions and layout
+> > invariants.
+>
+> So while it's definitely welcome on principle, I wonder if panels would
+> be a place to invest in at the moment
+>
+> The series
+> https://lore.kernel.org/dri-devel/20260814-drm-bridge-every-panel-v1-0-19=
+cd5277cc8d@bootlin.com/
+> is likely to move every consumer to use bridges exclusively.
+>
+> https://lore.kernel.org/ksummit/0fa2fb42-0714-49f7-ba43-22928e1dd488@lina=
+ro.org/
+> raised a discussion that the panel API is very limited at the moment
+> (while the bridge API isn't, or could be much more easily extended).
 
-On 8/18/2026 2:12 PM, Jonas Karlman wrote:
-> Hi Igor,
-> 
-> On 8/18/2026 9:27 AM, Igor Paunovic wrote:
->> Hi Nicolas,
->>
->>> I'm only looking at the RK3588, I suppose all the issues below
->>> related to RK3576 ?
->>
->> No - everything in the RFC is RK3588 (Orange Pi 5 Plus, all three
->> cores). RK3576 is Jiaxing's enablement series and has its own set of
->> problems; nothing I reported came from there.
->>
->> I went through the four commits on rock5b-npu-poc-4 today. We
->> converged on the same shape independently, which is encouraging:
->> 200 MHz kept as the suspend rate, a single devfreq instance modelled
->> on panfrost with busy time aggregated across the three cores, and a
->> cooling device on top. Your ~2.5x on the SSD pipeline also matches
->> the 2.58x I measured here with simple_ondemand against the 200 MHz
->> pin.
->>
->> The TF-A pointer (rk3588_clk.c, PVTPLL vs normal path) is the most
->> valuable part for me - it names the mechanism behind the power-on
->> ack failure I could only demonstrate empirically. I will reference
->> it in the cover letter once I have checked the firmware source
->> myself.
-> 
-> Based on what I learnt when playing around with the SCMI GPU pvtpll [1],
-> we must keep core block clock enabled as long as PVTPLL mode is enabled
-> instead of the normal PLL mode.
-> 
-> When PVTPLL mode is enabled, the PVTPLL GRF, PD and GPU block is fully
-> provided by the PVTPLL clock, i.e. SError when accessing hw regs in
-> case Linux disables CLK_GPU.
+Thanks for sharing all the information and links!
 
-Looking closer at my old commits, it was the PCLK_GPU_ROOT that was
-needed for e.g. RK3576 and RK3528. This clock is not described in RK3588
-clock tree so it never gets disabled by Linux clock framework.
+>
+> This is supposed to be discussed at plumbers, but I seriously think the
+> outcome of that discussion would be to just deprecate panels.
+>
+> Bridges would be a much more long-term-proof investment.
 
-I suspect similarly one of the NPU root clocks is what drives the NPU
-PVTPLL and thus always must be kept enabled when PVTPLL mode is used.
+I picked panels because I had recently worked on their refcounting
+improvement efforts. And even though I saw some comments in reviews
+hinting at what you pointed out above, I did not connect the dots.
 
-Regards,
-Jonas
+I will certainly pay attention to the discussion at plumbers. But for
+this series, I'd be happy to drop the panel bindings and switch to
+bridges for the next version.
 
-> Linux does not know anything about PVTPLL mode, the SCMI clocks are
-> fully controlled by firmware (tf-a) and basically switches to use PVTPLL
-> mode for all rates above 100/200/300 MHz.
-> 
-> Vendor kernel typically always changes to use 100/200/300 MHz at system
-> and runtime suspend to disable use of PVTPLL.
-> 
-> Because this PVTPLL dependency is not really known to Linux we must
-> use workarounds to hide this, ideally we should fully implement PVTPLL
-> handling in Linux or ensure firmware always keep dependent clocks
-> enabled to avoid SError when accessing regs.
-> 
-> For GPU case I depend on the opp-suspend rate to ensure opp and runtime
-> pm framework make best effort to restore normal mode when GPU is unused.
-> 
-> However, opp framework does not provide any integration into pm runtime
-> so it will happily clk_set_rate() when pm runtime is suspended. My
-> workaround to avoid SError was to use a custom .config_clks() ops in
-> struct dev_pm_opp_config that just checks pm_runtime_suspended().
-> 
-> The RFC series at [1] was never posted on mailing list, but is currently
-> in use by e.g. Armbian to allow use of full 1 GHz rate of GPU on RK3588.
-> 
-> I am guessing NPU have similar limitations/requirements as the GPU block.
-> 
-> [1] https://github.com/Kwiboo/linux-rockchip/commits/next-20260619-rk35xx-scmi-gpu-clk/
-> 
-> Regards,
-> Jonas
-> 
->>
->> Status here: after Tomeu's go-ahead I am preparing the series -
->> bindings, a full-range OPP table in the DT (300-1000 MHz plus the
->> 200 MHz suspend point, so essentially the table you ended up with),
->> a safe-rate-on-suspend guard, the devfreq itself, and a hold-all
->> guard that resumes all cores around any rate change. The guard is
->> ordered before the devfreq patch so no bisect point has scaling
->> without it. The one hard dependency is my "request the core clocks
->> by name" v2, still waiting for pickup.
->>
->> Agreed on OPP staying optional - the plan in my series is that the
->> driver keeps working with no OPP table in the DT, which I saw you
->> intend to fix on your side as well.
->>
->> One path worth checking in your PoC, because it is the one that
->> made me write the hold-all guard: a sysfs min_freq/max_freq write
->> while all three cores are runtime-suspended goes straight to
->> clk_set_rate, which can select the PVTPLL path while the domain is
->> off - exactly the case your TF-A reference explains. With the guard
->> in place I measured that write waking the cores and completing
->> cleanly.
->>
->> One difference in test conditions worth keeping in mind: my numbers
->> are with the vendor bl31 that EDK2 bundles, yours is upstream TF-A.
->> Comparing SCMI behaviour on both seems wise before either of us
->> claims anything firmware-specific.
->>
->> Thank you for the "take whatever you like" - anything I lift will
->> carry credit, and I will Cc you on the series.
->>
->> Regards,
->> Igor
->>
->> _______________________________________________
->> Linux-rockchip mailing list
->> Linux-rockchip@lists.infradead.org
->> http://lists.infradead.org/mailman/listinfo/linux-rockchip
-> 
+BR,
+Albert
+
+>
+> Maxime
 
