@@ -4,141 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FECFC5DF70
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 05:49:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB63C5DF67
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 05:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A3A310E43C;
-	Tue, 18 Aug 2026 05:49:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 203FB10E4EC;
+	Tue, 18 Aug 2026 05:52:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="ZNU/HA32";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DMcr0RWQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HykQyVVN";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A872610E43C
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:49:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1787032135; x=1787636935; i=markus.elfring@web.de;
- bh=pCBCtAiE+vvWZ1cnuOPDOCGP7CSKJvkCAtS/Lp6tFbE=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=ZNU/HA32UkLKutPIRif/hEYYFeiqbwQ7OeaDDRnSBE0bpt0rBB5Corf09vmBKCZZ
- tfLwW2dVAd7oeWXwflzXmlBaGayf5Xw3tG+8pLlgEwHdpg6/KUnl8qlaucRu24VPc
- Kd5MqWKuYsa4I2t8pc9fMaI2R1tH4GEjUUhf6nGy54aqwelDby8buZI3TYOqhbZPs
- 940piOMoZAKHxQKQNGjinjWQz3m4np1qgT/gs7keYH6eyrd7OThEfyMfV2irD4xcJ
- UYKiHVNz1hOMbdWzUXbT9+seFecK5JL+sjms3Z3udXSp7uG8EjjSoG7OgAo4NhIxj
- hWMk9bQorp5gzWnjtQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mq1CC-1wZSs83vWc-00l8vO; Tue, 18
- Aug 2026 07:48:54 +0200
-Message-ID: <67dc50c5-19ab-4612-857b-59d6a850f76b@web.de>
-Date: Tue, 18 Aug 2026 07:48:30 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 637A410E4EC
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:52:07 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67I33vaC3298706
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:52:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 9MGPW6/DK7pn6fKMqjuLg89wJJuJK8oCiXQggTwY6zk=; b=DMcr0RWQv+aJkxOq
+ gUbCjFe3NzYI3OjesOMkpzJTRXBjrRxwtH6VVpZBWH95TK5T4AdoohWTSaY/Pe+J
+ 7tE2qg49EPqjakmV9X+lzItNlEm7Ty55bS8kqEOEnwYgmz+Q+l/A0UzCX8B3sPM9
+ sDLkI41D8h8nuCTY9rYTbpOgu6mrJUSjA2Qvflpzd0evQ7B++9d1DY/3qUvCF6bu
+ zrx997uDw6q4U81ym76aIR6FRJo8UnMBeBbxrACpSQDKGrchomzeg+g28RME5jk8
+ 9ksRJuowsPPRozywktrveZAJuq887VPVTCAA2SLmyqcwqlWkg94kKRxXskHAGgDH
+ aayzoQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4f5prmyj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 05:52:06 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-848662cd2a1so4528893b3a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 17 Aug 2026 22:52:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787032326; x=1787637126;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=9MGPW6/DK7pn6fKMqjuLg89wJJuJK8oCiXQggTwY6zk=;
+ b=HykQyVVNycDic3grU7sz1qxfFzWPUhxJwtNYiYT8F9qknAH1PM+A9YSJUiqhulJZbe
+ WFopxEhKiI9SeBzCO2zf6w6nRhPORQN+kGtay6IuWIECzdK6Spp8wRFf31tr248IPst3
+ d0NzCeX/18ZYNSAUJ/E1xpxib6P6c364tJlZWSW7gG3BoiJPc1pSWkcNIDPbz/KRVlxg
+ chFzbdM/PyHS01ffZaltro3cXW+1hY/Zy6MGHvVE/DxSI/ATtcXoK1h1sQKGqH6aGQSY
+ xE4HzkZdPSeJre/XoCuYCSXU2lC2ZI7ergkMpisAemtATdTnTNPpnl4iR4Mpt7vuaB7T
+ xZUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787032326; x=1787637126;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9MGPW6/DK7pn6fKMqjuLg89wJJuJK8oCiXQggTwY6zk=;
+ b=FI9m1vCIMu7juGm2qx4p6dQaZWaej+4NqYOkGGAMgWqDAiu9fEecK2ewKeXtsBKF2/
+ IXPYcRuiaTmGTRBYW+Ufjp/Sp+mzETB7YoILreenoPg7GBpiw+S0o/OnPNN7DNMCuBfb
+ UZPA7IkjC91U7+VBOFzrl9FyDWt07AsxfzIQdGP4tK6aDBRaWJubeQQmCzsJM5Y0ZtKT
+ 4afxVHa83eEyrmHLyuK7BsBGAasJPntQ34D+Jqn0nwue/uM9r9wsE0V3LxiPuleF2201
+ 0WVoowhQDVWkJYxR21lp91ShmQ29l3EqJyde46fcZIVcj8RCuAP8Lz0RLjGVSEckbQZd
+ HVqA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqF7c7H2e22ESpfTw41ntafPZnXlqaZDfDM2oFwS1aFxKbe2H6MxVOcXTlmwBKf0xpKvYvzJa0/gLc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzPvCnO0hCMMo8Upcgivn9WvKQgfR5nzP4W9gjEMhSmEBtV+rGl
+ coUq3N/unIAJ61u5DDt9lBPj79z3y0CwPtxs47XALNhCHJSl5ZUuc5UOzWWn+9qnBSq0ExhhgDq
+ MP0fzqnbZfob1GBkAkKZu455ffs4M/PVb3iVc0HzA2Q7Z+isOK2t3XYvpcjQaRH+0/3uHXD0=
+X-Gm-Gg: AR+sD10vJnSal2RfY14X7zXHLudIFBgsovpOwtQOot1AblBii4zaiAT6kWiTR0xCHwt
+ QsrcBz9PHVFf2AidfrRxr7OQ7Z2rH95aOyVd2/jtomDoij3wlAWr7lMB3bPXLItQ83ZBMPBt0JB
+ 0GzAceZZzR8TCoV4Y4HU+4h011i1bkM+YHycLN+nh3P+vJfw6Of3OXfRLzEAF/DNfLbpMVDPG+B
+ lyVogaBcObUdZbJMHES1e9vxc75BTVJTgyWV2d3xE+NE/Zep4HXYVvEjHmgHs0nw+x/ii5va42f
+ +gYd319RsFab7VZSkPck6bUYOanqSTr9kLl+R0rwWNL6uojek2E4OrOtboBDnQ5S0x3ERALgX+d
+ DSE7G5SMWbIUUIjteoVwLoR4rHXEFhw==
+X-Received: by 2002:a05:6a00:4395:b0:845:31a6:d84d with SMTP id
+ d2e1a72fcca58-84fde14ffecmr33705032b3a.7.1787032325958; 
+ Mon, 17 Aug 2026 22:52:05 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4395:b0:845:31a6:d84d with SMTP id
+ d2e1a72fcca58-84fde14ffecmr33704931b3a.7.1787032325493; 
+ Mon, 17 Aug 2026 22:52:05 -0700 (PDT)
+Received: from [10.219.56.166] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-851b4072c39sm1284034b3a.26.2026.08.17.22.51.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Aug 2026 22:52:04 -0700 (PDT)
+Message-ID: <2d092339-a691-4539-8419-c9606ea35f68@oss.qualcomm.com>
+Date: Tue, 18 Aug 2026 11:21:55 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [v4 1/2] drm/rocket: Check allocations before use
-To: Triet Hoang <triet.hoang.dev@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- Igor Paunovic <royalnet026@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>
-References: <d593bdeb-e6f8-44d2-a444-e9197a8ed1a3@web.de>
- <20260818013130.1482249-1-triet.hoang@datalogic.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260818013130.1482249-1-triet.hoang@datalogic.com>
+Subject: Re: [PATCH v2 09/15] accel/qda: Add DMA-backed GEM objects and memory
+ manager integration
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
+ <g3dkltejtlzrrelv77kjteqbkny6vhedyuet7d6b2p7yfix3ys@sop7vjvpdvzb>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <g3dkltejtlzrrelv77kjteqbkny6vhedyuet7d6b2p7yfix3ys@sop7vjvpdvzb>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:KP7rrl5ZsiWitVg0Pnq5fRsQI0+k6pnD/OFD/IY1tDzFnkrOR7P
- TtRfMS3qEdtgk91jYe5ptAHU2PjNu4dKTelw9cZ2ekbTmh8T3KF/uJosWTJWkPKUZmur+d1
- YR5YNz/+cqpW27JIU6//DLM24TvLvBend0lZqCOJAj1pw7BRl3awxmSW06pMI6K7lNDLIU3
- SykL1v6yGQcAnYoI+U9Jw==
-UI-OutboundReport: notjunk:1;M01:P0:+JrPqNxy5pc=;rMP7XkfAQr3xAtX/85CF9RcEnZM
- 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
- mNGl6mg==
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=S+/pBosP c=1 sm=1 tr=0 ts=6a83f306 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=U_ymhupkC0DnaqHl0NQA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-GUID: YHHtzjtkTC9l83wUbmvDJ7M_2gkrMXjJ
+X-Proofpoint-ORIG-GUID: YHHtzjtkTC9l83wUbmvDJ7M_2gkrMXjJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA0MiBTYWx0ZWRfX5XtBhtytBO7H
+ oiXHuGoTeMpIWRAO7P9yoC4tRxQ3TUGZ35E7ifcUXt7MACLxCVX7N9XvNS+ECHA+tD0eBw2aWRL
+ 12/HV45m7HdJRkF3w0lHly6hnscWe5Ve0td6rvr8DprnRib3Nt2OvmScDokokpIdS4XAnM9FMnu
+ s7kk4QibSqjiXS+V8CUbfsCQQ3dAPPWpMAR81r20CJiF6g8gRGXZSRL9PgsYfPGS+b5Xipjz/fp
+ T74MLK4RaL2bPIE92MbzlzmCF4wXX/B0wlub7LAdEEDq+iOw/qc56Xo+Wny1ru8lFXwNYFCrk7N
+ U0XLIQgWKOgubqfh8KUidWnuZKBfIyhNjp++2P4C20KsCA8sVnAoaQnvIdOzPQ/u4p6gI5OUcFP
+ OycSNPcuX2ng0/wdqgwFCJU/wLrZgaUeNfnmNI+hCZMYgDpXXkjabtBs7SrTzStNmkfbfAJuHGV
+ A8Q4tAYM6Pfros/xIxg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA0MiBTYWx0ZWRfX2uaZd/N1X0jL
+ zV7YpS9zZUZs6nbzOxeHFO1t29K4PHJ8Cn188c0On8HkXZaHT2nYBli+QdtaMHocy/J7WjcKf65
+ XVV1L2YUbQPaKkzalAndxnK0FWuS62w=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180042
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,20 +164,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->> I see opportunities for corresponding collateral evolution.
->> How do you think about to apply the attribute =E2=80=9C__free(kvfree)=
-=E2=80=9D also in such
->> a function implementation by another update step?
->=20
-> I am not sure I understand your idea.
-> Could you explain more? This attribute is a new thing to media
-There are programming interfaces supported to some degree
-for the application of scope-based resource management.
-https://elixir.bootlin.com/linux/v7.2-rc7/source/include/linux/cleanup.h#L=
-10
+On 18-08-2026 09:12, Dmitry Baryshkov wrote:
+> On Mon, Aug 17, 2026 at 10:17:44AM +0530, Ekansh Gupta wrote:
+>> Introduce DMA-coherent buffer management for the QDA driver, wiring
+>> together the GEM subsystem, the IOMMU memory manager, and a DMA
+>> allocation backend.
+>>
+>> qda_gem.c / qda_gem.h
+>>   Implements the GEM object lifecycle for QDA buffers. Each buffer is
+>>   represented by a qda_gem_obj which embeds a drm_gem_object and
+>>   carries the kernel virtual address, DMA address, and a pointer to
+>>   the IOMMU device that performed the allocation. The .free callback
+>>   delegates to the memory manager, and the .mmap callback uses
+>>   dma_mmap_coherent() via the DMA backend.
+>>
+>> qda_memory_dma.c / qda_memory_dma.h
+>>   DMA coherent allocation backend. qda_dma_alloc() calls
+>>   dma_alloc_coherent() on the CB device and encodes the stream ID
+>>   (SID) in the upper 32 bits of the returned DMA address, following
+>>   the Qualcomm FastRPC convention for IOMMU address space tagging.
+>>   qda_dma_free() strips the SID prefix before calling
+>>   dma_free_coherent().
+>>
+>> qda_memory_manager.c
+>>   Adds process-to-device assignment: each DRM file (process) is
+>>   assigned one IOMMU context bank device for the lifetime of the
+>>   session. qda_memory_manager_assign_device() first checks whether
+>>   the process already has a device (reusing it with a refcount
+>>   increment), then falls back to claiming an unassigned device.
+>>   qda_memory_manager_alloc() and qda_memory_manager_free() delegate
+>>   to the DMA backend after resolving the correct CB device for the
+>>   calling process.
+>>
+>> qda_drv.c / qda_drv.h
+>>   qda_file_priv gains an assigned_iommu_dev pointer and a pid field.
+>>   The .postclose callback decrements the IOMMU device refcount and
+>>   clears the process assignment when the last reference is dropped.
+> 
+> This provides a nice summary of the patch, which is pretty useless.
+I'll fix this for all patches.> Please teach your AI instead to describe
+the reasons and the design
+> decisions instead of just assessing what the code does. Why do you need
+> memory manager? Why can't you use existing GEM helpers?
+I'll add more details for this in commit message:
+The DSP requires each buffer's DMA address to carry the stream ID of the
+context bank that owns it (SID << 32 | IOVA). The memory manager tracks
+which CB is assigned to which process and ensures all allocations for a
+process go through that device.
 
-Would you like to take any adjustment possibilities better into account ac=
-cordingly?
+`drm_gem_dma_create()` and friends allocate from `dev`, the DRM device
+itself. QDA needs to allocate from one of N child CB devices (each with
+its own IOMMU domain), selected per-process. There's no existing GEM
+helper that takes a per-allocation device argument.
 
-Regards,
-Markus
+//Ekansh
+> 
+>>
+>> Assisted-by: Claude:claude-sonnet-5
+>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>> ---
+>> Changes in v2:
+>> - Adapt to the dynamically-sized device array introduced in patch 07
+>>   (kcalloc'd from DT node count, replaces fixed QDA_IOMMU_DEVICES_MAX)
+>> - Protect register/unregister with the process_assignment_lock mutex so
+>>   the device-assignment and device-registration paths are serialised
+>> - No functional changes requested by reviewers on this patch
+>> ---
+>>  drivers/accel/qda/Makefile             |   2 +
+>>  drivers/accel/qda/qda_drv.c            |   4 +
+>>  drivers/accel/qda/qda_drv.h            |   4 +
+>>  drivers/accel/qda/qda_gem.c            | 134 ++++++++++++++++++
+>>  drivers/accel/qda/qda_gem.h            |  52 +++++++
+>>  drivers/accel/qda/qda_memory_dma.c     |  82 +++++++++++
+>>  drivers/accel/qda/qda_memory_dma.h     |  17 +++
+>>  drivers/accel/qda/qda_memory_manager.c | 239 ++++++++++++++++++++++++++++++++-
+>>  drivers/accel/qda/qda_memory_manager.h |  30 +++++
+>>  9 files changed, 559 insertions(+), 5 deletions(-)
+>>
+> 
+
