@@ -4,75 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED82CC5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09508C5DF8A
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D7E310ED2D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F97C10ED2E;
 	Wed, 19 Aug 2026 06:37:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LGnbpQvO";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="xiUN4Jd1";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D52810E35F
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 11:17:31 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2cace91f112so53033735ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 04:17:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787051851; x=1787656651; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=vP5hOVQLKudYfbAgDB1YvOAq7rzYSIU1ErM8W86kpjo=;
- b=LGnbpQvOwt6YxvOI8MAs9vK2iYorJRgo+q6zDsJzdfERtD03qTPJ4aKNow8uvRtEXM
- IzydNEDMAg9RV0aY+bnnI+HfyXfstVQq8I/T7PDMfHv8GJuX+ZnQzyrqn4H7xfx/Gv/t
- iraAkzCdzLfMZv7Pd8asN/2QcVmLvfpCCaqx8caeWvlnIfhbYCrJSSlRCJJeT1Wd5E3x
- 4cuLhcHKyiAjDvSJxGSiEFjpC+gkj6wNy7CsT4vl8BVaORZTQpnWSZxdRQgsT6Wl3BX9
- 0HE4D3ymfVhPLYnjNNnIl/ZrAo1AbAPA4Ik8dX3vqWRqP6QqhMIS6qpZl/ZI8SlhhQSB
- ua2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787051851; x=1787656651;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=vP5hOVQLKudYfbAgDB1YvOAq7rzYSIU1ErM8W86kpjo=;
- b=WekBe3gFFduQD/SjG5PSNA0LPSP1zOTynbD55J9L4KIAol/bYmw6CMHIMieS+/XDrg
- sUGXFrvhZ/8eiXPyN3CUbVSHpogQxFxkhD0c20iOs/aCjJ8wArFqwv7FYVHsl8fpTWe5
- 85mVoO2WbCqUiD1Ehrhn0tq7uULWiTtLI4xMPB0SE3l6R1nz4K8pfvItPj8BTnDC1ZEW
- xNk7KC/V/nFtbdjOqcv64h6EZEDu7jM8n7NuBFbV4qzw25/nxkpzgVp7dVBDClX1tg7j
- 2puJTHqqsT3dyAYbMAktSyIxO6j5XdxG0xJDv21TTuGRV+S06mTn1/dFIDEs6IUb5sFg
- SUrw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrWGA2Jgz3ZWDu8Jb1MMRZX2Gh8KCmJhedwmL3sAwfb5s4B91FlDqsB/NnolBtgHkTVruQUVnKECWM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAGJgVsEQjIGLRyZxkiYkV7UlLwyWYwHrN/aiBL73Emdv+1wls
- JzN7NwIGBcxIAgfrFgl/UMjppDVYppcYZL5ABA33kcTJDFE8ij5ZSnzP
-X-Gm-Gg: AR+sD12RNnFQDZTK2clLFoXRXez6D181GprXXmclvgX33CwvjqBpmQyYoWC8YqVHsMS
- J8XM+yIofZt+3OjamwhLeytj15ycV0Llvs9QyH3+6RFJIVjQWmbm7HxLHFM/cI1fq3N6ceyx7p5
- PV8KTjWENqng35Tq9JErFbu0bvnUydxcuLAbp1zvEjbpIJhwnaloX8RUgD3H28N/kfbI67D81sb
- bHhjcHfD59GfVG/bKCFYWoyOZZTOhtOR/OREP4zgTDrFS0fYIxo7ukCmA2QISodl69gGtRn/7fm
- j7thsvq/HbIe8qb7znfTYnMM8nvSlqryApakkgli9pANwZtBlHLktC96vPyUfdk79EYmybynM9Z
- eV4XOm5fisMYkZ/QWXG7q27jZWXmvBt7zCP08yJ70vjQ20ri0e6BHABvK0leuwHHJnoNOIppiBr
- TClFfN6DBq8MamK9DYzlK9P/5iquKXtbWWGa5Ai91PKD9/5gwoxc8aLDqfPGZ6xip0oCCP+Ou/R
- Sk=
-X-Received: by 2002:a17:90b:4ac8:b0:38e:11ba:992c with SMTP id
- 98e67ed59e1d1-3933e5d22acmr30926781a91.12.1787051850858; 
- Tue, 18 Aug 2026 04:17:30 -0700 (PDT)
-Received: from ubuntu.. ([49.205.39.116])
- by smtp.googlemail.com with ESMTPSA id
- 5a478bee46e88-32678dd08d6sm26199017eec.4.2026.08.18.04.17.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 04:17:29 -0700 (PDT)
-From: Ajith P V <ajithpv.linux@gmail.com>
-To: FlorianSchandinat@gmx.de,
-	deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ajith P V <ajithpv.linux@gmail.com>
-Subject: [PATCH v4] video: fbdev: via: refactor strcpy and viafb_name
-Date: Tue, 18 Aug 2026 11:17:22 +0000
-Message-ID: <20260818111722.471340-1-ajithpv.linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com
+ [203.205.221.192])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2BE310E14B
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 13:27:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1787059639; bh=s/R8YXq/jdT0RMiTQ8drI7mqnf4rvZtAc7EKvxishIU=;
+ h=From:Subject:To:Date;
+ b=xiUN4Jd1ADYVR8XZnCGBqxbG71It9pEl35XhtUQ5fj0L4d/6NoigOkVUwEGRh6Lp+
+ FKD0suRdv8QD8uEo/QonWqoI7Ubw9n/vPg8UCcAGiR/wbPnz2dVw2/mZq4QroT000g
+ ArEcEU8uBC3K2Xk0IR67fMgKy3vxKUUsBxiKC/Co=
+Received: from [127.0.1.1] ([5.195.0.150])
+ by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+ id 1721C6D8; Tue, 18 Aug 2026 21:05:50 +0800
+X-QQ-mid: xmsmtpt1787059545td7dssfc9
+Message-ID: <tencent_3AEE86932EE0F9AF7D6549FD705139A4AF06@qq.com>
+X-QQ-XMAILINFO: M1rD3f8svNznooasm1iYEna7Z8uUEc4a65tvmBXCMCAMXEfgiwRn6Bjzdsh428
+ 8LlfZ0T531NmyK3xWhGJd//wcZKx03zpyhsjz+CUVDuUSSZkrZG9CrvdqditywmTkVsmFfGfXKDP
+ Qqo2vY1MsOSvWJ7c7777sgkP94zoezKMUXCa3cNU22iLStcwK9veFs5CaIhNthzlS7T3ndrI0ZZ3
+ B0aTU9IQW4cmJxL4vrljpQZb7kt+nBsmNHiSZ7GCip2N4Q92Jo7RvLJXa8n359pcDOgvG/2H3Tec
+ +DGBTOxiy+Lbkyl31iDiCd0HKlRs3pgiEXhFlbyIlVQhCe07IUYqrypKgAxdwsyleH14/I6YXNl7
+ 0zbcaViu2qjnZXKnAg23ym876sCW38OXXiM+OEBNgXrPdgJrMPLHSv9SpfrEgRsIcHcHlPAL/bzg
+ HYBs0/jWAubBQyrYleFnEU3PVe1qOvDRKelMmz+sUubTapMnmQB5X/sLAK+s/22Q666SyiF/fVm8
+ n56pnJSXJZ6GgPP4/bzOyFXfaTfmx7dFvSfPU0m6B1vhjwSoH7/yL3OAwo9gnCcNgZqXp4Aawkfg
+ ZXfS4VCJr1Fc6gsfcDpVdaPe+1jc6LBmXImZUTeYdX3Ke7mVZ0K9MvNR34/L/C7ToAAYc2gkI7g2
+ Cdz8SEvJGztW7kbQxjeUfs7wlj3OCGCdiDrjZ9LSpzFcYG2ce98HNdPbBoEysfb2E56cqLb5TEp7
+ twb5hep6d8KolJcl90RkYIVGo/19lpptVVpgg9fAAxy+NlUfILi8AJsYzA81wQXvzu6KVeKfKoZK
+ GrN1aJsS0ZcqXKtA7y8i7vo2mE4njU4xF9YTpAUd7Twp4TkmlRE7Vm/hyUCF4SSL7uw09moIp2+w
+ UzPv+KnMHlaPxquxM8IUewXFPsdkISmi0KhOlydTIQe8e213gDa7wGyFKNdjlFiGgPHZIVpEgw3E
+ StLBcSMB2PO3T66SamCODQSy/mi8eXtfuB7YLV9CYD7QfLztXQXBSdMBKI5nKPdriep31NygPNLL
+ GgVN7Z1AhMeMItczdDa3TInBwmBUmy1bbB+yKhZW1VT9YpQAKzREUMiJ6wYTk=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Jiawen Liu <1298662399@qq.com>
+Subject: [PATCH] drm/sun4i: frontend: fix clock leak on reset failure in
+ runtime resume
+To: Chen-Yu Tsai <wens@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Date: Tue, 18 Aug 2026 17:27:15 +0400
+X-OQ-MSGID: <178705963597.291840.3745581396856240806@qq.com>
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,51 +72,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Eliminate the single-use file-scope variable `viafb_name` and pass the
-"Via" string literal directly to strcpy().
+sun4i_frontend_runtime_resume() can fail after enabling the bus, mod,
+and ram clocks if reset_control_reset() returns an error. The function
+previously returned without disabling those clocks, leaking them and
+leaving the hardware in an inconsistent state.
 
-Since "Via" is a literal constant, the compiler safely executes
-compile-time bounds checking during fortify verification. This satisfies
-the security initiative requirements while minimizing code complexity.
+Check the return value of each clk_prepare_enable() call and unwind the
+clocks that were successfully enabled on any subsequent failure,
+including reset failure.
 
-Signed-off-by: Ajith P V <ajithpv.linux@gmail.com>
+Signed-off-by: jiawen <1298662399@qq.com>
 ---
-v4:
-  - Drop the variable entirely and use the literal string directly in
-    strcpy() as suggested by Helge Deller.
-v3:
-  - Restore the original "Via" string value to prevent userspace ABI
-    regressions, while keeping the 'static const char[]' optimization as
-    suggested by Sashiko AI.
-v2:
-  - Keep variable static but change it to a const array
-    'static const char viafb_name[] = "viafb"' as suggested by Helge Deller
-    to let the compiler leverage compile-time checks.
-
- drivers/video/fbdev/via/viafbdev.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/video/fbdev/via/viafbdev.c b/drivers/video/fbdev/via/viafbdev.c
-index 80f95dac32c8..dd9374e8ad09 100644
---- a/drivers/video/fbdev/via/viafbdev.c
-+++ b/drivers/video/fbdev/via/viafbdev.c
-@@ -16,7 +16,6 @@
- #define _MASTER_FILE
- #include "global.h"
+diff --git a/drivers/gpu/drm/sun4i/sun4i_frontend.c b/drivers/gpu/drm/sun4i/sun4i_frontend.c
+--- a/drivers/gpu/drm/sun4i/sun4i_frontend.c
++++ b/drivers/gpu/drm/sun4i/sun4i_frontend.c
+@@ -647,14 +647,22 @@
  
--static char *viafb_name = "Via";
- static u32 pseudo_pal[17];
+ 	clk_set_rate(frontend->mod_clk, 300000000);
  
- /* video mode */
-@@ -144,7 +143,7 @@ static void viafb_setup_fixinfo(struct fb_fix_screeninfo *fix,
- 	struct viafb_par *viaparinfo)
- {
- 	memset(fix, 0, sizeof(struct fb_fix_screeninfo));
--	strcpy(fix->id, viafb_name);
-+	strcpy(fix->id, "Via");
+-	clk_prepare_enable(frontend->bus_clk);
+-	clk_prepare_enable(frontend->mod_clk);
+-	clk_prepare_enable(frontend->ram_clk);
++	ret = clk_prepare_enable(frontend->bus_clk);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(frontend->mod_clk);
++	if (ret)
++		goto err_disable_bus_clk;
++
++	ret = clk_prepare_enable(frontend->ram_clk);
++	if (ret)
++		goto err_disable_mod_clk;
  
- 	fix->smem_start = viaparinfo->fbmem;
- 	fix->smem_len = viaparinfo->fbmem_free;
--- 
-2.43.0
+ 	ret = reset_control_reset(frontend->reset);
+ 	if (ret) {
+ 		dev_err(dev, "Couldn't reset our device\n");
+-		return ret;
++		goto err_disable_ram_clk;
+ 	}
+ 
+ 	regmap_update_bits(frontend->regs, SUN4I_FRONTEND_EN_REG,
+@@ -664,6 +672,14 @@
+ 	sun4i_frontend_scaler_init(frontend);
+ 
+ 	return 0;
++
++err_disable_ram_clk:
++	clk_disable_unprepare(frontend->ram_clk);
++err_disable_mod_clk:
++	clk_disable_unprepare(frontend->mod_clk);
++err_disable_bus_clk:
++	clk_disable_unprepare(frontend->bus_clk);
++	return ret;
+ }
+ 
+ static int sun4i_frontend_runtime_suspend(struct device *dev)
 
