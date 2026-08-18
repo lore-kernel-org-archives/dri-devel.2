@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4F3C5DF84
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 13:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD70C5DF7E
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 13:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2334810EB68;
-	Tue, 18 Aug 2026 13:14:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3488410EB70;
+	Tue, 18 Aug 2026 13:18:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kiYITZN/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VZYhNISJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAEB910EB68;
- Tue, 18 Aug 2026 13:14:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E618810E1C4;
+ Tue, 18 Aug 2026 13:18:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 57B0D601DE;
- Tue, 18 Aug 2026 13:14:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3D81F000E9;
- Tue, 18 Aug 2026 13:14:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 990C743647;
+ Tue, 18 Aug 2026 13:18:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7D31F000E9;
+ Tue, 18 Aug 2026 13:18:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787058874;
- bh=68omMfCG5mbL7V/GOyvx1RxscX9zZ42gvdnnCjUNDQg=;
+ s=k20260515; t=1787059120;
+ bh=1YsFc/jON1QKIBiB/iplM0X292IHdaWnlNvP20uJoRg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kiYITZN/XFwPH29BJZ+COnDOeYhStA68yulDACFO5baeL+e8P513puHzN0cORR++U
- d2i9+DVD+7JIpHJyuaxkchS+ZPX3aeEcJisdhQvE5X9hh1SkpQjU1ZyOj1TCFO0b3B
- aUWTl7lK9rHdFtrxQjlMmT34PkJnxoxntxao4p8ITP+lOXUPAcIKl1FumXQmkwTlMn
- jigJ1qyuYLYYbAkQYvYaGQxkngkFxThn1Cpkf44zCJmNEN63Kuthe/kQxhrusyibZS
- qBQWNpRX99wlTYhNBNy+aGi8IJ3anw3f9IyTS8oOpd8VO19hHXXbMYq5R/STkfU+T2
- Hl55KeW74B5eQ==
+ b=VZYhNISJCW858ASXypFFbMTvVgQcbMbFi2jTyBXgRJsU+XfeQakwoCDIDvtw8GvPQ
+ mTlXBeRurTmQp12S6Qh+qITDAd6iXftLdJuL9EdLd1C8TkLMMvEpS/WAWyJFSwpWKY
+ jfWNTSfjcBRsv7vuYO078fVkl1H3w2jztm0G9KeQ99sarHN+J9lNkHt3XohMsZP2XE
+ ymMMQlqhGFkb46BZ6vVSVgI42mhMIZNAK5PmtnNc8nbkwFJlXbBhlXBasm6ZuGo/6g
+ i99IGcT8RUuc0cVi3n2wGAI/dKO/IosMzJlVKtCORc7c3koP+S6/tdCFMEjaxONBD+
+ +kRVijnWteO6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/12] drm/panic: Split draw_panic_plane()
+Subject: Re: [PATCH 12/12] drm/panic: Compile KUnit tests as module
 To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: intel-xe@lists.freedesktop.org, wsa+renesas@sang-engineering.com,
- dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, ojeda@kernel.org,
- imx@lists.linux.dev, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260818125012.468092-9-tzimmermann@suse.de>
+Cc: imx@lists.linux.dev, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ wsa+renesas@sang-engineering.com, linux-hyperv@vger.kernel.org,
+ ojeda@kernel.org
+In-Reply-To: <20260818125012.468092-13-tzimmermann@suse.de>
 References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-9-tzimmermann@suse.de>
+ <20260818125012.468092-13-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 13:14:33 +0000
-Message-Id: <20260818131433.8A3D81F000E9@smtp.kernel.org>
+Date: Tue, 18 Aug 2026 13:18:39 +0000
+Message-Id: <20260818131840.0E7D31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,97 +60,98 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The `panic_type` parameter in `draw_panic_plane()` is ignored an=
-d shadowed by the global `drm_panic_type` variable.
-
-Pre-existing issues:
-- [High] Data race on global variables (`panic_msg`, `qrbuf1`, `qrbuf2`, `s=
-tream`) when triggering panic debugfs interface concurrently across multipl=
-e DRM devices.
+- [Medium] Mismatched parameter order between declaration and definition fo=
+r `drm_panic_helper_draw_screen_qr_code`.
+- [Low] Unmet direct dependency warning when DRM_PANIC_HELPER is selected w=
+ithout DRM_TTM.
+- [Low] Missing indirect dependencies on DRM_DRAW and FONT_SUPPORT leading =
+to linker errors.
 --
 
---- Patch [8]: [PATCH 08/12] drm/panic: Split draw_panic_plane() ---
-commit 87af97baf7c5108af8275ef63007ab9f483466ca
+--- Patch [12]: [PATCH 12/12] drm/panic: Compile KUnit tests as module ---
+commit a56a5f0ffd0c185768aecc54426d672e40b1b0ae
 Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-drm/panic: Split draw_panic_plane()
-   =20
-Move locking and parameters from draw_panic_plane() into the new
-helper drm_panic_display_panic_screen(). Call draw_panic_plane() from
-there. The new helper is now the DRM core's interface for displaying a
-panic screen.
+drm/panic: Compile KUnit tests as module
 
-> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-> index 0960750bfce25..2263a11efdf63 100644
-> --- a/drivers/gpu/drm/drm_panic.c
-> +++ b/drivers/gpu/drm/drm_panic.c
-> @@ -940,38 +940,21 @@ static void drm_panic_clear_description(void)
->  	desc_line->txt =3D NULL;
->  }
-> =20
-> -static void draw_panic_plane(struct drm_plane *plane, const char *descri=
-ption)
-> +static void draw_panic_plane(struct drm_plane *plane, const char *descri=
-ption,
-> +			     enum drm_panic_type panic_type, u32 fg_color, u32 bg_color,
-> +			     unsigned int qr_version)
->  {
+Fix dependency of the panic-helper KUnit tests on CONFIG_DRM_KUNIT_TEST=3Dy
+and make them build as a module. Export the necessary interfaces from the
+panic helpers iff the KUnit framework has been enabled.
 
-[Severity: Medium]
-Does this function ignore the new panic_type parameter?
+> diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
+> index 1f4c98cbf0906..b909cd0a619fe 100644
+> --- a/drivers/gpu/drm/Kconfig.debug
+> +++ b/drivers/gpu/drm/Kconfig.debug
+> @@ -69,6 +69,7 @@ config DRM_KUNIT_TEST
+>  	select DRM_EXPORT_FOR_TESTS if m
+>  	select DRM_GEM_SHMEM_HELPER
+>  	select DRM_KUNIT_TEST_HELPERS
+> +	select DRM_PANIC_HELPER
 
-The parameter is passed to draw_panic_plane(), but if the code still uses t=
-he
-global drm_panic_type variable internally when calling draw_panic_dispatch(=
-):
+[Severity: Low]
+When DRM_KUNIT_TEST is enabled on a configuration where DRM_TTM is disabled,
+does this cause an unmet direct dependency warning? DRM_PANIC_HELPER has a
+depends on DRM_TTM requirement in drivers/gpu/drm/Kconfig.
 
-	ret =3D draw_panic_dispatch(&sb, drm_panic_type, fg_color, bg_color, qr_ve=
-rsion);
+Also, does selecting DRM_PANIC_HELPER without ensuring DRM_DRAW and
+FONT_SUPPORT are available cause linker errors?=20
 
-Any caller passing a specific panic_type will have its request overridden by
-the global module parameter, which seems to break the intent of making this=
- a
-generic helper.
+The drm_panic_helper.c file unconditionally calls functions from the DRM
+draw library (drm_draw_color_from_xrgb8888) and the font library
+(get_default_font). Normally, DRM_PANIC selects DRM_DRAW and FONT_SUPPORT,
+ensuring these symbols are available, but selecting DRM_PANIC_HELPER
+directly bypasses these.
 
 [ ... ]
 
-> @@ -1021,7 +1027,7 @@ static ssize_t debugfs_trigger_write(struct file *f=
-ile, const char __user *user_
->  	if (kstrtobool_from_user(user_buf, count, &run) =3D=3D 0 && run) {
->  		struct drm_plane *plane =3D file->private_data;
-> =20
-> -		draw_panic_plane(plane, "Test from debugfs");
-> +		drm_panic_display_panic_screen(plane, "Test from debugfs");
+> diff --git a/include/drm/drm_panic_helper.h b/include/drm/drm_panic_helpe=
+r.h
+> index 6dc63288bc2ab..76ff3a83e07b7 100644
+> --- a/include/drm/drm_panic_helper.h
+> +++ b/include/drm/drm_panic_helper.h
+[ ... ]
+> @@ -15,6 +16,13 @@ void drm_plane_helper_display_panic_screen(struct drm_=
+plane *plane,
+>  					   enum drm_panic_type panic_type,
+>  					   u32 fg_color, u32 bg_color,
+>  					   unsigned int qr_version);
+> +#if IS_ENABLED(CONFIG_KUNIT)
+> +int drm_panic_helper_draw_screen_user(struct drm_scanout_buffer *sb, u32=
+ fg_color, u32 bg_color);
+> +int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer *sb, u32=
+ fg_color, u32 bg_color);
+> +int drm_panic_helper_draw_screen_qr_code(struct drm_scanout_buffer *sb, =
+unsigned int qr_version,
+> +					 u32 fg_color, u32 bg_color);
 
-[Severity: High]
-This is a pre-existing issue, but does this debugfs entry point allow a data
-race on global variables across different DRM devices?
+[Severity: Medium]
+Does this prototype match the definition in
+drivers/gpu/drm/drm_panic_helper.c?
 
-When a user writes concurrently to the debugfs files of two or more distinct
-DRM devices, the debugfs_trigger_write() handler acquires a per-device lock
-via drm_panic_trylock().
+Here it is declared as:
+int drm_panic_helper_draw_screen_qr_code(struct drm_scanout_buffer *sb,
+                                         unsigned int qr_version,
+                                         u32 fg_color,
+                                         u32 bg_color);
 
-However, these concurrent writes can proceed to mutate the unprotected glob=
-al
-panic_msg array in drm_panic_set_description():
+But the implementation is defined as:
+VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_qr_code(
+                                         struct drm_scanout_buffer *sb,
+                                         u32 fg_color,
+                                         u32 bg_color,
+                                         unsigned int qr_version)
 
-	struct drm_panic_line *desc_line =3D &panic_msg[panic_msg_lines - 1];
-	desc_line->txt =3D description;
+Because u32 and unsigned int are functionally equivalent types, the compiler
+silently accepts this mismatch without any warnings. Will any caller
+relying on the header's parameter order inadvertently swap the qr_version
+and fg_color arguments, causing the function to fail with -ENOSPC or render
+with corrupted colors?
 
-This could also affect other globals like qrbuf1, qrbuf2, and the zlib
-stream workspace.
-
-Could this concurrent execution across different DRM devices corrupt memory
-and lead to an inconsistent state?
-
->  	}
->  	return count;
->  }
+> +void drm_panic_helper_set_description(const char *description);
+> +#endif
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818125012.4680=
-92-1-tzimmermann@suse.de?part=3D8
+92-1-tzimmermann@suse.de?part=3D12
