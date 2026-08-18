@@ -4,120 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AE66C5DF67
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 07:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B98D3C5DF67
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 07:20:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C7D210E509;
-	Tue, 18 Aug 2026 07:19:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10C8910E1D7;
+	Tue, 18 Aug 2026 07:20:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bat+YVCR";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UNZ20DWu";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FC1B10E509
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 07:19:01 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2d01548ac96so571575ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:19:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787037541; cv=none;
- d=google.com; s=arc-20260327;
- b=Qq6FGCmr9kdn56smG6b2+g5sowy+moYiJIVM3gf/9qLJ+dSCGl/MAul1fruWVmlRRz
- rFDtVVsYMTbzXyseBda7LFh4YV06TliKj/CeuYME9L89VPja61+v30xM4mo1HiKIriYw
- oWpPNA9I1XpYbb9Sn2Ca7mGvHXKVSKHyTER/gM15NPaejesCG28a+IPx1PSy+bjbW5M1
- LPTGvUMBNDjM8h11D1sYiGlZ7hhzMYlVLE5tS46fS28DLawW2OL99T+hDeLBJ+Q83Sjt
- IXxmkT3RnoQ0rZy1buh663gtn07Pj/a7+y51NyxOuKtg41b9UcE/v3C/M6MiKuuKI4Uu
- N45g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=WhPSBBPQGGZbolI+iA2pgFPPV7f1s1z0AqjG9jtoWO8=;
- fh=X5ke4D1IwdbVEDmLX7hWBPun945cYux17wWKIZIMVJs=;
- b=nnyoh5SUfmCnNzpGyvXJjnISwXFARXJKNJC+vDdDBJSF3qmSofU8BYBTy3FXOgCJ3c
- X+ysHj2qO3aU5wEsVu3n3RKkZfJgnIYmQAgGIiZwGh6BlYKAAZno2NxyI7tgZ8zugSUb
- QVYQeClulAZYL/ib2c3BntPxS3WyNfUrquwk4yRbbMZxpsZq4uXCqQwxJeq2+U3QfKB2
- wc/zDlnjdqNPv5DaM2tsXLCNrcv2981vPTnzpszvLGkiU9kKv3C/kxTtVE0PiPfEfU0C
- i3RLPfSoQDLm9g1UJGaM85tfBMXH0Fghr7qraHjFZgKWLPj0+PIaDiGAmAzPNufcRNa4
- B3WQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787037541; x=1787642341; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=WhPSBBPQGGZbolI+iA2pgFPPV7f1s1z0AqjG9jtoWO8=;
- b=Bat+YVCReaySSyUZ+3LW+f4YTVXrD542ZGKV94YDvhJCFlC+TNr8bufqZ0rwRHggQy
- LuDcOFboBvAN6L6WI1wOFpu3KzdQDKYZWKYe8KdSrLrSW7XcsypEJ00h22iqNbo7NNYv
- RUClWOQl3UIHJYJSTlpffhWd39ZrnNyi0a5MGR6RiqcD3RxAcCPPxvr9UcO15gEzgQHa
- i9t3AjeRacXyBD54Tnx932Qs35mv3W4RT2KlRoFX8MUAJ6Ylc3AEb6zp30YLYQZW2S/s
- DXeV634/OoA7OJkjEeYt6LTwGgt2znztAual3BQjmYuPfLGm2+uMG8IG9YOCQZuS0yO3
- rGVQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B1289F35
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 07:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787037649;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AH2rzIzO8xOuQwuHw1E2qkQOPI5JqW1bPKl2RlhocFw=;
+ b=UNZ20DWuiEwFN+15v4ASYhRe6pRY6hr94OrkE7B6Agw/auVJJYuFASB96BjWJkcRTtWua1
+ moSVtZM+WBqeuV70kT5KiK7UAk1RETa+MjV6cy45f8jcr3OA+BE7ynPof0LNO3d3QwKLAj
+ YuH3qAr0LwfoFKHAzmEkSXFPICDJjZ4=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-638-tE2mG18LOa-Xe9FK2JT8hQ-1; Tue, 18 Aug 2026 03:20:47 -0400
+X-MC-Unique: tE2mG18LOa-Xe9FK2JT8hQ-1
+X-Mimecast-MFC-AGG-ID: tE2mG18LOa-Xe9FK2JT8hQ_1787037647
+Received: by mail-yw1-f197.google.com with SMTP id
+ 00721157ae682-836cfd56077so61547327b3.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:20:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787037541; x=1787642341;
+ d=1e100.net; s=20251104; t=1787037647; x=1787642447;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=WhPSBBPQGGZbolI+iA2pgFPPV7f1s1z0AqjG9jtoWO8=;
- b=FbXDfP6gF1K1ns5B41xHmy0D2eYvp4/Vpv6PxrlX5vvZ4VmzE/Vu5gCKYs8VXjrv+w
- ICea4vl7ZyUjAivihdCf5f9ZqEjjX+itNlEg2FBuRgZCURGfJvo//65fThBPt8ggc79E
- DwNwmhiwLxCHZDKCOcV4Z4kzRkV0OtIhAsGKUoxd0CviyD++pftRLIM1gDTP056ocrLP
- X037lu3nz356xjiDfxw7OnJLE0tURGrX459MbIEr/hX+91CorvnSQ9r3OOB4Pwl+ulX9
- YPydcev2kx0aZdKpYh3a33RfI2pYKJIBT41tw1kUq3b7zNc/DToNYcsj+oBusuV65Dzk
- oYUg==
+ bh=AH2rzIzO8xOuQwuHw1E2qkQOPI5JqW1bPKl2RlhocFw=;
+ b=T+fAJTIpHvAwi0WMVr/+D4oOVHbESnTFBQWipyTLhaFlScZQ0gkaCwmCJnMll4EEau
+ gOHq21L+lYfyMJfY8HLU0AkvVgJ/EUsEJ3srwt1Te2Mgp1OLP6neGg/brsKtxBijMO+A
+ GOP920tRZHOnmcIqFzYpYUUwsdGSSPMU+1PWMyxp9cbJ6KTzbwFif2WNzv24yewB7lwB
+ nDRMUIlEsRyq3OzOZmV1UgsefGAOEhwnZlxSQKHFSD8yLC4Wc1Va2Byy5CckkyrNPjEm
+ XSP0QkIgMaX5LEg+NPjpFqIgii02WY0j1znpQhqf25StoZpEdWjatj0ZddfxD3AnPh0B
+ IH8Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqQbtNeO2eM2QB21mKx+j7RdqDzfBYpUac4qve6jKcwjF90Zjjtp4lhYN82Rl/vXy8uuI6qg8qGuVU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxA1LzJHcn1vM6Zvwj96HQIP93TbAzKHw2tImjUGAtN9z1qG8Ox
- aD+z3+il0MDnN8ysl6dZCpEVUb7ktabmaE7tD3dNPSJyknfNAX7dWWg09IF7vaEQXyLXf7ePzzJ
- bqP5rl9S37MDHGGVCSixmnHaWNiYr8zY=
-X-Gm-Gg: AR+sD10dQPaTsIF50+XGcRBmNDW49XMW210Uv9PvGKOUihzknhHAv1n8zifh3JOaMvD
- 8qYHwDsum9oQdQJV9/Ok/pZlGlHcT0KZDJjROQNudrmitAogpr4QaKIIDCujl2F810JJFwz6xFy
- kUO+Sy/kadoG6SBjVjDdtRePxCnxVTKxraYz55j2c25r9dWPLhJZ8ehOdFDDeO/Vd9Q8wdvdnzL
- QJOVYCFfVNIUljoka+eMoQuSVuPjsyrwoeXkuC/6OXwvHOUxH4D08WlTeLOQug94dy/IeIkMvo4
- 2CB1JgpXmMsEX9HFoL8l9onHrpRGtRUw15+o51LidgkexUfR9oEa7eph1zWOum7qU+uFTZ5nNQx
- h8wS/wF7WKghLkTlrXNgOV7flhQsO4gO91m6uhLuy82ilnl70SkP9KhsHyV8d
-X-Received: by 2002:a17:902:850b:b0:2d5:cbd3:8eb1 with SMTP id
- d9443c01a7336-2d5cbd38f48mr29929495ad.3.1787037540543; Tue, 18 Aug 2026
- 00:19:00 -0700 (PDT)
+ AHgh+RoekuvijrfkzFsneMmJ4h9Uk6TrRVINQbWqdzW4erbjimNVd/NSlw+V03j0857/WRkOtBvo680H76E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyN5N9tFRKIYImL/2bApcIHFPXnDk0jmVXWhxKh+e66Q+cNczKB
+ zRVTdwEUEz4Q+HYQnQx2P1z9nrsGR/D5x4lDxRcw7D0CGi5PasLj/USxVXsz8sFq6eoi9ZxzT1O
+ HB16j217GmV46XgkHFPVHJAFmB0S8/zIQLjyqNoOlg5Dz/ZMQgGvs5Nv+gRq/xmQraPit+A7YlE
+ gH4fNywqCcZOXZfIB/ZJQ3SgbBBjZdMv9ybSuL85Q2goaB
+X-Gm-Gg: AR+sD13EUVr3N3qpRz7phfBoBvSONiCpd1ZbPsdoHe0yDaEqRTDX9CIjgpx8S9kMADW
+ 8IHMlemUXWkZDUSMCxdfR5oNP2zE2u4nrpZZT67FKqeByD2ByzXdtblvjmpfwxoO5YN9h19kOq2
+ YX5fqIElpCzUT2vG6moPb/U9ORQAOHi04fDnN3gBVqrqICM9X2XLErfdc=
+X-Received: by 2002:a05:690c:e1d5:10b0:81e:6a10:f90f with SMTP id
+ 00721157ae682-8371125d508mr80483337b3.17.1787037647082; 
+ Tue, 18 Aug 2026 00:20:47 -0700 (PDT)
+X-Received: by 2002:a05:690c:e1d5:10b0:81e:6a10:f90f with SMTP id
+ 00721157ae682-8371125d508mr80483207b3.17.1787037646635; Tue, 18 Aug 2026
+ 00:20:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-5-6c767770b3f4@nvidia.com>
- <anzxKO0X1OrNRD32@yury> <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com>
- <an4NvQBt3389jP6E@yury> <DKO414SNC0B2.248FUBGJGSPLU@kernel.org>
- <an4xDp29VX8Am0uR@yury> <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
- <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
- <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
- <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
- <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
- <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
- <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
- <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net>
- <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org>
- <CABwQupNA=NuctKz0FRaJsWowf+=24C_o7u8twFFeUZ+dq6u+Jw@mail.gmail.com>
-In-Reply-To: <CABwQupNA=NuctKz0FRaJsWowf+=24C_o7u8twFFeUZ+dq6u+Jw@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 18 Aug 2026 09:18:45 +0200
-X-Gm-Features: AcwNN1URGomC3yROmR3KTAJ4h6I32rNk_7AiTcL10HUoEZg2QkO9YMIizAjUoJk
-Message-ID: <CANiq72m=bbjgMZy-BCsB0hajMJcKb+j=jeMN=e4++B-XSUOzeg@mail.gmail.com>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-To: Burak Emir <burak.emir@gmail.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
- Eliot Courtney <ecourtney@nvidia.com>, Yury Norov <ynorov@nvidia.com>, 
- Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
+ <20260817-drm_panel_bindings-v1-1-1f974508a31c@redhat.com>
+ <20260817151815.GA757484-robh@kernel.org>
+In-Reply-To: <20260817151815.GA757484-robh@kernel.org>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 18 Aug 2026 09:20:35 +0200
+X-Gm-Features: AcwNN1XPNBWCoPE2Nkai9E-mE_8PW-Et12-aqT9wAxfp7sMMAA08KesO-xwraw8
+Message-ID: <CADSE00Lfh=8CSsadEoiEAd3Ld_0=nphkYGnxNH1v1woNPbF_bw@mail.gmail.com>
+Subject: Re: [PATCH 1/5] rust: of: add Node type
+To: Rob Herring <robh@kernel.org>
+Cc: Saravana Kannan <saravanak@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
  =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
  Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
  =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ devicetree@vger.kernel.org, 
  rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- dri-devel <dri-devel-bounces@lists.freedesktop.org>
+ dri-devel@lists.freedesktop.org, mripard@kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Nm_l-94bGBi7gDPdFzCY98bPMxYdfbIBcpzV8uM0_z0_1787037647
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -135,21 +107,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2026 at 11:36=E2=80=AFPM Burak Emir <burak.emir@gmail.com> =
-wrote:
+On Mon, Aug 17, 2026 at 5:18=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
 >
-> To add a minor point to this, if rustc could figure out that a
-> suitable non-zero number literal can be treated as NonZero<usize>,
-> we'd not need a macro and it would all be very ergonomic...
+> On Mon, Aug 17, 2026 at 01:40:46PM +0200, Albert Esteve wrote:
+> > Add a Rust abstraction for `struct device_node`, the device
+> > tree node type.
+> >
+> > `Node` wraps `device_node` type pointer and implements
+> > `AlwaysRefCounted`, allowing owned references to device
+> > tree nodes to be held. To do so, add C helpers to make
+> > them always accesible from Rust bindings, independently
+> > from the configuration.
+>
+> struct device_node being refcounted is a kconfig option
+> (CONFIG_OF_DYNAMIC). What happens when that is disabled?
 
-Yeah, that and/or `1nz` literals could be nice. It may be a bit niche,
-though; and we would like good ergonomics for our own custom types
-too.
+With CONFIG_OF_DYNAMIC=3Dn, both refcount methods (inc_ref and dec_ref)
+become no-ops. Same as with C code.
 
-Nevertheless, I will ask upstream Rust in our next meeting about
-https://github.com/rust-lang/rust/issues/69329.
+Since Bindgen does not generate bindings to inline functions, the
+helper functions ensure that bindings::of_node_get/put are generated.
+Otherwise it would fail to compile when CONFIG_OF_DYNAMIC is disabled.
 
-I added it to https://github.com/Rust-for-Linux/linux/issues/354 as well.
+>
+> > This abstraction is needed for subsequent patches, in particular
+> > for creating drm_panel instances from a `const struct device_node`
+> > pointer argument.
+>
+> My intent is to make struct device_node opaque. We may never get there
+> with C code, but please make sure Rust is that way from the start.
 
-Cheers,
-Miguel
+Got it. I will reduce the visibility of the raw pointer accessors by
+making them pub(crate) for the next version. These are the only
+accessors added in this series. Future methods accessing struct fields
+for 'Node' will have to rely on C accessor functions.
+
+BR,
+Albert.
+
+>
+> Rob
+>
+
