@@ -4,58 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47401C5DF7E
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 11:45:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 271FDC5DF7E
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 12:10:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A10E10E4B9;
-	Tue, 18 Aug 2026 11:45:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA7D10E02E;
+	Tue, 18 Aug 2026 12:10:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QmTvrnp9";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="PSzyDs5V";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 807F810E4B9
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 11:45:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EE34B429C5;
- Tue, 18 Aug 2026 11:45:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC4E1F000E9;
- Tue, 18 Aug 2026 11:45:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787053528;
- bh=+oxPcNqI3PZAHqM9v3WwprvFy/3gIlcIsJcj85Aon4E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=QmTvrnp9fL/D0PyKCZ908Xy5MzGvQyXPXvc1fWjWpjgUk+Y3HTZJlGiassc+VefGB
- LUFlYBHvFPPAkkrQdvJIq33GAifd6tTbWliGLaEU2EMwagmB3JIetKbVDm/+UbEhXb
- HaCq5yaHaTvv2n2P1NHTUgZPGnB1a2evKi7ZbTrgjqH/h+Lo/PS3cMsoJ5yYYIO6jQ
- USBJaG8M5N964hkLMyvHL97YcHVbn9IVODSTPKaI0pBDqMt9dyBehWQb7BKm2eeZ1q
- jN2o3oSqmUqifTeKZhKj1P9fV2F+HymGYznIpFcp/vTFvhzN7cJ3v3dFLPd6fm+tbH
- v15GyEORQR3rw==
-Date: Tue, 18 Aug 2026 13:45:26 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- devicetree@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 0/5] rust: drm: add panel bindings
-Message-ID: <20260818-encouraging-lime-kestrel-d0d819@houat>
-References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3752810E02E;
+ Tue, 18 Aug 2026 12:10:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 914E914BF;
+ Tue, 18 Aug 2026 05:10:51 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E1963F85F;
+ Tue, 18 Aug 2026 05:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787055055; bh=gPQBa9KcGWS0r9ToFsywECZH43XCjCsQKv6COXNFFxw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=PSzyDs5VtnqKSk8EMFuTeQWMCqVF4gvA4k/i4fsxsl25+BxU6Isdi5qvludgV0nYI
+ gVkfXsGoptPxJsanWP+W4dqCbSnTp6x5gTGC45UcfmzaukRkvNFlaX4r2bPlpxNUWD
+ 3AcOKbLM9G4AOXqKeblyX3Vm9cIZYNbSu8htc5lA=
+Message-ID: <8c9066f6-e460-458b-bad4-26d441a742ab@arm.com>
+Date: Tue, 18 Aug 2026 13:10:52 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="ih6zdmnfjowuha6b"
-Content-Disposition: inline
-In-Reply-To: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/6] iommu/dma: Catch scatterlist length overflows
+To: Krzysztof Karas <krzysztof.karas@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev
+Cc: Andi Shyti <andi.shyti@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+References: <20260817095648.2438192-1-krzysztof.karas@intel.com>
+ <20260817095648.2438192-4-krzysztof.karas@intel.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260817095648.2438192-4-krzysztof.karas@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,105 +62,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 17/08/2026 10:56 am, Krzysztof Karas wrote:
+> It is possible, when a very large mapping uses only one
+> scatterlist, that padding overflows scatterlist's length field.
+> This results in:
+>   1) silently wrapping the value
+>   2) smaller than desired mappings produced by iommu_map_sg
+>   3) leaving mapped bytes in memory (no iommu_unmap)
+> 
+> Address this issue by adding overflow detection for scatterlist
+> length field.
+> 
+> Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+> v5 (sashiko review):
+>   * Included overflow checking on addition, previously silently
+>   omitted inside iova_align arguments.
+>   * Added check for zero-mapping via temporary variable comparison.
+>   * Added overflows_type on s->length to satisfy 64 bit systems.
+> 
+>   drivers/iommu/dma-iommu.c | 32 ++++++++++++++++++++++++++++++--
+>   1 file changed, 30 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 9abaec0703ef..0bd5b13f006f 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -21,6 +21,7 @@
+>   #include <linux/iommu-dma.h>
+>   #include <linux/iova.h>
+>   #include <linux/irq.h>
+> +#include <linux/limits.h>
+>   #include <linux/list_sort.h>
+>   #include <linux/memremap.h>
+>   #include <linux/mm.h>
+> @@ -1445,6 +1446,7 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>   	for_each_sg(sg, s, nents, i) {
+>   		size_t s_iova_off = iova_offset(iovad, s->offset);
+>   		size_t s_length = s->length;
+> +		size_t s_length_tmp;
+>   		size_t pad_len = (mask - iova_len + 1) & mask;
+>   
+>   		switch (pci_p2pdma_state(&p2pdma_state, dev, sg_page(s))) {
+> @@ -1476,7 +1478,22 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>   		sg_dma_address(s) = s_iova_off;
+>   		sg_dma_len(s) = s_length;
+>   		s->offset -= s_iova_off;
+> -		s_length = iova_align(iovad, s_length + s_iova_off);
+> +
+> +		if (check_add_overflow(s_length, s_iova_off, &s_length_tmp)) {
+> +			ret = -EOVERFLOW;
+> +			goto out_restore_sg;
+> +		}
 
---ih6zdmnfjowuha6b
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/5] rust: drm: add panel bindings
-MIME-Version: 1.0
+This is unnecessary - s_iova_off will always be <= sg->offset, and since 
+the maximum possible segment boundary mask is 32 bits, if sg->offset + 
+sg->length would overflow then by definition it must cross a segment 
+boundary, so the segment is malformed to begin with and all bets are off.
 
-Hi,
+> +		s_length = iova_align(iovad, s_length_tmp);
+> +
+> +		if (s_length_tmp != 0 && s_length == 0) {
+> +			ret = -EOVERFLOW;
+> +			goto out_restore_sg;
+> +		}
 
-On Mon, Aug 17, 2026 at 01:40:45PM +0200, Albert Esteve wrote:
-> This series adds Rust abstractions for the DRM panel subsystem,
-> covering both the consumer and producer sides of the API.
-> This helps closing the gap so that future panel drivers
-> can be written directly in Rust.
->=20
-> Background
-> ----------
-> The DRM panel C API has been progressively hardened over the past
-> year (see [1], [2], and [3]). All panel drivers were fully migrated
-> to kref-based allocation via devm_drm_panel_alloc(). Panel lookup
-> functions (i.e., of_drm_find_panel() and find_panel_by_fwnode())
-> were also updated to acquire a reference before returning.
->=20
-> Note this series depends on [3] being merged in the base
-> tree. Currently it has been only applied to drm-misc-next.
-> The other series mentioned above are already part of the
-> base for the current version of this series.
->=20
-> As a personal note, part of my motivation for creating this series
-> was learning more about Rust in the kernel. I would appreciate
-> feedback on Rust-specific idioms or kernel conventions used here
-> that I may have missed.
->=20
-> What this series does
-> ---------------------
-> Patch 1 adds of::Node, a Rust wrapper for struct device_node
-> implementing AlwaysRefCounted. C helpers are added so that of_node_get()
-> and of_node_put() are reachable from Rust independently of CONFIG_OF_DYNA=
-MIC.
->=20
-> Patch 2 adds drm::Connector, a minimal Rust wrapper for
-> struct drm_connector. Its sole purpose is to provide a typed reference
-> for the get_modes() callback argument; no ownership or refcounting is
-> exposed at this stage.
->=20
-> Patch 3 adds the consumer side of the panel abstraction:
-> - Panel wraps struct drm_panel and implements AlwaysRefCounted via
->   drm_panel_get/put. Consumer lifecycle methods are exposed as safe wrapp=
-ers.
-> - PanelOrientation wraps enum drm_panel_orientation and provides
->   from_of_node() to read the "rotation" device tree property.
-> - Registration manages the panel's presence in the global registry
->   via drm_panel_add/remove, decoupling registry lifetime from
->   reference count lifetime.
->=20
-> Patch 4 adds the producer side:
-> - PanelFuncs is a #[vtable] trait that panel drivers implement to
->   provide their callbacks. All but get_modes are optional.
-> - Panel::new wraps __devm_drm_panel_alloc, returning an ARef<Panel>.
->   Registration with the global registry is kept separate via
->   Registration::register, following the pattern of drm::Device::new.
-> - ConnectorType mirrors the DRM_MODE_CONNECTOR_* defines from
->   include/uapi/drm/drm_mode.h, required by Panel::new to specify the
->   panel's connector type.
->=20
-> Patch 5 adds gated tests, covering data type conversions and layout
-> invariants.
+Similarly, a 0-length segment wouldn't be valid either (consider in the 
+simple case it would end up with sg_dma_len() == 0 which means "end of 
+mapping")
 
-So while it's definitely welcome on principle, I wonder if panels would
-be a place to invest in at the moment
+Thanks,
+Robin.
 
-The series
-https://lore.kernel.org/dri-devel/20260814-drm-bridge-every-panel-v1-0-19cd=
-5277cc8d@bootlin.com/
-is likely to move every consumer to use bridges exclusively.
+> +
+> +		if (overflows_type(s_length, s->length)) {
+> +			ret = -EOVERFLOW;
+> +			goto out_restore_sg;
+> +		}
+>   		s->length = s_length;
+>   
+>   		/*
+> @@ -1493,7 +1510,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>   		 *   time through here (i.e. before it has a meaningful value).
+>   		 */
+>   		if (pad_len && pad_len < s_length - 1) {
+> -			prev->length += pad_len;
+> +			unsigned int new_prev_len;
+> +			/*
+> +			 * For large mappings spanning multiple GBs we
+> +			 * may not be able to fit all needed padding into
+> +			 * sg->length.
+> +			 */
+> +			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
+> +				ret = -EOVERFLOW;
+> +				goto out_restore_sg;
+> +			}
+> +
+> +			prev->length = new_prev_len;
+>   			iova_len += pad_len;
+>   		}
+>   
 
-https://lore.kernel.org/ksummit/0fa2fb42-0714-49f7-ba43-22928e1dd488@linaro=
-=2Eorg/
-raised a discussion that the panel API is very limited at the moment
-(while the bridge API isn't, or could be much more easily extended).
-
-This is supposed to be discussed at plumbers, but I seriously think the
-outcome of that discussion would be to just deprecate panels.
-
-Bridges would be a much more long-term-proof investment.
-
-Maxime
-
---ih6zdmnfjowuha6b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaoRFzwAKCRAnX84Zoj2+
-dlGQAYDYIAOqhHx0r6fLK8nL73TpSPjwnj7GDvkvyW8rtyvEnJnwJtKUz3FlzEIu
-QTiiVi0BfjlGkOxjUBXGBY6GrqOPUssitDNX9C7kIp3Sl7Fwv9uKTg40JiFLOHtB
-+22qEwBmsQ==
-=txvi
------END PGP SIGNATURE-----
-
---ih6zdmnfjowuha6b--
