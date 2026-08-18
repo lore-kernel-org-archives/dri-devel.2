@@ -4,186 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A3DAC5DF7D
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 16:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3321C5DF7D
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 17:08:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A50710E515;
-	Tue, 18 Aug 2026 16:49:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18FEC10E045;
+	Tue, 18 Aug 2026 17:08:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="l7uCTaPt";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="bt/LbUkW";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E707D10E515
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 16:49:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1787071794; x=1787676594; i=deller@gmx.de;
- bh=LqEoVAQSB8SfO7zVu+8pARogxFbcMp2CXli/mDMlnmY=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=l7uCTaPtet8puZmSgyCTSSIoexiOAhyCUASE30gLgNNuR271Ph2Tc5dB2/T0iUUU
- H6XeWvN/tI2njcwlsc85UatxUmHFFZSGVmUp6cPgAfMVd1lRKu7JqoGaMNu4P30yd
- 8D9wxp812Ai67aa+Ux36MuXGZZ27P6qarJrggX4j8y3/jgMPakLvQOtQFKhNfMozO
- UgKVyWMgV2Mf/VN48XXrPwHs+pf0rxFy5XJKwDJWLiux9Wc7QAqqJMsBMeKEnMopw
- K08EsDD7+B0ngzPpsOXqKLb+zrvPQAKqiJpNQYdt2OQiKflAr1dF1jCNF2WHm2oEA
- mUeu7BNARoH8UOWtOg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MWASe-1xU22a0rqE-00QlVR; Tue, 18
- Aug 2026 18:49:54 +0200
-Message-ID: <27cdcd5f-7cbc-4e22-8ac3-81d427c68f1d@gmx.de>
-Date: Tue, 18 Aug 2026 18:49:50 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 61B9D10E045
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 17:08:12 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BD7561A32
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:08:07 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 4635A3F763
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 10:08:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787072891; bh=KJglFGHzGaoCuVMwhSC+ilm/v2jeiAx3EEhECHJzgCY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bt/LbUkWX+1BmhJxyVrj48KqMI/V1jCoIqXvHNClaWC3/r6QjZqy6zOMN4nYhPo5c
+ YPgJSBywR5E8JPPKFTdEqVbwvG26AlK9uNYkRjp/EDC2bX6Fs5jK7cpKKOYX6E1Wri
+ EBC0bPznciYondsAF6EKdRTBMs7Y9G6PAEq+tuZA=
+Date: Tue, 18 Aug 2026 18:08:00 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 3/9] drm/panthor: Replace the panthor_irq macro
+ machinery by inline helpers
+Message-ID: <aoSRcD1EZ_Q0-NiR@e142607>
+References: <20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com>
+ <20260811-panthor-signal-from-irq-v6-3-12f2ab53d735@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: omapfb: panel-dsi-cm: initialize lock before
- registering display
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dave Airlie
- <airlied@gmail.com>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-References: <20260818135318.1957283-1-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260818135318.1957283-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ra3s7RSaoMTOth51JcKMBzR8n9NwN4Is5sDceLU62RYrgA4U+XE
- Ud0lfKJ8jzR4f39IsPRsxpsUYq4V/5tCd2YQNj9hMChabUx76uJLCqmZbZKhv8Nyc+j97vi
- 9Iv+2ghOCGJRV0OrL54c7bhf7r7VrvTS8aOL+46BUGcBwc+eU7/FiNHmq4fHziGQjtTwGxW
- HimbGm7vAn+DCFsIVN7Hg==
-UI-OutboundReport: notjunk:1;M01:P0:QuzhfZfuXtI=;wQn8KojJ3tTUoBUtpT1CLdsJFKC
- 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
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260811-panthor-signal-from-irq-v6-3-12f2ab53d735@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -199,22 +62,664 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/18/26 15:53, Runyu Xiao wrote:
-> dsicm_probe() registers the display before initializing ddata->lock.
-> Once omapdss_register_display() publishes the display, another consumer
-> can reach a dsicm callback that takes this mutex while it is still
-> uninitialized.
->=20
-> Initialize the mutex before registering the display so the published
-> callbacks always see a valid lock.
->=20
-> Fixes: f76ee892a99e ("omapfb: copy omapdss & displays for omapfb")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->   drivers/video/fbdev/omap2/omapfb/displays/panel-dsi-cm.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-applied.
+On Tue, Aug 11, 2026 at 01:23:37PM +0200, Boris Brezillon wrote:
+> Now that panthor_irq contains the iomem region, there's no real need
+> for the macro-based panthor_irq helper generation logic. We can just
+> provide inline helpers that do the same and let the compiler optimize
+> indirect function calls. The only extra annoyance is the fact we have
+> to open-code the panthor_xxx_irq_threaded_handler() implementation, but
+> those are single-line functions, so it's acceptable.
+> 
+> While at it, we changed the prototype of the IRQ handlers to take
+> a panthor_irq instead of panthor_device, since that's the thing
+> that's passed around when it comes to panthor_irq, and the
+> panthor_device can be directly extracted from there.
+> 
+> Reviewed-by: Steven Price <steven.price@arm.com>
+> Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Thanks!
-Helge
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.h | 247 +++++++++++++++----------------
+>  drivers/gpu/drm/panthor/panthor_fw.c     |  22 ++-
+>  drivers/gpu/drm/panthor/panthor_gpu.c    |  28 ++--
+>  drivers/gpu/drm/panthor/panthor_mmu.c    |  39 ++---
+>  drivers/gpu/drm/panthor/panthor_pwr.c    |  24 +--
+>  5 files changed, 188 insertions(+), 172 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index b102ea77fd1a..b55a3f9edd41 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -571,132 +571,127 @@ static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+>  #define INT_MASK    0x8
+>  #define INT_STAT    0xc
+>  
+> -/**
+> - * PANTHOR_IRQ_HANDLER() - Define interrupt handlers and the interrupt
+> - * registration function.
+> - *
+> - * The boiler-plate to gracefully deal with shared interrupts is
+> - * auto-generated. All you have to do is call PANTHOR_IRQ_HANDLER()
+> - * just after the actual handler. The handler prototype is:
+> - *
+> - * void (*handler)(struct panthor_device *, u32 status);
+> - */
+> -#define PANTHOR_IRQ_HANDLER(__name, __handler)							\
+> -static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)			\
+> -{												\
+> -	struct panthor_irq *pirq = data;							\
+> -												\
+> -	guard(spinlock_irqsave)(&pirq->lock);							\
+> -	if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)						\
+> -		return IRQ_NONE;								\
+> -												\
+> -	if (!gpu_read(pirq->iomem, INT_STAT))							\
+> -		return IRQ_NONE;								\
+> -												\
+> -	pirq->state = PANTHOR_IRQ_STATE_PROCESSING;						\
+> -	gpu_write(pirq->iomem, INT_MASK, 0);							\
+> -	return IRQ_WAKE_THREAD;									\
+> -}												\
+> -												\
+> -static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *data)		\
+> -{												\
+> -	struct panthor_irq *pirq = data;							\
+> -	struct panthor_device *ptdev = pirq->ptdev;						\
+> -	irqreturn_t ret = IRQ_NONE;								\
+> -												\
+> -	while (true) {										\
+> -		/* It's safe to access pirq->mask without the lock held here. If a new		\
+> -		 * event gets added to the mask and the corresponding IRQ is pending,		\
+> -		 * we'll process it right away instead of adding an extra raw -> threaded	\
+> -		 * round trip. If an event is removed and the status bit is set, it will	\
+> -		 * be ignored, just like it would have been if the mask had been adjusted	\
+> -		 * right before the HW event kicks in. TLDR; it's all expected races we're	\
+> -		 * covered for.									\
+> -		 */										\
+> -		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;			\
+> -												\
+> -		if (!status)									\
+> -			break;									\
+> -												\
+> -		__handler(ptdev, status);							\
+> -		ret = IRQ_HANDLED;								\
+> -	}											\
+> -												\
+> -	scoped_guard(spinlock_irqsave, &pirq->lock) {						\
+> -		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {				\
+> -			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;					\
+> -			gpu_write(pirq->iomem, INT_MASK, pirq->mask);				\
+> -		}										\
+> -	}											\
+> -												\
+> -	return ret;										\
+> -}												\
+> -												\
+> -static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)			\
+> -{												\
+> -	scoped_guard(spinlock_irqsave, &pirq->lock) {						\
+> -		pirq->state = PANTHOR_IRQ_STATE_SUSPENDING;					\
+> -		gpu_write(pirq->iomem, INT_MASK, 0);						\
+> -	}											\
+> -	synchronize_irq(pirq->irq);								\
+> -	scoped_guard(spinlock_irqsave, &pirq->lock)						\
+> -		pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;					\
+> -}												\
+> -												\
+> -static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)			\
+> -{												\
+> -	guard(spinlock_irqsave)(&pirq->lock);							\
+> -												\
+> -	pirq->state = PANTHOR_IRQ_STATE_ACTIVE;							\
+> -	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);						\
+> -	gpu_write(pirq->iomem, INT_MASK, pirq->mask);						\
+> -}												\
+> -												\
+> -static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
+> -					      struct panthor_irq *pirq,				\
+> -					      int irq, void __iomem *iomem)			\
+> -{												\
+> -	pirq->ptdev = ptdev;									\
+> -	pirq->irq = irq;									\
+> -	pirq->mask = 0;										\
+> -	pirq->iomem = iomem;									\
+> -	spin_lock_init(&pirq->lock);								\
+> -	pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;						\
+> -	gpu_write(pirq->iomem, INT_MASK, 0);							\
+> -												\
+> -	return devm_request_threaded_irq(ptdev->base.dev, irq,					\
+> -					 panthor_ ## __name ## _irq_raw_handler,		\
+> -					 panthor_ ## __name ## _irq_threaded_handler,		\
+> -					 IRQF_SHARED, KBUILD_MODNAME "-" # __name,		\
+> -					 pirq);							\
+> -}												\
+> -												\
+> -static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *pirq, u32 mask)	\
+> -{												\
+> -	guard(spinlock_irqsave)(&pirq->lock);							\
+> -	pirq->mask |= mask;									\
+> -												\
+> -	/* The only situation where we need to write the new mask is if the IRQ is active.	\
+> -	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()	\
+> -	 * on the PROCESSING -> ACTIVE transition.						\
+> -	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+> -	 */											\
+> -	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
+> -		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
+> -}												\
+> -												\
+> -static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq *pirq, u32 mask)\
+> -{												\
+> -	guard(spinlock_irqsave)(&pirq->lock);							\
+> -	pirq->mask &= ~mask;									\
+> -												\
+> -	/* The only situation where we need to write the new mask is if the IRQ is active.	\
+> -	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()	\
+> -	 * on the PROCESSING -> ACTIVE transition.						\
+> -	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+> -	 */											\
+> -	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
+> -		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
+> +static inline irqreturn_t panthor_irq_default_raw_handler(int irq, void *data)
+> +{
+> +	struct panthor_irq *pirq = data;
+> +
+> +	guard(spinlock_irqsave)(&pirq->lock);
+> +	if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)
+> +		return IRQ_NONE;
+> +
+> +	if (!gpu_read(pirq->iomem, INT_STAT))
+> +		return IRQ_NONE;
+> +
+> +	pirq->state = PANTHOR_IRQ_STATE_PROCESSING;
+> +	gpu_write(pirq->iomem, INT_MASK, 0);
+> +	return IRQ_WAKE_THREAD;
+> +}
+> +
+> +static __always_inline irqreturn_t
+> +panthor_irq_default_threaded_handler(void *data,
+> +				     void (*slow_handler)(struct panthor_irq *, u32))
+> +{
+> +	struct panthor_irq *pirq = data;
+> +	irqreturn_t ret = IRQ_NONE;
+> +
+> +	while (true) {
+> +		/* It's safe to access pirq->mask without the lock held here. If a new
+> +		 * event gets added to the mask and the corresponding IRQ is pending,
+> +		 * we'll process it right away instead of adding an extra raw -> threaded
+> +		 * round trip. If an event is removed and the status bit is set, it will
+> +		 * be ignored, just like it would have been if the mask had been adjusted
+> +		 * right before the HW event kicks in. TLDR; it's all expected races we're
+> +		 * covered for.
+> +		 */
+> +		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;
+> +
+> +		if (!status)
+> +			break;
+> +
+> +		slow_handler(pirq, status);
+> +		ret = IRQ_HANDLED;
+> +	}
+> +
+> +	scoped_guard(spinlock_irqsave, &pirq->lock) {
+> +		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {
+> +			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
+> +			gpu_write(pirq->iomem, INT_MASK, pirq->mask);
+> +		}
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static inline void panthor_irq_suspend(struct panthor_irq *pirq)
+> +{
+> +	scoped_guard(spinlock_irqsave, &pirq->lock) {
+> +		pirq->state = PANTHOR_IRQ_STATE_SUSPENDING;
+> +		gpu_write(pirq->iomem, INT_MASK, 0);
+> +	}
+> +	synchronize_irq(pirq->irq);
+> +	scoped_guard(spinlock_irqsave, &pirq->lock)
+> +		pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;
+> +}
+> +
+> +static inline void panthor_irq_resume(struct panthor_irq *pirq)
+> +{
+> +	guard(spinlock_irqsave)(&pirq->lock);
+> +	pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
+> +	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);
+> +	gpu_write(pirq->iomem, INT_MASK, pirq->mask);
+> +}
+> +
+> +static inline void panthor_irq_enable_events(struct panthor_irq *pirq, u32 mask)
+> +{
+> +	guard(spinlock_irqsave)(&pirq->lock);
+> +	pirq->mask |= mask;
+> +
+> +	/* The only situation where we need to write the new mask is if the IRQ is active.
+> +	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()
+> +	 * on the PROCESSING -> ACTIVE transition.
+> +	 * If the IRQ is suspended/suspending, the mask is restored at resume time.
+> +	 */
+> +	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)
+> +		gpu_write(pirq->iomem, INT_MASK, pirq->mask);
+> +}
+> +
+> +static inline void panthor_irq_disable_events(struct panthor_irq *pirq, u32 mask)
+> +{
+> +	guard(spinlock_irqsave)(&pirq->lock);
+> +	pirq->mask &= ~mask;
+> +
+> +	/* The only situation where we need to write the new mask is if the IRQ is active.
+> +	 * If it's being processed, the mask will be restored for us in _irq_threaded_handler()
+> +	 * on the PROCESSING -> ACTIVE transition.
+> +	 * If the IRQ is suspended/suspending, the mask is restored at resume time.
+> +	 */
+> +	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)
+> +		gpu_write(pirq->iomem, INT_MASK, pirq->mask);
+> +}
+> +
+> +static inline int
+> +panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
+> +		    int irq, void __iomem *iomem, const char *name,
+> +		    irqreturn_t (*threaded_handler)(int, void *data))
+> +{
+> +	const char *full_name;
+> +
+> +	pirq->ptdev = ptdev;
+> +	pirq->irq = irq;
+> +	pirq->mask = 0;
+> +	pirq->iomem = iomem;
+> +	spin_lock_init(&pirq->lock);
+> +	pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;
+> +
+> +	full_name = devm_kasprintf(ptdev->base.dev, GFP_KERNEL, KBUILD_MODNAME "-%s", name);
+> +	if (!full_name)
+> +		return -ENOMEM;
+> +
+> +	gpu_write(pirq->iomem, INT_MASK, 0);
+> +	return devm_request_threaded_irq(ptdev->base.dev, irq,
+> +					 panthor_irq_default_raw_handler,
+> +					 threaded_handler,
+> +					 IRQF_SHARED, full_name, pirq);
+>  }
+>  
+>  extern struct workqueue_struct *panthor_cleanup_wq;
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index fc1a423e48a8..68965175105f 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1072,8 +1072,9 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
+>  			 msecs_to_jiffies(PING_INTERVAL_MS));
+>  }
+>  
+> -static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
+> +static void panthor_job_irq_handler(struct panthor_irq *pirq, u32 status)
+>  {
+> +	struct panthor_device *ptdev = pirq->ptdev;
+>  	u32 duration;
+>  	u64 start = 0;
+>  
+> @@ -1099,7 +1100,11 @@ static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
+>  		trace_gpu_job_irq(ptdev->base.dev, status, duration);
+>  	}
+>  }
+> -PANTHOR_IRQ_HANDLER(job, panthor_job_irq_handler);
+> +
+> +static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *data)
+> +{
+> +	return panthor_irq_default_threaded_handler(data, panthor_job_irq_handler);
+> +}
+>  
+>  static int panthor_fw_start(struct panthor_device *ptdev)
+>  {
+> @@ -1107,8 +1112,8 @@ static int panthor_fw_start(struct panthor_device *ptdev)
+>  	bool timedout = false;
+>  
+>  	ptdev->fw->booted = false;
+> -	panthor_job_irq_enable_events(&ptdev->fw->irq, ~0);
+> -	panthor_job_irq_resume(&ptdev->fw->irq);
+> +	panthor_irq_enable_events(&ptdev->fw->irq, ~0);
+> +	panthor_irq_resume(&ptdev->fw->irq);
+>  	gpu_write(fw->iomem, MCU_CONTROL, MCU_CONTROL_AUTO);
+>  
+>  	if (!wait_event_timeout(ptdev->fw->req_waitqueue,
+> @@ -1218,7 +1223,7 @@ void panthor_fw_pre_reset(struct panthor_device *ptdev, bool on_hang)
+>  			ptdev->reset.fast = true;
+>  	}
+>  
+> -	panthor_job_irq_suspend(&ptdev->fw->irq);
+> +	panthor_irq_suspend(&ptdev->fw->irq);
+>  	panthor_fw_stop(ptdev);
+>  }
+>  
+> @@ -1287,7 +1292,7 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
+>  
+>  	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev)) {
+>  		/* Make sure the IRQ handler cannot be called after that point. */
+> -		panthor_job_irq_suspend(&ptdev->fw->irq);
+> +		panthor_irq_suspend(&ptdev->fw->irq);
+>  		panthor_fw_stop(ptdev);
+>  	}
+>  
+> @@ -1482,8 +1487,9 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>  	if (irq <= 0)
+>  		return -ENODEV;
+>  
+> -	ret = panthor_request_job_irq(ptdev, &fw->irq, irq,
+> -				      ptdev->iomem + JOB_INT_BASE);
+> +	ret = panthor_irq_request(ptdev, &fw->irq, irq,
+> +				  ptdev->iomem + JOB_INT_BASE, "job",
+> +				  panthor_job_irq_threaded_handler);
+>  	if (ret) {
+>  		drm_err(&ptdev->base, "failed to request job irq");
+>  		return ret;
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index c013d6bf9a59..7f287242285a 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -86,8 +86,9 @@ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
+>  	gpu_write(gpu->iomem, GPU_L2_CONFIG, l2_config);
+>  }
+>  
+> -static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
+> +static void panthor_gpu_irq_handler(struct panthor_irq *pirq, u32 status)
+>  {
+> +	struct panthor_device *ptdev = pirq->ptdev;
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+>  
+>  	gpu_write(gpu->irq.iomem, INT_CLEAR, status);
+> @@ -116,7 +117,11 @@ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
+>  	}
+>  	spin_unlock(&ptdev->gpu->reqs_lock);
+>  }
+> -PANTHOR_IRQ_HANDLER(gpu, panthor_gpu_irq_handler);
+> +
+> +static irqreturn_t panthor_gpu_irq_threaded_handler(int irq, void *data)
+> +{
+> +	return panthor_irq_default_threaded_handler(data, panthor_gpu_irq_handler);
+> +}
+>  
+>  /**
+>   * panthor_gpu_unplug() - Called when the GPU is unplugged.
+> @@ -128,7 +133,7 @@ void panthor_gpu_unplug(struct panthor_device *ptdev)
+>  
+>  	/* Make sure the IRQ handler is not running after that point. */
+>  	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
+> -		panthor_gpu_irq_suspend(&ptdev->gpu->irq);
+> +		panthor_irq_suspend(&ptdev->gpu->irq);
+>  
+>  	/* Wake-up all waiters. */
+>  	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> @@ -169,13 +174,14 @@ int panthor_gpu_init(struct panthor_device *ptdev)
+>  	if (irq < 0)
+>  		return irq;
+>  
+> -	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
+> -				      ptdev->iomem + GPU_INT_BASE);
+> +	ret = panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
+> +				  ptdev->iomem + GPU_INT_BASE, "gpu",
+> +				  panthor_gpu_irq_threaded_handler);
+>  	if (ret)
+>  		return ret;
+>  
+> -	panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_INTERRUPTS_MASK);
+> -	panthor_gpu_irq_resume(&ptdev->gpu->irq);
+> +	panthor_irq_enable_events(&ptdev->gpu->irq, GPU_INTERRUPTS_MASK);
+> +	panthor_irq_resume(&ptdev->gpu->irq);
+>  	return 0;
+>  }
+>  
+> @@ -183,7 +189,7 @@ int panthor_gpu_power_changed_on(struct panthor_device *ptdev)
+>  {
+>  	guard(pm_runtime_active)(ptdev->base.dev);
+>  
+> -	panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
+> +	panthor_irq_enable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
+>  
+>  	return 0;
+>  }
+> @@ -192,7 +198,7 @@ void panthor_gpu_power_changed_off(struct panthor_device *ptdev)
+>  {
+>  	guard(pm_runtime_active)(ptdev->base.dev);
+>  
+> -	panthor_gpu_irq_disable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
+> +	panthor_irq_disable_events(&ptdev->gpu->irq, GPU_POWER_INTERRUPTS_MASK);
+>  }
+>  
+>  /**
+> @@ -425,7 +431,7 @@ void panthor_gpu_suspend(struct panthor_device *ptdev)
+>  	else
+>  		panthor_hw_l2_power_off(ptdev);
+>  
+> -	panthor_gpu_irq_suspend(&ptdev->gpu->irq);
+> +	panthor_irq_suspend(&ptdev->gpu->irq);
+>  }
+>  
+>  /**
+> @@ -437,7 +443,7 @@ void panthor_gpu_suspend(struct panthor_device *ptdev)
+>   */
+>  void panthor_gpu_resume(struct panthor_device *ptdev)
+>  {
+> -	panthor_gpu_irq_resume(&ptdev->gpu->irq);
+> +	panthor_irq_resume(&ptdev->gpu->irq);
+>  	panthor_hw_l2_power_on(ptdev);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 0182b72f1932..d43ba1c7cd2a 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -601,17 +601,13 @@ static u32 panthor_mmu_as_fault_mask(struct panthor_device *ptdev, u32 as)
+>  	return BIT(as);
+>  }
+>  
+> -/* Forward declaration to call helpers within as_enable/disable */
+> -static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status);
+> -PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
+> -
+>  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+>  				 u64 transtab, u64 transcfg, u64 memattr)
+>  {
+>  	struct panthor_mmu *mmu = ptdev->mmu;
+>  
+> -	panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
+> -				      panthor_mmu_as_fault_mask(ptdev, as_nr));
+> +	panthor_irq_enable_events(&ptdev->mmu->irq,
+> +				  panthor_mmu_as_fault_mask(ptdev, as_nr));
+>  
+>  	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
+>  	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
+> @@ -629,8 +625,8 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+>  
+>  	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
+>  
+> -	panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
+> -				       panthor_mmu_as_fault_mask(ptdev, as_nr));
+> +	panthor_irq_disable_events(&ptdev->mmu->irq,
+> +				   panthor_mmu_as_fault_mask(ptdev, as_nr));
+>  
+>  	/* Flush+invalidate RW caches, invalidate RO ones. */
+>  	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+> @@ -1859,8 +1855,9 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+>  }
+>  
+> -static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
+> +static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+>  {
+> +	struct panthor_device *ptdev = pirq->ptdev;
+>  	struct panthor_mmu *mmu = ptdev->mmu;
+>  	bool has_unhandled_faults = false;
+>  
+> @@ -1923,6 +1920,11 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
+>  		panthor_sched_report_mmu_fault(ptdev);
+>  }
+>  
+> +static irqreturn_t panthor_mmu_irq_threaded_handler(int irq, void *data)
+> +{
+> +	return panthor_irq_default_threaded_handler(data, panthor_mmu_irq_handler);
+> +}
+> +
+>  /**
+>   * panthor_mmu_suspend() - Suspend the MMU logic
+>   * @ptdev: Device.
+> @@ -1947,7 +1949,7 @@ void panthor_mmu_suspend(struct panthor_device *ptdev)
+>  	}
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+>  
+> -	panthor_mmu_irq_suspend(&ptdev->mmu->irq);
+> +	panthor_irq_suspend(&ptdev->mmu->irq);
+>  }
+>  
+>  /**
+> @@ -1966,7 +1968,7 @@ void panthor_mmu_resume(struct panthor_device *ptdev)
+>  	ptdev->mmu->as.faulty_mask = 0;
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+>  
+> -	panthor_mmu_irq_resume(&ptdev->mmu->irq);
+> +	panthor_irq_resume(&ptdev->mmu->irq);
+>  }
+>  
+>  /**
+> @@ -1983,7 +1985,7 @@ void panthor_mmu_pre_reset(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_vm *vm;
+>  
+> -	panthor_mmu_irq_suspend(&ptdev->mmu->irq);
+> +	panthor_irq_suspend(&ptdev->mmu->irq);
+>  
+>  	mutex_lock(&ptdev->mmu->vm.lock);
+>  	ptdev->mmu->vm.reset_in_progress = true;
+> @@ -2020,7 +2022,7 @@ void panthor_mmu_post_reset(struct panthor_device *ptdev)
+>  
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+>  
+> -	panthor_mmu_irq_resume(&ptdev->mmu->irq);
+> +	panthor_irq_resume(&ptdev->mmu->irq);
+>  
+>  	/* Restart the VM_BIND queues. */
+>  	mutex_lock(&ptdev->mmu->vm.lock);
+> @@ -3352,7 +3354,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
+>  void panthor_mmu_unplug(struct panthor_device *ptdev)
+>  {
+>  	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
+> -		panthor_mmu_irq_suspend(&ptdev->mmu->irq);
+> +		panthor_irq_suspend(&ptdev->mmu->irq);
+>  
+>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+>  	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
+> @@ -3413,8 +3415,9 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  	if (irq <= 0)
+>  		return -ENODEV;
+>  
+> -	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
+> -				      ptdev->iomem + MMU_INT_BASE);
+> +	ret = panthor_irq_request(ptdev, &mmu->irq, irq,
+> +				  ptdev->iomem + MMU_INT_BASE, "mmu",
+> +				  panthor_mmu_irq_threaded_handler);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -3435,8 +3438,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	panthor_mmu_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
+> -	panthor_mmu_irq_resume(&mmu->irq);
+> +	panthor_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
+> +	panthor_irq_resume(&mmu->irq);
+>  	return 0;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+> index f2c2c3000590..dd7b6ef8ea20 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+> @@ -56,8 +56,9 @@ struct panthor_pwr {
+>  	wait_queue_head_t reqs_acked;
+>  };
+>  
+> -static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
+> +static void panthor_pwr_irq_handler(struct panthor_irq *pirq, u32 status)
+>  {
+> +	struct panthor_device *ptdev = pirq->ptdev;
+>  	struct panthor_pwr *pwr = ptdev->pwr;
+>  
+>  	spin_lock(&ptdev->pwr->reqs_lock);
+> @@ -75,7 +76,11 @@ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
+>  	}
+>  	spin_unlock(&ptdev->pwr->reqs_lock);
+>  }
+> -PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
+> +
+> +static irqreturn_t panthor_pwr_irq_threaded_handler(int irq, void *data)
+> +{
+> +	return panthor_irq_default_threaded_handler(data, panthor_pwr_irq_handler);
+> +}
+>  
+>  static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
+>  {
+> @@ -454,7 +459,7 @@ void panthor_pwr_unplug(struct panthor_device *ptdev)
+>  
+>  	/* Make sure the IRQ handler is not running after that point. */
+>  	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
+> -		panthor_pwr_irq_suspend(&ptdev->pwr->irq);
+> +		panthor_irq_suspend(&ptdev->pwr->irq);
+>  
+>  	/* Wake-up all waiters. */
+>  	spin_lock_irqsave(&ptdev->pwr->reqs_lock, flags);
+> @@ -484,13 +489,14 @@ int panthor_pwr_init(struct panthor_device *ptdev)
+>  	if (irq < 0)
+>  		return irq;
+>  
+> -	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq,
+> -				      pwr->iomem + PWR_INT_BASE);
+> +	err = panthor_irq_request(ptdev, &pwr->irq, irq,
+> +				  pwr->iomem + PWR_INT_BASE, "pwr",
+> +				  panthor_pwr_irq_threaded_handler);
+>  	if (err)
+>  		return err;
+>  
+> -	panthor_pwr_irq_enable_events(&pwr->irq, PWR_INTERRUPTS_MASK);
+> -	panthor_pwr_irq_resume(&pwr->irq);
+> +	panthor_irq_enable_events(&pwr->irq, PWR_INTERRUPTS_MASK);
+> +	panthor_irq_resume(&pwr->irq);
+>  	return 0;
+>  }
+>  
+> @@ -566,7 +572,7 @@ void panthor_pwr_suspend(struct panthor_device *ptdev)
+>  	if (!ptdev->pwr)
+>  		return;
+>  
+> -	panthor_pwr_irq_suspend(&ptdev->pwr->irq);
+> +	panthor_irq_suspend(&ptdev->pwr->irq);
+>  }
+>  
+>  void panthor_pwr_resume(struct panthor_device *ptdev)
+> @@ -574,5 +580,5 @@ void panthor_pwr_resume(struct panthor_device *ptdev)
+>  	if (!ptdev->pwr)
+>  		return;
+>  
+> -	panthor_pwr_irq_resume(&ptdev->pwr->irq);
+> +	panthor_irq_resume(&ptdev->pwr->irq);
+>  }
+> 
+> -- 
+> 2.55.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
