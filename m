@@ -4,84 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C06DAC5DF70
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 07:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0202FC5DF70
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 07:34:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2611A10E02F;
-	Tue, 18 Aug 2026 07:29:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E166C10EA37;
+	Tue, 18 Aug 2026 07:34:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MPCjR7xa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GVn6mRL4";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B18410E02F
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 07:29:55 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4954a2dba6cso3587815e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:29:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787038194; x=1787642994; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=3jTJ//eajjn4P7tJjJphCt0+k3XaL0BsSvnnhTQJhRM=;
- b=MPCjR7xa3t4oAzQSYSDMdbe0dK1kUXX7xv4I/TXr7bNTmHoWBx2m3eN6H9FTWgUhks
- gDz8i/nupJ/Uy9tC9kB0d3pHpHndE9C/iolil30h3flh+bPfClY8qEzjw6S7xyHyDYNQ
- gr93uVLfP/Y14xosDmlBYPWFhPUIzfJQCq3hgGHbbPmm9xRSQ4Aqf78uBdfOj34CGepa
- H/o585DmPTi4hiqdYoYK1S+hkd/YiGp3Hx335Ak3qCxRy5MZn6iEHxBYyz61wsFlOV2G
- GSrkb/cn3SUwaRBP0x7ckt91p/oo2f3P8DfY7SsBq1M6HGbCV5Uw9FCzxJJGM0kAtxz8
- 8bNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787038194; x=1787642994;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=3jTJ//eajjn4P7tJjJphCt0+k3XaL0BsSvnnhTQJhRM=;
- b=ShvEXhJ/4VKz1VKGeG2MGTr1wpBUhLR3B71ndRP1vyhecu4yp2cAPEp29yt7ZhvwJx
- QrD4hH4vyyG0jgxRqvucBsYX7lKCiPhvU/TOIgXoYZPqatSx9NTXJ0oUKYhUyxzTo+KS
- fNXaAM6JxXZJHm3g4dTCfUuKGXsc8RhAFY/5XHjxOcgTQGKNmBKR0V/kp2jNBKG5wJ6S
- 9nBW79alK3tLHWmAaQxXZYqoxbDw7TUYe3/86c9NrLqsdvxdWn04c6neCbNEnTT6cxDW
- eJmdR5v8M/DmLIGTKEphZpVd0jDFt30K6+JubYk4NHMdWzDMSny6Ka6U6OFqz6h8amr4
- MZ0Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq0AOsAmZWE60CqVKzsiJBkQFVZc/BrhIh+OcUzk/ENXrPs12YSMdJ86aivukQMZuAJjs19uaqgZno=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyOaby9En3uUyIlVc43Da4Nu/9zXcdUsRO4xD+dulkteVfThY+s
- NzEZa23vG0POX7b31IKwSRMtNGZ0IhNqf4EEXIR4SU7zfKqmnfoFKoRU
-X-Gm-Gg: AR+sD13wFHPY09m1ige5qGS0dfOa9YKeuPQSJxaNjG1s2C+F3b7YKErVMM6UiXMIQ0N
- fUTCWdnaya4m4+OYTD4F/GBFT5gsmnD9j9VSUjlrwU+xQRa3DLjsEBVXxQ6nJ1+aujMjsoOpQ8B
- y9ou0SZnTDbsQeRMKC8lMklrI3cqwNuFP26S3iuyPyq689nQI9SNmcznsm4sfjWyzQN0Lw/7T6p
- Ce6AFxChRPktOdsCrDAXHkBfWnvEzFq6PhT7+BdRIxCx8LtgwfaW/2qFdApuWwzqaaCTbvi77Mh
- k2uj288Hov75xacpqR645GUrQL8gWnX0cVt9Dc3pHsgToTLjeXxSbE1aS1LIJeDY31/vYtlspxU
- BLO15rij9djRA4zsnrNTzlgNXkUfuD3s3Fp+mZ6gD9CcRxfXO6HhKIrzrx5+f1CedzzSnqci2vi
- Vpl5xEdrvSfIfAE6Cwf7lDpAyU7Sh2aWIV2lAbGnm7GptujmyTK0wOeKYT13DmW2oCwwfzPkQ0R
- PMSDpSPzpaWyDVikGhgHY0vk04WB6bj8Svu0MTrBX3ywbwoOFX0pcImFTBf2AMHOCbrp2/94c/7
- otse
-X-Received: by 2002:a05:600c:a418:b0:499:a660:f4ae with SMTP id
- 5b1f17b1804b1-499a660f7f5mr1504845e9.1.1787038193769; 
- Tue, 18 Aug 2026 00:29:53 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B90C200E824DF014B0EC292.dsl.pool.telekom.hu.
- [2001:4c4e:1b90:c200:e824:df01:4b0e:c292])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49987b50869sm174877235e9.0.2026.08.18.00.29.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 00:29:53 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Igor Paunovic <royalnet026@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
- Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
- and some numbers
-Date: Tue, 18 Aug 2026 09:27:43 +0200
-Message-ID: <20260818072936.41844-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
-References: <20260801131656.58450-1-royalnet026@gmail.com>
- <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6BD410E204
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 07:34:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 41EBC4193B;
+ Tue, 18 Aug 2026 07:34:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDBF81F000E9;
+ Tue, 18 Aug 2026 07:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787038460;
+ bh=G9I4R3jOHLHOfWJOZBAE7WTG/IrAoqeaAXlK3GV6pUA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=GVn6mRL4S5AirIJhFQ4kWX7K86N66U/C3U5aowt9WbpNJquc5SRBUI8oDBQPSqVU8
+ JP2kMNaCBMDUPJrv1rBZGGbP16gpWAedUm7mwqRRF6LgNLdVSRldjHLdFySmP38V8Z
+ xb4CacYSummIFJEHa9H9eRIc49TmKlCpZbLb0SNamLv5DxPCi41wJZrnchr3OULa0l
+ 5hHa5lYNGpX0COHta7RSWUgjIdhUHdNePJ799c/ZV21WyjBVnBp6cXZBpYCMwOnZQm
+ 74veCqzNS9TXF7VWMHow/VsP/cZGUE8N0+do9mdWxGuE1Q1FzgvEY2/WaLvwwPif4K
+ we9z3X6S5zF4A==
+Date: Tue, 18 Aug 2026 09:34:14 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wim de With <wf@dewith.io>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Helge Deller <deller@gmx.de>, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] backlight: Add support for Orient Chip OCP8178
+Message-ID: <20260818-crazy-corgi-of-sorcery-abaa23@quoll>
+References: <20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io>
+ <20260816-ocp8178-backlight-v3-2-caf95c453c50@dewith.io>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260816-ocp8178-backlight-v3-2-caf95c453c50@dewith.io>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,57 +64,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Nicolas,
+On Sun, Aug 16, 2026 at 12:57:04PM +0200, Wim de With wrote:
+> Add a driver for the Orient Chip OCP8178 backlight controller.
+> 
+> The OCP8178 supports either PWM or a vendor-specific onewire protocol
+> over GPIO. This driver implements the onewire protocol, which enables
+> setting static brightness levels without requiring a continuous PWM
+> signal from the host CPU. Note that while the vendor calls the protocol
+> 1-Wire, it is not the 1-Wire protocol from Dallas Semiconductor as
+> implemented in drivers/w1.
+> 
+> Signed-off-by: Wim de With <wf@dewith.io>
+> Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+> ---
+>  MAINTAINERS                          |   1 +
+>  drivers/video/backlight/Kconfig      |  10 ++
+>  drivers/video/backlight/Makefile     |   1 +
+>  drivers/video/backlight/ocp8178_bl.c | 231 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 243 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3ca99d9c32ef1..7146e4dea8d78 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19682,6 +19682,7 @@ OCP8178 BACKLIGHT DRIVER
+>  M:	Wim de With <wf@dewith.io>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
+> +F:	drivers/video/backlight/ocp8178_bl.c
+>  
+>  OCXL (Open Coherent Accelerator Processor Interface OpenCAPI) DRIVER
+>  M:	Mahesh J Salgaonkar <mahesh@linux.ibm.com>
+> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+> index 7aa1c4b21111f..aa845230c5f58 100644
+> --- a/drivers/video/backlight/Kconfig
+> +++ b/drivers/video/backlight/Kconfig
+> @@ -226,6 +226,16 @@ config BACKLIGHT_LOCOMO
+>  	  If you have a Sharp Zaurus SL-5500 (Collie) or SL-5600 (Poodle) say y to
+>  	  enable the LCD/backlight driver.
+>  
+> +config BACKLIGHT_OCP8178
+> +	tristate "OCP8178 Backlight Driver"
+> +	depends on GPIOLIB
+> +	help
+> +	  If you have an Orient Chip OCP8178, say Y to enable the backlight
+> +	  driver.
+> +
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called ocp8178_bl.
+> +
+>  config BACKLIGHT_OMAP1
+>  	tristate "OMAP1 PWL-based LCD Backlight"
+>  	depends on ARCH_OMAP1 || COMPILE_TEST
+> diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+> index 21c8313cfb121..c4e87b708ae21 100644
+> --- a/drivers/video/backlight/Makefile
+> +++ b/drivers/video/backlight/Makefile
+> @@ -51,6 +51,7 @@ obj-$(CONFIG_BACKLIGHT_MAX25014)	+= max25014.o
+>  obj-$(CONFIG_BACKLIGHT_MAX8925)		+= max8925_bl.o
+>  obj-$(CONFIG_BACKLIGHT_MP3309C)		+= mp3309c.o
+>  obj-$(CONFIG_BACKLIGHT_MT6370)		+= mt6370-backlight.o
+> +obj-$(CONFIG_BACKLIGHT_OCP8178)		+= ocp8178_bl.o
+>  obj-$(CONFIG_BACKLIGHT_OMAP1)		+= omap1_bl.o
+>  obj-$(CONFIG_BACKLIGHT_PANDORA)		+= pandora_bl.o
+>  obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
+> diff --git a/drivers/video/backlight/ocp8178_bl.c b/drivers/video/backlight/ocp8178_bl.c
+> new file mode 100644
+> index 0000000000000..6c1e8c9451f12
+> --- /dev/null
+> +++ b/drivers/video/backlight/ocp8178_bl.c
+> @@ -0,0 +1,231 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Orient Chip OCP8178 Backlight Driver
+> + *
+> + * Copyright (C) 2026 Wim de With
+> + *
+> + * Author: Wim de With <wf@dewith.io>
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/irqflags.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +
+> +#define OCP8178_MAX_BRIGHTNESS 0x1F /* 5 bits */
+> +
+> +#define OCP8178_DEVICE_ADDRESS 0x72
+> +
+> +#define OCP8178_DATA_RFA BIT(7)
+> +#define OCP8178_DATA_ADDR GENMASK(6, 5)
+> +#define OCP8178_DATA_VALUE GENMASK(4, 0)
+> +
+> +#define OCP8178_1W_INIT_MAX_RETRIES 5
+> +#define OCP8178_1W_INIT_SLEEP_US (50 * 1000)
+> +
+> +#define OCP8178_T_OFF_US (3 * 1000) /* datasheet specifies at least 2.5 ms */
+> +#define OCP8178_1W_T_DELAY_US (100 + 10) /* 10 us as safety factor */
+> +#define OCP8178_1W_T_DETECT_US (260 + 10) /* 10 us as safety factor */
+> +#define OCP8178_1W_T_START_US 2
+> +#define OCP8178_1W_T_EOS_US 2
+> +#define OCP8178_1W_T_WIN_NS (1000 * 1000)
+> +
+> +/*
+> + * The datasheet specifies 1.7 Kbps to 160 Kbps.
+> + * 1 / (160 Kbps) is about 6.67 us, so using 7 us per bit should be fine.
+> + * T_HIGH + T_LOW = 7 us
+> + * T_HIGH > 2 * T_LOW for high bits
+> + * T_LOW > 2 * T_HIGH for low bits
+> + */
+> +#define OCP8178_1W_HIGH_BIT_T_LOW_US 2
+> +#define OCP8178_1W_HIGH_BIT_T_HIGH_US 5
+> +#define OCP8178_1W_LOW_BIT_T_LOW_US 5
+> +#define OCP8178_1W_LOW_BIT_T_HIGH_US 2
+> +
+> +struct ocp8178_bl {
+> +	struct device *dev;
+> +	struct gpio_desc *gpiod;
+> +};
+> +
+> +static int ocp8178_bl_enable_onewire(struct ocp8178_bl *ocp8178)
+> +{
+> +	u64 start, duration;
+> +
 
-> I'm only looking at the RK3588, I suppose all the issues below
-> related to RK3576 ?
+It seems you re-implemented one-wire interface instead of using w1. Why?
+What sort of one-wire bus/interface is this?
 
-No - everything in the RFC is RK3588 (Orange Pi 5 Plus, all three
-cores). RK3576 is Jiaxing's enablement series and has its own set of
-problems; nothing I reported came from there.
+Best regards,
+Krzysztof
 
-I went through the four commits on rock5b-npu-poc-4 today. We
-converged on the same shape independently, which is encouraging:
-200 MHz kept as the suspend rate, a single devfreq instance modelled
-on panfrost with busy time aggregated across the three cores, and a
-cooling device on top. Your ~2.5x on the SSD pipeline also matches
-the 2.58x I measured here with simple_ondemand against the 200 MHz
-pin.
-
-The TF-A pointer (rk3588_clk.c, PVTPLL vs normal path) is the most
-valuable part for me - it names the mechanism behind the power-on
-ack failure I could only demonstrate empirically. I will reference
-it in the cover letter once I have checked the firmware source
-myself.
-
-Status here: after Tomeu's go-ahead I am preparing the series -
-bindings, a full-range OPP table in the DT (300-1000 MHz plus the
-200 MHz suspend point, so essentially the table you ended up with),
-a safe-rate-on-suspend guard, the devfreq itself, and a hold-all
-guard that resumes all cores around any rate change. The guard is
-ordered before the devfreq patch so no bisect point has scaling
-without it. The one hard dependency is my "request the core clocks
-by name" v2, still waiting for pickup.
-
-Agreed on OPP staying optional - the plan in my series is that the
-driver keeps working with no OPP table in the DT, which I saw you
-intend to fix on your side as well.
-
-One path worth checking in your PoC, because it is the one that
-made me write the hold-all guard: a sysfs min_freq/max_freq write
-while all three cores are runtime-suspended goes straight to
-clk_set_rate, which can select the PVTPLL path while the domain is
-off - exactly the case your TF-A reference explains. With the guard
-in place I measured that write waking the cores and completing
-cleanly.
-
-One difference in test conditions worth keeping in mind: my numbers
-are with the vendor bl31 that EDK2 bundles, yours is upstream TF-A.
-Comparing SCMI behaviour on both seems wise before either of us
-claims anything firmware-specific.
-
-Thank you for the "take whatever you like" - anything I lift will
-carry credit, and I will Cc you on the series.
-
-Regards,
-Igor
