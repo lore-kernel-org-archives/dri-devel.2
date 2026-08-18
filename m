@@ -4,61 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22BEEC5DF81
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 15:54:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5EC7C5DF86
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 15:55:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80CD010EBDF;
-	Tue, 18 Aug 2026 15:54:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41B4110EBE1;
+	Tue, 18 Aug 2026 15:55:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JQFzjF3b";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Ui5KdUDl";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0149310EBE4
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 15:54:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8050D43D7B
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 15:53:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 66768C2BCFC
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 15:53:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1787068439;
- bh=M1AN7qqNSjkyeTLTJMmsw47nJCeRnPuvx9ejux0gu5M=;
- h=From:To:Subject:Date:In-Reply-To:References:From;
- b=JQFzjF3bCjKcivEFrzfwJnAd2HUic8rmwC4d3N8F/Ulv8eSJ8pLEbhhe+M6lZTF9A
- 1YjG+KCAxc5K70EBaiYXNoH75GOxJx79nIgzk5zWIjihDvWhFKOjJJav6E5jmDylx9
- Le2J0qxaNvQInga4tF4ZzscfvloN1O50CVK3z36eQJr/7zAcdZiURTJYdQYZFzPHRF
- qtR703jWO6g7rqb8gPHzp0sv3Ey3b/4uBuuJ7KK+pNSY1ypM3RgeyqZc3qIJcgVhIo
- sFb6KS5T25txK/UB9T1ThT56feNuxwQPSlQyeMMpKGArPwsNkWZjLzNLEEcU96mFf3
- 7wGzH09zilqPA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 55338C53BC5; Tue, 18 Aug 2026 15:53:59 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221827] Backlight regression with 7.1.6
-Date: Tue, 18 Aug 2026 15:53:59 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Product: Drivers
-X-Bugzilla-Component: Video(DRI - non Intel)
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: mario.limonciello@amd.com
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: ANSWERED
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-221827-2300-Jo68V2ojSY@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-221827-2300@https.bugzilla.kernel.org/>
-References: <bug-221827-2300@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 798B710EBDD;
+ Tue, 18 Aug 2026 15:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=Oib1sAGemzHmu6ROtRkEHyhCtwDTicVNKskycatCaao=; b=Ui5KdUDlipNO9Vm4nINkg/+v4R
+ bOUqu7BxrFpPjJPyyxL5/SQNc4/JySqtBdMrb5CyEz/IRILpW8+YnFuGzsaYbvWJv+9e0YtT8uwx/
+ eE0eXe6fRPjm1sfCVSmOReeGwtH7/zEHlNxdnu5tpHNRyMiy4cejksDu81kvbeMEFRTaItbMt/IGi
+ Q61CWpoF2IThZoi159FSHVf/TCVp1AzMzc9ZSRaQVSMkGFqvkSEm1dUtgG8Qvp88FNz5jkcBhNEOs
+ ACjeQ2XWgqHevHSOffjhKrvnRBjt4Y+4cNGXzMxdf7NzZpsvk2bac1B5a/UMTuKt7keKswSiklY2c
+ JG0mN6zA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wwM9g-00000008JC7-1PPo; Tue, 18 Aug 2026 15:55:12 +0000
+Message-ID: <916c4bd5-c73f-466e-8e9b-aee9d4d7d742@infradead.org>
+Date: Tue, 18 Aug 2026 08:55:11 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/12] drm/panic: Move panic display code into helper
+ library
+To: Thomas Zimmermann <tzimmermann@suse.de>, jfalempe@redhat.com,
+ javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260818125012.468092-1-tzimmermann@suse.de>
+ <20260818125012.468092-12-tzimmermann@suse.de>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260818125012.468092-12-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,13 +67,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221827
+Hi,
 
---- Comment #5 from Mario Limonciello (AMD) (mario.limonciello@amd.com) ---
-There was a revert in 7.1.y.  Can you make sure you got it?
+On 8/18/26 5:28 AM, Thomas Zimmermann wrote:
+>  M:	Hans de Goede <hansg@kernel.org>
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 323422861e8f..cdfd72d9a9c5 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -45,6 +45,7 @@ config DRM_MIPI_DSI
+>  config DRM_KMS_HELPER
+>  	tristate
+>  	depends on DRM
+> +	select DRM_PANIC_HELPER if DRM_PANIC
 
---=20
-You may reply to this email to add a comment.
+but DRM_PANIC_HELPER depends on DRM_TTM so
+DRM_KMS_HELPER should also depend on DRM_TTM. Otherwise:
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+WARNING: unmet direct dependencies detected for DRM_PANIC_HELPER
+  Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && DRM_TTM [=n]
+  Selected by [y]:
+  - DRM_KMS_HELPER [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_PANIC [=y]
+
+
+>  	select FB_CORE if DRM_FBDEV_EMULATION
+>  	help
+>  	  CRTC helpers for KMS drivers.
+> @@ -130,6 +131,10 @@ config DRM_PANIC_SCREEN_QR_VERSION
+>  	  Smaller QR code are easier to read, but will contain less debugging
+>  	  data. Default is 40.
+>  
+> +config DRM_PANIC_HELPER
+> +	bool
+> +	depends on DRM_TTM
+> +
+>  config DRM_RAS
+>  	bool "DRM RAS support"
+>  	depends on DRM
+
+-- 
+~Randy
+
