@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2D1CC5B572
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 00:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD20EC5B572
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 00:00:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E9F810E0FA;
-	Tue, 18 Aug 2026 00:00:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E70B10E46E;
+	Tue, 18 Aug 2026 00:00:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="yePPjarF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="zt9FI93q";
 	dkim-atps=neutral
-Received: from mta1.migadu.com (out-130.mta1.migadu.com [95.215.58.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A34D110E0FA
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:00:26 +0000 (UTC)
+Received: from mta1.migadu.com (out-133.mta1.migadu.com [95.215.58.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B97010E46E
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 00:00:29 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=9YTviN0pQkyHB9pt4A8hcNvUD8A4QhCACtCOAH1E4VE=; 
+DKIM-Signature: a=rsa-sha256; bh=meUpumca9lP5OxbRObx4U862YKjQ5EWm9nNoS0io+F8=; 
  c=simple/simple; d=kaitmazov.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787011224; v=1; x=1787616024;
- b=yePPjarFfrDmbI0eYq4KVcCLD1K69SN9LpMYybTg/Y+PCwcd/bKWuaaVBl5yCJ15Uy9RK68l
- v8tP/7t8moj0gGTdcwbcjjvIAhya6PNr50XnnWNhlgpogtZAfgmH5BLt7mFFQ9Bx4Cy2UVr5vmq
- vVAeUb736Z3wDNi8z2wYFiRIRIpA4733ZpQP/O8oYmB45aPgaOMooKRF58aymaWaT7DFpKbOrep
- ahIjx192MaqAf7pr5lVzQ3Qt5ourEEAv5NDxLnEsja3eH91J91rr1uqAZMOY7lHWTpsWQr/od5q
- LG5Sf/MMX+eDkkmItk5LVZ/MWYXGZpMpQ2hakMADQwkUw==
+ t=1787011227; v=1; x=1787616027;
+ b=zt9FI93q/1BWLecmVglOC0MSzlPtFlWkrP9sLAS/01HO+LKxe7lSmSlqMvc51ZmAQPeUXEOM
+ x+nJnZ/M9oEGgWPWS5XLsqQAS6vvpJ4/xv/Fj+X9/BjF07bs6VPLMFayWZsUfYjZ4IRQ12O8/W+
+ E0McGbntwZcWDKpc2vtPq0p2qM3jVYO514yL6hDCNJwMuYgFL3yT30WwC7DexyD1FSvwH3eXiQe
+ uAZrVdlHLfjtTJGcDrrxtm6AjBF8mc3oQDK4GOkptDhQjsh6/TYpVuJNGPYFeT80Y5KD+4kgIHE
+ RlqPrMJWHrhX84yDTC8aJyYlbjqQdDTp3fi1PxYzfKHwg==
 X-Envelope-To: dri-devel@lists.freedesktop.org
 Received: from cachyos-26.lan (193.42.111.69)
- by smtp.migadu.com with ESMTPS id 4045d3407932a546;
- Tue, 18 Aug 2026 00:00:24 +0000
+ by smtp.migadu.com with ESMTPS id fe0a1ba9551b2979;
+ Tue, 18 Aug 2026 00:00:17 +0000
 X-Migadu-Flow: FLOW_OUT
 From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-To: lizhi.hou@amd.com,
-	mamin506@gmail.com,
-	ogabbay@kernel.org
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-Subject: [PATCH] accel/amdxdna: reject a command chain that carries no commands
-Date: Tue, 18 Aug 2026 03:00:19 +0300
-Message-ID: <20260818000019.369366-1-taimuraz@kaitmazov.com>
+Subject: [PATCH] drm/cache: return early from a zero-length clflush
+Date: Tue, 18 Aug 2026 03:00:04 +0300
+Message-ID: <20260818000004.369311-1-taimuraz@kaitmazov.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -57,43 +56,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A chain whose command_count is zero passes the payload length check,
-because struct_size(payload, data, 0) is just the header. The fill loop
-then does not run, so offset stays zero and the request is submitted with
-a zero-length buffer.
+drm_clflush_virt_range() ends with an unconditional clflushopt(end - 1) to
+force serialisation. For a zero-length range end equals addr, so it reads
+the byte before the region. Where that byte is the guard page below a vmap,
+the read faults:
 
-On firmware without AIE2_NPU_COMMAND that ends at the opcode check, since
-op is still ERT_INVALID_CMD and aie2_get_chain_msg_op() answers
-MSG_OP_MAX_OPCODE. aie2_get_npu_chain_msg_op() answers
-MSG_OP_CHAIN_EXEC_NPU whatever it is given, so there the submission
-continues to drm_clflush_virt_range(cmd_buf, 0), which reads the byte
-before the buffer and faults on the vmap guard page. EXEC_CMD is
-reachable by any process that can open the render node.
+  BUG: unable to handle page fault for address: ffffd16fbbc70fff
+  #PF: supervisor read access in kernel mode
+  RIP: 0010:drm_clflush_virt_range+0x3c/0x70
 
-Reject the request instead.
+Reproduced through amdxdna's SYNC_BO ioctl, which passed a caller-supplied
+length straight through, so any process able to open that render node
+oopsed the kernel.
+
+clflush_cache_range_opt(), which this mirrors, already answers an empty
+range with "if (p >= vend) return", and has no trailing flush to make the
+case special. Do the same here, above the CONFIG_X86 test so an empty range
+stops calling wbinvd_on_all_cpus() on a CPU without CLFLUSH as well.
+
+The other callers are safe today by their own construction rather than by
+anything this helper does: of the 54 in the tree, 33 pass a compile-time
+constant, and of the rest only i915's phys pread/pwrite pair takes a length
+from userspace, which i915_gem_pread_ioctl() and i915_gem_pwrite_ioctl()
+reject at zero before it gets there.
 
 Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 ---
-drm_clflush_virt_range() faulting on an empty range is a core problem, and a
-patch for it is on the list separately. This rejects the request in the driver
-regardless, since a chain carrying no commands is not something to submit.
+ drivers/gpu/drm/drm_cache.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- drivers/accel/amdxdna/aie2_message.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
-index dfe0fbdf066d..b4c49259a1a2 100644
---- a/drivers/accel/amdxdna/aie2_message.c
-+++ b/drivers/accel/amdxdna/aie2_message.c
-@@ -994,7 +994,7 @@ int aie2_cmdlist_multi_execbuf(struct amdxdna_hwctx *hwctx,
- 	}
- 
- 	ccnt = payload->command_count;
--	if (payload_len < struct_size(payload, data, ccnt)) {
-+	if (!ccnt || payload_len < struct_size(payload, data, ccnt)) {
- 		XDNA_DBG(xdna, "Invalid command count %d", ccnt);
- 		return -EINVAL;
- 	}
+diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
+index ea1d2d5d2c66..86abee80e5fe 100644
+--- a/drivers/gpu/drm/drm_cache.c
++++ b/drivers/gpu/drm/drm_cache.c
+@@ -156,6 +156,9 @@ EXPORT_SYMBOL(drm_clflush_sg);
+ void
+ drm_clflush_virt_range(void *addr, unsigned long length)
+ {
++	if (!length)
++		return;
++
+ #if defined(CONFIG_X86)
+ 	if (static_cpu_has(X86_FEATURE_CLFLUSH)) {
+ 		const int size = boot_cpu_data.x86_clflush_size;
 -- 
 2.55.0
 
