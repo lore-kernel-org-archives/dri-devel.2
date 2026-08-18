@@ -4,63 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 309FDC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32040C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCE9710ED1D;
-	Wed, 19 Aug 2026 06:37:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A133F10EA8B;
+	Wed, 19 Aug 2026 06:37:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=accessweb.be header.i=@accessweb.be header.b="SdZFpozr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UgFQq5Zr";
 	dkim-atps=neutral
-Received: from pan.awservers.eu (pan.awservers.eu [149.202.17.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60F9010E46A
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 01:08:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=accessweb.be; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9JWkZGwNXyEm/7YQK3ZjEkyYO4xVPD47m/cjM12w06g=; b=SdZFpozrEDJhaMje08bwBZE6sk
- KB8skpKp9rK54k/PgU7/dm1mwlY3s3uEJ6+AwrOvYdlQqOSwLCDnbStbffzqKmJ/UQmxnPFzr974r
- EbjN0GoPW7TD68rnA11IZsDqysP98gLRpp8PIYnacTRYWNPNmFfgA7jeFFrBiPEIgRoXia/vZhwN8
- B1Dy1DieGjYFmyzkZZz2WizlrMoyAKL9Z3gxVEKLLth44o38JPfPN5XPBAseH6V585xJWhBkCK0Lf
- lMXnQOBx8WRrMcMTqRqjvsLUdPCB/2cw1Gz1xGSVuvIE2rKPrCZLLgIy1XweMwgMa04mwAlRnlaPB
- 6DPp8otg==;
-Received: from [195.240.176.17] (port=36660 helo=[192.168.2.230])
- by pan.awservers.eu with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.99.5) (envelope-from <jellis@accessweb.be>)
- id 1ww8JQ-00000004prX-1ci3; Tue, 18 Aug 2026 03:08:18 +0200
-Message-ID: <b0b0caf9-ca76-4f93-9495-d386d313fad1@accessweb.be>
-Date: Tue, 18 Aug 2026 03:08:17 +0200
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAEF10E4F1
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 16:09:28 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-cc11a30a259so3791624a12.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 09:09:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787069368; x=1787674168; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=jtbdktcDMHK2UUilb3s7er2LASWhJy/LqRbzLHdr7EI=;
+ b=UgFQq5ZraO7jsnAABQq5K17MIZ9vvF/4rIKzfeC+XAUg567RiGg+hSlJIbl3YgS0FQ
+ cZ89w/LW4QdOos8cjIf3TyMD0LPJEr7crvbynPWeP/1gbeWSdD3ZohnL3vw2mXcfsRxI
+ CngesAVnze0Gx5Qr4BiMXpslQ7QP9Gni2R7j7b2ZYzDEWjgMBq3VO+JVgBPay9LmGIGv
+ VC//VHSTfds2sIcoxwNZhf2EqFj4PnZebC6iU3SVDQrxRtk6MkHl+8HlSXqB3GMFVyQe
+ +VIHBzVD7lekLSrNYQUmoRacxLD5cjCYtQlT/3zWEew5Ng1/CWwR+h0CocDlUs/Z7uhB
+ xnbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787069368; x=1787674168;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=jtbdktcDMHK2UUilb3s7er2LASWhJy/LqRbzLHdr7EI=;
+ b=pGHoK+0FBUFy5TPYQflFA+GsPidHeA8E1q0r0JkqoHX28/tKCS5GDrhIadHuBeoEq3
+ O4hJBNwyhBLH+ENDXDunBmJqxdLplClIM+GWl8DkuQMHHq5Bf3G5gBL1knHeLYOvRLQp
+ awgMV3jiNSgl/A1kkf+/G7YMVZihwM49ShGSMcLyXJGew4rsx5yidsB7k1M3DCisILQj
+ imbqww0h1DlinQ1baH4vULQydzhx9jM8DRjzEbEG/lSKtTX6Ra5oSPhdy/kY8VQae6FX
+ 4YvmTmj775Owy5uhlLo+OezYhb6BJ6RvIcvHR1bR1UebWI6fqr3XIrR+knaQuD7RiRFn
+ Vtrg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp+sl0N3nIM7xfsHBeVWP40q/1TY8gvYu5471rxV3qV/UCkJ+aoRxxPYwi+FIllzv+YlVjkLTbF+Zg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw86aQvNpFJCbK12VBZwZh98jVG7MimP5ya7qazMKKIAwO8YCBX
+ G9tKiNMktk0S0gBLi9oaCc3kawKuUsi3iHgLt3lTilOo0ZPmWZG9YyVG
+X-Gm-Gg: AR+sD10gai004lFLu16IguNkE8c9S9PQIlsw1MkSXvO5xAsebXYU9hFxGauy04Y1xx3
+ ay5nl4CQEA6q+kDANnNQhd1AUfha7GrbEbcMxiyJ3z06XT1xj+8Awkyku9wL4kIKbOxKcL2sh/r
+ hmRM99OPau58mK7PTL8qwqrhSSZJv7oXjLfYZ0cqFbSfhmyNSa/kFzoejLe2eqnPdwSMxtm7Yis
+ uemg4JQblYUs9IWJcZKyA8PeFkb40LIT5EAQRYWZH/a4BsNjaKEyrIBmOugrM/49G2j313HDb9x
+ NFcToV8yaRng/kqfUihgqR/5I/ZTE0sVorl3qvFIyBLz1NEqeoZbe8MV0VpCR7B8RJepyYnCg9k
+ yVN+Ivxag8wgk4WxmVz8idANDKcx1+cXI8+Za3vv+3KQbapjIhrtDDe2H0s2dLUCLxgApo09asG
+ Gs1iM3Zdp0v6RmmQw+o9e2LU31vGnRzbJIatIb1MnjNoi5JikUr5Fyx5VNockL8q9O3rTO29jTv
+ l0NlwMtcQsqBYEygztNsVBDkPSGU/IQLpXrf+IryDMNc6j3sDrFE5jv/DCI5eozuWJC
+X-Received: by 2002:a05:6a20:938c:b0:3bf:7081:9356 with SMTP id
+ adf61e73a8af0-3cc71d5627amr41562410637.17.1787069368457; 
+ Tue, 18 Aug 2026 09:09:28 -0700 (PDT)
+Received: from LAPTOP-M4N25KQ5.tail73068d.ts.net
+ (1-160-197-194.dynamic-ip.hinet.net. [1.160.197.194])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc1469e2e5esm1007767a12.5.2026.08.18.09.09.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Aug 2026 09:09:28 -0700 (PDT)
+From: Sean Chang <seanwascoding@gmail.com>
+To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Sean Chang <seanwascoding@gmail.com>
+Subject: [PATCH v1 2/2] drm/ttm: make ttm_swap_ops static
+Date: Wed, 19 Aug 2026 00:09:14 +0800
+Message-ID: <20260818160914.108313-3-seanwascoding@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260818160914.108313-1-seanwascoding@gmail.com>
+References: <20260818160914.108313-1-seanwascoding@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
- are released
-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>, zack.rusin@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
-References: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
- <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
- <363bcf88-1f13-46c0-9dbc-aa21102ab397@accessweb.be>
- <55b08fb3-cc29-4c2a-bbe5-26742de77614@broadcom.com>
-Content-Language: en-US
-From: Jellis Onsea | AccessWeb <jellis@accessweb.be>
-In-Reply-To: <55b08fb3-cc29-4c2a-bbe5-26742de77614@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pan.awservers.eu
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - accessweb.be
-X-Get-Message-Sender-Via: pan.awservers.eu: authenticated_id:
- jellis@accessweb.be
-X-Authenticated-Sender: pan.awservers.eu: jellis@accessweb.be
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,91 +97,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maaz,
+ttm_swap_ops is not used outside ttm_bo.c and is not exported via
+EXPORT_SYMBOL(), so give it static linkage to keep it file-local
+and avoid polluting the global symbol namespace.
 
-Yes, it is set up here now.
+Signed-off-by: Sean Chang <seanwascoding@gmail.com>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-One practical detail: 26.1.7 never reached this machine. Arch upgraded 
-us from 26.1.6 to 26.2.0 in one step on 17 August, so rather than the 
-release I am using the build we made on 7 August, which is 26.1.6 with 
-your commit 2ed36c6 applied. I diffed that tree against the mesa-26.1.7 
-tag: src/gallium/winsys/svga/ and src/gallium/drivers/svga/ are 
-identical, so for the svga paths it is that version. Our vmwgfx module 
-reports 2.21.0.0, so have_drm_2_21 is true and the new branch is the one 
-that runs.
-
-Results will take a day or two, and I would rather explain why than send 
-you a number too early. With 3D enabled our leak has run between 5 and 
-161 MB/hour, and the debugfs counter we track is logged in 10 MB steps, 
-so a short window cannot resolve it. A ten-minute run last night came 
-out flat, which says nothing either way. I will run a multi-hour window 
-on stock mesa and an identical window on the patched build, under the 
-same synthetic render load, and send you both.
-
-Two things you may want to know in the meantime.
-
-First, mesa 26.2.0 does not contain your fix. It was tagged on 5 August, 
-a week before 26.1.7, so it predates the backport:
-
-   mesa-26.1.6         29 Jul 2026   absent
-   mesa-26.2.0         05 Aug 2026   absent    (what Arch ships today)
-   mesa-26.1.7         12 Aug 2026   present
-   origin/staging/26.2               present
-   origin/main                       present
-
-In the 26.2.0 tree, vmw_screen_dri.c:331 still reads
-
-   ret = drmPrimeHandleToFD(vws->ioctl.drm_fd, vsrf->sid, ...)
-
-staging/26.2 and main both carry the fix, so 26.2.1 should bring it 
-along. Until then every distribution that moves from 26.1.7 to 26.2.0 
-loses it again.
-
-Second, enabling 3D on 26.2.0 took our desktop down, in the dmabuf path:
-
-   dmabuf import failed to mmap: Invalid argument   (x4)
-   plasma-plasmashell.service: Main process exited, code=dumped, 
-status=11/SEGV
-
-There is one reliable way to trigger it: hovering the mouse over a task 
-manager icon of a running window, so that Plasma raises the window 
-thumbnail preview. That killed plasmashell every single time. As long as 
-we stayed away from those icons the session looked stable. A thumbnail 
-preview is a dmabuf import of another client's buffer, which fits the 
-error above.
-
-Once it starts, systemd restarts plasmashell, the shell rebuilds the 
-panel and dies again: three crashes within eight seconds, then the 
-restart limit gave up and we were left with an empty desktop. A manual 
-restart behaved the same way.
-
-The precondition is 3D enabled together with LIBGL_ALWAYS_SOFTWARE=1, 
-which is the configuration in our original report of 5 August. Removing 
-that variable, so the session really runs on svga, makes it stable: the 
-same hover over the same icons is now uneventful, and the desktop has 
-been up since.
-
-I am not claiming your fix addresses that. We have not tested it, and 
-this was on 26.2.0, which does not have it. But it is the same handle 
-export path and it is now reproducible on demand here, which it was not 
-before. If a backtrace or an strace of the failing mmap would help, say 
-the word.
-
-Finally, a small thing in the patch itself, which does not affect us 
-since we are on 2.21: in vmw_drm_surface_get_handle(), ret is declared 
-uninitialised, and when have_drm_2_21 is false while vsrf->buf is 
-non-NULL neither branch assigns it. The following "if (ret)" then reads 
-an indeterminate value.
-
-
-Best regards,
-Jellis
-
-Op 18-08-2026 om 00:02 schreef Maaz Mombasawala:
-> For the 3D enabled case, that sounds a lot like the memory leak for which I submitted the
-> fix to mesa recently. The fix has been included in mesa version 26.1.7, could you try with
-> that version? I see you're using mesa 26.1.6 right now.
-> 
-
-
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 943297b49dc5..1b9477381a1d 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -1449,7 +1449,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+ 	return ret;
+ }
+ 
+-const struct ttm_lru_walk_ops ttm_swap_ops = {
++static const struct ttm_lru_walk_ops ttm_swap_ops = {
+ 	.process_bo = ttm_bo_swapout_cb,
+ };
+ 
+-- 
+2.43.0
 
