@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4DEAC5DF74
-	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 13:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60629C5DF7D
+	for <dri-devel@archiver.kernel.org>; Tue, 18 Aug 2026 13:54:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13F6710EB8F;
-	Tue, 18 Aug 2026 13:54:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C800910EB8C;
+	Tue, 18 Aug 2026 13:54:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eGF6w5yx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bp9Z+Vp+";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7DC710EB8F;
- Tue, 18 Aug 2026 13:54:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A47D10EB88;
+ Tue, 18 Aug 2026 13:54:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787061268; x=1818597268;
+ t=1787061272; x=1818597272;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=DPjm7sgMqMzsCMcjBj3QiaicJ7Gsy/dNZ9Yc2mKefRc=;
- b=eGF6w5yx8CPaBfrwApNonUoVga56Wh1IwTYlpxl95X79rj3nA32alDIl
- 2ZvyGbmPJK4Sf+Lh0Y1WWUpSj5x7+dvEOkxNlT0R9BsrBSQcbgn3RjPzu
- /G3uyGas+8WWoFiCH4u0Xum4wg38/incLO6X+MuPf0IQEUPyac36EgAwn
- SBzw+7qmpsHgHeMRvMb2t/OVMoZAdU9c3t2rAijL+BKbnzrA8bX5YAjEl
- LyDEC7FLFAvkd6Av1M3XpUCY2ECwbG112rKrJiqItFIvU/c8raTKi1BVI
- DX37UdqPWutyl8V1mRnwoPq2VNYQA3fr6GW0DZYH5I4vPr5LBxqmEnx0L w==;
-X-CSE-ConnectionGUID: akh2rgHtSm6o87l/DYlmZQ==
-X-CSE-MsgGUID: 9sggWPSlQ6aCaiNdpyPJIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87315129"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="87315129"
+ bh=PRX+QQRVBBmXx5yB7dxsVaNgLX6dCzYdOf8myWTPm0Y=;
+ b=bp9Z+Vp+VDYWo/QqUe3VuVhrXJpjdRGBYM0MMGIErRNvGVxHW3fu11Xg
+ Kfbk/6akqUkCClPLYQ1LfLLu0A1+ZCWpJGdKvSpCyMPvzT+qCBq/5mN+v
+ dmLwxLztvRzO51TMIkGKVqrzY9z2brwfzaUbwREThmP1PGQ9zKK12t/sF
+ VuF9mfwqzfrgkRx35bZySHcjUZVLF8zSgOhOAs6qMZGQkX1NLZBtAzG2W
+ EGHN4Rz8qAbdbFLCt7HuzEsOhS0K4gUUX0KGNAh7mZdPfOh4rrdphhnLr
+ oTh6B0bJPW7NpyLdtz9af6GQ7xm8OpfA8gvqAlYCx5YCLRBOcO6O+aD3p g==;
+X-CSE-ConnectionGUID: UUdY5Ca6SmWZ/KNw6MbFwQ==
+X-CSE-MsgGUID: ae7RdS+yTOaP9+xAzgkgpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87315141"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="87315141"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2026 06:54:27 -0700
-X-CSE-ConnectionGUID: oHw2hInqR76GYQxmeX4tYg==
-X-CSE-MsgGUID: 0m1hfnlHSQWFyqlaEcOS0A==
+ 18 Aug 2026 06:54:32 -0700
+X-CSE-ConnectionGUID: RF+3cn2TTwGch5wqfXSbOg==
+X-CSE-MsgGUID: FsGMXe3tSZiRiraEwCOh/g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="261021591"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="261021599"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa006.fm.intel.com with ESMTP; 18 Aug 2026 06:54:22 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 18 Aug 2026 06:54:27 -0700
 From: Raag Jadav <raag.jadav@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  netdev@vger.kernel.org
@@ -50,9 +50,9 @@ Cc: simona.vetter@ffwll.ch, airlied@gmail.com, kuba@kernel.org,
  riana.tauro@intel.com, michal.wajdeczko@intel.com,
  matthew.d.roper@intel.com, mallesh.koujalagi@intel.com,
  Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v6 2/5] drm/ras: Introduce error threshold
-Date: Tue, 18 Aug 2026 19:22:06 +0530
-Message-ID: <20260818135304.497098-3-raag.jadav@intel.com>
+Subject: [PATCH v6 3/5] drm/xe/ras: Add support for error threshold
+Date: Tue, 18 Aug 2026 19:22:07 +0530
+Message-ID: <20260818135304.497098-4-raag.jadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818135304.497098-1-raag.jadav@intel.com>
 References: <20260818135304.497098-1-raag.jadav@intel.com>
@@ -73,451 +73,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add get-error-threshold and set-error-threshold command support which
-allows querying/setting error threshold of the counter. Threshold in RAS
-context means the number of errors the hardware is expected to accumulate
-before it raises them to software. This is to have a fine grained control
-over error notifications that are raised by the hardware.
+System controller allows getting/setting per counter threshold for
+correctable errors, which it uses to raise error events to the driver.
+Get/set it using the respective mailbox command.
 
 Signed-off-by: Raag Jadav <raag.jadav@intel.com>
 Reviewed-by: Riana Tauro <riana.tauro@intel.com>
 ---
-v2: Document threshold definition (Riana)
-    Return -EOPNOTSUPP on threshold callbacks absence (Riana)
-    Cancel and free genlmsg on failure (Riana)
-    Document threshold bounds checking responsibility (Riana)
-v3: Move documentation from yaml to rst file (Riana)
-    s/value/threshold (Riana)
-    Use goto for error handling (Riana)
-v4: Clarify 0 threshold expectations (Riana)
-    Drop redundant wrapping (Riana)
-v5: Drop redundant documentation (Riana)
-    Aesthetic adjustment (Riana)
+v2: Add RAS operation status codes (Riana)
+v3: Reuse status codes and uapi mapping from counter series (Riana)
+    Access request/response counter using local pointer (Riana)
+    Mark unused field as reserved (Riana)
+v4: Make debug logs consistent (Riana)
+    Update kdoc (Riana)
+v6: Check for valid counter
 ---
- Documentation/gpu/drm-ras.rst            |  18 +++
- Documentation/netlink/specs/drm_ras.yaml |  32 +++++
- drivers/gpu/drm/drm_ras.c                | 158 +++++++++++++++++++++++
- drivers/gpu/drm/drm_ras_nl.c             |  27 ++++
- drivers/gpu/drm/drm_ras_nl.h             |   4 +
- include/drm/drm_ras.h                    |  29 +++++
- include/uapi/drm/drm_ras.h               |   3 +
- 7 files changed, 271 insertions(+)
+ drivers/gpu/drm/xe/xe_ras.c                   | 111 ++++++++++++++++++
+ drivers/gpu/drm/xe/xe_ras.h                   |   2 +
+ drivers/gpu/drm/xe/xe_ras_types.h             |  50 ++++++++
+ drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |   4 +
+ 4 files changed, 167 insertions(+)
 
-diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
-index 406e4c49bac1..c4ce24067d4b 100644
---- a/Documentation/gpu/drm-ras.rst
-+++ b/Documentation/gpu/drm-ras.rst
-@@ -57,6 +57,10 @@ User space tools can:
- * Clear specific error counters with the ``clear-error-counter`` command, using both
-   ``node-id`` and ``error-id`` as parameters.
- * Subscribe to the ``error-report`` multicast group to receive ``error-event``.
-+* Query specific error counter threshold with the ``get-error-threshold`` command, using both
-+  ``node-id`` and ``error-id`` as parameters.
-+* Set specific error counter threshold with the ``set-error-threshold`` command, using
-+  ``node-id``, ``error-id`` and ``error-threshold`` as parameters.
- 
- YAML-based Interface
- --------------------
-@@ -132,3 +136,17 @@ Example: Subscribe to ``error-report`` multicast group
-             "error-value": 1
-         }
-     }
-+
-+Example: Query error threshold of a given counter
-+
-+.. code-block:: bash
-+
-+    sudo ynl --family drm_ras --do get-error-threshold --json '{"node-id":0, "error-id":1}'
-+    {'error-id': 1, 'error-name': 'error_name1', 'error-threshold': 16}
-+
-+Example: Set error threshold of a given counter
-+
-+.. code-block:: bash
-+
-+    sudo ynl --family drm_ras --do set-error-threshold --json '{"node-id":0, "error-id":1, "error-threshold":8}'
-+    None
-diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
-index 8aed3d4515e5..4c2ac9a1ba3f 100644
---- a/Documentation/netlink/specs/drm_ras.yaml
-+++ b/Documentation/netlink/specs/drm_ras.yaml
-@@ -69,6 +69,10 @@ attribute-sets:
-         name: error-value
-         type: u32
-         doc: Current value of the requested error counter.
-+      -
-+        name: error-threshold
-+        type: u32
-+        doc: Error threshold of the counter.
-   -
-     name: error-event-attrs
-     attributes:
-@@ -167,6 +171,34 @@ operations:
-           - error-id
-           - error-name
-           - error-value
-+    -
-+      name: get-error-threshold
-+      doc: >-
-+           Retrieve error threshold of a given counter.
-+           The response includes the id, the name, and current threshold
-+           of the counter.
-+      attribute-set: error-counter-attrs
-+      flags: [admin-perm]
-+      do:
-+        request:
-+          attributes: *id-attrs
-+        reply:
-+          attributes:
-+            - error-id
-+            - error-name
-+            - error-threshold
-+    -
-+      name: set-error-threshold
-+      doc: >-
-+           Set error threshold of a given counter.
-+      attribute-set: error-counter-attrs
-+      flags: [admin-perm]
-+      do:
-+        request:
-+          attributes:
-+            - node-id
-+            - error-id
-+            - error-threshold
- 
- mcast-groups:
-   list:
-diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-index 4fa1a257b0ed..b099eb67836e 100644
---- a/drivers/gpu/drm/drm_ras.c
-+++ b/drivers/gpu/drm/drm_ras.c
-@@ -46,6 +46,13 @@
-  * 5. ERROR_EVENT: Report an error event to userspace. The event contains device, node
-  *    and error information that triggered the event.
-  *
-+ * 6. GET_ERROR_THRESHOLD: Query error threshold of a given counter.
-+ *    Userspace must provide Node ID and Error ID.
-+ *    Returns the error threshold of a specific counter.
-+ *
-+ * 7. SET_ERROR_THRESHOLD: Set error threshold of a given counter.
-+ *    Userspace must provide Node ID, Error ID and threshold to be set.
-+ *
-  * Node registration:
-  *
-  * - drm_ras_node_register(): Registers a new node and assigns
-@@ -66,6 +73,13 @@
-  *     + The error counters in the driver doesn't need to be contiguous, but the
-  *       driver must return -ENOENT to the query_error_counter as an indication
-  *       that the ID should be skipped and not listed in the netlink API.
-+ *     + The driver can optionally implement query_error_threshold() and
-+ *       set_error_threshold() callbacks to facilitate getting/setting error
-+ *       threshold of the counter. Threshold in RAS context means the number of
-+ *       errors the hardware is expected to accumulate before it raises them to
-+ *       software. This is to have a fine grained control over error notifications
-+ *       that are raised by the hardware.
-+ *     + The driver is responsible for error threshold bounds checking.
-  *
-  * Netlink handlers:
-  *
-@@ -77,6 +91,10 @@
-  *   operation, fetching a counter value from a specific node.
-  * - drm_ras_nl_clear_error_counter_doit(): Implements the CLEAR_ERROR_COUNTER doit
-  *   operation, clearing a counter value from a specific node.
-+ * - drm_ras_nl_get_error_threshold_doit(): Implements the GET_ERROR_THRESHOLD doit
-+ *   operation, fetching the error threshold of a specific counter.
-+ * - drm_ras_nl_set_error_threshold_doit(): Implements the SET_ERROR_THRESHOLD doit
-+ *   operation, setting the error threshold of a specific counter.
-  */
- 
- static DEFINE_XARRAY_ALLOC(drm_ras_xa);
-@@ -173,6 +191,40 @@ static int get_node_error_counter(u32 node_id, u32 error_id,
- 	return node->query_error_counter(node, error_id, name, value);
+diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+index d25d25f77531..de4cb9ef7355 100644
+--- a/drivers/gpu/drm/xe/xe_ras.c
++++ b/drivers/gpu/drm/xe/xe_ras.c
+@@ -661,6 +661,117 @@ int xe_ras_clear_counter(struct xe_device *xe, u8 severity, u8 component)
+ 	return 0;
  }
  
-+static int get_node_error_threshold(u32 node_id, u32 error_id, const char **name, u32 *threshold)
++/**
++ * xe_ras_get_threshold() - Get error counter threshold
++ * @xe: Xe device instance
++ * @severity: Error severity to be queried (&enum drm_xe_ras_error_severity)
++ * @component: Error component to be queried (&enum drm_xe_ras_error_component)
++ * @threshold: Counter threshold
++ *
++ * This function retrieves the error threshold of a specific counter based on
++ * severity and component.
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++int xe_ras_get_threshold(struct xe_device *xe, u8 severity, u8 component, u32 *threshold)
 +{
-+	struct drm_ras_node *node;
-+
-+	node = xa_load(&drm_ras_xa, node_id);
-+	if (!node)
-+		return -ENOENT;
-+
-+	if (!node->query_error_threshold)
-+		return -EOPNOTSUPP;
-+
-+	if (error_id < node->error_counter_range.first || error_id > node->error_counter_range.last)
-+		return -EINVAL;
-+
-+	return node->query_error_threshold(node, error_id, name, threshold);
-+}
-+
-+static int set_node_error_threshold(u32 node_id, u32 error_id, u32 threshold)
-+{
-+	struct drm_ras_node *node;
-+
-+	node = xa_load(&drm_ras_xa, node_id);
-+	if (!node)
-+		return -ENOENT;
-+
-+	if (!node->set_error_threshold)
-+		return -EOPNOTSUPP;
-+
-+	if (error_id < node->error_counter_range.first || error_id > node->error_counter_range.last)
-+		return -EINVAL;
-+
-+	return node->set_error_threshold(node, error_id, threshold);
-+}
-+
- static int msg_reply_value(struct sk_buff *msg, u32 error_id,
- 			   const char *error_name, u32 value)
- {
-@@ -219,6 +271,22 @@ static int msg_put_error_event_attrs(struct sk_buff *msg, struct drm_ras_node *n
- 	return nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE, value);
- }
- 
-+static int msg_reply_threshold(struct sk_buff *msg, u32 error_id, const char *error_name,
-+			       u32 threshold)
-+{
++	struct xe_ras_get_threshold_response response = {};
++	struct xe_ras_get_threshold_request request = {};
++	struct xe_sysctrl_mailbox_command command = {};
++	struct xe_ras_error_class *counter;
++	size_t len;
 +	int ret;
 +
-+	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID, error_id);
-+	if (ret)
++	counter = &request.counter;
++	counter->common.severity = drm_to_xe_ras_severity(severity);
++	counter->common.component = drm_to_xe_ras_component(component);
++
++	xe_sysctrl_create_command(&command, XE_SYSCTRL_GROUP_GFSP, XE_SYSCTRL_CMD_GET_THRESHOLD,
++				  &request, sizeof(request), &response, sizeof(response));
++
++	guard(xe_pm_runtime)(xe);
++	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
++	if (ret) {
++		xe_err(xe, "sysctrl: failed to get threshold %d\n", ret);
 +		return ret;
-+
-+	ret = nla_put_string(msg, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_NAME, error_name);
-+	if (ret)
-+		return ret;
-+
-+	return nla_put_u32(msg, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD, threshold);
-+}
-+
- static int doit_reply_value(struct genl_info *info, u32 node_id,
- 			    u32 error_id)
- {
-@@ -258,6 +326,43 @@ static int doit_reply_value(struct genl_info *info, u32 node_id,
- 	return ret;
- }
- 
-+static int doit_reply_threshold(struct genl_info *info, u32 node_id, u32 error_id)
-+{
-+	const char *error_name;
-+	struct sk_buff *msg;
-+	struct nlattr *hdr;
-+	u32 threshold;
-+	int ret;
-+
-+	msg = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	hdr = genlmsg_iput(msg, info);
-+	if (!hdr) {
-+		ret = -EMSGSIZE;
-+		goto free_msg;
 +	}
 +
-+	ret = get_node_error_threshold(node_id, error_id, &error_name, &threshold);
-+	if (ret)
-+		goto cancel_msg;
++	if (len != sizeof(response)) {
++		xe_err(xe, "sysctrl: unexpected get threshold response length %zu (expected %zu)\n",
++		       len, sizeof(response));
++		return -EIO;
++	}
 +
-+	ret = msg_reply_threshold(msg, error_id, error_name, threshold);
-+	if (ret)
-+		goto cancel_msg;
++	if (!ras_counter_is_valid(xe, &response.counter))
++		return -EBADMSG;
 +
-+	genlmsg_end(msg, hdr);
++	counter = &response.counter;
++	*threshold = response.threshold;
 +
-+	return genlmsg_reply(msg, info);
-+
-+cancel_msg:
-+	genlmsg_cancel(msg, hdr);
-+free_msg:
-+	nlmsg_free(msg);
-+	return ret;
-+}
-+
- /**
-  * drm_ras_nl_error_event() - Report an error event
-  * @node: Node structure
-@@ -459,6 +564,59 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
- 	return node->clear_error_counter(node, error_id);
- }
- 
-+/**
-+ * drm_ras_nl_get_error_threshold_doit() - Query error threshold of a counter
-+ * @skb: Netlink message buffer
-+ * @info: Generic Netlink info containing attributes of the request
-+ *
-+ * Extracts the Node ID and Error ID from the netlink attributes and retrieves
-+ * the error threshold of the corresponding counter. Sends the result back to
-+ * the requesting user via the standard Genl reply.
-+ *
-+ * Return: 0 on success, or negative errno on failure.
-+ */
-+int drm_ras_nl_get_error_threshold_doit(struct sk_buff *skb, struct genl_info *info)
-+{
-+	u32 node_id, error_id;
-+
-+	if (!info->attrs ||
-+	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
-+	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID))
-+		return -EINVAL;
-+
-+	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
-+	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
-+
-+	return doit_reply_threshold(info, node_id, error_id);
++	xe_dbg(xe, "[RAS]: get threshold %u for %s %s\n", *threshold,
++	       comp_to_str(counter->common.component), sev_to_str(counter->common.severity));
++	return 0;
 +}
 +
 +/**
-+ * drm_ras_nl_set_error_threshold_doit() - Set error threshold of a counter
-+ * @skb: Netlink message buffer
-+ * @info: Generic Netlink info containing attributes of the request
++ * xe_ras_set_threshold() - Set error counter threshold
++ * @xe: Xe device instance
++ * @severity: Error severity to be set (&enum drm_xe_ras_error_severity)
++ * @component: Error component to be set (&enum drm_xe_ras_error_component)
++ * @threshold: Counter threshold
 + *
-+ * Extracts the Node ID, Error ID and threshold from the netlink attributes and
-+ * sets the error threshold of the corresponding counter.
++ * This function sets the error threshold of a specific counter based on
++ * severity and component.
 + *
-+ * Return: 0 on success, or negative errno on failure.
++ * Return: 0 on success, negative error code on failure.
 + */
-+int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb, struct genl_info *info)
++int xe_ras_set_threshold(struct xe_device *xe, u8 severity, u8 component, u32 threshold)
 +{
-+	u32 node_id, error_id, threshold;
++	struct xe_ras_set_threshold_response response = {};
++	struct xe_ras_set_threshold_request request = {};
++	struct xe_sysctrl_mailbox_command command = {};
++	struct xe_ras_error_class *counter;
++	size_t len;
++	int ret;
 +
-+	if (!info->attrs ||
-+	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
-+	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID) ||
-+	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD))
-+		return -EINVAL;
++	counter = &request.counter;
++	counter->common.severity = drm_to_xe_ras_severity(severity);
++	counter->common.component = drm_to_xe_ras_component(component);
++	request.threshold = threshold;
 +
-+	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
-+	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
-+	threshold = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD]);
++	xe_sysctrl_create_command(&command, XE_SYSCTRL_GROUP_GFSP, XE_SYSCTRL_CMD_SET_THRESHOLD,
++				  &request, sizeof(request), &response, sizeof(response));
 +
-+	return set_node_error_threshold(node_id, error_id, threshold);
++	guard(xe_pm_runtime)(xe);
++	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
++	if (ret) {
++		xe_err(xe, "sysctrl: failed to set threshold %d\n", ret);
++		return ret;
++	}
++
++	if (len != sizeof(response)) {
++		xe_err(xe, "sysctrl: unexpected set threshold response length %zu (expected %zu)\n",
++		       len, sizeof(response));
++		return -EIO;
++	}
++
++	ret = ras_status_to_errno(response.status);
++	if (ret) {
++		xe_err(xe, "sysctrl: set threshold command failed with status %#x\n",
++		       response.status);
++		return ret;
++	}
++
++	counter = &response.counter;
++
++	if (!ras_counter_is_valid(xe, counter))
++		return -EBADMSG;
++
++	xe_dbg(xe, "[RAS]: set threshold %u for %s %s\n", response.threshold,
++	       comp_to_str(counter->common.component), sev_to_str(counter->common.severity));
++	return 0;
 +}
 +
+ static ssize_t gpu_health_show(struct device *dev, struct device_attribute *attr, char *buf)
+ {
+ 	struct xe_ras_get_health_response response = {0};
+diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
+index 618364734043..0b8669f28d56 100644
+--- a/drivers/gpu/drm/xe/xe_ras.h
++++ b/drivers/gpu/drm/xe/xe_ras.h
+@@ -16,6 +16,8 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
+ 				      struct xe_sysctrl_event_response *response);
+ int xe_ras_get_counter(struct xe_device *xe, u8 severity, u8 component, u32 *value);
+ int xe_ras_clear_counter(struct xe_device *xe, u8 severity, u8 component);
++int xe_ras_get_threshold(struct xe_device *xe, u8 severity, u8 component, u32 *threshold);
++int xe_ras_set_threshold(struct xe_device *xe, u8 severity, u8 component, u32 threshold);
+ void xe_ras_init(struct xe_device *xe);
+ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
+index 99b2466e2062..fe6f3658a2a4 100644
+--- a/drivers/gpu/drm/xe/xe_ras_types.h
++++ b/drivers/gpu/drm/xe/xe_ras_types.h
+@@ -147,6 +147,56 @@ struct xe_ras_clear_counter_response {
+ 	u32 reserved1[3];
+ } __packed;
+ 
++/**
++ * struct xe_ras_get_threshold_request - Request structure for get threshold
++ */
++struct xe_ras_get_threshold_request {
++	/** @counter: Counter to get threshold for */
++	struct xe_ras_error_class counter;
++	/** @reserved: Reserved for future use */
++	u32 reserved;
++} __packed;
++
++/**
++ * struct xe_ras_get_threshold_response - Response structure for get threshold
++ */
++struct xe_ras_get_threshold_response {
++	/** @counter: Counter ID */
++	struct xe_ras_error_class counter;
++	/** @threshold: Current threshold of the counter */
++	u32 threshold;
++	/** @reserved: Reserved for future use */
++	u32 reserved[4];
++} __packed;
++
++/**
++ * struct xe_ras_set_threshold_request - Request structure for set threshold
++ */
++struct xe_ras_set_threshold_request {
++	/** @counter: Counter to set threshold for */
++	struct xe_ras_error_class counter;
++	/** @threshold: Threshold to be set */
++	u32 threshold;
++	/** @reserved: Reserved for future use */
++	u32 reserved;
++} __packed;
++
++/**
++ * struct xe_ras_set_threshold_response - Response structure for set threshold
++ */
++struct xe_ras_set_threshold_response {
++	/** @counter: Counter ID */
++	struct xe_ras_error_class counter;
++	/** @reserved: Reserved */
++	u32 reserved;
++	/** @threshold: Updated threshold */
++	u32 threshold;
++	/** @status: Operation status */
++	u32 status;
++	/** @reserved1: Reserved for future use */
++	u32 reserved1[2];
++} __packed;
++
  /**
-  * drm_ras_node_register() - Register a new RAS node
-  * @node: Node structure to register
-diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
-index 9d3123cc9f9c..c9f5e0ceb3b5 100644
---- a/drivers/gpu/drm/drm_ras_nl.c
-+++ b/drivers/gpu/drm/drm_ras_nl.c
-@@ -28,6 +28,19 @@ static const struct nla_policy drm_ras_clear_error_counter_nl_policy[DRM_RAS_A_E
- 	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
- };
- 
-+/* DRM_RAS_CMD_GET_ERROR_THRESHOLD - do */
-+static const struct nla_policy drm_ras_get_error_threshold_nl_policy[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID + 1] = {
-+	[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
-+	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
-+};
-+
-+/* DRM_RAS_CMD_SET_ERROR_THRESHOLD - do */
-+static const struct nla_policy drm_ras_set_error_threshold_nl_policy[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD + 1] = {
-+	[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
-+	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
-+	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD] = { .type = NLA_U32, },
-+};
-+
- /* Ops table for drm_ras */
- static const struct genl_split_ops drm_ras_nl_ops[] = {
- 	{
-@@ -56,6 +69,20 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
- 		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
- 		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
- 	},
-+	{
-+		.cmd		= DRM_RAS_CMD_GET_ERROR_THRESHOLD,
-+		.doit		= drm_ras_nl_get_error_threshold_doit,
-+		.policy		= drm_ras_get_error_threshold_nl_policy,
-+		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
-+		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
-+	},
-+	{
-+		.cmd		= DRM_RAS_CMD_SET_ERROR_THRESHOLD,
-+		.doit		= drm_ras_nl_set_error_threshold_doit,
-+		.policy		= drm_ras_set_error_threshold_nl_policy,
-+		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD,
-+		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
-+	},
- };
- 
- static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
-diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
-index 03ec275aca92..9aef097ea10f 100644
---- a/drivers/gpu/drm/drm_ras_nl.h
-+++ b/drivers/gpu/drm/drm_ras_nl.h
-@@ -20,6 +20,10 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
- 					struct netlink_callback *cb);
- int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
- 					struct genl_info *info);
-+int drm_ras_nl_get_error_threshold_doit(struct sk_buff *skb,
-+					struct genl_info *info);
-+int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb,
-+					struct genl_info *info);
- 
- enum {
- 	DRM_RAS_NLGRP_ERROR_REPORT,
-diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
-index ee2caa0edc6f..1765a3130b09 100644
---- a/include/drm/drm_ras.h
-+++ b/include/drm/drm_ras.h
-@@ -71,6 +71,35 @@ struct drm_ras_node {
- 	 */
- 	int (*clear_error_counter)(struct drm_ras_node *node, u32 error_id);
- 
-+	/**
-+	 * @query_error_threshold:
-+	 *
-+	 * This callback is used by drm-ras to query error threshold of a
-+	 * specific counter.
-+	 *
-+	 * Driver should expect query_error_threshold() to be called with
-+	 * error_id from `error_counter_range.first` to
-+	 * `error_counter_range.last`.
-+	 *
-+	 * Returns: 0 on success, negative error code on failure.
-+	 */
-+	int (*query_error_threshold)(struct drm_ras_node *node, u32 error_id, const char **name,
-+				     u32 *threshold);
-+
-+	/**
-+	 * @set_error_threshold:
-+	 *
-+	 * This callback is used by drm-ras to set error threshold of a specific
-+	 * counter.
-+	 *
-+	 * Driver should expect set_error_threshold() to be called with error_id
-+	 * from `error_counter_range.first` to `error_counter_range.last`.
-+	 * Driver is responsible for error threshold bounds checking.
-+	 *
-+	 * Returns: 0 on success, negative error code on failure.
-+	 */
-+	int (*set_error_threshold)(struct drm_ras_node *node, u32 error_id, u32 threshold);
-+
- 	/** @priv: Driver private data */
- 	void *priv;
- };
-diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
-index eab8231aa87c..2f832275ee6e 100644
---- a/include/uapi/drm/drm_ras.h
-+++ b/include/uapi/drm/drm_ras.h
-@@ -33,6 +33,7 @@ enum {
- 	DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
- 	DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_NAME,
- 	DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_VALUE,
-+	DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD,
- 
- 	__DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX,
- 	DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX = (__DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX - 1)
-@@ -55,6 +56,8 @@ enum {
- 	DRM_RAS_CMD_GET_ERROR_COUNTER,
- 	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
- 	DRM_RAS_CMD_ERROR_EVENT,
-+	DRM_RAS_CMD_GET_ERROR_THRESHOLD,
-+	DRM_RAS_CMD_SET_ERROR_THRESHOLD,
- 
- 	__DRM_RAS_CMD_MAX,
- 	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
+  * struct xe_ras_error_array - Details of the error types
+  */
+diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
+index d0341538ad05..66e7cbcc3f91 100644
+--- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
++++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
+@@ -25,6 +25,8 @@ enum xe_sysctrl_group {
+  * @XE_SYSCTRL_CMD_GET_SOC_ERROR: Retrieve basic error information
+  * @XE_SYSCTRL_CMD_GET_COUNTER: Get error counter value
+  * @XE_SYSCTRL_CMD_CLEAR_COUNTER: Clear error counter value
++ * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
++ * @XE_SYSCTRL_CMD_SET_THRESHOLD: Set error threshold
+  * @XE_SYSCTRL_CMD_GET_PENDING_EVENT: Retrieve pending event
+  * @XE_SYSCTRL_CMD_GET_HEALTH: Retrieve gpu health
+  * @XE_SYSCTRL_CMD_SET_HEALTH: Set gpu health
+@@ -33,6 +35,8 @@ enum xe_sysctrl_gfsp_cmd {
+ 	XE_SYSCTRL_CMD_GET_SOC_ERROR		= 0x01,
+ 	XE_SYSCTRL_CMD_GET_COUNTER		= 0x03,
+ 	XE_SYSCTRL_CMD_CLEAR_COUNTER		= 0x04,
++	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
++	XE_SYSCTRL_CMD_SET_THRESHOLD		= 0x06,
+ 	XE_SYSCTRL_CMD_GET_PENDING_EVENT	= 0x07,
+ 	XE_SYSCTRL_CMD_GET_HEALTH		= 0x0B,
+ 	XE_SYSCTRL_CMD_SET_HEALTH		= 0x0C,
 -- 
 2.43.0
 
