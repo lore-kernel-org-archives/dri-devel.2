@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A859C5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 09:16:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D611C5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 09:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 878BD10E0FC;
-	Wed, 19 Aug 2026 09:16:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7DAD10E93E;
+	Wed, 19 Aug 2026 09:17:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="bZwzvpcG";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="EwN9sxc2";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED2E10E0FC
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 09:16:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC6B10E93E
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 09:17:25 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id BC17C1A1730;
- Wed, 19 Aug 2026 09:16:42 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 222D11A1730;
+ Wed, 19 Aug 2026 09:17:24 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8CC5D5FF42;
- Wed, 19 Aug 2026 09:16:42 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E2D8F5FF42;
+ Wed, 19 Aug 2026 09:17:23 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CE2F511C754FE; 
- Wed, 19 Aug 2026 11:16:29 +0200 (CEST)
+ with ESMTPSA id 03BB511C754FF; 
+ Wed, 19 Aug 2026 11:17:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1787130997; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1787131042; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=FLEQGctqRH4mPSfpL7F8ZM2AFKMq7I+grExzdkihmlM=;
- b=bZwzvpcGW8jwCbXD57DGEAWj9t4LuJ0rG11nW17psURE5XLjkh1J5+eporpb0qkf9oZ9Fu
- +e6+WiJ4kVgKPquwnrTU/CS1a2ZnpLGq7k1NZxSu8waoNCAiJyGgpvCJ6lhhYlUiOde0/Z
- hWDtdXsua0dQtnrEftamxjJc1ikS5+ctAmnD3DKYMlbwhajAPRB7v+ehUcw5oJ90nKGv+Y
- EhuhaPCGnt4lEPj9sM3UUIkc1ma2Azv8GW6rh3YBxUHl1NRGkAdftzLu+vmSp257iPcb2z
- fTWf23wTAhMBpxiwCUM3CNcwrIc2QZp/2GZJ8zLibakQvc5e0DXAvIScHBKpWw==
-Date: Wed, 19 Aug 2026 11:16:28 +0200
+ bh=L7z/EWjbVHGLxCU0R84qVZeBKbA0IgpGtdVay8Ixsbg=;
+ b=EwN9sxc2yakZgoLTwKZkMxewVxuTeNRzVPcMcD/shI7mXoXI3h0EyGijyWxQdoTjnv8XF8
+ ekg+PVfHtS9If17GbONxMHuQKpZ+14qpPUJDqBfqb9sqqwEZE/8RfSsdjh6znZxVLCyQUn
+ iG290IjCfu4XF2+T08Ib36ci5XuxUzT3TpayYvs4G5Z+IJMgLvETU1QFDiOZizPvQlotJl
+ 7XM+aT0PYqYqfdd12VwyIeBxiBmLULH9KUkdzha4PcBeXbd7GnwAIKnjf+2a64GPdIAdDL
+ njo3T3uDmVj7yyyHXr9s4jmjI2dR8XfBOiq+e1TmBNCM7n4OCldbK/dd/l0cMw==
+Date: Wed, 19 Aug 2026 11:17:16 +0200
 From: Herve Codina <herve.codina@bootlin.com>
 To: Esben Haabendal <esben@geanix.com>
 Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Andrzej Hajda
@@ -46,12 +46,12 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Andrzej Hajda
  Simona Vetter <simona@ffwll.ch>, Linus Walleij <linusw@kernel.org>, Frieder
  Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in
- sn65dsi83_reset_pipe()
-Message-ID: <20260819111628.7c7a28c6@bootlin.com>
-In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
+Subject: Re: [PATCH v3 2/3] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
+Message-ID: <20260819111716.58b5843f@bootlin.com>
+In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-2-9b403a405ccd@geanix.com>
 References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
- <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
+ <20260803-ti-sn65dsi83-fixes-v3-2-9b403a405ccd@geanix.com>
 Organization: Bootlin
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -75,18 +75,19 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Esben,
 
-On Mon, 03 Aug 2026 16:57:03 +0200
+On Mon, 03 Aug 2026 16:57:04 +0200
 Esben Haabendal <esben@geanix.com> wrote:
 
-> Propagate the error code from drm_bridge_helper_reset_crtc(), so that
-> callers has a chance to handle the failure.
+> We obviously should not leave the DRM bridge critical section activated
+> when exiting on error.
 > 
 > Signed-off-by: Esben Haabendal <esben@geanix.com>
 > ---
->  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
 
-With fixes tag mentioned by Luca added in the commit log,
+With Fixes tag mentioned by Luca added in the commit log,
 
 Reviewed-by: Herve Codina <herve.codina@bootlin.com>
 
