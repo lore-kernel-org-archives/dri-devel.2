@@ -4,90 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF8FCC5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 12:59:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78DB0C5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 13:02:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FD4E10E53B;
-	Wed, 19 Aug 2026 12:59:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB38F10E540;
+	Wed, 19 Aug 2026 13:02:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jEQ0f9E2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TDus7vsK";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D70A010E53B
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 12:59:53 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-481595afa73so125346f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 05:59:53 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com
+ [209.85.217.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34F1D10E540
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 13:02:29 +0000 (UTC)
+Received: by mail-vs1-f49.google.com with SMTP id
+ ada2fe7eead31-74a86e9d4a8so311149137.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:02:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787144548; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Yoe5ji6bDErD1ir2KM4erv90BTdC1+DvIiPgLwJ/YVKgdVt+XP1MuV7cEJHLgaEJcK
+ +ytxVNaTyFyTXifNbiSAClRt2G7lEoTtkn9aK828pyIyqxsMNG89R+1zmre9dk7Fv0FV
+ iqzra/ZGfIv73yZvU8zo6LIqMDcMVtzzpKGmzBx2Mtl2bS6PoxL8PkrVWgUzx7I8LZ/q
+ 9GydDPKZin/qcDmlaPJTSRM/Qr+NkMqlOAQKGEjA3k7NQ2zTcH+jHMXzj5my5fsgPWtB
+ loERIhZcDI/rK41G2UhU9VSnR20Pmr/lT2AMCib1Lq2yEeKUIBzEZq2oWuLcCDXNNy2b
+ RQrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=xmuCUeXTSBWTdXqlKd0iubpusTbKWwEzyplHp2MiIhQ=;
+ fh=zDQn54/tylqRFoy6Tp+dOTLdwsldH3smaiU3yDJj+uI=;
+ b=d6sTZfogbZpL8d5F3kOZkQfkRmz2g6uqQLyI7t7GCXy7FGtDDgUNJVqiniD2oogxcv
+ DH7yRmdXU5g3LKtyJyLhYSGf2OhTHUjKoEpOv6Nj5WbOG8N92jOgJtmv3xoMGVOJYP+4
+ yCC6B1dR5IUkgbE50qvKF1fppnBvxhM6/fq32I8lKcXkJDcojfBi9iCal6WKWmD/rbyu
+ q3I/KLEmjNjp30g+Im2GcwuipWJoCs+HY+VhIQ1DMfA9cQzL6Do2JyPLU6cHTxI+cxSe
+ xMMYOGLXtAac/RFXV2g5JafMlQ3sgRX9bArHqXmxQf/IyaIbrk4Z+/J2p5/OSY8/ofDL
+ d0Rg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787144392; x=1787749192; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1787144548; x=1787749348; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=dA5rU+vuRqS0Z+LPWRZHCw6d9diJLksBuXxk6FmF4tw=;
- b=jEQ0f9E2fg8Zk34r9tH7Vwc4xYfepj5NnrlI6LHV92PuyoqC0JMzPJcczxRIgySsxA
- 9ILtTIUlYaNmIpjOXRylFAEb6Lwy430KqmeeHaTyEkWS6MMSSllJ32wb7xeRwvXrpQTw
- 58/m1XxkcM8kzFrY/+duUqeu0MDYY803238pp4Yr4QSM0QG9bFK5fUmTWGnou8QzcM3A
- 9P+Ple7hHoQknaWo2SrvkDVlP1Vs51kZWs5vQsGNIfKVaTdV18JCH3xmDgeobKVDsMhP
- lqaQZQnrX7vhYMY/VgrfULMR+fb8srJ0hcSDilBVAnBXJP04DKK8zjxBqtf1BtpD1cwR
- 21Cw==
+ bh=xmuCUeXTSBWTdXqlKd0iubpusTbKWwEzyplHp2MiIhQ=;
+ b=TDus7vsKTNEpEYcOWZIc+s7mzQZjvHztq0t0TWjXe2kIo2L7wD0eTlHqTw0elsRMLW
+ Lg/NQMs8FeaELESvgf9vBOWgkKJI4iWG3S38DDfQpzsWe7tWYAdT+Uvrnn7K82DJZnAD
+ uhiJF0aDuHkJHJ/LLfuGxus9Ubrm08xgRuiyKo1PNCshXa1OR5yS56FDh+A/vJ3Y5qCq
+ e9w2AraYgYmXTi5IPUieCl80PiHU6HLhz0Ol7U3Sb2P7WVBt/d+QUOy8bHao8E50vPW2
+ 1YZx4t64093Gd/QdbhsuqE6dRNZiXHhZB9lmS9NpjHcoP5g+D1CrTyQQFKF9D6M/N1ci
+ WiuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787144392; x=1787749192;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20251104; t=1787144548; x=1787749348;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dA5rU+vuRqS0Z+LPWRZHCw6d9diJLksBuXxk6FmF4tw=;
- b=EtpPCjLgYABQ6YLMETn/9+SVTKbX4+Vo/QV4wB5T/vCfRkG9pqkndi0bH/6l0zezVl
- doUB5HC+uX6ZCc0dnh9ex51uR+S2T2720BCO01FxJ2KJY+97g9cQMl5FqsySxqGnc8P4
- PFB3THrR2oSQMI+5DW0DXRC73gjfnFCAtug/ld6kQoyJU3y2wkcTZe7kRLBEjqcKfG8W
- YilQvbz9/gSKUeZ97VSYCc3SJ4YLzq43+vyKwv4LzpaL0yNS4Zjtg1eMMK/0GJQlcp8X
- nc/P4pPLoriHaUJTo0lpTGqmQvC/oq83rH77lncsIzhGFMvtjQSwU0ruu489Tr9bPZvY
- 9gTA==
+ bh=xmuCUeXTSBWTdXqlKd0iubpusTbKWwEzyplHp2MiIhQ=;
+ b=GsQd9IeJtSFlv3K7WxDXXWMMhs6//LAftiGnsPCbOlKkzKMEgoK05v4XQKqrwjTtPo
+ 9WrE+pX6FdFp8aKR2cKOllde6N2LVwmrHIx2WZQsmgKqw9PPDInpPUvkAINPMNCV6GPs
+ Vl+G5YcdL+bsAu/XrxsJUFokSmgSBQ2IJkZJsgkl9M0GU1G2WS7keDBo4zX/ythYgfT9
+ +BJLlHC6SJTvDzGnq1NwXc7V1x5Tfk6M6J9slk+a1RhOTWFG0smhS9yCvpwLFDhCVI32
+ WKcnbRIxq3r4XBPKbl8ajxnPDgyYFZ8Sh+cl3b7Z5rIQpbGYDuo+eb8r+V3MScS/Wbym
+ A6Dg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqUQ7n9mSdjlRqQbzGd095impj91xeyQilPtIXMhKilnxm8JqSFPrTMYdWNwPhdxo6A/tIAs+tkXOE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k4X5I5lLXodPhf2QNDggLz2AiDITc91X2GzENxUTihZJsiGPUb
- tj4Ax5+LKke7f7y6fv1ygSBVgSWQXG00eCpl7a7JzTUr3gx8Iaf4mTW4
-X-Gm-Gg: AR+sD10Jacten5p/W9BMM+3v04LwSXAWwlVxoR+a3k3ah/X4lipGicMqbjLykoIMK3b
- kcQbHN8BF0+370Pn3iaQcokudDVHuZqE/umkj91uYjiV54Yz9lMzp9RKXSjDS7zaOBxoXyk14t4
- gtDGaLulQHnO5OWHjenSIp8IfiSbTw4WaZZjGvatWWZoSGohYDeVOiPQuGmsaoUaLD1lJtVBylK
- dwxXsvdGKYtLPrniDjk3YZwAWn8ClQj7SQMvrXHI83bPGRPImVRazBcMDL/kbogMMi6wHQBX8ny
- k+moAOmJ+fVRPTfNduFuKrRpZw65n3Ic3QRY4OJUmiyVtZVnYbeLXFtrR3hfDc3sof6QeuC/w/e
- aV9IC11I2fMaUPM5anNcBBa4r3JCRxK20EYuLZdg+d1HCwNox1sDWsGRAyheTSToDzWwhvrc2sy
- WtMt6hgnMas9MvPSvnbV0abBDJPw6rc9K6f6rFG1A1eLTWwE0CecLcEnqCtvZ3K5DMKNWpiAZco
- 0HwDybjjQbxK+JXRPGWt3Yl4j7xJuuinj0tKR/7T01gqCn7S+7yid+wKyZxo/Kr9OZT8Q==
-X-Received: by 2002:a05:6000:701:b0:47f:dfc1:6907 with SMTP id
- ffacd0b85a97d-482b1fc4e0dmr4045866f8f.3.1787144392065; 
- Wed, 19 Aug 2026 05:59:52 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B929600FBC58E6E51BF6D72.dsl.pool.telekom.hu.
- [2001:4c4e:1b92:9600:fbc5:8e6e:51bf:6d72])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-482b14d059bsm5128441f8f.36.2026.08.19.05.59.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2026 05:59:50 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
- Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
- and some numbers
-Date: Wed, 19 Aug 2026 14:59:30 +0200
-Message-ID: <20260819125932.5853-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
-References: <20260801131656.58450-1-royalnet026@gmail.com>
- <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
- <20260818072936.41844-1-royalnet026@gmail.com>
- <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
- <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
- <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
+ AHgh+Rr6NlKvZBcuJkNqMmjoo2Cj1AImVzJqv4XUvyhwKkhSBNv/7PAz5UgmyZSSmZWAE0ZaayGkPpNXBns=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0MsLkmoHE0ZpFQQTIUdvvMpzhtheflgb2qowaZuOxyUm88yN3
+ 3Wu51wVEt3k6uNSR6e0Ao/L+6tI3c4vjvItlqjjIYT4ApXxZpVm9j0/HDeYi8tGlNRFyZBYWS4l
+ mGzqJfxpE3/mtNu1F8Q1zvBsT4Q4nK96q7um8AHA=
+X-Gm-Gg: AR+sD11ptTvM7MH42cfFM9px8VZvjJ8EpBjTKIVuen+zq/AGe7XGiSNb3rUQEyaLJjn
+ 1T7HuqAeDUtA9a2JrvUq91sEvZ3aJzU87dFLFmnmQSkGNt34EojpiplTi5bb7m5WSP/jcfAQ9bI
+ O3HVWLNHZy6zNNhLy4z9StrmlMncQ54pHodlt0tIN1OnRXICMY5vVnt7Ok7AD1tciw0CHF/MOQ7
+ ECPUmx11D46Zwaxz709tCTTjxBc8G0iCkPtNeKU7cwgxxSkQBozolBa67tQME17zwd4c94rT2L8
+ u/lGwbX3gAETXzBex6+Hmon+JTloSjmu6BqbpL9KtRLMB5gc5b8Q4fYQzCDzrcTa3elsEgFtzDU
+ =
+X-Received: by 2002:a05:6102:b0b:b0:74a:b1ee:e034 with SMTP id
+ ada2fe7eead31-777f958372bmr1298668137.8.1787144547953; Wed, 19 Aug 2026
+ 06:02:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <tencent_989057BAD94EB58027BF7E9528F59A458608@qq.com>
+In-Reply-To: <tencent_989057BAD94EB58027BF7E9528F59A458608@qq.com>
+From: Inki Dae <daeinki@gmail.com>
+Date: Wed, 19 Aug 2026 22:01:49 +0900
+X-Gm-Features: AcwNN1Uag8K76WBZkAil604Sve_-nPS221p9PD--DnEWCdbR_HfRd-PUmUZjhKk
+Message-ID: <CAAQKjZM_Vgx-MGNP45-yQhZzV-H2ccLSP6pWYaykU5KxLMVKfQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: fimd: fix clock leak on resume error path
+To: Jiawen Liu <1298662399@qq.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,72 +112,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jonas,
+Hi,
 
-I promised to determine empirically which clock the NPU PVTPLL needs.
-I ran that today. The answer is not what either of us expected, and it
-comes with two corrections to my previous mail, so those first.
+2026=EB=85=84 8=EC=9B=94 18=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 9:46, J=
+iawen Liu <1298662399@qq.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> From: jiawen <1298662399@qq.com>
+>
+> exynos_fimd_resume() can fail when clk_prepare_enable() succeeds for
+> bus_clk but fails for lcd_clk. The function returns the error without
+> disabling bus_clk, leaving it prepared and enabled.
+>
+> Disable bus_clk before returning the error to keep the clock state
+> balanced.
+>
+> Signed-off-by: jiawen <1298662399@qq.com>
+> ---
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimd.c b/drivers/gpu/drm/e=
+xynos/exynos_drm_fimd.c
+> --- a/drivers/gpu/drm/exynos/exynos_drm_fimd.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_fimd.c
+> @@ -1325,6 +1325,7 @@
+>                 DRM_DEV_ERROR(dev,
+>                               "Failed to prepare_enable the lcd clk [%d]\=
+n",
+>                               ret);
+> +               clk_disable_unprepare(ctx->bus_clk);
 
-Correction 1: I wrote that only core 0 requests PCLK_NPU_ROOT in the
-mainline DT. That is wrong - all three rknn-core nodes request it as
-their "pclk" (my grep had truncated the clocks list; verified since in
-the tree and in the live FDT). The hazard window is unchanged in
-practice - the gate still closes whenever all three cores are
-runtime-suspended, which is the normal idle state - but the sentence
-as I wrote it was false.
+The analysis and the fix are correct. exynos_fimd_suspend() disables
+both clocks, so leaving bus_clk enabled on this error path does leave
+the refcount unbalanced, and clk_disable_unprepare(ctx->bus_clk)
+restores the symmetry.
 
-Correction 2: my inferred failure mechanism ("the GRF write cannot
-land, the mux still switches, the ring is left unconfigured and the
-failure appears later as a power-on ack timeout") understated reality
-considerably. Measured today:
+Merged. Thanks,
+Inki Dae
 
-Test module, on the same v2.12 firmware discussed earlier: acquire the
-clocks via the core DT node, verify all three cores runtime-suspended,
-then issue one clk_set_rate(scmi npu clk, 600 MHz - a PVTPLL-path
-rate). Serial console at loglevel 8, captured by a recorder on a
-second machine, so the last lines survive whatever happens. Three
-arms, one variable:
-
-  held during set_rate          outcome
-  pclk_npu_root                 SoC resets, U-Boot 0.58 s after the call
-  pclk + hclk (the PD pair)     identical, 0.58 s
-  nothing (control)             identical, 0.58 s
-
-No oops, no SError trace, nothing on the console after the set_rate
-marker in any arm - the SoC dies at firmware level and the reset
-latency is constant to the millisecond across all three. Bus clocks
-are simply irrelevant to this failure: my open question ("does the
-ring also need hclk_npu_root?") turns out to be the wrong question.
-No root clock makes a domain-off set_rate safe.
-
-The explanation most consistent with the data is that the NPU GRF (or
-the PVTPLL block behind it) sits inside the NPU power island, so the
-EL3 write to 0xfd5a2000 with the island off is fatal regardless of any
-bus clock state. I cannot rule out that the firmware dies elsewhere in
-that path, but the clock-independence is measured, not inferred.
-
-The counterpart run closes the loop: same module, same set_rate to a
-PVTPLL rate (1 GHz), with the cores resumed first - completes cleanly,
-and the GRF readback then matches the firmware table exactly (ring
-length 12 for 1 GHz in CON0_H, cal_cnt 0x18 in CON1, 0x40000 gating
-interval in CON2). So the sequence we discussed is confirmed live in
-the registers, and the domain state is the single discriminating
-variable.
-
-For the series the consequence is now sharp: every path that can issue
-an SCMI set_rate - governor, sysfs, cooling, OPP init - must guarantee
-the domain is powered first. The hold-all guard stays ordered before
-the devfreq patch, and your pm_runtime_suspended() check in
-config_clks() guards the OPP-initiated paths for exactly the same
-reason. On mainline as-is the NPU exposure is theoretical only because
-nothing scales the clock yet.
-
-One small ask: we tried to read a ring frequency counter in the NPU
-GRF (candidate offset +0x24) to publish measured ring frequency vs
-voltage; it reads zero with the ring demonstrably running, so the
-candidate is wrong. If you happen to know the OSC counter offset in
-the GPU GRF from your experiments, the pointer would save a TRM dig -
-if not, no matter.
-
-Regards,
-Igor
+>                 return ret;
+>         }
+>
+>
+>
