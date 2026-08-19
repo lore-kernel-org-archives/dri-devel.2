@@ -4,138 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E11F4C5DF86
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 12:08:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F27C5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 12:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A6710E561;
-	Wed, 19 Aug 2026 12:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAC4410E562;
+	Wed, 19 Aug 2026 12:12:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="FI7vWFNw";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NDRcyut7";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021090.outbound.protection.outlook.com [52.101.100.90])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6B9110E561
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 12:08:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pF82LnlbDQbL4K2UYAX4QeAdIAqcFIn/UwSHqRxL5TsBCp+tL3ohDB6sD/JC/yYGlhEr9T4VDDQ4ObniQH/kP13yWLTGwwkklxk0dyrcGQ6DV9qHf8g7ellDK3QNUdy/i7DdLUJYlDKeNNJeo1OH4oAJ+ryX1YGbQ2J1LrEuu6/XQyJMrv3FYj8YSsJpgh3hGE8NKq829cGochjQi9uJSp3n5BBbU+oWxyDsHTeBXtrzp/F6+WYomz56LB45Sg70NWsoLuGRQeRAzcFev8mz9eKnVuHBom0mLrbphM0HfUjifQAf07U8ZzONjURPvsTLZK0oE8BQzOFJETUoR9LlMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P6tSsOn9o7S5dOZcptD3ZUbsWJkyws62X3PjOy8lmLg=;
- b=TEWyAr5Cp6Gg0j7ksbQzN5yfLHRe5cGvVbQu63SXBcb19kzuzsrCJUuLoS9zgXDwJw3/FoWgcN8y5uH2ErKB9LrAySeFnXNOYJlrUGPjaVD6iqnn0wkz7DBtucXqLZvhVbiZN7HlqukJScZ4yChaNXw9FaIuxUPh+Lyx0caQfkaAnor8VbILazCZN0S1aJmQjLHb3m90bCx51By0s36QSD8aIuHnHqXjcyiR4+/iu8mkNBaUOiBC3NhmomeUGYHtNZWUptc9ijmZUT3xupH4CNUzrUEoCWkVbjNOHhnfpUWJYzkgsWOrYJeZ6LAQsQJJJDCNw/Ao1RhOozV/MJplIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P6tSsOn9o7S5dOZcptD3ZUbsWJkyws62X3PjOy8lmLg=;
- b=FI7vWFNwCu5dv4X3vKuj5O3Ud3pP191piDtH3DpF9OLUV9uFQwpO3sqHMtAQ/hQu14S3gWoFB+UkvQLbrS4i5NSW8/CS++AjR4TS5EiqamxV6x53tCZRPQ6VHtNKjM2L0JPAlOsjkn9c82fOaCqtWiwywudouqImNiML1y5w75I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LOYP265MB1886.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:ef::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 12:08:54 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 12:08:54 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 19 Aug 2026 13:08:52 +0100
-Message-Id: <DKSWQA542X58.3N48L8WCDBJR0@garyguo.net>
-Subject: Re: [PATCH 1/6] rust: alloc: add Vec::push_init
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-Cc: "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
- Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0
-References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
- <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
- <DKSVRS7UAL9U.3RUTW74RVSEHQ@kernel.org>
-In-Reply-To: <DKSVRS7UAL9U.3RUTW74RVSEHQ@kernel.org>
-X-ClientProxiedBy: LO4P123CA0188.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a4::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5545310E562
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 12:12:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=Hk5Lsu4WomfbukMoxZbKQtgXiEaQgcxX2X6gOLqJkjc=; b=NDRcyut7UsyYADzLl84k/UK+vy
+ 4xYS/CZk3NiDZgEFqXcCduxaRf/MU9+Amwm0AnHn9sOAgupbusMvLTowwpsRv9DUjB1hHLki8MA6j
+ P6Aa1kFpESZq0IFHvNHQv89wyCfbKJcG0TYa9ltFq0jWh21r7VRxwgRFpW5TvKL//fdlQIW2KvGvc
+ jcl5R7duFQuDAVOONyYjRUHr+U3qzdNwfwJKhr7xKqq2kmwYOTCZ3+S6QmAAoTf+ajtInX72p6D4Z
+ 7XkUugBBCeAcowFLp03wusoW7VZLMEc+tlSMUeNjNpVVa1i6SPtmE/skxqa5RWUN6bVEak/W7vUG9
+ ARgQjcAA==;
+Received: from [179.105.94.163] (helo=[192.168.0.6])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wwf9B-0065Io-7s; Wed, 19 Aug 2026 14:11:57 +0200
+Message-ID: <71474cf6-e0f4-4961-8302-7b893143ef98@igalia.com>
+Date: Wed, 19 Aug 2026 09:11:50 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOYP265MB1886:EE_
-X-MS-Office365-Filtering-Correlation-Id: 564b5009-cb82-4ca7-ca36-08defdeaa36e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|1800799024|23010399003|7416014|376014|22082099003|18002099003|56012099006|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info: EHpsxpIPAP5rYCd3TZCo1YLQLC7vUOunckr9sC4gjcZ0sFxguNP8gg1/yM+VNaL0krbQJUq30Fj8LOJQgfTxQ/2N05P86uiOI8/Q5M0Sapgh9lvFqNb7golu08tYAuVOUO1j/+U+osoy7wL3bO0HDhY1FI7ykO0f2sSoIGhZCPkuWxJ73B0QqSEX099/EElnyCg+Mc82/RdOz3RYmH+56DJISb757jp026q9YCWwm4lZi60Q2so3yR/WK28ufseBFf8JVY+XKPKbQdV0Seq2+cm/Zs2I4IBUPs+4vWCLK1HIszMK9z+BaTAizdzHFtrFPM7JwYm1jLdiznb65EijC2eGTxSeriEv2plfXVOdZWyPunoLoD5UeULvfWAjp1/gk3a/N8OqnS/UFgifRSWFq4H0xYpQXmeS9d5xt/eNZaxEdn+YHmQR0cFQ73T4lQ1Xcfzso5SW+5cDYGn6BPYzEfte9gCzwzOOyAGodptTy6l29KkDbPZ2l11O2Cf7MeYEBErQBB1+fA6VCVPR1gBj6E3tllBD9lU8ds19nT+W71VvAAHoY6cH6I590Ya9gZVsbXzg/R9eyVii1bil3sPNjr9ArELdf/l4A091cKGbX8DkLiKqCUgXpRpKUYDSBrN4kpvsZaiWivq38mDg0tuz8o7Zgm49uOO3IxJ6LHOgyBQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(7416014)(376014)(22082099003)(18002099003)(56012099006)(10067099003)(4143699003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejM2LzNIakJjeGY0QzJwZjY3NXFPbnZYMWZwWGpkQU0xek5LYno4N3FOTll5?=
- =?utf-8?B?VWgwdUhQbmpDSURMa21XYkVpOVhGSjIrVVp4Q2R5QmRtalVVZVZzSmdxc0dT?=
- =?utf-8?B?Uk0wR2N0ajNwVytndGVqQ2tZb0tzOU5SOFgxNndtTGhya1RXL29uTzNsOUZP?=
- =?utf-8?B?dVBZa0ZDcEpiSG9sUnFhMlNSOStLNkp3RkJ6K1BMZ2JNQ3cyL0szU0gvWjc2?=
- =?utf-8?B?VkQwYjlwWTN6RXBXdm01aUZDU3ZZR2phY0FLUVFUUGpWNlk3M1FpMjVnTkg5?=
- =?utf-8?B?aDJPUzlKWDdQN1FnNDFqK3dnN0kvdVkvak5WUTVUVVJTcGVlRXk0S0p2MmE4?=
- =?utf-8?B?MmtVL2V0a2hLUzlNOWQ0dmZPdW15VnpxdUsvSWxSUjVYRm9VOEFCSnpJeklh?=
- =?utf-8?B?M3czcHl3dDg5dENGRlVVamphQlhsQmtQVWFIdGk1TERLZTcwaE1XNE9sMXk5?=
- =?utf-8?B?VUNRSnZuWjlyRDhoZGM2aHZ0RUVVc2QvMi9rZDNyN1ZlWGZQRHlDNWd3TVpF?=
- =?utf-8?B?bXRXKzczZGM2cU9RblEyME4yajhKYzB1Z2MzbU9kYTBhSVhaenVoTWRUWmJM?=
- =?utf-8?B?MEQ2TlNKTTkvUFR5WXk1Zlk0eVc3TGNCbnBoaWVtRllVRHZRbEFESDVMWEUw?=
- =?utf-8?B?MHhXeU9xV1JkRFlHNFAvRnR1c2g2aER1VXRuaTdmckovSk43REgvM29HL2ZT?=
- =?utf-8?B?NzJsM0VXeXpucDVKWkFIQ3A1OVp4a2g5Z3phMmJua1lKRkJGcnlhTTdrRHJT?=
- =?utf-8?B?SmRvc2lMd1A2cW5mQWlCNlZES1ZabEZ5YkgrdHRtSzdzaFhCWkgvRGNxNkFm?=
- =?utf-8?B?eXl2d2RvNCtSeXV6SFNxRGdTRmkzOHVITUtKL3Q4MDhHL3RtQ0ZNQmxjTHpu?=
- =?utf-8?B?K1ppTHlHQTU5MWlrTU9ZQVBWcDhTRlQ5U3pXdjN1czRtaVBJM1RaUVlUbTlu?=
- =?utf-8?B?WkRQSWtxRlJyTy9Hb3gvaTFjbmFTU1hLd09yb2I0R0FmUzNnaTBOd1BvLzFu?=
- =?utf-8?B?SjlyUkxUbFZHS0ZqUXhpS2JMTkpGRjU5cW5xdlhZTGc4NGhpVEVpWWQrTmpj?=
- =?utf-8?B?SXo1K1A5K1JpdHdDR0Jqd0RTeHBVYnNPYjB4RldFRXlrY0pHN3J0cFBzQm9H?=
- =?utf-8?B?UzZBdFdFYjRqMmwyOVduV2JXNk1PcDR2SFVXOHpQaGNLdUkxbHBzTVpxcXlq?=
- =?utf-8?B?ejBwMnZsS2NaaStpSDF5MzZsdzNzTExDMHJLOVBGZ3phZlhKWHBiZjlKV04v?=
- =?utf-8?B?K09wVkcvNDIrbS9tNEJ0OWl6VmNXNGRFYUM1OTV6S01IeXJ3RDdhcjdRbUVF?=
- =?utf-8?B?MUxtMm82U0FzVWJTYWpqL3pQMEc3NlNGenpGbWN5akxDNWVGQ3g2Z0pRMDl3?=
- =?utf-8?B?QTIyMjBWN0d3K3VBYldlcXBWVXNFU3hzREY3Y1huL0hRaDkyRFlHemNSaEh6?=
- =?utf-8?B?V044WmlKYlNhc2IvWkNyaXNXRDhOYlZib042ZnJxL2RaUWVtZHAvL01Qdk9Q?=
- =?utf-8?B?d2tVc0FZWktDMzQ2bEVubTRLVVNSSUhlS3FKamt0L0FMMEV5TVA5WDlZQ29i?=
- =?utf-8?B?bThzOUgwUlQrUVVzdGs3cUVIZGFoRG9BNENCNHZQd3JOd2ovME5tUlFkZWVW?=
- =?utf-8?B?QjJQaG9raE5WZk1iTzZnVnBWWkhFOExldWJsajVSR1YrdVc3T3NHZWMyTTU3?=
- =?utf-8?B?d0Q3bjhxTEhEaXl6WGJjR2Z2YUtWZk5HWG5ZNjBsZFFWeTViaWRmZHF6MWta?=
- =?utf-8?B?TDZtMTZQT3hmUjZlZWlBN3crTVJTc3dqK1E4YzdnWnhPWHZSclRZdmlLTWRV?=
- =?utf-8?B?UUZrM3VVUEJiNXBzR25CQ3B6RCtlVitVTEcxOFRDSkNPTktQWW9zWHVML05p?=
- =?utf-8?B?T2ZuZm5CTThCNW90Mi9icmExQlVGbUxRbVJaakt1ZTNrVTVnQUExL1M2M1Qx?=
- =?utf-8?B?VXMvSGpheituM1lYTk9uUkgyWU9pRkpLT3g1bTFTYXdPY1JhRk9yYU12MmJW?=
- =?utf-8?B?d3ZrMndOZDFHRmNZUGZPUTQwemFXN2U2NDBpbjN0cnF3YWVHVTlteHVoeE45?=
- =?utf-8?B?WkY1WkdwZFpmdmt6MitIb0Fpelc0R1NPV3JHSXhLZk4rVGtLZ1Y2TmYyQ1Bo?=
- =?utf-8?B?YnZBNjFwZk8xMFdGaWFjSE15MmNCT3dCQ3NsNGtkOGhWS1dkeCtTb2pnZDBm?=
- =?utf-8?B?SVljdW8wdGNCVmFxcTlITnVydTQzeUEyeXYzbm4wZEZKMjVaYktKOFVPczVy?=
- =?utf-8?B?ak83cEFVK21sUEYyM2RlSnV3YUFXaGJhbGVqZjJuL216Tm15aitlMk5hMlZC?=
- =?utf-8?B?RlhyeGhTQ1lSR1dLZ3Q2TEg1SEVVUlZVRnZVckxIc0RyRG1DRTErdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 564b5009-cb82-4ca7-ca36-08defdeaa36e
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 12:08:54.0446 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mHxCl+f9yP32AG/LkwCIlagbb2xQRaP+n2soTP2UfSBy5x9sLGoVj+681q9uwjHzgNzR5Z20knNueNdfmDEjIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB1886
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sysfs: Remove drm_class_device_(un)register()
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20260803132706.1497980-2-mcanal@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260803132706.1497980-2-mcanal@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,81 +84,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 19, 2026 at 12:23 PM BST, Danilo Krummrich wrote:
-> On Mon Aug 17, 2026 at 2:56 PM CEST, Eliot Courtney wrote:
->> +    pub fn push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags)=
- -> Result<(), E>
->> +    where
->> +        E: From<AllocError>,
->
-> This signature rejects impl Init<T, Infallible>, which is the reason why =
-we have
-> e.g. Box::init() and Box::try_init() with different fallible signatures.
->
-> So, if we follow InPlaceInit, it'd be
->
-> 	pub fn push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) -> R=
-esult<(), Error>
-> 	where
-> 	    Error: From<E>;
->
-> and
->
-> 	pub fn try_push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) =
--> Result<(), E>
-> 	where
-> 	    E: From<AllocError>;
->
-> In theory we could also simplify it to
->
-> 	pub fn push_init(&mut self, init: impl Init<T>, flags: Flags) -> Result<=
-(), AllocError>
->
-> and
->
-> 	pub fn try_push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) =
--> Result<(), E>
-> 	where
-> 	    E: From<AllocError>,
->
-> However, InPlaceInit actually achieves more with the init() and try_init(=
-)
-> distinction:
->
->   What init() accepts, but try_init() does not accept:
->     - impl Init<T, Infallible>
->     - impl Init<T, E> where Error: From<E> but NOT E: From<AllocError>
->
->   What try_init() accepts, but init() does not accept:
->     - impl Init<T, E> where E: From<AllocError> but NOT Error: From<E>
->
-> So, with the simplification we'd technically lose out on the
->
-> 	impl Init<T, E> where Error: From<E> but NOT E: From<AllocError>
->
-> case.
->
-> In any case, init() and try_init() seem a bit mixed up on their purpose
-> regarding fallibility and error type strategy, but in order to really cov=
-er all
-> cases I think it is necessary.
+Hi,
 
-This is one of the reasons that I suggest the entry-like API. This way the
-reserve and the push are separate operation and with their own failure mode=
-.
-`reserve` can only fail with `AllocError` and push can only fail with whate=
-ver
-the error the initializer can fail.
+Gentle ping for feedback.
 
-The most simple case of just reserving one element:
+Best regards,
+- Maíra
 
-    vec.reserve_one()?.push(fallible_init)?;
+On 03/08/26 10:26, Maíra Canal wrote:
+> The last usage of the functions drm_class_device_register() and
+> drm_class_device_unregister() was removed in commit ed89fff97382
+> ("drm/ttm: drop sysfs directory").
+> 
+> Remove such functions as they are no longer used.
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/drm_sysfs.c      | 32 --------------------------------
+>   drivers/gpu/drm/ttm/ttm_module.c |  1 -
+>   include/drm/drm_sysfs.h          |  4 ----
+>   3 files changed, 37 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+> index ef4e923a8728..7b16d32b6ff6 100644
+> --- a/drivers/gpu/drm/drm_sysfs.c
+> +++ b/drivers/gpu/drm/drm_sysfs.c
+> @@ -589,35 +589,3 @@ struct device *drm_sysfs_minor_alloc(struct drm_minor *minor)
+>   	put_device(kdev);
+>   	return ERR_PTR(r);
+>   }
+> -
+> -/**
+> - * drm_class_device_register - register new device with the DRM sysfs class
+> - * @dev: device to register
+> - *
+> - * Registers a new &struct device within the DRM sysfs class. Essentially only
+> - * used by ttm to have a place for its global settings. Drivers should never use
+> - * this.
+> - */
+> -int drm_class_device_register(struct device *dev)
+> -{
+> -	if (!drm_class || IS_ERR(drm_class))
+> -		return -ENOENT;
+> -
+> -	dev->class = drm_class;
+> -	return device_register(dev);
+> -}
+> -EXPORT_SYMBOL_GPL(drm_class_device_register);
+> -
+> -/**
+> - * drm_class_device_unregister - unregister device with the DRM sysfs class
+> - * @dev: device to unregister
+> - *
+> - * Unregisters a &struct device from the DRM sysfs class. Essentially only used
+> - * by ttm to have a place for its global settings. Drivers should never use
+> - * this.
+> - */
+> -void drm_class_device_unregister(struct device *dev)
+> -{
+> -	return device_unregister(dev);
+> -}
+> -EXPORT_SYMBOL_GPL(drm_class_device_unregister);
+> diff --git a/drivers/gpu/drm/ttm/ttm_module.c b/drivers/gpu/drm/ttm/ttm_module.c
+> index aa137ead5cc5..3daace105930 100644
+> --- a/drivers/gpu/drm/ttm/ttm_module.c
+> +++ b/drivers/gpu/drm/ttm/ttm_module.c
+> @@ -34,7 +34,6 @@
+>   #include <linux/pgtable.h>
+>   #include <linux/sched.h>
+>   #include <linux/debugfs.h>
+> -#include <drm/drm_sysfs.h>
+>   #include <drm/ttm/ttm_caching.h>
+>   
+>   #include "ttm_module.h"
+> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
+> index 96a5d858404b..7695873a9456 100644
+> --- a/include/drm/drm_sysfs.h
+> +++ b/include/drm/drm_sysfs.h
+> @@ -3,13 +3,9 @@
+>   #define _DRM_SYSFS_H_
+>   
+>   struct drm_device;
+> -struct device;
+>   struct drm_connector;
+>   struct drm_property;
+>   
+> -int drm_class_device_register(struct device *dev);
+> -void drm_class_device_unregister(struct device *dev);
+> -
+>   void drm_sysfs_hotplug_event(struct drm_device *dev);
+>   void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
+>   void drm_sysfs_connector_property_event(struct drm_connector *connector,
 
-the only requirement then becomes `E: From<AllocError>` and `E: From<InitEr=
-ror>`
-where `E` is the error type in function signature, bypassing this unificati=
-on
-issue.
-
-Best,
-Gary
