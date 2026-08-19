@@ -4,128 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D069C5DF88
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 08:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 296DAC5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 08:24:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C6D110ED5B;
-	Wed, 19 Aug 2026 08:22:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85FCB10ED64;
+	Wed, 19 Aug 2026 08:24:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="uspJcNY7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QYyCurve";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cxMhb+EN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ammhfTDM";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="BVTHsW5M";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 321FC10E104;
- Wed, 19 Aug 2026 08:22:19 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9476F3EAC;
- Wed, 19 Aug 2026 08:22:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787127733; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eLXsUmxS6VoLACyx0soPwmhAAfleZCRYNeF80jfiiCA=;
- b=uspJcNY7c9ScFhsddZ44oWHV+xMi/zjwP4R2mQnGTWcxilDz5jEZfWBmeOxBOILGFAa9wW
- /5+7WVg2IXDn6l+h1TwEGLaN3hWbmwauv4qRuq7EOVpU8n95/izctCBRGBQl4t3QDLyAOD
- 7w69eey4f0igmVL5fwdPo00yYBg5F8g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787127733;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eLXsUmxS6VoLACyx0soPwmhAAfleZCRYNeF80jfiiCA=;
- b=QYyCurvefr/vDZ3jHFmn3udlyUHIvxnPvbZYDczOgu2oxAcAlOgejtt+XnJfOTc1yaBQLX
- TUNEwxcdPm/07fCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787127729; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eLXsUmxS6VoLACyx0soPwmhAAfleZCRYNeF80jfiiCA=;
- b=cxMhb+ENMJi1yKIIbwgBwGJGqeBoKUANYOqtHjgtcqhyFwt7FXVeFmQTaKS6agsm9WNUvO
- n/F7jyaXnLSebFap4432uhXTqP0Nn42zmmr89K7FoGaaxZU74ctC4MIzi6Zj7aZeET0IsK
- gFP9/lCCX0kTlF6Pic0RGHDHfZzUvg4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787127729;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eLXsUmxS6VoLACyx0soPwmhAAfleZCRYNeF80jfiiCA=;
- b=ammhfTDMuV55xX/s1kxJXE1cm4jogUxu1ZCRSeOh5tCVUxrqHUf7FqHPRI4qKZZ1BerIse
- av8G2pPFXvRfFeDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5E804779BE;
- Wed, 19 Aug 2026 08:22:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id p5/jFbFnhWobbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 19 Aug 2026 08:22:09 +0000
-Message-ID: <b5f0a822-a343-45b2-94de-aeefd870427e@suse.de>
-Date: Wed, 19 Aug 2026 10:22:08 +0200
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46F4110E0E0;
+ Wed, 19 Aug 2026 08:24:03 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67J77YfP1033968; Wed, 19 Aug 2026 09:23:48 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=Jlz/NXxSHZ8qCISJLrx9utF
+ kWBjV4Tc67+D3Fk2nj88=; b=BVTHsW5Mxy2gxHvITAtjRrDGjA7BFGXMXzVJWuW
+ zTAoDNuUEcxrh4DUDCkSns1UdCy/HGJEccNXHCadLxe6pVTjTaUbVbQxq/QSDenm
+ O1gfOPZmLR1g7aWNbj4V37pFQlX5svmLgSSMkkkKw09aFPgbesa0oT0rztU7u3Xi
+ GtjKtjnmpBcMJ9c9k5pM/TJX7sliy0AK7grPkqjcxKi6YeMKlpLjZq45F1yzraYT
+ GDc31uQ3eQS/OwbJHD/uzWnWmTgSLWnZfPXHx7/D6f7UdC2UtMrtmE89mcOa2fSj
+ PtXKYj69AX6cdim6Zld5Wc/g+ZbT+NMT/l0nsNh3KSfTkNw==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4g452fhfha-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 19 Aug 2026 09:23:48 +0100 (BST)
+Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 09:23:44 +0100
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Date: Wed, 19 Aug 2026 13:53:32 +0530
+Subject: [PATCH] drm/imagination: Add job type info to pvr_job_submit_fw
+ trace event
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/12] drm/panic: Retry in dispatch function if panic
- output fails
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Frank.Li@kernel.org, imx@lists.linux.dev, intel-xe@lists.freedesktop.org,
- ojeda@kernel.org, dri-devel@lists.freedesktop.org,
- wsa+renesas@sang-engineering.com
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-8-tzimmermann@suse.de>
- <20260818130547.4FEDF1F00A3A@smtp.kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260818130547.4FEDF1F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCPT_COUNT_SEVEN(0.00)[9]; TAGGED_RCPT(0.00)[renesas];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; FROM_EQ_ENVFROM(0.00)[];
- TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260819-b4-submitjob_tracepoint-v1-1-f817b222bf6a@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAANohWoC/x3MTQqAIBBA4avErBOs7PcqEZE21QRpqEUQ3j1p+
+ S3ee8GhJXTQJS9YvMmR0RFZmoDaJr0iozkacp5XvMlaJgVzlzzI70aO3k4KT0Pas7moxcKrshA
+ lQqxPiws9/7kfQvgASLNjNWkAAAA=
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Frank Binns <frank.binns@imgtec.com>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Brajesh Gupta <brajesh.gupta@imgtec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787127824; l=1674;
+ i=brajesh.gupta@imgtec.com; s=20260417; h=from:subject:message-id;
+ bh=v5nLIoFXAWZwLZedIs4Zx0mKU5TyLtRFaMhJbSwrMwU=;
+ b=Dqgt5owS7jO1DhfsY2orzw6PAp+R7X96Nbxept8c9zl5OWqIvCN/ZHZKilYXMIwUi9cq8r/cc
+ Dju7MtPYby2CoA3Xwl4o4J1UO+rTuUaPTbwv4jSjXCaWLzAJo/G5s1b
+X-Developer-Key: i=brajesh.gupta@imgtec.com; a=ed25519;
+ pk=vDcrSP6vOpWKs914T986xUbB/vY0/cU7mRRb16MRkcg=
+X-Originating-IP: [172.25.128.225]
+X-Proofpoint-GUID: w72T9GffDCPufSxYP83OG5Tx2ebDpDPo
+X-Proofpoint-ORIG-GUID: w72T9GffDCPufSxYP83OG5Tx2ebDpDPo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDA2MiBTYWx0ZWRfXxo2vZuNTchV4
+ lBGETjumy0HFwgJfUyMT7tqOFbEZtFMybwbYJbyA1U4RAI3760df87CfWKw64//NxiTek7/uexu
+ oyNOgdSYGBUwN/CZIdPjEWgx6KJwaHM=
+X-Authority-Analysis: v=2.4 cv=cOLQdFeN c=1 sm=1 tr=0 ts=6a856814 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=8hSRHtm8Qhmt5jkuxhYA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDA2MiBTYWx0ZWRfX4byIxAtLtwD5
+ cQp+KUZgOtuZAFsrMiEvreYAZn14jBzyP2Whm1vn0SuFlYzRuoAGViSwtazZT1O4xyjgzdDizDx
+ 6KrT3+Vi0ht5CThdOxXylmUsYEnAVD2rRQA5JrJ9rA+zU1GcHqCqJAg2YYwnKZBHUYF2Sv+cyuL
+ ABBuxDh7xsRjpga4PGopQDdvqScVDxgQ2QxGaKv0PTJXHTnuSRw/3qPFOb9KMlMFHcBgzdzCKeP
+ 7XquDNcAsGU0zrqmq5KG2Hvzlupo1uRlvB6IFDl9gg23rE00D+e+Xcsu39EeLu1WMOUJkP6ojHL
+ 9qjf7CSnEq9+H/uKaABK2EQquNRc8APUsIZNt6hU1pm0Se8WCNKAC7k3jJhNDk5Oo2Nia497uGT
+ 2juQpUgJxqnsRx34BHQrRuuXtR3TBYNmH5lZDT1RdK4tgjMiA0UpwsP7C+X+Kz9uxiEcrgdc86f
+ kAMbGWUMIrHD7rGyx0g==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,70 +99,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Update trace event pvr_job_submit_fw to additionally capture and display
+type of the submitted job to easily map events as per type.
 
+Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+---
+ drivers/gpu/drm/imagination/pvr_trace.h | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-Am 18.08.26 um 15:05 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Removing the internal fallback from `draw_panic_screen_qr_code` breaks the `drm_panic` KUnit tests.
+diff --git a/drivers/gpu/drm/imagination/pvr_trace.h b/drivers/gpu/drm/imagination/pvr_trace.h
+index ffbbde3b2bcc..1b449a64a6ac 100644
+--- a/drivers/gpu/drm/imagination/pvr_trace.h
++++ b/drivers/gpu/drm/imagination/pvr_trace.h
+@@ -81,20 +81,23 @@ TRACE_EVENT(pvr_job_create,
+ 		      __entry->sync_op_count)
+ );
+ 
+-#undef PVR_JOB_TYPE_TO_STR
+-
+ TRACE_EVENT(pvr_job_submit_fw,
+ 	    TP_PROTO(struct pvr_job *job),
+ 	    TP_ARGS(job),
+ 	    TP_STRUCT__entry(__field(struct pvr_job *, job)
+-			     __field(u32, done_seqno)),
++			     __field(u32, done_seqno)
++			     __field(enum drm_pvr_job_type, job_type)),
+ 	    TP_fast_assign(__entry->job = job;
+-			   __entry->done_seqno = job->done_fence->seqno;),
+-	    TP_printk("job=%p done_seqno=%u",
++			   __entry->done_seqno = job->done_fence->seqno;
++			   __entry->job_type = job->type;),
++	    TP_printk("job=%p done_seqno=%u job_type=%s",
+ 		      __entry->job,
+-		      __entry->done_seqno)
++		      __entry->done_seqno,
++		      PVR_JOB_TYPE_TO_STR(__entry->job_type))
+ );
+ 
++#undef PVR_JOB_TYPE_TO_STR
++
+ TRACE_EVENT(pvr_job_done,
+ 	    TP_PROTO(struct pvr_job *job),
+ 	    TP_ARGS(job),
 
-I think that's exactly the right thing to do. When we unit-test 
-draw_panic_screen_qr_code() , we better not fallback silently to 
-something that works; thus masking the error.
-> --
->
-> --- Patch [7]: [PATCH 07/12] drm/panic: Retry in dispatch function if panic output fails ---
-> commit 23392eb57457ad383d9c4741f6fc2f3c107aabb3
-> Author: Thomas Zimmermann <tzimmermann@suse.de>
->
-> drm/panic: Retry in dispatch function if panic output fails
->
-> On failed output of QR codes and kmsg buffers, fall back to a user
-> message. QR-code output already did this internally, but now formally
-> support it in drm_panic_dispatch(). Streamlines the existing logic.
->
->> --- a/drivers/gpu/drm/drm_panic.c
->> +++ b/drivers/gpu/drm/drm_panic.c
-> [ ... ]
->> @@ -816,15 +816,6 @@ static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
->>   	drm_panic_blit(sb, &r_qr, qr_image, qr_pitch, scale, fg_color);
->>   	return 0;
->>   }
->> -
->> -static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
->> -				     u32 fg_color, u32 bg_color,
->> -				     unsigned int qr_version)
->> -{
->> -	if (_draw_panic_screen_qr_code(sb, fg_color, bg_color, qr_version))
->> -		draw_panic_screen_user(sb, fg_color, bg_color);
->> -	return 0;
->> -}
-> [Severity: Medium]
-> Does removing this fallback cause the drm_panic KUnit tests to fail?
->
-> Looking at the test suite in drivers/gpu/drm/tests/drm_panic_test.c, it
-> calls this function directly without going through the new dispatch logic:
->
-> static int draw_panic_screen_qr_code_default(struct drm_scanout_buffer *sb)
-> {
-> 	return draw_panic_screen_qr_code(sb, 0x00ffffff, 0x00000000, 40);
-> }
->
-> When tested with a small resolution like 300x200, the scale evaluates to 0
-> and returns -ENOSPC. Previously, this wrapper caught the error, fell back
-> to draw_panic_screen_user, and safely returned 0, satisfying the KUnit
-> check.
->
-> Since the fallback was moved to draw_panic_dispatch and the test calls
-> the lower-level function directly, will this now propagate the -ENOSPC
-> error and spuriously fail the test?
->
+---
+base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
+change-id: 20260819-b4-submitjob_tracepoint-d374f065345e
 
+Best regards,
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
