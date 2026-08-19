@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD173C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 22:45:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4504C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 22:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4164B10E59F;
-	Wed, 19 Aug 2026 22:45:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3989710E5A6;
+	Wed, 19 Aug 2026 22:45:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="L1SFKNGL";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="ko8FdxB9";
 	dkim-atps=neutral
-Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A52410E59F
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 22:45:28 +0000 (UTC)
+Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3629D10E5A6
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 22:45:34 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=AyEpzOmoZokcn98I4PpV2wK3LnYYCx7YqYVB4sid0oU=; 
+DKIM-Signature: a=rsa-sha256; bh=TacB/aetMDJnEcR0iz+9U50oQPuwvOuTpZHaV+i3Zk0=; 
  c=simple/simple; d=kaitmazov.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787179527; v=1; x=1787784327;
- b=L1SFKNGL4iSI59NzIp3cyjzrqIbJr5d/D1svtnEY/gGrP+4HLI8WUP8Pbu5z9nIjILjEKAba
- IaGQBbefJx/+B38He9lorSxeS4gF13CZ7y+EGOaVkxJEYBUq2W6ct7e1alh3cvt7uj73OacUJFH
- cIK/7FnZzetBcF13ObwuJHAGe+4Mi5eZXmEd518yOpd7+xttJHjWtXuWX2MUZ+usNaMclFRo/Xs
- Z0PY9u+Cwi0A3gAGC5MkNUp3HH9Kyi/xgbNqubVt8eYybKrG5gyf4n3xkMs8E/JLlrMNNWVjPxw
- GCzVPSXnuJvrF2AuNVWiwFhX9poMEr7stN70N/32bOd7w==
+ t=1787179532; v=1; x=1787784332;
+ b=ko8FdxB9QpoFRJ4j+nTn6f11cM3D0PH1bXcvj0SYSIodyrg/drh05SMnfEUMdFLVFGxqM2Oh
+ QJwvjBmf8Mym0Z+qfor/SFMk0ZLN6Qk8CdXjqebNhyhHRFSbRp2pfCNJNIfNP9qfR7W5ILMtjcU
+ HY2727fkRJGAfx+yeh+XSRplQxsomV+RV45vV9a036aX65hzWujZxGVBJHbiP/9DNPc8xABsTq/
+ CzGkxCngkU0FKvwNOW3oVd4mtzFNXTZNAoAZX0gFNhPdasKyUtOXYpYXuJbHT9ja2KFTSrzYV5g
+ XJCWhUBsSLAx1L0xKbCKeLdCcSoFOeJ9LhLz0LQ2cyk7w==
 X-Envelope-To: dri-devel@lists.freedesktop.org
 Received: from cachyos-26.lan (193.42.111.69)
- by smtp.migadu.com with ESMTPS id 448221c47654d854;
- Wed, 19 Aug 2026 22:45:27 +0000
-X-Mizu-Trace-ID: 448221c47654d854
+ by smtp.migadu.com with ESMTPS id 937798d91ed982de;
+ Wed, 19 Aug 2026 22:45:32 +0000
+X-Mizu-Trace-ID: 937798d91ed982de
 X-Migadu-Flow: FLOW_OUT
 From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 To: Lizhi Hou <lizhi.hou@amd.com>, Min Ma <mamin506@gmail.com>,
@@ -41,10 +41,9 @@ Cc: taimuraz@kaitmazov.com,
  Sonal Santan <sonal.santan@amd.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v5 3/5] accel/amdxdna: do not warn when a sync request is
- rejected
-Date: Thu, 20 Aug 2026 01:44:56 +0300
-Message-ID: <20260819224458.257346-4-taimuraz@kaitmazov.com>
+Subject: [PATCH v5 4/5] accel/amdxdna: refuse to flush an imported BO
+Date: Thu, 20 Aug 2026 01:44:57 +0300
+Message-ID: <20260819224458.257346-5-taimuraz@kaitmazov.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260819224458.257346-1-taimuraz@kaitmazov.com>
 References: <20260819224458.257346-1-taimuraz@kaitmazov.com>
@@ -65,31 +64,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_drm_sync_bo_ioctl() answers a failed amdxdna_flush_bo() with
-drm_WARN(). Both of that function's error returns are decided by the
-ioctl's arguments, so SYNC_BO with an offset past the end of the BO
-splats and taints the kernel from an unprivileged caller.
+SYNC_BO clflushes an imported BO's scatterlist. An importer may not do
+that: the memory belongs to the exporter, and dma-buf gives the importer
+no interface to ask for maintenance on it. Refuse the request instead.
 
-Log it at debug level, since the same caller can repeat it.
+is_import_bo() is (obj)->attach, which covers more than foreign buffers.
+A userptr BO arrives through a ubuf, and on a carveout device every share
+BO and the device heap arrive through a cbuf, so SYNC_BO answers
+-EOPNOTSUPP for those too, including the AMDXDNA_BO_DEV path that flushes
+through its heap.
 
+Only the ubuf case gives up maintenance it was getting: on a 64 MiB
+userptr BO a 4 KiB sync and a full sync both cost 659 us, this arm having
+ignored the range. amdxdna_cbuf_map() fills in only the DMA address and
+length, so drm_clflush_sg() already walks zero pages on carveout memory.
+Userspace maintains these through the mapping it already holds, as XRT's
+buffer::sync() does unless it is told to sync through the driver.
+
+Suggested-by: Lizhi Hou <lizhi.hou@amd.com>
 Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- drivers/accel/amdxdna/amdxdna_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/accel/amdxdna/amdxdna_gem.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 77a9493cd7ba..0e0f844526ca 100644
+index 0e0f844526ca..4be5298d1062 100644
 --- a/drivers/accel/amdxdna/amdxdna_gem.c
 +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -1310,7 +1310,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
- 		amdxdna_gem_unpin(abo);
+@@ -1224,6 +1224,9 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
+ {
+ 	u64 end;
  
- 		if (ret) {
--			drm_WARN(&xdna->ddev, 1, "Can not get flush memory");
-+			XDNA_DBG(xdna, "Flush BO %d failed, ret %d", args->handle, ret);
- 			goto put_obj;
- 		}
- 	}
++	if (is_import_bo(abo))
++		return -EOPNOTSUPP;
++
+ 	if (offset >= abo->mem.size)
+ 		return -EINVAL;
+ 
+@@ -1234,9 +1237,7 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
+ 	if (!size)
+ 		return 0;
+ 
+-	if (is_import_bo(abo))
+-		drm_clflush_sg(abo->base.sgt);
+-	else if (amdxdna_gem_vmap(abo))
++	if (amdxdna_gem_vmap(abo))
+ 		drm_clflush_virt_range(amdxdna_gem_vmap(abo) + offset, size);
+ 	else if (abo->base.pages)
+ 		drm_clflush_pages(abo->base.pages, abo->mem.size >> PAGE_SHIFT);
 -- 
 2.55.0
 
