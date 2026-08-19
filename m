@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58CD9C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 09:29:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B4CC5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 09:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7BB10E100;
-	Wed, 19 Aug 2026 09:29:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBAC610E105;
+	Wed, 19 Aug 2026 09:31:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eiULWlNa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U9gn1BeH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8FCC10E100
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 09:29:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F105D6020E;
- Wed, 19 Aug 2026 09:29:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89A911F000E9;
- Wed, 19 Aug 2026 09:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787131779;
- bh=l/64QleNXL8U2oyROv6c0r90kSn9j9tzILBvtv/FTco=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eiULWlNazG0cYyP9Nrd9iidhBWUo7iv8HwPFqzCAdhEJnAduCtTt6dVlTQMOhXHOo
- mPeU2JdxYa21mHeRtMCNwuZxah/AHPTZGH/n4YdXEpqWSaVv68FsttueEZ1VKtPRlu
- 5fpoV+HspIy2wv4hE1fGdl+q+K3Bi/+kOQIxM4iVBjs17VxPChUbotkNAJfC9Blm15
- EEQeFRrtmi65eyl4EZj938Ub5nGtZ6xrP5YZ2eB9Nss7QKktlVoN/1R6pojp8+I4G2
- +72/owJeCPPuXCuNHyiYeho9+KQAzZczgRkRHxtfdlNNwjQfZck+YbvHeVtbHZA69e
- 2FSSb/HFbe+0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/nouveau/nv04: check cursor buffer object size
- before upload
-To: "Zhenhao Wan" <whi4ed0g@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260819-nouveau-nv04-cursor-oob-v2-1-63eb8d0c847f@gmail.com>
-References: <20260819-nouveau-nv04-cursor-oob-v2-1-63eb8d0c847f@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 09:29:39 +0000
-Message-Id: <20260819092939.89A911F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D29910E105;
+ Wed, 19 Aug 2026 09:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787131873; x=1818667873;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=3u3xlMJ5fpbZzxsclW4XVg2U0FbIpBnl65cYigskGc0=;
+ b=U9gn1BeH+xwG+RdIXXnIr4TXLO7zeem0F81QzV5OImFrAF9RhN1iAZzc
+ UNk+6utUjZatrpsrJM8pPk6R4fdWsfti6osMxGIhOXbv3yuE1PrVxElcx
+ jmRJOY91kxr0RJtzq+6Z+lRo0NS0Xm+ioQAlFphU8Z99hGOyu5RF6sdwR
+ oF/Ytsf0OA0dYNIgjmzE9sVbXz513rrNztFQ755vFCeOHsqcceD26JxUL
+ 2iH4jJv4tTLUvHz8TX7x6gfqKYor/EleehWNwhaEVJwpXKJYMAxYJHdGi
+ ZlploTtbqy/tYvQkks3pr720nO2cb3jGPZhKJEEuFqPmCWzmwpFyOrjxQ A==;
+X-CSE-ConnectionGUID: 0h6dj6blQ++kgbIbIrGk6g==
+X-CSE-MsgGUID: /r8IHl+jRyayq39ALpfxBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="113185481"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="113185481"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 02:31:12 -0700
+X-CSE-ConnectionGUID: 2PuugOzfQAeylrVcZiNS/g==
+X-CSE-MsgGUID: 42QGZO9kSMWCtkqYS0dWAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="262230989"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.152])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 02:31:10 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Intel Graphics
+ <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Re: Unexpected files in the drm-intel tree
+In-Reply-To: <aoR9fNYRhmWDNJtz@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <aoR9fNYRhmWDNJtz@sirena.org.uk>
+Date: Wed, 19 Aug 2026 12:31:07 +0300
+Message-ID: <cbd77031f484d0c044666c4fc11fd3ef273459bb@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,90 +69,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Tue, 18 Aug 2026, Mark Brown <broonie@kernel.org> wrote:
+> Commit
+>
+>   ac3baea883dab ("drm/panel: find_panel_by_fwnode() return a counted reference")
+>
+> added this unexpected file:
+>
+>  drivers/gpu/drm/drm_panel.c.orig
 
-Pre-existing issues:
-- [High] Concurrent calls to `nv04_crtc_cursor_set` sharing the same cursor=
- GEM object corrupt `nvbo->kmap`, causing a memory leak and NULL pointer de=
-reference.
---
+So this has been reported before for drm-misc [1] and drm-xe [2] trees,
+and has been fixed in the drm-misc tree by commit 651b0bd0922b
+("drm/panel: remove accidentally committed .orig file").
 
---- Patch [1]: [PATCH v2] drm/nouveau/nv04: check cursor buffer object size=
- before upload ---
-commit c56f9068ff05cc5ffb036fafee41018786a585b4
-Author: Zhenhao Wan <whi4ed0g@gmail.com>
+Similar to what Joonas said in [3], this should really only be reported
+once for the tree *and* branch where it originated. There's not a lot of
+value in reporting again whenever something gets merged somewhere else.
 
-drm/nouveau/nv04: check cursor buffer object size before upload
 
-This patch adds a bounds check to the cursor buffer object in=20
-nv04_crtc_cursor_set before mapping it to prevent an out-of-bounds read
-when an undersized gem object is supplied.
+BR,
+Jani.
 
-Link: https://patch.msgid.link/20260813-nouveau-nv04-cursor-oob-v1-1-3f3eb3=
-7d213d@gmail.com
 
-> diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/no=
-uveau/dispnv04/crtc.c
-> --- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-[ ... ]
-> @@ -1000,6 +1000,11 @@ nv04_crtc_cursor_set(struct drm_crtc *crtc, struct=
- drm_file *file_priv,
->  		return -ENOENT;
->  	cursor =3D nouveau_gem_object(gem);
-> =20
-> +	if (gem->size < array3_size(width, height, 4)) {
-> +		ret =3D -EINVAL;
-> +		goto out;
-> +	}
-> +
->  	ret =3D nouveau_bo_map(cursor);
+[1] https://lore.kernel.org/r/al9cE1PAYd9jyCfZ@sirena.org.uk
+[2] https://lore.kernel.org/r/annCRqegoQ9PBClJ@sirena.org.uk
+[3] https://lore.kernel.org/r/178712337932.24680.17671628229026350089@jlahtine-mobl
 
-[Severity: High]
-This is a pre-existing issue, but does this code handle concurrent
-cursor updates safely when the same cursor gem object is used?
-
-If a process assigns the same cursor gem object to two different crtcs
-concurrently, the drm core handles the ioctls concurrently since it only
-locks each crtc->mutex individually. Both threads would look up the same
-nouveau_bo and call nouveau_bo_map() concurrently.
-
-Looking at nouveau_bo_map(), the kernel mapping is written to the shared
-nvbo->kmap struct, and the lock is dropped:
-
-drivers/gpu/drm/nouveau/nouveau_bo.c:nouveau_bo_map() {
-	ret =3D ttm_bo_reserve(&nvbo->bo, false, false, NULL);
-	...
-	ret =3D ttm_bo_kmap(&nvbo->bo, 0, PFN_UP(nvbo->bo.base.size), &nvbo->kmap);
-
-	ttm_bo_unreserve(&nvbo->bo);
-	return ret;
-}
-
-If two threads execute this concurrently, the second thread overwrites the
-first thread's mapping, which leaks the virtual memory area.
-
-When the first thread finishes uploading its cursor data, it calls
-nouveau_bo_unmap():
-
-drivers/gpu/drm/nouveau/nouveau_bo.c:nouveau_bo_unmap() {
-	...
-	ttm_bo_kunmap(&nvbo->kmap);
-	...
-}
-
-This clears nvbo->kmap.virtual to NULL without taking any locks. When the
-second thread attempts to read pixel data via nouveau_bo_rd32() during its
-own upload phase, wouldn't it fetch the NULL pointer and dereference it?
-
->  	if (ret)
->  		goto out;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-nouveau-nv=
-04-cursor-oob-v2-1-63eb8d0c847f@gmail.com?part=3D1
+-- 
+Jani Nikula, Intel
