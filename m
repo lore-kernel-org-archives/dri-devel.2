@@ -4,80 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1773C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 09:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 109AEC5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 09:40:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB9AF10ED88;
-	Wed, 19 Aug 2026 09:39:09 +0000 (UTC)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
- [209.85.217.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 332BF10E123
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 09:39:08 +0000 (UTC)
-Received: by mail-vs1-f53.google.com with SMTP id
- ada2fe7eead31-74d55dac06dso266412137.1
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 02:39:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787132347; x=1787737147;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=dIMgKn9ssmwMdJVgg9MfbDylpozJGdyvq0xNOf3CW1Q=;
- b=KyjIolUD2okD8FfeacbCbg4oIawJbVpTRjUvjo0B4JKTJq2JAGNETs4ktV62N6PGVC
- BcpEVv+a/SqW4uku3jrqBIWe//UZV7QLTpTfXoG7ausYLyAotE9a5isj4c94tvXg2qpw
- CS9/DLaV+3PhUlylDbwiBuQ+T2TrjJVYZUmrGH7nOuiquvL0OJFJv+HLf4g9y1ElQbvY
- CNesp2sSfPI8WuLBFrte2+IG9WZi/fXKs++OCt/qswL1yljfEKCVNEb+tICANwOD/O9u
- 0MtLJEs1e5pDinYRd0vy2wUx8+o9Ais/BJaKMppow3JXjutvIIqJfwN7nkXsvqokJW0w
- rX6A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrKfk2UfAWo85eTqRB+rf5OV0l+Sd9PLugLpJhwsLz6FXQ84mmMAi3JB8jPbzpKJp2w41RNahN8uIk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUTU6NdSD59Jp9uG+4TF6R88d9JWT0eCgLOoigHjXifYjQEHQz
- kFAgE7NyjPM2eEIM0PyG2/P8CeZW71Xm8G/ytlHgW7e8uj+ASclwMxRjD2qvwI8nkPQ=
-X-Gm-Gg: AR+sD127ct6+KxGZwlhBGMitg8lMHxW2QX2sW7tzP+hVk/fMbBcpx0sU7x4DhiRksGG
- InzKVAELtRK4Vy4RVPzoS29K4sBBZkP5T/LLT9yq9/EmGNTsYHmst2mEh3BvPXXR5AgXjkvtYM7
- xxsar0OJqZX7eIpMqD7Qc2RQELjawG9i2ceQP938lfyvP11/IbDov/VHLvSy1PJpWS98xI0eo+F
- KPZmJCTUdoS3OIZb12q2K3Alr7aDVrJrfLP1bF0RLnn7vJKmDjicNIqoJXmGZKqw22vog0Wcz79
- NSKREdtzunaEPeKEzYcUlGDl/BjbSLyiFHNVKxg+Jsk8Qo1rz1rgqYMYLm3NplsoesAjg9qykGc
- sgbt6Ke4xIjyZabqGpqhp5PkDo64QWZ/3MQ3wedDRfO99gSxhf99MLFslX5jQHbQhbif3f1CSef
- cub4QD5SHaRS0XpJrDxBl1E0t3cRxd89QrCwq5nOTnY8jk8qdWTSXWpnn7DPV/o1D2O9aAs31fG
- uqHNm+6HK4BXqoIimUbJmHntA==
-X-Received: by 2002:a05:6102:580e:b0:65a:fcea:5a8 with SMTP id
- ada2fe7eead31-777f897c331mr971591137.3.1787132346770; 
- Wed, 19 Aug 2026 02:39:06 -0700 (PDT)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com.
- [209.85.217.53]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-777ddc7edfasm1678554137.12.2026.08.19.02.39.06
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Aug 2026 02:39:06 -0700 (PDT)
-Received: by mail-vs1-f53.google.com with SMTP id
- ada2fe7eead31-74d55dac06dso266407137.1
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 02:39:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RopoC7x8i2wDGCupKt3z52FC2AUuPDccXbVlpEVnuq0WNWCFl0pmhKWF94k1ZnVcLT1dqy2c/H6tM4=@lists.freedesktop.org
-X-Received: by 2002:a67:e04e:0:b0:777:ffe0:a10b with SMTP id
- ada2fe7eead31-777ffe0a6b7mr539021137.4.1787132346344; Wed, 19 Aug 2026
- 02:39:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F96010E123;
+	Wed, 19 Aug 2026 09:40:23 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="ydUKOMG0";
+	dkim-atps=neutral
+X-Greylist: delayed 77272 seconds by postgrey-1.36 at gabe;
+ Wed, 19 Aug 2026 09:40:21 UTC
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D55810E123
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 09:40:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1787132421;
+ bh=5ZSJ5JiWdzfnEZOyHtVE0gzzOhx3PA5xc4qwHKzsEaI=;
+ b=ydUKOMG0smywR4MmBmKHIhAueJYTncDg21uJi66XNVefN8bcXlL4qD6k51LjBqDLxiUWde+y/
+ O2v3CfzWfV4f6tMjbP2+1eAwscasIGcCH3gPUlFbexrEm7yox3xdpe34x7xScHXobz9/s0LrL/W
+ 9sIHcjhO0kL3GMKTkYlwWjrNCeijDmwaxko5+900uTe7DqE3eqssh5lPMwCYWK/2/k7ELYlLc5g
+ +NAg5zl+BUvxLC8xwtlewaUeD9WJAdu0hIzuYvgq6FkTDscfPig01NQvbuBR1PPLhdQ3+r4Ri/3
+ lT1W28MlXgmkgrHWRIzCWk2mHJcI9XQ68Az8TWR2DZGg==
+X-Forward-Email-ID: 6a8579fdcdadef0c83c57015
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.13.16
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
+Date: Wed, 19 Aug 2026 11:40:08 +0200
 MIME-Version: 1.0
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-2-tzimmermann@suse.de>
-In-Reply-To: <20260818125012.468092-2-tzimmermann@suse.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 19 Aug 2026 11:38:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWYVjvGM2pOzWoDq8LUSrkFtzOQwdmosHYQuBLnSn3D-Q@mail.gmail.com>
-X-Gm-Features: AcwNN1Uwr-MWNK1wEAyEr8Z9JNVhxk4jrnSNE7dazUpWIvLo30uHHQJP967oerw
-Message-ID: <CAMuHMdWYVjvGM2pOzWoDq8LUSrkFtzOQwdmosHYQuBLnSn3D-Q@mail.gmail.com>
-Subject: Re: [PATCH 01/12] drm/panic: Allocate QR-code buffers statically
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org, 
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev, 
- sashiko-reviews@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint, and
+ some numbers
+To: Igor Paunovic <royalnet026@gmail.com>,
+ Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org
+References: <20260801131656.58450-1-royalnet026@gmail.com>
+ <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
+ <20260818072936.41844-1-royalnet026@gmail.com>
+ <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
+ <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
+ <20260819055324.33669-1-royalnet026@gmail.com>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <20260819055324.33669-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,67 +72,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hi Igor,
 
-On Tue, 18 Aug 2026 at 15:00, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Declare qrbuf1 and qrbuf2 as static arrays so that the module loader
-> allocates them for us. Avoids the kmalloc later on. Also allows for
-> using sizeof() to get the number of bytes in each array. Access the
-> arrays once with memset, so that the physical pages are available on
-> a panic.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On 8/19/2026 7:52 AM, Igor Paunovic wrote:
+> Hi Jonas,
+> 
+> On 8/18/2026 2:30 PM, Jonas Karlman wrote:
+>> Looking closer at my old commits, it was the PCLK_GPU_ROOT that was
+>> needed for e.g. RK3576 and RK3528. This clock is not described in RK3588
+>> clock tree so it never gets disabled by Linux clock framework.
+>>
+>> I suspect similarly one of the NPU root clocks is what drives the NPU
+>> PVTPLL and thus always must be kept enabled when PVTPLL mode is used.
+> 
+> Thank you - the PCLK_GPU_ROOT observation was the missing piece. I went
+> through the firmware my board actually runs and can now name the clock
+> for the NPU case.
+> 
+> First a correction to what I told Nicolas earlier: my BL31 is not the
+> vendor blob. The boot banner reports v2.12.0-9-gd5c68fd92, which is the
+> edk2-rk3588 project's TF-A branch: upstream v2.12.0 plus nine feature
+> commits (SCMI voltage domain, eMMC clock, TRNG, ...). The only one of
+> those touching rk3588_clk.c adds an eMMC clock; the NPU set_rate/PVTPLL
+> path is unmodified mainline v2.12. So Nicolas and I are effectively
+> running the same clock code, and the firmware-difference caveat from my
+> earlier mail mostly evaporates.
+> 
+> What clk_npu_set_rate() in plat/rockchip/rk3588/drivers/scmi/rk3588_clk.c
+> does:
+> 
+> - The rate table gives every OPP from 300 MHz up a ring length > 0, so
+>   they all take the PVTPLL path; 200 MHz has length 0 and takes the
+>   normal GPLL divider path. The 200 MHz suspend rate we both converged
+>   on is therefore safe by construction on this SoC.
+> 
+> - For a PVTPLL rate the firmware programs ring_sel/length/calibration
+>   (cal cnt = 24, T = 1 us, i.e. a 24 MHz reference) into NPU GRF at
+>   0xfd5a2000 (NPU_PVTPLL_CON0..2), and only then flips the mux in CRU
+>   CLKSEL_CON(74) to the PVTPLL path.
+> 
+> The Linux side is where the NPU differs from your GPU case: the NPU
+> root clocks are fully described in clk-rk3588.c. pclk_npu_root is a
+> gateable composite (CLKGATE_CON(29) bit 4) and NPU GRF hangs off it
+> (pclk_npu_grf, CLK_IGNORE_UNUSED). In the mainline DT only core 0
+> (fdab0000) requests PCLK_NPU_ROOT as its "pclk"; cores 1/2 only hold
+> their aclk/hclk. So whenever core 0 is runtime-suspended, pclk_npu_root
+> has no user left and gets gated.
+> 
+> An SCMI set_rate to a PVTPLL rate issued in that state programs a GRF
+> whose bus clock is off, while the mux write still lands because the CRU
+> is always clocked - leaving clk_npu_dsu0 parked on a ring that was
+> never configured. That matches the empirical failure in my RFC exactly:
+> the sysfs min_freq write while suspended, followed by the power-domain
+> power-on ack timeout. (I have not put a scope on the APB bus, so "the
+> GRF write cannot land" is inferred from the failure signature plus the
+> gate state, not observed directly.)
 
-Thanks for your patch!
+Ideally the SCMI firmware code should probably be updated to ensure any
+required root clock is ungated, and possible also hide some related
+clocks from OS. I am not even sure this is feasible option and this may
+diverge too much from vendor blobs and may not be backward compatible.
 
-> --- a/drivers/gpu/drm/drm_panic.c
-> +++ b/drivers/gpu/drm/drm_panic.c
-> @@ -628,24 +628,23 @@ MODULE_PARM_DESC(panic_qr_version, "maximum version (size) of the QR code");
->  #define WINDOW_BITS 12
->  #define MEM_LEVEL 4
->
-> -static char *qrbuf1;
-> -static char *qrbuf2;
-> +static u8 qrbuf1[QR_BUFFER1_SIZE];
-> +static u8 qrbuf2[QR_BUFFER2_SIZE];
+> 
+> For the series this reinforces the hold-all guard: resuming all cores -
+> core 0 in particular - around every rate change keeps pclk_npu_root
+> enabled for the duration of the SCMI call, closing the window for the
+> sysfs, governor and cooling paths alike. Your .config_clks() +
+> pm_runtime_suspended() check covers the OPP-initiated paths; I will
+> reference it and your branch in the cover letter.
 
-I am not a big fan of increasing kernel size like this.
-You may run (faster) into boot loader limitations.
+I played around with Nicolas patches and created a more updated
+config_clks() variant that tries to use the clocks configured for opp
+instead of keeping track of the clock, see [2]. Have not done any
+runtime testing of that, but wanted to share the link anyway :-)
 
->  static struct z_stream_s stream;
->
->  static void __init drm_panic_qr_init(void)
->  {
-> -       qrbuf1 = kmalloc(QR_BUFFER1_SIZE, GFP_KERNEL);
-> -       qrbuf2 = kmalloc(QR_BUFFER2_SIZE, GFP_KERNEL);
-> +       /* best-effort allocation; can be NULL */
->         stream.workspace = kmalloc(zlib_deflate_workspacesize(WINDOW_BITS, MEM_LEVEL),
->                                    GFP_KERNEL);
+If I remember correctly for the GPU path on RK3576, keeping the 'bus'
+clock enabled at all times helped ensure any root clock was enabled
+while GRF is accessed. I cannot remember that I had any issues with GPU
+GRF access for PD and sysfs governor paths. The config_clks() helped
+ensure set_rate never was called during GPU probe or when governor was
+changed. Maybe I missed testing some other paths :-)
 
-<ironic>Why not use a static array for this, too?</ironic>
+[2] https://github.com/Kwiboo/linux-rockchip/commits/next-20260803-rk-hdmi-v6/
 
-> +
-> +       /* touch memory so that pages are there in the case of a panic */
-> +       memset(qrbuf1, 0, sizeof(qrbuf1));
-> +       memset(qrbuf2, 0, sizeof(qrbuf2));
+> 
+> One open point where your GPU experience may help: besides the GRF
+> programming interface, do you know whether the ring/monitor logic also
+> depends on hclk_npu_root, or is the 24 MHz calibration reference
+> (xin24m, always on) the only other input? If you never had to find out,
+> I will determine it empirically by holding only pclk and cycling rates.
 
-Please clarify "there"?
-In cache? Not all systems have sufficient data cache, so it may be
-evicted at any time.
-In RAM? AFAIK kernel and module memory is not demand-paged.
-In TLB? Like cache, it may be evicted at any time.
+I do not know, and never looked too deep into it, with the root clk
+enabled everything seemed to work great, so I was happy enough with that
+and just moved on to next thing :-)
 
-So IMHO this is futile.
+Regards,
+Jonas
 
->  }
+> 
+> Regards,
+> Igor
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
