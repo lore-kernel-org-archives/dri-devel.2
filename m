@@ -4,62 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE3FC5DF86
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:26:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A8E4C5DF86
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:26:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 231B010E0F4;
-	Wed, 19 Aug 2026 11:26:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A799910E547;
+	Wed, 19 Aug 2026 11:26:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ow+YF9zX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D3bkZaYG";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76B2910E0F4
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:26:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9D57060A59
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:26:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 533EEC2BCB3
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:26:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1787138790;
- bh=FNQ86FC/3dApba/vQHQrXcFobNOgZ12XMacXkz+IZHI=;
- h=From:To:Subject:Date:In-Reply-To:References:From;
- b=Ow+YF9zXFX5zwpv1k993Wu/H3+9/2OKj0aIadvKn7UXyvAj3rhV27uKhlTiDbnjPD
- jdSMjZwsaTOV9+lteNU0DB0mvqy2nvXATam4pT3EMlvKRIQiwxLjx6+8ATGKjJ00vu
- /QDb2tU+M+ZXK62tGFmpbJ0p13ldZ60rIKUhznI+ygmIoSo3zLw2U+acr2h0ZXPD5R
- 4W+kLafyyULr3CWsx3G5cqATeScjL20Jv6eiD3flDDZcFsq1+wtFamyhodehZ7SM57
- +3+pl+XanXSDgtiVaws29ZPAlqnro3t4eWJMl4vMg4E9Km7oJ9+mxDYrXC30eoHe8A
- EZlY2HZUWm7Ug==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 3ACEDC4160E; Wed, 19 Aug 2026 11:26:30 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: dri-devel@lists.freedesktop.org
-Subject: [Bug 219492] amdgpu: failed to write reg 28b4 wait reg 28c6 and
- amdgpu: failed to write reg 1a6f4 wait reg 1a706
-Date: Wed, 19 Aug 2026 11:26:29 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Product: Drivers
-X-Bugzilla-Component: Video(DRI - non Intel)
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: pisarevden+bugzilla@gmail.com
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: ANSWERED
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: cc
-Message-ID: <bug-219492-2300-1wRrnkUF3G@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-219492-2300@https.bugzilla.kernel.org/>
-References: <bug-219492-2300@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9385A10E547
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:26:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 18DDB60A59;
+ Wed, 19 Aug 2026 11:26:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842651F000E9;
+ Wed, 19 Aug 2026 11:26:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787138801;
+ bh=70rYFpNpEVuBJS/kcWm3ASQjiKWfReH5YKltd/e91dg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=D3bkZaYG0l95mX+oMMxu80YL6J45IgANNiHVUVuyL81T2wa8LrkNL8tbbNou1viZI
+ 5Ev2ISss27y4XeGdFeJMUtgEj4XJQyyXwhwbaiiH4qtHN3wTniMp4uHVRRUmq+S53D
+ swPohH+6eU2Z3++wGley0fx6rEzjsqMNGL8d2QT+w8najDP3RPu0ypZqGuy6RguHSw
+ XK6cK4MyuoDS7x3fXrGiqx6++TxQ1qSKKVJZghar4r3U3XCY8RdkjlyJAov4aVEk8B
+ CgRGuweF4iHrH2TNfWKrcoje3JU9geqVzEDUusYG41+A/l/k0EVY79bU3EMf7CHIOY
+ hogzE0MP0p+gw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 16/16] rust: io: register: unify handling of register
+ with/without bitfields
+To: "Gary Guo" <gary@garyguo.net>
+Cc: linux-pci@vger.kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org, "Alexandre
+ Courbot" <acourbot@nvidia.com>, ojeda@kernel.org
+In-Reply-To: <20260819-typed_register-v3-16-3699a75fadf1@garyguo.net>
+References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-16-3699a75fadf1@garyguo.net>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
-MIME-Version: 1.0
+Date: Wed, 19 Aug 2026 11:26:41 +0000
+Message-Id: <20260819112641.842651F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,99 +56,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D219492
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `#[unique]` attribute allows implementing `FixedIoLoc` for s=
+tandard primitive types (like `u32`), which silently binds all implicit typ=
+e-based writes in a Base to a single specific register.
+- [Low] The `register!` macro incorrectly uses the `unique` flag instead of=
+ checking for an inline bitfield to validate array registers, allowing `#[u=
+nique]` on non-bitfield arrays to bypass validation and generate invalid Ru=
+st code.
+--
 
-Denis Pisarev (pisarevden+bugzilla@gmail.com) changed:
+--- Patch [16]: [PATCH v3 16/16] rust: io: register: unify handling of regi=
+ster with/without bitfields ---
+commit 154a352ba1f637b66e6182a851b9260fee49b4d6
+Author: Gary Guo <gary@garyguo.net>
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-                 CC|                            |pisarevden+bugzilla@gmail.c
-                   |                            |om
+rust: io: register: unify handling of register with/without bitfields
 
---- Comment #5 from Denis Pisarev (pisarevden+bugzilla@gmail.com) ---
-"failed to write reg 28b4 wait reg 28c6" persists for hours after every S4
-(hibernate) resume, Cezanne, kernel 7.1.8
+This commit moves the FixedRegister to become a property of the type by
+introducing a new FixedIoLoc trait. It exposes this to registers without
+inline bitfield definitions via the #[unique] attribute.
 
-Adding another reproduction on a different setup (desktop use, no ROCm),
-with two observations that go beyond the original report:
+> diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
+> index e0bba6b71ebc1..84be1a5939596 100644
+> --- a/rust/macros/io/register.rs
+> +++ b/rust/macros/io/register.rs
+[ ... ]
+> @@ -217,27 +230,30 @@ pub(crate) fn register(def: RegDef) -> Result<Token=
+Stream> {
+>          }
+> =20
+>          match array {
+> -            None if bitfield.is_none() =3D> outputs.extend(quote!(
+> -                #(#attrs)* #vis const #name: ::kernel::io::register::Off=
+setLoc<#base, #ty> =3D
+> -                    ::kernel::io::register::OffsetLoc::new(#offset);
+> -            )),
+> -
+> -            _ if bitfield.is_none() =3D> Err(Error::new_spanned(
+> -                ty,
+> -                "defining without bitfield is not yet supported for this=
+ type of register",
+> -            ))?,
+> -
+> -            None =3D> outputs.extend(quote_spanned!(span =3D>
+> -                impl ::kernel::io::register::FixedRegister for #name {
+> -                    type Base =3D #base;
+> -                    const OFFSET: usize =3D #offset;
+> +            None =3D> {
+> +                if unique {
+> +                    outputs.extend(quote!(
+> +                        impl ::kernel::io::register::FixedIoLoc<#base> f=
+or #ty {
+> +                            type Location =3D ::kernel::io::register::Of=
+fsetLoc<#base, #ty>;
+> +                            const LOCATION: Self::Location =3D #name;
+> +                        }
+> +                    ))
+>                  }
 
-1. The failures are NOT limited to early resume. They continue
-   indefinitely (80-140 per hour for 9+ hours) until reboot.
-2. On this machine there are no "TLB flush failed for PASID" lines at
-   all - only the two reg write/wait pairs.
+[Severity: Medium]
+Does this allow implementing FixedIoLoc for standard primitive types like u=
+32?
 
-HARDWARE / ENVIRONMENT
-----------------------
-CPU:     AMD Ryzen 7 PRO 5850U
-GPU:     AMD Cezanne iGPU [1002:1638] (rev d1), amdgpu, DMUB 0x0101002B
-Kernel:  7.1.8-1-MANJARO
-Desktop: KDE Plasma / KWin Wayland, no ROCm or compute workloads
-Trigger: resume from hibernation (S4), 100% reproducible over multiple
-         cycles across two days; does not occur on a fresh boot
+If a register is defined with a standard primitive type and #[unique] is
+applied (e.g., pub REG: #[unique] u32 @ 0x100;), this generates
+impl FixedIoLoc<Base> for u32. This would silently bind all implicit
+type-based writes in that Base to a single specific register.
 
-LOG EXCERPT (resume at Aug 19 10:52:39)
----------------------------------------
-Aug 19 10:52:39 horsehead kernel: Freezing remaining freezable tasks comple=
-ted
-(elapsed 0.001 seconds)
-Aug 19 10:52:39 horsehead kernel: amdgpu 0000:07:00.0: failed to write reg =
-28b4
-wait reg 28c6
-Aug 19 10:52:39 horsehead kernel: amdgpu 0000:07:00.0: failed to write reg
-1a6f4 wait reg 1a706
-Aug 19 10:52:39 horsehead kernel: amdgpu 0000:07:00.0: failed to write reg =
-28b4
-wait reg 28c6
-Aug 19 10:52:39 horsehead kernel: amdgpu 0000:07:00.0: failed to write reg
-1a6f4 wait reg 1a706
-Aug 19 10:52:39 horsehead systemd-sleep[1062034]: System returned from sleep
-operation 'hibernate'.
+If someone accidentally types io.write_reg(val) intending to write to anoth=
+er
+register, and val is a u32, the compiler might silently accept it and write=
+ to
+REG, bypassing the intended type-safety.
 
-The first failures appear in the same second as the thaw, interleaved
-with the hibernation-exit messages. On an earlier cycle the resume also
-produced:
+Is it possible to restrict this behavior to ensure it doesn't apply to shar=
+ed
+primitive types?
 
-Aug 18 10:04:42 horsehead kernel: amdgpu 0000:07:00.0: MODE2 reset
-Aug 18 10:04:42 horsehead kernel: usb usb5: root hub lost power or was reset
-(... usb6, usb7, usb1 ...)
+> =20
+> -                #(#attrs)* #vis const #name: ::kernel::io::register::Fix=
+edRegisterLoc<#name> =3D
+> -                    ::kernel::io::register::FixedRegisterLoc::<#name>::n=
+ew();
+> -            )),
+> +                outputs.extend(quote_spanned!(span =3D>
+> +                    #(#attrs)* #vis const #name: ::kernel::io::register:=
+:OffsetLoc<#base, #ty> =3D
+> +                        ::kernel::io::register::OffsetLoc::new(#offset);
+> +                ));
+> +            }
+> =20
+>              Some(def) =3D> {
+> +                if !unique {
+> +                    Err(Error::new_spanned(
+> +                        &ty,
+> +                        "defining without bitfield is not yet supported =
+for this type of register",
+> +                    ))?
+> +                }
 
-ONGOING RATE AFTER RESUME (Aug 19, single cycle)
-------------------------------------------------
-hour 10 (resume 10:52): 138 errors
-hour 11:               140 errors
-hour 12:                78 errors (still ongoing at time of writing)
-Previous cycle (Aug 18, resumed 10:04): 1414 errors over the day,
-still occurring 9+ hours later. No "TLB flush failed for PASID"
-messages appear on this machine, only the 28b4/28c6 and 1a6f4/1a706
-pairs, always together.
+[Severity: Low]
+Does this incorrectly check for the unique flag instead of an inline bitfie=
+ld
+to validate array registers?
 
-USER-VISIBLE IMPACT
--------------------
-The retry path makes the whole desktop sluggish (stalls in the
-compositor and apps). CPU and memory are idle; the disk is not involved
-(NVMe <2% busy, fsync latency normal), yet PSI "some" io pressure reads
-~80% because tasks spend their time sleeping in the retry loop.
+For array registers, the macro must ensure a type named #name exists so it =
+can
+implement the Array trait on it. If a user defines an array register withou=
+t a
+bitfield but explicitly adds the #[unique] attribute, unique becomes true,
+which bypasses the macro's validation check.
 
-WORKAROUND
-----------
-Reboot clears it until the next S4 resume. Using suspend-to-RAM avoids
-triggering it (S4 is the only trigger observed).
+This would then generate impl ::kernel::io::register::Array for #name {}
+without actually defining #name as a type or constant, resulting in a confu=
+sing
+"cannot find type" compiler error rather than the intended descriptive macro
+error.
 
-NOTE
----------------
-the resume_gpu_stable proposal from January
-(https://lore.kernel.org/amd-gfx/20260106125929.25214-6-sunlightlinux@gmail=
-.com/)
-was rejected because it disabled the KIQ path permanently, but the
-persistent-hours-long failure pattern seen here suggests KIQ does not
-recover on its own after S4 resume on gmc_v9 + Cezanne - at least not
-under a plain Wayland desktop workload.
+Should this check be based on whether a bitfield is present?
+
+> +
+>                  let size =3D &def.size;
+>                  let stride =3D if let Some(stride) =3D &def.stride {
+>                      outputs.extend(quote_spanned!(stride.span().resolved=
+_at(span) =3D>
 
 --=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-typed_regi=
+ster-v3-0-3699a75fadf1@garyguo.net?part=3D16
