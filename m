@@ -4,63 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F1F0C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 10:52:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8158C5DF86
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 10:53:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C919D10E2CC;
-	Wed, 19 Aug 2026 10:52:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DD2510E134;
+	Wed, 19 Aug 2026 10:53:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JRZHjUa0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dio2U0Ak";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11F3810E2CC
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 10:52:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787136747; x=1818672747;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=TtEbx43RxDxGdKpl/rvPyRCrNRlLj1n6MMA2ceL11Vg=;
- b=JRZHjUa0MbyMY/LznYE9HsLjZMWJERagKzPUINlv+j12Z7aZGSsDarQI
- jaDNoJaD4IVfanXTHnhDvaMQ0znm2NgB7oGxxWJ9xVmzSPs5Aq1qGwMfq
- WuBmmX14IUkK7KSOXCcpSjxjHDJbBxudkUSu4aelAkOlucsIMU+0ysJvB
- G23tCVZQSGbiuaBzzgP4PKcfe6w0ytFSl+KblJmLp8XfZAJdCmT35G3bE
- p1V6HcGLPr2t/QGtRocXnMXxcAiv+uCeWXBakC8XhFx4INhbHH+R6MVPI
- sKZWcy/Zh6dGVm7ifjuKNHVVImw0cfSxmF4BbFmsoG1HcEpu9vURGqic2 A==;
-X-CSE-ConnectionGUID: ncDKwNmqSc+87Jjz75bEng==
-X-CSE-MsgGUID: UtFYHCkWRJ+/R7rVgpjh8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="87565376"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="87565376"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 03:52:27 -0700
-X-CSE-ConnectionGUID: GhQGpXXISruk0W+M+4yIeA==
-X-CSE-MsgGUID: VA0hyc3gScWjNmpNsWaSqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="265058347"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 03:52:23 -0700
-Date: Wed, 19 Aug 2026 12:52:20 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Mallesh, Koujalagi" <mallesh.koujalagi@intel.com>
-Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com,
- andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- anshuman.gupta@intel.com, badal.nilawar@intel.com,
- riana.tauro@intel.com, karthik.poosa@intel.com,
- sk.anirban@intel.com, jani.nikula@linux.intel.com
-Subject: Re: [PATCH v5] drm/drv: Convert wedged event string building to
- seq_buf
-Message-ID: <aoWK5PnCNDJYHFv9@black.igk.intel.com>
-References: <20260818133610.496374-2-mallesh.koujalagi@intel.com>
- <aoUxBx5mNi7o3K3L@black.igk.intel.com>
- <56c19f54-529f-4e91-9859-5add0afe0891@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <56c19f54-529f-4e91-9859-5add0afe0891@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3AAC10E134;
+ Wed, 19 Aug 2026 10:53:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D8AA4148C;
+ Wed, 19 Aug 2026 10:53:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136571F000E9;
+ Wed, 19 Aug 2026 10:53:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787136781;
+ bh=1lInBAJN59pCt+Pj2cgGafiJvW9ZIxP54OMePKcSqZs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dio2U0AkXnEGX9qYA1LB2O9GvrNxqL1iR5xf3ASo1NnNu7eJQdFJigj6tYQbTqzkO
+ hSwjV9e/VAyifef+WDaLzEhJrwYJlJ/tSYAGqHnYdJqaZOj/FOHgCva5aBX9E69A2I
+ OIGF6tRSvl837qgBDxQ7o1l2PgeBNsFuU2KsLL/KDi2NO9TDwpJhq1te3+acU9GgIr
+ PH4X459RKjFjsNCewL2SjkRhG+sjMOs4SLU2PZpfDSrl5T8z0uXLD5pMi4ZfM3FwVu
+ bASUEvWpZOKMJ5FPvHkuVA5tEthwU8ElRMEZ9O9evEp1srPC6GROb2SyJnsFtFs0ZQ
+ chDdLNP9HouGg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 2/2] gpu/tests/buddy: add dirty tracker performance
+ KUnit test
+To: "Arunpravin Paneer Selvam" <Arunpravin.PaneerSelvam@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260819104242.10703-2-Arunpravin.PaneerSelvam@amd.com>
+References: <20260819104242.10703-1-Arunpravin.PaneerSelvam@amd.com>
+ <20260819104242.10703-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 10:53:00 +0000
+Message-Id: <20260819105301.136571F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,43 +55,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 19, 2026 at 03:48:31PM +0530, Mallesh, Koujalagi wrote:
-> On 19-08-2026 09:58 am, Raag Jadav wrote:
-> > On Tue, Aug 18, 2026 at 07:06:11PM +0530, Mallesh Koujalagi wrote:
-> > > event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
-> > > The original scnprintf()-based loop required a manual pre-flight
-> > > bounds check.
-> > > 
-> > > Replace the manual bookkeeping with seq_buf, which tracks overflow
-> > > internally. seq_buf_printf() writes each "method," token into the
-> > > buffer.
-> > > 
-> > > On overflow, len retains the position of the last
-> > > successful write, so the trailing comma is stripped cleanly without
-> > > including any partial method name in the uevent payload.
-> > > 
-> > > Fixes: b7cf9f4ac1b8 ("drm: Introduce device wedged event")
-> > This actually doesn't fix anything, it just adds a WARN() splat.
-> > So I'm not sure if this is needed here.
-> 
-> In previous implementation multiple recovery methods may exceed
-> WEDGE_STR_LEN (32) that
-> 
-> cause silently truncate a recovery method and emit a malformed uevent string
-> containing a
-> 
-> partial token, however using seq_buf makes overflow
-> 
-> explicit, when it occurs, emits a WARN and include complete recovery name
-> 
-> in the uevent string so IMO, it's fix.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Scenario 1 of the dirty tracker performance test fails to exerci=
+se the contiguous allocation path and `__force_merge()`, rendering its benc=
+hmark results invalid.
+--
 
-Is there an existing drm_dev_wedged_event() user that is facing this
-issue? Please attach bug reports along with reproducers (if any).
+--- Patch [2]: [PATCH v10 2/2] gpu/tests/buddy: add dirty tracker performan=
+ce KUnit test ---
+commit 31fa603bd9e94c9fc78fd665cdb47f320c0dabdd
+Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-Improvements are good, but not everything is a bug because AI said so :)
+gpu/tests/buddy: add dirty tracker performance KUnit test
 
-Raag
+This commit adds a new KUnit test to demonstrate the performance advantage
+of the decoupled dirty-tracker design over the previous dual-tree and
+force_merge approach.
+
+> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_b=
+uddy_test.c
+> index 6ce485eae83ee..04344468ab6bf 100644
+> --- a/drivers/gpu/tests/gpu_buddy_test.c
+> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+[ ... ]
+> +static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
+> +{
+[ ... ]
+> +	start =3D ktime_get();
+> +	KUNIT_ASSERT_FALSE_MSG(test,
+> +			       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4G, SZ_4K,
+> +						      &results,
+> +						      GPU_BUDDY_CONTIGUOUS_ALLOCATION),
+> +			       "contiguous alloc failed\n");
+
+[Severity: Medium]
+Does this allocation actually exercise the contiguous allocation path and
+invoke __force_merge() as intended?
+
+Looking at gpu_buddy_alloc_blocks(), when start + size =3D=3D end (0 + SZ_4=
+G =3D=3D
+SZ_4G), the function takes an early exact-range allocation path and returns
+__gpu_buddy_alloc_range():
+
+drivers/gpu/buddy.c:gpu_buddy_alloc_blocks() {
+    ...
+	/* Actual range allocation */
+	if (start + size =3D=3D end) {
+		if (!IS_ALIGNED(start | end, min_block_size))
+			return -EINVAL;
+
+		return __gpu_buddy_alloc_range(mm, start, size, flags, NULL, blocks);
+	}
+    ...
+}
+
+This bypasses the contiguous allocation logic entirely, meaning the baseline
+measurement of 71 ms might just be the overhead of iterating the tree and
+gathering 1,048,576 individual 4 KiB fragments into a list, rather than
+measuring __force_merge() performance.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819104242.1070=
+3-1-Arunpravin.PaneerSelvam@amd.com?part=3D2
