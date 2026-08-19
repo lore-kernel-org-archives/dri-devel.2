@@ -4,108 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63C2EC5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 16:30:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3FF2C5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 16:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C44E110E15F;
-	Wed, 19 Aug 2026 16:30:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12E3910E162;
+	Wed, 19 Aug 2026 16:32:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x1FVJ24B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PiVjJnit";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 725B810E15F
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 16:30:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zbd01dxhxRgElYpkLsXVAsSriJ/ylXJSm9BM4nD4yWOk1p3/IlDYpuGZp6PEOz5R24JOZ5P0xSexiQpP0qp94SJu8zd8twPo45C69dwyHngMUGK4Lpsx4b7jmkdVOWTDtKz5YdAt/jfLJwwmK+fIyMH7CKVjDrvMQIDOnoN+1mQhgcubjqB7qfMyQ3v3PWm+IRddlK7uqeR76kHc+H2DJlBDj7bEHkc8qPKZ5zlxKvcMBtVp9Wbt+gq3b+whJp6G+yMSvtNPvKv193ZbJ6bsR/2bRBVlcbx1XMkcE4mrf35IA6N4Bx9g3Ls3ifJdlpZ24b/F10bcjdHNfggmTmOfaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EtErqSaQgSfrR+ErkUfr3Aj4xmc80Qz3ufeMIKiLBBw=;
- b=ntO3fIGl/DRPuQps+CEf0tDdNu+sh30xyxXMgSqWgrpKkwOzlI7qAIJ1hNmw9ksi6tVgCJFtDJfshDJuUIyVxW8e9lnQ9Evqy0vdM7CCechRWVYo93DpHyCwl8rynzyom8sktjNb1m6s2cFKN7IY56GDHduUoOIDyARaANfWISg/hGAXzzQvIT4gT/ngN81rKtugdkw/5t+8p4LQ67tFnmzxODEHTVqJJnuhO5XGS7BwH5Eq1xdWTVh6YYdpaDB1qUJumLVdB1ZHenqOo/moBHdSzOffAGIH0OYde6A/kbNaevTH5yiWmzKRDkoa1Zz0LxtwHMbCyrgpXlGxsqreGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EtErqSaQgSfrR+ErkUfr3Aj4xmc80Qz3ufeMIKiLBBw=;
- b=x1FVJ24BryWueTg7hXePSlkyOb7F3DljYpE9z4n4qVhTSGXQJbFeXw3QlfKEza7PmY4NdRYmGnssDfZesFyqE1vtYZE1ZDfOR4BplYHdX9JWK0Q3dgrJv99pfbGj1a2AZx03tPTlTSSTalUlqx4+gKSw1OC4oQoIrXFn3zFMHqc=
-Received: from CH2PR18CA0033.namprd18.prod.outlook.com (2603:10b6:610:55::13)
- by LV8PR12MB9335.namprd12.prod.outlook.com (2603:10b6:408:1fc::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 16:30:34 +0000
-Received: from CH1PEPF0000A34C.namprd04.prod.outlook.com
- (2603:10b6:610:55:cafe::49) by CH2PR18CA0033.outlook.office365.com
- (2603:10b6:610:55::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Wed, 19
- Aug 2026 16:30:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000A34C.mail.protection.outlook.com (10.167.244.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 16:30:33 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
- 2026 11:30:30 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
- 2026 11:30:30 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Wed, 19 Aug 2026 11:30:30 -0500
-Message-ID: <74575f6e-8284-882b-2a53-f804f92b439f@amd.com>
-Date: Wed, 19 Aug 2026 09:30:29 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v4 0/5] accel/amdxdna: SYNC_BO correctness fixes
-Content-Language: en-US
-To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, <mamin506@gmail.com>,
- <ogabbay@kernel.org>
-CC: <christian.koenig@amd.com>, <sumit.semwal@linaro.org>,
- <alexdeucher@gmail.com>, <max.zhen@amd.com>, <sonal.santan@amd.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>
-References: <20260817230707.356828-1-taimuraz@kaitmazov.com>
- <1bd1644d-bc8a-45b7-af72-af64bc35ccb6@kaitmazov.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <1bd1644d-bc8a-45b7-af72-af64bc35ccb6@kaitmazov.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34C:EE_|LV8PR12MB9335:EE_
-X-MS-Office365-Filtering-Correlation-Id: 216f8cb9-934a-49bb-7c46-08defe0f30f9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|10067099003|56012099006|4143699003|22082099003|18002099003|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info: 0kFwPNOmXoRKVEKtBlsqUiCfpGN5jPQQzHSxp4Nu6MuENX7Fw3dIhRIL9yhZ5aIzhCz+VJHvYJfgrOg/waVK/0dA3m7YoPEeLYzt9KIH+osaHdrI57mmEqz5ZqQp86EF/5PRERAzOGal2fN6JbDLBICAn8n3pIgzTOeWCYEuJ2rd81r9XAr0hp4vnHYIo7T8Fyvy5WusQ3E91PX5GlbsEk3RlUTuq/1AwSpuU3flwF3+UgelB+DJ0Ur+lKIsMfLaUTfCJBBEtz43xdZRIZ3R5ZkNXzEHTaKlSf25VMzZvRrUxwEIeajHW2vzYN89Lib1ZR6A7o1En6WBoVDj2ypV1CwreFKU4oiBMtPCjhTa1If82wbFImupy469ljDuvMdcHQHg8EHs/SSh2Zozp9aguIbJB5MJwBRHNy37kUl2M+xke28mJgyq937eyGkrLSGiqlCI/yWZk8Qq82ZgRxsYHgpMkflA0ZjDXPB/OBlKPbez+c668k5e0TbeeM3fNjTLKBdwrE270ppMLUZuFmdx43R9hX4ndAovhc0Aa32azmL+n4iIk35L0BsI0OgGYkALBfbtJLfbvnBuxjls6pTtApW7cCefi9M6MlLl9eqzOmlyUuKXwem9KEH8EJ7BrElStQ+/lKEwYpv9ZPgMWqU/XSpWVdRWejKDHWR2bld9jFB4X5C7RTt1KLYxsmaW8FxSSEQevhP2f7/D9E3cMBH4NQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(11063799006)(5023799004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5kFLW73nkYi2kZR0wUVRNiM4EusEh07tCB2otKz120Xy1GhXE7tuD47OEDyNBd5VUvf03NySvv9LAaMC3hYvyHa31lfCesrJbf3KpZBDO+gTKwGACZeabQoNyIKgDdTH9HKkFFPevMynwnbvjYDAldZZSTbfNr1BMXQeIpuV4Z94SJJk8QGQYdY/hisJws1oqOVcdABxXiJRpnjNpuPuMUp9OnxjcTBfNKjvNOvo1oHaznnt7LKKzJwM1q0i4OUsp9GAmEmFIA7HnjseAP8nzlrDaUHDaeURKymJh3vl9hHQbyyzzce5N6BdgH1/7Zjw4KaOXHIHOxP9H+niG8Hhrfy69TPn0/odWTf766fZiEWN82qNKd54meouyKyL1AIwB5v4ngWvFKGG1JE4wISH9Y2iECVU5uocuPTQMyefYQam/Ko9UZuAWMTUFxLdKCQu
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 16:30:33.2256 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 216f8cb9-934a-49bb-7c46-08defe0f30f9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A34C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9335
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEDD10E162
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 16:32:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7A8B161133;
+ Wed, 19 Aug 2026 16:32:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657071F00A3A;
+ Wed, 19 Aug 2026 16:32:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787157167;
+ bh=06b5Z3LkJLMqHIiwOWKcjdPL9grUVe/yZBFhJxRVI5g=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=PiVjJnitJkvcur9AK8GPKU+AyUjUJ92tH/KxdoISESsl/GowiMShm6nwex1keVLsZ
+ FvzGCwLWr2A7kexyRrlVdBWV/DLHkvP1uvsgcvm+6CuqFe0wTY4M1p1Uci8U6oYJZG
+ RyVbTK85wwrr15O9woleCGgfVW5l6YDPD9kivJr6p9NDnqQBjQ9blFSL6mLlAOhDG9
+ C59ota9jFS0XPfDDORw0i7fDlnTLKdOeSQx5/cjHSlVFs9SBeBnEL7AjGIwhOtFDEZ
+ K+HK+batNiWxmDntZERyOazTctjzFCfxgILgQLZyVcfXG5DC2GivwYd4DXG5nXGIWy
+ U3Xv4h3l3x+Aw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 19 Aug 2026 18:32:40 +0200
+Message-Id: <DKT2C9FT6IBW.3L5PJN1J8IVLD@kernel.org>
+Subject: Re: [PATCH 2/6] gpu: nova-core: add NVKV encoder
+Cc: "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
+ <20260817-b4-nvkv-v1-2-b84db5e84b67@nvidia.com>
+In-Reply-To: <20260817-b4-nvkv-v1-2-b84db5e84b67@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,93 +71,309 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon Aug 17, 2026 at 2:56 PM CEST, Eliot Courtney wrote:
+> +    fn push_bytes_with_padding(&mut self, bytes: &[u8]) -> Result {
+> +        let num_entries =3D bytes.len().div_ceil(size_of::<u64>());
+> +        self.backing.reserve(num_entries, GFP_KERNEL)?;
+> +
+> +        let spare =3D self.backing.spare_capacity_mut();
+> +        let dst =3D spare.as_mut_ptr().cast::<u8>();
+> +
+> +        // SAFETY: At least `bytes.len()` bytes of space are guaranteed =
+since `num_entries`
+> +        // worth of space was just reserved.
+> +        unsafe { core::ptr::copy_nonoverlapping(bytes.as_ptr(), dst, byt=
+es.len()) };
+> +
+> +        let padding =3D num_entries * size_of::<u64>() - bytes.len();
+> +        if padding > 0 {
+> +            // SAFETY: At least `num_entries * size_of::<u64>()` bytes o=
+f space are guaranteed.
+> +            unsafe { core::ptr::write_bytes(dst.add(bytes.len()), 0, pad=
+ding) };
+> +        }
+> +
+> +        // SAFETY: These bytes were just initialized and every bit patte=
+rn is valid for `u64`.
+> +        unsafe { self.backing.inc_len(num_entries) };
+> +
+> +        Ok(())
+> +    }
 
-On 8/18/26 14:40, Taimuraz Kaitmazov wrote:
-> Patch 1 needs a prerequisite. It makes amdxdna_gem_vmap() answer NULL 
-> on an iomem exporter, and the eight amdxdna_cmd_get_payload() callers 
-> in aie2_message.c check neither the pointer nor the length it leaves 
-> unwritten there. A command BO can be an import, so patch 1 alone turns 
-> a silent __iomem write into a NULL deref with an uninitialised length.
-> https://lore.kernel.org/all/20260818002459.377641-1-taimuraz@kaitmazov.com/ 
->
+Ick! That's a lot of unsafe code. I think we can avoid this by using KVVec<=
+u8>
+instead of KVVec<u64>, ideally in a new type that upholds the padding invar=
+iant.
 
-amdxdna_cmd_get_op() is always called before amdxdna_cmd_get_payload() 
-for the same BO, and since amdxdna_gem_vmap() caches its results, the 
-vmap inside get_payload() is currently guaranteed to succeed. The patch 
-is therefore defensive rather than fixing a currently reachable crash.
+Here's a diff of what I came up with; note that it also gets us rid of the
+unsafe in take_u32s() in the decoder by using zerocopy.
 
-Lizhi
+(Technically it would also be possible to make Cursor operate on a byte str=
+eam
+and let zerocopy to the rest, as all the take methods are fallible already.=
+ But
+I think the invariant on EncodedStream makes sense.)
 
->
-> fixes the callers. Happy to respin on top if you prefer them together.
->
-> Taimuraz
->
-> On 8/18/26 02:07, Taimuraz Kaitmazov wrote:
->> Five fixes in and around amdxdna_drm_sync_bo_ioctl().
->>
->> Patch 1 refuses an I/O memory mapping the driver would otherwise 
->> store as
->> if it were an ordinary kernel address. Patch 2 checks the device-BO 
->> range
->> for overflow. Patch 4 refuses a flush of an imported BO, which is why
->> patch 3 comes first: the ioctl answers a rejected flush with drm_WARN(),
->> so without it an ordinary sync on an imported BO splats. Patch 5 stops
->> the ioctl reporting failure for a flush that succeeded.
->>
->> v3's zero-length patch has left this series. On hardware it turns out to
->> be a page fault in drm_clflush_virt_range() rather than the tidy-up its
->> commit message described, so it is a -fixes patch now, sent 
->> separately as
->> "accel/amdxdna: return early from a zero-length flush" with Fixes: and
->> Cc: stable. Patch 4 here needs its hunk, so this series wants that one
->> first.
->>
->> Changes in v4:
->>    - patch 1: the is_iomem check moved from the .vmap callback into
->>      amdxdna_gem_vmap(), per Lizhi, and it logs at debug level rather 
->> than
->>      error, since an unprivileged caller can repeat it.
->>    - new patch 3: an unprivileged SYNC_BO with an out-of-range offset
->>      already reaches that drm_WARN() today. Sashiko's review of v3 3/3
->>      flagged the same thing.
->>    - new patch 4: refuses the flush for every imported BO, as asked.
->>    - new patch 5: the debug-BO sync I mentioned on the v2 thread. 
->> Only a BO
->>      attached with ATTACH_DEBUG_BO has an assigned hwctx, so every other
->>      FROM_DEVICE sync ends in -EINVAL with its flush already done. The
->>      -EINVAL reproduces on a Strix Point NPU.
->>
->> On patch 4, one consequence worth deciding before it lands. A heap BO is
->> created through amdxdna_drm_create_share_bo(), so a device running on
->> carveout memory reaches its heap through a cbuf, is_import_bo() is 
->> true of
->> it, and SYNC_BO on every AMDXDNA_BO_DEV now answers -EOPNOTSUPP. Today
->> that path flushes nothing anyway -- amdxdna_cbuf_map() fills in only the
->> DMA address and length, so drm_clflush_sg() walks zero pages -- so the
->> change is silent no-op to hard error, and XRT's dbg_buffer::sync() 
->> reaches
->> it without Debug.force_driver_sync. If you would rather keep our own
->> exporters working, I have the variant keyed on the exporter's ops, which
->> confines the refusal to foreign buffers. Say which you prefer.
->>
->> v3: 
->> https://lore.kernel.org/all/20260813164700.43960-1-taimuraz@kaitmazov.com/
->>
->> Built on drm-misc-next, each commit on its own: x86_64 with
->> DRM_ACCEL_AMDXDNA=m, clang 22.1.8, no warnings. Patch 5's reproducer was
->> run against 7.1.8's in-tree driver, where that call is unchanged.
->>
->> Taimuraz Kaitmazov (5):
->>    accel/amdxdna: refuse an I/O memory mapping of an imported BO
->>    accel/amdxdna: check the sync range for overflow on a device BO
->>    accel/amdxdna: do not warn when a sync request is rejected
->>    accel/amdxdna: refuse to flush an imported BO
->>    accel/amdxdna: do not fail a sync for a BO with no debug context
->>
->>   drivers/accel/amdxdna/amdxdna_ctx.c |  3 ++-
->>   drivers/accel/amdxdna/amdxdna_gem.c | 27 +++++++++++++++++++--------
->>   2 files changed, 21 insertions(+), 9 deletions(-)
->>
->
->
+diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gsp/=
+nvkv.rs
+index 0afd6d5c48bd..564a9a93f7cd 100644
+--- a/drivers/gpu/nova-core/gsp/nvkv.rs
++++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+@@ -27,6 +27,43 @@
+ mod decode;
+ pub(crate) use decode::*;
+
++/// An encoded NVKV byte stream.
++///
++/// # Invariants
++///
++/// The byte length is always a multiple of `size_of::<u64>()`.
++pub(crate) struct EncodedStream(KVVec<u8>);
++
++impl EncodedStream {
++    /// Creates an empty stream.
++    fn new() -> Self {
++        Self(KVVec::new())
++    }
++
++    /// Appends a single `u64` to the stream.
++    fn push_u64(&mut self, value: u64) -> Result {
++        Ok(self.0.extend_from_slice(&value.to_ne_bytes(), GFP_KERNEL)?)
++    }
++
++    /// Appends `bytes` to the stream, zero-padded to a `u64` boundary.
++    fn extend_with_padding(&mut self, bytes: &[u8]) -> Result {
++        self.0.extend_from_slice(bytes, GFP_KERNEL)?;
++        let padding =3D bytes.len().next_multiple_of(size_of::<u64>()) - b=
+ytes.len();
++        // INVARIANT: The padding ensures the total length remains a multi=
+ple of `size_of::<u64>()`.
++        Ok(self.0.extend_with(padding, 0u8, GFP_KERNEL)?)
++    }
++}
++
++impl Deref for EncodedStream {
++    type Target =3D [u64];
++
++    fn deref(&self) -> &[u64] {
++        let count =3D self.0.len() / size_of::<u64>();
++        <[u64]>::ref_from_bytes_with_elems(&self.0, count)
++            .expect("EncodedStream invariant violated: not u64-aligned")
++    }
++}
++
+ /// The identifier of an NVKV key.
+ pub(crate) type KeyId =3D u16;
+
+diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova-co=
+re/gsp/nvkv/decode.rs
+index 9112dcf1aaca..d1271917c62e 100644
+--- a/drivers/gpu/nova-core/gsp/nvkv/decode.rs
++++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
+@@ -381,9 +381,9 @@ fn take_u8s(&mut self, count: usize) -> Result<&[u8]> {
+
+     fn take_u32s(&mut self, count: usize) -> Result<&[u32]> {
+         let values =3D self.take_u64s(count.div_ceil(2))?;
+-        // SAFETY: `values` is 8 byte aligned and only 4 byte alignment is=
+ required. All bit
+-        // patterns are valid for `u32`.
+-        Ok(unsafe { core::slice::from_raw_parts(values.as_ptr().cast::<u32=
+>(), count) })
++        let bytes =3D values.as_bytes();
++        <[u32]>::ref_from_bytes_with_elems(&bytes[..count * size_of::<u32>=
+()], count)
++            .map_err(|_| EINVAL)
+     }
+
+     fn take_u64s(&mut self, count: usize) -> Result<&[u64]> {
+@@ -401,8 +401,11 @@ pub(crate) struct Decoder<'a> {
+
+ impl<'a> Decoder<'a> {
+     /// Creates a decoder for `data` that handles unknown keys per `policy=
+`.
+-    pub(crate) fn new(data: &'a [u64], policy: UnknownKeyPolicy) -> Self {
+-        Self { data, policy }
++    pub(crate) fn new(data: &'a super::EncodedStream, policy: UnknownKeyPo=
+licy) -> Self {
++        Self {
++            data: &**data,
++            policy,
++        }
+     }
+
+     fn visit<S: Schema>(
+diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova-co=
+re/gsp/nvkv/encode.rs
+index 31ea5788e772..88f2a03a593f 100644
+--- a/drivers/gpu/nova-core/gsp/nvkv/encode.rs
++++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+@@ -156,51 +156,26 @@ fn encode(&self, encoder: &mut Encoder) -> Result {
+
+ /// An encoder for an NVKV stream.
+ pub(crate) struct Encoder {
+-    backing: KVVec<u64>,
++    stream: super::EncodedStream,
+ }
+
+ impl Encoder {
+     /// Creates an empty encoder.
+     pub(crate) fn new() -> Self {
+         Self {
+-            backing: KVVec::new(),
++            stream: super::EncodedStream::new(),
+         }
+     }
+
+-    /// Appends `bytes` to the stream, padded to a multiple of 8 bytes.
+-    fn push_bytes_with_padding(&mut self, bytes: &[u8]) -> Result {
+-        let num_entries =3D bytes.len().div_ceil(size_of::<u64>());
+-        self.backing.reserve(num_entries, GFP_KERNEL)?;
+-
+-        let spare =3D self.backing.spare_capacity_mut();
+-        let dst =3D spare.as_mut_ptr().cast::<u8>();
+-
+-        // SAFETY: At least `bytes.len()` bytes of space are guaranteed si=
+nce `num_entries`
+-        // worth of space was just reserved.
+-        unsafe { core::ptr::copy_nonoverlapping(bytes.as_ptr(), dst, bytes=
+.len()) };
+-
+-        let padding =3D num_entries * size_of::<u64>() - bytes.len();
+-        if padding > 0 {
+-            // SAFETY: At least `num_entries * size_of::<u64>()` bytes of =
+space are guaranteed.
+-            unsafe { core::ptr::write_bytes(dst.add(bytes.len()), 0, paddi=
+ng) };
+-        }
+-
+-        // SAFETY: These bytes were just initialized and every bit pattern=
+ is valid for `u64`.
+-        unsafe { self.backing.inc_len(num_entries) };
+-
+-        Ok(())
+-    }
+-
+     /// Returns the encoded data.
+     #[must_use =3D "encoded data must be consumed"]
+-    pub(crate) fn finish(self) -> KVVec<u64> {
+-        self.backing
++    pub(crate) fn finish(self) -> super::EncodedStream {
++        self.stream
+     }
+
+     #[inline(always)]
+     fn encode_op(&mut self, op: Op) -> Result {
+-        self.backing.push(op.into_raw(), GFP_KERNEL)?;
+-        Ok(())
++        self.stream.push_u64(op.into_raw())
+     }
+
+     /// Encodes a 32-bit value as an IMM32 pair, with the value in the op =
+word.
+@@ -213,8 +188,7 @@ pub(crate) fn encode_u32(&mut self, key: KeyId, index: =
+Index, value: u32) -> Res
+                 .with_index(index)
+                 .with_opcode(Opcode::Imm32)
+                 .with_value(value),
+-        )?;
+-        Ok(())
++        )
+     }
+
+     /// Encodes a 64-bit value as a single-element SEQ64 pair.
+@@ -222,7 +196,6 @@ pub(crate) fn encode_u32(&mut self, key: KeyId, index: =
+Index, value: u32) -> Res
+     pub(crate) fn encode_u64(&mut self, key: KeyId, index: Index, value: u=
+64) -> Result {
+         // TODO: Consider automatically merging sequential keys.
+         const KEY_COUNT: u32 =3D 1;
+-        self.backing.reserve(2, GFP_KERNEL)?;
+         self.encode_op(
+             Op::zeroed()
+                 .with_key(key)
+@@ -230,16 +203,13 @@ pub(crate) fn encode_u64(&mut self, key: KeyId, index=
+: Index, value: u64) -> Res
+                 .with_opcode(Opcode::Seq64)
+                 .with_value(KEY_COUNT),
+         )?;
+-        self.backing.push_within_capacity(value)?;
+-        Ok(())
++        self.stream.push_u64(value)
+     }
+
+     /// Encodes a byte array as an ARRAY8 pair, zero-padded to a multiple =
+of 8 bytes.
+     #[inline(always)]
+     pub(crate) fn encode_array8(&mut self, key: KeyId, index: Index, array=
+: &[u8]) -> Result {
+         let value_count =3D u32::try_from(array.len()).map_err(|_| EMSGSIZ=
+E)?;
+-        let num_entries =3D array.len().div_ceil(size_of::<u64>());
+-        self.backing.reserve(num_entries + 1, GFP_KERNEL)?;
+         self.encode_op(
+             Op::zeroed()
+                 .with_key(key)
+@@ -247,16 +217,13 @@ pub(crate) fn encode_array8(&mut self, key: KeyId, in=
+dex: Index, array: &[u8]) -
+                 .with_opcode(Opcode::Array8)
+                 .with_value(value_count),
+         )?;
+-        self.push_bytes_with_padding(array.as_bytes())?;
+-        Ok(())
++        self.stream.extend_with_padding(array.as_bytes())
+     }
+
+     /// Encodes a 32-bit array as an ARRAY32 pair, zero-padded to a multip=
+le of 8 bytes.
+     #[inline(always)]
+     pub(crate) fn encode_array32(&mut self, key: KeyId, index: Index, arra=
+y: &[u32]) -> Result {
+         let value_count =3D u32::try_from(array.len()).map_err(|_| EMSGSIZ=
+E)?;
+-        let num_entries =3D array.len().div_ceil(2);
+-        self.backing.reserve(num_entries + 1, GFP_KERNEL)?;
+         self.encode_op(
+             Op::zeroed()
+                 .with_key(key)
+@@ -264,15 +231,13 @@ pub(crate) fn encode_array32(&mut self, key: KeyId, i=
+ndex: Index, array: &[u32])
+                 .with_opcode(Opcode::Array32)
+                 .with_value(value_count),
+         )?;
+-        self.push_bytes_with_padding(array.as_bytes())?;
+-        Ok(())
++        self.stream.extend_with_padding(array.as_bytes())
+     }
+
+     /// Encodes a 64-bit array as an ARRAY64 pair.
+     #[inline(always)]
+     pub(crate) fn encode_array64(&mut self, key: KeyId, index: Index, arra=
+y: &[u64]) -> Result {
+         let value_count =3D u32::try_from(array.len()).map_err(|_| EMSGSIZ=
+E)?;
+-        self.backing.reserve(array.len() + 1, GFP_KERNEL)?;
+         self.encode_op(
+             Op::zeroed()
+                 .with_key(key)
+@@ -280,8 +245,7 @@ pub(crate) fn encode_array64(&mut self, key: KeyId, ind=
+ex: Index, array: &[u64])
+                 .with_opcode(Opcode::Array64)
+                 .with_value(value_count),
+         )?;
+-        self.push_bytes_with_padding(array.as_bytes())?;
+-        Ok(())
++        self.stream.extend_with_padding(array.as_bytes())
+     }
+ }
+
+@@ -292,8 +256,6 @@ mod tests {
+     // Tests that each kind of value is encoded to NVKV wire format proper=
+ly.
+     #[test]
+     fn encode_all_value_kinds() -> Result {
+-        // All keys, indexes, and values are distinct but arbitrary values=
+ to make it easier for the
+-        // test to catch bugs in the encoded output.
+         const U32_KEY: KeyId =3D 0x1001;
+         const U64_KEY: KeyId =3D 0x1002;
+         const ARRAY8_KEY: KeyId =3D 0x1003;
