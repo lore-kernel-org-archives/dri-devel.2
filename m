@@ -4,89 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0D54C5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 18:48:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D41CBC5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 18:48:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 244F710E8D7;
-	Wed, 19 Aug 2026 18:48:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45B6210E593;
+	Wed, 19 Aug 2026 18:48:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i4WgCSgz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pE7i/9WG";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D836710E58A
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:48:34 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-47fe45db360so161469f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:48:34 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EB7810E58A
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:48:48 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-47f611b3af9so143138f8f.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:48:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787165313; x=1787770113; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787165327; x=1787770127; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=EW739r7Mim0OCsUop6lWVdH7PWAyT2daLn1wLOzX3fI=;
- b=i4WgCSgzuu6ilBMaDyQIhPsS8cq5vgIwfOcWFzziNlPC84+wY8jmYF0fYqJuWqpYHB
- wqJbFHpv/4UQrVrsitb38WBawTdvlvhkepURgtHZSmAaWtV7AubyFdrNFR35YFlKK+TP
- ci/aJqJJDHXCe3RoWUgZkZ0eZB908b6AYjuMg7tV7snJ+qUiLOqJYVTyP4DI8pY2T8pP
- cN946A8OBNGLrR42Q6n/bnwklTPMtxuZJ4HheDe3OgbUIlSabir7bcyNy65GUkOv+Z2q
- UJb5VCFoSyqxB9iCd1W5qfVSRGvYFFoUoXUyHjNXHm63BVth0fcR6THnEvDwXIbqvORa
- oB6A==
+ bh=Bjn5VJLDS1yXucT12O23qgB/U5aanozAOffCoTMJ1Jg=;
+ b=pE7i/9WGj3V0MHUlSwPIM8Si2Dblc3oYzm6o2qFWYha6DvZOTshMyMYPLcZIewX2QX
+ 8mi0zFDJd1nbACKifEhHR+ATM2X3OItjdotIKDQ9M3Iy4etCpepqHWgnf5DinNH6hiDd
+ hdDsu7ZjkrYjP8jFraq9IEPzA0GdF3qJYNNZzRQ7zFm1wZT3+YhIlhnWiR5qBFgCYyQc
+ TCGH0sYXMHnKRvUeHYEyRIq8FY1Vm7duWc9HpKA3EMwFIRzRta49/CoYYFF+ZjBwyW8a
+ rYeX0ABIGOysuKcPLMvE1RB7JNyi2cHFdXVqQ9j6IKSQ3+MB8NJQiFw+b32jXgg4HxWD
+ ODgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787165313; x=1787770113;
+ d=1e100.net; s=20251104; t=1787165327; x=1787770127;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=EW739r7Mim0OCsUop6lWVdH7PWAyT2daLn1wLOzX3fI=;
- b=UwFqLn8hyzHltqrvQczSoWLyp1ZiR4qyyR3drUY3MaCfOfVvR+LxBrUx6JbKLVhy8t
- A/i3IUWV1nyL5fs474aYD/DpQirzY85ASGywaBTbUXUvGM09Ykm1/3qsnWWedm1q6Jmg
- IyAOWZ/YqsDTjebSLn+twzADrkjZcugMUIhGWWa1dCsVogvthEnu05xGrWt9qx40dz//
- fUDem3aI33/HgQwi0yKkdg0ZxVfiDkAWVjUR5HEqZivyrY8StSNDxOoe//tBLer1+5Kh
- RiL1Yw6bwZIsKyDITbsNoa6IJEbXCjtrwPofaXLuR7ft0ZKV11W7veA+d5c1T/6hjMDN
- mLpQ==
+ bh=Bjn5VJLDS1yXucT12O23qgB/U5aanozAOffCoTMJ1Jg=;
+ b=povu1tKBmjAMvMrq7pYVwYBdug5tIe6mBB4z+wpdvMS3ybNuOK1c8LfBAAYVDHTPxs
+ xmzwxdA+/HN13ym94kSOtNZ59xXvc0i5nUZllsgR09U+pChfVUReUcnOQA2VcFAs1iJM
+ ThJKcCIjyADwkNkRuE0OoTMWbxcGlT2KtQJCBCwvsVjJpPNjLg7lfUx3hiEXMxXUmbc9
+ FMXIr2OP92s5VneutLf6Siv2iwcw8VwyTH4DiCsf1jPiXR7vimIiFEMi1sdMosEoIpZu
+ wU153jSAUArTSwYpQo7qvgfbhXdbEWXOmy9d7BTugfNZWDoKN4TmQrEK/a8c1iinqKZ3
+ tOHw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqDYbVtEdvqZ0b9m85ftxYJd/S2Jor23Ttx/KwUpN03jb4yOn3CckitL1PJiSqjvuYLqdf9z4h3FPo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6sM8d+z+lYHO4SEeJVWF3DroQaMeC5CoDkkDhRWWZev36U0po
- ntX+bflKqN1WPEh4A9BoczillAYAVvEEBbilRHQCuPQUfsMZEiFhaCWU
-X-Gm-Gg: AR+sD13WVwdJY2VRRpYSozKMajYmioSRu3kjHf2VCrPq65MrMFrvNj2jCa+5EZy6Jql
- HN0bjEwP2wsv9Ny3dNWOIBDBwaHMpOZenOQDPqCKQEPeGMNh5Askv4AVILLxZzJUIn9IdeWfYbi
- cw/4Uz/VNmy19MylxYH7nj56BiGed8JKRLGpYoqtgYoHq4euuO8IzrCd5S9jYot9A1OzyPVggmE
- vfjR5MGkqxNOW7eVAr78b65S+RlL8rWir3ASLzj+gVrZtITAc7ujC7u/Dkw5eGksDCMZLA0gDy1
- TyB9R5VnvjL5NqRTeDLTKLQiLfJoNQInWyChK7NttAMFr0NlB4kBpQmv1ubv68kZ9DcklWJcqA3
- BDl9IH8MrfBhCLQKRn9KPpgCIrIngJYuMdleITSHA6GaGoUWy3GkNY3MxMXVZsE53k0JpI2S7cH
- WE7uACE0KoZPU4U4DRcVda9lB8FtCTJB76FIjCAjAvAKKN+NV90CfVSy73n4PHGsH7vUpN7YQ6e
- 3WgoWziUBHSRJqsy7vhgcpm/eNX+xpfK+1MaNsmzjrdpnoWGe1Q5P5LCt0yLgZwcZXA5Lm0h1yr
- lG9Z
-X-Received: by 2002:a05:600c:4f56:b0:498:8e6:d463 with SMTP id
- 5b1f17b1804b1-499aa19a75fmr67821295e9.1.1787165313072; 
- Wed, 19 Aug 2026 11:48:33 -0700 (PDT)
+ AHgh+RrcyNLU05iNqOYNLbQUUTt3Nmv9ij2yATDgt7nQG/Ycx2EXiuN/SL8VbW01OX0nce9yyKUV5j3Kyw8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsethVUeO1zQm6TtRWD5uEryuz6xiAaSLwMd9HY5qSqSVH1i/5
+ X9TamdOcVBUgUh9fD35ZoKrwbQd5DzBn7wSLKcC7p7nMq0BJkctI9P3o
+X-Gm-Gg: AR+sD10cUyB/KI+JtYmORF3LyRaYlnq//Ebi31TPbJtbsY2P03GKV8Aprn5mt7o9hRp
+ IiGCxKHnKQwGZAtZCuGaDEx444yotmkjm4onLuHsnQeX/c83piRFxUjtobZXaIChyfjUMoV6ucG
+ 1zH8ecDSSImb1kONNQZbVMy0eAGWnwjlayHnXHlN8LjzlNRF+vlB4YnksG/5wrCxGsowgXmwj3U
+ 9l4ih90CTLY7xDVveNqMN/c+dKDmMrAJhvU6jcGXSNaLnl7aTE43cBeqCNrZ1fnZIroJDa2PxZb
+ XGHJJfCO/B9TJtDNwRNsOxEInOeRPxmPFK097yU/72yeTL4LUolDKXVkX6GT4rr0GMnE0/XaiWh
+ HBb8CRqpJYzUBe1Hqi7G85Gske2JyoWmg4fmEVihIbYWjy1Bn10sOeXYiSQAZ8n6+5Qh1DNEuSS
+ VAFzR7yTzNxV2bF0R3rB5vzr77guvuXM5q6hG5jYkJD4Cj7pEsaklrlQaP/HVIYMo76S3NMBPF9
+ wNBvVCHtcH+GdF8l2WT0aknfzG6d166C5ZcttexYauyv3x0cD2Pd5tWSJD2gQ+iSq9u
+X-Received: by 2002:a05:600c:3b84:b0:492:4a7a:e415 with SMTP id
+ 5b1f17b1804b1-499aa1a8c0dmr80658135e9.2.1787165326812; 
+ Wed, 19 Aug 2026 11:48:46 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B9296006957154F80580DB7.dsl.pool.telekom.hu.
  [2001:4c4e:1b92:9600:6957:154f:8058:db7])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499a9b7c987sm40444085e9.1.2026.08.19.11.48.31
+ 5b1f17b1804b1-499aa1755b2sm78585025e9.11.2026.08.19.11.48.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2026 11:48:32 -0700 (PDT)
+ Wed, 19 Aug 2026 11:48:46 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
-To: Jonas Karlman <jonas@kwiboo.se>
+To: Jiaxing Hu <gahing@gahingwoo.com>
 Cc: Igor Paunovic <royalnet026@gmail.com>,
- =?UTF-8?q?H=C3=BCseyin=20BIYIK?= <boogiepop@gmx.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>,
  Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
- Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
- and some numbers
-Date: Wed, 19 Aug 2026 20:48:00 +0200
-Message-ID: <20260819184807.6665-1-royalnet026@gmail.com>
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Wed, 19 Aug 2026 20:48:33 +0200
+Message-ID: <20260819184838.6723-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <82c8b17e-7215-45ea-84d1-9991ba6fb541@kwiboo.se>
-References: <20260801131656.58450-1-royalnet026@gmail.com>
- <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
- <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
- <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
- <20260819125932.5853-1-royalnet026@gmail.com>
- <82c8b17e-7215-45ea-84d1-9991ba6fb541@kwiboo.se>
+In-Reply-To: <20260819154634.7584-1-royalnet026@gmail.com>
+References: <CAEWPSH7ETfw2TDjUfOvcVtDm19FC43x2vP=Lh7m+XPOGptnPWA@mail.gmail.com>
+ <20260819105723.632029-1-gahing@gahingwoo.com>
+ <20260819154634.7584-1-royalnet026@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -105,49 +100,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jonas,
+Hi Jiaxing,
 
-On 8/19/2026 6:20 PM, Jonas Karlman wrote:
-> Correct, the power domain must be powered on when PVTPLL is used, I
-> thought this had already been concluded. It is hard to fully keep track
-> when context keeps being removed in each new mail ;-)
+"Coming days" turned into "same evening" - the harness already existed,
+it only needed your question. Both halves below; raw npz kept for all.
 
-Fair point taken - I will keep more of the quoted context from here on.
-And yes: what the reset run added over the earlier conclusion is only
-the differential part (bus clocks measurably contribute nothing), plus
-that the failure is an immediate firmware-level reset rather than a
-recoverable error.
+1) Forcing outputs below the zero point on RK3588.
 
-> It is probably not just set_rate, with PD and/or CLKs disabled just
-> reading clk_summary to read SCMI clock rate can issue SError or a freeze.
+Model built to your exact case: 1x1 conv, out_zp=128, no fused
+activation, bias centered around zero so the outputs fall on both
+sides of the zero point (59% of the raw reference material sits below
+it at oc=56, 46% at oc=128). Open stack, mesa main (bf70ab68a21),
+which ships no lift - the pre-fix state, so nothing in software can
+be compensating.
 
-That is a very useful data point - it widens the hazard from "rate
-changes" to "any SCMI clock op", so the series' guards have to cover
-get_rate paths too. It will be quoted in the cover letter.
+  vs raw CPU reference : 56/56 and 128/128 channels within +/-1
+                         (47 and 113 exact), global maxdiff 1
+  vs max(cpu, zp)      : collapses (0/56 channels, maxdiff 128)
+  NPU values where the raw reference is below zp: min 0 - they pass
+  through freely, nothing pins at 128 (0.6-0.8% of values happen to
+  equal zp, consistent with the reference)
 
-> To my knowledge there are status regs that can be used to get the
-> measured rate of the PVTPLL, at least upstream TF-A have a commit [3]
-> for RK3588 that changes to report the measured rate when PVTPLL mode is
-> used.
+So on RK3588 the output stage does not floor at the zero point with
+L=0. The floor you demonstrated on RK3576 is real there - your
+three-run experiment stands - but it is not an unconditional trait of
+the family silicon. Which of your two explanations that favors for
+the vendor's per-model 0x40ac values on RK3576 is yours to judge; what
+it removes from the table is "unconditional in the family, so the
+compensation must be hiding somewhere on every SoC". Here there is
+nothing to compensate.
 
-This was exactly the missing piece - thank you. I tried it from the
-kernel side tonight, and here is an honest negative result: with the
-ring demonstrably live (CON74 bit0=1, CON0..2 readback matching the
-TF-A table for 1 GHz), the domain on, pclk_npu_root held, all three
-NPU PVTM gates in CLKGATE_CON(29) opened (bits 12/14/15), udelay(2)
-before each read, and even with the whole set_rate sequence re-run by
-the firmware after the gates were opened - NPU GRF+0x24 reads a hard
-0x00000000 from EL1, twenty samples per arm, four arms.
+Reading what the vendor stack programs into A on RK3588 needs the
+vendor runtime, which this bench machine does not carry - if the
+below-zp result does not already settle it, I can set that up after
+Aug 30 (travelling from tomorrow).
 
-So a question for you and for Hüseyin (added to Cc): is that
-STATUS register perhaps readable from EL3 only, with EL1 reads as
-zero? That would explain everything, since [3] reads it inside the
-firmware. If so, the clean path is the one [3] already implements -
-after my trip I will cherry-pick it into the BL31 my board runs (it is
-plain upstream v2.12 there) and re-measure through plain clk_get_rate,
-which also spares the kernel any GRF access at all.
+2) The remaining discriminating counts.
 
-[3] https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+/d2d6928641bacfa2370a9bb38cdddad229d99ad6
+oc=50, 60, 90 and 114, same protocol as the 17th (raw CPU reference,
+no clamped comparison, zero constant reference channels in all four):
+
+  oc=50 : 50/50 within +/-1 (43 exact), maxdiff 1
+  oc=60 : 60/60 within +/-1 (53 exact), maxdiff 1
+  oc=90 : 90/90 within +/-1 (78 exact), maxdiff 1
+  oc=114: 114/114 within +/-1 (98 exact), maxdiff 1
+
+No channel pinned at the output zero point in any of them. Together
+with 56/88/120 from the 17th and the earlier 20/33/40/48/72/100, the
+RK3588 side of the discriminating list is now complete.
 
 Regards,
 Igor
