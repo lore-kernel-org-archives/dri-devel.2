@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8213C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13A47C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D663810E1B8;
-	Wed, 19 Aug 2026 06:00:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UxNDsXWG";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEE6610E1B8
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:00:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D46B360204;
- Wed, 19 Aug 2026 06:00:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C84E1F000E9;
- Wed, 19 Aug 2026 06:00:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787119210;
- bh=7+kzv7jTPjHyrLx/jjZtJDjNOiyGkpM1+1eFZp2HfqI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UxNDsXWGQqV2/fVRafzKwbFIGaNs2BtxUFyXV0V5u4a4Ph1avCBYPfb8iIjCzdRsw
- bR32TFZBWHi81x+ltOP4IsKI4jiSkhHoXb+oomQ8RGfpygTGleW11a2X93Unu49j8N
- 6JLortGenuHUnBLnyvNSnQYUOFilcX69MOI2drV2J4VyYb7SO52u/36q6YSors5ka/
- XjdwWJ4C2jXg5fiQ1WzlDQ8eAZP4vY9hQlloPjhGiREjg6gFSidwtqoNir6/WPoOxG
- GjLWS0iQ5z86VKrnR+FxkdYPHb/4SW66AVlsO9ro348JPeUv3Q4KKGr6e9Y/OvnghR
- 9ekVL2/I2/4eg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: fix dc_lock leak on GPU reset error paths
-To: "Linkai Gong" <gonglinkai@kylinos.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260819054742.3143856-1-gonglinkai@kylinos.cn>
-References: <20260819054742.3143856-1-gonglinkai@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 06:00:10 +0000
-Message-Id: <20260819060010.6C84E1F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4589310E2B5;
+	Wed, 19 Aug 2026 06:03:57 +0000 (UTC)
+X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
+ Wed, 19 Aug 2026 06:03:55 UTC
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B783F10E2B5
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:03:55 +0000 (UTC)
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 19 Aug
+ 2026 13:58:50 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Wed, 19 Aug 2026 13:58:50 +0800
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+Date: Wed, 19 Aug 2026 13:58:37 +0800
+Subject: [PATCH v3] drm/ast: DisplayPort edid supports 256 bytes
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260819-upstream_ast_dp_edid-v3-1-15d36c28afe2@aspeedtech.com>
+X-B4-Tracking: v=1; b=H4sIAAxGhWoC/4XN0QrCIBTG8VcZXmd4tCnrqveIGE7PmhfbRE2Ks
+ XfP7SqI6PL/wfmdhUQMDiM5VwsJmF1081RCHCpiBj3dkTpbmnDGJRMg6MPHFFCPrY6ptb5F6yy
+ te5Ta9kpbIUk59QF799zZ66304GKaw2v/kmFb/4AZKFCuVd0pwxro+EVHj2gTmuFo5pFsauafk
+ voh8SIJACkVE+bUwJe0rusbt/OquAcBAAA=
+X-Change-ID: 20260313-upstream_ast_dp_edid-5fe6adf7ad36
+To: Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <jani.nikula@linux.intel.com>, <ville.syrjala@linux.intel.com>, Jammy Huang
+ <jammy_huang@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787119130; l=2920;
+ i=jammy_huang@aspeedtech.com; s=20251124; h=from:subject:message-id;
+ bh=mOF4mUY8m9fVNE8LqeVkJT2xXPKlpZXeHeztxFh1mws=;
+ b=NeYUgk5661rr81bAvbou0cJgbc2pDl6Dsyn+97b1WdEPVy91Hvjc6W62MGWkc0fzsHbhSkOV+
+ vKSVnTXrSCODlVOu1h9G5kOeV2a+OjkdPC+uCloMuL4TrMBwLZ+KLny
+X-Developer-Key: i=jammy_huang@aspeedtech.com; a=ed25519;
+ pk=E5YwijeJZZcuDR6srvwNlXrNHvLxwipUg3Mb/xxUF9o=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,96 +60,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+DisplayPort supports EDID up to 256 bytes (blocks 0 and 1). Update the
+block check to allow these two blocks. For any block beyond that
+(i.e. the monitor's EDID is larger than the 256 bytes ASPEED DP can
+hold), report it as an all-zero block instead of a read failure.
 
-Pre-existing issues:
-- [High] Missing error handling for `dc_state_create_copy()` allocation fai=
-lure leads to a NULL pointer dereference in `dm_resume()`.
---
+Also remove the manual checksum/extension-count patch of block 0's
+last four bytes. That code was already dead, so the condition can never
+be true.
 
---- Patch [1]: [PATCH] drm/amd/display: fix dc_lock leak on GPU reset error=
- paths ---
-commit 052121f5a12c1a8a145a6c7fd55be37159a21de9
-Author: Linkai Gong <gonglinkai@kylinos.cn>
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
+blocks fetched can be 0 and 1.
+---
+Changes in v3:
+- For block > 1, write a zeroed buffer. Returning a zeroed block
+  instead makes drm_edid's block checker classify it as
+  EDID_BLOCK_ZERO, which is treated as a non-fatal invalid block.
+- Link to v2: https://lore.kernel.org/r/20260317-upstream_ast_dp_edid-v2-1-31166703c491@aspeedtech.com
 
-drm/amd/display: fix dc_lock leak on GPU reset error paths
+Changes in v2:
+Becasue drm-edid will handle invalid EDID if happen, we have 2 changes
+below.
+- Return 0 for the number of block more than 1.
+- Remove modification of EDID
+- Link to v1: https://lore.kernel.org/r/20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com
+---
+ drivers/gpu/drm/ast/ast_dp.c | 24 ++++++++----------------
+ 1 file changed, 8 insertions(+), 16 deletions(-)
 
-On GPU reset, dm_suspend() takes dc_lock and leaves it for dm_resume()
-to drop. This commit releases the cached DC state and unlocks the lock
-before returning an error if amdgpu_dm_commit_zero_streams() or
-dm_dmub_hw_init() fails.
+diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
+index 9d07dad358c..38530cd126c 100644
+--- a/drivers/gpu/drm/ast/ast_dp.c
++++ b/drivers/gpu/drm/ast/ast_dp.c
+@@ -88,8 +88,14 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
+ 	int ret = 0;
+ 	unsigned int i;
+ 
+-	if (block > 0)
+-		return -EIO; /* extension headers not supported */
++	if (block > 1) {
++		/* ASPEED DP's EDID buffer holds blocks 0 and 1 only (256
++		 * bytes). Report anything beyond that as an all-zero block
++		 * rather than a read failure.
++		 */
++		memset(buf, 0, len);
++		return 0;
++	}
+ 
+ 	/*
+ 	 * Protect access to I/O registers from concurrent modesetting
+@@ -154,20 +160,6 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
+ 		ediddata[2] = ast_get_index_reg(ast, AST_IO_VGACRI, 0xda);
+ 		ediddata[3] = ast_get_index_reg(ast, AST_IO_VGACRI, 0xdb);
+ 
+-		if (i == 31) {
+-			/*
+-			 * For 128-bytes EDID_1.3,
+-			 * 1. Add the value of Bytes-126 to Bytes-127.
+-			 *		The Bytes-127 is Checksum. Sum of all 128bytes should
+-			 *		equal 0	(mod 256).
+-			 * 2. Modify Bytes-126 to be 0.
+-			 *		The Bytes-126 indicates the Number of extensions to
+-			 *		follow. 0 represents noextensions.
+-			 */
+-			ediddata[3] = ediddata[3] + ediddata[2];
+-			ediddata[2] = 0;
+-		}
+-
+ 		memcpy(buf, ediddata, min((len - i), 4));
+ 		buf += 4;
+ 	}
 
-Cc: stable@vger.kernel.org
+---
+base-commit: 5ee8dbf54602dc340d6235b1d6aa17c0f283f48c
+change-id: 20260313-upstream_ast_dp_edid-5fe6adf7ad36
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 567bf04979ee5..2fe934036e363 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1589,6 +1589,9 @@ static int dm_suspend(struct amdgpu_ip_block *ip_bl=
-ock)
->  		dm->cached_dc_state =3D dc_state_create_copy(dm->dc->current_state);
-> =20
->  		if (dm->cached_dc_state)
->  			dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
-> =20
->  		res =3D amdgpu_dm_commit_zero_streams(dm->dc);
->  		if (res !=3D DC_OK) {
->  			drm_err(adev_to_drm(adev), "Failed to commit zero streams: %d\n", res=
-);
-> +			dc_state_release(dm->cached_dc_state);
-> +			dm->cached_dc_state =3D NULL;
-> +			mutex_unlock(&dm->dc_lock);
->  			return -EINVAL;
->  		}
+Best regards,
+-- 
+Jammy Huang <jammy_huang@aspeedtech.com>
 
-[Severity: High]
-This is a pre-existing issue, but I wanted to ask about the error handling
-when dc_state_create_copy() fails here in dm_suspend().
-
-If memory allocation fails, dm->cached_dc_state becomes NULL. The code
-correctly skips dm_gpureset_toggle_interrupts() but continues execution
-and ultimately returns success (0) without aborting the suspend operation.
-
-Since dm_suspend() returns success, dm_resume() will be called later on
-the same GPU reset path.
-
-[ ... ]
-
-> @@ -1884,6 +1887,9 @@ static int dm_resume(struct amdgpu_ip_block *ip_blo=
-ck)
->  	if (amdgpu_in_reset(adev)) {
->  		dc_state =3D dm->cached_dc_state;
-[ ... ]
->  		link_enc_cfg_copy(adev->dm.dc->current_state, dc_state);
-> =20
->  		r =3D dm_dmub_hw_init(adev);
->  		if (r) {
->  			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: stat=
-us=3D%d\n", r);
-> +			dc_state_release(dm->cached_dc_state);
-> +			dm->cached_dc_state =3D NULL;
-> +			mutex_unlock(&dm->dc_lock);
->  			return r;
->  		}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this lead to a NULL
-pointer dereference when calling link_enc_cfg_copy()?
-
-In dm_resume(), dc_state is initialized to dm->cached_dc_state, which would
-be NULL if the earlier allocation failed. It is then unconditionally passed
-to link_enc_cfg_copy(), which appears to dereference it without checking.
-
-Should dm_suspend() return an error when dc_state_create_copy() fails,
-preventing the system from continuing the GPU reset process with a missing
-DC state and crashing here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819054742.3143=
-856-1-gonglinkai@kylinos.cn?part=3D1
