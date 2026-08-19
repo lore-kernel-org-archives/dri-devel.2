@@ -4,111 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0B0FC5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 14:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E98C7C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 14:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F35610E155;
-	Wed, 19 Aug 2026 14:43:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F80210E130;
+	Wed, 19 Aug 2026 14:46:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T83uXEoi";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="I0aykMg7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E217910E155
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:43:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0780F60AAA;
- Wed, 19 Aug 2026 14:43:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC831F000E9;
- Wed, 19 Aug 2026 14:43:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787150613;
- bh=zVtm5kUwuOjAoRQ+rgMSF7KhOcvmlvDHhtVOnGr2GgE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=T83uXEoi6H9ZS6H3c3XAWk0SQ4plmxkvNvUAiQVCRQkDgrVfhdgqQaJm32uSNh2NQ
- fiWoZn5htseSX/HOZ2DDxtn/jIjF3qnycPBSqzkKmRxd5D+7BKlcCuud4FUAETkpiA
- 6iIaviOnPZri5G92FcNH3APwLhrMCj8WZ3KbjFabwApSuKX9Vg2QPbi+b64bVCkkJV
- Sm9xlEFP6gYOEEj2lijpBk8n4jgnmwSkEAWEYf6eyI8ZyKTCuRKsae5wZtPsdZlwxP
- OLVJgjtzJKvDioEURKh12ixyBTMFEjhExyrcwGCcvMxLtBqvaPsIJWFlEhS0JuyvQ3
- +C5O465XHeGDg==
-Message-ID: <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
-Date: Wed, 19 Aug 2026 16:43:16 +0200
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1417F10E142
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:46:49 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-c160420289bso146531266b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 07:46:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google; t=1787150807; x=1787755607;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=OSCot2pCSk3hHSz91wsSuI86JXqDJ2hDA18HgPNG+K0=;
+ b=I0aykMg7B1kX7dGil9XKw1fWb1Vx7fXVSoA1SbyWg780TxM+tdY/p1F0cpP3vqCcLZ
+ AX3SU588uySUcKdf8cRfpa2MnvqnfGahEuhuQQc7uG6XZfWvffRbznSD2X1TDwpzYi+r
+ qF5SzN9IdkdPpIQUjh0fL4wdcu+Mb161Pf7tA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787150807; x=1787755607;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=OSCot2pCSk3hHSz91wsSuI86JXqDJ2hDA18HgPNG+K0=;
+ b=Yvf65mf5YgYh8i5p2o7ybWi9zYXd4ZMG8qBz1rdjD4LpXDl/m1no8zb2sRgdRl1RNw
+ CUyq7Yfpl5WO3dvt7LljoZWq+gqXq57/DktiGCxca2u/4kGWpJVK5TTjv62R/YrfN9R7
+ +kxwzCIPAoP+A/dk6JzyLEWtYIOhdpfHuAJXB2295NpxjNiHB2lsNp9g3rZqA2nwrJFg
+ WUBCTVpRTPj8XK6aBmnqPQqOit6oFLcMDCqlhVm5Cyt6L3DIiA07SkeMfGUeaNFDt/VR
+ ly9d0mR485UxCqQrzlRm2Y7zEqWiaaM6KqcmigH6AZN01sH5gnfr4S0NAIfBj4Stnw5p
+ YcJA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp3mg6V/t6HrnrTn0VMjuKLR2nD5rWYVK3KY2w+CvNUlkAr4uuwv4VtzYMWOUzovNI7uLGLBvCIPM0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBFwmFNq33ydE7vmiHV5VR+Ig+EguiS28EElj+xs6UFa9QGw8Z
+ CJr0K94S27JFhc+n1q/qDMmt+nz588JfrcvDozt9jIiUxVm4oRarTvmFegG/2eRwt0kqpwu8CZP
+ +2+XcDSQ=
+X-Gm-Gg: AR+sD11IunT+YgOxDqqvtHktRwn6i+UquuEP1xZUbeuoyEiC6enD5BsAFANz+qumD3+
+ V0TiIpO+i6x3NyT8OLbLlSghI2v5V9dd9cPabwan7wkzAqqk19IfsmERmtiduwcvJISFZqGq0Dx
+ sxOa/BDT9NqYlQEE1SyZ6HZ3cS1brrYhVSKvVqUbZmJ5F25SAQ1g9xYFLKQWmT4m0XjicCB769D
+ Hqf8XAYzVlCaooHY6xOg0PWqUxqbkgqILdCZ68Ewzf5gnWG1u+I2aoAhBiUvQSGA8CaKCCVJ4f9
+ 8I/VXqV2ASafFm9NHQKdh2lNojFCN91cHiuD3ge2Wfehr9tQ+vAHFlMvEqCKifiuoBqfjfHYy13
+ mkR4HTa5XnMt+MAt/GRM//L9WwsBevEeC5KPDfMz8X5saMDDhIxulLqsO51TNV3yS01SnEmAELc
+ YIENzPGCPQYVouSQ4HI+otTe9WjJvDE9FKx+Uw4fhgTrt3ZQxrGmX6ziJul0WQW3b5NTMZD2ogQ
+ XH0On+zt5/uJtG1kmRuYOf+1pGXCCiCfwWHtQ==
+X-Received: by 2002:a17:907:3e9d:b0:c20:1bc5:7002 with SMTP id
+ a640c23a62f3a-c23f929d918mr330116966b.3.1787150807324; 
+ Wed, 19 Aug 2026 07:46:47 -0700 (PDT)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com.
+ [209.85.208.46]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c243c27565dsm89827066b.59.2026.08.19.07.46.46
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Aug 2026 07:46:46 -0700 (PDT)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-698ae09e356so1805718a12.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 07:46:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpBvpzGRZR71qROFIVEgLRxZrUrUZ37xEAAcAABLeB6JJCASsaCKKhvJdWaYMzqg7o4FfD9YLqHSeU=@lists.freedesktop.org
+X-Received: by 2002:a05:6402:2403:b0:6a3:e813:8457 with SMTP id
+ 4fb4d7f45d1cf-6a4032f9c61mr3585093a12.12.1787150806331; Wed, 19 Aug 2026
+ 07:46:46 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
-To: rob.clark@oss.qualcomm.com
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+References: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
+ <6874536d-ab1a-4dd7-a23f-2a071bda145e@lankhorst.se>
+ <CAHk-=wj5aE1yVMb8RM2AuNUHSMnQDaGT+Vy+At5ds1vxBA+Kng@mail.gmail.com>
+ <ahDAErDSE-SFA0oM@intel.com>
+ <CAHk-=whX59mtUnU2ayMWoDQX6Ee2NXLK2NxQ+dZnb-Qc_mF1hw@mail.gmail.com>
+ <af9278d3-4002-4e09-9bcf-bc75d1cf8145@lankhorst.se>
+ <CAADWXX-pfvA3mKWSjdahnihAXHQB2VP9BOJDCXonG3Q_nxurLg@mail.gmail.com>
+ <anYZ8nUFP5dnRy/h@gsse-cloud1.jf.intel.com>
+ <CAHk-=whyk2-u_1bTh5ZTeX6jW3HgAtjJh0mV_oWtgsqCe=3w7g@mail.gmail.com>
+ <aoWHKmz17HQo2uy5@gsse-cloud1.jf.intel.com>
+In-Reply-To: <aoWHKmz17HQo2uy5@gsse-cloud1.jf.intel.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 19 Aug 2026 07:46:28 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjv7SCjtg6JGDabGMXdqobx+WHogHfQeMPF2g_HmAU5qg@mail.gmail.com>
+X-Gm-Features: AcwNN1XSfxuGhCEkqbxxdrVDPc4dzGAfkF59OcVsFeLb7hasE9yujONmHOn6O7Y
+Message-ID: <CAHk-=wjv7SCjtg6JGDabGMXdqobx+WHogHfQeMPF2g_HmAU5qg@mail.gmail.com>
+Subject: Re: drm: xe: Kernel-submitted job timed out
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org>
- <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
- <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
- <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ intel-xe@lists.freedesktop.org, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,65 +110,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 19/08/2026 16:38, Rob Clark wrote:
-> On Wed, Aug 19, 2026 at 7:21 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 19/08/2026 15:26, Ekansh Gupta wrote:
->>> On 19-08-2026 00:43, Krzysztof Kozlowski wrote:
->>>> On 17/08/2026 06:47, Ekansh Gupta wrote:
->>>>> This patch series introduces the Qualcomm DSP Accelerator (QDA) driver,
->>>>> a DRM-based accelerator driver for Qualcomm DSPs. The driver provides a
->>>>> standardized interface for offloading computational tasks to DSPs found
->>>>> on Qualcomm SoCs, supporting all DSP domains.
->>>>>
->>>>> The QDA driver implements the FastRPC protocol over the DRM accel
->>>>> subsystem. It uses the same device-tree node structure as the existing
->>>>> fastrpc driver in drivers/misc/. The approach for binding the QDA driver
->>>>> to device-tree nodes while coexisting with the fastrpc driver is an open
->>>>> item described below.
->>>>
->>>> No. Grow/replace/improve existing driver instead of coming with a duplicate.
->>>>
->>>> That's a standard upstream requirement, basically given on every
->>>> upstreaming guide.
->>>>
->>>> Please watch old talk from Greg - "I Don’t Want Your Code!".
->>> Posted discussion threads here[1]. Would seek comments from Dmitry,
->>> Srini as well.
->>>
->>> [1]
->>> https://lore.kernel.org/all/3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com/
->>
->> The rest of the comments is still valid even if you did not acknowledge
->> them.
->>
->> Anyway, regarding above - again, watch the talk from Greg.
->>
->> You have ONE driver. Not two.
-> 
-> Long term, moving to the common driver framework (which did not exist
-> when fastrpc was first created) seems like a good thing.  But does
-> that not allow for some transition period?  How can we get from here
-> to there without otherwise breaking userspace?  Is there some other
-> precedent elsewhere in other driver subsystems?
+On Wed, 19 Aug 2026 at 03:36, Matthew Brost <matthew.brost@intel.com> wrote:
+>
+> What is the kernel verison here? Is it trying to integrate all the PRs
+> for 7.3 into an RC release? Or is this the released 7.2?
 
-Yes, Iris and Venus where we agreed for an exception (two drivers) as
-long as new driver supports old hardware / features.
+That was just tip-of-tree as of yesterday evening - it just has two
+small commits on top that are due to how I do my local builds, which
+clean up some generated assembly and switch to using clang by default
+(because I'm too lazy to use the proper way).
 
-This is not the case here, right?
+So it was commit
 
-> 
-> I suppose drm exposing legacy fbdev on top of drm drivers is _sort of_
-> a precedent if you squint a bit?  I'm not really familiar enough to
-> say if that would be reasonable/possible in this case.
+  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of
+git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc")
 
-Growing old driver does not look complicated itself. The only a bit
-tricky thing is to present somehow exclusive interface to user-space,
-like usage of one disables the second etc. Depending on actual
-differences in that interface.
+from this merge window, with no drm merges done yet.
 
-But having a duplicated driver is a clear no go and it is well known
-upstream requirement. Nothing new here.
+No, the reason it stopped working was just user space doing something
+new when I did an update. Plain Fedora 44.
 
-Best regards,
-Krzysztof
+> I'm looking into it now, and based on the dmesg output, it seems to hang
+> fairly after boot, so something is going wrong very quickly. I'll
+> analyze the devcoredump and see if the problem is obvious.
+
+Yes, it hangs basically when logging in the first time. It shows the
+login screen, I can type my password, but then it's done.
+
+With the standard Fedora 44 kernel, it also hung, although at a
+slightly different point.
+
+               Linus
