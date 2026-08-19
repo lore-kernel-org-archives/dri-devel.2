@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 382EDC5DF86
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 10:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11EDFC5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 10:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7473610E149;
-	Wed, 19 Aug 2026 10:23:50 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A044310E149
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 10:23:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79AD910E3EC;
+	Wed, 19 Aug 2026 10:23:55 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0DB10E3EC
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 10:23:54 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5A9CB3EDB;
- Wed, 19 Aug 2026 10:23:47 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D2F4484A97;
+ Wed, 19 Aug 2026 10:23:52 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3A8B6362E;
- Wed, 19 Aug 2026 10:23:47 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A81E82F81;
+ Wed, 19 Aug 2026 10:23:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id E246DTOEhWq3EgAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 19 Aug 2026 10:23:47 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id b9f7JziEhWq8EgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 19 Aug 2026 10:23:52 +0000
 From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: Juergen Gross <jgross@suse.com>,
-	David Airlie <airlied@redhat.com>
-Subject: [PATCH v2 05/13] agp/nvidia: Stop using 32-bit MSR interfaces
-Date: Wed, 19 Aug 2026 12:23:06 +0200
-Message-ID: <20260819102314.1499258-6-jgross@suse.com>
+To: linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Cc: Juergen Gross <jgross@suse.com>, Helge Deller <deller@gmx.de>,
+ linux-geode@lists.infradead.org
+Subject: [PATCH v2 06/13] fbdev/geode: Stop using 32-bit MSR interfaces
+Date: Wed, 19 Aug 2026 12:23:07 +0200
+Message-ID: <20260819102314.1499258-7-jgross@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260819102314.1499258-1-jgross@suse.com>
 References: <20260819102314.1499258-1-jgross@suse.com>
@@ -45,7 +45,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Queue-Id: 5A9CB3EDB
+X-Rspamd-Queue-Id: D2F4484A97
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
@@ -72,68 +72,170 @@ removed. Use the related 64-bit variants instead.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- drivers/char/agp/nvidia-agp.c | 32 +++++++++++++++-----------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
+ drivers/video/fbdev/geode/display_gx.c |  8 +++---
+ drivers/video/fbdev/geode/lxfb_ops.c   | 38 +++++++++++++-------------
+ drivers/video/fbdev/geode/suspend_gx.c | 20 ++++++++------
+ 3 files changed, 34 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/char/agp/nvidia-agp.c b/drivers/char/agp/nvidia-agp.c
-index 4787391bb6b4..3e760bc00afa 100644
---- a/drivers/char/agp/nvidia-agp.c
-+++ b/drivers/char/agp/nvidia-agp.c
-@@ -65,22 +65,20 @@ static int nvidia_fetch_size(void)
+diff --git a/drivers/video/fbdev/geode/display_gx.c b/drivers/video/fbdev/geode/display_gx.c
+index 099322cefce0..b93aa21a1d2b 100644
+--- a/drivers/video/fbdev/geode/display_gx.c
++++ b/drivers/video/fbdev/geode/display_gx.c
+@@ -23,15 +23,15 @@ unsigned int gx_frame_buffer_size(void)
+ 	unsigned int val;
  
- static int nvidia_init_iorr(u32 base, u32 size)
+ 	if (!cs5535_has_vsa2()) {
+-		uint32_t hi, lo;
++		struct msr msr;
+ 
+ 		/* The number of pages is (PMAX - PMIN)+1 */
+-		rdmsr(MSR_GLIU_P2D_RO0, lo, hi);
++		rdmsrq(MSR_GLIU_P2D_RO0, msr.q);
+ 
+ 		/* PMAX */
+-		val = ((hi & 0xff) << 12) | ((lo & 0xfff00000) >> 20);
++		val = ((msr.h & 0xff) << 12) | ((msr.l & 0xfff00000) >> 20);
+ 		/* PMIN */
+-		val -= (lo & 0x000fffff);
++		val -= (msr.l & 0x000fffff);
+ 		val += 1;
+ 
+ 		/* The page size is 4k */
+diff --git a/drivers/video/fbdev/geode/lxfb_ops.c b/drivers/video/fbdev/geode/lxfb_ops.c
+index 2e33da9849b0..f5f1134cae9a 100644
+--- a/drivers/video/fbdev/geode/lxfb_ops.c
++++ b/drivers/video/fbdev/geode/lxfb_ops.c
+@@ -124,19 +124,19 @@ static const struct {
+ 
+ static void lx_set_dotpll(u32 pllval)
  {
--	u32 base_hi, base_lo;
--	u32 mask_hi, mask_lo;
--	u32 sys_hi, sys_lo;
-+	struct msr base_msr, mask_msr, sys_msr;
- 	u32 iorr_addr, free_iorr_addr;
+-	u32 dotpll_lo, dotpll_hi;
++	struct msr dotpll;
+ 	int i;
  
- 	/* Find the iorr that is already used for the base */
- 	/* If not found, determine the uppermost available iorr */
- 	free_iorr_addr = AMD_K7_NUM_IORR;
- 	for (iorr_addr = 0; iorr_addr < AMD_K7_NUM_IORR; iorr_addr++) {
--		rdmsr(IORR_BASE0 + 2 * iorr_addr, base_lo, base_hi);
--		rdmsr(IORR_MASK0 + 2 * iorr_addr, mask_lo, mask_hi);
-+		rdmsrq(IORR_BASE0 + 2 * iorr_addr, base_msr.q);
-+		rdmsrq(IORR_MASK0 + 2 * iorr_addr, mask_msr.q);
+-	rdmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
  
--		if ((base_lo & 0xfffff000) == (base & 0xfffff000))
-+		if ((base_msr.l & 0xfffff000) == (base & 0xfffff000))
+-	if ((dotpll_lo & MSR_GLCP_DOTPLL_LOCK) && (dotpll_hi == pllval))
++	if ((dotpll.l & MSR_GLCP_DOTPLL_LOCK) && (dotpll.h == pllval))
+ 		return;
+ 
+-	dotpll_hi = pllval;
+-	dotpll_lo &= ~(MSR_GLCP_DOTPLL_BYPASS | MSR_GLCP_DOTPLL_HALFPIX);
+-	dotpll_lo |= MSR_GLCP_DOTPLL_DOTRESET;
++	dotpll.h = pllval;
++	dotpll.l &= ~(MSR_GLCP_DOTPLL_BYPASS | MSR_GLCP_DOTPLL_HALFPIX);
++	dotpll.l |= MSR_GLCP_DOTPLL_DOTRESET;
+ 
+-	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ 
+ 	/* Wait 100us for the PLL to lock */
+ 
+@@ -145,15 +145,15 @@ static void lx_set_dotpll(u32 pllval)
+ 	/* Now, loop for the lock bit */
+ 
+ 	for (i = 0; i < 1000; i++) {
+-		rdmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
+-		if (dotpll_lo & MSR_GLCP_DOTPLL_LOCK)
++		rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
++		if (dotpll.l & MSR_GLCP_DOTPLL_LOCK)
  			break;
- 
--		if ((mask_lo & 0x00000800) == 0)
-+		if ((mask_msr.l & 0x00000800) == 0)
- 			free_iorr_addr = iorr_addr;
  	}
  
-@@ -89,16 +87,16 @@ static int nvidia_init_iorr(u32 base, u32 size)
- 		if (iorr_addr >= AMD_K7_NUM_IORR)
- 			return -EINVAL;
- 	}
--    base_hi = 0x0;
--    base_lo = (base & ~0xfff) | 0x18;
--    mask_hi = 0xf;
--    mask_lo = ((~(size - 1)) & 0xfffff000) | 0x800;
--    wrmsr(IORR_BASE0 + 2 * iorr_addr, base_lo, base_hi);
--    wrmsr(IORR_MASK0 + 2 * iorr_addr, mask_lo, mask_hi);
--
--    rdmsr(SYSCFG, sys_lo, sys_hi);
--    sys_lo |= 0x00100000;
--    wrmsr(SYSCFG, sys_lo, sys_hi);
-+    base_msr.h = 0x0;
-+    base_msr.l = (base & ~0xfff) | 0x18;
-+    mask_msr.h = 0xf;
-+    mask_msr.l = ((~(size - 1)) & 0xfffff000) | 0x800;
-+    wrmsrq(IORR_BASE0 + 2 * iorr_addr, base_msr.q);
-+    wrmsrq(IORR_MASK0 + 2 * iorr_addr, mask_msr.q);
-+
-+    rdmsrq(SYSCFG, sys_msr.q);
-+    sys_msr.l |= 0x00100000;
-+    wrmsrq(SYSCFG, sys_msr.q);
+ 	/* Clear the reset bit */
  
- 	return 0;
+-	dotpll_lo &= ~MSR_GLCP_DOTPLL_DOTRESET;
+-	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	dotpll.l &= ~MSR_GLCP_DOTPLL_DOTRESET;
++	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
  }
+ 
+ /* Set the clock based on the frequency specified by the current mode */
+@@ -268,7 +268,7 @@ static void lx_graphics_enable(struct fb_info *info)
+ 		config |= VP_DCFG_CRT_VSYNC_POL;
+ 
+ 	if (par->output & OUTPUT_PANEL) {
+-		u32 msrlo, msrhi;
++		struct msr val;
+ 
+ 		write_fp(par, FP_PT1, 0);
+ 		temp = FP_PT2_SCRC;
+@@ -282,10 +282,10 @@ static void lx_graphics_enable(struct fb_info *info)
+ 		write_fp(par, FP_PT2, temp);
+ 		write_fp(par, FP_DFC, FP_DFC_BC);
+ 
+-		msrlo = MSR_LX_MSR_PADSEL_TFT_SEL_LOW;
+-		msrhi = MSR_LX_MSR_PADSEL_TFT_SEL_HIGH;
++		val.l = MSR_LX_MSR_PADSEL_TFT_SEL_LOW;
++		val.h = MSR_LX_MSR_PADSEL_TFT_SEL_HIGH;
+ 
+-		wrmsr(MSR_LX_MSR_PADSEL, msrlo, msrhi);
++		wrmsrq(MSR_LX_MSR_PADSEL, val.q);
+ 	}
+ 
+ 	if (par->output & OUTPUT_CRT) {
+@@ -313,15 +313,15 @@ unsigned int lx_framebuffer_size(void)
+ 	unsigned int val;
+ 
+ 	if (!cs5535_has_vsa2()) {
+-		uint32_t hi, lo;
++		struct msr msr;
+ 
+ 		/* The number of pages is (PMAX - PMIN)+1 */
+-		rdmsr(MSR_GLIU_P2D_RO0, lo, hi);
++		rdmsrq(MSR_GLIU_P2D_RO0, msr.q);
+ 
+ 		/* PMAX */
+-		val = ((hi & 0xff) << 12) | ((lo & 0xfff00000) >> 20);
++		val = ((msr.h & 0xff) << 12) | ((msr.l & 0xfff00000) >> 20);
+ 		/* PMIN */
+-		val -= (lo & 0x000fffff);
++		val -= (msr.l & 0x000fffff);
+ 		val += 1;
+ 
+ 		/* The page size is 4k */
+diff --git a/drivers/video/fbdev/geode/suspend_gx.c b/drivers/video/fbdev/geode/suspend_gx.c
+index 73307f42e343..6c0a526ee8a2 100644
+--- a/drivers/video/fbdev/geode/suspend_gx.c
++++ b/drivers/video/fbdev/geode/suspend_gx.c
+@@ -40,25 +40,27 @@ static void gx_save_regs(struct gxfb_par *par)
+ 
+ static void gx_set_dotpll(uint32_t dotpll_hi)
+ {
+-	uint32_t dotpll_lo;
++	struct msr dotpll;
+ 	int i;
+ 
+-	rdmsrq(MSR_GLCP_DOTPLL, dotpll_lo);
+-	dotpll_lo |= MSR_GLCP_DOTPLL_DOTRESET;
+-	dotpll_lo &= ~MSR_GLCP_DOTPLL_BYPASS;
+-	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
++	dotpll.l |= MSR_GLCP_DOTPLL_DOTRESET;
++	dotpll.l &= ~MSR_GLCP_DOTPLL_BYPASS;
++	dotpll.h = dotpll_hi;
++	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ 
+ 	/* wait for the PLL to lock */
+ 	for (i = 0; i < 200; i++) {
+-		rdmsrq(MSR_GLCP_DOTPLL, dotpll_lo);
+-		if (dotpll_lo & MSR_GLCP_DOTPLL_LOCK)
++		rdmsrq(MSR_GLCP_DOTPLL, dotpll.q);
++		if (dotpll.l & MSR_GLCP_DOTPLL_LOCK)
+ 			break;
+ 		udelay(1);
+ 	}
+ 
+ 	/* PLL set, unlock */
+-	dotpll_lo &= ~MSR_GLCP_DOTPLL_DOTRESET;
+-	wrmsr(MSR_GLCP_DOTPLL, dotpll_lo, dotpll_hi);
++	dotpll.l &= ~MSR_GLCP_DOTPLL_DOTRESET;
++	dotpll.h = dotpll_hi;
++	wrmsrq(MSR_GLCP_DOTPLL, dotpll.q);
+ }
+ 
+ static void gx_restore_gfx_proc(struct gxfb_par *par)
 -- 
 2.55.0
 
