@@ -4,89 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0376C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 05:53:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8213C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB9E710E07B;
-	Wed, 19 Aug 2026 05:53:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D663810E1B8;
+	Wed, 19 Aug 2026 06:00:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DFt63tLT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UxNDsXWG";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F02110E07B
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 05:53:52 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4994d41ceb9so677545e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 22:53:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787118830; x=1787723630; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=drx7lxhpvX/m1kQ32psHACDf5vz1LZ8ZaWYCSVJWSkU=;
- b=DFt63tLTd9uq4KJPLzlgboTqEahburvo900E0shRKinFChxdq42Y97npFdxhav1h1O
- +7GWNMHaVxex35IAksppEAD7qpx3OK9NoD93SuU2FsD8N1Ji+XTH4cILTaDvtCC1+5lf
- uLNDgweUcImrkz3arbTDEHtl+fo/ZSQ80uotzs1jeRZ+/IS7WWRfw8Hdv+wNpWHmsnyU
- GJ1susW12DD8ESwrcs8+wk9VmSWx9tHZ9+TQcul4n5FVVCSsoaG3vjMXNAmp3FfHoM/b
- ouputR0X6blhhyNlj7y0DP9bcDuoHI0dt6WVII3Y+tV1fjQRmdJ26Kt3g6M7XwW9H4/z
- LmLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787118830; x=1787723630;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=drx7lxhpvX/m1kQ32psHACDf5vz1LZ8ZaWYCSVJWSkU=;
- b=VwV3ajcc94PaJzj4VIiakDY4NHVkXBBfk5rxN2mGJ5HIFG549wiXg03M6xuRDtta90
- Si7cbkliYbJvIGdUmiVY9sVF6bpyKf7YJhPbqO4jEly4hYBK+rem4ZFF8regWKCtjpy1
- S8mOJbp0c1tXTEIDjpDsNBf7Zgp6Ek+fZifgjg7mcm/eVk5ezq4VklNJh5HjFEG74pYT
- IUa244ZXoKTZUZJy5fAkJqSC7paY4zwenqUPSKgdUf/Z2IT70EF6Z5DRvXwmk34c/TYs
- aU4I6V4v2ahA82dn+B0z86qQILLJJ88qunZFy2zzYCA+4nJjPwhkU34WHxC10i9qeBlm
- Katg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrJFGYzX9M1HdyBrFbM6k63mesREE2GGDiW+0yGUmPHtANRtWUMxpvsK1yzSmxQe3yteLnK2ac0ptM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkbsV+nSw263tQdjL6XSBkGYGbvOuKZdk3LM/TOPCm1MesvXoJ
- wKLX5FUWy9GcSFC9rZZcpcGsm+hc/HOVamENOEKUWNLHfJgUbGoRaUhs
-X-Gm-Gg: AR+sD12eDBaasq2sdqkoCc6eBT2YrSMzm5nq0g/Z5YwkmgEcFo1k0YIX4vrL+JJtK+q
- bifSZ3gSZTNyEQtQoYFFJTg33TslHF9CP0nWuTFUefDQIGWR5cJz2q6ZJ6YQH1P4bKHWHbG3cvw
- N2koctjxnF8BT2Hc+Oupv/J1PrQ34rlnloKETRdYTqnlpXXgrB6Vi7xenrUlwgLACFoVu6e+rS/
- 1hc7Yq29JEIwvvsbZ5zCGUuXPwfwyY9rUxUnfD4j24vdwY0AzBNN07LUTYP2XoEMVgBByNtqShF
- 2LwP27UjJzr+JjuSRhXy+mq0pymv8iG6kPeES1vEU9C92eDDx5KepcKeDFirdJ7qnt6dXs6/Sir
- huai3LYI4n2m9z0aTzuZCH0XYu5XHiHlwjH8tgcwzEaN2hSSyDReSy2boMldlGnuNHQQz1+Xa4F
- wDUXunTU4hmytjZ1tLExy4xUFTqCPvl3LCuUPEIaA4skdt67xajpdUV1i+ChOfU+uE6z22Bc1AE
- RS97plORQJDcgb07VZ83iVnS9UJ+IXiawicO+SFR7PVFlt0dGq12HXnHG36VsUpP1eG4w==
-X-Received: by 2002:a05:600c:3f12:b0:499:8411:9e8d with SMTP id
- 5b1f17b1804b1-499aa0de240mr16981515e9.0.1787118830280; 
- Tue, 18 Aug 2026 22:53:50 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B9296004F3635366E4473DE.dsl.pool.telekom.hu.
- [2001:4c4e:1b92:9600:4f36:3536:6e44:73de])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499aa17e241sm28172945e9.12.2026.08.18.22.53.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 22:53:49 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
- Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
- and some numbers
-Date: Wed, 19 Aug 2026 07:52:23 +0200
-Message-ID: <20260819055324.33669-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
-References: <20260801131656.58450-1-royalnet026@gmail.com>
- <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
- <20260818072936.41844-1-royalnet026@gmail.com>
- <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
- <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEE6610E1B8
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:00:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D46B360204;
+ Wed, 19 Aug 2026 06:00:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C84E1F000E9;
+ Wed, 19 Aug 2026 06:00:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787119210;
+ bh=7+kzv7jTPjHyrLx/jjZtJDjNOiyGkpM1+1eFZp2HfqI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UxNDsXWGQqV2/fVRafzKwbFIGaNs2BtxUFyXV0V5u4a4Ph1avCBYPfb8iIjCzdRsw
+ bR32TFZBWHi81x+ltOP4IsKI4jiSkhHoXb+oomQ8RGfpygTGleW11a2X93Unu49j8N
+ 6JLortGenuHUnBLnyvNSnQYUOFilcX69MOI2drV2J4VyYb7SO52u/36q6YSors5ka/
+ XjdwWJ4C2jXg5fiQ1WzlDQ8eAZP4vY9hQlloPjhGiREjg6gFSidwtqoNir6/WPoOxG
+ GjLWS0iQ5z86VKrnR+FxkdYPHb/4SW66AVlsO9ro348JPeUv3Q4KKGr6e9Y/OvnghR
+ 9ekVL2/I2/4eg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amd/display: fix dc_lock leak on GPU reset error paths
+To: "Linkai Gong" <gonglinkai@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260819054742.3143856-1-gonglinkai@kylinos.cn>
+References: <20260819054742.3143856-1-gonglinkai@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 06:00:10 +0000
+Message-Id: <20260819060010.6C84E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,74 +52,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jonas,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On 8/18/2026 2:30 PM, Jonas Karlman wrote:
-> Looking closer at my old commits, it was the PCLK_GPU_ROOT that was
-> needed for e.g. RK3576 and RK3528. This clock is not described in RK3588
-> clock tree so it never gets disabled by Linux clock framework.
->
-> I suspect similarly one of the NPU root clocks is what drives the NPU
-> PVTPLL and thus always must be kept enabled when PVTPLL mode is used.
+Pre-existing issues:
+- [High] Missing error handling for `dc_state_create_copy()` allocation fai=
+lure leads to a NULL pointer dereference in `dm_resume()`.
+--
 
-Thank you - the PCLK_GPU_ROOT observation was the missing piece. I went
-through the firmware my board actually runs and can now name the clock
-for the NPU case.
+--- Patch [1]: [PATCH] drm/amd/display: fix dc_lock leak on GPU reset error=
+ paths ---
+commit 052121f5a12c1a8a145a6c7fd55be37159a21de9
+Author: Linkai Gong <gonglinkai@kylinos.cn>
 
-First a correction to what I told Nicolas earlier: my BL31 is not the
-vendor blob. The boot banner reports v2.12.0-9-gd5c68fd92, which is the
-edk2-rk3588 project's TF-A branch: upstream v2.12.0 plus nine feature
-commits (SCMI voltage domain, eMMC clock, TRNG, ...). The only one of
-those touching rk3588_clk.c adds an eMMC clock; the NPU set_rate/PVTPLL
-path is unmodified mainline v2.12. So Nicolas and I are effectively
-running the same clock code, and the firmware-difference caveat from my
-earlier mail mostly evaporates.
+drm/amd/display: fix dc_lock leak on GPU reset error paths
 
-What clk_npu_set_rate() in plat/rockchip/rk3588/drivers/scmi/rk3588_clk.c
-does:
+On GPU reset, dm_suspend() takes dc_lock and leaves it for dm_resume()
+to drop. This commit releases the cached DC state and unlocks the lock
+before returning an error if amdgpu_dm_commit_zero_streams() or
+dm_dmub_hw_init() fails.
 
-- The rate table gives every OPP from 300 MHz up a ring length > 0, so
-  they all take the PVTPLL path; 200 MHz has length 0 and takes the
-  normal GPLL divider path. The 200 MHz suspend rate we both converged
-  on is therefore safe by construction on this SoC.
+Cc: stable@vger.kernel.org
 
-- For a PVTPLL rate the firmware programs ring_sel/length/calibration
-  (cal cnt = 24, T = 1 us, i.e. a 24 MHz reference) into NPU GRF at
-  0xfd5a2000 (NPU_PVTPLL_CON0..2), and only then flips the mux in CRU
-  CLKSEL_CON(74) to the PVTPLL path.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 567bf04979ee5..2fe934036e363 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1589,6 +1589,9 @@ static int dm_suspend(struct amdgpu_ip_block *ip_bl=
+ock)
+>  		dm->cached_dc_state =3D dc_state_create_copy(dm->dc->current_state);
+> =20
+>  		if (dm->cached_dc_state)
+>  			dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
+> =20
+>  		res =3D amdgpu_dm_commit_zero_streams(dm->dc);
+>  		if (res !=3D DC_OK) {
+>  			drm_err(adev_to_drm(adev), "Failed to commit zero streams: %d\n", res=
+);
+> +			dc_state_release(dm->cached_dc_state);
+> +			dm->cached_dc_state =3D NULL;
+> +			mutex_unlock(&dm->dc_lock);
+>  			return -EINVAL;
+>  		}
 
-The Linux side is where the NPU differs from your GPU case: the NPU
-root clocks are fully described in clk-rk3588.c. pclk_npu_root is a
-gateable composite (CLKGATE_CON(29) bit 4) and NPU GRF hangs off it
-(pclk_npu_grf, CLK_IGNORE_UNUSED). In the mainline DT only core 0
-(fdab0000) requests PCLK_NPU_ROOT as its "pclk"; cores 1/2 only hold
-their aclk/hclk. So whenever core 0 is runtime-suspended, pclk_npu_root
-has no user left and gets gated.
+[Severity: High]
+This is a pre-existing issue, but I wanted to ask about the error handling
+when dc_state_create_copy() fails here in dm_suspend().
 
-An SCMI set_rate to a PVTPLL rate issued in that state programs a GRF
-whose bus clock is off, while the mux write still lands because the CRU
-is always clocked - leaving clk_npu_dsu0 parked on a ring that was
-never configured. That matches the empirical failure in my RFC exactly:
-the sysfs min_freq write while suspended, followed by the power-domain
-power-on ack timeout. (I have not put a scope on the APB bus, so "the
-GRF write cannot land" is inferred from the failure signature plus the
-gate state, not observed directly.)
+If memory allocation fails, dm->cached_dc_state becomes NULL. The code
+correctly skips dm_gpureset_toggle_interrupts() but continues execution
+and ultimately returns success (0) without aborting the suspend operation.
 
-For the series this reinforces the hold-all guard: resuming all cores -
-core 0 in particular - around every rate change keeps pclk_npu_root
-enabled for the duration of the SCMI call, closing the window for the
-sysfs, governor and cooling paths alike. Your .config_clks() +
-pm_runtime_suspended() check covers the OPP-initiated paths; I will
-reference it and your branch in the cover letter.
+Since dm_suspend() returns success, dm_resume() will be called later on
+the same GPU reset path.
 
-One open point where your GPU experience may help: besides the GRF
-programming interface, do you know whether the ring/monitor logic also
-depends on hclk_npu_root, or is the 24 MHz calibration reference
-(xin24m, always on) the only other input? If you never had to find out,
-I will determine it empirically by holding only pclk and cycling rates.
+[ ... ]
 
-Regards,
-Igor
+> @@ -1884,6 +1887,9 @@ static int dm_resume(struct amdgpu_ip_block *ip_blo=
+ck)
+>  	if (amdgpu_in_reset(adev)) {
+>  		dc_state =3D dm->cached_dc_state;
+[ ... ]
+>  		link_enc_cfg_copy(adev->dm.dc->current_state, dc_state);
+> =20
+>  		r =3D dm_dmub_hw_init(adev);
+>  		if (r) {
+>  			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: stat=
+us=3D%d\n", r);
+> +			dc_state_release(dm->cached_dc_state);
+> +			dm->cached_dc_state =3D NULL;
+> +			mutex_unlock(&dm->dc_lock);
+>  			return r;
+>  		}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this lead to a NULL
+pointer dereference when calling link_enc_cfg_copy()?
+
+In dm_resume(), dc_state is initialized to dm->cached_dc_state, which would
+be NULL if the earlier allocation failed. It is then unconditionally passed
+to link_enc_cfg_copy(), which appears to dereference it without checking.
+
+Should dm_suspend() return an error when dc_state_create_copy() fails,
+preventing the system from continuing the GPU reset process with a missing
+DC state and crashing here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819054742.3143=
+856-1-gonglinkai@kylinos.cn?part=3D1
