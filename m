@@ -4,50 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13A47C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B689EC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:17:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4589310E2B5;
-	Wed, 19 Aug 2026 06:03:57 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 19 Aug 2026 06:03:55 UTC
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B783F10E2B5
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:03:55 +0000 (UTC)
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 19 Aug
- 2026 13:58:50 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 19 Aug 2026 13:58:50 +0800
-From: Jammy Huang <jammy_huang@aspeedtech.com>
-Date: Wed, 19 Aug 2026 13:58:37 +0800
-Subject: [PATCH v3] drm/ast: DisplayPort edid supports 256 bytes
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C3E310E36E;
+	Wed, 19 Aug 2026 06:17:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dO720plT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3Q9NN6B3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="L8HnCUTS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eaPdP7nU";
+	dkim-atps=neutral
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1B710E36E;
+ Wed, 19 Aug 2026 06:17:36 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 168B33E69;
+ Wed, 19 Aug 2026 06:16:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787120204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=c/AzOS9nYCn1gKcDW+iR9M86QEqFfEOWGqdTZE1/Q8A=;
+ b=dO720plTJcEcHC+arFs6mB/9g8FDyt9rYEInkQG8s2VxFn+S+3tlBdg/z0/AE76kVegV/J
+ po0cwcLIJ0eVH1dO9hOcYHWbGx/nXdmjU0jchzVB/Ap9d4oLj2BeJMXDhXaD1gW3tzAHoa
+ VMq/ekbE9a8qAKfFTXWZ3jSUpCcnGBI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787120204;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=c/AzOS9nYCn1gKcDW+iR9M86QEqFfEOWGqdTZE1/Q8A=;
+ b=3Q9NN6B3P//DA/0r1qISw0CBzYxq34c3kFnAVy/gpQSWIUSsUBzu81MGBqHvUkojiRlIT4
+ IvkPnljiLo7vL3CA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=L8HnCUTS;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eaPdP7nU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787120200; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=c/AzOS9nYCn1gKcDW+iR9M86QEqFfEOWGqdTZE1/Q8A=;
+ b=L8HnCUTSvXwz89JqoFEUVGXfyBa/oJZAT7BC7J3w1uwidMcKF4OuijNQdTHOe7KdU9uEgh
+ 5FjLcKdQXjz0iGVcE0TMronQ79HDZTovL3ne4XDVb7NDRzvZyTBD8D37rgnErtXW0X/CoY
+ vMYe1wsMsZ1pQJYvLMtEzC1qL6dpgqk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787120200;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=c/AzOS9nYCn1gKcDW+iR9M86QEqFfEOWGqdTZE1/Q8A=;
+ b=eaPdP7nUjcgGMN2xiwEPnkNBTlV45RYeLfigA5z8I3ZRnJMisCHgbu0N+Luewac2zV75sO
+ rnXH4UsE7FZEdMAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 960AA2F81;
+ Wed, 19 Aug 2026 06:16:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id B2BRI0dKhWpUcwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 19 Aug 2026 06:16:39 +0000
+Message-ID: <614bdf7b-031d-444b-a30c-132daa55ce3e@suse.de>
+Date: Wed, 19 Aug 2026 08:16:39 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260819-upstream_ast_dp_edid-v3-1-15d36c28afe2@aspeedtech.com>
-X-B4-Tracking: v=1; b=H4sIAAxGhWoC/4XN0QrCIBTG8VcZXmd4tCnrqveIGE7PmhfbRE2Ks
- XfP7SqI6PL/wfmdhUQMDiM5VwsJmF1081RCHCpiBj3dkTpbmnDGJRMg6MPHFFCPrY6ptb5F6yy
- te5Ta9kpbIUk59QF799zZ66304GKaw2v/kmFb/4AZKFCuVd0pwxro+EVHj2gTmuFo5pFsauafk
- voh8SIJACkVE+bUwJe0rusbt/OquAcBAAA=
-X-Change-ID: 20260313-upstream_ast_dp_edid-5fe6adf7ad36
-To: Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jocelyn Falempe <jfalempe@redhat.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <jani.nikula@linux.intel.com>, <ville.syrjala@linux.intel.com>, Jammy Huang
- <jammy_huang@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787119130; l=2920;
- i=jammy_huang@aspeedtech.com; s=20251124; h=from:subject:message-id;
- bh=mOF4mUY8m9fVNE8LqeVkJT2xXPKlpZXeHeztxFh1mws=;
- b=NeYUgk5661rr81bAvbou0cJgbc2pDl6Dsyn+97b1WdEPVy91Hvjc6W62MGWkc0fzsHbhSkOV+
- vKSVnTXrSCODlVOu1h9G5kOeV2a+OjkdPC+uCloMuL4TrMBwLZ+KLny
-X-Developer-Key: i=jammy_huang@aspeedtech.com; a=ed25519;
- pk=E5YwijeJZZcuDR6srvwNlXrNHvLxwipUg3Mb/xxUF9o=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/12] drm/panic: Move panic display code into helper
+ library
+To: Randy Dunlap <rdunlap@infradead.org>, jfalempe@redhat.com,
+ javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260818125012.468092-1-tzimmermann@suse.de>
+ <20260818125012.468092-12-tzimmermann@suse.de>
+ <916c4bd5-c73f-466e-8e9b-aee9d4d7d742@infradead.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <916c4bd5-c73f-466e-8e9b-aee9d4d7d742@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.19)[-0.973]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[infradead.org,redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[20]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid, suse.de:dkim,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Queue-Id: 168B33E69
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,84 +154,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DisplayPort supports EDID up to 256 bytes (blocks 0 and 1). Update the
-block check to allow these two blocks. For any block beyond that
-(i.e. the monitor's EDID is larger than the 256 bytes ASPEED DP can
-hold), report it as an all-zero block instead of a read failure.
+Hi
 
-Also remove the manual checksum/extension-count patch of block 0's
-last four bytes. That code was already dead, so the condition can never
-be true.
+Am 18.08.26 um 17:55 schrieb Randy Dunlap:
+> Hi,
+>
+> On 8/18/26 5:28 AM, Thomas Zimmermann wrote:
+>>   M:	Hans de Goede <hansg@kernel.org>
+>> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+>> index 323422861e8f..cdfd72d9a9c5 100644
+>> --- a/drivers/gpu/drm/Kconfig
+>> +++ b/drivers/gpu/drm/Kconfig
+>> @@ -45,6 +45,7 @@ config DRM_MIPI_DSI
+>>   config DRM_KMS_HELPER
+>>   	tristate
+>>   	depends on DRM
+>> +	select DRM_PANIC_HELPER if DRM_PANIC
+> but DRM_PANIC_HELPER depends on DRM_TTM so
+> DRM_KMS_HELPER should also depend on DRM_TTM. Otherwise:
 
-Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
----
-ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
-blocks fetched can be 0 and 1.
----
-Changes in v3:
-- For block > 1, write a zeroed buffer. Returning a zeroed block
-  instead makes drm_edid's block checker classify it as
-  EDID_BLOCK_ZERO, which is treated as a non-fatal invalid block.
-- Link to v2: https://lore.kernel.org/r/20260317-upstream_ast_dp_edid-v2-1-31166703c491@aspeedtech.com
+Oops, how did that creep in?  There's no TTM dependency. This Kconfig 
+change appears to be a copy-paste accident. Thanks for noting.
 
-Changes in v2:
-Becasue drm-edid will handle invalid EDID if happen, we have 2 changes
-below.
-- Return 0 for the number of block more than 1.
-- Remove modification of EDID
-- Link to v1: https://lore.kernel.org/r/20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com
----
- drivers/gpu/drm/ast/ast_dp.c | 24 ++++++++----------------
- 1 file changed, 8 insertions(+), 16 deletions(-)
+Best regards
+Thomas
 
-diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
-index 9d07dad358c..38530cd126c 100644
---- a/drivers/gpu/drm/ast/ast_dp.c
-+++ b/drivers/gpu/drm/ast/ast_dp.c
-@@ -88,8 +88,14 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
- 	int ret = 0;
- 	unsigned int i;
- 
--	if (block > 0)
--		return -EIO; /* extension headers not supported */
-+	if (block > 1) {
-+		/* ASPEED DP's EDID buffer holds blocks 0 and 1 only (256
-+		 * bytes). Report anything beyond that as an all-zero block
-+		 * rather than a read failure.
-+		 */
-+		memset(buf, 0, len);
-+		return 0;
-+	}
- 
- 	/*
- 	 * Protect access to I/O registers from concurrent modesetting
-@@ -154,20 +160,6 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
- 		ediddata[2] = ast_get_index_reg(ast, AST_IO_VGACRI, 0xda);
- 		ediddata[3] = ast_get_index_reg(ast, AST_IO_VGACRI, 0xdb);
- 
--		if (i == 31) {
--			/*
--			 * For 128-bytes EDID_1.3,
--			 * 1. Add the value of Bytes-126 to Bytes-127.
--			 *		The Bytes-127 is Checksum. Sum of all 128bytes should
--			 *		equal 0	(mod 256).
--			 * 2. Modify Bytes-126 to be 0.
--			 *		The Bytes-126 indicates the Number of extensions to
--			 *		follow. 0 represents noextensions.
--			 */
--			ediddata[3] = ediddata[3] + ediddata[2];
--			ediddata[2] = 0;
--		}
--
- 		memcpy(buf, ediddata, min((len - i), 4));
- 		buf += 4;
- 	}
+>
+> WARNING: unmet direct dependencies detected for DRM_PANIC_HELPER
+>    Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && DRM_TTM [=n]
+>    Selected by [y]:
+>    - DRM_KMS_HELPER [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_PANIC [=y]
+>
+>
+>>   	select FB_CORE if DRM_FBDEV_EMULATION
+>>   	help
+>>   	  CRTC helpers for KMS drivers.
+>> @@ -130,6 +131,10 @@ config DRM_PANIC_SCREEN_QR_VERSION
+>>   	  Smaller QR code are easier to read, but will contain less debugging
+>>   	  data. Default is 40.
+>>   
+>> +config DRM_PANIC_HELPER
+>> +	bool
+>> +	depends on DRM_TTM
+>> +
+>>   config DRM_RAS
+>>   	bool "DRM RAS support"
+>>   	depends on DRM
 
----
-base-commit: 5ee8dbf54602dc340d6235b1d6aa17c0f283f48c
-change-id: 20260313-upstream_ast_dp_edid-5fe6adf7ad36
-
-Best regards,
 -- 
-Jammy Huang <jammy_huang@aspeedtech.com>
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
