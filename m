@@ -4,84 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA8EC5DF87
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 08:49:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 552C1C5DF89
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 08:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F68310EF6A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5286D10EF75;
 	Thu, 20 Aug 2026 08:49:21 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N9H72cm8";
-	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7927B10E9D9
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 15:12:26 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2d032846c95so14630375ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 08:12:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787152346; x=1787757146; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=qXxMT626CxIJxNtnvKadUbkm5J1eV87PtyZPkHVWvbs=;
- b=N9H72cm83TVfeNRXHKKw8uTwDPjXCDhDTY1jorm2ERSnGJW9GieH67aWUHokLGNytb
- ATXeONz8ytbb/pbEJ4+osAb5V5OiM29p8hw0nuLDZ5Pr5grDt7M5LLFVxKpvPm66qJWg
- nklNWn3h34zJwjCv9tCaRMUdTa8Pv6iTA9hU96mLu9YQmek46l5sbzig1dk9YF1rhAgq
- BjFwQNRWM46DY4HfnUlARWvRgpn1Rpkh6iF3Tcg8c188EyIp9C1l6tXxltYuRHFZCBVc
- jFLKM5SkIA6+2BWW0wSlEAPD9utEQdOsZ3ctDtbAZYDZR6EJOhX11oPmgXKJEaidIqvL
- 9KGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787152346; x=1787757146;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qXxMT626CxIJxNtnvKadUbkm5J1eV87PtyZPkHVWvbs=;
- b=bKob0dT3ySrQEX+03zc7bn8HXmGf5eBZFBXudlh35puwoyKrZlbKfvouJivE/dkIZs
- WZGWGdNdJow3toGCx8DFGrZRBMq6tmhpiA4og5KKoEv6RlfobKYGvoGjiD2FTNnMFZOn
- cqYEEXsS9xLpOo7kME1RZ3b3BvPLf/e9Zs9QSfqubmJCQR13E9wBr3ByHhuJ/hI9HZUt
- b0T3wKcPTDsRK/ZwFC9uIq7sgEMtrG4MOlBR7Cy8H6nEPNwz5Xg2E7G1W+lXAGTPfRHE
- xtwF6f9obpzPY5I9c0SrtfaHQlZ+7mkqCMtMUMeJN6yF29qQbXHJ6HHrCiYXDoh1mhtY
- JsaA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqn+pHquxsHgA6VMG6hvjzqm5KEIrVim03STsDel1Sunt4/7xfAatl8wX9TMO06fPE8FojsT6gMfrI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7bsboWIZ1TpLORMycDZsFTVQHKLlnATAzvbmg59tl0PXHfwaw
- UH+e8CcAz+Ts4CwX1ghHcoeL935uc6lvn1rSuhZCNsFLZ4taEeeJGf6K
-X-Gm-Gg: AR+sD10v6UK9hZ4hYBZqE28EtSRiLWK0O4sTyAv9oXBxiq6MsRF8yQ8oE27+5yPjI3a
- yda3//WBymUA5LUjHspsWcBTtTwWTHU1A44eEx4h/d6v5TiZsUhna+6FlweYJa2l324CvO6vWgT
- SFRpD9Z0kftim3bOiPSFM/2q6PCe3UJoqQSPgzK+mT28ev4A+YxrQIAL/YzV5jAxEHfadU5z9jA
- ozvKYVNEM092J9F16BeoPuUHc0uy3W2sK69F5JNnAK7lXkwvr88m3bPqXCY+7x/nJSfX+ZqJTIc
- srinjaQukCRTfTdzta7lEsS6amiftd//0TTDNM7P+AwcoEgf7JfwUU1La0SXWRRGuQGmRd8O4+2
- zWM4KKzYEun2pTwjkZgAsr6c53U06SFP/0ReDnvjhlnGk82BfzYefAIo2xqjw9Wb3SsX8vDOo8N
- 8LM5y9bTa8ZLKk/1hl3qw06Xr+mZCqwyFb0qu1/7B94vhpEdrxUgQgVd9TAjLfRwiyvrHT6706a
- XGI2kOIOAHRdjHN77FlTzRysMcdDsn/aDuHSCT4pzxV9WF8c/3L4zHrhw==
-X-Received: by 2002:a17:902:da85:b0:2cf:ba10:6d6 with SMTP id
- d9443c01a7336-2d5fd6910b3mr95763645ad.4.1787152345810; 
- Wed, 19 Aug 2026 08:12:25 -0700 (PDT)
-Received: from LAPTOP-M4N25KQ5.tail73068d.ts.net
- (1-160-197-194.dynamic-ip.hinet.net. [1.160.197.194])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d5c1e91356sm25236125ad.59.2026.08.19.08.12.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2026 08:12:25 -0700 (PDT)
-From: Sean Chang <seanwascoding@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Liu Ying <victor.liu@nxp.com>,
- Jani Nikula <jani.nikula@intel.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sean Chang <seanwascoding@gmail.com>
-Subject: [PATCH v1] drm: bridge: dw_hdmi: Fix constant truncation warning on
- phy_mask
-Date: Wed, 19 Aug 2026 23:12:16 +0800
-Message-ID: <20260819151216.56833-1-seanwascoding@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E81A310ED3F
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:59:37 +0000 (UTC)
+X-UUID: 87abacfa9b9b11f19a56ed5b684f684d-20260819
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:95d30bce-e18c-4b16-a25f-2ecd3e5d6261, IP:0,
+ U
+ RL:0,TC:0,Content:-5,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:-30
+X-CID-META: VersionHash:7db8b62, CLOUDID:8f2bda27415ebe17e4b963917d895753,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:2,IP:ni
+ l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
+ :1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 87abacfa9b9b11f19a56ed5b684f684d-20260819
+X-User: lijun01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <lijun01@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 854878116; Wed, 19 Aug 2026 14:59:32 +0800
+From: Li Jun <lijun01@kylinos.cn>
+To: lijun01@kylinos.cn, koby.elbaz@intel.com, konstantin.sinyuk@intel.com,
+ ogabbay@kernel.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] accel: habanalabs: pm: use SIMPLE_DEV_OPS for pm struct
+Date: Wed, 19 Aug 2026 14:59:17 +0800
+Message-Id: <20260819065917.2488984-1-lijun01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 20 Aug 2026 08:48:42 +0000
@@ -100,35 +58,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In dw_hdmi_probe(), casting the bitwise complement of (HDMI_PHY_HPD |
-HDMI_PHY_RX_SENSE) directly to u8 triggers a compiler warning
-(-Wconstant-conversion).
+use SIMPLE_DEV_PM_OPS for hl_pm_ops,and add the value of
+.freeze .thaw .poweroff .restore.if these address are null, may cause
+error in s4.
 
-Due to C integer promotion rules, the bitwise OR and bitwise NOT are
-evaluated as 32-bit signed integers, producing 0xFFFFFF0D before being
-cast down to u8.
-
-Fix this by explicitly masking the inverted 32-bit result with 0xFF
-to keep only the lower byte and prevent implicit upper-bit truncation.
-
-Signed-off-by: Sean Chang <seanwascoding@gmail.com>
+Signed-off-by: Li Jun <lijun01@kylinos.cn>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/accel/habanalabs/common/habanalabs_drv.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 34c5f583e910..937d61c42b58 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -3353,7 +3353,7 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 	hdmi->channels = 2;
- 	hdmi->disabled = true;
- 	hdmi->rxsense = true;
--	hdmi->phy_mask = (u8)~(HDMI_PHY_HPD | HDMI_PHY_RX_SENSE);
-+	hdmi->phy_mask = ~(HDMI_PHY_HPD | HDMI_PHY_RX_SENSE) & 0xff;
- 	hdmi->mc_clkdis = 0x7f;
- 	hdmi->last_connector_result = connector_status_disconnected;
+diff --git a/drivers/accel/habanalabs/common/habanalabs_drv.c b/drivers/accel/habanalabs/common/habanalabs_drv.c
+index 483e1ad9fc41..f3f01a5336a9 100644
+--- a/drivers/accel/habanalabs/common/habanalabs_drv.c
++++ b/drivers/accel/habanalabs/common/habanalabs_drv.c
+@@ -706,10 +706,7 @@ static void hl_pci_reset_done(struct pci_dev *pdev)
+ 	hl_device_reset(hdev, flags);
+ }
  
+-static const struct dev_pm_ops hl_pm_ops = {
+-	.suspend = hl_pmops_suspend,
+-	.resume = hl_pmops_resume,
+-};
++static SIMPLE_DEV_PM_OPS(hl_pm_ops, hl_pmops_suspend, hl_pmops_resume);
+ 
+ static const struct pci_error_handlers hl_pci_err_handler = {
+ 	.error_detected = hl_pci_err_detected,
 -- 
-2.43.0
+2.25.1
 
