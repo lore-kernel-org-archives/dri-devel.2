@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7106BC5DF7D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 00:07:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92276C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 00:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D748810E041;
-	Wed, 19 Aug 2026 00:07:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04DAD10E523;
+	Wed, 19 Aug 2026 00:10:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W5489Kht";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ivjTpYhf";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30E0610E041
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 00:07:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C509310E523
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 00:10:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 46ADD601DE;
- Wed, 19 Aug 2026 00:07:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19471F000E9;
- Wed, 19 Aug 2026 00:07:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1749A601DE;
+ Wed, 19 Aug 2026 00:10:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B0E1F000E9;
+ Wed, 19 Aug 2026 00:10:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787098041;
- bh=48FE3r+QonZbmUQBtsQ5unKf/Ly9dKoOdjJk4e/1/KQ=;
+ s=k20260515; t=1787098252;
+ bh=EGyMPGJHiC8hPsdFBfImWr9nQ8GX5tFUpR4gWQoZt54=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=W5489KhtISxp8+HBambUfvR3P7L8poFH1tDPK85MuRJI0Hu41k98uKG/JLEwHjE3i
- bPXAUnZdIDXvGXFzr9NgjrbweGpc8yD2wtGuLoFeywD0nU3bfjHnOV/fi44mBoCUFT
- swYdI8LTXiIUa1Qr3tFU16TD1+kZOMA4Ur3o+FIIU1jqNIwzpJuZfLv82NARjm8e+/
- rxsao0wgL6QuZqZNP8ZqfVUF+o5cyh9eNwdKLuV8PSbByPsfmqPqvnCkOivS3Y3WeJ
- KQgzadFZUhP4JUntMfHGY1EJqyzwyZSOjZZFyTdZ9+vEG9B568AicTc/so3fkWCpS2
- T9C16tC38CmGg==
+ b=ivjTpYhfE28K6wGxCrIClNgwmIWE4fD0uX3JPvHQd1JXVAW84IXhXJwNPO113yWmw
+ U6amdw7aVFwFuSeEP2ptiX9sCYvea6vIbXOLA/WDaDR/hQeHNlJ4g7DozQyfyCFaF6
+ HJGRFh7/SFbjhR+Hd4Ektq4JOaw8Ywo/MkZYFUM9oTe5QCHSr7p/fzBuxwziMAvu1f
+ 4gmX4XRhfr2N1XGW3xt2HPhsGEGrS9rIaFqhwMhuP4V7oM4ZEAj9dHP5o98bVv0MLB
+ y1qp95rerIcUL/BhaLtAsUs0lTKucH8POkh2gzZcJjj5yla8j/Uv79Jz7pI/fhcU4A
+ NZNO+oR1B6vHQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] drm/nouveau/kms/nv50-: Move DPCD backlight disable
- into its own function
+Subject: Re: [PATCH 5/6] drm/nouveau/kms/nv50-: Add nouveau_encoder->audio.crtc
 To: "Lyude Paul" <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260818235637.1738055-2-lyude@redhat.com>
+In-Reply-To: <20260818235637.1738055-6-lyude@redhat.com>
 References: <20260818235637.1738055-1-lyude@redhat.com>
- <20260818235637.1738055-2-lyude@redhat.com>
+ <20260818235637.1738055-6-lyude@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 00:07:20 +0000
-Message-Id: <20260819000720.D19471F000E9@smtp.kernel.org>
+Date: Wed, 19 Aug 2026 00:10:52 +0000
+Message-Id: <20260819001052.A7B0E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,72 +59,59 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Calling the sleeping function `drm_edp_backlight_disable()` from w=
-ithin the `nv50_sor_atomic_disable` encoder atomic disable callback violate=
-s DRM atomic context rules. This problem wasn't introduced by this patch, b=
-ut the logic was moved into the new `nv50_sor_atomic_disable_backlight()` i=
-nline function.
+- [Medium] PIOR encoders do not clear `audio.crtc` on disable, leading to s=
+tale audio state being reported.
 --
 
---- Patch [1]: [PATCH 1/6] drm/nouveau/kms/nv50-: Move DPCD backlight disab=
-le into its own function ---
-commit a8a2b3da8fed6e6d5dafbcd1c4a9bb461b74def0
+--- Patch [5]: [PATCH 5/6] drm/nouveau/kms/nv50-: Add nouveau_encoder->audi=
+o.crtc ---
+commit d00b281328e092a25d08552356c0a7fc11880073
 Author: Lyude Paul <lyude@redhat.com>
 
-drm/nouveau/kms/nv50-: Move DPCD backlight disable into its own function
+drm/nouveau/kms/nv50-: Add nouveau_encoder->audio.crtc
 
-This commit moves the DPCD backlight disable logic into its own separate
-inline helper function. Aside from using the state device to access the
-drm device, no functional changes are introduced.
-
-Fixes: f575f2bdb6c3 ("drm/nouveau/kms/nv50-: Remove (nv_encoder->crtc) chec=
-ks in ->disable callbacks")
-Cc: <stable@vger.kernel.org> # v5.12+
+This commit adds an audio.crtc pointer to track the assigned CRTC for an
+encoder outside of modesetting locks. It replaces the usage of
+nouveau_encoder->crtc in the audio ELD retrieval path.
 
 > diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
 uveau/dispnv50/disp.c
+> index 63d554e97fb62..3bfc04f7ef602 100644
 > --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
 > +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> @@ -636,7 +636,7 @@ nv50_audio_component_get_eld(struct device *kdev, int=
+ port, int dev_id,
+> =20
+>  		nv_encoder =3D nouveau_encoder(encoder);
+>  		nv_connector =3D nv_encoder->conn;
+> -		nv_crtc =3D nouveau_crtc(nv_encoder->crtc);
+> +		nv_crtc =3D nv_encoder->audio.crtc;
+> =20
+>  		if (!nv_crtc || nv_encoder->outp.or.id !=3D port || nv_crtc->index !=
+=3D dev_id)
+>  			continue;
+
+[Severity: Medium]
+Will this cause stale audio state to be reported when PIOR encoders are
+disabled?
+
+Before this patch, checking the cleared crtc pointer successfully skipped
+the disabled encoder. However, it looks like nv50_pior_atomic_disable()
+only clears the old crtc pointer, but not the new audio.crtc pointer:
+
+nv50_pior_atomic_disable()
+{
+	...
+	core->func->pior->ctrl(core, nv_encoder->outp.or.id, ctrl, NULL);
+	nv_encoder->crtc =3D NULL;
+}
+
+Does nv_encoder->audio.crtc also need to be cleared here, or does
+nv50_audio_disable() need to be called in nv50_pior_atomic_disable() to
+prevent userspace from receiving stale ELD data for a deactivated display?
+
 [ ... ]
-> +#ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
-> +static inline void
-> +nv50_sor_atomic_disable_backlight(struct nouveau_drm *drm,
-> +				  struct nouveau_encoder *nv_encoder,
-> +				  struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	if (!backlight || !backlight->uses_dpcd)
-> +		return;
-> +
-> +	ret =3D drm_edp_backlight_disable(&nv_connector->aux, &backlight->edp_i=
-nfo);
-
-[Severity: High]
-This is a pre-existing issue, but moving the logic into
-nv50_sor_atomic_disable_backlight() preserves a potentially problematic
-sleeping call in an atomic context.
-
-Is it safe to call drm_edp_backlight_disable() from this path?
-
-Because nv50_sor_atomic_disable_backlight() is invoked by the encoder atomic
-disable callback nv50_sor_atomic_disable(), it executes in an atomic context
-where sleeping is forbidden.
-
-The drm_edp_backlight_disable() helper performs DPCD transactions over the
-AUX channel. These transactions require taking a hardware mutex and can
-sleep or block while waiting for hardware responses.
-
-Could this lead to scheduling while atomic kernel warnings or potential
-deadlocks during display disables or modesets?
-
-> +	if (ret < 0)
-> +		NV_ERROR(drm, "Failed to disable backlight on [CONNECTOR:%d:%s]: %d\n",
-> +			 nv_connector->base.base.id, nv_connector->base.name, ret);
-> +}
-> +#endif
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818235637.1738=
-055-1-lyude@redhat.com?part=3D1
+055-1-lyude@redhat.com?part=3D5
