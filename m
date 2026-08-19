@@ -4,81 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1B0C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 15:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26AA4C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 15:33:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCC8A10E803;
-	Wed, 19 Aug 2026 15:28:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E86810E821;
+	Wed, 19 Aug 2026 15:33:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VGTzJd4j";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="dRRI6d0d";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D386310E56C
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 15:28:09 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4954a2e73a9so7853395e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 08:28:09 -0700 (PDT)
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 468F010E821
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 15:33:47 +0000 (UTC)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-848474825ffso11911b3a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 08:33:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787153288; x=1787758088; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=4O6b3uVfHCg73+g5tRn+qNdLjjRqVvCx0BGFx/lfSs4=;
- b=VGTzJd4jDLMI/zOL+/Hx5anps50lTOMHILTe54ZWjiisAjmfSbYurSLLU/anEi0DJm
- jD9Xv4lLv9bnYBZP56h5VY+EVp8tknXv6fWZvJ5sKOrP7IBNwoWt844DtfMuYE7iWpJI
- ZwXgCVKy0vY1dbO0JIe4vaYF1seDlCljPXyLvwmFGpgiNlMzH4HnToGwe5heyT8SR/en
- qFONiDBpe8mpFbU1IlZzL82jGksRxmeuIsy0DG5YBVeKvFZkFOkxWSVFq7ev2O9e7DLJ
- zE2TSQRy38v8opX+ed2K+HapN2ZiVyegCYZG457RRmvsc0USUEDhXkHGBlyhZdPWca2c
- JZQQ==
+ d=google.com; s=20251104; t=1787153627; x=1787758427;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=c2FvzDQHxVaueg4hvKJpjDuB27Njlxwegg3SIxYd2Fg=;
+ b=dRRI6d0dKl3V1n6UKGI/WMvzeohvbRRABaFAFGl+zvr79ktzZZah46Hzm0u+3YdyZc
+ aEsbZY30xMdCYxR4Ugd5j8l0Bng8c8uLGN2qYTa9N8XoXCzviVpBVU5xSkPIDLeCU0x9
+ 0ytsfOnnB5Ih+34VGKvmR4fuNqkK1vuHSesO+UiUKyP7v+luSPmYV4LFCHz3UbJ4BmAr
+ 8w4Ezn48MWzpFvtfuRSrYuni44MP2iRfdKbcyR9xBuwp5nDQaouUQFfzu6Yz2B/P069P
+ Hjf5Otd2gqwmqo3wXolHsq/7diYY+Y6hcoFn9EEmVs54PCfLKi77or1Y9+w2oDGOjpwV
+ Ra+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787153288; x=1787758088;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1787153627; x=1787758427;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=4O6b3uVfHCg73+g5tRn+qNdLjjRqVvCx0BGFx/lfSs4=;
- b=WmrM8KsgXosjSHPvoMM3aYgjSkjj3zvdJSZga4cUb4MKPV2ti5sDC8v1DVpq6mldUu
- qwjtMrw8TDTwm2hODCk9zd/7kZh2sE4ENwFz1p8Pllp/lt6f3znoQbX3GQUhxs22M/Kx
- uCV0Sq/XtoZawSAwjh/F3i35xSOZWY7aYTU4nw4ju0L2ZH1IwKg6nXX0ZZdFwjXFy7nR
- S+kwBOBigA5q6C+VHzVV7QcivwKYLVmJ2rbZHzLjfp8MfbV5t96Y08n5vHXLmeXUb8sF
- 74m+hTk0nOHloeClb7IG3+UQDCXf3+rpZxznjt1IA0cf9l6er6Wi6t7C3kiotzsR6n+P
- lUQQ==
-X-Gm-Message-State: AOJu0YyJw00yVlU9WczDaXb6WyLri0V6iXBPRlEA7s+DhJEER+6ANzqK
- 4jbbwMWYdX++7ZRnfYci0ywkA/8MwqbPLXNkCKNaXZMiDC78TxvzeEGV
-X-Gm-Gg: AR+sD11uK7nYmNuzgKdwxiJnSbaXZDpn9wSoeL/hSHSmm58mC/OW8qSxyDESC1F8/3r
- bht+0ceFHjxheHkl7rSJyxxa5TbxIkIOrK5UyAlckjT/+okwo0CUfHMop2pCRO8nrdWD9fre0Si
- bY3GFH4JUgDBMdKbKTmNj6tM2tdYigAXWgajfbS/OzK0lOTs8h27t4/+rvVzUKbF8IZ/AG6u+yS
- 4ncNGTxtlJhTCGMgJDjhDd9sivBMSmdvIn7rgF4LKCSETuib96ucMqfi/gJ2NWWYlIg+U8lkGjq
- acw9e6xI0gJYSFtg8k9vDBeERZPz2J/oZfXn7bu1BJhR7aZvWtnTyUih+uqnf+M68OnH34xoOFM
- Qt08TCZkGrV3Uw/tdbYXBAM4yVYlxeIJkBYpsPekITvrQmSp776JnLM9mNBjPdMiy0PkiywsFQG
- jDbon8tz/2PSCfltZNkPz/Y3/8N8qazxoolKhVucRDV/bIdbbGnYnMtvzvJ2sxT6LztNCfR9tMK
- Zy1YizkIA==
-X-Received: by 2002:a05:600c:c493:b0:499:7aa7:eaa7 with SMTP id
- 5b1f17b1804b1-499aa20c7b1mr95860655e9.15.1787153287944; 
- Wed, 19 Aug 2026 08:28:07 -0700 (PDT)
-Received: from localhost.localdomain ([95.43.220.235])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499a9dff4c1sm47667655e9.3.2026.08.19.08.28.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2026 08:28:07 -0700 (PDT)
-From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Sen Wang <sen@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Subject: [PATCH v2] drm/omap: Report HDMI hotplug events to the ASoC HDMI codec
-Date: Wed, 19 Aug 2026 18:27:55 +0300
-Message-Id: <20260819152755.231754-1-ivo.g.dimitrov.75@gmail.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ bh=c2FvzDQHxVaueg4hvKJpjDuB27Njlxwegg3SIxYd2Fg=;
+ b=sq5DOO4PApTy6Nb65K63DfYrYM9dKRquwEoFsfXUN7N46BZq5Pwe62Swc9aqQ+aXE9
+ 29GR6XxH87p7agicTcQ1+VfT99IF66qslyQDlMAjO1ewC+LdTRAlUKb/S3Nfi+DQuglk
+ jl3y2R8w4CamqRVNK0xaovfLmIjD0yoqV+MKjE4HSaNMCVipNyOKZ/WASubn6LguBOlo
+ lagTTIp69XxKbOWpRanwCoWvOUwDpqaWigMLeAiigNyCNZQ9bOewEGfn8FAVLuEbytne
+ iJS0Eos/qaOl0QiDGbDXs5/KirufNceioYN3wjP29+4fw1FIw7+HL5OFPCu2cpjwQFbK
+ oVYQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoT/3z84q5s68uu9v+hEueZGy3K0HtrsM2KlvU+PNTOQulq0L0yocXJ3lKN77r2WTlDmr6IEAWT4Nw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw0r6Hucw+acF30R0JF6WZsXjuLZSaOf7LKMuJRHnnqE0MGbQn2
+ UJ9WuylZsXuE9Mt8Z+pKnO1KvkJSkh5TQshoJNb/geVG63jZN8zCuEKbMHxjeFqmnCExMMu6+P+
+ Cvrp8DQ==
+X-Received: from pfoo3.prod.google.com ([2002:a05:6a00:1a03:b0:84f:df8f:5a90])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:2913:b0:84b:9a69:156d
+ with SMTP id d2e1a72fcca58-851df6dc419mr109732b3a.0.1787153626373; Wed, 19
+ Aug 2026 08:33:46 -0700 (PDT)
+Date: Wed, 19 Aug 2026 08:33:45 -0700
+In-Reply-To: <bd9e5b6e-07f2-459d-bca6-e290585060aa@intel.com>
+Mime-Version: 1.0
+References: <20260819102314.1499258-1-jgross@suse.com>
+ <bd9e5b6e-07f2-459d-bca6-e290585060aa@intel.com>
+Message-ID: <aoXM2f1YTwgVj8KL@google.com>
+Subject: Re: [PATCH v2 00/13] x86/msr: Drop 32-bit MSR interfaces
+From: Sean Christopherson <seanjc@google.com>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org, 
+ virtualization@lists.linux.dev, linux-ide@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+ kvm@vger.kernel.org, linux-edac@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-coco@lists.linux.dev, 
+ linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+ Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Damien Le Moal <dlemoal@kernel.org>, 
+ Niklas Cassel <cassel@kernel.org>, David Airlie <airlied@redhat.com>,
+ Helge Deller <deller@gmx.de>, 
+ linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>, 
+ Tony Luck <tony.luck@intel.com>, Reinette Chatre <reinette.chatre@intel.com>, 
+ Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>, 
+ Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>, 
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, 
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Huang Rui <ray.huang@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+ Artem Bityutskiy <artem.bityutskiy@linux.intel.com>, 
+ Artem Bityutskiy <dedekind1@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+ "Ilpo =?utf-8?B?SsOkcnZpbmVu?=" <ilpo.jarvinen@linux.intel.com>, 
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ David E Box <david.e.box@intel.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,340 +135,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The OMAP HDMI audio driver currently has no way of reporting HDMI cable
-hotplug events to ASoC. As a result, user space cannot detect HDMI audio
-availability through the standard jack mechanism and audio policy managers
-cannot automatically route audio to or from the HDMI output.
+On Wed, Aug 19, 2026, Dave Hansen wrote:
+> Hey Juergen,
+> 
+> These look great. Thanks for doing it!
+> 
+> The only wonky thing is how we're going to actually merge it. We
+> obviously can't do patches 10-11 until all the "stop using" patches have
+> been applied.
+> 
+> I obviously 100% realize that it's during the merge window, but any acks
+> that the maintainers of 5-9 provide in the next few weeks would be super
+> helpful. Or, if any of those maintainers want to cherry pick their
+> subsystem's stuff out of this series and apply it, that would be great too.
+> 
+> But, the last time we did some MSR function munging, the tip tree
+> carried most of the patches. I would expect we'll have a repeat of that
+> here too. I'll pencil in the idea of just merging the lot around -rc1 time.
 
-Add an optional HPD callback to `omap_hdmi_audio_pdata` and invoke it from
-the DRM HDMI bridge whenever the connector status changes. The HDMI audio
-driver registers an ASoC jack and reports `SND_JACK_AVOUT` state changes in
-response to these notifications.
-
-Also fix the disconnect path by taking a runtime PM reference before
-updating the CEC physical address.
-
-Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
----
- drivers/gpu/drm/omapdrm/dss/hdmi.h        |  6 +++
- drivers/gpu/drm/omapdrm/dss/hdmi4.c       | 29 ++++++++++---
- drivers/gpu/drm/omapdrm/dss/hdmi5.c       | 36 ++++++++++++---
- drivers/gpu/drm/omapdrm/dss/hdmi_common.c | 14 ++++++
- include/sound/omap-hdmi-audio.h           |  1 +
- sound/soc/ti/omap-hdmi.c                  | 53 +++++++++++++++++++++--
- 6 files changed, 124 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi.h b/drivers/gpu/drm/omapdrm/dss/hdmi.h
-index c4a4e07f0b99..a79d4590611f 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi.h
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi.h
-@@ -15,6 +15,7 @@
- #include <sound/omap-hdmi-audio.h>
- #include <media/cec.h>
- #include <drm/drm_bridge.h>
-+#include <drm/drm_connector.h>
- 
- #include "omapdss.h"
- #include "dss.h"
-@@ -368,6 +369,8 @@ struct omap_hdmi {
- 	struct drm_bridge bridge;
- 
- 	struct platform_device *audio_pdev;
-+	struct mutex audio_lock;
-+
- 	void (*audio_abort_cb)(struct device *dev);
- 	int wp_idlemode;
- 
-@@ -380,6 +383,9 @@ struct omap_hdmi {
- 	bool display_enabled;
- };
- 
-+void hdmi_audio_hpd_notify(struct omap_hdmi *hdmi,
-+			   enum drm_connector_status status);
-+
- #define drm_bridge_to_hdmi(b) container_of(b, struct omap_hdmi, bridge)
- 
- #endif
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-index e306247ed8a0..e0e077397b77 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-@@ -433,8 +433,15 @@ static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
- {
- 	struct omap_hdmi *hdmi = drm_bridge_to_hdmi(bridge);
- 
--	if (status == connector_status_disconnected)
-+	hdmi_audio_hpd_notify(hdmi, status);
-+
-+	if (status == connector_status_disconnected) {
-+		if (hdmi_runtime_get(hdmi))
-+			return;
-+
- 		hdmi4_cec_set_phys_addr(&hdmi->core, CEC_PHYS_ADDR_INVALID);
-+		hdmi_runtime_put(hdmi);
-+	}
- }
- 
- static const struct drm_edid *hdmi4_bridge_edid_read(struct drm_bridge *bridge,
-@@ -626,12 +633,17 @@ static int hdmi_audio_register(struct omap_hdmi *hdmi)
- 		.ops = &hdmi_audio_ops,
- 	};
- 
-+	guard(mutex)(&hdmi->audio_lock);
- 	hdmi->audio_pdev = platform_device_register_data(
- 		&hdmi->pdev->dev, "omap-hdmi-audio", PLATFORM_DEVID_AUTO,
- 		&pdata, sizeof(pdata));
- 
--	if (IS_ERR(hdmi->audio_pdev))
--		return PTR_ERR(hdmi->audio_pdev);
-+	if (IS_ERR(hdmi->audio_pdev)) {
-+		int err = PTR_ERR(hdmi->audio_pdev);
-+
-+		hdmi->audio_pdev = NULL;
-+		return err;
-+	}
- 
- 	return 0;
- }
-@@ -688,8 +700,14 @@ static void hdmi4_unbind(struct device *dev, struct device *master, void *data)
- 
- 	dss_debugfs_remove_file(hdmi->debugfs);
- 
--	if (hdmi->audio_pdev)
--		platform_device_unregister(hdmi->audio_pdev);
-+	scoped_guard(mutex, &hdmi->audio_lock) {
-+		if (hdmi->audio_pdev) {
-+			struct platform_device *pdev = hdmi->audio_pdev;
-+
-+			hdmi->audio_pdev = NULL;
-+			platform_device_unregister(pdev);
-+		}
-+	}
- 
- 	hdmi4_cec_uninit(&hdmi->core);
- 	hdmi_pll_uninit(&hdmi->pll);
-@@ -770,6 +788,7 @@ static int hdmi4_probe(struct platform_device *pdev)
- 	dev_set_drvdata(&pdev->dev, hdmi);
- 
- 	mutex_init(&hdmi->lock);
-+	mutex_init(&hdmi->audio_lock);
- 	spin_lock_init(&hdmi->audio_playing_lock);
- 
- 	r = hdmi4_probe_of(hdmi);
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi5.c b/drivers/gpu/drm/omapdrm/dss/hdmi5.c
-index ab2d4eb6787f..76aedc1c9ba1 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi5.c
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi5.c
-@@ -425,6 +425,14 @@ static void hdmi5_bridge_disable(struct drm_bridge *bridge,
- 	mutex_unlock(&hdmi->lock);
- }
- 
-+static void hdmi5_bridge_hpd_notify(struct drm_bridge *bridge,
-+				    enum drm_connector_status status)
-+{
-+	struct omap_hdmi *hdmi = drm_bridge_to_hdmi(bridge);
-+
-+	hdmi_audio_hpd_notify(hdmi, status);
-+}
-+
- static const struct drm_edid *hdmi5_bridge_edid_read(struct drm_bridge *bridge,
- 						     struct drm_connector *connector)
- {
-@@ -475,6 +483,7 @@ static const struct drm_bridge_funcs hdmi5_bridge_funcs = {
- 	.atomic_reset = drm_atomic_helper_bridge_reset,
- 	.atomic_enable = hdmi5_bridge_enable,
- 	.atomic_disable = hdmi5_bridge_disable,
-+	.hpd_notify = hdmi5_bridge_hpd_notify,
- 	.edid_read = hdmi5_bridge_edid_read,
- };
- 
-@@ -601,12 +610,18 @@ static int hdmi_audio_register(struct omap_hdmi *hdmi)
- 		.ops = &hdmi_audio_ops,
- 	};
- 
--	hdmi->audio_pdev = platform_device_register_data(
--		&hdmi->pdev->dev, "omap-hdmi-audio", PLATFORM_DEVID_AUTO,
--		&pdata, sizeof(pdata));
-+	scoped_guard(mutex, &hdmi->audio_lock) {
-+		hdmi->audio_pdev = platform_device_register_data(
-+			&hdmi->pdev->dev, "omap-hdmi-audio",
-+			PLATFORM_DEVID_AUTO, &pdata, sizeof(pdata));
- 
--	if (IS_ERR(hdmi->audio_pdev))
--		return PTR_ERR(hdmi->audio_pdev);
-+		if (IS_ERR(hdmi->audio_pdev)) {
-+			int err = PTR_ERR(hdmi->audio_pdev);
-+
-+			hdmi->audio_pdev = NULL;
-+			return err;
-+		}
-+	}
- 
- 	hdmi_runtime_get(hdmi);
- 	hdmi->wp_idlemode =
-@@ -654,8 +669,14 @@ static void hdmi5_unbind(struct device *dev, struct device *master, void *data)
- 
- 	dss_debugfs_remove_file(hdmi->debugfs);
- 
--	if (hdmi->audio_pdev)
--		platform_device_unregister(hdmi->audio_pdev);
-+	scoped_guard(mutex, &hdmi->audio_lock) {
-+		if (hdmi->audio_pdev) {
-+			struct platform_device *pdev = hdmi->audio_pdev;
-+
-+			hdmi->audio_pdev = NULL;
-+			platform_device_unregister(pdev);
-+		}
-+	}
- 
- 	hdmi_pll_uninit(&hdmi->pll);
- }
-@@ -735,6 +756,7 @@ static int hdmi5_probe(struct platform_device *pdev)
- 	dev_set_drvdata(&pdev->dev, hdmi);
- 
- 	mutex_init(&hdmi->lock);
-+	mutex_init(&hdmi->audio_lock);
- 	spin_lock_init(&hdmi->audio_playing_lock);
- 
- 	r = hdmi5_probe_of(hdmi);
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi_common.c b/drivers/gpu/drm/omapdrm/dss/hdmi_common.c
-index 3ecde23ac604..e9adc5775913 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi_common.c
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi_common.c
-@@ -147,3 +147,17 @@ int hdmi_compute_acr(u32 pclk, u32 sample_freq, u32 *n, u32 *cts)
- 
- 	return 0;
- }
-+
-+void hdmi_audio_hpd_notify(struct omap_hdmi *hdmi,
-+			   enum drm_connector_status status)
-+{
-+	guard(mutex)(&hdmi->audio_lock);
-+
-+	if (hdmi->audio_pdev) {
-+		struct device *dev = &hdmi->audio_pdev->dev;
-+		struct omap_hdmi_audio_pdata *ha = dev_get_platdata(dev);
-+
-+		if (ha->audio_hpd)
-+			ha->audio_hpd(dev, status == connector_status_connected);
-+	}
-+}
-diff --git a/include/sound/omap-hdmi-audio.h b/include/sound/omap-hdmi-audio.h
-index e5f82044a404..8dca92360ee0 100644
---- a/include/sound/omap-hdmi-audio.h
-+++ b/include/sound/omap-hdmi-audio.h
-@@ -34,6 +34,7 @@ struct omap_hdmi_audio_pdata {
- 	phys_addr_t audio_dma_addr;
- 
- 	const struct omap_hdmi_audio_ops *ops;
-+	void (*audio_hpd)(struct device *dev, bool connected);
- };
- 
- #endif /* __OMAP_HDMI_AUDIO_H__ */
-diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
-index e60f5b483fc5..90ce12a81246 100644
---- a/sound/soc/ti/omap-hdmi.c
-+++ b/sound/soc/ti/omap-hdmi.c
-@@ -17,6 +17,7 @@
- #include <sound/dmaengine_pcm.h>
- #include <uapi/sound/asound.h>
- #include <sound/asoundef.h>
-+#include <sound/jack.h>
- #include <sound/omap-hdmi-audio.h>
- 
- #include "sdma-pcm.h"
-@@ -35,6 +36,8 @@ struct hdmi_audio_data {
- 
- 	struct mutex current_stream_lock;
- 	struct snd_pcm_substream *current_stream;
-+	struct snd_soc_jack jack;
-+	atomic_t jack_state;
- };
- 
- static
-@@ -262,6 +265,34 @@ static void hdmi_dai_shutdown(struct snd_pcm_substream *substream,
- 		ad->current_stream = NULL;
- }
- 
-+static void hdmi_audio_hpd(struct device *dev, bool connected)
-+{
-+	struct hdmi_audio_data *ad = dev_get_drvdata(dev);
-+
-+	if (atomic_xchg(&ad->jack_state, connected) == connected)
-+		return;
-+
-+	snd_soc_jack_report(&ad->jack,
-+			    connected ? SND_JACK_AVOUT : 0, SND_JACK_AVOUT);
-+	dev_dbg(dev, "HDMI %s\n", connected ? "CONNECTED" : "DISCONNECTED");
-+}
-+
-+static int hdmi_audio_dai_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct hdmi_audio_data *ad = snd_soc_card_get_drvdata(rtd->card);
-+	int ret;
-+
-+	ret = snd_soc_card_jack_new(
-+		      card, "HDMI", SND_JACK_AVOUT, &ad->jack);
-+	if (ret < 0) {
-+		dev_err(card->dev, "Cannot create HDMI jack: %i\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_dai_ops hdmi_dai_ops = {
- 	.startup	= hdmi_dai_startup,
- 	.hw_params	= hdmi_dai_hw_params,
-@@ -371,28 +402,44 @@ static int omap_hdmi_audio_probe(struct platform_device *pdev)
- 	card->dai_link->stream_name = card->name;
- 	card->dai_link->cpus->dai_name = dev_name(ad->dssdev);
- 	card->dai_link->platforms->name = dev_name(ad->dssdev);
-+	card->dai_link->init = hdmi_audio_dai_init;
- 	card->num_links = 1;
- 	card->dev = dev;
- 
-+	atomic_set(&ad->jack_state, -1);
-+	ad->card = card;
-+
-+	snd_soc_card_set_drvdata(card, ad);
- 	ret = devm_snd_soc_register_card(dev, card);
- 	if (ret) {
- 		dev_err(dev, "snd_soc_register_card failed (%d)\n", ret);
- 		return ret;
- 	}
- 
--	ad->card = card;
--	snd_soc_card_set_drvdata(card, ad);
--
- 	dev_set_drvdata(dev, ad);
- 
-+	ha->audio_hpd = hdmi_audio_hpd;
-+
- 	return 0;
- }
- 
-+static void omap_hdmi_audio_remove(struct platform_device *pdev)
-+{
-+	struct omap_hdmi_audio_pdata *ha = pdev->dev.platform_data;
-+
-+	/*
-+	 * hdmi4_unbind() holds audio lock across platform_device_unregister(),
-+	 * so audio_hpd() cannot run concurrently with this callback.
-+	 */
-+	ha->audio_hpd = NULL;
-+}
-+
- static struct platform_driver hdmi_audio_driver = {
- 	.driver = {
- 		.name = DRV_NAME,
- 	},
- 	.probe = omap_hdmi_audio_probe,
-+	.remove = omap_hdmi_audio_remove,
- };
- 
- module_platform_driver(hdmi_audio_driver);
--- 
-2.25.1
-
+Note, patch 12 "treewide: convert rdmsrq() from a macro to an inline function"
+is going to conflict with the KVM changes for 7.3; kvm_access_xstate_msr() is
+getting moved from x86.c to msrs.c.  Somewhat surprisingly, AFAICT that's the
+only conflict with KVM's code movement, so it's probably not strictly required
+to send a new version after the KVM pull request?
