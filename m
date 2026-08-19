@@ -4,166 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A210C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24DA0C5DF86
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:10:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6C4610E54F;
-	Wed, 19 Aug 2026 11:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C67110E86E;
+	Wed, 19 Aug 2026 11:10:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cnJGT2iJ";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="L+CzTY2r";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A110010E54F
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:09:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787137754; x=1818673754;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=mng1iH7YPoNOpCjW7O/9iKKshG6mBdVBuZMGrOLGLl8=;
- b=cnJGT2iJxocrbfu0JesC1LcRoDE01AVoB02hluuenovdST7sbHBQY7mc
- cojKwSH5zvNmAwC8s03t8pqPbJEV21QPrbMhtsR1ef9zW5HeteaoyH1A6
- m4F6SP8jsqxhJS/IMrZ9So66//tXCnmAqiCDh6MhSBp/kolv2txJhG5D0
- s44QlBwgIigrU5I1CVaB6VcI2q5n/oB034BRv2aE9qzwMaAwKhnckSu9r
- i/XPjlIJSw/iC2AixLiETzZaPwLyZYYyWQClHGRewjJKreQtalXkBKIs8
- ycX+cu1CJC2ndH9OFdcxrPRKjQxjlEpVN8VwPj40RL0jSBk7u0ff6af+T A==;
-X-CSE-ConnectionGUID: b+Sfn7x2Sr6Q0JU7Rwpegw==
-X-CSE-MsgGUID: HySfDbiFQteNcNONw8om1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="98241749"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="98241749"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 04:09:12 -0700
-X-CSE-ConnectionGUID: AoxDuJeIQhKKpD9XAVU2bg==
-X-CSE-MsgGUID: Ml9AOZwfQNmXRN9a65lnWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="263767488"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 04:09:11 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 19 Aug 2026 04:09:10 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Wed, 19 Aug 2026 04:09:10 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.36)
- by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 19 Aug 2026 04:09:10 -0700
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021085.outbound.protection.outlook.com [52.101.100.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D0AF10E86E
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:10:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pZ/4pAwI78kWKuqtsim0EKtDuDfy0ya6M6+9hhUxZbgcu21+vrKcKbwaScwGDnWhJTldt2ueW13//zlyoyRfp6bN/hbImhXcKj6XCusMqehsl6qVfS3M9+QdpF2/fPP9CUskdY42XtncwD61XicRS/y0DUmCO6qEhyGGSM+hv14rvXaMQ/QfsSc62kJFgOrZEC0fxDAI2UR4zrniJRyVl/9WLelL00gA2GrDZ1u7UdlfAmUrVv65C5XEnRV5NKdlcXx4azEz9gLmxtBXX1jzPTnayRV4MUmYJaFJk+elnWA0OZ5cCK5o+dRIyh/rEAO7MhJUxkjIZugiOSBCCloqCw==
+ b=QDpvgoOSnvg8sWGhMZW0L2oJknk569HnlzVMuH8qEoShydl3tutBUuZjWyHmcFKpTenVkSTEn256yYGC3XKFBTARcJutUnpMWbNhRJS7W6j9/sNjDS7qlYI5T/PQ5FL02jp1Kq6wdPzh0JUQlzIe031oUpL6TLQQJHtk8tlgLRgBx69gwAMod6LmqeSH+qAXg5mVEgX4OHHEJUcrqYvyiFh89E66IInG41re/LB9t8srf/xssmSugTl1m70J5cR+3SP7az4m6SScJJjAWnmQ5BNC5BfN4Kym8fKWatB1uH02mlklTenhc5+iiEmJlO2PLYEs838mOpky3Y5B2vmdmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XFxX8VUrJ6Qm6rSdoR5D3i31mq1VvKbEnZ7hmpOSaNY=;
- b=T5WAPA0d40YLX2E4BjftPNAG2LtSPSuF8OqmScMcIm8nueBly8hdn3iNUhIoqoGtjph6TYaiJmgnAihm70vPieFWkoCpZxgVWtXAEdCMRokHpl1f5ikazN79YZe4kf5lvdlJfE5AGt6Pn5q05HCzdG0MiUBt2qCS2cBTGPACISsxcQMQc2io4gs5Hp7AZdZvRcXPho6iKvAEBMSMxn4n08mMa2rAKgysvT7h8oYcpbd4bcxPQPUDdj/9US5FD/RdM5LZAoRN15HXbDjOJ0q7Tq6HChLwTIDORY0qbnfmkndI7BPNnoFNvHgqFTglJDrcfRWAboRHjIn0tnWYjeihNQ==
+ bh=vlx6uZJKCAWYot3eMOTrDAcO+QvdlmFruwPUoamhrBo=;
+ b=rGzaxqkVDJPgpuLBTossfFsPtD4VbSDAuBtol7QIdPJ6eCwJe58yXgVtpnonTWK1NgW9q4Y6vzX/CTa65W/7rOPGq7kUhAdE57LO188ia68LGf09cx+Vxl/OUCoE2oMF4PAHzrK7rr0jdUuLwsnYPYvHag3UX79CT/62DWMY4SAZj2QbVjzV/sjxi9c1ljZmJBYyThknK7isKB4xdXFrFCYMVUvUPIPrBSfzyfPBS2A48/zpgxgB1LgMIVuiIagr4+1CMGb+bi2lBV61tOtL16WX2D8hz8y9ZRp/M+Ejilk678Ewjab3Z5bnonZOKR1cIDe/GBitbJMDGr4Gm/VGnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vlx6uZJKCAWYot3eMOTrDAcO+QvdlmFruwPUoamhrBo=;
+ b=L+CzTY2rCf6tidxGycJpeCtMIqhevtBiVWRNylKOA1yaIpXqRIMlr9zz0rpqGoLBifHOhMjU+lhVjTEkyxJ+Z7baMIk1Ls+tw3hvt6jQ46V2DYfreoYOjfUv2XqGlhdZ4nNpbLUZNcx4YiUVUBJIDnGZ1vRztt6RIgpE39SVEvI=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MN0PR11MB6207.namprd11.prod.outlook.com (2603:10b6:208:3c5::21)
- by LV8PR11MB8699.namprd11.prod.outlook.com (2603:10b6:408:1ff::9)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO0P265MB5167.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:283::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 11:09:08 +0000
-Received: from MN0PR11MB6207.namprd11.prod.outlook.com
- ([fe80::52eb:929f:a8b2:139d]) by MN0PR11MB6207.namprd11.prod.outlook.com
- ([fe80::52eb:929f:a8b2:139d%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 11:09:08 +0000
-Message-ID: <685c687f-3f84-4af7-af23-452c2a1b2b3d@intel.com>
-Date: Wed, 19 Aug 2026 16:38:57 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] drm/drv: Convert wedged event string building to
- seq_buf
-To: Raag Jadav <raag.jadav@intel.com>
-CC: <dri-devel@lists.freedesktop.org>, <rodrigo.vivi@intel.com>,
- <andrealmeid@igalia.com>, <christian.koenig@amd.com>, <airlied@gmail.com>,
- <simona.vetter@ffwll.ch>, <mripard@kernel.org>,
- <maarten.lankhorst@linux.intel.com>, <tzimmermann@suse.de>,
- <anshuman.gupta@intel.com>, <badal.nilawar@intel.com>,
- <riana.tauro@intel.com>, <karthik.poosa@intel.com>, <sk.anirban@intel.com>,
- <jani.nikula@linux.intel.com>
-References: <20260818133610.496374-2-mallesh.koujalagi@intel.com>
- <aoUxBx5mNi7o3K3L@black.igk.intel.com>
- <56c19f54-529f-4e91-9859-5add0afe0891@intel.com>
- <aoWK5PnCNDJYHFv9@black.igk.intel.com>
-Content-Language: en-US
-From: "Mallesh, Koujalagi" <mallesh.koujalagi@intel.com>
-In-Reply-To: <aoWK5PnCNDJYHFv9@black.igk.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ 2026 11:10:15 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
+ 11:10:14 +0000
+From: Gary Guo <gary@garyguo.net>
+Subject: [PATCH v3 00/16] rust: io: support register projections and remove
+ relative registers
+Date: Wed, 19 Aug 2026 12:09:08 +0100
+Message-Id: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0124.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a7::16) To MN0PR11MB6207.namprd11.prod.outlook.com
- (2603:10b6:208:3c5::21)
+X-B4-Tracking: v=1; b=H4sIANWOhWoC/3XOQQrCMBAF0KtI1kaTaW3FlfcQkUk6thFNS5KWl
+ tK7m+hCRFz+4c/jz8yTM+TZYTUzR4PxprUxZOsV0w3amripYmYgoBAlSB6mjqqLo9r4QI7LsiB
+ UGSqiksWnztHVjC/wdH5n36sb6ZCU1FDoiSuHVjfpdDe2H7mlMWwfmMjUaSLeuum1apDJ+jtgk
+ FzwfAdVCaqIHTjW6Ka6bzeWAksTBvgAe7H7ASACOtMocwAQKL6BZVmeMq/MRCUBAAA=
+X-Change-ID: 20260721-typed_register-176eab3abee7
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
+ Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137814; l=5528;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=Oc6il3mob2qKpIkIHez4KvHV59qL0UPnl+2Jiw3cI2U=;
+ b=Mj5gefuhwNuFKI6PH/GWDk6/tpVKNS0IYBs06CTtpOCOqNA09j2JFZWJPXYw1lwDIfWOxR7T+
+ jpx0UZrKkajDS3dIGxNTHiWRpCLJ9nYam6gJl24npJ3D6vpuEqCkJDn
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO4P123CA0096.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::11) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR11MB6207:EE_|LV8PR11MB8699:EE_
-X-MS-Office365-Filtering-Correlation-Id: b56c79e8-e9b4-4cb3-b69e-08defde249fd
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB5167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 167100c7-00d0-4c2d-9b5b-08defde271bc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|6133799003|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: UatzkwWPmbOl3nAJcNYoba7gkL1XQxMXugiyj0tRuWEGN5m+0ZhWkKLJywzJJLFvcunl/8wijMOIWEUeGRIRLcbCo2V5QdMd4Ji4MdxGdQwYErfyOABMODiX7J0AqaU+AnZ2xlVkgSCKvjOmd8KTFq+LkLkFy0DjtPQv/uoYHRur+C8SQituyIw83gIL14GsxbXtmQohER+saqvvttUNh+SuV398vJWYPXv8Pc6ExY2+p3k+i+QVF2kHl0hRCsoYOQ2mEPhwDqIHDJqfOr759Kkpvsc7RN66OoPjqqubSgUkPYut7WLCKkbZk4RTILgTGAbXYyIwd1D7dlVNSeKwYJtJagjG5qDsCs4Mx3wOiQws4UdtmweP2XQhIkR+Is9de5CK69bhebxVhgXZ5GpBGCNFOmOv9Dhm/KqXwsgMFI0fXVRNNOpBC6FltVkw/AlncslVBRNaQN1JXt3iOdnowSe51iPI1d7suxqbf23Z4masjhMszTVkpnMXtbTtk0T1K/HQ4Nn6G4ieOLz3kJ9iAB+Thtra8dp3Ho9WtLerVjnR1nexmW0XCVacLhHNeoFrn52X9stbRCx81iSK5AZaW7NJpqLBeeO3QIjr7/NVIds=
+ ARA:13230040|10070799003|1800799024|23010399003|376014|7416014|366016|18002099003|921020|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 1av63k7nrtQeNO7DMvcP47ZtXDaST/UpW/vxKOMXi5sJDildDPS5pTSuqZFGq1ZlwaOcNP2Ws2sy4g6clGY2PETm7VPBcLpfL6lU8T06dFWrXkKDPKmeD3Mt+av6WiuPx3isB2J6Ggtrx9TygBzVjAb639Mk3G49f2XsKkv6GJcuBqqvZNUZPIApZzkMml2HgaKUyP9cLgCRyBUVD3/XEQpq/esDRWFbGo6b5JiP1Gfw2SJGMc8bW7jWJ4tuUrCQqFffRfvXD0LuxZtcomD1H4MYjXqCrotOQax7d7+V3kJAIeHqeDM4iOCA2eucqxk08gMGx3B8fuvLyMwYaub2MBypT42WAfYtbq23as5ZJB39BwiiVy9HjDvZt1l3cFQOrGq9vyLGyf8ZCKsygoPbUt5sKzt3kGF30tpbvsw+1bmqpyPXnMLetkDc96eLl0p+P+UJU+q0MfSSDm/wjtD+4sNwrhL5iTBdotKXzLxNeT7xv7Qlqo5afaxH03CWcv0hWySm9n/kU0Q13YzGItOKRlV5l34SmAxE8xSXPRlFBmQg+dgrvl/kr4VvzXbyOLAuDfXz0RJPsCx35NKG8foobaqug9Sw977z2ZoSImfvFf/ljrxkR0Sy8/aZKlezqyvGNjUlCtVN6p6YxM3MDvQWxNJ3Bp0dJttcWUidI9gZJTY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR11MB6207.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(921020)(10067099003)(56012099006);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZitobUpNQkplTXVobkpxU0oxemVzOW1lN2l6enVOT2wxMlJsZlZiczJpS2pN?=
- =?utf-8?B?UHBHaDV1Z1JjWCtXSTNweEVwRnRUZ1JtU2hGY2o2UTE4cFlnaTdaVEZPZkZt?=
- =?utf-8?B?K0tJdmlkZCt3bE4zZHo4YWlJalF1aDlIeGZpVVlqQUdKQnVZaVgwU1JpdGd3?=
- =?utf-8?B?QUFrdEp1cmpLUGZjS25TQUxOVXJYZEpFLytVbUh3S0szOWxaUnI3SlBIVmpI?=
- =?utf-8?B?Z3hSQmZqMURTWWJ6NUhoaTBOZmlsR25uVWdIbjliR3JTZWttNkl0Ull6UmFX?=
- =?utf-8?B?L0JXclVDWmFTZXcrRVFiMTcvM2xpUzVtVHFTUDNvb3NHUU8xMkp0L2UxUlFI?=
- =?utf-8?B?ajY1TGFKaXRLTjJXbzgydWM2RVNpRlNQaTdyWVRmU2hrZENMczRBQWRBZ1Bn?=
- =?utf-8?B?Ny9oUmJ1Q1l5YTdSamo5WnVRY01NTFovN3EvNFcwWHpzYnJwRXM5Y2pFOWZY?=
- =?utf-8?B?ZGwyOWVVaVZpc0c2UUFVcGhGUXZKbWQ5NHNIUGZ1akZaejJONHp0VXZ4M3Zh?=
- =?utf-8?B?aHhXenVsWEE2ZVVPMy9PMk16N3NPeG1BbmJKdDVhS2ZSRTV4RC9JT0NDRXJS?=
- =?utf-8?B?QmE4YUlaNDZOQm5SWDZTSVYwdWZjNU5kUDFmUWt2SVNSUVpXWUg5SmF0K0t6?=
- =?utf-8?B?Kzh3ME91Tk5Tcjg3VE14eEt0aUdSdm5RcDBNK2t3YnpRWmVXN2liekdQNmpT?=
- =?utf-8?B?TTFTSGpRdGxPelNjcXlBOGMxVi9jYkMyaFVWd2d4b2gyanh2K1UyNHk2RmJh?=
- =?utf-8?B?NFc5aFlvTEJyMnMvTVdkcm1adTlyd0xaQWVjTnk2K2tMbTVVRkt0dFVLa21W?=
- =?utf-8?B?enNadEtiSlR5QmtHYkh1UGpLelNMYmFBOEdzMmJXT2tuMEh6UFBHMnlYQnNR?=
- =?utf-8?B?VDBId1Iwb3VRdnQ4YWNIUjlJL2JBQ3ovbWhNMjZEd1RQL05SaG5Mdm1hMkpF?=
- =?utf-8?B?dkQwdXdKeDZ0eXZYeXJwbTBualRPUnc2dFBQZ1pFc0dMZitlMUhOd1pud0R3?=
- =?utf-8?B?U3VxVFF2Q2JLVjBSQ1drUkU4aDVwWGgySlZYaW11cFZKSlhablZDTlFPMzJE?=
- =?utf-8?B?c0JuR3B4QVpXMXEyUTZmNW5oU24zVnZZNXNUNkJiSVlVL0hwS2JNeG9YdVN4?=
- =?utf-8?B?VzhFbnJFclF3N2VnUHNQWmRnNGtvZ25VVkV5UFN0Q1VwanBJb3ZpZ3pEU25V?=
- =?utf-8?B?bXZvT2xTd3U0d3dNWDhFU2JKWkdJWlBZYVA5Q05rcFlEeGVZZnJDTld5RVdi?=
- =?utf-8?B?NjhoSEVsYnlQSnY0N2NucUU2eDFhVTVXYmNpRC81eENhRmhFWDYvU1dUQ3ps?=
- =?utf-8?B?a1UyVlllaEtyT2Q1UU9SbTF6NUVyWWwrdVUwZlRvMCt1OEw0aVcrSGNmblZV?=
- =?utf-8?B?OWxESEJaMk9iWXdWK2drWTJPNUczNFdBMU5Cbm85Vk52RXJpemFOVTZIY1Bj?=
- =?utf-8?B?Um94Z0k3dWZxeGJ4dmx1bXFtTm1CM1JrQkhCeVhYZVRrZk9uUlREc21rcGU5?=
- =?utf-8?B?TURwa2dMTjB2cmd2bG9LMzg4ZXFsdm1RcXVpV3h5RUFHc3FBUXBoUFNNbmZq?=
- =?utf-8?B?aXpZeStOZUJhM29waHFhSVR5dXd4T3l2QUZJVlNDWHJwdXE4NEJUSkNBYndy?=
- =?utf-8?B?eUpXUkhwMXdHZFBRUVoxaE94N0x1eTR0N0xZSFUvZUVuMllCRE1aQ2owNnZs?=
- =?utf-8?B?WFZCamhHVUJnQVJzY0xsTnpCR21odVE1MGFqS2kzM29ONEFkK0s0SEE4TEhw?=
- =?utf-8?B?N3dGbmN5OFRmcEZaSG5Qa0hhR2hLVzBQUDAvVFlGcUtmSklBSHd4LzdqckRl?=
- =?utf-8?B?ZXFXUCtXa3hHNlEzT3FxZFFINjNia2VVOWNBQ3hibThJR0FNRitNeXRyRUZo?=
- =?utf-8?B?UXN3TmcxamRJdWttTFVpM0dUcmUvZVdKUkZZNnYxaWxOZEUrUlplTEdXWkNj?=
- =?utf-8?B?eUNUcFNQanh5YjlsKzJEMGh6bmtneUkrTzdNR0tVY3VCUGNFbEdOL1RGaXZP?=
- =?utf-8?B?MzRSdGpET3NINnZjWTlsMUlHYWthK1RXNjU3TGYrZEdLWTNodGdYbGNhdzBY?=
- =?utf-8?B?RTNLUDJtRkE2clBmYWlNOEhuQWtsRVlWZWhiRjFhdG11Ky9zOTR4UGprbkM2?=
- =?utf-8?B?TXh1S0x5ek5kbUJzaXduWWhDT1ViR2R0OWVrSE1FbHBJT25DbWIwdGUzd1F3?=
- =?utf-8?B?bkhjQzl0dHYvamsxZ3AyZWtnbDVYaHlIZXVWR2FvS2tvczBtTUxNaG85ekF5?=
- =?utf-8?B?ZzYxODU0UWgxaHdUUlVoamFQQXhGOGJMemN1UmV0WWhXVzlYVG84bWxUYVQy?=
- =?utf-8?B?eDhMdDA5SEgyS0I3VC9YWTBlRitCMlNOa1haOHlva21vKzBhbDN1eE5PNEFH?=
- =?utf-8?Q?fja9qjI1rRVCYBkE=3D?=
-X-Exchange-RoutingPolicyChecked: kLbXQkVjRKzYYcfwkVhJH99m6l+4D+FBudUZqix0hM1vPZ6QdgiidSyDS19Z+hZP5By+fHpKsgDDWtRBvof/0rFz/EcszRZrnwn623yKydyNuRpDhziG1SNu6VIK463vNfoXqYuNRtfNsexZ1/n7ke2Nt6VO2yyMyuySdAD2bizxUnu219Y0QfUulGOhN6o/z7o1JeTMECYS9dRp8FDYol9vwsD4r20YQ1CwJNSzf8KDxKtUe4AEuJju+DD/5BJidBNjq4L55HAkAT0WfRC4g+6mdDiWG1D0+tTXqC99+MB/6YnHnBpQ5jUooSHb4JHTwDXSS3zEQ6ijML8AesjbUA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b56c79e8-e9b4-4cb3-b69e-08defde249fd
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6207.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b2QyWUdZcStYYkhGV3h5SHJTOERrTG9UalVGcXFSOWJBRWoxUFVxL3lhMDE3?=
+ =?utf-8?B?a3VPMmR0UkhHdVlCR2d2dDVKMExQdWZYMFg1VjEyb0QycXdvc2oyMGFHbmVG?=
+ =?utf-8?B?S2dYd243azUxeXRuT0ZSYzZUN01qN1RMNkVldUVKcTFQemhEMVgvbjVaWS9I?=
+ =?utf-8?B?UFZ2OUNXRis0K0lTcXlCQ0VBY1VWbFF3cXZmQXpLc0ZzSUNxUmRjdXpHSmNU?=
+ =?utf-8?B?YXBaMzRsdmdWOGxMVTJSdEk2L1BkMEJCVXJTMzVEU1E3Wkxlb0NUQ1lqVGNB?=
+ =?utf-8?B?amowWEc2dTlrbjRFdFN6MlB4R1BGNHVkT3hIRTVCTEN1ckE2bWlCTVJDb054?=
+ =?utf-8?B?V1p2cHFmSzZPNGJoM21xUGlIVmNPRGsxZklUUnIzZlp4Y2NkVWE5aHpvY0th?=
+ =?utf-8?B?SUkzYmxkd3plRk5ETkpJNENkQ0t6a0U5cFJpRUplMmsrSm1sZ2hCYjhsRG0x?=
+ =?utf-8?B?ODhOdlRwZ3h3SDFxNHBKVThoaXBidUd5RUMyT3ZtN3AyVVhTM3pxUE5FcnVW?=
+ =?utf-8?B?UzBqa0hqTXRwOVNna1lwNnAxbi9jclBaK1Y0SjFUNExBMTZla1FvOVpmS3BU?=
+ =?utf-8?B?ckpWdUs0b2p2QlQydTdvWitQSXVCUXNIbGp4eUw1SWE3Y3QxTnFzY2Q1V0tQ?=
+ =?utf-8?B?MmlTY1dDR1NlU0xoNm9yMXM0bnNRVlRMT1NYQWVHOTFYRjFqWSt5NFBaOEpP?=
+ =?utf-8?B?VFFkS3IvZkFWYzNacUdOdGtCR1FJMzR0eDJJaEN4RmUzaTlmZTJUZmxzZEYw?=
+ =?utf-8?B?Y29jQzN2Q3BEak55TU9CR01KVFVWODd2cFhRanVBVzExQ2xlWFZhK0FuQkZl?=
+ =?utf-8?B?eFlabEtJUU9INUszRXhZL1VLNDRmVkhZRytOYUtpcDM3OWVuYmc5Wm83cjVv?=
+ =?utf-8?B?RlhiTjh1YTFQRlNIVGF5RnFCRHNEYm12cW5kcUduL3gxRW0wSVQweGQrNC9l?=
+ =?utf-8?B?M2dqU3lxTHN1TWVMVE00Q09TN2hqbDZQQVVQNTVrM291ZEtzOGVHVVo3dG9X?=
+ =?utf-8?B?Yyt2M3VmaWtFNEcvWGsxOTAvb2V1aFdjQkpTMWV5c2N6Y1hkdnFYeDRWL3gr?=
+ =?utf-8?B?RXFIVUJtUGxxYUlQZTU4VGx3dDVjTDU5ZzBGSG1jRjZDK2huUG1RUGt5d3F1?=
+ =?utf-8?B?YlNyLzBXeXdjTUMvelR0MjJsL0RLaXFkOENiM2YwV0dvVTc0OWErcFZ0SmVm?=
+ =?utf-8?B?bW1pOEcvM0JzbkhpdlgrVzhORTcycnErazJLY0dzV0p0L1J0RXpnUFp2S1hh?=
+ =?utf-8?B?NWJjMVdJZ0g0UWQvem1ycE5HQmZZbkJ6TjlvdzVlK1FPN3B0WDY5Z2oycGJ0?=
+ =?utf-8?B?bHpuTEM2QXVZVWdia3hQWCtCSDd3TGQraXR3SG4vTDNENFJJMFA2M2xMVGhY?=
+ =?utf-8?B?RzhYbkVRa2kvREZPWXNqZnoxamVXYzhUQXdOcDNORjFOSW0yYS9CUm16Wk04?=
+ =?utf-8?B?Y0hIN3BEbEl1MFcrbDB1TWtWZ1hhT2xuQ3AyZnJMWXNaZWMwS1FtZkNoYXdI?=
+ =?utf-8?B?amhGeU9mVDlObDJEVTZ5SUNodldtZiswb2NFc3lCdis3TVhmWS83cUdVQldO?=
+ =?utf-8?B?bWhhRFdBR1FaVjY3c012b2hHZmZybkdhTjYyMEFqajNBQjJ2ZXA5RStxTTZZ?=
+ =?utf-8?B?MWZVa3hIaU1XSEZ6SUNyM0hkVi92MDNrbkZBbUtrWVNLTXI3NEVzNzh2aFVm?=
+ =?utf-8?B?c2l5anNvVjRsb2JBVjVoNWlOSXJ0cElndFBUY3ZMYnZDREtSZVhIOHFIdCs4?=
+ =?utf-8?B?Ynl6SVRoMzJ3SEN2cXV0eWo0MlpwTlRXVTVlM1ZackR5NEVma0orcElzSXQ0?=
+ =?utf-8?B?d3IvUW02UnFFVmh1aEplRHhDMWJNdDNHb0hvbUNvZDRmeE4zcEhpd1Qwb293?=
+ =?utf-8?B?NWFjWm1OQlZIa0Z6T2s3UWhxbFpFWGhLZkhDRU4yZWs5YldCSHNZdzkveGpC?=
+ =?utf-8?B?SDBSbS84TDV6UTc3cTQ1cUtnQTdsZU1LOHBHN1BkTFI2NVFRdFU2MjFlSkdr?=
+ =?utf-8?B?UUdhZTBFQ0pvMTJuNFZxMkw3T0NBYVZSQUkzaXJPTG1PcExOSVJiUVVZb2to?=
+ =?utf-8?B?RlE5OXE2L3JCWXI5VTJDTk83SFl0SEpoSEZhbHNzcjl0cjRsODNJWWYrcjhq?=
+ =?utf-8?B?dFo0SUdWcjl1M2djdDZGTGx1c3pNV09DWklUY2VOVjhieTh0Sk5aTnR0T3hT?=
+ =?utf-8?B?Wm9Ma3gxVXFKV21CeU9YaW5PREdFL1ZlTFlNejV0NDlLT1F5c1ZQYW10aVh3?=
+ =?utf-8?B?czdCdnJxcjJEQ3lkbEpsRmV6LzhFcjVTaXdpRjF6QlprS1h0T0VwbldHRWlE?=
+ =?utf-8?B?NHRUdFM4Mk5XR1pSaTlncGVOVzlVN3ZwWUdkaHpDQmlRR0lmejJsQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 167100c7-00d0-4c2d-9b5b-08defde271bc
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:09:08.2863 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:10:14.7424 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E3kttCp4GyFFbdJMTxTNCJDXme1ue6UvlX5XFDARByWSz1/c/Z1UtFC//YFvgKODAyrGkFcEElM5IZoXkrciSbZLg/jBrGPhGrnsuhShyFg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8699
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: M6+tF3sykfyKTsFPijF6MycxEn88BK6qCiUGW74MoWklV8yc/W/NBJK2r2GDbsPGNcY1PUSBjfJwLSHPg+PwUw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5167
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,54 +158,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Currently registers work for all untyped I/O regions, which is not ideal.
+It allows registers defined for device A to work for another device B and
+there is no safeguarding at all.
 
-On 19-08-2026 04:22 pm, Raag Jadav wrote:
-> On Wed, Aug 19, 2026 at 03:48:31PM +0530, Mallesh, Koujalagi wrote:
->> On 19-08-2026 09:58 am, Raag Jadav wrote:
->>> On Tue, Aug 18, 2026 at 07:06:11PM +0530, Mallesh Koujalagi wrote:
->>>> event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
->>>> The original scnprintf()-based loop required a manual pre-flight
->>>> bounds check.
->>>>
->>>> Replace the manual bookkeeping with seq_buf, which tracks overflow
->>>> internally. seq_buf_printf() writes each "method," token into the
->>>> buffer.
->>>>
->>>> On overflow, len retains the position of the last
->>>> successful write, so the trailing comma is stripped cleanly without
->>>> including any partial method name in the uevent payload.
->>>>
->>>> Fixes: b7cf9f4ac1b8 ("drm: Introduce device wedged event")
->>> This actually doesn't fix anything, it just adds a WARN() splat.
->>> So I'm not sure if this is needed here.
->> In previous implementation multiple recovery methods may exceed
->> WEDGE_STR_LEN (32) that
->>
->> cause silently truncate a recovery method and emit a malformed uevent string
->> containing a
->>
->> partial token, however using seq_buf makes overflow
->>
->> explicit, when it occurs, emits a WARN and include complete recovery name
->>
->> in the uevent string so IMO, it's fix.
-> Is there an existing drm_dev_wedged_event() user that is facing this
-> issue? Please attach bug reports along with reproducers (if any).
+Change this by requiring a base type for registers. `register!` can still
+define registers on untyped `Region`s, although users would need to do so
+explicitly and supply a concrete type.
 
-Currently Sashiko is already reported that issue, here is details:
+This change makes it possible to use projection for relative registers;
+relative registers can be implemented by defining new types for the I/O
+subregions and just define registers for these subregion types like normal
+registers.
 
-https://sashiko.dev/#/patchset/20260720101815.526813-5-mallesh.koujalagi%40intel.com
+This actually results in more ergnomic code for users of relative registers
+(currently only nova-core), because non-array registers can be written to
+with
 
->
-> Improvements are good, but not everything is a bug because AI said so :)
+    #[...]
+    struct Subregion(...);
 
-Agreed!, however in future, if we support multiple recovery method, 
-definitely we encounter such issue.
+    register! {
+        base: MyBase;
+        SUBREGION: Subregion @ ...;
+    }
 
+    register! {
+        base: Subregion;
+        REG(u32) @ .. { .. }
+    }
 
-Thanks,
+    let subregion = io_project!(bar, build: SUBREGION);
+    subregion.read(REG)
+    subregion.write_reg(reg)
 
--/Mallesh
+instead of
 
->
-> Raag
+    struct SubregionType;
+    struct Subregion;
+    impl RegisterBase<SubregionType> for Subregion {
+        const BASE: usize = ...;
+    }
+
+    register! {
+        REG(u32) @ Subregion + .. { .. }
+    }
+
+    bar.read(REG::of::<Subregion>())
+    bar.write(WithBase::of::<Subregion>(), reg)
+
+This also allows a lot more code sharing between I/O projection and
+`register!` macro.
+
+The expressiveness power of Rust declarative macros is becoming limiting,
+so it is converted to a proc macro before new features being added to it.
+
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+Changes in v3:
+- Convert the `register!` macro to syn.
+- Add check to ensure register and alias share the same base. (Alex)
+- Split transmute functionalities to `kernel::mem`. (Alex)
+- Remove some stray trait bound in nova code. (Alex)
+- Link to v2: https://patch.msgid.link/20260805-typed_register-v2-0-c3ca142220a0@garyguo.net
+
+Changes in v2:
+- Extract type conversion from `register!` to `Io`
+- Redesign the API to be centered around regsiter projections.
+  * Support register projections in `io_project!`
+  * Support adding register definition without defining bitfield
+  * Subregions is thus unified with other registers.
+- Store projected subregions in `Falcon` for nova.
+- Link to v1: https://patch.msgid.link/20260721-typed_register-v1-0-452d72b60262@garyguo.net
+
+---
+Gary Guo (16):
+      rust: io: register: reimplement as proc macro
+      rust: mem: add `transmute` with deferred size check
+      rust: mem: add `AsRepr` and `AsReprMut`
+      rust: io: perform conversions using `AsRepr`
+      rust: io: support register projections
+      rust: io: register: allow explicit base type specification
+      gpu: nova-core: specify base type for registers
+      drm/tyr: specify base type for registers
+      samples: rust: pci: specify base type for registers
+      rust: io: register: make register have a typed base
+      rust: io: register: support fixed offset register without bitfield
+      gpu: nova-core: use projection for PFALCON and PFALCON2 registers
+      gpu: nova-core: convert hshub0 from relative register to projection
+      rust: io: register: remove relative registers
+      rust: io: register: remove `Register` trait and cleanup macro
+      rust: io: register: unify handling of register with/without bitfields
+
+ MAINTAINERS                                        |   1 +
+ drivers/gpu/drm/tyr/driver.rs                      |   1 +
+ drivers/gpu/drm/tyr/fw.rs                          |   5 +-
+ drivers/gpu/drm/tyr/regs.rs                        |  45 +-
+ drivers/gpu/nova-core/driver.rs                    |   1 +
+ drivers/gpu/nova-core/falcon.rs                    | 157 ++---
+ drivers/gpu/nova-core/falcon/fsp.rs                |  63 +-
+ drivers/gpu/nova-core/falcon/gsp.rs                |  51 +-
+ drivers/gpu/nova-core/falcon/hal/ga102.rs          |  62 +-
+ drivers/gpu/nova-core/falcon/hal/tu102.rs          |   9 +-
+ drivers/gpu/nova-core/falcon/sec2.rs               |  37 +-
+ drivers/gpu/nova-core/fb/hal/gb100.rs              |  59 +-
+ drivers/gpu/nova-core/fb/regs.rs                   |  29 +-
+ drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  18 +-
+ drivers/gpu/nova-core/gsp/hal/tu102.rs             |   7 +-
+ drivers/gpu/nova-core/gsp/regs.rs                  |   9 +-
+ drivers/gpu/nova-core/regs.rs                      | 115 ++--
+ drivers/gpu/nova-core/vbios.rs                     |  11 +-
+ rust/kernel/bitfield.rs                            |  10 +
+ rust/kernel/device_id.rs                           |   3 +-
+ rust/kernel/io.rs                                  | 188 +++--
+ rust/kernel/io/register.rs                         | 757 +++++----------------
+ rust/kernel/lib.rs                                 |   1 +
+ rust/kernel/mem.rs                                 | 185 +++++
+ rust/kernel/sync/atomic.rs                         |   4 +-
+ rust/macros/io/mod.rs                              |   3 +
+ rust/macros/io/register.rs                         | 284 ++++++++
+ rust/macros/lib.rs                                 |  10 +
+ samples/rust/rust_driver_pci.rs                    |   4 +
+ 29 files changed, 1175 insertions(+), 954 deletions(-)
+---
+base-commit: e6664f2b33db9b6811eb4cec109f06cb2b4f458d
+change-id: 20260721-typed_register-176eab3abee7
+
+Best regards,
+--  
+Gary Guo <gary@garyguo.net>
+
