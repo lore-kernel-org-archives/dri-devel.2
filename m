@@ -4,81 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C65C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58B1EC5DF89
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB1010EB4B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6051F10EB4F;
 	Wed, 19 Aug 2026 06:36:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OUMCQKVK";
-	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EF4210E4E6
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 16:37:30 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-38dfe910e9dso167798a91.3
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 09:37:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787071050; x=1787675850; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Ftdf9TYd3IItf3p0WR38TYPK1ZF7cfzR1m81D5DmLvo=;
- b=OUMCQKVK05XTKcBLNgbxpwwjsMIKC1r7PwAbqa/rYwtxhkua63woKEdxIX/jKwOlkE
- Qhxb9tlHbZiVd9s+FgVVRGqi79NmRpHrAXXqPjDuulEIWyG8j02blpvYvptLePXLCGRU
- TxIgPB7T73BX9K+Yk+MoQZoMj84zKShY4vB3c3b+yzQ8cBJCBRa0OcvOfcPRdUpw816S
- ounXO7d3qU+4QAwgCxmG73axX2OdO1N3pqEV2Sd6fmFfC/rBo0an9WjlPf6dYK6uEwl1
- IOQY4KHBDlhu13IURLT4UWGvJPV9Ij+V0+FU+v7DgA159G82yqkr4BfjOiSoPGzl6FPM
- 6pyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787071050; x=1787675850;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Ftdf9TYd3IItf3p0WR38TYPK1ZF7cfzR1m81D5DmLvo=;
- b=VfASS93koVMaEG4cr8yRORjsZFkgQ0+7Fsf43ceQ6DsKDaDqweYvowPQfVvKfZVa3A
- 8oSdc2dhD3RRR3K0HIWKaEV97BFBv1r1O1O4N5u4p8727lnr5bElOii1MGGrtqmJVcQr
- q4glna+kWXGZIRMz2fxCO+58hX/Zqr/wYUxlwxgBnG9RobTYc+HYfEnRJenvRbFGcGx+
- SKPzmdJFRZ/Nd0S/a1gsFWkS9Dja2IOzZ30X1VZqkACPwnK4Mm2+QvRt67KjAgtze2sP
- Iu1gA4HtH3Fs6KO3XB9BzODC2W4OFYKLfc9buy7dwLtxP+12OF2Fj4tKcGIuE0SYKj42
- mIfQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpBijd4VnEZPW8Xq5mIWTun7LKkFR/ukNrYuTZV28VWaK2/E/0edHaT4zdY9kvMoC86go1sGp7zLyQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYVxa53C/5FV1siEO5gnntZV9/y4ttV9KwsYt4WLTvgzbiIMpg
- CmW1DiAOJ8ufqBPFNgB8BDXTxfuGy33jT/U0hRKjvxpwftDUMLXWeUIDI0Y+3g==
-X-Gm-Gg: AR+sD106OFy1ps1ZU2oaVX13D5FIMziXhlNe789I8Aa3G+eCm2Bo+TgPYefh/dquN5Z
- INmyt3Q87XdDtpzDCZ77y4KdOZ2RxV2KmGeaDOkTdl5YLmJY4ij8eW5uZuWtxz7/t6YUpFqdO0f
- POMZukNHlymTpNPHGQHHur0cxo3U8SoBosbhJW0uJB4A9Clmb7Z5t9itu8XD/8svpSNcDq1AVAV
- DfzhVyP/PpzkzfLo0xORynUU4Tl+Qw+Z7sQe1v7lxb/SJY5ouj+DlsyBKKKpv2kYgTZDGNC3t7A
- ut9wUTqKkj6xgC1sMHytwiUxaZv96XdsPW7+uge6EJwbK+SfE6AdopsRNArfrygKsDdy8KxrNSZ
- 0tLc/DFBYODnMRiHnNqI5DDIEoW5tSeT2+tVD6wCCiSDvxVYNOhgds7n3zNTS+7nLK373+p88hA
- XjgOfwSFzfjGXqdATqVCbKWzRzlyLyaMptX3TcS8xhkYbIAYFA428tOYesGXeZ2N5e8VaJDWxUT
- ruFmeIGXbGBrB93k4WRhfwEECYgZvCNX+AfUZwQRF+2dIkezKJMPKZB9A==
-X-Received: by 2002:a17:90b:274e:b0:38d:dfd1:7c1 with SMTP id
- 98e67ed59e1d1-3955a3dd549mr14819014a91.2.1787071050008; 
- Tue, 18 Aug 2026 09:37:30 -0700 (PDT)
-Received: from LAPTOP-M4N25KQ5.tail73068d.ts.net
- (1-160-197-194.dynamic-ip.hinet.net. [1.160.197.194])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39531ff679fsm9195992a91.14.2026.08.18.09.37.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 09:37:29 -0700 (PDT)
-From: Sean Chang <seanwascoding@gmail.com>
-To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sean Chang <seanwascoding@gmail.com>
-Subject: [PATCH v2 1/2] drm/ttm: drop stale @ctx kernel-doc entry
-Date: Wed, 19 Aug 2026 00:37:18 +0800
-Message-ID: <20260818163719.115946-2-seanwascoding@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260818163719.115946-1-seanwascoding@gmail.com>
-References: <20260818163719.115946-1-seanwascoding@gmail.com>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E08210E0B9;
+ Wed, 19 Aug 2026 05:47:54 +0000 (UTC)
+X-UUID: 81237c649b9111f19a56ed5b684f684d-20260819
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:935162e1-4b5d-4aed-acbb-16546980a9ef, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:7db8b62, CLOUDID:061688282109be565fb1e26fb1d5117b,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:5|-
+ 100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+ ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 81237c649b9111f19a56ed5b684f684d-20260819
+X-User: gonglinkai@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <gonglinkai@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 191839397; Wed, 19 Aug 2026 13:47:46 +0800
+From: Linkai Gong <gonglinkai@kylinos.cn>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Hung <alex.hung@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Chenyu Chen <chen-yu.chen@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, gonglinkai@kylinos.cn, stable@vger.kernel.org
+Subject: [PATCH] drm/amd/display: fix dc_lock leak on GPU reset error paths
+Date: Wed, 19 Aug 2026 13:47:42 +0800
+Message-Id: <20260819054742.3143856-1-gonglinkai@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:36:31 +0000
@@ -97,27 +69,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_bo_alloc_at_place no longer has a ctx member, but its kernel-doc
-comment still documents @ctx. Remove the stale entry so the
-documentation matches the struct.
+On GPU reset, dm_suspend() takes dc_lock and leaves it for dm_resume()
+to drop. If amdgpu_dm_commit_zero_streams() or dm_dmub_hw_init() fails,
+the function returns with the lock still held. The matching resume path
+is then skipped, so every later dc_lock take hangs.
 
-Signed-off-by: Sean Chang <seanwascoding@gmail.com>
+Release the cached DC state and unlock before returning the error.
+
+Fixes: 3cf7a0bc87f0 ("drm/amd/display: Catch failures for amdgpu_dm_commit_zero_streams()")
+Fixes: 2b6943df5413 ("drm/amd/display: Pass up errors for reset GPU that fails to init HW")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index ef56c18ded1b..943297b49dc5 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -506,7 +506,6 @@ struct ttm_bo_alloc_state {
-  *
-  * @bo: The buffer to allocate the backing store of
-  * @place: The place to attempt allocation in
-- * @ctx: ttm_operation_ctx associated with this allocation
-  * @force_space: If we should evict buffers to force space
-  * @res: On allocation success, the resulting struct ttm_resource.
-  * @alloc_state: Object holding allocation state such as charged cgroups.
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 941c1a312824..214aca906fe1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3511,6 +3511,9 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+ 		res = amdgpu_dm_commit_zero_streams(dm->dc);
+ 		if (res != DC_OK) {
+ 			drm_err(adev_to_drm(adev), "Failed to commit zero streams: %d\n", res);
++			dc_state_release(dm->cached_dc_state);
++			dm->cached_dc_state = NULL;
++			mutex_unlock(&dm->dc_lock);
+ 			return -EINVAL;
+ 		}
+ 
+@@ -3824,6 +3827,9 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		r = dm_dmub_hw_init(adev);
+ 		if (r) {
+ 			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
++			dc_state_release(dm->cached_dc_state);
++			dm->cached_dc_state = NULL;
++			mutex_unlock(&dm->dc_lock);
+ 			return r;
+ 		}
+ 
 -- 
-2.43.0
-
+2.25.1
