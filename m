@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EFDBC5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:19:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441FFC5DF86
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:21:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFF9D10EDF5;
-	Wed, 19 Aug 2026 11:19:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5BB910EDEF;
+	Wed, 19 Aug 2026 11:21:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BdmBVHTZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="If+8TRl9";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA1B810EDF5
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:19:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6508B10EDEF
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:21:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B3C0F438C7;
- Wed, 19 Aug 2026 11:19:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615A41F000E9;
- Wed, 19 Aug 2026 11:19:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 48EB4402B1;
+ Wed, 19 Aug 2026 11:21:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6921F000E9;
+ Wed, 19 Aug 2026 11:21:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787138379;
- bh=U90PQ07lMGeV/S9hY5g+kSc82c9uxFtg9ufXoq+8+PA=;
+ s=k20260515; t=1787138462;
+ bh=5v9aCr6UOwTja2NOou3O3WvFffmOzimBJvCNoGx72V0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BdmBVHTZP3NrVRSbodBAmzCo4+jVsV1Ckk1exrq7zS9L4mQPQgvmFIql9pgF4q8//
- /seok4becnzoqHb+fHuHNDQbw777ys2EVLWqTQtlYmzl4n4p7M3EWO26t6zykxvh/G
- +2ho/NEwvQ5kzAgk5iHMQD+eLfQN1Ew05c9JxDESp8brtQNgR4rdBP6PnhMWBV/mVD
- yEmMj2AkcfP1DKZWobVUAyxDfwKSJDeHA6JE2EZsF4dZY3kEcp3vuzo1IfSH42dXyT
- e7QFxTA2VdXyakv+SuaygTn0crpe9dFIj2pHaD6Jh5W7zIt9kAr5+2izaJCiKryQQP
- dUa4KsOyDlu+g==
+ b=If+8TRl985wSroRRPlL9Uaip0CCxUlbGeyXyeIPVfvPPWusxs5GwiyT+0UzfNYDAv
+ GLJKC2TvAPOGijDelJ4xFwIAn1Y1yizUC6ZGcpRTfV6bAjv2QwDdqL8Wt7iBpf5DsD
+ NMqPqS6ErGDsE31/+47xE3/wGeJxOABb8yw/nDY5jBQhiZf/jvkjqW2OAikJTT6UUz
+ BWqcAjxeVI8plyxbpZKrUzyKcressLrKSY18TSgEMtcXLZ8HVnE9w2r+oqgSy0oeA1
+ HARMXE5J7mnbaUYcywTpsqmZLcinZthlDtVDsiU2XLsZlIC0itPxLbOCorZi0y9ElU
+ uhEBlvI4R3CbA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/16] rust: io: perform conversions using `AsRepr`
+Subject: Re: [PATCH v3 15/16] rust: io: register: remove `Register` trait
+ and cleanup macro
 To: "Gary Guo" <gary@garyguo.net>
-Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- linux-pci@vger.kernel.org, "Danilo
- Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
+Cc: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, "Danilo
+ Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ ojeda@kernel.org
+In-Reply-To: <20260819-typed_register-v3-15-3699a75fadf1@garyguo.net>
 References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-15-3699a75fadf1@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 11:19:38 +0000
-Message-Id: <20260819111939.615A41F000E9@smtp.kernel.org>
+Date: Wed, 19 Aug 2026 11:21:01 +0000
+Message-Id: <20260819112101.DC6921F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +60,10 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> For types that are layout-compatible with an I/O capable type, we would
-> want the ability to use them directly for I/O operations. E.g.
->=20
->     bitfield! {
->         pub struct Foo(u32) {
->             ...
->         }
->     }
->=20
->     #[repr(C)]
->     struct Bar {
->         foo: Foo,
->     }
->=20
->     let mmio: Mmio<'_, Bar> =3D ...;
->     io_read!(mmio, .foo)
->=20
-> Currently this feature is available from `register!()` macro but not
-> otherwise available with `io_read!`, `io_write!`. Support this by
-> performing conversions to I/O primitives via the `AsRepr`/`AsReprMut`
-> trait.
->=20
-> This makes the `IoLoc::IoType` and `Register::Storage` redundant; thus
-> remove them; also convert register methods to use the `read_val` and
-> `write_val` instead.
+> With the removal of relative registers, there are only two type of
+> registers left, fixed register and register arrays. There is not much
+> benefit in having a common super trait for them anymore, thus remove it,
+> and cleanup the macro rules associated with it.
 >=20
 > Signed-off-by: Gary Guo <gary@garyguo.net>
 
@@ -91,5 +71,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-typed_regi=
-ster-v3-0-3699a75fadf1@garyguo.net?part=3D4
+ster-v3-0-3699a75fadf1@garyguo.net?part=3D15
 
