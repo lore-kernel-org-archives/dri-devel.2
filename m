@@ -4,71 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F27C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 12:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C878EC5DF86
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 12:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAC4410E562;
-	Wed, 19 Aug 2026 12:12:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 292F610EE04;
+	Wed, 19 Aug 2026 12:12:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NDRcyut7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UzJHiCbq";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5545310E562
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 12:12:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=Hk5Lsu4WomfbukMoxZbKQtgXiEaQgcxX2X6gOLqJkjc=; b=NDRcyut7UsyYADzLl84k/UK+vy
- 4xYS/CZk3NiDZgEFqXcCduxaRf/MU9+Amwm0AnHn9sOAgupbusMvLTowwpsRv9DUjB1hHLki8MA6j
- P6Aa1kFpESZq0IFHvNHQv89wyCfbKJcG0TYa9ltFq0jWh21r7VRxwgRFpW5TvKL//fdlQIW2KvGvc
- jcl5R7duFQuDAVOONyYjRUHr+U3qzdNwfwJKhr7xKqq2kmwYOTCZ3+S6QmAAoTf+ajtInX72p6D4Z
- 7XkUugBBCeAcowFLp03wusoW7VZLMEc+tlSMUeNjNpVVa1i6SPtmE/skxqa5RWUN6bVEak/W7vUG9
- ARgQjcAA==;
-Received: from [179.105.94.163] (helo=[192.168.0.6])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wwf9B-0065Io-7s; Wed, 19 Aug 2026 14:11:57 +0200
-Message-ID: <71474cf6-e0f4-4961-8302-7b893143ef98@igalia.com>
-Date: Wed, 19 Aug 2026 09:11:50 -0300
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8B9510EE04;
+ Wed, 19 Aug 2026 12:12:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7883240085;
+ Wed, 19 Aug 2026 12:12:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79AE1F000E9;
+ Wed, 19 Aug 2026 12:12:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787141563;
+ bh=C/OCnBh2+Bwi09gb9qHRbFFL6oQmAq5hReVyPfFAbCA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=UzJHiCbqOjtKEPHcE/yhg6Mt7X5Hwf2ERYrbg+8xW+xp+ZT9WpKFa0l9OOwaPvbi1
+ FbErRLzdHyUBHtHoGeK/20UTYqbzG8+48ZUXHNfvEhGgVvsVy/J56RXdvF0ii2164H
+ zNIqfUrsjN5vPR4PNHGwCz/Ef+i3y2vnK5mLZyAqY5/2ll38V0mIp48kHq4HoRpEZ7
+ SgJj8qofWxMB0+Br/Om43JSOksEX6hweEN3EmhA/7kQENrHV0qU3IHsiJ1ynI8LG26
+ FsA3yW1qiXrAnR9n3TISVHHi3+IbKD8MPp4IcVl27EOjpSCAYpEGBaGrL0pEAdgo89
+ jAi/zQwm+TKog==
+Date: Wed, 19 Aug 2026 13:12:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>, linux-kernel@vger.kernel.org,
+ linux-next@vger.kernel.org
+Subject: Re: Unexpected files in the drm-intel tree
+Message-ID: <07e2d455-ae76-46aa-821a-a455118c60d4@sirena.org.uk>
+References: <aoR9fNYRhmWDNJtz@sirena.org.uk>
+ <cbd77031f484d0c044666c4fc11fd3ef273459bb@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sysfs: Remove drm_class_device_(un)register()
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20260803132706.1497980-2-mcanal@igalia.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260803132706.1497980-2-mcanal@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="G3zcZBlb/+C9HnFm"
+Content-Disposition: inline
+In-Reply-To: <cbd77031f484d0c044666c4fc11fd3ef273459bb@intel.com>
+X-Cookie: Allow 6 to 8 weeks for delivery.
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,95 +64,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-Gentle ping for feedback.
+--G3zcZBlb/+C9HnFm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Best regards,
-- Maíra
+On Wed, Aug 19, 2026 at 12:31:07PM +0300, Jani Nikula wrote:
+> On Tue, 18 Aug 2026, Mark Brown <broonie@kernel.org> wrote:
 
-On 03/08/26 10:26, Maíra Canal wrote:
-> The last usage of the functions drm_class_device_register() and
-> drm_class_device_unregister() was removed in commit ed89fff97382
-> ("drm/ttm: drop sysfs directory").
-> 
-> Remove such functions as they are no longer used.
-> 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/drm_sysfs.c      | 32 --------------------------------
->   drivers/gpu/drm/ttm/ttm_module.c |  1 -
->   include/drm/drm_sysfs.h          |  4 ----
->   3 files changed, 37 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-> index ef4e923a8728..7b16d32b6ff6 100644
-> --- a/drivers/gpu/drm/drm_sysfs.c
-> +++ b/drivers/gpu/drm/drm_sysfs.c
-> @@ -589,35 +589,3 @@ struct device *drm_sysfs_minor_alloc(struct drm_minor *minor)
->   	put_device(kdev);
->   	return ERR_PTR(r);
->   }
-> -
-> -/**
-> - * drm_class_device_register - register new device with the DRM sysfs class
-> - * @dev: device to register
-> - *
-> - * Registers a new &struct device within the DRM sysfs class. Essentially only
-> - * used by ttm to have a place for its global settings. Drivers should never use
-> - * this.
-> - */
-> -int drm_class_device_register(struct device *dev)
-> -{
-> -	if (!drm_class || IS_ERR(drm_class))
-> -		return -ENOENT;
-> -
-> -	dev->class = drm_class;
-> -	return device_register(dev);
-> -}
-> -EXPORT_SYMBOL_GPL(drm_class_device_register);
-> -
-> -/**
-> - * drm_class_device_unregister - unregister device with the DRM sysfs class
-> - * @dev: device to unregister
-> - *
-> - * Unregisters a &struct device from the DRM sysfs class. Essentially only used
-> - * by ttm to have a place for its global settings. Drivers should never use
-> - * this.
-> - */
-> -void drm_class_device_unregister(struct device *dev)
-> -{
-> -	return device_unregister(dev);
-> -}
-> -EXPORT_SYMBOL_GPL(drm_class_device_unregister);
-> diff --git a/drivers/gpu/drm/ttm/ttm_module.c b/drivers/gpu/drm/ttm/ttm_module.c
-> index aa137ead5cc5..3daace105930 100644
-> --- a/drivers/gpu/drm/ttm/ttm_module.c
-> +++ b/drivers/gpu/drm/ttm/ttm_module.c
-> @@ -34,7 +34,6 @@
->   #include <linux/pgtable.h>
->   #include <linux/sched.h>
->   #include <linux/debugfs.h>
-> -#include <drm/drm_sysfs.h>
->   #include <drm/ttm/ttm_caching.h>
->   
->   #include "ttm_module.h"
-> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
-> index 96a5d858404b..7695873a9456 100644
-> --- a/include/drm/drm_sysfs.h
-> +++ b/include/drm/drm_sysfs.h
-> @@ -3,13 +3,9 @@
->   #define _DRM_SYSFS_H_
->   
->   struct drm_device;
-> -struct device;
->   struct drm_connector;
->   struct drm_property;
->   
-> -int drm_class_device_register(struct device *dev);
-> -void drm_class_device_unregister(struct device *dev);
-> -
->   void drm_sysfs_hotplug_event(struct drm_device *dev);
->   void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
->   void drm_sysfs_connector_property_event(struct drm_connector *connector,
+> > Commit
 
+> >   ac3baea883dab ("drm/panel: find_panel_by_fwnode() return a counted reference")
+
+> > added this unexpected file:
+
+> >  drivers/gpu/drm/drm_panel.c.orig
+
+> So this has been reported before for drm-misc [1] and drm-xe [2] trees,
+> and has been fixed in the drm-misc tree by commit 651b0bd0922b
+> ("drm/panel: remove accidentally committed .orig file").
+
+> Similar to what Joonas said in [3], this should really only be reported
+> once for the tree *and* branch where it originated. There's not a lot of
+> value in reporting again whenever something gets merged somewhere else.
+
+There's no database of issues here, the check that's being done is based
+purely on the new commits and diffstat that just appeared when we fetched
+the tree.  Deduplicating things is in general a depresssingly hard
+problem even for basic stuff (eg, is this a new issue or a recurrance of
+an old issue?), and the much more common case is that there's downstream
+trees sending problematic commits to their upstreams which the upstreams
+would like to know about.  DRM is quite unusual in the amount of
+sideways merging that goes on between parallel trees, and can also be on
+the higher side for the length of time issues get left for once they've
+been merged into other trees.
+
+What I would have hoped would have happened here is that whichever tree
+originally had the issue would have fixed it before they sent it to be
+merged elsewhere, then it wouldn't pop up in all the other trees, or if
+the original issue already got merged then a fix would be sent promptly
+before other trees start picking things up.  In this case it looks like
+-next first saw this on July 21st and the fix wasn't posted until 10th
+August (then applied on the 11th) so there was unfortunately plenty of
+time for things to propagate around.
+
+--G3zcZBlb/+C9HnFm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqFnbYACgkQJNaLcl1U
+h9C7iAf6AgNJhQWTkBsSQw4F+7KObOf+iJAyNGSkX6TUOXpmUvGy4Vr1zUCG1OJV
+NtSctTaq1X8BzQibvSyclAA/oGrVjzs3JfST1D81jqZRqZT4+OwCmnhpMyn6CXYh
+s7hY5FmHRLaREqf4Q8mrAJ+d18YMSg0kYqFIllPGRDX6F7erkAe8hEB0pHL9Q6+/
+Qe3zz78PtU+GZMSF+ySBFVC3i/wmtO+rLEH9n/2YWFT+DMqGMxsLiY7CRUqHxGXY
+SsecaPhoR0Rh5o37Zu1S844oJlKOHYc22DQaeywEEuhG8H+FiqzxzTp/0ym/zQqE
+FvF63lygNB3OwigjdGan5Sm/lRtWPQ==
+=/bmt
+-----END PGP SIGNATURE-----
+
+--G3zcZBlb/+C9HnFm--
