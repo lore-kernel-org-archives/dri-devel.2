@@ -4,122 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26AA4C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 15:33:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48996C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 15:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E86810E821;
-	Wed, 19 Aug 2026 15:33:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACB1A10EB07;
+	Wed, 19 Aug 2026 15:37:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="dRRI6d0d";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="UcLKW2MQ";
 	dkim-atps=neutral
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 468F010E821
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 15:33:47 +0000 (UTC)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-848474825ffso11911b3a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 08:33:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1787153627; x=1787758427;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=c2FvzDQHxVaueg4hvKJpjDuB27Njlxwegg3SIxYd2Fg=;
- b=dRRI6d0dKl3V1n6UKGI/WMvzeohvbRRABaFAFGl+zvr79ktzZZah46Hzm0u+3YdyZc
- aEsbZY30xMdCYxR4Ugd5j8l0Bng8c8uLGN2qYTa9N8XoXCzviVpBVU5xSkPIDLeCU0x9
- 0ytsfOnnB5Ih+34VGKvmR4fuNqkK1vuHSesO+UiUKyP7v+luSPmYV4LFCHz3UbJ4BmAr
- 8w4Ezn48MWzpFvtfuRSrYuni44MP2iRfdKbcyR9xBuwp5nDQaouUQFfzu6Yz2B/P069P
- Hjf5Otd2gqwmqo3wXolHsq/7diYY+Y6hcoFn9EEmVs54PCfLKi77or1Y9+w2oDGOjpwV
- Ra+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787153627; x=1787758427;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=c2FvzDQHxVaueg4hvKJpjDuB27Njlxwegg3SIxYd2Fg=;
- b=sq5DOO4PApTy6Nb65K63DfYrYM9dKRquwEoFsfXUN7N46BZq5Pwe62Swc9aqQ+aXE9
- 29GR6XxH87p7agicTcQ1+VfT99IF66qslyQDlMAjO1ewC+LdTRAlUKb/S3Nfi+DQuglk
- jl3y2R8w4CamqRVNK0xaovfLmIjD0yoqV+MKjE4HSaNMCVipNyOKZ/WASubn6LguBOlo
- lagTTIp69XxKbOWpRanwCoWvOUwDpqaWigMLeAiigNyCNZQ9bOewEGfn8FAVLuEbytne
- iJS0Eos/qaOl0QiDGbDXs5/KirufNceioYN3wjP29+4fw1FIw7+HL5OFPCu2cpjwQFbK
- oVYQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoT/3z84q5s68uu9v+hEueZGy3K0HtrsM2KlvU+PNTOQulq0L0yocXJ3lKN77r2WTlDmr6IEAWT4Nw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw0r6Hucw+acF30R0JF6WZsXjuLZSaOf7LKMuJRHnnqE0MGbQn2
- UJ9WuylZsXuE9Mt8Z+pKnO1KvkJSkh5TQshoJNb/geVG63jZN8zCuEKbMHxjeFqmnCExMMu6+P+
- Cvrp8DQ==
-X-Received: from pfoo3.prod.google.com ([2002:a05:6a00:1a03:b0:84f:df8f:5a90])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:2913:b0:84b:9a69:156d
- with SMTP id d2e1a72fcca58-851df6dc419mr109732b3a.0.1787153626373; Wed, 19
- Aug 2026 08:33:46 -0700 (PDT)
-Date: Wed, 19 Aug 2026 08:33:45 -0700
-In-Reply-To: <bd9e5b6e-07f2-459d-bca6-e290585060aa@intel.com>
-Mime-Version: 1.0
-References: <20260819102314.1499258-1-jgross@suse.com>
- <bd9e5b6e-07f2-459d-bca6-e290585060aa@intel.com>
-Message-ID: <aoXM2f1YTwgVj8KL@google.com>
-Subject: Re: [PATCH v2 00/13] x86/msr: Drop 32-bit MSR interfaces
-From: Sean Christopherson <seanjc@google.com>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org, 
- virtualization@lists.linux.dev, linux-ide@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org, 
- kvm@vger.kernel.org, linux-edac@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-coco@lists.linux.dev, 
- linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
- Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Damien Le Moal <dlemoal@kernel.org>, 
- Niklas Cassel <cassel@kernel.org>, David Airlie <airlied@redhat.com>,
- Helge Deller <deller@gmx.de>, 
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
- Paolo Bonzini <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>, 
- Tony Luck <tony.luck@intel.com>, Reinette Chatre <reinette.chatre@intel.com>, 
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>, 
- Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>, 
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Pavel Machek <pavel@kernel.org>, 
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Huang Rui <ray.huang@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, 
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>, 
- Artem Bityutskiy <dedekind1@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>, 
- "Ilpo =?utf-8?B?SsOkcnZpbmVu?=" <ilpo.jarvinen@linux.intel.com>, 
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="us-ascii"
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DD89F10EA73
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 15:37:35 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74BB314BF;
+ Wed, 19 Aug 2026 08:37:31 -0700 (PDT)
+Received: from [10.57.6.96] (unknown [10.57.6.96])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D0173F763;
+ Wed, 19 Aug 2026 08:37:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787153855; bh=CexCc4Ql57XYyboYF/U90RMtqoGATY5dy20I1HcKbwY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=UcLKW2MQyL6HcsL+LouNOi3RHRYpOxNcN3pYV3y+2cxC16YV34lQ4z0XUQ4xqMddI
+ pGhm2YgwC2vCSyO3FlX2dVJfs95FEa45tsTGLLxjtFEIzPoBwknUHkpVHx/PY4gKpZ
+ oyC2+HeP3fGI86dyei6yt+Sly5Z817PiOM0/sm68=
+Message-ID: <7905b726-effe-4d83-b458-3427cb33430c@arm.com>
+Date: Wed, 19 Aug 2026 16:37:25 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] drm/panthor: Add tracepoint for cache flushing
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com
+References: <20260812-panthor-cache-flush-fix-v4-0-751e32901898@collabora.com>
+ <20260812-panthor-cache-flush-fix-v4-1-751e32901898@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260812-panthor-cache-flush-fix-v4-1-751e32901898@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,26 +63,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 19, 2026, Dave Hansen wrote:
-> Hey Juergen,
+On 12/08/2026 15:07, Nicolas Frattaroli wrote:
+> Add a new event tracepoint: gpu_cache_flush to be emitted after a GPU
+> cache flush completes, with duration and return status arguments.
 > 
-> These look great. Thanks for doing it!
+> This allows debugging the duration a flush takes irrespective of initial
+> function entry lock contention, and communicates information about
+> whether the flush timed out or errored out in other ways, and which
+> caches were flushed.
 > 
-> The only wonky thing is how we're going to actually merge it. We
-> obviously can't do patches 10-11 until all the "stop using" patches have
-> been applied.
-> 
-> I obviously 100% realize that it's during the merge window, but any acks
-> that the maintainers of 5-9 provide in the next few weeks would be super
-> helpful. Or, if any of those maintainers want to cherry pick their
-> subsystem's stuff out of this series and apply it, that would be great too.
-> 
-> But, the last time we did some MSR function munging, the tip tree
-> carried most of the patches. I would expect we'll have a repeat of that
-> here too. I'll pencil in the idea of just merging the lot around -rc1 time.
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Note, patch 12 "treewide: convert rdmsrq() from a macro to an inline function"
-is going to conflict with the KVM changes for 7.3; kvm_access_xstate_msr() is
-getting moved from x86.c to msrs.c.  Somewhat surprisingly, AFAICT that's the
-only conflict with KVM's code movement, so it's probably not strictly required
-to send a new version after the KVM pull request?
+Reviewed-by: Steven Price <steven.price@arm.com>
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_gpu.c   | 26 +++++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_trace.h | 38 +++++++++++++++++++++++++++++++++
+>  2 files changed, 63 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index c013d6bf9a59..7088371c6d64 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -317,6 +317,21 @@ int panthor_gpu_l2_power_on(struct panthor_device *ptdev)
+>  	return panthor_gpu_power_on(ptdev, L2, 1, 20000);
+>  }
+>  
+> +static inline void panthor_gpu_emit_flush_caches_tp(struct panthor_device *ptdev,
+> +						    u64 start, u32 l2, u32 lsc,
+> +						    u32 other, int ret)
+> +{
+> +	u32 duration;
+> +
+> +	if (!tracepoint_enabled(gpu_cache_flush) || !start)
+> +		return;
+> +
+> +	if (check_sub_overflow(ktime_get_ns(), start, &duration))
+> +		duration = U32_MAX;
+> +
+> +	trace_gpu_cache_flush(ptdev->base.dev, l2, lsc, other, duration, ret);
+> +}
+> +
+>  /**
+>   * panthor_gpu_flush_caches() - Flush caches
+>   * @ptdev: Device.
+> @@ -331,12 +346,17 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+>  	unsigned long flags;
+> +	u64 start = 0;
+>  	int ret = 0;
+>  
+>  	/* Serialize cache flush operations. */
+>  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
+>  
+>  	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> +
+> +	if (tracepoint_enabled(gpu_cache_flush))
+> +		start = ktime_get_ns();
+> +
+>  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+>  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+>  		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> @@ -345,8 +365,10 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  	}
+>  	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  
+> -	if (ret)
+> +	if (ret) {
+> +		panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc, other, ret);
+>  		return ret;
+> +	}
+>  
+>  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+> @@ -360,6 +382,8 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  	}
+>  
+> +	panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc, other, ret);
+> +
+>  	if (ret) {
+>  		panthor_device_schedule_reset(ptdev);
+>  		drm_err(&ptdev->base, "Flush caches timeout");
+> diff --git a/drivers/gpu/drm/panthor/panthor_trace.h b/drivers/gpu/drm/panthor/panthor_trace.h
+> index 6ffeb4fe6599..bd8652549ab4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_trace.h
+> +++ b/drivers/gpu/drm/panthor/panthor_trace.h
+> @@ -76,6 +76,44 @@ TRACE_EVENT(gpu_job_irq,
+>  		  __entry->events, __entry->duration_ns)
+>  );
+>  
+> +/**
+> + * gpu_cache_flush - emitted after cache flush completes
+> + * @dev: pointer to the &struct device, for printing the device name
+> + * @l2: "l2" flush flags
+> + * @lsc: "lsc" flush flags
+> + * @other: "other" flush flags
+> + * @duration_ns: how long the cache flush operation took, in nanoseconds
+> + * @ret: return status, 0 == success, negative errno on error
+> + *
+> + * Begins measuring after any initial lock contention around the locks needed
+> + * for flushing caches, but before the actual cache flush is requested. Stops
+> + * measuring and is emitted after flush operation is over.
+> + */
+> +TRACE_EVENT(gpu_cache_flush,
+> +	    TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other,
+> +		     u32 duration_ns, int ret),
+> +	    TP_ARGS(dev, l2, lsc, other, duration_ns, ret),
+> +	    TP_STRUCT__entry(
+> +		    __string(dev_name, dev_name(dev))
+> +		    __field(u32, l2)
+> +		    __field(u32, lsc)
+> +		    __field(u32, other)
+> +		    __field(u32, duration_ns)
+> +		    __field(int, ret)
+> +	    ),
+> +	    TP_fast_assign(
+> +		    __assign_str(dev_name);
+> +		    __entry->l2          = l2;
+> +		    __entry->lsc         = lsc;
+> +		    __entry->other       = other;
+> +		    __entry->duration_ns = duration_ns;
+> +		    __entry->ret         = ret;
+> +	    ),
+> +	    TP_printk("%s: l2=0x%x lsc=0x%x other=0x%x duration_ns=%u ret=%d",
+> +		      __get_str(dev_name), __entry->l2, __entry->lsc,
+> +		      __entry->other, __entry->duration_ns, __entry->ret)
+> +);
+> +
+>  #endif /* __PANTHOR_TRACE_H__ */
+>  
+>  #undef TRACE_INCLUDE_PATH
+> 
+
