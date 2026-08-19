@@ -4,166 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DECA8C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 14:38:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F193EC5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 14:40:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B71810E148;
-	Wed, 19 Aug 2026 14:38:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E74B10E07A;
+	Wed, 19 Aug 2026 14:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GPeudUYz";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g3An2BlN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pewjlzfq";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B677110E8E5
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:38:13 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67JEbfkX135340
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:38:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=; b=GP
- eudUYzAmwpt46XExjtHoL24a2I/8JX5JZHI9Hy6CbC7dO1tazpRAgFP+VcfrugoN
- qQqsW9ubazohF9DaVxrl3s/LKRe5kznPmCK3LoVzh6vJ+iebuKHns765pvdU8/jk
- Lx7WZ4bv8UVCBWYHz3m6v5/GnJT2VNZ0ww0LUj8Ylet1jPbTbGqxlh474I7MyGKO
- RI1PPcRlaETWg5xn/0/ig7ssX0OVcLJI/cDW3vOkQPZjH9SybyNVUYXczHdUhTB5
- BQOZ3N3z7a1vzgCS4xi5BbzZii7NWgVe1Zsvy1mFlVQsrVsTo6F9HCwWhsQoGkSA
- JLDz4rujLqSxMRs9pEMA==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfmbqd8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:38:13 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id
- 006d021491bc7-6b1281dd14aso926839eaf.2
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 07:38:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787150292; cv=none;
- d=google.com; s=arc-20260327;
- b=jyDugqLp9mAwdep0APX2VI46vjEa8LbZUlyRutDRrYXBC1NboDoQ0NlLZtoNc79g0+
- sQCo5BRrF7LhXlbbh5DJd9lkSCHETnjM/tRmROKMUxspXisr3+hBnV/02+6ywDovQABd
- KEjbXJYpF67gTrJSk/evIQJW11k6rOSWIxaQ0Fdv5JLA3/uzVhY2QRskTyCA4AwgtfNM
- d/wezPD7qFoV3M39vgB+bA8C7MnpR4sGzoTG5nbsH357VLJzTUPtkMXzPVBu8xybOzce
- mMcOb8p3e0PbrPRVZl+LZExyw/o3gZ7kcpjAfkYvn32xeyxdMH+ejL7+rBb+ut9mB69Q
- azQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
- fh=nrjkSSLHevP/AL/+NLb3F1+rvJNlRTjD1xSo/qPG1dU=;
- b=e2EjRDROEUUu8SVZ+J/nhS7epqMt0GekWK/K6vOMYkz8enwzZYb52bFf+7Hriob0cQ
- 1462IJJbx0ce5npWZ1h+/NznOmepJShC9EMqMHmzHvuOJZOc2BxHNKPiAYe6rSBAFvQ/
- wCcSWoV+xRnvXUVYFO2TkPuwFK8hmCgRzp+gu5e3ZFyOEoPh/qlwzXcSWC+/Xj5UKGvr
- M7p8ebTbgY559VIfQ/+VAgCOqS6Dsz9EtjSiRBDTox7rAJ9tuyORUsy6U+77jp2KUL23
- ZFr8E54PEq/Lxnigl/+uJh9PcE9LR1CoaKRl8Fdco8J0A5gSVGvDBbmHaNgaJRLU/kZz
- stVA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787150292; x=1787755092;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
- b=g3An2BlNUBesN6TfSU7KNZ7NfzaFpYTfqTALHWwAF/qyLfCTDmKk7OXctLTJ8wpX+B
- 6jr3zfq+znl3YTvGXejJYETwasEr0URO1rT0Rks7RfgNeD9j7/SN2+s1c6ZH9N9/UpOV
- sjM6E1qcpsg3KRjAYCZWNEq19smIVNrfaqkZZkKW5JDcmrvqBXkTL7zKbIbJkB4Xy2OT
- r2mD4HjmOLCzFkFVJI8BZ+038Owo0uFMofGFVORFpYg6txszF2SvlTMEhjOcU5DCNMs3
- +XNNmpKzKlK8YGcscsuk+bJ1IRzffHIz3B84eLMmklEtymPZZE1c+W/cZzUt0YQMCXcK
- H1Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787150292; x=1787755092;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
- b=SKs/EfwoBl2bpUAgJ862HE0lV5Z5EEwIz42as9SkKDesCu5m9dChFaqG50GTLLhKYf
- RUhkOudDeRGYfWWNcUdxYj6Vo8CFuk9msaaY1IFgUSVIeJ7V9e9AoXhajdyFiIgWany0
- T3Y8UtY6AYUW6nL89/c15aCKNm5kkR63fKlfVL4pAGoC/Pzyb7ih1EOBESHx2JcuoJV8
- r7shBCvnaQdVDFXZu8w9USpRdUsW5uYQ0OZQr49hjA5ZB60TkaaTFCeFu9A5uK9CjN0+
- QWrjzEy8jUIPS8O/SkQybRdkiv1q4biKRfLAfeAANwSAKM1sGEvjjjsMchm4g8cidM8C
- IUxg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpUaLomgV8HfBdkwBTxJq0BX+15K8UxhapsBFMqdfQQv9obmaO+dDKTbwGj/HCIKdd/DaYtrC4fnLQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzjkTULIzbw4IEl/7ZkeyJd5MB9wnCd6PNYWCItiQM+5G6cCq9r
- xgnlduQEBbzBTgPd3UfJqQoM7Wi1Sxhacf7tDxFQhrUzCvZ3iw4XGIiBLc8sm39vgpB8IfnKpsq
- FJq0y8dBOSPTnP+AoKZJhDcScc2BKjZ004FVvGHUEgHUzzc34UmSqEnySa+vL118zA/OyFKO+Lq
- tPiKeDjm+nm8aGP5Y7CXuukKNByRcc0P23AE5pHiDCkODQjg==
-X-Gm-Gg: AR+sD11UGeYF9R0hW22sDq8Jk/mkw5FOnmZyh0fuUdIHRVYNO1DJJsCGxxc/7Of4MRZ
- chVWLnfHoOAXWc0upBwh8lQNujJWkKX9dn4FBGRO4aKPi8zzjUOFDVx18vhxtsqcVYVbm9Eg/yy
- vEiRwOc02m62W6lgbrvXj1WLFF1L7ZSqyHdiH0xLMe/DHshtuvjhzTpzJA
-X-Received: by 2002:a05:6820:1ca2:b0:6ac:b1ae:6ce3 with SMTP id
- 006d021491bc7-6b13c69056emr3835938eaf.32.1787150292236; 
- Wed, 19 Aug 2026 07:38:12 -0700 (PDT)
-X-Received: by 2002:a05:6820:1ca2:b0:6ac:b1ae:6ce3 with SMTP id
- 006d021491bc7-6b13c69056emr3835876eaf.32.1787150291802; Wed, 19 Aug 2026
- 07:38:11 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A14CC10E07A
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787150415; x=1818686415;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=vymarJZh4YqC2L7NKmpGaLSs+LwWBnjm4Ga1t8pq/Yg=;
+ b=PewjlzfqVvICmM3Y+gzYqT+lnKBDTWNxA6c9IwR+UDi+JCRZq1z+j+xD
+ P6lG4HNHEBpxJo7kqN0SOguxmpKEMbKs6BSEPnlG6Aew8wE6LZ40bh8t6
+ kLMJ2sHoFSg0kOQcb7BCa0gFCbMMs26iJPINMsoliGpXIjNt7blZvuKmy
+ FnOYYjAGi74sn6qeuQgecxWIrC1gH1fJt0snFLRh4G8KKgxdER8lxAcat
+ RkLBPtsnntifFsGsRppmdZuM0wNZfM/S0QLzY39hgxHQ6elMYhHKF2Srl
+ JVhHJnBM8i3f2Dl61S5rOxwxt3A9xLO8Vy9j/U6AvBy7q3XLNduYerUIB g==;
+X-CSE-ConnectionGUID: +xBub45aS7uZtSr80qXPzw==
+X-CSE-MsgGUID: xgUEb2W5RYagPM6GY8GGcg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="86787549"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="86787549"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 07:40:14 -0700
+X-CSE-ConnectionGUID: DLD05uXOSQS3eQ3eQ3POPA==
+X-CSE-MsgGUID: nBdVyMTXSn+BXYA1OEkKQA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="261366363"
+Received: from bradocaj-mobl.ger.corp.intel.com (HELO [10.125.111.233])
+ ([10.125.111.233])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 07:40:10 -0700
+Message-ID: <bd9e5b6e-07f2-459d-bca6-e290585060aa@intel.com>
+Date: Wed, 19 Aug 2026 07:40:09 -0700
 MIME-Version: 1.0
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org>
- <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
- <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
-In-Reply-To: <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Wed, 19 Aug 2026 07:38:01 -0700
-X-Gm-Features: AcwNN1UJH0MueaAt4fuAnOTplgnMr9BZwDd-FRtcH8UIxmOIWCFCFvjMK1YdptU
-Message-ID: <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
-Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com,
- dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDExNCBTYWx0ZWRfX+obKXHbZKgwo
- 6sRP6srkzStoI3kXWMMnYSaRT2IWw744+XgpEB4ETduio9vltOX5fusWLR3UarPAGjiaDcz8gmH
- hm9P+fT+Z1mW1541jopvFL0EqEggUVXidzHLIg7kkn/lZAhhu391s1TAnhHkxRteH2InfRCaAWm
- rXNGc3IRQdVdSBWIvgn+NZvIHa+qMc/RxCsIiCt8GNg5ff6Ee57Sbf1fcteD4YyW6yyaprkT8H5
- 4w+MfSC1GuRQl7rzaKITWuKs7swAittl+zhaSPk6Oz6C1X2oPyafGI2oUVd1FryG2SBofCYpqU7
- CoOVFrTByQgBIeo5VpluQSvtfbAFtmW7fWcTtPGcU8Sj+CYf5EjslSjt0RYbA8cGq/eB8/9eEL7
- cXXPXzDe5xtS0ba0qqYZu5ng+7sKzigvJ/sNU2xkvWHVAcbTqRRapI7DGQ6124kPioadopvExQM
- VZ6zNJwTkLO35H1iV1Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDExNCBTYWx0ZWRfX37YUWV5cC8Pv
- bmmTGwEFGOec+0VEcLs2z5GS4FmhguDBC2FdvGeQgUQhV7HGUt5nT3KfNGFKBG0fNB7O43p/Nic
- QOXjaLGq2Mlw+oZsl/GtSltgp73ArIM=
-X-Proofpoint-GUID: KXiZAh0zzTNZJInrNGqOTnQ7zsIlmFcI
-X-Proofpoint-ORIG-GUID: KXiZAh0zzTNZJInrNGqOTnQ7zsIlmFcI
-X-Authority-Analysis: v=2.4 cv=J+SaKgnS c=1 sm=1 tr=0 ts=6a85bfd5 cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=OXa2z63zbhD_Ho30eBkA:9 a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_04,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190114
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/13] x86/msr: Drop 32-bit MSR interfaces
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org, virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, linux-edac@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Damien Le Moal
+ <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ David Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
+ linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>,
+ Tony Luck <tony.luck@intel.com>, Reinette Chatre
+ <reinette.chatre@intel.com>, Dave Martin <Dave.Martin@arm.com>,
+ James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
+ Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Len Brown <lenb@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Huang Rui <ray.huang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+ Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
+ Artem Bityutskiy <dedekind1@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ David E Box <david.e.box@intel.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, xen-devel@lists.xenproject.org
+References: <20260819102314.1499258-1-jgross@suse.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
+ oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
+ 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
+ ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
+ VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
+ iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
+ c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
+ pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
+ ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
+ QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
+ c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
+ LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
+ lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
+ MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
+ IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
+ aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
+ I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
+ E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
+ F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
+ CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
+ P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
+ 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
+ GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
+ MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
+ Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
+ lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
+ 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
+ qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
+ BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
+ 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
+ vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
+ FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
+ l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
+ yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
+ +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
+ asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
+ WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
+ sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
+ KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
+ MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
+ hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
+ vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
+In-Reply-To: <20260819102314.1499258-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,66 +166,22 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 19, 2026 at 7:21=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 19/08/2026 15:26, Ekansh Gupta wrote:
-> > On 19-08-2026 00:43, Krzysztof Kozlowski wrote:
-> >> On 17/08/2026 06:47, Ekansh Gupta wrote:
-> >>> This patch series introduces the Qualcomm DSP Accelerator (QDA) drive=
-r,
-> >>> a DRM-based accelerator driver for Qualcomm DSPs. The driver provides=
- a
-> >>> standardized interface for offloading computational tasks to DSPs fou=
-nd
-> >>> on Qualcomm SoCs, supporting all DSP domains.
-> >>>
-> >>> The QDA driver implements the FastRPC protocol over the DRM accel
-> >>> subsystem. It uses the same device-tree node structure as the existin=
-g
-> >>> fastrpc driver in drivers/misc/. The approach for binding the QDA dri=
-ver
-> >>> to device-tree nodes while coexisting with the fastrpc driver is an o=
-pen
-> >>> item described below.
-> >>
-> >> No. Grow/replace/improve existing driver instead of coming with a dupl=
-icate.
-> >>
-> >> That's a standard upstream requirement, basically given on every
-> >> upstreaming guide.
-> >>
-> >> Please watch old talk from Greg - "I Don=E2=80=99t Want Your Code!".
-> > Posted discussion threads here[1]. Would seek comments from Dmitry,
-> > Srini as well.
-> >
-> > [1]
-> > https://lore.kernel.org/all/3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qu=
-alcomm.com/
->
-> The rest of the comments is still valid even if you did not acknowledge
-> them.
->
-> Anyway, regarding above - again, watch the talk from Greg.
->
-> You have ONE driver. Not two.
+Hey Juergen,
 
-Long term, moving to the common driver framework (which did not exist
-when fastrpc was first created) seems like a good thing.  But does
-that not allow for some transition period?  How can we get from here
-to there without otherwise breaking userspace?  Is there some other
-precedent elsewhere in other driver subsystems?
+These look great. Thanks for doing it!
 
-I suppose drm exposing legacy fbdev on top of drm drivers is _sort of_
-a precedent if you squint a bit?  I'm not really familiar enough to
-say if that would be reasonable/possible in this case.
+The only wonky thing is how we're going to actually merge it. We
+obviously can't do patches 10-11 until all the "stop using" patches have
+been applied.
 
-BR,
--R
+I obviously 100% realize that it's during the merge window, but any acks
+that the maintainers of 5-9 provide in the next few weeks would be super
+helpful. Or, if any of those maintainers want to cherry pick their
+subsystem's stuff out of this series and apply it, that would be great too.
 
-> Best regards,
-> Krzysztof
+But, the last time we did some MSR function munging, the tip tree
+carried most of the patches. I would expect we'll have a repeat of that
+here too. I'll pencil in the idea of just merging the lot around -rc1 time.
