@@ -4,51 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 659FEC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 15:37:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 578CCC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 15:39:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDCA710EB66;
-	Wed, 19 Aug 2026 15:37:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B95FD10EA73;
+	Wed, 19 Aug 2026 15:39:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ooIYAFVC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gYIidkpS";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B149C10EB87
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 15:37:41 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6FCA41BD0;
- Wed, 19 Aug 2026 08:37:37 -0700 (PDT)
-Received: from [10.57.6.96] (unknown [10.57.6.96])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B18B23FA32;
- Wed, 19 Aug 2026 08:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787153861; bh=dFOTYzU+Dh/Eh5CmfmlJmdUu1Oji+nDK1VoZLT2xPXo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ooIYAFVClXgw1Gz5f5bvggB4E5wB1vi8ZRS89qMH4WaLHWAyoZd14Tb3OtaTy2wTU
- XRMqlf997n5UhK0OGyQNH9v7cnVxOqsfP0RT7HEqxD1Mxpsyt9C3v5SZ9OlmBmSNYE
- zR61eT6TH+FsH9s5TPr1t6XA6VX37dHEWtn4p1HU=
-Message-ID: <c9f5989f-332e-45a5-8939-f9f9ee5154da@arm.com>
-Date: Wed, 19 Aug 2026 16:37:31 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] drm/panthor: Take reqs_lock in soft_reset for
- clearing pending_reqs
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel@collabora.com
-References: <20260812-panthor-cache-flush-fix-v4-0-751e32901898@collabora.com>
- <20260812-panthor-cache-flush-fix-v4-3-751e32901898@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260812-panthor-cache-flush-fix-v4-3-751e32901898@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8239310EA73
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 15:39:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8E7B060A92;
+ Wed, 19 Aug 2026 15:39:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316DA1F000E9;
+ Wed, 19 Aug 2026 15:39:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787153966;
+ bh=ZU3odl9gaxDErqTpWiHEBmlWHYt6xnD51qjKKmaFF68=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gYIidkpSKLtIdW2BzZzgbemft8pYCnlH90Cx2qMwm6bEIApQEFfztzzo/cH5u9ZGy
+ luqr/DDvZAYNFuUTmoNcf45RDs8SIELMBZmraAHw2xLJhx3zBlzqUMLD57Rkmc+rB0
+ C44fGBtQpOCHe/ALuOyPsQWc1MzP+DHVOCfeyDyU5Y8a9Ab0KyN2ajp1jNuIGr3JhN
+ LiUbyYDNgob39BmR/nbgDYAWR4pWeJPalXib95oaiyNlmBrZtyvkflTTgSWSByBfMG
+ DebXV8CRpNiAPEzquz1GUyjUqueNTzqSi9tcNnwNXVhRZ6v7tdDi69NTiExs3Jf98r
+ QFmletiqsCUsA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/omap: Report HDMI hotplug events to the ASoC
+ HDMI codec
+To: "Ivaylo Dimitrov" <ivo.g.dimitrov.75@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260819152755.231754-1-ivo.g.dimitrov.75@gmail.com>
+References: <20260819152755.231754-1-ivo.g.dimitrov.75@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 15:39:25 +0000
+Message-Id: <20260819153926.316DA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,40 +53,157 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 12/08/2026 15:07, Nicolas Frattaroli wrote:
-> panthor_gpu_soft_reset() sets pending_reqs to 0 without taking the
-> requisite reqs_lock.
-> 
-> Fix this by taking the lock for the duration of the modification.
-> 
-> Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Use-After-Free during HDMI hotplug events due to vulnerable sysfs =
+unbind path.
+- [High] Function signature mismatch in `hdmi5_bridge_hpd_notify` causes a =
+CFI kernel panic and breaks state reporting.
+- [Medium] Missing initial jack state synchronization causes HDMI audio to =
+remain disconnected at boot.
+--
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+--- Patch [1]: [PATCH v2] drm/omap: Report HDMI hotplug events to the ASoC =
+HDMI codec ---
+commit 79155722ff98d49bdbf6c4e880ed9ec3b85d6fd0
+Author: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 
-> ---
->  drivers/gpu/drm/panthor/panthor_gpu.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index 55e33f145b40..fb2702e1e0a2 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -424,7 +424,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
->  		return -ETIMEDOUT;
->  	}
->  
-> -	ptdev->gpu->pending_reqs = 0;
-> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
-> +		ptdev->gpu->pending_reqs = 0;
+drm/omap: Report HDMI hotplug events to the ASoC HDMI codec
+
+The OMAP HDMI audio driver currently has no way of reporting HDMI cable
+hotplug events to ASoC. As a result, user space cannot detect HDMI audio
+availability through the standard jack mechanism and audio policy managers
+cannot automatically route audio to or from the HDMI output.
+
+> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi5.c b/drivers/gpu/drm/omapdr=
+m/dss/hdmi5.c
+> index ab2d4eb6787f2..76aedc1c9ba1f 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/hdmi5.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi5.c
+> @@ -425,6 +425,14 @@ static void hdmi5_bridge_disable(struct drm_bridge *=
+bridge,
+>  	mutex_unlock(&hdmi->lock);
+>  }
+> =20
+> +static void hdmi5_bridge_hpd_notify(struct drm_bridge *bridge,
+> +				    enum drm_connector_status status)
+> +{
+
+[Severity: High]
+Will this cause a Control-Flow Integrity (CFI) kernel panic?
+
+The DRM core expects the hpd_notify callback to have three arguments:
+void (*hpd_notify)(struct drm_bridge *bridge, struct drm_connector *connect=
+or,
+                   enum drm_connector_status status)
+
+hdmi5_bridge_hpd_notify() is defined with only two arguments. With CFI
+enabled, calling this with a mismatched signature triggers a panic. Even
+without CFI, the calling convention causes the callee to read the
+connector pointer as the status enum.
+
+> +	struct omap_hdmi *hdmi =3D drm_bridge_to_hdmi(bridge);
+> +
+> +	hdmi_audio_hpd_notify(hdmi, status);
+> +}
+> +
+
+[ ... ]
+
+> diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
+> index e60f5b483fc57..90ce12a812468 100644
+> --- a/sound/soc/ti/omap-hdmi.c
+> +++ b/sound/soc/ti/omap-hdmi.c
+> @@ -262,6 +265,34 @@ static void hdmi_dai_shutdown(struct snd_pcm_substre=
+am *substream,
+
+[ ... ]
+
+> +static int hdmi_audio_dai_init(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +	struct snd_soc_card *card =3D rtd->card;
+> +	struct hdmi_audio_data *ad =3D snd_soc_card_get_drvdata(rtd->card);
+> +	int ret;
+> +
+> +	ret =3D snd_soc_card_jack_new(
+> +		      card, "HDMI", SND_JACK_AVOUT, &ad->jack);
+
+[Severity: Medium]
+Is there a way to query the initial connection state of the jack here?
+
+If the system boots with the HDMI cable already connected, the ASoC jack
+is initialized to a disconnected state (0) here. Because the DRM hardware
+interrupt only fires on state edges, hdmi_audio_hpd_notify() is never
+called at boot, leaving the jack reporting as disconnected until the user
+unplugs and replugs the cable.
+
+> +	if (ret < 0) {
+> +		dev_err(card->dev, "Cannot create HDMI jack: %i\n", ret);
+> +		return ret;
 > +	}
 > +
->  	return 0;
->  }
->  
-> 
+> +	return 0;
+> +}
 
+[ ... ]
+
+> @@ -371,28 +402,44 @@ static int omap_hdmi_audio_probe(struct platform_de=
+vice *pdev)
+
+[ ... ]
+
+> +static void omap_hdmi_audio_remove(struct platform_device *pdev)
+> +{
+> +	struct omap_hdmi_audio_pdata *ha =3D pdev->dev.platform_data;
+> +
+> +	/*
+> +	 * hdmi4_unbind() holds audio lock across platform_device_unregister(),
+> +	 * so audio_hpd() cannot run concurrently with this callback.
+> +	 */
+> +	ha->audio_hpd =3D NULL;
+> +}
+> +
+>  static struct platform_driver hdmi_audio_driver =3D {
+>  	.driver =3D {
+>  		.name =3D DRV_NAME,
+>  	},
+>  	.probe =3D omap_hdmi_audio_probe,
+> +	.remove =3D omap_hdmi_audio_remove,
+
+[Severity: High]
+Could a user space sysfs unbind trigger a use-after-free here?
+
+If a user unbinds the omap-hdmi-audio driver via sysfs,
+omap_hdmi_audio_remove() locklessly clears ha->audio_hpd.
+
+Concurrently, if a physical hotplug event occurs:
+
+CPU1
+hdmi_audio_hpd_notify()
+    if (ha->audio_hpd)
+        ...gets preempted here...
+
+CPU2
+omap_hdmi_audio_remove()
+    ha->audio_hpd =3D NULL;
+    ...driver unbinds and frees 'ad' via devres...
+
+CPU1
+    ...resumes...
+    ha->audio_hpd(dev, ...) -> calls hdmi_audio_hpd()
+    dereferences freed 'ad'.
+
+Should this driver struct set .suppress_bind_attrs =3D true to prevent
+uncoordinated sysfs lifecycle events?
+
+>  };
+> =20
+>  module_platform_driver(hdmi_audio_driver);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819152755.2317=
+54-1-ivo.g.dimitrov.75@gmail.com?part=3D1
