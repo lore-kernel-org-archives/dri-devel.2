@@ -4,95 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D47FC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:56:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05085C5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 07:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E98DC10ED3D;
-	Wed, 19 Aug 2026 06:56:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F0D310E0DD;
+	Wed, 19 Aug 2026 07:07:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="IF4Z0oZ/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VGLM7/gg";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4D7310ED3E
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:56:05 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c15ba3a2b4bso82357466b.1
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:56:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1787122564; x=1787727364;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=3ISvHdVx5NNV/ZYzWt2FMv8YK9yLKQC7l7IY+HralrU=;
- b=IF4Z0oZ/G4BE0freMqqYGceykVfcYccS4Ka2mWBz4opk+3cD9qrYxUhfl7+B1S4mTK
- OKZq6InBtqDt9oGUChTyL6ODOK5CY5cGjryqGqAjjaMrEsElkqYCUGPuXDVTxMi1rrMT
- GfwAW8N2UR7boD5S4vaQOIZkoi61UOZpWBe8c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787122564; x=1787727364;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=3ISvHdVx5NNV/ZYzWt2FMv8YK9yLKQC7l7IY+HralrU=;
- b=PpPVNmqC8+aB7uyR4ThSING3bsM2/h7C3gvERDueqVZWLmjTJMoG4DVbnEzg3qMWRy
- suH9bs0WM1It9paJt5Nqj3OZDnx0U1YRgqk8Pzr/bPtsdSvh7ngneAV6CQzr4mH3Bj3z
- RxQt16DWzxu54fjqISQLiE7X2JgA+EgadeN79P20UdN6jcozLojexPu+uA1wzLiIXN+O
- YA48fgLK7bp/N9xmdbirIZJLxOQ6/TAE2mAGtYpBK1ASvC/Vr5gvrH9wF94AeiTpXp7i
- Qu5uykJtqo77EkGugCj23o/Mlz9bYofZyBEkKAlx90dTQzJp/F4vc0cQPqVne/a/lntw
- tZYg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq5DyrF34KVHG5ZZU9yl17+9/xKT1ZciRpXCr6y7igmuRukfN2aSK7pJriVVdQspMklv1/LWDHCgfM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyiUYbARHPyacNYVAF36kumUQZwYPZlnKQYrF5ifD49fjtdFo+S
- jApr4xc71EecGueWml4q0dgJL5vW45Pc4+agr57UU17LSYGgoiGVTVFlOGJtcQYX1OEo+egYHHE
- dVa9O/JU=
-X-Gm-Gg: AR+sD13CZ9roNiTle0yGxPuqeeCD70eEdjGPcR/YcPXfi/ZVHFZb/O4JWQG07k+Hkt+
- H874aA6flM8+BpBUO6CmB0gTZXamDFvT035aMrAdFhP4JPdasOk0RC0xRBQW5n3gYqbYdBcYEI3
- UNf8VDD/X3xPz/krdP0MD+3QFUflnSlgODG7kEUF8TFaX/zau+W0DJ0e2DDqAUHdV0wgbJ0fBKJ
- YJmRMAgk9BL5P8iedAdTjSyGASD5Tk7/8FQbTTf7vQi3lROA/LwUmmJOzJgz3FwcMiQyXZnFL6g
- CeKL0FFih7hcs4Qc5EL/VG39NKayaBLrHtnm33wewSAkI9PiZHK4FI7UNKXTnwp1YCt9kGX3+cp
- 9IdmBWFWmIVdyJWg5/Wd8tG3ZTv31rV59jwHFS/D0d4UuWuPWr7YYELxm9IV70H7x3oT0BlURk5
- Y+DjDAW0mpO+/3X3/uAvBKBgZ2wjCRbP8KsaVWJsHXSF6GinRe0RyK6URWM5a0POYP/dUyKCkRN
- nAgQfpik+2olD4ExI49gNtJF8SVCkE7GFUzaw==
-X-Received: by 2002:a17:906:ee89:b0:c21:2218:5c7b with SMTP id
- a640c23a62f3a-c23f9352b3emr121091966b.1.1787122563936; 
- Tue, 18 Aug 2026 23:56:03 -0700 (PDT)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com.
- [209.85.218.51]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c243c5a078bsm35646866b.36.2026.08.18.23.56.02
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Aug 2026 23:56:03 -0700 (PDT)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-c214321dc32so116308166b.0
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:56:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RrEhTHfmHs0HiNj0M7VnsVEKf4U/5LjaJvkyOKrRf2ceI2mmCCVG+TS7fsMjdcfQgtedNAkc/3qjMk=@lists.freedesktop.org
-X-Received: by 2002:a17:906:99cd:b0:c21:74ed:4608 with SMTP id
- a640c23a62f3a-c23f9750de3mr137322366b.10.1787122562579; Tue, 18 Aug 2026
- 23:56:02 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
- <6874536d-ab1a-4dd7-a23f-2a071bda145e@lankhorst.se>
- <CAHk-=wj5aE1yVMb8RM2AuNUHSMnQDaGT+Vy+At5ds1vxBA+Kng@mail.gmail.com>
- <ahDAErDSE-SFA0oM@intel.com>
- <CAHk-=whX59mtUnU2ayMWoDQX6Ee2NXLK2NxQ+dZnb-Qc_mF1hw@mail.gmail.com>
- <af9278d3-4002-4e09-9bcf-bc75d1cf8145@lankhorst.se>
- <CAADWXX-pfvA3mKWSjdahnihAXHQB2VP9BOJDCXonG3Q_nxurLg@mail.gmail.com>
- <anYZ8nUFP5dnRy/h@gsse-cloud1.jf.intel.com>
-In-Reply-To: <anYZ8nUFP5dnRy/h@gsse-cloud1.jf.intel.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 18 Aug 2026 23:55:46 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whyk2-u_1bTh5ZTeX6jW3HgAtjJh0mV_oWtgsqCe=3w7g@mail.gmail.com>
-X-Gm-Features: AcwNN1XoNlB6Jg88sFbQERhyg6-m7rz4jXRQR6ymPHvlXUqlK934fTgVD-Ok8_Y
-Message-ID: <CAHk-=whyk2-u_1bTh5ZTeX6jW3HgAtjJh0mV_oWtgsqCe=3w7g@mail.gmail.com>
-Subject: Re: drm: xe: Kernel-submitted job timed out
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Maarten Lankhorst <dev@lankhorst.se>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-xe@lists.freedesktop.org, 
- dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B22B810E0DD
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 07:07:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C212A601FB;
+ Wed, 19 Aug 2026 07:07:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0901F000E9;
+ Wed, 19 Aug 2026 07:07:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787123273;
+ bh=8Moz7vjmn5Bqbin1QniTOR4WC7OUjGtLgG+T3Vs7iSE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VGLM7/ggbUTZcdAB1+t6sgFE5UJORHrZzwRF6EfRVcnYElUDzAP7ZHaNsPtJADl7a
+ gaFMN6ddF0DVbhHKwo51NQ3CJBMw9mXm3x59oQIAEbsZQ6ImZstbVC0QavvDjQUmWj
+ zkgDglf4DhUGhYk/E5PNGX1badKMyBvMVjuhVvOiVMXMIqqUw9pK3lAb4L8YaFLhIV
+ 5CQ82jKREmA8o7vgxEgf7OJAfG4C7lQVHbH6k11u4iVBKJRBa+eSb2z9MSdnQmADf0
+ sFO4tLJRY6aunjQcM1cp9Xy2D7pSP6ookDTJwlYw+TXQjYdkUS0arx1vUaCgqnaYSU
+ IVDTfnSY+auqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/mediatek: Add missing IS_ERR check for ovl_adaptor
+ platform device
+To: "Haojie Li" <lihaojie@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260819065642.136222-1-lihaojie@kylinos.cn>
+References: <20260819065642.136222-1-lihaojie@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 07:07:52 +0000
+Message-Id: <20260819070753.5B0901F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,35 +53,160 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 7 Aug 2026 at 10:46, Matthew Brost <matthew.brost@intel.com> wrote:
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] The dynamically registered `ovl_adaptor` platform device is leaked=
+ on probe error paths and during device removal, causing duplicate device a=
+ccumulation.
+- [High] `platform_device_register_data()` is misused to create a shallow, =
+byte-for-byte clone of a `struct device` object.
+- [High] `mtk_drm_bind()` mistakenly drops the `private->mutex_node` refere=
+nce on `-EPROBE_DEFER`, causing an unbalanced put and potential use-after-f=
+ree.
+- [High] In `mtk_drm_of_ddp_path_build_one()`, if `mtk_drm_of_get_ddp_ep_ci=
+d()` fails early, it causes a double-put of the current device node in the =
+loop.
+- [Medium] In `mtk_drm_of_ddp_path_build_one()`, if the initial call to `mt=
+k_drm_of_get_ddp_ep_cid()` fails but sets `next`, the acquired device node =
+reference is leaked.
+--
+
+--- Patch [1]: [PATCH] drm/mediatek: Add missing IS_ERR check for ovl_adapt=
+or platform device ---
+commit 6317e1a251b60c3bf25295a5bff30bc7683eb97b
+Author: Haojie Li <lihaojie@kylinos.cn>
+
+drm/mediatek: Add missing IS_ERR check for ovl_adaptor platform device
+
+This commit adds an IS_ERR() check after platform_device_register_data() in
+mtk_drm_probe() to prevent a potential kernel crash due to an invalid point=
+er
+dereference on error.
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_drv.c
+> index c86a3f54f35bc..667d7fdbfbac6 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -1112,6 +1112,10 @@ static int mtk_drm_probe(struct platform_device *p=
+dev)
+>  							    PLATFORM_DEVID_AUTO,
+>  							    (void *)private->mmsys_dev,
+>  							    sizeof(*private->mmsys_dev));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to pass
+(void *)private->mmsys_dev and sizeof(*private->mmsys_dev) as the platform
+data?
+
+platform_device_register_data() kmemdups the provided memory into the new
+device's platform_data.=20
+
+Copying the entire struct device object (including its kobject, mutexes,
+and list heads) byte-for-byte might lead to subsystem operations running on
+cloned and broken locks or kobjects when used by the OVL adaptor driver.
+
+> +		if (IS_ERR(ovl_adaptor)) {
+> +			ret =3D PTR_ERR(ovl_adaptor);
+> +			goto err_node;
+> +		}
+
+[Severity: High]
+This is a pre-existing issue, but is the dynamically registered ovl_adaptor
+platform device leaked on probe error paths and during device removal?
+
+If probe fails later (for example, returning -EPROBE_DEFER) and jumps to
+err_node, or when mtk_drm_remove() is called, it doesn't look like
+platform_device_unregister() is ever called.
+
+This could leave orphaned devices accumulating on the platform bus.
+
+>  		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev =3D &ovl_adaptor-=
+>dev;
+>  		mtk_ddp_comp_init(dev, NULL, &private->ddp_comp[DDP_COMPONENT_DRM_OVL_=
+ADAPTOR],
+>  				  DDP_COMPONENT_DRM_OVL_ADAPTOR);
+
+[ ... ]
+
+> static int mtk_drm_bind(struct device *dev)
+> {
+>       ...
+>		of_node_put(private->mutex_node);
+>		return -EPROBE_DEFER;
+>       ...
+> }
+
+[Severity: High]
+This is a pre-existing issue, but does mtk_drm_bind() mistakenly drop the
+private->mutex_node reference on -EPROBE_DEFER?
+
+If it drops the reference here when the disp-mutex device is delayed, and t=
+he
+driver is later unbound, mtk_drm_remove() will call of_node_put() again on
+the same node pointer.
+
+Could this cause an unbalanced put and potential use-after-free?
+
+[ ... ]
+
+> static int mtk_drm_of_ddp_path_build_one(...)
+> {
+>       ...
+> 	ret =3D mtk_drm_of_get_ddp_ep_cid(vdo, 0, cpath, &next, &temp_path[idx]);
+> 	if (ret) {
+> 		if (next && temp_path[idx] =3D=3D DDP_COMPONENT_DRM_OVL_ADAPTOR) {
+> 			...
+> 		} else {
+> 			if (next)
+> 				dev_err(dev, "Invalid component %pOF\n", next);
+> 			else
+> 				dev_err(dev, "Cannot find first endpoint for path %d\n", cpath);
 >
-> I think we may have found one. I haven't been able to reproduce any
-> kernel job timeouts on drm-tip with this patch applied [1].
->
-> If you're still seeing the issue on your end, it's probably worth
-> pulling it in.
->
-> Hopefully this fix will make it into your tree soon enough too.
+> 			return ret;
+> 		}
+> 	}
 
-Well, that Xe fix made it into my tree as commit 9f83c94469ff
-("drm/xe: Order ring writes before ring tail updates"), but it turns
-out that now I can generate those drm job timedout issues at will.
+[Severity: Medium]
+This is a pre-existing issue, but does this initial error path leak the
+acquired device node reference?
 
-[  +1.222075] xe 0000:4b:00.0: [drm] Tile0: GT0: Engine reset:
-engine_class=rcs, logical_mask: 0x1, guc_id=12, state=0x3
-[  +0.000041] xe 0000:4b:00.0: [drm] Tile0: GT0: Timedout job:
-seqno=4294967171, lrc_seqno=4294967171, guc_id=12, flags=0x0 in
-systemd-logind [2068]
-[  +0.048338] xe 0000:4b:00.0: [drm] Xe device coredump has been created
-[  +0.000001] xe 0000:4b:00.0: [drm] Check your
-/sys/class/drm/card0/device/devcoredump/data
+If mtk_drm_of_get_ddp_ep_cid() fails but still sets next, the code logs an
+error and returns ret directly.
 
-But at least this time I have ssh into the machine, so now I have that
-devcoredump data file.
+It doesn't appear to call of_node_put(next) before returning, which would
+leave the reference dangling.
 
-I will send that separately off-list, because  it's 2.4MB in size.
+[ ... ]
 
-                Linus
+> 	do {
+> 		prev =3D next;
+> 		ret =3D mtk_drm_of_get_ddp_ep_cid(next, 1, cpath, &next, &temp_path[idx=
+]);
+> 		of_node_put(prev);
+> 		if (ret) {
+> 			of_node_put(next);
+> 			break;
+> 		}
+
+[Severity: High]
+This is a pre-existing issue, but can this error path trigger a double-put =
+of
+the device node?
+
+If mtk_drm_of_get_ddp_ep_cid() fails early (for example, returning -ENOENT)
+without updating the next pointer, next will still point to prev.
+
+The loop calls of_node_put(prev), and since ret is non-zero, it also
+calls of_node_put(next). This would decrement the refcount of the same node
+twice.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819065642.1362=
+22-1-lihaojie@kylinos.cn?part=3D1
