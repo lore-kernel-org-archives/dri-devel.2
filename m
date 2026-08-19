@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0EDDC5DF88
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:10:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD483C5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:10:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D86610EDD1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DABB910EDC8;
 	Wed, 19 Aug 2026 11:10:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="fYWqReeR";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="mOS0s9zg";
 	dkim-atps=neutral
 Received: from CWXP265CU009.outbound.protection.outlook.com
  (mail-ukwestazon11021085.outbound.protection.outlook.com [52.101.100.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98D8410E700
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:10:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E4C510E700
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:10:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NP1E7TfAwlzltwq2YT805db/y5NXRHqHhgvgSwcOlZ7HUsMMSC9vHEpEFkYOIZ152hRN2oYvIz/J0gqINd6yvNdr4JuDlNB2d0mwcq3iKJiIk/GdQRYPe+2P5BAHJb0gdTJ5z/BvG3jXrdS+w6HjG69u49nCoFtcytKh5GoVfoLc9Xi9PFFlYgG9Q2jHdPeU1nAZSB/9nKe0RDIBbO0AeJciXiRkGuxCPRwPcNSHkLAlf45P1QKnqPhWfMqy1/0omIa3WUu56uoWbVWEGizymGfmqUrLT3yyBUiVp9fpa3EI6VMy/0JtrwFzhYfjz5QXr4wb2rJOMLMqcSdAjJC4Gg==
+ b=ezdNpazFIycmiEREHutKaEWYbVjlfIOV2Qw4uV6HkjRvgMibVImvkeIhoL0Z5yCioF3tmvnfp65yLrAxv024KKCJ7akN/V39f2wtHft3K5F90AVrNQ5yVOwkMVhqCH2Thw2fBTFKyVJAfu8wczTVBETBhQThQOmmrmqUVi/SDTQlb1EcfXnY5wOqmSFFzbFbmXmKtRtbGmw7K6X/7POgxKrgcFEKYeoaQYg+ajPEQZOlBkyAd5eZDOYQvbeCqn2CcmRztJ0U2d77KSAPdUZTNFEvWrt3fJYv94cPJVmkq1PTuEAWe8LB/7k/BA8EGjcU/uxK/zDPH7Ez3w85P+Nmmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=463CuS4BsuRP5CzzIs1yPaKtoEzbEnCCAdL7KAGQ4l4=;
- b=LtV4xr2Ou0QhzWIrT3tZ3BV/GdQSYlrkX2wlOihnbUmWNwyQBwxVHVWGaeqc2/ZUKgKgh3eedpUlpJpJjekv5Ar/9rQCY5VDCk6eULavJLvytWaHoVViRAQvwou4mc0PgvrDnm0poQg5gO9Wllo5+J9ffQMZTbXEXqKGIBVytF0pq4PVMkd6oFjtLqaPcOEDZ6Y8gSzqHOY58YevzxiHgs480p6MH+m3tZPlfM7WKgeKxZUZNYa+74Q9B/GcrSG4xuez/z4wfGplUYw2yUS4dlSmSpJ/X4URkarCRihJr9xszF/kmlmlZ1ZWJQ07AyNSS2gHS2hJLNa332QlPYgNqg==
+ bh=pedHMMSfiAL+Q+nqp507G/ko3vcUafCgveq9BKAgleg=;
+ b=W0AP1RJX2hLV5R4zw4AGZn4twVVwpWF+88PML0K2n96PgaKQNHBcC9f+5ZpC9qxw+CZ/EaFbxKWYOKgz/DP0Gu36ttWUug6Xrk7PvgSKSrF0tCArPLFQ3Uwjlklxm2d/C3oQwktEjUfRSJKJEJYbUM9uCwyZBh1CQEPdXcJTyDaFOYTH+883POhN7ZnJJgCS2YlYH9ctx7KqWA39ywK0Nmk/HlA6CM9XHaa5EDuDMB0E9iJrpxkLSnGY4JwZGvyictmz6c0oordHXZlWC0mbUfZSOsPtJJ6K20dPF4HFLkP1wWgWPZpauHCLrQm12XEXlKwrpom1/TmmmqcXQatAzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=463CuS4BsuRP5CzzIs1yPaKtoEzbEnCCAdL7KAGQ4l4=;
- b=fYWqReeRiiFIxC44xBZWliQYszpouDV0FS0mYvAO9B7j1fVtnNYbrVd11NKofKnvBwmfJvc4/pwhcECxmzvLthwpF2peGE/8Eo/7KjORmh4/rNQz1ozF1YLV1F8q2nWT9zBFIVUkOP1Y3Cl3iRPvhfjnzaflnql92ZBAhUZbhmY=
+ bh=pedHMMSfiAL+Q+nqp507G/ko3vcUafCgveq9BKAgleg=;
+ b=mOS0s9zgPEKeyDgb+yicPQeftx+PDgeitbLpnwDqAQvGiSlk6zQ+lOii6L3RYjtPSmbeMHRMgOE9TBPtDVMDprIbSobcS4jzLHX1lFlERCtTtHvBro8Zolm2vCuPJSGcqoNk+v3WnbUyF0waMTdCjIe09yypEoPm9EjH83PwLzk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
  by LO0P265MB5167.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:283::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 11:10:15 +0000
+ 2026 11:10:17 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 11:10:15 +0000
+ 11:10:17 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Wed, 19 Aug 2026 12:09:09 +0100
-Subject: [PATCH v3 01/16] rust: io: register: reimplement as proc macro
+Date: Wed, 19 Aug 2026 12:09:12 +0100
+Subject: [PATCH v3 04/16] rust: io: perform conversions using `AsRepr`
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260819-typed_register-v3-1-3699a75fadf1@garyguo.net>
+Message-Id: <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
 References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
 In-Reply-To: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -66,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137814; l=21187;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137814; l=18533;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=P0E4tPfO7qfgNF+lFWa94pAJ03QSSk+2txS9i3ApG/4=;
- b=m22lD9YsvllFChFefUAUzSSrMb4NUAlRnvEqfw1xt5ZT+aMT4XaTT6Su2xYaKYXkZySf6TNgY
- eOYcwO6pIFADAxYnpB6905nNtu/PqtG6B2z517V8pbh9kVJVlpWiTSp
+ bh=mVBAgfzt49nYUC9KtvB97HmFPe/wUfHuf4347t39LVI=;
+ b=FbpHfRxaPe6LALKq/vfg5gH65KpjhrqK7paO5jdo0QnE/b6ubQf2gvTNdRGvgKhr5ubOUktv+
+ cEz9qcLiiWmDaMMjoGcAXhmRlfM5J1kI8u33OsFNjyZ7R6dBEuqemg9
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0096.GBRP123.PROD.OUTLOOK.COM
@@ -79,65 +79,65 @@ X-ClientProxiedBy: LO4P123CA0096.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB5167:EE_
-X-MS-Office365-Filtering-Correlation-Id: e31e1659-68f5-4c60-a3ad-08defde27232
+X-MS-Office365-Filtering-Correlation-Id: 5f43b373-375c-47f4-cf4c-08defde2735e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|23010399003|376014|7416014|366016|22082099003|18002099003|921020|10067099003|5023799004|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info: GtODGBtj0sgmbW36595CqVe12r9S/VrT2yw/mB/RXQO8lUxPAtDwI4SxrFd4hK3SaOIqCFdx47Im4YaJb71MH8NqjnWOPWiHZMkBGE3OC+dL/1melbQTR8gVbnMqzWAtab5XdhJa9qbkeHNo26PqaQCf2cgpkuQP7kFFNnvapuDUCPHL0iop1fXnkrVHn9usgm7equIEFjiPXaxU6lNGpQK07ULdWgwy5GauL6GiZ3qDZ/sLSm9gyUAlKGRvN8Rt70onO7uX3rmNqs6DnqxdAc74I4cZHqVnCd4jurCsd+XpfQxd53MoxngipgqtyiQbK9HQZslaBxhptuBqO9DaBUMCLOYxjl04NmUfRkpp1RVkSRokcAVwMNdOyARQ5K75ep5h4e+MVDBCkVMYuHZ3X0PUvrcM3TXhmQFOKbvseBr9ktDkfg3COh8caDvwiz9hcWqsQ4jVNrdjBGCckfrWm9rXBDP52zF5DzniBHNsYclJvYREx5y4OK91sDFA9vpTYCc6ETD9QJIc4EZLbu9J13nAyKEm95PYBn0U9CkREsl2vj7t46zg0nsPGP83Y7kHIxJis5kH3h+LtH0z/hmnSR2dumhTX6tkKn5uyZjgPQSDNGEqFApv9AmGUNxqT0HUWYGY+4wYZU2OXvHEwq5uPSQJ9rLrK0y48Wl7RLn4d3Cn+1hYV1aLfk+o7J1MBsaZ2a0k3Nrm/j+4uuIevIGFTg==
+ ARA:13230040|10070799003|1800799024|23010399003|376014|7416014|366016|22082099003|18002099003|921020|10067099003|5023799004|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: DOX7tVBo5L/hTI04qJ3F5zcD/1lbiMFEaWuAlmrt6Dlg94UEdfkpw4U34BukX7W5R3Zfv1m5LDVLpAhjlLowZTOEJaACE772DGLANbGIZG8mhC6exSXb+Ii4p0awAL38qWvz2r/z9rfvy7ZJLPv9ZGOOgg8HosKhZwo+gTbVzKx0oOW0rxApW1TuMClblfYb+EVjYSQEAbUdpcFyJAbkx1CLooig9uDQgtfSCyHZSAk2AoqUofnjMSepyPQdW0iAXCSgUQBuR5fx5oslVV5/UyZB0Cjjzzi272cFj+ajCl83qbOylbbAdkayFNRHZxD0qkmxcxzTopK2R6VXixAE9OvO2+i6ri51qd7KRxUz1cKIUayJyt1AF3IYzuqCI1gbXaVVO83jnDxB2fpvumdf7RAaY5jbMPBjnHZtpr9Wqg4dEnzqiPCj4pUHGw+GJ1PdIfB+oeclCFmhDbeJbC9iqchGhMxyv5JWjP/K5Nae/lXE82TtIFZjb32OKm9Iikz4n0+0duMQMdZXqZJHjuC4SrpgEwMZqmNRV3TRB9MohlqnHEkT2Wsr627FhEqNjpcrC1jVVdNQ4YzeeznLcT5gy91/dI2gS8IKtTK7j8rb1RqWOetRrQXCUR8Si8GTwunp6UR2rO5AJ0NMOyb4cW+xkWiuWGMYLeX9g0RmE7Qx/CLl7u4WLUInTqH7PYqAmyZ8Ov6FFM/stq1XK4Ry5eeMLA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(921020)(10067099003)(5023799004)(56012099006)(3023799007);
+ SFS:(13230040)(10070799003)(1800799024)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(921020)(10067099003)(5023799004)(56012099006)(6133799003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2lvYkNrVXBqU1EyZUpNUi9OKzhkUFlsNHVCQTBtTWVwOXBuN0lPNVZQQjB1?=
- =?utf-8?B?ZWVRdGEweDlxQmM3OXhVQURDa25xT2FIYlFsN2VjRGU1T3BqZWtkZTJlZHNa?=
- =?utf-8?B?aVc4VXVKVy9VVXQ0NzEycW56NHdvYkxyMUxkOGJ4blp4S05aY3NMaVlwdnds?=
- =?utf-8?B?aHFwZVVNSlF1WkRaSmJaSXhUTThIMlZuUGdvQVR2TnY3OUM0c2tnR0h5UUlt?=
- =?utf-8?B?a25aUlk4RDBiNGt4TWRFcExybFZzYmxZWC9uSS9HUU4rNzZ1Qk9pZEdZa2FN?=
- =?utf-8?B?UFFnUEtXSHUyT2xkZnJrUHNuUEk2SzJzbTNZZE42RGhhd2FYdnhHTFJFdHlQ?=
- =?utf-8?B?K3o5VDROK2FoS3FtSDk4d2hyZnk5WFJhdlY2V1FPM2JYaDVaQi8xekdtc1kx?=
- =?utf-8?B?RXNBb2ZLL09hUTBZNS95VWJxMUlFZ3BCNzF0YUpVeCtuemdtWTBZRHNqYWxh?=
- =?utf-8?B?clE2d3BleXFsb2ozY2NhamxpMFFRMUx0OHdDV3NwUlhpZlVjcFZicTF3YjRS?=
- =?utf-8?B?QWFSbFFuNEROOXBoVU93S1NhckhYdkYyRVdZUlFXWVh2anQ1dmtpeFlmaHB5?=
- =?utf-8?B?WVJYT21laWhna0Y3TmlxNERrMUJnK3JVekM3T3QwbjFmSXJMQUM3K01IcHY4?=
- =?utf-8?B?Y3ZBSDlyWGdiL0FyTTE0eFpFeGw4VTBZVHJHOWUwZFB2T3BkOEd5dENIWERU?=
- =?utf-8?B?RnRxN2EwRGtKYzd0MFkrSzROZVBJcUsvelladk9Dd0FTbnVxcWJRSCtkWmIw?=
- =?utf-8?B?MmhlZDhNMEp0SnAxTGFmMSt1WHlwa0lEeDVGK2hORTZPUTFJaDBxYnNxamhO?=
- =?utf-8?B?cE52enJwZmpmWEM1OHlVcVBGYTFjVFFQN1MreVBma1RFZk5GWk9XZUp1dUo1?=
- =?utf-8?B?OGpKMGVxNThuQldtcDlITDNIZTkxSTlnaXJtUUFvLzhjcmthZDc3OVFlMVZi?=
- =?utf-8?B?OEcrMGJuSWtOZW1BeTgrYUpnVnZLNFp0QkZZQWFBMGJNS2ZLemNjNzZveksr?=
- =?utf-8?B?UVVPTDdib0NjbWNBR0UvMUlhRTdITHo3NDJwRVJpMzhwVHlYbkdmUEh5Zis2?=
- =?utf-8?B?dXNLMHBLMVZVd0k5cG0xUDlSQndvRHRQQ0NLY1cwdGNXMURIdzUyTmcwSEZZ?=
- =?utf-8?B?bGJFL0VxRUhvRllsL1o4L0JGRGV6WjFydThSN0xaYXNwdzl6WUViNUhITVo4?=
- =?utf-8?B?RWJ3WDQ2QkJXQ1k5WkpmZUVDMTJDdFlLOHhwUUdrdSs4U1hxZXp5aTNqRXVh?=
- =?utf-8?B?bGJOTU1WTkhuUkwvN205Rk05VytDUzZVanRpV1A0M21ubTZQVUY4K2lnenZ0?=
- =?utf-8?B?dUdMMDdFSkdqM3gxb2pWWmczVmRIYjE1elRNMmpGRnM5Vk8vUVFUU3VESUt4?=
- =?utf-8?B?aGpyV3M0TVBlUzNCS2J1K3pNRmd4akYvYkMrK1dJWUI2cmd6OFJ4OTQwbXZ1?=
- =?utf-8?B?Z0dtN1JaQTJLSEpJQ2dlelZQek4rOEhjYUtTakNlWFVZR1pRWGhUNll0UytH?=
- =?utf-8?B?WEtHUWgvMDgxbTByd3BEeWZZZ1l2V0hHK1hIcFFnbjVWSnFXRTFrRnFSYzR5?=
- =?utf-8?B?eGtPaE5BMDg2YjBSZVl0ZWRNVXVRNXlaR2N1NWd4QW0vK3gwSmZ5dXBxdXVx?=
- =?utf-8?B?RVZScWRNZ0VxL20yeDlFNFZ5ZmJ5dVVXWjFaNld4MHB1UEJaMUhTN0tiaXpN?=
- =?utf-8?B?QjRqaCtHbmM1RUsvM1RiSVp3OXZ6V1NtMmJWTHhVQit2bFVKcTNwSDAvN0ow?=
- =?utf-8?B?d21XMDdmUzNFU3dVTmlFRFd6WU50TEI3UjhnOFd0Z3NlZFFuT2dBY29kUGJi?=
- =?utf-8?B?bG1ZMDl5T0Uza3AydmFCVTFpaENwOGRCUkNZWWNhL01teXFhVkJEMUNtV0JU?=
- =?utf-8?B?TVVNeWcxMlZURlVUWFRjb205V0RJR2dmbGpubnlWUzBKK0F1bGNzZ1hDYVNi?=
- =?utf-8?B?R2NFVGovTXNqQ3RBQW92OEdSVnM3V0oycUFqcEJncSsrSURKbStvR0dCTDU0?=
- =?utf-8?B?Y2VOM205aXBOc0NLb29LUnJEWnhtV0RYZXU5TFA4RVVYYkRheXo2dUVBRk95?=
- =?utf-8?B?cW1qUU5lRXVkN2dka2Z0VE91WDZQNWh2NDRyUXBGUWdML3pDTm5ZUEROeFN1?=
- =?utf-8?B?emQrdldHQXgzTmFkY1pKTkZmOHVROFo5VGlMRHF2V05LNEJXaDFGRDdEc2Ux?=
- =?utf-8?B?MWNYcFljUmlURndqNWJoVkdtWHBYZ3o5bnN5dmlwU01vWE9qa1JwQTBYRTNY?=
- =?utf-8?B?S3lSMzUvbVAxcG9XbU1QQ3JmdUo4OTJKK3BYRXN2K0xnN1RXeFpRV0UwL1Vi?=
- =?utf-8?B?REl0U2UxYWpMMnVBZVdFRGNuMWdnczJtN1d0QWNLYXgwYTVoTmwzUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0Nnby9oQmhrMHJSQXJCelpnSmRQdk9RMStCUC9FQ3ZBejZUSmt2bXFpNUxz?=
+ =?utf-8?B?WmZVT2k1Q0RCM08xbEExd210NGdNdW5wUWV6ZXZLRHBsWUJJT0VhY2tsZTdK?=
+ =?utf-8?B?bk0wZ3kvbUVqejZrakt1TVprbXZ1aGU2RWJqTTdKbkxRcmRTRy9yR0FCeE11?=
+ =?utf-8?B?alppbkN3c1lIR2dVdUM4UDBwUWU2ZDlLdklPZlRXV3dEVlhSM05KOWx1Y21p?=
+ =?utf-8?B?NnJDakh5NmJianU4K0Q2VlZzdnJNMk9WK1J5WFhRVVFydy8vcWovbXBKVzVW?=
+ =?utf-8?B?RmpjREpsRDdwUjE1WldCYUVadEoxSGJXVnRlbS9hbUhwcDJRaUlOenc0TTZU?=
+ =?utf-8?B?QkNVT3dmT2dFTnljRTBDNVphNUFINUZvZVNFTTlNSU5NRjQvWloyYU5TT3M4?=
+ =?utf-8?B?Qmh1bVJqbE0xZ0xPS3FlTUFDZkEwK245UDJIWWRHalF6Vk1jYXlLVXNvWVNK?=
+ =?utf-8?B?QWhZdVEyd3NHZlVDaTdxQjlvYU5hQ1ZBdWI4cUFNRExic0pJQ2xyTW1rRmFw?=
+ =?utf-8?B?WGJDaWR2RGczbWxsSjhhY3BCa0c4RjM5TDgyMGZTRUZXb1Y0ZUcyWmhHM2Fh?=
+ =?utf-8?B?TnQ2NERxMHdZU2tRbFFmbVRKZFczQlVHWUlDYjE5K2JNeHBsTC95MnJVaHd4?=
+ =?utf-8?B?a0wxblpvNHVSa2JiWW54dGNwTjM2YTB5UWxJRzlJS3BuU0JwazR6TzdJaHFs?=
+ =?utf-8?B?NjBhT001bmJ1a013UHNtcUVsTlBMdytMczdRODAxMXVia0I0ZytQYW95K04w?=
+ =?utf-8?B?Qm1jYmxmaEU5aHhnd1JNU2lqQ1B6VS9VM2RTWDA2SDlSbUxYd2JFdDdONVZQ?=
+ =?utf-8?B?MW9ielhrOFlEL1pudDRNQWxPNlB4MzRLZThvY3ZaQncrTU1VVlJjTmxDVVJF?=
+ =?utf-8?B?eFJKb3J2WE0raTJyOFp4NUFGUGl1aUJIUkFJSm5FeDVncHBQR3JmR1ZCUTA0?=
+ =?utf-8?B?U0RBdlU3Y2hydWdsQ0tRMUMrUTZwYjArNFNsRGxab0lyQzNJek5yUVZrTUhN?=
+ =?utf-8?B?bnZmcEhqUGRqR3hqVEpaTEpneU95b3dMeGxFclVlRmZUT1MvSW90VjRqT0Jk?=
+ =?utf-8?B?aW9FTWtMR2NYNmNma2N6eXk1NzJCSVdac3ZjekQwbHNvV2NndXVxb2FXODFQ?=
+ =?utf-8?B?VHhTMnhIRFZSVm5Tem9tSzdpLzM1RDVUei9hUnpCMXE5N015UklxcFJNSjZi?=
+ =?utf-8?B?dm9yR0hJenFMaHV0L3E4QUtMUGQwOStmUlRUNW94MmZBQ1c2QjRKZW9Cblcr?=
+ =?utf-8?B?TlYva0ptd014bnlNdm9pZFpUWC95eTJlRXBKYzVFZjZVb3ltWlBSZEpSd1By?=
+ =?utf-8?B?aDlTRjNja0VNVnBaYTdOSW5sb3dnVVhMN1R4OVpYVUFJdEM5K1U2STk1WmlS?=
+ =?utf-8?B?NzlXbSt5cVp2U0JCRVdseDI1dTJkQ0liNkwyUXFYb3ArL1VOdFI5OUI3MU5r?=
+ =?utf-8?B?ZjB1OFdQRWFTYWRCZlJ5UWJxNFNNZEEvYWF3R1NvMXY5UGgrRGdobytHZnRa?=
+ =?utf-8?B?RHVJdFVMK1lXcHVydmpVSG5vVWo3cEE2RzNIUlpIYTdnOE9kU2tLcDhTbng3?=
+ =?utf-8?B?WkU5KytCalU0R1V1TlljODY2Sm95VDFIT3VNbUhzdVpIV3NnZXQ1SS83R0Rp?=
+ =?utf-8?B?ZWplcGxyVUh4WGs1SWEyOEh0ME9rd1RIdTgzMm9QTGxoN2N0UGhiZ1BFTk1X?=
+ =?utf-8?B?WVU0QjVjbkZzaUxrZ2VJb0VJM0hxY3d5MlIwOVFLQmRZbEUrVFhLWlBIM3Nx?=
+ =?utf-8?B?M1dvaGRaVWVQVE1XNFl1ZTM5Rzh5b1Rwb0pjVzlBdjFkUE0vQUpHeDRXaHF5?=
+ =?utf-8?B?YmJaa0JBakZaUVl2OTFOOVZkZVFaR0VaRDBBQkNsb0ZpcVorSGVmR3N6ekkw?=
+ =?utf-8?B?aXZtSmVDZ3NUelVJdHhnMFpTcTVBdFJhajd4NWlzMVhlcExXdkNoSWlQNnRm?=
+ =?utf-8?B?cFdiT3RWZWwwbjI5TVhVT0lETXVaTDZnTnljdnVLTFYxbEtzZWlDSWJiY29i?=
+ =?utf-8?B?azl1WDhzRGVyeDIvMFB1R0cvYllEUVFkeGI3L3l3ek1JazdXdDE2MndIQ1Nu?=
+ =?utf-8?B?MHBlRW1jZHFRbkxMVFRSb0hCdDhXSUhWcmoraTJKNDNQTnM2Q2RRNlBENktI?=
+ =?utf-8?B?dlN3YXVMbUpRdzNZa0tNdUtVM1RSdWlwK3dWUkgwRm9WazVoTWNzWDQ3MlFV?=
+ =?utf-8?B?b0k2SDJUenhzUy9ub09SOTVteWF2b0JCajgvclUwdmR1c0w1L3pKQ1VaSXpL?=
+ =?utf-8?B?cjFTVlFsTnRrT0NxUStmaExDd3lvZmxQMzJ4bUN6M2ZPM21ZdUh3cldkdVpC?=
+ =?utf-8?B?eHNMcndCenNxdzUyMFNyM2Qwbi9GY3cxSzhTSElXdVVOMmFadjU3dz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: e31e1659-68f5-4c60-a3ad-08defde27232
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f43b373-375c-47f4-cf4c-08defde2735e
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:10:15.4599 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:10:17.4311 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TWNk4xlVE01CzGEfLDi9Ry+rfoq198Za8kzRLWPExOVnrmJQELF6qS6kicX+YjxfcQW7Mo0j4ioeghDRaMohKw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: LarXTmWVsCNKEW2zXsukKtOL55EX+ouBBzGN4L3PmSybaUsbd7k73EJDYtsCFMQMQe93Fc/7qLVfIgG+ZYm69A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5167
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,609 +154,513 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The existing `register!` macro is implemented as a declarative macro.
-Reimplement it as proc macro instead, with no functional changes intended.
+For types that are layout-compatible with an I/O capable type, we would
+want the ability to use them directly for I/O operations. E.g.
 
-The old implementation produces unhelpful diagnostics when things go wrong.
-For example, for code like
-
-    register! {
-        pub(crate) TESTREG(u32) {
-            31:0    data;
+    bitfield! {
+        pub struct Foo(u32) {
+            ...
         }
     }
 
-which misses out the "@ offset" part of the specification, and the
-following error is produced:
+    #[repr(C)]
+    struct Bar {
+        foo: Foo,
+    }
 
-error: no rules expected `{`
-   --> test.rs:42:5
-    |
- 42 | /     register! {
- 43 | |         pub(crate) TESTREG(u32) {
- 44 | |             31:0    data;
-...   |
-100 | |     }
-    | |_____^ no rules expected this token in macro call
+    let mmio: Mmio<'_, Bar> = ...;
+    io_read!(mmio, .foo)
 
-which isn't very helpful. With the proc macro implementation, the following
-error is produced:
+Currently this feature is available from `register!()` macro but not
+otherwise available with `io_read!`, `io_write!`. Support this by
+performing conversions to I/O primitives via the `AsRepr`/`AsReprMut`
+trait.
 
-error: expected `@` or `=>`
-  --> tests.rs:43:33
-   |
-43 |         pub(crate) TESTREG(u32) {
-   |                                 ^
-
-which is much more helpful. Apart from diagnostics, proc macro also has a
-benefit of not having follow-set restrictions, which makes syntax like
-
-    register!(name: ty @ offset);
-
-possible; declarative macro will reject this as `@` is not in the
-follow-set of "ty" metavariable kind.
+This makes the `IoLoc::IoType` and `Register::Storage` redundant; thus
+remove them; also convert register methods to use the `read_val` and
+`write_val` instead.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- MAINTAINERS                |   1 +
- rust/kernel/io/register.rs | 224 +-------------------------------------
- rust/macros/io/mod.rs      |   3 +
- rust/macros/io/register.rs | 263 +++++++++++++++++++++++++++++++++++++++++++++
- rust/macros/lib.rs         |  10 ++
- 5 files changed, 279 insertions(+), 222 deletions(-)
+ rust/kernel/bitfield.rs    |  10 ++++
+ rust/kernel/io.rs          | 135 +++++++++++++++++++++++++--------------------
+ rust/kernel/io/register.rs |  15 -----
+ rust/macros/io/register.rs |   2 -
+ 4 files changed, 86 insertions(+), 76 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 637bdf68135e..c9f11fa9f2b2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7486,6 +7486,7 @@ F:	rust/kernel/io.rs
- F:	rust/kernel/io/
- F:	rust/kernel/irq.rs
- F:	rust/kernel/irq/
-+F:	rust/macros/io/
+diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
+index a0d089423f21..619c5e2189d1 100644
+--- a/rust/kernel/bitfield.rs
++++ b/rust/kernel/bitfield.rs
+@@ -308,6 +308,7 @@ macro_rules! bitfield {
+         $(#[$attr])*
+         #[repr(transparent)]
+         #[derive(Clone, Copy, PartialEq, Eq)]
++        #[derive($crate::prelude::FromBytes, $crate::prelude::IntoBytes)]
+         $vis struct $name {
+             inner: $storage,
+         }
+@@ -346,6 +347,15 @@ fn from(val: $storage) -> $name {
+                 Self::from_raw(val)
+             }
+         }
++
++        // SAFETY: `$name` is transparent over `$storage`.
++        unsafe impl $crate::mem::AsRepr for $name {
++            // Normalize `$storage` to the canonical repr type in case it is signed.
++            type Repr = <$storage as $crate::mem::AsRepr>::Repr;
++        }
++
++        // SAFETY: `$name` is transparent over `$storage`.
++        unsafe impl $crate::mem::AsReprMut for $name {}
+     };
  
- DEVICE RESOURCE MANAGEMENT HELPERS
- M:	Hans de Goede <hansg@kernel.org>
+     // Definitions requiring knowledge of individual fields: private and public field accessors,
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index 5ce9fd129068..6c087d30a166 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -11,6 +11,10 @@
+ 
+ use crate::{
+     bindings,
++    mem::{
++        AsRepr,
++        AsReprMut, //
++    },
+     prelude::*,
+     ptr::{
+         Alignment,
+@@ -353,15 +357,12 @@ fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
+ ///
+ /// - The valid `Base` to operate on. For most registers, this should be [`Region`].
+ /// - The offset to access (returned by [`IoLoc::offset`]),
+-/// - The width of the access (determined by [`IoLoc::IoType`]),
+-/// - The type `T` in which the raw data is returned or provided.
++/// - The type `T` in which the data is returned or provided.
+ ///
+-/// `T` and `IoLoc::IoType` may differ: for instance, a typed register has `T` = the register type
+-/// with its bitfields, and `IoType` = its backing primitive (e.g. `u32`).
++/// `T` is not necessarily the type for underlying I/O operation. Methods that take `IoLoc` have `T:
++/// AsRepr` bound and the `<T as AsRepr>::Repr` type would be used to perform I/O and converted to
++/// `T` instead.
+ pub trait IoLoc<Base: ?Sized, T> {
+-    /// Size ([`u8`], [`u16`], etc) of the I/O performed on the returned [`offset`](IoLoc::offset).
+-    type IoType: Into<T> + From<T>;
+-
+     /// Consumes `self` and returns the offset of this location.
+     fn offset(self) -> usize;
+ }
+@@ -372,8 +373,6 @@ macro_rules! impl_usize_ioloc {
+     ($($ty:ty),*) => {
+         $(
+             impl<const SIZE: usize> IoLoc<Region<SIZE>, $ty> for usize {
+-                type IoType = $ty;
+-
+                 #[inline(always)]
+                 fn offset(self) -> usize {
+                     self
+@@ -498,10 +497,19 @@ fn try_cast<U>(self) -> Result<<Self::Backend as IoBackend>::View<'a, U>>
+     #[inline]
+     fn read_val(self) -> Self::Target
+     where
+-        Self::Backend: IoCapable<Self::Target>,
+-        Self::Target: Sized,
++        Self::Target: AsReprMut,
++        Self::Backend: IoCapable<<Self::Target as AsRepr>::Repr>,
+     {
+-        Self::Backend::io_read(self.as_view())
++        let view = self.as_view();
++        // SAFETY: `AsRepr` guarantees layout compatibility.
++        let repr_view = unsafe {
++            Self::Backend::project_view(
++                view,
++                Self::Backend::as_ptr(view).cast::<<Self::Target as AsRepr>::Repr>(),
++            )
++        };
++
++        Self::Target::from_repr(Self::Backend::io_read(repr_view))
+     }
+ 
+     /// Write a value to I/O.
+@@ -520,10 +528,19 @@ fn read_val(self) -> Self::Target
+     #[inline]
+     fn write_val(self, value: Self::Target)
+     where
+-        Self::Backend: IoCapable<Self::Target>,
+-        Self::Target: Sized,
++        Self::Target: AsRepr,
++        Self::Backend: IoCapable<<Self::Target as AsRepr>::Repr>,
+     {
+-        Self::Backend::io_write(self.as_view(), value)
++        let view = self.as_view();
++        // SAFETY: `AsRepr` guarantees layout compatibility.
++        let repr_view = unsafe {
++            Self::Backend::project_view(
++                view,
++                Self::Backend::as_ptr(view).cast::<<Self::Target as AsRepr>::Repr>(),
++            )
++        };
++
++        Self::Backend::io_write(repr_view, Self::Target::into_repr(value))
+     }
+ 
+     /// Copy-read from I/O memory.
+@@ -645,7 +662,7 @@ fn copy_to_slice(self, data: &mut [u8])
+     #[inline(always)]
+     fn try_read8(self, offset: usize) -> Result<u8>
+     where
+-        usize: IoLoc<Self::Target, u8, IoType = u8>,
++        usize: IoLoc<Self::Target, u8>,
+         Self::Backend: IoCapable<u8>,
+     {
+         self.try_read(offset)
+@@ -655,7 +672,7 @@ fn try_read8(self, offset: usize) -> Result<u8>
+     #[inline(always)]
+     fn try_read16(self, offset: usize) -> Result<u16>
+     where
+-        usize: IoLoc<Self::Target, u16, IoType = u16>,
++        usize: IoLoc<Self::Target, u16>,
+         Self::Backend: IoCapable<u16>,
+     {
+         self.try_read(offset)
+@@ -665,7 +682,7 @@ fn try_read16(self, offset: usize) -> Result<u16>
+     #[inline(always)]
+     fn try_read32(self, offset: usize) -> Result<u32>
+     where
+-        usize: IoLoc<Self::Target, u32, IoType = u32>,
++        usize: IoLoc<Self::Target, u32>,
+         Self::Backend: IoCapable<u32>,
+     {
+         self.try_read(offset)
+@@ -675,7 +692,7 @@ fn try_read32(self, offset: usize) -> Result<u32>
+     #[inline(always)]
+     fn try_read64(self, offset: usize) -> Result<u64>
+     where
+-        usize: IoLoc<Self::Target, u64, IoType = u64>,
++        usize: IoLoc<Self::Target, u64>,
+         Self::Backend: IoCapable<u64>,
+     {
+         self.try_read(offset)
+@@ -685,7 +702,7 @@ fn try_read64(self, offset: usize) -> Result<u64>
+     #[inline(always)]
+     fn try_write8(self, value: u8, offset: usize) -> Result
+     where
+-        usize: IoLoc<Self::Target, u8, IoType = u8>,
++        usize: IoLoc<Self::Target, u8>,
+         Self::Backend: IoCapable<u8>,
+     {
+         self.try_write(offset, value)
+@@ -695,7 +712,7 @@ fn try_write8(self, value: u8, offset: usize) -> Result
+     #[inline(always)]
+     fn try_write16(self, value: u16, offset: usize) -> Result
+     where
+-        usize: IoLoc<Self::Target, u16, IoType = u16>,
++        usize: IoLoc<Self::Target, u16>,
+         Self::Backend: IoCapable<u16>,
+     {
+         self.try_write(offset, value)
+@@ -705,7 +722,7 @@ fn try_write16(self, value: u16, offset: usize) -> Result
+     #[inline(always)]
+     fn try_write32(self, value: u32, offset: usize) -> Result
+     where
+-        usize: IoLoc<Self::Target, u32, IoType = u32>,
++        usize: IoLoc<Self::Target, u32>,
+         Self::Backend: IoCapable<u32>,
+     {
+         self.try_write(offset, value)
+@@ -715,7 +732,7 @@ fn try_write32(self, value: u32, offset: usize) -> Result
+     #[inline(always)]
+     fn try_write64(self, value: u64, offset: usize) -> Result
+     where
+-        usize: IoLoc<Self::Target, u64, IoType = u64>,
++        usize: IoLoc<Self::Target, u64>,
+         Self::Backend: IoCapable<u64>,
+     {
+         self.try_write(offset, value)
+@@ -727,7 +744,7 @@ fn try_write64(self, value: u64, offset: usize) -> Result
+     #[inline(always)]
+     fn read8(self, offset: usize) -> u8
+     where
+-        usize: IoLoc<Self::Target, u8, IoType = u8>,
++        usize: IoLoc<Self::Target, u8>,
+         Self::Backend: IoCapable<u8>,
+     {
+         self.read(offset)
+@@ -739,7 +756,7 @@ fn read8(self, offset: usize) -> u8
+     #[inline(always)]
+     fn read16(self, offset: usize) -> u16
+     where
+-        usize: IoLoc<Self::Target, u16, IoType = u16>,
++        usize: IoLoc<Self::Target, u16>,
+         Self::Backend: IoCapable<u16>,
+     {
+         self.read(offset)
+@@ -751,7 +768,7 @@ fn read16(self, offset: usize) -> u16
+     #[inline(always)]
+     fn read32(self, offset: usize) -> u32
+     where
+-        usize: IoLoc<Self::Target, u32, IoType = u32>,
++        usize: IoLoc<Self::Target, u32>,
+         Self::Backend: IoCapable<u32>,
+     {
+         self.read(offset)
+@@ -763,7 +780,7 @@ fn read32(self, offset: usize) -> u32
+     #[inline(always)]
+     fn read64(self, offset: usize) -> u64
+     where
+-        usize: IoLoc<Self::Target, u64, IoType = u64>,
++        usize: IoLoc<Self::Target, u64>,
+         Self::Backend: IoCapable<u64>,
+     {
+         self.read(offset)
+@@ -775,7 +792,7 @@ fn read64(self, offset: usize) -> u64
+     #[inline(always)]
+     fn write8(self, value: u8, offset: usize)
+     where
+-        usize: IoLoc<Self::Target, u8, IoType = u8>,
++        usize: IoLoc<Self::Target, u8>,
+         Self::Backend: IoCapable<u8>,
+     {
+         self.write(offset, value)
+@@ -787,7 +804,7 @@ fn write8(self, value: u8, offset: usize)
+     #[inline(always)]
+     fn write16(self, value: u16, offset: usize)
+     where
+-        usize: IoLoc<Self::Target, u16, IoType = u16>,
++        usize: IoLoc<Self::Target, u16>,
+         Self::Backend: IoCapable<u16>,
+     {
+         self.write(offset, value)
+@@ -799,7 +816,7 @@ fn write16(self, value: u16, offset: usize)
+     #[inline(always)]
+     fn write32(self, value: u32, offset: usize)
+     where
+-        usize: IoLoc<Self::Target, u32, IoType = u32>,
++        usize: IoLoc<Self::Target, u32>,
+         Self::Backend: IoCapable<u32>,
+     {
+         self.write(offset, value)
+@@ -811,7 +828,7 @@ fn write32(self, value: u32, offset: usize)
+     #[inline(always)]
+     fn write64(self, value: u64, offset: usize)
+     where
+-        usize: IoLoc<Self::Target, u64, IoType = u64>,
++        usize: IoLoc<Self::Target, u64>,
+         Self::Backend: IoCapable<u64>,
+     {
+         self.write(offset, value)
+@@ -843,11 +860,12 @@ fn write64(self, value: u64, offset: usize)
+     #[inline(always)]
+     fn try_read<T, L>(self, location: L) -> Result<T>
+     where
++        T: AsReprMut,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<L::IoType>,
++        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+-        let view = io_view::<Self, L::IoType>(self, location.offset())?;
+-        Ok(Self::Backend::io_read(view).into())
++        let view = io_view::<Self, T>(self, location.offset())?;
++        Ok(view.read_val())
+     }
+ 
+     /// Generic fallible write with runtime bounds check.
+@@ -876,12 +894,12 @@ fn try_read<T, L>(self, location: L) -> Result<T>
+     #[inline(always)]
+     fn try_write<T, L>(self, location: L, value: T) -> Result
+     where
++        T: AsRepr,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<L::IoType>,
++        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+-        let view = io_view::<Self, L::IoType>(self, location.offset())?;
+-        let io_value = value.into();
+-        Self::Backend::io_write(view, io_value);
++        let view = io_view::<Self, T>(self, location.offset())?;
++        view.write_val(value);
+         Ok(())
+     }
+ 
+@@ -920,9 +938,10 @@ fn try_write<T, L>(self, location: L, value: T) -> Result
+     #[inline(always)]
+     fn try_write_reg<T, L, V>(self, value: V) -> Result
+     where
++        T: AsRepr,
+         L: IoLoc<Self::Target, T>,
+         V: LocatedRegister<Self::Target, Location = L, Value = T>,
+-        Self::Backend: IoCapable<L::IoType>,
++        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+         let (location, value) = value.into_io_op();
+ 
+@@ -954,16 +973,13 @@ fn try_write_reg<T, L, V>(self, value: V) -> Result
+     #[inline(always)]
+     fn try_update<T, L, F>(self, location: L, f: F) -> Result
+     where
++        T: AsReprMut,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<L::IoType>,
++        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+         F: FnOnce(T) -> T,
+     {
+-        let view = io_view::<Self, L::IoType>(self, location.offset())?;
+-
+-        let value: T = Self::Backend::io_read(view).into();
+-        let io_value = f(value).into();
+-        Self::Backend::io_write(view, io_value);
+-
++        let view = io_view::<Self, T>(self, location.offset())?;
++        view.write_val(f(view.read_val()));
+         Ok(())
+     }
+ 
+@@ -991,11 +1007,12 @@ fn try_update<T, L, F>(self, location: L, f: F) -> Result
+     #[inline(always)]
+     fn read<T, L>(self, location: L) -> T
+     where
++        T: AsReprMut,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<L::IoType>,
++        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+-        let view = io_view_assert::<Self, L::IoType>(self, location.offset());
+-        Self::Backend::io_read(view).into()
++        let view = io_view_assert::<Self, T>(self, location.offset());
++        view.read_val()
+     }
+ 
+     /// Generic infallible write with compile-time bounds check.
+@@ -1022,12 +1039,12 @@ fn read<T, L>(self, location: L) -> T
+     #[inline(always)]
+     fn write<T, L>(self, location: L, value: T)
+     where
++        T: AsRepr,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<L::IoType>,
++        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+-        let view = io_view_assert::<Self, L::IoType>(self, location.offset());
+-        let io_value = value.into();
+-        Self::Backend::io_write(view, io_value);
++        let view = io_view_assert::<Self, T>(self, location.offset());
++        view.write_val(value)
+     }
+ 
+     /// Generic infallible write of a fully-located register value.
+@@ -1064,9 +1081,10 @@ fn write<T, L>(self, location: L, value: T)
+     #[inline(always)]
+     fn write_reg<T, L, V>(self, value: V)
+     where
++        T: AsRepr,
+         L: IoLoc<Self::Target, T>,
+         V: LocatedRegister<Self::Target, Location = L, Value = T>,
+-        Self::Backend: IoCapable<L::IoType>,
++        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+         let (location, value) = value.into_io_op();
+ 
+@@ -1098,14 +1116,13 @@ fn write_reg<T, L, V>(self, value: V)
+     #[inline(always)]
+     fn update<T, L, F>(self, location: L, f: F)
+     where
++        T: AsReprMut,
+         L: IoLoc<Self::Target, T>,
+-        Self::Backend: IoCapable<L::IoType>,
++        Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+         F: FnOnce(T) -> T,
+     {
+-        let view = io_view_assert::<Self, L::IoType>(self, location.offset());
+-        let value: T = Self::Backend::io_read(view).into();
+-        let io_value = f(value).into();
+-        Self::Backend::io_write(view, io_value);
++        let view = io_view_assert::<Self, T>(self, location.offset());
++        view.write_val(f(view.read_val()));
+     }
+ }
+ 
 diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 03dfd2ff48c7..6a19552ffb95 100644
+index 6a19552ffb95..45d2e73a92e7 100644
 --- a/rust/kernel/io/register.rs
 +++ b/rust/kernel/io/register.rs
-@@ -801,227 +801,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// ```
- #[macro_export]
- macro_rules! register {
--    // Entry point for the macro, allowing multiple registers to be defined in one call.
--    // It matches all possible register declaration patterns to dispatch them to corresponding
--    // `@reg` rule that defines a single register.
--    //
--    // TODO: change `alias:ident` to `alias:path` once relative registers are replaced by I/O
--    // projections.
--    (
--        $(
--            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--                $([ $size:expr $(, stride = $stride:expr)? ])?
--                $(@ $($base:ident +)? $offset:literal)?
--                $(=> $alias:ident $(+ $alias_offset:ident)? $([$alias_idx:expr])? )?
--            { $($fields:tt)* }
--        )*
--    ) => {
--        $(
--        $crate::register!(
--            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
--                $(@ $($base +)? $offset)?
--                $(=> $alias $(+ $alias_offset)? $([$alias_idx])? )?
--            { $($fields)* }
--        );
--        )*
--    };
--
--    // All the rules below are private helpers.
--
--    // Creates a register at a fixed offset of the MMIO space.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $offset:literal
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
--        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
--    };
--
--    // Creates an alias register of fixed offset register `alias` with its own fields.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:path
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @
--            <$alias as $crate::io::register::Register>::OFFSET
--        );
--        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
--    };
--
--    // Creates a register at a relative offset from a base address provider.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $base:ident + $offset:literal
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
--        $crate::register!(@io_relative $name @ $base);
--    };
--
--    // Creates an alias register of relative offset register `alias` with its own fields.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $base:ident + $alias:ident
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @ <$alias as $crate::io::register::Register>::OFFSET
--        );
--        $crate::register!(@io_relative $name @ $base);
--    };
--
--    // Creates an array of registers at a fixed offset of the MMIO space.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--            [ $size:expr, stride = $stride:expr ] @ $offset:literal { $($fields:tt)* }
--    ) => {
--        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
--        $crate::register!(@io_array $name [ $size, stride = $stride ]);
--    };
--
--    // Shortcut for contiguous array of registers (stride == size of element).
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ] @ $offset:literal
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(
--            @reg $(#[$attr])* $vis $name($storage)
--                [ $size, stride = ::core::mem::size_of::<$storage>() ]
--                @ $offset { $($fields)* }
--        );
--    };
--
--    // Creates an alias of register `idx` of array of registers `alias` with its own fields.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:path [ $idx:expr ]
--            { $($fields:tt)* }
--    ) => {
--        $crate::build_assert::static_assert!(
--            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
--        );
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @
--            <$alias as $crate::io::register::Register>::OFFSET
--                + $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
--        );
--        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
--    };
--
--    // Creates an array of registers at a relative offset from a base address provider.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--            [ $size:expr, stride = $stride:expr ]
--            @ $base:ident + $offset:literal { $($fields:tt)* }
--    ) => {
--        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
--        $crate::register!(@io_relative_array $name [ $size, stride = $stride ] @ $base);
--    };
--
--    // Shortcut for contiguous array of relative registers (stride == size of element).
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ]
--            @ $base:ident + $offset:literal { $($fields:tt)* }
--    ) => {
--        $crate::register!(
--            @reg $(#[$attr])* $vis $name($storage)
--                [ $size, stride = ::core::mem::size_of::<$storage>() ]
--                @ $base + $offset { $($fields)* }
--        );
--    };
--
--    // Creates an alias of register `idx` of relative array of registers `alias` with its own
--    // fields.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--            => $base:ident + $alias:ident [ $idx:expr ] { $($fields:tt)* }
--    ) => {
--        $crate::build_assert::static_assert!(
--            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
--        );
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @
--                <$alias as $crate::io::register::Register>::OFFSET +
--                $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
--        );
--        $crate::register!(@io_relative $name @ $base);
--    };
--
--    // Generates the bitfield for the register.
--    //
--    // `#[allow(non_camel_case_types)]` is added since register names typically use
--    // `SCREAMING_CASE`.
--    (
--        @bitfield $(#[$attr:meta])* $vis:vis struct $name:ident($storage:ty) { $($fields:tt)* }
--    ) => {
--        $crate::bitfield!(
--            #[allow(non_camel_case_types)]
--            $(#[$attr])* $vis struct $name($storage) { $($fields)* }
--        );
--    };
--
--    // Implementations shared by all registers types.
--    (@io_base $name:ident($storage:ty) @ $offset:expr) => {
--        impl $crate::io::register::Register for $name {
--            type Storage = $storage;
--
--            const OFFSET: usize = $offset;
--        }
--    };
--
--    // Implementations of fixed registers.
--    (@io_fixed $(#[$attr:meta])* $vis:vis $name:ident) => {
--        impl $crate::io::register::FixedRegister for $name {}
--
--        $(#[$attr])*
--        $vis const $name: $crate::io::register::FixedRegisterLoc<$name> =
--            $crate::io::register::FixedRegisterLoc::<$name>::new();
--    };
--
--    // Implementations of relative registers.
--    (@io_relative $name:ident @ $base:ident) => {
--        impl $crate::io::register::WithBase for $name {
--            type BaseFamily = $base;
--        }
--
--        impl $crate::io::register::RelativeRegister for $name {}
--    };
--
--    // Implementations of register arrays.
--    (@io_array $name:ident [ $size:expr, stride = $stride:expr ]) => {
--        impl $crate::io::register::Array for $name {}
--
--        impl $crate::io::register::RegisterArray for $name {
--            const SIZE: usize = $size;
--            const STRIDE: usize = $stride;
--        }
--    };
--
--    // Implementations of relative array registers.
--    (
--        @io_relative_array $name:ident [ $size:expr, stride = $stride:expr ] @ $base:ident
--    ) => {
--        impl $crate::io::register::WithBase for $name {
--            type BaseFamily = $base;
--        }
--
--        impl $crate::io::register::RegisterArray for $name {
--            const SIZE: usize = $size;
--            const STRIDE: usize = $stride;
--        }
--
--        impl $crate::io::register::RelativeRegisterArray for $name {}
-+    ($($tt:tt)*) => {
-+        $crate::macros::register!($($tt)*);
-     };
- }
-diff --git a/rust/macros/io/mod.rs b/rust/macros/io/mod.rs
-new file mode 100644
-index 000000000000..39fa5bc302ba
---- /dev/null
-+++ b/rust/macros/io/mod.rs
-@@ -0,0 +1,3 @@
-+// SPDX-License-Identifier: Apache-2.0 OR MIT
-+
-+pub(crate) mod register;
-diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
-new file mode 100644
-index 000000000000..61d076ab570a
---- /dev/null
-+++ b/rust/macros/io/register.rs
-@@ -0,0 +1,263 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use proc_macro2::{
-+    Group,
-+    Literal,
-+    Span,
-+    TokenStream, //
-+};
-+use quote::{
-+    quote,
-+    quote_spanned, //
-+};
-+use syn::{
-+    bracketed,
-+    parenthesized,
-+    parse::Parse,
-+    spanned::Spanned,
-+    token,
-+    Attribute,
-+    Expr,
-+    Ident,
-+    Path,
-+    Result,
-+    Token,
-+    Type,
-+    Visibility, //
-+};
-+
-+mod kw {
-+    syn::custom_keyword!(stride);
-+}
-+
-+struct RegArrayDef {
-+    size: Expr,
-+    stride: Option<Expr>,
-+}
-+
-+enum RegOffset {
-+    /// Register is located at fixed address.
-+    Fixed { offset: Literal },
-+    /// Register is an alias of a fixed register.
-+    Alias { alias: Path },
-+    /// Register is an alias of an element of a register array.
-+    ElementAlias { alias: Path, idx: Expr },
-+}
-+
-+struct Reg {
-+    attrs: Vec<Attribute>,
-+    vis: Visibility,
-+    name: Ident,
-+    storage: Type,
-+    array: Option<RegArrayDef>,
-+    relative_base: Option<Path>,
-+    offset: RegOffset,
-+    bitfield_args: Group,
-+}
-+
-+impl Parse for Reg {
-+    fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
-+        let attrs = input.call(Attribute::parse_outer)?;
-+        let vis = input.parse()?;
-+        let name = input.parse()?;
-+        let storage = {
-+            let content;
-+            parenthesized!(content in input);
-+            content.parse()?
-+        };
-+        let array = if input.peek(token::Bracket) {
-+            let content;
-+            bracketed!(content in input);
-+            let size = content.parse()?;
-+            let stride = if content.peek(Token![,]) {
-+                let _: Token![,] = content.parse()?;
-+                let _: kw::stride = content.parse()?;
-+                let _: Token![=] = content.parse()?;
-+                Some(content.parse()?)
-+            } else {
-+                None
-+            };
-+            Some(RegArrayDef { size, stride })
-+        } else {
-+            None
-+        };
-+
-+        let lh = input.lookahead1();
-+        let mut relative_base = None;
-+        let offset = if lh.peek(Token![@]) {
-+            let _: Token![@] = input.parse()?;
-+
-+            if input.peek(Ident) {
-+                relative_base = Some(input.parse()?);
-+                let _: Token![+] = input.parse()?;
-+            }
-+
-+            RegOffset::Fixed {
-+                offset: input.parse()?,
-+            }
-+        } else if lh.peek(Token![=>]) {
-+            let _: Token![=>] = input.parse()?;
-+            let mut alias: Path = input.parse()?;
-+            if input.peek(Token![+]) {
-+                let _: Token![+] = input.parse()?;
-+                relative_base = Some(alias);
-+                alias = input.parse()?;
-+            }
-+
-+            if input.peek(token::Bracket) {
-+                let content;
-+                bracketed!(content in input);
-+                RegOffset::ElementAlias {
-+                    alias,
-+                    idx: content.parse()?,
-+                }
-+            } else {
-+                RegOffset::Alias { alias }
-+            }
-+        } else {
-+            Err(lh.error())?
-+        };
-+
-+        let lh = input.lookahead1();
-+        let bitfield_args = if lh.peek(token::Brace) {
-+            input.parse()?
-+        } else {
-+            Err(lh.error())?
-+        };
-+
-+        Ok(Self {
-+            attrs,
-+            vis,
-+            name,
-+            storage,
-+            array,
-+            relative_base,
-+            offset,
-+            bitfield_args,
-+        })
-+    }
-+}
-+
-+pub(crate) struct RegDef {
-+    regs: Vec<Reg>,
-+}
-+
-+impl Parse for RegDef {
-+    fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
-+        let mut regs = Vec::new();
-+        while !input.is_empty() {
-+            regs.push(input.parse()?);
-+        }
-+        Ok(RegDef { regs })
-+    }
-+}
-+
-+pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
-+    let mut outputs = TokenStream::new();
-+
-+    for reg in def.regs {
-+        let Reg {
-+            attrs,
-+            vis,
-+            name,
-+            storage,
-+            array,
-+            relative_base,
-+            offset,
-+            bitfield_args,
-+        } = reg;
-+
-+        // Use register name's span for generated code, so error messages (if any) can point to it
-+        // instead of the entire register allocation.
-+        let span = name.span().resolved_at(Span::mixed_site());
-+
-+        let offset = match offset {
-+            RegOffset::Fixed { offset } => quote!(#offset),
-+            RegOffset::Alias { alias } => {
-+                quote_spanned!(alias.span().resolved_at(span) =>
-+                    <#alias as ::kernel::io::register::Register>::OFFSET
-+                )
-+            }
-+            RegOffset::ElementAlias { alias, idx } => {
-+                outputs.extend(quote_spanned!(idx.span().resolved_at(span) =>
-+                    ::kernel::build_assert::static_assert!(
-+                        #idx < <#alias as ::kernel::io::register::RegisterArray>::SIZE
-+                    );
-+                ));
-+                quote_spanned!(alias.span().resolved_at(span) =>
-+                    <#alias as ::kernel::io::register::Register>::OFFSET
-+                        + #idx * <#alias as ::kernel::io::register::RegisterArray>::STRIDE
-+                )
-+            }
-+        };
-+
-+        outputs.extend(quote_spanned!(span =>
-+            ::kernel::bitfield!(
-+                // `#[allow(non_camel_case_types)]` is added since register names typically use
-+                // `SCREAMING_CASE`.
-+                #[allow(non_camel_case_types)]
-+                #(#attrs)* #vis struct #name(#storage) #bitfield_args
-+            );
-+
-+            impl ::kernel::io::register::Register for #name {
-+                type Storage = #storage;
-+
-+                const OFFSET: usize = #offset;
-+            }
-+        ));
-+
-+        match array {
-+            None => match relative_base {
-+                None => outputs.extend(quote_spanned!(span =>
-+                    impl ::kernel::io::register::FixedRegister for #name {}
-+
-+                    #(#attrs)* #vis const #name: ::kernel::io::register::FixedRegisterLoc<#name> =
-+                        ::kernel::io::register::FixedRegisterLoc::<#name>::new();
-+                )),
-+                Some(relative_base) => outputs.extend(quote_spanned!(span =>
-+                    impl ::kernel::io::register::WithBase for #name {
-+                        type BaseFamily = #relative_base;
-+                    }
-+
-+                    impl ::kernel::io::register::RelativeRegister for #name {}
-+                )),
-+            },
-+
-+            Some(def) => {
-+                let size = &def.size;
-+                let stride = if let Some(stride) = &def.stride {
-+                    outputs.extend(quote_spanned!(stride.span().resolved_at(span) =>
-+                        ::kernel::build_assert::static_assert!(
-+                            ::core::mem::size_of::<#storage>() <= #stride
-+                        );
-+                    ));
-+                    quote!(#stride)
-+                } else {
-+                    quote_spanned!(span => ::core::mem::size_of::<#storage>())
-+                };
-+
-+                outputs.extend(quote_spanned!(span =>
-+                    impl ::kernel::io::register::RegisterArray for #name {
-+                        const SIZE: usize = #size;
-+                        const STRIDE: usize = #stride;
-+                    }
-+                ));
-+
-+                match relative_base {
-+                    None => outputs.extend(quote_spanned!(span =>
-+                        impl ::kernel::io::register::Array for #name {}
-+                    )),
-+                    Some(relative_base) => outputs.extend(quote_spanned!(span =>
-+                        impl ::kernel::io::register::WithBase for #name {
-+                            type BaseFamily = #relative_base;
-+                        }
-+
-+                        impl ::kernel::io::register::RelativeRegisterArray for #name {}
-+                    )),
-+                }
-+            }
-+        };
-+    }
-+
-+    Ok(outputs)
-+}
-diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-index 24f96feaeb34..5807dee84747 100644
---- a/rust/macros/lib.rs
-+++ b/rust/macros/lib.rs
-@@ -19,6 +19,7 @@
- mod fmt;
- mod for_lt;
- mod helpers;
-+mod io;
- mod kunit;
- mod module;
- mod paste;
-@@ -481,6 +482,15 @@ pub fn paste(input: TokenStream) -> TokenStream {
-         .into()
- }
+@@ -117,9 +117,6 @@
  
-+#[doc(hidden)] // Documented in `kernel` crate.
-+#[proc_macro]
-+#[allow(non_snake_case)]
-+pub fn register(input: TokenStream) -> TokenStream {
-+    io::register::register(parse_macro_input!(input))
-+        .unwrap_or_else(|e| e.into_compile_error())
-+        .into()
-+}
-+
- /// Registers a KUnit test suite and its test cases using a user-space like syntax.
- ///
- /// This macro should be used on modules. If `CONFIG_KUNIT` (in `.config`) is `n`, the target module
+ /// Trait implemented by all registers.
+ pub trait Register: Sized {
+-    /// Backing primitive type of the register.
+-    type Storage: Into<Self> + From<Self>;
+-
+     /// Start offset of the register.
+     ///
+     /// The interpretation of this offset depends on the type of the register.
+@@ -135,8 +132,6 @@ impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for ()
+ where
+     T: FixedRegister,
+ {
+-    type IoType = T::Storage;
+-
+     #[inline(always)]
+     fn offset(self) -> usize {
+         T::OFFSET
+@@ -149,8 +144,6 @@ impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for T
+ where
+     T: FixedRegister,
+ {
+-    type IoType = T::Storage;
+-
+     #[inline(always)]
+     fn offset(self) -> usize {
+         T::OFFSET
+@@ -174,8 +167,6 @@ impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for FixedRegisterLoc<T>
+ where
+     T: FixedRegister,
+ {
+-    type IoType = T::Storage;
+-
+     #[inline(always)]
+     fn offset(self) -> usize {
+         T::OFFSET
+@@ -246,8 +237,6 @@ impl<const SIZE: usize, T, B> IoLoc<Region<SIZE>, T> for RelativeRegisterLoc<T,
+     T: RelativeRegister,
+     B: RegisterBase<T::BaseFamily> + ?Sized,
+ {
+-    type IoType = T::Storage;
+-
+     #[inline(always)]
+     fn offset(self) -> usize {
+         RelativeRegisterLoc::offset(self)
+@@ -289,8 +278,6 @@ impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for RegisterArrayLoc<T>
+ where
+     T: RegisterArray,
+ {
+-    type IoType = T::Storage;
+-
+     #[inline(always)]
+     fn offset(self) -> usize {
+         T::OFFSET + self.0 * T::STRIDE
+@@ -377,8 +364,6 @@ impl<const SIZE: usize, T, B> IoLoc<Region<SIZE>, T> for RelativeRegisterArrayLo
+     T: RelativeRegisterArray,
+     B: RegisterBase<T::BaseFamily> + ?Sized,
+ {
+-    type IoType = T::Storage;
+-
+     #[inline(always)]
+     fn offset(self) -> usize {
+         self.0.offset() + self.1 * T::STRIDE
+diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
+index 61d076ab570a..8af12caa964b 100644
+--- a/rust/macros/io/register.rs
++++ b/rust/macros/io/register.rs
+@@ -200,8 +200,6 @@ pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
+             );
+ 
+             impl ::kernel::io::register::Register for #name {
+-                type Storage = #storage;
+-
+                 const OFFSET: usize = #offset;
+             }
+         ));
 
 -- 
 2.54.0
