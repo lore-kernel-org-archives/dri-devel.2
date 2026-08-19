@@ -4,91 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DD7CC5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:52:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D47FC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 06:56:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74FD110ED3B;
-	Wed, 19 Aug 2026 06:52:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E98DC10ED3D;
+	Wed, 19 Aug 2026 06:56:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LBoZuKk6";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="IF4Z0oZ/";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C0A10ED34
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:52:10 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4957952e0f8so707385e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:52:10 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D7310ED3E
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:56:05 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c15ba3a2b4bso82357466b.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:56:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787122329; x=1787727129; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=eNYpcIGxrPu5UcGxlHe8CSKb/lcjMt/RLjlOnDxhBfE=;
- b=LBoZuKk6nFuCHa8UD94c04gTA/Axg8IboASleqn57N4pGZBRT02Fs1Qm+MDTERnQ+x
- EZK/xRfZFiWxgmvQZJVXezuN33hdLRWgKsGIMz6lMGzdBk4RYmiasN7PXNGvyce59lIF
- tWbTTtj6mUaTr3BkXFe+SbVLTsxCLNM/KbwJDUp5ghIaCnsLUOkcLDotAmaoj21Oq9b6
- neMYaSbBcDqeA0tc8PMroXb2NDnOuh4sExp5LcxcwCnkq/WRbCsV/NulkSIBCS9R6tHg
- oRboKI2snNJpjraYVHaOJ33TLsyyuzDoMn1GYK/1bWXplc3FvSfyGD7kFTXqc9FYvoDe
- 1KDg==
+ d=linux-foundation.org; s=google; t=1787122564; x=1787727364;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=3ISvHdVx5NNV/ZYzWt2FMv8YK9yLKQC7l7IY+HralrU=;
+ b=IF4Z0oZ/G4BE0freMqqYGceykVfcYccS4Ka2mWBz4opk+3cD9qrYxUhfl7+B1S4mTK
+ OKZq6InBtqDt9oGUChTyL6ODOK5CY5cGjryqGqAjjaMrEsElkqYCUGPuXDVTxMi1rrMT
+ GfwAW8N2UR7boD5S4vaQOIZkoi61UOZpWBe8c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787122329; x=1787727129;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=eNYpcIGxrPu5UcGxlHe8CSKb/lcjMt/RLjlOnDxhBfE=;
- b=DTdfaEwBLgBkCvR+j+C8acZx6Jv21AyxpmxIh44dJsyIzqR3TfcKLGNZcPQI/3KUjI
- PrbmVHnv352MDbRJhaFwT2yiLmXVoOCaj0ZeQEpqaMEJjYSnuQoCSPLpHJZL+Qn61VW8
- pHy1ka2q0aZc/e6ObL/IFl4H3Jg07P2cYTWBVh/YCw8KjFhTiYRhNb/1uOaaXSI9DRdZ
- f3dlx1uCGV56xDbE0hv4FWSSJkEqNCX2r+wAdp5oFw/YQr7uva/VodMdU+wAaRJdxQLh
- cGH817r3vw9voxQfHYD2z+r2e+82O1zNTsmSpFtxf7KVlYZPwGyAyrg6z89BJT/kwL/i
- r0ew==
+ d=1e100.net; s=20251104; t=1787122564; x=1787727364;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=3ISvHdVx5NNV/ZYzWt2FMv8YK9yLKQC7l7IY+HralrU=;
+ b=PpPVNmqC8+aB7uyR4ThSING3bsM2/h7C3gvERDueqVZWLmjTJMoG4DVbnEzg3qMWRy
+ suH9bs0WM1It9paJt5Nqj3OZDnx0U1YRgqk8Pzr/bPtsdSvh7ngneAV6CQzr4mH3Bj3z
+ RxQt16DWzxu54fjqISQLiE7X2JgA+EgadeN79P20UdN6jcozLojexPu+uA1wzLiIXN+O
+ YA48fgLK7bp/N9xmdbirIZJLxOQ6/TAE2mAGtYpBK1ASvC/Vr5gvrH9wF94AeiTpXp7i
+ Qu5uykJtqo77EkGugCj23o/Mlz9bYofZyBEkKAlx90dTQzJp/F4vc0cQPqVne/a/lntw
+ tZYg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqkZiZVC4lzTrdrP+I4hAGmZoD1JVM7Pyb7jTfq4P17QlYEQiMgN3Y+1SwnXx2Z05j0NtOqiZ4JLCg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxquKsF286UPvu/euwHeSkiOXBDWqfefXxCQqajrgokdgxoKa/V
- SHjFlBHFHqPnXvYRGwfHrzNbznUW6RWOvEnlNQ5/z1Hm8g2jLThdRH7o
-X-Gm-Gg: AR+sD101K8KkMqKrgbDszgxqYmekWr19smLAnPIl3+wiOly2upYOzzQz896DANaa2Wv
- bKG6bv/XQmNtS6o0DJDxHL2xmyQJcMSuDgWR7HZAaVzK8RdBXwDjkLhR1OxMhzMzr5MfKU2xWll
- BWjJFo0/1yrNDeTeg9ufaRy+FQ3FV8sTtDb+d3PksHTxj2icnziGfv2iE5ccbqd/bW4leDFgtS/
- daVz8BpQlJ2wnyWhni4T7QC/o8fJUTsyYBnBeA+PBwmfAVhWy/6qmBKJB0WHNz158kGNX3bvW/y
- CdUnkvaZmbK5XrYZZE5x5uyp63wltY6Rxn3edVnFPVTUR2hnKxHt0e3s6NQfOtFl+xqPZL+xboE
- s633F0meMxfnQ4m9baEfHc975Dl8x/g7TkJoRd8uPbX7ep6NmWTMrGk5ZrrLrO05F1wHVQ7EAv6
- z7gHSoPlDUT4DzgG3+/Td+WxItlp7Fxns6LOdoQVQAj8THjjEmeH7ix4bdhw12GVciFe3W/wTY3
- WT05HpPPohsgbk+BigDRt/CZTTXdiP27vISpBJalrnt0XAXhkcFsKHnWx45rSe6gENj5Cgym1PQ
- MAE0
-X-Received: by 2002:a05:600c:1c29:b0:495:4126:1e55 with SMTP id
- 5b1f17b1804b1-499aa1c16d7mr24093695e9.2.1787122329217; 
- Tue, 18 Aug 2026 23:52:09 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B929600C08047F1073FEAD0.dsl.pool.telekom.hu.
- [2001:4c4e:1b92:9600:c080:47f1:73f:ead0])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499a9aa7e8dsm24166515e9.0.2026.08.18.23.52.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 23:52:08 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Igor Paunovic <royalnet026@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Alexey Charkov <alchark@flipper.net>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 02/12] accel/rocket: wait for a running IRQ handler
- before resetting a core
-Date: Wed, 19 Aug 2026 08:51:45 +0200
-Message-ID: <20260819065146.5904-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260819013609.1613919-1-gahing@gahingwoo.com>
-References: <20260817113603.1436067-1-gahing@gahingwoo.com>
- <20260817113603.1436067-3-gahing@gahingwoo.com>
- <20260819013609.1613919-1-gahing@gahingwoo.com>
+ AHgh+Rq5DyrF34KVHG5ZZU9yl17+9/xKT1ZciRpXCr6y7igmuRukfN2aSK7pJriVVdQspMklv1/LWDHCgfM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyiUYbARHPyacNYVAF36kumUQZwYPZlnKQYrF5ifD49fjtdFo+S
+ jApr4xc71EecGueWml4q0dgJL5vW45Pc4+agr57UU17LSYGgoiGVTVFlOGJtcQYX1OEo+egYHHE
+ dVa9O/JU=
+X-Gm-Gg: AR+sD13CZ9roNiTle0yGxPuqeeCD70eEdjGPcR/YcPXfi/ZVHFZb/O4JWQG07k+Hkt+
+ H874aA6flM8+BpBUO6CmB0gTZXamDFvT035aMrAdFhP4JPdasOk0RC0xRBQW5n3gYqbYdBcYEI3
+ UNf8VDD/X3xPz/krdP0MD+3QFUflnSlgODG7kEUF8TFaX/zau+W0DJ0e2DDqAUHdV0wgbJ0fBKJ
+ YJmRMAgk9BL5P8iedAdTjSyGASD5Tk7/8FQbTTf7vQi3lROA/LwUmmJOzJgz3FwcMiQyXZnFL6g
+ CeKL0FFih7hcs4Qc5EL/VG39NKayaBLrHtnm33wewSAkI9PiZHK4FI7UNKXTnwp1YCt9kGX3+cp
+ 9IdmBWFWmIVdyJWg5/Wd8tG3ZTv31rV59jwHFS/D0d4UuWuPWr7YYELxm9IV70H7x3oT0BlURk5
+ Y+DjDAW0mpO+/3X3/uAvBKBgZ2wjCRbP8KsaVWJsHXSF6GinRe0RyK6URWM5a0POYP/dUyKCkRN
+ nAgQfpik+2olD4ExI49gNtJF8SVCkE7GFUzaw==
+X-Received: by 2002:a17:906:ee89:b0:c21:2218:5c7b with SMTP id
+ a640c23a62f3a-c23f9352b3emr121091966b.1.1787122563936; 
+ Tue, 18 Aug 2026 23:56:03 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com.
+ [209.85.218.51]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c243c5a078bsm35646866b.36.2026.08.18.23.56.02
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Aug 2026 23:56:03 -0700 (PDT)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-c214321dc32so116308166b.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 18 Aug 2026 23:56:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrEhTHfmHs0HiNj0M7VnsVEKf4U/5LjaJvkyOKrRf2ceI2mmCCVG+TS7fsMjdcfQgtedNAkc/3qjMk=@lists.freedesktop.org
+X-Received: by 2002:a17:906:99cd:b0:c21:74ed:4608 with SMTP id
+ a640c23a62f3a-c23f9750de3mr137322366b.10.1787122562579; Tue, 18 Aug 2026
+ 23:56:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
+ <6874536d-ab1a-4dd7-a23f-2a071bda145e@lankhorst.se>
+ <CAHk-=wj5aE1yVMb8RM2AuNUHSMnQDaGT+Vy+At5ds1vxBA+Kng@mail.gmail.com>
+ <ahDAErDSE-SFA0oM@intel.com>
+ <CAHk-=whX59mtUnU2ayMWoDQX6Ee2NXLK2NxQ+dZnb-Qc_mF1hw@mail.gmail.com>
+ <af9278d3-4002-4e09-9bcf-bc75d1cf8145@lankhorst.se>
+ <CAADWXX-pfvA3mKWSjdahnihAXHQB2VP9BOJDCXonG3Q_nxurLg@mail.gmail.com>
+ <anYZ8nUFP5dnRy/h@gsse-cloud1.jf.intel.com>
+In-Reply-To: <anYZ8nUFP5dnRy/h@gsse-cloud1.jf.intel.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 18 Aug 2026 23:55:46 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whyk2-u_1bTh5ZTeX6jW3HgAtjJh0mV_oWtgsqCe=3w7g@mail.gmail.com>
+X-Gm-Features: AcwNN1XoNlB6Jg88sFbQERhyg6-m7rz4jXRQR6ymPHvlXUqlK934fTgVD-Ok8_Y
+Message-ID: <CAHk-=whyk2-u_1bTh5ZTeX6jW3HgAtjJh0mV_oWtgsqCe=3w7g@mail.gmail.com>
+Subject: Re: drm: xe: Kernel-submitted job timed out
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-xe@lists.freedesktop.org, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,63 +108,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jiaxing,
+On Fri, 7 Aug 2026 at 10:46, Matthew Brost <matthew.brost@intel.com> wrote:
+>
+> I think we may have found one. I haven't been able to reproduce any
+> kernel job timeouts on drm-tip with this patch applied [1].
+>
+> If you're still seeing the issue on your end, it's probably worth
+> pulling it in.
+>
+> Hopefully this fix will make it into your tree soon enough too.
 
-Thank you for the round history and for running my archive check - the
-zero stall/paging count telling us the MMU is not responding at all is
-a better characterization than anything I had. put_noidle vs
-put_autosuspend with a separately forced suspend/resume sounds like the
-right de-confounding split; I will watch for the result.
+Well, that Xe fix made it into my tree as commit 9f83c94469ff
+("drm/xe: Order ring writes before ring tail updates"), but it turns
+out that now I can generate those drm job timedout issues at will.
 
-Here is the induced reset test I promised, run this morning.
+[  +1.222075] xe 0000:4b:00.0: [drm] Tile0: GT0: Engine reset:
+engine_class=rcs, logical_mask: 0x1, guc_id=12, state=0x3
+[  +0.000041] xe 0000:4b:00.0: [drm] Tile0: GT0: Timedout job:
+seqno=4294967171, lrc_seqno=4294967171, guc_id=12, flags=0x0 in
+systemd-logind [2068]
+[  +0.048338] xe 0000:4b:00.0: [drm] Xe device coredump has been created
+[  +0.000001] xe 0000:4b:00.0: [drm] Check your
+/sys/class/drm/card0/device/devcoredump/data
 
-Setup: RK3588 (Orange Pi 5 Plus), all three cores bound. My 7.2-rc6
-tree with exactly two rocket changes from your series - 1/12 and 2/12 -
-plus one local test-only patch lowering JOB_TIMEOUT_MS to 2 ms so that
-healthy jobs (~5 ms at this clock) cross the timeout deterministically.
-No other rocket changes; in particular my lifecycle series is not
-applied. PROVE_LOCKING=y and DEBUG_ATOMIC_SLEEP=y. Serial console
-captured on a second machine for the whole session.
+But at least this time I have ssh into the machine, so now I have that
+devcoredump data file.
 
-Protocol, built around the trap you described - the RK3576 symptom
-emits from rk_iommu_enable() on the next attach, not from the reset
-itself: 20 scheduler-driven runs over the model set with all three
-cores active, a follow-up inference after every induced reset, then a
-forced autosuspend cycle and one more inference. Two full passes, at
-console_loglevel 8 and 4, because synchronous serial printing on this
-path can perturb the timing.
+I will send that separately off-list, because  it's 2.4MB in size.
 
-Results:
-
-- Pass 1 (loglevel 8): 12 induced resets. Pass 2 (loglevel 4): 8.
-- Every reset recovered. Zero MMU_DTE_ADDR, zero "Error during raw
-  reset", zero lockdep or atomic-sleep hits across both passes.
-- Outputs matched the oracle in 48/48 checks per pass, including the
-  inference after the forced suspend/resume.
-- All three cores returned to runtime-suspended between rounds; the
-  domain did drop and come back cleanly after every reset.
-
-So on RK3588 with 1/12+2/12 the block comes back every time, and your
-non-recovery does not reproduce. Combined with your archive result
-this is consistent with the failure being RK3576-specific on the
-platform/IOMMU side rather than rocket-wide.
-
-Two honest limits on what this run shows:
-
-1. All resets ran with three cores bound. Isolating a single core
-   requires unbinding the other two, and without my pending lifecycle
-   fixes that path is not safe on this tree (the list corruption I
-   reported on Aug 12), so I skipped it deliberately rather than test
-   through a known-broken path.
-
-2. This run alone says nothing about the race 1/12+2/12 close. The
-   same protocol on the base without those two patches is queued as a
-   separate build; only that differential earns a Tested-by, and when
-   it lands the tag will carry its conditions:
-   # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
-
-Raw logs (dmesg, per-run outputs, serial capture) are kept; happy to
-share any of it on request.
-
-Regards,
-Igor
+                Linus
