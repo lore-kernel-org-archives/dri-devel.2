@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61AEBC5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 18:46:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B4B7C5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 18:47:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C747E10E591;
-	Wed, 19 Aug 2026 18:46:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9C7310EA7C;
+	Wed, 19 Aug 2026 18:47:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="behxHfbL";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="ZN/0BOpj";
 	dkim-atps=neutral
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch
- [185.70.43.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAD9810E591
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:46:55 +0000 (UTC)
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
+ [79.135.106.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3921210E591
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1787165210; x=1787424410;
- bh=2ru+gs+Jq83c2A8YgYGC+gq/sq3nKYaz6hANLO97shk=;
+ s=protonmail; t=1787165215; x=1787424415;
+ bh=DfnWDEuLJ+WYjROdmAaE4+Hwg5bZJ2QU6EBr0/cQ/XI=;
  h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=behxHfbLxvuaXgx5CDAZwzSP/uB9IJGCTYT7IPXDPT6qUVSqd2fs6DaROa77fUyRX
- xPv9LxxLiVZ0bMPqNtIs3uxfAibOUHmWLlurb9BXA/eoqof57IpC2MUuK5GyMJIw6t
- uNNIVWMmiYEGbTUBjn6eBVOKyzUDf/d9Wix6OnligON/FIiFfw6Y/tt538lZy8Y8BW
- 8GydTS6dyKyN1CbLUtUlhbzitcLRVcxAwC09LaRElDFykIh62mtDNRxmxJ3/MBdnUw
- PMNZEXy0vpdsJo243N7SWCrXkeYKUypvAc5QPBfLtWcqxauBQOs24ZEM1IufdnnIJg
- ZojLWWTARM6Zg==
-X-Pm-Submission-Id: 4hQFsh1t4wz1DDWl
+ b=ZN/0BOpjt2pyp7TN/wDhVu/KPHL9ADQetHPHJ0KB6ZnsX4OqrlP52EeXg1zTlnZNZ
+ fI8/KO4jvkqsZBjASzD51Ox0otHpBb5RS07bYPQvqsSZlgvMINMF09rqf1ajEmpMyX
+ rbZ6aqntcs1BaUMqDfGtWBP1+F6gaGyXAjBGHfXRfvZbuApzHJ7Xx9JzXyi6aeNQ0a
+ QOAbjklf88vEk1TLV5vvbgqaDw9K4z428tdxTgyjnooSSY9MaZhQlKdPRW4DmhTwSi
+ 2u6uvgGCsmMyKpQOjmekIRVdYKmZehaW4GW6w0C1S5L40cndbQ2d7eVWRJyyt5qRIx
+ l91bHRh1wE/3w==
+X-Pm-Submission-Id: 4hQFsk55MDz1DDWm
 From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
 To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org
@@ -36,9 +36,9 @@ Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
  a.hindborg@kernel.org, tmgross@umich.edu,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH v6 2/3] drm/tyr: add GPU reset infrastructure
-Date: Wed, 19 Aug 2026 21:45:40 +0300
-Message-ID: <20260819-tyr-reset-impl-v6-2-7b4e1e041fe5@onurozkan.dev>
+Subject: [PATCH v6 3/3] drm/tyr: put iomem behind the hardware gate
+Date: Wed, 19 Aug 2026 21:45:41 +0300
+Message-ID: <20260819-tyr-reset-impl-v6-3-7b4e1e041fe5@onurozkan.dev>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <20260819-tyr-reset-impl-v6-0-7b4e1e041fe5@onurozkan.dev>
 References: <20260819-tyr-reset-impl-v6-0-7b4e1e041fe5@onurozkan.dev>
@@ -60,487 +60,550 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for scheduling GPU resets on a dedicated workqueue. Track
-the reset state to avoid queueing another reset while one is already
-pending or in progress.
+Move iomem mapping into HwGate and pass Arc<HwGate> to components that
+access hardware. Callers obtain HwAccessGuard before accessing the iomem
+so the reset worker waits for ongoing accesses.
 
-Use an SRCU based gate with mutex-protected reader admission to block
-hardware accesses while reset work runs and wait for current users
-before resetting.
-
-Stop new reset requests during teardown and drain any queued or running
-reset work before releasing the device resources.
-
-This is the initial reset infrastructure only. It is not wired to a reset
-source yet as those will follow in separate work.
-
-Link: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/28
+Suggested-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Onur Özkan <work@onurozkan.dev>
 ---
- drivers/gpu/drm/tyr/driver.rs        |  41 ++----
- drivers/gpu/drm/tyr/reset.rs         | 249 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/reset/hw_gate.rs |  80 +++++++++++
- drivers/gpu/drm/tyr/tyr.rs           |   1 +
- 4 files changed, 343 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/tyr/driver.rs            | 35 +++++++++++------------
+ drivers/gpu/drm/tyr/fw.rs                | 16 ++++++-----
+ drivers/gpu/drm/tyr/mmu.rs               |  9 ++----
+ drivers/gpu/drm/tyr/mmu/address_space.rs | 49 ++++++++++++++++----------------
+ drivers/gpu/drm/tyr/reset.rs             | 33 +++++++++------------
+ drivers/gpu/drm/tyr/reset/hw_gate.rs     | 40 ++++++++++++++++++++------
+ 6 files changed, 96 insertions(+), 86 deletions(-)
 
 diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 90d6cd988cd2..52b1f16fa405 100644
+index 52b1f16fa405..c326192f8af2 100644
 --- a/drivers/gpu/drm/tyr/driver.rs
 +++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -8,7 +8,6 @@
-     device::{
-         Bound,
-         Core,
--        Device,
-         DeviceContext, //
-     },
-     dma::{
-@@ -17,13 +16,9 @@
-     },
-     drm,
-     drm::ioctl,
--    io::{
--        poll,
--        Io, //
--    },
-     new_mutex,
-     of,
--    platform,
-+    platform, //
-     prelude::*,
-     regulator,
-     regulator::Regulator,
-@@ -33,7 +28,6 @@
-         Arc,
-         Mutex, //
-     },
--    time,
-     types::ForLt, //
- };
+@@ -76,9 +76,6 @@ pub(crate) struct TyrDrmRegistrationData<'bound> {
+     #[pin]
+     regulators: Mutex<Regulators>,
  
-@@ -41,10 +35,10 @@
-     file::TyrDrmFileData,
-     fw::Firmware,
-     gem::BoData,
--    gpu,
-     gpu::GpuInfo,
-     mmu::Mmu,
--    regs::gpu_control::*, //
-+    regs::gpu_control::*,
-+    reset, //
- };
- 
- pub(crate) type IoMem<'a> = kernel::io::mem::IoMem<'a, SZ_2M>;
-@@ -67,6 +61,12 @@ pub(crate) struct TyrDrmRegistrationData<'bound> {
-     /// Parent platform device.
-     pub(crate) pdev: &'bound platform::Device<Bound>,
- 
-+    // `ResetHandle::drop()` drains queued/running works and this must happen
-+    // before clocks/regulators are dropped. So keep this field before them to
-+    // ensure the correct drop order.
-+    #[pin]
-+    pub(crate) reset: reset::ResetHandle<'bound>,
-+
-     /// Firmware sections.
-     pub(crate) fw: Arc<Firmware<'bound>>,
- 
-@@ -85,23 +85,6 @@ pub(crate) struct TyrDrmRegistrationData<'bound> {
-     pub(crate) gpu_info: GpuInfo,
- }
- 
--fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
--    // Clear any stale reset IRQ state before issuing a new soft reset.
--    iomem.write_reg(GPU_IRQ_CLEAR::zeroed().with_reset_completed(true));
+-    /// GPU MMIO register mapping.
+-    pub(crate) iomem: Arc<IoMem<'bound>>,
 -
--    iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
--
--    poll::read_poll_timeout(
--        || Ok(iomem.read(GPU_IRQ_RAWSTAT)),
--        |status| status.reset_completed(),
--        time::Delta::from_millis(1),
--        time::Delta::from_millis(100),
--    )
--    .inspect_err(|_| dev_err!(dev, "GPU reset failed."))?;
--
--    Ok(())
--}
--
- kernel::of_device_table!(
-     OF_TABLE,
-     MODULE_OF_TABLE,
-@@ -136,8 +119,7 @@ fn probe<'bound>(
+     /// Some information on the GPU.
+     ///
+     /// This is mainly queried by userspace, i.e.: Mesa.
+@@ -117,12 +114,19 @@ fn probe<'bound>(
  
-         let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
+         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
  
--        issue_soft_reset(pdev.as_ref(), &iomem)?;
--        gpu::l2_power_on(pdev.as_ref(), &iomem)?;
-+        reset::run_reset(pdev.as_ref(), &iomem)?;
+-        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
++        let hw = Arc::pin_init(
++            reset::HwGate::new(request.iomap_sized::<SZ_2M>()?),
++            GFP_KERNEL,
++        )?;
  
-         let gpu_info = GpuInfo::new(&iomem);
-         gpu_info.log(pdev.as_ref());
-@@ -167,6 +149,9 @@ fn probe<'bound>(
+-        reset::run_reset(pdev.as_ref(), &iomem)?;
++        reset::run_reset(pdev.as_ref(), &hw)?;
+ 
+-        let gpu_info = GpuInfo::new(&iomem);
+-        gpu_info.log(pdev.as_ref());
++        let gpu_info = {
++            let hw_guard = hw.access();
++            let gpu_info = GpuInfo::new(hw_guard.iomem());
++            gpu_info.log(pdev.as_ref());
++            gpu_info
++        };
+ 
+         let pa_bits = MMU_FEATURES::from_raw(gpu_info.mmu_features)
+             .pa_bits()
+@@ -134,24 +138,18 @@ fn probe<'bound>(
+ 
+         let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
+ 
+-        let mmu = Mmu::new(iomem.as_arc_borrow(), &gpu_info)?;
++        let mmu = Mmu::new(hw.clone(), &gpu_info)?;
+ 
+-        let firmware = Firmware::new(
+-            pdev,
+-            iomem.clone(),
+-            &unreg_dev,
+-            mmu.as_arc_borrow(),
+-            &gpu_info,
+-        )?;
++        let firmware = Firmware::new(pdev, hw.clone(), &unreg_dev, mmu.as_arc_borrow(), &gpu_info)?;
+ 
+         firmware.boot()?;
+         firmware.enable_global_interface(&gpu_info, &core_clk)?;
  
          let reg_data = try_pin_init!(TyrDrmRegistrationData {
                  pdev,
-+                // SAFETY: `Registration` is stored in the platform driver data and
-+                // not leaked, so `ResetHandle` is dropped before borrowed data expires.
-+                reset <- unsafe { reset::ResetHandle::new(pdev, iomem.as_arc_borrow())? },
+-                // SAFETY: `Registration` is stored in the platform driver data and
+-                // not leaked, so `ResetHandle` is dropped before borrowed data expires.
+-                reset <- unsafe { reset::ResetHandle::new(pdev, iomem.as_arc_borrow())? },
++                // SAFETY: `ResetHandle` is stored in registration data created with `new_with_lt`
++                // and is dropped before the borrowed device and MMIO references expire.
++                reset <- unsafe { reset::ResetHandle::new(pdev, hw.clone())? },
                  fw: firmware,
                  clks <- new_mutex!(Clocks {
                      core: core_clk,
+@@ -162,7 +160,6 @@ fn probe<'bound>(
+                     _mali: mali_regulator,
+                     _sram: sram_regulator,
+                 }),
+-                iomem,
+                 gpu_info,
+         });
+ 
+diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+index 651bbe77f10b..e1522ab14e8d 100644
+--- a/drivers/gpu/drm/tyr/fw.rs
++++ b/drivers/gpu/drm/tyr/fw.rs
+@@ -41,7 +41,6 @@
+ 
+ use crate::{
+     driver::{
+-        IoMem,
+         TyrDrmDevice, //
+     },
+     fw::{
+@@ -65,6 +64,7 @@
+         MCU_CONTROL,
+         MCU_STATUS, //
+     },
++    reset::HwGate,
+     vm::Vm, //
+ };
+ 
+@@ -148,8 +148,8 @@ pub(crate) struct Firmware<'bound> {
+     /// Platform device reference (needed to access the MCU JOB_IRQ registers).
+     _pdev: ARef<platform::Device>,
+ 
+-    /// Iomem need to access registers.
+-    iomem: Arc<IoMem<'bound>>,
++    /// Shared gate that coordinates hardware access with GPU reset.
++    hw: Arc<HwGate<'bound>>,
+ 
+     /// MCU VM.
+     vm: Arc<Vm<'bound>>,
+@@ -221,7 +221,7 @@ fn load(
+     /// Load firmware and map sections into MCU VM.
+     pub(crate) fn new(
+         pdev: &'bound platform::Device<Bound>,
+-        iomem: Arc<IoMem<'bound>>,
++        hw: Arc<HwGate<'bound>>,
+         ddev: &TyrDrmDevice<Uninit>,
+         mmu: ArcBorrow<'_, Mmu<'bound>>,
+         gpu_info: &GpuInfo,
+@@ -262,7 +262,7 @@ pub(crate) fn new(
+         let firmware = Arc::pin_init(
+             try_pin_init!(Firmware {
+                 _pdev: pdev.into(),
+-                iomem,
++                hw,
+                 vm,
+                 sections,
+                 global_iface <- new_mutex!(GlobalInterface::new()?),
+@@ -288,7 +288,8 @@ pub(crate) fn shared_section<'a>(&'a self) -> Result<&'a Section<'bound>> {
+     }
+ 
+     pub(crate) fn boot(&self) -> Result {
+-        let io = &self.iomem;
++        let hw_guard = self.hw.access();
++        let io = hw_guard.iomem();
+         io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto));
+ 
+         if let Err(e) = poll::read_poll_timeout(
+@@ -307,8 +308,9 @@ pub(crate) fn boot(&self) -> Result {
+     /// Enable the global interface.
+     pub(crate) fn enable_global_interface(&self, gpu_info: &GpuInfo, core_clk: &Clk) -> Result {
+         let shared_section = self.shared_section()?;
++        let hw_guard = self.hw.access();
+         self.global_iface
+             .lock()
+-            .enable(&self.iomem, shared_section, gpu_info, core_clk)
++            .enable(hw_guard.iomem(), shared_section, gpu_info, core_clk)
+     }
+ }
+diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
+index cb5908c80e3d..8df6d2ef3c74 100644
+--- a/drivers/gpu/drm/tyr/mmu.rs
++++ b/drivers/gpu/drm/tyr/mmu.rs
+@@ -26,7 +26,6 @@
+ };
+ 
+ use crate::{
+-    driver::IoMem,
+     gpu::GpuInfo,
+     mmu::address_space::{
+         AddressSpaceManager,
+@@ -36,6 +35,7 @@
+         gpu_control::AS_PRESENT,
+         MAX_AS, //
+     },
++    reset::HwGate,
+     slot::SlotManager, //
+ };
+ 
+@@ -67,14 +67,11 @@ pub(crate) struct Mmu<'bound> {
+ 
+ impl<'bound> Mmu<'bound> {
+     /// Create an MMU component for this device.
+-    pub(crate) fn new(
+-        iomem: ArcBorrow<'_, IoMem<'bound>>,
+-        gpu_info: &GpuInfo,
+-    ) -> Result<Arc<Mmu<'bound>>> {
++    pub(crate) fn new(hw: Arc<HwGate<'bound>>, gpu_info: &GpuInfo) -> Result<Arc<Mmu<'bound>>> {
+         let present = AS_PRESENT::from_raw(gpu_info.as_present).present().get();
+         let slot_count = present.count_ones().try_into()?;
+ 
+-        let as_manager = AddressSpaceManager::new(iomem, present)?;
++        let as_manager = AddressSpaceManager::new(hw, present)?;
+         let mmu_init = try_pin_init!(Self{
+             as_manager <- new_mutex!(SlotManager::new(as_manager, slot_count)?),
+         });
+diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/tyr/mmu/address_space.rs
+index d5274220eb3c..7ce2902e6300 100644
+--- a/drivers/gpu/drm/tyr/mmu/address_space.rs
++++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
+@@ -42,7 +42,6 @@
+ };
+ 
+ use crate::{
+-    driver::IoMem,
+     mmu::{
+         AsSlotManager,
+         Mmu, //
+@@ -52,6 +51,7 @@
+         mmu_control::mmu_as_control::*,
+         MAX_AS, //
+     },
++    reset::HwGate,
+     slot::{
+         Seat,
+         SlotOperations, //
+@@ -201,8 +201,8 @@ fn as_config(&self) -> Result<AddressSpaceConfig> {
+ ///
+ /// [`SlotOperations`]: crate::slot::SlotOperations
+ pub(crate) struct AddressSpaceManager<'bound> {
+-    /// Memory-mapped I/O region for GPU register access.
+-    iomem: Arc<IoMem<'bound>>,
++    /// Shared gate that coordinates hardware access with GPU reset.
++    hw: Arc<HwGate<'bound>>,
+ 
+     /// Bitmask of available address space slots from GPU_AS_PRESENT register.
+     as_present: u32,
+@@ -229,16 +229,13 @@ fn evict(&mut self, slot_idx: usize, _slot_data: &Self::SlotData) -> Result {
+ impl<'bound> AddressSpaceManager<'bound> {
+     /// Creates a new address space manager.
+     ///
+-    /// Initializes the manager with references to the platform device and
+-    /// I/O memory region, along with the bitmask of available AS slots.
++    /// Initializes the manager with the hardware-access gate and the bitmask
++    /// of available AS slots.
+     pub(super) fn new(
+-        iomem: ArcBorrow<'_, IoMem<'bound>>,
++        hw: Arc<HwGate<'bound>>,
+         as_present: u32,
+     ) -> Result<AddressSpaceManager<'bound>> {
+-        Ok(Self {
+-            iomem: iomem.into(),
+-            as_present,
+-        })
++        Ok(Self { hw, as_present })
+     }
+ 
+     /// Validates that an AS slot number is within range and present in hardware.
+@@ -269,7 +266,8 @@ fn validate_as_slot(&self, as_nr: usize) -> Result {
+     ///
+     /// Returns an error if polling times out after 10ms or if register access fails.
+     fn as_wait_ready(&self, as_nr: usize) -> Result {
+-        let io = &*self.iomem;
++        let hw_guard = self.hw.access();
++        let io = hw_guard.iomem();
+         let op = || {
+             let status_reg = STATUS::try_at(as_nr).ok_or(EINVAL)?;
+             Ok(io.read(status_reg))
+@@ -283,9 +281,10 @@ fn as_wait_ready(&self, as_nr: usize) -> Result {
+     /// Sends a command to an AS slot.
+     ///
+     /// Returns an error if waiting for ready times out or if register write fails.
+-    fn as_send_cmd(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
++    fn as_send_cmd(&self, as_nr: usize, cmd: MmuCommand) -> Result {
+         self.as_wait_ready(as_nr)?;
+-        let io = &*self.iomem;
++        let hw_guard = self.hw.access();
++        let io = hw_guard.iomem();
+         let command_reg = COMMAND::try_at(as_nr).ok_or(EINVAL)?;
+         io.write(command_reg, COMMAND::zeroed().with_command(cmd));
+         Ok(())
+@@ -294,7 +293,7 @@ fn as_send_cmd(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
+     /// Sends a command to an AS slot and waits for completion.
+     ///
+     /// Returns an error if sending the command fails or if waiting for completion times out.
+-    fn as_send_cmd_and_wait(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
++    fn as_send_cmd_and_wait(&self, as_nr: usize, cmd: MmuCommand) -> Result {
+         self.as_send_cmd(as_nr, cmd)?;
+         self.as_wait_ready(as_nr)?;
+         Ok(())
+@@ -303,10 +302,10 @@ fn as_send_cmd_and_wait(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
+     /// Enables an AS slot with the provided configuration.
+     ///
+     /// Returns an error if the slot is invalid or if register writes/commands fail.
+-    fn as_enable(&mut self, as_nr: usize, as_config: &AddressSpaceConfig) -> Result {
++    fn as_enable(&self, as_nr: usize, as_config: &AddressSpaceConfig) -> Result {
+         self.validate_as_slot(as_nr)?;
+-
+-        let io = &*self.iomem;
++        let hw_guard = self.hw.access();
++        let io = hw_guard.iomem();
+ 
+         let transtab = as_config.transtab;
+         io.write(
+@@ -346,14 +345,14 @@ fn as_enable(&mut self, as_nr: usize, as_config: &AddressSpaceConfig) -> Result
+     /// Disables an AS slot and clears its configuration.
+     ///
+     /// Returns an error if the slot is invalid or if register writes/commands fail.
+-    fn as_disable(&mut self, as_nr: usize) -> Result {
++    fn as_disable(&self, as_nr: usize) -> Result {
+         self.validate_as_slot(as_nr)?;
++        let hw_guard = self.hw.access();
++        let io = hw_guard.iomem();
+ 
+         // Flush AS before disabling
+         self.as_send_cmd_and_wait(as_nr, MmuCommand::FlushMem)?;
+ 
+-        let io = &*self.iomem;
+-
+         io.write(
+             TRANSTAB_LO::try_at(as_nr).ok_or(EINVAL)?,
+             TRANSTAB_LO::from_raw(0),
+@@ -397,8 +396,10 @@ fn as_disable(&mut self, as_nr: usize) -> Result {
+     /// power-of-two region aligned to its size.
+     ///
+     /// Returns an error if the slot is invalid or if register writes/commands fail.
+-    fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
++    fn as_start_update(&self, as_nr: usize, region: &Range<u64>) -> Result {
+         self.validate_as_slot(as_nr)?;
++        let hw_guard = self.hw.access();
++        let io = hw_guard.iomem();
+ 
+         // The lock operates on full 64-byte cache lines of translation table entries.
+         // Since each translation table entry (TTE) is 8 bytes, a cache line has 8 TTEs.
+@@ -436,8 +437,6 @@ fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
+         // because log2(32 KiB) = 15.
+         let lockaddr_size = lock_region_log2 - 1;
+ 
+-        let io = &*self.iomem;
+-
+         let lockaddr_val = LOCKADDR::zeroed()
+             .try_with_size(lockaddr_size)?
+             .try_with_base(lockaddr_base)?
+@@ -458,7 +457,7 @@ fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
+     /// Completes an atomic translation table update.
+     ///
+     /// Returns an error if the slot is invalid or if the flush command fails.
+-    fn as_end_update(&mut self, as_nr: usize) -> Result {
++    fn as_end_update(&self, as_nr: usize) -> Result {
+         self.validate_as_slot(as_nr)?;
+         self.as_send_cmd_and_wait(as_nr, MmuCommand::FlushPt)?;
+         Ok(())
+@@ -467,7 +466,7 @@ fn as_end_update(&mut self, as_nr: usize) -> Result {
+     /// Flushes the translation table cache for an AS slot.
+     ///
+     /// Returns an error if the slot is invalid or if the flush command fails.
+-    fn as_flush(&mut self, as_nr: usize) -> Result {
++    fn as_flush(&self, as_nr: usize) -> Result {
+         self.validate_as_slot(as_nr)?;
+         self.as_send_cmd(as_nr, MmuCommand::FlushPt)
+     }
 diff --git a/drivers/gpu/drm/tyr/reset.rs b/drivers/gpu/drm/tyr/reset.rs
-new file mode 100644
-index 000000000000..a41158c7ea21
---- /dev/null
+index a41158c7ea21..1abcd25877d3 100644
+--- a/drivers/gpu/drm/tyr/reset.rs
 +++ b/drivers/gpu/drm/tyr/reset.rs
-@@ -0,0 +1,249 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
+@@ -21,7 +21,7 @@
+ 
+ mod hw_gate;
+ 
+-use hw_gate::HwGate;
++pub(crate) use hw_gate::HwGate;
+ 
+ use kernel::{
+     device::{
+@@ -41,8 +41,7 @@
+             Full,
+             Release, //
+         },
+-        Arc,
+-        ArcBorrow, //
++        Arc, //
+     },
+     time,
+     workqueue::{
+@@ -84,13 +83,10 @@ unsafe impl AtomicType for ResetState {
+ struct Controller<'ctrl> {
+     /// Parent platform device.
+     pdev: &'ctrl platform::Device<Bound>,
+-    /// Mapped register space needed for reset operations.
+-    iomem: Arc<IoMem<'ctrl>>,
+     /// State shared by reset schedulers and the worker.
+     state: Atomic<ResetState>,
+-    /// Drains reset-sensitive hardware accesses before a reset.
+-    #[pin]
+-    hw: HwGate,
++    /// Shared gate that coordinates hardware access with GPU reset.
++    hw: Arc<HwGate<'ctrl>>,
+ }
+ 
+ impl<'ctrl> ScopedWorkItem for Controller<'ctrl> {
+@@ -103,13 +99,12 @@ impl<'ctrl> Controller<'ctrl> {
+     /// Creates a reset controller.
+     fn new(
+         pdev: &'ctrl platform::Device<Bound>,
+-        iomem: Arc<IoMem<'ctrl>>,
++        hw: Arc<HwGate<'ctrl>>,
+     ) -> impl PinInit<Self, Error> {
+         try_pin_init!(Self {
+             pdev,
+-            iomem,
+             state: Atomic::new(ResetState::Idle),
+-            hw <- HwGate::new(),
++            hw,
+         })
+     }
+ 
+@@ -136,10 +131,7 @@ fn reset_work(&self) {
+ 
+         dev_dbg!(self.pdev, "Starting GPU reset.\n");
+ 
+-        // Wait for current hardware accesses to finish before resetting.
+-        let reset_guard = self.hw.close();
+-        let reset_result = run_reset(self.pdev.as_ref(), &self.iomem);
+-        drop(reset_guard);
++        let reset_result = run_reset(self.pdev.as_ref(), &self.hw);
+ 
+         if let Err(e) = reset_result {
+             dev_err!(self.pdev, "GPU reset failed: {:?}\n", e);
+@@ -175,12 +167,10 @@ impl<'reset> ResetHandle<'reset> {
+     /// running [`Drop`], since it owns work that may borrow from `'reset`.
+     pub(crate) unsafe fn new(
+         pdev: &'reset platform::Device<Bound>,
+-        iomem: ArcBorrow<'_, IoMem<'reset>>,
++        hw: Arc<HwGate<'reset>>,
+     ) -> Result<impl PinInit<Self, Error>> {
+-        let iomem = iomem.into();
+-
+         Ok(try_pin_init!(Self {
+-            controller <- kernel::new_scoped_work!("tyr::reset", Controller::new(pdev, iomem)),
++            controller <- kernel::new_scoped_work!("tyr::reset", Controller::new(pdev, hw)),
+             // SAFETY: The caller guarantees the handle is dropped.
+             wq: unsafe { ScopedQueue::new(c"tyr-reset-wq")? },
+         }))
+@@ -242,7 +232,10 @@ fn issue_soft_reset(dev: &Device<Bound>, io: &IoMem<'_>) -> Result {
+ ///   - Trigger a GPU soft reset.
+ ///   - Wait for the reset-complete IRQ status.
+ ///   - Power L2 back on.
+-pub(super) fn run_reset(dev: &Device<Bound>, iomem: &IoMem<'_>) -> Result {
++pub(super) fn run_reset(dev: &Device<Bound>, hw: &HwGate<'_>) -> Result {
++    let hw_guard = hw.close();
++    let iomem = hw_guard.iomem();
 +
-+//! Provides asynchronous reset handling for the Tyr DRM driver via [`ResetHandle`].
-+//!
-+//! [`ResetHandle::schedule`] runs reset work on a dedicated ordered
-+//! [`ScopedQueue`] and avoids duplicate pending reset requests.
-+//!
-+//! # High-level Execution Flow
-+//!
-+//! ```text
-+//! +------+  schedule()  +---------+  reset_work()  +------------+
-+//! | Idle |------------->| Pending |--------------->| InProgress |
-+//! +------+              +---------+                +------------+
-+//!    ^                                             |
-+//!    |               work complete                 |
-+//!    +---------------------------------------------+
-+//!
-+//! Teardown transitions any state to ShuttingDown, then drains pending and
-+//! running work.
-+//! ```
-+
-+mod hw_gate;
-+
-+use hw_gate::HwGate;
-+
-+use kernel::{
-+    device::{
-+        Bound,
-+        Device, //
-+    },
-+    io::{
-+        poll,
-+        Io, //
-+    },
-+    platform,
-+    prelude::*,
-+    sync::{
-+        atomic::{
-+            Atomic,
-+            AtomicType,
-+            Full,
-+            Release, //
-+        },
-+        Arc,
-+        ArcBorrow, //
-+    },
-+    time,
-+    workqueue::{
-+        ScopedQueue,
-+        ScopedWork,
-+        ScopedWorkItem,
-+        ScopedWorkRef, //
-+    },
-+};
-+
-+use crate::{
-+    driver::IoMem,
-+    gpu,
-+    regs::gpu_control::*, //
-+};
-+
-+/// Lifecycle state of the reset worker.
-+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-+#[repr(i32)]
-+enum ResetState {
-+    /// Hardware is available and no reset request exists.
-+    Idle = 0,
-+    /// Reset work item is queued and waiting to be claimed by the worker.
-+    Pending = 1,
-+    /// Worker has claimed the request and is resetting hardware.
-+    InProgress = 2,
-+    /// Teardown has started and no new reset request may start.
-+    ShuttingDown = 3,
-+}
-+
-+// SAFETY: `ResetState` and `i32` have the same size and alignment, and are
-+// round-trip transmutable.
-+unsafe impl AtomicType for ResetState {
-+    type Repr = i32;
-+}
-+
-+/// Internal reset orchestrator that owns the state, [`HwGate`], and work item.
-+#[pin_data]
-+struct Controller<'ctrl> {
-+    /// Parent platform device.
-+    pdev: &'ctrl platform::Device<Bound>,
-+    /// Mapped register space needed for reset operations.
-+    iomem: Arc<IoMem<'ctrl>>,
-+    /// State shared by reset schedulers and the worker.
-+    state: Atomic<ResetState>,
-+    /// Drains reset-sensitive hardware accesses before a reset.
-+    #[pin]
-+    hw: HwGate,
-+}
-+
-+impl<'ctrl> ScopedWorkItem for Controller<'ctrl> {
-+    fn run(work: &ScopedWorkRef<Self>) {
-+        work.reset_work();
-+    }
-+}
-+
-+impl<'ctrl> Controller<'ctrl> {
-+    /// Creates a reset controller.
-+    fn new(
-+        pdev: &'ctrl platform::Device<Bound>,
-+        iomem: Arc<IoMem<'ctrl>>,
-+    ) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            pdev,
-+            iomem,
-+            state: Atomic::new(ResetState::Idle),
-+            hw <- HwGate::new(),
-+        })
-+    }
-+
-+    /// Attempts to transition the reset state from `from` to `to`.
-+    #[inline]
-+    fn try_transition(&self, from: ResetState, to: ResetState) -> bool {
-+        self.state.cmpxchg(from, to, Full).is_ok()
-+    }
-+
-+    /// Processes one scheduled reset request.
-+    ///
-+    /// If the pending reset cannot be claimed, the worker returns immediately.
-+    ///
-+    /// It first claims [`ResetState::Pending`], then waits for earlier hardware
-+    /// accesses to complete before issuing the reset and returning the worker
-+    /// state to [`ResetState::Idle`].
-+    ///
-+    /// Panthor reference:
-+    /// - drivers/gpu/drm/panthor/panthor_device.c::panthor_device_reset_work()
-+    fn reset_work(&self) {
-+        if !self.try_transition(ResetState::Pending, ResetState::InProgress) {
-+            return;
-+        }
-+
-+        dev_dbg!(self.pdev, "Starting GPU reset.\n");
-+
-+        // Wait for current hardware accesses to finish before resetting.
-+        let reset_guard = self.hw.close();
-+        let reset_result = run_reset(self.pdev.as_ref(), &self.iomem);
-+        drop(reset_guard);
-+
-+        if let Err(e) = reset_result {
-+            dev_err!(self.pdev, "GPU reset failed: {:?}\n", e);
-+
-+            // TODO: Unplug the GPU.
-+            // There is no API for unplugging the GPU and this is unreachable
-+            // for now since there are no hardware users for reset API.
-+        } else {
-+            dev_dbg!(self.pdev, "GPU reset completed.\n");
-+        }
-+
-+        let _ = self.try_transition(ResetState::InProgress, ResetState::Idle);
-+    }
-+}
-+
-+/// User-facing handle for scheduling resets.
-+///
-+/// Dropping the handle drains any queued or in-flight reset work before the
-+/// [`ScopedQueue`] and the clock and regulator resources are released.
-+#[pin_data(PinnedDrop)]
-+pub(crate) struct ResetHandle<'reset> {
-+    #[pin]
-+    controller: ScopedWork<Controller<'reset>>,
-+    wq: ScopedQueue<'reset>,
-+}
-+
-+impl<'reset> ResetHandle<'reset> {
-+    /// Creates [`ResetHandle`].
-+    ///
-+    /// # Safety
-+    ///
-+    /// The returned handle must not be leaked or otherwise prevented from
-+    /// running [`Drop`], since it owns work that may borrow from `'reset`.
-+    pub(crate) unsafe fn new(
-+        pdev: &'reset platform::Device<Bound>,
-+        iomem: ArcBorrow<'_, IoMem<'reset>>,
-+    ) -> Result<impl PinInit<Self, Error>> {
-+        let iomem = iomem.into();
-+
-+        Ok(try_pin_init!(Self {
-+            controller <- kernel::new_scoped_work!("tyr::reset", Controller::new(pdev, iomem)),
-+            // SAFETY: The caller guarantees the handle is dropped.
-+            wq: unsafe { ScopedQueue::new(c"tyr-reset-wq")? },
-+        }))
-+    }
-+
-+    /// Schedules a GPU reset on the dedicated workqueue.
-+    ///
-+    /// If a reset is already pending or in progress the call is a no-op.
-+    #[expect(dead_code)]
-+    pub(crate) fn schedule(&'reset self) {
-+        // TODO: Similar to `panthor_device_schedule_reset()` in Panthor, add a
-+        // power management check once Tyr supports it.
-+
-+        if self
-+            .controller
-+            .try_transition(ResetState::Idle, ResetState::Pending)
-+        {
-+            let _ = self.wq.enqueue(&self.controller);
-+        }
-+    }
-+}
-+
-+#[pinned_drop]
-+impl<'reset> PinnedDrop for ResetHandle<'reset> {
-+    fn drop(self: Pin<&mut Self>) {
-+        // Stop new reset requests before draining queued/running work.
-+        self.controller
-+            .state
-+            .store(ResetState::ShuttingDown, Release);
-+    }
-+}
-+
-+/// Issues a soft reset command and waits for reset-complete IRQ status.
-+fn issue_soft_reset(dev: &Device<Bound>, io: &IoMem<'_>) -> Result {
-+    // Clear any stale reset-complete IRQ state before issuing a new soft reset.
-+    io.write_reg(GPU_IRQ_CLEAR::zeroed().with_reset_completed(true));
-+
-+    io.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
-+
-+    poll::read_poll_timeout(
-+        || Ok(io.read(GPU_IRQ_RAWSTAT)),
-+        |status| status.reset_completed(),
-+        time::Delta::from_millis(1),
-+        time::Delta::from_millis(100),
-+    )
-+    .inspect_err(|_| dev_err!(dev, "GPU reset timed out."))?;
-+
-+    Ok(())
-+}
-+
-+/// Runs one synchronous GPU reset pass.
-+///
-+/// Its visibility is `pub(super)` only so the probe path can run an
-+/// initial reset; it is not part of this module's public API.
-+///
-+/// On success, the GPU is left in a state suitable for reinitialization.
-+///
-+/// The sequence is as follows:
-+///   - Trigger a GPU soft reset.
-+///   - Wait for the reset-complete IRQ status.
-+///   - Power L2 back on.
-+pub(super) fn run_reset(dev: &Device<Bound>, iomem: &IoMem<'_>) -> Result {
-+    issue_soft_reset(dev, iomem)?;
-+    gpu::l2_power_on(dev, iomem)?;
-+    Ok(())
-+}
+     issue_soft_reset(dev, iomem)?;
+     gpu::l2_power_on(dev, iomem)?;
+     Ok(())
 diff --git a/drivers/gpu/drm/tyr/reset/hw_gate.rs b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-new file mode 100644
-index 000000000000..54754f9fc05f
---- /dev/null
+index 54754f9fc05f..b7db2abf47ea 100644
+--- a/drivers/gpu/drm/tyr/reset/hw_gate.rs
 +++ b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-@@ -0,0 +1,80 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
+@@ -18,9 +18,13 @@
+     },
+ };
+ 
++use crate::driver::IoMem;
 +
-+//! Hardware-access gate for the GPU reset cycle.
-+//!
-+//! [`HwGate`] uses a mutex and [`Srcu`] to coordinate reset-sensitive hardware
-+//! access with reset. Readers hold the mutex while entering SRCU, then release
-+//! it before accessing hardware. The reset worker holds the mutex while waiting
-+//! for admitted readers and resetting hardware.
-+
-+use kernel::{
-+    prelude::*,
-+    sync::{
-+        new_mutex,
-+        srcu,
-+        Mutex,
-+        MutexGuard,
-+        Srcu, //
-+    },
-+};
-+
-+/// Synchronizes GPU hardware access with reset.
-+#[pin_data]
-+pub(super) struct HwGate {
-+    /// Admits readers and is held exclusively while the reset worker owns the
-+    /// hardware.
-+    #[pin]
-+    gate_lock: Mutex<()>,
-+    /// Drains readers that entered before the reset worker acquired `gate_lock`.
-+    #[pin]
-+    srcu: Srcu,
-+}
-+
-+impl HwGate {
-+    /// Creates an open hardware-access gate.
-+    pub(super) fn new() -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            gate_lock <- new_mutex!(()),
-+            srcu <- kernel::new_srcu!(),
-+        })
-+    }
-+
-+    /// Enters a reset-sensitive hardware-access section.
-+    #[expect(dead_code)]
-+    fn access(&self) -> HwAccessGuard<'_> {
-+        let gate_lock = self.gate_lock.lock();
-+        let srcu = self.srcu.read_lock();
-+        drop(gate_lock);
-+
-+        HwAccessGuard { _srcu: srcu }
-+    }
-+
-+    /// Stops new readers and drains admitted readers for the reset worker.
-+    ///
-+    /// Callers must serialize write-side access. The reset controller's state
-+    /// machine provides that serialization.
-+    pub(super) fn close(&self) -> HwClosedGuard<'_> {
-+        let gate_lock = self.gate_lock.lock();
-+
-+        // Holding `gate_lock` prevents new readers from entering SRCU. Readers
-+        // admitted before us are enrolled, so wait for their read-side work.
-+        self.srcu.synchronize();
-+
-+        HwClosedGuard {
-+            _gate_lock: gate_lock,
+ /// Synchronizes GPU hardware access with reset.
+ #[pin_data]
+-pub(super) struct HwGate {
++pub(crate) struct HwGate<'hw> {
++    /// GPU MMIO register mapping.
++    iomem: IoMem<'hw>,
+     /// Admits readers and is held exclusively while the reset worker owns the
+     /// hardware.
+     #[pin]
+@@ -30,30 +34,33 @@ pub(super) struct HwGate {
+     srcu: Srcu,
+ }
+ 
+-impl HwGate {
++impl<'hw> HwGate<'hw> {
+     /// Creates an open hardware-access gate.
+-    pub(super) fn new() -> impl PinInit<Self, Error> {
++    pub(crate) fn new(iomem: IoMem<'hw>) -> impl PinInit<Self, Error> {
+         try_pin_init!(Self {
++            iomem,
+             gate_lock <- new_mutex!(()),
+             srcu <- kernel::new_srcu!(),
+         })
+     }
+ 
+     /// Enters a reset-sensitive hardware-access section.
+-    #[expect(dead_code)]
+-    fn access(&self) -> HwAccessGuard<'_> {
++    pub(crate) fn access(&self) -> HwAccessGuard<'_, 'hw> {
+         let gate_lock = self.gate_lock.lock();
+         let srcu = self.srcu.read_lock();
+         drop(gate_lock);
+ 
+-        HwAccessGuard { _srcu: srcu }
++        HwAccessGuard {
++            gate: self,
++            _srcu: srcu,
 +        }
+     }
+ 
+     /// Stops new readers and drains admitted readers for the reset worker.
+     ///
+     /// Callers must serialize write-side access. The reset controller's state
+     /// machine provides that serialization.
+-    pub(super) fn close(&self) -> HwClosedGuard<'_> {
++    pub(super) fn close(&self) -> HwClosedGuard<'_, 'hw> {
+         let gate_lock = self.gate_lock.lock();
+ 
+         // Holding `gate_lock` prevents new readers from entering SRCU. Readers
+@@ -61,6 +68,7 @@ pub(super) fn close(&self) -> HwClosedGuard<'_> {
+         self.srcu.synchronize();
+ 
+         HwClosedGuard {
++            gate: self,
+             _gate_lock: gate_lock,
+         }
+     }
+@@ -68,13 +76,27 @@ pub(super) fn close(&self) -> HwClosedGuard<'_> {
+ 
+ /// Shared hardware access that blocks reset until dropped.
+ #[must_use = "the gate is released when the guard is dropped"]
+-struct HwAccessGuard<'a> {
++pub(crate) struct HwAccessGuard<'a, 'hw> {
++    gate: &'a HwGate<'hw>,
+     _srcu: srcu::Guard<'a>,
+ }
+ 
++impl<'a, 'hw> HwAccessGuard<'a, 'hw> {
++    pub(crate) fn iomem(&self) -> &IoMem<'hw> {
++        &self.gate.iomem
 +    }
 +}
 +
-+/// Shared hardware access that blocks reset until dropped.
-+#[must_use = "the gate is released when the guard is dropped"]
-+struct HwAccessGuard<'a> {
-+    _srcu: srcu::Guard<'a>,
-+}
+ /// Exclusive hardware access for the reset worker that blocks new hardware
+ /// accesses until dropped.
+ #[must_use = "the gate stays closed until the guard is dropped"]
+-pub(super) struct HwClosedGuard<'a> {
++pub(super) struct HwClosedGuard<'a, 'hw> {
++    gate: &'a HwGate<'hw>,
+     _gate_lock: MutexGuard<'a, ()>,
+ }
 +
-+/// Exclusive hardware access for the reset worker that blocks new hardware
-+/// accesses until dropped.
-+#[must_use = "the gate stays closed until the guard is dropped"]
-+pub(super) struct HwClosedGuard<'a> {
-+    _gate_lock: MutexGuard<'a, ()>,
++impl<'a, 'hw> HwClosedGuard<'a, 'hw> {
++    pub(super) fn iomem(&self) -> &IoMem<'hw> {
++        &self.gate.iomem
++    }
 +}
-diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-index 3f6fe5fbeb0f..63873628c843 100644
---- a/drivers/gpu/drm/tyr/tyr.rs
-+++ b/drivers/gpu/drm/tyr/tyr.rs
-@@ -14,6 +14,7 @@
- mod gpu;
- mod mmu;
- mod regs;
-+mod reset;
- mod slot;
- mod vm;
- mod wait;
 
 -- 
 2.51.2
