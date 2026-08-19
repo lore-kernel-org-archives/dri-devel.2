@@ -4,99 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78DB0C5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 13:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A47ACC5DF86
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 13:05:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB38F10E540;
-	Wed, 19 Aug 2026 13:02:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFA510E5F1;
+	Wed, 19 Aug 2026 13:05:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TDus7vsK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="K2LMLWRM";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d5g5eK5s";
 	dkim-atps=neutral
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com
- [209.85.217.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F1D10E540
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 13:02:29 +0000 (UTC)
-Received: by mail-vs1-f49.google.com with SMTP id
- ada2fe7eead31-74a86e9d4a8so311149137.2
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:02:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787144548; cv=none;
- d=google.com; s=arc-20260327;
- b=Yoe5ji6bDErD1ir2KM4erv90BTdC1+DvIiPgLwJ/YVKgdVt+XP1MuV7cEJHLgaEJcK
- +ytxVNaTyFyTXifNbiSAClRt2G7lEoTtkn9aK828pyIyqxsMNG89R+1zmre9dk7Fv0FV
- iqzra/ZGfIv73yZvU8zo6LIqMDcMVtzzpKGmzBx2Mtl2bS6PoxL8PkrVWgUzx7I8LZ/q
- 9GydDPKZin/qcDmlaPJTSRM/Qr+NkMqlOAQKGEjA3k7NQ2zTcH+jHMXzj5my5fsgPWtB
- loERIhZcDI/rK41G2UhU9VSnR20Pmr/lT2AMCib1Lq2yEeKUIBzEZq2oWuLcCDXNNy2b
- RQrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=xmuCUeXTSBWTdXqlKd0iubpusTbKWwEzyplHp2MiIhQ=;
- fh=zDQn54/tylqRFoy6Tp+dOTLdwsldH3smaiU3yDJj+uI=;
- b=d6sTZfogbZpL8d5F3kOZkQfkRmz2g6uqQLyI7t7GCXy7FGtDDgUNJVqiniD2oogxcv
- DH7yRmdXU5g3LKtyJyLhYSGf2OhTHUjKoEpOv6Nj5WbOG8N92jOgJtmv3xoMGVOJYP+4
- yCC6B1dR5IUkgbE50qvKF1fppnBvxhM6/fq32I8lKcXkJDcojfBi9iCal6WKWmD/rbyu
- q3I/KLEmjNjp30g+Im2GcwuipWJoCs+HY+VhIQ1DMfA9cQzL6Do2JyPLU6cHTxI+cxSe
- xMMYOGLXtAac/RFXV2g5JafMlQ3sgRX9bArHqXmxQf/IyaIbrk4Z+/J2p5/OSY8/ofDL
- d0Rg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A561310E5DA
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 13:05:34 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67JD0QJr4114556
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 13:05:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ LZ5DADcP5lyK3Hc2KgnGBzVe5cJ/nTw1zxLeW7QKY5o=; b=K2LMLWRMhSf9IfQR
+ DpB6P5ILQueozCgCu5JXWzSpQPKmbFV9bRj4KnArcWAgE1E5S/gbqv0Vgd98elSy
+ 2Z7Qd9YrW2KiLmg3GAEsloT8Tny6ZBWrgy6GQZLMYy1EMqRXDc2c4syj+gfFTzQ1
+ gjIbgeLR8+sYoUBMBOO/vUs+IBWDVDvT8m77dmmY6dwtHAdVK/5/N6mfB3Wd8rKS
+ hkFKjswlekvfHUg/caahLolHW+47x2nNWMU9d3JilgNrSzCYD6KFkCTh69Hyi2bn
+ 7hlk3jq+7XnFCejQyDo8khR9H/FVbuJIXfSbKO2tEO8qqugq4AIrZYvPWbYY+VLJ
+ jC5YWg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfmba46-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 13:05:33 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2ccb6823efcso8955075ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 06:05:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787144548; x=1787749348; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=xmuCUeXTSBWTdXqlKd0iubpusTbKWwEzyplHp2MiIhQ=;
- b=TDus7vsKTNEpEYcOWZIc+s7mzQZjvHztq0t0TWjXe2kIo2L7wD0eTlHqTw0elsRMLW
- Lg/NQMs8FeaELESvgf9vBOWgkKJI4iWG3S38DDfQpzsWe7tWYAdT+Uvrnn7K82DJZnAD
- uhiJF0aDuHkJHJ/LLfuGxus9Ubrm08xgRuiyKo1PNCshXa1OR5yS56FDh+A/vJ3Y5qCq
- e9w2AraYgYmXTi5IPUieCl80PiHU6HLhz0Ol7U3Sb2P7WVBt/d+QUOy8bHao8E50vPW2
- 1YZx4t64093Gd/QdbhsuqE6dRNZiXHhZB9lmS9NpjHcoP5g+D1CrTyQQFKF9D6M/N1ci
- WiuA==
+ d=oss.qualcomm.com; s=google; t=1787144733; x=1787749533;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=LZ5DADcP5lyK3Hc2KgnGBzVe5cJ/nTw1zxLeW7QKY5o=;
+ b=d5g5eK5sYS+W5GY9z8KGHwkW8j/1TvU9Ybg+04upYXc49XAmfsx5KdxOXW7MNFrBpK
+ Z7J5DSwz1D2XizCE588Ow+qOXrZFSTAbYqXHN/9JukmZ3LZj1JM9CBiLdcWdyrZ/+lYM
+ qCTO5pjuTIJ1VfYxmM8v9w33zQ/v/ZgZyVAyOCdDxqQ7suTlJCzV7c/Tx37ZduYj2qHH
+ s8vV/2wWZ6+MkRhVnwx1ohwggU+3ls+KJD794tHhdRa6x28+IdbdhZdBjYn30sZHHalx
+ FM9d8I5nA9FHNZvg+YjhUkbT727qKPEJZzWbfBOSHa8l3j9j+c0r6oalY1P0sKmSpI0+
+ mnEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787144548; x=1787749348;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=xmuCUeXTSBWTdXqlKd0iubpusTbKWwEzyplHp2MiIhQ=;
- b=GsQd9IeJtSFlv3K7WxDXXWMMhs6//LAftiGnsPCbOlKkzKMEgoK05v4XQKqrwjTtPo
- 9WrE+pX6FdFp8aKR2cKOllde6N2LVwmrHIx2WZQsmgKqw9PPDInpPUvkAINPMNCV6GPs
- Vl+G5YcdL+bsAu/XrxsJUFokSmgSBQ2IJkZJsgkl9M0GU1G2WS7keDBo4zX/ythYgfT9
- +BJLlHC6SJTvDzGnq1NwXc7V1x5Tfk6M6J9slk+a1RhOTWFG0smhS9yCvpwLFDhCVI32
- WKcnbRIxq3r4XBPKbl8ajxnPDgyYFZ8Sh+cl3b7Z5rIQpbGYDuo+eb8r+V3MScS/Wbym
- A6Dg==
+ d=1e100.net; s=20251104; t=1787144733; x=1787749533;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=LZ5DADcP5lyK3Hc2KgnGBzVe5cJ/nTw1zxLeW7QKY5o=;
+ b=O3/TU6T2h7o7z87doXCpVl3+Rc2SsIOZYjUQL209RyScRB6bjMCTUSnHXMvbpkVda6
+ buUodq5/TaRt4FxMGMj/UI4G6THOk6Nz7PAAeDdEx/mHUQAMtZaBx2oPpmt9evg6GopK
+ SG8YLf2xkybONyPjWAZA+o66ChhK5Q2qafSYS0oSqNid6OeEO/ZQOrD7AXcP9SmFA/Cy
+ RAA1Jwum55YT1LEb0i8Wrt2ffM7LxMd7wqgfouSKWI2linqzQYeZSguIcY+dj6yDaqK6
+ 3cIuwbSpETrgBpoBbAbaJ4SvQuPV71E5pKKfLjhWQ7ez8lmBeu3z3TPNLJWrqVJm/MXd
+ ONRg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr6NlKvZBcuJkNqMmjoo2Cj1AImVzJqv4XUvyhwKkhSBNv/7PAz5UgmyZSSmZWAE0ZaayGkPpNXBns=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0MsLkmoHE0ZpFQQTIUdvvMpzhtheflgb2qowaZuOxyUm88yN3
- 3Wu51wVEt3k6uNSR6e0Ao/L+6tI3c4vjvItlqjjIYT4ApXxZpVm9j0/HDeYi8tGlNRFyZBYWS4l
- mGzqJfxpE3/mtNu1F8Q1zvBsT4Q4nK96q7um8AHA=
-X-Gm-Gg: AR+sD11ptTvM7MH42cfFM9px8VZvjJ8EpBjTKIVuen+zq/AGe7XGiSNb3rUQEyaLJjn
- 1T7HuqAeDUtA9a2JrvUq91sEvZ3aJzU87dFLFmnmQSkGNt34EojpiplTi5bb7m5WSP/jcfAQ9bI
- O3HVWLNHZy6zNNhLy4z9StrmlMncQ54pHodlt0tIN1OnRXICMY5vVnt7Ok7AD1tciw0CHF/MOQ7
- ECPUmx11D46Zwaxz709tCTTjxBc8G0iCkPtNeKU7cwgxxSkQBozolBa67tQME17zwd4c94rT2L8
- u/lGwbX3gAETXzBex6+Hmon+JTloSjmu6BqbpL9KtRLMB5gc5b8Q4fYQzCDzrcTa3elsEgFtzDU
- =
-X-Received: by 2002:a05:6102:b0b:b0:74a:b1ee:e034 with SMTP id
- ada2fe7eead31-777f958372bmr1298668137.8.1787144547953; Wed, 19 Aug 2026
- 06:02:27 -0700 (PDT)
+ AHgh+Rqho5xTMzEHkgyDQCCPX486iEOpJ7q6gHF83S8JfFNrKJShxVCsK4hzfkLgGEPdf2keyKrMb/goUjs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kAjlR7hDAnOLIYb84N2ybrvs6N6sBC9sKFVs7iX8FIhmndeKsC
+ M1uC8KCwlU3KcZdHKAkKyGVCV2ma3zqG3JK6i/550ZOAjAGfNGCJQpOG1u69vUEibtWBalO8fns
+ dVNtqFVZFFBZkapXGYfnWV5fM+NX+FdY0NKRGtj4VimZh1ZyZsTA8APlmQ83nEHIVhHOKdXs=
+X-Gm-Gg: AR+sD12YpE0SJkCiZLACx6TDIpx0GRIHLJ5oov+QI3f1MH865An6uNuK+HbP39aFWC6
+ RrIybsQrQdgRsF0WHFgNhMWeYZZkXqeZEqgv7Ln3AZeLVC5QpoJQkYcOWhP+HWDdWjwRXfIJtLA
+ L0fg1fNwzWUu8vEwJ8AwQXOxNyCw+ltTQji3fH2ir2fzLrzDy9mErUOm0SC95y+qinbvkWWMg0F
+ NjX1VLn8tohFePRIwgmuNtWb8HN2k6+ixMYEjiKmyWZVqdVDrRtKsTAkgJEbMwgBKxXfrZS2tmX
+ Dd3236cZKX3VqOAUHNRu8letQFoj4mVaiHvnN2CRxpWW4x8wHu7/JuNsC3MWig9LRcWTjxWAiFw
+ Xi1iwdTVRfNx6n9Y+4zCW9QpxHsio3Q==
+X-Received: by 2002:a17:902:fda6:b0:2cf:a108:7605 with SMTP id
+ d9443c01a7336-2d60186263bmr89344995ad.11.1787144733049; 
+ Wed, 19 Aug 2026 06:05:33 -0700 (PDT)
+X-Received: by 2002:a17:902:fda6:b0:2cf:a108:7605 with SMTP id
+ d9443c01a7336-2d60186263bmr89343405ad.11.1787144732529; 
+ Wed, 19 Aug 2026 06:05:32 -0700 (PDT)
+Received: from [10.219.56.166] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d5c1e54330sm24796285ad.44.2026.08.19.06.05.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Aug 2026 06:05:31 -0700 (PDT)
+Message-ID: <e0a25f11-5c7c-406f-a223-da29bf6e1401@oss.qualcomm.com>
+Date: Wed, 19 Aug 2026 18:35:22 +0530
 MIME-Version: 1.0
-References: <tencent_989057BAD94EB58027BF7E9528F59A458608@qq.com>
-In-Reply-To: <tencent_989057BAD94EB58027BF7E9528F59A458608@qq.com>
-From: Inki Dae <daeinki@gmail.com>
-Date: Wed, 19 Aug 2026 22:01:49 +0900
-X-Gm-Features: AcwNN1Uag8K76WBZkAil604Sve_-nPS221p9PD--DnEWCdbR_HfRd-PUmUZjhKk
-Message-ID: <CAAQKjZM_Vgx-MGNP45-yQhZzV-H2ccLSP6pWYaykU5KxLMVKfQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: fimd: fix clock leak on resume error path
-To: Jiawen Liu <1298662399@qq.com>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/15] MAINTAINERS: Add entry for Qualcomm DSP
+ Accelerator (QDA) driver
+To: Krzysztof Kozlowski <krzk@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com,
+ dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-1-69a02e9090d4@oss.qualcomm.com>
+ <cc43a545-20a1-4f15-a7b9-ca48842bffca@kernel.org>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <cc43a545-20a1-4f15-a7b9-ca48842bffca@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDEwMCBTYWx0ZWRfXwKJ1YCX8AFWq
+ auoXIileT8O35+8mnxlApFOuYZj+v7A00+gosLlW5+LbhsWs5U88w/CWsl1APTP6z/4B65E15ua
+ VsGumgQKZSetz3THQGqlzgL998gOdmjEZxwrwTLBrwPvivXm8zeWYnPf/dgbGndlM3Cbq+OyMLo
+ stlId89OAg/78uvhGYyLVNJIo1QHgYlz+qKOVULP+3O65ryCqiCg9f/ysmvaQ5fVsrrgk+yCtGc
+ aN+1I7j+ZK0js23Im6sA17pKg6N3hBm39qqc0VNCY+ncbCqsxr8ihzkWArM0Up1UdX/naXjtpyS
+ DA4o6XNyL1OCSf9fY2mSQfLB+yzPvZmRAtSYCiXEBzStdJV68Z9MzMhM8NqO/w4E3wecbODOcxj
+ bFn1XnzPlo17jxH8zoLuD08G7YlrANyYnHsWBri4zwFF+b/AZ2AfofyrLlDAOTltsaxLfUqUY8f
+ DQGHQRqQ6O7VI1Y9WNA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDEwMCBTYWx0ZWRfXwBM6qNY0Fwxp
+ LEWJZ/1q2CBlXtayXohBerkxc+wa/SJgNYx/rM4Om9v5tpWwsxBDT13FZFbvlfCmRQMR1dar5ZW
+ tNYOrzyINX2Uh8BZXhkcQ8XjvkNm/Dg=
+X-Proofpoint-GUID: _wYdCdBifCHlVpXWN7IJ_WpUKwkQB0AB
+X-Proofpoint-ORIG-GUID: _wYdCdBifCHlVpXWN7IJ_WpUKwkQB0AB
+X-Authority-Analysis: v=2.4 cv=J+SaKgnS c=1 sm=1 tr=0 ts=6a85aa1d cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=XbA7GbUpZyLIT2ThUnsA:9
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_03,2026-08-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190100
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,43 +165,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On 19-08-2026 00:52, Krzysztof Kozlowski wrote:
+> On 17/08/2026 06:47, Ekansh Gupta wrote:
+>> Add a MAINTAINERS entry for the Qualcomm DSP Accelerator (QDA) driver,
+>> covering the driver source under drivers/accel/qda, documentation under
+>> Documentation/accel/qda, and the UAPI header
+>> include/uapi/drm/qda_accel.h. The linux-arm-msm and dri-devel mailing
+>> lists are listed as the relevant review lists.
+>>
+>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>> ---
+>>  MAINTAINERS | 11 +++++++++++
+>>  1 file changed, 11 insertions(+)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 912837dd4640..75fa90c137c7 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -22388,6 +22388,17 @@ S:	Supported
+>>  F:	Documentation/devicetree/bindings/crypto/qcom-qce.yaml
+>>  F:	drivers/crypto/qce/
+>>  
+>> +QUALCOMM DSP ACCELERATOR (QDA) DRIVER
+>> +M:	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>> +L:	linux-arm-msm@vger.kernel.org
+>> +L:	dri-devel@lists.freedesktop.org
+>> +S:	Supported
+>> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>> +F:	Documentation/accel/qda/
+> 
+> There is no such directory.
+the directory got added in a later patch, added this patch at the start
+following the comment here[1].
 
-2026=EB=85=84 8=EC=9B=94 18=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 9:46, J=
-iawen Liu <1298662399@qq.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> From: jiawen <1298662399@qq.com>
->
-> exynos_fimd_resume() can fail when clk_prepare_enable() succeeds for
-> bus_clk but fails for lcd_clk. The function returns the error without
-> disabling bus_clk, leaving it prepared and enabled.
->
-> Disable bus_clk before returning the error to keep the clock state
-> balanced.
->
-> Signed-off-by: jiawen <1298662399@qq.com>
-> ---
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimd.c b/drivers/gpu/drm/e=
-xynos/exynos_drm_fimd.c
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fimd.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fimd.c
-> @@ -1325,6 +1325,7 @@
->                 DRM_DEV_ERROR(dev,
->                               "Failed to prepare_enable the lcd clk [%d]\=
-n",
->                               ret);
-> +               clk_disable_unprepare(ctx->bus_clk);
+[1]
+https://lore.kernel.org/all/zideovhb7djvsbydqmdyxbgh6cte7xc5ouhm6gsreww6klqqae@o6w6wd4tic4r/>
 
-The analysis and the fix are correct. exynos_fimd_suspend() disables
-both clocks, so leaving bus_clk enabled on this error path does leave
-the refcount unbalanced, and clk_disable_unprepare(ctx->bus_clk)
-restores the symmetry.
+> Best regards,
+> Krzysztof
 
-Merged. Thanks,
-Inki Dae
-
->                 return ret;
->         }
->
->
->
