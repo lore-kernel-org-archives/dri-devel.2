@@ -4,137 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7099C5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 20:07:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78C19C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 20:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23ED810E0B4;
-	Wed, 19 Aug 2026 20:07:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D55BE10E0E7;
+	Wed, 19 Aug 2026 20:39:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Zjps0+PR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3jQzVcF1";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022087.outbound.protection.outlook.com [52.101.96.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D16E010E0B4
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 20:07:29 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013067.outbound.protection.outlook.com
+ [40.93.201.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADDD110E0E7
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 20:39:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UvNR+dO5xUiyzNhkGxLvgN2GPSB+pVOoJvaTHtCqEBfq4LKU7OvqJhG5zdtzM99FvmAdtd9YuDAqPyNTOlnNSJqaILKc/KaqNHugpD74wyl9EXUuq1uw3Ep+57IDM5DvTAaymZNPBtKUDBXe4MtqhhfCujLFxRSObSX0woPWJiz2wP8JqEA2AM2n4JjenIfaquv/kjcBEP52Scw8JwVBE6kGqhnicYzUzEyaDhL7Y35u3a5hFlYYmuY12eLSCNDUlLfqSPJY6r5Kp+eAeV5oBW4lCpv81yvL8LUcOd0ccUdjKzxeiMwgf4EIKjt1N13MhhMDoZDMehiClb8qUXGqpw==
+ b=FdG2ZDHw2HA97uEU6yUKak/DfpN6LCRXLvUrCe3KQEmuwMUanDHMZvd+H7YiATLAPzODzuaFpO85jGd7Ab8zG4DoGtn6DtaCerwyuSxoYowngzBOiS6pO0UzWefZw8jMzemjBWpnoV5py5KUzdutrg9dVEzRwy70f4T09lzOLcWj+eveTkI4kNLtfvI0OlidLTWWjhN3O8JQnzSKSbT+g2o+TstmYKBFK0pcGSr/1I0P0nPmbtcEec/g0DgnlqD4lOWUbTfV2bvy51JSJsPbjyLoJMxHQNQw0dDMJsbaZID/yVZGoAUf74c0rKnv6kJlfpWc6m+zUvLraVLY5gci9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CApNQP8UEJUeF0k5/FEQeKuwmPFUQaqP1WeUIuK8rd4=;
- b=CqBo7/2i/9DVsjRv9YGcAF0wKZBeoNEstfUHw2ihp5RJgMvkvEMdu79mMxv+tgNRwuiKQ2JJnAto7WjIRJg+OmTFaa2QGQb0kwaqSJReQsbC/Uf9tbu6nC8CNB+0CiBjA2MPCKAJqyDThPFBbnM+/AhsuwYh4sN4EhMaZaNBtVhEXw1DPLO9r1YiRKYnFQQ2byCBImEO8JRFFaUidM+/iTOw6D+ZYp0fn7FLHVGMMsNakDXbrD20pQDchZA1lN9aG1Nm6BDmF8QzGfL46OrLnIdqWXPwyET+9T3raMZVyEWdyTPENLGSnuEAolcNQgsFNq8wwP/etQvH4FSIZJNfOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ bh=SNo1SOX9PmlU5v4C53iI2CBDWKKfyD0KGuN7/L1lmzI=;
+ b=sSmsic1AxWRTTMznjMaBp5NdaY4dA2U9mNOMzFDxahwtywkOGCsKlYHkUwxkd8pX+qLthm6y33ri27rJ8di3PUg9h6jS7J+PPcz0mluuLCEMUqtFNYkA9/9GJ/ENFHQ7pYtDl/zcncyZvseJ4ldyq/kGbRLxkgQoW20M5TtHyrm1WB91KDyUeAkGF8qnc4GiIRKlfSWs9Saf1bYvFr4pxdyMnbimNxxc1oRQeOoSfLBiK9rNCDJOMIj4D8tphp8KyF2yrOcBZQ6wttvYfUimspyEe+CSvzKsgizitPqaev9WiL3Kt4vjiTh5+lS4CHAq3o7U7cPJxjyKQDwZiKwwrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CApNQP8UEJUeF0k5/FEQeKuwmPFUQaqP1WeUIuK8rd4=;
- b=Zjps0+PRMA742D8u9aUzQoPjrXf5X6uqQlNrljm3+ctTOXKor1aqHGYzWTUeIjYJ0i0J98c5JTT3QY6bx+cWhjzJ35bKOdIqM6RMH2GX9YhYfaU09xTIXzXqfFMvfC1ay5g/k/fhIMgqf8Uf4fyVEw/Qps4ptuSk12Il5JjBWQE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO4P265MB6951.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34c::11)
+ bh=SNo1SOX9PmlU5v4C53iI2CBDWKKfyD0KGuN7/L1lmzI=;
+ b=3jQzVcF16E52SoVFq7uXb+OxFAJGMkUTW8ZDP8kG/dNogMN582rye+7YgBN65Ljib0STc7C6Uk+61UADAfGg3dORbV8n/Pw7zzJW55TjsXOsLxCRtp15FELLumjAEMBiEFYn2KDm8YIiWmsgr2duwVjYw7TTPH7rtlsvZ3wz+mI=
+Received: from SA0PR11CA0168.namprd11.prod.outlook.com (2603:10b6:806:1bb::23)
+ by DS0PR12MB999266.namprd12.prod.outlook.com (2603:10b6:8:426::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 20:07:24 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 20:07:24 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 19 Aug 2026 21:07:23 +0100
-Message-Id: <DKT6WNPI2OA5.3RCBNYHHAFAD9@garyguo.net>
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v7 03/10] rust: num: add nz! macro for compile time
- NonZero values
-From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.22.0
-References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
- <20260817-chid-v7-3-a5872e64d8f4@nvidia.com>
-In-Reply-To: <20260817-chid-v7-3-a5872e64d8f4@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0654.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:296::12) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+ 2026 20:39:12 +0000
+Received: from SN1PEPF0002636A.namprd02.prod.outlook.com
+ (2603:10b6:806:1bb:cafe::a4) by SA0PR11CA0168.outlook.office365.com
+ (2603:10b6:806:1bb::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Wed, 19
+ Aug 2026 20:39:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF0002636A.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 20:39:11 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 15:39:11 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 15:39:11 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 19 Aug 2026 15:39:10 -0500
+Message-ID: <3d677570-2204-016c-efde-779b07e76538@amd.com>
+Date: Wed, 19 Aug 2026 13:39:10 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v4 1/5] accel/amdxdna: refuse an I/O memory mapping of an
+ imported BO
+Content-Language: en-US
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, <mamin506@gmail.com>,
+ <ogabbay@kernel.org>
+CC: <christian.koenig@amd.com>, <sumit.semwal@linaro.org>,
+ <alexdeucher@gmail.com>, <max.zhen@amd.com>, <sonal.santan@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>
+References: <20260817230707.356828-1-taimuraz@kaitmazov.com>
+ <20260817230707.356828-2-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260817230707.356828-2-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB6951:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bb688f7-83ff-43ba-5e9d-08defe2d7c15
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636A:EE_|DS0PR12MB999266:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec4dc8c7-4d48-484b-d25e-08defe31ed19
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|10070799003|7416014|376014|10067099003|56012099006|18002099003|4143699003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: XQ3qxmvK1OLcXyBps+JzYom/omn52GDBlKBV4DQKVzkYOrwjwyrw+GBNqN/TgDvWDO9qIsIrziR1IuQ+Mc7hKigdf6u8x+iKcgjQX7G0JcLBSOMRRDsirtq2WvkW6tBebL9Ei1O1IRbLpHaxtDFSKJl4JjRZYQpgl+sNluvOyhVmieOKJJYB5902QHSshEOPOSQoH3ix2vTdkExvqUPE8inAyIhISfy0gxlktzuYviN0QOMYnEAu4rT0/WVChRu2T3bO54aQ90S//3jS30NlSix2MlmgtdwDyJ+NvRVvFNwcwU8S7J39WvXzDXXwqJqS00PNjPo1s3RCcJfzLoJ0QLaDeJ2wjvOEgJ6q7Tt6r6AS2wPN1HjTaNE2s4TpAl43I0E622IFTnBlUw4UmA81kgC8yoV7TNqocRsT34iW0H3P5ZhyJw4e5MkOYXoqDcsIWqa3UspVZQm7NttCb2RjmDzdEk1otYJkVMV4VvidU5kT5PpKHsvGU17emNWN/l/A5A+3GnJMvtzx0kQeufsr/SDBHp6ca1Rlw2/WW38TbnzB2GLZKg7ztnrCC+CEAPpmmIsL2kTMjOQTVKKudlhJvX6LKUPHOTNcwtzNQnBfkPt/l0R+5XFN2IBWB2vYjhVTbCW6+MQcE741A8aH0Gf9vnr0rHdp4bk9vrHmbAEy5xU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(10070799003)(7416014)(376014)(10067099003)(56012099006)(18002099003)(4143699003)(22082099003)(921020);
- DIR:OUT; SFP:1102; 
+ ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Cn6vmydGRga99A7mxBHxGX8DTfrFb6lQNMb7G8jmbaU9FCXuf5Uu5jKG8XRryd0kzipTBRmlBYmWFLmcM7bhZhJLBvIxS6VryJPpOEhLGQyqsF4iSvIXWFl7o034zp3TUXB0e+kxhmKx1h1ZhYUM7eoo2hE0OF7YK/tfZ3OLRzxDqDzVskbE+zP2nq5CFXEWdK+w0fuoatBB43Ys6JqefAoWIRpuHYEH4Xb9YurQOYzq8uUFw8tlEU9yz2voiPUY4svqiZucpsnKifTG29lJyEsILbMbH6F9xWh12kKLPgJ4rjFKL+NlTLkkMY11DRQ98NgLUFKiMcJbOf0vutdpbFBK7j7b0Ro7L5mSVkvDQ+Ovx4LpKwlgJHip9efx+pFf6wUx1QnWc2z587DEADLr4CZv676yQsILQ6J9tHx7k7u5zuydB0TmpBBWrWMsfBgy0xgxkxz2PKVXm8PrXuHUnvxuRSzLQzo6P2nVwmyOmDkCiuqOhw/e0cFXcfcQ4EYE/ks971y1+oPs4JXRQywBLGyEAqaykVh0yB75auCYFKoljIw6LE/sA6Po1N5+NpMJqW+t4izbcG4EXpwtohEjz9CWXuGMq2PlgYBD3EUn1CklaoYVXOzRnm4xiTHlLsKz8ikDUBMpRmex+ErHB7rbxhYgRM1BtRYUKCY7J4Ew/nWOBmm7kkw/+g0VrY/ktybXfVo84//0zeOkhDSbo93O5Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ri90WHZSVVg0Y3VuS2R6bndnSWRnamRVRzZvNTR5ZGN4d3U4M3ZoamlMclll?=
- =?utf-8?B?Q1g0aURlSGtEdWk5ZnNtUlo0R3BvZExvVm9sMlBvTFd6eWMxdFFObHhzL3Rl?=
- =?utf-8?B?dkFMQUJOdDVrVll3SkRCMjVpdXJBTXVTZDZKWDhYR2pPWTRackRTdHpNNzdV?=
- =?utf-8?B?VnVzV2VOdDlaeUdEbTV0U0l1UWZCN3h1SkFVTzV4SUkwZHNnNkZXNkNJU3c5?=
- =?utf-8?B?Nms1a1JMVGdkWEpnYktMdjRZNU93QTdPNHNvazBxWVA5SlBUZFp2OGpwUGw0?=
- =?utf-8?B?eDhDRWJrZUtqaHg5dHhKRHBneFNxTXQvZ3AvOGVNVFRObHhldjUxa25jeDRO?=
- =?utf-8?B?UzZXS0d1NE0xNTZuRm1KVDFibEhvbE13eGw2VkZ0NDJqSWt4NkR2c1pwSERy?=
- =?utf-8?B?cEhCVDM5eHNYVm5hVGxwUVdPZkVCb2g5THRYR29ISUQzeG9pNGI4MnVXMmVR?=
- =?utf-8?B?WEs3THF5M1V1WkxaSTJYT0JXaG05L3dLMDc0WkozYnJxYlg3NmFNdTR1RS9U?=
- =?utf-8?B?NlpVUFo0R1BhRDFLRGtXQUxJaVlMeTU2NVpNN0pGWGRNbVRnalRiM3JHaW4v?=
- =?utf-8?B?RXNQTnVOd0tpd0JBdmdGWmVIdjF2SHBNeW5lYjd2aGhaVHh2SGM5UG83Y0Rm?=
- =?utf-8?B?czlYdjAvOWt3Ym41M2hhSXVUM0xSSWpoajMzNXpYNmk4NlBNS2VXM0h1Nkpi?=
- =?utf-8?B?Q0JrbHcrZWE5ZlhvSUoxa1p4ZVJudVV0ZTZJS3lBZDVvOUNuL0tpU3hXUFJn?=
- =?utf-8?B?YnRQSlJoZGIyVSs3ZWwxWnhvZ3hIamF1WVkvZDRiNXJJaFc0YzRObVpsNzlO?=
- =?utf-8?B?SkUyUXVFeENrMk81U1NidzNXdWFUQk82M0NsUXRQYjBVcjA4Qm1XcHFRRlNz?=
- =?utf-8?B?ODFPYnV3MWxiQ0RybkNlMmZSdUtJWVl1WHpBRlFCNUdrdFFVUkIyOUIxNlpr?=
- =?utf-8?B?ZDdNME1YTFpxaFpHdUxqRVFtS00wWklrMmx3d29GeUUzYWNiUGIyYTAzeFBn?=
- =?utf-8?B?UkxWYW5ES24wcktmMnZESVdYM0dROE82WTNKVkNlUVQ1RmpGeThWZ2dCTE0z?=
- =?utf-8?B?aVZsSVcwQUo1OS92V0syb1ZsZEhoNXQyUTJKYytsY29YZVJ5aUR6cDZ5VXdh?=
- =?utf-8?B?ODVhRnJZOHZzdjJGOXBSMldlZ0cvTU5TRmFFN3VYNWxFVFhNbm91a0VHYmNK?=
- =?utf-8?B?ZTBSMEgzcGpEWnJyZUtVMHJqL0dtbDNNWHM5QXBsM2Eyc3NyV0kyRnhjT2h2?=
- =?utf-8?B?ZnVWdklWdUhhVFhQTS91TVZOcEQyNndqZ21idTlwK3BuTk5RUStjeXlSRzA1?=
- =?utf-8?B?RFdOSXdhWmNHblY1djExblVtM1l6SjNJeU50Yy9GQ1V5UjE1d2RlSWdjTW4w?=
- =?utf-8?B?dzZkRjZxVHVKK0x1VFBDQlBVT0N0UUl1c3BENi9mQkR2cFhnMEJsUElEb3BT?=
- =?utf-8?B?cXRsL1ZYZWxweXpuSU9ZNSt3OW9La0RSZUF6OXBJZ3VsSWVybG1Ic2ZOeGRr?=
- =?utf-8?B?ZTF0NXp0c3J1OUQzQWNLR2hwTDd3cTIyNENpQXZsaldXYk1JZXc5aDdicEcz?=
- =?utf-8?B?cGQ3MUtYRlZ0NTlCT0pPWjFmSFBBN1Q4dDUyenJwTllpMG01Qjh1WjN4eHFn?=
- =?utf-8?B?djVIbmhwRllWSE1iRTV1dzFRVkVxYTUvNWNNWDIvMUc4WnFWQ0hhSEJTQitN?=
- =?utf-8?B?RHk3T1lpKzMyTnpKTUxYaXZ1WnZUSC9UMUdESExOaHJ1ZGJNREkwUmtvdDRP?=
- =?utf-8?B?YXRiZW9ZSExUV3JlWm9tL1hzSkRiV2VHRE9LZXBkekY0clBLYUdSUks1bFY5?=
- =?utf-8?B?di9IVDhEQklpaUplc1o1RmxucHhhUExSSU1GVkJuUzVuUlQvSHcwUUJxTG5F?=
- =?utf-8?B?ek1FeU8vUXBVeTg1S0ZQNWxGcnAxaGdBSlZtWG9RRUF0cm9mdU5oZW9TRUl1?=
- =?utf-8?B?T0FQeVdqb0J2M2drbVZ4enRIMCtHZDhmQWt3eGUvOFpnQnFxRVQvenc5N0Fj?=
- =?utf-8?B?NTdJOTdpVUtjNjQrSnJZN0FmR2g5UENlYkxGYXF0VlkyaU1nRjJvMjVLOXdK?=
- =?utf-8?B?RExDWnRlaVVQbG5ZSUo1Yk5hbWVzcEtuRHlCOHlzaSt4eE4rb2NjaFpPSm5G?=
- =?utf-8?B?SlRPZzkrcHZnUllSVlkyOVA3bEpsRU96eG4vYkNDclR2SEM4VVJkem5TQ2dj?=
- =?utf-8?B?UE1SZm1IM2dndjh5czZRMm5hR2hmQklwaWZSay9iMEhyS0l3eEE0Ym9aa1Fx?=
- =?utf-8?B?UnRPbWZJemFQTFBYOVJsT0Z0a3A0bUZZVXpWc25sRWxmMTNwakowcmJLT0Fx?=
- =?utf-8?B?anJNWi85bjA4YWlQSWt6aUt4SkJzMU5SRUNDWEFMV2VGZUZBRmFOZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bb688f7-83ff-43ba-5e9d-08defe2d7c15
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 20:07:24.3099 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tm4vSryVFN1p1QEeOFsA0uVjDeiOtG31rBD8U6JWhBiNCoMtx8ZiKjOWPL0PnSCVoxaSI/LrraeyMw61zQkEbQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6951
+X-MS-Exchange-AntiSpam-MessageData-0: d4FTGwGHxeR+s/XxnomnclLXrAb/UHsCulWRwdGItNiPiaZr6106WUacw8ZwiJX6RSOF0UlTdzp6vzgnjvRzccUpTfkEaNwP9osyvMQNF+eXeRU1K/+OqaAbOaQexGe2qaz1WRnR0xcr6rZ9et8vlr47SXwKur73O3t8U0mFLja+O6Kqa+AxZrHd78YhFnY5GkoWu6CLK9LHpl4TEvOxbLdapJ9cmEdDBcBBcFV6AJz4NC9603Q3YGd4V8MhanqcMJ47X/01PPUodjJx4pbUmQfMgswezLgDqxec+4Hm63KzlBumbfLOGm+0U706MYU2Hv3lpkA7X1eArQog+ck+HNR/PMHi1zIUarLtZUqPXghQHdDUFKECMmeqG9gX22qiOpPGz9e3LsT8t4z9Lsl1fniZt1Sm7guiSXcVzqMb2vuryT43XYKjxOe93/9kXSAg
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 20:39:11.7259 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec4dc8c7-4d48-484b-d25e-08defe31ed19
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999266
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,85 +123,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Aug 17, 2026 at 8:04 AM BST, Eliot Courtney wrote:
-> Currently, using NonZero constants is quite verbose. It's unfortunate
-> because it disincentivizes using it in interface boundaries. Introduce a
-> macro to make it nicer to use.
+
+On 8/17/26 16:07, Taimuraz Kaitmazov wrote:
+> amdxdna_gem_vmap() flattens the iosys_map drm_gem_vmap() fills in down to
+> the void * in abo->mem.kva, and iosys_map is discriminated by is_iomem, so
+> an exporter answering with an I/O mapping leaves a void __iomem pointer
+> there, which amdxdna_cmd_set_error() memsets and memcpys through.
 >
-> Link: https://lore.kernel.org/DKO414SNC0B2.248FUBGJGSPLU@kernel.org
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
+> buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
+> peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
+> no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
+> object, so an NPU paired with nouveau or radeon does.
+>
+> Drop such a mapping and answer NULL. Checking here rather than in the
+> .vmap callback leaves that callback's iosys_map contract intact for a
+> caller equipped to read I/O memory, and covers everything that takes a
+> plain kernel address through this helper. vmw_gem_vmap() refuses the
+> same case; unlike that one this path is reachable from an unprivileged
+> ioctl, so it neither warns nor logs at error level.
+>
+> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 > ---
->  rust/kernel/num.rs | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
+>   drivers/accel/amdxdna/amdxdna_gem.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
 >
-> diff --git a/rust/kernel/num.rs b/rust/kernel/num.rs
-> index 8532b511384c..055d23ca7fd1 100644
-> --- a/rust/kernel/num.rs
-> +++ b/rust/kernel/num.rs
-> @@ -7,6 +7,29 @@
->  pub mod bounded;
->  pub use bounded::*;
-> =20
-> +/// Infallibly creates a [`NonZero`] value from a constant expression.
-> +///
-> +/// [`NonZero`]: core::num::NonZero
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// use core::num::NonZero;
-> +/// use kernel::nz;
-> +///
-> +/// let v: NonZero<usize> =3D nz!(8);
-> +/// assert_eq!(v.get(), 8);
-> +///
-> +/// const N: NonZero<u32> =3D nz!(0x10);
-> +/// assert_eq!(N.get(), 0x10);
-> +/// ```
-> +#[macro_export]
-> +macro_rules! nz {
-> +    ($v:expr) =3D> {
-> +        const { ::core::num::NonZero::new($v).unwrap() }
-> +    };
-> +}
-
-I wonder if if we can have a generic macro for creating types from literals=
-,
-given that this is needed for bounded too. Something like
-
-    trait FromLiteral {
-        fn from_literal<const N: i64>() -> Self;
-    }
-
-    impl FromLiteral for NonZero<u32> {
-        #[inline]
-        fn from_literal<const N: i64>() -> Self {
-            const_assert!(N > 0 && N < u32::MAX as i64);
-            const { NonZero::new(N as u32).unwrap() }
-        }
-    }
-
-    macro_rules! lit {
-        ($x:expr) =3D> {
-            FromLiteral::from_literal::<{$x}>()
-        }
-    }
-
-    let nz: NonZero<u32> =3D lit!(1);
-    let bounded: Bounded<..> =3D lit!(1);
-
-I think the only downside is that this expression isn't const expr anymore.=
- We
-can change this to be
-
-    const trait FromLiteral {
-        fn from_literal(v: i64) -> Self;
-    }
-
-when const trait impl is stable upstream and we have MSRV bumped high enoug=
-h to
-have an impl of it.
-
-Best,
-Gary
-
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index cca84fa07e9d..f88b5349cd4b 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -209,10 +209,15 @@ void *amdxdna_gem_vmap(struct amdxdna_gem_obj *abo)
+>   
+>   	if (!abo->mem.kva) {
+>   		ret = drm_gem_vmap(to_gobj(abo), &map);
+> -		if (ret)
+> +		if (ret) {
+>   			XDNA_ERR(abo->client->xdna, "Vmap bo failed, ret %d", ret);
+> -		else
+> +		} else if (map.is_iomem) {
+> +			/* Callers use the result as an ordinary kernel address. */
+> +			XDNA_DBG(abo->client->xdna, "Vmap bo returned I/O memory");
+> +			drm_gem_vunmap(to_gobj(abo), &map);
+> +		} else {
+>   			abo->mem.kva = map.vaddr;
+> +		}
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	}
+>   	return abo->mem.kva;
+>   }
