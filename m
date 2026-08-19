@@ -4,47 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B4B7C5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 18:47:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8BF7C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 18:47:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9C7310EA7C;
-	Wed, 19 Aug 2026 18:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBED10E862;
+	Wed, 19 Aug 2026 18:47:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="ZN/0BOpj";
+	dkim=pass (2048-bit key; unprotected) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="nY9SLc2E";
 	dkim-atps=neutral
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
- [79.135.106.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3921210E591
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:46:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1787165215; x=1787424415;
- bh=DfnWDEuLJ+WYjROdmAaE4+Hwg5bZJ2QU6EBr0/cQ/XI=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=ZN/0BOpjt2pyp7TN/wDhVu/KPHL9ADQetHPHJ0KB6ZnsX4OqrlP52EeXg1zTlnZNZ
- fI8/KO4jvkqsZBjASzD51Ox0otHpBb5RS07bYPQvqsSZlgvMINMF09rqf1ajEmpMyX
- rbZ6aqntcs1BaUMqDfGtWBP1+F6gaGyXAjBGHfXRfvZbuApzHJ7Xx9JzXyi6aeNQ0a
- QOAbjklf88vEk1TLV5vvbgqaDw9K4z428tdxTgyjnooSSY9MaZhQlKdPRW4DmhTwSi
- 2u6uvgGCsmMyKpQOjmekIRVdYKmZehaW4GW6w0C1S5L40cndbQ2d7eVWRJyyt5qRIx
- l91bHRh1wE/3w==
-X-Pm-Submission-Id: 4hQFsk55MDz1DDWm
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
- airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
- gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
- a.hindborg@kernel.org, tmgross@umich.edu,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH v6 3/3] drm/tyr: put iomem behind the hardware gate
-Date: Wed, 19 Aug 2026 21:45:41 +0300
-Message-ID: <20260819-tyr-reset-impl-v6-3-7b4e1e041fe5@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260819-tyr-reset-impl-v6-0-7b4e1e041fe5@onurozkan.dev>
-References: <20260819-tyr-reset-impl-v6-0-7b4e1e041fe5@onurozkan.dev>
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com
+ [74.125.231.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C2310E862
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:47:21 +0000 (UTC)
+Received: by mail-oi2-f10.google.com with SMTP id
+ 46e09a7af769-7f3a9f626a1so435631a34.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:47:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1787165241; x=1787770041;
+ darn=lists.freedesktop.org; 
+ h=mime-version:user-agent:content-type:autocrypt:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=QSwrHGgl2AT1GasXRYkV9GR6hxZV3VVSWH3II1cAJck=;
+ b=nY9SLc2Ei1AZZqPnkctAmdI4el1mHUvLYvBYcEP4chItGEGH4N6z5Lt8EQGnvb0jf2
+ przcfJouXCdQLRs7qOgXzm6bf3ySJ0Xz5euwbXkUaDFVub1z31yTrrf1MiVYt5ynp6+l
+ 5TIx3nL6p9F7NHpckxJbJROW1X8WPvHWsGxTGxQx0l6rrETv0VqkIVBHNKj7aoZWTOns
+ VGA2fx/gJAxBeakFtxhaE8JK3epuT1K0bvbCx5jBBJMj3H4eGN3P2QwrG0XGhsdVULW1
+ FE6BbyGYIYknsa6/G8YfT3PqO3HNFKeNSJ/Ayyt7dBxLagYuY/Pt697V7Fg0Bpaydkdt
+ /p5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787165241; x=1787770041;
+ h=mime-version:user-agent:content-type:autocrypt:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=QSwrHGgl2AT1GasXRYkV9GR6hxZV3VVSWH3II1cAJck=;
+ b=oRw2I7u6Vy9AqokdPWYC59gypFQyipadkF2J5RK6AamgIduE7DSGex0HE9G+T/0u0W
+ MHZ0cLfOn3cSwl6JZ9HLuKLTNdh1w++IHNhR3IZW3U/CBmro8slgJVe3Kw9iyIvOem/C
+ ViJCbHN/Ld+UMjuKkjUNuuk6zhqHckvfPCJ3imHg8uq2yRQPDQkLrqSi0YTy3eTWDYgW
+ ZkJMLXJRrAbmBJt7kKST2On+9vpZOdQ8wFqAZ5UMukUkQf0mEyAs3YdaQqqVybLiX7jt
+ JT+0y1JEpc6XR/HQNqz9geHAXTr/2YNQFM2ReOUC012wIihKZZC8Aog2PvJjfKyRjiaG
+ AEgg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqdJTbxYH4RJCKjPY+idurWfYi/r2Y9klK1KJXWWH7+0igMpEvscyL+LmGfGjjhv8MCaZjFOPvpD7I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7uH+L/qHbOYTqVnA0T8dw0CW17Ev503haUJOOFvZ2DqEDiE/L
+ 54EIM0YLYeXhaByWlZfcpGrtVNizopMZl2Is1H4Tnq0cfdDKvKSiJwFgU4QyXeCF8F8=
+X-Gm-Gg: AR+sD12S0IPEuMZ8tYZLZgpMFLidns+D+oFC33RRV3IfQ/gBsbrLVNal/xC95xC7HFb
+ 5aje+/pAhOFoMUeZLk5X3Pz7g08ik9M/NTp1N0WrqM6YrrSM83OLuzSbE06YJx8C+DdkHgCEuEG
+ mAF2BG76aF3FQPsMG5Gdexoer8ehueggGL7LJ/2wKl8ZW26UFSMCEr+csQXxYLvJjkcoxnpZOp2
+ 5j0uXamlGsR4Xo9BE/XYg0ohyZfrktCokbNTXXnQrnTfx00FtYoM3pRt+w/IjTP5vygpZ3A7teM
+ DzZvBXgv7Kfu0y0FrDx0vurapXay9d04zAKfsZTIFaRtAK8WnT0vtlnogOXKXSIu5wuqcrn1d6Z
+ 52uTuhQunsWAevfA9v4rUoWjLL2TychqVEiiolMi/R1C95dhImxSTUsupqJgiu/mY7rZAJ8CvCB
+ zCkMimt63TkfX6vRrq7J/y0RdLYJNGn6zrI2BEHpXJbzat9MRP/dd2KrLusRK4037cucmjhNE4V
+ hk=
+X-Received: by 2002:a05:6830:6d17:b0:7e9:adef:4fd4 with SMTP id
+ 46e09a7af769-7f43fa916b2mr7494544a34.11.1787165240632; 
+ Wed, 19 Aug 2026 11:47:20 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e221::c41? ([2606:6d00:15:e221::c41])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7f440023019sm2466411a34.15.2026.08.19.11.47.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Aug 2026 11:47:19 -0700 (PDT)
+Message-ID: <41ce17bc5d62c2d2a1fb820fa9d4ffb89d20a672.camel@ndufresne.ca>
+Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint, and
+ some numbers
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Jonas Karlman <jonas@kwiboo.se>, Igor Paunovic <royalnet026@gmail.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>, 
+ Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, 	linux-rockchip@lists.infradead.org
+Date: Wed, 19 Aug 2026 14:47:17 -0400
+In-Reply-To: <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
+References: <20260801131656.58450-1-royalnet026@gmail.com>
+ <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
+ <20260818072936.41844-1-royalnet026@gmail.com>
+ <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
+ <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
+ <20260819055324.33669-1-royalnet026@gmail.com>
+ <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-BonzMBfzDgbeskESyC4p"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,550 +114,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move iomem mapping into HwGate and pass Arc<HwGate> to components that
-access hardware. Callers obtain HwAccessGuard before accessing the iomem
-so the reset worker waits for ongoing accesses.
 
-Suggested-by: Daniel Almeida <daniel.almeida@collabora.com>
-Signed-off-by: Onur Özkan <work@onurozkan.dev>
----
- drivers/gpu/drm/tyr/driver.rs            | 35 +++++++++++------------
- drivers/gpu/drm/tyr/fw.rs                | 16 ++++++-----
- drivers/gpu/drm/tyr/mmu.rs               |  9 ++----
- drivers/gpu/drm/tyr/mmu/address_space.rs | 49 ++++++++++++++++----------------
- drivers/gpu/drm/tyr/reset.rs             | 33 +++++++++------------
- drivers/gpu/drm/tyr/reset/hw_gate.rs     | 40 ++++++++++++++++++++------
- 6 files changed, 96 insertions(+), 86 deletions(-)
+--=-BonzMBfzDgbeskESyC4p
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 52b1f16fa405..c326192f8af2 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -76,9 +76,6 @@ pub(crate) struct TyrDrmRegistrationData<'bound> {
-     #[pin]
-     regulators: Mutex<Regulators>,
- 
--    /// GPU MMIO register mapping.
--    pub(crate) iomem: Arc<IoMem<'bound>>,
--
-     /// Some information on the GPU.
-     ///
-     /// This is mainly queried by userspace, i.e.: Mesa.
-@@ -117,12 +114,19 @@ fn probe<'bound>(
- 
-         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
- 
--        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
-+        let hw = Arc::pin_init(
-+            reset::HwGate::new(request.iomap_sized::<SZ_2M>()?),
-+            GFP_KERNEL,
-+        )?;
- 
--        reset::run_reset(pdev.as_ref(), &iomem)?;
-+        reset::run_reset(pdev.as_ref(), &hw)?;
- 
--        let gpu_info = GpuInfo::new(&iomem);
--        gpu_info.log(pdev.as_ref());
-+        let gpu_info = {
-+            let hw_guard = hw.access();
-+            let gpu_info = GpuInfo::new(hw_guard.iomem());
-+            gpu_info.log(pdev.as_ref());
-+            gpu_info
-+        };
- 
-         let pa_bits = MMU_FEATURES::from_raw(gpu_info.mmu_features)
-             .pa_bits()
-@@ -134,24 +138,18 @@ fn probe<'bound>(
- 
-         let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
- 
--        let mmu = Mmu::new(iomem.as_arc_borrow(), &gpu_info)?;
-+        let mmu = Mmu::new(hw.clone(), &gpu_info)?;
- 
--        let firmware = Firmware::new(
--            pdev,
--            iomem.clone(),
--            &unreg_dev,
--            mmu.as_arc_borrow(),
--            &gpu_info,
--        )?;
-+        let firmware = Firmware::new(pdev, hw.clone(), &unreg_dev, mmu.as_arc_borrow(), &gpu_info)?;
- 
-         firmware.boot()?;
-         firmware.enable_global_interface(&gpu_info, &core_clk)?;
- 
-         let reg_data = try_pin_init!(TyrDrmRegistrationData {
-                 pdev,
--                // SAFETY: `Registration` is stored in the platform driver data and
--                // not leaked, so `ResetHandle` is dropped before borrowed data expires.
--                reset <- unsafe { reset::ResetHandle::new(pdev, iomem.as_arc_borrow())? },
-+                // SAFETY: `ResetHandle` is stored in registration data created with `new_with_lt`
-+                // and is dropped before the borrowed device and MMIO references expire.
-+                reset <- unsafe { reset::ResetHandle::new(pdev, hw.clone())? },
-                 fw: firmware,
-                 clks <- new_mutex!(Clocks {
-                     core: core_clk,
-@@ -162,7 +160,6 @@ fn probe<'bound>(
-                     _mali: mali_regulator,
-                     _sram: sram_regulator,
-                 }),
--                iomem,
-                 gpu_info,
-         });
- 
-diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index 651bbe77f10b..e1522ab14e8d 100644
---- a/drivers/gpu/drm/tyr/fw.rs
-+++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -41,7 +41,6 @@
- 
- use crate::{
-     driver::{
--        IoMem,
-         TyrDrmDevice, //
-     },
-     fw::{
-@@ -65,6 +64,7 @@
-         MCU_CONTROL,
-         MCU_STATUS, //
-     },
-+    reset::HwGate,
-     vm::Vm, //
- };
- 
-@@ -148,8 +148,8 @@ pub(crate) struct Firmware<'bound> {
-     /// Platform device reference (needed to access the MCU JOB_IRQ registers).
-     _pdev: ARef<platform::Device>,
- 
--    /// Iomem need to access registers.
--    iomem: Arc<IoMem<'bound>>,
-+    /// Shared gate that coordinates hardware access with GPU reset.
-+    hw: Arc<HwGate<'bound>>,
- 
-     /// MCU VM.
-     vm: Arc<Vm<'bound>>,
-@@ -221,7 +221,7 @@ fn load(
-     /// Load firmware and map sections into MCU VM.
-     pub(crate) fn new(
-         pdev: &'bound platform::Device<Bound>,
--        iomem: Arc<IoMem<'bound>>,
-+        hw: Arc<HwGate<'bound>>,
-         ddev: &TyrDrmDevice<Uninit>,
-         mmu: ArcBorrow<'_, Mmu<'bound>>,
-         gpu_info: &GpuInfo,
-@@ -262,7 +262,7 @@ pub(crate) fn new(
-         let firmware = Arc::pin_init(
-             try_pin_init!(Firmware {
-                 _pdev: pdev.into(),
--                iomem,
-+                hw,
-                 vm,
-                 sections,
-                 global_iface <- new_mutex!(GlobalInterface::new()?),
-@@ -288,7 +288,8 @@ pub(crate) fn shared_section<'a>(&'a self) -> Result<&'a Section<'bound>> {
-     }
- 
-     pub(crate) fn boot(&self) -> Result {
--        let io = &self.iomem;
-+        let hw_guard = self.hw.access();
-+        let io = hw_guard.iomem();
-         io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto));
- 
-         if let Err(e) = poll::read_poll_timeout(
-@@ -307,8 +308,9 @@ pub(crate) fn boot(&self) -> Result {
-     /// Enable the global interface.
-     pub(crate) fn enable_global_interface(&self, gpu_info: &GpuInfo, core_clk: &Clk) -> Result {
-         let shared_section = self.shared_section()?;
-+        let hw_guard = self.hw.access();
-         self.global_iface
-             .lock()
--            .enable(&self.iomem, shared_section, gpu_info, core_clk)
-+            .enable(hw_guard.iomem(), shared_section, gpu_info, core_clk)
-     }
- }
-diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
-index cb5908c80e3d..8df6d2ef3c74 100644
---- a/drivers/gpu/drm/tyr/mmu.rs
-+++ b/drivers/gpu/drm/tyr/mmu.rs
-@@ -26,7 +26,6 @@
- };
- 
- use crate::{
--    driver::IoMem,
-     gpu::GpuInfo,
-     mmu::address_space::{
-         AddressSpaceManager,
-@@ -36,6 +35,7 @@
-         gpu_control::AS_PRESENT,
-         MAX_AS, //
-     },
-+    reset::HwGate,
-     slot::SlotManager, //
- };
- 
-@@ -67,14 +67,11 @@ pub(crate) struct Mmu<'bound> {
- 
- impl<'bound> Mmu<'bound> {
-     /// Create an MMU component for this device.
--    pub(crate) fn new(
--        iomem: ArcBorrow<'_, IoMem<'bound>>,
--        gpu_info: &GpuInfo,
--    ) -> Result<Arc<Mmu<'bound>>> {
-+    pub(crate) fn new(hw: Arc<HwGate<'bound>>, gpu_info: &GpuInfo) -> Result<Arc<Mmu<'bound>>> {
-         let present = AS_PRESENT::from_raw(gpu_info.as_present).present().get();
-         let slot_count = present.count_ones().try_into()?;
- 
--        let as_manager = AddressSpaceManager::new(iomem, present)?;
-+        let as_manager = AddressSpaceManager::new(hw, present)?;
-         let mmu_init = try_pin_init!(Self{
-             as_manager <- new_mutex!(SlotManager::new(as_manager, slot_count)?),
-         });
-diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/tyr/mmu/address_space.rs
-index d5274220eb3c..7ce2902e6300 100644
---- a/drivers/gpu/drm/tyr/mmu/address_space.rs
-+++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
-@@ -42,7 +42,6 @@
- };
- 
- use crate::{
--    driver::IoMem,
-     mmu::{
-         AsSlotManager,
-         Mmu, //
-@@ -52,6 +51,7 @@
-         mmu_control::mmu_as_control::*,
-         MAX_AS, //
-     },
-+    reset::HwGate,
-     slot::{
-         Seat,
-         SlotOperations, //
-@@ -201,8 +201,8 @@ fn as_config(&self) -> Result<AddressSpaceConfig> {
- ///
- /// [`SlotOperations`]: crate::slot::SlotOperations
- pub(crate) struct AddressSpaceManager<'bound> {
--    /// Memory-mapped I/O region for GPU register access.
--    iomem: Arc<IoMem<'bound>>,
-+    /// Shared gate that coordinates hardware access with GPU reset.
-+    hw: Arc<HwGate<'bound>>,
- 
-     /// Bitmask of available address space slots from GPU_AS_PRESENT register.
-     as_present: u32,
-@@ -229,16 +229,13 @@ fn evict(&mut self, slot_idx: usize, _slot_data: &Self::SlotData) -> Result {
- impl<'bound> AddressSpaceManager<'bound> {
-     /// Creates a new address space manager.
-     ///
--    /// Initializes the manager with references to the platform device and
--    /// I/O memory region, along with the bitmask of available AS slots.
-+    /// Initializes the manager with the hardware-access gate and the bitmask
-+    /// of available AS slots.
-     pub(super) fn new(
--        iomem: ArcBorrow<'_, IoMem<'bound>>,
-+        hw: Arc<HwGate<'bound>>,
-         as_present: u32,
-     ) -> Result<AddressSpaceManager<'bound>> {
--        Ok(Self {
--            iomem: iomem.into(),
--            as_present,
--        })
-+        Ok(Self { hw, as_present })
-     }
- 
-     /// Validates that an AS slot number is within range and present in hardware.
-@@ -269,7 +266,8 @@ fn validate_as_slot(&self, as_nr: usize) -> Result {
-     ///
-     /// Returns an error if polling times out after 10ms or if register access fails.
-     fn as_wait_ready(&self, as_nr: usize) -> Result {
--        let io = &*self.iomem;
-+        let hw_guard = self.hw.access();
-+        let io = hw_guard.iomem();
-         let op = || {
-             let status_reg = STATUS::try_at(as_nr).ok_or(EINVAL)?;
-             Ok(io.read(status_reg))
-@@ -283,9 +281,10 @@ fn as_wait_ready(&self, as_nr: usize) -> Result {
-     /// Sends a command to an AS slot.
-     ///
-     /// Returns an error if waiting for ready times out or if register write fails.
--    fn as_send_cmd(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
-+    fn as_send_cmd(&self, as_nr: usize, cmd: MmuCommand) -> Result {
-         self.as_wait_ready(as_nr)?;
--        let io = &*self.iomem;
-+        let hw_guard = self.hw.access();
-+        let io = hw_guard.iomem();
-         let command_reg = COMMAND::try_at(as_nr).ok_or(EINVAL)?;
-         io.write(command_reg, COMMAND::zeroed().with_command(cmd));
-         Ok(())
-@@ -294,7 +293,7 @@ fn as_send_cmd(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
-     /// Sends a command to an AS slot and waits for completion.
-     ///
-     /// Returns an error if sending the command fails or if waiting for completion times out.
--    fn as_send_cmd_and_wait(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
-+    fn as_send_cmd_and_wait(&self, as_nr: usize, cmd: MmuCommand) -> Result {
-         self.as_send_cmd(as_nr, cmd)?;
-         self.as_wait_ready(as_nr)?;
-         Ok(())
-@@ -303,10 +302,10 @@ fn as_send_cmd_and_wait(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
-     /// Enables an AS slot with the provided configuration.
-     ///
-     /// Returns an error if the slot is invalid or if register writes/commands fail.
--    fn as_enable(&mut self, as_nr: usize, as_config: &AddressSpaceConfig) -> Result {
-+    fn as_enable(&self, as_nr: usize, as_config: &AddressSpaceConfig) -> Result {
-         self.validate_as_slot(as_nr)?;
--
--        let io = &*self.iomem;
-+        let hw_guard = self.hw.access();
-+        let io = hw_guard.iomem();
- 
-         let transtab = as_config.transtab;
-         io.write(
-@@ -346,14 +345,14 @@ fn as_enable(&mut self, as_nr: usize, as_config: &AddressSpaceConfig) -> Result
-     /// Disables an AS slot and clears its configuration.
-     ///
-     /// Returns an error if the slot is invalid or if register writes/commands fail.
--    fn as_disable(&mut self, as_nr: usize) -> Result {
-+    fn as_disable(&self, as_nr: usize) -> Result {
-         self.validate_as_slot(as_nr)?;
-+        let hw_guard = self.hw.access();
-+        let io = hw_guard.iomem();
- 
-         // Flush AS before disabling
-         self.as_send_cmd_and_wait(as_nr, MmuCommand::FlushMem)?;
- 
--        let io = &*self.iomem;
--
-         io.write(
-             TRANSTAB_LO::try_at(as_nr).ok_or(EINVAL)?,
-             TRANSTAB_LO::from_raw(0),
-@@ -397,8 +396,10 @@ fn as_disable(&mut self, as_nr: usize) -> Result {
-     /// power-of-two region aligned to its size.
-     ///
-     /// Returns an error if the slot is invalid or if register writes/commands fail.
--    fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
-+    fn as_start_update(&self, as_nr: usize, region: &Range<u64>) -> Result {
-         self.validate_as_slot(as_nr)?;
-+        let hw_guard = self.hw.access();
-+        let io = hw_guard.iomem();
- 
-         // The lock operates on full 64-byte cache lines of translation table entries.
-         // Since each translation table entry (TTE) is 8 bytes, a cache line has 8 TTEs.
-@@ -436,8 +437,6 @@ fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
-         // because log2(32 KiB) = 15.
-         let lockaddr_size = lock_region_log2 - 1;
- 
--        let io = &*self.iomem;
--
-         let lockaddr_val = LOCKADDR::zeroed()
-             .try_with_size(lockaddr_size)?
-             .try_with_base(lockaddr_base)?
-@@ -458,7 +457,7 @@ fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
-     /// Completes an atomic translation table update.
-     ///
-     /// Returns an error if the slot is invalid or if the flush command fails.
--    fn as_end_update(&mut self, as_nr: usize) -> Result {
-+    fn as_end_update(&self, as_nr: usize) -> Result {
-         self.validate_as_slot(as_nr)?;
-         self.as_send_cmd_and_wait(as_nr, MmuCommand::FlushPt)?;
-         Ok(())
-@@ -467,7 +466,7 @@ fn as_end_update(&mut self, as_nr: usize) -> Result {
-     /// Flushes the translation table cache for an AS slot.
-     ///
-     /// Returns an error if the slot is invalid or if the flush command fails.
--    fn as_flush(&mut self, as_nr: usize) -> Result {
-+    fn as_flush(&self, as_nr: usize) -> Result {
-         self.validate_as_slot(as_nr)?;
-         self.as_send_cmd(as_nr, MmuCommand::FlushPt)
-     }
-diff --git a/drivers/gpu/drm/tyr/reset.rs b/drivers/gpu/drm/tyr/reset.rs
-index a41158c7ea21..1abcd25877d3 100644
---- a/drivers/gpu/drm/tyr/reset.rs
-+++ b/drivers/gpu/drm/tyr/reset.rs
-@@ -21,7 +21,7 @@
- 
- mod hw_gate;
- 
--use hw_gate::HwGate;
-+pub(crate) use hw_gate::HwGate;
- 
- use kernel::{
-     device::{
-@@ -41,8 +41,7 @@
-             Full,
-             Release, //
-         },
--        Arc,
--        ArcBorrow, //
-+        Arc, //
-     },
-     time,
-     workqueue::{
-@@ -84,13 +83,10 @@ unsafe impl AtomicType for ResetState {
- struct Controller<'ctrl> {
-     /// Parent platform device.
-     pdev: &'ctrl platform::Device<Bound>,
--    /// Mapped register space needed for reset operations.
--    iomem: Arc<IoMem<'ctrl>>,
-     /// State shared by reset schedulers and the worker.
-     state: Atomic<ResetState>,
--    /// Drains reset-sensitive hardware accesses before a reset.
--    #[pin]
--    hw: HwGate,
-+    /// Shared gate that coordinates hardware access with GPU reset.
-+    hw: Arc<HwGate<'ctrl>>,
- }
- 
- impl<'ctrl> ScopedWorkItem for Controller<'ctrl> {
-@@ -103,13 +99,12 @@ impl<'ctrl> Controller<'ctrl> {
-     /// Creates a reset controller.
-     fn new(
-         pdev: &'ctrl platform::Device<Bound>,
--        iomem: Arc<IoMem<'ctrl>>,
-+        hw: Arc<HwGate<'ctrl>>,
-     ) -> impl PinInit<Self, Error> {
-         try_pin_init!(Self {
-             pdev,
--            iomem,
-             state: Atomic::new(ResetState::Idle),
--            hw <- HwGate::new(),
-+            hw,
-         })
-     }
- 
-@@ -136,10 +131,7 @@ fn reset_work(&self) {
- 
-         dev_dbg!(self.pdev, "Starting GPU reset.\n");
- 
--        // Wait for current hardware accesses to finish before resetting.
--        let reset_guard = self.hw.close();
--        let reset_result = run_reset(self.pdev.as_ref(), &self.iomem);
--        drop(reset_guard);
-+        let reset_result = run_reset(self.pdev.as_ref(), &self.hw);
- 
-         if let Err(e) = reset_result {
-             dev_err!(self.pdev, "GPU reset failed: {:?}\n", e);
-@@ -175,12 +167,10 @@ impl<'reset> ResetHandle<'reset> {
-     /// running [`Drop`], since it owns work that may borrow from `'reset`.
-     pub(crate) unsafe fn new(
-         pdev: &'reset platform::Device<Bound>,
--        iomem: ArcBorrow<'_, IoMem<'reset>>,
-+        hw: Arc<HwGate<'reset>>,
-     ) -> Result<impl PinInit<Self, Error>> {
--        let iomem = iomem.into();
--
-         Ok(try_pin_init!(Self {
--            controller <- kernel::new_scoped_work!("tyr::reset", Controller::new(pdev, iomem)),
-+            controller <- kernel::new_scoped_work!("tyr::reset", Controller::new(pdev, hw)),
-             // SAFETY: The caller guarantees the handle is dropped.
-             wq: unsafe { ScopedQueue::new(c"tyr-reset-wq")? },
-         }))
-@@ -242,7 +232,10 @@ fn issue_soft_reset(dev: &Device<Bound>, io: &IoMem<'_>) -> Result {
- ///   - Trigger a GPU soft reset.
- ///   - Wait for the reset-complete IRQ status.
- ///   - Power L2 back on.
--pub(super) fn run_reset(dev: &Device<Bound>, iomem: &IoMem<'_>) -> Result {
-+pub(super) fn run_reset(dev: &Device<Bound>, hw: &HwGate<'_>) -> Result {
-+    let hw_guard = hw.close();
-+    let iomem = hw_guard.iomem();
-+
-     issue_soft_reset(dev, iomem)?;
-     gpu::l2_power_on(dev, iomem)?;
-     Ok(())
-diff --git a/drivers/gpu/drm/tyr/reset/hw_gate.rs b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-index 54754f9fc05f..b7db2abf47ea 100644
---- a/drivers/gpu/drm/tyr/reset/hw_gate.rs
-+++ b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-@@ -18,9 +18,13 @@
-     },
- };
- 
-+use crate::driver::IoMem;
-+
- /// Synchronizes GPU hardware access with reset.
- #[pin_data]
--pub(super) struct HwGate {
-+pub(crate) struct HwGate<'hw> {
-+    /// GPU MMIO register mapping.
-+    iomem: IoMem<'hw>,
-     /// Admits readers and is held exclusively while the reset worker owns the
-     /// hardware.
-     #[pin]
-@@ -30,30 +34,33 @@ pub(super) struct HwGate {
-     srcu: Srcu,
- }
- 
--impl HwGate {
-+impl<'hw> HwGate<'hw> {
-     /// Creates an open hardware-access gate.
--    pub(super) fn new() -> impl PinInit<Self, Error> {
-+    pub(crate) fn new(iomem: IoMem<'hw>) -> impl PinInit<Self, Error> {
-         try_pin_init!(Self {
-+            iomem,
-             gate_lock <- new_mutex!(()),
-             srcu <- kernel::new_srcu!(),
-         })
-     }
- 
-     /// Enters a reset-sensitive hardware-access section.
--    #[expect(dead_code)]
--    fn access(&self) -> HwAccessGuard<'_> {
-+    pub(crate) fn access(&self) -> HwAccessGuard<'_, 'hw> {
-         let gate_lock = self.gate_lock.lock();
-         let srcu = self.srcu.read_lock();
-         drop(gate_lock);
- 
--        HwAccessGuard { _srcu: srcu }
-+        HwAccessGuard {
-+            gate: self,
-+            _srcu: srcu,
-+        }
-     }
- 
-     /// Stops new readers and drains admitted readers for the reset worker.
-     ///
-     /// Callers must serialize write-side access. The reset controller's state
-     /// machine provides that serialization.
--    pub(super) fn close(&self) -> HwClosedGuard<'_> {
-+    pub(super) fn close(&self) -> HwClosedGuard<'_, 'hw> {
-         let gate_lock = self.gate_lock.lock();
- 
-         // Holding `gate_lock` prevents new readers from entering SRCU. Readers
-@@ -61,6 +68,7 @@ pub(super) fn close(&self) -> HwClosedGuard<'_> {
-         self.srcu.synchronize();
- 
-         HwClosedGuard {
-+            gate: self,
-             _gate_lock: gate_lock,
-         }
-     }
-@@ -68,13 +76,27 @@ pub(super) fn close(&self) -> HwClosedGuard<'_> {
- 
- /// Shared hardware access that blocks reset until dropped.
- #[must_use = "the gate is released when the guard is dropped"]
--struct HwAccessGuard<'a> {
-+pub(crate) struct HwAccessGuard<'a, 'hw> {
-+    gate: &'a HwGate<'hw>,
-     _srcu: srcu::Guard<'a>,
- }
- 
-+impl<'a, 'hw> HwAccessGuard<'a, 'hw> {
-+    pub(crate) fn iomem(&self) -> &IoMem<'hw> {
-+        &self.gate.iomem
-+    }
-+}
-+
- /// Exclusive hardware access for the reset worker that blocks new hardware
- /// accesses until dropped.
- #[must_use = "the gate stays closed until the guard is dropped"]
--pub(super) struct HwClosedGuard<'a> {
-+pub(super) struct HwClosedGuard<'a, 'hw> {
-+    gate: &'a HwGate<'hw>,
-     _gate_lock: MutexGuard<'a, ()>,
- }
-+
-+impl<'a, 'hw> HwClosedGuard<'a, 'hw> {
-+    pub(super) fn iomem(&self) -> &IoMem<'hw> {
-+        &self.gate.iomem
-+    }
-+}
+Le mercredi 19 ao=C3=BBt 2026 =C3=A0 11:40 +0200, Jonas Karlman a =C3=A9cri=
+t=C2=A0:
+> Hi Igor,
+>=20
+> On 8/19/2026 7:52 AM, Igor Paunovic wrote:
+> > Hi Jonas,
+> >=20
+> > On 8/18/2026 2:30 PM, Jonas Karlman wrote:
+> > > Looking closer at my old commits, it was the PCLK_GPU_ROOT that was
+> > > needed for e.g. RK3576 and RK3528. This clock is not described in RK3=
+588
+> > > clock tree so it never gets disabled by Linux clock framework.
+> > >=20
+> > > I suspect similarly one of the NPU root clocks is what drives the NPU
+> > > PVTPLL and thus always must be kept enabled when PVTPLL mode is used.
+> >=20
+> > Thank you - the PCLK_GPU_ROOT observation was the missing piece. I went
+> > through the firmware my board actually runs and can now name the clock
+> > for the NPU case.
+> >=20
+> > First a correction to what I told Nicolas earlier: my BL31 is not the
+> > vendor blob. The boot banner reports v2.12.0-9-gd5c68fd92, which is the
+> > edk2-rk3588 project's TF-A branch: upstream v2.12.0 plus nine feature
+> > commits (SCMI voltage domain, eMMC clock, TRNG, ...). The only one of
+> > those touching rk3588_clk.c adds an eMMC clock; the NPU set_rate/PVTPLL
+> > path is unmodified mainline v2.12. So Nicolas and I are effectively
+> > running the same clock code, and the firmware-difference caveat from my
+> > earlier mail mostly evaporates.
+> >=20
+> > What clk_npu_set_rate() in plat/rockchip/rk3588/drivers/scmi/rk3588_clk=
+.c
+> > does:
+> >=20
+> > - The rate table gives every OPP from 300 MHz up a ring length > 0, so
+> >   they all take the PVTPLL path; 200 MHz has length 0 and takes the
+> >   normal GPLL divider path. The 200 MHz suspend rate we both converged
+> >   on is therefore safe by construction on this SoC.
+> >=20
+> > - For a PVTPLL rate the firmware programs ring_sel/length/calibration
+> >   (cal cnt =3D 24, T =3D 1 us, i.e. a 24 MHz reference) into NPU GRF at
+> >   0xfd5a2000 (NPU_PVTPLL_CON0..2), and only then flips the mux in CRU
+> >   CLKSEL_CON(74) to the PVTPLL path.
+> >=20
+> > The Linux side is where the NPU differs from your GPU case: the NPU
+> > root clocks are fully described in clk-rk3588.c. pclk_npu_root is a
+> > gateable composite (CLKGATE_CON(29) bit 4) and NPU GRF hangs off it
+> > (pclk_npu_grf, CLK_IGNORE_UNUSED). In the mainline DT only core 0
+> > (fdab0000) requests PCLK_NPU_ROOT as its "pclk"; cores 1/2 only hold
+> > their aclk/hclk. So whenever core 0 is runtime-suspended, pclk_npu_root
+> > has no user left and gets gated.
+> >=20
+> > An SCMI set_rate to a PVTPLL rate issued in that state programs a GRF
+> > whose bus clock is off, while the mux write still lands because the CRU
+> > is always clocked - leaving clk_npu_dsu0 parked on a ring that was
+> > never configured. That matches the empirical failure in my RFC exactly:
+> > the sysfs min_freq write while suspended, followed by the power-domain
+> > power-on ack timeout. (I have not put a scope on the APB bus, so "the
+> > GRF write cannot land" is inferred from the failure signature plus the
+> > gate state, not observed directly.)
+>=20
+> Ideally the SCMI firmware code should probably be updated to ensure any
+> required root clock is ungated, and possible also hide some related
+> clocks from OS. I am not even sure this is feasible option and this may
+> diverge too much from vendor blobs and may not be backward compatible.
+>=20
+> >=20
+> > For the series this reinforces the hold-all guard: resuming all cores -
+> > core 0 in particular - around every rate change keeps pclk_npu_root
+> > enabled for the duration of the SCMI call, closing the window for the
+> > sysfs, governor and cooling paths alike. Your .config_clks() +
+> > pm_runtime_suspended() check covers the OPP-initiated paths; I will
+> > reference it and your branch in the cover letter.
+>=20
+> I played around with Nicolas patches and created a more updated
+> config_clks() variant that tries to use the clocks configured for opp
+> instead of keeping track of the clock, see [2]. Have not done any
+> runtime testing of that, but wanted to share the link anyway :-)
+>=20
+> If I remember correctly for the GPU path on RK3576, keeping the 'bus'
+> clock enabled at all times helped ensure any root clock was enabled
+> while GRF is accessed. I cannot remember that I had any issues with GPU
+> GRF access for PD and sysfs governor paths. The config_clks() helped
+> ensure set_rate never was called during GPU probe or when governor was
+> changed. Maybe I missed testing some other paths :-)
+>=20
+> [2] https://github.com/Kwiboo/linux-rockchip/commits/next-20260803-rk-hdm=
+i-v6/
 
--- 
-2.51.2
+This looks like one of many hacks down, I'll make sure to test and integrat=
+e
+that.
+
+cheers,
+Nicolas
+
+>=20
+> >=20
+> > One open point where your GPU experience may help: besides the GRF
+> > programming interface, do you know whether the ring/monitor logic also
+> > depends on hclk_npu_root, or is the 24 MHz calibration reference
+> > (xin24m, always on) the only other input? If you never had to find out,
+> > I will determine it empirically by holding only pclk and cycling rates.
+>=20
+> I do not know, and never looked too deep into it, with the root clk
+> enabled everything seemed to work great, so I was happy enough with that
+> and just moved on to next thing :-)
+>=20
+> Regards,
+> Jonas
+>=20
+> >=20
+> > Regards,
+> > Igor
+
+--=-BonzMBfzDgbeskESyC4p
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoX6NQAKCRDZQZRRKWBy
+9LyVAP47C2FSx0QcA5CyoG+DF+6pVuAUKKTgxac0gHmccFpXZAEAgpv4oEEnibPG
+Z9h4UhoOl1Pc1NoDcvVGE6EeBqYNDA8=
+=/Ev9
+-----END PGP SIGNATURE-----
+
+--=-BonzMBfzDgbeskESyC4p--
