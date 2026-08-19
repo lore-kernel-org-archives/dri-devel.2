@@ -4,76 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC10C5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 18:53:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F094C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 18:54:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 305F010E4D5;
-	Wed, 19 Aug 2026 18:53:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47B6110ED18;
+	Wed, 19 Aug 2026 18:54:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qVEc/0Am";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hj6sj8K4";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 454C310EC65
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:53:55 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4996f1ee4a4so12087385e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:53:55 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C341110ED18
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:54:15 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4954f5e8020so8002385e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:54:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787165634; x=1787770434; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=LeaiBk7jtPj1JV25dNEYhySyvqZDMBq0LxTmZgiU7l8=;
- b=qVEc/0AmaRFJetyb5ehO2lsMwC14fKhHXEsescnnXQKTtm/N0Od4pPjXiHJaRt+KUu
- IsPyOZY7uImuSe569quyO+HjRiu3XMVOs8gMH1a3qcQRJXYOdyUK55Ce4ktvG28tfRB/
- /Jyb7pWG26iEKlgNNB+ecvejt/hpLynEeyG8IUX5RJwPt+tHtTMleyzXTi1ygFpX8U/T
- 9mW0TJpVIx0vZVPVIfqxUtJIFWszq+bGi70AAkBg2Uiag4t3RxlpjsiPRVMEy5HFuiYO
- 8dYRJfW1mq5h9PFeMYp/14gHdg+osz3v2crHfZe+zfEqW0t1lin5K2gKJa8qPDgaBX6X
- P3wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787165634; x=1787770434;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1787165654; x=1787770454; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=LeaiBk7jtPj1JV25dNEYhySyvqZDMBq0LxTmZgiU7l8=;
- b=UJc0Ud0Drlsvq6eb+7Yl6tzkULItaatwH3uLliUVIb/8XiXOn2rRYwdfq9wMQmZxy3
- zOt53d+2kx+O9QahieGSqXt3nrizZJCfzDiFx0D948HTGx1rWfm1pgUGP82NK6wk8C1s
- eeqSa0bbEaMlbhGL8PyLc82NAsKK3nZEjbHfljQBan+qTiBlO69ShSGK7nwrQYi2DMyv
- akIj5xao2tWqLlsR9AyQHH5HV/5oMx2mPGg5ougLnF96fuorV6ZUK3hsSsNBBnHNgQiZ
- rX7VLdZ5sQhsjQgvXZImmvH2xwt50+xAba3C4u8QcLWsOGSQ6lQKojirWZ8fXiRU+x/D
- 8QgQ==
+ bh=Zm036wVSHCwjE+KgqqdhRQjiPW8I9ChBRCr+PRjwQeU=;
+ b=Hj6sj8K4U9VUHpfKEfsQ/r0DMNMfBQWDCoKmiAaFrSQ3xNtuJzlgcMy40Kic88u/bS
+ KZm18OOyAput30SHmMQA28KGgkVCALOKqNzyE+cPJftRPnCYjQqWpyd45csfez9rYxv/
+ 5YafuGm96lsFgfpMR5QsUlWHRl3ojwBYukX4cCayVHq52zwlwc9uZFsYv9SzMNsZpQjb
+ +owZcTdRLgyo+UGd2/IeteQB0Yy+39pa9/LCQ8l18SSQB1MqQClIooDS3XbQXyS9mmZz
+ nKHkipotd9sIlQ4HHOJKXOdwHQk9OcLgYPWvtzx1oK2G6NxoI2j5QZCVNZpWcffk0j/j
+ 392Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787165654; x=1787770454;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Zm036wVSHCwjE+KgqqdhRQjiPW8I9ChBRCr+PRjwQeU=;
+ b=lNNp0d1xdPzwyBwgl3Zmm7fzXoub65BkvAT2ZfOwgrgLWMXTonOSve2tLHUOxvQnCE
+ Jf1hqRlE3l1HWYoSTM0Jgo8DAz+lo6tox7BknPkpTpmngYwSx0Git/foh39EbFx6ms+K
+ Mfww5kFBCFMAozn4jcbuW2XzstxjJneK+XliDcbDWI8b+mKbwTIB3v3hinKPMekqByOV
+ vbAH6p31/gTq1yKhMSDvDEjP+c+gy9aucQXfdzjtPHM218luR1LdH3ikPB/SBwnNyQn7
+ yxl4povK1P07YYeLEumKbq1NBVMqjBhw4hTwarX44UzK8vrABs6XeIL5BcKxQnQYVCYi
+ z9Lg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqZTbYGD4wNRHHF1CasFJ4IeX8wBIqhreFkzFV1+K5jKVCN3qiHcw98yfU1zRcMv7gsvJUXeDFRduI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw8hdtXQEMjLRDAuGEBnqL7Gv4tsIZtaw+qgF5ePURVEnI/cPmO
- VnAnQHUh/bZ+MX3ilJbkxYj8OhNjdZnhzd2FIO0Ylnln8oz9kAnVqolo
-X-Gm-Gg: AR+sD12bFEIYNaAgtm1tuxZiEUWRKKdYobOWhGzA+O8ZJvmMCVxKiH0fCHEY2Fp79BR
- 0LVCeGYJWvkr2NUEpbPxvwUCfOdXGOIoHpvf5Y3x+w7zcZgknUKf8oe9WOkuMqOKEuq8LsSsOz2
- opogKnQj2JgrBHs1CwhZbqKxl7JseZm9h6nq+Mrz4l0FXsbtl5EwbTZVpnWdi6aNowHJlyVNhy7
- mZBG6HyICYzIWB0Iw194E64ZTYII+2BIz0zbfpvZ4Wki2srbEfE7mcWcCYXkOX0SDIhlGuwfFt9
- B90wJW8KdXf9mF6XoPBcAfDzKNYng1kQwwLaJbVfpEgTKexiJvVZeGfb3wMUrquJmkr9q2xModz
- 7aZjqsZcsQMGJ/i/0tMDVYMJmogrfCEDx0jk5Pfw+jarSj8oFvMGork6p53SJvZVrttINHwOBmg
- /QLPbY5ls4HiZHdrmfp+a1FXO/C166ZSTrD6uIQAgmVuKrnV0vl36v2v9V9cjHH7p0WA+/mEC0o
- nLm7+F5HXHaTBAd3so5tnCxxGvCY7ecimlPuvWbDoh0ULS2VqPUtD4/qOB0FhW/F6EozGtgI9qO
- /LgSj/Vkodw/7SVs
-X-Received: by 2002:a05:600c:4ec9:b0:495:6e68:5df2 with SMTP id
- 5b1f17b1804b1-499aa1e33femr110408125e9.12.1787165633486; 
- Wed, 19 Aug 2026 11:53:53 -0700 (PDT)
+ AHgh+RrExIrhAXpMlhvaTu01nb5LXpbTdVFaXYshsb8UTTFCit4NzQxzCA7g4a8dzZR+aZ2pwPqRomMrZDQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJIjl3Q3fYXGQOrW1VUYK4GFPjIO3bNIL4vlczTfELNl/kIA0R
+ M4m6hl7xk9KmS1KqKwliZlgcvd5JfLlMDo+m/q7QvQDnaf3YKgLk3G6uR5TnkhwZllY=
+X-Gm-Gg: AR+sD13QSUQsbTx2LBpRvW6m8CFb01SnoizX9eibAn/RLpyLMeCUoKqvduGMnwtRjU2
+ Af9UggU7Z/uwQzwTki7E9Dy+OLKzt3hzeLKUUKYNz0fKXehKeCuypJL/L0wqRSAFf1RhGX9wnM8
+ u0qCXOSAwc6L65rMDDEAeOqRc6Q/bmZ3n4tVbsmVTU1Vl9w99TigFlR5AcUaaEBYR6LjiusZUcN
+ quIb0ufLIHwAGNbQqxHrOfww50cafqLo1NUJE/Fcgpp1SpkEY+zweQAJzrx6jxhhtoXHtxUPQv0
+ Ri/7zJj48URlfR5QIMfQDhVA6V3ZU8N6VXa9DghHwr7f+CkKoMua2zUvXncWye12r+KWU4KgUW5
+ 7ubM1PU44L+sVBYpW9TxG/159C75Ca9TSMANHib5fd8kNiQnqnIYdlR7vxQfKrHqcez336sVHob
+ 0lOZP9fM6BqWsvBtl+QI7gC+DwLDsLPfTZstpOh2Zak1fOi7hHUAvyWGWtwTMIAdZXHCC8yb2qC
+ nWrDQ1H40FIgQf2jJPfCkioX+k8Gw/UhiABC/SDgI0W5c+E7iaCCMZgQj1I1sRYk/r7MqO3QPq6
+ mqm3i7Y=
+X-Received: by 2002:a05:600c:6308:b0:499:80d0:8b73 with SMTP id
+ 5b1f17b1804b1-499aa171fd8mr133181025e9.4.1787165653853; 
+ Wed, 19 Aug 2026 11:54:13 -0700 (PDT)
 Received: from horsehead.lan (p548c9e2a.dip0.t-ipconnect.de. [84.140.158.42])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499aa0d6721sm104205315e9.11.2026.08.19.11.53.52
+ 5b1f17b1804b1-499aa0d6721sm104205315e9.11.2026.08.19.11.54.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2026 11:53:53 -0700 (PDT)
+ Wed, 19 Aug 2026 11:54:13 -0700 (PDT)
 From: Denis Pisarev <pisarevden@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
  mario.limonciello@amd.com, ionut_n2001@yahoo.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Denis Pisarev <pisarevden@gmail.com>
-Subject: [RFC PATCH 0/1] drm/amdgpu: MMIO TLB invalidation fallback when KIQ
- is wedged after S4 resume
-Date: Wed, 19 Aug 2026 20:53:48 +0200
-Message-ID: <20260819185349.29407-1-pisarevden@gmail.com>
+Subject: [RFC PATCH 1/1] drm/amdgpu: fall back to MMIO TLB invalidation when
+ KIQ is unresponsive
+Date: Wed, 19 Aug 2026 20:53:49 +0200
+Message-ID: <20260819185349.29407-2-pisarevden@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260819185349.29407-1-pisarevden@gmail.com>
+References: <20260819185349.29407-1-pisarevden@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,90 +94,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+After resume from S4 (hibernation) on gmc_v9 parts with GFXOFF
+(observed on Cezanne / Ryzen 7 PRO 5850U, kernel 7.1.8), KIQ-based TLB
+flushes start failing at the moment of the thaw and keep failing for
+hours of normal desktop use:
 
-This RFC follows up on bugzilla 219492 ("failed to write reg 28b4 wait
-reg 28c6" after hibernation) and on the resume_gpu_stable proposal
-rejected in January:
+  amdgpu 0000:07:00.0: failed to write reg 28b4 wait reg 28c6
+  amdgpu 0000:07:00.0: failed to write reg 1a6f4 wait reg 1a706
 
-  https://lore.kernel.org/amd-gfx/20260106125929.25214-6-sunlightlinux@gmail.com/
+(80-140 errors/hour measured over 9+ hours; bugzilla 219492)
 
-The rejection argued that (a) kiq sched.ready is managed correctly -
-set false in suspend, set true again only after ring tests pass on
-resume - and (b) the proposed flag would have disabled the KIQ flush
-path permanently. Both points are correct, and this RFC takes a
-different route: nothing is disabled proactively; the driver reacts to
-observed failures.
+Two problems follow from the current code:
 
-MEASURED FAILURE MODE (Cezanne iGPU, Ryzen 7 PRO 5850U, 7.1.8, KDE
-Wayland, no ROCm):
+1. Every failed flush burns the full retry window
+   (MAX_KIQ_REG_TRY * MAX_KIQ_REG_BAILOUT_INTERVAL = ~5 s) before
+   erroring out, which makes the whole desktop sluggish.
 
-- S4 resume -> "failed to write reg 28b4/28c6" + "1a6f4/1a706" pairs
-  begin in the same second as the thaw and continue at 80-140/hour
-  for 9+ hours until reboot. kiq sched.ready is true throughout (the
-  ring test at resume passed).
-- Two user-visible consequences: each failed flush burns the ~5 s KIQ
-  retry window (desktop-wide sluggishness), and the invalidation is
-  then silently dropped (stale TLBs - correctness).
+2. The invalidation is then silently dropped - stale TLB entries are
+   left in place - because gmc_v9_0_flush_gpu_tlb() returns as soon as
+   amdgpu_gmc_fw_reg_write_reg_wait() finishes, whether it succeeded
+   or not.
 
-TRIGGER ISOLATION (single-variable tests, one hibernate cycle each):
+The KIQ ring is marked ready during resume after its ring test passes,
+but on affected systems the ring subsequently stops completing
+invalidation commands. sched.ready therefore does not reflect the
+state of the hardware in this failure mode, and there is no path back
+to the direct MMIO invalidation that already exists in
+gmc_v9_0_flush_gpu_tlb() for the pre-KIQ stage.
 
-- stock (GFXOFF allowed across S4):    ~70-140 errors / 30 min of use
-- GFXOFF held off across S4:                    0 errors (30 min)
-- GFXOFF re-enabled 40 min after the clean
-  resume:                                      0 errors (15 min;
-  gating resumption not independently verified)
+Make the failure observable and self-healing:
 
-So the wedge forms in the S4 resume window while GFXOFF is allowed,
-and is consistent with the existing semaphore workaround comment in
-gmc_v9_0.c about losing invalidate-acknowledge state across
-power-gating cycles. A boot-time amdgpu.pg_mask=0 does not even
-initialize on this part (probe -ETIMEDOUT), so runtime debugfs
-control was used.
+- amdgpu_gmc_fw_reg_write_reg_wait() returns 0/-ETIME and counts
+  consecutive failures in adev->gmc.kiq_flush_failures
+  (dev_err_ratelimited instead of dev_err, since affected systems
+  print this 80-140x/hour for hours)
 
-THE PATCH (1/1):
+- gmc_v9_0_flush_gpu_tlb() falls back to its existing MMIO path when
+  the KIQ submit fails, so the invalidation is no longer dropped
 
-- amdgpu_gmc_fw_reg_write_reg_wait() returns -ETIME on failure and
-  counts consecutive failures
-- gmc_v9_0_flush_gpu_tlb() uses its existing MMIO path as fallback
-  when the KIQ submit fails (invalidations no longer dropped), and
-  after 3 consecutive failures skips the KIQ path entirely until the
-  counter resets - so wedged systems stop paying 5 s per flush
-- counter resets on every success and in gmc_v9_0_hw_fini(); each
-  suspend/resume cycle re-arms KIQ. No proactive disabling anywhere.
-- gmc_v10/v11/v12 call sites unchanged and compile-safe (int return
-  used as statement); extending the fallback to them is trivial once
-  the approach is agreed.
+- after AMDGPU_KIQ_FLUSH_MAX_FAIL (3) consecutive failures the KIQ
+  path is skipped entirely until the counter is reset, so wedged
+  systems stop paying the 5 s retry window per flush
 
-This mirrors what the sibling PASID path already does (KIQ submit,
--ETIME on timeout, MMIO variant as fallback), applied to the per-VMID
-path.
+- the counter is reset on every success and in gmc_v9_0_hw_fini(),
+  i.e. every suspend/resume cycle re-arms the KIQ path; nothing is
+  disabled proactively
 
-OPEN QUESTIONS:
+gmc_v10/v11/v12 call sites are unchanged (statement calls compile
+fine against the new int return; behavior identical). They can get
+the same fallback once this approach is agreed for gmc_v9.
 
-1. Root cause in the S4 window: RLC/ME not processing KIQ invalidates
-   while GFXOFF is allowed? Happy to run tracing (amdgpu.vm_debug,
-   VM_INVALIDATE ack registers) on the affected hardware on request.
-2. Should the latch be per-xcc-inst?
-3. Should amdgpu_gmc_flush_gpu_tlb_pasid()'s KIQ branch share the
-   latch?
+The sibling PASID path (amdgpu_gmc_flush_gpu_tlb_pasid) already has
+an -ETIME/MMIO split; this brings the per-VMID path in line with it.
 
-Patch 1/1 follows. Comments very welcome - especially on whether the
-failure-driven fallback is the right shape vs. fixing the S4 resume
-ordering directly.
+RFC questions for maintainers:
 
-Denis Pisarev
+- Is a per-xcd-inst latch preferred over the global gmc one? (single
+  inst on the affected hardware here)
+- Should the latch also gate the KIQ branch of
+  amdgpu_gmc_flush_gpu_tlb_pasid()? (no failures observed on that
+  path on the affected system)
+- Root cause: with GFXOFF disabled across the S4 cycle (debugfs
+  amdgpu_gfxoff), zero errors occur across resume and 30 min of use
+  vs ~70-140 in the control arm. The wedge forms in the S4 resume
+  window while GFXOFF is allowed, consistent with the existing
+  semaphore workaround comment about losing invalidate acknowledge
+  state across power-gating cycles in this file.
 
-Denis Pisarev (1):
-  drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
-    unresponsive
+Tested on Cezanne (Ryzen 7 PRO 5850U, Manjaro 7.1.8): S4 resume with
+GFXOFF enabled reproduces the failure storm on stock; hibernate loop
+testing of this patch pending maintainer feedback on the approach.
 
+Signed-off-by: Denis Pisarev <pisarevden@gmail.com>
+---
  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 +++++++++++----
  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  4 +++-
  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 18 ++++++++++++++----
  4 files changed, 30 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 7b09410d6..cd5d9e56e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -360,6 +360,8 @@ enum amdgpu_kiq_irq {
+ #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
+ #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
+ #define MAX_KIQ_REG_TRY 1000
++/* consecutive KIQ TLB flush failures before falling back to MMIO */
++#define AMDGPU_KIQ_FLUSH_MAX_FAIL 3
+ 
+ /*
+  * BIOS.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 5d6149ba7..000a1d107 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -874,7 +874,7 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+ 	return r;
+ }
+ 
+-void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
++int amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+ 				      uint32_t reg0, uint32_t reg1,
+ 				      uint32_t ref, uint32_t mask,
+ 				      uint32_t xcc_inst)
+@@ -888,7 +888,7 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+ 	if (adev->mes.ring[MES_PIPE_INST(xcc_inst, 0)].sched.ready) {
+ 		amdgpu_mes_reg_write_reg_wait(adev, reg0, reg1,
+ 					      ref, mask, xcc_inst);
+-		return;
++		return 0;
+ 	}
+ 
+ 	spin_lock_irqsave(&kiq->ring_lock, flags);
+@@ -919,13 +919,20 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+ 	if (cnt > MAX_KIQ_REG_TRY)
+ 		goto failed_kiq;
+ 
+-	return;
++	atomic_set(&adev->gmc.kiq_flush_failures, 0);
++	return 0;
+ 
+ failed_undo:
+ 	amdgpu_ring_undo(ring);
+ 	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+ failed_kiq:
+-	dev_err(adev->dev, "failed to write reg %x wait reg %x\n", reg0, reg1);
++	if (atomic_inc_return(&adev->gmc.kiq_flush_failures) ==
++			AMDGPU_KIQ_FLUSH_MAX_FAIL)
++		dev_warn(adev->dev,
++			 "KIQ reg access keeps failing, falling back to MMIO\n");
++	dev_err_ratelimited(adev->dev,
++			    "failed to write reg %x wait reg %x\n", reg0, reg1);
++	return -ETIME;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index ddb0d500e..3e5c152ad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -366,6 +366,8 @@ struct amdgpu_gmc {
+ 	bool flush_tlb_needs_extra_type_0;
+ 	bool flush_tlb_needs_extra_type_2;
+ 	bool flush_pasid_uses_kiq;
++	/* consecutive KIQ TLB flush failures; MMIO fallback when latched */
++	atomic_t kiq_flush_failures;
+ 
+ 	bool override_pte;
+ };
+@@ -447,7 +449,7 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+ 				   uint32_t flush_type, bool all_hub,
+ 				   uint32_t inst);
+-void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
++int amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+ 				      uint32_t reg0, uint32_t reg1,
+ 				      uint32_t ref, uint32_t mask,
+ 				      uint32_t xcc_inst);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 8a5c44810..a262df837 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -798,13 +798,18 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	 * properly under bare metal
+ 	 */
+ 	if (adev->gfx.kiq[inst].ring.sched.ready &&
+-	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
++	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
++	    atomic_read(&adev->gmc.kiq_flush_failures) <
++			AMDGPU_KIQ_FLUSH_MAX_FAIL) {
+ 		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+ 		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+ 
+-		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
+-						 1 << vmid, inst);
+-		return;
++		if (!amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
++						      1 << vmid, inst))
++			return;
++		/* KIQ submit failed - fall through to the MMIO path below
++		 * so the invalidation is not silently dropped
++		 */
+ 	}
+ 
+ 	/* This path is needed before KIQ/MES/GFXOFF are set up */
+@@ -2238,6 +2243,11 @@ static int gmc_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
++	/* KIQ is re-initialized on the next resume; give it a clean
++	 * start for the MMIO fallback latch
++	 */
++	atomic_set(&adev->gmc.kiq_flush_failures, 0);
++
+ 	gmc_v9_0_gart_disable(adev);
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
 -- 
 2.55.0
 
