@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F95DC5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 07:28:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3104FC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 07:32:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E931C10E103;
-	Wed, 19 Aug 2026 07:28:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC4510E3B1;
+	Wed, 19 Aug 2026 07:32:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IkzmdIEl";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ov4NkIaB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C7F110E103
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 07:28:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787124519; x=1818660519;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=bjxkUigIQF/FLCtfFhnV9suBNyW3HXulGmclH/su+eg=;
- b=IkzmdIEloAAXEUF07ftncPKx90VI++IU6Y8bYBnWKt4YTH6nZyPTr86a
- QyvMKStqsCx3ON6YtRJ84ch19EVWe7I1b8+vX4mu708Mj/PgOfZIkK+f6
- Kl7uyD2e+KHwoOl0oH1UI1REhCrFBiG7yGGFYJEgADrLn6WkUsqbSlnMv
- 8Pau5YI3vb2D8D1ymzDUbA4ZRctxeB3Ad+GpYMb91YEcwzcZQ3LavFQDW
- FzvrU/IU63V0RYrYMwneerkilbQuZx6gMWS6Yl6ZpJvGAvey15pMhvJ6g
- wUxDccvxHD59AJvQQ4BwZv8igqpFozKsi3XPMNcyhJlFIk34aiatIEEYP Q==;
-X-CSE-ConnectionGUID: BdqZ1z/XQy2j/4od02YrZw==
-X-CSE-MsgGUID: 4Ab2BPlLRTSmtztjP8U6aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="91439177"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="91439177"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 00:28:39 -0700
-X-CSE-ConnectionGUID: FrrgiAu2Ri62gIJolx8YbQ==
-X-CSE-MsgGUID: rJVwAm93To6OeUUeu/n7Og==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="263729170"
-Received: from tester.sh.intel.com ([10.112.106.126])
- by orviesa006.jf.intel.com with ESMTP; 19 Aug 2026 00:28:37 -0700
-From: Tao Yu <tao1.yu@intel.com>
-To: Ruben Wauters <rubenru09@aol.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Tao Yu <tao1.yu@intel.com>,
- syzbot+9ae8e7884e451eaed5b4@syzkaller.appspotmail.com
-Subject: [PATCH] drm/gud: validate TV mode names before creating enum property
-Date: Wed, 19 Aug 2026 15:28:35 +0800
-Message-Id: <20260819072835.4074130-1-tao1.yu@intel.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C32610E3B1
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 07:32:45 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id AE7F04E412BA;
+ Wed, 19 Aug 2026 07:32:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 8291F5FF42;
+ Wed, 19 Aug 2026 07:32:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id E759711C753B7; 
+ Wed, 19 Aug 2026 09:32:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1787124758; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=hQKtUNfu32zyyC3Pj0M51woeAuZ2PTZyG0Xqk5Ab96I=;
+ b=ov4NkIaBPQjK5QOgWFDAaIX+AGemj/mYur8euDyWKpDKQhIgALpJzcC2rY7O47dazgnCq2
+ ldjpBhvTFzT+WKYxCW/IsYATs5b0vLo/ga46XhaR0eg03d7UclrWJ9xT4bhjItk2g+319P
+ zy110nlWGd5ujXMq7EI7iYO92jm4soUdn7pBT5YvMNijLkn+t45QSY1VJ1ya3y1tDeW+Wm
+ tt6SiD/OAH3iX3OqYjnROILLWbdepOpsiHRNrOSHkRhDbKCPEiaKeRY+lwep9KTx2YY7Ts
+ iqSQzMVFSjN5Kt0hpuj5qMezBS4RCPP1840Q2kaSoApEdycxvaml3Piy2wHkhA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 19 Aug 2026 09:32:29 +0200
+Message-Id: <DKSQUNWA86GP.9NHE4ADGYLQH@bootlin.com>
+Subject: Re: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory
+ samsung DP DT properties
+Cc: <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <robh@kernel.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+To: "Damon Ding" <damon.ding@rock-chips.com>, <sashiko-reviews@lists.linux.dev>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+ <20260707040613.1992841-4-damon.ding@rock-chips.com>
+ <20260707041711.4F7351F000E9@smtp.kernel.org>
+ <00d3f58e-73bb-41da-a2df-dfeeca644b6f@rock-chips.com>
+In-Reply-To: <00d3f58e-73bb-41da-a2df-dfeeca644b6f@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,54 +67,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The GUD protocol returns TV mode names as fixed-size
-GUD_CONNECTOR_TV_MODE_NAME_LEN entries and requires each name to be
-NUL-terminated.
+Hello Damon,
 
-gud_connector_add_tv_mode() currently passes each fixed-size entry
-directly to drm_mode_create_tv_properties_legacy(), which eventually
-reaches drm_property_add_enum() and strlen(). If a device returns an
-entry without a terminating NUL byte, strlen() reads past the end of
-the slot and can run beyond the allocated buffer, triggering an
-out-of-bounds read.
+On Wed Jul 15, 2026 at 10:32 AM CEST, Damon Ding wrote:
+> On 7/7/2026 12:17 PM, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 1 potential iss=
+ue(s) to consider:
+>> - [Critical] Failing probe when deprecated DT properties are missing bre=
+aks DT ABI and prevents their deprecation.
+>> --
+>>
+>> --- Patch [3]: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory=
+ samsung DP DT properties ---
+>> commit b573dba50acc6087122ffa4a65680322f4d004f8
+>> Author: Damon Ding <damon.ding@rock-chips.com>
+>>
+>> drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+>>
+>> This commit reverts a change that made the samsung,link-rate and
+>> samsung,lane-count properties optional for Exynos DP. It adds error chec=
+king
+>> to fail the probe early if these properties are missing, aiming to preve=
+nt
+>> link training failures caused by zero values.
+>>
+>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drive=
+rs/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> index 8cf6b73bceac0..293d8adfe9856 100644
+>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>> [ ... ]
+>>> @@ -1258,10 +1259,14 @@ static int analogix_dp_dt_parse_pdata(struct an=
+alogix_dp_device *dp)
+>>>   		 * NOTE: those property parseing code is used for
+>>>   		 * providing backward compatibility for samsung platform.
+>>>   		 */
+>>> -		of_property_read_u32(dp_node, "samsung,link-rate",
+>>> -				     &video_info->max_link_rate);
+>>> -		of_property_read_u32(dp_node, "samsung,lane-count",
+>>> -				     &video_info->max_lane_count);
+>>> +		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
+>>> +			return dev_err_probe(dp->dev, -EINVAL,
+>>> +					     "Failed to get samsung,link-rate\n");
+>>
+>> [Severity: Critical]
+>> Does failing the probe when this property is missing break the DT ABI?
+>>
+>> Since samsung,link-rate is a deprecated property, a modern schema-compli=
+ant
+>> Device Tree might intentionally omit it. If a system boots with such a D=
+T,
+>> this check will fail the probe with -EINVAL and disable the display.
+>>
+>> Could the driver instead fall back to hardware maximums or sensible defa=
+ults
+>> when the deprecated property is absent, rather than returning an error?
+>>
+>
+> I'm afraid it's difficult to provide a universal sensible default value
+> here.
+>
+> The samsung,lane-count and samsung,link-rate values vary significantly
+> across Exynos DP device trees, so a generic fallback to hardware
+> maximums cannot guarantee stable link training.
+>
+> Even though these two properties are marked deprecated, all existing DTS
+> files in our projects have already populated them completely. Moreover,
+> the current link training logic relies on these two parameters; omitting
+> either will directly cause link training failures at runtime.
+>
+> Therefore, retaining the mandatory property check in probe is a
+> reasonable approach for now.
 
-Validate that each returned TV mode name contains a NUL terminator
-within its fixed-size slot before passing it to the DRM property code.
-If a malformed entry is found, reject the device response with -EIO.
+I'm still not convinced we should turn an optional property into mandatory,
+after having been optional since 2016 (based on the commit in the Fixes:
+tag).
 
-This fixes the out-of-bounds read without changing the handling of
-valid devices, and avoids silently truncating malformed protocol data.
+The sure thing is we cannot break existing devices which upgrade to a new
+kernel.
 
-Reported-by: syzbot+9ae8e7884e451eaed5b4@syzkaller.appspotmail.com
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Signed-off-by: Tao Yu <tao1.yu@intel.com>
----
- drivers/gpu/drm/gud/gud_connector.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+Se the question is: if a device is missing one of these properties, or
+both, what happens? The video_info->max_link_rate and/or
+video_info->max_lane_count will be zero, correct? And if they are zero, is
+there even a remote possibility that the device will work somehow, maybe
+only with some rare low resolution or whatever?
 
-diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
-index ea0cca58b7c89..8141c3a1e30ad 100644
---- a/drivers/gpu/drm/gud/gud_connector.c
-+++ b/drivers/gpu/drm/gud/gud_connector.c
-@@ -396,8 +396,16 @@ static int gud_connector_add_tv_mode(struct gud_device *gdrm, struct drm_connect
- 	}
- 
- 	num_modes = ret / GUD_CONNECTOR_TV_MODE_NAME_LEN;
--	for (i = 0; i < num_modes; i++)
--		modes[i] = &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-+	for (i = 0; i < num_modes; i++) {
-+		char *mode = &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-+
-+		if (!memchr(mode, '\0', GUD_CONNECTOR_TV_MODE_NAME_LEN)) {
-+			ret = -EIO;
-+			goto free;
-+		}
-+
-+		modes[i] = mode;
-+	}
- 
- 	ret = drm_mode_create_tv_properties_legacy(connector->dev, num_modes, modes);
- free:
--- 
-2.34.1
+If the answer is "yes, there is a remote possibility that one sich device,
+with some maybe rare configuration, will work", then no, we cannot make
+this property mandatory now. There can be devices out there working without
+these proberties, and they would be broken.
 
+If the answer is "there is no way at all a device can work without one or
+both properties", with a good explanation based on the code flow and
+hardware docs, then we can consider this change.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
