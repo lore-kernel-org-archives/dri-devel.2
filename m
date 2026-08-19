@@ -4,60 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD723C5B572
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 16:07:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B228C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 16:08:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37BD210EE53;
-	Wed, 19 Aug 2026 16:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDD7210E173;
+	Wed, 19 Aug 2026 16:08:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="M0QT3ZyC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="odtcaGx2";
 	dkim-atps=neutral
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
- [136.143.188.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE8F10EE53
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 16:07:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787155648; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=UO6IV1UhgEZ1g/bKGUtV8RyCUWycCpWgSu5/c2uZyE1xnu+0858EvgQJxEQ6qHp//a8Txb5oYCRVrnrfzQ3+5XBahIQ5+obRWWnJR3Njn4A28fEPk9RNU1zZ6ruHrwKYRjwKNswMmhzfaJuHYuZabKd/syTtphDjvXvZXsqw4Lw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787155648;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=2xabvlj5sQOVFhU9bWVjggoXvyscfsuMlo/xx3gc9sc=; 
- b=CXqqLR2hKm8ROrQuEaNbzdaGsA2X5lsEvE4o1CKjWgA2EP7YLIl4bl6JI9nyw5NBxhK7udGBjjEQ+87d1Am7fydABd2KK98MryC8rTtLVxJjIbH1J7+8wDYWHWsvdXy1dBXFV2AJ/4OWc8o2XSqAQF+VIN12UFZIu/km2Wiuyug=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787155647; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=2xabvlj5sQOVFhU9bWVjggoXvyscfsuMlo/xx3gc9sc=;
- b=M0QT3ZyCxdfDTIaUEzEqbgRCRkJWfJtYhJywiahz3E467DVBmcwcM+QgpWAUgVL4
- qrvVwxDnI1vuYvGlqHeCLMefIP3G73tOUtGlIND3MUr89rtwXtrl3Dg9Gz6p8TOTz8D
- GVvMaU2gNQT+NmRzppODuIZ28Px1rnRHmFJ700zRGB37rwpRrW9lXnJ+Z6gmJrhu1+P
- r+t/nrnrDlFXKNG6mHWF0KuGagTdJztj9DprWCPr2KzPFipNnrhs2RTXrpqReBmZR+H
- M8XdhgKWt1+smmemymBx4lExe6v1fT5dIuOs8R9HPAyUujotGLpvZuqS3JfiqEjCm6b
- 5trFF779Eg==
-Received: by mx.zohomail.com with SMTPS id 1787155646261408.0330107430441;
- Wed, 19 Aug 2026 09:07:26 -0700 (PDT)
-Message-ID: <1e96490ce0d9435d7388bc59eea94ba78726cc04.camel@icenowy.me>
-Subject: Re: [PATCH] drm: verisilicon: fix cursor offset field update
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Chen-Yu Tsai <wenst@chromium.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Thu, 20 Aug 2026 00:07:20 +0800
-In-Reply-To: <178712436551.483858.6257003457851836320.b4-ty@chromium.org>
-References: <20260812154829.671777-1-zhengxingda@iscas.ac.cn>
- <178712436551.483858.6257003457851836320.b4-ty@chromium.org>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2FE410E173
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 16:08:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 62D7040702;
+ Wed, 19 Aug 2026 16:08:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C9E1F000E9;
+ Wed, 19 Aug 2026 16:08:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787155721;
+ bh=wN8jFoJWAgS78B0uCti7ywHFK0RjhF8FuKvhVKEnz3o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=odtcaGx2sXRapNJItiq5Ty7s9mKhhyuMBhOjj7beG49/UsJuBWVCsxgDL82g6E7qM
+ Gv9blJFMyrDPZhQsBdDbX1h/SsKcGwfEg7uzbWtFF7GmldToX0DgnZL/o7yz1R1llb
+ yAMKsXiHSi6LKWdz+44nGCRlBmSGol+brnwcvyGiSDlp153udjmsLGSJhgGBjSn/5H
+ nNwPYGkxHVV17ibH1VepJg9A+em6F7LDb+ELasUyk5WubFiQdSoYvTboRGYMjRX9S0
+ mEzHZ0RceRLFlYns3ZwjTXLw+uONtpih8Q7y5iJ7FCPn7nMdYcIhNWQdu585DejMAz
+ TLwaGQQ7J3zGQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/6] drm/nouveau/kms/nv50-: Obliterate
+ nouveau_encoder->crtc
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260819155934.154125-7-lyude@redhat.com>
+References: <20260819155934.154125-1-lyude@redhat.com>
+ <20260819155934.154125-7-lyude@redhat.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-ZohoMailClient: External
+Date: Wed, 19 Aug 2026 16:08:40 +0000
+Message-Id: <20260819160841.31C9E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,38 +54,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-08-19=E4=B8=89=E7=9A=84 15:26 +0800=EF=BC=8CChen-Yu Tsai=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Wed, 12 Aug 2026 23:48:29 +0800, Icenowy Zheng wrote:
-> > The 4th argument of regmap_update_bits() expects a pre-shifted
-> > register
-> > value instead of the field value when it's used to set a single
-> > field,
-> > however I forgot this when writing the code setting the cursor X/Y
-> > offset fields, thus the write operation doesn't happen at all
-> > (because
-> > of the non-shifted values being masked by regmap_update_bits()).
-> >=20
-> > Fix this problem so the cursor is correctly clipped.
-> >=20
-> > [...]
->=20
-> Applied to drm-misc-next in drm-misc, thanks!
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Thanks for applying.
+Pre-existing issues:
+- [High] Encoder atomic disable callback calls a sleeping function, violati=
+ng atomic context rules.
+--
 
-I think these should enter drm-misc-fixes instead, but at least we
-always have the option of cherry-picking.
+--- Patch [6]: [PATCH v2 6/6] drm/nouveau/kms/nv50-: Obliterate nouveau_enc=
+oder->crtc ---
+commit 9b6ea3488cdb59d28deb854dd17d63d4b20e1a27
+Author: Lyude Paul <lyude@redhat.com>
 
-Thanks,
-Icenowy
+drm/nouveau/kms/nv50-: Obliterate nouveau_encoder->crtc
 
->=20
-> [1/1] drm: verisilicon: fix cursor offset field update
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 commit: 6575bb5d0d3c7db0d7d293428ecc07cb38=
-e46ecc
->=20
-> Best regards,
+This commit removes the nouveau_encoder->crtc tracking artifact from the
+pre-atomic modesetting days. It relies entirely on the atomic state to
+track the assigned CRTC, as all redundant legacy tracking users have
+been removed.
+
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
+uveau/dispnv50/disp.c
+> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+[ ... ]
+> @@ -1634,7 +1631,6 @@ nv50_sor_atomic_disable(struct drm_encoder *encoder=
+, struct drm_atomic_commit *s
+> =20
+>  	nv_encoder->update(nv_encoder, head->base.index, NULL, 0, 0);
+>  	nv50_audio_disable(encoder, &head->base);
+
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential sleep-in-atomic bug
+in this execution path.
+
+The nv50_sor_atomic_disable() function is an encoder atomic disable callbac=
+k,
+which runs in an atomic context during non-blocking commits. It explicitly
+calls nv50_audio_disable():
+
+nv50_sor_atomic_disable()
+  nv50_audio_disable(encoder, &head->base);
+
+Looking at nv50_audio_disable(), it acquires a mutex:
+
+nv50_audio_disable()
+  mutex_lock(&drm->audio.lock);
+
+Can this cause system instability or kernel warnings by calling a sleeping
+function (mutex_lock) from an atomic context?
+
+> -	nv_encoder->crtc =3D NULL;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819155934.1541=
+25-1-lyude@redhat.com?part=3D6
