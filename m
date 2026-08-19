@@ -4,56 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24DA0C5DF86
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CE40C5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:10:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C67110E86E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF3510EDB8;
 	Wed, 19 Aug 2026 11:10:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="L+CzTY2r";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="K4SfqDZ7";
 	dkim-atps=neutral
 Received: from CWXP265CU009.outbound.protection.outlook.com
  (mail-ukwestazon11021085.outbound.protection.outlook.com [52.101.100.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D0AF10E86E
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:10:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4259910E700
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:10:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QDpvgoOSnvg8sWGhMZW0L2oJknk569HnlzVMuH8qEoShydl3tutBUuZjWyHmcFKpTenVkSTEn256yYGC3XKFBTARcJutUnpMWbNhRJS7W6j9/sNjDS7qlYI5T/PQ5FL02jp1Kq6wdPzh0JUQlzIe031oUpL6TLQQJHtk8tlgLRgBx69gwAMod6LmqeSH+qAXg5mVEgX4OHHEJUcrqYvyiFh89E66IInG41re/LB9t8srf/xssmSugTl1m70J5cR+3SP7az4m6SScJJjAWnmQ5BNC5BfN4Kym8fKWatB1uH02mlklTenhc5+iiEmJlO2PLYEs838mOpky3Y5B2vmdmA==
+ b=I0ID778MuWSkAw1T7ZwlFIylQqizIQ3YfrxmFdhcfwMzj0GQMAIgIgwPDE83gylnPwwPQqiqpdr0mkbSK8ZEsVFGKTdTNB7UqNK91HEBdmSGhc5Ls9QILufU/2G7/G7xVKHgRxtblLACgXT/LIKK8y5lRsFoYpkgKW9jDCjWCnL7sqBWVCpDD5HdBg1wDOTuQy3HdHjaewiN0bIMhJCgAkFh522oYfTNB/j8TpIzZtu/lxRCE6j9My7UzLv4lQH7HOK+M86nQhABWCpEvB3WbZMFFCJYsQwPTrDU+E7UjWEo3ZfPaJYMGFh3NceiLC6R4ikUXQ+ERWqzCOgdkecMEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vlx6uZJKCAWYot3eMOTrDAcO+QvdlmFruwPUoamhrBo=;
- b=rGzaxqkVDJPgpuLBTossfFsPtD4VbSDAuBtol7QIdPJ6eCwJe58yXgVtpnonTWK1NgW9q4Y6vzX/CTa65W/7rOPGq7kUhAdE57LO188ia68LGf09cx+Vxl/OUCoE2oMF4PAHzrK7rr0jdUuLwsnYPYvHag3UX79CT/62DWMY4SAZj2QbVjzV/sjxi9c1ljZmJBYyThknK7isKB4xdXFrFCYMVUvUPIPrBSfzyfPBS2A48/zpgxgB1LgMIVuiIagr4+1CMGb+bi2lBV61tOtL16WX2D8hz8y9ZRp/M+Ejilk678Ewjab3Z5bnonZOKR1cIDe/GBitbJMDGr4Gm/VGnw==
+ bh=xb4BzmmZi+TtiXb0nw5NI5UhBRSfDkNUsnD26T2Q3fc=;
+ b=RdtdsEKvQdtDGyIHuouZr4CqWCOjTOKKfljgOg/Zs6U7nIejF1qH5Ianyzo+odfsHQkxHTi/aRRs8ICMl8nrkrz9spFGnviEWSxyEZy8BCYNDTDYyAW6kaYcibxWYhSqilmj6QGN+mTWpP7jxgTZFA7N3QUSM1/KWrq2e8fOrwBn99BckNxsjY3MVRFCclRsHLx37K8qMsQcPqKnC5GTtIc32IO3K7yLYW9V7Zwjhl2pBZVqHnGtHyzKVWOJGLizDglpsaJp+yXzPYh1HmvCqFwbg7/WS7CH0KVbBLpITtcg//lllq9t9We490+y7WBNRU5/emGqYPznt9ni0aVkgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vlx6uZJKCAWYot3eMOTrDAcO+QvdlmFruwPUoamhrBo=;
- b=L+CzTY2rCf6tidxGycJpeCtMIqhevtBiVWRNylKOA1yaIpXqRIMlr9zz0rpqGoLBifHOhMjU+lhVjTEkyxJ+Z7baMIk1Ls+tw3hvt6jQ46V2DYfreoYOjfUv2XqGlhdZ4nNpbLUZNcx4YiUVUBJIDnGZ1vRztt6RIgpE39SVEvI=
+ bh=xb4BzmmZi+TtiXb0nw5NI5UhBRSfDkNUsnD26T2Q3fc=;
+ b=K4SfqDZ7YmRzwFkXRogq2oBPDUysFoY5F1zsVabh2WxGpZ5tWAGZyCYcvcbhi8TYIohheqIAMBSc/et8nikYOnN6uWN8zBBbt4zz1CJB4jnu7EYxzUebpUeQYQpy6vWrK5+YFm5Pp5yOOI4XH63q9QST1BU1I+T8G7sfJ1f4aDQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
  by LO0P265MB5167.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:283::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 11:10:15 +0000
+ 2026 11:10:16 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 11:10:14 +0000
+ 11:10:16 +0000
 From: Gary Guo <gary@garyguo.net>
-Subject: [PATCH v3 00/16] rust: io: support register projections and remove
- relative registers
-Date: Wed, 19 Aug 2026 12:09:08 +0100
-Message-Id: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+Date: Wed, 19 Aug 2026 12:09:10 +0100
+Subject: [PATCH v3 02/16] rust: mem: add `transmute` with deferred size check
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANWOhWoC/3XOQQrCMBAF0KtI1kaTaW3FlfcQkUk6thFNS5KWl
- tK7m+hCRFz+4c/jz8yTM+TZYTUzR4PxprUxZOsV0w3amripYmYgoBAlSB6mjqqLo9r4QI7LsiB
- UGSqiksWnztHVjC/wdH5n36sb6ZCU1FDoiSuHVjfpdDe2H7mlMWwfmMjUaSLeuum1apDJ+jtgk
- FzwfAdVCaqIHTjW6Ka6bzeWAksTBvgAe7H7ASACOtMocwAQKL6BZVmeMq/MRCUBAAA=
-X-Change-ID: 20260721-typed_register-176eab3abee7
+Message-Id: <20260819-typed_register-v3-2-3699a75fadf1@garyguo.net>
+References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+In-Reply-To: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
  Daniel Almeida <daniel.almeida@collabora.com>, 
  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -70,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137814; l=5528;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137814; l=4538;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=Oc6il3mob2qKpIkIHez4KvHV59qL0UPnl+2Jiw3cI2U=;
- b=Mj5gefuhwNuFKI6PH/GWDk6/tpVKNS0IYBs06CTtpOCOqNA09j2JFZWJPXYw1lwDIfWOxR7T+
- jpx0UZrKkajDS3dIGxNTHiWRpCLJ9nYam6gJl24npJ3D6vpuEqCkJDn
+ bh=/+a4W0EpGM9iIdiFpZAgXA9sUvO3Bcy2QewtWPPtr+c=;
+ b=uD0R51iWnhv6v7MfHRssjYjMBjsgg8zS8dmNZAnBP4Cv4B9ECCnVjVe8O+LjyuWFXdZk3RseE
+ 74s600gPXx8DzTQqn9k8C0RNtmkTae/naqdKX9QzsjTEA0d1Ia37Ov2
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0096.GBRP123.PROD.OUTLOOK.COM
@@ -83,65 +79,65 @@ X-ClientProxiedBy: LO4P123CA0096.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB5167:EE_
-X-MS-Office365-Filtering-Correlation-Id: 167100c7-00d0-4c2d-9b5b-08defde271bc
+X-MS-Office365-Filtering-Correlation-Id: 7c50ae58-c5cc-4dcc-6b64-08defde2729c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|23010399003|376014|7416014|366016|18002099003|921020|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 1av63k7nrtQeNO7DMvcP47ZtXDaST/UpW/vxKOMXi5sJDildDPS5pTSuqZFGq1ZlwaOcNP2Ws2sy4g6clGY2PETm7VPBcLpfL6lU8T06dFWrXkKDPKmeD3Mt+av6WiuPx3isB2J6Ggtrx9TygBzVjAb639Mk3G49f2XsKkv6GJcuBqqvZNUZPIApZzkMml2HgaKUyP9cLgCRyBUVD3/XEQpq/esDRWFbGo6b5JiP1Gfw2SJGMc8bW7jWJ4tuUrCQqFffRfvXD0LuxZtcomD1H4MYjXqCrotOQax7d7+V3kJAIeHqeDM4iOCA2eucqxk08gMGx3B8fuvLyMwYaub2MBypT42WAfYtbq23as5ZJB39BwiiVy9HjDvZt1l3cFQOrGq9vyLGyf8ZCKsygoPbUt5sKzt3kGF30tpbvsw+1bmqpyPXnMLetkDc96eLl0p+P+UJU+q0MfSSDm/wjtD+4sNwrhL5iTBdotKXzLxNeT7xv7Qlqo5afaxH03CWcv0hWySm9n/kU0Q13YzGItOKRlV5l34SmAxE8xSXPRlFBmQg+dgrvl/kr4VvzXbyOLAuDfXz0RJPsCx35NKG8foobaqug9Sw977z2ZoSImfvFf/ljrxkR0Sy8/aZKlezqyvGNjUlCtVN6p6YxM3MDvQWxNJ3Bp0dJttcWUidI9gZJTY=
+ ARA:13230040|10070799003|1800799024|23010399003|376014|7416014|366016|22082099003|18002099003|921020|10067099003|5023799004|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: y80NK98ec4dDoPxO/6dGc3kRPILyHfnv+7CJpFKq6QlpwhEvIcs1ruEBbZuOPxcBtPQLvxzBveOGh1+jLzNbwSDQQeZZGw5CmJEzdpWLAtYjtwC1xmTBvxmsrXwD3hBSQiZzCwaaSn9MHSxLveaXsXHoYqbwG3ZzRXQRG42U4C2fp3AFP+xah1yS1XQ71xzXu8NBSc3Ku7UG3kxVhmznTXvCA/xI1L191OgyLPu1he9TdfkTB1ezN3MLMGJexMT6bFEbnpm5CpHm99BK7GZ1lyRvQ5rWvr9x8LDTKdQcV4vMpA3r4IA0oXU+tXVS6WmEwwXjgKRzZtkMOWBkw40gBdsw2ucuZ4acIF6PazzM0QNFERzKlWwj+RwN5WeAolBsGTmeBjNZIEzuvaAQQs+qZ7ry7oHOzbMr43tgy+axdX8EWTHV4WfOUpq607vvEnb5WxCQAY3sicAEVx3iNauu8dLXAq5eTYHT/EYrvanbmneZwNsPdOTlpah9MYCLUlzeyiHPMOz3uRNakAEEsoG+I2/ggY5iuQRv/xuWCP0rJH4AqeDMk7NhINmXBv4c1UqmUlasokZoVhyA2OzcxRq0YI9neqIrocs4cj0Uqa/Np9mWN75sYNp1Ag9pp7NOrkGEv9gEWbsqOxHqI3/Fmobyo2BcpIuMtivr/2s7x4RE6Z1tnry5qE0eYr72G+WpHGXo+ZCqGD7oV/QgS7V8jTa8Kw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(921020)(10067099003)(56012099006);
+ SFS:(13230040)(10070799003)(1800799024)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(921020)(10067099003)(5023799004)(56012099006)(6133799003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b2QyWUdZcStYYkhGV3h5SHJTOERrTG9UalVGcXFSOWJBRWoxUFVxL3lhMDE3?=
- =?utf-8?B?a3VPMmR0UkhHdVlCR2d2dDVKMExQdWZYMFg1VjEyb0QycXdvc2oyMGFHbmVG?=
- =?utf-8?B?S2dYd243azUxeXRuT0ZSYzZUN01qN1RMNkVldUVKcTFQemhEMVgvbjVaWS9I?=
- =?utf-8?B?UFZ2OUNXRis0K0lTcXlCQ0VBY1VWbFF3cXZmQXpLc0ZzSUNxUmRjdXpHSmNU?=
- =?utf-8?B?YXBaMzRsdmdWOGxMVTJSdEk2L1BkMEJCVXJTMzVEU1E3Wkxlb0NUQ1lqVGNB?=
- =?utf-8?B?amowWEc2dTlrbjRFdFN6MlB4R1BGNHVkT3hIRTVCTEN1ckE2bWlCTVJDb054?=
- =?utf-8?B?V1p2cHFmSzZPNGJoM21xUGlIVmNPRGsxZklUUnIzZlp4Y2NkVWE5aHpvY0th?=
- =?utf-8?B?SUkzYmxkd3plRk5ETkpJNENkQ0t6a0U5cFJpRUplMmsrSm1sZ2hCYjhsRG0x?=
- =?utf-8?B?ODhOdlRwZ3h3SDFxNHBKVThoaXBidUd5RUMyT3ZtN3AyVVhTM3pxUE5FcnVW?=
- =?utf-8?B?UzBqa0hqTXRwOVNna1lwNnAxbi9jclBaK1Y0SjFUNExBMTZla1FvOVpmS3BU?=
- =?utf-8?B?ckpWdUs0b2p2QlQydTdvWitQSXVCUXNIbGp4eUw1SWE3Y3QxTnFzY2Q1V0tQ?=
- =?utf-8?B?MmlTY1dDR1NlU0xoNm9yMXM0bnNRVlRMT1NYQWVHOTFYRjFqWSt5NFBaOEpP?=
- =?utf-8?B?VFFkS3IvZkFWYzNacUdOdGtCR1FJMzR0eDJJaEN4RmUzaTlmZTJUZmxzZEYw?=
- =?utf-8?B?Y29jQzN2Q3BEak55TU9CR01KVFVWODd2cFhRanVBVzExQ2xlWFZhK0FuQkZl?=
- =?utf-8?B?eFlabEtJUU9INUszRXhZL1VLNDRmVkhZRytOYUtpcDM3OWVuYmc5Wm83cjVv?=
- =?utf-8?B?RlhiTjh1YTFQRlNIVGF5RnFCRHNEYm12cW5kcUduL3gxRW0wSVQweGQrNC9l?=
- =?utf-8?B?M2dqU3lxTHN1TWVMVE00Q09TN2hqbDZQQVVQNTVrM291ZEtzOGVHVVo3dG9X?=
- =?utf-8?B?Yyt2M3VmaWtFNEcvWGsxOTAvb2V1aFdjQkpTMWV5c2N6Y1hkdnFYeDRWL3gr?=
- =?utf-8?B?RXFIVUJtUGxxYUlQZTU4VGx3dDVjTDU5ZzBGSG1jRjZDK2huUG1RUGt5d3F1?=
- =?utf-8?B?YlNyLzBXeXdjTUMvelR0MjJsL0RLaXFkOENiM2YwV0dvVTc0OWErcFZ0SmVm?=
- =?utf-8?B?bW1pOEcvM0JzbkhpdlgrVzhORTcycnErazJLY0dzV0p0L1J0RXpnUFp2S1hh?=
- =?utf-8?B?NWJjMVdJZ0g0UWQvem1ycE5HQmZZbkJ6TjlvdzVlK1FPN3B0WDY5Z2oycGJ0?=
- =?utf-8?B?bHpuTEM2QXVZVWdia3hQWCtCSDd3TGQraXR3SG4vTDNENFJJMFA2M2xMVGhY?=
- =?utf-8?B?RzhYbkVRa2kvREZPWXNqZnoxamVXYzhUQXdOcDNORjFOSW0yYS9CUm16Wk04?=
- =?utf-8?B?Y0hIN3BEbEl1MFcrbDB1TWtWZ1hhT2xuQ3AyZnJMWXNaZWMwS1FtZkNoYXdI?=
- =?utf-8?B?amhGeU9mVDlObDJEVTZ5SUNodldtZiswb2NFc3lCdis3TVhmWS83cUdVQldO?=
- =?utf-8?B?bWhhRFdBR1FaVjY3c012b2hHZmZybkdhTjYyMEFqajNBQjJ2ZXA5RStxTTZZ?=
- =?utf-8?B?MWZVa3hIaU1XSEZ6SUNyM0hkVi92MDNrbkZBbUtrWVNLTXI3NEVzNzh2aFVm?=
- =?utf-8?B?c2l5anNvVjRsb2JBVjVoNWlOSXJ0cElndFBUY3ZMYnZDREtSZVhIOHFIdCs4?=
- =?utf-8?B?Ynl6SVRoMzJ3SEN2cXV0eWo0MlpwTlRXVTVlM1ZackR5NEVma0orcElzSXQ0?=
- =?utf-8?B?d3IvUW02UnFFVmh1aEplRHhDMWJNdDNHb0hvbUNvZDRmeE4zcEhpd1Qwb293?=
- =?utf-8?B?NWFjWm1OQlZIa0Z6T2s3UWhxbFpFWGhLZkhDRU4yZWs5YldCSHNZdzkveGpC?=
- =?utf-8?B?SDBSbS84TDV6UTc3cTQ1cUtnQTdsZU1LOHBHN1BkTFI2NVFRdFU2MjFlSkdr?=
- =?utf-8?B?UUdhZTBFQ0pvMTJuNFZxMkw3T0NBYVZSQUkzaXJPTG1PcExOSVJiUVVZb2to?=
- =?utf-8?B?RlE5OXE2L3JCWXI5VTJDTk83SFl0SEpoSEZhbHNzcjl0cjRsODNJWWYrcjhq?=
- =?utf-8?B?dFo0SUdWcjl1M2djdDZGTGx1c3pNV09DWklUY2VOVjhieTh0Sk5aTnR0T3hT?=
- =?utf-8?B?Wm9Ma3gxVXFKV21CeU9YaW5PREdFL1ZlTFlNejV0NDlLT1F5c1ZQYW10aVh3?=
- =?utf-8?B?czdCdnJxcjJEQ3lkbEpsRmV6LzhFcjVTaXdpRjF6QlprS1h0T0VwbldHRWlE?=
- =?utf-8?B?NHRUdFM4Mk5XR1pSaTlncGVOVzlVN3ZwWUdkaHpDQmlRR0lmejJsQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFRPVFFEWXAyWHZVSU9NUWQxZEg0a29lQUM4bW5Pd0Nlck42WXNpYThQWXJZ?=
+ =?utf-8?B?ci81TmxZcmhNMUxvNFdLaFEvaW9RcncyaTVPSXRYRk00RSt2TlJxY2hMSGJE?=
+ =?utf-8?B?L0pZakJLaSs2d0ZJTjkyb3V1enJlS0xOOGZuUDYybnQ3ODZXRXR2Sk5pRzVn?=
+ =?utf-8?B?RVRqcEtSOW1YSGhZQ0dxYi84Y2dqYnJib3B4b0crT2hhazU0K29iekxqNlJ4?=
+ =?utf-8?B?L0l5aERyem5QL0lidjlIb3hyU281aEpzcDdhdkxkbnFJbktGdFMwYjRub0hN?=
+ =?utf-8?B?ZDQ4MFBqT1JXaDNMVGtkOVYwN3NQc24xdHlWN3FDY0FVais0akFQSkxuUFIx?=
+ =?utf-8?B?SmtmZXdsek4yY1ZaaGl4blRiTXpVTnlmc3ZEdFFBRnQwMHo1dm8zYmNlODlG?=
+ =?utf-8?B?NDVpRWlFOFJwYVJmUVdhTVVtWFpLTXF1NjMrWWs5N1dyMlVDeStpZ1Npckt0?=
+ =?utf-8?B?bFVTRXVLUm1ZWFFEeTU3UlpNRldoM2xXd0k2M09xQlUzWmhuem5kY290cUF4?=
+ =?utf-8?B?S2NxT3FicDd0SU9qRUEvU1NBVmhPa3VBZmpHb1Nqa3JHV0k3MmtZOVpVdzYw?=
+ =?utf-8?B?RkdRRXdmUEZENVB3Ni9EclVYT1RnRThzeElGSVpacFdHb0Q3eURtZXJqclJ5?=
+ =?utf-8?B?MnpqZkFmQ0dWUTViUWdqOVRJNmROSE5wcUphdVlCa2RaV1pQTUVmQjNwUXFz?=
+ =?utf-8?B?L0lmbVlteE5DM0NGOGZ5NURCVERiRU9IQWVZMitDTlBwRUdkL21nV0NGVGhE?=
+ =?utf-8?B?VUpDdGJvd0pSbjFndm0reE9PMnFzTEJQanM2d1I5OXNWSW1paXZaMGpHNmR3?=
+ =?utf-8?B?N1ZMcnpQZG1qU0xwdW1vdFNwRFlXUWUxYTNqWnpsamk5RHRWRE1nalMrRWRl?=
+ =?utf-8?B?NlhUZFhMK3c4Yk9McS9XU2R1a2NJY0lTTUdSUURJKzNLSjJSbG83N3ZjSGpw?=
+ =?utf-8?B?OWc2eVZWd1lTSG9jZ21lT1Awa2phR0RxL1JqMWdUU2w4RklGaE9IQnlTS2dG?=
+ =?utf-8?B?NngrYVhoTG5TbThjVlFLRHkxbGhuTHF0dG5jd2NuaFpOSUc2S2hoOTA4WTZs?=
+ =?utf-8?B?dk8rREFyOWsvNkZnNzFRRGJnVW1Beng4UU1IV2lYRnhjeXNBNUdRQ285d3By?=
+ =?utf-8?B?a1ZycFUyZERhQVMzWUFOaUtpYkNGcnJPME5hcFQ1NDdXV1o3R2xtZXdBWUVu?=
+ =?utf-8?B?Q3FvOTlpUmVKOHdGMDFxdmNuOUVxYWZlUWpRQWdPQ1JjSVRvUWQ2RFF2aDl2?=
+ =?utf-8?B?VlhkQjZhVk5WQTdjK1dwc21wODAxOVRQUmpNMTB3UVJZNkVqZzNsNjZOdmc0?=
+ =?utf-8?B?SXBDbENCTVZQWEV3bytKNVFQbjZaQjljamw5b1JBd2dNTk9lQXA4VCt0RHNO?=
+ =?utf-8?B?SWFSYk56ODNETmpRMFl6NlJIdUk1dHRoS0lIZHJtTFFWdWNJa3hjeG15QnhV?=
+ =?utf-8?B?THA3R1RIYWM1YVlIdDhXZHg4aFJkaUtQQWJmV290M3NEN2pJVG5XK2cybGEz?=
+ =?utf-8?B?RUUzdG5mMG51R3JBZTgzMjByRjlyN1BhNytyb3U3TmR3cUNtSDhldVBTN1Np?=
+ =?utf-8?B?TmZpbS9rdzF5VmtuODFvbExCcW5iT3hFQzloeVpVY244QmFWalZvbmdSNG93?=
+ =?utf-8?B?U0p6VWliSUFzcmg2M0tzZjJTSGhkbnNwUnlKbDZmczlRRVIzdndnQldFUGpO?=
+ =?utf-8?B?UzlsK2Q2cGFrMVJNSmxkN0wvalExYXpuN0Y0Mjc4OEUwS2dWTTkrZ0NpY1Fn?=
+ =?utf-8?B?Y3V1OElqdDk2NFhsMFNYMlhpdDFpY2R4OFJFenFMTkFscmErb09jVUtCS2tX?=
+ =?utf-8?B?cTBhRGZZa0tWOVVkYWRDQXlnYnpvZlliRWNEcFJSRGdJbWhualdVdXExZklD?=
+ =?utf-8?B?OVo4YklGS2RDWjZBRytSMW1XRkk5cjRIVXkxbThmY1N0V1ZuWG5RZk13ZGJ6?=
+ =?utf-8?B?TjNMYUhzSWR3RnY1cDZRTDQvbFZTSUxOU0R0MDNmeWVhaWdNMnZhdm1ic3ZG?=
+ =?utf-8?B?dmI4WDRiTXR6UHQzQ1BJRWhscGZ4Zlo1bjh1RkpNbDdOS2FSTDEvTVZ1aEZo?=
+ =?utf-8?B?WDdhQ3VRSUY2dmJzNzVEelBQUmRZNHdjTnYzbDArNTUrQkpORkh6T1hTNGNa?=
+ =?utf-8?B?NTlUWHFzSWRUV2VPSksvNnFLTWtnS3k2amF0MmNpOXRoTGNBWmErTFo5Nysy?=
+ =?utf-8?B?WkJ5QnpCMlJ5MDdvMklRcEk2YnFXcWdCc2NuTFJnWDJ1WWFXU0srcXNOZ3pL?=
+ =?utf-8?B?SEozUWk1Uk8xaUVWM3BpQzZHb2tXSXE1RmpqRERsL2thSGdtOGdZOUxIeGxW?=
+ =?utf-8?B?YzlRWmNxR20zS0FQNXYwdEV6VjR0b2gveGRSMXl3cU9ZNFlCQ1B1Zz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 167100c7-00d0-4c2d-9b5b-08defde271bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c50ae58-c5cc-4dcc-6b64-08defde2729c
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:10:14.7424 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:10:16.1302 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M6+tF3sykfyKTsFPijF6MycxEn88BK6qCiUGW74MoWklV8yc/W/NBJK2r2GDbsPGNcY1PUSBjfJwLSHPg+PwUw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: pZ7JLHWd36XteFk1T6w3iKZUQc6BrET1Z/dOh1s3jpsOs3pxdzIhxBYFn7xupZyXB0QDXVeNve8D8ffFTmz2DA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5167
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -158,133 +154,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently registers work for all untyped I/O regions, which is not ideal.
-It allows registers defined for device A to work for another device B and
-there is no safeguarding at all.
+Implement a `transmute_unchecked/transmute` that checks size at
+monomorphization time instead of type-checking time. This allows more cases
+where we know that the size matches but this is not generically checkable.
 
-Change this by requiring a base type for registers. `register!` can still
-define registers on untyped `Region`s, although users would need to do so
-explicitly and supply a concrete type.
+The signature is equivalent to the unstable `transmute_neo` function in the
+standard library. A safe variant is provided to use with types implementing
+`FromBytes` and `IntoBytes`.
 
-This change makes it possible to use projection for relative registers;
-relative registers can be implemented by defining new types for the I/O
-subregions and just define registers for these subregion types like normal
-registers.
-
-This actually results in more ergnomic code for users of relative registers
-(currently only nova-core), because non-array registers can be written to
-with
-
-    #[...]
-    struct Subregion(...);
-
-    register! {
-        base: MyBase;
-        SUBREGION: Subregion @ ...;
-    }
-
-    register! {
-        base: Subregion;
-        REG(u32) @ .. { .. }
-    }
-
-    let subregion = io_project!(bar, build: SUBREGION);
-    subregion.read(REG)
-    subregion.write_reg(reg)
-
-instead of
-
-    struct SubregionType;
-    struct Subregion;
-    impl RegisterBase<SubregionType> for Subregion {
-        const BASE: usize = ...;
-    }
-
-    register! {
-        REG(u32) @ Subregion + .. { .. }
-    }
-
-    bar.read(REG::of::<Subregion>())
-    bar.write(WithBase::of::<Subregion>(), reg)
-
-This also allows a lot more code sharing between I/O projection and
-`register!` macro.
-
-The expressiveness power of Rust declarative macros is becoming limiting,
-so it is converted to a proc macro before new features being added to it.
+Existing users of `transmute_copy` to bypass size checks are converted.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
-Changes in v3:
-- Convert the `register!` macro to syn.
-- Add check to ensure register and alias share the same base. (Alex)
-- Split transmute functionalities to `kernel::mem`. (Alex)
-- Remove some stray trait bound in nova code. (Alex)
-- Link to v2: https://patch.msgid.link/20260805-typed_register-v2-0-c3ca142220a0@garyguo.net
+ rust/kernel/device_id.rs   |  3 +--
+ rust/kernel/lib.rs         |  1 +
+ rust/kernel/mem.rs         | 37 +++++++++++++++++++++++++++++++++++++
+ rust/kernel/sync/atomic.rs |  4 ++--
+ 4 files changed, 41 insertions(+), 4 deletions(-)
 
-Changes in v2:
-- Extract type conversion from `register!` to `Io`
-- Redesign the API to be centered around regsiter projections.
-  * Support register projections in `io_project!`
-  * Support adding register definition without defining bitfield
-  * Subregions is thus unified with other registers.
-- Store projected subregions in `Falcon` for nova.
-- Link to v1: https://patch.msgid.link/20260721-typed_register-v1-0-452d72b60262@garyguo.net
+diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
+index c81fca5b4986..cb8661dec2ab 100644
+--- a/rust/kernel/device_id.rs
++++ b/rust/kernel/device_id.rs
+@@ -146,8 +146,7 @@ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
+     /// If the device implements [`RawDeviceIdIndex`], consider using [`IdArray::new`] instead.
+     pub const fn new_without_index(ids: [T; N]) -> Self {
+         // SAFETY: `T` is layout-wise compatible with `T::RawType`, so is the array of them.
+-        let raw_ids: [MaybeUninit<T::RawType>; N] = unsafe { core::mem::transmute_copy(&ids) };
+-        core::mem::forget(ids);
++        let raw_ids: [MaybeUninit<T::RawType>; N] = unsafe { crate::mem::transmute_unchecked(ids) };
+ 
+         Self {
+             ids: raw_ids,
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 4d5c96ddc49c..7225abc64084 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -98,6 +98,7 @@
+ pub mod kunit;
+ pub mod list;
+ pub mod maple_tree;
++pub mod mem;
+ pub mod miscdevice;
+ pub mod mm;
+ pub mod module;
+diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
+new file mode 100644
+index 000000000000..a0901cbe1b2d
+--- /dev/null
++++ b/rust/kernel/mem.rs
+@@ -0,0 +1,37 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Basic utilities for dealing with memory, values, and types.
++
++use crate::prelude::*;
++
++/// Version of `transmute` that performs size check at monomorphization-time.
++///
++/// Use this instead of [`core::mem::transmute`] when it is known that sizes are identical but this
++/// cannot be proven by the compiler during type checking.
++///
++/// The signature is equivalent after Rust standard library's unstable `transmute_neo` and that of
++/// [RFC 3844](https://github.com/rust-lang/rfcs/pull/3844).
++///
++/// # Safety
++///
++/// Same as [`core::mem::transmute`].
++#[inline(always)]
++pub const unsafe fn transmute_unchecked<Src, Dst>(val: Src) -> Dst {
++    const_assert!(size_of::<Src>() == size_of::<Dst>());
++
++    // SAFETY: This is identical to `transmute` except that we bypassed the size check; which we
++    // used `const_assert!` to check above.
++    unsafe { core::mem::transmute_copy(&core::mem::ManuallyDrop::new(val)) }
++}
++
++/// Safely transmutes a value of one type to a value of another type of the same size.
++///
++/// The sizes are checked during monomorphization.
++///
++/// This can be considered as generic version of [`zerocopy::transmute!`] macro that defers the size
++/// check and thus can be used in more cases.
++#[inline(always)]
++pub const fn transmute<Src: IntoBytes, Dst: FromBytes>(val: Src) -> Dst {
++    // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` bounds.
++    unsafe { transmute_unchecked(val) }
++}
+diff --git a/rust/kernel/sync/atomic.rs b/rust/kernel/sync/atomic.rs
+index 9cd009d57e35..d5f4ef285193 100644
+--- a/rust/kernel/sync/atomic.rs
++++ b/rust/kernel/sync/atomic.rs
+@@ -140,7 +140,7 @@ pub unsafe trait AtomicAdd<Rhs = Self>: AtomicType {
+ const fn into_repr<T: AtomicType>(v: T) -> T::Repr {
+     // SAFETY: Per the safety requirement of `AtomicType`, `T` is round-trip transmutable to
+     // `T::Repr`, therefore the transmute operation is sound.
+-    unsafe { core::mem::transmute_copy(&v) }
++    unsafe { crate::mem::transmute_unchecked(v) }
+ }
+ 
+ /// # Safety
+@@ -149,7 +149,7 @@ const fn into_repr<T: AtomicType>(v: T) -> T::Repr {
+ #[inline(always)]
+ const unsafe fn from_repr<T: AtomicType>(r: T::Repr) -> T {
+     // SAFETY: Per the safety requirement of the function, the transmute operation is sound.
+-    unsafe { core::mem::transmute_copy(&r) }
++    unsafe { crate::mem::transmute_unchecked(r) }
+ }
+ 
+ impl<T: AtomicType> Atomic<T> {
 
----
-Gary Guo (16):
-      rust: io: register: reimplement as proc macro
-      rust: mem: add `transmute` with deferred size check
-      rust: mem: add `AsRepr` and `AsReprMut`
-      rust: io: perform conversions using `AsRepr`
-      rust: io: support register projections
-      rust: io: register: allow explicit base type specification
-      gpu: nova-core: specify base type for registers
-      drm/tyr: specify base type for registers
-      samples: rust: pci: specify base type for registers
-      rust: io: register: make register have a typed base
-      rust: io: register: support fixed offset register without bitfield
-      gpu: nova-core: use projection for PFALCON and PFALCON2 registers
-      gpu: nova-core: convert hshub0 from relative register to projection
-      rust: io: register: remove relative registers
-      rust: io: register: remove `Register` trait and cleanup macro
-      rust: io: register: unify handling of register with/without bitfields
-
- MAINTAINERS                                        |   1 +
- drivers/gpu/drm/tyr/driver.rs                      |   1 +
- drivers/gpu/drm/tyr/fw.rs                          |   5 +-
- drivers/gpu/drm/tyr/regs.rs                        |  45 +-
- drivers/gpu/nova-core/driver.rs                    |   1 +
- drivers/gpu/nova-core/falcon.rs                    | 157 ++---
- drivers/gpu/nova-core/falcon/fsp.rs                |  63 +-
- drivers/gpu/nova-core/falcon/gsp.rs                |  51 +-
- drivers/gpu/nova-core/falcon/hal/ga102.rs          |  62 +-
- drivers/gpu/nova-core/falcon/hal/tu102.rs          |   9 +-
- drivers/gpu/nova-core/falcon/sec2.rs               |  37 +-
- drivers/gpu/nova-core/fb/hal/gb100.rs              |  59 +-
- drivers/gpu/nova-core/fb/regs.rs                   |  29 +-
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  18 +-
- drivers/gpu/nova-core/gsp/hal/tu102.rs             |   7 +-
- drivers/gpu/nova-core/gsp/regs.rs                  |   9 +-
- drivers/gpu/nova-core/regs.rs                      | 115 ++--
- drivers/gpu/nova-core/vbios.rs                     |  11 +-
- rust/kernel/bitfield.rs                            |  10 +
- rust/kernel/device_id.rs                           |   3 +-
- rust/kernel/io.rs                                  | 188 +++--
- rust/kernel/io/register.rs                         | 757 +++++----------------
- rust/kernel/lib.rs                                 |   1 +
- rust/kernel/mem.rs                                 | 185 +++++
- rust/kernel/sync/atomic.rs                         |   4 +-
- rust/macros/io/mod.rs                              |   3 +
- rust/macros/io/register.rs                         | 284 ++++++++
- rust/macros/lib.rs                                 |  10 +
- samples/rust/rust_driver_pci.rs                    |   4 +
- 29 files changed, 1175 insertions(+), 954 deletions(-)
----
-base-commit: e6664f2b33db9b6811eb4cec109f06cb2b4f458d
-change-id: 20260721-typed_register-176eab3abee7
-
-Best regards,
---  
-Gary Guo <gary@garyguo.net>
+-- 
+2.54.0
 
