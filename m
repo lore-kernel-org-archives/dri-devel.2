@@ -4,61 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DFFAC5DF87
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 10:49:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F1F0C5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 10:52:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C9210E801;
-	Wed, 19 Aug 2026 10:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C919D10E2CC;
+	Wed, 19 Aug 2026 10:52:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m/rN8o/F";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JRZHjUa0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1292710E801;
- Wed, 19 Aug 2026 10:49:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C13004362A;
- Wed, 19 Aug 2026 10:49:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE3D1F000E9;
- Wed, 19 Aug 2026 10:49:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787136558;
- bh=zQEfCl7xKtaCC78VIxZhzOSbdkzpLQaDYkBz+b+0oOI=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=m/rN8o/F9l7+jStt/C2McbVvIk/y0RPYIV/dxNC82qKtn7BUlie0m4HFlHeNJs7/x
- eHUoJ/yk4p3P08IhjMOZ9LhQLVitMytRBtXHrG0rmLPm4R8HblsKsEM7zLlv/JTxoy
- e0o5itCDVjt/xUSnKlDUsi6cLjYplRfZr7AZ6DqoE9L3O+k7cuLfWBwwbtRuXAo//N
- YsGbcrd4gz7WFtBwmw6G5+XWqkqBpne9kjsISHb47g6NKkRXzxWxsMhnSkuPx4k6Hd
- 4aYF/NPA5Ay6HBSGmFIup9UAt8L7rxy3g+rgtCdOmdWNvoJDfK3sUKgVn6aEbf/okY
- fnYVzjtyKJpMQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 19 Aug 2026 12:49:12 +0200
-Message-Id: <DKSV1A4SL7PX.2EM92OHEQHA9@kernel.org>
-Cc: "Gary Guo" <gary@garyguo.net>, "Lorenzo Stoakes" <ljs@kernel.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 1/6] rust: alloc: add Vec::push_init
-References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
- <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
- <DKR9WJY3WI0F.1FV4PD1J17ZFD@garyguo.net>
- <DKSR2WF91FL0.78WHY1E7WIX9@nvidia.com>
-In-Reply-To: <DKSR2WF91FL0.78WHY1E7WIX9@nvidia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11F3810E2CC
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 10:52:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787136747; x=1818672747;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=TtEbx43RxDxGdKpl/rvPyRCrNRlLj1n6MMA2ceL11Vg=;
+ b=JRZHjUa0MbyMY/LznYE9HsLjZMWJERagKzPUINlv+j12Z7aZGSsDarQI
+ jaDNoJaD4IVfanXTHnhDvaMQ0znm2NgB7oGxxWJ9xVmzSPs5Aq1qGwMfq
+ WuBmmX14IUkK7KSOXCcpSjxjHDJbBxudkUSu4aelAkOlucsIMU+0ysJvB
+ G23tCVZQSGbiuaBzzgP4PKcfe6w0ytFSl+KblJmLp8XfZAJdCmT35G3bE
+ p1V6HcGLPr2t/QGtRocXnMXxcAiv+uCeWXBakC8XhFx4INhbHH+R6MVPI
+ sKZWcy/Zh6dGVm7ifjuKNHVVImw0cfSxmF4BbFmsoG1HcEpu9vURGqic2 A==;
+X-CSE-ConnectionGUID: ncDKwNmqSc+87Jjz75bEng==
+X-CSE-MsgGUID: UtFYHCkWRJ+/R7rVgpjh8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="87565376"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="87565376"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 03:52:27 -0700
+X-CSE-ConnectionGUID: GhQGpXXISruk0W+M+4yIeA==
+X-CSE-MsgGUID: VA0hyc3gScWjNmpNsWaSqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="265058347"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 03:52:23 -0700
+Date: Wed, 19 Aug 2026 12:52:20 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: "Mallesh, Koujalagi" <mallesh.koujalagi@intel.com>
+Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com,
+ andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ anshuman.gupta@intel.com, badal.nilawar@intel.com,
+ riana.tauro@intel.com, karthik.poosa@intel.com,
+ sk.anirban@intel.com, jani.nikula@linux.intel.com
+Subject: Re: [PATCH v5] drm/drv: Convert wedged event string building to
+ seq_buf
+Message-ID: <aoWK5PnCNDJYHFv9@black.igk.intel.com>
+References: <20260818133610.496374-2-mallesh.koujalagi@intel.com>
+ <aoUxBx5mNi7o3K3L@black.igk.intel.com>
+ <56c19f54-529f-4e91-9859-5add0afe0891@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <56c19f54-529f-4e91-9859-5add0afe0891@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,88 +76,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 19, 2026 at 9:43 AM CEST, Eliot Courtney wrote:
-> There's also some locations in other code that could use a VecView direct=
-ly
-> instead of taking a &mut Vec etc. Having a Vec-like thing that's guarante=
-ed not
-> to allocate also sounds potentially useful to me w.r.t. safety for contex=
-ts
-> where you can't allocate/sleep.
+On Wed, Aug 19, 2026 at 03:48:31PM +0530, Mallesh, Koujalagi wrote:
+> On 19-08-2026 09:58 am, Raag Jadav wrote:
+> > On Tue, Aug 18, 2026 at 07:06:11PM +0530, Mallesh Koujalagi wrote:
+> > > event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
+> > > The original scnprintf()-based loop required a manual pre-flight
+> > > bounds check.
+> > > 
+> > > Replace the manual bookkeeping with seq_buf, which tracks overflow
+> > > internally. seq_buf_printf() writes each "method," token into the
+> > > buffer.
+> > > 
+> > > On overflow, len retains the position of the last
+> > > successful write, so the trailing comma is stripped cleanly without
+> > > including any partial method name in the uevent payload.
+> > > 
+> > > Fixes: b7cf9f4ac1b8 ("drm: Introduce device wedged event")
+> > This actually doesn't fix anything, it just adds a WARN() splat.
+> > So I'm not sure if this is needed here.
+> 
+> In previous implementation multiple recovery methods may exceed
+> WEDGE_STR_LEN (32) that
+> 
+> cause silently truncate a recovery method and emit a malformed uevent string
+> containing a
+> 
+> partial token, however using seq_buf makes overflow
+> 
+> explicit, when it occurs, emits a WARN and include complete recovery name
+> 
+> in the uevent string so IMO, it's fix.
 
-Allocation in atomic context is still possible as long as we avoid memory
-reclaim, e.g. with GFP_ATOMIC. However, this should generally be avoided, p=
-lus
-there are also cases in non-atomic context where we can't have memory recla=
-im,
-such as the DMA fence signaling critical section. So, I think this can a be=
- a
-useful API.
+Is there an existing drm_dev_wedged_event() user that is facing this
+issue? Please attach bug reports along with reproducers (if any).
 
-> If you think this approach is ok I can send it as a separate series. Code=
-gen
-> appears fine practically speaking AFAICT.
+Improvements are good, but not everything is a bug because AI said so :)
 
-I think this is orthogonal from what you need in this series; also remember=
- that
-we need a user with real need for an API before we can introduce it.
-
-It might have a use-case in DRM Jobqueue, where it could be used to handle
-pre-allocation for ring buffer slots of jobs before entering the DMA fence
-signaling critical section. However, I'm not convinced that Vec or a VecDeq=
-ue
-like type is the best solution for DRM Jobqueue in the first place.
-
-> pub type Zero =3D ();
-> pub type Succ<N> =3D (N,);
-> pub type One =3D Succ<Zero>;
-> pub type Two =3D Succ<One>;
-
-That can produce annoying error messages, but without const generic expr it=
- is
-what it is.
-
-> // Infallible (except for Init) push. `Zero` spare VecView has the fallib=
-le version.
-> impl<'a, T, N: Count> VecView<'a, T, Succ<N>> {
->     pub fn push<E>(self, init: impl Init<T, E>) -> Result<VecView<'a, T, =
-N>, E> {
-
-We still want push() taking impl Init<T> and try_push() taking impl Init<T,=
- E>,
-so we get rid of the Result for impl Init<T, Infallible>.
-
-> // Fallible but not allocating ops (can run out of space).
-> impl<'a, T> VecView<'a, T> {
->     pub fn push<I: Init<T, E>, E>(&mut self, init: I) -> Result<(), PushI=
-nitError<I, E>> {
->         if *self.len =3D=3D self.cap {
->             return Err(PushInitError::Full(init));
->         }
->
->         unsafe { init.__init(self.buf.as_ptr().add(*self.len)) }.map_err(=
-PushInitError::Init)?;
->         *self.len +=3D 1;
->
->         Ok(())
->     }
->
->     // Bodies as in the current KVec implementations.
-
-We'd still need forwarding functions on Vec, so we don't force users to go
-through view().
-
->     pub fn pop(&mut self) -> Option<T> { ... }
->     pub fn insert(&mut self, index: usize, element: T) -> Result<(), Inse=
-rtError<T>> { ... }
->     pub fn remove(&mut self, i: usize) -> Result<T, RemoveError> { ... }
->     pub fn truncate(&mut self, len: usize) { ... }
->     pub fn retain(&mut self, f: impl FnMut(&mut T) -> bool) { ... }
->     pub fn drain_all(self) -> DrainAll<'a, T> { ... }
->     pub fn len(&self) -> usize { ... }
->     pub fn as_slice(&self) -> &[T] { ... }
->     pub fn as_mut_slice(&mut self) -> &mut [T] { ... }
->     pub fn spare_capacity(&self) -> usize { ... }
->     pub fn spare_capacity_mut(&mut self) -> &mut [MaybeUninit<T>] { ... }
->     pub unsafe fn commit(&mut self, additional: usize) { ... }
-> }
+Raag
