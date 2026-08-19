@@ -4,64 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A889FC5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 12:38:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 974C2C5DF86
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 12:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF6010E55E;
-	Wed, 19 Aug 2026 12:38:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDBCD10E137;
+	Wed, 19 Aug 2026 12:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fBcmiwCK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VtBBz7Ik";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A78B810E53B
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 12:38:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44A5410E137
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 12:39:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 34EE340F48;
- Wed, 19 Aug 2026 12:38:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932A01F000E9;
- Wed, 19 Aug 2026 12:38:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 106AE4061E;
+ Wed, 19 Aug 2026 12:39:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7224E1F000E9;
+ Wed, 19 Aug 2026 12:39:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787143120;
- bh=YI5+4EM3RFcICzPCDN2acTJfMmmPcKyBf7I7kSJZ/L0=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=fBcmiwCKTMtFxhOHtc9GRiO5wFb8YzJryug+nBPRhbxX0Blx+hzT3vEXbe8wkOdGS
- yKFYI1ClaHRq+BevdMmiYujzSFX++/qptj30jlVXvilZY6mMGBztqXnP5lFfLnPztx
- kG5bW5VkiSG8/LIqhupcHBprl1u3wA1coFPoS4d18Kp75h7L4qoczsF6+CHCNeFfN+
- o/uqNvqwSm79VLyfb263d4TAqVXHxGba+W373PsrLL4cWRPKqV/oZHpX7JmTFxIngF
- 5hvlMAWi4DDiC3WBe2CGHcZF8SbCBJR893oNv06JWQ5G3Pq0saGilyIHFCr0FZF3WL
- Ycp5KN3+KK/aQ==
-Message-ID: <256502b250b2bb7ad413489a9bef0ac4@kernel.org>
-Date: Wed, 19 Aug 2026 12:38:38 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v10 19/69] drm/display: bridge_connector: Wire up HDMI
- 2.0 scrambler callbacks
-In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-19-294364b2cf15@collabora.com>
-References: <20260731-dw-hdmi-qp-scramb-v10-19-294364b2cf15@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
- Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
- "Andy
- Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
- Stone" <daniels@collabora.com>,
- "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
- Airlie" <airlied@gmail.com>, "Diederik de Haas" <diederik@cknow-tech.com>,
- =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jonas
- Karlman" <jonas@kwiboo.se>,
- "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu
- Ying" <victor.liu@nxp.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maud Spierings" <maud_spierings@hotmail.com>, "Maxime
- Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
- "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>,
- "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>,
- "Robert Foss" <rfoss@kernel.org>, "Samuel
- Holland" <samuel@sholland.org>, "Sandy Huang" <hjc@rock-chips.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Thomas Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1787143196;
+ bh=TrqogX1d6CpIK5BDZbM8rityiqPvUCn4X4SVNR7vuNE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=VtBBz7IkyQGjgipDTIQOj5OCMWFgrUj+acs8oItZKYvEr75rnCeV8/XJ+U9iGm24g
+ DkFpC+/1CnABHexazonHnlpILJpVHksKmmrCJsvmFLL4MDkXLyXiIniD5ZebeWxTKW
+ gRqv/FOKoaVZzjnu8PGW3BuHw/eXkXQLNlcsN3w02eZNa0TAHdCU9ISc/sEjZnLWY2
+ cldj4zUIVwApLixp1Y9ZrcGLrzdSDAimOIbGXBeFBc7UQeDcB8J4Azr8iz/iiAEUMu
+ fV8FtMh3rHmwPkKvlvb+0F/WSYagtKKbml3Kp4mHYYjCTDVQuMhJmEzQC+JnGqwGv+
+ qmYvzXTfEisfg==
+Date: Wed, 19 Aug 2026 14:39:55 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Algea Cao <algea.cao@rock-chips.com>, 
+ Daniel Stone <daniels@collabora.com>, Liu Ying <victor.liu@nxp.com>,
+ Phong LE <ple@baylibre.com>, 
+ kernel@collabora.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-rockchip@lists.infradead.org, 
+ Diederik de Haas <diederik@cknow-tech.com>
+Subject: Re: [PATCH v10 21/69] drm/display: hdmi-state-helper: Pass acquire
+ ctx to hotplug helpers
+Message-ID: <20260819-huge-congenial-rottweiler-32ec85@houat>
+References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
+ <20260731-dw-hdmi-qp-scramb-v10-21-294364b2cf15@collabora.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="3rp65omxlgvr2kuq"
+Content-Disposition: inline
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-21-294364b2cf15@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,16 +81,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 31 Jul 2026 19:19:26 +0300, Cristian Ciocaltea wrote:
-> Connect the bridge connector's .scrambler_{enable|disable} callbacks to
-> the underlying bridge's .hdmi_scrambler_{enable|disable} funcs when
-> HDMI 2.0 conformance is advertised.
-> 
-> This completes the bridge connector plumbing so that the SCDC
-> 
-> [ ... ]
+
+--3rp65omxlgvr2kuq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v10 21/69] drm/display: hdmi-state-helper: Pass acquire
+ ctx to hotplug helpers
+MIME-Version: 1.0
+
+On Fri, Jul 31, 2026 at 07:19:28PM +0300, Cristian Ciocaltea wrote:
+> In preparation for supporting SCDC status synchronization on hotplug
+> events, extend drm_atomic_helper_connector_hdmi_hotplug() and
+> drm_atomic_helper_connector_hdmi_update() to take a struct
+> drm_modeset_acquire_ctx argument.  This will be used when a CRTC reset
+> is required.
+>=20
+> Additionally, change their return type from void to int to allow
+> propagation of errors such as -EDEADLK caused by lock contention.
+>=20
+> Update existing callers accordingly.  Note that in the VC4 case, the
+> return code is ignored, as it cannot fail: being in the .detect_ctx()
+> call path, the connection mutex is already held through ctx, and it
+> bails out early because the driver relies on a local SCDC
+> state-management implementation, and therefore does not yet expose the
+> scrambler capability through the common helpers.
+>=20
+> Similarly, introduce drm_atomic_helper_connector_hdmi_force_ctx() as the
+> HDMI connector implementation of the .force_ctx() callback.  Since
+> migrating from the .force() callback is somewhat more involved, its
+> users will be migrated incrementally, after which
+> drm_atomic_helper_connector_hdmi_force() will be removed.
+
+The force_ctx introduction should be a separate patch. Once split, you have=
+ (for both patches)
 
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-Thanks!
 Maxime
+
+--3rp65omxlgvr2kuq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaoWkFgAKCRAnX84Zoj2+
+dpxbAYDWvy2abaZ7cn62e+VobqiL0fNN+KQJAQuPE0h2SP0dGhzSQgFdt2m/iR0K
+3guVa5UBf2cSjZ7ytgMSlTJ7y1BKsyj7fN6s0Us/VWsxeZ2vyt78eqeZNxsKcWVx
+MjW7AWoLWw==
+=63Wj
+-----END PGP SIGNATURE-----
+
+--3rp65omxlgvr2kuq--
