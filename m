@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 431AEC5DF6D
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:19:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EFDBC5DF6D
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:19:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE4A210EDF0;
-	Wed, 19 Aug 2026 11:19:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFF9D10EDF5;
+	Wed, 19 Aug 2026 11:19:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V/OMyP/M";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BdmBVHTZ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15DF410EDF0
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:19:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA1B810EDF5
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:19:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F1AEB40B7C;
- Wed, 19 Aug 2026 11:19:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959791F000E9;
- Wed, 19 Aug 2026 11:19:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B3C0F438C7;
+ Wed, 19 Aug 2026 11:19:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615A41F000E9;
+ Wed, 19 Aug 2026 11:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787138368;
- bh=NEwB5P8E3bJckGKg+azupxgPzftFyqZf7DbXSnaRsks=;
+ s=k20260515; t=1787138379;
+ bh=U90PQ07lMGeV/S9hY5g+kSc82c9uxFtg9ufXoq+8+PA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=V/OMyP/Mq+rZL+8hSl9J66Fofe0rQFFk2+8cvmY6J9p4bRE3hqS64q564bMDu2IXj
- +QuMCk/Bip1VHVwVqW57Qovwa5s8iFUgtUsHaOPw4N1zHx88ihQnhrEGnwYJjsENP/
- NLaeTchbpEtA37U42yP8qm9SwCs8ZtOaKRECex1FoZuSyO6eOZqUFuCVjFsRoQ0gWo
- J7U/L4iU2UGD8BJqzqBBcfq63t6C+4KpITIx+Bamy/yWjM6NLnOtDRFSR7IVklmqRJ
- 99WUL7xJAw2b2WjYdNiwFZVKhiC48P/GjFnax1aMUG/lbHX80SSGvPQHKUi2lUh6KW
- Hk0f3NGQPvr8g==
+ b=BdmBVHTZP3NrVRSbodBAmzCo4+jVsV1Ckk1exrq7zS9L4mQPQgvmFIql9pgF4q8//
+ /seok4becnzoqHb+fHuHNDQbw777ys2EVLWqTQtlYmzl4n4p7M3EWO26t6zykxvh/G
+ +2ho/NEwvQ5kzAgk5iHMQD+eLfQN1Ew05c9JxDESp8brtQNgR4rdBP6PnhMWBV/mVD
+ yEmMj2AkcfP1DKZWobVUAyxDfwKSJDeHA6JE2EZsF4dZY3kEcp3vuzo1IfSH42dXyT
+ e7QFxTA2VdXyakv+SuaygTn0crpe9dFIj2pHaD6Jh5W7zIt9kAr5+2izaJCiKryQQP
+ dUa4KsOyDlu+g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/16] rust: mem: add `AsRepr` and `AsReprMut`
+Subject: Re: [PATCH v3 04/16] rust: io: perform conversions using `AsRepr`
 To: "Gary Guo" <gary@garyguo.net>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260819-typed_register-v3-3-3699a75fadf1@garyguo.net>
+Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ linux-pci@vger.kernel.org, "Danilo
+ Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
 References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-3-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 11:19:28 +0000
-Message-Id: <20260819111928.959791F000E9@smtp.kernel.org>
+Date: Wed, 19 Aug 2026 11:19:38 +0000
+Message-Id: <20260819111939.615A41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,97 +59,37 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Incorrect use of `#[inline(always)]` instead of `#[inline]` for abs=
-traction trait methods.
-- [Low] The commit message asserts that 'all repr types are normalized to u=
-nsigned integers', but pointer types use `*const c_void` as their represent=
-ation.
---
+> For types that are layout-compatible with an I/O capable type, we would
+> want the ability to use them directly for I/O operations. E.g.
+>=20
+>     bitfield! {
+>         pub struct Foo(u32) {
+>             ...
+>         }
+>     }
+>=20
+>     #[repr(C)]
+>     struct Bar {
+>         foo: Foo,
+>     }
+>=20
+>     let mmio: Mmio<'_, Bar> =3D ...;
+>     io_read!(mmio, .foo)
+>=20
+> Currently this feature is available from `register!()` macro but not
+> otherwise available with `io_read!`, `io_write!`. Support this by
+> performing conversions to I/O primitives via the `AsRepr`/`AsReprMut`
+> trait.
+>=20
+> This makes the `IoLoc::IoType` and `Register::Storage` redundant; thus
+> remove them; also convert register methods to use the `read_val` and
+> `write_val` instead.
+>=20
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
---- Patch [3]: [PATCH v3 03/16] rust: mem: add `AsRepr` and `AsReprMut` ---
-commit 0638c4f7e52f9eb87681654296d18ff15c916f15
-Author: Gary Guo <gary@garyguo.net>
-
-rust: mem: add AsRepr and AsReprMut
-
-This commit adds AsRepr and AsReprMut traits to indicate that a type
-can be turned into a primitive for operations like atomics and I/O. It
-also provides implementations for booleans, pointers, and integers.
-
-> To avoid duplicating implementation, all repr types are normalized to
-> unsigned integers.
-
-[Severity: Low]
-This isn't a bug, but the commit message states that all repr types are
-normalized to unsigned integers. However, the implementations for *mut T
-and *const T use *const c_void as their representation instead of an
-unsigned integer. Should the commit message or the pointer implementations
-be updated to match?
-
-> diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
-> index a0901cbe1b2d6..5bce381d88952 100644
-> --- a/rust/kernel/mem.rs
-> +++ b/rust/kernel/mem.rs
-[ ... ]
-> +pub unsafe trait AsRepr: Sized {
-> +    /// Primitive representation of this type.
-> +    type Repr;
-> +
-> +    /// Convert from [`AsRepr::Repr`] to `Self`.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// `repr` must be a valid bit patern of `Self`. If `repr` is previo=
-usly obtained using
-> +    /// [`AsRepr::into_repr`], then it will always be safe.
-> +    #[inline(always)]
-> +    unsafe fn from_repr_unchecked(repr: Self::Repr) -> Self {
-
-[Severity: Low]
-This isn't a bug, but is #[inline(always)] the intended attribute here?
-The Rust subsystem guidelines state that functions for abstractions should
-be annotated with #[inline] unless they use build_assert!() dependent on
-function parameters.
-
-> +        // SAFETY: Per safety requirement of the trait.
-> +        unsafe { transmute_unchecked(repr) }
-> +    }
-> +
-> +    /// Convert from `Self` to [`AsRepr::Repr`].
-> +    #[inline(always)]
-> +    fn into_repr(this: Self) -> Self::Repr {
-
-[Severity: Low]
-This isn't a bug, but this method might also need to use #[inline] rather
-than #[inline(always)] for the same reason.
-
-> +        // SAFETY: Per safety requirement of the trait.
-> +        unsafe { transmute_unchecked(this) }
-> +    }
-> +}
-> +
-> +/// Type that is bi-directionally transmutable with a primitive represen=
-tation.
-> +///
-> +/// # Safety
-> +///
-> +/// - [`Self`] must be [transmutable] from [`Self::Repr`].
-> +/// - Note that [`Self::Repr`] must be [transmutable] from `Self` as wel=
-l, however that is a
-> +///   requirement of the [`AsRepr`] super trait already.
-> +///
-> +/// [`transmutable`]: core::mem::transmute
-> +pub unsafe trait AsReprMut: AsRepr {
-> +    /// Convert from [`AsRepr::Repr`] to `Self`.
-> +    #[inline(always)]
-> +    fn from_repr(repr: Self::Repr) -> Self {
-
-[Severity: Low]
-This isn't a bug, but would it be better to use #[inline] here to follow
-the abstraction guidelines?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-typed_regi=
-ster-v3-0-3699a75fadf1@garyguo.net?part=3D3
+ster-v3-0-3699a75fadf1@garyguo.net?part=3D4
+
