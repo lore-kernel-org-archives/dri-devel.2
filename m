@@ -4,152 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE096C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 14:37:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DECA8C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 14:38:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F45710E791;
-	Wed, 19 Aug 2026 14:37:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B71810E148;
+	Wed, 19 Aug 2026 14:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="Uf5fwkSn";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GPeudUYz";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g3An2BlN";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9900C10E918
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:37:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1787150194; x=1787754994; i=markus.elfring@web.de;
- bh=Z45Dh8YUc3BGrrWwm7xYa5Sg8QQjx0AzwyoEFJ/r5rs=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=Uf5fwkSny3+Q0MQNbhLeOCl3cJUF+5caStpbD1L+aXhi+Te6Z6j26MycWVoXEpBr
- BZy5QMSL+Lo1l3CYKH8lyN3taAgVe+NVrEQ68aEMbTfEouots7LM2Th073ScJ3Jmu
- YOODGhlU1Ak0+3b5nDkX9hZS4OWgSjiA0BWkmsoPuDdbeaxgVtbuXjecvTq1Mq04S
- hm0KU6tZNE2rMVyb0/W0z95uiHh8xbI5/o76PloMkTHKDzuiUiDOONowf8Uz/nCfA
- du3vvK5Tj/E6gw1iT9JPEStMPzA7kQQnWiJZDf14kltG0cm0EsHmIGFHbphxlPdfu
- 8PZxzgKGrNYT8Jd8Rw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mty5u-1wg7Qc2zC0-00xPNp; Wed, 19
- Aug 2026 16:36:34 +0200
-Message-ID: <977d0549-c56c-4634-8f4f-ac9119fdf71f@web.de>
-Date: Wed, 19 Aug 2026 16:36:29 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B677110E8E5
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:38:13 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67JEbfkX135340
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:38:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=; b=GP
+ eudUYzAmwpt46XExjtHoL24a2I/8JX5JZHI9Hy6CbC7dO1tazpRAgFP+VcfrugoN
+ qQqsW9ubazohF9DaVxrl3s/LKRe5kznPmCK3LoVzh6vJ+iebuKHns765pvdU8/jk
+ Lx7WZ4bv8UVCBWYHz3m6v5/GnJT2VNZ0ww0LUj8Ylet1jPbTbGqxlh474I7MyGKO
+ RI1PPcRlaETWg5xn/0/ig7ssX0OVcLJI/cDW3vOkQPZjH9SybyNVUYXczHdUhTB5
+ BQOZ3N3z7a1vzgCS4xi5BbzZii7NWgVe1Zsvy1mFlVQsrVsTo6F9HCwWhsQoGkSA
+ JLDz4rujLqSxMRs9pEMA==
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfmbqd8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 14:38:13 +0000 (GMT)
+Received: by mail-oo1-f70.google.com with SMTP id
+ 006d021491bc7-6b1281dd14aso926839eaf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 07:38:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787150292; cv=none;
+ d=google.com; s=arc-20260327;
+ b=jyDugqLp9mAwdep0APX2VI46vjEa8LbZUlyRutDRrYXBC1NboDoQ0NlLZtoNc79g0+
+ sQCo5BRrF7LhXlbbh5DJd9lkSCHETnjM/tRmROKMUxspXisr3+hBnV/02+6ywDovQABd
+ KEjbXJYpF67gTrJSk/evIQJW11k6rOSWIxaQ0Fdv5JLA3/uzVhY2QRskTyCA4AwgtfNM
+ d/wezPD7qFoV3M39vgB+bA8C7MnpR4sGzoTG5nbsH357VLJzTUPtkMXzPVBu8xybOzce
+ mMcOb8p3e0PbrPRVZl+LZExyw/o3gZ7kcpjAfkYvn32xeyxdMH+ejL7+rBb+ut9mB69Q
+ azQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
+ fh=nrjkSSLHevP/AL/+NLb3F1+rvJNlRTjD1xSo/qPG1dU=;
+ b=e2EjRDROEUUu8SVZ+J/nhS7epqMt0GekWK/K6vOMYkz8enwzZYb52bFf+7Hriob0cQ
+ 1462IJJbx0ce5npWZ1h+/NznOmepJShC9EMqMHmzHvuOJZOc2BxHNKPiAYe6rSBAFvQ/
+ wCcSWoV+xRnvXUVYFO2TkPuwFK8hmCgRzp+gu5e3ZFyOEoPh/qlwzXcSWC+/Xj5UKGvr
+ M7p8ebTbgY559VIfQ/+VAgCOqS6Dsz9EtjSiRBDTox7rAJ9tuyORUsy6U+77jp2KUL23
+ ZFr8E54PEq/Lxnigl/+uJh9PcE9LR1CoaKRl8Fdco8J0A5gSVGvDBbmHaNgaJRLU/kZz
+ stVA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787150292; x=1787755092;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
+ b=g3An2BlNUBesN6TfSU7KNZ7NfzaFpYTfqTALHWwAF/qyLfCTDmKk7OXctLTJ8wpX+B
+ 6jr3zfq+znl3YTvGXejJYETwasEr0URO1rT0Rks7RfgNeD9j7/SN2+s1c6ZH9N9/UpOV
+ sjM6E1qcpsg3KRjAYCZWNEq19smIVNrfaqkZZkKW5JDcmrvqBXkTL7zKbIbJkB4Xy2OT
+ r2mD4HjmOLCzFkFVJI8BZ+038Owo0uFMofGFVORFpYg6txszF2SvlTMEhjOcU5DCNMs3
+ +XNNmpKzKlK8YGcscsuk+bJ1IRzffHIz3B84eLMmklEtymPZZE1c+W/cZzUt0YQMCXcK
+ H1Aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787150292; x=1787755092;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
+ b=SKs/EfwoBl2bpUAgJ862HE0lV5Z5EEwIz42as9SkKDesCu5m9dChFaqG50GTLLhKYf
+ RUhkOudDeRGYfWWNcUdxYj6Vo8CFuk9msaaY1IFgUSVIeJ7V9e9AoXhajdyFiIgWany0
+ T3Y8UtY6AYUW6nL89/c15aCKNm5kkR63fKlfVL4pAGoC/Pzyb7ih1EOBESHx2JcuoJV8
+ r7shBCvnaQdVDFXZu8w9USpRdUsW5uYQ0OZQr49hjA5ZB60TkaaTFCeFu9A5uK9CjN0+
+ QWrjzEy8jUIPS8O/SkQybRdkiv1q4biKRfLAfeAANwSAKM1sGEvjjjsMchm4g8cidM8C
+ IUxg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpUaLomgV8HfBdkwBTxJq0BX+15K8UxhapsBFMqdfQQv9obmaO+dDKTbwGj/HCIKdd/DaYtrC4fnLQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjkTULIzbw4IEl/7ZkeyJd5MB9wnCd6PNYWCItiQM+5G6cCq9r
+ xgnlduQEBbzBTgPd3UfJqQoM7Wi1Sxhacf7tDxFQhrUzCvZ3iw4XGIiBLc8sm39vgpB8IfnKpsq
+ FJq0y8dBOSPTnP+AoKZJhDcScc2BKjZ004FVvGHUEgHUzzc34UmSqEnySa+vL118zA/OyFKO+Lq
+ tPiKeDjm+nm8aGP5Y7CXuukKNByRcc0P23AE5pHiDCkODQjg==
+X-Gm-Gg: AR+sD11UGeYF9R0hW22sDq8Jk/mkw5FOnmZyh0fuUdIHRVYNO1DJJsCGxxc/7Of4MRZ
+ chVWLnfHoOAXWc0upBwh8lQNujJWkKX9dn4FBGRO4aKPi8zzjUOFDVx18vhxtsqcVYVbm9Eg/yy
+ vEiRwOc02m62W6lgbrvXj1WLFF1L7ZSqyHdiH0xLMe/DHshtuvjhzTpzJA
+X-Received: by 2002:a05:6820:1ca2:b0:6ac:b1ae:6ce3 with SMTP id
+ 006d021491bc7-6b13c69056emr3835938eaf.32.1787150292236; 
+ Wed, 19 Aug 2026 07:38:12 -0700 (PDT)
+X-Received: by 2002:a05:6820:1ca2:b0:6ac:b1ae:6ce3 with SMTP id
+ 006d021491bc7-6b13c69056emr3835876eaf.32.1787150291802; Wed, 19 Aug 2026
+ 07:38:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: 1298662399@qq.com, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- David Airlie <airlied@gmail.com>, Inki Dae <inki.dae@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, Simona Vetter <simona@ffwll.ch>
-Cc: LKML <linux-kernel@vger.kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
-References: <tencent_989057BAD94EB58027BF7E9528F59A458608@qq.com>
-Subject: Re: [PATCH] drm/exynos: fimd: fix clock leak on resume error path
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <tencent_989057BAD94EB58027BF7E9528F59A458608@qq.com>
-Content-Type: text/plain; charset=UTF-8
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org>
+ <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
+ <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
+In-Reply-To: <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 19 Aug 2026 07:38:01 -0700
+X-Gm-Features: AcwNN1UJH0MueaAt4fuAnOTplgnMr9BZwDd-FRtcH8UIxmOIWCFCFvjMK1YdptU
+Message-ID: <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
+Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com,
+ dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:L15/ciHenYXp7vipUsF7bdN2ybdoDaGahcNoG/IabYKbYGd67MW
- Fq2YjiZOtwA4Q7QuCYjEVqpPbV1Uu45tWZvFMDr/Du3i1sAOn8Rv3ZcQkR7F6MmhoLcvDdY
- nt21oNjwa2GTzG5XGiNoRiqjQ4jB4RQr7gydeooAdXWMJiDMxav9V7Qox3sNpjjF5v2lgZ0
- z3sosZu844ZIpIohh6Q4Q==
-UI-OutboundReport: notjunk:1;M01:P0:h3e9YzwAIcw=;bza8oQ3fT2czLSGb3tPHlvJczeI
- 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
- 13IKhIykaIQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDExNCBTYWx0ZWRfX+obKXHbZKgwo
+ 6sRP6srkzStoI3kXWMMnYSaRT2IWw744+XgpEB4ETduio9vltOX5fusWLR3UarPAGjiaDcz8gmH
+ hm9P+fT+Z1mW1541jopvFL0EqEggUVXidzHLIg7kkn/lZAhhu391s1TAnhHkxRteH2InfRCaAWm
+ rXNGc3IRQdVdSBWIvgn+NZvIHa+qMc/RxCsIiCt8GNg5ff6Ee57Sbf1fcteD4YyW6yyaprkT8H5
+ 4w+MfSC1GuRQl7rzaKITWuKs7swAittl+zhaSPk6Oz6C1X2oPyafGI2oUVd1FryG2SBofCYpqU7
+ CoOVFrTByQgBIeo5VpluQSvtfbAFtmW7fWcTtPGcU8Sj+CYf5EjslSjt0RYbA8cGq/eB8/9eEL7
+ cXXPXzDe5xtS0ba0qqYZu5ng+7sKzigvJ/sNU2xkvWHVAcbTqRRapI7DGQ6124kPioadopvExQM
+ VZ6zNJwTkLO35H1iV1Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDExNCBTYWx0ZWRfX37YUWV5cC8Pv
+ bmmTGwEFGOec+0VEcLs2z5GS4FmhguDBC2FdvGeQgUQhV7HGUt5nT3KfNGFKBG0fNB7O43p/Nic
+ QOXjaLGq2Mlw+oZsl/GtSltgp73ArIM=
+X-Proofpoint-GUID: KXiZAh0zzTNZJInrNGqOTnQ7zsIlmFcI
+X-Proofpoint-ORIG-GUID: KXiZAh0zzTNZJInrNGqOTnQ7zsIlmFcI
+X-Authority-Analysis: v=2.4 cv=J+SaKgnS c=1 sm=1 tr=0 ts=6a85bfd5 cx=c_pps
+ a=lkkFf9KBb43tY3aOjL++dA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=OXa2z63zbhD_Ho30eBkA:9 a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_04,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190114
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,19 +176,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E2=80=A6
-> Disable bus_clk before returning the error to keep the clock state
-> balanced.
+On Wed, Aug 19, 2026 at 7:21=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On 19/08/2026 15:26, Ekansh Gupta wrote:
+> > On 19-08-2026 00:43, Krzysztof Kozlowski wrote:
+> >> On 17/08/2026 06:47, Ekansh Gupta wrote:
+> >>> This patch series introduces the Qualcomm DSP Accelerator (QDA) drive=
+r,
+> >>> a DRM-based accelerator driver for Qualcomm DSPs. The driver provides=
+ a
+> >>> standardized interface for offloading computational tasks to DSPs fou=
+nd
+> >>> on Qualcomm SoCs, supporting all DSP domains.
+> >>>
+> >>> The QDA driver implements the FastRPC protocol over the DRM accel
+> >>> subsystem. It uses the same device-tree node structure as the existin=
+g
+> >>> fastrpc driver in drivers/misc/. The approach for binding the QDA dri=
+ver
+> >>> to device-tree nodes while coexisting with the fastrpc driver is an o=
+pen
+> >>> item described below.
+> >>
+> >> No. Grow/replace/improve existing driver instead of coming with a dupl=
+icate.
+> >>
+> >> That's a standard upstream requirement, basically given on every
+> >> upstreaming guide.
+> >>
+> >> Please watch old talk from Greg - "I Don=E2=80=99t Want Your Code!".
+> > Posted discussion threads here[1]. Would seek comments from Dmitry,
+> > Srini as well.
+> >
+> > [1]
+> > https://lore.kernel.org/all/3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qu=
+alcomm.com/
+>
+> The rest of the comments is still valid even if you did not acknowledge
+> them.
+>
+> Anyway, regarding above - again, watch the talk from Greg.
+>
+> You have ONE driver. Not two.
 
-How do you think about to add any tags (like =E2=80=9CFixes=E2=80=9D and =
-=E2=80=9CCc=E2=80=9D) accordingly?
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/submitting-patches.rst?h=3Dv7.2#n145
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/stable-kernel-rules.rst?h=3Dv7.2#n34
+Long term, moving to the common driver framework (which did not exist
+when fastrpc was first created) seems like a good thing.  But does
+that not allow for some transition period?  How can we get from here
+to there without otherwise breaking userspace?  Is there some other
+precedent elsewhere in other driver subsystems?
 
-Regards,
-Markus
+I suppose drm exposing legacy fbdev on top of drm drivers is _sort of_
+a precedent if you squint a bit?  I'm not really familiar enough to
+say if that would be reasonable/possible in this case.
+
+BR,
+-R
+
+> Best regards,
+> Krzysztof
