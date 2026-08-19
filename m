@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63D9EC5DF8B
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:10:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88E07C5DF87
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 11:10:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E2B310EDDE;
-	Wed, 19 Aug 2026 11:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC2A10EDD4;
+	Wed, 19 Aug 2026 11:10:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Ha9JBVjA";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="kGfN1xFC";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022103.outbound.protection.outlook.com [52.101.96.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 498C910EDC5
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:10:29 +0000 (UTC)
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021099.outbound.protection.outlook.com [52.101.95.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94DF710EDCB
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 11:10:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jALZFgFobHgWgmHM33DuosQEs0P/RISZuniyYGKSPmU6dFFh3n3CjD/rlxh2+HM6sn/tEXWKWBN1gpdgp2qUGIUm65+bChoF8o4ALnZoUhgTegKOzQNcwbWphsMI8IQ11z9G3rqwD5btRHWKuVm6z83G+acAdvbIJSFaYpTvShWqRk3VVY1x6KozltbjdNbzigh4aKTprCjlhnVAwTaPS4fzTkkELtCOpsGq4RmZ162ixdOL6BEaZ6TeLTAelnXpu57Ctzw+D3cdiFemObCOlamBAO35aRO6+/WbOgAvKKyxnKwIe0FDtZnFjV8Ld5fGTO9LAkPp7Aro9/wrIauTyw==
+ b=zATGqCKUJvWz77W8gP9MZQLeTzr+iccbkX4pgISZ4rrrXrOZm3aE8Bx4H8biCyfTNcpBuVtjEk5yWVexqcbHO/xfaWGPasnIEd2MwAW4xzMBS56YTnc3GVtjf19b9fzWD45uT9pa2IAgWzMxF2hUb3EeizQzWM0GeAfWAU04aK+ERoVv5S+8GxvJETkMFnIxzeGyB5WkL5xuEPb2VxI5nzGJg4k/ULEddXa4RlIaVFL3tH4+yrJnMvDV0UjCIZ63Zd5EUYUtnU1R2pbiCMp7bf6mG9Vk+4Qvgfty7vaxyCT1uFWNiISfr+rptJSNwZeRFPC48A59+36GnrE+Dk3qww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v0B9J7EtjFFOfqpNapB2NAxL9XvD5dlbr2Cpc+w+7pc=;
- b=IzZtI40MBD7I1LsT/1jzzQfXfw4dQJhN/7xONzvQEzuveE1KqnEc5aSn33c4qGKP0KRxSpfj87fPvgFmEBYFNH8WYjBiRtL7X2DjlpN4bFkZ5ig8T9Oex2yGw9uoKl8tAWtzPzBDeGjPHLpKhJQV4iBcmqeYHqIHSAd/cMO19I0mDZ7UdXuwK0FHhahzsrj5QyGecVaQ2Mp39IkwSA6uX2fSkiVeS/9Fh4sucFbmtueVFpo7vMANTlZBdJyTjGRJPDcHhSDHhVqjl81Hb24V1LTaW8977Y7xh7Q6stS/jbxYAc8pIr35QLA/6Ut7yFuBZobzaqHHB2PRkarsb9fcQA==
+ bh=lNbnK7EWtcupeD63vJljcXrAq764/NWDK2IMvXG5HMY=;
+ b=CMk33GgL/V79qiuOT9rKjzK3tIn/2LW9eX4GP4bxeJFoUvQ/lKvV++MVY3UNIF1k4DnP0nVG+pLGJOpdOMHZU+PekcnrhPPk28Ppy0RMw6aL00J6sRST+ksYZQa4H+SKXa5V4dfubIDIDnGuyiJOv/b31+ghB2RqMPOOECeNAENSxWNOl2Rb68A7HlzidsRU/a86njn6hM5Xy9yDABo1z940RHVYS06/pzX+qZ5KQ4wzTYENbv3Eu4AU5xJ9h0M7Q0YjH7hWYg/qrTf34pnAPThn02jieSHqB5sxr/IvzCoKOM8tGH11gbR+IyY9u86O5EO/8KJUabep8ibPvq+gxQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v0B9J7EtjFFOfqpNapB2NAxL9XvD5dlbr2Cpc+w+7pc=;
- b=Ha9JBVjAn2WNErgFAOlunk/CaUtzEwlNbhES8ijrxytpX3mXNOuL8sGBm+y34hSiTMPJt1H6L92cfdaymyXlru0BZNEPQevke2X1W/BMDypyeti26rvCdVAxq2JQ/hxroS6JFvN6H65O5S/yPZvtuyQ1PUjkZ4rTimlgBXTL5G8=
+ bh=lNbnK7EWtcupeD63vJljcXrAq764/NWDK2IMvXG5HMY=;
+ b=kGfN1xFCW6EcCx6xWkmp1g2vc2lhTvCN5RarFIOGQUCisNPubtO6K5/2tDRdq4CLp0vV/voyTXyEadI7eFjjo3Lm8ndukD+euXv0x5hrldPhSrg0PxwClBAf3QSuucVrFDL7SQMkjzpDtDvZaDYowqe18yGr0J2AslbUmvh5ApI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB5113.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:15d::12)
+ by CWLP265MB7056.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:200::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 11:10:23 +0000
+ 2026 11:10:18 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 11:10:23 +0000
+ 11:10:18 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Wed, 19 Aug 2026 12:09:21 +0100
-Subject: [PATCH v3 13/16] gpu: nova-core: convert hshub0 from relative
- register to projection
+Date: Wed, 19 Aug 2026 12:09:13 +0100
+Subject: [PATCH v3 05/16] rust: io: support register projections
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260819-typed_register-v3-13-3699a75fadf1@garyguo.net>
+Message-Id: <20260819-typed_register-v3-5-3699a75fadf1@garyguo.net>
 References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
 In-Reply-To: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -67,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137814; l=6702;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137814; l=5270;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=UcdRmVpzRIL5d6EXe2nVU7lPrMffwe962tEbCQsnEq8=;
- b=dEHU3s9Bt6dbAAcjdnsSRiJ5FhuX3fnSoI4gjo0CkeMrfeY575uC6sAMCFXwhAsAlnr4eFJ+b
- nhmPxD3opaCCho/D0u6kZQr+RhiaEdoSVTGHjkcVW+oLdmjMCuuPiBA
+ bh=U5eGkkYvQADr4TTFPN+0TCXo9RfXrHMnOeCh7ums5W4=;
+ b=ymP3QVpluvwtOhBEWP6phQFPe+xRniP/tw12BolNOftwvfuMdl4OXLsM59rpL+Gs3p4FikWg/
+ vi1S4XmLftmDSEldxL1O2Q7FGHgaKpISBsPaFdr20snKcYzXnwrT/Fn
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0096.GBRP123.PROD.OUTLOOK.COM
@@ -79,67 +78,67 @@ X-ClientProxiedBy: LO4P123CA0096.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB5113:EE_
-X-MS-Office365-Filtering-Correlation-Id: c894bf8a-4e06-4420-1d5d-08defde27716
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB7056:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5be3b55-6bda-42cc-8b1e-08defde273c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|10070799003|366016|7416014|23010399003|921020|6133799003|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: zbZMLvH2x/Qpe2XcHcVoNiduVTlci05kpOg7cnTMMg6sDlK6ooMdiwlz8hQzC0WRMNhlqucXE4SMjI2w0ePy4K86kwLfMzQK46RNPv3ipSE/2qgOQ2Ezxvc08mjMp2plC3pd0EyGTNtGTnbMwKmsD8Gm41Ij9wkExKo8U0DGVzoUacWysKzzBzJJNSRO1mbBPDpi+TIbs1YTJSQNkaWZkir9ez6N45Of87CiW6XTgFaKrA5QaQcOGC83UYg7uoou1ITf/O0EGSV1+Dst482cXKq1cBD51zUQ1ocut+HbP4VW2wad7Wh6WYwY3XiOhvXQnLgp8TJPimD9a/t2baoelj2Yec7kCU3fpDMDrFs8mQYW0fd6E4Sy/x4Cp1V85SLOQ87PZ4Z5nMCvkql1hVoIejZSZaerB5e1qPbJ7RciTwKm6VLqn9C+y5Eqgagevq11WiydYd/ZA4LlJPQVbhITtio5WPiLmWSx/Yeiu069O4f6F/zG39omltxuidEHh73exy9E4dEGk45LhcGcsvCcwGGgIyPsRRgLAKgctLf3eW5s42v5uD7ZX1so0YCIcGmYrWs1UwQ5784xOhyIvJ/WCDpoK61YsM1D5t0JwjcI8wRomitdMaLSirbldE0QDIflpIMLGAJxqGnD+szlQ4HCU5/a0DcrQrgiyi6ArK4ZPbE74KVXGsm7PG+LUOyO66AJet+1F+8VZPAIryjkBd8wVA==
+ ARA:13230040|376014|10070799003|1800799024|7416014|366016|23010399003|10067099003|56012099006|6133799003|5023799004|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: XD8rShmPS/y2APPIWQBuprfLeihH/Iqagh348GoQf8JaUhORtjnfoW/72YeSz9wD0lzld4Yb+k4ywjWCbXHwZa9SvVCAejV5ZzD8lX1szmhvNqPWFrwzSK2zP+1HdOzrTw8FjNbK9Xhb6r5t+58qQ/f1v4j1en1+pShiGQzyDVoPxCjT5qDbOFhzfgogC5k+ckJ2P2LpXAgz5e2G1rgmfJCanUwn9saI2a/517C4MkufSdgYwMsrsAJfulIyC2VvMZXIRGKn0Pg1EEpBbkygrk4AglzS0hkifNgyl1+uyaYli7tIrpJ5gGSwSA/xzU86CJp8Mbxp8OA9HGvVsVZPVmJh5/+PN6kHpUVS5lAylQ5lLi0KMPeIGz3JNSQMBsXtCgHHDR+LtdTHOD0ljVNqo/r+aLtEPtHWY7LKgPfIFrz5FtmCmrVXtaQr/EJQ7ndlfo8cPhedd9VAfuFwEw26H9GOhx8RqkFTeNCY+zDVgERqbPPRLHD2P2/RxHrvfVoSlqhJBDWgYs786CMfHV6ReJmEPoz7BMOu8Vmbtx2669bdEvaTvwrGkxFG4Pmznp8v9SZL1EKcbgrEefRqe2tMdSFb8LufZYrHecrs85nih0BDTWRRpleIt6EiK9vE07LXX6KJ0TtWqLl7H6FNp+yeHd9aGIa452/4I2xdlzqZUcgY949YRRdi6KiJBsEp9KB3QxuZ9z5rvOozK9ltvKx65Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(10070799003)(366016)(7416014)(23010399003)(921020)(6133799003)(56012099006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(10070799003)(1800799024)(7416014)(366016)(23010399003)(10067099003)(56012099006)(6133799003)(5023799004)(22082099003)(18002099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STh4LzlsWUNzdndOdFlJZm1NMUJaMHJ1bnErcDlHMHVSTWNIdXd5VmF2cmE0?=
- =?utf-8?B?T2xaMDdYVWw2Y2xUNFBGM0ltRlhRSkRrMDNkQ0Vzbys3UVY2TWEvM0kxSExq?=
- =?utf-8?B?VGxoUndvWC93T1V2VUZBWVBmL280ZC84WExseUNQbGtIblRucEZ1VW16cGc5?=
- =?utf-8?B?WVU1QnppaFJ3cm16R1JLbVZsNFdNbUJINEJ0OGtCTmdXdEo1ZXZFbUIwWi9R?=
- =?utf-8?B?QXFWL1hUV0syZHlXUFJycU1RejNQa0RDWDAxUGFWeU5SSGJIcmlQSmo4QnZp?=
- =?utf-8?B?MU1WdlpCNDlsTXdaSUZaYWpicmwxajd4TlVkTHR1LzJZNjdXWUlZWGxDcDNU?=
- =?utf-8?B?WUxMeTRtNVkzaWc0clFMRklWZmk1cGZQNTBweUViT1ZmbzVCRkhIazJ0cDVo?=
- =?utf-8?B?QWZkUHpKM2gwd3NaSTkrZ3Zyb1VpMCtKKy8xYmphV0RObUlRanlMdnJhbUVk?=
- =?utf-8?B?S09BcjBvOVMwZlpiRk90ZldnT1YvNTI4ZW5Cczh6dXJxcGt0QVdtQ3R5ZmtP?=
- =?utf-8?B?ZHA0VVc1eit5TzVwU0RWUkFQb0dCRitJcjk4c1lHT012OW1OaGo0ZEVFMHBx?=
- =?utf-8?B?OVpaK2xza3Z2aXlIMEs3Ri9GalFKTzg5NVRiUy9JTUFHZkticm1BbmxNWjNR?=
- =?utf-8?B?em8xTGNZUk9YYldBQlI0RGFxYWNwMjNJZjFUbDU0SnAxYWNiWk9KeGtmdVNP?=
- =?utf-8?B?M1hDeEpSL2l4cWRzb3dMNWtOYVcyWm14WU9xbC9oWGcwNlhXVCs1aXV2QTBK?=
- =?utf-8?B?S1h5Q3k2V3dDNU9oMkFCV1k2b25Hd0RYUXVOdE5hSlU1alpEYnFPSlVBUVk1?=
- =?utf-8?B?bWU4UnllL0V5d2cva2RJaElCanZUR2hjVlZjM3hBK1d5WTE3L1lldVVzckhJ?=
- =?utf-8?B?SjhVdGx4R3NoenkwZENRSU5kNXp5R2ZoY0hEVWEvNGNCemFJdmxzU0J3cWFx?=
- =?utf-8?B?dGdYMmsrQnNYQXJVOW9nZXVVcjB4RDY4QVdqUFN1ZU91cHl0THZrejBRNlh0?=
- =?utf-8?B?NHluMWJMQXJadnA3MC9QN2pnYzVINEhiZnZ3QkdOWUxKdnQ2NFVmbWNhU0E3?=
- =?utf-8?B?S2FVS1FUTXZpNUpqZU1VaGEvVnRkQnNHL2tMaVQ2ZHZJQXdMeU5EdmdxaUdj?=
- =?utf-8?B?UitPUWt1cjkxbDVPSGRnMmZuQkJnOXFZSDROMXU2OW43ajlRU0FROUZpNTVw?=
- =?utf-8?B?bWNNbDAvWHhKOCt6WVlUbnRLVXd6WllIOXpWTVpwQjBaYUJ5SVlabUhhRXZX?=
- =?utf-8?B?ZlZ1VDFEdXZsbms0Ky91a0NZSGFXS2JiZjZucUpoR1dFcVNmRFRDZXNlYXlu?=
- =?utf-8?B?bHladDRhRlhOTWZSNHdiaWhqQ044c0NtU3lIclQrL280cnYyT3ZVek5odmti?=
- =?utf-8?B?bTZKKzVSdGJZNENrTUMxbXdKcEluQmExNUVua0NNRmdrOXNGakRMUS9mZmVo?=
- =?utf-8?B?RTdUUG0xZDBIZnRSNkV5UW9ZbU05SHRidmhTVDZQckxCMHMwNlBzZXZkck1m?=
- =?utf-8?B?TnFWYk9kanVoVXFSVDJWaUoveWZMcVA0Rk9wVFEvcnJJbktqanh2bTBHaFhz?=
- =?utf-8?B?aEtZR25YbkdPb1V1MHNHOXpRV3hoaTdjK0Z3ay9nckFVQ1FsWitMS09uVDQz?=
- =?utf-8?B?RTVLTjNnVGNNVTVnR2FJcTVqQWkySFlEbnM0ZndncW50TURCQ1JrWndEaExi?=
- =?utf-8?B?R0p1TlRJRnBsaVZUTUdMZ3Q2d1pRdFJWc0M4RTBpWStCbEVBcjZzeitYWWFa?=
- =?utf-8?B?ZnkzT3VZRDNTTnhjamVoZ01sOXBvdUFpQlRSWVNyRktSVElmUGY4bzcreTcx?=
- =?utf-8?B?SENRZFlSWEwyaFFINy9RbTl4Y0IvbXhLbC9wNWtGUmhpK1F1TGxRZGR5Q0F2?=
- =?utf-8?B?dU0zdXpER2Q2dTB5NlBhYTloY2NGWTE2VnBtRHh0NzRkbHF2Sit4Z2ZmUHl6?=
- =?utf-8?B?Y1BVRlMrcE5QWEw3VnZLcmRzbXRzOU5zSkkzWWxFV0o0UGYrcFlab2VKMEFO?=
- =?utf-8?B?RkNQeGpvekNROGxrdHgyRW90WElvMnNwNFFBMnBCMFZob2UxRVBQOVIwRUZZ?=
- =?utf-8?B?S2dRcnpTSVNUbmw2T1hhYk9WMzhVb1ZsQStxVU44RldkS3IvYmpRWDNpakJO?=
- =?utf-8?B?ZUR2U2Y5aDdONUdmUG9GYzJOK0pzeERoT3BNQXRBSkJTTC96czZ2eG41dmU5?=
- =?utf-8?B?MWtkM0JFSXNhYWppK05jTHNzOUc3a21qK0RFVlZNRTdYNkRiN1Q0NGNaejlL?=
- =?utf-8?B?a2R2ZEMydzlWOXZCcXN2cThKanI4d2Z0VFhtQmNwK3pMd3dRdHBoMzFHMko2?=
- =?utf-8?B?RVZOYllRT1hYSzkrNFVUQ29QTG1iMmpWMEgzNEE1R1RkbmhQT29Tdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWxwUkhxL253RmRneTJnbENqUFB2bFJQcWVSTm5kVzBwU3JFNUZ6aXZleFJJ?=
+ =?utf-8?B?LzkyWnlsQVZuMFhQZnM1T0dadDhCUHRDNGlUUFAxeXVFeEhyV2xVUjlwY1RJ?=
+ =?utf-8?B?alh6R0Z1WUl5VkdSdkVKdXpjMTRQNUhEdDZpYVlBMjFxUEF6aDVKQVpZbmtv?=
+ =?utf-8?B?OFZoeitEdElBQmgxZ1M2VDVYdXpJTlB6bHFNUms4blNpS1ViQlhNR016VVNQ?=
+ =?utf-8?B?TFZBZWlYQksxdXNEOFlKaTgrbXRwSkpEOFI5Y2FYSEwvOWludG5LamhDNC9h?=
+ =?utf-8?B?S042dVRJaVdDR0laM3habGVhK2VXYzR0MUtIVHU2cHVSbjY0UjJLbmhJeUsr?=
+ =?utf-8?B?bVc4Yjdaa0I0aUQxSU5lb2xpV3lSY0l3OTVCYVBuNmI2YWJ5cEpna2lUT1dP?=
+ =?utf-8?B?OFR3ODNBU0tZWURHaVRpSHJha29QaVg0Sk0xZHIybW5SNlduN0U1RFo2WlIw?=
+ =?utf-8?B?UE9RMGtGZDVVSG9Rc1pJVVl5Q1Y5cXEwZUFEbmN1bDB3OC81OFVtYlBzdXlK?=
+ =?utf-8?B?cUpCS1U3UkwwTXhwZ2RHbEUxMTV4UGZlNU01K1NPb1JuMWFxd2RMNmZVckNy?=
+ =?utf-8?B?Y1VSNzA1bWJobHAxbTJUblJTRUJlSFVPVEFlTVFCdXRtbGpkdlZ2aTI4UlR2?=
+ =?utf-8?B?ZzRNSVhXMStVNVlYWnQ1Tks2eDlyeE41YjJGNWxzR2lvSU9VamRPeW1HVGF0?=
+ =?utf-8?B?NHplMG5vVFRQeDhoakJhWTZtT0tpNG1lK3lZMUJsQXBkYmZVb0FIVkV1RzEw?=
+ =?utf-8?B?NkZhQzIyQkdzK2tDcTBXQ1lOUVp3MTcxcE1nWnR6NXpsQXVpeTB2VnkrS2Ju?=
+ =?utf-8?B?VG1BVU85bm12aWZrTkxMdWxXdGliSlF1ZXNkSFJsbFlEMWE4dWJYdkdUL2pv?=
+ =?utf-8?B?NHNrRzJHT1F3REUyM2FNQU14NC82NmxGYitpeDR5akJoNEpiNEhiK1hYaXk3?=
+ =?utf-8?B?NzlEQTJaVUNmUjFzeEZtdU1pUFIyODduS292YTdHeW4xelBGQUJEYWdMb1BQ?=
+ =?utf-8?B?S0NuUk80QTY5RklHZlNmcFZsR3ZzMVFTNGZIQkF6R2U3RkFLVkVEa2I1bmVi?=
+ =?utf-8?B?blNWbzNzaThnd09vRW9PN3g1WnFIWk55MTVObzR3ZU1veEFNcmQxYmNOWFR3?=
+ =?utf-8?B?U1kxYlk4em0ybHBGQXB1NHdwaUpFUURCVUg4Ym8xaWhLVkdsd1h2VGVCWVkv?=
+ =?utf-8?B?U1NqWmVFbXBLZEx0MXRmSFI3aExJU2wvbVVYNFFTdEN3TjFjUnVacHJoQ0NL?=
+ =?utf-8?B?di82cEk5bGdsN210YlpWcXc5bE9TbmNjTnBlVHBGY1VCRElOWU9mVGo0dys1?=
+ =?utf-8?B?bHVqdEttbXZPREJ4b29qVEkzOWFPTEdxN2hxY3J2bEdWWVdkRyt1eFZ4N1FO?=
+ =?utf-8?B?dFlSUFBTNkhnNjl3SG5UUWJTWklBdFQrZEFaaUpYSVlNejJNOVlDaWVGWUph?=
+ =?utf-8?B?NU9WYVByWitzTHg3NC9LSFRYRHJkUU8rNkJ1Z3BwRTdtclBJa0w4aS80V0t2?=
+ =?utf-8?B?dkMreDNoT1lHZ0M5b1Ezb2pYUE45MHJwTjZpbTNnRGtTUlJ5cjlWNEZUM3Nz?=
+ =?utf-8?B?YTlEN2Q1bGVwM0Ztei8wNnM4bTcvM2ZHa29sOU1NeWtvT2NFVjgzWE0yeDhP?=
+ =?utf-8?B?SHhycFk0dmNsVXBTOTVBa1Y4TjV4UDVuSDcxMDh0d3JmUVp0ajdYS0pWUUts?=
+ =?utf-8?B?cSsrQXFaOVJuL054SWhqdUxjbGt1SzFtdld1NDEvT3Bqbm8ySmNGMUhGRnhT?=
+ =?utf-8?B?dDJ3SGU4QzdhVkZINUYvYVZ3Sm5OSXJYRDl3NGMzeVRkQWswWWp4ZWx0RGFE?=
+ =?utf-8?B?TXl5NXN3a2lyUS8yMjNLbisvOFJGbDF3SlFtb1NpZWFpd0owSTJ5Z3FTK3NF?=
+ =?utf-8?B?dXhHbDBQaGI3SnJ0eitMLzAvZlVDVkRscmlxeC85SWN0bTZPRGh4OVllWDRK?=
+ =?utf-8?B?c1lpRFhXeHlGa0VSOVZCQytpMlFLbGdGZ3hEN1ArdGNrUy9Ta0NvZTBlUzVv?=
+ =?utf-8?B?YkRQck5KUWIwNjdEY01XejNEdEwvaExwSFBFUnVqQkgyQSthMjJVUnBtUmNK?=
+ =?utf-8?B?djZwMGNTZFJNbUNVM3puUDRIS01XeHJQSHphNHZtbE5JTGZnaWVwMThJVEJz?=
+ =?utf-8?B?TG5LNE1NZU9BeTF2eklLbzk4T2l5VFY2RXNscFdQRDdLdDVBUHBEOHhkTzJ2?=
+ =?utf-8?B?VXFyY3d2eldKTC9GSUZGMklyN0F0YWJwdE9uVnVxdEJOSm9IVi84WG1jc281?=
+ =?utf-8?B?VXpXS09WMGVWN3RzK3JOTHcwVm12aHVXRXFiUDZoQ2hrM09XUVRMMHlqbkZl?=
+ =?utf-8?B?SVhGSTFXb1ZaK1N1UzM5UC9iQnc1K2RrdzA5RXNEdWZLQk94ZVQxUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: c894bf8a-4e06-4420-1d5d-08defde27716
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5be3b55-6bda-42cc-8b1e-08defde273c4
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:10:23.6915 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:10:18.0905 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y6kUVRAgYnAEDAdGZx5dkSCF/L0CQ4zd2rPMNMx/4rU2zxgyTD4Ql83sjLriW8C+7F+k/v9Kttbc+GapPweHVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5113
+X-MS-Exchange-CrossTenant-UserPrincipalName: Pug5hDbIKvUYnlMuaJLwEHuCMVHc1acZR0DzSNafrv54YEbGm4QB29MGLwbHYbMWUvTGTlz2H5x5DE5y+Nx3jQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB7056
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,188 +154,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Similar to the PFALCON and PFALCON2 conversion, the hshub0 relative access
-can also be achieved cleanly with projection and a new base.
+`IoLoc`s themselves just describe a projection from a region to a concrete
+register. Thus, support it in `io_project` macro too. Also, update methods
+that operate on `IoLoc` to use I/O projection.
+
+Documentation of `io_project!` is not expanded yet as the example works
+better when `register!` type can specify base type. `io_read!` and
+`io_write!` gains the ability to operate on registers as corollary of the
+capability of `io_project!`. Examples are not added because `read` and
+`write` is still preferrably used instead.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- drivers/gpu/nova-core/fb/hal/gb100.rs | 59 +++++++++++++++++------------------
- drivers/gpu/nova-core/fb/regs.rs      | 19 ++++++-----
- 2 files changed, 40 insertions(+), 38 deletions(-)
+ rust/kernel/io.rs | 56 +++++++++++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 46 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
-index d9e4d62ae632..9fa094939600 100644
---- a/drivers/gpu/nova-core/fb/hal/gb100.rs
-+++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
-@@ -5,11 +5,10 @@
- 
- use kernel::{
-     io::{
--        register::{
--            RegisterBase,
--            WithBase, //
--        },
--        Io, //
-+        io_project,
-+        register,
-+        Io,
-+        Mmio, //
-     },
-     num::Bounded,
-     prelude::*,
-@@ -21,7 +20,10 @@
- };
- 
- use crate::{
--    driver::Bar0,
-+    driver::{
-+        Bar0,
-+        NovaRegisters, //
-+    },
-     fb::{
-         hal::FbHal,
-         regs, //
-@@ -31,17 +33,26 @@
- 
- struct Gb100;
- 
--impl RegisterBase<regs::Hshub0Base> for Gb100 {
--    const BASE: usize = 0x0087_0000;
-+register! {
-+    base: NovaRegisters;
-+
-+    HSHUB0: regs::Hshub0Registers @ 0x0087_0000;
-+}
-+
-+#[inline]
-+fn hshub0(bar: Bar0<'_>) -> Mmio<'_, regs::Hshub0Registers> {
-+    io_project!(bar, build: HSHUB0)
- }
- 
--fn read_sysmem_flush_page_gb100(bar: Bar0<'_>) -> u64 {
-+fn read_sysmem_flush_page_gb100(hshub0: Mmio<'_, regs::Hshub0Registers>) -> u64 {
-     let lo = u64::from(
--        bar.read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>())
-+        hshub0
-+            .read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO)
-             .adr(),
-     );
-     let hi = u64::from(
--        bar.read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>())
-+        hshub0
-+            .read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI)
-             .adr(),
-     );
- 
-@@ -52,7 +63,7 @@ fn read_sysmem_flush_page_gb100(bar: Bar0<'_>) -> u64 {
- ///
- /// Both the primary and EG (egress) register pairs must be programmed to the same address,
- /// as required by hardware.
--fn write_sysmem_flush_page_gb100(bar: Bar0<'_>, addr: Bounded<u64, 52>) {
-+fn write_sysmem_flush_page_gb100(hshub0: Mmio<'_, regs::Hshub0Registers>, addr: Bounded<u64, 52>) {
-     // CAST: lower 32 bits. Hardware ignores bits 7:0.
-     let addr_lo = *addr as u32;
-     let addr_hi = addr.shr::<32, 20>().cast::<u32>();
-@@ -60,24 +71,12 @@ fn write_sysmem_flush_page_gb100(bar: Bar0<'_>, addr: Bounded<u64, 52>) {
-     // Write HI first. The hardware will trigger the flush on the LO write.
- 
-     // Primary HSHUB pair.
--    bar.write(
--        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>(),
--        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi),
--    );
--    bar.write(
--        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>(),
--        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo),
--    );
-+    hshub0.write_reg(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi));
-+    hshub0.write_reg(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo));
- 
-     // EG (egress) pair -- must match the primary pair.
--    bar.write(
--        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>(),
--        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi),
--    );
--    bar.write(
--        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>(),
--        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo),
--    );
-+    hshub0.write_reg(regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi));
-+    hshub0.write_reg(regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo));
- }
- 
- // This PMU reservation size is r570-specific.
-@@ -88,13 +87,13 @@ pub(super) const fn pmu_reserved_size_gb100() -> u32 {
- 
- impl FbHal for Gb100 {
-     fn read_sysmem_flush_page(&self, bar: Bar0<'_>) -> u64 {
--        read_sysmem_flush_page_gb100(bar)
-+        read_sysmem_flush_page_gb100(hshub0(bar))
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index 6c087d30a166..ea072c098b13 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -864,8 +864,7 @@ fn try_read<T, L>(self, location: L) -> Result<T>
+         L: IoLoc<Self::Target, T>,
+         Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+-        let view = io_view::<Self, T>(self, location.offset())?;
+-        Ok(view.read_val())
++        Ok(io_read!(self, try: location))
      }
  
-     fn write_sysmem_flush_page(&self, bar: Bar0<'_>, addr: u64) -> Result {
-         let addr = Bounded::<u64, 52>::try_new(addr).ok_or(EINVAL)?;
- 
--        write_sysmem_flush_page_gb100(bar, addr);
-+        write_sysmem_flush_page_gb100(hshub0(bar), addr);
- 
+     /// Generic fallible write with runtime bounds check.
+@@ -898,8 +897,7 @@ fn try_write<T, L>(self, location: L, value: T) -> Result
+         L: IoLoc<Self::Target, T>,
+         Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+-        let view = io_view::<Self, T>(self, location.offset())?;
+-        view.write_val(value);
++        io_write!(self, try: location, value);
          Ok(())
      }
-diff --git a/drivers/gpu/nova-core/fb/regs.rs b/drivers/gpu/nova-core/fb/regs.rs
-index c27582e376e2..584488a3e012 100644
---- a/drivers/gpu/nova-core/fb/regs.rs
-+++ b/drivers/gpu/nova-core/fb/regs.rs
-@@ -2,7 +2,8 @@
  
- use kernel::{
-     io::register,
--    sizes::SizeConstants, //
-+    prelude::*,
-+    sizes::{SizeConstants, SZ_4K}, //
- };
+@@ -978,7 +976,7 @@ fn try_update<T, L, F>(self, location: L, f: F) -> Result
+         Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+         F: FnOnce(T) -> T,
+     {
+-        let view = io_view::<Self, T>(self, location.offset())?;
++        let view = io_project!(self, try: location);
+         view.write_val(f(view.read_val()));
+         Ok(())
+     }
+@@ -1011,8 +1009,7 @@ fn read<T, L>(self, location: L) -> T
+         L: IoLoc<Self::Target, T>,
+         Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+-        let view = io_view_assert::<Self, T>(self, location.offset());
+-        view.read_val()
++        io_read!(self, build: location)
+     }
  
- use crate::driver::NovaRegisters;
-@@ -65,31 +66,33 @@ pub(super) fn vga_workspace_addr(self) -> Option<u64> {
+     /// Generic infallible write with compile-time bounds check.
+@@ -1043,8 +1040,7 @@ fn write<T, L>(self, location: L, value: T)
+         L: IoLoc<Self::Target, T>,
+         Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+     {
+-        let view = io_view_assert::<Self, T>(self, location.offset());
+-        view.write_val(value)
++        io_write!(self, build: location, value);
+     }
+ 
+     /// Generic infallible write of a fully-located register value.
+@@ -1121,7 +1117,7 @@ fn update<T, L, F>(self, location: L, f: F)
+         Self::Backend: IoCapable<<T as AsRepr>::Repr>,
+         F: FnOnce(T) -> T,
+     {
+-        let view = io_view_assert::<Self, T>(self, location.offset());
++        let view = io_project!(self, build: location);
+         view.write_val(f(view.read_val()));
      }
  }
- 
--/// Base of the GB10x HSHUB0 register window (`NV_HSHUB0_PRIV_BASE` in Open RM).
-+/// The GB10x HSHUB0 register window (Base defined as `NV_HSHUB0_PRIV_BASE` in Open RM).
- ///
- /// The base is provided by the GB10x framebuffer HAL.
--pub(super) struct Hshub0Base(());
-+#[repr(align(4))]
-+#[derive(FromBytes, IntoBytes)]
-+pub(super) struct Hshub0Registers([u8; SZ_4K]);
- 
- register! {
--    base: NovaRegisters;
-+    base: Hshub0Registers;
- 
-     // GB10x sysmem flush registers, relative to the HSHUB0 base. GB10x routes sysmembar
-     // through a primary and an EG (egress) pair that must both be programmed to the same
-     // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
-     // HSHUB0 base, so the multiple runtime-discovered HSHUB bases are not needed here.
--    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x00000e50 {
-+    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x00000e50 {
-         31:0    adr => u32;
+@@ -1666,6 +1662,25 @@ pub unsafe fn project_view<U: ?Sized + KnownSize>(
+         // SAFETY: Per safety requirement.
+         unsafe { T::Backend::project_view::<T::Target, _>(self.0, ptr) }
      }
- 
--    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x00000e54 {
-+    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00000e54 {
-         19:0    adr;
-     }
- 
--    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x000006c0 {
-+    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x000006c0 {
-         31:0    adr => u32;
-     }
- 
--    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x000006c4 {
-+    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x000006c4 {
-         19:0    adr;
-     }
++
++    #[inline(always)]
++    pub fn try_project_loc<U, L>(
++        self,
++        location: L,
++    ) -> Result<<T::Backend as IoBackend>::View<'a, U>>
++    where
++        L: IoLoc<T::Target, U>,
++    {
++        io_view::<_, U>(self.0, location.offset())
++    }
++
++    #[inline(always)]
++    pub fn project_loc<U, L>(self, location: L) -> <T::Backend as IoBackend>::View<'a, U>
++    where
++        L: IoLoc<T::Target, U>,
++    {
++        io_view_assert::<_, U>(self.0, location.offset())
++    }
  }
+ 
+ /// Project an I/O type to a subview of it.
+@@ -1693,6 +1708,21 @@ pub unsafe fn project_view<U: ?Sized + KnownSize>(
+ #[macro_export]
+ #[doc(hidden)]
+ macro_rules! io_project {
++    // Register projection
++    ($io:expr, try: $ioloc:expr) => {{
++        #[allow(unused)]
++        use $crate::io::IoBase as _;
++        let view = $crate::io::ProjectHelper($io.as_view());
++        view.try_project_loc($ioloc)?
++    }};
++    ($io:expr, build: $ioloc:expr) => {{
++        #[allow(unused)]
++        use $crate::io::IoBase as _;
++        let view = $crate::io::ProjectHelper($io.as_view());
++        view.project_loc($ioloc)
++    }};
++
++    // Field or index projection
+     ($io:expr, $($proj:tt)*) => {{
+         #[allow(unused)]
+         use $crate::io::IoBase as _;
+@@ -1763,6 +1793,12 @@ macro_rules! io_write {
+     (@parse [$io:expr] [$($proj:tt)*] [[$flavor:ident: $index:expr] $($rest:tt)*]) => {
+         $crate::io_write!(@parse [$io] [$($proj)* [$flavor: $index]] [$($rest)*])
+     };
++    (@parse [$io:expr] [] [try: $ioloc:expr, $($rest:tt)*]) => {
++        $crate::io_write!(@parse [$io] [try: $ioloc] [, $($rest)*])
++    };
++    (@parse [$io:expr] [] [build: $ioloc:expr, $($rest:tt)*]) => {
++        $crate::io_write!(@parse [$io] [build: $ioloc] [, $($rest)*])
++    };
+     ($io:expr, $($rest:tt)*) => {
+         $crate::io_write!(@parse [$io] [] [$($rest)*])
+     };
 
 -- 
 2.54.0
