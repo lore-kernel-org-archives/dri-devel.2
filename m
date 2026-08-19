@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A835C5DF88
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 19:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CDE5C5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 19:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C07EB10E17A;
-	Wed, 19 Aug 2026 19:06:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F2F10EEA8;
+	Wed, 19 Aug 2026 19:30:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oYnG2/Qr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jTG5Zo45";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D83C110E17A
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 19:06:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2728F10E02D
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 19:30:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 70DC443590;
- Wed, 19 Aug 2026 19:06:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 407EF1F000E9;
- Wed, 19 Aug 2026 19:06:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3077960DC0;
+ Wed, 19 Aug 2026 19:30:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7F5B1F000E9;
+ Wed, 19 Aug 2026 19:30:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787166392;
- bh=lq/xuKIMeT9euVXxs8faoNp57/zU4hJ6wQq920lhtOA=;
+ s=k20260515; t=1787167838;
+ bh=24at7HFbDE+yEDQR1EP2CkvONdx2YwE2kRtmcPQt600=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oYnG2/Qr04JhBBqf2hmdlsm2Lk/fEgO6H7+590Bm0vj7d7VPH8/F76IeT88udErsC
- 1BVcj2jLrDu4VMdLPBCDIbbAwbJvHdAL/sDvdo6MJ6rE7Xq42MTRQ1hohqzFLSrAIe
- XgTQ98RiEtD9YbR4WaGIKHx7QRR1ldem3N2QH2mdHppPtfYIZjJUPnBywqWfPN3Fm7
- TYcHkjlXJtFT84LSrmsj1APcHav3yMIGfwETZB5DPF4dvAC8C9JEVz30+0m63CLaCb
- VHvh4OzVQgQIXT727nJJyQk3Wp05c9o2leJ2tlQVTfG0o+XZVvHEKtu/9XLHY8jCsz
- GhIBY6YADq6cw==
+ b=jTG5Zo45iRcqaeycYYch45IjwJp/T9b09NQFG+UOomaUatVWQfUaF8KapjVcM65v9
+ UsFIlPrTakPHHkXt1SEH21mbzKFOwmXaAla4+F5qVwolXbm1JQ9de43Hi2jHD3NST9
+ Yb7uu0ZqZzTkX+WYBZKlBJV5/PVmBMTCymI6VoRcHehJ1BbuHnXCWALCK6/oXL5/wg
+ WkpPkJGAu8JxGR4c0r+MnvrLVJbkMdgIIirwdAMkT5BeO9IiwPIcHth154YVQ+6lYA
+ 77wjcBA2q4ZNpI4o4ULvA9/ERVDt5RkSxsJtBO8kpS45iU5/hY3sQpwrkdJoovfymF
+ ysss/+d0tS/Tw==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 1/1] drm/amdgpu: fall back to MMIO TLB invalidation
- when KIQ is unresponsive
-To: "Denis Pisarev" <pisarevden@gmail.com>
+Subject: Re: [BUG] KASAN: vmalloc-out-of-bounds Write in fillrect
+To: "Jaeyoung Chung" <jjy600901@snu.ac.kr>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260819185349.29407-2-pisarevden@gmail.com>
-References: <20260819185349.29407-1-pisarevden@gmail.com>
- <20260819185349.29407-2-pisarevden@gmail.com>
+In-Reply-To: <20260819191849.46929-1-jjy600901@snu.ac.kr>
+References: <20260819191849.46929-1-jjy600901@snu.ac.kr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 19:06:31 +0000
-Message-Id: <20260819190632.407EF1F000E9@smtp.kernel.org>
+Date: Wed, 19 Aug 2026 19:30:38 +0000
+Message-Id: <20260819193038.C7F5B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,199 +56,197 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
 
 New issues:
-- [Critical] Falling back to direct MMIO for TLB invalidations during runti=
-me circumvents KIQ's GFXOFF protection, risking fatal system hangs. The MMI=
-O path directly accesses Graphics Compute (GC) registers via `WREG32_SOC15_=
-IP_NO_KIQ(GC, ...)`. As noted in the existing comment ("This path is needed=
- before KIQ/MES/GFXOFF are set up"), this is only safe before GFXOFF is act=
-ive. If KIQ fails during normal runtime and the system falls back to this p=
-ath while GFXOFF has power-gated the GC block, the CPU will attempt to acce=
-ss powered-off MMIO registers without first waking them via `amdgpu_gfx_off=
-_ctrl(adev, false)`.
-- [High] The patch implements a self-healing fallback mechanism that relies=
- on a global counter (`adev->gmc.kiq_flush_failures`), which fails to corre=
-ctly track errors on multi-XCC devices. KIQ instances operate per-XCC. If o=
-ne XCC's KIQ becomes wedged, it increments the global counter. However, any=
- concurrent successful TLB flush on a healthy XCC will call `atomic_set(&ad=
-ev->gmc.kiq_flush_failures, 0)`, wiping the failure history. This cross-tal=
-k prevents the wedged XCC from ever reaching the `AMDGPU_KIQ_FLUSH_MAX_FAIL=
-` threshold.
-- [High] The MMIO fallback allows concurrent, unsynchronized access to the =
-TLB invalidation engine from both the CPU and the CP (KIQ) microengine. Whe=
-n a KIQ command times out, the unexecuted TLB invalidation commands remain =
-in the KIQ ring buffer. The CPU then falls through to the MMIO path, direct=
-ly writing to the same invalidation request and acknowledgment registers. T=
-he `adev->gmc.invalidate_lock` spinlock only serializes CPU threads. If the=
- KIQ subsequently recovers or processes its delayed ring, it will concurren=
-tly write to the same registers.
-- [High] The patch allows an SR-IOV Virtual Function (VF) to fall back to d=
-irect MMIO for TLB invalidations if the KIQ path times out. However, VFs la=
-ck the necessary privileges to directly write to global GMC invalidation re=
-gisters (which is why KIQ proxying is strictly required). If a VF executes =
-the MMIO fallback, the hardware will block the register writes or trigger a=
- fatal security violation trap in the Physical Function (PF).
-- [Medium] The MMIO fallback path acquires `adev->gmc.invalidate_lock` with=
- a plain `spin_lock()`. Originally, this path was only executed before init=
-ialization completed, avoiding contention. With the patch, this path is rea=
-chable during normal runtime when KIQ fails. The `amdgpu_gmc_fw_reg_write_r=
-eg_wait()` function explicitly anticipates being called from interrupt cont=
-ext (via its `in_interrupt()` check). If `gmc_v9_0_flush_gpu_tlb()` is invo=
-ked from an interrupt context, an interrupt preempting a process-context th=
-read that currently holds the plain spinlock will attempt to acquire the sa=
-me lock, resulting in an AB-BA deadlock.
-- [Medium] The patch introduces a `dev_warn` message in `amdgpu_gmc_fw_reg_=
-write_reg_wait()` claiming "falling back to MMIO" when the KIQ failure thre=
-shold is reached. However, the callers in v10, v11, and v12 GMC implementat=
-ions were not updated to check this return value or the failure counter. Th=
-erefore, they do not bypass the KIQ path or fall back to MMIO. This results=
- in a highly misleading log message.
+- [High] The proposed patch contains fuzzer-specific debugging delays based=
+ on process names, which is unsuitable for mainline and introduces potentia=
+l DoS.
+- [Medium] The patch introduces data races on global tracking variables use=
+d for debugging.
+- [Medium] The commit message promises a crash log and C reproducer, but th=
+ey are missing from the commit.
 
 Pre-existing issues:
-- [High] The patch modifies `amdgpu_gmc_fw_reg_write_reg_wait()` to return =
-an `int` so callers can fall back to MMIO on failure. However, for the MES =
-firmware path, the patch explicitly hardcodes `return 0;` instead of propag=
-ating the error code returned by `amdgpu_mes_reg_write_reg_wait()`. Consequ=
-ently, if the MES path fails, the caller is falsely informed of success, by=
-passes the newly introduced MMIO fallback, and silently drops the TLB inval=
-idation.
+- [Critical] Pre-existing vmalloc out-of-bounds write caused by mismatched =
+virtual console and framebuffer dimensions when `vc_resize` fails.
+- [High] fbcon_set_disp() silently returns early if var_to_display() fails,=
+ leaving the virtual console partially configured.
+- [High] Framebuffer geometry reconfiguration races with console drawing op=
+erations.
 --
 
---- Patch [1]: [RFC PATCH 1/1] drm/amdgpu: fall back to MMIO TLB invalidati=
-on when KIQ is unresponsive ---
-commit 551bd0b3bbdf086c6bb58a378bdcd03f9d151f96
-Author: Denis Pisarev <pisarevden@gmail.com>
-Subject: drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is unrespo=
-nsive
+--- Patch [1]: [BUG] KASAN: vmalloc-out-of-bounds Write in fillrect ---
+commit 9b426af657fe7eb031d119fdffbef9574baa163d
+Author: Jaeyoung Chung <jjy600901@snu.ac.kr>
 
-This patch implements a fallback mechanism for TLB invalidations on gmc_v9
-parts when the KIQ ring becomes unresponsive. It counts consecutive failures
-and falls back to direct MMIO, bypassing the KIQ path entirely after a
-threshold is reached.
+KASAN: vmalloc-out-of-bounds Write in fillrect
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.c
-> index 2f6d20c00ce29..566f42140e13d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -886,7 +886,7 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_d=
-evice *adev,
->  	if (adev->mes.ring[MES_PIPE_INST(xcc_inst, 0)].sched.ready) {
->  		amdgpu_mes_reg_write_reg_wait(adev, reg0, reg1,
->  					      ref, mask, xcc_inst);
-> -		return;
-> +		return 0;
->  	}
+This commit reports a vmalloc out-of-bounds write in fillrect discovered
+by a race fuzzer. It provides a patch adding artificial delays to help
+reproduce the race reliably.
 
-[Severity: High]
-This is a pre-existing issue, but amdgpu_mes_reg_write_reg_wait() returns an
-error code on failure. By hardcoding a return of 0 here, does this mask MES
-failures and prevent the new MMIO fallback from executing when the MES ring
-fails? If the error isn't propagated, the caller will assume success and
-silently drop the TLB invalidation.
+> KASAN: vmalloc-out-of-bounds Write in fillrect
+>
+> Hello,
+>
+> We found a "KASAN: vmalloc-out-of-bounds Write in fillrect" on Linux v7.2.
+> The issue was found by our own race fuzzer. We have not analyzed the root=
+ cause,
+> so we do not have a proposed fix to offer.
+>
+> To reproduce the race reliably, we applied the delay patch below to the
+> kernel and ran the C reproducer as root inside an x86_64 QEMU guest. The
+> crash log we observed, the delay patch and the reproducer are all included
+> below.
 
+[Severity: Medium]
+The commit message indicates that a crash log and C reproducer are included
+below, but they appear to be missing from the commit text. Can these be
+provided to help with the analysis?
+
+> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+> index 8f467b22b799e..bf68bba39b559 100644
+> --- a/drivers/tty/vt/vt.c
+> +++ b/drivers/tty/vt/vt.c
 [ ... ]
-
-> @@ -917,13 +917,20 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu=
-_device *adev,
->  	if (cnt > MAX_KIQ_REG_TRY)
->  		goto failed_kiq;
+> @@ -3287,6 +3289,10 @@ static int do_con_write(struct tty_struct *tty, co=
+nst u8 *buf, int count)
+>  	if (in_interrupt())
+>  		return count;
 > =20
-> -	return;
-> +	atomic_set(&adev->gmc.kiq_flush_failures, 0);
-> +	return 0;
+> +	if (syz_dcw_hits < 256 && strncmp(current->comm, "syzrepro2", 9) =3D=3D=
+ 0) {
+> +		syz_dcw_hits++;
+> +		mdelay(5);
+> +	}
 
 [Severity: High]
-On multi-XCC devices, KIQ instances operate per-XCC. Since this is a global
-counter, will a successful TLB flush on a healthy XCC unconditionally clear
-the failure history for a wedged XCC? This cross-talk might prevent the
-wedged instance from ever reaching the AMDGPU_KIQ_FLUSH_MAX_FAIL threshold.
-
->  failed_undo:
->  	amdgpu_ring_undo(ring);
->  	spin_unlock_irqrestore(&kiq->ring_lock, flags);
->  failed_kiq:
-> -	dev_err(adev->dev, "failed to write reg %x wait reg %x\n", reg0, reg1);
-> +	if (atomic_inc_return(&adev->gmc.kiq_flush_failures) =3D=3D
-> +			AMDGPU_KIQ_FLUSH_MAX_FAIL)
-> +		dev_warn(adev->dev,
-> +			 "KIQ reg access keeps failing, falling back to MMIO\n");
+Is this debugging logic intended for upstream? Introducing an unbounded
+delay based on user-controlled process names (current->comm) might allow
+an unprivileged local user to stall the console subsystem indefinitely.
 
 [Severity: Medium]
-Is this log message accurate for v10, v11, and v12 GMC implementations? Sin=
-ce
-the call sites for newer GPU architectures were not updated to check the
-return value or failure counter, they won't actually fall back to MMIO,
-making this warning potentially misleading.
+Can this unsynchronized increment of syz_dcw_hits lead to data races?
+Concurrent execution of console output could cause undefined behavior
+and incorrect hit counts.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v9_0.c
-> index b46b87291c512..271c179ed31ff 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -799,13 +799,18 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_de=
-vice *adev, uint32_t vmid,
->  	 * properly under bare metal
->  	 */
->  	if (adev->gfx.kiq[inst].ring.sched.ready &&
-> -	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
-> +	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
-> +	    atomic_read(&adev->gmc.kiq_flush_failures) <
-> +			AMDGPU_KIQ_FLUSH_MAX_FAIL) {
+>  	guard(console_lock)();
 
 [Severity: High]
-If KIQ fails on an SR-IOV Virtual Function (VF) during runtime, the thresho=
-ld
-check will fail and execution will fall through to the direct MMIO path.
-Since VFs lack privileges to write to global GMC invalidation registers
-directly, will this trigger a fatal security violation trap in the Physical
-Function (PF)?
+This is a pre-existing issue, but does console drawing race with
+framebuffer geometry reconfiguration?
 
->  		uint32_t req =3D hub->vm_inv_eng0_req + hub->eng_distance * eng;
->  		uint32_t ack =3D hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+Looking at do_con_write(), it executes under console_lock but does not
+take info->lock. Framebuffer reconfiguration, such as via fb_set_var(),
+modifies info->var and reallocates memory under info->lock.=20
+
+This could lead to data races or out-of-bounds writes on the framebuffer
+memory if ioctl(FBIOPUT_VSCREENINFO) and console writes happen concurrently.
+
+> diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/cor=
+e/bitblit.c
+> index 39f44258d793f..f2cb909c8e5bd 100644
+> --- a/drivers/video/fbdev/core/bitblit.c
+> +++ b/drivers/video/fbdev/core/bitblit.c
+[ ... ]
+> @@ -69,6 +73,10 @@ static void bit_clear(struct vc_data *vc, struct fb_in=
+fo *info, int sy,
+>  	region.height =3D height * vc->vc_font.height;
+>  	region.rop =3D ROP_COPY;
 > =20
-> -		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
-> -						 1 << vmid, inst);
-> -		return;
-> +		if (!amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
-> +						      1 << vmid, inst))
-> +			return;
-> +		/* KIQ submit failed - fall through to the MMIO path below
-> +		 * so the invalidation is not silently dropped
-> +		 */
->  	}
-
-[Severity: High]
-When falling through to MMIO here, the original timed-out command remains
-pending in the autonomous KIQ ring buffer. If the KIQ experiences a transie=
-nt
-delay and then resumes processing its queued commands, could it concurrently
-write to the same invalidation request and acknowledgment registers while t=
-he
-CPU is accessing them? This might corrupt the hardware state machine.
-
-> =20
->  	/* This path is needed before KIQ/MES/GFXOFF are set up */
-
-[Severity: Medium]
-With this patch, the direct MMIO path is now reachable during normal runtime
-when KIQ fails, where it will acquire adev->gmc.invalidate_lock via a plain
-spin_lock(). The amdgpu_gmc_fw_reg_write_reg_wait() function anticipates
-being called from interrupt context (it checks in_interrupt()). If
-gmc_v9_0_flush_gpu_tlb() is invoked from an interrupt context, could it
-preempt a process-context thread holding this plain spin_lock and attempt
-to acquire it again, causing an AB-BA deadlock?
+> +	if (syz_bc_hits < 96 && strncmp(current->comm, "syzrepro", 8) =3D=3D 0)=
+ {
+> +		syz_bc_hits++;
+> +		mdelay(5);
+> +	}
+>  	info->fbops->fb_fillrect(info, &region);
+>  }
 
 [Severity: Critical]
-As the comment notes, this MMIO path is only safe before GFXOFF is set up.
-If KIQ fails during normal runtime and we fall back to this path while GFXO=
-FF
-has power-gated the GC block, will accessing the GC registers directly cause
-a machine check exception or hard system hang?
+This is a pre-existing issue, but could the region calculation lead to a
+vmalloc out-of-bounds write?
+
+In bit_clear(), the region dimensions are calculated using vc->vc_font
+geometry:
+
+    region.dx =3D sx * vc->vc_font.width;
+
+If vc_resize() fails during fbcon_set_disp() but leaves vc_cols and
+vc_rows at their previous sizes, the mismatched virtual console and
+framebuffer dimensions can cause bit_clear() to write outside the
+bounds of the framebuffer.
+
+[Severity: Medium]
+Does this code introduce data races due to the unsynchronized increment
+of syz_bc_hits?
+
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
+fbcon.c
+> index 23b3c536d53d1..75a14ee4ca131 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+[ ... ]
+> @@ -1492,6 +1493,9 @@ static void fbcon_set_disp(struct fb_info *info, st=
+ruct fb_var_screeninfo *var,
+>  	rows /=3D vc->vc_font.height;
+>  	ret =3D vc_resize(vc, cols, rows);
+
+[Severity: Critical]
+This is a pre-existing issue, but does ignoring the vc_resize() error
+leave the console bound with desynced dimensions?
+
+In fbcon_set_disp(), if vc_resize() fails due to a memory allocation
+failure or invalid dimensions, it returns an error. However, this error
+is only used to skip update_screen():
+
+    if (con_is_visible(vc) && !ret)
+        update_screen(vc);
+
+This ignores the error and leaves vc_cols and vc_rows at their previous
+sizes, which can later cause the out-of-bounds writes in bit_clear()
+mentioned above.
+
+[Severity: High]
+This is a pre-existing issue, but does fbcon_set_disp() silently ignore
+failures from var_to_display()?
+
+fbcon_set_disp() contains an early return that aborts configuration without
+propagating the error:
+
+    if (var_to_display(p, var, info))
+        return;
+
+Could this leave the console state inconsistent with the framebuffer state
+and lead to further memory safety issues?
+
+> +	if (strncmp(current->comm, "syzrepro", 8) =3D=3D 0) {
+> +		mdelay(10);
+> +	}
+
+[Severity: High]
+Does this code introduce an unbounded delay conditional on user-controlled
+input, potentially leading to a denial of service?
+
+>  	if (con_is_visible(vc) && !ret)
+>  		update_screen(vc);
+>  }
+[ ... ]
+> @@ -2091,6 +2096,10 @@ static int fbcon_resize(struct vc_data *vc, unsign=
+ed int width,
+>  	struct fb_var_screeninfo var =3D info->var;
+>  	int x_diff, y_diff, virt_w, virt_h, virt_fw, virt_fh;
+> =20
+> +	if (syz_fr_hits < 32 && strncmp(current->comm, "syzrepro", 8) =3D=3D 0)=
+ {
+> +		syz_fr_hits++;
+> +		mdelay(5);
+> +	}
+
+[Severity: Medium]
+Can this unsynchronized increment of syz_fr_hits lead to data races?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819185349.2940=
-7-2-pisarevden@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819191849.4692=
+9-1-jjy600901@snu.ac.kr?part=3D1
