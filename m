@@ -4,59 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48339C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 07:09:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B6AC5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 07:24:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F282610ED3F;
-	Wed, 19 Aug 2026 07:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 163E510E0D6;
+	Wed, 19 Aug 2026 07:24:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D945zWtM";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="VfIsNgpj";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="enlEApic";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01AA910ED3E;
- Wed, 19 Aug 2026 07:09:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787123385; x=1818659385;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=dxqpOPGUKt9fzUShnvRwtpWIHWT9WD1jmQToDhzm/U0=;
- b=D945zWtMORFhfT5wvKQ772oFktWw4IQDnziAZ1UDjBHud3sAK7Zexiqo
- l5PtVWaY+CVbsSZowOjidufdj4Abw4wTMfnuHRVHBkZ7yXEzUJHYvdWe1
- 0Cf0juxq4sX/vHyJ5vxrK8dpdXc/TC9W+ip+k7Td+kZkz+t8b71uYXj1J
- xy+X+Nxw6qBMSHxHr69+rCYCaugyBqtd+eePReYwB2v4lrGtXsbGEW3/M
- hksTF0DQPKDBxkgdFlxiffR9kTpqqGAnKaEmCNo/Fu8gnb032mk+vOy7I
- A0Bxi9w6lXNeOjY3Y2f6yHKOxGWmq7xHewGpdfwziJSaKZyPZLHKvC4Jt Q==;
-X-CSE-ConnectionGUID: 2iTpFoHaQbaDQ00wxihCwA==
-X-CSE-MsgGUID: Yjms3Et+QXOgJwAwLGW4+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="113172072"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="113172072"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 00:09:45 -0700
-X-CSE-ConnectionGUID: BBo3tM0HRG2n3stOGg7ZYA==
-X-CSE-MsgGUID: T21tUoibTsqn7vKVdwGZCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="270661780"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.124])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 00:09:42 -0700
-Content-Type: text/plain; charset="utf-8"
+Received: from flow-a7-smtp.messagingengine.com
+ (flow-a7-smtp.messagingengine.com [103.168.172.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62FCC10E0D6
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 07:24:30 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailflow.phl.internal (Postfix) with ESMTP id A84B01380316;
+ Wed, 19 Aug 2026 03:24:29 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-03.internal (MEProxy); Wed, 19 Aug 2026 03:24:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm2; t=1787124269; x=
+ 1787127869; bh=G0C1e6ZjdL7cPakdNxrRlggTVin64kjut7JVZDAb140=; b=V
+ fIsNgpjcWEvoCHm8wvtFwR73MHwY9jvlh0ktvLSh3EJ3qRgqosUCFyA9IILRJSOh
+ txVjq0vCx70PGxJX4jhfVOjq+1l4zFWfty9htaNn6t4G1p+CclEd8NpnPemrXcp5
+ SwmccIS04cEguoFh7diZKxx6DhdYOtEvd2pjwpgr3JcrI9OpNk7gH1BYb+0GPdO3
+ m4iWwvdGD101mMMKJJZMW7WA/2xk4fQpsQ5pW+HKQOLdybnIHB8RMBk0170683XX
+ IHPQbkCO7wXqDpnrChPKCqTYBNM5gb4w7vOCqDjtr0VOWOK0jlL/dacyKtkTxjGu
+ VILYQfUuFkkWQr2aDMcrg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; t=1787124269; x=1787127869; bh=G
+ 0C1e6ZjdL7cPakdNxrRlggTVin64kjut7JVZDAb140=; b=enlEApicXhstIG/U3
+ OP2t+vaSYrqDv6GuCiLtGp8BWoqshScvjEbO0XD84TvjHGggLiLCUsvgw5BTERnu
+ ENqATpVcNO6zsCjgHIvn+yYHYm8epOqfsGh3LGnzCBj/eeYbCSTS6kkKw4v2a3sy
+ h8OPQvjufAgi4hCYCpa7KLUnorzcedjqs+pV178FPLrffTReOXtD8uzltP5jUKyA
+ +18QiDVy3L5PEK0/208vpGeQHfCfGVRdbpgfMMy8BiaJwLztgbAxGfB8alt36Mbs
+ 3vNYEinp9cawH9CgmRb42HYXb4X196U5c0ErbGkhJWheTikbHjgHnVjeFxeyjQ8V
+ ejRLw==
+X-ME-Sender: <xms:LFqFau76oeh6qQXhjNUFVm85iuqqZVdiVwd03w-X9D6W59j9fTV0Tw>
+ <xme:LFqFagG8Qw6e2DV_i9N9v9jJE498osUfNiSrvhCjgwcv_ptUEz-ZzdJWymHm7TrDC
+ cXwbSqDm_OvfPqCU1nAS-93-ambRXxBIK2RJVsqfDHrcmhZG2UBkQ>
+X-ME-Received: <xmr:LFqFapC0JqbkjevxrPSBKs3vH1H0jQRWhlwAE_mHAOXrzfALGnLsorPPshRinT5A_RVvYyyuKA>
+X-ME-Proxy-Cause: dmFkZTFLR/dnNZQt84OlycGQ955XSt6mLsiPdxZ38PLxh1zGK0IjgtpTWWMqr0dq0XdJRa
+ ZUGXcrkDsG54Z6DBErZW+H5kJIXWv3ZaanedG6Iu5O8PGe23WRs0uci+1//YCH8q0uN6Dm
+ xgaWJm8zd5pYVcnc44ckoaevOmd7lyN2EbF13A+Bj3Jte6hl0CbqH0tYrDv+90P6mypksv
+ oEg6qSG33YxlvU+cDs966TYxwNOg9eCuJL3q7b99IfjytW50H7J5V0V0JgBGxgevl9kjK4
+ N1sQLtAGIfDgkX+Y9hlRp1Gwh3s3/FoNLEa/EUbVF/9sVNZgtX0gKHX5xVnkU2s4Pr/JGo
+ bGve1tAYxrl8urz+0MUUbbVLQsFYqOqv3FH0qWmyP7jc9kkrIQDEFCqy7reBVnL7a5fw4L
+ 0DytQGIW6KMz6AMlXn2R266s39qeHwMmBiCRZZHnUB5wSLmM0eVwJZbQi89STxt5bbF3K0
+ B307bTlCsgnWUERZooMSU12OptV+i8+8Kpdw7besL9QVJnP7H2DLZIEvEuXBGBr26PiJ4I
+ 1CdBR3E9zMIVNeFj/XoUO6Nv7FOpVeGlYr1SOFyymtq7xbTfvMSE1X3Fe7pJGfaAOuqjOE
+ tS18tWkSDM9TYJKZ/qqK++xjrtrrnJ1XEbruaGBnnvpcQ6pemPfvakXQ0rPg
+X-ME-Proxy: <xmx:LFqFalzH7DtQaK5SX1XjqAsQanL8wRZCkMbdk_VGJMhp5xMcH9mJyA>
+ <xmx:LFqFat7NC8drtubeZytYhyDanX5jGsgKJF8UtMmYWu-CwBhsaY0gmA>
+ <xmx:LFqFamzuiJ439eeQiKQ0Yhv2vrfbErujYC26P5zYuVjCD3KsPp3H2A>
+ <xmx:LFqFahen3cnUOz49Ey_5chKPIDAKJrWXPlvGjtthpdc4rv5rVpQZHA>
+ <xmx:LVqFaoajtM5MyGt8yuds277Ul4yzf__nFVpt2ARK5qUucZlkWPkbiKAV>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 19 Aug 2026 03:24:24 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: royalnet026@gmail.com
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, chaoyi.chen@rock-chips.com,
+ alchark@flipper.net, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 02/12] accel/rocket: wait for a running IRQ handler
+ before resetting a core
+Date: Wed, 19 Aug 2026 19:24:20 +1200
+Message-ID: <20260819072420.1780708-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260819065146.5904-1-royalnet026@gmail.com>
+References: <20260819065146.5904-1-royalnet026@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <aoR9bznCkJHwK4DY@sirena.org.uk>
-References: <aoR9bznCkJHwK4DY@sirena.org.uk>
-Subject: Re: Fixes tags need work in the drm-intel tree
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-To: DRI <dri-devel@lists.freedesktop.org>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Date: Wed, 19 Aug 2026 10:09:39 +0300
-Message-ID: <178712337932.24680.17671628229026350089@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,34 +98,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-You may want to include the repository name in the body of the message,
-not just title. The full repo name would help, too.
+Hi Igor,
 
-As there's no drm-intel tree, one would assume drm-intel-next, the
-below commit is not there. Seems to be from drm-misc-next.
+You were right, and it is one line.
 
-It seems to also be drm-intel-next-fixes tree which has been reset to
-equal drm/drm-next to prepare for -next-fixes PRs.
+Three runs in one boot on a ROCK 4D, one variable between them. Each
+forces a timeout and then runs the same convolution.
 
-Maybe you want to only send the notification once per unique HEAD
-(ignoring merges)? That'd then target the original commit and
-any cherry-picks.
+  put                after the timeout          the next inference
+  put_noidle         runtime-active, rail up    0 of 128, MMU_DTE_ADDR
+  put_autosuspend    suspended, rail down       128 of 128, no message
+  put_noidle again   runtime-active, rail up    0 of 128, MMU_DTE_ADDR
 
-Regards, Joonas
+The domain never drops, the bus reset it cycles on power-on never fires,
+and the MMU stops answering. Your third bullet. The third run is there so
+the failure is deterministic rather than intermittent, which two arms
+could not have shown.
 
-Quoting Mark Brown (2026-08-18 18:42:39)
-> In commit
->=20
->   0aeed866cb938 ("drm/amd/display: Fix dangling pointer in CRTC reset fun=
-ction")
->=20
-> Fixes tag
->=20
->   Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_crtc and dm_crtc=
-_state")
->=20
-> has these problem(s):
->=20
->   - Subject does not match target commit subject
->     Just use
->         git log -1 --format=3D'Fixes: %h ("%s")'
+The fourth run in that round is void and I am saying so rather than
+letting it read as evidence. It meant to force a suspend by hand and
+separate an armed timer from a cycle happening at all. I wrote "auto" to a
+power/control that was already auto, so it did nothing. Five seconds later
+the state line still reads runtime-active with the rail up and genpd
+active_time still climbing. It failed the way the first run did, so it is
+a second instance of the bare put and nothing about forcing.
+
+pm_runtime_put_autosuspend() is patch 3 of 13 in v9, its own patch rather
+than folded, with your Reported-by. The interrupt mask goes into the sync
+patch, where it makes that patch's own sentence true, and the lockdep
+point is in the message. Your Reviewed-by on the extraction is carried.
+
+Twenty resets recovering on RK3588 with the domain dropping every time
+does not contradict this, since the dropping is the step my failing runs
+are missing. One difference between the two tests is worth stating now
+rather than after we have both quoted it. Your induced resets come from
+JOB_TIMEOUT_MS at 2 ms against healthy jobs of about 5 ms, so the block
+being reset is working. Mine come from a job that hung. Whether that is
+why your domain drops and mine does not, I cannot tell from here, and
+RK3588 may simply have nothing behind the domain that needs cycling.
+
+Both limits you drew are the right calls. Testing through a path you have
+reported as broken would have told neither of us anything, and only the
+differential earns the tag.
+
+Jiaxing
