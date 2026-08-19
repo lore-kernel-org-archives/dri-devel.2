@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78C19C5DF81
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 20:39:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78810C5B572
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 20:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D55BE10E0E7;
-	Wed, 19 Aug 2026 20:39:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA79D10E1AD;
+	Wed, 19 Aug 2026 20:49:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3jQzVcF1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ztuNCecD";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013067.outbound.protection.outlook.com
- [40.93.201.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADDD110E0E7
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 20:39:17 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012056.outbound.protection.outlook.com [52.101.43.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A926510E183
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 20:49:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FdG2ZDHw2HA97uEU6yUKak/DfpN6LCRXLvUrCe3KQEmuwMUanDHMZvd+H7YiATLAPzODzuaFpO85jGd7Ab8zG4DoGtn6DtaCerwyuSxoYowngzBOiS6pO0UzWefZw8jMzemjBWpnoV5py5KUzdutrg9dVEzRwy70f4T09lzOLcWj+eveTkI4kNLtfvI0OlidLTWWjhN3O8JQnzSKSbT+g2o+TstmYKBFK0pcGSr/1I0P0nPmbtcEec/g0DgnlqD4lOWUbTfV2bvy51JSJsPbjyLoJMxHQNQw0dDMJsbaZID/yVZGoAUf74c0rKnv6kJlfpWc6m+zUvLraVLY5gci9g==
+ b=OkqAsLo0Kt5qRfZoE62Povr7UlXc3iRY8cMBmW4UCFbSkWXKgfgfJxSH+yTY4nHUVw3B86C+5i3UoQLmCiElBd1DOlAi8w8m0X6JkKmWV1KGD0uUMUccWZUclmXl+sv7K9a0RZOc1joX6NnrO8u7ot0/a1L0qlOn06icaPwiGWlTGFFBp1kdQTYTOdja5ho4jtUWy10oe8vb8RUNEbpbdv/uNYtfuiSAvgG7ztnI1EEYjEYti7oSfgdxDlxvpL2Q0LAPamhZzASkenOmpeJkw0PlE8f88JpwgVqahtwMEhKhESlXrKAxXsDGp1AVpJgEMV+yombWMF6Ke0+bAq1kng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SNo1SOX9PmlU5v4C53iI2CBDWKKfyD0KGuN7/L1lmzI=;
- b=sSmsic1AxWRTTMznjMaBp5NdaY4dA2U9mNOMzFDxahwtywkOGCsKlYHkUwxkd8pX+qLthm6y33ri27rJ8di3PUg9h6jS7J+PPcz0mluuLCEMUqtFNYkA9/9GJ/ENFHQ7pYtDl/zcncyZvseJ4ldyq/kGbRLxkgQoW20M5TtHyrm1WB91KDyUeAkGF8qnc4GiIRKlfSWs9Saf1bYvFr4pxdyMnbimNxxc1oRQeOoSfLBiK9rNCDJOMIj4D8tphp8KyF2yrOcBZQ6wttvYfUimspyEe+CSvzKsgizitPqaev9WiL3Kt4vjiTh5+lS4CHAq3o7U7cPJxjyKQDwZiKwwrQ==
+ bh=fBtcVNjLv0FWKeWou6Fho2KW3trDX01Z6df12H0Xsdw=;
+ b=OyDeqnNLBVnRZ9sz8TmAh1QoOMXMM3oo1SDtJx7m3R9uRGWLtIn+zh3WHU0+vZrRE++q1JR1h3vAYxyF/A/KtRhzV72WZX//URlST5vhQ1tIY0UZU4xf0WdegmFULSfZGTD3lZNAaTfpGw7gonQB4EPXnamOOh+t+bDgUdQUinq0DKY2i+zLHhG47hCo91ujrfJUHGGCEx6QfFsR5uLcqPKQifwZRseXDpkUu5TuEd9Y2Z8rYqgLi+9fVq55rOVniLnLwpoSFCAIbrl3qDpqF06TSqFmeYaDYztvYzPVJGPNWOe7eDAgMRYpm89xz8H0YpPA54LWnNY4HrDECry9ag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SNo1SOX9PmlU5v4C53iI2CBDWKKfyD0KGuN7/L1lmzI=;
- b=3jQzVcF16E52SoVFq7uXb+OxFAJGMkUTW8ZDP8kG/dNogMN582rye+7YgBN65Ljib0STc7C6Uk+61UADAfGg3dORbV8n/Pw7zzJW55TjsXOsLxCRtp15FELLumjAEMBiEFYn2KDm8YIiWmsgr2duwVjYw7TTPH7rtlsvZ3wz+mI=
-Received: from SA0PR11CA0168.namprd11.prod.outlook.com (2603:10b6:806:1bb::23)
- by DS0PR12MB999266.namprd12.prod.outlook.com (2603:10b6:8:426::5)
+ bh=fBtcVNjLv0FWKeWou6Fho2KW3trDX01Z6df12H0Xsdw=;
+ b=ztuNCecD6CWEUFHDF5H7QoOz50jSx6+EudwC4qFrIHYm4uRaOtIxzoKNuoY39+wm7IBF7+sT+4Pa7PkhnViGsb/xT08/PUgDTQEUxBDJOOOAPZQ6ckbj8+W5CzRJEgwub+D5bUC0Kc9CAhHr1CbkVico7KxQoI+khTLCyTOx9AY=
+Received: from SA1PR02CA0009.namprd02.prod.outlook.com (2603:10b6:806:2cf::14)
+ by MW6PR12MB8952.namprd12.prod.outlook.com (2603:10b6:303:246::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 20:39:12 +0000
-Received: from SN1PEPF0002636A.namprd02.prod.outlook.com
- (2603:10b6:806:1bb:cafe::a4) by SA0PR11CA0168.outlook.office365.com
- (2603:10b6:806:1bb::23) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 20:49:30 +0000
+Received: from SA2PEPF00001507.namprd04.prod.outlook.com
+ (2603:10b6:806:2cf:cafe::30) by SA1PR02CA0009.outlook.office365.com
+ (2603:10b6:806:2cf::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Wed, 19
- Aug 2026 20:39:12 +0000
+ Aug 2026 20:49:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF0002636A.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00001507.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 20:39:11 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 20:49:25 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
- 2026 15:39:11 -0500
+ 2026 15:49:25 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
- 2026 15:39:11 -0500
+ 2026 15:49:25 -0500
 Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Wed, 19 Aug 2026 15:39:10 -0500
-Message-ID: <3d677570-2204-016c-efde-779b07e76538@amd.com>
-Date: Wed, 19 Aug 2026 13:39:10 -0700
+ Transport; Wed, 19 Aug 2026 15:49:24 -0500
+Message-ID: <65774c6e-ec7e-8e5b-bbd4-a25c6ab1299e@amd.com>
+Date: Wed, 19 Aug 2026 13:49:23 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v4 1/5] accel/amdxdna: refuse an I/O memory mapping of an
- imported BO
+Subject: Re: [PATCH v4 2/5] accel/amdxdna: check the sync range for overflow
+ on a device BO
 Content-Language: en-US
 To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, <mamin506@gmail.com>,
  <ogabbay@kernel.org>
@@ -78,36 +77,36 @@ CC: <christian.koenig@amd.com>, <sumit.semwal@linaro.org>,
  <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
  <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>
 References: <20260817230707.356828-1-taimuraz@kaitmazov.com>
- <20260817230707.356828-2-taimuraz@kaitmazov.com>
+ <20260817230707.356828-3-taimuraz@kaitmazov.com>
 From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260817230707.356828-2-taimuraz@kaitmazov.com>
+In-Reply-To: <20260817230707.356828-3-taimuraz@kaitmazov.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636A:EE_|DS0PR12MB999266:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec4dc8c7-4d48-484b-d25e-08defe31ed19
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001507:EE_|MW6PR12MB8952:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd42d62f-5112-4620-b2d8-08defe335b09
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Cn6vmydGRga99A7mxBHxGX8DTfrFb6lQNMb7G8jmbaU9FCXuf5Uu5jKG8XRryd0kzipTBRmlBYmWFLmcM7bhZhJLBvIxS6VryJPpOEhLGQyqsF4iSvIXWFl7o034zp3TUXB0e+kxhmKx1h1ZhYUM7eoo2hE0OF7YK/tfZ3OLRzxDqDzVskbE+zP2nq5CFXEWdK+w0fuoatBB43Ys6JqefAoWIRpuHYEH4Xb9YurQOYzq8uUFw8tlEU9yz2voiPUY4svqiZucpsnKifTG29lJyEsILbMbH6F9xWh12kKLPgJ4rjFKL+NlTLkkMY11DRQ98NgLUFKiMcJbOf0vutdpbFBK7j7b0Ro7L5mSVkvDQ+Ovx4LpKwlgJHip9efx+pFf6wUx1QnWc2z587DEADLr4CZv676yQsILQ6J9tHx7k7u5zuydB0TmpBBWrWMsfBgy0xgxkxz2PKVXm8PrXuHUnvxuRSzLQzo6P2nVwmyOmDkCiuqOhw/e0cFXcfcQ4EYE/ks971y1+oPs4JXRQywBLGyEAqaykVh0yB75auCYFKoljIw6LE/sA6Po1N5+NpMJqW+t4izbcG4EXpwtohEjz9CWXuGMq2PlgYBD3EUn1CklaoYVXOzRnm4xiTHlLsKz8ikDUBMpRmex+ErHB7rbxhYgRM1BtRYUKCY7J4Ew/nWOBmm7kkw/+g0VrY/ktybXfVo84//0zeOkhDSbo93O5Q==
+ ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|5023799004|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 00FxWyn3iArTLET9RZ9Wk7/AscM1BiOy90AFJXO4kHjZ9M/ohv23susZVCgCWPsG/FmwaEUp6F54+qn8bRhToMH79+vGdN68QPMU757TBCkK3/a5rGFWLoorhkyYKPdintuqAM8sVuzvtqVQTrqaIUWv5PrF3eyYHLIOtugmeFx5vKONmpPB5sB2QJlUPKQ/8BMc7rR1rtznGUgdrksYEUBtSEUtR4DwFQkh/TVFfg+zDsljT9Oy54/zZiyNlPdRDi5dykSGbJ5GYb7/6Sd4Q+GfezLRz9Pk18xhyapxkxACC/HkhZpVWp8C3KLRzRvPfvdhDma6PmGHDj/TCu6qa+EAeK9y0QRLnKtyPdjao9WFQd+h9G15HPDpavq/FTpYeIWIi6T+z2xcyZmYgg6outQtnOlflhhIGDaYbv1a2I/ZMaNXGJu+0HpbMajJC2mDLCnnJ/dmuCIzj9XafNCUHP7z7dCCDz/0Di77ERuuEVAz00egnNqzyHa5mWzdF8I2+6pPRf2hY3eh236kYZy39HPy31DkVPWlJlEt7dFmo3ymvfyC41k6OsYGKybLiKZzLGq6S3GZ3GIKAuQ/T/NGmHcIMKoeyx6u4vAPmWfXRzo6o7r0o5aQ0Vr429+gHOsdqnW+MoZNDL5iaJWziN+GkUNxsb9ZQ6PV+d+mXwmWCJ52PAk1AL7hFvukoh372c6wu6nVvYxpZFlZuXuQUSIoFg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(5023799004)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: d4FTGwGHxeR+s/XxnomnclLXrAb/UHsCulWRwdGItNiPiaZr6106WUacw8ZwiJX6RSOF0UlTdzp6vzgnjvRzccUpTfkEaNwP9osyvMQNF+eXeRU1K/+OqaAbOaQexGe2qaz1WRnR0xcr6rZ9et8vlr47SXwKur73O3t8U0mFLja+O6Kqa+AxZrHd78YhFnY5GkoWu6CLK9LHpl4TEvOxbLdapJ9cmEdDBcBBcFV6AJz4NC9603Q3YGd4V8MhanqcMJ47X/01PPUodjJx4pbUmQfMgswezLgDqxec+4Hm63KzlBumbfLOGm+0U706MYU2Hv3lpkA7X1eArQog+ck+HNR/PMHi1zIUarLtZUqPXghQHdDUFKECMmeqG9gX22qiOpPGz9e3LsT8t4z9Lsl1fniZt1Sm7guiSXcVzqMb2vuryT43XYKjxOe93/9kXSAg
+X-MS-Exchange-AntiSpam-MessageData-0: wcQq0jmZtskTJwHvYiRy7axjihZt+3IrayF8pF9LrhGUKpk7U6kJgqJDf5D8jkXxEKD259xHwws4TT23ZnvwmzUtFlLnWk6pssabYgDP7QzJNyrwkdtHny0f+1zIPqRlEyET8JwEkNdemN7RrZEnAqlBpSUq1mnxlvPCzGbFeFyedo54nAkWQ6nBCGXpXYjVWDfJDZXOCtBdyqeqkID9tYlCNhivCKUGypEEgNuFmLBvwflHba314I0KK+fTNY1aOuw+Lm7cF/VfURDcj5VrsBzcAJP6uLkFKHmhrCi4P3yGXjdRjcqoRvCUBpD6uRzC+Y3efLlWirIGNC+8ih9SEr07qsVOHgcPVeqTlHKYyYr1U2emlG0JBOJ9ZomUnYXtdiI5hpYtew4CRtxnTjz5gfq97maHH1vabfJmx9uK+8+fLLkiIaxyL8cGnbJ+gMng
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 20:39:11.7259 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec4dc8c7-4d48-484b-d25e-08defe31ed19
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 20:49:25.6675 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd42d62f-5112-4620-b2d8-08defe335b09
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636A.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001507.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999266
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8952
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,23 +124,15 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 On 8/17/26 16:07, Taimuraz Kaitmazov wrote:
-> amdxdna_gem_vmap() flattens the iosys_map drm_gem_vmap() fills in down to
-> the void * in abo->mem.kva, and iosys_map is discriminated by is_iomem, so
-> an exporter answering with an I/O mapping leaves a void __iomem pointer
-> there, which amdxdna_cmd_set_error() memsets and memcpys through.
+> amdxdna_drm_sync_bo_ioctl() forms the range for a device BO by adding the
+> caller's offset and size to the BO address without checking either, while
+> amdxdna_flush_bo() one call down guards the same arithmetic with
+> check_add_overflow().
 >
-> amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
-> buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
-> peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
-> no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
-> object, so an NPU paired with nouveau or radeon does.
->
-> Drop such a mapping and answer NULL. Checking here rather than in the
-> .vmap callback leaves that callback's iosys_map contract intact for a
-> caller equipped to read I/O memory, and covers everything that takes a
-> plain kernel address through this helper. vmw_gem_vmap() refuses the
-> same case; unlike that one this path is reachable from an unprivileged
-> ioctl, so it neither warns nor logs at error level.
+> A size that wraps flush_end leaves it below the heap it is clamped
+> against, so every heap fails the start >= end test, and a sync that asked
+> for more than the address space holds reports success having flushed
+> nothing. Reject it instead.
 >
 > Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 > ---
@@ -149,25 +140,23 @@ On 8/17/26 16:07, Taimuraz Kaitmazov wrote:
 >   1 file changed, 7 insertions(+), 2 deletions(-)
 >
 > diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index cca84fa07e9d..f88b5349cd4b 100644
+> index f88b5349cd4b..77a9493cd7ba 100644
 > --- a/drivers/accel/amdxdna/amdxdna_gem.c
 > +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -209,10 +209,15 @@ void *amdxdna_gem_vmap(struct amdxdna_gem_obj *abo)
->   
->   	if (!abo->mem.kva) {
->   		ret = drm_gem_vmap(to_gobj(abo), &map);
-> -		if (ret)
-> +		if (ret) {
->   			XDNA_ERR(abo->client->xdna, "Vmap bo failed, ret %d", ret);
-> -		else
-> +		} else if (map.is_iomem) {
-> +			/* Callers use the result as an ordinary kernel address. */
-> +			XDNA_DBG(abo->client->xdna, "Vmap bo returned I/O memory");
-> +			drm_gem_vunmap(to_gobj(abo), &map);
-> +		} else {
->   			abo->mem.kva = map.vaddr;
+> @@ -1274,8 +1274,13 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   		struct amdxdna_gem_obj *heap;
+>   		unsigned long heap_id;
+>   		u64 bo_start = amdxdna_gem_dev_addr(abo);
+> -		u64 flush_start = bo_start + args->offset;
+> -		u64 flush_end = flush_start + args->size;
+> +		u64 flush_start, flush_end;
+> +
+> +		if (check_add_overflow(bo_start, args->offset, &flush_start) ||
+> +		    check_add_overflow(flush_start, args->size, &flush_end)) {
+> +			ret = -EINVAL;
+> +			goto put_obj;
 > +		}
 Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   	}
->   	return abo->mem.kva;
->   }
+>   
+>   		xa_for_each_range(&client->dev_heap_xa, heap_id, heap,
+>   				  abo->heap_start_id, abo->heap_end_id) {
