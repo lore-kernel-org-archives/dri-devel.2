@@ -4,96 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2B93C5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 09:13:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54F5BC5DF85
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 09:15:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 311EE10E0E9;
-	Wed, 19 Aug 2026 09:13:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A16B610E554;
+	Wed, 19 Aug 2026 09:15:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="d0DJvKJy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="erHBY1fS";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6996810E0F3
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 09:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787130781;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5XpnZEFKujd51JrhBeDcLTZvtTpiuq07aEfxBbe22IQ=;
- b=d0DJvKJy6imygU/Lu6OwRnr2nmqE0LK6iJCHscrw9k6qVPfEL9FUAwWzOir6HEZI8OF/d9
- Drs/TL0jIForVhxB3CfsgsL8+iJmGmn2v8WuQrIlwF++fDqcPKwNQQlTHR4INxMoCKHAQQ
- w2qj2pEBm2NXyIG5YnzJ401WLBei+mg=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-204-PbrLTHTEM4iU3GVE1d8YIA-1; Wed, 19 Aug 2026 05:12:59 -0400
-X-MC-Unique: PbrLTHTEM4iU3GVE1d8YIA-1
-X-Mimecast-MFC-AGG-ID: PbrLTHTEM4iU3GVE1d8YIA_1787130778
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-499900c9d99so6573395e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 02:12:59 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B2C310E554
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 09:15:06 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-c15cf78d1a2so79367166b.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 02:15:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787130905; cv=none;
+ d=google.com; s=arc-20260327;
+ b=dd9dT/ewRY+UXEVIcsy36U795DOwf81//dqdLnyj+Cn0aicv9MErg6GSMA4wJ/Ph2z
+ PYmE6g0zaBSJygjrFpZGJ/wZdyaDLMC6+Od6jrRoc2u63E5avigHgYQrZTDBt1gt+ff/
+ DRXOQllcZyjXClqfWIfRHx+bnDxAqOTdkzqaBtWEkJXH2p6b7D0a6CHczsxpK83zGRiT
+ 9kTqdd9bY57LMblmvXJHLJiQ+axiuuUVqEZT0L69uygbByhWCUL48SKRpze/ly3qEdPQ
+ In8xZPeKMMXIOxHdAcprt7ALFp6Pd8BKYYbHskeEOvOQiEo4B7Geayh58OgyN1CLBWxr
+ 1gWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=lzuDSojrT0WlSiuLx+jC6YW8XFu+Z/1D1t/4kP+3HDU=;
+ fh=q5eGRbnWJeOtB+HbUKcMut+s6SejrlHUiuXj5bVL1go=;
+ b=VCl96h+z/PNbfmRw1oFB8CZ0mLOYrsy8/xOBk35UOWdEPefVHvhtRj7IET+/6kSvmr
+ 0T4PH4L62lnuoVf6Hd4mtuVfd6lfXyjF7FjZuLeRBKMCxaNPZKPdQ47b7kViOT+uhX8D
+ gD6YpzqB8qSSsdGEkPCEELJXsMBOXwJ6GuukiKul+UqU0lfyjTho7fVxcXsBnXT2M3lj
+ +8rWJQL7JC7++KzAv1xZ+aykasxmf9bXSkf1MwoDazRkJ/RVICDrgHsFbPC3ZPmMLvmj
+ bAaJlaGqDMnY+PrxXGKfrfQVAT5kG2kXAFI/Y/3wW8ISCRJ9Lto3Q3EnUE7iRNEB2mov
+ TYbQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787130905; x=1787735705; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lzuDSojrT0WlSiuLx+jC6YW8XFu+Z/1D1t/4kP+3HDU=;
+ b=erHBY1fS4nZzVQjEXelOj4XFq0HK4m2sSs995G2qBL4Swl+gVpz730dZVxpeTjQfXK
+ EBH5SdaQkBso1aou/pelXb3qCOt1shslc+PLljx4uMC+sO0JbNiKEGfy5VzClh0YiHvj
+ 5NfnN/OPNSVbOeXGHNAhx4URlp+2XBq6iWPpbrukzlQe7BLty+4XyrmBDELX3QruNzPe
+ qSnTx2CMZd/aeiqcYhZzgshMsHgfP66YGBUxvzt7zehw1NrMurLmF0nEW02fj3WePkMo
+ 0kQfnEpkcr5mg+G/laaP8wrwG3bmyXyFrdQni/Vf94eotj9rYyGBMkiKyvwvJtuQgNL/
+ SfYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787130778; x=1787735578;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=5XpnZEFKujd51JrhBeDcLTZvtTpiuq07aEfxBbe22IQ=;
- b=Ad1XQjKYE7iUu0xf6dCSYy6n8gzYVDCcdHJ/De6d1xfVI+3UdyfdVikosPlf4FQcpj
- Kp8soZazhNRYDsmReSvDBQMrQsWiSDa6a4rTIrZ+JUznTR+WRiC+8e7iIeuB391QLHZJ
- e196Ld63bz+PYunFwjuJOOYE484zFeDJwf5ujJcvbLuBXqqh6V50GTp3qqv9LolPAkfq
- B6kU6v6ty/qD73e0QzLHkPorKUBezFYvZZHmbBATzmQEcFkFWpolR7Z0yBLpw4TRcWxB
- BByNfmxUnkQI/hID087C7qXahF5I3gMhTFEmm5D6S0PKKP9VJDTS7abdQYvwNj2P6hcf
- LD9Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+RreP6enNJ7D3D0xSd1rCkMHS5qpVDm/3KDTpZOlUSagEZ9FWm02ponaqhWpCqeCZS/XYOei9jzHCPQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyP5UQU7hlV6/vIK8XnMkJKTj6jWRRjHs2OemdvUeZ59DaOkiDJ
- osHFfL0FB1yv9SNJ/+0txpzmmYmW/OAmwg+OuPCbaZlsBY/cwln8sRCk8JdzOGaaSLo8KDqczxp
- 31GljQViuRw+qouVrxAtooXgaK+Q7Ir8sGTxsybLrwSnOpHe9ui/hHVrBl8KPMMIZ7JgZmg==
-X-Gm-Gg: AR+sD13BITWyqot0AYL2xSfodvGadRLuEKIPSvvs1d3WWFBlW61lkYFWuFF2dpZdH4z
- VBER6dGKYfXgOHsB+0aGeUDQB08f3Xoxuz2OMXLnzLIbTBpYzIAroChPAhJYGMvqlqA6XV12fFJ
- gTUhs35SBP4r1Kixme06pGUbagrXFBYdkps5ZgFxqEbjBwFt1QSj8KDKdAuhknhuLywG8a13409
- q/kFG7ueNx4D+8nVzCekp6DHZserkTW3Vive6X/+H4BqEEAGnNnEjdtGvebxNeOu8nSE3E69rku
- NSX9rlX8XYJxfVmWmaPCIrPd41aqZT2avQBy8+xfSFEOMve3p/a5FC1Jmw9qiS3ZsK9I1OvnKLv
- ncSUPZdsXxOKkwyoBPBTecrsqmqEMZwQjUrb6yy8mvlqCfg==
-X-Received: by 2002:a05:600c:468a:b0:496:c9cd:e7ab with SMTP id
- 5b1f17b1804b1-499aa172377mr41490795e9.5.1787130778059; 
- Wed, 19 Aug 2026 02:12:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:468a:b0:496:c9cd:e7ab with SMTP id
- 5b1f17b1804b1-499aa172377mr41489745e9.5.1787130777367; 
- Wed, 19 Aug 2026 02:12:57 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:11aa:87f0:935:4f8e:b423:64eb?
- ([2a01:e0a:11aa:87f0:935:4f8e:b423:64eb])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499a9ded661sm37787225e9.2.2026.08.19.02.12.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Aug 2026 02:12:55 -0700 (PDT)
-Message-ID: <89c140b5-b66b-4501-97c4-dd680a940a39@redhat.com>
-Date: Wed, 19 Aug 2026 11:12:52 +0200
+ d=1e100.net; s=20251104; t=1787130905; x=1787735705;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lzuDSojrT0WlSiuLx+jC6YW8XFu+Z/1D1t/4kP+3HDU=;
+ b=UlnLsQl0IKpODPQgGQsLY3Vpe6nIJNQmj0EIWb8391ZS53fml3p9uqQxZuEjyyyESD
+ bAQauit+np7PMHPsJy3enbeFyzEUepK7bjhL5B96GwLB16E3s+TqGdMrwfCK1slxzlET
+ gxERIdKBhOMODKZ2AYSpuJv+LctsDhHME0WXmiMjirqeO3IhHkZoiChMEIFoFnzWEBZy
+ sZ/IA+WZCMFJWtyG33b9zGJFXAHVgYUVachlqxMoQZoi/qn3isG1P5rAt8A7JCuSmzEZ
+ G9L2aaEsXPAmD/soRGzKdhC8pxfXGANXVwcO/xP4oGTfP9GVU4R73rauTs3voNa76hx2
+ VaaA==
+X-Gm-Message-State: AOJu0YxcRc40imdqVrIVeW2n4aBuD8bk5bq6cwv53FOuVBPPzBa7y3Uh
+ LBcH6TXEb5ldyiQ82SFiBBk1EJv0EF9NlZrx1b+++EbFoctNwfDGlb8NBkz+P6O0xbh4J2ZOjO6
+ pEZoVEfjFP0WQn8B9B+nqC+TF/+UOE+U=
+X-Gm-Gg: AR+sD12SVhZDzECdosjaYz76d0SAjeGYQO2pPJJlLsA/CIERi48N9Klwr64tQ2oacrk
+ UhRcf6Pa1CkWcq8sDLQOerr4LSkr77wtP6GlRhK5EfAotJuTgE0c23ebmmAKcLY579kE0vHKVX7
+ /LBXDOFhGFY4qO9rElWYldWWZEhWnI/rwvxLge9CUn2u/+K54DQ/pEb3n3W8atWZEwYKEzuuqAT
+ fm3ce3TJC9Xz15xz67/5li8hMqQPzJDNQvvAmpjory15T++QEXhoc25iZSax5q1EqE2JR7IgwrI
+ k031ZUm3AAzRlfAeW4L+QZ3QPPkLvsxPgTYd1pGTPgl9LNrUlLqjlgh8kBcSHGk50BZEt2qI+cK
+ pnw==
+X-Received: by 2002:a17:907:d26:b0:c21:960c:ec23 with SMTP id
+ a640c23a62f3a-c2420debab9mr171453466b.1.1787130904534; Wed, 19 Aug 2026
+ 02:15:04 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] nouveau: drm_panic get_scanout_buffer() maps the BO from
- panic context (ioremap + sleeping locks)
-To: Marek Czernohous <mczernohous@gmail.com>,
- Javier Martinez Canillas <javierm@redhat.com>, Lyude Paul
- <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+References: <20260625082507.57703-1-clamor95@gmail.com>
+In-Reply-To: <20260625082507.57703-1-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 19 Aug 2026 12:14:49 +0300
+X-Gm-Features: AcwNN1V3ydYrIaA80LMuaJLxmhbbUUpk1AiJwjumZydbuxRniRx67BiUSFMd5gU
+Message-ID: <CAPVz0n3QcYNfd8OZtcfR-mDF+bh1sb+fE6OUVDoR_LzN2uz_CA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/1] gpu/drm: bridge: tc358768: Add delay after PLL
+ setup
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-References: <178681005908.3524476.7115000150741026287@gmail.com>
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <178681005908.3524476.7115000150741026287@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: a-5vJWoARQOdD9YKNBR5SlF5QDLcdL0K7HDnKXkMBkw_1787130778
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,459 +114,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 15/08/2026 18:07, Marek Czernohous wrote:
-> Hi,
-> 
-> In the cover letter of
-> 
->    https://lore.kernel.org/nouveau/20260806085228.1848994-1-mczernohous@gmail.com/
-> 
-> I wrote that this was "a separate, pre-existing problem which I have
-> not yet reported; I will do so on its own".  This is that report.  It
-> is a new thread rather than a follow-up there, because the subsystem
-> and the maintainers are different ones and that series has since been
-> superseded.
-> 
-> nouveau's drm_panic scanout callback establishes a CPU mapping while
-> the machine is already panicking.  nv50_wndw_get_scanout_buffer()
-> calls nouveau_bo_map(), which takes two sleeping locks and then, for
-> a VRAM buffer, calls ioremap().  On x86 that ends in
-> __get_vm_area_node(), which BUG_ON()s when it is entered from hard
-> IRQ or NMI context.
-> 
-> I hit this once, on 2026-06-02, on an Apple Macmini3,1 (MCP79 /
-> GeForce 9400M, NVAC, nv50/Tesla, 256 MB VRAM) running 7.0.10-p1.
-> The panic screen was never drawn; instead the panic handler took a
-> second oops inside panic().
-> 
-> I am reporting this rather than sending a patch, because the two
-> panic-safe helpers that exist in-tree (ttm_bo_kmap_try_from_panic()
-> and drm_scanout_buffer.pages) do not cover an iomem scanout buffer,
-> and I do not want to pick the design direction for someone else's
-> driver.
-
-Yes the nouveau drm panic implementation is not perfect. The framebuffer 
-is not accessible from the CPU, so the only way to display something is 
-to ioremap it, and currently that is not possible safely in a panic context.
-I still think that it works well enough, and that it's still better than 
-a frozen display.
-
-Regarding the design direction, I think it would be nice to have 
-something similar to kmap_local_page() for iomem.
-I will review and help with testing any patch that can improve the 
-current situation.
-
-Thanks and best regards,
-
--- 
-
-Jocelyn
-> 
-> Below I try to keep three things strictly apart: what is verified in
-> current mainline source, what was observed exactly once, and what is
-> speculation.
-> 
-> Verified against mainline c21bb4193868 ("Merge tag ..." of
-> 2026-08-04); the relevant files are byte-identical in netdev/main
-> (9006c116dd11, 2026-08-13).
-> 
-> 1. The contract
-> ---------------
-> 
-> drm_panic calls ->get_scanout_buffer() from draw_panic_plane()
-> (drivers/gpu/drm/drm_panic.c:930), inside drm_panic_trylock()
-> (:927), which is a raw_spin_trylock_irqsave() on
-> dev->mode_config.panic_lock (include/drm/drm_panic.h:133).  By that
-> time vpanic() has already run local_irq_disable() and
-> preempt_disable_notrace() (kernel/panic.c:600,601) and stopped the
-> other CPUs via panic_other_cpus_shutdown() (:551, called at :673),
-> all before kmsg_dump_desc(KMSG_DUMP_PANIC, buf) at :685.
-> 
-> The restrictions are written down:
-> 
->    drm_panic.c:63-67
->      "It is a panic handler, so it can't take lock, allocate memory,
->       run tasks/irq, or attempt to sleep."
-> 
->    include/drm/drm_modeset_helper_vtables.h:1443-1462, on
->    ->get_scanout_buffer:
->      "It is called from a panic callback, and must follow its
->       restrictions. Please look the documentation at
->       drm_panic_trylock() for an in-depth discussions of what's safe
->       and what is not allowed."
-> 
->    include/drm/drm_panic.h:105-125, on drm_panic_trylock():
->      "... without taking any further locks (which would be impossible
->       in panic context anyway)"
-> 
-> 2. What nouveau does
-> --------------------
-> 
-> drivers/gpu/drm/nouveau/dispnv50/wndw.c:651,
-> nv50_wndw_get_scanout_buffer(), line 671:
-> 
-> 	if (nouveau_bo_map(nvbo)) {
-> 
-> That single call does the following, in order.
-> 
-> (a) Always: nouveau_bo.c:672 takes
->      ttm_bo_reserve(&nvbo->bo, false, false, NULL).  With
->      no_wait = false this resolves to dma_resv_lock(), i.e.
->      ww_mutex_lock() (include/drm/ttm/ttm_bo.h:287-306), a sleeping
->      lock, taken under a raw spinlock with interrupts off.
-> 
->      It returned on 2026-06-02 only because the reservation was
->      uncontended and the ww_mutex fastpath is atomic.  If it is held,
->      the owner is either a task that will never be scheduled again or
->      a CPU that smp_send_stop() has already halted, so the panic path
->      would hang instead of dying.  This violation is invisible in the
->      trace; CONFIG_DEBUG_ATOMIC_SLEEP or lockdep would show it.
-> 
-> (b) Conditionally: ttm_bo_kmap() calls ttm_mem_io_reserve()
->      (ttm/ttm_bo_util.c:439), which returns early only if
->      reg->bus.offset or reg->bus.addr is already set
->      (ttm_bo_util.c:49-60).  Otherwise it enters
->      nouveau_ttm_io_mem_reserve() (nouveau_bo.c:1254), which takes
->      mutex_lock(&drm->ttm.io_reserve_mutex) (:1262) and, for the NV50
->      memory class (which is what NVAC uses, nvkm/subdev/mmu/mcp77.c),
->      calls nvif_object_map_handle() (:1324) to obtain a BAR1 window.
->      That path does kzalloc(..., GFP_KERNEL) (nvif/object.c:158) and
->      takes mutex_lock(&vmm->mutex.vmm) in nvkm_vmm_get()
->      (nvkm/subdev/mmu/vmm.c:1864).  On -ENOSPC it walks
->      drm->ttm.io_reserve_lru and tears down someone else's mapping
->      via drm_vma_node_unmap() (nouveau_bo.c:1342-1355), which on a
->      256 MB part with a small BAR1 is not a theoretical branch.
-> 
->      I cannot tell from the trace whether this branch was taken on
->      2026-06-02; there is no nouveau_ttm_io_mem_reserve frame, but it
->      may have been inlined.  I list it as a code-analysis finding,
->      not as an observation.
-> 
-> (c) Always, for a VRAM buffer: ttm_bo_kmap() sets map->virtual =
->      NULL unconditionally (ttm_bo_util.c:432), so an existing mapping
->      is never reused, and then takes the is_iomem branch
->      (ttm_bo_util.c:442-447) into ttm_bo_ioremap() (:314-338).  The
->      premapped shortcut at :321-323 requires mem->bus.addr, and
->      nouveau never sets bus.addr anywhere: the only assignment in the
->      driver sets it back to NULL (nouveau_bo.c:1354).  So a real
->      ioremap_wc()/ioremap() happens (:329, :335), which on x86 goes
->      __ioremap_caller() (arch/x86/mm/ioremap.c:184) ->
->      get_vm_area_caller() (:292) -> __get_vm_area_node()
->      (mm/vmalloc.c:3197).
-> 
->      __get_vm_area_node() starts with, in c21bb4193868 at
->      mm/vmalloc.c:3206:
-> 
-> 	BUG_ON(in_nmi() || in_hardirq());
-> 
->      and then does kzalloc_node() (:3215) and alloc_vmap_area()
->      (:3226) with GFP_KERNEL.
-> 
-> The scanout buffer really is in VRAM and really is iomem:
-> nv50_wndw_prepare_fb() pins it with
-> nouveau_bo_pin(nvbo, NOUVEAU_GEM_DOMAIN_VRAM, true) (wndw.c:553-556)
-> and never maps it; nv50_wndw_cleanup_fb() never unmaps.
-> nouveau_ttm_io_mem_reserve() sets bus.is_iomem = true for
-> TTM_PL_VRAM (nouveau_bo.c:1285-1288).  nvbo->kmap is not populated
-> elsewhere for a framebuffer either: nouveau_bo_map() is otherwise
-> only used for the dispnv04 cursor, disp->sync, push buffers and
-> fence BOs, while GEM and fbdev buffers go through
-> drm_gem_ttm_vmap()/ttm_bo_vmap(), which uses its own iosys_map and
-> never touches bo->kmap.  So on nv50+ the panic callback maps the
-> framebuffer for the first time, every time.
-> 
-> Avoiding the iomem branch would not help: ttm_bo_kmap_ttm()
-> (ttm_bo_util.c:340-380) calls ttm_bo_populate() and then vmap()
-> (:376) for anything larger than a single cached page, and
-> nouveau_bo_map() asks for PFN_UP(bo.base.size) pages
-> (nouveau_bo.c:676).  vmap() goes through the same
-> get_vm_area_caller() (mm/vmalloc.c:3560).
-> 
-> 3. Version note on the BUG_ON, so nobody trips over the line number
-> -------------------------------------------------------------------
-> 
-> The crash kernel printed "kernel BUG at mm/vmalloc.c:3212".  In the
-> v7.0 tree that line is literally
-> 
-> 	BUG_ON(in_interrupt());
-> 
-> (verified against v7.0-rc7, function head at :3203).  Commit
-> 04aa71da5f35 ("mm/vmalloc: do not trigger BUG() on BH disabled
-> context", author date 2026-05-15, Cc: stable) narrowed it to
-> BUG_ON(in_nmi() || in_hardirq()), which is mm/vmalloc.c:3206 today.
-> That commit reached mainline on 2026-05-26 via merge d60ec36cab338,
-> while 7.0.10 was released on 2026-05-23, so the crash ran against
-> the old form.  Both line numbers are correct, each only for its own
-> tree.
-> 
-> Practical consequence, stated deliberately narrowly: the observed
-> case, panic entered from a hard IRQ, still hits the BUG_ON on
-> current mainline.  A panic from process context does not, but the
-> same path still ioremaps, still allocates with GFP_KERNEL and still
-> takes two sleeping locks under a raw spinlock with interrupts
-> disabled.  The relaxation makes the failure quieter, not correct.
-> I am not claiming an unconditional BUG on mainline.
-> 
-> 4. What was actually observed (one occurrence)
-> ----------------------------------------------
-> 
-> Kernel 7.0.10-p1-gentoo-dist, PREEMPT(lazy), CONFIG_DRM_PANIC=y,
-> labwc/Wayland, Apple Inc. Macmini3,1/Mac-F22C86C8.
-> Tainted: G S D OE.
-> 
-> The initiating oops was my own fault and is not part of this report:
-> an out-of-tree patch of mine called nvkm_chan_error(chan, true) on a
-> g84_chan, which has no .preempt, giving a NULL function pointer in
-> the FIFO CACHE_ERROR handler.  That bug is fixed.  An oops in
-> interrupt context is fatal by design, so panic() was entered
-> legitimately; what this report is about is what happened next.
-> 
-> Relevant part of the netconsole capture (definite frames only, "? "
-> entries dropped):
-> 
->    nouveau 0000:02:00.0: fifo: CACHE_ERROR - ch 2 [labwc[3950]]
->      subc 3 mthd 0f00 data 0000007b
->    BUG: kernel NULL pointer dereference, address: 0000000000000000
->    Oops: Oops: 0010 [#1] SMP PTI
->    RIP: 0010:0x0
->    ...
->    Kernel panic - not syncing: Fatal exception in interrupt
-> 
->    kernel BUG at mm/vmalloc.c:3212!
->    Oops: invalid opcode: 0000 [#2] SMP PTI
->    CPU: 0 UID: 290 PID: 6267 Comm: apps.plugin Tainted: G S    D
->      OE       7.0.10-p1-gentoo-dist #1 PREEMPT(lazy)
->    Hardware name: Apple Inc. Macmini3,1/Mac-F22C86C8
->    RIP: 0010:__get_vm_area_node+0x15a/0x160
->    Call Trace:
->     <IRQ>
->     get_vm_area_caller+0x3e/0x60
->     __ioremap_caller+0x235/0x340
->     ttm_bo_kmap+0x2b2/0x310 [ttm]
->     nouveau_bo_map+0x4b/0xa0 [nouveau]
->     nv50_wndw_get_scanout_buffer+0x9b/0x1b0 [nouveau]
->     draw_panic_plane+0x9e/0x170
->     kmsg_dump_desc+0x6c/0xa0
->     vpanic+0x301/0x450
->     panic+0x6b/0x70
->     oops_end.cold+0xc/0x1d
->     page_fault_oops+0x174/0x180
->     exc_page_fault+0x82/0x1d0
->     asm_exc_page_fault+0x26/0x30
-> 
-> The machine was then rebooted by the nv_tco watchdog after roughly
-> 30 seconds.
-> 
-> Caveats that belong with this trace:
-> 
->   - netconsole delivered over UDP from two CPUs.  Oops #1 and oops #2
->     arrived interleaved line by line, and all lines of the panic
->     burst carry the same kernel timestamp [39189.170158].  The line
->     contents are unmodified; the ordering above is reconstructed by
->     hand and cannot be read off the file.
->   - There is one "Call Trace:" and one "Modules linked in:" in the
->     captured window for both oopses.  Attributing the
->     CPU/UID/PID/Comm line with [D]=DIE to oops #2 is an inference,
->     not a label in the log.
->   - The kernel was [O]/[E] tainted because nouveau was built
->     out-of-tree with local patches.  None of those patches touch
->     dispnv50/wndw.c, nouveau_bo.c or ttm; the drm_panic path was
->     unmodified mainline.
->   - This is one occurrence on one machine on an old kernel.  It is
->     not a recipe.  The code analysis in sections 1 to 3 is what
->     carries this report; the trace only shows that the path is
->     reached in practice.
-> 
-> That the path is still armed on this box today is easy to check:
-> the currently running 7.1.8 kernel has CONFIG_DRM_PANIC=y and logs
-> "[drm] Registered 2 planes with drm panic" at every boot, and
-> /proc/vmallocinfo currently lists two live mappings
-> 
->    ... ttm_bo_kmap+0x2b2/0x310 [ttm] phys=0x00000000c0000000 ioremap
-> 
-> with 0xc0000000-0xcfffffff being nouveau's BAR1 in /proc/iomem and
-> write-combining in pat_memtype_list.  Same caller offset as in the
-> crash trace.
-> 
-> 5. Reproducing it
-> -----------------
-> 
-> I have not reproduced it deliberately.  Two notes for whoever wants
-> to:
-> 
->   - lkdtm has PANIC_IN_HARDIRQ (drivers/misc/lkdtm/bugs.c), which
->     panics from an HRTIMER_MODE_REL_HARD callback, i.e. exactly the
->     context in question, and it already exists in v7.0.  That should
->     be the deterministic reproducer on any drm_panic-enabled driver.
->     CONFIG_LKDTM is not built in my kernel, so I have not run it.
->   - CONFIG_DRM_PANIC_DEBUG is not a reproducer for this.  Its
->     debugfs write handler calls draw_panic_plane() from an ordinary
->     write(2), where in_hardirq()/in_nmi()/in_interrupt() are all
->     false, so the BUG_ON does not fire.  drm_panic.c:965-968 says so
->     itself: "This is currently unsafe. ... TODO: It would be better
->     to emulate an NMI context."  With CONFIG_DEBUG_ATOMIC_SLEEP it
->     should still catch violation (a) as a sleeping-in-atomic splat.
-> 
-> 6. Scope
-> --------
-> 
-> nv50_wndw_get_scanout_buffer() is the only ->get_scanout_buffer
-> implementation in the whole driver (git grep over
-> drivers/gpu/drm/nouveau gives dispnv50/wndw.c:596,651,716 only).  It
-> hangs off nv50_wndw_primary_helper (wndw.c:716), bound to primary
-> planes at wndw.c:892.  dispnv50 covers Tesla through Blackwell, so
-> every nouveau generation that has drm_panic at all is affected;
-> dispnv04 has no implementation and is therefore unaffected.  NVAC is
-> not a special case, only the oldest one.
-> 
-> Introduced by 1d26c846f3ff ("drm/nouveau: Add drm_panic support for
-> nv50+", Jocelyn Falempe, 2024-10-22), first released in v6.13; the
-> nouveau_bo_map() call is in that commit already, so this is not a
-> later regression.  The function body is byte-identical between
-> 1d26c846f3ff and c21bb4193868 (md5 of the extracted body
-> 1157ba4019a2e1c8a12494ab81c68342); wndw.c itself has been touched
-> since, but not this function.
-> 
-> As far as I can see this has not been reported for nouveau before.
-> lore.kernel.org is blocked from this machine, so I searched the
-> mail-archive.com mirror of dri-devel instead: "get_scanout_buffer"
-> returns the original nv50+ drm_panic series, two build-robot reports
-> against wndw.c, and my own cover letter quoted above; "drm_panic
-> ioremap" returns only the ttm_bo_kmap_try_from_panic() series.  If
-> somebody with working lore access finds a duplicate, please point me
-> at it.
-> 
-> 7. Why the existing panic-safe helpers do not simply fix it
-> -----------------------------------------------------------
-> 
-> ttm_bo_kmap_try_from_panic() (ttm/ttm_bo_util.c:396-406, added by
-> 718370ff2832, "drm/ttm: Add ttm_bo_kmap_try_from_panic()") returns
-> NULL as soon as bo->resource->bus.is_iomem is set (:400-401), which
-> is precisely the nouveau VRAM scanout case.  Its own commit message
-> says: "Unfortunately there is no way to do the same with ioremap,
-> so it only supports the kmap case."  Its only in-tree user is xe
-> (xe/display/xe_panic.c:68).
-> 
-> drm_scanout_buffer.pages (include/drm/drm_panic.h:42-50) needs a
-> struct page array, which a BAR aperture does not have.  Its
-> documentation also notes that the array "shouldn't be allocated
-> from the get_scanoutbuffer() callback".
-> 
-> So the general rule these two encode is not "call helper X" but "do
-> not establish a mapping and do not take a lock inside the panic
-> handler".  Drivers that get this right pre-establish the mapping:
-> 
->   - ast: devm_ioremap_wc of the VRAM BAR at probe (ast_mm.c:89),
->     callback just uses ast->vram + offset (ast_mode.c:625-639).
->   - mgag200: same shape (mgag200_drv.c:152,156;
->     mgag200_mode.c:549-564).
->   - drm_sysfb (simpledrm, vesadrm): passes through sysfb->fb_addr
->     (drm_sysfb_modeset.c:408-421).
->   - xe: keeps the LMEM BAR mapped via devm_ioremap_wc
->     (xe_vram.c:59, :245) and computes vram->mapping + res.start in
->     set_pixel, using ttm_bo_kmap_try_from_panic() only for the
->     system-memory case (xe_panic.c:53-70); non CPU-visible VRAM is
->     rejected up front.
->   - i915: uses an existing obj->mm.mapping or a page list, with the
->     per-fb intel_panic allocated at fb creation (intel_fb.c:2223).
->   - virtio-gpu: passes the existing shmem->pages list
->     (virtgpu_plane.c:508-537).
->   - bochs, hyperv and the drm_fb_dma users follow the same pattern.
-> 
-> amdgpu is worth mentioning because it is *not* clean either, and I
-> would rather say so than present nouveau as a unique slip: its
-> indirect-MMIO set_pixel (amdgpu_display.c:1843-1862) is gated on
-> AMDGPU_GEM_CREATE_NO_CPU_ACCESS (:1893), and the fallthrough at
-> :1907-1908 calls ttm_bo_kmap() from the panic handler just like
-> nouveau.  What saves it in practice is that
-> amdgpu_ttm_io_mem_reserve() prefills mem->bus.addr from the
-> permanently ioremapped visible aperture adev->mman.aper_base_kaddr
-> (amdgpu_ttm.c:655-658, mapping created at :2134), so
-> ttm_bo_ioremap() takes the premapped branch and no mapping is
-> created during panic.  It also guards with
-> "if (!abo->kmap.virtual && ...)", which nouveau does not have.
-> This looks like a pattern worth auditing across drm_panic providers
-> rather than a single nouveau bug.
-> 
-> 8. What I found when I looked for a fix
-> ---------------------------------------
-> 
-> I went looking for the obvious fix and did not find one that is
-> obviously right, which is the main reason this is a report and not a
-> patch.  What follows is reconnaissance, not a proposal: two shapes I
-> looked at and the traps I ran into, in case it saves someone the
-> same walk.  You know this code better than I do, and there may well
-> be a third shape I did not see.
-> 
-> (A) Establish the mapping outside panic context and only consume it
->      inside.  drm_panic.h:115-120 blesses that location: anything set
->      up by prepare_fb and torn down by cleanup_fb is safe to access,
->      because the framebuffer is pinned.  nv50_wndw_prepare_fb()
->      already pins and would be the natural place to map.
-> 
->      What made me stop: it permanently occupies BAR1 aperture plus
->      kernel VA for every scanout FB, and takes the buffer out of the
->      io_reserve_lru that nouveau uses to resolve BAR1 pressure.
->      prepare_fb and cleanup_fb are shared between nv50_wndw_helper
->      and nv50_wndw_primary_helper while get_scanout_buffer only
->      exists on the primary, so cursor and overlay BOs would be mapped
->      too unless that is restricted.  And nvbo->kmap is a single
->      non-refcounted field, so a second ttm_bo_kmap() overwrites and
->      leaks the previous mapping.  On a 256 MB part those are not
->      theoretical costs, but I cannot judge what they are worth on a
->      modern card.
-> 
-> (B) An amdgpu-style set_pixel with no CPU mapping of the FB at all.
->      nouveau has a sliding BAR0 window on Tesla:
->      nv50_instmem_set_bar0_window_addr() writes addr >> 16 to
->      0x001700 (nvkm/subdev/instmem/nv50.c:397-401), data then
->      reachable at 0x700000 + (addr & 0xfffff) (nv50.c:56-73), on
->      device->pri, which is ioremapped once at probe
->      (nvkm/engine/device/base.c:3173).  drm_panic does not require a
->      mapping when set_pixel is provided (drm_panic.c:936).
-> 
->      What made me stop: nv50_instobj_wr32_slow() cannot be reused
->      because it takes spin_lock_irqsave(&imem->base.lock), which a
->      stopped CPU may hold, so the window writes would have to be
->      open-coded.  nvkm_vram_addr() returns ~0ULL for non-contiguous
->      VRAM (nvkm/subdev/fb/ram.c:65-71), so contiguity has to be
->      checked rather than assumed, even though prepare_fb pins with
->      contig = true.  And this is a Tesla-specific mechanism, so it
->      says nothing about Fermi and later.
-> 
-> One thing that is not a matter of taste: nouveau has no persistent
-> BAR1 mapping to reuse today.  git grep ioremap over
-> drivers/gpu/drm/nouveau yields only BAR0/PRI, the BAR2/PRAMIN
-> windows in instmem, and dispnv04/hw.c.  nouveau_ttm.c sets up MTRR
-> and a WC memtype over the BAR1 range, which is not a mapping.  So
-> either shape means new infrastructure.
-> 
-> Two things I would ask rather than assert:
-> 
->   - Is losing the panic screen on nv50+ an acceptable interim state?
->     Not mapping at all and returning an error would be a small,
->     backportable change, and the screen is lost today anyway, only
->     more loudly.  But that trades a feature for a crash fix and I do
->     not know how you weigh that.
-> 
->   - Should whatever lands here also cover violations (a) and (b)?
->     Replacing only the ioremap leaves the sleeping lock and the
->     GFP_KERNEL allocation in place, and those are the ones that would
->     hang rather than die.
-> 
-> Happy to test patches on the NVAC box, and to run lkdtm
-> PANIC_IN_HARDIRQ there if a kernel with CONFIG_LKDTM is wanted.
-> 
-> Regards,
-> Marek
-> 
+=D1=87=D1=82, 25 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:2=
+5 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> After tc358768_setup_pll() enables PLL_CKEN and the lock indicator comes
+> up, the DSI register sequence runs near immediately. On TF700T this
+> results in the bridge claiming PLL lock but producing no DSI video output=
+:
+> the panel powers up, the backlight comes on, but the framebuffer is never
+> scanned out.
+>
+> Insert a small settling delay between PLL setup and the rest of the
+> attach.
+>
 > ---
-> Note on tooling: this analysis was AI-assisted.  I used Claude
-> (claude-opus-5) as an analysis assistant for reading the code paths
-> and cross-checking line numbers and commit history.  All numbers,
-> traces and measurements in this mail come from the machine described
-> above and from the mainline tree at c21bb4193868; I reviewed every
-> claim myself and I am responsible for any error in it.  No
-> Signed-off-by is claimed by the tool.
-> 
+> - switched sleep() > delay() since *_pre_enable() is atomic
+> ---
+>
+> Svyatoslav Ryhel (1):
+>   gpu/drm: bridge: tc358768: Add delay after PLL setup
+>
+>  drivers/gpu/drm/bridge/tc358768.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> --
+> 2.53.0
+>
 
+Hello there! If no one objects, may this patch be applied? It is quite
+important for ASUS TF700T to work properly. Thank you!
