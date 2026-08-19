@@ -4,71 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43389C5DF85
-	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 17:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78409C5DF81
+	for <dri-devel@archiver.kernel.org>; Wed, 19 Aug 2026 17:07:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9330F10E584;
-	Wed, 19 Aug 2026 17:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA82F10E17F;
+	Wed, 19 Aug 2026 17:07:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Lyy7VsZE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kGfObCGW";
 	dkim-atps=neutral
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20BA410E584
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 17:01:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787158908; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=HNdS8MjByfsKVGSrHAjsjLc1nfEtpMofJhsenJU+pJeDHWNrOV0WX3IKbfd2x/4vdSFwPiePDXADV2PLgXlJajZFjZuGyw+vFqfpw4lXqIZ/v3T4GuJ/2Vgz/xvxsmLHUaqDhMMkWFqOIkA6KdCpzncigl3csMyYlsCZQN4HPOY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787158908;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=HUzoSDR1e8bxaibYyiWC1Kp95BxbUNo5sg5WntGsUPo=; 
- b=X0oeW2oZu6pLgeo2omdDslO+ue1nQ/mDin3IKV+8FbIQwhxUyzMvEDj8uitVtRJA+Tr4nWgVDEG0FpCfxVYhb2UJRjbU23Fj+KNnNHuAnD6IaAMSFS3vjeYDg/Bn2RAaa39ZaQCJqE+JCJqUfbwn3lVD8UcFMvSZefnkAcsNP5M=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787158908; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=HUzoSDR1e8bxaibYyiWC1Kp95BxbUNo5sg5WntGsUPo=;
- b=Lyy7VsZEM5bCF+krL+qmfTBZo4OPHVx1qb6lFiXiunyvaNXKqStYgbXcXjytYe4K
- kNeCiiOd3NuFaCz0EebA6suaSlO92RB1zlssSZyqQxxiB1fJsyZ3nFiCEK0hRfFbokE
- mu6J3/xOPmgFUF6lLNif/vxV2VHFFRF8eaNJrlag=
-Received: by mx.zohomail.com with SMTPS id 1787158905742487.7381506216959;
- Wed, 19 Aug 2026 10:01:45 -0700 (PDT)
-Date: Wed, 19 Aug 2026 18:01:40 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 04/13] drm/panfrost: Move shrinker initialization and
- unplug one level down
-Message-ID: <aoXhZrkyo0flUi-k@sobremesa>
-References: <20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com>
- <20260729-claude-fixes-v4-4-01968f2ec77a@collabora.com>
- <faac1559-e1d1-4756-9bbd-01f760628fb9@arm.com>
- <anvJUe007987gwNY@sobremesa>
- <246ab9b9-cf18-48bd-9c44-b02351445360@arm.com>
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F33EB10E17F
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 17:07:17 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-c160420289bso172117966b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 10:07:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787159236; cv=none;
+ d=google.com; s=arc-20260327;
+ b=hPPFzMPz8n2AC1/apnlbi1JmyznMz7GQqy5wbNa++/rbs7vp73kDEEXXTsGti3r7IZ
+ ntxOtvHK+9dwj/ayRJTV/YjCVpC3ABtIDNCnv1wEEaXeRy1Y4UxbCKKVLRz3XeukBGD0
+ nUXjgzFCcR7SVVTE9vmP2ba1BLSrqxkLBCkqxlmd4g+b57DEgdCe4Y7/qZMlsx2BUvGX
+ sK6RC/8ac/7vSF6iZzyS/8I93om11D9epDVP/VMGbmy4j/HZEA8PLRVQNJOFoF2g33kO
+ APqFm5ND5ed8lmf4b6B3QwIjeeXqcII1d6CDSmGbgxA0pRXLMtC+9d5NlULGAo9CIefB
+ zytQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=jKlJ/iR1cPNwjtIJybzvfRzDBetXP7ZIN/hUGlzWzgU=;
+ fh=BOiIVY7q6Ifgs33E/Nra9uV27Naat2nchAQ5RrBwE7w=;
+ b=pCekB1C78iUtuY8ih0robPYW2qCI+LONz9XxS++RrzT46okb2X7r62yBWD1vPVmncP
+ 9nPA6IqLahDqF9OnXXqd1RWPZmXoxuIWei4qlLSIhPgqZ6MJP9LMXI+S8X5PaM5zVswu
+ 8dOR6jtm0SCoHDKom6H+rYmW3rrIMi9Nn9bdnoM2ubZJFsNfr2DpkLKFkl1vzda+q/Zy
+ QORVOa77XIQvxwiX0s1mW7OfwaypAkuQCXJ0YUxwbVdKe9oKlFqjMbmVSJNox1dJtY99
+ UXvQJUwidRoqFAGAKchXCJDJhrlrNhIzcupvnnSYhAKRHgmYaFta/7Q5vgJh1/eMCkfn
+ VGsg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787159236; x=1787764036; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=jKlJ/iR1cPNwjtIJybzvfRzDBetXP7ZIN/hUGlzWzgU=;
+ b=kGfObCGWnKjftL4OhQZafrHMnYr1J0zB9ZtsSUgI7hAJ8G/Q/y7V0/MKLS06ZzoaXX
+ 1B9q9+mhQLZoMuXTQWFNpjMXYZFsKvPpfF8KvFT1Ps5np7WoE4o3sP5YmFp0AvfqYebB
+ Y8UWgLjka3Gq/FJr+zEO0hlksjCS72uiX5FFDJCi+AuxhZpMyiafL2I8HQgRz7tg/AN2
+ 9zj9rwPLnECEPCH/jxL2OjZVb2m56tGO9n5nLdgg+8r5lFQW/WMgjJ7D5F5kAvmPc8kw
+ EF7NTaKecKH051gNpFDMWqrD7BV4xI9BIPgfPpO7keCBjG+y62nKVletRSVDNO8VwkoZ
+ PTKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787159236; x=1787764036;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=jKlJ/iR1cPNwjtIJybzvfRzDBetXP7ZIN/hUGlzWzgU=;
+ b=BuJBTlguEsSXfdu+K74L/N1xkkS4A4uOuLiMSnmJL0e8nX5TZNw+QRaEyUqoJwxUnA
+ L0Sjcd5OAJhNtxSZvECOdBGKr9EChJcwkkyFYwJLaLIcT6J6yWjSi81niPE1t1xtbZZ5
+ EokISl3Dl5W1RcQ6sO2XiGoamZaFC+ocMiLiC15Y3v0g9YbAUlvbknQb+wdf+Bir2ACs
+ BkiQ5eiH4ko96brubWQhMMkNxcJJG/tXl9Hr5lSURayfBO+HxoMyHT96+U97VaUIIsgx
+ AEfB8edGKIyL5SXAaNHa2EBeZYhGmbbUc8PL6WOlKR1ecABK0BgwtOZu3NPuIN+QZUee
+ gLwA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq03DxHQBbRETuqXgGPpJnlix+lfLtNkDFE3ivs5Pgs88d8gpkQWA72nWtdim4couDEZbcSMCwPvr8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvXrcsYyjg9sFsq4uilB/6Zih+ydG7jG3SmQa2UumjFc4xYzXX
+ MKOKytQKsV1EfA6PgFOlIAoyd4s+3MEM0fLQdlvSyjzYjgTwf/St2GZoiJhVk5bAWMHOB8OB7Ms
+ T/4/SrmVSRnbZ/QFUEektz/ccGteNjgQ=
+X-Gm-Gg: AR+sD13MxZibQCMrQS4E/d6rIOZ6Q8cpc+lf+ap87p/9f5QAyVQONfYW7/B8f0LK/hv
+ Hto3H3dOZi4BqjIp/pqARf0YOWPOy8u2fPqks0BYmcrulpVltsat0qVVZv+NiLxAuJbkocDBx7a
+ ERF9hREwximQGBIYwl/a0Yq1IvA3An7HHw6M5yL+hmpyUZM4j/LtVmKXYKcAWl7BWsTW6lmdL3n
+ jR/Y8PNhghl453c5fxpUpbgzJsdbmYeniT/fjioZIdTd/jbK4UMhJ0eeMG9I9p0Dz5qKU5HgyaL
+ lvPTgRXcciW9OouxQssk/k1nbii8CYQwBKwyZTPTKNcgqJaI1Hh2YQk5WmUKc9u8tmiL2hfXTc2
+ BKZQARGZOMfYhAkLdVR40raqN3I4JfElR40nN1VQJpR1rK1qeZhQ6HYODqcKWijGP/sO9iFHoua
+ DDQiPPC3tT6TK7k7IAx3N+uk5gv955qg==
+X-Received: by 2002:a17:907:d26:b0:c16:84dc:9607 with SMTP id
+ a640c23a62f3a-c242e242a7bmr386522966b.19.1787159235944; Wed, 19 Aug 2026
+ 10:07:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <246ab9b9-cf18-48bd-9c44-b02351445360@arm.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/287.151.46
+References: <20260819-fbtft-core-scnprintf-v1-1-842c0603634c.ref@yahoo.pl>
+ <20260819-fbtft-core-scnprintf-v1-1-842c0603634c@yahoo.pl>
+In-Reply-To: <20260819-fbtft-core-scnprintf-v1-1-842c0603634c@yahoo.pl>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 19 Aug 2026 20:06:39 +0300
+X-Gm-Features: AcwNN1XtphdklIb1Xh2EgzEMsoGcQxR0A6TVYdMP1qLtFEyfNntG_muiTXDLy_c
+Message-ID: <CAHp75VcGmmz6EZYjG871V+sYmJn=iGOFxj+D1oe4rtguWkipRw@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: prefer scnprintf over sprintf in
+ fbtft-core.c
+To: Tomasz Unger <tomasz.unger@yahoo.pl>
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,213 +112,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 19.08.2026 11:37, Steven Price wrote:
-> On 12/08/2026 02:19, Adrián Larumbe wrote:
-> > Hi Steven,
-> > 
-> > On 30.07.2026 11:39, Steven Price wrote:
-> >> On 29/07/2026 03:54, Adrián Larumbe wrote:
-> >>> Since the moment we call drm_dev_register() the device should be in a
-> >>> position to accept jobs, so it's best if the shrinker is already
-> >>> initialized by then.
-> >>>
-> >>> On top of that, make shrinker functions take an panfrost_device pointer
-> >>> like other functions in the same sequence and rename them accordingly.
-> >>>
-> >>> Essentially mimic the init/fini behaviour in Panthor.
-> >>>
-> >>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> >>> ---
-> >>>  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
-> >>>  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
-> >>>  drivers/gpu/drm/panfrost/panfrost_gem.c          | 19 ++++++++++---------
-> >>>  drivers/gpu/drm/panfrost/panfrost_gem.h          |  6 +++---
-> >>>  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
-> >>>  5 files changed, 22 insertions(+), 25 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> >>> index d8421fd6a662..03905495aee2 100644
-> >>> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> >>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> >>> @@ -281,9 +281,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >>>  	if (err)
-> >>>  		goto out_job;
-> >>>  
-> >>> -	panfrost_gem_init(pfdev);
-> >>> +	err = panfrost_gem_init(pfdev);
-> >>> +	if (err)
-> >>> +		goto out_perfcnt;
-> >>>  
-> >>>  	return 0;
-> >>> +
-> >>> +out_perfcnt:
-> >>> +	panfrost_perfcnt_fini(pfdev);
-> >>>  out_job:
-> >>>  	panfrost_jm_fini(pfdev);
-> >>>  out_mmu:
-> >>> @@ -305,6 +310,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >>>  
-> >>>  void panfrost_device_fini(struct panfrost_device *pfdev)
-> >>>  {
-> >>> +	panfrost_gem_shrinker_fini(pfdev);
-> >>>  	panfrost_perfcnt_fini(pfdev);
-> >>>  	panfrost_jm_fini(pfdev);
-> >>>  	panfrost_mmu_fini(pfdev);
-> >>> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> >>> index 2e931fa90da0..331a3bd5b98c 100644
-> >>> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> >>> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> >>> @@ -1002,14 +1002,9 @@ static int panfrost_probe(struct platform_device *pdev)
-> >>>  	if (err < 0)
-> >>>  		goto err_out1;
-> >>>  
-> >>> -	err = panfrost_gem_shrinker_init(&pfdev->base);
-> >>> -	if (err)
-> >>> -		goto err_out2;
-> >>>  
-> >>>  	return 0;
-> >>>  
-> >>> -err_out2:
-> >>> -	drm_dev_unregister(&pfdev->base);
-> >>>  err_out1:
-> >>>  	pm_runtime_disable(pfdev->base.dev);
-> >>>  	panfrost_device_fini(pfdev);
-> >>> @@ -1023,7 +1018,6 @@ static void panfrost_remove(struct platform_device *pdev)
-> >>>  	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
-> >>>  
-> >>>  	drm_dev_unregister(&pfdev->base);
-> >>> -	panfrost_gem_shrinker_cleanup(&pfdev->base);
-> >>>  
-> >>>  	pm_runtime_get_sync(pfdev->base.dev);
-> >>>  	pm_runtime_disable(pfdev->base.dev);
-> >>> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> >>> index 3a7fce428898..aa3a604b3439 100644
-> >>> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> >>> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> >>> @@ -15,20 +15,21 @@
-> >>>  #include "panfrost_gem.h"
-> >>>  #include "panfrost_mmu.h"
-> >>>  
-> >>> -void panfrost_gem_init(struct panfrost_device *pfdev)
-> >>> +int panfrost_gem_init(struct panfrost_device *pfdev)
-> >>>  {
-> >>>  	int err;
-> >>>  
-> >>>  	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
-> >>> -	    !panfrost_transparent_hugepage)
-> >>> -		return;
-> >>> +	    panfrost_transparent_hugepage) {
-> >>
-> >> Note you haven't quite inverted the condition here, but I don't think
-> >> the new condition is wrong - we skip the otherwise no-op helpers. The
-> >> old condition seems a bit backward. Indeed I'm not really sure why we
-> >> bother with the IS_ENABLED() check at all. But the new code looks fine.
-> > 
-> > I've heeded your advice and done away with the IS_ENABLED() check in v5.
-> > I'm curious about why that would work though. Is it because the linker initialises
-> > symbols marked as 'extern' to 0 when they aren't resolved?
-> > 
-> > Otherwise I would've assumed the compiler would throw out a missing definition
-> > error at link time, but then again I'm unsure about this.
-> 
-> Hmm, I hadn't actually spotted that panfrost_transparent_hugepage wasn't
-> defined unless CONFIG_TRANSPARENT_HUGEPAGE. Usually this is handled with
-> a bit of macro magic that #defines the symbol if it's not relevant. I
-> would expect the linker to complain if this symbol still exists in the
-> final output.
+On Wed, Aug 19, 2026 at 7:45=E2=80=AFPM Tomasz Unger <tomasz.unger@yahoo.pl=
+> wrote:
+>
+> Using sprintf has potential for buffer overflows if the formatted
 
-Boris suggested I do this too, namely declaring the symbol as a preprocessor
-define in case CONFIG_TRANSPARENT_HUGEPAGE is not enabled.
+sprintf()
 
-> One possibility is that the compiler is spotting that the
-> drm_gem_huge_mnt_create() and drm_gem_get_huge_mnt() functions are all
-> no-ops in this case, so the entire if() branch can be removed (along
-> with the condition check). Although I'm not sure how safe it is to rely
-> on such compiler optimisations.
+> string exceeds the destination buffer size. Replace it with
+> scnprintf, passing sizeof() of the fixed-size stack buffers
 
-My understanding is that one cannot build the kernel without compiler optimisations,
-but still for the sake of clarity and to avoid any nasty surprises in the future,
-I think I'll just declare panfrost_transparent_hugepage as a macro equal to 0
-when the kernel is built without support for transparent huge pages.
+scnprintf()
 
-> Thanks,
-> Steve
-> 
-> >> Reviewed-by: Steven Price <steven.price@arm.com>
-> >>
-> >> Thanks,
-> >> Steve
-> >>
-> >>> +		err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> >>> +		if (drm_gem_get_huge_mnt(&pfdev->base))
-> >>> +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> >>> +		else if (err)
-> >>> +			drm_warn(&pfdev->base,
-> >>> +				 "Can't use Transparent Hugepage (%d)\n", err);
-> >>> +	}
-> >>>  
-> >>> -	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> >>> -	if (drm_gem_get_huge_mnt(&pfdev->base))
-> >>> -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> >>> -	else if (err)
-> >>> -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-> >>> -			 err);
-> >>> +	return panfrost_gem_shrinker_init(pfdev);
-> >>>  }
-> >>>  
-> >>>  #ifdef CONFIG_DEBUG_FS
-> >>> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> >>> index 79d4377019e9..d6e55c2e4d86 100644
-> >>> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-> >>> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> >>> @@ -129,7 +129,7 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
-> >>>  	return container_of(node, struct panfrost_gem_mapping, mmnode);
-> >>>  }
-> >>>  
-> >>> -void panfrost_gem_init(struct panfrost_device *pfdev);
-> >>> +int panfrost_gem_init(struct panfrost_device *pfdev);
-> >>>  
-> >>>  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
-> >>>  
-> >>> @@ -154,8 +154,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
-> >>>  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
-> >>>  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
-> >>>  
-> >>> -int panfrost_gem_shrinker_init(struct drm_device *dev);
-> >>> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
-> >>> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
-> >>> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
-> >>>  
-> >>>  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
-> >>>  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
-> >>> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> >>> index 2fe967a90bcb..fefae87535d6 100644
-> >>> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> >>> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> >>> @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-> >>>   *
-> >>>   * This function registers and sets up the panfrost shrinker.
-> >>>   */
-> >>> -int panfrost_gem_shrinker_init(struct drm_device *dev)
-> >>> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
-> >>>  {
-> >>> -	struct panfrost_device *pfdev = to_panfrost_device(dev);
-> >>> -
-> >>>  	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
-> >>>  	if (!pfdev->shrinker)
-> >>>  		return -ENOMEM;
-> >>> @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
-> >>>   *
-> >>>   * This function unregisters the panfrost shrinker.
-> >>>   */
-> >>> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
-> >>> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
-> >>>  {
-> >>> -	struct panfrost_device *pfdev = to_panfrost_device(dev);
-> >>> -
-> >>>  	if (pfdev->shrinker)
-> >>>  		shrinker_free(pfdev->shrinker);
-> >>>  }
-> >>>
-> > 
-> > Adrian Larumbe
+> (text1[50] and text2[50]) so the write is always bounded.
+
+> In practice an overflow is very unlikely here: text1 only needs
+> room for a size_t value from an SPI TX buffer length, and text2
+> formats three small integers (bus number, chip select, and
+> frequency in MHz) that always come from real hardware ranges far
+> below the theoretical worst case for their types. This is
+> therefore a defense-in-depth hardening rather than a fix for an
+> observed or easily triggered issue.
+
+This paragraph is not for the commit message, rather for the comment.
+
+...
+
+>         if (par->txbuf.buf && par->txbuf.len >=3D 1024)
+> -               sprintf(text1, ", %zu KiB buffer memory", par->txbuf.len =
+>> 10);
+
+The 64-bit number takes up to 20 decimal digits, the rest here is 20
+and one for NUL terminator. 50 is more than enough.
+
+> +               scnprintf(text1, sizeof(text1), ", %zu KiB buffer memory"=
+, par->txbuf.len >> 10);
+>         if (spi)
+> -               sprintf(text2, ", spi%d.%d at %d MHz", spi->controller->b=
+us_num,
+
+For this it might be worse, 3 32-bit integers that may take up to 10
+decimal digits + sign, so 33 altogether and the rest is 13 and one for
+NUL terminator, so still below 50 in the longest case.
+
+> -                       spi_get_chipselect(spi, 0), spi->max_speed_hz / 1=
+000000);
+> +               scnprintf(text2, sizeof(text2), ", spi%d.%d at %d MHz", s=
+pi->controller->bus_num,
+> +                         spi_get_chipselect(spi, 0), spi->max_speed_hz /=
+ 1000000);
+
+Taking the above (and if there are no compiler warnings currently
+present) this change is an unneeded churn.
+
+--=20
+With Best Regards,
+Andy Shevchenko
