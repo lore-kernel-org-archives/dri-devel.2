@@ -4,86 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA5DC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:51:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B89FEC5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:55:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7768110E22C;
-	Thu, 20 Aug 2026 18:51:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB55210E22A;
+	Thu, 20 Aug 2026 18:55:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XjJbEDza";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lTARxJLk";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CS+3Os0J";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2754A10E22C
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:51:20 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-481595afa73so26547f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:51:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787251878; x=1787856678; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Pp5J0jgzAEL526K8MSIBx0JpzYWE+QXYN3SwjN7BJQ0=;
- b=XjJbEDzaSH5gIxNmiyYQHUqdjlMvFCcZlsAiASHBwWnh34Efzc4NXn70AmQn5AIOgV
- QtOIxHcJxUFhkZuVxozftXil/DKxVyVG0xvrMQlVpoq5cxY9TxI8ZfGsgSFqGVavp0Au
- +wyurM4RaZ+92pM6LmjmJ67kWbip3TXlVda0ZFniuZDqRvw+KCBBjH6ZoXsupyROs7Wz
- LSEWmE5XwmGp+c2bjLkxUckjj+3ZXiHabQpxUmIRq7Q2hY3f2C6fWifoE7RDK7Rfb6mo
- cEFKHtYUJ0ECaamK540JlOP1DC0fCOdXleQT5VPAJA3599/tRZL8GYndwOyuS0WF6DE6
- n7tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787251878; x=1787856678;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Pp5J0jgzAEL526K8MSIBx0JpzYWE+QXYN3SwjN7BJQ0=;
- b=o79ZygUaUVTSYbNVDRmPAJlLPfr7rBUmMSm+nob7tWPC9iDqnyuOhHhLom3Zvv0nJH
- 7tF7U0FIZ0elVT0YBGayGX2V1TehL7k3UCk1gzCvSmCyZ698Y0pqx9m/YPTF54E/wFPk
- 4hAakAQRqXDxEyG1jtmRi97YA7s/L1/h3nnfTMZSOoFSqZgrXpllOrC85HZkSMfr3SHn
- Hb3mCV/vVFakeN2I3J+dE3rQpl/WYYfNcaEWedCsq57yBYew+1fn3xmgiLwedcan0cjl
- EchjQEfyHYTxCiJ1P1iZt48Ojq1f7BwUPnerexstm+njI8OcYmEcdKgVoh8IWwEDmy98
- rSMw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoeK0TebpTNP1vWg5n7hlo7hFoF8wNARJl8rCyQLJEYEn+hGt+UvmyAaGoVFI8OdL9+xiwnpd9fqoM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YziXr+TzhwtqxIo5C82s2sHAb2WXMo6MWdJeNvKALmvpFza5NSW
- G3F098JU/1Pbekl9catoSum+XKoMj4NIOEjtvxW/UYQKNtAocKDOo+DU
-X-Gm-Gg: AR+sD12/Z5N/d15XXduQKFqmL0nvuntvUYwDc1vqPYlzzuVl5e2AHvglbYo1hAK89v9
- 8r248vYZzuk0A6voR19+k5O8sEmtU3hhYBOtvtNVHQC5XZlzkU+vPdfDizR10DkmWmliVuIVadB
- EJR7yobhcRhtyqPmcslrFRO3YoWfPY8VcAH8mz7vNEfBAOkMunkaZqKmnTByXX1AP5TyXR6wlSJ
- CbNoJj6gruh9ySLAamgEbgZp3OYAfoH4Gzr1FAZnuNZWOOu69PyBRSZJobAIwUNy9keeesPPwvl
- bWmTYxeGKyMjFNJXxQ4lfVl5CGWUTciFFdeMB4PcdDKYCQCT7fofOh4KRXS0iRogVCPZaCDsJNR
- dmQtoaALyW/WwJ51ivEd5Hbnkn+M/dFAPnbsFtar6VDDCpljk1vCF6kqJal2wb0IJtbR9JccMPg
- wp6ovv5FTEdFysGfMWKKI/0PML6+Uoz/8MpDaXw7v52WGcxWPgj+XMjUvWpBWB3DgNgbnpHw==
-X-Received: by 2002:a05:600c:548c:b0:499:5b0f:72b with SMTP id
- 5b1f17b1804b1-499b835251emr9349565e9.1.1787251878389; 
- Thu, 20 Aug 2026 11:51:18 -0700 (PDT)
-Received: from OrangePi5-Plus ([2a06:63c4:9102:701:512e:da32:b75b:2535])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499b91173c4sm684915e9.2.2026.08.20.11.51.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 11:51:17 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Thu, 20 Aug 2026 20:50:55 +0200
-Message-ID: <20260820185056.20643-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260820100715.750660-1-gahing@gahingwoo.com>
-References: <CAEWPSH7ETfw2TDjUfOvcVtDm19FC43x2vP=Lh7m+XPOGptnPWA@mail.gmail.com>
- <20260819105723.632029-1-gahing@gahingwoo.com>
- <20260819154634.7584-1-royalnet026@gmail.com>
- <20260819184838.6723-1-royalnet026@gmail.com>
- <20260820100715.750660-1-gahing@gahingwoo.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85D5810E22A
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:55:17 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hQt0z5PGYzMlKM;
+ Thu, 20 Aug 2026 20:55:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1787252115;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dBf226F5J7L2G3nMkBqVcELYd3BwALU/nWm1qUUhSRs=;
+ b=lTARxJLkQM3jX9Wmx8Vb7oSi3/lSwtHTKxhWUJyYLlMyP+C7l2GFRj5V3knHO5f27JwF4z
+ vPczfUL5W0TSM4NMrDgyM2Z4A6ULC0FR+p4Ttck+cKA/IHi8ihl5/8DFpV/Nm48Ah43WsY
+ k2NvA5fse8tW0UR6DOR3WE+NbHusufIezZmnV0mEegQcETZ9EL5aMFqTeVno9uGt2/nuZF
+ yzBDvr8LoGo00uSCcIaiL4b5XeQg2fKT0mLz2EiMqIEfwY7FlR+HRMlPPGPZxwjyKo3sXY
+ O3/yLMYbgH0mBX6NOtRIAVGaIx7UGVML+XaXCXYm8ZwVPtXhNQYYf4Vt74MA0A==
+Authentication-Results: outgoing_mbo_mout;
+ dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=CS+3Os0J;
+ spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org
+ designates 2001:67c:2050:b231:465::102 as permitted sender)
+ smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1787252114;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dBf226F5J7L2G3nMkBqVcELYd3BwALU/nWm1qUUhSRs=;
+ b=CS+3Os0JUcOk7RYqWvxIFjinh1VF2oYhMhkG9Klu1BkLEBOBw/GMgyienCY8oPOJaxu9hQ
+ wJgfVOew0dEnP5KWfMn7KXlTex3MqRvikBf+F9jYer0NzBppi1B21kNf0OI5GWQSs5Q3yR
+ uvmodV+0i5DWmR3l8vucbuKzgHI9ddqrNFxABhpyTAy7wg44vgd/wBXpGEP5XBSA4Y4xle
+ gMb+lSmTjIvTkmN467mypbmXOjbCMMyrEqtRXq9Ug94HsNHKfzHwWJUBFctmpSX2ceUnXt
+ ZGcQJXPB4HxvAwQ65w/eBPwh/FK5jvy1t6/dDzzDRSHewa34WcKSKShOfH8acA==
+To: dri-devel@lists.freedesktop.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2 1/4] dt-bindings: display: panel: Document 10" Raspberry Pi
+ Touch Display 2
+Date: Thu, 20 Aug 2026 20:54:27 +0200
+Message-ID: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: df6b2c1fc4a1281fe41
+X-MBO-RS-META: 7hh6gdmyeaxzz17b8rgd5q1ssxdpz8bs
+X-Rspamd-Queue-Id: 4hQt0z5PGYzMlKM
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,40 +86,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jiaxing,
+Document the 10" Raspberry Pi Touch Display 2 MIPI-DSI TFT LCD panel.
+The panel is based on the Ilitek ILI79600A controller.
 
-Thank you for running the sweep, and for the shape of it - one field at
-a time with the other four held, three baselines with no drift, and the
-honest reading of RESERVED_0's score printing after its timeout. That
-table is worth more than the five lines it occupies.
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: devicetree@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+V2: Extend existing ilitek,il79900a.yaml document instead of introducing
+    new one. Note that the il79900a should likely be il_i_79900a, but the
+    binding document already shipped in Linux 6.19.y , so this can not be
+    fixed anymore ?
+---
+ .../bindings/display/panel/ilitek,il79900a.yaml     | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-On SIZE_E_1: I would keep it at 0, and I would not shrink the diff.
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
+index 02f7fb1f16dc7..f8644e9a4478d 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
+@@ -14,10 +14,15 @@ allOf:
+ 
+ properties:
+   compatible:
+-    items:
+-      - enum:
+-          - tianma,tl121bvms07-00
+-      - const: ilitek,il79900a
++    oneOf:
++      - items:
++          - enum:
++              - raspberrypi,dsi-10inch
++          - const: ilitek,ili79600a
++      - items:
++          - enum:
++              - tianma,tl121bvms07-00
++          - const: ilitek,il79900a
+ 
+   reg:
+     maxItems: 1
+-- 
+2.53.0
 
-My reasoning, for what it is worth from someone without the hardware:
-your sweep just demonstrated that the traced value is load-bearing in
-four of the five fields, failing in three distinct ways. That gives the
-trace as a whole its authority. A register built from the trace with one
-field swapped to upstream's value is a configuration that no silicon has
-ever run end-to-end - not your RK3576 (which ran 0) and not RK3588
-(which runs a different register entirely). Keeping 0 keeps the value
-honest to its source, and your comment saying it was measured not to
-matter on these two shapes preserves exactly what is known and no more.
-
-One question in the same direction: by the SIZE_E semantics you derived
-on the 17th (SIZE_E_n + 1 = the number of 16-channel atoms in the last
-bank), would different output channel counts exercise different SIZE_E
-fields? If so, two shapes cannot rule out a shape that leans on
-SIZE_E_1 specifically, which would make 0-as-traced the conservative
-choice as well as the honest one.
-
-And thank you for being exact about the tags - 1/13 carrying, 2/13
-dropped because it is no longer the patch I tested. That is the right
-call, and saying it on the thread when v9 posts is better than either of
-the quiet options. The re-run offer for v9 on RK3588 stands; the harness
-is set up and travels well.
-
-The trip went fine, thank you - I am answering from the countryside,
-with the same board on the desk.
-
-Best regards,
-Igor
