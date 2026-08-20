@@ -4,76 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 107CEC5DF82
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA8E5C5DF81
 	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:07:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6740B10EFA9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7044610EFB1;
 	Thu, 20 Aug 2026 10:07:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XxvYHQnI";
+	dkim=pass (2048-bit key; unprotected) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="QkGfeS9N";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63D7710E601
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 09:01:26 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-8518b3ff3e9so1544995b3a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 02:01:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787216486; x=1787821286; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=H1cXU6F1o2rHz57g5Mrsu2Zu2w5oL+wJQFcFFRp68YM=;
- b=XxvYHQnIFUBuVWLJe5TGCRdgkdVdqhFlc4m8co1brbIx9uuBwH31FyMZW7mMxZAJ5H
- fAtmLk5PW5pN3qiL1vXjw+LIR03mJkOewBcz5/TSR5bfJQU9gv9FWORLicA2QlyW52/w
- JMPyrqnlOOpxNjzxXO9YrbxJBzB8eADMILA8MDrHyQcLO7KUCrpqhybv+ukO4HP126e9
- ANzh3WcZK0dJrm3Ti0oG2NzXX1YsOw0LhfFOmGYLgpS7B5yYJ4dRz3d6laXpaVIId+g/
- 6SuGP0GUR34iBDwJDmydyHdhs4kRkfhtixMuH96qqrPXkLMwSW7J59B0OvKYf68OJ75f
- bsOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787216486; x=1787821286;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=H1cXU6F1o2rHz57g5Mrsu2Zu2w5oL+wJQFcFFRp68YM=;
- b=RTRmxSu0x3uC3+c6o/ZcC4BQyZIzDcY2QyGMSYD5ShC12KaRNEmov2s90AtYq7ZrVk
- GC6/OYcsLW19Jhg7VXYhZF32NUG8VSJMRbQjHOZRQdoYgea1lVDULQQSzQAlYmzJb76K
- dHhR1ohN4DTqjeBwk6gRMYNnRMjdJ8NvlkPO9viNsKio6EvCS9Q/WGpgfAUoMlQqz/Wd
- H5Jvws0aThL4qAy+mFHRMmj4YAaFQEJswpgw4WZ/c2ljv9abTYvpdYf2vdOz0wHp+Tcr
- /WV6d/2g8TOY3WpcTk9gTlJG+LnYG+5LLEc6KeRH0Uj5supdt0dW1olkhGqqgi+DkBeP
- SU3A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpggGJKY1OIlh2qsQ0Z3IYrg6nIbypLmaTONKptESt9I7DfP7yy7GoTJ68HqhrRBcyxbyK8bEOzZ3A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyrSxOBQh4Co3YBYs9PFaIHQjj9rpvVjsr1wVvxy6QJ1Yj4JbyU
- EWVeqUhfW6CJtmTDn/4NxT7bmf94VufvrezAdFLlrxToASzwEgoDGCI=
-X-Gm-Gg: AR+sD126nyvvosRiPmkHJ9C7GZY0jTN15wW3UxO9ukKnqD7dSK+a16MdahwQc3xmKsj
- cGUFXq8KdSIpuu8j132mzK3yATodgALtnMwE5ACxT3vWul9+mtxBXoN/x7KPqCqOP68VH9hHQbp
- HSfHg8E6jnIcIVArbi4IRg1qJCSI4W6X9wpXhctAx+5T4JNa7qXAX8tHBLL6wJChrev6wsnJhIR
- Z4vGLJoMd6A+HrkfM+A/H733hP7gLXq2VdxBf4mH6JyZf1HDui7Q9ecS9zn82RMSOEpQ6ng6Z8Y
- wb3GES5nsWU0R03EZZVzV/NAXWT11yOMvJHxareZXXlRVyCHvEVYVdoklY1Z3UbhNWbJhxHo0wI
- L1TsuRbiGX4/KT8A8UIvA863LaIoFs3xUAXh6bJsmi553KGVUTsKaReTxFwmW+CtT/e/tDZ+dyP
- 8GhlAJH6ndDO4zUw0V0onjM5SKyMCjE/HNuLHgV+byS+NHyk+OZ9lErDq+RCp7MUOEgw1Sm65cQ
- TDwfU80CAYa
-X-Received: by 2002:a05:6a00:18aa:b0:848:6c9c:4074 with SMTP id
- d2e1a72fcca58-851d3805df3mr18933563b3a.1.1787216485656; 
- Thu, 20 Aug 2026 02:01:25 -0700 (PDT)
-Received: from DL2XHKPB4.dl.net ([103.63.104.162])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-851d3362860sm1408804b3a.8.2026.08.20.02.01.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 02:01:25 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: neil.armstrong@linaro.org
-Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Triet Hoang <triet.hoang.dev@gmail.com>
-Subject: [PATCH] drm/panel: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
-Date: Thu, 20 Aug 2026 16:01:19 +0700
-Message-ID: <20260820090119.2107869-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+X-Greylist: delayed 904 seconds by postgrey-1.36 at gabe;
+ Thu, 20 Aug 2026 08:02:07 UTC
+Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5300910E159
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 08:02:07 +0000 (UTC)
+Content-Language: ru-RU
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <1870AAF59BA5C440A9C0A5FEDF60F83A@prosoftsystems.ru>
+Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
+ c=relaxed/relaxed; t=1787212020; h=from:to:date:message-id:subject;
+ bh=b+nl3wNpyL9zfo55O6yDTvES23BqPJVNGCcTN1kET+M=;
+ b=QkGfeS9NM9KN1hAdjL3Veb8ehw+QQC5OteUHv4HFiKjfTNJwGhb/FICh/HtFvtn0YOCmScjcYvu
+ Aq2jSFiI9nHtMVvEn6RiO2uGRVJvETueIDPOKZp/aQ/13J+6Z/9623I2jPP004QIMVEs5M+qnUGPK
+ 27GM4VFmId91NI7h3ETMBi/fiBqrlo/eugb+11juZL/It7xVsXsTDWIz1zT1LRzEP1OePH3i8Mmx6
+ fqwef0qabDXwgdHOupO2NN7y/kCBZsId7jww+qLe5PqVZaksAfNI1lp7TA/ybso6CEI7pn9ecX4oJ
+ kz8Dli8s1TUP67vyFAH1VIJw2F45qcCmMqvg==
+Received: from ECHO-3.prosoft.ural.ru (172.25.100.229) by mx.prosoftsystems.ru
+ (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30;
+ Thu, 20 Aug 2026 12:47:00 +0500
+Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
+ ECHO-3.prosoft.ural.ru (172.25.100.229) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.39; Thu, 20 Aug 2026 12:46:59 +0500
+Received: from echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed]) by
+ echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed%17]) with mapi id
+ 15.02.1748.039; Thu, 20 Aug 2026 12:46:59 +0500
+From: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
+ =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
+To: "andrzej.hajda@intel.com" <andrzej.hajda@intel.com>
+CC: "rfoss@kernel.org" <rfoss@kernel.org>, "Laurent.pinchart@ideasonboard.com"
+ <Laurent.pinchart@ideasonboard.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "j-choudhary@ti.com" <j-choudhary@ti.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "h-shenoy@ti.com" <h-shenoy@ti.com>,
+ "xiqi2@huawei.com" <xiqi2@huawei.com>, "luca.ceresoli@bootlin.com"
+ <luca.ceresoli@bootlin.com>, "lvc-project@linuxtesting.org"
+ <lvc-project@linuxtesting.org>, "jonas@kwiboo.se" <jonas@kwiboo.se>,
+ "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "dmitry.baryshkov@oss.qualcomm.com"
+ <dmitry.baryshkov@oss.qualcomm.com>, "neil.armstrong@linaro.org"
+ <neil.armstrong@linaro.org>, "jernej.skrabec@gmail.com"
+ <jernej.skrabec@gmail.com>
+Subject: [PATCH] drm: bridge: cdns-mhdp8546: drop redundant NULL check
+Thread-Topic: [PATCH] drm: bridge: cdns-mhdp8546: drop redundant NULL check
+Thread-Index: AQHdMHgUvr7X1CFvP02i3G0d9x/1EA==
+Date: Thu, 20 Aug 2026 07:46:59 +0000
+Message-ID: <52b64660617c2f1303b1f590f831baa8f39bed98.camel@prosoftsystems.ru>
+Accept-Language: ru-RU, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.25.1.89]
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 20 Aug 2026 10:07:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,99 +84,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert the deprecated SIMPLE_DEV_PM_OPS
-to DEFINE_SIMPLE_DEV_PM_OPS and pm_sleep_ptr().
-
-This lets us drop the __maybe_unused annotations from its suspend and
-resume callbacks, and reduces kernel size in case CONFIG_PM or
-CONFIG_PM_SLEEP is disabled.
-
-Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
----
- drivers/gpu/drm/panel/panel-nec-nl8048hl11.c | 8 ++++----
- drivers/gpu/drm/panel/panel-tpo-td043mtea1.c | 8 ++++----
- 2 files changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c b/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
-index d5c7210de4af..11e11abcba4a 100644
---- a/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
-+++ b/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
-@@ -149,7 +149,7 @@ static const struct drm_panel_funcs nl8048_funcs = {
- 	.get_modes = nl8048_get_modes,
- };
- 
--static int __maybe_unused nl8048_suspend(struct device *dev)
-+static int nl8048_suspend(struct device *dev)
- {
- 	struct nl8048_panel *lcd = dev_get_drvdata(dev);
- 
-@@ -159,7 +159,7 @@ static int __maybe_unused nl8048_suspend(struct device *dev)
- 	return 0;
- }
- 
--static int __maybe_unused nl8048_resume(struct device *dev)
-+static int nl8048_resume(struct device *dev)
- {
- 	struct nl8048_panel *lcd = dev_get_drvdata(dev);
- 
-@@ -171,7 +171,7 @@ static int __maybe_unused nl8048_resume(struct device *dev)
- 	return 0;
- }
- 
--static SIMPLE_DEV_PM_OPS(nl8048_pm_ops, nl8048_suspend, nl8048_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(nl8048_pm_ops, nl8048_suspend, nl8048_resume);
- 
- static int nl8048_probe(struct spi_device *spi)
- {
-@@ -239,7 +239,7 @@ static struct spi_driver nl8048_driver = {
- 	.id_table	= nl8048_ids,
- 	.driver		= {
- 		.name	= "panel-nec-nl8048hl11",
--		.pm	= &nl8048_pm_ops,
-+		.pm	= pm_sleep_ptr(&nl8048_pm_ops),
- 		.of_match_table = nl8048_of_match,
- 	},
- };
-diff --git a/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c b/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
-index b18af526b54c..455a4237b1e1 100644
---- a/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
-+++ b/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
-@@ -382,7 +382,7 @@ static const struct drm_panel_funcs td043mtea1_funcs = {
-  * Power Management, Probe and Remove
-  */
- 
--static int __maybe_unused td043mtea1_suspend(struct device *dev)
-+static int td043mtea1_suspend(struct device *dev)
- {
- 	struct td043mtea1_panel *lcd = dev_get_drvdata(dev);
- 
-@@ -396,7 +396,7 @@ static int __maybe_unused td043mtea1_suspend(struct device *dev)
- 	return 0;
- }
- 
--static int __maybe_unused td043mtea1_resume(struct device *dev)
-+static int td043mtea1_resume(struct device *dev)
- {
- 	struct td043mtea1_panel *lcd = dev_get_drvdata(dev);
- 	int ret;
-@@ -413,7 +413,7 @@ static int __maybe_unused td043mtea1_resume(struct device *dev)
- 	return 0;
- }
- 
--static SIMPLE_DEV_PM_OPS(td043mtea1_pm_ops, td043mtea1_suspend,
-+static DEFINE_SIMPLE_DEV_PM_OPS(td043mtea1_pm_ops, td043mtea1_suspend,
- 			 td043mtea1_resume);
- 
- static int td043mtea1_probe(struct spi_device *spi)
-@@ -492,7 +492,7 @@ static struct spi_driver td043mtea1_driver = {
- 	.id_table	= td043mtea1_ids,
- 	.driver		= {
- 		.name	= "panel-tpo-td043mtea1",
--		.pm	= &td043mtea1_pm_ops,
-+		.pm	= pm_sleep_ptr(&td043mtea1_pm_ops),
- 		.of_match_table = td043mtea1_of_match,
- 	},
- };
--- 
-2.53.0
-
+dG9fY2Ruc19taGRwX2JyaWRnZV9zdGF0ZSgpIGlzIGEgY29udGFpbmVyX29mKCkgb24gdGhlIGZp
+cnN0IG1lbWJlcg0Kb2Ygc3RydWN0IGNkbnNfbWhkcF9icmlkZ2Vfc3RhdGUsIHNvIGl0IGNhbm5v
+dCByZXR1cm4gTlVMTCBhcyBsb25nDQphcyBpdHMgaW5wdXQgaXMgbm9uLU5VTEwuIFRoZSBicmlk
+Z2Ugc3RhdGUgaXMgYWxyZWFkeSBOVUxMLWNoZWNrZWQNCnJpZ2h0IGJlZm9yZSB0aGUgY29udmVy
+c2lvbiwgbWFraW5nIHRoZSBjaGVjayBvbiB0aGUgY29udmVydGVkDQpwb2ludGVyIGRlYWQgY29k
+ZS4NCg0KUmVtb3ZlIGl0Lg0KDQpGb3VuZCBieSBMaW51eCBWZXJpZmljYXRpb24gQ2VudGVyIChs
+aW51eHRlc3Rpbmcub3JnKSB3aXRoIFNWQUNFLg0KDQpTaWduZWQtb2ZmLWJ5OiBSYWRpeSBaaGFt
+YmFraWV2IDxyLnpoYW1iYWtpZXZAcHJvc29mdHN5c3RlbXMucnU+DQotLS0NCiBkcml2ZXJzL2dw
+dS9kcm0vYnJpZGdlL2NhZGVuY2UvY2Rucy1taGRwODU0Ni1jb3JlLmMgfCA1IC0tLS0tDQogMSBm
+aWxlIGNoYW5nZWQsIDUgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYnJpZGdlL2NhZGVuY2UvY2Rucy1taGRwODU0Ni1jb3JlLmMNCmIvZHJpdmVycy9ncHUvZHJt
+L2JyaWRnZS9jYWRlbmNlL2NkbnMtbWhkcDg1NDYtY29yZS5jDQppbmRleCAzNmMwN2I3MWZlMDQu
+LjQyNDE4M2RiNmY3NiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvY2FkZW5j
+ZS9jZG5zLW1oZHA4NTQ2LWNvcmUuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9jYWRl
+bmNlL2NkbnMtbWhkcDg1NDYtY29yZS5jDQpAQCAtMjE0NSwxMSArMjE0NSw2IEBAIHN0YXRpYyBp
+bnQgY2Ruc19taGRwX3VwZGF0ZV9saW5rX3N0YXR1cyhzdHJ1Y3QNCmNkbnNfbWhkcF9kZXZpY2Ug
+Km1oZHApDQogCQl9DQogDQogCQljZG5zX2JyaWRnZV9zdGF0ZSA9IHRvX2NkbnNfbWhkcF9icmlk
+Z2Vfc3RhdGUoc3RhdGUpOw0KLQkJaWYgKCFjZG5zX2JyaWRnZV9zdGF0ZSkgew0KLQkJCXJldCA9
+IC1FSU5WQUw7DQotCQkJZ290byBvdXQ7DQotCQl9DQotDQogCQljdXJyZW50X21vZGUgPSBjZG5z
+X2JyaWRnZV9zdGF0ZS0+Y3VycmVudF9tb2RlOw0KIAkJaWYgKCFjdXJyZW50X21vZGUpIHsNCiAJ
+CQlyZXQgPSAtRUlOVkFMOw0KLS0gDQoyLjUzLjANCg==
