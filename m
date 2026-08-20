@@ -4,90 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24BFAC5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 870A3C5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4192D10F161;
-	Thu, 20 Aug 2026 17:55:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAEF210E12B;
+	Thu, 20 Aug 2026 17:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="CGGD9DK6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HQ8/tyTp";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bo1n3KG6";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC28510E1EE
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787248542;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WXmR5qR3jtx7kOIrq38SuTT1/+e+DpvoYM+cnNboWbk=;
- b=CGGD9DK6EnHHjzPbtUpnjrqQa9oZ70Sf9uf0DsrSxD8EwZoen4Z8Y302zC63fGo72FKoV8
- MYMrhYZlAuJ6l5ss/RQs7OGeAeVfh40dg1ri9Qbm4WKImlMdBTU6T8bKOsxuUIsHH+j2kq
- ijHvpduRZaPbSlBgqhDJKVJq7dN8rS0=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-352-0Wa-pBxOMoufs8UPRI7RmA-1; Thu, 20 Aug 2026 13:55:38 -0400
-X-MC-Unique: 0Wa-pBxOMoufs8UPRI7RmA-1
-X-Mimecast-MFC-AGG-ID: 0Wa-pBxOMoufs8UPRI7RmA_1787248538
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-51c21c01cf3so1024981cf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:55:38 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DDC010E12B
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:59:47 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67KHXvCU968426
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:59:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ QFdxtm41wVDEsAP+K+yhfE0hkJ/8UD9Q8TAdZcZFzEU=; b=HQ8/tyTp1N8lZXAI
+ n56VZ/6sTM5fPrLrBAnAkhRJCpXBa+kO1jkpNIQ/Qwx6XN5H1yhfEspZq5hN0hun
+ AHJf2x61xcubSNZ4LqSXU4ZPlXMyggQyJFOw7oLLB+FzJaKl2h4lHO37PXZ9JJ5s
+ oY5wWTmsVXeQ5c4t3Iv5Dn+ufy3+mD6yIWlnaTxFvz08IUMEA4H5a+2NRNxgIvp/
+ LlujvrKGgikT6i8hpiwoL5t3i6UvxS1s4aSijuxc+sp+Q4ZrqMwIJGXb2apVHfL4
+ 55D0uO6RZp6POwxLKSOGxpZkd1TOwB9b4yiiM5g0hCE/4WHV8ZlWFhLMFY1l/Rae
+ 0snVsQ==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5vn8aws7-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:59:46 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-73883529f72so121827137.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:59:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787248786; cv=none;
+ d=google.com; s=arc-20260327;
+ b=NxOpGkReNMJEWvs6VYdBwXoZTSKP+N3UcByJx52qQc+ElraQZIYTq1wR799utKEWR1
+ TMFcRkKco7KdIRa5wEZluzaGqxf5O7OLpgLwT8PLV6MgLtVzrxqxzK5iUnaUAVbTm/C8
+ xE6iuUMmgP2tuobV3nxOy8NYJ1SIvrWxsYcn5kb5w8QvYMnAHPX2h6ijvHKzWu7O7qtc
+ ynSBO1RROu971r/mwtJpPrtFfZQ17fXtVOUysVeMjk2+AGz2Bv2kY2m0sYlkYee7aCX0
+ vz2qHSEry4BYXulZ7Lw+i5rCpG/delxSwiNQ2rHfau7fB+XZWFe8bstvELgLK/aQlyRh
+ HZ2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=QFdxtm41wVDEsAP+K+yhfE0hkJ/8UD9Q8TAdZcZFzEU=;
+ fh=06hhe6I/422EYX0En1xiJHj7gxG5hhp7eKz8Cc/vINw=;
+ b=cmtS5qoZj0Yi4nTz4/qM/TrrDIY5IOSbFTBgM0E6peZ6OhTp3zyY+A+DtibjMluLYp
+ LSjAfF7+H25376uAbuJ2ory9WCN/ZJpHIka3EGJ9GgqcS0fwQAeQkcJxMTc2eHA5ADp3
+ mbPmPr/DKPEYdAsmqVxICS07gylB2Gxavm7cNtAjWwHqMFpJ81KJ8oWhwtds9unTSQMr
+ db8QT2UjgAAhOTEgW8bTPyKC8A1ShKVUXBZPrAPHca/rZqLfMOEWOspDobbFmGEpSaUp
+ hR6dJrgSUfQWw7tjREmNR/ERKGxh8WeQNz6KKKjzXSFxRytTcI84Sv+EucvL3fQBhiGl
+ k2Bg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787248786; x=1787853586;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=QFdxtm41wVDEsAP+K+yhfE0hkJ/8UD9Q8TAdZcZFzEU=;
+ b=Bo1n3KG6oT3jqn2xbied4tM6R1ZKEjjxg0hUsLIaIfH3FA+2ByNeIMZGMjLhqvoT5z
+ F3bTzUNIas7eHXZdZQPaNHmEaYBxzP9T3kif6JU1CnGSp069fZ0Y5KF0ZwNbPkjNlsdP
+ mXFLYUvdbdvjh4XdDrQAJjUIdA8Cd0jghN/MNSkAkZcmjoi7BvZ3lHubITgmZqvodNlS
+ j9ZESqYDv++GCCfOU3Fq5owexXiGi2vWv+pELWAAlJwCsHfmEnaXS3uw2wkNPgP9G22+
+ BY8BCz9gPvzwkzL/MsTzcdDcxs1X0Nc0jIKWrNqTKgrFivJ1DUjN7WKtxbmZghQSA2lV
+ KG0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787248538; x=1787853338;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ d=1e100.net; s=20251104; t=1787248786; x=1787853586;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=VTFvT4h0Q0q3RfixbzGb3rOg5NcbDH7/Ar2/bb9HET4=;
- b=To8JTmir2fboKZuCtmZnovZhd7d+qXr+y5Fh1YgjOYQ7/p4Wn/t0T/NratvXZqR491
- vUzb4P6AAAfbfLxrvZqRNYh+sJzbWbrV8JCviUZ9sjmNjRbc9y4SCqt1d202Z0eSjE0N
- bCK71RPAaetutFIxRQfFCqJ38WZECa966VdozSgGKuxJYoB2gWR0zFR5ny2xhOHAFM8n
- /nvCt5G0upbiiCqCEw163a1mfXZ5S40kE7j6LqKm9f8YYDb5CgBQc/OcVCI31uLanc1Y
- 7aH33sLho2jDYA3IJwHjALv4dJl2eaY5z3m7LbZ26+XRn9MxYq5pGLir3+pSiinuIIKP
- iFjg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq1boIYB1i114i1xwq1OMv3TV3kB9RMYxCMd2a5OkjAGoFXaBBtRPHXv4xXnFjklunVmtre00BhnbM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdNrRods6zzaNMKxheI8AYn38J49Z3XhIhfxk8vq4NtvuKCaPm
- 54gAzU8JhsjSnxMmBqSgJo91OKLcAbF72bCBcKAS5W6ME6I55imdBXmlI1C9/76I7Doo2qG0FJ3
- 12WTH9MX6WSygfm8+/TxuVeEn7AnuzCP6+hgCEQJY+611d3wl/SUkprcGlpi5fTSmxRLY+Q==
-X-Gm-Gg: AR+sD13aP0JTOdIcVfY2A1HyAldHlv7Kf/M50auXRUWyiFzI7Vp8pWBehum60qp7YCY
- GBJj30lfIIIHNwh20o0rdpE5M71hHzFOt3XnRKa7xb7wxHwJMgp44mVY6P6LiX+pjAt6wJ2aD1j
- iAYuTkRMLDCZfvzfFfUqsLP3VhfDMvqgbdosMWpmgsAgXd+7KPG6qRErWtKq89H/NKmT2/VZTA2
- oi+IeOaqAqBHXzHZ2GdenacH0iy5bjf0Yu2lYtgJtb+GzxRH7gfh7Ls03TYKS3XgpJm+nL0Zwwa
- BO5DQVr5PFbvP+kTIurTjy4u8Wb/Dt8furCzUdo6g6QP/yiPvfR867K0R2i8IETtEh0ZikSe
-X-Received: by 2002:a05:622a:5591:b0:516:ed02:c85d with SMTP id
- d75a77b69052e-52df5637a7dmr1713071cf.3.1787248537860; 
- Thu, 20 Aug 2026 10:55:37 -0700 (PDT)
-X-Received: by 2002:a05:622a:5591:b0:516:ed02:c85d with SMTP id
- d75a77b69052e-52df5637a7dmr1712551cf.3.1787248537384; 
- Thu, 20 Aug 2026 10:55:37 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90c5f29065bsm43058966d6.24.2026.08.20.10.55.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 10:55:36 -0700 (PDT)
-Message-ID: <89da2f2c2cd6223e6973b1adb8aebd7a9cd9bce8.camel@redhat.com>
-Subject: Re: [PATCH v2] drm/nouveau: disable the fence uevent work instead
- of just cancelling it
-From: lyude@redhat.com
-To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Date: Thu, 20 Aug 2026 13:55:35 -0400
-In-Reply-To: <178688513268.513871.3468844663561639695@gmail.com>
-References: <178682366001.3748010.7798811159846779765@gmail.com>
- <178682366002.3748010.12779628082366287968@gmail.com>
- <178688513268.513871.3468844663561639695@gmail.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+ bh=QFdxtm41wVDEsAP+K+yhfE0hkJ/8UD9Q8TAdZcZFzEU=;
+ b=FaEHDde8uiFGoufMSzoffqwBlLWC+TpPX/4TN2SiHUD1ynfPjwOoORXQBgLH49JfMr
+ +52sYYQ47TTcjfQ2rMI6KyPBRQUxP7s2IaloS9ZNDEyn3BTz8z7AMA/EswUdyaKLEt2O
+ hLPOHwrc/6gEabGctHXDvFzzJDPdw6T2aSRqakldbE4TcQlrNlvoH2+grMYWAdMTcgPf
+ Ny/D1NgYXE2PUPaArJL64Z7wocG0kxIHuPEyQh8ChA+1nJHwMhTQYJt5k0RSTrRFpdFM
+ 5VI/m7ASBPcIvW8tg2Trapz4zQcxJRoNyayRI3DyTJFfddt4F42bJp9X/EIIAkChwxP5
+ lU6Q==
+X-Gm-Message-State: AOJu0YzXBXdDNnNFXTVMa/SPclPwbVp95uogJqwdxh4pWmuhO+6Fz6XO
+ WiOhiLDxECmjz1wUwPRwW1AsY1zrrsJsP92v/UbCeg55995D7Ijl3kB9ARfbUsSa0SVn/c50D6G
+ JRyof6vn7I48WiyhWOZLwx4VD8Fq3a35UY6rGp6goiXtgByEG2VUNGHO1KD6L9tma6kTQ1t7P10
+ qOt4nfl9p+cPO6K8iF+lrfnMuX9vWIe/WC2buFQNI+NR09Kw==
+X-Gm-Gg: AR+sD11wNZFBcCLJsD/M8E3+IYZlGL2+8BDZRdVHYCVPFt40wjUBsARA/a077hHAy4G
+ 1oat/RUp6rmENMSUDduOI2VztGYjVF+/tZWf3zpypGl9yu24zfclzlk58N+/NwzzIVlQcnKCf56
+ vnVmnFetMorw/otfP2QQ+KS5YaAreyiUdpYiNFVqODWtrUwxAVbvJJjDbQCw==
+X-Received: by 2002:a05:6102:3f86:b0:729:affa:70fd with SMTP id
+ ada2fe7eead31-77a63448e0amr337877137.8.1787248785607; 
+ Thu, 20 Aug 2026 10:59:45 -0700 (PDT)
+X-Received: by 2002:a05:6102:3f86:b0:729:affa:70fd with SMTP id
+ ada2fe7eead31-77a63448e0amr337818137.8.1787248784750; Thu, 20 Aug 2026
+ 10:59:44 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ldnoqydG99M_-vRrK-W8dUhYkZJ-OnbIJ1PcNVoCKys_1787248538
-X-Mimecast-Originator: redhat.com
+References: <20260806051915.2234481-1-pravinku@quicinc.com>
+In-Reply-To: <20260806051915.2234481-1-pravinku@quicinc.com>
+From: Pravin Kumar Ravi <pravin.ravi@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 10:59:34 -0700
+X-Gm-Features: AcwNN1WF_dUI9wIt0GRHRzqxRaap9sD1gWktU2w2B0QM4QA3qSEnyqDEX6FnY4A
+Message-ID: <CAPd7Qn3QYyrzBFFjB4+M9Je7uykYgxHiM+vh-mNVJ16QaoPkJA@mail.gmail.com>
+Subject: Re: [RFC] Synx: A global synchronization framework
+To: christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-accel@vger.kernel.org, sumit.semwal@linaro.org,
+ andersson@kernel.org, mathieu.poirier@linaro.org,
+ konrad.dybcio@oss.qualcomm.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDEzNSBTYWx0ZWRfX6K8cwLyEpect
+ MV/gPArxCdz2q9/07daCArQFf8IbEhI2IWZDaA8DiPIdMG0fCuplGyb4lKCTFfe7wjJcEYMBVc0
+ AYdcSEsaC/cmc5AqwOvHQYk8gAAiu71vr2MY4pXrR3pbayUnvHvXSguYoEZt5qjgWLTCkJgqSod
+ sps7DpaObNNgXBqfXpFYeEdixWD/A6366sytwe3Al4yMPh2Xt+uxy/lykSgxFkTF+9T3nlRt5v8
+ iBon9xSvS9FLWZ8trmrstP0N+FE1sThhx+FIKQYNPWPL0WjyBlAQHS82vOyIEdRg73h7ODJgWeW
+ aipikkD3d46uI7RIHqqrt5CtKdOGd+SQ3Cfb8SwUobxoyBWKdFdPHzvXoWAIhBXRlgMgx9mMMqQ
+ FaQLJ4iMTSO2rIPwKHi7vkDEfSnPG99YrHYOZ1qFGcD7yWVD9yXtBijn9YuEkXoHbw2pT0CQygE
+ pFd1PplYWrGGMGit55Q==
+X-Authority-Analysis: v=2.4 cv=KpJ9H2WN c=1 sm=1 tr=0 ts=6a874092 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=zd2uoN0lAAAA:8 a=UqCG9HQmAAAA:8
+ a=7OwBbYa5yZr9SEWkKL0A:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDEzNSBTYWx0ZWRfX0LLyg91Lz5cE
+ NyO9ZozVM3se8KwOVOqqjZFsSJWMRo/016lAipVVx0A2Z14inVSL5nauMGCWMOWRt4U2Ev+Vgz6
+ achXzjN0hZbFqgq0xdREiaNWtzkry14=
+X-Proofpoint-ORIG-GUID: z_rUKa_6o_fqK6_oC26rJdB-qTUxp8hp
+X-Proofpoint-GUID: z_rUKa_6o_fqK6_oC26rJdB-qTUxp8hp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-20_01,2026-08-20_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1011
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608200135
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,194 +156,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This makes sense to me.
+Hi Christian, thank you for the pointers.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+[Note: your reply (Message-ID <5f90bb35-994e-48bd-bf49-3001dcefa2ee@amd.com=
+>)
+is on an earlier duplicate posting of this RFC
+(<BY5PR02MB6866E35A2B4241CF3A728A99D3D22@BY5PR02MB6866.namprd02.prod.outloo=
+k.com>)
+that went out with mangled formatting. Continuing the discussion here on
+this thread instead, quoting your message below.]
 
-Will push to drm-misc-next-fixes in just a moment
+On 8/6/26 13:52, Christian K=C3=B6nig wrote:
+> Oh, well history repeats itself.
+>
+> Well to make a longer story short what you describe here was the
+> original dma_fence proposal from >10 years ago. We fortunately
+> rejected it already back then.
+> First of all some of the stuff you suggest here go strictly against
+> documented dma_fence restrictions, especially no point to point
+> remote signaling! dma_fences have a huge interaction with Linux core
+> memory management which makes stuff like that impossible.
 
-On Sun, 2026-08-16 at 14:58 +0200, Marek Czernohous wrote:
-> From: Marek Czernohous <marek@czernohous.de>
->=20
-> nouveau_fence_context_del() drains the uevent work while the event
-> that
-> feeds it is still armed:
->=20
-> =09cancel_work_sync(&fctx->uevent_work);
-> =09nouveau_fence_context_kill(fctx, 0);
-> =09nvif_event_dtor(&fctx->event);
->=20
-> nouveau_fence_wait_uevent_handler() queues the work unconditionally:
->=20
-> =09schedule_work(&fctx->uevent_work);
-> =09return NVIF_EVENT_KEEP;
->=20
-> so a non-stall interrupt arriving after cancel_work_sync() has
-> returned
-> re-arms the work that was just drained.=C2=A0 The window closes in two
-> steps,
-> neither of which is the drain.=C2=A0 The kill blocks the event when the
-> last
-> fence holding a notify_ref is signalled, which reaches
-> atomic_xchg(&ntfy->allowed, 0) (nvkm/core/event.c:104), and
-> nvkm_event_ntfy() skips a ntfy that is not allowed (:183).=C2=A0 That
-> stops
-> further handlers from starting, but not one that is already inside
-> nvkm_event_ntfy(): the event is created with wait =3D false
-> (nouveau_fence.c:201), so nvkm_event_ntfy_block_() leaves it on the
-> list
-> and never takes event->list_lock.=C2=A0 Only nvif_event_dtor() waits that
-> one
-> out: nvkm_event_ntfy_del() (:141) goes through
-> nvkm_event_ntfy_remove(),
-> which takes write_lock_irq() on that same list_lock (:84).
->=20
-> Either way the re-arm happens after the drain, and the caller drops
-> its
-> reference immediately afterwards, for example
-> nv84_fence_context_del():
->=20
-> =09nouveau_fence_context_del(&fctx->base);
-> =09chan->fence =3D NULL;
-> =09nouveau_fence_context_free(&fctx->base);
->=20
-> That is a kref_put() on fctx->fence_ref, so the context outlives the
-> teardown only while emitted fences still hold a reference of their
-> own.
-> That is no safety net: whenever none do, the count reaches zero right
-> there and nouveau_fence_context_put() kfree()s fctx while the work is
-> still queued.=C2=A0 &fctx->uevent_work is embedded in that allocation, so
-> the
-> workqueue already dereferences freed memory when it picks the item
-> up,
-> and nouveau_fence_uevent_work() can then take fctx->lock on it.=C2=A0 Wit=
+Sure we'll need to be careful to not repeat seqno_fence.
+
+Synx can be used standalone without the optional dma-fence interop.
+It could have the properties of memory fences and need not satisfy the
+dma-fence contracts. Here remote-to-remote signalling doesn't wake-up
+the CPU.
+
+But we have use cases with synchronization points in the synx and dma-fence
+ecosystem for which we could provide synx<->dma-fence interop support
+"conditionally" while meeting the dma-fence contracts. What we would
+like to keep on the table is a narrower class
+
+(1) condition to assure point-to-point signal completion : remoteproc's pat=
 h
-> CONFIG_DEBUG_OBJECTS_WORK and CONFIG_DEBUG_OBJECTS_FREE, kfree() of a
-> still-queued work item is reported as the free of an active object.
->=20
-> On live memory the re-armed work has nothing left to do:
-> nouveau_fence_context_kill() empties fctx->pending and sets fctx-
-> >killed
-> under fctx->lock, nouveau_fence_emit() then returns -ENODEV rather
-> than
-> queueing anything new, and nouveau_fence_update() only reaches
-> nvif_event_block() if it signalled something off that list.=C2=A0 The
-> defect
-> is the access to freed memory, not what the work would have found.
->=20
-> Only chips from G84 on can reach this at all:
-> nouveau_fence_context_new()
-> returns before nvif_event_ctor() when priv->uevent is clear, and
-> nv84_fence_create() is the only place that sets it.
-> nv84_fence_context_del() is the context_del for all of those, because
-> nvc0_fence_create() and gv100_fence_create() build on
-> nv84_fence_create()
-> and override only context_new.
->=20
-> Use disable_work_sync() instead.=C2=A0 It drains the work exactly like
-> cancel_work_sync() does, and additionally increments the work item's
-> disable count, after which "any attempt to queue @work will fail and
-> return %false" (kernel/workqueue.c, disable_work()).=C2=A0 The handler's
-> schedule_work() then has nothing to re-arm, and the teardown order
-> stays
-> as it is.
->=20
-> Draining a second time after nvif_event_dtor() would close the window
-> as
-> well, and without the newer API: once nvkm_event_ntfy_remove() has
-> returned, no handler can start or still be running, so nothing re-
-> arms
-> the work past that point.=C2=A0 disable_work_sync() is preferred here
-> because
-> it needs one synchronisation point instead of two, it keeps the work
-> from being queued at all rather than cleaning up after it, and it is
-> what drm has settled on for this (drm/xe, drm/panthor, drm_pagemap).
-> Blocking the event rather than the work is not an option: fctx->event
-> is
-> created with wait =3D false, so a handler already inside
-> nvkm_event_ntfy()
-> can still queue the work.
->=20
-> Note for backports: disable_work_sync() arrived in v6.10 with
-> commit 86898fa6b8cd ("workqueue: Implement disable/enable for
-> (delayed)
-> work items"), while the fix being corrected here reached 6.6.18 and
-> 6.7.6.=C2=A0 linux-6.6.y therefore carries this bug without the API, and
-> this
-> patch would apply there and then fail to build.=C2=A0 A 6.6.y backport
-> wants
-> the second drain described above instead, as its own patch.
->=20
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes:
-> https://lore.kernel.org/nouveau/20260812231330.705425-1-mczernohous@gmail=
-.com/
-> Fixes: 39126abc5e20 ("nouveau: offload fence uevents work to
-> workqueue")
-> Cc: <stable@vger.kernel.org> # 6.10.x
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Marek Czernohous <marek@czernohous.de>
-> ---
->=20
-> Changes in v2:
-> =C2=A0- Do not reorder the teardown.=C2=A0 v1 moved nvif_event_dtor() ahe=
-ad of
-> =C2=A0=C2=A0 nouveau_fence_context_kill(); with the fences still unsignal=
-led
-> that
-> =C2=A0=C2=A0 leaves nouveau_fence_enable_signaling() reachable, and
-> =C2=A0=C2=A0 nvif_event_constructed() is a plain unlocked read of object-
-> >client,
-> =C2=A0=C2=A0 so the dtor could race an nvif_event_allow() already past th=
-at
-> check.
-> =C2=A0=C2=A0 Reported as [Critical] by the bot, and withdrawn:
-> =C2=A0=C2=A0
-> https://lore.kernel.org/all/20260815200914.8A1131F000E9@smtp.kernel.org/
-> =C2=A0- Change cancel_work_sync() to disable_work_sync() instead, which
-> leaves
-> =C2=A0=C2=A0 every ordering alone.
-> =C2=A0- Pin the damage down.=C2=A0 Both versions call it a use-after-free=
-; this
-> one
-> =C2=A0=C2=A0 adds that &fctx->uevent_work is embedded in the freed alloca=
-tion,
-> and
-> =C2=A0=C2=A0 that the re-armed work has nothing left to do on a live cont=
-ext,
-> so
-> =C2=A0=C2=A0 the access to freed memory is the whole of it.
-> =C2=A0- Correct the backport note.=C2=A0 v1 claimed no longterm tree sat =
-in the
-> gap
-> =C2=A0=C2=A0 between the bug and disable_work_sync(); 6.6.y does.=C2=A0 T=
-he stable
-> tag is
-> =C2=A0=C2=A0 annotated accordingly.
->=20
-> This replaces 1/3 of
-> https://lore.kernel.org/all/178682366002.3748010.12779628082366287968@gma=
-il.com/
-> 2/3 and 3/3 of that series are unaffected and still stand.
->=20
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_fence.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c
-> b/drivers/gpu/drm/nouveau/nouveau_fence.c
-> index edbe9e08ba0f..11e95c37ce50 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_fence.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
-> @@ -96,7 +96,7 @@ nouveau_fence_context_kill(struct
-> nouveau_fence_chan *fctx, int error)
-> =C2=A0void
-> =C2=A0nouveau_fence_context_del(struct nouveau_fence_chan *fctx)
-> =C2=A0{
-> -=09cancel_work_sync(&fctx->uevent_work);
-> +=09disable_work_sync(&fctx->uevent_work);
-> =C2=A0=09nouveau_fence_context_kill(fctx, 0);
-> =C2=A0=09nvif_event_dtor(&fctx->event);
-> =C2=A0=09fctx->dead =3D 1;
->=20
-> base-commit: c21bb4193868a8de71fc4693fa741e195fdf5d86
+to signal must not depend on Linux memory management i.e. every buffer the
+remote touches in order to reach the signal is committed before the fence i=
+s
+published, with no on-demand faulting and no allocation from a Linux manage=
+d
+pool. Wherever this does not hold, the handle must not carry a dma_fence.
+This condition is what makes the amdgpu user-queue fence driver
+(97ff19462539) legal: the memory firmware writes into a pinned kernel
+BO allocated once at init.
 
+(2) the condition wants to be enforced in code so that reviewer and
+lockdep can check. We would make it a per-remoteproc capability and
+refuse to attach a dma_fence to a handle from a remote that does not
+declare it. This is how Xe refuses out-fences backed by dma-fence
+for a long-running VM. Composition would follow the same rule: a merged
+handle is dma_fence-capable only if every constituent is.
+
+(3) on top of the point-to-point signal, the remoteproc's Linux driver
+has the obligation to complete the dma-fence within a reasonable time.
+Interop fences can't avoid CPU wake-up but standalone synx handles can.
+Interop fences benefit from the low latency in point-to-point signalling.
+
+(4) to handle remote hangs that aren't related to memory, we need a
+watchdog armed at the dma-fence initialization which upon bite prevents
+further submission and triggers remoteproc recovery.
+
+Please let me know the issues in the model above.
+
+And to extend beyond the above conditions, the following proposal
+from you (which hit a deadend) seems very relevant.
+"Tackling the indefinite/user DMA fence problem"
+(20220502163722.3957-1-christian.koenig@amd.com)
+Were/Are there any efforts to resolve the challenges that are open in
+this thread?
+
+> What you can do is to do this in userspace with DMA-buf and user
+> space fences, signaling points etc... Take a look at how user space
+> waits in XE work, how eventfd works and ROCm events work for an
+> overview and maybe some starting ideas.
+>
+> We could certainly build a framework around that, especially
+> eventfd sounds like a common ground to most drivers already, but
+> please stay away from dma_fences when you want to do something like
+> that.
+
+These pointers are helpful and we can start looking into these.
+We could keep the dma-fence interop discussion open and move ahead in the
+standalone and memory fence direction. Will share the high-level design.
+Please let me know if you need to focus on anything in particular.
+
+Thanks again,
+Pravin Kumar Ravi
