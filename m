@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D68DC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 14:49:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40D21C5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 14:50:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D94010F07B;
-	Thu, 20 Aug 2026 14:49:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2AA10F07C;
+	Thu, 20 Aug 2026 14:50:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="in64KbWc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OqSHesLv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8443610F07B
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 14:49:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0556510F07C;
+ Thu, 20 Aug 2026 14:50:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A87BF60A63;
- Thu, 20 Aug 2026 14:49:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879691F00A3A;
- Thu, 20 Aug 2026 14:48:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 78EC5401A9;
+ Thu, 20 Aug 2026 14:50:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24031F000E9;
+ Thu, 20 Aug 2026 14:49:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787237340;
- bh=ueGrCpeqFNWx36/mwdB9fvoGAMWyigNbDFOf4Wns/PE=;
+ s=k20260515; t=1787237400;
+ bh=9ol9gR6ysBkCJButLbjbQO5w7kEAslPvJvPZaqHeoCU=;
  h=Date:From:Subject:To:Cc:References:In-Reply-To;
- b=in64KbWc6DsUlb8Miv3OPsvbc40KyBcIcy1j6x56eQguOLKaFgYksHIz0uoUoPLC8
- Ftpce+s9kl80DElKz/scjsqPDJ8NplKuDexyexvpueP9e/XVFqZ7MI1ADXUn4Otzcz
- Nga+EIYiizEZmaWyp8JA0flb4D2Ces5Tmc83hW2bHvf8Inl57qqs1zkxme9d3llLqn
- l1q+ATgKo1G6Euw7JUBF9yCLPzCkbn/bhZFyWqi37wDEAldYPJ4WiyHNayodfM9tNE
- G4dmTo+THB8F4xj/p95VrMiLdpFeYohqOWMkHOYpgkUk6/DpDtXmXoEc+/CNAD8FfR
- nbOdzHjVg7gjg==
-Message-ID: <626c4fa0-8e7f-4ef5-a027-b6ae2aa36099@kernel.org>
-Date: Thu, 20 Aug 2026 16:48:51 +0200
+ b=OqSHesLvgiAZ169xt0o+BKhKEqmvKaBh7tkxikVwLg/mCRowRgWJE0PscMOkqxOv1
+ tNvTBYgwHupMtdz/X2dWL0vqxuJBTWyojzeuQU9XNLfCl7GmHmuBmv4PhG4E5bRSP5
+ T9cbQlE/kgDoDNUzCVNsmSpuSDQpYJHTkMxvlrguYI7dd18Mp3iYyJWOuzENwevtA4
+ bHKMWAd8wtHzDmqN0F/eAOxQvJh9DfSIZTwNyduDEL1vZLt3CDh4bKJFe2RokNgvZ1
+ xc6VQE66umnIUNsQLq4MT9cmjVZe4vzomRFfXv/6p/+pDvwqyytUaSjlCLi8iy+E2+
+ CQ5sWuEMie74g==
+Message-ID: <5174855b-fe2f-4a6f-8390-959e9d624cf1@kernel.org>
+Date: Thu, 20 Aug 2026 16:49:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] drm/exynos: g2d: fix autosuspend cleanup on probe failure
-To: Guangshuo Li <lgs201920130244@gmail.com>, Inki Dae
- <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/lima: fix autosuspend cleanup during teardown
+To: Guangshuo Li <lgs201920130244@gmail.com>, Qiang Yu <yuq825@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vasily Khoruzhick <anarsoul@gmail.com>, dri-devel@lists.freedesktop.org,
+ lima@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20260808121752.2819486-1-lgs201920130244@gmail.com>
+References: <20260808125953.2842241-1-lgs201920130244@gmail.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -90,7 +88,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260808121752.2819486-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808125953.2842241-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -108,28 +106,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 08/08/2026 14:17, Guangshuo Li wrote:
-> g2d_probe() calls pm_runtime_use_autosuspend(), but its failure path
-> does not call the matching pm_runtime_dont_use_autosuspend() before
-> disabling runtime PM.
+On 08/08/2026 14:59, Guangshuo Li wrote:
+> lima_pdev_probe() calls pm_runtime_use_autosuspend(), but its failure
+> path does not call the matching pm_runtime_dont_use_autosuspend()
+> before disabling runtime PM. The remove path has the same issue.
 > 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during cleanup, this reference is not dropped and usage_count remains
-> unbalanced.
+> In particular, lima_pdev_remove() explicitly sets the autosuspend
+> delay to -1 while autosuspend is still enabled. A negative autosuspend
+> delay can increase usage_count to prevent runtime suspend. Without
+> calling pm_runtime_dont_use_autosuspend(), this reference is not
+> dropped before runtime PM is disabled, leaving usage_count unbalanced.
 > 
 > The documentation for pm_runtime_use_autosuspend() also notes that it
 > is important to undo it with pm_runtime_dont_use_autosuspend() at
 > driver exit time, unless runtime PM was initially enabled with
 > devm_pm_runtime_enable().
 > 
-> Add the missing pm_runtime_dont_use_autosuspend() call to the probe
-> failure path before disabling runtime PM.
+> Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
+> failure and remove paths.
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: d7f1642c90ab ("drm/exynos: add G2D driver")
+> Fixes: 50de2e9ebbc0 ("drm/lima: enable runtime pm")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
