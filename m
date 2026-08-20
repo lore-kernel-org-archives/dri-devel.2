@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D463C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1DBDC5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:20:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFADF10EFC8;
-	Thu, 20 Aug 2026 10:20:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1011110EFBD;
+	Thu, 20 Aug 2026 10:20:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fHAHjyZt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lIrrhK1J";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C63310EFC6
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:20:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7917F10EFBD
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:20:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ED49A438F9;
- Thu, 20 Aug 2026 10:20:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B66C1F000E9;
- Thu, 20 Aug 2026 10:20:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 98FEF60A5C;
+ Thu, 20 Aug 2026 10:20:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49E41F000E9;
+ Thu, 20 Aug 2026 10:20:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787221230;
- bh=U3yivdMwt6Gg2HYaKSnwIc0VL2gtJGzznDItKCo5jGg=;
+ s=k20260515; t=1787221244;
+ bh=Y7A9sj2I+9f+ApBdCNkzkJ0UFPvM5uYskNE27rgUXC0=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=fHAHjyZtyyp0qu5upaGuQ2c7JO9vEOO+eBRCR3+jpa4/VLaDTgxK0cnLzG37eunvY
- bsU4ehZseKSkvFyjDYqcUmilm6LuKtBcMS+b2ErzVjYDkd2cc/pWiuzbqFezEWlaq3
- WrlLDWzuu+FEgLX7BDP/J6S0peGYrjf3LSjuAZyZvZvGwKbP+hE8beihfXDeRrZBDV
- YLdwX7Jc/oWFiSMfgky+wCHSF1I7UhQSkqTvD9o+MWdKG8fQKV/FlS1JqzN6tCirqe
- 7bdfZ9T2VUTb8/4ngpUBf5YIH9EGQx7YbpKf8Z9Tb04icA2oeddNQoBAeQoKmyU4YQ
- OqkyAem+wzjGg==
-Message-ID: <689199296dc533b3088bc6f40312d066@kernel.org>
-Date: Thu, 20 Aug 2026 10:20:28 +0000
+ b=lIrrhK1JB67kNZSh544PmkOfj3zrHAYu14z4pU7Riw+0oAf3zbkx7OQ0llVWpHM2T
+ hWL5biFZJUzn/MAiLQh68SZ13pxPIX8S+8XmewhfPwVUOk42WWoB2wI0igVWZ6XTr5
+ Vy4jPaH+Bxv5idq+wPN+bMKb03Axhav95v7nTVMIiXqaUUZH5SRnClfrHhf8TO1Skq
+ pG+l9c36qQ2nCqOCQGXYNt49gwHTaqsE/CCq/Il2tulS1T46qcNIX1hFYg3GD9a5Na
+ vzqkSz5ITVgQu7hRL4MMcyn15NpMyuzQQ9UigvIA2nX2KXesP+H+YhEtVkY3pcBLZj
+ +CYil+z/iD2tA==
+Message-ID: <63f164a4dba863e1b6b356fac4c87a7e@kernel.org>
+Date: Thu, 20 Aug 2026 10:20:42 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v10 69/69] drm/connector: Drop redundant max_bpc field
-In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-69-294364b2cf15@collabora.com>
-References: <20260731-dw-hdmi-qp-scramb-v10-69-294364b2cf15@collabora.com>
+Subject: Re: [PATCH v10 68/69] drm/connector: Drop redundant hdmi
+ supported_formats field
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-68-294364b2cf15@collabora.com>
+References: <20260731-dw-hdmi-qp-scramb-v10-68-294364b2cf15@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
@@ -76,12 +77,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 31 Jul 2026 19:20:16 +0300, Cristian Ciocaltea wrote:
+On Fri, 31 Jul 2026 19:20:15 +0300, Cristian Ciocaltea wrote:
 > Now that all users migrated to the new drmm_connector_hdmi_init()
-> signature, max_bpc is provided through struct drm_connector_hdmi_funcs,
-> a reference to which is already stored in drm_connector_hdmi.
+> signature, supported_formats is provided through struct
+> drm_connector_hdmi_funcs, a reference to which is already stored in
+> drm_connector_hdmi.
 > 
-> Drop the redundant connector->max_bpc field and point its users to
 > 
 > [ ... ]
 
