@@ -4,111 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0B5FC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 09:08:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E684C5DF86
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 09:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7F210EF7C;
-	Thu, 20 Aug 2026 09:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E1ED10EF7D;
+	Thu, 20 Aug 2026 09:10:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mlmSPT3J";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="EUR9HklN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8323410EF7C
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 09:08:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9046060A71;
- Thu, 20 Aug 2026 09:08:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4C01F000E9;
- Thu, 20 Aug 2026 09:07:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787216881;
- bh=HbWHyhAGccmmUKHPlabuPDznJTtRzS7rm2Ks8U4Pdfc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=mlmSPT3J/cxMvk1ov/w4xrvfdrL6tX66o8ftXD5mN3k7JQ8j3foKO9uBxmBQydxt1
- TtMSCXwwGkasHU0t3ucF2w3dJWF7QFP/DVBqasId6l5nO45toANB+2trMq8b8Lturb
- 1tzJWNqxDt/Uwp0HuNtForVsvHnj06UOoe4pkyxDdPKrScwLpD/QxB3fzbKoe6ZBqf
- YS3e+wDJI8t3uWw8HpZjGmY868z0ohcXf+doJY12cRN3l+HFNq+ZB2JQVseDqVIMe5
- Lc2M/o42Xq42es7Zh5DrfISEpE4qv23FIKNLg38AAtA4TbonNtvyniinosKwNGP/09
- qzqp3pidoqThg==
-Message-ID: <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
-Date: Thu, 20 Aug 2026 11:07:45 +0200
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FED110EF7D
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 09:10:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1787217006; x=1787821806; i=markus.elfring@web.de;
+ bh=C/hfcOK7zM4LQEB9IqujIYfDMZGIv1G6kLyZkAL1T9M=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=EUR9HklNZhtLTPZ6yQeK+khDXGnUrbqdmMZIO5FkSc5SNOWNkOhni7uMxEzQ+Q65
+ wteUrvHnX31lQvTQSXeOSAigSzzx0m7lfY7PxXLxZsviT1E2oGC7V3MeOrOzjWcF5
+ bk+oD7mhSnDv4z5nHr8PzuVb1UaLWWtwjFfMiSrtXphbbDWfCfDvbaiUoSQPrJGRH
+ u7BiXJ34mqg3oofBr7p0C1g3zr4JR5BWwRpac9haMIxRwzfvi0HkQ+fZkl1OFFGsq
+ vXtvYJHIKc6/ZfiFyfWhRAyQ/xxQKI9YRR3Fy0ZvuJIomPzEdcYZcSGLCHj76f9zE
+ i7/gZHtVb81apaHS8A==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MwA1A-1we4QE1Ktg-013N9d; Thu, 20
+ Aug 2026 11:10:06 +0200
+Message-ID: <45534001-10da-454c-92be-9c6a96afc5c3@web.de>
+Date: Thu, 20 Aug 2026 11:10:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
- <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
- <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
- <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
- <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
+To: Triet Hoang <triet.hoang.dev@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Angelo Gioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, David Airlie <airlied@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Simona Vetter <simona@ffwll.ch>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20260820085609.2103835-1-triet.hoang.dev@gmail.com>
+Subject: Re: [PATCH] drm/mediatek: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260820085609.2103835-1-triet.hoang.dev@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:+fSKlASmaz/AotNPNzZvw6miU9//Ca0y1viDd8QtW+7qN8qrstr
+ 1p+TZ2tAkfc0iuo1b/NYorT7GLu6og19YOnDSOvyuuYGZ4S3b6aW8sBfOgeELcoTCehFj9b
+ 55gRwNSCaWNV6vAhEoWTf/GhupUW0MtCm3qAtMXKlOwBHBZp8+4QX1I95YCFsdEiXGSqe1X
+ tM0/aQFcNi+cyvNmPiHpA==
+UI-OutboundReport: notjunk:1;M01:P0:zWsw0++HIlc=;R6ZKcQxN0juoDJHeV+Om2AfK0H2
+ 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
+ uwJ/APxo4iLdMGeBujRm4XHfrX74M=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,117 +162,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 20/08/2026 10:52, Dmitry Baryshkov wrote:
-> On Wed, Aug 19, 2026 at 04:18:51PM +0200, Krzysztof Kozlowski wrote:
->> On 19/08/2026 15:17, Ekansh Gupta wrote:
->>> On 19-08-2026 00:40, Krzysztof Kozlowski wrote:
->>>> On 17/08/2026 06:47, Ekansh Gupta wrote:
->>>>> Add the skeleton of the Qualcomm DSP Accelerator (QDA) driver, a DRM
->>>>> accel driver for the Hexagon DSPs found on Qualcomm SoCs.
->>>>>
->>>>> This patch registers a DRM accel device, exposing a /dev/accel/accelN
->>>>> character device node, and binds it to the RPMsg channel used to reach
->>>>> the DSP. Buffer management, IOMMU context banks and the FastRPC
->>>>> protocol are added by later patches in this series.
->>>>>
->>>>> qda_drv.c / qda_drv.h define the drm_driver ops table, the per-file
->>>>> private state (qda_file_priv) and the main device structure (qda_dev),
->>>>> which embeds drm_device so that it can be recovered with container_of().
->>>>>
->>>>> qda_rpmsg.c binds to the "qcom,fastrpc" compatible via
->>>>> module_rpmsg_driver(), reads the DSP domain name from the "label"
->>>>> device-tree property, and registers the DRM device.
->>>>>
->>>>> Assisted-by: Claude:claude-sonnet-5
->>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
->>>>> ---
->>>>> Changes in v2:
->>>>> - Use module_rpmsg_driver() and drop the qda_rpmsg_register()/
->>>>>   _unregister() wrappers, module_init()/module_exit() and
->>>>>   qda_rpmsg.h entirely (Dmitry Baryshkov)
->>>>> - Read the "label" property directly into qdev->dsp_name (Dmitry Baryshkov)
->>>>> - Drop the probe/remove/init log messages (Dmitry Baryshkov)
->>>>> - Return the result of qda_register_device() directly (Dmitry Baryshkov)
->>>>> - Clarify the Kconfig help text (Dmitry Baryshkov)
->>>>> ---
->>>>>  drivers/accel/Kconfig         |  1 +
->>>>>  drivers/accel/Makefile        |  1 +
->>>>>  drivers/accel/qda/Kconfig     | 30 ++++++++++++++++
->>>>>  drivers/accel/qda/Makefile    | 10 ++++++
->>>>>  drivers/accel/qda/qda_drv.c   | 71 ++++++++++++++++++++++++++++++++++++++
->>>>>  drivers/accel/qda/qda_drv.h   | 61 +++++++++++++++++++++++++++++++++
->>>>>  drivers/accel/qda/qda_rpmsg.c | 79 +++++++++++++++++++++++++++++++++++++++++++
->>>>>  7 files changed, 253 insertions(+)
->>>>>
->>>>> diff --git a/drivers/accel/Kconfig b/drivers/accel/Kconfig
->>>>> index bdf48ccafcf2..74ac0f71bc9d 100644
->>>>> --- a/drivers/accel/Kconfig
->>>>> +++ b/drivers/accel/Kconfig
->>>>> @@ -29,6 +29,7 @@ source "drivers/accel/ethosu/Kconfig"
->>>>>  source "drivers/accel/habanalabs/Kconfig"
->>>>>  source "drivers/accel/ivpu/Kconfig"
->>>>>  source "drivers/accel/qaic/Kconfig"
->>>>> +source "drivers/accel/qda/Kconfig"
->>>>>  source "drivers/accel/rocket/Kconfig"
->>>>>  
->>>>>  endif
->>>>> diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
->>>>> index 1d3a7251b950..58c08dd5f389 100644
->>>>> --- a/drivers/accel/Makefile
->>>>> +++ b/drivers/accel/Makefile
->>>>> @@ -5,4 +5,5 @@ obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
->>>>>  obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
->>>>>  obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
->>>>>  obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
->>>>> +obj-$(CONFIG_DRM_ACCEL_QDA)		+= qda/
->>>>>  obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
->>>>> \ No newline at end of file
->>>>
->>>> You have trivial patch errors.
->>> newline problem was already there, wasn't introduced as part of this
->>> patch series, so I wasn't sure to fix it here. I can fix this in v3.>
->>>> ...
->>>>
->>>>> +}
->>>>> +
->>>>> +static const struct of_device_id qda_rpmsg_id_table[] = {
->>>>> +	{ .compatible = "qcom,fastrpc" },
->>>>> +	{},
->>>>
->>>> Device node with this compatible is already populated, so this looks
->>>> simply wrong or you are adding a duplicated driver.
->>>>
->>>> That's a no-go, you are supposed to work with existing drivers and grow
->>>> them.
->>> I'll bring the discussion again here, there was a discussion to move the
->>> driver to accel subsystem if we want to support new features/uAPI
->>> changes. Please read [1],[2] threads. The intention is to replace
->>> fastrpc driver with QDA eventually.
->>
->> None of them address the problem. You want to grow fastrpc into user of
->> dmabuf? So you move it from misc to here.
-> 
-> It's not as easy and nice, so I think in this case it's better to repeat
+=E2=80=A6
+> This lets us drop the __maybe_unused annotations from its suspend and
+=E2=80=A6
+  Thus drop =E2=80=A6?
 
-I disagree. The existing fastrpc driver is not that complicated. It's
-actually moderate amount of code, much less than Venus was (~7 times less).
-
-It easily can grow to support two interfaces and the only difficulty is
-how to manage these two interfaces simultaneously or exclusively, e.g.
-opening first one disables the second.
-
-> what we did for the venus/iris migration or what happened already
-> several times in the kernel history (for example the AIC7xxx SCSI host
-> drivers were migrated by introducing the second driver and then removing
-> the first one after the grace period). The backwards compatibility is a
-> separate topic, but it will be addressed before the driver can be
-
-Backwards compatibility should be one of the first things explained in
-cover letter in one of the first paragraphs.
-
-And if you make it backwards compatible, then just remove old driver,
-because there is no point to keep it there. Again, this should be one of
-the first things explained in cover letter.
-
-Best regards,
-Krzysztof
+Regards,
+Markus
