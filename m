@@ -4,96 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FC96C5DF88
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 13:24:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADFC5C5DF87
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 13:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E97BD10F01C;
-	Thu, 20 Aug 2026 13:24:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F7A210F01A;
+	Thu, 20 Aug 2026 13:24:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VOYGjDYv";
+	dkim=pass (2048-bit key; unprotected) header.d=dowhile0-org.20251104.gappssmtp.com header.i=@dowhile0-org.20251104.gappssmtp.com header.b="R0NDnKvj";
 	dkim-atps=neutral
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com
- [209.85.221.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4AC310F01C
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 13:24:44 +0000 (UTC)
-Received: by mail-vk1-f174.google.com with SMTP id
- 71dfb90a1353d-5bf9635a8c1so34759e0c.3
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 06:24:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787232284; cv=none;
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 250B610F01A
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 13:24:50 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-c207cb16cf5so382381866b.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 06:24:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787232288; cv=none;
  d=google.com; s=arc-20260327;
- b=GLZP/6cGNflVReinzt9ijEmMfEeJSFmu1pCzz1RmE3x+rgeG4w7TP96HC7FZvyHUY+
- nUh76T046/Pes52rZLk1N2eaXS590aRe2BDVmKmCbPUt0WA1sJY6A0fNFVdk1GwUJtcp
- P+JvRYdCFmJ4NeEfdVYKm4CnxnTCN43qlWbTJO6VurW0TY9xp1UYUWwap+l9LXH2FluD
- /px8KJ0LdpyAfNpxgFMarfE64F91Iu79N/1H+TmqCPlOHJypqdwyUx5/OUSQX2+gNMIi
- /+qjceRSNjxzimFPOxsJcsz+ODyLV2qkeBoXx46MTjKyMjZ+nweoObmpUj9JCCbjA5hv
- jFcg==
+ b=WgD8iQi4k/+EC3xozc7OfapVwSzsiV1K0sN0Iwo15wfRJyzalndkU47BWP3bYk7Zje
+ Fdwjh0+cDXhcX5Ly2bb8l1ah73IbU+f4mq+1F8bEroUsmAIYxhWCLw+vLn+1yOdDJEqq
+ +DbCK97BrC56MmrzHCPd7nRYjq/WDxj5k9onaiVoxYlEsT2S9DiL0UANKDkzuHQg/yI3
+ qlWQK/FPLGjVFA8Z0OuGYFYv9gEQpEXdQVSHEOVm16b72v0iIrq17T9aJzczb7GMgTCt
+ PtJtIsCl9+qRoMlNdZ8JULenLxdcdGC24yePgX6ZvKXCaEm+ZbEyYtzC6NUEh99UpQ69
+ sIxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=a/bb9TS4nrbeO9REdTEH+Ugx741KsO4AaWJeYnqJzhA=;
- fh=ijqTk/8lPKLwdHaf4YvpXXke2movWiq+eVP0ooUbBec=;
- b=KwcCQEy+yTRued1octm5NRJSDnhnmjqnLIifeoifyv8g7mzVdWNo3dABfNCUQ0I8LP
- A5WrCykoUQalx0JUT9uIirqxIkuPMC+QUjRKIvak94sLkgFL8Qahj5hRlx7Bo9TOkJF1
- 92qGii95HZ1cKY+aQS7Ydz985QYp0IxP8GiSjXNGzsmu1YXRrO6EqFhKMMRsvW4sVA3r
- 1DJ1A9wjoSLunD8lE73iFERg1CV1xeUhc6ZxE/C1yKB71gezzknOvgiaCc2EJMNU+Xl2
- B/rKSw89I/FXzOD32OrayUq/Y+GIdSk0zYqHscriLNM4FP5H2YDmKYDgZ5jb+W0CWlmN
- /rYQ==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=sh/IA4IgJH9flMK/xwgm5kp/HRJXQHmejUDGLKWQVUk=;
+ fh=wV73BJwLCdnGxqxxJpEd19y82QG/kmzKp+4qd2lxoEg=;
+ b=nM9ba9xj5aDOVFK6F5YFIdtlNboF+Mz9KjQ6h+KNAjE+EUOcgBzpFlSXBUa0kxpQ1B
+ ydeGBsPuPd8Pne5zianbmF2jYyK24oRpzajAbK4pXVeboyl+IbvGmgeJeUWtvQ+PhPSa
+ PdKVzkd7dV8duI2D92Z6x44VJkKT/u4oHMBxcM6xnxpntu9NWYx35KDiywwAOQE+W1WD
+ HJTw5XgP0dxuI6MWuCfTM+aK+J1enNvstwYLGWMEPQ72JB5tFBcuKDDBBTup+GABzr+2
+ 5vuHXH6htWqe9I/WPVDIh3zuRyhZQ/f2MxYgyO5kYiSmvA03IpimfAHIZBd06s6sV9cr
+ wCMg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787232284; x=1787837084; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=a/bb9TS4nrbeO9REdTEH+Ugx741KsO4AaWJeYnqJzhA=;
- b=VOYGjDYvsUv4Vcc6GQFRbgQz49HNqCluRVg+nmE5gpgb3XC3nVPjrctRA06FqLwbM7
- 2Fb1u9UVkhCNMIgaGC1WmujprXamc95XCbyxqagDlPpIDz4Mvt/N1AH1duzR2hjnpXL+
- Yp8ks/WK6OFopBqIIRyUC68o15oFpwigJ9TEhFYosVodEcfJnewvOc/J5wGgKv5Fuzn4
- LsnTuvUW0k6+mkXwDGNk+iieSI9GE+XCPpQW7XPtGq7FecGNj9gbteG+d+6XiYd7lqcw
- N+MHds9FkpT3cIUWf7DDVkC53FA3WcuDzWTMWiACa4rL2aWbT2wPa2DirOm98FSyR1Qt
- ThZw==
+ d=dowhile0-org.20251104.gappssmtp.com; s=20251104; t=1787232288; x=1787837088;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=sh/IA4IgJH9flMK/xwgm5kp/HRJXQHmejUDGLKWQVUk=;
+ b=R0NDnKvjzMPD6wQLqtdB7Xv7WvDDMlTMFoc6mO+U/Lo5kpH6b/39y6N3o/RUdjtYoz
+ m2p3PjDgGagyu8J61tYOImPXLfMVP+QcMmOsEy52uuBT65LD++RnrYxx/+32H9qoFgsc
+ plBoI1jp5ICccSc9Sjfj8Bds8z/2a6iH6fqj9orsIyaTqz2olcnn4ZvrDaoj9ZU0WPgk
+ 4ttbZ9q4Q2aDapuL8ozKpJuhXx7j+MM3Z1CPLfJqvKrqF0xQuS+5pvWDAgSHpN0OHnEU
+ jjdHxaHKyiM7zdVTmvnOHyiyIKYTcEjaTNzibIgqwtB255vV9eSIOP71U9pJrPGgDRo6
+ GY7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787232284; x=1787837084;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=a/bb9TS4nrbeO9REdTEH+Ugx741KsO4AaWJeYnqJzhA=;
- b=eNiItnAiw62RWbCdXwM+e3TD9cQLUP0FOVlFlZ0PkckCUR7IPihUC9J03I/iS87TMR
- 9LPls+fBA3oM/6PdMzxCVgGUFHglpnFV8uDfr/W3C53aQPdiz6ZRBNwSih0PBOYlkRMr
- TXLypXBXSUuUk0zVOHjw/iS4lmFI78G0DWiPuqGTuQvYCKivY5Bhsm77Z0VYV1W0IQ4X
- AlOlLGzfj2D2R0c3DU/WgaPkJJHTmQgV/b1eTBKVP6vwXhKtvPdxKKjxGnRkHEsnYtpm
- X/wfp55tHkaG2j4iZ3pgBvzzMScDYqZ54fMfpWGTpeVt+1qizn0Z3yMre/LwnJIxVtT+
- eg4Q==
+ d=1e100.net; s=20251104; t=1787232288; x=1787837088;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=sh/IA4IgJH9flMK/xwgm5kp/HRJXQHmejUDGLKWQVUk=;
+ b=KonyJR+Bh/VWKfKP5HR8OyG8MGIeS2DKNvI/MM3ZjH0SNzdxg6vgbbfPa50zc9cgCf
+ AKvckDsUFuQIDoYzWbVnLeuhJWy67fmZfvumqUKcDJWx5ra5+qeMWEgousL/G2gt2J2G
+ bcHNyulyq1JgDSX+Ptl5o72XejueHcwohjqqlasWCUz1999VPaF544S/977yK95jLxQB
+ enYzfNHUtNAEvUOzyZ9jXxxpxaclKN8U+b1rVmiW5Tn60l+IQ8uR93Vt225mO2eNQuTQ
+ cvzsI1A+ykjnXw7oxG/eYqrnJPzHX3/a4wehJH7LmkFHs/Y5zix8YTLNJoANs9h+R1u6
+ WXYw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpqE/7T6Pk+zflY4Irgyj19VOi1mP9ySHoHaYj6YcfvglCVxMImLn+gTp1X1W4tF/gColuz6FP/aNY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yze37gE5SIIr6v6sEM/E+uTJLH0eN5K83/lRDADJkA6e08uXikJ
- jT1MXMDY5vA45CBpebuOAjVA9Gq8Lj/A86Ds4sQ4h0I8IJDd9rvGWOpfL1Mz8wP12CgNAXwV7Ot
- vbC8Nes2xm3qLhxHuSRPzhTCcLfKQ4xc=
-X-Gm-Gg: AR+sD10s3I2QSaeQP/l6WXbptQrzdwDcnl7mCUbq4OeQTMN24HryhgzTuQVchSU8Mer
- vECTTD5sXhiLR7gEmv1drwRYIQnfhs5SFulCeBiyhe9+PN/pVDt/o/ODiwzpRbTQEpK4/YWFvVo
- IUWvnykohT9C6g+eJdiOc2JOJu2Gf7CxEzzQqWJY8C/SbpdjnwKw+/Oo1b+6wLmIHpFQU/ah0j9
- NsqpzNLIvvZwcYs8/aLuvK7/qFQTlJtI4Rd81uehuvBS6RAr6GPoA+MATHT8zkAoXeXOyyB+xDC
- dn6y3HO4gmCafSPxGshAfY4V+ONlTTwpHZ5T3okffJf+z+IunwtZYhtPuLJrgWqzff+/5ONh2e7
- qlaQxloy5TdUq7ssXDUZdLp3OeKDFpKAHYAyAmrJbng==
-X-Received: by 2002:a05:6102:8024:b0:772:cccb:f7eb with SMTP id
- ada2fe7eead31-777fb1adaf4mr1775409137.2.1787232283641; Thu, 20 Aug 2026
- 06:24:43 -0700 (PDT)
+ AHgh+RpIR6/YzK5AC5hp8oe56G3IvDZwwYOqLF5DJjm7IvTr4Rl9GsDA3EEeSpQW9MglCHR+4vZBlj7Jxsw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdAtHISSXFiuoOMZJ8zjwY7ymDSwk/6YhG9VAR87JsL5ropfO7
+ 9HPndGTq2ofZrWgGM6P85uEXo53tBIsy4rF1jzI1vCxZvqiS1A/KIY5jhK8+hJ/rLqaaD5irOzD
+ bbhNy7TJszZJa0s+SELh+maDRtue7EII+j3TqMb5X6w==
+X-Gm-Gg: AR+sD13STyQYYMIcMPOwLhEnbBPye0Bzg6pGz+4YJ/SzjWI0QemTT8jTCS5s2ZbRRww
+ WqovDyMSvBBynKgDMjjES4tW5xAv1HBO5YgFYj1U8g9yNjjjkOCMb1wMsg8SrPEhPhX//oWSJWS
+ cyVRoolCgh280BS1CuxVO3eFl9BeLXhBJNnF7pHxZmKvXqDg6O8TBVfFvXW9Uz/FS+SvUBTOgsy
+ Kzd1JYPqoeOs6jYp3/9jkO/O4aIkmGjWMDk8CCiClgLdApVwG2yRVqsy/60TBzR0zdPOJdxg/rY
+ 0lpWI6fq2tDp+c1mXNGGKOqZgx3roLabOlRWyG6IeTFiBA==
+X-Received: by 2002:a17:907:c80f:b0:c21:8723:276 with SMTP id
+ a640c23a62f3a-c2403c76f78mr1064627466b.15.1787232286168; Thu, 20 Aug 2026
+ 06:24:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260601211931.2837-2-gilles.risch@gmail.com>
- <010001a01df94f48-3026542f-b8eb-4661-868e-1d35cfd0254b-000000@email.amazonses.com>
-In-Reply-To: <010001a01df94f48-3026542f-b8eb-4661-868e-1d35cfd0254b-000000@email.amazonses.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Aug 2026 09:24:31 -0400
-X-Gm-Features: AcwNN1X2Up83ezJvdOticUb5SaZjCUlqZ1r-YJnM-q1UsARSxIOswEHsKqhXwOU
-Message-ID: <CADnq5_N7_w0k5mrgvcEgLZAa4Huv6PP-mTChsoxNx7Vnrb1qzQ@mail.gmail.com>
-Subject: Re: [PATCH v5] drm/radeon: fix internal display on iMac11,
- 1 (RV770/DCE3.1)
-To: Erik Gregg <hank@mowden.top>
-Cc: gilles.risch@gmail.com, alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
+ <20260818080626.30430-5-amit.barzilai22@gmail.com>
+ <aoQalR40NMFSg8zS@ashevche-desk.local>
+ <CAOEgbEoMOR+WS7TzY5+k6G464uUdp+rHJqvhY+6gRE8nCaT=gQ@mail.gmail.com>
+ <CAOEgbEq7D4mkie=DUqrE-Q_bN49ekoCFiyB7ihPS5T=A=kCoVw@mail.gmail.com>
+In-Reply-To: <CAOEgbEq7D4mkie=DUqrE-Q_bN49ekoCFiyB7ihPS5T=A=kCoVw@mail.gmail.com>
+From: Javier Martinez Canillas <javier@dowhile0.org>
+Date: Thu, 20 Aug 2026 10:24:35 -0300
+X-Gm-Features: AcwNN1V0h_QEG0pihmyTWzq2pAkjx-UlCfKU-wvKLnxAYrQMgS7pQHhEa8L_eiQ
+Message-ID: <CABxcv=m2L_N+WOLX8SP2ia=FWUqvB8aqFWON5kc-zoBxuMp-SA@mail.gmail.com>
+Subject: Re: [PATCH v4 4/6] drm/ssd130x: Replace positional ssd130x_spi_id[]
+ initialization with C99
+To: Amit Barzilai <amit.barzilai22@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Fabio Piparo <holofermes@gmail.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="0000000000008c7e0906597a717d"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,102 +116,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 20, 2026 at 8:50=E2=80=AFAM Erik Gregg <hank@mowden.top> wrote:
->
-> On Mon, 1 Jun 2026 23:19:32 +0200, Gilles Risch <gilles.risch@gmail.com> =
+--0000000000008c7e0906597a717d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello Amit,
+
+On Thu, Aug 20, 2026 at 06:06 Amit Barzilai <amit.barzilai22@gmail.com>
 wrote:
-> > The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
-> > (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
-> > DisplayPort path. Without this fix the display stays dark under KMS.
-> >
-> > This machine suffers from the same issue as iMac10,1 and iMac11,2:
-> > Apple routes the internal display through Link B of the DIG encoder
-> > instead of Link A. Add iMac11,1 to the existing DMI quirk and move
-> > the Apple-specific encoder assignment into its own block, independent
-> > of the DCE version check.
-> >
-> > Additionally, the 2560x1440 panel requires RADEON_PLL_USE_FRAC_FB_DIV
-> > and ATOM_ENCODER_CMD_DP_VIDEO_ON, limited to iMac11,1 via dmi_match()
-> > to avoid affecting other boards.
-> >
-> > Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
->
-> I tested this patch on top of 7.1.7-arch1 on a Late 2009 27" iMac11,1
-> with the Mobility Radeon HD 4850. With nomodeset the machine boots with
-> a working (efifb) console. On vanilla 7.1.7 without nomodeset the panel
-> stays completely black (backlight off) and no radeon init is visible in
-> dmesg over SSH.
->
-> With the patch and without nomodeset, radeon initializes normally per
-> dmesg, but at the fbcon modeset (~4s) the panel goes blank and then
-> shows flashing horizontal lines that start at the top and sweep down at
-> regular intervals. It never recovers. The logs below are from that case,
-> gathered by logging in blind on the console and running commands blind.
->
-> I tried radeon.dpm=3D0, radeon.audio=3D0, video=3DeDP-1:2560x1440@60 and
-> radeon.modeset=3D1, with no change.
 
-I wonder if different variants of the board are wired up differently.
-@Gilles Risch, can you attach your dmesg output as well?  Maybe there
-are different panels on different variants?
+> On Tue, Aug 18, 2026 at 10:25=E2=80=AFPM Amit Barzilai
+> <amit.barzilai22@gmail.com> wrote:
+> >
+> > On Tue, Aug 18, 2026 at 11:41=E2=80=AFAM Andy Shevchenko
+> > <andriy.shevchenko@intel.com> wrote:
+> >
+> > > >  static const struct spi_device_id ssd130x_spi_id[] =3D {
+> > > >       /* ssd130x family */
+> > > > +     { .name =3D "sh1106", .driver_data =3D SH1106_ID },
+> > >
+> > > Hmm... Is the comment correct for sh1106?
+> > >
+> > > >       /* ssd132x family */
+> > > >       /* ssd133x family */
+> > >
+> > > Overall, what do these comment bring us? Are those families have
+> something in
+> > > common? Because the driver data is unique for each device, so I assum=
+e
+> it's not
+> > > that compatible inside even the same families.
+> > >
+> > > TL;DR: Perhaps simply drop those comments for once?
+> >
+> > Agreed, I'll remove the comments in v5.
+>
+> Having looked closer, I'd rather keep the comments in v5.
+>
+> The same grouping comments are used throughout ssd130x.c,
+> ssd130x-spi.c, ssd130x.h and ssd130x-i2c.c. Dropping them from
+> ssd130x_spi_id[] alone would leave the driver inconsistent, and
+> dropping them everywhere is a cleanup of its own rather than
+> something this series should carry.
+>
+> The comment is correct for sh1106: ssd130x_variants[SH1106_ID] sets
+> .family_id =3D SSD130X_FAMILY.
+>
+> And the families do mean something concrete here. family_id is what
+> indexes the plane, CRTC and encoder helper vtables and the backlight
+> ops.
 
-Alex
 
->
-> Renderer: AMD RV770 (DRM 2.51.0 / 7.1.7-arch1-1-imac), Mesa 26.1.6
->
-> [    3.028962] radeon 0000:02:00.0: fence driver on ring 3 uses gpu addr =
-0x0000000020000c0c
-> [    3.029207] radeon 0000:02:00.0: fence driver on ring 5 uses gpu addr =
-0x0000000000056230
-> [    3.030250] radeon 0000:02:00.0: radeon: using MSI.
-> [    3.030275] [drm] radeon: irq initialized.
-> [    3.076796] [drm] ring test on 0 succeeded in 1 usecs
-> [    3.076803] [drm] ring test on 3 succeeded in 2 usecs
-> [    3.252855] radeon 0000:02:00.0: [drm] ring test on 5 succeeded in 1 u=
-secs
-> [    3.252861] radeon 0000:02:00.0: [drm] UVD initialized successfully.
-> [    3.253264] [drm] ib test on ring 0 succeeded in 0 usecs
-> [    3.253283] [drm] ib test on ring 3 succeeded in 0 usecs
-> [    3.906199] radeon 0000:02:00.0: [drm] ib test on ring 5 succeeded
-> [    3.906669] [drm] radeon atom DIG backlight initialized
-> [    3.906672] radeon 0000:02:00.0: [drm] Radeon Display Connectors
-> [    3.906674] radeon 0000:02:00.0: [drm] Connector 0:
-> [    3.906676] radeon 0000:02:00.0: [drm]   DP-1
-> [    3.906677] radeon 0000:02:00.0: [drm]   HPD2
-> [    3.906679] radeon 0000:02:00.0: [drm]   DDC: 0x7e60 0x7e60 0x7e64 0x7=
-e64 0x7e68 0x7e68 0x7e6c 0x7e6c
-> [    3.906682] radeon 0000:02:00.0: [drm]   Encoders:
-> [    3.906683] radeon 0000:02:00.0: [drm]     DFP1: INTERNAL_UNIPHY
-> [    3.906685] radeon 0000:02:00.0: [drm] Connector 1:
-> [    3.906687] radeon 0000:02:00.0: [drm]   eDP-1
-> [    3.906688] radeon 0000:02:00.0: [drm]   HPD3
-> [    3.906689] radeon 0000:02:00.0: [drm]   DDC: 0x7e20 0x7e20 0x7e24 0x7=
-e24 0x7e28 0x7e28 0x7e2c 0x7e2c
-> [    3.906692] radeon 0000:02:00.0: [drm]   Encoders:
-> [    3.906693] radeon 0000:02:00.0: [drm]     LCD1: INTERNAL_UNIPHY
-> [    3.906695] radeon 0000:02:00.0: [drm] Connector 2:
-> [    3.906697] radeon 0000:02:00.0: [drm]   VGA-1
-> [    3.906698] radeon 0000:02:00.0: [drm]   DDC: 0x7e40 0x7e40 0x7e44 0x7=
-e44 0x7e48 0x7e48 0x7e4c 0x7e4c
-> [    3.906701] radeon 0000:02:00.0: [drm]   Encoders:
-> [    3.906702] radeon 0000:02:00.0: [drm]     CRT1: INTERNAL_KLDSCP_DAC1
-> [    3.915213] [drm] Initialized radeon 2.51.0 for 0000:02:00.0 on minor =
-0
-> [    3.988184] [drm] fb mappable at 0xC0347000
-> [    3.988187] [drm] vram apper at 0xC0000000
-> [    3.988188] [drm] size 14745600
-> [    3.988189] [drm] fb depth is 24
-> [    3.988190] [drm]    pitch is 10240
-> [    3.988263] fbcon: radeondrmfb (fb0) is primary device
-> [    4.026022] radeon 0000:02:00.0: [drm] fb0: radeondrmfb frame buffer d=
-evice
-> [    5.366673] systemd[1]: Load Kernel Module drm skipped, unmet conditio=
-n check ConditionKernelModuleLoaded=3D!drm
-> [    8.464118] snd_hda_intel 0000:02:00.1: bound 0000:02:00.0 (ops radeon=
-_audio_component_bind_ops [radeon])
->
-> Happy to test further patches or gather more logs.
->
-> Regards,
-> Erik
+I=E2=80=99m on vacation for a few weeks and I can=E2=80=99t review your pat=
+ches but I do
+agree with you.
+
+Please leave the comments.
+
+Best regards,
+Javier
+
+--0000000000008c7e0906597a717d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hello Amit,</div><div><br><div class=3D"gmail_quote gmail=
+_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Aug 20, 202=
+6 at 06:06 Amit Barzilai &lt;<a href=3D"mailto:amit.barzilai22@gmail.com">a=
+mit.barzilai22@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
+,204);padding-left:1ex">On Tue, Aug 18, 2026 at 10:25=E2=80=AFPM Amit Barzi=
+lai<br>
+&lt;<a href=3D"mailto:amit.barzilai22@gmail.com" target=3D"_blank">amit.bar=
+zilai22@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; On Tue, Aug 18, 2026 at 11:41=E2=80=AFAM Andy Shevchenko<br>
+&gt; &lt;<a href=3D"mailto:andriy.shevchenko@intel.com" target=3D"_blank">a=
+ndriy.shevchenko@intel.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; &gt; &gt;=C2=A0 static const struct spi_device_id ssd130x_spi_id[] =3D=
+ {<br>
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* ssd130x family */<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0{ .name =3D &quot;sh1106&quot;, .driver=
+_data =3D SH1106_ID },<br>
+&gt; &gt;<br>
+&gt; &gt; Hmm... Is the comment correct for sh1106?<br>
+&gt; &gt;<br>
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* ssd132x family */<br>
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* ssd133x family */<br>
+&gt; &gt;<br>
+&gt; &gt; Overall, what do these comment bring us? Are those families have =
+something in<br>
+&gt; &gt; common? Because the driver data is unique for each device, so I a=
+ssume it&#39;s not<br>
+&gt; &gt; that compatible inside even the same families.<br>
+&gt; &gt;<br>
+&gt; &gt; TL;DR: Perhaps simply drop those comments for once?<br>
+&gt;<br>
+&gt; Agreed, I&#39;ll remove the comments in v5.<br>
+<br>
+Having looked closer, I&#39;d rather keep the comments in v5.<br>
+<br>
+The same grouping comments are used throughout ssd130x.c,<br>
+ssd130x-spi.c, ssd130x.h and ssd130x-i2c.c. Dropping them from<br>
+ssd130x_spi_id[] alone would leave the driver inconsistent, and<br>
+dropping them everywhere is a cleanup of its own rather than<br>
+something this series should carry.<br>
+<br>
+The comment is correct for sh1106: ssd130x_variants[SH1106_ID] sets<br>
+.family_id =3D SSD130X_FAMILY.<br>
+<br>
+And the families do mean something concrete here. family_id is what<br>
+indexes the plane, CRTC and encoder helper vtables and the backlight<br>
+ops.</blockquote><div dir=3D"auto"><br></div><div dir=3D"auto">I=E2=80=99m =
+on vacation for a few weeks and I can=E2=80=99t review your patches but I d=
+o agree with you.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Please=
+ leave the comments.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Bes=
+t regards,</div><div dir=3D"auto">Javier</div></div></div>
+
+--0000000000008c7e0906597a717d--
