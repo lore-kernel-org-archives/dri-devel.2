@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBB2BC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:07:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 107CEC5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:07:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49E3610EFA1;
-	Thu, 20 Aug 2026 10:07:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6740B10EFA9;
+	Thu, 20 Aug 2026 10:07:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cox9vBty";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XxvYHQnI";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F56910EF78
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 08:49:44 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2ced3386430so16953855ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 01:49:44 -0700 (PDT)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D7710E601
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 09:01:26 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-8518b3ff3e9so1544995b3a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 02:01:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787215784; x=1787820584; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787216486; x=1787821286; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=/nis+wMxJNSnWBwBYR9N68PT1SwcPxqID1Z4/fwfULc=;
- b=cox9vBtyg8dRyKwXvHV9mrqMvVW+69yU8+Tg1cQaAgI2eQ+cgYDOXez7YEk4jAznkQ
- ZvwAS8D6BgllsNFiZvM9QfLfLkbHfTxqwoqNnSab+FWpK1TQk9JmhBzgUU5tscQWflbZ
- Z7G59h+O24gqc+qOpN53b7w5gSkQVuE7oibxCupiDfxW2IEoBWkNqoMpuVFo7mNvHGk6
- 1RiytoRBKkhi1CMKIvIjmMKLE1Is6vy4txPEyy3Oz+nIMgfFPAJVCfwUXrr5hYS6ExHM
- mjWmULoIEJhApL3pa6zCWkwlf05I3d5ReurxKAbi/F+JPJ0wuw+CKDjgG106P92Jpobr
- WiAQ==
+ bh=H1cXU6F1o2rHz57g5Mrsu2Zu2w5oL+wJQFcFFRp68YM=;
+ b=XxvYHQnIFUBuVWLJe5TGCRdgkdVdqhFlc4m8co1brbIx9uuBwH31FyMZW7mMxZAJ5H
+ fAtmLk5PW5pN3qiL1vXjw+LIR03mJkOewBcz5/TSR5bfJQU9gv9FWORLicA2QlyW52/w
+ JMPyrqnlOOpxNjzxXO9YrbxJBzB8eADMILA8MDrHyQcLO7KUCrpqhybv+ukO4HP126e9
+ ANzh3WcZK0dJrm3Ti0oG2NzXX1YsOw0LhfFOmGYLgpS7B5yYJ4dRz3d6laXpaVIId+g/
+ 6SuGP0GUR34iBDwJDmydyHdhs4kRkfhtixMuH96qqrPXkLMwSW7J59B0OvKYf68OJ75f
+ bsOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787215784; x=1787820584;
+ d=1e100.net; s=20251104; t=1787216486; x=1787821286;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=/nis+wMxJNSnWBwBYR9N68PT1SwcPxqID1Z4/fwfULc=;
- b=CPaIgXO4mg0A/Ie0CQZU5m3sa42Z3WKvHFWyXWyF2wIY+Ak+DxBRh22jaPMqgaHbkp
- 6vbgnUQmgEHLUS1bRPFEh+Lfu4yCMRid5HZ9JJmpryMN4T8JtFBN/zbexRFmgTeeYZGG
- +grUwiz4YrfUQ9LrBpzRnH8PEKkdV/J9qH4M/pIAvwIU+Bzy4LWWD28ijWeqlq6q74pt
- +Lj/Z+/HSBYAyaL+KbZARXTbNwP8JEHt/lQDafWlnynpzyFmpO6b131m8SS/8GlMPRDM
- 1yJKyS8p12ELoAuYwI5IjzKslpJFiKSaketIjn4hPlmHB2KN6im/Vk0zS4E7BLnnkwp1
- c/nA==
+ bh=H1cXU6F1o2rHz57g5Mrsu2Zu2w5oL+wJQFcFFRp68YM=;
+ b=RTRmxSu0x3uC3+c6o/ZcC4BQyZIzDcY2QyGMSYD5ShC12KaRNEmov2s90AtYq7ZrVk
+ GC6/OYcsLW19Jhg7VXYhZF32NUG8VSJMRbQjHOZRQdoYgea1lVDULQQSzQAlYmzJb76K
+ dHhR1ohN4DTqjeBwk6gRMYNnRMjdJ8NvlkPO9viNsKio6EvCS9Q/WGpgfAUoMlQqz/Wd
+ H5Jvws0aThL4qAy+mFHRMmj4YAaFQEJswpgw4WZ/c2ljv9abTYvpdYf2vdOz0wHp+Tcr
+ /WV6d/2g8TOY3WpcTk9gTlJG+LnYG+5LLEc6KeRH0Uj5supdt0dW1olkhGqqgi+DkBeP
+ SU3A==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro4Hq1vpjVgghS/aowZ8S+rY+v8LxDoITGt1Omm056LN7j0Ema+G/jbx8+Ficb6oCUZYgJtznSPDT8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mm3aZtqDRiPhJopHSL/CtiOpVNvAzIqJuj6emdnuiS0mcPPYgb
- lVtBxs0DdHJmqgnB4GkVJeVBjaBNBkQpa1dquS9GenfzL0dl2QyTrMg=
-X-Gm-Gg: AR+sD113qQ8Uxdx7ERFbgrOcDWOelXYNQcsjaBdNECuAQp8TYhCq3hRxg6RRqDqxihJ
- cHXfFHDdQ5ElHam9J518GD+pZZ+qi0y1Lp5vzcs3eBFv0B0ib4kxc0tKHfXMXfP/H0FmhqNKn8m
- k3daGWuoAPEBp3NGiYJVoglpietdtBPZ8dmEuTDH7v5mRPVefgbZvtKZUU2ngbDJgNxERC9cQWp
- LpvZvtBLhuliIN7wnyTtQ/CGFKqjncdr3pZFsWI2mjEEx21DaMmsmk+EG/8NGIDgDkVFKlIagRK
- 1/Krpa/p8bzZJEyFf+54TlpIKSDH+uHpVvNfs/nD11fR7GWrwfHFBSBMwX93zw75Wgujw5ru515
- yRk72WfKvJAjqzNu+zwg8U3TcnNW1++WqKuDfHrZaK7iwOBKnY/fWBnkeRyu1Mwpo0HXbQmhBPj
- tQKKeu0m7P6PbkZyLJ3oALM5S8Njo634OjaDilcBNKhwTSY2zg8BMQV7dK8eGIpVmNK5fTLmR2T
- g==
-X-Received: by 2002:a17:903:3d0f:b0:2d3:14c6:2372 with SMTP id
- d9443c01a7336-2d5fd684c16mr222947865ad.1.1787215783957; 
- Thu, 20 Aug 2026 01:49:43 -0700 (PDT)
+ AHgh+RpggGJKY1OIlh2qsQ0Z3IYrg6nIbypLmaTONKptESt9I7DfP7yy7GoTJ68HqhrRBcyxbyK8bEOzZ3A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrSxOBQh4Co3YBYs9PFaIHQjj9rpvVjsr1wVvxy6QJ1Yj4JbyU
+ EWVeqUhfW6CJtmTDn/4NxT7bmf94VufvrezAdFLlrxToASzwEgoDGCI=
+X-Gm-Gg: AR+sD126nyvvosRiPmkHJ9C7GZY0jTN15wW3UxO9ukKnqD7dSK+a16MdahwQc3xmKsj
+ cGUFXq8KdSIpuu8j132mzK3yATodgALtnMwE5ACxT3vWul9+mtxBXoN/x7KPqCqOP68VH9hHQbp
+ HSfHg8E6jnIcIVArbi4IRg1qJCSI4W6X9wpXhctAx+5T4JNa7qXAX8tHBLL6wJChrev6wsnJhIR
+ Z4vGLJoMd6A+HrkfM+A/H733hP7gLXq2VdxBf4mH6JyZf1HDui7Q9ecS9zn82RMSOEpQ6ng6Z8Y
+ wb3GES5nsWU0R03EZZVzV/NAXWT11yOMvJHxareZXXlRVyCHvEVYVdoklY1Z3UbhNWbJhxHo0wI
+ L1TsuRbiGX4/KT8A8UIvA863LaIoFs3xUAXh6bJsmi553KGVUTsKaReTxFwmW+CtT/e/tDZ+dyP
+ 8GhlAJH6ndDO4zUw0V0onjM5SKyMCjE/HNuLHgV+byS+NHyk+OZ9lErDq+RCp7MUOEgw1Sm65cQ
+ TDwfU80CAYa
+X-Received: by 2002:a05:6a00:18aa:b0:848:6c9c:4074 with SMTP id
+ d2e1a72fcca58-851d3805df3mr18933563b3a.1.1787216485656; 
+ Thu, 20 Aug 2026 02:01:25 -0700 (PDT)
 Received: from DL2XHKPB4.dl.net ([103.63.104.162])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d62d58a7a9sm3949955ad.20.2026.08.20.01.49.41
+ d2e1a72fcca58-851d3362860sm1408804b3a.8.2026.08.20.02.01.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 01:49:43 -0700 (PDT)
+ Thu, 20 Aug 2026 02:01:25 -0700 (PDT)
 From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: liviu.dudau@arm.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+To: neil.armstrong@linaro.org
+Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Triet Hoang <triet.hoang.dev@gmail.com>
-Subject: [PATCH] drm/arm/hdlcd: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
-Date: Thu, 20 Aug 2026 15:49:37 +0700
-Message-ID: <20260820084937.2098450-1-triet.hoang.dev@gmail.com>
+Subject: [PATCH] drm/panel: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+Date: Thu, 20 Aug 2026 16:01:19 +0700
+Message-ID: <20260820090119.2107869-1-triet.hoang.dev@gmail.com>
 X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -92,52 +93,94 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Convert the deprecated SIMPLE_DEV_PM_OPS
 to DEFINE_SIMPLE_DEV_PM_OPS and pm_sleep_ptr().
 
-This lets us drop the __maybe_unused annotations from the suspend and
+This lets us drop the __maybe_unused annotations from its suspend and
 resume callbacks, and reduces kernel size in case CONFIG_PM or
 CONFIG_PM_SLEEP is disabled.
 
 Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
 ---
- drivers/gpu/drm/arm/hdlcd_drv.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/panel/panel-nec-nl8048hl11.c | 8 ++++----
+ drivers/gpu/drm/panel/panel-tpo-td043mtea1.c | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
-index 81d45f2dd6a7..f60211de8e59 100644
---- a/drivers/gpu/drm/arm/hdlcd_drv.c
-+++ b/drivers/gpu/drm/arm/hdlcd_drv.c
-@@ -385,14 +385,14 @@ static const struct of_device_id  hdlcd_of_match[] = {
+diff --git a/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c b/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
+index d5c7210de4af..11e11abcba4a 100644
+--- a/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
++++ b/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
+@@ -149,7 +149,7 @@ static const struct drm_panel_funcs nl8048_funcs = {
+ 	.get_modes = nl8048_get_modes,
  };
- MODULE_DEVICE_TABLE(of, hdlcd_of_match);
  
--static int __maybe_unused hdlcd_pm_suspend(struct device *dev)
-+static int hdlcd_pm_suspend(struct device *dev)
+-static int __maybe_unused nl8048_suspend(struct device *dev)
++static int nl8048_suspend(struct device *dev)
  {
- 	struct drm_device *drm = dev_get_drvdata(dev);
+ 	struct nl8048_panel *lcd = dev_get_drvdata(dev);
  
- 	return drm_mode_config_helper_suspend(drm);
- }
- 
--static int __maybe_unused hdlcd_pm_resume(struct device *dev)
-+static int hdlcd_pm_resume(struct device *dev)
- {
- 	struct drm_device *drm = dev_get_drvdata(dev);
- 
-@@ -401,7 +401,7 @@ static int __maybe_unused hdlcd_pm_resume(struct device *dev)
+@@ -159,7 +159,7 @@ static int __maybe_unused nl8048_suspend(struct device *dev)
  	return 0;
  }
  
--static SIMPLE_DEV_PM_OPS(hdlcd_pm_ops, hdlcd_pm_suspend, hdlcd_pm_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(hdlcd_pm_ops, hdlcd_pm_suspend, hdlcd_pm_resume);
+-static int __maybe_unused nl8048_resume(struct device *dev)
++static int nl8048_resume(struct device *dev)
+ {
+ 	struct nl8048_panel *lcd = dev_get_drvdata(dev);
  
- static struct platform_driver hdlcd_platform_driver = {
- 	.probe		= hdlcd_probe,
-@@ -409,7 +409,7 @@ static struct platform_driver hdlcd_platform_driver = {
- 	.shutdown	= hdlcd_shutdown,
- 	.driver	= {
- 		.name = "hdlcd",
--		.pm = &hdlcd_pm_ops,
-+		.pm = pm_sleep_ptr(&hdlcd_pm_ops),
- 		.of_match_table	= hdlcd_of_match,
+@@ -171,7 +171,7 @@ static int __maybe_unused nl8048_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(nl8048_pm_ops, nl8048_suspend, nl8048_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(nl8048_pm_ops, nl8048_suspend, nl8048_resume);
+ 
+ static int nl8048_probe(struct spi_device *spi)
+ {
+@@ -239,7 +239,7 @@ static struct spi_driver nl8048_driver = {
+ 	.id_table	= nl8048_ids,
+ 	.driver		= {
+ 		.name	= "panel-nec-nl8048hl11",
+-		.pm	= &nl8048_pm_ops,
++		.pm	= pm_sleep_ptr(&nl8048_pm_ops),
+ 		.of_match_table = nl8048_of_match,
+ 	},
+ };
+diff --git a/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c b/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
+index b18af526b54c..455a4237b1e1 100644
+--- a/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
++++ b/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
+@@ -382,7 +382,7 @@ static const struct drm_panel_funcs td043mtea1_funcs = {
+  * Power Management, Probe and Remove
+  */
+ 
+-static int __maybe_unused td043mtea1_suspend(struct device *dev)
++static int td043mtea1_suspend(struct device *dev)
+ {
+ 	struct td043mtea1_panel *lcd = dev_get_drvdata(dev);
+ 
+@@ -396,7 +396,7 @@ static int __maybe_unused td043mtea1_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused td043mtea1_resume(struct device *dev)
++static int td043mtea1_resume(struct device *dev)
+ {
+ 	struct td043mtea1_panel *lcd = dev_get_drvdata(dev);
+ 	int ret;
+@@ -413,7 +413,7 @@ static int __maybe_unused td043mtea1_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(td043mtea1_pm_ops, td043mtea1_suspend,
++static DEFINE_SIMPLE_DEV_PM_OPS(td043mtea1_pm_ops, td043mtea1_suspend,
+ 			 td043mtea1_resume);
+ 
+ static int td043mtea1_probe(struct spi_device *spi)
+@@ -492,7 +492,7 @@ static struct spi_driver td043mtea1_driver = {
+ 	.id_table	= td043mtea1_ids,
+ 	.driver		= {
+ 		.name	= "panel-tpo-td043mtea1",
+-		.pm	= &td043mtea1_pm_ops,
++		.pm	= pm_sleep_ptr(&td043mtea1_pm_ops),
+ 		.of_match_table = td043mtea1_of_match,
  	},
  };
 -- 
