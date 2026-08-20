@@ -4,52 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CC84C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:34:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55913C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:39:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E151C10F145;
-	Thu, 20 Aug 2026 17:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3D8210F14C;
+	Thu, 20 Aug 2026 17:39:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="sxFv9IFT";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="NuOzpepW";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6C77210F147
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:34:24 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B8F0153B;
- Thu, 20 Aug 2026 10:34:20 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 572343F763;
- Thu, 20 Aug 2026 10:34:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787247263; bh=6d6trshcrhxKprGt8zElAF+25dO3pSF+3PnYMjOG1Yg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sxFv9IFTYkN8Xo1ymDdk2vtFJhiuGmQoQ157j2zvBhiI90N/E4mEHbkJRLpQWAsAK
- dS4Lm1AjLN/91wNStVmRGf6h0/geeaqGVlhxsrmWC0yj1v+h+5Ms/F4Rc6Roeoy24e
- lid5+NmZ0RNTNXX6NoYhH1Iow72w5iIdD3alcqk0=
-Date: Thu, 20 Aug 2026 18:34:18 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Steven Price <steven.price@arm.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Marc Zyngier <maz@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>, "T.J. Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>,
- John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: Re: [PATCH 0/2] Clear shared pages after private-to-shared conversion
-Message-ID: <aoc6mkzdqtqigv3n@arm.com>
-References: <20260820105026.53208-1-steven.price@arm.com>
- <20260820122048.GB18100@ziepe.ca>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A23CC10F14C
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:39:12 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hQrK94XXzz8v1Y;
+ Thu, 20 Aug 2026 19:39:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1787247549;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=MN8dZCWstpgGLykuTbU1uGEtW2iVdaKsEn0Gd59Itxw=;
+ b=NuOzpepWM2gXLDkS2wqvOz/3Mv9cWc+5wiMOJk90QDmOgEh4Lw2vV97t9ehGXtmlGGhtx5
+ cFhsx0pEZn3IcSQBp7QWUA2v2MPVAtU8jc3cjjPnauDcZOVnCZKSQ2axMjX1TcRcPcTix1
+ 0PDH2Fz7H64+DwlbmHVGixQB1UJj5cV6YMo8O8X5Xs9Lire0FgyDao7xpOdgoL/Yuee3J8
+ sikB+//2k2LSZZVwH9i/cbIqg/JkyRxsgBhB5X+3Bt0Pq0sFuh0rpLAsPm0FLNouHEcHWK
+ AhY/cj2i2H/WcgZW3cs9/ZNOy5nYrGaGHSjYvGAXSu7RVxZ23sY1gxa2yc+bxA==
+Message-ID: <f9f77c44-a36c-4b5e-afcb-78a5b5eb84ce@mailbox.org>
+Date: Thu, 20 Aug 2026 19:39:04 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820122048.GB18100@ziepe.ca>
+Subject: Re: [PATCH] drm/rcar-du: dsi: Implement DSI command TX using AXI
+ memory access
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260809195831.842907-1-marek.vasut+renesas@mailbox.org>
+ <20260810100451.GA2940644@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260810100451.GA2940644@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 1bd4199c2f0fca30007
+X-MBO-RS-META: kujyzycna17ogju4pgdce9fpxu56de6f
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,43 +72,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 20, 2026 at 09:20:48AM -0300, Jason Gunthorpe wrote:
-> On Thu, Aug 20, 2026 at 11:50:23AM +0100, Steven Price wrote:
-> > Arm CCA includes "Memory Encryption Contexts" (MEC) which allows the
-> > private and shared data accessible to a guest to have different memory
-> > encryption keys. Consequently when converting memory to shared, the
-> > memory encryption key used to access the physical page will change.
-> > 
-> > Both the GICv3 ITS driver and the system_cc_shared dma-buf heap
-> > currently allocate memory with __GFP_ZERO and then decrypt it. With MEC
-> > the zeroing is done with the wrong encryption key and the data visible
-> > after decryption may be ciphertext. The RMM is required to scrub the
-> > data, but may perform this scrub with a different encryption key to the
-> > eventual key that will be used for shared access.
-> > 
-> > Fix these two sites by avoiding the __GFP_ZERO during the allocation and
-> > performing a clear_pages() call after the decryption.
+On 8/10/26 12:04 PM, Laurent Pinchart wrote:
+
+Hello Laurent,
+
+[...]
+
+>> @@ -1276,6 +1295,13 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
+>>   	dsi->dev = &pdev->dev;
+>>   	dsi->info = of_device_get_match_data(&pdev->dev);
+>>   
+>> +	dsi->cmd_axi_cpu = dma_alloc_coherent(&pdev->dev, SZ_4K, &dsi->cmd_axi_dma,
+>> +					      GFP_KERNEL | GFP_DMA32);
 > 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> I think setting the DMA mask for the device is preferred over using
+> GFP_DMA32.
+
+I will do so.
+
+>> +	if (!dsi->cmd_axi_cpu) {
+>> +		return dev_err_probe(&pdev->dev, -ENOMEM,
+>> +				     "Failed to allocate DSI AXI Access command buffer\n");
+>> +	}
 > 
-> This whole set_memory_decrypted() API is awful. It really should be improved.
+> No need for curly braces.
+
+Are branckets { } not required for multi-line code ?
+If this was a oneliner, I would drop them.
+
+>> +
+>>   	ret = rcar_mipi_dsi_parse_dt(dsi);
 > 
-> alloc_pages_decrypted() ?
+> The allocated memory is leaking in error paths.
 
-At some point I suggested GFP_DECRYPTED but if we don't want to
-interfere with the slab allocator, an alloc_pages_decrypted() would do:
+Fixed in V2, thanks !
 
-https://lore.kernel.org/all/ZmNJdSxSz-sYpVgI@arm.com/
-
-And we had a vmalloc_decrypted() proposal as well that paves the way for
-decrupted pages. I forgot what we concluded:
-
-https://lore.kernel.org/all/20260521205834.1012925-1-kameroncarr@linux.microsoft.com/
-
-Actually, this last series had a lot back and forth around __GFP_ZERO
-that's relevant to this series.
-
-I'll comment on v2, I see it posted already.
+[...]
 
 -- 
-Catalin
+Best regards,
+Marek Vasut
