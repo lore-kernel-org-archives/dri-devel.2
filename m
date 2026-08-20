@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEA4CC5DF87
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:50:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7DD8C5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0073A10EFC6;
-	Thu, 20 Aug 2026 10:50:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06C4D10EFCE;
+	Thu, 20 Aug 2026 10:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="W4kE0KL6";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="sb9jepZy";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 00BFD10EFC6
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:50:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id BF52310EFCE
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:50:57 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9ED321CDD;
- Thu, 20 Aug 2026 03:50:49 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6BED0153B;
+ Thu, 20 Aug 2026 03:50:53 -0700 (PDT)
 Received: from e122027.cambridge.arm.com (e122027.cambridge.arm.com
  [10.1.25.29])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C18063F66F;
- Thu, 20 Aug 2026 03:50:49 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F2E963F66F;
+ Thu, 20 Aug 2026 03:50:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787223053; bh=NNzpHX/+mcqN6PkciZSU1ANfzwjeDq5G33MuimdG0sw=;
+ t=1787223057; bh=hOdOjYlA+iI1ah2K1oi47SLi3OkvE+2GFQdWf32mYks=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=W4kE0KL6dNp7OqTRKjIPeZLCk+ii0EBnVG/XxDg0MD3rO7EF/L9D3wU3qboJsdbUS
- hheGHwUmyv0wPqNomhF2R63ZFm3H+6Jf70rLU7PG0rKvIRRdZoGQ6/9nse4YwFZOgg
- CciKo6BqLRnmeklVuYxQdzga3B9VQiqUm3w7LMw8=
+ b=sb9jepZyTzEBEx3PSvl7y2pZ9slsxHg0OsepC2gx/KBftfiVWC/rgugZBJ0dKfHb8
+ 01cdi9VtjSIGkOoLhQk05JrfNDl2ywnlJXC5RRdMOvn2T8QUX9mR8RbfL1qELEepL4
+ d58f5eXCxif2CMnxSb2Rbv+YMgBhJNPUMkTja3VA=
 From: Steven Price <steven.price@arm.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Marc Zyngier <maz@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -40,9 +40,10 @@ Cc: Steven Price <steven.price@arm.com>, "T.J. Mercier" <tjmercier@google.com>,
  linux-media@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
  Jiri Pirko <jiri@resnulli.us>, Marek Szyprowski <m.szyprowski@samsung.com>,
  Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH 1/2] irqchip/gic-v3-its: Zero shared pages after conversion
-Date: Thu, 20 Aug 2026 11:50:24 +0100
-Message-ID: <20260820105026.53208-2-steven.price@arm.com>
+Subject: [PATCH 2/2] dma-buf: heaps: Zero system shared heap pages after
+ conversion
+Date: Thu, 20 Aug 2026 11:50:25 +0100
+Message-ID: <20260820105026.53208-3-steven.price@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260820105026.53208-1-steven.price@arm.com>
 References: <20260820105026.53208-1-steven.price@arm.com>
@@ -63,53 +64,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-its_alloc_pages_node() passes __GFP_ZERO to the page allocator before
-calling set_memory_decrypted(). This assumes that converting a page from
-private to shared preserves its contents.
+The system_cc_shared heap allocates pages with __GFP_ZERO before converting
+them from private to shared with set_memory_decrypted(). This assumes that
+the conversion preserves the contents of the pages.
 
 For Arm CCA with MEC (Memory Encryption Contexts) the key used to access
 the page will change, and so by default the visible data will change.
-The host could ensure that it zeros the page, but rather than relying on
-the host's behaviour it's best if the guest simply zeros after the
-decryption rather than before. Specifically in this case the ITS tables
-are required to be zeroed.
+The host could ensure that it zeros the page after decryption, but
+rather than relying on the host's behaviour it's best if the guest
+simply zeros after the decryption rather than before.
 
-Mask out __GFP_ZERO from the allocation request, and do the zeroing as a
-separate step after decryption.
+For CC shared buffers, defer zeroing until each page has been converted
+successfully. For other buffers keep the existing behaviour.
 
-Fixes: b08e2f42e86b ("irqchip/gic-v3-its: Share ITS tables with a non-trusted hypervisor")
+Fixes: 78b30c50a7ac ("dma-buf: heaps: system: add system_cc_shared heap for explicitly shared memory")
 Signed-off-by: Steven Price <steven.price@arm.com>
 ---
- drivers/irqchip/irq-gic-v3-its.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/dma-buf/heaps/system_heap.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-index 6f5811aae59c..c954bbe9f4db 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -213,10 +213,12 @@ static gfp_t gfp_flags_quirk;
- static struct page *its_alloc_pages_node(int node, gfp_t gfp,
- 					 unsigned int order)
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index c8959eadc71d..f14930904089 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -376,7 +376,8 @@ static const struct dma_buf_ops system_heap_buf_ops = {
+ };
+ 
+ static struct page *alloc_largest_available(unsigned long size,
+-					    unsigned int max_order)
++					    unsigned int max_order,
++					    bool defer_zero)
  {
-+	bool want_zero = gfp & __GFP_ZERO;
  	struct page *page;
- 	int ret = 0;
+ 	int i;
+@@ -388,6 +389,9 @@ static struct page *alloc_largest_available(unsigned long size,
+ 		if (max_order < orders[i])
+ 			continue;
+ 		flags = order_flags[i];
++		/* Decryption can change the contents, so clear it afterwards. */
++		if (defer_zero)
++			flags &= ~__GFP_ZERO;
+ 		if (mem_accounting)
+ 			flags |= __GFP_ACCOUNT;
+ 		page = alloc_pages(flags, orders[i]);
+@@ -438,7 +442,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 			goto free_buffer;
+ 		}
  
--	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
-+	page = alloc_pages_node(node, (gfp & ~__GFP_ZERO) | gfp_flags_quirk,
-+				order);
+-		page = alloc_largest_available(size_remaining, max_order);
++		page = alloc_largest_available(size_remaining, max_order,
++					       cc_shared_buffer(buffer));
+ 		if (!page)
+ 			goto free_buffer;
  
- 	if (!page)
- 		return NULL;
-@@ -231,6 +233,9 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
- 	if (ret)
- 		return NULL;
+@@ -461,9 +466,12 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
  
-+	if (want_zero)
-+		clear_pages(page_address(page), 1 << order);
+ 	if (cc_shared_buffer(buffer)) {
+ 		for_each_sgtable_sg(table, sg, i) {
+-			ret = system_heap_set_page_decrypted(sg_page(sg));
++			page = sg_page(sg);
++			ret = system_heap_set_page_decrypted(page);
+ 			if (ret)
+ 				goto free_pages;
 +
- 	return page;
- }
++			clear_pages(page_address(page), 1 << compound_order(page));
+ 		}
+ 	}
  
 -- 
 2.43.0
