@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AACEC5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82849C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:55:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C98A510E2D3;
-	Thu, 20 Aug 2026 18:55:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D076F10E604;
+	Thu, 20 Aug 2026 18:55:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="eQjG+YlQ";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ev4FQgVo";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="RFA5VXBG";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="HbkETHNO";
 	dkim-atps=neutral
 Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E72DE10E2D3
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:55:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA5910E604
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:55:24 +0000 (UTC)
 Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hQt134G84zMlMg;
- Thu, 20 Aug 2026 20:55:19 +0200 (CEST)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hQt173M26zMlMq;
+ Thu, 20 Aug 2026 20:55:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1787252119;
+ s=mail20150812; t=1787252123;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+reXiT0rzt8xFZCHO3NQA98KDPjLx1lxQFhP2j3CQpM=;
- b=eQjG+YlQ8VFXlFQ9+Z+E5lmPEYnseEwyzv9F7l7R8LINu6duvrnnfGD3TsjBLFPd7A7e/J
- wL0/q8VJp/OfervnzBgm9qzhb48RuvFvAav+F3a0JqoWI48+7D6tbrNaAK1ZqQGY+NXWL4
- pxaE9OFEKda88eA/xD1+vpWwW/0mVam+OKVWkM9hiEx4ZeGqgDgvfAK8aWvBTsZFFum6Og
- DYf/5z/ENTz1KecKGYXV87IQ1hPbjRLfaJmDzNOazBJVrEE6c8swUuOa2WpfYRdWKLB9B+
- g+7NOGEOLe+iHjfpp7alx1LoKHGDy5QBHnLhKnyAKmIMioyFJuK8NvQfX3ebOA==
+ bh=DcCpRn61dYCTFTR2Iv+QN3ZbAxJ+smtH1MG8GDIkx/o=;
+ b=RFA5VXBGMSnY+2Ewg8YIQ1qZY1da+e+9nLHNWmszixxJzXOeXzXinGk4BKkg2LIVY3mFx0
+ QFIfjXnTWsCjPQVH+mlkDguBE2p6DwgpuGFyjUBXGaUEGZC2JhOOuBGKKbalK1oFL2cYBP
+ cm8xWWSMvkKa7vgJOfUWgXzfozZ4+lONv0Ham2D7lVN11R5fxTuqoAcpkKZOAx6ZB+Y5x0
+ FYh19ktVBYGeTgFNZv922TNDi70L15vEEURMJKsv735k4mTD/ZKno39L24yS+nsmQqvPGS
+ HTSlalIzy7KfriuNW6MNP84aWLVs10YfDlRqNqHDhN2k342SS14HjTMjIvMYyA==
 From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1787252118;
+ s=mail20150812; t=1787252121;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+reXiT0rzt8xFZCHO3NQA98KDPjLx1lxQFhP2j3CQpM=;
- b=ev4FQgVou4TLp+JgC5kXO89ajabHCNDbMNS1nAq5/YasZsWWoWM6gi0vS4YG0Gbz4BqCUP
- OkO9vicAmICU3W4BQoFoM9te008xf+5ZAiLx8oZuUnwAD17s62eDZfDOfGZpmg8xVxfV2T
- 2COImbBmbM7s5UoEkHGMShsJRJLLaNu9AJqKggT7+51DG4UC7tNI5E80VuedBJAAhAFr8y
- Idw3GGtgfyD7BE5B1AIx/I4hfMW3U4DhFT7yRqr2rSW/qtRd16KpyeZ6UyvD4C5Um4Or6S
- 1mRO/9kBE0B9c6bcTBpcyXhi5wA+jZf3RCb8zsJrs3d2IAtMPzfC6jZ9b9vRHg==
+ bh=DcCpRn61dYCTFTR2Iv+QN3ZbAxJ+smtH1MG8GDIkx/o=;
+ b=HbkETHNOq/+wSeV3RP0VTZbTKxHnJvvNpga62+G+NUu5CTBfocKbvfiKesBQ1Rz7fw4U0u
+ nIcCRcufy7419hoR6LmVyDr/5Go9ap5bzy0BMuBxjb8vezx693K2/UYy/dXPGo0es0rj8w
+ gsA9aynblikdEOFugCqEa4vJys6+hpTFqDR598gfihq/S6PdBAEYHoq2gq5b1yqZUMKpL9
+ 6MJz61Yla4M6q47nqGFixZB0/oZDcRoAHX/eeCSIs96wilODH38L9hIBU/k5Znf5M1rxYI
+ pWcgy5SyrmKdAOjkJWrjgJ0Sq0GgPjZdQ5uCvZMZ5A9elF6XGxdgXxOd5QJaqQ==
 To: dri-devel@lists.freedesktop.org
 Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>,
  David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
  devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 2/4] drm/panel: ilitek-ili9882t: Make enable GPIO optional
-Date: Thu, 20 Aug 2026 20:54:28 +0200
-Message-ID: <20260820185506.84448-2-marek.vasut+renesas@mailbox.org>
+Subject: [PATCH v2 3/4] drm/panel: ilitek-ili9882t: Set prepare_prev_first
+Date: Thu, 20 Aug 2026 20:54:29 +0200
+Message-ID: <20260820185506.84448-3-marek.vasut+renesas@mailbox.org>
 In-Reply-To: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
 References: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 757953177c18bbc0a00
-X-MBO-RS-META: 7ktnfkayybq9f4rma8yiupcbgho8an7w
+X-MBO-RS-ID: 178bf2c549fada62006
+X-MBO-RS-META: g1fpqn8zakc66wwkgeagk5m1k7xwtq9n
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,9 +82,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The enable GPIO may not be accessible on the panel, make it optional.
-This is the case on 10" Raspberry Pi Touch Display 2.
+Sending DSI commands from the prepare() callback requires DSI link to be
+up at that point. For DSI hosts is guaranteed only if the panel driver
+sets the .prepare_prev_first flag. Set it to let these panels work with
+the DSI hosts which don't power on the link in their .mode_set callback.
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 ---
 Cc: Conor Dooley <conor+dt@kernel.org>
@@ -102,24 +105,23 @@ Cc: devicetree@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-renesas-soc@vger.kernel.org
 ---
-V2: No change
+V2: Add RB from Neil
 ---
- drivers/gpu/drm/panel/panel-ilitek-ili9882t.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/panel/panel-ilitek-ili9882t.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-index 6d07fe901357e..219d048cb883f 100644
+index 219d048cb883f..24e72ad0d29a1 100644
 --- a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
 +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-@@ -787,7 +787,7 @@ static int ili9882t_add(struct ili9882t *ili)
- 	if (IS_ERR(ili->pp1800))
- 		return PTR_ERR(ili->pp1800);
+@@ -808,6 +808,7 @@ static int ili9882t_add(struct ili9882t *ili)
  
--	ili->enable_gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_LOW);
-+	ili->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
- 	if (IS_ERR(ili->enable_gpio)) {
- 		dev_err(dev, "cannot get enable-gpios %ld\n",
- 			PTR_ERR(ili->enable_gpio));
+ 	ili->base.funcs = &ili9882t_funcs;
+ 	ili->base.dev = &ili->dsi->dev;
++	ili->base.prepare_prev_first = true;
+ 
+ 	drm_panel_add(&ili->base);
+ 
 -- 
 2.53.0
 
