@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A43CC5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 15:17:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E11D0C5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 15:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCE2B10F0AC;
-	Thu, 20 Aug 2026 15:17:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A50010F0A2;
+	Thu, 20 Aug 2026 15:21:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kyaNfeC6";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LTVztB84";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C346910F0B0
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 15:17:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC27810F0A2
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 15:21:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B542860A58;
- Thu, 20 Aug 2026 15:17:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38A141F000E9;
- Thu, 20 Aug 2026 15:17:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787239069;
- bh=JB1xb4G0mFZ/KXa6zzxbmpLvovbvjZuKScA8ZVwccKo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kyaNfeC6nnsVtyjsrl/2NzU0iVBMsJHxi7jJcl747R1oMIoYUR3/RwX73d8GfFAem
- UuC4fJl6etm7TBjXHqgjRc0K0GN/KYjmFqQCe+NDUjqqHqqKGO26ZPVS7PqrvhrPty
- RCPRHmTUiLLHxKiXx3V7ZXUVDdUd7s84SF7d5/sp60o5ej6K6w0L45jOQvMrWz9Fwk
- wWPmXKoS+JejxUq3H9ptl6hPpX8T9xAvk+WxXG3qJUKlJwFanAZenPf7IrFdNh2Aa3
- eRbIHO1UEyTzV4KS5M8484DmM8Nun0SaO6a6DXEOgJFDOul4U2tw16NDpGHM6pYasL
- rUHS9/OGeS0Jw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] irqchip/gic-v3-its: Allocate VPE tables from
- sleepable context
-To: "Steven Price" <steven.price@arm.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260820150034.88729-3-steven.price@arm.com>
-References: <20260820150034.88729-1-steven.price@arm.com>
- <20260820150034.88729-3-steven.price@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 15:17:48 +0000
-Message-Id: <20260820151749.38A141F000E9@smtp.kernel.org>
+ by sea.source.kernel.org (Postfix) with ESMTP id 6FBD0408D8;
+ Thu, 20 Aug 2026 15:21:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD03E1F000E9;
+ Thu, 20 Aug 2026 15:21:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1787239288;
+ bh=D9DG7FoEiooGK7hyk/HwAdOzDMMcTkcyVcaH/1RAnrk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=LTVztB8441eGO+sqTHIAyZFBHE/ctvMNHpW8JbeLaS0fmGdab2SojpAciNrL2cTIY
+ /6Hw2a06vG4ffsxqnJzhbvXeOYyaVJwrQKhAUYtnYuZaoaslVlVVRfnslqg4V0Knd8
+ tv1VTZaQP0i5N2iA7oS/SsY1ByicqnpohZbvTHsA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Ian Forbes <ian.forbes@broadcom.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Zack Rusin <zack.rusin@broadcom.com>
+Subject: [PATCH 6.18 216/217] drm/vmwgfx: Set surface-framebuffer GEM objects
+Date: Thu, 20 Aug 2026 16:56:24 +0200
+Message-ID: <20260820145244.183731644@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260820145237.531699751@linuxfoundation.org>
+References: <20260820145237.531699751@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,89 +60,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Moving VPE L1 table allocation to a late CPU hotplug state exposes=
- uninitialized GICv4.1 redistributor state to concurrent VPE mappings.
---
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
---- Patch [2]: [PATCH v2 2/4] irqchip/gic-v3-its: Allocate VPE tables from =
-sleepable context ---
-commit 7ed963cf27a623f2c21ad61ef0162e3eddac65ae
-Author: Steven Price <steven.price@arm.com>
+------------------
 
-irqchip/gic-v3-its: Allocate VPE tables from sleepable context
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-This patch moves the VPE L1 table allocation from the early CPU-starting
-hotplug state to the later CPU-online callback. This permits the use of
-GFP_KERNEL allocations, as its_alloc_pages() can sleep. The CPU-online
-callback is now registered unconditionally to handle this setup.
+commit 9942d36a73c2d46c52fdd6f37cf698f3cb09ce5c upstream.
 
-> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v=
-3-its.c
-> index bfd58097261a7..6452888b34fcb 100644
-> --- a/drivers/irqchip/irq-gic-v3-its.c
-> +++ b/drivers/irqchip/irq-gic-v3-its.c
-[ ... ]
-> @@ -3268,16 +3268,6 @@ static void its_cpu_init_lpis(void)
->  		val =3D its_clear_vpend_valid(vlpi_base, 0, 0);
->  	}
-> =20
-> -	if (allocate_vpe_l1_table()) {
-> -		/*
-> -		 * If the allocation has failed, we're in massive trouble.
-> -		 * Disable direct injection, and pray that no VM was
-> -		 * already running...
-> -		 */
-> -		gic_rdists->has_rvpeid =3D false;
-> -		gic_rdists->has_vlpis =3D false;
-> -	}
-> -
->  	/* Make sure the GIC has seen the above */
->  	dsb(sy);
->  	gic_data_rdist()->flags |=3D RD_LOCAL_LPI_ENABLED;
-[ ... ]
-> @@ -5454,6 +5444,19 @@ static int its_cpu_memreserve_lpi(unsigned int cpu)
->  	if (gic_data_rdist()->flags & RD_LOCAL_MEMRESERVE_DONE)
->  		return 0;
-> =20
-> +	if (allocate_vpe_l1_table()) {
-> +		/*
-> +		 * If the allocation has failed, we're in massive trouble.
-> +		 * Disable direct injection, and pray that no VM was
-> +		 * already running...
-> +		 */
-> +		gic_rdists->has_rvpeid =3D false;
-> +		gic_rdists->has_vlpis =3D false;
-> +	}
-> +
+Set struct drm_framebuffer.obj[0] to the allocated GEM buffer object
+for surface framebuffers. Avoids a NULL-pointer deref in the client's
+vmap helpers.
 
-[Severity: High]
-Does moving this allocation to the CPUHP_AP_ONLINE_DYN callback expose
-uninitialized GICv4.1 redistributor state to concurrent VPE mappings?
+[   22.640191] Console: switching to colour frame buffer device 160x50
+[   22.641788] Oops: general protection fault, probably for
+  non-canonical address 0xdffffc000000001f: 0000 [#1] SMP KASAN NOPTI
+[   22.641795] KASAN: null-ptr-deref in range
+[0x00000000000000f8-0x00000000000000ff]
+[...]
+[   22.641809] Hardware name: VMware, Inc. VMware20,1/440BX Desktop
+  Reference Platform, BIOS VMW201.00V.24928539.B64.2508260915 08/26/2025
+[   22.641812] Workqueue: events drm_fb_helper_damage_work
+[   22.641824] RIP: 0010:drm_gem_lock+0x25/0x50
+[   22.641831] Code: 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 48 b8
+  00 00 00 00 00 fc ff df 53 48 89 fb 48 81 c7 f8 00 00 00 48 89 fa 48
+  c1 ea 03 <80> 3c 02 00 75 0f 48 8b bb f8 00 00 00 31 f6 5b e9 16 2e 15
+  01 e8
+[...]
+[   22.641889] Call Trace:
+[   22.641891]  <TASK>
+[   22.641894]  drm_client_buffer_vmap_local+0x78/0x140
+[   22.641903]  drm_fbdev_ttm_helper_fb_dirty+0x20c/0x510 [drm_ttm_helper]
+[   22.641913]  ? __pfx_drm_fbdev_ttm_helper_fb_dirty+0x10/0x10 [drm_ttm_helper]
+[   22.641918]  ? __raw_spin_lock_irqsave+0x8c/0xf0
+[   22.641924]  ? __pfx___raw_spin_lock_irqsave+0x10/0x10
+[   22.641928]  ? __pfx_mutex_lock+0x10/0x10
+[   22.641936]  drm_fb_helper_fb_dirty+0x29a/0x5e0
+[   22.641942]  ? __pfx_drm_fb_helper_fb_dirty+0x10/0x10
+[...]
 
-The CPUHP_AP_ONLINE_DYN state runs for its_cpu_memreserve_lpi() in the hotp=
-lug
-thread asynchronously after the CPU has already been marked online in
-cpu_online_mask.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: ea39f2e66e61 ("drm/client: Deprecate struct drm_client_buffer.gem")
+Reported-by: Ian Forbes <ian.forbes@broadcom.com>
+Closes: https://lore.kernel.org/dri-devel/CAO6MGtjg8PiRiSLomJQRBduTBSC0WkqX67tEZwA9qwOgRzchpw@mail.gmail.com/
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Tested-by: Ian Forbes <ian.forbes@broadcom.com>
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
+Link: https://patch.msgid.link/20251104103611.167821-1-tzimmermann@suse.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
-Could a concurrent process changing IRQ affinities (like irqbalance) observe
-the CPU in cpu_online_mask and route a virtual interrupt to it via
-its_vpe_set_affinity() before the hotplug thread has executed this table
-allocation?
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+@@ -553,6 +553,9 @@ static int vmw_kms_new_framebuffer_surfa
+ 	memcpy(&vfbs->uo, uo, sizeof(vfbs->uo));
+ 	vmw_user_object_ref(&vfbs->uo);
+ 
++	if (vfbs->uo.buffer)
++		vfbs->base.base.obj[0] = &vfbs->uo.buffer->tbo.base;
++
+ 	*out = &vfbs->base;
+ 
+ 	ret = drm_framebuffer_init(dev, &vfbs->base.base,
 
-If a VMAPP command executes before allocate_vpe_l1_table() programs the
-GICR_VPROPBASER, it appears the hardware could use stale or uninitialized
-physical addresses, leading to unpredictable behavior or dropped interrupts.
 
->  	if (!efi_enabled(EFI_CONFIG_TABLES))
->  		goto out;
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820150034.8872=
-9-1-steven.price@arm.com?part=3D2
