@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7687C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:06:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD5A6C5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14BD510EFEB;
-	Thu, 20 Aug 2026 11:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4586210EFF0;
+	Thu, 20 Aug 2026 11:08:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="W9o1pduV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GaAtExFZ";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3580910EFEB
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:06:45 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E53A91CDD
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 04:06:40 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 9F1BA3F763
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 04:06:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787224004; bh=jNfDdzqRV98RHfLele5yJdWBh5exPf2ix6GNhcE9czw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=W9o1pduVwrd3jEaHnUjYfrkk9z2m0VSCITpx5dGhNfybBPChum82wKZhYHpnHZrRj
- tONKb1uctCybV63hbHZ/UAE+s4wfMS/N5ju/jVZA0GmGUhx1wti85fSYB2LuiCOYw6
- PVnw3plInZdKiDCcky/VFd/a4cut3yXHhyLIr+cY=
-Date: Thu, 20 Aug 2026 12:06:32 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Grant Likely <grant.likely@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v4 3/3] drm/panthor: Take reqs_lock in soft_reset for
- clearing pending_reqs
-Message-ID: <aobfuJQGsyJbRSQC@e142607>
-References: <20260812-panthor-cache-flush-fix-v4-0-751e32901898@collabora.com>
- <20260812-panthor-cache-flush-fix-v4-3-751e32901898@collabora.com>
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BDEF10EFFE
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:08:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A3E4F60A5C;
+ Thu, 20 Aug 2026 11:08:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2724D1F000E9;
+ Thu, 20 Aug 2026 11:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787224122;
+ bh=StuOTL/1m9vtFSKprtXoEy6lGer298rg8gURzKvP72U=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=GaAtExFZjyZC15rfKo/+y7fJEs15nyMb3Fk7iV1/x8hFbQL3/cSHs/zmupyJFA+2F
+ brDOILB57WwP8lHd3+OVmFmNZC1FZRPkvvXBbSAaVAYZUHoiQmq+Q9WyB7uVviO98h
+ GWWrGQKHUD5rSTNf5dHxiQMj3M09lLwitmJSJRNTP2DXuVGSxyKsciPZqOgJHbEuVl
+ GG9y1vZ1Kx3CqmnjUkqjMOTRvlLqsXT48BFWkPvYOxO6dWqoGvx8jXoMRd3VDa/QI/
+ NxVkfg2P+a30SR4QNTAWuxfLTtifLFWaaMYxNS4k5ypY+wyAqgsoZ1IPieD7mXhN8o
+ FV4MpXQmRcKsA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] irqchip/gic-v3-its: Zero shared pages after conversion
+To: "Steven Price" <steven.price@arm.com>
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260820105026.53208-2-steven.price@arm.com>
+References: <20260820105026.53208-1-steven.price@arm.com>
+ <20260820105026.53208-2-steven.price@arm.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260812-panthor-cache-flush-fix-v4-3-751e32901898@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Aug 2026 11:08:41 +0000
+Message-Id: <20260820110842.2724D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +53,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 04:07:20PM +0200, Nicolas Frattaroli wrote:
-> panthor_gpu_soft_reset() sets pending_reqs to 0 without taking the
-> requisite reqs_lock.
-> 
-> Fix this by taking the lock for the duration of the modification.
-> 
-> Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Pre-existing issues:
+- [High] its_alloc_pages_node() can sleep while allocating memory in an ato=
+mic context when running on Arm64 Realm systems, causing a "scheduling whil=
+e atomic" BUG.
+--
 
-Best regards,
-Liviu
+--- Patch [1]: [PATCH 1/2] irqchip/gic-v3-its: Zero shared pages after conv=
+ersion ---
+commit 36d3014f90a1ff0fea959d794f1e5680dcbc80f5
+Author: Steven Price <steven.price@arm.com>
 
-> ---
->  drivers/gpu/drm/panthor/panthor_gpu.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index 55e33f145b40..fb2702e1e0a2 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -424,7 +424,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
->  		return -ETIMEDOUT;
->  	}
->  
-> -	ptdev->gpu->pending_reqs = 0;
-> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
-> +		ptdev->gpu->pending_reqs = 0;
-> +	}
-> +
->  	return 0;
->  }
->  
-> 
-> -- 
-> 2.55.0
-> 
+irqchip/gic-v3-its: Zero shared pages after conversion
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+its_alloc_pages_node() passes __GFP_ZERO to the page allocator before
+calling set_memory_decrypted(), but for Arm CCA with MEC the key used to
+access the page will change. This masks out __GFP_ZERO from the allocation
+request and zeros the page after decryption instead.
+
+> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v=
+3-its.c
+> index b57d81ad33a0a..1a69eef9209e7 100644
+> --- a/drivers/irqchip/irq-gic-v3-its.c
+> +++ b/drivers/irqchip/irq-gic-v3-its.c
+> @@ -213,10 +213,12 @@ static gfp_t gfp_flags_quirk;
+>  static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>  					 unsigned int order)
+>  {
+> +	bool want_zero =3D gfp & __GFP_ZERO;
+>  	struct page *page;
+>  	int ret =3D 0;
+> =20
+> -	page =3D alloc_pages_node(node, gfp | gfp_flags_quirk, order);
+> +	page =3D alloc_pages_node(node, (gfp & ~__GFP_ZERO) | gfp_flags_quirk,
+> +				order);
+> =20
+>  	if (!page)
+>  		return NULL;
+
+[Severity: High]
+This is a pre-existing issue, but does the set_memory_decrypted() call that
+follows this allocation sleep in an atomic context?
+
+During CPU hotplug, gic_starting_cpu() executes with interrupts disabled
+and calls its_cpu_init_lpis() -> allocate_vpe_l1_table(). This function
+requests an atomic memory allocation:
+
+drivers/irqchip/irq-gic-v3-its.c:allocate_vpe_l1_table() {
+    ...
+    page =3D its_alloc_pages(GFP_ATOMIC | __GFP_ZERO, get_order(np * PAGE_S=
+IZE));
+    ...
+}
+
+This wraps its_alloc_pages_node(), which then calls set_memory_decrypted()
+unconditionally.
+
+On Arm64 Realm guests supporting BBML2, set_memory_decrypted() eventually
+calls split_kernel_leaf_mapping(), which takes a mutex:
+
+arch/arm64/mm/mmu.c:split_kernel_leaf_mapping() {
+    ...
+    mutex_lock(&pgtable_split_lock);
+    ...
+}
+
+Could this acquire a mutex from an atomic context and trigger a kernel pani=
+c?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820105026.5320=
+8-1-steven.price@arm.com?part=3D1
