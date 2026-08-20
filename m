@@ -4,113 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09877C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 13:31:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD82C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 13:38:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 698B710F025;
-	Thu, 20 Aug 2026 13:31:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E03510F037;
+	Thu, 20 Aug 2026 13:38:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ulo0GSHk";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VzbaBevi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6211B10F025
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 13:31:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A19410E1E3
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 13:37:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5612760A58;
- Thu, 20 Aug 2026 13:31:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399211F000E9;
- Thu, 20 Aug 2026 13:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787232701;
- bh=ulM9nrSrQt6FECJtLrk+YzsnAy0bZz7OONexKExTW14=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Ulo0GSHkUqjgMYyzSRC5s33m4+ChuX6N3cRQUDz9P5Wffg+Iblb6lihFpLGkv67AS
- wPbIZ6/tWXPw5QXGHSsD7WtmFK2SC3J7hdx5j55bwPeja13VWh/0Tbc2ewqrw4bZcl
- sZiVYJoWo4h3+i+ct+KBoOSF1/4jO4dvcu2Rt6ZYH8nLJM5aQiLwJHzTfYJSXO4zfU
- ++uJdip1oiG6Tdzd50fJSxxwsHrfG+r5w9IKwQirGlpwavYNkqsiw2+/5F/mibutjI
- zozqDP5tqAz0Wh5ISNmd8/wiNfulwUpVIytMFkp62/9KX6exuMBwfSsRowxRX2WEai
- fugb4xiUNOayQ==
-Message-ID: <59aa182d-1b4c-4bdc-a1d5-e76cc9c88ed9@kernel.org>
-Date: Thu, 20 Aug 2026 15:31:28 +0200
+ by sea.source.kernel.org (Postfix) with ESMTP id C7A65436F1;
+ Thu, 20 Aug 2026 13:37:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DF61F000E9;
+ Thu, 20 Aug 2026 13:37:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1787233078;
+ bh=r5tYoO9WBm1tLv7ER2QnqFYjocUIL7hpHUfJ1V+TLk4=;
+ h=Subject:To:Cc:From:Date:In-Reply-To;
+ b=VzbaBeviejebDxyjjoFV+DL563LS845jYobE5Dl/Ag5MGl6HDbw7onqa/fvUrrprv
+ CDqUbSB0MZDpsX1mrV/zn2R9bNErAt0UKMVJrUEaMVhiq8w2P80YHxj1JcWIR2tzLU
+ FA5u7UfhxFQCXT9f+RKfBXrWOxyTyqOHM5qZnCoU=
+Subject: Patch "drm/tegra: fbdev: Remove offset into framebuffer memory" has
+ been added to the 5.15-stable tree
+To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ sashal@kernel.org, treding@nvidia.com, tzimmermann@suse.de
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 20 Aug 2026 15:28:22 +0200
+In-Reply-To: <20260731163910.838898-1-sashal@kernel.org>
+Message-ID: <2026082022-crunching-flyer-8742@gregkh>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
- <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
- <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
- <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
- <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
- <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
- <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,46 +56,274 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 20/08/2026 12:07, Dmitry Baryshkov wrote:
-> On Thu, Aug 20, 2026 at 11:07:45AM +0200, Krzysztof Kozlowski wrote:
->>>>>>
->>>>>> Device node with this compatible is already populated, so this looks
->>>>>> simply wrong or you are adding a duplicated driver.
->>>>>>
->>>>>> That's a no-go, you are supposed to work with existing drivers and grow
->>>>>> them.
->>>>> I'll bring the discussion again here, there was a discussion to move the
->>>>> driver to accel subsystem if we want to support new features/uAPI
->>>>> changes. Please read [1],[2] threads. The intention is to replace
->>>>> fastrpc driver with QDA eventually.
->>>>
->>>> None of them address the problem. You want to grow fastrpc into user of
->>>> dmabuf? So you move it from misc to here.
->>>
->>> It's not as easy and nice, so I think in this case it's better to repeat
->>
->> I disagree. The existing fastrpc driver is not that complicated. It's
->> actually moderate amount of code, much less than Venus was (~7 times less).
->>
->> It easily can grow to support two interfaces and the only difficulty is
->> how to manage these two interfaces simultaneously or exclusively, e.g.
->> opening first one disables the second.
-> 
-> I see the point here.
-> 
-> Would it be acceptable if we add QDA support only on the new platforms
-> (e.g. via the SoC-specific compat), provide QDA for those platforms,
-> and, once it reaches complete API and feature parity, we remove the old
-> fastrpc driver, migrati old platforms.
 
-The problem with this approach is that we have no guarantees that it
-will reach feature parity in respect of old interface, thus old driver
-might stay forever. If we agree for duplicated driver, contributors have
-no incentives to support old approach.
+This is a note to let you know that I've just added the patch titled
 
-Much better is to refine the old driver, gradually adding new features
-while maintaining old stuff. This is the only way we can force
-contributors to actively work on minimizing duplicate parts.
+    drm/tegra: fbdev: Remove offset into framebuffer memory
 
-Best regards,
-Krzysztof
+to the 5.15-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
+and it can be found in the queue-5.15 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From stable+bounces-294156-greg=kroah.com@vger.kernel.org Fri Jul 31 19:02:50 2026
+From: Sasha Levin <sashal@kernel.org>
+Date: Fri, 31 Jul 2026 12:39:10 -0400
+Subject: drm/tegra: fbdev: Remove offset into framebuffer memory
+To: stable@vger.kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>, Sasha Levin <sashal@kernel.org>
+Message-ID: <20260731163910.838898-1-sashal@kernel.org>
+
+From: Thomas Zimmermann <tzimmermann@suse.de>
+
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
+
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/tegra/fb.c |    8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+--- a/drivers/gpu/drm/tegra/fb.c
++++ b/drivers/gpu/drm/tegra/fb.c
+@@ -221,7 +221,6 @@ static int tegra_fbdev_probe(struct drm_
+ 	struct drm_mode_fb_cmd2 cmd = { 0 };
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct fb_info *info;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+@@ -267,9 +266,6 @@ static int tegra_fbdev_probe(struct drm_
+ 
+ 	drm_fb_helper_fill_info(info, helper, sizes);
+ 
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
+-
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -281,9 +277,9 @@ static int tegra_fbdev_probe(struct drm_
+ 	}
+ 
+ 	drm->mode_config.fb_base = (resource_size_t)bo->iova;
+-	info->screen_base = (void __iomem *)bo->vaddr + offset;
++	info->screen_base = (void __iomem *)bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
+ 
+ 	return 0;
+
+
+Patches currently in stable-queue which might be from sashal@kernel.org are
+
+queue-5.15/udmabuf-do-not-create-malformed-scatterlists.patch
+queue-5.15/net-ipip-require-cap_net_admin-in-the-device-netns-for-changelink.patch
+queue-5.15/dma-buf-udmabuf-skip-redundant-cpu-sync-to-fix-cacheline-eexist-warning.patch
+queue-5.15/wifi-brcmfmac-set-f2-blocksize-to-256-for-bcm43752.patch
+queue-5.15/usb-gadget-f_tcm-synchronize-delayed-set_alt-with-teardown.patch
+queue-5.15/input-mms114-reject-an-oversized-device-packet-size.patch
+queue-5.15/iommu-amd-don-t-split-flush-for-amd_iommu_domain_flush_all.patch
+queue-5.15/can-esd_usb2-rename-esd_usb2.c-to-esd_usb.c.patch
+queue-5.15/media-mediatek-vcodec-fix-a-resource-leak-related-to.patch
+queue-5.15/fbcon-rename-struct-fbcon_ops-to-struct-fbcon_par.patch
+queue-5.15/fpga-dfl-afu-validate-dma-mapping-length-in-afu_dma_map_region.patch
+queue-5.15/netfilter-nft_set_pipapo-move-cloning-of-match-info-to-insert-removal-path.patch
+queue-5.15/smb-server-fix-minimum-smb1-pdu-size.patch
+queue-5.15/vduse-remove-unused-vaddr-parameter-of-vduse_domain_free_coherent.patch
+queue-5.15/net-sched-serialize-qdisc_rtab_list-against-concurrent-get-put.patch
+queue-5.15/bootconfig-fix-null-pointer-arithmetic-in-xbc_snprint_cmdline.patch
+queue-5.15/octeontx2-annotate-mmio-regions-as-__iomem.patch
+queue-5.15/thunderbolt-update-property.c-function-documentation.patch
+queue-5.15/drm-virtio-bound-edid-block-reads-to-the-response-buffer.patch
+queue-5.15/media-marvell-cam-fix-missing-pci_disable_device-on-remove.patch
+queue-5.15/net-macb-move-ring-size-computation-to-functions.patch
+queue-5.15/net-mana-validate-the-packet-length-reported-by-the-nic.patch
+queue-5.15/netfilter-nft_set_pipapo-move-prove_locking-helper-around.patch
+queue-5.15/mlxsw-fix-refcount-leak-in-mlxsw_sp_port_lag_join.patch
+queue-5.15/dma-buf-drivers-make-reserving-a-shared-slot-mandatory-v4.patch
+queue-5.15/super-fix-emergency-thaw-deadlock-on-frozen-block-devices.patch
+queue-5.15/thunderbolt-remove-service-debugfs-entries-during-unregister.patch
+queue-5.15/octeontx2-af-cn10k-restrict-vf-lmtline-sharing-to-its-own-pf.patch
+queue-5.15/mmc-vub300-fix-use-after-free-on-probe-failure.patch
+queue-5.15/ipvs-separate-destination-availability-state.patch
+queue-5.15/libceph-add-doutc-and-_client-debug-macros-support.patch
+queue-5.15/bootconfig-move-xbc_snprint_cmdline-to-lib-bootconfig.c.patch
+queue-5.15/taskstats-retain-dead-thread-stats-in-tgid-queries.patch
+queue-5.15/fs-ntfs3-undo-critial-modificatins-to-keep-directory-consistency.patch
+queue-5.15/ksmbd-rename-smb2_get_msg-to-smb_get_msg.patch
+queue-5.15/net-ipa-fix-smem-state-handle-leaks-in-smp2p-init.patch
+queue-5.15/octeontx2-pf-clear-stale-mailbox-irq-state-before-request_irq.patch
+queue-5.15/drm-dp-mst-fix-oob-reads-on-2-byte-fields-in-sideband-reply-parsers.patch
+queue-5.15/can-esd_usb-kill-anchored-urbs-before-freeing-netdevs.patch
+queue-5.15/fbcon-use-correct-type-for-vc_resize-return-value.patch
+queue-5.15/ipv4-adopt-dst_dev-skb_dst_dev-and-skb_dst_dev_net.patch
+queue-5.15/net-ixp4xx_hss-fix-duplicate-hdlc-netdev-allocation.patch
+queue-5.15/kvm-x86-mmu-document-the-rules-for-using-host_pfn_mapping_level.patch
+queue-5.15/netfilter-nf_conntrack_sip-remove-net-variable-shadowing.patch
+queue-5.15/smb-client-use-kvzalloc-for-megabyte-buffer-in-simple-fallocate.patch
+queue-5.15/ksmbd-conn-lock-to-serialize-smb2-negotiate.patch
+queue-5.15/remoteproc-qcom-pas-adjust-the-phys-addr-wrt-the-mem-region.patch
+queue-5.15/wifi-ath6kl-fix-use-after-free-in-aggr_reset_state.patch
+queue-5.15/asoc-mediatek-use-common-mtk_afe_pcm_platform-with-common-probe-cb.patch
+queue-5.15/wifi-brcmfmac-fix-43752-sdio-fwvid-incorrectly-labelled-as-cypress-cyw.patch
+queue-5.15/fs-ntfs3-make-ntfs_update_mftmirr-return-void.patch
+queue-5.15/vduse-avoid-leaking-information-to-userspace.patch
+queue-5.15/treewide-rename-pinctrl_gpio_direction_output_new.patch
+queue-5.15/asoc-mediatek-mt8192-check-runtime-resume-during-probe.patch
+queue-5.15/drm-dp-mst-fix-oob-reads-in-remote-dpcd-i2c-sideband-reply-parsers.patch
+queue-5.15/tipc-restrict-socket-queue-dumps-in-enqueue-tracepoints.patch
+queue-5.15/ceph-avoid-fs-reclaim-while-using-current-journal_info.patch
+queue-5.15/ksmbd-fix-integer-overflow-in-set_file_allocation_info.patch
+queue-5.15/f2fs-fix-uaf-issue-in-f2fs_merge_page_bio.patch
+queue-5.15/drm-i915-hdcp-require-monotonically-increasing-seq_num_v.patch
+queue-5.15/mmc-vub300-fix-use-after-free-on-disconnect.patch
+queue-5.15/serial-sc16is7xx-implement-gpio-get_direction-callback.patch
+queue-5.15/octeontx2-af-fix-apr-entry-mapping-based-on-apr_lmt_cfg.patch
+queue-5.15/mtd-maps-vmu-flash-fix-fault-in-unaligned-fixup.patch
+queue-5.15/ceph-fix-hanging-__ceph_get_caps-with-stale-mds_wanted.patch
+queue-5.15/mtd-spi-nor-swp-improve-locking-user-experience.patch
+queue-5.15/remoteproc-qcom-fix-leak-when-custom-dump_segments-addition-fails.patch
+queue-5.15/libceph-amend-checking-to-fix-make-w-1-build-breakage.patch
+queue-5.15/libceph-bound-pg_-temp-upmap-upmap_items-length-to-ceph_pg_max_size.patch
+queue-5.15/selinux-avoid-sk_socket-dereference-in-selinux_sctp_bind_connect.patch
+queue-5.15/kvm-rename-mmu_notifier_-to-mmu_invalidate_.patch
+queue-5.15/drm-i915-hdcp-check-streams-bounds-before-overflow.patch
+queue-5.15/net-dst-annotate-data-races-around-dst-output.patch
+queue-5.15/ftrace-add-global-mutex-to-serialize-trace_parser-access.patch
+queue-5.15/vduse-take-out-allocations-from-vduse_dev_alloc_coherent.patch
+queue-5.15/lsm-infrastructure-management-of-the-sock-security.patch
+queue-5.15/remoteproc-qcom-replace-kstrdup-with-kstrndup.patch
+queue-5.15/ceph-print-cluster-fsid-and-client-global_id-in-all-debug-logs.patch
+queue-5.15/audit-use-unsigned-int-instead-of-unsigned.patch
+queue-5.15/media-mtk-vcodec-potential-null-pointer-deference-in.patch
+queue-5.15/media-v4l2-fwnode-fix-subdev-owner-overwritten-in-v4l2_async_register_subdev_sensor.patch
+queue-5.15/net-macb-use-napi-for-tx-completion-path.patch
+queue-5.15/wifi-brcmfmac-drain-bus_reset-work-on-device-removal.patch
+queue-5.15/i2c-davinci-unregister-cpufreq-notifier-on-probe-failure.patch
+queue-5.15/alsa-seq-close-a-re-opened-queue-timer-in-the-destructor.patch
+queue-5.15/bootconfig-do-not-put-quotes-on-cmdline-items-unless-necessary.patch
+queue-5.15/serial-8250_mid-fix-null-function-pointer-dereference-on-dnv-icx-d-snr-platforms.patch
+queue-5.15/i2c-imx-separate-atomic-dma-and-non-dma-use-case.patch
+queue-5.15/serial-sc16is7xx-fill-in-rs485_supported.patch
+queue-5.15/locking-rt-fix-the-incorrect-rcu-protection-in-rt_spin_unlock.patch
+queue-5.15/drm-displayid-fix-tiled-display-topology-id-size.patch
+queue-5.15/netfilter-nft_set_pipapo-merge-deactivate-helper-into-caller.patch
+queue-5.15/kvm-x86-mmu-directly-destroy-pte-list-when-recycling-rmaps.patch
+queue-5.15/dm-integrity-don-t-increment-hash_offset-twice.patch
+queue-5.15/vfs-audit-introduce-kern_path_parent-for-audit.patch
+queue-5.15/bpf-fork-wipe-bpf_storage-before-bailouts-that-access-it.patch
+queue-5.15/audit-fix-recursive-locking-deadlock-in-audit_dupe_exe.patch
+queue-5.15/net-dst-add-four-helpers-to-annotate-data-races-around-dst-dev.patch
+queue-5.15/drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
+queue-5.15/thunderbolt-remove-xdomain-from-the-bus-without-holding-tb-lock.patch
+queue-5.15/rxrpc-serialize-kernel-accept-preallocation-with-socket-teardown.patch
+queue-5.15/net-macb-single-dma_alloc_coherent-for-dma-descriptors.patch
+queue-5.15/serial-sc16is7xx-remove-obsolete-out_thread-label.patch
+queue-5.15/9p-skip-nlink-update-in-cacheless-mode-to-fix-warn_on.patch
+queue-5.15/dmaengine-dw-edma-add-spinlock-to-protect-done_int_mask-and-abort_int_mask.patch
+queue-5.15/mmc-vub300-rename-probe-error-labels.patch
+queue-5.15/net-macb-simplify-cleanup-napi-reschedule-checking.patch
+queue-5.15/netfilter-nft_set_pipapo-use-gfp_kernel-for-insertions.patch
+queue-5.15/mm-do-file-ownership-checks-with-the-proper-mount-idmap.patch
+queue-5.15/vduse-use-fixed-4kb-bounce-pages-for-non-4kb-page-size.patch
+queue-5.15/mtd-spi-nor-fix-spi_nor_try_unlock_all.patch
+queue-5.15/alsa-hda-fix-cached-processing-coefficient-verbs.patch
+queue-5.15/net-ip6_tunnel-require-cap_net_admin-in-the-device-netns-for-changelink.patch
+queue-5.15/dm-verity-make-error-counter-atomic.patch
+queue-5.15/media-aspeed-fix-missing-of_reserved_mem_device_release-on-probe-failure.patch
+queue-5.15/alsa-hda-conexant-remove-mic-bias-threshold-override.patch
+queue-5.15/media-i2c-imx219-correct-the-minimum-vblanking-value.patch
+queue-5.15/mptcp-decrement-subflows-counter-on-failed-passive-join.patch
+queue-5.15/ksmbd-validate-minimum-pdu-size-for-transform-requests.patch
+queue-5.15/net-sched-sch_taprio-replace-direct-dequeue-call-with-peek-and-qdisc_dequeue_peeked.patch
+queue-5.15/i2c-imx-fix-locked-bus-on-smbus-block-read-of-0-atomic.patch
+queue-5.15/drm-dp-mst-fix-buffer-overflows-in-sideband-chunk-accumulation.patch
+queue-5.15/wifi-libertas_tf-fix-use-after-free-in-lbtf_free_adapter.patch
+queue-5.15/kvm-x86-mmu-split-out-tdp-mmu-page-fault-handling.patch
+queue-5.15/netfilter-nft_set_pipapo-don-t-leak-bad-clone-into-future-transaction.patch
+queue-5.15/input-mms114-fix-touch-indexing-for-mms134s-and-mms136.patch
+queue-5.15/smb-server-fix-minimum-smb2-pdu-size.patch
+queue-5.15/mlxsw-spectrum-on-port-enslavement-to-a-lag-join-upper-s-bridges.patch
+queue-5.15/firmware_loader-introduce-__free-cleanup-hanler.patch
+queue-5.15/scsi-lpfc-fix-memory-leak-in-lpfc_sli4_driver_resource_setup.patch
+queue-5.15/netfilter-nf_conntrack_sip-validate-skb_dst-before-accessing-it.patch
+queue-5.15/thunderbolt-keep-xdomain-reference-during-the-lifetime-of-a-service.patch
+queue-5.15/asoc-mediatek-mt8183-check-runtime-resume-during-probe.patch
+queue-5.15/tcp-convert-to-dev_net_rcu.patch
+queue-5.15/ceph-rename-_to_client-to-_to_fs_client.patch
+queue-5.15/sc16is7xx-properly-resume-tx-after-stop.patch
+queue-5.15/octeontx2-vf-clear-stale-mailbox-irq-state-before-request_irq.patch
+queue-5.15/net-thunderbolt-fix-frags-overflow-by-bounding-frame_count.patch
+queue-5.15/netfilter-nft_set_pipapo-make-pipapo_clone-helper-return-null.patch
+queue-5.15/ntfs3-validate-split-point-offset-in-indx_insert_into_buffer.patch
+queue-5.15/espintcp-use-sk_msg_free_partial-to-fix-partial-send.patch
+queue-5.15/serial-8250_mid-remove-unneeded-test-for-setup-presence.patch
+queue-5.15/net-macb-remove-illusion-about-tbqph-rbqph-being-per-queue.patch
+queue-5.15/mptcp-fix-subflow-accounting-on-close.patch
+queue-5.15/fscrypt-use-the-mount-idmap-for-the-owner-check-in-f.patch
+queue-5.15/dmaengine-dw-edma-detach-the-private-data-and-chip-info-structures.patch
+queue-5.15/input-ims-pcu-fix-firmware-leak-in-async-update.patch
+queue-5.15/drm-amdgpu-fix-amdgpu_bo_move-when-old_mem-and-new_mem-are-both-gtt.patch
+queue-5.15/media-i2c-imx219-drop-imx219_vts_-macros.patch
+queue-5.15/net-sched-taprio-avoid-calling-child-ops-dequeue-child-twice.patch
+queue-5.15/net-add-helper-function-to-parse-netlink-msg-of-ip_tunnel_encap.patch
+queue-5.15/octeontx2-pf-fix-sqb-pointer-leak-on-init-failure.patch
+queue-5.15/ksmbd-reject-repeated-smb2-negotiate-requests.patch
+queue-5.15/tpm-tpm_tis_spi-use-wait_woken-in-wait_for_tmp_stat.patch
+queue-5.15/media-i2c-imx219-rename-vts-to-frm_length.patch
+queue-5.15/netfilter-nf_queue-pin-bridge-device-while-nfqueue-holds-fake-dst.patch
+queue-5.15/mm-vmstat-fold-stranded-per-cpu-node-stats-when-a-node-comes-online.patch
+queue-5.15/mptcp-cleanup-mpj-subflow-list-handling.patch
+queue-5.15/remoteproc-qcom-fix-sparse-warnings.patch
+queue-5.15/gpio-tegra-do-not-call-pinctrl-for-gpio-direction.patch
+queue-5.15/libceph-fix-two-unsafe-bare-decodes-in-decode_lockers.patch
+queue-5.15/net-sched-act_ct-preserve-tc_skb_cb-across-defragmentation.patch
+queue-5.15/media-imx219-fix-maximum-frame-length-in-lines.patch
+queue-5.15/serial-max310x-replace-bare-use-of-unsigned-with-unsigned-int-checkpatch.patch
+queue-5.15/drm-i915-vrr-require-valid-min-max-vfreq-for-vrr.patch
+queue-5.15/audit-widen-ino-fields-to-u64.patch
+queue-5.15/lsm-use-default-hook-return-value-in-call_int_hook.patch
+queue-5.15/net-macb-drop-in-flight-tx-skbs-on-close.patch
+queue-5.15/asoc-mediatek-mt8192-afe-pcm-simplify-probe-with-local-dev-variable.patch
+queue-5.15/media-v4l-async-set-owner-for-async-sub-devices.patch
+queue-5.15/bpf-reject-bpf_map_type_inode_storage-creation-if-bpf-lsm-is-uninitialized.patch
+queue-5.15/ovl-use-linked-upper-dentry-in-copy-up-tmpfile.patch
+queue-5.15/netfilter-nft_set_pipapo-prepare-pipapo_get-helper-for-on-demand-clone.patch
+queue-5.15/thunderbolt-remove-usage-of-the-deprecated-ida_simple_xx-api.patch
+queue-5.15/netfilter-nft_set_pipapo-prepare-walk-function-for-on-demand-clone.patch
+queue-5.15/taskstats-fill_stats_for_tgid-use-for_each_thread.patch
+queue-5.15/thunderbolt-prevent-xdomain-delayed-work-use-after-free-on-disconnect.patch
+queue-5.15/serial-sc16is7xx-fix-regression-with-gpio-configuration.patch
+queue-5.15/asoc-mediatek-mt8192-afe-pcm-simplify-with-dev_err_probe.patch
+queue-5.15/kvm-x86-mmu-rename-__direct_map-to-direct_map.patch
+queue-5.15/asoc-mediatek-mt8192-afe-pcm-convert-to-devm_pm_runtime_enable.patch
+queue-5.15/fs-resctrl-fix-double-add-of-pseudo-locked-region-s-rmid-to-free-list.patch
+queue-5.15/dmaengine-dw-edma-remove-unused-irq-field-in-struct-dw_edma_chip.patch
+queue-5.15/net-dst-annotate-data-races-around-dst-input.patch
+queue-5.15/drm-virtio-use-uninterruptible-resv-lock-for-plane-updates.patch
+queue-5.15/ksmbd-defer-destroy_previous_session-until-after-ntlm-authentication.patch
+queue-5.15/drm-virtio-return-proper-error-codes-instead-of-1.patch
+queue-5.15/serial-max310x-implement-gpio_chip-get_direction.patch
+queue-5.15/sctp-avoid-auth_enable-sysctl-uaf-during-netns-teardown.patch
+queue-5.15/kvm-x86-mmu-rename-pte_list_-destroy-remove-to-show-they-zap-sptes.patch
