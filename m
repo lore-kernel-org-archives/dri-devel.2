@@ -4,44 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46171C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:02:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41053C5DF87
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA1F910E5FC;
-	Thu, 20 Aug 2026 11:02:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A49C610EFEA;
+	Thu, 20 Aug 2026 11:04:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="He3JVklq";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="QaJykXs5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A59810E5FC
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:02:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0193D42AC2;
- Thu, 20 Aug 2026 11:02:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40A11F000E9;
- Thu, 20 Aug 2026 11:02:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787223758;
- bh=ileRf+I+bewjuwwRGTBqzEp98V1ArK4DRKMwWQGLs1I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=He3JVklq80ywpP990p88VEpDjQShskoF0gLzgwf3wrbgSl53FQP81l51PWMKorn7u
- vSvTNlw8W4kkaziDdwyN8WBqTe0yHuzz0nuUuAXoQmSMSoVP+1zKiOgNodYDeyKp4V
- Cs+sXGoLVs5rrnkDEEZp/3zCdqL3aCxNz35Yp+XV91omXC7OKsw0b9DhfXK+vPEHMT
- 86SmDwQBEKOPyjJl+uHQHHZr2Hct8JXw0jBx3IztwF8Q9Z/iIgA9khYDCG2G2hBvcb
- w2xmmmqy8lkMXfyodQmvWpQDx85iRKTolBXi3CqS0Mj4wYbO0khaSSYetG0cj0Clp0
- Yf0bhwqrG1J0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dma-buf: heaps: Zero system shared heap pages after
- conversion
-To: "Steven Price" <steven.price@arm.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260820105026.53208-3-steven.price@arm.com>
-References: <20260820105026.53208-1-steven.price@arm.com>
- <20260820105026.53208-3-steven.price@arm.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 321B810EFEA
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:04:09 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E272A1BCA
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 04:04:04 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 9B0833FA32
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 04:04:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787223848; bh=k/2lHECc/q7PbQPPsNaBrVXrUBqPhQ7wWFGvkUUvz+4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QaJykXs5BAmO5jBHkG+OAAWbv6DqVJPyS2xp/hjlkCviNKRx/d64/i81UjPHFe9FB
+ wSggo2grZymMqM/sQ7EuO1313+so3dDOcD7HYRYDz7UUcs+JQxp5DioUv+pz7nQjgc
+ xz5eGPBtbafdO0U6ioIQ8fyoVZUKioF1zXq6CBV0=
+Date: Thu, 20 Aug 2026 12:03:56 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Grant Likely <grant.likely@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v4 2/3] drm/panthor: Revisit reqs_lock handling in
+ flush/reset paths
+Message-ID: <aobedvpYOUBd8gji@e142607>
+References: <20260812-panthor-cache-flush-fix-v4-0-751e32901898@collabora.com>
+ <20260812-panthor-cache-flush-fix-v4-2-751e32901898@collabora.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 11:02:38 +0000
-Message-Id: <20260820110238.A40A11F000E9@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260812-panthor-cache-flush-fix-v4-2-751e32901898@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,81 +62,154 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Wed, Aug 12, 2026 at 04:07:19PM +0200, Nicolas Frattaroli wrote:
+> panthor_gpu_flush_caches() and panthor_gpu_soft_reset() acquire their
+> reqs_lock spinlock with the IRQ-disabling variants of the spinlocking
+> functions. This isn't necessary, as the lock is never taken from an
+> atomic context, as Panthor uses threaded interrupt handlers. The result
+> of this overly strict locking is that IRQs may be disabled more
+> frequently and for longer than they should be, resulting in increased
+> system latency.
+> 
+> Switch the locking to use non-IRQ-disabling scoped_guard statements for
+> locking. The wait_event_timeout read of pending_reqs outside of the
+> spinlock is fine as wait_event_timeout is a memory barrier according to
+> the Linux Memory Model.
+> 
+> Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Pre-existing issues:
-- [High] In `system_heap_allocate()`, if `set_memory_decrypted()` fails for=
- an intermediate page, the error handling path attempts to re-encrypt all p=
-ages in the buffer, including those that were never decrypted. This can cau=
-se state-transition hypercalls to fail on already-encrypted pages, permanen=
-tly leaking pristine memory.
---
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
---- Patch [2]: [PATCH 2/2] dma-buf: heaps: Zero system shared heap pages af=
-ter conversion ---
-commit 6c2e28c1010d31d528df19fa7fecbc4eb3e5bcad
-Author: Steven Price <steven.price@arm.com>
+Best regards,
+Liviu
 
-dma-buf: heaps: Zero system shared heap pages after conversion
-
-This commit modifies the system_cc_shared heap to defer zeroing pages until
-after they have been successfully converted from private to shared. This
-ensures that the guest clears the memory after decryption, as the decryption
-process changes the visible data.
-
-> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/=
-system_heap.c
-> --- a/drivers/dma-buf/heaps/system_heap.c
-> +++ b/drivers/dma-buf/heaps/system_heap.c
-
-[ ... ]
-
-> @@ -461,9 +466,12 @@ static struct dma_buf *system_heap_allocate(struct d=
-ma_heap *heap,
-> =20
->  	if (cc_shared_buffer(buffer)) {
->  		for_each_sgtable_sg(table, sg, i) {
-> -			ret =3D system_heap_set_page_decrypted(sg_page(sg));
-> +			page =3D sg_page(sg);
-> +			ret =3D system_heap_set_page_decrypted(page);
->  			if (ret)
->  				goto free_pages;
-
-[Severity: High]
-This is a pre-existing issue, but does this error path permanently leak
-pages if decryption fails midway?
-
-If system_heap_set_page_decrypted() fails for an intermediate page, the
-code jumps to free_pages. The free_pages label iterates over all pages in
-the scatterlist unconditionally up to orig_nents:
-
-free_pages:
-        for_each_sgtable_sg(table, sg, i) {
-                struct page *p =3D sg_page(sg);
-                if (cc_shared_buffer(buffer) &&
-                    system_heap_set_page_encrypted(p))
-                        continue;
-                __free_pages(p, compound_order(p));
-        }
-
-For pages later in the scatterlist that were never successfully decrypted,
-system_heap_set_page_encrypted() will be called on already-encrypted memory.
-If the hypervisor rejects this duplicate encryption request, the pristine
-pages skip __free_pages() and are permanently leaked.
-
-Is there a way to track exactly which pages were decrypted so the error path
-only attempts to re-encrypt those specific pages?
-
+> ---
+>  drivers/gpu/drm/panthor/panthor_gpu.c | 72 ++++++++++++++++-------------------
+>  1 file changed, 33 insertions(+), 39 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index 7088371c6d64..55e33f145b40 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -345,41 +345,36 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  			     u32 l2, u32 lsc, u32 other)
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+> -	unsigned long flags;
+>  	u64 start = 0;
+>  	int ret = 0;
+>  
+>  	/* Serialize cache flush operations. */
+>  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
+>  
+> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -
+> -	if (tracepoint_enabled(gpu_cache_flush))
+> -		start = ktime_get_ns();
+> -
+> -	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+> -		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> -		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> -	} else {
+> -		ret = -EIO;
+> -	}
+> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> -
+> -	if (ret) {
+> -		panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc, other, ret);
+> -		return ret;
+> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +		if (tracepoint_enabled(gpu_cache_flush))
+> +			start = ktime_get_ns();
 > +
-> +			clear_pages(page_address(page), 1 << compound_order(page));
->  		}
+> +		if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+> +			ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> +			gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> +		} else {
+> +			panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc,
+> +							 other, -EIO);
+> +			return -EIO;
+> +		}
 >  	}
+>  
+>  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+>  				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+> -		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+> -			ret = -ETIMEDOUT;
+> -		else
+> -			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> +		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +			if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+> +			!(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+> +				ret = -ETIMEDOUT;
+> +			else
+> +				ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> +		}
+>  	}
+>  
+>  	panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc, other, ret);
+> @@ -402,27 +397,26 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+>  	bool timedout = false;
+> -	unsigned long flags;
+>  
+> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -	if (!drm_WARN_ON(&ptdev->base,
+> -			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+> -		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+> -		gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+> -		gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+> +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +		if (!drm_WARN_ON(&ptdev->base,
+> +				ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+> +			ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+> +			gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+> +			gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+> +		}
+>  	}
+> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  
+>  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
+>  				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> -		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+> -		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+> -			timedout = true;
+> -		else
+> -			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> +		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+> +			if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+> +			!(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+> +				timedout = true;
+> +			else
+> +				ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+> +		}
+>  	}
+>  
+>  	if (timedout) {
+> 
+> -- 
+> 2.55.0
+> 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820105026.5320=
-8-1-steven.price@arm.com?part=3D2
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
