@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B89FEC5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:55:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AACEC5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB55210E22A;
-	Thu, 20 Aug 2026 18:55:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C98A510E2D3;
+	Thu, 20 Aug 2026 18:55:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lTARxJLk";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CS+3Os0J";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="eQjG+YlQ";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ev4FQgVo";
 	dkim-atps=neutral
 Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85D5810E22A
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:55:17 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E72DE10E2D3
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:55:20 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hQt0z5PGYzMlKM;
- Thu, 20 Aug 2026 20:55:15 +0200 (CEST)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hQt134G84zMlMg;
+ Thu, 20 Aug 2026 20:55:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1787252115;
+ s=mail20150812; t=1787252119;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=dBf226F5J7L2G3nMkBqVcELYd3BwALU/nWm1qUUhSRs=;
- b=lTARxJLkQM3jX9Wmx8Vb7oSi3/lSwtHTKxhWUJyYLlMyP+C7l2GFRj5V3knHO5f27JwF4z
- vPczfUL5W0TSM4NMrDgyM2Z4A6ULC0FR+p4Ttck+cKA/IHi8ihl5/8DFpV/Nm48Ah43WsY
- k2NvA5fse8tW0UR6DOR3WE+NbHusufIezZmnV0mEegQcETZ9EL5aMFqTeVno9uGt2/nuZF
- yzBDvr8LoGo00uSCcIaiL4b5XeQg2fKT0mLz2EiMqIEfwY7FlR+HRMlPPGPZxwjyKo3sXY
- O3/yLMYbgH0mBX6NOtRIAVGaIx7UGVML+XaXCXYm8ZwVPtXhNQYYf4Vt74MA0A==
-Authentication-Results: outgoing_mbo_mout;
- dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=CS+3Os0J;
- spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org
- designates 2001:67c:2050:b231:465::102 as permitted sender)
- smtp.mailfrom=marek.vasut+renesas@mailbox.org
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+reXiT0rzt8xFZCHO3NQA98KDPjLx1lxQFhP2j3CQpM=;
+ b=eQjG+YlQ8VFXlFQ9+Z+E5lmPEYnseEwyzv9F7l7R8LINu6duvrnnfGD3TsjBLFPd7A7e/J
+ wL0/q8VJp/OfervnzBgm9qzhb48RuvFvAav+F3a0JqoWI48+7D6tbrNaAK1ZqQGY+NXWL4
+ pxaE9OFEKda88eA/xD1+vpWwW/0mVam+OKVWkM9hiEx4ZeGqgDgvfAK8aWvBTsZFFum6Og
+ DYf/5z/ENTz1KecKGYXV87IQ1hPbjRLfaJmDzNOazBJVrEE6c8swUuOa2WpfYRdWKLB9B+
+ g+7NOGEOLe+iHjfpp7alx1LoKHGDy5QBHnLhKnyAKmIMioyFJuK8NvQfX3ebOA==
 From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1787252114;
+ s=mail20150812; t=1787252118;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=dBf226F5J7L2G3nMkBqVcELYd3BwALU/nWm1qUUhSRs=;
- b=CS+3Os0JUcOk7RYqWvxIFjinh1VF2oYhMhkG9Klu1BkLEBOBw/GMgyienCY8oPOJaxu9hQ
- wJgfVOew0dEnP5KWfMn7KXlTex3MqRvikBf+F9jYer0NzBppi1B21kNf0OI5GWQSs5Q3yR
- uvmodV+0i5DWmR3l8vucbuKzgHI9ddqrNFxABhpyTAy7wg44vgd/wBXpGEP5XBSA4Y4xle
- gMb+lSmTjIvTkmN467mypbmXOjbCMMyrEqtRXq9Ug94HsNHKfzHwWJUBFctmpSX2ceUnXt
- ZGcQJXPB4HxvAwQ65w/eBPwh/FK5jvy1t6/dDzzDRSHewa34WcKSKShOfH8acA==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+reXiT0rzt8xFZCHO3NQA98KDPjLx1lxQFhP2j3CQpM=;
+ b=ev4FQgVou4TLp+JgC5kXO89ajabHCNDbMNS1nAq5/YasZsWWoWM6gi0vS4YG0Gbz4BqCUP
+ OkO9vicAmICU3W4BQoFoM9te008xf+5ZAiLx8oZuUnwAD17s62eDZfDOfGZpmg8xVxfV2T
+ 2COImbBmbM7s5UoEkHGMShsJRJLLaNu9AJqKggT7+51DG4UC7tNI5E80VuedBJAAhAFr8y
+ Idw3GGtgfyD7BE5B1AIx/I4hfMW3U4DhFT7yRqr2rSW/qtRd16KpyeZ6UyvD4C5Um4Or6S
+ 1mRO/9kBE0B9c6bcTBpcyXhi5wA+jZf3RCb8zsJrs3d2IAtMPzfC6jZ9b9vRHg==
 To: dri-devel@lists.freedesktop.org
 Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
  Conor Dooley <conor+dt@kernel.org>,
@@ -62,15 +58,15 @@ Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
  Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
  Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
  devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 1/4] dt-bindings: display: panel: Document 10" Raspberry Pi
- Touch Display 2
-Date: Thu, 20 Aug 2026 20:54:27 +0200
-Message-ID: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
+Subject: [PATCH v2 2/4] drm/panel: ilitek-ili9882t: Make enable GPIO optional
+Date: Thu, 20 Aug 2026 20:54:28 +0200
+Message-ID: <20260820185506.84448-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
+References: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: df6b2c1fc4a1281fe41
-X-MBO-RS-META: 7hh6gdmyeaxzz17b8rgd5q1ssxdpz8bs
-X-Rspamd-Queue-Id: 4hQt0z5PGYzMlKM
+X-MBO-RS-ID: 757953177c18bbc0a00
+X-MBO-RS-META: 7ktnfkayybq9f4rma8yiupcbgho8an7w
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,8 +82,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the 10" Raspberry Pi Touch Display 2 MIPI-DSI TFT LCD panel.
-The panel is based on the Ilitek ILI79600A controller.
+The enable GPIO may not be accessible on the panel, make it optional.
+This is the case on 10" Raspberry Pi Touch Display 2.
 
 Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 ---
@@ -106,38 +102,24 @@ Cc: devicetree@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-renesas-soc@vger.kernel.org
 ---
-V2: Extend existing ilitek,il79900a.yaml document instead of introducing
-    new one. Note that the il79900a should likely be il_i_79900a, but the
-    binding document already shipped in Linux 6.19.y , so this can not be
-    fixed anymore ?
+V2: No change
 ---
- .../bindings/display/panel/ilitek,il79900a.yaml     | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/panel/panel-ilitek-ili9882t.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
-index 02f7fb1f16dc7..f8644e9a4478d 100644
---- a/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
-@@ -14,10 +14,15 @@ allOf:
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
+index 6d07fe901357e..219d048cb883f 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
+@@ -787,7 +787,7 @@ static int ili9882t_add(struct ili9882t *ili)
+ 	if (IS_ERR(ili->pp1800))
+ 		return PTR_ERR(ili->pp1800);
  
- properties:
-   compatible:
--    items:
--      - enum:
--          - tianma,tl121bvms07-00
--      - const: ilitek,il79900a
-+    oneOf:
-+      - items:
-+          - enum:
-+              - raspberrypi,dsi-10inch
-+          - const: ilitek,ili79600a
-+      - items:
-+          - enum:
-+              - tianma,tl121bvms07-00
-+          - const: ilitek,il79900a
- 
-   reg:
-     maxItems: 1
+-	ili->enable_gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_LOW);
++	ili->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
+ 	if (IS_ERR(ili->enable_gpio)) {
+ 		dev_err(dev, "cannot get enable-gpios %ld\n",
+ 			PTR_ERR(ili->enable_gpio));
 -- 
 2.53.0
 
