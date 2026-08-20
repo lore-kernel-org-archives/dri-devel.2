@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECF28C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 16:50:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37035C5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 16:50:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52C9C10F0F5;
-	Thu, 20 Aug 2026 16:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7333C10F100;
+	Thu, 20 Aug 2026 16:50:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JU5S7prK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l/aoUkug";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 488AC10F0F5
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 16:50:27 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-499b2981a7bso304585e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 09:50:27 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F16C710F10C
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 16:50:33 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4998e0916faso181815e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 09:50:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787244626; x=1787849426; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787244632; x=1787849432; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=uA+ttixfTL8eQL/cabSDvzDeSAF53vHarfWSrokRJJI=;
- b=JU5S7prKelmGhhv6sXtKEncmaP9Wn133oHFXt9H1RnuxSiqNZ+J3gPfSPAmpUeaKGS
- HCciOnA+1fs1fqHAiTxBoem9PaCyz+SYfWzX2kY6+UZLlaC3aQbBGggfHzO8ennQDypd
- Yt6EBNn7IO5BQhjPGlOv8WYnFAcQ+YntUWv9i2UXsKGW0/qILtnREf9qrrKXbXshK48j
- nbCcYYQJ0yu8I2pzGDcrgJNAMUEzbqsV4WJgCpOAS9uk5eyZyd10WGEai8lL7OC/tnLv
- 5l93nY/V+uXfz0Cj3OZjbYcL4n+0avf2gONcnmASjNHV1Bqnwrf5h3scU7adxvEuqyd3
- zTXg==
+ bh=Ycg+tBlFzf10BcsIAnsRc1Aa1/nfomdKMEdD+fHIfbQ=;
+ b=l/aoUkugE2v6aJLTRtIKCCSzx52+hP1bG5OHp8PxSAzJ8jWQsOeYpCoeXfLrnXha63
+ TwEYlLo4HBa/QGJF5dzIzNHwnJMFf54cqdYys1STZKFMWJtD5PlMvj5BeOZrNE2ikYn3
+ fivgvo6LITe4//rFSGTh/n8p51nVsiz/nHYoDM8pAVzcbh2Rt+mZsrbwGjOYCu5WLf1o
+ 3LpPUUoH/ZfJa/q2Ylj2nZwICnd/PI8j6nVKGa3wO9esPW3IEBw4EfL01Y/QBhP9Oqba
+ o5nhg1raKVFzrgGM8iWTh+fOH+EguuDFqnse7PCdtChujkG+nWMtA237TxQXVqQN25+t
+ dJUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787244626; x=1787849426;
+ d=1e100.net; s=20251104; t=1787244632; x=1787849432;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=uA+ttixfTL8eQL/cabSDvzDeSAF53vHarfWSrokRJJI=;
- b=X1uUmNKBJtITTfDrxcCwgBT7uihQOP53m5MHclzfhm4+IhD9nNIc4dKonpn0ItVoDY
- nF/19eUCwr5cfcp9GSyThjBQtsrlnpO/uw16FLtMmIWbAkBKfVXTvfhZksbfr48gLa9N
- rzx/CyaZgXW2NWz2ePFjlZzhIFsP2hsQs9ZqEYh8zbqhB99txwLTviEzMUjDR27ONwLo
- 7PxAvj1giFgLv3iBrzvEaPxFHBKq6hOhZKWxC2X5WFi0TsHHXwaibLeNyCvPKBXMLOpS
- Vx9lpgnNXa0HnRbAHMWhlN90Je5d0uH+qJF66x9nFBmi7iNkwjtkA8pc4BgNjYHesllK
- 37NQ==
-X-Gm-Message-State: AOJu0YyUQD4N7uwp5Ol3cnxOEzTrOOvXZpFgSwZto/qiJ9YRcmCP9SOM
- 5QvTyfgC2MNwKo4Lyup1D789DJ6ppBzssvmLqd9prw7MdBDUAZV1kGUx
-X-Gm-Gg: AR+sD11aX1f1bNRz/iBOL68fuK82If2GqjNPDpBzPb6s4K7t4Co2UfssJtmC1E6lvEH
- OEIWJspignwx86u1DMiV/Y2dNYhgxi0lapX6hoWcpf5ANBmcMpjkv+nYrpBiYGeb+Qaiw8yPLsE
- EQkWasiz3CHQPdZ3DPWMgvjMIu7XAhbdSd7KAJf5dwus0O/j7L4jQEQL92wTZBKEEcDS7moL5pz
- ExmWhcSwlOIVvgonr0xILXLR7z8+BIJtIc+b/9ajr97UwEgqDBc8zrVPDou+vrDO/IEXrksTXjU
- VUIj/CmcPcRSty3FJTIp/f6KPbgUu0jpM4uiGjY0bugDXzFQlHeDfjC/vTzCMARauOiTCPtcrIG
- 076IJoOOENh+ef7twKbGR7G2V9dFHl0o9FDdbv28XqwtqW7DjNwSF7oH0gYBrgY4IpDS4zVt5wr
- dsA/+nYH08QqTRviJ2wX07OmF8uyOkvP+8Dy/7pW7av3NAkD0Vi81WxYfscSp/M46ePsA=
-X-Received: by 2002:a05:600c:4e91:b0:499:7a15:fcec with SMTP id
- 5b1f17b1804b1-499b83547e9mr2734665e9.13.1787244625397; 
- Thu, 20 Aug 2026 09:50:25 -0700 (PDT)
+ bh=Ycg+tBlFzf10BcsIAnsRc1Aa1/nfomdKMEdD+fHIfbQ=;
+ b=jbpjEy7A2q1fT90kK4zdtRwrxAp8clJ9xOX/2S2KBKVwbq5MD3FDXqWH9eEU4D22oX
+ AYws7tRvSmf5T9Ucf0eRfB3Myu6dfwh1yr5R3FEnPxysltcgg1kYQrDn3yI4c6Q33Cz5
+ reN6+OIYN/BT8yaJoovTWOho9+iwm2rr/m5tpPdtx6Pmkuk3boDXrihWVxm5sDT5N4OV
+ i+lNUOWST/JkEn72RYgYA3w3Y2Rd5IlRcF3NaIUaoZLqxX7ektbxzNtTyohOFLw/S7Wj
+ OntXCteR6jJme2TA/CAA0GaUODMMIUrApCRTuPQPX6Pgpu+asVrD/jj28lyWn9I6qmW/
+ oR5Q==
+X-Gm-Message-State: AOJu0Yz7v+jOfYYpghOr/MHCaug23qRk/kmc1xpp3bUpGrH5LAX6OoSR
+ Z5knEljAzwUFDTSA2rVJ61M4/o1bVOW/ApOHJ+kNCXy9Nemo6YUtLetY
+X-Gm-Gg: AR+sD10MDqAuk6ACCqYdgEBa84bvell5vsYyYyjfxOlypL4F1eLPhZ4CuXA3zX2qmCY
+ SwfayO9eWz1fKFQHbqiZ6wwyTtI9He55e2h/e+5hkklPj7HGX8G4F/5a0XS/xQXwOCJmEaCqwn0
+ NCIMC4E0Uz5RzMQ6JejFqr+L/fwf7i2/JvC4mRFpwqRUtAAhmPsxIbpM8yc1pCYiObS+/SzCE9f
+ c2AvW+IYpmTLrNH1SyoDeF9EqIjxjy+zInCTTIVNztUzTL2ws/4R5FkDNEM8iKfQYYKGKpGREGb
+ ErOPTEtEkj+rDVKUYqqrZ3iS0aAlJaKzwk2CJc/BfG6Di9jYVHGeeibUo0BqkN8wqRrtjzBmJ/N
+ c6Uw0pROPyvbg3Z5k+n/z2MkC2GBUlRRDoV3CJhbc1fRn4MB+nQimIeE01vBFasXJp5V7071ljQ
+ S2giyjTmT0qkDX9tzRavQorbyBdtuo0mpgKJ855Ja/N+XZcjwuTYgXWftRVRXhcpBRvrtfJaX3W
+ l7pGQ==
+X-Received: by 2002:a05:600c:8108:b0:493:a966:d5b5 with SMTP id
+ 5b1f17b1804b1-499b82f40b6mr5097465e9.2.1787244632248; 
+ Thu, 20 Aug 2026 09:50:32 -0700 (PDT)
 Received: from fedora ([5.31.134.170]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499aa1111b2sm205307545e9.5.2026.08.20.09.50.20
+ 5b1f17b1804b1-499aa1111b2sm205307545e9.5.2026.08.20.09.50.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 09:50:23 -0700 (PDT)
+ Thu, 20 Aug 2026 09:50:29 -0700 (PDT)
 From: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
@@ -69,10 +70,9 @@ Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
  Simona Vetter <simona@ffwll.ch>, Mary Guillemard <mary@mary.zone>,
  nouveau@lists.freedesktop.org,
  Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
-Subject: [PATCH v2 03/10] drm/nouveau/disp: route GSP-RM display MMIO through
- nvkm_disp_func hooks
-Date: Thu, 20 Aug 2026 20:49:22 +0400
-Message-ID: <20260820164929.17117-4-mohamedahmedegypt2001@gmail.com>
+Subject: [PATCH v2 04/10] drm/nouveau/disp: fix HDMI vendor infoframes on GB20x
+Date: Thu, 20 Aug 2026 20:49:23 +0400
+Message-ID: <20260820164929.17117-5-mohamedahmedegypt2001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260820164929.17117-1-mohamedahmedegypt2001@gmail.com>
 References: <20260820164929.17117-1-mohamedahmedegypt2001@gmail.com>
@@ -93,45 +93,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The GSP-RM display code in rm/r535/disp.c borrows a few
-register-programming routines from engine/disp (the head-timing
-interrupt handler, vblank enables, armed head state and scanout position
-readback, the AVI/VSI infoframe writers and the GCP AVMute write) and so
-far picked them by name, which means it has to know which chip it runs
-on the moment a generation changes any of them.
+The GSP path reuses the GV100 direct-MMIO infoframe writers on every
+chip. On GB20x that is only half right as while the legacy SF AVI unit is
+unchanged, the legacy VSI unit at 0x6f0100 was removed, so
+gv100_sor_hdmi_infoframe_vsi() writes into a reserved area and no vendor
+infoframe ever reaches the HW. This affects HDMI-VIC signalling which
+can impact some 4K modes for legacy HDMI 1.4 sinks.
 
-Give nvkm_disp_func a .gsp table that each chip fills with exactly those
-hooks, add tu102_gsp_disp (TU1xx) and ga102_gsp_disp (GA10x onwards)
-carrying the current functions, hand them to r535_disp_new() instead of
-the full hardware tables, and make rm/r535/disp.c call through the
-hooks. r535_head becomes four forwarders, r535_sor_hdmi gets infoframe
-forwarders, r535_sor_hdmi_audio() calls the GCP hook, and the interrupt
-handler and its vector come from the table (intr_low_latency selects the
-second DISP interrupt instance for chips that raise head timing on a
-separate vector). The tables are per chip even though the two currently
-coincide, so a generation that changes a hook only touches its own file.
-rm/r535/disp.c no longer contains chip-specific register code, and a new
-display generation only has to provide its own table. No functional
-change.
+GB20x (NVDisplay 5.0+) reorganised the SF HDMI packet units. Per NVIDIA's
+published C971/CA71 DISP_SF_USER class headers, only three legacy units
+remain (AVI at +0x000, GCP at +0x040, ACR at +0x080), and vendor
+infoframes must instead be sent through the shared generic infoframe
+units at +0x130, whose 9-dword packet slots are loaded through the
+shared data port at +0x3f0/+0x3f4.
+
+Add a VSI writer using the same programming sequence OpenRM uses on
+these chips (nvhdmipkt_C971.c, programAdvancedInfoframeC971()): disable
+the unit and wait for it to idle, clear the SENT status, write the packet
+through the data port with a zero inserted in HB3 after the three header
+bytes, then enable the unit for every-frame transmission during vblank.
+Generic unit 1 is used for the VSI, matching the slot assignment in
+NVIDIA's nvkms (NVHDMIPKT_TYPE_SHARED_GENERIC2, unit 0 is reserved
+for extended metadata packets and unit 2 for the HDR DRM infoframe,
+if those are wired up later).
+
+GB20x so far shared GA10x's display entry point. Give it its own,
+gb202_disp_new(), with a gb202_gsp_disp table that supplies the VSI
+writer to the GSP path and otherwise carries the same hooks as GA10x.
+The following fixes fill in the rest of the GB20x differences there.
 
 Signed-off-by: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 ---
- .../gpu/drm/nouveau/nvkm/engine/disp/ga102.c  | 16 ++++-
- .../gpu/drm/nouveau/nvkm/engine/disp/priv.h   | 19 ++++++
- .../gpu/drm/nouveau/nvkm/engine/disp/tu102.c  | 16 ++++-
- .../nouveau/nvkm/subdev/gsp/rm/r535/disp.c    | 60 ++++++++++++++++---
- 4 files changed, 100 insertions(+), 11 deletions(-)
+ .../drm/nouveau/include/nvkm/engine/disp.h    |  1 +
+ .../gpu/drm/nouveau/nvkm/engine/device/base.c | 10 +-
+ .../gpu/drm/nouveau/nvkm/engine/disp/Kbuild   |  1 +
+ .../gpu/drm/nouveau/nvkm/engine/disp/gb202.c  | 91 +++++++++++++++++++
+ 4 files changed, 98 insertions(+), 5 deletions(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c
-index ab0a85c92430..b48ed7146396 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c
-@@ -144,12 +144,26 @@ ga102_disp = {
- 	},
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h b/drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h
+index 7903d7470d19..01145db32c53 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h
+@@ -87,4 +87,5 @@ int gp102_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct
+ int gv100_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_disp **);
+ int tu102_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_disp **);
+ int ga102_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_disp **);
++int gb202_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_disp **);
+ #endif
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+index ea62dc97f118..96c8a5b29999 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+@@ -2846,7 +2846,7 @@ nv1b2_chipset = {
+ 	.pci      = { 0x00000001, gh100_pci_new },
+ 	.timer    = { 0x00000001, gk20a_timer_new },
+ 	.vfn      = { 0x00000001, ga100_vfn_new },
+-	.disp     = { 0x00000001, ga102_disp_new },
++	.disp     = { 0x00000001, gb202_disp_new },
+ 	.fifo     = { 0x00000001, ga102_fifo_new },
  };
  
+@@ -2862,7 +2862,7 @@ nv1b3_chipset = {
+ 	.pci      = { 0x00000001, gh100_pci_new },
+ 	.timer    = { 0x00000001, gk20a_timer_new },
+ 	.vfn      = { 0x00000001, ga100_vfn_new },
+-	.disp     = { 0x00000001, ga102_disp_new },
++	.disp     = { 0x00000001, gb202_disp_new },
+ 	.fifo     = { 0x00000001, ga102_fifo_new },
+ };
+ 
+@@ -2878,7 +2878,7 @@ nv1b5_chipset = {
+ 	.pci      = { 0x00000001, gh100_pci_new },
+ 	.timer    = { 0x00000001, gk20a_timer_new },
+ 	.vfn      = { 0x00000001, ga100_vfn_new },
+-	.disp     = { 0x00000001, ga102_disp_new },
++	.disp     = { 0x00000001, gb202_disp_new },
+ 	.fifo     = { 0x00000001, ga102_fifo_new },
+ };
+ 
+@@ -2894,7 +2894,7 @@ nv1b6_chipset = {
+ 	.pci      = { 0x00000001, gh100_pci_new },
+ 	.timer    = { 0x00000001, gk20a_timer_new },
+ 	.vfn      = { 0x00000001, ga100_vfn_new },
+-	.disp     = { 0x00000001, ga102_disp_new },
++	.disp     = { 0x00000001, gb202_disp_new },
+ 	.fifo     = { 0x00000001, ga102_fifo_new },
+ };
+ 
+@@ -2910,7 +2910,7 @@ nv1b7_chipset = {
+ 	.pci      = { 0x00000001, gh100_pci_new },
+ 	.timer    = { 0x00000001, gk20a_timer_new },
+ 	.vfn      = { 0x00000001, ga100_vfn_new },
+-	.disp     = { 0x00000001, ga102_disp_new },
++	.disp     = { 0x00000001, gb202_disp_new },
+ 	.fifo     = { 0x00000001, ga102_fifo_new },
+ };
+ 
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild b/drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild
+index e1aecd3fe96c..98d6ca5ac311 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild
+@@ -27,6 +27,7 @@ nvkm-y += nvkm/engine/disp/gp102.o
+ nvkm-y += nvkm/engine/disp/gv100.o
+ nvkm-y += nvkm/engine/disp/tu102.o
+ nvkm-y += nvkm/engine/disp/ga102.o
++nvkm-y += nvkm/engine/disp/gb202.o
+ 
+ nvkm-y += nvkm/engine/disp/udisp.o
+ nvkm-y += nvkm/engine/disp/uconn.o
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
+new file mode 100644
+index 000000000000..fa83aee35ae7
+--- /dev/null
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
+@@ -0,0 +1,91 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corp.
++ */
++#include "priv.h"
++#include "head.h"
++#include "ior.h"
++
++#include <subdev/timer.h>
++
++/* GB20x (NVD5.0) reorganised the SF HDMI packet units. The AVI unit is
++ * unchanged from GV100, but the legacy VSI unit is gone. Vendor infoframes
++ * are sent through the shared generic infoframe units instead. Register
++ * layout per NVIDIA's clc971.h/clca71.h, programming sequence per
++ * nvhdmipkt_C971.c:programAdvancedInfoframeC971().
++ */
++static void
++gb202_sor_hdmi_infoframe_vsi(struct nvkm_ior *ior, int head, void *data, u32 size)
++{
++	struct nvkm_device *device = ior->disp->engine.subdev.device;
++	const u32 hoff = head * 0x400;
++	/* Generic infoframe unit 1, the slot NVIDIA's driver uses for the VSI. */
++	const u32 ctrl = 0x6f0138 + hoff;
++	u8 buf[36] = {};
++	int i;
++
++	/* Disable the unit and wait for it to go idle. */
++	nvkm_mask(device, ctrl, 0x00000001, 0x00000000);
++	if (nvkm_msec(device, 2000,
++		if (!(nvkm_rd32(device, ctrl) & 0x00400000))
++			break;
++	) < 0)
++		return;
++
++	if (!size)
++		return;
++
++	/* Clear SENT status, and point the data port at unit 1's slot. */
++	nvkm_mask(device, ctrl, 0x00800000, 0x00800000);
++	nvkm_wr32(device, 0x6f03f0 + hoff, 0x00000001);
++
++	/* The data port takes the raw packet, except that a zero is inserted
++	 * in HB3 after the three header bytes. A slot is 9 dwords (HB0-3 plus
++	 * up to 32 payload bytes). An HDMI infoframe carries at most PB0-27,
++	 * so the tail stays zero, and we always write the whole slot.
++	 */
++	size = min_t(u32, size, 31);
++	memcpy(buf, data, min_t(u32, size, 3));
++	if (size > 3)
++		memcpy(&buf[4], (u8 *)data + 3, size - 3);
++
++	for (i = 0; i < 36; i += 4) {
++		nvkm_wr32(device, 0x6f03f4 + hoff, buf[i + 0] | buf[i + 1] << 8 |
++						   buf[i + 2] << 16 |
++						   (u32)buf[i + 3] << 24);
++	}
++
++	/* No flip ID or scanline matching. */
++	nvkm_wr32(device, 0x6f013c + hoff, 0x00000000);
++
++	/* ENABLE | RUN_MODE=ALWAYS | LOC=VBLANK | OFFSET=1 | SIZE=0. */
++	nvkm_wr32(device, ctrl, 0x00000041);
++
++	/* Audio priority low (the init value). */
++	nvkm_wr32(device, 0x6f03f8 + hoff, 0x00000002);
++}
++
++/* GB20x is GSP-only. This table supplies the register programming the
++ * GSP-RM display path needs from the chip.
++ */
 +static const struct nvkm_disp_func
-+ga102_gsp_disp = {
++gb202_gsp_disp = {
 +	.uevent = &gv100_disp_chan_uevent,
 +	.ramht_size = 0x2000,
 +	.gsp.intr = tu102_disp_intr,
@@ -140,194 +288,17 @@ index ab0a85c92430..b48ed7146396 100644
 +	.gsp.vblank_get = tu102_head_vblank_get,
 +	.gsp.vblank_put = tu102_head_vblank_put,
 +	.gsp.hdmi_gcp = tu102_sor_hdmi_gcp,
++	/* The legacy AVI unit is unchanged on GB20x. */
 +	.gsp.hdmi_infoframe_avi = gv100_sor_hdmi_infoframe_avi,
-+	.gsp.hdmi_infoframe_vsi = gv100_sor_hdmi_infoframe_vsi,
++	.gsp.hdmi_infoframe_vsi = gb202_sor_hdmi_infoframe_vsi,
 +};
 +
- int
- ga102_disp_new(struct nvkm_device *device, enum nvkm_subdev_type type, int inst,
- 	       struct nvkm_disp **pdisp)
- {
- 	if (nvkm_gsp_rm(device->gsp))
--		return r535_disp_new(&ga102_disp, device, type, inst, pdisp);
-+		return r535_disp_new(&ga102_gsp_disp, device, type, inst, pdisp);
- 
- 	return nvkm_disp_new_(&ga102_disp, device, type, inst, pdisp);
- }
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h b/drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h
-index 722ec340e12a..3cb903741fb8 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h
-@@ -5,6 +5,8 @@
- #include <engine/disp.h>
- #include <core/enum.h>
- struct nvkm_head;
-+struct nvkm_head_state;
-+struct nvkm_ior;
- struct nvkm_outp;
- struct dcb_output;
- 
-@@ -34,6 +36,23 @@ struct nvkm_disp_func {
- 		int (*new)(struct nvkm_disp *, int id);
- 	} wndw, head, dac, sor, pior;
- 
-+	/* Register programming that the GSP-RM display path (rm/r535) needs from
-+	 * the chip, everything else on that path goes through RM. Every hook
-+	 * is called unconditionally.
-+	 */
-+	struct {
-+		irqreturn_t (*intr)(struct nvkm_inth *);
-+		/* Head-timing interrupts arrive on a second DISP vector. */
-+		bool intr_low_latency;
-+		void (*head_state)(struct nvkm_head *, struct nvkm_head_state *);
-+		void (*head_rgpos)(struct nvkm_head *, u16 *hline, u16 *vline);
-+		void (*vblank_get)(struct nvkm_head *);
-+		void (*vblank_put)(struct nvkm_head *);
-+		void (*hdmi_gcp)(struct nvkm_ior *, int head, bool enable);
-+		void (*hdmi_infoframe_avi)(struct nvkm_ior *, int head, void *data, u32 size);
-+		void (*hdmi_infoframe_vsi)(struct nvkm_ior *, int head, void *data, u32 size);
-+	} gsp;
-+
- 	u16 ramht_size;
- 
- 	struct nvkm_sclass root;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c
-index 6cfd52c9056f..9db3cac487e3 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c
-@@ -295,12 +295,26 @@ tu102_disp = {
- 	},
- };
- 
-+static const struct nvkm_disp_func
-+tu102_gsp_disp = {
-+	.uevent = &gv100_disp_chan_uevent,
-+	.ramht_size = 0x2000,
-+	.gsp.intr = tu102_disp_intr,
-+	.gsp.head_state = gv100_head_state,
-+	.gsp.head_rgpos = gv100_head_rgpos,
-+	.gsp.vblank_get = tu102_head_vblank_get,
-+	.gsp.vblank_put = tu102_head_vblank_put,
-+	.gsp.hdmi_gcp = tu102_sor_hdmi_gcp,
-+	.gsp.hdmi_infoframe_avi = gv100_sor_hdmi_infoframe_avi,
-+	.gsp.hdmi_infoframe_vsi = gv100_sor_hdmi_infoframe_vsi,
-+};
-+
- int
- tu102_disp_new(struct nvkm_device *device, enum nvkm_subdev_type type, int inst,
- 	       struct nvkm_disp **pdisp)
- {
- 	if (nvkm_gsp_rm(device->gsp))
--		return r535_disp_new(&tu102_disp, device, type, inst, pdisp);
-+		return r535_disp_new(&tu102_gsp_disp, device, type, inst, pdisp);
- 
- 	return nvkm_disp_new_(&tu102_disp, device, type, inst, pdisp);
- }
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-index cd4451e62512..f3e55253bcbc 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-@@ -547,7 +547,19 @@ r535_sor_hdmi_audio(struct nvkm_ior *sor, int head, bool enable)
- {
- 	r535_sor_hdmi_ctrl_audio(sor->asy.outp, enable);
- 	r535_sor_hdmi_ctrl_audio_mute(sor->asy.outp, !enable);
--	tu102_sor_hdmi_gcp(sor, head, enable);
-+	sor->disp->func->gsp.hdmi_gcp(sor, head, enable);
-+}
-+
-+static void
-+r535_sor_hdmi_infoframe_avi(struct nvkm_ior *sor, int head, void *data, u32 size)
++int
++gb202_disp_new(struct nvkm_device *device, enum nvkm_subdev_type type, int inst,
++	       struct nvkm_disp **pdisp)
 +{
-+	sor->disp->func->gsp.hdmi_infoframe_avi(sor, head, data, size);
++	return r535_disp_new(&gb202_gsp_disp, device, type, inst, pdisp);
 +}
-+
-+static void
-+r535_sor_hdmi_infoframe_vsi(struct nvkm_ior *sor, int head, void *data, u32 size)
-+{
-+	sor->disp->func->gsp.hdmi_infoframe_vsi(sor, head, data, size);
- }
- 
- static void
-@@ -575,8 +587,8 @@ r535_sor_hdmi = {
- 	.ctrl = r535_sor_hdmi_ctrl,
- 	.scdc = r535_sor_hdmi_scdc,
- 	/*TODO: SF_USER -> KMS. */
--	.infoframe_avi = gv100_sor_hdmi_infoframe_avi,
--	.infoframe_vsi = gv100_sor_hdmi_infoframe_vsi,
-+	.infoframe_avi = r535_sor_hdmi_infoframe_avi,
-+	.infoframe_vsi = r535_sor_hdmi_infoframe_vsi,
- 	.audio = r535_sor_hdmi_audio,
- };
- 
-@@ -601,12 +613,36 @@ r535_sor_cnt(struct nvkm_disp *disp, unsigned long *pmask)
- 	return 4;
- }
- 
-+static void
-+r535_head_state(struct nvkm_head *head, struct nvkm_head_state *state)
-+{
-+	head->disp->func->gsp.head_state(head, state);
-+}
-+
-+static void
-+r535_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline)
-+{
-+	head->disp->func->gsp.head_rgpos(head, hline, vline);
-+}
-+
-+static void
-+r535_head_vblank_get(struct nvkm_head *head)
-+{
-+	head->disp->func->gsp.vblank_get(head);
-+}
-+
-+static void
-+r535_head_vblank_put(struct nvkm_head *head)
-+{
-+	head->disp->func->gsp.vblank_put(head);
-+}
-+
- static const struct nvkm_head_func
- r535_head = {
--	.state = gv100_head_state,
--	.rgpos = gv100_head_rgpos,
--	.vblank_get = tu102_head_vblank_get,
--	.vblank_put = tu102_head_vblank_put,
-+	.state = r535_head_state,
-+	.rgpos = r535_head_rgpos,
-+	.vblank_get = r535_head_vblank_get,
-+	.vblank_put = r535_head_vblank_put,
- };
- 
- static struct nvkm_conn *
-@@ -1650,12 +1686,17 @@ r535_disp_oneinit(struct nvkm_disp *disp)
- 	if (ret)
- 		return ret;
- 
--	ret = nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type, disp->engine.subdev.inst);
-+	/* Chips that raise head-timing interrupts on a separate low-latency
-+	 * vector report it as a second DISP interrupt table entry, exposed
-+	 * as instance 1 by the RM engine-index translation.
-+	 */
-+	ret = nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type,
-+				  disp->func->gsp.intr_low_latency ? 1 : disp->engine.subdev.inst);
- 	if (ret < 0)
- 		return ret;
- 
- 	ret = nvkm_inth_add(&device->vfn->intr, ret, NVKM_INTR_PRIO_NORMAL, &disp->engine.subdev,
--			    tu102_disp_intr, &disp->engine.subdev.inth);
-+			    disp->func->gsp.intr, &disp->engine.subdev.inth);
- 	if (ret)
- 		return ret;
- 
-@@ -1688,6 +1729,7 @@ r535_disp_new(const struct nvkm_disp_func *hw, struct nvkm_device *device,
- 	rm->uevent = hw->uevent;
- 	rm->sor.cnt = r535_sor_cnt;
- 	rm->sor.new = r535_sor_new;
-+	rm->gsp = hw->gsp;
- 	rm->ramht_size = hw->ramht_size;
- 
- 	rm->root.oclass = gpu->disp.class.root;
 -- 
 2.55.0
 
