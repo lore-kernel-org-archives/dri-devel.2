@@ -4,49 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E11D0C5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 15:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1103C5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 15:24:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A50010F0A2;
-	Thu, 20 Aug 2026 15:21:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FE3A10F0A7;
+	Thu, 20 Aug 2026 15:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LTVztB84";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Pzl53vMY";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC27810F0A2
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 15:21:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC3A10E15B
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 15:24:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6FBD0408D8;
- Thu, 20 Aug 2026 15:21:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD03E1F000E9;
- Thu, 20 Aug 2026 15:21:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A9F0B4117C;
+ Thu, 20 Aug 2026 15:24:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22C61F000E9;
+ Thu, 20 Aug 2026 15:24:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1787239288;
- bh=D9DG7FoEiooGK7hyk/HwAdOzDMMcTkcyVcaH/1RAnrk=;
+ s=korg; t=1787239487;
+ bh=0KKrJdLa8r9lnhhiKMnby3LpB/w8yYQzWVwCpM/hsqc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=LTVztB8441eGO+sqTHIAyZFBHE/ctvMNHpW8JbeLaS0fmGdab2SojpAciNrL2cTIY
- /6Hw2a06vG4ffsxqnJzhbvXeOYyaVJwrQKhAUYtnYuZaoaslVlVVRfnslqg4V0Knd8
- tv1VTZaQP0i5N2iA7oS/SsY1ByicqnpohZbvTHsA=
+ b=Pzl53vMYayl6oD8WOaQzbXPsKrJO5qMiRMY3eKsE1WcCDTqHDP+K5biXJ0XSLvUwc
+ iytGEPEdbrx+6WGeLpFSrA9KuVV1yCdmfYLv7c7q5lTM3Jo7ZGb0ii0c5KWD5VOWL1
+ 6yOjtMa4wNyQeu7OxwrqCOpzUvIbiahpBv5s+dWA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Ian Forbes <ian.forbes@broadcom.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH 6.18 216/217] drm/vmwgfx: Set surface-framebuffer GEM objects
-Date: Thu, 20 Aug 2026 16:56:24 +0200
-Message-ID: <20260820145244.183731644@linuxfoundation.org>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Jani Nikula <jani.nikula@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, John Harrison <John.Harrison@Igalia.com>
+Subject: [PATCH 6.12 067/220] drm/connector/hdmi: Fix out of bounds memory read
+Date: Thu, 20 Aug 2026 16:54:17 +0200
+Message-ID: <20260820145225.500940871@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260820145237.531699751@linuxfoundation.org>
-References: <20260820145237.531699751@linuxfoundation.org>
+In-Reply-To: <20260820145223.480031205@linuxfoundation.org>
+References: <20260820145223.480031205@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,76 +70,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+From: John Harrison <John.Harrison@Igalia.com>
 
-commit 9942d36a73c2d46c52fdd6f37cf698f3cb09ce5c upstream.
+commit 9ecf8ba763d0ffe0673538eb4bf7806f20455d19 upstream.
 
-Set struct drm_framebuffer.obj[0] to the allocated GEM buffer object
-for surface framebuffers. Avoids a NULL-pointer deref in the client's
-vmap helpers.
+A helper function was copying a given audio infoframe into the
+connector's copy but using the size of the destination (a generic
+target, sized to accept many different data blocks) not the source (a
+very specific type of data block). Thus, it was copying 60 bytes of
+data from a 28 byte allocation.
 
-[   22.640191] Console: switching to colour frame buffer device 160x50
-[   22.641788] Oops: general protection fault, probably for
-  non-canonical address 0xdffffc000000001f: 0000 [#1] SMP KASAN NOPTI
-[   22.641795] KASAN: null-ptr-deref in range
-[0x00000000000000f8-0x00000000000000ff]
-[...]
-[   22.641809] Hardware name: VMware, Inc. VMware20,1/440BX Desktop
-  Reference Platform, BIOS VMW201.00V.24928539.B64.2508260915 08/26/2025
-[   22.641812] Workqueue: events drm_fb_helper_damage_work
-[   22.641824] RIP: 0010:drm_gem_lock+0x25/0x50
-[   22.641831] Code: 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 48 b8
-  00 00 00 00 00 fc ff df 53 48 89 fb 48 81 c7 f8 00 00 00 48 89 fa 48
-  c1 ea 03 <80> 3c 02 00 75 0f 48 8b bb f8 00 00 00 31 f6 5b e9 16 2e 15
-  01 e8
-[...]
-[   22.641889] Call Trace:
-[   22.641891]  <TASK>
-[   22.641894]  drm_client_buffer_vmap_local+0x78/0x140
-[   22.641903]  drm_fbdev_ttm_helper_fb_dirty+0x20c/0x510 [drm_ttm_helper]
-[   22.641913]  ? __pfx_drm_fbdev_ttm_helper_fb_dirty+0x10/0x10 [drm_ttm_helper]
-[   22.641918]  ? __raw_spin_lock_irqsave+0x8c/0xf0
-[   22.641924]  ? __pfx___raw_spin_lock_irqsave+0x10/0x10
-[   22.641928]  ? __pfx_mutex_lock+0x10/0x10
-[   22.641936]  drm_fb_helper_fb_dirty+0x29a/0x5e0
-[   22.641942]  ? __pfx_drm_fb_helper_fb_dirty+0x10/0x10
-[...]
+Fix that by using the source size instead, together with a build bug
+on the source size actually being smaller than the destination.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: ea39f2e66e61 ("drm/client: Deprecate struct drm_client_buffer.gem")
-Reported-by: Ian Forbes <ian.forbes@broadcom.com>
-Closes: https://lore.kernel.org/dri-devel/CAO6MGtjg8PiRiSLomJQRBduTBSC0WkqX67tEZwA9qwOgRzchpw@mail.gmail.com/
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+I hit this running KUnit tests under KASAN (while debugging something
+else entirely). In the real world, it seems unlikely to cause an
+actual problem. It is a read not a write so it can't corrupt any
+memory. However, it could potentially fall off the end of a page and
+cause an accvio bug.
+
+Fixes: f378b77227bc ("drm/connector: hdmi: Add Infoframes generation")
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Daniel Stone <daniel@fooishbar.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: José Expósito <jose.exposito89@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Cc: dri-devel@lists.freedesktop.org
-Tested-by: Ian Forbes <ian.forbes@broadcom.com>
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
-Link: https://patch.msgid.link/20251104103611.167821-1-tzimmermann@suse.de
+Cc: stable@vger.kernel.org # v6.11+
+Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+Link: https://patch.msgid.link/20260723220652.533345-1-John.Harrison@Igalia.com
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c |    3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -553,6 +553,9 @@ static int vmw_kms_new_framebuffer_surfa
- 	memcpy(&vfbs->uo, uo, sizeof(vfbs->uo));
- 	vmw_user_object_ref(&vfbs->uo);
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -710,7 +710,8 @@ drm_atomic_helper_connector_hdmi_update_
  
-+	if (vfbs->uo.buffer)
-+		vfbs->base.base.obj[0] = &vfbs->uo.buffer->tbo.base;
-+
- 	*out = &vfbs->base;
+ 	mutex_lock(&connector->hdmi.infoframes.lock);
  
- 	ret = drm_framebuffer_init(dev, &vfbs->base.base,
+-	memcpy(&infoframe->data, frame, sizeof(infoframe->data));
++	BUILD_BUG_ON(sizeof(*frame) > sizeof(infoframe->data));
++	memcpy(&infoframe->data, frame, sizeof(*frame));
+ 	infoframe->set = true;
+ 
+ 	ret = write_infoframe(connector, infoframe);
 
 
