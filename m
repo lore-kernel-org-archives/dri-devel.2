@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF0AC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 614B7C5DF87
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 12:03:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 163A610F00C;
-	Thu, 20 Aug 2026 11:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A998010F00B;
+	Thu, 20 Aug 2026 12:03:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eDunZS/z";
+	dkim=pass (2048-bit key; unprotected) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="ktKMGYOH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FE3E10F00B
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:58:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787227126; x=1818763126;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=9SpD8W/pBMFw78YhGv8/2Fcjic1NtDIzErLrJ9qd19c=;
- b=eDunZS/zECU4u/Z0b2pUqgbv6x/sXDgTDLADkrBbaA193qGwtwmYkWmj
- w5NwXOEptyHGItqE2zEXYh3zTpyU5v4c/qQ+OmSUgklrUMqnPELESnOva
- RF0OC+U6pBXm/2eNz89lz3kF7N3dgQTmTnx5602VC6xusqTWhfADYu/1R
- 5bUiwH06WWM4dg9WYJMofuvhatlzGaU5foXpeKmNc6faX4w1rbKr7i942
- n3kHqu2mIITa2JBK385IyPzNKDP7AN3ZokbhikhVray0a22KXqnyS5qbe
- ugpAKhHtYEluOkXSFiqKPZPjsMyUgyZZCR2cMz2YtkoJVOno0LY2MFbWn A==;
-X-CSE-ConnectionGUID: 8npRyag2TEmEyx17ZLCwpg==
-X-CSE-MsgGUID: D69b2etYRgKIAkrKxkwjMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="98092543"
-X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="98092543"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2026 04:58:45 -0700
-X-CSE-ConnectionGUID: 8yM+MwNlSvucnS86XmMcjg==
-X-CSE-MsgGUID: xNJg0xCcSzO8GbN7GDN4Ig==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="261743126"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
- by fmviesa006.fm.intel.com with ESMTP; 20 Aug 2026 04:58:42 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wx1Pq-00000000iuX-42o8;
- Thu, 20 Aug 2026 11:58:38 +0000
-Date: Thu, 20 Aug 2026 19:58:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>,
- jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com,
- troy.hanson@oss.qualcomm.com, zachary.mckevitt@oss.qualcomm.com
-Cc: oe-kbuild-all@lists.linux.dev, ogabbay@kernel.org, lizhi.hou@amd.com,
- karol.wachowski@linux.intel.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Troy Hanson <thanson@qti.qualcomm.com>
-Subject: Re: [PATCH] accel/qaic: Add support for AI200 virtual functions
-Message-ID: <202608201947.WZ2pipww-lkp@intel.com>
-References: <20260814164125.3652876-1-youssef.abdulrahman@oss.qualcomm.com>
+Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2C2610F00B
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 12:03:00 +0000 (UTC)
+Content-Language: ru-RU
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C47499EF25B4534AA4B45A92D5F49C6C@prosoftsystems.ru>
+Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
+ c=relaxed/relaxed; t=1787227377; h=from:to:date:message-id:subject;
+ bh=K+OFDeNONFk68+UsZa4ZqYjKg9Y/e9AzlLz11Xc1dik=;
+ b=ktKMGYOHNoyR8FkZRU4r4PiLXDrF3VQpwHMKYUYq2ely9OnbhK3bxwVk2CPIqowMg8ZWKf3NWbx
+ om8uvo1qJ8GTJp6X/1cLc1rU+h2vysT4/BnzF5FAuSui13sHmHGuWTtOy6diOjhjS6gKaZ064O909
+ NLxMGV5XeGE9UUusax98wVfQQAa6R0QRbQ/P1Mvu+YDDeXUJNdcredQn9TMLqqzvArhzCR8pvarRe
+ CVnijqwW36POLere//G+h+LE92w0nHB8YfLJwAYtg/sciD+q+pgXFoKPE24T1efI1Km3IqA9PFbZu
+ s7M4BGiBV1Y7qWVp4ZxARhuv0hwRm5kosC5A==
+Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
+ (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30;
+ Thu, 20 Aug 2026 17:02:57 +0500
+Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
+ echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.39; Thu, 20 Aug 2026 17:02:57 +0500
+Received: from echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed]) by
+ echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed%17]) with mapi id
+ 15.02.1748.039; Thu, 20 Aug 2026 17:02:57 +0500
+From: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
+ =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
+To: "andrzej.hajda@intel.com" <andrzej.hajda@intel.com>
+CC: "rfoss@kernel.org" <rfoss@kernel.org>, "Laurent.pinchart@ideasonboard.com"
+ <Laurent.pinchart@ideasonboard.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
+ "tomi.valkeinen@ti.com" <tomi.valkeinen@ti.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "luca.ceresoli@bootlin.com"
+ <luca.ceresoli@bootlin.com>, "jonas@kwiboo.se" <jonas@kwiboo.se>,
+ "andrew.smirnov@gmail.com" <andrew.smirnov@gmail.com>, "airlied@gmail.com"
+ <airlied@gmail.com>, "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>, 
+ "jernej.skrabec@gmail.com" <jernej.skrabec@gmail.com>
+Subject: [PATCH] drm/bridge: tc358767: check regmap_write() return values
+Thread-Topic: [PATCH] drm/bridge: tc358767: check regmap_write() return values
+Thread-Index: AQHdMJvWCHWQCzrAakOY6ZnTySZXuQ==
+Date: Thu, 20 Aug 2026 12:02:57 +0000
+Message-ID: <f2e14b6c77872ee268b8dcaed1ca87006f7ad578.camel@prosoftsystems.ru>
+Accept-Language: ru-RU, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.25.1.89]
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814164125.3652876-1-youssef.abdulrahman@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,47 +78,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Youssef,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v7.2 next-20260819]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Youssef-Samir/accel-qaic-Add-support-for-AI200-virtual-functions/20260814-184125
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260814164125.3652876-1-youssef.abdulrahman%40oss.qualcomm.com
-patch subject: [PATCH] accel/qaic: Add support for AI200 virtual functions
-config: alpha-allmodconfig (https://download.01.org/0day-ci/archive/20260820/202608201947.WZ2pipww-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260820/202608201947.WZ2pipww-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608201947.WZ2pipww-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/accel/qaic/qaic_drv.c:81:40: warning: 'aic200vf_config' defined but not used [-Wunused-const-variable=]
-      81 | static const struct qaic_device_config aic200vf_config = {
-         |                                        ^~~~~~~~~~~~~~~
-
-
-vim +/aic200vf_config +81 drivers/accel/qaic/qaic_drv.c
-
-    80	
-  > 81	static const struct qaic_device_config aic200vf_config = {
-    82		.family = FAMILY_AIC200_VF,
-    83		.bar_mask = BIT(0) | BIT(1) | BIT(2) | BIT(4),
-    84		.mhi_bar_idx = 1,
-    85		.dbc_bar_idx = 2,
-    86	};
-    87	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Y29tbWl0IDZkMGMzODMxNTkxNSAoImRybS9icmlkZ2U6IHRjMzU4NzY3OiBEcm9wIGN1c3RvbQ0K
+dGNfd3JpdGUoKS90Y19yZWFkKCkgYWNjZXNzb3JzIikgcmVwbGFjZWQgdGhlIHRjX3dyaXRlKCkg
+bWFjcm8sDQp3aGljaCBiYWlsZWQgb3V0IG9uIGZhaWx1cmUsIHdpdGggZGlyZWN0IHJlZ21hcF93
+cml0ZSgpIGNhbGxzLg0KQXQgdGhyZWUgc2l0ZXMgdGhlIGVycm9yIGNoZWNrIHdhcyBub3QgY2Fy
+cmllZCBvdmVyLA0Kc28gdGhlIHJldHVybiB2YWx1ZSBpcyBvdmVyd3JpdHRlbiBiZWZvcmUgaXQg
+aXMgZXZlciBleGFtaW5lZDoNCg0KVGhlIERQMF9WSURTWU5DREVMQVkgd3JpdGUgaW4gdGNfc2V0
+X2VkcF92aWRlb19tb2RlKCksIGFuZA0KYm90aCBEUF9QSFlfQ1RSTCB3cml0ZXMgaW4gdGhlIG1h
+aW4gbGluayBQSFkgcmVzZXQgc2VxdWVuY2UgaW4NCnRjX21haW5fbGlua19lbmFibGUoKSwgd2hv
+c2UgZXJyb3IgaXMgY2xvYmJlcmVkIGJ5IHRoZSBmb2xsb3dpbmcNClBIWV9SRFkgcG9sbC4NCg0K
+QXMgYSByZXN1bHQsIGZhaWxlZCBJMkMgdHJhbnNhY3Rpb25zIHRvIHRoZSBicmlkZ2UgYXJlIHNp
+bGVudGx5DQppZ25vcmVkLiBBIGZhaWxlZCBEUDBfVklEU1lOQ0RFTEFZIHdyaXRlIGNhbiBsZWF2
+ZSB0aGUgc3RyZWFtIHJ1bm5pbmcNCndpdGggc3RhbGUgVEhSRVNIX0RMWSBhbmQgVklEX1NZTkNf
+RExZIHZhbHVlcywgY2F1c2luZyBkaXNwbGF5DQpjb3JydXB0aW9uIHdpdGhvdXQgYW55IGVycm9y
+IGJlaW5nIHJlcG9ydGVkLiBBIGZhaWxlZCBQSFkgcmVzZXQNCnNlcXVlbmNlIGNhbiBsZWF2ZSB0
+aGUgbWFpbiBsaW5rIFBIWSBpbiByZXNldDsgdGhlIFBIWV9SRFkgcG9sbCBtYXkNCnN0aWxsIHN1
+Y2NlZWQgYmVjYXVzZSB0aGUgYml0IHdhcyBzZXQgZHVyaW5nIHRoZSBpbml0aWFsIEFVWCBsaW5r
+DQpzZXR1cCwgc28gbGluayB0cmFpbmluZyBwcm9jZWVkcyBvbiBhIGJhZCBQSFksIG9yIHRoZSBy
+ZWFsIEkyQyBlcnJvcg0KaXMgbWFza2VkIGJ5IGEgbWlzbGVhZGluZyAidGltZW91dCB3YWl0aW5n
+IGZvciBwaHkgYmVjb21lIHJlYWR5Ii4NCg0KUHJvcGFnYXRlIHRoZSBlcnJvcnMgaW5zdGVhZC4N
+Cg0KRm91bmQgYnkgTGludXggVmVyaWZpY2F0aW9uIENlbnRlciAobGludXh0ZXN0aW5nLm9yZykg
+d2l0aCBTVkFDRS4NCg0KRml4ZXM6IDZkMGMzODMxNTkxNSAoImRybS9icmlkZ2U6IHRjMzU4NzY3
+OiBEcm9wIGN1c3RvbQ0KdGNfd3JpdGUoKS90Y19yZWFkKCkgYWNjZXNzb3JzIikNCkNjOiBzdGFi
+bGVAdmdlci5rZXJuZWwub3JnDQpTaWduZWQtb2ZmLWJ5OiBSYWRpeSBaaGFtYmFraWV2IDxyLnpo
+YW1iYWtpZXZAcHJvc29mdHN5c3RlbXMucnU+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYnJpZGdl
+L3RjMzU4NzY3LmMgfCA3ICsrKysrKysNCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCsp
+DQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3RjMzU4NzY3LmMNCmIvZHJp
+dmVycy9ncHUvZHJtL2JyaWRnZS90YzM1ODc2Ny5jDQppbmRleCA3MTg4OTM1ZmRiODIuLmQ2YjYy
+NTQ2ZmVkMCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvdGMzNTg3NjcuYw0K
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS90YzM1ODc2Ny5jDQpAQCAtMTAxNCw2ICsxMDE0
+LDggQEAgc3RhdGljIGludCB0Y19zZXRfZWRwX3ZpZGVvX21vZGUoc3RydWN0IHRjX2RhdGENCip0
+YywNCiAJcmV0ID0gcmVnbWFwX3dyaXRlKHRjLT5yZWdtYXAsIERQMF9WSURTWU5DREVMQVksDQog
+CQkgRklFTERfUFJFUChUSFJFU0hfRExZLCBtYXhfdHVfc3ltYm9sKSB8DQogCQkgRklFTERfUFJF
+UChWSURfU1lOQ19ETFksIHZpZF9zeW5jX2RseSkpOw0KKwlpZiAocmV0KQ0KKwkJcmV0dXJuIHJl
+dDsNCiANCiAJcmV0ID0gcmVnbWFwX3dyaXRlKHRjLT5yZWdtYXAsIERQMF9UT1RBTFZBTCwNCiAJ
+CQkgICBGSUVMRF9QUkVQKEhfVE9UQUwsIG1vZGUtPmh0b3RhbCkgfA0KQEAgLTExNDQsOSArMTE0
+NiwxNCBAQCBzdGF0aWMgaW50IHRjX21haW5fbGlua19lbmFibGUoc3RydWN0IHRjX2RhdGENCip0
+YykNCiAJLyogUmVzZXQvRW5hYmxlIE1haW4gTGlua3MgKi8NCiAJZHBfcGh5X2N0cmwgfD0gRFBf
+UEhZX1JTVCB8IFBIWV9NMV9SU1QgfCBQSFlfTTBfUlNUOw0KIAlyZXQgPSByZWdtYXBfd3JpdGUo
+dGMtPnJlZ21hcCwgRFBfUEhZX0NUUkwsIGRwX3BoeV9jdHJsKTsNCisJaWYgKHJldCkNCisJCXJl
+dHVybiByZXQ7DQorDQogCXVzbGVlcF9yYW5nZSgxMDAsIDIwMCk7DQogCWRwX3BoeV9jdHJsICY9
+IH4oRFBfUEhZX1JTVCB8IFBIWV9NMV9SU1QgfCBQSFlfTTBfUlNUKTsNCiAJcmV0ID0gcmVnbWFw
+X3dyaXRlKHRjLT5yZWdtYXAsIERQX1BIWV9DVFJMLCBkcF9waHlfY3RybCk7DQorCWlmIChyZXQp
+DQorCQlyZXR1cm4gcmV0Ow0KIA0KIAlyZXQgPSB0Y19wb2xsX3RpbWVvdXQodGMsIERQX1BIWV9D
+VFJMLCBQSFlfUkRZLCBQSFlfUkRZLCA1MDAsDQoxMDAwMDApOw0KIAlpZiAocmV0KSB7DQotLSAN
+CjIuNTMuMA0KDQoNCg==
