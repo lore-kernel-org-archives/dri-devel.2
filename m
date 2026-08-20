@@ -4,86 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D964AC5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:31:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CC84C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C16010F144;
-	Thu, 20 Aug 2026 17:31:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E151C10F145;
+	Thu, 20 Aug 2026 17:34:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WnwyBU8I";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="sxFv9IFT";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23FBB10F144
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787247105;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KRvUWZDGEUMSwtdyPJQ/5FEouBX9ts8IqZ+F2bFuJWM=;
- b=WnwyBU8IDy4hmrBz74p+LLnYIMQgd8BJu6pVHEWXxpH3I5sImIOCeRjmX8hJqIHVxL6FFi
- vbfTE4eYN4HBr1BLZRX9oSZxUDFXv0ze57nvI7U/59OEsEwSNPIkbkdqvZ7K8l6FxprNsg
- QSiGmbnY4TuI2Goe5VJKEleX5KtucX4=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-82-47YWyrwiPuqQOIsglQb6YQ-1; Thu, 20 Aug 2026 13:31:37 -0400
-X-MC-Unique: 47YWyrwiPuqQOIsglQb6YQ-1
-X-Mimecast-MFC-AGG-ID: 47YWyrwiPuqQOIsglQb6YQ_1787247097
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-52d33c89a29so647601cf.1
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:31:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787247097; x=1787851897;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=KRvUWZDGEUMSwtdyPJQ/5FEouBX9ts8IqZ+F2bFuJWM=;
- b=i0S+518IV/pIVnFsvE49x4WcNObR1GU2N75ZE9SbmFt37yGyZ8Wa+/ku0l8UQSTLQD
- 3yHzGoXWK27jOHzsRi0DP+wowdSYu56M1L5yGMyJWofVicvZXj5aCDj6bwiehMkRy3z8
- Tn/yNk/tZcS8hpxoHvFeajUN8KA6ouuUYdNO0JiTJMfSAg+WYtCAUhmuIbvUti7bFTqW
- i2+XXS9RLbg6i5sLdA8jicr/wtdJq9d4z/5Vypo0e2uqoSq6Ky2GRYKUiMSBGEcz1+f2
- Up50aZEXQg52eqwb/vtAfuPkxTaZWooleoCNlxbXP3lK2pkzto8NqWmwz/UpizdPRNdd
- mbKw==
-X-Gm-Message-State: AOJu0Yw+nQWzxNWG3RDlvz0f8Qs3UDVziQ8fsoQyeXeNo0bQVk3GMnkJ
- XHrJnOAyso44LBpPEaVyo375Tfwl/McRAq1MacV2t4RRSNhuF/FBZmXvwadq5OM1TiJClZXEHSP
- a3jYbzsuiQqVHt8JdNEJ48ZUh/W2Asl7scSEvMKEAqobNUze8OEQg3Kd28u76p6X7a1aYAg==
-X-Gm-Gg: AR+sD13TzGCQ/3DZraIOe+B+4uJnHKkAeFxWAT48E7OYgGV7eVHHMQ/K/e/81rcZM5e
- HyaX5/v78ol8QaAKEL8Dxzzktr+cUZWj+zLDuTsDo3iE1ADHa7NvQ20EIRQxKMYkK7f4ZBDZ6Ch
- IISbaAw20vXU413I0m+eTY9IExBjwHcWNc5niwLwPYe5fL65pQHTIXz2k2mbm5o8inC3P2t5rWK
- ZxqXRsTGtabmpYkg13nCbOUB7k0YTx7ckzZogBVSjaBsOa/7wkZRrS3DWIOmYzVEGI+Md5GtjqF
- JeRbpj4vS4uAkM6lwEiXRlwPJoqcI6D/oJIdjjoSa/+1AbZufwZLoTf8yETGY8+yuxhITGe3
-X-Received: by 2002:a05:622a:514e:b0:52d:ce1e:cd47 with SMTP id
- d75a77b69052e-52dd5783cfbmr148948801cf.9.1787247097142; 
- Thu, 20 Aug 2026 10:31:37 -0700 (PDT)
-X-Received: by 2002:a05:622a:514e:b0:52d:ce1e:cd47 with SMTP id
- d75a77b69052e-52dd5783cfbmr148947671cf.9.1787247096457; 
- Thu, 20 Aug 2026 10:31:36 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90c5f2b5a1bsm43204606d6.45.2026.08.20.10.31.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 10:31:34 -0700 (PDT)
-Message-ID: <bab55a285432b1b96a74760146963b29f5c7d7cb.camel@redhat.com>
-Subject: Re: [PATCH v2 6/6] drm/nouveau/kms/nv50-: Obliterate
- nouveau_encoder->crtc
-From: lyude@redhat.com
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Date: Thu, 20 Aug 2026 13:31:33 -0400
-In-Reply-To: <20260819160841.31C9E1F000E9@smtp.kernel.org>
-References: <20260819155934.154125-1-lyude@redhat.com>
- <20260819155934.154125-7-lyude@redhat.com>
- <20260819160841.31C9E1F000E9@smtp.kernel.org>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6C77210F147
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:34:24 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B8F0153B;
+ Thu, 20 Aug 2026 10:34:20 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 572343F763;
+ Thu, 20 Aug 2026 10:34:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787247263; bh=6d6trshcrhxKprGt8zElAF+25dO3pSF+3PnYMjOG1Yg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sxFv9IFTYkN8Xo1ymDdk2vtFJhiuGmQoQ157j2zvBhiI90N/E4mEHbkJRLpQWAsAK
+ dS4Lm1AjLN/91wNStVmRGf6h0/geeaqGVlhxsrmWC0yj1v+h+5Ms/F4Rc6Roeoy24e
+ lid5+NmZ0RNTNXX6NoYhH1Iow72w5iIdD3alcqk0=
+Date: Thu, 20 Aug 2026 18:34:18 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Steven Price <steven.price@arm.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Marc Zyngier <maz@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Gleixner <tglx@kernel.org>, "T.J. Mercier" <tjmercier@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: Re: [PATCH 0/2] Clear shared pages after private-to-shared conversion
+Message-ID: <aoc6mkzdqtqigv3n@arm.com>
+References: <20260820105026.53208-1-steven.price@arm.com>
+ <20260820122048.GB18100@ziepe.ca>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: bZ4bkGk0JpOBqqJjZ786PU1nYOk2qbPjas02lV-HluI_1787247097
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820122048.GB18100@ziepe.ca>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,17 +65,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-08-19 at 16:08 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
->=20
-> Pre-existing issues:
-> - [High] Encoder atomic disable callback calls a sleeping function,
-> violating atomic context rules.
-> --
+On Thu, Aug 20, 2026 at 09:20:48AM -0300, Jason Gunthorpe wrote:
+> On Thu, Aug 20, 2026 at 11:50:23AM +0100, Steven Price wrote:
+> > Arm CCA includes "Memory Encryption Contexts" (MEC) which allows the
+> > private and shared data accessible to a guest to have different memory
+> > encryption keys. Consequently when converting memory to shared, the
+> > memory encryption key used to access the physical page will change.
+> > 
+> > Both the GICv3 ITS driver and the system_cc_shared dma-buf heap
+> > currently allocate memory with __GFP_ZERO and then decrypt it. With MEC
+> > the zeroing is done with the wrong encryption key and the data visible
+> > after decryption may be ciphertext. The RMM is required to scrub the
+> > data, but may perform this scrub with a different encryption key to the
+> > eventual key that will be used for shared access.
+> > 
+> > Fix these two sites by avoiding the __GFP_ZERO during the allocation and
+> > performing a clear_pages() call after the decryption.
+> 
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> 
+> This whole set_memory_decrypted() API is awful. It really should be improved.
+> 
+> alloc_pages_decrypted() ?
 
-Again - another hallucination. It keeps seeing the word atomic and then
-recognizes it as being a word mostly around contexts where prior
-reviewers have pointed out sleeping wasn't allowed in said contexts.
-Nothing it is commenting on is actually atomic.
+At some point I suggested GFP_DECRYPTED but if we don't want to
+interfere with the slab allocator, an alloc_pages_decrypted() would do:
 
+https://lore.kernel.org/all/ZmNJdSxSz-sYpVgI@arm.com/
+
+And we had a vmalloc_decrypted() proposal as well that paves the way for
+decrupted pages. I forgot what we concluded:
+
+https://lore.kernel.org/all/20260521205834.1012925-1-kameroncarr@linux.microsoft.com/
+
+Actually, this last series had a lot back and forth around __GFP_ZERO
+that's relevant to this series.
+
+I'll comment on v2, I see it posted already.
+
+-- 
+Catalin
