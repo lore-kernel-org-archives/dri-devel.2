@@ -4,74 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D21A6C5DF88
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 01:31:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7C2C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 02:13:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A89210E114;
-	Thu, 20 Aug 2026 01:31:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=huaqin-corp-partner-google-com.20251104.gappssmtp.com header.i=@huaqin-corp-partner-google-com.20251104.gappssmtp.com header.b="pGWZ00kL";
-	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2C6610E114
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 01:31:10 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2ceaf8a1265so19358605ad.2
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:31:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=huaqin-corp-partner-google-com.20251104.gappssmtp.com; s=20251104;
- t=1787189470; x=1787794270; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=sf8/1y/BvE8Q5udXvIgVW5M9y1VSk6Oq+FeF32W6vPI=;
- b=pGWZ00kL+rtaBqLVdYLdBrXBtuekziUTy3ld5iVmZpa8MVEEQu7QVlG5PtzRhoIyX4
- DWGXN8wFlmJgAqJD+8JYXtAjXJiWXWR+FBd+2wtaSiAlIHZOZBmexLQWhG058OtFS2jF
- siyg9R1ebseLDeRggPUXX+XunIwKBYU3S+1nNIZQVT/Iy0Ltywa8wW4BW9xIdwbUnQmv
- rP2/Kg/RDw0rwCbvL1WvFEP0K2/rD498WS8hTO9gEXv0cDVVENwPbgx0Wmw9qYVT3zRz
- NACQL8G5Ei/U2YYc5ZjLfNeqgsZhZipEc5zdioGTawsqorWrgdoeiocJNNuIc7BbMyWh
- lbJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787189470; x=1787794270;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sf8/1y/BvE8Q5udXvIgVW5M9y1VSk6Oq+FeF32W6vPI=;
- b=BtM2qk/tv7Zf0JEgzgN1s938OVGC30RKeDoZeF5cNdbUyi2UGQLbFnu//bPiFRYkMK
- vPYQdIuQesJ4dTvxONtO9C0JeCr42eShQBq+aBrDHh9qeFznhUjo3oTHmXgc3Xegl9ED
- Sg7OMtRk/qR1xeHw1hgOMapQeOn13K8NhM5iY5a2E7175y06zRnFfOjWwVg8Ac9bL66b
- 2ehnR6Ers3J6r9uHfaENlgISVr5nql99vI2Ac2y40oHm1lGItvkFc66Jc6Om5O1El7Ii
- HG7jxbQBYSsVppnYiLHjkFP/VfbUT+6Y+otYJe1RGWLS+JvsHVyArI5HwcAmPmirRsZ9
- VIHA==
-X-Gm-Message-State: AFuF++ku40tGZSU7t7ueEUqorly2p3CEAMkoumOTemLEMU2VOucGO39Z
- 4AK9PRwLXVBWyDiSTJ5EvWaeQXHujXoOd6VGMQLYgSH5xAYeMckh+3T+LyB+vUFio/g=
-X-Gm-Gg: AR+sD10vGa/JIWTcH4wqsjTvbjj+V1eNEmHsVJWKtgDVXACQJCXCVNxCBc13brpalb4
- +wgajLaepNjBouAdlBsRyM7u/lvmK8gZ3S6vCEOGYke09zD28OQjr9Kwk64/Jc/x2CtEyp3lyEA
- +L0BL3EZOsId+DDKcYyK5CUYxLu7kaU/cQxcDUnjR2mJjJgHOoL2xjpDxsuUKneRN1KlKHUIZJq
- AzyM4BXKplkGhgelXRCa2ASWilybyaitHgt3uhSI1yeHXS3u3yYx4j/BIne2pYiEqYf1/2D/Ppq
- LS2+sWMXzq+J4h4Xk4bVw5WT8pBllS3twWgK9cp5HqrtMmduSWW0AcjkwbJdm0DJfv5EUPcHoQM
- PwG643lrsFK0y9cywA1WTYnGYXsO8bzcuSQCj7FbKELaAhs1QYt0V+SoJaDhqCj9WnEmR+pZF8N
- 00CHclNqAZu7juhu3FkE5rLjAfzpWEkAJ8O7LIvHY2A68dN6DOBoaQOCJtp0AeLnVZkE+tpMDkE
- gPB34AFFowAnIFw1t2hivoom2Jt5Tr7LwYcKkQ=
-X-Received: by 2002:a17:903:40c9:b0:2c9:b396:1a55 with SMTP id
- d9443c01a7336-2d60197c4c5mr177873985ad.12.1787189469970; 
- Wed, 19 Aug 2026 18:31:09 -0700 (PDT)
-Received: from zhk-cbg100025892.huaqin.com ([103.117.77.121])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d62e3c27c7sm633575ad.70.2026.08.19.18.31.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2026 18:31:08 -0700 (PDT)
-From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-To: dianders@chromium.org,
-	neil.armstrong@linaro.org,
-	sam@ravnborg.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- daniel@ffwll.ch, airlied@gmail.com,
- Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Subject: [PATCH] drm/panel-edp: Support MNE007QS3-F and TM140VDXP15 edp panel
-Date: Thu, 20 Aug 2026 09:25:54 +0800
-Message-Id: <20260820012554.4038893-1-zhouhaikun5@huaqin.corp-partner.google.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8044510E10C;
+	Thu, 20 Aug 2026 02:13:57 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABE3510E10C
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 02:13:55 +0000 (UTC)
+X-UUID: c816b9149c3c11f19a56ed5b684f684d-20260820
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:4d03c018-63e2-4117-bf7d-13ad3a5e2e8a, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-20
+X-CID-META: VersionHash:7db8b62, CLOUDID:d767d709704772514f98cf92c1c0355a,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50,EDM:1|-
+ 100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+ ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: c816b9149c3c11f19a56ed5b684f684d-20260820
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 479494335; Thu, 20 Aug 2026 10:13:49 +0800
+From: yaolu@kylinos.cn
+To: jfalempe@redhat.com, javierm@redhat.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de
+Cc: john.ogness@linutronix.de, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
+Subject: [PATCH] drm/log: Fix damaged rectangle height in drm_log_draw_line()
+Date: Thu, 20 Aug 2026 10:13:43 +0800
+Message-Id: <20260820021343.46033-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -89,69 +59,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MNE007QS3-F raw edid:
-00 ff ff ff ff ff ff 00 0e 77 87 14 00 00 00 00
-0f 24 01 04 a5 1e 13 78 03 2c c5 94 5c 59 95 29
-1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 35 30 80 a0 70 b0 24 40 30 20
-66 00 2d bc 10 00 00 1a 00 00 00 fd 00 28 3c 4b
-4b 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
-4c 20 20 20 20 20 20 20 20 20 20 ff 00 00 00 fc
-00 4d 4e 45 30 30 37 51 53 33 2d 46 0a 20 01 41
+From: Lu Yao <yaolu@kylinos.cn>
 
-70 20 79 02 00 21 00 1d c8 0b 5d 07 80 07 b0 04
-80 3f 79 5c 9e 05 95 9c f2 1d 02 45 54 b0 5c b0
-5c 00 42 12 78 22 00 14 8c 5a 02 85 7f 07 9f 00
-2f 80 1f 00 af 04 23 00 05 00 05 00 2b 00 0c 27
-00 28 3b 00 00 27 00 28 3b 00 00 2e 00 06 00 42
-b0 5c b0 5c 81 00 1e 72 1a 00 00 03 01 28 3c 00
-00 53 ff 53 ff 3c 00 00 00 00 e3 05 04 00 e6 06
-01 01 53 53 ff 00 00 00 00 00 00 00 00 00 7e 90
+DRM_RECT_INIT() expects x, y, width and height, should use
+'scanout->scaled_font_h' here. rather than
+'(scanout->line + 1) * scanout->scaled_font_h'.
 
-TM140VDXP15 raw edid:
-00 ff ff ff ff ff ff 00 51 a1 37 21 00 00 00 00
-0b 24 01 04 a5 1e 13 78 03 2b a5 97 5b 57 8c 28
-20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 24 31 80 a0 70 b0 3c 40 30 20
-a6 00 2d bc 10 00 00 1a 00 00 00 fd 00 28 3c 4c
-4c 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
-4c 20 20 20 20 20 20 20 20 20 20 ff 00 00 00 fc
-00 54 4d 31 34 30 56 44 58 50 31 35 0a 20 01 dd
-
-70 20 79 02 00 21 01 1d c2 0b 58 07 80 07 b0 04
-80 71 69 5b 79 d5 8c 87 82 20 02 45 54 b0 5c b0
-5c 00 42 12 78 22 00 14 3f 66 02 85 7f 07 9f 00
-2f 80 1f 00 af 04 3b 00 05 00 05 00 2b 00 0c 27
-00 28 3b 00 00 27 00 28 3b 00 00 2e 00 06 00 42
-b0 5c b0 5c 81 00 17 72 1a 00 00 03 01 28 3c 00
-00 53 ff 53 ff 3c 00 00 00 00 e3 05 04 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 0a 90
-
-Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+Fixes: f7b42442c4ac ("drm/log: Introduce a new boot logger to draw the kmsg on the screen")
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
 ---
- drivers/gpu/drm/panel/panel-edp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/clients/drm_log.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 5784ba0618bd1..03e24f2a8a104 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2236,6 +2236,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x146e, &delay_80_500_e50_d50, "MNE007QB3-1"),
- 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x147c, &delay_200_500_e50_d100, "MNE007QB3-1"),
- 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1486, &delay_200_500_e50_d100, "MNE001BS6-2"),
-+	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1487, &delay_200_500_e50, "MNE007QS3-F"),
- 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1519, &delay_200_500_e80_d50, "MNF601BS1-3"),
- 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1529, &delay_200_500_e80_d50, "MNF307QS3-2"),
- 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x153f, &delay_200_500_e200_d50, "MNF601BS4-1"),
-@@ -2288,6 +2289,7 @@ static const struct edp_panel_entry edp_panels[] = {
+diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
+index 467cdce57dd3..da413ec1c7e1 100644
+--- a/drivers/gpu/drm/clients/drm_log.c
++++ b/drivers/gpu/drm/clients/drm_log.c
+@@ -113,7 +113,7 @@ static void drm_log_draw_line(struct drm_log_scanout *scanout, const char *s,
+ 	const u8 *src;
+ 	u32 px_width = fb->format->cpp[0];
+ 	struct drm_rect r = DRM_RECT_INIT(0, scanout->line * scanout->scaled_font_h,
+-					  fb->width, (scanout->line + 1) * scanout->scaled_font_h);
++					  fb->width, scanout->scaled_font_h);
+ 	u32 i;
  
- 	EDP_PANEL_ENTRY('T', 'M', 'A', 0x0811, &delay_200_500_e80_d50, "TM140VDXP01-04"),
- 	EDP_PANEL_ENTRY('T', 'M', 'A', 0x2094, &delay_200_500_e50_d100, "TL140VDMS03-01"),
-+	EDP_PANEL_ENTRY('T', 'M', 'A', 0x2137, &delay_200_500_e50, "TM140VDXP15"),
- 	EDP_PANEL_ENTRY('T', 'M', 'A', 0x2139, &delay_200_500_e80_pu100, "TM156VDXP25"),
- 
- 	{ /* sentinal */ }
+ 	if (drm_client_buffer_vmap_local(scanout->buffer, &map))
 -- 
-2.34.1
+2.25.1
 
