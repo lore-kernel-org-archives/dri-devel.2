@@ -4,94 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1486C5DF86
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 21:11:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E28F5C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 21:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E094510EBA5;
-	Thu, 20 Aug 2026 21:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32E1C10F1B1;
+	Thu, 20 Aug 2026 21:56:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gCJkZ989";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="baI25ULD";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21BE210EBA5
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 21:11:08 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-392af6bda98so30639a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 14:11:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787260267; cv=none;
- d=google.com; s=arc-20260327;
- b=D/agq2eGRaA9/vXBm/ULG4Zmw3uNftIP9fseT/j7FRa5ArB1Std92Hx4ZV0i8OueVG
- 7Rj1a9bM1jG3p/WNgTWRCP6R67dYzcO251HgjVWuEJlSV6G2phyoCyC7IQ+zLDIlXdh6
- FY6vUo9gqfvc3TI5t0A+1ezeYl7bj7J7E1l5nVz5TanNuzK08SPGUYTBTU21wWys2OOD
- 3YcB4e5gzCcXy8SPuYFIjnh+Ha2Rm+gcJMUFv3bSdZoVr1p0kKWBOPokFLJkPwG+aWTP
- hR9srBj6NmpwDWOA0L3rOUFrd3qTCij+dfCjjvHjmq3R7yw45XK6XJ52IkP5OoQ40s9J
- d+Pw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
- fh=vSNvwtZ5v2K37V2HETQuNrY1ZEgsx1En8dsHa2LEx8M=;
- b=NVklixFjqXIDP53d7funl/4/Hog49f7Kqnm+lx9cpwB1s1CdUc7YBmFr/S1aRL24jl
- 5YlaPem0wJDEC/CwocdQJiu94CzD0BJ6uXyLkHabqctiDS8tFC5WKmJFEiUFjuUCzISQ
- ezkixSWvZkGEPzfQ+jqnekLZoDyb52aQQgTfFAbFnXBdEOnAdIo4hswCy3yUDYFnWuOn
- /TDYzo+hPMzyi9Ptrm/9Ni4roOgho8+Fc3zjSwpEciU8jwLZo5xk736XBknVRksCtA2u
- 7q+7bp2e4yjsbLceEWeQTpVUl17GZazMg5h9S8ygplisxl+aFZ0yiuzpwV2yxZFIALYw
- BgDQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787260267; x=1787865067; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
- b=gCJkZ989CoT909pSCFzbTHUa+4pKMy7p1ONBhS1I+W0NhTqDU2sxDVomA27qsMNgMl
- DAayTzLVD7Slghu3eFYHQAJNNluM81WAYBI/yIEICme6h6pyP00Sd1Xq+CsdNbsjCOib
- b2m3FCmDAnYMNO0FVfbJYtzN7Ab4znjO40gq48A42ZgPoaGzWH4uBqRjgx2H1KQeywJW
- A5OEuFnujj8icuENStKAEY6NTbo6TiQjTutq2K0wn9y9okPAM6Kk9qoSG8eLDeWnjA64
- v6p/Qc0FjCvatJL43/y8kRbUEx3YVJY5DWOZbznezku+OH5oNW5Mtl1aSocFJQuAER8+
- kdAg==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B6110F1B1
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 21:56:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787262993;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qJNhFXppokjOp9Um282YuDdOK7JlZ3LGM60w1T1FT9E=;
+ b=baI25ULDkPYPJIe5C7qkNexcHNaLl24FuFKYk3zEWzmpK+j0suLftcES1kp++IxqjXpbwq
+ AXPMHc+WAUjmloFxpyoDgpXdUSff5jmTM35KTjSfaAPloiun8X1aHLSqdro9nC4jp4cs2v
+ ylK92m9PrEQqkG34pHxeaxlrenoJ9Ao=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-386-P3MKd2n1N5GTlNbwS2cSmA-1; Thu, 20 Aug 2026 17:56:25 -0400
+X-MC-Unique: P3MKd2n1N5GTlNbwS2cSmA-1
+X-Mimecast-MFC-AGG-ID: P3MKd2n1N5GTlNbwS2cSmA_1787262984
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-934963b2bc0so34175685a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 14:56:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787260267; x=1787865067;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1787262984; x=1787867784;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
- b=TPcYqy+uQllsQgVEBKVP+4zln9t57qoBpgd5XDHDfh2enETsMsGJVIh9p5PN8umTrh
- yOjzi35U5pnoxOAx1xLvDHtXCbKKjvZScQvsnAPa5ALKop6dpzRMek4BD9NNZiqcXIhF
- 1mlIrgJu7eDZql604gjnhDE0wz+D58MKw1QtmK+PoOxCVlEtCAayWd1D5cvbGeLZM58u
- a8LYTGlDdrg4+GCXLHuIwXFDLhi3hVe+lMKSQU9kMYarglDjwp38h0/KmFXLBPdkcU1f
- Kryux5+ywzjUVMWz2ENMFpVHqHCM3XqOQTF1SG9dX8l7qEERfZLG8GZafclSWuQXwPwz
- NiwA==
+ bh=lzTaBAeZXEpNdEF6mCBk0yTwt9Zf1jS1qQHVYWMdOMI=;
+ b=Z7n55c9U+7hPa8H1nZ3f3Gh3eKhY0cSw6nGNk1Gnz9boGEpUPu2bfHfX7Q8/D1WSkh
+ 98U8qyqIfC/fybINvqX1TApTx2gt82fY8Vi6Dw+kH1VQBmCRC0jcjFEN68o7CKuswpC3
+ r3pJyBtMACv6qp+j6Bnj6Kb8CPtP5EjY/oq4fUHPkLw2LJ/QogbUVNxttXqfa5Kf6uas
+ fV6u0DxwkF1mjgIINaapj1d+U2Mnr+LweDwwDUiDIuRO8+REr/lwlBko5g7IBw7sOKVR
+ XPc2ez4S/u3Cb/kinINyA8XT0l79/qS1hzXOH3Dxni6Y5RUzjzs+4iXpuelBMYCjXB0L
+ CVTw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RotGiPNpwHEHeG0cSeuJpg+7TumeeymqMUWU/uC6RJnmvkLViMTj6iHnHeP1EqaoKwoizpQHfIW26w=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kec9Zz92qWuXRH9ZAUAa6VgJPJNSw9MEoCtgOjqkShLVU78WPR
- gFtu/kVTDyYV56fKn70mqO9l41dWkq2A6lgWP21W4rI1svx+JErBpmnE4oNH/0dG6pH7jYdLtaQ
- 2hdTh/TUf2lMbk8s/48+guaeoPVbOy3c=
-X-Gm-Gg: AR+sD10KepQHk6WBC5HpPFv2FoL1IbKyungaEfx5Disja4UTAJDuM/ZPbz9WHB4eWvG
- 0odPnbUIrlw4WJ3NgmUZOcBkpFBqUgNoToIO7ysVxQ40xv+Hi8fRS2kY/ePHP3Ra3My8jLk/Zei
- xrMdElLs8shtmtIDSBrtGQCWFLsRSvj/Q8g/uoXuM5K2To7ZQpr0BX7M3ld+kVFxbHSHTgcs4S3
- Snn58xqz7VZVc/OcJBu5nQiBID9wYKBwwa+eOVxdHs/pOKvDy+y18UNCtqaoJM1+6Gg9S10hgnn
- DWiZEnuGxQL5457+hC6bUqlUb9zlfT+tiTMWR7wfTumuyGaZgHgYNRnxCqxTFmsykhOUmoSShg1
- 1os7IC2gvbypiMR2+0rQxTFL6+0/eM5Y=
-X-Received: by 2002:a17:90b:4484:b0:381:28e0:6248 with SMTP id
- 98e67ed59e1d1-395c33571d5mr1031283a91.1.1787260267517; Thu, 20 Aug 2026
- 14:11:07 -0700 (PDT)
+ AHgh+Rpj87+uaWyhRqvc6nKN1VDDjvsnJ1NgZyCMP4s7O1l4oTaWNoMrXebSENBWknYRzw+1TNcKU8otfUE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxl8ZiMmHB7WH47IAy12hWm9Ef1VfwXijr2g1zS2+kZ+HF+mSYa
+ r/tpUIFsNrlWZITHXtLAN3wZZ5IUd/tXHVYKIRyfIVGFGeg6jdlCWLgdRPLxmIPS/LXqrUcxoIi
+ sE4PFJf/ydfTcSUABAi3MYgYuQ9Dqs1yHyoRM4D8AFPLokcVSyFiZbewaUt30IxbY2DwLug==
+X-Gm-Gg: AR+sD12GCrlqswUlMLw9odgIWdHHCWe7Iw8XFgnJl1VB7wiug+vJx+o3NI+nDaajOHa
+ 2KyQZ4HB6SVDnJRwSOmMn70ciZ1Ay2Ewe9YyJoUKRdvmd1yl0y87HhK/xItYA51xmxCW7fxTIrQ
+ TDfkS66D2Bo4pfgQp4U51/hrDjsEViAwhhVkhbozWL9BbdUIMAvSqv2mWD1tlWawCyBAeBRq93c
+ Kqa+66YaUopZC6ZYD/pl4z80dAtHnD4CBfd0gDjP1pvyUIpwIXNf3HA85c45iiXeWKzMcpzmDZr
+ p0o/1rOJp2T03Jswug6dHS3qlXYKVs7Ki5FC131CwbI32ko7FfrY7iat0rEfDgLLid25dCSJ
+X-Received: by 2002:a05:620a:1132:b0:937:36c0:bf6 with SMTP id
+ af79cd13be357-9373958fcdamr105262285a.16.1787262984426; 
+ Thu, 20 Aug 2026 14:56:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:1132:b0:937:36c0:bf6 with SMTP id
+ af79cd13be357-9373958fcdamr105260085a.16.1787262983921; 
+ Thu, 20 Aug 2026 14:56:23 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-937204aa8a6sm461514385a.11.2026.08.20.14.56.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2026 14:56:22 -0700 (PDT)
+Message-ID: <9414b8d122b9489056d72ee1605787ee038e62b7.camel@redhat.com>
+Subject: Re: [PATCH v3 4/4] drm/nouveau: subscribe to channel-kill events on
+ NV50 and newer
+From: lyude@redhat.com
+To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Ben Skeggs
+ <bskeggs@nvidia.com>
+Date: Thu, 20 Aug 2026 17:56:21 -0400
+In-Reply-To: <20260812231330.705425-5-mczernohous@gmail.com>
+References: <20260812231330.705425-1-mczernohous@gmail.com>
+ <20260812231330.705425-5-mczernohous@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-References: <20260819185349.29407-1-pisarevden@gmail.com>
-In-Reply-To: <20260819185349.29407-1-pisarevden@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Aug 2026 17:10:55 -0400
-X-Gm-Features: AcwNN1Vai7aWO5WsKEL-otmSiwSsfGMkQzj2Cck3gdB3K6hYszYtDUormEy7lTs
-Message-ID: <CADnq5_M5yrY+QW2-8phcYhZ7McE-zpFvDh9beZ6jvzTEH1A1xw@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/1] drm/amdgpu: MMIO TLB invalidation fallback when
- KIQ is wedged after S4 resume
-To: Denis Pisarev <pisarevden@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, mario.limonciello@amd.com, ionut_n2001@yahoo.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 6xWdYHFjcbiMDCIpJyrhnruPxD69-nVNoikw-Mp_dag_1787262984
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,106 +103,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 19, 2026 at 3:30=E2=80=AFPM Denis Pisarev <pisarevden@gmail.com=
-> wrote:
->
-> Hi,
->
-> This RFC follows up on bugzilla 219492 ("failed to write reg 28b4 wait
-> reg 28c6" after hibernation) and on the resume_gpu_stable proposal
-> rejected in January:
->
->   https://lore.kernel.org/amd-gfx/20260106125929.25214-6-sunlightlinux@gm=
-ail.com/
->
-> The rejection argued that (a) kiq sched.ready is managed correctly -
-> set false in suspend, set true again only after ring tests pass on
-> resume - and (b) the proposed flag would have disabled the KIQ flush
-> path permanently. Both points are correct, and this RFC takes a
-> different route: nothing is disabled proactively; the driver reacts to
-> observed failures.
->
-> MEASURED FAILURE MODE (Cezanne iGPU, Ryzen 7 PRO 5850U, 7.1.8, KDE
-> Wayland, no ROCm):
->
-> - S4 resume -> "failed to write reg 28b4/28c6" + "1a6f4/1a706" pairs
->   begin in the same second as the thaw and continue at 80-140/hour
->   for 9+ hours until reboot. kiq sched.ready is true throughout (the
->   ring test at resume passed).
-> - Two user-visible consequences: each failed flush burns the ~5 s KIQ
->   retry window (desktop-wide sluggishness), and the invalidation is
->   then silently dropped (stale TLBs - correctness).
->
-> TRIGGER ISOLATION (single-variable tests, one hibernate cycle each):
->
-> - stock (GFXOFF allowed across S4):    ~70-140 errors / 30 min of use
-> - GFXOFF held off across S4:                    0 errors (30 min)
-> - GFXOFF re-enabled 40 min after the clean
->   resume:                                      0 errors (15 min;
->   gating resumption not independently verified)
->
-> So the wedge forms in the S4 resume window while GFXOFF is allowed,
-> and is consistent with the existing semaphore workaround comment in
-> gmc_v9_0.c about losing invalidate-acknowledge state across
-> power-gating cycles. A boot-time amdgpu.pg_mask=3D0 does not even
-> initialize on this part (probe -ETIMEDOUT), so runtime debugfs
-> control was used.
->
-> THE PATCH (1/1):
->
-> - amdgpu_gmc_fw_reg_write_reg_wait() returns -ETIME on failure and
->   counts consecutive failures
-> - gmc_v9_0_flush_gpu_tlb() uses its existing MMIO path as fallback
->   when the KIQ submit fails (invalidations no longer dropped), and
->   after 3 consecutive failures skips the KIQ path entirely until the
->   counter resets - so wedged systems stop paying 5 s per flush
-> - counter resets on every success and in gmc_v9_0_hw_fini(); each
->   suspend/resume cycle re-arms KIQ. No proactive disabling anywhere.
-> - gmc_v10/v11/v12 call sites unchanged and compile-safe (int return
->   used as statement); extending the fallback to them is trivial once
->   the approach is agreed.
+This one is going to need some input from others I believe, mostly in
+that I'd want to really make sure we know what the implications of
+enabling an event like this on Tesla are and what kind of testing we
+would need to know this isn't going to break things.
 
-I think it would be better to get KIQ and MES out of the TLB path.  If
-they get hung, we have bigger problems.  Can you give this branch a
-spin?
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/tlb_inv_rework?ref_typ=
-e=3Dheads
-It switches over to using SDMA and only falls back to MMIO if SDMA is
-not available.  If you use MMIO, you need to disallow gfxoff before
-you touch the registers over MMIO otherwise you'll hang GFX.
+If it was a slightly newer generation I wouldn't be as worried. What
+kind of testing have you done with this so far in terms of workload in
+addition to what you mentioned on the cover letter? Tried running any
+games, anything graphics intensive, etc.?
 
-Alex
+On Thu, 2026-08-13 at 01:13 +0200, Marek Czernohous wrote:
+> From: Marek Czernohous <marek@czernohous.de>
+>=20
+> nouveau_channel_init() only subscribes to the channel-killed event
+> for
+> FERMI_CHANNEL_GPFIFO and newer. On NV50/Tesla the subscription
+> therefore
+> never happens, and nvkm_chan_error()'s NVKM_CHAN_EVENT_ERRORED is
+> delivered into an empty notifier list.
+>=20
+> Today that is harmless, because nothing kills a channel on Tesla: the
+> only nvkm_chan_error() callers are the Fermi and newer recovery
+> paths.
+> So this patch changes no observable behaviour on its own, and that is
+> deliberate: it removes a latent trap before anything can fall into
+> it.
+> I am carrying a Tesla recovery path that does add such a caller and
+> will
+> send it separately once it is ready. Without a subscriber in place
+> the
+> consequences there are severe: nouveau_channel_killed() never runs,
+> so
+> nouveau_fence_context_kill() never runs either, and the pending
+> fences
+> of the killed channel are never signalled. Everything waiting on them
+> waits forever: drm_atomic_helper_wait_for_fences() in the display
+> commit
+> tail waits uninterruptibly and without a timeout, and the TTM delayed
+> delete workers wait in TASK_UNINTERRUPTIBLE. The user sees a frozen
+> desktop on a machine that is otherwise alive, and nothing in the
+> kernel
+> ends that state: both waits pass MAX_SCHEDULE_TIMEOUT, so the fences
+> cannot time out. They are signalled only when the fence context is
+> torn
+> down, that is when the DRM client owning the channel closes its fd
+> and
+> nouveau_fence_context_del() runs. Killing the client, or rebooting,
+> clears it; waiting does not.
+> That is also a dma-fence contract violation: a fence must always be
+> signalled, with an error if necessary.
+>=20
+> Lower the class gate to NV50_CHANNEL_GPFIFO. The nvkm side is already
+> class neutral: the KILLED case hangs the notifier on runl->chid-
+> >event,
+> which every fifo owns since the runlist rework, and
+> nvkm_uchan_uevent()
+> does not discriminate by class. Pre-NV50 chips keep the old
+> behaviour,
+> so NV04 to NV40 are unaffected.
+>=20
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Marek Czernohous <marek@czernohous.de>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_chan.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c
+> b/drivers/gpu/drm/nouveau/nouveau_chan.c
+> index 07b0bd1bc519..5c2f4b9342b7 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_chan.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
+> @@ -485,7 +485,7 @@ nouveau_channel_init(struct nouveau_channel
+> *chan, u32 vram, u32 gart)
+> =C2=A0=09 * lock and the pending list, so an event arriving in
+> between would
+> =C2=A0=09 * find a non-NULL but unusable context and walk a NULL list
+> head.
+> =C2=A0=09 */
+> -=09if (chan->user.oclass >=3D FERMI_CHANNEL_GPFIFO) {
+> +=09if (chan->user.oclass >=3D NV50_CHANNEL_GPFIFO) {
+> =C2=A0=09=09DEFINE_RAW_FLEX(struct nvif_event_v0, args, data,
+> =C2=A0=09=09=09=09sizeof(struct nvif_chan_event_v0));
+> =C2=A0=09=09struct nvif_chan_event_v0 *host =3D
 
->
-> This mirrors what the sibling PASID path already does (KIQ submit,
-> -ETIME on timeout, MMIO variant as fallback), applied to the per-VMID
-> path.
->
-> OPEN QUESTIONS:
->
-> 1. Root cause in the S4 window: RLC/ME not processing KIQ invalidates
->    while GFXOFF is allowed? Happy to run tracing (amdgpu.vm_debug,
->    VM_INVALIDATE ack registers) on the affected hardware on request.
-> 2. Should the latch be per-xcc-inst?
-> 3. Should amdgpu_gmc_flush_gpu_tlb_pasid()'s KIQ branch share the
->    latch?
->
-> Patch 1/1 follows. Comments very welcome - especially on whether the
-> failure-driven fallback is the right shape vs. fixing the S4 resume
-> ordering directly.
->
-> Denis Pisarev
->
-> Denis Pisarev (1):
->   drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
->     unresponsive
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 +++++++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 18 ++++++++++++++----
->  4 files changed, 30 insertions(+), 9 deletions(-)
->
-> --
-> 2.55.0
->
