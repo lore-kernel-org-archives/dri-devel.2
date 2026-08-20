@@ -4,73 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9A77C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01EB2C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:28:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E7CE10F163;
-	Thu, 20 Aug 2026 18:28:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BEBE10EF06;
+	Thu, 20 Aug 2026 18:28:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bitmer.com header.i=@bitmer.com header.b="I1pDRHQG";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Ans3K7ua";
 	dkim-atps=neutral
-X-Greylist: delayed 2094 seconds by postgrey-1.36 at gabe;
- Thu, 20 Aug 2026 18:28:39 UTC
-Received: from wp23.hostingpalvelu.fi (wp23.hostingpalvelu.fi [31.217.193.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4A110F16B
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:28:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitmer.com; 
- s=default;
- h=In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Content-Type:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=2xFTXyLuCPD7M6C46OVih8IxHyoiVmFVZ/4nP+wEEJM=; b=I1pDRHQG4DIEKgvnupdpvbL1CZ
- LbGujrGwgy9MiFqPK9Td+Di3Io1KPzwqzJTN6J/jJstg4Uv0h8AyyhokJ2opp61QtFNCmo0NOLji0
- S0KyMo3Pm5pHg5AZhxCzruqADs/3Ak+tYEusDQMP+jpMRS8WPN0psmDXGg4tTKc6YYtjB4nOQWQ8Q
- Qw8ay470GusDro9FofwJaZdyB4mDwa1fAenifvxeqZTALhAJr6ooowpso1pb+LtPe9N6yoskNe16a
- RZ0tn/mbg/K0KC9xbf5viGAtPGEgtjdFwO8NJm0VHxRHa/eLAm/cZPBQV6E4ryhsHKvy5lRP45Rn8
- POfNI/kA==;
-Received: from 91-157-129-96.elisa-laajakaista.fi ([91.157.129.96]:44776
- helo=[192.168.0.12])
- by wp23.hostingpalvelu.fi with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.99.5) (envelope-from <jarkko.nikula@bitmer.com>)
- id 1wx6xR-0000000CerP-0pZZ; Thu, 20 Aug 2026 20:53:40 +0300
-Content-Type: multipart/alternative;
- boundary="------------HAax7ketJU2g3AHi5IZpkEd7"
-Message-ID: <f0cf25b5-fadf-445e-abca-2c888300f3f6@bitmer.com>
-Date: Thu, 20 Aug 2026 20:53:34 +0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C694410EF06
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787250531;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=02IMZbxlNo+CxyHurTZ+VFbVjMkSF2HhHDF+1YC6pG8=;
+ b=Ans3K7uappHBBUS3wX84YQFsx5lqtXjdI94RJG5rIawond3+FuiDb98wNtdhnQxjRtmKPb
+ SeGcuiJmHCIKfnmWWCHeqNKI/aYxnQnLOdrqS/MLaql0Ajh8HU/ljPpRX/17blMEED7RWz
+ On2D112VbxAzFJknYaxMSZIwQb6m0XQ=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-280-RguTDryENQaNRTBgK92I9A-1; Thu, 20 Aug 2026 14:28:37 -0400
+X-MC-Unique: RguTDryENQaNRTBgK92I9A-1
+X-Mimecast-MFC-AGG-ID: RguTDryENQaNRTBgK92I9A_1787250517
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-51c01ff996dso1311641cf.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:28:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787250517; x=1787855317;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=fvFKAPRcQcLsGMFTo6jCZYlK8au7/chi2AjGH/KyknY=;
+ b=fsJX8qolqHoftM1MrXKP35oxhmjmYrwxEx56uZj1Kscv6g0r5IzLrDYmTU2ml+/ONq
+ +whSC1slkieZ2tPsG8tYsq90UWGc3Gf/ZA6t9Wl5d5lxGa5Js+QdKhh6o6AJ3WpMIbPG
+ ND5mSbZjtN4lEsPF49mUGnrNc9G9FQBIAGyWkKD28FVnEJhGwFqc6crSwImgbhEpcQug
+ 3Qb6f5KAyK3AN5iBChgZjltpQecZNUvoDKy5qaK3cPUnBsI3tH5cM5fFZGf6SMh4JaP3
+ NY+vlA3ZvjioxvqbA9/jMARkeAzNywcLPUUNCHWNOQmMa0vIC59cIP4Uzn2b8ALeHxFr
+ J9lA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoFqDJomv5J+j09NISHAmVIpaga9zo3u5KvEXDi2QzL7+Z/VvhASgNJQ9VrsL+kF8h8i2eNnkcMC3w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQ2s4c7b23fImYwUyTN/KHHMR5GP8DpkZOcFtcKfrBezTzJGs+
+ 3fI82doMHCeCihkFX1mSrP6k03o4l5pOldj1gOs91nYDk1VOpFwn2cb37DilvkwJX14vlzExOkY
+ sRr4zOaihn0zRFYo/THExwz+Tx8uBGwKMP4DyOndcl8RGhCRzv+byoQYoL/ZKyuEiE4Mm6Q==
+X-Gm-Gg: AR+sD13i6sPqhXR07+oEXtIoZ53qSp58GpRp+/q5f58wClypfeX53LSIv2iNCFUj+Gt
+ 3UpW544L52IRjZYUJpUdAM98BeMBEFpVUXPMrBoodlqNB9THU6/DLxogH1g8/8vO2CgfcHWMO7W
+ Kxh5jl8wnYCVO/lg95ItmJnjZjQxed37itoSjcra1TnSos3kmUThez9V7h3lRdCljNNsdm0yPTu
+ D2sfH6fFpK9kZB2B1TR1Q9rCtRj895Pz8+L/NgurXemHOKjfGF0YZrJConcGqmTcgHYQoLWlIO8
+ qmEafzR3+qyLVDw48gAtCQHowxD9PXwS5wRSFWvj6cBuslZMcPZ/+8r97usljWA+bmXII7OX
+X-Received: by 2002:ac8:5e06:0:b0:52d:4f43:d5b0 with SMTP id
+ d75a77b69052e-52df5a07b41mr2811041cf.22.1787250516723; 
+ Thu, 20 Aug 2026 11:28:36 -0700 (PDT)
+X-Received: by 2002:ac8:5e06:0:b0:52d:4f43:d5b0 with SMTP id
+ d75a77b69052e-52df5a07b41mr2810391cf.22.1787250515984; 
+ Thu, 20 Aug 2026 11:28:35 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9372056b781sm421572785a.24.2026.08.20.11.28.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2026 11:28:34 -0700 (PDT)
+Message-ID: <ad9b449657ab3abe4537ed8d8beb393101d46bda.camel@redhat.com>
+Subject: Re: [PATCH 3/3] drm/nouveau: don't dereference outp before checking
+ it in nouveau_dp_irq
+From: lyude@redhat.com
+To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Date: Thu, 20 Aug 2026 14:28:33 -0400
+In-Reply-To: <178682366004.3748010.14933649768375463967@gmail.com>
+References: <178682366001.3748010.7798811159846779765@gmail.com>
+ <178682366004.3748010.14933649768375463967@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/omap: Report HDMI hotplug events to the ASoC HDMI
- codec
-To: Mark Brown <broonie@kernel.org>,
- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Sen Wang <sen@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org
-References: <20260819171935.233946-1-ivo.g.dimitrov.75@gmail.com>
- <97c54f93-d929-40dc-9899-0f8a0b09b0e6@sirena.org.uk>
-Content-Language: en-US
-From: Jarkko Nikula <jarkko.nikula@bitmer.com>
-In-Reply-To: <97c54f93-d929-40dc-9899-0f8a0b09b0e6@sirena.org.uk>
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - wp23.hostingpalvelu.fi
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - bitmer.com
-X-Get-Message-Sender-Via: wp23.hostingpalvelu.fi: authenticated_id:
- jarkko.nikula@bitmer.com
-X-Authenticated-Sender: wp23.hostingpalvelu.fi: jarkko.nikula@bitmer.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: UYV1_XZpafUnQfTkQWFqdU00eFm2ZovbSBJEJMrpKDA_1787250517
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,60 +102,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------HAax7ketJU2g3AHi5IZpkEd7
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-On 19/08/2026 8:21 pm, Mark Brown wrote:
-> On Wed, Aug 19, 2026 at 08:19:35PM +0300, Ivaylo Dimitrov wrote:
->> The OMAP HDMI audio driver currently has no way of reporting HDMI cable
->> hotplug events to ASoC. As a result, user space cannot detect HDMI audio
->> availability through the standard jack mechanism and audio policy managers
->> cannot automatically route audio to or from the HDMI output.
-> Acked-by: Mark Brown <broonie@kernel.org>
->
-> Please carry acks forward if you're not changing something relevant or
-> substantial :(
-For the sound/soc/ti/omap-hdmi.c and tested on old PandaBoard EA1:
-Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com> Tested-by: Jarkko
-Nikula <jarkko.nikula@bitmer.com>
---------------HAax7ketJU2g3AHi5IZpkEd7
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+On Sat, 2026-08-15 at 21:54 +0200, Marek Czernohous wrote:
+> From: Marek Czernohous <marek@czernohous.de>
+>=20
+> nouveau_dp_irq() looks the encoder up and dereferences it in the same
+> breath, five lines before testing it:
+>=20
+> =09struct nouveau_encoder *outp =3D find_encoder(connector,
+> DCB_OUTPUT_DP);
+> =09struct nouveau_drm *drm =3D nouveau_drm(outp->base.base.dev);
+> =09...
+> =09if (!outp)
+> =09=09return;
+>=20
+> find_encoder() walks the connector's possible encoders and returns
+> NULL
+> when none of them matches the requested type, so the NULL test is not
+> decoration: it is the author saying this can happen. The initialiser
+> above it dereferences the same pointer regardless.
+>=20
+> The NULL test predates the dereference. commit 773eb04d14a1
+> ("drm/nouveau/disp: expose conn event class") turned nouveau_dp_irq()
+> into a work callback, and since the drm pointer was no longer passed
+> in
+> as an argument it was recovered from the encoder in the declaration
+> block, which put the dereference above the existing test.
+>=20
+> Move the drm lookup below the test. No functional change when outp is
+> non-NULL.
+>=20
+> Fixes: 773eb04d14a1 ("drm/nouveau/disp: expose conn event class")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Marek Czernohous <marek@czernohous.de>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_dp.c | 4 +++-
+> =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c
+> b/drivers/gpu/drm/nouveau/nouveau_dp.c
+> index 55691ec44aba..738802358d85 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_dp.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
+> @@ -486,7 +486,7 @@ nouveau_dp_irq(struct work_struct *work)
+> =C2=A0=09=09container_of(work, typeof(*nv_connector), irq_work);
+> =C2=A0=09struct drm_connector *connector =3D &nv_connector->base;
+> =C2=A0=09struct nouveau_encoder *outp =3D find_encoder(connector,
+> DCB_OUTPUT_DP);
+> -=09struct nouveau_drm *drm =3D nouveau_drm(outp->base.base.dev);
+> +=09struct nouveau_drm *drm;
+> =C2=A0=09struct nv50_mstm *mstm;
+> =C2=A0=09u64 hpd =3D 0;
+> =C2=A0=09int ret;
+> @@ -494,6 +494,8 @@ nouveau_dp_irq(struct work_struct *work)
+> =C2=A0=09if (!outp)
+> =C2=A0=09=09return;
+> =C2=A0
+> +=09drm =3D nouveau_drm(outp->base.base.dev);
+> +
+> =C2=A0=09mstm =3D outp->dp.mstm;
+> =C2=A0=09NV_DEBUG(drm, "service %s\n", connector->name);
+> =C2=A0
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 19/08/2026 8:21 pm, Mark Brown
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:97c54f93-d929-40dc-9899-0f8a0b09b0e6@sirena.org.uk">
-      <pre wrap="" class="moz-quote-pre">On Wed, Aug 19, 2026 at 08:19:35PM +0300, Ivaylo Dimitrov wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">The OMAP HDMI audio driver currently has no way of reporting HDMI cable
-hotplug events to ASoC. As a result, user space cannot detect HDMI audio
-availability through the standard jack mechanism and audio policy managers
-cannot automatically route audio to or from the HDMI output.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Acked-by: Mark Brown <a class="moz-txt-link-rfc2396E" href="mailto:broonie@kernel.org">&lt;broonie@kernel.org&gt;</a>
-
-Please carry acks forward if you're not changing something relevant or
-substantial :(
-</pre>
-    </blockquote>
-    For the <span style="white-space: pre-wrap">sound/soc/ti/omap-hdmi.c and tested on old PandaBoard EA1:
-
-Acked-by: Jarkko Nikula <a class="moz-txt-link-rfc2396E" href="mailto:jarkko.nikula@bitmer.com">&lt;jarkko.nikula@bitmer.com&gt;</a>
-Tested-by: Jarkko Nikula <a class="moz-txt-link-rfc2396E" href="mailto:jarkko.nikula@bitmer.com">&lt;jarkko.nikula@bitmer.com&gt;</a></span>
-  </body>
-</html>
-
---------------HAax7ketJU2g3AHi5IZpkEd7--
