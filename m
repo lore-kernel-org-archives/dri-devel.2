@@ -4,135 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3F0C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 07:00:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22A4FC5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 07:14:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26DB410EF18;
-	Thu, 20 Aug 2026 07:00:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24D2910EF23;
+	Thu, 20 Aug 2026 07:14:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PqRSVJz2";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NBBsFY3Q";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kY3R7xmE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0HRp7N0u";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qxjNdX2R";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D903C10EF18
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:00:45 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DAC3F84F6E;
- Thu, 20 Aug 2026 07:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787209240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8r4GNzHoWLZS1X1WZcHIDPpjQ2CX/TY9IocmUdKemjk=;
- b=PqRSVJz27uhgUiUttCY4ZyeH4N6NnIXTgzYxUY8LEj1PCo/MHPexC3BBB43gvjZ+vW3EYx
- X+//lwNTvKoP9rtaL36P7AdFpRaaaVqdQipcl+LvMY0uoJWELldZP/E6wgS/AnepTWNUTZ
- 4b9+f9LjtNCqsXrT1KOmw3VSsirwZbA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787209240;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8r4GNzHoWLZS1X1WZcHIDPpjQ2CX/TY9IocmUdKemjk=;
- b=NBBsFY3QTMlqHm4UU+w86HIYlsfkv7qv7kX9Kwsef+iLEaUlcP5V8JdINKNLDY1uY5YxDB
- VYLImPUmhsdPK0Dg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=kY3R7xmE;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=0HRp7N0u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787209235; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8r4GNzHoWLZS1X1WZcHIDPpjQ2CX/TY9IocmUdKemjk=;
- b=kY3R7xmEsdo5eD5YJHKwEKjH3C3Crkad59iNu0L3/NNcQHfehnDY+WDsorh2WGjsgYF72/
- i/vAPnFjt/ECURgH44ZfkRAu8BN5L0dkD3335YqVj5QyfM2R++EoPk7xi/LeZbpngaMmqQ
- ndkiCxyY4pqIs0m33BAsKUzlXOqGwJw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787209235;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8r4GNzHoWLZS1X1WZcHIDPpjQ2CX/TY9IocmUdKemjk=;
- b=0HRp7N0uqn8Vn7VfPyTIwiVH2jccnKzVfmgcispzP4TehsLLYhmwHojhzKF5fIRtxqFUKl
- 6rslywnVexeMqmDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B836E27A8;
- Thu, 20 Aug 2026 07:00:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id d13QKxOmhmoWOAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 07:00:35 +0000
-Message-ID: <5e2a56a7-b4bf-4ea1-a415-0bf3a14596e9@suse.de>
-Date: Thu, 20 Aug 2026 09:00:35 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C55BA10EF23
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:14:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 88BB043E98
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:14:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6A891C2BCC7
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:14:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1787210074;
+ bh=NPdo1K1bZvXW5s8A56yptX47+3cKWC5IJGe76xkG9Ao=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=qxjNdX2RkZpje4TOLfxLaqrz/WVk0AFXay+RtSkRhkmWpnU30LMimE3J07BgWpAaK
+ JWVKv/od9kQ+X7uZIys4akMnp6VZvQD0KhS3ZVZoO4HtiMGU1ZwHzxzYqZe6Swr/T4
+ 2eYHs1k3/qz8CjTP/DwTWcJafrRH2WzRkH4AZd4DYh7oerPMoAnYnF+3TsarS2b117
+ NLaCUXMKPRQgp2Fkz+6LyqAmZi0D/Vf4sDX2NZpWZrxd4RvzswLbf0d1D5Uxy8+/pm
+ +8Y7Y+NoiUn/yy+XkzU+soi53gWHmrmGJgtymZyXtAvXfTkQcetPBLHpYYghm+uun5
+ bU3IlrvSjX/pA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 4F59DC433E1; Thu, 20 Aug 2026 07:14:34 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221897] [Regression] Half screen renders black with active
+ cursor after upgrading to linux-firmware 20240318.git3b128b60-0ubuntu2.29
+Date: Thu, 20 Aug 2026 07:14:34 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: high
+X-Bugzilla-Who: aros@gmx.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: DISTRO_KERNEL
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: cf_bisect_commit bug_status resolution
+Message-ID: <bug-221897-2300-ZR32hdojj8@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221897-2300@https.bugzilla.kernel.org/>
+References: <bug-221897-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/61] drm/simple-kms: Add create_plane_state hook
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
- <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_FIVE(0.00)[5]; RCVD_COUNT_TWO(0.00)[2];
- DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
- suse.de:dkim, imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Queue-Id: DAC3F84F6E
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,110 +75,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221897
 
+Artem S. Tashkinov (aros@gmx.com) changed:
 
-Am 14.08.26 um 16:56 schrieb Maxime Ripard:
-> The simple-kms helper provides a reset_plane hook to let drivers
-> override the default plane reset. However, the reset hook is
-> overloaded: it is used to create the initial software state at probe
-> time, but also to reset both the hardware and software state during
-> suspend/resume. These two roles have different expectations, and
-> reset is not fallible which makes error handling difficult.
->
-> The atomic_create_state pattern was introduced to untangle this by
-> providing a hook that only allocates and initializes a pristine state
-> without any side effect.
->
-> Add a create_plane_state hook to struct
-> drm_simple_display_pipe_funcs. When provided,
-> drm_simple_kms_plane_reset() will use it to allocate a fresh state,
-> falling back to reset_plane and then to the default
-> drm_atomic_helper_plane_reset().
->
-> This will allow simple-kms drivers to be converted to the
-> atomic_create_state pattern.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+ Bisected commit-id|20240318.git3b128b60-0ubunt |
+                   |u2.27 ->                    |
+                   |20240318.git3b128b60-0ubunt |
+                   |u2.29                       |
+             Status|NEW                         |RESOLVED
+         Resolution|---                         |DISTRO_KERNEL
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+--- Comment #1 from Artem S. Tashkinov (aros@gmx.com) ---
+1. Unsupported kernel.
+2. Unknown HW configuration.
 
-> ---
->   drivers/gpu/drm/drm_simple_kms_helper.c | 26 ++++++++++++++++++++++++--
->   include/drm/drm_simple_kms_helper.h     |  1 +
->   2 files changed, 25 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/drm_simple_kms_helper.c
-> index 8e1d07b9f1e3..528968ea5c4b 100644
-> --- a/drivers/gpu/drm/drm_simple_kms_helper.c
-> +++ b/drivers/gpu/drm/drm_simple_kms_helper.c
-> @@ -279,19 +279,41 @@ static const struct drm_plane_helper_funcs drm_simple_kms_plane_helper_funcs = {
->   	.end_fb_access = drm_simple_kms_plane_end_fb_access,
->   	.atomic_check = drm_simple_kms_plane_atomic_check,
->   	.atomic_update = drm_simple_kms_plane_atomic_update,
->   };
->   
-> +static void drm_simple_kms_plane_destroy_state(struct drm_plane *plane,
-> +					       struct drm_plane_state *state);
-> +
->   static void drm_simple_kms_plane_reset(struct drm_plane *plane)
->   {
->   	struct drm_simple_display_pipe *pipe;
->   
->   	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
-> -	if (!pipe->funcs || !pipe->funcs->reset_plane)
-> +	if (!pipe->funcs)
->   		return drm_atomic_helper_plane_reset(plane);
->   
-> -	return pipe->funcs->reset_plane(pipe);
-> +	if (pipe->funcs->create_plane_state) {
-> +		struct drm_plane_state *state;
-> +
-> +		if (plane->state) {
-> +			drm_simple_kms_plane_destroy_state(plane, plane->state);
-> +			plane->state = NULL;
-> +		}
-> +
-> +		state = pipe->funcs->create_plane_state(pipe);
-> +		if (WARN_ON(IS_ERR(state)))
-> +			return;
-> +
-> +		plane->state = state;
-> +		return;
-> +	}
-> +
-> +	if (pipe->funcs->reset_plane)
-> +		return pipe->funcs->reset_plane(pipe);
-> +
-> +	return drm_atomic_helper_plane_reset(plane);
->   }
->   
->   static struct drm_plane_state *drm_simple_kms_plane_duplicate_state(struct drm_plane *plane)
->   {
->   	struct drm_simple_display_pipe *pipe;
-> diff --git a/include/drm/drm_simple_kms_helper.h b/include/drm/drm_simple_kms_helper.h
-> index cb672ce0e856..b58f6d532820 100644
-> --- a/include/drm/drm_simple_kms_helper.h
-> +++ b/include/drm/drm_simple_kms_helper.h
-> @@ -42,10 +42,11 @@ struct drm_simple_display_pipe_funcs {
->   	void (*reset_crtc)(struct drm_simple_display_pipe *pipe);
->   	struct drm_crtc_state * (*duplicate_crtc_state)(struct drm_simple_display_pipe *pipe);
->   	void (*destroy_crtc_state)(struct drm_simple_display_pipe *pipe,
->   				   struct drm_crtc_state *crtc_state);
->   	void (*reset_plane)(struct drm_simple_display_pipe *pipe);
-> +	struct drm_plane_state * (*create_plane_state)(struct drm_simple_display_pipe *pipe);
->   	struct drm_plane_state * (*duplicate_plane_state)(struct drm_simple_display_pipe *pipe);
->   	void (*destroy_plane_state)(struct drm_simple_display_pipe *pipe,
->   				    struct drm_plane_state *plane_state);
->   };
->   
->
+If you can reproduce this under 7.1.9 or 7.2, with the latest firmware, ple=
+ase
+reopen.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+No, you didn't bisect. Removing the tag.
 
+--=20
+You may reply to this email to add a comment.
 
+You are receiving this mail because:
+You are watching the assignee of the bug.=
