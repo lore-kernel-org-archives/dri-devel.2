@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E425CC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 15:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91F3BC5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 15:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A09310F090;
-	Thu, 20 Aug 2026 15:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 740BF10F091;
+	Thu, 20 Aug 2026 15:04:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="AnIbFs3q";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uJkB6KRG";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 895D110F091
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 15:01:07 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BB04153B;
- Thu, 20 Aug 2026 08:01:03 -0700 (PDT)
-Received: from e122027.cambridge.arm.com (e122027.cambridge.arm.com
- [10.1.25.29])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 50FF43F85F;
- Thu, 20 Aug 2026 08:01:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787238067; bh=Adowm8TaRmLb4+nhfuTq8XG6Qz8i8b31EokqJq1SBFg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AnIbFs3qOe6tXAa76/75xbIi30a6sclahiGuKAa7TNyNiW5Z+k4gQ8FETu4UTPSKO
- 8Juo5IUGdb+gncLLrOLJBF1w9IYh74/rR/FXRuJR7tsoW1Se2JDZh0t2glua/wxv1v
- ZHr2qdGjJiBb9RZp3FHVr1rdzV1QZD3j0HcXo/HU=
-From: Steven Price <steven.price@arm.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Marc Zyngier <maz@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>
-Cc: Steven Price <steven.price@arm.com>, "T.J. Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Jiri Pirko <jiri@resnulli.us>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v2 4/4] dma-buf: heaps: Fix shared system heap allocation
- rollback
-Date: Thu, 20 Aug 2026 16:00:33 +0100
-Message-ID: <20260820150034.88729-5-steven.price@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260820150034.88729-1-steven.price@arm.com>
-References: <20260820150034.88729-1-steven.price@arm.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D2BD10F091
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 15:04:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 440DD41E63;
+ Thu, 20 Aug 2026 15:04:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3001F000E9;
+ Thu, 20 Aug 2026 15:04:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1787238259;
+ bh=akka8woKS88sANqszu1zUt/hvb6dCy079oxnsHDeMFE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=uJkB6KRGzs0B428N3RFuQXWvLOqxHHuCNFPrdXBFuh00ifHEICRIOrr0+Iu0ZQ+R+
+ g31bXwUNeX828VbEFmC/pRZ/FUzSRiOH1qPW8eo6whs5yG2fh294nBIx9sx6S7B2Un
+ MOLH8vQfhgEvZTPfgC3KWxvwHjujFumNrMtBUgkM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Jani Nikula <jani.nikula@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, John Harrison <John.Harrison@Igalia.com>
+Subject: [PATCH 7.1 085/228] drm/connector/hdmi: Fix out of bounds memory read
+Date: Thu, 20 Aug 2026 16:53:47 +0200
+Message-ID: <20260820145247.228797105@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260820145244.450574346@linuxfoundation.org>
+References: <20260820145244.450574346@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,59 +70,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If converting one of the allocated pages to shared memory fails, the
-cleanup path attempts to convert every page back to private memory.
-Pages after the failed page have not been converted yet, so attempting
-to convert them back can fail and cause otherwise reusable memory to be
-leaked.
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Count the pages converted successfully and only convert those and the
-failed allocation back during cleanup. If converting the failed
-allocation back succeeds it can be freed safely; otherwise it is leaked
-because its state is unknown. Allocations that were not converted can be
-freed directly.
+------------------
 
-Fixes: 78b30c50a7ac ("dma-buf: heaps: system: add system_cc_shared heap for explicitly shared memory")
-Signed-off-by: Steven Price <steven.price@arm.com>
+From: John Harrison <John.Harrison@Igalia.com>
+
+commit 9ecf8ba763d0ffe0673538eb4bf7806f20455d19 upstream.
+
+A helper function was copying a given audio infoframe into the
+connector's copy but using the size of the destination (a generic
+target, sized to accept many different data blocks) not the source (a
+very specific type of data block). Thus, it was copying 60 bytes of
+data from a 28 byte allocation.
+
+Fix that by using the source size instead, together with a build bug
+on the source size actually being smaller than the destination.
+
+I hit this running KUnit tests under KASAN (while debugging something
+else entirely). In the real world, it seems unlikely to cause an
+actual problem. It is a read not a write so it can't corrupt any
+memory. However, it could potentially fall off the end of a page and
+cause an accvio bug.
+
+Fixes: f378b77227bc ("drm/connector: hdmi: Add Infoframes generation")
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Daniel Stone <daniel@fooishbar.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: José Expósito <jose.exposito89@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org # v6.11+
+Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+Link: https://patch.msgid.link/20260723220652.533345-1-John.Harrison@Igalia.com
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/dma-buf/heaps/system_heap.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-index f14930904089..8d3ffeb64e00 100644
---- a/drivers/dma-buf/heaps/system_heap.c
-+++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -418,6 +418,7 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
- 	struct scatterlist *sg;
- 	struct list_head pages;
- 	struct page *page, *tmp_page;
-+	int nr_decrypted = 0;
- 	int i, ret = -ENOMEM;
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -1096,7 +1096,8 @@ drm_atomic_helper_connector_hdmi_update_
  
- 	buffer = kzalloc_obj(*buffer);
-@@ -472,6 +473,7 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
- 				goto free_pages;
+ 	mutex_lock(&connector->hdmi.infoframes.lock);
  
- 			clear_pages(page_address(page), 1 << compound_order(page));
-+			nr_decrypted++;
- 		}
- 	}
+-	memcpy(&infoframe->data, frame, sizeof(infoframe->data));
++	BUILD_BUG_ON(sizeof(*frame) > sizeof(infoframe->data));
++	memcpy(&infoframe->data, frame, sizeof(*frame));
+ 	infoframe->set = true;
  
-@@ -496,9 +498,11 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
- 		 * Intentionally leak pages that cannot be re-encrypted
- 		 * to prevent shared memory from being reused.
- 		 */
--		if (cc_shared_buffer(buffer) &&
--		    system_heap_set_page_encrypted(p))
--			continue;
-+		if (cc_shared_buffer(buffer)) {
-+			if (i <= nr_decrypted &&
-+			    system_heap_set_page_encrypted(p))
-+				continue;
-+		}
- 		__free_pages(p, compound_order(p));
- 	}
- 	sg_free_table(table);
--- 
-2.43.0
+ 	ret = write_infoframe(connector, &funcs->audio, "Audio", infoframe);
+
 
