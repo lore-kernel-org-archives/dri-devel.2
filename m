@@ -4,117 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08699C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 06:15:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE7EC5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 06:29:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64B2210E5CF;
-	Thu, 20 Aug 2026 06:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D810810E111;
+	Thu, 20 Aug 2026 06:29:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mzJuM1QN";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dfU8pme9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oUsTTSzW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WQRbSQry";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hQa03A3N";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A80EE10EF03
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 06:15:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C868E6188D;
- Thu, 20 Aug 2026 06:15:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACEE1F000E9;
- Thu, 20 Aug 2026 06:15:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787206547;
- bh=GjH+o1SJZXwZP6LjV3NYbnv7qasj8wLo3h2/Tpx3eDo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=mzJuM1QNJ6KPGL8QoKAFDpr6G8Vs/kQQ3dOUy9Ni9bqNQ7Wkih4ikUMYpBmtUS7yQ
- uyXzJ0vRl/Wqj1SGSgzM3TMO+OCRFj6lmzoZTAKDj5jSXWpD2IxrCpRRgYy+Szo3fF
- UmB1tqjTEX7mXxe/vO4zsFa43s3sNKFlx2bGwlIe6r7sxrhiyOLabD78F4B3/ygvpm
- yyrBMx2ka9jxQJ/Ly/Dx05WiraRMV9riFLfL6Nfi6DzdA8MDW1fQiGRLgrVYdVqEH3
- JBqeeLfn39RPzRfTm7Crf8qB57GKjF3+GP6TnT/39b49MywxUgsszxFm70BvKN2R+M
- 4bANgcWxnZJNw==
-Message-ID: <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
-Date: Thu, 20 Aug 2026 08:15:33 +0200
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7C2610E111
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 06:29:43 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7B6223E39;
+ Thu, 20 Aug 2026 06:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787207363; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=jWJNliSjqKXplglCQf89wQTNkNzugiMJkNw3ySCIutY=;
+ b=dfU8pme91hC0vRhkd86/oICYnRNhTllQNvolBTHaoR6BRmw2VyA+n9bTlbXB1Gi7lBe1px
+ CA7UEOmJ7awTZXsK1eUy+ByGirrmN/36mf8qAcQcKKXI5UQfttjZhljqE60evSJhrdJHqz
+ iQRq/RumWPfZSbveMnYwq696+fjLroY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787207363;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=jWJNliSjqKXplglCQf89wQTNkNzugiMJkNw3ySCIutY=;
+ b=oUsTTSzWK5yKpkl2NE/XX5VnHT5THw1GICucT3lFvCzRZc6rtplQHWKJAVRpbMBLP2wLOI
+ tZ1j8GWh/6Ibw9Ag==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787207359; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=jWJNliSjqKXplglCQf89wQTNkNzugiMJkNw3ySCIutY=;
+ b=WQRbSQryk59JeL1Rj+EzbKZBlxdIpOfoXd5REOKbVAzs71aQooUd79x7kzGbbRjPl2/5wZ
+ 2ti31ZXr1SXKwP0TxVDRAoHlLFSXrYH6SGk3NJHVDTgKNd2hmjqgzc+hDRsnkkzvezNwNr
+ x8x2WIRNHFdJdy0KU+5HWHDKJioBcqY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787207359;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=jWJNliSjqKXplglCQf89wQTNkNzugiMJkNw3ySCIutY=;
+ b=hQa03A3N9ra5sqKhBEpAHqk9qdCtHX0T+gvCgnuAK66L9xt0tFfcHRTT7BM2vBSFLqYwV8
+ pieu93to9A/AK0CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 33FCD27A8;
+ Thu, 20 Aug 2026 06:29:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KbpRCb+ehmpMGgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:29:19 +0000
+Message-ID: <e36b76e7-3b11-4bef-8e08-ad1bbfd77f96@suse.de>
+Date: Thu, 20 Aug 2026 08:29:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
-To: rob.clark@oss.qualcomm.com
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
+Subject: Re: [PATCH v3] drm/ast: DisplayPort edid supports 256 bytes
+To: Jammy Huang <jammy_huang@aspeedtech.com>, Dave Airlie
+ <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org>
- <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
- <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
- <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
- <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
- <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
- <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
- <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
- <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org>
- <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com
+References: <20260819-upstream_ast_dp_edid-v3-1-15d36c28afe2@aspeedtech.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260819-upstream_ast_dp_edid-v3-1-15d36c28afe2@aspeedtech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[aspeedtech.com,redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[aspeedtech.com:email,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url, suse.de:email, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,37 +141,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 19/08/2026 17:48, Rob Clark wrote:
-> On Wed, Aug 19, 2026 at 8:27 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->> The rule of usptream development is that we do not accept duplicated
->> code, just because a vendor wants to write something new. This is
->> basically the concept applied all over the drivers tree, where we pushed
->> back against all sorts of duplications all over the vendors.
->>
->> What I miss in this thread is why would there be any exception here. We
->> do not grant exceptions from standard practices on "I want" reasons.
-> 
-> I agree that we should not have duplicated drivers just for vendor
-> lolz.  But when it comes to adopting common frameworks and integrating
-> better into the ecosystem, this doesn't seem like something we should
-> actively discourage.  I don't think this is a case of vendor lolz, but
+Hi
 
-No one discourages it. Following standard Linux kernel practices and
-requirements is not discouraging, do not twist the narrative here.
-Again, it is standard upstream review telling that we do not duplicate
-drivers. Ever, unless there is serious exception needed.
+Am 19.08.26 um 07:58 schrieb Jammy Huang:
+> DisplayPort supports EDID up to 256 bytes (blocks 0 and 1). Update the
+> block check to allow these two blocks. For any block beyond that
+> (i.e. the monitor's EDID is larger than the 256 bytes ASPEED DP can
+> hold), report it as an all-zero block instead of a read failure.
+>
+> Also remove the manual checksum/extension-count patch of block 0's
+> last four bytes. That code was already dead, so the condition can never
+> be true.
+>
+> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
 
-I asked why there should be an exception granted? Is the reason for
-exception following:
-"We want to adopt common framework"
-?
+I know it's controversial, but there appears to be no better solution 
+now. Therefore
 
-> rather reacting to drm/accel emerging as the standard framework for
-> this sort of driver.
-> 
-> So how do we get from here to there?
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-What is wrong with my proposal?
+Best regards
+Thomas
 
-Best regards,
-Krzysztof
+> ---
+> ASPEED DisplayPort's EDID size can be 256 bytes at most. Thus, EDID
+> blocks fetched can be 0 and 1.
+> ---
+> Changes in v3:
+> - For block > 1, write a zeroed buffer. Returning a zeroed block
+>    instead makes drm_edid's block checker classify it as
+>    EDID_BLOCK_ZERO, which is treated as a non-fatal invalid block.
+> - Link to v2: https://lore.kernel.org/r/20260317-upstream_ast_dp_edid-v2-1-31166703c491@aspeedtech.com
+>
+> Changes in v2:
+> Becasue drm-edid will handle invalid EDID if happen, we have 2 changes
+> below.
+> - Return 0 for the number of block more than 1.
+> - Remove modification of EDID
+> - Link to v1: https://lore.kernel.org/r/20260313-upstream_ast_dp_edid-v1-1-2a75b7c091b2@aspeedtech.com
+> ---
+>   drivers/gpu/drm/ast/ast_dp.c | 24 ++++++++----------------
+>   1 file changed, 8 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/ast/ast_dp.c b/drivers/gpu/drm/ast/ast_dp.c
+> index 9d07dad358c..38530cd126c 100644
+> --- a/drivers/gpu/drm/ast/ast_dp.c
+> +++ b/drivers/gpu/drm/ast/ast_dp.c
+> @@ -88,8 +88,14 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
+>   	int ret = 0;
+>   	unsigned int i;
+>   
+> -	if (block > 0)
+> -		return -EIO; /* extension headers not supported */
+> +	if (block > 1) {
+> +		/* ASPEED DP's EDID buffer holds blocks 0 and 1 only (256
+> +		 * bytes). Report anything beyond that as an all-zero block
+> +		 * rather than a read failure.
+> +		 */
+> +		memset(buf, 0, len);
+> +		return 0;
+> +	}
+>   
+>   	/*
+>   	 * Protect access to I/O registers from concurrent modesetting
+> @@ -154,20 +160,6 @@ static int ast_astdp_read_edid_block(void *data, u8 *buf, unsigned int block, si
+>   		ediddata[2] = ast_get_index_reg(ast, AST_IO_VGACRI, 0xda);
+>   		ediddata[3] = ast_get_index_reg(ast, AST_IO_VGACRI, 0xdb);
+>   
+> -		if (i == 31) {
+> -			/*
+> -			 * For 128-bytes EDID_1.3,
+> -			 * 1. Add the value of Bytes-126 to Bytes-127.
+> -			 *		The Bytes-127 is Checksum. Sum of all 128bytes should
+> -			 *		equal 0	(mod 256).
+> -			 * 2. Modify Bytes-126 to be 0.
+> -			 *		The Bytes-126 indicates the Number of extensions to
+> -			 *		follow. 0 represents noextensions.
+> -			 */
+> -			ediddata[3] = ediddata[3] + ediddata[2];
+> -			ediddata[2] = 0;
+> -		}
+> -
+>   		memcpy(buf, ediddata, min((len - i), 4));
+>   		buf += 4;
+>   	}
+>
+> ---
+> base-commit: 5ee8dbf54602dc340d6235b1d6aa17c0f283f48c
+> change-id: 20260313-upstream_ast_dp_edid-5fe6adf7ad36
+>
+> Best regards,
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
