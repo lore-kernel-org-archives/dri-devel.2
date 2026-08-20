@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19491C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 08:41:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABB06C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 08:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67FD710EE13;
-	Thu, 20 Aug 2026 08:41:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB3A10EF51;
+	Thu, 20 Aug 2026 08:44:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="miZ8Hjqx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W9Jn8XMz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C391010EE13
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 08:41:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0405810EF51
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 08:44:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 04AFE60AA9;
- Thu, 20 Aug 2026 08:41:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A401F00A3D;
- Thu, 20 Aug 2026 08:41:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C5B5F436CA;
+ Thu, 20 Aug 2026 08:44:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9481F000E9;
+ Thu, 20 Aug 2026 08:44:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787215272;
- bh=/C4qfiniu2JtCFxkMv/cMtWoGSeTa8fU6oqEWrEQjXs=;
+ s=k20260515; t=1787215464;
+ bh=zTMUNQgLwck/SJsDeQz3HJEY1eY9aWCR8PacSAGKRbk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=miZ8HjqxJRqouuasmVucreX0AxVhrRdvXevkBe1vJFsdrr7yQyTQyUABe2VHs1T4H
- bPXvF0wnNzgfq3qaScdNP4RSbrdb05J068ynmlbY/vvH68cv/lRw0Ngi6YTPnsggk5
- HOQ7Bqfku+0ba0r32jopWmEbfGXx99tgS6t58WHALRDo8OTGkqsAntpTyFCr1Q3+Xo
- lMJ6tXh4K2PbL3jrYP3Vt8UCb1qmR/xgIPpKOHtvhVrcDS1xgW9ryAmnDlVFu9UUkL
- TYVnxlxWK6D3is4yJOBQNl5P0OlcUVhxpdHlODfoSnp8AIZgNBTTfRFRgYw7UGNR64
- TSC8e62XyZj1Q==
+ b=W9Jn8XMzUpoRhRGR73OPwfyz4zISb87k1mOC1N4+4SXEJbaPIxNlz+xS37eUC1BP3
+ XshqpK+GwuuuSUPb1QpKcEsvOPatGsdX5+9cW8H5bcwZ/ZDkakT5XYTiYRW1fFE+o6
+ 4QzZtvGw4T5wizFAk7KZh7cLyvx0PzOZgFdsZdp7rDflqxus2XTt3ZTD/m2Au5KgWh
+ /c4X0aFMlCm9WoBzAfFoDU56Q5cR69NrjcYiZHawBJP6oTZqOTOOTu3DcZQmVH32da
+ NV1k9/oKc2GJb6lbSFqNI3h+jGNjjmcvqrUS3IlwMt1tEBx2uGpdYKP/nr9/g/SG4S
+ 9miHmkSCoA3TQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/vkms: Fix gamma_lut size check
+Subject: Re: [PATCH] drm/vkms: Fix vertical read step for R1/R2/R4 formats
 To: oushixiong1025@163.com
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260820083123.544655-2-oushixiong1025@163.com>
+In-Reply-To: <20260820083123.544655-3-oushixiong1025@163.com>
 References: <20260820083123.544655-1-oushixiong1025@163.com>
- <20260820083123.544655-2-oushixiong1025@163.com>
+ <20260820083123.544655-3-oushixiong1025@163.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 08:41:12 +0000
-Message-Id: <20260820084112.86A401F00A3D@smtp.kernel.org>
+Date: Thu, 20 Aug 2026 08:44:24 +0000
+Message-Id: <20260820084424.7F9481F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,69 +61,88 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the vkms_compose=
-r_worker accesses the currently committed CRTC state (crtc->state) asynchro=
-nously without locks, leading to a Time-of-Check to Time-of-Use (TOCTOU) ra=
-ce condition and Use-After-Free (UAF).
+- [High] Integer overflow in `packed_pixels_offset()` causes a massive out-=
+of-bounds kernel memory read.
 --
 
---- Patch [1]: [PATCH] drm/vkms: Fix gamma_lut size check ---
-commit a52b4df7305f28acb171652e76fbc632383dbfb6
+--- Patch [1]: [PATCH] drm/vkms: Fix vertical read step for R1/R2/R4 format=
+s ---
+commit 27fa0b8f7b4814c63740fbad03cf74d10431bd82
 Author: Shixiong Ou <oushixiong@kylinos.cn>
 
-drm/vkms: Fix gamma_lut size check
-   =20
-The gamma_lut size check in vkms_atomic_check() uses
-sizeof(struct drm_color_lut *) instead of sizeof(struct drm_color_lut).
-On 64-bit both happen to be 8 bytes, so the check works by accident.
-On 32-bit sizeof(pointer) is 4 bytes while sizeof(struct drm_color_lut)
-is 8 bytes, which would incorrectly reject valid 256-entry LUTs.
+drm/vkms: Fix vertical read step for R1/R2/R4 formats
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_=
-drv.c
-> index 5a640b531d88f..2db3971f72c31 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.c
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
-> @@ -112,7 +112,7 @@ static int vkms_atomic_check(struct drm_device *dev, =
-struct drm_atomic_commit *s
->  		if (!new_crtc_state->gamma_lut || !new_crtc_state->color_mgmt_changed)
->  			continue;
+This commit fixes the vertical read step for R1/R2/R4 formats by using the
+block height instead of block width to calculate byte offsets. This prevents
+out-of-bounds reads and incorrect sampling when rotating or reflecting plan=
+es.
+
+> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/v=
+kms_formats.c
+> index dfb8e13cba87a..1e3a6af9cea52 100644
+> --- a/drivers/gpu/drm/vkms/vkms_formats.c
+> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
+> @@ -103,11 +103,11 @@ static int get_block_step_bytes(struct drm_framebuf=
+fer *fb, enum pixel_read_dire
+>  	case READ_RIGHT_TO_LEFT:
+>  		return -fb->format->char_per_block[plane_index];
+>  	case READ_TOP_TO_BOTTOM:
+> -		return (int)fb->pitches[plane_index] * drm_format_info_block_width(fb-=
+>format,
+> -										   plane_index);
+> -	case READ_BOTTOM_TO_TOP:
+> -		return -(int)fb->pitches[plane_index] * drm_format_info_block_width(fb=
+->format,
+> +		return (int)fb->pitches[plane_index] * drm_format_info_block_height(fb=
+->format,
+>  										    plane_index);
+> +	case READ_BOTTOM_TO_TOP:
+> +		return -(int)fb->pitches[plane_index] * drm_format_info_block_height(f=
+b->format,
+> +										     plane_index);
+>  	}
 > =20
-> -		if (new_crtc_state->gamma_lut->length / sizeof(struct drm_color_lut *)
-> +		if (new_crtc_state->gamma_lut->length / sizeof(struct drm_color_lut)
->  		    > VKMS_LUT_SIZE)
->  			return -EINVAL;
+>  	return 0;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but since we are looking at the
-gamma_lut, is it possible for vkms_composer_worker() to hit a use-after-free
-when accessing the LUT blob data?
+This isn't a bug introduced by this patch, but I noticed a potential integer
+overflow in packed_pixels_offset() in the same file.
 
-In drivers/gpu/drm/vkms/vkms_composer.c:vkms_composer_worker():
+If a user configures a framebuffer with a specific height and pitch (e.g.,
+height =3D 3 and pitch =3D 0x40000000), this satisfies the bounds check in
+framebuffer_check(), but might cause an issue during VKMS software composit=
+ion:
 
-	if (crtc->state->gamma_lut) {
-		s64 max_lut_index_fp;
-		s64 u16_max_fp =3D drm_int2fixp(0xffff);
+drivers/gpu/drm/vkms/vkms_formats.c:packed_pixels_offset() {
+...
+	int block_y =3D y / drm_format_info_block_height(format, plane_index);
+	int block_pitch =3D fb->pitches[plane_index] * drm_format_info_block_heigh=
+t(format,
+										  plane_index);
+	*rem_x =3D x % drm_format_info_block_width(format, plane_index);
+	*rem_y =3D y % drm_format_info_block_height(format, plane_index);
+	*offset =3D fb->offsets[plane_index] +
+		  block_y * block_pitch +
+		  block_x * format->char_per_block[plane_index];
+...
+}
 
-		crtc_state->gamma_lut.base =3D (struct drm_color_lut *)crtc->state->gamma=
-_lut->data;
-		crtc_state->gamma_lut.lut_length =3D
-			crtc->state->gamma_lut->length / sizeof(struct drm_color_lut);
+Since block_pitch and block_y are signed 32-bit integers, could the
+multiplication of block_y * block_pitch overflow into a negative value?
 
-The worker accesses the currently committed CRTC state (crtc->state)
-asynchronously without locks, rather than using its own atomic state snapsh=
-ot.
+This negative offset propagates to *offset, and later in packed_pixels_addr=
+():
 
-If userspace rapidly issues atomic commits that update or remove the CRTC's
-gamma LUT, couldn't a concurrent atomic commit swap crtc->state and free
-the LUT blob while the worker is executing?
+drivers/gpu/drm/vkms/vkms_formats.c:packed_pixels_addr() {
+...
+	packed_pixels_offset(frame_info, x, y, plane_index, &offset, rem_x, rem_y);
+	*addr =3D (u8 *)frame_info->map[0].vaddr + offset;
+}
 
-This seems like it could create a large use-after-free window during the
-blending phase in compose_active_planes(), or a direct NULL pointer
-dereference in the setup phase.
-
->  	}
+Could adding this signed 32-bit integer offset to the 64-bit virtual address
+pointer trigger sign-extension, effectively subtracting a large amount from
+the base address and allowing an out-of-bounds kernel memory read?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820083123.5446=
-55-2-oushixiong1025@163.com?part=3D1
+55-3-oushixiong1025@163.com?part=3D1
