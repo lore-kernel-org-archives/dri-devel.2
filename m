@@ -4,65 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 614B7C5DF87
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 12:03:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EDF6C5DF87
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 12:20:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A998010F00B;
-	Thu, 20 Aug 2026 12:03:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7860310E1DC;
+	Thu, 20 Aug 2026 12:20:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="ktKMGYOH";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Q54PkPqW";
 	dkim-atps=neutral
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2C2610F00B
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 12:03:00 +0000 (UTC)
-Content-Language: ru-RU
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C47499EF25B4534AA4B45A92D5F49C6C@prosoftsystems.ru>
-Content-Transfer-Encoding: base64
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
- c=relaxed/relaxed; t=1787227377; h=from:to:date:message-id:subject;
- bh=K+OFDeNONFk68+UsZa4ZqYjKg9Y/e9AzlLz11Xc1dik=;
- b=ktKMGYOHNoyR8FkZRU4r4PiLXDrF3VQpwHMKYUYq2ely9OnbhK3bxwVk2CPIqowMg8ZWKf3NWbx
- om8uvo1qJ8GTJp6X/1cLc1rU+h2vysT4/BnzF5FAuSui13sHmHGuWTtOy6diOjhjS6gKaZ064O909
- NLxMGV5XeGE9UUusax98wVfQQAa6R0QRbQ/P1Mvu+YDDeXUJNdcredQn9TMLqqzvArhzCR8pvarRe
- CVnijqwW36POLere//G+h+LE92w0nHB8YfLJwAYtg/sciD+q+pgXFoKPE24T1efI1Km3IqA9PFbZu
- s7M4BGiBV1Y7qWVp4ZxARhuv0hwRm5kosC5A==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30;
- Thu, 20 Aug 2026 17:02:57 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Thu, 20 Aug 2026 17:02:57 +0500
-Received: from echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed]) by
- echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed%17]) with mapi id
- 15.02.1748.039; Thu, 20 Aug 2026 17:02:57 +0500
-From: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
- =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
-To: "andrzej.hajda@intel.com" <andrzej.hajda@intel.com>
-CC: "rfoss@kernel.org" <rfoss@kernel.org>, "Laurent.pinchart@ideasonboard.com"
- <Laurent.pinchart@ideasonboard.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
- "tomi.valkeinen@ti.com" <tomi.valkeinen@ti.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "luca.ceresoli@bootlin.com"
- <luca.ceresoli@bootlin.com>, "jonas@kwiboo.se" <jonas@kwiboo.se>,
- "andrew.smirnov@gmail.com" <andrew.smirnov@gmail.com>, "airlied@gmail.com"
- <airlied@gmail.com>, "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>, 
- "jernej.skrabec@gmail.com" <jernej.skrabec@gmail.com>
-Subject: [PATCH] drm/bridge: tc358767: check regmap_write() return values
-Thread-Topic: [PATCH] drm/bridge: tc358767: check regmap_write() return values
-Thread-Index: AQHdMJvWCHWQCzrAakOY6ZnTySZXuQ==
-Date: Thu, 20 Aug 2026 12:02:57 +0000
-Message-ID: <f2e14b6c77872ee268b8dcaed1ca87006f7ad578.camel@prosoftsystems.ru>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.25.1.89]
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 043D610F010
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 12:20:51 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-8f23e851626so14573576d6.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 05:20:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1787228450; x=1787833250; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=CFAD3PPmyEYBnRQoyhozco7Gx3OsZl5eV5ORNG74mm8=;
+ b=Q54PkPqW2HEzp1KQlr+JX3owrVCnFkn6uLwbUU9USkl2S/eH1f1b+FLJ57oGEjW/3H
+ 6BOBQkMrIPa5lBLoPGcfOhpSuqfBXKTdr70LFKmNLd1N1O8O80WcP7QWLFpLkzqqb5Vn
+ xDqUOuljuLgmx70bIQYrPbib/dPpjkHETlrFl+z4QKZf7FKwsqZ0XQaTr2yuuwCpKIAJ
+ Ayh/pyZfNpdy3qOv1n8EjBY+eMpTpL04PvY5ppYLRWj0zl6+Oe+pTIMSScWuB5D82vgY
+ yh565ULI//82FPJo0dlYKKJdFpB8rC+NPfuGkkbaUnAPsScVw0xlDNXVSvkBDDZ0XT/J
+ i6TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787228450; x=1787833250;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=CFAD3PPmyEYBnRQoyhozco7Gx3OsZl5eV5ORNG74mm8=;
+ b=JgDYz14U+FVOm21mSMWesM7dumFuU90OAVEFl6cNJF20NFHCUlJj5Axdq4sDXyFw0R
+ TY7gdjg8GRnYLGFh3t+seswN5JfxikfdH5QGT0InPb8TyoRLXzf/A0ohlukkLXtMOU2z
+ +YHsbAqZq+ToTMEBdXu9saWF+xXXxQO9g8fvtHumq232IUBSPS9dDu8WBXLcdGG8MzLi
+ 8UAkQyTZ5DQaZj2z6zrHPgLluKQgZewuFjjl+W42NzWbur/BgALDMJP2xaKQsgm9Xjyn
+ ZeTWrhGBHSct0mitjtLfyXFeXOjfuZ8++381WqdzHjxGhrAOCvJ+b8LvgnP9dznaTRpA
+ r5iA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrAGFvezn02y+SwGIBO78DDM5LmGyZoOXxslsnCNGvpn8eoVzWjvwN9tOszwIrtsHb4qGDwpNG4LY8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kyS0tY4bBlgM0yrjHIOyqYr/AuKXKqZfG4vK+Lg/1iJutjyNA3
+ LjrsR8GmbY+LC/rUdIR8gPdRq1SnIJtIPNdrtkiQ1psYHz8ZGvH5L0a2jfUuZ/SSC64=
+X-Gm-Gg: AR+sD12bnBy1fB5U8aNnmL3QA1gULwO/Kh/mDcClO663MBjpVGwDCZdcFvcKS1k980y
+ f3h6KdTRErl9MtycdnlTEY2dazWvaA/P3vjRXoDoUZjfn64xJgaxhwF05OB4v+veKxLvmirX0mH
+ H2UbwQkPJUWrm4ACj3kjVEizauj2gD/uaSOwRNQMXQE2ivMR4ryK+FrsaL3HGnsWPQmeNpUfwfi
+ BZm4L0fpLfs9AKVn7M/E02Zdduy/vGsPaeOL7NaSWGLq4A/x8Oe6Qf+1C046AkLvDB8jZ72mUY3
+ mI9LeHQNOPWEleUXF98c/fFkfBTKSWDkPWZJyIytuRdEHPzhI1GwRoFkKQBnigt1ZP2+mQyDCrW
+ Gw8THlcMCAxnnp/2dlkcCrevO5lsbJfELhzP5KhpXYtthdHyranAEeetrJ+nKuR/48ci1/19fon
+ ZIALN6PM27zobhSh+fMcONo/JJ1aK/rvEKicFpf18ZbQjo9hiYZ6Yl9ZaY+ng5g06v5aZ7xRnOm
+ i6VxNWrlwWywPSHL2indwIkaG+KzHKCDZYw31lgyPwJAw==
+X-Received: by 2002:a05:6214:124a:b0:908:92e3:a37 with SMTP id
+ 6a1803df08f44-90c5eaf245amr114579506d6.32.1787228450436; 
+ Thu, 20 Aug 2026 05:20:50 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
+ [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-90c5f2b1f39sm36591756d6.41.2026.08.20.05.20.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2026 05:20:49 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wx1lI-00000003bNC-36dR;
+ Thu, 20 Aug 2026 09:20:48 -0300
+Date: Thu, 20 Aug 2026 09:20:48 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Steven Price <steven.price@arm.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Marc Zyngier <maz@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Gleixner <tglx@kernel.org>, "T.J. Mercier" <tjmercier@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: Re: [PATCH 0/2] Clear shared pages after private-to-shared conversion
+Message-ID: <20260820122048.GB18100@ziepe.ca>
+References: <20260820105026.53208-1-steven.price@arm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820105026.53208-1-steven.price@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,48 +104,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Y29tbWl0IDZkMGMzODMxNTkxNSAoImRybS9icmlkZ2U6IHRjMzU4NzY3OiBEcm9wIGN1c3RvbQ0K
-dGNfd3JpdGUoKS90Y19yZWFkKCkgYWNjZXNzb3JzIikgcmVwbGFjZWQgdGhlIHRjX3dyaXRlKCkg
-bWFjcm8sDQp3aGljaCBiYWlsZWQgb3V0IG9uIGZhaWx1cmUsIHdpdGggZGlyZWN0IHJlZ21hcF93
-cml0ZSgpIGNhbGxzLg0KQXQgdGhyZWUgc2l0ZXMgdGhlIGVycm9yIGNoZWNrIHdhcyBub3QgY2Fy
-cmllZCBvdmVyLA0Kc28gdGhlIHJldHVybiB2YWx1ZSBpcyBvdmVyd3JpdHRlbiBiZWZvcmUgaXQg
-aXMgZXZlciBleGFtaW5lZDoNCg0KVGhlIERQMF9WSURTWU5DREVMQVkgd3JpdGUgaW4gdGNfc2V0
-X2VkcF92aWRlb19tb2RlKCksIGFuZA0KYm90aCBEUF9QSFlfQ1RSTCB3cml0ZXMgaW4gdGhlIG1h
-aW4gbGluayBQSFkgcmVzZXQgc2VxdWVuY2UgaW4NCnRjX21haW5fbGlua19lbmFibGUoKSwgd2hv
-c2UgZXJyb3IgaXMgY2xvYmJlcmVkIGJ5IHRoZSBmb2xsb3dpbmcNClBIWV9SRFkgcG9sbC4NCg0K
-QXMgYSByZXN1bHQsIGZhaWxlZCBJMkMgdHJhbnNhY3Rpb25zIHRvIHRoZSBicmlkZ2UgYXJlIHNp
-bGVudGx5DQppZ25vcmVkLiBBIGZhaWxlZCBEUDBfVklEU1lOQ0RFTEFZIHdyaXRlIGNhbiBsZWF2
-ZSB0aGUgc3RyZWFtIHJ1bm5pbmcNCndpdGggc3RhbGUgVEhSRVNIX0RMWSBhbmQgVklEX1NZTkNf
-RExZIHZhbHVlcywgY2F1c2luZyBkaXNwbGF5DQpjb3JydXB0aW9uIHdpdGhvdXQgYW55IGVycm9y
-IGJlaW5nIHJlcG9ydGVkLiBBIGZhaWxlZCBQSFkgcmVzZXQNCnNlcXVlbmNlIGNhbiBsZWF2ZSB0
-aGUgbWFpbiBsaW5rIFBIWSBpbiByZXNldDsgdGhlIFBIWV9SRFkgcG9sbCBtYXkNCnN0aWxsIHN1
-Y2NlZWQgYmVjYXVzZSB0aGUgYml0IHdhcyBzZXQgZHVyaW5nIHRoZSBpbml0aWFsIEFVWCBsaW5r
-DQpzZXR1cCwgc28gbGluayB0cmFpbmluZyBwcm9jZWVkcyBvbiBhIGJhZCBQSFksIG9yIHRoZSBy
-ZWFsIEkyQyBlcnJvcg0KaXMgbWFza2VkIGJ5IGEgbWlzbGVhZGluZyAidGltZW91dCB3YWl0aW5n
-IGZvciBwaHkgYmVjb21lIHJlYWR5Ii4NCg0KUHJvcGFnYXRlIHRoZSBlcnJvcnMgaW5zdGVhZC4N
-Cg0KRm91bmQgYnkgTGludXggVmVyaWZpY2F0aW9uIENlbnRlciAobGludXh0ZXN0aW5nLm9yZykg
-d2l0aCBTVkFDRS4NCg0KRml4ZXM6IDZkMGMzODMxNTkxNSAoImRybS9icmlkZ2U6IHRjMzU4NzY3
-OiBEcm9wIGN1c3RvbQ0KdGNfd3JpdGUoKS90Y19yZWFkKCkgYWNjZXNzb3JzIikNCkNjOiBzdGFi
-bGVAdmdlci5rZXJuZWwub3JnDQpTaWduZWQtb2ZmLWJ5OiBSYWRpeSBaaGFtYmFraWV2IDxyLnpo
-YW1iYWtpZXZAcHJvc29mdHN5c3RlbXMucnU+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYnJpZGdl
-L3RjMzU4NzY3LmMgfCA3ICsrKysrKysNCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCsp
-DQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3RjMzU4NzY3LmMNCmIvZHJp
-dmVycy9ncHUvZHJtL2JyaWRnZS90YzM1ODc2Ny5jDQppbmRleCA3MTg4OTM1ZmRiODIuLmQ2YjYy
-NTQ2ZmVkMCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvdGMzNTg3NjcuYw0K
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS90YzM1ODc2Ny5jDQpAQCAtMTAxNCw2ICsxMDE0
-LDggQEAgc3RhdGljIGludCB0Y19zZXRfZWRwX3ZpZGVvX21vZGUoc3RydWN0IHRjX2RhdGENCip0
-YywNCiAJcmV0ID0gcmVnbWFwX3dyaXRlKHRjLT5yZWdtYXAsIERQMF9WSURTWU5DREVMQVksDQog
-CQkgRklFTERfUFJFUChUSFJFU0hfRExZLCBtYXhfdHVfc3ltYm9sKSB8DQogCQkgRklFTERfUFJF
-UChWSURfU1lOQ19ETFksIHZpZF9zeW5jX2RseSkpOw0KKwlpZiAocmV0KQ0KKwkJcmV0dXJuIHJl
-dDsNCiANCiAJcmV0ID0gcmVnbWFwX3dyaXRlKHRjLT5yZWdtYXAsIERQMF9UT1RBTFZBTCwNCiAJ
-CQkgICBGSUVMRF9QUkVQKEhfVE9UQUwsIG1vZGUtPmh0b3RhbCkgfA0KQEAgLTExNDQsOSArMTE0
-NiwxNCBAQCBzdGF0aWMgaW50IHRjX21haW5fbGlua19lbmFibGUoc3RydWN0IHRjX2RhdGENCip0
-YykNCiAJLyogUmVzZXQvRW5hYmxlIE1haW4gTGlua3MgKi8NCiAJZHBfcGh5X2N0cmwgfD0gRFBf
-UEhZX1JTVCB8IFBIWV9NMV9SU1QgfCBQSFlfTTBfUlNUOw0KIAlyZXQgPSByZWdtYXBfd3JpdGUo
-dGMtPnJlZ21hcCwgRFBfUEhZX0NUUkwsIGRwX3BoeV9jdHJsKTsNCisJaWYgKHJldCkNCisJCXJl
-dHVybiByZXQ7DQorDQogCXVzbGVlcF9yYW5nZSgxMDAsIDIwMCk7DQogCWRwX3BoeV9jdHJsICY9
-IH4oRFBfUEhZX1JTVCB8IFBIWV9NMV9SU1QgfCBQSFlfTTBfUlNUKTsNCiAJcmV0ID0gcmVnbWFw
-X3dyaXRlKHRjLT5yZWdtYXAsIERQX1BIWV9DVFJMLCBkcF9waHlfY3RybCk7DQorCWlmIChyZXQp
-DQorCQlyZXR1cm4gcmV0Ow0KIA0KIAlyZXQgPSB0Y19wb2xsX3RpbWVvdXQodGMsIERQX1BIWV9D
-VFJMLCBQSFlfUkRZLCBQSFlfUkRZLCA1MDAsDQoxMDAwMDApOw0KIAlpZiAocmV0KSB7DQotLSAN
-CjIuNTMuMA0KDQoNCg==
+On Thu, Aug 20, 2026 at 11:50:23AM +0100, Steven Price wrote:
+> Arm CCA includes "Memory Encryption Contexts" (MEC) which allows the
+> private and shared data accessible to a guest to have different memory
+> encryption keys. Consequently when converting memory to shared, the
+> memory encryption key used to access the physical page will change.
+> 
+> Both the GICv3 ITS driver and the system_cc_shared dma-buf heap
+> currently allocate memory with __GFP_ZERO and then decrypt it. With MEC
+> the zeroing is done with the wrong encryption key and the data visible
+> after decryption may be ciphertext. The RMM is required to scrub the
+> data, but may perform this scrub with a different encryption key to the
+> eventual key that will be used for shared access.
+> 
+> Fix these two sites by avoiding the __GFP_ZERO during the allocation and
+> performing a clear_pages() call after the decryption.
+
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+
+This whole set_memory_decrypted() API is awful. It really should be improved.
+
+alloc_pages_decrypted() ?
+
+Jason
