@@ -4,52 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE31C5DF87
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 12:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB766C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 13:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74FEC10E5F3;
-	Thu, 20 Aug 2026 12:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0397110E5D4;
+	Thu, 20 Aug 2026 13:06:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="bns+tBwO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jwaV4z2T";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bz19WRwX";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9F30E10E1DA
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 12:55:33 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2AC69153B;
- Thu, 20 Aug 2026 05:55:29 -0700 (PDT)
-Received: from [10.1.25.29] (e122027.cambridge.arm.com [10.1.25.29])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A9E403F85F;
- Thu, 20 Aug 2026 05:55:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787230533; bh=Y9Gu9Q+6PR+86XIVM8RAJWycXicry5KvRAo6sOf68bw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=bns+tBwOFCYBqXFOvDOBwQdaUfdlfsgueLdq+uHMwTlY5VDzHotm1Vh3XwwKCKTd3
- wxR32A0443Sj9AgIBtyqaL0RGV5l9VR3eM3WMKrGC3kM0aqwGuynm7/TKAX1iJKQix
- WbKDlsUTHRDoThx2/F8+5LGVl0FN5OsOEoFRMZYs=
-Message-ID: <88aed40c-051e-4535-9964-3666456e79ee@arm.com>
-Date: Thu, 20 Aug 2026 13:55:27 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 830BC10E1DA
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 13:06:00 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67KAP1s32214909
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 13:05:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ AieFSNSsSUo34uQSMJ/dNEJ/DOfK3/fGsi4sE8iI73Y=; b=jwaV4z2TzGHiIR6o
+ jRjasUFvEdE3hZE4YOADkjaSjyq+fcG4SjuMiuZVqbaXpQo4fXaIGY24SYwIat5Y
+ xEHhlCuMnmrr/SJYHxUbGJ+FCUVgQRxIlibWMy7b/sBOaiRz0+BwV58KjdvUWos0
+ MymhkSBlK9tfmtpyUhUVKJsUFs7C/x9lF8qpNUMfawb2xETI4YbvdSb/Fm3cQMvp
+ wpXyQIuiglhtbRGv11uPR8LPyT8bF0b6C169b+Ox9GnAJLwwDeqD8AZtXLm3YYqq
+ gt/e/bKxwCGZ8iFBBe16qImQzjIyszZalA0J2/MKSZVYh0FOA7HSdLy82KtShU+Q
+ AQ3oYw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5ytc8htf-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 13:05:59 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-38e54b6556aso2763880a91.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 06:05:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787231159; x=1787835959;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=AieFSNSsSUo34uQSMJ/dNEJ/DOfK3/fGsi4sE8iI73Y=;
+ b=Bz19WRwXsb+/fRgqH2CqCZo2/oMhnOW0k90ePaZij2T5cmeVNGd6wTMpG7/DWCoDab
+ 6mq/cueJAATQAkR1+owa9/1P7an9ywMclAOWX2Z9+Zs16eADxvSP/bH5u4Ul5cWQW/tX
+ ED6tO6UPXu9BUHSCF8xhBcX2Zl4NYW0kHsWAX49huaKK7+j+VKjhZs5d2zNrBGXHRY++
+ m8A9d1m5lkHWdjR+EGILckjJQdkHgReIBwvp1SGa46JlhBladcFvk+8nd8IP/kgzbGJu
+ PJ5nrHZT93BSBxXBb8kczgdVpkxXyr/h5svB5SrZEyjpXJNR+4c2bbCUJhyFK3Llss33
+ 8bqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787231159; x=1787835959;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=AieFSNSsSUo34uQSMJ/dNEJ/DOfK3/fGsi4sE8iI73Y=;
+ b=byYxNdcCjcVUC+5XRErapj6hm9j7P1vYrTsjrIKbefyrgC4DFUNd4iF3hNlmWQ8FVK
+ oKNCWEuUHw9ftHieCu3BJKb9/PI5/8yDh01Dcs5YMiFhltsgSVk7TM2W454wdhdEHmnY
+ nsnqezoBnrT++yyvFifKdv//HgMSCdqkU0WQslJR3j9sTnP1AB3W4rnd3Aq8XMqMu/4r
+ /PhDtaGEo/0VwDP/TZ5xo9CmBGas7d7QT8iuM41RFwQ0tW3I7T5lQX1meNTuuG8HYcvS
+ OFpDzmGA53fAvRkKnCrit1PwLOtY7k2odwD6YhT+WMsVpcNny4QQfYz6E8c6jUBeZZjK
+ W4cQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqvZzdohuC5yFUHwf/2waBA3ORvY1Zs3B8A1QddEeaKsQPqrJ8J7GbY5fti7Z/8/fwsDsFsZ222Brs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nfUts1PqQ56zrnu1Qt8tddt2v+pcyymE3pjGmj5a1NzY9hB2/h
+ AbajXZUtoiJJVRqNnZ+n5dnilzrvV6AwLtbUFOjuqr2/ghG2/b5YAh3bMtPH+y/UDFFylYIlOLH
+ vRruV8XTP8ryrLei+s5xi8UwFbA+SiD4Ri+EcESUk1eM+WxbFfhNgI61CtbSWEhthGfjmRNI=
+X-Gm-Gg: AR+sD10Bpb4+TD+5MSzjU7TBqhpOKfDT45riIZatcIM1orrCgf7bQx3CauN91dmIuW3
+ y8ZMLQI2fuLl85l0/qs3IJn9BdnFCSDNiVLU9uGoGA81t1ot3is1+tibkRMPb1dLpuyIncw6ySQ
+ QlYa291YrG3zjwnt0cnYW4EcdtZqzsMdBlkipbwIztytYsCpaRIPgmheWdvb8nKTPV/j731e6XI
+ aafEjDFL8c/QyiEOLcOq6UBSSlpOwNpQFf/HFKJUgDquVtwnmXjEp+x/3Z7bYbPoo3LVtoJ9gkA
+ ovPmpqPTE9S6zm/0On19yoGH1u6j/narjr4gGnAVJBfo9znDuqv+y9YM+JafPxZxdBqLNiKxHPv
+ xocF3Z6fOcg6WMBDKHcfrJXKNxswShA==
+X-Received: by 2002:a17:90b:4d82:b0:395:4de4:92c7 with SMTP id
+ 98e67ed59e1d1-39580ed143bmr23044554a91.3.1787231157821; 
+ Thu, 20 Aug 2026 06:05:57 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d82:b0:395:4de4:92c7 with SMTP id
+ 98e67ed59e1d1-39580ed143bmr23044231a91.3.1787231156489; 
+ Thu, 20 Aug 2026 06:05:56 -0700 (PDT)
+Received: from [10.219.56.166] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3957fb12145sm6574171a91.4.2026.08.20.06.05.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Aug 2026 06:05:49 -0700 (PDT)
+Message-ID: <eb05740b-8683-41ea-83ec-8a4a484881e9@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 18:35:40 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] irqchip/gic-v3-its: Zero shared pages after conversion
-To: Marc Zyngier <maz@kernel.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
- "T.J. Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Jiri Pirko <jiri@resnulli.us>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>
-References: <20260820105026.53208-1-steven.price@arm.com>
- <20260820105026.53208-2-steven.price@arm.com> <87wltlnfay.wl-maz@kernel.org>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <87wltlnfay.wl-maz@kernel.org>
+Subject: Re: [PATCH v2 15/15] accel/qda: Add remote memory unmap from DSP
+ address space
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-757ab8ed2f64@oss.qualcomm.com>
+ <20260817-qda-v2-v2-15-757ab8ed2f64@oss.qualcomm.com>
+ <6k6ogbosxx4z5bh7uriu4fnj24ycuakylq6g2gnuwsbckl2zww@e66jgj5xo52o>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <6k6ogbosxx4z5bh7uriu4fnj24ycuakylq6g2gnuwsbckl2zww@e66jgj5xo52o>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=OqZ/DS/t c=1 sm=1 tr=0 ts=6a86fbb7 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=rYwYc2LNA-xZppdo0x8A:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA5NyBTYWx0ZWRfX3eFHCWpJA0Rq
+ 7DexfiHxQJPvTfpWgiiy2rGoQJIxKS1bccwp4UOrfZO9JxYV0N/bAR+FoCqdgniSp8R7fgCzBq/
+ Uygy28Hk89cfl2v8bwnVTuMXLVMN+dOfkLAmf9ccxuYSSqrhhKRTGKHJwnWI1nwlOOB5/qs2ngD
+ Fa1kMa9uIXAsUEdqtKfE3E17wILxNy+9dWIXrhYIzFvyXJscUc782iz84XHPBePbkithYGBzTa+
+ PT949Jg49jXChdV43ZqTml/dsB+BAWJ3B6kMPZpRqry47axJz7CMPrF7+dhi9kkOQs2Yw9YPRFR
+ kVy9BYTP4qiq9wpGBQwgfrF2dBBiKTYOKN9xA41FGIZiRnD2mL0mUPMYAJidOxmY5aL5fmMcZD9
+ 0vImuKoCx152PVJGBpIy18DUZ4Pn+EcgHpUV5GWguMwJQ6VGvcHjNpw6PhE97DV5oSU5fRDZvY4
+ Q0FtvwiP1Q5WxL1KGKQ==
+X-Proofpoint-ORIG-GUID: Lg9ciVy4eIHNWDbOFONYpocBhibM7inX
+X-Proofpoint-GUID: Lg9ciVy4eIHNWDbOFONYpocBhibM7inX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA5NyBTYWx0ZWRfXyW/lwc1jitxN
+ RKwWXVqqMQAm/xeP3qgpINMJuCbSyVJP80pqWWEPJ5FG8MzZ96XIxrmVgPDNYxD2rUhmSOxqh5S
+ fr4Po615JNdFwDSujNzWNRv3cSCNaS0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ bulkscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608200097
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,111 +165,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 20/08/2026 13:32, Marc Zyngier wrote:
-> On Thu, 20 Aug 2026 11:50:24 +0100,
-> Steven Price <steven.price@arm.com> wrote:
+On 17-08-2026 11:14, Dmitry Baryshkov wrote:
+> On Mon, Aug 17, 2026 at 10:38:45AM +0530, Ekansh Gupta wrote:
+>> Add DRM_IOCTL_QDA_REMOTE_MUNMAP, which removes a mapping previously
+>> established with DRM_IOCTL_QDA_REMOTE_MAP from the DSP address space of
+>> the calling process.
 >>
->> its_alloc_pages_node() passes __GFP_ZERO to the page allocator before
->> calling set_memory_decrypted(). This assumes that converting a page from
->> private to shared preserves its contents.
+>> Mirroring the map path, the DSP exposes two unmap operations, both
+>> reachable through this IOCTL and selected by the request field of
+>> struct drm_qda_mem_unmap:
 >>
->> For Arm CCA with MEC (Memory Encryption Contexts) the key used to access
->> the page will change, and so by default the visible data will change.
->> The host could ensure that it zeros the page, but rather than relying on
->> the host's behaviour it's best if the guest simply zeros after the
->> decryption rather than before. Specifically in this case the ITS tables
->> are required to be zeroed.
+>>   QDA_REQUEST_MUNMAP unmaps a region by the DSP address that the
+>>   corresponding map call returned. It uses the vaddrout and size fields.
+>>
+>>   QDA_REQUEST_MEM_UNMAP unmaps a region by buffer identity, using the
+>>   GEM handle, the DSP virtual address and the size.
 > 
-> What are the guarantees that we want to enforce post decryption?  My
-> recollection is that the RME firmware cleans the caches to the PoPA,
-> making the data immediately visible to the hypervisor. Obviously, this
-> isn't the case anymore, since the zeroing comes after that, and I
-> don't see any CMO enforcing this.
+> Why do we need two different operations? Can you just pass the GEM
+> handle to the IOCTL?
+QDA_REQUEST_MUNMAP (RMID 5): The DSP locates the mapping by the DSP
+virtual address that was returned by the corresponding MMAP call. This
+is the older protocol message that only needs {address, size} to
+identify the region in the DSP's page table.
 
-The firmware should be ensuring that things are cleaned sufficiently
-that the original data is inaccessible - that's required as part of the
-wiping when converting from private. However the wipe doesn't have to be
-writing zeros, indeed the RMM spec suggests that two "possible
-implementations" are:
+QDA_REQUEST_MEM_UNMAP (RMID 11): The DSP locates the mapping by its
+internal handle association. This is the newer protocol message that is
+not supported on older platforms.
 
-* The RMM (or other platform firmware) writing either random data or
-  zeroes to the memory location
-* The MEC of the memory location being changed
+> 
+> Also, what happens if the buffer is still in use on the DSP side? Will
+> the DSP crash? Will the whole board crash?
+The access from DSP after unmap will trigger an SMMU context fault on
+the context bank device. The fault does not bring down the board but
+might trigger remoteproc to restart(I'm not exactly sure about the iommu
+side handling of such faults).
 
-My assumption (I have to admit I haven't checked) is that the GIC code
-is doing sufficient CMO to ensure that the zeros that are being written
-after the conversion are visible to the hypervisor - but that's no
-different to the non-CCA case.
+Thanks for reviewing the patches.
 
-> I'm concerned that this relies on undocumented behaviours that may
-> hold today on some undisclosed combinations of HW and hypervisors, but
-> that are not guaranteed at all. set_memory_decrypted() doesn't really
-> say anything, and I have the feeling that we may want some hypervisor
-> specific hook to perform the correct CMO magic. I don't think this is
-> required right now, but I'm not excluding anything!
+//Ekansh
 
-This is reducing how much Linux relies on undocumented behaviour - at
-the moment Linux is relying on either the zeros it has written still
-being visible or the firmware/hypervisor writing zeros after any
-private->shared transition. This patch makes the guest do it rather than
-relying on anything else.
-
-You have a point that a spec clarification about CMOs might be worth
-having - the RMM spec doesn't make clear what is required of the
-firmware. Clearly for security it should be doing something to ensure
-that the old data from the realm doesn't become visible.
-
+> 
+> 
 >>
->> Mask out __GFP_ZERO from the allocation request, and do the zeroing as a
->> separate step after decryption.
+>> Each request type has its own argument builder in qda_fastrpc.c,
+>> documented with the packed argument layout the DSP expects. Unknown
+>> request types are rejected with -EINVAL.
 >>
->> Fixes: b08e2f42e86b ("irqchip/gic-v3-its: Share ITS tables with a non-trusted hypervisor")
->> Signed-off-by: Steven Price <steven.price@arm.com>
+>> Assisted-by: Claude:claude-sonnet-5
+>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 >> ---
->>  drivers/irqchip/irq-gic-v3-its.c | 7 ++++++-
->>  1 file changed, 6 insertions(+), 1 deletion(-)
+>>  drivers/accel/qda/qda_drv.c     |   1 +
+>>  drivers/accel/qda/qda_fastrpc.c | 119 ++++++++++++++++++++++++++++++++++++++++
+>>  drivers/accel/qda/qda_fastrpc.h |  34 ++++++++++++
+>>  drivers/accel/qda/qda_ioctl.c   |  22 ++++++++
+>>  drivers/accel/qda/qda_ioctl.h   |   1 +
+>>  include/uapi/drm/qda_accel.h    |  39 ++++++++++++-
+>>  6 files changed, 215 insertions(+), 1 deletion(-)
 >>
->> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
->> index 6f5811aae59c..c954bbe9f4db 100644
->> --- a/drivers/irqchip/irq-gic-v3-its.c
->> +++ b/drivers/irqchip/irq-gic-v3-its.c
->> @@ -213,10 +213,12 @@ static gfp_t gfp_flags_quirk;
->>  static struct page *its_alloc_pages_node(int node, gfp_t gfp,
->>  					 unsigned int order)
->>  {
->> +	bool want_zero = gfp & __GFP_ZERO;
->>  	struct page *page;
->>  	int ret = 0;
->>  
->> -	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
->> +	page = alloc_pages_node(node, (gfp & ~__GFP_ZERO) | gfp_flags_quirk,
->> +				order);
->>  
->>  	if (!page)
->>  		return NULL;
->> @@ -231,6 +233,9 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
->>  	if (ret)
->>  		return NULL;
->>  
->> +	if (want_zero)
->> +		clear_pages(page_address(page), 1 << order);
->> +
+>>
 > 
-> nit: please use BIT(order), which matches the type required for
-> clear_pages().
 
-Sure, this was matching the use in set_memory_decrypted(), but I can
-update that too.
-
-> But I'd really like some discussion about the CMO side of things.
-
-I'm not sure what more to say about CMO - if you want changes in the
-commit message(s) then please suggest something. AFAICT this patch
-doesn't change anything about cache maintenance. You're welcome to raise
-spec clarifications if you want to.
-
-Thanks,
-Steve
-
-PS. I'll take a look at the Sashiko comments - but they are both
-pre-existing issues not issues with this series.
