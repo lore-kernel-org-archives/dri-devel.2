@@ -4,89 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69851C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:26:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC834C5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:28:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9A6810EC16;
-	Thu, 20 Aug 2026 18:26:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3927710EE01;
+	Thu, 20 Aug 2026 18:28:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="aWrgBZ63";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JqY1ZlMA";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ADD910EC16
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:26:25 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D429710EE01
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:28:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787250384;
+ s=mimecast20190719; t=1787250482;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0cPAiw8SZK4VJABSJWXID6c8H+dfAlzI9Es1HSEj/Po=;
- b=aWrgBZ63hOukYUxN/qw+83r4nQo7n5usWd7VBS38mhyICT2bdpjrg9yUDtdRQyfhpUHEi8
- TnH9nJDR/ZIcGhC1aCdgQ/vREfo1Am5GRWal1Z0jwoCkON7ETjV/q3t1eFptIsZ7y8UCt2
- X+qixIu1+qMnocs+Uw38Mj7XqEaUX5s=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ioDl19YMAvkax5adWxSHFRx0OcBttsxIoujuyuuFzRs=;
+ b=JqY1ZlMAWYgPYmoY6YduXsxM71df5LspkO3rHVioPXcEnPigRVKkA2bJhd+2EX7UzFO/SO
+ eQoX38vAbOBf1QoCSeBwTNeGa5kksHuY/MXkaVPfmUjHq4fmVygpNaoUMTkdjxqRP/HIKv
+ mbGM7wIstGXtOKVSK8ygCWomWWc4eoI=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-692-ZqNUxeGWNqOLKAOWqwqnHg-1; Thu, 20 Aug 2026 14:26:18 -0400
-X-MC-Unique: ZqNUxeGWNqOLKAOWqwqnHg-1
-X-Mimecast-MFC-AGG-ID: ZqNUxeGWNqOLKAOWqwqnHg_1787250378
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-92ec3146553so20092285a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:26:18 -0700 (PDT)
+ us-mta-231-sVBGFXUwOeKBLsp_klheBg-1; Thu, 20 Aug 2026 14:27:59 -0400
+X-MC-Unique: sVBGFXUwOeKBLsp_klheBg-1
+X-Mimecast-MFC-AGG-ID: sVBGFXUwOeKBLsp_klheBg_1787250479
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-92e63df032bso143358185a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:27:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787250378; x=1787855178;
+ d=1e100.net; s=20251104; t=1787250479; x=1787855279;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=0cPAiw8SZK4VJABSJWXID6c8H+dfAlzI9Es1HSEj/Po=;
- b=muX6HpH+06kos4gMmRKYm1cEj0gMnyMW3/9Z53Hvhlkdv/fC8Gz3y/3juPWyL30mfm
- ncVF3RYQDarsGWb/dtT0HzKbKf/qSJ+GoAw5G7L8KrP5W1KNVh/epdaI+EMMLD4Cdd1r
- gkkcI87orFN1EpJic/Ewr914RDKHORpngE0CCVU8x2QVcRZ8xeEFjSsz06lStQG6wvRf
- VI/PN3E1eSQi/MzYZYbFjTRYKK1L9CwQQfUsATjHCpP0b3GFK7TJ/4DS9qITzLFZLAmG
- x63NpZFyibsdkkl0zzcUytxzdYjQHoj22AHVJbVnuRYxoWvD/6NS3RvNb22P58/jDiQI
- nqaA==
+ bh=Rl/GCSC9mrxRzZFL9EE5o5Bx5mzQPkItraIxAO9n+xk=;
+ b=gWMf/vkCycNWCkZeg0Td+Kdk94IODLfaLsC00QSfifShH94lljuy64PQTX+pdg71jP
+ /RzE8H2ubDcbPWotmGenwLjSBYS4yxj+f5oeRqCiao6ouJkm0qkXmTlVhWgmP6aztdgL
+ OPzNUww+f7wyHYKgkKy2qogpZbhnUAEqRgsDay9dRD040qTHob5LE1j9wPWz1MwSSLr8
+ N3RE6U4TUoKk/497oKlyfCP0vDeDgCaaGep/oyMapiIT//LTuf3IPBhQQDCGmG12u1JN
+ M0ff4OmUzJCs9TuiEDyd2QiWszlgoBHeUXFSrNApx7bOKaQVtXQDbn3Ds8mTRjYjERgh
+ OlBg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqP0MXVpd23ZJuE1rtwbDzyAIJRFXs24uBmAf1DnaN4vacVPayxagwb99/VfDmx/rGjUIa/f/tSNyY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6djxaYj7xP7/ppxz99kGYMZiF8oTN3Q4gWl5t0DQ5WXSzm99d
- Q3fh1HQz9sX+LDKkn50/QSwl2DPCT8fXh/QNKwUEsP7JUkwF9/xRE3lIlK7gzzbvYYQ1mZS+08r
- 792fF8HxQiK1hgzW4eOKJ1cdTFIt2H32DurXOpU8mPgo2gx6fWX5Mmyh45B89E73VNMLu/w==
-X-Gm-Gg: AR+sD12rrrYoczJbDNQ/+FW+H4UqpDt+JNQ5CFtpsGrmXnCJ3r6U3zP27dSS4NHnOKs
- HvuL7n/sU3GwMYknDNv7bcbWg6mR/fqCaG8mc+E1oFmet9jpCT2ZELlmcDuA9KlIQ6i3VJ5Tp3g
- Oo9qTHdJeR7zPefAnc7v79tDjbW5rCpbO+y8WXRxlJnXSWJFpSXe+1R0zfR8UjOlMIQxFthcaf2
- 1BMBBGouPO8B+mg5w0wB1NZZC9cszSUlHCJmFtuOaN5HhMCT28790CHUA7JIi03AFtBOcj4I/N2
- y88jC3SHnAM7UW2w3/c0C2kdGDM7SwK7CdJuJP9HGJLB+frZeWH8NRODJqgdjimwg0cKgN3Q
-X-Received: by 2002:a05:622a:54c:b0:52d:8275:4557 with SMTP id
- d75a77b69052e-52df5ba06camr2537251cf.42.1787250377959; 
- Thu, 20 Aug 2026 11:26:17 -0700 (PDT)
-X-Received: by 2002:a05:622a:54c:b0:52d:8275:4557 with SMTP id
- d75a77b69052e-52df5ba06camr2536701cf.42.1787250377424; 
- Thu, 20 Aug 2026 11:26:17 -0700 (PDT)
+ AHgh+Rr3/VJRAYINW8NtIwCe8DyMtJN5+Fs6ESliVtJ0/OUAP0WBiSqOgjsTLhhcRB4jTUSqkAr9LdCBoeI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YysQP5xIoyNv/5Q0URLSOl4991kEjBEygc9xNkNqzpCePzaWs+n
+ tr/tPdwANDugRO++e282CWa33zK4AZmw8+hm8rIO16oFaTdgxcE938P6S18dILmI/vLqc25jSSr
+ /tQf7HnuMZ7eIFznaxhB2pf7KpHqSluSlNV07TO9gYjGpmBDaAP3u5s8cr2drVCotMnLF5A==
+X-Gm-Gg: AR+sD11/7BgrCNOq9x38m5XgsTCdc9EiQo0J2euEGAyOEki6UeYNGTWr+NCiOY8J2Wt
+ 2E7t7bTAUIrK8bcjFJK4RN75tHG7zIZ/Os5aw+jR1U8zQSFfHH6HTM5S8lA9wSSGorSWIsthw7z
+ 06DOsDX43vJPiVnRA+pyoevNwG9sqE88zj4i8ZO9ds61Phnrba1uODnmtQY2YfBEzlCEtE8UQGO
+ AkcwEmfqMjVv3YrRVRcYBU2ny3LfMv1tOvDDXiv+F3tyM5yWOphzA0cfBOONPqwCXX48qsOgXN4
+ 7XdC5D0q3qXglsULRaC+3bsKFmo5VcgNc+YFyYhomTOESGAP+w0n9bH+EAY3Vm6GOAH3tM4H
+X-Received: by 2002:a05:620a:28d4:b0:929:f78f:6bf9 with SMTP id
+ af79cd13be357-93728497619mr773547085a.16.1787250479099; 
+ Thu, 20 Aug 2026 11:27:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:28d4:b0:929:f78f:6bf9 with SMTP id
+ af79cd13be357-93728497619mr773478485a.16.1787250468774; 
+ Thu, 20 Aug 2026 11:27:48 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90c5f2b5c7dsm44258136d6.47.2026.08.20.11.26.16
+ af79cd13be357-9372056b78esm422216885a.30.2026.08.20.11.27.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 11:26:16 -0700 (PDT)
-Message-ID: <1714a7c2142ac27fc5142584f0a61e9e8871831f.camel@redhat.com>
+ Thu, 20 Aug 2026 11:27:48 -0700 (PDT)
+Message-ID: <5a22c376eb0ded8e1cefcc042176f8c77f68658b.camel@redhat.com>
 Subject: Re: [PATCH 2/3] drm/nouveau: cancel the DP IRQ work before freeing
  the connector
 From: lyude@redhat.com
 To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Cc: sashiko-bot@kernel.org, linux-kernel@vger.kernel.org, Danilo Krummrich
- <dakr@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Date: Thu, 20 Aug 2026 14:26:15 -0400
-In-Reply-To: <178682657122.3795552.6920623796751043528@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Date: Thu, 20 Aug 2026 14:27:47 -0400
+In-Reply-To: <178682366002.3748010.4096452389040554615@gmail.com>
 References: <178682366001.3748010.7798811159846779765@gmail.com>
  <178682366002.3748010.4096452389040554615@gmail.com>
- <20260815201130.7BDDF1F000E9@smtp.kernel.org>
- <178682657122.3795552.6920623796751043528@gmail.com>
 User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: f6gylKrRP1CR4-xTMQKh2p6-AMQySL3mrAWQ123vOA0_1787250378
+X-Mimecast-MFC-PROC-ID: r1J1kpbmZFktOROyohxY7pKUOSY5i_pf5KW6r1GBSMs_1787250479
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -105,19 +102,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 2026-08-15 at 22:42 +0200, Marek Czernohous wrote:
->=20
-> I cannot rule it out, so I should not have written that sentence as a
-> finding.=C2=A0 It should have said that I looked and did not find a fourt=
-h
-> patch, not that there is none.=C2=A0 If the maintainers want, the shape o=
-f
-> a
-> fix is probably a drain of hpd_work after the connectors are gone, or
-> making nouveau_connector_hpd() a no-op once teardown has started, but
-> that is a separate change from this series and I would rather someone
-> who knows the hotplug path weighs in before I write it.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-I wrote a lot of that code, so I can just send out a patch for it in a
-moment and CC you.
+On Sat, 2026-08-15 at 21:54 +0200, Marek Czernohous wrote:
+> From: Marek Czernohous <marek@czernohous.de>
+>=20
+> nouveau_connector_destroy() tears the two nvif events down and then
+> frees the connector, but never cancels the work the IRQ event queues:
+>=20
+> =09nvif_event_dtor(&nv_connector->irq);
+> =09nvif_event_dtor(&nv_connector->hpd);
+> =09kfree(nv_connector->edid);
+> =09...
+> =09kfree(connector);
+>=20
+> nouveau_connector_irq() queues that work unconditionally:
+>=20
+> =09schedule_work(&nv_connector->irq_work);
+> =09return NVIF_EVENT_KEEP;
+>=20
+> A DP IRQ arriving just before nvif_event_dtor() therefore leaves
+> nv_connector->irq_work on the system queue past the kfree(). When it
+> runs, nouveau_dp_irq() derives both nv_connector and connector from
+> the
+> work_struct and dereferences them, and goes on to take
+> outp->dp.hpd_irq_lock.
+>=20
+> There is no cancel_work_sync() for irq_work anywhere in the driver,
+> so
+> nothing else covers this. Add it after the event teardown, where no
+> further work can be queued, and before anything is freed.
+>=20
+> Reported by the Sashiko review bot as a pre-existing issue, in its
+> review
+> of an earlier nv04 FIFO series of mine, and confirmed against the
+> source.
+>=20
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Link:
+> https://sashiko.dev/#/patchset/20260812231330.705425-1-mczernohous@gmail.=
+com?part=3D1
+> Fixes: 773eb04d14a1 ("drm/nouveau/disp: expose conn event class")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Marek Czernohous <marek@czernohous.de>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_connector.c | 1 +
+> =C2=A01 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c
+> b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> index b0b0ad9a0c24..e49dcaa6d210 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_connector.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> @@ -397,6 +397,7 @@ nouveau_connector_destroy(struct drm_connector
+> *connector)
+> =C2=A0=09struct nouveau_connector *nv_connector =3D
+> nouveau_connector(connector);
+> =C2=A0=09nvif_event_dtor(&nv_connector->irq);
+> =C2=A0=09nvif_event_dtor(&nv_connector->hpd);
+> +=09cancel_work_sync(&nv_connector->irq_work);
+> =C2=A0=09kfree(nv_connector->edid);
+> =C2=A0=09drm_connector_unregister(connector);
+> =C2=A0=09drm_connector_cleanup(connector);
 
