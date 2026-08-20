@@ -4,136 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D4E5C5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 05:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78642C5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 05:27:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 534E510EEE5;
-	Thu, 20 Aug 2026 05:10:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D36410E135;
+	Thu, 20 Aug 2026 05:27:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="I36y2lmD";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i9VWrP6p";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="FLcYxKLN";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 987CF10EEE5
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 05:10:09 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67JL834x1027514
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 05:10:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4Twp0uvpZUxUbJ4bTcMQP8irSNSBu5D5rLKGD0/bMYo=; b=I36y2lmDIuF5k0jC
- rPCRcQhCqUB0/qWyl0tfNTC7y2KGG2t0EN5eM2DEGIvaxbkgZQRwmViV1aFAZR17
- 6R9Sjluh2tH+2wX8VviL15NwtX1QNdjcBaiHxMdOl895s5yYKgI0CpaDaRJo3rVx
- 2g6UOgDNRdQY737qqLAHYjAwFLOB4QPaU/ASglb5RWYcm+3CsA7qj2KmthZHZRpB
- YT2JrCASgljZxptARXM795cxABrGg3vDlsid6pxW9DJvKRK1jb4mfXolHyY+DDMY
- 7DZaAMxCDoUdLUKT45UeZqdEReYU8u6N/e6Ihg1oW6z2zNoTP/tps9OltInbug4q
- 8QUiyQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5es4k7au-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 05:10:08 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-38e475f83a2so3551834a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 22:10:08 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5853410E135
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 05:27:15 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-6a378f90555so2667831a12.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 22:27:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787202607; x=1787807407;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=4Twp0uvpZUxUbJ4bTcMQP8irSNSBu5D5rLKGD0/bMYo=;
- b=i9VWrP6pm4hzMp0uM674jsjOJ2UuIR58lWnrrw0LMQTxu5tiPNDauS+88FlZYtUU0G
- qAMak5ZtBi/pFANrpqDxBMxlnPT0dmYLkQW0u8ErAwjFGJicWAWgggDCtMJr3hqV3fKf
- TC1lmK8cZAhrEubqdIbMrUg0V2eBeDyiMBL+eeiwq9zKlBrC3s3TduC7476tUV0x5/AW
- UkDyodzcPEvowL/ukfkm1do1bwJk+5qBO+iAL8DfRBjpnCj2lewncmmJE4TCQdbh9zC/
- BII7olOIyLYuVR2YVCf4wSQFUDG+98cecA+cqWYLdeYN2Q4DIGprOFOZ1k90AfA7CwL8
- qfLw==
+ d=suse.com; s=google; t=1787203634; x=1787808434; darn=lists.freedesktop.org; 
+ h=content-type:in-reply-to:autocrypt:from:content-language:references
+ :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=pD5f4qqlrVvZK5V1FYjurHHuEuqcJN2AUDmZ/4khKV0=;
+ b=FLcYxKLNULlNzOYJjOhI8utJHj1ZSLzJ57/b73wqlaPxuRIBlvczyYsIpDApeOMfhD
+ 0baw8eMze7owi6soUq29vp8Pk+CZxGfaC8Tqt0LuO9TT/aLMxDVlsmYzfifAUqXxZoXy
+ OMDc5lcvVEHXcT7wIKxHV42kvZLfObPWOXj2mgA7yxw+6om+12jX394/Tcux/GeIgkr/
+ ZEVHrWs80yA4UPMl7Ns9IfAE7VmAeiLNFeWUak98F9i5m5pDBiX+bj3ngdzXSxZvxHRA
+ ysTOdVRw0AfY9TRnTsVHlbLR/QirY4K+u+DMoR/orOs6LVkpTX1KfsAeImBS2L7cEx2L
+ PW3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787202607; x=1787807407;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4Twp0uvpZUxUbJ4bTcMQP8irSNSBu5D5rLKGD0/bMYo=;
- b=MF0qAmSIxo8SGEe210cmnuVsF1AOE9IBOXjKM7eZojRRTEOzu4z6569eAEnNJzv1O0
- oXfiXzCKv40d1UaXZc2hkS0aGaLKjbTS+dtlZr8OB+porqowYDRjK2MgBiItrmmeZcPP
- yF4rzlRKTC10AZ/0uAQQXzuthQMrBNH4zqxwsmzmerMzLcipGIX72tiX7T/pZYQ1FR/2
- /d+ENJN6jZnVeKE5Vtj4ygTMNK5VR/pBLlCZ7GJCR9J60KhqP68Ry0y8rzNzoMxWIWsz
- jUjdu5Bib2f6VhyVMZbQ6W+Lc67ynpGhem/paF+lH7eceGXBvmmTtfGpRNwfd8opkcNk
- PEAg==
+ d=1e100.net; s=20251104; t=1787203634; x=1787808434;
+ h=content-type:in-reply-to:autocrypt:from:content-language:references
+ :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=pD5f4qqlrVvZK5V1FYjurHHuEuqcJN2AUDmZ/4khKV0=;
+ b=bXVaMKGcvJh2jBtntdcRc+qFnpwjtjJugU5E/bHRGA3y0SC7AV3cRVISubzUHeidzk
+ 5X5IwPEdYTYAnl3p2I80AL/jBqd/t8fxDXrePQSYl4GH2RZp3jGN+qjJ5obe3hbaqxez
+ CSEhfzFAQgdee+zDZ72E/cH/suN1tswExQwjO/UQMwQWS3W2FkACad1sNCkFX0wGVtHJ
+ SURufenaZVxUjhPPZYoIj8UrZY1jmA1lOOV7walqjdqHfsLJc+M9RHnOxRehkPia39+9
+ ndNDXta7RK0+g7QwirGhnTPGDkFWRPi/hLP8TmP7ASuLRF2KyCCZhYAM1PbxrbXtbHqJ
+ SHjQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqMohaB2bkm7ENN06dkLsEUMgEvFabJvDsu0olSkTEKRuJb2BDh7pnwOAVdNNn5OOt2O6Miw5SEDM0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++msl0zxsHJ55AXlPvX6HOO909K7kDfUS3a5Gf6/Mw+0Dz32DF9z
- 5mp+7pfrsypfj0Fr8qzF5lh1UBPQL3Dzy9mrA12JEWyDplhCffkYSe14bCxq71TE8vduJPkNpMZ
- Cko4v7YSgTItBbyBba9rBh3EEO+DzPc3CB3vZHAxpbjiFjy3EzSNXtwSAIhjn1qwwdBt8s+2Uq+
- mouf4=
-X-Gm-Gg: AR+sD10yCQO0M6ms++QLex2cquVJclOGfWTNG+wkJe2jRo7BJZP6pyC0BgfjKUK+ba5
- HscH+HoQmBc5vjj1kyRurgSwuKu8LWuvfzco2C+KEWtFkEiar9GCniJSii6OEclgiNwlk4PgoPh
- EV0AoTuabVEXkkw4z0b9aHGJJrj6bauPQQL3945onuD/F45HneXoPI2ACYVvZT57hfGQBYYiNih
- zo8hRgs1KcU+2QYV99TLAld0iDPMhTsU/B9hyDltlio8RD0tQBniB2PXE5F4k3pKrCrd5wfieHg
- YqM/AZ4mpIzVW49cAq5tyP+vqMHJ0lZKPqWCSdJGt8mcLlcxJg26T7cr4U6Bdbk9bNiR1oW4c9g
- Hjgc/PguhSD0FHbnDxql7Lx1g9YSnNg==
-X-Received: by 2002:a17:90b:4e8f:b0:392:ca3b:370a with SMTP id
- 98e67ed59e1d1-39580a50d67mr19982979a91.2.1787202606919; 
- Wed, 19 Aug 2026 22:10:06 -0700 (PDT)
-X-Received: by 2002:a17:90b:4e8f:b0:392:ca3b:370a with SMTP id
- 98e67ed59e1d1-39580a50d67mr19982866a91.2.1787202606283; 
- Wed, 19 Aug 2026 22:10:06 -0700 (PDT)
-Received: from [10.219.56.166] ([202.46.23.19])
+ AHgh+RqVJnR+I++qvE3VBMPJ0iCmiiTgkPWF4ISXygwen1YVnggmxz+UeYVOhjeAjMx3qg18qCtTcpgMmOY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4sVOgKiGajS+pNZ5iDVE+kywc3u8Wbmyx7LGHjIOyThM2Hrog
+ OETcRzy1Ufm9qQ4m/SPjElVW5gFGfkTnub68292AWQAFQiYGK8in7zHzsXYQPMAvZM0=
+X-Gm-Gg: AR+sD13I/fDC66M61mhRnTXlhh2Xi6+wWRIeW2Auec5Xc5m8c/nN7CFQqcvNlTLAtEE
+ fUWlEx/tp40+kjHR2za5gX2GeB3WklJe96NJl2GNZErDfKaGx+y9GNpCN0hNX08mzrwoD1kvEEX
+ ZjUEJFJ8VlyxeP2wQoLIMYBkMOV4kA7t4dYQkwIpqtEwXm5xHEVI33rczLNsVGqznw5tY9iX8ly
+ O4kRmGAS/8P3QP0xdguD+ISgbx1Z3K/v1ymli2pSrkotppB6A58aKOZlu2HjzHw+BeiodqFSx3b
+ L0QvZDm8gmy++3QKULA/no4X1IYunNZHJpHbQXN6iYIsfodwOMIbccp2CdujKJ1CJHd2vIoJGrO
+ +qASGY0YEXQ203pM4TrzC8LH6KskbKEvn/La3gRqWevgHBR0FpDlZswYkYTWVLG80ccpK1HGksd
+ 4aeHKIGilecP2mhMIbOVPUvKGS+rUu5MPnZyQRosVbHTea44/UX0n/XKHDuhkOKEqG2de8rIVs0
+ LnMO7uXeDHxI8OyUBvNaZwTTzhavf6T7xUl9iyvoNWHjQ3mtPrxPGT3H52xN413YbZ6pfG5lwRG
+ bxi6606rrKi99w==
+X-Received: by 2002:a17:907:3c8f:b0:c21:34a3:4df9 with SMTP id
+ a640c23a62f3a-c23f92a86e6mr659193466b.3.1787203633620; 
+ Wed, 19 Aug 2026 22:27:13 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
+ (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
+ [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1416ae1416dsm16084143c88.11.2026.08.19.22.10.02
+ a640c23a62f3a-c24591989ecsm24409966b.38.2026.08.19.22.27.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Aug 2026 22:10:05 -0700 (PDT)
-Message-ID: <57185025-de92-43c4-a300-fa2682993d15@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 10:40:01 +0530
+ Wed, 19 Aug 2026 22:27:13 -0700 (PDT)
+Message-ID: <7c46f230-7eff-4420-aafc-47fdc27abd24@suse.com>
+Date: Thu, 20 Aug 2026 07:27:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-To: Jianping Li <jianping.li@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
+Subject: Re: [PATCH v2 00/13] x86/msr: Drop 32-bit MSR interfaces
+To: Sean Christopherson <seanjc@google.com>,
+ Dave Hansen <dave.hansen@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, linux-edac@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Damien Le Moal
+ <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ David Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
+ linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- quic_chennak@quicinc.com, stable@kernel.org
-References: <20260814101955.234238-1-jianping.li@oss.qualcomm.com>
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>,
+ Tony Luck <tony.luck@intel.com>, Reinette Chatre
+ <reinette.chatre@intel.com>, Dave Martin <Dave.Martin@arm.com>,
+ James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
+ Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Len Brown <lenb@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Huang Rui <ray.huang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+ Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
+ Artem Bityutskiy <dedekind1@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ David E Box <david.e.box@intel.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, xen-devel@lists.xenproject.org
+References: <20260819102314.1499258-1-jgross@suse.com>
+ <bd9e5b6e-07f2-459d-bca6-e290585060aa@intel.com>
+ <aoXM2f1YTwgVj8KL@google.com>
 Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260814101955.234238-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: X1VXWfWEeAhbpLDii-cKUZER2U0Xm1gb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAzNSBTYWx0ZWRfX9VmDhNe/QiT+
- M2otBKPQgOm/RnDPWfgLkLJOQnCJvhdyfGiVuXzrHzmH24H6ICYqDehISZ7k1y6Vi4w+Q/n3ZRb
- UZTbzMFAEo45An12VMgSNnXOhQPGuxuYVxjXM420QgGtaEgylJmTdAfkveXuqYAxQj3p7GvV4Vz
- DkuPjkFZ/lrWNmE5Im6G8e7g62tTP494IEU4iy9q5lu7iOX3NWzP/EVcibv0sTCKvH9VBdVfG3B
- k+WxUbbDDRHgEZKhLjm40pxRO7QEZSP0ivLECy4/S+SKue6uFuA9AFsYkqStcYPwr9LNzxQIIbX
- c/XQKbJk4FLiz9Tbn+zHo1LizVOybiZe6Tx4r4abhTY/IhcZe/OqByqVnDm31EyyauDTQn8bHWQ
- uk92L2TX/29Qb9BgMiwiuLaBHm59I5kgkzsvTdoSz6aTciphnu36IvduyrkSQIWyr7xEA58D0Ox
- gWpm+v51CY0Dj9OxatQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAzNSBTYWx0ZWRfX1b3Gi8Dt0OwT
- vkXG9MQwJxI9/K4PnAggXCAGqMX62F+X/bgVrZ3yEAAXypAuJgpBwDshfZAcX9+vJKTOeCAJqLb
- 8tKnH32jgpReEAoyWNpsI2eUxbPQJDY=
-X-Authority-Analysis: v=2.4 cv=CN8amxrD c=1 sm=1 tr=0 ts=6a868c30 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NDI3vt_X-jx7FteyWnUA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: X1VXWfWEeAhbpLDii-cKUZER2U0Xm1gb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 clxscore=1015 spamscore=0
- adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200035
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <aoXM2f1YTwgVj8KL@google.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------OlQIV8uZOa0bnOS7005717DP"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,333 +178,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 14-08-2026 15:49, Jianping Li wrote:
-> Allocating and freeing Audio PD memory from userspace is unsafe because
-> the kernel cannot reliably determine when the DSP has finished using the
-> memory. Userspace may free buffers while they are still in use by the DSP,
-> and remote free requests cannot be safely trusted.
-> 
-> Additionally, the current implementation allows userspace to repeatedly
-> grow the Audio PD heap, but does not support shrinking it. This can lead
-> to unbounded memory usage over time, effectively causing a memory leak.
-> 
-> Fix this by allocating the entire Audio PD reserved-memory region during
-> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
-> userspace-controlled alloc/free and ensures that memory is reclaimed only
-> when the DSP process is torn down.
-> 
-> The reserved-memory region is now mandatory for the Audio PD domain.
-> Rather than failing rpmsg probe when it is missing, validate it in
-> fastrpc_init_create_static_process() and reject only the static-process
-> creation. This keeps the fastrpc device probing for all other domains
-> even on a misconfigured device tree.
-> 
-> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-> Cc: stable@kernel.org
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
-> ---
-> Patch [v11]: https://lore.kernel.org/all/20260731093210.473-1-jianping.li@oss.qualcomm.com/
-> 
-> Changes in v12:
->  - Do not fail rpmsg probe when the reserved-memory region is missing,
->    validate the region in fastrpc_init_create_static_process() instead,
->    so probe keeps working for all domains.
->  - Add fastrpc_domain_has_reserved_heap() / fastrpc_domain_uses_static_heap()
->    helpers to replace the open-coded ADSP/SDSP domain checks.
-> 
-> Changes in v11:
->  - Replace the remote_heap fastrpc_buf pointer with dedicated
->    remote_heap_addr and remote_heap_size fields in
->    fastrpc_channel_ctx to avoid leaving a partially
->    initialized fastrpc_buf.
-> 
->  - Drop ADSP_MMAP_REMOTE_HEAP_ADDR support from
->    fastrpc_req_mmap() since the user process should no longer
->    grow or shrink the Audio PD remote heap.
-> 
-> Changes in v10:
->  - Move Audio PD remote heap validation into
->    fastrpc_rpmsg_probe().
-> 
->  - Treat Audio PD remote heap as a mandatory
->    resource and fail probe if the reserved
->    memory region is missing.
-> 
-> Changes in v9:
->  - Make sure fastrpc_init_create_static_process()
->    only sets audio_init_mem to false when the sent
->    address is actually invalid.
-> ---
->  drivers/misc/fastrpc.c | 150 +++++++++++++++++++++--------------------
->  1 file changed, 76 insertions(+), 74 deletions(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 90fd669636ec..3f14a4673698 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -70,8 +70,6 @@
->  #define ADSP_MMAP_HEAP_ADDR  4
->  /* MAP static DMA buffer on DSP User PD */
->  #define ADSP_MMAP_DMA_BUFFER  6
-> -/* Add memory to static PD pool protection thru hypervisor */
-> -#define ADSP_MMAP_REMOTE_HEAP_ADDR  8
->  /* Add memory to userPD pool, for user heap */
->  #define ADSP_MMAP_ADD_PAGES 0x1000
->  /* Add memory to userPD pool, for LLC heap */
-> @@ -314,10 +312,14 @@ struct fastrpc_channel_ctx {
->  	struct kref refcount;
->  	/* Flag if dsp attributes are cached */
->  	bool valid_attributes;
-> +	/* Flag if audio PD init mem was allocated */
-> +	bool audio_init_mem;
-> +	/* Audio PD reserved remote heap region */
-> +	phys_addr_t remote_heap_addr;
-> +	u64 remote_heap_size;
->  	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
->  	struct fastrpc_device *secure_fdevice;
->  	struct fastrpc_device *fdevice;
-> -	struct fastrpc_buf *remote_heap;
->  	struct list_head invoke_interrupted_mmaps;
->  	bool secure;
->  	bool unsigned_support;
-> @@ -1454,15 +1456,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	struct fastrpc_init_create_static init;
->  	struct fastrpc_invoke_args *args;
->  	struct fastrpc_phy_page pages[1];
-> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
->  	char *name;
->  	int err;
-> -	bool scm_done = false;
->  	struct {
->  		int client_id;
->  		u32 namelen;
->  		u32 pageslen;
->  	} inbuf;
->  	u32 sc;
-> +	unsigned long flags;
-> +	bool sent_heap = false;
-> +
-> +	if (!cctx->remote_heap_addr || !cctx->remote_heap_size) {
-> +		err = -ENOMEM;
-> +		dev_err(fl->sctx->dev,
-> +			"remote heap memory region is not added\n");
-> +		return err;
-> +	}
->  
->  	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
->  	if (!args)
-> @@ -1486,31 +1497,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	inbuf.client_id = fl->client_id;
->  	inbuf.namelen = init.namelen;
->  	inbuf.pageslen = 0;
-> -	if (!fl->cctx->remote_heap) {
-> -		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
-> -						&fl->cctx->remote_heap);
-> -		if (err)
-> -			goto err_name;
-> -
-> -		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
-> -		if (fl->cctx->vmcount) {
-> -			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
-> -
-> -			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
-> -							(u64)fl->cctx->remote_heap->size,
-> -							&src_perms,
-> -							fl->cctx->vmperms, fl->cctx->vmcount);
-> -			if (err) {
-> -				dev_err(fl->sctx->dev,
-> -					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
-> -					&fl->cctx->remote_heap->dma_addr,
-> -					fl->cctx->remote_heap->size, err);
-> -				goto err_map;
-> -			}
-> -			scm_done = true;
-> -			inbuf.pageslen = 1;
-> -		}
-> -	}
->  
->  	fl->pd = USER_PD;
->  
-> @@ -1522,8 +1508,25 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	args[1].length = inbuf.namelen;
->  	args[1].fd = -1;
->  
-> -	pages[0].addr = fl->cctx->remote_heap->dma_addr;
-> -	pages[0].size = fl->cctx->remote_heap->size;
-> +	/*
-> +	 * Audio PD is a static PD and retains the remote heap
-> +	 * information across daemon restarts. Therefore only
-> +	 * the first attach should provide heap information to
-> +	 * DSP. Subsequent attaches reuse the previously
-> +	 * initialized memory pool.
-> +	 */
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	if (!cctx->audio_init_mem) {
-> +		pages[0].addr = cctx->remote_heap_addr;
-> +		pages[0].size = cctx->remote_heap_size;
-> +		cctx->audio_init_mem = true;
-> +		inbuf.pageslen = 1;
-> +		sent_heap = true;
-> +	} else {
-> +		pages[0].addr = 0;
-> +		pages[0].size = 0;
-> +	}
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
->  
->  	args[2].ptr = (u64)(uintptr_t) pages;
->  	args[2].length = sizeof(*pages);
-> @@ -1541,27 +1544,11 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  
->  	return 0;
->  err_invoke:
-> -	if (fl->cctx->vmcount && scm_done) {
-> -		u64 src_perms = 0;
-> -		struct qcom_scm_vmperm dst_perms;
-> -		u32 i;
-> -
-> -		for (i = 0; i < fl->cctx->vmcount; i++)
-> -			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
-> -
-> -		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-> -		dst_perms.perm = QCOM_SCM_PERM_RWX;
-> -		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
-> -						(u64)fl->cctx->remote_heap->size,
-> -						&src_perms, &dst_perms, 1);
-> -		if (err)
-> -			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
-> -				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
-> +	if (sent_heap) {
-> +		spin_lock_irqsave(&cctx->lock, flags);
-> +		cctx->audio_init_mem = false;
-> +		spin_unlock_irqrestore(&cctx->lock, flags);
->  	}
-> -err_map:
-> -	fastrpc_buf_free(fl->cctx->remote_heap);
-> -	fl->cctx->remote_heap = NULL;
-> -err_name:
->  	kfree(name);
->  err:
->  	kfree(args);
-> @@ -2090,7 +2077,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
->  	if (copy_from_user(&req, argp, sizeof(req)))
->  		return -EFAULT;
->  
-> -	if (req.flags != ADSP_MMAP_ADD_PAGES && req.flags != ADSP_MMAP_REMOTE_HEAP_ADDR) {
-> +	if (req.flags != ADSP_MMAP_ADD_PAGES) {
->  		dev_err(dev, "flag not supported 0x%x\n", req.flags);
->  
->  		return -EINVAL;
-> @@ -2101,10 +2088,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
->  		return -EINVAL;
->  	}
->  
-> -	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR)
-> -		err = fastrpc_remote_heap_alloc(fl, dev, req.size, &buf);
-> -	else
-> -		err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
-> +	err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
->  
->  	if (err) {
->  		dev_err(dev, "failed to allocate buffer\n");
-> @@ -2143,20 +2127,6 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
->  	/* let the client know the address to use */
->  	req.vaddrout = rsp_msg.vaddr;
->  
-> -	/* Add memory to static PD pool, protection thru hypervisor */
-> -	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
-> -		u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
-> -
-> -		err = qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
-> -			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
-> -		if (err) {
-> -			dev_err(fl->sctx->dev,
-> -				"Failed to assign memory dma_addr %pad size 0x%llx err %d",
-> -				&buf->dma_addr, buf->size, err);
-> -			goto err_assign;
-> -		}
-> -	}
-> -
->  	spin_lock(&fl->lock);
->  	list_add_tail(&buf->node, &fl->mmaps);
->  	spin_unlock(&fl->lock);
-> @@ -2537,6 +2507,16 @@ static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unuse
->  	{},
->  };
->  
-> +static bool fastrpc_domain_has_reserved_heap(u32 domain_id)
-> +{
-> +	return domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID;
-> +}
-> +
-> +static bool fastrpc_domain_uses_static_heap(u32 domain_id)
-> +{
-> +	return domain_id == ADSP_DOMAIN_ID;
-> +}
-any reason to have functions for one time used checks?> +
->  static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  {
->  	struct device *rdev = &rpdev->dev;
-> @@ -2584,20 +2564,25 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  		}
->  	}
->  
-> -	if (domain_id == SDSP_DOMAIN_ID) {
-> +	if (fastrpc_domain_has_reserved_heap(domain_id)) {
->  		struct resource res;
->  		u64 src_perms;
->  
->  		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
->  		if (!err) {
-> +			if (fastrpc_domain_uses_static_heap(domain_id)) {
-> +				data->remote_heap_addr = res.start;
-> +				data->remote_heap_size = resource_size(&res);
-> +			}
->  			src_perms = BIT(QCOM_SCM_VMID_HLOS);
->  
->  			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
->  				    data->vmperms, data->vmcount);
-better to check vmcount before calling this>  			if (err)
->  				goto err_free_data;
-> +		} else {
-> +			err = 0;
->  		}
-> -
->  	}
->  
->  	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
-> @@ -2681,6 +2666,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->  	struct fastrpc_buf *buf, *b;
->  	struct fastrpc_user *user;
->  	unsigned long flags;
-> +	int err, i;
->  
->  	/* No invocations past this point */
->  	spin_lock_irqsave(&cctx->lock, flags);
-> @@ -2698,8 +2684,24 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->  	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
->  		list_del(&buf->node);
->  
-> -	if (cctx->remote_heap)
-> -		fastrpc_buf_free(cctx->remote_heap);
-> +	if (cctx->remote_heap_size && cctx->vmcount) {
-> +		u64 src_perms = 0;
-> +		struct qcom_scm_vmperm dst_perms;
-> +
-> +		for (i = 0; i < cctx->vmcount; i++)
-> +			src_perms |= BIT(cctx->vmperms[i].vmid);
-> +
-> +		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-> +		dst_perms.perm = QCOM_SCM_PERM_RWX;
-> +
-> +		err = qcom_scm_assign_mem(cctx->remote_heap_addr,
-> +					  cctx->remote_heap_size, &src_perms,
-> +					  &dst_perms, 1);
-> +		if (err)
-> +			dev_err(&rpdev->dev,
-> +				"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
-> +				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
-> +	}
->  
->  	of_platform_depopulate(&rpdev->dev);
->  
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------OlQIV8uZOa0bnOS7005717DP
+Content-Type: multipart/mixed; boundary="------------qk5J6DZ8xy0dNfYeK9IbauuV";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Sean Christopherson <seanjc@google.com>,
+ Dave Hansen <dave.hansen@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, linux-edac@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Damien Le Moal
+ <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ David Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
+ linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>,
+ Tony Luck <tony.luck@intel.com>, Reinette Chatre
+ <reinette.chatre@intel.com>, Dave Martin <Dave.Martin@arm.com>,
+ James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
+ Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Len Brown <lenb@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Huang Rui <ray.huang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+ Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
+ Artem Bityutskiy <dedekind1@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ David E Box <david.e.box@intel.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, xen-devel@lists.xenproject.org
+Message-ID: <7c46f230-7eff-4420-aafc-47fdc27abd24@suse.com>
+Subject: Re: [PATCH v2 00/13] x86/msr: Drop 32-bit MSR interfaces
+References: <20260819102314.1499258-1-jgross@suse.com>
+ <bd9e5b6e-07f2-459d-bca6-e290585060aa@intel.com>
+ <aoXM2f1YTwgVj8KL@google.com>
+In-Reply-To: <aoXM2f1YTwgVj8KL@google.com>
 
+--------------qk5J6DZ8xy0dNfYeK9IbauuV
+Content-Type: multipart/mixed; boundary="------------VektzkYqobfpSCR53LmeFJO1"
+
+--------------VektzkYqobfpSCR53LmeFJO1
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMTkuMDguMjYgMTc6MzMsIFNlYW4gQ2hyaXN0b3BoZXJzb24gd3JvdGU6DQo+IE9uIFdl
+ZCwgQXVnIDE5LCAyMDI2LCBEYXZlIEhhbnNlbiB3cm90ZToNCj4+IEhleSBKdWVyZ2VuLA0K
+Pj4NCj4+IFRoZXNlIGxvb2sgZ3JlYXQuIFRoYW5rcyBmb3IgZG9pbmcgaXQhDQo+Pg0KPj4g
+VGhlIG9ubHkgd29ua3kgdGhpbmcgaXMgaG93IHdlJ3JlIGdvaW5nIHRvIGFjdHVhbGx5IG1l
+cmdlIGl0LiBXZQ0KPj4gb2J2aW91c2x5IGNhbid0IGRvIHBhdGNoZXMgMTAtMTEgdW50aWwg
+YWxsIHRoZSAic3RvcCB1c2luZyIgcGF0Y2hlcyBoYXZlDQo+PiBiZWVuIGFwcGxpZWQuDQo+
+Pg0KPj4gSSBvYnZpb3VzbHkgMTAwJSByZWFsaXplIHRoYXQgaXQncyBkdXJpbmcgdGhlIG1l
+cmdlIHdpbmRvdywgYnV0IGFueSBhY2tzDQo+PiB0aGF0IHRoZSBtYWludGFpbmVycyBvZiA1
+LTkgcHJvdmlkZSBpbiB0aGUgbmV4dCBmZXcgd2Vla3Mgd291bGQgYmUgc3VwZXINCj4+IGhl
+bHBmdWwuIE9yLCBpZiBhbnkgb2YgdGhvc2UgbWFpbnRhaW5lcnMgd2FudCB0byBjaGVycnkg
+cGljayB0aGVpcg0KPj4gc3Vic3lzdGVtJ3Mgc3R1ZmYgb3V0IG9mIHRoaXMgc2VyaWVzIGFu
+ZCBhcHBseSBpdCwgdGhhdCB3b3VsZCBiZSBncmVhdCB0b28uDQo+Pg0KPj4gQnV0LCB0aGUg
+bGFzdCB0aW1lIHdlIGRpZCBzb21lIE1TUiBmdW5jdGlvbiBtdW5naW5nLCB0aGUgdGlwIHRy
+ZWUNCj4+IGNhcnJpZWQgbW9zdCBvZiB0aGUgcGF0Y2hlcy4gSSB3b3VsZCBleHBlY3Qgd2Un
+bGwgaGF2ZSBhIHJlcGVhdCBvZiB0aGF0DQo+PiBoZXJlIHRvby4gSSdsbCBwZW5jaWwgaW4g
+dGhlIGlkZWEgb2YganVzdCBtZXJnaW5nIHRoZSBsb3QgYXJvdW5kIC1yYzEgdGltZS4NCj4g
+DQo+IE5vdGUsIHBhdGNoIDEyICJ0cmVld2lkZTogY29udmVydCByZG1zcnEoKSBmcm9tIGEg
+bWFjcm8gdG8gYW4gaW5saW5lIGZ1bmN0aW9uIg0KPiBpcyBnb2luZyB0byBjb25mbGljdCB3
+aXRoIHRoZSBLVk0gY2hhbmdlcyBmb3IgNy4zOyBrdm1fYWNjZXNzX3hzdGF0ZV9tc3IoKSBp
+cw0KPiBnZXR0aW5nIG1vdmVkIGZyb20geDg2LmMgdG8gbXNycy5jLiAgU29tZXdoYXQgc3Vy
+cHJpc2luZ2x5LCBBRkFJQ1QgdGhhdCdzIHRoZQ0KPiBvbmx5IGNvbmZsaWN0IHdpdGggS1ZN
+J3MgY29kZSBtb3ZlbWVudCwgc28gaXQncyBwcm9iYWJseSBub3Qgc3RyaWN0bHkgcmVxdWly
+ZWQNCj4gdG8gc2VuZCBhIG5ldyB2ZXJzaW9uIGFmdGVyIHRoZSBLVk0gcHVsbCByZXF1ZXN0
+Pw0KDQpJJ20gZXhwZWN0aW5nIHNvbWUgbW9yZSBjb25mbGljdHMgZXNwZWNpYWxseSBmb3Ig
+cGF0Y2hlcyAxMC0xMiBiZWZvcmUgdGhleSBhcmUNCm1lcmdlZC4gSSdtIG1vcmUgb3IgbGVz
+cyBjb25zdGFudGx5IHJlYmFzaW5nIGxvY2FsbHkuIEluIGNhc2UgYSBjb25mbGljdCBpcw0K
+ZGV0ZWN0ZWQsIEknbGwgc2VuZCBhIFYzIGFmdGVyIHJjMS4NCg0KDQpKdWVyZ2VuDQo=
+--------------VektzkYqobfpSCR53LmeFJO1
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R3/CwO0EGAEIACAWIQSFEmdy6PYElKXQl/ew3p3W
+KL8TLwUCWt3w0AIbAgCBCRCw3p3WKL8TL3YgBBkWCAAdFiEEUy2wekH2OPMeOLge
+gFxhu0/YY74FAlrd8NAACgkQgFxhu0/YY75NiwD/fQf/RXpyv9ZX4n8UJrKDq422
+bcwkujisT6jix2mOOwYBAKiip9+mAD6W5NPXdhk1XraECcIspcf2ff5kCAlG0DIN
+aTUH/RIwNWzXDG58yQoLdD/UPcFgi8GWtNUp0Fhc/GeBxGipXYnvuWxwS+Qs1Qay
+7/Nbal/v4/eZZaWs8wl2VtrHTS96/IF6q2o0qMey0dq2AxnZbQIULiEndgR625EF
+RFg+IbO4ldSkB3trsF2ypYLij4ZObm2casLIP7iB8NKmQ5PndL8Y07TtiQ+Sb/wn
+g4GgV+BJoKdDWLPCAlCMilwbZ88Ijb+HF/aipc9hsqvW/hnXC2GajJSAY3Qs9Mib
+4Hm91jzbAjmp7243pQ4bJMfYHemFFBRaoLC7ayqQjcsttN2ufINlqLFPZPR/i3IX
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------VektzkYqobfpSCR53LmeFJO1--
+
+--------------qk5J6DZ8xy0dNfYeK9IbauuV--
+
+--------------OlQIV8uZOa0bnOS7005717DP
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmqGkC8FAwAAAAAACgkQsN6d1ii/Ey+e
+awf+Jpv8k2uyA4+Ryt6TuDaHqSnrkgatMB0F84HZ1AAuI02rgaxcS4qHeWXYnftFjGMzmdOuklMu
+fD2qHqlJtns8wbus6eBshyaJf7L5QqPdODWfJ1xma7m/JkWCfsWEtF1RHh+/gqnAxZ36Pjln1VTa
+cxXkk6/DqdrBc78e/ZRqY+yi90Eew9HaLArNBthsvcyWc9uXr8aGVl4naO3p/2Pj6J8FxDK7+9rm
+OVsJX5tkOwDyarQUJGLfaSNizqJT0nDnb+VyBzRdCHS06Uy2ho9GXkp83OfJo7tn5MWHtggptx9W
+8Q9DFLf/YdwL9qfWGVa/u5zq863UtqO9SWyFmp3aYQ==
+=np+M
+-----END PGP SIGNATURE-----
+
+--------------OlQIV8uZOa0bnOS7005717DP--
