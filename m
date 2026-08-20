@@ -4,123 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F3BC5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:04:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE591C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB8DE10E223;
-	Thu, 20 Aug 2026 18:04:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E11AD10E1E8;
+	Thu, 20 Aug 2026 18:09:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L8okw7BR";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fgRSNz6y";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8152710E1E8
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:04:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C631240B53;
- Thu, 20 Aug 2026 18:04:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9621F000E9;
- Thu, 20 Aug 2026 18:04:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787249065;
- bh=m3qrj+DL9uEso2X6MTIsEHUQC1V8fM2Rlt+MQVnuAxw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=L8okw7BR1E/5RimVg/1EDxrCZxuIBjTDfouneBnY5FzQATWpJvFBVnwvzrBp1tu4h
- P8dhL3kXkEp3fyut0ouByeDUHGK7mTOuCcr8RItl12hvAOKWuWVbfBMt6RYk7wyRPO
- Qe+vDRlhE1YURdow/DrxZ2r05BGdQaxq332JoDD9YrpQys4pvo2dQJ2cu6vpSIonb+
- v5XU7S4iQP4xwamfAJgWRyWHTaFpWpQZ/cAE/2yjVQYSSH/8MxlHfPGj/cwRuChCPZ
- gsaRxLTlp7a526U0zazwcjSi2rQ2r+SsiC0dNr6pU+9WZ66RzV11HlCEcKodcUB3Cl
- r5jamZMCZm6Dg==
-Message-ID: <ae6c93e6-10f2-4bac-be61-118bbfc3c05d@kernel.org>
-Date: Thu, 20 Aug 2026 20:04:06 +0200
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA83A10E1E8
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:09:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787249347;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EoMFrNCvIUQTPHB6hl+xAbTPs0P/K3u8eYdPPO0M/fM=;
+ b=fgRSNz6yN5w6JlPsr93SBvQdQQTdQ7nIW7mKh0dqY35cvliA5f3DGqTsusxHH0CM+Adgyp
+ lgR00IlWNmSu4Zb32nvrXdfkghWt5CgEDhsyw3VlHsgNi/mSKwjLK4PZgcA6TctT1lvbWa
+ 7C0Buv3Grps5oAy45jf9A6z7R5CkgMY=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-423-y2hf1MKUPnepqkV34s3eSA-1; Thu, 20 Aug 2026 14:09:04 -0400
+X-MC-Unique: y2hf1MKUPnepqkV34s3eSA-1
+X-Mimecast-MFC-AGG-ID: y2hf1MKUPnepqkV34s3eSA_1787249343
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-90c4e6517e9so3303816d6.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:09:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787249343; x=1787854143;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/D29wRD0UC/Hr8ZPGocWQ9UTN+csrkFSPeqNFH7Hdo4=;
+ b=izm4Llc8SkNcDS+12PknHjTIx1kpNHayRXmYB4hePwadN4XfsBfDudAIvb0lzzJmLj
+ AeryjpdmzH6sFRTprkp6MiznkBTxX0tiWvurMc2gpzI8JOTFioTVMU+Z7zmBrhVuTBng
+ mRqU3mXkSTux3iBmEwSiEoOQZa0eu26NHfUQpNFhf5DjHbCJUYgCQYTdWRLeEjiVv/HC
+ 49h+k2gDf6KI1S4azo1GJX6XVlgESuRfIL8c6B/Kz+Mwwgd1UK6CJ3B+Y/pH+jK8wY4G
+ tVFzSKvRAjQhdKhGIqvVjrVegU7dYNBZAaH1ZupbATB35KDOh9kY+vphMymkGe8koAsO
+ Yk8g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RorrQ2zNBMA98cRUTNMVf4JlLj9+TPEVyhXvXraihiWbHD471T9n6nxVwEWyV4OA5fHD2AQ/HzGXno=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l1/0UlL3ruqLAfvErLyW7stp3uObue2d6c11JF8ImVfcrAM6X8
+ 795CRSM9sXSQaSE/42B3Ljmwf3mZw1LzLbWSVrwslcPbxHNvzYTRgf1lMMGG9GNU8N/hP/2AbhT
+ cLokZuTct+IbIanFkEIeRjwFXqnFQl76CkxkE4uvs9sR9p3f8cz3ppg85sAcBTl0ryjONSw==
+X-Gm-Gg: AR+sD12nLgiAve5BlrXPVEk5pszRxdV5gMbpJW4pB3judbdTtX6iAcSmhMvvywQ92bn
+ 3XxdykbYbv+4vwQ3IAYLrjDbt+IDz1W/FsyCOKZ9qg9cgoxnmiFyws9tvnjB0QFnUkRPJ5HB3+y
+ vx7/ak1hdcJ/ULvlPZ0wQcTAOVYHBQqN5LKqtRQnLR6jB762PH8koe25yg77yL0Ifgn2E5lCZj1
+ 70yEFItyJOxV6DrzohgsMsmGv1yCNLkmya17XMQ2XwF0Tow1jDaVkgAYgzk95/ztHgU97eqdG+C
+ 1hJ/01Utab4PnsqGPPykru2uSCVXCw55gber4dMgKIr6DuGHs20Y0/bt9j2xWyTIBVWmNAlz
+X-Received: by 2002:a05:6214:acf:b0:8ff:650d:2b99 with SMTP id
+ 6a1803df08f44-90c807cac10mr1314176d6.0.1787249338958; 
+ Thu, 20 Aug 2026 11:08:58 -0700 (PDT)
+X-Received: by 2002:a05:6214:acf:b0:8ff:650d:2b99 with SMTP id
+ 6a1803df08f44-90c807cac10mr1312606d6.0.1787249337745; 
+ Thu, 20 Aug 2026 11:08:57 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-90c5edb4fa2sm43884006d6.10.2026.08.20.11.08.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2026 11:08:56 -0700 (PDT)
+Message-ID: <7c5419077ac6b087386dcd7f28b26003237a13d8.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/nouveau: disable the fence uevent work instead
+ of just cancelling it
+From: lyude@redhat.com
+To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Date: Thu, 20 Aug 2026 14:08:55 -0400
+In-Reply-To: <89da2f2c2cd6223e6973b1adb8aebd7a9cd9bce8.camel@redhat.com>
+References: <178682366001.3748010.7798811159846779765@gmail.com>
+ <178682366002.3748010.12779628082366287968@gmail.com>
+ <178688513268.513871.3468844663561639695@gmail.com>
+ <89da2f2c2cd6223e6973b1adb8aebd7a9cd9bce8.camel@redhat.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 05/10] mm/cma: Introduce cma_alloc_at() API
-To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Chun Ng <chunn@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-References: <20260814-tegra-vpr-v5-0-71832b5d0246@nvidia.com>
- <20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: kBK5yPyo0n6up_t95rcekjUpXMGtJNgPbg5ZRFlEIc4_1787249343
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,153 +104,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+(I misspoke, this patch ended up in drm-misc-next instead as fixes is
+currently closed)
 
->  /* This part must be outside protection */> diff --git a/mm/cma.c b/mm/cma.c
-> index a10ea37a261d..1e1ebae79090 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -936,6 +936,141 @@ struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
->  	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
->  }
->  
-> +static int cma_range_alloc_at(struct cma *cma, struct cma_memrange *cmr,
-> +			      unsigned long offset, unsigned long count,
-> +			      struct page **pagep, gfp_t gfp)
-> +{
-> +	struct page *page = NULL;
-> +	unsigned long pfn;
-> +	int ret = -EBUSY;
-> +
-> +	spin_lock_irq(&cma->lock);
-> +
-> +	/*
-> +	 * If the request is larger than the available number of pages, stop
-> +	 * right away.
-> +	 */
-> +	if (count > cma->available_count)
-> +		goto unlock;
-> +
-> +	ret = bitmap_allocate(cmr->bitmap, offset, count);
-> +	if (ret < 0)
-> +		goto unlock;
-> +
-> +	pfn = cmr->base_pfn + offset;
-> +	page = pfn_to_page(pfn);
-> +
-> +	/*
-> +	 * Do not hand out page ranges that are not contiguous, so
-> +	 * callers can just iterate the pages without having to worry
-> +	 * about these corner cases.
-> +	 */
-> +	if (!page_range_contiguous(page, count)) {
-> +		pr_warn_ratelimited("%s: %s: skipping non-contiguous area [0x%lx-0x%lx]",
-> +				    __func__, cma->name, pfn, pfn + count - 1);
-> +		ret = -EBUSY;
-> +		goto clear;
-> +	}
-> +
-> +	cma->available_count -= count;
-> +
-> +	/*
-> +	 * It's safe to drop the lock here. We've marked this region for
-> +	 * our exclusive use. If the migration fails we will take the
-> +	 * lock again and unmark it.
-> +	 */
-> +	spin_unlock_irq(&cma->lock);
-> +
-> +	mutex_lock(&cma->alloc_mutex);
-> +	ret = alloc_contig_frozen_range(pfn, pfn + count, ACR_FLAGS_CMA, gfp);
-> +	mutex_unlock(&cma->alloc_mutex);
-> +
+On Thu, 2026-08-20 at 13:55 -0400, lyude@redhat.com wrote:
+> This makes sense to me.
+>=20
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
+>=20
+> Will push to drm-misc-next-fixes in just a moment
+>=20
+> On Sun, 2026-08-16 at 14:58 +0200, Marek Czernohous wrote:
+> > From: Marek Czernohous <marek@czernohous.de>
+> >=20
+> > nouveau_fence_context_del() drains the uevent work while the event
+> > that
+> > feeds it is still armed:
+> >=20
+> > =09cancel_work_sync(&fctx->uevent_work);
+> > =09nouveau_fence_context_kill(fctx, 0);
+> > =09nvif_event_dtor(&fctx->event);
+> >=20
+> > nouveau_fence_wait_uevent_handler() queues the work
+> > unconditionally:
+> >=20
+> > =09schedule_work(&fctx->uevent_work);
+> > =09return NVIF_EVENT_KEEP;
+> >=20
+> > so a non-stall interrupt arriving after cancel_work_sync() has
+> > returned
+> > re-arms the work that was just drained.=C2=A0 The window closes in two
+> > steps,
+> > neither of which is the drain.=C2=A0 The kill blocks the event when the
+> > last
+> > fence holding a notify_ref is signalled, which reaches
+> > atomic_xchg(&ntfy->allowed, 0) (nvkm/core/event.c:104), and
+> > nvkm_event_ntfy() skips a ntfy that is not allowed (:183).=C2=A0 That
+> > stops
+> > further handlers from starting, but not one that is already inside
+> > nvkm_event_ntfy(): the event is created with wait =3D false
+> > (nouveau_fence.c:201), so nvkm_event_ntfy_block_() leaves it on the
+> > list
+> > and never takes event->list_lock.=C2=A0 Only nvif_event_dtor() waits
+> > that
+> > one
+> > out: nvkm_event_ntfy_del() (:141) goes through
+> > nvkm_event_ntfy_remove(),
+> > which takes write_lock_irq() on that same list_lock (:84).
+> >=20
+> > Either way the re-arm happens after the drain, and the caller drops
+> > its
+> > reference immediately afterwards, for example
+> > nv84_fence_context_del():
+> >=20
+> > =09nouveau_fence_context_del(&fctx->base);
+> > =09chan->fence =3D NULL;
+> > =09nouveau_fence_context_free(&fctx->base);
+> >=20
+> > That is a kref_put() on fctx->fence_ref, so the context outlives
+> > the
+> > teardown only while emitted fences still hold a reference of their
+> > own.
+> > That is no safety net: whenever none do, the count reaches zero
+> > right
+> > there and nouveau_fence_context_put() kfree()s fctx while the work
+> > is
+> > still queued.=C2=A0 &fctx->uevent_work is embedded in that allocation,
+> > so
+> > the
+> > workqueue already dereferences freed memory when it picks the item
+> > up,
+> > and nouveau_fence_uevent_work() can then take fctx->lock on it.=C2=A0
+> > With
+> > CONFIG_DEBUG_OBJECTS_WORK and CONFIG_DEBUG_OBJECTS_FREE, kfree() of
+> > a
+> > still-queued work item is reported as the free of an active object.
+> >=20
+> > On live memory the re-armed work has nothing left to do:
+> > nouveau_fence_context_kill() empties fctx->pending and sets fctx-
+> > > killed
+> > under fctx->lock, nouveau_fence_emit() then returns -ENODEV rather
+> > than
+> > queueing anything new, and nouveau_fence_update() only reaches
+> > nvif_event_block() if it signalled something off that list.=C2=A0 The
+> > defect
+> > is the access to freed memory, not what the work would have found.
+> >=20
+> > Only chips from G84 on can reach this at all:
+> > nouveau_fence_context_new()
+> > returns before nvif_event_ctor() when priv->uevent is clear, and
+> > nv84_fence_create() is the only place that sets it.
+> > nv84_fence_context_del() is the context_del for all of those,
+> > because
+> > nvc0_fence_create() and gv100_fence_create() build on
+> > nv84_fence_create()
+> > and override only context_new.
+> >=20
+> > Use disable_work_sync() instead.=C2=A0 It drains the work exactly like
+> > cancel_work_sync() does, and additionally increments the work
+> > item's
+> > disable count, after which "any attempt to queue @work will fail
+> > and
+> > return %false" (kernel/workqueue.c, disable_work()).=C2=A0 The handler'=
+s
+> > schedule_work() then has nothing to re-arm, and the teardown order
+> > stays
+> > as it is.
+> >=20
+> > Draining a second time after nvif_event_dtor() would close the
+> > window
+> > as
+> > well, and without the newer API: once nvkm_event_ntfy_remove() has
+> > returned, no handler can start or still be running, so nothing re-
+> > arms
+> > the work past that point.=C2=A0 disable_work_sync() is preferred here
+> > because
+> > it needs one synchronisation point instead of two, it keeps the
+> > work
+> > from being queued at all rather than cleaning up after it, and it
+> > is
+> > what drm has settled on for this (drm/xe, drm/panthor,
+> > drm_pagemap).
+> > Blocking the event rather than the work is not an option: fctx-
+> > >event
+> > is
+> > created with wait =3D false, so a handler already inside
+> > nvkm_event_ntfy()
+> > can still queue the work.
+> >=20
+> > Note for backports: disable_work_sync() arrived in v6.10 with
+> > commit 86898fa6b8cd ("workqueue: Implement disable/enable for
+> > (delayed)
+> > work items"), while the fix being corrected here reached 6.6.18 and
+> > 6.7.6.=C2=A0 linux-6.6.y therefore carries this bug without the API, an=
+d
+> > this
+> > patch would apply there and then fail to build.=C2=A0 A 6.6.y backport
+> > wants
+> > the second drain described above instead, as its own patch.
+> >=20
+> > Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> > Closes:
+> > https://lore.kernel.org/nouveau/20260812231330.705425-1-mczernohous@gma=
+il.com/
+> > Fixes: 39126abc5e20 ("nouveau: offload fence uevents work to
+> > workqueue")
+> > Cc: <stable@vger.kernel.org> # 6.10.x
+> > Assisted-by: Claude:claude-opus-5
+> > Signed-off-by: Marek Czernohous <marek@czernohous.de>
+> > ---
+> >=20
+> > Changes in v2:
+> > =C2=A0- Do not reorder the teardown.=C2=A0 v1 moved nvif_event_dtor() a=
+head
+> > of
+> > =C2=A0=C2=A0 nouveau_fence_context_kill(); with the fences still unsign=
+alled
+> > that
+> > =C2=A0=C2=A0 leaves nouveau_fence_enable_signaling() reachable, and
+> > =C2=A0=C2=A0 nvif_event_constructed() is a plain unlocked read of objec=
+t-
+> > > client,
+> > =C2=A0=C2=A0 so the dtor could race an nvif_event_allow() already past =
+that
+> > check.
+> > =C2=A0=C2=A0 Reported as [Critical] by the bot, and withdrawn:
+> > =C2=A0=C2=A0
+> > https://lore.kernel.org/all/20260815200914.8A1131F000E9@smtp.kernel.org=
+/
+> > =C2=A0- Change cancel_work_sync() to disable_work_sync() instead, which
+> > leaves
+> > =C2=A0=C2=A0 every ordering alone.
+> > =C2=A0- Pin the damage down.=C2=A0 Both versions call it a use-after-fr=
+ee;
+> > this
+> > one
+> > =C2=A0=C2=A0 adds that &fctx->uevent_work is embedded in the freed
+> > allocation,
+> > and
+> > =C2=A0=C2=A0 that the re-armed work has nothing left to do on a live co=
+ntext,
+> > so
+> > =C2=A0=C2=A0 the access to freed memory is the whole of it.
+> > =C2=A0- Correct the backport note.=C2=A0 v1 claimed no longterm tree sa=
+t in
+> > the
+> > gap
+> > =C2=A0=C2=A0 between the bug and disable_work_sync(); 6.6.y does.=C2=A0=
+ The stable
+> > tag is
+> > =C2=A0=C2=A0 annotated accordingly.
+> >=20
+> > This replaces 1/3 of
+> > https://lore.kernel.org/all/178682366002.3748010.12779628082366287968@g=
+mail.com/
+> > 2/3 and 3/3 of that series are unaffected and still stand.
+> >=20
+> > =C2=A0drivers/gpu/drm/nouveau/nouveau_fence.c | 2 +-
+> > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c
+> > b/drivers/gpu/drm/nouveau/nouveau_fence.c
+> > index edbe9e08ba0f..11e95c37ce50 100644
+> > --- a/drivers/gpu/drm/nouveau/nouveau_fence.c
+> > +++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
+> > @@ -96,7 +96,7 @@ nouveau_fence_context_kill(struct
+> > nouveau_fence_chan *fctx, int error)
+> > =C2=A0void
+> > =C2=A0nouveau_fence_context_del(struct nouveau_fence_chan *fctx)
+> > =C2=A0{
+> > -=09cancel_work_sync(&fctx->uevent_work);
+> > +=09disable_work_sync(&fctx->uevent_work);
+> > =C2=A0=09nouveau_fence_context_kill(fctx, 0);
+> > =C2=A0=09nvif_event_dtor(&fctx->event);
+> > =C2=A0=09fctx->dead =3D 1;
+> >=20
+> > base-commit: c21bb4193868a8de71fc4693fa741e195fdf5d86
 
-There is quite some code duplication with cma_range_alloc(). Please try harder
-to factor common code out and reuse it.
-
-
-
-> +	if (ret < 0)
-> +		goto free;
-> +
-> +	*pagep = page;
-> +
-> +	return 0;
-> +
-> +free:
-> +	/* we need to reacquire the lock to clean up the internal state */
-> +	spin_lock_irq(&cma->lock);
-> +	cma->available_count += count;
-> +clear:
-> +	bitmap_clear(cmr->bitmap, offset, count);
-> +unlock:
-> +	spin_unlock_irq(&cma->lock);
-> +	return ret;
-> +}
-> +
-> +static struct page *__cma_alloc_at_frozen(struct cma *cma, unsigned long offset,
-> +					  unsigned long count, gfp_t gfp)
-> +{
-> +	const char *name = cma ? cma->name : NULL;
-> +	struct page *page = NULL;
-> +	int ret = -ENOMEM, r;
-> +	unsigned long i;
-> +
-> +	if (!cma || !cma->count)
-> +		return page;
-> +
-> +	pr_debug("%s(cma %p, name: %s, offset %lu, count %lu)\n", __func__,
-> +		 (void *)cma, cma->name, offset, count);
-> +
-> +	if (!count)
-> +		return page;
-> +
-> +	trace_cma_alloc_at_start(name, offset, count, cma->available_count,
-> +				 cma->count);
-> +
-> +	for (r = 0; r < cma->nranges; r++) {
-> +		page = NULL;
-> +
-> +		ret = cma_range_alloc_at(cma, &cma->ranges[r], offset, count,
-> +					 &page, gfp);
-> +		if (ret != -EBUSY || page)
-> +			break;
-> +	}
-> +
-> +	/*
-> +	 * CMA can allocate multiple page blocks, which results in different
-> +	 * blocks being marked with different tags. Reset the tags to ignore
-> +	 * those page blocks.
-> +	 */
-> +	if (page) {
-> +		for (i = 0; i < count; i++)
-> +			page_kasan_tag_reset(page + i);
-> +	}
-> +
-> +	if (ret && !(gfp & __GFP_NOWARN)) {
-> +		pr_err_ratelimited("%s: %s: alloc failed, request: %lu, %lu pages, ret: %d\n",
-> +				   __func__, cma->name, offset, count, ret);
-> +		cma_debug_show_areas(cma);
-> +	}
-> +
-> +	pr_debug("%s(): returned %p\n", __func__, page);
-> +	trace_cma_alloc_at_finish(name, page ? page_to_pfn(page) : 0, page,
-> +				  count, ret);
-> +
-> +	if (page) {
-> +		count_vm_event(CMA_ALLOC_SUCCESS);
-> +		cma_sysfs_account_success_pages(cma, count);
-> +	} else {
-> +		count_vm_event(CMA_ALLOC_FAIL);
-> +		cma_sysfs_account_fail_pages(cma, count);
-> +	}
-
-Also here, way too much code duplication with __cma_alloc_frozen().
-
-There must be a better way :)
-
-(I really prefer this direction of the patch set)
-
-
--- 
-Cheers,
-
-David
