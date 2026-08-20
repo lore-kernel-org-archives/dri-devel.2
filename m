@@ -4,97 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DEADC5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 14:02:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3B58C5DF89
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 14:05:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A71AB10E1E3;
-	Thu, 20 Aug 2026 14:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B8E510E1F4;
+	Thu, 20 Aug 2026 14:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HPe3hluC";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="XwUsXtpN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA2B10E1DE;
- Thu, 20 Aug 2026 14:02:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0D2A743300;
- Thu, 20 Aug 2026 14:02:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E261F00A3A;
- Thu, 20 Aug 2026 14:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787234541;
- bh=FKoP7/iRScaGCla0KLoQxkwR9emkq604HHkB1smPXIo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=HPe3hluCuNwsve4vVDy06hd2/M2NxY3NzfeZXhvYCpdqvJesxCobuI+Aeb7K+y8Ho
- XcSrb2jhfjx0cB/Ea573N8Zf7stTd88+Ix//qzHgxyIlE8QVdtpus+IbOgmsMIyi3Y
- keJZWt77KtMyo4iXBE9ArHS3PGmVIkoiBa2Q0maXDIdsKRHemAnUW1J5ao1/qBKP4W
- zCJAlAVTkOGBb1neAHqYMTlXVYH0I1Q17+U2ZZqESGMT4ZKiyCwiV46ZAp8C6bPQV3
- Eu9grxB3Qa6/xLvYD1uyBHGLa7ltdDLSHJjK2QUVfhnTz3okC1zNxASdaTisPbCuMc
- Y1g1H/E5FATXw==
-Message-ID: <df0f9c8a-07f8-4305-91ef-2b9840294436@kernel.org>
-Date: Thu, 20 Aug 2026 16:02:16 +0200
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8852510E1F4
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 14:05:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787234696; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PtfGi+S2AXiL22uGLafr/gyawaykrZyQDM37D3oyYzfPHenAUdNw2aSj3Hhw79EybxK9RLgZ87yJ1a0q5qSy103Mqaesp5wDXjJQuSrwrFDE8zxf/Ubf9PdFUNKw+xJC2D3Gado02urrJKhv0FN18O7W/KYReVsSU8Tp63RjSrA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1787234696;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ycJ9EcKlHV84HNC+4szxJbtyx+Na6G7NV55qfrHPR3o=; 
+ b=i3WoA/OmNCHt12KmfAcZDp8bHXlIhqxDiekBFws2FM7gOPb6P4IxDiN8y8YtDrrO5uKRG//x8N+CoyhyTiKX8S8onB7sT/+lI/1eJLxktoHilTqXE1FGiVR+HW2Ter+Omym6rRR6OixUSHlWmRpsBM2KFqO1u7zFVwIYdcL/K7w=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787234695; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=ycJ9EcKlHV84HNC+4szxJbtyx+Na6G7NV55qfrHPR3o=;
+ b=XwUsXtpNHbfv1MsFzFeA4Yi8Hv1YurLvy2n5v0+hwCksE4YcP69LlzQcVJ2tlx6p
+ oY0rlL661S2a2ul3F9jGRvoECsIX4FeHVTDM/QnrfXf8msLP63xe7NO2PPT37dnW1XW
+ o1p2jIkw7MZOi4KmDPedyMYUTKnRlv9bMP4A4WEE=
+Received: by mx.zohomail.com with SMTPS id 1787234692984964.9407036847201;
+ Thu, 20 Aug 2026 07:04:52 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH 0/3] Collection of small fixes for Panfrost
+Date: Thu, 20 Aug 2026 15:04:46 +0100
+Message-Id: <20260820-b4-panfrost-fixes-v1-0-1b2c2376f4bc@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260808131624.2854412-1-lgs201920130244@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260808131624.2854412-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAyF4atI1gZqLaV6FXFhnVTjokqjIoh3t
+ zOz/Hj87wahxCTQFjckOll4jRlVWcA4D3Ei5E82aKWtclqhN7gNMaRVdgx8kaD1pgkuGFu5GnK
+ 3JfoNOev6v+XwC4379wie5wWBt505dQAAAA==
+X-Change-ID: 20260820-b4-panfrost-fixes-6b49f8f46183
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, Eric Anholt <eric@anholt.net>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Claude <noreply@anthropic.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1083;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=7pw+YuolOJTV3Ofl8CwZT1r7HjAZ4/BcMldobr45prE=;
+ b=owEB7AET/pANAwAKAQ4mfkzuU0M9AcsmYgBqhwl/dD0XFmeitxHEfT5oFFvM86gJ3c+7+Sfd0
+ MDySHjnvXSJAbIEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaocJfwAKCRAOJn5M7lND
+ PUavC/itMKWgLlPq7Ui8/AdELeM2m8/QonkfRq37NlBFbaCGd35A35bNbGrRYkSR+thjSZySgCe
+ d6E3dd7R3FMd3zyCJttWvrPUjX08TPu32InFatzOI+3VbEBQYNa9II1hKK4hLQjqgtIsD1MglGK
+ u4GyDBtnZT02skT+blwuQAodS9gQvAoxuxUl4rr+g7UxnMzdprnDcwuMZEDdwuevsJF3WRUOy4n
+ t9BPGi1zUPD0B/MAO9i26IxfaLirXMY6BL3p/QTJPKwX1AC4ZYHwRCDDKXf8Wa4T+eXVsNNQ7wY
+ XQzPz6q0RoIeMBqe1AX9OzEbpIYhlU00KDPy85Hp0cK477WozhAYEPKYrNyBlUn6AM9EMkASJm4
+ zIhyENpPPqJ45fsyAOuMuBS6VBGktQWbHqP0tms/9fbhUqfABtZs4QE5JK0gWY1cLTouQl1UpWH
+ SYAu8K5T1nBbQlurD4z8XJP/DxldgtcAQmu3AGcFRCAEURYOBytcKEUzr/aC713Cu1+Q==
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,40 +90,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 08/08/2026 15:16, Guangshuo Li wrote:
-> adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
-> adreno_gpu_cleanup() does not call the matching
-> pm_runtime_dont_use_autosuspend() during teardown.
-> 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped and usage_count remains
-> unbalanced.
-> 
-> The documentation for pm_runtime_use_autosuspend() also notes that it
-> is important to undo it with pm_runtime_dont_use_autosuspend() at
-> driver exit time, unless runtime PM was initially enabled with
-> devm_pm_runtime_enable().
-> 
-> Add the missing pm_runtime_dont_use_autosuspend() call to
-> adreno_gpu_cleanup().
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
+These fixes were originally part of a wider series, but since it seemed
+to grow indefinitely as new issues were found, I decided to split them
+into smaller more managable series. This one includes some minor fixes,
+both manually found or else pointed to by an LLM.
 
-You sent vast amount of patches, all separate, making it very difficult
-to track and respond in efficient way. Do not do that.
+The last pre-existing revision they were grafted from can be found at:
+https://lore.kernel.org/all/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com/
 
-Group your work per subsystem.
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+Adrián Larumbe (3):
+      drm/panfrost: Check another bo field for cache option query
+      drm/panfrost: Prevent division by 0
+      drm/panfrost: Remove unnecessary header file include
 
-You were asked to clarify and respond to incorrect fixes statement. I do
-not see how you clarified and responded at all.
-
+ drivers/gpu/drm/panfrost/panfrost_devfreq.c | 2 +-
+ drivers/gpu/drm/panfrost/panfrost_device.c  | 1 -
+ drivers/gpu/drm/panfrost/panfrost_drv.c     | 2 +-
+ 3 files changed, 2 insertions(+), 3 deletions(-)
+---
+base-commit: 063019ac51afffda4ab3d658701b086caa0c8e9e
+change-id: 20260820-b4-panfrost-fixes-6b49f8f46183
 
 Best regards,
-Krzysztof
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
+
