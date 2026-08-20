@@ -4,142 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D933C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 07:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5F4BC5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 08:10:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDB510EF28;
-	Thu, 20 Aug 2026 07:47:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3A3710E159;
+	Thu, 20 Aug 2026 08:10:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="agAReysm";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="en8Ex+wm";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y7ZUdcHp";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PKRLZAPg";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 250A510EF28
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:47:08 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AE0810E159
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 08:10:46 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67K6EPK3491129
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:47:07 GMT
+ 67K66jqB1354362
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 08:10:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- FWemyG4N4ylx8AJN2NYbSRutWHMPkhp+MiTGTIekUm4=; b=agAReysmKjIortik
- PpCcf6FrLsBAFvE0L36aRTnWYqI+2R+0kYuY77jU6VmYzah32kclW2u3mzNnW8OX
- M4+9abOckXZ1aVh+cheNvogAjrVtl5op3ScbA0oxs18pLFQwmFZE6u51IDK3nA0V
- AG+BpfPw/uMiNl8Yigark5SmCr0wq6OIJNBtOFYchSOdgDrWOYtfRm0wgHhG8P0F
- Nd7f2l8UBeQtWDILlHMdk5SsvsbCe5cdm/C7McjEZwwhXr74nCvTNoZUMehQUS8C
- CGb+yjf1tzdvKdaGaJCxvSQ0UEV5ECe7kaMsaZgJrhH0B1p1NOSSnOcAR84qe4Wt
- 87Yieg==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5ervktyj-1
+ 0WWp2wT5qOSsyYpU/bw4CDXmY45ymLIZfTRAZ0vxfec=; b=Y7ZUdcHpf5vnWV3z
+ qEjTgFdhF8uw2yuMbZ/5a7TZok8vkv91kc0e5RnrsisQWYVpROtDNHm0xBPirtln
+ rVy7lPsL4fWurnCouPfAxuUjy3ZDHVXU2O3fzkJkK8o/AEdHmJuOfWAl7wroK7Ql
+ a3poY4x3ksH0L14kEgzJQKYXr+4p44rjplTE3+z1ZH7p8duXWwTgA5+KwmK0+L1a
+ a3FJqQDdFFbi/rlV2pMxcsJw5pXKlZL5bRcxaN2eHtZ8X0nLu3bdo81Ev3OgOIqC
+ KX3uOaehov/vvss0vVX/Ln7mvIk8cgioQBwrIH9F2Q0gQjtPU0u3I5ngm6vTTaKd
+ FR28Bg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5es5bvqx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:47:07 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-9080b7b2f2bso20090226d6.3
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 00:47:07 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 08:10:44 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-92e5fc4c7e9so254069185a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 01:10:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787212026; x=1787816826;
+ d=oss.qualcomm.com; s=google; t=1787213444; x=1787818244;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
+ :references:cc:to:subject:from:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=FWemyG4N4ylx8AJN2NYbSRutWHMPkhp+MiTGTIekUm4=;
- b=en8Ex+wmeR9sltzhRDFit9satoJDPYN5Az8u7QfRZVlNRXE+18C56jVfRXnsTaZ2st
- 10BuK0b8KZ5xp00k/A2j1roBdir3KEzvQrA6YjRuZNF+n5oHytqFUdWwzp44yaye9yWW
- WJ7DFdk8nW0cLF70/nMKsTbfwlf8MqsrvfeS9lQ4BsEueD5QcLw+JNK2zJRhLhBvasC6
- MPzTwt3fMLDT28ehB1CO31AExfl3cv+ZOL+tbbdCshrld0eMRLUYrjQrzPioo95MvooZ
- 3OYEXl/31Ti06nIPpOWSh3spkluCZGm/P9BZPjibFC6p35hsRcyvq+0TOWqlSkgqmKt+
- 0/LQ==
+ bh=0WWp2wT5qOSsyYpU/bw4CDXmY45ymLIZfTRAZ0vxfec=;
+ b=PKRLZAPgM355UJqp3LX/gzFXEZuPvAcYYM7eG0fisuo4fCrAWputS9z8lUO4WJAAt4
+ +i4MdSXbImWc1GC6ASrI4CYObWR1iW1E0/k4y1xMS2R9hT5m3Nl6F+z0w4pyNubTjeDa
+ jfgXXgHDpnemO7TXJXcg/VB5LXjDF/1+8rDFP07/1OgHBUI35k3vbM9vCs/Kocsr9OOl
+ DNS14oJSFHYVpSgG/lNEnymW5ka2G/XxiOiRdIlKflo1agmN4EkbAhlJe9QIRW/hxuWN
+ BwNeg6l6PTxt6aaw6H7fGCcE9Rxe52705GfX4BuOuFJA79m21TnyIUfrJCcbIijqlfiE
+ ++UA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787212026; x=1787816826;
+ d=1e100.net; s=20251104; t=1787213444; x=1787818244;
  h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
+ :references:cc:to:subject:from:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=FWemyG4N4ylx8AJN2NYbSRutWHMPkhp+MiTGTIekUm4=;
- b=onGV2INYk0EUiBnD/1GfhzTxrsjT8JjbBVflw44503zCdo6wvuJIZERYosyC1YBkvo
- yKudNKCTi01EAqRgq/Dxp6/+0Xq1ccQ0ZftDMN6ZN2V/LghG+pk/wrV8gldO2nN5RhBZ
- blVJi30dT3X/UdC5iJFiwuYerzyy70M9RAxgRCDcGmZOZL6wc2zVA2BsW9s+bHB5Ik+2
- 1QYjsggUMwIaGWABrot7xmznLjbLvVONSr9qbSY8U5LTWmkm6UgFB+34uhF5nzI93vRD
- mjg9Le64kbJ4U8DUa5mfWB7qzc6xvlZ05cvxm6DAs+enw6pAI5+TQx4tWqE72OdEWihZ
- emZQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpfrIPHsrrfzHN+8LlKJrZ01RfJhuZ5xbExm+UEE7sQ+vJkssVP5We65TAUdOc/ZEV+OPs4D0rOS+A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyeVssfn8nKE2Bm8lt8CLLC8/zydsPFT3/6fIkix4CtyUhX/DVY
- YwjLxuCcapir0KPhHpy68oovVboEJOYhxrzGpLDP7tN/pI7CAqacLydpSGhD6/p9rQIrm6SOdO3
- OU1q1Y9mey/4X/X8Qc9Usyfz6zxXHJ9bzMQi0AnkqX28ew5/TFqtn3RjXRDt8fC0ozVEIX64=
-X-Gm-Gg: AR+sD107IVRWdbcGTPnKLnIQEPa8+egE2ZGJT+otOXMKAPhBdvehxUWNKa7P+lQvvW4
- RLiVQfAc5wgHiCT6JX99HYRKvvqXytwunTQcD5p4NKMY5B4Zj5ikCLqgrWWfGjaG9adI+RCeImB
- 8R4FKUmtspMA6XJALcHqYdAWn3UGNTd0ll0SiBkicLFJTGuKIxa/aGpvi7lgVEiCZ89uY9t2IWm
- YodmQnJtqTXSKjNGutvkyOrQRpK/YCF6gjtXlZZ4uzTkxGz4gNdNJELELofc7Ra/nixaRzwhDwl
- W+Wdi6Ol4z79wKXlkuHY4k+MmWfePq2XyYVXz+/SrPO81Ci+SjvTm5mPI9mxGK5PSpsOTwM9sAj
- 4TNwEW1x1QpOzPQfDBAZLNdDsVS27
-X-Received: by 2002:a05:622a:2b4b:b0:51c:a70:5ed with SMTP id
- d75a77b69052e-52dd5c9313dmr98105211cf.30.1787212026515; 
- Thu, 20 Aug 2026 00:47:06 -0700 (PDT)
-X-Received: by 2002:a05:622a:2b4b:b0:51c:a70:5ed with SMTP id
- d75a77b69052e-52dd5c9313dmr98104821cf.30.1787212026125; 
- Thu, 20 Aug 2026 00:47:06 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
+ bh=0WWp2wT5qOSsyYpU/bw4CDXmY45ymLIZfTRAZ0vxfec=;
+ b=tJfEplbf1Fx71G0V/ney+hgx/1MhGFHRhqe8tup4g6wSg/XGcrd+c8g4wvCAuyuaNz
+ I+tlrRB8ijZ7nLZTa3vwUFudX7+JVyIwlJfyznRIORgP6/7vGYT37sXt9WId4IgZtgPK
+ ZQVWnOVufWuq2DYQXpUjkgyrJuqiWV/jcEhfIpvuP3W0+yEp56olINfv2AMAjA2ZloYg
+ qXwPGyOi+CCWitJ5pFKx1lV3PEkZSQx9GxNu5pYJA/lWGtNL/v+tuiacdFRVl1KWk4Kx
+ 12oblRgwcdaOlaWWhvSq4wme/+fMkeNG5C9o/wbm18H884SoUAjRTdf+r/Y1gGmHlNlF
+ mHtg==
+X-Gm-Message-State: AOJu0YxnSi3yPhyfivQtRwk8EAeiMOi5BR63ZGddxGrXik4jnb+au2N2
+ rFU2pAc9DPIiVlEFMrfMP2kHgHCucfrTtkJCUr0vowxlAW09cEaWCjgvTDsAKbBVII17BNJ6A15
+ bNXdC3j6oPDv85L9yVGrj4loTybeLt17MioZ+4pGOg00ZbsWR8PGXVi56nTudWS/DjWFIWsQ=
+X-Gm-Gg: AR+sD11XXguoBVU5kkL1O/w2arFAFZwReZoJJ55yVFIDE1mRbB7Mr16C7/nTrVV52uE
+ fiR2ZcJw0A6SHzsrhRB7ryUkfErbj6qMmT66jdDLGd5sLTFh+FquBYUnRug3vrTbFQnQFPHkaYb
+ k11JffVpSjFjsdwOtpo70qqGnI0l+/ggbQrDmXAY7h9R4wNYmmTPLFu64gjdmQEUWTDb0xiFLQH
+ HYnmziAenF5pbaqjzA69MjCwFLHQm32eoOV7DbMZOwYA1MoO0al24vSf3PjG/tej61g5DhKsQtk
+ sJaphJK7Q4fOyNHfUbTDhXh+DEYRwpfkv8UrC9Ke89IIQpaYT/tc9pvt7TRO9h+zqcRCFKnsFO6
+ OT87oMFsNXp+pSwnm3MXlvrfHj8JylI/Ruvi49v9StjzAWzWViBAgqjC96hgZUCeRoG8g4eGdpA
+ GfmnRNi70nFziC0Wsen2+k0RVkMStJWuUFpsMHlFqAGWJqGqkX9ipK6EyDyByp5gGNoXs=
+X-Received: by 2002:a05:620a:bd4:b0:915:f96b:8f5a with SMTP id
+ af79cd13be357-9371e6ee8cdmr959799585a.36.1787213444345; 
+ Thu, 20 Aug 2026 01:10:44 -0700 (PDT)
+X-Received: by 2002:a05:620a:bd4:b0:915:f96b:8f5a with SMTP id
+ af79cd13be357-9371e6ee8cdmr959796185a.36.1787213443877; 
+ Thu, 20 Aug 2026 01:10:43 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499aa0dd5fcsm133844445e9.14.2026.08.20.00.47.03
+ a640c23a62f3a-c24591989ecsm38276166b.38.2026.08.20.01.10.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Aug 2026 00:47:05 -0700 (PDT)
-Message-ID: <0f8f3d24-41ec-4878-8182-c805c7db7c23@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 09:47:02 +0200
+ Thu, 20 Aug 2026 01:10:42 -0700 (PDT)
+Message-ID: <e19bd55d-74fb-4c81-9beb-c37271f677fb@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 10:10:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/12] dt-bindings: npu: rockchip: add
- rockchip,rk3576-rknn-core
-To: "Rob Herring (Arm)" <robh@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>
-Cc: linux-kernel@vger.kernel.org, tomeu@tomeuvizoso.net,
- p.zabel@pengutronix.de, ulfh@kernel.org, will@kernel.org,
- conor+dt@kernel.org, chaoyi.chen@rock-chips.com,
- dri-devel@lists.freedesktop.org, zhangqing@rock-chips.com,
- linux-arm-kernel@lists.infradead.org, joro@8bytes.org,
- devicetree@vger.kernel.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, linux-rockchip@lists.infradead.org,
- krzk+dt@kernel.org, alchark@flipper.net, ogabbay@kernel.org,
- royalnet026@gmail.com, diederik@cknow-tech.com, robin.murphy@arm.com,
- heiko@sntech.de
-References: <20260817113603.1436067-1-gahing@gahingwoo.com>
- <20260817113603.1436067-5-gahing@gahingwoo.com>
- <178709455518.1014304.1443906758035976924.robh@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <178709455518.1014304.1443906758035976924.robh@kernel.org>
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH] drm: panel-orientation-quirks: Add FHD version of Acer
+ One S1003
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+References: <20260713203828.383404-1-johannes.goede@oss.qualcomm.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260713203828.383404-1-johannes.goede@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: y4A_VtWm_hXgdDk5r305xA4sy00aIKDd
-X-Authority-Analysis: v=2.4 cv=VZ3H+lp9 c=1 sm=1 tr=0 ts=6a86b0fb cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=9GNsruGHAAAA:8 a=EUspDBNiAAAA:8 a=SdGosrV6Qt3YffhYJa8A:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22 a=gf-oSkQAjqHFJRp-GQfY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA1NSBTYWx0ZWRfX3ERQAsHjEoqm
- GqaoxS4a3NnvrNPojFNDvTrtKPewE8IL7ckQf2umwhB8bVjXhnjpd3me5B9ec4yjG3yGq2Xcg4P
- 9BEWxOae1pLn5P/QoVf1HaJDjgiJ5EMUyBCpodlBd14SKmaq1NXvJ37SrELbJqi73168Rjh7JFr
- CX8d+tnm4tIJjKvzd8Ydqan4gGsTOEFOHyFn1j9OfgbZ4KE4j7aj7pAo5/5awQMssNDHXvMABR7
- ay1O4R45e1pTLw9wZaJLzSREQGULc6JCjMBeruHXfpRFk2zoOVOBkSllI9jdncXLXj30Hvtn6e2
- jFF9R1Oig+qNCWK47qLguAwKovNkwKBqj81nrVX5UUsKormpW07F4fakh1E/RbKPJnfiFvs7Vuv
- gw+ZcT+u2rWTqkzNztrWBQfxLK3DXWLDAdvhmhYbAyk0yHleVIjasq+8IbCI5eBEaSkX/gIKeLN
- i4oP8Jiac81fURpAM9Q==
-X-Proofpoint-ORIG-GUID: y4A_VtWm_hXgdDk5r305xA4sy00aIKDd
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA1NSBTYWx0ZWRfX39Fc81zN6CQ6
- v6f2OsBnjzGm1V8kqcynFr3M2pIjdFb4+mwKepgoFUeI9XuREDh3FOQOu1+z4tJlituQD5ZBjlK
- 4HsGdkJ257hSvtUyQomBMHLuIk6lpY4=
+X-Proofpoint-ORIG-GUID: Z_JPsamnH6mXQ5D8T2xUmWqaxVUZ0qjI
+X-Proofpoint-GUID: Z_JPsamnH6mXQ5D8T2xUmWqaxVUZ0qjI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA1OCBTYWx0ZWRfX2RU+ZsM9JZ6V
+ dWWJ8kYdS0QNfdZRmnj7mvc3Nz6RihX0oJaKA63VHuFuCvD38HnhOa/ZxY7sh3/HpIC3HtIo+GB
+ DjMflpFiObnjLh/SBdZL3uK/7qd55Ek=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA1OCBTYWx0ZWRfX2KXVxgd4bGlJ
+ TuQVD+R6miyHm1botMAe4JUPQ59Z8cckALvHL7Ri9gB0E3gG09EAuAA3UDfegBweIAo0iEECXHY
+ 92x1uxWGwZSdfw+EtMdllDkM/hwA7/RE6YPaH1FzrpTW13ZhWj7Mjqp0GiqSJ4ao1iA3bh/zT16
+ 8v/kbf04c0jS5jOHuVieV5BvvjGh1wDLI5D4SQiN88GtsTOHXHXyAEabkdkxH2966/krom9a3o3
+ 0hdpCVoCmwWMB8iT2osul0jflfMucJQXRbEFa158XojH0HdhammcSsq4F3Io3+ryBhCFAWZCmBt
+ V1i7LM31UWEBtVj7+ik3+L1ngPOeFg3WFOtFPmRfDJTXy6k9vsZ2c1q4AyD7XqL9aKEaPztqNQc
+ hebADNmr90CbnB7Q7LEDIkb0ZkLlvsP239L2ImN7IeIHlPORWx+zQikga7ykv0qC/jYgbdDcOBC
+ SvNPCnPGAFalLycMZEA==
+X-Authority-Analysis: v=2.4 cv=Oc+oyBTY c=1 sm=1 tr=0 ts=6a86b684 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=IMqy8r4nALh_Rpp6BzYA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
- lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ impostorscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608200055
+ definitions=main-2608200058
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,40 +145,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 19/08/2026 01:09, Rob Herring (Arm) wrote:
-> 
-> On Mon, 17 Aug 2026 23:35:55 +1200, Jiaxing Hu wrote:
->> The RK3576 NPU has two cores of the same RKNN block the RK3588 binding
->> already describes, but it wires them up differently: two extra CBUF
->> clocks, two power domains per core, and a single reset instead of two.
->> It also has no NPU SRAM supply.
->>
->> Widen the property ranges to cover both, then pin each SoC back to its
->> own shape in allOf so nothing loosens for RK3588, and keep sram-supply
->> required for rockchip,rk3588-rknn-core only.
->>
->> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> ---
->>  .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++++++++++--
->>  1 file changed, 44 insertions(+), 3 deletions(-)
->>
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml: Unresolvable reference: /schemas/input/qcom,spmi-haptics.yaml#
-> 
-> doc reference errors (make refcheckdocs):
-> Documentation/translations/pt_BR/process/security-bugs.rst: :doc:`regular path submission </../../../process/submitting-patches>`
-> Documentation/translations/zh_CN/how-to.rst: Documentation/translations/zh_CN/xxx.rst
-> arch/arm/xen/enlighten.c: Documentation/devicetree/bindings/arm/xen.txt
+Hi All,
 
-Most likely false positive due to other things in the kernel broken.
+On 13-Jul-26 22:38, Hans de Goede wrote:
+> The Acer One S1003 2-in-1 also comes in a variant with a 1200x1920 FHD
+> screen instead of the 800x1280 screen.
+> 
+> The FHD screen also is a portrait screen used in a landscape clamshell
+> 2-in-1, add a second Acer One S1003 quirk matching the FHD screen.
+> 
+> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
-But just in case - be sure you tested the bindings.
+ping, can I get a Reviewed-by / Acked-by for this one so that
+I can push it please ?
 
-Best regards,
-Krzysztof
+Regards,
+
+Hans
+
+
+> ---
+>  drivers/gpu/drm/drm_panel_orientation_quirks.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+> index 3a218fb592ce..68b4eb7ab9f9 100644
+> --- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
+> +++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+> @@ -161,12 +161,18 @@ static const struct drm_dmi_panel_orientation_data lcd1600x2560_rightside_up = {
+>  };
+>  
+>  static const struct dmi_system_id orientation_data[] = {
+> -	{	/* Acer One 10 (S1003) */
+> +	{	/* Acer One 10 (S1003) (HD) */
+>  		.matches = {
+>  		  DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Acer"),
+>  		  DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "One S1003"),
+>  		},
+>  		.driver_data = (void *)&lcd800x1280_rightside_up,
+> +	}, {	/* Acer One 10 (S1003) (FHD) */
+> +		.matches = {
+> +		  DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Acer"),
+> +		  DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "One S1003"),
+> +		},
+> +		.driver_data = (void *)&lcd1200x1920_rightside_up,
+>  	}, {	/* Acer Switch V 10 (SW5-017) */
+>  		.matches = {
+>  		  DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Acer"),
+
