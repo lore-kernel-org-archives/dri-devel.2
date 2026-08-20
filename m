@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0DDFC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 14:36:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A277C5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 14:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EACE210F057;
-	Thu, 20 Aug 2026 14:36:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4C710F05D;
+	Thu, 20 Aug 2026 14:38:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ijVuZpLJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iwLrL5fZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81E8010F057
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 14:36:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C227410F05D
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 14:38:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A6EF760A5D;
- Thu, 20 Aug 2026 14:36:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AE81F000E9;
- Thu, 20 Aug 2026 14:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1787236602;
- bh=/K73UpbFqspENqOvtwecuFwCm+ozDxCXHR2h+RT9C28=;
- h=Subject:To:Cc:From:Date;
- b=ijVuZpLJfGNf3KxVUHHUYuVygGdx8FAXEo80FZc1QxJpb4tApcFXnFlMcMk3LVSA6
- XB3rmRlHKRU8ILGyTalpR9w2uA2Mrus3Wk1WwkE4IguWgqsE9+ZhmbkAn4uXpq+wlg
- pArNaW9cgR47OuZtUqYIGWPtRMfjZTqsvc3GcKfs=
-Subject: Patch "drm/vmwgfx: Set surface-framebuffer GEM objects" has been
- added to the 6.18-stable tree
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org,
- gregkh@linuxfoundation.org, ian.forbes@broadcom.com, jfalempe@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de, zack.rusin@broadcom.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 16:36:37 +0200
-Message-ID: <2026082037-dig-poppy-40df@gregkh>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+ by sea.source.kernel.org (Postfix) with ESMTP id 911D141431;
+ Thu, 20 Aug 2026 14:38:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613601F000E9;
+ Thu, 20 Aug 2026 14:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787236729;
+ bh=OXwwdQDxjbn0oOkoZXEiWu35gCbdHOo6rC8tDyff51g=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=iwLrL5fZsmVAcSTAIu/W0DXwanQnU2X7GWkEJ+xFOivRwPzGItCGzdHA36IuCbRiE
+ W/NjvRGaiLwqlUrRaVp9tFrdsOCRsk6B3uZSs4ImEF1m6niYOj3fb4w7l6cthIHi55
+ BbmXQBytg72Cjzye3VLnHF2qL/SR0qX9TiSQD5UbQRRr83yi7o/ZalD8pcHu2KKaPL
+ XR5WLgZSqN0rMMarM7m6JEYxuDiWiCdylRvHrmyG2KAJPzS0jUA0iHwuh3w4kkoFvE
+ hVVoPhSEo/w8sa3wXGD4F740ghg4zjs1hnO//AUZh/jHr2YpCaS320QKkQV3XmdvFB
+ OXAxu/78hN8zA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amd/display: Drop KUnit tests for removed
+ parse_hdmi_amd_vsdb()
+To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260820142802.1342066-2-rodrigo.vivi@intel.com>
+References: <20260820142802.1342066-2-rodrigo.vivi@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Aug 2026 14:38:49 +0000
+Message-Id: <20260820143849.613601F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,105 +53,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Erroneous deletion of active test coverage and prototype causing=
+ a compiler warning. The patch removes the KUnit tests and header declarati=
+on for `parse_hdmi_amd_vsdb()` based on the incorrect assumption that the f=
+unction was removed by commit `f65198b3d073`. However, `f65198b3d073` is no=
+t present in the baseline tree. As a result, `parse_hdmi_amd_vsdb()` remain=
+s fully implemented and actively used by `amdgpu_dm_update_freesync_caps()`=
+. Applying this patch deletes valid test coverage for an active code path. =
+Additionally, because the function uses the `STATIC_IFN_KUNIT` macro (makin=
+g it global when KUnit is enabled), removing its prototype from the header =
+triggers a `-Wmissing-prototypes` compiler warning.
+--
 
-This is a note to let you know that I've just added the patch titled
+--- Patch [1]: [PATCH] drm/amd/display: Drop KUnit tests for removed parse_=
+hdmi_amd_vsdb() ---
+commit 9e04fb9539ed0ab6b97c5e730b64224c40a317f4
+Author: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-    drm/vmwgfx: Set surface-framebuffer GEM objects
+drm/amd/display: Drop KUnit tests for removed parse_hdmi_amd_vsdb()
 
-to the 6.18-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+This commit removes the declaration and KUnit tests for
+parse_hdmi_amd_vsdb(), stating that the function was previously removed.
 
-The filename of the patch is:
-     drm-vmwgfx-set-surface-framebuffer-gem-objects.patch
-and it can be found in the queue-6.18 subdirectory.
+Fixes: f65198b3d073 ("drm/amd/display: Use HDMI FreeSync range from common =
+EDID parser")
+Cc: Alex Huang <Alex.Huang2@amd.com>
+Cc: Mario Limonciello <superm1@kernel.org>
+Assisted-by: Copilot:Claude-Opus-5
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> index 4e9eb3ff2c904..ce900844602e5 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> @@ -153,9 +153,6 @@ void parse_edid_displayid_vrr(struct drm_connector *c=
+onnector,
+>  			      const struct edid *edid);
+>  int get_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+>  		 struct amdgpu_hdmi_vsdb_info *vsdb_info);
+> -int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+> -			const struct edid *edid,
+> -			struct amdgpu_hdmi_vsdb_info *vsdb_info);
 
+[Severity: Medium]
+Is this function actually removed in the current tree?
 
-From 9942d36a73c2d46c52fdd6f37cf698f3cb09ce5c Mon Sep 17 00:00:00 2001
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Date: Tue, 4 Nov 2025 11:36:04 +0100
-Subject: drm/vmwgfx: Set surface-framebuffer GEM objects
+The commit message states parse_hdmi_amd_vsdb() was removed by f65198b3d073,
+but it appears that commit is not present in the baseline tree.
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+Looking at drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c,=20
+parse_hdmi_amd_vsdb() is still fully implemented and actively called by=20
+amdgpu_dm_update_freesync_caps():
 
-commit 9942d36a73c2d46c52fdd6f37cf698f3cb09ce5c upstream.
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c:amdgpu_dm_updat=
+e_freesync_caps() {
+    ...
+    i =3D parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+    ...
+}
 
-Set struct drm_framebuffer.obj[0] to the allocated GEM buffer object
-for surface framebuffers. Avoids a NULL-pointer deref in the client's
-vmap helpers.
+Since parse_hdmi_amd_vsdb() is defined using STATIC_IFN_KUNIT (which makes
+it a global function when KUnit is enabled), removing its prototype here
+triggers a -Wmissing-prototypes compiler warning during KUnit builds.
 
-[   22.640191] Console: switching to colour frame buffer device 160x50
-[   22.641788] Oops: general protection fault, probably for
-  non-canonical address 0xdffffc000000001f: 0000 [#1] SMP KASAN NOPTI
-[   22.641795] KASAN: null-ptr-deref in range
-[0x00000000000000f8-0x00000000000000ff]
-[...]
-[   22.641809] Hardware name: VMware, Inc. VMware20,1/440BX Desktop
-  Reference Platform, BIOS VMW201.00V.24928539.B64.2508260915 08/26/2025
-[   22.641812] Workqueue: events drm_fb_helper_damage_work
-[   22.641824] RIP: 0010:drm_gem_lock+0x25/0x50
-[   22.641831] Code: 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 48 b8
-  00 00 00 00 00 fc ff df 53 48 89 fb 48 81 c7 f8 00 00 00 48 89 fa 48
-  c1 ea 03 <80> 3c 02 00 75 0f 48 8b bb f8 00 00 00 31 f6 5b e9 16 2e 15
-  01 e8
-[...]
-[   22.641889] Call Trace:
-[   22.641891]  <TASK>
-[   22.641894]  drm_client_buffer_vmap_local+0x78/0x140
-[   22.641903]  drm_fbdev_ttm_helper_fb_dirty+0x20c/0x510 [drm_ttm_helper]
-[   22.641913]  ? __pfx_drm_fbdev_ttm_helper_fb_dirty+0x10/0x10 [drm_ttm_helper]
-[   22.641918]  ? __raw_spin_lock_irqsave+0x8c/0xf0
-[   22.641924]  ? __pfx___raw_spin_lock_irqsave+0x10/0x10
-[   22.641928]  ? __pfx_mutex_lock+0x10/0x10
-[   22.641936]  drm_fb_helper_fb_dirty+0x29a/0x5e0
-[   22.641942]  ? __pfx_drm_fb_helper_fb_dirty+0x10/0x10
-[...]
+[ ... ]
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: ea39f2e66e61 ("drm/client: Deprecate struct drm_client_buffer.gem")
-Reported-by: Ian Forbes <ian.forbes@broadcom.com>
-Closes: https://lore.kernel.org/dri-devel/CAO6MGtjg8PiRiSLomJQRBduTBSC0WkqX67tEZwA9qwOgRzchpw@mail.gmail.com/
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Tested-by: Ian Forbes <ian.forbes@broadcom.com>
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
-Link: https://patch.msgid.link/20251104103611.167821-1-tzimmermann@suse.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c |    3 +++
- 1 file changed, 3 insertions(+)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connec=
+tor_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connecto=
+r_test.c
+> index a54fd9529dc9e..83d3be5432028 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_tes=
+t.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_tes=
+t.c
+> @@ -4874,75 +4874,6 @@ static void dm_test_get_amd_vsdb_supported(struct =
+kunit *test)
+>  	KUNIT_EXPECT_TRUE(test, vsdb_info.replay_mode);
+>  }
+> =20
+> -/**
+> - * dm_test_parse_hdmi_amd_vsdb_null_edid - Test NULL EDID returns -ENODEV
+> - * @test: The KUnit test context
+> - */
+> -static void dm_test_parse_hdmi_amd_vsdb_null_edid(struct kunit *test)
 
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -553,6 +553,9 @@ static int vmw_kms_new_framebuffer_surfa
- 	memcpy(&vfbs->uo, uo, sizeof(vfbs->uo));
- 	vmw_user_object_ref(&vfbs->uo);
- 
-+	if (vfbs->uo.buffer)
-+		vfbs->base.base.obj[0] = &vfbs->uo.buffer->tbo.base;
-+
- 	*out = &vfbs->base;
- 
- 	ret = drm_framebuffer_init(dev, &vfbs->base.base,
+[Severity: Medium]
+Because parse_hdmi_amd_vsdb() is still present and used, does removing
+these tests prematurely delete valid test coverage for an active code path?
 
-
-Patches currently in stable-queue which might be from tzimmermann@suse.de are
-
-queue-6.18/drm-client-remove-drm_client_framebuffer_delete.patch
-queue-6.18/drm-client-remove-pitch-from-struct-drm_client_buffe.patch
-queue-6.18/drm-client-move-dumb-buffer-handling-to-drm_client_f.patch
-queue-6.18/drm-client-inline-drm_client_buffer_addfb-and-_rmfb.patch
-queue-6.18/drm-connector-hdmi-fix-out-of-bounds-memory-read.patch
-queue-6.18/drm-vmwgfx-set-surface-framebuffer-gem-objects.patch
-queue-6.18/drm-client-deprecate-struct-drm_client_buffer.gem.patch
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820142802.1342=
+066-2-rodrigo.vivi@intel.com?part=3D1
