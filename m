@@ -4,146 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AAD4C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 06:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EBA9C5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 06:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCB2D10EF0A;
-	Thu, 20 Aug 2026 06:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D1A910E151;
+	Thu, 20 Aug 2026 06:58:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ea3TBV9a";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mtWC9orN";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JyvAL0sl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fqk28GyM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ToZYJURG";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2624710E0F6;
- Thu, 20 Aug 2026 06:54:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 638CF84F15;
- Thu, 20 Aug 2026 06:54:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787208856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=Ea3TBV9aJHMQ4nGbhso8lG+QJ0OjfuTfK7IOL11mRsL9VW2IUIOcH50hdNc1xJX2PxNVgB
- UmXkAkCQnRaDCk/WNtFaamAVdzjwTTkjGsY8uYocPV4RZHhNZlcP5hNEuL0McKqwYQoJ7/
- 10EPUAGAnxrb5TuD/T6Lcu7rkxPwSuA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787208856;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=mtWC9orNdouFa8DCLWPXTWFpyfzRAzc5mA+ApcZp7qQI6kESaiiC4rfC5cMD7CJkllCTmk
- 2T/gc7F418D8O+Dg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JyvAL0sl;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fqk28GyM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787208852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=JyvAL0slVAMJ4ZgNEpYmekyQVQL1yRiBbvb86J7CIf20JcNzrfMs8V4+lapVo9JkNFo57m
- w8zRj9vDJhMHpAadQqieC8GZGnYWSYLS1vpeFobHXFTBfA8lPMQZWN+KaZMJpgGN0qcqoM
- idlFnJtGBwx3tXl1Nn2+PvhFXExsy2k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787208852;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=fqk28GyMqbm+M6byic1Pp0d8keCsy1LHCZ34KQutnpLNCu6jSMeo54DPAbOPg8GS9mbXF1
- TBunt1qeiHlZm1CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E675C27A8;
- Thu, 20 Aug 2026 06:54:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id odyVNpOkhmr4MQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:54:11 +0000
-Message-ID: <fa6953ff-1de3-40c9-8910-549083bb9a88@suse.de>
-Date: Thu, 20 Aug 2026 08:54:11 +0200
-MIME-Version: 1.0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011006.outbound.protection.outlook.com
+ [40.93.194.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B35410E151
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 06:58:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eEBFJ1wIma/53goUA9l/Ix7ymgxf+OeGr+rhEsD1qtvlcU11VIR0/7CmiHYjx+Qva47KZtaME5Jx3a+PFYjov8po0pgZFTeWX2RFeVWqwn6yETbD9fEUv0f7V6pdVE2XokInO8TXy0QYSLNrvRq/iulG5qyjuvADuBLijgmYXSWb6w8zxMnouxcHOv2v3hw8JuhlZVpV4PleftKnn5HqgYZza1YcV5juMlh9Og6PFnVQFWaEyld9FCshKkZ6/rNaByFDNiiAZBrmWQjp7Die/7AQIusQyyXj/LwWwgPUnthNLWRs6JylIfS0kpCVae9JF4bqrF46R49JPnTP7w3+MQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aO9DAcBBtKBHXAV1OT/9qV94kGOK6Y+4LFy5jcN5SaY=;
+ b=nO5N6cJE1VscOhlrZ8VI/khhXVdL5AvKsy6dCq3McpnTvDrVrzHMF1K7EKuRPIqk/itBDZCXPA17WSinD+XbCxdpSP62PmaMSqk3Hh6w90PW5B14oJtQnwmnROxCMpMkRtQNrbhFnrQNjRKEAyhhyNQx1hp0fkc9LK87eT0ePdGdc6aHE4U75dw7vHenLD3N0H6nXtjM1/QDj3W8ylbxS3hKW+b/CFPIvJNtJSpiFGorb1kdXLI7DkfYuXXV34KV5C9RxwhyImG95tnEw6TcHoSlW17CG6UMmHb/Ntq9gkjv3KTL8W0t38Uuh7rDL7A5y3AK0tjRkapOWx4KmvanPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aO9DAcBBtKBHXAV1OT/9qV94kGOK6Y+4LFy5jcN5SaY=;
+ b=ToZYJURGbZvn75fw96NfkDA63MqJOXhSksimBxO9FIYfp6soNDT3TUfL2Lvsz37aJIqsuITEOeych/4G5Ak0dYyePtZxt7oKIjLUYsa4ajP+pFnNWC/l6wr0wtq/pXyzBnfIiaMSVLFkYx17knOd33E61TaZ3z0mbdZas5coN54=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS2PR12MB9566.namprd12.prod.outlook.com (2603:10b6:8:279::16)
+ by CH0PR12MB8529.namprd12.prod.outlook.com (2603:10b6:610:18d::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.9; Thu, 20 Aug
+ 2026 06:58:02 +0000
+Received: from DS2PR12MB9566.namprd12.prod.outlook.com
+ ([fe80::2d07:1044:6ee1:830b]) by DS2PR12MB9566.namprd12.prod.outlook.com
+ ([fe80::2d07:1044:6ee1:830b%3]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
+ 06:58:02 +0000
+Message-ID: <c13b66fa-b3e7-4ac9-a889-36c924049b5f@amd.com>
+Date: Thu, 20 Aug 2026 12:27:57 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
- <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Subject: Re: [PATCH 2/2] fpga: versal: add dma-buf programming support
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+References: <20260816150734.2092802-1-aravind.thokala@amd.com>
+ <20260816150734.2092802-3-aravind.thokala@amd.com>
+ <20260816151831.E3C241F000E9@smtp.kernel.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+From: Aravind Thokala <aravind.thokala@amd.com>
+In-Reply-To: <20260816151831.E3C241F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 638CF84F15
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
- RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[igalia.com:email, suse.com:url, suse.de:mid,
- suse.de:dkim, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-ClientProxiedBy: MA5PR01CA0290.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:21b::15) To DS2PR12MB9566.namprd12.prod.outlook.com
+ (2603:10b6:8:279::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9566:EE_|CH0PR12MB8529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e65334c-a3c1-49fa-4f2a-08defe8860cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|6133799003|10067099003|11063799006|5023799004|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: pvDhsWT5AWPk1YBYh0Q5op94AVvYF/OfIloUwI3sbfGYu15zkoihd8xtDabUf+9UVthLDOkx3NSoWsKZ5xKlDzcKm3nSr7qSPGkZbqIQnT5koorw0+EEQdiuOFdLUnaX4wpHnHFxCChnye9uLgIZgIjjOSYOw/oldFQy35/S5evSI8pUxk+X4JCDX0hBqmiPiArMz/hqbNaIPuNRDLHUxaSaAZlwc1VCaSmNWwLknRrQfX9DMVCPMFXAaRHQOREf26oqTEP4Tsyp0cP53DHLwAG215+cv5QL4U5Iiwrv3oaBrlZX6MFlhsavCq7NioQSIP2rRyQG5J5EjGZK98DMCE8H/odzjDGkzKJ3o4I5uQ3BWqxPEY/ns0cHlyLzF3gPfwPApV9N1LPmQIsv5FItu8hwgsGIszKZ5TT4UutxWgQ/IH81/sDcO6Ip9o50CNyWD7BwT6FIGNgRG0x4rSywz6OkeXEPVoc8uUYAni+AofrpvYevyfmhkTJcl/g1fHgL+Ck3IgXiJvz3I6cEUqS6ohxSkxQQopk7CJxKS9jK242o6+AZx/BT3S3Pz9EXypeNGb/RmAhINsv8m1TnFyu7xqSCj1gRfefreDfYVQCdcWk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS2PR12MB9566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWpBSUtYVHM2MlZLWHNQQTVhSHpDeTZQeWtxb0tPbUd4NENrK2RQbVF2aVA5?=
+ =?utf-8?B?QlNOK2hPdUJDeDFLcmJMVzdYeEg5OFU3S2t1aWwxTjJKYmNVOVNyNjI3bVhj?=
+ =?utf-8?B?QUgyYTBsTEVRcll4UFFUT0QvVGlhQXpvRzAyRjl1T2xtSzdXWVp3bTJiWUkv?=
+ =?utf-8?B?dUlNVEs1cG9NOXFON3hUYXRNcm1wbFAxcDU4R1VxNmFqalAwci8rOWYxMFVo?=
+ =?utf-8?B?NG00bjRZRDgyMnJnRjFaOEZYVjhmOG9GTXFoSjNGT0NMMS9kaUpqMCtwWUl3?=
+ =?utf-8?B?K1BZRDFEOVJzbU03WDlwZmZuNjJxTXpUeTBha3VvaWowV1laWm42L1Y3ZmVJ?=
+ =?utf-8?B?aWtKRzNkZi9Ob3JiSTRSS0c3MTVINWhGU2NNYWMwNCtweDFXbkxENE1UeWdE?=
+ =?utf-8?B?TVZ1VFlKbnBYZFVtcXNzbVRXMTBkV251U1dEN3UyYy91am1CaDRHNEk2RHZ4?=
+ =?utf-8?B?K3REZWhYak1PTWhxUlJTYkZKeWIvWUhHTEcvRU91TkpSTy9oRUY5N1lwY0Qw?=
+ =?utf-8?B?UEZ0ZVpjZ3lCc1N1dVM3UEdUc1NGQkY3YVJOYytSOEh0L2UzdU8yTXo3a21w?=
+ =?utf-8?B?U0l1aGg2QTAzampYWElFTGdPbDFVbTlYSGdnTFZBUG9vcDMvMUNXT1luL3pL?=
+ =?utf-8?B?VER2alhMWG9zaVFHYlZmNm0rcmVVOEY3VmhRa0hSYXFSSnMzMWlaOUo5b1Zp?=
+ =?utf-8?B?K0FHUUxQbmpXVExMcE12TFpnWmdlN05COUk2cnBvNDE1Z0c0VmNiNjBPSnAx?=
+ =?utf-8?B?SHZiTkcvK2YvZDcySWFUY2tLYzlTeWwralF1RHN4Q3FmTk4rMmxNaHN5OFFu?=
+ =?utf-8?B?ZlgzZTVWTDR6cEJUdGN3UGRGMnhXYkswQjJHSDVDUW11UEtDYnhhVzFrbHdy?=
+ =?utf-8?B?OU91M0VFYWFON0xqaU5CUHdIcmJVTHpsUERrbVZxODgyUHlqSzhQWmdIcGpi?=
+ =?utf-8?B?YjBCbUxrNEZZMkF1QmNhdWdJdFZ2Tm12L2dmS1BpbWx2eGk3ejc2VnJUR3lL?=
+ =?utf-8?B?aUJTaWtsbHJXUldSOXZZNTJ0cDY1T3dHUVdONjNaajMxRTNaZVU3NDBpRkkx?=
+ =?utf-8?B?UWR5a2tmNXZvUm42T245b1V6NlpxcFQ5SWFKY1dJSzZhc0ltSTVXSlpRd3pt?=
+ =?utf-8?B?WUcwMm1NOUZ3UU9nMk1HUU11ckx0QXAxSVRBMEIwZlFTNUs4VkpWcVBRNXVD?=
+ =?utf-8?B?bTBac01XQUNmSjQxdTB2MUJzcHd5L25xWEgrbS9LS1M1N09zOHZiS1JWdzRj?=
+ =?utf-8?B?bW9PREU2Zk1wZ2wxSkxZNlNwOFJwaWE4OUVvM3lrbUhUdEdhYXVaNHgzZzRX?=
+ =?utf-8?B?YWhyRlVBRGZuTFJ5cjg1MHd6R0oxNzArT2pQZ3A0NHlSM2tKSnNJSGJhK0R0?=
+ =?utf-8?B?UEhtbnQzNTFJSjljS2o4djdNbEtrRmRJMDgzaEE4cmw4VWhBbUFzRDVMbHZW?=
+ =?utf-8?B?YXEwRzhNV2pkYnFsMkN0U2JuUXZWbEszMm5iL0lsRGpabzR4Sm5pN2NCa0tn?=
+ =?utf-8?B?MXZQTnE2SmdKbkx0Vkw5M0o4cURhUndhU3NWZDIzbDVreEdkZUtWeUlDalkr?=
+ =?utf-8?B?VnNOY013bjRsb1QyTE5PalZJMzhhNUF4RzVFRUNtQm92M0hRalByV3h6NU8v?=
+ =?utf-8?B?UjY4MkZ5Zkh6Y0lDWEU4V2dnanJJMlpNM2lVc1Z4SCtjcjN2ZHc3bThVSFpH?=
+ =?utf-8?B?UHNnaVRVNFN1QkpscGFpQlkxZ213TG9sRkd4K2RwckFZMmZEMkpFYW1sMi9Z?=
+ =?utf-8?B?c21Ed05SbEozeUZxdWhqOW1SWHd5T2I1a3R2VEt6dUs2d2c1NHZnREgwL3cz?=
+ =?utf-8?B?OFRsdUJqd1c5OFNpOE1ZSUl1L2pkRVJBUFFBY3gzV0trL1cxVjg2YlBzWG8z?=
+ =?utf-8?B?ZTFXeVJTOUppblczRjVqVFNYY1N6a25aRGRIdmJOaWJzUWtXaDlEZnQwU214?=
+ =?utf-8?B?SS90d3ZEbmtOVkRBUFdkMVRhY0t0QlJLNG9tZndMUlpKT2hoeWNhNXRXVStL?=
+ =?utf-8?B?V1RJNkdxVEZ2VndBaDBqMDVHMkpyc3FDNnhuelN0VzVKQXIvbGRlQXhTUEti?=
+ =?utf-8?B?Q1RNZWhncE90YU5HUTdsSlhUek54QkJsY2kxMW5yUmVhYnFXMDY4ME4rT21C?=
+ =?utf-8?B?QVRpOUJMVFNtd0dTMGZMUk1HUkFUaE5jYlI1UFRrZ0ZCOE93bG1QZklNem1N?=
+ =?utf-8?B?STRaM0JxYUhuSXBBc0RZNVZSN2VPUGZFTy9YajBpZVJNcnRmbmduanZnTFdz?=
+ =?utf-8?B?bkZBWXZZY3MzK3FPTUpKYTN6S09qcXFDS2N4Y0wxSkw1eUtnYW84ZFFCTmVV?=
+ =?utf-8?B?ZkVQNmRlMkVHV3FtNERUNHYxcDRERHJhb0NjVWdYbFF0VE9rejJJdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e65334c-a3c1-49fa-4f2a-08defe8860cb
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 06:58:02.7155 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FjlMtaFJVTDpcf7RdZTFB4+xniJC+SmP59uOvi/4xmOWqwQ/XxVHG46VFjd+HhkR4AaSNfn5C1uOd4jSpiIfZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8529
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,106 +137,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Hi,
 
-Am 17.08.26 um 23:05 schrieb Maíra Canal:
-> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
-> absolute deadline, but there is no equivalent for the drivers that
-> express a wait as a duration. Drivers such as i915 and v3d convert the
-> value themselves.
->
-> Converting a nanosecond duration to jiffies needs some care.
-> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
-> userspace-supplied timeout overflows its range and is silently truncated.
->
-> i915 already handles both cases in a local helper, which v3d has a copy
-> of. Add the same conversion to the core, so that it is available to any
-> driver and both copies can be dropped.
->
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
->   include/drm/drm_utils.h       |  1 +
->   2 files changed, 35 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
-> index 78e9f65e5477..18c2719d1fe9 100644
-> --- a/drivers/gpu/drm/drm_timeout.c
-> +++ b/drivers/gpu/drm/drm_timeout.c
-> @@ -9,6 +9,7 @@
->   #include <linux/export.h>
->   #include <linux/jiffies.h>
->   #include <linux/ktime.h>
-> +#include <linux/math64.h>
->   #include <linux/sched.h>
->   
->   #include <drm/drm_utils.h>
-> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
->   	return timeout_jiffies64 + 1;
->   }
->   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
-> +
-> +/**
-> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
-> + *
-> + * @timeout_nsec: relative timeout in ns, 0 for poll
-> + *
-> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
-> + * whose UAPI expresses a wait as a duration rather than as a deadline.
-> + *
-> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
-> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
-> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
-> + * that a finite wait is never understood as an infinite one.
-> + *
-> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
-> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
-> + * same arguments, so the duration starts counting from zero again. New uAPIs
-> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
+On 8/16/2026 8:48 PM, sashiko-bot@kernel.org wrote:
+> [You don't often get email from sashiko-bot@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+> 
+> 
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Passing a user-accessible dma-buf directly to the PMC firmware introduces a speculative Time-of-Check to Time-of-Use (TOCTOU) vulnerability that can potentially bypass FPGA bitstream authentication.
+> --
+> 
+> --- Patch [2]: [PATCH 2/2] fpga: versal: add dma-buf programming support ---
+> commit 92384704c37fbbfe16cd9659151fbb8646c178cc
+> Author: Aravind Thokala <aravind.thokala@amd.com>
+> 
+> fpga: versal: add dma-buf programming support
+> 
+> This commit adds a .write_sg callback to the Versal FPGA driver to support
+> dma-buf based programming. It extracts the DMA address from the scatter-gather
+> table and passes it directly to the firmware, avoiding an intermediate buffer
+> copy.
+> 
+>> diff --git a/drivers/fpga/versal-fpga.c b/drivers/fpga/versal-fpga.c
+>> index e6189106c4686..bdaa15a6c9913 100644
+>> --- a/drivers/fpga/versal-fpga.c
+>> +++ b/drivers/fpga/versal-fpga.c
+> 
+> [ ... ]
+> 
+>> @@ -37,11 +38,34 @@ static int versal_fpga_ops_write(struct fpga_manager *mgr,
+>>        return ret;
+>>   }
+>>
+>> +static int versal_fpga_ops_write_sg(struct fpga_manager *mgr,
+>> +                                 struct sg_table *sgt)
+>> +{
+>> +     dma_addr_t dma_addr;
+>> +
+>> +     /* zynqmp_pm_load_pdi() takes a single base address */
+>> +     if (sgt->nents != 1) {
+>> +             dev_err(&mgr->dev, "dma-buf has %u segments, need exactly 1\n",
+>> +                     sgt->nents);
+>> +             return -EINVAL;
+>> +     }
+>> +
+>> +     dma_addr = sg_dma_address(sgt->sgl);
+>> +
+>> +     return zynqmp_pm_load_pdi(PDI_SRC_DDR, dma_addr);
+> 
+> [Severity: Medium]
+> Does this expose the firmware to a Time-of-Check to Time-of-Use (TOCTOU)
+> vulnerability if the Xilinx PMC firmware double-fetches the payload?
+> 
+> By extracting the DMA address from the user-provided dma-buf and passing
+> it directly to zynqmp_pm_load_pdi() without copying it to a kernel-owned
+> isolated buffer, a process could potentially modify the bitstream
+> concurrently during the firmware's authentication and loading process.
+> 
+> If a user with CAP_SYS_RAWIO maintains a writable memory mapping to the
+> dma-buf (for instance, using udmabuf) and invokes FPGA_IOCTL_LOAD_DMA_BUF,
+> they could overwrite the memory while the firmware reads it.
+> 
+> If the firmware re-reads any part of the bitstream after authentication,
+> could this be abused to bypass secure boot boundaries?
+> 
+>> +}
+>> +
+> 
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260816150734.2092802-1-aravind.thokala@amd.com?part=2
 
-I would not speak of uAPIs here, as it's unrelated to the function at 
-hand. You might want to mention it in the commit description though.
+This patch series provides a zero-copy path for FPGA programming by
+passing a userspace-allocated DMA buffer directly to the firmware.
+Secure bitstream authentication is outside the scope of this series.
+It is handled entirely by the firmware.
 
-Please also see my comments on the docs of drm_timeout_abs_to_jiffies(). 
-Most of it applies here as well.
+This follows the same approach as the existing write callback, which
+also provides a DMA address to zynqmp_pm_load_pdi().
+The dma-buf path does not alter the existing security model.
 
-Best regards
-Thomas
-
-> + */
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
-> +{
-> +	/* make 0 timeout means poll, as for the absolute variant */
-> +	if (timeout_nsec == 0)
-> +		return 0;
-> +
-> +	/* nsecs_to_jiffies64() does not guard against overflow */
-> +	if ((NSEC_PER_SEC % HZ) != 0 &&
-> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
-> +		return MAX_JIFFY_OFFSET;
-> +
-> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
-> +}
-> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
-> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-> index 6a46f755daba..8c0cc9835413 100644
-> --- a/include/drm/drm_utils.h
-> +++ b/include/drm/drm_utils.h
-> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
->   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
->   
->   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
->   
->   #endif
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Kind Regards,
+Aravind.
