@@ -4,143 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 870A3C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F3BC5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:04:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAEF210E12B;
-	Thu, 20 Aug 2026 17:59:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB8DE10E223;
+	Thu, 20 Aug 2026 18:04:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HQ8/tyTp";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bo1n3KG6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L8okw7BR";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DDC010E12B
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:59:47 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67KHXvCU968426
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:59:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QFdxtm41wVDEsAP+K+yhfE0hkJ/8UD9Q8TAdZcZFzEU=; b=HQ8/tyTp1N8lZXAI
- n56VZ/6sTM5fPrLrBAnAkhRJCpXBa+kO1jkpNIQ/Qwx6XN5H1yhfEspZq5hN0hun
- AHJf2x61xcubSNZ4LqSXU4ZPlXMyggQyJFOw7oLLB+FzJaKl2h4lHO37PXZ9JJ5s
- oY5wWTmsVXeQ5c4t3Iv5Dn+ufy3+mD6yIWlnaTxFvz08IUMEA4H5a+2NRNxgIvp/
- LlujvrKGgikT6i8hpiwoL5t3i6UvxS1s4aSijuxc+sp+Q4ZrqMwIJGXb2apVHfL4
- 55D0uO6RZp6POwxLKSOGxpZkd1TOwB9b4yiiM5g0hCE/4WHV8ZlWFhLMFY1l/Rae
- 0snVsQ==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5vn8aws7-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:59:46 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-73883529f72so121827137.3
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:59:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787248786; cv=none;
- d=google.com; s=arc-20260327;
- b=NxOpGkReNMJEWvs6VYdBwXoZTSKP+N3UcByJx52qQc+ElraQZIYTq1wR799utKEWR1
- TMFcRkKco7KdIRa5wEZluzaGqxf5O7OLpgLwT8PLV6MgLtVzrxqxzK5iUnaUAVbTm/C8
- xE6iuUMmgP2tuobV3nxOy8NYJ1SIvrWxsYcn5kb5w8QvYMnAHPX2h6ijvHKzWu7O7qtc
- ynSBO1RROu971r/mwtJpPrtFfZQ17fXtVOUysVeMjk2+AGz2Bv2kY2m0sYlkYee7aCX0
- vz2qHSEry4BYXulZ7Lw+i5rCpG/delxSwiNQ2rHfau7fB+XZWFe8bstvELgLK/aQlyRh
- HZ2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=QFdxtm41wVDEsAP+K+yhfE0hkJ/8UD9Q8TAdZcZFzEU=;
- fh=06hhe6I/422EYX0En1xiJHj7gxG5hhp7eKz8Cc/vINw=;
- b=cmtS5qoZj0Yi4nTz4/qM/TrrDIY5IOSbFTBgM0E6peZ6OhTp3zyY+A+DtibjMluLYp
- LSjAfF7+H25376uAbuJ2ory9WCN/ZJpHIka3EGJ9GgqcS0fwQAeQkcJxMTc2eHA5ADp3
- mbPmPr/DKPEYdAsmqVxICS07gylB2Gxavm7cNtAjWwHqMFpJ81KJ8oWhwtds9unTSQMr
- db8QT2UjgAAhOTEgW8bTPyKC8A1ShKVUXBZPrAPHca/rZqLfMOEWOspDobbFmGEpSaUp
- hR6dJrgSUfQWw7tjREmNR/ERKGxh8WeQNz6KKKjzXSFxRytTcI84Sv+EucvL3fQBhiGl
- k2Bg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787248786; x=1787853586;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=QFdxtm41wVDEsAP+K+yhfE0hkJ/8UD9Q8TAdZcZFzEU=;
- b=Bo1n3KG6oT3jqn2xbied4tM6R1ZKEjjxg0hUsLIaIfH3FA+2ByNeIMZGMjLhqvoT5z
- F3bTzUNIas7eHXZdZQPaNHmEaYBxzP9T3kif6JU1CnGSp069fZ0Y5KF0ZwNbPkjNlsdP
- mXFLYUvdbdvjh4XdDrQAJjUIdA8Cd0jghN/MNSkAkZcmjoi7BvZ3lHubITgmZqvodNlS
- j9ZESqYDv++GCCfOU3Fq5owexXiGi2vWv+pELWAAlJwCsHfmEnaXS3uw2wkNPgP9G22+
- BY8BCz9gPvzwkzL/MsTzcdDcxs1X0Nc0jIKWrNqTKgrFivJ1DUjN7WKtxbmZghQSA2lV
- KG0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787248786; x=1787853586;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QFdxtm41wVDEsAP+K+yhfE0hkJ/8UD9Q8TAdZcZFzEU=;
- b=FaEHDde8uiFGoufMSzoffqwBlLWC+TpPX/4TN2SiHUD1ynfPjwOoORXQBgLH49JfMr
- +52sYYQ47TTcjfQ2rMI6KyPBRQUxP7s2IaloS9ZNDEyn3BTz8z7AMA/EswUdyaKLEt2O
- hLPOHwrc/6gEabGctHXDvFzzJDPdw6T2aSRqakldbE4TcQlrNlvoH2+grMYWAdMTcgPf
- Ny/D1NgYXE2PUPaArJL64Z7wocG0kxIHuPEyQh8ChA+1nJHwMhTQYJt5k0RSTrRFpdFM
- 5VI/m7ASBPcIvW8tg2Trapz4zQcxJRoNyayRI3DyTJFfddt4F42bJp9X/EIIAkChwxP5
- lU6Q==
-X-Gm-Message-State: AOJu0YzXBXdDNnNFXTVMa/SPclPwbVp95uogJqwdxh4pWmuhO+6Fz6XO
- WiOhiLDxECmjz1wUwPRwW1AsY1zrrsJsP92v/UbCeg55995D7Ijl3kB9ARfbUsSa0SVn/c50D6G
- JRyof6vn7I48WiyhWOZLwx4VD8Fq3a35UY6rGp6goiXtgByEG2VUNGHO1KD6L9tma6kTQ1t7P10
- qOt4nfl9p+cPO6K8iF+lrfnMuX9vWIe/WC2buFQNI+NR09Kw==
-X-Gm-Gg: AR+sD11wNZFBcCLJsD/M8E3+IYZlGL2+8BDZRdVHYCVPFt40wjUBsARA/a077hHAy4G
- 1oat/RUp6rmENMSUDduOI2VztGYjVF+/tZWf3zpypGl9yu24zfclzlk58N+/NwzzIVlQcnKCf56
- vnVmnFetMorw/otfP2QQ+KS5YaAreyiUdpYiNFVqODWtrUwxAVbvJJjDbQCw==
-X-Received: by 2002:a05:6102:3f86:b0:729:affa:70fd with SMTP id
- ada2fe7eead31-77a63448e0amr337877137.8.1787248785607; 
- Thu, 20 Aug 2026 10:59:45 -0700 (PDT)
-X-Received: by 2002:a05:6102:3f86:b0:729:affa:70fd with SMTP id
- ada2fe7eead31-77a63448e0amr337818137.8.1787248784750; Thu, 20 Aug 2026
- 10:59:44 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8152710E1E8
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:04:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C631240B53;
+ Thu, 20 Aug 2026 18:04:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9621F000E9;
+ Thu, 20 Aug 2026 18:04:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787249065;
+ bh=m3qrj+DL9uEso2X6MTIsEHUQC1V8fM2Rlt+MQVnuAxw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=L8okw7BR1E/5RimVg/1EDxrCZxuIBjTDfouneBnY5FzQATWpJvFBVnwvzrBp1tu4h
+ P8dhL3kXkEp3fyut0ouByeDUHGK7mTOuCcr8RItl12hvAOKWuWVbfBMt6RYk7wyRPO
+ Qe+vDRlhE1YURdow/DrxZ2r05BGdQaxq332JoDD9YrpQys4pvo2dQJ2cu6vpSIonb+
+ v5XU7S4iQP4xwamfAJgWRyWHTaFpWpQZ/cAE/2yjVQYSSH/8MxlHfPGj/cwRuChCPZ
+ gsaRxLTlp7a526U0zazwcjSi2rQ2r+SsiC0dNr6pU+9WZ66RzV11HlCEcKodcUB3Cl
+ r5jamZMCZm6Dg==
+Message-ID: <ae6c93e6-10f2-4bac-be61-118bbfc3c05d@kernel.org>
+Date: Thu, 20 Aug 2026 20:04:06 +0200
 MIME-Version: 1.0
-References: <20260806051915.2234481-1-pravinku@quicinc.com>
-In-Reply-To: <20260806051915.2234481-1-pravinku@quicinc.com>
-From: Pravin Kumar Ravi <pravin.ravi@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 10:59:34 -0700
-X-Gm-Features: AcwNN1WF_dUI9wIt0GRHRzqxRaap9sD1gWktU2w2B0QM4QA3qSEnyqDEX6FnY4A
-Message-ID: <CAPd7Qn3QYyrzBFFjB4+M9Je7uykYgxHiM+vh-mNVJ16QaoPkJA@mail.gmail.com>
-Subject: Re: [RFC] Synx: A global synchronization framework
-To: christian.koenig@amd.com
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-accel@vger.kernel.org, sumit.semwal@linaro.org,
- andersson@kernel.org, mathieu.poirier@linaro.org,
- konrad.dybcio@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDEzNSBTYWx0ZWRfX6K8cwLyEpect
- MV/gPArxCdz2q9/07daCArQFf8IbEhI2IWZDaA8DiPIdMG0fCuplGyb4lKCTFfe7wjJcEYMBVc0
- AYdcSEsaC/cmc5AqwOvHQYk8gAAiu71vr2MY4pXrR3pbayUnvHvXSguYoEZt5qjgWLTCkJgqSod
- sps7DpaObNNgXBqfXpFYeEdixWD/A6366sytwe3Al4yMPh2Xt+uxy/lykSgxFkTF+9T3nlRt5v8
- iBon9xSvS9FLWZ8trmrstP0N+FE1sThhx+FIKQYNPWPL0WjyBlAQHS82vOyIEdRg73h7ODJgWeW
- aipikkD3d46uI7RIHqqrt5CtKdOGd+SQ3Cfb8SwUobxoyBWKdFdPHzvXoWAIhBXRlgMgx9mMMqQ
- FaQLJ4iMTSO2rIPwKHi7vkDEfSnPG99YrHYOZ1qFGcD7yWVD9yXtBijn9YuEkXoHbw2pT0CQygE
- pFd1PplYWrGGMGit55Q==
-X-Authority-Analysis: v=2.4 cv=KpJ9H2WN c=1 sm=1 tr=0 ts=6a874092 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=zd2uoN0lAAAA:8 a=UqCG9HQmAAAA:8
- a=7OwBbYa5yZr9SEWkKL0A:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDEzNSBTYWx0ZWRfX0LLyg91Lz5cE
- NyO9ZozVM3se8KwOVOqqjZFsSJWMRo/016lAipVVx0A2Z14inVSL5nauMGCWMOWRt4U2Ev+Vgz6
- achXzjN0hZbFqgq0xdREiaNWtzkry14=
-X-Proofpoint-ORIG-GUID: z_rUKa_6o_fqK6_oC26rJdB-qTUxp8hp
-X-Proofpoint-GUID: z_rUKa_6o_fqK6_oC26rJdB-qTUxp8hp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-20_01,2026-08-20_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1011
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608200135
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 05/10] mm/cma: Introduce cma_alloc_at() API
+To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Chun Ng <chunn@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+References: <20260814-tegra-vpr-v5-0-71832b5d0246@nvidia.com>
+ <20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,90 +136,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian, thank you for the pointers.
 
-[Note: your reply (Message-ID <5f90bb35-994e-48bd-bf49-3001dcefa2ee@amd.com=
->)
-is on an earlier duplicate posting of this RFC
-(<BY5PR02MB6866E35A2B4241CF3A728A99D3D22@BY5PR02MB6866.namprd02.prod.outloo=
-k.com>)
-that went out with mangled formatting. Continuing the discussion here on
-this thread instead, quoting your message below.]
+>  /* This part must be outside protection */> diff --git a/mm/cma.c b/mm/cma.c
+> index a10ea37a261d..1e1ebae79090 100644
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -936,6 +936,141 @@ struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+>  	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
+>  }
+>  
+> +static int cma_range_alloc_at(struct cma *cma, struct cma_memrange *cmr,
+> +			      unsigned long offset, unsigned long count,
+> +			      struct page **pagep, gfp_t gfp)
+> +{
+> +	struct page *page = NULL;
+> +	unsigned long pfn;
+> +	int ret = -EBUSY;
+> +
+> +	spin_lock_irq(&cma->lock);
+> +
+> +	/*
+> +	 * If the request is larger than the available number of pages, stop
+> +	 * right away.
+> +	 */
+> +	if (count > cma->available_count)
+> +		goto unlock;
+> +
+> +	ret = bitmap_allocate(cmr->bitmap, offset, count);
+> +	if (ret < 0)
+> +		goto unlock;
+> +
+> +	pfn = cmr->base_pfn + offset;
+> +	page = pfn_to_page(pfn);
+> +
+> +	/*
+> +	 * Do not hand out page ranges that are not contiguous, so
+> +	 * callers can just iterate the pages without having to worry
+> +	 * about these corner cases.
+> +	 */
+> +	if (!page_range_contiguous(page, count)) {
+> +		pr_warn_ratelimited("%s: %s: skipping non-contiguous area [0x%lx-0x%lx]",
+> +				    __func__, cma->name, pfn, pfn + count - 1);
+> +		ret = -EBUSY;
+> +		goto clear;
+> +	}
+> +
+> +	cma->available_count -= count;
+> +
+> +	/*
+> +	 * It's safe to drop the lock here. We've marked this region for
+> +	 * our exclusive use. If the migration fails we will take the
+> +	 * lock again and unmark it.
+> +	 */
+> +	spin_unlock_irq(&cma->lock);
+> +
+> +	mutex_lock(&cma->alloc_mutex);
+> +	ret = alloc_contig_frozen_range(pfn, pfn + count, ACR_FLAGS_CMA, gfp);
+> +	mutex_unlock(&cma->alloc_mutex);
+> +
 
-On 8/6/26 13:52, Christian K=C3=B6nig wrote:
-> Oh, well history repeats itself.
->
-> Well to make a longer story short what you describe here was the
-> original dma_fence proposal from >10 years ago. We fortunately
-> rejected it already back then.
-> First of all some of the stuff you suggest here go strictly against
-> documented dma_fence restrictions, especially no point to point
-> remote signaling! dma_fences have a huge interaction with Linux core
-> memory management which makes stuff like that impossible.
+There is quite some code duplication with cma_range_alloc(). Please try harder
+to factor common code out and reuse it.
 
-Sure we'll need to be careful to not repeat seqno_fence.
 
-Synx can be used standalone without the optional dma-fence interop.
-It could have the properties of memory fences and need not satisfy the
-dma-fence contracts. Here remote-to-remote signalling doesn't wake-up
-the CPU.
 
-But we have use cases with synchronization points in the synx and dma-fence
-ecosystem for which we could provide synx<->dma-fence interop support
-"conditionally" while meeting the dma-fence contracts. What we would
-like to keep on the table is a narrower class
+> +	if (ret < 0)
+> +		goto free;
+> +
+> +	*pagep = page;
+> +
+> +	return 0;
+> +
+> +free:
+> +	/* we need to reacquire the lock to clean up the internal state */
+> +	spin_lock_irq(&cma->lock);
+> +	cma->available_count += count;
+> +clear:
+> +	bitmap_clear(cmr->bitmap, offset, count);
+> +unlock:
+> +	spin_unlock_irq(&cma->lock);
+> +	return ret;
+> +}
+> +
+> +static struct page *__cma_alloc_at_frozen(struct cma *cma, unsigned long offset,
+> +					  unsigned long count, gfp_t gfp)
+> +{
+> +	const char *name = cma ? cma->name : NULL;
+> +	struct page *page = NULL;
+> +	int ret = -ENOMEM, r;
+> +	unsigned long i;
+> +
+> +	if (!cma || !cma->count)
+> +		return page;
+> +
+> +	pr_debug("%s(cma %p, name: %s, offset %lu, count %lu)\n", __func__,
+> +		 (void *)cma, cma->name, offset, count);
+> +
+> +	if (!count)
+> +		return page;
+> +
+> +	trace_cma_alloc_at_start(name, offset, count, cma->available_count,
+> +				 cma->count);
+> +
+> +	for (r = 0; r < cma->nranges; r++) {
+> +		page = NULL;
+> +
+> +		ret = cma_range_alloc_at(cma, &cma->ranges[r], offset, count,
+> +					 &page, gfp);
+> +		if (ret != -EBUSY || page)
+> +			break;
+> +	}
+> +
+> +	/*
+> +	 * CMA can allocate multiple page blocks, which results in different
+> +	 * blocks being marked with different tags. Reset the tags to ignore
+> +	 * those page blocks.
+> +	 */
+> +	if (page) {
+> +		for (i = 0; i < count; i++)
+> +			page_kasan_tag_reset(page + i);
+> +	}
+> +
+> +	if (ret && !(gfp & __GFP_NOWARN)) {
+> +		pr_err_ratelimited("%s: %s: alloc failed, request: %lu, %lu pages, ret: %d\n",
+> +				   __func__, cma->name, offset, count, ret);
+> +		cma_debug_show_areas(cma);
+> +	}
+> +
+> +	pr_debug("%s(): returned %p\n", __func__, page);
+> +	trace_cma_alloc_at_finish(name, page ? page_to_pfn(page) : 0, page,
+> +				  count, ret);
+> +
+> +	if (page) {
+> +		count_vm_event(CMA_ALLOC_SUCCESS);
+> +		cma_sysfs_account_success_pages(cma, count);
+> +	} else {
+> +		count_vm_event(CMA_ALLOC_FAIL);
+> +		cma_sysfs_account_fail_pages(cma, count);
+> +	}
 
-(1) condition to assure point-to-point signal completion : remoteproc's pat=
-h
-to signal must not depend on Linux memory management i.e. every buffer the
-remote touches in order to reach the signal is committed before the fence i=
-s
-published, with no on-demand faulting and no allocation from a Linux manage=
-d
-pool. Wherever this does not hold, the handle must not carry a dma_fence.
-This condition is what makes the amdgpu user-queue fence driver
-(97ff19462539) legal: the memory firmware writes into a pinned kernel
-BO allocated once at init.
+Also here, way too much code duplication with __cma_alloc_frozen().
 
-(2) the condition wants to be enforced in code so that reviewer and
-lockdep can check. We would make it a per-remoteproc capability and
-refuse to attach a dma_fence to a handle from a remote that does not
-declare it. This is how Xe refuses out-fences backed by dma-fence
-for a long-running VM. Composition would follow the same rule: a merged
-handle is dma_fence-capable only if every constituent is.
+There must be a better way :)
 
-(3) on top of the point-to-point signal, the remoteproc's Linux driver
-has the obligation to complete the dma-fence within a reasonable time.
-Interop fences can't avoid CPU wake-up but standalone synx handles can.
-Interop fences benefit from the low latency in point-to-point signalling.
+(I really prefer this direction of the patch set)
 
-(4) to handle remote hangs that aren't related to memory, we need a
-watchdog armed at the dma-fence initialization which upon bite prevents
-further submission and triggers remoteproc recovery.
 
-Please let me know the issues in the model above.
+-- 
+Cheers,
 
-And to extend beyond the above conditions, the following proposal
-from you (which hit a deadend) seems very relevant.
-"Tackling the indefinite/user DMA fence problem"
-(20220502163722.3957-1-christian.koenig@amd.com)
-Were/Are there any efforts to resolve the challenges that are open in
-this thread?
-
-> What you can do is to do this in userspace with DMA-buf and user
-> space fences, signaling points etc... Take a look at how user space
-> waits in XE work, how eventfd works and ROCm events work for an
-> overview and maybe some starting ideas.
->
-> We could certainly build a framework around that, especially
-> eventfd sounds like a common ground to most drivers already, but
-> please stay away from dma_fences when you want to do something like
-> that.
-
-These pointers are helpful and we can start looking into these.
-We could keep the dma-fence interop discussion open and move ahead in the
-standalone and memory fence direction. Will share the high-level design.
-Please let me know if you need to focus on anything in particular.
-
-Thanks again,
-Pravin Kumar Ravi
+David
