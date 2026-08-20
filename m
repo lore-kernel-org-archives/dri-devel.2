@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD264C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:11:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F169BC5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:16:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D4C10E5E8;
-	Thu, 20 Aug 2026 11:11:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5814C10EFF5;
+	Thu, 20 Aug 2026 11:16:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XYVGWotp";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ikfmHiRq";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DDB110E5E8
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:11:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCB5410E1BD
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:16:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9DE6260A61;
- Thu, 20 Aug 2026 11:11:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A861F000E9;
- Thu, 20 Aug 2026 11:11:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787224304;
- bh=fasbt8tAnOEG6vdRs+TxDaJqcr7L2VB8rKHSNY54nbI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XYVGWotp3K24rvhSJ/vQX2GcrKyJ+ekv/8HfFSXobLMj3NDdljILvZAtV0a46wM+o
- QFPrXTLN3eGi2kfnpo7XKtdrJY9c1W0OvIomjds8K0qJEdc4mxnr3ueYLs5y+7+/Xe
- /OgaIaVg7Em4xfcpw00V7IQEJBvHi/iZu4w82xZkiTBlZkJDhWP8aS0MYDwRyRpgqH
- DYhWR8sY8E9Ud1cDdFvwXoqOCp5yI6iFMieVfXoBqJdYNRIJFKAwROzPlDlGzdGGFE
- YCatZls3lMOyaZl5fvPQMkKJdPXZFPREn00uyI73CvE/avaxuNo+MpT+6h62IPKpGj
- 9fkpNzARzHEUQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 1/1] drm/amdgpu: fall back to MMIO TLB
- invalidation when KIQ is unresponsive
-To: "Denis Pisarev" <pisarevden@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260820105716.148732-2-pisarevden@gmail.com>
-References: <20260819185349.29407-1-pisarevden@gmail.com>
- <20260820105716.148732-1-pisarevden@gmail.com>
- <20260820105716.148732-2-pisarevden@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 11:11:43 +0000
-Message-Id: <20260820111144.36A861F000E9@smtp.kernel.org>
+ by tor.source.kernel.org (Postfix) with ESMTP id 38DAC60A92;
+ Thu, 20 Aug 2026 11:16:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8AF01F000E9;
+ Thu, 20 Aug 2026 11:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1787224578;
+ bh=gxfMYcSadoxD6/wGIMglgZMkyphtdEiPAot8iLi11ao=;
+ h=Subject:To:Cc:From:Date;
+ b=ikfmHiRqcOaB3dfmIlNJ76+Uwk4UD9VUF0H1xl6b2PoIzEV2luS1B9o5gA0JE5Vqs
+ HG8w7Zbt962sTo3QlhawIdk4RmS2Qhk6xKFyQTVgbJ7fsK0zpAzDGSNu8biSaEsKrb
+ sIK2GBHCbzUevfqW3qgHwE7Sa5nzDwCelewdhL28=
+Subject: Patch "drm/connector/hdmi: Fix out of bounds memory read" has been
+ added to the 7.1-stable tree
+To: John.Harrison@Igalia.com, airlied@gmail.com, daniel@fooishbar.org,
+ dmitry.baryshkov@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ jani.nikula@intel.com, jose.exposito89@gmail.com,
+ laurent.pinchart+renesas@ideasonboard.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, nicolas.frattaroli@collabora.com, simona@ffwll.ch,
+ tzimmermann@suse.de, ville.syrjala@linux.intel.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 20 Aug 2026 13:15:07 +0200
+Message-ID: <2026082007-endorphin-nail-d1c6@gregkh>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,97 +57,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] SR-IOV VFs and interrupt contexts silently drop TLB flushes once K=
-IQ failure threshold is reached.
-- [High] KIQ and MMIO fallback use the same invalidation engine, causing ha=
-rdware register corruption when racing.
---
 
---- Patch [1]: [RFC PATCH v2 1/1] drm/amdgpu: fall back to MMIO TLB invalid=
-ation when KIQ is unresponsive ---
-commit 9356e0619308f1d18159aa347d78c9e8c47151eb
-Author: Denis Pisarev <pisarevden@gmail.com>
-drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is unresponsive
+This is a note to let you know that I've just added the patch titled
 
-This commit implements an MMIO fallback for TLB invalidation on gmc_v9 when
-KIQ becomes unresponsive after resume. It limits KIQ retries to 3 consecuti=
-ve
-failures before switching to direct MMIO, bypassing the long timeout window.
-The fallback is restricted to bare metal process contexts.
+    drm/connector/hdmi: Fix out of bounds memory read
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v9_0.c
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-[ ... ]
-> +static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t =
-vmid,
-> +					uint32_t vmhub, uint32_t flush_type)
-> +{
-[ ... ]
-> +	if (adev->gfx.kiq[inst].ring.sched.ready &&
-> +	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
-> +		uint32_t req =3D hub->vm_inv_eng0_req + hub->eng_distance * eng;
-> +		uint32_t ack =3D hub->vm_inv_eng0_ack + hub->eng_distance * eng;
-> +
-> +		if (atomic_read(&adev->gfx.kiq[inst].flush_failures) <
-> +				AMDGPU_KIQ_FLUSH_MAX_FAIL) {
-> +			if (!amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack,
-> +							      inv_req,
-> +							      1 << vmid, inst))
-> +				return;
-> +			/* KIQ submit failed; error already logged */
-> +		}
-> +
-> +		/*
-> +		 * MMIO fallback: invalidation must not be silently dropped
-> +		 * when KIQ is unresponsive. Direct register access is only
-> +		 * safe in process context (amdgpu_gfx_off_ctrl may sleep)
-> +		 * and on bare metal; SR-IOV VFs must keep proxying through
-> +		 * KIQ.
-> +		 */
-> +		if (in_interrupt() || amdgpu_sriov_vf(adev))
-> +			return;
+to the 7.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-[Severity: High]
-Does this silently drop TLB flushes for SR-IOV VFs and interrupt contexts?
+The filename of the patch is:
+     drm-connector-hdmi-fix-out-of-bounds-memory-read.patch
+and it can be found in the queue-7.1 subdirectory.
 
-If the KIQ times out 3 consecutive times, the flush_failures threshold is
-reached. On subsequent TLB flush requests from a VF or interrupt context,
-the threshold check fails and KIQ submission is bypassed entirely.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-The code then hits this check and returns immediately, permanently dropping
-all subsequent TLB invalidations until the counter resets. Could this lead =
-to
-stale TLBs, memory corruption, or arbitrary memory faults for the VF?
 
-> +
-> +		amdgpu_gfx_off_ctrl(adev, false);
-> +		gmc_v9_0_flush_gpu_tlb_mmio(adev, hub, vmid, vmhub, inv_req);
+From 9ecf8ba763d0ffe0673538eb4bf7806f20455d19 Mon Sep 17 00:00:00 2001
+From: John Harrison <John.Harrison@Igalia.com>
+Date: Thu, 23 Jul 2026 15:06:52 -0700
+Subject: drm/connector/hdmi: Fix out of bounds memory read
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-[Severity: High]
-Can a hardware race condition occur here if KIQ recovers?
+From: John Harrison <John.Harrison@Igalia.com>
 
-When the driver encounters a KIQ timeout, the command is left in the KIQ
-ring. Once the failure threshold is met, the CPU begins writing directly
-to engine 17 via gmc_v9_0_flush_gpu_tlb_mmio().
+commit 9ecf8ba763d0ffe0673538eb4bf7806f20455d19 upstream.
 
-If the KIQ command processor unwedges and processes its delayed queue,
-it will emit writes to the same REQ and ACK registers concurrently with
-the CPU's MMIO accesses. Could overwriting the VM_INVALIDATE_ENG0_REQ
-register lead to lost TLB flush requests, or cause KIQ to hang waiting
-for an ACK bit that never arrives?
+A helper function was copying a given audio infoframe into the
+connector's copy but using the size of the destination (a generic
+target, sized to accept many different data blocks) not the source (a
+very specific type of data block). Thus, it was copying 60 bytes of
+data from a 28 byte allocation.
 
-> +		amdgpu_gfx_off_ctrl(adev, true);
-> +		return;
-> +	}
+Fix that by using the source size instead, together with a build bug
+on the source size actually being smaller than the destination.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820105716.1487=
-32-2-pisarevden@gmail.com?part=3D1
+I hit this running KUnit tests under KASAN (while debugging something
+else entirely). In the real world, it seems unlikely to cause an
+actual problem. It is a read not a write so it can't corrupt any
+memory. However, it could potentially fall off the end of a page and
+cause an accvio bug.
+
+Fixes: f378b77227bc ("drm/connector: hdmi: Add Infoframes generation")
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Daniel Stone <daniel@fooishbar.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: José Expósito <jose.exposito89@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org # v6.11+
+Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+Link: https://patch.msgid.link/20260723220652.533345-1-John.Harrison@Igalia.com
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -1096,7 +1096,8 @@ drm_atomic_helper_connector_hdmi_update_
+ 
+ 	mutex_lock(&connector->hdmi.infoframes.lock);
+ 
+-	memcpy(&infoframe->data, frame, sizeof(infoframe->data));
++	BUILD_BUG_ON(sizeof(*frame) > sizeof(infoframe->data));
++	memcpy(&infoframe->data, frame, sizeof(*frame));
+ 	infoframe->set = true;
+ 
+ 	ret = write_infoframe(connector, &funcs->audio, "Audio", infoframe);
+
+
+Patches currently in stable-queue which might be from John.Harrison@Igalia.com are
+
+queue-7.1/drm-connector-hdmi-fix-out-of-bounds-memory-read.patch
