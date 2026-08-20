@@ -4,124 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EBA9C5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 06:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3F0C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 07:00:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D1A910E151;
-	Thu, 20 Aug 2026 06:58:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26DB410EF18;
+	Thu, 20 Aug 2026 07:00:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ToZYJURG";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PqRSVJz2";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NBBsFY3Q";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kY3R7xmE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0HRp7N0u";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011006.outbound.protection.outlook.com
- [40.93.194.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B35410E151
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 06:58:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eEBFJ1wIma/53goUA9l/Ix7ymgxf+OeGr+rhEsD1qtvlcU11VIR0/7CmiHYjx+Qva47KZtaME5Jx3a+PFYjov8po0pgZFTeWX2RFeVWqwn6yETbD9fEUv0f7V6pdVE2XokInO8TXy0QYSLNrvRq/iulG5qyjuvADuBLijgmYXSWb6w8zxMnouxcHOv2v3hw8JuhlZVpV4PleftKnn5HqgYZza1YcV5juMlh9Og6PFnVQFWaEyld9FCshKkZ6/rNaByFDNiiAZBrmWQjp7Die/7AQIusQyyXj/LwWwgPUnthNLWRs6JylIfS0kpCVae9JF4bqrF46R49JPnTP7w3+MQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aO9DAcBBtKBHXAV1OT/9qV94kGOK6Y+4LFy5jcN5SaY=;
- b=nO5N6cJE1VscOhlrZ8VI/khhXVdL5AvKsy6dCq3McpnTvDrVrzHMF1K7EKuRPIqk/itBDZCXPA17WSinD+XbCxdpSP62PmaMSqk3Hh6w90PW5B14oJtQnwmnROxCMpMkRtQNrbhFnrQNjRKEAyhhyNQx1hp0fkc9LK87eT0ePdGdc6aHE4U75dw7vHenLD3N0H6nXtjM1/QDj3W8ylbxS3hKW+b/CFPIvJNtJSpiFGorb1kdXLI7DkfYuXXV34KV5C9RxwhyImG95tnEw6TcHoSlW17CG6UMmHb/Ntq9gkjv3KTL8W0t38Uuh7rDL7A5y3AK0tjRkapOWx4KmvanPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aO9DAcBBtKBHXAV1OT/9qV94kGOK6Y+4LFy5jcN5SaY=;
- b=ToZYJURGbZvn75fw96NfkDA63MqJOXhSksimBxO9FIYfp6soNDT3TUfL2Lvsz37aJIqsuITEOeych/4G5Ak0dYyePtZxt7oKIjLUYsa4ajP+pFnNWC/l6wr0wtq/pXyzBnfIiaMSVLFkYx17knOd33E61TaZ3z0mbdZas5coN54=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9566.namprd12.prod.outlook.com (2603:10b6:8:279::16)
- by CH0PR12MB8529.namprd12.prod.outlook.com (2603:10b6:610:18d::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.9; Thu, 20 Aug
- 2026 06:58:02 +0000
-Received: from DS2PR12MB9566.namprd12.prod.outlook.com
- ([fe80::2d07:1044:6ee1:830b]) by DS2PR12MB9566.namprd12.prod.outlook.com
- ([fe80::2d07:1044:6ee1:830b%3]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
- 06:58:02 +0000
-Message-ID: <c13b66fa-b3e7-4ac9-a889-36c924049b5f@amd.com>
-Date: Thu, 20 Aug 2026 12:27:57 +0530
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D903C10EF18
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:00:45 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DAC3F84F6E;
+ Thu, 20 Aug 2026 07:00:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787209240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8r4GNzHoWLZS1X1WZcHIDPpjQ2CX/TY9IocmUdKemjk=;
+ b=PqRSVJz27uhgUiUttCY4ZyeH4N6NnIXTgzYxUY8LEj1PCo/MHPexC3BBB43gvjZ+vW3EYx
+ X+//lwNTvKoP9rtaL36P7AdFpRaaaVqdQipcl+LvMY0uoJWELldZP/E6wgS/AnepTWNUTZ
+ 4b9+f9LjtNCqsXrT1KOmw3VSsirwZbA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787209240;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8r4GNzHoWLZS1X1WZcHIDPpjQ2CX/TY9IocmUdKemjk=;
+ b=NBBsFY3QTMlqHm4UU+w86HIYlsfkv7qv7kX9Kwsef+iLEaUlcP5V8JdINKNLDY1uY5YxDB
+ VYLImPUmhsdPK0Dg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=kY3R7xmE;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=0HRp7N0u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787209235; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8r4GNzHoWLZS1X1WZcHIDPpjQ2CX/TY9IocmUdKemjk=;
+ b=kY3R7xmEsdo5eD5YJHKwEKjH3C3Crkad59iNu0L3/NNcQHfehnDY+WDsorh2WGjsgYF72/
+ i/vAPnFjt/ECURgH44ZfkRAu8BN5L0dkD3335YqVj5QyfM2R++EoPk7xi/LeZbpngaMmqQ
+ ndkiCxyY4pqIs0m33BAsKUzlXOqGwJw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787209235;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8r4GNzHoWLZS1X1WZcHIDPpjQ2CX/TY9IocmUdKemjk=;
+ b=0HRp7N0uqn8Vn7VfPyTIwiVH2jccnKzVfmgcispzP4TehsLLYhmwHojhzKF5fIRtxqFUKl
+ 6rslywnVexeMqmDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B836E27A8;
+ Thu, 20 Aug 2026 07:00:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id d13QKxOmhmoWOAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 07:00:35 +0000
+Message-ID: <5e2a56a7-b4bf-4ea1-a415-0bf3a14596e9@suse.de>
+Date: Thu, 20 Aug 2026 09:00:35 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] fpga: versal: add dma-buf programming support
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-References: <20260816150734.2092802-1-aravind.thokala@amd.com>
- <20260816150734.2092802-3-aravind.thokala@amd.com>
- <20260816151831.E3C241F000E9@smtp.kernel.org>
+Subject: Re: [PATCH v2 01/61] drm/simple-kms: Add create_plane_state hook
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
+ <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
 Content-Language: en-US
-From: Aravind Thokala <aravind.thokala@amd.com>
-In-Reply-To: <20260816151831.E3C241F000E9@smtp.kernel.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260814-drm-no-more-plane-reset-v2-1-82d2963dd134@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0290.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:21b::15) To DS2PR12MB9566.namprd12.prod.outlook.com
- (2603:10b6:8:279::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9566:EE_|CH0PR12MB8529:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e65334c-a3c1-49fa-4f2a-08defe8860cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|6133799003|10067099003|11063799006|5023799004|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: pvDhsWT5AWPk1YBYh0Q5op94AVvYF/OfIloUwI3sbfGYu15zkoihd8xtDabUf+9UVthLDOkx3NSoWsKZ5xKlDzcKm3nSr7qSPGkZbqIQnT5koorw0+EEQdiuOFdLUnaX4wpHnHFxCChnye9uLgIZgIjjOSYOw/oldFQy35/S5evSI8pUxk+X4JCDX0hBqmiPiArMz/hqbNaIPuNRDLHUxaSaAZlwc1VCaSmNWwLknRrQfX9DMVCPMFXAaRHQOREf26oqTEP4Tsyp0cP53DHLwAG215+cv5QL4U5Iiwrv3oaBrlZX6MFlhsavCq7NioQSIP2rRyQG5J5EjGZK98DMCE8H/odzjDGkzKJ3o4I5uQ3BWqxPEY/ns0cHlyLzF3gPfwPApV9N1LPmQIsv5FItu8hwgsGIszKZ5TT4UutxWgQ/IH81/sDcO6Ip9o50CNyWD7BwT6FIGNgRG0x4rSywz6OkeXEPVoc8uUYAni+AofrpvYevyfmhkTJcl/g1fHgL+Ck3IgXiJvz3I6cEUqS6ohxSkxQQopk7CJxKS9jK242o6+AZx/BT3S3Pz9EXypeNGb/RmAhINsv8m1TnFyu7xqSCj1gRfefreDfYVQCdcWk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS2PR12MB9566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWpBSUtYVHM2MlZLWHNQQTVhSHpDeTZQeWtxb0tPbUd4NENrK2RQbVF2aVA5?=
- =?utf-8?B?QlNOK2hPdUJDeDFLcmJMVzdYeEg5OFU3S2t1aWwxTjJKYmNVOVNyNjI3bVhj?=
- =?utf-8?B?QUgyYTBsTEVRcll4UFFUT0QvVGlhQXpvRzAyRjl1T2xtSzdXWVp3bTJiWUkv?=
- =?utf-8?B?dUlNVEs1cG9NOXFON3hUYXRNcm1wbFAxcDU4R1VxNmFqalAwci8rOWYxMFVo?=
- =?utf-8?B?NG00bjRZRDgyMnJnRjFaOEZYVjhmOG9GTXFoSjNGT0NMMS9kaUpqMCtwWUl3?=
- =?utf-8?B?K1BZRDFEOVJzbU03WDlwZmZuNjJxTXpUeTBha3VvaWowV1laWm42L1Y3ZmVJ?=
- =?utf-8?B?aWtKRzNkZi9Ob3JiSTRSS0c3MTVINWhGU2NNYWMwNCtweDFXbkxENE1UeWdE?=
- =?utf-8?B?TVZ1VFlKbnBYZFVtcXNzbVRXMTBkV251U1dEN3UyYy91am1CaDRHNEk2RHZ4?=
- =?utf-8?B?K3REZWhYak1PTWhxUlJTYkZKeWIvWUhHTEcvRU91TkpSTy9oRUY5N1lwY0Qw?=
- =?utf-8?B?UEZ0ZVpjZ3lCc1N1dVM3UEdUc1NGQkY3YVJOYytSOEh0L2UzdU8yTXo3a21w?=
- =?utf-8?B?U0l1aGg2QTAzampYWElFTGdPbDFVbTlYSGdnTFZBUG9vcDMvMUNXT1luL3pL?=
- =?utf-8?B?VER2alhMWG9zaVFHYlZmNm0rcmVVOEY3VmhRa0hSYXFSSnMzMWlaOUo5b1Zp?=
- =?utf-8?B?K0FHUUxQbmpXVExMcE12TFpnWmdlN05COUk2cnBvNDE1Z0c0VmNiNjBPSnAx?=
- =?utf-8?B?SHZiTkcvK2YvZDcySWFUY2tLYzlTeWwralF1RHN4Q3FmTk4rMmxNaHN5OFFu?=
- =?utf-8?B?ZlgzZTVWTDR6cEJUdGN3UGRGMnhXYkswQjJHSDVDUW11UEtDYnhhVzFrbHdy?=
- =?utf-8?B?OU91M0VFYWFON0xqaU5CUHdIcmJVTHpsUERrbVZxODgyUHlqSzhQWmdIcGpi?=
- =?utf-8?B?YjBCbUxrNEZZMkF1QmNhdWdJdFZ2Tm12L2dmS1BpbWx2eGk3ejc2VnJUR3lL?=
- =?utf-8?B?aUJTaWtsbHJXUldSOXZZNTJ0cDY1T3dHUVdONjNaajMxRTNaZVU3NDBpRkkx?=
- =?utf-8?B?UWR5a2tmNXZvUm42T245b1V6NlpxcFQ5SWFKY1dJSzZhc0ltSTVXSlpRd3pt?=
- =?utf-8?B?WUcwMm1NOUZ3UU9nMk1HUU11ckx0QXAxSVRBMEIwZlFTNUs4VkpWcVBRNXVD?=
- =?utf-8?B?bTBac01XQUNmSjQxdTB2MUJzcHd5L25xWEgrbS9LS1M1N09zOHZiS1JWdzRj?=
- =?utf-8?B?bW9PREU2Zk1wZ2wxSkxZNlNwOFJwaWE4OUVvM3lrbUhUdEdhYXVaNHgzZzRX?=
- =?utf-8?B?YWhyRlVBRGZuTFJ5cjg1MHd6R0oxNzArT2pQZ3A0NHlSM2tKSnNJSGJhK0R0?=
- =?utf-8?B?UEhtbnQzNTFJSjljS2o4djdNbEtrRmRJMDgzaEE4cmw4VWhBbUFzRDVMbHZW?=
- =?utf-8?B?YXEwRzhNV2pkYnFsMkN0U2JuUXZWbEszMm5iL0lsRGpabzR4Sm5pN2NCa0tn?=
- =?utf-8?B?MXZQTnE2SmdKbkx0Vkw5M0o4cURhUndhU3NWZDIzbDVreEdkZUtWeUlDalkr?=
- =?utf-8?B?VnNOY013bjRsb1QyTE5PalZJMzhhNUF4RzVFRUNtQm92M0hRalByV3h6NU8v?=
- =?utf-8?B?UjY4MkZ5Zkh6Y0lDWEU4V2dnanJJMlpNM2lVc1Z4SCtjcjN2ZHc3bThVSFpH?=
- =?utf-8?B?UHNnaVRVNFN1QkpscGFpQlkxZ213TG9sRkd4K2RwckFZMmZEMkpFYW1sMi9Z?=
- =?utf-8?B?c21Ed05SbEozeUZxdWhqOW1SWHd5T2I1a3R2VEt6dUs2d2c1NHZnREgwL3cz?=
- =?utf-8?B?OFRsdUJqd1c5OFNpOE1ZSUl1L2pkRVJBUFFBY3gzV0trL1cxVjg2YlBzWG8z?=
- =?utf-8?B?ZTFXeVJTOUppblczRjVqVFNYY1N6a25aRGRIdmJOaWJzUWtXaDlEZnQwU214?=
- =?utf-8?B?SS90d3ZEbmtOVkRBUFdkMVRhY0t0QlJLNG9tZndMUlpKT2hoeWNhNXRXVStL?=
- =?utf-8?B?V1RJNkdxVEZ2VndBaDBqMDVHMkpyc3FDNnhuelN0VzVKQXIvbGRlQXhTUEti?=
- =?utf-8?B?Q1RNZWhncE90YU5HUTdsSlhUek54QkJsY2kxMW5yUmVhYnFXMDY4ME4rT21C?=
- =?utf-8?B?QVRpOUJMVFNtd0dTMGZMUk1HUkFUaE5jYlI1UFRrZ0ZCOE93bG1QZklNem1N?=
- =?utf-8?B?STRaM0JxYUhuSXBBc0RZNVZSN2VPUGZFTy9YajBpZVJNcnRmbmduanZnTFdz?=
- =?utf-8?B?bkZBWXZZY3MzK3FPTUpKYTN6S09qcXFDS2N4Y0wxSkw1eUtnYW84ZFFCTmVV?=
- =?utf-8?B?ZkVQNmRlMkVHV3FtNERUNHYxcDRERHJhb0NjVWdYbFF0VE9rejJJdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e65334c-a3c1-49fa-4f2a-08defe8860cb
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 06:58:02.7155 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FjlMtaFJVTDpcf7RdZTFB4+xniJC+SmP59uOvi/4xmOWqwQ/XxVHG46VFjd+HhkR4AaSNfn5C1uOd4jSpiIfZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8529
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[5]; RCVD_COUNT_TWO(0.00)[2];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
+ suse.de:dkim, imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Queue-Id: DAC3F84F6E
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,86 +148,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-On 8/16/2026 8:48 PM, sashiko-bot@kernel.org wrote:
-> [You don't often get email from sashiko-bot@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> 
-> 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Passing a user-accessible dma-buf directly to the PMC firmware introduces a speculative Time-of-Check to Time-of-Use (TOCTOU) vulnerability that can potentially bypass FPGA bitstream authentication.
-> --
-> 
-> --- Patch [2]: [PATCH 2/2] fpga: versal: add dma-buf programming support ---
-> commit 92384704c37fbbfe16cd9659151fbb8646c178cc
-> Author: Aravind Thokala <aravind.thokala@amd.com>
-> 
-> fpga: versal: add dma-buf programming support
-> 
-> This commit adds a .write_sg callback to the Versal FPGA driver to support
-> dma-buf based programming. It extracts the DMA address from the scatter-gather
-> table and passes it directly to the firmware, avoiding an intermediate buffer
-> copy.
-> 
->> diff --git a/drivers/fpga/versal-fpga.c b/drivers/fpga/versal-fpga.c
->> index e6189106c4686..bdaa15a6c9913 100644
->> --- a/drivers/fpga/versal-fpga.c
->> +++ b/drivers/fpga/versal-fpga.c
-> 
-> [ ... ]
-> 
->> @@ -37,11 +38,34 @@ static int versal_fpga_ops_write(struct fpga_manager *mgr,
->>        return ret;
->>   }
->>
->> +static int versal_fpga_ops_write_sg(struct fpga_manager *mgr,
->> +                                 struct sg_table *sgt)
->> +{
->> +     dma_addr_t dma_addr;
->> +
->> +     /* zynqmp_pm_load_pdi() takes a single base address */
->> +     if (sgt->nents != 1) {
->> +             dev_err(&mgr->dev, "dma-buf has %u segments, need exactly 1\n",
->> +                     sgt->nents);
->> +             return -EINVAL;
->> +     }
->> +
->> +     dma_addr = sg_dma_address(sgt->sgl);
->> +
->> +     return zynqmp_pm_load_pdi(PDI_SRC_DDR, dma_addr);
-> 
-> [Severity: Medium]
-> Does this expose the firmware to a Time-of-Check to Time-of-Use (TOCTOU)
-> vulnerability if the Xilinx PMC firmware double-fetches the payload?
-> 
-> By extracting the DMA address from the user-provided dma-buf and passing
-> it directly to zynqmp_pm_load_pdi() without copying it to a kernel-owned
-> isolated buffer, a process could potentially modify the bitstream
-> concurrently during the firmware's authentication and loading process.
-> 
-> If a user with CAP_SYS_RAWIO maintains a writable memory mapping to the
-> dma-buf (for instance, using udmabuf) and invokes FPGA_IOCTL_LOAD_DMA_BUF,
-> they could overwrite the memory while the firmware reads it.
-> 
-> If the firmware re-reads any part of the bitstream after authentication,
-> could this be abused to bypass secure boot boundaries?
-> 
->> +}
->> +
-> 
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260816150734.2092802-1-aravind.thokala@amd.com?part=2
 
-This patch series provides a zero-copy path for FPGA programming by
-passing a userspace-allocated DMA buffer directly to the firmware.
-Secure bitstream authentication is outside the scope of this series.
-It is handled entirely by the firmware.
+Am 14.08.26 um 16:56 schrieb Maxime Ripard:
+> The simple-kms helper provides a reset_plane hook to let drivers
+> override the default plane reset. However, the reset hook is
+> overloaded: it is used to create the initial software state at probe
+> time, but also to reset both the hardware and software state during
+> suspend/resume. These two roles have different expectations, and
+> reset is not fallible which makes error handling difficult.
+>
+> The atomic_create_state pattern was introduced to untangle this by
+> providing a hook that only allocates and initializes a pristine state
+> without any side effect.
+>
+> Add a create_plane_state hook to struct
+> drm_simple_display_pipe_funcs. When provided,
+> drm_simple_kms_plane_reset() will use it to allocate a fresh state,
+> falling back to reset_plane and then to the default
+> drm_atomic_helper_plane_reset().
+>
+> This will allow simple-kms drivers to be converted to the
+> atomic_create_state pattern.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-This follows the same approach as the existing write callback, which
-also provides a DMA address to zynqmp_pm_load_pdi().
-The dma-buf path does not alter the existing security model.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Kind Regards,
-Aravind.
+> ---
+>   drivers/gpu/drm/drm_simple_kms_helper.c | 26 ++++++++++++++++++++++++--
+>   include/drm/drm_simple_kms_helper.h     |  1 +
+>   2 files changed, 25 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/drm_simple_kms_helper.c
+> index 8e1d07b9f1e3..528968ea5c4b 100644
+> --- a/drivers/gpu/drm/drm_simple_kms_helper.c
+> +++ b/drivers/gpu/drm/drm_simple_kms_helper.c
+> @@ -279,19 +279,41 @@ static const struct drm_plane_helper_funcs drm_simple_kms_plane_helper_funcs = {
+>   	.end_fb_access = drm_simple_kms_plane_end_fb_access,
+>   	.atomic_check = drm_simple_kms_plane_atomic_check,
+>   	.atomic_update = drm_simple_kms_plane_atomic_update,
+>   };
+>   
+> +static void drm_simple_kms_plane_destroy_state(struct drm_plane *plane,
+> +					       struct drm_plane_state *state);
+> +
+>   static void drm_simple_kms_plane_reset(struct drm_plane *plane)
+>   {
+>   	struct drm_simple_display_pipe *pipe;
+>   
+>   	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+> -	if (!pipe->funcs || !pipe->funcs->reset_plane)
+> +	if (!pipe->funcs)
+>   		return drm_atomic_helper_plane_reset(plane);
+>   
+> -	return pipe->funcs->reset_plane(pipe);
+> +	if (pipe->funcs->create_plane_state) {
+> +		struct drm_plane_state *state;
+> +
+> +		if (plane->state) {
+> +			drm_simple_kms_plane_destroy_state(plane, plane->state);
+> +			plane->state = NULL;
+> +		}
+> +
+> +		state = pipe->funcs->create_plane_state(pipe);
+> +		if (WARN_ON(IS_ERR(state)))
+> +			return;
+> +
+> +		plane->state = state;
+> +		return;
+> +	}
+> +
+> +	if (pipe->funcs->reset_plane)
+> +		return pipe->funcs->reset_plane(pipe);
+> +
+> +	return drm_atomic_helper_plane_reset(plane);
+>   }
+>   
+>   static struct drm_plane_state *drm_simple_kms_plane_duplicate_state(struct drm_plane *plane)
+>   {
+>   	struct drm_simple_display_pipe *pipe;
+> diff --git a/include/drm/drm_simple_kms_helper.h b/include/drm/drm_simple_kms_helper.h
+> index cb672ce0e856..b58f6d532820 100644
+> --- a/include/drm/drm_simple_kms_helper.h
+> +++ b/include/drm/drm_simple_kms_helper.h
+> @@ -42,10 +42,11 @@ struct drm_simple_display_pipe_funcs {
+>   	void (*reset_crtc)(struct drm_simple_display_pipe *pipe);
+>   	struct drm_crtc_state * (*duplicate_crtc_state)(struct drm_simple_display_pipe *pipe);
+>   	void (*destroy_crtc_state)(struct drm_simple_display_pipe *pipe,
+>   				   struct drm_crtc_state *crtc_state);
+>   	void (*reset_plane)(struct drm_simple_display_pipe *pipe);
+> +	struct drm_plane_state * (*create_plane_state)(struct drm_simple_display_pipe *pipe);
+>   	struct drm_plane_state * (*duplicate_plane_state)(struct drm_simple_display_pipe *pipe);
+>   	void (*destroy_plane_state)(struct drm_simple_display_pipe *pipe,
+>   				    struct drm_plane_state *plane_state);
+>   };
+>   
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
