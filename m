@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F43C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E08C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD3710EFA5;
-	Thu, 20 Aug 2026 10:16:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86BBB10EFBE;
+	Thu, 20 Aug 2026 10:16:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jaVpEuwT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HgkoSClq";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C532010EFA5
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:16:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D75A910EFB7
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:16:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9658760A5C;
- Thu, 20 Aug 2026 10:16:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E961F000E9;
- Thu, 20 Aug 2026 10:16:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2943460A71;
+ Thu, 20 Aug 2026 10:16:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611B71F000E9;
+ Thu, 20 Aug 2026 10:16:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787220979;
- bh=k/x/Ldk7pJn5hAaYG+4LmXlk3NMFui0TNJgVftohRSo=;
+ s=k20260515; t=1787221011;
+ bh=jHmAuUOPImzJ5rAL7cyz/qtpECyL3DDK1QmhFFgMO3E=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=jaVpEuwTCkHducIWFaPzemcmRsz9Y6z6HW+eT1ezml7OORLHvBMN8whKTNwRoBhk2
- 0RdQ8QeLhTDxrUtl4zHYcgxcPTc8KaLbUX7YfQcul+paiJYAu5+8CJEcBGeVB4b6er
- KQ7r0uJD07gjy6oGzxS/yR28+ANd2XRT2UVpckttsrfbEHmlsXsZzA9Tw/3bigaAza
- VXC5U3q7n/3Ve0HazQi9/N44qlNU43jl/eZSUY/crkISqW2lwCbWYuEagKZ2UOVrOY
- oKMZ1U3PRJsy5/j/ozutNsMOxgR7BLHdvjVM80n9ZLpqj0sDtcjaAY+mcUgmT0CSFV
- NQeYPvC0pUK/g==
-Message-ID: <9ad943a20de08d78ff7c2133fa4a3e05@kernel.org>
-Date: Thu, 20 Aug 2026 10:16:17 +0000
+ b=HgkoSClqpy/nkjycg84GKonoZEvaOHjbf3qmXWRIzWrONZdZG3Hw4T8Jo4m/mggfj
+ Umfh4V5/k7fzKseNVuBPcH8QTVaxSG+eeWbwzHyimlKUp6aKsTPPNm9o0sGBpqqKnE
+ ZAguyouDBwOhVS3Vhd+Vfns0d5/5ksD86VL8eA4CLDDsKjLigNS6eFPk2fBtCt1HX0
+ 9GKu/RXkP6knDgGGYSGhMpGtT503fJ/h+sXs33lVITu6LxL9BTGuFTiNhfU7apgN5C
+ NP7SS7fRlIHJzHjhFDxF45vI0Q3BhrmP70IvpMKesA6xPBzH4UnqR0DyKhWErgw7m+
+ xKQ4af2TB1/FQ==
+Message-ID: <a03dbed70e428feaa1250b378c9ef8fb@kernel.org>
+Date: Thu, 20 Aug 2026 10:16:50 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v10 46/69] drm/vc4: hdmi: Defer pixel clock validation
- to HDMI helpers
-In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-46-294364b2cf15@collabora.com>
-References: <20260731-dw-hdmi-qp-scramb-v10-46-294364b2cf15@collabora.com>
+Subject: Re: [PATCH v10 47/69] drm/display: hdmi-state-helper: Drop
+ drm_atomic_helper_connector_hdmi_force()
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-47-294364b2cf15@collabora.com>
+References: <20260731-dw-hdmi-qp-scramb-v10-47-294364b2cf15@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
@@ -76,14 +76,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 31 Jul 2026 19:19:53 +0300, Cristian Ciocaltea wrote:
-> drm_atomic_helper_connector_hdmi_check() rejects modes whose computed
-> TMDS character rate exceeds the connector limit before invoking the
-> driver's .tmds_char_rate_valid() hook.
+On Fri, 31 Jul 2026 19:19:54 +0300, Cristian Ciocaltea wrote:
+> With all callers converted to the .force_ctx() connector helper, this
+> function has no users left.  Remove it.
 > 
-> BCM2835 is capped at 162 MHz, slightly below the 165 MHz limit of HDMI
-> 
-> [ ... ]
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
