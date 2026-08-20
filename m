@@ -4,68 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCCA8C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:23:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69851C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 18:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E76B910E207;
-	Thu, 20 Aug 2026 18:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9A6810EC16;
+	Thu, 20 Aug 2026 18:26:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ioLn+UN8";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="aWrgBZ63";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DAAB10E207
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1787250206;
- bh=vZXBjt3Fuoeqwtrnxnm/xTajTsbgsBlWfNGZiZ+mJ3A=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ioLn+UN86yM5Af2ne1bCjJrBktr38PrR6/ZDU1/otfzSqIwstDTdrjnkYMmJyAmoy
- ot+ZPf1vM7kyRW4DAzO/YnnOrqkj2RVaUtxD9rWeCmwM/vAAyLJnqwZsoj9Guv4C0J
- 9XN6YbjwgsSDtxnWw64JApMWArqYFsxU+5HPZyG8rbUdszEZW+PMHA6KOvz7rFR/nb
- m2sLZlh4LK5LXRknB4DeqhlsVzzpLusU5LPIdDTQpVgGlzwksjQnEU9P/0EVCPJH5p
- 8p4LZHpWhXZ6MqvjA5V9eN+x0izEppa156rezxvf4Jv/tiGUuyJAwOeGb6DuwRxDGV
- iXozIBTUd19zw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 8517A17E038D;
- Thu, 20 Aug 2026 20:23:25 +0200 (CEST)
-Message-ID: <4a2c5754-56f3-42d5-863b-bc29452f8eb2@collabora.com>
-Date: Thu, 20 Aug 2026 21:23:25 +0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ADD910EC16
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:26:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787250384;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0cPAiw8SZK4VJABSJWXID6c8H+dfAlzI9Es1HSEj/Po=;
+ b=aWrgBZ63hOukYUxN/qw+83r4nQo7n5usWd7VBS38mhyICT2bdpjrg9yUDtdRQyfhpUHEi8
+ TnH9nJDR/ZIcGhC1aCdgQ/vREfo1Am5GRWal1Z0jwoCkON7ETjV/q3t1eFptIsZ7y8UCt2
+ X+qixIu1+qMnocs+Uw38Mj7XqEaUX5s=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-692-ZqNUxeGWNqOLKAOWqwqnHg-1; Thu, 20 Aug 2026 14:26:18 -0400
+X-MC-Unique: ZqNUxeGWNqOLKAOWqwqnHg-1
+X-Mimecast-MFC-AGG-ID: ZqNUxeGWNqOLKAOWqwqnHg_1787250378
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-92ec3146553so20092285a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:26:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787250378; x=1787855178;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=0cPAiw8SZK4VJABSJWXID6c8H+dfAlzI9Es1HSEj/Po=;
+ b=muX6HpH+06kos4gMmRKYm1cEj0gMnyMW3/9Z53Hvhlkdv/fC8Gz3y/3juPWyL30mfm
+ ncVF3RYQDarsGWb/dtT0HzKbKf/qSJ+GoAw5G7L8KrP5W1KNVh/epdaI+EMMLD4Cdd1r
+ gkkcI87orFN1EpJic/Ewr914RDKHORpngE0CCVU8x2QVcRZ8xeEFjSsz06lStQG6wvRf
+ VI/PN3E1eSQi/MzYZYbFjTRYKK1L9CwQQfUsATjHCpP0b3GFK7TJ/4DS9qITzLFZLAmG
+ x63NpZFyibsdkkl0zzcUytxzdYjQHoj22AHVJbVnuRYxoWvD/6NS3RvNb22P58/jDiQI
+ nqaA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqP0MXVpd23ZJuE1rtwbDzyAIJRFXs24uBmAf1DnaN4vacVPayxagwb99/VfDmx/rGjUIa/f/tSNyY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw6djxaYj7xP7/ppxz99kGYMZiF8oTN3Q4gWl5t0DQ5WXSzm99d
+ Q3fh1HQz9sX+LDKkn50/QSwl2DPCT8fXh/QNKwUEsP7JUkwF9/xRE3lIlK7gzzbvYYQ1mZS+08r
+ 792fF8HxQiK1hgzW4eOKJ1cdTFIt2H32DurXOpU8mPgo2gx6fWX5Mmyh45B89E73VNMLu/w==
+X-Gm-Gg: AR+sD12rrrYoczJbDNQ/+FW+H4UqpDt+JNQ5CFtpsGrmXnCJ3r6U3zP27dSS4NHnOKs
+ HvuL7n/sU3GwMYknDNv7bcbWg6mR/fqCaG8mc+E1oFmet9jpCT2ZELlmcDuA9KlIQ6i3VJ5Tp3g
+ Oo9qTHdJeR7zPefAnc7v79tDjbW5rCpbO+y8WXRxlJnXSWJFpSXe+1R0zfR8UjOlMIQxFthcaf2
+ 1BMBBGouPO8B+mg5w0wB1NZZC9cszSUlHCJmFtuOaN5HhMCT28790CHUA7JIi03AFtBOcj4I/N2
+ y88jC3SHnAM7UW2w3/c0C2kdGDM7SwK7CdJuJP9HGJLB+frZeWH8NRODJqgdjimwg0cKgN3Q
+X-Received: by 2002:a05:622a:54c:b0:52d:8275:4557 with SMTP id
+ d75a77b69052e-52df5ba06camr2537251cf.42.1787250377959; 
+ Thu, 20 Aug 2026 11:26:17 -0700 (PDT)
+X-Received: by 2002:a05:622a:54c:b0:52d:8275:4557 with SMTP id
+ d75a77b69052e-52df5ba06camr2536701cf.42.1787250377424; 
+ Thu, 20 Aug 2026 11:26:17 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-90c5f2b5c7dsm44258136d6.47.2026.08.20.11.26.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2026 11:26:16 -0700 (PDT)
+Message-ID: <1714a7c2142ac27fc5142584f0a61e9e8871831f.camel@redhat.com>
+Subject: Re: [PATCH 2/3] drm/nouveau: cancel the DP IRQ work before freeing
+ the connector
+From: lyude@redhat.com
+To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: sashiko-bot@kernel.org, linux-kernel@vger.kernel.org, Danilo Krummrich
+ <dakr@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Date: Thu, 20 Aug 2026 14:26:15 -0400
+In-Reply-To: <178682657122.3795552.6920623796751043528@gmail.com>
+References: <178682366001.3748010.7798811159846779765@gmail.com>
+ <178682366002.3748010.4096452389040554615@gmail.com>
+ <20260815201130.7BDDF1F000E9@smtp.kernel.org>
+ <178682657122.3795552.6920623796751043528@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 43/69] drm/vc4: hdmi: Propagate -EDEADLK to the top
- level
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>,
- kernel@collabora.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
-References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
- <20260731-dw-hdmi-qp-scramb-v10-43-294364b2cf15@collabora.com>
- <20260820-sceptical-friendly-panther-6cdfd4@houat>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260820-sceptical-friendly-panther-6cdfd4@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: f6gylKrRP1CR4-xTMQKh2p6-AMQySL3mrAWQ123vOA0_1787250378
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,112 +105,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/20/26 11:55 AM, Maxime Ripard wrote:
-> On Fri, Jul 31, 2026 at 07:19:50PM +0300, Cristian Ciocaltea wrote:
->> drm_connector_helper_funcs.detect_ctx() is expected to propagate
->> -EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
->> perform the required backoff and retry.
->>
->> vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
->> drm_modeset_backoff() on an acquire context it does not own.  This drops
->> all locks in the context, including connection_mutex held by the core.
->>
->> Drop the local retry logic and propagate -EDEADLK to the caller instead.
->> This aligns VC4 with the expected detect_ctx() semantics.
->>
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  drivers/gpu/drm/vc4/vc4_hdmi.c | 23 +++++++----------------
->>  1 file changed, 7 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
->> index ba16e7944cf3..72042fad04c5 100644
->> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
->> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
->> @@ -344,12 +344,11 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
->>  	return drm_atomic_helper_reset_crtc(crtc, ctx);
->>  }
->>  
->> -static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
->> -				    struct drm_modeset_acquire_ctx *ctx,
->> -				    enum drm_connector_status status)
->> +static int vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
->> +				   struct drm_modeset_acquire_ctx *ctx,
->> +				   enum drm_connector_status status)
->>  {
->>  	struct drm_connector *connector = &vc4_hdmi->connector;
->> -	int ret;
->>  
->>  	/*
->>  	 * NOTE: This function should really be called with vc4_hdmi->mutex
->> @@ -368,17 +367,9 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
->>  	drm_atomic_helper_connector_hdmi_hotplug(connector, ctx, status);
->>  
->>  	if (status != connector_status_connected)
->> -		return;
->> +		return 0;
->>  
->> -	for (;;) {
->> -		ret = vc4_hdmi_reset_link(connector, ctx);
->> -		if (ret == -EDEADLK) {
->> -			drm_modeset_backoff(ctx);
->> -			continue;
->> -		}
->> -
->> -		break;
->> -	}
->> +	return vc4_hdmi_reset_link(connector, ctx);
->>  }
->>  
->>  static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
->> @@ -416,10 +407,10 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
->>  			status = connector_status_connected;
->>  	}
->>  
->> -	vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
->> +	ret = vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
->>  	pm_runtime_put(&vc4_hdmi->pdev->dev);
->>  
->> -	return status;
->> +	return ret == -EDEADLK ? ret : status;
-> 
-> Don't we mask any error that isn't EDEADLK here?
+On Sat, 2026-08-15 at 22:42 +0200, Marek Czernohous wrote:
+>=20
+> I cannot rule it out, so I should not have written that sentence as a
+> finding.=C2=A0 It should have said that I looked and did not find a fourt=
+h
+> patch, not that there is none.=C2=A0 If the maintainers want, the shape o=
+f
+> a
+> fix is probably a drain of hpd_work after the connectors are gone, or
+> making nouveau_connector_hpd() a no-op once teardown has started, but
+> that is a separate change from this series and I would rather someone
+> who knows the hotplug path weighs in before I write it.
 
-Yes, per .detect_ctx() doc, implementation should return either a
-drm_connector_status or -EDEADLK.
+I wrote a lot of that code, so I can just send out a patch for it in a
+moment and CC you.
 
-This matches what the probe helpers expect, and prevents ending up with
-connector_status_unknown, which would be wrong, since the detection was
-successful:
-
-int drm_helper_probe_single_connector_modes()
-{
-	[...]
-	ret = drm_helper_probe_detect(connector, &ctx, true);
-
-	if (ret == -EDEADLK) {
-		drm_modeset_backoff(&ctx);
-		goto retry;
-	} else if (WARN(ret < 0, "Invalid return value %i for connector detection\n", ret))
-		ret = connector_status_unknown;
-
-	connector->status = ret;
-	[...]
-}
-
-drm_helper_probe_detect_ctx(struct drm_connector *connector, bool force)
-{
-	[...]
-	ret = drm_modeset_lock(&connector->dev->mode_config.connection_mutex, &ctx);
-	if (!ret)
-		ret = detect_connector_status(connector, &ctx, force);
-
-	if (ret == -EDEADLK) {
-		drm_modeset_backoff(&ctx);
-		goto retry;
-	}
-
-	if (WARN_ON(ret < 0))
-		ret = connector_status_unknown;
-	[...]
-}
