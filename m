@@ -4,91 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EDF6C5DF87
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 12:20:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62A7BC5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 12:29:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7860310E1DC;
-	Thu, 20 Aug 2026 12:20:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BB7D10E1D2;
+	Thu, 20 Aug 2026 12:29:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Q54PkPqW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LG4vJuZd";
 	dkim-atps=neutral
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 043D610F010
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 12:20:51 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-8f23e851626so14573576d6.3
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 05:20:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1787228450; x=1787833250; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=CFAD3PPmyEYBnRQoyhozco7Gx3OsZl5eV5ORNG74mm8=;
- b=Q54PkPqW2HEzp1KQlr+JX3owrVCnFkn6uLwbUU9USkl2S/eH1f1b+FLJ57oGEjW/3H
- 6BOBQkMrIPa5lBLoPGcfOhpSuqfBXKTdr70LFKmNLd1N1O8O80WcP7QWLFpLkzqqb5Vn
- xDqUOuljuLgmx70bIQYrPbib/dPpjkHETlrFl+z4QKZf7FKwsqZ0XQaTr2yuuwCpKIAJ
- Ayh/pyZfNpdy3qOv1n8EjBY+eMpTpL04PvY5ppYLRWj0zl6+Oe+pTIMSScWuB5D82vgY
- yh565ULI//82FPJo0dlYKKJdFpB8rC+NPfuGkkbaUnAPsScVw0xlDNXVSvkBDDZ0XT/J
- i6TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787228450; x=1787833250;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=CFAD3PPmyEYBnRQoyhozco7Gx3OsZl5eV5ORNG74mm8=;
- b=JgDYz14U+FVOm21mSMWesM7dumFuU90OAVEFl6cNJF20NFHCUlJj5Axdq4sDXyFw0R
- TY7gdjg8GRnYLGFh3t+seswN5JfxikfdH5QGT0InPb8TyoRLXzf/A0ohlukkLXtMOU2z
- +YHsbAqZq+ToTMEBdXu9saWF+xXXxQO9g8fvtHumq232IUBSPS9dDu8WBXLcdGG8MzLi
- 8UAkQyTZ5DQaZj2z6zrHPgLluKQgZewuFjjl+W42NzWbur/BgALDMJP2xaKQsgm9Xjyn
- ZeTWrhGBHSct0mitjtLfyXFeXOjfuZ8++381WqdzHjxGhrAOCvJ+b8LvgnP9dznaTRpA
- r5iA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrAGFvezn02y+SwGIBO78DDM5LmGyZoOXxslsnCNGvpn8eoVzWjvwN9tOszwIrtsHb4qGDwpNG4LY8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kyS0tY4bBlgM0yrjHIOyqYr/AuKXKqZfG4vK+Lg/1iJutjyNA3
- LjrsR8GmbY+LC/rUdIR8gPdRq1SnIJtIPNdrtkiQ1psYHz8ZGvH5L0a2jfUuZ/SSC64=
-X-Gm-Gg: AR+sD12bnBy1fB5U8aNnmL3QA1gULwO/Kh/mDcClO663MBjpVGwDCZdcFvcKS1k980y
- f3h6KdTRErl9MtycdnlTEY2dazWvaA/P3vjRXoDoUZjfn64xJgaxhwF05OB4v+veKxLvmirX0mH
- H2UbwQkPJUWrm4ACj3kjVEizauj2gD/uaSOwRNQMXQE2ivMR4ryK+FrsaL3HGnsWPQmeNpUfwfi
- BZm4L0fpLfs9AKVn7M/E02Zdduy/vGsPaeOL7NaSWGLq4A/x8Oe6Qf+1C046AkLvDB8jZ72mUY3
- mI9LeHQNOPWEleUXF98c/fFkfBTKSWDkPWZJyIytuRdEHPzhI1GwRoFkKQBnigt1ZP2+mQyDCrW
- Gw8THlcMCAxnnp/2dlkcCrevO5lsbJfELhzP5KhpXYtthdHyranAEeetrJ+nKuR/48ci1/19fon
- ZIALN6PM27zobhSh+fMcONo/JJ1aK/rvEKicFpf18ZbQjo9hiYZ6Yl9ZaY+ng5g06v5aZ7xRnOm
- i6VxNWrlwWywPSHL2indwIkaG+KzHKCDZYw31lgyPwJAw==
-X-Received: by 2002:a05:6214:124a:b0:908:92e3:a37 with SMTP id
- 6a1803df08f44-90c5eaf245amr114579506d6.32.1787228450436; 
- Thu, 20 Aug 2026 05:20:50 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
- [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90c5f2b1f39sm36591756d6.41.2026.08.20.05.20.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 05:20:49 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wx1lI-00000003bNC-36dR;
- Thu, 20 Aug 2026 09:20:48 -0300
-Date: Thu, 20 Aug 2026 09:20:48 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 558FC10E1D2
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 12:29:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5B61C60A5D;
+ Thu, 20 Aug 2026 12:29:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123C51F000E9;
+ Thu, 20 Aug 2026 12:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787228976;
+ bh=fDbCR6e6GGxWccQ5R9SSxtDkxyXxcSTxE7SQ3aY7yfo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=LG4vJuZdQo+bj+td5H2YT/W/PngjBWUumg8xnHXg9BxzUsXbaUnCaciWgvUDRghV9
+ RIfhqs38Tx5dNa5TBXyEr6CAUb1zMvwYrf3uwH6Q54TIC37tFdRrr7TZJz+8i/sHtf
+ 12nVFDV8cRGNwC/gTIbDIXkbZoJZ0nv4UI5q3xVNV2W3mdfUrfl9u3UqMyHuEsPziZ
+ SatEkDTmM2fQPbGR4hCw4TEGredM6nwF69aXSrj6F1IDpptwyLjcHMmj1QFMRfKJNu
+ DFj//TDzMMU/RRZXjidu8UHBW9g8oj+5Amlh50n9D5meGx7T4XKGbJsHum7EKe7JK3
+ tnf/Y8gja+RjQ==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=lobster-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <maz@kernel.org>) id 1wx1tl-0000000HHzy-3P2J;
+ Thu, 20 Aug 2026 12:29:33 +0000
+Date: Thu, 20 Aug 2026 13:32:05 +0100
+Message-ID: <87wltlnfay.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
 To: Steven Price <steven.price@arm.com>
-Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Marc Zyngier <maz@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>, "T.J. Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>,
- John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: Re: [PATCH 0/2] Clear shared pages after private-to-shared conversion
-Message-ID: <20260820122048.GB18100@ziepe.ca>
+Cc: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,	Sumit Semwal
+ <sumit.semwal@linaro.org>,	Thomas Gleixner <tglx@kernel.org>,
+ "T.J. Mercier" <tjmercier@google.com>,	Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,	Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>,	dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org,	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,	linux-media@vger.kernel.org,	Jason Gunthorpe
+ <jgg@ziepe.ca>,	Jiri Pirko <jiri@resnulli.us>,	Marek Szyprowski
+ <m.szyprowski@samsung.com>,	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: Re: [PATCH 1/2] irqchip/gic-v3-its: Zero shared pages after conversion
+In-Reply-To: <20260820105026.53208-2-steven.price@arm.com>
 References: <20260820105026.53208-1-steven.price@arm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820105026.53208-1-steven.price@arm.com>
+ <20260820105026.53208-2-steven.price@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: steven.price@arm.com, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, tglx@kernel.org, tjmercier@google.com,
+ benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, jgg@ziepe.ca, jiri@resnulli.us,
+ m.szyprowski@samsung.com, suzuki.poulose@arm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,26 +84,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 20, 2026 at 11:50:23AM +0100, Steven Price wrote:
-> Arm CCA includes "Memory Encryption Contexts" (MEC) which allows the
-> private and shared data accessible to a guest to have different memory
-> encryption keys. Consequently when converting memory to shared, the
-> memory encryption key used to access the physical page will change.
+On Thu, 20 Aug 2026 11:50:24 +0100,
+Steven Price <steven.price@arm.com> wrote:
 > 
-> Both the GICv3 ITS driver and the system_cc_shared dma-buf heap
-> currently allocate memory with __GFP_ZERO and then decrypt it. With MEC
-> the zeroing is done with the wrong encryption key and the data visible
-> after decryption may be ciphertext. The RMM is required to scrub the
-> data, but may perform this scrub with a different encryption key to the
-> eventual key that will be used for shared access.
+> its_alloc_pages_node() passes __GFP_ZERO to the page allocator before
+> calling set_memory_decrypted(). This assumes that converting a page from
+> private to shared preserves its contents.
 > 
-> Fix these two sites by avoiding the __GFP_ZERO during the allocation and
-> performing a clear_pages() call after the decryption.
+> For Arm CCA with MEC (Memory Encryption Contexts) the key used to access
+> the page will change, and so by default the visible data will change.
+> The host could ensure that it zeros the page, but rather than relying on
+> the host's behaviour it's best if the guest simply zeros after the
+> decryption rather than before. Specifically in this case the ITS tables
+> are required to be zeroed.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+What are the guarantees that we want to enforce post decryption?  My
+recollection is that the RME firmware cleans the caches to the PoPA,
+making the data immediately visible to the hypervisor. Obviously, this
+isn't the case anymore, since the zeroing comes after that, and I
+don't see any CMO enforcing this.
 
-This whole set_memory_decrypted() API is awful. It really should be improved.
+I'm concerned that this relies on undocumented behaviours that may
+hold today on some undisclosed combinations of HW and hypervisors, but
+that are not guaranteed at all. set_memory_decrypted() doesn't really
+say anything, and I have the feeling that we may want some hypervisor
+specific hook to perform the correct CMO magic. I don't think this is
+required right now, but I'm not excluding anything!
 
-alloc_pages_decrypted() ?
+> 
+> Mask out __GFP_ZERO from the allocation request, and do the zeroing as a
+> separate step after decryption.
+> 
+> Fixes: b08e2f42e86b ("irqchip/gic-v3-its: Share ITS tables with a non-trusted hypervisor")
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> ---
+>  drivers/irqchip/irq-gic-v3-its.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+> index 6f5811aae59c..c954bbe9f4db 100644
+> --- a/drivers/irqchip/irq-gic-v3-its.c
+> +++ b/drivers/irqchip/irq-gic-v3-its.c
+> @@ -213,10 +213,12 @@ static gfp_t gfp_flags_quirk;
+>  static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>  					 unsigned int order)
+>  {
+> +	bool want_zero = gfp & __GFP_ZERO;
+>  	struct page *page;
+>  	int ret = 0;
+>  
+> -	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
+> +	page = alloc_pages_node(node, (gfp & ~__GFP_ZERO) | gfp_flags_quirk,
+> +				order);
+>  
+>  	if (!page)
+>  		return NULL;
+> @@ -231,6 +233,9 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>  	if (ret)
+>  		return NULL;
+>  
+> +	if (want_zero)
+> +		clear_pages(page_address(page), 1 << order);
+> +
 
-Jason
+nit: please use BIT(order), which matches the type required for
+clear_pages().
+
+But I'd really like some discussion about the CMO side of things.
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
