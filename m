@@ -4,53 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB54BC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 06:48:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95489C5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 06:50:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1321210E14C;
-	Thu, 20 Aug 2026 06:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E94D10EF02;
+	Thu, 20 Aug 2026 06:50:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Uhnp1VQY";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="DSw2biAM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="n1VzZwa4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cRyJSPYe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oZUkM5nA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FAE10E14C
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 06:48:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B369E43738;
- Thu, 20 Aug 2026 06:48:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9529E1F000E9;
- Thu, 20 Aug 2026 06:48:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787208520;
- bh=QevXqOjmThfsypAErhlJDLgFo7ZGdAndBJHfDiAW7e0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Uhnp1VQYPSOGkPG6GeIj5hePdI+FB86YKKTVTGvjHO/Glk6mpSQ0fcW5mIQsOH/YV
- DPn81zGYBdciMSWB2zcZTaIUrokp/s/NlvxN+bExBr+eioD00d5Sga9XbAYWNapyK4
- /1ds1E9+W/DxbfTIhu610M6N46l1149wsjAK5/1VdQu7iwi1dx/Df5mjzia1TB5otI
- cuxBeLYKaMAVHHXUiOsJqob9DIkr557Dle5T5cr9PRAv1OAhaJss3NsBA+YAt6q4Hj
- o0QokcdWKumnU+XjG/QtooA+kA8YTRpC4wi91bowvtAtwgyQNhg12aNXzuuSOX0gQn
- FVWIRp86odU5A==
-Date: Thu, 20 Aug 2026 08:48:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: visionox, vtdr6130: Add Retroid
- Pocket 6 panel
-Message-ID: <20260820-nocturnal-arboreal-cuckoo-2eed61@quoll>
-References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
- <20260814-rp6-panel-v1-1-111c1aeccf0f@gmail.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC70C10EEF3;
+ Thu, 20 Aug 2026 06:50:33 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F3A6484ED2;
+ Thu, 20 Aug 2026 06:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787208628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
+ b=DSw2biAMogiUZuW86bB+f3vD8diHy10Juys+SdKUOA0APUzNIO6PRNaOabKutR8RGvDLL0
+ NtzcnBEeqRU+ioyGNf07R8txFS02vr6T+VxOpcWHrFPm4fz6qS5XCJBij/xE3VSgWs9qtR
+ 5aRA75F4kqHPfysouuKsFuV3nQFg3Jw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787208628;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
+ b=n1VzZwa4W4gZSN2GZ+jyGvvNqm4nCxLukGpivPEMPey+FamGe9wgoDch8CubsTuSjmv6sQ
+ p2z7/LfYhxGMQlDg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=cRyJSPYe;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=oZUkM5nA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787208624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
+ b=cRyJSPYeUu61kSiOuvXdAokx8j5jXqprnrvckudFA+D63FktkIu/nuid9f/X6S09Unt0di
+ +rF1AHlF9ZH/1rLju2y1LYXHIjg8djYzB2WlXt24E2NRXmhwXFcSPW2kUXYHCc2H3YIll/
+ WOamYaB6rXQGpqgpfxBHGuxFWNo2ZS4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787208624;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
+ b=oZUkM5nAEXOIpCy+zxj/gijDrGXwIo2tnLmgEGDnGux5/4Oti+oYsw7PTTI23tyOYYDKYu
+ HBTH6M2DH/xoDUDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B59C27A8;
+ Thu, 20 Aug 2026 06:50:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id YzPEGK+jhmpxLgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:50:23 +0000
+Message-ID: <0490d52a-9ec6-4428-ad8d-353b04291f29@suse.de>
+Date: Thu, 20 Aug 2026 08:50:22 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260814-rp6-panel-v1-1-111c1aeccf0f@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] drm: Move drm_timeout_abs_to_jiffies() to
+ drm_timeout.c
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: F3A6484ED2
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,igalia.com:email,suse.de:mid,suse.de:dkim];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,21 +160,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 14, 2026 at 01:17:15PM -0500, Aaron Kling wrote:
-> The vtdr6130 is a display driver integrated circuit, a common chip used
-> for various panels. One such panel is used in the Retroid Pocket 6.
-> 
-> The RP6 panel only lists the regulators vddio and vci, so drop vdd as a
-> required property. The panel is rotated 270 degrees to natural, so also
-> add rotation as an allowed property.
-> 
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+Hi
+
+Am 17.08.26 um 23:05 schrieb Maíra Canal:
+> drm_timeout_abs_to_jiffies() began as a static helper inside the syncobj
+> wait implementation and was later exported in place, so that it could be
+> called by multiple drivers (e.g. panfrost, lima, tegra and accel
+> drivers). All of them reach it through drm_utils.h.
+>
+> Give it a file of its own, so that timeout conversion helpers have a
+> home, which will be useful when we add new timeout handlers. The
+> declaration stays in drm_utils.h, so no caller changes.
+>
+> No functional change.
+>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 > ---
->  .../devicetree/bindings/display/panel/visionox,vtdr6130.yaml      | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/Makefile      |  1 +
+>   drivers/gpu/drm/drm_syncobj.c | 33 ------------------------------
+>   drivers/gpu/drm/drm_timeout.c | 47 +++++++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 48 insertions(+), 33 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd783..0a0d7ea08347 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -68,6 +68,7 @@ drm-y := \
+>   	drm_rect.o \
+>   	drm_syncobj.o \
+>   	drm_sysfs.o \
+> +	drm_timeout.o \
+>   	drm_trace_points.o \
+>   	drm_vblank.o \
+>   	drm_vblank_work.o \
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index 2fa170a29a62..cf03681de6f7 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -1193,39 +1193,6 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>   	return timeout;
+>   }
+>   
+> -/**
+> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> - *
+> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> - *
+> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> - */
+> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> -{
+> -	ktime_t abs_timeout, now;
+> -	u64 timeout_ns, timeout_jiffies64;
+> -
+> -	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> -	if (timeout_nsec == 0)
+> -		return 0;
+> -
+> -	abs_timeout = ns_to_ktime(timeout_nsec);
+> -	now = ktime_get();
+> -
+> -	if (!ktime_after(abs_timeout, now))
+> -		return 0;
+> -
+> -	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> -
+> -	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> -	/*  clamp timeout to avoid infinite timeout */
+> -	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> -		return MAX_SCHEDULE_TIMEOUT - 1;
+> -
+> -	return timeout_jiffies64 + 1;
+> -}
+> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> -
+>   static int drm_syncobj_array_wait(struct drm_device *dev,
+>   				  struct drm_file *file_private,
+>   				  struct drm_syncobj_wait *wait,
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> new file mode 100644
+> index 000000000000..78e9f65e5477
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -0,0 +1,47 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Timeout conversion helpers for wait ioctls.
+> + *
+> + * Copyright 2017 Red Hat
+> + * Copyright 2016 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/export.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/ktime.h>
+> +#include <linux/sched.h>
+> +
+> +#include <drm/drm_utils.h>
+> +
+> +/**
+> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> + *
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+No empty line here
 
-Best regards,
-Krzysztof
+> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+
+Just 'nsec'.
+
+The documentation and commit  description should also be clear that the 
+result is the number of jiffies until the given timeout (right?) and not 
+some absolute value in jiffies.
+
+> + */
+
+Needs to document the returned value
+
+   Returns:
+   The number of jiffies until the given timeout, or some upper limit
+
+Best regards
+Thomas
+
+> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> +{
+> +	ktime_t abs_timeout, now;
+> +	u64 timeout_ns, timeout_jiffies64;
+> +
+> +	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	abs_timeout = ns_to_ktime(timeout_nsec);
+> +	now = ktime_get();
+> +
+> +	if (!ktime_after(abs_timeout, now))
+> +		return 0;
+> +
+> +	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> +
+> +	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> +	/*  clamp timeout to avoid infinite timeout */
+> +	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> +		return MAX_SCHEDULE_TIMEOUT - 1;
+> +
+> +	return timeout_jiffies64 + 1;
+> +}
+> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
