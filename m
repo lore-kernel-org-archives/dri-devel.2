@@ -4,83 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C24ECC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:29:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D964AC5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2964A10F138;
-	Thu, 20 Aug 2026 17:29:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C16010F144;
+	Thu, 20 Aug 2026 17:31:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hArgYwTA";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WnwyBU8I";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6985310F138
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:29:52 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23FBB10F144
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787246991;
+ s=mimecast20190719; t=1787247105;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=S6fDO/OvmnpEv3y56Gcz9A5mW0qI4GbmiOBQlO6WwdI=;
- b=hArgYwTAqZUOI2nbMJSJu6wHU2Wd6ELhZAnTZeCAdGYNNmVxMjVSSmnHhVOTT6xJWWyv6G
- UFv52SJn9Ipc0a7b+vXC3mwfYLrVrJJLyllf5r17cEjhzPN1OA0+9zIPAQgjxrtMhAoR/0
- 3VKHS44VThhCipIOGkQhxB7EeRlU89I=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=KRvUWZDGEUMSwtdyPJQ/5FEouBX9ts8IqZ+F2bFuJWM=;
+ b=WnwyBU8IDy4hmrBz74p+LLnYIMQgd8BJu6pVHEWXxpH3I5sImIOCeRjmX8hJqIHVxL6FFi
+ vbfTE4eYN4HBr1BLZRX9oSZxUDFXv0ze57nvI7U/59OEsEwSNPIkbkdqvZ7K8l6FxprNsg
+ QSiGmbnY4TuI2Goe5VJKEleX5KtucX4=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-629-KKs4RdDbPx283WCtHssJHQ-1; Thu, 20 Aug 2026 13:29:50 -0400
-X-MC-Unique: KKs4RdDbPx283WCtHssJHQ-1
-X-Mimecast-MFC-AGG-ID: KKs4RdDbPx283WCtHssJHQ_1787246989
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-8fdace20927so821176d6.2
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:29:50 -0700 (PDT)
+ us-mta-82-47YWyrwiPuqQOIsglQb6YQ-1; Thu, 20 Aug 2026 13:31:37 -0400
+X-MC-Unique: 47YWyrwiPuqQOIsglQb6YQ-1
+X-Mimecast-MFC-AGG-ID: 47YWyrwiPuqQOIsglQb6YQ_1787247097
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-52d33c89a29so647601cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:31:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787246989; x=1787851789;
+ d=1e100.net; s=20251104; t=1787247097; x=1787851897;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=S6fDO/OvmnpEv3y56Gcz9A5mW0qI4GbmiOBQlO6WwdI=;
- b=mBfqpjVF5JPkE+kf/aO9LB2OgBkjKh7kI4+ZodzfDKbYPKptvIlsilbWjcv+m6AED1
- xdUzMq+eXwk6cHrrhwXYxvkzi4PUFqWkeERePxERVzS21Q9MxfJsHgVoMhrqkEeL1+z8
- EnYXNaNp9EWgm4InZj8Rhmnp3PK7srJ6Yk3LPc0VzF6alqUx/rnrkvsHIIkfpSPu9CaX
- 5dPEur4T3rAAbJ1+cbdBcY8QPeeLM7lB31Yqr6utPzKGkkgBWdvlkQZoO0UrOw8x458W
- D5Xs5+XjJdxTaUTHTRgmJy8WYrVaLp4UmuA00xPsP3E4uwfEEU951cijRPLVXX1/zqCn
- 1AmQ==
-X-Gm-Message-State: AFuF++mx77xCU6Ih2eJICoQvAHPtQnhH+QOwA06z7c2dt3GAkSNnSglc
- 583urGCQIDdbgah5jW8cUM9LzcXdMbE0bRvgDkXVCAXrGcLo+4lgS3UAPDRi1a0qpZz1Ft3Rz92
- Nl00fiFQf/plEVH9s6NtKuWIOi8cg88KgNU9h8DHYMeyjgt95stGGFxgiHRHRFeahsdO+3w==
-X-Gm-Gg: AR+sD10wUav108qzwy3Tw4nuPT6QWysFnam1T1q/NXLvtGiMTH29DLjBsS+1qpFGzOs
- znYihVIvvlthY1zrh3mRa+WDQ4UomtN00JOeKujeeTM7lLO3AYXCGFXVpJsd2kSk1NYCdtHkPWN
- yQ9hDwet4b1CkzoA2ZL+YiFnggG8bvZw23oqk/+/KKngs1+dOu7rHk/eR5KatmKU+Ow3ej8cOsM
- zlLjry58N3eN280LdbD6Gj/qsrccFhc6shwNvOuqzfzQjv3W9W2SQtuFgLiPhRvOW12W7DTHl6k
- rC9zJ/bfsYrgv8hzKbTqIRoI3RWvpZCwhY1Ng/MUN8EuX8kFnwTS/iFBmlAz7QMM3jjWKLMl
-X-Received: by 2002:a05:6214:e44:b0:8f2:3472:5b33 with SMTP id
- 6a1803df08f44-90c5eb3e8femr119832146d6.23.1787246989369; 
- Thu, 20 Aug 2026 10:29:49 -0700 (PDT)
-X-Received: by 2002:a05:6214:e44:b0:8f2:3472:5b33 with SMTP id
- 6a1803df08f44-90c5eb3e8femr119831826d6.23.1787246988873; 
- Thu, 20 Aug 2026 10:29:48 -0700 (PDT)
+ bh=KRvUWZDGEUMSwtdyPJQ/5FEouBX9ts8IqZ+F2bFuJWM=;
+ b=i0S+518IV/pIVnFsvE49x4WcNObR1GU2N75ZE9SbmFt37yGyZ8Wa+/ku0l8UQSTLQD
+ 3yHzGoXWK27jOHzsRi0DP+wowdSYu56M1L5yGMyJWofVicvZXj5aCDj6bwiehMkRy3z8
+ Tn/yNk/tZcS8hpxoHvFeajUN8KA6ouuUYdNO0JiTJMfSAg+WYtCAUhmuIbvUti7bFTqW
+ i2+XXS9RLbg6i5sLdA8jicr/wtdJq9d4z/5Vypo0e2uqoSq6Ky2GRYKUiMSBGEcz1+f2
+ Up50aZEXQg52eqwb/vtAfuPkxTaZWooleoCNlxbXP3lK2pkzto8NqWmwz/UpizdPRNdd
+ mbKw==
+X-Gm-Message-State: AOJu0Yw+nQWzxNWG3RDlvz0f8Qs3UDVziQ8fsoQyeXeNo0bQVk3GMnkJ
+ XHrJnOAyso44LBpPEaVyo375Tfwl/McRAq1MacV2t4RRSNhuF/FBZmXvwadq5OM1TiJClZXEHSP
+ a3jYbzsuiQqVHt8JdNEJ48ZUh/W2Asl7scSEvMKEAqobNUze8OEQg3Kd28u76p6X7a1aYAg==
+X-Gm-Gg: AR+sD13TzGCQ/3DZraIOe+B+4uJnHKkAeFxWAT48E7OYgGV7eVHHMQ/K/e/81rcZM5e
+ HyaX5/v78ol8QaAKEL8Dxzzktr+cUZWj+zLDuTsDo3iE1ADHa7NvQ20EIRQxKMYkK7f4ZBDZ6Ch
+ IISbaAw20vXU413I0m+eTY9IExBjwHcWNc5niwLwPYe5fL65pQHTIXz2k2mbm5o8inC3P2t5rWK
+ ZxqXRsTGtabmpYkg13nCbOUB7k0YTx7ckzZogBVSjaBsOa/7wkZRrS3DWIOmYzVEGI+Md5GtjqF
+ JeRbpj4vS4uAkM6lwEiXRlwPJoqcI6D/oJIdjjoSa/+1AbZufwZLoTf8yETGY8+yuxhITGe3
+X-Received: by 2002:a05:622a:514e:b0:52d:ce1e:cd47 with SMTP id
+ d75a77b69052e-52dd5783cfbmr148948801cf.9.1787247097142; 
+ Thu, 20 Aug 2026 10:31:37 -0700 (PDT)
+X-Received: by 2002:a05:622a:514e:b0:52d:ce1e:cd47 with SMTP id
+ d75a77b69052e-52dd5783cfbmr148947671cf.9.1787247096457; 
+ Thu, 20 Aug 2026 10:31:36 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90c5f28feffsm42491486d6.27.2026.08.20.10.29.47
+ 6a1803df08f44-90c5f2b5a1bsm43204606d6.45.2026.08.20.10.31.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2026 10:29:47 -0700 (PDT)
-Message-ID: <26de71ad1e7ea3a08ca30b99df49d7c29c34ed68.camel@redhat.com>
-Subject: Re: [PATCH v2 5/6] drm/nouveau/kms/nv50-: Add
- nouveau_encoder->audio.crtc
+ Thu, 20 Aug 2026 10:31:34 -0700 (PDT)
+Message-ID: <bab55a285432b1b96a74760146963b29f5c7d7cb.camel@redhat.com>
+Subject: Re: [PATCH v2 6/6] drm/nouveau/kms/nv50-: Obliterate
+ nouveau_encoder->crtc
 From: lyude@redhat.com
 To: sashiko-reviews@lists.linux.dev
 Cc: dri-devel@lists.freedesktop.org
-Date: Thu, 20 Aug 2026 13:29:46 -0400
-In-Reply-To: <20260819161540.439931F000E9@smtp.kernel.org>
+Date: Thu, 20 Aug 2026 13:31:33 -0400
+In-Reply-To: <20260819160841.31C9E1F000E9@smtp.kernel.org>
 References: <20260819155934.154125-1-lyude@redhat.com>
- <20260819155934.154125-6-lyude@redhat.com>
- <20260819161540.439931F000E9@smtp.kernel.org>
+ <20260819155934.154125-7-lyude@redhat.com>
+ <20260819160841.31C9E1F000E9@smtp.kernel.org>
 User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: BDW94lQK1Ra2Aqs3qwcxV9DixZx8pkUTQoLVGNAMHuc_1787246989
+X-Mimecast-MFC-PROC-ID: bZ4bkGk0JpOBqqJjZ786PU1nYOk2qbPjas02lV-HluI_1787247097
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -99,15 +99,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-08-19 at 16:15 +0000, sashiko-bot@kernel.org wrote:
+On Wed, 2026-08-19 at 16:08 +0000, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential
 > issue(s) to consider:
-> - [Medium] PIOR encoders do not clear `audio.crtc` when disabled,
-> leading to stale CRTC pointers, ghost ELD reporting, and missing ALSA
-> unplug notifications.
+>=20
+> Pre-existing issues:
+> - [High] Encoder atomic disable callback calls a sleeping function,
+> violating atomic context rules.
 > --
 
-Another hallucination, PIORs don't support sound in nouveau - and I
-confirmed there's no way with the current codepaths for audio to ever
-become enabled on them.
+Again - another hallucination. It keeps seeing the word atomic and then
+recognizes it as being a word mostly around contexts where prior
+reviewers have pointed out sleeping wasn't allowed in said contexts.
+Nothing it is commenting on is actually atomic.
 
