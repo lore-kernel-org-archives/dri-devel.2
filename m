@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A8AFC5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 16:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4091C5DF85
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 16:46:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D76010E202;
-	Thu, 20 Aug 2026 16:34:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA4D910F0EA;
+	Thu, 20 Aug 2026 16:46:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GH800g+7";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YqPwYR/P";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A833410E202
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 16:34:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 978C410F0E0
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 16:46:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 412B14322D;
- Thu, 20 Aug 2026 16:34:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940111F000E9;
- Thu, 20 Aug 2026 16:34:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A3D8A60A7C;
+ Thu, 20 Aug 2026 16:46:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0FF71F000E9;
+ Thu, 20 Aug 2026 16:46:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1787243670;
- bh=jjuK2NIXUazhXl//6wPzA0tfjTPAdASU3Ndp+GgCTkk=;
+ s=korg; t=1787244390;
+ bh=z5f0bdM88f8qXgWUh8abKnFGggAd8FOQxTad1kMzuJ4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=GH800g+7YEft8tsunMOcVuBwMlmOGoQKcLyImwGKV5+mIUkv2yl5xEbqq2O7S0DVo
- qlUFHtcwCfdMFXl0Mlvic77o+ZEJ3k7qsvWLFKexwL6Bo7E2LC4lNOOwnX0jEl2anE
- 1JVV7Vyga08x5GggPS15rDC2rsLClroX8E6VTkiU=
+ b=YqPwYR/PAjgMbhMMXLOEvxcNA25c20P0fepZvnU8trqjD0v77GJlRkQ0vdqyPtghs
+ HNUccEX5mNqKJfRal1HCO0qht+a2ePu/JVjobCeN6GQJEgPDddMz8MrUaz5W+Y318+
+ 2Engb83WFN+p/h3eZSerEKp+EPAYwOjoHDHk/OFM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
  linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
  Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 175/272] drm/tegra: fbdev: Remove offset into framebuffer
+Subject: [PATCH 5.10 153/235] drm/tegra: fbdev: Remove offset into framebuffer
  memory
-Date: Thu, 20 Aug 2026 16:55:59 +0200
-Message-ID: <20260820145236.693193104@linuxfoundation.org>
+Date: Thu, 20 Aug 2026 16:56:29 +0200
+Message-ID: <20260820145221.096513837@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260820145231.229664293@linuxfoundation.org>
-References: <20260820145231.229664293@linuxfoundation.org>
+In-Reply-To: <20260820145216.426568665@linuxfoundation.org>
+References: <20260820145216.426568665@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -60,7 +60,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -87,7 +87,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/tegra/fb.c
 +++ b/drivers/gpu/drm/tegra/fb.c
-@@ -221,7 +221,6 @@ static int tegra_fbdev_probe(struct drm_
+@@ -211,7 +211,6 @@ static int tegra_fbdev_probe(struct drm_
  	struct drm_mode_fb_cmd2 cmd = { 0 };
  	unsigned int bytes_per_pixel;
  	struct drm_framebuffer *fb;
@@ -95,7 +95,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	struct fb_info *info;
  	struct tegra_bo *bo;
  	size_t size;
-@@ -267,9 +266,6 @@ static int tegra_fbdev_probe(struct drm_
+@@ -257,9 +256,6 @@ static int tegra_fbdev_probe(struct drm_
  
  	drm_fb_helper_fill_info(info, helper, sizes);
  
@@ -105,7 +105,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	if (bo->pages) {
  		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
  				 pgprot_writecombine(PAGE_KERNEL));
-@@ -281,9 +277,9 @@ static int tegra_fbdev_probe(struct drm_
+@@ -271,9 +267,9 @@ static int tegra_fbdev_probe(struct drm_
  	}
  
  	drm->mode_config.fb_base = (resource_size_t)bo->iova;
