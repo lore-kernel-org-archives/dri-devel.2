@@ -4,61 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C0FC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:42:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E812C5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 17:44:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1250210E5F6;
-	Thu, 20 Aug 2026 17:42:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F91810F148;
+	Thu, 20 Aug 2026 17:44:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="vi+xYTZe";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="M/XzHRre";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE1C10E5F6
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:42:53 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hQrPP6QnwzMlGJ;
- Thu, 20 Aug 2026 19:42:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1787247769;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PL0+TkBEAw/ljLIv0zv8/yDD3v/lKZn/hBCUcu+4UtU=;
- b=vi+xYTZegipotKL2tNDLtKIfr4Q7NZSS5N0m7PDg/g8LrdQpp4i6KQfVK3X65QtNmBHIu7
- P/UGH7eS0JL4OYHymF9Lhp7YSbmWFcxzK/wfGtjMZ23pB6mka6/s8UeWaBkxFsgqBhkNdW
- shMZ5LHf2hOb8GoIJJ99oaQnNGYwd1cUwU9tI2GZyrFxuN3+MKwriStrZb+5IdPvZLfGnk
- N8FuBrs9NJqcHRld0M2/TbwNZk6+IKqjDjoqjjmWJsGNM1eOWlgDEKJSA/lswdK3t5F+DI
- mJDo/ZppsrTd+hWac4XKyeuydmpW00w22a+JK/Xdw07brYPWNDKTUAAsJxOEAA==
-Message-ID: <ca696ae8-4d26-416a-aaae-1e54cacf9fb8@mailbox.org>
-Date: Thu, 20 Aug 2026 19:42:45 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DC06310F148
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:44:48 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74B511477;
+ Thu, 20 Aug 2026 10:44:44 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F9C43F763;
+ Thu, 20 Aug 2026 10:44:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787247888; bh=ZM9sg/RSerJOWxKjiA4PYnkNJoiYGKpyXA8LruZG+VE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=M/XzHRrezBOqpp2QoYljfNsuWLo6QApmQ7ZiAInG4n0QLnmZo37eyq/egMLz0msZl
+ NvS4zWlQ6NbWJC9JfVE+ouSxZwRdwNEuLGzeRKFCn8VoThkR+KDSRosyApkLL+ioKC
+ dsNRj5IMAfcmFGkEgCzp4TzBgmXrt7Iu8sLowYm8=
+Date: Thu, 20 Aug 2026 18:44:43 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Marc Zyngier <maz@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Gleixner <tglx@kernel.org>, "T.J. Mercier" <tjmercier@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jiri Pirko <jiri@resnulli.us>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v2 1/4] irqchip/gic-v3-its: Zero shared pages after
+ conversion
+Message-ID: <aoc9CyxGPHPKFH1N@arm.com>
+References: <20260820150034.88729-1-steven.price@arm.com>
+ <20260820150034.88729-2-steven.price@arm.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Document 10" Raspberry
- Pi Touch Display 2
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260809200107.842945-1-marek.vasut+renesas@mailbox.org>
- <20260817-whimsical-fictional-dove-89b3d6@quoll>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260817-whimsical-fictional-dove-89b3d6@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: ayciih47b1nm1gj34y6j84hzzwq7ik4p
-X-MBO-RS-ID: 5080b6edc4b6540025f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820150034.88729-2-steven.price@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,40 +65,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/17/26 9:42 AM, Krzysztof Kozlowski wrote:
+On Thu, Aug 20, 2026 at 04:00:30PM +0100, Steven Price wrote:
+> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+> index 6f5811aae59c..a055837832bc 100644
+> --- a/drivers/irqchip/irq-gic-v3-its.c
+> +++ b/drivers/irqchip/irq-gic-v3-its.c
+> @@ -213,16 +213,18 @@ static gfp_t gfp_flags_quirk;
+>  static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>  					 unsigned int order)
+>  {
+> +	bool want_zero = gfp & __GFP_ZERO;
+>  	struct page *page;
+>  	int ret = 0;
+>  
+> -	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
+> +	page = alloc_pages_node(node, (gfp & ~__GFP_ZERO) | gfp_flags_quirk,
+> +				order);
 
->> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml
->> @@ -0,0 +1,65 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/display/panel/ilitek,ili79600a.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Ilitek ILI79600A based MIPI-DSI panels
->> +
->> +maintainers:
->> +  - Dave Stevenson <dave.stevenson@raspberrypi.com>
->> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
->> +
->> +allOf:
->> +  - $ref: panel-common.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    items:
->> +      - enum:
->> +          - raspberrypi,dsi-10inch
->> +      - const: ilitek,ili79600a
-> 
-> Binding looks exactly like boe,tv101wum-nl6, so either properties are
-> copy-pasted without checking in datasheet
+I don't think pKVM does any scrubbing on set_memory_decrypted(), so it
+potentially exposes confidential guest data before it reaches
+clear_pages() below.
 
-There is no publicly available datasheet, but ...
+>  
+>  	if (!page)
+>  		return NULL;
+>  
+>  	ret = set_memory_decrypted((unsigned long)page_address(page),
+> -				   1 << order);
+> +				   BIT(order));
+>  	/*
+>  	 * If set_memory_decrypted() fails then we don't know what state the
+>  	 * page is in, so we can't free it. Instead we leak it.
+> @@ -231,6 +233,9 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>  	if (ret)
+>  		return NULL;
+>  
+> +	if (want_zero)
+> +		clear_pages(page_address(page), BIT(order));
+> +
+>  	return page;
+>  }
+>  
+> -- 
+> 2.43.0
 
->  or this does not need new
-> binding file.
-
-... Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml 
-could be extended instead, so that is what I will do now. The devices 
-are compatible.
+-- 
+Catalin
