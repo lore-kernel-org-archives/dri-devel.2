@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91F3BC5DF85
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 15:04:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C513CC5DF81
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 15:14:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 740BF10F091;
-	Thu, 20 Aug 2026 15:04:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC4710E5F7;
+	Thu, 20 Aug 2026 15:14:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uJkB6KRG";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YE2d7j0E";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D2BD10F091
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 15:04:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B62C10E5F7
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 15:14:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 440DD41E63;
- Thu, 20 Aug 2026 15:04:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3001F000E9;
- Thu, 20 Aug 2026 15:04:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CAAD94176B;
+ Thu, 20 Aug 2026 15:14:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 106611F000E9;
+ Thu, 20 Aug 2026 15:14:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1787238259;
- bh=akka8woKS88sANqszu1zUt/hvb6dCy079oxnsHDeMFE=;
+ s=korg; t=1787238877;
+ bh=6fFjGvEp7gdihv24T0Y08V6FeHjOuaYumNNp75/yAqo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=uJkB6KRGzs0B428N3RFuQXWvLOqxHHuCNFPrdXBFuh00ifHEICRIOrr0+Iu0ZQ+R+
- g31bXwUNeX828VbEFmC/pRZ/FUzSRiOH1qPW8eo6whs5yG2fh294nBIx9sx6S7B2Un
- MOLH8vQfhgEvZTPfgC3KWxvwHjujFumNrMtBUgkM=
+ b=YE2d7j0EQeY4QEUQEX8ppk+Rm8A4dvKC+o5DDkbIgTHfwJvdSO+7HphBhMsa8WgpH
+ WmTDnOV9GI7+MBehGb2LitFhllC/EzjqS3MvdAHqog3vQMLiX0ekANf2ULFZx2UFYt
+ Bj15b+cbRMLZ/NW3pPkrL1LQzut2+1lP4irOHVE0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
@@ -43,12 +43,12 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
  dri-devel@lists.freedesktop.org, John Harrison <John.Harrison@Igalia.com>
-Subject: [PATCH 7.1 085/228] drm/connector/hdmi: Fix out of bounds memory read
-Date: Thu, 20 Aug 2026 16:53:47 +0200
-Message-ID: <20260820145247.228797105@linuxfoundation.org>
+Subject: [PATCH 6.18 071/217] drm/connector/hdmi: Fix out of bounds memory read
+Date: Thu, 20 Aug 2026 16:53:59 +0200
+Message-ID: <20260820145239.759144904@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260820145244.450574346@linuxfoundation.org>
-References: <20260820145244.450574346@linuxfoundation.org>
+In-Reply-To: <20260820145237.531699751@linuxfoundation.org>
+References: <20260820145237.531699751@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -70,7 +70,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -119,7 +119,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
 +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -1096,7 +1096,8 @@ drm_atomic_helper_connector_hdmi_update_
+@@ -1072,7 +1072,8 @@ drm_atomic_helper_connector_hdmi_update_
  
  	mutex_lock(&connector->hdmi.infoframes.lock);
  
@@ -128,6 +128,6 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 +	memcpy(&infoframe->data, frame, sizeof(*frame));
  	infoframe->set = true;
  
- 	ret = write_infoframe(connector, &funcs->audio, "Audio", infoframe);
+ 	ret = write_infoframe(connector, infoframe);
 
 
