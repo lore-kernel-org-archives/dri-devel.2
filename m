@@ -4,145 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 598D8C5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 22:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E76CC5DF8C
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 22:53:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16FF510E22D;
-	Thu, 20 Aug 2026 22:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C89610F1C2;
+	Thu, 20 Aug 2026 22:53:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GwQUAEOK";
+	dkim=pass (2048-bit key; unprotected) header.d=me.com header.i=@me.com header.b="LssCVwF7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A99F110F126
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 17:16:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B867460008;
- Thu, 20 Aug 2026 17:16:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B621F000E9;
- Thu, 20 Aug 2026 17:16:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787246209;
- bh=MV24uR/6Cop6a5mbcnfeD+N904Fg68fULCFuxI3hmvk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=GwQUAEOK7DSZyJoaIvNGzb7eXUjL+lBRclXa6f9EKhUzThVZICr0l1lhMLlnlyDML
- DGJo2yCn2P0h4yuZXBCTbvh3s0XySxJ7tUIToVru4vMLT+U8yiXNaUVLSKH6kh1twx
- i4Ui/0D5qTKyEHIV/zWJdMsg1VkSI2JCgOlVxdwdROIV7kipuNr7yESf6rDQb3y5aF
- xeay2R7Vs0pTkaW9UlzQ+CTuNLuu1o5oxCJTXppmAizyRzgD8vTUbOVdhdmPtG9NLo
- c7JOdZnGN5lNnVYIVr/lgJbmqVc2OkwC5qEddnCpB365CZgp1Ys95WqI5uYaoY/UCZ
- vqJymbhwXeWAg==
-Message-ID: <359ea967-9b97-4584-88e6-bddb4044de2e@kernel.org>
-Date: Thu, 20 Aug 2026 19:16:05 +0200
+X-Greylist: delayed 618 seconds by postgrey-1.36 at gabe;
+ Thu, 20 Aug 2026 20:04:22 UTC
+Received: from outbound.mr.icloud.com (mr-2002k-snip4-2.eps.apple.com
+ [57.103.68.205])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D182E10EFD4
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 20:04:22 +0000 (UTC)
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-west-2a-60-percent-1 (Postfix) with ESMTPS id
+ 927B11801C5E; Thu, 20 Aug 2026 20:04:19 +0000 (UTC)
+X-ICL-RepId: 01a020c6-43b2-7cf2-828c-13da8a56a902
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhABkMAWBxBDkkdXwZfEhVdRVUIRRlTHhccRgxFGVswVB0dDlgGEhZdRV4IGQhdHRkKUFAAS1oVVRcOAkIfUB9MFldDWhkcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKBldeWhdeTVoCVk0FSgNfAVsKQglKA10DWgFeC0AAWQFTH0EUHlYfRQpcXl0NUh9FAnIdXFZQAlpVEgRACFZQXgheH0wc
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai;
+ t=1787256262; x=1789848262; bh=lvyJ+EmPwvpUnB4+2dWTzso135sd3aUqzmIlIhlfEfs=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme;
+ b=LssCVwF7KpEQcG8AUfjWznDq9y8FyaG80WwdKK72f8vzLW8viqYTz8FjMrCxPL0G3YEFqASg31rjSfN1eCSjXA2X4vAWx9skAHd6SZKf41SHPIsdptRFqdgPO7zMHrf/kpiwW9xXO+vWvd1A7i6OooeUcvtWBVTkh88KQ7HTZ/6TP8SMTDrTQYGQL0/9MczD8lAIWQvvh1AUG69rsMJsR4M+4XVGtbuDlvCPnMCQhFdEH6zW1/QsCL7o4Q/WagG+dlijpdClcNbG1TtIuGEyQzKSiNumcYihOtAcA9onSZ/nYXvmvExwtqQoRW4eH68peufMrbvFwbFGjE9POyLH1Q==
+Received: from ncore (unknown [17.156.200.36])
+ by p00-icloudmta-asmtp-us-west-2a-60-percent-1 (Postfix) with ESMTPSA id
+ 5438C1801815; Thu, 20 Aug 2026 20:04:17 +0000 (UTC)
+From: Ferran Duarri <ferran.duarri@me.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Ferran Duarri <ferran.duarri@me.com>
+Subject: Re: [RFC PATCH] dma-buf: add a generic reclaim-priority hint
+Date: Thu, 20 Aug 2026 22:04:12 +0200
+Message-ID: <20260820200413.283468-1-ferran.duarri@me.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260820190838.221435-1-ferran.duarri@me.com>
+References: <20260820190838.221435-1-ferran.duarri@me.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 00/40] DEPT(DEPendency Tracker)
-To: Byungchul Park <byungchul@sk.com>, linux-kernel@vger.kernel.org
-Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
- torvalds@linux-foundation.org, damien.lemoal@opensource.wdc.com,
- linux-ide@vger.kernel.org, adilger.kernel@dilger.ca,
- linux-ext4@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
- will@kernel.org, tglx@linutronix.de, rostedt@goodmis.org,
- joel@joelfernandes.org, sashal@kernel.org, daniel.vetter@ffwll.ch,
- duyuyang@gmail.com, johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
- willy@infradead.org, david@fromorbit.com, amir73il@gmail.com,
- gregkh@linuxfoundation.org, kernel-team@lge.com, linux-mm@kvack.org,
- akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
- hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
- jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
- rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
- linux-block@vger.kernel.org, josef@toxicpanda.com,
- linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
- dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com, harry.yoo@oracle.com,
- chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com, boqun.feng@gmail.com,
- longman@redhat.com, yunseong.kim@ericsson.com, ysk@kzalloc.com,
- yeoreum.yun@arm.com, netdev@vger.kernel.org, matthew.brost@intel.com,
- her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com, bp@alien8.de,
- x86@kernel.org, hpa@zytor.com, luto@kernel.org, sumit.semwal@linaro.org,
- gustavo@padovan.org, christian.koenig@amd.com, andi.shyti@kernel.org,
- arnd@arndb.de, lorenzo.stoakes@oracle.com, Liam.Howlett@oracle.com,
- rppt@kernel.org, surenb@google.com, mcgrof@kernel.org, petr.pavlu@suse.com,
- da.gomez@kernel.org, samitolvanen@google.com, paulmck@kernel.org,
- frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
- josh@joshtriplett.org, urezki@gmail.com, mathieu.desnoyers@efficios.com,
- jiangshanlai@gmail.com, qiang.zhang@linux.dev, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, chuck.lever@oracle.com,
- neil@brown.name, okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
- trondmy@kernel.org, anna@kernel.org, kees@kernel.org, bigeasy@linutronix.de,
- clrkwllms@kernel.org, mark.rutland@arm.com, ada.coupriediaz@arm.com,
- kristina.martsenko@arm.com, wangkefeng.wang@huawei.com, broonie@kernel.org,
- kevin.brodsky@arm.com, dwmw@amazon.co.uk, shakeel.butt@linux.dev,
- ast@kernel.org, ziy@nvidia.com, yuzhao@google.com,
- baolin.wang@linux.alibaba.com, usamaarif642@gmail.com,
- joel.granados@kernel.org, richard.weiyang@gmail.com,
- geert+renesas@glider.be, tim.c.chen@linux.intel.com, linux@treblig.org,
- alexander.shishkin@linux.intel.com, lillian@star-ark.net,
- chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
- link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
- brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
- mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
- linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-modules@vger.kernel.org, rcu@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
- neilb@ownmail.net, bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
- dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
- alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org
-References: <20260706061928.66713-1-byungchul@sk.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: nt9hDV9gmWBZBE32f8CD6ChiV1w3CzCH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDE1MSBTYWx0ZWRfX2eYdjrglUcbr
+ DI3xWsqKv2E1b3moWK7AzoW0QheEs6XNAv1MDyaLmZvIXiDQBHpK/kp8tG/SoF2yE91pTSiCIwA
+ EZacQ9u+EGSVgrQYI26/yN4LUohCo9lE1wpcAORG4QsTaVINm1tKro0aF8d1GwGtY4Zedoj5AMg
+ SCyCLs4mTGpYgjgQcxDm7gCrEF29NwNd+WFz52Nw/9GQuVuL2z5D28ABTz9urzvbIlx+G4H+y5m
+ Zrn6PhsT0rdkSY2V3zqHY7Y5qd2KjqHFIRen9yZLhjTwtN5xT/GM8y85ROY7f6rXb/SVFGj5H8/
+ Kkcat/GSDBQQ6518DVA7ToGtyXgESNAJWTWpqKvl4WqoviZUg1W5cZ9Pz76V28=
+X-Authority-Info-Out: v=2.4 cv=TN1Iilla c=1 sm=1 tr=0 ts=6a875dc4
+ cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
+ a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10
+ a=B9nqV3Rn1-QA:10 a=VkNPw1HP01LnGYTKEx00:22 a=zi9vg-6oPVXmC7JkcYkA:9
+X-Proofpoint-GUID: nt9hDV9gmWBZBE32f8CD6ChiV1w3CzCH
+X-JNJ: AAAAAAABkSlKfB0TYeRRLyboTn9plAub4kFqBfr+DzAlkdgNd2enGoSRrV3AMTs8oHB2/jr6KLMYfgGdBithNnWnM+T/de1i+/5iu0nNLAog9qVG8kvOgSVQhNNB7KKuG/T3MBguGlmgV11F3j1hUL3c0adGGDPFAjFvaW2LPGiLz4gALl42YsJiNEKn+dib7EK92SEezzq3ezUp4pIdrDtE/Yu43Iccok7oWVji8PdgfDwY/9sBiVwCMuw3y2/KppNnq5hjjJ9VSdVOI/Ufah/ez55fXYhzF7hhtantFC6WbxiAuI2OeWfnUhg56REruV20hTvGO8ITKLKQHagTpGR+xyqqUKdFjNv0ia0Cp4jA9zv/0eK6whQMf2wraccpVg0dWjpinqxPdgap4rSX1zNr0kPR2382LUBuQjmuXgKqzYlEWIF3p6Fdt4V25hHHbJyu02LaIkXl/Wl3PKAh4+TqFEarvnrX//zjrl3UhOcM3Qm07WG5fetnRc7fO1dSPQIkPF1ZOplM2p3Bg93DRDsM7+IWb6bIU2CocGsGikXc0kXygD8M9Qj7WQy9hPTr+/DaqBmHTd+WqbbpqtmSr4cDaGU0QDkZxZcPYLLrRO0xz4AeW27BVNpaLubsiOHYas0A+PgTJE3gt3UiPukcH/VX1YGPT7JVsKUsO/XUT3b9GQ6KnP1BWBhs6vrHfX/MUQqeVhn80zjhIxwCY4wbV8OjCTS/aoMNnSL63fLxswXCfVYEV3AfnAfCPJlRYmgTVa2FpvM8R126NW2RplFVx4ApjAtQ1/vEkQQls7JCHzfHDUtQDyd2mZ33fFsFBgXhufva2MrnxFLNK7LvLvx2yHGAPD2j56OQY6kA7HST9+H7WnERIfTmE8aHNOy2cbfyJ12LMMkvLhaQY4OA7MKonmjIEJV2Fg7mCIJWSGAMPGVFZIi+ubinvsNOqHy4xAkp9LmRyUziuxY3lF/gl/HY5UoOVZ4/Heo
+ 5nA8R569yp/wu9DQ71vfFp9fWh2Ok7hIeKXyU24b/cnf9yGt/IRfQFgfiQrHGcNJVbXXoAyavAQtLyrjab7a6+NTFkki7su/Y07wZk4J8JhtodLAiKS7CVSUfWK6tIbxTFfbNKfqhN4nOQKxpJPHDu4BmIzOsIgRQI6vutDOIlwGkAAqb8fGDawxNglv8s9gziAXCIe2TeSnzcJBsvuHybt5rz2EiB3KzxWU2807CdPoCD4DPXO3SdjkuMzO0/7L94yK6Vfaux08LCvRu6cebFiy3R93jPWrrhIP7J5Y=
 X-Mailman-Approved-At: Thu, 20 Aug 2026 22:53:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -159,127 +74,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/6/26 08:18, Byungchul Park wrote:
-> Hi Linus and folks,
+Following up on my own patch to put its weak parts up front rather than
+have them found in review.
 
-Hi,
+The only consumer is out-of-tree, and it is mine. The commit message says
+"an out-of-tree memory tiering driver we've been using", which undersells
+the conflict of interest: the driver is greenboost.ko, I wrote it, and it
+is the only thing anywhere that reads dma_buf_get_priority(). Nothing
+in-tree constrains these semantics. Adding UAPI -- two ioctls, an fdinfo
+field, and a DMA_BUF_PRIORITY_* range -- with no in-tree user is normally
+declined, and I think that is the right default.
 
-I think there was plenty of feedback from locking maintainers in the past. One
-question and a comment below.
+One claim in the commit message was not supported as written, and I withdraw
+that wording. "GPU drivers juggling foreground and background clients want
+it" cited no thread and no maintainer, and I should not have asserted what
+other subsystems want on their behalf.
 
-> 
-> DEPT(DEPendency Tracker) is a runtime deadlock detection framework that
-> sees what lockdep cannot.
-> 
-> I'm thrilled to share that DEPT has moved beyond theory and is now
-> catching real deadlocks in the wild:
-> 
->    https://lore.kernel.org/lkml/6383cde5-cf4b-facf-6e07-1378a485657d@I-love.SAKURA.ne.jp/
->    https://lore.kernel.org/lkml/1674268856-31807-1-git-send-email-byungchul.park@lge.com/
->    https://lore.kernel.org/all/b6e00e77-4a8c-4e05-ab79-266bf05fcc2d@igalia.com/
-> 
-> I've added comprehensive documentation explaining DEPT's design and usage.
-> Getting started is as simple as enabling CONFIG_DEPT and watching dmesg.
-> 
-> THE PROBLEM LOCKDEP CANNOT SOLVE
-> --------------------------------
-> 
-> Lockdep has been our trusted deadlock detector for two decades, but it
-> has a fundamental blind spot: it tracks lock acquisition order, not the
-> actual waits and events that cause deadlocks. This means lockdep misses:
-> 
->   * Deadlocks involving folio locks (not released within the context)
->   * Cross-context synchronization like wait_for_completion()/complete()
->   * DMA fence waits, RCU waits, and general waitqueue patterns
->   * Any synchronization primitive outside the classic lock/unlock model
-> 
-> Consider this real deadlock pattern that lockdep cannot detect:
-> 
->    context X              context Y              context Z
-> 
->                           mutex_lock A
->    folio_lock B
->                           folio_lock B <- DEADLOCK
->                                                  mutex_lock A <- DEADLOCK
->                                                  folio_unlock B
->                           folio_unlock B
->                           mutex_unlock A
->                                                  mutex_unlock A
+What I can point at instead is in-tree code. TTM keeps a per-BO priority
+(TTM_MAX_BO_PRIORITY, four levels) with one LRU list per level, and its
+eviction walk ascends those levels in order -- so TTM has already concluded
+that per-buffer eviction ordering is worth having, and keeps it private to
+TTM. At UAPI level the same question has been answered three times, once per
+driver: DRM_IOCTL_PANFROST_MADVISE, DRM_IOCTL_MSM_GEM_MADVISE and
+DRM_IOCTL_VC4_GEM_MADVISE each ship their own WILLNEED/DONTNEED. A driver
+that pins pages via FOLL_LONGTERM has nowhere generic to express relative
+reclaim preference, so it invents a private channel; my own out-of-tree
+module invented one more, an ioctl plus a gaming_mode sysfs flag, before this
+patch existed.
 
-But that really just boils down to folio lock being implemented as a PG_lock +
-some advanced wait mechanism. And we must do that because of lack of bits in
-struct page.
+I want to be exact about what that does and does not show. None of those act
+on an exported dma-buf -- they are all driver-internal. So they are evidence
+that the need recurs, and that the kernel has already accepted the concept
+including at UAPI level, but they are not an in-tree consumer of a
+dma-buf-level hint. The blocker above stands unchanged.
 
-Willy mentioned in a previous version [1]: "I don't think it makes sense to
-track lock state in the page (nor folio).  Partly because there's just so many
-of them, but also because the locking rules don't really apply to individual
-folios so much as they do to the mappings (or anon_vmas) that contain folios."
+How the hint is actually consumed, so the semantics are judgeable rather
+than hypothetical: greenboost.ko tiers a model's working set across VRAM,
+system RAM and NVMe. Its T2 eviction sweep reads dma_buf_get_priority()
+as a skip-on-threshold check that re-orders which already-eligible
+buffers are reclaimed first. It never makes a buffer eligible that was
+not already, and it never overrides the invariant that KV-cache buffers
+are not evicted. The hint changes ordering within a set, not membership
+of it.
 
-Given that lockdep is a debug feature, and we will at some point allocate struct
-folio separately, I assume we could just squeeze a "struct lockdep_map" in there
-in such debug configs and the world would not collapse.
+A review bot on this thread has already found one thing that needs fixing,
+and it is right. DMA_BUF_IOCTL_GET_PRIORITY is _IOR and never copies the
+struct in from userspace, so the pad field that the UAPI documents as
+"must be zero, reserved for future use" is enforced on SET and not on GET.
+That makes the promise empty: nothing stops existing userspace leaving pad
+uninitialised, and a later kernel wanting to use it as an input flag would
+have to break them. v2 will make GET _IOWR, copy the struct in, and reject
+a non-zero pad exactly as SET does. This is worth settling now rather than
+later, because changing the direction bits changes the ioctl number, and
+that is only free while there are no users.
 
-Doing that today (one "struct lockdep_map" in each "struct page") wouldn't work
-as mm_zero_struct_page() would not expect such large "struct page". But
-conceptually, for a debug kernel with a special CONFIG_LOCKDEP_PAGE_LOCK, maybe
-that would already be ok and we could just do that (and optimize it as we
-allocate folios separately).
+I would rather hear the shape question below answered before posting that
+v2, so the two rounds do not collide.
 
-Not that it's ideal, but for a debug feature to at least check PG_lock, probably
-an easier way to achieve it than some completely new infrastructure.
+What I am asking for is a read on the shape, not a merge. If the answer
+is "come back with an in-tree user", that is a useful answer and I will
+take it. If the shape itself is wrong -- priority belongs on the
+attachment rather than the dma_buf, the range should be smaller, a hint
+with no in-core policy is the wrong abstraction -- that is more useful
+still, because it is cheaper to hear now than after something is built on
+it.
 
-Now, Willy said "locking rules don't really apply to individual folios", I
-wonder if that could just help to also let lockdep check PG_lock with less
-metadata? (didn't fully wrap my head around the implications)
-
-[1]
-https://lore.kernel.org/all/aR3WHf9QZ_dizNun@casper.infradead.org/?utm_source=chatgpt.com
-
-
-It's your guiding example, that's why I mention it. You do mention other wait
-cases here, I don't know anything about them, but for folios it's really just
-"we used a single bit so far" AFAIKs.
-
-[...]
-
-> 
-> Q. Why not build DEPT into lockdep?
-> 
-> A. Lockdep is stable, battle-tested code. I chose separation because
->    while DEPT borrows BFS and hashing ideas, the wait/event model
->    requires rebuilding from scratch. Lockdep was designed for lock
->    acquisition order — retrofitting it would risk its stability.
-
-Why can't this just be some configurable extension to lockdep
-(CONFIG_LOCKDEP_XYZ) until the feature is stable and can unconditionally be
-enabled along with it?
-
-I don't quite buy the "would risk its stability" argument. A lot of stuff we do
-"risks stability", every day :)
-
-Is there another good reason (incompatible with X, dangerous with Y, cinfusing
-Z) why this really must be a separate thing?
-
-> 
-> Q. Will DEPT replace lockdep?
-> 
-> A. No. Lockdep validates correct lock usage — that's not going away.
->    DEPT supersedes only the dependency-checking logic when mature.
-
-It's quite unfortunate that we'd end up with another similar-but-different
-mechanism, that will just end up confusing people.
-
-
-But I am not a locking maintainer. I think there was plenty of discussion in the
-past, so I might just be raising points that were already discussed in the past,
-but I really just read some random pieces of earlier discussions. (ideally
-previous discussions would be summarized here)
-
-Long story short: we are now in v19 and I think there was pushback in the past.
-Did the opinion of locking maintainers change, or is there a way forward to
-integrate this in a way that would make locking maintainers accept this?
-
--- 
-Cheers,
-
-David
+Thanks,
+Ferran
