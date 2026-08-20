@@ -4,154 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3988C5DF82
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:24:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0D40C5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 10:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 570D810E192;
-	Thu, 20 Aug 2026 10:24:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 045F010E033;
+	Thu, 20 Aug 2026 10:39:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NlB8zap4";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hveLHaNn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PdE3EhVy";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81BFB10E192
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:24:23 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67KA3Fub3454836
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:24:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ty5/YlOK6jhAeQysmUgT83beKPjDWgvudsEIa05/S58=; b=NlB8zap4bl1dTpi/
- b77sQXntHv1GfNurcpg1EXnyTgwpZQ+R78j2BoglrlZvcovg72q6QAhNZfrYzcqr
- GCwMe36xIWlsMUYFJg8JYGU7TK6ZgYfMV+pc0lL6XogJV6HWr0LEOLcfyjLsqv1m
- ZNq4SlEiH17wGWg3jha9yW8w706I3uJe4rCwJjbfD5Am7ydlP/iNJjbivrLwrwS+
- x9zOhcGIvabtlfi89CueWIKKke4cwPHsg46q73d9VcaLPyY/MSWxNOaUT6WI97fp
- 1du9a25vtOEz36lozAdQyY+2xlVha4vci5E+Etk7h5hFpMtrrVUJvTbcfOsZ8jJD
- DQkAog==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5yg88320-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 10:24:22 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-cbee5bab340so2247352a12.2
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 03:24:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787221461; cv=none;
- d=google.com; s=arc-20260327;
- b=NezS3Onw27gz6uxCxIAyeB0w+6wc6a2ODEr35ER7C3EOYDfGShv2pJ1C8rSnh4LZ+A
- Q+rb6RAynu94QgaJXadMluJWBkskjbb2piWThmeeZVMbbgd6l84gkUE1WY5vyk/WShxe
- xajZbfyRmwb2MpyALWS+4Tk+UocyQ+Z31LZf8R9VhLTCoLdvt3uI+F1kCNpV/Y6JHJKE
- WYtRHp2T5wspt4MIzXsU/ks8TQgeRkKDC8edTJZ52SzS/9BaJNAR2HJIlaHwfHisnl66
- XvSQFYqZ8UsBsdM6cvdGCDSAmh2MUDhRZM5ycMee5gkyBVJb9UIpi48RiN/QNWD447rz
- q6Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Ty5/YlOK6jhAeQysmUgT83beKPjDWgvudsEIa05/S58=;
- fh=jgmh99elYE/7eOaLsMMEgKcUrIeFDxqjxT0pEjGBNao=;
- b=N1X/txkTLtsIdTKhSo3sd86lxMv9V41hzD2W947zcHtL+XFZx3oZwi59X0PSaOeEJ3
- gURIqFPvaEcZ7PuybhjgzWKgHcN77p6Dh5ipJvbWG+9hKp/YiGKtpAyFXYiLiUSBMdWf
- 468EUeCh14uK0HkJUxw9vZ6cl+MMfYpNVAWn22bac4VPq1cz3bnkDVwZAnQfluW89qRN
- memwxTg7NxDaBSLV5Auj/i3oJM+Hg22szn4w0qi4ixhR/FEskCHvT+u1k+j+A4DNXksq
- uncNXGi6VYXEtn0bg7Egv+9GtAWsg8xrhjp+yYZNiRI/kn1qPWbNLBzw5oj0wxxqC9Jx
- vYtg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787221461; x=1787826261;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Ty5/YlOK6jhAeQysmUgT83beKPjDWgvudsEIa05/S58=;
- b=hveLHaNnATm/SMSQJ9bnrsoDeC9KIjF1vWsFwIxEYMRClMmdTIXSzauf7m+hmDnJad
- gg1ffEPp57/l3ejQr3Ek23mdllxUNK/QgK90/1/ngbce33fdlneCugV7y41tO/O3RKZI
- AhKxuX7dgG1lJQuCOuw/EAn5wOTxMM6P3RIh18mF3/DfmVLDSARTwjiykzF0qX8JBPvX
- bLB6yWEFYhNnq6o9huziCvq3IUFNleeum8N3pzlbyaVBOcpruG0ISW6QWguSczSzc6ki
- APosK8VgtiCquGiQ8Y8gktJ6SsoJoE7Jk+X0TSKri1FcdF/ALdVyHuGF9vjNxgopzqG6
- 6x4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787221461; x=1787826261;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Ty5/YlOK6jhAeQysmUgT83beKPjDWgvudsEIa05/S58=;
- b=dKalEMt7JnMZQ5L8YLNZa0dfioIXo7MjrP8URMQPCiQ2+F/WAnlHmpx+7x1MRYNoBU
- 4GVobS1594D2+d1wzRPrrsHBl4t7yQWG2ll4uytzLsBl24niF3XAgU30T3D8HoeWW84C
- MGdZ8kHUA9lOCJw9NInAaadRs/fspqrBY28GBE1CYUccjlf9fVW8HI0lR7Iy/B9tTF9n
- 60N0YUKvCtcESDq/+CUo+SAUgJgP28TjU2Es7LAekQTRupAPyM47RxvT2XEJEGFAO8uS
- xLbZrDUK24Mq/4I2HKEog0r+sr88zwfoJ1pONlAW9CkJ7jgB61R6ln9SPJy74lHrxHOx
- mZRQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrejPidAvT7wC86bKoqEuJj0giGOujCBD/QI6Y6nQM208R/p86RJFtpNmEM7gj6ul3+AQ4iyYpjT3I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YydJ4ActwTBq7rYRwkm4DlMPWNPZjwtohjHuBoclHEJ6Y6RYW4I
- delbXhU6D8i2yaq3KeZo+C48f1A/GtCveYpH9h7FstgsuqZNKI8LrM043+tlv03lq0gxVg2F2W3
- aspQb7OotwiB4zF7UQL4w1L7imBY5ZGTc+sokt283Fv/KpqRWVxz8kSiwWOTtbSE+2y7YiGc8wT
- V5NjpootCLLLB7uy6ueC5TWmitIUOSWrp/IlRplPW1oKiFcw==
-X-Gm-Gg: AR+sD10E1v9DeX1ZNyzOAnPX4yk10bYzYDlYtbPYpnt1Dx/GqCFY//nzQZi2pXnwmHD
- Xps9uFy2YXmhfNVCG5WOfXp1a/n6ES9YP+sQe0XY0bypCBG5ZmV92bt2Wu1Qw4xSWVjbC3au/by
- BM6PuAOQzbzM8jT4RC/MjgmfeHtzShcagWgMcW9yfPEvJZ5/zCF/hKEaZmlQ==
-X-Received: by 2002:a05:6a00:2301:b0:847:7ffd:ce35 with SMTP id
- d2e1a72fcca58-851d382e720mr19263272b3a.8.1787221461190; 
- Thu, 20 Aug 2026 03:24:21 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2301:b0:847:7ffd:ce35 with SMTP id
- d2e1a72fcca58-851d382e720mr19263163b3a.8.1787221460718; Thu, 20 Aug 2026
- 03:24:20 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
- <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
- <CAPx+jO-ow2vo2wMxERLGse88wLoaR=HLdOWk6Qwv97ZdbE4R5Q@mail.gmail.com>
- <CAD++jLnzDmxW_SoJ9H1tS2_r+jd7A7FpLVp37nK=dOEPj=GExA@mail.gmail.com>
-In-Reply-To: <CAD++jLnzDmxW_SoJ9H1tS2_r+jd7A7FpLVp37nK=dOEPj=GExA@mail.gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 12:24:09 +0200
-X-Gm-Features: AcwNN1XagjqLsUfXCAJXyqu2taAnOsy7gMxOrYs8oiiblP73dGEaPVwCq6ztGis
-Message-ID: <CAPx+jO-+hLsAdDC9Ep16cO52cA2c=xKeXvngkGqzoC0FyxXj+A@mail.gmail.com>
-Subject: Re: [PATCH 10/11] regulator: db8500: Add power domain regulators
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1ECD10E033;
+ Thu, 20 Aug 2026 10:39:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787222398; x=1818758398;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=8P0a4BQW7xa8cNYXKS/zF9nVfujMbJNyuwTAbDSZHAg=;
+ b=PdE3EhVyWinxgsAZ56bCsMizCEVjid2q5YNng6npZ1WsFgpbeJ8i6y7+
+ Np7IxXEk8R6vQ9yjakh1hI6bg4xRNu+afyGtQl0ZY6JspTLQV5fxoYw/C
+ XpEKKug5dRXjYfr0vN/MRBQTAgqVPfVMpRKEaQcQzKHB5I1pCYV6Guluo
+ kCo97QZnY4+YwqVjjnEFkBS7LQIU/Y0p9fMm6akkeGSZ0X9G2v6sIzIUM
+ jrDMxZf5udjG6VSrobgxTgMdMVCBo8jhQIs2unl5cQZIAs4RK2JCzMOWv
+ ouzQF6y1ABz0RWuSvg1JnNOYGG3UV2vsH58Y6b/Po8pyxY64rtHTqvh8K w==;
+X-CSE-ConnectionGUID: Ki2NIMZwRUG6p1xWxKOnOA==
+X-CSE-MsgGUID: AynbT7RNTCWlQyZyuR0Vfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87775652"
+X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="87775652"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2026 03:39:57 -0700
+X-CSE-ConnectionGUID: GqvfUZDnSHKO1Xp+8NeiAA==
+X-CSE-MsgGUID: 0AXgaS8jRKuThf94mEcQqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="289464278"
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.245.82])
+ ([10.245.245.82])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2026 03:39:55 -0700
+Message-ID: <f4a4d6b6a4b353e2993a0e556b93da8501846d40.camel@linux.intel.com>
+Subject: Re: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Auld <matthew.auld@intel.com>, "Prabhakaran, Krishna"
+ <krishna.prabhakaran@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
+ rodrigo.vivi@intel.com, tursulin@ursulin.net,
+ dri-devel@lists.freedesktop.org
+Date: Thu, 20 Aug 2026 12:39:53 +0200
+In-Reply-To: <d3fa2250-3530-44d5-9661-032f195f8ad0@intel.com>
+References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+ <d3fa2250-3530-44d5-9661-032f195f8ad0@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA3NiBTYWx0ZWRfX/LBwanTO5l01
- 7z6Kn8qSUYP9IHMjrzHfi2o/p4VFPDAU4CorUewXiOH3P1P2nf2/kbB+aWdNt6vMPQr0nhfr0Gw
- W+5BvHXAt9ebgygO22BiQYf4qJ5QZAk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA3NiBTYWx0ZWRfX+96yW+Aq6f/s
- eO7lk+e1h00+p9++r8VfWp6C20GXBDyx8OpGaBK2KnVha3XZ+iGtqiN3hQkOoqiTgFWpL5I9h9w
- XHwJYLCP16uVquHugJbnL4WvD65Mh33M4LxD8UlRhiIe/ly7qi+0GCnem29jxJ9YNPhkdq2TKsP
- Tl945qjcYqJ7g+olZwE9nJcdKhDct8A02YE1QrH/kXy0siV1j0GPpwRgmxjg0n1y7N76n+wrceX
- 6+SbS4oyLIf5tD8eEthuQdCMgjbi56d+glUxOMYDmbijRcxoQIA7by6kdj99gYVEuTgXYLGXvkM
- G/0eLP2qNes7Yj9M1Sfg5QAYqXVnCDSKlri1V+eaUm5ax/9PdvDnmQAGGZzn8gxguXzJ8rim4Y9
- F1BqnmHk/+CDCObDjpkpiuehti6MNLGxhxoqz4Lzh1hXZVffHw216uQbqGJQUsmIXvm+ls9gqLf
- VVLVcC8if5dGlxdWvZQ==
-X-Authority-Analysis: v=2.4 cv=Y7/IdBeN c=1 sm=1 tr=0 ts=6a86d5d6 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=-_xB5rzH_TN0feDXJEkA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: yvU8ARosHI9npi36DZCCiO07Rz9NaXuA
-X-Proofpoint-ORIG-GUID: yvU8ARosHI9npi36DZCCiO07Rz9NaXuA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 priorityscore=1501 malwarescore=0 adultscore=0
- clxscore=1015 phishscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200076
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,79 +74,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 19, 2026 at 3:30=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
-rote:
->
-> On Wed, Jul 8, 2026 at 5:53=E2=80=AFPM Ulf Hansson <ulf.hansson@oss.qualc=
-omm.com> wrote:
->
-> > On Thu, Jun 18, 2026 at 7:01=E2=80=AFAM Linus Walleij <linusw@kernel.or=
-g> wrote:
-> > >
-> > > Add a DB8500 regulator driver for the VAPE and VSMPS2 compatibility n=
-odes.
-> > >
-> > > Back the regulator enable state with the corresponding power domains.
-> > >
-> > > This is done for off-chip consumers: the corresponding voltage rails =
-are
-> > > routed out so they are used for powering different peripherals using
-> > > these voltages as supplies.
-> > >
-> > > Assisted-by: Codex:gpt-5-5
-> > > Signed-off-by: Linus Walleij <linusw@kernel.org>
-> (...)
-> > > @@ -673,6 +673,7 @@ db8500-prcmu-regulators {
-> > >                                 // DB8500_REGULATOR_VAPE
-> > >                                 db8500_vape_reg: db8500_vape {
-> > >                                         regulator-always-on;
-> > > +                                       power-domains =3D <&pm_domain=
-s DOMAIN_VAPE>;
-> >
-> > Hmm, isn't this the other way around? The power-domains node should
-> > have a regulator supply?
->
-> They probably have that, but that is not what this is about,
-> it's the other way around.
->
-> > We may even consider to skip to model the regulator altogether and
-> > make the power domain operate directly on the prcmu instead.
->
-> That is what the series tries to do, as a whole. Sorry if that was unclea=
-r...
->
-> What we do in this patch is to deal with the fact that two of the power
-> domains, when enabled, also turn on two external power rails outside
-> of the SoC.
->
-> Since external components such as I2C devices cannot really be
-> claimed as "being inside a power domain" they take a regulator.
+On Thu, 2026-08-20 at 10:23 +0100, Matthew Auld wrote:
+> On 16/08/2026 02:45, Prabhakaran, Krishna wrote:
+> > From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+> >=20
+> > When i915 needs to make an imported dma-buf coherent for GPU access
+> > on
+> > non-LLC platforms, or for objects that bypass LLC, it currently
+> > calls
+> > wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer
+> > is
+> > pinned, so this triggers a whole-cache write-back and invalidate,
+> > broadcast by IPI to every CPU, on every execbuf submission
+> > involving an
+> > imported dma-buf. That stalls the entire machine for milliseconds
+> > and
+> > starves latency-sensitive work on unrelated cores (e.g. USB
+> > isochronous
+> > audio serviced on the VMM's main thread).
+> >=20
+> > Flush only the pages that actually need it instead:
+> >=20
+> > =C2=A0 - If we imported one of our own dma-bufs, the backing object is
+> > =C2=A0=C2=A0=C2=A0 struct-page backed once migrated to SMEM, so flush i=
+t directly
+> > with
+> > =C2=A0=C2=A0=C2=A0 drm_clflush_sg(), exactly as we flush our other obje=
+cts. This
+> > also
+> > =C2=A0=C2=A0=C2=A0 avoids re-entering the exporter through dma_buf_vmap=
+(), which
+> > would
+> > =C2=A0=C2=A0=C2=A0 recurse into i915_gem_object_pin_map() on the source=
+ object we
+> > =C2=A0=C2=A0=C2=A0 already hold locked (and fails the
+> > igt_dmabuf_import_same_driver
+> > =C2=A0=C2=A0=C2=A0 selftest with -EBUSY).
+> >=20
+> > =C2=A0 - For a foreign dma-buf the sg_table is not guaranteed to be
+> > backed by
+> > =C2=A0=C2=A0=C2=A0 struct pages, and the importer has no way to tell, s=
+o
+> > drm_clflush_sg()
+> > =C2=A0=C2=A0=C2=A0 cannot be used. vmap the buffer and flush that virtu=
+al range
+> > with
+> > =C2=A0=C2=A0=C2=A0 drm_clflush_virt_range() instead: x86 uses PIPT cach=
+es, so
+> > flushing
+> > =C2=A0=C2=A0=C2=A0 one virtual alias evicts the cache lines for every a=
+lias of the
+> > same
+> > =C2=A0=C2=A0=C2=A0 physical pages. The dma_resv lock required by dma_bu=
+f_vmap() is
+> > =C2=A0=C2=A0=C2=A0 already held here via the imported object.
+> >=20
+> > Fall back to wbinvd only when the buffer cannot be vmapped or is
+> > backed
+> > by I/O memory, where there is no CPU-side range to clflush.
+> >=20
+> > Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-
+> > acquire")
+> > Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+> > ---
+> > v2:
+> > =C2=A0 - Flush our own imported dma-bufs directly with drm_clflush_sg()
+> > instead of
+> > =C2=A0=C2=A0=C2=A0 dma_buf_vmap(), which re-entered i915_gem_object_pin=
+_map() on
+> > the source
+> > =C2=A0=C2=A0=C2=A0 object and failed igt_dmabuf_import_same_driver_smem=
+ with -
+> > EBUSY (reported
+> > =C2=A0=C2=A0=C2=A0 by Intel CI on v1). Foreign dma-bufs still use dma_b=
+uf_vmap() +
+> > =C2=A0=C2=A0=C2=A0 drm_clflush_virt_range(); wbinvd only as fallback.
+> > =C2=A0 - Link to v1:
+> > https://patchwork.freedesktop.org/patch/744955/?series=3D171760
+> >=20
+> > =C2=A0 drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 55
+> > ++++++++++++++++++----
+> > =C2=A0 1 file changed, 47 insertions(+), 8 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > index b43d34c7d641..c798a90f1c0f 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > @@ -10,6 +10,8 @@
+> > =C2=A0=20
+> > =C2=A0 #include <asm/smp.h>
+> > =C2=A0=20
+> > +#include <drm/drm_cache.h>
+> > +
+> > =C2=A0 #include "gem/i915_gem_dmabuf.h"
+> > =C2=A0 #include "i915_drv.h"
+> > =C2=A0 #include "i915_gem_object.h"
+> > @@ -249,16 +251,53 @@ static int
+> > i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
+> > =C2=A0=C2=A0	 * DG1 is special here since it still snoops transactions
+> > even with
+> > =C2=A0=C2=A0	 * CACHE_NONE. This is not the case with other HAS_SNOOP
+> > platforms. We
+> > =C2=A0=C2=A0	 * might need to revisit this as we add new discrete
+> > platforms.
+> > -	 *
+> > -	 * XXX: Consider doing a vmap flush or something, where
+> > possible.
+> > -	 * Currently we just do a heavy handed
+> > wbinvd_on_all_cpus() here since
+> > -	 * the underlying sg_table might not even point to struct
+> > pages, so we
+> > -	 * can't just call drm_clflush_sg or similar, like we do
+> > elsewhere in
+> > -	 * the driver.
+> > =C2=A0=C2=A0	 */
+> > =C2=A0=C2=A0	if (i915_gem_object_can_bypass_llc(obj) ||
+> > -	=C2=A0=C2=A0=C2=A0 (!HAS_LLC(i915) && !IS_DG1(i915)))
+> > -		wbinvd_on_all_cpus();
+> > +	=C2=A0=C2=A0=C2=A0 (!HAS_LLC(i915) && !IS_DG1(i915))) {
+>=20
+> I think we can bump this now for dg2? I think we treat dgfx as always
+> coherent with system memory. So maybe s/IS_DG1/IS_DGFX/ in a separate
+> patch? Pretty sure the rest of the driver is the same.
 
-So with I2C devices you are not referring to the I2C controllers, right?
++1
 
-Are you saying that these external I2C devices consume the same
-regulator as the power-domain DOMAIN_VAPE uses?
+>=20
+> > +		struct dma_buf *dma_buf =3D obj->base.import_attach-
+> > >dmabuf;
+> > +
+> > +		if (dma_buf->ops =3D=3D &i915_dmabuf_ops) {
+> > +			struct drm_i915_gem_object *dma_obj =3D
+> > +				dma_buf_to_obj(dma_buf);
+> > +
+> > +			/*
+> > +			 * We imported one of our own dma-bufs.
+> > The backing
+> > +			 * object is struct-page backed once
+> > migrated to SMEM,
+> > +			 * so flush it directly, the same way we
+> > flush our
+> > +			 * other objects. This also avoids re-
+> > entering the
+> > +			 * exporter through dma_buf_vmap(), which
+> > would recurse
+> > +			 * into i915_gem_object_pin_map() on the
+> > source object
+> > +			 * we already hold locked.
+> > +			 */
+> > +			if
+> > (i915_gem_object_has_struct_page(dma_obj))
+> > +				drm_clflush_sg(dma_obj->mm.pages);
+> > +			else
+> > +				wbinvd_on_all_cpus();
+>=20
+> Do we need the flush under the else here? If it's not placed in
+> system=20
+> memory what is this flushing, from i915 pov?
+>=20
+> > +		} else {
+> > +			struct iosys_map map;
+> > +
+> > +			/*
+> > +			 * A foreign sg_table is not guaranteed to
+> > be backed by
+> > +			 * struct pages, so we cannot use
+> > drm_clflush_sg(). vmap
+> > +			 * the buffer and flush the virtual range
+> > instead; x86
+> > +			 * uses PIPT caches, so flushing one alias
+> > evicts the
+> > +			 * lines for every alias of the same
+> > physical pages.
+> > +			 *
+> > +			 * We already hold the dma_resv lock via
+> > the imported
+> > +			 * obj, so use the locked dma_buf_vmap()
+> > variant.
+> > +			 */
+> > +			if (!dma_buf_vmap(dma_buf, &map)) {
+> > +				if (!map.is_iomem)
+> > +					drm_clflush_virt_range(map
+> > .vaddr,
+> > +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > obj->base.size);
+> > +				else
+> > +					wbinvd_on_all_cpus();
 
-I thought these types of external devices in general use a different
-voltage range. Moreover, do note that DOMAIN_VAPE also has
-corresponding OPPs (performance states) that change the voltage level
-based on the requested OPP. I am not sure an external I2C would be
-able to cope with that.
+The need for this flush is a bit unfortunate. In theory iomem can be
+mapped and wiped write-back, But I'm not sure how common that is...
 
->
-> This is based on my understanding that power domains is an
-> SoC-internal concept only, so there is a clear boundary if something
-> outside of the SoC starts to use such an externalized power rail.
->
-> All this regulator does is to make sure the corresponding power domain
-> is enabled when the regulator is enabled.
->
-> I will repost all the patches once v7.3-rc1 is out.
->
-> Yours,
-> Linus Walleij
 
-Great! I really appreciate that you move this forward!
 
-Kind regards
-Uffe
+> > +				dma_buf_vunmap(dma_buf, &map);
+
+
+
+> > +			} else {
+> > +				wbinvd_on_all_cpus();
+
+Random idea, would it make sense to insert a GPU CLFLUSH into the
+pipeline using MI_CLFLUSH (on hardware that supports it) or an
+uncached but coherent MOCS / GPU PAT setting dummy blit?
+
+Thanks,
+Thomas
+
+
+> > +			}
+> > +		}
+> > +	}
+> > =C2=A0=20
+> > =C2=A0=C2=A0	__i915_gem_object_set_pages(obj, sgt);
+> > =C2=A0=20
+> >=20
+> > base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
