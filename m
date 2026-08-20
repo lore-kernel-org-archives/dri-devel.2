@@ -4,142 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EDCBC5B572
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 00:35:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D21A6C5DF88
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 01:31:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D3B10E0D3;
-	Thu, 20 Aug 2026 00:35:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A89210E114;
+	Thu, 20 Aug 2026 01:31:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ubmcy6GP";
+	dkim=pass (2048-bit key; unprotected) header.d=huaqin-corp-partner-google-com.20251104.gappssmtp.com header.i=@huaqin-corp-partner-google-com.20251104.gappssmtp.com header.b="pGWZ00kL";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013023.outbound.protection.outlook.com
- [40.93.196.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D094610E5B4
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 00:35:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lxImAcEb2onqulEQx4Tjcb0L0omr5XUKn3bYbK/mvd64KzDVpusiT3z7HmloKEI07V6c2NVt+yrDGclwFIEql2tDOuQorN+yRnej7toea99YF4q6fomW1ub4t5XAqf//5s0aTc+pCuwmv0lXDkYxrUkXtIrzQsWjuAo/aH4pg4KxSIGwAjOG4GLjMRfYwxw62/+eI8uzjsORzBmCPUl4s/RRkddxq/1s/BP2hrrfzyW0e0XRCegUimz2B7OMOOq0t+GWNiib9YHTtfNEMBG4DJDvMG2YCpPiSCDGammV+f9RzN6ozSfyAIWumIIKjTQS4OWYQctHNcsIvfUN78hfZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V/V5oh+gy5HuYuQ7f0Oom8C9HBPWLYejpmcTOwHfROc=;
- b=i2ZtOp7+ehE2XRDrRyPAVUkI5oeQdBQEvtmtD8beT/oI/8yvOnyf7YrE2+9R6ZZnFBcq2JOLGi8cD4H6z5iqTH4YD6blGsOyFVm2RdGhIgtfB3tIYufeSyXufSShsD5t/1g7zVMalcQMLO1sDDdmZvpG13aBKgzj2OsgqFmZUbx6x7+kxSejJ9BMmPxmCJvHocFsJA5d8UnNoCDxfGgjxGQToP4Ux7smjMgSRBDdT+QwY51tAoxWcFWLe+j4GHAGRYkmKsXM8BpfCYiJ8yxNgp5HJcTphChfQfC+Mw0H4uMmLrCDyRYEYzgibZ2b/m8QehVkMAuHGMZ/6K+Kkj9nig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V/V5oh+gy5HuYuQ7f0Oom8C9HBPWLYejpmcTOwHfROc=;
- b=ubmcy6GPQL/OnAhx/JH9mRYa/fppq8L+kTkcLRqmK/MOcW10ixhxSXjfHxk2+eXeFPhsBZGHYjKHUa6Vwp5oTNxsl/bDOUdn6qfUHM19IX50mY81s5SagQZNegaFkX7JV8Y8bLrLgslIxHRc4GEpMQ4vbePa2LsVWu+Onlo3jHYToU3ee13PBo5Se3QytJk60wxUxHTF+RVtlkqy2ouPYLGbESDUm82jITZzu/Mr1ji9x897zaTlNjRYsYLZtZj2N6M5yiRvfVjD084I5vGv03l2FSNT5Sm9Y9AhwHp7erI/3la4uGgYGY1kOonZix7XfKiabytIWZWddZMKjbjLPA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SA1PR12MB7199.namprd12.prod.outlook.com (2603:10b6:806:2bc::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 20 Aug
- 2026 00:34:56 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
- 00:34:55 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 20 Aug 2026 09:34:52 +0900
-Message-Id: <DKTCLGI8RHLG.17R4H0FFO4N6A@nvidia.com>
-Subject: Re: [PATCH v2 08/12] gpu: nova-core: mm: Add support to use PRAMIN
- windows to write to VRAM
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Alistair Popple" <apopple@nvidia.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Jonathan Corbet"
- <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-doc@vger.kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>
-References: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
- <20260810-pramin-split-v2-8-65a00b3c7309@nvidia.com>
- <aoY1pT_TC1VSKMzQ@nvdebian.thelocal>
-In-Reply-To: <aoY1pT_TC1VSKMzQ@nvdebian.thelocal>
-X-ClientProxiedBy: TY4P301CA0037.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2be::6) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2C6610E114
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 01:31:10 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2ceaf8a1265so19358605ad.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 19 Aug 2026 18:31:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=huaqin-corp-partner-google-com.20251104.gappssmtp.com; s=20251104;
+ t=1787189470; x=1787794270; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=sf8/1y/BvE8Q5udXvIgVW5M9y1VSk6Oq+FeF32W6vPI=;
+ b=pGWZ00kL+rtaBqLVdYLdBrXBtuekziUTy3ld5iVmZpa8MVEEQu7QVlG5PtzRhoIyX4
+ DWGXN8wFlmJgAqJD+8JYXtAjXJiWXWR+FBd+2wtaSiAlIHZOZBmexLQWhG058OtFS2jF
+ siyg9R1ebseLDeRggPUXX+XunIwKBYU3S+1nNIZQVT/Iy0Ltywa8wW4BW9xIdwbUnQmv
+ rP2/Kg/RDw0rwCbvL1WvFEP0K2/rD498WS8hTO9gEXv0cDVVENwPbgx0Wmw9qYVT3zRz
+ NACQL8G5Ei/U2YYc5ZjLfNeqgsZhZipEc5zdioGTawsqorWrgdoeiocJNNuIc7BbMyWh
+ lbJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787189470; x=1787794270;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=sf8/1y/BvE8Q5udXvIgVW5M9y1VSk6Oq+FeF32W6vPI=;
+ b=BtM2qk/tv7Zf0JEgzgN1s938OVGC30RKeDoZeF5cNdbUyi2UGQLbFnu//bPiFRYkMK
+ vPYQdIuQesJ4dTvxONtO9C0JeCr42eShQBq+aBrDHh9qeFznhUjo3oTHmXgc3Xegl9ED
+ Sg7OMtRk/qR1xeHw1hgOMapQeOn13K8NhM5iY5a2E7175y06zRnFfOjWwVg8Ac9bL66b
+ 2ehnR6Ers3J6r9uHfaENlgISVr5nql99vI2Ac2y40oHm1lGItvkFc66Jc6Om5O1El7Ii
+ HG7jxbQBYSsVppnYiLHjkFP/VfbUT+6Y+otYJe1RGWLS+JvsHVyArI5HwcAmPmirRsZ9
+ VIHA==
+X-Gm-Message-State: AFuF++ku40tGZSU7t7ueEUqorly2p3CEAMkoumOTemLEMU2VOucGO39Z
+ 4AK9PRwLXVBWyDiSTJ5EvWaeQXHujXoOd6VGMQLYgSH5xAYeMckh+3T+LyB+vUFio/g=
+X-Gm-Gg: AR+sD10vGa/JIWTcH4wqsjTvbjj+V1eNEmHsVJWKtgDVXACQJCXCVNxCBc13brpalb4
+ +wgajLaepNjBouAdlBsRyM7u/lvmK8gZ3S6vCEOGYke09zD28OQjr9Kwk64/Jc/x2CtEyp3lyEA
+ +L0BL3EZOsId+DDKcYyK5CUYxLu7kaU/cQxcDUnjR2mJjJgHOoL2xjpDxsuUKneRN1KlKHUIZJq
+ AzyM4BXKplkGhgelXRCa2ASWilybyaitHgt3uhSI1yeHXS3u3yYx4j/BIne2pYiEqYf1/2D/Ppq
+ LS2+sWMXzq+J4h4Xk4bVw5WT8pBllS3twWgK9cp5HqrtMmduSWW0AcjkwbJdm0DJfv5EUPcHoQM
+ PwG643lrsFK0y9cywA1WTYnGYXsO8bzcuSQCj7FbKELaAhs1QYt0V+SoJaDhqCj9WnEmR+pZF8N
+ 00CHclNqAZu7juhu3FkE5rLjAfzpWEkAJ8O7LIvHY2A68dN6DOBoaQOCJtp0AeLnVZkE+tpMDkE
+ gPB34AFFowAnIFw1t2hivoom2Jt5Tr7LwYcKkQ=
+X-Received: by 2002:a17:903:40c9:b0:2c9:b396:1a55 with SMTP id
+ d9443c01a7336-2d60197c4c5mr177873985ad.12.1787189469970; 
+ Wed, 19 Aug 2026 18:31:09 -0700 (PDT)
+Received: from zhk-cbg100025892.huaqin.com ([103.117.77.121])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d62e3c27c7sm633575ad.70.2026.08.19.18.31.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Aug 2026 18:31:08 -0700 (PDT)
+From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+To: dianders@chromium.org,
+	neil.armstrong@linaro.org,
+	sam@ravnborg.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ daniel@ffwll.ch, airlied@gmail.com,
+ Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+Subject: [PATCH] drm/panel-edp: Support MNE007QS3-F and TM140VDXP15 edp panel
+Date: Thu, 20 Aug 2026 09:25:54 +0800
+Message-Id: <20260820012554.4038893-1-zhouhaikun5@huaqin.corp-partner.google.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA1PR12MB7199:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff7f3c5e-ddb8-4fd5-8082-08defe52db60
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|10070799003|7416014|376014|56012099006|10067099003|11063799006|4143699003|18002099003|3023799007|22082099003;
-X-Microsoft-Antispam-Message-Info: YJUWLCBU7BAkeS2YqQ/G+jqnNW9hd+xoY1lo/MV5pmNpUsEzg1gT5wp9vGeTknuG8whbAs3FXWEtd/9uLc5W6vocpsFLaBrZPen0V9nA2CaVip0fGv2pfoAACqt4b7SfW7rSo369utZ87t3ADMOaO61ERmMbqlWI+hlg6wImd0qm4z9chyD6sFdjrnZNtcsJgJxB6/VfziA8RtPUlwLitRCBO3OJyb/B8N/ZUGkcj+wupehb7/rHtfMNSacq9MDNEo8K8hrVmTphAGGfblom1TEE6CgY7t6jPhBeZSlp/Z6U0CF9mfRqytmNaOV4gTaFypV4SoQH8bDe45tkoia6/2qrXAmiRiiaJPcQ7tjmbgiP9N5Ph1W/C1k0DFGONxuJSW+5DSVnDKG0J/frz1G9A3thq4o4e4d19dAvwJyx6Dty7C9z+y1OT2x3V4x0lN0PEmTaQSTYqzfuz7Bfm3ZzpUPgA57edf9okIOgbe8ka0eNnx2bXGPxN32J4xTnouciaoC3e52JTrBotNOwI7vDtI685kPQHYRGhfpxBs2+jnnI5xoTiNklS0GVqUIcJcYrEyXQO4i4k6PLJPY4pSzk6goXkkbeTIs9NYwnhpIF1yfO2bSBbDHHahx8YXjV+OPGRld5POJAeq10nr2j/q+9PbJEeD5l9nyTNN3cRw1rZmg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(10070799003)(7416014)(376014)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(3023799007)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MFFPRkx0aE1kQitnalMxOGJvZGJWWHhWOG9Md0kyYWRnd3E3bU8zUmpiUnZw?=
- =?utf-8?B?Y2NJNVc2NjVPYlJlZk4xRy9MblJuLzkvNnZjQS9yZWRDdUdFSVBGVk5yS1pE?=
- =?utf-8?B?a3UzbUN4RjF6QUtvam4xbUJ1ZWUyL3QxM3I3Z1F6Mm01VG11WXZGK3A1RUtj?=
- =?utf-8?B?VUpkL2RmNVh5NkkwMkZraWxRVWVUUzN0U21lWjVLYnEwS1BjV0docGljcjF2?=
- =?utf-8?B?WjZsMU5EN2V1emhIa0N2NGxYaVJoNyt6SmVhaUZHVmlQcjNPKzlMTENSSzJi?=
- =?utf-8?B?SExkYWxiYUhCWWpDaHk4N0JhQU1NdUNWU2phRU8xN0FuOFc4Z21FZFIzZHV0?=
- =?utf-8?B?TG5qUFBSZzA2Y0NBSU9MTkZPVDNhem5YcXlUdW92YjdDcG52dWtPTXMyeDdQ?=
- =?utf-8?B?dFNobXQ0aHdDNEJSa2F5TWRHN005YS9lS3hFYlNOaWNxWUM3ZmpGL2NmenRq?=
- =?utf-8?B?OUplU3RlZ3VxWERlZ0lWeUZGa0JBWGZ2OWI4ZkhYbFZDRU5pdS9aalpQRU9k?=
- =?utf-8?B?eTZiQVJHNGQrclFMMTNTaE9od3NwQWF0ZEdDQ1RrVmJkSGJFWVA4ZlRsUXU3?=
- =?utf-8?B?V0xVUnFsdXc3cjNHcndDR0FiSElva2o1emlxTW54UTBCczhONjNBdjRJR1BQ?=
- =?utf-8?B?cVJyUDFpL0I0TjJEVUY4VDJYbUI4VDdsKy9uZmd0dmZKSXZSZGtGMjdWVm5j?=
- =?utf-8?B?Y2R5L1dNcHNjdWlsYStRR01QU1pMMnZ2TFRDTjQwMzBmYmE0eEVWcXdjVkQ1?=
- =?utf-8?B?TGsrNHdPeXZPVkpMK0FsNERzeXNXUm1xRnhMcytCelZRTVh3WXlSeGNDc3dP?=
- =?utf-8?B?anMxQ1RJbTFzSXZrY0tNeDZFY1lHcEhEVlhJc1JJejRLckhxaWs5TUNjSUFq?=
- =?utf-8?B?OWVLSUVkZ3BHL1UwYWJyWXMzZ1lpQ01CQkllR0pOKzh2aGRDZzQxYVBRZS9a?=
- =?utf-8?B?LzBHSlpXUHlsaWo4Rit3bzhXVERBM2ZmOTQxalBDdDdRY1dvT0pTdmRSUmFu?=
- =?utf-8?B?NVdDZHMvMHlsUkhoMnBKOVNnVHhPTVZyc2lPYlE5WVhBTUpvVXhibWYwS0VJ?=
- =?utf-8?B?Tyt1WW1odnQzdXZ2ZC9YbmtpK1BVVVJVaXl1S2lwWFpNWGc5UWVReHJhSzN5?=
- =?utf-8?B?ek5UMktvMVdkZ3ZCVlZuWnd5M204MjhuVWl4dWplRjU1NnZHNzRONGlFVjBu?=
- =?utf-8?B?QUo0K29sUUN2dnRGNVJXNXQ0SldJcDhWVHgzdkxPMlRuRGEwMFlSMGRvN0Nx?=
- =?utf-8?B?d09zb3E1S3pMTlUrY2xVNVB4MHY0OEMrak04aG1SWVhjSXdHS1M2SGt1bGNl?=
- =?utf-8?B?VzZpSmtSMFNBZjlENXRNRW9yNEFwdnJtYVFXbldMckUrNEZJSWg2QkRGa3Ew?=
- =?utf-8?B?OGpCQ1liaDJMeEtBV2ZkbEx3d2MyWlZpSzhKMVU0NXVoYkg5RzNSUXhFY2VO?=
- =?utf-8?B?UDNOb0gvK2ZzTVAvUlBGTDNCZHZoNWp6SzNFeExEeW5OM0NuWFEzL0o1N2tB?=
- =?utf-8?B?Q0tmSnZoUmYweGppL2VBcmE2ODFzazlRak1iQnVScmQ4YnRyMGo2c0tUa1RK?=
- =?utf-8?B?VXpBQVRDaHBZQTlscDFxaXVDQ2FMRmRxWXljVHNpR1NpWkdmSFFHSVBvRzQ3?=
- =?utf-8?B?eDB4VU5rd1k5RUlBeWVHY0NmcG9sd3lFTWk4cGU0YndESit2Q2FaMWlyY1dt?=
- =?utf-8?B?SUp3cUx2SkdrN1VTL3NTdzRIdHFJMkVIb2l4YUJSdkxKTFhaWFUvTjNDY3NT?=
- =?utf-8?B?NjVGSXQwbnBSOHBlNG1tZWxIYktHWjVuUThvZU1YbzNmdTJmTjVlckdObmZX?=
- =?utf-8?B?SWIrVkxiZlJEQ2w4dlB5SEJnTlNrU0JwckpReGtOeml3UENyeitlbTE5ZERY?=
- =?utf-8?B?dGRUZ1dyMUt6Nkh4QWhkN3hLb01aSEF4VnB4d3l0LzNUVHZVRGJMUjYwQVlO?=
- =?utf-8?B?RTZBeUw2VGdvR01CL1NtaDFxR1h0YVFneE1lRWFSZUhKckhsVmxZc0FTM0dl?=
- =?utf-8?B?Q1JIaWJPS2VUaVpBeUdPVUorVTlHMkZNMDRPMHZUZmx5dFhtMUVRaWVmaHhV?=
- =?utf-8?B?L0FXOXUrdnZMZGhRQ1dPcjc3dG5sVUkvNVBHdWIyRUppWGJPdlpXS1Y3VE1D?=
- =?utf-8?B?TGtZMk9LclgxTCtQT2ZVazUwR0wxWTVVZ0lxbSs2eVowcjNTTzVhU3ZyTkJB?=
- =?utf-8?B?WXZodEl6eVdGZ1hGeDJVRTNQaWtZdzEvYnpkdlZob0gxcHFaU2hLSkJ6bXN0?=
- =?utf-8?B?cW9JdVdyL0hrNWp0SWNZdklsLzFLb0I5emNMaXk2L0NxN0hUWXMrY04vU3NH?=
- =?utf-8?B?cXdrQmZBSGJwWTBCU2FoRHJzajVNQkdvdWlhUFcyM05meHFiNjdzTmFwWWFt?=
- =?utf-8?Q?VEe85uvureSo/mNcFG6toR6sb7JNOTydTR3MP8JsrHIMN?=
-X-MS-Exchange-AntiSpam-MessageData-1: 9fENqNePCTZvZw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff7f3c5e-ddb8-4fd5-8082-08defe52db60
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 00:34:55.7842 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MOSHtz22mEAQap2NnCc72uCcpXLmBh3RkowYJ3djX2Ihg41Czi3GQu01RfPM0z5TeMdw3SiRkOQpwtO+l4SFMw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7199
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,118 +89,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Aug 20, 2026 at 8:05 AM JST, Alistair Popple wrote:
-> On 2026-08-10 at 23:55 +1000, Eliot Courtney <ecourtney@nvidia.com> wrote=
-...
->> From: Joel Fernandes <joelagnelf@nvidia.com>
->>=20
->> PRAMIN apertures are a crucial mechanism for direct CPU read/write to
->> VRAM. Add a `Pramin` manager whose `window_at()` returns a typed MMIO
->> view of VRAM through the 1 MiB PRAMIN aperture in BAR0, validating the
->> view against the VRAM region and repositioning the window as needed for
->> the accessed address.
->>=20
->> A view borrows `Pramin` mutably, so the window cannot move while
->> the view is in use, and it inserts an ordering point on Drop.
->>=20
->> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->> [ecourtney: split the registers and HAL into the two preceding patches]
->> [ecourtney: rebase w.r.t. Bar0 lifetime changes and register projections=
-]
->> [ecourtney: drop the window guard and mutex, use &mut self]
->> [ecourtney: position at init to avoid reads, reposition in window_offset=
-]
->> [ecourtney: return typed MMIO views instead of read/write accessors]
->> [ecourtney: insert an ordering read when a view drops]
->> [ecourtney: declare the window location, drop the doc examples]
->> [ecourtney: add the copyright header, doc and naming cleanups]
->> [ecourtney: the pramin module is mm-internal]
->> Co-developed-by: Eliot Courtney <ecourtney@nvidia.com>
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/mm.rs        |   1 +
->>  drivers/gpu/nova-core/mm/pramin.rs | 178 ++++++++++++++++++++++++++++++=
-+++++++
->>  2 files changed, 179 insertions(+)
->>=20
->> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
->> index 07dce4ce2473..ef5b1cad56c3 100644
->> --- a/drivers/gpu/nova-core/mm.rs
->> +++ b/drivers/gpu/nova-core/mm.rs
->> @@ -20,6 +20,7 @@
->>  };
->> =20
->>  mod hal;
->> +mod pramin;
->>  mod regs;
->> =20
->>  /// Physical VRAM address in GPU video memory.
->> diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/=
-mm/pramin.rs
->> new file mode 100644
->> index 000000000000..20be3fc471ba
->> --- /dev/null
->> +++ b/drivers/gpu/nova-core/mm/pramin.rs
->> @@ -0,0 +1,178 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFI=
-LIATES. All rights reserved.
->> +
->> +//! Utilities for accessing VRAM through the PRAMIN window.
->> +
->> +use core::ops::Range;
->> +
->> +use kernel::{
->> +    io::{
->> +        io_project,
->> +        register,
->> +        register::OffsetLoc,
->> +        Io,
->> +        Mmio, //
->> +    },
->> +    prelude::*,
->> +    ptr::{
->> +        Alignable,
->> +        Alignment, //
->> +    },
->> +    sizes::{
->> +        SZ_1M,
->> +        SZ_64K, //
->> +    },
->> +};
->> +
->> +use crate::{
->> +    driver::{
->> +        Bar0,
->> +        NovaRegisters, //
->> +    },
->> +    gpu::Chipset,
->> +    mm::{
->> +        hal::{
->> +            self,
->> +            MmHal, //
->> +        },
->> +        VramAddress, //
->> +    },
->> +    num::IntoSafeCast, //
->> +};
->> +
->> +/// Size of the PRAMIN window (1 MiB).
->> +const WINDOW_SIZE: usize =3D SZ_1M;
->> +
->> +/// The PRAMIN window, which is a 1 MiB window into VRAM at a fixed BAR=
-0 offset.
->> +#[derive(FromBytes, IntoBytes)]
->> +struct PraminWindow([u8; WINDOW_SIZE]);
->> +
->> +register! {
->> +    base: NovaRegisters;
->
-> I tried building this on drm-rust-next against the base commit
-> (4c9ba407018e8deb06dbc643112bac8f40404f95) but am getting some build erro=
-rs:
+MNE007QS3-F raw edid:
+00 ff ff ff ff ff ff 00 0e 77 87 14 00 00 00 00
+0f 24 01 04 a5 1e 13 78 03 2c c5 94 5c 59 95 29
+1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 35 30 80 a0 70 b0 24 40 30 20
+66 00 2d bc 10 00 00 1a 00 00 00 fd 00 28 3c 4b
+4b 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
+4c 20 20 20 20 20 20 20 20 20 20 ff 00 00 00 fc
+00 4d 4e 45 30 30 37 51 53 33 2d 46 0a 20 01 41
 
-I think you also need [1] (the v3 might also work, but not tested yet).
+70 20 79 02 00 21 00 1d c8 0b 5d 07 80 07 b0 04
+80 3f 79 5c 9e 05 95 9c f2 1d 02 45 54 b0 5c b0
+5c 00 42 12 78 22 00 14 8c 5a 02 85 7f 07 9f 00
+2f 80 1f 00 af 04 23 00 05 00 05 00 2b 00 0c 27
+00 28 3b 00 00 27 00 28 3b 00 00 2e 00 06 00 42
+b0 5c b0 5c 81 00 1e 72 1a 00 00 03 01 28 3c 00
+00 53 ff 53 ff 3c 00 00 00 00 e3 05 04 00 e6 06
+01 01 53 53 ff 00 00 00 00 00 00 00 00 00 7e 90
 
-[1] https://patch.msgid.link/20260805-typed_register-v2-0-c3ca142220a0@gary=
-guo.net
+TM140VDXP15 raw edid:
+00 ff ff ff ff ff ff 00 51 a1 37 21 00 00 00 00
+0b 24 01 04 a5 1e 13 78 03 2b a5 97 5b 57 8c 28
+20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 24 31 80 a0 70 b0 3c 40 30 20
+a6 00 2d bc 10 00 00 1a 00 00 00 fd 00 28 3c 4c
+4c 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
+4c 20 20 20 20 20 20 20 20 20 20 ff 00 00 00 fc
+00 54 4d 31 34 30 56 44 58 50 31 35 0a 20 01 dd
+
+70 20 79 02 00 21 01 1d c2 0b 58 07 80 07 b0 04
+80 71 69 5b 79 d5 8c 87 82 20 02 45 54 b0 5c b0
+5c 00 42 12 78 22 00 14 3f 66 02 85 7f 07 9f 00
+2f 80 1f 00 af 04 3b 00 05 00 05 00 2b 00 0c 27
+00 28 3b 00 00 27 00 28 3b 00 00 2e 00 06 00 42
+b0 5c b0 5c 81 00 17 72 1a 00 00 03 01 28 3c 00
+00 53 ff 53 ff 3c 00 00 00 00 e3 05 04 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 0a 90
+
+Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+---
+ drivers/gpu/drm/panel/panel-edp.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 5784ba0618bd1..03e24f2a8a104 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2236,6 +2236,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x146e, &delay_80_500_e50_d50, "MNE007QB3-1"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x147c, &delay_200_500_e50_d100, "MNE007QB3-1"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1486, &delay_200_500_e50_d100, "MNE001BS6-2"),
++	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1487, &delay_200_500_e50, "MNE007QS3-F"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1519, &delay_200_500_e80_d50, "MNF601BS1-3"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1529, &delay_200_500_e80_d50, "MNF307QS3-2"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x153f, &delay_200_500_e200_d50, "MNF601BS4-1"),
+@@ -2288,6 +2289,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 
+ 	EDP_PANEL_ENTRY('T', 'M', 'A', 0x0811, &delay_200_500_e80_d50, "TM140VDXP01-04"),
+ 	EDP_PANEL_ENTRY('T', 'M', 'A', 0x2094, &delay_200_500_e50_d100, "TL140VDMS03-01"),
++	EDP_PANEL_ENTRY('T', 'M', 'A', 0x2137, &delay_200_500_e50, "TM140VDXP15"),
+ 	EDP_PANEL_ENTRY('T', 'M', 'A', 0x2139, &delay_200_500_e80_pu100, "TM156VDXP25"),
+ 
+ 	{ /* sentinal */ }
+-- 
+2.34.1
+
