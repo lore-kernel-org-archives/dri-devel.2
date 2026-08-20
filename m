@@ -4,82 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B078EC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 07:24:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA2A9C5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 07:24:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 233CC10E15C;
-	Thu, 20 Aug 2026 07:24:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C35610EF27;
+	Thu, 20 Aug 2026 07:24:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="nCsclQCS";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="h6OFz9jm";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="HUwcTQRN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="SHPocS+t";
 	dkim-atps=neutral
 Received: from flow-a3-smtp.messagingengine.com
  (flow-a3-smtp.messagingengine.com [103.168.172.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB2E210E15C
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:24:51 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailflow.phl.internal (Postfix) with ESMTP id 30DA11380197;
- Thu, 20 Aug 2026 03:24:51 -0400 (EDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F0F10EF27
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 07:24:57 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailflow.phl.internal (Postfix) with ESMTP id DD0E21380199;
+ Thu, 20 Aug 2026 03:24:56 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Thu, 20 Aug 2026 03:24:51 -0400
+ by phl-compute-04.internal (MEProxy); Thu, 20 Aug 2026 03:24:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1787210691; x=
- 1787214291; bh=iAf1ACnM1ncQUFOBFpR9E5JElTy7xf+f9PkOTb2pGGk=; b=n
- CsclQCSj/QO1bJOH5evD9Hb9c4H2BnHGWIlkWLDCfvSKcphKIdMuHxeb8VDN53/P
- iVsI07okdas4HEV8CtpGeTpMRaB9z/AnQ2FMRDUmAu7Wrd5kqR1sIzlYOk3hOmis
- rhbq8eZf+urp3e/Q9Ef9+vWJQYwcmB7JxrHMUBhawEuHWyUO4GocCkpHn62p03Ms
- FfNZT/8UBGrUxAtc1em5zUzPc0W6nZsTFwmXggqL9cLMpSUlc0aOBhLEBkXJ0BtI
- BoaojUa1AHj23lD6PeS1PuQl2+BLY0GYq5PcESLeIgQEwAkNpAZJUKJDuzTGG6Nx
- 8INYym9hyXcf/zkANbDGw==
+ :reply-to:subject:subject:to:to; s=fm2; t=1787210696; x=
+ 1787214296; bh=49U1KQDJobQ6fDU08W7OYFd9CFZwvQ7xn+MpNhh8QuI=; b=H
+ UwcTQRNM6p7Jx8hquSLsKdvi/R/v9Ush02kfEKU+TGTUgINNJ9AlvReisBKuqzV6
+ TFgwl+oDOwJH/Q85M1YAcGnWRfgYvM9SFy2WdxTNVyWC7UYOKieVQpcAYI0/KwWs
+ Rejt0dkLjVNqtX8VqE5Fqvmn5VY4vAvAMSEmv/fneGjrKPH/AWcykx6ZZS7nShO2
+ RclhHzUAc6wTSDpffKHUJXdB8Xhyogay7xfbvWEHZ4HJj0Cqvz0XiruUmcvox8LT
+ ZLWkjpLQAuOp9rU5yz/oXXjIy/8kWq8hkdyuAgRYGjVSkO8B8n/3njYOV+EuuA67
+ +p/AXTv1JdQjNfsyjur6Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1787210691; x=1787214291; bh=i
- Af1ACnM1ncQUFOBFpR9E5JElTy7xf+f9PkOTb2pGGk=; b=h6OFz9jm8dVYdKzuQ
- 0/6esg16MX5TUXCxzfNuj4xBQW10ZC0mzW8BZOL+90GaTpAq4z/AvJ7Zgzgr+bMZ
- oQfftL2t76rGeavTQgJ7DYVYPwkVD/YVHOmzzedTcyKbUTT9aoQeItFkCp+xjjQT
- kIyNQdoQgkakW6fvOORYXDLE6ZzmH7klwDxPltmGHt3C4TPFuQwCgKJCIXCyguUn
- t+/eeUfx8L1GMBbSiN9wwRDg7O5IKM191fwVSxJONeU5yU3SSc3SwUYHEV3vAd8C
- aDS/eAAgxA+S+mZE9Bvv9VcgBHjFaPLp2uaku/ZWVTi76qafrwp44IvTBf9z1jmw
- 4hXtQ==
-X-ME-Sender: <xms:wquGaqiVjiY7v9VO0vawKFZGQ3akKJT5luHTqRNPlWY1iIRIDtBHmw>
- <xme:wquGajO5fO4n2QJvQ8RsXBR6nG8ddSkeObIIKwEzzngza2IKbEcaKhy12mlQZJcS-
- AD7aIi7prvxQe37pecEg9brGe2wusTQDJkpHTeq0RUUj69YWk1OQ5h1>
-X-ME-Received: <xmr:wquGatpu_RdzNeuzon9K_ZNGi9KrVAdsbreaG5XRdKRUT_CWRL0QDAtVvofo6YNS4Og1vRBSnQ>
-X-ME-Proxy-Cause: dmFkZTGY0AHF/D0zqb7XoROdgVLZ/Hmr/VvGjkt4gtfadBqSwDDs/Mz7eEdmFVtLhFE5Dt
- MS6J9ZEJes4QLVwohUaTaz8iIpSzG+1WuQ0LVS5td2D/B6lqFnAMMrrzTtuVO2sKXghVO9
- NJjxQYxDBjaENyEGi7hQR+UgUzkdNmldzu9pEJ6wTicaIwGMpXbdJ59KDJV9djftyoLdnr
- sNaZKJkaEXBBAnfktlNY2H6qRdBV/Cwc2AP4RQZl/aDbP/6HQqJhaCv9omJ/POXEmsLefM
- FAMTpA3ftdCZ10lSdDmyJa25kNKwQEr+w+7/AfyhCYcnlVHdbu+Vt0FydwGISwfkaA/tMr
- MCWeetluMqCQ+6tc4OmkFVrHHrk8Guw0V1a942bJpg+o25Nw42bPvW/bV4P1QgK86IGLbj
- Tx1uJ1mdPRu1NA3lXF2xEQ6guxHDMkLb/dhW1hm6yW2uiLviGP4ki6HhVTAfMhPTSeo6T1
- Xzw4t31NLyzOgX1pwPwDE03L1oSvUz4v+G1TDe2M1nMYcirf1haYM+OojfKtzJ7sh2WQgR
- dpCvRuwH9NgI2O9/Rr2ylKU76wgMfnJxSQXeM5EHbq4tf6lDgrXrY9/JT6YuI5Yl2Mr5mv
- X7/UQKXTEMQapT1vbBPeV/U9W05m0KHpcxiDLiwwKX0/oxJfWupNgIsgQ/Bw
-X-ME-Proxy: <xmx:wquGat6U8If98Y5wE6CsotmS9vALdlPpxXSjWDFYCHJzZfTnOEDccQ>
- <xmx:wquGajgaJb9AgTdQ5cKO5kgvJNT2SmwBN_oGvoFgt-m1oyISL9drHw>
- <xmx:wquGar5M32pqMhSEziBwD03Pt2CCQIIk-5Ak62XBgNDUIUJRK7e5EQ>
- <xmx:wquGagF8-XK2Ia86ZK5eo8mu1vYOapPjK2JW9HX1XHhM2LZ04rWCGQ>
- <xmx:w6uGapELifY1Xqgh4iXrm7QRojJ-XLt5fsDZurMuL4x-W5DJVqb-Xbva>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1787210696; x=1787214296; bh=4
+ 9U1KQDJobQ6fDU08W7OYFd9CFZwvQ7xn+MpNhh8QuI=; b=SHPocS+tDTJTUvds8
+ ZwmUuPr9bJgoQ/GL84vbwEEGVFrOm0KJ4esf7e2u22oO/l9ickb1bG3hZlVio6E5
+ mMvCSnv25HWNQg4EWSxHBtn/mHBUQ3eNHXb4G9OEnu+fD0bzFyQCNAPtUkM/Zhui
+ m8oQcKU60DdlecIYCxscLmkGM+1vjJ7x8jL51c9TWERmSil3v4NRlPb/zGnMtNWP
+ TFOSC3CV5oAfh5epacpy+l6tqzKNVPhWhxHNcAb0fdNy/xFrS+/RVoAG5djcOtA2
+ ZRAMClBGg/DoVwrMCeVyaGngDOuY2npt/+Xg8Qg06+A1pExb2WDu8DtK8+TygiJD
+ bFiDQ==
+X-ME-Sender: <xms:yKuGalDxHVKbVJ-3wzhF8TLyuLI9MCvXo_f3Qa1KQef_vAJv5HQBag>
+ <xme:yKuGahwlxhWiy9uQ1KLqJ3fjIox3idGIOgAFe98Tj6nSzQ9koN3lUtCYZgAoXiGBr
+ eo2wyhkDgSigKRg22kn-QXk4NHEtb34oq_G-AmHx4uUfaaIFveR8S4>
+X-ME-Received: <xmr:yKuGap4407_KQ2pwyPsEyPtv1767oWrIXFWWYI-go-xrQTlXjU6t1Ft6zeEaxfQMlc-pTa_tHQ>
+X-ME-Proxy-Cause: dmFkZTGDoCWsctuhusIgeAdpVJpMrx8/Gl5EazEW/ha9rctVSqmrDDgCYGt723FgkNKrUC
+ 7rfEAphm+y6djBhX9OJykBguO5ID7j4sjPNQlPIamDK3YCnSa2/qetO6nE91Ann1X7xTi1
+ 4OcRfQSy9+eqdj16xEIiqD/xyjv2PeaD2hj5u/5WxNzvbQs15qw1/mtOAwRYHfx4m241vR
+ VIWWHg7vK9hsOUtanKiVCwIDcdwmbqqLhqzPyXBkXkfRvcG33SJoFCIdeRYwc/5gj77UAQ
+ 2hHojGpgsyFPvnTkhRcFSQa83w7eAiEE4m1llM2wPl+JVrN65RZAKCn5rVHKLYnHXcZDcJ
+ bfj4Df1Sc5tbVQQ6lil5wBd7T0EIbossJZeAOm4A/vhLKMmItMKogfypiM7Z4/EsXWjagN
+ QR6eHhqpED0UnTmcC1uylQ9wAd6CVw2xOKdmSqG4MFkiEOHxO7Nu/JeVrioh+j60qCYGXL
+ lPWLvSt26DGr2E90MlpTvTYyfsvTVcO2SUQA/05wtuQXOj/bsqBIo3OvzPzUdkJoEV+3+K
+ 5GF9FTaz4Uk1aIYOhyJ6IHWTs3DO0t6tdqBmtQBAJXsqIIkVaqDocJoJnx6dyxSZvumB0+
+ sk8exY44JozEBOOUd76WJGDrj7rirTIWxn76v138dnsYGokyYFPnQsNix9vA
+X-ME-Proxy: <xmx:yKuGaiziWZ769tEqEZ2K0M9D5mbdlSfdc1OhzwGYR3C7XCXvrNA9WA>
+ <xmx:yKuGatfv06XzoCo4MEKYhNSbceE9xU6LNEbf0D4O5fJG0nUCBAiD7Q>
+ <xmx:yKuGanCzHU4MNHv9RJgkl9kcghyozsmoVcaZK6bGonn05ok4_GQBNQ>
+ <xmx:yKuGah5AbUWFQFcUha1P26-nZsbVnc7U3taSHe0o3zBBJojbCtIuXA>
+ <xmx:yKuGaq3NzXr0ppkbsJLacudaqZxwsH51bVEdZ0KIhs2Z_-BDlPv_EStb>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 20 Aug 2026 03:24:47 -0400 (EDT)
+ 20 Aug 2026 03:24:53 -0400 (EDT)
 From: Jiaxing Hu <gahing@gahingwoo.com>
-To: u.kleine-koenig@baylibre.com
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, royalnet026@gmail.com,
- chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+To: robh@kernel.org
+Cc: krzysztof.kozlowski@oss.qualcomm.com, conor+dt@kernel.org,
+ tomeu@tomeuvizoso.net, heiko@sntech.de, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 10/12] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Thu, 20 Aug 2026 22:16:29 +1200
-Message-ID: <20260820101629.752877-1-gahing@gahingwoo.com>
+Subject: Re: [PATCH v8 04/12] dt-bindings: npu: rockchip: add rockchip,
+ rk3576-rknn-core
+Date: Thu, 20 Aug 2026 22:16:35 +1200
+Message-ID: <20260820101635.752920-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <aoQdns-GHS3fg5BJ@monoceros>
-References: <aoQdns-GHS3fg5BJ@monoceros>
+In-Reply-To: <178709455518.1014304.1443906758035976924.robh@kernel.org>
+References: <178709455518.1014304.1443906758035976924.robh@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,20 +98,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Uwe,
+Hi Rob,
 
-This changes in v9, thank you. rocket_drv.h will include <linux/device-id/of.h>
-instead, and nothing in the driver needed anything else out of
-mod_devicetable.h.
+Taking the last paragraph first, since that is the actionable one.
 
-I had not looked at what that header drags in. Checked after your mail, and on
-this build the narrow one is all the file needs for struct of_device_id, so
-dropping to it costs nothing here.
+In v9 the dependency will be in the patch itself, as a git note that
+format-patch carries below the ---, rather than only in the cover letter where
+it is now. It says the patch touches only Documentation and applies to
+v7.2 on its own, and that the series it belongs to is based on next-20260814 plus
+Igor Paunovic's "[PATCH v2] accel/rocket: request the core clocks by name",
+which the driver patches need and this one does not.
 
-v9 is not posted yet, so please read that as what it will contain and not as
-done. I am holding it so v8 can collect more review rather than reset the
-thread. I said on v7 that I would put things this way round, after telling a
-reviewer something was fixed and then sending the next version without it.
+  https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet026@gmail.com/
+
+I re-ran dt_binding_check after your mail, on the three bindings this series
+touches, with dtschema 2026.6, which is the current release on PyPI,
+and yamllint 1.38.0.
+
+  npu/rockchip,rk3588-rknn-core.yaml       clean
+  power/rockchip,power-controller.yaml     clean
+  iommu/rockchip,iommu.yaml                clean
+
+None of the three reports in your mail is in a file this patch touches. The
+unresolvable reference is in mfd/qcom,spmi-pmic.yaml, and the refcheckdocs
+hits are in two translations and arch/arm/xen/enlighten.c. I mention it only
+so it is clear I read them rather than assumed, not to argue the bot was
+wrong to print them.
+
+v9 is not posted yet, so please read the note as what it will carry and not as
+done. I am holding it because v8 drew three reviewers within a day of going out
+and I would rather collect the rest of that than reset the thread. Say the word
+if you would prefer the respin now and I will send it.
 
 Regards,
 Jiaxing
