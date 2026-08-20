@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F169BC5DF81
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 531DEC5DF82
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 11:21:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5814C10EFF5;
-	Thu, 20 Aug 2026 11:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 912EF10E1B1;
+	Thu, 20 Aug 2026 11:21:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ikfmHiRq";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qVliiykB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB5410E1BD
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:16:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7C710E1B1
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 11:21:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 38DAC60A92;
- Thu, 20 Aug 2026 11:16:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8AF01F000E9;
- Thu, 20 Aug 2026 11:16:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D8028412EB;
+ Thu, 20 Aug 2026 11:21:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16EF71F000E9;
+ Thu, 20 Aug 2026 11:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1787224578;
- bh=gxfMYcSadoxD6/wGIMglgZMkyphtdEiPAot8iLi11ao=;
+ s=korg; t=1787224882;
+ bh=pLd7oxsI+MaZ9lV6tn4kVxhQpJwd26RIAhKjs13kCDM=;
  h=Subject:To:Cc:From:Date;
- b=ikfmHiRqcOaB3dfmIlNJ76+Uwk4UD9VUF0H1xl6b2PoIzEV2luS1B9o5gA0JE5Vqs
- HG8w7Zbt962sTo3QlhawIdk4RmS2Qhk6xKFyQTVgbJ7fsK0zpAzDGSNu8biSaEsKrb
- sIK2GBHCbzUevfqW3qgHwE7Sa5nzDwCelewdhL28=
+ b=qVliiykB6l8K3PySusWZiEsYQHz6R8xv8ynMUIdinBtNyrJZhhTb/wbB55Wqn41dJ
+ RlNPlp/6KbzrSOuCBKci3BSvOS3e6Ez/6HMC5ZVWGkKn/h6WJL5DsK+OVmmM2MoD+S
+ ilTtz7SfYOtb4mS9sLCVOwyy6At1CdQ3ge9j/2yQ=
 Subject: Patch "drm/connector/hdmi: Fix out of bounds memory read" has been
- added to the 7.1-stable tree
+ added to the 6.18-stable tree
 To: John.Harrison@Igalia.com, airlied@gmail.com, daniel@fooishbar.org,
  dmitry.baryshkov@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
  dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
@@ -38,8 +38,8 @@ To: John.Harrison@Igalia.com, airlied@gmail.com, daniel@fooishbar.org,
  tzimmermann@suse.de, ville.syrjala@linux.intel.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 13:15:07 +0200
-Message-ID: <2026082007-endorphin-nail-d1c6@gregkh>
+Date: Thu, 20 Aug 2026 13:15:27 +0200
+Message-ID: <2026082027-hydration-flip-78e3@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -65,12 +65,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/connector/hdmi: Fix out of bounds memory read
 
-to the 7.1-stable tree which can be found at:
+to the 6.18-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-connector-hdmi-fix-out-of-bounds-memory-read.patch
-and it can be found in the queue-7.1 subdirectory.
+and it can be found in the queue-6.18 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -129,7 +129,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
 +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -1096,7 +1096,8 @@ drm_atomic_helper_connector_hdmi_update_
+@@ -1072,7 +1072,8 @@ drm_atomic_helper_connector_hdmi_update_
  
  	mutex_lock(&connector->hdmi.infoframes.lock);
  
@@ -138,9 +138,9 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 +	memcpy(&infoframe->data, frame, sizeof(*frame));
  	infoframe->set = true;
  
- 	ret = write_infoframe(connector, &funcs->audio, "Audio", infoframe);
+ 	ret = write_infoframe(connector, infoframe);
 
 
 Patches currently in stable-queue which might be from John.Harrison@Igalia.com are
 
-queue-7.1/drm-connector-hdmi-fix-out-of-bounds-memory-read.patch
+queue-6.18/drm-connector-hdmi-fix-out-of-bounds-memory-read.patch
