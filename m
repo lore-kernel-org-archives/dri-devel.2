@@ -4,58 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FB77C5DF86
-	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 20:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1486C5DF86
+	for <dri-devel@archiver.kernel.org>; Thu, 20 Aug 2026 21:11:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57D0310E5EE;
-	Thu, 20 Aug 2026 20:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E094510EBA5;
+	Thu, 20 Aug 2026 21:11:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XVBpjFBo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gCJkZ989";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86FF710E5EE;
- Thu, 20 Aug 2026 20:50:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787259040; x=1818795040;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=dgGTwCTwZAsfTSp48nLA1ZNHU2/eAYEOAjDLsn5Eu9w=;
- b=XVBpjFBo4jplu7msV2cHN6soPOzu/AuPB/Bs2szLHV5H0laWgc5tw7cO
- 6/SNVQ0F6+O8gq1Yz0JV5QkoDSnB5DtkP1PE//C+JPKgxTZUtrF51/b/f
- n9udWyoYTPPwtJ4Lmd9xmITluz115klGmFi8IgNUWlLyjAcdbr3MsFOYq
- +SNrJSnpbQqwzgr9yQUcKaJZ2uvlqlojHp9oePfJjECTI92byhA3Ui0AG
- nOV2aS4HuvFfKgUm4NhJdybx9EKzYF6T+nqCJBglAkiBrtm5s2htzUIRL
- 5SKBvns2342ywBzclLXcDtzIaLZUKSj0ie972QC/koq/HxZCT1ccITX8l g==;
-X-CSE-ConnectionGUID: 4X8rNeDCTFKdpLS3NaLUrg==
-X-CSE-MsgGUID: tsb9xCFkRzKgAZFHIVidIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87867884"
-X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="87867884"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2026 13:50:40 -0700
-X-CSE-ConnectionGUID: kHWwQfAkR5qBKqvjdatRdQ==
-X-CSE-MsgGUID: 2W7d9BBcTginRkRLv6pCKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="264844254"
-Received: from clke06vm103.fm.intel.com (HELO clke06vm103.amr.corp.intel.com)
- ([10.80.128.218])
- by orviesa010.jf.intel.com with ESMTP; 20 Aug 2026 13:50:40 -0700
-From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: matthew.auld@intel.com, thomas.hellstrom@linux.intel.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net,
- dri-devel@lists.freedesktop.org,
- Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-Subject: [PATCH v3] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
-Date: Thu, 20 Aug 2026 13:50:31 -0700
-Message-ID: <20260820205031.344338-1-krishna.prabhakaran@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
-References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21BE210EBA5
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 21:11:08 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-392af6bda98so30639a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 14:11:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787260267; cv=none;
+ d=google.com; s=arc-20260327;
+ b=D/agq2eGRaA9/vXBm/ULG4Zmw3uNftIP9fseT/j7FRa5ArB1Std92Hx4ZV0i8OueVG
+ 7Rj1a9bM1jG3p/WNgTWRCP6R67dYzcO251HgjVWuEJlSV6G2phyoCyC7IQ+zLDIlXdh6
+ FY6vUo9gqfvc3TI5t0A+1ezeYl7bj7J7E1l5nVz5TanNuzK08SPGUYTBTU21wWys2OOD
+ 3YcB4e5gzCcXy8SPuYFIjnh+Ha2Rm+gcJMUFv3bSdZoVr1p0kKWBOPokFLJkPwG+aWTP
+ hR9srBj6NmpwDWOA0L3rOUFrd3qTCij+dfCjjvHjmq3R7yw45XK6XJ52IkP5OoQ40s9J
+ d+Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
+ fh=vSNvwtZ5v2K37V2HETQuNrY1ZEgsx1En8dsHa2LEx8M=;
+ b=NVklixFjqXIDP53d7funl/4/Hog49f7Kqnm+lx9cpwB1s1CdUc7YBmFr/S1aRL24jl
+ 5YlaPem0wJDEC/CwocdQJiu94CzD0BJ6uXyLkHabqctiDS8tFC5WKmJFEiUFjuUCzISQ
+ ezkixSWvZkGEPzfQ+jqnekLZoDyb52aQQgTfFAbFnXBdEOnAdIo4hswCy3yUDYFnWuOn
+ /TDYzo+hPMzyi9Ptrm/9Ni4roOgho8+Fc3zjSwpEciU8jwLZo5xk736XBknVRksCtA2u
+ 7q+7bp2e4yjsbLceEWeQTpVUl17GZazMg5h9S8ygplisxl+aFZ0yiuzpwV2yxZFIALYw
+ BgDQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787260267; x=1787865067; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
+ b=gCJkZ989CoT909pSCFzbTHUa+4pKMy7p1ONBhS1I+W0NhTqDU2sxDVomA27qsMNgMl
+ DAayTzLVD7Slghu3eFYHQAJNNluM81WAYBI/yIEICme6h6pyP00Sd1Xq+CsdNbsjCOib
+ b2m3FCmDAnYMNO0FVfbJYtzN7Ab4znjO40gq48A42ZgPoaGzWH4uBqRjgx2H1KQeywJW
+ A5OEuFnujj8icuENStKAEY6NTbo6TiQjTutq2K0wn9y9okPAM6Kk9qoSG8eLDeWnjA64
+ v6p/Qc0FjCvatJL43/y8kRbUEx3YVJY5DWOZbznezku+OH5oNW5Mtl1aSocFJQuAER8+
+ kdAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787260267; x=1787865067;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
+ b=TPcYqy+uQllsQgVEBKVP+4zln9t57qoBpgd5XDHDfh2enETsMsGJVIh9p5PN8umTrh
+ yOjzi35U5pnoxOAx1xLvDHtXCbKKjvZScQvsnAPa5ALKop6dpzRMek4BD9NNZiqcXIhF
+ 1mlIrgJu7eDZql604gjnhDE0wz+D58MKw1QtmK+PoOxCVlEtCAayWd1D5cvbGeLZM58u
+ a8LYTGlDdrg4+GCXLHuIwXFDLhi3hVe+lMKSQU9kMYarglDjwp38h0/KmFXLBPdkcU1f
+ Kryux5+ywzjUVMWz2ENMFpVHqHCM3XqOQTF1SG9dX8l7qEERfZLG8GZafclSWuQXwPwz
+ NiwA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RotGiPNpwHEHeG0cSeuJpg+7TumeeymqMUWU/uC6RJnmvkLViMTj6iHnHeP1EqaoKwoizpQHfIW26w=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kec9Zz92qWuXRH9ZAUAa6VgJPJNSw9MEoCtgOjqkShLVU78WPR
+ gFtu/kVTDyYV56fKn70mqO9l41dWkq2A6lgWP21W4rI1svx+JErBpmnE4oNH/0dG6pH7jYdLtaQ
+ 2hdTh/TUf2lMbk8s/48+guaeoPVbOy3c=
+X-Gm-Gg: AR+sD10KepQHk6WBC5HpPFv2FoL1IbKyungaEfx5Disja4UTAJDuM/ZPbz9WHB4eWvG
+ 0odPnbUIrlw4WJ3NgmUZOcBkpFBqUgNoToIO7ysVxQ40xv+Hi8fRS2kY/ePHP3Ra3My8jLk/Zei
+ xrMdElLs8shtmtIDSBrtGQCWFLsRSvj/Q8g/uoXuM5K2To7ZQpr0BX7M3ld+kVFxbHSHTgcs4S3
+ Snn58xqz7VZVc/OcJBu5nQiBID9wYKBwwa+eOVxdHs/pOKvDy+y18UNCtqaoJM1+6Gg9S10hgnn
+ DWiZEnuGxQL5457+hC6bUqlUb9zlfT+tiTMWR7wfTumuyGaZgHgYNRnxCqxTFmsykhOUmoSShg1
+ 1os7IC2gvbypiMR2+0rQxTFL6+0/eM5Y=
+X-Received: by 2002:a17:90b:4484:b0:381:28e0:6248 with SMTP id
+ 98e67ed59e1d1-395c33571d5mr1031283a91.1.1787260267517; Thu, 20 Aug 2026
+ 14:11:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260819185349.29407-1-pisarevden@gmail.com>
+In-Reply-To: <20260819185349.29407-1-pisarevden@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 20 Aug 2026 17:10:55 -0400
+X-Gm-Features: AcwNN1Vai7aWO5WsKEL-otmSiwSsfGMkQzj2Cck3gdB3K6hYszYtDUormEy7lTs
+Message-ID: <CADnq5_M5yrY+QW2-8phcYhZ7McE-zpFvDh9beZ6jvzTEH1A1xw@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/1] drm/amdgpu: MMIO TLB invalidation fallback when
+ KIQ is wedged after S4 resume
+To: Denis Pisarev <pisarevden@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, mario.limonciello@amd.com, ionut_n2001@yahoo.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,132 +109,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+On Wed, Aug 19, 2026 at 3:30=E2=80=AFPM Denis Pisarev <pisarevden@gmail.com=
+> wrote:
+>
+> Hi,
+>
+> This RFC follows up on bugzilla 219492 ("failed to write reg 28b4 wait
+> reg 28c6" after hibernation) and on the resume_gpu_stable proposal
+> rejected in January:
+>
+>   https://lore.kernel.org/amd-gfx/20260106125929.25214-6-sunlightlinux@gm=
+ail.com/
+>
+> The rejection argued that (a) kiq sched.ready is managed correctly -
+> set false in suspend, set true again only after ring tests pass on
+> resume - and (b) the proposed flag would have disabled the KIQ flush
+> path permanently. Both points are correct, and this RFC takes a
+> different route: nothing is disabled proactively; the driver reacts to
+> observed failures.
+>
+> MEASURED FAILURE MODE (Cezanne iGPU, Ryzen 7 PRO 5850U, 7.1.8, KDE
+> Wayland, no ROCm):
+>
+> - S4 resume -> "failed to write reg 28b4/28c6" + "1a6f4/1a706" pairs
+>   begin in the same second as the thaw and continue at 80-140/hour
+>   for 9+ hours until reboot. kiq sched.ready is true throughout (the
+>   ring test at resume passed).
+> - Two user-visible consequences: each failed flush burns the ~5 s KIQ
+>   retry window (desktop-wide sluggishness), and the invalidation is
+>   then silently dropped (stale TLBs - correctness).
+>
+> TRIGGER ISOLATION (single-variable tests, one hibernate cycle each):
+>
+> - stock (GFXOFF allowed across S4):    ~70-140 errors / 30 min of use
+> - GFXOFF held off across S4:                    0 errors (30 min)
+> - GFXOFF re-enabled 40 min after the clean
+>   resume:                                      0 errors (15 min;
+>   gating resumption not independently verified)
+>
+> So the wedge forms in the S4 resume window while GFXOFF is allowed,
+> and is consistent with the existing semaphore workaround comment in
+> gmc_v9_0.c about losing invalidate-acknowledge state across
+> power-gating cycles. A boot-time amdgpu.pg_mask=3D0 does not even
+> initialize on this part (probe -ETIMEDOUT), so runtime debugfs
+> control was used.
+>
+> THE PATCH (1/1):
+>
+> - amdgpu_gmc_fw_reg_write_reg_wait() returns -ETIME on failure and
+>   counts consecutive failures
+> - gmc_v9_0_flush_gpu_tlb() uses its existing MMIO path as fallback
+>   when the KIQ submit fails (invalidations no longer dropped), and
+>   after 3 consecutive failures skips the KIQ path entirely until the
+>   counter resets - so wedged systems stop paying 5 s per flush
+> - counter resets on every success and in gmc_v9_0_hw_fini(); each
+>   suspend/resume cycle re-arms KIQ. No proactive disabling anywhere.
+> - gmc_v10/v11/v12 call sites unchanged and compile-safe (int return
+>   used as statement); extending the fallback to them is trivial once
+>   the approach is agreed.
 
-When i915 needs to make an imported dma-buf coherent for GPU access on
-non-LLC platforms, or for objects that bypass LLC, it currently calls
-wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
-pinned, so this triggers a whole-cache write-back and invalidate,
-broadcast by IPI to every CPU, on every execbuf submission involving an
-imported dma-buf. That stalls the entire machine for milliseconds and
-starves latency-sensitive work on unrelated cores (e.g. USB isochronous
-audio serviced on the VMM's main thread).
+I think it would be better to get KIQ and MES out of the TLB path.  If
+they get hung, we have bigger problems.  Can you give this branch a
+spin?
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/tlb_inv_rework?ref_typ=
+e=3Dheads
+It switches over to using SDMA and only falls back to MMIO if SDMA is
+not available.  If you use MMIO, you need to disallow gfxoff before
+you touch the registers over MMIO otherwise you'll hang GFX.
 
-Flush only the pages that actually need it instead:
+Alex
 
- - If we imported one of our own dma-bufs, the backing object is
-   struct-page backed once migrated to SMEM, so flush it directly with
-   drm_clflush_sg(), exactly as we flush our other objects. This also
-   avoids re-entering the exporter through dma_buf_vmap(), which would
-   recurse into i915_gem_object_pin_map() on the source object we
-   already hold locked (and fails the igt_dmabuf_import_same_driver
-   selftest with -EBUSY).
-
- - For a foreign dma-buf the sg_table is not guaranteed to be backed by
-   struct pages, and the importer has no way to tell, so drm_clflush_sg()
-   cannot be used. vmap the buffer and flush that virtual range with
-   drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
-   one virtual alias evicts the cache lines for every alias of the same
-   physical pages. The dma_resv lock required by dma_buf_vmap() is
-   already held here via the imported object.
-
-Fall back to wbinvd only when the buffer cannot be vmapped or is backed
-by I/O memory, where there is no CPU-side range to clflush.
-
-Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
-Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
----
-v3:
- - Drop the wbinvd fallback in the own-dma-buf branch: the exporter is
-   migrated to SMEM on attach, so it is always struct-page backed here;
-   flushing device memory made no sense from i915's point of view
-   (Matthew Auld).
-
-v2:
- - Flush our own imported dma-bufs directly with drm_clflush_sg() instead of
-   dma_buf_vmap(), which re-entered i915_gem_object_pin_map() on the source
-   object and failed igt_dmabuf_import_same_driver_smem with -EBUSY (reported
-   by Intel CI on v1). Foreign dma-bufs still use dma_buf_vmap() +
-   drm_clflush_virt_range(); wbinvd only as fallback.
- - Link to v1: https://patchwork.freedesktop.org/patch/744955/?series=171760
-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 52 ++++++++++++++++++----
- 1 file changed, 44 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index b43d34c7d641..fbf0e0d4b026 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -10,6 +10,8 @@
- 
- #include <asm/smp.h>
- 
-+#include <drm/drm_cache.h>
-+
- #include "gem/i915_gem_dmabuf.h"
- #include "i915_drv.h"
- #include "i915_gem_object.h"
-@@ -249,16 +251,50 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 	 * DG1 is special here since it still snoops transactions even with
- 	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
- 	 * might need to revisit this as we add new discrete platforms.
--	 *
--	 * XXX: Consider doing a vmap flush or something, where possible.
--	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
--	 * the underlying sg_table might not even point to struct pages, so we
--	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
--	 * the driver.
- 	 */
- 	if (i915_gem_object_can_bypass_llc(obj) ||
--	    (!HAS_LLC(i915) && !IS_DG1(i915)))
--		wbinvd_on_all_cpus();
-+	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
-+		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
-+
-+		if (dma_buf->ops == &i915_dmabuf_ops) {
-+			struct drm_i915_gem_object *dma_obj =
-+				dma_buf_to_obj(dma_buf);
-+
-+			/*
-+			 * We imported one of our own dma-bufs. The exporter is
-+			 * migrated to SMEM on attach, so it is struct-page
-+			 * backed and we can flush it directly, the same way we
-+			 * flush our other objects. This also avoids re-entering
-+			 * the exporter through dma_buf_vmap(), which would
-+			 * recurse into i915_gem_object_pin_map() on the source
-+			 * object we already hold locked.
-+			 */
-+			drm_clflush_sg(dma_obj->mm.pages);
-+		} else {
-+			struct iosys_map map;
-+
-+			/*
-+			 * A foreign sg_table is not guaranteed to be backed by
-+			 * struct pages, so we cannot use drm_clflush_sg(). vmap
-+			 * the buffer and flush the virtual range instead; x86
-+			 * uses PIPT caches, so flushing one alias evicts the
-+			 * lines for every alias of the same physical pages.
-+			 *
-+			 * We already hold the dma_resv lock via the imported
-+			 * obj, so use the locked dma_buf_vmap() variant.
-+			 */
-+			if (!dma_buf_vmap(dma_buf, &map)) {
-+				if (!map.is_iomem)
-+					drm_clflush_virt_range(map.vaddr,
-+							       obj->base.size);
-+				else
-+					wbinvd_on_all_cpus();
-+				dma_buf_vunmap(dma_buf, &map);
-+			} else {
-+				wbinvd_on_all_cpus();
-+			}
-+		}
-+	}
- 
- 	__i915_gem_object_set_pages(obj, sgt);
- 
-
-base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
--- 
-2.43.0
-
+>
+> This mirrors what the sibling PASID path already does (KIQ submit,
+> -ETIME on timeout, MMIO variant as fallback), applied to the per-VMID
+> path.
+>
+> OPEN QUESTIONS:
+>
+> 1. Root cause in the S4 window: RLC/ME not processing KIQ invalidates
+>    while GFXOFF is allowed? Happy to run tracing (amdgpu.vm_debug,
+>    VM_INVALIDATE ack registers) on the affected hardware on request.
+> 2. Should the latch be per-xcc-inst?
+> 3. Should amdgpu_gmc_flush_gpu_tlb_pasid()'s KIQ branch share the
+>    latch?
+>
+> Patch 1/1 follows. Comments very welcome - especially on whether the
+> failure-driven fallback is the right shape vs. fixing the S4 resume
+> ordering directly.
+>
+> Denis Pisarev
+>
+> Denis Pisarev (1):
+>   drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
+>     unresponsive
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 +++++++++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  4 +++-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 18 ++++++++++++++----
+>  4 files changed, 30 insertions(+), 9 deletions(-)
+>
+> --
+> 2.55.0
+>
