@@ -4,49 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4622BC5DF87
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 08:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28ED2C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 08:48:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCF410F2A0;
-	Fri, 21 Aug 2026 08:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 575EA10EC7E;
+	Fri, 21 Aug 2026 08:48:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="akiChfQi";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="WdkfniAj";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA58510F27D
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 08:48:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=am
- 8ByIVgCFcuQjzXTdOrv7ypCBvVUl908REwuB2AOhQ=; b=akiChfQietvmET89up
- oRjuayYD0zGbgCwktbdwZWkzPOsagQdzMtvLzx7AKtLn9gGvzGIq5ySTSKHQWm7w
- T5pSpKfrRb+zV33gmdde4X3QPOejrLN4HOr58rliiYCI4sOhkqjFb/2+iUeNULR6
- PHIBEP2yuWwM2dFmFXiq3maX8=
-Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id
- _____wC3y3+1EIhqsgs3QQ--.34633S2; 
- Fri, 21 Aug 2026 16:47:50 +0800 (CST)
-From: oushixiong1025@163.com
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH] drm/sched: Guard against NULL dev in drm_sched_job trace event
-Date: Fri, 21 Aug 2026 16:47:48 +0800
-Message-Id: <20260821084748.543645-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+X-Greylist: delayed 575 seconds by postgrey-1.36 at gabe;
+ Fri, 21 Aug 2026 08:48:42 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.61.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2C9C10EC7E;
+ Fri, 21 Aug 2026 08:48:42 +0000 (UTC)
+Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hRDGz16QBz84Sr;
+ Fri, 21 Aug 2026 10:38:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1787301515;
+ bh=5ybZ6jSqfyHidqXWXRWzPuYG8sB+wVG/yMIK7GQJvtQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=WdkfniAjkD0jJeNM/ej8CrQZXO8m+zW04+Jm+0k6J75NJuzkTkJTYS+6bsnz9CHdm
+ vAJW5m/1ZmMFQq1bxXlmx4CKq9z4Yc5gqLEd54KNWdbSZhcaWixeVX9E1mLlvKS6og
+ 3QqqQJyl6m0Hn7g9OQq9sQdtIqIz/JVC7SyQ3gj8peC0k0R9+BdHGrBwRyWy56Ux/A
+ ngoeLMUVrIQCbY0SX+DxKTMzHmuwYDECL/Uzu52VuuqXtacn0wcIAOYlT3EET06sxJ
+ W1ByiDZWoilptZTtsX/ErHxnhYAFFpii7V+62B95dNlJJaWRfG4ohh4M4AJadlKkw+
+ pm0yVGjf2kjSQ==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hRDFr5X8Tz84fN;
+ Fri, 21 Aug 2026 10:37:36 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hRDFm4nRcz8t3w;
+ Fri, 21 Aug 2026 10:37:32 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 8DA045FA31;
+ Fri, 21 Aug 2026 10:37:31 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <6638b89c-b0af-43d0-8d4b-96ed0e803962@leemhuis.info>
+Date: Fri, 21 Aug 2026 10:37:30 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wC3y3+1EIhqsgs3QQ--.34633S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy8ZrWfJF43JFyrWFy5CFg_yoW8Aw4xpr
- Zruay5Kry8tr47t3yUZ3WrWry5Ca1fZayxCr1DW3s3Zrn0vr15JF17Kw4fJrW7Ar4xAr92
- g3Wq9a1aq3Wjgw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Um1v-UUUUU=
-X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-Rbt-GqIELbsQAAA3S
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] qcom PAS TZ API migration breaks GPU and modem on
+ TrustZone without PAS (sc7180 trogdor)
+To: Paul Hollinsky <phollinsky@holtechnik.com>,
+ Konrad Dybcio <konradybcio@gmail.com>
+Cc: Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+References: <943d1db3-f117-4e9c-94db-7221b47d9d29@leemhuis.info>
+ <20260821082730.89413-1-phollinsky@holtechnik.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260821082730.89413-1-phollinsky@holtechnik.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178730145227.2547326.9353540420644801552@mxe9fb.netcup.net>
+X-NC-CID: fndcPxiVxwzlH0u76SHpIo/ezksonaczEIibpTdcNK+di70THPY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,50 +94,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+On 8/21/26 10:27, Paul Hollinsky wrote:
+> On 8/21/26 08:33, Thorsten Leemhuis wrote:
+>> Just wondering: who will submit the proper fix to ideally fix this
+>> before the culprit hits mainline
+> 
+> I have now. I sent them as two separate patches, because the two culprits
+> are in different places:
 
-The drm_sched_job trace event class calls dev_name() on
-sched_job->sched->dev without checking for NULL. Since the
-dev field in drm_sched_init_args is optional (used for
-debugging), a NULL dev causes a kernel oops when the trace
-event fires.
+Great, many many thx!
 
-The DRM scheduler KUnit tests do not set the dev field in
-drm_sched_init_args, leaving sched->dev as NULL. This causes
-a NULL pointer dereference when the drm_sched_job trace event
-fires during test execution, as dev_name(NULL) is called.
+Ciao, Thorsten
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000050
-  Call trace:
-   trace_event_raw_event_drm_sched_job+0x90/0x258
-   __traceiter_drm_sched_job_queue+0x4c/0x78
-   drm_sched_entity_push_job+0x188/0x380
-   drm_sched_basic_entity_cleanup+0xfc/0x240
-   kunit_try_run_case+0x74/0x170
+P.S.:
 
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
----
- drivers/gpu/drm/scheduler/gpu_scheduler_trace.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-index 261713dd7d5a..319a3ec54bec 100644
---- a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-+++ b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-@@ -61,7 +61,8 @@ DECLARE_EVENT_CLASS(drm_sched_job,
- 			     __string(name, sched_job->sched->name)
- 			     __field(u32, job_count)
- 			     __field(int, hw_job_count)
--			     __string(dev, dev_name(sched_job->sched->dev))
-+			     __string(dev, sched_job->sched->dev ?
-+				      dev_name(sched_job->sched->dev) : "none")
- 			     __field(u64, fence_context)
- 			     __field(u64, fence_seqno)
- 			     __field(u64, client_id)
--- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+> #regzbot monitor: https://lore.kernel.org/r/20260821081325.89088-1-phollinsky@holtechnik.com
+> #regzbot monitor: https://lore.kernel.org/r/20260821081540.89137-1-phollinsky@holtechnik.com
+Thx for that, but FWIW, there is no need for that when it comes to
+regzbot: the link tags in those patches would have taken care of that
+already automatically.
