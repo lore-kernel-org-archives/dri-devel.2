@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A99C5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:35:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27F72C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:35:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 353DB10F319;
-	Fri, 21 Aug 2026 15:35:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65D0D10F31A;
+	Fri, 21 Aug 2026 15:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oIwDYD22";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HfDwKvUw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E62610F319
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:35:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 234DB10F31A
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:35:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8682C414B7;
- Fri, 21 Aug 2026 15:35:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1941F000E9;
- Fri, 21 Aug 2026 15:35:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 60DDE6136E;
+ Fri, 21 Aug 2026 15:35:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA0E1F000E9;
+ Fri, 21 Aug 2026 15:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787326526;
- bh=sG0HHK6+Yj1gmmcLrZPZaxtPvAzeV+Pl0X401caA/LU=;
+ s=k20260515; t=1787326547;
+ bh=x7Y1LoV4lQAjus02t8XPDVi7lZIhF8gUdANtQTf61w0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oIwDYD22VF4swd6gYMaecpN23aFXY78nhyJgdBQ3R4G05uNDoZfrFpHWsyVbx0b8y
- FJAfX09TrNy1tuHtRK4rebGXuc63URZ5+wb7aWDv+77yPMf7TugRV8tDkW6DeHOCLU
- IqfkgC/mZFK2D42kOA14ToMLg68fytGrpYd0dkSqDTDq9xDm9uV280yH60n1Rc61XV
- JVFR8htwxS1xls3Y2dLsFPoCV3NwgY+GMJ3CzBe4wRky1jhEHLSCi7qpMcDdIVsmKO
- +KiHkPxqJ4M9+L2qyVInXpLhbeAijafkhC0upuWYFEqaw00CcfQFYAG0irER/5CHCJ
- +QQV1B79FFVOg==
+ b=HfDwKvUwXKaL9oygohCadOHQbMFbKx+S1alGxYFXwGzgnkl6zJ16zcZjYRDasLMxP
+ 0FNAx7J+YCyIpEfbKm3pvKe1nM3548uDs+Ahe2bsEohh1UhJqk9SYVmDm2EOibqjrC
+ X5JMwDEqGVFou1QLZeSjNfdNupn2fXVT5ARYVcyGzkV29e48qvBYHSDfjn4g7vJqoX
+ VE0GgRf3Q+zGgp0+DI91FfMPu/ydMp7PQehczZO47R+wbpX8JbwrS4jcs7+0GSps/h
+ HvTIdTPNkRH9m3ZCoyK5yjAfv5PiLFeCsOK1LSG6RjwUGjhGpufrQwSc2FMkTxJWOj
+ qqS0QXOy3OaXA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] drm/nouveau: unsubscribe the channel-kill event
- before the fence context
+Subject: Re: [PATCH v4 2/3] drm/nouveau: don't kill a fence context that is
+ not ready yet
 To: "Marek Czernohous" <mczernohous@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <178732578167.167481.14789825868710929167@gmail.com>
+In-Reply-To: <178732578167.167481.4590474568281802870@gmail.com>
 References: <178732578167.167481.5619512544301226563@gmail.com>
- <178732578167.167481.14789825868710929167@gmail.com>
+ <178732578167.167481.4590474568281802870@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 15:35:25 +0000
-Message-Id: <20260821153526.4A1941F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 15:35:46 +0000
+Message-Id: <20260821153546.EAA0E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,105 +62,102 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Race condition in nouveau_fence_context_del between cancel_work_sy=
-nc and nvif_event_dtor leads to use-after-free of fctx.
-- [High] Missing cancel_work_sync for irq_work in nouveau_connector_destroy=
- leads to use-after-free of the connector.
+- [High] The newly introduced `ready` flag check can be bypassed because `c=
+han->fence` is published without a release barrier by the backend allocator=
+s, allowing a concurrent `nouveau_channel_kill()` to observe pre-initializa=
+tion garbage.
+- [High] A concurrent channel kill event can trigger a Use-After-Free if fe=
+nce context initialization fails because the kill event is armed prior to f=
+ull initialization.
 --
 
---- Patch [1]: [PATCH v4 1/3] drm/nouveau: unsubscribe the channel-kill eve=
-nt before the fence context ---
-commit 4ae9b89defb4e27bc74c023fe090b6ae974e3378
+--- Patch [2]: [PATCH v4 2/3] drm/nouveau: don't kill a fence context that =
+is not ready yet ---
+commit 566dba46ab74848a1cc990a88e4d8e18c316f52d
 Author: Marek Czernohous <mczernohous@gmail.com>
 
-drm/nouveau: unsubscribe the channel-kill event before the fence context
+drm/nouveau: don't kill a fence context that is not ready yet
 
-nouveau_channel_del() tears the fence context down first and only drops
-the channel-kill subscription later, which can cause a use-after-free
-if a kill event is delivered in that window. This patch drops the
-subscription before anything it depends on is torn down.
+This commit introduces a ready flag to the fence context to prevent the
+kill handler from taking an uninitialized lock. It uses smp_store_release()
+and smp_load_acquire() to hand over the context safely once it is fully
+built. A channel killed during initialization is recorded and processed
+once armed.
 
 > diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nou=
 veau/nouveau_chan.c
-> index 598513f604493..f142f63105966 100644
 > --- a/drivers/gpu/drm/nouveau/nouveau_chan.c
 > +++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
-> @@ -90,6 +90,14 @@ nouveau_channel_del(struct nouveau_channel **pchan)
+> @@ -43,9 +43,17 @@ module_param_named(vram_pushbuf, nouveau_vram_pushbuf,=
+ int, 0400);
+>  void
+>  nouveau_channel_kill(struct nouveau_channel *chan)
 >  {
->  	struct nouveau_channel *chan =3D *pchan;
->  	if (chan) {
-> +		/*
-> +		 * Drop the kill-event subscription first.  Its handler
-> +		 * dereferences chan->fence, which the fence context teardown
-> +		 * below frees, so leaving it armed across the teardown leaves
-> +		 * a window for a use-after-free.
-> +		 */
-> +		nvif_event_dtor(&chan->kill);
+> +	struct nouveau_fence_chan *fctx;
 > +
->  		if (chan->fence)
->  			nouveau_fence(chan->cli->drm)->context_del(chan);
-> =20
+>  	atomic_set(&chan->killed, 1);
+> -	if (chan->fence)
+> -		nouveau_fence_context_kill(chan->fence, -ENODEV);
+> +
+> +	/* Pairs with the smp_mb() in nouveau_fence_context_arm(). */
+> +	smp_mb();
+> +
+> +	fctx =3D READ_ONCE(chan->fence);
+> +	/* Pairs with the smp_store_release() there. */
+> +	if (fctx && smp_load_acquire(&fctx->ready))
+
+[Severity: High]
+This is a pre-existing issue, but can we read pre-initialization garbage
+for fctx->ready here?
+
+Because chan->fence is published by backend allocators with a plain store
+(e.g., chan->fence =3D kzalloc_obj(*fctx)), on weakly-ordered architectures,
+this READ_ONCE() might observe the pointer before the allocator's zeroing
+stores are visible. The smp_load_acquire() on fctx->ready doesn't prevent
+reading pre-initialization garbage for the ready flag itself.
+
+If ready is read as non-zero garbage, the kill handler would proceed to
+acquire an uninitialized spinlock, potentially causing a kernel panic.
+
+> +		nouveau_fence_context_kill(fctx, -ENODEV);
+>  }
+
 [ ... ]
-> @@ -100,7 +108,6 @@ nouveau_channel_del(struct nouveau_channel **pchan)
->  		nvif_object_dtor(&chan->nvsw);
->  		nvif_object_dtor(&chan->gart);
->  		nvif_object_dtor(&chan->vram);
-> -		nvif_event_dtor(&chan->kill);
->  		nvif_object_dtor(&chan->user);
->  		nvif_mem_dtor(&chan->mem_userd);
->  		nouveau_vma_del(&chan->sema.vma);
+
+> @@ -494,7 +502,12 @@ nouveau_channel_init(struct nouveau_channel *chan, u=
+32 vram, u32 gart)
+>  	}
+> =20
+>  	/* initialise synchronisation */
+> -	return nouveau_fence(drm)->context_new(chan);
+> +	ret =3D nouveau_fence(drm)->context_new(chan);
+> +	if (ret)
+> +		return ret;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but looking at similar teardown
-paths, is there a race condition in nouveau_fence_context_del() between
-cancel_work_sync() and nvif_event_dtor()?
+This isn't a bug introduced by this patch, but could this error path lead
+to a use-after-free if a concurrent channel kill event fires?
 
-drivers/gpu/drm/nouveau/nouveau_fence.c:nouveau_fence_context_del() {
-	...
-	cancel_work_sync(&fctx->uevent_work);
-	nouveau_fence_context_kill(fctx, 0);
-	nvif_event_dtor(&fctx->event);
-	...
+Earlier in nouveau_channel_init(), the kill event is armed:
+
+drivers/gpu/drm/nouveau/nouveau_chan.c:nouveau_channel_init() {
+    ...
+		if (ret =3D=3D 0)
+			ret =3D nvif_event_allow(&chan->kill);
+    ...
 }
 
-If a hardware interrupt fires in the narrow window after cancel_work_sync()
-but before nvif_event_dtor(), could the event handler schedule the work
-again?
+If context_new() fails (e.g., due to VMA allocation failure), it cleans up
+by freeing the fence context. If a hardware kill event fires concurrently,
+nouveau_channel_kill() might read chan->fence before the error path clears
+it. This would lead to a use-after-free when smp_load_acquire(&fctx->ready)
+is evaluated on the freed pointer in the asynchronous kill handler.
 
-The work would remain pending on the workqueue while fctx is subsequently
-freed, leading to a use-after-free when the work executes.
-
-
-[Severity: High]
-This is another pre-existing issue in a similar teardown path, but is there=
- a
-missing cancel_work_sync() for irq_work in nouveau_connector_destroy()?
-
-drivers/gpu/drm/nouveau/nouveau_connector.c:nouveau_connector_destroy() {
-	...
-	nvif_event_dtor(&nv_connector->irq);
-	nvif_event_dtor(&nv_connector->hpd);
-	kfree(nv_connector->edid);
-	drm_connector_unregister(connector);
-	...
-}
-
-When a connector is destroyed, it calls nvif_event_dtor() to unregister the
-hardware event, but does not appear to call cancel_work_sync() for
-nv_connector->irq_work.
-
-If an IRQ fires right before the event is destroyed, the handler schedules
-irq_work:
-
-drivers/gpu/drm/nouveau/nouveau_connector.c:nouveau_connector_irq() {
-	...
-	schedule_work(&nv_connector->irq_work);
-	return NVIF_EVENT_KEEP;
-}
-
-Because the work is never canceled, will it eventually execute on freed
-memory after the connector has been freed?
+> +
+> +	nouveau_fence_context_arm(chan);
+> +	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178732578167.167481=
-.5619512544301226563@gmail.com?part=3D1
+.5619512544301226563@gmail.com?part=3D2
