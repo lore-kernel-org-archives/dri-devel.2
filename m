@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36E71C5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 08:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4622BC5DF87
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 08:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8757B10E29B;
-	Fri, 21 Aug 2026 08:48:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCF410F2A0;
+	Fri, 21 Aug 2026 08:48:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="DSwuXfZ9";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="akiChfQi";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF3D910E29B
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 08:48:12 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA58510F27D
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 08:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hw
- dc5E8K+IoWSlPWuVB6qjWL7+TyiJkCO+IOkAfA8OI=; b=DSwuXfZ94xJfazvUws
- VPz2a6d9Lh/teClzp9r2UpmGNkJwWssyhcJI77t4VxHa9V84BC4PkgRtoM1GBw82
- Y4b6bk1DPlotrtamh5M6O4ZPchwHOxxyb2aHe/TRXAfPEzoGkH6jja28x854jCjv
- gP0iQn3ebd5gCzrh0oUsC5Y+o=
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=am
+ 8ByIVgCFcuQjzXTdOrv7ypCBvVUl908REwuB2AOhQ=; b=akiChfQietvmET89up
+ oRjuayYD0zGbgCwktbdwZWkzPOsagQdzMtvLzx7AKtLn9gGvzGIq5ySTSKHQWm7w
+ T5pSpKfrRb+zV33gmdde4X3QPOejrLN4HOr58rliiYCI4sOhkqjFb/2+iUeNULR6
+ PHIBEP2yuWwM2dFmFXiq3maX8=
 Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
- _____wDXzTSnEIhqUTTCCw--.40021S2; 
- Fri, 21 Aug 2026 16:47:36 +0800 (CST)
+ by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id
+ _____wC3y3+1EIhqsgs3QQ--.34633S2; 
+ Fri, 21 Aug 2026 16:47:50 +0800 (CST)
 From: oushixiong1025@163.com
 To: Matthew Brost <matthew.brost@intel.com>
 Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
@@ -34,20 +34,19 @@ Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH] drm/sched: Fix incorrect test description in
- drm_sched_basic_cases
-Date: Fri, 21 Aug 2026 16:47:33 +0800
-Message-Id: <20260821084733.541572-1-oushixiong1025@163.com>
+Subject: [PATCH] drm/sched: Guard against NULL dev in drm_sched_job trace event
+Date: Fri, 21 Aug 2026 16:47:48 +0800
+Message-Id: <20260821084748.543645-1-oushixiong1025@163.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDXzTSnEIhqUTTCCw--.40021S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZFW3ur1rZF1UKFyrXrWxtFb_yoWkJFXE9F
- 4rKrnxXrWUAFnF9w1xtF45ZrW2kay7tFyxJw1qqw4fJw45ZF98GFZ7ur17Xr4agFy2vF93
- tws3KFWYyrsxujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8a0PDUUUUU==
+X-CM-TRANSID: _____wC3y3+1EIhqsgs3QQ--.34633S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy8ZrWfJF43JFyrWFy5CFg_yoW8Aw4xpr
+ Zruay5Kry8tr47t3yUZ3WrWry5Ca1fZayxCr1DW3s3Zrn0vr15JF17Kw4fJrW7Ar4xAr92
+ g3Wq9a1aq3Wjgw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Um1v-UUUUU=
 X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-gjq+WqIEKj8HQAA3e
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-Rbt-GqIELbsQAAA3S
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,29 +64,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Shixiong Ou <oushixiong@kylinos.cn>
 
-The second test case in drm_sched_basic_cases[] has num_entities = 1
-but its description claims "across multiple entities".  Fix it to
-accurately reflect that the dependency chain operates within a single
-entity.
+The drm_sched_job trace event class calls dev_name() on
+sched_job->sched->dev without checking for NULL. Since the
+dev field in drm_sched_init_args is optional (used for
+debugging), a NULL dev causes a kernel oops when the trace
+event fires.
+
+The DRM scheduler KUnit tests do not set the dev field in
+drm_sched_init_args, leaving sched->dev as NULL. This causes
+a NULL pointer dereference when the drm_sched_job trace event
+fires during test execution, as dev_name(NULL) is called.
+
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000050
+  Call trace:
+   trace_event_raw_event_drm_sched_job+0x90/0x258
+   __traceiter_drm_sched_job_queue+0x4c/0x78
+   drm_sched_entity_push_job+0x188/0x380
+   drm_sched_basic_entity_cleanup+0xfc/0x240
+   kunit_try_run_case+0x74/0x170
 
 Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 ---
- drivers/gpu/drm/scheduler/tests/tests_basic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/scheduler/gpu_scheduler_trace.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-index da5c4952780f..34bbb2c27913 100644
---- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
-+++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-@@ -90,7 +90,7 @@ static const struct drm_sched_basic_params drm_sched_basic_cases[] = {
- 		.num_entities = 1,
- 	},
- 	{
--		.description = "A chain of dependent jobs across multiple entities",
-+		.description = "A chain of dependent jobs in a single entity",
- 		.queue_depth = 100,
- 		.job_us = 1000,
- 		.num_entities = 1,
+diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
+index 261713dd7d5a..319a3ec54bec 100644
+--- a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
++++ b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
+@@ -61,7 +61,8 @@ DECLARE_EVENT_CLASS(drm_sched_job,
+ 			     __string(name, sched_job->sched->name)
+ 			     __field(u32, job_count)
+ 			     __field(int, hw_job_count)
+-			     __string(dev, dev_name(sched_job->sched->dev))
++			     __string(dev, sched_job->sched->dev ?
++				      dev_name(sched_job->sched->dev) : "none")
+ 			     __field(u64, fence_context)
+ 			     __field(u64, fence_seqno)
+ 			     __field(u64, client_id)
 -- 
 2.25.1
 
