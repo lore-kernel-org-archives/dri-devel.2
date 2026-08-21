@@ -4,57 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFF99C5DF95
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7064EC5DF94
 	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:42:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDD7E10F2F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F368E10F2F6;
 	Fri, 21 Aug 2026 14:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eqpZKhTk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lubya9hp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 466F810F2DD;
- Fri, 21 Aug 2026 14:41:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE0210F2EC
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:42:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 04351413A4;
- Fri, 21 Aug 2026 14:41:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8E71F00A3A;
- Fri, 21 Aug 2026 14:41:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F2A696136F;
+ Fri, 21 Aug 2026 14:42:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F2061F000E9;
+ Fri, 21 Aug 2026 14:42:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323294;
- bh=exY7e7RcKMPMMFW0ncO9ZMzZZPCMaL0Z2n1EqU+RGwM=;
+ s=k20260515; t=1787323330;
+ bh=5vCcrjTC6fdjyiXe+iiNWKoI+eKhp8ZnA0oqjo52QBU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=eqpZKhTkDq/sDg7WvNetDO1uUsJIgg4+8vF4N1mFh8uBbY2mcq6N32PqYyId5GErl
- qJsbhWdMp5mjeMfV1IQyHvOW6zcOnEtZaHrBiXs6lDj64D1kLt8vijnbqFqxNAiOi4
- z9FwFBIfwKOtNopnh9QmBEGsadWgiCb0fP7B8xz+js7L03be3DByTpUpVTyw9xYw+a
- HQ0H1GZ5IJzzvZms+UHGrhBo1uoGKioPvj9zGE2lFhTZ3DfW0u61FtCyhuSPfZSWt7
- SnVqnCzPC7J8HCHMlHP3nf86k8+ozESluMBtCUgavUMOQku1mVNUeU4IyyQrOZd+UO
- UOKuyL/mJxadQ==
+ b=Lubya9hp8cyGzu8K3+kQo09I4U7CdN98P6sr59wxYWp0u2nB9rKeyD2MKGgFxOjXI
+ GKW9rYUOkCLKMBQ0PJRtwUXffdib/F35zp8Se13bdHuuqXCm2ws2bGeKzHiecU04ds
+ /l7xpjk85+dhSJwoy6AH3c+hMqQ/P75aFRxNy5clBB4IiXn5VA7QObILHeHftBfiN6
+ JgHquMPCg8GLRTtNH4Jya8Rj1tvl1WcrvGK0t4mb3IB0Csuw2MX8daLLYunDtX3eEz
+ eJrTnIu7YjrlClN1RcoFjlRwXyobs/30JIUT/H6sLrGdfNxKOZ8fUjRf2qDDkknAbj
+ gpItfnekzO5LA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:31 +0200
-Subject: [PATCH 55/70] drm/msm: mdp5: Convert to atomic_create_state
+Date: Fri, 21 Aug 2026 16:39:46 +0200
+Subject: [PATCH 70/70] drm/crtc: Remove reset
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-55-fb793475c05a@kernel.org>
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-70-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3164; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ombmf9hpe+qDj55uMlu1rOHBFFNn3wz6F6EzTnQXKFU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyQKtTHelgw40VIi8kpzDfHL2wQk1/TM+O6yVV3tl4
- bLecnNfx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIFAdjreiH2HPGXbvNZ5Wo
- /Y2ZUyfasDFnr6begm1PDqRyN3St37LHk0nvxrsT4lfmvL1RfubuMcaG/celFi2KDRZIOB66Oy9
- /tzv70ctii78vFnLS38X6vzV7Ff8Ln6K163pP2CgcCng0vfkpAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2233; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=BqdG+BYbqtPRa1rNO1DShHaZ/7NZSkWGMHxpNMmA+u0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyeJPCp4JKq5leJtUGMhepHLgzra7Acdj3fVT76ue3
+ Bp43/Npx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZgIkz1jw8l5wv+UI7yd35w8
+ IXeUYUnwSX1ztf1LP6rP8Ww5L5i+Ufuj0JI8HRur+BtWVT7v9xudY2z4/0Pog36DoLNczHuRs8s
+ TghJd17b0nPrPENsRFr/hQFtBKJ/LORM2LwZjvlerDwiWygAA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,84 +67,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The mdp5 crtc implementation provides a custom reset hook. However,
-this hook only allocates the state, initializes it with
-__drm_atomic_helper_crtc_reset(), and frees the previous state. It
-does not perform any hardware reset.
+All crtc drivers now implement the atomic_create_state hook instead of
+the reset hook for initial state creation. The reset hook conflated
+initial state allocation at probe time with hardware and software reset
+during suspend/resume, making error handling difficult since it is not
+fallible.
 
-Since this is exactly what the atomic_create_state hook is meant to
-do, minus the old state cleanup which the caller handles, convert the
-implementation to use atomic_create_state with
-__drm_atomic_helper_crtc_state_init() instead.
+Remove the reset hook from struct drm_crtc_funcs and the associated
+call in drm_mode_config_reset().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/drm_mode_config.c |  4 +---
+ include/drm/drm_crtc.h            | 10 ----------
+ 2 files changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-index 4c4a897fc1ee..1e1fff37380c 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-@@ -1126,27 +1126,27 @@ static void mdp5_crtc_destroy_state(struct drm_crtc *crtc, struct drm_crtc_state
- 	__drm_atomic_helper_crtc_destroy_state(state);
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index 3bcc7bf0900c..9f4eb694e1fb 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -294,13 +294,11 @@ void drm_mode_config_reset(struct drm_device *dev)
+ 		else if (plane->funcs->atomic_create_state)
+ 			drm_mode_config_plane_reset_with_create_state(plane);
+ 	}
  
- 	kfree(mdp5_cstate);
- }
+ 	drm_for_each_crtc(crtc, dev) {
+-		if (crtc->funcs->reset)
+-			crtc->funcs->reset(crtc);
+-		else if (crtc->funcs->atomic_create_state)
++		if (crtc->funcs->atomic_create_state)
+ 			drm_mode_config_crtc_reset_with_create_state(crtc);
+ 	}
  
--static void mdp5_crtc_reset(struct drm_crtc *crtc)
-+static struct drm_crtc_state *mdp5_crtc_create_state(struct drm_crtc *crtc)
- {
--	struct mdp5_crtc_state *mdp5_cstate = kzalloc_obj(*mdp5_cstate);
-+	struct mdp5_crtc_state *mdp5_cstate;
- 
--	if (crtc->state)
--		mdp5_crtc_destroy_state(crtc, crtc->state);
-+	mdp5_cstate = kzalloc_obj(*mdp5_cstate);
-+	if (!mdp5_cstate)
-+		return ERR_PTR(-ENOMEM);
- 
--	if (mdp5_cstate)
--		__drm_atomic_helper_crtc_reset(crtc, &mdp5_cstate->base);
--	else
--		__drm_atomic_helper_crtc_reset(crtc, NULL);
-+	__drm_atomic_helper_crtc_state_init(&mdp5_cstate->base, crtc);
-+
-+	return &mdp5_cstate->base;
- }
- 
- static const struct drm_crtc_funcs mdp5_crtc_no_lm_cursor_funcs = {
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
--	.reset = mdp5_crtc_reset,
-+	.atomic_create_state = mdp5_crtc_create_state,
- 	.atomic_duplicate_state = mdp5_crtc_duplicate_state,
- 	.atomic_destroy_state = mdp5_crtc_destroy_state,
- 	.atomic_print_state = mdp5_crtc_atomic_print_state,
- 	.get_vblank_counter = mdp5_crtc_get_vblank_counter,
- 	.enable_vblank  = msm_crtc_enable_vblank,
-@@ -1155,11 +1155,11 @@ static const struct drm_crtc_funcs mdp5_crtc_no_lm_cursor_funcs = {
- };
- 
- static const struct drm_crtc_funcs mdp5_crtc_funcs = {
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
--	.reset = mdp5_crtc_reset,
-+	.atomic_create_state = mdp5_crtc_create_state,
- 	.atomic_duplicate_state = mdp5_crtc_duplicate_state,
- 	.atomic_destroy_state = mdp5_crtc_destroy_state,
- 	.cursor_set = mdp5_crtc_cursor_set,
- 	.cursor_move = mdp5_crtc_cursor_move,
- 	.atomic_print_state = mdp5_crtc_atomic_print_state,
+ 	drm_for_each_encoder(encoder, dev)
+ 		if (encoder->funcs && encoder->funcs->reset)
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 12f43253f059..be5dca538d87 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -421,20 +421,10 @@ struct drm_crtc_state {
+  * Each driver is responsible for filling out this structure at startup time,
+  * in addition to providing other modesetting features, like i2c and DDC
+  * bus accessors.
+  */
+ struct drm_crtc_funcs {
+-	/**
+-	 * @reset:
+-	 *
+-	 * Reset CRTC hardware and software state to off. This function isn't
+-	 * called by the core directly, only through drm_mode_config_reset().
+-	 * It's not a helper hook only for historical reasons.
+-	 *
+-	 */
+-	void (*reset)(struct drm_crtc *crtc);
+-
+ 	/**
+ 	 * @cursor_set:
+ 	 *
+ 	 * Update the cursor image. The cursor position is relative to the CRTC
+ 	 * and can be partially or fully outside of the visible area.
 
 -- 
 2.55.0
