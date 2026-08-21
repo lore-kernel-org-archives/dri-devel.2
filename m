@@ -4,53 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34BB7C5DF93
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701D1C5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:41:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3444F10F2F1;
-	Fri, 21 Aug 2026 14:41:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1C5710F2F2;
+	Fri, 21 Aug 2026 14:41:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fqN+91z5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JfiRo+RB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BD4610E1FA
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9633810F2D4
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 21F7941E94;
- Fri, 21 Aug 2026 14:41:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806051F000E9;
- Fri, 21 Aug 2026 14:41:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9963361126;
+ Fri, 21 Aug 2026 14:41:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C81AC1F000E9;
+ Fri, 21 Aug 2026 14:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323266;
- bh=+YqGyf8QxZHfQ0yeRaRkL7PN1OM+N2FsZnNMWQimJ0M=;
+ s=k20260515; t=1787323297;
+ bh=CnsmaFAgylDWKtDZ3FHx+2lPuiUhX1z8iAZ1+V/AvJE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=fqN+91z5ZnEthBZOkM+Xw4KXKQ5kR9hjlDiAY4hLE0KP8VqLP6K25oEkVcUcUjYs1
- T8DmoLb3kvlfUaOycpopfbl7eDyF8WasjGq5jVCMTP02/6GaXjk6zabWYCWUU8Jvd9
- qEB6H2NYWMY3rQzpq5zFKeNoBoJpHaM9jZ4xR7Mgd1kOuKpYNwWnl9dnZe4gOkH7wr
- RpcZwbRaZvSHHqGv7yLzZPULMeCrsVCaPzy9YHz7OtDrg39gm9Rb/jAomrTuOKrdP9
- BroVi9WFWcniolGIWTPfSbR3U87Wxxsfnh69CC1KT2Ii5kwBGa7yd32IpDAufNNlYM
- E5F6+W7Pn7+tQ==
+ b=JfiRo+RBLx4ZLpIAxGhT4G3KF1ljHCCMOLKGrq2H7+U2Jl1SyRNE8YHh2htqZaf+K
+ qG62o0grWpcQkGq1rd3tmBxZkgsRHHzOqjFOG+IdanIL/6e0GI+066iMcQ23N3A3KJ
+ Rn+lHh2FLwPt7kB0MpdQmPuhAqddal/D67Fyk2iMHxQZvxIoc/eDHJu973IEgGCoNt
+ Z4e+6XRb+3lN+FARpxDcFSwtucvn7yUSUFswFAb9jMWJgG2rsaGp5YjN8GQTkH9ej+
+ SRR72jdWSeFC8DpCGgXXpcJrvGpY2/c6x+Hv9LY+VlWcBAx8Dbqakx15cWFFW49FZH
+ h2J4Oe9s1LYog==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:19 +0200
-Subject: [PATCH 43/70] sysfb: Convert to create_state
+Date: Fri, 21 Aug 2026 16:39:32 +0200
+Subject: [PATCH 56/70] drm/mxsfb: lcdif: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-43-fb793475c05a@kernel.org>
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-56-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Javier Martinez Canillas <javierm@redhat.com>
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+ Marek Vasut <marex@denx.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Stefan Agner <stefan@agner.ch>, 
+ imx@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2993; i=mripard@kernel.org;
- h=from:subject:message-id; bh=zT/6WLpgNIeD7k3AwGg6FbDndIlcWPMafuLJ5qATRec=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdydyfNnjN/3Gl84iiYWx0tzfrUzuXF6lhF4+tOie2t
- EJD64RJx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZgImwBjwwcJodu+lTce8C45
- N+3wpcz9Kw8z5d/meip6I79aXvu82/SVMxUvbF/2/rNXQErDgSs1Nxjra+P+TUyPexav2XzAsXn
- WvDbLLP6XE0J4FNa+l2+LzbYqVOmQMX1dcX3DrnuV/acNRB8BAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2520; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=QDaJrKua2s3tk+JyjZAGBJwqt552ARvhZxmU87Kbaxk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyYK7dximvJXboPXnxbXTUwS3Ruzcm5L0f0vMHMMjH
+ 9Znv6+d1TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmInKJsYp5Y8iCsueSjfoW
+ us/ikvhPLZGaYcpkGlT880byg3f8S/lfeJhF1/K2q4p+uHB0V+/Ni4z1ZalBfg2sTj6TuOSvtR9
+ VktfR3MIrvj158ZZTNqmTNG5k8KzRvX6o38HgoRBz69Fbul8B
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,78 +72,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The lcdif crtc implementation provides a custom reset hook. However,
+this hook only allocates the state, initializes it with
+__drm_atomic_helper_crtc_reset(), and frees the previous state. It
+does not perform any hardware reset.
+
+Since this is exactly what the atomic_create_state hook is meant to
+do, minus the old state cleanup which the caller handles, convert the
+implementation to use atomic_create_state with
+__drm_atomic_helper_crtc_state_init() instead.
+
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Marek Vasut <marex@denx.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Stefan Agner <stefan@agner.ch>
+Cc: imx@lists.linux.dev
 ---
- drivers/gpu/drm/sysfb/drm_sysfb_helper.h  |  4 ++--
- drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 20 +++++++++-----------
- 2 files changed, 11 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/mxsfb/lcdif_kms.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
-index 547f2327af5e..445eb5b5ca06 100644
---- a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
-+++ b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
-@@ -169,16 +169,16 @@ int drm_sysfb_crtc_helper_atomic_check(struct drm_crtc *crtc, struct drm_atomic_
- 
- #define DRM_SYSFB_CRTC_HELPER_FUNCS \
- 	.mode_valid = drm_sysfb_crtc_helper_mode_valid, \
- 	.atomic_check = drm_sysfb_crtc_helper_atomic_check
- 
--void drm_sysfb_crtc_reset(struct drm_crtc *crtc);
-+struct drm_crtc_state *drm_sysfb_crtc_create_state(struct drm_crtc *crtc);
- struct drm_crtc_state *drm_sysfb_crtc_atomic_duplicate_state(struct drm_crtc *crtc);
- void drm_sysfb_crtc_atomic_destroy_state(struct drm_crtc *crtc, struct drm_crtc_state *crtc_state);
- 
- #define DRM_SYSFB_CRTC_FUNCS \
--	.reset = drm_sysfb_crtc_reset, \
-+	.atomic_create_state = drm_sysfb_crtc_create_state, \
- 	.set_config = drm_atomic_helper_set_config, \
- 	.page_flip = drm_atomic_helper_page_flip, \
- 	.atomic_duplicate_state = drm_sysfb_crtc_atomic_duplicate_state, \
- 	.atomic_destroy_state = drm_sysfb_crtc_atomic_destroy_state
- 
-diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-index d2de29caf89e..ce11ac32fae4 100644
---- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-+++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-@@ -513,27 +513,25 @@ int drm_sysfb_crtc_helper_atomic_check(struct drm_crtc *crtc, struct drm_atomic_
- 
- 	return 0;
- }
- EXPORT_SYMBOL(drm_sysfb_crtc_helper_atomic_check);
- 
--void drm_sysfb_crtc_reset(struct drm_crtc *crtc)
-+struct drm_crtc_state *drm_sysfb_crtc_create_state(struct drm_crtc *crtc)
+diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+index 79e0f483ca20..5f0fbec3a390 100644
+--- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
++++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+@@ -594,22 +594,21 @@ static void lcdif_crtc_atomic_destroy_state(struct drm_crtc *crtc,
  {
- 	struct drm_sysfb_device *sysfb = to_drm_sysfb_device(crtc->dev);
- 	struct drm_sysfb_crtc_state *sysfb_crtc_state;
+ 	__drm_atomic_helper_crtc_destroy_state(state);
+ 	kfree(to_lcdif_crtc_state(state));
+ }
+ 
+-static void lcdif_crtc_reset(struct drm_crtc *crtc)
++static struct drm_crtc_state *lcdif_crtc_create_state(struct drm_crtc *crtc)
+ {
+ 	struct lcdif_crtc_state *state;
  
 -	if (crtc->state)
--		drm_sysfb_crtc_state_destroy(to_drm_sysfb_crtc_state(crtc->state));
+-		lcdif_crtc_atomic_destroy_state(crtc, crtc->state);
 -
- 	sysfb_crtc_state = kzalloc_obj(*sysfb_crtc_state);
--	if (sysfb_crtc_state) {
--		sysfb_crtc_state->format = sysfb->fb_format;
--		__drm_atomic_helper_crtc_reset(crtc, &sysfb_crtc_state->base);
--	} else {
--		__drm_atomic_helper_crtc_reset(crtc, NULL);
--	}
-+	if (!sysfb_crtc_state)
+-	crtc->state = NULL;
+-
+ 	state = kzalloc_obj(*state);
+-	if (state)
+-		__drm_atomic_helper_crtc_reset(crtc, &state->base);
++	if (!state)
 +		return ERR_PTR(-ENOMEM);
 +
-+	sysfb_crtc_state->format = sysfb->fb_format;
-+	__drm_atomic_helper_crtc_state_init(&sysfb_crtc_state->base, crtc);
++	__drm_atomic_helper_crtc_state_init(&state->base, crtc);
 +
-+	return &sysfb_crtc_state->base;
++	return &state->base;
  }
--EXPORT_SYMBOL(drm_sysfb_crtc_reset);
-+EXPORT_SYMBOL(drm_sysfb_crtc_create_state);
  
- struct drm_crtc_state *drm_sysfb_crtc_atomic_duplicate_state(struct drm_crtc *crtc)
+ static struct drm_crtc_state *
+ lcdif_crtc_atomic_duplicate_state(struct drm_crtc *crtc)
  {
- 	struct drm_device *dev = crtc->dev;
- 	struct drm_crtc_state *crtc_state = crtc->state;
+@@ -657,11 +656,11 @@ static const struct drm_crtc_helper_funcs lcdif_crtc_helper_funcs = {
+ 	.atomic_enable = lcdif_crtc_atomic_enable,
+ 	.atomic_disable = lcdif_crtc_atomic_disable,
+ };
+ 
+ static const struct drm_crtc_funcs lcdif_crtc_funcs = {
+-	.reset = lcdif_crtc_reset,
++	.atomic_create_state = lcdif_crtc_create_state,
+ 	.destroy = drm_crtc_cleanup,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.atomic_duplicate_state = lcdif_crtc_atomic_duplicate_state,
+ 	.atomic_destroy_state = lcdif_crtc_atomic_destroy_state,
 
 -- 
 2.55.0
