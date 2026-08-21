@@ -4,58 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E63A4C5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:31:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB0DBC5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFEB710F30E;
-	Fri, 21 Aug 2026 15:31:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0165710F313;
+	Fri, 21 Aug 2026 15:33:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="jaqD0xxi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RMUgO11f";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DE7F10F30E
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:31:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787326283; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=EST4mSCi/5S9V9thzlzlvenSyfADllx/U/IKWVEk+4tqw4UcAKeOZIw4gbUdHQSeg8ymvUlba10TOTb6ePgdBBEB/8hlzFtkmT7lUy1btOQabOjRbGtoBvCYHxNMS2BWWyXVULKbs5cCu9wHHBnjoMs4Io3qK3lBxrU840cZL10=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787326283;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=+041lIFhhTpsX+FiqppUIWOEJNwqeo2etbhtupMqTJ0=; 
- b=ZiJc4KtgBb0A6bUMO25p90Ww9yo902kmpUBxER8lxE5cps38S0HknvcaEiuLNoDf2mWS3b68H9SMRWIsBV3vaBFwFSCMy5E9nbxno6+5FshP2zxa805784zOs2TkfHj9nYTLI6ljUrwJKhaVW4JuBnKpoAXg4W21npph6oayR4g=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787326283; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=+041lIFhhTpsX+FiqppUIWOEJNwqeo2etbhtupMqTJ0=;
- b=jaqD0xxifGdlk44Q3N/1H6i92dysXyemTIjn9gJAHUKOTm41j49LFhf+CjRe//KW
- 46cbsZ0ZiDpIhH9Cbg3yQl2ILc3zFNxVaK7lsKDoic5S4jn+a+cfHCEVpb045SuPeIg
- 5UrxiaRMii2aykUzQNQQuPyZNm+Z+0CLbLHe/UQw=
-Received: by mx.zohomail.com with SMTPS id 1787326281210413.5754291736158;
- Fri, 21 Aug 2026 08:31:21 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 2/3] drm/tyr: add GPU reset infrastructure
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260819-tyr-reset-impl-v6-2-7b4e1e041fe5@onurozkan.dev>
-Date: Fri, 21 Aug 2026 12:31:03 -0300
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dakr@kernel.org, aliceryhl@google.com,
- airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
- gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
- a.hindborg@kernel.org, tmgross@umich.edu
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1888110F313
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:33:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 230616136E;
+ Fri, 21 Aug 2026 15:33:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACF961F000E9;
+ Fri, 21 Aug 2026 15:33:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787326429;
+ bh=EygtpzmxjhXGEtEXgbOUrY50K/iSmv4uqOTmubnerlA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=RMUgO11fS7I8vIm+BZMclkbfIH+NS6kKgu4yRSmG+I4HpFYMyrw8bjPF+2JncoHbc
+ QQJ9XaRHR8GBRWDQ2XxaX4dfmz209psIxAic94BkazsXmCsvQitQd+AAebIjh0yZe4
+ s+Sv5H+NIejob2/2UqxiBMBFUY8fm9cyA4X/nYnzMJa2tPm3ScDHtBrCmkPU1Gv0i9
+ yjxZo2ER9odEZ3C0eJaBhRMRNe/sk/3ED77+csaeregF9CK+AvTlGvvEF6wjhnOb3a
+ 6qpfND0h7U7FXlWvnqb9Md9BX6AaIOiDVtdxTB64oT0sBDb7xillmKdGgMEkr+fepU
+ F0Y0TRuYzTz7w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/3] drm/nouveau: subscribe to channel-kill events on
+ NV50 and newer
+To: "Marek Czernohous" <mczernohous@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <178732578167.167481.2178147998794444181@gmail.com>
+References: <178732578167.167481.5619512544301226563@gmail.com>
+ <178732578167.167481.2178147998794444181@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <653D47F5-0AF3-44B5-9896-F0AA81F67B61@collabora.com>
-References: <20260819-tyr-reset-impl-v6-0-7b4e1e041fe5@onurozkan.dev>
- <20260819-tyr-reset-impl-v6-2-7b4e1e041fe5@onurozkan.dev>
-To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Date: Fri, 21 Aug 2026 15:33:49 +0000
+Message-Id: <20260821153349.ACF961F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,36 +54,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Onur,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> On 19 Aug 2026, at 15:45, Onur =C3=96zkan <work@onurozkan.dev> wrote:
->=20
-> Add support for scheduling GPU resets on a dedicated workqueue. Track
-> the reset state to avoid queueing another reset while one is already
-> pending or in progress.
->=20
-> Use an SRCU based gate with mutex-protected reader admission to block
-> hardware accesses while reset work runs and wait for current users
-> before resetting.
->=20
-> Stop new reset requests during teardown and drain any queued or =
-running
-> reset work before releasing the device resources.
->=20
-> This is the initial reset infrastructure only. It is not wired to a =
-reset
-> source yet as those will follow in separate work.
->=20
-> Link: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/28
-> Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>
+Pre-existing issues:
+- [High] `chan->fence` is published without memory barriers before its fiel=
+ds and spinlock are fully initialized, exposing an uninitialized spinlock t=
+o the concurrent channel kill event handler.
+--
 
-I=E2=80=99d use dev_info instead, I don=E2=80=99t think a reset belongs =
-in dev_dbg.
+--- Patch [3]: [PATCH v4 3/3] drm/nouveau: subscribe to channel-kill events=
+ on NV50 and newer ---
+commit 526eef3958eedb0aae06aba1612c73d287cde11e
+Author: Marek Czernohous <mczernohous@gmail.com>
 
-Otherwise, this looks good to go from my POV.
+drm/nouveau: subscribe to channel-kill events on NV50 and newer
 
-Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
+This commit lowers the class gate for subscribing to channel-killed events
+from FERMI_CHANNEL_GPFIFO to NV50_CHANNEL_GPFIFO. This enables NV50 and Tes=
+la
+to correctly receive channel error notifications and signal pending fences.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nou=
+veau/nouveau_chan.c
+> index 605ce74c0d155..54e2202cb852f 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_chan.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
+> @@ -378,7 +378,7 @@ nouveau_channel_init(struct nouveau_channel *chan, u3=
+2 vram, u32 gart)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	if (chan->user.oclass >=3D FERMI_CHANNEL_GPFIFO) {
+> +	if (chan->user.oclass >=3D NV50_CHANNEL_GPFIFO) {
+>  		DEFINE_RAW_FLEX(struct nvif_event_v0, args, data,
+>  				sizeof(struct nvif_chan_event_v0));
+>  		struct nvif_chan_event_v0 *host =3D
+
+[Severity: High]
+This is a pre-existing issue, but this change exposes an existing race cond=
+ition
+to NV50.
+
+By allowing the channel kill event in this block, the event can fire before=
+ the
+fence context is fully initialized later in nouveau_channel_init():
+
+drivers/gpu/drm/nouveau/nouveau_chan.c:nouveau_channel_init() {
+	...
+	if (chan->user.oclass >=3D NV50_CHANNEL_GPFIFO) {
+		...
+		ret =3D nvif_event_allow(&chan->kill);
+	}
+	...
+	ret =3D nouveau_fence(drm)->context_new(chan);
+}
+
+In nv84_fence_context_new() (and similarly in nv50_fence_context_new()), the
+fence pointer is published without a memory barrier:
+
+	fctx =3D chan->fence =3D kzalloc_obj(*fctx);
+
+If a channel fault occurs and the kill event handler runs concurrently:
+
+drivers/gpu/drm/nouveau/nouveau_chan.c:nouveau_channel_kill() {
+	...
+	if (fctx && smp_load_acquire(&fctx->ready))
+		nouveau_fence_context_kill(fctx, -ENODEV);
+}
+
+Because chan->fence was published without a store release, can
+smp_load_acquire() observe non-NULL for fctx but read stale, uninitialized
+memory for fctx->ready?
+
+If the stale memory evaluates to true, it would proceed to call
+nouveau_fence_context_kill(), which acquires an uninitialized spinlock:
+
+drivers/gpu/drm/nouveau/nouveau_fence.c:nouveau_fence_context_kill() {
+	...
+	spin_lock_irqsave(&fctx->lock, flags);
+}
+
+Could this lead to a kernel crash or deadlock?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178732578167.167481=
+.5619512544301226563@gmail.com?part=3D3
