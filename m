@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD019C5DF95
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E81AC5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:41:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F73610F2E6;
-	Fri, 21 Aug 2026 14:41:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 931B010F2E3;
+	Fri, 21 Aug 2026 14:41:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Muc4PNsQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NBB5wB0q";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B05D610F2D1
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:40:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68C6510E1FA
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3148061834;
- Fri, 21 Aug 2026 14:40:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623C91F00A3A;
- Fri, 21 Aug 2026 14:40:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 514E741536;
+ Fri, 21 Aug 2026 14:41:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF72C1F00A3A;
+ Fri, 21 Aug 2026 14:41:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323246;
- bh=ZRGw/b7Y5C3If8EoCt23XhKsqPM3+dkq4s4CH+CbAJo=;
+ s=k20260515; t=1787323261;
+ bh=YStdIeBA8bI7tPeJDx8zvmyWEtPTzGWKMEQj/a3Y+fk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Muc4PNsQijpHtZZ86NuyPQgipx8vSjPki3ZtMVBOPO+H1EtV1+Vig55En9CCbWujb
- vT1FKx9M8ZTqghZpDbeCZqYWaocbiUMOoToqrDJiWiNg4Akc90it3y/CpSoPXF4ltG
- bZ43keLdlMTld0Ib6w5NYcsuq4mpwP+JH64Zb27AhnjYS6/Cet/qlROJK/vTK1kzyw
- 380qr4bdjEwzQNufmsY7ul2eXEsTTQZyEnw1WCbPJ37xEffi+eQyX6G2UDKH3dVzs7
- k5Z9lYm+IcqHoQnB0JltoAZNwKEbbH0hKwbajOh3FkROIxDoTp3XHdGnCdOVmL+pF3
- FFNJwAvMJFFfA==
+ b=NBB5wB0qhNpM/Pdmx6AIF8WMCm+HpRHFRSASa+7/FxJEUOxRfWtnB048939f+GfPS
+ cGueNCGqVKIQhpOlQaXyjwZceLj63LmE24Cd8NqMV+mctT6Vvv8H21mgW4l4dltP6B
+ UctTFwsgbsLl0Rjk7mVCn98U8C84nrRNoq28BpjpanBbaL5ENFcPCUiTz0R5E0x3J0
+ TP+KcsQngOBkxl+WH9pxkVUSz2D3Xugi/VpeP4bSZhxsXRVo1pLh0urTiN1KYzKM9Z
+ DbFXKpUVCmvgnjtDFwbIXwI4vhDV57339pGKO1SYa+adAtmVnoKu5wCbXnZ556ZoSz
+ qpkYkzmKbRqrg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:11 +0200
-Subject: [PATCH 35/70] drm/tiny: sharp: Switch to
+Date: Fri, 21 Aug 2026 16:39:17 +0200
+Subject: [PATCH 41/70] drm/mipi-dbi: Switch to
  drm_atomic_helper_crtc_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-35-fb793475c05a@kernel.org>
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-41-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Alex Lanzano <lanzano.alex@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1223; i=mripard@kernel.org;
- h=from:subject:message-id; bh=FK1c/WP1PCzjT9qUdvXepjmBpKLneheHpCzu5BqG+gY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyexzXD7XTl7oK/D4XsW2dUoJC1Zt/Pf9ZgBvhcE9v
- +SERa+tO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBESi4yNtzUWsZs9E3q1Lrc
- wIOfZOYFFKl7XTrTPPW1dUDJNcUn2cv35yionWPdk9/WwbXzRnP2Ccb6fC/zPcvUf51PKT628tb
- MlODdkgY3G6tms/0Il9vTu/xvxBO9Iz63dTj/B3pUX7pxzmoqAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=999; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=dvHgjqYzt6Ga4mXtuVAGlvBJKEfcwTjAHyvSRoZK0UU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyVyzrgsx1Bw0XqTktNlQ4MWN/vtrXY/askiu0ZaT3
+ 7FYTUKsYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExEwJ6xPib84q0nF3bkPBAK
+ jTo1J932wtn5l5du5KqN2G6zzdFXYIrrOt1pJz1u3Kow+lmhsnNqH2PDlDud+fPMBcwZ+W9+vFO
+ 2vcEqRHWNwfq5nWL/ZM74HH7B5Zi3besCtmVG9iuOeQVeXzEBAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,35 +68,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The sharp crtc implementation uses the deprecated
+The mipi-dbi crtc implementation uses the deprecated
 drm_atomic_helper_crtc_reset() as its reset hook.
 
 Switch to drm_atomic_helper_crtc_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Alex Lanzano <lanzano.alex@gmail.com>
----
- drivers/gpu/drm/tiny/sharp-memory.c | 2 +-
+ include/drm/drm_mipi_dbi.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/sharp-memory.c b/drivers/gpu/drm/tiny/sharp-memory.c
-index 7efd7b567f3b..434e73bd25a5 100644
---- a/drivers/gpu/drm/tiny/sharp-memory.c
-+++ b/drivers/gpu/drm/tiny/sharp-memory.c
-@@ -343,11 +343,11 @@ static const struct drm_crtc_helper_funcs sharp_memory_crtc_helper_funcs = {
- 	.atomic_enable = sharp_memory_crtc_enable,
- 	.atomic_disable = sharp_memory_crtc_disable,
- };
+diff --git a/include/drm/drm_mipi_dbi.h b/include/drm/drm_mipi_dbi.h
+index 78ab23d844ce..d93e25fdc2e1 100644
+--- a/include/drm/drm_mipi_dbi.h
++++ b/include/drm/drm_mipi_dbi.h
+@@ -232,11 +232,11 @@ void drm_mipi_dbi_plane_helper_atomic_update(struct drm_plane *plane,
+ /*
+  * CRTC
+  */
  
- static const struct drm_crtc_funcs sharp_memory_crtc_funcs = {
--	.reset = drm_atomic_helper_crtc_reset,
-+	.atomic_create_state = drm_atomic_helper_crtc_create_state,
- 	.destroy = drm_crtc_cleanup,
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
- 	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
+ #define DRM_MIPI_DBI_CRTC_FUNCS \
+-	.reset = drm_atomic_helper_crtc_reset, \
++	.atomic_create_state = drm_atomic_helper_crtc_create_state, \
+ 	.set_config = drm_atomic_helper_set_config, \
+ 	.page_flip = drm_atomic_helper_page_flip, \
+ 	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state, \
+ 	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state
+ 
 
 -- 
 2.55.0
