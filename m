@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E10E6C5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 09:45:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19D67C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 09:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2783810F293;
-	Fri, 21 Aug 2026 09:45:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78AEB10F286;
+	Fri, 21 Aug 2026 09:45:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p9Xlbrx4";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YaZBLv9i";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14B9910F286
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 09:45:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CD2510F286
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 09:45:40 +0000 (UTC)
 Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 726751583;
- Fri, 21 Aug 2026 11:43:42 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7CB571583;
+ Fri, 21 Aug 2026 11:44:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1787305423;
- bh=GOS3Sfd6WsIo0/Gd4p9eZj3WYjUl1BAGLoVcofgedSc=;
+ s=mail; t=1787305457;
+ bh=FmuNeO/2gbwPF6v+5N6ElQDNIvtDrpPAysHLpirSETo=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=p9Xlbrx4yRZeEr+M5OiXU66CzzO56nw+H+DlrS759vl6uYgxeUurwgANT46H0j8XX
- QJmph7g30madW4EG1Xd0G7Rle1Q855Qr6c7I9bCXncLCFQ2MeKXuRU8/bMg5Mfilko
- kCs+pn9JgRH8USzzwJcRTSkrO+2/jJE+Joxyx5Kk=
-Message-ID: <5b90d713-ffe4-44f2-846b-cb42751310ed@ideasonboard.com>
-Date: Fri, 21 Aug 2026 12:45:01 +0300
+ b=YaZBLv9i2dae2/vtK/G/v2hZGB8JWKHXHHHGnagU9uj1+Zzoo4uvcXplPjDxZhUqJ
+ prTxvhTQzjibdmt5ORabvwEwZWf0/gMlPBoiXbbgw3bfG6L/ncNqCqUxoA03lgo8UX
+ PitKIbxW+77BF9x2rEJx791E4YC4bjOjUWddFLyo=
+Message-ID: <eb39ee2b-1e6b-47b0-b901-6333f6df075b@ideasonboard.com>
+Date: Fri, 21 Aug 2026 12:45:35 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/omap: Report HDMI hotplug events to the ASoC HDMI
- codec
-To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
+Subject: Re: [PATCH v6] drm/omap: dsi: avoid sending bta sync all the time in
+ writes
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>,
+ "H. Nikolaus Schaller" <hns@goldelico.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>, Sen Wang <sen@ti.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Alex Deucher <alexander.deucher@amd.com>
-References: <20260819171935.233946-1-ivo.g.dimitrov.75@gmail.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tony Lindgren <tony@atomide.com>,
+ Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+References: <20260804-vm-upstr-v6-1-1bf3748b2fa3@kemnade.info>
 Content-Language: en-US
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <20260819171935.233946-1-ivo.g.dimitrov.75@gmail.com>
+In-Reply-To: <20260804-vm-upstr-v6-1-1bf3748b2fa3@kemnade.info>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,29 +67,27 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On 19/08/2026 20:19, Ivaylo Dimitrov wrote:
-> The OMAP HDMI audio driver currently has no way of reporting HDMI cable
-> hotplug events to ASoC. As a result, user space cannot detect HDMI audio
-> availability through the standard jack mechanism and audio policy managers
-> cannot automatically route audio to or from the HDMI output.
+On 04/08/2026 11:37, Andreas Kemnade wrote:
+> Some chips need configuration commands to be sent first, before they can
+> send data. TC358762 for example needs PPI_LPTXTIMECNT configured
+> and PPI_STARTPPI set to 1 to be able to transmit anything. To be able to
+> configure such chips, do not send bta sync during writes if no acks are
+> requested. Instead just wait for the packet to be sent to avoid FIFO
+> overflows. There might be more to do about acks, but there seem to be
+> virtually no users of that flag.
 > 
-> Add an optional HPD callback to `omap_hdmi_audio_pdata` and invoke it from
-> the DRM HDMI bridge whenever the connector status changes. The HDMI audio
-> driver registers an ASoC jack and reports `SND_JACK_AVOUT` state changes in
-> response to these notifications.
+> This came to light when fiddling with the Epson Moverio BT-200 display
+> which consists of 2 TC358762 bridges with SPI funneled through
+> to the unknown display chip. With that patch the bridge can be accessed,
+> Reading back registers works, when the above-mentioned registers are set.
 > 
-> Also fix the disconnect path by taking a runtime PM reference before
-> updating the CEC physical address.
+> In Command-Mode update, there was a nop sent, apparently the most
+> relevant part was the bta sync to actually force low power mode.
 > 
-> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-> ---
->   drivers/gpu/drm/omapdrm/dss/hdmi.h        |  6 +++
->   drivers/gpu/drm/omapdrm/dss/hdmi4.c       | 29 ++++++++++---
->   drivers/gpu/drm/omapdrm/dss/hdmi5.c       | 37 +++++++++++++---
->   drivers/gpu/drm/omapdrm/dss/hdmi_common.c | 14 ++++++
->   include/sound/omap-hdmi-audio.h           |  1 +
->   sound/soc/ti/omap-hdmi.c                  | 53 +++++++++++++++++++++--
->   6 files changed, 125 insertions(+), 15 deletions(-)
+> Video mode panel at OMAP4 (BT-200) and video mode at OMAP5 was tested.
+> 
+> Fixes: e70965386353e ("drm/omap: dsi: simplify write function")
+> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 Thanks, picking up to drm-misc-next.
 
   Tomi
