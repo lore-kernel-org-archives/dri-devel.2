@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06CCCC5DF89
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73236C5DF93
 	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1918410F2F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 474CC10F2EC;
 	Fri, 21 Aug 2026 14:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S0Rp2KFQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oRAnMYL4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15EA310F2EC;
- Fri, 21 Aug 2026 14:41:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D05510F2EC
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D720140312;
- Fri, 21 Aug 2026 14:41:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9DC1F00A3A;
- Fri, 21 Aug 2026 14:41:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9E4EC6187B;
+ Fri, 21 Aug 2026 14:41:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1AA1F00A3E;
+ Fri, 21 Aug 2026 14:41:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323299;
- bh=sILiU5hnk0bK7FJMVer/A2NdMTsPP5tMrf5d+SITn88=;
+ s=k20260515; t=1787323309;
+ bh=TBXd7/4Rqp6FiQW2cUZbg8tqHqkkn81QlQlR8YTCzTw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=S0Rp2KFQfr3s8UOm+hXsr9mDfrYyuhTo583wlBZsizqYr2gfVxRmmyUDgu+tkcp+1
- E40SQaaP2/dii/gIGy1qNMR8zafoz0Bl8lR4XIiX5bEM3VWiG9PM2Ob4G31AxkwZeC
- cJCA/RobBJeCpXbTBUnFZ6XaWFVjwR5ojAbRDvKOzTMuKiio/WI6C+/iEd33bedxIx
- IQaSWE7Xy8GKpnp8/iqujJJvH7h8zk+wNnd79nWEaoI/Ut+siCivMOIjTFuHzdmWij
- Py9JQaAQhrr8G0BRnNL9HludcoABkNYDofKp6I94JAffIJ6uUcKSGDpivqkHHNd0gt
- cVnPyyM9SVJJw==
+ b=oRAnMYL4ZLMIuGPbX8sz5CzD+LPHfx4DEe4wCg46X1xFzviJf1rdyJx0h6S/VMjqS
+ KA0nbdQ8pHO3R34darHcuOAyKtUtGsqY6QY+6GRvJ7fBOAea9fsGanGv7K2ituc2Bq
+ LYM9Z+WUxZ37+SzbfLvwOOgHcrwtNcSMdJdmb5S85oQG2rCTme6GuRZega55grgsDk
+ BdR4wAgejHMAtbhyUFqdJJxACEJzQr2SZki4f23DAOTjubYmBouRcKT+YW9jDkul/N
+ iFU3zBoH4ZkWlNJaHYOR6Hkj64RaSfdOEqyVf9+TA2FEs0y6tOst/WBJioXDNdIB4a
+ OHdfv2f65v3aw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:33 +0200
-Subject: [PATCH 57/70] drm/nouveau: Convert to atomic_create_state
+Date: Fri, 21 Aug 2026 16:39:37 +0200
+Subject: [PATCH 61/70] drm/rockchip: vop: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-57-fb793475c05a@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-61-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>, 
- nouveau@lists.freedesktop.org
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Sandy Huang <hjc@rock-chips.com>, 
+ linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2669; i=mripard@kernel.org;
- h=from:subject:message-id; bh=VfBq/nJGwnD++v64DCYnhI73vjHwhPomJYcPvum9yCA=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyYJ3bKy5fmh9YhU2z0z1D2xm3ll9yFW81yGr5uTJm
- dyJGrM6prIwCHMyyIopsjyRCTu9vH1xlYP9yh8wc1iZQIYwcHEKwEQaDjHWpwY+fZijktudd+mp
- jAZfpGug+dGs3Fex6jJH2XqkN+jseuHEcH/n07ytLia/kuweHqhhrK9ZLBk8/+CsttMbz25Zv2L
- y2QkFnXdaVj6e8ttuzrXs75Of7H6r8bb2o+C0L7scZkQtKdsAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2600; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=bfFf2guEIBmZHiLt3zPAdPPtsiW6cXZqlcuZTPqYWsA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdycI3E9Yt3CTDaZDn8NLuhrZ081PzC9cEO+/9ZFtvV
+ disGNzYMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACby5y1jw2ePhqyvMRWFG5Wb
+ BV5ci5wqvcqH3TFk+ivfzScuCzHJXL4efuPGwb1W56sFrH2PMoZuZqwvqNXdyzQ/K9Jue484l5Z
+ jU9f3m9mmCQ+eMxt5VS6cJazDP+mfk98n9li5+eVe2WmOVQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,7 +70,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The nouveau nv50 head implementation provides a custom reset hook.
+The rockchip vop crtc implementation provides a custom reset hook.
 However, this hook only allocates the state, initializes it with
 __drm_atomic_helper_crtc_reset(), and frees the previous state. It
 does not perform any hardware reset.
@@ -81,70 +82,61 @@ __drm_atomic_helper_crtc_state_init() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: nouveau@lists.freedesktop.org
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: linux-rockchip@lists.infradead.org
 ---
- drivers/gpu/drm/nouveau/dispnv50/head.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/head.c b/drivers/gpu/drm/nouveau/dispnv50/head.c
-index 1affa0378bd0..6a3a93de0cbf 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/head.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/head.c
-@@ -489,22 +489,20 @@ nv50_head_atomic_duplicate_state(struct drm_crtc *crtc)
- 	asyh->clr.mask = 0;
- 	asyh->set.mask = 0;
- 	return &asyh->state;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+index 0090d8ff0c79..bd02597dc2d7 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+@@ -1654,21 +1654,21 @@ static void vop_crtc_destroy_state(struct drm_crtc *crtc,
+ 
+ 	__drm_atomic_helper_crtc_destroy_state(&s->base);
+ 	kfree(s);
  }
  
--static void
--nv50_head_reset(struct drm_crtc *crtc)
-+static struct drm_crtc_state *nv50_head_create_state(struct drm_crtc *crtc)
+-static void vop_crtc_reset(struct drm_crtc *crtc)
++static struct drm_crtc_state *vop_crtc_create_state(struct drm_crtc *crtc)
  {
- 	struct nv50_head_atom *asyh;
- 
- 	if (WARN_ON(!(asyh = kzalloc_obj(*asyh))))
--		return;
-+		return ERR_PTR(-ENOMEM);
+-	struct rockchip_crtc_state *crtc_state = kzalloc_obj(*crtc_state);
++	struct rockchip_crtc_state *crtc_state;
  
 -	if (crtc->state)
--		nv50_head_atomic_destroy_state(crtc, crtc->state);
-+	__drm_atomic_helper_crtc_state_init(&asyh->state, crtc);
+-		vop_crtc_destroy_state(crtc, crtc->state);
++	crtc_state = kzalloc_obj(*crtc_state);
++	if (!crtc_state)
++		return ERR_PTR(-ENOMEM);
  
--	__drm_atomic_helper_crtc_reset(crtc, &asyh->state);
-+	return &asyh->state;
+-	if (crtc_state)
+-		__drm_atomic_helper_crtc_reset(crtc, &crtc_state->base);
+-	else
+-		__drm_atomic_helper_crtc_reset(crtc, NULL);
++	__drm_atomic_helper_crtc_state_init(&crtc_state->base, crtc);
++
++	return &crtc_state->base;
  }
  
- static int
- nv50_head_late_register(struct drm_crtc *crtc)
+ #ifdef CONFIG_DRM_ANALOGIX_DP
+ static struct drm_connector *vop_get_edp_connector(struct vop *vop)
  {
-@@ -523,11 +521,11 @@ nv50_head_destroy(struct drm_crtc *crtc)
- 	kfree(head);
- }
+@@ -1736,11 +1736,11 @@ vop_crtc_verify_crc_source(struct drm_crtc *crtc, const char *source_name,
  
- static const struct drm_crtc_funcs
- nv50_head_func = {
--	.reset = nv50_head_reset,
-+	.atomic_create_state = nv50_head_create_state,
- 	.destroy = nv50_head_destroy,
+ static const struct drm_crtc_funcs vop_crtc_funcs = {
  	.set_config = drm_atomic_helper_set_config,
  	.page_flip = drm_atomic_helper_page_flip,
- 	.atomic_duplicate_state = nv50_head_atomic_duplicate_state,
- 	.atomic_destroy_state = nv50_head_atomic_destroy_state,
-@@ -537,11 +535,11 @@ nv50_head_func = {
- 	.late_register = nv50_head_late_register,
- };
- 
- static const struct drm_crtc_funcs
- nvd9_head_func = {
--	.reset = nv50_head_reset,
-+	.atomic_create_state = nv50_head_create_state,
- 	.destroy = nv50_head_destroy,
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
- 	.atomic_duplicate_state = nv50_head_atomic_duplicate_state,
- 	.atomic_destroy_state = nv50_head_atomic_destroy_state,
+ 	.destroy = drm_crtc_cleanup,
+-	.reset = vop_crtc_reset,
++	.atomic_create_state = vop_crtc_create_state,
+ 	.atomic_duplicate_state = vop_crtc_duplicate_state,
+ 	.atomic_destroy_state = vop_crtc_destroy_state,
+ 	.enable_vblank = vop_crtc_enable_vblank,
+ 	.disable_vblank = vop_crtc_disable_vblank,
+ 	.set_crc_source = vop_crtc_set_crc_source,
 
 -- 
 2.55.0
