@@ -4,74 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92907C5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 06:35:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1275C5DF88
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 06:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A892910E262;
-	Fri, 21 Aug 2026 06:35:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAE8B10F229;
+	Fri, 21 Aug 2026 06:39:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Kv6D9hrV";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bwcBwS0+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6Z4vcbQC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mL9/9Iir";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xbk2DB96";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1585310E262
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 06:35:57 +0000 (UTC)
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
- by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hR9Wz1T2Wz69S2;
- Fri, 21 Aug 2026 08:34:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1787294079;
- bh=fWzhvxr4a/sLeJPe/1v2NF5fNebBN1hiMDIf/zflUEI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Kv6D9hrVcE3tlzweEpaFeqbL12Wunuz7tbgpAiOGwkkpguPK3N6sioxGtcdEQWd40
- B4ofRsI6L/U8vXmHbyoqfY8Z81YThU+CDMslPhFs+UJn+xGYbz+Saiz0osxpGRoZZ9
- 40XBfZ7FSehAGA5+8KASM/+9jW6cQGUy7muhgTV1eKA4alMPEJ9tRjyuNy8gMkPO6A
- OpikIkqiQcKNkMKllvqYnBLBkZYfvZ9kqMB0JeuHM2hDeCde6wfTz9QAUFzU3n67AG
- IOoJRe9RM1P4icGUKh/885jgANtqszshPnR8i1E0VI9w42eEWxAUhpNdITLsOzONjB
- ElOBd6VNT5OHQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hR9VV6CK4z4yWc;
- Fri, 21 Aug 2026 08:33:22 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8198E10F220;
+ Fri, 21 Aug 2026 06:39:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hR9VT3rfvz8sch;
- Fri, 21 Aug 2026 08:33:21 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 7B9D35F9C0;
- Fri, 21 Aug 2026 08:33:20 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <943d1db3-f117-4e9c-94db-7221b47d9d29@leemhuis.info>
-Date: Fri, 21 Aug 2026 08:33:19 +0200
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3284B3EAF;
+ Fri, 21 Aug 2026 06:38:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787294328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
+ b=bwcBwS0+RC4EqtR9XE60Dr7YThswkD9m/wJHGl0tYz+b+jnsCbHokMe2hGq/Uqk4uzT50A
+ eo3102wp6SGIjVNcjni9XRheTPpNywHtnve3o/8JTxEV7f0KyAXhdofQzz/9ZLDSC0zYU4
+ Y6GN1+Rph/uZtJg+IxXU5IT21JaHaQE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787294328;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
+ b=6Z4vcbQCxluqvDsyVW5JOdb+VetFkKQe/E/aiunFRyGnD0F+w7Vd66aAq33oo/wFBvKlfS
+ DD681hcQkd6gUCBw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="mL9/9Iir";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xbk2DB96
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787294324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
+ b=mL9/9IirJ/hFuHoEJ9tqN6Gyj/BzCxbBnS8Vhpd9olYi8cAzb5Q7wleR0jkMWFnb6EQXj4
+ MbELBsuGxlTEhOXwdoUh5C2t3dHRphQ2taTyOQWKik5ErjYPYnJRZqA4MOEXeGdv8z+pmE
+ DnM6e+TO6hELLfr5XGJHojqd0ilrLZA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787294324;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
+ b=xbk2DB96M/yt8An1/BaVXFIB/WVgjEWwzS3BFmfjzbloxDMaBSaA5lj+zU3stDKov/MLO3
+ gePOA+Nf5lkyeWCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BBCDE3329;
+ Fri, 21 Aug 2026 06:38:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id us1oLHPyh2pUAgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 21 Aug 2026 06:38:43 +0000
+Message-ID: <3d0d14e6-05d2-4fc4-befe-e1d0cafc91db@suse.de>
+Date: Fri, 21 Aug 2026 08:38:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] qcom PAS TZ API migration breaks GPU and modem on
- TrustZone without PAS (sc7180 trogdor)
-To: Konrad Dybcio <konradybcio@gmail.com>,
- Paul Hollinsky <phollinsky@holtechnik.com>, sumit.garg@oss.qualcomm.com,
- andersson@kernel.org
-Cc: mathieu.poirier@linaro.org, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, abhinav.kumar@linux.dev, akhilpo@oss.qualcomm.com,
- konradybcio@kernel.org, mukesh.ojha@oss.qualcomm.com,
- cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-References: <20260808034716.58888-1-phollinsky@holtechnik.com>
- <b63e93e4-2f4c-4cad-b726-e1b0565379d7@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <b63e93e4-2f4c-4cad-b726-e1b0565379d7@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178729400123.2293361.5180616562923228567@mxe9fb.netcup.net>
-X-NC-CID: mdasp+gq17ABdqs7sDaa4dURyEqNXzgIFUK85nSdbZpvVCs/raw=
+Subject: Re: [PATCH 00/12] drm/panic: Split into core and helpers
+To: Jocelyn Falempe <jfalempe@redhat.com>, javierm@redhat.com,
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260818125012.468092-1-tzimmermann@suse.de>
+ <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 3284B3EAF
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.de:mid, suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,130 +154,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/17/26 17:41, Konrad Dybcio wrote:
-> On 8/8/26 5:47 AM, Paul Hollinsky wrote:
->> Two commits from the "firmware: qcom: Add OP-TEE PAS service support"
->> series break the GPU and the modem on SC7180 Chromebooks (trogdor):
->>
->>   f3b1357673dd ("remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs")
->>   0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs")
->>
->> Both are in linux-next as of next-20260805 and neither is in a released
->> kernel yet, so there is still time to fix this before v7.3.
-> 
-> First of all, thank you for the amazingly thorough write-up. I've been on
-> holiday so I couldn't look into it quicker.
-> 
-> [...]
-> 
->> Suggested fix, drm/msm
->> ======================
->>
->> Given the above, I think the right fix is to move the availability check
->> behind the DT discovery rather than restore the SCM check. Boards with no
->> zap-shader node then never consult PAS at all, and boards that do have one
->> keep the qcom_pas_is_available() gate the original patch was going for:
->>
->> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->> @@ -52,6 +52,12 @@
->>  		return -ENODEV;
->>  	}
->>  
->> +	/* We need PAS to be able to load the firmware */
->> +	if (!qcom_pas_is_available()) {
->> +		DRM_DEV_ERROR(dev, "PAS is not available\n");
->> +		return -EPROBE_DEFER;
->> +	}
->> +
->>  	ret = of_reserved_mem_region_to_resource(np, 0, &r);
->>  	if (ret) {
->>  		zap_available = false;
->> @@ -170,18 +176,11 @@
->>  int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
->>  {
->>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->> -	struct platform_device *pdev = gpu->pdev;
->>  
->>  	/* Short cut if we determine the zap shader isn't available/needed */
->>  	if (!zap_available)
->>  		return -ENODEV;
->>  
->> -	/* We need PAS to be able to load the firmware */
->> -	if (!qcom_pas_is_available()) {
->> -		DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
->> -		return -EPROBE_DEFER;
->> -	}
->> -
->>  	return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
->>  }
-> 
-> I believe this is the right fix
+Hi Jocelyn
 
-Just wondering: who will submit the proper fix to ideally fix this
-before the culprit hits mainline (as Linus afaik does not like it much
-if changes that are know to cause regressions in -next enter his tree)
--- or at least before -rc1 is out?
+Am 20.08.26 um 19:49 schrieb Jocelyn Falempe:
+> On 18/08/2026 14:27, Thomas Zimmermann wrote:
+>> Split DRM's current panic handling into a core and a helper module.
+>> The core is still part of DRM's core library. The panic helpers are
+>> part of DRM's KMS helper module (for now).
+>>
+>> The motivation behind this series is to get panic handling's drawing
+>> code out of the DRM core. At some point it should share a single
+>> module with DRM's other drawing and format conversion.
+>>
+>> With the series applied, panic hanlding follows DRM's established
+>> design pattern of having a DRM core interface with an dedicated
+>> implementation in each driver. Drivers share common code in helper
+>> modules. For panic handling, the DRM core still contains the panic
+>> entry points, the parameters and the debugfs interface. All drawing
+>> is now located in the panic helpers.
+>>
+>> Patches 1 to 4 improve several issues in the current panic code. It
+>> makes sense to fix them before moving the core around.
+>>
+>> Patches 5 to 8 put handling of all panic state and locking into a
+>> single place, drm_panic_display_panic_screen(). It is maintained by
+>> panic handling's DRM core code. This also enables the test cases to
+>> work more independently from the kernel's configuration.
+>>
+>> Patches 9 to 11 split the panic-handling code into the core and panic
+>> helpers. The former maintain all state, locking and public interfaces.
+>> The latter handles drawing and details of the involved framebuffers.
+>>
+>> DRM devices that offer panic handling provide a single callback, struct
+>> drm_plane_funcs.display_panic_screen. A new initializer macro makes it
+>> point to the existing panic-drawing implementation. Hence there's no
+>> change in features or functionality. If panic handling is configured
+>> off, it all clears out to NULL.
+>>
+>> Patch 12 reworks the test cases slighly, so that they can be build as
+>> a separate module. Do 'modprobe drm_panic_helper_test' to run them.
+>>
+>> Tested under bochs with debugfs and test cases.
+>
+> Overall the series looks good to me, and I like the split between the 
+> helper and the core.
+> I would just drop the first two patches, as I don't see much 
+> difference between static allocation or kmalloc() at init, and I think 
+> that memset() the buffers to 0 is not useful in this case.
 
-The culprit afaics was authored by Sumit Garg, whose last msg on Lore is
-from 260731 -- which indicates a well deserved vacation or something
-like that, so waiting for Sumit to act might take too long.
+Ok. Geert also expressed a dislike for these changes.
 
-Ciao, Thorsten
->> I have this booting here: the GPU initialises and logs "Zap shader not
->> enabled - using SECVID_TRUST_CNTL instead", as it did before the
->> regression.
->>
->>
->> Suggested fix, remoteproc
->> =========================
->>
->> Keep an SCM gate for need_mem_protection and add a separate PAS gate for
->> need_pas_mem_setup. This is what I did to get it working:
->>
->> --- a/drivers/remoteproc/qcom_q6v5_mss.c
->> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
->> @@ -2079,7 +2079,16 @@ static int q6v5_probe(struct platform_device *pdev)
->>  	if (!desc)
->>  		return -EINVAL;
->>  
->> -	if (desc->need_mem_protection && !qcom_pas_is_available())
->> +	/*
->> +	 * Memory protection is done through qcom_scm_assign_mem(), which needs
->> +	 * SCM but not PAS. Only the memory setup path issues PAS calls, so
->> +	 * requiring PAS for every need_mem_protection platform prevents the
->> +	 * modem from probing at all on TZ firmware that offers no PAS.
->> +	 */
->> +	if (desc->need_mem_protection && !qcom_scm_is_available())
->> +		return -EPROBE_DEFER;
->> +
->> +	if (desc->need_pas_mem_setup && !qcom_pas_is_available())
->>  		return -EPROBE_DEFER;
-> 
-> And likewise this looks like the correct fix too, feel free to submit
-> both as patches
-> 
-> [...]
-> 
->> On the API contract
->> ===================
->>
->> For what it is worth, the kernel-doc for qcom_pas_is_available()
->> (qcom_pas.c:256) reads:
->>
->>   Note that it is mandatory for any PAS client to invoke this API.
->>   If it returns true then only any other PAS API can be invoked.
->>
->> That is a guard to call before invoking a PAS API, not a statement that a
->> driver touching TZ at all should refuse to probe without PAS.
->> ipa_main.c:764 consults it only on the loader path that genuinely needs
->> PAS rather than as a blanket probe precondition, which is the shape both
->> fixes above are aiming for.
-> 
-> This is a sloppiness that got through the transition patchset.. previously
-> as you mentioned, qcom_scm_is_available() was a blanket "can we talk to TZ
-> yet"?, and as the conversion happened, it was largely just find-and-replaced..
-> 
-> Konrad
-> 
+I have a number of changes done from the Sashiko review and will post an 
+update to the series early next week.
+
+Thanks for reviewing.
+
+Best regards
+Thomas
+
+
+>
+> Best regards,
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
