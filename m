@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A402BC5DF8C
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 17:01:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C5DAC5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 17:23:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1AEA10E2C9;
-	Fri, 21 Aug 2026 17:01:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7227010E333;
+	Fri, 21 Aug 2026 17:23:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VY7+3yus";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KW0EItDg";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 190B110E2C9
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 17:01:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56CF510E333
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 17:23:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3C9F5600E2;
- Fri, 21 Aug 2026 17:01:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1615C1F000E9;
- Fri, 21 Aug 2026 17:01:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5FEDC61126;
+ Fri, 21 Aug 2026 17:23:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D8F1F000E9;
+ Fri, 21 Aug 2026 17:23:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787331674;
- bh=MOuZQE0b3k67jh8IFAGpgYdjTH5jTDtXmiUcWGfKd3Y=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=VY7+3yusO6O23frGFmZF31V+soeqnRDUfz+xGV2oHkj8ttryclH6wUKYELX96aTd/
- VgovXOASkUkCJ1yVAtwXGeQDwsVAEnUa1ENsqAcjAJlTl44ZHLblxIeZBbJOmviHSH
- mXTaccKoU8oDhHPOCLaE3zHVKpNntOa3u/KNELEZ3WQmQJ5wyV5oFBMRCRt/uaGVN9
- VnIj39Ui9YuGvn6/aEfkdPDoKoSE4uxcIQCOdzzdVVmxNnBT4iCc7XyZA/BqtGKFS2
- 8YtJ22G5OEk6I6bNE+FLwgpTO4N94Q+cwWv4vGCDEetAFtz1R6iKAR+CPwu0saffHw
- an0e+6YRYy4zQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 21 Aug 2026 19:01:10 +0200
-Message-Id: <DKUS768JV9RM.36WFW7QI27WKK@kernel.org>
-Subject: Re: [PATCH v6 2/3] drm/tyr: add GPU reset infrastructure
-Cc: =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <aliceryhl@google.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260819-tyr-reset-impl-v6-0-7b4e1e041fe5@onurozkan.dev>
- <20260819-tyr-reset-impl-v6-2-7b4e1e041fe5@onurozkan.dev>
- <653D47F5-0AF3-44B5-9896-F0AA81F67B61@collabora.com>
- <20260821155814.980146-1-work@onurozkan.dev>
- <2AD43D0D-2B01-47E3-AACB-32032B3358C9@collabora.com>
-In-Reply-To: <2AD43D0D-2B01-47E3-AACB-32032B3358C9@collabora.com>
+ s=k20260515; t=1787333008;
+ bh=YWUzwAz2gglOPhDQRZ+3MLEbMpUfiyg15km1lbgLClE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=KW0EItDg/p2K/B1rbN/IC5VfFeikrMXLMG8LKHHGxgMBR41alZRlnd9N8i4yCSopc
+ Kie9qLO3Avt9UTxiwhby0P0xq+HTL78U7anbXvLc9oZ/dRVSnoEMqTH5VKV6uC+a06
+ yolEOo2QkGsOwLydFzPr5Os4ldXqWeSscMTtCp1ck9LSZ0I8CMP32CVU4E0YUK6yIP
+ PqkEksuu2CFKuVi/IoZdQqJ5j5+T3OSE3pQ8QHrOhyuC4t9D1M7e+n8RFkkK1xBnYh
+ UwZVcjEG5mSokn2BsRrg1TI+0l+kj6rZkPLOZF7KIJik2v2JieoRXONnFx79tOrd7T
+ XbxLuD+e0KrDg==
+Date: Fri, 21 Aug 2026 18:23:23 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: panel: Document 10"
+ Raspberry Pi Touch Display 2
+Message-ID: <20260821-naturist-eagle-f691527ae813@spud>
+References: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="P/iFS2tr70btybGJ"
+Content-Disposition: inline
+In-Reply-To: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,27 +67,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Aug 21, 2026 at 6:39 PM CEST, Daniel Almeida wrote:
-> My point is that resetting the GPU should not be a =E2=80=9Cdebug=E2=80=
-=9D trace, but rather
-> something that should hit dmesg unconditionally. Of all things that are
-> printed on a driver, a =E2=80=9Chey the GPU is being reset because someth=
-ing crashed=E2=80=9D
-> is something that should always show up IMHO.
+--P/iFS2tr70btybGJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Please see my reply in [1]. If something crashed, please feel free to add a
-dev_warn() or dev_err() print about the exact error condition. But please d=
-o not
-add dev_info() prints about things that were successful and just bloat dmes=
-g.
+On Thu, Aug 20, 2026 at 08:54:27PM +0200, Marek Vasut wrote:
+> Document the 10" Raspberry Pi Touch Display 2 MIPI-DSI TFT LCD panel.
+> The panel is based on the Ilitek ILI79600A controller.
+>=20
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Jessica Zhang <jesszhan0024@gmail.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: devicetree@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+> V2: Extend existing ilitek,il79900a.yaml document instead of introducing
+>     new one. Note that the il79900a should likely be il_i_79900a, but the
+>     binding document already shipped in Linux 6.19.y , so this can not be
+>     fixed anymore ?
 
-In this specific case you want the caller of ResetHandle::schedule() to pri=
-nt
-about *why* the reset work was scheduled. You also already have a dev_err()
-print when the GPU reset failed. So, at this point you're good already.
+Should it? Website says il79900a:
+https://www.ilitekholding.com/en/product/Mobile (ctrl + f)
 
-Additional prints about when exactly the reset work starts and when it comp=
-letes
-is stuff for dev_dbg().
+Your new device also has no second I there.
 
-[1] https://lore.kernel.org/all/DKUR5TGKTJT1.3VR0LSG4WWXJJ@kernel.org/
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+Cheers,
+Conor.
+> ---
+>  .../bindings/display/panel/ilitek,il79900a.yaml     | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,il799=
+00a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.=
+yaml
+> index 02f7fb1f16dc7..f8644e9a4478d 100644
+> --- a/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
+> @@ -14,10 +14,15 @@ allOf:
+> =20
+>  properties:
+>    compatible:
+> -    items:
+> -      - enum:
+> -          - tianma,tl121bvms07-00
+> -      - const: ilitek,il79900a
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - raspberrypi,dsi-10inch
+> +          - const: ilitek,ili79600a
+> +      - items:
+> +          - enum:
+> +              - tianma,tl121bvms07-00
+> +          - const: ilitek,il79900a
+> =20
+>    reg:
+>      maxItems: 1
+> --=20
+> 2.53.0
+>=20
+
+--P/iFS2tr70btybGJ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaoiJigAKCRB4tDGHoIJi
+0nMeAP9lEw/ySMu5b7F8tSgGWV0PUvqqjkIrOhlKMp0LJvc1aQD8COjKK1tTBCyC
+msN5oMXiKpEgYQpp7zKg/ZQykN6NNwM=
+=04aB
+-----END PGP SIGNATURE-----
+
+--P/iFS2tr70btybGJ--
