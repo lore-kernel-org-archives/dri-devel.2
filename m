@@ -4,83 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33994C5DF97
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69E4CC5DF81
 	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5571F10E299;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 674AE10E3F8;
 	Sun, 23 Aug 2026 09:27:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j6FG0TVh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FMYYaEoc";
 	dkim-atps=neutral
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B785810E0D0
- for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 14:31:24 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-c1712a04ddaso326622966b.2
- for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 07:31:24 -0700 (PDT)
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D133289117
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:07:43 +0000 (UTC)
+Received: by mail-qt1-f177.google.com with SMTP id
+ d75a77b69052e-52de178a66aso6846231cf.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 07:07:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787409083; x=1788013883; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=pUYxeQkkOydFxi90Wl+h19lQoxgRcddBRZaaP+r9C1s=;
- b=j6FG0TVh9TexgG6HTr7MX8yhGdCvEmffiHcaPPPLkAOlT85+4fFyCotsGl5cR5v014
- kQ7jA77ASVV3PYeceGcwMkCU1vZOw+Q/KHZkGu60oUF+f9ZoYh+S7PLBhMpLNQPDy3be
- IZR3QAfgHNADbJdH5h7t/PumBV5aqPewhvxQSH9Skq6rxZfnsqTXiCpVyAzKlnbM8mHo
- oCvtOKLk86YdAL1e6MvisFzWQksQv1WsUI4n69SiHpyqV05Tmn3YEAbt8pWXON8CJHmA
- QrSNBLMoeQJjjOizMWHMt7MJQtliKX6HXuKEW0E7AOPkX6y60LUcfRkKPU6Oo9NK4CBl
- VlYQ==
+ d=gmail.com; s=20251104; t=1787321263; x=1787926063; darn=lists.freedesktop.org;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=QHJgjLvgHDbYJ/uRAJqtcFTfRjwoYjG5WYJnARLGN6I=;
+ b=FMYYaEocRAgq0aHEtb0xJ1BtA4WL9iU3S93r37oQq6Ampqv+bVTZHHJoe4XfCtzwQJ
+ onWsDnP75JFehE9LKp7JFzG0gi0S/b3PNvsK7Be5JP/uVJSVfregVhhgvEmTEWCwFlGI
+ qkeG4jhEpRHgQkYGlGAUtteipaRE7yPxqJvn/ddxyncmtXcTM3CiE8oermXG63c27Vg4
+ /P9IMgZRmaJEHGhg4kAtvGHg9SBX/MoGgerAL6PmD+ikxCI63xgEFEdXxSVUH8r9kheQ
+ rFDFFGrVFopHemRXI1PwWhnigmRJVIaIe8fb/NwYn5f46sWqEwYFX9oK1BhbGtNx0tQg
+ vzWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787409083; x=1788013883;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=pUYxeQkkOydFxi90Wl+h19lQoxgRcddBRZaaP+r9C1s=;
- b=ZwS3ZksaYViAUzy9CiEpy8KWpqtq2i5Bpo+XyeFAISmdVhIkPRUBci2hNDW61dzISm
- goErQ2ARMb3BgXWZy8lDJ2b6OkCNLEmJ7otYAbX1JNiV6RGLI/R5KzHNUnyblUzXh1ke
- 10RKDucJIZ3YQUE5/hj8JHcm7PMs/fiJgjLt3vbXinKKe24GlWeK8QUWgE8muaQYJx8Z
- NlXWb1ZbOVh4PFB5EIrhYMbH1CUDkbtVehiBohYK6qjejKk6PQWJ5tqzgX0l4useK3vs
- TN86odT4bKQNrbyX4+FI5g9DUD/Gv57g8x/012+eyTVblq1sRkN4S/5iPNg3f0RT7Zp3
- H9QQ==
+ d=1e100.net; s=20251104; t=1787321263; x=1787926063;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=QHJgjLvgHDbYJ/uRAJqtcFTfRjwoYjG5WYJnARLGN6I=;
+ b=RM1KQ8Ps8rPO7j1OOo3rqBZWvZ9auuA0smbeXjvCAYsKw9R4cdoCLz8ywcJn3/iYL8
+ 10MZeLYu6rVKuISC6dLq6Mawn56Ec/QvujzJqFaQ8nwz38XoCY686nVSHJCOQ6BYXH5U
+ /8zyZgVPTN0TRKZ7qk9rmweMYsWs9MIiEs53oRr7Na/TC8txPa+BjReLYNkw22lW03zb
+ n5TmIkRsEdY6mwBMXNOqX90pVDEsIOwPe5C1s1u4+dSX0jfNWKCFKzWGFdYiggzARAaI
+ 1LI4RBBfHyw5lUgASw8mOd+YBqYfQLrmch6HDtL05aRKFvA06JQgCg37OYJbp1c2Ttb8
+ Hrpg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrAELymxwdtv5HirttrcWjqFldC/M1sqEifamQ7bqXv/F7G4FN9pwl0XZ3qXkaVs5QWex9x53Kcm2w=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l7K2TwIChnJRq+ofFObMz8pDgR0lun7q0LciiQpMk2XB5SzcfN
- sLNaY9p3/PdW6agvQWfETEfuYa+JU60WHiYq1HNIiujs//Nd5ipG2lu0
-X-Gm-Gg: AR+sD101k4U84VHLM4Kas9WeBYP6DLfNtNtzH/Wkh6ex9XU2nfZP6moZkUBL4fHv31G
- +R6rm+eF6XlK/ULjsH+l3Xi+XJEyCImoh09ighlELaz429Qqa94C3vwIALJvO2ZxDKf89osDnq9
- 35yAifZS/xAiUNOJOSmJ8Ksjn8SZt+rzicIAMAT57zcCLxGPfHlAlGKTvGFtoSm2WZt6Fik+5OI
- DD2iMmAYKJ+YsuhYhOknl5V1tJZMK3lmKehIdXYRsjjUTYxkd+uY9yiee+F1WIWZoOFtkc3ODrm
- cMJfXrLb2cfo+z+mZS4/Deb/kxyOYS5Dz5Y6vLETkBO35dWZvBqsAcWMOvp3GXF1fnuoET0mmHP
- rdijVWSep/jfJn01cnj2Aj1alDseH1T+RPu8HlZQXSmkLmhoZWKseCZbm/+jWeD3Vagx+yPvZB/
- TmsZPapgERgRnt+zKZ8rWT19n6cJbqTMmzvHiLM9ChMWvMi+BIOshNu6WMTmwB2yLIiEd8VHS3g
- VuVVPhDokihKfbmbSXC6Gh2HfTmmoV1q+YoTIrP3B/mu2i16nVLLLVm8DqM3lRzhJqBMbL44rO2
- IbMuuG+cSijkHK1q2q/2wtWmPv2jgeYoUYhbxksDyVSb1ujMmQQ/hnEjuVlWbUOc1C9B
-X-Received: by 2002:a17:907:1c27:b0:c21:382e:9a38 with SMTP id
- a640c23a62f3a-c2491c2a110mr673395166b.2.1787409082801; 
- Sat, 22 Aug 2026 07:31:22 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-2a02-3100-a0f5-8c01-3de3-cd62-aa6f-2fb0.310.pool.telefonica.de.
- [2a02:3100:a0f5:8c01:3de3:cd62:aa6f:2fb0])
+ AHgh+RrOU1BotPFj89/CXgOKBx3sB5fDNTORabBRjfXgACvRjZd9SRNlIumYU8JY0aXEYqRwGPP6u4mA6aM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyyGptDC2RbLbJs3LoyL0wEKUlDtnTYDHxwYA4209G5eufw+lKb
+ 5T/8ETXH7a1kd2U7V0e8D2v7mh0AZ1Qm0sr2xPKvBtSg/aQW69EViklF
+X-Gm-Gg: AR+sD13jLOGpIhZtJn/J3DvwNklodft96hjBZbd04zUlL+jSHQDK89b/Qb07FiMDaF3
+ 9Q1WDHlW8wEFW0YAbCkgtIGsy3bK8Dp6lQtBZvrsL1vXrhMd/JRWE3xSs60sv8T83d6hWXDxa0t
+ hk6XmLQ2FeRRowyxOUt3bSl5fTcSAJwc5auLPWqID9suu+XSfHDP+KoHXAMlSGo0ZPaFck+hKUL
+ pPnvh9grR7w1c4ZqnYNuye/u0p/ZVc/BKvJrWCnN96Ao2v4s5/QmTRbO5jKXqgoPNEYcWRBb22y
+ sjGNML/fMZVt4AST4Iz3EZoHcFH3yKXsM4K3buX67InntWVvJ+mP4CLD9KLAW2pmAsUbc3hpgM8
+ umIb1CSUvUGXEs+j9RJ7gSaCLxA2FO8Ky3ZWsjI58oj9XQPQbkGZV65In87pVvKxN1BiQzvzorB
+ 3GqUc180OGFZHbA6AWFspGILe8/TqTPENOtyNFmWMDRaQ/IMU/wxmNREWiOEYF0DfBmWQ4vouB3
+ /Poqe/em6CLrqrZnsrU
+X-Received: by 2002:a05:622a:5c14:b0:52d:3ccc:968b with SMTP id
+ d75a77b69052e-52df56e4b5dmr59495521cf.9.1787321262531; 
+ Fri, 21 Aug 2026 07:07:42 -0700 (PDT)
+Received: from smtpclient.apple ([165.85.199.100])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c249629a901sm383818266b.25.2026.08.22.07.31.21
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 22 Aug 2026 07:31:22 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Eric Anholt <eric@anholt.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/vc4: Use managed KMS polling to fix UAF on unbind
-Date: Sat, 22 Aug 2026 16:31:10 +0200
-Message-Id: <20260822143110.68594-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ 6a1803df08f44-90c5f2a2d62sm62929666d6.38.2026.08.21.07.07.41
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 21 Aug 2026 07:07:42 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH v4 7/7] drm/i915/gt: Use signalers_lock to prevent
+ starvation of irq_work.
+From: Shuangpeng <shuangpeng.kernel@gmail.com>
+In-Reply-To: <5c4b9949-506b-4a01-b390-a83ec5d63fd5@lankhorst.se>
+Date: Fri, 21 Aug 2026 10:07:09 -0400
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ bigeasy@linutronix.de
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <ECED6685-78D9-4B31-BEF3-5ECEA21EA492@gmail.com>
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706114823.752313-8-dev@lankhorst.se>
+ <20260821022530.2503120-1-shuangpeng.kernel@gmail.com>
+ <5c4b9949-506b-4a01-b390-a83ec5d63fd5@lankhorst.se>
+To: Maarten Lankhorst <dev@lankhorst.se>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,43 +98,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vc4_kms_load() calls drm_kms_helper_poll_init() but the driver provides
-no matching drm_kms_helper_poll_fini(). The output poll work stays
-scheduled after unbind and runs on the freed drm_device:
 
-  # modprobe vc4; rmmod vc4; sleep 10
-  BUG: KASAN: slab-use-after-free in delayed_work_timer_fn
-  BUG: KASAN: slab-use-after-free in drm_client_dev_hotplug [drm]
-  Workqueue: events output_poll_execute [drm_kms_helper]
-  Allocated by task 171: __devm_drm_dev_alloc
-  Freed by task 262 (rmmod): drm_dev_put / component_del
 
-Use drmm_kms_helper_poll_init() so polling is finalized with the device,
-as other drivers do.
+> On Aug 21, 2026, at 07:45, Maarten Lankhorst <dev@lankhorst.se> wrote:
+>=20
+> Hello,
+>=20
+> On 8/21/26 04:25, Shuangpeng Bai wrote:
+>> Hi Maarten,
+>>=20
+>> While reviewing this series, I noticed an additional request lifetime
+>> issue in signal_irq_work().
+>>=20
+>> The existing RCU loop removes rq from ce->signals and may then call
+>> i915_request_put(rq). If that is the final reference, the request can =
+be
+>> released and its SLAB_TYPESAFE_BY_RCU slot reused before
+>> list_for_each_entry_rcu() advances and reads rq->signal_link.next. =
+The
+>> RCU read-side critical section does not provide a stable reference to =
+the
+>> same request object in this cache.
+>>=20
+>> The v4 conversion to signalers_lock/ce->signal_lock and the
+>> list_first_entry_or_null() loop removes this post-put dereference, so =
+it
+>> also covers this UAF path.
+>>=20
+>> This is independent of the PREEMPT_RT irq_work starvation trigger. I =
+can
+>> reach the sequence in a diagnostic run, although KASAN does not =
+reliably
+>> report it because i915_request uses a SLAB_TYPESAFE_BY_RCU cache.
+>>=20
+>> Since this also removes a request lifetime UAF from the common =
+signaling
+>> path, it may be worth considering the relevant fix for stable kernels =
+once
+>> the series is accepted.
+>=20
+> The original patch for the conversion actually had this bug. There =
+were some
+> failures reported by CI, pointing to a use-after-free after the =
+changes.
+>=20
+> Originally I thought it was due to the conversion itself, that the =
+lifetime
+> was previously sufficiently by RCU. It makes sense that RCU itself =
+couldn't
+> properly protect that, and that relying on it was a bug to begin with.
+>=20
+> Thanks, I'll send this patch again separately and attach a stable tag!
+> Since you reported the issue, would you want to put your reviewed by
+> on the patch as well?
 
-Fixes: c8b75bca92cb ("drm/vc4: Add KMS support for Raspberry Pi.")
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Tested on a Raspberry Pi 400 (BCM2711), v7.2-11658-g26260251022f, with
-KASAN: report gone, rmmod/insmod loop clean.
+Thanks for checking this. Yes, please add my Reviewed-by tag:
 
- drivers/gpu/drm/vc4/vc4_kms.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
-index b17e73bce384..82a7f2ac4c7e 100644
---- a/drivers/gpu/drm/vc4/vc4_kms.c
-+++ b/drivers/gpu/drm/vc4/vc4_kms.c
-@@ -1188,7 +1188,7 @@ int vc4_kms_load(struct drm_device *dev)
- 
- 	drm_mode_config_reset(dev);
- 
--	drm_kms_helper_poll_init(dev);
-+	drmm_kms_helper_poll_init(dev);
- 
- 	return 0;
- }
--- 
-2.39.5 (Apple Git-154)
+Kind regards,
+Shuangpeng
+
+>=20
+> Kind regards,
+> ~Maarten Lankhorst
+
 
