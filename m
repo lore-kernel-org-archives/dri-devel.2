@@ -4,58 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 704AAC5DF94
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:42:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61799C5DF93
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F317110F2FF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA9CF10F2FE;
 	Fri, 21 Aug 2026 14:42:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a7IWduAI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VY5lS2Sb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C292410F2EC
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6654A10F2D1
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A6DC743454;
- Fri, 21 Aug 2026 14:41:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E36F1F00A3D;
- Fri, 21 Aug 2026 14:41:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 43F6943728;
+ Fri, 21 Aug 2026 14:41:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2BF81F000E9;
+ Fri, 21 Aug 2026 14:41:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323304;
- bh=BYa6l5Fho8Ep9989qnn5LDKe5ZMRQ5SoEsn4wHVm0Zk=;
+ s=k20260515; t=1787323273;
+ bh=4t69sV5dihHUJa6/i+qrfHsSxWE32PzSL1jqvj5mKAE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=a7IWduAIwpZ3Qb4hV2REcWG86N/ZvMI2aVj2DvddCyjBERkM0xIwzyqTXaPjjRcuF
- ph30FV5j7NiMwxKyQyiJpjwovf3iqxtcWFXBaFEFHGeyDPs6rVpRqXPOQ1MxmBMm+7
- x7tTbGvW1RITfLTl1qpASzUCzDR9vMQKiucsI7YyEnpKiARhiopLcjnbubYFqB3yxW
- HgCMlXvQJV4AfCLE/dFNvVbxXgdT3p14omiUpIUrrL9X21fhMprytzoK2Fpqj+rVsQ
- Lp+wTBxfE4DJBwxsGyylWxqUVxaH5wvOUDiIp8FdRxm7zTVeIxDQlYuUbIXCde81Wb
- LMAPKX9FYTMAA==
+ b=VY5lS2Sb75UWokyYdOOfoeGX6o8g8mDbDdFKyUCMmIqg93ZKh4ZSHLEGdkmGXJLH7
+ KZP5m/k5YNbIUiJLV2WM0i7lV11fJ11jZlAVpw2HLH5XAGcPV6SVhdCVj/O2H4/+C+
+ HwwwQJp1rh50KzP6q9GPnD/azM2WFKE+0qRSu3Typ+zop0atykVPG8a6j0r7V9WJ+Z
+ pptCD1EfhMpdnMua/twWmJdU5t7vLduLQXgNig1hJd4jYQjaycaw72vMpb4RiwAENR
+ 1YdDCSaRloelEggi7P/LklI+YBXT5uWlF3vBsh00EXkJwKmgkoJ4D49Ne2QwPVkpUL
+ bfue6cmP75yZw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:35 +0200
-Subject: [PATCH 59/70] drm/rcar-du: Convert to atomic_create_state
+Date: Fri, 21 Aug 2026 16:39:22 +0200
+Subject: [PATCH 46/70] drm/malidp: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-59-fb793475c05a@kernel.org>
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-46-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- linux-renesas-soc@vger.kernel.org
+ Liviu Dudau <liviu.dudau@arm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3215; i=mripard@kernel.org;
- h=from:subject:message-id; bh=1bjOm5wXcyXycK03MVup0cuEL5KbIkzHL63myTDrSes=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyUI8a+MbV4dZ/9kV2zpF99lGA//o3V/0N602MNySr
- VTEWyDYMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZy+AxjrSi/MJPfwu76FYez
- 30/P/37MsNatU6zG1+DskSksF8oWzGjq/FX/5F1RjVfjf8NVvBoLGBu26335+vVjjfmEy0Wz17t
- /Vy4rfq3l2rUyWbojPEq6bY9Ts9bGpWZmq53sba5aGHk9nggA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2299; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=63efcqfTmKQ+Pi5Ko25XlhC7QTWLL0UXCAdClig9Fnc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyTyTsvd82WpVO2dOkaQzv07DfmH+TPkiDeGNr093S
+ PqKO9Z0TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgInczmWsT5C13xK+6OArlUre
+ n0ZX39rMLJnLaqBgUaB45PYCnYk8wnmsBYc/B7FxTnuZF9YgmiPB2PDr2kk1QamQMuNLuROlOg5
+ Yi/w9p76J60DDY6899va7ZkksLtOd2vE1+zp36gr19IX+HwE=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,11 +68,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The rcar-du crtc implementation provides a custom reset hook. However,
+The malidp crtc implementation provides a custom reset hook. However,
 this hook only allocates the state, initializes it with
-__drm_atomic_helper_crtc_reset(), sets driver-specific default values
-for the CRC source and index, and frees the previous state. It does
-not perform any hardware reset.
+__drm_atomic_helper_crtc_reset(), and frees the previous state. It
+does not perform any hardware reset.
 
 Since this is exactly what the atomic_create_state hook is meant to
 do, minus the old state cleanup which the caller handles, convert the
@@ -86,78 +80,58 @@ __drm_atomic_helper_crtc_state_init() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: linux-renesas-soc@vger.kernel.org
+Cc: Liviu Dudau <liviu.dudau@arm.com>
 ---
- drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/arm/malidp_crtc.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-index 6c07c406f725..59c2a4b76137 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-@@ -995,27 +995,24 @@ static void rcar_du_crtc_cleanup(struct drm_crtc *crtc)
- 	rcar_du_crtc_crc_cleanup(rcrtc);
+diff --git a/drivers/gpu/drm/arm/malidp_crtc.c b/drivers/gpu/drm/arm/malidp_crtc.c
+index ebe8e1078777..157ff148efe7 100644
+--- a/drivers/gpu/drm/arm/malidp_crtc.c
++++ b/drivers/gpu/drm/arm/malidp_crtc.c
+@@ -474,21 +474,21 @@ static void malidp_crtc_destroy_state(struct drm_crtc *crtc,
+ 	}
  
- 	drm_crtc_cleanup(crtc);
+ 	kfree(mali_state);
  }
  
--static void rcar_du_crtc_reset(struct drm_crtc *crtc)
-+static struct drm_crtc_state *rcar_du_crtc_create_state(struct drm_crtc *crtc)
+-static void malidp_crtc_reset(struct drm_crtc *crtc)
++static struct drm_crtc_state *malidp_crtc_create_state(struct drm_crtc *crtc)
  {
- 	struct rcar_du_crtc_state *state;
+-	struct malidp_crtc_state *state = kzalloc_obj(*state);
++	struct malidp_crtc_state *state;
  
--	if (crtc->state) {
--		rcar_du_crtc_atomic_destroy_state(crtc, crtc->state);
--		crtc->state = NULL;
--	}
--
- 	state = kzalloc_obj(*state);
- 	if (state == NULL)
--		return;
+-	if (crtc->state)
+-		malidp_crtc_destroy_state(crtc, crtc->state);
++	state = kzalloc_obj(*state);
++	if (!state)
 +		return ERR_PTR(-ENOMEM);
  
- 	state->crc.source = VSP1_DU_CRC_NONE;
- 	state->crc.index = 0;
- 
--	__drm_atomic_helper_crtc_reset(crtc, &state->state);
-+	__drm_atomic_helper_crtc_state_init(&state->state, crtc);
+-	if (state)
+-		__drm_atomic_helper_crtc_reset(crtc, &state->base);
+-	else
+-		__drm_atomic_helper_crtc_reset(crtc, NULL);
++	__drm_atomic_helper_crtc_state_init(&state->base, crtc);
 +
-+	return &state->state;
++	return &state->base;
  }
  
- static int rcar_du_crtc_enable_vblank(struct drm_crtc *crtc)
+ static int malidp_crtc_enable_vblank(struct drm_crtc *crtc)
  {
- 	struct rcar_du_crtc *rcrtc = to_rcar_crtc(crtc);
-@@ -1153,22 +1150,22 @@ static int rcar_du_crtc_set_crc_source(struct drm_crtc *crtc,
- 
- 	return ret;
+ 	struct malidp_drm *malidp = crtc_to_malidp_device(crtc);
+@@ -509,11 +509,11 @@ static void malidp_crtc_disable_vblank(struct drm_crtc *crtc)
  }
  
- static const struct drm_crtc_funcs crtc_funcs_gen2 = {
--	.reset = rcar_du_crtc_reset,
-+	.atomic_create_state = rcar_du_crtc_create_state,
- 	.destroy = drm_crtc_cleanup,
+ static const struct drm_crtc_funcs malidp_crtc_funcs = {
  	.set_config = drm_atomic_helper_set_config,
  	.page_flip = drm_atomic_helper_page_flip,
- 	.atomic_duplicate_state = rcar_du_crtc_atomic_duplicate_state,
- 	.atomic_destroy_state = rcar_du_crtc_atomic_destroy_state,
- 	.enable_vblank = rcar_du_crtc_enable_vblank,
- 	.disable_vblank = rcar_du_crtc_disable_vblank,
+-	.reset = malidp_crtc_reset,
++	.atomic_create_state = malidp_crtc_create_state,
+ 	.atomic_duplicate_state = malidp_crtc_duplicate_state,
+ 	.atomic_destroy_state = malidp_crtc_destroy_state,
+ 	.enable_vblank = malidp_crtc_enable_vblank,
+ 	.disable_vblank = malidp_crtc_disable_vblank,
  };
- 
- static const struct drm_crtc_funcs crtc_funcs_gen3 = {
--	.reset = rcar_du_crtc_reset,
-+	.atomic_create_state = rcar_du_crtc_create_state,
- 	.destroy = rcar_du_crtc_cleanup,
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
- 	.atomic_duplicate_state = rcar_du_crtc_atomic_duplicate_state,
- 	.atomic_destroy_state = rcar_du_crtc_atomic_destroy_state,
 
 -- 
 2.55.0
