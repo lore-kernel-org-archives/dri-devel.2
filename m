@@ -4,45 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22F89C5DF87
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 10:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95CB4C5DF87
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 10:30:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 790DF10E0A7;
-	Fri, 21 Aug 2026 10:13:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAEAF10E27A;
+	Fri, 21 Aug 2026 10:30:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z5i5MvRF";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fkXBuNoj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 733CF10E0A7
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 10:13:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A407F60DB6;
- Fri, 21 Aug 2026 10:13:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3C11F000E9;
- Fri, 21 Aug 2026 10:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787307227;
- bh=ogetkg0Uuo6RHrWZmvNz4/ua4kBg7pP+uQeMUOIcWBM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z5i5MvRFtgRlxMrMTzO/HxWLZgaSBkrTy2uIjTBmb8BJ91SfxlFU/TjABdejbOusQ
- m0Yk+Q/TU8UjcdbtTsOb0G/sfKuHc9Hu49rCmRYWxEz6P28HNfvBac+ORaCj6Ehy6o
- 5bTW01s7JGPTD1igVzZmcEgQ/PC+m+XSoZrLfTu7ODYWUCWHwUWi6z4W43tah/XD1N
- vKKkt7viXZuUL0n3jM53hl+DD3UDFnmoNAjifyHYUkccq3moFai1WO6/MMzcoQdyX9
- Urr0fVOwO5eP1n8PxOmZm8sVA4TX1NndHJVG1VXuzjdW8zNXKHsI6+NUQbm+DrlnVq
- uj8jJjj9BvotQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/tegra: Make sure clk_init_data is fully
- initialized
-To: "Geert Uytterhoeven" <geert+renesas@glider.be>
-Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-sunxi@lists.linux.dev
-In-Reply-To: <9bc5029f7ad84b0b1e02be231a5abd7e5fa03946.1787239944.git.geert+renesas@glider.be>
-References: <cover.1787239944.git.geert+renesas@glider.be>
- <9bc5029f7ad84b0b1e02be231a5abd7e5fa03946.1787239944.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 10:13:46 +0000
-Message-Id: <20260821101347.1D3C11F000E9@smtp.kernel.org>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64E2910E27A
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 10:30:30 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id D1B95593;
+ Fri, 21 Aug 2026 12:29:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1787308147;
+ bh=5vVv7c1yXzqyttDt71hcpdNDJ5wPlE0tPpgsFNRa2JY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fkXBuNojcqqPn6+pYsoJaAwB+sW2cTu9lRK5YHKkRft8MQyV5da5Sh75ekuJG2txm
+ 10U3KJHpy2YJvTFAfeHCBBKMITo72HN2ZJ9H3iDex4nKTF0xZqJut/CRu/IKl0ZiW+
+ Pjd9niUs3bX1sqdnLvTq73mHzAyyzfU6DXvj8Ar8=
+Message-ID: <9e5bae91-b72f-4c71-9bea-ccafdf9747a3@ideasonboard.com>
+Date: Fri, 21 Aug 2026 13:30:24 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd property
+To: Yashas D <y-d@ti.com>
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ r-ravikumar@ti.com, sjakhade@cadence.com, yamonkar@cadence.com,
+ u-kumar1@ti.com, devarsht@ti.com, s-jain1@ti.com, d-mittal@ti.com,
+ b-padhi@ti.com, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260802153825.1570435-1-y-d@ti.com>
+ <20260802153825.1570435-3-y-d@ti.com>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <20260802153825.1570435-3-y-d@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,84 +61,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi,
 
-Pre-existing issues:
-- [High] Missing bounds check on the `nvidia,interface` device tree propert=
-y causes out-of-bounds array indexing and arbitrary MMIO access.
---
+On 02/08/2026 18:38, Yashas D wrote:
+> From: Rahul T R <r-ravikumar@ti.com>
+> 
+> Add a 'no-hpd' boolean property to support boards where the HPD line
+> cannot be used for hotplug detection due to hardware limitations.
+> 
+> On TI J721S2 EVMs, the DP0 HPD resistor is not populated from factory
+> (DNI), so the HPD signal is not physically connected to SoC pin AA24
+> by default which makes HPD unavailable but AA24 must be in DP0_HPD
+> mux mode for the MHDP firmware to operate.
+> 
+> When this property is set, the driver uses auxiliary channel (AUX) DPCD
+> reads to detect monitor presence instead of hardware HPD signals. The
+> DRM framework polls the connection status via the .detect() callback,
+> providing hotplug detection without requiring the HPD pin.
+> 
+> Valid use cases:
+> - HPD pin not routed to connector on PCB
+> - HPD signal muxed with another function on SoC
+> - Hardware designs where HPD cannot reliably detect monitor presence
+> 
+> Signed-off-by: Rahul T R <r-ravikumar@ti.com>
+> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
+> Signed-off-by: Harikrishna Shenoy <h-shenoy@ti.com>
+> Signed-off-by: Yashas D <y-d@ti.com>
+> ---
+>   .../drm/bridge/cadence/cdns-mhdp8546-core.c   | 79 +++++++++++++++++--
+>   .../drm/bridge/cadence/cdns-mhdp8546-core.h   |  1 +
+>   2 files changed, 72 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> index 504a3186ebb3..ae9bbec855f3 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> @@ -53,6 +53,8 @@
+>   #include "cdns-mhdp8546-hdcp.h"
+>   #include "cdns-mhdp8546-j721e.h"
+>   
+> +static int cdns_mhdp_update_link_status(struct cdns_mhdp_device *mhdp);
+> +
+>   static void cdns_mhdp_bridge_hpd_enable(struct drm_bridge *bridge)
+>   {
+>   	struct cdns_mhdp_device *mhdp = bridge_to_mhdp(bridge);
+> @@ -698,7 +700,9 @@ static int cdns_mhdp_fw_activate(const struct firmware *fw,
+>   	 * MHDP_HW_STOPPED happens only due to driver removal when
+>   	 * bridge should already be detached.
+>   	 */
+> -	cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
+> +
+> +	if (!mhdp->no_hpd)
+> +		cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
+>   
+>   	spin_unlock(&mhdp->start_lock);
+>   
+> @@ -739,7 +743,13 @@ static void cdns_mhdp_fw_cb(const struct firmware *fw, void *context)
+>   	spin_lock(&mhdp->start_lock);
+>   	bridge_attached = mhdp->bridge_attached;
+>   	spin_unlock(&mhdp->start_lock);
+> -	if (bridge_attached)
+> +
+> +	if (!bridge_attached)
+> +		return;
+> +
+> +	if (mhdp->no_hpd)
+> +		cdns_mhdp_update_link_status(mhdp);
+> +	else
+>   		drm_bridge_hpd_notify(&mhdp->bridge, cdns_mhdp_detect(mhdp));
+>   }
+>   
+> @@ -788,9 +798,14 @@ static ssize_t cdns_mhdp_transfer(struct drm_dp_aux *aux,
+>   		ret = cdns_mhdp_dpcd_read(mhdp, msg->address,
+>   					  msg->buffer, msg->size);
+>   		if (ret) {
+> -			dev_dbg(mhdp->dev,
+> -				"Failed to read DPCD addr %u\n",
+> -				msg->address);
+> +			if (mhdp->no_hpd)
+> +				dev_dbg(mhdp->dev,
+> +					"Failed to read DPCD addr %u\n",
+> +					msg->address);
+> +			else
+> +				dev_err(mhdp->dev,
+> +					"Failed to read DPCD addr %u\n",
+> +					msg->address);
 
---- Patch [2]: [PATCH 2/2] drm/tegra: Make sure clk_init_data is fully init=
-ialized ---
-commit d6e18a3c09cc145658765914a32b191ad5da6aa8
-Author: Geert Uytterhoeven <geert+renesas@glider.be>
+Is this intentional? Earlier dev_dbg was used. Now the "normal" case is 
+dev_err. I think we can keep it as dev_dbg.
 
-drm/tegra: Make sure clk_init_data is fully initialized
+  Tomi
 
-The clk_init_data structure contains several mutually-exclusive members
-for different methods to specify the possible parents of a clock,
-prompting drivers to initialize only the members they need.  However,
-not initializing all members may cause subtle issues, which are only
-exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
-enabled. Make sure all members are fully initialized, to avoid such bugs,
-and to prevent future breakage when converting drivers to a different
-method for specifying the parents.
-
-> diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
-> index 802d2db7007af..c28557d0c96e5 100644
-> --- a/drivers/gpu/drm/tegra/sor.c
-> +++ b/drivers/gpu/drm/tegra/sor.c
-> @@ -596,8 +596,8 @@ static const struct clk_ops tegra_clk_sor_pad_ops =3D=
- {
->  static struct clk *tegra_clk_sor_pad_register(struct tegra_sor *sor,
->  					      const char *name)
->  {
-> +	struct clk_init_data init =3D {};
->  	struct tegra_clk_sor_pad *pad;
-> -	struct clk_init_data init;
->  	struct clk *clk;
-> =20
->  	pad =3D devm_kzalloc(sor->dev, sizeof(*pad), GFP_KERNEL);
-
-[ ... ]
-
->  	pad->sor =3D sor;
-> =20
->  	init.name =3D name;
->  	init.flags =3D 0;
->  	init.parent_names =3D tegra_clk_sor_pad_parents[sor->index];
-
-[Severity: High]
-This is a pre-existing issue, but can this out-of-bounds array indexing
-occur if the Device Tree provides an invalid "nvidia,interface" value?
-
-In tegra_sor_parse_dt(), the "nvidia,interface" property is read and
-assigned directly to sor->index without any bounds checking:
-
-drivers/gpu/drm/tegra/sor.c:tegra_sor_parse_dt() {
-	...
-	err =3D of_property_read_u32(np, "nvidia,interface", &value);
-	if (err < 0)
-		return err;
-
-	sor->index =3D value;
-	...
-}
-
-If a malformed Device Tree is provided, does using this unbounded sor->inde=
-x to
-access the tegra_clk_sor_pad_parents array lead to an out-of-bounds memory =
-read?
-
-It appears it could also cause arbitrary MMIO reads and writes when computi=
-ng
-register offsets using DC_DISP_CORE_SOR_SET_CONTROL(sor->index).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787239944.gi=
-t.geert+renesas@glider.be?part=3D2
