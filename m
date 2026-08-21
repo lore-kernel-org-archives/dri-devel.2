@@ -4,98 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79CFCC5DF81
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 02:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D28BC5DF81
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 02:11:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8660E10E1B9;
-	Fri, 21 Aug 2026 02:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 903DE10E1CB;
+	Fri, 21 Aug 2026 02:11:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="F8Kuc187";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="LO3dS4qO";
 	dkim-atps=neutral
-Received: from mail-vk1-f226.google.com (mail-vk1-f226.google.com
- [209.85.221.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1E810E1B9
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 02:09:44 +0000 (UTC)
-Received: by mail-vk1-f226.google.com with SMTP id
- 71dfb90a1353d-5c2dbaf828eso294408e0c.0
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 19:09:44 -0700 (PDT)
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com
+ [209.85.216.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBD2510E1CB
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 02:11:21 +0000 (UTC)
+Received: by mail-pj1-f97.google.com with SMTP id
+ 98e67ed59e1d1-381c51fde6bso506467a91.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 19:11:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787278183; x=1787882983;
+ d=1e100.net; s=20251104; t=1787278281; x=1787883081;
  h=content-transfer-encoding:content-type:in-reply-to:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=1mESdUPfdaRItN+jV6yaT0K7NDEbuV8oOiyCTuvZhmE=;
- b=oMEnyX6r7wrjQFk2MBbRi27fZWwwaht6BfUvemO6lQNJCTGdEKLKrAgtvHafMLOd5F
- 7ad0909xmp4MCl6jmpQ10hB1Cq8OYRIWxMtxriM3cuBS5G5i9Az7e4eyb/kuVK7ja1pF
- sPvvXskD31SG38tUDcgaW2Zpzy3GwhqkkcZau2c+2bdj6pgmj3BeoCwV9YnehkC9cAhU
- OT3POd7i+a0Jb15fthjYJ6huWDGv9XmOvWqoixYMMtRAxOAfADTvdMSOLz/iuAaBrkvA
- 4RUc3cfz71pAjOTLaAvebuuH1FA44etgtqqtQkS058e9I+UK/RoBPSD6TjvLOBeqmr8j
- 8DZg==
-X-Gm-Message-State: AFuF++lgXlgQFRKNXpv15RvtXr0ilZPwqWzage1Vu06TzHGH+/l5ok3J
- JKzb4QMEUwlEjbBnzEs4mUAja1sOuv/4jrgeqLYzSQTznp6ny0ULuwhzMKyDnTShlLG3lzx7735
- dEKA3QGGPyedk6SkyJBqTxm+e34JcwRHb71NQsTcv9K/VADp5ZZJm4fGEzCKwG1CBi8obSJTtqe
- a0/7b7ptc1ZAKojJGW7EDuUca3yIDa1u+9Uxasu+iy/ueiwlgkNIep58zd8gTzAwHEbDfJxMZrW
- kQDgVYRmIR+qLsg9ZifdMEiQ8eI
-X-Gm-Gg: AR+sD10ItlYziW3Ad7YJDHwb35NZr1UJ90k0NDCTd0TsCygMNqLCIRb1elPU6UfuOvw
- y4QDlUoMWZOqs9sJn65GO/UP/1bKDn9zjtiL+A6l/X8e5OQxPDH5footjjSGVciS57NxedNiDdg
- oB4NXpLQlYW9Canl1g0c7kI/seoX2fHEApHxkzBY1Ob8RRDfkSDGXjgCrXWhV6miYo6zxa38mu0
- gIBmka7vcy3XzxoicPq50aqLCJe4tjEhRMfY4imezr9KxS376Q0Y0jesznR/zQtmsYivPd8s5SH
- WSFYi9luSkABJWvyeNbyxH/+mbmGRtH1AcrJubnfGareFCuw1DYKNYYOmHuFhamVjxx8h1ubCAu
- BdYSYD/PyPe6FFix45X8K9aaOxvWcMYQdM34WALj4kakM7I5W/E9x2qJVdtI1tbOrpynL6F2lrg
- Ixf68c2L+QiE3DjgntvPMUOv85omghA925yOtrTJdU
-X-Received: by 2002:a05:6122:e46b:b0:5a4:c20a:ba4d with SMTP id
- 71dfb90a1353d-5c5ff6be0c3mr1256300e0c.4.1787278183334; 
- Thu, 20 Aug 2026 19:09:43 -0700 (PDT)
+ bh=/6gFu2KBfj6xyfAuQWkm4XRaiUsUm+P4T5r18Di7NnQ=;
+ b=PDU9HXOS3YSuaug5EazZxvtwnlz8MjaXucMX1j8ZrPEWiRRy6FEdAbkeAZmghSOxar
+ 7p1ZB4NsVGTz1IknhEtiAc3GtAtP9MMpEhvcIaibJOouzp9r06DY7jRtxbAd6c/ZNGTt
+ zhW26i+WX5UPIlJ7yHe3F7qypJPr3c7Ab1WJMXP39SABUoxTqAsbZkECOABHaBdqvBdo
+ SCNBvlBy/Oy2JuMepxyfsMN9bpH8Vlp2aSch63jXgCSMcQ+KslfjNJ2DNxpbi3Og84R5
+ xmxf/MrmIaKtifJopWCHCVKFH3je8WEr7CpWoy3Htrsw2bWLaUM8wwR/Acnznpm9avms
+ RO3Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RriR3y3RzVlKYjn3FmxprlDZiWB0EoiPtrHTX+EoMBa5B0ZloxzsgFhRzq3P+7oJiIDS2DV1crdhfs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mEO6JFEQ/yyXSfUwnetG1b+TZMDvy4x8kF07KeGipwUW8y9mee
+ OfJhqIotjVJ95tYqj3YB6o5qQ+kh/2eFx69ePNwk5iI2VwKTrdWHNGWaQLdB1HSAouGkDx+kO6Y
+ 5ZjLpsgVyhDxCGjpXoKoM7LX8+sdhEuR4XfzXJjHAdyi4MRCYOga4zlkJGORsbQDuK+fx0UpYAT
+ wAzTixAotdg53xTAT0L0qc8X0iEix8kAClTfdHkvOwU6UM0E90uZCnaZsRAKMLMU3cR7U3jW4Dk
+ YA9DJITT3LmCxMheFcaU+wDIqMo
+X-Gm-Gg: AR+sD11LsCvlJuk9pP5+WaCJDppjfj1RtGQBjDpJFGdS45TRRctl5WGhy2tGNhmSRFl
+ Aw7AxLaQT29B6mhvqT2OyA893srKUEtDGZcsscDsg1uqkixf9XyXAfo4GWqN6FcrGt5hM3KuWuI
+ rQg0RXA4qkie2ZAFz1Ub3BOtHcgOmUTcY9LBCeZH+283gglpw9IJbXH9i3tc5i7by13tAkeSRA+
+ KVO37fxX6JgFyatqEqcBcw5Vro4v/eX1DVUy27zYrqK3TejOZq/324VZQE4CesyYDD3PjzJFjWY
+ lXbOOroJ8WDUKxPrw0B+25pR5/9uR4WXOOal/VHOWWBF8HfZdk4F0FvNrMP3wtupWA/4S8myUuz
+ 4IvtuUnKgJWoGYS6EFjMeU5vXu0M3nHioKH6f6XTsD+lDIX3ZppdMj6jIxRHfDkOhkONaLUpHt1
+ aLZlsfVWyBxfLNEhWzey0vKNrXf67dI7JEjXozzoXl
+X-Received: by 2002:a17:90b:57ec:b0:38e:9045:babe with SMTP id
+ 98e67ed59e1d1-395c354e8e1mr5295833a91.7.1787278281162; 
+ Thu, 20 Aug 2026 19:11:21 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
  by smtp-relay.gmail.com with ESMTPS id
- 71dfb90a1353d-5c5e27c3cb4sm1618791e0c.5.2026.08.20.19.09.43
+ 98e67ed59e1d1-395c44de5cdsm412385a91.3.2026.08.20.19.11.20
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 20 Aug 2026 19:09:43 -0700 (PDT)
+ Thu, 20 Aug 2026 19:11:21 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-38e1118e4abso745313a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 19:09:43 -0700 (PDT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2cc7e86e7c5so8781155ad.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 19:11:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1787278182; x=1787882982;
+ d=broadcom.com; s=google; t=1787278279; x=1787883079;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=1mESdUPfdaRItN+jV6yaT0K7NDEbuV8oOiyCTuvZhmE=;
- b=F8Kuc187cyVoY5oRa9B0WvzzRQsGDbVYJP592rxHiu+shov1ddk/+ZQ8RwUZHikJ3z
- jNe9tmiZL12078FTIQIfxyIEKCMIjy29+NV8LW3vceaJP6RXRO94KixM9hny3mIyLfV6
- LPQzNg7HYSkp7xLAegZBk5MRLOYo2nfCpEZy4=
-X-Received: by 2002:a17:90b:4c41:b0:380:7688:fbe9 with SMTP id
- 98e67ed59e1d1-395c354ec51mr4447494a91.8.1787278182228; 
- Thu, 20 Aug 2026 19:09:42 -0700 (PDT)
-X-Received: by 2002:a17:90b:4c41:b0:380:7688:fbe9 with SMTP id
- 98e67ed59e1d1-395c354ec51mr4447430a91.8.1787278181746; 
- Thu, 20 Aug 2026 19:09:41 -0700 (PDT)
+ bh=/6gFu2KBfj6xyfAuQWkm4XRaiUsUm+P4T5r18Di7NnQ=;
+ b=LO3dS4qOFZMK2DNNmV4sAeGxKZcRwyGPJ2XHX0CQ7KQU94d9VpZ1uoQxZCHipQvQ+s
+ MsxNMTt2jDdh1rJJIViz8H1RSlb3Bmfbarck88HX7ho/BJcSl3t1M2DnoECHtKf+ztnS
+ /4XCx5ySWvf8y0qB9ZPQqd0CGCD2/uvwbdwI8=
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpEy2sqHqywKnkRbFWucQAxyblYLDnTImiUNjbAiT/xzJkkvgMuzqHEAQKnFYA35nMiXEbXw9IwsKo=@lists.freedesktop.org
+X-Received: by 2002:a17:903:f84:b0:2cf:82e6:a5 with SMTP id
+ d9443c01a7336-2d64b06e5d6mr60768435ad.13.1787278279585; 
+ Thu, 20 Aug 2026 19:11:19 -0700 (PDT)
+X-Received: by 2002:a17:903:f84:b0:2cf:82e6:a5 with SMTP id
+ d9443c01a7336-2d64b06e5d6mr60767415ad.13.1787278279137; 
+ Thu, 20 Aug 2026 19:11:19 -0700 (PDT)
 Received: from [10.211.247.235] ([192.19.50.250])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1416ae48761sm19219055c88.12.2026.08.20.19.09.40
+ 5a478bee46e88-327c98ba384sm16570789eec.30.2026.08.20.19.11.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Aug 2026 19:09:41 -0700 (PDT)
-Message-ID: <7af1cbb9-bb99-462c-a3e4-c70d8fbd2dcb@broadcom.com>
-Date: Thu, 20 Aug 2026 19:09:50 -0700
+ Thu, 20 Aug 2026 19:11:18 -0700 (PDT)
+Message-ID: <39dfb011-0f83-4656-a6c8-426271fc8609@broadcom.com>
+Date: Thu, 20 Aug 2026 19:11:27 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
- are released
-To: Jellis Onsea | AccessWeb <jellis@accessweb.be>, zack.rusin@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
-References: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
- <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
- <363bcf88-1f13-46c0-9dbc-aa21102ab397@accessweb.be>
- <55b08fb3-cc29-4c2a-bbe5-26742de77614@broadcom.com>
- <b0b0caf9-ca76-4f93-9495-d386d313fad1@accessweb.be>
+Subject: Re: [PATCH 2/2] drm/vmwgfx: Fix typos in comments
+To: liupeng <liupeng01@kylinos.cn>, dri-devel@lists.freedesktop.org
+Cc: tzimmermann@suse.de, zack.rusin@broadcom.com, christian.koenig@amd.com,
+ bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, matthew.auld@intel.com,
+ matthew.brost@intel.com
+References: <20260820085737.52124-1-liupeng01@kylinos.cn>
+ <20260820085737.52124-3-liupeng01@kylinos.cn>
 From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Content-Language: en-US
-In-Reply-To: <b0b0caf9-ca76-4f93-9495-d386d313fad1@accessweb.be>
+In-Reply-To: <20260820085737.52124-3-liupeng01@kylinos.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
@@ -114,14 +117,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For the 3D-enabled case, could you try with mesa 26.1.8 or 26.2.1, both of which contain my fix.
-Also if you could try the patch I just submitted on dri-devel - drm/vmwgfx: Return gem fd handle for scanout buffers.
-If you still see issues with these patches, let me know.
+On 8/20/26 1:57 AM, liupeng wrote:
+> Fix misspellings of "separate", "whether" and "compatibility".
+> 
+> Signed-off-by: liupeng <liupeng01@kylinos.cn>
+> ---
+>  drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h | 2 +-
+>  drivers/gpu/drm/vmwgfx/ttm_object.c                    | 2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_surface.c                | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h b/drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h
+> index f84376718086..d4cdd9f14294 100644
+> --- a/drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h
+> +++ b/drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h
+> @@ -125,7 +125,7 @@ typedef __attribute__((aligned(32))) struct MKSGuestStatInfoEntry {
+>   * interpret the pointers.
+>   *
+>   * Because the host side code never acknowledges anything back to the
+> - * guest there is no strict requirement to maintain compatability
+> + * guest there is no strict requirement to maintain compatibility
+>   * across releases.  If the interface changes the host might not be
+>   * able to log stats, but the guest will continue to run normally.
+>   */
+> diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
+> index f9042bafdc93..38b6a1787865 100644
+> --- a/drivers/gpu/drm/vmwgfx/ttm_object.c
+> +++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
+> @@ -431,7 +431,7 @@ ttm_object_device_init(const struct dma_buf_ops *ops)
+>  
+>  	/*
+>  	 * Our base is at VMWGFX_NUM_MOB + 1 because we want to create
+> -	 * a seperate namespace for GEM handles (which are
+> +	 * a separate namespace for GEM handles (which are
+>  	 * 1..VMWGFX_NUM_MOB) and the surface handles. Some ioctl's
+>  	 * can take either handle as an argument so we want to
+>  	 * easily be able to tell whether the handle refers to a
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+> index bd0563741e89..7bf128edfd4a 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+> @@ -445,7 +445,7 @@ static int vmw_legacy_srf_create(struct vmw_resource *res)
+>   *                  vmw_surface.
+>   * @val_buf:        Pointer to a struct ttm_validate_buffer containing
+>   *                  information about the backup buffer.
+> - * @bind:           Boolean wether to DMA to the surface.
+> + * @bind:           Boolean whether to DMA to the surface.
+>   *
+>   * Transfer backup data to or from a legacy surface as part of the
+>   * validation process.
 
-As for the 3D disabled case, I can see issues on my local machine and am working on a fix.
+LGTM!
 
-PS - Your emails are overly verbose and narrative, could you include only the actual problems you are facing.
-If you're using an llm to write these, please make them more terse and human readable. Thanks.
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 
 -- 
 Maaz Mombasawala <maaz.mombasawala@broadcom.com>
