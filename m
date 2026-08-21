@@ -4,100 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59048C5DF8C
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 19:25:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B4EC5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 19:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AACE210F5EF;
-	Fri, 21 Aug 2026 18:52:57 +0000 (UTC)
-X-Greylist: delayed 2001 seconds by postgrey-1.36 at gabe;
- Fri, 21 Aug 2026 18:52:51 UTC
-Received: from BN1PR04CU002.outbound.protection.outlook.com (unknown
- [52.101.56.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB7B10F5EF
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 18:52:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ScSrrabrnpJSDO4wllfxieEWafT9wtcPwHuMF9BLgx7OJg/91By9UsKE/wFJwejXmdo0t/Ro+HFYZuns3LkQGUL8R+MwhWbvSRgzJVXikIkLDg+h3ogRbxL0ql7K6TrtbcCPcvyZ4k74xGVhp7nF32Wzmfq8a4m/O29DJEf8p6ifoDnZqPEQUIKyki3iRRLrYnhisjgfNLEv6JQuZAtPVIDxyn1hNOeQtGQ1vjmjihCT/xk2XasSaHHMNHx1sWHeonty+GgsXLvZZty2V2Egh9iXJu5/k8IUw0Orl5ojtLIcBRvw7DFrOU4j1nRuKWG3szQEC5t9Zfd6tZqFl+Sycw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TwtYe1dsfQiDYh3BjVwXcmKRYLmtjxj4VUF5RVWLTBQ=;
- b=e6lY96CxgS/QeOoVyBaP1+rh4PvVR6vlntUIeMfgOS9vNFXcJaStWHDW3xF2Xax5rltuUavaWFxRtivTN8axdIfFsn+2NEJP/KgfamJlBgK9/sblUagTMc0Xu6PQ/RCQI9bY1dEEg5A3ihDWwMUyuFCzy4+SPVka5EO0BeM4YPFn3RReArhKWuJVDnBre2mVT79Cnh+BUzrrYbmGowKEXvIVP6amYaAQjInD9DAcnC62rvV7kNnlbJMBc66MAbeIvuJmcazLxN7EtRjTT17s2h8bhlAROxSS0gRdjf7ZA3Hr2Fz5PZ8Vkg/xh76DE75vKkaGPCF3PXekI0koKqb25g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TwtYe1dsfQiDYh3BjVwXcmKRYLmtjxj4VUF5RVWLTBQ=;
- b=QDp19K5cG4FTlOQTAACW6eFr+ez+RMaDuLdUnvUOuPpoehOLITHy5nZ5u6B6s12NpG11LsOPS42rR3/CBe7mgbxv1/b3TuAPFeIQ6v6XxHITzzGwfYuwY3ZZADL2ncUJou42OFFEG+MWmgBZngwCbxcOSS81rMNGg1W8Y5oZw24=
-Received: from DS1PR06CA0013.namprd06.prod.outlook.com (2603:10b6:8:458::7) by
- SN7PR12MB6909.namprd12.prod.outlook.com (2603:10b6:806:263::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Fri, 21 Aug
- 2026 17:50:47 +0000
-Received: from SN1PEPF0002BA4E.namprd03.prod.outlook.com
- (2603:10b6:8:458:cafe::75) by DS1PR06CA0013.outlook.office365.com
- (2603:10b6:8:458::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 17:50:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF0002BA4E.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 17:50:46 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 12:50:45 -0500
-Received: from [172.19.69.26] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 12:50:44 -0500
-Message-ID: <7ce13e6d-0da6-4d6c-a05b-3ad5e67499f4@amd.com>
-Date: Fri, 21 Aug 2026 10:50:44 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52F7910F4E7;
+	Fri, 21 Aug 2026 18:12:52 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8425A10F4E7
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 18:12:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787335944;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=IcYpvMnU+f4BloPrmC94lFULP58QvHDNnxfJki4ZTvo=;
+ b=OR15qCMz4ZTNtKuUdQbzfbPivc6VFIW2BhmHtM9VvrT2nomcCd4TtYClapD2jmNFDTJ/pi
+ lH0pj1SLXKMHURR2TZFmFjeQVrLOfJLApAdEwlLs874bosQqnGCFPBEMP1020zxoLuK464
+ H8+ppLxQJJVWsJqMbZdf1CtSSuCa6Pg=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-175-TPEhSOn1PcatEO2OR-pqVA-1; Fri,
+ 21 Aug 2026 14:12:18 -0400
+X-MC-Unique: TPEhSOn1PcatEO2OR-pqVA-1
+X-Mimecast-MFC-AGG-ID: TPEhSOn1PcatEO2OR-pqVA_1787335935
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 403A1195423A; Fri, 21 Aug 2026 18:12:15 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.80.7])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 64CE61955F70; Fri, 21 Aug 2026 18:12:12 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, Timur Tabi <ttabi@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, Ryan Brue <ryanbrue.dev@gmail.com>,
+ stable@vger.kernel.org, "Bjorn Helgaas" <bhelgaas@google.com>,
+ linux-pci@vger.kernel.org, "Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH] pci: Add broken-GPE quirk for Lenovo Legion 16APH8 and 16AHP9
+ Nvidia GPUs
+Date: Fri, 21 Aug 2026 14:11:59 -0400
+Message-ID: <20260821181203.82722-1-lyude@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Remove __counted_by from struct
- amdxdna_cmd_chain
-To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260821033543.1839719-1-lizhi.hou@amd.com>
-Content-Language: en-US
-From: Max Zhen <max.zhen@amd.com>
-In-Reply-To: <20260821033543.1839719-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4E:EE_|SN7PR12MB6909:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0736635f-e423-48fa-dc68-08deffacba85
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|56012099006|22082099003|11063799006|10067099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info: ZLdACPiS5ivNlg4WVaSB0d2geeKs7zHVZHuAEGDPXr279ugebruapJcNkYUB4XqqWYj/g+uo/8H3JttE4flFgG9lmFVHpPyOj87z/5Vi4j3WAh2AGrGoYMO+0xZut5sSgMvZqmgVU+UEY2LJjYERYiuW1Xiemh3cPPiKNbVua9avlKdLM/UUXhkDm0fOVZ/MHy3XdNBzuGTqXCYRTaPgjMAYr+7+Fav7FG7YudCcUvmEJTnDSxgXBs/njeZpbcoZsvYWw09+CN4shUMYY91SKL0iHzBBuOrMMfnwqCYObZwMQUExxkcBEruUbYbWh06jSb77oLY6pKbJcDLgaIkhQaz/WVKiuW3+HzjwcK7IE7+GKtXDniqB0iZLnBOy/ZH7fKAtqtZLuO4Z9EYN+TpkjHLSkIUx19GHMyiwrgddPf0fjSioIkKXjbZXtuaZNIsQPqrcCHljis46Fq41zPMrE178vj2mmWNMCDcA8R6P0chk2q/oI2JpqJRztASS5vsuzKMOeXKcMY4uzGpFVA0eE6tIZLhXkhdch30ECW4mMLYuCucO3tsForH9a9q6ouqIR0+1ESpVpQ7gH8tPAm32Lyif9crZU1PW1z1wo6IfWEoFL9HjjecLq/1Vx9LNIWnqBMk2wpe82TDoFrFZ+TamQ9/jfnjow1kqOPW3ptszHh4epL8AYf1PgexpMI4lrYwTgECR9sqjQ6HHm2j6yrVFyA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(56012099006)(22082099003)(11063799006)(10067099003)(6133799003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: JN8C6YMCfQ0OjYTRm5dczTwhvUEBj1Dbrwhcz3ehGTlFh6viCtef55KegHLB2ahSZpZIS7b8phyR2xUPnUA+/5Uwmdlt6EK1LbZliWU9BIVDElr6Cizgrl/Lmtli4C0lZNDSRKbTuykyR/SHX7u9v9r7rh4Ke8PoC3CXtdTez7CvQ5rkOlZpiGYjtAjZ2/4E7wog7dx0vDCXbxK2lw1dCEutgTDVe8TUZqrt/ij5LWbfBAyLLtWcxRkof188s6MdB2yigVLEX9hd7zDDwESdIVnNn0lKLMWvgRCTA0sZMN5U/DiWccvDP1us5lH/Q3TW1A8pTpcDbpBQA/qr/HSmIvSM+NgI0AZEREYgpz+ClDRpM68ndb2+gBZvZ1ZjRcXalwDU+StoSVdKT5UHZytqYSgadt0i2bm9cRZyMlsoxXGtNOvdMI0uBXy3vsFRQhds
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 17:50:46.1343 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0736635f-e423-48fa-dc68-08deffacba85
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6909
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: j3yobl3KmB9Fm7aINyTiZJ3988ophN2qX67CS5IRM_E_1787335935
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,36 +70,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
+firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
+GPU enters D3Cold. This means that every time the GPU is runtime suspended,
+ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
+the GPU. Once it falls asleep again, the cycle repeats.
 
+See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
 
-On 8/20/2026 Thu 20:35, Lizhi Hou wrote:
-> struct amdxdna_cmd_chain contains a flexible array annotated with
-> __counted_by(command_count). Since the structure is stored in shared
-> AMDXDNA_BO_SHARE memory, userspace can modify command_count concurrently.
-> If command_count is changed to zero, the bounds check generated from
-> __counted_by may fail and trigger a kernel panic.
-> 
-> Remove __counted_by to avoid relying on the userspace-controlled
-> command_count for the flexible array bounds check.
-> 
-> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Max Zhen <max.zhen@amd.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_ctx.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-> index e6155f4b5db0..010538cb05a3 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-> @@ -56,7 +56,7 @@ struct amdxdna_cmd_chain {
->   	u32 submit_index;
->   	u32 error_index;
->   	u32 reserved[3];
-> -	u64 data[] __counted_by(command_count);
-> +	u64 data[];
->   };
->   
->   /*
+Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
+nova as well, and it even seems possible for this to happen without any
+driver loaded.
+
+This seems to simply be a bug. Luckily, there is nothing that we actually
+need ACPI wakeup events for on the GPU. Events such as display connector
+hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
+affected by this quirk.
+
+Reported-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Co-authored-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Cc: stable@vger.kernel.org
+Fixes: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
+---
+ drivers/pci/quirks.c | 76 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index b09f27f7846fc..4d1f1565b61d3 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -6165,6 +6165,82 @@ DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x13b1,
+ 			      PCI_CLASS_DISPLAY_VGA, 8,
+ 			      quirk_reset_lenovo_thinkpad_p50_nvgpu);
+ 
++#ifdef CONFIG_ACPI
++#ifdef CONFIG_DMI
++static const struct dmi_system_id nvidia_dgpu_broken_gpe_quirk_table[] = {
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "16APH8"),
++		},
++	},
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "16AHP9"),
++		},
++	},
++	{}
++};
++
++/*
++ * On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
++ * firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
++ * GPU enters D3Cold. This means that every time the GPU is runtime suspended,
++ * ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
++ * the GPU. Once it falls asleep again, the cycle repeats.
++ *
++ * See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
++ *
++ * Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
++ * nova as well, and it even seems possible for this to happen without any
++ * driver loaded.
++ *
++ * This seems to simply be a bug. Luckily, there is nothing that we actually
++ * need ACPI wakeup events for on the GPU. Events such as display connector
++ * hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
++ * affected by this quirk.
++ *
++ * So, workaround this by disabling wakeup events for the parent PCIe port of
++ * the GPU.
++ */
++static void quirk_nvidia_dgpu_broken_gpe(struct pci_dev *pdev)
++{
++	struct acpi_device *parent_adev;
++	struct device *parent_dev;
++	int ret;
++
++	/* Just to be extra safe and make sure we don't try this on an eGPU */
++	if (pci_is_thunderbolt_attached(pdev))
++		return;
++
++	ret = dmi_check_system(nvidia_dgpu_broken_gpe_quirk_table);
++	if (ret == 0)
++		return;
++
++	pci_info(pdev, FW_BUG "GPU PCIe port has broken wakeup events, disabling\n");
++
++	parent_dev = pci_physfn(pdev)->dev.parent;
++	if (!parent_dev) {
++		pci_err(pdev,
++			"Can't find PCIe parent? Your Nvidia GPU will have broken runtime PM\n");
++		return;
++	}
++	parent_adev = ACPI_COMPANION(parent_dev);
++
++	/* The spurious GPEs will be sent from the ACPI device for the PCIe port this GPU is
++	 * connected to, so remove our PM notifier to turn them into a no-op.
++	 */
++	ret = acpi_remove_pm_notifier(ACPI_COMPANION(parent_dev));
++	if (ACPI_FAILURE(ret))
++		pci_err(pdev, "Removing PM notifier failed: %d\n", ret);
++}
++DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x28e0,
++			      PCI_CLASS_DISPLAY_VGA, 8,
++			      quirk_nvidia_dgpu_broken_gpe);
++#endif
++#endif
++
+ /*
+  * Device [1b21:2142]
+  * When in D0, PME# doesn't get asserted when plugging USB 3.0 device.
+
+base-commit: d3d1e0c4343385fb343a552e4f3b6b97d5762fc2
+-- 
+2.55.0
 
