@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7582C5DF87
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 09:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E4C5C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 09:44:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FB1A10F281;
-	Fri, 21 Aug 2026 09:30:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 728B410F28E;
+	Fri, 21 Aug 2026 09:44:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j+/7//V7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OHCgZuON";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0C9F10F281
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 09:30:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEA1010F28E
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 09:44:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2B1136001A;
- Fri, 21 Aug 2026 09:30:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADDD31F000E9;
- Fri, 21 Aug 2026 09:30:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9E42941AD1;
+ Fri, 21 Aug 2026 09:44:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5761E1F00A3A;
+ Fri, 21 Aug 2026 09:44:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787304633;
- bh=OqOmYjlES3PmKvZ3hYN4Z5kHBhb6kt6R+WQ1flLRUHU=;
+ s=k20260515; t=1787305440;
+ bh=cS72zh5NwU1Bjx24N0skZbsBt97TJcM6ZABlFLAcGls=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=j+/7//V77waRDzLHrF0ouzV2gfrp0wjKkiPdk5RhEl/TE6mvb68X5qq7C3tYbcerH
- e9qaHrIBc/HYRkr8Gs0lW/0Wn1Z+qCuA/mG2SqWI5+fMKjfjnWFwydDe54etSyJ4bW
- xkFnpGHPF6f7hIqTrxI3gt5+gBEa6+Fn0MSFNonYQLGTqPBPaUwdB3KL7uNHzqKwoZ
- 5KdUBTd5orgNISunotwsclmVmfSE9Zslih4HeACYDMhH00BaP0QbdZHQKJb1WCr1MV
- kZsSGXk6UJfpjqrMK3TIbS+eEhicStaizYgQwVZyB/DBOunsA4ZNP1IzvJGnEUDlMl
- 1M0ouCD6UT1zA==
+ b=OHCgZuONsmhQOpDv1TcD4BSXx19lEzeXtzQ86NioBGq0mU9J1y9BumV8pJ6PfXgje
+ oHayGuIrYOgeHVVmd8EU/w/M24IRB1q7HayFxfo7iQlebMHSduvUOoJw4mGqQExLXr
+ EAt+Qkj1+jeKi+IKw1DngOtr9h4hdgn40eBsijWw1DK1Dm5qld4kh4PUsSFdhcUotQ
+ t59W19inrzOq8I3asj0b6Z4XS9sc4ltk7N+uyIo0CpMVIpNIMmZi6dlsVcss4RdgCR
+ 1qPzs6+YTqe9OBS630kkbE0+ND3Or04qHjdcyoWWL0jxuL7dWup4JeHn2tzAGvJYAD
+ ppQO0KVMewiBA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] linux/log2.h: Add round{up,down}_pow_of_two64()
+Subject: Re: [PATCH 2/2] drm_buddy: fix power-of-2 rounding errs
 To: "David Gow" <david@ingeniumdigital.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260821091918.1902032-1-david@ingeniumdigital.com>
+In-Reply-To: <20260821091918.1902032-2-david@ingeniumdigital.com>
 References: <20260821091918.1902032-1-david@ingeniumdigital.com>
+ <20260821091918.1902032-2-david@ingeniumdigital.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 09:30:33 +0000
-Message-Id: <20260821093033.ADDD31F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 09:43:59 +0000
+Message-Id: <20260821094400.5761E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,73 +59,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Calling `__roundup_pow_of_two64(1)` evaluates `ilog2(0)`, violat=
-ing the `ilog2()` API contract and relying on undefined behavior for archit=
-ecture fallbacks.
-- [Low] The kernel-doc comment for `__rounddown_pow_of_two64()` incorrectly=
- describes the `@n` parameter as 'value to round up'.
+
+Pre-existing issues:
+- [High] The `pages` variable is declared as `unsigned long`, and the `fls(=
+)` and `BIT()` macros are used, leading to silent truncation and potential =
+infinite loops or crashes for large allocations.
+- [High] Calling the `is_power_of_2()` macro with 64-bit variables (`min_bl=
+ock_size` and `size`) silently truncates them to 32 bits on 32-bit architec=
+tures, breaking allocator validation.
 --
 
---- Patch [1]: [PATCH 1/2] linux/log2.h: Add round{up,down}_pow_of_two64() =
----
-commit 4cce4f9f15f91ab3c1df542bca356b3776146fef
-Author: David Gow <david@davidgow.net>
+--- Patch [2]: [PATCH 2/2] drm_buddy: fix power-of-2 rounding errs ---
+commit 6e9e2fbe5490ccf9c40ea5dcdf1e897c00f63b30
+Author: Jim Cromie <jim.cromie@gmail.com>
 
-linux/log2.h: Add round{up,down}_pow_of_two64()
+drm_buddy: fix power-of-2 rounding errs
 
-This commit adds 64-bit specific versions of round-up and round-down power
-of two macros. It is intended to support 64-bit values on 32-bit systems,
-particularly for the GPU buddy allocator.
+This patch replaces standard roundup_pow_of_two() and rounddown_pow_of_two()
+macros with their 64-bit equivalents in the GPU buddy allocator. This fixes
+silent truncation of 64-bit allocation sizes on 32-bit architectures, which
+was causing tests to fail.
 
-> diff --git a/include/linux/log2.h b/include/linux/log2.h
-> index e17ceb32e0c97..67446d5ce9a32 100644
-> --- a/include/linux/log2.h
-> +++ b/include/linux/log2.h
-> @@ -195,6 +195,63 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
->  	__rounddown_pow_of_two(n)		\
->   )
-> =20
-> +/**
-> + * __rounddown_pow_of_two64() - round a 64-bit value down to nearest pow=
-er of two
-> + * @n: value to round up
+Link: https://lore.kernel.org/all/20260326185413.1205870-40-jim.cromie@gmai=
+l.com/
 
-[Severity: Low]
-This isn't a bug, but should this be "value to round down" for the
-__rounddown_pow_of_two64() variant?
-
-> + */
-> +static inline __attribute_const__
-> +u64 __rounddown_pow_of_two64(u64 n)
-> +{
-
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index a5553fcec28c2..64f41f1fe9089 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
 [ ... ]
+> @@ -1440,7 +1440,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+> =20
+>  	/* Roundup the size to power of 2 */
+>  	if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+> -		size =3D roundup_pow_of_two(size);
+> +		size =3D roundup_pow_of_two64(size);
+>  		min_block_size =3D size;
+>  		/*
+>  		 * Normalize the requested size to min_block_size for regular allocati=
+ons.
 
-> +/**
-> + * __roundup_pow_of_two64() - round a 64-bit value up to nearest power o=
-f two
-> + * @n: value to round up
-> + */
-> +static inline __attribute_const__
-> +u64 __roundup_pow_of_two64(u64 n)
-> +{
-> +	return 1ULL << (ilog2(n - 1) + 1);
+[Severity: High]
+This is a pre-existing issue, but since you are fixing 32-bit truncation
+errors in this function, are there similar truncation issues with the pages
+variable later in gpu_buddy_alloc_blocks()?
 
-[Severity: Medium]
-Will calling roundup_pow_of_two64(1) with a runtime variable evaluate to
-ilog2(0) here?
+The pages variable is declared as unsigned long:
 
-The documentation in include/linux/log2.h states that the architecture is
-not required to handle n =3D=3D 0 for ilog2(). While current fallback
-implementations evaluate fls64(0) - 1 to -1 and return 1, an architecture
-providing an optimized hardware ilog2() implementation might trap or break
-on 0.
+	unsigned long pages;
 
-The existing 32-bit __roundup_pow_of_two() avoids this by safely relying on
-fls_long(n - 1).
+And later initialized and used with fls() and BIT():
 
-> +}
+	pages =3D size >> ilog2(mm->chunk_size);
+	order =3D fls(pages) - 1;
+        ...
+		pages -=3D BIT(order);
+
+Since unsigned long is 32-bit on 32-bit architectures, pages truncates
+for sizes > 16TB (assuming 4KB chunks).
+
+Furthermore, fls() takes a 32-bit integer, so it will truncate pages on 64-=
+bit
+systems.
+
+BIT(order) also uses 1UL, which overflows on 32-bit architectures if order =
+>=3D 32.
+
+Can this lead to infinite loops or crashes for large allocations?
+
+Similar truncation might also occur in gpu_buddy_offset_aligned_allocation(=
+),
+which also uses unsigned long pages.
+
+[Severity: High]
+This is another pre-existing issue, but does is_power_of_2() also silently
+truncate 64-bit variables on 32-bit architectures?
+
+Earlier in gpu_buddy_alloc_blocks():
+
+	if (!is_power_of_2(min_block_size))
+		return -EINVAL;
+
+The is_power_of_2() macro casts its argument to unsigned long.
+
+If a 64-bit value like 4GB + 4KB is passed, it truncates to 4KB on 32-bit
+systems, which is a valid power of two.
+
+This bypasses the validation and allows non-power-of-two sizes to reach
+round_up(), which could corrupt sizes and allocator memory.
+
+A similar check exists in gpu_buddy_can_offset_align():
+
+	return size < min_block_size && is_power_of_2(size);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821091918.1902=
-032-1-david@ingeniumdigital.com?part=3D1
+032-1-david@ingeniumdigital.com?part=3D2
