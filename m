@@ -4,52 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74703C5DF89
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:42:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 704AAC5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:42:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2359C10F2FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F317110F2FF;
 	Fri, 21 Aug 2026 14:42:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ksb1G+f6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a7IWduAI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8152910F2EC
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:42:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C292410F2EC
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6A4A741FB5;
- Fri, 21 Aug 2026 14:42:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84C41F000E9;
- Fri, 21 Aug 2026 14:42:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A6DC743454;
+ Fri, 21 Aug 2026 14:41:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E36F1F00A3D;
+ Fri, 21 Aug 2026 14:41:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323328;
- bh=DdaTjqzvK3Kl53eIaVw4j9DVKDZsVH1F3lIG8n64WSo=;
+ s=k20260515; t=1787323304;
+ bh=BYa6l5Fho8Ep9989qnn5LDKe5ZMRQ5SoEsn4wHVm0Zk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Ksb1G+f6Jux2J2hqrBxnIRk7kn0xaN4uJri4cn1rpbEEsH6YPpStsuzqxscY/dGNy
- /kKFlZHExybZPSwIgUQp7JfoDJ1K7O78JLZXtiKG91BocvKEz3M+pzKauZMJmbufm6
- /RJlDOnGd8mffgEfKEFXCXLIbhAf7ZOa5zbgXfuP0yn3DJ0yYbOXTXgjZoTzaw/TVW
- n+gdx3QiGCZv6oMKQNkRZPVspc86A1G+mm3Dv6DFbBPjRM7/IHDwpSoa8XpwuIepan
- WVzYAPQONhHM6LmN7LceFhYr3uOQrbsMUsegjMWWsMOVf6tG9Rrkn2dy3BYdYrLeP1
- NfYwdGxlBAxGw==
+ b=a7IWduAIwpZ3Qb4hV2REcWG86N/ZvMI2aVj2DvddCyjBERkM0xIwzyqTXaPjjRcuF
+ ph30FV5j7NiMwxKyQyiJpjwovf3iqxtcWFXBaFEFHGeyDPs6rVpRqXPOQ1MxmBMm+7
+ x7tTbGvW1RITfLTl1qpASzUCzDR9vMQKiucsI7YyEnpKiARhiopLcjnbubYFqB3yxW
+ HgCMlXvQJV4AfCLE/dFNvVbxXgdT3p14omiUpIUrrL9X21fhMprytzoK2Fpqj+rVsQ
+ Lp+wTBxfE4DJBwxsGyylWxqUVxaH5wvOUDiIp8FdRxm7zTVeIxDQlYuUbIXCde81Wb
+ LMAPKX9FYTMAA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:45 +0200
-Subject: [PATCH 69/70] drm/atomic-helper: Remove __drm_atomic_helper_crtc_reset
+Date: Fri, 21 Aug 2026 16:39:35 +0200
+Subject: [PATCH 59/70] drm/rcar-du: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-69-fb793475c05a@kernel.org>
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-59-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2631; i=mripard@kernel.org;
- h=from:subject:message-id; bh=4hPISWas45PW1aRDfSO3TR6IL6UTwWxVhev4tBlTQEY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyWJPfM8e7lZfH/Py1d9p+5Pule1/H/HRc7+qxy7n4
- 1Pv5Hze0TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmcvYMY33JnYSUxFo1L5UK
- icJSpsMXl52eWOqtaLezXippU+TMZccd3c5M0T/Wa7++gS/hvmwAO2OdXWCGbi7Pe1VTs4L5ATc
- 7E/aJZV1ZLbltvuBZ3vMT9N8p2Acl12m8axV0UXl4fdc1nxUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3215; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=1bjOm5wXcyXycK03MVup0cuEL5KbIkzHL63myTDrSes=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyUI8a+MbV4dZ/9kV2zpF99lGA//o3V/0N602MNySr
+ VTEWyDYMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZy+AxjrSi/MJPfwu76FYez
+ 30/P/37MsNatU6zG1+DskSksF8oWzGjq/FX/5F1RjVfjf8NVvBoLGBu26335+vVjjfmEy0Wz17t
+ /Vy4rfq3l2rUyWbojPEq6bY9Ts9bGpWZmq53sba5aGHk9nggA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,75 +73,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-All users of __drm_atomic_helper_crtc_reset() have been converted to use
-drm_atomic_helper_crtc_state_init() and atomic_create_state.
+The rcar-du crtc implementation provides a custom reset hook. However,
+this hook only allocates the state, initializes it with
+__drm_atomic_helper_crtc_reset(), sets driver-specific default values
+for the CRC source and index, and frees the previous state. It does
+not perform any hardware reset.
 
-Remove the now unused helper.
+Since this is exactly what the atomic_create_state hook is meant to
+do, minus the old state cleanup which the caller handles, convert the
+implementation to use atomic_create_state with
+__drm_atomic_helper_crtc_state_init() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 26 --------------------------
- include/drm/drm_atomic_state_helper.h     |  2 --
- 2 files changed, 28 deletions(-)
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index b592b7f5f264..354fa9c6aca8 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -77,36 +77,10 @@ __drm_atomic_helper_crtc_state_init(struct drm_crtc_state *crtc_state,
- 	crtc_state->crtc = crtc;
- 	crtc_state->background_color = DRM_ARGB64_PREP(0xffff, 0, 0, 0);
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
+index 6c07c406f725..59c2a4b76137 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
+@@ -995,27 +995,24 @@ static void rcar_du_crtc_cleanup(struct drm_crtc *crtc)
+ 	rcar_du_crtc_crc_cleanup(rcrtc);
+ 
+ 	drm_crtc_cleanup(crtc);
  }
- EXPORT_SYMBOL(__drm_atomic_helper_crtc_state_init);
  
--/**
-- * __drm_atomic_helper_crtc_reset - reset state on CRTC
-- * @crtc: drm CRTC
-- * @crtc_state: CRTC state to assign
-- *
-- * Initializes the newly allocated @crtc_state and assigns it to
-- * the &drm_crtc->state pointer of @crtc, usually required when
-- * initializing the drivers or when called from the &drm_crtc_funcs.reset
-- * hook.
-- *
-- * This is useful for drivers that subclass the CRTC state.
-- */
--void
--__drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
--			       struct drm_crtc_state *crtc_state)
--{
--	if (crtc_state)
--		__drm_atomic_helper_crtc_state_init(crtc_state, crtc);
--
--	if (drm_dev_has_vblank(crtc->dev))
--		drm_crtc_vblank_reset(crtc);
--
--	crtc->state = crtc_state;
--}
--EXPORT_SYMBOL(__drm_atomic_helper_crtc_reset);
--
- /**
-  * drm_atomic_helper_crtc_create_state - default &drm_crtc_funcs.atomic_create_state hook for crtcs
-  * @crtc: crtc object
-  *
-  * Allocates and  initializes pristine @drm_crtc_state.
-diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-index df70817c94fc..480eaae42f45 100644
---- a/include/drm/drm_atomic_state_helper.h
-+++ b/include/drm/drm_atomic_state_helper.h
-@@ -40,12 +40,10 @@ struct drm_private_state;
- struct drm_modeset_acquire_ctx;
- struct drm_device;
+-static void rcar_du_crtc_reset(struct drm_crtc *crtc)
++static struct drm_crtc_state *rcar_du_crtc_create_state(struct drm_crtc *crtc)
+ {
+ 	struct rcar_du_crtc_state *state;
  
- void __drm_atomic_helper_crtc_state_init(struct drm_crtc_state *state,
- 					  struct drm_crtc *crtc);
--void __drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
--				    struct drm_crtc_state *state);
- struct drm_crtc_state *
- drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc);
- void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
- 					      struct drm_crtc_state *state);
- struct drm_crtc_state *
+-	if (crtc->state) {
+-		rcar_du_crtc_atomic_destroy_state(crtc, crtc->state);
+-		crtc->state = NULL;
+-	}
+-
+ 	state = kzalloc_obj(*state);
+ 	if (state == NULL)
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 
+ 	state->crc.source = VSP1_DU_CRC_NONE;
+ 	state->crc.index = 0;
+ 
+-	__drm_atomic_helper_crtc_reset(crtc, &state->state);
++	__drm_atomic_helper_crtc_state_init(&state->state, crtc);
++
++	return &state->state;
+ }
+ 
+ static int rcar_du_crtc_enable_vblank(struct drm_crtc *crtc)
+ {
+ 	struct rcar_du_crtc *rcrtc = to_rcar_crtc(crtc);
+@@ -1153,22 +1150,22 @@ static int rcar_du_crtc_set_crc_source(struct drm_crtc *crtc,
+ 
+ 	return ret;
+ }
+ 
+ static const struct drm_crtc_funcs crtc_funcs_gen2 = {
+-	.reset = rcar_du_crtc_reset,
++	.atomic_create_state = rcar_du_crtc_create_state,
+ 	.destroy = drm_crtc_cleanup,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.atomic_duplicate_state = rcar_du_crtc_atomic_duplicate_state,
+ 	.atomic_destroy_state = rcar_du_crtc_atomic_destroy_state,
+ 	.enable_vblank = rcar_du_crtc_enable_vblank,
+ 	.disable_vblank = rcar_du_crtc_disable_vblank,
+ };
+ 
+ static const struct drm_crtc_funcs crtc_funcs_gen3 = {
+-	.reset = rcar_du_crtc_reset,
++	.atomic_create_state = rcar_du_crtc_create_state,
+ 	.destroy = rcar_du_crtc_cleanup,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.atomic_duplicate_state = rcar_du_crtc_atomic_duplicate_state,
+ 	.atomic_destroy_state = rcar_du_crtc_atomic_destroy_state,
 
 -- 
 2.55.0
