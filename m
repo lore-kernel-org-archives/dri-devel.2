@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F34D4C5DF95
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:41:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34BB7C5DF93
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:41:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6F110F2ED;
-	Fri, 21 Aug 2026 14:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3444F10F2F1;
+	Fri, 21 Aug 2026 14:41:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oCShwywj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fqN+91z5";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF61E10F13E
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:40:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BD4610E1FA
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F513433D3;
- Fri, 21 Aug 2026 14:40:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EECE21F00A3A;
- Fri, 21 Aug 2026 14:40:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 21F7941E94;
+ Fri, 21 Aug 2026 14:41:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806051F000E9;
+ Fri, 21 Aug 2026 14:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323232;
- bh=SAkQgLkZ7nP67DAhLoYOQWm5LELRBEiAoGfoOlKaemA=;
+ s=k20260515; t=1787323266;
+ bh=+YqGyf8QxZHfQ0yeRaRkL7PN1OM+N2FsZnNMWQimJ0M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=oCShwywjtgLjqazwKCi2nGHUe2zF8l9pq8tB79QXnd9MAF5zL2MD6pPAT9DaCU3IS
- 5A6DZRup9RfbPEZTf2A6XzIekKm2eHekMj0UnwGjqZgenLmEn4JeG/+cuPSprZJVMS
- erPIttveMQv+d1ERA/RUnot0ndTsUlRY/v3myhr5d4wbmUWCG22zG6MfREXxGBUvVy
- OC2GcnqsMfwHIHOGMDCzUmq32ITXGKyVZ9RL+okN41rhCXMOYact2AHfJwXjMVII6u
- cD4A9woJ0pg3R5FqKAiKETnarX1khzc6dp4VnVxWwsf+lWr/QugxaRX8qEf/3kpHmN
- BzvY14EDfsUEA==
+ b=fqN+91z5ZnEthBZOkM+Xw4KXKQ5kR9hjlDiAY4hLE0KP8VqLP6K25oEkVcUcUjYs1
+ T8DmoLb3kvlfUaOycpopfbl7eDyF8WasjGq5jVCMTP02/6GaXjk6zabWYCWUU8Jvd9
+ qEB6H2NYWMY3rQzpq5zFKeNoBoJpHaM9jZ4xR7Mgd1kOuKpYNwWnl9dnZe4gOkH7wr
+ RpcZwbRaZvSHHqGv7yLzZPULMeCrsVCaPzy9YHz7OtDrg39gm9Rb/jAomrTuOKrdP9
+ BroVi9WFWcniolGIWTPfSbR3U87Wxxsfnh69CC1KT2Ii5kwBGa7yd32IpDAufNNlYM
+ E5F6+W7Pn7+tQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:05 +0200
-Subject: [PATCH 29/70] drm/tilcdc: Move hardware reset to CRTC creation
+Date: Fri, 21 Aug 2026 16:39:19 +0200
+Subject: [PATCH 43/70] sysfb: Convert to create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-29-fb793475c05a@kernel.org>
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-43-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+ Javier Martinez Canillas <javierm@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3442; i=mripard@kernel.org;
- h=from:subject:message-id; bh=oHPOn12oxuFX+XIfnFthfPeGpdrjO1Jt1XZte6C6SMk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyawX+n5V/b+XvjFNYa552pI7cXd4+Pa630rcaJmtd
- ad9eb5Mx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhI6wHGWvGnn5Z8aJzf9n2m
- eIilpVxI9DQ5vwNPK6ZsD5Lr9dBNlZuy9t7qfsl/EgyTg3/sypz3nbHhuHx0Rq+bVL9BoVPE3Yv
- PvTd2XzSzzl4UJ81uOElWVlB+9acv5aLsV6XPhLi8TTT/dQkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2993; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=zT/6WLpgNIeD7k3AwGg6FbDndIlcWPMafuLJ5qATRec=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdydyfNnjN/3Gl84iiYWx0tzfrUzuXF6lhF4+tOie2t
+ EJD64RJx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZgImwBjwwcJodu+lTce8C45
+ N+3wpcz9Kw8z5d/meip6I79aXvu82/SVMxUvbF/2/rNXQErDgSs1Nxjra+P+TUyPexav2XzAsXn
+ WvDbLLP6XE0J4FNa+l2+LzbYqVOmQMX1dcX3DrnuV/acNRB8BAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,98 +68,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The tilcdc crtc reset hook performs both atomic state initialization
-using drm_atomic_helper_crtc_reset() and hardware-level register
-writes to disable the raster and clear IRQ status.
-
-The hardware reset is not related to atomic state initialization, and
-the reset hook is being converted to atomic_create_state which only
-deals with state allocation. Move the hardware reset to the CRTC
-creation path instead.
-
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Jyri Sarha <jyri.sarha@iki.fi>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/tilcdc/tilcdc_crtc.c | 49 +++++++++++++++---------------------
- 1 file changed, 20 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/sysfb/drm_sysfb_helper.h  |  4 ++--
+ drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 20 +++++++++-----------
+ 2 files changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-index e07ecb36a27a..910580c4dada 100644
---- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-+++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-@@ -683,42 +683,14 @@ static void tilcdc_crtc_disable_vblank(struct drm_crtc *crtc)
- 			     LCDC_V2_END_OF_FRAME0_INT_ENA);
+diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
+index 547f2327af5e..445eb5b5ca06 100644
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
+@@ -169,16 +169,16 @@ int drm_sysfb_crtc_helper_atomic_check(struct drm_crtc *crtc, struct drm_atomic_
  
- 	spin_unlock_irqrestore(&tilcdc_crtc->irq_lock, flags);
- }
+ #define DRM_SYSFB_CRTC_HELPER_FUNCS \
+ 	.mode_valid = drm_sysfb_crtc_helper_mode_valid, \
+ 	.atomic_check = drm_sysfb_crtc_helper_atomic_check
  
--static void tilcdc_crtc_reset(struct drm_crtc *crtc)
--{
--	struct tilcdc_crtc *tilcdc_crtc = to_tilcdc_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
--	int ret;
--
--	drm_atomic_helper_crtc_reset(crtc);
--
--	/* Turn the raster off if it for some reason is on. */
--	pm_runtime_get_sync(dev->dev);
--	if (tilcdc_read(dev, LCDC_RASTER_CTRL_REG) & LCDC_RASTER_ENABLE) {
--		/* Enable DMA Frame Done Interrupt */
--		tilcdc_write(dev, LCDC_INT_ENABLE_SET_REG, LCDC_FRAME_DONE);
--		tilcdc_clear_irqstatus(dev, 0xffffffff);
--
--		tilcdc_crtc->frame_done = false;
--		tilcdc_clear(dev, LCDC_RASTER_CTRL_REG, LCDC_RASTER_ENABLE);
--
--		ret = wait_event_timeout(tilcdc_crtc->frame_done_wq,
--					 tilcdc_crtc->frame_done,
--					 msecs_to_jiffies(500));
--		if (ret == 0)
--			drm_err(dev, "%s: timeout waiting for framedone\n",
--				__func__);
--	}
--	pm_runtime_put_sync(dev->dev);
--}
--
- static const struct drm_crtc_funcs tilcdc_crtc_funcs = {
- 	.set_config     = drm_atomic_helper_set_config,
- 	.page_flip      = drm_atomic_helper_page_flip,
--	.reset		= tilcdc_crtc_reset,
-+	.reset		= drm_atomic_helper_crtc_reset,
- 	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
- 	.enable_vblank	= tilcdc_crtc_enable_vblank,
- 	.disable_vblank	= tilcdc_crtc_disable_vblank,
- };
-@@ -1003,7 +975,26 @@ int tilcdc_crtc_create(struct drm_device *dev)
- 	spin_lock_init(&tilcdc_crtc->irq_lock);
- 	INIT_WORK(&tilcdc_crtc->recover_work, tilcdc_crtc_recover_work);
+-void drm_sysfb_crtc_reset(struct drm_crtc *crtc);
++struct drm_crtc_state *drm_sysfb_crtc_create_state(struct drm_crtc *crtc);
+ struct drm_crtc_state *drm_sysfb_crtc_atomic_duplicate_state(struct drm_crtc *crtc);
+ void drm_sysfb_crtc_atomic_destroy_state(struct drm_crtc *crtc, struct drm_crtc_state *crtc_state);
  
- 	drm_crtc_helper_add(crtc, &tilcdc_crtc_helper_funcs);
+ #define DRM_SYSFB_CRTC_FUNCS \
+-	.reset = drm_sysfb_crtc_reset, \
++	.atomic_create_state = drm_sysfb_crtc_create_state, \
+ 	.set_config = drm_atomic_helper_set_config, \
+ 	.page_flip = drm_atomic_helper_page_flip, \
+ 	.atomic_duplicate_state = drm_sysfb_crtc_atomic_duplicate_state, \
+ 	.atomic_destroy_state = drm_sysfb_crtc_atomic_destroy_state
  
-+	/* Turn the raster off if it for some reason is on. */
-+	pm_runtime_get_sync(dev->dev);
-+	if (tilcdc_read(dev, LCDC_RASTER_CTRL_REG) & LCDC_RASTER_ENABLE) {
-+		/* Enable DMA Frame Done Interrupt */
-+		tilcdc_write(dev, LCDC_INT_ENABLE_SET_REG, LCDC_FRAME_DONE);
-+		tilcdc_clear_irqstatus(dev, 0xffffffff);
-+
-+		tilcdc_crtc->frame_done = false;
-+		tilcdc_clear(dev, LCDC_RASTER_CTRL_REG, LCDC_RASTER_ENABLE);
-+
-+		ret = wait_event_timeout(tilcdc_crtc->frame_done_wq,
-+					 tilcdc_crtc->frame_done,
-+					 msecs_to_jiffies(500));
-+		if (ret == 0)
-+			drm_err(dev, "%s: timeout waiting for framedone\n",
-+				__func__);
-+	}
-+	pm_runtime_put_sync(dev->dev);
-+
+diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+index d2de29caf89e..ce11ac32fae4 100644
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+@@ -513,27 +513,25 @@ int drm_sysfb_crtc_helper_atomic_check(struct drm_crtc *crtc, struct drm_atomic_
+ 
  	return 0;
  }
+ EXPORT_SYMBOL(drm_sysfb_crtc_helper_atomic_check);
+ 
+-void drm_sysfb_crtc_reset(struct drm_crtc *crtc)
++struct drm_crtc_state *drm_sysfb_crtc_create_state(struct drm_crtc *crtc)
+ {
+ 	struct drm_sysfb_device *sysfb = to_drm_sysfb_device(crtc->dev);
+ 	struct drm_sysfb_crtc_state *sysfb_crtc_state;
+ 
+-	if (crtc->state)
+-		drm_sysfb_crtc_state_destroy(to_drm_sysfb_crtc_state(crtc->state));
+-
+ 	sysfb_crtc_state = kzalloc_obj(*sysfb_crtc_state);
+-	if (sysfb_crtc_state) {
+-		sysfb_crtc_state->format = sysfb->fb_format;
+-		__drm_atomic_helper_crtc_reset(crtc, &sysfb_crtc_state->base);
+-	} else {
+-		__drm_atomic_helper_crtc_reset(crtc, NULL);
+-	}
++	if (!sysfb_crtc_state)
++		return ERR_PTR(-ENOMEM);
++
++	sysfb_crtc_state->format = sysfb->fb_format;
++	__drm_atomic_helper_crtc_state_init(&sysfb_crtc_state->base, crtc);
++
++	return &sysfb_crtc_state->base;
+ }
+-EXPORT_SYMBOL(drm_sysfb_crtc_reset);
++EXPORT_SYMBOL(drm_sysfb_crtc_create_state);
+ 
+ struct drm_crtc_state *drm_sysfb_crtc_atomic_duplicate_state(struct drm_crtc *crtc)
+ {
+ 	struct drm_device *dev = crtc->dev;
+ 	struct drm_crtc_state *crtc_state = crtc->state;
 
 -- 
 2.55.0
