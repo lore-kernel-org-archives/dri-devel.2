@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B4EC5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 19:30:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34203C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 19:48:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52F7910F4E7;
-	Fri, 21 Aug 2026 18:12:52 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8425A10F4E7
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 18:12:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787335944;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=IcYpvMnU+f4BloPrmC94lFULP58QvHDNnxfJki4ZTvo=;
- b=OR15qCMz4ZTNtKuUdQbzfbPivc6VFIW2BhmHtM9VvrT2nomcCd4TtYClapD2jmNFDTJ/pi
- lH0pj1SLXKMHURR2TZFmFjeQVrLOfJLApAdEwlLs874bosQqnGCFPBEMP1020zxoLuK464
- H8+ppLxQJJVWsJqMbZdf1CtSSuCa6Pg=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-175-TPEhSOn1PcatEO2OR-pqVA-1; Fri,
- 21 Aug 2026 14:12:18 -0400
-X-MC-Unique: TPEhSOn1PcatEO2OR-pqVA-1
-X-Mimecast-MFC-AGG-ID: TPEhSOn1PcatEO2OR-pqVA_1787335935
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 403A1195423A; Fri, 21 Aug 2026 18:12:15 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.80.7])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 64CE61955F70; Fri, 21 Aug 2026 18:12:12 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, Timur Tabi <ttabi@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, Ryan Brue <ryanbrue.dev@gmail.com>,
- stable@vger.kernel.org, "Bjorn Helgaas" <bhelgaas@google.com>,
- linux-pci@vger.kernel.org, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH] pci: Add broken-GPE quirk for Lenovo Legion 16APH8 and 16AHP9
- Nvidia GPUs
-Date: Fri, 21 Aug 2026 14:11:59 -0400
-Message-ID: <20260821181203.82722-1-lyude@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: j3yobl3KmB9Fm7aINyTiZJ3988ophN2qX67CS5IRM_E_1787335935
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8644710F3F4;
+	Fri, 21 Aug 2026 19:48:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lbB/+F33";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77B0F10F3F4
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 19:48:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3E9C540688;
+ Fri, 21 Aug 2026 18:53:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AF91F000E9;
+ Fri, 21 Aug 2026 18:53:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787338426;
+ bh=faklYvsUYtiYNNAww6C21n15COVHm0WVD3nEOm9HrwQ=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=lbB/+F33FXPdKhFo7wLNDZV+cRNrJLVb1ITPCDj5ZrMC2b04VPYS+9Py8bpFQoMxa
+ BsqZ/WJSb4dW/VLXpT97AlInBg2zawb2DKSdS1n0HYhj/E4yq3s9E4jTZTa4SOn7Jl
+ 6wZvJ8aRvONnYU5F37+uN/haA2ycDLxJtNWpU9dbFsBFL4j6dtEd9KaszZuKz6oCF6
+ UMM8KyknLrSutiuhBIuL5Maix5lrrX4iihMmqIco6Wjt/v7n+9Lcebjpy6wgXsqwIX
+ KxGXVyaW/V7rUHcvSEC1GY0KqfEJhv3YG3N9htzJ/oOzE7DWJ1M2pgfGCtu3kISuY0
+ llODWXnsDV2AQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 21 Aug 2026 20:53:41 +0200
+Message-Id: <DKUULBNAMK8L.F52N7AN3QB5M@kernel.org>
+Subject: Re: [PATCH v6 2/3] drm/tyr: add GPU reset infrastructure
+Cc: =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <aliceryhl@google.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>
+To: "Daniel Almeida" <daniel.almeida@collabora.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260819-tyr-reset-impl-v6-0-7b4e1e041fe5@onurozkan.dev>
+ <20260819-tyr-reset-impl-v6-2-7b4e1e041fe5@onurozkan.dev>
+ <653D47F5-0AF3-44B5-9896-F0AA81F67B61@collabora.com>
+ <20260821155814.980146-1-work@onurozkan.dev>
+ <2AD43D0D-2B01-47E3-AACB-32032B3358C9@collabora.com>
+ <DKUS768JV9RM.36WFW7QI27WKK@kernel.org>
+ <74217098-8793-4701-8292-FBE0DB31FD48@collabora.com>
+In-Reply-To: <74217098-8793-4701-8292-FBE0DB31FD48@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,121 +67,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
-firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
-GPU enters D3Cold. This means that every time the GPU is runtime suspended,
-ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
-the GPU. Once it falls asleep again, the cycle repeats.
+On Fri Aug 21, 2026 at 7:23 PM CEST, Daniel Almeida wrote:
+> I agree, no argument from me there. The problem is, when the GPU is reset=
+ting,
+> things are far from "working". In fact, things went so bad somewhere that=
+ it
+> brought the device down for everybody, and the system is taking steps to =
+(try
+> to) bring it up again.
+>
+> As a user, I very much appreciated this when games went down, it made me =
+think
+> that the problem was important enough to report, and also likely explaine=
+d why,
+> in that particular hardware, things didn't really work 100% well afterwar=
+ds,
+> which prompted me to reboot the machine.
+>
+> Two outcomes could have come from that, a) filing a bug on the game itsel=
+f, and
+> b) telling the kernel guys that their reset code wasn't really working 10=
+0%
+> well either.
+>
+> I do agree that "Starting GPU reset" is frivolous, but at least a message
+> saying that a reset took place, either sucessfully or not, is better than
+> silence.
 
-See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
+I had a brief look at panthor, and it seems to me that this reset only ever
+happens when the hardware is truely malfunctioning. I.e. it never runs unde=
+r
+"normal" error conditions, right?
 
-Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
-nova as well, and it even seems possible for this to happen without any
-driver loaded.
+In that case, I think it's fine. But I'd still rather print where the error
+occurs and about the error / recovery condition. The "Starting GPU reset" o=
+ne
+still doesn't seem overly useful to me.
 
-This seems to simply be a bug. Luckily, there is nothing that we actually
-need ACPI wakeup events for on the GPU. Events such as display connector
-hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
-affected by this quirk.
-
-Reported-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Co-authored-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: stable@vger.kernel.org
-Fixes: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
----
- drivers/pci/quirks.c | 76 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
-
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index b09f27f7846fc..4d1f1565b61d3 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6165,6 +6165,82 @@ DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x13b1,
- 			      PCI_CLASS_DISPLAY_VGA, 8,
- 			      quirk_reset_lenovo_thinkpad_p50_nvgpu);
- 
-+#ifdef CONFIG_ACPI
-+#ifdef CONFIG_DMI
-+static const struct dmi_system_id nvidia_dgpu_broken_gpe_quirk_table[] = {
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "16APH8"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "16AHP9"),
-+		},
-+	},
-+	{}
-+};
-+
-+/*
-+ * On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
-+ * firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
-+ * GPU enters D3Cold. This means that every time the GPU is runtime suspended,
-+ * ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
-+ * the GPU. Once it falls asleep again, the cycle repeats.
-+ *
-+ * See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
-+ *
-+ * Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
-+ * nova as well, and it even seems possible for this to happen without any
-+ * driver loaded.
-+ *
-+ * This seems to simply be a bug. Luckily, there is nothing that we actually
-+ * need ACPI wakeup events for on the GPU. Events such as display connector
-+ * hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
-+ * affected by this quirk.
-+ *
-+ * So, workaround this by disabling wakeup events for the parent PCIe port of
-+ * the GPU.
-+ */
-+static void quirk_nvidia_dgpu_broken_gpe(struct pci_dev *pdev)
-+{
-+	struct acpi_device *parent_adev;
-+	struct device *parent_dev;
-+	int ret;
-+
-+	/* Just to be extra safe and make sure we don't try this on an eGPU */
-+	if (pci_is_thunderbolt_attached(pdev))
-+		return;
-+
-+	ret = dmi_check_system(nvidia_dgpu_broken_gpe_quirk_table);
-+	if (ret == 0)
-+		return;
-+
-+	pci_info(pdev, FW_BUG "GPU PCIe port has broken wakeup events, disabling\n");
-+
-+	parent_dev = pci_physfn(pdev)->dev.parent;
-+	if (!parent_dev) {
-+		pci_err(pdev,
-+			"Can't find PCIe parent? Your Nvidia GPU will have broken runtime PM\n");
-+		return;
-+	}
-+	parent_adev = ACPI_COMPANION(parent_dev);
-+
-+	/* The spurious GPEs will be sent from the ACPI device for the PCIe port this GPU is
-+	 * connected to, so remove our PM notifier to turn them into a no-op.
-+	 */
-+	ret = acpi_remove_pm_notifier(ACPI_COMPANION(parent_dev));
-+	if (ACPI_FAILURE(ret))
-+		pci_err(pdev, "Removing PM notifier failed: %d\n", ret);
-+}
-+DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x28e0,
-+			      PCI_CLASS_DISPLAY_VGA, 8,
-+			      quirk_nvidia_dgpu_broken_gpe);
-+#endif
-+#endif
-+
- /*
-  * Device [1b21:2142]
-  * When in D0, PME# doesn't get asserted when plugging USB 3.0 device.
-
-base-commit: d3d1e0c4343385fb343a552e4f3b6b97d5762fc2
--- 
-2.55.0
-
+In general, the reset prints should still hint some additional information =
+that
+helps to understand the root cause.
