@@ -4,98 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A9D4C5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 07:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71821C5DF8F
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 07:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC53B10E26A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2E0310F243;
 	Fri, 21 Aug 2026 07:23:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QvrVdRkz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a4GsrilI";
 	dkim-atps=neutral
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
- [74.125.224.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54FD010E23A
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 01:45:15 +0000 (UTC)
-Received: by mail-yx1-f46.google.com with SMTP id
- 956f58d0204a3-66c70d73210so582742d50.0
- for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 18:45:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787276714; cv=none;
- d=google.com; s=arc-20260327;
- b=BR27N/fGZOMyozLmZHGW+DDLaxsuaXxiHsbpld34BBcRjWvwvUmjj4ktrJqNcgUf8L
- NlJQAzz5qk4cfuJsF8gYteRnCDm3ScJiAWX3Nb/p6GLznyeV7oahHo59Jdd3hLIAdvGh
- UJ66elZDlIylfxz+qeut7MHfi4FDOSsQPaJCjqQYh1HzfHAt9kMU9ddrNzyzC75Z7RSU
- 9QIPcfmjOAAW8/xeT8p7v1Y1M1bL8VTKi/BkM5w5og6CWEIL2arAVcOylfwPiJTtA4WZ
- 6t1o9oiY08Hghi1o4wqTaSLzYdYRWNrHJ3o9fXu2seKHh3f1Q+n/zvU9wxKqQJWRXFhM
- Fq9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
- fh=VG/Ixi9V08q1LH3EO2jxAfX/t/W7KqxMC0yf92YvUeM=;
- b=qmuAPpM/RJR7zeb0x/qQZ/EZTBFoPIm3FX9QNWLanQWyEy+f5EJO2hDDBqarjA2KcM
- qnv7A6Z7iiVFhNFX69wQW5aFRngOCzOURMTx13r2SgNAm6mzimQG3owz/dhCpkAmxun6
- 5pN8Z1O4DOSQt+Yq8taFEcSQ2wKqJLWRDaay2zHUmF2KTVM0Funp91I6eS/ayXiNAyMt
- 8cBSSxeFUw1WpE7nbnjwffI9OPOkzfkchZ2ySNiJP9zEH3sHJWhKzGDUP6ZfYD02JOgJ
- 7A6oGnNAWfS4Xw6sWja+Iu3l6Wi9EWRl3Z8U69EkxLBOX0hcWa9BiUc1rBIrCLzggG5H
- IAdQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CE1110E23E
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 02:26:53 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-92ed19f4d60so28412685a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 20 Aug 2026 19:26:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787276714; x=1787881514; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
- b=QvrVdRkz5IcIeNlhXpt0PytbkjgOiJZSHNLj7uzuPn1qJiP0OQuISuTF0k2ZNcUDhl
- Z4Ty5DA9wmtpXARTJsI17y6p3qQEPvfFfyzRg1vqUZTVJ0nHt8AvGJDi42x1BLCIUF3/
- PavnF7qaTq4BI5N2/PDMAtB/3A+N8EzGgQyn88UUNEJ84uNP8inP+8Q9NvxsHfch1Vbd
- 4CrKCCrreUVZmCtmh2whYPiX6LxthrEzowRFOq/McdZk4JYtuKqviDiX0DWagxK8VSF/
- T4hurJptyj33iuB9pNZVK+MTQgYBj8CTsL9YZ07Gi1bxlrqiowtDIkUJiLP2KW4M27Jp
- +m6Q==
+ d=gmail.com; s=20251104; t=1787279212; x=1787884012; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3p22lcB0JjWSZ69s6Uy8khUw1NryKg+QOA+ussz8obI=;
+ b=a4GsrilIt/4P1XguxEM+YqrECrIakm+iIs9ncp0I/07HCPtsMxflV6m3ebam6y7NAH
+ Cpm+SsECW9geLZPHO2S3ncQTqlahWcQPIorzt9AFlVLXOsSLZ7DwjXr/UKhGr1IXEZJT
+ K4SSYmAaYAkQRlJ3IHsjD2CjPuiyjpD8Ks6E5DOcFCNGvPB4VUZ2hTKfMXVNPyzv2Id2
+ 5ioT6cdRz1cmkvQaQaPTjsSm3ZKpcMwtRO+mIziaFqi/MfPaz034toEDMow8yRlm5qw/
+ w2EP8jL9x5BCoZb1Oa03cjeIAIdZj/CSSOqA/SR0uHNiLw0sHdP3KDsOh0dpRXRXATES
+ O2kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787276714; x=1787881514;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
- b=qRPME8qHoH0Dmd+1W7QpvYfrkfx3/cz8OGOpccmK0Fy1tQEEFstMd0ll0kQHtJp9f9
- zQXAWd6xuok4q1/VgoAZh8c3bZlsdyaVbrvUB5DzA6lt0OTACX6nt8jcDTWoUg4QaXVu
- Xsb9PCloqo5hsjdpezSGXBlGuyGc/6x0V9jKahj3VxPPXcXmUXCZn1kbnbOnfCYT5Vr9
- 7tT/2jHZMrYVM9ToijQ1cTkKGcOk+tNGuX/ucdfdFZWAkjbt3d7YlSaOXw5WCw/Q8xZ9
- isuILHotp8r3/SNqo5bABGXJfFooseclYxFr3TjFIbJNaBcfC3oLmeuo2jL6JeOIUxuA
- k7/g==
+ d=1e100.net; s=20251104; t=1787279212; x=1787884012;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3p22lcB0JjWSZ69s6Uy8khUw1NryKg+QOA+ussz8obI=;
+ b=iUfPg8Gm26LmfoXuKsvjJRckdBUPG//27glxtp6dJ1/QwctQZZ8M8GTqfogG8v4Cw6
+ um0uPzecs9Ot26+VkQ4H3D8H69+cJMLZiwq2NjAIn9dj6XmaZ9TE5iHRt7tj4da8WVcX
+ gOKD/XAkwDfUAZ+XMOxsdmJFknt7JEEfa64NrouBj61wnG4qpwp4nDY2k5onI+BW/55F
+ PPK41Pj9P7xXi2r1A4iMasi7SqNINF6v4COboqa8/HrwBn8Ic8TldhmRgJx+U1WQxDSd
+ Mb/XsEs1vAIZ+S0dsmTczgr/3SfG0oyeGUa/PG7IVw4+2nfxoQvYR8evImHM4szQFUJI
+ NIjQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoMjKiXIKD93YBA/GoKrXcT2RgXdM64TtjrwRYVfpWOeI9Dm4cZfkM/riJKkfbVEpFXX+DSMVYGDGI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lLIPkIaKpwyYfXd9gi12bwfpkxThsXTtNmwNRN3LvzV+uVOt9n
- jPcwAqOqHhFvFPnPnV4Ep00gkXJRvLb3Eh85jxXN1om1znDRDSJ1XKsvdIxJv1WVk7IDRHm+oNx
- weQhNQq8mo/FQkNKMGg3eHkY6yNlkkLQ=
-X-Gm-Gg: AR+sD1254QAPydOyWQiImjXIPqMnuMsC6MZKmUcfpPGThH3KrquLmKTjHPRJV0uAhOL
- sxb3pGT/71W6YyZcZx0tieBFR0unqUxnTqgNxfB4xq0h/3shaz//FRhTDaV+L/rxdERdPSsIxbO
- EYvie6fXdOYXVhAVDp1aNxGVHQfm3NFj7NaUoX8nk1x/lZrp1dapgVdpAYd6YFatDw8jYlgDIz8
- 99pho4j7yjKNmkbx4WQ5gIzdiXfqZUikc5cn7xW2lMTSPB7Din0AgdU90j9aKzqkJFOaHqUqVlb
- pRPp8/e27YyfYXP9rUlr2GGqZnOLfUWLWfusBLNWcbGw87G656cDJKtc0FlHFRg21P3z8kPPBW+
- +jvZh4BHJY8T4wF4NZG34YZwNT2yYZoRI2w==
-X-Received: by 2002:a53:c052:0:20b0:66c:c998:f9d3 with SMTP id
- 956f58d0204a3-66ce49a273cmr1032714d50.5.1787276714075; Thu, 20 Aug 2026
- 18:45:14 -0700 (PDT)
+ AHgh+Rq1C7kdCr9PxSYqcXaSrVsEGo7/+Nr+V1iXMBAcWFYmruxSGcf9y6c/ZlNIry6JnvwFy891JfBkek4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxd7E8BYRPy//tpmi85oyIPybv0dHCcWo3Vi321QjDQm55PDQqy
+ 7fa+ETDxQ1r2+bONnbuPlu8qpp9hb9z0DLgbZNjMBpRjESrhzff1Q6p5
+X-Gm-Gg: AR+sD11IYQ8HW+66Qa7ve/g9zHa+0Kwy+DBwfCOMjFgRk1RrIQz26yrskahg43tL0nx
+ MDQmPX7QX426eSQfQiHxXxqc2G1VHG5Gh0WM0q2KX2DyiagBkAsRmJctKY6NfhQX8UG06uGfw8D
+ 2CG5SPZkyjhfttpyqanVzOnsoSwshfKEGsNZOtCG5YIdEHQcapd8gGuyuwWJ02CM/CbEYXYZrGE
+ 93Lcja+0FUb7p0jxzbywfuIf13qaNdl0HBew/MANFDZtk5qIeKE5qfnEXQcu58Rn6mZT78OZkWb
+ X3LirM7jIKudFS5xqPI9f23rwZVOLEhKuwablDgdwsv3sWGxstGBdxqoXlB2Ct82wAm9PUBjZM7
+ tqA+SCuR+dRr4Pvgjmqj/TETon1RczbUD8UzxQVntUCBahLzQAJyjtuvRxx/WEWO3o91ORU+cvc
+ s9dMLYY+bVUc5PYe/luSlexb0ClaOEepY9iiHo/J57YpplbykYqnJYaiFsQNECzqG9bAaq0SnEz
+ vu51xRfV6M4NJchCw==
+X-Received: by 2002:a05:620a:800b:b0:936:a8cd:a28a with SMTP id
+ af79cd13be357-937285a4fd6mr1143653585a.22.1787279212194; 
+ Thu, 20 Aug 2026 19:26:52 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-937204aa8a6sm498714685a.11.2026.08.20.19.26.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2026 19:26:51 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: dev@lankhorst.se
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ bigeasy@linutronix.de
+Subject: Re: [PATCH v4 7/7] drm/i915/gt: Use signalers_lock to prevent
+ starvation of irq_work.
+Date: Thu, 20 Aug 2026 22:25:29 -0400
+Message-ID: <20260821022530.2503120-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260706114823.752313-8-dev@lankhorst.se>
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706114823.752313-8-dev@lankhorst.se>
 MIME-Version: 1.0
-References: <20260813064902.367504-1-kartikey406@gmail.com>
-In-Reply-To: <20260813064902.367504-1-kartikey406@gmail.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Fri, 21 Aug 2026 07:15:01 +0530
-X-Gm-Features: AcwNN1V4dmKKGjPji2yVJLBTkyyZSgMh7TnOyiEqwl6nQbzA8cc22mdo1kQ-CyA
-Message-ID: <CADhLXY6zACn7j=hSfj2jemjV7eFnVeAd4Dk_CVK4OKGu-KPX3g@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/i915: Guard against NULL driver_data in
- i915_pci_probe()
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com, 
- simona@ffwll.ch, krzysztof.karas@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 21 Aug 2026 07:23:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,54 +93,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 13, 2026 at 12:19=E2=80=AFPM Deepanshu Kartikey
-<kartikey406@gmail.com> wrote:
->
-> pci_match_device() can return the dummy pci_device_id_any entry
-> when a device is force-bound via sysfs driver_override, in which
-> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
-> struct intel_device_info * unconditionally and dereferences
-> intel_info->require_force_probe, causing a NULL-ptr-deref.
->
-> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Ddb96c5ff032f4292a8dc
-> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
-> v2: Drop Fixes tag, this isn't a regression from a single commit -
->     the unconditional dereference of ->driver_data has always assumed
->     it points into a MODULE_DEVICE_TABLE()-backed entry, an assumption
->     broken by the generic driver_override fallback path, not by any
->     i915-specific change. Add Cc: stable instead. (Krzysztof, Jani)
-> ---
->  drivers/gpu/drm/i915/i915_pci.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_=
-pci.c
-> index 82415af47d54..2f03f95945f1 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const=
- struct pci_device_id *ent)
->                 (struct intel_device_info *) ent->driver_data;
->         int err;
->
-> +       if (!intel_info)
-> +               return -ENODEV;
-> +
->         if (intel_info->require_force_probe && !id_forced(pdev->device)) =
-{
->                 dev_info(&pdev->dev,
->                          "Your graphics device %04x is not properly suppo=
-rted by i915 in this\n"
-> --
-> 2.43.0
->
+Hi Maarten,
 
-Gente Reminder. Let me know the status of this patch .
+While reviewing this series, I noticed an additional request lifetime
+issue in signal_irq_work().
 
-Thanks
+The existing RCU loop removes rq from ce->signals and may then call
+i915_request_put(rq). If that is the final reference, the request can be
+released and its SLAB_TYPESAFE_BY_RCU slot reused before
+list_for_each_entry_rcu() advances and reads rq->signal_link.next. The
+RCU read-side critical section does not provide a stable reference to the
+same request object in this cache.
 
-Deepanshu
+The v4 conversion to signalers_lock/ce->signal_lock and the
+list_first_entry_or_null() loop removes this post-put dereference, so it
+also covers this UAF path.
+
+This is independent of the PREEMPT_RT irq_work starvation trigger. I can
+reach the sequence in a diagnostic run, although KASAN does not reliably
+report it because i915_request uses a SLAB_TYPESAFE_BY_RCU cache.
+
+Since this also removes a request lifetime UAF from the common signaling
+path, it may be worth considering the relevant fix for stable kernels once
+the series is accepted.
+
+Best,
+Shuangpeng
