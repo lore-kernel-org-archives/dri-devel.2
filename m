@@ -4,84 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69E4CC5DF81
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42327C5DF9C
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 674AE10E3F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA11310E480;
 	Sun, 23 Aug 2026 09:27:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FMYYaEoc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MGvqwr1d";
 	dkim-atps=neutral
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D133289117
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:07:43 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id
- d75a77b69052e-52de178a66aso6846231cf.3
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 07:07:43 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4AAB10E2F7
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:49:02 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4957eefd361so7154815e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 07:49:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787321263; x=1787926063; darn=lists.freedesktop.org;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:content-type:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=QHJgjLvgHDbYJ/uRAJqtcFTfRjwoYjG5WYJnARLGN6I=;
- b=FMYYaEocRAgq0aHEtb0xJ1BtA4WL9iU3S93r37oQq6Ampqv+bVTZHHJoe4XfCtzwQJ
- onWsDnP75JFehE9LKp7JFzG0gi0S/b3PNvsK7Be5JP/uVJSVfregVhhgvEmTEWCwFlGI
- qkeG4jhEpRHgQkYGlGAUtteipaRE7yPxqJvn/ddxyncmtXcTM3CiE8oermXG63c27Vg4
- /P9IMgZRmaJEHGhg4kAtvGHg9SBX/MoGgerAL6PmD+ikxCI63xgEFEdXxSVUH8r9kheQ
- rFDFFGrVFopHemRXI1PwWhnigmRJVIaIe8fb/NwYn5f46sWqEwYFX9oK1BhbGtNx0tQg
- vzWg==
+ d=gmail.com; s=20251104; t=1787323741; x=1787928541; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=RySDzNgFwOZt+mpqx8aHwP46Unuo6yoVJSd8AB2W69Q=;
+ b=MGvqwr1dUrnU2YfAWRain/LptCn2BaE0ux5bm1H8SLSiSzGTiSeRygkYnU2VIDXkOe
+ 5uEotn7paoVgqkMy13RtBUaEhfDtjNtYU/leZJMJXasHvF1BRkhNjjzXxWRiLUCx/G29
+ vKFkVUXrOogoAbLfy7j54ql1Bd895JikokbrYUBcIGW1/MoTLj9pn/rFmxdx5Oc0PcKK
+ /7tNM+eSEk5MUIe0nkaXiL54LNk56TIJ25GPkTEY/u++0s/CNlwdQo0VWxF0lpCRbvux
+ P9wzkNqSP2Re0smCLRFA5YwzrjXW9lpDEY+g+FuNvautqlmuJu5UxfDbMndfHqGkKvJO
+ 7ypg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787321263; x=1787926063;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QHJgjLvgHDbYJ/uRAJqtcFTfRjwoYjG5WYJnARLGN6I=;
- b=RM1KQ8Ps8rPO7j1OOo3rqBZWvZ9auuA0smbeXjvCAYsKw9R4cdoCLz8ywcJn3/iYL8
- 10MZeLYu6rVKuISC6dLq6Mawn56Ec/QvujzJqFaQ8nwz38XoCY686nVSHJCOQ6BYXH5U
- /8zyZgVPTN0TRKZ7qk9rmweMYsWs9MIiEs53oRr7Na/TC8txPa+BjReLYNkw22lW03zb
- n5TmIkRsEdY6mwBMXNOqX90pVDEsIOwPe5C1s1u4+dSX0jfNWKCFKzWGFdYiggzARAaI
- 1LI4RBBfHyw5lUgASw8mOd+YBqYfQLrmch6HDtL05aRKFvA06JQgCg37OYJbp1c2Ttb8
- Hrpg==
+ d=1e100.net; s=20251104; t=1787323741; x=1787928541;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RySDzNgFwOZt+mpqx8aHwP46Unuo6yoVJSd8AB2W69Q=;
+ b=Yn3xD1bIp4xlEf/xRHjVpsI0cqiQiC2K4DnkZY2qDQ4rRA+PTt34iiuB4xS9tFO3kw
+ maAZ8pNPXqOMZZ4V7LUJkWEv9lATzy+JT+xnc0st1P5WXRnUZanLy0mIK4i7NDW5urP0
+ DmpzkSB1QlwSVeeERUlC1Gbn6qpjtcsnY9pnDXF4QIHhyVB+eOpfzcfD77fSOoT9QEBF
+ 5gOQKOnSpNXwYstoKqA3qDc/geFdcvkntnlmCM7wImZuYBGozB+cDthJyb0urOt/ReUk
+ ZvnhOYlpl3eeQmIowypvwtXbKgAUasiMIm0qc7uJ5YS7Y66QLADyyRA5QEnMgo6cw+wE
+ eanQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrOU1BotPFj89/CXgOKBx3sB5fDNTORabBRjfXgACvRjZd9SRNlIumYU8JY0aXEYqRwGPP6u4mA6aM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyyGptDC2RbLbJs3LoyL0wEKUlDtnTYDHxwYA4209G5eufw+lKb
- 5T/8ETXH7a1kd2U7V0e8D2v7mh0AZ1Qm0sr2xPKvBtSg/aQW69EViklF
-X-Gm-Gg: AR+sD13jLOGpIhZtJn/J3DvwNklodft96hjBZbd04zUlL+jSHQDK89b/Qb07FiMDaF3
- 9Q1WDHlW8wEFW0YAbCkgtIGsy3bK8Dp6lQtBZvrsL1vXrhMd/JRWE3xSs60sv8T83d6hWXDxa0t
- hk6XmLQ2FeRRowyxOUt3bSl5fTcSAJwc5auLPWqID9suu+XSfHDP+KoHXAMlSGo0ZPaFck+hKUL
- pPnvh9grR7w1c4ZqnYNuye/u0p/ZVc/BKvJrWCnN96Ao2v4s5/QmTRbO5jKXqgoPNEYcWRBb22y
- sjGNML/fMZVt4AST4Iz3EZoHcFH3yKXsM4K3buX67InntWVvJ+mP4CLD9KLAW2pmAsUbc3hpgM8
- umIb1CSUvUGXEs+j9RJ7gSaCLxA2FO8Ky3ZWsjI58oj9XQPQbkGZV65In87pVvKxN1BiQzvzorB
- 3GqUc180OGFZHbA6AWFspGILe8/TqTPENOtyNFmWMDRaQ/IMU/wxmNREWiOEYF0DfBmWQ4vouB3
- /Poqe/em6CLrqrZnsrU
-X-Received: by 2002:a05:622a:5c14:b0:52d:3ccc:968b with SMTP id
- d75a77b69052e-52df56e4b5dmr59495521cf.9.1787321262531; 
- Fri, 21 Aug 2026 07:07:42 -0700 (PDT)
-Received: from smtpclient.apple ([165.85.199.100])
+ AHgh+Rp5r+cOf0M0Q4aJmi6YgxhECdYdPZE1+utd4EXMI53T9TDO/WDCcv7NVI/M7zmcjQhIflUP1dc+x5Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwmInrZX/Z0y/CHZz9rmrxZDYNJZwGCowXm4Ejb3xmY3f4kzlok
+ 2bur4xffqR2k5r98TqI7bBSdr+7s24gyBReCfmEJ8IE4Ibm+78x6USAe
+X-Gm-Gg: AR+sD10q9PZWoUMVyl+PwtyNG9dSU84vZneXIpTwXkfklrQbEa4ruq5t0AjSTltXkEr
+ HNOpNgCwp+2iBSvQCL3z6Df+K6OE+HsBLmvzr69sdH/DOXdoegD+d4hncGnuua2d2oXWYm3hspl
+ pmK8pPOs0mwLwPL2j9fJxpuiXpvtwXeqJx+405Buwkyi5P+WskzHq4Q9pmAMgRWf1eZqwyYwOYj
+ /hONJPFsP/RdBUSoseSoCQ0ISU5uAKclQcSz0EC9ceZqAIfoUTcur4ej7Scx+n/srwl7p8ZQzap
+ jRkPnSCIbS1yRD7BTekGjVICppg/Gq6o7JpPeAIDr6hEfF4+F3ywDakqEHneDTa0vQir1NTainK
+ yGOG8IZ/7be8Nr3WJsu4WFqwUZhvgrGUuOxKRSo94iB4nwyju76W+CBlIj1XPwA31fipm0wVM4e
+ RNt1CJP7Cf6dvRzg6v9kvVmIBndZHevmu7g4RAALlBzl3CLGIzBNLVbxGvgr4dvXMyYq9b0fkhJ
+ iHWWGSHkBiRMdbcScD8yP0dJw==
+X-Received: by 2002:a05:600c:4f87:b0:499:5a50:b022 with SMTP id
+ 5b1f17b1804b1-499b830d220mr94399405e9.3.1787323740952; 
+ Fri, 21 Aug 2026 07:49:00 -0700 (PDT)
+Received: from [192.168.1.10] (212.pool95-21-2.static.orange.es. [95.21.2.212])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90c5f2a2d62sm62929666d6.38.2026.08.21.07.07.41
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 21 Aug 2026 07:07:42 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH v4 7/7] drm/i915/gt: Use signalers_lock to prevent
- starvation of irq_work.
-From: Shuangpeng <shuangpeng.kernel@gmail.com>
-In-Reply-To: <5c4b9949-506b-4a01-b390-a83ec5d63fd5@lankhorst.se>
-Date: Fri, 21 Aug 2026 10:07:09 -0400
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- bigeasy@linutronix.de
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <ECED6685-78D9-4B31-BEF3-5ECEA21EA492@gmail.com>
-References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706114823.752313-8-dev@lankhorst.se>
- <20260821022530.2503120-1-shuangpeng.kernel@gmail.com>
- <5c4b9949-506b-4a01-b390-a83ec5d63fd5@lankhorst.se>
-To: Maarten Lankhorst <dev@lankhorst.se>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+ 5b1f17b1804b1-499be3a3e2esm10640175e9.1.2026.08.21.07.48.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Aug 2026 07:49:00 -0700 (PDT)
+Message-ID: <3b85e6e2-29d0-43ea-abe2-246f1148939a@gmail.com>
+Date: Fri, 21 Aug 2026 16:48:58 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] Memory leak error in qxl unbind
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20260809165326.164763-1-megia.oscar@gmail.com>
+ <2026080941-edge-lurk-2146@gregkh>
+Content-Language: en-US, es-ES
+From: =?UTF-8?Q?Oscar_Megia_L=C3=B3pez?= <megia.oscar@gmail.com>
+In-Reply-To: <2026080941-edge-lurk-2146@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,69 +98,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-> On Aug 21, 2026, at 07:45, Maarten Lankhorst <dev@lankhorst.se> wrote:
->=20
-> Hello,
->=20
-> On 8/21/26 04:25, Shuangpeng Bai wrote:
->> Hi Maarten,
->>=20
->> While reviewing this series, I noticed an additional request lifetime
->> issue in signal_irq_work().
->>=20
->> The existing RCU loop removes rq from ce->signals and may then call
->> i915_request_put(rq). If that is the final reference, the request can =
-be
->> released and its SLAB_TYPESAFE_BY_RCU slot reused before
->> list_for_each_entry_rcu() advances and reads rq->signal_link.next. =
-The
->> RCU read-side critical section does not provide a stable reference to =
-the
->> same request object in this cache.
->>=20
->> The v4 conversion to signalers_lock/ce->signal_lock and the
->> list_first_entry_or_null() loop removes this post-put dereference, so =
-it
->> also covers this UAF path.
->>=20
->> This is independent of the PREEMPT_RT irq_work starvation trigger. I =
-can
->> reach the sequence in a diagnostic run, although KASAN does not =
-reliably
->> report it because i915_request uses a SLAB_TYPESAFE_BY_RCU cache.
->>=20
->> Since this also removes a request lifetime UAF from the common =
-signaling
->> path, it may be worth considering the relevant fix for stable kernels =
-once
->> the series is accepted.
->=20
-> The original patch for the conversion actually had this bug. There =
-were some
-> failures reported by CI, pointing to a use-after-free after the =
-changes.
->=20
-> Originally I thought it was due to the conversion itself, that the =
-lifetime
-> was previously sufficiently by RCU. It makes sense that RCU itself =
-couldn't
-> properly protect that, and that relying on it was a bug to begin with.
->=20
-> Thanks, I'll send this patch again separately and attach a stable tag!
-> Since you reported the issue, would you want to put your reviewed by
-> on the patch as well?
-
-Thanks for checking this. Yes, please add my Reviewed-by tag:
-
-Reviewed-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-
-Kind regards,
-Shuangpeng
-
->=20
-> Kind regards,
-> ~Maarten Lankhorst
-
-
+On 8/9/26 20:19, Greg KH wrote:
+> On Sun, Aug 09, 2026 at 06:53:14PM +0200, Óscar Megía López wrote:
+>> I discovered an OOM after run the script below
+>> (I updated it and added a sleep to allow enough time for the cache to
+>> recover):
+>>
+>> while [ 1 -eq 1 ]; do\
+>>    i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
+>>    if (($i%1000==0)); then\
+>>      echo i=$i; free;\
+>>      grep nr_free_pages /proc/vmstat;\
+>>      grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
+>>      sync; echo 3 > /proc/sys/vm/drop_caches;\
+>>      echo 1 > /proc/sys/vm/compact_memory;\
+>>      sleep 10s;\
+>>      free;\
+>>      grep nr_free_pages /proc/vmstat;\
+>>      grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
+>>      uptime;\
+>>    fi;\
+>>    echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
+>>   done
+>>
+>> The OOM isn't just a simple leak; it's a refcount corruption which renders
+>> the list_lru fix dead code after the first mid-init failure.
+>>
+>> Here's the chain:
+>>
+>> Bug 1: ttm_pool_type_init() does not check return from list_lru_init().
+>>
+>> Fix: Check the return value from list_lru_init() and propagate the error.
+>>
+>> Bug 2: ttm_pool_fini() does not destroy list lru with list_lru_destroy().
+>>
+>> Fix: Add list_lru_destroy() after ttm_pool_type_fini().
+>>
+>> Bug 3: ttm_pool_mgr_init() does not check ttm_pool_type_init() return
+>> and does not free pool if returns error.
+>>
+>> Fix: Move up shrinker_alloc(), check ttm_pool_type_init() return and free
+>> pool types and shrinker if non-zero and return error.
+>>
+>> Bug 4: ttm_pool_mgr_fini() does not destroy the list_lru.
+>>
+>> Fix: Add list_lru_destroy() after ttm_pool_type_fini().
+>>
+>> Fixed check for an empty shrinker_list.
+> Why is this not 4 different patches as part of a series?
+>
+>> This patch depends on patch ("[PATCH v3] drm/qxl: fix use-after-free in
+>> qxl_irq_handler on PCI"), link [1] below.
+> That's not going to age well in a changelog text :(
+I'm a newbie. What's the best way to add a patch it depends on?
+>
+> thanks,
+>
+> greg k-h
