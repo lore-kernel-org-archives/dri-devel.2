@@ -4,63 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 468FDC5DF8C
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 17:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59048C5DF8C
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 19:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9144410F39B;
-	Fri, 21 Aug 2026 17:23:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="GTXAOfd2";
-	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0901A10F39B
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 17:23:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787333013; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=MGrEfaEkbyY0rx0nwMDBxXJVIhIlJtq2nMuOqHq5Bxs8+N3r0gi7Tl0jIVH3E4etyE8cKrwiUvMk9dNPBfuMU6TyEjhMA1iyhkFEc7xOZ/Er65KcLgpo9BEf1OzriOwHyZ7M42gd5JCqygkbdkxiyuKtOYatMgN5db7j/oyILtw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787333013;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=s2U7DZDY9tfPJYgvMgpJ0UGRMetPtwyd+1Mwri0MT9I=; 
- b=SHzJHTZaNIx9Jhigiqn+b9nHweHTuD0dqXgfTinSDdFmsknr4CY3gx2ulo53fzWExSWoQNZyG9Sl+gDRTGq6LhRRGedh6hUx+3USsjgf8ZS19Rt7jOWTnL5tYI0oQMsoXjH9NmQqcvq8N8O+NRPVlAivMUyQXV1CKC3Vq12Uaz0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787333013; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=s2U7DZDY9tfPJYgvMgpJ0UGRMetPtwyd+1Mwri0MT9I=;
- b=GTXAOfd2BtFrtj/n7wWEE83keAOdzX7PTxcWVPOaU40Mpm8KoxaiqRqAoho0h7qe
- 1mIJBHvgBPrXGLqOxJGjXFLbVbqYwIh8pgRdeXz6xqk/jw2EoOXIFRdRujXHjEEXKfd
- 1YEwcG6HvnmpoAy/I3fJ7etglykhrtVxKhwqGK4g=
-Received: by mx.zohomail.com with SMTPS id 1787333010663388.90751470786734;
- Fri, 21 Aug 2026 10:23:30 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 2/3] drm/tyr: add GPU reset infrastructure
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <DKUS768JV9RM.36WFW7QI27WKK@kernel.org>
-Date: Fri, 21 Aug 2026 14:23:12 -0300
-Cc: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, aliceryhl@google.com, airlied@gmail.com,
- simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <74217098-8793-4701-8292-FBE0DB31FD48@collabora.com>
-References: <20260819-tyr-reset-impl-v6-0-7b4e1e041fe5@onurozkan.dev>
- <20260819-tyr-reset-impl-v6-2-7b4e1e041fe5@onurozkan.dev>
- <653D47F5-0AF3-44B5-9896-F0AA81F67B61@collabora.com>
- <20260821155814.980146-1-work@onurozkan.dev>
- <2AD43D0D-2B01-47E3-AACB-32032B3358C9@collabora.com>
- <DKUS768JV9RM.36WFW7QI27WKK@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+	by gabe.freedesktop.org (Postfix) with ESMTP id AACE210F5EF;
+	Fri, 21 Aug 2026 18:52:57 +0000 (UTC)
+X-Greylist: delayed 2001 seconds by postgrey-1.36 at gabe;
+ Fri, 21 Aug 2026 18:52:51 UTC
+Received: from BN1PR04CU002.outbound.protection.outlook.com (unknown
+ [52.101.56.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB7B10F5EF
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 18:52:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ScSrrabrnpJSDO4wllfxieEWafT9wtcPwHuMF9BLgx7OJg/91By9UsKE/wFJwejXmdo0t/Ro+HFYZuns3LkQGUL8R+MwhWbvSRgzJVXikIkLDg+h3ogRbxL0ql7K6TrtbcCPcvyZ4k74xGVhp7nF32Wzmfq8a4m/O29DJEf8p6ifoDnZqPEQUIKyki3iRRLrYnhisjgfNLEv6JQuZAtPVIDxyn1hNOeQtGQ1vjmjihCT/xk2XasSaHHMNHx1sWHeonty+GgsXLvZZty2V2Egh9iXJu5/k8IUw0Orl5ojtLIcBRvw7DFrOU4j1nRuKWG3szQEC5t9Zfd6tZqFl+Sycw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TwtYe1dsfQiDYh3BjVwXcmKRYLmtjxj4VUF5RVWLTBQ=;
+ b=e6lY96CxgS/QeOoVyBaP1+rh4PvVR6vlntUIeMfgOS9vNFXcJaStWHDW3xF2Xax5rltuUavaWFxRtivTN8axdIfFsn+2NEJP/KgfamJlBgK9/sblUagTMc0Xu6PQ/RCQI9bY1dEEg5A3ihDWwMUyuFCzy4+SPVka5EO0BeM4YPFn3RReArhKWuJVDnBre2mVT79Cnh+BUzrrYbmGowKEXvIVP6amYaAQjInD9DAcnC62rvV7kNnlbJMBc66MAbeIvuJmcazLxN7EtRjTT17s2h8bhlAROxSS0gRdjf7ZA3Hr2Fz5PZ8Vkg/xh76DE75vKkaGPCF3PXekI0koKqb25g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TwtYe1dsfQiDYh3BjVwXcmKRYLmtjxj4VUF5RVWLTBQ=;
+ b=QDp19K5cG4FTlOQTAACW6eFr+ez+RMaDuLdUnvUOuPpoehOLITHy5nZ5u6B6s12NpG11LsOPS42rR3/CBe7mgbxv1/b3TuAPFeIQ6v6XxHITzzGwfYuwY3ZZADL2ncUJou42OFFEG+MWmgBZngwCbxcOSS81rMNGg1W8Y5oZw24=
+Received: from DS1PR06CA0013.namprd06.prod.outlook.com (2603:10b6:8:458::7) by
+ SN7PR12MB6909.namprd12.prod.outlook.com (2603:10b6:806:263::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Fri, 21 Aug
+ 2026 17:50:47 +0000
+Received: from SN1PEPF0002BA4E.namprd03.prod.outlook.com
+ (2603:10b6:8:458:cafe::75) by DS1PR06CA0013.outlook.office365.com
+ (2603:10b6:8:458::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
+ 21 Aug 2026 17:50:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4E.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 17:50:46 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
+ 2026 12:50:45 -0500
+Received: from [172.19.69.26] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Fri, 21 Aug 2026 12:50:44 -0500
+Message-ID: <7ce13e6d-0da6-4d6c-a05b-3ad5e67499f4@amd.com>
+Date: Fri, 21 Aug 2026 10:50:44 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1] accel/amdxdna: Remove __counted_by from struct
+ amdxdna_cmd_chain
+To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20260821033543.1839719-1-lizhi.hou@amd.com>
+Content-Language: en-US
+From: Max Zhen <max.zhen@amd.com>
+In-Reply-To: <20260821033543.1839719-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4E:EE_|SN7PR12MB6909:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0736635f-e423-48fa-dc68-08deffacba85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|56012099006|22082099003|11063799006|10067099003|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info: ZLdACPiS5ivNlg4WVaSB0d2geeKs7zHVZHuAEGDPXr279ugebruapJcNkYUB4XqqWYj/g+uo/8H3JttE4flFgG9lmFVHpPyOj87z/5Vi4j3WAh2AGrGoYMO+0xZut5sSgMvZqmgVU+UEY2LJjYERYiuW1Xiemh3cPPiKNbVua9avlKdLM/UUXhkDm0fOVZ/MHy3XdNBzuGTqXCYRTaPgjMAYr+7+Fav7FG7YudCcUvmEJTnDSxgXBs/njeZpbcoZsvYWw09+CN4shUMYY91SKL0iHzBBuOrMMfnwqCYObZwMQUExxkcBEruUbYbWh06jSb77oLY6pKbJcDLgaIkhQaz/WVKiuW3+HzjwcK7IE7+GKtXDniqB0iZLnBOy/ZH7fKAtqtZLuO4Z9EYN+TpkjHLSkIUx19GHMyiwrgddPf0fjSioIkKXjbZXtuaZNIsQPqrcCHljis46Fq41zPMrE178vj2mmWNMCDcA8R6P0chk2q/oI2JpqJRztASS5vsuzKMOeXKcMY4uzGpFVA0eE6tIZLhXkhdch30ECW4mMLYuCucO3tsForH9a9q6ouqIR0+1ESpVpQ7gH8tPAm32Lyif9crZU1PW1z1wo6IfWEoFL9HjjecLq/1Vx9LNIWnqBMk2wpe82TDoFrFZ+TamQ9/jfnjow1kqOPW3ptszHh4epL8AYf1PgexpMI4lrYwTgECR9sqjQ6HHm2j6yrVFyA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(56012099006)(22082099003)(11063799006)(10067099003)(6133799003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: JN8C6YMCfQ0OjYTRm5dczTwhvUEBj1Dbrwhcz3ehGTlFh6viCtef55KegHLB2ahSZpZIS7b8phyR2xUPnUA+/5Uwmdlt6EK1LbZliWU9BIVDElr6Cizgrl/Lmtli4C0lZNDSRKbTuykyR/SHX7u9v9r7rh4Ke8PoC3CXtdTez7CvQ5rkOlZpiGYjtAjZ2/4E7wog7dx0vDCXbxK2lw1dCEutgTDVe8TUZqrt/ij5LWbfBAyLLtWcxRkof188s6MdB2yigVLEX9hd7zDDwESdIVnNn0lKLMWvgRCTA0sZMN5U/DiWccvDP1us5lH/Q3TW1A8pTpcDbpBQA/qr/HSmIvSM+NgI0AZEREYgpz+ClDRpM68ndb2+gBZvZ1ZjRcXalwDU+StoSVdKT5UHZytqYSgadt0i2bm9cRZyMlsoxXGtNOvdMI0uBXy3vsFRQhds
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 17:50:46.1343 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0736635f-e423-48fa-dc68-08deffacba85
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4E.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6909
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,86 +115,34 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-> Why do you think it is useful to print "Starting GPU reset." and "GPU =
-reset
-> completed." with dev_info()? How does this help users or help with =
-debugging?
->=20
-> In general, if drivers work properly they should remain silent. A =
-successful
-> reset means it worked properly. What you rather want to print, likely =
-with
-> dev_warn() or dev_err(), is what caused the GPU reset to be performed =
-in the
-> first place.
-
-I agree, no argument from me there. The problem is, when the GPU is =
-resetting,
-things are far from "working". In fact, things went so bad somewhere =
-that it
-brought the device down for everybody, and the system is taking steps to =
-(try
-to) bring it up again.
-
-As a user, I very much appreciated this when games went down, it made me =
-think
-that the problem was important enough to report, and also likely =
-explained why,
-in that particular hardware, things didn't really work 100% well =
-afterwards,
-which prompted me to reboot the machine.
-
-Two outcomes could have come from that, a) filing a bug on the game =
-itself, and
-b) telling the kernel guys that their reset code wasn't really working =
-100%
-well either.
-
-I do agree that "Starting GPU reset" is frivolous, but at least a =
-message
-saying that a reset took place, either sucessfully or not, is better =
-than
-silence. In fact, isn't this exactly what AMDGPU does? [2].
-
-[2]: =
-https://elixir.bootlin.com/linux/v7.2/source/drivers/gpu/drm/amd/amdgpu/am=
-dgpu_device.c#L5094
-
-> On 21 Aug 2026, at 14:01, Danilo Krummrich <dakr@kernel.org> wrote:
->=20
-> On Fri Aug 21, 2026 at 6:39 PM CEST, Daniel Almeida wrote:
->> My point is that resetting the GPU should not be a =E2=80=9Cdebug=E2=80=
-=9D trace, but rather
->> something that should hit dmesg unconditionally. Of all things that =
-are
->> printed on a driver, a =E2=80=9Chey the GPU is being reset because =
-something crashed=E2=80=9D
->> is something that should always show up IMHO.
->=20
-> Please see my reply in [1]. If something crashed, please feel free to =
-add a
-> dev_warn() or dev_err() print about the exact error condition. But =
-please do not
-> add dev_info() prints about things that were successful and just bloat =
-dmesg.
->=20
-> In this specific case you want the caller of ResetHandle::schedule() =
-to print
-> about *why* the reset work was scheduled. You also already have a =
-dev_err()
-> print when the GPU reset failed. So, at this point you're good =
-already.
-
-I guess that also works, so long as it says that the GPU is resetting? =
-i.e.:
-it=E2=80=99s not only a fault or something, but also a message saying =
-=E2=80=9Cthis fault=E2=80=9D (or
-whatever it was) is causing a reset.
-
->=20
-> Additional prints about when exactly the reset work starts and when it =
-completes
-> is stuff for dev_dbg().
->=20
-> [1] https://lore.kernel.org/all/DKUR5TGKTJT1.3VR0LSG4WWXJJ@kernel.org/
+On 8/20/2026 Thu 20:35, Lizhi Hou wrote:
+> struct amdxdna_cmd_chain contains a flexible array annotated with
+> __counted_by(command_count). Since the structure is stored in shared
+> AMDXDNA_BO_SHARE memory, userspace can modify command_count concurrently.
+> If command_count is changed to zero, the bounds check generated from
+> __counted_by may fail and trigger a kernel panic.
+> 
+> Remove __counted_by to avoid relying on the userspace-controlled
+> command_count for the flexible array bounds check.
+> 
+> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_ctx.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
+> index e6155f4b5db0..010538cb05a3 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
+> @@ -56,7 +56,7 @@ struct amdxdna_cmd_chain {
+>   	u32 submit_index;
+>   	u32 error_index;
+>   	u32 reserved[3];
+> -	u64 data[] __counted_by(command_count);
+> +	u64 data[];
+>   };
+>   
+>   /*
 
