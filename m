@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27F72C5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85F8DC5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:36:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65D0D10F31A;
-	Fri, 21 Aug 2026 15:35:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9B9D10E316;
+	Fri, 21 Aug 2026 15:36:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HfDwKvUw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JvVLrvJq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 234DB10F31A
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:35:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86FAD10E316
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:36:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 60DDE6136E;
- Fri, 21 Aug 2026 15:35:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA0E1F000E9;
- Fri, 21 Aug 2026 15:35:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5234541FD8
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:36:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091971F000E9;
+ Fri, 21 Aug 2026 15:36:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787326547;
- bh=x7Y1LoV4lQAjus02t8XPDVi7lZIhF8gUdANtQTf61w0=;
+ s=k20260515; t=1787326591;
+ bh=Tt6CdkUcL+I8hq6sDky958PN3WErFFP6wb2N88z7hKo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HfDwKvUwXKaL9oygohCadOHQbMFbKx+S1alGxYFXwGzgnkl6zJ16zcZjYRDasLMxP
- 0FNAx7J+YCyIpEfbKm3pvKe1nM3548uDs+Ahe2bsEohh1UhJqk9SYVmDm2EOibqjrC
- X5JMwDEqGVFou1QLZeSjNfdNupn2fXVT5ARYVcyGzkV29e48qvBYHSDfjn4g7vJqoX
- VE0GgRf3Q+zGgp0+DI91FfMPu/ydMp7PQehczZO47R+wbpX8JbwrS4jcs7+0GSps/h
- HvTIdTPNkRH9m3ZCoyK5yjAfv5PiLFeCsOK1LSG6RjwUGjhGpufrQwSc2FMkTxJWOj
- qqS0QXOy3OaXA==
+ b=JvVLrvJq7D6JJV6bMbsHFV5srF3+v202VPfFPzg/UOeQdqXa+8AZXYeCnt3k6SitP
+ vPhC+AFedYFEIVhuTyl4KAfdOGSlJyOSTkYNr/C5M0phHcNZtYvhJB7ClZJtEaLct4
+ a9gQu0T3Hu/YG8kQ+ZqbSXG4LqNX8grlPMxK3A9VIPiMD55+O7C+9duuwLrffET4VD
+ 8p0j3et7Cs4H8Y9RjnfFXD20NzuoevqapHWJSOcFJpLcosT76IuHYQIZIb17TurbrA
+ tbMwY8OMCYeeaf7BTZGGq8hpqaFJGQX9dI2hOTgptQyNaINgNW4iXuWTVlX9zmrn9w
+ rAhEVtbhgP3wA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] drm/nouveau: don't kill a fence context that is
- not ready yet
-To: "Marek Czernohous" <mczernohous@gmail.com>
+Subject: Re: [PATCH 50/70] drm/loongsoon: Move hardware reset to CRTC creation
+To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <178732578167.167481.4590474568281802870@gmail.com>
-References: <178732578167.167481.5619512544301226563@gmail.com>
- <178732578167.167481.4590474568281802870@gmail.com>
+In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-50-fb793475c05a@kernel.org>
+References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
+ <20260821-drm-no-more-crtc-reset-v1-50-fb793475c05a@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 15:35:46 +0000
-Message-Id: <20260821153546.EAA0E1F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 15:36:30 +0000
+Message-Id: <20260821153631.091971F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,106 +57,68 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The newly introduced `ready` flag check can be bypassed because `c=
-han->fence` is published without a release barrier by the backend allocator=
-s, allowing a concurrent `nouveau_channel_kill()` to observe pre-initializa=
-tion garbage.
-- [High] A concurrent channel kill event can trigger a Use-After-Free if fe=
-nce context initialization fails because the kill event is armed prior to f=
-ull initialization.
+- [High] Broken S3 Resume due to missing CRTC hardware reset
 --
 
---- Patch [2]: [PATCH v4 2/3] drm/nouveau: don't kill a fence context that =
-is not ready yet ---
-commit 566dba46ab74848a1cc990a88e4d8e18c316f52d
-Author: Marek Czernohous <mczernohous@gmail.com>
+--- Patch [50]: [PATCH 50/70] drm/loongsoon: Move hardware reset to CRTC cr=
+eation ---
+commit 841a0290c125afb8611341788938204f1fca139c
+Author: Maxime Ripard <mripard@kernel.org>
+drm/loongsoon: Move hardware reset to CRTC creation
 
-drm/nouveau: don't kill a fence context that is not ready yet
+This commit moves the hardware-level CRTC reset out of the atomic reset
+hook and into the CRTC initialization functions.
 
-This commit introduces a ready flag to the fence context to prevent the
-kill handler from taking an uninitialized lock. It uses smp_store_release()
-and smp_load_acquire() to hand over the context safely once it is fully
-built. A channel killed during initialization is recorded and processed
-once armed.
-
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nou=
-veau/nouveau_chan.c
-> --- a/drivers/gpu/drm/nouveau/nouveau_chan.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
-> @@ -43,9 +43,17 @@ module_param_named(vram_pushbuf, nouveau_vram_pushbuf,=
- int, 0400);
->  void
->  nouveau_channel_kill(struct nouveau_channel *chan)
->  {
-> +	struct nouveau_fence_chan *fctx;
-> +
->  	atomic_set(&chan->killed, 1);
-> -	if (chan->fence)
-> -		nouveau_fence_context_kill(chan->fence, -ENODEV);
-> +
-> +	/* Pairs with the smp_mb() in nouveau_fence_context_arm(). */
-> +	smp_mb();
-> +
-> +	fctx =3D READ_ONCE(chan->fence);
-> +	/* Pairs with the smp_store_release() there. */
-> +	if (fctx && smp_load_acquire(&fctx->ready))
+> diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c b/drivers/gpu/drm/loong=
+son/lsdc_crtc.c
+> --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> @@ -403,9 +401,6 @@ static void lsdc_crtc_reset(struct drm_crtc *crtc)
+>  		__drm_atomic_helper_crtc_reset(crtc, NULL);
+>  	else
+>  		__drm_atomic_helper_crtc_reset(crtc, &priv_crtc_state->base);
+> -
+> -	/* Reset the CRTC hardware, this is required for S3 support */
+> -	ops->reset(lcrtc);
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but can we read pre-initialization garbage
-for fctx->ready here?
-
-Because chan->fence is published by backend allocators with a plain store
-(e.g., chan->fence =3D kzalloc_obj(*fctx)), on weakly-ordered architectures,
-this READ_ONCE() might observe the pointer before the allocator's zeroing
-stores are visible. The smp_load_acquire() on fctx->ready doesn't prevent
-reading pre-initialization garbage for the ready flag itself.
-
-If ready is read as non-zero garbage, the kill handler would proceed to
-acquire an uninitialized spinlock, potentially causing a kernel panic.
-
-> +		nouveau_fence_context_kill(fctx, -ENODEV);
->  }
+Since drm_mode_config_reset() is typically called via drm_atomic_helper_res=
+ume()
+during system resume, does removing the hardware reset from this hook preve=
+nt
+the CRTC from being correctly reinitialized after waking from sleep?
 
 [ ... ]
 
-> @@ -494,7 +502,12 @@ nouveau_channel_init(struct nouveau_channel *chan, u=
-32 vram, u32 gart)
->  	}
+> @@ -983,6 +978,9 @@ int ls7a1000_crtc_init(struct drm_device *ddev,
 > =20
->  	/* initialise synchronisation */
-> -	return nouveau_fence(drm)->context_new(chan);
-> +	ret =3D nouveau_fence(drm)->context_new(chan);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this error path lead
-to a use-after-free if a concurrent channel kill event fires?
-
-Earlier in nouveau_channel_init(), the kill event is armed:
-
-drivers/gpu/drm/nouveau/nouveau_chan.c:nouveau_channel_init() {
-    ...
-		if (ret =3D=3D 0)
-			ret =3D nvif_event_allow(&chan->kill);
-    ...
-}
-
-If context_new() fails (e.g., due to VMA allocation failure), it cleans up
-by freeing the fence context. If a hardware kill event fires concurrently,
-nouveau_channel_kill() might read chan->fence before the error path clears
-it. This would lead to a use-after-free when smp_load_acquire(&fctx->ready)
-is evaluated on the freed pointer in the asynchronous kill handler.
-
+>  	drm_crtc_enable_color_mgmt(crtc, 0, false, 256);
+> =20
+> +	/* Reset the CRTC hardware, this is required for S3 support */
+> +	lcrtc->hw_ops->reset(lcrtc);
 > +
-> +	nouveau_fence_context_arm(chan);
-> +	return 0;
+>  	return 0;
 >  }
 
+[Severity: High]
+The comment explicitly notes this reset is required for S3 support, but
+ls7a1000_crtc_init() only executes during device probe.
+
+During S3 resume, the hardware registers will likely contain garbage values=
+. If
+the hardware reset is no longer called during resume, and the atomic commit
+path merely performs a read-modify-write to enable the output, won't this
+preserve those garbage bits and cause the display hardware to hang or fail
+to resume?
+
+(The same question applies to the identical change in ls7a2000_crtc_init be=
+low).
+
+[ ... ]
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178732578167.167481=
-.5619512544301226563@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-drm-no-mor=
+e-crtc-reset-v1-0-fb793475c05a@kernel.org?part=3D50
