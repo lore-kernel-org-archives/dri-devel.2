@@ -4,141 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1275C5DF88
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 06:39:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF644C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 07:16:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAE8B10F229;
-	Fri, 21 Aug 2026 06:39:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5D2C10E267;
+	Fri, 21 Aug 2026 07:16:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bwcBwS0+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6Z4vcbQC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mL9/9Iir";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xbk2DB96";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="hXS5SXgD";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8198E10F220;
- Fri, 21 Aug 2026 06:39:12 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3284B3EAF;
- Fri, 21 Aug 2026 06:38:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787294328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
- b=bwcBwS0+RC4EqtR9XE60Dr7YThswkD9m/wJHGl0tYz+b+jnsCbHokMe2hGq/Uqk4uzT50A
- eo3102wp6SGIjVNcjni9XRheTPpNywHtnve3o/8JTxEV7f0KyAXhdofQzz/9ZLDSC0zYU4
- Y6GN1+Rph/uZtJg+IxXU5IT21JaHaQE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787294328;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
- b=6Z4vcbQCxluqvDsyVW5JOdb+VetFkKQe/E/aiunFRyGnD0F+w7Vd66aAq33oo/wFBvKlfS
- DD681hcQkd6gUCBw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="mL9/9Iir";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xbk2DB96
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787294324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
- b=mL9/9IirJ/hFuHoEJ9tqN6Gyj/BzCxbBnS8Vhpd9olYi8cAzb5Q7wleR0jkMWFnb6EQXj4
- MbELBsuGxlTEhOXwdoUh5C2t3dHRphQ2taTyOQWKik5ErjYPYnJRZqA4MOEXeGdv8z+pmE
- DnM6e+TO6hELLfr5XGJHojqd0ilrLZA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787294324;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
- b=xbk2DB96M/yt8An1/BaVXFIB/WVgjEWwzS3BFmfjzbloxDMaBSaA5lj+zU3stDKov/MLO3
- gePOA+Nf5lkyeWCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BBCDE3329;
- Fri, 21 Aug 2026 06:38:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id us1oLHPyh2pUAgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 21 Aug 2026 06:38:43 +0000
-Message-ID: <3d0d14e6-05d2-4fc4-befe-e1d0cafc91db@suse.de>
-Date: Fri, 21 Aug 2026 08:38:43 +0200
+Received: from mail-m158139.netease.com (mail-m158139.netease.com
+ [47.251.158.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B165F10E267
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 07:16:53 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4ad248d70;
+ Fri, 21 Aug 2026 15:16:49 +0800 (GMT+08:00)
+Message-ID: <31039a3a-05ca-4a98-b5ce-4cddd4f411a2@rock-chips.com>
+Date: Fri, 21 Aug 2026 15:16:49 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/12] drm/panic: Split into core and helpers
-To: Jocelyn Falempe <jfalempe@redhat.com>, javierm@redhat.com,
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
+Subject: Re: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for optional
+ data-lanes mapping
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <20260819075238.3007087-1-damon.ding@rock-chips.com>
+ <20260819075238.3007087-6-damon.ding@rock-chips.com>
+ <20260819080422.816771F000E9@smtp.kernel.org>
+ <f0151ee4-f660-43d2-a49d-13ab2ad12dbc@rock-chips.com>
+ <DKSXRX52W03E.2II5M5DIT6E1C@bootlin.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <DKSXRX52W03E.2II5M5DIT6E1C@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 3284B3EAF
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[19]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:mid, suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-HM-Tid: 0aa0232df3b003a8kunm8622f394452441
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHkIYVklMTE9LGkpOHU1MTVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=hXS5SXgDwxi+HtZ2N9rPsD5Ccjov+gjZXmssCncqMbpYAYtgXoEUMyZP5AncLXH+RQxLN/+fWZqugxOCUV4hwGeqdpBGkjmObJ7du9JNtYwMDLxiznHIra7sQH4bC360/YsROFUK3E8RIJLf7c1vRxq18w4JrCJeCnPX+itjlys=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=I2StsAsz5/fFec+eWCjU0PPcXhFTakynsGrQu06Dbi8=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,75 +64,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jocelyn
+Hi Luca,
 
-Am 20.08.26 um 19:49 schrieb Jocelyn Falempe:
-> On 18/08/2026 14:27, Thomas Zimmermann wrote:
->> Split DRM's current panic handling into a core and a helper module.
->> The core is still part of DRM's core library. The panic helpers are
->> part of DRM's KMS helper module (for now).
+On 8/19/2026 8:58 PM, Luca Ceresoli wrote:
+> Hello,
+> 
+> On Wed Aug 19, 2026 at 10:53 AM CEST, Damon Ding wrote:
+>> On 8/19/2026 4:04 PM, sashiko-bot@kernel.org wrote:
+>>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>>> - [High] Logic error in hardware lane mapping configuration causes inverted assignments for non-symmetric maps.
+>>> - [Low] Device Tree endpoint lookup inconsistency when querying lane counts versus reading properties.
+>>> --
+>>>
+>>> --- Patch [5]: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for optional data-lanes mapping ---
+>>> commit 1c15eb6132eedc3d606168644e5f97918c8e3651
+>>> Author: Damon Ding <damon.ding@rock-chips.com>
+>>>
+>>> drm/bridge: analogix_dp: Add support for optional data-lanes mapping
+>>>
+>>> Parse the optional 'data-lanes' device tree property to support
+>>> custom physical lane mapping configuration. If no valid configuration
+>>> is found, fall back to the default lane map automatically.
+>>>
+>>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>>> index 039e076d2b8ab..cb06347196cef 100644
+>>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> [ ... ]
+>>>> @@ -1240,6 +1240,59 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+>>>>    	.detect = analogix_dp_bridge_detect,
+>>>>    };
+>>>>
+>>>> +static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *dp)
+>>>> +{
+>>> [ ... ]
+>>>> +	num_lanes = drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
+>>>> +						   video_info->max_lane_count);
+>>>> +	if (num_lanes < 0)
+>>>> +		return -EINVAL;
+>>>> +
+>>>> +	endpoint = of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
+>>>
 >>
->> The motivation behind this series is to get panic handling's drawing
->> code out of the DRM core. At some point it should share a single
->> module with DRM's other drawing and format conversion.
+>> Hi Luca,
 >>
->> With the series applied, panic hanlding follows DRM's established
->> design pattern of having a DRM core interface with an dedicated
->> implementation in each driver. Drivers share common code in helper
->> modules. For panic handling, the DRM core still contains the panic
->> entry points, the parameters and the debugfs interface. All drawing
->> is now located in the panic helpers.
+>> Thanks for taking a look at previous v6 patch series. This Sashiko
+>> warning was also present in v6. Sorry for CC'ing you out‑of‑the‑blue
+>> without prior heads‑up.
 >>
->> Patches 1 to 4 improve several issues in the current panic code. It
->> makes sense to fix them before moving the core around.
+>>> [Severity: Low]
+>>> Does passing -1 here potentially retrieve a different endpoint from the one
+>>> validated with reg=0 above?
+>>>
+>>> If multiple endpoints exist on the DP port and the target endpoint is not
+>>> positionally first, could this mismatch result in reading the data-lanes
+>>> property from the wrong endpoint?
+>>>
 >>
->> Patches 5 to 8 put handling of all panic state and locking into a
->> single place, drm_panic_display_panic_screen(). It is maintained by
->> panic handling's DRM core code. This also enables the test cases to
->> work more independently from the kernel's configuration.
->>
->> Patches 9 to 11 split the panic-handling code into the core and panic
->> helpers. The former maintain all state, locking and public interfaces.
->> The latter handles drawing and details of the involved framebuffers.
->>
->> DRM devices that offer panic handling provide a single callback, struct
->> drm_plane_funcs.display_panic_screen. A new initializer macro makes it
->> point to the existing panic-drawing implementation. Hence there's no
->> change in features or functionality. If panic handling is configured
->> off, it all clears out to NULL.
->>
->> Patch 12 reworks the test cases slighly, so that they can be build as
->> a separate module. Do 'modprobe drm_panic_helper_test' to run them.
->>
->> Tested under bochs with debugfs and test cases.
->
-> Overall the series looks good to me, and I like the split between the 
-> helper and the core.
-> I would just drop the first two patches, as I don't see much 
-> difference between static allocation or kmalloc() at init, and I think 
-> that memset() the buffers to 0 is not useful in this case.
+>> For Analogix DP, port@1 will only ever have a single endpoint.
+>> Multi‑output configurations are not supported by the hardware, so
+>> passing -1 cannot select a mismatched endpoint. There is no risk of
+>> retrieving the 'data‑lanes' property from an unintended endpoint.
+> 
+> I understand (1, 0) and (1, -1) will always return the same node in the
+> real cases, but why doing it? Use the same indices both times and avoid
+> future readers scratch their head thinking why it's different and whether
+> they might report a different node in a future case. Also, if parsing a
+> broken device tree, you may point at two different nodes here. Keep things
+> simple, readable and reliable.
+> 
+> 
 
-Ok. Geert also expressed a dislike for these changes.
+Thanks for your comment.
 
-I have a number of changes done from the Sashiko review and will post an 
-update to the series early next week.
+Agreed, inconsistent indices are confusing and unsafe with broken DT.
+Will switch of_graph_get_endpoint_by_regs() to reg=0 to match 
+drm_of_get_data_lanes_count_ep() in v8.
 
-Thanks for reviewing.
-
-Best regards
-Thomas
-
-
->
-> Best regards,
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+Best regards,
+Damon
 
