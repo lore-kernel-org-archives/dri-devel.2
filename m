@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F442C5DF94
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:41:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA8D8C5DF95
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:41:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55C9010F2DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B424F10F2D3;
 	Fri, 21 Aug 2026 14:41:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wr7EzjO2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WO8Bp0CO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D84210F2D1
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B4AC10F2D1
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2648342453;
- Fri, 21 Aug 2026 14:41:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 826171F000E9;
- Fri, 21 Aug 2026 14:41:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0E1F061126;
+ Fri, 21 Aug 2026 14:41:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CDC21F00A3A;
+ Fri, 21 Aug 2026 14:41:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323290;
- bh=2wCtBfyktFtIb3a3++tWbQEZesKiZS3/VRLEk21Oo4o=;
+ s=k20260515; t=1787323282;
+ bh=YF4ulTFPQ9dpuEkLl67S86krnE1Gf413sUpyieImxns=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Wr7EzjO29BB6DkVxPRFQlBgppMCLPewv7/Na7/v7uiSGsQf70k19zmDz4ROmJshyy
- 1dHgJgfTdc0lLX3x0Wl/XF+xjVgmn+SQZLgGEUmsdBtYe/4IqVVMeeDjSssosPqcjZ
- sfZIyOw7t66hyx3z/4ULxBnSw7uwFULPkpZTDM+b6al8hNdd5GsSSmtInDSDOokxYb
- d0DZCooP58C0kcMxxQ3wrJ0M16BL76q3Hv+YK8NHzeg+yhz0rRdnlui0QlbzWespSv
- lGDf4z3Q0QJ++ZLoR3mF1hVRb4MwHDGKQ4pyDaN+VNeObwJs/fnXHCT0NlzdIJ627P
- GA8LgkJ8R31dw==
+ b=WO8Bp0COI4RBryw1wwhyNO9y+y2AeQaqT4UiM8K/a0rkVdCRwQy5zvWkswnmeLj7o
+ 1WzNMTDY3qplj91JxRadLoQQA3gKFyo8/MJ9/K982beV5I6us++9voJFZL27WZgTmZ
+ UrHYniGNFKPxGaIM4KAhWWFUj3ONr8BaaFoMuQ9MhbkQQ2ZfzLysim4q/Iy+ITYHK/
+ wLHUlS4IoYvDI3Y1ODUlG+4LrNuaBfoCxoPq4Ihopc+Rm0CvfvwKN41fzbq2u5Ee0g
+ YIShQRu0N3Nnpva9BVMwrSvscVqi3KDMQalXUKb17aX8/sc9vpkI+iKMXk329sMn4Y
+ NaBNsMdNNTAbg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:29 +0200
-Subject: [PATCH 53/70] drm/mgag200: Convert to atomic_create_state
+Date: Fri, 21 Aug 2026 16:39:26 +0200
+Subject: [PATCH 50/70] drm/loongsoon: Move hardware reset to CRTC creation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-53-fb793475c05a@kernel.org>
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-50-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>
+ Huacai Chen <chenhuacai@kernel.org>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Xi Ruoyao <xry111@xry111.site>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3406; i=mripard@kernel.org;
- h=from:subject:message-id; bh=5IwznN9rn4PKsTaGqefx/HE4Kw3VmhnL1+wQoQb8Z9o=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyfxr6zvXWHmcVD/34lbysg0hga2LU+dduCZUOXH5z
- zXmp24LdUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJaPkxNszf5LRxw7srbJc1
- 7jL7/O9Rcv17JcmM5cXK8/P+zjla3q+xp3hOWhXzJkejoDjpB2F/eRnr67sebF1++ptSi9rxRdH
- 97Xuspkx/umXOlfpF1yWm2ExmZCn3C6tour2nZ1frngNxGhdbAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2506; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Whe0PlznCc1qyS/hKnL/XWGrq2KFLjexP/waJoaK/BM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyXzm1fPTGFKfCTsErVhfZ/lSmlvu1ea7Nple/68Fb
+ JX3F9rRMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACYivJqxPregQ19qSufT226t
+ J1pv7n8/aWbdESPephKZqfxFi0UevXN13np0xXLdTwKblN0PlXnmMzZsPtd5uz94lWjFf5bOF4c
+ PujxJ3K/lk3x1wVXmvmXOLyvteu4fPlGyabvTZLbyKO+sT8wA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,85 +71,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The mgag200 crtc implementation provides a custom reset hook. However,
-this hook only allocates the state, initializes it with
-__drm_atomic_helper_crtc_reset(), and frees the previous state. It
-does not perform any hardware reset.
+The loongsoon crtc reset hook performs both atomic state initialization
+using __drm_atomic_helper_crtc_reset() and hardware-level register
+writes to reset the CRTC.
 
-Since this is exactly what the atomic_create_state hook is meant to
-do, minus the old state cleanup which the caller handles, convert the
-implementation to use atomic_create_state with
-__drm_atomic_helper_crtc_state_init() instead.
+The hardware reset is not related to atomic state initialization, and
+the reset hook is being converted to atomic_create_state which only
+deals with state allocation. Move the hardware reset to the CRTC
+creation path instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Jianmin Lv <lvjianmin@loongson.cn>
+Cc: Mingcong Bai <jeffbai@aosc.io>
+Cc: Qianhai Wu <wuqianhai@loongson.cn>
+Cc: Xi Ruoyao <xry111@xry111.site>
 ---
- drivers/gpu/drm/mgag200/mgag200_drv.h  |  4 ++--
- drivers/gpu/drm/mgag200/mgag200_mode.c | 15 +++++++--------
- 2 files changed, 9 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/loongson/lsdc_crtc.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.h b/drivers/gpu/drm/mgag200/mgag200_drv.h
-index 3732c62351bb..bccc70983d28 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.h
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.h
-@@ -405,19 +405,19 @@ void mgag200_crtc_helper_atomic_disable(struct drm_crtc *crtc, struct drm_atomic
- 	.atomic_check = mgag200_crtc_helper_atomic_check, \
- 	.atomic_flush = mgag200_crtc_helper_atomic_flush, \
- 	.atomic_enable = mgag200_crtc_helper_atomic_enable, \
- 	.atomic_disable = mgag200_crtc_helper_atomic_disable
+diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c b/drivers/gpu/drm/loongson/lsdc_crtc.c
+index 16b8f36a4071..97a3443739e1 100644
+--- a/drivers/gpu/drm/loongson/lsdc_crtc.c
++++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
+@@ -388,12 +388,10 @@ static const struct lsdc_crtc_hw_ops ls7a2000_crtc_hw_ops[2] = {
+ 	},
+ };
  
--void mgag200_crtc_reset(struct drm_crtc *crtc);
-+struct drm_crtc_state *mgag200_crtc_atomic_create_state(struct drm_crtc *crtc);
- struct drm_crtc_state *mgag200_crtc_atomic_duplicate_state(struct drm_crtc *crtc);
- void mgag200_crtc_atomic_destroy_state(struct drm_crtc *crtc, struct drm_crtc_state *crtc_state);
- 
- #define MGAG200_CRTC_FUNCS \
--	.reset = mgag200_crtc_reset, \
- 	.destroy = drm_crtc_cleanup, \
- 	.set_config = drm_atomic_helper_set_config, \
- 	.page_flip = drm_atomic_helper_page_flip, \
-+	.atomic_create_state = mgag200_crtc_atomic_create_state, \
- 	.atomic_duplicate_state = mgag200_crtc_atomic_duplicate_state, \
- 	.atomic_destroy_state = mgag200_crtc_atomic_destroy_state
- 
- void mgag200_set_mode_regs(struct mga_device *mdev, const struct drm_display_mode *mode,
- 			   bool set_vidrst);
-diff --git a/drivers/gpu/drm/mgag200/mgag200_mode.c b/drivers/gpu/drm/mgag200/mgag200_mode.c
-index 7e07fc3f1a60..4e952655e4f5 100644
---- a/drivers/gpu/drm/mgag200/mgag200_mode.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_mode.c
-@@ -677,22 +677,21 @@ void mgag200_crtc_helper_atomic_disable(struct drm_crtc *crtc, struct drm_atomic
- 	struct mga_device *mdev = to_mga_device(crtc->dev);
- 
- 	mgag200_disable_display(mdev);
- }
- 
--void mgag200_crtc_reset(struct drm_crtc *crtc)
-+struct drm_crtc_state *mgag200_crtc_atomic_create_state(struct drm_crtc *crtc)
+ static void lsdc_crtc_reset(struct drm_crtc *crtc)
  {
- 	struct mgag200_crtc_state *mgag200_crtc_state;
+-	struct lsdc_crtc *lcrtc = to_lsdc_crtc(crtc);
+-	const struct lsdc_crtc_hw_ops *ops = lcrtc->hw_ops;
+ 	struct lsdc_crtc_state *priv_crtc_state;
  
--	if (crtc->state)
--		crtc->funcs->atomic_destroy_state(crtc, crtc->state);
+ 	if (crtc->state)
+ 		crtc->funcs->atomic_destroy_state(crtc, crtc->state);
+ 
+@@ -401,13 +399,10 @@ static void lsdc_crtc_reset(struct drm_crtc *crtc)
+ 
+ 	if (!priv_crtc_state)
+ 		__drm_atomic_helper_crtc_reset(crtc, NULL);
+ 	else
+ 		__drm_atomic_helper_crtc_reset(crtc, &priv_crtc_state->base);
 -
- 	mgag200_crtc_state = kzalloc_obj(*mgag200_crtc_state);
--	if (mgag200_crtc_state)
--		__drm_atomic_helper_crtc_reset(crtc, &mgag200_crtc_state->base);
--	else
--		__drm_atomic_helper_crtc_reset(crtc, NULL);
-+	if (!mgag200_crtc_state)
-+		return ERR_PTR(-ENOMEM);
-+
-+	__drm_atomic_helper_crtc_state_init(&mgag200_crtc_state->base, crtc);
-+
-+	return &mgag200_crtc_state->base;
+-	/* Reset the CRTC hardware, this is required for S3 support */
+-	ops->reset(lcrtc);
  }
  
- struct drm_crtc_state *mgag200_crtc_atomic_duplicate_state(struct drm_crtc *crtc)
+ static void lsdc_crtc_atomic_destroy_state(struct drm_crtc *crtc,
+ 					   struct drm_crtc_state *state)
  {
- 	struct drm_crtc_state *crtc_state = crtc->state;
+@@ -981,10 +976,13 @@ int ls7a1000_crtc_init(struct drm_device *ddev,
+ 	if (ret)
+ 		return ret;
+ 
+ 	drm_crtc_enable_color_mgmt(crtc, 0, false, 256);
+ 
++	/* Reset the CRTC hardware, this is required for S3 support */
++	lcrtc->hw_ops->reset(lcrtc);
++
+ 	return 0;
+ }
+ 
+ int ls7a2000_crtc_init(struct drm_device *ddev,
+ 		       struct drm_crtc *crtc,
+@@ -1020,7 +1018,10 @@ int ls7a2000_crtc_init(struct drm_device *ddev,
+ 	if (ret)
+ 		return ret;
+ 
+ 	drm_crtc_enable_color_mgmt(crtc, 0, false, 256);
+ 
++	/* Reset the CRTC hardware, this is required for S3 support */
++	lcrtc->hw_ops->reset(lcrtc);
++
+ 	return 0;
+ }
 
 -- 
 2.55.0
