@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A6E2C5DF8C
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 19:53:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC78EC5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 19:59:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A33210F4CC;
-	Fri, 21 Aug 2026 19:53:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5800310E348;
+	Fri, 21 Aug 2026 19:59:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wT/KLtdB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="unafybPE";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010051.outbound.protection.outlook.com [52.101.46.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87DC210F4BD;
- Fri, 21 Aug 2026 19:53:56 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010056.outbound.protection.outlook.com [52.101.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E9610E348
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 19:59:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WXAtvC98VHUhJ9DaA7R6FTybhScQhxRf8cZ/8fBbuieOV3uJ2gTkBqUnuLWxPZk6jOAieE7bfyOsZjXjC1qjGb0WjP56ohXKgOT1TSq9YgNRbVEr/R/1GamXRZyIz1dXZBTaAoNDtdfEqusob3G/tgzJtI5n/nBLkrHvLKmZiAs5CgwZTbfLRhLWwv1eXgeH91uxLak4D2lK3Io1oow2t10bdkFgVWCye0bYiASvblIkcwzSb5qQme1KPRYJVvD0E6tuYgJyMNT3oOlaWMKVD5LA1wI2mPLZh1o8w6YTUcsV7TKymBWqjxkoN7V7B/dBAMPUWzRehzq/AnnIU5KyiA==
+ b=AscSKV2qsfFmpuen3OPpB0wTbnfy4YPdx7ktXj9kbDOAbgsL/3A8IE71EjiCOZfIVgfe4zavssnmK3V01c1o0HlRcRhp+T4wMiiVPitbVcUgzQQ84iwYV/08jfd297WX7i57V4X56+KyQUrgDMoYgTbtILBAVXIN2CXxEpyIxjHGCtdruEfgoKYzGie5pfiE1VA9m+r1Ye5l+1k0uti+1yWutDjccjPxEyeNUFC8X13q3dpRq679eGYMJUYqBNc3nAzOVYI9r6oJdm1qOXeS/ws2WA6wFWgxwCQr8HDKOoaLAiskqtmKMCQd0nQeoAqcCJhxbB51UZCfGsiARyyIGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l8Dmm4FyCV4bRDNVnieY+xRGOlmS6+nt3F4a5ByUdJ8=;
- b=MtuiRS3BpSDuDCIOvgHofu7o/0tYciFSJSO1F52RGgo+P1PI7YB5mp9Haa2CZWz8JKIVJ3NdaPpLJBxKB9qm53KnsLXGELPgwrIK6yJMEvPXhlRI1Gc0iwfqff/9LSnG+HBEOZHUD9knyUORH3g/BZmUFGphvY/JKvUUNsIepNcCZ31rAvE93/eAVWW5auIvh7tCaDSL8VJxt98m1LoHfKm8rrcOIM1+3HMa0nyt/zVUbx65eGBCqCTzyu6ykQt9l5p1GGrb60M1FLrOpSOmZhWyWB8xSE0+tWWVvIvBtFo6MBaFJXojaP+pGM1W3C8mno+jr9ih3wgTYLfQVWJb+Q==
+ bh=Rq0yEHtS+Cz92dCzyGpzXwyfl+aooHEG4ZPrwMi5p6Q=;
+ b=ADQrkC+6VbbGYjWLeOWbhJxr7tZ1x6F+HK/FTTSHA0S2BR3ntxvp09AdpmfaVPpV37NyLSvhpKjfoirX1NadhUF3PZ8jtrmgElbqpZTyLoQR4I69foES4bbSNs3CXrg7ucX9hA14Z3LnRB3Oz/zXSBAbp05rdCUWp6dunSzUo8plAip+Hh80zex7c6tQikVjVLTIg9jwwxKv+46Jp+nbeg+IFH/RPxvjKM0Mht9uBVxgM6XgomiHjggSl2je4WlR+fqRahyFSEnnlQ+3NrlBxFWrRH0vnZJXENja0MQrPRxwDQaQ9/aZWH7hKayWQfBLbs0egWtyclbmTKN5JzHAfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l8Dmm4FyCV4bRDNVnieY+xRGOlmS6+nt3F4a5ByUdJ8=;
- b=wT/KLtdBphc0TrcMV5/lOeJerQmHqoMrDydaK/8YqdqSESgFNqtbGgBi7hyPY2EFEkeRR3cAvrw3/Xxz0rlJg4zA904RMsCJx+C3MtrdHWHJMckM4RnkXdF4SHQkjoij0g5sdC0ij3m4QvoXfr8a6icYi8W9t4oCy4nQ/e8wm/k=
-Received: from DS7P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::15) by
- PH7PR12MB6762.namprd12.prod.outlook.com (2603:10b6:510:1ac::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Fri, 21 Aug
- 2026 19:52:40 +0000
-Received: from CY4PEPF0000EE38.namprd03.prod.outlook.com
- (2603:10b6:8:1ca:cafe::3f) by DS7P220CA0008.outlook.office365.com
- (2603:10b6:8:1ca::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:52:40 +0000
+ bh=Rq0yEHtS+Cz92dCzyGpzXwyfl+aooHEG4ZPrwMi5p6Q=;
+ b=unafybPEW9p+OFDTKpCPmmAV64bm4AIRZ4K8zvPW7MPR88Yx+2b3EyX2wyNwdxSeAkIlzKl5h6k5RAvg86rnpuENBkbqgxdGB9SIW6EfmdggrD4pmQT1ye6tHKU0CCCUVWJzpYcWbx3M78tF/S6kIjgL+umFHeh5CvBiiHIIvNA=
+Received: from BN9PR03CA0718.namprd03.prod.outlook.com (2603:10b6:408:ef::33)
+ by SJ5PPF01781787B.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::986) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 17:46:09 +0000
+Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
+ (2603:10b6:408:ef:cafe::11) by BN9PR03CA0718.outlook.office365.com
+ (2603:10b6:408:ef::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Fri,
+ 21 Aug 2026 17:46:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,60 +48,57 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EE38.mail.protection.outlook.com (10.167.242.10) with Microsoft
+ BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:52:39 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 17:46:06 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:52:39 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:52:39 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:52:33 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <Felix.Kuehling@amd.com>
-CC: Mukul Joshi <mukul.joshi@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 1/3] drm/gem: Add callback for when handle count goes to 0
-Date: Fri, 21 Aug 2026 15:52:22 -0400
-Message-ID: <20260821195224.809173-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821195224.809173-1-alexander.deucher@amd.com>
-References: <20260821195224.809173-1-alexander.deucher@amd.com>
+ 2026 12:46:06 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Fri, 21 Aug 2026 12:46:06 -0500
+Message-ID: <21089f21-ba36-69eb-2b9c-642fb0ab1498@amd.com>
+Date: Fri, 21 Aug 2026 10:46:05 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: reject a command chain that carries no
+ commands
+Content-Language: en-US
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, <mamin506@gmail.com>,
+ <ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260818000019.369366-1-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260818000019.369366-1-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE38:EE_|PH7PR12MB6762:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0e90476-1b4b-4521-2b0b-08deffbdc1c2
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|SJ5PPF01781787B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88e816d6-7f7e-4732-827b-08deffac140f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: i6LRKNeeKBgYeOHb8bR8MD7mqg9ePO0Tkpm9WbnVB8onxnlr5qAuUWs5Hv25tcJmAJwStkMXIB9M+tz2POX9crOJZUcaT4PtetVsCNTyPhji2pbow3L+rJ1Td6srnjQqDubRuUYQX2JHDzLUXgxO3Dij0qKcQKDHakRD4Xqcl9/WRkpAMQicT22cH3SLQ9dXLS3P54edQ8F7tWIQs1/ZQ9alOwnWkE/bRxzW+UoIh/Cxc1VR9ymO6XJYuysktB2zavuXMCNewcyjSZZ//kHncnUncF7Ii14b5rdxOL2wKzEV0D/jRk8zbH8pPnDvPzu5NbpL0G3NR3l7KHPM+chRETcFYa6k9xXoeDijBsAv6TVMSn/Vrky/BQjHaJphNWRg2YXBNss+0TDWXCXP6uXy2rqveOu1oYhDAelXVoTLc7qSxqN2wkK5RXK0crB45vkAcWO2yYoZNNV6hC1iNWfo7f5/SwLr9QTYsIy2AVt7DVqKA2Z6+iyUIQrN2H7K6mU1L6wKonwEGS7r/Cy3s4eugKua1ojgEokjGWq1osE5O/cM3fc8jp/f8DoEq48t09BaIfCNMlD3m9MuCWbTHTmXS/MdcYb6VESTggmoUk22dnmOaKkW5/cdh1X9MmAELeQ9S2SyIBk5//khJc8Y0Odml5bS/QEmbVSrYL5ARU86wOnh/vPYY0Pgc6NatXg4YZuY3TiF/YvBs4mN7tXq4zKqYQ==
+ ARA:13230040|82310400026|23010399003|376014|36860700016|1800799024|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: GEejGfk8Qtu0izuX7zVMUr00fH+FpT9nfL0rbott5UaaeViQ8nUrw6krWiumXN5Bt2Ecy2y+nd1gN3KqpEL0sepp4jpiz4gX6Mo1oBc2N/Z9DQAZw1YgpPCzG4Y5tBrwKIWVg6BOlLb9fBdcfGeETY0q+LW94hvSjo1ZOXTGT5Qzur6dVvTdkaCIgVYhsjuea04y2ONH99twdJPykChyh/oAmXa7Lzx70exicg35N8Gc9N/o+WBkhZcntt2QHcfx3SYC6re7LZC32sR9nu85Yythi/OgHdrMd+nh+dD15lAHn094MI0wdzKJOS7o0pEzWA2+3lBYKCOK/jgwOf5NJAmIp4RULDNEdX9s5A2Y8V82pXpxT72p/JzFxNQyP0sN8YqJE/8tKiYbZwfVMs9DMP7tVbl4wuqnKaJEu1KBKCtd7g289DzOHYbR7EscHMrL4dn1T/IiPoFCmGyza54taywTjQ+O/LmaaRZ+X603RSUwSgrsivubYCu4QcGcSLiiMiwcdsKDnHsN+K4XtvT7XnTZPSNPALg0yK0INBZI5dXdDq3dw4LtNsbTcBgPoIxxEdYZtBDeFBNJm3C1MFaA2Nv2526/WLaKMSMxSndDHaiv5E3XmzLYjbtqu4ZUv0Vcq1LDlW2xn3IVedyGnzoK20u+XU9etfdvkUv8G1py/4nb+CxsrXOFpXgARprObX7WR+VExlnHqL25QEP51Gmrsw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(36860700016)(1800799024)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: K8Zu3MpPmM943Qcf3+Wjk1kCuLCvRs9OdKQlTE4FW8Cld2PPOAgXWTT9wIvBsXMYAyMi5MN6nhvv/pY/CXn8OsX4zV8XPZq5JVPqmBQUyZxqQMt7Mm3TpU+JWCArGS0x8oBOL0qzlzBk1N1wj42DBMPV/7ofPBVo2wzcdi6yZsavq0LoX0WxgYXTUxTctEk1mh09Y/X1tfpr4P+3DKwhqeyELMk92u8slXvavDM5VBrfWxWN5t8PpCv9Q59VRzvtd/yhHsqqWkCe4gO9qqXcxy+fm2EOr6nSetyidm3z8mAM547WorJGP4HQd/leTiW6qiZQP04O/0gOno2vgJpDYXnbTlSaC6s73dlSP6I1QesUCceMDQleeH6DcT1U9Ql9sOJhDqgSOvOjkp3ERSRBLabXwH0XFf/IV9HGq87zcldCgeI/ICxQuaVGGhmyMfYn
+X-MS-Exchange-AntiSpam-MessageData-0: KM3lmhBRJzgmpQtqtHSv+1SAxNCJZ8qPKELagMm5duBYDD0Ps3Mqo0RVzZx7v7dM4IHMTfB/f+MIUsxNlogfOjZhiMrkoQQlO7UwFv9G47/M8S4U4d3/pwtEuwfjk9bUmh0K0TeENhn29VU1HDXKOQV+gkCZV6hW488B8W8e5Hbb9SYlZwcq0MFu97AorhfnXXJDTxeWIhPlSFrb+ODNOAtegS2BoI3QoDB7bQuhZTSRK/oHiVLqpTcuZVL67vswGMzgikrN1ic2w2upVyOUB0PxTlejmo9IxiDmESBcE+jFPEUqp1ZQj/lTQIbe0mxmUO/0lx8rsapmj/cM4S2B3IsIQsPLD7mAi4HlXuVfUcKGR0mupOs4aG5C7g1Zpt6Um+LJgXZvI/aEuhPaqUf9Lx53kCEPi+QF0VMoCtN3rmAIkAmuXdqhxeYvHuHRjy9K
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:52:39.6919 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0e90476-1b4b-4521-2b0b-08deffbdc1c2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 17:46:06.8818 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88e816d6-7f7e-4732-827b-08deffac140f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE38.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBD.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6762
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF01781787B
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,92 +114,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mukul Joshi <mukul.joshi@amd.com>
 
-Add an optional callback for driver-specific cleanup when the GEM
-handle of an object is freed. This will be used by AMDGPU to enable
-freeing of memory exported to other nodes in a UALink pod once all
-user mode references are gone.
+On 8/17/26 17:00, Taimuraz Kaitmazov wrote:
+> A chain whose command_count is zero passes the payload length check,
+> because struct_size(payload, data, 0) is just the header. The fill loop
+> then does not run, so offset stays zero and the request is submitted with
+> a zero-length buffer.
+>
+> On firmware without AIE2_NPU_COMMAND that ends at the opcode check, since
+> op is still ERT_INVALID_CMD and aie2_get_chain_msg_op() answers
+> MSG_OP_MAX_OPCODE. aie2_get_npu_chain_msg_op() answers
+> MSG_OP_CHAIN_EXEC_NPU whatever it is given, so there the submission
+> continues to drm_clflush_virt_range(cmd_buf, 0), which reads the byte
+> before the buffer and faults on the vmap guard page. EXEC_CMD is
+> reachable by any process that can open the render node.
+>
+> Reject the request instead.
+>
+> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+> ---
+> drm_clflush_virt_range() faulting on an empty range is a core problem, and a
+> patch for it is on the list separately. This rejects the request in the driver
+> regardless, since a chain carrying no commands is not something to submit.
+>
+>   drivers/accel/amdxdna/aie2_message.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
+> index dfe0fbdf066d..b4c49259a1a2 100644
+> --- a/drivers/accel/amdxdna/aie2_message.c
+> +++ b/drivers/accel/amdxdna/aie2_message.c
+> @@ -994,7 +994,7 @@ int aie2_cmdlist_multi_execbuf(struct amdxdna_hwctx *hwctx,
+>   	}
+>   
+>   	ccnt = payload->command_count;
+> -	if (payload_len < struct_size(payload, data, ccnt)) {
+> +	if (!ccnt || payload_len < struct_size(payload, data, ccnt)) {
 
-The callback is called outside the object_name_lock and before
-releasing the reference count on the GEM object
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  9 +++++++++
- drivers/gpu/drm/drm_gem.c               |  5 ++++-
- include/drm/drm_gem.h                   | 11 +++++++++++
- 3 files changed, 24 insertions(+), 1 deletion(-)
+I will add a Fixes tag when I merge it.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index f754a4a3a1c22..0d579517c03ce 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -386,6 +386,14 @@ static int amdgpu_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_str
- 	return drm_gem_ttm_mmap(obj, vma);
- }
- 
-+static void amdgpu_gem_object_handle_free(struct drm_gem_object *gobj)
-+{
-+	struct amdgpu_bo *aobj = gem_to_amdgpu_bo(gobj);
-+
-+	amdgpu_ualink_revoke_exported_memory(aobj);
-+
-+}
-+
- const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
- 	.free = amdgpu_gem_object_free,
- 	.open = amdgpu_gem_object_open,
-@@ -395,6 +403,7 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
- 	.vunmap = drm_gem_ttm_vunmap,
- 	.mmap = amdgpu_gem_object_mmap,
- 	.vm_ops = &amdgpu_gem_vm_ops,
-+	.handle_free = amdgpu_gem_object_handle_free
- };
- 
- static bool amdgpu_gem_are_domains_valid(u32 domains)
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index e3ed684ddcf29..6a86bd2a0343e 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -354,8 +354,11 @@ void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
- 	}
- 	mutex_unlock(&dev->object_name_lock);
- 
--	if (final)
-+	if (final) {
-+		if (obj->funcs->handle_free)
-+			obj->funcs->handle_free(obj);
- 		drm_gem_object_put(obj);
-+	}
- }
- 
- /*
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 8a704f6a65c15..95d8ae6f85df7 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -227,6 +227,17 @@ struct drm_gem_object_funcs {
- 	 */
- 	size_t (*rss)(struct drm_gem_object *obj);
- 
-+	/**
-+	 * @handle_free:
-+	 *
-+	 * This callback is called when the GEM handle count goes down to 0.
-+	 * It is currently used by AMDGPU driver to release their exported BO
-+	 * handles.
-+	 *
-+	 * This callback is optional.
-+	 */
-+	void (*handle_free)(struct drm_gem_object *obj);
-+
- 	/**
- 	 * @vm_ops:
- 	 *
--- 
-2.55.0
+Thanks,
 
+Lizhi
+
+>   		XDNA_DBG(xdna, "Invalid command count %d", ccnt);
+>   		return -EINVAL;
+>   	}
