@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC390C5DF94
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E621CC5DF93
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:40:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B32BD10F048;
-	Fri, 21 Aug 2026 14:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1DBC10E30C;
+	Fri, 21 Aug 2026 14:40:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gEc8adUa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IotvYh3l";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C7E010EE68
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:39:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B0F110E306
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:39:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 94C766187A;
- Fri, 21 Aug 2026 14:39:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C54351F000E9;
- Fri, 21 Aug 2026 14:39:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D26D26136F;
+ Fri, 21 Aug 2026 14:39:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8851F00A3A;
+ Fri, 21 Aug 2026 14:39:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323172;
- bh=zzvDspyI5SSSaOIE3wrSNo0ErTfvxI0bYhxWh0CVZFo=;
+ s=k20260515; t=1787323179;
+ bh=SKPKXRQkpjk+0gWkRGnN8uDiW43tLgaZPt4bulSsvys=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=gEc8adUaAAQK+961UC6GfkX+wpoJFY/gDKwjPYY1lQdNGPh7JfCV8VIAriLdeUYyo
- 4N/O8fRbjcSNZOzQ80WKOGdJjTUAe+8zCtXpWzkefkbuFFqBOFpSwK+PbJ+7hH+U6U
- Se7beK71yk/NnhBTbVkBWWq+yHQRbk/4fj2kaM2KKV+jjxeqmRO8j2/rcqLpjFCBPw
- vgvRehqYUsxqMJFs4/XvMWq/eMI3tn8eG1opUWDMDrhqBwXBYlX2XEQBj9Oc/2cZln
- VvT0ajyi1lYjJxoojWtDv85/Qk2C24sZNcH8OUEato5i6I2uRjvw+uuDlDaK2qFxJB
- hGXBImJ0wgf8g==
+ b=IotvYh3lMypxoe/R/W0dtz3TohvCqdpM/af2iQO4fu+ZGj9Wm/2zaHsZAYu9yhEre
+ Bj1hsjsFmKmAvJBU3pdq4WxA+tA0a50r+LGgrYEF+KgYpqDVrnjP731n1Bo9jxOzW/
+ fDGN6LrXlU8AKkWHgWAgC0SqKZQ7F/WcIus1ruuVCBM3mpRwzcKYNMACcprGgs7xeg
+ 0FB3Nr32XXK0X6arbxI9p/2U8olkO4iqqnmJxfpJaJd6+Fmjn2QjPysxZN6SVSGoFr
+ HzAbZLtjtGeZJ92kSGMXeuULYP43FTOVIPMUsf7lnSzRqB0rDL/U5PzJt6iR2bMn0l
+ CTNnddm0nIBGw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:38:40 +0200
-Subject: [PATCH 04/70] drm/armada: Switch to
- drm_atomic_helper_crtc_create_state
+Date: Fri, 21 Aug 2026 16:38:43 +0200
+Subject: [PATCH 07/70] drm/gud: Switch to drm_atomic_helper_crtc_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-4-fb793475c05a@kernel.org>
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-7-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Russell King <linux@armlinux.org.uk>
+ Ruben Wauters <rubenru09@aol.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1188; i=mripard@kernel.org;
- h=from:subject:message-id; bh=iB9o4mMVQPa6YQ6jIkhNL951eDS1+BeY3/GKj5V/tqE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdST+/y+kuNIyuErVifLkwtH7xHIanJvK2XY/WXHmZb
- OFn7dHWMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbi68JYH1+SEsXbaSrhunNV
- hET+vP3aL64uPxI3Meq6/7rMhVn3qk5qVWyS791dEuK8PPn35rnnGOuDG6Yl+VQvXdNysSrxTGQ
- Ux2+zM9drmrdXxC1SDL68v3XHj58uXLq2q223rngTLa7S0AoA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1165; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=WjG0NGReqeHLtFG50kMJ729Ge0jlddvmXfOSb4h2UZs=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdSb8EXzxLbmE9q/pbMvUWA6vmlEuTuUSkDqw0s07cf
+ TmPQ/J7x1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIDRtjw1RnzcSjpbu23uiw
+ y94t/i/IMvCM9bG53DUFRQfNfC6khgTs33rv2szXC+SKtijt0pQ2ZWxY/G2i/0+tHIHij4IiX09
+ MTZ/rXvLkpPWG3K8tu3pMzqlXv3uuvLZ87pH3TZ8rJRNZjHYDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,35 +68,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The armada crtc implementation uses the deprecated
+The gud crtc implementation uses the deprecated
 drm_atomic_helper_crtc_reset() as its reset hook.
 
 Switch to drm_atomic_helper_crtc_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Russell King <linux@armlinux.org.uk>
+Cc: Ruben Wauters <rubenru09@aol.com>
 ---
- drivers/gpu/drm/armada/armada_crtc.c | 2 +-
+ drivers/gpu/drm/gud/gud_drv.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/armada/armada_crtc.c b/drivers/gpu/drm/armada/armada_crtc.c
-index 5e006212fea0..d349beaa2990 100644
---- a/drivers/gpu/drm/armada/armada_crtc.c
-+++ b/drivers/gpu/drm/armada/armada_crtc.c
-@@ -815,11 +815,11 @@ static void armada_drm_crtc_disable_vblank(struct drm_crtc *crtc)
- 	armada_drm_crtc_disable_irq(dcrtc, VSYNC_IRQ_ENA);
- 	spin_unlock_irqrestore(&dcrtc->irq_lock, flags);
- }
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 89bd6ca36003..83a036c6e41d 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -343,11 +343,11 @@ static const struct drm_crtc_helper_funcs gud_crtc_helper_funcs = {
+ 	.atomic_enable = gud_crtc_atomic_enable,
+ 	.atomic_disable = gud_crtc_atomic_disable,
+ };
  
- static const struct drm_crtc_funcs armada_crtc_funcs = {
--	.reset		= drm_atomic_helper_crtc_reset,
+ static const struct drm_crtc_funcs gud_crtc_funcs = {
+-	.reset = drm_atomic_helper_crtc_reset,
 +	.atomic_create_state = drm_atomic_helper_crtc_create_state,
- 	.cursor_set	= armada_drm_crtc_cursor_set,
- 	.cursor_move	= armada_drm_crtc_cursor_move,
- 	.destroy	= armada_drm_crtc_destroy,
- 	.set_config	= drm_atomic_helper_set_config,
- 	.page_flip	= drm_atomic_helper_page_flip,
+ 	.destroy = drm_crtc_cleanup,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
 
 -- 
 2.55.0
