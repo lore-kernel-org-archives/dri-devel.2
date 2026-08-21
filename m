@@ -4,83 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42327C5DF9C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E24B8C5DF81
 	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA11310E480;
-	Sun, 23 Aug 2026 09:27:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4737410E489;
+	Sun, 23 Aug 2026 09:27:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MGvqwr1d";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CRwO4K0/";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4AAB10E2F7
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:49:02 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4957eefd361so7154815e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 07:49:02 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF95110F22D
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 07:19:02 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-38dcbade417so641806a91.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 00:19:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787323741; x=1787928541; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=RySDzNgFwOZt+mpqx8aHwP46Unuo6yoVJSd8AB2W69Q=;
- b=MGvqwr1dUrnU2YfAWRain/LptCn2BaE0ux5bm1H8SLSiSzGTiSeRygkYnU2VIDXkOe
- 5uEotn7paoVgqkMy13RtBUaEhfDtjNtYU/leZJMJXasHvF1BRkhNjjzXxWRiLUCx/G29
- vKFkVUXrOogoAbLfy7j54ql1Bd895JikokbrYUBcIGW1/MoTLj9pn/rFmxdx5Oc0PcKK
- /7tNM+eSEk5MUIe0nkaXiL54LNk56TIJ25GPkTEY/u++0s/CNlwdQo0VWxF0lpCRbvux
- P9wzkNqSP2Re0smCLRFA5YwzrjXW9lpDEY+g+FuNvautqlmuJu5UxfDbMndfHqGkKvJO
- 7ypg==
+ d=gmail.com; s=20251104; t=1787296742; x=1787901542; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=xDp4rmhAwTlJo2Sslrv1XZ29SdV6qudtW+6TKgzPyrc=;
+ b=CRwO4K0/AvM8fqma6okA3djBkrRIP1DdS3CxjbSREBdVwUJtQkIyWDygVng8zFOvDW
+ vQkSsJ/hhf2rvJnccuaFBMbrhSFhs/4lWznyD4imfn4D18q+mEGfK8nSmvY9JyPf5fS8
+ zLQJdw1QFiaDKDBTUDIjBSjVz01eRyprnAFMT7yL6IjVGvNum3xnumIErYkHbPxCWdQl
+ /CpWuAKcGZpDsqZW7n/XUhuVQsm2nhgVwcTGo7kImvsAGSTRaQyOimgTjVT91/j1WHDb
+ m8ieq6n8K3Wd639Tsx6Y2QqO1Baeh42sY6LugTNdfUFCxyct8JhFOj5nTILxU4KWv5BI
+ SuBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787323741; x=1787928541;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1787296742; x=1787901542;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=RySDzNgFwOZt+mpqx8aHwP46Unuo6yoVJSd8AB2W69Q=;
- b=Yn3xD1bIp4xlEf/xRHjVpsI0cqiQiC2K4DnkZY2qDQ4rRA+PTt34iiuB4xS9tFO3kw
- maAZ8pNPXqOMZZ4V7LUJkWEv9lATzy+JT+xnc0st1P5WXRnUZanLy0mIK4i7NDW5urP0
- DmpzkSB1QlwSVeeERUlC1Gbn6qpjtcsnY9pnDXF4QIHhyVB+eOpfzcfD77fSOoT9QEBF
- 5gOQKOnSpNXwYstoKqA3qDc/geFdcvkntnlmCM7wImZuYBGozB+cDthJyb0urOt/ReUk
- ZvnhOYlpl3eeQmIowypvwtXbKgAUasiMIm0qc7uJ5YS7Y66QLADyyRA5QEnMgo6cw+wE
- eanQ==
+ bh=xDp4rmhAwTlJo2Sslrv1XZ29SdV6qudtW+6TKgzPyrc=;
+ b=sPj2CDTkFX6PvWjTCa8cBAIb8BW7wOoiXeZpfXjwf3XJxz/RiIi7gFPbKvP2n75AT+
+ eFF7bCi1A5RdaEabh0v9+fob6aB+G940gY01lCNuq75JlteMPJbGTjwdz83dAhnawSzM
+ nNlrgG4TE4o40beVWOfih5/we0lB9iczEd69NEhwgWdlVlxtpdgRkmvMKog07tFgGWhu
+ eR1AMzb4nkWFqv3UDvpcJLqlWPof6fiajHE3HNpz0wLDQgQt07WiI3r+T/siiQVHYnqw
+ /dAOc8dDIgXklepYXNLiZhrPZM0pXJFyxv4g1WXWTfC4WV9TuXhMRK7WEY0gXPf271/D
+ jXxw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp5r+cOf0M0Q4aJmi6YgxhECdYdPZE1+utd4EXMI53T9TDO/WDCcv7NVI/M7zmcjQhIflUP1dc+x5Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmInrZX/Z0y/CHZz9rmrxZDYNJZwGCowXm4Ejb3xmY3f4kzlok
- 2bur4xffqR2k5r98TqI7bBSdr+7s24gyBReCfmEJ8IE4Ibm+78x6USAe
-X-Gm-Gg: AR+sD10q9PZWoUMVyl+PwtyNG9dSU84vZneXIpTwXkfklrQbEa4ruq5t0AjSTltXkEr
- HNOpNgCwp+2iBSvQCL3z6Df+K6OE+HsBLmvzr69sdH/DOXdoegD+d4hncGnuua2d2oXWYm3hspl
- pmK8pPOs0mwLwPL2j9fJxpuiXpvtwXeqJx+405Buwkyi5P+WskzHq4Q9pmAMgRWf1eZqwyYwOYj
- /hONJPFsP/RdBUSoseSoCQ0ISU5uAKclQcSz0EC9ceZqAIfoUTcur4ej7Scx+n/srwl7p8ZQzap
- jRkPnSCIbS1yRD7BTekGjVICppg/Gq6o7JpPeAIDr6hEfF4+F3ywDakqEHneDTa0vQir1NTainK
- yGOG8IZ/7be8Nr3WJsu4WFqwUZhvgrGUuOxKRSo94iB4nwyju76W+CBlIj1XPwA31fipm0wVM4e
- RNt1CJP7Cf6dvRzg6v9kvVmIBndZHevmu7g4RAALlBzl3CLGIzBNLVbxGvgr4dvXMyYq9b0fkhJ
- iHWWGSHkBiRMdbcScD8yP0dJw==
-X-Received: by 2002:a05:600c:4f87:b0:499:5a50:b022 with SMTP id
- 5b1f17b1804b1-499b830d220mr94399405e9.3.1787323740952; 
- Fri, 21 Aug 2026 07:49:00 -0700 (PDT)
-Received: from [192.168.1.10] (212.pool95-21-2.static.orange.es. [95.21.2.212])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499be3a3e2esm10640175e9.1.2026.08.21.07.48.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Aug 2026 07:49:00 -0700 (PDT)
-Message-ID: <3b85e6e2-29d0-43ea-abe2-246f1148939a@gmail.com>
-Date: Fri, 21 Aug 2026 16:48:58 +0200
+ AHgh+RqefiY1T21b6WW1+Jf4jg2HLgr55x5HXjplc1kUypM0VF38bj3XhpqqMluOEkkX4MmClvy/p0airY0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mERGbfTl7q9YXi+pH8NtnAHih0JkmS6ghM4lYTOHdDZC1W45bV
+ Z/KWul/W8LvyTRmVEY5MCakYIDK49+IvB69rtPWxAJP7qsmyK2/O0DIX
+X-Gm-Gg: AR+sD10bLp2j4BAGNyXmHAN4PLo2H4c0X0oQUa1jJxN2M3DFUqYWi5SmBbZhVyDW24e
+ sfs0UD5yDfdZXXhKQCxRUC1gLNMAIZ13+vCy5TFai8L4HPkVLjeVKN5G2nK6z/SOPSJRNhBBZ9O
+ a7TER5qvfoqwD5hBSCv2eYJJykH7qvVs+jsMp4Ll3aIdZkDaLgvd/keSVhCDMjM7m5xpf1FYvDa
+ L1AZidXrJn+09pbU6mLuOSRppLvbcGpRF9v2C5p10vvQBpEixVd6xDC5bVr7IOCSd7XEgFCJQYP
+ EBZYXYqGihl32N6LvIGjQQ2c0ldQEI2uNdUyNmSDyissbYCPYW7/FObxcwpF6sj48EPEDj5fovZ
+ NEDHzQ3sEekENKa3LJahk3IXDpk7Vgurvb+21R1iXbDk83RvbbAV52FiwiEjHoc7nqD0bbuarvC
+ 9TQ6igSrTR9p8znqLtNbqjR6BM9kPBxPHj6tWuxFLaoJzxMl1IObOhTZRLe3ay
+X-Received: by 2002:a17:90b:4a:b0:38e:4cb:51f with SMTP id
+ 98e67ed59e1d1-395c352f984mr6908265a91.11.1787296742134; 
+ Fri, 21 Aug 2026 00:19:02 -0700 (PDT)
+Received: from fedora ([111.223.30.106]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1416ae5f1ffsm36733073c88.13.2026.08.21.00.18.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Aug 2026 00:19:01 -0700 (PDT)
+From: Sajal Gupta <sajal2005gupta@gmail.com>
+To: rubenru09@aol.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+ syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com,
+ Sajal Gupta <sajal2005gupta@gmail.com>
+Subject: [PATCH] drm/gud: validate GUD_ROTATION_0 is present in supported
+ rotations
+Date: Fri, 21 Aug 2026 12:46:13 +0530
+Message-ID: <20260821071812.16500-1-sajal2005gupta@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] Memory leak error in qxl unbind
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
- stable@vger.kernel.org
-References: <20260809165326.164763-1-megia.oscar@gmail.com>
- <2026080941-edge-lurk-2146@gregkh>
-Content-Language: en-US, es-ES
-From: =?UTF-8?Q?Oscar_Megia_L=C3=B3pez?= <megia.oscar@gmail.com>
-In-Reply-To: <2026080941-edge-lurk-2146@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,60 +90,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/9/26 20:19, Greg KH wrote:
-> On Sun, Aug 09, 2026 at 06:53:14PM +0200, Óscar Megía López wrote:
->> I discovered an OOM after run the script below
->> (I updated it and added a sleep to allow enough time for the cache to
->> recover):
->>
->> while [ 1 -eq 1 ]; do\
->>    i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
->>    if (($i%1000==0)); then\
->>      echo i=$i; free;\
->>      grep nr_free_pages /proc/vmstat;\
->>      grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
->>      sync; echo 3 > /proc/sys/vm/drop_caches;\
->>      echo 1 > /proc/sys/vm/compact_memory;\
->>      sleep 10s;\
->>      free;\
->>      grep nr_free_pages /proc/vmstat;\
->>      grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
->>      uptime;\
->>    fi;\
->>    echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
->>   done
->>
->> The OOM isn't just a simple leak; it's a refcount corruption which renders
->> the list_lru fix dead code after the first mid-init failure.
->>
->> Here's the chain:
->>
->> Bug 1: ttm_pool_type_init() does not check return from list_lru_init().
->>
->> Fix: Check the return value from list_lru_init() and propagate the error.
->>
->> Bug 2: ttm_pool_fini() does not destroy list lru with list_lru_destroy().
->>
->> Fix: Add list_lru_destroy() after ttm_pool_type_fini().
->>
->> Bug 3: ttm_pool_mgr_init() does not check ttm_pool_type_init() return
->> and does not free pool if returns error.
->>
->> Fix: Move up shrinker_alloc(), check ttm_pool_type_init() return and free
->> pool types and shrinker if non-zero and return error.
->>
->> Bug 4: ttm_pool_mgr_fini() does not destroy the list_lru.
->>
->> Fix: Add list_lru_destroy() after ttm_pool_type_fini().
->>
->> Fixed check for an empty shrinker_list.
-> Why is this not 4 different patches as part of a series?
->
->> This patch depends on patch ("[PATCH v3] drm/qxl: fix use-after-free in
->> qxl_irq_handler on PCI"), link [1] below.
-> That's not going to age well in a changelog text :(
-I'm a newbie. What's the best way to add a patch it depends on?
->
-> thanks,
->
-> greg k-h
+The rotation argument to drm_plane_create_rotation_property() is set to
+DRM_MODE_ROTATE_0, and the device reported rotation bitmask is used as
+the supported_rotations argument. The driver never validates that
+GUD_ROTATION_0 is present, so a device that omits it from its
+GUD_PROPERTY_ROTATION triggers the
+WARN_ON(rotation & ~supported_rotations) in
+drm_plane_create_rotation_property()
+
+Fix this by skipping the creation of rotation property if the device
+doesn't have the GUD_ROTATION_0 bit
+
+Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+Reported-by: syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=efe2810681f1b065d3a8
+Tested-by: syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com
+Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
+---
+ drivers/gpu/drm/gud/gud_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 89bd6ca36003..3a1b9e2a2eaa 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -289,6 +289,8 @@ static int gud_plane_add_properties(struct gud_device *gdrm)
+ 			 * but mask out any additions on future devices.
+ 			 */
+ 			val &= GUD_ROTATION_MASK;
++			if (!(val & GUD_ROTATION_0))
++				continue;
+ 			ret = drm_plane_create_rotation_property(&gdrm->plane,
+ 								 DRM_MODE_ROTATE_0, val);
+ 			break;
+--
+2.55.0
+
