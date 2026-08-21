@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D33B1C5DF94
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:35:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A99C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:35:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0641210F318;
-	Fri, 21 Aug 2026 15:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 353DB10F319;
+	Fri, 21 Aug 2026 15:35:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dl9NAhFK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oIwDYD22";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E75510F318
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:35:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E62610F319
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:35:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DA21E40566
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:35:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D7F21F000E9;
- Fri, 21 Aug 2026 15:35:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8682C414B7;
+ Fri, 21 Aug 2026 15:35:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1941F000E9;
+ Fri, 21 Aug 2026 15:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787326520;
- bh=jLHNKbA99yECaUI/BMrcU0froAuN+E+u18PyFcTM2LA=;
+ s=k20260515; t=1787326526;
+ bh=sG0HHK6+Yj1gmmcLrZPZaxtPvAzeV+Pl0X401caA/LU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dl9NAhFKd6Ullvue/DH02jSaKuaHLviHJWAuBzACtBivDQ7rHnWWJc8qb8Vq6hudC
- aTt+1HGP9AKUI2c2X3oPp8wUX5HQGnbbw36WyjrSVi/ZXDa+GXfrCLVNi3m4QciwD0
- cWMJ0nc1lFq1g1oQryulyiCk+YWEKO2VIWWy4iTfCzdUVYudJ5nfqKDnVYG/dyPqC5
- rrO7pqpWZZrlCCg5TpQDUANoU5JLUMHGBcp/Pfg/FWN4kuxh6yBj6jkclx+n74qoGq
- YdzrFw8zpSiAoxWuG2+jJfBStlDxQdRoctfr15D5R7tygoWVFFU+Uk2+tZJQi1pjJX
- TyhFFri5BRq2A==
+ b=oIwDYD22VF4swd6gYMaecpN23aFXY78nhyJgdBQ3R4G05uNDoZfrFpHWsyVbx0b8y
+ FJAfX09TrNy1tuHtRK4rebGXuc63URZ5+wb7aWDv+77yPMf7TugRV8tDkW6DeHOCLU
+ IqfkgC/mZFK2D42kOA14ToMLg68fytGrpYd0dkSqDTDq9xDm9uV280yH60n1Rc61XV
+ JVFR8htwxS1xls3Y2dLsFPoCV3NwgY+GMJ3CzBe4wRky1jhEHLSCi7qpMcDdIVsmKO
+ +KiHkPxqJ4M9+L2qyVInXpLhbeAijafkhC0upuWYFEqaw00CcfQFYAG0irER/5CHCJ
+ +QQV1B79FFVOg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 51/70] drm/loongson: Convert to atomic_create_state
-To: "Maxime Ripard" <mripard@kernel.org>
+Subject: Re: [PATCH v4 1/3] drm/nouveau: unsubscribe the channel-kill event
+ before the fence context
+To: "Marek Czernohous" <mczernohous@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-51-fb793475c05a@kernel.org>
-References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
- <20260821-drm-no-more-crtc-reset-v1-51-fb793475c05a@kernel.org>
+In-Reply-To: <178732578167.167481.14789825868710929167@gmail.com>
+References: <178732578167.167481.5619512544301226563@gmail.com>
+ <178732578167.167481.14789825868710929167@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 15:35:20 +0000
-Message-Id: <20260821153520.9D7F21F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 15:35:25 +0000
+Message-Id: <20260821153526.4A1941F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,45 +58,109 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Meaningful code and commit message mismatch regarding hardware r=
-eset.
+
+Pre-existing issues:
+- [High] Race condition in nouveau_fence_context_del between cancel_work_sy=
+nc and nvif_event_dtor leads to use-after-free of fctx.
+- [High] Missing cancel_work_sync for irq_work in nouveau_connector_destroy=
+ leads to use-after-free of the connector.
 --
 
---- Patch [51]: [PATCH 51/70] drm/loongson: Convert to atomic_create_state =
----
-commit 242c1e9da80c08d14806505d193ccb1acbb378d8
-Author: Maxime Ripard <mripard@kernel.org>
+--- Patch [1]: [PATCH v4 1/3] drm/nouveau: unsubscribe the channel-kill eve=
+nt before the fence context ---
+commit 4ae9b89defb4e27bc74c023fe090b6ae974e3378
+Author: Marek Czernohous <mczernohous@gmail.com>
 
-drm/loongson: Convert to atomic_create_state
+drm/nouveau: unsubscribe the channel-kill event before the fence context
 
-This commit converts the drm_crtc_funcs.reset hook to atomic_create_state f=
-or the loongson driver. The change is made because the original hook only h=
-andled state allocation and initialization without performing a hardware re=
-set.
+nouveau_channel_del() tears the fence context down first and only drops
+the channel-kill subscription later, which can cause a use-after-free
+if a kill event is delivered in that window. This patch drops the
+subscription before anything it depends on is torn down.
 
-> The loongsoon crtc implementation provides a custom reset hook. However,
-> this hook only allocates the state, initializes it with
-> __drm_atomic_helper_crtc_reset(), and frees the previous state. It does
-> not perform any hardware reset.
->=20
-> Since the atomic_create_state hook is only meant to deal with state
-> allocation and initialization, convert it accordingly. The hardware
-> reset through ops->reset() is kept as part of the state creation
-> since the core currently calls atomic_create_state in the same
-> context where the reset hook was called.
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nou=
+veau/nouveau_chan.c
+> index 598513f604493..f142f63105966 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_chan.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
+> @@ -90,6 +90,14 @@ nouveau_channel_del(struct nouveau_channel **pchan)
+>  {
+>  	struct nouveau_channel *chan =3D *pchan;
+>  	if (chan) {
+> +		/*
+> +		 * Drop the kill-event subscription first.  Its handler
+> +		 * dereferences chan->fence, which the fence context teardown
+> +		 * below frees, so leaving it armed across the teardown leaves
+> +		 * a window for a use-after-free.
+> +		 */
+> +		nvif_event_dtor(&chan->kill);
+> +
+>  		if (chan->fence)
+>  			nouveau_fence(chan->cli->drm)->context_del(chan);
+> =20
+[ ... ]
+> @@ -100,7 +108,6 @@ nouveau_channel_del(struct nouveau_channel **pchan)
+>  		nvif_object_dtor(&chan->nvsw);
+>  		nvif_object_dtor(&chan->gart);
+>  		nvif_object_dtor(&chan->vram);
+> -		nvif_event_dtor(&chan->kill);
+>  		nvif_object_dtor(&chan->user);
+>  		nvif_mem_dtor(&chan->mem_userd);
+>  		nouveau_vma_del(&chan->sema.vma);
 
-[Severity: Medium]
-Is the second paragraph of the commit message accurate for the loongson dri=
-ver?
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at similar teardown
+paths, is there a race condition in nouveau_fence_context_del() between
+cancel_work_sync() and nvif_event_dtor()?
 
-The first paragraph correctly notes that the original reset hook "does not
-perform any hardware reset", but the second paragraph claims that "The
-hardware reset through ops->reset() is kept". Since neither the old code nor
-the new lsdc_crtc_create_state() function performs a hardware reset, could
-this be a copy-paste error from another patch in the series?
+drivers/gpu/drm/nouveau/nouveau_fence.c:nouveau_fence_context_del() {
+	...
+	cancel_work_sync(&fctx->uevent_work);
+	nouveau_fence_context_kill(fctx, 0);
+	nvif_event_dtor(&fctx->event);
+	...
+}
+
+If a hardware interrupt fires in the narrow window after cancel_work_sync()
+but before nvif_event_dtor(), could the event handler schedule the work
+again?
+
+The work would remain pending on the workqueue while fctx is subsequently
+freed, leading to a use-after-free when the work executes.
+
+
+[Severity: High]
+This is another pre-existing issue in a similar teardown path, but is there=
+ a
+missing cancel_work_sync() for irq_work in nouveau_connector_destroy()?
+
+drivers/gpu/drm/nouveau/nouveau_connector.c:nouveau_connector_destroy() {
+	...
+	nvif_event_dtor(&nv_connector->irq);
+	nvif_event_dtor(&nv_connector->hpd);
+	kfree(nv_connector->edid);
+	drm_connector_unregister(connector);
+	...
+}
+
+When a connector is destroyed, it calls nvif_event_dtor() to unregister the
+hardware event, but does not appear to call cancel_work_sync() for
+nv_connector->irq_work.
+
+If an IRQ fires right before the event is destroyed, the handler schedules
+irq_work:
+
+drivers/gpu/drm/nouveau/nouveau_connector.c:nouveau_connector_irq() {
+	...
+	schedule_work(&nv_connector->irq_work);
+	return NVIF_EVENT_KEEP;
+}
+
+Because the work is never canceled, will it eventually execute on freed
+memory after the connector has been freed?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-drm-no-mor=
-e-crtc-reset-v1-0-fb793475c05a@kernel.org?part=3D51
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178732578167.167481=
+.5619512544301226563@gmail.com?part=3D1
