@@ -4,42 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24495C5DF89
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 12:52:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4A66C5DF87
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 13:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5514310E293;
-	Fri, 21 Aug 2026 12:52:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE24E10E2A0;
+	Fri, 21 Aug 2026 13:18:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X2pHkczR";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="YwxCfVAN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07AF810E293
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 12:52:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4A27060A6E;
- Fri, 21 Aug 2026 12:41:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00D11F000E9;
- Fri, 21 Aug 2026 12:41:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787316114;
- bh=RtvGrKa6OAg1aYHccKfYOz4sodKKguzXiQooFBazjlo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X2pHkczRbe6u/CuwB/g5wD3liWMnR0Tk6rI8mXduzVdaRlPOXHy48lpiUxHU/YV+a
- WXeeFnBwBTt3YTZ0BuQPcgj5uF0lh4Xq2cpfLQXexNaahz0eK9xg+wFK889Z7GK3oF
- E98thnlHcFuh41oBgo+6IEDLdZEmC5ElmhpaM89yB6+HsX4t00QD3WLOPgyoSm3dv6
- LcKNacOHjLXAhdS/Tf5GU4bcKg4WtOsCXFxcbFLVhz8O76vl6zexGVlYV/bntS50hY
- HpMzMvpWpxRduVuFy1r1WARP3iY4DofPOxwD8nkrdtHgekyzU+WYM/l6XSP1PA/1Qj
- dt13HlJthFovA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/imx: dcss: Silence blend mode not set boot warning
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260821122608.2077746-1-laurentiu.palcu@oss.nxp.com>
-References: <20260821122608.2077746-1-laurentiu.palcu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 12:41:53 +0000
-Message-Id: <20260821124153.C00D11F000E9@smtp.kernel.org>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F160D10E2A0;
+ Fri, 21 Aug 2026 13:18:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787318316; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PO6ekrGm0t7zfVe9kVhGQjaIA1yc56qvUaXboDQLU++ho8uetm/T8cHhdnmPglgG+axg6Sx8ALRwMIe772rVCHz31hpRMYWu81A6zB68ObYwKATm5HZHsVsUYDPniOMlbwJXbTiUSK52GPm+s61lj6C0yA/qn7xfcnglv9pX2k8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1787318316;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=gEa87WB9bffTrtjpQDV9KM2RmE0aBNmB7qXjGliDfp0=; 
+ b=gNlQXHXoW9AgYwo39qDALUHbC1mayXa/sQqQK+FTGkbVCvDdMVq8AeVPQNlsaWoRfniTjYzLsoDnuInR6C2Tbbw6e5TqxhjZmr5QjIgYuYWbZ0uEduuz113tWOPLt4BQOinzWjhSxDrxZk4c7971/nMBZ+dJ6E8hPa9D9A/SfYI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787318316; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=gEa87WB9bffTrtjpQDV9KM2RmE0aBNmB7qXjGliDfp0=;
+ b=YwxCfVANhSJf/cRtRltpfftZRC6jFhyA6vzfLb3SOgJwvtAQOafIsAzK9rzkSve4
+ wD7p8tIrlswqaqL0+qu1viqhrOWmYGFO1pkxvgT5XCaoC5YpqQk3LxHplJDHTB6Zgiu
+ xHmN0qzLTupnKCNHNwD3vfvceo49fKMzswDnux58=
+Received: by mx.zohomail.com with SMTPS id 1787318314107393.4510032745691;
+ Fri, 21 Aug 2026 06:18:34 -0700 (PDT)
+Message-ID: <6979fc5e-5f93-42a5-aec0-b0448aa13197@collabora.com>
+Date: Fri, 21 Aug 2026 15:18:30 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 02/10] drm/vkms: Fix limited-range YCbCr to RGB
+ conversion scaling
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Cc: Alex Hung <alex.hung@amd.com>
+References: <20260814211816.1219597-1-harry.wentland@amd.com>
+ <20260814211816.1219597-3-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260814211816.1219597-3-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,117 +65,326 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Initial pixel_blend_mode property is set to an unsupported value (=
-PREMULTI), causing userspace compositor crashes.
-- [High] Fast-path atomic commits silently drop alpha and pixel_blend_mode =
-property updates.
---
+FYI: Following my previous observation that the Weston 
+test ("color-representation-drm") that should have detected this error 
+did not do so, I opened a MR to reduce the fuzziness (accepted error 
+range) of said test [1]. The test checks all six cases with llvmpipe, 
+lavapipe, Weston-internal GL fallback shaders and VKMS. All of them 
+succeed within an error range of 1 per 8bit channel *with* the change 
+from this patch. Without it the VKMS results have higher errors[2] - 
+confirming again that this patch clearly is an improvement.
 
---- Patch [1]: [PATCH] drm/imx: dcss: Silence blend mode not set boot warni=
-ng ---
-commit b8d70d6b989c5f19b4322dbd26927d62d307bf28
-Author: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+So hope we can move forward with the series soon :)
 
-drm/imx: dcss: Silence blend mode not set boot warning
+Best regards,
 
-This addresses a boot warning about missing blend mode when a pixel format
-with alpha is exposed. It adds the alpha and blending properties to the
-primary plane.
+Robert
 
-> diff --git a/drivers/gpu/drm/imx/dcss/dcss-crtc.c b/drivers/gpu/drm/imx/d=
-css/dcss-crtc.c
-> index ab41759a9f52d..8358219c94c0d 100644
-> --- a/drivers/gpu/drm/imx/dcss/dcss-crtc.c
-> +++ b/drivers/gpu/drm/imx/dcss/dcss-crtc.c
-[ ... ]
-> @@ -202,6 +203,11 @@ int dcss_crtc_init(struct dcss_crtc *crtc, struct dr=
-m_device *drm)
->  		return ret;
->  	}
-> =20
-> +	drm_plane_create_alpha_property(&crtc->plane[0]->base);
-> +	drm_plane_create_blend_mode_property(&crtc->plane[0]->base,
-> +					     BIT(DRM_MODE_BLEND_PIXEL_NONE) |
-> +					     BIT(DRM_MODE_BLEND_COVERAGE));
+1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2184
 
-[Severity: High]
-Does exposing only PIXEL_NONE and COVERAGE cause issues with the default pl=
-ane
-reset?
+2: https://gitlab.freedesktop.org/rmader/weston/-/pipelines/1731461
 
-Looking at the driver, it uses the default drm_atomic_helper_plane_reset ho=
-ok:
-
-drivers/gpu/drm/imx/dcss/dcss-plane.c:
-struct drm_plane_funcs dcss_plane_funcs =3D {
-    ...
-    .reset =3D drm_atomic_helper_plane_reset,
-    ...
-};
-
-This core helper unconditionally initializes state->pixel_blend_mode to
-DRM_MODE_BLEND_PREMULTI. If the property is created here with only
-PIXEL_NONE and COVERAGE supported, will userspace compositors (like Weston)
-receive an invalid enum value during startup and crash when querying
-properties?
-
+On 14.08.26 23:18, Harry Wentland wrote:
+> The limited-/studio-range YCbCr to RGB conversion matrices were generated
+> with colour.matrix_YCbCr(is_legal=True, bits=8), which normalises the
+> narrow range by 2^bits (256 for 8-bit) rather than by the full-range
+> maximum 2^bits - 1 (255). As a result the luma scale was 256/219 and the
+> chroma scale 256/224 instead of the correct 255/219 and 255/224.
+>
+> This over-scales every limited-range conversion by a factor of 256/255,
+> producing an error of up to ~3/255 (8-bit) and causing IGT tests that
+> compare software-computed surfaces against VKMS-processed ones to fail.
+>
+> Recompute the three limited-range matrices from first principles rather
+> than relying on colour's is_legal scaling:
+>
+>   1. Start from the standard ITU-R YCbCr -> RGB relations for the luma
+>      weights Kr, Kb (Kg = 1 - Kr - Kb) of each encoding (BT.601, BT.709
+>      and BT.2020 non-constant luminance). These are the same relations
+>      that produce the existing full-range matrices.
+>   2. Expand the studio input range to full range relative to a full-range
+>      maximum of 2^n - 1: the luma coefficient by 255/(235 - 16) and the
+>      chroma coefficients by 255/(240 - 16). This matches the DRM UAPI
+>      definition and IGT's igt_ycbcr_to_rgb_matrix().
+>   3. Convert each coefficient to S31.32 fixed point (round(coeff * 2^32)).
+>
+> Update the limited-range reference values in the vkms-format KUnit test
+> accordingly. Provide a python script to show how the kunit test value
+> are calculated.
+>
+> Fixes: fe22d21e9342 ("drm/vkms: Add YUV support")
+> Assisted-by: Copilot:claude-opus-4.8
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> Tested-by: Robert Mader <robert.mader@collabora.com>
+> ---
+>   .../gpu/drm/vkms/tests/gen_yuv_conversion.py  | 87 +++++++++++++++++++
+>   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 38 ++++----
+>   drivers/gpu/drm/vkms/vkms_formats.c           | 55 ++++++++----
+>   3 files changed, 144 insertions(+), 36 deletions(-)
+>   create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
+>
+> diff --git a/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py b/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
+> new file mode 100755
+> index 000000000000..f4d226137cc2
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
+> @@ -0,0 +1,87 @@
+> +#!/usr/bin/env python3
+> +# SPDX-License-Identifier: GPL-2.0+
+> +"""
+> +Derive the VKMS YCbCr -> RGB conversion constants and the vkms-format KUnit
+> +reference values.
 > +
->  	crtc->irq =3D platform_get_irq_byname(pdev, "vblank");
->  	if (crtc->irq < 0)
->  		return crtc->irq;
-[ ... ]
-> diff --git a/drivers/gpu/drm/imx/dcss/dcss-plane.c b/drivers/gpu/drm/imx/=
-dcss/dcss-plane.c
-> index 1746dc5d4b642..06413d0612349 100644
-> --- a/drivers/gpu/drm/imx/dcss/dcss-plane.c
-> +++ b/drivers/gpu/drm/imx/dcss/dcss-plane.c
-[ ... ]
-> @@ -336,7 +344,8 @@ static void dcss_plane_atomic_update(struct drm_plane=
- *plane,
->  	dcss_dtg_plane_pos_set(dcss->dtg, dcss_plane->ch_num,
->  			       dst.x1, dst.y1, dst_w, dst_h);
->  	dcss_dtg_plane_alpha_set(dcss->dtg, dcss_plane->ch_num,
-> -				 fb->format, new_state->alpha >> 8);
-> +				 fb->format, new_state->alpha >> 8,
-> +				 new_state->pixel_blend_mode);
+> +It produces:
+> +  1. The S31.32 fixed-point conversion matrices used in
+> +     drivers/gpu/drm/vkms/vkms_formats.c and asserted by
+> +     vkms_format_test_conversion_matrix.
+> +  2. The 16-bit reference YCbCr inputs for the limited-range
+> +     yuv_u16_to_argb_u16 round-trip cases (the values changed by the fix).
+> +
+> +Requires numpy.
+> +"""
+> +
+> +import numpy as np
+> +
+> +FP = 1 << 32                       # S31.32 scale: fixed = round(coeff * 2^32)
+> +
+> +# ITU-R luma weights (Kr, Kb); Kg = 1 - Kr - Kb.
+> +ENCODINGS = {
+> +    "BT601":  (0.299,  0.114),
+> +    "BT709":  (0.2126, 0.0722),
+> +    "BT2020": (0.2627, 0.0593),    # non-constant luminance
+> +}
+> +
+> +# 8-bit studio-range levels: luma 16..235 (range 219), chroma 16..240
+> +# (range 224, neutral 128); full-range maximum is 2^n - 1 = 255.
+> +FULL_MAX = 255
+> +Y_RANGE  = 235 - 16                # 219
+> +C_RANGE  = 240 - 16                # 224
+> +
+> +# 16-bit RGB test colors.
+> +COLORS = {
+> +    "white": (0xffff, 0xffff, 0xffff),
+> +    "gray":  (0x8080, 0x8080, 0x8080),
+> +    "black": (0x0000, 0x0000, 0x0000),
+> +    "red":   (0xffff, 0x0000, 0x0000),
+> +    "green": (0x0000, 0xffff, 0x0000),
+> +    "blue":  (0x0000, 0x0000, 0xffff),
+> +}
+> +
+> +
+> +def rgb_matrix(kr, kb, limited):
+> +    """Normalized YCbCr -> RGB (Y in [0,1], Cb/Cr in [-0.5, 0.5])."""
+> +    kg = 1.0 - kr - kb
+> +    # Standard full-range relations.
+> +    m = [[1.0,  0.0,                     2 * (1 - kr)],
+> +         [1.0, -2 * (1 - kb) * kb / kg, -2 * (1 - kr) * kr / kg],
+> +         [1.0,  2 * (1 - kb),            0.0]]
+> +    if limited:
+> +        # Expand studio input range to full range: luma by 255/219,
+> +        # chroma by 255/224 (relative to full-range maximum 2^n - 1).
+> +        ys, cs = FULL_MAX / Y_RANGE, FULL_MAX / C_RANGE
+> +        m = [[r[0] * ys, r[1] * cs, r[2] * cs] for r in m]
+> +    return m
+> +
+> +
+> +def ref_yuv(m, y_offset):
+> +    """16-bit YCbCr that VKMS decodes back to each RGB color.
+> +
+> +    VKMS decode: [R,G,B] = M . [Y - y_offset*257, Cb - 128*257, Cr - 128*257]
+> +    (8-bit offsets lifted to 16-bit by *257 = 65535/255), so invert and
+> +    re-add the offsets.
+> +    """
+> +    inv = np.linalg.inv(np.array(m, float))
+> +    off = np.array([y_offset * 257, 128 * 257, 128 * 257])
+> +    return {name: tuple(int(min(max(round(v), 0), 0xffff))
+> +                        for v in inv @ np.array(rgb, float) + off)
+> +            for name, rgb in COLORS.items()}
+> +
+> +print(f"== RGB REFERENCE VALUES ==")
+> +for name, rgb in COLORS.items():
+> +    print(f"    {name:6} {{ {rgb[0]:#06x}, {rgb[1]:#06x}, {rgb[2]:#06x} }}")
+> +print()
+> +
+> +for enc, (kr, kb) in ENCODINGS.items():
+> +    for limited in (False, True):
+> +        m = rgb_matrix(kr, kb, limited)
+> +        y_offset = 16 if limited else 0
+> +        print(f"== {enc} {'LIMITED' if limited else 'FULL'} (y_offset={y_offset}) ==")
+> +        for row in m:
+> +            print("    { " + ", ".join(str(round(v * FP)) for v in row) + " },")
+> +        for name, yuv in ref_yuv(m, y_offset).items():
+> +            print(f"    {name:6} {{ {yuv[0]:#06x}, {yuv[1]:#06x}, {yuv[2]:#06x} }}")
+> +        print()
+> diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> index a7788fbc45dc..d2ae6321383b 100644
+> --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> @@ -54,6 +54,8 @@ struct yuv_u16_to_argb_u16_case {
+>    * The YUV color representation were acquired via the colour python framework.
+>    * Below are the function calls used for generating each case.
+>    *
+> + * The limited-range cases are generated by gen_yuv_conversion.py.
+> + *
+>    * For more information got to the docs:
+>    * https://colour.readthedocs.io/en/master/generated/colour.RGB_to_YCbCr.html
+>    */
+> @@ -101,12 +103,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x517b, 0x5a34, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0x908e, 0x35cc, 0x2237 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x28f7, 0xf000, 0x6dc9 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x51cd, 0x5a8e, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0x911e, 0x3602, 0x2259 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x2920, 0xf0f0, 0x6e37 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   	/*
+> @@ -151,12 +153,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x3e8f, 0x6656, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0xaca1, 0x29aa, 0x1a45 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x1fd0, 0xf000, 0x75bb }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x3ece, 0x66bc, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0xad4e, 0x29d4, 0x1a5f }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x1ff0, 0xf0f0, 0x7631 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   	/*
+> @@ -201,12 +203,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x4988, 0x60b9, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0xa47b, 0x2f47, 0x1902 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x1cfd, 0xf000, 0x76fe }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x49d2, 0x611a, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0xa520, 0x2f76, 0x191b }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x1d1a, 0xf0f0, 0x7775 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   };
+> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
+> index dfb8e13cba87..4d5fcaeb82c5 100644
+> --- a/drivers/gpu/drm/vkms/vkms_formats.c
+> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
+> @@ -788,15 +788,36 @@ static const struct conversion_matrix yuv_bt601_full = {
+>   };
+>   
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.601"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.601 limited-/studio-range YCbCr to full-range RGB.
+> + *
+> + * The coefficients are derived as follows:
+> + *
+> + *  1. Take the standard ITU-R YCbCr -> RGB relations for luma weights
+> + *     Kr, Kb (Kg = 1 - Kr - Kb), with Y in [0, 1] and Cb, Cr in
+> + *     [-0.5, 0.5]. For BT.601 Kr = 0.299 and Kb = 0.114:
+> + *
+> + *       R = Y                                + 2 * (1 - Kr)          * Cr
+> + *       G = Y - 2 * (1 - Kb) * Kb / Kg * Cb - 2 * (1 - Kr) * Kr / Kg * Cr
+> + *       B = Y + 2 * (1 - Kb)          * Cb
+> + *
+> + *     These are exactly the yuv_bt601_full coefficients above.
+> + *
+> + *  2. Expand the studio input range to full range, relative to a
+> + *     full-range maximum of 2^n - 1 (255 for 8-bit): the luma
+> + *     coefficient is scaled by 255/(235 - 16) and the chroma
+> + *     coefficients by 255/(240 - 16). This matches the DRM UAPI
+> + *     definition and IGT's igt_ycbcr_to_rgb_matrix(). Note this differs
+> + *     from colour.matrix_YCbCr(is_legal=True), which normalises by 2^n
+> + *     and is thus off by a factor of 256/255.
+> + *
+> + *  3. Convert each coefficient to S31.32 fixed point, i.e.
+> + *     round(coeff * 2^32).
+>    */
+>   static const struct conversion_matrix yuv_bt601_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,           6881764740 },
+> -		{ 5020601039, -1689204679, -3505362278 },
+> -		{ 5020601039, 8697922339,  0 },
+> +		{ 5000989317, 0,           6854882848 },
+> +		{ 5000989317, -1682606224, -3491669458 },
+> +		{ 5000989317, 8663946082,  0 },
+>   	},
+>   	.y_offset = 16,
+>   };
+> @@ -816,15 +837,14 @@ static const struct conversion_matrix yuv_bt709_full = {
+>   };
+>   
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.709"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.709 limited-range YCbCr to full-range RGB (Kr = 0.2126, Kb = 0.0722).
+> + * Derived as described for yuv_bt601_limited.
+>    */
+>   static const struct conversion_matrix yuv_bt709_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,          7729959424 },
+> -		{ 5020601039, -919487572, -2297803934 },
+> -		{ 5020601039, 9108275786, 0 },
+> +		{ 5000989317, 0,          7699764272 },
+> +		{ 5000989317, -915895824, -2288828138 },
+> +		{ 5000989317, 9072696586, 0 },
+>   	},
+>   	.y_offset = 16,
+>   };
+> @@ -844,15 +864,14 @@ static const struct conversion_matrix yuv_bt2020_full = {
+>   };
+>   
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.2020"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.2020 non-constant-luminance limited-range YCbCr to full-range RGB
+> + * (Kr = 0.2627, Kb = 0.0593). Derived as described for yuv_bt601_limited.
+>    */
+>   static const struct conversion_matrix yuv_bt2020_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,          7238124312 },
+> -		{ 5020601039, -807714626, -2804506279 },
+> -		{ 5020601039, 9234915964, 0 },
+> +		{ 5000989317, 0,          7209850391 },
+> +		{ 5000989317, -804559491, -2793551177 },
+> +		{ 5000989317, 9198842076, 0 },
+>   	},
+>   	.y_offset = 16,
+>   };
 
-[Severity: High]
-Does the fast-path logic earlier in this function silently drop alpha and
-pixel_blend_mode updates?
+-- 
+Robert Mader
+Consultant Software Developer
 
-Earlier in dcss_plane_atomic_update(), there is an early return based on
-dcss_plane_needs_setup():
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
-    if (old_state->fb && !drm_atomic_crtc_needs_modeset(crtc_state) &&
-        !dcss_plane_needs_setup(new_state, old_state)) {
-        dcss_plane_atomic_set_base(dcss_plane);
-        return;
-    }
-
-Since dcss_plane_needs_setup() only checks geometry, formatting, rotation, =
-and
-scaling:
-
-    return state->crtc_x !=3D old_state->crtc_x ||
-           ...
-           state->scaling_filter !=3D old_state->scaling_filter;
-
-Will an atomic commit that only modifies the alpha or pixel_blend_mode
-properties cause dcss_plane_needs_setup() to return false?
-
-This would result in returning early and skipping the
-dcss_dtg_plane_alpha_set() hardware update entirely.
-
-> =20
->  	if (!dcss_plane->ch_num && (new_state->alpha >> 8) =3D=3D 0)
->  		enable =3D false;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821122608.2077=
-746-1-laurentiu.palcu@oss.nxp.com?part=3D1
