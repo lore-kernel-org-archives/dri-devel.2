@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7064EC5DF94
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:42:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6D14C5DF89
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F368E10F2F6;
-	Fri, 21 Aug 2026 14:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 088CF10F2F8;
+	Fri, 21 Aug 2026 14:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lubya9hp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XW5AnUnH";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE0210F2EC
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:42:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A386810F2EC
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:41:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2A696136F;
- Fri, 21 Aug 2026 14:42:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F2061F000E9;
- Fri, 21 Aug 2026 14:42:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0C5556187C;
+ Fri, 21 Aug 2026 14:41:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39FB11F000E9;
+ Fri, 21 Aug 2026 14:41:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323330;
- bh=5vCcrjTC6fdjyiXe+iiNWKoI+eKhp8ZnA0oqjo52QBU=;
+ s=k20260515; t=1787323311;
+ bh=SQV0RhKI0HjCxVM0ccESERvchiiNLBUT39W/zgICvGw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Lubya9hp8cyGzu8K3+kQo09I4U7CdN98P6sr59wxYWp0u2nB9rKeyD2MKGgFxOjXI
- GKW9rYUOkCLKMBQ0PJRtwUXffdib/F35zp8Se13bdHuuqXCm2ws2bGeKzHiecU04ds
- /l7xpjk85+dhSJwoy6AH3c+hMqQ/P75aFRxNy5clBB4IiXn5VA7QObILHeHftBfiN6
- JgHquMPCg8GLRTtNH4Jya8Rj1tvl1WcrvGK0t4mb3IB0Csuw2MX8daLLYunDtX3eEz
- eJrTnIu7YjrlClN1RcoFjlRwXyobs/30JIUT/H6sLrGdfNxKOZ8fUjRf2qDDkknAbj
- gpItfnekzO5LA==
+ b=XW5AnUnHi/JEFCOEzVvcBOnRRipMHBKbz35bNX42JWhIH21bKpzf6W18mp2ffn2Y+
+ u3sEoHLzh6limfq9g9KsSFuTZAKiXXRvfvDYBrxoaYW/h31EfUQganCHqQgxt1TvyL
+ ed2xVJ9Y9WoZDirU6m4PlicjjqeW6bEHIlj1YxMg0Cyt6DH8kotCKPSimxHvvwxRVT
+ rDJJzcJLn/IWm7DmXmLJOsNgUAH/8xuVgu6QHeeLKt44LOdnbKlTAqkyb4NzRRa3W1
+ Ba/ufRdE+Dw8GEW7Kv224/Bo885zhiIedxWj/O+plac8chJYGytklu4n6bHBFuYwgY
+ yCZb13GxMtzEw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 21 Aug 2026 16:39:46 +0200
-Subject: [PATCH 70/70] drm/crtc: Remove reset
+Date: Fri, 21 Aug 2026 16:39:38 +0200
+Subject: [PATCH 62/70] drm/rockchip: vop2: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-70-fb793475c05a@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260821-drm-no-more-crtc-reset-v1-62-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Sandy Huang <hjc@rock-chips.com>, 
+ linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2233; i=mripard@kernel.org;
- h=from:subject:message-id; bh=BqdG+BYbqtPRa1rNO1DShHaZ/7NZSkWGMHxpNMmA+u0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdyeJPCp4JKq5leJtUGMhepHLgzra7Acdj3fVT76ue3
- Bp43/Npx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZgIkz1jw8l5wv+UI7yd35w8
- IXeUYUnwSX1ztf1LP6rP8Ww5L5i+Ufuj0JI8HRur+BtWVT7v9xudY2z4/0Pog36DoLNczHuRs8s
- TghJd17b0nPrPENsRFr/hQFtBKJ/LORM2LwZjvlerDwiWygAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2389; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=tIQAUDVM3QuR+HEdoF0CNR//Y7qOtSSSYkp0Z+DU4eA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdycLcxot59Msy1v0/N3dST8+VhGSXs1etz3z9M+1B+
+ vkfj1OcOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEuHIZG6apr0tPMuzYcWKH
+ letyp5M9vPmRPGvn7P105cGSp+ZdK10fy9kqr27zmOX4UXDNpFuR0ox1BiyRO6MCNf84q3EEXYn
+ cE64+K2XfhUeJk//xv/N5uazIKtrbv3JRUNb7yuOsDu1zN20GAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,65 +70,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-All crtc drivers now implement the atomic_create_state hook instead of
-the reset hook for initial state creation. The reset hook conflated
-initial state allocation at probe time with hardware and software reset
-during suspend/resume, making error handling difficult since it is not
-fallible.
+The rockchip vop2 crtc implementation provides a custom reset hook.
+However, this hook only allocates the state, initializes it with
+__drm_atomic_helper_crtc_reset(), and frees the previous state. It
+does not perform any hardware reset.
 
-Remove the reset hook from struct drm_crtc_funcs and the associated
-call in drm_mode_config_reset().
+Since this is exactly what the atomic_create_state hook is meant to
+do, minus the old state cleanup which the caller handles, convert the
+implementation to use atomic_create_state with
+__drm_atomic_helper_crtc_state_init() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_mode_config.c |  4 +---
- include/drm/drm_crtc.h            | 10 ----------
- 2 files changed, 1 insertion(+), 13 deletions(-)
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: linux-rockchip@lists.infradead.org
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index 3bcc7bf0900c..9f4eb694e1fb 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -294,13 +294,11 @@ void drm_mode_config_reset(struct drm_device *dev)
- 		else if (plane->funcs->atomic_create_state)
- 			drm_mode_config_plane_reset_with_create_state(plane);
- 	}
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 4cce3e336f5b..b2f3a579bbe5 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -2298,28 +2298,28 @@ static void vop2_crtc_destroy_state(struct drm_crtc *crtc,
  
- 	drm_for_each_crtc(crtc, dev) {
--		if (crtc->funcs->reset)
--			crtc->funcs->reset(crtc);
--		else if (crtc->funcs->atomic_create_state)
-+		if (crtc->funcs->atomic_create_state)
- 			drm_mode_config_crtc_reset_with_create_state(crtc);
- 	}
+ 	__drm_atomic_helper_crtc_destroy_state(&vcstate->base);
+ 	kfree(vcstate);
+ }
  
- 	drm_for_each_encoder(encoder, dev)
- 		if (encoder->funcs && encoder->funcs->reset)
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index 12f43253f059..be5dca538d87 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -421,20 +421,10 @@ struct drm_crtc_state {
-  * Each driver is responsible for filling out this structure at startup time,
-  * in addition to providing other modesetting features, like i2c and DDC
-  * bus accessors.
-  */
- struct drm_crtc_funcs {
--	/**
--	 * @reset:
--	 *
--	 * Reset CRTC hardware and software state to off. This function isn't
--	 * called by the core directly, only through drm_mode_config_reset().
--	 * It's not a helper hook only for historical reasons.
--	 *
--	 */
--	void (*reset)(struct drm_crtc *crtc);
--
- 	/**
- 	 * @cursor_set:
- 	 *
- 	 * Update the cursor image. The cursor position is relative to the CRTC
- 	 * and can be partially or fully outside of the visible area.
+-static void vop2_crtc_reset(struct drm_crtc *crtc)
++static struct drm_crtc_state *vop2_crtc_create_state(struct drm_crtc *crtc)
+ {
+-	struct rockchip_crtc_state *vcstate = kzalloc_obj(*vcstate);
++	struct rockchip_crtc_state *vcstate;
+ 
+-	if (crtc->state)
+-		vop2_crtc_destroy_state(crtc, crtc->state);
++	vcstate = kzalloc_obj(*vcstate);
++	if (!vcstate)
++		return ERR_PTR(-ENOMEM);
+ 
+-	if (vcstate)
+-		__drm_atomic_helper_crtc_reset(crtc, &vcstate->base);
+-	else
+-		__drm_atomic_helper_crtc_reset(crtc, NULL);
++	__drm_atomic_helper_crtc_state_init(&vcstate->base, crtc);
++
++	return &vcstate->base;
+ }
+ 
+ static const struct drm_crtc_funcs vop2_crtc_funcs = {
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.destroy = drm_crtc_cleanup,
+-	.reset = vop2_crtc_reset,
++	.atomic_create_state = vop2_crtc_create_state,
+ 	.atomic_duplicate_state = vop2_crtc_duplicate_state,
+ 	.atomic_destroy_state = vop2_crtc_destroy_state,
+ 	.enable_vblank = vop2_crtc_enable_vblank,
+ 	.disable_vblank = vop2_crtc_disable_vblank,
+ 	.late_register = vop2_crtc_late_register,
 
 -- 
 2.55.0
