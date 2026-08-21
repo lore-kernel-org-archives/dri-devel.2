@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06D11C5DF89
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:14:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E66C5DF93
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:14:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A44910E08E;
-	Fri, 21 Aug 2026 15:14:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8A1610E1BC;
+	Fri, 21 Aug 2026 15:14:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c4knpR7/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R5VSx6m2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AFC410E08E
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:14:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B0F210E1BC
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:14:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9302061126
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:14:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352B91F000E9;
- Fri, 21 Aug 2026 15:13:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3711D41299
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:14:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48E51F000E9;
+ Fri, 21 Aug 2026 15:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787325240;
- bh=i29Kgaq7RHNRCdAXRKO4npaY8gHr0xFH5ZDSYEFaVjo=;
+ s=k20260515; t=1787325271;
+ bh=ZYGoidQOiEW+Ca91vdpp2LDgeOxIqb6qUf0120mkWfA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c4knpR7/gjvTs2ax3Nmu6tC92tliH6Qayx6266UIKsET4z/B7qyQWNcgtiXV49tiH
- QJh8o8qTVTaS6rfzijaOJqt0fvpuRZyMmTkNdPTS5MhhuyVHgMyxs5QOCSI9ihrNMh
- c/KVzocgoP4nipJvTltmnZbrS7OoJMmPdKv2z2MJO0XJYgEuC3hL8VxsT2Rx8y8Wld
- m2GV/isp9bhdSGNAdGeDauBwAMlOoRHup1DD2H0vVasuqrA/GLVtveAYv0N1LrXFQm
- g4Uv3nqEVik62YJo+REJhwaph/pzAtVGJ/asYKVeml3Ekslh7DXVZr9c56shwWyj8p
- nl6VMApjK+WUA==
+ b=R5VSx6m2e6Dv2NTJT+F7K6O5UnDV8Spk+PihzCcvdLolGmLKtu93a4mB4/Tdm5lM1
+ FHYrnFKvAQK2qzbaRl8iqfS8ceD5CWWFTDx9ADw/zPSVvgP4aEteOrpV8SxRw30ZQl
+ JTEyCdg6qmnYR9C3k+JTgFJ7rw7DW4SAoLmUDVBxxvJy/0m3j6pOpoe6BGxayYX3wG
+ MYQBqBwjCfM6VESK5q6jrWqCdXGz/XXjQ38lne30uFuP2VcrbE3e84d81ROcDyDTcc
+ KWNHNNJ2Xm5yyjjsgikWnIFS7frl/b92YHax9POIa7ma5WkWqmKbYLiMudYTr0FeiC
+ vBzjwfYWM1aVw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 29/70] drm/tilcdc: Move hardware reset to CRTC creation
+Subject: Re: [PATCH 23/70] drm/sitronix: st7571: Switch to
+ drm_atomic_helper_crtc_create_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-29-fb793475c05a@kernel.org>
+In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-23-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
- <20260821-drm-no-more-crtc-reset-v1-29-fb793475c05a@kernel.org>
+ <20260821-drm-no-more-crtc-reset-v1-23-fb793475c05a@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 15:13:59 +0000
-Message-Id: <20260821151400.352B91F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 15:14:30 +0000
+Message-Id: <20260821151430.E48E51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,104 +61,95 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Moving the hardware reset logic to `tilcdc_crtc_create()` causes a=
-n unconditional 500ms timeout and a potential fatal bus fault if the bootlo=
-ader left the display enabled, because it waits for an interrupt before the=
- IRQ handler is registered.
-
 Pre-existing issues:
-- [High] The hardware reset sequence unconditionally writes to a V2-only in=
-terrupt enable register, which fails to enable the framedone interrupt on V=
-1 hardware and can cause register corruption.
+- [High] Unconditional 8-line page iterations in `st7571_transform_xy` caus=
+e an out-of-bounds read when `nlines` is not a multiple of 8.
+- [High] Mismatch between framebuffer pitch during conversion and reading c=
+auses display corruption and invalid reads from `hwbuf`.
 --
 
---- Patch [29]: [PATCH 29/70] drm/tilcdc: Move hardware reset to CRTC creat=
-ion ---
-commit d53692ddb744ac620f653bb0b29134bf757b3e82
+--- Patch [23]: [PATCH 23/70] drm/sitronix: st7571: Switch to drm_atomic_he=
+lper_crtc_create_state ---
+commit cf528fe94124a1e49e93edb3680754d3976e2864
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/tilcdc: Move hardware reset to CRTC creation
+drm/sitronix: st7571: Switch to drm_atomic_helper_crtc_create_state
+   =20
+The st7571 crtc implementation uses the deprecated
+drm_atomic_helper_crtc_reset() as its reset hook. Switch to
+drm_atomic_helper_crtc_create_state() instead.
 
-The tilcdc crtc reset hook performs both atomic state initialization
-and hardware-level register writes. This patch moves the hardware
-reset sequence to the CRTC creation path since it is not related to
-atomic state initialization.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c b/drivers/gpu/drm/tilcd=
-c/tilcdc_crtc.c
-> index e07ecb36a27a8..910580c4dada6 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-
-[ ... ]
-
-> @@ -1005,5 +977,24 @@ int tilcdc_crtc_create(struct drm_device *dev)
+> diff --git a/drivers/gpu/drm/sitronix/st7571.c b/drivers/gpu/drm/sitronix=
+/st7571.c
+> index 20954c33eca93..fc3ba5e8600f6 100644
+> --- a/drivers/gpu/drm/sitronix/st7571.c
+> +++ b/drivers/gpu/drm/sitronix/st7571.c
+> @@ -424,7 +424,7 @@ static const struct drm_crtc_helper_funcs st7571_crtc=
+_helper_funcs =3D {
+>  };
 > =20
->  	drm_crtc_helper_add(crtc, &tilcdc_crtc_helper_funcs);
-> =20
-> +	/* Turn the raster off if it for some reason is on. */
-> +	pm_runtime_get_sync(dev->dev);
-> +	if (tilcdc_read(dev, LCDC_RASTER_CTRL_REG) & LCDC_RASTER_ENABLE) {
-> +		/* Enable DMA Frame Done Interrupt */
-> +		tilcdc_write(dev, LCDC_INT_ENABLE_SET_REG, LCDC_FRAME_DONE);
+>  static const struct drm_crtc_funcs st7571_crtc_funcs =3D {
+> -	.reset =3D drm_atomic_helper_crtc_reset,
+> +	.atomic_create_state =3D drm_atomic_helper_crtc_create_state,
+>  	.destroy =3D drm_crtc_cleanup,
+>  	.set_config =3D drm_atomic_helper_set_config,
+>  	.page_flip =3D drm_atomic_helper_page_flip,
 
 [Severity: High]
-This is a pre-existing issue, but does this write corrupt V1 hardware?
+This isn't a bug introduced by this patch, but does this code cause an
+out-of-bounds read when nlines is not a multiple of 8?
 
-The LCDC_INT_ENABLE_SET_REG is specific to V2 hardware. On V1 hardware,
-writing to this register accesses an undefined register address.
+In drivers/gpu/drm/sitronix/st7571.c:st7571_probe():
+	st7571->hwbuf =3D devm_kzalloc(st7571->dev,
+				     (st7571->nlines * st7571->ncols * st7571->bpp) / 8,
+				     GFP_KERNEL);
 
-For V1, shouldn't the framedone interrupt be enabled via
-LCDC_V1_FRAME_DONE_INT_ENA within LCDC_RASTER_CTRL_REG instead? This
-unconditional write might fail to enable the interrupt on V1 controllers,
-leading to a guaranteed timeout in the wait_event_timeout() call below.
+If nlines is not a multiple of 8, hwbuf is allocated strictly based on the
+unaligned nlines value.
 
-> +		tilcdc_clear_irqstatus(dev, 0xffffffff);
-> +
-> +		tilcdc_crtc->frame_done =3D false;
-> +		tilcdc_clear(dev, LCDC_RASTER_CTRL_REG, LCDC_RASTER_ENABLE);
-> +
-> +		ret =3D wait_event_timeout(tilcdc_crtc->frame_done_wq,
-> +					 tilcdc_crtc->frame_done,
-> +					 msecs_to_jiffies(500));
+During a display update:
+
+drivers/gpu/drm/sitronix/st7571.c:st7571_fb_update_rect_monochrome():
+	for (int y =3D rect->y1; y < rect->y2; y +=3D ST7571_PAGE_HEIGHT) {
+
+drivers/gpu/drm/sitronix/st7571.c:st7571_transform_xy():
+	for (int i =3D 0; i < 8; i++) {
+		int row_idx =3D y + i;
+		u8 byte =3D p[row_idx * row_len + x];
+
+This iterates 8 times vertically, which could read beyond the allocated buf=
+fer
+if nlines is smaller than the assumed 8-line page height.
+
 
 [Severity: High]
-Will this unconditionally time out during boot if the bootloader left the
-display enabled?
+This is a pre-existing issue, but does a mismatch between the framebuffer
+pitch during conversion and reading cause invalid reads from hwbuf?
 
-In the driver initialization sequence, tilcdc_crtc_create() executes before
-the IRQ handler is registered in tilcdc_pdev_probe():
+In drivers/gpu/drm/sitronix/st7571.c:st7571_prepare_buffer_monochrome():
+	dst_pitch =3D DIV_ROUND_UP(drm_rect_width(rect), 8);
+	iosys_map_set_vaddr(&dst, st7571->hwbuf);
+	drm_fb_xrgb8888_to_mono(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
 
-tilcdc_pdev_probe()
-  ...
-  ret =3D tilcdc_crtc_create(ddev);
-  ...
-  ret =3D tilcdc_irq_install(ddev, priv->irq);
+The converted partial damage is tightly packed at offset 0 of hwbuf with a
+dynamic pitch.
 
-Since the IRQ handler isn't registered yet when this code runs,
-wait_event_timeout() will wait for an interrupt that cannot be handled,
-causing a 500ms boot delay.
+However, when reading the data:
 
-Could this also cause a kernel panic once the IRQ is finally registered?
+drivers/gpu/drm/sitronix/st7571.c:st7571_fb_update_rect_monochrome():
+	row[x] =3D st7571_transform_xy(st7571->hwbuf, x, y, 1);
 
-When the timeout finishes, pm_runtime_put_sync() disables the device clocks,
-leaving the unhandled interrupt pending in hardware. When
-tilcdc_irq_install() later requests the IRQ, the handler will fire
-immediately and attempt to read the status register while the IP's clocks
-are gated, leading to an imprecise external abort.
+drivers/gpu/drm/sitronix/st7571.c:st7571_transform_xy():
+	u8 row_len =3D 16 * bpp;
+	...
+	int row_idx =3D y + i;
+	u8 byte =3D p[row_idx * row_len + x];
 
-> +		if (ret =3D=3D 0)
-> +			drm_err(dev, "%s: timeout waiting for framedone\n",
-> +				__func__);
-> +	}
-> +	pm_runtime_put_sync(dev->dev);
-> +
->  	return 0;
->  }
+st7571_transform_xy() accesses hwbuf using absolute coordinates and assumes=
+ a
+full-screen layout with a fixed pitch, which seems to completely miss the
+packed damage data.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-drm-no-mor=
-e-crtc-reset-v1-0-fb793475c05a@kernel.org?part=3D29
+e-crtc-reset-v1-0-fb793475c05a@kernel.org?part=3D23
