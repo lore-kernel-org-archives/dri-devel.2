@@ -4,99 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3702C5DF97
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 22:36:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD83C5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 23:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B19210F3E0;
-	Fri, 21 Aug 2026 22:36:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA80C10E093;
+	Fri, 21 Aug 2026 23:40:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rM/wJVSJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jLcdanvh";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3E9410F3E1
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 22:36:20 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-84862b0d5aeso1202628b3a.2
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:36:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787351780; cv=none;
- d=google.com; s=arc-20260327;
- b=kFGzBNreaTfdhh166fuHbLqDBWr8/ZDoF3FpillWmtHEzP6q48nshGSDvp3Ij4Y02p
- 64Za10WaGftGNOvWlKrtXEukr1VtvzO2Zk2uGmksdZCzLQ2BlnqVcIDaqj/865E9m3K/
- hozUubD4JsDiEPW2cE2nOstGcd0OsnbF0MecDrrqcoIYKbBhblo78/sMyH2qdKY1VfCp
- qI9yGqaH3J5fZCKsW03fve0TXGqzX1miWXUIR639nFY/FxADSqKV1n8/APMad0ptuP4O
- iJhyFEbRcQVirDykf+TDb9rJfxvn1iI7i2iaQsA537gsmq4K0PFr9AqoFjOERkVCQMad
- s9Mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=jaWf+hmaqddnDUOtsPaTRUJjDHClz1pfmQFe8O2ji+4=;
- fh=QyvbOl5hq+0eZzmSl2b55K/TaBgKxGTP8RxJ7xipISw=;
- b=onjzkHTq7FDadAh4/Bws1+I4ERqnyHCnIfzs3QtngLjwRz1eDZDFggctLvnGkS5zhO
- rh6jPiH0oOqRh/2EhLls0J8tRIUNGNyfimRRtevtj5QAJvbSVBemj9F1OlKX42i7Mnkr
- dURIS2p9qES+ckatQFqXSXGrfsgQ0DqmwisdKOAsBoiZTPs0IpmhB0OiJKE2vz8oKUGp
- 1yzJFJlIldM05chXs2ubEUh7x6vDMIwiO1oSX6IMcbfXTcUl8ySAhI70rzNneP1asc2T
- a7G5GZX43BlMELczt3LHLB4BNrDpjTq+BH6ZiJa/8hDVsf8pYWH5FrYV7D4o/ra5p+wu
- CyUw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787351780; x=1787956580; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jaWf+hmaqddnDUOtsPaTRUJjDHClz1pfmQFe8O2ji+4=;
- b=rM/wJVSJmRYisR8xrOeuuMeVKgxSLeOWAc8LpgaeLkq2Y30kyxl61EJgeIzdGwUOJx
- Vto7/egh5bJnsxk5YzmyMsFA79b3VYSztJsbW5MB+xHMn+mPKrSMYA7pHz5LEUTZHjaI
- oet5366O4XZM1YLZsP5RRH0gizJyBgn20BOvTS5BgsFm4frjjEFzKCaxm+JUrCOzq9Hl
- 8snSF0d8Wtf8qUSQVsxYujaO3MDKEGe8KaV/5noQ9KHJ+0T3w7GpOXrH4XVWCFf2xYsV
- s1T/oJLruGqL5uzQJMTM7zD/F5iW3YYubZIup3a1CBRWGIAUvP+HAM3nAkU4almHfkNr
- HDmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787351780; x=1787956580;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=jaWf+hmaqddnDUOtsPaTRUJjDHClz1pfmQFe8O2ji+4=;
- b=G8V5vybK+ZsHSQztL1YWv40emaS20X/GonJz8NB7YJC5L/5gQAL5xrTpP6yj4oQdBd
- P0Mh2MQ4A/uvQ/qeu3khrjE7mEsQLOmoZ71Rob+IomvorGQlQIBw0nWsJ/oVz8uBM4Ey
- 0CtJbe/A6gqfkBRljlosq3hJaM7vGcq7l2Ht0bePeEnKWM7AliHP2/gXH0XUe/GV8iEk
- cFfWXmenjnvDXcBbqY1fu3QJZzmoRbDU+a4KaE7sa3Lh2Uy5Jqn+/gxzgIBySsct0PCv
- DoK4wE5UdkgrhB88BzweTTBRgavvvg1XT6b6VkmRd/nP+GkQ/OWbxu5b+C0lWYhiFVPC
- VhUw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrz2V2v3iJ9frACySe7it9UtpjeiRGJG592N+Jdt3jlc8f6pdIO+cgyLbPpDDmoIbQGJ2sxMQX9bX4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kvoJbJpzWGgKhOHuEpvLbGFxTGBp3zlxFXb7YY/YSnJGusgPqu
- qeR8svcmOtqTuG9uRfZ2J+Cyy6kpkDfIZLX1sqaMj4Lf2+gFVxSWWxSFtVxg6yc0NU5puZWHeyb
- 5kSmCJlf5/B3kSgIAgO4oMYEwW8Nv9kB1fZ8E
-X-Gm-Gg: AR+sD13TtDBEYBB8SncJ8ia0scRuqJvW4U9bnyAnXqT5HJYmf6Mf/n1hC3dJWgFP533
- 56XpR2vc1QesNR4cS0YNxODtaEzR0ITOl8JE5vdVf5bJo7Q3gXfY/ssFltiSgzoVdF69u/aiVaw
- C2vu16ZhUcqU8BQpnPV5cdfgEQWQYDBsOowDpyhIWTtUlKtNt37DNnXrg0peFpCjRdubGKkdbjI
- hccheZsW9GqP2ymEeBoGYv4WI93anh9/bUOXkBi/s125QYXiLACUAOtAhPsM90FrMYK/mozWDda
- urAWJFEb2ox2lD/fssPcPDuFLtvEoOpDxSpmyr5/JxI=
-X-Received: by 2002:a05:6300:67c8:b0:3cc:3d08:da3e with SMTP id
- adf61e73a8af0-3cd2fdd1cfcmr18173591637.2.1787351780221; Fri, 21 Aug 2026
- 15:36:20 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DEDF10E093;
+ Fri, 21 Aug 2026 23:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787355636; x=1818891636;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=nWDfG7Qldq+guKpy/LdfoG7/00KZoDegXKxkOl8gQGo=;
+ b=jLcdanvhx6oQidjfU8n3pYJXgAfb7nF2Isg6XAPeQiI4jJGfnhisU8XQ
+ GUOdDsUsXx0MDLc5jAlVLvzKyrZYr9Zh0CSvZ8ktQ4jeZI4aE8MQ/IGmH
+ phSDM6peMqrEFQaDIXcUjtkEevdBJ41oFh2b9MvgKH7Cc/jAtpTYIJLIn
+ zDn8uvB8cYFwptJV2tg/NRm0ugLz5D44woc/rA8EcMaxvm9w6LOhogTo6
+ +HDsatd33T1ep9+9huf+eQEL9eFN9fIYPzckpU8CEWCtuFI4/b17FD8pA
+ NZO4D2shfWnUeyKarfw9t/kM20mEmS634kYEy9Rk3+4x3fFHalPod3euq w==;
+X-CSE-ConnectionGUID: cW41tpfQS5SVMGLZCvdieg==
+X-CSE-MsgGUID: tSiAihu9QgSh6Hj5dTdeqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="88036048"
+X-IronPort-AV: E=Sophos;i="6.25,236,1779174000"; d="scan'208";a="88036048"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2026 16:40:34 -0700
+X-CSE-ConnectionGUID: f/F4kk+8QFivvXHCB+Cv+w==
+X-CSE-MsgGUID: sxrNkFs5TGCSreB7eVMWSw==
+X-ExtLoop1: 1
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2026 16:40:32 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 21 Aug 2026 16:40:31 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Fri, 21 Aug 2026 16:40:31 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.29) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 21 Aug 2026 16:40:29 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GrL27y4xbWKQJz4aMK0dWBUjDvcJbBlD2cpxUp9MF6lSmtW/ptyAETYVhPU6gQXEpawSri/55itQZE6XPxYdgloky9oAX61bbFh/B1O+8ewqxz83JcZZuEPv8BJuryHIpdhghxJWcU0DRh1Jc/X3qoPaLCs1HJ/x/kcwo5etwPHfYhQ6UGlhYSh8LcVmDzhr6mlxl2stAw5u2JlyUrq+tZ9+xj5MYpgq3lgBTUe7eH8tfaM/pRl6AZiiIbR5Hg3RaFN8Q5lrGg6ZrEINAeJekMMaD9k3adPs+1HIvxOzu1z5LvY3Fhlvrbb59yGdeBLzGCxV9m+QIK4UghgLH/DVZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9H8WltDPiBcvyYASRzdKpMs2u/NLOoB5ywlwTeN2ldw=;
+ b=vQAB/0ssWEdL+CDC1A0xbajyt0Cakv9+/ZyZqiyIuctViEUEE1E5F4RTuWYSxTM4HvLNsNcNM9LH37S9fk+Sb1+4Xin3JQ4spkd9b8gghBXyTW2yiPT0kZV0IWTwsXSVQdDgNNpkb8LIf7j8Ju22PgVJSNzRPGzjBdCMwZp9ZhhEe83NgJW1Kjw8FV64HUJikRtVW2hsMiCWTwGkjh+IAQcnRN3ql73kf+qSyqoTFILYOU3UNyGdPvD6H1wNoOpGCLlljC2IW1FScwdVobpPdlIb2GMtEs+g15nzBrK4T8oi17exbkchjsWLOKeNqwrnh48GO2zZUZ9SRE1Kx3YzWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
+ by CHAPR11MB9630.namprd11.prod.outlook.com (2603:10b6:610:301::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 23:40:25 +0000
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.21.0339.010; Fri, 21 Aug 2026
+ 23:40:25 +0000
+Date: Fri, 21 Aug 2026 16:40:21 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+CC: Matthew Auld <matthew.auld@intel.com>, Himal Prasad Ghimiray
+ <himal.prasad.ghimiray@intel.com>, Lucas De Marchi <demarchi@kernel.org>,
+ Maarten Lankhorst <dev@lankhorst.se>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ "David Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <intel-xe@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>
+Subject: Re: drm: xe: Kernel-submitted job timed out
+Message-ID: <aojh5XsZyhfHPW9U@gsse-cloud1.jf.intel.com>
+References: <6874536d-ab1a-4dd7-a23f-2a071bda145e@lankhorst.se>
+ <CAHk-=wj5aE1yVMb8RM2AuNUHSMnQDaGT+Vy+At5ds1vxBA+Kng@mail.gmail.com>
+ <ahDAErDSE-SFA0oM@intel.com>
+ <CAHk-=whX59mtUnU2ayMWoDQX6Ee2NXLK2NxQ+dZnb-Qc_mF1hw@mail.gmail.com>
+ <af9278d3-4002-4e09-9bcf-bc75d1cf8145@lankhorst.se>
+ <CAADWXX-pfvA3mKWSjdahnihAXHQB2VP9BOJDCXonG3Q_nxurLg@mail.gmail.com>
+ <anYZ8nUFP5dnRy/h@gsse-cloud1.jf.intel.com>
+ <CAHk-=whyk2-u_1bTh5ZTeX6jW3HgAtjJh0mV_oWtgsqCe=3w7g@mail.gmail.com>
+ <CAHk-=wjJJH-1q6TK45=z0poSE92mp77JLsF3jHeWXibEtJu7EQ@mail.gmail.com>
+ <CAHk-=wjZbz8v3M+qtzdPvDSshRX=2Krg=ByHyWOW9g+uLQgVkw@mail.gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wjZbz8v3M+qtzdPvDSshRX=2Krg=ByHyWOW9g+uLQgVkw@mail.gmail.com>
+X-ClientProxiedBy: SJ0PR03CA0331.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::6) To BL3PR11MB6508.namprd11.prod.outlook.com
+ (2603:10b6:208:38f::5)
 MIME-Version: 1.0
-References: <20260820164929.17117-1-mohamedahmedegypt2001@gmail.com>
- <20260820164929.17117-9-mohamedahmedegypt2001@gmail.com>
- <33cd07ffe8f6a9c525f9d9b6d646efbf09cf76e9.camel@redhat.com>
-In-Reply-To: <33cd07ffe8f6a9c525f9d9b6d646efbf09cf76e9.camel@redhat.com>
-From: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
-Date: Sat, 22 Aug 2026 02:36:08 +0400
-X-Gm-Features: AcwNN1XoSU5CB0z4SMYc1EoD_kRVt6P6sfxebC3gSSHsnE-BOyDGF2vp96trW_M
-Message-ID: <CAA+WOBsNkoL_fx48fL_hQ+Lg7ErG8cLZx0gUrqrKVA73RAoZGA@mail.gmail.com>
-Subject: Re: [PATCH v2 08/10] drm/nouveau/gsp: fix vblank interrupts on GB20x
-To: lyude@redhat.com
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mary Guillemard <mary@mary.zone>, nouveau@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|CHAPR11MB9630:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38315aab-ab99-46a9-d7fd-08deffdd932a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: TsYseVMIcw/GKyf5BIQpvcKQmY9fKo94mLJU3ifI1Q/Sxx16bDfgnCwTHNoWQnmkjNKfQ2SspymxnH93ydYOqzj0x0aKRs/+OVzYkcubQMbfaBpL1gK7di12IkiUQGjr15TCOw6exC6rXIKCwI58zMMdsh8gvoi5v7cicP7SkhYqvHNZBX+tPzHLoW3AhVL1daEk5zn840p7jNPfQrAe9qQ4NA5/O7ZzW08rkzezjoaRSfsZBtJKFBvihCeQWQY2/l6deb0jV1OYHHx1Mr/UU3i59EoTE0DNVRYJ1IPvGG/QCT0N9rY01pDhcUzWQR3ifQLP1ZpA0GtxbVpRVTwKKo5hBHIBmsTMvGRuQbrGD3y2E7wPPXNRyvcKwOCkzE6uBc9g7QYphyqhFqaxcBMSJLfEOqDjW1Fl1/aNJYApdV/mte028XGNecMdh3YoZPFo3IIapM2vwJlczRurt4IrJPZUhcCipeH+E5rFTkSzXXrmwPkqt8pWBtVcz/Wj2qlaqz3jrNN5XP485PdKoqCyeFULQV5rlyjNUstp/SSMrXn2l0Hi5efpMu7L+SfG5c4404tjCAQGC/O+2P59PUf+x0zHu507Q1pzxalRGAzI5HhcxA2cQadaifgOSivjvwg/9IIfyWSod+/9VKD7o/ISW1zpzmIfM2reg1jCTnd3cwY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?82T+R9WHGfo3kkH4qCnHK08ex6RSK5JDeblfM11lSaQf7LR0xlIPleLBj0i7?=
+ =?us-ascii?Q?OWeYRmAz62gWaE1EanqzXeREx9Yua8mx1r++RBtxVzjasQOTiWNZtZP2lsEx?=
+ =?us-ascii?Q?P9dUGqf30zZziRsp8Cs322IXgC7mABSAhaZ+Ptyf0Lg8oq9Z1SyILkLxxXdC?=
+ =?us-ascii?Q?4RHBjP+aEm8g3e5jqWQK8te+2+n2bQn3v7ybhhit11i4G0waiioBV+f0jRtN?=
+ =?us-ascii?Q?kzPzJQuU19KyDGwkhDrulgIgEl5de1HIGUtyEOZuUgvwND2AQA3lD6Fsdkr8?=
+ =?us-ascii?Q?4hkFWof/AUwTA+PPBCFqJWdOaWLrtr6Flqv9ME7ryIcX7rGRNK7Bae50XqMZ?=
+ =?us-ascii?Q?y3S300VTQ4Yr5ldFySWVSeGuQWsu8i+bezx1LwLPaWX79THr+tt1R961S4Cy?=
+ =?us-ascii?Q?hz2jq27SPis5i77V4L27+OskzS1rQnR7zmkv3EPqvY0TD8N+M1AejzRs4TYI?=
+ =?us-ascii?Q?kk7ouVd/8kCS8T2VjXABFM9Up+hWRbpB6jze3s4i6AkEuXAP7IWKemWegYvM?=
+ =?us-ascii?Q?FzFenY1cqCF0Mem3d8XlXvTGEVOVNzjUOG9XeAGVZfjjUVa71XhtpBh+k2k1?=
+ =?us-ascii?Q?M1jl7yUlQb87UFTVTflZgnUfVoMqbhQPDJ1Giex63CiKmtAQqVuX712wBLYI?=
+ =?us-ascii?Q?yq0/yNYy/uEVU4pUd4+d0Th1xz76rHMyLdfVV/M3fdqRlxsoajf6UAneeE2H?=
+ =?us-ascii?Q?aUqbd/tTP/BO8Xtn353eedBU6m4Z5iJgGQL5iMZ9TT1+ZdGBEQbXPPAq48yu?=
+ =?us-ascii?Q?UNPz+7fC+eDt3xyWhTXas/+fDw8Tq/gu30sZyAUju4lZDhTT0IOk09xrZE6Q?=
+ =?us-ascii?Q?NAPLAKVw95pA4Iv17r10E7+auzTIjXeWZnKMzwLAkswycDT4ckNBz6gBUfHy?=
+ =?us-ascii?Q?AYh7wQEusXxJGjkhlfzlbbKt/ynDX/FNQRhHwyyQpWtU2dwuZlpYnUCraLun?=
+ =?us-ascii?Q?Ns9JnIUtPDUfjVhPNnHYfcSEFDset+L6RDAHwI2xWeQtmzCs9B3rc8JYO3gG?=
+ =?us-ascii?Q?LHBUXkGSd712APQrQ1i+cpP1KxpXgXbtr7T0IUJHpx4RTAxuSrokt8IUBqzw?=
+ =?us-ascii?Q?Dlm3BsbOOPmVKdcNqf/3/DFqt2vw9NgRkCQtTg3nzy2XF6GO9tRExaZpjREK?=
+ =?us-ascii?Q?MUDsBcwn/mqR5BACZM1jVecXr1L/Put68YV8GCLG9WV5E5ubMc1XcStBYI4d?=
+ =?us-ascii?Q?4yYrHp1n0qL/PpB339aI84yotRGwhymgh1Nu4gtbdJzahBF98r6BAonEvW9I?=
+ =?us-ascii?Q?McnyIQQkqdV1ZCvE+nlIbllneBqVseBYDWsLYGJO/IVE4S3RPgVR7g/T/Gc+?=
+ =?us-ascii?Q?f5ngmWBNPmUGoxjpfRklaOoWFAJBGg0ESgkhRuSHz1AVYqEilrSIQ7UnXKiK?=
+ =?us-ascii?Q?T7fPBcDhiNHTxdsfZ8BOxGUuZM7G8P1id/p0p7cM1aL65owce2pJGqYfy0hn?=
+ =?us-ascii?Q?iVi2dbrguK2mYurI/flOtqQtN9i/7c0cLKlAYHEAvQH5ko0CXPkY5XvoiPwC?=
+ =?us-ascii?Q?bYbzGS1sjNCTjdptwlHSs3UhveNzoRLl8TCnIxLrwjr2buNwm75myNwXo7M0?=
+ =?us-ascii?Q?uY47kGZwSOqzxLYavsuUzU/p0KOdvS6Rk2u90WG2KHC/jVRUR44hJLQBuFF8?=
+ =?us-ascii?Q?GItiyO+KxNG+0aScSR2tPYpYhh7LkLWZY0GY+NJPm/kj23DXbnpPn8ddFPqc?=
+ =?us-ascii?Q?B5yi5jcrnqclqzAJqpkr0E+3Ra+dtQePZZxmAjB0n1lIDquJUFlSvg6W81Ya?=
+ =?us-ascii?Q?nl0KVgu91xlrbtsJY/heYVL+1nZqW5I=3D?=
+X-Exchange-RoutingPolicyChecked: iJOmag1eBvcr0yYG9P8/4NoTYt8QSQbtcoeVVqmoG/RSGP3edVPctDRMywD4c88O0rB8251F4rnftTesbj4khEU54P61ugIHFZ9cI2bII/MNmdbOWcZQYzvqsYIEH/wzLr7fbMU61CklpG0mBApMEJSePL69w+mTRnWR66+hb3HpiDKqZILSBWkbiQjJYahpDxFMSMJBZwUpp7VIPA2RtWWqaF56c/RTuw0sMrMPh00A+S8TLFvh8TlfnT1pf4YFtUp7IbywpbgCfh11J9Mt9UGbee8vgmrRysWZcZRW34rF3YkhdGftS4AaoIxsivHiIvy7BjqmLJhv9hiv5tvGbw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38315aab-ab99-46a9-d7fd-08deffdd932a
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 23:40:25.8314 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AXCv8z41h58RBsh73zEy6H2cgfR/sudhbKCDEPVZEuoSjh0yXZ8iVMFaKZZCtVowxZqOmxYucdlW5B1gyTxI6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR11MB9630
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,195 +170,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Aug 22, 2026 at 2:12=E2=80=AFAM <lyude@redhat.com> wrote:
+On Fri, Aug 21, 2026 at 09:47:53AM -0700, Linus Torvalds wrote:
+> On Thu, 20 Aug 2026 at 20:50, Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> >
+
+First, thanks for looking into this, and I apologize for the
+inconvenience. I had gotten to the point where, based on my testing, I
+had reasoned that there was memory corruption somewhere in Xe that was
+writing garbage into the page tables, but without a reproducer I
+couldn't determine exactly where it was occurring.
+
+> > I committed the fix as commit 818bebeb63dd ("drm/xe: Don't hand out
+> > the flat CCS storage as usable VRAM").
+> 
+> Note: that is most definitely a real fix, but it's not necessarily the
+> *right* fix.
+> 
+> For example, I do not understand the old 128kB alignment at all. It
+> not only was definitely the wrong way around, but it made no sense in
+> the first place.
+> 
+> The comment for it said "SW must round up to nearest 128K" and the
+> original broken commit seems to imply that thatt comes from some
+> hardware document.
+> 
+> But the result isn't actually *used* for any hardware state, as far as
+> I can tell. It's just used for "vram_size" (called "usable_size" in
+> xe_vram_probe, which as far as I could tell is only used by the driver
+> for the allocator.
+> 
+> So the whole thing was just complete garbage, and I don't understand
+
+Yes, this is garbage and can corrupt memory.
+
+> *why*. I may be missing something, but yesterday I was so fed up with
+> the experience of spending 10+ hours debugging what ended up being a
+> one-liner that I just committed it as-is.
+> 
+
+one-liners tend to be hardest ones to find, again thanks, apologize,
+etc...
+
+> Now I'm back after a night's sleep, bright-eyed and bushy-tailed, and
+> still not really wanting to look at it, but at least wanting to tie
+> down some loose ends.
+> 
+> So I just want somebody who actually knows the Xe driver to look at
+> that thing. I only round down by 4k, not 128k. I think the 128k was
+> simply wrong and nonsensical. But that number came from *somewhere*.
+> 
+> I claim that the old 128kB number cannot be sane for another reason:
+> the other side of that
+> 
+>         if (GRAPHICS_VER(xe) >= 20) {
+> 
+> will return an offset that is at a 64k granularity, because that's
+> apparently the hardware field definition.
+> 
+> But the point is that the return value of get_flat_ccs_offset()
+> clearly is *not* 128kB-aligned and never was, so not only was the
+> alignment done in the wrong direction, it was always entirely
+> nonsensical. It cannot possibly be something that the allocator code
+> then depends on.
+> 
+> Anyway. It all now works for me, and apparently reliably. But the
+> keyword is "for me". I committed that thing because the old code was
+> clearly garbage, and the new code worked.
+> 
+> But the new code may be garbage too - for some reason that I simply
+
+It will pop an assert somewhere else in the code, but that is also
+questionable.
+
+> don't know about - so somebody competent needs to look at it.
 >
-> Some comments regarding both patch #2 and this patch below:
->
->
-> On Thu, 2026-08-20 at 20:49 +0400, Mohamed Ahmed wrote:
-> > The GSP path programs per-head timing (vblank) interrupts the same
-> > way on
-> > every generation. NVD5.0 (GB20x) reworked the FE interrupt frontend
-> > around four message-based kernel vectors (high latency, low latency,
-> > PMU,
-> > and GSP) and moved RM head-timing interrupts to the dedicated low-
-> > latency
-> > vector:
-> >
-> >  - The enable is NV_PDISP_FE_RM_INTR_EN1_HEAD_TIMING, 0x611ef0 +
-> >    head*4 (570.144 kernel_head_0501.c, renamed kernel_head_0502.c
-> > from
-> >    575.51.02 on, and v05_01 dev_disp.h).
-> >
-> >  - The vector is reported as a separate interrupt table entry,
-> >    MC_ENGINE_IDX_DISP_LOW (intr_gb202.c, intrCacheDispIntrVectors).
-> >
-> >  - The vector must be re-armed through NV_PDISP_FE_INTR_RETRIGGER(1)
-> >    at 0x611f34 after servicing (kdispServiceInterrupt ->
-> >    kdispIntrRetrigger_v05_01).
-> >
-> > The event latch (0x611800), per-head status (0x611c00), and dispatch
-> > summary (0x611ec0) the interrupt handler uses are unchanged on GB20x
-> > (kheadReadPendingVblank_v03_00 and kheadResetPendingLastData_v03_00
-> > remain for DISPv0502+).
-> >
-> > On GB20x the old code enables head timing onto the legacy vector,
-> > leaves
-> > its handler there, and never re-arms the message-based vectors. Page
-> > flips still complete (nv50 sends those events from the commit path),
-> > so
-> > the desktop looks fine while DRM vblank waits and vblank sequence
-> > queries
-> > are affected.
-> >
-> > Supply GB20x vblank enables and an interrupt handler that re-arms the
-> > vector after servicing through gb202_gsp_disp, translate the low-
-> > latency
-> > interrupt table entry as a second NVKM_ENGINE_DISP instance, and flag
-> > the table so r535_disp_oneinit() attaches the handler to that
-> > instance.
-> >
-> > Signed-off-by: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
-> > ---
-> >  .../gpu/drm/nouveau/nvkm/engine/disp/gb202.c  | 42
-> > +++++++++++++++++--
-> >  .../nouveau/nvkm/subdev/gsp/rm/r535/disp.c    |  5 ++-
-> >  .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  9 ++++
-> >  3 files changed, 52 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
-> > b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
-> > index a66c820be9fe..f78669bafd64 100644
-> > --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
-> > +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
-> > @@ -130,6 +130,40 @@ gb202_head_state(struct nvkm_head *head, struct
-> > nvkm_head_state *state)
-> >       }
-> >  }
-> >
-> > +/* NVD5.0 (GB20x and later) moved the RM head-timing interrupt
-> > enable to
-> > + * the low-latency vector's EN1 block. The event latch is unchanged.
-> > + */
-> > +static void
-> > +gb202_head_vblank_put(struct nvkm_head *head)
-> > +{
-> > +     struct nvkm_device *device =3D head->disp-
-> > >engine.subdev.device;
-> > +
-> > +     nvkm_mask(device, 0x611ef0 + (head->id * 4), 0x00000002,
-> > 0x00000000);
-> > +}
-> > +
-> > +static void
-> > +gb202_head_vblank_get(struct nvkm_head *head)
-> > +{
-> > +     struct nvkm_device *device =3D head->disp-
-> > >engine.subdev.device;
-> > +
-> > +     nvkm_wr32(device, 0x611800 + (head->id * 4), 0x00000002);
-> > +     nvkm_mask(device, 0x611ef0 + (head->id * 4), 0x00000002,
-> > 0x00000002);
-> > +}
-> > +
-> > +static irqreturn_t
-> > +gb202_disp_intr(struct nvkm_inth *inth)
-> > +{
-> > +     struct nvkm_disp *disp =3D container_of(inth, typeof(*disp),
-> > engine.subdev.inth);
-> > +     irqreturn_t ret =3D tu102_disp_intr(inth);
-> > +
-> > +     /* The FE interrupt vectors are message-based on NVD5.0. Re-
-> > arm the
-> > +      * low-latency vector so it fires again for any event that
-> > latched
-> > +      * while we were servicing.
-> > +      */
-> > +     nvkm_wr32(disp->engine.subdev.device, 0x611f34, 0x00000001);
-> > +     return ret;
-> > +}
-> > +
-> >  /* GB20x is GSP-only. This table supplies the register programming
-> > the
-> >   * GSP-RM display path needs from the chip.
-> >   */
-> > @@ -137,11 +171,13 @@ static const struct nvkm_disp_func
-> >  gb202_gsp_disp =3D {
-> >       .uevent =3D &gv100_disp_chan_uevent,
-> >       .ramht_size =3D 0x2000,
-> > -     .gsp.intr =3D tu102_disp_intr,
-> > +     /* Head timing arrives on the dedicated low-latency vector.
-> > */
-> > +     .gsp.intr =3D gb202_disp_intr,
-> > +     .gsp.intr_low_latency =3D true,
-> >       .gsp.head_state =3D gb202_head_state,
-> >       .gsp.head_rgpos =3D gv100_head_rgpos,
-> > -     .gsp.vblank_get =3D tu102_head_vblank_get,
-> > -     .gsp.vblank_put =3D tu102_head_vblank_put,
-> > +     .gsp.vblank_get =3D gb202_head_vblank_get,
-> > +     .gsp.vblank_put =3D gb202_head_vblank_put,
-> >       .gsp.hdmi_gcp =3D gb202_sor_hdmi_gcp,
-> >       /* The legacy AVI unit is unchanged on GB20x. */
-> >       .gsp.hdmi_infoframe_avi =3D gv100_sor_hdmi_infoframe_avi,
-> > diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> > b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> > index 3a8ff621ed62..a95f78c4502f 100644
-> > --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> > +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> > @@ -1705,7 +1705,10 @@ r535_disp_oneinit(struct nvkm_disp *disp)
-> >
-> >       /* Chips that raise head-timing interrupts on a separate
-> > low-latency
-> >        * vector report it as a second DISP interrupt table entry,
-> > exposed
-> > -      * as instance 1 by the RM engine-index translation.
-> > +      * as instance 1 by the RM engine-index translation (see
-> > +      * r570_gsp_xlat_mc_engine_idx()). Their high-latency vector
-> > +      * (instance 0) is left unhandled as no event nouveau
-> > enables is
-> > +      * routed to it, and without a handler it stays masked.
-> >        */
->
-> I didn't notice it until I got to this patch, but is it possible you
-> mistakenly added the intr_low_latency stuff a little early with patch
-> #2 and meant to add it here?
->
-> (doesn't matter to me too much either way, whatever you intended works
-> fine with me)
->
-Yeah it was a rebase mistake and then I figured I could salvage it as
-a bit of future-proofing in #2. I can try to fix it properly though.
-> Otherwise:
->
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
->
-> >       ret =3D nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type,
-> >                                 disp->func->gsp.intr_low_latency ?
-> > 1 : disp->engine.subdev.inst);
-> > diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> > b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> > index 3e391646d8f7..b45781cd0dfd 100644
-> > --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> > +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> > @@ -44,6 +44,15 @@ r570_gsp_xlat_mc_engine_idx(u32 mc_engine_idx,
-> > enum nvkm_subdev_type *ptype, int
-> >               *ptype =3D NVKM_ENGINE_DISP;
-> >               *pinst =3D 0;
-> >               return true;
-> > +     case MC_ENGINE_IDX_DISP_LOW:
-> > +             /* GB20x+ report a separate low-latency display
-> > vector, used
-> > +              * for head-timing interrupts. Expose it as a second
-> > DISP
-> > +              * interrupt instance. r535_disp_oneinit() attaches
-> > the
-> > +              * handler to it when the chip's
-> > gsp.intr_low_latency is set.
-> > +              */
-> > +             *ptype =3D NVKM_ENGINE_DISP;
-> > +             *pinst =3D 1;
-> > +             return true;
-> >       case MC_ENGINE_IDX_CE0 ... MC_ENGINE_IDX_CE19:
-> >               *ptype =3D NVKM_ENGINE_CE;
-> >               *pinst =3D mc_engine_idx - MC_ENGINE_IDX_CE0;
->
+
+We are looking into this now and get a proper backportable fix post
+asap.
+
+Matt
+
+>                  Linus
