@@ -4,73 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17437C5DF89
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1061C5DF93
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 14:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4584410E2C8;
-	Fri, 21 Aug 2026 14:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4E4F10E2F9;
+	Fri, 21 Aug 2026 14:38:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f3fc42g4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rYmOyxGc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BDF510E0A5;
- Fri, 21 Aug 2026 14:19:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787321981; x=1818857981;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=z8iAxAemn/0JgPj6PTSNSzKHXE5ttv1nlKOgH4UXlm8=;
- b=f3fc42g4r67o4M5QcIiohc57+sJwF6jeNaxMqW+tEY1Kl3TR8FXX6wNi
- rnl9Bze2/4MnKIT5JLbsRed7lWxA5rQskgISLX+NsODCD3ehmomhnhG5K
- Yv9elfLJv4yZox9XLp+0N2We+Xx+u+7Y0s5snUyzfM85PfQ/VfuHTEIlv
- rqYIE7qskdkfLcrcPPM8pfTk7vuGiDEwKjmuDvFq0v5ffBGbLcmZUbw8p
- JRIKYxJKtwRwDM47NbAms++KuE5h3xaoI8McHunn0H+IZoK5bPeRCWU8Y
- LwYTlBe3PvP3qP4eJjSmrgOZvw624PE2lGVNItX4+TgOemLRALrfE+mtE g==;
-X-CSE-ConnectionGUID: hriM9syATUOY+pHFuKuBUg==
-X-CSE-MsgGUID: mDrlPdSoRbyZOW93XcZNwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="99227883"
-X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; d="scan'208";a="99227883"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2026 07:19:41 -0700
-X-CSE-ConnectionGUID: Z41FSKHpRRClrP8NuXTugg==
-X-CSE-MsgGUID: JRl2iDgJTUeeglFRpLcyOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; d="scan'208";a="269840184"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.20])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2026 07:19:37 -0700
-Date: Fri, 21 Aug 2026 17:19:33 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Chang =?utf-8?B?Smlvbmco5bi454KvKQ==?= <xspeed1989@gmail.com>,
- intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, 
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/i915/cdclk: Don't force cd2x pipe select on Xe3
- in bxt_sanitize_cdclk()
-Message-ID: <aohedWm6CXXBWf-G@intel.com>
-References: <tencent_6CC00E822A788776C8F6E2D6B24C5FE4A909@qq.com>
- <20260816062344.796615-1-xspeed1989@gmail.com>
- <c4dead5d0527e305f44ddb943f95e9967ec1911f@intel.com>
- <c779c8e8fc78c68aea12c2022b2d8c64541ca173@intel.com>
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9C010E302
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:38:28 +0000 (UTC)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-841f1dfc30fso32964287b3.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 07:38:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787323107; x=1787927907; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=AJ7GeXkvxDCAB3BMlDYkkSzT/Txb0FUDU70/A4GPBvY=;
+ b=rYmOyxGc2EYZa3xPSEZQnlbTOU7NLi42c/v09XRr7p7gKVZ1PTXwlRQFPILuMidoXj
+ LOmu5ehm/A5O3Klk82v2wBH0iMvLyRJIN/F/42FPYiQrAmuAjjlVfcMgkEuvhPSvA+Su
+ vl3FDYlM3ppQuKx3UGjSrTT7hAJHRvTnoxpiwO0TNNoQQj/RFw1u3Zz2Ti4XHJ1iuXpy
+ QXMy/pLdeSJFBjqj9JQqk0hZ+NTVuesjeovgLq2PFnph+3UmbtD8JWrDyZJJ0o8Xy8cP
+ zxpWv0VoTj8mFMc33HR4BcLxRy0nqSfF+mO2qb8W1jh0+5/lUpHRtTD9N9vQkvJo9miS
+ LYyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787323107; x=1787927907;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=AJ7GeXkvxDCAB3BMlDYkkSzT/Txb0FUDU70/A4GPBvY=;
+ b=sFYLutpGEe4GiQ27GIDIpJiPr6vEU4Gna2dq2t6DPxbTy12pebwR/9kG3G2zVPA1KT
+ bdXqOobATsuwXIDKpTY41uSB9oWtO2ei+vc+Qz0CSQII0Ju3xJk860GjEpHzVA3EHzAL
+ SGfCNReax65d6JqcbHXJgMjXF/C+oU2GKFTIkwVpZIE1YrOnob8QpKUQbZ6dnziTsllS
+ awvYi9TjAfGhLNAQD8l0sdPZoikMy2T9GLz+HsMF0kmo4bkBPX7/iaI2Gv975MHo4OOR
+ qrqi40S1s/1HvbhNkMCfA7h3O2pmxTvxu0WTtKZeM2igb+KJsQfWZJgx7amfOcdDv7B3
+ W4Tg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoAc0O4lF8xbBbh5cg9LBDWN16kg4aXmH+b3Px8WbVbtM60KJ7HWNbqguAMWQrGYy9crE0BxO77Gf0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kcnimjnnonmXShPmC9ow0w6pbv3gOqJZRrm3tQq2rx8F3VyefK
+ Z4Q56IOKGKGlJKlqPtrFrhUyfcz2UQdwHTKNIAiQZ+Gl29UuuNZkzyw=
+X-Gm-Gg: AR+sD13hmObqWT3ALHuzns6Z6om6tpq7rwrC7ciC+TlMMnkqVsiV94eWl/gxpeT4hP5
+ 16Fh1Ok87xx1/MK+ca0XbLSmumIhNdbfaS08KpYAHUV1Uk24jqCkMy0gRVBuXxKOhcLgAo7yuvj
+ DOMEPhvYY3Z2I6FHyvwMUNzbpXEs36+5AEtQ+UOGe9vbRqQzogRtjpKR3vxBf7q1APpnn1wQhbo
+ BogQ+I39qoKSDBlYeXfOxUyGaAbVeYkzdrcgozrRjHDjHof8Z+bBuNTYmwdyryS7BfcoIw8Okub
+ p9yjoiwrkX4fLI9pJhu+SfpEYJx2lXOu8WMWdY7PNakkR2eBUWfRR0PtgtsWgDrVcIAkjG13SeM
+ vUVVigdasAvlyX3hbdXAsGUSLCG2KK4/xoZo6/tQc1MmwOBRPy4pTgU8LHH4yTDd4xQVe0MFZq2
+ U8vuImR607plVctJio5AO+IkID5bdH0UXh+/Fzt5Ie9Fg6hh8IARpBsEznXwSxKGq5rugR7tyJJ
+ v8Jt/rr4u9BpdVnF7EEiTUC4dn3YUKg7tp8E4t8
+X-Received: by 2002:a05:690c:399:b0:81e:c500:c6d0 with SMTP id
+ 00721157ae682-8470139a4a6mr60233797b3.0.1787323107244; 
+ Fri, 21 Aug 2026 07:38:27 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-845188b28f2sm41868277b3.38.2026.08.21.07.38.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Aug 2026 07:38:26 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+ Brigham Campbell <me@brighamcampbell.com>,
+ Jori Koolstra <jkoolstra@xs4all.nl>,
+ Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev
+Subject: [PATCH v2 0/3] Add support for CH1115 Controller
+Date: Fri, 21 Aug 2026 11:34:15 -0300
+Message-ID: <cover.1787321297.git.nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c779c8e8fc78c68aea12c2022b2d8c64541ca173@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,49 +97,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 19, 2026 at 12:33:56PM +0300, Jani Nikula wrote:
-> On Tue, 18 Aug 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> > On Sun, 16 Aug 2026, Chang Jiong(常炯) <xspeed1989@gmail.com> wrote:
-> >> Since commit 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
-> >> without a full PLL re-enable") bxt_sanitize_cdclk() normalizes the
-> >> CD2X pipe select field of the CDCLK_CTL readback to PIPE_NONE before
-> >> comparing against the expected value.
-> >>
-> >> However bxt_cdclk_ctl() does not include the CD2X pipe select field
-> >> at all on DISPLAY_VER() >= 30, so on Xe3 (PTL) the normalized
-> >> readback (pipe field forced to the PIPE_NONE encoding, 0b111) can
-> >> never match the expected value (pipe field 0). The comparison now
-> >> fails on every boot and we always take the full CDCLK PLL
-> >> disable+re-enable path with the BIOS framebuffer actively scanning
-> >> out - exactly what this code was trying to avoid. On a Panther Lake
-> >> laptop (Arc B390, 8086:b080, eDP 3120x2080@120) this causes
-> >> "CPU pipe A FIFO underrun" during probe and persistent full-screen
-> >> scanout corruption for the first KMS client (the SDDM greeter);
-> >> the corruption lasts until the next full modeset.
-> >>
-> >> Only normalize the CD2X pipe select field on platforms where
-> >> bxt_cdclk_ctl() actually programs it, mirroring its DISPLAY_VER()
-> >> check.
-> >>
-> >> Fixes: 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Chang Jiong(常炯) <xspeed1989@gmail.com>
-> >
-> > Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8550
-> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8569
-> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8901
-> >
-> > The first one has a patch from Ville that is identical to this one.
-> >
-> > I'll try to kick CI to get this tested before merging.
-> 
-> Okay, the patch is against some stable kernel, not against the current
-> development tree. Please rebase on top of the drm-tip branch of the
-> drm-tip repository.
+This series add support for the CH1115 Controller [1].
+It is a monochrome dot matrix OLED controller that supports several
+interfaces such as SPI and I2C.
 
-I pushed my original fix and closed the other bugs as duplicates.
+This driver only supports the I2C interface, but all common parts could
+easily be put into a common file to be used with other interfaces.
+I only have I2C to test with.
 
--- 
-Ville Syrjälä
-Intel
+This is the first driver I write. The work is based on the driver
+located at:
+- drivers/gpu/drm/sitronix/st7571-i2c.c
+- drivers/gpu/drm/sitronix/st7571.c
+
+Tested with Raspberry Pi 3b+.
+
+Changelog:
+
+v2:
+- general:
+  - patch series based in kernel v7.2
+- in dt-bindings:
+  - Fixed linter problems
+  - Replaced first_page property with offset
+- In driver code:
+  - Fixed dst_pitch calculation
+  - Renamed file from ch1115.c to ch1115-i2c.c
+  - Support flip-vertical and flip-horizontal dt properties
+  - Fixed several things found by sashiko-ai
+
+v1: [2]
+
+[1] https://datasheet4u.com/download/1576606/CH1115.html
+[2] https://lore.kernel.org/all/cover.1786110720.git.nico.antinori.7@gmail.com/
+
+Nicolás Antinori (3):
+  dt-bindings: display: add Chipwealth CH1115 OLED Controller
+  drm/ch1115: add support for Chipwealth CH1115 OLED controller
+  MAINTAINERS: add entry for Chipwealth CH1115 OLED Controller
+
+ .../bindings/display/chipwealth,ch1115.yaml   |  89 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   6 +
+ drivers/gpu/drm/Kconfig                       |   1 +
+ drivers/gpu/drm/Makefile                      |   1 +
+ drivers/gpu/drm/chipwealth/Kconfig            |  16 +
+ drivers/gpu/drm/chipwealth/Makefile           |   3 +
+ drivers/gpu/drm/chipwealth/ch1115-i2c.c       | 854 ++++++++++++++++++
+ 8 files changed, 972 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+ create mode 100644 drivers/gpu/drm/chipwealth/Kconfig
+ create mode 100644 drivers/gpu/drm/chipwealth/Makefile
+ create mode 100644 drivers/gpu/drm/chipwealth/ch1115-i2c.c
+
+--
+2.47.3
+
