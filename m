@@ -4,130 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A67C6C5DF97
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 21:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CE25C5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 21:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98B5A10F3BD;
-	Fri, 21 Aug 2026 21:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33DF810F3D3;
+	Fri, 21 Aug 2026 21:52:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UHQ57+GI";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YKxmkSFp";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010024.outbound.protection.outlook.com [52.101.46.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C0D210F3B4;
- Fri, 21 Aug 2026 21:48:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uCWfsYqmGzYsck7Yat2A1HM63ZVoVc5i3zCGvg9KCKpFi8Z2rRi+2jyeKo3GrXZi5CdxehOWuvHyK/vS9x5uCffSBA8SPYu7ygANcXHJSNa+ruwpZmdyckBfSoVEw1oSFiOX1qqntQDxTMUV/WAfdWlQYCu5Ytd0Pb1CZPE1eVPKBaK/c+yc9TcE7mgkmgisufbYuQS0I2BKyKSH5Xg+X2JF1pAhrXHbWdqCRplxoQw6I7NON5n5XT/PTXWkYitAU1Gsev7HQ5w/jgTL+gGQc1zhpG01Pw4AaS3TbNAemiboEJSkUBNDvZm2/a4EA0ipgKuAqZpZfqorXuFoNfyRCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JA8Hafl6enaUzSy4tBSFK7r9I1/ebT/Zbm4MnesKvwU=;
- b=heM8Y4aUWjSige4pLPbozJzYks0vSNOuOM6+wmjXhqgnP+0PuuqRqQQpFkHuojMKkYjvSR+hdfNQUwLTBa/9nXGzmmqLaL9IJSeoGuOfU5I1draYZJMPHSNTclWpEd7/sOhhg/6ccP8SkPEzl96r+osmIIzrY2wRAKVFVvWjeQbDm5ErMzlzUcUKKst6bByQvYV4q/f5NNoyA6rGrORryvqC71PW5+v4A3UM4LjXwT+az1XCsdwl7yy2eN0GAQ5Kw/lGjPfauo0p82PvKyNq8KIHemKLN/D+FFDg2z3JnRI6irP3f5PVrF6dksRl6zBx0KLNW0aJIZHII9mGdw5bEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JA8Hafl6enaUzSy4tBSFK7r9I1/ebT/Zbm4MnesKvwU=;
- b=UHQ57+GIHgdHV5tePgGeZ95B8668csqDZwWoDDW7Hn4dhEWw/Lm5ANBLCPfWBSLqAYmkpfsJ6qD1Paqzn0/fQZKWztvEILYmd4p/UdKJ78SorOzhin5fVYpTqMl0a3VRExa8dHgLpvttcUxw2LALaLoBcs3wu2Hl4LKOnPf751U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by CH3PR12MB8970.namprd12.prod.outlook.com (2603:10b6:610:176::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 21:48:17 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0339.010; Fri, 21 Aug 2026
- 21:48:17 +0000
-Message-ID: <d5d8b8c6-ac79-4211-bf19-a1411d98afd7@amd.com>
-Date: Fri, 21 Aug 2026 15:48:15 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] drm/amd/display: advertise PIXEL_NONE as blend
- mode for DCE generations
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, daniels@collabora.com,
- harry.wentland@amd.com, leandro.ribeiro@collabora.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- pekka.paalanen@collabora.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Daniel Wheeler <Daniel.Wheeler@amd.com>, kernel-dev@igalia.com,
- Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260813143605.106104-1-mwen@igalia.com>
- <20260813143605.106104-4-mwen@igalia.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260813143605.106104-4-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0173.namprd04.prod.outlook.com
- (2603:10b6:303:85::28) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75CA310F3C8
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 21:52:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787349138;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dxTIrj5toN2wZbiMOEAp8/1FtnWPmkO2zwot3SvJAQ4=;
+ b=YKxmkSFppHTQQWO1l4+B1s2rMJ0zbdtauTwhJKciqYV8uKC07d4sQcqsh8Yz5HbD2hRUjG
+ 1n7xRtvXNMImnogV2vXQ8wo/8hh/YZ2K/KZfE0XlRbeLyC9sOKdzOgRG0CMBkyNmt5RAIY
+ oFMdB2yfnCeJqKbMVvSOQKhfeUCkQ50=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-515-Mhb3QqDrMNWE0uQc4I2k8w-1; Fri, 21 Aug 2026 17:52:16 -0400
+X-MC-Unique: Mhb3QqDrMNWE0uQc4I2k8w-1
+X-Mimecast-MFC-AGG-ID: Mhb3QqDrMNWE0uQc4I2k8w_1787349136
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93494527488so242506485a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:52:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787349136; x=1787953936;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=KWxHNd99XGX0A91OcehYQd0todjKC95ynNoZwWY1F3w=;
+ b=gL2wNdJisONfudlire8r9jPXDluwqy8RCgWG9tCsUqbnJOvQRAfqQd5ngXiyfKeS4m
+ CC+k56yrkst9sNk6hVm/2qgrxjc3aSIUPh6XWvD4ag7FtnELMKQrGWAEK4vABDTLiPoj
+ HEsgvhR/ky/jJD5UP6dTSqX3Zh5X+xkMNA7bOfu3nbcK+wIQkzf5B0A5ac228RHt2siW
+ 6heSotAmVT1aIyqfTuyLSVgQ+fb+W16xONwwZD4/AMx72NDb7ANJ7PLTQ7pPiIFtoYod
+ KFg5c7Law37KbnztYp5GczoQ9O9CP1l25DXqRKbiws6LD1RhKXizMhuvKYevqKQsfNZN
+ /H3w==
+X-Gm-Message-State: AFuF++n7wM45WFc5/ukP6uQQmIM9wMpAN69hSJM2IhGR8bo3UhVsxKYJ
+ sYFaHNptKJeh+ndOIJeJFecy04H+A2NIpXNRKVovkp+kqn5B/03SNRj5FFo6AVMq/YYD7LWv8O6
+ Yz6ZzhAWavY0aVT2WQVkwcD4zMrKnORyeU8qs4gHrIcnQscLlWOecfBNG8xDVAQaJ5uPiig==
+X-Gm-Gg: AR+sD13cHjVdTdq3rBjyT3CEeJyugv1fy+Upte0XiNigCN6vg1uvvO+rROLUIP9CjAc
+ 590rEh2vXMbUNPOJUSKRGIGG54OVAmEreBkzEaW7S5w6ZNUmgMTSsASpGpMXCflMOWGDeaqhHxk
+ JwSzLfiwpm8GXzaOS6Epj0dUBKNl+N0SdVQW/0v1duNEanjAPRK+BQVJUOGaZVRgppInbZupMHj
+ AOAaK7YzOr1iVjVH018mNT8IKN7jb4Csmkud922mF1wQT1lcvfhTvwjNJvuS/79IepIkGF0S0s6
+ YeLX7w4IIOnMNCzTYbbOBPzDgC19bHXSWA5aRgtxbyy59D/tx/OkDwHLII6u/DttkWH6Nf7E
+X-Received: by 2002:a05:620a:1d0d:b0:937:1710:f839 with SMTP id
+ af79cd13be357-937395f9133mr938556185a.47.1787349135755; 
+ Fri, 21 Aug 2026 14:52:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:1d0d:b0:937:1710:f839 with SMTP id
+ af79cd13be357-937395f9133mr938550485a.47.1787349135161; 
+ Fri, 21 Aug 2026 14:52:15 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-93749e9f94bsm5008085a.37.2026.08.21.14.52.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Aug 2026 14:52:14 -0700 (PDT)
+Message-ID: <66c8492e4018fa32c59aaef767a975fdc8887b41.camel@redhat.com>
+Subject: Re: [PATCH v2 04/10] drm/nouveau/disp: fix HDMI vendor infoframes
+ on GB20x
+From: lyude@redhat.com
+To: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
+ linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Mary
+ Guillemard <mary@mary.zone>, 	nouveau@lists.freedesktop.org
+Date: Fri, 21 Aug 2026 17:52:13 -0400
+In-Reply-To: <20260820164929.17117-5-mohamedahmedegypt2001@gmail.com>
+References: <20260820164929.17117-1-mohamedahmedegypt2001@gmail.com>
+ <20260820164929.17117-5-mohamedahmedegypt2001@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|CH3PR12MB8970:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45e4f712-ce77-45e4-2e9b-08deffcde8ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|7416014|1800799024|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: LaV/esPW273Ca8PHYrQkyd14swV6Y4EeT2N/guxbhgNUVHNsMCzQjS7m2N3uY9bMUHpjgVY2HlR+TN7BF5SHw9AhskWgews/PcH/NYEH9pNg//BMSY5beVULuGUYdoXf1L4IycfBWDUTdeNxAZoa0ApEdh5lNZHazDA3T+j+MXBWB8B7d4qQ15YutNAxA3/lFkAnbTLLf1WkAGuFrq6lCwRpf4i8Jh4zik8nrnMjK5Ml2N7vnz8fPO3tiGeu46T/qB2/osArS8vY9ttP3tSHfATMtm1/7HpcWFy48jtKcIlTtljt/ocRHPYv2UcZv0uyhN9rtXXx/lHAHd1VO1Y8q0kI4dDvArWFKmFDzdnEZXxFZqphhv6lBkm5uSyzyUQHxH3L05ZOJxYTyYi2MMvFaPk/Jj+4zCYpTRN8qZ5aYXwdKL89ZLFih1Lpt6QtUJoU8NzGuH3y041J0Vwz3TDPUGtSuYSVv/j4rBroaAgO9uTaKC/uj7/EVm5znd41yNVHtK6CtBi1r7yfwOyjGIONaxFKsXb7DDO1mcuiik0Yo5oPnnqQXExkj3D/1aTKndZ9G6nCEFHNRA1q130/uI3uyS9xdgRDWMONfzbnGPc5bT3pA8cc+bUYcpev5RaGxGThsrPRI1FdBVP/j5ZAeKcC/vIyGybt2uBgmTCr+5ZOql11N1iqnpWIkTqBd+imFmTHqoquFLxClHMkywXR6R9Elg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NE1YeXJRMWtyTytTZUpFbnpVczBFVnEwc1JjUXpYU3JKRWxkVVhaWHoxZ0ty?=
- =?utf-8?B?VjVqeUlkWkdvZ2xVKzFpSlA1RlFZUTlDbUhQTCtBV3pBcmV3dHVJLzZ6VUR2?=
- =?utf-8?B?ODVmcEFQaFYzNFNwdUFIYUJ3UTRScmpGclYrSVI5ektRdmMzUDg2VTFLOC9i?=
- =?utf-8?B?cE1GRW9ESWtSSFVHL1Z1Qng1MXl1Yk1JVXA4Y2FKd3EwUDRsUk9SeFFCVGs5?=
- =?utf-8?B?N0ZlOUVzdjA5bmpyTnhSakFIYWVxNXFzRlFmdDFJTnYxck15VURGRWVtVEVQ?=
- =?utf-8?B?ckZvcTRKTkVQM2pkYXZGdjVOVXQrSmtpcDhtWE10NXZkRWUweUpyMHRpcEpJ?=
- =?utf-8?B?ajBWQ2tUcVNNbGtoQUhLWHdYaEVxQUxtMlVWNmpQaDNNd1I2dFloR1p0RTBm?=
- =?utf-8?B?eFZWOUN0NUNVRkNmM2dtK2I3VWVlQy8rWmxBUGhkUmUrMUV4VWM2RGxBeGph?=
- =?utf-8?B?NkJ0N3hwUG5EUlZwZHBEalVTRk8vdWtBKzFEd2ZpdHQzdjJEM3c3bTBLRkti?=
- =?utf-8?B?ajV6QityWVlRSzVUN3EzMjU4NzFOYVJ4QlVFK1ltU1hSbWxHZGVYRDNTMXpZ?=
- =?utf-8?B?ZUQ5My91b1FQeDlPNzBpWERLaTQ0WHQ5N1dFQVNPOTZNVGlMb0lrcGpMbU9a?=
- =?utf-8?B?UTAxMXM0ektVU0ZYMVpKZFV0UGpqalF6NU9QVDIwVVdCcTlRdkE1RDF5WTQ3?=
- =?utf-8?B?WDRvcmd2Yi9YNXBwTDdUdzc2cmc3KytnbjByRTJGd245bU1aR0E2c1lIQkNj?=
- =?utf-8?B?dlE0eEhmRlVoUkJZZWt6UkpUb3pla0pwZzMzdllWSnlCVmk1Ylc0Qkl2WUhL?=
- =?utf-8?B?dE9ob1cwQ1RKeVp6SUx2dGRrcHloRE5yVU5ibUNuT2VGZS83YnZVcEczWlVV?=
- =?utf-8?B?WVV1ZGg4NHVteFl1YXdYUEJnQldrQXdRbmdpYTlBcGcxeGpjb3VySm5tc1FR?=
- =?utf-8?B?aXRrekdWNUV3QytsNVZCUU9JRGxINzc1MTlUTjg1cTFlcFBwRUZpNXBzUGZ5?=
- =?utf-8?B?MEprL0tuc1dnQ0dGbTk1UGlsQnlrMVdvWW9xSTFOeThwdS9UY2l1c204L3VD?=
- =?utf-8?B?bGNRaWdRRUpvL2lWQ3I5RWVmUjZkdmttUGkvV1NFTk43dlArN2I2bkVPS0pS?=
- =?utf-8?B?V1QrZDhQRkhJREYwRWJOQ3hISG1lV0hrdUFMVEk1S1FvWTlaWUNteHZhaEdV?=
- =?utf-8?B?NzIrNUd6Q1BMMEZqVHgxSGJrZTNhMWxCeUp5Ykk0NUVEY3ZwbmtQVCthNVpQ?=
- =?utf-8?B?NUVUeG4rOTlnQTU0cVlpMU4ybkIxMDFtNzBDZkVBbXRFUExuTUJWSUFQZDZL?=
- =?utf-8?B?elIybmJxSjdPVG4xTVdZZlhMaGdyczhsMkNTQ1dRWEtBVVY3YzVIT2prUm1P?=
- =?utf-8?B?TEdQWExpeUh4WDNrNEpva25iYWo5dkN6dWljdUxCNU9rVXNHU0JPQkh0ZGRT?=
- =?utf-8?B?c2M2OCtWYUZVZnU0T3NVbFN1cGJqRW1OZTBEOThNYzkyclhJNGtKUE9IZU9I?=
- =?utf-8?B?eGtuYnpHWG5vY2UyWHdaTmc0Zm5SMDB0WndWOFJhQ3BlRm02V0ZIcXRmTTVn?=
- =?utf-8?B?VGhpRHNMb0lTODFBSWhKYTNtdzFidC80RmNrVlY2S3MyWTk0emwvb25rNHNo?=
- =?utf-8?B?RzZmN2lXY2VYaEIvVk11aUhwU1VuLzFoZjE3cmFpTDZSZ2dmK1JJSzE0b1Vj?=
- =?utf-8?B?ZklMaW5WMjN3cnI4Q2FjTWYrdDFrcDA5QVk5bi9TaHZuOWZ4Y0UwQjgrWWl0?=
- =?utf-8?B?V3k3Yzl2TzhBQzRLVFZoT1UzV2lZM25adjNnZjl1UitLc3J2Y0hiY2JOaGFB?=
- =?utf-8?B?cjh6OThZcGk2T08reUJLRjliVDRxYzU0NWlMNGVyWitueWRLL2lqVFg1bU1w?=
- =?utf-8?B?NDVLb1dSY0FnbEF1SDBmUjY1REVRbklvQXZrbW81KzJCSlh6My9XY1BOWG1D?=
- =?utf-8?B?dTVxU2hSVEJCQXptdGlheHBySHBXSjN5WnNNV3B6YmFEK1Ywakk4SWlGWWhn?=
- =?utf-8?B?ZnBxa1VUSHFDUnNjL0J1Q0dPdXRUc2dqN1VPTCtsVzU2ZnRFMDFJRVJmdmVz?=
- =?utf-8?B?NVBWZmZtd2M3T0tEb1Byb3lEeWZzZWs2ZERqSUF5bEI2YWJMNmZoYXNZdlR6?=
- =?utf-8?B?aXcvc082SE8zeVFsM3FrNWFCSEtva0RyaFdMMmR6Z1drWmpzQnNUanVuSEhJ?=
- =?utf-8?B?UGpkMFpLNndRSGhGZFY0bkpHYnIzMG8xZXROeEhLeEg0UXp4ZEFlT3FQdnBs?=
- =?utf-8?B?WndybEhxUENJNGlieEpaMjNLYWJPbEc2bzJiQnBjMHc0SWRlOEJlQ1hIbTlI?=
- =?utf-8?B?VUNwcVEyenEvN25RM3VEbDBSWFNFdkdheWxvNGFsZkZpeTRhL2R0UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45e4f712-ce77-45e4-2e9b-08deffcde8ec
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 21:48:17.6103 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uspGYu14gPIkk+7LDSUPhDK8rqKF8P01CTUAJbBqdrKy3fr6Osv4Dg1EqkwEWSchT5QkL88JcDPmdJNaPuTqBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8970
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 8VVtMe1dIAjxiUDQhhJOJJQOF9uoNY6yXveUw17COtc_1787349136
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,56 +103,265 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-On 8/13/26 08:30, Melissa Wen wrote:
-> DCE can support PREMULTI and COVERAGE blend mode depending on its
-> generation, however current driver implementation either doesn't expose
-> more than primary and cursor plane, or doesn't program registers for any
-> blend mode other than PIXEL_NONE. To fix the missing-blend-mode-prop
-> warning according to current DCE plane caps, create blend mode property
-> with PIXEL_NONE only for primary planes, instead of the DRM default
-> PREMULTI.
-> 
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> 
+On Thu, 2026-08-20 at 20:49 +0400, Mohamed Ahmed wrote:
+> The GSP path reuses the GV100 direct-MMIO infoframe writers on every
+> chip. On GB20x that is only half right as while the legacy SF AVI
+> unit is
+> unchanged, the legacy VSI unit at 0x6f0100 was removed, so
+> gv100_sor_hdmi_infoframe_vsi() writes into a reserved area and no
+> vendor
+> infoframe ever reaches the HW. This affects HDMI-VIC signalling which
+> can impact some 4K modes for legacy HDMI 1.4 sinks.
+>=20
+> GB20x (NVDisplay 5.0+) reorganised the SF HDMI packet units. Per
+> NVIDIA's
+> published C971/CA71 DISP_SF_USER class headers, only three legacy
+> units
+> remain (AVI at +0x000, GCP at +0x040, ACR at +0x080), and vendor
+> infoframes must instead be sent through the shared generic infoframe
+> units at +0x130, whose 9-dword packet slots are loaded through the
+> shared data port at +0x3f0/+0x3f4.
+>=20
+> Add a VSI writer using the same programming sequence OpenRM uses on
+> these chips (nvhdmipkt_C971.c, programAdvancedInfoframeC971()):
+> disable
+> the unit and wait for it to idle, clear the SENT status, write the
+> packet
+> through the data port with a zero inserted in HB3 after the three
+> header
+> bytes, then enable the unit for every-frame transmission during
+> vblank.
+> Generic unit 1 is used for the VSI, matching the slot assignment in
+> NVIDIA's nvkms (NVHDMIPKT_TYPE_SHARED_GENERIC2, unit 0 is reserved
+> for extended metadata packets and unit 2 for the HDR DRM infoframe,
+> if those are wired up later).
+>=20
+> GB20x so far shared GA10x's display entry point. Give it its own,
+> gb202_disp_new(), with a gb202_gsp_disp table that supplies the VSI
+> writer to the GSP path and otherwise carries the same hooks as GA10x.
+> The following fixes fill in the rest of the GB20x differences there.
+>=20
+> Signed-off-by: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 > ---
-> v3:
-> - fix indentation (Alex H)
-> ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 18 +++++++++++-------
->   1 file changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index ab9bbe8ca333..3b5b6943b67d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1923,14 +1923,18 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
->   	if (res)
->   		return res;
->   
-> -	/* TODO: Check which blend modes are supported in DCE-generation
-> -	 * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
-> -	 * property accordingly.
-> +	/* Blend mode support varies on DCE generations according to HW caps
-> +	 * and number of planes per CRTC. However, as current driver
-> +	 * implementation only creates one primary and one cursor plane per
-> +	 * CRTC for DCE (overlay is only created if
-> +	 * DC_PLANE_TYPE_DCN_UNIVERSAL), the primary plane blend mode ends up
-> +	 * being always PIXEL_NONE across DCE versions.
->   	 */
-> -	if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
-> -	     plane->type == DRM_PLANE_TYPE_PRIMARY) &&
-> -	    plane_cap && plane_cap->per_pixel_alpha &&
-> -	    plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL) {
-> +	if (plane_cap && plane_cap->type != DC_PLANE_TYPE_DCN_UNIVERSAL) {
-> +		drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_PIXEL_NONE));
-> +	} else if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
-> +		    plane->type == DRM_PLANE_TYPE_PRIMARY) &&
-> +		   plane_cap && plane_cap->per_pixel_alpha) {
->   		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
->   					  BIT(DRM_MODE_BLEND_PREMULTI) |
->   					  BIT(DRM_MODE_BLEND_COVERAGE);
+> =C2=A0.../drm/nouveau/include/nvkm/engine/disp.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 1 +
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/device/base.c | 10 +-
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/Kbuild=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/gb202.c=C2=A0 | 91
+> +++++++++++++++++++
+> =C2=A04 files changed, 98 insertions(+), 5 deletions(-)
+> =C2=A0create mode 100644 drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h
+> b/drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h
+> index 7903d7470d19..01145db32c53 100644
+> --- a/drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h
+> +++ b/drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h
+> @@ -87,4 +87,5 @@ int gp102_disp_new(struct nvkm_device *, enum
+> nvkm_subdev_type, int inst, struct
+> =C2=A0int gv100_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int
+> inst, struct nvkm_disp **);
+> =C2=A0int tu102_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int
+> inst, struct nvkm_disp **);
+> =C2=A0int ga102_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int
+> inst, struct nvkm_disp **);
+> +int gb202_disp_new(struct nvkm_device *, enum nvkm_subdev_type, int
+> inst, struct nvkm_disp **);
+> =C2=A0#endif
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+> index ea62dc97f118..96c8a5b29999 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+> @@ -2846,7 +2846,7 @@ nv1b2_chipset =3D {
+> =C2=A0=09.pci=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gh100_pci_n=
+ew },
+> =C2=A0=09.timer=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gk20a_timer_new },
+> =C2=A0=09.vfn=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga100_vfn_n=
+ew },
+> -=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_disp_new },
+> +=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gb202_disp_new },
+> =C2=A0=09.fifo=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_fifo_new }=
+,
+> =C2=A0};
+> =C2=A0
+> @@ -2862,7 +2862,7 @@ nv1b3_chipset =3D {
+> =C2=A0=09.pci=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gh100_pci_n=
+ew },
+> =C2=A0=09.timer=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gk20a_timer_new },
+> =C2=A0=09.vfn=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga100_vfn_n=
+ew },
+> -=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_disp_new },
+> +=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gb202_disp_new },
+> =C2=A0=09.fifo=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_fifo_new }=
+,
+> =C2=A0};
+> =C2=A0
+> @@ -2878,7 +2878,7 @@ nv1b5_chipset =3D {
+> =C2=A0=09.pci=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gh100_pci_n=
+ew },
+> =C2=A0=09.timer=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gk20a_timer_new },
+> =C2=A0=09.vfn=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga100_vfn_n=
+ew },
+> -=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_disp_new },
+> +=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gb202_disp_new },
+> =C2=A0=09.fifo=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_fifo_new }=
+,
+> =C2=A0};
+> =C2=A0
+> @@ -2894,7 +2894,7 @@ nv1b6_chipset =3D {
+> =C2=A0=09.pci=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gh100_pci_n=
+ew },
+> =C2=A0=09.timer=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gk20a_timer_new },
+> =C2=A0=09.vfn=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga100_vfn_n=
+ew },
+> -=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_disp_new },
+> +=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gb202_disp_new },
+> =C2=A0=09.fifo=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_fifo_new }=
+,
+> =C2=A0};
+> =C2=A0
+> @@ -2910,7 +2910,7 @@ nv1b7_chipset =3D {
+> =C2=A0=09.pci=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gh100_pci_n=
+ew },
+> =C2=A0=09.timer=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gk20a_timer_new },
+> =C2=A0=09.vfn=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga100_vfn_n=
+ew },
+> -=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_disp_new },
+> +=09.disp=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, gb202_disp_new },
+> =C2=A0=09.fifo=C2=A0=C2=A0=C2=A0=C2=A0 =3D { 0x00000001, ga102_fifo_new }=
+,
+> =C2=A0};
+> =C2=A0
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild
+> b/drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild
+> index e1aecd3fe96c..98d6ca5ac311 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild
+> @@ -27,6 +27,7 @@ nvkm-y +=3D nvkm/engine/disp/gp102.o
+> =C2=A0nvkm-y +=3D nvkm/engine/disp/gv100.o
+> =C2=A0nvkm-y +=3D nvkm/engine/disp/tu102.o
+> =C2=A0nvkm-y +=3D nvkm/engine/disp/ga102.o
+> +nvkm-y +=3D nvkm/engine/disp/gb202.o
+> =C2=A0
+> =C2=A0nvkm-y +=3D nvkm/engine/disp/udisp.o
+> =C2=A0nvkm-y +=3D nvkm/engine/disp/uconn.o
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
+> new file mode 100644
+> index 000000000000..fa83aee35ae7
+> --- /dev/null
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
+> @@ -0,0 +1,91 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2026 Valve Corp.
+> + */
+> +#include "priv.h"
+> +#include "head.h"
+> +#include "ior.h"
+> +
+> +#include <subdev/timer.h>
+> +
+> +/* GB20x (NVD5.0) reorganised the SF HDMI packet units. The AVI unit
+> is
+> + * unchanged from GV100, but the legacy VSI unit is gone. Vendor
+> infoframes
+> + * are sent through the shared generic infoframe units instead.
+> Register
+> + * layout per NVIDIA's clc971.h/clca71.h, programming sequence per
+> + * nvhdmipkt_C971.c:programAdvancedInfoframeC971().
+> + */
+> +static void
+> +gb202_sor_hdmi_infoframe_vsi(struct nvkm_ior *ior, int head, void
+> *data, u32 size)
+> +{
+> +=09struct nvkm_device *device =3D ior->disp-
+> >engine.subdev.device;
+> +=09const u32 hoff =3D head * 0x400;
+> +=09/* Generic infoframe unit 1, the slot NVIDIA's driver uses
+> for the VSI. */
+> +=09const u32 ctrl =3D 0x6f0138 + hoff;
+> +=09u8 buf[36] =3D {};
+> +=09int i;
+> +
+> +=09/* Disable the unit and wait for it to go idle. */
+> +=09nvkm_mask(device, ctrl, 0x00000001, 0x00000000);
+> +=09if (nvkm_msec(device, 2000,
+> +=09=09if (!(nvkm_rd32(device, ctrl) & 0x00400000))
+> +=09=09=09break;
+> +=09) < 0)
+> +=09=09return;
+> +
+> +=09if (!size)
+> +=09=09return;
+> +
+> +=09/* Clear SENT status, and point the data port at unit 1's
+> slot. */
+> +=09nvkm_mask(device, ctrl, 0x00800000, 0x00800000);
+> +=09nvkm_wr32(device, 0x6f03f0 + hoff, 0x00000001);
+> +
+> +=09/* The data port takes the raw packet, except that a zero is
+> inserted
+> +=09 * in HB3 after the three header bytes. A slot is 9 dwords
+> (HB0-3 plus
+> +=09 * up to 32 payload bytes). An HDMI infoframe carries at
+> most PB0-27,
+> +=09 * so the tail stays zero, and we always write the whole
+> slot.
+> +=09 */
+> +=09size =3D min_t(u32, size, 31);
+> +=09memcpy(buf, data, min_t(u32, size, 3));
+> +=09if (size > 3)
+> +=09=09memcpy(&buf[4], (u8 *)data + 3, size - 3);
+> +
+> +=09for (i =3D 0; i < 36; i +=3D 4) {
+> +=09=09nvkm_wr32(device, 0x6f03f4 + hoff, buf[i + 0] |
+> buf[i + 1] << 8 |
+> +=09=09=09=09=09=09=C2=A0=C2=A0 buf[i + 2] << 16
+> |
+> +=09=09=09=09=09=09=C2=A0=C2=A0 (u32)buf[i + 3]
+> << 24);
+> +=09}
+> +
+> +=09/* No flip ID or scanline matching. */
+> +=09nvkm_wr32(device, 0x6f013c + hoff, 0x00000000);
+> +
+> +=09/* ENABLE | RUN_MODE=3DALWAYS | LOC=3DVBLANK | OFFSET=3D1 |
+> SIZE=3D0. */
+> +=09nvkm_wr32(device, ctrl, 0x00000041);
+> +
+> +=09/* Audio priority low (the init value). */
+> +=09nvkm_wr32(device, 0x6f03f8 + hoff, 0x00000002);
+> +}
+> +
+> +/* GB20x is GSP-only. This table supplies the register programming
+> the
+> + * GSP-RM display path needs from the chip.
+> + */
+> +static const struct nvkm_disp_func
+> +gb202_gsp_disp =3D {
+> +=09.uevent =3D &gv100_disp_chan_uevent,
+> +=09.ramht_size =3D 0x2000,
+> +=09.gsp.intr =3D tu102_disp_intr,
+> +=09.gsp.head_state =3D gv100_head_state,
+> +=09.gsp.head_rgpos =3D gv100_head_rgpos,
+> +=09.gsp.vblank_get =3D tu102_head_vblank_get,
+> +=09.gsp.vblank_put =3D tu102_head_vblank_put,
+> +=09.gsp.hdmi_gcp =3D tu102_sor_hdmi_gcp,
+> +=09/* The legacy AVI unit is unchanged on GB20x. */
+> +=09.gsp.hdmi_infoframe_avi =3D gv100_sor_hdmi_infoframe_avi,
+> +=09.gsp.hdmi_infoframe_vsi =3D gb202_sor_hdmi_infoframe_vsi,
+> +};
+> +
+> +int
+> +gb202_disp_new(struct nvkm_device *device, enum nvkm_subdev_type
+> type, int inst,
+> +=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct nvkm_disp **pdisp)
+> +{
+> +=09return r535_disp_new(&gb202_gsp_disp, device, type, inst,
+> pdisp);
+> +}
 
