@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E46B9C5DF89
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:12:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06D11C5DF89
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 15:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1743589109;
-	Fri, 21 Aug 2026 15:12:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A44910E08E;
+	Fri, 21 Aug 2026 15:14:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eNTcTHL5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c4knpR7/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3A5289109
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:12:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AFC410E08E
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:14:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6C425410CD
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:12:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC081F00A3A;
- Fri, 21 Aug 2026 15:12:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9302061126
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:14:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352B91F000E9;
+ Fri, 21 Aug 2026 15:13:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787325154;
- bh=1qIxlelW6GO+clJiEDLuqs9LPoIB2mcTKDcKb+OyS4o=;
+ s=k20260515; t=1787325240;
+ bh=i29Kgaq7RHNRCdAXRKO4npaY8gHr0xFH5ZDSYEFaVjo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eNTcTHL5efd6jeBoOfPzRhCis+4/PyHckd4gpT1ezH46nG9GYPP+yUvGMbdgzlm5P
- ya8Qb5tV8FFzHn9DUSX3jIhI/a27hpHaumYZy0khfSiDAoAFAB8mwbNuHaN3LkZTCR
- qikWmW5GLA8aCMJ4pZ+k/UTHEJIfiynYBgwTnLFepr5x3ZiQo8lLjmsj35b3o/PAzT
- 2wt44r5gXe1gMFndrdB/IH49Vcc2x9Zw7z86CYCTGiab71YNpuht/BfzD2ZzoREoDm
- 8wac4131sZ61JJcjF8blvSUMUmwXE5fU3X7/CbuxTNVm74V21BhZtI4npCMe6kwsTB
- UMN2ltbrfbwng==
+ b=c4knpR7/gjvTs2ax3Nmu6tC92tliH6Qayx6266UIKsET4z/B7qyQWNcgtiXV49tiH
+ QJh8o8qTVTaS6rfzijaOJqt0fvpuRZyMmTkNdPTS5MhhuyVHgMyxs5QOCSI9ihrNMh
+ c/KVzocgoP4nipJvTltmnZbrS7OoJMmPdKv2z2MJO0XJYgEuC3hL8VxsT2Rx8y8Wld
+ m2GV/isp9bhdSGNAdGeDauBwAMlOoRHup1DD2H0vVasuqrA/GLVtveAYv0N1LrXFQm
+ g4Uv3nqEVik62YJo+REJhwaph/pzAtVGJ/asYKVeml3Ekslh7DXVZr9c56shwWyj8p
+ nl6VMApjK+WUA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 18/70] drm/mxs: mxsfb: Switch to
- drm_atomic_helper_crtc_create_state
+Subject: Re: [PATCH 29/70] drm/tilcdc: Move hardware reset to CRTC creation
 To: "Maxime Ripard" <mripard@kernel.org>
-Cc: Frank.Li@kernel.org, dri-devel@lists.freedesktop.org, imx@lists.linux.dev
-In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-18-fb793475c05a@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-29-fb793475c05a@kernel.org>
 References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
- <20260821-drm-no-more-crtc-reset-v1-18-fb793475c05a@kernel.org>
+ <20260821-drm-no-more-crtc-reset-v1-29-fb793475c05a@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 15:12:33 +0000
-Message-Id: <20260821151234.0FC081F00A3A@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 15:13:59 +0000
+Message-Id: <20260821151400.352B91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,68 +57,107 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Moving the hardware reset logic to `tilcdc_crtc_create()` causes a=
+n unconditional 500ms timeout and a potential fatal bus fault if the bootlo=
+ader left the display enabled, because it waits for an interrupt before the=
+ IRQ handler is registered.
+
 Pre-existing issues:
-- [High] Use-After-Free in DRM cleanup paths on driver unbind due to devm_k=
-zalloc allocated driver private data.
+- [High] The hardware reset sequence unconditionally writes to a V2-only in=
+terrupt enable register, which fails to enable the framedone interrupt on V=
+1 hardware and can cause register corruption.
 --
 
---- Patch [18]: [PATCH 18/70] drm/mxs: mxsfb: Switch to drm_atomic_helper_c=
-rtc_create_state ---
-commit 176787b6391787b0d414456f33f183b472ea7c41
+--- Patch [29]: [PATCH 29/70] drm/tilcdc: Move hardware reset to CRTC creat=
+ion ---
+commit d53692ddb744ac620f653bb0b29134bf757b3e82
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/mxs: mxsfb: Switch to drm_atomic_helper_crtc_create_state
+drm/tilcdc: Move hardware reset to CRTC creation
 
-This commit replaces the deprecated drm_atomic_helper_crtc_reset() hook
-with drm_atomic_helper_crtc_create_state() for the mxsfb CRTC implementatio=
-n.
+The tilcdc crtc reset hook performs both atomic state initialization
+and hardware-level register writes. This patch moves the hardware
+reset sequence to the CRTC creation path since it is not related to
+atomic state initialization.
 
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mx=
-sfb_kms.c
-> index d8ebebc5314bb..36ea285182b48 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> @@ -484,7 +484,7 @@ static const struct drm_crtc_helper_funcs mxsfb_crtc_=
-helper_funcs =3D {
->  };
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c b/drivers/gpu/drm/tilcd=
+c/tilcdc_crtc.c
+> index e07ecb36a27a8..910580c4dada6 100644
+> --- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
+> +++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
+
+[ ... ]
+
+> @@ -1005,5 +977,24 @@ int tilcdc_crtc_create(struct drm_device *dev)
 > =20
->  static const struct drm_crtc_funcs mxsfb_crtc_funcs =3D {
-> -	.reset =3D drm_atomic_helper_crtc_reset,
-> +	.atomic_create_state =3D drm_atomic_helper_crtc_create_state,
->  	.destroy =3D drm_crtc_cleanup,
->  	.set_config =3D drm_atomic_helper_set_config,
->  	.page_flip =3D drm_atomic_helper_page_flip,
+>  	drm_crtc_helper_add(crtc, &tilcdc_crtc_helper_funcs);
+> =20
+> +	/* Turn the raster off if it for some reason is on. */
+> +	pm_runtime_get_sync(dev->dev);
+> +	if (tilcdc_read(dev, LCDC_RASTER_CTRL_REG) & LCDC_RASTER_ENABLE) {
+> +		/* Enable DMA Frame Done Interrupt */
+> +		tilcdc_write(dev, LCDC_INT_ENABLE_SET_REG, LCDC_FRAME_DONE);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while reviewing the mxsfb
-driver, I noticed a potential use-after-free during driver unbind.
+This is a pre-existing issue, but does this write corrupt V1 hardware?
 
-The driver private structure is allocated with devm_kzalloc() in mxsfb_load=
-()
-in drivers/gpu/drm/mxsfb/mxsfb_drv.c:
+The LCDC_INT_ENABLE_SET_REG is specific to V2 hardware. On V1 hardware,
+writing to this register accesses an undefined register address.
 
-    mxsfb =3D devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+For V1, shouldn't the framedone interrupt be enabled via
+LCDC_V1_FRAME_DONE_INT_ENA within LCDC_RASTER_CTRL_REG instead? This
+unconditional write might fail to enable the interrupt on V1 controllers,
+leading to a guaranteed timeout in the wait_event_timeout() call below.
 
-And the DRM device is allocated independently via drm_dev_alloc() in
-mxsfb_probe():
+> +		tilcdc_clear_irqstatus(dev, 0xffffffff);
+> +
+> +		tilcdc_crtc->frame_done =3D false;
+> +		tilcdc_clear(dev, LCDC_RASTER_CTRL_REG, LCDC_RASTER_ENABLE);
+> +
+> +		ret =3D wait_event_timeout(tilcdc_crtc->frame_done_wq,
+> +					 tilcdc_crtc->frame_done,
+> +					 msecs_to_jiffies(500));
 
-    drm =3D drm_dev_alloc(&mxsfb_driver, &pdev->dev);
+[Severity: High]
+Will this unconditionally time out during boot if the bootloader left the
+display enabled?
 
-During driver unbind, mxsfb_remove() calls drm_dev_put(drm). If user space
-currently holds an open file descriptor for the DRM device, the DRM device's
-refcount is > 0 and it will not be freed immediately.
+In the driver initialization sequence, tilcdc_crtc_create() executes before
+the IRQ handler is registered in tilcdc_pdev_probe():
 
-When mxsfb_remove() returns, devres cleanup will free the mxsfb_drm_private
-structure. Later, when user space closes the file descriptor,
-drm_dev_release() will trigger drmm_mode_config_cleanup().=20
+tilcdc_pdev_probe()
+  ...
+  ret =3D tilcdc_crtc_create(ddev);
+  ...
+  ret =3D tilcdc_irq_install(ddev, priv->irq);
 
-Since drmm_mode_config_cleanup() will access CRTCs and planes embedded
-within the already-freed mxsfb_drm_private structure, could this result in
-a use-after-free?
+Since the IRQ handler isn't registered yet when this code runs,
+wait_event_timeout() will wait for an interrupt that cannot be handled,
+causing a 500ms boot delay.
+
+Could this also cause a kernel panic once the IRQ is finally registered?
+
+When the timeout finishes, pm_runtime_put_sync() disables the device clocks,
+leaving the unhandled interrupt pending in hardware. When
+tilcdc_irq_install() later requests the IRQ, the handler will fire
+immediately and attempt to read the status register while the IP's clocks
+are gated, leading to an imprecise external abort.
+
+> +		if (ret =3D=3D 0)
+> +			drm_err(dev, "%s: timeout waiting for framedone\n",
+> +				__func__);
+> +	}
+> +	pm_runtime_put_sync(dev->dev);
+> +
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-drm-no-mor=
-e-crtc-reset-v1-0-fb793475c05a@kernel.org?part=3D18
+e-crtc-reset-v1-0-fb793475c05a@kernel.org?part=3D29
