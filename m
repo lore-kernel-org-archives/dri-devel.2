@@ -4,103 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A0DAC5DF88
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 03:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 025F1C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 03:50:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADCF610E23F;
-	Fri, 21 Aug 2026 03:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDF510E254;
+	Fri, 21 Aug 2026 03:50:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m2DwlN1O";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YBgybVAF";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012050.outbound.protection.outlook.com [52.101.53.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8247510E23F
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 03:35:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vCCe/LmQN6WnUSKsgF86W3ZSx2iSPTDCY2vYJgexqDi4nBIGNJp0vQUkf1aOCBkFFwQ1knwAng1yaWwcKXppeBxGf+2t6fIyzhOk8ND8lDj96rGXnmjObK6l4arwMV0Vpr1KWPv4y1x/E2msUTSteX+0nmoXF4dxnGB1pOAlrwbkDpb48MLfTqNLCimvBFfyFOsWdGClS+sUV2wL46pCFHk4UWC5ezYox4y2vkCOrTHAaDtVpGSxTFNZ3OD4OBnY37Whd0DMo0DlBsx4yH1TLnoBJKNWDkeCyRPv3SQtuJ55OyejXw5xeeaDRGW5FyYDdF5RoQjo5ykzCSej0hkSDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jMvn0kTw6QVZaIwgOpN9kofjKiAjbdwIonH9ipOEuic=;
- b=h+RA1BnasURU+TlNm1aBgvw4AFTnhaQyqIcrbAZqM/yaUALfmEmExDYv7q2ra3pFqhGn8Dl6qThdnZh9/8LAWU11il8J0MpLEPGmU7aFrx04oA3Sb60x3dPbN3goViYcxKhAWhw2Mndm/QrhODh2UJOuWdjkAu4840oPhmTf1uWiQ4R17RtYK3BJVriMtVUlo8r1DeCcuEuVEgNJLJcaHh/Kf082e3bfD2b6xAOFZ8802Vhjq9CbvaKTStGum2zZAY/ebMrnrukbOToMgz8TeM4CmkDxg5naCPCz/EWybwje+QFe3v+EKIVvBcXAcTjeOXRBmBPO4/Yf/nnX9ZRvTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jMvn0kTw6QVZaIwgOpN9kofjKiAjbdwIonH9ipOEuic=;
- b=m2DwlN1Ow91TxrzLNtrmSPAbmfme31R1fbsQu6vHu+7y689vV3PbYIm3AcFX8LnVPEdC1nBEjJL6bbfX9xSny+ldyQaEufSBQVGy2SFewLtGjuCBm5Lm9eYZaM3v1WDMiAcqdyZMKVgCqfW41639FsT+p67p3U44S5Le7aYq8GQ=
-Received: from PH8PR02CA0029.namprd02.prod.outlook.com (2603:10b6:510:2da::27)
- by IA0PR12MB7505.namprd12.prod.outlook.com (2603:10b6:208:443::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 03:35:49 +0000
-Received: from BY1PEPF000264AF.namprd02.prod.outlook.com
- (2603:10b6:510:2da:cafe::3a) by PH8PR02CA0029.outlook.office365.com
- (2603:10b6:510:2da::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Fri,
- 21 Aug 2026 03:35:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF000264AF.mail.protection.outlook.com (10.167.242.116) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 03:35:48 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 20 Aug
- 2026 22:35:48 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 20 Aug
- 2026 22:35:47 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Thu, 20 Aug 2026 22:35:47 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <max.zhen@amd.com>, <sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Remove __counted_by from struct
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5B5B10E254
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 03:50:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7028160A58;
+ Fri, 21 Aug 2026 03:50:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068651F000E9;
+ Fri, 21 Aug 2026 03:50:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787284251;
+ bh=nINPXTI1Wz9oWvwzY3oxNip/p4/H+LYDUGzbUmIpfXw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YBgybVAFtamqpKPuOOn8Vy+PKwCHutSiCmAhoVsGqsLYierdIscWYkvI0jKWokOhU
+ 72fQCU5+vuP2uxpC9eMuq+DqyTZYndqMdUot02p7ziA716BmEdNl/rCf7+xjzK+q2H
+ EM8XdZz/WfmAuyIt/oU7O7eZePfu15VVqBKxzR4VTk4gIOoNRfH9Ohy83BsO+7QXfU
+ nEKs9cjQQu5E0ETVAQZ9ilSKCQq4hfYQNbdQGU+PSf1V1HJq3mJeQ3cYWLGoGEoVHJ
+ kTdRHoqtPv9/ceRzaAkOYbebMYVqCjsstOB2bQsx2eW12QNngw07FLEkZg6GNAnKxk
+ /4bywwYjdBplQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V1] accel/amdxdna: Remove __counted_by from struct
  amdxdna_cmd_chain
-Date: Thu, 20 Aug 2026 20:35:43 -0700
-Message-ID: <20260821033543.1839719-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264AF:EE_|IA0PR12MB7505:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0fd54d5-db5a-476d-6963-08deff354ab8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|10067099003|6133799003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: TVYiKGhPKY5zUsii86mF7o6AA553Wx3XwN1Jh9A3b6EQEVo0MtDMssOBvzrHO5RPT24yZUDrXwc6cRevul6l5MS901JQ4LlE/OtKYdaTX95EVoflSSxvDylBt1x54V+pMw5yJK6HFprt6/P7OTPmMyNED9WhR9OR90hzyipZsUREf77wCtnkAejHvU2ORodouuYSzTJans0RgoY1MvkxQBengWCkW9gGeIgH9ZgdiCMNfgRy/WqiWE4knDoP1eoAWFbIPn+h/trLY8vVyqcwe1y6RXXnhajutcRs99v1Beo07sQHGBFOmnpzq5YM+3UguMVyNhnfqRZbYNXEi92586b9n6tPYQNjAN73+NuJawDWtpYBbD0ecBKPEkBhAUPvVNzTkBw/3p32ionvPR1V0srlHs1cUuaUUxuRtLfrgYuH4tScJ7/d5lg7Ar3rBJ7NwH6jYhnPoNoRiYLSLyhdDiSNqDoiOOD/zp7LKBU+KgtEzQtqZQviOG4HBFCDYY38Bon2aYGha7t7DkHcViJuqILzI4wD4jFYgqCl4FIkFPe6O+Rjx4nnGtemnTPFKc6P9uo33kHNicVI2W6HEIE+PbdseizBKGRGuaQqhjRzSNnWWugL2cDiXEbhbfHSXWYwB7a4aC+zDemsIpYrfvo85lMMRsH8zqfl5Y/FCOmgcSWtZlaDlCekvOD6+P+hfz+re+Qfozvaen9FG4IPgUe8wg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(10067099003)(6133799003)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Xh+altdkv8Mjf4agwvMmu2GnTcepRgYTWqasDhEXrMrgDpsz5Qp7Wtz32oF4y8MWnS4UYkIA4/iFa2X08gg/khr6FBfc29ekSBAZADGhgAK9g86IJbG/2s+Rmv0P+oMSnUQ3Tox+i9An7sgx2ZERkzR2r7h8DqHU72V/vhWxIQVVVbE1WpaWVpU44tLnvcDEUUucyNaq+LNvh443z+fCzcclb5R0TMjraZK7pK0YbHitTQToKEiRqUzloAJv22L/kYjIJQ1l64PozD00d55ScFHGaRzj4hPQoa2xKLUtKlcfKgIeBT3z7MerSYFt5yCSasuBLBbCIIaCLAhBbWN+7na5wmL+2RnUkdelj7OrNy5ofCyKavG7+AyKoLmrDl164pzrWm0v/pBqYz9ns+7pdoN/3umYikk7puXieWEdlOuHfrBnuq7Ja69l9G8EA3Vy
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 03:35:48.4123 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0fd54d5-db5a-476d-6963-08deff354ab8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF000264AF.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7505
+To: "Lizhi Hou" <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260821033543.1839719-1-lizhi.hou@amd.com>
+References: <20260821033543.1839719-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 03:50:50 +0000
+Message-Id: <20260821035051.068651F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,37 +53,145 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-struct amdxdna_cmd_chain contains a flexible array annotated with
-__counted_by(command_count). Since the structure is stored in shared
-AMDXDNA_BO_SHARE memory, userspace can modify command_count concurrently.
-If command_count is changed to zero, the bounds check generated from
-__counted_by may fail and trigger a kernel panic.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Remove __counted_by to avoid relying on the userspace-controlled
-command_count for the flexible array bounds check.
+Pre-existing issues:
+- [High] Reference count leak of a GEM object on an error path in `amdxdna_=
+cmd_set_error()`.
+- [High] Calling `memcpy` with a NULL source pointer when processing empty =
+payloads.
+- [High] Missing READ_ONCE() on shared memory reads allows compiler reloads=
+, causing a Time-of-Check to Time-of-Use (TOCTOU) vulnerability that bypass=
+es bounds checks.
+--
 
-Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/amdxdna_ctx.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--- Patch [1]: [PATCH V1] accel/amdxdna: Remove __counted_by from struct am=
+dxdna_cmd_chain ---
+commit fcdbc0a8d70945b3b3d7614f4b69f29895cd2af9
+Author: Lizhi Hou <lizhi.hou@amd.com>
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-index e6155f4b5db0..010538cb05a3 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.h
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-@@ -56,7 +56,7 @@ struct amdxdna_cmd_chain {
- 	u32 submit_index;
- 	u32 error_index;
- 	u32 reserved[3];
--	u64 data[] __counted_by(command_count);
-+	u64 data[];
- };
- 
- /*
--- 
-2.34.1
+accel/amdxdna: Remove __counted_by from struct amdxdna_cmd_chain
 
+The commit removes the __counted_by annotation from the data array in
+struct amdxdna_cmd_chain. This prevents kernel panics caused by bounds
+checks failing if userspace concurrently modifies command_count to zero
+in shared memory.
+
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/=
+amdxdna_ctx.h
+> index b6bef3af7dab4..6e78bab8a02c0 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
+> @@ -55,7 +55,7 @@ struct amdxdna_cmd_chain {
+>  	u32 submit_index;
+>  	u32 error_index;
+>  	u32 reserved[3];
+> -	u64 data[] __counted_by(command_count);
+> +	u64 data[];
+>  };
+
+[Severity: High]
+This is a pre-existing issue, but since this patch addresses concurrent
+userspace modifications to command_count, are there other Time-of-Check to
+Time-of-Use (TOCTOU) issues with this field?
+
+Looking at drivers/accel/amdxdna/aie2_message.c:aie2_cmdlist_multi_execbuf(=
+):
+
+	ccnt =3D payload->command_count;
+	if (payload_len < struct_size(payload, data, ccnt)) {
+		XDNA_DBG(xdna, "Invalid command count %d", ccnt);
+		return -EINVAL;
+	}
+
+	op =3D ERT_INVALID_CMD;
+	for (i =3D 0; i < ccnt; i++) {
+		u32 boh =3D (u32)(payload->data[i]);
+
+Can the compiler reload payload->command_count inside the loop condition
+since READ_ONCE() is not used? If userspace changes the value to a massive
+number after the payload_len check passes, could this bypass the bounds
+check and cause out-of-bounds reads on adjacent kernel memory?
+
+A similar issue appears in
+drivers/accel/amdxdna/amdxdna_ctx.c:amdxdna_cmd_get_payload() where
+cmd->header is read multiple times:
+
+	if (amdxdna_cmd_get_op(abo) =3D=3D ERT_CMD_CHAIN)
+		num_masks =3D 0;
+	else
+		num_masks =3D 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, cmd->header);
+
+	if (size) {
+		count =3D FIELD_GET(AMDXDNA_CMD_COUNT, cmd->header);
+		if (unlikely(count <=3D num_masks ||
+			     count * sizeof(u32) +
+			     offsetof(struct amdxdna_cmd, data[0]) >
+			     abo->mem.size)) {
+			*size =3D 0;
+			return NULL;
+		}
+		*size =3D (count - num_masks) * sizeof(u32);
+	}
+
+Could a compiler reload cause the calculated size to exceed the BO size?
+
+
+[Severity: High]
+This is a pre-existing issue, but does amdxdna_cmd_get_payload() return NULL
+if the payload is empty?
+
+In drivers/accel/amdxdna/aie2_message.c:aie2_init_exec_cu_req():
+
+	cmd =3D amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
+	if (cmd_len > sizeof(cu_req->payload))
+		return -EINVAL;
+
+	cu_req->cu_idx =3D amdxdna_cmd_get_cu_idx(cmd_bo);
+	if (cu_req->cu_idx =3D=3D INVALID_CU_IDX)
+		return -EINVAL;
+
+	memcpy(cu_req->payload, cmd, cmd_len);
+
+If userspace constructs a command BO where count <=3D num_masks,
+amdxdna_cmd_get_payload() sets cmd_len to 0 and returns NULL. If a valid CU
+index is still returned, this calls memcpy(cu_req->payload, NULL, 0).
+
+Could this undefined behavior reliably crash the kernel if the UBSAN bounds
+checker with panic_on_warn is enabled?
+
+The same pattern seems to exist in aie2_cmdlist_fill_cf() and
+aie2_cmdlist_fill_npu_cf().
+
+
+[Severity: High]
+This is a pre-existing issue, but is there a reference leak on the error pa=
+th
+in amdxdna_cmd_set_error()?
+
+In drivers/accel/amdxdna/amdxdna_ctx.c:amdxdna_cmd_set_error():
+
+	if (amdxdna_cmd_get_op(abo) =3D=3D ERT_CMD_CHAIN) {
+		cc =3D amdxdna_cmd_get_payload(abo, NULL);
+		cc->error_index =3D (cmd_idx < cc->command_count) ? cmd_idx : 0;
+		abo =3D amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
+		if (!abo)
+			return -EINVAL;
+		cmd =3D amdxdna_gem_vmap(abo);
+		if (!cmd)
+			return -ENOMEM;
+	}
+
+If amdxdna_gem_vmap(abo) fails, the function returns -ENOMEM early. Should
+there be an amdxdna_gem_put_obj(abo) call to avoid leaking the GEM object
+reference acquired by amdxdna_gem_get_obj()? Could a malicious userspace
+repeatedly supply a BO handle that fails to map to cause unfreeable memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821033543.1839=
+719-1-lizhi.hou@amd.com?part=3D1
