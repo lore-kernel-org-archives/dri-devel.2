@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB8AAC5DF7D
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 09:01:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C890C5DF8E
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 09:09:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18B8D10E276;
-	Fri, 21 Aug 2026 09:01:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E318E10F276;
+	Fri, 21 Aug 2026 09:09:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mfCCA3nY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YRN3yd6F";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEBEF10E269
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 09:01:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D415661895;
- Fri, 21 Aug 2026 09:01:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D191F00A3A;
- Fri, 21 Aug 2026 09:01:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787302885;
- bh=U96uS63WKoYKo3Hwy4qDTYpU0Khy/+mTzukbkrRZk18=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mfCCA3nYirEC1gn07C1zEr2KbxOie6fbnHKvPSKrIyRDhODbjOn/eVTBjk3rU9G8u
- XnhRCiJPHihTwuYI7PF1PqvAKpNwRVbh8UyTjQbosYQgSRRI/u499IODOuDyZPrmp9
- jgNppeHSXt8aR+Hl6uWFnaZ2JWpaI7VM6IhCLu/5wbYyY2VMAVbVsIL3yFHPbGY7z2
- i7sFWNolGBEcxUNcZIK3StIMYUFERuu8pJMagllgZ4Aagh5CTQxItGZPPnNXz8cEhP
- zGkrmxhpdVC3mHJ7q42jxKPV09nGSw39IeySfmDO7UORkwz+VDghSx8cE1m4kFidjq
- u/mKXtKsweLJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/sched: Guard against NULL dev in drm_sched_job
- trace event
-To: oushixiong1025@163.com
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260821084748.543645-1-oushixiong1025@163.com>
-References: <20260821084748.543645-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 09:01:24 +0000
-Message-Id: <20260821090125.62D191F00A3A@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4C3510E297;
+ Fri, 21 Aug 2026 09:09:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787303379; x=1818839379;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=d986WdqhlagJUjtBnRxf/TrT6JGOX87qNB56dhaCxCU=;
+ b=YRN3yd6FsNRfqPAUvPnxnVhUnq6EeYOlh3sXjIo0Tq5F53JWXZAjT1PN
+ uXS0UEDoc4oh7Qzr7sj1U0uwCGWRiK5UoXH9d92V6eL92uACtal/jxqRV
+ BuXW8asdkrT7g2QhOk8OJ2fq8qq+tBLDwLaJiXJTEO5CTN6f4krsEV2r+
+ 8kHs90plaiyWFJOrePLmo9QPn3M0Zx+u2hhZOnM942ucyk5SaNU/brLlK
+ nd/Efd8zI2qVp+EvZWq+x5SYtm3w2erHjXojCOpa8VBny0HB5+84urFbq
+ V+0Cxoq1KGOYLexo3rDVR0TRn1pmj5hWkYcLprbw2TXSWzRlKqoeycWPz Q==;
+X-CSE-ConnectionGUID: M2i5f4EsQ4GSZ7gWlr7y1w==
+X-CSE-MsgGUID: osk+iDStQg2t+AtSjofU9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="99004734"
+X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; d="scan'208";a="99004734"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2026 02:09:39 -0700
+X-CSE-ConnectionGUID: yij2+kLOTsaQfFKHHyZZrg==
+X-CSE-MsgGUID: p69U9p4HShyuHfxJDT+PdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; d="scan'208";a="289808769"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.245.237])
+ ([10.245.245.237])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2026 02:09:37 -0700
+Message-ID: <50981231-a975-4ca9-8ad3-df2a34588b06@intel.com>
+Date: Fri, 21 Aug 2026 10:09:34 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+To: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: thomas.hellstrom@linux.intel.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, dri-devel@lists.freedesktop.org
+References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+ <20260820205031.344338-1-krishna.prabhakaran@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260820205031.344338-1-krishna.prabhakaran@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,69 +71,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 20/08/2026 21:50, Prabhakaran, Krishna wrote:
+> From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+> 
+> When i915 needs to make an imported dma-buf coherent for GPU access on
+> non-LLC platforms, or for objects that bypass LLC, it currently calls
+> wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
+> pinned, so this triggers a whole-cache write-back and invalidate,
+> broadcast by IPI to every CPU, on every execbuf submission involving an
+> imported dma-buf. That stalls the entire machine for milliseconds and
+> starves latency-sensitive work on unrelated cores (e.g. USB isochronous
+> audio serviced on the VMM's main thread).
+> 
+> Flush only the pages that actually need it instead:
+> 
+>   - If we imported one of our own dma-bufs, the backing object is
+>     struct-page backed once migrated to SMEM, so flush it directly with
+>     drm_clflush_sg(), exactly as we flush our other objects. This also
+>     avoids re-entering the exporter through dma_buf_vmap(), which would
+>     recurse into i915_gem_object_pin_map() on the source object we
+>     already hold locked (and fails the igt_dmabuf_import_same_driver
+>     selftest with -EBUSY).
+> 
+>   - For a foreign dma-buf the sg_table is not guaranteed to be backed by
+>     struct pages, and the importer has no way to tell, so drm_clflush_sg()
+>     cannot be used. vmap the buffer and flush that virtual range with
+>     drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
+>     one virtual alias evicts the cache lines for every alias of the same
+>     physical pages. The dma_resv lock required by dma_buf_vmap() is
+>     already held here via the imported object.
+> 
+> Fall back to wbinvd only when the buffer cannot be vmapped or is backed
+> by I/O memory, where there is no CPU-side range to clflush.
+> 
+> Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
+> Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+> ---
+> v3:
+>   - Drop the wbinvd fallback in the own-dma-buf branch: the exporter is
+>     migrated to SMEM on attach, so it is always struct-page backed here;
+>     flushing device memory made no sense from i915's point of view
+>     (Matthew Auld).
+> 
+> v2:
+>   - Flush our own imported dma-bufs directly with drm_clflush_sg() instead of
+>     dma_buf_vmap(), which re-entered i915_gem_object_pin_map() on the source
+>     object and failed igt_dmabuf_import_same_driver_smem with -EBUSY (reported
+>     by Intel CI on v1). Foreign dma-bufs still use dma_buf_vmap() +
+>     drm_clflush_virt_range(); wbinvd only as fallback.
+>   - Link to v1: https://patchwork.freedesktop.org/patch/744955/?series=171760
+> 
+>   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 52 ++++++++++++++++++----
+>   1 file changed, 44 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> index b43d34c7d641..fbf0e0d4b026 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> @@ -10,6 +10,8 @@
+>   
+>   #include <asm/smp.h>
+>   
+> +#include <drm/drm_cache.h>
+> +
+>   #include "gem/i915_gem_dmabuf.h"
+>   #include "i915_drv.h"
+>   #include "i915_gem_object.h"
+> @@ -249,16 +251,50 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
+>   	 * DG1 is special here since it still snoops transactions even with
+>   	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
+>   	 * might need to revisit this as we add new discrete platforms.
+> -	 *
+> -	 * XXX: Consider doing a vmap flush or something, where possible.
+> -	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
+> -	 * the underlying sg_table might not even point to struct pages, so we
+> -	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
+> -	 * the driver.
+>   	 */
+>   	if (i915_gem_object_can_bypass_llc(obj) ||
+> -	    (!HAS_LLC(i915) && !IS_DG1(i915)))
+> -		wbinvd_on_all_cpus();
+> +	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
+> +		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
+> +
+> +		if (dma_buf->ops == &i915_dmabuf_ops) {
+> +			struct drm_i915_gem_object *dma_obj =
+> +				dma_buf_to_obj(dma_buf);
+> +
+> +			/*
+> +			 * We imported one of our own dma-bufs. The exporter is
+> +			 * migrated to SMEM on attach, so it is struct-page
+> +			 * backed and we can flush it directly, the same way we
+> +			 * flush our other objects. This also avoids re-entering
+> +			 * the exporter through dma_buf_vmap(), which would
+> +			 * recurse into i915_gem_object_pin_map() on the source
+> +			 * object we already hold locked.
+> +			 */
+> +			drm_clflush_sg(dma_obj->mm.pages);
 
-Pre-existing issues:
-- [High] The `dev_WARN()` macro is called on `sched->dev` without a NULL ch=
-eck, which results in a NULL pointer dereference when `sched->dev` is NULL.
---
+I think we still need to wrap this with has_struct_page()?
 
---- Patch [1]: [PATCH] drm/sched: Guard against NULL dev in drm_sched_job t=
-race event ---
-commit de5fa30e87a362a3ba489dd802b3a479152bf969
-Author: Shixiong Ou <oushixiong@kylinos.cn>
+> +		} else {
+> +			struct iosys_map map;
+> +
+> +			/*
+> +			 * A foreign sg_table is not guaranteed to be backed by
+> +			 * struct pages, so we cannot use drm_clflush_sg(). vmap
+> +			 * the buffer and flush the virtual range instead; x86
+> +			 * uses PIPT caches, so flushing one alias evicts the
+> +			 * lines for every alias of the same physical pages.
+> +			 *
+> +			 * We already hold the dma_resv lock via the imported
+> +			 * obj, so use the locked dma_buf_vmap() variant.
+> +			 */
+> +			if (!dma_buf_vmap(dma_buf, &map)) {
+> +				if (!map.is_iomem)
+> +					drm_clflush_virt_range(map.vaddr,
+> +							       obj->base.size);
+> +				else
+> +					wbinvd_on_all_cpus();
+> +				dma_buf_vunmap(dma_buf, &map);
+> +			} else {
+> +				wbinvd_on_all_cpus();
+> +			}
+> +		}
+> +	}
+>   
+>   	__i915_gem_object_set_pages(obj, sgt);
+>   
+> 
+> base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
 
-drm/sched: Guard against NULL dev in drm_sched_job trace event
-
-This commit fixes a NULL pointer dereference in the drm_sched_job trace
-event class. It adds a check for sched->dev before calling dev_name()
-since the dev field is optional and left NULL in KUnit tests.
-
-> diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h b/drivers/gp=
-u/drm/scheduler/gpu_scheduler_trace.h
-> index 261713dd7d5a1..319a3ec54becf 100644
-> --- a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-> @@ -61,7 +61,8 @@ DECLARE_EVENT_CLASS(drm_sched_job,
->  			     __string(name, sched_job->sched->name)
->  			     __field(u32, job_count)
->  			     __field(int, hw_job_count)
-> -			     __string(dev, dev_name(sched_job->sched->dev))
-> +			     __string(dev, sched_job->sched->dev ?
-> +				      dev_name(sched_job->sched->dev) : "none")
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since we are fixing NULL poi=
-nter
-dereferences for sched->dev when it is omitted by KUnit tests, does a simil=
-ar
-crash happen in drm_sched_can_queue()?
-
-If a job is submitted with credits exceeding sched->credit_limit, we
-call dev_WARN() on the same optional sched->dev field:
-
-drivers/gpu/drm/scheduler/sched_main.c:drm_sched_can_queue() {
-	...
-	if (s_job->credits > sched->credit_limit) {
-		dev_WARN(sched->dev,
-			 "Jobs may not exceed the credit limit, truncate.\n");
-		s_job->credits =3D sched->credit_limit;
-	}
-	...
-}
-
-Unlike dev_err() or drm_dev_printk() which safely handle a NULL device
-pointer by printing '(NULL device *)', dev_WARN() is a macro that expands
-to include dev_driver_string(dev) and dev_name(dev). Both of these will
-unconditionally dereference the dev pointer, leading to a kernel oops.
-
-Could this dev_WARN() be triggered during testing and cause the same oops?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821084748.5436=
-45-1-oushixiong1025@163.com?part=3D1
