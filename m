@@ -4,79 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D560C5DF9B
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 064E2C5DF97
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86E3410E44D;
-	Sun, 23 Aug 2026 09:27:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WKfS9gk1";
-	dkim-atps=neutral
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
- [74.125.224.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4170710E3BC
- for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 14:44:17 +0000 (UTC)
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-66ce9d2d8a3so2140011d50.3
- for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 07:44:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787409856; x=1788014656; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=GuBzns6Nk4AG2WwKdhJ4OfWjcYTzd+l7DkPQrZDJpfg=;
- b=WKfS9gk1J3ZyZsTAQoFxxWAgf4JSq6CZ+zwAPi2UPNrVpZ1snecV2bOsPNdzoPOACw
- 0vlgz+TEAEB534SQVUsJ3eseTD/2KadZGXPqltCqqz0glQrp8bsTP4989ZA1yWVGEHlV
- 59YLFTm9+kmyQ9z8PouIKZ9aISXtewwGd9DGhtPY9P1/155AmHkUazKxPdWrn+iMq0cj
- WaXvBLA2YoEr4x/5xFN5RmqKPuCDvhdBlOUrpF/sd4J39+SCPiJiHaWMTcWraB7WcF2K
- 0sPayfQ4ffDe2EHmGGh0o8BHzWfT8jrMjajPSPpVxt20Ou9hPCiY5G7h9+QqfIGEdxV6
- yAfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787409856; x=1788014656;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=GuBzns6Nk4AG2WwKdhJ4OfWjcYTzd+l7DkPQrZDJpfg=;
- b=YMB3iZC5EJGWPs7Et2CidAFJOQayTokYTgMi1KNPc4hXKiekH+JSe+Z/MTqTiemhYJ
- Vkgms/Ka/ynuG8X651N5h/cA1+8iEUnd3VHwGwWBV8IRASLTRg/W0+b++R2pHiJeT5zE
- WDnsSUAJP5aG2GVx9qKjKWJ59oogRBh7ldKokb0Lm/CjTaBQFa/Jr9gwFZvHeV8uP9uc
- RmF8mZCZC+7a62NHwlJnV2L8IhF+HBHG2QIJSNUb4cjoflzm9hlUxlhO0/aU9aMFCbvB
- dxy4uysH1But/4R34dutIYTKttIvSY6yU1mpXQ5wadorCL5ebD2CTyC4z73bL5NbbaCc
- fN9A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RolvlqKMb1ZzLPT4l0RJlMX8jMw/sufbpVUA294QObWZqJRiP8uiqtECx+ckdqfkNB1tzR7YZUJMrI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nO8dqR7UU7R1p91u1X1vpMd/6NswQ50Rh3BydjlhVC4ZvAmWPk
- oPLtkSDs1WsekkZoiR4F9iPQ5T4OY1KonCKjPbMnYeMTDNe2dxWEzrt/
-X-Gm-Gg: AR+sD13Gf/SwzfshgIP/EWIRKOY71aIz/kTRHrCOR/4ZBF5FJ84SJo423yAyaZR/TrU
- KAMYxpZ8DsPcqkJBMYjB3rD+h02R2ga4y6aE0r+oycfpaudCaTTsbz1u8YTmoqEllodAGru2Gxn
- F5BECOt4BGXiI+z2EUXD67VSCF7i/vbE6Xc/JwVFzB1LSyppzjuv8yMTwniedWAnmZpS9HuHkfD
- 0jiqWnnXjsCy7Ly+tFSonErlwoV/vSlU7MV6/SA98e8qEsGiW3q9wQ+oKlEn8RBO1s2EKPUd6Sd
- q9wxMsQ6nb/YdnXzwE4N7vNMeAcK2zmq1tgf9iQgOS6yXDOPjeFhOfW0SQUuZp6XVi8tldiE3I5
- jZNo4sydfXiRU4xh1Gi0gzMMc/9s9TMFS584p1yyjG18IHAT6//WrPCvkUnEBdzIcBvLdneSB+J
- 09OQb0vpxQzHsEWwGyL+Bs1JHf/3tX3o/pG9K7o0kJ3DY7zrrzAXabpDJwa7q3xK+cNH9rvKI7C
- Ou6jGnLvqh97Hks5KEOBxX0glFTU9Jro6uxjWJzR1EJKx86N5NfdNg3WaWurEDQ9p6QFw==
-X-Received: by 2002:a05:690e:190a:b0:666:541f:6355 with SMTP id
- 956f58d0204a3-66ce4b2064cmr5028683d50.35.1787409856021; 
- Sat, 22 Aug 2026 07:44:16 -0700 (PDT)
-Received: from DigitalOasis.tail29fcbc.ts.net
- (104-182-93-176.lightspeed.brhmal.sbcglobal.net. [104.182.93.176])
- by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-66cf46460aesm925429d50.6.2026.08.22.07.44.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Aug 2026 07:44:15 -0700 (PDT)
-From: Bocaj Gnuoy <bocajgnuoy@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- oded.gabbay@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bocaj Gnuoy <bocajgnuoy@gmail.com>
-Subject: [PATCH v2] drm/amdkfd: don't leak BOs when process teardown can't
- unmap them
-Date: Sat, 22 Aug 2026 09:44:02 -0500
-Message-ID: <20260822144402.929677-1-bocajgnuoy@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5450110E48F;
+	Sun, 23 Aug 2026 09:27:23 +0000 (UTC)
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8CF10F286
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 09:29:14 +0000 (UTC)
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+ id 759F01EAA5E; Fri, 21 Aug 2026 17:19:34 +0800 (AWST)
+Received: from shelley.lan (unknown [IPv6:2001:8003:8802:7000::41b])
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id 772631EAA4D;
+ Fri, 21 Aug 2026 17:19:29 +0800 (AWST)
+From: David Gow <david@ingeniumdigital.com>
+To: Jim Cromie <jim.cromie@gmail.com>,
+ "Maciej W . Rozycki" <macro@orcam.me.uk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Gow <david@davidgow.net>
+Subject: [PATCH 2/2] drm_buddy: fix power-of-2 rounding errs
+Date: Fri, 21 Aug 2026 17:19:15 +0800
+Message-ID: <20260821091918.1902032-2-david@ingeniumdigital.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260822142521.899098-1-bocajgnuoy@gmail.com>
-References: <20260822142521.899098-1-bocajgnuoy@gmail.com>
+In-Reply-To: <20260821091918.1902032-1-david@ingeniumdigital.com>
+References: <20260821091918.1902032-1-david@ingeniumdigital.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
@@ -95,304 +51,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-kfd_process_device_free_bos() discards the return value of both
-amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu() and
-amdgpu_amdkfd_gpuvm_free_memory_of_gpu(), then drops the idr handle
-unconditionally.  That is fine as long as the free succeeds, but the unmap
-has to validate the page-table BOs first (vm_validate_pt_pd_bos()), and
-that allocates.  When the process is dying *because* memory is exhausted -
-e.g. GTT pinned up to amdgpu.gttsize by a compute client that then aborted
-on ENOMEM - the unmap fails with "failed to validate PT BOs",
-mem->mapped_to_gpu_memory stays non-zero, and
-amdgpu_amdkfd_gpuvm_free_memory_of_gpu() bails out with -EBUSY before it
-removes the BO from process_info->kfd_bo_list.  The handle is dropped
-anyway, so nothing will ever free that kgd_mem again.
+From: Jim Cromie <jim.cromie@gmail.com>
 
-The consequences are worse than a leak.  drm_release() ->
-amdgpu_vm_fini() -> amdgpu_amdkfd_gpuvm_destroy_cb() then trips
+The standard roundup_pow_of_two() and rounddown_pow_of_two() macros use
+unsigned long internally, which on 32-bit architectures (like arm32) is
+a 32-bit type.
 
-  WARN_ON(!list_empty(&process_info->kfd_bo_list));
-  WARN_ON(!list_empty(&process_info->userptr_inval_list));
+drm_test_buddy_alloc_exceeds_max_order() uses these on a u64 value,
+where they silently truncate the 10GB allocation, giving unexpected
+success in DRM-CI.  (see below the snip).
 
-and frees process_info regardless, while the leaked BO stays in TTM's
-eviction LRU with bo_vas pointing into the just-freed amdgpu_vm.  A
-subsequent amdgpu_gem_create_ioctl() that forces TTM eviction can then walk
-into it and spin in amdgpu_vm_bo_move() -> _raw_spin_lock(), which produces
-repeating rcu_preempt self-detected stalls, blocks reclaim-related work
-(__lru_add_drain_all()) and eventually makes the machine unusable - within
-about ten minutes here.  A recoverable ENOMEM becomes an unrecoverable
-hang.
+Fix this by replacing the those macros with the safe 64-bit power-of-two
+equivalents added in the previous patch.
 
-Note the free path itself does not allocate - it reserves the BO, detaches
-the attachments and drops the references - so it can complete even when the
-unmap could not.  Give amdgpu_amdkfd_gpuvm_free_memory_of_gpu() a @force
-flag and set it on the teardown callers, which have no later chance to try
-again.  The -EBUSY guard is kept for the ioctl paths, where userspace can
-still unmap and retry, and where kfd_ioctl_free_memory_of_gpu() already
-leaves the handle in place on failure.
-
-Reported on: RX 6900 XT (gfx1030), amdgpu 3.64.0, kernel 7.1.6/7.1.8,
-booted with amdgpu.gttsize=4096.  The failing allocation was on the Navi 21
-at 0000:06:00.0, which enumerates as ROCm0; a gfx1100 is also present in
-the same box but was not the device that ran out.
-
-Tooling disclosure, per Documentation/process/generated-content.rst: this
-bug was diagnosed and this patch written with the assistance of Claude Code
-(claude-opus-5) in a single interactive session. The input was a kernel
-trace captured on the reporting host - two WARNs out of
-amdgpu_amdkfd_gpuvm_destroy_cb() during an aborting client's teardown,
-followed by an unrecoverable deadlock in the TTM eviction path in the next
-process to allocate - together with the request to find the cause and, if
-possible, fix it. The assistant read the KFD BO lifecycle in the v7.1.8 and
-v7.2 sources, identified the -EBUSY early return as the point at which the
-BO is stranded on the process_info lists, and wrote both the diff and this
-changelog. The diff was then rebased onto amd-staging-drm-next and the
-call-site audit redone against that tree: one prototype, one definition and
-eight call sites, all converted. The rebase caught a real miss - the tree
-has gained kfd_process_free_gpuvm_map() alongside kfd_process_free_gpuvm(),
-and the original hunk's trailing context matched the wrong one of the two.
-Both are teardown-only (kfd_process_destroy_pdds() and the create_process()
-error unwind), so both take force=true. checkpatch.pl was the only
-additional analysis tool used.
-
-Tested on a RX 6900 XT + RX 7900 XTX box, kernel 7.2.0-1-cachyos, booted
-with amdgpu.gttsize=4096 so the GTT wall is reachable. A HIP-linked client
-(llama.cpp with both the HIP and Vulkan backends present) was made to pin
-host memory up to the 4 GiB cap and die on the resulting ENOMEM. Same
-kernel version, same cap, same workload, same binary either side; the
-patch is the only variable:
-
-                              unpatched   patched
-  peak GTT                      4.00 GiB   4.00 GiB
-  "failed to validate PT BOs"         34         36
-  exit                           139/SEGV   139/SEGV
-  teardown WARNs                       2          0
-  "Force-freeing BO VA"                0          9
-
-Both sides died the same way, on SIGSEGV, so the difference is in teardown
-and not in how the client failed.  The force-free count of 9 matched the 9
-KFD allocations an earlier kprobe run measured for this client, consistent
-with all of those allocations being reclaimed.
-
-End to end: on the unpatched kernel, relaunching the same workload after
-that abort is what hangs the machine - the new client's
-amdgpu_gem_create_ioctl walks the eviction LRU into the orphaned object.
-With the patch, a second run under heavier pressure (1904 "failed to
-validate PT BOs", 35 force-freed BOs) again left zero WARNs, and the
-relaunch then loaded in 12 seconds and served normally instead of
-deadlocking. GTT returned to its 0.05 GiB idle baseline afterwards, so the
-memory is genuinely reclaimed rather than merely not deadlocking. Across
-four runs the client died variously on SIGABRT and SIGSEGV; the leak
-tracked memory exhaustion at teardown, never the signal.
-
-Note the WARNs that fire vary between runs: the originally reported crash
-tripped :1608 and :1610 (kfd_bo_list, userptr_inval_list), while this
-reproduction tripped :1608 and :1609 (kfd_bo_list, userptr_valid_list).
-Both are the same skipped list_del_init(&mem->validate_list) - that node
-serves whichever list the BO currently sits on, so the leak is
-list-agnostic. The client also died on SIGSEGV rather than the abort seen
-originally; the leak depends on memory being exhausted at teardown, not on
-how the process died, which is consistent with SIGKILL alone never
-reproducing it.
-
-Limitations, per Documentation/process/coding-assistants.rst step 8:
-- The deadlock itself was reproduced on the unpatched kernel, but its stack
-  trace was not captured: the jammed workqueue takes journald down with it,
-  so nothing reaches disk. Capturing it needs netconsole or a serial
-  console. The teardown WARNs, which are the direct measure of the leak,
-  are captured in full.
-- The claim that the deadlocked spinlock lives inside the leaked object
-  still rests on address arithmetic (lock at the WARNed structure + 0x30).
-  Confirming the offset needs a debug build, which has not been done.
-- Verification is single-box: one gfx1100 + gfx1030 machine, one kernel
-  version.
-
-The -EBUSY guard itself dates to commit a46a2cd103a8 ("drm/amdgpu: Add
-GPUVM memory management functions for KFD") and is correct for the ioctl
-path. The leak became reachable only once a caller started dropping the
-last handle regardless of the return value.
-
-Fixes: 52b29d73340d ("drm/amdkfd: Add per-process IDR for buffer handles")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5672
-Assisted-by: Claude:claude-opus-5 checkpatch
-Signed-off-by: Bocaj Gnuoy <bocajgnuoy@gmail.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: David Gow <david@davidgow.net>
 ---
 
-v2:
- - fix Assisted-by tag format per Documentation/process/coding-assistants.rst
-   (v1 used a malformed 'LLM checkpatch' form)
- - drop self-applied Tested-by; the testing is described in the changelog
- - reword the comment on the forced path: what happens is attachment/VA
-   teardown via kfd_mem_detach(), not the page-table unmap that failed
- - no functional change
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 27 ++++++++++++++++---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  9 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 21 +++++++++++----
- 4 files changed, 45 insertions(+), 14 deletions(-)
+This should actually be version 13, I think, as it's just a rebase of v12
+here, where it was part of a large series of fixups:
+https://lore.kernel.org/all/20260326185413.1205870-40-jim.cromie@gmail.com/
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 1b7dc0d3963b..4ad843105443 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -326,7 +326,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 		uint64_t *offset, uint32_t flags, bool criu_resume);
- int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
--		uint64_t *size);
-+		uint64_t *size, bool force);
- int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(struct amdgpu_device *adev,
- 					  struct kgd_mem *mem, void *drm_priv);
- int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 1e71829e0fc6..aee2edbf1ec8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1901,7 +1901,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+The major changes since that version are:
+- Add the helper functions rounddown_pow_of_two64() and
+  roundup_pow_of_two64() (see patch 1) instead of open-coding them
+- Rebase now that the buddy allocator lives in drivers/gpu/buddy.c
+  instead of drivers/gpu/drm/drm_buddy.c
+
+This is still breaking the gpu_test_buddy_alloc_exceeds_max_order
+KUnit test on 32-bit systems:
+[09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: EXPECTATION FAILED at drivers/gpu/tests/gpu_buddy_test.c:1429
+[09:01:26]     Expected err == -22, but
+[09:01:26]         err == 0 (0x0)
+[09:01:26] WARNING: drivers/gpu/buddy.c:508 at gpu_buddy_fini+0x244/0x2e0, CPU#0: kunit_try_catch/1595
+[09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:508: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
+[09:01:26] WARNING: drivers/gpu/buddy.c:516 at gpu_buddy_fini+0x284/0x2e0, CPU#0: kunit_try_catch/1595
+[09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:508: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
+[09:01:26] WARNING: drivers/gpu/buddy.c:516 at gpu_buddy_fini+0x284/0x2e0, CPU#0: kunit_try_catch/1595
+[09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:519: gpu_buddy_assert(!mm->used_scoreboard[i])
+[09:01:26] [FAILED] gpu_test_buddy_alloc_exceeds_max_order
+
+Cheers,
+-- David
+
+---
+ drivers/gpu/buddy.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index a5553fcec28c..64f41f1fe908 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1193,7 +1193,7 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 	u64 modify_size;
+ 	int err;
  
- int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
--		uint64_t *size)
-+		uint64_t *size, bool force)
- {
- 	struct amdkfd_process_info *process_info = mem->process_info;
- 	unsigned long bo_size = mem->bo->tbo.base.size;
-@@ -1922,9 +1922,28 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 	 */
+-	modify_size = rounddown_pow_of_two(size);
++	modify_size = rounddown_pow_of_two64(size);
+ 	order = ilog2(modify_size) - ilog2(mm->chunk_size);
+ 	if (order == 0)
+ 		return -ENOSPC;
+@@ -1440,7 +1440,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
  
- 	if (mapped_to_gpu_memory > 0) {
--		pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
--				mem->va, bo_size);
--		return -EBUSY;
-+		/*
-+		 * Refusing to free a mapped BO is only meaningful while the
-+		 * process can still unmap it. On process teardown (@force)
-+		 * there is no such chance: the caller drops the last handle
-+		 * to @mem regardless, so bailing out here leaks the BO onto
-+		 * process_info->kfd_bo_list / userptr_inval_list. Those lists
-+		 * are then destroyed non-empty in
-+		 * amdgpu_amdkfd_gpuvm_destroy_cb(), leaving a BO in TTM's
-+		 * eviction LRU whose bo_vas point into the freed amdgpu_vm.
-+		 * A subsequent client that triggers eviction can then spin in
-+		 * amdgpu_vm_bo_move(). Drop the attachments instead: the
-+		 * kfd_mem_detach() calls below release the bo_va references
-+		 * without needing the page-table update that just failed, and
-+		 * the VM is torn down right after us anyway.
-+		 */
-+		if (!force) {
-+			pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
-+				 mem->va, bo_size);
-+			return -EBUSY;
-+		}
-+		pr_warn("Force-freeing BO VA 0x%llx size 0x%lx still mapped %u time(s)\n",
-+			mem->va, bo_size, mapped_to_gpu_memory);
- 	}
- 
- 	/* At this point the BO is guaranteed to be freed, so unpin the
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 6fd18488d5cf..0121c6dc77b3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1219,7 +1219,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 
- err_free:
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, (struct kgd_mem *)mem,
--					       pdd->drm_priv, NULL);
-+					       pdd->drm_priv, NULL, false);
- err_unlock:
- err_pdd:
- err_large_bar:
-@@ -1262,7 +1262,8 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
- 	}
- 
- 	ret = amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev,
--				(struct kgd_mem *)mem, pdd->drm_priv, &size);
-+				(struct kgd_mem *)mem, pdd->drm_priv, &size,
-+				false);
- 
- 	/* If freeing the buffer failed, leave the handle in place for
- 	 * clean-up during process tear-down.
-@@ -1618,7 +1619,7 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 
- err_free:
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, (struct kgd_mem *)mem,
--					       pdd->drm_priv, NULL);
-+					       pdd->drm_priv, NULL, false);
- err_unlock:
- 	mutex_unlock(&p->mutex);
- 	return r;
-@@ -2483,7 +2484,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
- 	if (idr_handle < 0) {
- 		pr_err("Could not allocate idr\n");
- 		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, *kgd_mem, pdd->drm_priv,
--						       NULL);
-+						       NULL, false);
- 		return -ENOMEM;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 0a7c1900da95..6d5126aa6fe7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -743,7 +743,7 @@ static void kfd_process_free_gpuvm(struct kgd_mem *mem,
- 
- 	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, mem, pdd->drm_priv,
--					       NULL);
-+					       NULL, true);
- }
- 
- static void kfd_process_free_gpuvm_map(struct kgd_mem *mem,
-@@ -759,7 +759,7 @@ static void kfd_process_free_gpuvm_map(struct kgd_mem *mem,
- 
- 	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, mem, pdd->drm_priv,
--					       NULL);
-+					       NULL, true);
- }
- 
- /* kfd_process_alloc_gpuvm - Allocate GPU VM for the KFD process
-@@ -814,7 +814,7 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
- 
- err_map_mem:
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->adev, *mem, pdd->drm_priv,
--					       NULL);
-+					       NULL, false);
- err_alloc_mem:
- 	*mem = NULL;
- 	*kptr = NULL;
-@@ -1119,18 +1119,29 @@ static void kfd_process_device_free_bos(struct kfd_process_device *pdd)
- 	 * local memory object
- 	 */
- 	idr_for_each_entry(&pdd->alloc_idr, mem, id) {
-+		int r;
- 
- 		for (i = 0; i < p->n_pdds; i++) {
- 			struct kfd_process_device *peer_pdd = p->pdds[i];
- 
- 			if (!peer_pdd->drm_priv)
- 				continue;
-+			/*
-+			 * This can fail under memory pressure: unmapping has
-+			 * to validate the page-table BOs first. Ignore it and
-+			 * force the free below - the handle is dropped either
-+			 * way, so a failed free would leak the BO onto the
-+			 * process_info lists and poison the eviction LRU.
-+			 */
- 			amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
- 				peer_pdd->dev->adev, mem, peer_pdd->drm_priv);
- 		}
- 
--		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, mem,
--						       pdd->drm_priv, NULL);
-+		r = amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, mem,
-+							   pdd->drm_priv, NULL,
-+							   true);
-+		if (r)
-+			pr_err("Failed to free BO on process teardown: %d\n", r);
- 		kfd_process_device_remove_obj_handle(pdd, id);
- 	}
- }
+ 	/* Roundup the size to power of 2 */
+ 	if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+-		size = roundup_pow_of_two(size);
++		size = roundup_pow_of_two64(size);
+ 		min_block_size = size;
+ 		/*
+ 		 * Normalize the requested size to min_block_size for regular allocations.
 -- 
 2.55.0
 
