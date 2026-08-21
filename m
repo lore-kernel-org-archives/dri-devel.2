@@ -4,55 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4A66C5DF87
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 13:18:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E6F4C5DF89
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 13:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE24E10E2A0;
-	Fri, 21 Aug 2026 13:18:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69F3310E2B4;
+	Fri, 21 Aug 2026 13:35:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="YwxCfVAN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cBu8b+3X";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fDnYMkTL";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F160D10E2A0;
- Fri, 21 Aug 2026 13:18:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787318316; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PO6ekrGm0t7zfVe9kVhGQjaIA1yc56qvUaXboDQLU++ho8uetm/T8cHhdnmPglgG+axg6Sx8ALRwMIe772rVCHz31hpRMYWu81A6zB68ObYwKATm5HZHsVsUYDPniOMlbwJXbTiUSK52GPm+s61lj6C0yA/qn7xfcnglv9pX2k8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787318316;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=gEa87WB9bffTrtjpQDV9KM2RmE0aBNmB7qXjGliDfp0=; 
- b=gNlQXHXoW9AgYwo39qDALUHbC1mayXa/sQqQK+FTGkbVCvDdMVq8AeVPQNlsaWoRfniTjYzLsoDnuInR6C2Tbbw6e5TqxhjZmr5QjIgYuYWbZ0uEduuz113tWOPLt4BQOinzWjhSxDrxZk4c7971/nMBZ+dJ6E8hPa9D9A/SfYI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787318316; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=gEa87WB9bffTrtjpQDV9KM2RmE0aBNmB7qXjGliDfp0=;
- b=YwxCfVANhSJf/cRtRltpfftZRC6jFhyA6vzfLb3SOgJwvtAQOafIsAzK9rzkSve4
- wD7p8tIrlswqaqL0+qu1viqhrOWmYGFO1pkxvgT5XCaoC5YpqQk3LxHplJDHTB6Zgiu
- xHmN0qzLTupnKCNHNwD3vfvceo49fKMzswDnux58=
-Received: by mx.zohomail.com with SMTPS id 1787318314107393.4510032745691;
- Fri, 21 Aug 2026 06:18:34 -0700 (PDT)
-Message-ID: <6979fc5e-5f93-42a5-aec0-b0448aa13197@collabora.com>
-Date: Fri, 21 Aug 2026 15:18:30 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE2310E2AE
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 13:35:23 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67LCoav02444210
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 13:35:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=EGgQsjjT+EKRdOye7pYxMstrrJ0PX0qzvJBOzzPkvg8=; b=cB
+ u8b+3XyTBgp6SlM5EdMs4p+/wwmozMKDNRA33WdUMt/SbYo7O0VitOgUyQ7cBN5x
+ gaCovsenEWtmaU4JGEHkO1RbHBhWjc2laf4G/enPgPUOgYvbXCKNKamWm+9u6jKy
+ I0k7oQ0tSynRf8vHDcu37nUkU3Zmwow/IWdaaC4NedH09at3alLqfxlb5RsDhKA9
+ zkw1kWzOmbrx1Ka47iMigyIJv8El7au+cfThIAY2Fj5mHsPuhqkJ0o/X9R8Og+T9
+ fw/95u50awX/RU2c8FwLMfmci4ciyWKoE4AxzcPnRpUnmZ0tMYL8hn8mJsKbAPz0
+ RK2ob4Ev35Eo8s20fnXg==
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
+ [209.85.160.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g6cdsjhvg-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 13:35:22 +0000 (GMT)
+Received: by mail-oa1-f70.google.com with SMTP id
+ 586e51a60fabf-456ab1a7f2cso1601254fac.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 06:35:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787319322; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Fk0dQ6qM8OVuWleLW+Zcr0mg8V5zAdzIGY682m3GQuedZVRbqVYtaD4Hoq6AO5Zq5l
+ F5aV3mA7+fKXcciLKepUHtWStLHSeYFX6rxrDRRlI96GXogc2+GfUCcClq1kHU20G4Wp
+ K4cVgWwcddG2L1lVm3rTS0dDmWGiGMXXWoGnVbM7YPSe3JmYdk2+vXT32EW5pnjv55Zy
+ FmdtTLnTc9GhLILRidnAw9JIhUh5dd9f2M9vcKjJ7aHO9w9LdeKJHwjqJ0W7CL1BFZNp
+ iY8Dfp46sG8RUw7upYTBUK0HS2TbzTyp87tVI/xG3BcefNyBopJR4P3FWUaoNEmsF/Ua
+ +sJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=EGgQsjjT+EKRdOye7pYxMstrrJ0PX0qzvJBOzzPkvg8=;
+ fh=Q7U1gPw/lSdWqf5I/iZFpBg8qtvJK2HPuBiOlks3a9w=;
+ b=eG4fjoEAsNxL5fj9qIYMMrT/5YmIlp3h65UFnVeoH7xwkAGY1Fw7yQ8GJGja0B5Ezc
+ 7Hu/ShsBwAUUgNFdhTpnx0cRwuQVWjpgCHrPlr+5KeuaXku1sikpiy0agIQ/59ZhojUp
+ dC6vV1c98KA/Mai1kHFZvG/4tliSey5yoPonobH42Bt0I221/uemfEcxXxs4TojNhpPx
+ F0QYmkvFLHvP8NmCQBLhMZ0u74xHAajpT+PGmtGYvaM8kobDCC/v+0bYdKac+GpUcoLy
+ 4wpQUMKqQS3ornxqRPW1stHWF5xdlpTUuSTIrCbwHD+b0cVzt6WHRx0m7y2SSl4a0tfh
+ 4A7Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787319322; x=1787924122;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=EGgQsjjT+EKRdOye7pYxMstrrJ0PX0qzvJBOzzPkvg8=;
+ b=fDnYMkTL6n6pRg3QNGT0dHQ9ZmBBTrtVgkEp7g4/VquhyGMDTt8BDO9+E9aDill5t+
+ tatAUVSV3yqmSNwvkvpRCxVBbIOYGQnCLYE3Ls2RgHTXx5UfUr4cM79+ASEoTLKdD3HL
+ OnbIeJiRpr7lQHOPmSTVYlTzofCRGhefY/9har8H4c9k7Mc7OB3vWA0ILEmbubBZQDcY
+ kM4z9WAfR0kRqZODRdGDxaFFmh66IUf/lt16Vpia/6O64o4jOziLtSC3G1iYa1MUdA5y
+ UnrV87m12Ma2G7bZOhv/7uLKtOLjIkuDmWW4VaSX6JBVhCOzm2lwr/9hooakNp+Y5VGq
+ MHbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787319322; x=1787924122;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=EGgQsjjT+EKRdOye7pYxMstrrJ0PX0qzvJBOzzPkvg8=;
+ b=SchDbEh8Eg0bFSz8Tmf5fJjCmdEq1s80iwczgb9I4h5bcqPfWJjeVRYqzucSG9du7x
+ x+2jQSC2CX2HfFDwAwk9GFn1y3n00F7wVeasNm4cmPvywJ4QktovFM8i2/snzbCfgStO
+ gLLjkx/oRtUVCZTlTidIpdkOfBNLFxJzwFLZfjVDlVAEoUqdzEJEIsChTdgraF6umWSq
+ vnD0KjfzCXJHapOTdKT6K5WOg0FXDj8HK1n8wGO+Ud3ktbO42juVhiJITgvviZ4kfge9
+ OauY+JlMvPqsb1wTv+qOjQlUUI1umSRY30QVY0n615V2QfNgdku2GUuivH7l/0XbDWrj
+ Rjzw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqq9JjTXKgrkVLz8kneBRD8TIIp46KpA33kLVexo/fx5SkOISRhjOw7eTXmXH69aEgrdgB0vymRNMM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m+ATxlR0SzAA9H9b+Vwme+Brx52eBAQz7EyNlSVRZSH2fZuzNt
+ 7hSSSO3dZbfCQMlOtY5vzFd0v1PRZCat4ZQzA884oP1M9sj9mrePnWrFgfINd0MdmveSXtUj7um
+ TCc/5DL2aCeHg5pdXBV3W+tBy3htE/Vd/Xkyf6XsU3hd644UVKnL6ZhHplU+J0fvJ3CiiI9Atj7
+ GPOr6uXf2F3fYgXpo8JzDSGfRTAdrHTzIyxeWh4f3Vuwf+xw==
+X-Gm-Gg: AR+sD107KwU+KhLBAL+s7XPBg7RuChdsT7kV1UvZzbMlVMkVeQsiNNIssCU7PG28hpP
+ RPpAPpieVqGN6lLzkcip1Ewv20A0g03PrWNs11SOzOde7I/JkMiBaHEVgSxUvz3sh48Ke2f1hX/
+ +J/7zTdxqun7P26YAGpL0mcNqEiQ26sc0Rka0upBLWUcZdxB7BMQsvGhFc
+X-Received: by 2002:a05:6870:1d15:b0:456:c9f7:787c with SMTP id
+ 586e51a60fabf-46351473502mr6812841fac.17.1787319321682; 
+ Fri, 21 Aug 2026 06:35:21 -0700 (PDT)
+X-Received: by 2002:a05:6870:1d15:b0:456:c9f7:787c with SMTP id
+ 586e51a60fabf-46351473502mr6812772fac.17.1787319321277; Fri, 21 Aug 2026
+ 06:35:21 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 02/10] drm/vkms: Fix limited-range YCbCr to RGB
- conversion scaling
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: Alex Hung <alex.hung@amd.com>
-References: <20260814211816.1219597-1-harry.wentland@amd.com>
- <20260814211816.1219597-3-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260814211816.1219597-3-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260820154428.1278@ferrisoft.com>
+In-Reply-To: <20260820154428.1278@ferrisoft.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Fri, 21 Aug 2026 06:35:10 -0700
+X-Gm-Features: AcwNN1UiaeiwmovB3MnAFVEjAMtoAugtRp3z9oZpPE4thN2uzL1MwSpJhcy6nHc
+Message-ID: <CACSVV003bOJo4OJGvwHAda3h+KoiVJnzOqjwAVfjNG=V-V+RAA@mail.gmail.com>
+Subject: Re: drm/msm: unrecoverable a8xx hang-recovery loop on Glymur ("cx
+ gdsc didn't collapse"); killing the offending client does not stop the loop
+To: Greg Ociepka <greg@ferrisoft.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: yE9sgAOwRcXBHvvac5Z8QYW0AwSKbrrQ
+X-Proofpoint-GUID: yE9sgAOwRcXBHvvac5Z8QYW0AwSKbrrQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDEwNCBTYWx0ZWRfX+TF3uFqqOgTl
+ PwXbJsGa/qOGCEbDRP4g0um4L7inqC9yjMZwkP05y7zxWHXsBC3EyF+KwZGfvkgXDzeatkcXLMg
+ yhZbwiqDdiKzhvoom5MIXKg/K/GWmeU=
+X-Authority-Analysis: v=2.4 cv=RN2D2Yi+ c=1 sm=1 tr=0 ts=6a88541a cx=c_pps
+ a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=zXLAmZJP3ypUEzgl:21 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=e5mUnYsNAAAA:8
+ a=a8UEx8NLAAAA:8 a=hKCgGfK2mU0xOqVuEwwA:9 a=QEXdDO2ut3YA:10
+ a=1zu1i0D7hVQfj8NKfPKu:22 a=Vxmtnl_E_bksehYqCbjh:22 a=-yeuc7zBjbfZT8aiaP-D:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDEwNCBTYWx0ZWRfXyn/ZgO9GpnXX
+ NmC+dyx6NrKyGJ3EG9gx4rBjH15GpTgWzG4ba9kFVO6fPoUgntJG37Ll3AjWiE3op8V/AdgyU/x
+ +7mcVnTRH6Mhfn53ulETYwcyBn5jwM73Z/zAPPEyd6rgaolIv6Wu91AuWzkubBRUzQrVR1QJLGk
+ d6DIIIqMJ/i7T4CzX+lcgmZJ3H9eyw6OPahczOVIooCK0zYot/SxKTR1HrvvJiAqwZhEhikSGDX
+ m5cErGlL5s/ucjfGW385Jih+2CiFHPJAFIQdigOXAA0yEMYXZtStO0G0+IUCrRHyScQG3U6T5pr
+ jL8k0bLneu/7rRYPoGdcj27zYNcChhVbzsqeXz1yrhHO1V9DId3J6dprRHrmhAS8WNIp5YH0byS
+ jVDGxLVkMFK7kpGxU/A7hkReZRnkD4YhJ5hcF6lWuGuguiyGXNvWjUz9CxiXj39wxqQnTmtcmz/
+ smQb/mQAcaSPeNqHrFw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-21_04,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 phishscore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608210104
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,326 +156,110 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-FYI: Following my previous observation that the Weston 
-test ("color-representation-drm") that should have detected this error 
-did not do so, I opened a MR to reduce the fuzziness (accepted error 
-range) of said test [1]. The test checks all six cases with llvmpipe, 
-lavapipe, Weston-internal GL fallback shaders and VKMS. All of them 
-succeed within an error range of 1 per 8bit channel *with* the change 
-from this patch. Without it the VKMS results have higher errors[2] - 
-confirming again that this patch clearly is an improvement.
-
-So hope we can move forward with the series soon :)
-
-Best regards,
-
-Robert
-
-1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2184
-
-2: https://gitlab.freedesktop.org/rmader/weston/-/pipelines/1731461
-
-On 14.08.26 23:18, Harry Wentland wrote:
-> The limited-/studio-range YCbCr to RGB conversion matrices were generated
-> with colour.matrix_YCbCr(is_legal=True, bits=8), which normalises the
-> narrow range by 2^bits (256 for 8-bit) rather than by the full-range
-> maximum 2^bits - 1 (255). As a result the luma scale was 256/219 and the
-> chroma scale 256/224 instead of the correct 255/219 and 255/224.
+On Thu, Aug 20, 2026 at 6:44=E2=80=AFAM Greg Ociepka <greg@ferrisoft.com> w=
+rote:
 >
-> This over-scales every limited-range conversion by a factor of 256/255,
-> producing an error of up to ~3/255 (8-bit) and causing IGT tests that
-> compare software-computed surfaces against VKMS-processed ones to fail.
+> Hi,
 >
-> Recompute the three limited-range matrices from first principles rather
-> than relying on colour's is_legal scaling:
+> On an ASUS Zenbook A16 (UX3607OA, Snapdragon X2 Elite Extreme "Glymur", A=
+dreno GPU, chip id 0x44070041) we are hitting an unrecoverable GPU recovery=
+ loop that, once triggered, can only be cleared by a full reboot.
 >
->   1. Start from the standard ITU-R YCbCr -> RGB relations for the luma
->      weights Kr, Kb (Kg = 1 - Kr - Kb) of each encoding (BT.601, BT.709
->      and BT.2020 non-constant luminance). These are the same relations
->      that produce the existing full-range matrices.
->   2. Expand the studio input range to full range relative to a full-range
->      maximum of 2^n - 1: the luma coefficient by 255/(235 - 16) and the
->      chroma coefficients by 255/(240 - 16). This matches the DRM UAPI
->      definition and IGT's igt_ycbcr_to_rgb_matrix().
->   3. Convert each coefficient to S31.32 fixed point (round(coeff * 2^32)).
+> Environment:
+> - kernel: linux-next next-20260730, plus a handful of local patches for t=
+his laptop (USB wakeup-source/dma-coherent DTS, CPU thermal trips, an eDP l=
+ink-training retry tweak and a DP debug-print ratelimit); none of them touc=
+h the GPU, GMU, GDSC or GPU clock paths
+> - Mesa 26.1.5 (freedreno, a8xx)
+> - GMU firmware v5.2.38 (qcom/gen80100_gmu.bin) and gen80100_sqe.fw from l=
+inux-firmware
+> - niri (smithay-based Wayland compositor), ordinary desktop clients
 >
-> Update the limited-range reference values in the vkms-format KUnit test
-> accordingly. Provide a python script to show how the kunit test value
-> are calculated.
+> Symptom: a regular client (rotating across sessions: chromium, firefox, X=
+wayland, thunderbird) eventually triggers a GPU fault. From that point reco=
+very loops at roughly 1 Hz; every iteration logs:
 >
-> Fixes: fe22d21e9342 ("drm/vkms: Add YUV support")
-> Assisted-by: Copilot:claude-opus-4.8
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
-> Tested-by: Robert Mader <robert.mader@collabora.com>
-> ---
->   .../gpu/drm/vkms/tests/gen_yuv_conversion.py  | 87 +++++++++++++++++++
->   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 38 ++++----
->   drivers/gpu/drm/vkms/vkms_formats.c           | 55 ++++++++----
->   3 files changed, 144 insertions(+), 36 deletions(-)
->   create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
+>   adreno 3d00000.gpu: [drm:a8xx_irq [msm]] *ERROR* gpu fault ring 2 fence=
+ 28f9c status 00880005 gfx_status 00880004
+>   adreno 3d00000.gpu: [drm:a8xx_irq [msm]] *ERROR* BR: status 00880004 rb=
+ 0002/0078 ib1 0000000000000000/0000 ib2 0000000000000000/0000 ib3 00000000=
+00000000/0000
+>   adreno 3d00000.gpu: [drm:a8xx_irq [msm]] *ERROR* BV: status 00880004 rb=
+ 0000/0078 ib1 0000000000000000/0000 ib2 0000000000000000/0000 ib3 00000000=
+00000000/0000
+>   msm_dpu ae01000.display-controller: [drm:recover_worker [msm]] *ERROR* =
+44070041: hangcheck recover!
+>   msm_dpu ae01000.display-controller: [drm:recover_worker [msm]] *ERROR* =
+44070041: offending task: <client>
+>   adreno 3d00000.gpu: [drm:a8xx_recover [msm]] *ERROR* cx gdsc didn't col=
+lapse
 >
-> diff --git a/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py b/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
-> new file mode 100755
-> index 000000000000..f4d226137cc2
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
-> @@ -0,0 +1,87 @@
-> +#!/usr/bin/env python3
-> +# SPDX-License-Identifier: GPL-2.0+
-> +"""
-> +Derive the VKMS YCbCr -> RGB conversion constants and the vkms-format KUnit
-> +reference values.
-> +
-> +It produces:
-> +  1. The S31.32 fixed-point conversion matrices used in
-> +     drivers/gpu/drm/vkms/vkms_formats.c and asserted by
-> +     vkms_format_test_conversion_matrix.
-> +  2. The 16-bit reference YCbCr inputs for the limited-range
-> +     yuv_u16_to_argb_u16 round-trip cases (the values changed by the fix).
-> +
-> +Requires numpy.
-> +"""
-> +
-> +import numpy as np
-> +
-> +FP = 1 << 32                       # S31.32 scale: fixed = round(coeff * 2^32)
-> +
-> +# ITU-R luma weights (Kr, Kb); Kg = 1 - Kr - Kb.
-> +ENCODINGS = {
-> +    "BT601":  (0.299,  0.114),
-> +    "BT709":  (0.2126, 0.0722),
-> +    "BT2020": (0.2627, 0.0593),    # non-constant luminance
-> +}
-> +
-> +# 8-bit studio-range levels: luma 16..235 (range 219), chroma 16..240
-> +# (range 224, neutral 128); full-range maximum is 2^n - 1 = 255.
-> +FULL_MAX = 255
-> +Y_RANGE  = 235 - 16                # 219
-> +C_RANGE  = 240 - 16                # 224
-> +
-> +# 16-bit RGB test colors.
-> +COLORS = {
-> +    "white": (0xffff, 0xffff, 0xffff),
-> +    "gray":  (0x8080, 0x8080, 0x8080),
-> +    "black": (0x0000, 0x0000, 0x0000),
-> +    "red":   (0xffff, 0x0000, 0x0000),
-> +    "green": (0x0000, 0xffff, 0x0000),
-> +    "blue":  (0x0000, 0x0000, 0xffff),
-> +}
-> +
-> +
-> +def rgb_matrix(kr, kb, limited):
-> +    """Normalized YCbCr -> RGB (Y in [0,1], Cb/Cr in [-0.5, 0.5])."""
-> +    kg = 1.0 - kr - kb
-> +    # Standard full-range relations.
-> +    m = [[1.0,  0.0,                     2 * (1 - kr)],
-> +         [1.0, -2 * (1 - kb) * kb / kg, -2 * (1 - kr) * kr / kg],
-> +         [1.0,  2 * (1 - kb),            0.0]]
-> +    if limited:
-> +        # Expand studio input range to full range: luma by 255/219,
-> +        # chroma by 255/224 (relative to full-range maximum 2^n - 1).
-> +        ys, cs = FULL_MAX / Y_RANGE, FULL_MAX / C_RANGE
-> +        m = [[r[0] * ys, r[1] * cs, r[2] * cs] for r in m]
-> +    return m
-> +
-> +
-> +def ref_yuv(m, y_offset):
-> +    """16-bit YCbCr that VKMS decodes back to each RGB color.
-> +
-> +    VKMS decode: [R,G,B] = M . [Y - y_offset*257, Cb - 128*257, Cr - 128*257]
-> +    (8-bit offsets lifted to 16-bit by *257 = 65535/255), so invert and
-> +    re-add the offsets.
-> +    """
-> +    inv = np.linalg.inv(np.array(m, float))
-> +    off = np.array([y_offset * 257, 128 * 257, 128 * 257])
-> +    return {name: tuple(int(min(max(round(v), 0), 0xffff))
-> +                        for v in inv @ np.array(rgb, float) + off)
-> +            for name, rgb in COLORS.items()}
-> +
-> +print(f"== RGB REFERENCE VALUES ==")
-> +for name, rgb in COLORS.items():
-> +    print(f"    {name:6} {{ {rgb[0]:#06x}, {rgb[1]:#06x}, {rgb[2]:#06x} }}")
-> +print()
-> +
-> +for enc, (kr, kb) in ENCODINGS.items():
-> +    for limited in (False, True):
-> +        m = rgb_matrix(kr, kb, limited)
-> +        y_offset = 16 if limited else 0
-> +        print(f"== {enc} {'LIMITED' if limited else 'FULL'} (y_offset={y_offset}) ==")
-> +        for row in m:
-> +            print("    { " + ", ".join(str(round(v * FP)) for v in row) + " },")
-> +        for name, yuv in ref_yuv(m, y_offset).items():
-> +            print(f"    {name:6} {{ {yuv[0]:#06x}, {yuv[1]:#06x}, {yuv[2]:#06x} }}")
-> +        print()
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> index a7788fbc45dc..d2ae6321383b 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> @@ -54,6 +54,8 @@ struct yuv_u16_to_argb_u16_case {
->    * The YUV color representation were acquired via the colour python framework.
->    * Below are the function calls used for generating each case.
->    *
-> + * The limited-range cases are generated by gen_yuv_conversion.py.
-> + *
->    * For more information got to the docs:
->    * https://colour.readthedocs.io/en/master/generated/colour.RGB_to_YCbCr.html
->    */
-> @@ -101,12 +103,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x517b, 0x5a34, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0x908e, 0x35cc, 0x2237 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x28f7, 0xf000, 0x6dc9 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x51cd, 0x5a8e, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0x911e, 0x3602, 0x2259 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x2920, 0xf0f0, 0x6e37 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   	/*
-> @@ -151,12 +153,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x3e8f, 0x6656, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0xaca1, 0x29aa, 0x1a45 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x1fd0, 0xf000, 0x75bb }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x3ece, 0x66bc, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0xad4e, 0x29d4, 0x1a5f }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x1ff0, 0xf0f0, 0x7631 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   	/*
-> @@ -201,12 +203,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x4988, 0x60b9, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0xa47b, 0x2f47, 0x1902 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x1cfd, 0xf000, 0x76fe }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x49d2, 0x611a, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0xa520, 0x2f76, 0x191b }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x1d1a, 0xf0f0, 0x7775 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   };
-> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-> index dfb8e13cba87..4d5fcaeb82c5 100644
-> --- a/drivers/gpu/drm/vkms/vkms_formats.c
-> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
-> @@ -788,15 +788,36 @@ static const struct conversion_matrix yuv_bt601_full = {
->   };
->   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.601"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.601 limited-/studio-range YCbCr to full-range RGB.
-> + *
-> + * The coefficients are derived as follows:
-> + *
-> + *  1. Take the standard ITU-R YCbCr -> RGB relations for luma weights
-> + *     Kr, Kb (Kg = 1 - Kr - Kb), with Y in [0, 1] and Cb, Cr in
-> + *     [-0.5, 0.5]. For BT.601 Kr = 0.299 and Kb = 0.114:
-> + *
-> + *       R = Y                                + 2 * (1 - Kr)          * Cr
-> + *       G = Y - 2 * (1 - Kb) * Kb / Kg * Cb - 2 * (1 - Kr) * Kr / Kg * Cr
-> + *       B = Y + 2 * (1 - Kb)          * Cb
-> + *
-> + *     These are exactly the yuv_bt601_full coefficients above.
-> + *
-> + *  2. Expand the studio input range to full range, relative to a
-> + *     full-range maximum of 2^n - 1 (255 for 8-bit): the luma
-> + *     coefficient is scaled by 255/(235 - 16) and the chroma
-> + *     coefficients by 255/(240 - 16). This matches the DRM UAPI
-> + *     definition and IGT's igt_ycbcr_to_rgb_matrix(). Note this differs
-> + *     from colour.matrix_YCbCr(is_legal=True), which normalises by 2^n
-> + *     and is thus off by a factor of 256/255.
-> + *
-> + *  3. Convert each coefficient to S31.32 fixed point, i.e.
-> + *     round(coeff * 2^32).
->    */
->   static const struct conversion_matrix yuv_bt601_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,           6881764740 },
-> -		{ 5020601039, -1689204679, -3505362278 },
-> -		{ 5020601039, 8697922339,  0 },
-> +		{ 5000989317, 0,           6854882848 },
-> +		{ 5000989317, -1682606224, -3491669458 },
-> +		{ 5000989317, 8663946082,  0 },
->   	},
->   	.y_offset = 16,
->   };
-> @@ -816,15 +837,14 @@ static const struct conversion_matrix yuv_bt709_full = {
->   };
->   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.709"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.709 limited-range YCbCr to full-range RGB (Kr = 0.2126, Kb = 0.0722).
-> + * Derived as described for yuv_bt601_limited.
->    */
->   static const struct conversion_matrix yuv_bt709_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,          7729959424 },
-> -		{ 5020601039, -919487572, -2297803934 },
-> -		{ 5020601039, 9108275786, 0 },
-> +		{ 5000989317, 0,          7699764272 },
-> +		{ 5000989317, -915895824, -2288828138 },
-> +		{ 5000989317, 9072696586, 0 },
->   	},
->   	.y_offset = 16,
->   };
-> @@ -844,15 +864,14 @@ static const struct conversion_matrix yuv_bt2020_full = {
->   };
->   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.2020"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.2020 non-constant-luminance limited-range YCbCr to full-range RGB
-> + * (Kr = 0.2627, Kb = 0.0593). Derived as described for yuv_bt601_limited.
->    */
->   static const struct conversion_matrix yuv_bt2020_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,          7238124312 },
-> -		{ 5020601039, -807714626, -2804506279 },
-> -		{ 5020601039, 9234915964, 0 },
-> +		{ 5000989317, 0,          7209850391 },
-> +		{ 5000989317, -804559491, -2793551177 },
-> +		{ 5000989317, 9198842076, 0 },
->   	},
->   	.y_offset = 16,
->   };
+> Observations across four separate incidents (2026-08-09 to 2026-08-20; lo=
+ngest 60+ minutes; worst measured rate 161 recover cycles in 5 minutes):
+>
+> 1. The reported offending client differs between incidents and can change=
+ within a single incident.
+> 2. Killing the offending client does not stop the loop. We verified this =
+explicitly: after SIGTERM-ing the reported victim the loop continued at an =
+unchanged rate within seconds, and the next client that submitted work beca=
+me the new "offending task". The corrupted state evidently survives in hard=
+ware/firmware rather than in the client.
+> 3. The loop never converges on its own; only a full reboot restores the G=
+PU. While it runs, the victim's surface stays black and the whole desktop d=
+egrades, since every recovery stalls the GPU.
+> 4. Onset correlates with many clients creating GPU contexts in parallel, =
+e.g. right after a session restore spawns half a dozen applications at once=
+.
+>
+> Since every iteration reports "cx gdsc didn't collapse", the recovery pat=
+h apparently never succeeds in power-cycling the GPU, which would explain w=
+hy the fault state persists across recovery attempts. Two questions this ra=
+ises:
+>
+> - Is the CX GDSC on Glymur shared with, or kept up by, other consumers (t=
+he display path, for instance) so that it cannot collapse while the panel i=
+s active - which would make this recovery flow structurally ineffective on =
+this SoC?
+> - Or does gen8/GMU require a different stop/reset sequence before the col=
+lapse is attempted?
 
--- 
-Robert Mader
-Consultant Software Developer
+Hmm, I've not seen this on glymur slim7x, and I've crashed the GPU
+plenty while burning down the remaining clcts/glcts/vkcts issues.  And
+certainly not any GPU hangs/crashes in normal desktop usage.  (Vanilla
+gnome-shell / fedora f44 here.)
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+System mesa is 26.1.6, but for testing/debug it has been newer ToT
+mesa.  I kinda suspect that the mesa version does not matter, this
+sounds more like a power issue.
 
+Fwiw, the kernel I've been using: [1]..  but that doesn't have the a16
+dts. I need to move forward to something newer, hopefully I'll get to
+that today.  We'll see if I start seeing this issue.  Or maybe
+something x2e vs x2ee is different regarding pmic/supplies?
+
+My device doesn't have the highest OPP (1.85ghz), which I think your
+device does.  We might be still missing some power related features
+that are (more?) needed at higher freq's, or maybe I have a more lucky
+piece of silicon?  Akhil would know more about this.  You might try
+removing the highest OPP in gpu_opp_table (in glymur.dtsi) to see if
+that improves stability?  (Repeat until it is stable if you have the
+same issues w/ 1.7ghz.)
+
+BR,
+-R
+
+[1] https://gitlab.freedesktop.org/robclark/msm/-/commits/glymur-next?ref_t=
+ype=3Dheads
+
+>
+> We are happy to test patches, run instrumented builds, and provide full j=
+ournals or devcoredumps - the machine reproduces this every couple of days =
+under normal desktop use.
+>
+> Thanks,
+> Greg Ociepka
+>
