@@ -4,61 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE47C5DF8C
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 20:06:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 458D3C5DF7D
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 20:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63E4A10F39E;
-	Fri, 21 Aug 2026 20:06:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68F4110E2DC;
+	Fri, 21 Aug 2026 20:06:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MUcn5AgH";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="LXttCcy+";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA13B10E33F
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 20:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787342780;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=4Edr5cAtYcXCdnLa7oLzVihOqQYUUfcaDCBdJd9wwpE=;
- b=MUcn5AgHgiUsds/Y3vn3z9uUHhptOYsvpWZ1wR9b9u3XApOh8ESYAPkZSMH1mpBo4OOMG3
- oeMMI2j9GLM8vbtJHdKEEmKT3ZiyjVvwraDx4c7UMjnAprVJV/YXB5bbsiwC2fMJP8Ew4t
- otuzsx8baWj92rFnOkpGDF3GWstkjLQ=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-180-A8Al9uYjPEyH8ezlI4yzgQ-1; Fri,
- 21 Aug 2026 16:06:15 -0400
-X-MC-Unique: A8Al9uYjPEyH8ezlI4yzgQ-1
-X-Mimecast-MFC-AGG-ID: A8Al9uYjPEyH8ezlI4yzgQ_1787342773
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 28AEB1956073; Fri, 21 Aug 2026 20:06:13 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.80.7])
- by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 702DA426; Fri, 21 Aug 2026 20:06:11 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- linux-pci@vger.kernel.org
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, Timur Tabi <ttabi@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, Ryan Brue <ryanbrue.dev@gmail.com>,
- stable@vger.kernel.org, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2] pci: Add broken-GPE quirk for Lenovo Legion 16APH8 and
- 16AHP9 Nvidia GPUs
-Date: Fri, 21 Aug 2026 16:04:51 -0400
-Message-ID: <20260821200607.621341-1-lyude@redhat.com>
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEDCC10E2DC
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 20:06:56 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-c9eefcf9175so1462482a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 13:06:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787342816; cv=none;
+ d=google.com; s=arc-20260327;
+ b=NtZRyVFue8FyFHT89CwLkbWFwGcNhx/+GxUmzhNEHiF8tQGAtGa8D+dm6cGH1nuswi
+ lDKOzMFtT2GwGJdOo/2dsV89Vm2Dgrwy+BaVNbctlVNJPcF01Zw0tucbujxv53TeMzpR
+ AywvoFHpsCes/moFePrSceMEnFmIvAGZAo/wKsQT0mH0yrG13SBw+JFwlg1OpsJpQFlM
+ UsDNq0F4TqE/AkLyY5LNTpWyAFbxmP6m+qDysmbRqjyUg8o9e/9ET5etW++23yTnpGMu
+ ApG0zJrpoQHPRqMP8hktzXTNXgxjKcnC1Xinf0INsBEmtx+v6wHIpKdkPqstYMRdISnN
+ oB/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=WSmDP4/MBqQQe33Sa/7veIYM1AZZmclubbAf6TRNKVI=;
+ fh=KYkR1Uy9bEo1MRJ8p0uRmWmJ8aPmCexqNOrdHm4vyCQ=;
+ b=el1tezzdwfXvXcBrQkVJK1MYGDVrsYSIR3LD/FmrZbOJHFTh7lNNgrrO+HEZMrfxWo
+ 5OyafN++eVr7GxS8FiVfAtUGkR5BGMqV0VbcVwCXU5CMSVY/uFrqeKvaQ6JAX9BZ9Fr0
+ hDcXKJHYYEb7rl9foo0CGk6CjrVJSuAuv5In6Qy3dfVPIAwF34ewOyI2mQ9Nn1dh1Ry4
+ I2OeppN+p8psDeJw4C0t5cVhNcWFkR1ePsCMGYH7NJHwlb4ZPZ0ioEoW99LSWaTwg5eo
+ xJRRgxGiqLHVVRyO/K2+TOvcACpnuAyi0N8EympS+1wlkgzGhMiGaieWVEhKMPygvmXc
+ MGrQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1787342816; x=1787947616;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=WSmDP4/MBqQQe33Sa/7veIYM1AZZmclubbAf6TRNKVI=;
+ b=LXttCcy+wD3/rYDNU8BzOjWpKIyxzqXjtCgmBfsZPve60q/YCQo49Lawa3tn8xXcGa
+ 1iNdjfAuek2V1I2SIstB9g0JwKrxYvkRPZuhW1bMyC0Jk1TL2ZN0qcbd3doTTT+WJu9X
+ zcCQ9aFjkCRrVQ0z3ng2InpR2+EOU9wYrohyafEryCYJ5hhfYglSeepjH5CX1jn8pi4G
+ bwwQRgpkPWisSsNwwPIB0kt9YyIB8V4fpZ0+FXze9lUEM8FHJztlItjrnnQEwVpacLQi
+ 8A2dfXCetvscr+XK0X3LIC4QwAXR/zK/gcIQGiqSZ2dj3+qy+IcyEvpoa9ekOM9K9qqQ
+ wmeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787342816; x=1787947616;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=WSmDP4/MBqQQe33Sa/7veIYM1AZZmclubbAf6TRNKVI=;
+ b=Bqb2wRBJCuE5Jd3zw7V3V6dPaZZ/R4l22zu/fOIJf0EPjnDZZ98LL60tuCEdQ8YRm/
+ XUUlFQmFfvdhbMinQIf7HEEQKIYd+HNsGCMeKqlCMGCiNlFeW429x7Gtzxwk+Pjn2NtG
+ UvF62crTumrztq19Pjd6Sx/chRq9W+BifGDD+Ywttc71uYYD2P/PULb6KcxQc0zTmTMk
+ MVoPp5UhTTlFubwKDqhWnchvuRd555AsYDyIS6j2SlyR2m8NVZqBcvn8B7tf70KYlscv
+ eb9J6yx0YCB80OilnaggHYd7h9aej+we1xh5Dc/dyZcAeCqfnjCRLZEYOATdcygYySmu
+ WfIg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoJ1ATWN0Ze2GawH1x2W+C+4kS9onKs3TU1CH+0NUGz6YyNYikHwAz0ShPsST/aALqhZ5uBt+CfQAY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l9VeWz7nLRTt57MNJ+kuogYsRpkXbNPYlXGZMs9/A8daRQAqle
+ XsiEQ8m1m6/2QNLAnJc5wGCntcVElj60AlnEYFgLnHvzL7ZreF3MDSrYqGasA2eeifwd8PjQzKw
+ TtJiHCFCTpBt24wJsrWtVuzCFI6RTjkWmGTdyw9A=
+X-Gm-Gg: AR+sD12zXy+KMFaXKlTw6EFk+VbRmOhN7J+/Rb3ToMkGodDqUWY+Xx4KUUreF0HoqSJ
+ APxJpLQMiC9Ny8Cz/UPG5PVpBZNcHu1EYfpK0JBONCo/wXpp/GyUyIkI6ifTQm+KCpRGtEGeeG0
+ efTTbfH7/Uin+kX3RJ4DT9N/wf9XPTb9WF5jyRkeaX8Nwgii8ztQnpowFCvH/fNSykNukrlXvx1
+ jT+stAZbbvACemxWR9AB7epWc+oUql+HaM7J6PiLTrR/Ji/Q0goPjSyimJS4Jz40MBg9nK8ygYD
+ J52vwycS609dnkEIfCczvq2hPuuhkuwmLhieDMJaTrJ+d2ovJ5iIY1neAQmGsHwtvQs+RpaVTWf
+ HKLmkdZM5ejAEBPyHaxhzzQH/9mXwMmVOGAPSUQB5fonlLDy8zvN0C+6o3FPqOrim7qBMxX4t24
+ Bq
+X-Received: by 2002:a17:90b:314c:b0:38f:5801:cd76 with SMTP id
+ 98e67ed59e1d1-395c3518b8fmr15603443a91.3.1787342815537; Fri, 21 Aug 2026
+ 13:06:55 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
-X-Mimecast-MFC-PROC-ID: 5dSFzF75nl4G76oCbPQeVyrlsq3DjPGykogWLee3BCE_1787342773
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
+ <20260821-drm-no-more-crtc-reset-v1-9-fb793475c05a@kernel.org>
+In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-9-fb793475c05a@kernel.org>
+From: John Stultz <jstultz@google.com>
+Date: Fri, 21 Aug 2026 13:06:43 -0700
+X-Gm-Features: AcwNN1VRGkPK7cGucVMSCZTzqC6Tdqks4Z5Adw4Fjk4grxVNJmNba2yyOquSHIE
+Message-ID: <CANDhNCocAc5SG70jxFdNkvTC7=8zrHXtPjjtweaw+AJB5J4RnA@mail.gmail.com>
+Subject: Re: [PATCH 09/70] drm/hisilicon: kirin: Switch to
+ drm_atomic_helper_crtc_create_state
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Yongqin Liu <yongqin.liu@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,132 +114,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
-firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
-GPU enters D3Cold. This means that every time the GPU is runtime suspended,
-ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
-the GPU. Once it falls asleep again, the cycle repeats.
+On Fri, Aug 21, 2026 at 7:39=E2=80=AFAM Maxime Ripard <mripard@kernel.org> =
+wrote:
+>
+> The kirin crtc implementation uses the deprecated
+> drm_atomic_helper_crtc_reset() as its reset hook.
+>
+> Switch to drm_atomic_helper_crtc_create_state() instead.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
-
-Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
-nova as well, and it even seems possible for this to happen without any
-driver loaded.
-
-This seems to simply be a bug. Luckily, there is nothing that we actually
-need ACPI wakeup events for on the GPU. Events such as display connector
-hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
-affected by this quirk.
-
-Reported-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Co-authored-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: stable@vger.kernel.org
-Fixes: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
-
----
-V2:
-* Don't forget to actually use parent_adev with acpi_remove_pm_notifier()
-* Check if parent_adev is NULL (could happen if booted with acpi=off), just
-  consider it a no-op if it is.
-* Base the patch off Linux master instead, I based it off drm-misc-next by
-  mistake because I'm too used to working on DRM drivers :).
-
- drivers/pci/quirks.c | 79 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
-
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index b09f27f7846fc..b6d8ba5e4c2a6 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6165,6 +6165,85 @@ DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x13b1,
- 			      PCI_CLASS_DISPLAY_VGA, 8,
- 			      quirk_reset_lenovo_thinkpad_p50_nvgpu);
- 
-+#ifdef CONFIG_ACPI
-+#ifdef CONFIG_DMI
-+static const struct dmi_system_id nvidia_dgpu_broken_gpe_quirk_table[] = {
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "16APH8"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "16AHP9"),
-+		},
-+	},
-+	{}
-+};
-+
-+/*
-+ * On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
-+ * firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
-+ * GPU enters D3Cold. This means that every time the GPU is runtime suspended,
-+ * ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
-+ * the GPU. Once it falls asleep again, the cycle repeats.
-+ *
-+ * See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
-+ *
-+ * Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
-+ * nova as well, and it even seems possible for this to happen without any
-+ * driver loaded.
-+ *
-+ * This seems to simply be a bug. Luckily, there is nothing that we actually
-+ * need ACPI wakeup events for on the GPU. Events such as display connector
-+ * hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
-+ * affected by this quirk.
-+ *
-+ * So, workaround this by disabling wakeup events for the parent PCIe port of
-+ * the GPU.
-+ */
-+static void quirk_nvidia_dgpu_broken_gpe(struct pci_dev *pdev)
-+{
-+	struct acpi_device *parent_adev;
-+	struct device *parent_dev;
-+	int ret;
-+
-+	/* Just to be extra safe and make sure we don't try this on an eGPU */
-+	if (pci_is_thunderbolt_attached(pdev))
-+		return;
-+
-+	ret = dmi_check_system(nvidia_dgpu_broken_gpe_quirk_table);
-+	if (ret == 0)
-+		return;
-+
-+	pci_info(pdev, FW_BUG "GPU PCIe port has broken wakeup events, disabling\n");
-+
-+	parent_dev = pci_physfn(pdev)->dev.parent;
-+	if (!parent_dev) {
-+		pci_err(pdev,
-+			"Can't find PCIe parent? Your Nvidia GPU will have broken runtime PM\n");
-+		return;
-+	}
-+
-+	parent_adev = ACPI_COMPANION(parent_dev);
-+	if (!parent_adev) /* No ACPI? That means no GPE, and nothing to do here. */
-+		return;
-+
-+	/* The spurious GPEs will be sent from the ACPI device for the PCIe port this GPU is
-+	 * connected to, so remove our PM notifier to turn them into a no-op.
-+	 */
-+	ret = acpi_remove_pm_notifier(parent_adev);
-+	if (ACPI_FAILURE(ret))
-+		pci_err(pdev, "Removing PM notifier failed: %d\n", ret);
-+}
-+DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x28e0,
-+			      PCI_CLASS_DISPLAY_VGA, 8,
-+			      quirk_nvidia_dgpu_broken_gpe);
-+#endif
-+#endif
-+
- /*
-  * Device [1b21:2142]
-  * When in D0, PME# doesn't get asserted when plugging USB 3.0 device.
-
-base-commit: 2be02a7c996aa733bb36e29e07715621b0de9736
--- 
-2.55.0
-
+I no longer have hardware access, but looks ok.
+Acked-by: John Stultz <jstultz@google.com>
