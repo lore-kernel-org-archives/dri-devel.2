@@ -4,94 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75180C5DF8C
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 21:18:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC12C5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 21:30:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1F5610E357;
-	Fri, 21 Aug 2026 21:18:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE5110E361;
+	Fri, 21 Aug 2026 21:30:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lyI453CY";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Q4aAc7FR";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21D5010E357
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 21:18:24 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-394f4397662so173125a91.1
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:18:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787347103; cv=none;
- d=google.com; s=arc-20260327;
- b=JuoeiNdaRllCUK4DpVxybQgrekJYxFMehe0Fp9ma/8QFXTMlFw/hkS8Bz4dRzkaVKo
- paoecHYpLE389V3NjjObFFWtTRImIMqVLxd4UXZokOxbKJ2M5XHDeLruVhizPGkpOOCb
- E7+DBUlFRrQqjEhQBTb3vtMFxQxSfDcSMpH7DNBM5rrybIOlkpt3is7PXD8LqK60ZaEZ
- 0Dzm/tNAF4l/jkC5+P6BHc/B+gG6YsNsrTRAAwTDvcUJ5PChFLZx6OkmTuXq2z7nxsuf
- GBuQFCc88jXq61lRPVPfQQNiCzPRdjBVz5nc+fVUsSyqWxqR6VbFVpvglmEOADLpN4aZ
- YOQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GP7BnwG0/LtiFJQr9QJK94A+vGNuZ8dz0PfvWxEqYG8=;
- fh=IODq4BVtE8JU4pkginuK9OL/BakU7agbbWV50FXjM1g=;
- b=EAgAPTLV+/Ecekgd8lc3ItO5oOp6OJgGFMS/jTx6Of/Vs6w48/Jh0lGkbi8QUFkSyH
- YhUl5JzRXMIgSppgML3CQmE8wvjBwftDVxPiPF038rCglywdwr1VT6fVqWKFgj17VsEh
- dfssLl0SpPu26jY+zs1OBMn7/IV6ApJz/Em3sHee8lwvYbmVcPr+HESRjQxyCqueWRKT
- ecMTE3bxJSK7gHyvRYujywVD1+H/ddXzKipFVut3YHXUaoxykOQWzl4ESjIZp/RLE9dT
- q8nzybWg3L9S22RmxhSb64bnvaerI7OGYM4DQVp7OwJy3ov2IunxrzNgK1jRm33zmT2K
- p1VA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787347103; x=1787951903; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GP7BnwG0/LtiFJQr9QJK94A+vGNuZ8dz0PfvWxEqYG8=;
- b=lyI453CYy4q64q1laTEa3uFpmunp7di4jpJnM2KXKkiaeyWsNkcSlgLvPI+64B4t2Z
- cQuzVo09sp7xu42mKcqyWCZ9YxsFxNKzvcla3UfxUfJD8VpiGRhKfMyUkSj3Y6859L3n
- +T2lrb8JTrlVoBLoF3dJT9AkGPUWbH/mTAouqiRPIDYk+i/NDdRBkGOpXNzDtkzHEwAV
- akByWLEsVkD530RmFO69KYHfZaF30efOREHxmzrW5oo7XeEroi0/T9Gm49DyXJC6z/ic
- hZVMlzE1FLX7jOiF+YCip0FdWjkUjMH6HqiwKW5iiP/9NHoB/PHAWxV5KXaT5/B5CxNG
- LMRQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09FC810E361
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 21:30:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787347842;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=74TiAJn6z/7VQlw0UBHusaAaeUNgRbghuyIuxPhfCjI=;
+ b=Q4aAc7FRqQ4DqkuhoJsStG95Xqb0rkFlg8r2giN8BhpTLVSRwRhbFN/hFv38wwFbIh3CYZ
+ MlDEAWLp0zINDd3jeAy6ErbDZBZ3QP2PaSrRSYJTa1rjeitQgHbMjoMC/rB2xs7yqLRIRv
+ PmE4R3mEhzIe/cCAzy/LfD68WcE++PY=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-195-MXhZNDpbOuK3OW1ZXRHckQ-1; Fri, 21 Aug 2026 17:30:40 -0400
+X-MC-Unique: MXhZNDpbOuK3OW1ZXRHckQ-1
+X-Mimecast-MFC-AGG-ID: MXhZNDpbOuK3OW1ZXRHckQ_1787347840
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-90c8da50f8dso7639316d6.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 14:30:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787347103; x=1787951903;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1787347840; x=1787952640;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=GP7BnwG0/LtiFJQr9QJK94A+vGNuZ8dz0PfvWxEqYG8=;
- b=kemY8hUjW3wI8Kv7kHGmhK8giJXSSZ6KcDCiHavXVXvlAQD8W2ybj3wWtLPcVkNt3U
- FpBXAN2KnZxPTkxotz77ZhGcSBGx8SoIbG3NzzFYOhyKacTS0eCAXAEOINa2/+gN29Yu
- Le8DeOHJ3UIJRfocjk+ASdW9+/aa8p82EZ5nsmSWapsL4QP53GPR4fbizeG6CnY3U5EK
- TYtVdlN5FFnJ9OQqK1SIwznqGfE5ANxIbfVxqRcgAaN7NLI+coR+ODNf5eH5W/us7gTb
- IbYKH8vE4IQSM8Qve1mrG8lBVnxbcpOComKUINLEP6opvtzIwYvXcXCDP/sWBWp3tw/Y
- QY0Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqzSjQNSR9/Wy4JJH9J3jXrzy5ZFTa/65HldQsNpLX1EUNFfyhdDE5QE2JXANm4RWUxaKXZIK7QzFY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kpJYXXYD1q3IigsYGssq1PJ9yfUSnyHy6TiHdh+mNhJSdHc3/a
- oUP+3dqxzds+yTcLOPPmbAijpxvXIBvcFEOnN7jynOifHkpSC6G/zGleN9zoASy9ZkuE7UJJqDI
- 3sVMxcN7BSKymtM5hyJkaCSbTmKLs6XA0/Q==
-X-Gm-Gg: AR+sD11i14k02tNJATO16C8Hwhyq0L7u/ygOhWbSt4XABwLAeejtW95+FrK+PvidRMY
- 5OIVWc4LrepB/mee9Uc/etmdhLzAmBCYMX2kTKbxqZ8yvwq7hr738m7iVoA13GsUDBkmxdu9ySa
- UDnCRhENNweHAleAPhWjpIDLR7LHnarE/cZ3gwf/bh0OWy2jev76Sn8Bw12UVyBXSA1Ou2MnjPP
- c6RX3KLTMX9udPGeeiCZ3AacowDpPNrRtNAuqqypeB6sfexTo8XxPmSaScz0KOJDf7V7X9XfDBa
- 6UksIlniDbe9ROKvU2i65xgI589i6HrCK/i5fuSHtwqpZl27I5NRI4CWhVHqL0/tbc+GK8A++97
- b8sjC8nt+S92kJ+UrXlnRLjRbThH56zSWnwl/kdbM8Q==
-X-Received: by 2002:a17:90b:4a81:b0:38e:76f8:fcbb with SMTP id
- 98e67ed59e1d1-395c35b913cmr7201623a91.4.1787347103487; Fri, 21 Aug 2026
- 14:18:23 -0700 (PDT)
+ bh=jUTgNefrV0RVSYcbLese14a3Jj7kRytHJFAkoezSnU4=;
+ b=MHWmKdW/wf+4RTMb/FSJVMNFY5isLra0xOWAJNLPl2iD9YxhZctgQwuFptFAz6GTc6
+ YDPVGr/PXmm3F0z1IjnIJ+RcKAQEU0lJw/O/9B+fqgtmbAvT+aH1lRd2ij44qoqL2Anv
+ y2R0vFbRewSmkTzHDX/xAPI3T+c0f/hB5II0AzncAo99loaR2sedoB08lyEdkFCZjmXm
+ RyL16BT/CMbL4sLkmTqV8BQw9YF9U89lvytoVmB3ArnTokLZyhQLjiU2jIaqyNPykiZ9
+ 5+4X0AAvn5bJ2HHchg1P+vebIZn2fCrs2e4OEfwjmRX1Wl3jSGyF9FU2+hkcoVrTyg+F
+ +0hg==
+X-Gm-Message-State: AFuF++kBvfvC/V+7DSTEWDQ7rH/n8fDEHuiQ//NZMkyoCB8qPwLd7JtP
+ yW9WC5fIChJy6BfX0cJ4SGgBYViROrlTktV0WvY8TrRNe2J/hgmP3dyrbHdTPZdgG6sIoVD2/J5
+ INycSjVp29pvESW5TROTxAQnMU+apxKLIlyhZstfnSs9FqJ5VXLBS67es7x3BREjVey5OOg==
+X-Gm-Gg: AR+sD12Le691DGQcU5VaPb5QDCSgYasUSisgYDhDCR9V1EfqPkwYaK/7ChZAojDyyvs
+ vb77Sv4FHdFUTcVtXpSIZvRsksvrMAfs+oPI+Mk9mzqxMHbMWat2DtgTud7XtNiWV/l4REeRN9i
+ nBsn8vZcILDLnWLAulWN8ImCYuz0ouSqajsm07YLfUVFoZjsVKKWjzHm50rcHHx6bixu77VzhS1
+ /bFozrrX6d3eMO5eSRy5E7pVFYaHeBfDGepv4SACjlhlUmTAVws55gQ7u8iMSEc07u1F7pdXZjO
+ oF/OOHxCk7NqiqEVyM+gW6+4N1j0M/wEaRhL2ShTHDHJafXyLQDHLgkYta9KGagI2y0hESYB
+X-Received: by 2002:a05:6214:2686:b0:8f4:821d:95f7 with SMTP id
+ 6a1803df08f44-90c8f9fd3a3mr14377966d6.18.1787347839895; 
+ Fri, 21 Aug 2026 14:30:39 -0700 (PDT)
+X-Received: by 2002:a05:6214:2686:b0:8f4:821d:95f7 with SMTP id
+ 6a1803df08f44-90c8f9fd3a3mr14376976d6.18.1787347838764; 
+ Fri, 21 Aug 2026 14:30:38 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-90c5eec934bsm72659966d6.15.2026.08.21.14.30.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Aug 2026 14:30:36 -0700 (PDT)
+Message-ID: <9b9a3f93ccaa64efa6f24ebd24d933ee758702e6.camel@redhat.com>
+Subject: Re: [PATCH v2 03/10] drm/nouveau/disp: route GSP-RM display MMIO
+ through nvkm_disp_func hooks
+From: lyude@redhat.com
+To: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
+ linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Mary
+ Guillemard <mary@mary.zone>, 	nouveau@lists.freedesktop.org
+Date: Fri, 21 Aug 2026 17:30:36 -0400
+In-Reply-To: <20260820164929.17117-4-mohamedahmedegypt2001@gmail.com>
+References: <20260820164929.17117-1-mohamedahmedegypt2001@gmail.com>
+ <20260820164929.17117-4-mohamedahmedegypt2001@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-References: <20260821195224.809173-1-alexander.deucher@amd.com>
- <20260821195224.809173-4-alexander.deucher@amd.com>
- <48b5b000-81b9-4cd0-9750-ec4ba910d96d@amd.com>
-In-Reply-To: <48b5b000-81b9-4cd0-9750-ec4ba910d96d@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 Aug 2026 17:18:11 -0400
-X-Gm-Features: AcwNN1UR5uvUmWY7DtQkLF71TlMDs68DJpoudBcpIuQ6A-VadIfE6D-QWihT_nQ
-Message-ID: <CADnq5_Oh_v=cus-5Xqer+gO9rw_k=RR+y39KSEFwMsMoYDTJXw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] Documentation: add initial UALink Documentation
-To: Felix Kuehling <felix.kuehling@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Joseph.Greathouse@amd.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: dl46GN0YhNhGanVKkDj5s-iPFLVfoqlQnmGvRL6KrUc_1787347840
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,178 +103,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 21, 2026 at 5:06=E2=80=AFPM Felix Kuehling <felix.kuehling@amd.=
-com> wrote:
->
-> On 2026-08-21 15:52, Alex Deucher wrote:
-> > Document the details of UALink on the GPU.
-> >
-> > Cc: Felix.Kuehling@amd.com
-> > Cc: Joseph.Greathouse@amd.com
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   Documentation/gpu/amdgpu/index.rst  |  1 +
-> >   Documentation/gpu/amdgpu/ualink.rst | 74 ++++++++++++++++++++++++++++=
-+
-> >   2 files changed, 75 insertions(+)
-> >   create mode 100644 Documentation/gpu/amdgpu/ualink.rst
-> >
-> > diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amd=
-gpu/index.rst
-> > index b2ab182236efb..ba2ee73278672 100644
-> > --- a/Documentation/gpu/amdgpu/index.rst
-> > +++ b/Documentation/gpu/amdgpu/index.rst
-> > @@ -23,4 +23,5 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA)=
- architectures.
-> >      debugfs
-> >      process-isolation
-> >      amdgpu-glossary
-> > +   ualink
-> >      ptl
-> > diff --git a/Documentation/gpu/amdgpu/ualink.rst b/Documentation/gpu/am=
-dgpu/ualink.rst
-> > new file mode 100644
-> > index 0000000000000..1e0a6c52b7b7a
-> > --- /dev/null
-> > +++ b/Documentation/gpu/amdgpu/ualink.rst
-> > @@ -0,0 +1,74 @@
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +UALink Support
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +Overview
-> > +=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +Connected GPUs in a pod can directly access the remove memory on anoth=
-er GPU
-> > +over UALink.  Unlike RMDA, there is no copy involved; it is direct loa=
-ds/stores
-> > +over the fabric.  Shared memory can only be accessed by a remote GPU i=
-f the
-> > +memory was exported and the importer has been authorized. For the memo=
-ry to be
-> > +shared, it must be part of a unified physical address space shared bet=
-ween
-> > +nodes.  This address space is called NPA (Nework Physical Address) spa=
-ce.  This
-> > +address space is partitioned between the GPUs so that each GPU has its=
- own
-> > +segment of the address space in which to export its memory.  Each GPU =
-maintains
-> > +a dedicated set of page tables for their NPA space similar to GPUVM.  =
-Note that
-> > +this mechanism only allows for GPU access to remote memory.  The remot=
-e memory
-> > +is not CPU accessible.
-> > +
-> > +Exported memory is not pinned.  The exporter may need to move memory o=
-r make it
-> > +unavailable to the importers.  This is handled via remote TLB shootdow=
-ns on the
-> > +exporter in the case of TTM evictions or MMU notifiers and remote pres=
-ense
-> > +checks with retry on the importer.
->
-> This is no longer true. We ended up having to pin exported memory. This
-> was also discussed with Christian already. In principle it's similar to
-> how DMABufs in VRAM are pinned for RDMA access.
->
-> Remote TLB shootdown will only be used when exported memory is freed in
-> order to remove access by remote GPUs.
->
->
-> > +
-> > +To access remote memory, the driver can map NPA addresses into its per=
- process
-> > +GPUVM page tables just like local memory.  Applications use opaque han=
-dles to
-> > +represent remote memory.  GPUs in a pod communicate with eachother dir=
-ectly to
-> > +exchange NPA addresses between importers and exporters.  If a node goe=
-s offline
-> > +or is reset, their peers will clean up any remaining refrences that ar=
-e lost
-> > +when that happens.
->
-> One important point here is, that NPA addresses are exchanged between
-> the kernel mode drivers (through the scale-up fabric). NPA addresses are
-> never given to user mode.
->
->
-> > +
-> > +On the importer, the NPA space is like another physical address space.=
- NPA
-> > +addresses can be used as physical addresses for GPUVM to provide GPU v=
-irtual
-> > +addresses to the memory for processes using the GPU.
-> > +
-> > +On the exporter, the NPA space provides a way to expose discontiguous =
-local
-> > +memory as a contiguous address range for remote GPUs.  This allows the=
- exporter
-> > +to locally manage the pages mapped into the NPA space.
-> > +
-> > +Remote NPAs are managed like another device specific TTM pool similar =
-to
-> > +doorbells or VRAM, however they cannot be CPU mapped.
-> > +
-> > +
-> > +User Interface
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +Two IOCTLs are provided to export and import remote memory.
-> > +
-> > +Export Memory
-> > +-------------
-> > +To export memory, a UALINK handle must be created for an allocation th=
-at can be
-> > +shared with another node in the pod.  To do this the exporter calls th=
-e GEM
-> > +UALink IOCTL with the GEM handle to the buffer it wants to export.  Th=
-e IOCTL
-> > +returns a unique 128 bit handle which can be shared with the remote ho=
-st.
-> > +Calling export on the same GEM handle always returns the same UALink h=
-andle.
-> > +The UALink handle is destroyed when the GEM object is freed.
->
-> More precisely, the UALink handle is destroyed when the GEM handle count
-> reaches 0.
+Some comments below:
 
-Thanks.  I've incorporated your comments.
+On Thu, 2026-08-20 at 20:49 +0400, Mohamed Ahmed wrote:
+> The GSP-RM display code in rm/r535/disp.c borrows a few
+> register-programming routines from engine/disp (the head-timing
+> interrupt handler, vblank enables, armed head state and scanout
+> position
+> readback, the AVI/VSI infoframe writers and the GCP AVMute write) and
+> so
+> far picked them by name, which means it has to know which chip it
+> runs
+> on the moment a generation changes any of them.
+>=20
+> Give nvkm_disp_func a .gsp table that each chip fills with exactly
+> those
+> hooks, add tu102_gsp_disp (TU1xx) and ga102_gsp_disp (GA10x onwards)
+> carrying the current functions, hand them to r535_disp_new() instead
+> of
+> the full hardware tables, and make rm/r535/disp.c call through the
+> hooks. r535_head becomes four forwarders, r535_sor_hdmi gets
+> infoframe
+> forwarders, r535_sor_hdmi_audio() calls the GCP hook, and the
+> interrupt
+> handler and its vector come from the table (intr_low_latency selects
+> the
+> second DISP interrupt instance for chips that raise head timing on a
+> separate vector). The tables are per chip even though the two
+> currently
+> coincide, so a generation that changes a hook only touches its own
+> file.
+> rm/r535/disp.c no longer contains chip-specific register code, and a
+> new
+> display generation only has to provide its own table. No functional
+> change.
+>=20
+> Signed-off-by: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
+> ---
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/ga102.c=C2=A0 | 16 ++++-
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/priv.h=C2=A0=C2=A0 | 19 ++++++
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/tu102.c=C2=A0 | 16 ++++-
+> =C2=A0.../nouveau/nvkm/subdev/gsp/rm/r535/disp.c=C2=A0=C2=A0=C2=A0 | 60 +=
++++++++++++++++-
+> --
+> =C2=A04 files changed, 100 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c
+> index ab0a85c92430..b48ed7146396 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c
+> @@ -144,12 +144,26 @@ ga102_disp =3D {
+> =C2=A0=09},
+> =C2=A0};
+> =C2=A0
+> +static const struct nvkm_disp_func
+> +ga102_gsp_disp =3D {
+> +=09.uevent =3D &gv100_disp_chan_uevent,
+> +=09.ramht_size =3D 0x2000,
+> +=09.gsp.intr =3D tu102_disp_intr,
+> +=09.gsp.head_state =3D gv100_head_state,
+> +=09.gsp.head_rgpos =3D gv100_head_rgpos,
+> +=09.gsp.vblank_get =3D tu102_head_vblank_get,
+> +=09.gsp.vblank_put =3D tu102_head_vblank_put,
+> +=09.gsp.hdmi_gcp =3D tu102_sor_hdmi_gcp,
+> +=09.gsp.hdmi_infoframe_avi =3D gv100_sor_hdmi_infoframe_avi,
+> +=09.gsp.hdmi_infoframe_vsi =3D gv100_sor_hdmi_infoframe_vsi,
+> +};
+> +
+> =C2=A0int
+> =C2=A0ga102_disp_new(struct nvkm_device *device, enum nvkm_subdev_type
+> type, int inst,
+> =C2=A0=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct nvkm_disp **pdisp)
+> =C2=A0{
+> =C2=A0=09if (nvkm_gsp_rm(device->gsp))
+> -=09=09return r535_disp_new(&ga102_disp, device, type,
+> inst, pdisp);
+> +=09=09return r535_disp_new(&ga102_gsp_disp, device, type,
+> inst, pdisp);
+> =C2=A0
+> =C2=A0=09return nvkm_disp_new_(&ga102_disp, device, type, inst,
+> pdisp);
+> =C2=A0}
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h
+> b/drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h
+> index 722ec340e12a..3cb903741fb8 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h
+> @@ -5,6 +5,8 @@
+> =C2=A0#include <engine/disp.h>
+> =C2=A0#include <core/enum.h>
+> =C2=A0struct nvkm_head;
+> +struct nvkm_head_state;
+> +struct nvkm_ior;
+> =C2=A0struct nvkm_outp;
+> =C2=A0struct dcb_output;
+> =C2=A0
+> @@ -34,6 +36,23 @@ struct nvkm_disp_func {
+> =C2=A0=09=09int (*new)(struct nvkm_disp *, int id);
+> =C2=A0=09} wndw, head, dac, sor, pior;
+> =C2=A0
+> +=09/* Register programming that the GSP-RM display path
+> (rm/r535) needs from
+> +=09 * the chip, everything else on that path goes through RM.
+> Every hook
+> +=09 * is called unconditionally.
+> +=09 */
+> +=09struct {
+> +=09=09irqreturn_t (*intr)(struct nvkm_inth *);
+> +=09=09/* Head-timing interrupts arrive on a second DISP
+> vector. */
+> +=09=09bool intr_low_latency;
+> +=09=09void (*head_state)(struct nvkm_head *, struct
+> nvkm_head_state *);
+> +=09=09void (*head_rgpos)(struct nvkm_head *, u16 *hline,
+> u16 *vline);
 
-Alex
+This looks mostly fine. As far as I can tell though, it seems like
+there's no actual behavioral differences between the gsp's head_state
+and the non-GSP head_state, same for head_rgpos. Is it possible for us
+to drop these two callbacks and keep using nvkm_head_func for that?
+Perhaps by having a second nvkm_head_func that we call back down to
+from RM's?
 
->
-> Regards,
->    Felix
->
->
-> > +
-> > +Import Memory
-> > +-------------
-> > +To import remote memory, the UALink handle from the remote node must b=
-e
-> > +converted from a UALink handle to a local GEM object which represents =
-the local
-> > +reference to the NPA space on the importer.  If the memory has already=
- been
-> > +imported, it just returns a new reference to the existing GEM object. =
- If not,
-> > +the importer queries the exporter to get the NPA address.  Once it has=
- that, the
-> > +importer can create the GEM to represent the NPA space used by the all=
-ocation.
-> > +The GEM object is then exported to the caller as a dma-buf. The dma-bu=
-f is
-> > +leveraged for dynamic attachment which provides the ability to revoke =
-access
-> > +when necessary.
-> > +
-> > +
-> > +Device to Device Communications
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +Devices communicate via a protocol implemented in firmware.  Mesages s=
-ent to a
-> > +remote node generate an interrupt on that node for servicing.
+FWIW by the way, I think if we end up with say - a nvkm_head_func
+struct that only has head_state/head_rgpos filled and nothing else
+(e.g. using it without GSP would break things) that's probably fine
+since booting these cards without GSP isn't possible on nouveau anyhow.
+
+> +=09=09void (*vblank_get)(struct nvkm_head *);
+> +=09=09void (*vblank_put)(struct nvkm_head *);
+> +=09=09void (*hdmi_gcp)(struct nvkm_ior *, int head, bool
+> enable);
+> +=09=09void (*hdmi_infoframe_avi)(struct nvkm_ior *, int
+> head, void *data, u32 size);
+> +=09=09void (*hdmi_infoframe_vsi)(struct nvkm_ior *, int
+> head, void *data, u32 size);
+> +=09} gsp;
+> +
+> =C2=A0=09u16 ramht_size;
+> =C2=A0
+> =C2=A0=09struct nvkm_sclass root;
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c
+> index 6cfd52c9056f..9db3cac487e3 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c
+> @@ -295,12 +295,26 @@ tu102_disp =3D {
+> =C2=A0=09},
+> =C2=A0};
+> =C2=A0
+> +static const struct nvkm_disp_func
+> +tu102_gsp_disp =3D {
+> +=09.uevent =3D &gv100_disp_chan_uevent,
+> +=09.ramht_size =3D 0x2000,
+> +=09.gsp.intr =3D tu102_disp_intr,
+> +=09.gsp.head_state =3D gv100_head_state,
+> +=09.gsp.head_rgpos =3D gv100_head_rgpos,
+> +=09.gsp.vblank_get =3D tu102_head_vblank_get,
+> +=09.gsp.vblank_put =3D tu102_head_vblank_put,
+> +=09.gsp.hdmi_gcp =3D tu102_sor_hdmi_gcp,
+> +=09.gsp.hdmi_infoframe_avi =3D gv100_sor_hdmi_infoframe_avi,
+> +=09.gsp.hdmi_infoframe_vsi =3D gv100_sor_hdmi_infoframe_vsi,
+> +};
+> +
+> =C2=A0int
+> =C2=A0tu102_disp_new(struct nvkm_device *device, enum nvkm_subdev_type
+> type, int inst,
+> =C2=A0=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct nvkm_disp **pdisp)
+> =C2=A0{
+> =C2=A0=09if (nvkm_gsp_rm(device->gsp))
+> -=09=09return r535_disp_new(&tu102_disp, device, type,
+> inst, pdisp);
+> +=09=09return r535_disp_new(&tu102_gsp_disp, device, type,
+> inst, pdisp);
+> =C2=A0
+> =C2=A0=09return nvkm_disp_new_(&tu102_disp, device, type, inst,
+> pdisp);
+> =C2=A0}
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+> b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+> index cd4451e62512..f3e55253bcbc 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+> @@ -547,7 +547,19 @@ r535_sor_hdmi_audio(struct nvkm_ior *sor, int
+> head, bool enable)
+> =C2=A0{
+> =C2=A0=09r535_sor_hdmi_ctrl_audio(sor->asy.outp, enable);
+> =C2=A0=09r535_sor_hdmi_ctrl_audio_mute(sor->asy.outp, !enable);
+> -=09tu102_sor_hdmi_gcp(sor, head, enable);
+> +=09sor->disp->func->gsp.hdmi_gcp(sor, head, enable);
+> +}
+> +
+> +static void
+> +r535_sor_hdmi_infoframe_avi(struct nvkm_ior *sor, int head, void
+> *data, u32 size)
+> +{
+> +=09sor->disp->func->gsp.hdmi_infoframe_avi(sor, head, data,
+> size);
+> +}
+> +
+> +static void
+> +r535_sor_hdmi_infoframe_vsi(struct nvkm_ior *sor, int head, void
+> *data, u32 size)
+> +{
+> +=09sor->disp->func->gsp.hdmi_infoframe_vsi(sor, head, data,
+> size);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void
+> @@ -575,8 +587,8 @@ r535_sor_hdmi =3D {
+> =C2=A0=09.ctrl =3D r535_sor_hdmi_ctrl,
+> =C2=A0=09.scdc =3D r535_sor_hdmi_scdc,
+> =C2=A0=09/*TODO: SF_USER -> KMS. */
+> -=09.infoframe_avi =3D gv100_sor_hdmi_infoframe_avi,
+> -=09.infoframe_vsi =3D gv100_sor_hdmi_infoframe_vsi,
+> +=09.infoframe_avi =3D r535_sor_hdmi_infoframe_avi,
+> +=09.infoframe_vsi =3D r535_sor_hdmi_infoframe_vsi,
+> =C2=A0=09.audio =3D r535_sor_hdmi_audio,
+> =C2=A0};
+> =C2=A0
+> @@ -601,12 +613,36 @@ r535_sor_cnt(struct nvkm_disp *disp, unsigned
+> long *pmask)
+> =C2=A0=09return 4;
+> =C2=A0}
+> =C2=A0
+> +static void
+> +r535_head_state(struct nvkm_head *head, struct nvkm_head_state
+> *state)
+> +{
+> +=09head->disp->func->gsp.head_state(head, state);
+> +}
+> +
+> +static void
+> +r535_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline)
+> +{
+> +=09head->disp->func->gsp.head_rgpos(head, hline, vline);
+> +}
+> +
+> +static void
+> +r535_head_vblank_get(struct nvkm_head *head)
+> +{
+> +=09head->disp->func->gsp.vblank_get(head);
+> +}
+> +
+> +static void
+> +r535_head_vblank_put(struct nvkm_head *head)
+> +{
+> +=09head->disp->func->gsp.vblank_put(head);
+> +}
+> +
+> =C2=A0static const struct nvkm_head_func
+> =C2=A0r535_head =3D {
+> -=09.state =3D gv100_head_state,
+> -=09.rgpos =3D gv100_head_rgpos,
+> -=09.vblank_get =3D tu102_head_vblank_get,
+> -=09.vblank_put =3D tu102_head_vblank_put,
+> +=09.state =3D r535_head_state,
+> +=09.rgpos =3D r535_head_rgpos,
+> +=09.vblank_get =3D r535_head_vblank_get,
+> +=09.vblank_put =3D r535_head_vblank_put,
+> =C2=A0};
+> =C2=A0
+> =C2=A0static struct nvkm_conn *
+> @@ -1650,12 +1686,17 @@ r535_disp_oneinit(struct nvkm_disp *disp)
+> =C2=A0=09if (ret)
+> =C2=A0=09=09return ret;
+> =C2=A0
+> -=09ret =3D nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type,
+> disp->engine.subdev.inst);
+> +=09/* Chips that raise head-timing interrupts on a separate
+> low-latency
+> +=09 * vector report it as a second DISP interrupt table entry,
+> exposed
+> +=09 * as instance 1 by the RM engine-index translation.
+> +=09 */
+> +=09ret =3D nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type,
+> +=09=09=09=09=C2=A0 disp->func->gsp.intr_low_latency ?
+> 1 : disp->engine.subdev.inst);
+> =C2=A0=09if (ret < 0)
+> =C2=A0=09=09return ret;
+> =C2=A0
+> =C2=A0=09ret =3D nvkm_inth_add(&device->vfn->intr, ret,
+> NVKM_INTR_PRIO_NORMAL, &disp->engine.subdev,
+> -=09=09=09=C2=A0=C2=A0=C2=A0 tu102_disp_intr, &disp-
+> >engine.subdev.inth);
+> +=09=09=09=C2=A0=C2=A0=C2=A0 disp->func->gsp.intr, &disp-
+> >engine.subdev.inth);
+> =C2=A0=09if (ret)
+> =C2=A0=09=09return ret;
+> =C2=A0
+> @@ -1688,6 +1729,7 @@ r535_disp_new(const struct nvkm_disp_func *hw,
+> struct nvkm_device *device,
+> =C2=A0=09rm->uevent =3D hw->uevent;
+> =C2=A0=09rm->sor.cnt =3D r535_sor_cnt;
+> =C2=A0=09rm->sor.new =3D r535_sor_new;
+> +=09rm->gsp =3D hw->gsp;
+> =C2=A0=09rm->ramht_size =3D hw->ramht_size;
+> =C2=A0
+> =C2=A0=09rm->root.oclass =3D gpu->disp.class.root;
+
