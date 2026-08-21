@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAA23C5DF97
-	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 22:06:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3802AC5DF94
+	for <dri-devel@archiver.kernel.org>; Fri, 21 Aug 2026 22:09:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C760F10E500;
-	Fri, 21 Aug 2026 22:06:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3945E10E631;
+	Fri, 21 Aug 2026 22:09:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="d+/ZVGHa";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="K+cJ1sKb";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3DA610E500
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 22:06:20 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB9C10F3D5
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 22:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787349979;
+ s=mimecast20190719; t=1787350155;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=qwhVKlFw0C7U0qZUm2FHhHp351/G0aZVZwuOAuxRA3A=;
- b=d+/ZVGHa35UkkOp4c3we/vRz7IcM523c96SvqgQdof0G8CKVN47lRD1fl/ZHFjCOBA1dj3
- GYPs7J6Q7+8A23LKqIVCjcdwWHUvP0m1uv9x3erLSgETpVV7W98m4fOMybMSJZV/Haf3zN
- JIAWGFRkLO8avUrwzd3RvU54rK5nJDI=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=cFfIR5UhN2LkGl7j0eqOn1txdEZUB1CTMDtNAizxGGM=;
+ b=K+cJ1sKbFA7dQLj+maKJfspB/3LDi4DfOy8sBkKBfQ07plUa2YlwlPhnPNaeEhlkHfa0de
+ 7J4Ai6kFrhR58mzOgIfNwTeX00/1XtWPhy4i+VWCSQNoMVbKW7I0xA4r0XthJ9ju4nzh6q
+ NyIKOiX/RHipmcNwIz4Y3xIa+K6eCI0=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-127-FfYwgEu_P8yyG8e6-DYhhw-1; Fri, 21 Aug 2026 18:06:18 -0400
-X-MC-Unique: FfYwgEu_P8yyG8e6-DYhhw-1
-X-Mimecast-MFC-AGG-ID: FfYwgEu_P8yyG8e6-DYhhw_1787349978
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-52769fc3f2eso20174141cf.0
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:06:18 -0700 (PDT)
+ us-mta-442-e8e8z7aFM5O1Fjwfj0-RHA-1; Fri, 21 Aug 2026 18:09:14 -0400
+X-MC-Unique: e8e8z7aFM5O1Fjwfj0-RHA-1
+X-Mimecast-MFC-AGG-ID: e8e8z7aFM5O1Fjwfj0-RHA_1787350153
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-936d067836eso156184785a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 15:09:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787349978; x=1787954778;
+ d=1e100.net; s=20251104; t=1787350153; x=1787954953;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=GTNrL6a76djYPY+4BIDNC1iw4ko1rS7zaHUKe36ZGxo=;
- b=IH5tF4l5BR9S3t09xJHwJL+91fpumFV4m3yVE4dcEd9wqPBzULsWYPdiZso3/pViNr
- nacnEtNb4Cyx6yHedSWOvkFNeujEhXaJLu2japBDnsghbuD96+62owEgF2EHqUD7Oq1u
- X20THtceg2UD0f30Recxuibv0CLr9Zah5OH4pbUzgowwnIb47l4nnUU6KNc0X2iqp1jq
- f6nN1e9s0osl+NMfaffoglILZY91fWobVnX0lXW5z//gvIAIdt6AuIQCg0YYZdTnMp6t
- JGMOlDFyg5IzwlHk+FPU7QzHRKWcqePqFzLm/J+bPI7YxZq3hizmkMjtpTYWU2jW2e9M
- 7iiw==
-X-Gm-Message-State: AFuF++n5HK+qXX9YkLBv0MuYMoHgx8V1yNv01Cao6A7uArD9wADJ5Yl5
- 4LvWPZZOAo6JoKRccHOfAXswfQzLc4Y47YU0vJak64X35yKchZTBgJ6pTrZkBjU/kqjsZOtQkl8
- myywlX+C7aCCJ5lXCuHVEaB3MTDuE4yZ44ff8MDzZr49OwsFZmVHnd9OcL5h0GEARYw1t3g==
-X-Gm-Gg: AR+sD107YzLrUmi7MECHx6GVtVjWOBeCT2Mkr6VGzUxqxvUA3rBjkL3IPy/ErWjwgPy
- fsNTIZTtmYq7AjOxSQlZWSEbN5ygXDDAD3bk/qYaLO9+ua3zgSvkqiA+vPoMzBf6sLqz/JE4ouZ
- cYtQKe2/ONuUZ4o3wk3v6obMGmn/biGibd/Lyv5gub1Qw/FvK1DoEcBHbBBLh10DVBYw2bFAoCu
- 8wQE/npBMMof31tOyZGm28LnaYE78Of0JrUzpoAZm882BVgH/ftmwh3jIbeROfE1UX3mxn1yffY
- PhuLNpxBI0q7G8n+7nMyD8BOloVtI5hAJMHpky5IIayovg4eLqO/poSlkbVxrXXXbcyDG1Ky
-X-Received: by 2002:a05:622a:5594:b0:516:d60f:6438 with SMTP id
- d75a77b69052e-52df5521abamr98361601cf.0.1787349977870; 
- Fri, 21 Aug 2026 15:06:17 -0700 (PDT)
-X-Received: by 2002:a05:622a:5594:b0:516:d60f:6438 with SMTP id
- d75a77b69052e-52df5521abamr98360961cf.0.1787349977361; 
- Fri, 21 Aug 2026 15:06:17 -0700 (PDT)
+ bh=cFfIR5UhN2LkGl7j0eqOn1txdEZUB1CTMDtNAizxGGM=;
+ b=M3E2ZonU33TApwtfFBdNGOKYJ5/28VZfO6WiVzwE8TDdfYYW6lwJmu2K2lFLmrIS+r
+ dWbcxD5qMLa4uEHVp4KF7kCa3SaWisDx1Axo4fHVSL6x6kMzbLVwhzyVV+JB79ofSWF9
+ e7g6TylTcl1ZuQVcGqaJNv43zYOUPN1zNBl35wUWKds5NLZtm9e7dEtSOK9/l7v+ZHNv
+ 0MHQTnRtjCBzp6geQ0srpy0Sawjzd0KqFlSjJZD7h8VSK0EA11pWB9EVs8CKfrXE1e8A
+ OcBk1wAqR0fkRL+dXvzqNi3kArfmlKu/16ILTI1tpt3T4lvk8/snBbFUMlW4DGlItD5B
+ YUSw==
+X-Gm-Message-State: AFuF++k9kSqZj8949L4qy3zntZJEE7FD2hPaV9zVhAXPhSbmsee8SLi/
+ zPwG9XEIqtrSt5SZg2fTGpSHiMoh+R7yEPV+3zMDnTUFPn0/yt8vrv1nUCjzrP5Nyqwdu7wKS9x
+ 4sCVJDYfZxpsYNtlEqlAlAO7erjW5eXPgHqbFARx8fSNcYpZOeKMj1gvNL1nvLWDHDecexQ==
+X-Gm-Gg: AR+sD137EzPXbXMMKzpHTjdhmiGs/Zk8mSwk/aCY5HqqFXBQVmOhyPvRxx1WTcgvuTo
+ AQmivsQGGqut2GCsJJiyFor1sMaEx9w2NF/R9+7ApH1ry+vLDs5ItdygUxnvgFzC+5vFKHPmcvw
+ EN+q67Ig6FbY2D61Adm10NhnntoerRv/YGiQXNg6s37gQ6RK5s1bG4tBjR1p9j1KhUjPgNmdk/G
+ 4nGsnw1trQhkQsPxhhXvx07XO0gavG3y1lxRLEe2zCH54DM3tngu+UyDscnogExjmzdoCmcQl2N
+ ennSPkQKW1kpKiIKf84YPLF8GIGQ+Wl3x+IkCOpEinNIFeiEoRSovwYYXuzeoyEqE9BkPCpX
+X-Received: by 2002:a05:620a:29cf:b0:936:4c33:67f with SMTP id
+ af79cd13be357-93739540c2dmr867038085a.19.1787350153371; 
+ Fri, 21 Aug 2026 15:09:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:29cf:b0:936:4c33:67f with SMTP id
+ af79cd13be357-93739540c2dmr867031685a.19.1787350152909; 
+ Fri, 21 Aug 2026 15:09:12 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90c5f2b4ad5sm72819006d6.42.2026.08.21.15.06.14
+ af79cd13be357-93749afc53bsm8846485a.21.2026.08.21.15.09.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Aug 2026 15:06:15 -0700 (PDT)
-Message-ID: <072f26a26bbba19cf8701472141590ffadd72f45.camel@redhat.com>
-Subject: Re: [PATCH v2 07/10] drm/nouveau/disp: fix head state readback on
- GB20x
+ Fri, 21 Aug 2026 15:09:12 -0700 (PDT)
+Message-ID: <2e733db917cf5a478fe65022f4708030acab384e.camel@redhat.com>
+Subject: Re: [PATCH v2 00/10] nouveau: assorted display fixes (GB20x, r570
+ DP_CONFIG_STREAM, HF-EEODB EDIDs)
 From: lyude@redhat.com
 To: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
  linux-kernel@vger.kernel.org
@@ -77,14 +77,13 @@ Cc: dri-devel@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
  <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
  Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Mary
  Guillemard <mary@mary.zone>, 	nouveau@lists.freedesktop.org
-Date: Fri, 21 Aug 2026 18:06:14 -0400
-In-Reply-To: <20260820164929.17117-8-mohamedahmedegypt2001@gmail.com>
+Date: Fri, 21 Aug 2026 18:09:11 -0400
+In-Reply-To: <20260820164929.17117-1-mohamedahmedegypt2001@gmail.com>
 References: <20260820164929.17117-1-mohamedahmedegypt2001@gmail.com>
- <20260820164929.17117-8-mohamedahmedegypt2001@gmail.com>
 User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: V7MukdRAl4jL2rWkv78GQgYEuSQpxlSSUMQPiEWueuY_1787349978
+X-Mimecast-MFC-PROC-ID: MJbGxKJzrIDz7XenzuDQwxazWVg_ipq00KHAy5eW4q4_1787350153
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -103,128 +102,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-One nitpick below
+Thinking about it more - we should probably cc patches 1-8 to stable.
+Mind doing that on the next respin?
+
+(unsure if you have done this before or not, but
+https://drm.pages.freedesktop.org/maintainer-tools/committer/getting-starte=
+d.html
+dim is a good tool for fixes, if you have the commit a patch fixes you
+can just run `dim fixes $COMMIT` and it will spit out a tag + some CCs.
+I usually drop all but the stable cc, which gets a nice little comment
+added on the side indicating which kernel version to backport against.
 
 On Thu, 2026-08-20 at 20:49 +0400, Mohamed Ahmed wrote:
-> The GSP path reads armed head state and the RG scanout position
-> through
-> gv100_head_state() and gv100_head_rgpos() on every generation.
-> gv100_head_state() reads the core channel's state mirror at a 0x400
-> per-head stride, which NVD5.0 (GB20x) doubled. Per NVIDIA's published
-> CA7D class header every HEAD_SET method sits at 0x2000 + head *
-> 0x800,
-> while the mirror bases are unchanged (assembly at 0x680000, armed at
-> +0x8000, per OpenRM's v03_00 channel-user-base HAL which is still
-> used on
-> DISPv0502).
+> Several fixes for GSP-driven displays consisting of four independent
+> groups. These were created as part of ongoing HDMI 2.1 bring up and
+> display handling clean-up work, so some of them are not issues now
+> (e.g., the 2.147GHz pixel clock cap) but fixing them is required to
+> get
+> advanced features such as FRL, DSC, VRR, etc working properly.
 >=20
-> Add gb202_head_state(), the same readback at the 0x800 stride, and
-> supply it through gb202_gsp_disp.
-> gv100_head_rgpos() is kept. The RG registers keep their per-head
-> 0x800
-> stride on NVD5.0, and OpenRM's
-> kdispReadRgLineCountAndFrameCount_v03_00
-> still reads NV_PDISP_RG_DPCA on DISPv0502.
+> The v1 review asked for the RM vs register programming split to be
+> made
+> explicit instead of growing more per-chip code inside the RM layer,
+> so
+> patches 1-3 do that first. No functional change, and then each GB20x
+> fix
+> (patches 4-8) supplies its hook from a new engine/disp/gb202.c.
 >=20
-> Signed-off-by: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
-> ---
-> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/gb202.c=C2=A0 | 49
-> ++++++++++++++++++-
-> =C2=A01 file changed, 48 insertions(+), 1 deletion(-)
+> Changes in v2:
+> - Rebased onto drm-misc-next.
 >=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
-> b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
-> index 4863b2b36db0..a66c820be9fe 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
-> @@ -83,6 +83,53 @@ gb202_sor_hdmi_gcp(struct nvkm_ior *sor, int head,
-> bool enable)
-> =C2=A0=09nvkm_mask(device, 0x6f0040 + hdmi, 0x00000001, 0x00000001);
-> =C2=A0}
-> =C2=A0
-> +/* Same core-channel state mirror as gv100_head_state() (assembly at
-> 0x680000,
-> + * armed at +0x8000, per-head method offsets unchanged), but NVD5.0
-> spaces
-> + * heads 0x800 apart (see NVCA7D_HEAD_SET_*(a) in clca7d.h).
-> + */
-> +static void
-> +gb202_head_state(struct nvkm_head *head, struct nvkm_head_state
-> *state)
-> +{
-> +=09struct nvkm_device *device =3D head->disp-
-> >engine.subdev.device;
-> +=09const u32 hoff =3D (state =3D=3D &head->arm) * 0x8000 + head->id *
-> 0x800;
-> +=09u32 data;
-> +
-> +=09data =3D nvkm_rd32(device, 0x682064 + hoff);
-> +=09state->vtotal =3D (data & 0xffff0000) >> 16;
-> +=09state->htotal =3D (data & 0x0000ffff);
-> +=09data =3D nvkm_rd32(device, 0x682068 + hoff);
-> +=09state->vsynce =3D (data & 0xffff0000) >> 16;
-> +=09state->hsynce =3D (data & 0x0000ffff);
-> +=09data =3D nvkm_rd32(device, 0x68206c + hoff);
-> +=09state->vblanke =3D (data & 0xffff0000) >> 16;
-> +=09state->hblanke =3D (data & 0x0000ffff);
-> +=09data =3D nvkm_rd32(device, 0x682070 + hoff);
-> +=09state->vblanks =3D (data & 0xffff0000) >> 16;
-> +=09state->hblanks =3D (data & 0x0000ffff);
-> +=09/* Bit 31 is ADJ1000DIV1001, not a HERTZ bit. We don't have
-> enough bits
-> +=09 * to add the full clock in hz on Blackwell (35 bits), but
-> state->hz
-> +=09 * is unused and obsolete under GSP so this is fine.
-> +=09 */
-> +=09state->hz =3D nvkm_rd32(device, 0x68200c + hoff) & 0x7fffffff;
-> +
-> +=09data =3D nvkm_rd32(device, 0x682004 + hoff);
-> +=09switch ((data & 0x000000f0) >> 4) {
-> +=09case 5:
-> +=09=09state->or.depth =3D 30;
-> +=09=09break;
-> +=09case 4:
-> +=09=09state->or.depth =3D 24;
-> +=09=09break;
-> +=09case 1:
-> +=09=09state->or.depth =3D 18;
-> +=09=09break;
-> +=09default:
-> +=09=09state->or.depth =3D 18;
-> +=09=09WARN_ON(1);
-> +=09=09break;
-> +=09}
-
-I would probably condense this switch case like ben did with
-gv100_head_state():
-
-=09switch ((data & 0x000000f0) >> 4) {
-=09case 5: state->or.depth =3D 30; break;
-=09case 4: state->or.depth =3D 24; break;
-=09case 1: state->or.depth =3D 18; break;
-=09default:
-=09=09state->or.depth =3D 18;
-=09=09WARN_ON(1);
-=09=09break;
-=09}
-
-With that fixed:
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-
-> +}
-> +
-> =C2=A0/* GB20x is GSP-only. This table supplies the register programming
-> the
-> =C2=A0 * GSP-RM display path needs from the chip.
-> =C2=A0 */
-> @@ -91,7 +138,7 @@ gb202_gsp_disp =3D {
-> =C2=A0=09.uevent =3D &gv100_disp_chan_uevent,
-> =C2=A0=09.ramht_size =3D 0x2000,
-> =C2=A0=09.gsp.intr =3D tu102_disp_intr,
-> -=09.gsp.head_state =3D gv100_head_state,
-> +=09.gsp.head_state =3D gb202_head_state,
-> =C2=A0=09.gsp.head_rgpos =3D gv100_head_rgpos,
-> =C2=A0=09.gsp.vblank_get =3D tu102_head_vblank_get,
-> =C2=A0=09.gsp.vblank_put =3D tu102_head_vblank_put,
+> - New patches 1-3: move the GSP path's direct MMIO helpers to
+> =C2=A0 engine/disp/ and route them through a per-chip nvkm_disp_func.gsp
+> hook
+> =C2=A0 table. GB20x now has its own gb202_disp_new() instead of display-
+> class
+> =C2=A0 checks in rm/r535/disp.c.
+>=20
+> - Patch 4 (was 1+2): merged. Dropped a stray .frl_train reference
+> that
+> =C2=A0 broke the build, no longer drops .scdc, and fixed an undefined
+> shift
+> =C2=A0 when packing byte 3 of each infoframe data word.
+>=20
+> - Patch 5 (was 3): the GCP subpack write is now a masked write so
+> =C2=A0 SB1_CTRL keeps its hardware-controlled default.
+>=20
+> - Patch 6 (was 4): the vcpi hook returns its control status like the
+> =C2=A0 other RM API entries instead of WARN_ONs under the HAL.
+>=20
+> - New patch 7: the head-state readback fix is split out. The core
+> channel
+> =C2=A0 state mirror uses a 0x800 per-head stride on GB20x, fixing scanout
+> pos
+> =C2=A0 and timings readback for heads >=3D 1.
+>=20
+> - Patch 8 (was 5): reworked onto the new hook table. The low-latency
+> =C2=A0 vector is exposed as a second DISP interrupt instance by the r570
+> =C2=A0 engine index translation and re-armed after servicing.
+>=20
+> - Patch 9 (was 6): the two HI methods are pushed as one method pair,
+> and
+> =C2=A0 the class-header defines stay offset-sorted.
+>=20
+> - Patch 10 (was 7): OF EDIDs now go through
+> drm_edid_connector_update(),
+> =C2=A0 and all firmware provided EDIDs (OF, ACPI, VBIOS embedded) are
+> =C2=A0 validated with drm_edid_valid(). ACPI reads are bounded by the
+> length
+> =C2=A0 _DDC actually returned. Fixed a runtime-PM reference leak when the
+> RM
+> =C2=A0 EDID read fails. No raw struct edid is kept anymore and all the ol=
+d
+> =C2=A0 raw struct edid consumers are converted to the new API (the SPWG
+> =C2=A0 dual-link byte is cached at EDID-set time as there is no new drm
+> API
+> =C2=A0 alternative for it). get_modes() re-syncs the EDID property only
+> when
+> =C2=A0 the probe helper cleared it.
+>=20
+> - Commit messages reworded throughout.
+>=20
+> Link to v1:
+> https://lore.kernel.org/all/20260814235705.59132-1-mohamedahmedegypt2001@=
+gmail.com/
+>=20
+>=20
+> Mohamed Ahmed (10):
+> =C2=A0 drm/nouveau/disp: move GSP head-timing ISR and vblank helpers to
+> =C2=A0=C2=A0=C2=A0 tu102.c
+> =C2=A0 drm/nouveau/disp: move the GSP HDMI GCP AVMute write to engine/dis=
+p
+> =C2=A0 drm/nouveau/disp: route GSP-RM display MMIO through nvkm_disp_func
+> =C2=A0=C2=A0=C2=A0 hooks
+> =C2=A0 drm/nouveau/disp: fix HDMI vendor infoframes on GB20x
+> =C2=A0 drm/nouveau/disp: fix HDMI GCP AVMute register offsets on GB20x
+> =C2=A0 drm/nouveau/gsp: use per-version DP_CONFIG_STREAM params on r570
+> =C2=A0=C2=A0=C2=A0 firmware
+> =C2=A0 drm/nouveau/disp: fix head state readback on GB20x
+> =C2=A0 drm/nouveau/gsp: fix vblank interrupts on GB20x
+> =C2=A0 drm/nouveau/dispnv50: program pixel clocks above 2.147GHz on GB20x
+> =C2=A0 drm/nouveau: honor HF-EEODB EDIDs by converting to struct drm_edid
+>=20
+> =C2=A0drivers/gpu/drm/nouveau/dispnv04/dfp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +-
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/disp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 4 +-
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/headca7d.c=C2=A0=C2=A0 |=C2=A0 21 =
++-
+> =C2=A0.../drm/nouveau/include/nvhw/class/clca7d.h=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 4 +
+> =C2=A0.../drm/nouveau/include/nvkm/engine/disp.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_acpi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 21 +-
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_acpi.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 10 +-
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_connector.c=C2=A0=C2=A0 | 147 +++++=
++++++----
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_connector.h=C2=A0=C2=A0 |=C2=A0 12 =
++-
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/device/base.c |=C2=A0 10 +-
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/Kbuild=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 1 +
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/ga102.c=C2=A0 |=C2=A0 16 +-
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/gb202.c=C2=A0 | 192
+> ++++++++++++++++++
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/head.h=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 3 +
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/ior.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 1 +
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/priv.h=C2=A0=C2=A0 |=C2=A0 20 =
+++
+> =C2=A0.../gpu/drm/nouveau/nvkm/engine/disp/tu102.c=C2=A0 |=C2=A0 81 +++++=
+++-
+> =C2=A0.../nouveau/nvkm/subdev/gsp/rm/r535/disp.c=C2=A0=C2=A0=C2=A0 | 121 =
+++++++-----
+> =C2=A0.../nouveau/nvkm/subdev/gsp/rm/r570/disp.c=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 64 ++++++
+> =C2=A0.../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |=C2=A0=C2=A0 9 +
+> =C2=A0.../nvkm/subdev/gsp/rm/r570/nvrm/disp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> =C2=A0.../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 5 +
+> =C2=A022 files changed, 637 insertions(+), 113 deletions(-)
+> =C2=A0create mode 100644 drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
 
