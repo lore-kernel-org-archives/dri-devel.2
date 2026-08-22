@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9784AC5B572
-	for <dri-devel@archiver.kernel.org>; Sat, 22 Aug 2026 15:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E5AC5DF97
+	for <dri-devel@archiver.kernel.org>; Sat, 22 Aug 2026 15:15:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBE8610E346;
-	Sat, 22 Aug 2026 15:02:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E30910E108;
+	Sat, 22 Aug 2026 15:15:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="evqVxJFT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B/AIdr3W";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA6110E346
- for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 15:02:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F60410E108
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 15:15:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2971E60008;
- Sat, 22 Aug 2026 15:02:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3DF91F000E9;
- Sat, 22 Aug 2026 15:02:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A13FE60008;
+ Sat, 22 Aug 2026 15:15:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A0C1F000E9;
+ Sat, 22 Aug 2026 15:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787410946;
- bh=XBQng35yBEcsTJtllkeqAr3cwPigQwYb/RKweh92JWk=;
+ s=k20260515; t=1787411743;
+ bh=GXgvhAlmfCinodnHR+X44bxvw6RTzEoghxEh/0SzjHk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=evqVxJFTcSz3WLifFfNrZ43ZZn9BFpRg0F5VcIYbFC4kQDXg3hOPXE3F2LdUQ2uS3
- 1nGFebQMBbnBSH9veHyfJ/GZ112dsmUh0urCovfNk2M9Jv3hmnvnQ899d2wYri1RDJ
- X6224BGG+3j/ljSv5FciSldbZjQ3p31ltPTkvCHeiO/5u6utObRyCU1q5t16fZvtFp
- G/jQfKrl5E5q0xPnsP7RD1d1Y7sXJmCPdrjKxcktSzqEcMeJpS+WCSJedu1W4HlfnD
- ue2A4m06WlYzLPv70D4Qo/9te8NrMj1IzTsmTI6BR5DZxYBLF7kJHKpeejz2Uc83gH
- 4zNRtotGZ7LKQ==
+ b=B/AIdr3WcxOUwH7FxiFNNMwnD0viCY1EN0Qw8c0aHH9pnH/Wce+vHfZHue1F86pzj
+ xzDq+LsALI8sWTEiLi0U+R7KDBVK1XX3PqRQ1XEXEvBWntNOBfThMLMBh60MDlYQXa
+ UgsnoLCXGBjmDdMy3N4IBUskMp0HrsbpnVb/kw8+QHrp32to/im4ZK5qIIdq3znJIz
+ pGFnw9j5TW5XvNTtTbXklOF3deyglPhj8oBc6LIUcIRcBNafxLH5qblw6JLxJJnWfn
+ 8aS1FTPc9SJ2DMIqvQ0Us1h2vaO3PWtdRgMqqnY58wWxaiWVNFWtMMzSlBqow0NnLw
+ d9jQvL3CQ62EA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/amdkfd: don't leak BOs when process teardown
- can't unmap them
-To: "Bocaj Gnuoy" <bocajgnuoy@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix division by zero in
+ get_estimated_bw()
+To: "Hari Mishal" <harimishal1@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260822144402.929677-1-bocajgnuoy@gmail.com>
-References: <20260822142521.899098-1-bocajgnuoy@gmail.com>
- <20260822144402.929677-1-bocajgnuoy@gmail.com>
+In-Reply-To: <20260822145751.42328-1-harimishal1@gmail.com>
+References: <20260822145751.42328-1-harimishal1@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 22 Aug 2026 15:02:26 +0000
-Message-Id: <20260822150226.B3DF91F000E9@smtp.kernel.org>
+Date: Sat, 22 Aug 2026 15:15:42 +0000
+Message-Id: <20260822151543.30A0C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,132 +57,71 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Internal BO allocations (like IB and CWSR) are leaked during error=
- unwinding because `kfd_process_alloc_gpuvm` uses `force =3D false` and per=
-manently loses the reference.
-- [High] The force-free path can still fail under memory pressure due to `G=
-FP_KERNEL` allocations, silently bypassing teardown WARNs and causing the s=
-ame Use-After-Free deadlock.
-- [High] `amdgpu_amdkfd_gpuvm_free_memory_of_gpu` aborts early and leaks BO=
-s if a signal is pending during error unwinding.
+- [High] Uncapped request_bw is assigned to allocated_bw, causing an oversi=
+zed value that leads to an integer underflow during bandwidth validation.
 --
 
---- Patch [1]: [PATCH v2] drm/amdkfd: don't leak BOs when process teardown =
-can't unmap them ---
-commit d455d7ae97544007b84e3463aa9bc5371a4a8935
-Author: Bocaj Gnuoy <bocajgnuoy@gmail.com>
+--- Patch [1]: [PATCH] drm/amd/display: fix division by zero in get_estimat=
+ed_bw() ---
+commit d3870b3b2da2897f934f4033da62b969b6443914
+Author: Hari Mishal <harimishal1@gmail.com>
 
-drm/amdkfd: don't leak BOs when process teardown can't unmap them
+drm/amd/display: fix division by zero in get_estimated_bw()
 
-This commit fixes a memory leak and subsequent TTM eviction deadlock that
-occurs when BO unmapping fails during process teardown due to memory
-exhaustion. It adds a force flag to amdgpu_amdkfd_gpuvm_free_memory_of_gpu()
-to bypass the mapping check and detach attachments instead of aborting.
+This commit fixes a division by zero in get_estimated_bw() by returning 0
+if bw_granularity is zero. This prevents a crash when a connected DPIA
+device reports an estimated bandwidth change before reporting a capability
+change.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5672
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> index 0a7c1900da959..6d5126aa6fe74 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-
-[ ... ]
-
-> @@ -814,7 +814,7 @@ static int kfd_process_alloc_gpuvm(struct kfd_process=
-_device *pdd,
-> =20
->  err_map_mem:
->  	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->adev, *mem, pdd->drm_priv,
-> -					       NULL);
-> +					       NULL, false);
+>     link_dpia_send_bw_alloc_request() already guards the same
+>     bw_granularity division; add the identical guard here rather than
+>     introducing a new pattern.
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this error unwinding pa=
-th
-leak internal BO allocations?
+This is a pre-existing issue, but since the commit message references=20
+link_dpia_send_bw_alloc_request(), I noticed a potential integer underflow
+issue involving allocated_bw.
 
-If amdgpu_amdkfd_gpuvm_free_memory_of_gpu() fails here due to the memory be=
-ing
-exhausted during unmapping (similar to the user-space BOs), the force =3D f=
-alse
-flag means it will safely return -EBUSY but abort the cleanup.
+In link_dpia_send_bw_alloc_request(), the uncapped request_bw variable
+is assigned to allocated_bw:
 
-Since the pointers are then unconditionally cleared:
+drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c:link_dpia_s=
+end_bw_alloc_request() {
+    ...
+		temp =3D req_bw * link->dpia_bw_alloc_config.bw_granularity;
+		request_reg_val =3D temp / Kbps_TO_Gbps;
+		if (temp % Kbps_TO_Gbps)
+			++request_reg_val;
+	}
 
-err_alloc_mem:
-	*mem =3D NULL;
-	*kptr =3D NULL;
+	link->dpia_bw_alloc_config.allocated_bw =3D request_bw;
+    ...
+}
 
-Does the reference to the BO get permanently lost, causing the exact same
-use-after-free sequence this patch is addressing?
+Later, in link_dpia_validate_dp_tunnel_bandwidth(), remaining_bw is
+calculated using unsigned 32-bit subtraction:
 
->  err_alloc_mem:
->  	*mem =3D NULL;
->  	*kptr =3D NULL;
+drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c:link_dpia_v=
+alidate_dp_tunnel_bandwidth() {
+    ...
+			if (router_sets[j].cm_id =3D=3D dp_tunnel_settings->cm_id) {
+				uint32_t remaining_bw =3D
+					dp_tunnel_settings->estimated_bw - dp_tunnel_settings->allocated_bw;
+    ...
+}
 
-[ ... ]
+If a connected DPIA display requests more bandwidth than estimated,
+allocated_bw will be strictly greater than estimated_bw.
 
-> @@ -1119,18 +1119,29 @@ static void kfd_process_device_free_bos(struct kf=
-d_process_device *pdd)
-
-[ ... ]
-
->  		}
-> =20
-> -		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, mem,
-> -						       pdd->drm_priv, NULL);
-> +		r =3D amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, mem,
-> +							   pdd->drm_priv, NULL,
-> +							   true);
-> +		if (r)
-> +			pr_err("Failed to free BO on process teardown: %d\n", r);
-
-[Severity: High]
-This is a pre-existing issue, but does this still leak BOs and cause a TTM
-eviction deadlock if amdgpu_amdkfd_gpuvm_free_memory_of_gpu() fails for oth=
-er
-reasons?
-
-Looking at amdgpu_amdkfd_gpuvm_free_memory_of_gpu(), it can still fail duri=
-ng
-reservation:
-
-	ret =3D reserve_bo_and_cond_vms(mem, NULL, BO_VM_ALL, &ctx);
-	if (unlikely(ret))
-		return ret;
-
-This reservation can fail under memory exhaustion if the GFP_KERNEL allocat=
-ions
-in drm_exec_init() fail. Since the caller drops the IDR handle regardless of
-the error, will the dangling bo_va pointers still poison the eviction LRU?
-
-[Severity: High]
-This is also a pre-existing issue, but what happens if a signal is pending
-during process teardown?
-
-The same reservation path in reserve_bo_and_cond_vms() uses an interruptible
-wait:
-
-	drm_exec_init(&ctx->exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
-		      DRM_EXEC_IGNORE_DUPLICATES, 0);
-
-If a signal (e.g. SIGKILL) is pending, this fails with -ERESTARTSYS.
-
-Does this cause amdgpu_amdkfd_gpuvm_free_memory_of_gpu() to skip the remain=
-ing
-cleanup and leak the attachments, leading to the same use-after-free sequen=
-ce
-when the handle is dropped?
-
->  		kfd_process_device_remove_obj_handle(pdd, id);
->  	}
->  }
+Could this cause the subtraction to underflow to an extremely large
+positive value (~4.29 billion), thereby bypassing the subsequent
+capacity checks (required_bw > total_bw) and allowing illegal
+configurations that oversubscribe the DP tunnel?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822144402.9296=
-77-1-bocajgnuoy@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822145751.4232=
+8-1-harimishal1@gmail.com?part=3D1
