@@ -4,54 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 290B5C5DF9B
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33994C5DF97
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EEB110E39D;
-	Sun, 23 Aug 2026 09:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5571F10E299;
+	Sun, 23 Aug 2026 09:27:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=holtechnik.com header.i=@holtechnik.com header.b="dzCGE+zj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j6FG0TVh";
 	dkim-atps=neutral
-Received: from hognose1.porkbun.com (hognose1.porkbun.com [35.82.102.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5FF510F275;
- Fri, 21 Aug 2026 08:14:07 +0000 (UTC)
-Received: from localhost.localdomain (192-184-175-24.fiber.dynamic.sonic.net
- [192.184.175.24])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- (Authenticated sender: phollinsky@holtechnik.com)
- by hognose1.porkbun.com (Postfix) with ESMTPSA id 68BDA485B86;
- Fri, 21 Aug 2026 08:14:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=holtechnik.com;
- s=default; t=1787300047;
- bh=Jnc3bKG1dNqdc4K0sUeMIAQ7ScdNJT1I7FHb0MA7Tqw=;
- h=From:To:Cc:Subject:Date;
- b=dzCGE+zjBYCD8+R9WQp8UqXcSKuoXFg/yBUbeZtOYvy5Ha7kEQbO2MpEX4kzetxTh
- +a62ci+g7BVPZwhS3Ni0n5IeBrEbSGgB+girpOe75RDZeTRCkxo968buL4DeVhOIP/
- y23v+aS1pAkmfc1mQVsCJ+HNrnjWayAauDuhodOs=
-From: Paul Hollinsky <phollinsky@holtechnik.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
- Konrad Dybcio <konradybcio@gmail.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
- Paul Hollinsky <phollinsky@holtechnik.com>
-Subject: [PATCH] drm/msm/adreno: Only check for PAS when a zap shader is
- present
-Date: Fri, 21 Aug 2026 01:13:25 -0700
-Message-ID: <20260821081325.89088-1-phollinsky@holtechnik.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B785810E0D0
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 14:31:24 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-c1712a04ddaso326622966b.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 07:31:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787409083; x=1788013883; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pUYxeQkkOydFxi90Wl+h19lQoxgRcddBRZaaP+r9C1s=;
+ b=j6FG0TVh9TexgG6HTr7MX8yhGdCvEmffiHcaPPPLkAOlT85+4fFyCotsGl5cR5v014
+ kQ7jA77ASVV3PYeceGcwMkCU1vZOw+Q/KHZkGu60oUF+f9ZoYh+S7PLBhMpLNQPDy3be
+ IZR3QAfgHNADbJdH5h7t/PumBV5aqPewhvxQSH9Skq6rxZfnsqTXiCpVyAzKlnbM8mHo
+ oCvtOKLk86YdAL1e6MvisFzWQksQv1WsUI4n69SiHpyqV05Tmn3YEAbt8pWXON8CJHmA
+ QrSNBLMoeQJjjOizMWHMt7MJQtliKX6HXuKEW0E7AOPkX6y60LUcfRkKPU6Oo9NK4CBl
+ VlYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787409083; x=1788013883;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=pUYxeQkkOydFxi90Wl+h19lQoxgRcddBRZaaP+r9C1s=;
+ b=ZwS3ZksaYViAUzy9CiEpy8KWpqtq2i5Bpo+XyeFAISmdVhIkPRUBci2hNDW61dzISm
+ goErQ2ARMb3BgXWZy8lDJ2b6OkCNLEmJ7otYAbX1JNiV6RGLI/R5KzHNUnyblUzXh1ke
+ 10RKDucJIZ3YQUE5/hj8JHcm7PMs/fiJgjLt3vbXinKKe24GlWeK8QUWgE8muaQYJx8Z
+ NlXWb1ZbOVh4PFB5EIrhYMbH1CUDkbtVehiBohYK6qjejKk6PQWJ5tqzgX0l4useK3vs
+ TN86odT4bKQNrbyX4+FI5g9DUD/Gv57g8x/012+eyTVblq1sRkN4S/5iPNg3f0RT7Zp3
+ H9QQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrAELymxwdtv5HirttrcWjqFldC/M1sqEifamQ7bqXv/F7G4FN9pwl0XZ3qXkaVs5QWex9x53Kcm2w=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l7K2TwIChnJRq+ofFObMz8pDgR0lun7q0LciiQpMk2XB5SzcfN
+ sLNaY9p3/PdW6agvQWfETEfuYa+JU60WHiYq1HNIiujs//Nd5ipG2lu0
+X-Gm-Gg: AR+sD101k4U84VHLM4Kas9WeBYP6DLfNtNtzH/Wkh6ex9XU2nfZP6moZkUBL4fHv31G
+ +R6rm+eF6XlK/ULjsH+l3Xi+XJEyCImoh09ighlELaz429Qqa94C3vwIALJvO2ZxDKf89osDnq9
+ 35yAifZS/xAiUNOJOSmJ8Ksjn8SZt+rzicIAMAT57zcCLxGPfHlAlGKTvGFtoSm2WZt6Fik+5OI
+ DD2iMmAYKJ+YsuhYhOknl5V1tJZMK3lmKehIdXYRsjjUTYxkd+uY9yiee+F1WIWZoOFtkc3ODrm
+ cMJfXrLb2cfo+z+mZS4/Deb/kxyOYS5Dz5Y6vLETkBO35dWZvBqsAcWMOvp3GXF1fnuoET0mmHP
+ rdijVWSep/jfJn01cnj2Aj1alDseH1T+RPu8HlZQXSmkLmhoZWKseCZbm/+jWeD3Vagx+yPvZB/
+ TmsZPapgERgRnt+zKZ8rWT19n6cJbqTMmzvHiLM9ChMWvMi+BIOshNu6WMTmwB2yLIiEd8VHS3g
+ VuVVPhDokihKfbmbSXC6Gh2HfTmmoV1q+YoTIrP3B/mu2i16nVLLLVm8DqM3lRzhJqBMbL44rO2
+ IbMuuG+cSijkHK1q2q/2wtWmPv2jgeYoUYhbxksDyVSb1ujMmQQ/hnEjuVlWbUOc1C9B
+X-Received: by 2002:a17:907:1c27:b0:c21:382e:9a38 with SMTP id
+ a640c23a62f3a-c2491c2a110mr673395166b.2.1787409082801; 
+ Sat, 22 Aug 2026 07:31:22 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-2a02-3100-a0f5-8c01-3de3-cd62-aa6f-2fb0.310.pool.telefonica.de.
+ [2a02:3100:a0f5:8c01:3de3:cd62:aa6f:2fb0])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c249629a901sm383818266b.25.2026.08.22.07.31.21
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 22 Aug 2026 07:31:22 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Eric Anholt <eric@anholt.net>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/vc4: Use managed KMS polling to fix UAF on unbind
+Date: Sat, 22 Aug 2026 16:31:10 +0200
+Message-Id: <20260822143110.68594-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
@@ -70,117 +97,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs") replaced
-the qcom_scm_is_available() check in adreno_zap_shader_load() with
-qcom_pas_is_available(). These are not equivalent: the former reports
-whether the SCM transport is up, the latter whether the TrustZone
-firmware implements the peripheral authentication service.
+vc4_kms_load() calls drm_kms_helper_poll_init() but the driver provides
+no matching drm_kms_helper_poll_fini(). The output poll work stays
+scheduled after unbind and runs on the freed drm_device:
 
-On SC7180 Chromebooks (trogdor) TZ does not implement PAS at all. SCM
-call-availability queries return 0 for every PAS command while other
-services answer normally:
+  # modprobe vc4; rmmod vc4; sleep 10
+  BUG: KASAN: slab-use-after-free in delayed_work_timer_fn
+  BUG: KASAN: slab-use-after-free in drm_client_dev_hotplug [drm]
+  Workqueue: events output_poll_execute [drm_kms_helper]
+  Allocated by task 171: __devm_drm_dev_alloc
+  Freed by task 262 (rmmod): drm_dev_put / component_del
 
-  svc 0x06 cmd 0x01 IS_CALL_AVAIL    -> 1
-  svc 0x02 cmd 0x01 PAS_INIT_IMAGE   -> 0
-  svc 0x02 cmd 0x05 PAS_AUTH_RESET   -> 0
-  svc 0x02 cmd 0x07 PAS_IS_SUPPORTED -> 0
-  svc 0x0c cmd 0x16 MP_ASSIGN        -> 1
-  svc 0x05 cmd 0x01 IO_READ          -> 1
+Use drmm_kms_helper_poll_init() so polling is finalized with the device,
+as other drivers do.
 
-so qcom_scm_probe() never registers a PAS backend and
-qcom_pas_is_available() is false for the lifetime of the boot.
-
-That on its own need not matter, because sc7180-trogdor.dtsi does
-/delete-node/ &gpu_zap_shader;, and the intended path for such a board
-is for zap_shader_load_mdt() to find no zap-shader child, clear
-zap_available, return -ENODEV, and let the caller fall back to
-SECVID_TRUST_CNTL.
-
-The problem is the ordering. zap_available is a static initialised to
-true and is only ever cleared inside zap_shader_load_mdt(), but
-adreno_zap_shader_load() consults PAS before calling it. The discovery
-that decides whether a zap shader is needed at all can therefore never
-run, the flag is never cleared, and every call returns -EPROBE_DEFER:
-
-  adreno 5000000.gpu: [drm:adreno_zap_shader_load] *ERROR* PAS is not available
-  msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* gpu hw init failed: -517
-
-Nothing retries that deferral, either. adreno_zap_shader_load() is
-called from a6xx_hw_init() rather than from probe, so the -EPROBE_DEFER
-is not a probe return value: it propagates up until adreno_load_gpu()
-returns NULL. load_gpu() re-attempts on every DRM open while priv->gpu
-is NULL, each open fails identically, and PAS cannot become available in
-between - which is why the error repeats and userspace stays on
-llvmpipe.
-
-Move the availability check into zap_shader_load_mdt(), behind the
-zap-shader node lookup, so the driver only consults PAS once it knows it
-needs PAS. Boards with no zap-shader node take the intended -ENODEV
-fallback without ever asking, and boards that do have one keep the
-qcom_pas_is_available() gate.
-
-Fixes: 0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs")
-Link: https://lore.kernel.org/r/20260808034716.58888-1-phollinsky@holtechnik.com
-Signed-off-by: Paul Hollinsky <phollinsky@holtechnik.com>
+Fixes: c8b75bca92cb ("drm/vc4: Add KMS support for Raspberry Pi.")
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Reported and analysed in:
-https://lore.kernel.org/linux-arm-msm/20260808034716.58888-1-phollinsky@holtechnik.com/
-Konrad agreed with this shape in
-https://lore.kernel.org/linux-arm-msm/b63e93e4-2f4c-4cad-b726-e1b0565379d7@gmail.com/
+Tested on a Raspberry Pi 400 (BCM2711), v7.2-11658-g26260251022f, with
+KASAN: report gone, rmmod/insmod loop clean.
 
-0be72be03ca7 landed in mainline during the v7.3 merge window (via the
-soc-drivers-7.3 pull), so this is based on Linus' tree. Note that
-msm-fixes and msm-next both still predate it as I write this, so it
-needs a base that includes the merge window; happy to respin against
-whatever base you prefer, and it can equally go via the qcom tree the
-culprit came through.
+ drivers/gpu/drm/vc4/vc4_kms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested on a Lenovo IdeaPad Duet 3 (sc7180-trogdor-wormdingler) on
-next-20260805, which carries the same code: with this applied the GPU
-initialises and logs "Zap shader not enabled - using SECVID_TRUST_CNTL
-instead", and userspace gets a6xx rather than llvmpipe.
-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 489462065ea9..995161215ad5 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -52,6 +52,12 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
- 		return -ENODEV;
- 	}
+diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
+index b17e73bce384..82a7f2ac4c7e 100644
+--- a/drivers/gpu/drm/vc4/vc4_kms.c
++++ b/drivers/gpu/drm/vc4/vc4_kms.c
+@@ -1188,7 +1188,7 @@ int vc4_kms_load(struct drm_device *dev)
  
-+	/* We need PAS to be able to load the firmware */
-+	if (!qcom_pas_is_available()) {
-+		DRM_DEV_ERROR(dev, "PAS is not available\n");
-+		return -EPROBE_DEFER;
-+	}
-+
- 	ret = of_reserved_mem_region_to_resource(np, 0, &r);
- 	if (ret) {
- 		zap_available = false;
-@@ -170,18 +176,11 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
- int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
--	struct platform_device *pdev = gpu->pdev;
+ 	drm_mode_config_reset(dev);
  
- 	/* Short cut if we determine the zap shader isn't available/needed */
- 	if (!zap_available)
- 		return -ENODEV;
+-	drm_kms_helper_poll_init(dev);
++	drmm_kms_helper_poll_init(dev);
  
--	/* We need PAS to be able to load the firmware */
--	if (!qcom_pas_is_available()) {
--		DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
--		return -EPROBE_DEFER;
--	}
--
- 	return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+ 	return 0;
  }
- 
-
-base-commit: 818bebeb63dd6bf5f4e07e145f6cdbace520a34c
 -- 
-2.55.0
+2.39.5 (Apple Git-154)
 
