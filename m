@@ -4,74 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE03C5DF9B
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B6E3C5DF9C
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE5410E49F;
-	Sun, 23 Aug 2026 09:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C01110E4AB;
+	Sun, 23 Aug 2026 09:27:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DXYEY300";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l+TQGpnw";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D933A10E02F
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 08:32:21 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-c9e607d81fcso1452831a12.2
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 01:32:21 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D38510E3D0
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 09:17:49 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-49554ebb87dso17135935e9.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 02:17:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787473941; x=1788078741; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787390267; x=1787995067; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=gQjZACrYdNbBdH+jtlaQgBXai3RCK9BnyKOFi8yya1Q=;
- b=DXYEY300SrhNasZ+i+YOcXHwKjG/bmj6wH69sFykOHn/iHE0ZYUCK7VU32XUoXaaU7
- e8pASSZn/AlQ0LsgnsJ/wXVq1HwV1eqDcVrtopbNA6J7U50++4imWywMHVDosk5sNb1a
- onFPCHxI6OC3I8Ckw/BkWgLRexqwhzhuG2M3Cmv0FVSe0vj6/AXzlnNI2oBAvJeD7LDM
- ABSyd23phkgU6nL/mN2XgHxtaGvjmzMSxVg3md79P9/G3zoSpe0/RaGumIzPPsPjj2ns
- Qb+KwFbPYGqhnTEi4hW0kZ0IQkaY5L+hNqOCRE+s3nTjY8RYyq4SlCpNEEqOBsQlK13E
- x/EA==
+ bh=t6ZdW23XPQbuspc71nQ6IOlPWvgfeZGd9xc03sJ0L8s=;
+ b=l+TQGpnwc+AwbWzwnpFp098sdkb0mVkYRXrhnk0IV13TcfbRHeR4drdRoKnibvjLF8
+ Pv3zTaVvL/KlVEt1UwJPVfTocgNLCc8jFlG0wMZG1wPlbiH1yAcbmKLCk7O1KL0p/lQL
+ xJJhyRWCWVPBtxSEkZMlHQGcT9ucUO/n259vrUQHFz919cXGx98r4Y0Ndx5CI2vpWScW
+ 9Zr2uxF3SS9X8Il7vzkZA3jg9woApUBb5APBxiShGMwbknqGjle+uBsOuFG5GhM+fqwF
+ naYQx35EvdzYrNybFMErQ9iPTcpraWoPkdlQzNoQthBwFh4JNGWbGk5z3ktau+o4wZpz
+ MZsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787473941; x=1788078741;
+ d=1e100.net; s=20251104; t=1787390267; x=1787995067;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=gQjZACrYdNbBdH+jtlaQgBXai3RCK9BnyKOFi8yya1Q=;
- b=r+5gK46Gf2OXJC8uL6RewMgQD4fkROzv98cJOhZ2ScrRytddBII/1JOqieZbGj1Klh
- QRMJPVfCdgHcStqVy4OnFDfz2yZOK6/PdCzuIFJqTZBXDSVkoRSWuxbFzLwA0WuzkXHe
- 010juEpr60PM44Gg8RvEyvlA8tfUXec52Jc0omV6zybIuX3p6407iBLtMqHoim1z6mmD
- 7T1YX9/GaDNprMozv/Y5bxLMpBcizpBuG2BzvMIHQqDwm6nTt1cDku0VjoDBDpa2POy4
- eR1poi5wSRQxZsCjikJGIMtHF2a5UVcF4nDRzA+f+jWQqw4QjeVbPHLdKIyIE0tuZiSg
- /1aQ==
-X-Gm-Message-State: AFuF++k3guAhhnaXDTznn+S+vRJaxRlygnKMgVXYMpkFPPYwGGO0jjhf
- jPr8gMqah5Pcy/LLS61idWxa0wBtp9liNew9Oy+KCxGievYibdRFplQgXIVDaVWs5qbXGA==
-X-Gm-Gg: AR+sD10tyeIKeVMbCY+xOpmufIbkgb/xGVs+rMPZgMka/x5WscSjJtb7ABVfG8Zb90c
- CcUfzjORIkV9penNdCYebpoRTnRuGxke3N0A9b7iYB7bWPhBV3fwG8dI74jq68AoXu9dSOcBejk
- LZ14TmjvCUm0bfAM4MMuPeZis5e43D1yPs7LN/VG1Zdk8XVn0h8XbNZY/JKdnIr0STX6LSn8dnF
- VCsFwe0qENstmPqQvDLbjrJqF3WpVCHEnlhmm0xWPZtec+vizq9YKt4sxId3v7XbrTpfxAqPUZz
- dswTBR7kB3FP6l+hfCJ7VFvZNCmZJST8AYFiTUfcjdQZVKXANxqFSN+wXBhv6g4RR6Zn8HGrJ2H
- is/F0y6gqzGDpnEJP3FYYtm1/VG20rtqlaEZGv9tWpus+/K2/bnB1DOTT+CNOf5Qwz9Stq+DbAn
- 7KTQfqoXneDHdK+WXoP7wj/eflDMWnnmvgpspuHsAV8I6Sw63N5dr7Pvl/keANYvWrHZyUno7KD
- WVpdOA=
-X-Received: by 2002:a17:90b:2785:b0:38f:23d6:b4ad with SMTP id
- 98e67ed59e1d1-395c3594cf5mr34224184a91.8.1787473941256; 
- Sun, 23 Aug 2026 01:32:21 -0700 (PDT)
-Received: from 138.101.136.61.ha.cnc ([61.136.101.138])
+ bh=t6ZdW23XPQbuspc71nQ6IOlPWvgfeZGd9xc03sJ0L8s=;
+ b=eB5nWjj0kcbBYL5b9m90cuFEGJvWktFvaZ2AYRf6t+f36De2y9nQuvMqHUp3A/zyA+
+ 8X1AgKpappx/eEnt+EQxSl3YMlp9sOyqRQnGyFg/A4y+qB26zcud7ECme8W0ZAoR5prr
+ /DU2JzdV2RmX/PbRzfE1wUi2biE6VUZHVWCah3tKvT+edfguLriGpPEG5o5+graVN9Xn
+ g3ab48IbjIJ1EBZPHSV2Ub+8PIVS9NDZUR6ox9JYC5uswktn4FHGC4ZiYkLJ7AZljKHO
+ eFiZa1OkixBxSXqi630AG/yNvnNLy44PYJrM0TfAdjOBzmkl3k4+bfIK98g9RU1+qHsc
+ xJZw==
+X-Gm-Message-State: AFuF++mRHmaKBc7QN5NZX24t5jSknizHR7H/5AUq2b/YQIdzn67PqsBR
+ 0a6kpaZXeLi8+xxX9OlhtcVZCPRMyBmWvIJMws4WnHsVDbSifxOrIYSl
+X-Gm-Gg: AR+sD125kqP1bo85aisTh19JqIbKzmuJ45ko6Tch+pfZBuMtIiDFpudFI+OB/cYSb9K
+ pTHhNr5E7GAfx03wZBobvSIpMrPllnCqh1nrRCSErcgz6aRdffw8kpmjcr98ivGqL5hT8cxh0Bw
+ KXv5AIjM/ze/UpPkFrOH9jA3gajf7Zcx4bQvOAnJZaHFAj3mTBvu4JFy2Z/v0tnQiTXezIb2M0o
+ iK01EoYlvJt3K9/ixMwDFNefPvf5OkXFOZy/AjDmJm7YD9TnrM6ZKDkvYBWWq+CPgCo/Py+G26n
+ bVpKuWZocKDeei8VqDCsRC1bDpI5TElhQ+ibyadkd8+Uf+cahA0zFX2KFpE+AbUQOWrqNcsqCcs
+ Lf24aAsy4iZ6DIAZPg3P44sAALRGU7d+/F1kBzkOKBmkyFvgGxj12IZowPfvG+vZklN+LRhXVeD
+ uEHL0sG+wLLc6vd76WAJPGUBdhPdzC/2rMGeOuQ9wEb3p69w8KjHuwFvEy/L6QYmNZ3Jq/0GaMo
+ gOWeP8iQrwbjcDQ1ANVNv+BXUd5O+l3
+X-Received: by 2002:a05:600c:a087:b0:499:86ce:465e with SMTP id
+ 5b1f17b1804b1-499b8324b09mr179506975e9.4.1787390267548; 
+ Sat, 22 Aug 2026 02:17:47 -0700 (PDT)
+Received: from cachyos-x8664 ([2a01:e0a:899:6110:90de:8744:7ad5:471e])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-395e4a15829sm5378703a91.14.2026.08.23.01.32.17
+ ffacd0b85a97d-482c9b78df1sm1539550f8f.10.2026.08.22.02.17.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 Aug 2026 01:32:20 -0700 (PDT)
-From: fausten <yunfeng.li.nb@gmail.com>
-X-Google-Original-From: fausten <yunfeng.li.nb@email.com>
-To: dri-devel@lists.freedesktop.org,
-	zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, linux-kernel@vger.kernel.org,
- fausten <yunfeng.li.nb@email.com>
-Subject: [PATCH] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION as unset
-Date: Sun, 23 Aug 2026 16:32:11 +0800
-Message-Id: <20260823083211.2654733-1-yunfeng.li.nb@email.com>
-X-Mailer: git-send-email 2.33.0
+ Sat, 22 Aug 2026 02:17:45 -0700 (PDT)
+From: Julien Le Bourg <julien.lebourg8@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Chuanyu Tseng <chuanyu.tseng@amd.com>,
+ Julien Le Bourg <julien.lebourg8@gmail.com>
+Subject: [PATCH] drm/amd/display: Restore self-refresh fallback in DCN21
+ bandwidth validation
+Date: Sat, 22 Aug 2026 11:17:15 +0200
+Message-ID: <20260822091715.6692-1-julien.lebourg8@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
@@ -90,64 +93,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The cursor plane code validates cursor dimensions against
-SVGA_REG_CURSOR_MAX_DIMENSION before every cursor update, and
-rejects the update with -EINVAL if the cursor is larger than the
-reported maximum.
+[Why]
+Commit b96150a70696 ("drm/amd/display: Should support p-state under
+dcn21") made dcn21_validate_bandwidth_fp() call dcn21_fast_validate_bw()
+with allow_self_refresh_only = false. This removed the fallback that
+re-runs dml_get_voltage_level() with dm_allow_self_refresh when the
+first pass finds no voltage level with p-state support.
 
-However, some SVGA implementations do not implement this register
-and return 0 for it. In that case every cursor update is rejected,
-and the log is spammed with:
+Some eDP panels advertise high refresh rate modes whose vertical
+blanking is too short for a DRAM p-state switch. For example the AUO
+1920x1080@360Hz panel of the ASUS ROG Strix G733QSA (Renoir/Cezanne,
+DCN 2.1) uses a pixel clock of 800.01 MHz with vtotal 1111, i.e. a
+vblank of 31 lines (~77 us). Such modes can only be validated through
+the self-refresh fallback. Since the change they fail
+dml_get_voltage_level(), dcn21_validate_bandwidth() returns
+DC_NOT_SUPPORTED and the mode is pruned:
 
-  [drm] Cursor dimensions (64, 64) exceed device max 0
+  [drm] Mode Validation Warning: Unknown Status failed validation.
+  create_validate_stream_for_sink: Unhandled validation failure 24
+  Rejected mode: "1920x1080": 360 800010 1920 1968 2000 2000 1080 1090 1095 1111 0x48 0xa (ERROR)
 
-The visible symptom is that the hardware cursor never appears at
-all on VMware Fusion guests (SVGA version 2), making the mouse
-pointer invisible even though the input devices work fine.
+leaving the panel with 1920x1080@60 only. This is a user-visible
+regression versus v6.18, where the mode was available.
 
-Treat a reported maximum of 0 as "not implemented" and skip the
-dimension check in that case, restoring the pre-existing behaviour
-of accepting the cursor.
+[How]
+Pass allow_self_refresh_only = true again in
+dcn21_validate_bandwidth_fp(). Modes that support p-state still validate
+on the first pass; the fallback is only taken when no p-state capable
+voltage level exists, which is exactly the case of these short-vblank
+modes.
 
-Tested on VMware Fusion with an SVGA version 2 device where the
-cursor previously did not show up.
+Note that the issue addressed by commit b96150a70696 ("drm/amd/display:
+Should support p-state under dcn21") (atomic_check passing
+while commit_tail fails, because sr_exit_time_us differs between
+DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_PROGRAMMING) is a
+consistency problem between the two validation contexts rather than a
+problem with the fallback itself. It should be solved without dropping
+modes that have no p-state capable configuration at all.
 
-Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB cursors")
-Signed-off-by: fausten <yunfeng.li.nb@email.com>
+Tested on ASUS ROG Strix G733QSA (Cezanne, DCN 2.1): 1920x1080@360 is
+enumerated again on top of v7.1.8 with this change.
+
+Fixes: b96150a70696 ("drm/amd/display: Should support p-state under dcn21")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5628
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Julien Le Bourg <julien.lebourg8@gmail.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-index d1e7df500..fbdd23ecb 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-@@ -237,8 +237,10 @@ static int vmw_cursor_mob_get(struct vmw_cursor_plane *vcp,
- 	mob_max_size = vmw_read(dev_priv, SVGA_REG_MOB_MAX_SIZE);
- 	cursor_max_dim = vmw_read(dev_priv, SVGA_REG_CURSOR_MAX_DIMENSION);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index e82f2d531211..ceb7ca312577 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -2336,7 +2336,8 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
+ 	/*Unsafe due to current pipe merge and split logic*/
+ 	ASSERT(context != dc->current_state);
  
--	if (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
--	    vps->base.crtc_h > cursor_max_dim)
-+	/* Some SVGA implementations (e.g. VMware Fusion) report 0 here. */
-+	if (cursor_max_dim &&
-+	    (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
-+	     vps->base.crtc_h > cursor_max_dim))
- 		return -EINVAL;
+-	out = dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from, &vlevel, validate_mode, false);
++	out = dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from,
++				     &vlevel, validate_mode, true);
  
- 	if (vps->cursor.mob) {
-@@ -748,8 +750,10 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *plane,
- 		u32 cursor_max_dim =
- 			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
- 
--		if (new_state->crtc_w > cursor_max_dim ||
--		    new_state->crtc_h > cursor_max_dim) {
-+		/* Some SVGA implementations (e.g. VMware Fusion) report 0 here. */
-+		if (cursor_max_dim &&
-+		    (new_state->crtc_w > cursor_max_dim ||
-+		    new_state->crtc_h > cursor_max_dim)) {
- 			drm_warn(&vmw->drm,
- 				 "Cursor dimensions (%d, %d) exceed device max %u\n",
- 				 new_state->crtc_w, new_state->crtc_h,
+ 	if (pipe_cnt == 0)
+ 		goto validate_out;
 -- 
-2.33.0
+2.55.0
 
