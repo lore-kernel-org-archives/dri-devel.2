@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59DFDC5DF97
-	for <dri-devel@archiver.kernel.org>; Sat, 22 Aug 2026 14:44:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10A65C5DF97
+	for <dri-devel@archiver.kernel.org>; Sat, 22 Aug 2026 14:44:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02D9510E0D0;
-	Sat, 22 Aug 2026 14:44:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42A1710E3BC;
+	Sat, 22 Aug 2026 14:44:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YnKmAZvy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W/HXwUC8";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50EC010E0D0
- for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 14:44:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E631910E3BC
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 14:44:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 082A5405E3;
- Sat, 22 Aug 2026 14:44:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09171F000E9;
- Sat, 22 Aug 2026 14:44:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B962F43E2F;
+ Sat, 22 Aug 2026 14:44:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 737851F000E9;
+ Sat, 22 Aug 2026 14:44:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787409844;
- bh=6ktBv4adFKM4OpFlyFStkyjyEaLb/0YcLTRSPS7aXwo=;
+ s=k20260515; t=1787409865;
+ bh=DlTptzC5E14xwjEg1ZUeAQ69HpxsKOihF6StnmEvGu0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YnKmAZvybZS5Un3sI3Nr2Vy0JH8OvO7qWhIbdvvue1VHz9kavYn9TCWN0DwAVRx83
- RqU/xsnsfm9kd4xMZiFg8nsbYFnbZlVcsd9lmBYmGyeGYBC1CV2QlFlhTDFYzpFRzp
- 62cuZA/163xa+o4VO8Vh0CwZmUVpxOmjLxr5YUeiMJOMnTqmKddw/7FK3Gz7lEXu4w
- WwFspEHl0ZObLfpDjHUbCUVo/eXF1IwU5TWiENgjMcRjjBUm8b0VdMg8gU56tLxZ16
- eOpQpjN69H5Q3wf0O8FScU+XAK7UZd3U3pIAsEFf5fiRDKPGUPB/p9DQ3m8fpJyDkZ
- gEpQaagQXpkoA==
+ b=W/HXwUC8Z1p6lvPtfUXi9NMZmc3NfkxIWqBk/v8inMUi85UjoZ/EIt7/jzJKgUEPG
+ LP0Cuahi5190+ho15c+NTFCFszAm0UaovBeCRHFDXQupA+gf86pjir0EGzwymZfAmA
+ p7jKAtcLOnm4Myko1yJtp8HFzNqwwAZX9eMaVfUI8cq5UKb8tfyQj73QBA+eWtpx7D
+ 97xagj1RGJutK9jWenUsjRohV4f38Hshc/oU9Xztezvj2iLC+SQgUL7KQB/woLABLp
+ cWm6vmjt1hLyVgABK5Z6VQ86FEmrwrqd4nN8ZWnt3EzbqeSIpTrh2EUljyAjS6d6wQ
+ JxLJEBwgApxHg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/vc4: hdmi: Unregister the ASoC card on unbind
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: don't leak BOs when process teardown can't
+ unmap them
+To: "Bocaj Gnuoy" <bocajgnuoy@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260822143218.68764-1-kmehltretter@gmail.com>
-References: <20260822143218.68764-1-kmehltretter@gmail.com>
+In-Reply-To: <20260822142521.899098-1-bocajgnuoy@gmail.com>
+References: <20260822142521.899098-1-bocajgnuoy@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 22 Aug 2026 14:44:04 +0000
-Message-Id: <20260822144404.C09171F000E9@smtp.kernel.org>
+Date: Sat, 22 Aug 2026 14:44:25 +0000
+Message-Id: <20260822144425.737851F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,103 +57,139 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Incomplete Fix / Use-After-Free / Resource Leak: The patch fixes a=
- Use-After-Free for the ASoC card by replacing `devm_snd_soc_register_card`=
- with a non-devres registration managed in `.unbind`. However, it leaves nu=
-merous other `devm_` allocations in `vc4_hdmi_bind()`, `vc4_hdmi_audio_init=
-()`, `vc4_hdmi_hotplug_init()`, and `vc4_hdmi_cec_register()` tied to the c=
-omponent's platform device (`dev`) while passing pointers to the `drmm_kzal=
-loc`-allocated `vc4_hdmi` structure. When the DRM aggregate device is unbou=
-nd (e.g., via `rmmod vc4`), the master device's release runs and frees `vc4=
-_hdmi`. The platform device, whose lifecycle is separate, retains the `devm=
-_` actions (like `vc4_hdmi_put_ddc` and IRQ handlers) in its devres queue. =
-When the platform device is eventually removed, or if an active interrupt f=
-ires after the DRM device unbinds, these actions access the freed `vc4_hdmi=
-` pointer, causing a Use-After-Free. Additionally, unbinding and rebinding =
-the component will stack duplicate devres actions on the platform device, c=
-ausing memory leaks.
+- [High] The patch misses applying force=3Dtrue to the error unwind path of=
+ kfd_process_alloc_gpuvm(), which can permanently leak internal BOs on unma=
+p failure.
+- [High] Interruptible lock waiting in reserve_bo_and_cond_vms causes early=
+ return on pending signals, bypassing the forced free and silently leaking =
+the BO.
 --
 
---- Patch [1]: [PATCH] drm/vc4: hdmi: Unregister the ASoC card on unbind ---
-commit 197ce798da149a07ddab65100d64653586ed2892
-Author: Karl Mehltretter <kmehltretter@gmail.com>
+--- Patch [1]: [PATCH] drm/amdkfd: don't leak BOs when process teardown can=
+'t unmap them ---
+commit 01e590b61624d149d5da9ac22540c56bed4f9a55
+Author: Bocaj Gnuoy <bocajgnuoy@gmail.com>
+Subject: drm/amdkfd: don't leak BOs when process teardown can't unmap them
 
-drm/vc4: hdmi: Unregister the ASoC card on unbind
+This commit addresses a memory leak and subsequent TTM eviction deadlock
+that occurs when a process runs out of memory during teardown. It adds a
+force flag to amdgpu_amdkfd_gpuvm_free_memory_of_gpu() to ensure BOs are
+freed even if unmapping fails. The early -EBUSY return is retained for ioctl
+paths where userspace can retry.
 
-The patch fixes a use-after-free issue by switching the ASoC card
-registration from devm to manual registration and unregistering it during
-the component unbind callback.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5672
 
-> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdm=
-i.c
-> index 17c8635c5afae..ce28075f77b68 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> @@ -2349,28 +2349,11 @@ static int vc4_hdmi_audio_init(struct vc4_hdmi *v=
-c4_hdmi)
-
-[ ... ]
-
-> +	 * The card is unregistered from the component unbind callback:
-> +	 * a DRM-managed action can run after the device-managed ASoC
-> +	 * resources are gone, and the device-managed release runs after
-> +	 * the DRM-managed vc4_hdmi structure holding the card has been
-> +	 * freed. Only at unbind time are both still alive.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 1e71829e0fc6b..dc1fa664fecac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> [ ... ]
+> @@ -1922,9 +1922,26 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
 >  	 */
->  	ret =3D devm_snd_dmaengine_pcm_register(dev, &pcm_conf, 0);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while this commit fixes the =
-UAF
-for the ASoC card, does leaving devm_snd_dmaengine_pcm_register() and
-devm_snd_soc_register_component() tied to the platform device (dev) leave
-them vulnerable to a similar issue?
-
-When the DRM master device is unbound, the drmm-managed vc4_hdmi structure
-is freed. However, the HDMI platform device has a separate lifecycle, so th=
-ese
-devm_ resources won't be released until the platform device is removed.=20
-
-If the component is unbound and rebound, wouldn't these devm_ registrations
-stack and leak memory?
-
-[ ... ]
-
-> @@ -3345,8 +3329,20 @@ static int vc4_hdmi_bind(struct device *dev, struc=
-t device *master, void *data)
->  	return ret;
->  }
 > =20
-> +static void vc4_hdmi_unbind(struct device *dev, struct device *master,
-> +			    void *data)
-> +{
-> +	struct vc4_hdmi *vc4_hdmi =3D dev_get_drvdata(dev);
-> +
-> +	if (vc4_hdmi->audio.card_registered) {
-> +		snd_soc_unregister_card(&vc4_hdmi->audio.card);
-> +		vc4_hdmi->audio.card_registered =3D false;
-> +	}
-> +}
+>  	if (mapped_to_gpu_memory > 0) {
+> -		pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
+> -				mem->va, bo_size);
+> -		return -EBUSY;
+> +		/*
+> +		 * Refusing to free a mapped BO is only meaningful while the
+> +		 * process can still unmap it. On process teardown (@force)
+> +		 * there is no such chance: the caller drops the last handle
+> +		 * to @mem regardless, so bailing out here leaks the BO onto
+> +		 * process_info->kfd_bo_list / userptr_inval_list. Those lists
+> +		 * are then destroyed non-empty in
+> +		 * amdgpu_amdkfd_gpuvm_destroy_cb(), leaving a BO in TTM's
+> +		 * eviction LRU whose bo_vas point into the freed amdgpu_vm.
+> +		 * The next client to trigger eviction deadlocks in
+> +		 * amdgpu_vm_bo_move(). Tear the mappings down instead - the
+> +		 * VM is going away right after us anyway.
+> +		 */
+> +		if (!force) {
+> +			pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
+> +				 mem->va, bo_size);
+> +			return -EBUSY;
+> +		}
+> +		pr_warn("Force-freeing BO VA 0x%llx size 0x%lx still mapped %u time(s)=
+\n",
+> +			mem->va, bo_size, mapped_to_gpu_memory);
+>  	}
+> =20
+>  	/* At this point the BO is guaranteed to be freed, so unpin the
 
 [Severity: High]
-This is a pre-existing issue, but since the vc4_hdmi structure is passed
-to several devm_ actions in the bind path (such as vc4_hdmi_put_ddc, and
-IRQ handlers for HPD and CEC), wouldn't those callbacks dereference the
-freed vc4_hdmi pointer if the platform device is removed after the DRM
-master device has already been torn down?
+This is a pre-existing issue, but can amdgpu_amdkfd_gpuvm_free_memory_of_gp=
+u()
+still silently leak the BO if a signal interrupts the lock wait?
 
-For example, vc4_hdmi_hotplug_init() registers the HPD irq handler using
-devm_request_threaded_irq() against the platform device. If an interrupt
-fires after the DRM device is unbound, won't it try to access the freed
-vc4_hdmi pointer?
+Later in this function, the BO is removed from the tracking list before an
+interruptible lock wait is performed:
 
-Should these other resources also be manually cleaned up in the .unbind
-callback, or transitioned to drmm_ management?
+amdgpu_amdkfd_gpuvm_free_memory_of_gpu()
+    mutex_lock(&process_info->lock);
+    if (!list_empty(&mem->validate_list))
+        list_del_init(&mem->validate_list);
+    mutex_unlock(&process_info->lock);
+
+    ret =3D reserve_bo_and_cond_vms(mem, NULL, BO_VM_ALL, &ctx);
+    if (unlikely(ret))
+        return ret;
+
+If reserve_bo_and_cond_vms() returns early (e.g., -ERESTARTSYS) due to a
+pending signal, the function bails out. Because the BO was already removed
+from validate_list, it is left orphaned.
+
+Additionally, looking at the related caller kfd_process_free_gpuvm_map(),
+the map pointer is cleared before the free is attempted:
+
+kfd_process_free_gpuvm_map()
+    if (map && !iosys_map_is_null(map)) {
+        amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
+        iosys_map_clear(map);
+    }
+
+If the free is aborted by a signal, subsequent teardown passes will skip
+this map and ignore this BO. Does this sequence also create a risk of a
+silent memory leak and TTM eviction deadlock when userspace triggers an
+error and receives a concurrent signal?
+
+> [ ... ]
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_process.c
+> index 0a7c1900da959..6d5126aa6fe74 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> [ ... ]
+> @@ -814,7 +814,7 @@ static int kfd_process_alloc_gpuvm(struct kfd_process=
+_device *pdd,
+> =20
+>  err_map_mem:
+>  	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->adev, *mem, pdd->drm_priv,
+> -					       NULL);
+> +					       NULL, false);
+>  err_alloc_mem:
+>  	*mem =3D NULL;
+>  	*kptr =3D NULL;
+
+[Severity: High]
+This is a pre-existing issue, but should the error unwind path in
+kfd_process_alloc_gpuvm() use force =3D true?
+
+When kfd_process_alloc_gpuvm() hits an error and jumps to err_map_mem, it
+calls amdgpu_amdkfd_gpuvm_free_memory_of_gpu() with force =3D false. It then
+immediately zeroes out the *mem pointer.
+
+If the free fails (for instance, an unmap failure under memory exhaustion
+where force =3D false causes an -EBUSY return), this BO appears to be
+permanently leaked since *mem is cleared and no later retry is possible.
+
+Could this lead to the same unrecoverable TTM eviction deadlock that this
+patch is fixing?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822143218.6876=
-4-1-kmehltretter@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822142521.8990=
+98-1-bocajgnuoy@gmail.com?part=3D1
