@@ -4,43 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 087CCC5B572
-	for <dri-devel@archiver.kernel.org>; Sat, 22 Aug 2026 09:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9EFC5B572
+	for <dri-devel@archiver.kernel.org>; Sat, 22 Aug 2026 10:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24EA510E3DC;
-	Sat, 22 Aug 2026 09:58:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C3E310E18A;
+	Sat, 22 Aug 2026 10:10:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CWE99l12";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="ip7TpOJ9";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="X/Mbk6VE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68EDB10E3DC
- for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 09:58:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8F9AD6001A;
- Sat, 22 Aug 2026 09:58:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0651F000E9;
- Sat, 22 Aug 2026 09:58:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787392689;
- bh=vAHdrnxi+Z2j3CkQKlqlicU2mGfvNAlReKvLySiBpWM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CWE99l12bvUTs/yaXTVVWUcDw06ALQ6PedJXHZDuQ98b/hAi4nXvAMUHykZGlPILx
- NJQpjzZOQt0x9uP2/T1q+CUshGebC6Cl6uKGlx1OGpafJuVe4x3tH3vSvxpWckrHvK
- SxoBXomYIj2KohAWlrmcH8nZH1Pf9quLEoOlv9aBQAAuUrKLmZXbqiTfAhVQHIdNOv
- UR2RHFnuB/pkLHkUvM4iHM5lG7JcNBcH4ak1VH4K0aqFKlA8EMFI1rM+HvPvS0CjZP
- BWaAnp+NRPzBfA5YtSMMw+RC5wNOLxesogS/YoZQP1ZpSBMQPvOjZens4c9aduE6qw
- kp4LwSSzkgZiQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fbdev: omapfb: Fix __be32 sparse warning in
- panel_enabled()
-To: "Helge Deller" <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260822094805.421002-1-deller@gmx.de>
-References: <20260822094805.421002-1-deller@gmx.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 22 Aug 2026 09:58:08 +0000
-Message-Id: <20260822095809.1D0651F000E9@smtp.kernel.org>
+Received: from flow-a3-smtp.messagingengine.com
+ (flow-a3-smtp.messagingengine.com [103.168.172.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCB1010E18A
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 10:10:06 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailflow.phl.internal (Postfix) with ESMTP id E73B21380161;
+ Sat, 22 Aug 2026 06:10:05 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-03.internal (MEProxy); Sat, 22 Aug 2026 06:10:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm2; t=1787393405; x=
+ 1787397005; bh=YMoogVRYIwk8Wptzr/Oo7EUpCyIlUtkJVK+72BZkIEk=; b=i
+ p7TpOJ9TyXg8JbynvoR5GTVIYShXzyttF7tdrWMJCmhbG3pMIjYpYlnTtkv2Udsa
+ hr1fJABNDI9TWYKdDeqUN26znpzqP+aMgiX9SoBIaQ77wphDts1KyGh0KB3PtFxi
+ ESEYrqr8TDrSGZgFYaGukmg46blFshcTaIbBbKljyJ/XLagm4nlM1RPmxEaHhI8a
+ 1A71VzS9LLDYnS2PAkSqlC0gsFAvimjHeUY4711AxPap8jiF/1tkwTPY+uNoijbY
+ MroiuXfIOARxLxRw0UaOaYQ8e2By0gW4bTdnlf/RvFltfanNgjg1jRiK5iuHLGLO
+ TTocKuIcbi6jCiDubheaw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; t=1787393405; x=1787397005; bh=Y
+ MoogVRYIwk8Wptzr/Oo7EUpCyIlUtkJVK+72BZkIEk=; b=X/Mbk6VE+ENJTaU+z
+ 5IQirWGDXrtUCv97wArsTuljfZeOMQm49NbM9dw6AXptiIoouPk5WrVqBylNRTq1
+ 7qrHp2LECfcGafGSbHsGtZ/hac1lCMxy5aepIkpQnnqH1pprvjen5+RK5Y7SHldU
+ uGXJPx+VVYXQ1/veGgKssvc3percQZwbLuNwvtrLVbY8kOx6sknIoO5JNK5vsPU9
+ nzQt/cbjEF3B/ZE1C+9A851XOdDgvchQjz8wxTgYW5z1zKb75Au6VbHS8Zu/dpk2
+ WfM+7Wo6TQch5WNOTDsYpzy7WZG9+Bb9xduFQYzeLP6dOMaU+zNaPzZ+N90EZwS8
+ OKbiA==
+X-ME-Sender: <xms:fHWJapdgHgrS_SnP1MLC-YitW2OuDFp0xXgWJ9iDVo9dm_TctDFp2w>
+ <xme:fHWJavbaXFnTvZ6cr344qVzBkOUd_LAZXsDQ7iAENxC4VWYboUnVN-TZ5ByHMSMzk
+ e0UzoaAEX6Vgo0BxIBd7jB8TdLN23M_4ZKbD9SOeCnntIAUnswT-cgF>
+X-ME-Received: <xmr:fHWJauEAhTF_fDE8yPBVewTUp6HC3rZP4SIvUNtSpgX1BAV8zs6_fKySFPPX1zbOCsrvk0Yn1A>
+X-ME-Proxy-Cause: dmFkZTGBWdQTFj4HdlU6ENZ1CLSznPDgvJlHM1i8OZX2pVdBj6E3SlQbz5ofJjhRLtzwdL
+ odMhyxzcECGNY8afaO8wGltEZEln4E3CTNc0ty1akhBimzcxuGJLqd2VUDO30PNO0dZ6rt
+ HXiHeO0r/GLHUCDWxRvnwzLqo1AP/zDqjGHTbd9hktWngEeIEmZvz/5PX7WN7391i+3QSh
+ GgJrjllKXTBmxQ45km0dDLQKO195mMeIkX/Qm/H1wJJBTcttcXfVyYRzCZzbyxM0Ob2VJ3
+ wLvOtl3Pkn8vfACC/f5w8rs51cB3r0D+zlKMjzopcXHbEtUSeSr2C/ILjtVBnaK7pIF5ZL
+ +gtXVvELHMhYaQs/Psdfg8IOl/efEp8vS6Rc8rb3w/rttdCmMBIGhLaHyhsq54yXL/2Uif
+ 0+N/FUvNWXE37Wu+UCfGghoRDKCNGNq4DZb6cWnXiyD3KItZvzVUQXLtngTyxhLqr8rs63
+ BC0h73a3JbhWInbNsAgFoiCwNincOnFjTwQE3TS54nC76ucshwByBGaMfiNDVAWVWIJBAa
+ QEzSqEwlMAeLIqKfZgAxLHrxMlOw0WWkZUShFOPduv1jZPwFxr0bz11aSfyneCxzLA4UbI
+ DKKqIKKIJZwb1RjIdwtsDVyXfbG7RElDJ1a1G+0MlqQjW1ICRNXdM9us31tg
+X-ME-Proxy: <xmx:fHWJatkLUOTDahuC06Roe7CPeyqAIBzXW7vd_FIaIsbC2akI79Iy2g>
+ <xmx:fHWJahdFFDK6QgbmR-Pv9BAxuS4zpSKBwvrrdPbHlzO_qo-ucOlkGQ>
+ <xmx:fHWJarHnzCIjnoYgYgnljNR5FdCJecRt32EvJjoSM0tr7lMSQN-_Ng>
+ <xmx:fHWJanjHXs55tp5LbyFs9PE2_XesfskU6ZIf-tGQovlIm8fcK7YtCQ>
+ <xmx:fXWJamPYaeKTZxFiNwYwF_4xaG-9iyx4xh1IlcdhAFvYcz5anq3fdmcl>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 22 Aug 2026 06:10:00 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: royalnet026@gmail.com
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, chaoyi.chen@rock-chips.com,
+ alchark@flipper.net, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Sat, 22 Aug 2026 22:09:56 +1200
+Message-ID: <20260822100956.636407-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260820185056.20643-1-royalnet026@gmail.com>
+References: <20260820185056.20643-1-royalnet026@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,82 +94,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Igor,
 
-Pre-existing issues:
-- [High] Hardcoded little-endian assumption when transmitting the command b=
-yte breaks the driver on big-endian architectures.
---
+SIZE_E_1 stays at 0 and the diff stays as it is. Your reason is better than the
+one I would have given: a register built from the trace with one field swapped
+to upstream's value is a configuration nothing has ever run.
 
---- Patch [1]: [PATCH] fbdev: omapfb: Fix __be32 sparse warning in panel_en=
-abled() ---
-commit a9e06be56fc1b74d7c6e76133e9ea1c25675a615
-Author: Helge Deller <deller@gmx.de>
-Subject: fbdev: omapfb: Fix __be32 sparse warning in panel_enabled()
+I crossed SIZE_E_1 with the channel count, seven values, with the control beside
+each one in the same boot:
 
-This commit resolves a sparse warning in panel_enabled() by explicitly
-reading the display status into a __be32 variable. It then converts this
-value to CPU endianness using __be32_to_cpu() before checking the bits.
+    N                      16   24   32   40   48   56   64
+    SIZE_E_1 = 1  written  16   24   32   40   48   56   64
+                  correct  16   24   32   40   48   56   64
+    SIZE_E_1 = 0  written   8   24   32   40   48   56   64
+                  correct   8   24   32   40   48   56   64
 
-Closes: https://lore.kernel.org/oe-kbuild-all/202608211811.lps93xao-lkp@int=
-el.com/
+Six of the seven are identical. At N = 16 they are not: upstream's 0 asks for
+sixteen channels and delivers eight, in both the words written and the count
+that comes out correct.
 
-> diff --git a/drivers/video/fbdev/omap2/omapfb/displays/panel-sony-acx565a=
-km.c b/drivers/video/fbdev/omap2/omapfb/displays/panel-sony-acx565akm.c
-> index 8f430d9e80549..0202ca8cbfc23 100644
-> --- a/drivers/video/fbdev/omap2/omapfb/displays/panel-sony-acx565akm.c
-> +++ b/drivers/video/fbdev/omap2/omapfb/displays/panel-sony-acx565akm.c
-> @@ -210,12 +210,13 @@ static void set_display_state(struct panel_drv_data=
- *ddata, int enabled)
-> =20
->  static int panel_enabled(struct panel_drv_data *ddata)
->  {
-> +	__be32 disp_status_be;
->  	u32 disp_status;
->  	int enabled;
-> =20
->  	acx565akm_read(ddata, MIPID_CMD_READ_DISP_STATUS,
-> -			(u8 *)&disp_status, 4);
+So your conservative choice is right, and one shape in seven is what two shapes
+could never have found.
 
-[Severity: High]
-This is a pre-existing issue, but while looking at endianness fixes in this
-file, does acx565akm_transfer() have a similar issue on big-endian
-architectures?
+Two corrections I owe you. The first version of this reply said I had not run
+the cross sweep, and I had; the round is named after you. And I nearly handed
+you an old floor(n/16)*16 shortfall as a possible SIZE_E_1 effect, but the
+traced value writes all 24 at N = 24 in this round too, so that one belongs to
+the channel count register and not to this field.
 
-When acx565akm_read() calls acx565akm_transfer(), it passes the command as
-an int:
+Separately, on the int4 path at 64 output channels, SIZE_E_2 moves the words the
+block writes but not the channels it computes:
 
-drivers/video/fbdev/omap2/omapfb/displays/panel-sony-acx565akm.c:acx565akm_=
-transfer() {
-    ...
-    cmd &=3D  0xff;
-    x->tx_buf =3D &cmd;
-    x->bits_per_word =3D 9;
-    x->len =3D 2;
-    ...
-}
+    SIZE_E_2       1    2    3
+    words written  32   36   40
 
-Because bits_per_word > 8, the SPI controller reads the buffer as a 16-bit
-integer. Taking the address of a 32-bit int on a little-endian system yields
-the command byte in the lowest bits. However, on big-endian systems, &cmd
-points to the most significant bytes (which are 0x00).
+and the correct count stayed at 32 in all three. Additive in fours, not in
+sixteens, which does not sit well with the semantics I sent you on the 17th. It
+is a different register value on a different precision, so it does not refute
+the reading for the path it was read from, and I am not going to pretend it
+supports it either.
 
-Will the SPI controller end up transmitting 0x0000 instead of the requested
-command on big-endian architectures?
+The re-run offer is noted and I will take it when v9 goes. Glad the trip was
+fine, and I hope the countryside is treating the board well.
 
-> -	disp_status =3D __be32_to_cpu(disp_status);
-> +			(u8 *)&disp_status_be, 4);
-> +	disp_status =3D __be32_to_cpu(disp_status_be);
->  	enabled =3D (disp_status & (1 << 17)) && (disp_status & (1 << 10));
->  	dev_dbg(&ddata->spi->dev,
->  		"LCD panel %senabled by bootloader (status 0x%04x)\n",
->  		enabled ? "" : "not ", disp_status);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822094805.4210=
-02-1-deller@gmx.de?part=3D1
+Regards,
+Jiaxing
