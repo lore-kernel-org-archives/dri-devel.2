@@ -4,35 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 064E2C5DF97
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6DB9C5DF9D
 	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5450110E48F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A907510E49C;
 	Sun, 23 Aug 2026 09:27:23 +0000 (UTC)
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8CF10F286
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 09:29:14 +0000 (UTC)
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id 759F01EAA5E; Fri, 21 Aug 2026 17:19:34 +0800 (AWST)
-Received: from shelley.lan (unknown [IPv6:2001:8003:8802:7000::41b])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id 772631EAA4D;
- Fri, 21 Aug 2026 17:19:29 +0800 (AWST)
-From: David Gow <david@ingeniumdigital.com>
-To: Jim Cromie <jim.cromie@gmail.com>,
- "Maciej W . Rozycki" <macro@orcam.me.uk>,
- Andrew Morton <akpm@linux-foundation.org>,
- Matthew Auld <matthew.auld@intel.com>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- David Gow <david@davidgow.net>
-Subject: [PATCH 2/2] drm_buddy: fix power-of-2 rounding errs
-Date: Fri, 21 Aug 2026 17:19:15 +0800
-Message-ID: <20260821091918.1902032-2-david@ingeniumdigital.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821091918.1902032-1-david@ingeniumdigital.com>
-References: <20260821091918.1902032-1-david@ingeniumdigital.com>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RtSSIAnw";
+	dkim-atps=neutral
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A4A10E401
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 14:58:02 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-6a0c8283146so3620626a12.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 07:58:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787410681; x=1788015481; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=MxLxyi+V+p9av77WPt9hWKy9ZGIfmbgiIMqaVzXmUOQ=;
+ b=RtSSIAnweF+W5MdGNN33md74zRQ6BO55zGHy7GYHkOvO2a4pf6KOJKEWDE7U3Oh+Ov
+ bm56fPs1/NmejIAhdiFELvp3Q9vS0xyELqY0XaYvHbIOagseexm4jsxYfmTK5KzgNx/8
+ vVsk+vjhnS2LNuBSCoaw+IJCjDckqWwz2da/KPkDkAPUgw6K4SDc3iWFLIfRLrbf2W4U
+ gkzOTr1GnyjVF7Jtb1GfSTb3NcZAdHJDNuGOKS1H1iv4weZGFzeumCTQnr6ladDC23gM
+ mpjq6audJNBDUkpyQknLk97r10NhGBIsW7HhFkfdFzK1oyiVdXu0NTBWzvuCSliaptLT
+ Zsuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787410681; x=1788015481;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=MxLxyi+V+p9av77WPt9hWKy9ZGIfmbgiIMqaVzXmUOQ=;
+ b=cSLjAjh2f8iQ3ODR7+cFpf/ARXSmtMkYYX8O4wGDY+yXArA1Qib8rM4TbAksiND0fl
+ jC6NdTTzXtkbPN/xWq+Ocp/tLdyG6UvW4aP9O9f5r8J2w4G3K3Zs4SrvZ8jjZ+kNCiqR
+ 2sbuj0JObQQdnTvSdov+CzNRAQhgIG/Zu4v2/2dxE0khpT6rkEV+izhlllIUzjNCKSxm
+ 7IOUUevtS6c5VgrDkX6PJcbu6tJpDkmArpGUAaCB2D4nwScznNDRHN8oRsHnPD/ad17s
+ h4zcU9gdeSbcC+97h0O4YXfrshVv8YwCOA340nQ7SfGz4+HUae4CkQr6jkHXCI8UFLMX
+ m7qQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq7twFrH0inlVN1sTB+eBl0K4s5sjCREi/gsnIe3p/gngkQ2DMgUX8s0ojdOhfeyHrMi0H0cCTfxTI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nHAnkPyOaVXe2QLsZDgE1DF63zxO7KcNEXZRnweUterlgxRBqq
+ 0MAbeaWUkjgj4aaJQRh/XriJV10vv3JHzr47u54rGxykjYtBiQHuqJXW
+X-Gm-Gg: AR+sD12/+B9pxwM0FmpShp5PW51XFPK/+bbnqLAevVOqard1F5yBLB69gRgzks8re7j
+ C2tDTyCV7h1UJrrtGBE00NaatHJvZaUPd+XE9Oa6vzcneLk3yGC7MJQl+B2yXMgEjUDGLUhb8/W
+ zF1Nlg5zS/rWqmWxTi6mDR7DfwdrUtwQ9G7SYVI+bbSJrsi9RuZ4QhKI16Cb5XOKCTVmWhIHCtQ
+ p4xsbKkmPPozSwcTjIU/PQQ6UIA49nKO+cW3nkxVB/hdZUbt9aef9U7AXmEM8k//celVNlwLR54
+ v+ljUOVIepkgvy2NCWoAC1vwowxj7uPhsQRsnmoa0BkWs6IGHB4xhHbGnTVgmMMEP8wMf6fYpni
+ 68TIEqU40k+lrenJqVvrPy6UC9QxABRJRuQfetW/84Jk+bY9lsPO2mETXH6Ni6Pj5DS78kI5Yq9
+ XWlhXbRFx8w/5jDFh0OemqS+4Unw4uYknUxdiqbibtruO8JOGKMfFDUEDu0aG+81LoGZllFmjND
+ du9CpM/xoNm9Zy8sf39yi8PMDZiV/6rAyjc8JmaVFZszep+DvgO+orW7EhvfIMdSxIQPA==
+X-Received: by 2002:a05:6402:a0d8:b0:6a0:926e:f907 with SMTP id
+ 4fb4d7f45d1cf-6a42f184b7dmr17373988a12.1.1787410680740; 
+ Sat, 22 Aug 2026 07:58:00 -0700 (PDT)
+Received: from localhost.localdomain
+ (2a02-a463-a071-0-e100-b32a-30a-b4b.fixed6.kpn.net.
+ [2a02:a463:a071:0:e100:b32a:30a:b4b])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6a3ff17df84sm16471538a12.31.2026.08.22.07.57.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 22 Aug 2026 07:58:00 -0700 (PDT)
+From: Hari Mishal <harimishal1@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dillon Varone <dillon.varone@amd.com>,
+ Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
+ Cruise Hung <Cruise.Hung@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ Peichen Huang <PeiChen.Huang@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Jun Lei <Jun.Lei@amd.com>,
+ Mustapha Ghaddar <mghaddar@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hari Mishal <harimishal1@gmail.com>
+Subject: [PATCH] drm/amd/display: fix division by zero in get_estimated_bw()
+Date: Sat, 22 Aug 2026 16:57:51 +0200
+Message-ID: <20260822145751.42328-1-harimishal1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
@@ -51,75 +101,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jim Cromie <jim.cromie@gmail.com>
+get_estimated_bw() divides by link->dpia_bw_alloc_config.bw_granularity,
+which is zeroed by reset_bw_alloc_struct() and only populated once
+DP_TUNNELING_BW_ALLOC_CAP_CHANGED has been handled.
 
-The standard roundup_pow_of_two() and rounddown_pow_of_two() macros use
-unsigned long internally, which on 32-bit architectures (like arm32) is
-a 32-bit type.
+link_dp_dpia_handle_bw_alloc_status(), the DPCD interrupt handler,
+calls get_estimated_bw() whenever DP_TUNNELING_ESTIMATED_BW_CHANGED
+is set, independently of whether DP_TUNNELING_BW_ALLOC_CAP_CHANGED
+has ever fired for that link. A connected USB4/DPIA tunneling device
+that reports an estimated-bandwidth change before ever reporting a
+capability change drives a division by zero in this IRQ path.
 
-drm_test_buddy_alloc_exceeds_max_order() uses these on a u64 value,
-where they silently truncate the 10GB allocation, giving unexpected
-success in DRM-CI.  (see below the snip).
+link_dpia_send_bw_alloc_request() already guards the same
+bw_granularity division; add the identical guard here rather than
+introducing a new pattern.
 
-Fix this by replacing the those macros with the safe 64-bit power-of-two
-equivalents added in the previous patch.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Signed-off-by: David Gow <david@davidgow.net>
+Fixes: 8e5cfe547bf3 ("drm/amd/display: upstream link_dp_dpia_bw.c")
+Assisted-by: gkh_clanker_t1000
+Signed-off-by: Hari Mishal <harimishal1@gmail.com>
 ---
+ .../gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c  | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-This should actually be version 13, I think, as it's just a rebase of v12
-here, where it was part of a large series of fixups:
-https://lore.kernel.org/all/20260326185413.1205870-40-jim.cromie@gmail.com/
-
-The major changes since that version are:
-- Add the helper functions rounddown_pow_of_two64() and
-  roundup_pow_of_two64() (see patch 1) instead of open-coding them
-- Rebase now that the buddy allocator lives in drivers/gpu/buddy.c
-  instead of drivers/gpu/drm/drm_buddy.c
-
-This is still breaking the gpu_test_buddy_alloc_exceeds_max_order
-KUnit test on 32-bit systems:
-[09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: EXPECTATION FAILED at drivers/gpu/tests/gpu_buddy_test.c:1429
-[09:01:26]     Expected err == -22, but
-[09:01:26]         err == 0 (0x0)
-[09:01:26] WARNING: drivers/gpu/buddy.c:508 at gpu_buddy_fini+0x244/0x2e0, CPU#0: kunit_try_catch/1595
-[09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:508: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
-[09:01:26] WARNING: drivers/gpu/buddy.c:516 at gpu_buddy_fini+0x284/0x2e0, CPU#0: kunit_try_catch/1595
-[09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:508: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
-[09:01:26] WARNING: drivers/gpu/buddy.c:516 at gpu_buddy_fini+0x284/0x2e0, CPU#0: kunit_try_catch/1595
-[09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:519: gpu_buddy_assert(!mm->used_scoreboard[i])
-[09:01:26] [FAILED] gpu_test_buddy_alloc_exceeds_max_order
-
-Cheers,
--- David
-
----
- drivers/gpu/buddy.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index a5553fcec28c..64f41f1fe908 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -1193,7 +1193,7 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 	u64 modify_size;
- 	int err;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
+index dd854d992692..f43fc4b78a8d 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
+@@ -103,6 +103,11 @@ static int get_estimated_bw(struct dc_link *link)
+ {
+ 	uint8_t bw_estimated_bw = 0;
  
--	modify_size = rounddown_pow_of_two(size);
-+	modify_size = rounddown_pow_of_two64(size);
- 	order = ilog2(modify_size) - ilog2(mm->chunk_size);
- 	if (order == 0)
- 		return -ENOSPC;
-@@ -1440,7 +1440,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 
- 	/* Roundup the size to power of 2 */
- 	if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
--		size = roundup_pow_of_two(size);
-+		size = roundup_pow_of_two64(size);
- 		min_block_size = size;
- 		/*
- 		 * Normalize the requested size to min_block_size for regular allocations.
++	if (link->dpia_bw_alloc_config.bw_granularity == 0) {
++		DC_LOG_ERROR("%s: BW granularity is zero!\n", __func__);
++		return 0;
++	}
++
+ 	core_link_read_dpcd(
+ 			link,
+ 			ESTIMATED_BW,
 -- 
-2.55.0
+2.43.0
 
