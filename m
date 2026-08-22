@@ -4,147 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8343AC5DF81
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88A22C5DF9B
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3150010E20C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4765D10E367;
 	Sun, 23 Aug 2026 09:26:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B7FKkvTN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ni98Z3hU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 918EA10F26E
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 07:56:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E05E043CB7;
- Fri, 21 Aug 2026 07:56:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21AD01F000E9;
- Fri, 21 Aug 2026 07:56:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787299015;
- bh=tjjBBZ/k0RLbSDGZaWeN6t6IvNROJ7OMmNej421EHXw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=B7FKkvTN+AVvwFWaae0GEz5bWAYGMjhYykTrLQH6sZHxNtmwJSC06TT6oijP5rGyj
- 05snL9vfZwtw3LreSzJcJqjZ+mG5lZDEdTI7rgZMcN83z1uikEHEHFp6A30/1kJ8xg
- MQZMOcXRp+Za4puQ9RCN8egvQkgBEJkMzE4BZXTAxNeqfyifjPZwrFCMZN/uQ8E5Yt
- IfHqTL4RoEmG+mjLKT4CyTVKh+p2vEprX8aMnavjB8RCBKRNBPSIVagli0TSSk1WTd
- JJ7dScWvo11ij5GhsRdhzrY2RwyJIcUIt9NYe5bcObHvjJmePWnU1OQpzeGEubLNlk
- G8Y435QyEiqcQ==
-Message-ID: <825134a8-ceae-430c-b2fc-d1d0c7240f39@kernel.org>
-Date: Fri, 21 Aug 2026 09:56:05 +0200
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 254A410E3C6
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 08:53:16 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2d032846c95so22379775ad.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 01:53:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787388795; x=1787993595; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bR7LrEDWYTPsnuOnqVtcGLotVp78B6n1a5iwn0JbEJk=;
+ b=Ni98Z3hUL2S7vC+MoNYCwvw4fc9g5QNP/dpsMgwZ01nYscudyfX7itnx4fLl7a8wwJ
+ wEkMztBxLiHhqW0bkW1zLsHEfVWZGjKP/+U3jiffyeOyy/bR+FuEE8W67Oj2RXwHq3cM
+ +qgKi4uI3/opBXbApcAcPxjb7hKGte02JjcE57ZZPQwC4toKhYbo/qwH8pWW2P1GvcUf
+ BGgdJR7bcBBPMiE8o3lxARp99lJGtGcbhHG1U4pYVRgg2DpOaRweJRvmr1reVrVhy5XS
+ qiC7wQL1icq7gknWB7VO989grHKTCfX+yRZKYE7T/YcFpdw3PmvEd+WRQmaeH46muGrE
+ rJ3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787388795; x=1787993595;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bR7LrEDWYTPsnuOnqVtcGLotVp78B6n1a5iwn0JbEJk=;
+ b=o8xPJ0Iq6ePVKXrpygCFUMinvjwvxpTt/nMBwAfLVMw2x+iEhr9y3q5xFwg3UwlOtN
+ uYzgSjAYwBuq+PfU4T+6T5KUWgGezxXeZl2iQ2f/dn3jv3AZdXQtYXeAkQQwNDATanED
+ x5C0Nwp9lSDR8q3ep3YpbbDkiWdivLC+BbdJe8mhn3SB8NK5f4UFRiZ2dsWf2cSQ5elR
+ pVYVfGBg9DX5mFfnINk4jpB6PmeUrtMtQ+9tCc2XXS376/yC9l3U/stc/6t4DSOebVfa
+ v5XzTbqYWbLDjaOhdLE2ugpwSKITC6ry+ibNosP8BJcioBoGCSHi76OhuFmHIr9SjedR
+ YKIA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpngcXLkU0UkJLazUNH0okM8RcbCfI6LrEIvBVjNV6YCWwv9IN7H1y3A21tlLBLnmczPUVMnIw01xs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lQmZx64m0naSXznAc7WtAUfs6U1ystw24thnkMtdnrlD/DITsI
+ OtNEq7iNPo0doxOmhgfLntpOSGZRvn1JSMBL7QuRajMy8vsFdev18u24
+X-Gm-Gg: AR+sD13si3EE5g5i60ONUlhSDWHB64Nu6HtAcgOzOyGiprGGEONINXvHtU4KkKsNdEy
+ 2ydZuTeAcwRP5PFWsHqp05tQKlKUt+FH0ZILn+VWabYvEPr00cw36TW8IxjGAz/59Rh2/hZtBqO
+ kBPRpqw7aZMwu4WBE78AmXuL47CRDpIMivmY/XqRmn6Z3Kvk9Wf19uaw1vK9HQHzJoHTfpvuFFh
+ RxEpqTxs6xMerEzKaYJvEoZ51Y3OBJ0BIhR/cRwWVNFjsKIpFDUA4sATZKbyJeeJ3yESgHHAhCR
+ uUQrgzbJ7G6lQiB5Hb0nTbaXQuNsPI5J/+R2hscs1vX9SYyuHewwkARp/Ql9x8ruX1NFulLJq0d
+ UilL6kcAnM0AFfGemIUUMvspiMhUekrrmmG85aIeCI2DDn6SlE7XMMZmRwBt/lC6mtbhSsWvrs7
+ 3KwS1r7kWtAeNaw3wJ3Q1ZfDQdZ2B8TFzl45i6fZ9gyNTm1Cuzbz/F9+FVrCJvrO8BDqGtRdtZm
+ lDxQg2PdMC6N88=
+X-Received: by 2002:a17:902:ec86:b0:2c6:9f66:d573 with SMTP id
+ d9443c01a7336-2d64ae3ac9emr225062945ad.2.1787388795383; 
+ Sat, 22 Aug 2026 01:53:15 -0700 (PDT)
+Received: from mcp-node.. ([240d:f:fe4:c00:e9d:92ff:fe83:dbda])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d67676170fsm2982575ad.6.2026.08.22.01.53.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 22 Aug 2026 01:53:14 -0700 (PDT)
+From: Yuta Higuchi <avablaba@gmail.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/1] drm/xe/hwmon: wake render domain for BMG package
+ temperature
+Date: Sat, 22 Aug 2026 17:52:02 +0900
+Message-ID: <cover.1787385860.git.avablaba@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 00/40] DEPT(DEPendency Tracker)
-To: Byungchul Park <byungchul@sk.com>
-Cc: linux-kernel@vger.kernel.org, max.byungchul.park@gmail.com,
- kernel_team@skhynix.com, torvalds@linux-foundation.org,
- damien.lemoal@opensource.wdc.com, linux-ide@vger.kernel.org,
- adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org, mingo@redhat.com,
- peterz@infradead.org, will@kernel.org, tglx@linutronix.de,
- rostedt@goodmis.org, joel@joelfernandes.org, sashal@kernel.org,
- daniel.vetter@ffwll.ch, duyuyang@gmail.com, johannes.berg@intel.com,
- tj@kernel.org, tytso@mit.edu, willy@infradead.org, david@fromorbit.com,
- amir73il@gmail.com, gregkh@linuxfoundation.org, kernel-team@lge.com,
- linux-mm@kvack.org, akpm@linux-foundation.org, mhocko@kernel.org,
- minchan@kernel.org, hannes@cmpxchg.org, vdavydov.dev@gmail.com,
- sj@kernel.org, jglisse@redhat.com, dennis@kernel.org, cl@linux.com,
- penberg@kernel.org, rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
- linux-block@vger.kernel.org, josef@toxicpanda.com,
- linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
- dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com, harry.yoo@oracle.com,
- chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com, boqun.feng@gmail.com,
- longman@redhat.com, yunseong.kim@ericsson.com, ysk@kzalloc.com,
- yeoreum.yun@arm.com, netdev@vger.kernel.org, matthew.brost@intel.com,
- her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com, bp@alien8.de,
- x86@kernel.org, hpa@zytor.com, luto@kernel.org, sumit.semwal@linaro.org,
- gustavo@padovan.org, christian.koenig@amd.com, andi.shyti@kernel.org,
- arnd@arndb.de, lorenzo.stoakes@oracle.com, Liam.Howlett@oracle.com,
- rppt@kernel.org, surenb@google.com, mcgrof@kernel.org, petr.pavlu@suse.com,
- da.gomez@kernel.org, samitolvanen@google.com, paulmck@kernel.org,
- frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
- josh@joshtriplett.org, urezki@gmail.com, mathieu.desnoyers@efficios.com,
- jiangshanlai@gmail.com, qiang.zhang@linux.dev, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, chuck.lever@oracle.com,
- neil@brown.name, okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
- trondmy@kernel.org, anna@kernel.org, kees@kernel.org, bigeasy@linutronix.de,
- clrkwllms@kernel.org, mark.rutland@arm.com, ada.coupriediaz@arm.com,
- kristina.martsenko@arm.com, wangkefeng.wang@huawei.com, broonie@kernel.org,
- kevin.brodsky@arm.com, dwmw@amazon.co.uk, shakeel.butt@linux.dev,
- ast@kernel.org, ziy@nvidia.com, yuzhao@google.com,
- baolin.wang@linux.alibaba.com, usamaarif642@gmail.com,
- joel.granados@kernel.org, richard.weiyang@gmail.com,
- geert+renesas@glider.be, tim.c.chen@linux.intel.com, linux@treblig.org,
- alexander.shishkin@linux.intel.com, lillian@star-ark.net,
- chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
- link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
- brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
- mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
- linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-modules@vger.kernel.org, rcu@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
- neilb@ownmail.net, bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
- dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
- alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org
-References: <20260706061928.66713-1-byungchul@sk.com>
- <359ea967-9b97-4584-88e6-bddb4044de2e@kernel.org>
- <20260821042143.GA40890@system.software.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260821042143.GA40890@system.software.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -161,180 +92,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hello,
 
-[...]
+This RFC addresses a reproducible stale package-temperature value on one In=
+tel
+Arc Pro B70 (8086:e223). During GPU activity, temp2_input changes continuou=
+sly.
+After the workload exits, it changes for only a short lifecycle burst and t=
+hen
+remains fixed for more than 200 seconds during idle cooldown. Other telemet=
+ry,
+including VRAM, mctrl, PCIe, fan, energy, and runtime state, continues to m=
+ove.
+An independent PID reading the same sysfs node sees the same result.
 
-> Exactly.  That's why we use classification e.g. lock class - DEPT also
-> makes use of the concept.
-> 
-> DEPT doesn't use a full map in each page but uses a minimum space for a
-> timestamp in each to track when each starts to wait so as to use the
-> recorded timestamp when the event occurs e.g. folio_unlock().
+The symptom reproduces after cold boot, without OpenVINO, with a standard
+clpeak workload, and on Linux 6.17, 7.0, 7.1.5, and 7.2-rc7 using the same
+official BMG firmware. Holding runtime PM active alone did not restore idle
+updates, and a controlled Xe reprobe did not restore continuous updates.
 
-Thanks for that information!
+The tested firmware is byte-identical after decompression to official
+linux-firmware main:
 
-> 
->> Given that lockdep is a debug feature, and we will at some point allocate struct
->> folio separately, I assume we could just squeeze a "struct lockdep_map" in there
->> in such debug configs and the world would not collapse.
-> 
-> That's a good news for lockdep.  (And even for DEPT :)
+- DMC 2.6, content SHA-256
+  76e3ec6ea3a53ce727e43b84f5ea14c55400a2d118dac356d4e12a3cfac06b4d;
+- GuC 70.72.1, content SHA-256
+  de81c75f46a127c33cd59f604d800e9ffc7ed3495967ba0d8767cd6985ab398b;
+- HuC 8.2.10, content SHA-256
+  747452aa8c4ed7760c68a80f3d913eafde9304d6f4db481e3f2aebb0a818bf15.
 
-He :) Where do you currently store the additional per-page information?
+Source path and causal isolation
+--------------------------------
 
-> 
->> Doing that today (one "struct lockdep_map" in each "struct page") wouldn't work
->> as mm_zero_struct_page() would not expect such large "struct page". But
->> conceptually, for a debug kernel with a special CONFIG_LOCKDEP_PAGE_LOCK, maybe
->> that would already be ok and we could just do that (and optimize it as we
->> allocate folios separately).
-> 
-> Sounds great.
-> 
->> Not that it's ideal, but for a debug feature to at least check PG_lock, probably
->> an easier way to achieve it than some completely new infrastructure.
-> 
-> I understand what you are going to tell.
-> 
-> However, it's worth noting that lockdep tracks dependencies basically
-> based on **lock acqusition orders** in the system.  To make it track
-> even rwlock and general synchronization mechanism as well, lockdep has
-> no choice but to get more complicated.
+For BMG, temp2_input reaches BMG_PACKAGE_TEMPERATURE (0x138434) through
+xe_mmio_read32(). On the tested B70:
 
-Well, yes, sure :)
+- stock forcewake_all kept package temperature updating;
+- main-GT XE_FW_RENDER alone was sufficient in 3/3 independent persistent
+  holder rounds;
+- releasing the RENDER holder was followed immediately by renewed staleness=
+ in
+  3/3 rounds;
+- main-GT XE_FW_GT alone was negative in the single persistent-holder round
+  tested;
+- a transient RENDER acquisition produced the first fresh publication after
+  1.17 to 2.172 ms; and
+- after a 20 ms RENDER hold with no sysfs reads, the first package-temperat=
+ure
+  read was already fresh.
 
-> 
-> Focusing on only the dependency checking, the most parts of lockdep are
-> for the tricky things, so the reusable parts are not that big.
-> 
->> Now, Willy said "locking rules don't really apply to individual folios", I
->> wonder if that could just help to also let lockdep check PG_lock with less
->> metadata? (didn't fully wrap my head around the implications)
-> 
-> That's what DEPT did and what brought external wgen introduced in DEPT.
-> I was considering the exactly same thing :)
-> 
-> Again, lockdep that tracks lock acquisition orders can't do that.
-> 
->> [1]
->> https://lore.kernel.org/all/aR3WHf9QZ_dizNun@casper.infradead.org/?utm_source=chatgpt.com
->>
->>
->> It's your guiding example, that's why I mention it. You do mention other wait
->> cases here, I don't know anything about them, but for folios it's really just
->> "we used a single bit so far" AFAIKs.
-> 
-> It doesn't matter whether it's implemented using bit or not.  folio lock
-> is quite special since it's allowed to be released other than the
-> acquisition context that makes lockdep impossible to track them.
+These observations support a wake/publication dependency rather than a
+collector or sysfs-reader problem. They do not establish that register
+0x138434 architecturally belongs to XE_FW_RENDER, nor whether PCODE, GuC, or
+other firmware produces a shadow value.
 
-Does that really make lockdep *impossible* to track them? IOW, there is no way
-to extend lockdep to support lock release in different context?
+Proposed RFC behavior
+---------------------
 
-I guess there is a way, but the question is at which price (I seriously have no
-idea, maybe this was already discussed and people have a pointer for me).
+For the BMG package-temperature channel only, acquire the main GT
+XE_FW_RENDER domain, wait 3.0 to 3.5 ms, read the mapped package-temperature
+register, and release the reference automatically. Forcewake acquisition
+failure is returned as -ETIMEDOUT, following existing Xe forcewake-ACK time=
+out
+precedent.
 
-> 
->> [...]
->>
->>>
->>> Q. Why not build DEPT into lockdep?
->>>
->>> A. Lockdep is stable, battle-tested code. I chose separation because
->>>    while DEPT borrows BFS and hashing ideas, the wait/event model
->>>    requires rebuilding from scratch. Lockdep was designed for lock
->>>    acquisition order — retrofitting it would risk its stability.
->>
->> Why can't this just be some configurable extension to lockdep
->> (CONFIG_LOCKDEP_XYZ) until the feature is stable and can unconditionally be
->> enabled along with it?
-> 
-> Answered?
+The 3.0 to 3.5 ms settling interval is empirical. The maximum fresh transit=
+ion
+latency observed in the transient tests was 2.172 ms. FORCEWAKE_ACK_RENDER =
+is a
+wake-domain acknowledgement; it has not been shown to be a temperature
+producer-ready acknowledgement. The fixed delay is not presented as an
+architectural contract.
 
-Not quite. I don't understand why this must be a completely separate machinery,
-even if, conceptually, it would do more than traditional lockdep.
+Scope and known limitations
+---------------------------
 
-Is it either DEPT or LOCKDEP in current configurations? Can both run at the same
-time?
+Runtime validation was performed on one Arc Pro B70 (8086:e223). The RFC is
+scoped to Battlemage because the affected package-temperature path is
+BMG-specific; guidance on applicability to other BMG devices and steppings =
+is
+welcome.
 
-> 
->> I don't quite buy the "would risk its stability" argument. A lot of stuff we do
->> "risks stability", every day :)
-> 
-> That's awsome anyway :)
-> 
->> Is there another good reason (incompatible with X, dangerous with Y, cinfusing
->> Z) why this really must be a separate thing?
-> 
-> Roughly:
-> 
->    1. Similar or less effort is needed for the new one - retrofitting
->       lockdep is not easy and big changes are required since the
->       reusable parts are not that big.
-> 
->    2. Even though you didn't agree, retrofitting it would risk its
->       stability.
+XE_FW_RENDER was single-domain sufficient among the directly compared state=
+s.
+XE_FW_GT alone was tested once and was negative. Media, GSC, and other
+individual forcewake domains were not tested after the RENDER-only positive=
+ was
+established. This RFC does not claim that RENDER is the unique minimum among
+every possible domain combination.
 
-Well, I don't buy the stability argument, really :)
+Validation
+----------
 
-Retrofitting effort for lockdep is an interesting point, though. Lockdep
-maintainers would have to make the call here regarding direction and feasibility.
+Extensive runtime validation was performed with the equivalent diagnostic
+implementation on Ubuntu 7.0:
 
-[...]
+- three independent 180-second cooldown rounds;
+- 1, 5, 10, and 30 second read cadences;
+- four concurrent readers (240/240 successful reads);
+- 30 minutes of continuous operation;
+- OpenVINO ruri-v3 and bge-m3 requests;
+- suspend/resume; and
+- controlled Xe unbind/rebind.
 
->> But I am not a locking maintainer. I think there was plenty of discussion in the
->> past, so I might just be raising points that were already discussed in the past,
->> but I really just read some random pieces of earlier discussions. (ideally
->> previous discussions would be summarized here)
->>
->> Long story short: we are now in v19 and I think there was pushback in the past.
->> Did the opinion of locking maintainers change, or is there a way forward to
->> integrate this in a way that would make locking maintainers accept this?
-> 
-> One of locking maintainers who I met in an LPC told me that he agrees
-> with the direction of DEPT and supports DEPT, not officially tho.
+No GPU hang, reset, fault, or wedge occurred. Persistent RENDER forcewake h=
+ad a
+large power cost, whereas read-scoped references allowed GT idle residency =
+to
+advance. The displayed cur_freq remained 2800 MHz while act_freq was zero a=
+nd
+GT C6/idle residency progressed, so cur_freq was classified as telemetry st=
+ate
+rather than evidence of a physically busy GT.
 
-Hm.
+The rebased current-tree candidate was additionally smoke-tested directly as
+7.2.0-b70rfc2+, based on drm-tip 75140c4ee9ad. With the standard clpeak
+workload, both a main reader and an independent PID observed package
+temperature continue from 46 C down to 44 C during a 180-second cooldown.
+act_freq was zero, GT entered C6, and idle residency advanced by 178.25
+seconds. A separate bounded candidate-kernel test returned HTTP 200 for
+OpenVINO ruri-v3 and bge-m3. No hang, reset, fault, wedge, or taint occurre=
+d.
+This direct smoke does not include the 30-minute, suspend/resume, or reprobe
+tests listed above; those were run only with the equivalent Ubuntu 7.0
+diagnostic implementation.
 
-> 
-> What he and other people are concerning w.r.t DEPT the most is, false
-> positives, which is the most important issue for now.
+On stock kernels, a separate operational workaround submits one warmed Intel
+ICD work-item / one Xe job every 30 seconds and reads temp2_input 50 ms lat=
+er.
+That workaround refreshes snapshots but is not the proposed kernel behavior.
 
-Thanks for highlighting that. What's the main reason for false positives? Is it
-something conceptual that is mostly impossible to solve, or rather just
-implementation work to cover all edge cases?
+Related issues
+--------------
 
-> 
-> At the same time, I think the most important thing is to make DEPT
-> useful in practice especially with folio locks involved.  Actually, I'm
-> planning to share DEPT's true reports periodically to LKML and work with
-> people who believe DEPT can make things better.
-> 
-> Any advices will be welcome.  Thanks for your opinions.
+Primary: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/7805
+Secondary: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/4560
 
-I think we must come to some conclusion on how to proceed with DEPT. I see the
-following options:
+Questions for maintainers
+-------------------------
 
-(1) Don't merge it and carry it OOT. Shame if it delivers real value.
+1. Is 0x138434 a live sensor register, or a shadow value published by PCODE,
+   GuC, or other firmware?
+2. Is there a documented producer-ready indication after XE_FW_RENDER is
+   acquired?
+3. If not, what is the official minimum delay or refresh sequence for this
+   register?
 
-(2) Merge it (after proper review and acks from relevant maintainers ;) ),
-    keeping it entirely separate from lockdep.
+If an existing mechanism is available to trigger or wait for
+package-temperature publication, I would prefer that over the empirical
+settling delay used by this RFC.
 
-(3) Integrate it with lockdep on a high level, giving us a single locking
-    dependency checker, but mostly letting dept have a separate implementation.
-    Look into possible merging afterwards.
+Coding-assistant disclosure
+---------------------------
 
-(4) Retrofit and extend lockdep to really have one mechanism.
+AI coding assistants were used during this investigation and RFC preparatio=
+n:
+Claude Code for the initial investigation and independent review of the pat=
+ch
+against the current tree, OpenAI Codex for implementation, evidence collect=
+ion
+and test orchestration, and ChatGPT GPT-5.6 Sol Pro for investigation plann=
+ing,
+submission workflow design and review. The human submitter reviewed the
+resulting code and evidence and takes responsibility for the submission.
 
-As the saying goes, it's hard to teach old dogs new tricks, but in the end
-taking care of two dogs is likely harder than only a single dog? :)
+Thanks,
+Yuta Higuchi
 
-I tend to favor (4) (or 3 with possible future work to achieve 4), but I am not
-a locking maintainer, so really they have to voice what to do.
+Yuta Higuchi (1):
+  drm/xe/hwmon: wake render domain for BMG package temperature
 
-I do see value in DEPT (even if the folio lock might be handled differently).
+ drivers/gpu/drm/xe/xe_hwmon.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
--- 
-Cheers,
 
-David
+base-commit: 75140c4ee9ad250b2524ff5bfffd7f9fe4bb6012
+--=20
+2.43.0
+
