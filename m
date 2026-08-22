@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36904C5B572
-	for <dri-devel@archiver.kernel.org>; Sat, 22 Aug 2026 09:03:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4ACC5B572
+	for <dri-devel@archiver.kernel.org>; Sat, 22 Aug 2026 09:08:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 570ED10E3C6;
-	Sat, 22 Aug 2026 09:03:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7B4210E3CF;
+	Sat, 22 Aug 2026 09:07:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jIZeV6sx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DYSPOJFK";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7DB10E3C6
- for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 09:03:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8746D10E3CF
+ for <dri-devel@lists.freedesktop.org>; Sat, 22 Aug 2026 09:07:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0455D600E2;
- Sat, 22 Aug 2026 09:03:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA311F000E9;
- Sat, 22 Aug 2026 09:03:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E55FD600E2;
+ Sat, 22 Aug 2026 09:07:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624751F000E9;
+ Sat, 22 Aug 2026 09:07:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787389430;
- bh=GqODYx6QbS5o44T3EG4htXwGvGQG4186Dg9ND94qIxY=;
+ s=k20260515; t=1787389677;
+ bh=B00MqBtN7O2fMaJw/iYBe3Xcjn5EmqBfm1tD6JYIY1k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jIZeV6sxWu0hq0ckEyRaDe98xNnmKE4eo9ETtxlwmWt8F37rDYU1WnzhShClvaclw
- eiHQpaRLUOalgu5YdmmEhGMUnP8XxcdWn5c96t3kIdwHik1mDvtbjz75DD+i3Rm171
- kIOBV7WoTUdhTBby2GddHeNi1NbeSjQr8Zm8qfiw5ePzVVNce+a4pJQGn7dV/Ya/oW
- 0i1T+piZ7sryUcH8vHdmjXHY5Ztf+TqLo50LY+xcghsw2YhTbp4DGWjb5ZPtyk4Qox
- +s+RIG/N8wnbLT7oFQst/xPAVG/D0kio/sqzixhLU+7ED73/1xmds1NXhF2mGUiS2N
- whAIPXWslz6Gg==
+ b=DYSPOJFK946MwZrHVEPXQkOUz/Sn1VD4SqXPD5KFY1RLQY/9mwqWcadqdrngNkhuI
+ D5bls7Kxkbaf3ACJSkYvNDZ+VUzQIPAh2mbEdN743cmlsKYZCvVUMzUKpgv4PrH7G4
+ O6I4s8REz0EFALzO9r3ZEbwAwHBNA9Lt8br/4GEiPnGpKQ9b7GkjHCVSGDgdg+0QPm
+ THCW01kQHeR4K8uc5eAiOQ0AewjaBJD/SpuNiNF48d4s7g9q1tHsZBaU5hUzg4sjEy
+ 6M5B3za730pIgWmX2+HSc4NGttgalexrWDuxWsH/nee5ssoem6XWD5sw0CCvz02EYP
+ JxFe7RJiUgIdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/msm: factor out a locking put_iova_spaces()
- wrapper
+Subject: Re: [PATCH 2/2] drm/msm: don't tear down shared VM mappings on
+ handle close
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260822-msm-fix-export-v1-1-917b3cbedd43@oss.qualcomm.com>
+In-Reply-To: <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
 References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
- <20260822-msm-fix-export-v1-1-917b3cbedd43@oss.qualcomm.com>
+ <20260822-msm-fix-export-v1-2-917b3cbedd43@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 22 Aug 2026 09:03:49 +0000
-Message-Id: <20260822090350.6BA311F000E9@smtp.kernel.org>
+Date: Sat, 22 Aug 2026 09:07:56 +0000
+Message-Id: <20260822090757.624751F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +58,98 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] The VMA reference count (`vma_ref`) is decremented and checked=
- outside of the VMA/object lock, leading to a TOCTOU race where an active V=
-MA can be unmapped and freed while in use by another thread.
+- [High] Sleeping in atomic context
+- [High] Deferred teardown TOCTOU race via flink name re-opening causing IO=
+VA Use-After-Free
 --
 
---- Patch [1]: [PATCH 1/2] drm/msm: factor out a locking put_iova_spaces() =
-wrapper ---
-commit 3d4e26e168daef686a19b61570238be2722c0b4d
+--- Patch [2]: [PATCH 2/2] drm/msm: don't tear down shared VM mappings on h=
+andle close ---
+commit c4a550033efcf938dc9587175385266d18df3979
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: drm/msm: factor out a locking put_iova_spaces() wrapper
 
-This commit factors out a locking put_iova_spaces_locked() wrapper and
-updates callers. It aims to clean up redundant lock, tear down, and unlock
-sequences around the teardown path.
+drm/msm: don't tear down shared VM mappings on handle close
+
+This patch defers the teardown of shared GPU VM mappings until the vma_ref
+count drops to zero. This aims to prevent pulling the buffer out from under
+other files that still have it open when sharing a global VM address space
+on targets without per-process pgtables.
+
+Fixes: 111fdd2198e6 ("drm/msm: drm_gpuvm conversion")
 
 > diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index de4e60e28a711..8b979d84bb958 100644
+> index 8b979d84bb958..f17ecd97b72a3 100644
 > --- a/drivers/gpu/drm/msm/msm_gem.c
 > +++ b/drivers/gpu/drm/msm/msm_gem.c
-
 [ ... ]
-
-> @@ -105,11 +113,7 @@ void msm_gem_vma_put(struct drm_gem_object *obj)
+> @@ -109,6 +114,12 @@ void msm_gem_vma_put(struct drm_gem_object *obj)
+>  	if (atomic_dec_return(&to_msm_bo(obj)->vma_ref))
 >  		return;
 > =20
->  #ifdef CONFIG_DRM_MSM_KMS
-> -	struct drm_exec exec;
-> -
-> -	msm_gem_lock_vm_and_obj(&exec, obj, priv->kms->vm);
->  	put_iova_spaces(obj, priv->kms->vm, true, "vma_put");
-> -	drm_exec_fini(&exec);     /* drop locks */
->  #endif
->  }
+> +	if (priv->gpu && priv->gpu->vm_shared) {
+> +		dma_resv_wait_timeout(obj->resv, DMA_RESV_USAGE_BOOKKEEP, false,
+> +				      MAX_SCHEDULE_TIMEOUT);
+> +		put_iova_spaces(obj, priv->gpu->vm, true, "vma_put");
+> +	}
+> +
 
-[ ... ]
+[Severity: High]
+This is a pre-existing issue, but can this lockless vma_ref check lead to an
+IOVA use-after-free if a GEM handle is concurrently closed and re-opened via
+flink?
 
-> @@ -408,8 +412,8 @@ static struct drm_gpuva *lookup_vma(struct drm_gem_ob=
-ject *obj,
->   * mapping.
->   */
->  static void
-> -put_iova_spaces(struct drm_gem_object *obj, struct drm_gpuvm *vm,
-> -		bool close, const char *reason)
-> +put_iova_spaces_locked(struct drm_gem_object *obj, struct drm_gpuvm *vm,
-> +		       bool close, const char *reason)
->  {
->  	struct drm_gpuvm_bo *vm_bo, *tmp;
-
-[Severity: Critical]
-This is a pre-existing issue, but can the lockless decrement of vma_ref in
-msm_gem_vma_put() cause a race condition?
-
-If CPU1 calls msm_gem_close() -> msm_gem_vma_put() and decrements vma_ref to
-0, but gets preempted before taking the lock and calling put_iova_spaces():
-
-CPU2 could concurrently open the GEM object (e.g., via flink), calling
-msm_gem_open() -> msm_gem_vma_get(), incrementing vma_ref back to 1,
-mapping the object, and submitting a job.
-
-When CPU1 resumes, it continues into put_iova_spaces() and eventually
-put_iova_spaces_locked():
+If Thread A closes the last handle, atomic_dec_return() drops vma_ref to 0
+and it proceeds to unmap the buffer. However, the flink name remains valid
+until drm_gem_object_handle_put_unlocked() runs. If Thread B calls
+DRM_IOCTL_GEM_OPEN concurrently, msm_gem_open() can increment vma_ref back =
+to
+1 and submit a job using the IOVA. Thread A then acquires locks in
+put_iova_spaces() and unconditionally unmaps the buffer via
+put_iova_spaces_locked() without re-verifying vma_ref:
 
 drivers/gpu/drm/msm/msm_gem.c:put_iova_spaces_locked() {
-        ...
-        drm_gpuvm_bo_for_each_va_safe (vma, vmatmp, vm_bo) {
-                msm_gem_vma_unmap(vma, reason);
-                if (close)
-                        msm_gem_vma_close(vma);
-        }
-        ...
+    ...
+    drm_gpuvm_bo_for_each_va_safe (vma, vmatmp, vm_bo) {
+        msm_gem_vma_unmap(vma, reason);
+        if (close)
+            msm_gem_vma_close(vma);
+    }
 }
 
-Since vma_ref isn't re-checked inside the lock, the IOVA space is torn down
-unconditionally. Could this result in tearing down an active IOVA mapping
-while the GPU is executing a job, leading to an IOMMU fault or memory
-corruption?
+Will this destroy Thread B's mapping while its job is running, freeing the
+IOVA for immediate reuse?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does adding these blocking
+calls cause a scheduling while atomic panic when tearing down a writeback
+connector?
+
+The drm core function drm_writeback_connector_cleanup() holds a spinlock wi=
+th
+IRQs disabled when tearing down pending jobs:
+
+drivers/gpu/drm/drm_writeback.c:drm_writeback_connector_cleanup() {
+    spin_lock_irqsave(&wb_connector->job_lock, flags);
+    list_for_each_entry_safe(pos, n, &wb_connector->job_queue, list_entry) {
+        list_del(&pos->list_entry);
+        drm_writeback_cleanup_job(pos);
+    }
+}
+
+This calls into msm_gem_vma_put() through the teardown path
+(dpu_wb_conn_cleanup_job -> dpu_encoder_cleanup_wb_job ->
+dpu_encoder_phys_wb_cleanup_wb_job -> msm_framebuffer_cleanup ->
+msm_gem_vma_put).
+
+Since dma_resv_wait_timeout() can wait indefinitely and put_iova_spaces()
+acquires ww_mutexes via drm_exec, could this result in sleeping while holdi=
+ng
+a spinlock with IRQs disabled?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822-msm-fix-ex=
-port-v1-0-917b3cbedd43@oss.qualcomm.com?part=3D1
+port-v1-0-917b3cbedd43@oss.qualcomm.com?part=3D2
