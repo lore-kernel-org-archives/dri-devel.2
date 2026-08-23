@@ -4,80 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC263C5DF8C
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 14:13:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7429C5DF81
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 14:24:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B063610E021;
-	Sun, 23 Aug 2026 14:13:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E528410E14B;
+	Sun, 23 Aug 2026 14:24:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="BWyxgd6J";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="1i4oTS0d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XhIQJXN7";
 	dkim-atps=neutral
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [85.215.255.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC47610E021
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 14:13:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787494382; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=a31vi44m/e9yvdsbtPUJGGE8NsVux40oceIHEvn4Xw/brbKTvzMllpZOIPaoAPmpNy
- HHDOGTNcZvlXfCbmnA/ORNvdwyh4Oc946up8Bsuqw6/8ynfzAmaCE6BwXCRSRXWkeWTG
- cYokZY+lA80xX4bDllJuriODRRLGVwLqGE7zvRIrv6Iz4rQAcDCETAuo8+ki0A0o2+24
- AoWMdeLkQ47eA+lfO7QB9/xMVnd/y2fE0nxNS0NaqutR5VYB12i5Gk+zfBOtcv8mizuY
- wm3gJkINv8W5AGnqeJGjZKAwIPh1cx1+P2zrOoCCVEFEDygqyi/gpwIZhFlgQ6Pm04rz
- N1YA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787494382;
- s=strato-dkim-0002; d=strato.com;
- h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
- bh=bx8qmMcJOQgMC5a8FWvNCXzF/v0fxTbnF9dvEYIpR/U=;
- b=F/dJieoJ1JKuT+48VuPOSyruN6Hn5UCAPO0Hjq3derjsU3edBdYqkIHp3SbuCwUZJg
- xid+Do1473DrjtAt4JjD/6d1XypuNqNSvEjxCo8kI7xwLNY3F6Ryt/iX8f3/a+6m5Ql0
- F51pvLcOGAKv4vXfYUZUoneIARs/Cq1A/Bm4WSIHUDNgLlW0poGVGDKb+C6NM68ut64s
- rgbPXXdgxirJF5rWx4GUkL2a/nvNdWeqUpr6iYi8G8N4wnYcSy4CfCjzEpb6tPWGeBlS
- xjBcr2PauxlIDusX/KgCCQupl1/PxVvD6Pp2lCLtpO4xBAsZ3IBlTjykDcCXsnMBUa7R
- SEHg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787494382;
- s=strato-dkim-0002; d=goldelico.com;
- h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
- bh=bx8qmMcJOQgMC5a8FWvNCXzF/v0fxTbnF9dvEYIpR/U=;
- b=BWyxgd6JQSBZTBJybevRjw6i/Nq/cgirgbX+fYIq1DX4uUQy7CvcU4wgkfGNYBtnQD
- HTlnQnnUd+p6QmsjN5lVm4vn4Zkk62ounxqQ9HLvnZxeC89X/bAoHGtPSljFdOvizRKG
- Cfcx1mketo9PAGt3NYNccN0UZyvBRDNqp6hqIP8tVB8mvuBCVXAgGa2f7YRCnvp+oWpm
- Si1svFOrnY5wCaj2r9Rytvi0MJbwUQ/kwsK0taL8uewDaQysoG8/Kqj0ALgwlT9SA+UU
- kWIon22SKI2InqgyG17SLPxLWiMm3w0hdNoO5axIYNN5eW080RUBa3iDRVzwK7Ng7qw5
- AQUA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787494382;
- s=strato-dkim-0003; d=goldelico.com;
- h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
- bh=bx8qmMcJOQgMC5a8FWvNCXzF/v0fxTbnF9dvEYIpR/U=;
- b=1i4oTS0d4eFTC0iTO3lhw9H0huVVtMH1+OwXGm8+26ehOoX9tfu4fKJrNzgzVaKYVB
- arR7c8zS8oiEhj7rCcAw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ25oKnciHHK5OAyYE8yLD5e6WBWpu+g6xSmk="
-Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.2 AUTH)
- with ESMTPSA id Qfefb327NED2XDO
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Sun, 23 Aug 2026 16:13:02 +0200 (CEST)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Paul Cercueil <paul@crapouillou.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
- wbx@openadk.org, kernel@pyra-handheld.com,
- "H. Nikolaus Schaller" <hns@goldelico.com>, stable@vger.kernel.org
-Subject: [PATCH v3] drm/ingenic: fix bridge allocation
-Date: Sun, 23 Aug 2026 16:12:59 +0200
-Message-ID: <a3b64245250cd092776cf23cddffe18318b48995.1787494377.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B21510E14B
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 14:24:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EF12D438B8;
+ Sun, 23 Aug 2026 14:24:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A501F000E9;
+ Sun, 23 Aug 2026 14:24:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787495042;
+ bh=SQZcbka2+fSdVKU0BhA9F/AkDD4WCyy5ingEDZB49FA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XhIQJXN7CCwEqYZ/Wh48OkJ1Y7H68SG0i92Moccit0IGt4IOgRKlF1R0IcbWZI7EF
+ Fs3E8uMYNirnclfqos3d+qOBpv77sPbpRHwkkTxQG62iPFFruU/81+XF3/qHlEzYSO
+ NrIrJot6rC8ZyycU5ZHKi/5asmDG4ArGD/MbDlWTiW1vlMk9WLDdaBSx6YsIVNDXvl
+ nj1PwmgqrjYFLpuhZAeZWVANG5BCaxE6AdbuKX8b3UchsZ7BZ9FQO9O44XE/bSz+Jv
+ LGuWeMz6x3ZTti2JiwkvYLezDJGINys0/N8Xuy6cB/jlyU+eJJvGc1gOsxGwWUAWdH
+ pxaKvpFcqo3AQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/ingenic: fix bridge allocation
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <a3b64245250cd092776cf23cddffe18318b48995.1787494377.git.hns@goldelico.com>
+References: <a3b64245250cd092776cf23cddffe18318b48995.1787494377.git.hns@goldelico.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 23 Aug 2026 14:24:02 +0000
+Message-Id: <20260823142402.A7A501F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,88 +52,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridge allocation API has changed and ingenic/drm was broken
-leading to
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
-[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
-[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
-[   55.904136] ------------[ cut here ]------------
-[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
-[   55.917538] refcount_t: addition on 0; use-after-free.
-...
-[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
-...
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but there is a missi=
+ng IS_ERR() check on the return value of devm_drm_panel_bridge_add_typed() =
+which leads to an error pointer dereference.
+--
 
-Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
-Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-Cc: Waldemar Brodkorb <wbx@openadk.org>
-Cc: stable@vger.kernel.org
----
+--- Patch [1]: [PATCH v3] drm/ingenic: fix bridge allocation ---
+commit 4187db84355de6d4a1d09fa81233bcc5ab620c4b
+Author: H. Nikolaus Schaller <hns@goldelico.com>
+Subject: drm/ingenic: fix bridge allocation
 
-Notes:
-    v3: fixed a malformed diff
-    
-    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT as suggested by Sashiko-reviews
-        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
+This patch updates the ingenic/drm driver to use the new
+devm_drm_bridge_alloc() API for bridge allocation. It fixes an issue where
+the bridge was corrupted or not allocated properly under the new API,
+causing use-after-free warnings.
 
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/=
+ingenic/ingenic-drm-drv.c
+> index 738a80b2550ff..d1321a9c0f0b0 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+[ ... ]
+> @@ -1316,10 +1316,25 @@ static int ingenic_drm_bind(struct device *dev, b=
+ool has_components)
+> =20
+>  		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+> =20
+> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
+> +		ib->bridge =3D devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
+> +						   base, &ingenic_drm_bridge_funcs);
+> +		if (IS_ERR(ib->bridge)) {
+> +			ret =3D PTR_ERR(ib->bridge);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		ib->bridge->of_node =3D priv->dev->of_node;
+>  		ib->next_bridge =3D bridge;
 
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 42c86f195c66b3..8d7979a7859332 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -122,7 +122,7 @@ struct ingenic_drm {
- 
- struct ingenic_drm_bridge {
- 	struct drm_encoder encoder;
--	struct drm_bridge bridge, *next_bridge;
-+	struct drm_bridge *bridge, *next_bridge;
- 
- 	struct drm_bus_cfg bus_cfg;
- };
-@@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
- 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
- 
- 	return drm_bridge_attach(encoder, ib->next_bridge,
--				 &ib->bridge, flags);
-+				 bridge, flags);
- }
- 
- static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
-@@ -1314,10 +1314,25 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 
- 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
- 
--		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
-+		ib->bridge = devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
-+						   base, &ingenic_drm_bridge_funcs);
-+		if (IS_ERR(ib->bridge)) {
-+			ret = PTR_ERR(ib->bridge);
-+			goto err_drvdata;
-+		}
-+
-+		ib->bridge->of_node = priv->dev->of_node;
- 		ib->next_bridge = bridge;
- 
--		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
-+		ib->bridge->interlace_allowed = true;
-+
-+		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
-+		if (ret) {
-+			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
-+			goto err_drvdata;
-+		}
-+
-+		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
- 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret) {
- 			dev_err(dev, "Unable to attach bridge\n");
--- 
-2.55.0
+[Severity: High]
+This isn't a bug introduced by this patch, but if
+devm_drm_panel_bridge_add_typed() fails earlier in ingenic_drm_bind(), it
+returns an ERR_PTR.
 
+Does this assignment store that unvalidated error pointer into
+ib->next_bridge without an IS_ERR() check?
+
+When the bridge attach callback executes:
+
+static int ingenic_drm_bridge_attach(...)
+{
+    ...
+    return drm_bridge_attach(encoder, ib->next_bridge,
+                             bridge, flags);
+}
+
+Would this pass the ERR_PTR as the bridge argument to drm_bridge_attach(),
+which bypasses the NULL check and dereferences it?
+
+int drm_bridge_attach(..., struct drm_bridge *bridge, ...)
+{
+    if (!encoder || !bridge)
+        return -EINVAL;
+
+    if (!bridge->container)
+        ...
+}
+
+Could this lead to a kernel panic from an invalid memory access?
+
+> -		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
+> +		ib->bridge->interlace_allowed =3D true;
+> +
+> +		ret =3D devm_drm_bridge_add(priv->dev, ib->bridge);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		ret =3D drm_bridge_attach(encoder, ib->bridge, NULL,
+>  					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>  		if (ret) {
+>  			dev_err(dev, "Unable to attach bridge\n");
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/a3b64245250cd092776=
+cf23cddffe18318b48995.1787494377.git.hns@goldelico.com?part=3D1
