@@ -4,42 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7429C5DF81
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 14:24:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C4FFC5DF81
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 15:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E528410E14B;
-	Sun, 23 Aug 2026 14:24:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED1810E04E;
+	Sun, 23 Aug 2026 15:41:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XhIQJXN7";
+	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="pb2h5Z+H";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B21510E14B
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 14:24:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EF12D438B8;
- Sun, 23 Aug 2026 14:24:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A501F000E9;
- Sun, 23 Aug 2026 14:24:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787495042;
- bh=SQZcbka2+fSdVKU0BhA9F/AkDD4WCyy5ingEDZB49FA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XhIQJXN7CCwEqYZ/Wh48OkJ1Y7H68SG0i92Moccit0IGt4IOgRKlF1R0IcbWZI7EF
- Fs3E8uMYNirnclfqos3d+qOBpv77sPbpRHwkkTxQG62iPFFruU/81+XF3/qHlEzYSO
- NrIrJot6rC8ZyycU5ZHKi/5asmDG4ArGD/MbDlWTiW1vlMk9WLDdaBSx6YsIVNDXvl
- nj1PwmgqrjYFLpuhZAeZWVANG5BCaxE6AdbuKX8b3UchsZ7BZ9FQO9O44XE/bSz+Jv
- LGuWeMz6x3ZTti2JiwkvYLezDJGINys0/N8Xuy6cB/jlyU+eJJvGc1gOsxGwWUAWdH
- pxaKvpFcqo3AQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/ingenic: fix bridge allocation
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <a3b64245250cd092776cf23cddffe18318b48995.1787494377.git.hns@goldelico.com>
-References: <a3b64245250cd092776cf23cddffe18318b48995.1787494377.git.hns@goldelico.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 23 Aug 2026 14:24:02 +0000
-Message-Id: <20260823142402.A7A501F000E9@smtp.kernel.org>
+Received: from sonic311-24.consmr.mail.gq1.yahoo.com
+ (sonic311-24.consmr.mail.gq1.yahoo.com [98.137.65.205])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B60010E04E
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 15:41:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
+ t=1787499692; bh=hkHqaK71uX6tHYLybpK/G99ov1XVnwyVFlCQI16ykbw=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
+ b=pb2h5Z+HQEw+5EBBnlnol/DerSeoKdJ9ZxqAcGG3bDSVEVpLn0O6VAkNASFaqL6DU1BaDSR6FXLV2PpkqSFd6BID+M2jAYE5GK3TH0PrVPzHR38jFgaC/wkvyGIcax3xUOa+bgKzPtQ6/Pu7C3Y4wYTJgetlRdiAqr4cVDv+1Fy9CSvSGX/y0uk0jnyVvQvkVDf2j5ouI5t4DY93BEkFw0FU+bp3FpxHwQKLABpCFZU6IFhxiunxd4MUw8i0qofXlSv+huoOUYmWcgC5a0ODXkO3ul8oIzdTMOj7DEcevKqibJBknInfrrZxO3iB9+EEzGNuyWvDXZyhrCbRXpfyzw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1787499692; bh=U3SAQPbnjD+Hsb5j/7R1ORpBza6UkXqg8/vKYMTj/4y=;
+ h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
+ b=tJaHgkutSe1MeBquVZtCFG0q7nG4r86U1MosBkjMCDhXCTgGVm5upPJGaEgcA9QAlV2DFvYz3QJiEceOt4u7zgns6jopA/p9101HOpCNNWJPKOBRDgcqL63HRYBK2ePJfb/FRourPfg7DfIfuMOuNRvbleEM7IYT1Z1rIiNJxbbLevkBp1cMh3MQmKZhsQOHJqgQpfPIgWNtf6wZbdfzDOjmxzkQTIEAwasgyIn+3onV442uCfPweu3Sw7ACf8Gchk8hIa3OWH0R/cR3QOpFd+AVGc3vl6uH43nmZdCcB4lIk892XzMPyB2LH62fpBv/Rj1XPLFVdymTqUIqSSJbnQ==
+X-YMail-OSG: XqJzYv8VM1lvLTTWhj7Ky5imXwmmgsA6FC.UiwEipwQ54dmykDZJZyUVJQM1omg
+ rbNKflr47cJsrz3kXDXaNEfZGA3lhSXFrF6Tq_kx_ceU1mk49rMUaTNTC4WzhTMEo_uI4DedN7mi
+ v99deioHjSmuuZ6Ie0oKCl.pT.H_slxMdY_6DN_vKaKGyr1Rt3NHcoBhO_cqgHVe4B.h_kDqv35I
+ KZgmAGhprXYSG8X7Uegk4l1L8QrUWzJ2BbP69SflSlAHkO4tgYFPhVJ02UDD1S.VByjoxbrgTFLm
+ FjkZF0eRGCL07vxvfoWNX995b_trUAYKykJ.VX2g.qUkq0G4JnKWihUxFIO5bWsBNzZiAnXxWXt9
+ 8p8zIRgdhMiecC_0.tj.hne3_eQr30eIAzkRKViR_C9J2kg0r1slqmR_m2R5BQC.pFWZQrLn79RI
+ 2kcr5z4pbUV9rH8mdRzzmpvMDzPKC12Vk57Pw6maqB3C.SK9AzZHHs68eHA8AogGSyJUlk7_JupV
+ nngefOWTK6HsWLOOOLx7_XDpi7Sdn0aQPmO4SYTpCoGyDlGnGuDaefRRwS8wyQOQr217WjHc9bAY
+ 4VYYyqQuSgWLdcZirTDFyUO4GLNtO7mphE54.xSaKVHFI5tlJ7AzJcZ.FP8cGTOsLRMZgw0jwMXG
+ OiznYsjWnGGT30vJ5gYEhbzhp1ZlCZLo9ydV2cuABoQF.J7HP1TilxuEaiVbmZYTE4SHr5VK4aC0
+ ScQNoIs9cm48ep180cfbuIByjpZM3qsc7PduS67fxAsDpAuCmnWE.B7IUibFmq2uk37K_E8m7DO8
+ bCfsWKQpdbeyLXov66sAVTIbRdgC3YndRpVSQOunA9Bi_TYP.uYpn7bV8A7sVjEmBNRk5k7JqyLK
+ WrWHBTMgl258N.2oTTrD3bzBZKbCuA_wyO2aAzdqBhhgA74rGMAzaqT91BftBUyYT39UwbZapOwj
+ bYrg9hxryMuXoLsYrskqSQA1dh1EygATMNsj3LCZ3tkdYSZK1n0ak2N.DBh88LuDw0VXiLzDNgvK
+ USCHRoLy8V5UlOTYsREQCgE_090ab2VJHC1yD3RYYVMKLs9UN0FiboNvalz5EdYsMAl1gSxpky.1
+ k.vCCG7FiV4UPNAKRQM6Gv2L1PdhGHV6Vx3JELYPDeDrCmHa0LcR2pdMDZacRupqw5I0OFDSD0FE
+ doXlgaMmZ0ys0vExP.XHnznJ.fJnE.bbNaRGzNdXY8bLb9g10WhBO9EFKwHZkUg26KepyqpaL_zw
+ BDkEvQJLlf26R6LYonYsVLd4zXY_8De8ekNw8HHd4HdbcBren70sF4cJltxxLf5PWWb8kYa8HuM0
+ ZmfJUIbHTpyLykhObl.vl5HTqZya_TlysB8.OJa_bKhvRti1x5qCMFpS9VuKsHCqnWKw1kVJF8Kg
+ 5zH1aSxC4O3NIZMKVHfou4.dUJfEWKSyDBqtTvAWoiI4otFVR1f.GS2avrpHDpEnRGO8TRrkdiXW
+ Wysba0Q2ebMuePg3_zxTEq0EvXNNo4fWwqeuoYWQpyA1zb_5jqFHnYsyt112JbMAPicavZT3Ls3L
+ DGGIkY9uPX96oiD_R6WgDyO972XPt9obKRV41vGW04npA1TZtEzbxqDVr0.BKxs155UXD9kOaiLA
+ th5dTHKohU1qkMy2DPnHjYdshCsUH0fUPEjq_FesamS4D_Gr8gBlvhW3gpFBYuDNHcWpZ2qjzyS.
+ ju9zbsQRIGsSc_4IRdVALjZ9X2fcta4XzDJaQciyOLTG2LrTz3i73O3sGAe4mLnYC8at2UA_jQvL
+ Rqnqh4TKEWCl0Mu93Nu90_j.2IYs2Jb9M3heypog8A0hw76kswGTAaIqH8aXnV6a9i2VXc5qhx7X
+ R6UtilVIKSknCeeUtwvgE0ABGSibUV1qEmueq1vTdJT6TqgzXe8j1QgqHvptjWow6WKamI8g19XX
+ vjzz0Iz8a3yyiNT.ZnBjQ5xQNJc8UzCs8xabt3TnyFhiAKAgoSfbLvmRgdhahaWg01p3VMxZzf_J
+ knBYy07CoJHc9GlXhhm4kq.dAmJTAUZOBnfpyZ0G8Mt7ThMuE8r2aHvwhwZ5YUcTK18yIkwmYhKD
+ M6MYaQoIkFXR0NGeEDl13qroCn6hZwkDekdi5.OWjuZYZZUYLpr5KtLLlcoj.cFolLkrcU8_nPSJ
+ m9RBp0AyTiNxE_zszPWCIf3lqZqyH38jV.tEHN0JhBCRJHF0qEft88BvtCURBbkJN40BUlTM_uoe
+ _z.eCgjnI8_h6xQttMy7S3HYWTa2F7ZcwehgQZzedHyIuwlew7JXPcgTpm1zNndBX42pf57CjmBf
+ N
+X-Sonic-MF: <rubenru09@aol.com>
+X-Sonic-ID: f8a3aa53-00f4-4071-ac7d-fd0d74ac07d5
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic311.consmr.mail.gq1.yahoo.com with HTTP; Sun, 23 Aug 2026 15:41:32 +0000
+Received: by hermes--production-ir2-cddf86dcf-km5lv (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID a16891e943e3632344264cae4f4ff9db; 
+ Sun, 23 Aug 2026 15:41:28 +0000 (UTC)
+Message-ID: <6c3a749f8d377b122ba33fd06825d8faff345006.camel@aol.com>
+Subject: Re: [PATCH] drm/gud: NUL-terminate TV mode names read from the device
+From: Ruben Wauters <rubenru09@aol.com>
+To: Deepanshu Kartikey <kartikey406@gmail.com>, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: peter@stuge.se, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
+Date: Sun, 23 Aug 2026 16:41:26 +0100
+In-Reply-To: <2973ae0d1d7ca4c39ef2cb07236ace25d400fdd0.camel@aol.com>
+References: <20260816085234.22053-1-kartikey406@gmail.com>
+ <2973ae0d1d7ca4c39ef2cb07236ace25d400fdd0.camel@aol.com>
+Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
+ keydata=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
+ eIvzsqg==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-tCN8FlM/lj0M4uctGBks"
+User-Agent: Evolution 3.60.2 
+MIME-Version: 1.0
+X-Mailer: WebService/1.1.26380
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,96 +127,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but there is a missi=
-ng IS_ERR() check on the return value of devm_drm_panel_bridge_add_typed() =
-which leads to an error pointer dereference.
---
+--=-tCN8FlM/lj0M4uctGBks
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [1]: [PATCH v3] drm/ingenic: fix bridge allocation ---
-commit 4187db84355de6d4a1d09fa81233bcc5ab620c4b
-Author: H. Nikolaus Schaller <hns@goldelico.com>
-Subject: drm/ingenic: fix bridge allocation
+On Mon, 2026-08-17 at 16:36 +0100, Ruben Wauters wrote:
+> On Sun, 2026-08-16 at 14:22 +0530, Deepanshu Kartikey wrote:
+> > gud_connector_add_tv_mode() reads a buffer of fixed-size mode names fro=
+m
+> > the USB device and passes pointers into it to
+> > drm_mode_create_tv_properties_legacy(), which calls strlen() on each on=
+e.
+> > Nothing guarantees the device NUL-terminates a name, so strlen() can ru=
+n
+> > past the end of a slot and, for the last mode, past the end of the
+> > allocation.
+> >=20
+> > Terminate each name at the end of its slot before use.
+> >=20
+> > Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+> > Reported-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D916c888ba5f1a54c9526
+> > Tested-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
+> > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> Acked-by: Ruben Wauters <rubenru09@aol.com>
 
-This patch updates the ingenic/drm driver to use the new
-devm_drm_bridge_alloc() API for bridge allocation. It fixes an issue where
-the bridge was corrupted or not allocated properly under the new API,
-causing use-after-free warnings.
+Thank you, applied to drm-misc-fixes, Cc'd stable
 
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/=
-ingenic/ingenic-drm-drv.c
-> index 738a80b2550ff..d1321a9c0f0b0 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-[ ... ]
-> @@ -1316,10 +1316,25 @@ static int ingenic_drm_bind(struct device *dev, b=
-ool has_components)
-> =20
->  		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
-> =20
-> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
-> +		ib->bridge =3D devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
-> +						   base, &ingenic_drm_bridge_funcs);
-> +		if (IS_ERR(ib->bridge)) {
-> +			ret =3D PTR_ERR(ib->bridge);
-> +			goto err_drvdata;
-> +		}
-> +
-> +		ib->bridge->of_node =3D priv->dev->of_node;
->  		ib->next_bridge =3D bridge;
+Ruben
+> > ---
+> >  drivers/gpu/drm/gud/gud_connector.c | 9 +++++++--
+> >  1 file changed, 7 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/=
+gud_connector.c
+> > index ea0cca58b7c8..5c0065c876a7 100644
+> > --- a/drivers/gpu/drm/gud/gud_connector.c
+> > +++ b/drivers/gpu/drm/gud/gud_connector.c
+> > @@ -396,8 +396,13 @@ static int gud_connector_add_tv_mode(struct gud_de=
+vice *gdrm, struct drm_connect
+> >  	}
+> > =20
+> >  	num_modes =3D ret / GUD_CONNECTOR_TV_MODE_NAME_LEN;
+> > -	for (i =3D 0; i < num_modes; i++)
+> > -		modes[i] =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
+> > +	for (i =3D 0; i < num_modes; i++) {
+> > +		char *mode =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
+> > +
+> > +		/* The device is not trusted to NUL-terminate the name */
+> > +		mode[GUD_CONNECTOR_TV_MODE_NAME_LEN - 1] =3D '\0';
+> > +		modes[i] =3D mode;
+> > +	}
+> > =20
+> >  	ret =3D drm_mode_create_tv_properties_legacy(connector->dev, num_mode=
+s, modes);
+> >  free:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but if
-devm_drm_panel_bridge_add_typed() fails earlier in ingenic_drm_bind(), it
-returns an ERR_PTR.
+--=-tCN8FlM/lj0M4uctGBks
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Does this assignment store that unvalidated error pointer into
-ib->next_bridge without an IS_ERR() check?
+-----BEGIN PGP SIGNATURE-----
 
-When the bridge attach callback executes:
+iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqLFKYbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhR+sP/RIIZHGDZNC/YBrZ2kHQ
+Y47mb666c8c9OgnXOQElwPhTilOPpM8IpasomfG76FOSRh/jT4gZoLxQcVWXlwDF
++2GUP92L6ZkHDgh0ELEKlUSgxERnP53VsucrsmpN5p9Tec0RKTXrD2mF+eL9h15A
+BbJzKkc/aO9av2I348mNPumS/eRnWI8nMVJU0VMb3O/w7abNX7Gvh8Tlsoj5Aj/n
+5WtRqZdlJd7pZNwhZfpi3HULNny5Rp/ZPckN+qUZAnGqMRmoUNLGhBLQoxBxJUdf
+LGfYrSdCAhRFJiQDnfEDOpr8JIyzpAiI4NyBW9wqqJeKaCGk/791N/657sd6GJzW
++YQvjCPj5qenBzs/ISYCO4K5yYH2L1optibjBTcFGSLYG+M5lXLrKQdfmIun03au
+zDrHa+iq6X22tPJWDUAZ1QsCJGo4GVnmkmC+/aE5xogAxYtZVk5lREvQU9Eey+CC
+OspH4P3C3quTQWGo2UdzKgCegp9l/T47oX4YjP/UIA7qyfyTFwKbCt0WBaxAxB6r
+XVt1+6fxBXTDM7uGvdvuqJMie8DzHee0oKIy+qiUN0qolcP2X819vBI3+LiKqT4+
+Wz63sPv5+hZR8Dxq06ZcF0Vl0MHVMi6M/RUacuA3riXO2v/CUVigZky9CdBTCAI7
+1SZl840i3619OtEXy2OCD3HQ
+=DN5a
+-----END PGP SIGNATURE-----
 
-static int ingenic_drm_bridge_attach(...)
-{
-    ...
-    return drm_bridge_attach(encoder, ib->next_bridge,
-                             bridge, flags);
-}
-
-Would this pass the ERR_PTR as the bridge argument to drm_bridge_attach(),
-which bypasses the NULL check and dereferences it?
-
-int drm_bridge_attach(..., struct drm_bridge *bridge, ...)
-{
-    if (!encoder || !bridge)
-        return -EINVAL;
-
-    if (!bridge->container)
-        ...
-}
-
-Could this lead to a kernel panic from an invalid memory access?
-
-> -		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
-> +		ib->bridge->interlace_allowed =3D true;
-> +
-> +		ret =3D devm_drm_bridge_add(priv->dev, ib->bridge);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
-> +			goto err_drvdata;
-> +		}
-> +
-> +		ret =3D drm_bridge_attach(encoder, ib->bridge, NULL,
->  					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->  		if (ret) {
->  			dev_err(dev, "Unable to attach bridge\n");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/a3b64245250cd092776=
-cf23cddffe18318b48995.1787494377.git.hns@goldelico.com?part=3D1
+--=-tCN8FlM/lj0M4uctGBks--
