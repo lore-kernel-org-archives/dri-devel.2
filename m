@@ -4,45 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EF8AC5DF8C
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 11:36:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6E55C5DF98
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 11:52:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90F2710E00C;
-	Sun, 23 Aug 2026 11:36:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4EA10E3FA;
+	Sun, 23 Aug 2026 11:52:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OGLot8Fp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RsTKWWeM";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 539B710E00C
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 11:36:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8A62260008;
- Sun, 23 Aug 2026 11:36:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C499A1F000E9;
- Sun, 23 Aug 2026 11:36:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787484994;
- bh=5t6+8MRReuwEWWtWz590EOauv6OUxUupfcdl9H/F+q4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OGLot8Fp/K7oAlwnKRbJvnLVn0Kgz1ozM5vvhxPnrR6/CmyDe+2X7vvb+mW/0JUgw
- OUUKqPoxARKfx5quv8N99qiz3OuBNc3z2uU/0gcKJ4hB0sarmAoMZ+5XcjD6kJ1l9x
- mHsOM3hK5oXknM8X/1jZwSFtpUBO6jb+LkEQWlehoH6vRvug/j7U86JZMIxMjfrgWO
- LLcDTdgnRSulhgq3Zcdlpm8huYXKfPFwmlFwSgrbVewiOGqrfOeXrXRpd0s0242pBr
- qcuXh9Hdi+8ygYbOqMRQwWum4mEgf8Ks5VDdSfgaxGcRi72gn9VxA1vZR+1wRkuKQh
- wAFxySMPJtt9A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/6] drm/ssd130x: Change SSD133X color format to
- RGB565 from RGB332
-To: "Amit Barzilai" <amit.barzilai22@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260823111959.17029-3-amit.barzilai22@gmail.com>
-References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
- <20260823111959.17029-3-amit.barzilai22@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 23 Aug 2026 11:36:33 +0000
-Message-Id: <20260823113633.C499A1F000E9@smtp.kernel.org>
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04A7A10E02B
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 11:52:10 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-47f904e80eeso697405f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 04:52:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787485928; x=1788090728; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=OSPtUwy5dpHoeKHrqPLRAG3i1Kodm97L3d9KnmaS/Tw=;
+ b=RsTKWWeM//pfGckTETlC2HbwYviV0rl/pLBcK6e30vyDGs3XpVHV0k5s6x9/fe84Sb
+ gfCxeJuAZNTA5fujvWb8ZS0FDN+Q2bTILtJzQQ4UbqZHbR/GC9E269xPtLPkFkKO9A3w
+ iWAP1YMNINC5odfiIfXmvF+h52mGCGIqGPrXhigfJB41mme70rLgyK7/n789jpNmpvb9
+ /FVg2V6h9N7BVe0qVzQYbUkOefdotlPbsB2ECDC5SzFX0beFb+VzkFz/HrwHQQVeBBgv
+ tb6HKb/P7seyX1xfGxDybPhce63BlpK3JiZuLpMLHD3R9xAYA6TxFbBtpP7RqFHG6A4t
+ om3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787485928; x=1788090728;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=OSPtUwy5dpHoeKHrqPLRAG3i1Kodm97L3d9KnmaS/Tw=;
+ b=qGiOskxbumvjqVIM49uzJ4UISQVT+KpyDblIN72g+Ka6HNbfmIEuJ24t+I5yO+NbPz
+ B6Zmy+MRI40EFZ04od23IppmxQP9+LXPE07StiaHvX85KQ+g1g0eaGhsRb3ZCS8yKThl
+ MLlOZlDSeBoxS3oLEC+SDvMSz+goIwc6b8h1ptVgqKac5LTRZMWbx2o3fwvrLk1FMIwi
+ 2rsmCAvB8FbQ9DBVFLVPqsnsnKFdWPu42bFeuUYiLnkNoJRIKv0/Z/wPEoDgSJhRDX+8
+ DRrwfGoi6qktgnsbx1aEH75stay7M7M+UMI3EmP0SUXJW+hP1qhNFbnQbTk70zW+MrfU
+ PrZQ==
+X-Gm-Message-State: AFuF++mfXtDzJW6oteb01iRahp/lnays3EWzPFnRO8LNv5UpfixEtHFb
+ Y0T2cM7bOJepGwzanQUhrNo3lS6F8LEkFtfrBMaCSDfs5SM5g99zf0JC
+X-Gm-Gg: AR+sD13uLXbuyAY4KNP/Vn4GKIU0KnPFHlIANtd4YmlTUnth3W6rE+1pgKiYSIE4PmO
+ LfY8EhyAuO2hA2JPFPIc5XEQ81ijXX3HCUGgLEGNH7GSUAUv4H1qZB4mgaZYCYLADST70PBw9TS
+ HQ7LfmxEQr0ew8Z3O8v2NNeJf6QIs1Qxx52Lk5SwqNNaN22j4a15emldpw7E3qAjFHD6GBXZOlG
+ JXLiG6/bmKsDkGzqE2UXjLeO2j41iMsn9h7nIBoJs5Oy+6CVB1a/OPI0U+vRW8Qrpx/vnkhEVzf
+ RYDpNfxHXZU/Vv3GgqsOEeSIK6dCv3gnkOdP2TTfbTfFCqLcoM/bt4cBsk3ZGGC+CXg550EvBC1
+ /lNpL/mp5Aom4WfPX9hULVTFda48/KisCb7MachBlSBOi2wq57dzBHJ8EIMg1FSj1wN0jrG+9dy
+ Nrnb7h4mEIz5GzeSOxQT7wu1hr3LnCmE8YxqZ1ZUS9zoQBrRNOYdjk7uNOG3gIdcRZT/afiXUC7
+ T0wu7pZN2CSZ1Pk4WEDM6fX747rOMaq
+X-Received: by 2002:a5d:64c6:0:b0:47f:8f8f:db74 with SMTP id
+ ffacd0b85a97d-482c0b87e35mr22132720f8f.12.1787485927942; 
+ Sun, 23 Aug 2026 04:52:07 -0700 (PDT)
+Received: from cachyos-x8664 ([2a01:e0a:899:6110:90de:8744:7ad5:471e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482c9bfd865sm4682738f8f.22.2026.08.23.04.52.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 23 Aug 2026 04:52:06 -0700 (PDT)
+From: Julien Le Bourg <julien.lebourg8@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Wayne Lin <Wayne.Lin@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Julien Le Bourg <julien.lebourg8@gmail.com>
+Subject: [PATCH v2] drm/amd/display: Restore self-refresh fallback in DCN21
+ bandwidth validation
+Date: Sun, 23 Aug 2026 13:52:00 +0200
+Message-ID: <20260823115200.12502-1-julien.lebourg8@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260822091715.6692-1-julien.lebourg8@gmail.com>
+References: <20260822091715.6692-1-julien.lebourg8@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,89 +90,145 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+[Why]
+Commit b96150a70696 ("drm/amd/display: Should support p-state under
+dcn21") calls dcn21_fast_validate_bw() with allow_self_refresh_only
+false. The second dml_get_voltage_level() pass, which retries with
+dm_allow_self_refresh when no p-state capable voltage level exists,
+is therefore never taken.
 
-Pre-existing issues:
-- [High] Missing drm_format_conv_state_reserve() pre-allocation forces unsa=
-fe GFP_KERNEL allocation in atomic context.
-- [High] Sleeping functions called from plane atomic update callback.
---
+That fallback is the only way some short-vblank eDP timings can
+validate. The AUO 1920x1080@360 panel on the ASUS ROG Strix G733QSA
+(Cezanne, DCN 2.1) runs at 800.01 MHz with vtotal 1111: 31 lines of
+vblank, about 77 us, too short for a DRAM p-state. It now fails
+dml_get_voltage_level(), dcn21_validate_bandwidth() returns
+DC_NOT_SUPPORTED, and the driver keeps 1920x1080@60 only:
 
---- Patch [2]: [PATCH v5 2/6] drm/ssd130x: Change SSD133X color format to R=
-GB565 from RGB332 ---
-commit e1ae8460e953e75a280fd3111fa7957d70e68fcc
-Author: Amit Barzilai <amit.barzilai22@gmail.com>
+  [drm] Mode Validation Warning: Unknown Status failed validation.
+  create_validate_stream_for_sink: Unhandled validation failure 24
+  Rejected mode: "1920x1080": 360 800010 ... 1095 1111 (ERROR)
 
-drm/ssd130x: Change SSD133X color format to RGB565 from RGB332
-   =20
-SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
-Switch the SSD133X data path to RGB565.
+This is a regression versus v6.18, where 360 Hz was enumerated and
+usable.
 
-> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
-ssd130x.c
-> index 0b0fc6fe3df23..8cf1e9c84a810 100644
-> --- a/drivers/gpu/drm/solomon/ssd130x.c
-> +++ b/drivers/gpu/drm/solomon/ssd130x.c
+That commit dropped the fallback to work around a flip_done timeout
+under MPO. atomic_check (DC_VALIDATE_MODE_ONLY) and commit_tail
+(DC_VALIDATE_MODE_AND_PROGRAMMING) were observing different
+soc.sr_exit_time_us / soc.sr_enter_plus_exit_time_us, so a configuration
+could pass check and fail in commit_tail. Passing true again without
+fixing that mismatch would bring the timeout back.
 
-[ ... ]
+[How]
+calculate_wm_set_for_vlevel() overlays three DML soc latencies with
+each watermark range entry:
 
-> @@ -978,17 +990,18 @@ static int ssd133x_fb_blit_rect(struct drm_framebuf=
-fer *fb,
->  				struct drm_format_conv_state *fmtcnv_state)
->  {
->  	struct ssd130x_device *ssd130x =3D drm_to_ssd130x(fb->dev);
-> -	const struct drm_format_info *fi =3D drm_format_info(DRM_FORMAT_RGB332);
-> +	const struct drm_format_info *fi;
->  	unsigned int dst_pitch;
->  	struct iosys_map dst;
-> =20
-> +	fi =3D drm_format_info(DRM_FORMAT_RGB565);
->  	if (!fi)
->  		return -EINVAL;
-> =20
->  	dst_pitch =3D drm_format_info_min_pitch(fi, 0, drm_rect_width(rect));
-> =20
->  	iosys_map_set_vaddr(&dst, data_array);
-> -	drm_fb_xrgb8888_to_rgb332(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_stat=
-e);
-> +	drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_st=
-ate);
+	dml->soc.dram_clock_change_latency_us = table_entry->pstate_latency_us;
+	dml->soc.sr_exit_time_us = table_entry->sr_exit_time_us;
+	dml->soc.sr_enter_plus_exit_time_us = table_entry->sr_enter_plus_exit_time_us;
 
-[Severity: High]
-This is a pre-existing issue, but does this conversion allocate memory with
-GFP_KERNEL in an atomic context?
+and restores only dram_clock_change_latency_us. The stutter latencies
+keep the last entry (WM set A) in context->bw_ctx.dml. Watermarks run
+only for DC_VALIDATE_MODE_AND_PROGRAMMING, so the leak is written into
+dc->current_state at commit_tail. atomic_check validates
+dm_state->context with MODE_ONLY and never computes watermarks, so the
+two copies of soc can disagree on the next full update, which copies
+current_state and re-validates.
 
-Because ssd133x_primary_plane_atomic_check() does not pre-allocate the form=
-at
-conversion state using drm_format_conv_state_reserve(), this call to
-drm_fb_xrgb8888_to_rgb565be() can fall back to a dynamic GFP_KERNEL allocat=
-ion
-within __drm_fb_xfrm(). This leads to might_sleep() warnings since it execu=
-tes
-during the plane's atomic_update callback.
+Snapshot both stutter latencies in dcn21_validate_bandwidth_fp() and
+restore them after dcn21_calculate_wm() and
+dcn20_calculate_dlg_params(). The DCN21 DLG path
+(dml21_rq_dlg_get_dlg_reg()) still reads soc.sr_enter_plus_exit_time_us
+while computing Lwait, so restoring afterwards keeps DLG reading the
+same latencies as today; only the leak into dc->current_state goes
+away.
 
-> =20
->  	ssd133x_update_rect(ssd130x, rect, data_array, dst_pitch);
+With check and commit_tail now using the bounding-box latencies, pass
+allow_self_refresh_only true again. Modes that can p-state still
+succeed on the first pass; the fallback is taken only when no p-state
+capable voltage level exists.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this function sequence
-perform sleeping operations from an atomic context?
+dcn301_fpu.c has the same helper and the same restore gap. Left alone;
+I cannot test DCN 3.01.
 
-The ssd133x_primary_plane_atomic_update() callback runs in an atomic context
-where sleeping is forbidden. However, it calls drm_gem_fb_begin_cpu_access()
-(which waits on dma_resv and can sleep) and then calls into this function,
-which reaches ssd133x_update_rect(). The update function performs hardware
-writes using regmap_bulk_write() on sleepable I2C/SPI buses.
+Tested on ASUS ROG Strix G733QSA (Cezanne, DCN 2.1): 1920x1080@360 is
+enumerated and in daily use on a kernel built with this change. The
+original MPO flip_done timeout is not reproduced here; that path is
+reasoned from the code.
 
-> =20
->  	return 0;
->  }
+Fixes: b96150a70696 ("drm/amd/display: Should support p-state under dcn21")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5628
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Julien Le Bourg <julien.lebourg8@gmail.com>
+---
+v2:
+ - Fix the soc stutter-latency leak that b96150a70696 worked around,
+   then restore the fallback. v1 only flipped the flag and would have
+   reintroduced the MPO flip_done timeout. Reported by the Sashiko
+   review bot on v1.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260823111959.1702=
-9-1-amit.barzilai22@gmail.com?part=3D2
+v1: https://lore.kernel.org/amd-gfx/20260822091715.6692-1-julien.lebourg8@gmail.com/
+
+ .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 25 ++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index e82f2d531211..3697a3139552 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -2321,6 +2321,8 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
+ 				 enum dc_validate_mode validate_mode, display_e2e_pipe_params_st *pipes)
+ {
+ 	bool out = false;
++	double sr_exit_time_us;
++	double sr_enter_plus_exit_time_us;
+ 
+ 	BW_VAL_TRACE_SETUP();
+ 
+@@ -2336,7 +2338,8 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
+ 	/*Unsafe due to current pipe merge and split logic*/
+ 	ASSERT(context != dc->current_state);
+ 
+-	out = dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from, &vlevel, validate_mode, false);
++	out = dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from,
++				     &vlevel, validate_mode, true);
+ 
+ 	if (pipe_cnt == 0)
+ 		goto validate_out;
+@@ -2351,9 +2354,29 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
+ 		goto validate_out;
+ 	}
+ 
++	/*
++	 * calculate_wm_set_for_vlevel() overrides the DML soc stutter
++	 * latencies with the values of each watermark range entry, but only
++	 * restores dram_clock_change_latency_us. Snapshot the two stutter
++	 * latencies and put them back once the watermark and DLG parameters
++	 * have been computed, so the override cannot leak into
++	 * dc->current_state. A later atomic_check() duplicates that state,
++	 * and validating against mutated latencies is what makes
++	 * atomic_check() and atomic_commit_tail() disagree.
++	 *
++	 * Restoring after dcn20_calculate_dlg_params() keeps the DLG
++	 * computation reading the same latencies as before, so this only
++	 * removes the leak.
++	 */
++	sr_exit_time_us = context->bw_ctx.dml.soc.sr_exit_time_us;
++	sr_enter_plus_exit_time_us = context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us;
++
+ 	dcn21_calculate_wm(dc, context, pipes, &pipe_cnt, pipe_split_from, vlevel, validate_mode);
+ 	dcn20_calculate_dlg_params(dc, context, pipes, pipe_cnt, vlevel);
+ 
++	context->bw_ctx.dml.soc.sr_exit_time_us = sr_exit_time_us;
++	context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
++
+ 	BW_VAL_TRACE_END_WATERMARKS();
+ 
+ 	goto validate_out;
+-- 
+2.55.0
+
