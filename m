@@ -4,35 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B4E9C5DF81
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE03C5DF9B
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:27:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8512110E499;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE5410E49F;
 	Sun, 23 Aug 2026 09:27:24 +0000 (UTC)
-X-Greylist: delayed 579 seconds by postgrey-1.36 at gabe;
- Fri, 21 Aug 2026 09:29:14 UTC
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D69810F281
- for <dri-devel@lists.freedesktop.org>; Fri, 21 Aug 2026 09:29:14 +0000 (UTC)
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id F36051EAA53; Fri, 21 Aug 2026 17:19:31 +0800 (AWST)
-Received: from shelley.lan (unknown [IPv6:2001:8003:8802:7000::41b])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id 689E11EAA47;
- Fri, 21 Aug 2026 17:19:29 +0800 (AWST)
-From: David Gow <david@ingeniumdigital.com>
-To: Jim Cromie <jim.cromie@gmail.com>,
- "Maciej W . Rozycki" <macro@orcam.me.uk>,
- Andrew Morton <akpm@linux-foundation.org>,
- Matthew Auld <matthew.auld@intel.com>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: David Gow <david@davidgow.net>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] linux/log2.h: Add round{up,down}_pow_of_two64()
-Date: Fri, 21 Aug 2026 17:19:14 +0800
-Message-ID: <20260821091918.1902032-1-david@ingeniumdigital.com>
-X-Mailer: git-send-email 2.55.0
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DXYEY300";
+	dkim-atps=neutral
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D933A10E02F
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 08:32:21 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-c9e607d81fcso1452831a12.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 01:32:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787473941; x=1788078741; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=gQjZACrYdNbBdH+jtlaQgBXai3RCK9BnyKOFi8yya1Q=;
+ b=DXYEY300SrhNasZ+i+YOcXHwKjG/bmj6wH69sFykOHn/iHE0ZYUCK7VU32XUoXaaU7
+ e8pASSZn/AlQ0LsgnsJ/wXVq1HwV1eqDcVrtopbNA6J7U50++4imWywMHVDosk5sNb1a
+ onFPCHxI6OC3I8Ckw/BkWgLRexqwhzhuG2M3Cmv0FVSe0vj6/AXzlnNI2oBAvJeD7LDM
+ ABSyd23phkgU6nL/mN2XgHxtaGvjmzMSxVg3md79P9/G3zoSpe0/RaGumIzPPsPjj2ns
+ Qb+KwFbPYGqhnTEi4hW0kZ0IQkaY5L+hNqOCRE+s3nTjY8RYyq4SlCpNEEqOBsQlK13E
+ x/EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787473941; x=1788078741;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gQjZACrYdNbBdH+jtlaQgBXai3RCK9BnyKOFi8yya1Q=;
+ b=r+5gK46Gf2OXJC8uL6RewMgQD4fkROzv98cJOhZ2ScrRytddBII/1JOqieZbGj1Klh
+ QRMJPVfCdgHcStqVy4OnFDfz2yZOK6/PdCzuIFJqTZBXDSVkoRSWuxbFzLwA0WuzkXHe
+ 010juEpr60PM44Gg8RvEyvlA8tfUXec52Jc0omV6zybIuX3p6407iBLtMqHoim1z6mmD
+ 7T1YX9/GaDNprMozv/Y5bxLMpBcizpBuG2BzvMIHQqDwm6nTt1cDku0VjoDBDpa2POy4
+ eR1poi5wSRQxZsCjikJGIMtHF2a5UVcF4nDRzA+f+jWQqw4QjeVbPHLdKIyIE0tuZiSg
+ /1aQ==
+X-Gm-Message-State: AFuF++k3guAhhnaXDTznn+S+vRJaxRlygnKMgVXYMpkFPPYwGGO0jjhf
+ jPr8gMqah5Pcy/LLS61idWxa0wBtp9liNew9Oy+KCxGievYibdRFplQgXIVDaVWs5qbXGA==
+X-Gm-Gg: AR+sD10tyeIKeVMbCY+xOpmufIbkgb/xGVs+rMPZgMka/x5WscSjJtb7ABVfG8Zb90c
+ CcUfzjORIkV9penNdCYebpoRTnRuGxke3N0A9b7iYB7bWPhBV3fwG8dI74jq68AoXu9dSOcBejk
+ LZ14TmjvCUm0bfAM4MMuPeZis5e43D1yPs7LN/VG1Zdk8XVn0h8XbNZY/JKdnIr0STX6LSn8dnF
+ VCsFwe0qENstmPqQvDLbjrJqF3WpVCHEnlhmm0xWPZtec+vizq9YKt4sxId3v7XbrTpfxAqPUZz
+ dswTBR7kB3FP6l+hfCJ7VFvZNCmZJST8AYFiTUfcjdQZVKXANxqFSN+wXBhv6g4RR6Zn8HGrJ2H
+ is/F0y6gqzGDpnEJP3FYYtm1/VG20rtqlaEZGv9tWpus+/K2/bnB1DOTT+CNOf5Qwz9Stq+DbAn
+ 7KTQfqoXneDHdK+WXoP7wj/eflDMWnnmvgpspuHsAV8I6Sw63N5dr7Pvl/keANYvWrHZyUno7KD
+ WVpdOA=
+X-Received: by 2002:a17:90b:2785:b0:38f:23d6:b4ad with SMTP id
+ 98e67ed59e1d1-395c3594cf5mr34224184a91.8.1787473941256; 
+ Sun, 23 Aug 2026 01:32:21 -0700 (PDT)
+Received: from 138.101.136.61.ha.cnc ([61.136.101.138])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-395e4a15829sm5378703a91.14.2026.08.23.01.32.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 23 Aug 2026 01:32:20 -0700 (PDT)
+From: fausten <yunfeng.li.nb@gmail.com>
+X-Google-Original-From: fausten <yunfeng.li.nb@email.com>
+To: dri-devel@lists.freedesktop.org,
+	zack.rusin@broadcom.com
+Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ fausten <yunfeng.li.nb@email.com>
+Subject: [PATCH] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION as unset
+Date: Sun, 23 Aug 2026 16:32:11 +0800
+Message-Id: <20260823083211.2654733-1-yunfeng.li.nb@email.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:26:47 +0000
@@ -51,111 +90,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Gow <david@davidgow.net>
+The cursor plane code validates cursor dimensions against
+SVGA_REG_CURSOR_MAX_DIMENSION before every cursor update, and
+rejects the update with -EINVAL if the cursor is larger than the
+reported maximum.
 
-The existing roundup_pow_of_two() and rounddown_pow_of_two() functions work
-on values of type unsigned long, which is 32-bit on 32-bit systems. There
-are cases (most notably in the GPU buddy allocator) which always operate on
-64-bit values (as a 32-bit host can still use a GPU which internally has
-64-bit addresses).
+However, some SVGA implementations do not implement this register
+and return 0 for it. In that case every cursor update is rejected,
+and the log is spammed with:
 
-Add a version of these which always operate on a 64-bit value. These have
-the (unimaginative) names roundup_pow_of_two64() and
-rounddown_pow_of_two64(), and otherwise work identically to their unsigned
-long counterparts. They are a bit ugly, but better than everyone hardcoding
-calls to ilog2() -- which does handle 64-bit values -- directly.
+  [drm] Cursor dimensions (64, 64) exceed device max 0
 
-Signed-off-by: David Gow <david@davidgow.net>
+The visible symptom is that the hardware cursor never appears at
+all on VMware Fusion guests (SVGA version 2), making the mouse
+pointer invisible even though the input devices work fine.
+
+Treat a reported maximum of 0 as "not implemented" and skip the
+dimension check in that case, restoring the pre-existing behaviour
+of accepting the cursor.
+
+Tested on VMware Fusion with an SVGA version 2 device where the
+cursor previously did not show up.
+
+Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB cursors")
+Signed-off-by: fausten <yunfeng.li.nb@email.com>
 ---
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Hi all,
-
-This series is basically a reworked and rebased version of
-https://lore.kernel.org/all/20260326185413.1205870-40-jim.cromie@gmail.com/
-
-Most importantly, the drm_test_buddy_alloc_exceeds_max_order KUnit test
-was failing in linux-next on 32-bit systems, which this series fixes.
-
-In rebasing it, I decided to add these helper functions, rather than
-having an open-coded round{up,down} implementation in the buddy allocator,
-but if no-one thinks it's worth having these for (at the moment) just one
-user, I'm not too worried either way.
-
-Cheers,
--- David
-
----
- include/linux/log2.h | 57 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
-
-diff --git a/include/linux/log2.h b/include/linux/log2.h
-index e17ceb32e0c9..67446d5ce9a3 100644
---- a/include/linux/log2.h
-+++ b/include/linux/log2.h
-@@ -195,6 +195,63 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	__rounddown_pow_of_two(n)		\
-  )
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+index d1e7df500..fbdd23ecb 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+@@ -237,8 +237,10 @@ static int vmw_cursor_mob_get(struct vmw_cursor_plane *vcp,
+ 	mob_max_size = vmw_read(dev_priv, SVGA_REG_MOB_MAX_SIZE);
+ 	cursor_max_dim = vmw_read(dev_priv, SVGA_REG_CURSOR_MAX_DIMENSION);
  
-+/**
-+ * __rounddown_pow_of_two64() - round a 64-bit value down to nearest power of two
-+ * @n: value to round up
-+ */
-+static inline __attribute_const__
-+u64 __rounddown_pow_of_two64(u64 n)
-+{
-+	return 1ULL << ilog2(n);
-+}
-+
-+/**
-+ * rounddown_pow_of_two64 - round a 64-bit value down to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value down to the nearest power of two
-+ * - this always operates on 64-bit values, even on 32-bit systems
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define rounddown_pow_of_two64(n)		\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		((n) == 1) ? 1ULL :		\
-+		(1ULL << ilog2((n)))		\
-+				   ) :		\
-+	__rounddown_pow_of_two64(n)		\
-+)
-+
-+
-+/**
-+ * __roundup_pow_of_two64() - round a 64-bit value up to nearest power of two
-+ * @n: value to round up
-+ */
-+static inline __attribute_const__
-+u64 __roundup_pow_of_two64(u64 n)
-+{
-+	return 1ULL << (ilog2(n - 1) + 1);
-+}
-+
-+/**
-+ * roundup_pow_of_two64 - round a 64-bit value up to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value up to the nearest power of two
-+ * - this always operates on 64-bit values, even on 32-bit systems
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define roundup_pow_of_two64(n)			\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		((n) == 1) ? 1ULL :		\
-+		(1ULL << (ilog2((n) - 1) + 1))	\
-+				   ) :		\
-+	__roundup_pow_of_two64(n)		\
-+)
-+
- static inline __attribute_const__
- int __order_base_2(unsigned long n)
- {
+-	if (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
+-	    vps->base.crtc_h > cursor_max_dim)
++	/* Some SVGA implementations (e.g. VMware Fusion) report 0 here. */
++	if (cursor_max_dim &&
++	    (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
++	     vps->base.crtc_h > cursor_max_dim))
+ 		return -EINVAL;
+ 
+ 	if (vps->cursor.mob) {
+@@ -748,8 +750,10 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *plane,
+ 		u32 cursor_max_dim =
+ 			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
+ 
+-		if (new_state->crtc_w > cursor_max_dim ||
+-		    new_state->crtc_h > cursor_max_dim) {
++		/* Some SVGA implementations (e.g. VMware Fusion) report 0 here. */
++		if (cursor_max_dim &&
++		    (new_state->crtc_w > cursor_max_dim ||
++		    new_state->crtc_h > cursor_max_dim)) {
+ 			drm_warn(&vmw->drm,
+ 				 "Cursor dimensions (%d, %d) exceed device max %u\n",
+ 				 new_state->crtc_w, new_state->crtc_h,
 -- 
-2.55.0
+2.33.0
 
