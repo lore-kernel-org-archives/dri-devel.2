@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB249C5DF8C
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 19:10:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FD18C5DF81
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 19:19:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B352510E025;
-	Sun, 23 Aug 2026 19:10:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D08C10E4BA;
+	Sun, 23 Aug 2026 19:19:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="o6pulzMO";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="yRSIcm0K";
 	dkim-atps=neutral
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92DD910E025
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 19:10:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E52C810E4BA
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 19:19:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
  h=Content-Type:Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=/W6mkeoXvnonMNZUI3njI0qG2gH3SwBOtWLJBh8UHlM=; b=o6pulzMO03REegWhuuub+t8v3d
- fsJQF+E0p8GSd/S95Kwk/5mdjKiT0tPOtr3GvhNT+YDv6MiP6wpgBzKBT9JQjUtvPr0JFQNcnb6ta
- r5cJZQYy7vXGMgiyppwKTAxnTN9wfgUoGNaV9o1NqbAxEU1i66C0thPUmBlS4c5cJ7vQnExVl6mVk
- xPkijEuj3K2TuqXest7lqlNETwhQ6mH+OorjXwNflJek0MQiSy+HXpCQvohTq4ZviqXU9Ji4YL7yh
- npchf11iQcDW46NEXtLXcJHWntRZIPPnLY8ch9lN/wzs6yJuI9m+7mmHA2OmVQSxS2Un3YT9MN3Em
- ZyZ+uCrw==;
+ bh=JHIFFPoPBok4Enb1vmDibOlXvjE96+mvh5k+3E9o3Q4=; b=yRSIcm0K+2lJ8cWUbdK8pWzTNU
+ TfHVkAKDP77B+xQF1Lglr2vLwDSXcVqdK98cKyUGyWv/LbnUxHInIWIS1LHajfG4pHqhUqTK7/jbn
+ 3havtYtAE6CumxuekTvkOpAh7mSNKUxsHSPKioljrWIH/NDBW5f3rj9etT+SrupqI2rreW59nW30o
+ 1YeV+dee1Jz81c6P9o/BorXHbbiMHrLRLRVPH6wqpHCp+87xUDFqwaUGE6qb6Zy8CmvPHI/42wKgB
+ O3MVopmuwtwwUiupII0/cqJ0YE29nRPx/Vkl9qZ+LmbM2uVCm26N5OZkloDFFzGp2bZkTjIZNDQkG
+ GRCXoH2A==;
 From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Johan Jonker <jbx6244@gmail.com>
-Cc: hjc@rock-chips.com, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] drm/rockchip: rk3066_hdmi: convert to
- devm_drm_bridge_alloc() API
-Date: Sun, 23 Aug 2026 21:10:31 +0200
-Message-ID: <9306866.NyiUUSuA9g@diego>
-In-Reply-To: <dea8a038-577b-45da-bff3-703e9099b7e1@gmail.com>
-References: <dea8a038-577b-45da-bff3-703e9099b7e1@gmail.com>
+To: Johan Jonker <jbx6244@gmail.com>, andy.yan@rock-chips.com
+Cc: hjc@rock-chips.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v1] drm: rockchip: add
+ drm_plane_create_blend_mode_property
+Date: Sun, 23 Aug 2026 21:19:28 +0200
+Message-ID: <25031028.6Emhk5qWAg@diego>
+In-Reply-To: <1ab6fb88-3b84-49b5-aa05-202a84edbd3d@gmail.com>
+References: <1ab6fb88-3b84-49b5-aa05-202a84edbd3d@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -58,58 +57,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Johan,
 
-Am Sonntag, 23. August 2026, 14:47:25 Mitteleurop=C3=A4ische Sommerzeit sch=
+Am Sonntag, 23. August 2026, 14:29:09 Mitteleurop=C3=A4ische Sommerzeit sch=
 rieb Johan Jonker:
-> The function devm_drm_bridge_alloc() is the new API for allocating DRM br=
-idges.
-> This conversion was missed during the initial conversion of all bridges to
-> the new API.
->=20
-> Signed-off-by: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
-> Signed-off-by: Johan Jonker <jbx6244@gmail.com>
+> A validate_blend_mode_for_alpha_formats() function was added that
+> fills the kernel log with warnings for Rockchip VOP version 1 SoCs.
+> Add a drm_plane_create_blend_mode_property() function as fix.
 
-the authorship is ambigous here. First Signed-off-by should be from the
-patch author, yet this one makes you the author.
+This is missing explanation on why PIXEL_NONE is the correct value.
 
-So either the author needs to change or the signed-off-by line
-needs to go.
+VOP2 seems to support all 3 blend modes? So a sentece explaining
+the pixel_none value would be helpful.
 
 
 Heiko
 
+> Signed-off-by: Johan Jonker <jbx6244@gmail.com>
 > ---
->  drivers/gpu/drm/rockchip/rk3066_hdmi.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/roc=
-kchip/rk3066_hdmi.c
-> index f28d6a883e09..39c65ee07caa 100644
-> --- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-> +++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-> @@ -703,7 +703,6 @@ rk3066_hdmi_register(struct drm_device *drm, struct r=
-k3066_hdmi *hdmi)
->  			 DRM_MODE_ENCODER_TMDS, NULL);
+> https://lore.kernel.org/all/20260526181700.25310-3-leandro.ribeiro@collab=
+ora.com/
+> ---
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/dr=
+m/rockchip/rockchip_drm_vop.c
+> index 0090d8ff0c79..0bc5b606f021 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+> @@ -1850,6 +1850,8 @@ static void vop_plane_add_properties(struct drm_pla=
+ne *plane,
+>  	if (flags)
+>  		drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
+>  						   DRM_MODE_ROTATE_0 | flags);
+> +	drm_plane_create_blend_mode_property(plane,
+> +					     BIT(DRM_MODE_BLEND_PIXEL_NONE));
+>  }
 > =20
->  	hdmi->bridge.driver_private =3D hdmi;
-> -	hdmi->bridge.funcs =3D &rk3066_hdmi_bridge_funcs;
->  	hdmi->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
->  			   DRM_BRIDGE_OP_EDID |
->  			   DRM_BRIDGE_OP_HDMI |
-> @@ -747,9 +746,10 @@ static int rk3066_hdmi_bind(struct device *dev, stru=
-ct device *master,
->  	int irq;
->  	int ret;
-> =20
-> -	hdmi =3D devm_kzalloc(dev, sizeof(*hdmi), GFP_KERNEL);
-> -	if (!hdmi)
-> -		return -ENOMEM;
-> +	hdmi =3D devm_drm_bridge_alloc(dev, struct rk3066_hdmi, bridge,
-> +				     &rk3066_hdmi_bridge_funcs);
-> +	if (IS_ERR(hdmi))
-> +		return PTR_ERR(hdmi);
-> =20
->  	hdmi->dev =3D dev;
->  	hdmi->drm_dev =3D drm;
+>  static int vop_create_crtc(struct vop *vop)
 >=20
 
 
