@@ -4,43 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72B9C5DF8C
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 12:58:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F354FC5DF97
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 13:19:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0430510E051;
-	Sun, 23 Aug 2026 12:58:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1087510E15A;
+	Sun, 23 Aug 2026 13:19:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J/b43y41";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="oOM1N+cf";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="3tb96ryA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF59D10E051
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 12:58:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A370841AD7;
- Sun, 23 Aug 2026 12:58:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E571F000E9;
- Sun, 23 Aug 2026 12:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787489880;
- bh=SUZQRXniSg4NqdAsVcSMtBYndzlOneeHYQFa+YCDFaA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=J/b43y41elGgPyzQMaE0gsOZNDqRrACgNBiDRi6rfU4giHL3W9Sc33Up/OGmxY31d
- eWfl5Mub+7ATT8W/eWrI19WIoSMcf/D6cf9P4GSzpqMYoBWCDBF/RzNXshfDt+3Jsa
- w63n7XLP5Pd1FotUJ5FYb8iq6S8cHqSQy6HGJ8PnpzYuSx5ow3HSDqhzVNUesegUMP
- KZ6Km9X+1WCAX4nKpdIWkysfiL8iUd8nJmWHQzhhVKr5ZLbdvgW/OXSfMkQJv77YbA
- +nd5JBXjme2AFbY0FZ97UCTG7991H8rUtEctb5yig64KEvVw/htkJeFe+8LtHJkBwp
- kiAUq8zB8UrHw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] drm/rockchip: rk3066_hdmi: convert to
- devm_drm_bridge_alloc() API
-To: "Johan Jonker" <jbx6244@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <dea8a038-577b-45da-bff3-703e9099b7e1@gmail.com>
-References: <dea8a038-577b-45da-bff3-703e9099b7e1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 23 Aug 2026 12:58:00 +0000
-Message-Id: <20260823125800.67E571F000E9@smtp.kernel.org>
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE2D10E15A
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 13:19:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787491156; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=hvlkDMLjA/M0zPOn32U043+j1tFE14nKERob1IkX2lE78gVER5EtImXC4xeRQrAriE
+ f7OhycjoG9Dj3E8gUlM3IwzGbQhIQNcYdRrKtg7RSO47yqqTUumX4N4tPIQnlp+pq22+
+ K8m7ULvflbttb6SLejxIdXkL/PBm1p9iAmb9294+42f4dRY75Nv1CL1ik1oH8oWBw0vX
+ 7M9393ICFiwfJlLCKRKbuRAIfGnanq2LyXNb8tIzfHVb7Pt8zoZhLPSCL1QHbccP9pVo
+ L5j0asQ0PAsmXiLZGqNH+I8ekUBya78bP0G41vm3o+fYv7h8fSZNCUmoWfA/VCLYXHVT
+ zMXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787491156;
+ s=strato-dkim-0002; d=strato.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=cZZjI4eLpLnix7X9ZVP8dmFoM/H1s5Z0L0LHnAMxqQk=;
+ b=gFbFYns5YhpMeig95/vAADWwQnq2OKJ79VMumsoDGmDHyIP9TmN4yJIEqkOqqXGAIi
+ Aij3i1f6fkgVVPsB+kzX0pYKeHsDjyH5MA3Jcfft+C63SNZry8gMnThcuXXDoAr/otBr
+ 7GEjZhI6lxOo2nkvUKJ2miqCgayCHe24zlnbkGc5Ic7v0aSpiqn7Eq4hHPomIAbvLxnW
+ qoFGhG8FVF6KHYo0IJawQk4NwXCGXS3hVObwKVkJYm8m0hz9LW5WgAmAujrOhPiPDHAI
+ 4C+ejNFT1yZey1mTkhjym4tdylED2dlD08s2QdLhanXDHaaQp2bSyMNs2NaEYuurfHWo
+ Hs4w==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787491156;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=cZZjI4eLpLnix7X9ZVP8dmFoM/H1s5Z0L0LHnAMxqQk=;
+ b=oOM1N+cfKuIoblEiiaHQs26eSMYiawgIE9yKLeIo+svehR53E7qZaaybtyeEhShuX3
+ TbtT6fgiwrr4MWcBDdgvZDekncdq0DqlQ/xFP4AfbZbLS/7ZEfsUVxkt/S81riWW8Wxb
+ utF3ND4R8AietOgj9duTtACA74bxR3GSmivnU0GCOzXoOZ0dUDhEgPz8wY7mPvnooDS4
+ BlSzOmMOf+i5TBflmeQiXytaGxVAfJBV956uLJUa8GlvTzsqn3eSdDTx539q7SjL9NE8
+ DX8AdQVLXe4ii2hxj5bzvJzDjwzw/FQWsqJ2S6ojuCbJxs8caHl+39ZMCYRN+o9a2hiI
+ FSYA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787491156;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=cZZjI4eLpLnix7X9ZVP8dmFoM/H1s5Z0L0LHnAMxqQk=;
+ b=3tb96ryALPZJyXYTlbHJHzY3wOMdrgX3suIzTV6vhB6F4wqxGW4NF5b/0kBUmpKWb7
+ VLWGpCdLiTRHc7SDDsDQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ25oKnciHHK5OAyYE8yLD5e6WBWpu+g6xSmk="
+Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.2 AUTH)
+ with ESMTPSA id Qfefb327NDJEX8V
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Sun, 23 Aug 2026 15:19:14 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
+ wbx@openadk.org, kernel@pyra-handheld.com,
+ "H. Nikolaus Schaller" <hns@goldelico.com>, stable@vger.kernel.org
+Subject: [PATCH v2] drm/ingenic: fix bridge allocation
+Date: Sun, 23 Aug 2026 15:19:06 +0200
+Message-ID: <5db9a2ad762f1515431fff714fc7d6d93363ccb2.1787491144.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,100 +90,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Bridge allocation API has changed and ingenic/drm was broken
+leading to
 
-Pre-existing issues:
-- [High] Devres allocations in component bind() cause permanent initializat=
-ion failure (-EBUSY) on probe deferral.
-- [High] Active devm-managed IRQ and I2C handlers access hardware with the =
-clock disabled after unbind(), causing a system crash.
---
+[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
+[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
+[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
+[   55.904136] ------------[ cut here ]------------
+[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
+[   55.917538] refcount_t: addition on 0; use-after-free.
+...
+[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
+...
 
---- Patch [1]: [PATCH v1] drm/rockchip: rk3066_hdmi: convert to devm_drm_br=
-idge_alloc() API ---
-commit 2ee09d3b212b24956cbceb44c6bf494785f5586d
-Author: Johan Jonker <jbx6244@gmail.com>
+Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
+Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Cc: Waldemar Brodkorb <wbx@openadk.org>
+Cc: stable@vger.kernel.org
+---
 
-drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() API
-   =20
-The function devm_drm_bridge_alloc() is the new API for allocating DRM
-bridges. This conversion was missed during the initial conversion of all
-bridges to the new API.
+Notes:
+    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT as suggested by Sashiko-reviews
+        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
 
-> diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/roc=
-kchip/rk3066_hdmi.c
-> index f28d6a883e099..39c65ee07caac 100644
-> --- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-> +++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-[ ... ]
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 42c86f195c66b3..fb78bdef8ec9e8 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -122,7 +122,7 @@ struct ingenic_drm {
+ 
+ struct ingenic_drm_bridge {
+ 	struct drm_encoder encoder;
+-	struct drm_bridge bridge, *next_bridge;
++	struct drm_bridge *bridge, *next_bridge;
+ 
+ 	struct drm_bus_cfg bus_cfg;
+ };
+@@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+-				 &ib->bridge, flags);
++				 bridge, flags);
+ }
+ 
+ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+@@ -1314,10 +1314,26 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
++		ib->bridge = devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
++						   base, &ingenic_drm_bridge_funcs);
++		if (IS_ERR(ib->bridge)) {
++			ret = PTR_ERR(ib->bridge);
++			goto err_drvdata;
++		}
++
++		ib->bridge->of_node = priv->dev->of_node;
+ 		ib->next_bridge = bridge;
+ 
+ 		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
++		ib->bridge->interlace_allowed = true;
++
++		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
++		if (ret) {
++			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+ 			dev_err(dev, "Unable to attach bridge\n");
+-- 
+2.55.0
 
-> @@ -747,9 +746,10 @@ static int rk3066_hdmi_bind(struct device *dev, stru=
-ct device *master,
->  	int irq;
->  	int ret;
-> =20
-> -	hdmi =3D devm_kzalloc(dev, sizeof(*hdmi), GFP_KERNEL);
-> -	if (!hdmi)
-> -		return -ENOMEM;
-> +	hdmi =3D devm_drm_bridge_alloc(dev, struct rk3066_hdmi, bridge,
-> +				     &rk3066_hdmi_bridge_funcs);
-> +	if (IS_ERR(hdmi))
-> +		return PTR_ERR(hdmi);
-
-[Severity: High]
-This is a pre-existing issue, but does using devm_ allocations in the
-component bind() function cause a permanent failure on probe deferral?
-
-rk3066_hdmi_bind() allocates devres-managed resources using the component
-device, including devm_platform_ioremap_resource() right below this hunk.
-Devres actions are tied to the device's probe/remove lifecycle, not the
-component bind/unbind lifecycle.
-
-If bind() fails, for example when rk3066_hdmi_register() returns -EPROBE_DE=
-FER
-due to missing CRTCs, the devres resources are not freed.
-
-When the master DRM device retries probing and calls bind() again,
-devm_platform_ioremap_resource() will attempt to request the same physical
-memory region via request_mem_region(). Because the first request was never
-released by devres, this fails with -EBUSY, preventing the display from ever
-initializing.
-
-[Severity: High]
-This is a pre-existing issue, but can the active devm-managed IRQ and I2C
-handlers access hardware with the clock disabled after unbind(), causing a
-system crash?
-
-In rk3066_hdmi_bind(), the HDMI IRQ handler and I2C adapter are registered
-using devm_request_threaded_irq() and devm_i2c_add_adapter() on the compone=
-nt
-device.=20
-
-Because they are devres-managed on the component device's probe/remove
-lifecycle, they are not removed when the master DRM device unbinds and calls
-rk3066_hdmi_unbind().
-
-In rk3066_hdmi_unbind(), the hardware bus clock is explicitly disabled:
-
-    clk_disable_unprepare(hdmi->hclk);
-
-If an I2C transfer is initiated from userspace (via /dev/i2c-*), or if a
-shared IRQ fires after the master is unbound, the still-active handlers
-(rk3066_hdmi_i2c_xfer or rk3066_hdmi_hardirq) will execute and access HDMI
-hardware registers. Accessing hardware registers while the clock is disabled
-causes a synchronous external abort (bus fault), resulting in a kernel pani=
-c.
-
-> =20
->  	hdmi->dev =3D dev;
->  	hdmi->drm_dev =3D drm;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/dea8a038-577b-45da-=
-bff3-703e9099b7e1@gmail.com?part=3D1
