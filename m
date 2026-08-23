@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA82C5DF8C
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 16:33:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 733BFC5DF8C
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 16:37:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0404310E048;
-	Sun, 23 Aug 2026 16:33:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D623D10E05F;
+	Sun, 23 Aug 2026 16:37:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="RFYOzHLP";
+	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="fHHQR2Fp";
 	dkim-atps=neutral
-Received: from sonic308-55.consmr.mail.gq1.yahoo.com
- (sonic308-55.consmr.mail.gq1.yahoo.com [98.137.68.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D64110E048
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 16:33:47 +0000 (UTC)
+Received: from sonic301-22.consmr.mail.gq1.yahoo.com
+ (sonic301-22.consmr.mail.gq1.yahoo.com [98.137.64.148])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 794B210E05F
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 16:36:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1787502826; bh=sinYjZisod9mWYzD4X6OTROm+a4ISnrR/8dvVGQYeN0=;
+ t=1787503019; bh=OKi5qXoPdjEo4yi1r9gA2Z+oOi/C30ZjEZUOraOxNW8=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=RFYOzHLPhQO1qbJVSOSfBqr1x6YAEw+v+F6zP/tKcx8efVY29flNzruBiK9zv+TTD3ylCtTbm3DUbgJ83xKEzQqkzc/+7Yf1TTYWMtY5u7QzznB7dH/gFeApCBUyiriXqaTnYPKh+fpfEGDcPZ3dm9QXW7/XfSqkUlkNrbx/mr7Uq993APsY6TpMp9KmBm5kJug3t3Rw+TuJ+iadWFwUODl/4PkdtKjb2guHTO3taH0/dWH9RPpyuhrqkIDOCWzQPMb03Xrdu0xq8cAD+wVPWPqxAPJKyiAMN60wFQP2jkuA8j9yCygjCvUDR0m1FeOrEbjyVnHInWWIIwQfWxoUAQ==
+ b=fHHQR2FpvR22GaHM6kIdmwRDl+BfKv275yFDmjbMBS5SwyDMfxQlk7KWtbv5ZCwXY9+vZsN5PTspYygx2xUAFhKxYLkQkXMgQsbYFRbN2vZwv6puBpiYF7JGzUMyNRpUQAnn1B7/Lj51n0T70XIekdzXnXjHu99QmkYEzITfRuMGrP/+ULY5qdb12tkTQ1fzEcgzOaZs5MZTvNkv5qexzC8dTAISuINa8iGN7sr5K0nLcTpRNddXhlMVRWPZI6D0Fl1YwNWu0QjQeZa6EwYgYIBg3Z1TfbSvFs7nmpYje0om3ka/IvBqodgnXZ8xAp8rAQ6U76p3ZHbRmOy9LTD6yw==
 X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1787502826; bh=oO6SYN4u7Vvk9HH+R20RUA1+6uk4LzXcksbmkhG4pWh=;
+ t=1787503019; bh=byAlPVl0xoK1ERAkQ3whZnx0Uj+auVUoT6JpIK8colD=;
  h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
- b=DFpNRi7O4PCv0aajypCR5M+blTeSOjq66Tgb7FfA5/NxUfFbamPTtpCBwYatF+92Ii3Lu93bLlxv0NZrUuRo2xDZcuEW2mD6pJMPMDIaEFcvIMNE1XxIMmYI0Du/08sCK2WU0g3uJyK+L3Ylt4AC5B+FNp5HoBG60VlRan+5oxk2hhKsusBG3hJmgAiOPFSQZTknyferDY0VB6jXx33g1pms6wkQ6b3PhvrXGfI8cskArcRvqJ6APusUvSAEcIt+Z0wW0d0j+68TZnTjrbGUkl7ZJzL0ZIisw8woCJ5DD2hVbS+Jul02BkALxO+Y2ltGCLuDybMGefpIGYxUneh5LA==
-X-YMail-OSG: 3Qrtl_8VM1mxpuId5b91pABVMhpw7.697axo4ODlxC0GC0FGFjHzHIcOVnqnr0k
- j8o2uXUSW722I8gzajyDHgS7KftX6sgPU9dZ2k0nrjg9h6T.GxP1qZljvxgv9..SZqul.IAmim9Y
- 2KXbfpclncacfixFZvOjZ6jmyy4YU_92O3J9AllXR0wCVp1pRWvbrcucod3fdDtLUkohowjxRQpG
- sLhxuVFK..7hrrokHnB.PhnIpzZhOVb4Hq4DMjo7MB8A5vREqELXgMrzaw7NiEQ7R6_lJ3CN_Ez_
- mg4R5RfzYFoosYJx8_j27SH2IIrE0JmED.AORcX6oL0mf99FIOeDdnCPzN1pVJyX4l7XnCGAQ5EF
- FNx63nfknmzKOiL2ZVSv.rmYV_fKDjRQ5jmO0xoztspwVG.wESFSiOvNTZvl67SP6e9ew5nKmE9P
- tRsYg_qHIR05IvsF18JFu9ew68Oyp0UM_T6Pra85GS9rp5Wn3fdQzUmU3aBBUBZdKTY5fwP9JiS4
- B7UG4ua9N5LUr19o9VvG0c1xPcl5HpXMg9PrvbJLXrgtnYKk4JdH6Fr5M6w7B2LPkNYz6O1PzPFN
- CwwtWvpE3HawfEo79xo9uvzSZKKGaNmJnSJQLizmb0B_uHtbfUtVuTFpqz3Y42d8QDcy8tNYoWfp
- WxFwIRw_xzp63QkleYNR21ppkf10lKbqeq.XSQ3DAiI6CYL7eJAhjgsPo1LYU9TjqTBPHBAXE.Ng
- 5iYrpcMtmNqWq8UBJAjf4oBDDoaNdXix1sFl.9bPqZdFg_kwaj00geFeVKdW2MqkE041gNHZ0Ksa
- FxkwQ8.qCyPeBI0Cs1IigG8Je9Ycs30bMjy5CEBGH4FVE.g6Tol75yavY29Ov9HVtDArj24QkzVj
- tgXhXV_Ere.IP5MW.ibrW4eC7iD7NzBQ0KZSQQ4ZujpQt79r59XhOPeb7FOv2NBZ28yjr217wHUt
- bIDR55_tdjeMyH3wBX_iGJjHwCXBoX.7YZuF.YCOspNtNLtIZCAhnAbBFJ1I6fierU4gdsmAtO2z
- d6pTKFKP7cbEPxQgOCtY3_NqcBDyqxfOA3kI8TQ5PBhV9smewATi2UvvKfeg9sKFLULhDy1Ed4jB
- yC4_fU4P4JT_tICxm5OJ_a1y7HYq3g4MkdBfCK3EtO9zT89DRuEmthcOvEXM.gy_19nCXHlJ_7lR
- euAR3hUQIQigs15tYZvEoXA6KGatUunj8ApYaIkSS9.j_yagGQDfjbsZVHQAoVVj1CZA_B_5mqy3
- w4lY8ZjrJU7k6X_zNdOntOLOdLhc1WA8O1fsr15MHiNleoepNRWJDM4ZV1n9ftakYyRYehSp10Hd
- uSiV.EfV1wb5YtxuKpMUi7wt7IVAFl2ZuVur2DhubNc0Xu0iIVlIbrJZtUx5HzM7AmFo.0NJI8JU
- Duzcwtk1_u5ziSl7QQfYWpdOGDa1vqLOffNZJZHjwizCwuylndnlnH3ql3Ea1TU7BxrSm0eSpYsK
- WzOLZbYSNgnYcf6BBzsD_zrg2fWRnkPI.7HKVRZYo9RJCX7U9NwMCPJ7GIes3Qy_un_r0fdJeoXL
- qenlEMdxVg5smOIHRFGEoi9Qa.4fQ1dHM_mnCr4SwKSOUF2mYckM6o2lF1PaQAi5IrTMuooXHnrW
- slruWtsgkczmtksWcTrGNEm_3L9eYdNF96mE5P0_GipL3G90Kyw1t5fBdM1fVP.9NZ.kldZ6ME4q
- zlsWe.skp.3SNGIRDV6tA7hiQxXRQ3dguSCyMSWoH9bmVPz1Jwf3__8Z3qx_0FE5FB986wwZc34g
- wgW3m9UDTYoISYAofh.M_YHGdpVVEO1C6hEhAKiugtagan2.RLbO0gKJLgiWndUKSANbJlU7FuME
- vwJaYHPJPpinoSvyIhleB.eDP_8zYJoW39DxAuDTJDNkNGsUBD8K26tPjP_rEsIup9A76UmJ8S6a
- KO_X3qcO4P_3mszebFGNWjRT1wzGVRT3qcAusjoA1cJslWk5BgRLXjxqRf0sqcCkUV9Jm.y4pUCh
- mZhCFclbJ0t.2OhzbfmYk1SujbHEe8hDvGoKnxcXs4u1lPl8IKowoHbJS6I4BXRq_ZKfUNO1XtvA
- GSWPzVUiIGU6vHcNEFg_JcCqz07mmbWoTw1xxQoYo7DiyJmLLZ2GgherU4AH6ZDB2gYhxiY2.lkj
- LLi2o65XyCpMXKjJShZrQ67LDoroKwtV3ydNe9x5x1R1bCObjdPCfdflip0jD_sJ2XXw1CGmxt23
- BwmLP4WLjQF5mi2600k2f9izLVHPpnbF9USqBethkkKtreEIjiLXSCXq0TT7xT.2a.84ROf_uc1E
+ b=Eqe2TE1x8XN8BCXglVXIS42L0W3uVScifsn/nmXckdbJ5NQ/MINtyJblOhThiLKaR3/jOklPAuFWQ2g2XAvqQjxEyddQaXmnYrWwDrGyPywu3AhXO6mF5v6S+cM0uu/rTySHye7YLYQ8TGKFF/7wCaN6dlafYII+eMyo6r8n8ERlWImFkz1Om9L7ZMk5gu+4jprDXRtpGuIU4WvY0Ze2m9QOK5rIIR6VJWTRqgX5y4asu1kOX6pq6jJPoPwO84zxfsxuDjtqNSHmxywhwC4POShM+B7f5Iin3mwZZwqtkcKOZ9nP/4VwC1gNjFwnHxggvTDGa547m5q/8ZRdZkjmnw==
+X-YMail-OSG: 1Dj_N7kVM1lhvEkH7lmXHNY1d2Xjs8I_6IKACafw4ffLCrj8wL9aNt_wzxFdd6u
+ nKSviS4oPrsmM.c7T8rdQQcWekVBk96XmPOcMqoY4OtNzpPUPICcccdNBcTMPCQQ74JnC3HDYcMF
+ ASFY_2RdwE3MeniWB7fBdMGIOTcFXOmbcxsyttE_3vZ8qQucIATfuTiHcbfrV6rfbh51woqxNKde
+ 6Nf9t2AgtfYCopeWNhqEFkZ2IvKxmgBjGnhJLtYSR7k_2DGN2VXLQHNxOSwAQcN9i.op_9P3wenE
+ UHHHa9euEcW21ORlTp4onDwuhqnyRGIVkhcZExNd0n4v9lt50_sKmS2HIagc2BYfEkC0P6n2lMFV
+ i5FAqRLcutAGTNSTuVGZFvOatGYdA5JAVRpM3_FUa._vJiXfppi8lC8Vcqs2l9eTjQUE5iBCo.nX
+ EE8zbXQdVjzXIVHb62aJYAoLPAIXgrtQdXXu_czd9hHKXSavk6mV08X7L_sEl6tdSQiaypIsPa_E
+ CpD4QXbyxss6H8iKPV7yNgcjJeyg_R0EAk8eCXnDcSL4v5w1x2RguqeHIirrxuUJrd0k39J0e3Ct
+ iE4oIgxegyXH_viu.yoeI7gOZY6hU93lLaWnFPGWj2BHSzBAG2wBWp6kdGggKqdNHwP1S.YDOLSn
+ kThxgyRtH1GJV8TR4qCAuTeLyH86oguBUtlGl5wHaqtsUfScTpWJ1iP2KxIbjt4JiDxGiofEDY8k
+ r.SNNucfPP3PyBYh5on9ooOFnZxjtLJPhXhftSgXOiOSOw0RcMhsn8772pBlPdEbVJQkoJ1vgwId
+ ONCCFJyudoJUA6jQh5nqWoczYCUyUeFcCIx1.Y4rAFvSlJDZmfqvB.knUGkrEu2QJXVhFX0rakMy
+ s2R6ImAfBAV6Ie_yWAPTF4wV7T_VUJwZ4u6Q9iXrrnXfrg.G0vhtDvBzZ_eIHv5ED9b5a9bje2US
+ jn73Bq4OcjSUX1Z5FZxgCtTb9pOpcrhEVdU63SUCFEsFlcsZnjqSysFtVVgsM09BzBClZMVLgB26
+ g.2_SOtna6eQWf2JNqRAiAeDcSnH70Ps8HBmRd8WxgzVQ5fwOJRwHjYkMHiiWSMcf4XJmgKrWQcV
+ 1hE734CN1RILc6UVH5IhkbG_s9_3ikXNkSaZa3B_uNkK91eMDLdrDgl.Y4CT2AkFI.TaveJthi2_
+ Aa6QIUIwOzLaLJIEIjqFGyIaptNK_OFxhUsnMw_qwWPLHkAI.Br5Aj383s08mfajWGdy_T4kTnGn
+ jT_khpy21dmlggGGGWAhiZv6P2X5SROTIo.YPjI0OhkO4E5LX3yxCIdOUEnqBh4EBzK.TosEVd4B
+ k8b3zuoX4.XkDF1tUHcefcVc27HLJoll57zY2Le0AqUVZrCJlcfDRkS3lfEpEEGjd09Hdq9y_7tw
+ 7yf90tS68roJ_k42QgZ5Vx5CB0zS1vTjlY8qSAZGYfYS83kfKY_Qix9cXJMEtmXxV0IDnx4rjjOx
+ 529Yqz8s4JO0oNaBFVVehD3Ipqq_Zc807nrJoLOxN535tYxeBZ9OjvlIP1uoMUN6WpcJYWACbfGj
+ _zYxtcEgvh12624Ie_zWRF1eqlqGp48565OnxdvVBlyXdX5Y7c51D1JIerKT4.pifJCESXtPDhb6
+ 4LQpdnrjIPPvusZQRqGHgp5knzmE5NG95BNOibAOCoDGzQl_KZhm3cqBcG4CCA4HffwY4unf3BkF
+ 4w7UiYatBGHToFNuNk05ubWc32Lda.XGUy7U9cl3QJKZBOsyxL8vnaA4uIoVZqY4FgGQi_UxJB97
+ agg6CqLTYu39dY8LvsUCo2t1bhDuvarC1IefyCHyHgB8hbOsureYeJ6cNavgdK.Igjyq01NMhDNb
+ SXGjA7OZBr.Sq05wmIeRf8CeHCjotNXZ9p0782JpmxAtnzXJYkd.HMBEB7L7BUApPbn81yMkrwPJ
+ K8PuEtNbTDQ0neK3n4pp6ybjKIlXUfPXBmWb5wseNhHfAN6ocAs0_KO.gExOTHPn5VrEfN9S.zPk
+ kEomuFWgcVmxoqQuyautcAtsISf7bSyLjccfNzOQOwOltr_gJ0YTyRMkKz3QpAzdip7RYqI78.qH
+ 0KjtCoKecciEPl2sf10AIAN5c5Nv4IrOXKH.RqNjBq0WDrvIaHqaQH1NrRNFJ_1u2DBmniIDGNR_
+ P4rAJ_PY1rCdrlOqkrsaCS45.zvaBhWI_V7OPQPJlGs7Eno2xXvWxO9e6paPBE5xsbjFBU4GSBpq
+ 14c0Dnv8mnu2oBNLLrBbT7b48YLwWx2uMp8LA5z0ipJUqXPYnU4wNKEUlJdPHY5KKeO2i2JlOUYI
  -
 X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 614c7083-4efa-484c-b466-2df93b7525c7
+X-Sonic-ID: b86c90b9-04fd-451d-8fe0-8f8be3ea2489
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic308.consmr.mail.gq1.yahoo.com with HTTP; Sun, 23 Aug 2026 16:33:46 +0000
-Received: by hermes--production-ir2-cddf86dcf-9r6zx (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID a2bcbc9fccd52fe4d5a10437f8cc3d6a; 
- Sun, 23 Aug 2026 16:33:42 +0000 (UTC)
-Message-ID: <1eb28694bc5fd70efe32b00a5519e82086a79b89.camel@aol.com>
-Subject: Re: [PATCH] drm/gud: validate GUD_ROTATION_0 is present in
- supported rotations
+ sonic301.consmr.mail.gq1.yahoo.com with HTTP; Sun, 23 Aug 2026 16:36:59 +0000
+Received: by hermes--production-ir2-cddf86dcf-mdt6r (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 8fc7884556ecdc6e11584157a58f787c; 
+ Sun, 23 Aug 2026 16:36:55 +0000 (UTC)
+Message-ID: <5d01ba87df6252992930a58be632dd076cb56e93.camel@aol.com>
+Subject: Re: [PATCH 07/70] drm/gud: Switch to
+ drm_atomic_helper_crtc_create_state
 From: Ruben Wauters <rubenru09@aol.com>
-To: Sajal Gupta <sajal2005gupta@gmail.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
- syzkaller-bugs@googlegroups.com, 
- syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com
-Date: Sun, 23 Aug 2026 17:33:35 +0100
-In-Reply-To: <20260821071812.16500-1-sajal2005gupta@gmail.com>
-References: <20260821071812.16500-1-sajal2005gupta@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Date: Sun, 23 Aug 2026 17:36:52 +0100
+In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-7-fb793475c05a@kernel.org>
+References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
+ <20260821-drm-no-more-crtc-reset-v1-7-fb793475c05a@kernel.org>
 Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
  keydata=mQINBGQqWbcBEADD5YXfvC27D1wjh1hOmjTjSwAFjQDGynLtrhBBZpJ+NBsfu++ffR7HF
  d/AaSJ+hqJni6HBNr/DMxWYMC8fOAr6zCSAX6fD2Rvy6rq6emuLaGOFkAIWDyuFWw40anlSCPZN+f
@@ -110,7 +110,7 @@ Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
  8IVIXxGcFRph02eKbZfqK51lMtns3kTe5DgHao5vrE+2GseLnEWE37cWnBQDhYgjwxIWtjGVp6KG7
  eIvzsqg==
 Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-yU06Pes14ILQgBR/pQxv"
+ protocol="application/pgp-signature"; boundary="=-SXdX/vqtMceMwWuqm8YX"
 User-Agent: Evolution 3.60.2 
 MIME-Version: 1.0
 X-Mailer: WebService/1.1.26380
@@ -131,72 +131,64 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---=-yU06Pes14ILQgBR/pQxv
+--=-SXdX/vqtMceMwWuqm8YX
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-08-21 at 12:46 +0530, Sajal Gupta wrote:
-> The rotation argument to drm_plane_create_rotation_property() is set to
-> DRM_MODE_ROTATE_0, and the device reported rotation bitmask is used as
-> the supported_rotations argument. The driver never validates that
-> GUD_ROTATION_0 is present, so a device that omits it from its
-> GUD_PROPERTY_ROTATION triggers the
-> WARN_ON(rotation & ~supported_rotations) in
-> drm_plane_create_rotation_property()
+On Fri, 2026-08-21 at 16:38 +0200, Maxime Ripard wrote:
+> The gud crtc implementation uses the deprecated
+> drm_atomic_helper_crtc_reset() as its reset hook.
 >=20
-> Fix this by skipping the creation of rotation property if the device
-> doesn't have the GUD_ROTATION_0 bit
-
-Hello, Thank you for the patch
+> Switch to drm_atomic_helper_crtc_create_state() instead.
 >=20
-> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-> Reported-by: syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Defe2810681f1b065d3a8
-> Tested-by: syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com
-> Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 Acked-by: Ruben Wauters <rubenru09@aol.com>
 > ---
->  drivers/gpu/drm/gud/gud_drv.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Cc: Ruben Wauters <rubenru09@aol.com>
+> ---
+>  drivers/gpu/drm/gud/gud_drv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
 > diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.=
 c
-> index 89bd6ca36003..3a1b9e2a2eaa 100644
+> index 89bd6ca36003..83a036c6e41d 100644
 > --- a/drivers/gpu/drm/gud/gud_drv.c
 > +++ b/drivers/gpu/drm/gud/gud_drv.c
-> @@ -289,6 +289,8 @@ static int gud_plane_add_properties(struct gud_device=
- *gdrm)
->  			 * but mask out any additions on future devices.
->  			 */
->  			val &=3D GUD_ROTATION_MASK;
-> +			if (!(val & GUD_ROTATION_0))
-> +				continue;
->  			ret =3D drm_plane_create_rotation_property(&gdrm->plane,
->  								 DRM_MODE_ROTATE_0, val);
->  			break;
-> --
-> 2.55.0
+> @@ -343,11 +343,11 @@ static const struct drm_crtc_helper_funcs gud_crtc_=
+helper_funcs =3D {
+>  	.atomic_enable =3D gud_crtc_atomic_enable,
+>  	.atomic_disable =3D gud_crtc_atomic_disable,
+>  };
+> =20
+>  static const struct drm_crtc_funcs gud_crtc_funcs =3D {
+> -	.reset =3D drm_atomic_helper_crtc_reset,
+> +	.atomic_create_state =3D drm_atomic_helper_crtc_create_state,
+>  	.destroy =3D drm_crtc_cleanup,
+>  	.set_config =3D drm_atomic_helper_set_config,
+>  	.page_flip =3D drm_atomic_helper_page_flip,
+>  	.atomic_duplicate_state =3D drm_atomic_helper_crtc_duplicate_state,
+>  	.atomic_destroy_state =3D drm_atomic_helper_crtc_destroy_state,
 
---=-yU06Pes14ILQgBR/pQxv
+--=-SXdX/vqtMceMwWuqm8YX
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqLIN8bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhdsQP/iFITCkNCJ7BMhf2/Y1f
-fdiQgOY3wSVFCVFFA7Td6+F4ICZ92w1jzZc8JTqyHOHoR9tui9DgnKaqyKzO7sve
-LlFHXop4l68+W5SxDLyfkki5hb1fyns2Z2496Dn+/+z/HnIVS69WzdgM8uWT3n6K
-DYMeqhDQWTpbMYxPRuakjvGmYQuN+wwN7zN3VkK32OyMYx4qO2vO3CyUVtJPq2YN
-afLq4rENSHdhFuZCuTY+bsnKxnczt4l21hh3vQf/aiq/EGo6AzSH3Zf03HvA6bro
-hwTTuKCorkDXe6jasmln1tNLNAkKjMKHNtQym691kWf7WXcokLyWj3Yz4ypt/tS3
-R1g1xuYi8H8pqsq9EcwjKceciJbAHoQRt1NaaRZwg0ZLfGWFFu3uA4FTcKivWkJ1
-+hIHnY/uMpSrtE3UIEZ4JM20MI+IHa4ENYTuznkjU/Syjhw4ycuMz5fyXtvd/UGz
-6t7s1CXaYuyEV5SecYh/J41tJ7DrkAtgYpsk7WLobTjCdkTyILAUwjS0icYbDaPf
-j6a2/0JmM1AsWDwaUwciFT1qR3FBPVlB0kZA6EGF2rViqrWzQ38z2bCjujiup6A8
-azebC+ge9KMzJTW8hb7CnvsjP7XuDx89psgt8wuMep8Fxt/3nnjUPsNj0x85YmmV
-5ITn0T2ZUAeWcTHi/fhdJm4e
-=dH6j
+iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqLIaQbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhgqEQAJMfZ8WVxnV6O4lkBu3O
+QAbQQVjxKJyIHhK6PrDcbUffzg28YWfrZ8mNrYBEc+/5aVcRpVuIdnNfLQJdJ1Vr
+NPf5VJiLPOqU55czH0d+iy3KxH/lODDr9QqavvuE0ldgsb2dReMyzfRFxXyxQ4zV
+DFqo1isJKaerEDTVOkEQ5B4PADmyALBziRrGnl9Tr+6+6Q+rsdhqMuAthGvuc+bh
+H1UG6FIcivyu3VjoYxGKh6DzHNyw0l3WPoSR4v9aHT0gPWVFpyIoEhtIGSKtSPwK
+C0+SdBLy7WLgXW+2UMVGC/StoonychUoO+UPMH9axONzkCutY3x5q/IeQox+xn50
+kCNjkr1O18GhHXCaWgOEjsLE+FOffDFLxKicco191XetS5RKgBIdTKRkrTN511IC
+L7bq3IQf6BBQc7YjBd7cL+KkPwu5KeA6a3UAgrUlLbvqYpFLgwFjMAmZVa5VtmL/
+btpfiYLINl4N+OpI5oTvj8LbCAWY0gDLtPFj8uSYGNAJwIfLjWN8rjlHR+XnrkPe
+miIjC9YE50iG/GoBwz3LGq+rdTP6vG9rLWZX/4RnpWX31j55g4vDLcyhhZf3+EVB
+dTkFjXzrCUeujM7hMdlrazinBkZnu/aRdld2Im7FMpKF5TfsvuanyrJ0RRfYhoo7
+c0BEKu1T3JxsSOAqzpzpvQ5f
+=NcvT
 -----END PGP SIGNATURE-----
 
---=-yU06Pes14ILQgBR/pQxv--
+--=-SXdX/vqtMceMwWuqm8YX--
