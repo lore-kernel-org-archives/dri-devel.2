@@ -4,80 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A03E6C5DF81
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:30:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5526AC5DF8C
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 09:34:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08D4110E4DC;
-	Sun, 23 Aug 2026 09:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6683510E4AD;
+	Sun, 23 Aug 2026 09:34:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="U0Z5a6PU";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="2EzpCXhj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FVUFeR1M";
 	dkim-atps=neutral
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78EE810E4DC
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 09:30:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787477398; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=m0bpjBXTbSVHO1hEMMSMtGbwHuvMNhU5pRR78iUumhS2wIcQqT6kEf0tI5KyZHJkp6
- SDd+bB+QjD+NcnCnze7DvJ1smopg7eKENu/dZyefLYsXaUfWuT2/D5/8AuRDMde7gi1i
- qR91TEB4/CYYFxl2M/l+w/pNzIZbUSze6qYAhJMmKs/zBG+SY9zhoMs1Xkbxn84PoBRp
- yqsEdDno9xx7RCCpKkX+UAQNMX6HmHdtVAgHeZD/lSAODEuv98flS6xtHPYNH6kr+g9L
- lxjs62p4YdMXI7DjY9LU8akz4ZrfCVtheBMkBE+9lWGg/Raj+IEHpYLSDRB8KH8DhNKt
- qc1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787477398;
- s=strato-dkim-0002; d=strato.com;
- h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
- bh=GCILg7d45RMRE8YNTXah1jL4z2iDWGmWYyDATUxfxUM=;
- b=hQyDg8pk2Yte6uzBGT0YZrLlYQ79N5S9B+ZoWSyH2fbVuFFSrMUSq0QOUuGcN8zpSN
- qSRCHLBHS32IiEYE/7pOjiwo1T33K3ssBc9hOvc46OSIVrNu46L4mY7voaAj44NFq5wo
- xo/6etHIeHvuaRsPYkWKj2nxANXX1VAd+G9zvIUJ+gjQQoOwl4p0qeHGsJkAlPw7WF8Q
- H+hoFkOAypUYMCvoa1/IIdQ0DKaOIKaaA+pCzV8L3hV7xWsOy4DwDI9ki+JbSN7vCsMV
- DyxkplvYyrbf2capfl/Ln3KSI31jW0J4gPcERlXGO6qC11CWInJFi1eTz/dk2drBX1s7
- hi8w==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787477398;
- s=strato-dkim-0002; d=goldelico.com;
- h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
- bh=GCILg7d45RMRE8YNTXah1jL4z2iDWGmWYyDATUxfxUM=;
- b=U0Z5a6PUJjxOBIgpA39Y3LAx7CtpughSEDUmCWg+A/4nojG4BDoZiS2LVGVTffy4AM
- Lm3sdXCInY69tGI3CSPAbhr/cBejLZj8SAX78aw5RLNprwKt8GPp3o7IHQmzNrgLNcdL
- wT814e2CAsZDRy2s9xbE9FwTUORIhVjAy4TFYAWjRDxEmbG+FfK1wXcbW5rwOlRueS++
- Fo392ObBkn3pfoOKnKGhyMTRPs6H9ofQudiPW0wAyBGRpeT1KRd9ySaYmz2MWNoR7Pex
- tY5ouKbwbUN/ZUaaFmtmitT0G2HqJOE4tYo7zRQzCW6+U1ZLoDvgpOckJvBndkVyS1Pn
- xeEg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787477398;
- s=strato-dkim-0003; d=goldelico.com;
- h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
- bh=GCILg7d45RMRE8YNTXah1jL4z2iDWGmWYyDATUxfxUM=;
- b=2EzpCXhjEVVD0OalOGWZ1y2gHfTOkJvzzHQJ2tYb7GM1kFZ/MHHojZcthEwjhf048f
- zStus1B0UvHFlTwwPCDw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ25oKnciHHK5OAyYE8yLD5e6WBWpu+g6xSmk="
-Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.2 AUTH)
- with ESMTPSA id Qfefb327N9TvWi2
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Sun, 23 Aug 2026 11:29:57 +0200 (CEST)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Paul Cercueil <paul@crapouillou.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
- wbx@openadk.org, "H. Nikolaus Schaller" <hns@goldelico.com>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/ingenic: fix bridge allocation
-Date: Sun, 23 Aug 2026 11:29:52 +0200
-Message-ID: <400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2774F10E4AD
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 09:34:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0FAB760008;
+ Sun, 23 Aug 2026 09:34:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903F01F000E9;
+ Sun, 23 Aug 2026 09:34:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787477689;
+ bh=+4Kl/J455ZG9esdhYeZ8iGyqO9GYRl01LzKAhFrjl/U=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FVUFeR1MLqOgtKOCAux+ZkxjOSZFSEsu1rQg6gmKmsI5H15senLlswJrQo2G10e4Z
+ O6ksM6bezVDvFMSJ90ZZLM0eKhgDo/u49pQuC+VUoxThg1lTIZ3SuApIMIFsDBJJsH
+ LwJNgpXXfbKAzCQ39F3YodfOnAT8A/dM1u3IL2KuYShed80Dirm5BzJp+chDYIDfWz
+ 0OiLcXQ21EeQi+VZ2zDlgtRadZsLZZjhQebw6CWvmETuI45qSGzdD4+IObwLem9fkn
+ C1t42t3e3IMi4ejdeR7miinSK/VZ0HWGYYPIUEAjtLwUIAIZw+vcjAMuY6h1xw5y95
+ yqlm/41SCvdnQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amd/display: Restore self-refresh fallback in DCN21
+ bandwidth validation
+To: "Julien Le Bourg" <julien.lebourg8@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260822091715.6692-1-julien.lebourg8@gmail.com>
+References: <20260822091715.6692-1-julien.lebourg8@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 23 Aug 2026 09:34:49 +0000
+Message-Id: <20260823093449.903F01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,82 +53,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridge allocation API has changed and ingenic/drm was broken
-leading to
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Reverting `allow_self_refresh_only` to `true` reintroduces a known=
+ `flip_done` timeout regression for MPO configurations because the underlyi=
+ng state consistency issue remains unfixed.
+--
 
-[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
-[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
-[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
-[   55.904136] ------------[ cut here ]------------
-[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
-[   55.917538] refcount_t: addition on 0; use-after-free.
-...
-[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
-...
+--- Patch [1]: [PATCH] drm/amd/display: Restore self-refresh fallback in DC=
+N21 bandwidth validation ---
+commit a448c5ed2983960ea5f4923032f3c31614dd4ecb
+Author: Julien Le Bourg <julien.lebourg8@gmail.com>
 
-Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
-Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-Cc: Waldemar Brodkorb <wbx@openadk.org>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 24 +++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+drm/amd/display: Restore self-refresh fallback in DCN21 bandwidth validation
+   =20
+This commit restores the self-refresh fallback in DCN21 bandwidth validatio=
+n=20
+by passing true for allow_self_refresh_only to dcn21_fast_validate_bw(). Th=
+is=20
+resolves an issue where high refresh rate modes with short vertical blankin=
+g=20
+were rejected on eDP panels.
 
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 42c86f195c66b3..0a284502b0d3fe 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -122,7 +122,7 @@ struct ingenic_drm {
- 
- struct ingenic_drm_bridge {
- 	struct drm_encoder encoder;
--	struct drm_bridge bridge, *next_bridge;
-+	struct drm_bridge *bridge, *next_bridge;
- 
- 	struct drm_bus_cfg bus_cfg;
- };
-@@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
- 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
- 
- 	return drm_bridge_attach(encoder, ib->next_bridge,
--				 &ib->bridge, flags);
-+				 bridge, flags);
- }
- 
- static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
-@@ -1314,10 +1314,26 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 
- 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
- 
--		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
-+		ib->bridge = devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
-+						   base, &ingenic_drm_bridge_funcs);
-+		if (IS_ERR(ib->bridge)) {
-+			ret = PTR_ERR(ib->bridge);
-+			goto err_drvdata;
-+		}
-+
-+		ib->bridge->of_node = priv->dev->of_node;
- 		ib->next_bridge = bridge;
- 
--		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
-+		ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
-+		ib->bridge->interlace_allowed = true;
-+
-+		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
-+		if (ret) {
-+			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
-+			goto err_drvdata;
-+		}
-+
-+		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
- 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret) {
- 			dev_err(dev, "Unable to attach bridge\n");
--- 
-2.55.0
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drive=
+rs/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> index 38c79239004c4..426e9c03fabc6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+> @@ -2347,7 +2347,8 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, str=
+uct dc_state *context,
+>  	/*Unsafe due to current pipe merge and split logic*/
+>  	ASSERT(context !=3D dc->current_state);
+> =20
+> -	out =3D dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_spli=
+t_from, &vlevel, validate_mode, false);
+> +	out =3D dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_spli=
+t_from,
+> +				     &vlevel, validate_mode, true);
 
+[Severity: High]
+Does reverting this to true reintroduce the flip_done timeout regression for
+MPO configurations?
+
+Since the underlying state consistency issue remains unfixed, it seems
+calculate_wm_set_for_vlevel() still overwrites sr_exit_time_us but never
+restores it:
+
+drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c:calculate_wm_set_for_v=
+level() {
+    ...
+    dml->soc.sr_exit_time_us =3D table_entry->sr_exit_time_us;
+    dml->soc.sr_enter_plus_exit_time_us =3D table_entry->sr_enter_plus_exit=
+_time_us;
+    ...
+}
+
+This state leak into dc->current_state causes the next atomic_check to copy
+the corrupted state, leading to a flip_done timeout when bandwidth validati=
+on
+fails during atomic_commit_tail.
+
+> =20
+>  	if (pipe_cnt =3D=3D 0)
+>  		goto validate_out;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822091715.6692=
+-1-julien.lebourg8@gmail.com?part=3D1
