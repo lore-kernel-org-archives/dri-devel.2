@@ -4,75 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF0FC5DF81
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 15:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F749C5DF97
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 15:59:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A46F310E053;
-	Sun, 23 Aug 2026 15:57:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 281EB10E2BB;
+	Sun, 23 Aug 2026 15:59:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="tHdjaqAI";
+	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="GFHyuBp8";
 	dkim-atps=neutral
-Received: from sonic313-19.consmr.mail.gq1.yahoo.com
- (sonic313-19.consmr.mail.gq1.yahoo.com [98.137.65.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C541910E053
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 15:57:19 +0000 (UTC)
+Received: from sonic309-20.consmr.mail.gq1.yahoo.com
+ (sonic309-20.consmr.mail.gq1.yahoo.com [98.137.65.146])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3281310E2BB
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 15:59:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1787500639; bh=aJCbQOI+nUkkPRLhWVnfKoHM5dUJDvQLmz9+EL+DjA8=;
+ t=1787500778; bh=rGVN6LVN0knZAkgw/5uqdLSqmmnAgUADX28q0ddAB74=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=tHdjaqAIdFk6nXLdAbbsiuGqyEBmfmjd9j5aWerDaSu6hvF995YfLjGWpAuPMZCP+1Q9m6kliNw0EkOQZDEujxaU5wRBd9LDC8twfGYR+cixBhIRqSF7AUHbXgLrlSId5F7Bm78rcwYk1UPa3Qzuu49mmR682hj4ucNcoy3slFmZLDNR1llrqXvSgfY1hRx4ir2Ax6737zaRPb9r9+OTjuFJ0K2yZprH4TQsd4drG9pZlTp/85YUjEVq6BddAvoKYScmgWy6PUZuLU0iue6sReeNbotc1vNs4oF7+T4hrxWnGkJSMux1VIIKi+GSXKkt4M6aIY71wv5ZjY/vqi8/eg==
+ b=GFHyuBp8HgDrGoiniFWlcq3kh3GkDK0hE8q7IXBPmY5JU7kdE0AHxHbPVc6vBiLhV+nU7Rd8pToGCZy5qSwT2V8UeROD0+w57ss5dLwzcNYdfBtw0t4asm6FE/AcTVTEqw0tJex4AjYHmbfo3p/SjmbLc/wtV3prHj7wikfWrfI9Ru9UWnOb8o9p5/9eAjKDJtPVeHVuJquJARxF36d5NCZgZ9hVLNUBgbdyOKxDGTgA5ML9PyMr+e9qpxyxS8FYPigolLfaz9Hqj3Hl6NMZIfBVdjG5dLG5ThRzriJy/ucVN/2u9rkqBXWeLrwxaIiVa8BJwIRza5Ia3gpVxzIwmw==
 X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1787500639; bh=1CTKZOd9rRGsMTY2UrIFE46uqQgLCwwhRPpWqGbBLp1=;
+ t=1787500778; bh=rHYkAPUQdHk+ZpaguaB5z2lrezRwBEhzwKNfvGur1B7=;
  h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
- b=X24H8K+XefJhEYUBxv6VOTHjXL0C/LGZYwKlx5jaFsS3H3c31RLQI0ybbS496R8VmgjInplO/qMr4ulTOJI6sByzTCJXMeY0+y/+gVpzOUQN4QXZb0HP2AEz1xZQfA+0OkpYtD1oBN5SeufUfPQ2XTypo3BYg8uVXlvGojsDmu5+aGeW67z8oclEuP8bG7iU+14vMKfsOYO6ljDbWSXDTKB0iIiatpLIXt4s4WsayR14W2eFfcXoMqNQFYITgOYMytCyuLTk635i4Qrwarcp2bkc3T38YDNorsvhFb2P5C+zQlsCHX7mDXNSyYLps9tt1VlD+01dGwtE1Nj0X2xydw==
-X-YMail-OSG: 1VCkFdwVM1nJGnDzn_lZ2njzh5BG9jPFjroJiZmfOkx7CTBgNSGhwZL3ZmAmqWA
- jBZzaCVGZ8zQkdaRsJhPNe_D_B.zkAa52Fui5q2Po_CLZfr3QnM2VM.I2RHH3RDmEN8gkk8bUHdr
- QA3plxB_FTxC953C0KJF9cTmNvO6E03Ug3IlXimyf8EdLhWgh.G30uvWbqfiCPKCl7UE0t6lL9uc
- 64fxLkK7MIdRDMpQBZdrKqxOqZARpk8cIYF8niSAX2a77nUslwVUx9xb5uopW4thsjf8gWKMxCzs
- HkbwurAHqTRDXRTat7XuN6_Xpa5oBcbB.Xww7wCo9wUjnldxJJ2aG2N6G7TYiwQhjzD4wAB.MYem
- 4vinP7xae_DecwOjgOhr8WutzCT48TZ.YBJ6daT6pYMJm_yn.smt.n42l3Gv4yFj6k5Kgv.akPjZ
- xFB.W.Qo7YTPTtGQCYA_dBSQ05lPf5tZcF3h9UifH3QMZBoVadrpsX.nM9JQwSqpkJ3sxYswWu4J
- K4A2bhY4yAOGBHjBaijCDw0e.LAcGFVji0dPoRFytMzdoztFNHzD4hn8yDBW3vOI8Fo43pkHSRNd
- mTpv0CIBp3wF7M7SJp8bgKzfCgIdMRuS4L8ewT4nGrfBCpOaMDb_eDTF68f0oU0ej4PMn057Fylq
- mJ2ENryfCSID6j4STyrMpuIn9M4HCD1N3Zm6xksKaAhlcWOxmx3E_H9FNWC4EbAohKxdjgzEW4rZ
- ifXldup.y92A2cQt_RE1ggvMR3kIFBS1G2QrZf.T0q74Q44N6CQaFnY51Ly3cdUBgEa8Kvmm3np9
- mqb5P7zsdWPamiTPdB.upAhIX4PwHwkVyIFV2QRV0WxJIIi7OVqCO3eCAWpwWaZT7gh9b0pcmbV7
- LpCKBoy96lKoLhKn4lFMy7oYfrka8A55rxOEvsxzIOWUkfXBm3XIdtmd3WXEg07u5jC5gX9aByTb
- jZWN2mGHxPFQH4v94wcSURhO5lL7WI_VDtqrPySYTxzfaKd_eHESDbnlN7Cjn3FqghJNOpCkRZug
- rBQgLcZ.AFfaIeSC0kGjjOqpmVt9AiOW3OEoE8jh6vUIgF2isBQ3mqQa6r7S1_2F8lM6wwCICaJx
- 0.2kZGPYPh97fCnogYVOdDhJPIH36KHTcys7J908RUv.ckvSy385450vb6uKma1plbNhqNHJrqJS
- eJ7oqoqx2A7EmBKvGtaal2wodQagZ1KjCL08fTLw8VTKIe4Z8hTRfe7g1yxbsDn_nbyBVZtpgq1R
- qAETkiAknzhB_JKH3oWrXDde3likeVV7QBeZh47sSP1TAUxwtHne8ST6geZdwIPOVe7OqV1FR2pS
- jOQsu_G5A9QPHPTinV_5j2.CK6nMOBU2rouPNzgs4tsNzCZiuDhNGKQvHRN7VdR8uecof74iIARP
- iCSTQsBCKmagt1lY2zAbVhPmzdqqXIQ9IedVKUoSy9BPIypex_o6uSloz20F8wpNLJ4D_14Gy1TW
- R0zZcJlTgDKfomxdLDp8JerJfElUKMvF70AxqmFoyWNYU0a4l8fVLLQhVKktxP2MX6w4zzR_0Mbn
- XjkfhRawYX6jFKXS1fqoTaDpHdQybr5I93MkdYz9mNG2gFT.P1iMBBvbhvtUCAtxf3xN.xK2EeB7
- iPqvtNWXxUsOo8WBPst6BBCCVKSxLYGh_T2YPJUePrkrtTC3zVqMx_V.OQngjefOfAktre3i7Mr1
- oc2EmgtOfo7.HMI2wmqqhOFY4aLJk8nQ4uPU3OysyGTiViFw6TOa0gyyCeR2nOQ1jBIVK1ddOq_l
- S3cY7gnNHL7p8jGKjpnk19RWu5v0uSYgMTyZZGIWOt1QWp5BiISUrDjJEnDBybH.MJ9logpYDbJO
- ZqpnK2PuQMux51FThukX5CvvxoYJa4htz8XfEbJ009NYpOKrPRdOcaNd5bYvGcYSv3fIbqZBXFKS
- cwPLIYUmBmolN7eEhSwujN9bpNICZxSgAoO3hEsaj7nB2._WMWO_yiSNg6eDq0x2KYVbeNop9VA8
- 98YT6GMgviMxhRqQJNqXk4NjH3PKeCvviNaik7cpSpCSa2rymhVUe01fzEjcAURWBhbIvpPE_P4D
- P4J8p19_z211wrGtlhF0KK9tn943URBlxugkAMEu2lxWhuNZTJaV1ceqq7VeS09mgciN17CLO8Fb
- ktLvhatDXfa9TK_rOyRCqtX_PM.x1teJHsCRKQw1THyyR3TDjX8Ig3qc2rQFHrQAY0H5dhpdsvs.
- 02bZuRCSfQ_CfQrhj_NE5QEQo1hWZ6Fwi2GkXfHvsD9hXIe2xBjJEv1KMQargTk1Z9Bkl
+ b=UElegKjLdhmMOdKu+8/j1aw2xOOVpQmpZh8NxFyUq3b6kRZpFDW1buh4utttjYXCvGYu3Hj6bPuoaEti+z0eB+dswhWzSOxkdAMmSkvyE2qCJzTmoCpNim88iRCqV5+sb+/7bngDEEjLgAlnzfQJSbhuCHLNlenB/ok1e59lATyEzXJqwLRnAXCEZy+DL3MBY/CuFKbeaNVM2xbFDTfh5QfAvzjCHbnFqnznhwd0FykbarG0rS0skgwC5VYCTG/52Ny2XIYzkzwiCD14UvluiY4zjGCAAB3t6pBpyboT64SiTnJMNO7LK1NwEq6LJ59NByx5bjsAztjGjRNPprFTIg==
+X-YMail-OSG: vJloPZ4VM1kK1dc9rlOl04gJm.Vcv5q6zx0TIo_QR7Q61oQa2qGXH0DReilM0JQ
+ CR4yHe2W1FFuf2O17SCD9gXe3qy8L3uMFmj44upWYwTp9xTi1n6z17GmDJDXthfbENpJXzEZcVii
+ 8F0.JOQz9pqKiD1NSdtbKX6RDRVjqC6wsesoWMByK9u_NxNbqgu6JOWuyhgdmS4VC9hBhdQTi.jg
+ Ukoi_SSI2Xr3On859mKW2XLMi37Lnc89oJ5uDTWldyz8A72RbqwItsq8OBob.DIRT3WV2C_LqUS0
+ LBqOP4pQIRbNIK1XVEFXlEtKgPLZYXKXveLGftc_y6mop7I782aW1fVIWvbG2t3_R_raRipZW61m
+ UFtmbYxrlDCWBeuI6FHxxsZrDImbjiBqdZZvY.cjGgL4OBA03MdzY4wcwYFJ6JTFJG1f3nuqOwFZ
+ y4ETnaRJpF3ZqgAC4Gdu8vBmVYat8ftu90pGzpbvUmcE6hUbDbuK1DOrJYDMABPGgRldIVWuJn0X
+ EggqRw3DZVNeT_DbHhuaQE8A9RDr4ZV_tyGOA89D6Mz9iS2i.vrkcBRNXlX2k6Go.iCKY1SVTfTU
+ pAEgCRzmzG2xl6tCBCAKolrmbHszTSb8o0OrhOjkg8yrrBDfQGMKBlJ.EZdaXa_9BR1gyo0fK3R4
+ Df7gVqIhTntv.AtBIl_7LTNqvJXu9hZ9jnhLgJ869Gw1ywZv4UBC4szB9G4wtN6sc.Z4z0p9zBA8
+ QtxqNsz4haT5zQKnOWzkMr0K2h5vS0T0g.rqudkCnDEi_J9PQ5in0.uKvRzgyCbh_u89DYqIl9Dz
+ 4hB2fyof_heL.LV7sWSVIg1ljQmSRIODlYS9RTcqy4mCZ939xiu0KcYdOmPoeoxBT4DS_d2saK8u
+ bSnExAxSAn.osm6K4dsxSdvea5.WYqEnIsiWeJv9GUxoR_g77_cqZ3Su.3gwiUFKW5WFL5PGQdL4
+ NXHNkMbWSYBZ5Uf4ERKNaJiRS.Tv8l8AZzh3Rzq9gTPq394jkvb0F.Vwg2P6vZVS8y64EYUfK83r
+ u2rJGrFWsZO_.XlYubwCtbWzaDN1HPnq2nELKmr3HTwqkscLlayd54QZpMV.f3VOIIA.3.Piy2Xj
+ Sxd23kEnXp_GFFs342WGZj1jv7JMij.8XeyOBDNHzFcSLHVY8jGyfohPwc1_n17.jTiFe8dvq_Pf
+ gyJTd2Wn0Ceg.ZT195SaLrX9aLn_76iXgEOg7kto42weEuD9q40UoDr7nnTNv.WEqbQc5kRZI0zl
+ x2yJWWtGjpLTTKLf.Axdnf.bup0.ENzu3_KBIGANx2uvF8CxgcivMPXlpC2LFngh1ituAMOX_U0O
+ BUckKcIKMWTZSIm3JvoQcP0vlZRi1_faaVIivjdz1_R54ytavAyRFfJ_uQHBeT.F_IBn1v50Od9e
+ jAhYftQN56oHeL0M55zO18Cc4poS0cR5elB3GX0Fh9dNQoNRbi98S37EhliBtLtc45AGgE13Hr6j
+ 32ncsaEsvesyfyY.A2AbFpF.cuk0BtkTg64rX09ilS6IKmmUg2gANMFbT2DtxFaGZedHOVSCkej2
+ ZR1T1lwLCW42N6JahQdfD4XiDtiktwHE_bEGk8nodleUj5vL_9EUeoid.3NHOhNw4YyaeLdhUwO8
+ xE8vUzcptBwBUgqQgsUWc1TjuVJATS3ioHCutx7qIh4aulZB1aQCfn0BrxK282efIhWOL6ouw0Ny
+ 4i1HMr0avk0eF2EYlargNkk0TG1aLvqqwn4T7x5Ld1bQmMd_qm.s.eeopfGl0qGxhYho4hgnfJrN
+ gppmZUkORPTi_lp6adumixpdqhnpKBfEzMgsv4tjTppHtlvAhfjgNPINMY8JxopxnNCWWAU1rw.R
+ _OP57mp8QcGxAV_X80xJdXpuOfVTbp6OtbkqrhSjmOC7Fu_MI1e5AR1XLHwxO8DJ7NHOdE0jDeMy
+ AYkR6Ulfhn5dEJbOuL5ojPAD7.a3724LjKFh5eSTBZjV5TZcT6FO_0FqbSPQ3YphEB67sMOSsEA5
+ RUKxkhhUqMBhF.q.DO_8Rw4FjyXIX8vboyTi4yrJ8CcpaYp8pMgqMcYHGP8reUWkBeoJ4EnSPmyN
+ OME_rr9AuJvdWo5wHSa8UWUg1QNw7nSjZFkhyK1lsa6LpigJMBNq0pMyCcdrLlL.Rs2qD2wuFf_c
+ hgoNX8JlSwiDK9LtvP9Sb3sfO5GofA3ZHKveFlP3EFKdNMxuTsLKdg8Q7Owwt9jQ6lR8TAC5ysu8
+ c6joBDNQwFYCGe4t7LzZIjQfTQFZuFzAk1UjHORogIYLCPGQqmLdqZEFAMZaaKnx_prSgOpKPNwK
+ v75DlfgY-
 X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: d76d79b6-889c-4d01-8b8d-6df7a1256884
+X-Sonic-ID: d3c47751-95de-405b-afc0-902eb3f51aa5
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic313.consmr.mail.gq1.yahoo.com with HTTP; Sun, 23 Aug 2026 15:57:19 +0000
-Received: by hermes--production-ir2-cddf86dcf-sz4c5 (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 77cc39f50424f07286c5071a250ec21d; 
- Sun, 23 Aug 2026 15:57:13 +0000 (UTC)
-Message-ID: <a75ea18f7321a9713d606699f7d80872259c13fd.camel@aol.com>
-Subject: Re: [PATCH] drm/gud: validate TV mode names before creating enum
- property
+ sonic309.consmr.mail.gq1.yahoo.com with HTTP; Sun, 23 Aug 2026 15:59:38 +0000
+Received: by hermes--production-ir2-cddf86dcf-shm6w (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID cc183acbe6c86b0f5fef479d9db2781c; 
+ Sun, 23 Aug 2026 15:59:36 +0000 (UTC)
+Message-ID: <b0670075c3325e9264b518508f68d35c8e2b56ed.camel@aol.com>
+Subject: Re: [PATCH] drm/gud: NUL-terminate TV mode names read from the device
 From: Ruben Wauters <rubenru09@aol.com>
-To: Tao Yu <tao1.yu@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org,
- syzbot+9ae8e7884e451eaed5b4@syzkaller.appspotmail.com
-Date: Sun, 23 Aug 2026 16:57:06 +0100
-In-Reply-To: <20260819072835.4074130-1-tao1.yu@intel.com>
-References: <20260819072835.4074130-1-tao1.yu@intel.com>
+To: Deepanshu Kartikey <kartikey406@gmail.com>, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: peter@stuge.se, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
+Date: Sun, 23 Aug 2026 16:59:33 +0100
+In-Reply-To: <6c3a749f8d377b122ba33fd06825d8faff345006.camel@aol.com>
+References: <20260816085234.22053-1-kartikey406@gmail.com>
+ <2973ae0d1d7ca4c39ef2cb07236ace25d400fdd0.camel@aol.com>
+ <6c3a749f8d377b122ba33fd06825d8faff345006.camel@aol.com>
 Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
  keydata=mQINBGQqWbcBEADD5YXfvC27D1wjh1hOmjTjSwAFjQDGynLtrhBBZpJ+NBsfu++ffR7HF
  d/AaSJ+hqJni6HBNr/DMxWYMC8fOAr6zCSAX6fD2Rvy6rq6emuLaGOFkAIWDyuFWw40anlSCPZN+f
@@ -107,7 +111,7 @@ Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
  8IVIXxGcFRph02eKbZfqK51lMtns3kTe5DgHao5vrE+2GseLnEWE37cWnBQDhYgjwxIWtjGVp6KG7
  eIvzsqg==
 Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-BzUdVZxOLMgepOh8mfzZ"
+ protocol="application/pgp-signature"; boundary="=-WpZK/lQdId3P/XDcv7o0"
 User-Agent: Evolution 3.60.2 
 MIME-Version: 1.0
 X-Mailer: WebService/1.1.26380
@@ -128,89 +132,91 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---=-BzUdVZxOLMgepOh8mfzZ
+--=-WpZK/lQdId3P/XDcv7o0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-08-19 at 15:28 +0800, Tao Yu wrote:
-> The GUD protocol returns TV mode names as fixed-size
-> GUD_CONNECTOR_TV_MODE_NAME_LEN entries and requires each name to be
-> NUL-terminated.
+On Sun, 2026-08-23 at 16:41 +0100, Ruben Wauters wrote:
+> On Mon, 2026-08-17 at 16:36 +0100, Ruben Wauters wrote:
+> > On Sun, 2026-08-16 at 14:22 +0530, Deepanshu Kartikey wrote:
+> > > gud_connector_add_tv_mode() reads a buffer of fixed-size mode names f=
+rom
+> > > the USB device and passes pointers into it to
+> > > drm_mode_create_tv_properties_legacy(), which calls strlen() on each =
+one.
+> > > Nothing guarantees the device NUL-terminates a name, so strlen() can =
+run
+> > > past the end of a slot and, for the last mode, past the end of the
+> > > allocation.
+> > >=20
+> > > Terminate each name at the end of its slot before use.
+> > >=20
+> > > Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+> > > Reported-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
+> > > Closes: https://syzkaller.appspot.com/bug?extid=3D916c888ba5f1a54c952=
+6
+> > > Tested-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
+> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > Acked-by: Ruben Wauters <rubenru09@aol.com>
 >=20
-> gud_connector_add_tv_mode() currently passes each fixed-size entry
-> directly to drm_mode_create_tv_properties_legacy(), which eventually
-> reaches drm_property_add_enum() and strlen(). If a device returns an
-> entry without a terminating NUL byte, strlen() reads past the end of
-> the slot and can run beyond the allocated buffer, triggering an
-> out-of-bounds read.
->=20
-> Validate that each returned TV mode name contains a NUL terminator
-> within its fixed-size slot before passing it to the DRM property code.
-> If a malformed entry is found, reject the device response with -EIO.
+> Thank you, applied to drm-misc-fixes, Cc'd stable
 
-Hello, Thank you for the patch. An earlier patch that fixes this issue
-has been merged, however, this does look like a better fix of the
-issue, so I will apply this one over the other one, as this does not
-truncate the data.
->=20
-> This fixes the out-of-bounds read without changing the handling of
-> valid devices, and avoids silently truncating malformed protocol data.
->=20
-> Reported-by: syzbot+9ae8e7884e451eaed5b4@syzkaller.appspotmail.com
-> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-> Signed-off-by: Tao Yu <tao1.yu@intel.com>
-Reviewed-by: Ruben Wauters <rubenru09@aol.com>
-> ---
->  drivers/gpu/drm/gud/gud_connector.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gu=
-d_connector.c
-> index ea0cca58b7c89..8141c3a1e30ad 100644
-> --- a/drivers/gpu/drm/gud/gud_connector.c
-> +++ b/drivers/gpu/drm/gud/gud_connector.c
-> @@ -396,8 +396,16 @@ static int gud_connector_add_tv_mode(struct gud_devi=
-ce *gdrm, struct drm_connect
->  	}
-> =20
->  	num_modes =3D ret / GUD_CONNECTOR_TV_MODE_NAME_LEN;
-> -	for (i =3D 0; i < num_modes; i++)
-> -		modes[i] =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-> +	for (i =3D 0; i < num_modes; i++) {
-> +		char *mode =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-> +
-> +		if (!memchr(mode, '\0', GUD_CONNECTOR_TV_MODE_NAME_LEN)) {
-> +			ret =3D -EIO;
-> +			goto free;
-> +		}
-> +
-> +		modes[i] =3D mode;
-> +	}
-> =20
->  	ret =3D drm_mode_create_tv_properties_legacy(connector->dev, num_modes,=
- modes);
->  free:
+Hello, my apologies, upon checking other patches received, I found a
+better implementation that returns an error and avoids truncating, as
+such that one will be applied over this one instead, apologies for any
+confusion.
 
---=-BzUdVZxOLMgepOh8mfzZ
+Ruben
+>=20
+> Ruben
+> > > ---
+> > >  drivers/gpu/drm/gud/gud_connector.c | 9 +++++++--
+> > >  1 file changed, 7 insertions(+), 2 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gu=
+d/gud_connector.c
+> > > index ea0cca58b7c8..5c0065c876a7 100644
+> > > --- a/drivers/gpu/drm/gud/gud_connector.c
+> > > +++ b/drivers/gpu/drm/gud/gud_connector.c
+> > > @@ -396,8 +396,13 @@ static int gud_connector_add_tv_mode(struct gud_=
+device *gdrm, struct drm_connect
+> > >  	}
+> > > =20
+> > >  	num_modes =3D ret / GUD_CONNECTOR_TV_MODE_NAME_LEN;
+> > > -	for (i =3D 0; i < num_modes; i++)
+> > > -		modes[i] =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
+> > > +	for (i =3D 0; i < num_modes; i++) {
+> > > +		char *mode =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
+> > > +
+> > > +		/* The device is not trusted to NUL-terminate the name */
+> > > +		mode[GUD_CONNECTOR_TV_MODE_NAME_LEN - 1] =3D '\0';
+> > > +		modes[i] =3D mode;
+> > > +	}
+> > > =20
+> > >  	ret =3D drm_mode_create_tv_properties_legacy(connector->dev, num_mo=
+des, modes);
+> > >  free:
+
+--=-WpZK/lQdId3P/XDcv7o0
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqLGFMbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzh+BUP/0D/2OlETvV/w/F4uVzl
-/ctw4ilsscGIMXHPtRPoE/B3XF5qavJg0vpB2SvXRbwFCxZ7COfl369a/osuLFzy
-K/iArRyMYxuQ0LY0kNRlI6hrHYy01L5Ovfpak+Y9OmcXzJhXFFZkv8NbsKGwR0DF
-wRGbDyfgPwY8wghjBrAJMfm+0/U8f73iSydMUq3TMcbX3hMCf8Mquylf3k3Cxjzk
-kzMOuK3u1fGsVdPz8JiwgOJorNLiL41b0DHIWrxpJMhoNCigXZZij690lNx7bpUU
-VQIP9IAtIaDVwEy/1Ej51ekV2V2ECWeZNAwoj53ja01xOtb3AJ/9RhnZUJ9nkDYz
-ZUw2KxvGn7KutUHVJIxL+lAiaq2SnA48srBSndBPAZUzMz9Qk951inwqThCd2uXO
-LzeLP2BOCfDRd1x+cvhYL7w4G6+/FTBkLiqAdAJZpGzYXxd+sqh1E0iQ17eFR1Bv
-vE9NAFC57Ae+vMZ0qbAK3KQmoxlAFqLDIsuGWI4MZLrY+eR/I+4nl4/PrNWlBSND
-QshONgc8zdoBBPDyZUROYFVkZX97OKWkk+w7EIJ5EGzVvaspvgpwBu1zkLTKCLBE
-DvtM8xMsQpZCDurpXX3ut21lJa7GifFrAohNCwX5iSYhaQeRfKmIuUuuik9iuOjq
-TjhqT+/zIbC633DQlpOJA5g0
-=+o1y
+iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqLGOUbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhA/QP/3/2v2sgfSf1kwBXitWC
+tWOwTHKHt5o20IBCVTPKlhUYt7A7Uh1ZljmA2dLOBcqNJwbjeTfnukNRYqeOG1l6
+NdSnyet2Q02RjsoS32gVmgM7agfnPgYUHgeNkyF+ka5Fbx2P7QpkugKEv/bpSbK3
++jsgxRjru+PpX1FEgEFWw/vcSjsaAtb8U8XKPjsrBD0sQ+UZJplaE47RAANYCzNY
+iyNsPxCTJj0lsU6KUpjW2uVtBoumZuFI9qFMoipx6vn6LbxcLf5F0A0BouQrDRap
+iY8rjBX1HCsHaeMxqj371Q49VuYkfzdaXC9UzjvknSQNSkphESurf4LHcf8zlEpc
+NYuhXlxtvEsfDxnYMPVTRbGnZ01wFuYfIBPQo8qT8RA7buA26rOid0kNRAEPmsh+
+NoZlolYfzFz4x9a2Ll6CEANLwtfQy3ZraB4ZQfAfQYmfDscs61OcIaHR0GCKT0G0
+ZeytESBmvIgD2TulizaAKldwXPMl5AtE5C6p0XjIihpjjzwN+X5sBjbbjRJu6Ib5
+6ul0Q2Ftmn7NL1+qM8+1RB7decLUY3/G/YaCof9JGk3GYC5Dh0aSSKX6sXEEjVgX
+je6B/jridsQd7r+a51PiyI7/dKx+7K5lw1gDcARat5uBtL9+OExvLeGh0Rkqwzzf
+8Cefj9uSLfHMhOPLPDDsP35F
+=NoER
 -----END PGP SIGNATURE-----
 
---=-BzUdVZxOLMgepOh8mfzZ--
+--=-WpZK/lQdId3P/XDcv7o0--
