@@ -4,79 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F749C5DF97
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 15:59:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA82C5DF8C
+	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 16:33:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 281EB10E2BB;
-	Sun, 23 Aug 2026 15:59:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0404310E048;
+	Sun, 23 Aug 2026 16:33:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="GFHyuBp8";
+	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="RFYOzHLP";
 	dkim-atps=neutral
-Received: from sonic309-20.consmr.mail.gq1.yahoo.com
- (sonic309-20.consmr.mail.gq1.yahoo.com [98.137.65.146])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3281310E2BB
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 15:59:39 +0000 (UTC)
+Received: from sonic308-55.consmr.mail.gq1.yahoo.com
+ (sonic308-55.consmr.mail.gq1.yahoo.com [98.137.68.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D64110E048
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 16:33:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1787500778; bh=rGVN6LVN0knZAkgw/5uqdLSqmmnAgUADX28q0ddAB74=;
+ t=1787502826; bh=sinYjZisod9mWYzD4X6OTROm+a4ISnrR/8dvVGQYeN0=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=GFHyuBp8HgDrGoiniFWlcq3kh3GkDK0hE8q7IXBPmY5JU7kdE0AHxHbPVc6vBiLhV+nU7Rd8pToGCZy5qSwT2V8UeROD0+w57ss5dLwzcNYdfBtw0t4asm6FE/AcTVTEqw0tJex4AjYHmbfo3p/SjmbLc/wtV3prHj7wikfWrfI9Ru9UWnOb8o9p5/9eAjKDJtPVeHVuJquJARxF36d5NCZgZ9hVLNUBgbdyOKxDGTgA5ML9PyMr+e9qpxyxS8FYPigolLfaz9Hqj3Hl6NMZIfBVdjG5dLG5ThRzriJy/ucVN/2u9rkqBXWeLrwxaIiVa8BJwIRza5Ia3gpVxzIwmw==
+ b=RFYOzHLPhQO1qbJVSOSfBqr1x6YAEw+v+F6zP/tKcx8efVY29flNzruBiK9zv+TTD3ylCtTbm3DUbgJ83xKEzQqkzc/+7Yf1TTYWMtY5u7QzznB7dH/gFeApCBUyiriXqaTnYPKh+fpfEGDcPZ3dm9QXW7/XfSqkUlkNrbx/mr7Uq993APsY6TpMp9KmBm5kJug3t3Rw+TuJ+iadWFwUODl/4PkdtKjb2guHTO3taH0/dWH9RPpyuhrqkIDOCWzQPMb03Xrdu0xq8cAD+wVPWPqxAPJKyiAMN60wFQP2jkuA8j9yCygjCvUDR0m1FeOrEbjyVnHInWWIIwQfWxoUAQ==
 X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1787500778; bh=rHYkAPUQdHk+ZpaguaB5z2lrezRwBEhzwKNfvGur1B7=;
+ t=1787502826; bh=oO6SYN4u7Vvk9HH+R20RUA1+6uk4LzXcksbmkhG4pWh=;
  h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
- b=UElegKjLdhmMOdKu+8/j1aw2xOOVpQmpZh8NxFyUq3b6kRZpFDW1buh4utttjYXCvGYu3Hj6bPuoaEti+z0eB+dswhWzSOxkdAMmSkvyE2qCJzTmoCpNim88iRCqV5+sb+/7bngDEEjLgAlnzfQJSbhuCHLNlenB/ok1e59lATyEzXJqwLRnAXCEZy+DL3MBY/CuFKbeaNVM2xbFDTfh5QfAvzjCHbnFqnznhwd0FykbarG0rS0skgwC5VYCTG/52Ny2XIYzkzwiCD14UvluiY4zjGCAAB3t6pBpyboT64SiTnJMNO7LK1NwEq6LJ59NByx5bjsAztjGjRNPprFTIg==
-X-YMail-OSG: vJloPZ4VM1kK1dc9rlOl04gJm.Vcv5q6zx0TIo_QR7Q61oQa2qGXH0DReilM0JQ
- CR4yHe2W1FFuf2O17SCD9gXe3qy8L3uMFmj44upWYwTp9xTi1n6z17GmDJDXthfbENpJXzEZcVii
- 8F0.JOQz9pqKiD1NSdtbKX6RDRVjqC6wsesoWMByK9u_NxNbqgu6JOWuyhgdmS4VC9hBhdQTi.jg
- Ukoi_SSI2Xr3On859mKW2XLMi37Lnc89oJ5uDTWldyz8A72RbqwItsq8OBob.DIRT3WV2C_LqUS0
- LBqOP4pQIRbNIK1XVEFXlEtKgPLZYXKXveLGftc_y6mop7I782aW1fVIWvbG2t3_R_raRipZW61m
- UFtmbYxrlDCWBeuI6FHxxsZrDImbjiBqdZZvY.cjGgL4OBA03MdzY4wcwYFJ6JTFJG1f3nuqOwFZ
- y4ETnaRJpF3ZqgAC4Gdu8vBmVYat8ftu90pGzpbvUmcE6hUbDbuK1DOrJYDMABPGgRldIVWuJn0X
- EggqRw3DZVNeT_DbHhuaQE8A9RDr4ZV_tyGOA89D6Mz9iS2i.vrkcBRNXlX2k6Go.iCKY1SVTfTU
- pAEgCRzmzG2xl6tCBCAKolrmbHszTSb8o0OrhOjkg8yrrBDfQGMKBlJ.EZdaXa_9BR1gyo0fK3R4
- Df7gVqIhTntv.AtBIl_7LTNqvJXu9hZ9jnhLgJ869Gw1ywZv4UBC4szB9G4wtN6sc.Z4z0p9zBA8
- QtxqNsz4haT5zQKnOWzkMr0K2h5vS0T0g.rqudkCnDEi_J9PQ5in0.uKvRzgyCbh_u89DYqIl9Dz
- 4hB2fyof_heL.LV7sWSVIg1ljQmSRIODlYS9RTcqy4mCZ939xiu0KcYdOmPoeoxBT4DS_d2saK8u
- bSnExAxSAn.osm6K4dsxSdvea5.WYqEnIsiWeJv9GUxoR_g77_cqZ3Su.3gwiUFKW5WFL5PGQdL4
- NXHNkMbWSYBZ5Uf4ERKNaJiRS.Tv8l8AZzh3Rzq9gTPq394jkvb0F.Vwg2P6vZVS8y64EYUfK83r
- u2rJGrFWsZO_.XlYubwCtbWzaDN1HPnq2nELKmr3HTwqkscLlayd54QZpMV.f3VOIIA.3.Piy2Xj
- Sxd23kEnXp_GFFs342WGZj1jv7JMij.8XeyOBDNHzFcSLHVY8jGyfohPwc1_n17.jTiFe8dvq_Pf
- gyJTd2Wn0Ceg.ZT195SaLrX9aLn_76iXgEOg7kto42weEuD9q40UoDr7nnTNv.WEqbQc5kRZI0zl
- x2yJWWtGjpLTTKLf.Axdnf.bup0.ENzu3_KBIGANx2uvF8CxgcivMPXlpC2LFngh1ituAMOX_U0O
- BUckKcIKMWTZSIm3JvoQcP0vlZRi1_faaVIivjdz1_R54ytavAyRFfJ_uQHBeT.F_IBn1v50Od9e
- jAhYftQN56oHeL0M55zO18Cc4poS0cR5elB3GX0Fh9dNQoNRbi98S37EhliBtLtc45AGgE13Hr6j
- 32ncsaEsvesyfyY.A2AbFpF.cuk0BtkTg64rX09ilS6IKmmUg2gANMFbT2DtxFaGZedHOVSCkej2
- ZR1T1lwLCW42N6JahQdfD4XiDtiktwHE_bEGk8nodleUj5vL_9EUeoid.3NHOhNw4YyaeLdhUwO8
- xE8vUzcptBwBUgqQgsUWc1TjuVJATS3ioHCutx7qIh4aulZB1aQCfn0BrxK282efIhWOL6ouw0Ny
- 4i1HMr0avk0eF2EYlargNkk0TG1aLvqqwn4T7x5Ld1bQmMd_qm.s.eeopfGl0qGxhYho4hgnfJrN
- gppmZUkORPTi_lp6adumixpdqhnpKBfEzMgsv4tjTppHtlvAhfjgNPINMY8JxopxnNCWWAU1rw.R
- _OP57mp8QcGxAV_X80xJdXpuOfVTbp6OtbkqrhSjmOC7Fu_MI1e5AR1XLHwxO8DJ7NHOdE0jDeMy
- AYkR6Ulfhn5dEJbOuL5ojPAD7.a3724LjKFh5eSTBZjV5TZcT6FO_0FqbSPQ3YphEB67sMOSsEA5
- RUKxkhhUqMBhF.q.DO_8Rw4FjyXIX8vboyTi4yrJ8CcpaYp8pMgqMcYHGP8reUWkBeoJ4EnSPmyN
- OME_rr9AuJvdWo5wHSa8UWUg1QNw7nSjZFkhyK1lsa6LpigJMBNq0pMyCcdrLlL.Rs2qD2wuFf_c
- hgoNX8JlSwiDK9LtvP9Sb3sfO5GofA3ZHKveFlP3EFKdNMxuTsLKdg8Q7Owwt9jQ6lR8TAC5ysu8
- c6joBDNQwFYCGe4t7LzZIjQfTQFZuFzAk1UjHORogIYLCPGQqmLdqZEFAMZaaKnx_prSgOpKPNwK
- v75DlfgY-
+ b=DFpNRi7O4PCv0aajypCR5M+blTeSOjq66Tgb7FfA5/NxUfFbamPTtpCBwYatF+92Ii3Lu93bLlxv0NZrUuRo2xDZcuEW2mD6pJMPMDIaEFcvIMNE1XxIMmYI0Du/08sCK2WU0g3uJyK+L3Ylt4AC5B+FNp5HoBG60VlRan+5oxk2hhKsusBG3hJmgAiOPFSQZTknyferDY0VB6jXx33g1pms6wkQ6b3PhvrXGfI8cskArcRvqJ6APusUvSAEcIt+Z0wW0d0j+68TZnTjrbGUkl7ZJzL0ZIisw8woCJ5DD2hVbS+Jul02BkALxO+Y2ltGCLuDybMGefpIGYxUneh5LA==
+X-YMail-OSG: 3Qrtl_8VM1mxpuId5b91pABVMhpw7.697axo4ODlxC0GC0FGFjHzHIcOVnqnr0k
+ j8o2uXUSW722I8gzajyDHgS7KftX6sgPU9dZ2k0nrjg9h6T.GxP1qZljvxgv9..SZqul.IAmim9Y
+ 2KXbfpclncacfixFZvOjZ6jmyy4YU_92O3J9AllXR0wCVp1pRWvbrcucod3fdDtLUkohowjxRQpG
+ sLhxuVFK..7hrrokHnB.PhnIpzZhOVb4Hq4DMjo7MB8A5vREqELXgMrzaw7NiEQ7R6_lJ3CN_Ez_
+ mg4R5RfzYFoosYJx8_j27SH2IIrE0JmED.AORcX6oL0mf99FIOeDdnCPzN1pVJyX4l7XnCGAQ5EF
+ FNx63nfknmzKOiL2ZVSv.rmYV_fKDjRQ5jmO0xoztspwVG.wESFSiOvNTZvl67SP6e9ew5nKmE9P
+ tRsYg_qHIR05IvsF18JFu9ew68Oyp0UM_T6Pra85GS9rp5Wn3fdQzUmU3aBBUBZdKTY5fwP9JiS4
+ B7UG4ua9N5LUr19o9VvG0c1xPcl5HpXMg9PrvbJLXrgtnYKk4JdH6Fr5M6w7B2LPkNYz6O1PzPFN
+ CwwtWvpE3HawfEo79xo9uvzSZKKGaNmJnSJQLizmb0B_uHtbfUtVuTFpqz3Y42d8QDcy8tNYoWfp
+ WxFwIRw_xzp63QkleYNR21ppkf10lKbqeq.XSQ3DAiI6CYL7eJAhjgsPo1LYU9TjqTBPHBAXE.Ng
+ 5iYrpcMtmNqWq8UBJAjf4oBDDoaNdXix1sFl.9bPqZdFg_kwaj00geFeVKdW2MqkE041gNHZ0Ksa
+ FxkwQ8.qCyPeBI0Cs1IigG8Je9Ycs30bMjy5CEBGH4FVE.g6Tol75yavY29Ov9HVtDArj24QkzVj
+ tgXhXV_Ere.IP5MW.ibrW4eC7iD7NzBQ0KZSQQ4ZujpQt79r59XhOPeb7FOv2NBZ28yjr217wHUt
+ bIDR55_tdjeMyH3wBX_iGJjHwCXBoX.7YZuF.YCOspNtNLtIZCAhnAbBFJ1I6fierU4gdsmAtO2z
+ d6pTKFKP7cbEPxQgOCtY3_NqcBDyqxfOA3kI8TQ5PBhV9smewATi2UvvKfeg9sKFLULhDy1Ed4jB
+ yC4_fU4P4JT_tICxm5OJ_a1y7HYq3g4MkdBfCK3EtO9zT89DRuEmthcOvEXM.gy_19nCXHlJ_7lR
+ euAR3hUQIQigs15tYZvEoXA6KGatUunj8ApYaIkSS9.j_yagGQDfjbsZVHQAoVVj1CZA_B_5mqy3
+ w4lY8ZjrJU7k6X_zNdOntOLOdLhc1WA8O1fsr15MHiNleoepNRWJDM4ZV1n9ftakYyRYehSp10Hd
+ uSiV.EfV1wb5YtxuKpMUi7wt7IVAFl2ZuVur2DhubNc0Xu0iIVlIbrJZtUx5HzM7AmFo.0NJI8JU
+ Duzcwtk1_u5ziSl7QQfYWpdOGDa1vqLOffNZJZHjwizCwuylndnlnH3ql3Ea1TU7BxrSm0eSpYsK
+ WzOLZbYSNgnYcf6BBzsD_zrg2fWRnkPI.7HKVRZYo9RJCX7U9NwMCPJ7GIes3Qy_un_r0fdJeoXL
+ qenlEMdxVg5smOIHRFGEoi9Qa.4fQ1dHM_mnCr4SwKSOUF2mYckM6o2lF1PaQAi5IrTMuooXHnrW
+ slruWtsgkczmtksWcTrGNEm_3L9eYdNF96mE5P0_GipL3G90Kyw1t5fBdM1fVP.9NZ.kldZ6ME4q
+ zlsWe.skp.3SNGIRDV6tA7hiQxXRQ3dguSCyMSWoH9bmVPz1Jwf3__8Z3qx_0FE5FB986wwZc34g
+ wgW3m9UDTYoISYAofh.M_YHGdpVVEO1C6hEhAKiugtagan2.RLbO0gKJLgiWndUKSANbJlU7FuME
+ vwJaYHPJPpinoSvyIhleB.eDP_8zYJoW39DxAuDTJDNkNGsUBD8K26tPjP_rEsIup9A76UmJ8S6a
+ KO_X3qcO4P_3mszebFGNWjRT1wzGVRT3qcAusjoA1cJslWk5BgRLXjxqRf0sqcCkUV9Jm.y4pUCh
+ mZhCFclbJ0t.2OhzbfmYk1SujbHEe8hDvGoKnxcXs4u1lPl8IKowoHbJS6I4BXRq_ZKfUNO1XtvA
+ GSWPzVUiIGU6vHcNEFg_JcCqz07mmbWoTw1xxQoYo7DiyJmLLZ2GgherU4AH6ZDB2gYhxiY2.lkj
+ LLi2o65XyCpMXKjJShZrQ67LDoroKwtV3ydNe9x5x1R1bCObjdPCfdflip0jD_sJ2XXw1CGmxt23
+ BwmLP4WLjQF5mi2600k2f9izLVHPpnbF9USqBethkkKtreEIjiLXSCXq0TT7xT.2a.84ROf_uc1E
+ -
 X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: d3c47751-95de-405b-afc0-902eb3f51aa5
+X-Sonic-ID: 614c7083-4efa-484c-b466-2df93b7525c7
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic309.consmr.mail.gq1.yahoo.com with HTTP; Sun, 23 Aug 2026 15:59:38 +0000
-Received: by hermes--production-ir2-cddf86dcf-shm6w (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID cc183acbe6c86b0f5fef479d9db2781c; 
- Sun, 23 Aug 2026 15:59:36 +0000 (UTC)
-Message-ID: <b0670075c3325e9264b518508f68d35c8e2b56ed.camel@aol.com>
-Subject: Re: [PATCH] drm/gud: NUL-terminate TV mode names read from the device
+ sonic308.consmr.mail.gq1.yahoo.com with HTTP; Sun, 23 Aug 2026 16:33:46 +0000
+Received: by hermes--production-ir2-cddf86dcf-9r6zx (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID a2bcbc9fccd52fe4d5a10437f8cc3d6a; 
+ Sun, 23 Aug 2026 16:33:42 +0000 (UTC)
+Message-ID: <1eb28694bc5fd70efe32b00a5519e82086a79b89.camel@aol.com>
+Subject: Re: [PATCH] drm/gud: validate GUD_ROTATION_0 is present in
+ supported rotations
 From: Ruben Wauters <rubenru09@aol.com>
-To: Deepanshu Kartikey <kartikey406@gmail.com>, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: peter@stuge.se, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
-Date: Sun, 23 Aug 2026 16:59:33 +0100
-In-Reply-To: <6c3a749f8d377b122ba33fd06825d8faff345006.camel@aol.com>
-References: <20260816085234.22053-1-kartikey406@gmail.com>
- <2973ae0d1d7ca4c39ef2cb07236ace25d400fdd0.camel@aol.com>
- <6c3a749f8d377b122ba33fd06825d8faff345006.camel@aol.com>
+To: Sajal Gupta <sajal2005gupta@gmail.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com, 
+ syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com
+Date: Sun, 23 Aug 2026 17:33:35 +0100
+In-Reply-To: <20260821071812.16500-1-sajal2005gupta@gmail.com>
+References: <20260821071812.16500-1-sajal2005gupta@gmail.com>
 Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
  keydata=mQINBGQqWbcBEADD5YXfvC27D1wjh1hOmjTjSwAFjQDGynLtrhBBZpJ+NBsfu++ffR7HF
  d/AaSJ+hqJni6HBNr/DMxWYMC8fOAr6zCSAX6fD2Rvy6rq6emuLaGOFkAIWDyuFWw40anlSCPZN+f
@@ -111,7 +110,7 @@ Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
  8IVIXxGcFRph02eKbZfqK51lMtns3kTe5DgHao5vrE+2GseLnEWE37cWnBQDhYgjwxIWtjGVp6KG7
  eIvzsqg==
 Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-WpZK/lQdId3P/XDcv7o0"
+ protocol="application/pgp-signature"; boundary="=-yU06Pes14ILQgBR/pQxv"
 User-Agent: Evolution 3.60.2 
 MIME-Version: 1.0
 X-Mailer: WebService/1.1.26380
@@ -132,91 +131,72 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---=-WpZK/lQdId3P/XDcv7o0
+--=-yU06Pes14ILQgBR/pQxv
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, 2026-08-23 at 16:41 +0100, Ruben Wauters wrote:
-> On Mon, 2026-08-17 at 16:36 +0100, Ruben Wauters wrote:
-> > On Sun, 2026-08-16 at 14:22 +0530, Deepanshu Kartikey wrote:
-> > > gud_connector_add_tv_mode() reads a buffer of fixed-size mode names f=
-rom
-> > > the USB device and passes pointers into it to
-> > > drm_mode_create_tv_properties_legacy(), which calls strlen() on each =
-one.
-> > > Nothing guarantees the device NUL-terminates a name, so strlen() can =
-run
-> > > past the end of a slot and, for the last mode, past the end of the
-> > > allocation.
-> > >=20
-> > > Terminate each name at the end of its slot before use.
-> > >=20
-> > > Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-> > > Reported-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
-> > > Closes: https://syzkaller.appspot.com/bug?extid=3D916c888ba5f1a54c952=
-6
-> > > Tested-by: syzbot+916c888ba5f1a54c9526@syzkaller.appspotmail.com
-> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> > Acked-by: Ruben Wauters <rubenru09@aol.com>
+On Fri, 2026-08-21 at 12:46 +0530, Sajal Gupta wrote:
+> The rotation argument to drm_plane_create_rotation_property() is set to
+> DRM_MODE_ROTATE_0, and the device reported rotation bitmask is used as
+> the supported_rotations argument. The driver never validates that
+> GUD_ROTATION_0 is present, so a device that omits it from its
+> GUD_PROPERTY_ROTATION triggers the
+> WARN_ON(rotation & ~supported_rotations) in
+> drm_plane_create_rotation_property()
 >=20
-> Thank you, applied to drm-misc-fixes, Cc'd stable
+> Fix this by skipping the creation of rotation property if the device
+> doesn't have the GUD_ROTATION_0 bit
 
-Hello, my apologies, upon checking other patches received, I found a
-better implementation that returns an error and avoids truncating, as
-such that one will be applied over this one instead, apologies for any
-confusion.
-
-Ruben
+Hello, Thank you for the patch
 >=20
-> Ruben
-> > > ---
-> > >  drivers/gpu/drm/gud/gud_connector.c | 9 +++++++--
-> > >  1 file changed, 7 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gu=
-d/gud_connector.c
-> > > index ea0cca58b7c8..5c0065c876a7 100644
-> > > --- a/drivers/gpu/drm/gud/gud_connector.c
-> > > +++ b/drivers/gpu/drm/gud/gud_connector.c
-> > > @@ -396,8 +396,13 @@ static int gud_connector_add_tv_mode(struct gud_=
-device *gdrm, struct drm_connect
-> > >  	}
-> > > =20
-> > >  	num_modes =3D ret / GUD_CONNECTOR_TV_MODE_NAME_LEN;
-> > > -	for (i =3D 0; i < num_modes; i++)
-> > > -		modes[i] =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-> > > +	for (i =3D 0; i < num_modes; i++) {
-> > > +		char *mode =3D &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
-> > > +
-> > > +		/* The device is not trusted to NUL-terminate the name */
-> > > +		mode[GUD_CONNECTOR_TV_MODE_NAME_LEN - 1] =3D '\0';
-> > > +		modes[i] =3D mode;
-> > > +	}
-> > > =20
-> > >  	ret =3D drm_mode_create_tv_properties_legacy(connector->dev, num_mo=
-des, modes);
-> > >  free:
+> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+> Reported-by: syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Defe2810681f1b065d3a8
+> Tested-by: syzbot+efe2810681f1b065d3a8@syzkaller.appspotmail.com
+> Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
+Acked-by: Ruben Wauters <rubenru09@aol.com>
+> ---
+>  drivers/gpu/drm/gud/gud_drv.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.=
+c
+> index 89bd6ca36003..3a1b9e2a2eaa 100644
+> --- a/drivers/gpu/drm/gud/gud_drv.c
+> +++ b/drivers/gpu/drm/gud/gud_drv.c
+> @@ -289,6 +289,8 @@ static int gud_plane_add_properties(struct gud_device=
+ *gdrm)
+>  			 * but mask out any additions on future devices.
+>  			 */
+>  			val &=3D GUD_ROTATION_MASK;
+> +			if (!(val & GUD_ROTATION_0))
+> +				continue;
+>  			ret =3D drm_plane_create_rotation_property(&gdrm->plane,
+>  								 DRM_MODE_ROTATE_0, val);
+>  			break;
+> --
+> 2.55.0
 
---=-WpZK/lQdId3P/XDcv7o0
+--=-yU06Pes14ILQgBR/pQxv
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqLGOUbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhA/QP/3/2v2sgfSf1kwBXitWC
-tWOwTHKHt5o20IBCVTPKlhUYt7A7Uh1ZljmA2dLOBcqNJwbjeTfnukNRYqeOG1l6
-NdSnyet2Q02RjsoS32gVmgM7agfnPgYUHgeNkyF+ka5Fbx2P7QpkugKEv/bpSbK3
-+jsgxRjru+PpX1FEgEFWw/vcSjsaAtb8U8XKPjsrBD0sQ+UZJplaE47RAANYCzNY
-iyNsPxCTJj0lsU6KUpjW2uVtBoumZuFI9qFMoipx6vn6LbxcLf5F0A0BouQrDRap
-iY8rjBX1HCsHaeMxqj371Q49VuYkfzdaXC9UzjvknSQNSkphESurf4LHcf8zlEpc
-NYuhXlxtvEsfDxnYMPVTRbGnZ01wFuYfIBPQo8qT8RA7buA26rOid0kNRAEPmsh+
-NoZlolYfzFz4x9a2Ll6CEANLwtfQy3ZraB4ZQfAfQYmfDscs61OcIaHR0GCKT0G0
-ZeytESBmvIgD2TulizaAKldwXPMl5AtE5C6p0XjIihpjjzwN+X5sBjbbjRJu6Ib5
-6ul0Q2Ftmn7NL1+qM8+1RB7decLUY3/G/YaCof9JGk3GYC5Dh0aSSKX6sXEEjVgX
-je6B/jridsQd7r+a51PiyI7/dKx+7K5lw1gDcARat5uBtL9+OExvLeGh0Rkqwzzf
-8Cefj9uSLfHMhOPLPDDsP35F
-=NoER
+iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqLIN8bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhdsQP/iFITCkNCJ7BMhf2/Y1f
+fdiQgOY3wSVFCVFFA7Td6+F4ICZ92w1jzZc8JTqyHOHoR9tui9DgnKaqyKzO7sve
+LlFHXop4l68+W5SxDLyfkki5hb1fyns2Z2496Dn+/+z/HnIVS69WzdgM8uWT3n6K
+DYMeqhDQWTpbMYxPRuakjvGmYQuN+wwN7zN3VkK32OyMYx4qO2vO3CyUVtJPq2YN
+afLq4rENSHdhFuZCuTY+bsnKxnczt4l21hh3vQf/aiq/EGo6AzSH3Zf03HvA6bro
+hwTTuKCorkDXe6jasmln1tNLNAkKjMKHNtQym691kWf7WXcokLyWj3Yz4ypt/tS3
+R1g1xuYi8H8pqsq9EcwjKceciJbAHoQRt1NaaRZwg0ZLfGWFFu3uA4FTcKivWkJ1
++hIHnY/uMpSrtE3UIEZ4JM20MI+IHa4ENYTuznkjU/Syjhw4ycuMz5fyXtvd/UGz
+6t7s1CXaYuyEV5SecYh/J41tJ7DrkAtgYpsk7WLobTjCdkTyILAUwjS0icYbDaPf
+j6a2/0JmM1AsWDwaUwciFT1qR3FBPVlB0kZA6EGF2rViqrWzQ38z2bCjujiup6A8
+azebC+ge9KMzJTW8hb7CnvsjP7XuDx89psgt8wuMep8Fxt/3nnjUPsNj0x85YmmV
+5ITn0T2ZUAeWcTHi/fhdJm4e
+=dH6j
 -----END PGP SIGNATURE-----
 
---=-WpZK/lQdId3P/XDcv7o0--
+--=-yU06Pes14ILQgBR/pQxv--
