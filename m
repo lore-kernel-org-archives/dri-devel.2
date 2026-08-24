@@ -4,39 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51BD2C5DF81
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 09:53:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33078C5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 09:56:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9114E10E0E9;
-	Mon, 24 Aug 2026 09:53:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8473710E6FF;
+	Mon, 24 Aug 2026 09:56:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=crapouillou.net header.i=@crapouillou.net header.b="33I8nTTU";
+	dkim=pass (1024-bit key; unprotected) header.d=crapouillou.net header.i=@crapouillou.net header.b="DxNW/2pv";
 	dkim-atps=neutral
-X-Greylist: delayed 600 seconds by postgrey-1.36 at gabe;
- Mon, 24 Aug 2026 09:53:16 UTC
 Received: from aposti.net (aposti.net [185.119.170.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9577210E0E9
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 09:53:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97A7110E611
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 09:56:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
- s=mail; t=1787564594;
- bh=lh654BUOoX295N5eye5xtQ+9bp9VPJddm0BQ7hT9oYQ=;
+ s=mail; t=1787565387;
+ bh=O6aT4Rf/MykLORdoytkIh+5Rcrdr1l9fkFTrsq/7v5M=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=33I8nTTU1AEuH68FVvvB0AQpl2SE8V1F/jVViOZvYxX/gkBSL8dcxdhmbas68tNlw
- HhPI0xIyhKSvQmxBAXBVumitc2vabH7LromaMngbwmvTNONtosGWlCPFMfQHufiG4/
- O3w/kDD0SsJo7ef5EIDhvDL1VrUSAv4nEtsCVjWs=
-Message-ID: <f4b9176b3850cea31ecd658f2e36831e448f3845.camel@crapouillou.net>
-Subject: Re: [PATCH 13/70] drm/ingenic: Switch to
- drm_atomic_helper_crtc_create_state
+ b=DxNW/2pvWbkFY/Ed30zgbdmJZ7rKdOu0SIg26chx0hB8uZHAOqeCDzggyZJFa1ApG
+ pDKdbyCwvgDw/Tq5BZnWF04Vj5SHt0rmXd2p3eVU/fbGMTnkXWUbw9xKoCjbuz4wEg
+ kn6AqVZmKrSzXGtvBQR0yjNn18ZAF3YYnzF2muMk=
+Message-ID: <0cf9366ba1a217ad743fd7f49d00813b32f104f2.camel@crapouillou.net>
+Subject: Re: [PATCH v3] drm/ingenic: fix bridge allocation
 From: Paul Cercueil <paul@crapouillou.net>
-To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org
-Date: Mon, 24 Aug 2026 11:43:10 +0200
-In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-13-fb793475c05a@kernel.org>
-References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
- <20260821-drm-no-more-crtc-reset-v1-13-fb793475c05a@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
+ wbx@openadk.org, 	kernel@pyra-handheld.com, stable@vger.kernel.org
+Date: Mon, 24 Aug 2026 11:56:23 +0200
+In-Reply-To: <a3b64245250cd092776cf23cddffe18318b48995.1787494377.git.hns@goldelico.com>
+References: <a3b64245250cd092776cf23cddffe18318b48995.1787494377.git.hns@goldelico.com>
 Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
  keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
  LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
@@ -68,47 +66,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Hi Nikolaus,
 
-Le vendredi 21 ao=C3=BBt 2026 =C3=A0 16:38 +0200, Maxime Ripard a =C3=A9cri=
-t=C2=A0:
-> The ingenic crtc implementation uses the deprecated
-> drm_atomic_helper_crtc_reset() as its reset hook.
+Le dimanche 23 ao=C3=BBt 2026 =C3=A0 16:12 +0200, H. Nikolaus Schaller a =
+=C3=A9crit=C2=A0:
+> Bridge allocation API has changed and ingenic/drm was broken
+> leading to
 >=20
-> Switch to drm_atomic_helper_crtc_create_state() instead.
+> [=C2=A0=C2=A0 54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X
+> controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
+> [=C2=A0=C2=A0 55.491338] dw-hdmi-ingenic 10180000.hdmi: registered Design=
+Ware
+> HDMI I2C bus driver
+> [=C2=A0=C2=A0 55.899132] [drm] DRM bridge corrupted or not allocated by
+> devm_drm_bridge_alloc()
+> [=C2=A0=C2=A0 55.904136] ------------[ cut here ]------------
+> [=C2=A0=C2=A0 55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x5=
+8/0x6c
+> [drm], CPU#0: kworker/u4:2/36
+> [=C2=A0=C2=A0 55.917538] refcount_t: addition on 0; use-after-free.
+> ...
+> [=C2=A0=C2=A0 56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
+> ...
 >=20
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using
+> neither devm_drm_bridge_alloc() nor drm_bridge_add()")
+> Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> Cc: Waldemar Brodkorb <wbx@openadk.org>
+> Cc: stable@vger.kernel.org
+> ---
+>=20
+> Notes:
+> =C2=A0=C2=A0=C2=A0 v3: fixed a malformed diff
+> =C2=A0=C2=A0=C2=A0=20
+> =C2=A0=C2=A0=C2=A0 v2: removed ib->bridge->ops =3D DRM_BRIDGE_OP_EDID |
+> DRM_BRIDGE_OP_DETECT as suggested by Sashiko-reviews
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1=
+787477392.git.hns@goldelico.com?part=3D1
+>=20
+> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 23 +++++++++++++++++++-=
+-
+> --
+> =C2=A01 file changed, 19 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> index 42c86f195c66b3..8d7979a7859332 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> @@ -122,7 +122,7 @@ struct ingenic_drm {
+> =C2=A0
+> =C2=A0struct ingenic_drm_bridge {
+> =C2=A0	struct drm_encoder encoder;
+> -	struct drm_bridge bridge, *next_bridge;
+> +	struct drm_bridge *bridge, *next_bridge;
+> =C2=A0
+> =C2=A0	struct drm_bus_cfg bus_cfg;
+> =C2=A0};
+> @@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct
+> drm_bridge *bridge,
+> =C2=A0	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(encoder);
+> =C2=A0
+> =C2=A0	return drm_bridge_attach(encoder, ib->next_bridge,
+> -				 &ib->bridge, flags);
+> +				 bridge, flags);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int ingenic_drm_bridge_atomic_check(struct drm_bridge
+> *bridge,
+> @@ -1314,10 +1314,25 @@ static int ingenic_drm_bind(struct device
+> *dev, bool has_components)
+> =C2=A0
+> =C2=A0		drm_encoder_helper_add(encoder,
+> &ingenic_drm_encoder_helper_funcs);
+> =C2=A0
+> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
+> +		ib->bridge =3D devm_drm_bridge_alloc(priv->dev, struct
+> drm_bridge,
+> +						=C2=A0=C2=A0 base,
+> &ingenic_drm_bridge_funcs);
+> +		if (IS_ERR(ib->bridge)) {
+> +			ret =3D PTR_ERR(ib->bridge);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		ib->bridge->of_node =3D priv->dev->of_node;
+> =C2=A0		ib->next_bridge =3D bridge;
+> =C2=A0
+> -		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
+> +		ib->bridge->interlace_allowed =3D true;
 
-Acked-by: Paul Cercueil <paul@crapouillou.net>
+That one line feels like it doesn't belong here, but in its own patch.
 
 Cheers,
 -Paul
 
-> ---
-> Cc: Paul Cercueil <paul@crapouillou.net>
-> Cc: linux-mips@vger.kernel.org
-> ---
-> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> index 738a80b2550f..67374c611583 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> @@ -995,11 +995,11 @@ static const struct drm_plane_funcs
-> ingenic_drm_primary_plane_funcs =3D {
-> =C2=A0};
-> =C2=A0
-> =C2=A0static const struct drm_crtc_funcs ingenic_drm_crtc_funcs =3D {
-> =C2=A0	.set_config		=3D drm_atomic_helper_set_config,
-> =C2=A0	.page_flip		=3D drm_atomic_helper_page_flip,
-> -	.reset			=3D drm_atomic_helper_crtc_reset,
-> +	.atomic_create_state =3D drm_atomic_helper_crtc_create_state,
-> =C2=A0	.destroy		=3D drm_crtc_cleanup,
-> =C2=A0
-> =C2=A0	.atomic_duplicate_state	=3D
-> drm_atomic_helper_crtc_duplicate_state,
-> =C2=A0	.atomic_destroy_state	=3D
-> drm_atomic_helper_crtc_destroy_state,
-> =C2=A0
+> +
+> +		ret =3D devm_drm_bridge_add(priv->dev, ib->bridge);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to register DRM bridge:
+> %d\n", ret);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		ret =3D drm_bridge_attach(encoder, ib->bridge, NULL,
+> =C2=A0					DRM_BRIDGE_ATTACH_NO_CONNECT
+> OR);
+> =C2=A0		if (ret) {
+> =C2=A0			dev_err(dev, "Unable to attach bridge\n");
