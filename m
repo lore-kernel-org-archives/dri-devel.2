@@ -4,123 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85417C5DF81
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 13:07:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 895B7C5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 13:07:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D59CA10E0A9;
-	Mon, 24 Aug 2026 13:07:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D333510E150;
+	Mon, 24 Aug 2026 13:07:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="st8Ne3nD";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="d7GXb/PL";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E443810E0A9
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 13:07:30 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-47f6609c657so1435648f8f.2
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 06:07:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1787576849; x=1788181649;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=II0EHdpiWVifHn+uIz31c6Jp5mdC3hunRFCnEAwNy/g=;
- b=st8Ne3nDbcmfgAcHxqNd2flW4ZUbE6QUxWGZ58I/sEV2T/AlMJEdMxftvMln1Js+j5
- ELSSJ5nQq0x/bASefIkPMoqcrhnXqgXm8sbjl4agxMsxGUg0Rr1rZmJwQC0nQXcnNE2t
- WuHnB7dlg/xrrE1GshTHglrfJPPU8SZB7swiMckP9g03/1xOP6iUIyAJ2rfV/rs8ozWq
- Zv/gfzXMdGOk5T7QShm5qTb6Mp+PIZWMAw1vx9bDQ2rF6c7+Izuj+qQ8ERuBtby9p/3J
- um0SQhAcvKAS/Zz9gCKHHmy4QqPAXa1SetgEkSGLdBLAGOQXdcCNQTq4mPLAJ+EZUIps
- tVkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787576849; x=1788181649;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=II0EHdpiWVifHn+uIz31c6Jp5mdC3hunRFCnEAwNy/g=;
- b=lutQ+IcDHCDKR7slnxgXybJUWEmmOP+/X4ybM2WLaT2OP71DBJkopcE7vpmT/8d4qI
- 5iAeBcx0lRyM+VlcX3Qs73nqJ8aMFfMVZXiMV+jQ4hfgNj7/8uHmpF3v6ARyZ2W1keXv
- 5XSTveomEhNghKh7ICGV9SBh5oGeSkF14XZwXq/DRRH1sLyzYk9LUnhDiS5zXiW49S8c
- RJnt+9Bnldx3ZbHklidk3kGt8XRi60gN77OK+cQipm+dcQUp/rf+FQKM/NhQnIdJqDtj
- 2woWPuGAbJnv5j+RHugG27BJddtaYZC+FaBatdGuTn5c1Sf/5gzfV6qUKjf2xVm5uyO3
- SVZg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpWPmAmHaQR3fopdEU3FZotXlgwSCBd24WTQ/c8H9sMVmNpFaxpFnezq/w4p7FDIJqQ7PoJbKbAwD4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nWrvB8581+kS5EppFVoB/7Ag30nhk81weVBKXIsJs53vRMnDIR
- EehaF8NYjxQUihdXK+EqcAQm5nBtd6vc+SALdUqmxb1rOFfim7MO/WraMelW2ey0dg==
-X-Gm-Gg: AR+sD10i2gvZSHEY3DPFVTQaTiLrzAvz9vVZSuFvtG2Urj4V+uPDVGPzU2OO3MW9X1b
- 6pPcaISM0ZzW/YE6yWXQE/dvhlCO1RPVI1xLIGCivpu8STJDNaazyfBORgQCySeYM8DV4D+fFql
- Q2zRgneAOC7vjbqZvDc5q3A4Itm0zrA/UI1GtYXzy7Psm5q6p3GQNZAYLt3B6obtaHmSpwQJm/a
- dkKKZHej6HvsBZSfvcNnwQ32viLY4P2Gq56FIbuQcTNLItncN0hhTanqEk4diLSMkR5lVRYEbz0
- rKeCRD73zNYJOOlN+ic9keO+BzkkpHjE5ZwxVIHA6zfQ3U9nYv5t8gkBuRP6trGegXhq6ytmH9y
- 1eXH3zmZZCnXtgh6TQq76mztq6uDCuJT82TRfhYYv9QR3W12tWsZZbhNpU9dJi+Xj2SPpxThhWQ
- 1K4+huTJHdYw4wXCKq4MBxSOjAl0O66PSP/U6V8Mi3NsVyVBMgg9qdcDHfY2WzVytXw8xOKRRyq
- CR3Pjs+yGySoubgeYsB73VcNNo1BnAf
-X-Received: by 2002:a05:600c:8b76:b0:499:8c68:a3aa with SMTP id
- 5b1f17b1804b1-499b8475133mr350361245e9.13.1787576848494; 
- Mon, 24 Aug 2026 06:07:28 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com.
- [104.155.91.135]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499c355e1ddsm85389525e9.5.2026.08.24.06.07.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2026 06:07:27 -0700 (PDT)
-Date: Mon, 24 Aug 2026 14:07:23 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-mm@kvack.org,
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org,
- Thierry Reding <treding@nvidia.com>, pavan.kondeti@oss.qualcomm.com
-Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <aoxCC1yPFdutU5vB@google.com>
-References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
- <20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com>
- <an4MEI7lkc2p3nKI@google.com> <an8K2gb1pIqbDj6-@orome>
- <aoNDRTKCUkzd2n5G@google.com> <aoQ1lhZojzsSkWHQ@orome>
- <aoVy8dj8f3ll5-M4@google.com> <aobOs0ZidWzgoHut@orome>
- <aoi4wZJIutMWu9Ux@google.com>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021137.outbound.protection.outlook.com [52.101.100.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB19410E150;
+ Mon, 24 Aug 2026 13:07:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XX/6x2UIgCpjMWbpZ/9e8EYDuYds/EF3P374a9CDRl0TwoZ7dwwTNCWSLQAPvbKqJSw92PmRNYs4kX3mxhCUf/r+NffG814zsQ7tFG1mgDulS15Rent27sPQLp4PUZ2tuslGmmq5Hg6fUqxmE64ykho35SscToUtaCSMlC89HwUOn4a52g5WrLFUEQqxv21XocXT4UrydE5+JwJ8CUj8ogKMiNcvHwbgU4jkQcQyMKYgECUaynp6zO25U7TCBEY8/HoUcpk7EcgM2KC/d7tlOUJd2q966ELYk26N+pMFecAPGYlnMOoiErZmRixg9RDVPpxRiXjhEN2KsXRtGHwqqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8Bhs4EAK1mLPXkgmUiemYAYuW2GzN2mH6//Slo890eg=;
+ b=Apq7n9KGiCfF+V9m0CCJmyyjLcw/cWG0C2xkz3PV3PZsVUn/Edyi//Tiyc3tFbWJHouEUYtItXRZjY6M1mmhrF264K60y/gn5TFo2PF4+zoahc0+yZGiDIk5OqA9iYlheZvV8lv31zYwqNEG3RgH6xaeWttUI33QvQiNGkja4OdhzV0cYjGITTr4Rqy4+V+7bYqv1M0mtBOlMSPT/aOyt7RsCX6xwbQmCKfMvV06qrIZDO5IbeO4lMLeWLmSyARfvX0dLI4oZOEWNvpw0HqeA+TiO3ah13vJpIt1aLR3FqLNialW1RcHNHu1Td580EiTAK6ovfM8NUCKxU1ApTb6hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8Bhs4EAK1mLPXkgmUiemYAYuW2GzN2mH6//Slo890eg=;
+ b=d7GXb/PLjfGjBlM19HpZNvhTiTV6PbvI9+ebW0MIu5Xafej0ik08W2QtB4HYyGvMkkpav/gjU5W2NwaVvtFuwuAS8LdTanK2dWeKruEjgkIbRK+Ifx24bNV7cE/c1P+dl69Y59T26Gw+CGKMP5xzJvQYgi4vgG1UfEDFMLqUIj4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWLP265MB6500.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1e6::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 13:07:39 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 13:07:39 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 24 Aug 2026 14:07:38 +0100
+Message-Id: <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
+Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
+ messaging path
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+X-Mailer: aerc 0.22.0
+References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
+ <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
+ <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+ <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
+ <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+In-Reply-To: <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0538.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:319::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoi4wZJIutMWu9Ux@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB6500:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4cc539d1-5b73-47cc-8023-08df01e0aca3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|10070799003|23010399003|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 4/cgixoL0EE+WsmlGvKST50EZFlsjFba6ymMk8OL4cJVahkzDpI4AxObZuRWGXKm0L63+sVrcw0sDjgbDffjFv7kw6VBX/Pgbmy86i6QHLcftSxHcTzWp7ftNE9abIEYlXJ7Deo5AwE3YJxgx+yylbHd9XEAXNS0JE7ALBoSMp8aXg8ZYMQhp80qeRA7BhCKJdo9K+UDGctKqZfipAbNnlroG4i+KvyYcqWBjjCKtb6xpkq3Of8xv/qYEtEU75Z0R+vM6HG4wy4DWRKUsaE0B+sRljTAccUdiZ8ddP/z01UCTc9vuZY58nl84SaHS608GQrSgui8DPIRTILEr83br4Kev9QfF5cMgHFiAlzJRUxagoriLJAigVLL34gGTkTLgX2nH1bnoc1WScI4cUMJ/YLV3QRSxZM0aL33ehsWbepRV/7sdTdGp74WMChaIxHqFPEnkLkO1xiiN6FLhM5LFkAuuiVksmz82lx435+1xie4Y/bFCrC95VL7aOqzCgRcQ6uVny/qctMBkWHJhFW7BTFeS701yNFyPNMIuQ3xP/6H5y+nc5JPHFYW14oLc1un52zeSUsOcTGfGHI+o/gIMp7diVNuNNB5jVjImYcXWeh6oKPrANCLcnB0rJ99zHP/ZGb//x0zxULM00aIidxUx5jfbai0CMcgw9aEDdsOSgk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(23010399003)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emFuQWJHOEVmNkpETVBraUtGanZIWERVOFBrM21INXBhSE5IM2lDN2NPM0RL?=
+ =?utf-8?B?R3p6aUo1M2lBT203cUo0bFh3b1RiZkpuMGQ0aU1ib3VtSm91TUtpT0ZpeU1y?=
+ =?utf-8?B?Vy9DN2ZGSE10bkNIVHA0aXkvYzVBQ1BJQ243VFdmbTkvZHRUa1cwb1ZUSUNo?=
+ =?utf-8?B?VXE0Zk1vS2l4a1lKUmgydElMWXh1UWhmYjhNZXlOZzdDSUNEUU02bTZsRmRu?=
+ =?utf-8?B?MmlnNzM0SHJSV0pkbGJGMDIxMERndElGaFlVeE1ST05Tc1lhTGJuM3FjRUdi?=
+ =?utf-8?B?UWZLbDdLYnpLZGp5NHhtU3lyY29iTVE5UlF4Ulp6WWNxejlzK2cyb0VGN3R1?=
+ =?utf-8?B?VU1wUFk3S2NCSUhRblhKRG05dFRVcXlKaTZXZlpjRFJPNk5jVUZQL0FmN1o5?=
+ =?utf-8?B?Nm0rQjhTOS9yM1ZMQnFHd1B0b1FneE9YL0lJZjF4MWhzak1nUjFkY2NyRS9i?=
+ =?utf-8?B?ekRUbXpqWitTeFdFSmdhSVRQazZLenh5cDFCWU5SVHVWVVJhTSt5cjJNSDBR?=
+ =?utf-8?B?NXVuZkx5V3dQUkFsY2xWWkI2TDE4VXIyTjRoSmdwYlpFRGFPSk93Y1g5bHlS?=
+ =?utf-8?B?YlpLNjhHamJjWXluZDVxNzdPWWNlNmszejY3b1N4N2hnNXlTRTdtdHNYZU4z?=
+ =?utf-8?B?ZndQRkY5VytZTjVBMysxREk3WENkWWNJNkpSajFLVUswZEFZbnFxb3k4L2l1?=
+ =?utf-8?B?Q0swb3hiLzFPUGJnWXU0TGJJK3diNkVxSDM4UlE2Z2VsRW5MOHU0bm5jZ0x2?=
+ =?utf-8?B?UythZjJrNkNvRWxVMWhDTkMvM2k4SkptZW93VTRNQUNRQ21zVkRud0F2SzdR?=
+ =?utf-8?B?SjIwK0hlVFBXd0E2R1ZDS3ZMTk5keG82YTR6eVVtbzV2SW5QUklmS2F1OWQz?=
+ =?utf-8?B?VjdUQy84V0tSN3lSV1N2MzZSdEZhaTlZWDJWMVdaZmJvRCsxZ3NHUzFwV1RF?=
+ =?utf-8?B?aHUyQjNtYzhaWG5OQU15TUNYQjZ3QTB5VzhjdUNveGp0MDN1MXZGalpRemNm?=
+ =?utf-8?B?ZFhJQ0N5MTR0dWpFUDJxRHkwV3hLMk9BRzdRRVVHcHZUVWxtVnlmNDBIVUZi?=
+ =?utf-8?B?NHNMY2UwaEFjako0dDAyd2MzREhBODJWeVRKWFI4RDJjeWJ1QmI3ZmZPV2NW?=
+ =?utf-8?B?M3J4YkNad3NrVXJ5RG4rdUJhVnYyaW1nUTgvTURoWjdOVC92UEZ2ZVNBZk5Y?=
+ =?utf-8?B?LzVzdDVTZWY1NWIyRmtkbjhjYWhHMTVYWFdyakVlSk50dGtTUTRwaGFNQjdH?=
+ =?utf-8?B?azZ1SHFKc0poWVc3SEZPOTV3M3lEd1pvaVo2T1hHTDIwU0d6czdkNktQMDlq?=
+ =?utf-8?B?cFR1NnFHemZmbm9halhmS2lQbzVmV05iTG1ITVNUS0ZIM0xkK3JtRWw0MWFh?=
+ =?utf-8?B?WG53d1BiUWZETDdqenhEbGIzY3RuT3BGNWtObndLUWIxS0tjTDhmendQSFVo?=
+ =?utf-8?B?QS9qUndUc01FYlhaNUZqdy9Ha0ZpT3A2VEZ2YVlrdzZKaW1OQ2JEaDB4YkJo?=
+ =?utf-8?B?bm0rT0pXQTFMODk0MHdkU1dpWkM5Z0Zxclp0RkNPKzdNa0VoV3U1ZDhiUE5l?=
+ =?utf-8?B?S3VwbkZPVDczL2JRbzNHS1pHTXpEWUlCTlE0dmRrektyZ3BnVjJmNTlEOExH?=
+ =?utf-8?B?SHFsSjJPeExaQWNPZ1NhQ1JiU1M2ajNYaVhoaTlRNEpVTG1sNmFyY25PRjB2?=
+ =?utf-8?B?ZmJ6NDY3VEdvYysvWG1LVmhBVmZyLzRXU2JWOXB2NlZ5bVR6WUVONERNYUNq?=
+ =?utf-8?B?SmNoZ2drZDZLcFRFb2Z5VkIxSTZBVWdrWDF4N3ZYRFJOZ1RvVkx6eFNsMTdC?=
+ =?utf-8?B?YStZVTNkbzdONElMdVREUUFLcHNDRW9EZGxjd2ZoNmpLdU5Ta2Y5Zm9yMDl2?=
+ =?utf-8?B?dGdSMkJsQ2s2dUlZbElWRkgzU0tkQjkrV281cllFYWtLdEdTVzgxcFdmMDlB?=
+ =?utf-8?B?SXQ5NS9YcmJ2bzFObDlPd0JLODVraFFtUU82bVIva3lzT2xsSkxmdGtxYk9X?=
+ =?utf-8?B?U1R6ZEVlbjVjVUNZUnVvS1hYYUoxanZDcFZ1eDVrMHprRFZCeGhHQW5HWkVz?=
+ =?utf-8?B?R3Y4Q2NtM1JlUTNYK2EvM3d3b0hEUDM1VDNZTzBxVmF2UHpkbWFMWXB3Tjhx?=
+ =?utf-8?B?R1p6TWFlTXpnWWcyQ3RPbkZhcG1ENm9jQVh0S2lsSlB6YW5RdDRQSjExSE1R?=
+ =?utf-8?B?U2lVYXBvd3hDZHZUY2Q1MWhCdTNLMDhUNmRUcU56bGhSK0RLdnZFaS81eDQ5?=
+ =?utf-8?B?UlY4dERFc1N2K2tyK2l1ZktOaUFtRHRhSFlUZHF4MUZaMFRYNkpld2pmNm1l?=
+ =?utf-8?B?bVdQOTA0VTU5LzJ3Mm9jOE04dEJKZHIycUU2YlY4eUFEdXdwczhjUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4cc539d1-5b73-47cc-8023-08df01e0aca3
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 13:07:39.3163 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 192DIb3PkG+DDplREUQ7ySnzR5z09thAYdju017OpPue9LMvsok8mT1YQD3OEepP9odOiQV9jq6a1d4B3Ehbnw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6500
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,109 +144,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 21, 2026 at 09:44:49PM +0100, Vincent Donnefort wrote:
-> [...]
-> 
-> > > > Interesting. I had been thinking more along the lines of adding this
-> > > > directly into memblock using a new entry in enum memblock_flags. None of
-> > > > the existing ones seem to do what we need here, though some are closely
-> > > > related. MEMBLOCK_SECURE or MEMBLOCK_PROTECTED are quite specific and
-> > > > don't necessarily mean that we need the mapping to be page-granular, so
-> > > > MEMBLOCK_PAGE_GRANULAR is perhaps clearer.
-> > > 
-> > > I thought it would be interesting to not have to modify memblock since it is
-> > > used for all architectures, while the DT is at least slightly less widespread.
-> > 
-> > This isn't something that is DT specific. On the Tegra side, I suspect
-> > we might need this on ACPI platforms eventually, too. And it's not an
-> > ARM specific feature either. Other platforms could use shared carveouts,
-> > too.
-> 
-> Agreed, and actually I have tried the memblock version and it looks quite neat!
-> 
-> I will share what I have after the merge-window.
-> 
-> > 
-> > > Also, cma_init_reserved_mem() could use an order 9. In that case PTE-level isn't
-> > > necessary and we could just use PMD-level. Extending that support would be more
-> > > cumbersome with a memblock flag than with a callback.
-> > > 
-> > > rmem_cma_setup() hardcoding an order 0, perhaps this isn't really a problem at
-> > > the moment?
-> > 
-> > How so? memblock is really just used as a way of backing the CMA. How
-> > CMA subdivides it doesn't really matter, right?
-> > 
-> > Or are you suggesting that if we use an entire PMD as granularity, we
-> > could equally well remove the entire PMD from the linear mapping instead
-> > of doing it page-by-page? I think that'd work really well for at least
-> > VPR, since it is 1 MiB aligned anyway. Using a granularity of 2 MiB is
-> > easily doable.
-> 
-> Yes, that is what I meant. We could easily force a PMD-level mapping instead of
-> PTE-level one. But then that means declaring another memblock flag. 
-> 
-> > 
-> > For anything that doesn't require a single contiguous area to be
-> > protected this might be a bit more challenging since it potentially
-> > wastes a lot of memory. On the other hand, a lot of this is heavily
-> > custom code anyway, so the entire stack could be modified to make
-> > efficient use of this (i.e. userspace could allocate a larger chunk
-> > for a pool of buffers, etc.).
-> > 
-> > > But yeah, the alternative is to create a "memblock_mark_forcepte" (it seems
-> > > memblock_setclr_flag does split memblocks) and let of_reserved_mem call that
-> > > function. Finally the arm64 mmu code can simply check for the flag before
-> > > calling __map_memblock. Perhaps it isn't that bad in the end?
-> > 
-> > It sounds like the right level of abstraction to me. But I'm not too
-> > familiar with this code, so it'd be good to hear from the MM and/or ARM
-> > maintainers what they think about this.
-> > 
-> > [...]
-> > > I had in mind to extend "shared-dma-pool" to handle
-> > > set_direct_map_invalid_noflush()/set_direct_map_default_noflush() based on an
-> > > option. But perhaps it is better to create another separate driver. And VPR
-> > > needing a specific dma-heap driver anyway, it could call the direct-map
-> > > functions there too without relying on CMA to do anything?
-> > 
-> > I think it'd be nice to have separate APIs for this case where we know
-> > the memory region is already page-granular (or, I suppose, PMD granular)
-> > and removing from (or adding back to) the linear mapping is safe. That
-> > way we could avoid the checks for can_set_direct_map() for each page.
-> > 
-> > It'd also be nice to have a version that can update the protection bits
-> > for a range of pages (would map directly to update_range_prot()) instead
-> > of having to manually iterate over each page in a range.
-> >
-> 
-> How about?
-> 
->   /* True if can_set_direct_map() or [start, end) is mapped at PTE-level */
->   can_set_direct_map_range(phys_addr_t start, phys_addr_t end); 
-> 
->   /* Must check can_set_direct_map() or can_set_direct_map_range() first */
->   __set_direct_map_invalid_noflush(phys_addr_t start, phys_addr_t end)
->   __set_direct_map_default_noflush(phys_addr_t start, phys_addr_t end)
-> 
-> > A good middle-ground might be to have helpers that do the grunt work and
-> > they can then be called from VPR and the shared-dma-pool drivers to have
-> > pages removed from the linear mapping. VPR and similar can then perform
-> > the hardware protection bits on top of that.
-> 
-> I believe between the reserved-memory attribute to force the last-level mappings
-> and the direct map functions above, there's enough for the VPR driver?
-> 
-> -- 
-> Vincent
-> 
-> > 
-> > Thierry
+On Mon Aug 24, 2026 at 2:03 PM BST, Eliot Courtney wrote:
+> On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
+>> On Mon Aug 24, 2026 at 1:50 PM BST, Eliot Courtney wrote:
+>>> On Thu Aug 20, 2026 at 2:28 AM JST, Gary Guo wrote:
+>>>> In the CPU->GSP messaging path, the code reads the read pointer from G=
+SP,
+>>>> writes the command, advances the write pointer, and then notifies the =
+GSP.
+>>>>
+>>>> A LOAD->STORE ordering is needed after reading the read pointer from G=
+SP
+>>>> and writing the command. Control dependency exists here which provide =
+the
+>>>> needed ordering, but it's best to avoid depending on it.
+>>>>
+>>>> A STORE->STORE ordering is needed after the command write and before t=
+he
+>>>> write pointer advance. This is currently incorrectly done after the wr=
+ite
+>>>> pointer advance (and before GSP notification), but this can cause issu=
+e if
+>>>> GSP is still processing ring buffer, as it may observe the write point=
+er
+>>>> advance before command write. Thus move this barrier to be before the =
+write
+>>>> pointer advance. Note that barriers are not needed between write point=
+er
+>>>> advance and GSP notification, as MMIO accessors already carries the
+>>>> required barrier.
+>>>>
+>>>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>>> ---
+>>>>  drivers/gpu/nova-core/gsp/cmdq.rs | 15 ++++++++++++---
+>>>>  1 file changed, 12 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core=
+/gsp/cmdq.rs
+>>>> index 6da728201281..70674d2d0f77 100644
+>>>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>>>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>>>> @@ -27,6 +27,11 @@
+>>>>      ptr,
+>>>>      sync::{
+>>>>          aref::ARef,
+>>>> +        barrier::{
+>>>> +            dma_mb,
+>>>> +            Full,
+>>>> +            Write, //
+>>>> +        },
+>>>>          Mutex, //
+>>>>      },
+>>>>      time::Delta,
+>>>> @@ -272,6 +277,10 @@ fn new(dev: &device::Device<device::Bound>) -> Re=
+sult<Self> {
+>>>>              (rx - 1, 0)
+>>>>          };
+>>>> =20
+>>>> +        // ORDERING: LOAD->STORE ordering needed to order `gsp_read_p=
+tr` read before data write.
+>>>> +        // Control dependency can serve the same purpose here, but we=
+ don't want to rely on it.
+>>>> +        dma_mb(Full);
+>>>> +
+>>>>          // SAFETY:
+>>>>          // - `data` was created from a valid pointer, and `rx` and `t=
+x` are in the
+>>>>          //   `0..MSGQ_NUM_PAGES` range per the invariants of `cpu_wri=
+te_ptr` and `gsp_read_ptr`,
+>>>> @@ -450,9 +459,6 @@ fn advance_cpu_write_ptr(&mut self, elem_count: u3=
+2) {
+>>>>          let tx =3D io_project!(self.0, .cpuq.tx);
+>>>>          let wptr =3D MsgqTxHeader::write_ptr(tx).wrapping_add(elem_co=
+unt) % MSGQ_NUM_PAGES;
+>>>>          MsgqTxHeader::set_write_ptr(tx, wptr);
+>>>> -
+>>>> -        // Ensure all command data is visible before triggering the G=
+SP read.
+>>>> -        fence(Ordering::SeqCst);
+>>>>      }
+>>>>  }
+>>>> =20
+>>>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0<'_>=
+, command: M) -> Result
+>>>>              dst.header.length(),
+>>>>          );
+>>>> =20
+>>>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_write=
+_ptr` write after data write.
+>>>> +        dma_mb(Write);
+>>>> +
+>>>
+>>> Is there a reason this can't go into `advance_cpu_write_ptr`?
+>>
+>> I think it's more clear to consider `advance_cpu_write_ptr` to just be t=
+he
+>> pointer increment, and the ordering should be visible in code that perfo=
+rms both
+>> memory ops.
+>
+> In the second patch, it looks like you're adding the memory barrier
+> directly in `advance_cpu_read_ptr`. So we'd have one barrier directly in
+> the code advancing the pointer and one not, which seems asymmetric. I
+> think it's less error prone to put the barrier in the function so it
+> can't be misused (and we already have evidence the barriers are easy to
+> get wrong, since this code was already broken).
 
-I have pushed a first version here [1]. I am waiting for the merge window to end
-before posting anything on the list, but let me know if you have any comment.
+In the second one `message.header.length()` is read, so if I move the barri=
+er to
+before the advance it'll be incorrect.
 
-[1] https://android-kvm.googlesource.com/linux/+/refs/heads/vdonnefort/ffa-lend-pool
+Best,
+Gary
 
--- 
-Vincent
