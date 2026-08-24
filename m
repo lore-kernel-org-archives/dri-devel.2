@@ -4,152 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB433C5DF81
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 20:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A0EC5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 20:44:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4012C10E198;
-	Mon, 24 Aug 2026 20:35:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 019FC10E1A3;
+	Mon, 24 Aug 2026 20:44:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jr2PNKQ2";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="jk406l48";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="j0OjE5CO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE90610E198
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 20:35:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787603754; x=1819139754;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=+6TjTAKrTn2VwDEgqq7tGf4NGG5H94m0/s4cDkc+kXA=;
- b=Jr2PNKQ2u0F/sXmJMPFmMtdqxf9dsAtSQSPV5C8KKIB0xC9JD7kP7Y7H
- bxKHEqP0fpAaMWaUjpUqorLRuiQXcMJRX4u92Gos8cC0VM/SHWXHrQfRy
- MwSyWEL2ZU3NSYkAedKTRWASnWQp2jYt07ZcOHMwqD1NKplghw4VO4JBJ
- y0dlyQNRIy5hoZvHMID7CfrH7NL5fQpF78qj/MEPC7VvJxzLsJ5aBU2nl
- uETO5+/Uj9z+A8We4Zef2rqHdPOgwEm7PI0zCYyTjcs1CQyycMabzT0zk
- 3epUgZQLAFB8LwBl6sPe8f4MmTku4VktX1UA4bw4Jot8Cz8EVbyURnO1/ g==;
-X-CSE-ConnectionGUID: 8MOgSZ5cQyi+u3znpn1bQA==
-X-CSE-MsgGUID: Scy9rCozTKqIXAYL8IV3aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="87924706"
-X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; d="scan'208";a="87924706"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2026 13:35:53 -0700
-X-CSE-ConnectionGUID: TkgwovyXTJ+ZxMAzvU4+Iw==
-X-CSE-MsgGUID: l/kZnzeLQn6w7GauCWJemg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; d="scan'208";a="297006566"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2026 13:35:54 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 24 Aug 2026 13:35:52 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Mon, 24 Aug 2026 13:35:52 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.30) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 24 Aug 2026 13:35:51 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PC+4ZwZ+bSxheoo4vRSCIokndCn6pRJGgTkzPIQwmXS1aw7Yf/oWlm7hnb9fSmSDfN01YA7/djOpGM2+Hl/R5GtWVq9fKZbl/cbEzmcDKahyeTydOPAWT26XWaCmZbp+iWx247DMr16zn7kFKCO1WoVPXC7MH/gipVKKAlxcqsol0g937y6Q8l/+6mHQOEWuGf2ovfY8mz+rEcDrngFZyiL/ifUcvNtajPsAkZ51YswQ9OiRpIdOVi++ZROX/6jdFxWVIiQH08D8tbGAEwvLRlXXjuzV4Cc/CyB4sGu5H0RpXO+swvfe1L1oqCQwc4IKo5AposPDgJkp1guGrlchLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=asKXVsDeqkMYNZciWyMT+ro8AH35Y+/Nzfb5FAu6QVY=;
- b=gdsePgUSNCj4HvQ7zfzDjn+UuTqGq02bVF0oC3V9LsdBzWzxgX9xKQEwugs/PjTyHewGjtWh7mKF6FAx1iIvFAiU0pm3AH/UbT/LPBYOuaoKNHy/lzJGUNq8y99qW917USjo3Jht5RMe/HnlhQMFY6S2uqd7JVskdFQ8xZ2Lf5mSt8qdPMh1kQIFzL9JOlX/WGspIDDFMMt3r97E2P63NbNm7tTPoBEeszJHpNVjSm0vZfgykz5bEn1JHyb67QhgTcToNIGGZ/+GrmSmSV75FO0RGDYOxtmkZB9hBD9evp2cbucq7sVZG0SbrAbIDvptjNH9VJv3jV60IW+agHy5cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7752.namprd11.prod.outlook.com (2603:10b6:208:442::20)
- by SA2PR11MB5099.namprd11.prod.outlook.com (2603:10b6:806:f9::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Mon, 24 Aug
- 2026 20:35:50 +0000
-Received: from IA0PR11MB7752.namprd11.prod.outlook.com
- ([fe80::848a:3e54:c19b:11ce]) by IA0PR11MB7752.namprd11.prod.outlook.com
- ([fe80::848a:3e54:c19b:11ce%7]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
- 20:35:50 +0000
-Date: Mon, 24 Aug 2026 16:35:44 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Raag Jadav <raag.jadav@intel.com>
-CC: Mallesh Koujalagi <mallesh.koujalagi@intel.com>,
- <dri-devel@lists.freedesktop.org>, <andrealmeid@igalia.com>,
- <christian.koenig@amd.com>, <airlied@gmail.com>, <simona.vetter@ffwll.ch>,
- <mripard@kernel.org>, <maarten.lankhorst@linux.intel.com>,
- <tzimmermann@suse.de>, <anshuman.gupta@intel.com>, <badal.nilawar@intel.com>, 
- <riana.tauro@intel.com>, <karthik.poosa@intel.com>, <sk.anirban@intel.com>,
- <jani.nikula@linux.intel.com>
-Subject: Re: [PATCH v6] drm/drv: Convert wedged event string building to
- seq_buf
-Message-ID: <aoyrIJNnj5U5JsFE@intel.com>
-References: <20260823003349.587495-2-mallesh.koujalagi@intel.com>
- <aop1P1xK9fB90AzQ@black.igk.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <aop1P1xK9fB90AzQ@black.igk.intel.com>
-X-ClientProxiedBy: SJ0PR03CA0045.namprd03.prod.outlook.com
- (2603:10b6:a03:33e::20) To IA0PR11MB7752.namprd11.prod.outlook.com
- (2603:10b6:208:442::20)
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [81.169.146.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7D810E1A3
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 20:44:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787604228; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=s8qJyTJqMbLeN3cNggxgodnkmGIdc1MV7BoOV+8DA8W7pQZqxAXmWRROi90rn/Rr/e
+ vJp1mYo3e7kT4P4c1T59arKO74J/M6ng4WBySxanR0nOLOjfbtOhhw6rqt0wF55yVCs+
+ DITGUOU4OIYeIblckcGLOLd43hdj7ah9FujYWbPRbBg7GKLopgDWDISNPDqdLltmL9F/
+ uO3S/5IGRW5xTT9/iVi1o7+nZPVTHAozeAv+XdMWCOP2a2IjV6CzbZjPl2FBXFhsl22G
+ 0eSjwRcrP9aSdFaBG3NnHBkaYQIX3boJXVMkPJQrlH/7Z4qe3x7h1qbS20ifP0ZCjRsy
+ /OSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787604228;
+ s=strato-dkim-0002; d=strato.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
+ b=DdhrLpPKoeKKZGZcK+77kNRUWaxSl51QF/c4VcY4PpGp1b84b2TlUXVTbsO3hSg558
+ 9xeIbpL297pCWMMtKn5Ptp4q224xV+Teq/LMlv3hXEGc0LNXrKXifEfr51Wl1s7pICer
+ qOGtvEDdbga2fUnUObokr/ZuXjPhhEdA/GirJBYaS4uevB+eRrWHxTqrstKm0jTSFX3R
+ 4/gi3ANkdYWVwIErzUWflNRi7QFfqzi+ezejA1nJrX7FEvhxmLERI37o7oo80vDigHzT
+ fenbI0pBqm2hbfKAxGWa+egtTJKI6aI787HGOq6v2vCWRwt7ngIQrDGCKjen22H8CikW
+ DINw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787604228;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
+ b=jk406l48CyXSpZjVrllc/8ZRmLC5ix0/7DqcU62XJT1uTxWJ8ZgRSFUlT1hn933SX7
+ r3D2Eh7VbJALUsIXf3HhI/nsRyULtGc6GPUvRrXoTR66DM0PqkVNmeV9Dbflw1qSqjtj
+ xKvMe0K+84B/vybEw9jyPEEnAHcpSufD1T4yadalbloUUjBAkMQELTDs3vdd4gyHKqHO
+ 5nQ+uKubi/jjmzcQ6HdpadjR3nPsjEWNoGWCItFFIWv9r62MCLlKKsbocUpPPD4EC4xm
+ sFtJrAH2jRDyXAXPcESzxX65wK8CqWZO+5+XpURDHW3mqnIr1OZAVfsJsrfY9cR3Z65M
+ nHgA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787604228;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
+ b=j0OjE5COH9nNie4mN9LP2GLdZA60llJ5nAx9JKdQDKjoxo4VJhD9I/vXoYb4iwx7xT
+ qTv3TkFqj3DSH2JxogAw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQipoOy8iN9EQCaJvpc3APUCy9LxWOnfZGxS9c"
+Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.2 AUTH)
+ with ESMTPSA id Qfefb327OKhmcFM
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 24 Aug 2026 22:43:48 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
+ wbx@openadk.org, kernel@pyra-handheld.com,
+ "H. Nikolaus Schaller" <hns@goldelico.com>, stable@vger.kernel.org
+Subject: [PATCH v6] drm/ingenic: fix bridge allocation
+Date: Mon, 24 Aug 2026 22:43:45 +0200
+Message-ID: <4f30341735d77c77a9a4952abd91879007bc00fd.1787604223.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7752:EE_|SA2PR11MB5099:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ca44ad0-24f6-4f5a-6cb2-08df021f48af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|56012099006|10067099003|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: fF+qXw0OAHs4ji8uJDVTDuqAEwAkGFnOMZ9uWn3VN3SGUjP+NR3Yq01YZnIj3bwuIp5gOBEVmNAvD6VVXaP5jMlbF7FJ4L7kmUHKjhny0O6n+ew+p69HPr4wjFQsvmmt1zyX5CNzNB2NpFXNqsLLl2l3HC2SkSizoAM9p/aYw7Z9wq/CgkPRKLfPZnRpZ7P3FfLr8wQuRLRXKXn4bd947WEhLMxFVtagOvSIdJu1NxpbySGPzRRjBhXakwAhFYHWBgj4Ok3o6/SMRXZrgkKbE6FWqbas0uOtLFIEKwEjggH87bshi1MQPwPnZCnUkGG8gA5+wUZn0xdLZ5n1Hlj2FVqi+0riaVZZf0QJZVy1Q/lOKnX+7xBeRPH7a1hOBM1gSL3627UIFjAjIinyyTskVyFlg9WqjqqSM7XdO0loC0FKprl3/eNi0EsWa02+d99ZmBP5fuyxDBuMZL/Zy3qzxWo4w34Hs9N1+dkvWE4ztJiNLz+5tNIMsDkHBf5xQSsb79WNwh0n9I/gaOupqoPFOaspGgFYuOGkfVN1x8mcxTI9CKhHJ3hEq3ZFNiqo/jmuHDzTTte/hiKGFLIRoG+LDIFNNKNSH+dv+tZ6cHuwneLDv4LXfNn4TeYyAvNbKuar7JZiOLmhlVXvc66bTBhsJLsH7GyCsB8YJ1tsLaEgMaM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7752.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(56012099006)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vh2awVHbL1KZEbubTDy15FSwZ2PnxXRjoYP2eJXJ4c1uiTeO9FbEGz+EDqGj?=
- =?us-ascii?Q?Ocd0Hss+ZvQ/XOC/TsAeiKwGkL4WT4SWzHhvFVfI7dOKig5y1xhAGUInjtp0?=
- =?us-ascii?Q?t2pR5gxQ2n7cBjWRxWrJFV1fRUnm0FgEBKA6km+qaUtwZymfsRnkvla/TjXe?=
- =?us-ascii?Q?fSCe+K4gJb8s87NhEZABHIHSKLbz7WCTognu+63w3EORVzFBfECP/FbcXnma?=
- =?us-ascii?Q?w9qJ+t2w3Hh13cfOi/1Brn4eJqN+xcnHBir5FIOsSQwzrK7G9h9CzTt5OOQ+?=
- =?us-ascii?Q?ZLyDnLuNQ9u6Y1U5MLi7GGLtAZa+pLUSF+zOwN3MMdjYSurVerOZjj7ORRdY?=
- =?us-ascii?Q?C1lajS5/TTwWJn2JYs2NnlYGtfhVW03Nq8HSIh1qqbm0tIIsyplgniXzfqyY?=
- =?us-ascii?Q?7nC7AnRtXRIXPZnlhO0cT8Y0FAj+B5EcZgQjdItm8FK+1RLQensoO0PMcaFO?=
- =?us-ascii?Q?xR4+FEQdEEdGdkdXYftPF/1enXVVQg9hZFpsFjbReEVit0eOM6KpvXEHM6Dc?=
- =?us-ascii?Q?jechzpc8bQvBEisskcmOtJGvNHD9d1cuxAWnuAwjnZay3PiKByZPhcIMYB7J?=
- =?us-ascii?Q?b2dAeusTZYEuv/7d937wDjU2/MvkVYGWYQ+rlqvT0ExtvVgMYz+wGMsqvS0Z?=
- =?us-ascii?Q?yFb/gtayGZWyBzeXajaXi/u2Npz/wixSFToyHKPR+CepK6ceRVX4CP4e1bcq?=
- =?us-ascii?Q?jGOYPlLDkItbkUUeFjdhZLJ0vXSW4rayomECQuZib/G/trDqCRn3CCu8dZfj?=
- =?us-ascii?Q?xvSATv0i1jj3Niwe7vGK1LVVYV+Q6GAa5C1W1LavVjRSH95n2MGbCIRPbQ4X?=
- =?us-ascii?Q?X1Rf4tKO9yGCtR8Qa8M8saWNUJq/Wai/W36CeCpG604+7U2yHzwjSrs6PmDV?=
- =?us-ascii?Q?5FZBnCrn754bxIESqxN62FhcQRrJNZubSzOM7EFyo4vr8yCCIsJ8f4+vFBsp?=
- =?us-ascii?Q?pxobVLYHZtuQjN634lb1s/S8TaEkc04JQN8AjEKAE8TSxBf9I3BlcM++bAD6?=
- =?us-ascii?Q?QmARSkJ6J3zR3StIUEmuujCJJUmQcZNl2KvVPASymJkbex1fWLWOABQ18B5M?=
- =?us-ascii?Q?yI4anzE8JlhTkqB237NIEW9mQ+mvOnZaBK4ggKnmZw4KmaLx4/iN03OSMXw8?=
- =?us-ascii?Q?2jooCybLQCy9E0e5nYG8J30f4O3Xl+IheWMxIi2qj19WUbVDENnONvoke2eh?=
- =?us-ascii?Q?kuBPfzyXvIR7hX8X0BUhgpZ4Cie15VpuzFlwG5H2nK+/j2zv8NSkfWBjfRqM?=
- =?us-ascii?Q?3KwQkHyrt/+tJt3i71PkfmbOlsBx1j8W4+t+1LwtA4epq1ikWTOuX2oeBMF0?=
- =?us-ascii?Q?J8rqtCIuB16HQIlLq7tHvsgSUAdfnFZAKbR8LuXaxmj9HVLbKqmbWi9qwypJ?=
- =?us-ascii?Q?iv1RrWfJhS6bnl02hTqAh0nqUn92WpvLOB2TFwTAwoQjXsg7oQcvRT1Ke0TY?=
- =?us-ascii?Q?V5hR2GXgzG589tXzepGmK+TltVYLpNX2BDzO00gJmWzg79NX0+IbXqsQ/ccS?=
- =?us-ascii?Q?WGTExPUuR6VWQBBS2Wl4QSghFR16JEDMYBn4oUkhsJQi96PvcDQkoQW1+3eH?=
- =?us-ascii?Q?LP34i6ellXXgKcEHm6FGy0eV+tfZzn/Gy16f5s7qxCHO6sU66Y/Je8GbpxeB?=
- =?us-ascii?Q?WZNZsFiUNF1hrMnMp/1oot7IAaIWd76q5SJMcT9MMH6c+mtn6Apoh5bVw88Z?=
- =?us-ascii?Q?HMjX1K/2biNhDH9Q9OvTHWE3deWYid8A1um+zSWoKU6wUB9/qRPolyO+zxmM?=
- =?us-ascii?Q?SPVZ7Rr75w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: ZSNOIkAAVWwlqLXIaAGv4WPnBVksq70+RnrvjJQhK0iDnEP/g5BwAyiLC8mJR9YG0KtamPhvvGuX5H0evmB3UuXOiHBCo+JjuSNDjof5DY+jEjjrEcQNJh4xXuQ2gPIqWCOfyoIOczYI3EFomHBwlVifMLfF3yohmlyoSp4QgvDkWdbO61Snir7RW/U72FxcIgnJjkWr6uTofKiZjAWFcj6YjkcW8EfDEgOPr9zuyteuxAmkSMiukle0PF0XbXtbVqegYlIy9abirIV9mTWmISp+TJ+mNq2MHa+iIMKEc2OWlh1u7w8NHlYNguVNQ3SgfUC53sPcIOGv2u3u5xPMyA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ca44ad0-24f6-4f5a-6cb2-08df021f48af
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7752.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 20:35:49.8993 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FQGKz9UFoFzEkzQO+Lgu+ubyHK8OATFQdc6pYZ1ITIfa/if/avnhe0GQw30WYFnNhiejb4MVzfdnG+x2hqUE3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5099
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,23 +93,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Aug 23, 2026 at 06:21:19AM +0200, Raag Jadav wrote:
-> On Sun, Aug 23, 2026 at 06:03:50AM +0530, Mallesh Koujalagi wrote:
-> > event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
-> > The original scnprintf()-based loop required a manual pre-flight
-> > bounds check.
-> > 
-> > Replace the manual bookkeeping with seq_buf, which tracks overflow
-> > internally. seq_buf_printf() writes each "method," token into the
-> > buffer.
-> > 
-> > On overflow, a warning is issued, len retains the position of the
-> > last successful write, so the trailing comma is stripped cleanly
-> > without including any partial method name in the uevent payload.
-> > 
-> > Assisted-by: Claude:claude-Sonnet-4.6
-> > Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-> 
-> Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Bridge allocation API has changed and ingenic/drm was broken
+leading to
 
-pushed to drm-misc-next
+[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
+[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
+[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
+[   55.904136] ------------[ cut here ]------------
+[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
+[   55.917538] refcount_t: addition on 0; use-after-free.
+...
+[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
+...
+
+Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
+Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Cc: Waldemar Brodkorb <wbx@openadk.org>
+Cc: stable@vger.kernel.org
+---
+
+Notes:
+    v6: Sashiko found another weakness in the v5 object lifecycle repair attempt...
+        https://sashiko.dev/#/patchset/f77ed4e1547e452668a6549e3966471a6b638a6b.1787593585.git.hns@goldelico.com?part=1
+    
+    v5: fixed a potential issue with directly allocating struct drm_bridge and
+        depending on its internal structure. Solve by allocating a stable
+        driver-specific container struct ingenic_drm_bridge_alloc that embeds
+        a struct drm_bridge.
+        Also revisit and adjust object lifecycle by doing drm_bridge_add() before
+        drm_bridge_attach().
+        Suggested by Sashiko-reviews:
+        https://sashiko.dev/#/patchset/1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com?part=1
+    
+    v4: remove setting interlaced mode (would be new feature and not a fix)
+        as suggested by paul@crapouillou.net
+    
+    v3: fixed a malformed diff in v2
+    
+    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT
+        as suggested by Sashiko-reviews:
+        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
+
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 30 ++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 42c86f195c66b3..b3dc28f78f3807 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -122,11 +122,15 @@ struct ingenic_drm {
+ 
+ struct ingenic_drm_bridge {
+ 	struct drm_encoder encoder;
+-	struct drm_bridge bridge, *next_bridge;
++	struct drm_bridge *bridge, *next_bridge;
+ 
+ 	struct drm_bus_cfg bus_cfg;
+ };
+ 
++struct ingenic_drm_bridge_alloc {
++	struct drm_bridge bridge;
++};
++
+ static inline struct ingenic_drm_bridge *
+ to_ingenic_drm_bridge(struct drm_encoder *encoder)
+ {
+@@ -802,7 +806,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+-				 &ib->bridge, flags);
++				 bridge, flags);
+ }
+ 
+ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+@@ -1107,6 +1111,7 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 	struct clk *parent_clk;
+ 	struct drm_plane *primary;
+ 	struct drm_bridge *bridge;
++	struct ingenic_drm_bridge_alloc *bridge_alloc;
+ 	struct drm_panel *panel;
+ 	struct drm_connector *connector;
+ 	struct drm_encoder *encoder;
+@@ -1314,10 +1319,27 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
++		bridge_alloc = devm_drm_bridge_alloc(priv->dev,
++						     struct ingenic_drm_bridge_alloc,
++						     bridge,
++						     &ingenic_drm_bridge_funcs);
++		if (IS_ERR(bridge_alloc)) {
++			ret = PTR_ERR(bridge_alloc);
++			goto err_drvdata;
++		}
++
++		ib->bridge = &bridge_alloc->bridge;
++		ib->bridge->of_node = priv->dev->of_node;
++
+ 		ib->next_bridge = bridge;
+ 
+-		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
++		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
++		if (ret) {
++			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+ 			dev_err(dev, "Unable to attach bridge\n");
+-- 
+2.55.0
+
