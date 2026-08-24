@@ -4,64 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ECF7C61DC7
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45092C61DC2
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 780458920D;
-	Tue, 25 Aug 2026 14:35:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FF5E897F0;
+	Tue, 25 Aug 2026 14:35:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="GBikoIL3";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=freenet.de header.i=@freenet.de header.b="NJheOVRS";
 	dkim-atps=neutral
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com
- [162.62.57.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF60C10E996;
- Tue, 25 Aug 2026 09:29:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1787650194; bh=PWLKdWWaI2jPcx8YxTfUdYf0ELiUgEUH09VaKGicck8=;
- h=Date:To:Cc:From:Subject;
- b=GBikoIL359c92Lh0WaAb65RTefAqadljnBY6ohQobCvVF2hSnPBwS6iZP0C88fTLy
- aKjcu3gQDcNHe+XwjZTB+PYSlIpsr4/dvWxWjF8cV9cHnCaOecCnQSwrx7IfCdH1nn
- izRZm2fTdAusvnDeug6g4rVCmjTbaKuyFsT0fFwc=
-Received: from [192.168.255.10] ([111.206.96.146])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id 7733AAF9; Tue, 25 Aug 2026 17:29:51 +0800
-X-QQ-mid: xmsmtpt1787650191tphskq0w8
-Message-ID: <tencent_FA0B5EEC37B4CAFBE12C77A63D352E5BDD05@qq.com>
-X-QQ-XMAILINFO: MMvVzQSdFuTppb02eZXtT0Vrl27MwY8Z9fPbj6GlfNDU9Ya1D7PLeQW1FgLyYS
- mtupIQ+PjAuGe+RBAk/E0cP9kqOdT8+SV0oVGck4wV0R7w3D8jiw2KbZ+To/CkTX77YqE7vJJJEL
- 4YPZSlYGdc+Cjf8mr95yJctLz74qfad64uPuJI9fN/HLS784JBMltOmET3ioepwpqYq6EHPqHREK
- s/5aZJWmxBn7pp3UkPYmYYfhngCqQIvzr6pWt8zElE6vUV640OHqDemkXvEvvjt89erhNePsKUlB
- m3y0N8kzCZEZfoCkPpZwkMeD9hmisCKQo4gIhw320hptDsWLal1mRz4qkW33beEwmIMCrfRFWKDK
- HXpgU4rH0OV3A9ndBYyzod7E38xWv8aKVkji9o6WNfDattrHtI1M0sfH3I4RmeImm2Sd7gNQPHHw
- j/9XlDOj1bcTGj2VuqpmbR3n8SR/7Tn0LBA9IcLCVbM5wQ1kcaWgQ0LLUqikBSYR2XYH9coEfyer
- LEJYzriq4Te74NX+oqrcBx/Zx7Y6x72vw7J6SwMsWMBG4d0AqhD4LiJYp78eh4yJwwVIhYqzzBrD
- 2uSttOiuqq4BNzZa3jOdUwKcfiN169GwnSY7yJI69hloICYFsIPBx2pFRdN4O7essyZ1kzICUf9F
- DGHm0QagRAsfO7FLyLtC0+QxXVktgZETHPEZmj3FoNW2FmzM5BOHWsRC1+5V6wTL3YJHw66/DXMM
- FkBWOV1r4dcSvEfxqqx1ED/1OMx1fYOiCsEW3295/ygsHJOZzzib8iEvOMbg3a6LhMaDnUOGJXEE
- DOJ+fDEdVIuK3xjB6hd2Owomt9nXuAcOOfgAOBo56xJ0OvDPYyK4f+lsIq7QAv0KknwrxcMHeKyQ
- TYWIkiqdhBOVvKFHmaIoJHgkouCDfXb9TcerkZLoyXUXdShtEUEYza+3Yj1M5isuPI7iPqL45N4z
- xhTtllDngC0+g2HBbRGlW9sdg/jUYbE+A9nrJNKbWU0ycAoUkUvPFobC49frBtXvpfmDIKLsZgsW
- lzELxFKf9tpKpJaqAPNvnmY/GPn+mlsr+ztpnT6U3tXDD9ijJ4GkeQ1OKIH5rp5Ez8QQi0W/iCk2
- 3jkTO18Jni9UfwtEwEN4y/wmu8fzO/CWLaTRkuj0lci5z9VEg=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-OQ-MSGID: <0ae2d2a2-8c16-43e0-bdf0-5e9d3ff99e46@qq.com>
-Date: Tue, 25 Aug 2026 17:29:50 +0800
+Received: from mout.freenet.de (mout.freenet.de [194.97.212.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93C2D10E1A3;
+ Mon, 24 Aug 2026 20:39:15 +0000 (UTC)
+Received: from [2001:748:400:1319::3] (helo=sub1.mail.fnrz.de)
+ by mout3.mail.fnrz.de with esmtpa (ID viktor.jaegerskuepper@freenet.de) (port
+ 25) (Exim 4.98.2 #2) id 1wybRb-00000007EXf-03MU;
+ Mon, 24 Aug 2026 22:38:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=freenet.de; 
+ s=mjaymdexmjqk;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=VYuWLxrTN9mqycqZQt+0wjL8tNpdsGRiN2+kzS0f1Ng=; b=NJheOVRS+ehToV7FuLmpmHIukY
+ mG54kMou5L0i7UeB9OmDetQ85dgdJ1lApsOj9QnqhCpSeD/i21PzGDF6KeHya9nUKS+UZI8WOhgMQ
+ lKYlpI0OhTvolaeOC6rQlBsurfn5TaizoFloIpT0FV2zRak4lBWhBZxYFaaET2d4YE5Jn5fLyVqQ8
+ 0Inl67QhUIzwOV2n4oS+olFxorI+gq3qU423ImP4MeDH7GyF37kCJmEn594JvzhMIQCT7CovcfyK3
+ G8jWgt2AZh0o/KjWzmjwwrhttualpECKTPkmLDgjF97Yj9ZiJ7Qv8FIggKlnY3f7rGTajyEOp9ugT
+ yL5RrZKA==;
+Authentication-Results: freenet.de;
+ iprev=fail smtp.remote-ip=2a02:8071:a85:f020:af10:fa7d:f150:7bea;
+ auth=pass (PLAIN) smtp.auth=viktor.jaegerskuepper@freenet.de
+Received: from [2a02:8071:a85:f020:af10:fa7d:f150:7bea] (port=44604
+ helo=[127.0.0.1])
+ by sub1.mail.fnrz.de with esmtpsa (ID viktor.jaegerskuepper@freenet.de)
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (port 465) (Exim
+ 4.98.2 #2) id 1wybRa-00000003XFV-3Vsm;
+ Mon, 24 Aug 2026 22:38:58 +0200
+Message-ID: <512414f0-ca55-435e-8ca3-7dbf48d0c114@freenet.de>
+Date: Mon, 24 Aug 2026 22:38:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: alexander.deucher@amd.com, christian.koenig@amd.com
-Cc: airlied@gmail.com, Simona Vetter <simona@ffwll.ch>,
- Sunil Khatri <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+Subject: Re: [PATCH v3 3/3] drm/amd/display: advertise PIXEL_NONE as blend
+ mode for DCE generations
+Content-Language: en-US
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, daniels@collabora.com,
+ harry.wentland@amd.com, leandro.ribeiro@collabora.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
+ kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Natalie Vock <nat@pixelcluster.dev>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-From: Yang Zi <2959243019@qq.com>
-Subject: [PATCH] drm/amdgpu: fix NULL pointer dereference in amdgpu_vm_init
- error path
+ =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>
+References: <20260813143605.106104-1-mwen@igalia.com>
+ <20260813143605.106104-4-mwen@igalia.com>
+From: =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?=
+ <viktor_jaegerskuepper@freenet.de>
+In-Reply-To: <20260813143605.106104-4-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-FN-MUUID: 17876039385B92237C2C08O
+X-Scan-TS: Mon, 24 Aug 2026 22:38:58 +0200
 X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,35 +83,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In amdgpu_vm_init(), the error_free_root cleanup label runs
-amdgpu_vm_pt_free_root() before amdgpu_bo_unreserve(). However,
-amdgpu_vm_pt_free_root() walks the page table tree and frees each
-entry via amdgpu_vm_pt_free(), which calls amdgpu_bo_unref() on the
-root BO and clears vm->root.bo to NULL. The subsequent
-amdgpu_bo_unreserve(vm->root.bo) then dereferences a NULL pointer.
+[ Adding Timur ]
 
-Swap the two statements so that the root BO is unreserved before it is
-freed. This mirrors the success path at the end of the function, which
-unreserves before releasing its reference.
+On 8/13/26 16:30, Melissa Wen wrote:
+> DCE can support PREMULTI and COVERAGE blend mode depending on its
+> generation, however current driver implementation either doesn't expose
+> more than primary and cursor plane, or doesn't program registers for any
+> blend mode other than PIXEL_NONE. To fix the missing-blend-mode-prop
+> warning according to current DCE plane caps, create blend mode property
+> with PIXEL_NONE only for primary planes, instead of the DRM default
+> PREMULTI.
+> 
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+> Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> 
+> ---
+> v3:
+> - fix indentation (Alex H)
+> ---
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 18 +++++++++++-------
+>  1 file changed, 11 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index ab9bbe8ca333..3b5b6943b67d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1923,14 +1923,18 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>  	if (res)
+>  		return res;
+>  
+> -	/* TODO: Check which blend modes are supported in DCE-generation
+> -	 * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
+> -	 * property accordingly.
+> +	/* Blend mode support varies on DCE generations according to HW caps
+> +	 * and number of planes per CRTC. However, as current driver
+> +	 * implementation only creates one primary and one cursor plane per
+> +	 * CRTC for DCE (overlay is only created if
+> +	 * DC_PLANE_TYPE_DCN_UNIVERSAL), the primary plane blend mode ends up
+> +	 * being always PIXEL_NONE across DCE versions.
+>  	 */
+> -	if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+> -	     plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+> -	    plane_cap && plane_cap->per_pixel_alpha &&
+> -	    plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL) {
+> +	if (plane_cap && plane_cap->type != DC_PLANE_TYPE_DCN_UNIVERSAL) {
+> +		drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_PIXEL_NONE));
+> +	} else if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+> +		    plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+> +		   plane_cap && plane_cap->per_pixel_alpha) {
+>  		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>  					  BIT(DRM_MODE_BLEND_PREMULTI) |
+>  					  BIT(DRM_MODE_BLEND_COVERAGE);
 
-Found by static analysis of the error handling path; the failure cases
-(dma_resv_reserve_fences() or amdgpu_vm_pt_clear() returning an error)
-trigger this path.
+With this patch applied to the mainline kernel, my display freezes when
+Kwin is started (either by SDDM or by launching a KDE Plasma session).
+GDM and Gnome work fine. The journal doesn't have much information, it's
+mainly this:
 
-Signed-off-by: Yang Zi <2959243019@qq.com>
----
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index d2ad5b0e8759..dc72181ea0fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2672,8 +2672,8 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-     return 0;
- 
- error_free_root:
--    amdgpu_vm_pt_free_root(adev, vm);
-     amdgpu_bo_unreserve(vm->root.bo);
-+    amdgpu_vm_pt_free_root(adev, vm);
-     amdgpu_bo_unref(&root_bo);
- 
- error_free_delayed:
+kwin_wayland[8402]: Applying output configuration failed!
 
+and after that several KDE processes with:
+
+<kde_process>[xxxx]: There are no outputs - creating placeholder screen
+
+Any idea how I can debug this further? Maybe ask the KDE developers?
+
+With only the first two patches of this series applied, Kwin works as
+before, but I get the warnings of course.
+
+Viktor
