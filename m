@@ -4,50 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D85F4C5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 09:23:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3469C5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 09:33:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E56B610E541;
-	Mon, 24 Aug 2026 09:23:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B90210E6BB;
+	Mon, 24 Aug 2026 09:33:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nanonej.com header.i=@nanonej.com header.b="jZyJIX0k";
+	dkim=pass (2048-bit key; unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="wpblXRqI";
 	dkim-atps=neutral
-Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
- [109.224.244.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DFD210E541
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 09:23:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
- s=protonmail2; t=1787563395; x=1787822595;
- bh=ms0jtqoPS0qWJLbFtv256SN8hGHM1pUEZO74N6luSSU=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=jZyJIX0kywQd/58F/OsweLbxsBBFCDOZ0v0p4kw+mAFsjJWMIgqn3bXdzRvMvnO4X
- xRonx+4SVwFcRYIzvqV6zPsn0TlVpXujxad3sRNJAVOLGZbUFzGXDH46yKVqrjRPMQ
- v2m/JrIjm6P6EDw97yHa+qSVI4G7I9FaytmaBsRdAIZ6Z4cQsdOrrNV+oOx7jo23t0
- eQatXC+yoBjf8gGQSrByt4YieZzhb/Lprh/hfJRporIyGFeiAtTkAZBOtBbW+nTKPK
- FvvnDyGyv562FVIc3COBg6DagGtqqQuw2v+IvbEtJ7y65iksVxmr6bAWZFL/6ts93x
- CIY67KDamlSdA==
-Date: Mon, 24 Aug 2026 09:23:12 +0000
-To: Alexandre Courbot <acourbot@nvidia.com>
-From: Nanonej Dev <dev@nanonej.com>
-Cc: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpu: nova-core: Extract FUSE registers definitions
-Message-ID: <1COg2hERAjDijZlXX0uknmkpjlWBxyXWaxdvBX2tGZgcaYyhUhe25d5WGeosMVh_Tri5YELYViaNEl0PHR_Z01L6IdvfuZdjRZtc2TQj_Kw=@nanonej.com>
-In-Reply-To: <DKWTK2FWW5PT.13WXH8LCISUT7@nvidia.com>
-References: <20260817-b4-extract-fuse-registers-to-gpu-mod-v1-1-c4924070bbb0@nanonej.com>
- <DKWTK2FWW5PT.13WXH8LCISUT7@nvidia.com>
-Feedback-ID: 32181229:user:proton
-X-Pm-Message-ID: 6aa8216fe8d7682b1106a6f3af132c077db2435d
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF96410E6BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 09:33:20 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4921eed3fa2so25366535e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 02:33:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1787563999; x=1788168799;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=FqqX1Mln5GUPxDhrH5Nc5ECsMnro9xqpY8P5ZgebS4M=;
+ b=wpblXRqISJiZWsH5GO0/JNfLTB8ZPwtCQ3F3KUELoGdvhfdWUvFz75LmxbIrj34jUT
+ 0M4kW24Ws28Pc+q14qmb2NSR7tOMuIua3g0PJ0BQA8hZO1SNQ6bsBmlPGrFDwmpNwNbm
+ holcq9YXatEvryVujCsWiO374WmFrIJCkCIeQ0zl3xR+GpLU+GsbaAc9y5zSssseMXTA
+ 0BB7MBope2SsFAMB86dMzmbJJvU8sbaIU65GAiRG+1Aibvm1fgCiF189mn4s+Gbmu7ci
+ dq6izW+3/RAL2lb9e4fXE0IoeWwmFy71rFfqC2A95KAoO+dMqmG6c8mi7kDfk0Z3i1vA
+ zrJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787563999; x=1788168799;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=FqqX1Mln5GUPxDhrH5Nc5ECsMnro9xqpY8P5ZgebS4M=;
+ b=HMJzcmzk+FdkfFAf3G23+cCNF6SQoxzbQTBYJmTBHdNCm6TEGiXc/9l8N6401C4zmL
+ Wqh2YeOiC9H75FLBZ6ykog1/eS3HlRtnLQzckBf9MDiOkPElNeHYLea7Lpy/SCmA+zGD
+ XW43d4Ef5+QPha/BeBvsym2UGZ53Eam8tSug37J1PMhy1oGKWReKuMaRSp1zOXbEHcZQ
+ jz+9UP9onopM291hlMlG3Me58kmvUuNhHPKfajYNhcFZxjIEXqex2mknDUNsv4tIbFOx
+ 0Qg6nrEzmak9WjPMEaxCWsRgSWI9zt4dFopa3OOTCaALH2r/ZWy7dGgod7Z8QUgvnqrd
+ xIzg==
+X-Gm-Message-State: AFuF++mzSHiA5GMA2KVAVQU9lPD0THB9Licuox5jbKQAhYpEXhwwQ+aF
+ YVjCpYKMr1Ys3yS9X2eZ+IC2rHi500mN+LJMGlJBaD85x29Lh423YfznoMsUkOkaBMY=
+X-Gm-Gg: AR+sD12czYEFIzlgUXb/5dhKhd5HGjdCWsyDBAqBOukIJDrmmKRD5CnyBbYg/Z9sHZ3
+ WwyRPzv6e3CG2pdDNPBRBte21kTsjG0C107bTwB7yeMvA8j2RpYkgfgHOobUUESgXwRZjqbgCZS
+ yvg7jIqebzC+qtYeAVm1HsQwBaiGck1Ixgz9IsrPfkBdCOMnBnFu7niuuQ26ulh7kmwFGPSfdWj
+ pjxnVAFfL3A1EZyn7KVXqE3cxqYhYndKgbRsgqQKhZmA8lWCfZQq5wFYp7r5f1Zw2wjsk0+dd/9
+ d1puwlCClcLygkv54Oy7P6oJacqaS9TSJcdehlIkbYdd3B1MWn8wBibTI4eNX30+giXBrmPZNms
+ ELFYGx5eMJ3/XKop0LW7efKMw5uogwK6nib9jTLu1TGxAsXSn6AnHPl8EtZsrz+f0cN1OqA+yCJ
+ 0KZEIK8F3YaAaSk8WPzStNfu651H0t2CrySx+vO9M1PGOFvkAWW7mo2NWtQIhNDa1f69ULXD0M2
+ dcYGJYX3KMGYzn14+nuXHK8tcqdvrpUA0LAKmb+JIrRt1yamGEeZbrfgoQ+FXqvC+ajLPaFkWk8
+ jCft23AgBlUl4gzUyg5ia5O3c+eWmTkSYUpMEkSHjphd+A==
+X-Received: by 2002:a05:600c:19cc:b0:499:9240:9a1c with SMTP id
+ 5b1f17b1804b1-499b847725emr306902295e9.15.1787563999161; 
+ Mon, 24 Aug 2026 02:33:19 -0700 (PDT)
+Received: from aspen.lan
+ (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-499bebfa94esm70641885e9.1.2026.08.24.02.33.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Aug 2026 02:33:18 -0700 (PDT)
+Date: Mon, 24 Aug 2026 10:33:16 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ Andrew Davis <afd@ti.com>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
+Subject: Re: [PATCH 2/2] leds: lp8864: Register a backlight device
+Message-ID: <aowP3K7sgXKnsonS@aspen.lan>
+References: <20260817170817.1933046-1-alexander.sverdlin@siemens.com>
+ <20260817170817.1933046-3-alexander.sverdlin@siemens.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature";
- micalg=pgp-sha512;
- boundary="------74c6c43c0c6d611282eb93c4dfadbeeb478350efd09117ead1ddc4c0b3aa0d02";
- charset=utf-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817170817.1933046-3-alexander.sverdlin@siemens.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,121 +96,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------74c6c43c0c6d611282eb93c4dfadbeeb478350efd09117ead1ddc4c0b3aa0d02
-Content-Type: multipart/mixed;boundary=---------------------9ee4043ec7588ec9708601c8425f6c1b
+On Mon, Aug 17, 2026 at 07:08:15PM +0200, A. Sverdlin wrote:
+> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+>
+> The LP8864/LP8866 is a display-cluster LED backlight driver. Expose a
+> standard backlight class interface in addition to the LED class device,
+> so it can be used by display/panel stacks that expect a backlight.
+>
+> Use the new devm_led_backlight_register() helper, which spawns a
+> led-backlight device driven by our LED and tied to the I2C device
+> lifetime. This keeps the driver a plain LED driver, requires no
+> device-tree changes and remains backwards compatible with existing DTs.
+> It is a no-op when the led-backlight support is not enabled.
 
------------------------9ee4043ec7588ec9708601c8425f6c1b
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+... but when led-backlight support is enabled it will prohibit the use
+of the LED sysfs interface.
 
-On Monday, August 24th, 2026 at 04:30, Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
-> I am also a bit hesitant to apply this patch as-is. As defined, it only
-> adds an indirection through the `gpu` module for FUSE registers that are
-> only accessed by `falcon` (actually, the `ga102` HAL of `falcon`).
-> =
+Having zero DT changes is a nice property but it seems rather fragile to
+change the ABI the userspace must use to manipulate the LED based on
+CONFIG_LED_BL.
 
-
-> `fuse_ucode_version` does some falcon-specific processing (notably with
-> the engine ID mask), so it looks out-of-place in `gpu.rs`.
-> =
-
-
-> Also, the patch doesn't move all the FUSE registers -
-> NV_FUSE_STATUS_OPT_DISPLAY is still in the root's `regs.rs`. That's
-> probably because the destination chosen by this patch is not a good fit
-> to contain them all.
-> =
+Is there no way to explictly configure which ABI should be used?
 
 
-> Now I am not quite sure there is a single, good destination for all
-> these registers. We could move these to `falcon` (and
-> NV_FUSE_STATUS_OPT_DISPLAY to `fb`), but this just happens to match what
-> we are doing right now and if another module needs to use them we carry
-> the risk that it will redefine them locally. Or we could have a
-> dedicated `fuse` module only to carry these registers, and some
-> functions to provide the services needed by other modules, including a
-> HAL to read the correct NV_FUSE_STATUS_OPT_DISPLAY register depending on
-> architecture. But that looks a bit overkill so I'd suggest wait-and-see
-> for now. :)
-
-Ok I see, I actually spent the last few days trying to understand better w=
-hat the different parts of the project code was doing and what part of the=
- NVIDIA GPUs it was interacting with.a
-And indeed FUSE, as I understand, doesn't seems to belong tightly to FALCO=
-N neither with the future micro-architectures relying more on GSP.
-
-No problem, I learned things and it forced me to finally try to deep-dive =
-more on the driver.
-
-> There is also a more insidious issue below.
-> =
-
-
-> <...>
-> > @@ -419,3 +424,27 @@ pub(crate) fn new(
-> >  pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
-> >      bar.read(regs::NV_PMC_BOOT_0).into_raw()
-> >  }
-> > +
-> > +/// Returns the fuse version matching `engine_id_mask`,
-> > +/// at the given `ucode_idx`.
-> > +/// Returns `None` if no engine matches `engine_id_mask`.
-> > +pub(crate) fn fuse_ucode_version(
-> > +    bar: Bar0<'_>,
-> > +    engine_id_mask: u16,
-> > +    ucode_idx: usize,
-> > +) -> Option<u16> {
-> > +    let version =3D if engine_id_mask & 0x0001 !=3D 0 {
-> > +        bar.read(regs::NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION::at(ucode_=
-idx))
-> > +            .data()
-> > +    } else if engine_id_mask & 0x0004 !=3D 0 {
-> > +        bar.read(regs::NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION::at(ucode=
-_idx))
-> > +            .data()
-> > +    } else if engine_id_mask & 0x0400 !=3D 0 {
-> > +        bar.read(regs::NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION::at(ucode_i=
-dx))
-> > +            .data()
-> > +    } else {
-> > +        return None;
-> > +    };
-> > +
-> > +    Some(version)
-> > +}
-> =
-
-
-> This is moot due to the comments above, but this function should be
-> `#[inline(always)]`. The reason is that it uses `at`, which performs a
-> `build_assert!` using `ucode_idx`. If this function is not inlined into
-> its caller, then the range properties asserted by
-> `signature_reg_fuse_version_ga102` won't be visible to the compiler and
-> the `build_assert!` will fail.
-
-Ok! I didn't realize that and it make perfect sense now that you point it =
-out!
-But I'm surprised: How come it's compiling on my side then?! :O
------------------------9ee4043ec7588ec9708601c8425f6c1b--
-
---------74c6c43c0c6d611282eb93c4dfadbeeb478350efd09117ead1ddc4c0b3aa0d02
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmqMDWgJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmdXQDZZA9iDn2Yr0h5iJV5ahk5KrzdbBwGGWUYx
-gvgNZhYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAADgPQEA7PBA+WabNtXtQTSa
-9BtqZKaAqcVmu0H6xdqsGSFgi/IBANm+ch2CB8s728PGsaujO4gPZUrqzx0F
-HW/qOzDA4WYA
-=d9o1
------END PGP SIGNATURE-----
-
-
---------74c6c43c0c6d611282eb93c4dfadbeeb478350efd09117ead1ddc4c0b3aa0d02--
-
+Daniel.
