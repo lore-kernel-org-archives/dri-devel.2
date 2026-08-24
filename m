@@ -4,42 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5B5DC5DF81
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 20:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E606C5DF94
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 21:38:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1056310E1E7;
-	Mon, 24 Aug 2026 20:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7115010E19D;
+	Mon, 24 Aug 2026 21:38:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="go2O0Auc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="INbyBMrd";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C4C10E1E7
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 20:56:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2A1410E19D
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 21:38:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1919841FA2;
- Mon, 24 Aug 2026 20:56:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63501F000E9;
- Mon, 24 Aug 2026 20:56:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 61945414F6;
+ Mon, 24 Aug 2026 21:38:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ED481F000E9;
+ Mon, 24 Aug 2026 21:37:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787605014;
- bh=PbCSZ/Sdk81NMDXNTjxjrRgnmPybYfkVKkZDvzXQpIk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=go2O0AucPVw6WoQR7XdqeEEZm/GzsFOOzmbdFnxZTBYqTR0ZMznebmMVlPE5uK9vH
- MGW9B5a+n8+f+SMjdz4z0MQ677ZqTsX0DKrVjkti6AeRGnn38ply/9rVITZh0nlCFH
- zukSOOq4QYfJK5IJoWYtffj65GqH0AR6ssMVlmsjfC6tJvC4uwjGyo+EnClYp96TJG
- psPjgLiGffa+Bxq2awCvr4xWBo1WXGEB/W/sVGjd8yXVDqsmNqsBHuIeCS0IG/7tM9
- 2vE3p0sKnylhuKiInBMDcha5Ld+hYnu5ZgYKtmHXPT0DEyoAqmp147sCUa32dLkzGS
- 30dJ2k+YrdWoQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6] drm/ingenic: fix bridge allocation
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <4f30341735d77c77a9a4952abd91879007bc00fd.1787604223.git.hns@goldelico.com>
-References: <4f30341735d77c77a9a4952abd91879007bc00fd.1787604223.git.hns@goldelico.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 20:56:53 +0000
-Message-Id: <20260824205653.C63501F000E9@smtp.kernel.org>
+ s=k20260515; t=1787607480;
+ bh=5hl01MgtkWvHB6AOc/glDv17F0zIJF7cftphZyUBri4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=INbyBMrdqFKjOC4q3dh/llMNhx5N5ynfp3rRnMJGR+k4rR0wFR4DIr6BrimMHh3he
+ KDw5jxpWaZ0J+IDIeC/dUqURx+2ybDskNTUGhEi4Nmi50NIzEn3MiAglunvw5ZXTwh
+ 8xs8Q/T+AAAmNe1HiQUR2duK/nX5VzWERi3Egy6RW7ujjnj0zHPnFbgAqhb2z92V19
+ 7Ey9q34DaunjmnihZi6AZZejVJjZgXuSFe54vrt04OKedpxr8tKmcpTh1g5LfnnKSN
+ F1Q1aBDvTUnxbQVwcOZU5fW0almi9KZLDhTWUcE/MwhiMvqngJOkD1VMr92RQg63z+
+ rlVVWYbCkqdrw==
+Date: Mon, 24 Aug 2026 16:37:59 -0500
+From: Rob Herring <robh@kernel.org>
+To: Pan Chuang <panchuang@vivo.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ "open list:ARM ETHOS-U NPU DRIVER" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] accel: ethosu: Remove redundant dev_err()
+Message-ID: <20260824213759.GA50486-robh@kernel.org>
+References: <20260710105937.409992-1-panchuang@vivo.com>
+ <20260710105937.409992-2-panchuang@vivo.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710105937.409992-2-panchuang@vivo.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,82 +56,20 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Fri, Jul 10, 2026 at 06:59:35PM +0800, Pan Chuang wrote:
+> Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
+> devm_request_*_irq()"), devm_request_threaded_irq() automatically logs
+> detailed error messages on failure. Remove the now-redundant
+> driver-specific dev_err() calls.
+> 
+> Signed-off-by: Pan Chuang <panchuang@vivo.com>
+> ---
+>  drivers/accel/ethosu/ethosu_job.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 
-Pre-existing issues:
-- [High] Missing error check on devm_drm_panel_bridge_add_typed() leads to =
-an ERR_PTR dereference.
-- [High] The driver uses the deprecated drm_of_find_panel_or_bridge() API w=
-hich returns a raw, non-refcounted pointer to a bridge, creating a Use-Afte=
-r-Free risk.
---
+Applied, thanks.
 
---- Patch [1]: [PATCH v6] drm/ingenic: fix bridge allocation ---
-commit 945d263f4d85ed4baf2bf5a4b9f94a4476cfb80e
-Author: H. Nikolaus Schaller <hns@goldelico.com>
-
-drm/ingenic: fix bridge allocation
-
-This commit fixes the bridge allocation API in ingenic/drm by allocating
-a stable driver-specific container struct that embeds a struct drm_bridge.
-It also adjusts the object lifecycle by calling drm_bridge_add before
-drm_bridge_attach.
-
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/=
-ingenic/ingenic-drm-drv.c
-> index 738a80b2550ff..4098192c642bd 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-
-[ ... ]
-
-> @@ -1316,10 +1321,27 @@ static int ingenic_drm_bind(struct device *dev, b=
-ool has_components)
-> =20
->  		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
-> =20
-> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
-> +		bridge_alloc =3D devm_drm_bridge_alloc(priv->dev,
-> +						     struct ingenic_drm_bridge_alloc,
-> +						     bridge,
-
-[Severity: High]
-This is a pre-existing issue, but since we are working with the bridge
-pointer here, should we consider migrating away from the deprecated
-drm_of_find_panel_or_bridge() API called earlier in this function?
-
-Looking at ingenic_drm_bind(), it calls drm_of_find_panel_or_bridge() which
-returns a non-refcounted bridge. If an external bridge driver unbinds
-concurrently, the bridge memory could be freed before we finish executing
-ingenic_drm_bind(), leaving us passing a dangling pointer into
-drm_bridge_attach().
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the bridge pointer need
-an IS_ERR() check before we use it?
-
-A few lines above in ingenic_drm_bind(), devm_drm_panel_bridge_add_typed()
-is called. If it fails due to memory allocation issues, it returns an
-ERR_PTR. We blindly assign that to bridge, which eventually gets passed to
-drm_bridge_attach().=20
-
-Because drm_bridge_attach() only checks if (!bridge), the ERR_PTR bypasses
-this check and gets dereferenced when accessing bridge->container, leading
-to a crash.
-
-> +						     &ingenic_drm_bridge_funcs);
-> +		if (IS_ERR(bridge_alloc)) {
-> +			ret =3D PTR_ERR(bridge_alloc);
-> +			goto err_drvdata;
-> +		}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/4f30341735d77c77a9a=
-4952abd91879007bc00fd.1787604223.git.hns@goldelico.com?part=3D1
+Rob
