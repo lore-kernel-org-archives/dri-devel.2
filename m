@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C925C5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 21:49:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E98BC5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 21:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB5210E1CD;
-	Mon, 24 Aug 2026 21:49:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE36910E2F0;
+	Mon, 24 Aug 2026 21:58:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jTJfD7JP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CAkFJmmH";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6A4F10E1CD
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 21:49:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8D010E2F0
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 21:58:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 788FE437EC;
- Mon, 24 Aug 2026 21:49:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3843B1F000E9;
- Mon, 24 Aug 2026 21:49:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7E39B44017;
+ Mon, 24 Aug 2026 21:58:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9CB1F000E9;
+ Mon, 24 Aug 2026 21:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787608194;
- bh=8Y8tZ2yPkr4eQp29NxFMS96y/9nHRbndwJB2IImZV/I=;
+ s=k20260515; t=1787608719;
+ bh=40sdXIu6h6LUpla7LNm5GxyYMn6eR37uG90qATXqqBI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jTJfD7JPczCoAwBQ/gC69/NBh6dq7TxqxsLBOnFlpNuChbA0lUnPGmLyUK6ofWnQ3
- nligsvcnPjWoDWiw8TBtD/ma/+DK4i8amIpv1k9z+tWvzwfoouRV0vTHYxd+FjqHS7
- Lk513FEK8mv8nrX0Ots+A8lYMO7vSa7CeUbb0Bsw3sBOAsLrUnwHMwHynUX3YhDGQ6
- +Zs3WWfF2zedV+wJkmWSWe93r7LbVyo+jrpqbwG9DTG/Qgg2kMGA3Xi41vzQ8uLY1k
- HswIq9e3dGyXwiDWQ2M+dfkiuZgRbHYjugYv30IRKabfYKjkj600uNiQD8337iaDcz
- Q3fEBzj9s8wUA==
-Date: Mon, 24 Aug 2026 16:49:53 -0500
+ b=CAkFJmmHPVFcOp6xu96+TayNw0QmKS4dezlljtZsTiaIp1Uq0v+K+5rVKKzHCEFAq
+ dYNs0GlhEeG6VSsDGJQS+nazQNuSL/usUKI+QLiWyFd/SUIEZ6gprz6OIbGsYJCCb5
+ e/DfgOoIfo82mVb1W37WX0Y2zBI2R306hTOQ526+xits83SVMNpJw05u8fctq4Lp9d
+ 53w/q0Yk9WCWMY1YX3vOfxCI663OKxBP/8B0AGVGrWJnpl5czkOgiRgLmlxFBC4V1k
+ IpFxSU42yFFtLZ8vUqSnTzCGrF4JDuURCrnAvYU38sVedo6SY7/+UKo9fH4RFn2DMr
+ rmmg90Xk6dXcw==
+Date: Mon, 24 Aug 2026 16:58:38 -0500
 From: Rob Herring <robh@kernel.org>
-To: zhaoguohan@kylinos.cn
+To: GuoHan Zhao <zhaoguohan@kylinos.cn>
 Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, dri-devel@lists.freedesktop.org,
  Oded Gabbay <ogabbay@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] accel/ethosu: check MMIO mapping errors in probe
-Message-ID: <20260824214953.GB50486-robh@kernel.org>
-References: <20260716065219.931088-1-zhaoguohan@kylinos.cn>
+ Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v2 1/5] accel/ethosu: check DMA mask setup
+Message-ID: <20260824215838.GC50486-robh@kernel.org>
+References: <20260717061145.1478139-1-zhaoguohan@kylinos.cn>
+ <20260717061145.1478139-2-zhaoguohan@kylinos.cn>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260716065219.931088-1-zhaoguohan@kylinos.cn>
+In-Reply-To: <20260717061145.1478139-2-zhaoguohan@kylinos.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,23 +59,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 16, 2026 at 02:52:19PM +0800, zhaoguohan@kylinos.cn wrote:
-> From: GuoHan Zhao <zhaoguohan@kylinos.cn>
+On Fri, Jul 17, 2026 at 02:11:41PM +0800, GuoHan Zhao wrote:
+> dma_set_mask_and_coherent() can fail when platform DMA operations do not
+> support the requested 40-bit address mask. Ignoring the error leaves the
+> previous DMA configuration in place. Probe then continues without ensuring
+> that DMA addresses are suitable for the NPU.
 > 
-> devm_platform_ioremap_resource() returns an error pointer when the register
-> resource cannot be mapped. ethosu_probe() stores it and continues until
-> initialization dereferences it through MMIO accessors.
-> 
-> Return the mapping error before initializing the device.
-> 
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: GuoHan Zhao <zhaoguohan@kylinos.cn>
-> ---
->  drivers/accel/ethosu/ethosu_drv.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Return the error so the driver does not bind with an unsupported DMA
+> configuration.
 
-Applied, thanks.
+Read the documentation. dma_set_mask_and_coherent() will not fail for 
+mask >32.
 
 Rob
-
