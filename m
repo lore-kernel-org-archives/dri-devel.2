@@ -4,53 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46CFBC5DF9D
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 08:14:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C767C5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 08:17:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 899F510E69E;
-	Mon, 24 Aug 2026 08:14:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCC110E69F;
+	Mon, 24 Aug 2026 08:16:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HFD4utzX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WjxOUup5";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B92CC10E6AF
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 08:14:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1787559266;
- bh=dNn7+3rsBa8HQJx84xgDlGmD5XExMp7xGbx5W66x/R4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=HFD4utzXAJbPoPxOd8Wm9m6XnLD1TQ5PaGe3ddKFJflpwkMIwzKSTNyMVN1ccMRrn
- xhSsh19ZYmZxMtkZTpEQhi6SHXzz403WWFWkjIJWWOXREphpn+Y5jgHoiHYNnMjbVE
- BVIh0y4CpJGLer3A5Pb5Saf3zhVk8292lzhGeAImMKIpD2FwggaHSc3tmC2URerUr6
- Iq9Po45xXk7GMvMlzZfAwjlO4QXrJpztQbQgfq3XOpr2rWcS43cyDyqMtgXAppMNrh
- UMJHWUYrR2av9h1TOVkhTlTrFqPXWCc0QqvtPEXoQ7yDzeJSoaypXx+YAtLQoH+QY0
- +LCA19VAT8O3Q==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E2B7617E084E;
- Mon, 24 Aug 2026 10:14:25 +0200 (CEST)
-Date: Mon, 24 Aug 2026 10:14:20 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, kernel@collabora.com,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92B8310E69F
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 08:16:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4C3A740921;
+ Mon, 24 Aug 2026 08:16:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4761F000E9;
+ Mon, 24 Aug 2026 08:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787559417;
+ bh=ERLDzPQOXeD+X7Jl0or9tZeRLkXNAWK7vmrLd+9Fnzs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=WjxOUup5Sdq66xxznpS/NJf3MriqTgUQ4+zyGQNqYWC8gX72Ob/+UU+8dQX/uSefL
+ fhlltiXXJWZv3OCBSCt/PPxa4PWCTH10GiGhsM0fYLPwgrrCyULTo5/ooRZrQmDcVS
+ jKjuf3c/7KzPw6iN6963ZBm96mKW6cpgOB4fYUvhO983fIpGQ4PSOpqKawbKgiAWcS
+ fmZ8p10g95L7GW3EoNszFgoXz2h7qFlJT+M1g5OZ/agoGubymhszkU+c3htrIA0io0
+ p96Tax5ebtaIjRWP6YoMhs4+vKJwvUBeoqLzI+SS9nifLO8huwY/jOm7Fz757NBgSo
+ kWmhZ6PeALG+w==
+Date: Mon, 24 Aug 2026 10:16:53 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Display priorities of panthor groups over
- debugfs
-Message-ID: <20260824101420.36380185@fedora-21.home>
-In-Reply-To: <20260818-panthor-sched-group-prio-v1-1-1836857c53e9@collabora.com>
-References: <20260818-panthor-sched-group-prio-v1-1-1836857c53e9@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Subject: Re: [PATCH 03/11] drm: of: drm_of_find_panel_or_bridge: prioritize
+ the bridge, not the panel
+Message-ID: <20260824-bouncy-papaya-cat-2c2073@houat>
+References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
+ <20260814-drm-bridge-every-panel-v1-3-19cd5277cc8d@bootlin.com>
+ <20260817-wonderful-helpful-falcon-db81c9@houat>
+ <DKR7S2SRVHJG.2Z6RK35N9X4JU@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="r2qltygawcsnjzrg"
+Content-Disposition: inline
+In-Reply-To: <DKR7S2SRVHJG.2Z6RK35N9X4JU@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,148 +75,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Nicolas,
 
-On Tue, 18 Aug 2026 21:35:24 +0200
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+--r2qltygawcsnjzrg
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 03/11] drm: of: drm_of_find_panel_or_bridge: prioritize
+ the bridge, not the panel
+MIME-Version: 1.0
 
-> Analogous to what was added in Commit d41c79838c47 ("drm/panfrost:
-> Display list of device JM contexts over debugfs") for panfrost, add
-> similar debugfs information for panthor.
-> 
-> The group priority does not change over the lifetime of the group, so no
-> effort to synchronise with the scheduler lock is being made.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
-> Some additional notes: I noticed panthor apparently uses
-> xa_for_each{_marked} by guarding it with xa_lock/xa_unlock. That appears
-> to be unnecessary, judging by the documentation of it and that nobody
-> else does this.
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c   |  1 +
->  drivers/gpu/drm/panthor/panthor_sched.c | 89 +++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_sched.h |  5 ++
->  3 files changed, 95 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 46a3080b0b20..8cdba0c1a14b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1769,6 +1769,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
->  {
->  	panthor_mmu_debugfs_init(minor);
->  	panthor_gem_debugfs_init(minor);
-> +	panthor_sched_debugfs_init(minor);
->  }
->  #endif
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 5832dccfc093..44b61e946e2d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0 or MIT
->  /* Copyright 2023 Collabora ltd. */
->  
-> +#include <drm/drm_debugfs.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_exec.h>
->  #include <drm/drm_file.h>
-> @@ -4198,3 +4199,91 @@ int panthor_sched_init(struct panthor_device *ptdev)
->  	ptdev->scheduler = sched;
->  	return 0;
->  }
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +
-> +static const char *
-> +panthor_sched_prio_str(enum panthor_csg_priority prio)
-> +{
-> +	switch (prio) {
-> +	case PANTHOR_CSG_PRIORITY_LOW:
-> +		return "LOW";
-> +	case PANTHOR_CSG_PRIORITY_MEDIUM:
-> +		return "MEDIUM";
-> +	case PANTHOR_CSG_PRIORITY_HIGH:
-> +		return "HIGH";
-> +	case PANTHOR_CSG_PRIORITY_RT:
-> +		return "REAL-TIME";
-> +	default:
-> +		return "UNKNOWN";
-> +	}
-> +}
-> +
-> +static int show_file_groups(struct panthor_file *pfile, struct seq_file *m)
-> +{
-> +	struct panthor_group *group;
-> +	unsigned long i;
-> +
-> +	if (IS_ERR_OR_NULL(pfile->groups))
-> +		return -ENOENT;
-> +
-> +	xa_for_each_marked(&pfile->groups->xa, i, group, GROUP_REGISTERED) {
-> +		seq_printf(m, " Group %lu: priority %s\n", i,
-> +			   panthor_sched_prio_str(group->priority));
-> +	}
+On Mon, Aug 17, 2026 at 02:23:05PM +0200, Luca Ceresoli wrote:
+> > That being said, if we do create a panel_bridge for every panel, why do
+> > we still need drm_of_find_panel_or_bridge()? We'll only really need
+> > of_drm_find_bridge(), no?
+>=20
+> Yes, in the long term we can get rid of drm_of_find_panel_or_bridge(), but
+> not in the short term due to the above mentioned drivers, and others which
+> use it in "creative" ways.
+>=20
+> The point is about the transition. This patch was an attempt to convert at
+> once all the many drivers which use the most common pattern:
+>=20
+>       | drm_of_find_panel_or_bridge(..., &panel, &bridge);
+>       | if (panel)
+>       |     bridge =3D drm_panel_bridge_add();
+>=20
+> to then fix manually the remaining drivers (patches 6-11).
+>=20
+> But this approach doesn't fly due to the legacy users of
+> drm_of_find_panel_or_bridge() as mentioned above.
+>=20
+> So what about this other approach instead:
+>=20
+>  1. leave drm_of_find_panel_or_bridge() as is (it's already deprecated an=
+yway)
+>  2. keep patch 5 (which "breaks" mayt drivers which would create an addit=
+ional
+>     panel_bridge)
+>  3. perhaps add a warning when an additional bridge is created for the
+>     some panel
+>  4. *in the same series*, manually convert *all* drivers to use
+>     of_drm_find_bridge() or of_drm_get_bridge_by_endpoint() -- like patch=
+es
+>     6-11, but done on all drivers
+>  5. apply the series atomically, because it wouldn't be bisectable between
+>     items 2 and 4
+>=20
+> Your opinion?
 
-Could this race with the GROUP_DESTROY ioctl and open the door for
-potential UAFs on the group object? Seems
-panthor_fdinfo_gather_group_samples() has this xa_for_each_marked()
-inside an xa_lock()-ed section to cover for this.
+If we look at the drivers causing us troubles, fsl-ldb, samsung-dsim,
+tc358767 and waveshare-dsi can be converted directly to
+devm_drm_of_get_bridge().
 
-> +
-> +	return 0;
-> +}
-> +
-> +static int show_each_file(struct seq_file *m, void *arg)
-> +{
-> +	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> +	struct drm_device *ddev = node->minor->dev;
-> +	int (*show)(struct panthor_file *, struct seq_file *) =
-> +		node->info_ent->data;
-> +	struct drm_file *file;
-> +	int ret = 0;
-> +
-> +	scoped_cond_guard(mutex_intr, return -EINTR, &ddev->filelist_mutex) {
-> +		list_for_each_entry(file, &ddev->filelist, lhead) {
-> +			struct task_struct *task;
-> +			struct panthor_file *pfile = file->driver_priv;
-> +			struct pid *pid;
-> +
-> +			/*
-> +			 * Although we have a valid reference on file->pid, that does
-> +			 * not guarantee that the task_struct who called get_pid() is
-> +			 * still alive (e.g. get_pid(current) => fork() => exit()).
-> +			 * Therefore, we need to protect this ->comm access using RCU.
-> +			 */
-> +			rcu_read_lock();
-> +			pid = rcu_dereference(file->pid);
-> +			task = pid_task(pid, PIDTYPE_TGID);
-> +			seq_printf(m, "client_id %8llu pid %8d command %s:\n",
-> +				file->client_id, pid_nr(pid),
-> +				task ? task->comm : "<unknown>");
-> +			rcu_read_unlock();
+mcde-dsi is a mess and would be hard to fix indeed, but since it's the
+only really troublesome one, maybe we can just duplicate the code in the
+driver and drop / rewrite the common code however we see fit.
 
-Don't we have this piece of information stored in
-panthor_group::task_info already? Unless you really want to reflect
-clients that have no groups, or have groups from a given client clearly
-outlined in the debugfs output, I'd flatten things out and have these
-client-related info printed along the group info in show_file_groups()
-(pass a drm_file instead of a panthor_file, so you can get the
-client_id from there).
+Maxime
 
-Regards,
+--r2qltygawcsnjzrg
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Boris
+-----BEGIN PGP SIGNATURE-----
 
-> +
-> +			ret = show(pfile, m);
-> +			if (ret < 0)
-> +				break;
-> +
-> +			seq_puts(m, "\n");
-> +		}
-> +	}
-> +
-> +	return ret;
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaov99AAKCRAnX84Zoj2+
+dm5RAYDFgncWfB8HNVBV3A4Zy3M1e1HjfjQlHBNI/8wz2WrjIFMjDK3NHra4s3x1
+HWUTpmMBgIl7aZq/J/YJAo6vpIB/4wV7ZaQtf1Qmu3VMOYg+lkL7S3tA5Due5REl
+ljvLSizFiA==
+=7yEV
+-----END PGP SIGNATURE-----
+
+--r2qltygawcsnjzrg--
