@@ -4,76 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E92FC5DF9B
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 12:26:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0631DC5DF94
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 12:40:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8785910E4EF;
-	Mon, 24 Aug 2026 12:26:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AF3B10E547;
+	Mon, 24 Aug 2026 12:40:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PwNPX2NR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="KqgQmWoR";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="SJ45AIQ/";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71D5010E4EF
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 12:26:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with UTF8SMTP id 676C4601E9;
- Mon, 24 Aug 2026 12:26:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 874ED1F000E9;
- Mon, 24 Aug 2026 12:26:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787574374;
- bh=upukaXZkr84gwak4ggRO0ndAK9t7zaBT3owzkfM3Fdk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=PwNPX2NRFVN0Bz+S6KhhJDxiLSSZueaI23ct1PXVX8KFblpux4F/bG76u6TxrwCtv
- UBlSiGxKVvBTRYKxoEml8G+yJNr5LUcxCVHAJkkApNdp1pLMOe/M1VjBTgCXwU7U6V
- 5IgTBRfAEyOLQqvyJJiMl62FQy0LIfHZ1uydX9Y4AhNiRmTr2057vOspY1cC7nY6+Q
- qZ3KAqtRYMVxL80qEDUwO6SUdJGBXEpXuEZNK6b9Z8cRlU4tajvzt2DKIM8cr4Vboc
- q/Ct4jN9XMSxR0SxukEoUtbJdV8txAyM9aXphiu3NaGi6TMPM5g8mGMXa0XMTMt2gj
- F9NjqiDJeK5BA==
-Date: Mon, 24 Aug 2026 14:26:11 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Lyude Paul <lyude@redhat.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- Igor Korotin <igor.korotin@linux.dev>, 
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, 
- driver-core@lists.linux.dev, linux-block@vger.kernel.org, 
- linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-usb@vger.kernel.org, Oliver Mangold <oliver.mangold@pm.me>, 
- Viresh Kumar <viresh.kumar@linaro.org>
-Subject: Re: [PATCH v20 5/8] rust: rename `AlwaysRefCounted` to `RefCounted`.
-Message-ID: <aow36NjRc5Ig0hG8@monoceros>
-References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
- <20260824-unique-ref-v20-5-490735672187@kernel.org>
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [85.215.255.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A85E210E547
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 12:40:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787575208; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=IRNpNSk0eO2m3hypQV9UTeuVv3t0ElL2HieCvZTikbgbYtHY2EF7f5qQchPQKfylCn
+ lT1Di2iKf1oNd5BT/2kTGGl/u3d0Flq+Sy0OrKwDE9cvZqScrLC3c6yi0Eoi43RFe8s2
+ FAPutRDIAb3b6Rfcig+CBUcIf7EowWA/+13XiuMQ/9+p2UbC5up21gh03vBHRUBP/RFg
+ 8Ij7EMVxLxhwLt5Oj6tP0eH8owMNtQcZoDNar1uRFG9y0sLB9lWmEhNDPxnDfYEazNcN
+ vrO9qJXw5dngzRfhvPbY4BH9qkEQJTCHO1EIjCIqGamCfCgpauQMobfvor204i3OLMpN
+ j2Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787575208;
+ s=strato-dkim-0002; d=strato.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
+ b=ootRZ4Va27+9XOhkojOMbYQw38uSw1JP6+5+E1J61iM2VbMvsuLFGf5t2wHmIPGoAA
+ C99mjyNUwvSnHaDopucaoJsnPl+o+qXV7O5E+hr7CZC17CPSIpy9pBVbwaldR/aFn8Lh
+ hhVNA2PcPhtq85Req8eb5QmwHqDKXgdk+2YKLoKR539CCO6hEBVhKHVGKKBIY3oOMF7D
+ g/7Vm78GLMivcs1J57BY31uhMpSThhyFZ6VYGqFjk5tUHlL2avIXEDfBPep/FudLRO2u
+ IbaJyrJI+RUQjp6IDPSkoqxJXU6aTwCUl6uNdU4JQAZGatbWCQU1dCznk6h/FTq+erRf
+ vtzw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787575208;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
+ b=KqgQmWoRDt9PmsS2ug4Eg7BkIZRb0DmXcovm9m5EsKRhKXGqTk9x2H5qo6lFRFf6Yk
+ plef576DlTNIFH6XAemNFC6+/HK8haWzEXh85XT+UMlgD4A4Jb5CJrysBOw7sV3o7fvK
+ DuonmCaJ3rAFSPxuKemvQGffCzb+TyyEONsJtcu18/ydwQagmHDVOSGisuJfKCayGWom
+ NiQ/MzXUFS0nALe8tq9uxViJ4cjK7CRUECXvnouObBhyXSifCaNtDVQawJixG89wVjnd
+ NFJtLAXwLEPfZoYNGK3du8u7zbGFMoGjbNtyue4qloHmo8haMYSHeb4qIOpmtjoG6OvT
+ VvLg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787575208;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
+ b=SJ45AIQ/zuG+8ASCxJUEaG4WRDC6RBoz1ocvCREXhdEBvgFQSbqphfDufWD8WtEDHv
+ ckJqWa01DUUNoqhgSOBg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQipoOy8iN9EQCaJvpc3APUCy9LxWOnfZGxS9c"
+Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.2 AUTH)
+ with ESMTPSA id Qfefb327OCe7arf
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 24 Aug 2026 14:40:07 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
+ wbx@openadk.org, kernel@pyra-handheld.com,
+ "H. Nikolaus Schaller" <hns@goldelico.com>, stable@vger.kernel.org
+Subject: [PATCH v4] drm/ingenic: fix bridge allocation
+Date: Mon, 24 Aug 2026 14:40:05 +0200
+Message-ID: <1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="nwuv4cl3v42iarkt"
-Content-Disposition: inline
-In-Reply-To: <20260824-unique-ref-v20-5-490735672187@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,82 +93,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Bridge allocation API has changed and ingenic/drm was broken
+leading to
 
---nwuv4cl3v42iarkt
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v20 5/8] rust: rename `AlwaysRefCounted` to `RefCounted`.
-MIME-Version: 1.0
+[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
+[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
+[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
+[   55.904136] ------------[ cut here ]------------
+[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
+[   55.917538] refcount_t: addition on 0; use-after-free.
+...
+[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
+...
 
-Hello,
+Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
+Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Cc: Waldemar Brodkorb <wbx@openadk.org>
+Cc: stable@vger.kernel.org
+---
 
-On Mon, Aug 24, 2026 at 01:17:57PM +0200, Andreas Hindborg wrote:
-> diff --git a/rust/kernel/pwm.rs b/rust/kernel/pwm.rs
-> index 6c9d667009ef7..2d1cd74dd98e1 100644
-> --- a/rust/kernel/pwm.rs
-> +++ b/rust/kernel/pwm.rs
-> @@ -13,7 +13,11 @@
->      devres,
->      error::{self, to_result},
->      prelude::*,
-> -    sync::aref::{ARef, AlwaysRefCounted},
-> +    sync::aref::{
-> +        ARef,
-> +        AlwaysRefCounted,
-> +        RefCounted, //
-> +    },
->      types::Opaque, //
->  };
->  use core::{
-> @@ -629,7 +633,7 @@ pub fn new<'a>(
->  }
-> =20
->  // SAFETY: Implements refcounting for `Chip` using the embedded `struct =
-device`.
-> -unsafe impl<T: PwmOps> AlwaysRefCounted for Chip<T> {
-> +unsafe impl<T: PwmOps> RefCounted for Chip<T> {
->      #[inline]
->      fn inc_ref(&self) {
->          // SAFETY: `self.0.get()` points to a valid `pwm_chip` because `=
-self` exists.
-> @@ -647,6 +651,10 @@ unsafe fn dec_ref(obj: NonNull<Chip<T>>) {
->      }
->  }
-> =20
-> +// SAFETY: We do not implement `Ownable`, thus it is okay to obtain an `=
-ARef<Chip<T>>` from a
-> +// `&Chip<T>`.
-> +unsafe impl<T: PwmOps> AlwaysRefCounted for Chip<T> {}
-> +
->  // SAFETY: `Chip` is a wrapper around `*mut bindings::pwm_chip`. The und=
-erlying C
->  // structure's state is managed and synchronized by the kernel's device =
-model
->  // and PWM core locking mechanisms. Therefore, it is safe to move the `C=
-hip`
+Notes:
+    v4: remove setting interlaced mode (would be new feature and not a fix) as suggested by paul@crapouillou.net
+    
+    v3: fixed a malformed diff in v2
+    
+    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT as suggested by Sashiko-reviews
+        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
 
-I don't understand that, but if this is considered ok by the Rust folks,
-I'm fine with merging it via their tree.
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org> # for pwm.rs
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 42c86f195c66b3..f3c6c823314688 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -122,7 +122,7 @@ struct ingenic_drm {
+ 
+ struct ingenic_drm_bridge {
+ 	struct drm_encoder encoder;
+-	struct drm_bridge bridge, *next_bridge;
++	struct drm_bridge *bridge, *next_bridge;
+ 
+ 	struct drm_bus_cfg bus_cfg;
+ };
+@@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+-				 &ib->bridge, flags);
++				 bridge, flags);
+ }
+ 
+ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+@@ -1314,10 +1314,23 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
++		ib->bridge = devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
++						   base, &ingenic_drm_bridge_funcs);
++		if (IS_ERR(ib->bridge)) {
++			ret = PTR_ERR(ib->bridge);
++			goto err_drvdata;
++		}
++
++		ib->bridge->of_node = priv->dev->of_node;
+ 		ib->next_bridge = bridge;
+ 
+-		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
++		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
++		if (ret) {
++			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+ 			dev_err(dev, "Unable to attach bridge\n");
+-- 
+2.55.0
 
-Best regards
-Uwe
-
---nwuv4cl3v42iarkt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqMOGEACgkQj4D7WH0S
-/k7Eqwf+MmntLyABjsJ6u3n0tfvFXtT43FkhKWBYTvfrSkkGSwvZSD/ZY5rm4TJa
-bXNvGj/meY+tjoiL+lqEl91gKDUE91djmvVcfXDoceliQzIKh2cKRqYubSng7etR
-4cjqGN+2sGoPMqw/DE4AHSt6FjN7PW9atWXCHSqgj1X59q+Il9zzPvJoUf5LoJGl
-M03B0IF/eZP8vEHvwBR+bKlVqdJnU8LD7vn7fYKS9w8EcXVmRNet0ARjs8XnIUhd
-mRyFbmkqewycYxQaQdFwYsqkvc+ZdQfjXofOkRIorYXk2OXiZy3oqy94wwwiGntm
-xaLKESdeyy1mp9Q0CzYXHqcQr8nU5Q==
-=h9TM
------END PGP SIGNATURE-----
-
---nwuv4cl3v42iarkt--
