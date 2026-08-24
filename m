@@ -4,96 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B857C5DF9C
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 12:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 133C3C5DF94
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 12:57:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCBD10E7AA;
-	Mon, 24 Aug 2026 12:56:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7569410E7AB;
+	Mon, 24 Aug 2026 12:57:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="RgOzaE9S";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="919aQov6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kvb2GBXy";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Gis60qH+";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="n/ezQW5k";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1864B10E799;
- Mon, 24 Aug 2026 12:56:53 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 355D41F78D;
- Mon, 24 Aug 2026 12:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787575930; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Y4Rt8us7KI8CytgLhmA5lh8x+Gadd2RdxeTeBmbBBCM=;
- b=RgOzaE9S+HYlAglV9BpmsudO5/gKS03qrN19AX7VA84YNBypoV1s7TYrBfSh73gqj/O0do
- qyIixOajyJ2RS6TJcR9vOHJYHp0IVYgaC6hgtolU22PbS97SWpG5sBEO+O89VV+BZKojjZ
- Aq6Pj9RCWSBBofyuO203nFy0+tYee8w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787575930;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Y4Rt8us7KI8CytgLhmA5lh8x+Gadd2RdxeTeBmbBBCM=;
- b=919aQov6dWtPIV6Oxs6qVgMKm0rO2Hbdr8b8b5+j/KYdI/9Ou4NRCMuNBMNt2GQK25JJ9I
- fLGh4EergfVJS6AA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787575926; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Y4Rt8us7KI8CytgLhmA5lh8x+Gadd2RdxeTeBmbBBCM=;
- b=kvb2GBXypsijxw7CuZUwEcBSkoH/Ynz3bQYZVWPEK17qYH9iyVcPQeNJgr5mo76BPqh0se
- 4tvWz2Aq5/pWNBN95pfVNrjWwAwnr0B6yKhz5GVs9nfI3pBC0ygHGUBf13NNKP9j8g4Khe
- HXBEVIsayxD8H6aVQvuX5UsWn5VzREk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787575926;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Y4Rt8us7KI8CytgLhmA5lh8x+Gadd2RdxeTeBmbBBCM=;
- b=Gis60qH+QDuqJW6hGG3iTTPhGQQ2NG/9IWW7bHVGqMPmgj9fJUSlUvg+hNqOtzGT1PwOfk
- FYOVY8rYMGX+cTAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ACCAB13335;
- Mon, 24 Aug 2026 12:52:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xYHvKHU+jGpyNwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Aug 2026 12:52:05 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- geert@linux-m68k.org, rdunlap@infradead.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 00/13] drm/panic: Split into core and helpers
-Date: Mon, 24 Aug 2026 14:43:31 +0200
-Message-ID: <20260824125201.218863-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022110.outbound.protection.outlook.com [52.101.101.110])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B09610E7AD;
+ Mon, 24 Aug 2026 12:57:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZbvQFot4o/efqDwot3RQ+TF8l0KE0TK1w0XmUcwa2/iNtx/dkzSDhAaxHb1DoKedE2YGmAtUO8ljj+4dbeMTaPpmon2SrjRqIbN0MwxAIOtxTa2IjSE8TkqymkigLwihqLBvEuwksYU59ibmS0mgfQfVL+jcH4c8pW+Z7GpJ/7x/s8/ajxgym/CxaHjYYCRoRxTG1uwqBQ6ZVWXHO0y+jhqFpoZ7boDSTtI8owp8x+JBWC9T1qv1rzuEmS7gKZWzVcde+8jSSQK9nTfOyzWK4kb5ans/52woZJsnsvIaym5rvmmDLVc1euTByetbQCLe7B9v78T3kCxRg2mrsR40tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0eiYrS3FgtFpa5PsbMKFN+HFDrXxOLeNI2VyHwqR0ao=;
+ b=ZkFEkvantQdcFZVCX+l3+99WWT+CQC8rK8rCJYKCwnMKU8ngMGAOtENgGEY9oDptvcTUwSuSbqT4pK5K/4hnATBKsLlVnRT9i8KykQxh23824TOKKChUtVfxjHoQC/IBuYyj+2sA8uZcFuwAqV0sQojRoe/SGtQXQbrM5T1p1u/OerUESQ26i+G140FiQZeIGeUVztvwjxzARiSzGFiuVxwTLcjji8y68scy5nH/bLxWIKqNiu0+O2StCcR+Qj3+VI/MKgN6tPYdJ0bKpoYLDALc+5m8BcOfKKVcBFBSFDOHhpQkc2lNe9Y6nooNkzpx5Pf0AAjzoOvRyhzmoeAIxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0eiYrS3FgtFpa5PsbMKFN+HFDrXxOLeNI2VyHwqR0ao=;
+ b=n/ezQW5kRat50xbbUEq+rOBRF8pONTBJsTMv2EeKT/YfqIKJ2IdTloPyvzHO5F8jPyMhEXcSDjDj5h0U12vpQNuF40P29c5gavBvNxzCtCHYJ7/lM1mmPs5jfZDaWJXugxtowON/kYqit2UH3xg16gijrs4VxsyYZrXMJKPLz10=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO4P265MB6366.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2e5::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 12:56:55 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 12:56:53 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 24 Aug 2026 13:56:53 +0100
+Message-Id: <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
+ messaging path
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
+ <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
+ <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+In-Reply-To: <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0065.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:153::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; RCPT_COUNT_TWELVE(0.00)[22];
- DBL_BLOCKED_OPENRESOLVER(0.00)[drm_panic_qr.rs:url,imap1.dmz-prg2.suse.org:helo,suse.de:mid,drm_panic_helper_qr.rs:url];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,linux-m68k.org,infradead.org];
- RCVD_TLS_ALL(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB6366:EE_
+X-MS-Office365-Filtering-Correlation-Id: c19d5103-b969-4977-6d3f-08df01df2be9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|10070799003|7416014|376014|23010399003|18002099003|22082099003|56012099006|6133799003|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: buBWawxluhZsgA6kgoU/xGzzdEtY/jAvtys9vIvWGlHKwS1a75olh+EUvsZmXo7AN7vuITFC2L6PjCxEd04Fy+w5C+gRvzefNWXFwvOfBFdW0jyPcUED4O06kt30yLQxtKJ4Zl76eBoWgfW+IQmeKVJUXP9dEik2HoXHqW/ot9MtdJqDRBKxtEgoIZTMTqILyTTFIuYQ9LCPRslVKbY1Ao825jsry3lNif1w/nYulHGdFt5zv6QlfHrhZ4gYCknDkRWpzKurome04zQ8fql8VTIVGWHrlQlJ0dwXcN47SX5634XTtQOstxK12SfSuoW0CjPjghS6UmXXPYKaWf016quLTdrcKRT8cj8Ws/Rtlmxr977mxJF1OACtSJI+DZ/ipTBYYK/snrAiRg1eZx2akxFBJmsi5/VC5DOn/Y+ISmDSsbUUMWuVHKSmgo+h0tMp/35woO/4R3lL5hx9qDPKkSFbL+N229kGm8yGQOfIm4XaWLGYAQbD4EK5Y9NAmpwroZl/snwARIqf2OQF1wPN58BciPYDsv/jdRcc3pql7g+Qrp6uv/Bq7bIw5MjhNuur5oiBm8BhMfa+U8AZnsFcz/7I2px0esaiPqzWpB95pvi8xBgDG8Jw32I6t1I4LDqi2IS38lpu8Xryvfmc/65ahbbSo2r7tT0Ck3zg48AW1YY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(6133799003)(4143699003)(10067099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVIwUm80UXcxOTgyd0pqQ1kzZFBhS0o2cnR2WUZ0NjhVVGUveEc5OTloYjdC?=
+ =?utf-8?B?ZGVrOEwyVFFnSDl3bS9nd1FYSHpVOFlodEZOMDVsT1QzUmxwMTFqckw1ekE3?=
+ =?utf-8?B?dE5PbU5lMTNYYUR0M1pOZjFxNVNNQUttcitsaTBLOG9KOWQ3aldzVkJQOW1l?=
+ =?utf-8?B?YXhweU9VQ0dLQit5WDZhMHhWZW5GQTlBc1RybkV6ZGVOTkJERS9HdFRWYjMr?=
+ =?utf-8?B?NDJpM0ViU3k4T3VTcU80TDFBdVh4R0dwTUdSOUM0RGp3cnJvclI5REpGR1kr?=
+ =?utf-8?B?VEs3bW1BVUJRdzZqc1c0dHVIY3FiWFJRQjVjTzFPekRiTWNPM3dUbmRNcG0x?=
+ =?utf-8?B?L1BYS2t5OHFJeXNBM2tGOWRQNDhKUWFNUG81K0pTL1FZcm94TnhHRHkvUXE3?=
+ =?utf-8?B?Tnl5bW5GMTlWZng0K3o0a0QwNjNKM0h5OEhxMDJGcXpzN1V1cmROaHpGSURh?=
+ =?utf-8?B?RUNpOUc4Zk1CMDNKeU52STZxeThpMlVKM3VSL2J3eTZIK2pzYlEwOFZRb0Q1?=
+ =?utf-8?B?YjdsQkZGWTVvZ094R0MyNmQrc3BOSkphdUxTNHNvQ1RnQUdmMXhFVEhrb3N1?=
+ =?utf-8?B?bEVhNUNaVDBCakNnRjJHYVNwOHltY1Y0Y0RBSWFqRWE3bEhsRnYrK3pmYmJO?=
+ =?utf-8?B?Sjd4bWZWalFNU1lWYUNUeWNaWlJYaWlqQmZXNmhGelRMaHhOUXB5L3VEUVQ1?=
+ =?utf-8?B?cS90Y083WlhWL0lWb29oekR4dUlJSmV6d3BwU1oxSzJDRnZ2Y0tYeUFLWXVh?=
+ =?utf-8?B?S2hDcUsvc2xRdXRQOGNYZ2gvK0lnRWlFUmM3YllMUmxLRWxybEZrSU9HbnJJ?=
+ =?utf-8?B?ajVqb3l1NkVJbFpDbUhjSkk0NjF3K3grbzBUSGxuUlVuQVNvWnJadWU2ZDVR?=
+ =?utf-8?B?RVdpaUhidDdCUFF0aGE5NWhNNWxIMDh2TExNZGxjSi9PMDQwc1VvQ3RXVlM4?=
+ =?utf-8?B?bGhITWVBdTNvVVZFeHVjazc0M0V0U1AyYjRoQ2w5eDFKRzNlM2FUZldGUnpV?=
+ =?utf-8?B?dlh0M3ljUGcvWGNuaVZTZEtWaVZmMzhWRG1HbVhkTEJ2LzZiQnBVVlVOY2tS?=
+ =?utf-8?B?WXJocWhheTNnZVNVUzRFYVdFSDZDUDEyaHhtSElwb3p4Q1JYNXlBUjNabHVB?=
+ =?utf-8?B?V0VoSU5kaTMrdEozSGlBaUFSck1kZ1ZqZ2pCQkZoTStWMENmMFRvRjR3YzlP?=
+ =?utf-8?B?cnQ1RjhCVkdVM2dwdEtaaWgvc3lOdCsyQktJZXJJMFM2dG5ISWthTUV0aENG?=
+ =?utf-8?B?N0toeTMyZVBwT0lyQWRaYnowbnhkUU1LOVkwUWMyZ2VoaHd3QkZwR1NUbDZj?=
+ =?utf-8?B?WFFoRXVDenhQRjZrN0pKeEhpZHBOdW5GcjA5NUJhVWRTVmtvbm5taXMzbU9K?=
+ =?utf-8?B?TUMvbWpON2p2N1lxUHBVZnpiaDE2aVlqRmEzQXBoMnNuZE44dTBURTI3Nzdy?=
+ =?utf-8?B?L3N5cWVzWm1KUUY5d3hwcHV1eDdKVUJaOEFmZ0MrTEdVMDVkaFRZRmxzWml0?=
+ =?utf-8?B?YnMzeldoelEvRUVEb2MyMzZ2WmtlYVJPQ2x2eGh2d0ZxRjdRM0RuRDUrZjdV?=
+ =?utf-8?B?amx0ZkN5Sk91eGdzSlVRWmtVYVErU3d1ODNqbmJ3WGZ1aFp1Yi95cS94TFpM?=
+ =?utf-8?B?ZWRYYys0UUNhMUt6em5DWEhocUdjM3cyYnRHVDRDQUl0M1BVc1MyMjN3c2lU?=
+ =?utf-8?B?T3F5WDY1cUpjRUVRVXl0bTJZdlZZWnQxQWJNQUxVT0VGVDQzalphejhGVmlQ?=
+ =?utf-8?B?NHNDa0kvMyt0N1N5NDVvRWR4QlVlSlpwT2thUU84amZDL1lxSlA5UCtOR3VU?=
+ =?utf-8?B?c2FPekhWMTA5Qi9sVzM3L0xsRWhZWDNRRlhNcXcycEE4NnllN1NxNlZFME13?=
+ =?utf-8?B?ZEFFOGxhOXVWK09hMk5weVI4cHVrYy9XZ2RDckJlRmMxK3JLUEZtTHFFUWFq?=
+ =?utf-8?B?VEc2RmhsTXNkd3NodkU2Y0NMS1UxcStyZUFMQ09Rb2F6Qytkdkp0YjloM0Zi?=
+ =?utf-8?B?eFYxTk5SSTJMdGRXLy9PbWZJbm8vM053MUcyY3d3Sk9Od2hBNXEzRkdPd0pw?=
+ =?utf-8?B?OGplTnJrVHBoWnExQzdQbnhBTU5FcmJ2VGs0c252QUhTUjRRd28xNmJmOExj?=
+ =?utf-8?B?RHV4SjBQZ0dGSUxjNnFzOE5GdWZVVHB0Wk1IWDVsV0Q0UmpiMmpsV1hnRTNF?=
+ =?utf-8?B?eHQ5TjgrRGNuSTFKczVCVlhFNEthWUlHR2NLTHoycEt1cmJEOXMzMUZ5bmVt?=
+ =?utf-8?B?ZmFESXdUZTVNUEcvdi9paTZWQjNaY00zcGFMNHpJU2F1OFY0dzdvWmYybEIr?=
+ =?utf-8?B?Z3VSZFNPUTQ2MXA2MDlVN25zRE9pQWtDZUhBZVFKUGpiWGovYnRmdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: c19d5103-b969-4977-6d3f-08df01df2be9
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 12:56:53.6641 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f2AkAi7kIRCHVLzNsauOZrdQk3tFzqVR1C90p2lGUFxhHNKBi0dL0GB/r+98sNN+gcXDtYo2tog/2iD/mK94Zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6366
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,132 +142,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Split DRM's current panic handling into a core and a helper module.
-The core is still part of DRM's core library. The panic helpers are
-part of DRM's KMS helper module (for now).
+On Mon Aug 24, 2026 at 1:50 PM BST, Eliot Courtney wrote:
+> On Thu Aug 20, 2026 at 2:28 AM JST, Gary Guo wrote:
+>> In the CPU->GSP messaging path, the code reads the read pointer from GSP=
+,
+>> writes the command, advances the write pointer, and then notifies the GS=
+P.
+>>
+>> A LOAD->STORE ordering is needed after reading the read pointer from GSP
+>> and writing the command. Control dependency exists here which provide th=
+e
+>> needed ordering, but it's best to avoid depending on it.
+>>
+>> A STORE->STORE ordering is needed after the command write and before the
+>> write pointer advance. This is currently incorrectly done after the writ=
+e
+>> pointer advance (and before GSP notification), but this can cause issue =
+if
+>> GSP is still processing ring buffer, as it may observe the write pointer
+>> advance before command write. Thus move this barrier to be before the wr=
+ite
+>> pointer advance. Note that barriers are not needed between write pointer
+>> advance and GSP notification, as MMIO accessors already carries the
+>> required barrier.
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> ---
+>>  drivers/gpu/nova-core/gsp/cmdq.rs | 15 ++++++++++++---
+>>  1 file changed, 12 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
+sp/cmdq.rs
+>> index 6da728201281..70674d2d0f77 100644
+>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>> @@ -27,6 +27,11 @@
+>>      ptr,
+>>      sync::{
+>>          aref::ARef,
+>> +        barrier::{
+>> +            dma_mb,
+>> +            Full,
+>> +            Write, //
+>> +        },
+>>          Mutex, //
+>>      },
+>>      time::Delta,
+>> @@ -272,6 +277,10 @@ fn new(dev: &device::Device<device::Bound>) -> Resu=
+lt<Self> {
+>>              (rx - 1, 0)
+>>          };
+>> =20
+>> +        // ORDERING: LOAD->STORE ordering needed to order `gsp_read_ptr=
+` read before data write.
+>> +        // Control dependency can serve the same purpose here, but we d=
+on't want to rely on it.
+>> +        dma_mb(Full);
+>> +
+>>          // SAFETY:
+>>          // - `data` was created from a valid pointer, and `rx` and `tx`=
+ are in the
+>>          //   `0..MSGQ_NUM_PAGES` range per the invariants of `cpu_write=
+_ptr` and `gsp_read_ptr`,
+>> @@ -450,9 +459,6 @@ fn advance_cpu_write_ptr(&mut self, elem_count: u32)=
+ {
+>>          let tx =3D io_project!(self.0, .cpuq.tx);
+>>          let wptr =3D MsgqTxHeader::write_ptr(tx).wrapping_add(elem_coun=
+t) % MSGQ_NUM_PAGES;
+>>          MsgqTxHeader::set_write_ptr(tx, wptr);
+>> -
+>> -        // Ensure all command data is visible before triggering the GSP=
+ read.
+>> -        fence(Ordering::SeqCst);
+>>      }
+>>  }
+>> =20
+>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0<'_>, =
+command: M) -> Result
+>>              dst.header.length(),
+>>          );
+>> =20
+>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_write_p=
+tr` write after data write.
+>> +        dma_mb(Write);
+>> +
+>
+> Is there a reason this can't go into `advance_cpu_write_ptr`?
 
-The motivation behind this series is to get panic handling's drawing
-code out of the DRM core. At some point it should share a single
-module with DRM's other drawing and format conversion.
+I think it's more clear to consider `advance_cpu_write_ptr` to just be the
+pointer increment, and the ordering should be visible in code that performs=
+ both
+memory ops.
 
-With the series applied, panic handling follows DRM's established
-design pattern of having a DRM core interface with a dedicated
-implementation in each driver. Drivers share common code in helper
-modules. For panic handling, the DRM core still contains the panic
-entry points, the parameters and the debugfs interface. All drawing
-is now located in the panic helpers.
+Best,
+Gary
 
-Patches 1 to 4 improve several issues in the current panic code. It
-makes sense to fix them before moving the core around.
+>
+>>          // All set - update the write pointer and inform the GSP of the=
+ new command.
+>>          let elem_count =3D dst.header.element_count();
+>>          self.seq +=3D 1;
 
-Patches 5 to 8 put handling of all panic state and locking into a
-single place, drm_panic_display_panic_screen(). It is maintained by
-panic handling's DRM core code. This also enables the test cases to
-work more independently from the kernel's configuration.
-
-Patches 9 to 12 split the panic-handling code into the core and panic
-helpers. The former maintain all state, locking and public interfaces.
-The latter handles drawing and details of the involved framebuffers.
-
-DRM devices that offer panic handling provide a single callback, struct
-drm_plane_funcs.display_panic_screen. A new initializer macro makes it
-point to the existing panic-drawing implementation. Hence there's no
-change in features or functionality. If panic handling is configured
-off, it all clears out to NULL.
-
-Patch 13 reworks the test cases slighly, so that they can be build as
-a separate module. Do 'modprobe drm_panic_helper_test' to run them.
-
-Tested under bochs, i915, amdgpu with debugfs and test cases.
-
-Future directions:
-
-- Panic handling shares drawing code with format conversion and
-clients. There's even more drawing code in vkms. Later series' can
-attempt to unify and harmonize all these implementations in a single
-draw module.
-
-- The drawing helper drm_plane_helper_display_panic_screen() still
-implements various access schemes (map, set_pixel, memcpy) in a single
-function. It could be split up into specialized helpers.
-
-- If we ever need a driver-specific helper, it is now possible to
-implement a custom version of display_panic_screen.
-
-v2:
-- resolve the various Kconfig issues (Randy)
-- remove changes to qrbuf allocation (Jocelyn, Geert)
-- fix possible URL format-string attack
-- make test cases work again uder certain edge cases
-- add better error reporting from failed draw_screen
-- filter out non-primary planes from panic handling
-
-Thomas Zimmermann (13):
-  drm/panic: Do not use un-escaped URL as format string
-  drm/panic: Test address from kmap op for NULL
-  drm/panic: Return -EINVAL if font is not available
-  drm/panic: Return errno codes if panic output fails
-  drm/panic: Pass colors to draw_panic_dispatch()
-  drm/panic: Pass global module parameters to drm_panic_dispatch()
-  drm/panic: Retry in dispatch function if panic output fails
-  drm/panic: Split draw_panic_plane()
-  drm/panic: Restrict to primary planes; unconditionally unregister
-  drm/panic: Display panic screen via per-plane callback
-  drm/panic: Internalize panic locking in DRM core and helpers
-  drm/panic: Move panic display code into helper library
-  drm/panic: Compile KUnit tests as module
-
- Documentation/gpu/drm-kms-helpers.rst         |  11 +-
- Documentation/gpu/drm-kms.rst                 |   3 +
- MAINTAINERS                                   |  11 +-
- drivers/gpu/drm/Kconfig                       |   9 +-
- drivers/gpu/drm/Kconfig.debug                 |   1 +
- drivers/gpu/drm/Makefile                      |   3 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   2 +
- drivers/gpu/drm/ast/ast_mode.c                |   2 +
- drivers/gpu/drm/drm_atomic_helper.c           |   2 +-
- drivers/gpu/drm/drm_crtc_internal.h           |   2 -
- drivers/gpu/drm/drm_drv.c                     |   3 +-
- drivers/gpu/drm/drm_kms_helper_common.c       |  14 +
- drivers/gpu/drm/drm_modeset_helper.c          |   2 +
- drivers/gpu/drm/drm_panic.c                   | 919 +-----------------
- drivers/gpu/drm/drm_panic_helper.c            | 918 +++++++++++++++++
- ...drm_panic_qr.rs => drm_panic_helper_qr.rs} |   4 +-
- drivers/gpu/drm/drm_panic_internal.h          |  69 ++
- drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   2 +
- drivers/gpu/drm/i915/display/i9xx_plane.c     |   3 +
- .../drm/i915/display/skl_universal_plane.c    |   4 +
- drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c       |   2 +
- drivers/gpu/drm/mgag200/mgag200_drv.h         |   4 +-
- drivers/gpu/drm/nouveau/dispnv50/wndw.c       |   2 +
- .../gpu/drm/renesas/rcar-du/rcar_du_plane.c   |   2 +
- .../drm/renesas/shmobile/shmob_drm_plane.c    |   2 +
- drivers/gpu/drm/sysfb/drm_sysfb_helper.h      |   4 +-
- drivers/gpu/drm/sysfb/vesadrm.c               |   1 +
- drivers/gpu/drm/tests/Makefile                |   1 +
- ...m_panic_test.c => drm_panic_helper_test.c} |  67 +-
- drivers/gpu/drm/tidss/tidss_plane.c           |   2 +
- drivers/gpu/drm/tiny/bochs.c                  |   4 +-
- drivers/gpu/drm/virtio/virtgpu_plane.c        |   2 +
- include/drm/drm_mode_config.h                 |   4 +-
- include/drm/drm_modeset_helper_vtables.h      |  11 +-
- include/drm/drm_panic.h                       | 117 +--
- include/drm/drm_panic_helper.h                |  40 +
- include/drm/drm_plane.h                       |  57 ++
- rust/bindings/bindings_helper.h               |   4 +-
- 38 files changed, 1273 insertions(+), 1037 deletions(-)
- create mode 100644 drivers/gpu/drm/drm_panic_helper.c
- rename drivers/gpu/drm/{drm_panic_qr.rs => drm_panic_helper_qr.rs} (99%)
- create mode 100644 drivers/gpu/drm/drm_panic_internal.h
- rename drivers/gpu/drm/tests/{drm_panic_test.c => drm_panic_helper_test.c} (79%)
- create mode 100644 include/drm/drm_panic_helper.h
-
-
-base-commit: dc462ab791b686c48545c160ecc81be64f77a846
-prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
-prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
-prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
--- 
-2.55.0
 
