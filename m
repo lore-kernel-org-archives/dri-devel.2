@@ -4,104 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ECE6C61DB9
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:29:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1291BC61DB9
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:35:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 513A810E5EA;
-	Tue, 25 Aug 2026 14:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7310510EA91;
+	Tue, 25 Aug 2026 14:35:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BU7WIcn8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XPL2dz73";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E097A10E5EA
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 14:29:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7517840569;
- Tue, 25 Aug 2026 14:29:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37C71F000E9;
- Tue, 25 Aug 2026 14:29:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787668183;
- bh=WiIQneS2YjYCfWB8fWuaooVQLOMrvLBlhJyBW21n5hc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=BU7WIcn8qYx4PJL+WLFAecegoYgIZRolaag1Uh/SaPvkWgP+XHGpSb9IFbnZ7Yrd1
- ZZNfgfqPh6mOaDjGrc4ntkA0AFCSvefgolkFXpN/wm+iTU3xv6TGj8GjbCpiKrnwck
- FDDkLu1KbMF8tPtBKnh0s0uflbGKW9yweVpKSPRhRXI0Sh4g04T92ICnsrURNf7p3H
- ZWHI1gOuQm5A2eKEl+GbjSuNRNiuVRJv7LQfwHy9zeFzY10UytnmacJvbBMNDY06Aj
- rgfT0zLxi6kGVOsMUN8QRkTdr9Nl+9BYGQdy0aFALapmi9v9SVoX0PccsHZAe4QtGG
- XI5hIWUJ4+5+A==
-Message-ID: <ea3accea-4c20-488a-97a2-7675f54fe401@kernel.org>
-Date: Tue, 25 Aug 2026 16:29:32 +0200
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFA0C10E7C3
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 14:07:59 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-81f3b227a4aso54551087b3.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 07:07:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787580478; x=1788185278; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=0yNqopektA6CmGzMtywYajCtH1yhmgLiF2mewMkr3m0=;
+ b=XPL2dz73LFGx3n2vPEobQLEhQyx/5Plhy9WfPNL7t0Z68pMuIutjLHDYr5IYNAoSkp
+ 7Oe4nG5tsosISpEJQiATta8UN4TRdLz0IdBuiNc2UhDjawsz2nB31L4kSVgYbManBTmC
+ Vzqwsn0YJTUSnEhz0aFHVGmD0aoX/Q+4r03uvWgUVDS1Cw67rHr/pkAlsLPFA10adoPa
+ 3Fq+2sm/r3obYhN0RTqlgtAn1Ba+0SBYSTsi9pUFpH6wqkosgWAz/lOfTNWg+bZSnzmv
+ h7z6y8Nl0mUXJF6f9u88VE3btIbye9A3pRYW+Txlj/ysRLl26P/xalqiNPXUqsV917RG
+ YZKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787580478; x=1788185278;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=0yNqopektA6CmGzMtywYajCtH1yhmgLiF2mewMkr3m0=;
+ b=i4B+zIjIt8J0ny0cncqEXV4m2SM3sjdemPZB550ZXuIYBsOQQpZH5C1WBxR5QxT7f4
+ D4rLCsOeomJu/xktMwFIbAlCEH1AK9Fsy0SzuJhhtBp0mHyh0kmpI5P8k+pkANlonmIY
+ xVKkpF+siyYTeNflYLQvKMAoEsiq6WSNnn+JUTFAEeqG9sruTJU/3y10djgiPDke0iTX
+ NlxaBMQJBnQHrzJE1inGwFH71h75evDcanRZyzRIS7WdBtR0TSocCRnp1ORtms5v5OPR
+ Z/dsTXZtT0pf+h0UzhkMjxEIqMGXksoc6avv30yg3yGTUkZa/i/QRS/VDK1wdg7kj7NS
+ CzNg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqNZcU9WxGOZrfA34ffronPfMxAXP8eVov4+0bk7xjGKMACTd8b10eWFR82f6FolQWqf8Ju+G7rWec=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nDJGsIzIVpsboCeWsvk94XkDSokwt6bMRGuGXqDqvYjFCnYi9Y
+ pMsXF46J/ZtoL6Td3crlQ03Ww4jJggCtD1kfMbzaE/eiUin3Kv9H/46Z
+X-Gm-Gg: AR+sD13ktL6PxoO/+xwU5sy1vtesWfFE697+TfP8Gy3ojTE4edppVbAbv4ebX6O/yZ/
+ GJV7GI87Z6xqpKNn0G9TtMOnrzCOWAdRxRux6IHzFJMIDlFVrSqUfY/i9Wb4TePX7HBDARBxZmy
+ A64pcJNA5KCXJ8IRrv744uL8pAwZJiQMxSVcd25YB1t+c+DldYhSO1iyKZilQKZiZfVb66lhrEr
+ q8GICS3fqnptxzc3wwNMXeKG6/G3x5fs8yejbmUkongF+TWvt8EUK7qk8MHss3EqziZ1pfz+iyl
+ OsibLjkMghC7yLbIm+9Npu3EOuFfsKmNaQwWKz9vEkcT7st/nDw58Co6l2qsamQeDQBOoJxlPMJ
+ KKsJapqvwKRKLYFPNVpKl7zuOjAx9ybzNiYBMrfvViOvnFRy3MXJffA6GuBsNIihib0K3Ak2Zhi
+ cj8pgm/ruvZT7plcNbNx0m6ashFy6guopxt36pICdb4GiD+NmtzgOVjHlKd6Gci1pVuTDMEpYyx
+ 9E2N0UojZNXntiiu3ilE6d4lCFdcWlW1Wr/U8g=
+X-Received: by 2002:a05:690c:a714:b0:81e:893c:2c23 with SMTP id
+ 00721157ae682-849f14c4040mr92883567b3.11.1787580478334; 
+ Mon, 24 Aug 2026 07:07:58 -0700 (PDT)
+Received: from lord ([170.246.211.189]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-853ff053a84sm3326337b3.4.2026.08.24.07.07.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Aug 2026 07:07:57 -0700 (PDT)
+From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
+ stuart.summers@intel.com, julia.filipchuk@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ navonjohnlukose@gmail.com, dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+Subject: [PATCH v3 0/3] drm/xe: fix GuC TLB invalidation ack stalls on ARL
+ (Wa_22016122933)
+Date: Mon, 24 Aug 2026 11:07:45 -0300
+Message-ID: <20260824140748.54974-1-talesam@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, mohit.dsor@oss.qualcomm.com
-Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260824-lt9611c-v7-v11-0-eb4a79cb597c@oss.qualcomm.com>
- <20260824-lt9611c-v7-v11-2-eb4a79cb597c@oss.qualcomm.com>
- <178766696083.117435.16339828039068931624.b4-review@b4>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <178766696083.117435.16339828039068931624.b4-review@b4>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,21 +92,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 25/08/2026 16:09, Luca Ceresoli wrote:
-> 
->> +static struct i2c_device_id lt9611c_id[] = {
->> +	{ "lontium,lt9611c",   (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611C]   },
->> +	{ "lontium,lt9611ex",  (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611EX]  },
->> +	{ "lontium,lt9611uxd", (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611UXD] },
-> 
-> AFAIK there should be no vendor prefix for the i2c_device_id. Have a look
-> at the docs and other drivers for the best practice.
+Hi,
 
-This is because of bugs in the driver, which I reported at v6. Code had
-NULL ptr and to solve it, instead of fixing it, Lontium added such prefixes.
+v3 of the TLB invalidation ack stall fix for ARL, tracked in:
 
-Obviously this is a no-go and they MUST fix the null pointer in the
-first place.
+  https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
 
-Best regards,
-Krzysztof
+Root cause recap: the GuC replies in time, but on the standalone media
+GT the CPU reads a stale cache line of the G2H CTB - the caching
+erratum i915 works around as Wa_22016122933 and xe never inherited.
+Patch 3 implements it, scoped like i915.
+
+Since v2, Navon John Lukose A/B tested the series on an ARL 7d51 and
+produced three results that are folded into this version:
+
+ * Making the mapping coherent instead of uncached does not work: a
+   GGTT PAT entry repurposed to WB|COH_2WAY still stalls
+   (request-to-ack 2290ms). Now documented in patch 3 - it is the
+   obvious question to ask about this patch, and the answer is
+   measured rather than assumed.
+
+ * xe_guc_engine_activity.c allocates GuC-written, CPU-read buffers on
+   the same GT without the workaround flags; the symptom there would
+   be stale busyness stats rather than hangs. Now covered.
+
+ * CPU-WC (matching i915's wording) is equally effective, but
+   XE_BO_FLAG_NEEDS_UC currently drives both the CPU mapping and the
+   GGTT cache mode, and naively switching to XE_BO_FLAG_FORCE_WC
+   relaxes the GPU side back to WB and brings the stalls back
+   (3 hits/20min measured).
+
+His Tested-by on patch 3 is from v2; the only code change since is the
+added engine activity coverage.
+
+Two questions I would rather have answered than decide unilaterally:
+
+ 1. CPU mapping: keep the stricter UC as in this series, or add a way
+    to express i915's exact combination (CPU WC + GGTT XE_CACHE_NONE)?
+    The latter needs either a new BO flag or decoupling the GGTT
+    cache-mode selection from XE_BO_FLAG_NEEDS_UC. No measurable
+    throughput difference between the two.
+
+ 2. Scope: i915 applies the workaround to all media-GT shared memory,
+    including LRC/ring state; this series covers the GuC-shared
+    allocations only (CTBs, log, ADS, SLPC, engine activity). Should
+    xe match i915's full scope?
+
+I also left out Fixes:/Cc: stable, since MTL/ARL is still
+require_force_probe in xe - happy to add them if you would prefer the
+fix to reach stable kernels.
+
+Validation of patch 3: two ARL machines (7d51 and 7dd1), ~4 weeks of
+combined runtime, >7M TLB invalidations, zero stalls. Before the fix
+both machines reproduced 20-60 stalls/day, every day, on every kernel
+and on two GuC firmware versions. The 7dd1 machine, which could not
+survive a day of media workloads on xe without a platform freeze, has
+been running xe continuously for two weeks including video
+transcoding, with zero incidents.
+
+Patches 1-2 are the diagnostics that made the investigation possible,
+unchanged from v2 except for a commit-message line wrap.
+
+v2 -> v3:
+- Rebased on drm-tip.
+- Patch 3: cover xe_guc_engine_activity.c; document the coherency
+  experiment and the UC-vs-WC tradeoff; add Suggested-by/Tested-by.
+- Patch 2: wrap a quoted log line to silence checkpatch.
+- checkpatch is clean on all three patches now.
+
+Thanks,
+Tales
+
+Tales A. Mendonça (3):
+  drm/xe: Capture devcoredump on TLB invalidation timeout
+  drm/xe: Log when a timed out TLB invalidation ack finally arrives
+  drm/xe: Implement Wa_22016122933
+
+ drivers/gpu/drm/xe/xe_devcoredump.c         | 46 +++++++++++----------
+ drivers/gpu/drm/xe/xe_devcoredump.h         | 15 +++++--
+ drivers/gpu/drm/xe/xe_guc.c                 | 16 +++++++
+ drivers/gpu/drm/xe/xe_guc.h                 |  2 +
+ drivers/gpu/drm/xe/xe_guc_ads.c             |  3 +-
+ drivers/gpu/drm/xe/xe_guc_ct.c              |  6 ++-
+ drivers/gpu/drm/xe/xe_guc_engine_activity.c |  6 ++-
+ drivers/gpu/drm/xe/xe_guc_log.c             |  7 +++-
+ drivers/gpu/drm/xe/xe_guc_pc.c              |  3 +-
+ drivers/gpu/drm/xe/xe_tlb_inval.c           | 39 +++++++++++++++++
+ drivers/gpu/drm/xe/xe_tlb_inval_types.h     | 17 ++++++++
+ drivers/gpu/drm/xe/xe_wa_oob.rules          |  1 +
+ 12 files changed, 128 insertions(+), 33 deletions(-)
+
+-- 
+2.55.0
+
