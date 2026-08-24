@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97785C5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 15:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A736C5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 15:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE83910E57E;
-	Mon, 24 Aug 2026 15:11:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F053D10E57E
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 15:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A62FC10E5FD;
+	Mon, 24 Aug 2026 15:12:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B741D10E5FD
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 15:12:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 000EC600CB;
- Mon, 24 Aug 2026 15:11:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FA661F000E9;
- Mon, 24 Aug 2026 15:11:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F6F840A96;
+ Mon, 24 Aug 2026 15:12:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B011F000E9;
+ Mon, 24 Aug 2026 15:12:34 +0000 (UTC)
 From: Geert Uytterhoeven <geert@linux-m68k.org>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Krzysztof Karas <krzysztof.karas@intel.com>,
@@ -24,10 +24,10 @@ To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
  Maarten Lankhorst <dev@lankhorst.se>,
  Andi Shyti <andi.shyti@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>
 Subject: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
-Date: Mon, 24 Aug 2026 17:11:25 +0200
+Date: Mon, 24 Aug 2026 17:12:30 +0200
 Message-ID: <1e519fb24aa5521788d69cc7980665ccbc227b14.1787584184.git.geert@linux-m68k.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
@@ -46,6 +46,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Message-ID: <20260824151230.XuHT5veUT8Oi5un54yAsIsxDMMalaTNf64h7qW1s0ow@z>
 
 Enabling a (modular) test should not silently enable additional kernel
 functionality, as that may increase the attack vector for a product.
