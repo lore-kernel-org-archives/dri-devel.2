@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26BC5C5DF8C
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 04:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B2CC5DF8C
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 04:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47BD310E01F;
-	Mon, 24 Aug 2026 04:16:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F36D010E04A;
+	Mon, 24 Aug 2026 04:22:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GpVc9cg3";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ggNemzTO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D369810E01F
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 04:16:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0AFAA41AA0;
- Mon, 24 Aug 2026 04:16:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C294E1F000E9;
- Mon, 24 Aug 2026 04:16:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787544962;
- bh=kiHuxWS4+yRfFsEvGsgIlrGm5ToShlnfWvcD6E0KTQU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GpVc9cg3Qi3ctHlv+DyGNSm35ck4iLhdyJFCAnw5OJ5UNb51GJn/yOfGVV5aI3d6y
- brrMFh+sGhcyQBinzfL5PPAACCib2joQtdE34GwCL3I26MpYbCjCp4yy+OXRBSPfmJ
- sW06HwAEOwjlrtM+mstYKnRZAZVmr/Ev9VgacC/YmOz9KRNr+zIoqbyj064a/U2L9B
- 9C9aeF8tXYnJij4ZrRBLImf1bePpFG8qWAWdXZ9jqLf86zqjBll0Sb+IC21rCfjS6p
- F6jJsVcx7lT8MdIaK32BDHcEt3QaluSQl2GT9UWryV6+kJCotZ0O+67xRv+Sf/nKvm
- lDLqV2Be0/HdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/edid: Add HDR Static Metadata Type 1 quirk for LG
- UltraGear
-To: Xela <git@xela.zone>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260824040209.22517-1-git@xela.zone>
-References: <20260824040209.22517-1-git@xela.zone>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 04:16:02 +0000
-Message-Id: <20260824041602.C294E1F000E9@smtp.kernel.org>
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
+ [45.254.49.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61CFD10E04A;
+ Mon, 24 Aug 2026 04:22:20 +0000 (UTC)
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4b09d569d;
+ Mon, 24 Aug 2026 12:22:17 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Runyu Xiao <runyu.xiao@seu.edu.cn>, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] drm/amdgpu: return reserve errors from
+ amdgpu_gfx_kiq_init()
+Date: Mon, 24 Aug 2026 12:21:54 +0800
+Message-Id: <20260824042154.1720968-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260823092936.992430-1-runyu.xiao@seu.edu.cn>
+References: <20260823092936.992430-1-runyu.xiao@seu.edu.cn>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa032013e2b03a1kunm9c9c385021612f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHR1KVkJMT09OTxkZGU8fQlYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+ xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=ggNemzTOmri2HozeoaZul+Kvn+Sxz8uJa9Xlrm/MF6/uBXuz0yE7W7docIX7u97CXBWFy4WcObDo6Byy0RND2Ga891aAct6q6PMmQ9JPqErTiPcAn6rtrbNgldIqffUBK8uH4HQX2VCMa2jtKOk/uTYfwz3OH0+4iUaYrmbUwWc=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=slTYeHhnsF4LJMK9bqKlF4AjIQDkMkQFY+4RCApACV8=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,108 +59,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Thanks for the review.
 
-Pre-existing issues:
-- [High] The calculation for minimum luminance in `drm_calculate_luminance_=
-range` always evaluates to 0 due to flawed integer division.
-- [High] `drm_calculate_luminance_range` incorrectly calculates the display=
-'s maximum luminance using the Max Frame-average Luminance field instead of=
- the Max Luminance field.
---
+Before preparing a resend, I rechecked the reservation path:
 
---- Patch [1]: [PATCH] drm/edid: Add HDR Static Metadata Type 1 quirk for L=
-G UltraGear ---
-commit f96110d8b7a4665ac963f7b030033a65f6235f0a
-Author: Xela <git@xela.zone>
+  amdgpu_bo_reserve(bo, true)
+    -> ttm_bo_reserve(bo, false, false, NULL)
+    -> dma_resv_lock(...)
 
-drm/edid: Add HDR Static Metadata Type 1 quirk for LG UltraGear
+This is an uninterruptible, blocking lock acquisition without a ww acquire
+context. Under the current locking semantics, contention is waited out and
+the call cannot normally return -EINTR, -EBUSY, -EDEADLK, or -EALREADY.
 
-The LG UltraGear monitor (PNP ID GSM 0x7766) advertises HDR support in
-its CTA-861 Extension block with SMPTE ST 2084 (PQ) EOTF support
-(byte 0x9e =3D 0x05) and valid desired content luminance descriptors
-(351 cd/m^2 max CLL/FALL at bytes 0xa0-0xa2).
+The reserve-failure path targeted by this patch is therefore not reachable
+under the current locking semantics, and this patch does not address a
+currently triggerable bug.
 
-However, due to a factory firmware bug, the HDR Static Metadata Data
-Block descriptor byte (byte 0x9f) is reported as 0x00 instead of 0x01,
-omitting the Static Metadata Type 1 capability bit (bit 0).
+I am withdrawing the patch and will not send a v2. Thanks for catching this.
 
-Because of this omitted bit, drm_parse_hdr_metadata_block() sets
-metadata_type to 0. Consequently, drm_calculate_luminance_range()
-rejects the block, and userspace attempts to perform atomic KMS commits
-configuring HDR output metadata fail with -EINVAL (Error 22), preventing
-compositors (Plasma, Gamescope, MPV) from engaging HDR on this display.
-
-Introduce EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1 to force the Static
-Metadata Type 1 descriptor bit for displays with this defective EDID block,
-and register the LG UltraGear (GSM 0x7766) in the EDID quirk table.
-
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 07970e5b5f65e..dd279fad17a42 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-
-[ ... ]
-
-> @@ -5498,6 +5503,10 @@ drm_parse_hdr_metadata_block(struct drm_connector =
-*connector, const u8 *db)
->  	hdr_metadata->eotf =3D eotf_supported(db);
->  	hdr_metadata->metadata_type =3D hdr_metadata_type(db);
-> =20
-> +	if (drm_edid_has_internal_quirk(connector,
-> +				       EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1))
-> +		hdr_metadata->metadata_type |=3D BIT(HDMI_STATIC_METADATA_TYPE1);
-> +
->  	if (len >=3D 4)
->  		hdr_metadata->max_cll =3D db[4];
->  	if (len >=3D 5)
-
-[Severity: High]
-This isn't a bug introduced by this patch, but there appears to be an issue
-in how these values are used in drm_calculate_luminance_range() which is
-called just after this block.
-
-Does drm_calculate_luminance_range() incorrectly calculate max luminance
-using the Max Frame-average Luminance field (max_fall) instead of the
-Max Luminance field (max_cll)?
-
-drivers/gpu/drm/drm_edid.c:drm_calculate_luminance_range() {
-	...
-	max_avg =3D hdr_metadata->max_fall;
-	min_cll =3D hdr_metadata->min_cll;
-	...
-	q =3D max_avg >> 5;
-	r =3D max_avg % 32;
-	max =3D (1 << q) * pre_computed_values[r];
-	...
-}
-
-It seems max_avg maps to max_fall, entirely ignoring hdr_metadata->max_cll.
-Could this lead to underreporting the maximum peak luminance?
-
-[Severity: High]
-This is another pre-existing issue, but does the minimum luminance calculat=
-ion
-in drm_calculate_luminance_range() always evaluate to 0?
-
-drivers/gpu/drm/drm_edid.c:drm_calculate_luminance_range() {
-	...
-	/* min luminance: maxLum * (CV/255)^2 / 100 */
-	q =3D DIV_ROUND_CLOSEST(min_cll, 255);
-	min =3D max * DIV_ROUND_CLOSEST((q * q), 100);
-	...
-}
-
-Since min_cll is bounded to 255 (a 1-byte value), q will be at most 1, and
-DIV_ROUND_CLOSEST(1, 100) truncates to 0. Would this force the computed
-minimum luminance limit to always be exactly 0 for all panels? Can this
-integer math sequence be adjusted to prevent the loss of precision?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824040209.2251=
-7-1-git@xela.zone?part=3D1
+Runyu Xiao
