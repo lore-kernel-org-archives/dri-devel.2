@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4695C5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 08:09:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10143C5DF94
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 08:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C42C10E67C;
-	Mon, 24 Aug 2026 08:09:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E07210E683;
+	Mon, 24 Aug 2026 08:10:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PxJXSKGN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lDMk943z";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D907310E67C
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 08:09:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BFB710E67D
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 08:10:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 903A8403B6;
- Mon, 24 Aug 2026 08:09:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F2C1F000E9;
- Mon, 24 Aug 2026 08:09:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9234860204;
+ Mon, 24 Aug 2026 08:09:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B561F00A3A;
+ Mon, 24 Aug 2026 08:09:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787558995;
- bh=sgmEngV/0H+9YupU+dhU4GBRRc74iuVjelLbyKxaUn0=;
+ s=k20260515; t=1787558999;
+ bh=+NxI+lYi3bbgifrw/aCaowCxoIQpez/VxTgxNHmGiR0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=PxJXSKGNg4ASJ4Ug8nADtqQpoFyeTVP+Dp8wPRHVw7NLsC7GkpxIYSA/Q+EUYBA2F
- 7ZsdcRV5Hvkn36KpLUhTPwvtEQFyQwIJ84wRI8iA+dBh24Z7wRuoNB+JkJvXHTmop+
- A/gaFJS5pWtpuIusNGSC388tRbdDaCw9Ia5sJqUhdjzbECrO8J8FYKD8Hk2OnTfwMr
- QjWhxlSJ/wXEyo9vXtME7hn55aCS6C4B9XMjsXII6ZDZyUM6HOOqSb2CYK+1OncQsk
- c1OJ31fgLzqH8FKqVOsS/sQSoInOBbt2/aG8a851Rq2sx2xcwgOLiOYWrWcSAHbM/c
- +X68+GDx0h3/A==
+ b=lDMk943z73r1oCKWgDSTNaD52BU2ycb7EVam8cr04+9mReLPDsbW0Qx9t7KxyxBO1
+ CWnKaVidpJzDY9CcK8QD9STwrwNpYJ2wN5V1nmMBjHYRhWTTOTdc4cJYHXTWWUcdXg
+ IlqtqkkoHqXRAcYHB9vDOuaNB3+e4oXhW0zNA8p5W5eifx8FR2emAVqptbOwLXoOY4
+ myKhoYez5BS7kbVuuoACGfVykKrZSUaN+pvbmaDAyh0jaTKIoSa0MtJGKDTVARXPf2
+ yrJVp1xZ0/EzC54OWACuNmMLzxt5Pm3cCAm3xnEB2/r512bcy10kFKa/W0dZ4HfS1D
+ xeg4yqmxSb6ng==
 From: Konstantin Sinyuk <ksinyuk@kernel.org>
 To: dri-devel@lists.freedesktop.org
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -45,9 +45,9 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 03/12] drm/fabric: implement query netlink operations
-Date: Mon, 24 Aug 2026 11:09:31 +0300
-Message-ID: <fea1fb8ce49d7b673a0ccd9e950cdc0fc0565c68.1787552412.git.ksinyuk@kernel.org>
+Subject: [RFC PATCH 04/12] drm/fabric: add read-only synthetic provider
+Date: Mon, 24 Aug 2026 11:09:32 +0300
+Message-ID: <e5c0fecf67dbe72f8dd6c49489833ebdf23c5a90.1787552412.git.ksinyuk@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1787552412.git.ksinyuk@kernel.org>
 References: <cover.1787552412.git.ksinyuk@kernel.org>
@@ -69,1547 +69,1134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Register the drm-fabric Generic Netlink family and connect the four
-read-only query commands to the core object model, adding the generated
-operation and policy source that dispatches to them. Their reply shapes
-are:
+Add drm_fabric_sim (fabricsim), a software-only provider modeled on
+netdevsim. It registers deterministic linear, mesh and switch-facing
+topologies through the same provider API a hardware driver uses, so the
+object model and query uAPI can be exercised without accelerator hardware.
+The switch shape uses opaque peers that do not resolve to registered
+endpoints.
 
-  fabric-get       -> fabric, topology-generation
-  endpoint-get     -> endpoint, topology-generation
-  port-get         -> port, topology-generation
-  port-stats-get   -> port-stats
+CONFIG_DRM_FABRIC_SIM builds the provider as drm-fabric-sim.ko. Module
+parameters select the topology shape and initial endpoint and port counts.
 
-Support single-object lookup and multipart dumps for fabrics, endpoints and
-ports, with optional fabric and endpoint filters. Preserve the nested
-endpoint/port dump cursor across batches, including endpoint removal and
-terminal port indices.
+With topology=linear num_endpoints=2, an endpoint is queried using the
+in-tree YNL tool:
 
-Port statistics are optional: a targeted unsupported request returns
--EOPNOTSUPP, while a dump skips unsupported ports and continues; other
-provider errors terminate the dump. Use topology-generation for dump
-consistency and report concurrent changes with NLM_F_DUMP_INTR.
+  $ ./tools/net/ynl/pyynl/cli.py \
+        --spec Documentation/netlink/specs/drm_fabric.yaml \
+        --do endpoint-get --json '{"endpoint-id": 1}'
+  {'endpoint': {'bus-name': 'platform',
+                'dev-name': 'fabricsim.1',
+                'endpoint-id': 1,
+                'fabric-ep-id': 257,
+                'fabric-id': 1,
+                'name': 'sim-ep1'},
+   'topology-generation': 18}
 
-Emit fabric, endpoint, port-state and peer notifications through the
-monitor multicast group. Advance topology-generation before emitting each
-notification, so the event carries the same post-change value as a later
-query.
+The reply separates the core-assigned endpoint-id from the provider-defined
+fabric-ep-id and carries the topology-generation token.
 
-Queries and notifications are confined to init_net. The query commands,
-notifications and dump-consistency behavior are documented in
-Documentation/gpu/drm-fabric.rst.
+Report maximum link capabilities at registration, operational state through
+drm_fabric_port_set_oper() and optional port statistics through the
+port_stats_get callback.
 
-Co-developed-by: Ilia Levi <ilia.levi@intel.com>
-Signed-off-by: Ilia Levi <ilia.levi@intel.com>
+Test-only debugfs controls stimulate provider behavior for the selftests.
+They are not uAPI; observable results are reported through the drm-fabric
+Generic Netlink family.
+
 Signed-off-by: Konstantin Sinyuk <ksinyuk@kernel.org>
 Assisted-by: GitHub-Copilot:claude-opus-4.8
 ---
- Documentation/gpu/drm-fabric.rst             |  148 ++-
- drivers/gpu/drm/fabric/Kconfig               |    6 +-
- drivers/gpu/drm/fabric/Makefile              |    2 +-
- drivers/gpu/drm/fabric/drm_fabric.c          |   29 +-
- drivers/gpu/drm/fabric/drm_fabric_internal.h |   19 +
- drivers/gpu/drm/fabric/drm_fabric_netlink.c  | 1035 ++++++++++++++++++
- drivers/gpu/drm/fabric/drm_fabric_nl.c       |  125 +++
- 7 files changed, 1345 insertions(+), 19 deletions(-)
- create mode 100644 drivers/gpu/drm/fabric/drm_fabric_netlink.c
- create mode 100644 drivers/gpu/drm/fabric/drm_fabric_nl.c
+ Documentation/gpu/drm-fabric.rst        |  46 +-
+ drivers/gpu/drm/fabric/Kconfig          |  10 +
+ drivers/gpu/drm/fabric/Makefile         |   3 +
+ drivers/gpu/drm/fabric/drm_fabric_sim.c | 978 ++++++++++++++++++++++++
+ 4 files changed, 1034 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/gpu/drm/fabric/drm_fabric_sim.c
 
 diff --git a/Documentation/gpu/drm-fabric.rst b/Documentation/gpu/drm-fabric.rst
-index d2c9e694b67f..a8b33d6cd618 100644
+index a8b33d6cd618..8bd3633d41be 100644
 --- a/Documentation/gpu/drm-fabric.rst
 +++ b/Documentation/gpu/drm-fabric.rst
-@@ -18,8 +18,8 @@ Key Goals:
-   (xGMI, UALink and similar), enabling data-center discovery and monitoring.
- * Support read-only enumeration, monitoring and state queries for
-   provider-owned topology.
--* Offer a flexible, future-proof interface that can be extended with new fabric
--  types and attributes without breaking the uAPI.
-+* Allow new attributes and fabric types to be added without reusing existing
-+  wire identifiers, so the uAPI extends without breaking existing consumers.
- * Allow multiple endpoints and ports per provider, so drivers can model
-   accelerator attachments, links and their peers.
+@@ -291,10 +291,16 @@ Query the topology with the in-tree YNL tool, pointing it at the spec:
+         --spec Documentation/netlink/specs/drm_fabric.yaml \
+         --dump fabric-get
  
-@@ -84,10 +84,14 @@ an accelerator on another node, or a local endpoint that merely unregistered
- -- so only the provider knows when a port's physical adjacency actually
- changed, and only the provider retracts or replaces the descriptor.
+-Replies follow the shapes described above; a provider must be registered for
+-the topology to be non-empty.
++Against drm_fabric_sim loaded with ``topology=linear num_endpoints=2``
++(both non-default, for a minimal example), this returns:
  
--Endpoint teardown removes the endpoint's owned half-edges without generating
--a separate event for each port: the delete already describes the transition,
--so removing an endpoint advances the topology generation once rather than
--once per child port.
-+``port-peer-delete-ntf`` reports an explicitly retracted half-edge; it is
-+not emitted when a peer merely becomes locally unresolvable, so its absence
-+is not evidence the far end is still reachable.
+-List the endpoints of a fabric:
++.. code-block:: text
 +
-+Endpoint teardown removes the endpoint's owned half-edges without
-+generating a separate event for each port: the delete already describes
-+the transition, so removing an endpoint advances the topology generation
-+once rather than once per child port.
++    [{'fabric': {'fabric-id': 1, 'instance-id': 2156317438,
++                 'name': 'fabricsim', 'type': 'synthetic'},
++      'topology-generation': 18}]
++
++List the endpoints of that fabric:
  
- Driver API
- ----------
-@@ -175,3 +179,135 @@ objects and are not persistent hardware identities: they remain valid for the
- lifetime of the registered object, but may disappear or be reused after the
- object is unregistered. ``instance-id`` and ``fabric-ep-id`` carry
- provider-defined identity, whose scope is described by the containing object.
+ .. code-block:: bash
+ 
+@@ -302,6 +308,15 @@ List the endpoints of a fabric:
+         --spec Documentation/netlink/specs/drm_fabric.yaml \
+         --dump endpoint-get --json '{"fabric-id": 1}'
+ 
++.. code-block:: text
 +
-+Query operations
-+================
++    [{'endpoint': {'bus-name': 'platform', 'dev-name': 'fabricsim.0',
++                   'endpoint-id': 0, 'fabric-ep-id': 256, 'fabric-id': 1,
++                   'name': 'sim-ep0'}, 'topology-generation': 18},
++     {'endpoint': {'bus-name': 'platform', 'dev-name': 'fabricsim.1',
++                   'endpoint-id': 1, 'fabric-ep-id': 257, 'fabric-id': 1,
++                   'name': 'sim-ep1'}, 'topology-generation': 18}]
 +
-+User space enumerates topology with four read-only commands, each supporting a
-+single lookup (``do``) and a bulk dump (``dump``):
+ Query a single port:
+ 
+ .. code-block:: bash
+@@ -310,4 +325,29 @@ Query a single port:
+         --spec Documentation/netlink/specs/drm_fabric.yaml \
+         --do port-get --json '{"endpoint-id": 1, "port-index": 0}'
+ 
++.. code-block:: text
 +
-+* ``fabric-get`` -- enumerate fabrics (``do`` by ``fabric-id``, ``dump`` for all).
-+* ``endpoint-get`` -- enumerate endpoints, optionally filtered by ``fabric-id``,
-+  or resolve one by ``endpoint-id`` or backing ``dev-name``/``bus-name``.
-+* ``port-get`` -- enumerate ports, filtered by ``endpoint-id``. Ports may report
-+  the provider's maximum capability as ``max-lane-count`` and
-+  ``max-lane-signaling-rate-mbps`` (zero means unknown); these are maxima, not
-+  the currently negotiated width or rate.
-+* ``port-stats-get`` -- per-port statistics, filtered by ``endpoint-id``. A
-+  targeted request for a port whose provider does not implement
-+  ``port_stats_get`` returns ``-EOPNOTSUPP``. During a dump, ports without
-+  statistics support are omitted and enumeration continues with later ports;
-+  any other provider error ends the dump.
++    {'port': {'endpoint-id': 1, 'max-lane-count': 4,
++              'max-lane-signaling-rate-mbps': 200000, 'oper-state': 'active',
++              'peer': {'peer-id': 256, 'port-index': 0, 'type': 'accel'},
++              'port-index': 0},
++     'topology-generation': 18}
 +
-+Notifications
-+-------------
+ The family name on the wire is ``drm-fabric``.
 +
-+Subscribe to the ``monitor`` multicast group to receive asynchronous change
-+notifications. Full-object notifications reuse the shape of their matching
-+``get`` reply and are declared with ``notify:``; peer-link notifications carry
-+a partial payload and are declared with ``event:``.
++Synthetic provider
++==================
 +
-+.. list-table::
-+   :header-rows: 1
++``CONFIG_DRM_FABRIC_SIM`` builds ``drm-fabric-sim.ko``, a software-only provider
++modeled on netdevsim (Documentation/networking/devlink/netdevsim.rst) that drives
++the object model and uAPI without real hardware. Module parameters select a
++linear, mesh or switch-shaped topology and bound the number of endpoints and
++ports. The switch shape links every endpoint to an opaque switch peer
++(``peer-type = switch``) whose id does not resolve to an endpoint, exercising the
++directed half-edge model without a first-class switch object.
 +
-+   * - Notification
-+     - Trigger
-+     - Payload
-+   * - ``fabric-create-ntf``
-+     - a fabric is registered by a provider
-+     - reuses ``fabric-get``
-+   * - ``fabric-delete-ntf``
-+     - a provider-owned fabric is unregistered
-+     - reuses ``fabric-get``
-+   * - ``endpoint-create-ntf``
-+     - an endpoint is registered
-+     - reuses ``endpoint-get``
-+   * - ``endpoint-delete-ntf``
-+     - an endpoint is unregistered
-+     - reuses ``endpoint-get``
-+   * - ``port-change-ntf``
-+     - a port's operational state changes
-+     - reuses ``port-get``
-+   * - ``port-peer-create-ntf``
-+     - a port's peer descriptor is set by its provider
-+     - partial (``event:``)
-+   * - ``port-peer-delete-ntf``
-+     - a port's peer descriptor is explicitly unset by its provider; never
-+       emitted for an implicit half-edge loss (see `Peer semantics`_)
-+     - partial (``event:``)
-+
-+Notifications are best-effort. A listener that detects loss, restarts, or
-+receives an interrupted dump must rebuild state with the query commands.
-+
-+Topology generation and dump consistency
-+----------------------------------------
-+
-+The core keeps a nonzero generation counter and advances it whenever topology or
-+exposed state changes. It is surfaced as the ``topology-generation`` attribute on
-+``fabric-get``, ``endpoint-get`` and ``port-get`` replies and on the topology
-+notifications. A provider-reported change advances the generation before its
-+notification is serialized, so an event carries the post-change value that a
-+later ``get``/``dump`` will also report.
-+
-+``topology-generation`` is a change token, not a timestamp, liveness counter or
-+event count: a changed value means topology changed, but the delta between two
-+values has no defined meaning and the counter may wrap (it skips zero). Statistics
-+reads do not advance it.
-+
-+The same value backs dump consistency. Every multipart dump samples it and calls
-+``genl_dump_check_consistent()``; if it changes between dump batches, Generic
-+Netlink marks the dump with ``NLM_F_DUMP_INTR``, meaning the snapshot may be torn.
-+User space must then discard the partial result and retry the complete dump. The
-+generation does not apply to statistics reads.
-+
-+Only a dump that serialized at least one entry can carry ``NLM_F_DUMP_INTR``,
-+because Generic Netlink arms the consistency check on the first entry it emits.
-+A dump that yields no entries at all cannot report interruption, so user space
-+should treat an empty result as advisory and re-read ``topology-generation``
-+before concluding that the topology is empty.
-+
-+Namespaces
-+----------
-+
-+DRM Fabric objects describe host-global hardware and are not scoped per network
-+namespace. Query and dump operations (``*-get``) are therefore accepted only from
-+the initial network namespace; a request from any other network namespace fails
-+with ``-EPERM``. The Generic Netlink family is registered ``netnsok`` (so it
-+resolves in any network namespace and can return that policy error rather than
-+being invisible), but the operations themselves remain confined to ``init_net``.
-+Monitor notifications are likewise emitted only into ``init_net``, so a listener
-+that joins the multicast group from another network namespace never receives
-+them.
-+
-+Examples
-+========
-+
-+Query the topology with the in-tree YNL tool, pointing it at the spec:
-+
-+.. code-block:: bash
-+
-+    # List all fabrics
-+    ./tools/net/ynl/pyynl/cli.py \
-+        --spec Documentation/netlink/specs/drm_fabric.yaml \
-+        --dump fabric-get
-+
-+Replies follow the shapes described above; a provider must be registered for
-+the topology to be non-empty.
-+
-+List the endpoints of a fabric:
-+
-+.. code-block:: bash
-+
-+    ./tools/net/ynl/pyynl/cli.py \
-+        --spec Documentation/netlink/specs/drm_fabric.yaml \
-+        --dump endpoint-get --json '{"fabric-id": 1}'
-+
-+Query a single port:
-+
-+.. code-block:: bash
-+
-+    ./tools/net/ynl/pyynl/cli.py \
-+        --spec Documentation/netlink/specs/drm_fabric.yaml \
-+        --do port-get --json '{"endpoint-id": 1, "port-index": 0}'
-+
-+The family name on the wire is ``drm-fabric``.
++Its debugfs knobs stimulate synthetic counter activity, operational-state changes
++and runtime endpoint add/remove. These files are unstable test controls and are
++not part of the uAPI; the stable, reviewed interface is the YAML-described
++Generic Netlink family. Tests mutate simulator state through debugfs and observe
++the result over Generic Netlink.
 diff --git a/drivers/gpu/drm/fabric/Kconfig b/drivers/gpu/drm/fabric/Kconfig
-index 21fbfae9863d..7e9c569fd258 100644
+index 7e9c569fd258..87115356baca 100644
 --- a/drivers/gpu/drm/fabric/Kconfig
 +++ b/drivers/gpu/drm/fabric/Kconfig
-@@ -4,9 +4,9 @@ config DRM_FABRIC
- 	tristate "DRM fabric support"
- 	depends on DRM && NET
- 	help
--	  Enable DRM fabric support. This infrastructure provides the
--	  core object model and provider API for registered accelerator
--	  interconnect topologies.
-+	  Enable DRM fabric support. This infrastructure exposes
-+	  registered accelerator interconnect topologies to userspace
-+	  through the drm-fabric generic netlink family.
- 
- 	  To compile this as a module, choose M here: the module will be
+@@ -12,3 +12,13 @@ config DRM_FABRIC
  	  called drm-fabric.
+ 
+ 	  If in doubt, say N.
++
++config DRM_FABRIC_SIM
++	tristate "DRM fabric synthetic provider (test-only)"
++	depends on DRM_FABRIC
++	help
++	  Synthetic provider for testing drm_fabric topology and ABI.
++	  Provides debugfs-only hooks for synthetic activity generation,
++	  error injection, and port-state transitions.  These hooks are
++	  NOT part of the drm_fabric uAPI and are used only by selftests.
++	  Does not model UALink protocol traffic or memory semantics.
 diff --git a/drivers/gpu/drm/fabric/Makefile b/drivers/gpu/drm/fabric/Makefile
-index 3a76f31f1e83..cf9d9d6be3d3 100644
+index cf9d9d6be3d3..bc0a6c742164 100644
 --- a/drivers/gpu/drm/fabric/Makefile
 +++ b/drivers/gpu/drm/fabric/Makefile
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
+@@ -2,3 +2,6 @@
  
  obj-$(CONFIG_DRM_FABRIC) += drm-fabric.o
--drm-fabric-y := drm_fabric.o
-+drm-fabric-y := drm_fabric.o drm_fabric_netlink.o drm_fabric_nl.o
-diff --git a/drivers/gpu/drm/fabric/drm_fabric.c b/drivers/gpu/drm/fabric/drm_fabric.c
-index 8769d7bdcde1..ce331656af70 100644
---- a/drivers/gpu/drm/fabric/drm_fabric.c
-+++ b/drivers/gpu/drm/fabric/drm_fabric.c
-@@ -186,7 +186,7 @@ struct drm_fabric *drm_fabric_register(const struct drm_fabric_desc *desc)
- 			       xa_limit_32b, GFP_KERNEL);
- 		if (ret)
- 			return ERR_PTR(ret);
--		drm_fabric_base_seq_inc();
-+		drm_fabric_emit_fabric_create(fabric, drm_fabric_base_seq_inc());
- 	}
- 
- 	return_ptr(fabric);
-@@ -270,7 +270,9 @@ int drm_fabric_unregister(struct drm_fabric *fabric)
- 		 */
- 		if (WARN_ON_ONCE(drm_fabric_has_members(fabric)))
- 			return -EBUSY;
--		drm_fabric_base_seq_inc();
-+		/* Emit before the erase, while @fabric is still live. */
-+		drm_fabric_emit_fabric_delete(fabric,
-+					      drm_fabric_base_seq_inc());
- 		xa_erase(&drm_fabric_xa, fabric->id);
- 	}
- 
-@@ -410,7 +412,7 @@ drm_fabric_endpoint_register(struct drm_fabric *fabric,
- 			break;
- 		drm_fabric_get(fabric);
- 
--		drm_fabric_base_seq_inc();
-+		drm_fabric_emit_endpoint_create(ep, drm_fabric_base_seq_inc());
- 	}
- 
- 	if (ret) {
-@@ -499,7 +501,8 @@ void drm_fabric_endpoint_unregister(struct drm_fabric_endpoint *ep)
- 	scoped_guard(mutex, &drm_fabric_lock) {
- 		if (WARN_ON_ONCE(!drm_fabric_ep_is_registered(ep)))
- 			return;
--		drm_fabric_base_seq_inc();
-+		/* Emit before the erase, while @ep is still live. */
-+		drm_fabric_emit_endpoint_delete(ep, drm_fabric_base_seq_inc());
- 		xa_erase(&drm_fabric_ep_xa, ep->id);
- 	}
- 
-@@ -587,7 +590,8 @@ int drm_fabric_port_set_peer(struct drm_fabric_port *port,
- 			return -EEXIST;
- 		port->peer = *peer;
- 		port->has_peer = true;
--		drm_fabric_base_seq_inc();
-+		drm_fabric_emit_port_peer_create(port, peer,
-+						 drm_fabric_base_seq_inc());
- 	}
- 
- 	return 0;
-@@ -612,7 +616,9 @@ int drm_fabric_port_unset_peer(struct drm_fabric_port *port)
- 	scoped_guard(mutex, &drm_fabric_lock) {
- 		if (!port->has_peer)
- 			return -ENOENT;
--		drm_fabric_base_seq_inc();
-+		/* Emit before clearing to show the peer being removed. */
-+		drm_fabric_emit_port_peer_delete(port, &port->peer,
-+						 drm_fabric_base_seq_inc());
- 		port->has_peer = false;
- 		memset(&port->peer, 0, sizeof(port->peer));
- 	}
-@@ -654,19 +660,24 @@ void drm_fabric_port_set_oper(struct drm_fabric_port *port,
- 		enum drm_fabric_port_state old = port->oper_state;
- 
- 		port->oper_state = state;
--		if (old != state)
--			drm_fabric_base_seq_inc();
-+		if (old != state) {
-+			u32 gen = drm_fabric_base_seq_inc();
+ drm-fabric-y := drm_fabric.o drm_fabric_netlink.o drm_fabric_nl.o
 +
-+			drm_fabric_emit_port_change(port, gen);
-+		}
- 	}
- }
- EXPORT_SYMBOL(drm_fabric_port_set_oper);
- 
- static int __init drm_fabric_init(void)
- {
--	return 0;
-+	return drm_fabric_netlink_register();
- }
- 
- static void __exit drm_fabric_exit(void)
- {
-+	drm_fabric_netlink_unregister();
-+
- 	WARN_ON(!xa_empty(&drm_fabric_xa));
- 	WARN_ON(!xa_empty(&drm_fabric_ep_xa));
- 	xa_destroy(&drm_fabric_xa);
-diff --git a/drivers/gpu/drm/fabric/drm_fabric_internal.h b/drivers/gpu/drm/fabric/drm_fabric_internal.h
-index d454225a0b81..7fc5bc3f33f9 100644
---- a/drivers/gpu/drm/fabric/drm_fabric_internal.h
-+++ b/drivers/gpu/drm/fabric/drm_fabric_internal.h
-@@ -18,6 +18,9 @@ extern struct xarray drm_fabric_ep_xa; /* Endpoint registry */
- 
- extern u32 drm_fabric_base_seq;        /* Dump consistency sequence */
- 
-+int drm_fabric_netlink_register(void);
-+void drm_fabric_netlink_unregister(void);
-+
- struct drm_fabric *drm_fabric_find_by_id(u32 id);
- struct drm_fabric_endpoint *drm_fabric_endpoint_find_by_id(u32 id);
- struct drm_fabric_endpoint *
-@@ -31,4 +34,20 @@ void drm_fabric_endpoint_put(struct drm_fabric_endpoint *ep);
- struct drm_fabric *drm_fabric_get(struct drm_fabric *fabric);
- void drm_fabric_put(struct drm_fabric *fabric);
- 
-+/* Emits use the post-change generation. */
-+void drm_fabric_emit_endpoint_create(struct drm_fabric_endpoint *ep, u32 generation);
-+void drm_fabric_emit_endpoint_delete(struct drm_fabric_endpoint *ep, u32 generation);
-+
-+void drm_fabric_emit_port_peer_create(struct drm_fabric_port *port,
-+				      const struct drm_fabric_peer *peer,
-+				      u32 generation);
-+void drm_fabric_emit_port_peer_delete(struct drm_fabric_port *port,
-+				      const struct drm_fabric_peer *peer,
-+				      u32 generation);
-+
-+void drm_fabric_emit_port_change(struct drm_fabric_port *port, u32 generation);
-+
-+void drm_fabric_emit_fabric_create(struct drm_fabric *fabric, u32 generation);
-+void drm_fabric_emit_fabric_delete(struct drm_fabric *fabric, u32 generation);
-+
- #endif /* __DRM_FABRIC_INTERNAL_H__ */
-diff --git a/drivers/gpu/drm/fabric/drm_fabric_netlink.c b/drivers/gpu/drm/fabric/drm_fabric_netlink.c
++obj-$(CONFIG_DRM_FABRIC_SIM) += drm-fabric-sim.o
++drm-fabric-sim-y := drm_fabric_sim.o
+diff --git a/drivers/gpu/drm/fabric/drm_fabric_sim.c b/drivers/gpu/drm/fabric/drm_fabric_sim.c
 new file mode 100644
-index 000000000000..fef2d4c8f5bb
+index 000000000000..7d489c6894bf
 --- /dev/null
-+++ b/drivers/gpu/drm/fabric/drm_fabric_netlink.c
-@@ -0,0 +1,1035 @@
++++ b/drivers/gpu/drm/fabric/drm_fabric_sim.c
+@@ -0,0 +1,978 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright © 2026 Intel Corporation
 + */
 +
 +#include <linux/cleanup.h>
-+#include <linux/device.h>
++#include <linux/debugfs.h>
++#include <linux/err.h>
++#include <linux/kstrtox.h>
 +#include <linux/module.h>
-+#include <net/genetlink.h>
-+#include <net/net_namespace.h>
++#include <linux/mutex.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++#include <linux/timer.h>
 +
 +#include <drm/drm_fabric.h>
 +#include <uapi/drm/drm_fabric.h>
 +
-+#include "drm_fabric_internal.h"
-+#include "drm_fabric_nl.h"
-+
-+struct drm_fabric_dump_ctx {
-+	unsigned long idx;
-+};
-+
-+static struct drm_fabric_dump_ctx *
-+drm_fabric_dump_context(struct netlink_callback *cb)
-+{
-+	return (struct drm_fabric_dump_ctx *)cb->ctx;
-+}
-+
-+/* Resume cursor for the nested per-port dumps (PORT_GET, PORT_STATS_GET). */
-+struct drm_fabric_port_dump_ctx {
-+	unsigned long ep_idx;
-+	unsigned long port_idx;
-+};
-+
-+static struct drm_fabric_port_dump_ctx *
-+drm_fabric_port_dump_context(struct netlink_callback *cb)
-+{
-+	return (struct drm_fabric_port_dump_ctx *)cb->ctx;
-+}
-+
-+/* netnsok so a non-init_net caller gets -EPERM, not a missing family. */
-+static int drm_fabric_nl_host_only(const struct net *net)
-+{
-+	return net_eq(net, &init_net) ? 0 : -EPERM;
-+}
-+
-+static int drm_fabric_fill_fabric(struct sk_buff *skb,
-+				  struct drm_fabric *fabric)
-+{
-+	struct nlattr *nest;
-+
-+	nest = nla_nest_start(skb, DRM_FABRIC_A_FABRIC);
-+	if (!nest)
-+		return -EMSGSIZE;
-+
-+	if (nla_put_u32(skb, DRM_FABRIC_A_FABRIC_ATTRS_FABRIC_ID, fabric->id) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_FABRIC_ATTRS_TYPE, fabric->type) ||
-+	    nla_put_string(skb, DRM_FABRIC_A_FABRIC_ATTRS_NAME, fabric->name) ||
-+	    nla_put_u64_64bit(skb, DRM_FABRIC_A_FABRIC_ATTRS_INSTANCE_ID,
-+			      fabric->instance_id, DRM_FABRIC_A_FABRIC_ATTRS_PAD)) {
-+		nla_nest_cancel(skb, nest);
-+		return -EMSGSIZE;
-+	}
-+
-+	nla_nest_end(skb, nest);
-+	return 0;
-+}
-+
-+static int drm_fabric_fill_endpoint(struct sk_buff *skb,
-+				    struct drm_fabric_endpoint *ep)
-+{
-+	struct nlattr *nest;
-+
-+	nest = nla_nest_start(skb, DRM_FABRIC_A_ENDPOINT);
-+	if (!nest)
-+		return -EMSGSIZE;
-+
-+	if (nla_put_u32(skb, DRM_FABRIC_A_ENDPOINT_ATTRS_ENDPOINT_ID, ep->id) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_ENDPOINT_ATTRS_FABRIC_ID,
-+			drm_fabric_endpoint_fabric_id(ep)) ||
-+	    nla_put_u64_64bit(skb, DRM_FABRIC_A_ENDPOINT_ATTRS_FABRIC_EP_ID,
-+			      ep->fabric_ep_id, DRM_FABRIC_A_ENDPOINT_ATTRS_PAD) ||
-+	    nla_put_string(skb, DRM_FABRIC_A_ENDPOINT_ATTRS_NAME, ep->name) ||
-+	    nla_put_string(skb, DRM_FABRIC_A_ENDPOINT_ATTRS_DEV_NAME,
-+			   dev_name(ep->parent)) ||
-+	    nla_put_string(skb, DRM_FABRIC_A_ENDPOINT_ATTRS_BUS_NAME,
-+			   dev_bus_name(ep->parent))) {
-+		nla_nest_cancel(skb, nest);
-+		return -EMSGSIZE;
-+	}
-+
-+	nla_nest_end(skb, nest);
-+	return 0;
-+}
-+
-+static int drm_fabric_fill_peer(struct sk_buff *skb,
-+				struct drm_fabric_port *port)
-+{
-+	struct nlattr *nest;
-+
-+	if (!port->has_peer)
-+		return 0;
-+
-+	nest = nla_nest_start(skb, DRM_FABRIC_A_PORT_ATTRS_PEER);
-+	if (!nest)
-+		return -EMSGSIZE;
-+
-+	if (nla_put_u64_64bit(skb, DRM_FABRIC_A_PEER_ATTRS_PEER_ID,
-+			      port->peer.peer_id, DRM_FABRIC_A_PEER_ATTRS_PAD) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_PEER_ATTRS_TYPE,
-+			port->peer.peer_type) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_PEER_ATTRS_PORT_INDEX,
-+			port->peer.port_index)) {
-+		nla_nest_cancel(skb, nest);
-+		return -EMSGSIZE;
-+	}
-+
-+	nla_nest_end(skb, nest);
-+	return 0;
-+}
-+
-+static int drm_fabric_fill_port(struct sk_buff *skb,
-+				struct drm_fabric_port *port)
-+{
-+	struct nlattr *nest;
-+	int ret;
-+
-+	nest = nla_nest_start(skb, DRM_FABRIC_A_PORT);
-+	if (!nest)
-+		return -EMSGSIZE;
-+
-+	if (nla_put_u32(skb, DRM_FABRIC_A_PORT_ATTRS_PORT_INDEX, port->index) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_PORT_ATTRS_ENDPOINT_ID, port->endpoint->id) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_PORT_ATTRS_OPER_STATE,
-+			port->oper_state) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_PORT_ATTRS_MAX_LANE_COUNT,
-+			port->max_lane_count) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_PORT_ATTRS_MAX_LANE_SIGNALING_RATE_MBPS,
-+			port->max_lane_signaling_rate_mbps)) {
-+		nla_nest_cancel(skb, nest);
-+		return -EMSGSIZE;
-+	}
-+
-+	ret = drm_fabric_fill_peer(skb, port);
-+	if (ret) {
-+		nla_nest_cancel(skb, nest);
-+		return ret;
-+	}
-+
-+	nla_nest_end(skb, nest);
-+	return 0;
-+}
-+
-+static int drm_fabric_fill_port_stats(struct sk_buff *skb,
-+				      struct drm_fabric_port *port,
-+				      struct drm_fabric_port_stats *stats)
-+{
-+	struct nlattr *nest;
-+
-+	nest = nla_nest_start(skb, DRM_FABRIC_A_PORT_STATS);
-+	if (!nest)
-+		return -EMSGSIZE;
-+
-+	if (nla_put_u32(skb, DRM_FABRIC_A_PORT_STATS_ATTRS_ENDPOINT_ID,
-+			port->endpoint->id) ||
-+	    nla_put_u32(skb, DRM_FABRIC_A_PORT_STATS_ATTRS_PORT_INDEX, port->index) ||
-+	    nla_put_u64_64bit(skb, DRM_FABRIC_A_PORT_STATS_ATTRS_READ_BYTES,
-+			      stats->read_bytes, DRM_FABRIC_A_PORT_STATS_ATTRS_PAD) ||
-+	    nla_put_u64_64bit(skb, DRM_FABRIC_A_PORT_STATS_ATTRS_WRITE_BYTES,
-+			      stats->write_bytes, DRM_FABRIC_A_PORT_STATS_ATTRS_PAD) ||
-+	    nla_put_u64_64bit(skb, DRM_FABRIC_A_PORT_STATS_ATTRS_LINK_DOWN_COUNT,
-+			      stats->link_down_count, DRM_FABRIC_A_PORT_STATS_ATTRS_PAD) ||
-+	    nla_put_u64_64bit(skb, DRM_FABRIC_A_PORT_STATS_ATTRS_RETRAIN_COUNT,
-+			      stats->retrain_count, DRM_FABRIC_A_PORT_STATS_ATTRS_PAD)) {
-+		nla_nest_cancel(skb, nest);
-+		return -EMSGSIZE;
-+	}
-+
-+	nla_nest_end(skb, nest);
-+	return 0;
-+}
-+
-+int drm_fabric_nl_fabric_get_doit(struct sk_buff *skb, struct genl_info *info)
-+{
-+	struct drm_fabric *fabric;
-+	struct sk_buff *msg;
-+	u32 fabric_id;
-+	void *hdr;
-+	int ret;
-+
-+	ret = drm_fabric_nl_host_only(genl_info_net(info));
-+	if (ret)
-+		return ret;
-+
-+	if (GENL_REQ_ATTR_CHECK(info, DRM_FABRIC_A_FABRIC_ID))
-+		return -EINVAL;
-+
-+	fabric_id = nla_get_u32(info->attrs[DRM_FABRIC_A_FABRIC_ID]);
-+
-+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	hdr = genlmsg_put(msg, info->snd_portid, info->snd_seq,
-+			  &drm_fabric_nl_family, 0,
-+			  DRM_FABRIC_CMD_FABRIC_GET);
-+	if (!hdr) {
-+		nlmsg_free(msg);
-+		return -EMSGSIZE;
-+	}
-+
-+	scoped_guard(mutex, &drm_fabric_lock) {
-+		fabric = drm_fabric_find_by_id(fabric_id);
-+		if (!fabric) {
-+			nlmsg_free(msg);
-+			return -ENOENT;
-+		}
-+
-+		ret = drm_fabric_fill_fabric(msg, fabric);
-+		if (ret) {
-+			nlmsg_free(msg);
-+			return ret;
-+		}
-+
-+		if (nla_put_u32(msg, DRM_FABRIC_A_TOPOLOGY_GENERATION,
-+				drm_fabric_base_seq)) {
-+			nlmsg_free(msg);
-+			return -EMSGSIZE;
-+		}
-+	}
-+
-+	genlmsg_end(msg, hdr);
-+	return genlmsg_reply(msg, info);
-+}
-+
-+int drm_fabric_nl_fabric_get_dumpit(struct sk_buff *skb,
-+				    struct netlink_callback *cb)
-+{
-+	struct drm_fabric_dump_ctx *ctx = drm_fabric_dump_context(cb);
-+	struct drm_fabric *fabric;
-+	unsigned long fidx;
-+	void *hdr;
-+	int ret;
-+
-+	ret = drm_fabric_nl_host_only(genl_info_net(genl_info_dump(cb)));
-+	if (ret)
-+		return ret;
-+
-+	scoped_guard(mutex, &drm_fabric_lock) {
-+		cb->seq = drm_fabric_base_seq;
-+		xa_for_each_start(&drm_fabric_xa, fidx, fabric, ctx->idx) {
-+			hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid,
-+					  cb->nlh->nlmsg_seq,
-+					  &drm_fabric_nl_family, NLM_F_MULTI,
-+					  DRM_FABRIC_CMD_FABRIC_GET);
-+			if (!hdr) {
-+				ret = -EMSGSIZE;
-+				break;
-+			}
-+			genl_dump_check_consistent(cb, hdr);
-+
-+			if (nla_put_u32(skb, DRM_FABRIC_A_TOPOLOGY_GENERATION,
-+					drm_fabric_base_seq)) {
-+				genlmsg_cancel(skb, hdr);
-+				ret = -EMSGSIZE;
-+				break;
-+			}
-+
-+			ret = drm_fabric_fill_fabric(skb, fabric);
-+			if (ret) {
-+				genlmsg_cancel(skb, hdr);
-+				break;
-+			}
-+
-+			genlmsg_end(skb, hdr);
-+		}
-+	}
-+
-+	if (ret == -EMSGSIZE) {
-+		ctx->idx = fidx;
-+		return skb->len;
-+	}
-+	return ret;
-+}
-+
-+/* Identified by core-assigned id, or by bus + dev name. */
-+static struct drm_fabric_endpoint *
-+drm_fabric_resolve_endpoint(struct genl_info *info)
-+{
-+	struct nlattr **attrs = info->attrs;
-+	const char *devname = NULL;
-+	const char *busname = NULL;
-+	struct drm_fabric_endpoint *ep;
-+
-+	lockdep_assert_held(&drm_fabric_lock);
-+
-+	if (attrs[DRM_FABRIC_A_DEV_NAME])
-+		devname = nla_data(attrs[DRM_FABRIC_A_DEV_NAME]);
-+	if (attrs[DRM_FABRIC_A_BUS_NAME])
-+		busname = nla_data(attrs[DRM_FABRIC_A_BUS_NAME]);
-+
-+	if (attrs[DRM_FABRIC_A_ENDPOINT_ID]) {
-+		u32 ep_id = nla_get_u32(attrs[DRM_FABRIC_A_ENDPOINT_ID]);
-+
-+		ep = drm_fabric_endpoint_find_by_id(ep_id);
-+		if (!ep)
-+			return ERR_PTR(-ENOENT);
-+
-+		if (devname && strcmp(dev_name(ep->parent), devname))
-+			return ERR_PTR(-EINVAL);
-+		if (busname && strcmp(dev_bus_name(ep->parent), busname))
-+			return ERR_PTR(-EINVAL);
-+
-+		return ep;
-+	}
-+
-+	if (!devname)
-+		return ERR_PTR(-EINVAL);
-+
-+	ep = drm_fabric_endpoint_find_by_dev_name(devname, busname);
-+	if (IS_ERR(ep))
-+		return ep;
-+	if (!ep)
-+		return ERR_PTR(-ENOENT);
-+
-+	return ep;
-+}
-+
-+int drm_fabric_nl_endpoint_get_doit(struct sk_buff *skb,
-+				    struct genl_info *info)
-+{
-+	struct drm_fabric_endpoint *ep;
-+	struct sk_buff *msg;
-+	void *hdr;
-+	int ret;
-+
-+	ret = drm_fabric_nl_host_only(genl_info_net(info));
-+	if (ret)
-+		return ret;
-+
-+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	hdr = genlmsg_put(msg, info->snd_portid, info->snd_seq,
-+			  &drm_fabric_nl_family, 0,
-+			  DRM_FABRIC_CMD_ENDPOINT_GET);
-+	if (!hdr) {
-+		nlmsg_free(msg);
-+		return -EMSGSIZE;
-+	}
-+
-+	scoped_guard(mutex, &drm_fabric_lock) {
-+		ep = drm_fabric_resolve_endpoint(info);
-+		if (IS_ERR(ep)) {
-+			nlmsg_free(msg);
-+			return PTR_ERR(ep);
-+		}
-+
-+		ret = drm_fabric_fill_endpoint(msg, ep);
-+		if (ret) {
-+			nlmsg_free(msg);
-+			return ret;
-+		}
-+
-+		if (nla_put_u32(msg, DRM_FABRIC_A_TOPOLOGY_GENERATION,
-+				drm_fabric_base_seq)) {
-+			nlmsg_free(msg);
-+			return -EMSGSIZE;
-+		}
-+	}
-+
-+	genlmsg_end(msg, hdr);
-+	return genlmsg_reply(msg, info);
-+}
-+
-+int drm_fabric_nl_endpoint_get_dumpit(struct sk_buff *skb,
-+				      struct netlink_callback *cb)
-+{
-+	const struct genl_info *info = genl_info_dump(cb);
-+	struct drm_fabric_dump_ctx *ctx = drm_fabric_dump_context(cb);
-+	u32 filter_fabric_id = 0;
-+	bool has_filter = false;
-+	struct drm_fabric_endpoint *ep;
-+	unsigned long eidx;
-+	void *hdr;
-+	int ret;
-+
-+	ret = drm_fabric_nl_host_only(genl_info_net(info));
-+	if (ret)
-+		return ret;
-+
-+	if (info->attrs[DRM_FABRIC_A_FABRIC_ID]) {
-+		filter_fabric_id =
-+			nla_get_u32(info->attrs[DRM_FABRIC_A_FABRIC_ID]);
-+		has_filter = true;
-+	}
-+
-+	scoped_guard(mutex, &drm_fabric_lock) {
-+		cb->seq = drm_fabric_base_seq;
-+		xa_for_each_start(&drm_fabric_ep_xa, eidx, ep, ctx->idx) {
-+			if (has_filter &&
-+			    drm_fabric_endpoint_fabric_id(ep) != filter_fabric_id)
-+				continue;
-+
-+			hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid,
-+					  cb->nlh->nlmsg_seq,
-+					  &drm_fabric_nl_family, NLM_F_MULTI,
-+					  DRM_FABRIC_CMD_ENDPOINT_GET);
-+			if (!hdr) {
-+				ret = -EMSGSIZE;
-+				break;
-+			}
-+			genl_dump_check_consistent(cb, hdr);
-+
-+			if (nla_put_u32(skb, DRM_FABRIC_A_TOPOLOGY_GENERATION,
-+					drm_fabric_base_seq)) {
-+				genlmsg_cancel(skb, hdr);
-+				ret = -EMSGSIZE;
-+				break;
-+			}
-+
-+			ret = drm_fabric_fill_endpoint(skb, ep);
-+			if (ret) {
-+				genlmsg_cancel(skb, hdr);
-+				break;
-+			}
-+
-+			genlmsg_end(skb, hdr);
-+		}
-+	}
-+
-+	if (ret == -EMSGSIZE) {
-+		ctx->idx = eidx;
-+		return skb->len;
-+	}
-+	return ret;
-+}
-+
-+static int drm_fabric_port_key(struct genl_info *info, u32 *ep_id, u32 *port_idx)
-+{
-+	if (GENL_REQ_ATTR_CHECK(info, DRM_FABRIC_A_ENDPOINT_ID) ||
-+	    GENL_REQ_ATTR_CHECK(info, DRM_FABRIC_A_PORT_INDEX))
-+		return -EINVAL;
-+
-+	*ep_id = nla_get_u32(info->attrs[DRM_FABRIC_A_ENDPOINT_ID]);
-+	*port_idx = nla_get_u32(info->attrs[DRM_FABRIC_A_PORT_INDEX]);
-+	return 0;
-+}
-+
-+int drm_fabric_nl_port_get_doit(struct sk_buff *skb,
-+				struct genl_info *info)
-+{
-+	struct drm_fabric_port *port;
-+	struct sk_buff *msg;
-+	u32 ep_id, port_idx;
-+	void *hdr;
-+	int ret;
-+
-+	ret = drm_fabric_nl_host_only(genl_info_net(info));
-+	if (ret)
-+		return ret;
-+
-+	ret = drm_fabric_port_key(info, &ep_id, &port_idx);
-+	if (ret)
-+		return ret;
-+
-+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	hdr = genlmsg_put(msg, info->snd_portid, info->snd_seq,
-+			  &drm_fabric_nl_family, 0,
-+			  DRM_FABRIC_CMD_PORT_GET);
-+	if (!hdr) {
-+		nlmsg_free(msg);
-+		return -EMSGSIZE;
-+	}
-+
-+	scoped_guard(mutex, &drm_fabric_lock) {
-+		port = drm_fabric_port_find(ep_id, port_idx);
-+		if (!port) {
-+			nlmsg_free(msg);
-+			return -ENOENT;
-+		}
-+
-+		ret = drm_fabric_fill_port(msg, port);
-+		if (ret) {
-+			nlmsg_free(msg);
-+			return ret;
-+		}
-+
-+		if (nla_put_u32(msg, DRM_FABRIC_A_TOPOLOGY_GENERATION,
-+				drm_fabric_base_seq)) {
-+			nlmsg_free(msg);
-+			return -EMSGSIZE;
-+		}
-+	}
-+
-+	genlmsg_end(msg, hdr);
-+	return genlmsg_reply(msg, info);
-+}
-+
-+static int
-+drm_fabric_dump_endpoint_ports(struct sk_buff *skb,
-+			       struct netlink_callback *cb,
-+			       struct drm_fabric_endpoint *ep, u8 cmd,
-+			       int (*fill)(struct sk_buff *,
-+					   struct drm_fabric_port *),
-+			       unsigned long *s_port_idx)
-+{
-+	struct drm_fabric_port *port;
-+	unsigned long pidx;
-+	void *hdr;
-+	int ret = 0;
-+
-+	lockdep_assert_held(&drm_fabric_lock);
-+
-+	xa_for_each_start(&ep->ports, pidx, port, *s_port_idx) {
-+		hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid,
-+				  cb->nlh->nlmsg_seq, &drm_fabric_nl_family,
-+				  NLM_F_MULTI, cmd);
-+		if (!hdr) {
-+			ret = -EMSGSIZE;
-+			break;
-+		}
-+		genl_dump_check_consistent(cb, hdr);
-+
-+		/* PORT_STATS_GET replies carry no topology-generation. */
-+		if (cmd == DRM_FABRIC_CMD_PORT_GET &&
-+		    nla_put_u32(skb, DRM_FABRIC_A_TOPOLOGY_GENERATION,
-+				drm_fabric_base_seq)) {
-+			genlmsg_cancel(skb, hdr);
-+			ret = -EMSGSIZE;
-+			break;
-+		}
-+
-+		ret = fill(skb, port);
-+		if (ret) {
-+			genlmsg_cancel(skb, hdr);
-+			break;
-+		}
-+
-+		genlmsg_end(skb, hdr);
-+	}
-+
-+	/* Only a partially emitted endpoint keeps its port cursor. */
-+	*s_port_idx = (ret == -EMSGSIZE) ? pidx : 0;
-+	return ret;
-+}
-+
-+static int drm_fabric_port_dump(struct sk_buff *skb,
-+				struct netlink_callback *cb,
-+				int cmd,
-+				int (*fill)(struct sk_buff *, struct drm_fabric_port *))
-+{
-+	const struct genl_info *info = genl_info_dump(cb);
-+	struct drm_fabric_port_dump_ctx *ctx = drm_fabric_port_dump_context(cb);
-+	u32 filter_ep_id = 0;
-+	bool has_ep_filter = false;
-+	struct drm_fabric_endpoint *ep;
-+	unsigned long eidx;
-+	int ret;
-+
-+	ret = drm_fabric_nl_host_only(genl_info_net(info));
-+	if (ret)
-+		return ret;
-+
-+	if (info->attrs[DRM_FABRIC_A_ENDPOINT_ID]) {
-+		filter_ep_id = nla_get_u32(info->attrs[DRM_FABRIC_A_ENDPOINT_ID]);
-+		has_ep_filter = true;
-+	}
-+
-+	scoped_guard(mutex, &drm_fabric_lock) {
-+		bool first = true;
-+
-+		cb->seq = drm_fabric_base_seq;
-+		xa_for_each_start(&drm_fabric_ep_xa, eidx, ep, ctx->ep_idx) {
-+			/*
-+			 * port_idx belongs to ep_idx; honor it only if
-+			 * that endpoint still resolves.
-+			 */
-+			if (first) {
-+				if (eidx != ctx->ep_idx)
-+					ctx->port_idx = 0;
-+				first = false;
-+			}
-+
-+			if (has_ep_filter && ep->id != filter_ep_id) {
-+				ctx->port_idx = 0;
-+				continue;
-+			}
-+
-+			ret = drm_fabric_dump_endpoint_ports(skb, cb, ep,
-+							     cmd,
-+							     fill,
-+							     &ctx->port_idx);
-+			if (ret)
-+				break;
-+		}
-+	}
-+
-+	if (ret == -EMSGSIZE) {
-+		ctx->ep_idx = eidx;
-+		return skb->len;
-+	}
-+	return ret;
-+}
-+
-+int drm_fabric_nl_port_get_dumpit(struct sk_buff *skb,
-+				  struct netlink_callback *cb)
-+{
-+	return drm_fabric_port_dump(skb, cb, DRM_FABRIC_CMD_PORT_GET,
-+				    drm_fabric_fill_port);
-+}
-+
-+/* Advance the cursor to the next port at or after it, or return NULL. */
-+static struct drm_fabric_port *
-+drm_fabric_stats_dump_next(unsigned long *ep_idx, unsigned long *port_idx,
-+			   bool has_ep_filter, u32 filter_ep_id)
-+{
-+	struct drm_fabric_endpoint *ep;
-+	struct drm_fabric_port *port;
-+	unsigned long eidx;
-+	bool first = true;
-+
-+	lockdep_assert_held(&drm_fabric_lock);
-+
-+	xa_for_each_start(&drm_fabric_ep_xa, eidx, ep, *ep_idx) {
-+		if (first) {
-+			if (eidx != *ep_idx)
-+				*port_idx = 0;
-+			first = false;
-+		}
-+
-+		if (has_ep_filter && ep->id != filter_ep_id) {
-+			*port_idx = 0;
-+			continue;
-+		}
-+
-+		port = xa_find(&ep->ports, port_idx, ULONG_MAX, XA_PRESENT);
-+		if (port) {
-+			*ep_idx = eidx;
-+			return port;
-+		}
-+
-+		*port_idx = 0;
-+	}
-+
-+	/* Mark the endpoint cursor exhausted. */
-+	*ep_idx = ULONG_MAX;
-+	return NULL;
-+}
-+
-+/*
-+ * Port indices are provider-chosen u32s, so port_index may be U32_MAX;
-+ * adding one there would wrap to 0 and re-dump the endpoint forever.
++/**
++ * DOC: fabricsim
++ *
++ * In-kernel synthetic drm_fabric provider for review and CI. It registers a
++ * linear, mesh or switch topology and drives the selftests through debugfs:
++ * synthetic counters, port-state transitions, endpoint hotplug, a bulk
++ * population for dump-resume testing, and fault injection. The debugfs hooks
++ * are not uAPI; userspace observes the resulting state through the Generic
++ * Netlink ABI.
 + */
-+static void
-+drm_fabric_stats_cursor_advance(unsigned long *ep_idx, unsigned long *port_idx,
-+				u32 port_index)
-+{
-+	if (port_index == U32_MAX) {
-+		(*ep_idx)++;
-+		*port_idx = 0;
-+	} else {
-+		*port_idx = port_index + 1;
-+	}
-+}
 +
-+/* Advance past an unsupported port so a resumed dump cannot retry it. */
-+static void
-+drm_fabric_stats_dump_skip(struct sk_buff *skb, void *hdr,
-+			   struct drm_fabric_port_dump_ctx *ctx,
-+			   struct drm_fabric_port *port,
-+			   u32 port_index)
-+{
-+	genlmsg_cancel(skb, hdr);
-+	drm_fabric_port_put(port);
-+	drm_fabric_stats_cursor_advance(&ctx->ep_idx, &ctx->port_idx,
-+					port_index);
-+}
++static char *topology = "mesh";
++module_param(topology, charp, 0444);
++MODULE_PARM_DESC(topology, "Topology shape: linear, mesh, switch (default: mesh)");
 +
-+int drm_fabric_nl_port_stats_get_doit(struct sk_buff *skb,
-+				      struct genl_info *info)
-+{
-+	const struct drm_fabric_ops *ops;
-+	struct drm_fabric_port_stats stats = {};
++static int num_endpoints = 4;
++module_param(num_endpoints, int, 0444);
++MODULE_PARM_DESC(num_endpoints, "Number of endpoints (2-8, default: 4)");
++
++static int ports_per_ep = 4;
++module_param(ports_per_ep, int, 0444);
++MODULE_PARM_DESC(ports_per_ep, "Ports per endpoint (1-16, default: 4)");
++
++struct fabricsim_port_priv {
 +	struct drm_fabric_port *port;
-+	struct sk_buff *msg;
-+	u32 ep_id, port_idx;
-+	void *hdr;
-+	int ret;
 +
-+	ret = drm_fabric_nl_host_only(genl_info_net(info));
-+	if (ret)
-+		return ret;
++	/* Bumped lockless from the timer and debugfs; untorn on 32-bit. */
++	atomic64_t read_bytes;
++	atomic64_t write_bytes;
++	atomic64_t link_down_count;
++	atomic64_t retrain_count;
 +
-+	ret = drm_fabric_port_key(info, &ep_id, &port_idx);
-+	if (ret)
-+		return ret;
++	/* Blocks enable while disable drains a pending timer re-arm. */
++	struct mutex activity_lock;
++	bool activity_enabled;
++	struct timer_list activity_timer;
++	u32 read_rate;		/* bytes per timer tick (FABRICSIM_TICK_MS) */
++	u32 write_rate;		/* bytes per timer tick (FABRICSIM_TICK_MS) */
 +
 +	/*
-+	 * Pins the port through its endpoint across the unlocked provider
-+	 * callback; endpoint_unregister() waits on this pin, so it cannot be
-+	 * freed underneath us.
++	 * Test-only: returns -stats_errno, with values above MAX_ERRNO mapped
++	 * to -EIO.
 +	 */
-+	port = drm_fabric_port_find_get(ep_id, port_idx);
-+	if (IS_ERR(port))
-+		return PTR_ERR(port);
++	u32 stats_errno;
++};
 +
-+	ops = port->endpoint->ops;
-+	if (!ops || !ops->port_stats_get) {
-+		ret = -EOPNOTSUPP;
-+		goto out_put;
++struct fabricsim_ep_priv {
++	struct drm_fabric_endpoint *ep;
++	struct platform_device *pdev;	/* backing device for dev-name/bus-name */
++	struct fabricsim_port_priv *ports;
++	int num_ports;
++	int slot;
++	bool runtime;
++	struct dentry *dbg_dir;
++};
++
++#define FABRICSIM_MAX_EPS 512
++/* Initial generated topology only; runtime hotplug uses FABRICSIM_MAX_EPS. */
++#define FABRICSIM_MAX_INIT_EPS 8
++
++static struct drm_fabric *fabricsim_fabric;
++static struct fabricsim_ep_priv *fabricsim_slots[FABRICSIM_MAX_EPS];
++static int fabricsim_init_eps;
++static bool fabricsim_exiting;		/* gate runtime controls during teardown */
++/*
++ * Nests outside drm_fabric_lock and is never taken from the provider ops or the
++ * debugfs port handlers, so the two cannot invert.
++ */
++static DEFINE_MUTEX(fabricsim_lock);
++static struct dentry *fabricsim_debugfs_root;
++
++/* Test-only fault injection (debugfs). Sticky until cleared. */
++static bool fabricsim_fail_register;
++static u32 fabricsim_fail_errno = ENOMEM;
++
++/*
++ * Negative errno an armed fault returns; zero or an out-of-range value
++ * gives -ENOMEM.
++ */
++static int fabricsim_injected_errno(void)
++{
++	u32 e = fabricsim_fail_errno;
++
++	if (e == 0 || e > MAX_ERRNO)
++		return -ENOMEM;
++	return -(int)e;
++}
++
++static int fabricsim_port_stats_get(struct drm_fabric_port *port,
++				    struct drm_fabric_port_stats *stats)
++{
++	struct fabricsim_ep_priv *ep_priv = port->endpoint->priv;
++	struct fabricsim_port_priv *pp;
++
++	/*
++	 * The endpoint is pinned by the core; missing private state is a
++	 * provider bug.
++	 */
++	if (!ep_priv)
++		return -ENOENT;
++
++	/*
++	 * Port i has index i. Index rather than search for a matching ->port,
++	 * which a dump racing registration would not yet see.
++	 */
++	if (port->index >= (u32)ep_priv->num_ports)
++		return -ENOENT;
++
++	pp = &ep_priv->ports[port->index];
++
++	/* Dumps skip -EOPNOTSUPP; any other injected error aborts the dump. */
++	if (pp->stats_errno) {
++		u32 e = pp->stats_errno;
++
++		return e <= MAX_ERRNO ? -(int)e : -EIO;
 +	}
 +
-+	lockdep_assert_not_held(&drm_fabric_lock);
-+	ret = ops->port_stats_get(port, &stats);
-+	if (ret)
-+		goto out_put;
++	stats->read_bytes = atomic64_read(&pp->read_bytes);
++	stats->write_bytes = atomic64_read(&pp->write_bytes);
++	stats->link_down_count = atomic64_read(&pp->link_down_count);
++	stats->retrain_count = atomic64_read(&pp->retrain_count);
 +
-+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!msg) {
-+		ret = -ENOMEM;
-+		goto out_put;
++	return 0;
++}
++
++static const struct drm_fabric_ops fabricsim_ops = {
++	.port_stats_get		= fabricsim_port_stats_get,
++};
++
++#define FABRICSIM_TICK_MS 100
++
++static void fabricsim_activity_tick(struct timer_list *t)
++{
++	struct fabricsim_port_priv *pp =
++		container_of(t, struct fabricsim_port_priv, activity_timer);
++
++	/*
++	 * Paired with WRITE_ONCE() in the enable/disable path, so a stopped
++	 * timer stays stopped.
++	 */
++	if (!READ_ONCE(pp->activity_enabled))
++		return;
++
++	atomic64_add(READ_ONCE(pp->read_rate), &pp->read_bytes);
++	atomic64_add(READ_ONCE(pp->write_rate), &pp->write_bytes);
++
++	mod_timer(&pp->activity_timer,
++		  jiffies + msecs_to_jiffies(FABRICSIM_TICK_MS));
++}
++
++static ssize_t fabricsim_activity_write(struct file *file,
++					const char __user *buf,
++					size_t count, loff_t *ppos)
++{
++	struct fabricsim_port_priv *pp = file->private_data;
++	char kbuf[8];
++	int val;
++
++	if (count >= sizeof(kbuf))
++		return -EINVAL;
++	if (copy_from_user(kbuf, buf, count))
++		return -EFAULT;
++	kbuf[count] = '\0';
++
++	if (kstrtoint(kbuf, 10, &val))
++		return -EINVAL;
++
++	/*
++	 * Held across the whole transition, or a concurrent enable could re-arm
++	 * mid-drain.
++	 */
++	scoped_guard(mutex, &pp->activity_lock) {
++		if (val && !pp->activity_enabled) {
++			WRITE_ONCE(pp->activity_enabled, true);
++			mod_timer(&pp->activity_timer,
++				  jiffies + msecs_to_jiffies(FABRICSIM_TICK_MS));
++		} else if (!val && pp->activity_enabled) {
++			WRITE_ONCE(pp->activity_enabled, false);
++			/*
++			 * Not timer_shutdown_sync(): a later enable re-arms.
++			 * A tick past the enabled check can re-arm after one
++			 * timer_delete_sync(), so loop until a drain is clean.
++			 */
++			while (timer_delete_sync(&pp->activity_timer))
++				;
++		}
 +	}
 +
-+	hdr = genlmsg_put(msg, info->snd_portid, info->snd_seq,
-+			  &drm_fabric_nl_family, 0,
-+			  DRM_FABRIC_CMD_PORT_STATS_GET);
-+	if (!hdr) {
-+		ret = -EMSGSIZE;
-+		goto out_free;
++	return count;
++}
++
++static ssize_t fabricsim_activity_read(struct file *file,
++				       char __user *buf,
++				       size_t count, loff_t *ppos)
++{
++	struct fabricsim_port_priv *pp = file->private_data;
++	char kbuf[4];
++	int len;
++
++	len = scnprintf(kbuf, sizeof(kbuf), "%d\n",
++			READ_ONCE(pp->activity_enabled) ? 1 : 0);
++	return simple_read_from_buffer(buf, count, ppos, kbuf, len);
++}
++
++/* Per-port debugfs files use fabricsim_port_priv as file->private_data. */
++static const struct file_operations fabricsim_activity_fops = {
++	.owner	= THIS_MODULE,
++	.open	= simple_open,
++	.read	= fabricsim_activity_read,
++	.write	= fabricsim_activity_write,
++};
++
++static ssize_t fabricsim_inject_write(struct file *file,
++				      const char __user *buf,
++				      size_t count, loff_t *ppos)
++{
++	struct fabricsim_port_priv *pp = file->private_data;
++	char kbuf[32];
++
++	if (count >= sizeof(kbuf))
++		return -EINVAL;
++	if (copy_from_user(kbuf, buf, count))
++		return -EFAULT;
++	kbuf[count] = '\0';
++	if (count > 0 && kbuf[count - 1] == '\n')
++		kbuf[count - 1] = '\0';
++
++	if (strcmp(kbuf, "link_down") == 0) {
++		atomic64_inc(&pp->link_down_count);
++		drm_fabric_port_set_oper(pp->port, DRM_FABRIC_PORT_STATE_INACTIVE);
++	} else if (strcmp(kbuf, "degrade") == 0) {
++		drm_fabric_port_set_oper(pp->port, DRM_FABRIC_PORT_STATE_DEGRADED);
++	} else if (strcmp(kbuf, "recover_to_active") == 0) {
++		atomic64_inc(&pp->retrain_count);
++		drm_fabric_port_set_oper(pp->port, DRM_FABRIC_PORT_STATE_ACTIVE);
++	} else {
++		return -EINVAL;
 +	}
 +
-+	ret = drm_fabric_fill_port_stats(msg, port, &stats);
-+	if (ret)
-+		goto out_free;
++	return count;
++}
 +
-+	genlmsg_end(msg, hdr);
-+	drm_fabric_port_put(port);
-+	return genlmsg_reply(msg, info);
++static const struct file_operations fabricsim_inject_fops = {
++	.owner	= THIS_MODULE,
++	.open	= simple_open,
++	.write	= fabricsim_inject_write,
++};
 +
-+out_free:
-+	nlmsg_free(msg);
-+out_put:
-+	drm_fabric_port_put(port);
-+	return ret;
++static ssize_t fabricsim_oper_state_write(struct file *file,
++					  const char __user *buf,
++					  size_t count, loff_t *ppos)
++{
++	struct fabricsim_port_priv *pp = file->private_data;
++	char kbuf[16];
++
++	if (count >= sizeof(kbuf))
++		return -EINVAL;
++	if (copy_from_user(kbuf, buf, count))
++		return -EFAULT;
++	kbuf[count] = '\0';
++	if (count > 0 && kbuf[count - 1] == '\n')
++		kbuf[count - 1] = '\0';
++
++	if (strcmp(kbuf, "unknown") == 0)
++		drm_fabric_port_set_oper(pp->port, DRM_FABRIC_PORT_STATE_UNKNOWN);
++	else if (strcmp(kbuf, "inactive") == 0)
++		drm_fabric_port_set_oper(pp->port, DRM_FABRIC_PORT_STATE_INACTIVE);
++	else if (strcmp(kbuf, "active") == 0)
++		drm_fabric_port_set_oper(pp->port, DRM_FABRIC_PORT_STATE_ACTIVE);
++	else if (strcmp(kbuf, "degraded") == 0)
++		drm_fabric_port_set_oper(pp->port, DRM_FABRIC_PORT_STATE_DEGRADED);
++	else
++		return -EINVAL;
++
++	return count;
++}
++
++static ssize_t fabricsim_oper_state_read(struct file *file,
++					 char __user *buf,
++					 size_t count, loff_t *ppos)
++{
++	struct fabricsim_port_priv *pp = file->private_data;
++	const char *state_str;
++	char kbuf[16];
++	int len;
++
++	switch (pp->port->oper_state) {
++	case DRM_FABRIC_PORT_STATE_INACTIVE:
++		state_str = "inactive";
++		break;
++	case DRM_FABRIC_PORT_STATE_ACTIVE:
++		state_str = "active";
++		break;
++	case DRM_FABRIC_PORT_STATE_DEGRADED:
++		state_str = "degraded";
++		break;
++	default:
++		state_str = "unknown";
++		break;
++	}
++
++	len = scnprintf(kbuf, sizeof(kbuf), "%s\n", state_str);
++	return simple_read_from_buffer(buf, count, ppos, kbuf, len);
++}
++
++static const struct file_operations fabricsim_oper_state_fops = {
++	.owner	= THIS_MODULE,
++	.open	= simple_open,
++	.read	= fabricsim_oper_state_read,
++	.write	= fabricsim_oper_state_write,
++};
++
++static void fabricsim_link_linear(void)
++{
++	int i;
++	int port_cursor[FABRICSIM_MAX_INIT_EPS] = {0};
++	struct drm_fabric_peer peer;
++
++	/* Linear chain: ep[0]<->ep[1]<->ep[2]<->...<->ep[N-1] */
++	for (i = 0; i < fabricsim_init_eps - 1; i++) {
++		int pa_idx = port_cursor[i]++;
++		int pb_idx = port_cursor[i + 1]++;
++		struct drm_fabric_endpoint *ep_a = fabricsim_slots[i]->ep;
++		struct drm_fabric_endpoint *ep_b = fabricsim_slots[i + 1]->ep;
++		struct drm_fabric_port *pa, *pb;
++
++		/*
++		 * Interior nodes consume two ports; stop rather than walk off
++		 * an endpoint's port array if it was sized too small.
++		 */
++		if (pa_idx >= fabricsim_slots[i]->num_ports ||
++		    pb_idx >= fabricsim_slots[i + 1]->num_ports)
++			break;
++
++		pa = fabricsim_slots[i]->ports[pa_idx].port;
++		pb = fabricsim_slots[i + 1]->ports[pb_idx].port;
++
++		/* Peers are directed half-edges, so install both directions. */
++		peer.peer_id = ep_b->fabric_ep_id;
++		peer.peer_type = DRM_FABRIC_PEER_TYPE_ACCEL;
++		peer.port_index = pb->index;
++		drm_fabric_port_set_peer(pa, &peer);
++
++		peer.peer_id = ep_a->fabric_ep_id;
++		peer.peer_type = DRM_FABRIC_PEER_TYPE_ACCEL;
++		peer.port_index = pa->index;
++		drm_fabric_port_set_peer(pb, &peer);
++	}
++}
++
++static void fabricsim_link_mesh(void)
++{
++	int i, j, k, port_idx, peer_port_idx;
++	struct drm_fabric_peer peer;
++
++	/* Fully-connected K_N: port j on ep[i] reaches ep[j], shifted past i. */
++	for (i = 0; i < fabricsim_init_eps; i++) {
++		port_idx = 0;
++		for (j = 0; j < fabricsim_init_eps; j++) {
++			if (i == j)
++				continue;
++
++			if (port_idx >= fabricsim_slots[i]->num_ports)
++				break;
++
++			/*
++			 * On endpoint j, i uses the slot obtained by skipping j
++			 * in endpoint order.
++			 */
++			peer_port_idx = 0;
++			for (k = 0; k < fabricsim_init_eps; k++) {
++				if (k == j)
++					continue;
++				if (k == i)
++					break;
++				peer_port_idx++;
++			}
++
++			peer.peer_id = fabricsim_slots[j]->ep->fabric_ep_id;
++			peer.peer_type = DRM_FABRIC_PEER_TYPE_ACCEL;
++			peer.port_index = peer_port_idx;
++			drm_fabric_port_set_peer(fabricsim_slots[i]->ports[port_idx].port,
++						 &peer);
++
++			port_idx++;
++		}
++	}
 +}
 +
 +/*
-+ * Statistics callbacks may sleep. Pin the endpoint, drop the lock, then
-+ * resample cb->seq so a mutation in that window sets NLM_F_DUMP_INTR.
++ * Opaque switch peer-id, deliberately outside the leaf range (0x100 + slot)
++ * so it never resolves in the endpoint registry.
 + */
-+int drm_fabric_nl_port_stats_get_dumpit(struct sk_buff *skb,
-+					struct netlink_callback *cb)
++#define FABRICSIM_SWITCH_FABRIC_EP_ID 0x5000ULL
++
++static void fabricsim_link_switch(void)
 +{
-+	const struct genl_info *info = genl_info_dump(cb);
-+	struct drm_fabric_port_dump_ctx *ctx = drm_fabric_port_dump_context(cb);
-+	u32 filter_ep_id = 0;
-+	bool has_ep_filter = false;
++	struct drm_fabric_peer peer;
++	int i;
++
++	for (i = 0; i < fabricsim_init_eps; i++) {
++		struct drm_fabric_port *leaf_port =
++			fabricsim_slots[i]->ports[0].port;
++
++		if (!leaf_port)
++			continue;
++
++		/* One directed half-edge from the leaf to an opaque switch. */
++		peer.peer_id = FABRICSIM_SWITCH_FABRIC_EP_ID;
++		peer.peer_type = DRM_FABRIC_PEER_TYPE_SWITCH;
++		peer.port_index = i; /* distinct switch-side port per leaf */
++		drm_fabric_port_set_peer(leaf_port, &peer);
++	}
++}
++
++static void fabricsim_ep_debugfs_create(struct fabricsim_ep_priv *ep_priv)
++{
++	struct dentry *port_dir;
++	char name[32];
++	int j;
++
++	if (IS_ERR_OR_NULL(fabricsim_debugfs_root))
++		return;
++
++	snprintf(name, sizeof(name), "ep%d", ep_priv->slot);
++	ep_priv->dbg_dir = debugfs_create_dir(name, fabricsim_debugfs_root);
++	if (IS_ERR_OR_NULL(ep_priv->dbg_dir)) {
++		ep_priv->dbg_dir = NULL;
++		return;
++	}
++
++	for (j = 0; j < ep_priv->num_ports; j++) {
++		struct fabricsim_port_priv *pp = &ep_priv->ports[j];
++
++		snprintf(name, sizeof(name), "port%d", j);
++		port_dir = debugfs_create_dir(name, ep_priv->dbg_dir);
++
++		debugfs_create_file("activity_enable", 0644,
++				    port_dir, pp, &fabricsim_activity_fops);
++		debugfs_create_file("inject", 0200,
++				    port_dir, pp, &fabricsim_inject_fops);
++		debugfs_create_file("oper_state", 0644,
++				    port_dir, pp, &fabricsim_oper_state_fops);
++		debugfs_create_u32("read_rate", 0644, port_dir, &pp->read_rate);
++		debugfs_create_u32("write_rate", 0644, port_dir, &pp->write_rate);
++		debugfs_create_u32("stats_errno", 0644, port_dir, &pp->stats_errno);
++	}
++}
++
++/*
++ * Create one endpoint at @slot with @nports ports, registered as a member of
++ * the synthetic fabric.  Returns the new ep_priv or an ERR_PTR.  Caller holds
++ * fabricsim_lock.
++ */
++static struct fabricsim_ep_priv *fabricsim_make_ep(int slot, int nports)
++{
++	struct drm_fabric_endpoint_desc edesc = {};
++	struct drm_fabric_port_desc pdescs[16];
++	struct fabricsim_ep_priv *ep_priv;
++	struct platform_device *pdev;
++	char ep_name[32];
++	int j, ret;
++
++	lockdep_assert_held(&fabricsim_lock);
++
++	if (nports < 1)
++		nports = 1;
++	if (nports > 16)
++		nports = 16;
++
++	/* Refuse before any allocation, so there is nothing to roll back. */
++	if (fabricsim_fail_register)
++		return ERR_PTR(fabricsim_injected_errno());
++
++	ep_priv = kzalloc_obj(*ep_priv, GFP_KERNEL);
++	if (!ep_priv)
++		return ERR_PTR(-ENOMEM);
++
++	ep_priv->slot = slot;
++	ep_priv->num_ports = nports;
++
++	pdev = platform_device_register_simple("fabricsim", slot, NULL, 0);
++	if (IS_ERR(pdev)) {
++		ret = PTR_ERR(pdev);
++		goto err_free;
++	}
++	ep_priv->pdev = pdev;
++
++	for (j = 0; j < nports; j++) {
++		pdescs[j].index = j;
++		pdescs[j].max_lane_count = 4;
++		pdescs[j].max_lane_signaling_rate_mbps = 200000; /* 200 Gbps/lane */
++	}
++
++	snprintf(ep_name, sizeof(ep_name), "sim-ep%d", slot);
++	edesc.fabric_ep_id = 0x100 + slot;
++	edesc.name = ep_name;
++	edesc.parent = &pdev->dev;
++	edesc.ops = &fabricsim_ops;
++	edesc.priv = ep_priv;
++	edesc.ports = pdescs;
++	edesc.num_ports = nports;
++
++	/*
++	 * Fill the port array before registering: a racing PORT_STATS_GET can
++	 * hit any port once published.
++	 */
++	ep_priv->ports = kcalloc(nports, sizeof(struct fabricsim_port_priv),
++				 GFP_KERNEL);
++	if (!ep_priv->ports) {
++		ret = -ENOMEM;
++		goto err_pdev;
++	}
++
++	for (j = 0; j < nports; j++) {
++		struct fabricsim_port_priv *pp = &ep_priv->ports[j];
++
++		pp->read_rate = 1024;
++		pp->write_rate = 512;
++		mutex_init(&pp->activity_lock);
++		timer_setup(&pp->activity_timer, fabricsim_activity_tick, 0);
++	}
++
++	ep_priv->ep = drm_fabric_endpoint_register(fabricsim_fabric, &edesc);
++	if (IS_ERR(ep_priv->ep)) {
++		ret = PTR_ERR(ep_priv->ep);
++		goto err_ports;
++	}
++
++	/*
++	 * Fill the simulator port pointers before topology wiring and before
++	 * the debugfs nodes make them externally reachable.
++	 */
++	for (j = 0; j < nports; j++)
++		ep_priv->ports[j].port = drm_fabric_endpoint_port(ep_priv->ep, j);
++
++	fabricsim_ep_debugfs_create(ep_priv);
++
++	return ep_priv;
++
++err_ports:
++	for (j = 0; j < nports; j++)
++		mutex_destroy(&ep_priv->ports[j].activity_lock);
++	kfree(ep_priv->ports);
++err_pdev:
++	platform_device_unregister(ep_priv->pdev);
++err_free:
++	kfree(ep_priv);
++	return ERR_PTR(ret);
++}
++
++/* Peers on other endpoints are left untouched. Caller holds fabricsim_lock. */
++static void fabricsim_destroy_ep(struct fabricsim_ep_priv *ep_priv)
++{
++	int j;
++
++	lockdep_assert_held(&fabricsim_lock);
++
++	debugfs_remove_recursive(ep_priv->dbg_dir);
++
++	for (j = 0; j < ep_priv->num_ports; j++) {
++		struct fabricsim_port_priv *pp = &ep_priv->ports[j];
++
++		/*
++		 * debugfs_remove_recursive() drained writers before the
++		 * activity timer is shut down.
++		 */
++		scoped_guard(mutex, &pp->activity_lock) {
++			WRITE_ONCE(pp->activity_enabled, false);
++			timer_shutdown_sync(&pp->activity_timer);
++		}
++		mutex_destroy(&pp->activity_lock);
++	}
++
++	drm_fabric_endpoint_unregister(ep_priv->ep);
++	kfree(ep_priv->ports);
++	platform_device_unregister(ep_priv->pdev);
++	kfree(ep_priv);
++}
++
++static int fabricsim_add_endpoint(int nports)
++{
++	struct fabricsim_ep_priv *ep_priv;
++	int slot, ret;
++
++	mutex_lock(&fabricsim_lock);
++	if (fabricsim_exiting) {
++		mutex_unlock(&fabricsim_lock);
++		return -ENODEV;
++	}
++
++	for (slot = 0; slot < FABRICSIM_MAX_EPS; slot++)
++		if (!fabricsim_slots[slot])
++			break;
++	if (slot == FABRICSIM_MAX_EPS) {
++		mutex_unlock(&fabricsim_lock);
++		return -ENOSPC;
++	}
++
++	ep_priv = fabricsim_make_ep(slot, nports);
++	if (IS_ERR(ep_priv)) {
++		ret = PTR_ERR(ep_priv);
++		mutex_unlock(&fabricsim_lock);
++		return ret;
++	}
++	ep_priv->runtime = true;
++	fabricsim_slots[slot] = ep_priv;
++	mutex_unlock(&fabricsim_lock);
++
++	return slot;
++}
++
++/* fabricsim_lock stays held across teardown, so the slot remains reserved. */
++static int fabricsim_del_endpoint(int slot)
++{
++	struct fabricsim_ep_priv *ep_priv;
++
++	if (slot < 0 || slot >= FABRICSIM_MAX_EPS)
++		return -EINVAL;
++
++	mutex_lock(&fabricsim_lock);
++	if (fabricsim_exiting) {
++		mutex_unlock(&fabricsim_lock);
++		return -ENODEV;
++	}
++	ep_priv = fabricsim_slots[slot];
++	if (!ep_priv) {
++		mutex_unlock(&fabricsim_lock);
++		return -ENOENT;
++	}
++	fabricsim_destroy_ep(ep_priv);
++	fabricsim_slots[slot] = NULL;
++	mutex_unlock(&fabricsim_lock);
++
++	return 0;
++}
++
++/*
++ * @n single-port member endpoints for the dump-scale selftest: population, not
++ * topology. Returns the count added, or a negative errno only if none were.
++ */
++static int fabricsim_bulk_add(int n)
++{
++	int added = 0;
 +	int ret;
 +
-+	ret = drm_fabric_nl_host_only(genl_info_net(info));
++	if (n <= 0)
++		return -EINVAL;
++
++	while (added < n) {
++		ret = fabricsim_add_endpoint(1);
++		if (ret < 0)
++			return added ? added : ret;
++		added++;
++	}
++	return added;
++}
++
++/*
++ * Ownership comes from ->runtime, not the slot index: slots are reused, so a
++ * runtime endpoint can sit below the init population.
++ */
++static int fabricsim_bulk_del(void)
++{
++	int slot;
++
++	for (slot = 0; slot < FABRICSIM_MAX_EPS; slot++) {
++		mutex_lock(&fabricsim_lock);
++		if (fabricsim_exiting) {
++			mutex_unlock(&fabricsim_lock);
++			return -ENODEV;
++		}
++		if (fabricsim_slots[slot] && fabricsim_slots[slot]->runtime) {
++			fabricsim_destroy_ep(fabricsim_slots[slot]);
++			fabricsim_slots[slot] = NULL;
++		}
++		mutex_unlock(&fabricsim_lock);
++	}
++	return 0;
++}
++
++static int fabricsim_parse_int(const char __user *buf, size_t count, int dflt)
++{
++	char kbuf[16];
++	int val;
++
++	if (count == 0 || count >= sizeof(kbuf))
++		return dflt;
++	if (copy_from_user(kbuf, buf, count))
++		return dflt;
++	kbuf[count] = '\0';
++	if (kstrtoint(strim(kbuf), 10, &val))
++		return dflt;
++	return val;
++}
++
++static ssize_t fabricsim_add_ep_write(struct file *file, const char __user *buf,
++				      size_t count, loff_t *ppos)
++{
++	int nports = fabricsim_parse_int(buf, count, ports_per_ep);
++	int ret = fabricsim_add_endpoint(nports);
++
++	return ret < 0 ? ret : count;
++}
++
++static ssize_t fabricsim_del_ep_write(struct file *file, const char __user *buf,
++				      size_t count, loff_t *ppos)
++{
++	int slot = fabricsim_parse_int(buf, count, -1);
++	int ret = fabricsim_del_endpoint(slot);
++
++	return ret < 0 ? ret : count;
++}
++
++static const struct file_operations fabricsim_add_ep_fops = {
++	.owner	= THIS_MODULE,
++	.write	= fabricsim_add_ep_write,
++};
++
++static const struct file_operations fabricsim_del_ep_fops = {
++	.owner	= THIS_MODULE,
++	.write	= fabricsim_del_ep_write,
++};
++
++static ssize_t fabricsim_bulk_add_write(struct file *file,
++					const char __user *buf,
++					size_t count, loff_t *ppos)
++{
++	int n = fabricsim_parse_int(buf, count, 0);
++	int ret = fabricsim_bulk_add(n);
++
++	return ret < 0 ? ret : count;
++}
++
++static ssize_t fabricsim_bulk_del_write(struct file *file,
++					const char __user *buf,
++					size_t count, loff_t *ppos)
++{
++	int ret = fabricsim_bulk_del();
++
++	return ret < 0 ? ret : count;
++}
++
++static const struct file_operations fabricsim_bulk_add_fops = {
++	.owner	= THIS_MODULE,
++	.write	= fabricsim_bulk_add_write,
++};
++
++static const struct file_operations fabricsim_bulk_del_fops = {
++	.owner	= THIS_MODULE,
++	.write	= fabricsim_bulk_del_write,
++};
++
++static ssize_t fabricsim_fail_errno_write(struct file *file,
++					  const char __user *buf,
++					  size_t count, loff_t *ppos)
++{
++	u32 val;
++	int ret;
++
++	ret = kstrtou32_from_user(buf, count, 0, &val);
++	if (ret)
++		return ret;
++	/* Zero stays the documented "clear to -ENOMEM" sentinel. */
++	if (val > MAX_ERRNO)
++		return -EINVAL;
++	fabricsim_fail_errno = val;
++	return count;
++}
++
++static ssize_t fabricsim_fail_errno_read(struct file *file, char __user *buf,
++					 size_t count, loff_t *ppos)
++{
++	char kbuf[16];
++	int len;
++
++	len = scnprintf(kbuf, sizeof(kbuf), "%u\n", fabricsim_fail_errno);
++	return simple_read_from_buffer(buf, count, ppos, kbuf, len);
++}
++
++static const struct file_operations fabricsim_fail_errno_fops = {
++	.owner	= THIS_MODULE,
++	.open	= simple_open,
++	.read	= fabricsim_fail_errno_read,
++	.write	= fabricsim_fail_errno_write,
++};
++
++/*
++ * Validate and derive the module parameters before anything is registered.
++ * This runs before allocation, so it needs no unwind path.
++ */
++static int __init fabricsim_setup_params(void)
++{
++	/*
++	 * Reject an unrecognised topology rather than falling back to mesh, so
++	 * a typo cannot fake a shape.
++	 */
++	if (strcmp(topology, "mesh") && strcmp(topology, "linear") &&
++	    strcmp(topology, "switch")) {
++		pr_err("fabricsim: unknown topology \"%s\" (use mesh, linear or switch)\n",
++		       topology);
++		return -EINVAL;
++	}
++
++	if (num_endpoints < 2)
++		num_endpoints = 2;
++	if (num_endpoints > FABRICSIM_MAX_INIT_EPS)
++		num_endpoints = FABRICSIM_MAX_INIT_EPS;
++	if (ports_per_ep < 1)
++		ports_per_ep = 1;
++	if (ports_per_ep > 16)
++		ports_per_ep = 16;
++
++	/*
++	 * A mesh gives every endpoint (N-1) peers, so the busiest endpoint needs
++	 * at least (N-1) ports. The switch shape only needs one port per leaf
++	 * (a single half-edge to the opaque switch), so it is not bumped here.
++	 */
++	if (strcmp(topology, "mesh") == 0 && ports_per_ep < num_endpoints - 1)
++		ports_per_ep = num_endpoints - 1;
++
++	/*
++	 * A linear chain gives every interior node two neighbours, so it needs
++	 * at least two ports; bump a too-small request rather than index past
++	 * the endpoint's port array.
++	 */
++	if (strcmp(topology, "linear") == 0 && num_endpoints > 2 &&
++	    ports_per_ep < 2)
++		ports_per_ep = 2;
++
++	fabricsim_init_eps = num_endpoints;
++
++	return 0;
++}
++
++static int __init fabricsim_init(void)
++{
++	struct drm_fabric_desc fdesc;
++	int i, j, ret;
++
++	ret = fabricsim_setup_params();
 +	if (ret)
 +		return ret;
 +
-+	if (info->attrs[DRM_FABRIC_A_ENDPOINT_ID]) {
-+		filter_ep_id = nla_get_u32(info->attrs[DRM_FABRIC_A_ENDPOINT_ID]);
-+		has_ep_filter = true;
++	fdesc.type = DRM_FABRIC_TYPE_SYNTHETIC;
++	fdesc.name = "fabricsim";
++	fdesc.instance_id = 0x8086CAFE;
++
++	fabricsim_fabric = drm_fabric_register(&fdesc);
++	if (IS_ERR(fabricsim_fabric))
++		return PTR_ERR(fabricsim_fabric);
++
++	/* Root must exist before the per-endpoint debugfs subtrees. */
++	fabricsim_debugfs_root = debugfs_create_dir("drm_fabric_sim", NULL);
++	if (IS_ERR(fabricsim_debugfs_root))
++		fabricsim_debugfs_root = NULL;
++
++	mutex_lock(&fabricsim_lock);
++	for (i = 0; i < fabricsim_init_eps; i++) {
++		struct fabricsim_ep_priv *ep_priv =
++			fabricsim_make_ep(i, ports_per_ep);
++
++		if (IS_ERR(ep_priv)) {
++			ret = PTR_ERR(ep_priv);
++			mutex_unlock(&fabricsim_lock);
++			goto err_eps;
++		}
++		fabricsim_slots[i] = ep_priv;
++	}
++	mutex_unlock(&fabricsim_lock);
++
++	if (strcmp(topology, "linear") == 0)
++		fabricsim_link_linear();
++	else if (strcmp(topology, "switch") == 0)
++		fabricsim_link_switch();
++	else
++		fabricsim_link_mesh();
++
++	/* A linked port starts ACTIVE; an unlinked one stays as registered. */
++	for (i = 0; i < fabricsim_init_eps; i++) {
++		for (j = 0; j < fabricsim_slots[i]->num_ports; j++) {
++			struct fabricsim_port_priv *pp = &fabricsim_slots[i]->ports[j];
++
++			if (pp->port && pp->port->has_peer)
++				drm_fabric_port_set_oper(pp->port,
++							 DRM_FABRIC_PORT_STATE_ACTIVE);
++		}
 +	}
 +
-+	for (;;) {
-+		const struct drm_fabric_ops *ops;
-+		struct drm_fabric_port_stats stats = {};
-+		struct drm_fabric_endpoint *ep;
-+		struct drm_fabric_port *port;
-+		u32 port_index;
-+		void *hdr;
++	/* Root-level runtime lifecycle controls (test-only, not uAPI). */
++	if (fabricsim_debugfs_root) {
++		debugfs_create_file("add_endpoint", 0200, fabricsim_debugfs_root,
++				    NULL, &fabricsim_add_ep_fops);
++		debugfs_create_file("del_endpoint", 0200, fabricsim_debugfs_root,
++				    NULL, &fabricsim_del_ep_fops);
 +
-+		scoped_guard(mutex, &drm_fabric_lock) {
-+			/*
-+			 * Sampled before the cursor check so even a batch
-+			 * that emits nothing can report a late mutation.
-+			 */
-+			cb->seq = drm_fabric_base_seq;
++		debugfs_create_file("bulk_add", 0200, fabricsim_debugfs_root,
++				    NULL, &fabricsim_bulk_add_fops);
++		debugfs_create_file("bulk_del", 0200, fabricsim_debugfs_root,
++				    NULL, &fabricsim_bulk_del_fops);
 +
-+			port = drm_fabric_stats_dump_next(&ctx->ep_idx,
-+							  &ctx->port_idx,
-+							  has_ep_filter,
-+							  filter_ep_id);
-+			/*
-+			 * Exhausted: 0 terminates the dump with NLMSG_DONE
-+			 * instead of re-running the parked cursor.
-+			 */
-+			if (!port)
-+				return 0;
-+
-+			ep = port->endpoint;
-+			ops = ep->ops;
-+			port_index = port->index;
-+			drm_fabric_endpoint_get(ep);
-+		}
-+
-+		/* Reserve the reply before invoking the sleeping provider callback. */
-+		hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid,
-+				  cb->nlh->nlmsg_seq, &drm_fabric_nl_family,
-+				  NLM_F_MULTI, DRM_FABRIC_CMD_PORT_STATS_GET);
-+		if (!hdr) {
-+			drm_fabric_port_put(port);
-+			return skb->len;
-+		}
-+
-+		if (!ops || !ops->port_stats_get) {
-+			drm_fabric_stats_dump_skip(skb, hdr, ctx, port, port_index);
-+			continue;
-+		}
-+
-+		lockdep_assert_not_held(&drm_fabric_lock);
-+		ret = ops->port_stats_get(port, &stats);
-+		if (ret == -EOPNOTSUPP) {
-+			drm_fabric_stats_dump_skip(skb, hdr, ctx, port, port_index);
-+			continue;
-+		}
-+		if (ret) {
-+			genlmsg_cancel(skb, hdr);
-+			drm_fabric_port_put(port);
-+			break;
-+		}
-+
-+		genl_dump_check_consistent(cb, hdr);
-+
-+		if (drm_fabric_fill_port_stats(skb, port, &stats)) {
-+			genlmsg_cancel(skb, hdr);
-+			drm_fabric_port_put(port);
-+			return skb->len;
-+		}
-+
-+		genlmsg_end(skb, hdr);
-+		drm_fabric_port_put(port);
-+
-+		drm_fabric_stats_cursor_advance(&ctx->ep_idx, &ctx->port_idx,
-+						port_index);
++		debugfs_create_bool("fail_register", 0644,
++				    fabricsim_debugfs_root,
++				    &fabricsim_fail_register);
++		debugfs_create_file("fail_errno", 0644,
++				    fabricsim_debugfs_root,
++				    NULL, &fabricsim_fail_errno_fops);
 +	}
 +
++	pr_info("fabricsim: registered %s topology with %d endpoints, %d ports/ep\n",
++		topology, fabricsim_init_eps, ports_per_ep);
++
++	return 0;
++
++err_eps:
++	mutex_lock(&fabricsim_lock);
++	for (i = FABRICSIM_MAX_EPS - 1; i >= 0; i--) {
++		if (fabricsim_slots[i]) {
++			fabricsim_destroy_ep(fabricsim_slots[i]);
++			fabricsim_slots[i] = NULL;
++		}
++	}
++	mutex_unlock(&fabricsim_lock);
++	debugfs_remove_recursive(fabricsim_debugfs_root);
++	WARN_ON(drm_fabric_unregister(fabricsim_fabric));
 +	return ret;
 +}
 +
-+void drm_fabric_emit_port_change(struct drm_fabric_port *port, u32 generation)
++static void __exit fabricsim_exit(void)
 +{
-+	struct sk_buff *msg;
-+	void *hdr;
++	int i;
 +
-+	lockdep_assert_held(&drm_fabric_lock);
-+
-+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!msg)
-+		return;
-+
-+	hdr = genlmsg_put(msg, 0, 0, &drm_fabric_nl_family, 0, DRM_FABRIC_CMD_PORT_CHANGE_NTF);
-+	if (!hdr) {
-+		nlmsg_free(msg);
-+		return;
++	/*
++	 * fabricsim_exiting gates add/del first and the root subtree is removed
++	 * last, so no handler can race this teardown.
++	 */
++	mutex_lock(&fabricsim_lock);
++	fabricsim_exiting = true;
++	for (i = FABRICSIM_MAX_EPS - 1; i >= 0; i--) {
++		if (fabricsim_slots[i]) {
++			fabricsim_destroy_ep(fabricsim_slots[i]);
++			fabricsim_slots[i] = NULL;
++		}
 +	}
++	mutex_unlock(&fabricsim_lock);
 +
-+	if (nla_put_u32(msg, DRM_FABRIC_A_TOPOLOGY_GENERATION, generation) ||
-+	    drm_fabric_fill_port(msg, port)) {
-+		nlmsg_free(msg);
-+		return;
-+	}
++	debugfs_remove_recursive(fabricsim_debugfs_root);
++	WARN_ON(drm_fabric_unregister(fabricsim_fabric));
 +
-+	genlmsg_end(msg, hdr);
-+	genlmsg_multicast(&drm_fabric_nl_family, msg, 0,
-+			  DRM_FABRIC_NLGRP_MONITOR, GFP_KERNEL);
++	pr_info("fabricsim: unloaded\n");
 +}
 +
-+static void drm_fabric_port_peer_event_send(enum drm_fabric_cmd cmd,
-+					    struct drm_fabric_port *port,
-+					    const struct drm_fabric_peer *peer,
-+					    u32 generation)
-+{
-+	struct sk_buff *msg;
-+	void *hdr;
-+	struct nlattr *nest;
++module_init(fabricsim_init);
++module_exit(fabricsim_exit);
 +
-+	lockdep_assert_held(&drm_fabric_lock);
-+
-+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!msg)
-+		return;
-+
-+	hdr = genlmsg_put(msg, 0, 0, &drm_fabric_nl_family, 0, cmd);
-+	if (!hdr) {
-+		nlmsg_free(msg);
-+		return;
-+	}
-+
-+	if (nla_put_u32(msg, DRM_FABRIC_A_TOPOLOGY_GENERATION, generation) ||
-+	    nla_put_u32(msg, DRM_FABRIC_A_ENDPOINT_ID, port->endpoint->id) ||
-+	    nla_put_u32(msg, DRM_FABRIC_A_PORT_INDEX, port->index)) {
-+		nlmsg_free(msg);
-+		return;
-+	}
-+
-+	nest = nla_nest_start(msg, DRM_FABRIC_A_PEER);
-+	if (!nest) {
-+		nlmsg_free(msg);
-+		return;
-+	}
-+
-+	if (nla_put_u64_64bit(msg, DRM_FABRIC_A_PEER_ATTRS_PEER_ID,
-+			      peer->peer_id, DRM_FABRIC_A_PEER_ATTRS_PAD) ||
-+	    nla_put_u32(msg, DRM_FABRIC_A_PEER_ATTRS_TYPE, peer->peer_type) ||
-+	    nla_put_u32(msg, DRM_FABRIC_A_PEER_ATTRS_PORT_INDEX, peer->port_index)) {
-+		nla_nest_cancel(msg, nest);
-+		nlmsg_free(msg);
-+		return;
-+	}
-+
-+	nla_nest_end(msg, nest);
-+
-+	genlmsg_end(msg, hdr);
-+	genlmsg_multicast(&drm_fabric_nl_family, msg, 0,
-+			  DRM_FABRIC_NLGRP_MONITOR, GFP_KERNEL);
-+}
-+
-+void drm_fabric_emit_port_peer_create(struct drm_fabric_port *port,
-+				   const struct drm_fabric_peer *peer,
-+				   u32 generation)
-+{
-+	drm_fabric_port_peer_event_send(DRM_FABRIC_CMD_PORT_PEER_CREATE_NTF,
-+					port, peer, generation);
-+}
-+
-+void drm_fabric_emit_port_peer_delete(struct drm_fabric_port *port,
-+				   const struct drm_fabric_peer *peer,
-+				   u32 generation)
-+{
-+	drm_fabric_port_peer_event_send(DRM_FABRIC_CMD_PORT_PEER_DELETE_NTF,
-+					port, peer, generation);
-+}
-+
-+static void drm_fabric_endpoint_event_send(enum drm_fabric_cmd cmd,
-+					   struct drm_fabric_endpoint *ep,
-+					   u32 generation)
-+{
-+	struct sk_buff *msg;
-+	void *hdr;
-+
-+	lockdep_assert_held(&drm_fabric_lock);
-+
-+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!msg)
-+		return;
-+
-+	hdr = genlmsg_put(msg, 0, 0, &drm_fabric_nl_family, 0, cmd);
-+	if (!hdr) {
-+		nlmsg_free(msg);
-+		return;
-+	}
-+
-+	if (nla_put_u32(msg, DRM_FABRIC_A_TOPOLOGY_GENERATION, generation) ||
-+	    drm_fabric_fill_endpoint(msg, ep)) {
-+		nlmsg_free(msg);
-+		return;
-+	}
-+
-+	genlmsg_end(msg, hdr);
-+	genlmsg_multicast(&drm_fabric_nl_family, msg, 0,
-+			  DRM_FABRIC_NLGRP_MONITOR, GFP_KERNEL);
-+}
-+
-+void drm_fabric_emit_endpoint_create(struct drm_fabric_endpoint *ep, u32 generation)
-+{
-+	drm_fabric_endpoint_event_send(DRM_FABRIC_CMD_ENDPOINT_CREATE_NTF, ep,
-+				       generation);
-+}
-+
-+void drm_fabric_emit_endpoint_delete(struct drm_fabric_endpoint *ep, u32 generation)
-+{
-+	drm_fabric_endpoint_event_send(DRM_FABRIC_CMD_ENDPOINT_DELETE_NTF, ep,
-+				       generation);
-+}
-+
-+static void drm_fabric_fabric_event_send(enum drm_fabric_cmd cmd,
-+					 struct drm_fabric *fabric,
-+					 u32 generation)
-+{
-+	struct sk_buff *msg;
-+	void *hdr;
-+
-+	lockdep_assert_held(&drm_fabric_lock);
-+
-+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-+	if (!msg)
-+		return;
-+
-+	hdr = genlmsg_put(msg, 0, 0, &drm_fabric_nl_family, 0, cmd);
-+	if (!hdr) {
-+		nlmsg_free(msg);
-+		return;
-+	}
-+
-+	if (nla_put_u32(msg, DRM_FABRIC_A_TOPOLOGY_GENERATION, generation) ||
-+	    drm_fabric_fill_fabric(msg, fabric)) {
-+		nlmsg_free(msg);
-+		return;
-+	}
-+
-+	genlmsg_end(msg, hdr);
-+	genlmsg_multicast(&drm_fabric_nl_family, msg, 0,
-+			  DRM_FABRIC_NLGRP_MONITOR, GFP_KERNEL);
-+}
-+
-+void drm_fabric_emit_fabric_create(struct drm_fabric *fabric, u32 generation)
-+{
-+	drm_fabric_fabric_event_send(DRM_FABRIC_CMD_FABRIC_CREATE_NTF, fabric,
-+				     generation);
-+}
-+
-+void drm_fabric_emit_fabric_delete(struct drm_fabric *fabric, u32 generation)
-+{
-+	drm_fabric_fabric_event_send(DRM_FABRIC_CMD_FABRIC_DELETE_NTF, fabric,
-+				     generation);
-+}
-+
-+int drm_fabric_netlink_register(void)
-+{
-+	return genl_register_family(&drm_fabric_nl_family);
-+}
-+
-+void drm_fabric_netlink_unregister(void)
-+{
-+	genl_unregister_family(&drm_fabric_nl_family);
-+}
-diff --git a/drivers/gpu/drm/fabric/drm_fabric_nl.c b/drivers/gpu/drm/fabric/drm_fabric_nl.c
-new file mode 100644
-index 000000000000..032548405146
---- /dev/null
-+++ b/drivers/gpu/drm/fabric/drm_fabric_nl.c
-@@ -0,0 +1,125 @@
-+// SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+/* Do not edit directly, auto-generated from: */
-+/*	Documentation/netlink/specs/drm_fabric.yaml */
-+/* YNL-GEN kernel source */
-+/* To regenerate run: tools/net/ynl/ynl-regen.sh */
-+
-+#include <net/netlink.h>
-+#include <net/genetlink.h>
-+
-+#include "drm_fabric_nl.h"
-+
-+#include <uapi/drm/drm_fabric.h>
-+
-+/* DRM_FABRIC_CMD_FABRIC_GET - do */
-+static const struct nla_policy drm_fabric_fabric_get_nl_policy[DRM_FABRIC_A_FABRIC_ID + 1] = {
-+	[DRM_FABRIC_A_FABRIC_ID] = { .type = NLA_U32, },
-+};
-+
-+/* DRM_FABRIC_CMD_ENDPOINT_GET - do */
-+static const struct nla_policy drm_fabric_endpoint_get_do_nl_policy[DRM_FABRIC_A_BUS_NAME + 1] = {
-+	[DRM_FABRIC_A_ENDPOINT_ID] = { .type = NLA_U32, },
-+	[DRM_FABRIC_A_DEV_NAME] = { .type = NLA_NUL_STRING, },
-+	[DRM_FABRIC_A_BUS_NAME] = { .type = NLA_NUL_STRING, },
-+};
-+
-+/* DRM_FABRIC_CMD_ENDPOINT_GET - dump */
-+static const struct nla_policy drm_fabric_endpoint_get_dump_nl_policy[DRM_FABRIC_A_FABRIC_ID + 1] = {
-+	[DRM_FABRIC_A_FABRIC_ID] = { .type = NLA_U32, },
-+};
-+
-+/* DRM_FABRIC_CMD_PORT_GET - do */
-+static const struct nla_policy drm_fabric_port_get_do_nl_policy[DRM_FABRIC_A_PORT_INDEX + 1] = {
-+	[DRM_FABRIC_A_ENDPOINT_ID] = { .type = NLA_U32, },
-+	[DRM_FABRIC_A_PORT_INDEX] = { .type = NLA_U32, },
-+};
-+
-+/* DRM_FABRIC_CMD_PORT_GET - dump */
-+static const struct nla_policy drm_fabric_port_get_dump_nl_policy[DRM_FABRIC_A_ENDPOINT_ID + 1] = {
-+	[DRM_FABRIC_A_ENDPOINT_ID] = { .type = NLA_U32, },
-+};
-+
-+/* DRM_FABRIC_CMD_PORT_STATS_GET - do */
-+static const struct nla_policy drm_fabric_port_stats_get_do_nl_policy[DRM_FABRIC_A_PORT_INDEX + 1] = {
-+	[DRM_FABRIC_A_ENDPOINT_ID] = { .type = NLA_U32, },
-+	[DRM_FABRIC_A_PORT_INDEX] = { .type = NLA_U32, },
-+};
-+
-+/* DRM_FABRIC_CMD_PORT_STATS_GET - dump */
-+static const struct nla_policy drm_fabric_port_stats_get_dump_nl_policy[DRM_FABRIC_A_ENDPOINT_ID + 1] = {
-+	[DRM_FABRIC_A_ENDPOINT_ID] = { .type = NLA_U32, },
-+};
-+
-+/* Ops table for drm_fabric */
-+static const struct genl_split_ops drm_fabric_nl_ops[] = {
-+	{
-+		.cmd		= DRM_FABRIC_CMD_FABRIC_GET,
-+		.doit		= drm_fabric_nl_fabric_get_doit,
-+		.policy		= drm_fabric_fabric_get_nl_policy,
-+		.maxattr	= DRM_FABRIC_A_FABRIC_ID,
-+		.flags		= GENL_CMD_CAP_DO,
-+	},
-+	{
-+		.cmd	= DRM_FABRIC_CMD_FABRIC_GET,
-+		.dumpit	= drm_fabric_nl_fabric_get_dumpit,
-+		.flags	= GENL_CMD_CAP_DUMP,
-+	},
-+	{
-+		.cmd		= DRM_FABRIC_CMD_ENDPOINT_GET,
-+		.doit		= drm_fabric_nl_endpoint_get_doit,
-+		.policy		= drm_fabric_endpoint_get_do_nl_policy,
-+		.maxattr	= DRM_FABRIC_A_BUS_NAME,
-+		.flags		= GENL_CMD_CAP_DO,
-+	},
-+	{
-+		.cmd		= DRM_FABRIC_CMD_ENDPOINT_GET,
-+		.dumpit		= drm_fabric_nl_endpoint_get_dumpit,
-+		.policy		= drm_fabric_endpoint_get_dump_nl_policy,
-+		.maxattr	= DRM_FABRIC_A_FABRIC_ID,
-+		.flags		= GENL_CMD_CAP_DUMP,
-+	},
-+	{
-+		.cmd		= DRM_FABRIC_CMD_PORT_GET,
-+		.doit		= drm_fabric_nl_port_get_doit,
-+		.policy		= drm_fabric_port_get_do_nl_policy,
-+		.maxattr	= DRM_FABRIC_A_PORT_INDEX,
-+		.flags		= GENL_CMD_CAP_DO,
-+	},
-+	{
-+		.cmd		= DRM_FABRIC_CMD_PORT_GET,
-+		.dumpit		= drm_fabric_nl_port_get_dumpit,
-+		.policy		= drm_fabric_port_get_dump_nl_policy,
-+		.maxattr	= DRM_FABRIC_A_ENDPOINT_ID,
-+		.flags		= GENL_CMD_CAP_DUMP,
-+	},
-+	{
-+		.cmd		= DRM_FABRIC_CMD_PORT_STATS_GET,
-+		.doit		= drm_fabric_nl_port_stats_get_doit,
-+		.policy		= drm_fabric_port_stats_get_do_nl_policy,
-+		.maxattr	= DRM_FABRIC_A_PORT_INDEX,
-+		.flags		= GENL_CMD_CAP_DO,
-+	},
-+	{
-+		.cmd		= DRM_FABRIC_CMD_PORT_STATS_GET,
-+		.dumpit		= drm_fabric_nl_port_stats_get_dumpit,
-+		.policy		= drm_fabric_port_stats_get_dump_nl_policy,
-+		.maxattr	= DRM_FABRIC_A_ENDPOINT_ID,
-+		.flags		= GENL_CMD_CAP_DUMP,
-+	},
-+};
-+
-+static const struct genl_multicast_group drm_fabric_nl_mcgrps[] = {
-+	[DRM_FABRIC_NLGRP_MONITOR] = { "monitor", },
-+};
-+
-+struct genl_family drm_fabric_nl_family __ro_after_init = {
-+	.name		= DRM_FABRIC_FAMILY_NAME,
-+	.version	= DRM_FABRIC_FAMILY_VERSION,
-+	.netnsok	= true,
-+	.parallel_ops	= true,
-+	.module		= THIS_MODULE,
-+	.split_ops	= drm_fabric_nl_ops,
-+	.n_split_ops	= ARRAY_SIZE(drm_fabric_nl_ops),
-+	.mcgrps		= drm_fabric_nl_mcgrps,
-+	.n_mcgrps	= ARRAY_SIZE(drm_fabric_nl_mcgrps),
-+};
++MODULE_AUTHOR("Intel Corporation");
++MODULE_AUTHOR("Konstantin Sinyuk <ksinyuk@kernel.org>");
++MODULE_DESCRIPTION("DRM Fabric fabricsim synthetic driver");
++MODULE_LICENSE("Dual MIT/GPL");
 -- 
 2.43.0
 
