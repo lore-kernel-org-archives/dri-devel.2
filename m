@@ -4,82 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 333B6C61DB9
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94A8BC61DBE
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D75310EA93;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24D9910EA96;
 	Tue, 25 Aug 2026 14:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VHO9OZuW";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=freenet.de header.i=@freenet.de header.b="oTEu54tt";
 	dkim-atps=neutral
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 616A010E7C5
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 14:08:07 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-836cde02992so42326717b3.2
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 07:08:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787580486; x=1788185286; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=HjcuIYMPT9C9kbhn3WnVAyI2bGT3SrHgj0fSx/Nh5HI=;
- b=VHO9OZuWqYIXnyU4b/ZK1eqETqvJT8O3eLLzK1ly1lougdh4xbvB3UForgwjCaPQus
- NsWHp78u8IvMmliLrEO6zkBfIEg4fXw5GeHgg8c6nK9g8QCf82/msA7x6nEkFUDC9X0B
- ygg0OjJq8GAoVMctUrvsZHukWsNEiQpJJaNnyBg1w1td8fLgBI3HLmMMqwx2z0Kv3su7
- 6fOPFJIqPHvhmclyjhfVgCeaaCmNoQ7xkSpW2OKqTd4H2o1EhwARGUm/OpnJWN0qZSpz
- s4nq/4D455t5zBlBbj+5IabhiiGcXni8OHEiYjIRFXE9qekAmFaEGIBbvPLkqSGbNuKE
- WC/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787580486; x=1788185286;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HjcuIYMPT9C9kbhn3WnVAyI2bGT3SrHgj0fSx/Nh5HI=;
- b=W4MxMsNGtfForYqOUxMYWgtINw5duP8GEpmJP7YXnIVaKJvXGYY6ixc6mS8q+pzVZL
- 59upqX3SOrCJeOiQWwpszJRiXLr0b5fpNIkti/6fg2ToVtUkaBT/Edhlhzk8HQBuKoNp
- 4gdMT/gjgBNLboyaI846SIn2MHIqfbh67z+o+G1LUjXlG5wybgCc90BLTl8NYzIRnP50
- k3egKqwXcFvRxy1QFzw1M+JS4/jQS+7f7gmNLtnBAnrbdW5Af2tawPEzhNHDUPtNfM3R
- dd9LWmJBsC7M/JvWoNm3Bu3XwKr6OAmoNlgZ3HHWHjfSDpqZVLHSBJfvvsOU+Z6JKdtU
- iT8A==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro5iq+Xa9y5nGd4iMsDLqBZq8QPWhImPYDs/int4EpsQQJJXNRbg9/eRp7DN6i/V47bMHNGicInaBY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nNfySMuAF8J9XkPFGvLOIzhHZevayWt4iiM7CaH0FKq1Yml145
- tnWPY28tZUJMLhPv2yRyjtfNR83foHrTU4P2MgT0B0697DI3L2BVoolr
-X-Gm-Gg: AR+sD10y78wZXQoBLt9W7Ii0zCMyhPYKgw8qF2+zvauqqAjQSZz19t0AEqvueXYMrVz
- bHS8Z0/FvqbzW7LgR2qukFBtzcmjSpH8y3Mj6cRxiCG+xgf+D7ZXakD6KMoX4BdC5myuzbdovkP
- bmuQ2qutlwmrvZPT08dmUPHDZcojT0HzHdPOJlqZlhGuz+ROW6+ea3+jX4GmlngRqRNoqmQ5t/8
- 9Q5UgX3zJJV0+OHXtiVno4jHfIPnYJGAfZMTubKNb3BROgvNSZEzaT9UFU+9Q6MvgmnWL3N11Hk
- ezbst12a5B8bhss8pdH0we5q4yTZZRz2XuySh6cAmpZQMTMMtWv1SnYNRNdN5imzej+mvHaW6ny
- AQoS6usJONiqLrzKp70VTWZ35fttWUNzZBPQ3kscX/6vNihJ39PsMxBwKDF8xaFvBpS4KtHsoGt
- 3Aafjuf1ax1rPo2NJKs9qFLX58jQxxbfyyTaavtueh15lI3fa9oBjcWTlHCBSrTUXpNjWMLudpl
- 4rJpfPrDY6ifWz4AfUcdZWOFGTUVL8b1djiJE0=
-X-Received: by 2002:a05:690c:e15c:20b0:81e:45a6:bd5a with SMTP id
- 00721157ae682-849ebd3ae8emr69438287b3.0.1787580486277; 
- Mon, 24 Aug 2026 07:08:06 -0700 (PDT)
-Received: from lord ([170.246.211.189]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-853ff053a84sm3326337b3.4.2026.08.24.07.08.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2026 07:08:05 -0700 (PDT)
-From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
- stuart.summers@intel.com, julia.filipchuk@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- navonjohnlukose@gmail.com, dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-Subject: [PATCH v3 2/3] drm/xe: Log when a timed out TLB invalidation ack
- finally arrives
-Date: Mon, 24 Aug 2026 11:07:47 -0300
-Message-ID: <20260824140748.54974-3-talesam@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824140748.54974-1-talesam@gmail.com>
-References: <20260824140748.54974-1-talesam@gmail.com>
+X-Greylist: delayed 310 seconds by postgrey-1.36 at gabe;
+ Mon, 24 Aug 2026 21:08:22 UTC
+Received: from mout.freenet.de (mout.freenet.de [194.97.196.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAFB10E855;
+ Mon, 24 Aug 2026 21:08:22 +0000 (UTC)
+Received: from [2001:748:400:3319::3] (helo=sub3.mail.fnrz.de)
+ by mout1.mail.fnrz.de with esmtpa (ID viktor.jaegerskuepper@freenet.de) (port
+ 25) (Exim 4.98.2 #2) id 1wybon-000000095oD-1h3T;
+ Mon, 24 Aug 2026 23:02:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=freenet.de; 
+ s=mjaymdexmjqk;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=viTPtO4EzFiMbsW2bbZg0sPvHVefray1jcgiCguHwrA=; b=oTEu54ttXK8IrZCtWS7mimDlXk
+ JFwSo2pza2oY1viKOIwL4NM0b7cQJztPha4E56Bd6JEA1QHdNFmiZuu/otApkLuMks+/i93SiU99V
+ 7mE1uPMma8itg4EE04bVlt/kGkAsPO5QFX/Rh+ri7Wyt24A5yzQNYYEl7Elc7tsFUkz3szZEnnjhH
+ boB34UkxZNU8uToWBEZIPwKtKaYlmZAG3lj1leIkc7WOa8G9wz5KBgR7fpCWojr5xsFZX/0j91h7e
+ nB0bCteGJ5grRsczF9a6Zi1Ht3sBjIHdqfP1bMTFfMkjYGAhZeuGxbJ1bQGLx3GJ0hgShCS3fBaTj
+ 41NF0nJA==;
+Authentication-Results: freenet.de;
+ iprev=fail smtp.remote-ip=2a02:8071:a85:f020:af10:fa7d:f150:7bea;
+ auth=pass (PLAIN) smtp.auth=viktor.jaegerskuepper@freenet.de
+Received: from [2a02:8071:a85:f020:af10:fa7d:f150:7bea] (port=46368
+ helo=[127.0.0.1])
+ by sub3.mail.fnrz.de with esmtpsa (ID viktor.jaegerskuepper@freenet.de)
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (port 465) (Exim
+ 4.98.2 #2) id 1wybon-00000003avf-0zxa;
+ Mon, 24 Aug 2026 23:02:57 +0200
+Message-ID: <2b6f24cb-c387-4174-9e81-0a1a7ef42581@freenet.de>
+Date: Mon, 24 Aug 2026 23:02:51 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] drm/amd/display: advertise PIXEL_NONE as blend
+ mode for DCE generations
+Content-Language: en-US
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, daniels@collabora.com,
+ harry.wentland@amd.com, leandro.ribeiro@collabora.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
+ kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>
+References: <20260813143605.106104-1-mwen@igalia.com>
+ <20260813143605.106104-4-mwen@igalia.com>
+ <512414f0-ca55-435e-8ca3-7dbf48d0c114@freenet.de>
+From: =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?=
+ <viktor_jaegerskuepper@freenet.de>
+In-Reply-To: <512414f0-ca55-435e-8ca3-7dbf48d0c114@freenet.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-FN-MUUID: 178760537745F70456E7ECO
+X-Scan-TS: Mon, 24 Aug 2026 23:02:57 +0200
 X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,109 +86,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a TLB invalidation fence times out we log the timeout, but if the
-ack for that seqno later shows up there is no record of it, making it
-impossible to tell from logs whether the ack was lost forever or merely
-(very) late.
+On 8/24/26 22:38, Viktor Jägersküpper wrote:
+> [ Adding Timur ]
+> 
+> On 8/13/26 16:30, Melissa Wen wrote:
+>> DCE can support PREMULTI and COVERAGE blend mode depending on its
+>> generation, however current driver implementation either doesn't expose
+>> more than primary and cursor plane, or doesn't program registers for any
+>> blend mode other than PIXEL_NONE. To fix the missing-blend-mode-prop
+>> warning according to current DCE plane caps, create blend mode property
+>> with PIXEL_NONE only for primary planes, instead of the DRM default
+>> PREMULTI.
+>>
+>> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+>> Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>
+>> ---
+>> v3:
+>> - fix indentation (Alex H)
+>> ---
+>>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 18 +++++++++++-------
+>>  1 file changed, 11 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> index ab9bbe8ca333..3b5b6943b67d 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> @@ -1923,14 +1923,18 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>>  	if (res)
+>>  		return res;
+>>  
+>> -	/* TODO: Check which blend modes are supported in DCE-generation
+>> -	 * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
+>> -	 * property accordingly.
+>> +	/* Blend mode support varies on DCE generations according to HW caps
+>> +	 * and number of planes per CRTC. However, as current driver
+>> +	 * implementation only creates one primary and one cursor plane per
+>> +	 * CRTC for DCE (overlay is only created if
+>> +	 * DC_PLANE_TYPE_DCN_UNIVERSAL), the primary plane blend mode ends up
+>> +	 * being always PIXEL_NONE across DCE versions.
+>>  	 */
+>> -	if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+>> -	     plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+>> -	    plane_cap && plane_cap->per_pixel_alpha &&
+>> -	    plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL) {
+>> +	if (plane_cap && plane_cap->type != DC_PLANE_TYPE_DCN_UNIVERSAL) {
+>> +		drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_PIXEL_NONE));
+>> +	} else if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+>> +		    plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+>> +		   plane_cap && plane_cap->per_pixel_alpha) {
+>>  		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>>  					  BIT(DRM_MODE_BLEND_PREMULTI) |
+>>  					  BIT(DRM_MODE_BLEND_COVERAGE);
+> 
+> With this patch applied to the mainline kernel, my display freezes when
+> Kwin is started (either by SDDM or by launching a KDE Plasma session).
+> GDM and Gnome work fine. The journal doesn't have much information, it's
+> mainly this:
+> 
+> kwin_wayland[8402]: Applying output configuration failed!
+> 
+> and after that several KDE processes with:
+> 
+> <kde_process>[xxxx]: There are no outputs - creating placeholder screen
+> 
+> Any idea how I can debug this further? Maybe ask the KDE developers?
+> 
+> With only the first two patches of this series applied, Kwin works as
+> before, but I get the warnings of course.
 
-Track the most recent timed out seqno and log how late its ack arrives,
-relative to both the original request and the moment the fence was
-signaled with -ETIME.
+I completely forgot that I'm observing this with AMD Pitcairn running
+KDE 6.7.4 on Arch Linux. The kernel is built from source (mainline as of
+today) with this patch series applied on top.
 
-On ARL with GuC 70.53.0 this shows the acks are never lost: they
-consistently arrive ~2.3s after the request, tens of milliseconds after
-the TDR has already signaled the fence:
-
-  TLB invalidation fence timeout, seqno=10992 recv=10991
-  TLB invalidation late ack: seqno=10992 recv=10992,
-    request-to-ack=2314ms, timeout-to-ack=45ms
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
----
- drivers/gpu/drm/xe/xe_tlb_inval.c       | 19 +++++++++++++++++++
- drivers/gpu/drm/xe/xe_tlb_inval_types.h | 17 +++++++++++++++++
- 2 files changed, 36 insertions(+)
-
-diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tlb_inval.c
-index 833fb92cd3e..e98c6a0b7a6 100644
---- a/drivers/gpu/drm/xe/xe_tlb_inval.c
-+++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
-@@ -14,6 +14,7 @@
- #include "xe_guc_tlb_inval.h"
- #include "xe_mmio.h"
- #include "xe_pm.h"
-+#include "xe_printk.h"
- #include "xe_tlb_inval.h"
- #include "xe_trace.h"
- 
-@@ -99,6 +100,11 @@ static void xe_tlb_inval_fence_timeout(struct work_struct *work)
- 			fence->seqno, tlb_inval->seqno_recv);
- 
- 		timedout_seqno = fence->seqno;
-+		if (!tlb_inval->timedout_seqno) {
-+			tlb_inval->timedout_seqno = fence->seqno;
-+			tlb_inval->timedout_inval_time = fence->inval_time;
-+			tlb_inval->timedout_time = ktime_get();
-+		}
- 
- 		fence->base.error = -ETIME;
- 		xe_tlb_inval_fence_signal(fence);
-@@ -227,6 +233,7 @@ void xe_tlb_inval_reset(struct xe_tlb_inval *tlb_inval)
- 	else
- 		pending_seqno = tlb_inval->seqno - 1;
- 	WRITE_ONCE(tlb_inval->seqno_recv, pending_seqno);
-+	tlb_inval->timedout_seqno = 0;
- 
- 	list_for_each_entry_safe(fence, next,
- 				 &tlb_inval->pending_fences, link)
-@@ -424,6 +431,18 @@ void xe_tlb_inval_done_handler(struct xe_tlb_inval *tlb_inval, int seqno)
- 
- 	WRITE_ONCE(tlb_inval->seqno_recv, seqno);
- 
-+	if (tlb_inval->timedout_seqno &&
-+	    xe_tlb_inval_seqno_past(tlb_inval, tlb_inval->timedout_seqno)) {
-+		ktime_t now = ktime_get();
-+
-+		xe_warn(xe,
-+			"TLB invalidation late ack: seqno=%d recv=%d, request-to-ack=%lldms, timeout-to-ack=%lldms",
-+			tlb_inval->timedout_seqno, seqno,
-+			ktime_ms_delta(now, tlb_inval->timedout_inval_time),
-+			ktime_ms_delta(now, tlb_inval->timedout_time));
-+		tlb_inval->timedout_seqno = 0;
-+	}
-+
- 	list_for_each_entry_safe(fence, next,
- 				 &tlb_inval->pending_fences, link) {
- 		trace_xe_tlb_inval_fence_recv(xe, fence);
-diff --git a/drivers/gpu/drm/xe/xe_tlb_inval_types.h b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-index 3d1797d186f..38288966254 100644
---- a/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-+++ b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-@@ -102,6 +102,23 @@ struct xe_tlb_inval {
- 	 * @pending_lock: protects @pending_fences and updating @seqno_recv.
- 	 */
- 	spinlock_t pending_lock;
-+	/**
-+	 * @timedout_seqno: seqno of the most recent timed out TLB
-+	 * invalidation, 0 if none. Used to measure how late the ack for a
-+	 * timed out invalidation actually arrives. Protected by
-+	 * @pending_lock.
-+	 */
-+	int timedout_seqno;
-+	/**
-+	 * @timedout_inval_time: request time of @timedout_seqno. Protected by
-+	 * @pending_lock.
-+	 */
-+	ktime_t timedout_inval_time;
-+	/**
-+	 * @timedout_time: time @timedout_seqno was signaled with -ETIME.
-+	 * Protected by @pending_lock.
-+	 */
-+	ktime_t timedout_time;
- 	/**
- 	 * @fence_tdr: schedules a delayed call to xe_tlb_fence_timeout after
- 	 * the timeout interval is over.
--- 
-2.55.0
-
+Viktor
