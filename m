@@ -4,125 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC6DBC5DF8C
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 02:45:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C8A9C5DF8C
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 03:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8F3510E037;
-	Mon, 24 Aug 2026 02:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6916710E0A2;
+	Mon, 24 Aug 2026 03:15:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="iPhcB3ku";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KzjesmQM";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NEDoaf8g";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012052.outbound.protection.outlook.com [52.101.43.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A553910E037
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 02:45:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iauruXVT0uCX3ssnK+zRg3RPnbPzVfGYRcGWx7+hvYrHHgo2rt9/hQl8xTAjz7mmxSi7qxC1RY2nNszCbagbcOmt8JmFOybkSlY5FlbENSqmIK0s2U0RxEnOGDqYvSDgVhYvq9b0cdFUCKvm4L9v+kna47KCjJdxcB66pnCGBWj2kPxlI7OLkku6ubwYiClzSQ+mJ7tlWO0kAnpY7WEKsUTgOAU2ORSy22stFiM3Qzol4xCCHNquTGvfLpXST0YZTH5kzBl2HcHa9GaiX4ulaVLXE/G74E7h72Ib4QGUVFS1Ka7TY5ruWEG0+RwzMgksKW+tzbIVKccTk7pOGpkn6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q2C/j8XoG4TyeNRrVF5NKj3KKxdbkQc/CAQP+1kihAY=;
- b=KQmVUu0SvuqVSSXhd+F6mQDy9svbgSRv7YR7EJ+oUK0VjfleI6p172y3MoEodg3xuy25dvxZz9IpfoQC3v+0UHdC8CRGzknwYNIeN9QD6W+VNrsCFxJ8DZYK4w+D4iOsqOCtXQ7CCjlfmjBziyWRDEhwPKdSbJ3ow0ZEB/RavQdTMEknyqhzbn4Yzmc7kr+J9K+ME1sW4ZY5CPsyehFWqcUR37C18TEDGBf3DwiiJu05r5PfaUhqq7iTCyJly0WqwREuwpqx+9uSVD5KyUjLezOZeQ0rrbSkkQSGwARfmYBRJ0dDAd5kEStpZe3ZlY3qrjRloc4ba1wCkqzSfsVFGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q2C/j8XoG4TyeNRrVF5NKj3KKxdbkQc/CAQP+1kihAY=;
- b=iPhcB3ku5CnxpJ1+vRq8RhoguU8boWhhW6aIsQpyzGeXR/k7GK3PJXuhJlaH6pH1VcecGt8Y4QoeTlJgAG2kkmHdJycc1zpyhuEoR23l/Z0UFdoxoQWm2Gl+Ray8pcU0qU8z263uBq2OUYfy0Ddzv5Svya4d4CGtIsiHz4+uHG2tERaBssJ4p5BEGp8j4GqeLbA/YZKHhqIPGOjQFM6xwSBZ8d1YXg9JOKMlCJxezp0iYALRTNSwJ8CE1ssqDLm5f324mYydkkBMmI65keQmN9pNr92d+lInuUlNWJ1EnbEwzrtCzrkGk25uSISpsusCLagaDmy6tCM1PjQZjmnLcg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MN0PR12MB5811.namprd12.prod.outlook.com (2603:10b6:208:377::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 02:44:59 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Mon, 24 Aug 2026
- 02:44:59 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonin Malzieu Ridolfi <dev@nanonej.com>
-Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817-b4-extract-pmc-registers-to-gpu-mod-v2-1-9dd1d599deb4@nanonej.com>
-References: <20260817-b4-extract-pmc-registers-to-gpu-mod-v2-1-9dd1d599deb4@nanonej.com>
-Subject: Re: [PATCH v2] gpu: nova-core: Extract PMC registers definitions
-Message-Id: <178753923260.768430.8808267111681597638.b4-ty@b4>
-Date: Mon, 24 Aug 2026 11:40:32 +0900
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0228.namprd13.prod.outlook.com
- (2603:10b6:a03:2c1::23) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9252A10E0A6
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 03:15:56 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67O0mNE0984211
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 03:15:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ THK3mU3zM4H3WOn2rcZOYc5FkaAY4hnLNpJ+5JYj0P8=; b=KzjesmQM0w9mb9Xo
+ xDdnGhSl0dQLjqZsS8WJU+uIBeqbOXwW4KZ0WlCfzEcjqQ2TUdE0cQdPqE1OAzko
+ Ms8f5LnYiaJOuBLEvkEUlHahLPqLvgICbL+L4rZXGzBRnMzxXd4uA7ioak4V+v51
+ DeAYeVhijIksa08Cwi0EAIfSf5RgPj8v4+Eof3YE2HCj25GbVGwPTGc7JhFrLKPH
+ pQsmOQwiH9nNpHOKL+rKyj/5GTGfb+Mem6GT27qF/00Bydg6gqXC02biK9oZ0O8g
+ TryLV0BKgh2QMemgcqO3lnGffib3xEy7lHC6vWX06FThH9aPbIxcoaRK5ZKuHW8f
+ RYmI9w==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g7456w7vg-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 03:15:55 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-cbedf6e8a42so3705943a12.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 20:15:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787541354; x=1788146154;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=THK3mU3zM4H3WOn2rcZOYc5FkaAY4hnLNpJ+5JYj0P8=;
+ b=NEDoaf8gtmAjG24jIbjn3zyqkDegWbovjhhCfraea11gG2OQAJLnLkkfT7I92foAqd
+ d2fJ0HrqF/+1ARSsaAO75twLuxD9/+H/2AI4Y1Q/Zjn2iuagnaC3kh9Ipt4UkxlOUYw3
+ eeEqy8LZjGTR+q7IRjHoYYy/hVcFzcT5YFcjC5zMEA9M2i/HQgQqprgZMP77BzLAutNb
+ v169zAsVKmXTnvJfT99XSLO9gDCYRcjycypN+u0Tu8DgmxpUXhg/36dmCqhrgcr36+b1
+ z69LA/NeVo7PcLiLTRkH+KVrzBEXp4ntUnO1aQmyPzVJ1xGJ64RZ0Yv2J6lrBkNOQ+jc
+ zvsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787541354; x=1788146154;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=THK3mU3zM4H3WOn2rcZOYc5FkaAY4hnLNpJ+5JYj0P8=;
+ b=FXZ0Z7luKbtADcGrByUVqC8wnGaYhuXum+6GXNmrPNcL+4BhEaJHGtm+z2pWc7UzTW
+ gTmyKjA7B73rz4riGg8Z9eBCmpTTC9ENDkABO0MlGRKtXyeo8fbv+9kT1BjRwrMP6Cdo
+ dzfk4vbj8/IA9wKHvNFSlQjOhIhJCH8z/yEUticbzuAwYQcX6MwUUCvS788guvz4sOAO
+ qfVZuPEdV3WW/nJKldf+9ftZCJfi5i43stmTT5YVPj+8+gCW5ghTVgcGRFrEhbIipS96
+ +Yv6ltiAsIrKZDbfFaRPVx62o9AeVrXTv5bBA/NsayPfi7fGgWnmjj8Hvcd/ysjXlbCW
+ FxKw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RobbfjcC/0wRFT14xTeW2iuoKopzEFHpnUo6T/eZ2CNHUT4x5nQwPNuORmJKOPIGHt5r9AoSyevAPg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l97lrJqj+TW+0BzMzRMFyYpp5r+EaTVfXdsJAAOyf9540eMxka
+ 6BOSp399hN+ZacMn/S91RdMLB/KIrH6+Eh3aOkes5B/aA5N9Q2KqQA1WusdW3S51x7EjM2gDZD4
+ 9j/GaCkZiI9xXKOvTdUKWJa42Kt+B8Q0DMNN9HwxTlQaT7MDZnTOxpCiz8fOYYaut0fNqHSU=
+X-Gm-Gg: AR+sD13XiX8/SkkDKCcCoz3MH5e3vW3cFLnuhnsSaAZAlKiDF5CElnsIAJokfPQdefJ
+ iBNe12ybARV48ZYeVeXti/xVeTG0gts1/BmgzOYtAsbdjNk4i/otCQMoawFZGmTM5BdFq9EUqes
+ IYDE9fdf3Uio8tA72RqWLULumT95j++q+j8xSJfO+PLRtdRiW+IB+p4C+3QyGDfix+dkeVRMxO7
+ 1VGPY9tkLj/3uiM0C3hnnz/7fN2M4d1OGfCHEnI7/04TNaQV556GGr7JbsCxkKOpnkEWb1f3/gt
+ p2tUGRBWlyyeqW+uGAqtcJBeU1iNSVEtpVcFV5FkculrsMpgtepv2+ePBOVUXus1Zh3stWbcAeP
+ hGxya4b29G1Ewby0UBW7pvl7ahpS/BZFnaf6TmAkY6scYHevjagGbxlUSkJXNyPBFjTSQa+0=
+X-Received: by 2002:a17:90b:180d:b0:38e:2524:724f with SMTP id
+ 98e67ed59e1d1-395c3733e65mr40833595a91.12.1787541354200; 
+ Sun, 23 Aug 2026 20:15:54 -0700 (PDT)
+X-Received: by 2002:a17:90b:180d:b0:38e:2524:724f with SMTP id
+ 98e67ed59e1d1-395c3733e65mr40833494a91.12.1787541353641; 
+ Sun, 23 Aug 2026 20:15:53 -0700 (PDT)
+Received: from [10.133.33.35] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-395e4b2b9c9sm8056616a91.15.2026.08.23.20.15.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 23 Aug 2026 20:15:53 -0700 (PDT)
+Message-ID: <fcc816d3-e3d4-4dbf-8ae5-bbbac6e2189a@oss.qualcomm.com>
+Date: Mon, 24 Aug 2026 11:15:44 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MN0PR12MB5811:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4602815-65a2-4aa0-5502-08df0189b05a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|10070799003|1800799024|376014|10067099003|56012099006|6133799003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: if+MG0QekdvoKA5VEX6moX6NawvNaINCbQpT4rChk46ur0IZiNdcTYfSH6+oXy87KOpyW2ph1Ti7IfCWag/vAgtqQ1deoDXEgv2cy/WeFLUmjErVQNJxTo2lc8zexY+K+wWOPuULpmMGB0A8lSgVuwExo+MykiIPxgriMGbABwQ/0SRIoqYW+jzgsY2+CM6lq8AIvxH+bFYhaU5jNGhB2I5pqaBnYCAKlzLUzlXt4qItCwlQCHH4xnlfwBXNZE2g48AVT03NutQPNonz+RmACYWxPup0FKxEBAQrqfpi8Fo08aRdn3lj31YLcn/kJDPr4m4bN2QxXAuri5vPKIaala/K/kYT3zUMxdUNDvk2eonsVV+WAJRilbAZ4IKPk+XweuQ5trNLpfjsHTeHsal4Ij7XDP5lQ77uhdbzhjaeMQVNzuO4eml4Kzt2zNc7pDssHqOdk88ScTcRM9MP/K6uAhcvTEVKD0o8yuuzdWzV8OR1eNfw51biynsJGvi5At2DKhnho99EwwOZZyjDhoBMXfSZOax8JMKpbzjC3qJqC7HX6zLv7157EjctlbxK6EsI4FqHDTh4/9WwIUVQiFnmtaCIS/C7k3cs8u5OIg0he5q76VBf/7KAf/3ckDOVmCGnz0VWhPpVJ5RWjXtxc8ehx2dWSaUq+H/Vh/y7Pz3xBqk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(10070799003)(1800799024)(376014)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2hTeVF1UHdRTjlybGNLUUNIY1Jrb3dQVXFyQmRvZk0rMjJ1VlBabW9SenU4?=
- =?utf-8?B?VlMvaTZnek9oa1VjaHlKZ2RuOUt5T044Q2QralVtV3RIZk9rRWQ4WllucnpD?=
- =?utf-8?B?aURkR2puMnVJdjViZ2FtZ1g0UUpmRWZ6a3NNVUNDM2RoRE1WamNQQmtZWDhM?=
- =?utf-8?B?RXlKRHBJUzI0bjM2MXZFKzEwaEdqUHdVbFdNM0RtS0NKNll1b3JsNGsrUjNO?=
- =?utf-8?B?Y3lNQzhtZEdXeFJwcmQ5UFZGZmRvakpqSCtCOVNUYVdoWFNDb2pHakp6T2Va?=
- =?utf-8?B?OGZaRjFxMnhsS2pYMkFxRWJpU2d4WUU2MmErZ25UY2VNRDYydmRpenRtUk9O?=
- =?utf-8?B?dUdVdW43c09IbFFyalhIZ1FKOEVVcS9henN6a2hYZExhN0pLVVNBWTdSeGpp?=
- =?utf-8?B?WnJNSW10RUthUzB2NzRQcDJ1bXVUaDdyL1NnOWFTdGJlZEFTWUY1UTN5QXNn?=
- =?utf-8?B?cE9TMElzalE2Q0J0MkprLzRPcWlvaUFnS3hQRXNqYlViaFB2WVVLS0JldFdK?=
- =?utf-8?B?ajNNOElVc3RYYVBqdEZUUTNPb004ZmxuZll0YmNrWXFOazV2L2UwODZHQlQz?=
- =?utf-8?B?M1FDekVzeGVqV3FrNXJSTnBDMWhIMHQ3MGNFTUNQWmVyMTQ1SUJ1djQrU3lI?=
- =?utf-8?B?dzk2Ukc3Wm5VRWgweVZtWHZHQXBBa2ZNUUJ5YzNUTEZ5VTY0N2VXNWVUSkJj?=
- =?utf-8?B?Tnl1K29MUmx3MWF4Smd5LzRudzVOQmpjTVVrUzZiT0ZWVmZQMzhhRzJMa3ZM?=
- =?utf-8?B?TElDL0FVY0x2a2VOQ0ZNUDAzbURYcWt6bGtDNTc4T3pMWmF3anFFclYyZUdU?=
- =?utf-8?B?YXBwRXVVQVB6OVJFR1gyblIzeFptT3krTklCTzZBbktsbHFPSUZnNzM1UHFy?=
- =?utf-8?B?R1VtTG1HNkZ0QXo1dnRkVGVqdEx5SmI4dlJOUHB0NUJ5ZlJOem5JNWF1RTlw?=
- =?utf-8?B?eldzR05BNWpXSXBzMmF0MU5SL3JkWjJORjBDWnU4bDBKa1M0MUhoS1hrVTFB?=
- =?utf-8?B?OTA5Y250VlJnL0RDNGJGNFZVakkrUXhCUTFKQzhqdHh0OWlNd3c0alBpbnFB?=
- =?utf-8?B?UHpQejEyVkRYZkF6N3VnWGJhS004QkFORDlBZ2xyS1ljVS8zdmxrNXVtbndj?=
- =?utf-8?B?TEVHVUNlMEJ4eFJudS9iYlpNckhkRGpGd1ZLTGFVQ01QK0NHNkpRS2lsOVZj?=
- =?utf-8?B?enNvaWF1VXBDQTZKcnNoRXdWZ05iRHZVMjMvY0wzeWFQdndORnNMVkRwblg0?=
- =?utf-8?B?RG9jZmZaYnlBMnpoeDB5SWRreFY0S2E1bHdGU3RucUtoMXBHQXB1S1N1ZXR3?=
- =?utf-8?B?QXNzY2Y3K2FXaVRNNXdLdW4xNXF4RHNxMFROTzd2bEVjYTg4UW4xN2xqRklW?=
- =?utf-8?B?aWtIMTVUL0o1bm9yYmJlTmVUYnNIMWNsT0hLMXQvUDVHaHlaNEx4V1cxL0l5?=
- =?utf-8?B?TWtaaENWMUc1SzhaNnhFeU9CdDdBLzd2QXZmOXZlQU9keStFU3pHMnRZQXJ0?=
- =?utf-8?B?ZzQ5MVdMbmdRcWxneklsSlNKdUpaWHFpQ3Y5czNtTHVFaDZtOEw5eWZ3MTdy?=
- =?utf-8?B?WGtaa1V2aWpmNWl2cmVEa1FPcDI1bG9INVB5U0YxaTU1WjArL092Q3hxL0kx?=
- =?utf-8?B?MVVKZ1NJcnh6QWVzemlIL1cxbGpzN2VzVDZITW80cmFSRDJVdzdDc2dsUHBW?=
- =?utf-8?B?TDF1QTFIRWR3WFJEeVZJd3ltYlYwQWxsQVJudHFXVnJ2UHFzelRwSkNyby9l?=
- =?utf-8?B?QS96eFVxUk1MNWE5c2hwNkhYR3I0MFk5NnU4MEpSY0w4UytENDhKaERZOG1x?=
- =?utf-8?B?andvRTEwcDZWZTljZGo1bXhrcFk5cG4xb0RPOGJ5SlZVOEh2a1V6eHNVaklk?=
- =?utf-8?B?ejNHOEJpYkRJdTIwVHJpMEJqb0pOYTVYM0NHTjd2ZUlZcmFIOHRRV2lINTF3?=
- =?utf-8?B?enZmZXRRa09Tc1VKZFo5aWd4WHNSZEV4LzZWREprbFo3VXlWekRpVDQ3WFlQ?=
- =?utf-8?B?ekROUE9yV2FpWkcvb2JqbGpmQXRSWWlDRktGNG9CbFNpTVd1YURiVjdERVk0?=
- =?utf-8?B?U2RNY05rTnB1Q29QN0tnM0NNTWw1WGp0MGUyRVc1bDFNbExMU3o2Tmp3WVVz?=
- =?utf-8?B?d2JSemllRFJtKzVXQTl4b1l4TExjREF0TW5pa1ZtSFJDekRvWVRveVUwUUta?=
- =?utf-8?B?bnFWaEpRWlZrVVovZksrVEJjc3FHczFHR2pxUmpqT25KQ0dyWnJnZzZTd1Rs?=
- =?utf-8?B?Vm8zYmh1UHJFbTNwNzdyUDByOUNGTjBBeThVbUFUTjFKN0c4S3M5UDd3UXU3?=
- =?utf-8?B?RWszNHpNbnNLZXQva2s2bjl0ZU5DZGljUFBLZlZSR09Jai9rcC96RGdWQU5w?=
- =?utf-8?Q?hzcrdIk6r/WlK+bA9/Cmcx02tUn2fzm+eM6o1YTKiCvcu?=
-X-MS-Exchange-AntiSpam-MessageData-1: eXX8XKzD4EpeJQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4602815-65a2-4aa0-5502-08df0189b05a
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 02:44:59.1966 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /rUM4XHwYzdyW3rZEJTOyaR/eaVYXik93seo1rCyuibXyGLeQBJWlMJ3T7cSHyR5jT7hX2Np0gfjvhnXZAXsMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5811
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] drm/bridge: allow hpd_notify() to suppress connector
+ hotplug events
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20260629-msm-dp-msttypec-v1-0-646a10256233@oss.qualcomm.com>
+ <20260629-msm-dp-msttypec-v1-1-646a10256233@oss.qualcomm.com>
+ <cgk2httvebzm2jnjnb437mutez66tfozzdk77mjwukfzngdioh@mu46u3pwlf2u>
+ <af5f2e4f-42a2-49f3-9c6c-0f910c5f9208@oss.qualcomm.com>
+ <pyqpajtjcnslk6g5ysn3ce2csrb76fhd5bif4vdb6wezomlmsg@fsl55exyufx2>
+ <dd375289-0174-41ad-980f-f027fad976f6@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <dd375289-0174-41ad-980f-f027fad976f6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDAyNyBTYWx0ZWRfX6QZrphIqUISZ
+ aVlRa0dmFLCZC54e7pa0n8Mes0y69PfRfZGNTnsY2Hygf+2dJ5H763IRAHUNmGeXUziHs6VmRJo
+ XKlU2mKFI8m9lRfaspA6wmo148ReRuc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDAyNyBTYWx0ZWRfXwcXs4fhcQvck
+ qfZqWPVKIMXQnCuGZP7elxg8kLp0Q6xGzauXXNK1vZM+OPlcGydRo+BQ3nwEqcAryMPuyO42ajZ
+ h1CDltOrE9IVEkT3FDHUebCcirw7vjxU0rjIAtUeDYvU7xbUAoh/6i8LzNy2eA1PMDienXLpU0l
+ n5pu4PzvgX1WIKXwWbi7mwlEi5UDDGF7q38x0nl4deg8TN3AsumtHlKITWL+CdQt4tJ443WDLVr
+ X0GKH/peivj61jJve9dKptYaLcERnKOEdUruKjgW2E3HEkHBWHnlgezG05ax9ZDJJyoQgnLztlO
+ b4cQsBX8RsnMl1h9CO9sgK7PlvCtWBcxDfemF6Ux31bZdws3h7DxROG4wTembgws/IdBbBEmTb1
+ stf/42ruGAoESDLsgCpH8hV5mCeVup9mMD8kQ+TtrjmV31desRm/QJK1pE6iqlXDTTbKMMZrf+o
+ 7r5LVpr5JZqUOvKQcpw==
+X-Authority-Analysis: v=2.4 cv=RtL16imK c=1 sm=1 tr=0 ts=6a8bb76b cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=qQJ8N8Yg66gReXqHpcoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-ORIG-GUID: srp5xBDonlq1HBfhvIfOcraWWTio3GMi
+X-Proofpoint-GUID: srp5xBDonlq1HBfhvIfOcraWWTio3GMi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_01,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 malwarescore=0 phishscore=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240027
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,19 +169,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 17 Aug 2026 18:51:08 +0200, Antonin Malzieu Ridolfi wrote:
-> Move PMC register definitions (NV_PMC_BOOT_0, NV_PMC_BOOT_42) and
-> their associated implementations from the root regs.rs file into the
-> gpu module that own them, in the new gpu/regs.rs file.
-> 
-> This follows the same pattern established by previous commits for
-> GSP, PDISP, PFB, and PBUS registers: register definitions move to
-> the module that owns them, visibility changes to pub(super), and
-> cross-module access is provided via pub(crate) helper functions.
-> 
-> [...]
 
-Applied to drm-rust-next, thanks!
 
-[1/1] gpu: nova-core: Extract PMC registers definitions
-      commit: d53bc149eea6213e9c4a4604df5521db7b7296ca
+On 8/21/2026 3:20 PM, Yongxing Mou wrote:
+> 
+> 
+> On 8/18/2026 11:01 AM, Dmitry Baryshkov wrote:
+>> On Mon, Aug 17, 2026 at 04:01:41PM +0800, Yongxing Mou wrote:
+>>>
+>>>
+>>> On 7/12/2026 6:21 PM, Dmitry Baryshkov wrote:
+>>>> On Mon, Jun 29, 2026 at 10:48:03PM +0800, Yongxing Mou wrote:
+>>>>> The bridge connector framework currently invokes all bridge
+>>>>> hpd_notify() callbacks and unconditionally emits a connector hotplug
+>>>>> event afterwards.
+>>>>>
+>>>>> However, not every HPD notification requires a userspace hotplug 
+>>>>> event.
+>>>>>
+>>>>> In particular, DP MST bridges may use hpd_notify() to propagate HPD 
+>>>>> and
+>>>>> IRQ notifications through the bridge chain while the actual hotplug
+>>>>> handling is performed by the DRM DP MST core. Connector creation,
+>>>>> removal and userspace hotplug events are already managed by the MST
+>>>>> topology framework.
+>>>>>
+>>>>> Allow hpd_notify() implementations to suppress the bridge connector
+>>>>> hotplug event by introducing a bool *send_hotplug parameter. Drivers
+>>>>> can clear this flag when HPD processing should not result in a
+>>>>> connector hotplug notification.
+>>>>
+>>>> Why? Worst case the kernel receives another hotplug notification which
+>>>> gets ignored by the driver.
+>>>>
+>>> Hi, thanks for reviwing those patches.
+>>> Let me try to explain the motivation.
+>>>
+>>> Semantically, IRQ_HPD is just an IRQ notification, not a connection 
+>>> state
+>>> transition, and shouldn't be turned into a userspace hotplug in the 
+>>> first
+>>> place. However, drm_bridge_connector_handle_hpd() currently calls
+>>> drm_kms_helper_connector_hotplug_event() unconditionally after 
+>>> processing
+>>> the event, so every IRQ_HPD ends up reported as a hotplug.
+>>
+>> What if the IRQ_HPD is delivered together with the first HPD event (for
+>> example because of the TCPM processing those events)? See the mechanism
+>> in the displayport.c AltMode driver.
+>>
+> The DRM API should simply pass both long HPD IRQs and short HPD IRQs to 
+> the driver as they are, and let the driver decide how to handle them. 
+> Based on my review of the implementations from all three vendors, when 
+> long and short HPD IRQs occur simultaneously, the long HPD IRQ is always 
+> handled first, followed by the short HPD IRQ.
+> 
+> I have another thought regarding the current DRM API. Could we have the 
+> DRM layer pass only the HPD event information (long IRQ and/or short 
+> IRQ) instead of connector status, and leave all handling decisions to 
+> the driver? The DRM core would simply report LONG_HPD | SHORT_HPD, and 
+> each driver could decide how to process the event. This seems like a 
+> pattern that could be shared across different drivers.
+> 
+> This is just my current understanding. Please let me know if I've missed 
+> anything or got something wrong. Thanks.
+Sorry, after thinking about it again, this idea is not fundamentally 
+different from your current approach. In the end, we still need to 
+handle HPD state transitions in the driver. It seems my previous 
+suggestion does not really simplify the problem, so I apologize if it 
+has caused any confusion or misled the discussion.
+>>> Second, MST IRQ_HPD is level-sticky -- as long as the ACK has not been
+>>> cleared, the IRQ keeps firing repeatedly, and MST bring-up (link 
+>>> training
+>>> / MST enable handshake) itself generates a burst of IRQ_HPDs. So this is
+>>> not about "one extra hotplug", but about a burst of them within a short
+>>> window.
+>>
+>> Ok, if it is level-sticky, it should be handled as such.
+>>
+>>>
+>>> Every one of those hotplugs is delivered to userspace via udev and
+>>> prompts the compositor to re-probe the connector. In the window before
+>>> mst_active is set, that re-probe walks back into msm_dp_bridge_detect()
+>>> and performs aux/DPCD accesses, racing with the MST enable flow.
+>>
+>> If there is a race, the path needs to have a lock, preventing concurrent
+>> access. Otherwise, you are just shortening the window instead of solving
+>> the problem.
+>>
+>>>
+>>> The amplification also isn't limited to a single connector: on Hamoa
+>>> there are 4 connectors (3x DP + eDP), and we observe that a hotplug on
+>>> any one connector causes the compositor to re-query all 4. So this burst
+>>
+>> Please fix the compositor, it should not need to query all 4 connectors
+>> if the HPD event came from the single one.
+>>
+>>> of spurious IRQ_HPDs during MST enable ends up amplified across the
+>>> whole card.
+>>
+>> How do i915, amdgpu and nouveau respond to IRQ_HPD? When do they send
+>> the HPD event to the userspace?
+>>
+> The driver revalidates the actual connector state, and a hotplug event 
+> is triggered only when an actual connector state change or a link status 
+> change is detected.
+>>>>> A NULL pointer indicates that hotplug suppression is not supported by
+>>>>> the caller, such as the connector detect polling path.
+>>>>
+>>>> And nothing in this patch makes any use of it. I'd say, it's
+>>>> questionable addition. Let me check other patches...
+>>>>
+>>> You are right, I will reorganize the patches in next patchset.
+>>>>>
+>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>>>>> ---
+>>>>>    drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 ++-
+>>>>>    drivers/gpu/drm/display/drm_bridge_connector.c | 15 +++++++++------
+>>>>>    drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 ++-
+>>>>>    drivers/gpu/drm/msm/dp/dp_display.c            |  3 ++-
+>>>>>    drivers/gpu/drm/msm/dp/dp_drm.h                |  3 ++-
+>>>>>    drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 ++-
+>>>>>    include/drm/drm_bridge.h                       |  3 ++-
+>>>>>    7 files changed, 21 insertions(+), 12 deletions(-)
+>>>>
+>>>
+>>
+> 
+
