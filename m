@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E5C8C5DF81
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 11:40:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BA9DC61CE2
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 11:40:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F41F10E751;
-	Mon, 24 Aug 2026 11:40:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A395D10E756;
+	Mon, 24 Aug 2026 11:40:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e0KanVja";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fGo38Ekg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71D5510E751
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 11:40:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63FE610E756
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 11:40:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 858C56013A;
- Mon, 24 Aug 2026 11:40:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F8B1F000E9;
- Mon, 24 Aug 2026 11:40:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0A3A4412CB;
+ Mon, 24 Aug 2026 11:40:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA021F000E9;
+ Mon, 24 Aug 2026 11:40:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787571630;
- bh=GwE5uDtGz0EH9Gvdg9euI8g5rfiCsOHRqdpI8yxqBFc=;
+ s=k20260515; t=1787571645;
+ bh=abkoSPlNA/2tyVeA4AK9TVBNqiexJLdZyqZaGlsFMd4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=e0KanVjahEqoojMbYWq5DQCPJX4c740wfoTuYxxSBrpxh2WzJXhLqn9zx6DwYNAgD
- JrdcnSKGzuOPRvFDzykkf27nCESYuxIqQXu/0vJtj5kYMosn2NdW8GRZntH12nI3zK
- 42E2Z+Ya2DXlizicGQTHXMHh3R4ptNNvn4jeTeEprfBv3c2tzFeC8+0y9Vwlh8biTt
- B7LjmeS+ChXAojFoSaI53tzyH6bTso4d6Aa61aV8gQONFh4hLbtGAJ9ADDvPRxDIqA
- fom8qBnh4XOFyOHEN1JINlOvA4S4x3OBmJxvfRKHNAPuDdHmOsY4MF8qOhcQ0Q8jy4
- d5MA9jLSpLWjA==
+ b=fGo38EkgtEBMKaMMRmyjYXXKyT1wp7m6EvCipnJiQP2F+QXH1zHna86JCEhJzUA7e
+ YIkAkQspl/Z+sOMWDPv4rXL4pdZ+A91qMKBuTeDVuKU00RMdg9YP1d6Q50Ptw10K0b
+ R7+4MLG4gaButR6siAWB0O+dz53nxvLxBPnPAs38dvMdYvvy+a/vbYPSpZdzVYg0hy
+ 3w6vQ4hjAg11/Bb+XZ+87RNl/Yd+PhdJtEXGcoaiIOOFrDtIHP54WUk2NuP4r/W5GH
+ ZlNSOUiGXlPoabqGNj3nP0ZCyUHRQQXpqGg3sYTU/REcCBO5W9Rf5g4DrJ8bHTy7D5
+ 16FsAaSO1+JGA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/msm/dp: continue link training downgrade when
- cable is still plugged
+Subject: Re: [PATCH 2/4] drm/msm/dp: clear force_link_train flag when link
+ training succeeds
 To: "Saurabh Anand" <saurabh.anand@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org,
- olteanv@gmail.com, neil.armstrong@linaro.org, vkoul@kernel.org
-In-Reply-To: <20260824-qcom-dp-typec-reconnect-fixes-v1-4-2825e5bf8a96@oss.qualcomm.com>
+Cc: vkoul@kernel.org, olteanv@gmail.com, dri-devel@lists.freedesktop.org,
+ neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260824-qcom-dp-typec-reconnect-fixes-v1-2-2825e5bf8a96@oss.qualcomm.com>
 References: <20260824-qcom-dp-typec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com>
- <20260824-qcom-dp-typec-reconnect-fixes-v1-4-2825e5bf8a96@oss.qualcomm.com>
+ <20260824-qcom-dp-typec-reconnect-fixes-v1-2-2825e5bf8a96@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 11:40:29 +0000
-Message-Id: <20260824114029.F1F8B1F000E9@smtp.kernel.org>
+Date: Mon, 24 Aug 2026 11:40:45 +0000
+Message-Id: <20260824114045.ADA021F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,90 +59,114 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [Medium] Lockless read of dp->plugged in msm_dp_display_prepare_link() ca=
-uses a data race.
+- [Low] Dead store of `force_link_train` introduced by the patch.
 
 Pre-existing issues:
-- [High] The return value of drm_dp_dpcd_read_link_status() is ignored, cau=
-sing uninitialized stack memory to be used if the DPCD read fails.
+- [High] Failure in `pm_runtime_resume_and_get()` leads to a PM runtime usa=
+ge count underflow.
+- [High] Uninitialized stack memory read in `msm_dp_ctrl_channel_eq_ok()`.
 --
 
---- Patch [4]: [PATCH 4/4] drm/msm/dp: continue link training downgrade whe=
-n cable is still plugged ---
-commit ad6d2e949e22a448345ebdb67f36f42020cff884
+--- Patch [2]: [PATCH 2/4] drm/msm/dp: clear force_link_train flag when lin=
+k training succeeds ---
+commit 03a67937ce09f7bc428c5c9c18503745e41c62f6
 Author: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
 
-drm/msm/dp: continue link training downgrade when cable is still plugged
+drm/msm/dp: clear force_link_train flag when link training succeeds
 
-During a Type-C reconnect the AUX channel may report link-disconnected
-transiently while the physical cable is still present. The link training
-retry loop in msm_dp_ctrl_on_link() was aborting immediately on any
-msm_dp_aux_is_link_connected() failure, preventing the rate/lane downgrade
-path from running.
-
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-> index 59070f399e2d3..e8fd8f4c75fec 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -2379,7 +2379,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_=
-ctrl,
->  			break;
->  		} else if (training_step =3D=3D DP_TRAINING_1) {
->  			/* link train_1 failed */
-> -			if (!msm_dp_aux_is_link_connected(ctrl->aux))
-> +			if (!msm_dp_aux_is_link_connected(ctrl->aux) && !msm_dp_ctrl->plugged)
->  				break;
-> =20
->  			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
-
-[Severity: High]
-This is a pre-existing issue, but by allowing the loop to continue when AUX
-is disconnected, is it possible we'll perform a DPCD read that fails, leavi=
-ng
-the link_status stack array uninitialized?
-
-If drm_dp_dpcd_read_link_status() fails (which is likely if the link is
-disconnected), the error return value is ignored. Uninitialized stack memor=
-y is
-then evaluated by msm_dp_ctrl_clock_recovery_any_ok() below to make hardware
-configuration decisions.
-
-Does this also affect the DP_TRAINING_2 case below, as well as
-msm_dp_ctrl_channel_eq_ok()?
-
-[ ... ]
+msm_dp_display_prepare_link() sets force_link_train =3D true before calling
+msm_dp_ctrl_on_link(). On success the flag was never cleared, so
+msm_dp_ctrl_prepare_stream_on() would unconditionally trigger a second
+link retrain even though the link was already trained. Clear
+force_link_train on the success path so that
+msm_dp_ctrl_prepare_stream_on() only retrains when the channel EQ check
+fails, as intended.
 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
 /dp_display.c
-> index 1f60c78a463dd..93a37a44273f0 100644
+> index bc646d172abe0..40e19d506a450 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -644,6 +644,7 @@ static int msm_dp_display_prepare_link(struct msm_dp_=
+> @@ -649,6 +649,8 @@ static int msm_dp_display_prepare_link(struct msm_dp_=
 display_private *dp)
->  	if (!msm_dp_display->power_on) {
->  		msm_dp_display_host_phy_init(dp);
->  		force_link_train =3D true;
-> +		dp->ctrl->plugged =3D dp->plugged;
 
-[Severity: Medium]
-Is it safe to read dp->plugged here without holding the dp->plugged_lock mu=
-tex?
+[Severity: High]
+This isn't a bug introduced by this patch, but does the pm_runtime error
+handling cause a usage count underflow?
 
-This assignment runs in msm_dp_display_prepare_link() during atomic commit,
-which could run concurrently with HPD plug/unplug events that modify
-dp->plugged.
+If pm_runtime_resume_and_get() fails earlier in msm_dp_display_prepare_link=
+(),
+it returns an error without acquiring a PM runtime reference:
 
-Could this lead to a data race where a stale value is read?
+	rc =3D pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
+	if (rc) {
+		DRM_ERROR("failed to pm_runtime_resume\n");
+		return rc;
+	}
 
+Since the DRM core atomic_enable callback returns void, the framework
+considers the device enabled and will later call the atomic_post_disable
+hook. This routes to msm_dp_display_unprepare(), which unconditionally
+drops the reference:
+
+	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+
+Will this drop a reference that was never acquired and lead to possible
+device lockups?
+
+>  		return rc;
 >  	}
 > =20
->  	rc =3D msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
+> +	force_link_train =3D false;
+> +
+
+[Severity: Low]
+Does this unconditionally overwrite the previous assignment?
+
+Earlier in msm_dp_display_prepare_link(), force_link_train is set to true:
+
+	if (!msm_dp_display->power_on) {
+		msm_dp_display_host_phy_init(dp);
+		force_link_train =3D true;
+		dp->ctrl->plugged =3D dp->plugged;
+	}
+
+By setting it to false here unconditionally, does the prior assignment beco=
+me
+dead code? Could this parameter just be removed or passed as false directly?
+
+>  	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_tr=
+ain);
+
+[Severity: High]
+This is a pre-existing issue, but by clearing force_link_train on the
+success path here, this patch makes msm_dp_ctrl_prepare_stream_on() evaluate
+the channel EQ check. Does this lead to an uninitialized stack memory read?
+
+When force_link_train is false, it eventually calls
+msm_dp_ctrl_channel_eq_ok() which passes an uninitialized stack buffer to
+drm_dp_dpcd_read_link_status():
+
+	u8 link_status[DP_LINK_STATUS_SIZE];
+	...
+	drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+	return drm_dp_channel_eq_ok(link_status, num_lanes);
+
+If drm_dp_dpcd_read_link_status() fails (e.g., if the AUX channel fails), it
+returns an error without initializing the buffer. Its return value is ignor=
+ed,
+and the uninitialized stack buffer is then read by drm_dp_channel_eq_ok(),
+which might cause unpredictable behavior depending on stack garbage.
+
+Can we check the return value of drm_dp_dpcd_read_link_status() before using
+the buffer?
+
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-qcom-dp-ty=
-pec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com?part=3D4
+pec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com?part=3D2
