@@ -4,107 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D392C5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 12:57:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21565C5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 12:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0D610E7A1;
-	Mon, 24 Aug 2026 12:57:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73AB410E7B8;
+	Mon, 24 Aug 2026 12:57:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tJu0o1SX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="x0uBmghX";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ldXYRzZS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7TGiCTs6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Iaf7ruAF";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88B2310E7A1;
- Mon, 24 Aug 2026 12:57:27 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 84B291F792;
- Mon, 24 Aug 2026 12:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787575935; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gzg0pk9+7zA32pgHFdJrFnZp49of5cCIK8J846hIh9E=;
- b=tJu0o1SXsBOYriTmLOgmYjqh26Tz7YSfV4LHfCMONxQEyTXDKWt6nesC9DqvplsEEjRHIM
- JsAbz75fcAjLa0v0WmMaHLtAMDmbYMAvt+eGsgYSh/L5KyUGM3JHvgf8PJQK1dxcFpoHu0
- MnwhJT9zhb/azDu372neGLe4s+T4i/k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787575935;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gzg0pk9+7zA32pgHFdJrFnZp49of5cCIK8J846hIh9E=;
- b=x0uBmghXZuVIrslX6e/tkY5y2V0qbwvddvD8HN3IbyCNxJG6Quh9w6CBjVQu3vqV34MFjN
- Q7wDdq8++olBb0Cg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787575931; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gzg0pk9+7zA32pgHFdJrFnZp49of5cCIK8J846hIh9E=;
- b=ldXYRzZSgtKZWTnAsjjI3/eCMimLD6qSbbHJJp20hF3zwJkoG4AwWASjj9bn0m3r5bk1Ul
- 4BysVcqUSE/uANMNxKHtIvO2W0TWJKA/SKNiJ8qygLYRX5Su+mWk2Lyx+2OxTf01Ep8BrV
- CWYefmrr58DZ14fWz+6UhJV+WRMrZaA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787575931;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gzg0pk9+7zA32pgHFdJrFnZp49of5cCIK8J846hIh9E=;
- b=7TGiCTs6JDJjKbEV3UMBlXh2BEQPnPC/LP/Wg7syco4NFGrWeT96M5tGLNSBwaOD9eD7MI
- 5J4UjSE0S6/X9RAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C523133F3;
- Mon, 24 Aug 2026 12:52:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2JBeFXg+jGpyNwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Aug 2026 12:52:08 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- geert@linux-m68k.org, rdunlap@infradead.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 05/13] drm/panic: Pass colors to draw_panic_dispatch()
-Date: Mon, 24 Aug 2026 14:43:36 +0200
-Message-ID: <20260824125201.218863-6-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824125201.218863-1-tzimmermann@suse.de>
-References: <20260824125201.218863-1-tzimmermann@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[22]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,linux-m68k.org,infradead.org];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
- FROM_EQ_ENVFROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFF110E7AF
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 12:57:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 83DC56011F;
+ Mon, 24 Aug 2026 12:57:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B591F000E9;
+ Mon, 24 Aug 2026 12:57:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787576256;
+ bh=NHQ46OovERJXJmm9oRmhLogzceA69Q87zIW5WeSPqGE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Iaf7ruAFw21SF4UKUjHRSUq9HPNvWUaKSMkpmgiCPO5PSsTk7WR7m6xGxDtqxa/eQ
+ H2F0usTURXcdFqyk4ejwLoYxV9ix6Zh13eyAcpNyvFXsfmLuMVLcMpiXBwE/rDlhHe
+ 9iihTZUT8MT7i747Ls918OjZJVJs9xx8l9aoB3JhgAhKX8pBnIEoHjyV/Z+u9euFrV
+ B+UA3NXaF/Izmo/kLHS//rvuLQxOx7XMbwj9YUsV/HmoYFfJGcqY5MistdwaPbtzrL
+ aRShIl6ygDAmrAs+wv50NA/HLaw2Oh4DoROZZi0kM027pCEOISRpBbdpLxrFmSlMjK
+ GpimxbA8Ous5A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] drm/ingenic: fix bridge allocation
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com>
+References: <1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 12:57:35 +0000
+Message-Id: <20260824125736.19B591F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,221 +52,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Set the panic-screen colors in draw_panic_plane() as a single point
-of truth. Pass the values into the individual drawing functions.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-In the test cases, replace the Kconfig-defined colors with white and
-black. Allows for removal of the tests' limitations and dependency on
-the exact values. All tests now always verify the generated output.
+New issues:
+- [High] devm_drm_bridge_add() is called inside a component bind function, =
+causing bridge list pollution and memory leaks on bind failure or component=
+ unbind.
+- [Medium] Invalid usage of the `devm_drm_bridge_alloc` macro by passing `b=
+ase` as the member argument.
 
-Hardcoding the test colors will later also allow for building the
-test case without having DRM panic handling enabled.
+Pre-existing issues:
+- [High] Missing `IS_ERR` check after calling `devm_drm_panel_bridge_add_ty=
+ped()`, leading to an `ERR_PTR` dereference in `drm_bridge_attach()`.
+--
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
----
- drivers/gpu/drm/drm_panic.c            | 54 +++++++++++++++-----------
- drivers/gpu/drm/tests/drm_panic_test.c | 26 +++++++++----
- 2 files changed, 49 insertions(+), 31 deletions(-)
+--- Patch [1]: [PATCH v4] drm/ingenic: fix bridge allocation ---
+commit 822678818287fd2b46d33388216c8e393643533a
+Author: H. Nikolaus Schaller <hns@goldelico.com>
 
-diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index cc33a2b4bb52..834653d288a9 100644
---- a/drivers/gpu/drm/drm_panic.c
-+++ b/drivers/gpu/drm/drm_panic.c
-@@ -480,12 +480,8 @@ static void drm_panic_logo_draw(struct drm_scanout_buffer *sb, struct drm_rect *
- 				   fg_color);
- }
- 
--static int draw_panic_screen_user(struct drm_scanout_buffer *sb)
-+static int draw_panic_screen_user(struct drm_scanout_buffer *sb, u32 fg_color, u32 bg_color)
- {
--	u32 fg_color = drm_draw_color_from_xrgb8888(CONFIG_DRM_PANIC_FOREGROUND_COLOR,
--						    sb->format->format);
--	u32 bg_color = drm_draw_color_from_xrgb8888(CONFIG_DRM_PANIC_BACKGROUND_COLOR,
--						    sb->format->format);
- 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
- 	struct drm_rect r_screen, r_logo, r_msg;
- 	unsigned int msg_width, msg_height;
-@@ -493,6 +489,9 @@ static int draw_panic_screen_user(struct drm_scanout_buffer *sb)
- 	if (!font)
- 		return -EINVAL;
- 
-+	fg_color = drm_draw_color_from_xrgb8888(fg_color, sb->format->format);
-+	bg_color = drm_draw_color_from_xrgb8888(bg_color, sb->format->format);
-+
- 	r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
- 	drm_panic_logo_rect(&r_logo, font);
- 
-@@ -551,12 +550,8 @@ static int draw_line_with_wrap(struct drm_scanout_buffer *sb, const struct font_
-  * Draw the kmsg buffer to the screen, starting from the youngest message at the bottom,
-  * and going up until reaching the top of the screen.
-  */
--static int draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
-+static int draw_panic_screen_kmsg(struct drm_scanout_buffer *sb, u32 fg_color, u32 bg_color)
- {
--	u32 fg_color = drm_draw_color_from_xrgb8888(CONFIG_DRM_PANIC_FOREGROUND_COLOR,
--						    sb->format->format);
--	u32 bg_color = drm_draw_color_from_xrgb8888(CONFIG_DRM_PANIC_BACKGROUND_COLOR,
--						    sb->format->format);
- 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
- 	struct drm_rect r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
- 	struct kmsg_dump_iter iter;
-@@ -568,6 +563,9 @@ static int draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
- 	if (!font || font->width > sb->width)
- 		return -EINVAL;
- 
-+	fg_color = drm_draw_color_from_xrgb8888(fg_color, sb->format->format);
-+	bg_color = drm_draw_color_from_xrgb8888(bg_color, sb->format->format);
-+
- 	yoffset = sb->height - font->height - (sb->height % font->height) / 2;
- 
- 	/* Fill with the background color, and draw text on top */
-@@ -742,12 +740,9 @@ static int drm_panic_get_qr_code(u8 **qr_image)
- /*
-  * Draw the panic message at the center of the screen, with a QR Code
-  */
--static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb)
-+static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
-+				      u32 fg_color, u32 bg_color)
- {
--	u32 fg_color = drm_draw_color_from_xrgb8888(CONFIG_DRM_PANIC_FOREGROUND_COLOR,
--						    sb->format->format);
--	u32 bg_color = drm_draw_color_from_xrgb8888(CONFIG_DRM_PANIC_BACKGROUND_COLOR,
--						    sb->format->format);
- 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
- 	struct drm_rect r_screen, r_logo, r_msg, r_qr, r_qr_canvas;
- 	unsigned int max_qr_size, scale;
-@@ -760,6 +755,9 @@ static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb)
- 	if (!font)
- 		return -EINVAL;
- 
-+	fg_color = drm_draw_color_from_xrgb8888(fg_color, sb->format->format);
-+	bg_color = drm_draw_color_from_xrgb8888(bg_color, sb->format->format);
-+
- 	r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
- 
- 	drm_panic_logo_rect(&r_logo, font);
-@@ -814,10 +812,10 @@ static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb)
- 	return 0;
- }
- 
--static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb)
-+static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb, u32 fg_color, u32 bg_color)
- {
--	if (_draw_panic_screen_qr_code(sb))
--		return draw_panic_screen_user(sb);
-+	if (_draw_panic_screen_qr_code(sb, fg_color, bg_color))
-+		return draw_panic_screen_user(sb, fg_color, bg_color);
- 	return 0;
- }
- #else
-@@ -889,22 +887,22 @@ static bool drm_panic_is_format_supported(const struct drm_format_info *format)
- 	return drm_draw_can_convert_from_xrgb8888(format->format);
- }
- 
--static int draw_panic_dispatch(struct drm_scanout_buffer *sb)
-+static int draw_panic_dispatch(struct drm_scanout_buffer *sb, u32 fg_color, u32 bg_color)
- {
- 	int ret;
- 
- 	switch (drm_panic_type) {
- 	case DRM_PANIC_TYPE_KMSG:
--		ret = draw_panic_screen_kmsg(sb);
-+		ret = draw_panic_screen_kmsg(sb, fg_color, bg_color);
- 		break;
- #if IS_ENABLED(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
- 	case DRM_PANIC_TYPE_QR:
--		ret = draw_panic_screen_qr_code(sb);
-+		ret = draw_panic_screen_qr_code(sb, fg_color, bg_color);
- 		break;
- #endif
- 	case DRM_PANIC_TYPE_USER:
- 	default:
--		ret = draw_panic_screen_user(sb);
-+		ret = draw_panic_screen_user(sb, fg_color, bg_color);
- 	}
- 
- 	return ret;
-@@ -939,6 +937,16 @@ static void draw_panic_plane(struct drm_plane *plane, const char *description)
- 	struct drm_scanout_buffer sb = { };
- 	int ret;
- 	unsigned long flags;
-+#if defined(CONFIG_DRM_PANIC_FOREGROUND_COLOR)
-+	u32 fg_color = CONFIG_DRM_PANIC_FOREGROUND_COLOR;
-+#else
-+	u32 fg_color = 0x00ffffff;
-+#endif
-+#if defined(CONFIG_DRM_PANIC_BACKGROUND_COLOR)
-+	u32 bg_color = CONFIG_DRM_PANIC_BACKGROUND_COLOR;
-+#else
-+	u32 bg_color = 0x00000000;
-+#endif
- 
- 	if (!drm_panic_trylock(plane->dev, flags))
- 		return;
-@@ -954,7 +962,7 @@ static void draw_panic_plane(struct drm_plane *plane, const char *description)
- 
- 	drm_panic_set_description(description);
- 
--	ret = draw_panic_dispatch(&sb);
-+	ret = draw_panic_dispatch(&sb, fg_color, bg_color);
- 	if (!ret) {
- 		/*
- 		 * Only flush if we have a panic screen to display. Otherwise
-diff --git a/drivers/gpu/drm/tests/drm_panic_test.c b/drivers/gpu/drm/tests/drm_panic_test.c
-index fdd77b0cc54c..969a096ec840 100644
---- a/drivers/gpu/drm/tests/drm_panic_test.c
-+++ b/drivers/gpu/drm/tests/drm_panic_test.c
-@@ -14,17 +14,10 @@
- #include <linux/units.h>
- #include <linux/vmalloc.h>
- 
--/* Check the framebuffer color only if the panic colors are the default */
--#if (CONFIG_DRM_PANIC_BACKGROUND_COLOR == 0 && \
--	CONFIG_DRM_PANIC_FOREGROUND_COLOR == 0xffffff)
--
- static void drm_panic_check_color_byte(struct kunit *test, u8 b)
- {
- 	KUNIT_EXPECT_TRUE(test, (b == 0 || b == 0xff));
- }
--#else
--static void drm_panic_check_color_byte(struct kunit *test, u8 b) {}
--#endif
- 
- struct drm_test_mode {
- 	const int width;
-@@ -48,10 +41,27 @@ struct drm_test_mode {
- 	.width = w, \
- 	.height = h, \
- 	.format = f, \
--	.draw_screen = draw_panic_screen_##name, \
-+	.draw_screen = draw_panic_screen_ ## name ## _default, \
- 	.fname = #name, \
- 	}, \
- 
-+static int draw_panic_screen_user_default(struct drm_scanout_buffer *sb)
-+{
-+	return draw_panic_screen_user(sb, 0x00ffffff, 0x00000000);
-+}
-+
-+static int draw_panic_screen_kmsg_default(struct drm_scanout_buffer *sb)
-+{
-+	return draw_panic_screen_kmsg(sb, 0x00ffffff, 0x00000000);
-+}
-+
-+#if IS_ENABLED(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
-+static int draw_panic_screen_qr_code_default(struct drm_scanout_buffer *sb)
-+{
-+	return draw_panic_screen_qr_code(sb, 0x00ffffff, 0x00000000);
-+}
-+#endif
-+
- static const struct drm_test_mode drm_test_modes_cases[] = {
- 	DRM_TEST_MODE_LIST(user)
- 	DRM_TEST_MODE_LIST(kmsg)
--- 
-2.55.0
+drm/ingenic: fix bridge allocation
 
+Bridge allocation API has changed and ingenic/drm was broken
+leading to use-after-free errors.
+
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/=
+ingenic/ingenic-drm-drv.c
+> index 738a80b2550ff..16fefdac8ce3d 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+[ ... ]
+> @@ -1316,10 +1316,23 @@ static int ingenic_drm_bind(struct device *dev, b=
+ool has_components)
+> =20
+>  		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+> =20
+> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
+> +		ib->bridge =3D devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
+> +						   base, &ingenic_drm_bridge_funcs);
+
+[Severity: Medium]
+Does passing base as the member argument safely allocate the bridge?
+
+The devm_drm_bridge_alloc() macro is designed to allocate a driver-specific
+container struct that embeds a struct drm_bridge, expecting member to be
+the embedded bridge. It expands to:
+
+__devm_drm_bridge_alloc(dev, sizeof(type), offsetof(type, member), funcs)
+
+Passing struct drm_bridge as the type and base as the member relies on
+base remaining at offset 0. If the struct layout changes and base moves,
+the pointer offset calculation will write out of bounds since the internal
+logic only allocates sizeof(struct drm_bridge) bytes.
+
+Could this be updated to allocate a proper embedding container instead?
+
+> +		if (IS_ERR(ib->bridge)) {
+> +			ret =3D PTR_ERR(ib->bridge);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		ib->bridge->of_node =3D priv->dev->of_node;
+>  		ib->next_bridge =3D bridge;
+
+[Severity: High]
+This is a pre-existing issue, but does bridge need an IS_ERR check before
+being assigned here?
+
+Earlier in ingenic_drm_bind(), devm_drm_panel_bridge_add_typed() is called
+which can return an error pointer if memory allocation fails:
+
+    if (panel) {
+        bridge =3D devm_drm_panel_bridge_add_typed(...)
+        drm_panel_put(panel);
+    }
+
+If this allocation fails, bridge contains an error pointer that is blindly
+assigned to ib->next_bridge. When ingenic_drm_bridge_attach() later passes
+this to drm_bridge_attach(), it isn't protected by a NULL check and the err=
+or
+pointer will be dereferenced, potentially causing a panic.
+
+> -		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
+> +		ret =3D devm_drm_bridge_add(priv->dev, ib->bridge);
+
+[Severity: High]
+Is it safe to use devm_drm_bridge_add() inside a component bind function?
+
+When tied to priv->dev (the master platform device), the devm cleanup
+actions are only triggered when the master device is removed.
+
+If ingenic_drm_bind() fails in a subsequent initialization step and defers,
+or if the component is manually unbound via sysfs, the master device remains
+bound.
+
+This would leave the bridge memory allocated and the bridge itself in the
+global DRM bridge_list. Upon retry or rebind, a new bridge will be
+allocated and added, leaking memory and polluting the global list with
+ghost entries.
+
+> +		if (ret) {
+> +			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		ret =3D drm_bridge_attach(encoder, ib->bridge, NULL,
+>  					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>  		if (ret) {
+>  			dev_err(dev, "Unable to attach bridge\n");
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/1630a544a26fac0b871=
+87885374ebe59fc92df3b.1787575203.git.hns@goldelico.com?part=3D1
