@@ -4,128 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9DABC5DF9C
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 20:04:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9ADDC5DF9C
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 20:07:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3902010E82B;
-	Mon, 24 Aug 2026 20:04:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B72510E094;
+	Mon, 24 Aug 2026 20:07:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VbuemKA/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="miWFWb/I";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE2210E82B
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 20:04:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dt5hn+RXUJwAwDFMUpIi6/7VuglJGOQjIzM8K6fHbu8pJ4JI/YSMLHGDqC2MFc+KJy/eeVOk6v47QIjxOuQoz0B9hY6e70C4cXU1T6MLM8D98QJ9mZzZ3oY0OBIBqkbNaHwCLxt8GcwflFeUbi+5Es34CE7lTzgW3eMj+R+a/A+IRdAkf/DZL4YHC8gsC4T6u7g1KIMTyuQ+LAcYvIkfcqxhZN96PxxhXCVMkcfA1y4jialI+yMVb/gRQlQbqmt1Al1nairTsyEGL5g9kED9G4U32qrRWY3tcvXP3LaRJqROlheENMmi5Gw4i1vetJKp1yXESVXFb1m6T68ZtpYd+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m5AIHWsAbrwCzAKL2A+56GkBxS4lameRP4ZU6L6L7a0=;
- b=y2bLpQ+fGNsk553pZtI0AW7xw6y/VLweao7N1Jffihi43MpcTkHbZIr4NQtCqsub+SATYDWzICT+bxoY7i0YevcC6sFSpiRGY9Pzf3dvVEcoGODbINUTldl09IVTyQLToIde8VirUYJFslCcc4rpHrhoE87ZyQdh3ZU76rCdKyRcOFu/sucb3stiqbrDeG032yIVhB+rvlfnvMdPAVGpYqBBrcpHlhIiyWChH113IeERNj7XbhA/FTHMTYknwuGRrDE+0P1e6oyZ4s26RdEB4UuHTVJqXwdG8uefMJrldEgsnIJReA+JgERdXk3uBPzahmSSey99oNXN+Cl+K5BPEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m5AIHWsAbrwCzAKL2A+56GkBxS4lameRP4ZU6L6L7a0=;
- b=VbuemKA/q2MS2TJ18GaWL47/4kCl4rsoNIB1Zq8nLv6DEn7Dp8yhkGpg6Ua4w3Nn5cYzO1SEig2KjlGc7YV11Xh0g8r/wiG7PQmLnVi8XVUayBU9Rqg4G1pxIBh3BZ+E7Sy+MTym4gVhIcMsc92rHin0rLMsGskmL11j618ej+a4wMvoZMqXq4cJcVMBXibq8tU+i+6OYLPBKobgxL+CGK0Q0Nmllkm+Hfs1ce3ytY9kDhWBkf4/Rntu61B7Nkf6rISBfylf+Z9YvkQpYaRbJ5oEa5nCG0QVcVH++dkOx85Dwc8mG14CVuYtBVZYlB2wuJb1CH/Nsz6i+kEAdOd2Vw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- PH8PR12MB6964.namprd12.prod.outlook.com (2603:10b6:510:1bf::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Mon, 24 Aug
- 2026 20:04:32 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
- 20:04:32 +0000
-Message-ID: <f9d3f749-dacb-4cfa-acf7-e748795729a6@nvidia.com>
-Date: Mon, 24 Aug 2026 13:04:30 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/7] drm: nova: Add a GPU info ioctl
-To: Danilo Krummrich <dakr@kernel.org>, Alistair Popple <apopple@nvidia.com>
-Cc: nova-gpu <nova-gpu@lists.linux.dev>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
- Eliot Courtney <ecourtney@nvidia.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-References: <20260811050657.646799-1-apopple@nvidia.com>
- <20260811050657.646799-5-apopple@nvidia.com>
- <DKXFCIT7WHBE.1MJV6UKAJ5VEU@kernel.org>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DKXFCIT7WHBE.1MJV6UKAJ5VEU@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ2PR07CA0016.namprd07.prod.outlook.com
- (2603:10b6:a03:505::16) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH8PR12MB6964:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0abaff58-b308-404a-09cc-08df021ae99b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|10067099003|56012099006|6133799003|22082099003|18002099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: WyA13ll0zoMx0b3YbccRUcFpueGU06mjsOOnk9FzOI5LoHZ85BL/FnPP6qC74TclazdARmM0dmTCg/MLhlcizQz2xtucel+nLi0V8LPK/uShe8KyQJEYKWfhSlFshHxNyW427pp7eIGiNf54biyOiki1Gh4MaCTb4n7MV47cuAyrNQbRoaTfCm6QeV8CUy+CQgN+/SqaLzqjQfptFdKSgHyqBAcj7PH/lq1V32LWhBs3Eyc4REdMyv6XDomyR5F0YjZ4o+8oW8yEittQKZhU4vGKH4aQUFnU/RnCq1/qX2GN5pwMDve0k/l9ZqnSxK9Ob7lh0s/NiUdKTGmILOHViZmIB4+gRV9AarjfvkOsM4PDdkFQ3DTF9zbdjdFq+WpjQNZ0nab1WUj79RBfrmBopyUZHFAHL4bsI5hcxWXxs96KbgZm+3WCoDrRmjPgLt9vyWjZfwNShW1BmFOKobMMAe5fsgvc8dPtnaGVun8iF5cq7F1UKiq3yXM+SsX4hmChuV1iuhLCKGNtyFUH/xIO3LvldxKP2m/CHKrU0VZVkaJH4QxB3DftVLng/3KJNPcnVCUFd+XabkTkeQHPMeqr4JAturJ0jelnNQ/Ki6pLEOy1JP6qlAWIETPZMCViTcac/MMzYv2vu5yfSST9+HyCj9VvRYKcAwEoe+Sd7i8O2OQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1M3QjZBcVBZRVR3V3AwYjUxMkdqdFlQTEdOV1JXTGlzUjExbkJIQnQ1WWNu?=
- =?utf-8?B?TUpBM2NVeGNLQzVvRVdIOEliMDRlTTNwVDZDeFN5aHNIbldiU1M5RVdTMDRm?=
- =?utf-8?B?V3h4c0dCK2ZtQm5GeUVaYzBQTEpUbjNIVjVrR0ZVRkhMcWdybklSakV2N0N5?=
- =?utf-8?B?SmVRcFZyV01ZekRIMkRVaUtCc0dEYlprYnlQcEZaNy81b29mQTVmSHA5RnBl?=
- =?utf-8?B?ZTRvdS9naE1mWGpaclJvWGt5N3dnMDJjazg3d2FqOC93cW9zbEsrbkk1Nmlv?=
- =?utf-8?B?cHRhd0x5M0tEWXk4MVc1VHM3RXEvbUh6Z2xZUE9ZSXBrZUM0bzJhajBMaW1t?=
- =?utf-8?B?WEJrRDUrcUczbjRVc0oxakVEUU1NN1NQaCtUc1F6Nm5sUk1LSXdHZDlMbU9X?=
- =?utf-8?B?c2MrSXBoMTJaUWVQQXNyd2t4TlhzM0pXK1c4dXg4QnA3V3RHMnRkVU1UZmw2?=
- =?utf-8?B?Z2h1cW1iTk5UNXJRa2xMbW1nSjhTTFpML0dPKy9WT3hORVhxcjNxWjladHB1?=
- =?utf-8?B?OStTRUJqcUZ4VThNazdLVFZwcGFXaXNOZis3WEoyeXNXa1VuQU1KUFBpOFZo?=
- =?utf-8?B?NDlPZDhVcy9rdS9pMTl0Q3JBNGxEVHFqUEkxZHl0RmRHMThPM3ZoN3hyRm1z?=
- =?utf-8?B?RnBSTE9ITllUTk5nUlBBdFJkRldyV2FEZVdNc1R3YktXMkhVWjZFamhDVXps?=
- =?utf-8?B?cW4ydllQY3RyQVZQekgwMDRYbVljSlZHRlFLSlU4bnhWNEg5Z3F4YUMvcDRz?=
- =?utf-8?B?V2ZML2pNeHd0WFFnOTZ1MUp2dG1QMkc3aC9ScmdoUkxnbDRRZHpERlgzNU1v?=
- =?utf-8?B?SlhoWGU1YjdTYWZQSVVqVTYyamZyazZNWGgrVVJvbTVBUFJYRUxBTmFUSDdt?=
- =?utf-8?B?bVg3UTR4enVuN094b1R3ejd5SnpqSHVZdVg4NW45cGszTVVkbTVJY1p6dHlv?=
- =?utf-8?B?ampXdFJVaFN0bmZoK3NpUnhlN0VIbTRENE52elBGa3prNW9Gem8wRndDOU5N?=
- =?utf-8?B?SVRqY2pxa2NEaWh4OWgwTHZ0SWFwc05PRkxURzJmUm1VVXczRkNBQ1BsMnZq?=
- =?utf-8?B?d1hPUzQ3N2VKWEVvZWtoUW1jRzlRWVMwYVpRdklremwvc3dHakVPRHcwWTFM?=
- =?utf-8?B?MkJaMWVhNzBBc0QyVnFzdnBhUDk3UjJIc3p6SnhOc1NPUEZqR3Y3VCttM25v?=
- =?utf-8?B?SXorM3dNMWtkRmNlQjlGcHFWWk5ibG1OT3pCTktkV003WWtudmJwLzVTTlp2?=
- =?utf-8?B?em5CT1l3bHZacFBsZWM2N2pEcEdLRmVkbXNoSzMrREk3d0N4RFIxeEpFQWJM?=
- =?utf-8?B?YTV1VWRzVWJVVHBVL05kN09pT0hJenJLY3ptd3o4dlR5bC9BWWRjWXUyOFlv?=
- =?utf-8?B?OTgzWW9Id0g5d050TmxyaHN1TzBKOFJPNE5yaGVxMWtXb08yT1ZkdlRhSE10?=
- =?utf-8?B?Z1Q1d3ZveXJ2bzBBbW91NW5icGNqcU9ObnMzdktKeHV2RllZelJDQXpxc0tP?=
- =?utf-8?B?YU5jak5PaEdOMFBONHFlcEV4MzFsR2JDOGZ2QWlmdnlCNnRQRGYyTDF1cG9Z?=
- =?utf-8?B?MzczUjl0Q0RsMWYwUXZvempXMU5XS1RmeHFsdmFheUZaZXo3ejNaUlR1YThX?=
- =?utf-8?B?eWpjNGQ5WVJ3Qm9laVN5UFlQcVV0alRUV1pvMUx6Qm52eEJ1TDBQaGV5cDEv?=
- =?utf-8?B?Ui8wRXVtaXM4L3ZNaWVnblZENUE1R1piWEQ2TmRIa0swYlJxSEJlT0hXSkFB?=
- =?utf-8?B?M0JUUXRYUlNGVmF0TFRLMXFjUllkQ3dVVDBoamZjMlVyRWRkV1QyWVREZGVC?=
- =?utf-8?B?MUx2UmNKd1hPdFFuUnFPd2pFTmU5WGVvQ2g2dlBYNjQ3RGFPcVdRa3lvYWI2?=
- =?utf-8?B?bG83ancyVHZ1b1E4KzB4TjZ6N0IvR0FEV3JqRkxPdG5SWUpRazFZZkthVlNS?=
- =?utf-8?B?eTljZHZkdjVZb1JqaTZ1ZWdjMUdZMWQ3U2h4Q0J3RjJuSEJ0bklIYmhQU1FS?=
- =?utf-8?B?S0JoWXVjK0hDVEVGVTN0Z2tBRGFTY2JBOFBKZUM5M0tSSDdjeEFVK2o1bUd4?=
- =?utf-8?B?REprQXRuSG9wci9JNnBsY016Rk5yMldVa3FRakkyeXQ2RmxQS1hETldIZlpy?=
- =?utf-8?B?SjlGV0FtS0V5V29CRW02V3FSeGpYM2Y1YUV1SzRJNGM4anc2dVZSck5ZaU1F?=
- =?utf-8?B?dnpPcHNEOE56T3Jici9XdmZlMTdlMWhUSlRZNEpiaTdwNTJpTTJETVAzZFR0?=
- =?utf-8?B?WGFmcmZwTHZ5TlFZL0daaEVybXlxSmIxYXp6Y3ZjNmlkekhsY29jSWF2OTdh?=
- =?utf-8?B?elB4NHY5Mm50TjVQTXlwbzdzMFhHRDJLRlhyNWVBR2NDdFJveFhJQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0abaff58-b308-404a-09cc-08df021ae99b
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 20:04:32.3418 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZOixT0txSIKUoPvAG36vceTHlI2v23/3vxU/ykuQ/PhDwcqAzxRozst/Dg2yZpEaR2PHGo7yP5eDzCaLCyC2bQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6964
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B62A210E094
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 20:07:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 83E2F418C9;
+ Mon, 24 Aug 2026 20:07:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17EC71F000E9;
+ Mon, 24 Aug 2026 20:07:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787602053;
+ bh=HXqpBmsy3koJuYdV0MGTeoTO2rJ7Sd8LFgvk4JP2QeI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=miWFWb/IK+t0siMniDVWDUsQBqMzj+4nVK/BCCnSWoJ7qyPTXjh9mbbPfU/liKZQN
+ 8lVCAdVqHj3wnc+aSs/hwHGH7WjzNNAeXAkt2/H5vUbKZnyNYpzO/ZDXgUpmsXbl3P
+ yxUvT8SUkwgDpFfZReHdo+cKnJU7eIW02BaMy6MWKQnDkZQER7Xl0QiLcMAjyXgKRR
+ 44i7tahpQ0vJuCikY58WfLJnrAmTe0D0BevXQy9gVb8gPn3l4VMA21JOIBXV/Z2HaH
+ ogRBnlFpmr+ni76OSN8az6hJH1y4N1YgDmVxbdcHkVuWHd0DLUP52QScfAqccs5HvS
+ HBt33dZ5hIbUQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
+To: "Leander Kieweg" <kieweg.leander@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260824195418.17707-3-kieweg.leander@gmail.com>
+References: <20260824195418.17707-1-kieweg.leander@gmail.com>
+ <20260824195418.17707-3-kieweg.leander@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 20:07:32 +0000
+Message-Id: <20260824200733.17EC71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,58 +54,190 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/24/26 12:34 PM, Danilo Krummrich wrote:
-> On Tue Aug 11, 2026 at 7:06 AM CEST, Alistair Popple wrote:
->>  include/uapi/drm/nova_drm.h    | 27 +++++++++++++++++++++++++++
-> 
-> Btw. I think it would be nice to have project to play around with and write
-> tests directly on top of the uAPI before we can run the big test suites.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] `glanda_crtc_enable_vblank()` enables the hardware VSYNC interrupt=
+ without checking if an IRQ handler is registered, leading to an interrupt =
+storm in polling mode.
+- [High] VRAM is mapped using standard I/O instead of Write-Combining, caus=
+ing a severe performance regression.
+- [Medium] Unconditionally enabling the VSYNC interrupt during initializati=
+on bypasses DRM core's state management, causing unnecessary CPU wakes.
+- [Low] Unconditional usage of PCI APIs breaks the build when `CONFIG_PCI` =
+is disabled under `COMPILE_TEST`.
+--
 
-Yes, I think it's reasonable to do something like that. Seeing a new API
-from both sides, caller and callee, is always illuminating during review,
-for one thing.
+--- Patch [2]: [PATCH v3 2/2] drm/glanda: Add initial DRM driver for Glanda=
+GPU ---
+commit a32b58ce69a1f7f207f85c416ed56ab0c146bd56
+Author: Leander Kieweg <kieweg.leander@gmail.com>
 
-> 
-> When I implemented the VM_BIND uAPI for nouveau I used IGT for this (but didn't
-> enjoy it too much). It turned out to be very useful to test and benchmark the
-> implementation before being able to complete VK CTS.
-> 
-> When I sent the first nova-drm skeleton, I also submitted [1]; maybe we can
-> extend this further accordingly?
-> 
-> I'm also open for other ideas, but I'd really like to have something like this
-> as we develop nova-drm.
-> 
-> [1] https://gitlab.freedesktop.org/dakr/drm-test
+drm/glanda: Add initial DRM driver for GlandaGPU
 
-I was thinking about where this sort of thing should go, and this
-location seems as good, or slightly better than the main alternatives,
-to get started anyway.
+This commit introduces a new DRM/KMS driver for the GlandaGPU display
+controller. It supports basic modesetting and atomic updates via shadow
+planes, and allows for both platform and PCI probing.
 
-Alternatives include:
+> diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glan=
+dagpu.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/glandagpu.c
 
-1) The kernel's kselftests (tools/testings/selftests). These are
-helpful in many cases, but some minor issues include:
+[ ... ]
 
-    a) Oddly tight coupling to kernel code, even though the whole
-       point of these is to exercise the kernel from user space.
-       (Otherwise, these days one would use KUnit.) I've personally
-       working on mitigating the coupling-induced problems and 
-       ran into other, bigger problems along the way, such as:
+> +static int glanda_crtc_enable_vblank(struct drm_crtc *crtc)
+> +{
+> +	struct glanda_device *gdev =3D to_glanda(crtc->dev);
+> +	u32 ier;
+> +
+> +	ier =3D readl(gdev->mmio_base + REG_IER);
+> +	writel(ier | INT_VSYNC, gdev->mmio_base + REG_IER);
 
-   b) Confused build system and an arguably wrong way of invoking
-      the tests (from Make(1) !).
+[Severity: High]
+Could this cause an unhandled interrupt storm in polling mode?
 
-2) Some other github-like location to host user space tests for
-   nova. The idea is, do we want to set up a well-known location
-   that people should keep updated? Or let a thousand github
-   small test sites bloom? 
+If the driver falls back to polling mode, such as when
+platform_get_irq_optional() returns -ENXIO, gdev->irq is set to -1
+and no handler is registered. If a userspace application calls
+DRM_IOCTL_WAIT_VBLANK, the DRM core will invoke this callback and enable
+the hardware vsync interrupt.
 
+Since there is no IRQ handler to clear the REG_ISR register, the hardware
+will keep the interrupt line asserted, which might disable a shared
+interrupt line and affect other devices.
 
-thanks,
--- 
-John Hubbard
+> +
+> +	return 0;
+> +}
 
+[ ... ]
+
+> +static int glanda_drm_init(struct glanda_device *gdev, int irq)
+> +{
+
+[ ... ]
+
+> +	if (irq > 0) {
+> +		gdev->irq =3D irq;
+> +		ret =3D devm_request_irq(gdev->drm.dev, gdev->irq, glanda_irq_handler,
+> +				       IRQF_SHARED, "glandagpu", gdev);
+> +		if (ret) {
+> +			drm_err(&gdev->drm, "Failed to request IRQ %d\n",
+> +				gdev->irq);
+> +			return ret;
+> +		}
+> +
+> +		writel(INT_VSYNC, gdev->mmio_base + REG_IER);
+
+[Severity: Medium]
+Is it necessary to unconditionally enable the hardware vsync interrupt here?
+
+The DRM core initializes software vblank state as disabled. Because it is
+already considered disabled, the core won't call the disable_vblank()
+callback. This means the hardware will fire vsync interrupts continuously
+from the moment the driver loads, even when the display is idle.
+
+> +	} else {
+> +		drm_warn(&gdev->drm, "No IRQ found, falling back to polling\n");
+> +	}
+
+[ ... ]
+
+> +static int glandagpu_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	if (resource_size(res) < GLANDA_MMIO_OFFSET + GLANDA_MMIO_SIZE) {
+> +		dev_err(&pdev->dev, "MMIO region too small: %llu bytes, need at least =
+%u\n",
+> +			(unsigned long long)resource_size(res),
+> +			GLANDA_MMIO_OFFSET + GLANDA_MMIO_SIZE);
+> +		return -EINVAL;
+> +	}
+> +
+> +	gdev->vram_phys =3D res->start;
+> +	gdev->vram_base =3D devm_ioremap(&pdev->dev, res->start, GLANDA_VRAM_SI=
+ZE);
+
+[Severity: High]
+Will this cause severe CPU stalling during atomic frame updates?
+
+The devm_ioremap() function creates a strongly uncacheable memory mapping.
+Since glanda_plane_atomic_update() writes hundreds of thousands of pixels
+individually using writel_relaxed(), each write will traverse the bus
+separately.
+
+Should this memory be mapped using write-combining (e.g., devm_ioremap_wc())
+so the CPU can burst writes efficiently?
+
+> +	gdev->mmio_base =3D devm_ioremap(&pdev->dev, res->start + GLANDA_MMIO_O=
+FFSET,
+> +								   GLANDA_MMIO_SIZE);
+
+[ ... ]
+
+> +static struct platform_driver glandagpu_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "glandagpu",
+> +		.of_match_table =3D glanda_of_match,
+> +	},
+> +	.probe =3D glandagpu_probe,
+> +	.remove =3D glandagpu_remove,
+> +};
+> +
+> +/* PCI probe path for the QEMU test device, real hardware uses platform_=
+driver */
+> +static int glandagpu_pci_probe(struct pci_dev *pdev, const struct pci_de=
+vice_id *id)
+> +{
+
+[Severity: Low]
+Does this code break the build when the kernel is configured with
+CONFIG_DRM_GLANDA=3Dy, CONFIG_COMPILE_TEST=3Dy, and CONFIG_PCI=3Dn?
+
+The Kconfig explicitly allows building without PCI for test coverage, but
+functions like pcim_iomap_regions() and pcim_iomap_table() do not have
+fallback stubs in the headers when PCI is disabled.
+
+Should the PCI-specific driver code be guarded by #ifdef CONFIG_PCI?
+
+> +	struct glanda_device *gdev;
+> +	int ret;
+> +
+> +	ret =3D pcim_enable_device(pdev);
+> +	if (ret)
+> +		return ret;
+> +	pci_set_master(pdev);
+> +
+> +	if (pci_resource_len(pdev, 0) < GLANDA_MMIO_SIZE ||
+> +		pci_resource_len(pdev, 1) < GLANDA_VRAM_SIZE) {
+> +		dev_err(&pdev->dev, "BAR too small: BAR0=3D%llu (need %u), BAR1=3D%llu=
+ (need %u)\n",
+> +			(unsigned long long)pci_resource_len(pdev, 0), GLANDA_MMIO_SIZE,
+> +			(unsigned long long)pci_resource_len(pdev, 1), GLANDA_VRAM_SIZE);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret =3D pcim_iomap_regions(pdev, BIT(0) | BIT(1), "glandagpu");
+
+[Severity: High]
+Similar to the platform probe, does this create a strongly uncacheable
+mapping for VRAM?
+
+pcim_iomap_regions() defaults to standard I/O mappings. This will likely
+cause the same performance degradation during frame updates.
+
+> +	if (ret)
+> +		return ret;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824195418.1770=
+7-1-kieweg.leander@gmail.com?part=3D2
