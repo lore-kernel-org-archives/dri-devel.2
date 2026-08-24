@@ -4,42 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21565C5DF81
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 12:57:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD457C5DF94
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 12:58:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73AB410E7B8;
-	Mon, 24 Aug 2026 12:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA8310E7B3;
+	Mon, 24 Aug 2026 12:58:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Iaf7ruAF";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JF9q9IFM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Mew956bj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SDXzwoeS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PYmSypWY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFF110E7AF
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 12:57:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 83DC56011F;
- Mon, 24 Aug 2026 12:57:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B591F000E9;
- Mon, 24 Aug 2026 12:57:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787576256;
- bh=NHQ46OovERJXJmm9oRmhLogzceA69Q87zIW5WeSPqGE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Iaf7ruAFw21SF4UKUjHRSUq9HPNvWUaKSMkpmgiCPO5PSsTk7WR7m6xGxDtqxa/eQ
- H2F0usTURXcdFqyk4ejwLoYxV9ix6Zh13eyAcpNyvFXsfmLuMVLcMpiXBwE/rDlhHe
- 9iihTZUT8MT7i747Ls918OjZJVJs9xx8l9aoB3JhgAhKX8pBnIEoHjyV/Z+u9euFrV
- B+UA3NXaF/Izmo/kLHS//rvuLQxOx7XMbwj9YUsV/HmoYFfJGcqY5MistdwaPbtzrL
- aRShIl6ygDAmrAs+wv50NA/HLaw2Oh4DoROZZi0kM027pCEOISRpBbdpLxrFmSlMjK
- GpimxbA8Ous5A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] drm/ingenic: fix bridge allocation
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com>
-References: <1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 12:57:35 +0000
-Message-Id: <20260824125736.19B591F000E9@smtp.kernel.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D08F10E7B2;
+ Mon, 24 Aug 2026 12:58:01 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8968E1F794;
+ Mon, 24 Aug 2026 12:52:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787575935; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zBllh5can9W5YA89sy1f8T8AcT26iEoRNQ/HwHVjaKw=;
+ b=JF9q9IFMUsb3KVqD0m8ibeDTLKv2fDw+SXYglKFr6C42+Fy47y1c131nUPAW474AUAAKM2
+ ZHfni8BF4gmTWNWuCYetC5VcykBP47dtB9Qyz37le3sQH94LcywM+mb9VOtv2RSAnrlUI4
+ jyr1kiZ3YOP9tFxslEDbn/kfQyIle/M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787575935;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zBllh5can9W5YA89sy1f8T8AcT26iEoRNQ/HwHVjaKw=;
+ b=Mew956bjmCx1q2kgdKrAJhIZLb5KGMxJVDQQ7oXI9bsH+Et9XCIy8lQHztU8E2aSPbTruP
+ izq0P6zruT7g7dAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787575931; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zBllh5can9W5YA89sy1f8T8AcT26iEoRNQ/HwHVjaKw=;
+ b=SDXzwoeS7N38EGhv/iGYCJ8JFjJ9P1qM8AfRH3HojySA3Q6AliR6txJGBGzgDTsgXWRObY
+ va8eWIiq0ffVtN8wCw10nsX+K7fySxLsAaxFi1v0KDjbWtT5BP1Xe82/XKIx3HLinSwxEM
+ W7PFFpB/hIOM324U+rv39RZ4h0fJ3vY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787575931;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zBllh5can9W5YA89sy1f8T8AcT26iEoRNQ/HwHVjaKw=;
+ b=PYmSypWYR+brgRVFbn0UjQnrLMnUl2/8U4C2NknCn+HAbvMB9jlOImuLmptUVAcFGaPbNf
+ +nduWeArj2X9RGAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6822913408;
+ Mon, 24 Aug 2026 12:52:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id UBkzGHk+jGpyNwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 24 Aug 2026 12:52:09 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ geert@linux-m68k.org, rdunlap@infradead.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 07/13] drm/panic: Retry in dispatch function if panic
+ output fails
+Date: Mon, 24 Aug 2026 14:43:38 +0200
+Message-ID: <20260824125201.218863-8-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260824125201.218863-1-tzimmermann@suse.de>
+References: <20260824125201.218863-1-tzimmermann@suse.de>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[22]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,linux-m68k.org,infradead.org];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,119 +118,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On failed output of QR codes and kmsg buffers, fall back to a user
+message. QR-code output already did this internally, but now formally
+support it in drm_panic_dispatch(). Streamlines the existing logic.
 
-New issues:
-- [High] devm_drm_bridge_add() is called inside a component bind function, =
-causing bridge list pollution and memory leaks on bind failure or component=
- unbind.
-- [Medium] Invalid usage of the `devm_drm_bridge_alloc` macro by passing `b=
-ase` as the member argument.
+Also pass module parameter drm_panic_type as a parameter to
+drm_panic_dispatch(). This simpifies the implementation. It will later
+allow for moving the function into a helper library.
 
-Pre-existing issues:
-- [High] Missing `IS_ERR` check after calling `devm_drm_panel_bridge_add_ty=
-ped()`, leading to an `ERR_PTR` dereference in `drm_bridge_attach()`.
---
+With the implicit fallback removed from QR-code support, the tests
+cases fail for thr smallest output size (300x200). This is because the
+QR code requires a minimal output size. Increase the size to 494x494,
+which is the minimum supported size for QR output.
 
---- Patch [1]: [PATCH v4] drm/ingenic: fix bridge allocation ---
-commit 822678818287fd2b46d33388216c8e393643533a
-Author: H. Nikolaus Schaller <hns@goldelico.com>
+v2:
+- fix minimum test size (Sashiko)
 
-drm/ingenic: fix bridge allocation
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+---
+ drivers/gpu/drm/drm_panic.c            | 24 ++++++++++++------------
+ drivers/gpu/drm/tests/drm_panic_test.c |  2 +-
+ 2 files changed, 13 insertions(+), 13 deletions(-)
 
-Bridge allocation API has changed and ingenic/drm was broken
-leading to use-after-free errors.
+diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+index f597ef04c5bc..bc7c096c4236 100644
+--- a/drivers/gpu/drm/drm_panic.c
++++ b/drivers/gpu/drm/drm_panic.c
+@@ -740,9 +740,9 @@ static int drm_panic_get_qr_code(u8 **qr_image, unsigned int qr_version)
+ /*
+  * Draw the panic message at the center of the screen, with a QR Code
+  */
+-static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+-				      u32 fg_color, u32 bg_color,
+-				      unsigned int qr_version)
++static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
++				     u32 fg_color, u32 bg_color,
++				     unsigned int qr_version)
+ {
+ 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
+ 	struct drm_rect r_screen, r_logo, r_msg, r_qr, r_qr_canvas;
+@@ -812,15 +812,6 @@ static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+ 	drm_panic_blit(sb, &r_qr, qr_image, qr_pitch, scale, fg_color);
+ 	return 0;
+ }
+-
+-static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+-				     u32 fg_color, u32 bg_color,
+-				     unsigned int qr_version)
+-{
+-	if (_draw_panic_screen_qr_code(sb, fg_color, bg_color, qr_version))
+-		return draw_panic_screen_user(sb, fg_color, bg_color);
+-	return 0;
+-}
+ #else
+ static void drm_panic_qr_init(void) {};
+ static void drm_panic_qr_exit(void) {};
+@@ -895,13 +886,22 @@ static int draw_panic_dispatch(struct drm_scanout_buffer *sb, enum drm_panic_typ
+ {
+ 	int ret;
+ 
++retry:
+ 	switch (panic_type) {
+ 	case DRM_PANIC_TYPE_KMSG:
+ 		ret = draw_panic_screen_kmsg(sb, fg_color, bg_color);
++		if (ret) {
++			panic_type = DRM_PANIC_TYPE_USER;
++			goto retry;
++		}
+ 		break;
+ #if IS_ENABLED(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
+ 	case DRM_PANIC_TYPE_QR:
+ 		ret = draw_panic_screen_qr_code(sb, fg_color, bg_color, qr_version);
++		if (ret) {
++			panic_type = DRM_PANIC_TYPE_USER;
++			goto retry;
++		}
+ 		break;
+ #endif
+ 	case DRM_PANIC_TYPE_USER:
+diff --git a/drivers/gpu/drm/tests/drm_panic_test.c b/drivers/gpu/drm/tests/drm_panic_test.c
+index 196496238d23..55d77bc203df 100644
+--- a/drivers/gpu/drm/tests/drm_panic_test.c
++++ b/drivers/gpu/drm/tests/drm_panic_test.c
+@@ -32,7 +32,7 @@ struct drm_test_mode {
+  */
+ #define DRM_TEST_MODE_LIST(func) \
+ 	DRM_PANIC_TEST_MODE(1024, 768, DRM_FORMAT_XRGB8888, func) \
+-	DRM_PANIC_TEST_MODE(300, 200, DRM_FORMAT_XRGB8888, func) \
++	DRM_PANIC_TEST_MODE(494, 494, DRM_FORMAT_XRGB8888, func) \
+ 	DRM_PANIC_TEST_MODE(1920, 1080, DRM_FORMAT_XRGB8888, func) \
+ 	DRM_PANIC_TEST_MODE(1024, 768, DRM_FORMAT_RGB565, func) \
+ 	DRM_PANIC_TEST_MODE(1024, 768, DRM_FORMAT_RGB888, func) \
+-- 
+2.55.0
 
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/=
-ingenic/ingenic-drm-drv.c
-> index 738a80b2550ff..16fefdac8ce3d 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-[ ... ]
-> @@ -1316,10 +1316,23 @@ static int ingenic_drm_bind(struct device *dev, b=
-ool has_components)
-> =20
->  		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
-> =20
-> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
-> +		ib->bridge =3D devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
-> +						   base, &ingenic_drm_bridge_funcs);
-
-[Severity: Medium]
-Does passing base as the member argument safely allocate the bridge?
-
-The devm_drm_bridge_alloc() macro is designed to allocate a driver-specific
-container struct that embeds a struct drm_bridge, expecting member to be
-the embedded bridge. It expands to:
-
-__devm_drm_bridge_alloc(dev, sizeof(type), offsetof(type, member), funcs)
-
-Passing struct drm_bridge as the type and base as the member relies on
-base remaining at offset 0. If the struct layout changes and base moves,
-the pointer offset calculation will write out of bounds since the internal
-logic only allocates sizeof(struct drm_bridge) bytes.
-
-Could this be updated to allocate a proper embedding container instead?
-
-> +		if (IS_ERR(ib->bridge)) {
-> +			ret =3D PTR_ERR(ib->bridge);
-> +			goto err_drvdata;
-> +		}
-> +
-> +		ib->bridge->of_node =3D priv->dev->of_node;
->  		ib->next_bridge =3D bridge;
-
-[Severity: High]
-This is a pre-existing issue, but does bridge need an IS_ERR check before
-being assigned here?
-
-Earlier in ingenic_drm_bind(), devm_drm_panel_bridge_add_typed() is called
-which can return an error pointer if memory allocation fails:
-
-    if (panel) {
-        bridge =3D devm_drm_panel_bridge_add_typed(...)
-        drm_panel_put(panel);
-    }
-
-If this allocation fails, bridge contains an error pointer that is blindly
-assigned to ib->next_bridge. When ingenic_drm_bridge_attach() later passes
-this to drm_bridge_attach(), it isn't protected by a NULL check and the err=
-or
-pointer will be dereferenced, potentially causing a panic.
-
-> -		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
-> +		ret =3D devm_drm_bridge_add(priv->dev, ib->bridge);
-
-[Severity: High]
-Is it safe to use devm_drm_bridge_add() inside a component bind function?
-
-When tied to priv->dev (the master platform device), the devm cleanup
-actions are only triggered when the master device is removed.
-
-If ingenic_drm_bind() fails in a subsequent initialization step and defers,
-or if the component is manually unbound via sysfs, the master device remains
-bound.
-
-This would leave the bridge memory allocated and the bridge itself in the
-global DRM bridge_list. Upon retry or rebind, a new bridge will be
-allocated and added, leaking memory and polluting the global list with
-ghost entries.
-
-> +		if (ret) {
-> +			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
-> +			goto err_drvdata;
-> +		}
-> +
-> +		ret =3D drm_bridge_attach(encoder, ib->bridge, NULL,
->  					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->  		if (ret) {
->  			dev_err(dev, "Unable to attach bridge\n");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/1630a544a26fac0b871=
-87885374ebe59fc92df3b.1787575203.git.hns@goldelico.com?part=3D1
