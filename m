@@ -4,80 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20F23C61DB9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00860C61DBE
 	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D990E10EAA5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A553E897F6;
 	Tue, 25 Aug 2026 14:35:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="raNl+Fcz";
+	dkim=pass (2048-bit key; unprotected) header.d=xela.zone header.i=@xela.zone header.b="iw+VlExX";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Pqpccs6y";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96ADE10E7CB
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 14:08:11 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-836d2861a39so47898857b3.2
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 07:08:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787580490; x=1788185290; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=IUVRH/ikZEUqooTUbgAkcn4/n4yp6UoMOf1KhiHCwo8=;
- b=raNl+FczhuFf28EMa8Uy3RrjvVs2QXsBLVWkHngA3cEImf5brQAaNkTUjxluzCCpuu
- yHGmLLIef6BXovZ8ARm4f0xaLVEixzZL6pYR4dWcROVcPSVGta09xKt0CEC3tu66fgwx
- Y8ERxFGUNb7I0BZqOYGm3VqnlgBjEILOIUIv2SDOtJmaRfiVGj6LdpUCdNrEPNffHU59
- B1kNplTlUI1tYTbHh4XMnRZLJrnn1yOWHLdas3jFMu88EuoGZXWwpwehUqzYmjUzvEYD
- 6J7dXoXjCxNAAGw2UXXSqsMIptCOT3dtCH6z0wzm99PAiKeS5ehWccV4yfCcbBwBWIT/
- Ud8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787580490; x=1788185290;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=IUVRH/ikZEUqooTUbgAkcn4/n4yp6UoMOf1KhiHCwo8=;
- b=qzbwTVTHAkT2AWhQ7DikAOsOwoI0kXqBFhF7RsC7ew/FIPAQtbDwJH2UVDpfbiNnRB
- LmNqAJzde8xf4ZV+7W1ALz5BrzG4K0UJLP0b8XcdqQgakjQiWOggl48uXZP27qi7sUkt
- LCLeeVipCul3FC8/3XfaNmSGQ4wdnG33lmh9D0ig+YGZxjq+6nxyppV2XzZDtz3d8Wbz
- eF7bXI+YvqwFec+VRgRIrwr9Mj1yTdChRMN23hXxqWMOu8mQYvk3aohVoYgE9nI75Ae+
- fcuZR9U9BS1tLYed3kHPMkum/DMDlb84Clr2cweB/mM1Ao1ZlXZcJIY8WygWqW/1Y+r+
- 3aXw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro0uLcEFfTX3xi8GgXB8wgT/49DkYDoA3cxLX3Rw/ubgf4z0DlZ9mjz/tlkO5cfBfk5xacMUZxmem8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lemne6zW5OSH+VEtsp5APDU08+8d+uhyRuLastyG+HbuhaEqv3
- lUy+slIJaMkdM69Lh/zaqt0KM7q5SyubuOpMYJ+2X3UfhbKlTFbgRSlo
-X-Gm-Gg: AR+sD12jk2mGybkSNlaJ0VHK7fFcvVZwThwtAlu/Nq51ahBfuOwvBlBKz0lF04CR98T
- yZdeoKKR7fXgFTOcGY1nx94qg13RKWoRpyo5yb67aVsyInJcXK+eMRekHvupZ96Ny8qK4T8Gh+e
- Ur0DdkFUuTDJmR632HPLXDAhrd4L3pRd98kZwn/AtHgGYOoGpOE//hrM+fUXmgtrCXqXWxancA3
- uKdFLF/pXIlw4BJicqm+as25GlJzMpu3vaAD90g0zrW3tdKp6ZwtAFEdtf9THdfs6C9bopdf138
- fk8U5si9t8RCZ1YmpSid3joAhIfl/po3MloYn9uhsIhcdLj31Z4oL5Fyt6IBFXBgKxD/UZ8iLhp
- yuo6RgH+pv89U3bMthStaVT5k2ceVZJMfxXuNtcldgEOnMe0JPvkiZ8J/wNLBNsIC2RUUPXJ1BE
- t6bjgYUl5/4JHt/N6ulaWtXGPYNdB8tA/ShzK7dXQZav0YFo0hPJ4/zmoSAZQSXCbx7E+9EPv2A
- IkTl5Ux9qKWwp5+qI5vHgOHCwXbcp+L7VTPEu1ay02vady0C7E=
-X-Received: by 2002:a05:690c:e201:10b0:820:b24:27a4 with SMTP id
- 00721157ae682-84c9bec8b3amr47571387b3.32.1787580490171; 
- Mon, 24 Aug 2026 07:08:10 -0700 (PDT)
-Received: from lord ([170.246.211.189]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-853ff053a84sm3326337b3.4.2026.08.24.07.08.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2026 07:08:09 -0700 (PDT)
-From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
- stuart.summers@intel.com, julia.filipchuk@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- navonjohnlukose@gmail.com, dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-Subject: [PATCH v3 3/3] drm/xe: Implement Wa_22016122933
-Date: Mon, 24 Aug 2026 11:07:48 -0300
-Message-ID: <20260824140748.54974-4-talesam@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824140748.54974-1-talesam@gmail.com>
-References: <20260824140748.54974-1-talesam@gmail.com>
+Received: from fhigh-b5-smtp.messagingengine.com
+ (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E75010E0FD
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 22:38:32 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id F327D7A0136;
+ Mon, 24 Aug 2026 18:38:31 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Mon, 24 Aug 2026 18:38:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xela.zone; h=cc
+ :cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to; s=fm2; t=1787611111; x=1787697511; bh=09VfrXSvxnRtX2nVWgaq5
+ s0ocHWyaQDhYuZjiWctKPo=; b=iw+VlExXIYQigjUt27JHr+9jHS3sXLjT5hDwL
+ 0GTmClUFFGrH6CQd/t73F+ghkXNweCUwQ6bcXIgpzcUDvhMd1eDUMeIw5v2KuyMF
+ z+fM14P4I29dQ/39pU8Zn8wAB/Qxu4TdxM5pzj9AEw4Y7j6dcXng5QyEKqQB8F6Z
+ y2dWzU23zPTMTiLaKplN/EK4PjR4rbkfe4mb1McUOYWdmX4FyBe5ksCNZsO2LJnt
+ FkxFOo90V0MixtNF+g70QafFpH4UFqJ+1QRKWeNqkJzwsdEEO3dGAQCyAWFcguFj
+ RX4KBMhiFj73lE6VNAPRZrHfZ1sC4wBWmSQ86H8Hi8rGodonw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1787611111; x=1787697511; bh=09VfrXSvxnRtX2nVWgaq5s0ocHWyaQDhYuZ
+ jiWctKPo=; b=Pqpccs6yp4ciDT4GlPzM+wo3ptbAi37Gnu0ogxBMfEFhjgycnc7
+ cFdwQOeqyXpOlzrkFUO2zPXVuVLDZuA0gbTHmYVlaiNMmRRJnWZfUzJbGMsgDJ47
+ sR/RI8G7LG8m5sBNpjFsNmaajS82b6AIoL2zOTzIejGlK2bGmuQfUkXpWY803OBM
+ epKitVAfeXn3nDPR1qPN9dyIedxTaBdN7TC36RCQ1un8VSbKXr8mlKDQiNeBGd3s
+ T9xOytfSta6nCINb/OQHMLgksV6cZJ/1X3k3SjeqJwZDMSpUqF+HFyuUMDKL/sp3
+ vbq71FDpKTgeT1nMOP6NSAwv51EeHTOzoRw==
+X-ME-Sender: <xms:58eMav2ruo9HjaNZpIWbwqdNehcytzGcRd5c064otJuFi2cdOPfXkA>
+ <xme:58eMaug-3u1WL3Q9jPr5ClqTYMprL5OjxxYoFqw0wkEAlBcKJtL7_AglPhplT1nKV
+ qYnqUE0CtLQGiTXw9WdY4Su0T9MBSarQkGf3jS0EU9ftUqC6ClYA1s>
+X-ME-Received: <xmr:58eMagk1DOubJTYeyB30zLDGGmH6CGIHP7o-RaghmSA1vuPsxR_aV48HNm6tyMePshm-rLceipfYEcdp4b0AMwim3xM>
+X-ME-Proxy-Cause: dmFkZTEzYTAVnlsXfMaTDasgaW9hr5dO1Ruh/zroW/uFMy24CyMcvhn6jOJuoo+H0OEuZ/
+ u+o4saYJhsLvqKJgZCwnxHHcpfV+OxS3COpHiDxQuV1D9Sh6uDpB8xXR0TVqiOqXGdiOm4
+ Hg1oc+4K9NkyQIoulyXtxnTnrlUAssJFmHpdKnMzo3FAmy8ct7rkeen+Y6037fOqYoYZuY
+ nfBbrzc23NJgvIUbNtPQehZKo+LHmpZv1EFMFMf9EgzjYiJk3YpCsmuQfmLwxGQqEnlCzq
+ U4IYL6TBeo6zRNcFIsG07It3TOouwmtRs9LQvyAdlKouvzLdWzjXnt3O/6zvl1MmNoj7gD
+ 9Gs5cP6TSzqg+b4A9KXTeF4JdaMbcDf5fLz9KfDH7HxtQ4ysh3xDGEvMJj8QxdKpy1YkVu
+ xGD4RzrdtN7VCmbTjTkceKReww/ax/v09Co6l8V28OhMG2DcjMVcLBdJDCaYl5YSkkCpn+
+ Jg85KCahcr0F2RG8k/8t+TwoIdYZOX+HdSaa6c8QbeOQHhTAYYluFOJQxOD0bz/zeW22nv
+ yqluVpdvqGS02RSThmLykKPOyHp8+PF3phO0Fw4zPdi4wgXTefA4dpVioTl/ExG0rfYBDX
+ Bs6EPc0CBBzhb4Im6XsRiQNPOsx9uD1WmMnghNfikyTBGJtWYFFDNjHMwe7w
+X-ME-Proxy: <xmx:58eMasaR8DW0km-4bNtgqMmFXxIxcUehUrvAeAT6TxctzjCRD191Yg>
+ <xmx:58eMajEulKQJjJqDNdUTrkjvihD5kD-dUMPdTNOf8K0MvCccS93Dbw>
+ <xmx:58eMajayOHibtTUclswf5Q2mEcqIl1ZQhrcte6K9sUs4fxWgQIuXvQ>
+ <xmx:58eMavw8JprDiARQ-LjnndpB6xu00ee-sWM5qcOVxquYWQXR1Fh8XQ>
+ <xmx:58eMaruLEMalDnivSFp7lqKBRdcbTF-i7ii2CPqx-rDsjfwpntCOGqwl>
+Feedback-ID: i039e48e0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 24 Aug 2026 18:38:30 -0400 (EDT)
+From: Xela <git@xela.zone>
+To: dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ Xela <git@xela.zone>
+Subject: [PATCH v2] drm/edid: Add HDR Static Metadata Type 1 quirk for LG
+ 32GN600
+Date: Mon, 24 Aug 2026 14:38:27 -0800
+Message-ID: <20260824223827.259147-1-git@xela.zone>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,244 +97,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On platforms with a standalone media GT and media version 13.00
-(MTL/ARL), memory shared between the CPU and the media GT's GuC must
-not be mapped cached on the CPU side: the CPU can otherwise read stale
-cache lines for data the GuC has already written.
+The LG 32GN600 monitor (PNP ID GSM 0x7766) advertises HDR support in
+its CTA-861 Extension block with SMPTE ST 2084 (PQ) EOTF support
+(byte 0x9e = 0x05) and valid desired content luminance descriptors
+(351 cd/m^2 max CLL/FALL at bytes 0xa0-0xa2).
 
-i915 implements this as Wa_22016122933 (see
-intel_gt_needs_wa_22016122933(), used by intel_guc_allocate_vma() and
-intel_gt_coherent_map_type()); xe never inherited it.
+However, due to a factory firmware bug, the HDR Static Metadata Data
+Block descriptor byte (byte 0x9f) is reported as 0x00 instead of 0x01,
+omitting the Static Metadata Type 1 capability bit (bit 0).
 
-The visible symptom on ARL is TLB invalidation acks stalling for a
-near-constant ~2.3s: the GuC writes the G2H ack in time, but the CPU
-keeps reading a stale (empty) view of the G2H CTB until the line is
-naturally evicted, so the fence timeout at 2.25s fires first. GuC log
-decode confirmed all invalidations were handled promptly by the
-firmware, and only the media GT was affected. See Link for the full
-investigation (three machines affected: 7d51, 7dd1, Arc Pro 130T).
+Because of this omitted bit, drm_parse_hdr_metadata_block() sets
+metadata_type to 0. Consequently, drm_calculate_luminance_range()
+rejects the block, and userspace attempts to perform atomic KMS commits
+configuring HDR output metadata fail with -EINVAL (Error 22), preventing
+compositors (Plasma, Gamescope, MPV) from engaging HDR on this display.
 
-Making the mapping coherent instead of uncached does not help: with a
-GGTT PAT entry repurposed to WB|COH_2WAY the driver comes up and the
-media GT GuC runs, but the stalls remain (request-to-ack 2290ms).
-Uncached really is required here. Note that 2-way coherency is not
-normally reachable from a GGTT PTE (only 2 PAT bits), so that
-experiment needed a modified PAT table and may not reflect a supported
-configuration.
+Introduce EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1 to force the Static
+Metadata Type 1 descriptor bit for displays with this defective EDID block,
+and register the LG 32GN600 (GSM 0x7766) in the EDID quirk table.
 
-Add the OOB workaround scoped like i915 (media version 13.00, media GT
-only - MEDIA_VERSION() OOB rules only match the media GT on standalone
-media platforms) and apply XE_BO_FLAG_NEEDS_UC to the GuC-shared
-allocations the CPU reads from: the CTBs, the GuC log, ADS, the SLPC
-shared data and the engine activity buffers. hwconfig and the G2G
-buffer are allocated on the primary GT only, where the workaround does
-not apply.
-
-Note that XE_BO_FLAG_NEEDS_UC drives both the CPU mapping (uncached)
-and the GGTT cache mode (XE_CACHE_NONE instead of XE_CACHE_WB), which
-is stricter than i915: i915 documents the workaround as WC on the CPU
-side and UC on the GPU side. A CPU-WC variant with the GGTT side kept
-at XE_CACHE_NONE was tested and is equally effective, but reaching it
-would require either a new flag or decoupling the GGTT cache-mode
-selection from XE_BO_FLAG_NEEDS_UC - simply swapping in
-XE_BO_FLAG_FORCE_WC silently relaxes the GPU side back to WB and the
-stalls return. Keeping the stricter mapping here; no throughput
-difference between the two was measurable.
-
-Validation on two ARL machines (7d51 and 7dd1): before, 20-60 TLB
-invalidation ack stalls per day, every day, for weeks, on every kernel
-and on two GuC firmware versions (70.53.0 and 70.72.1). After: zero
-stalls in ~4 weeks of combined runtime, over 7M TLB invalidations
-processed under the same workloads. The 7dd1 machine, which could not
-survive a day of media workloads on xe without a platform freeze, has
-been running xe continuously for two weeks including video
-transcoding, with zero incidents.
-
-The coherency experiment, the CPU-WC measurements and the engine
-activity coverage gap were found by Navon John Lukose while A/B
-testing v2 on an ARL 7d51.
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-Suggested-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
-Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Signed-off-by: Xela <git@xela.zone>
 ---
- drivers/gpu/drm/xe/xe_guc.c                 | 16 ++++++++++++++++
- drivers/gpu/drm/xe/xe_guc.h                 |  2 ++
- drivers/gpu/drm/xe/xe_guc_ads.c             |  3 ++-
- drivers/gpu/drm/xe/xe_guc_ct.c              |  6 ++++--
- drivers/gpu/drm/xe/xe_guc_engine_activity.c |  6 ++++--
- drivers/gpu/drm/xe/xe_guc_log.c             |  7 +++++--
- drivers/gpu/drm/xe/xe_guc_pc.c              |  3 ++-
- drivers/gpu/drm/xe/xe_wa_oob.rules          |  1 +
- 8 files changed, 36 insertions(+), 8 deletions(-)
+v2:
+ - Specify LG 32GN600 model in subject, commit description, and code comment.
 
-diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-index c7f8bbd4cb9..3ab4cb9e496 100644
---- a/drivers/gpu/drm/xe/xe_guc.c
-+++ b/drivers/gpu/drm/xe/xe_guc.c
-@@ -1469,6 +1469,22 @@ int xe_guc_suspend(struct xe_guc *guc)
- 	return 0;
- }
+ drivers/gpu/drm/drm_edid.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 07970e5b5..b467a643a 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -96,6 +96,8 @@ enum drm_edid_internal_quirk {
+ 	EDID_QUIRK_NON_DESKTOP,
+ 	/* Cap the DSC target bitrate to 15bpp */
+ 	EDID_QUIRK_CAP_DSC_15BPP,
++	/* Force Static Metadata Type 1 for HDR Static Metadata Data Block */
++	EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1,
+ };
  
-+/**
-+ * xe_guc_bo_wa_flags - Extra BO flags for memory shared with the GuC
-+ * @gt: the &xe_gt whose GuC the buffer will be shared with
-+ *
-+ * Wa_22016122933: on the standalone media GT, memory shared between the
-+ * CPU and the GuC must not be mapped cached on the CPU side, otherwise
-+ * the CPU can read stale data written by the GuC (e.g. G2H CTB writes)
-+ * for multiple seconds.
-+ *
-+ * Return: additional XE_BO_FLAG_* to use when allocating GuC-shared memory
-+ */
-+u32 xe_guc_bo_wa_flags(struct xe_gt *gt)
-+{
-+	return XE_GT_WA(gt, 22016122933) ? XE_BO_FLAG_NEEDS_UC : 0;
-+}
+ #define MICROSOFT_IEEE_OUI	0xca125c
+@@ -195,6 +197,9 @@ static const struct edid_quirk {
+ 	/* LG 27GN950 */
+ 	EDID_QUIRK('G', 'S', 'M', 0x5b9a, BIT(EDID_QUIRK_CAP_DSC_15BPP)),
+ 
++	/* LG 32GN600 */
++	EDID_QUIRK('G', 'S', 'M', 0x7766, BIT(EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1)),
 +
- void xe_guc_notify(struct xe_guc *guc)
- {
- 	struct xe_gt *gt = guc_to_gt(guc);
-diff --git a/drivers/gpu/drm/xe/xe_guc.h b/drivers/gpu/drm/xe/xe_guc.h
-index 61e3ee19a59..c4eca40d69c 100644
---- a/drivers/gpu/drm/xe/xe_guc.h
-+++ b/drivers/gpu/drm/xe/xe_guc.h
-@@ -30,6 +30,7 @@
- 	xe_guc_fw_version_at_least((guc), MAKE_GUC_VER_ARGS(ver))
+ 	/* LGD panel of HP zBook 17 G2, eDP 10 bpc, but reports unknown bpc */
+ 	EDID_QUIRK('L', 'G', 'D', 764, BIT(EDID_QUIRK_FORCE_10BPC)),
  
- struct drm_printer;
-+struct xe_gt;
+@@ -5498,6 +5503,10 @@ drm_parse_hdr_metadata_block(struct drm_connector *connector, const u8 *db)
+ 	hdr_metadata->eotf = eotf_supported(db);
+ 	hdr_metadata->metadata_type = hdr_metadata_type(db);
  
- void xe_guc_comm_init_early(struct xe_guc *guc);
- int xe_guc_init_noalloc(struct xe_guc *guc);
-@@ -45,6 +46,7 @@ void xe_guc_runtime_suspend(struct xe_guc *guc);
- void xe_guc_runtime_resume(struct xe_guc *guc);
- int xe_guc_suspend(struct xe_guc *guc);
- int xe_guc_softreset(struct xe_guc *guc);
-+u32 xe_guc_bo_wa_flags(struct xe_gt *gt);
- void xe_guc_notify(struct xe_guc *guc);
- int xe_guc_auth_huc(struct xe_guc *guc, u32 rsa_addr);
- int xe_guc_mmio_send(struct xe_guc *guc, const u32 *request, u32 len);
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index ff8eee3831a..abc7266fc6f 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -435,7 +435,8 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
- 					  XE_BO_FLAG_SYSTEM |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
- 
-diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
-index 5c4733da385..5c393aa29de 100644
---- a/drivers/gpu/drm/xe/xe_guc_ct.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ct.c
-@@ -376,7 +376,8 @@ int xe_guc_ct_init(struct xe_guc_ct *ct)
- 					  XE_BO_FLAG_SYSTEM |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
- 
-@@ -386,7 +387,8 @@ int xe_guc_ct_init(struct xe_guc_ct *ct)
- 					  XE_BO_FLAG_SYSTEM |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
- 
-diff --git a/drivers/gpu/drm/xe/xe_guc_engine_activity.c b/drivers/gpu/drm/xe/xe_guc_engine_activity.c
-index a782be57caa..729ce8ac140 100644
---- a/drivers/gpu/drm/xe/xe_guc_engine_activity.c
-+++ b/drivers/gpu/drm/xe/xe_guc_engine_activity.c
-@@ -97,7 +97,8 @@ static int allocate_engine_activity_buffers(struct xe_guc *guc,
- 
- 	metadata_bo = xe_bo_create_pin_map_novm(gt_to_xe(gt), tile, PAGE_ALIGN(metadata_size),
- 						ttm_bo_type_kernel, XE_BO_FLAG_SYSTEM |
--						XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE,
-+						XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE |
-+						xe_guc_bo_wa_flags(gt),
- 						false);
- 
- 	if (IS_ERR(metadata_bo))
-@@ -105,7 +106,8 @@ static int allocate_engine_activity_buffers(struct xe_guc *guc,
- 
- 	bo = xe_bo_create_pin_map_novm(gt_to_xe(gt), tile, PAGE_ALIGN(size),
- 				       ttm_bo_type_kernel, XE_BO_FLAG_VRAM_IF_DGFX(tile) |
--				       XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE, false);
-+				       XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE |
-+				       xe_guc_bo_wa_flags(gt), false);
- 
- 	if (IS_ERR(bo)) {
- 		xe_bo_unpin_map_no_vm(metadata_bo);
-diff --git a/drivers/gpu/drm/xe/xe_guc_log.c b/drivers/gpu/drm/xe/xe_guc_log.c
-index 538d4df0f7a..7d006268ce9 100644
---- a/drivers/gpu/drm/xe/xe_guc_log.c
-+++ b/drivers/gpu/drm/xe/xe_guc_log.c
-@@ -17,6 +17,7 @@
- #include "xe_force_wake.h"
- #include "xe_gt_printk.h"
- #include "xe_gt_types.h"
-+#include "xe_guc.h"
- #include "xe_map.h"
- #include "xe_mmio.h"
- #include "xe_module.h"
-@@ -624,14 +625,16 @@ void xe_guc_log_print_lfd(struct xe_guc_log *log, struct drm_printer *p)
- int xe_guc_log_init(struct xe_guc_log *log)
- {
- 	struct xe_device *xe = log_to_xe(log);
--	struct xe_tile *tile = gt_to_tile(log_to_gt(log));
-+	struct xe_gt *gt = log_to_gt(log);
-+	struct xe_tile *tile = gt_to_tile(gt);
- 	struct xe_bo *bo;
- 
- 	bo = xe_managed_bo_create_pin_map(xe, tile, GUC_LOG_SIZE,
- 					  XE_BO_FLAG_SYSTEM |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
- 
-diff --git a/drivers/gpu/drm/xe/xe_guc_pc.c b/drivers/gpu/drm/xe/xe_guc_pc.c
-index 097b075bd89..e0105222a2c 100644
---- a/drivers/gpu/drm/xe/xe_guc_pc.c
-+++ b/drivers/gpu/drm/xe/xe_guc_pc.c
-@@ -1391,7 +1391,8 @@ int xe_guc_pc_init(struct xe_guc_pc *pc)
- 					  XE_BO_FLAG_VRAM_IF_DGFX(tile) |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
- 
-diff --git a/drivers/gpu/drm/xe/xe_wa_oob.rules b/drivers/gpu/drm/xe/xe_wa_oob.rules
-index dd69ad07f7a..30958b26a1d 100644
---- a/drivers/gpu/drm/xe/xe_wa_oob.rules
-+++ b/drivers/gpu/drm/xe/xe_wa_oob.rules
-@@ -14,6 +14,7 @@
- 16017236439	PLATFORM(PVC)
- 14019821291	MEDIA_VERSION_RANGE(1300, 2000)
- 14015076503	MEDIA_VERSION(1300)
-+22016122933	MEDIA_VERSION(1300)
- 14018913170	GRAPHICS_VERSION_RANGE(1270, 1274)
- 		MEDIA_VERSION(1300)
- 		PLATFORM(DG2)
++	if (drm_edid_has_internal_quirk(connector,
++				       EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1))
++		hdr_metadata->metadata_type |= BIT(HDMI_STATIC_METADATA_TYPE1);
++
+ 	if (len >= 4)
+ 		hdr_metadata->max_cll = db[4];
+ 	if (len >= 5)
 -- 
-2.55.0
+2.54.0
 
