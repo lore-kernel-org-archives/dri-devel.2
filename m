@@ -4,45 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B60D2C5DF81
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 11:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B91EC5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 11:46:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF2E510E758;
-	Mon, 24 Aug 2026 11:44:03 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FoJ/GwLC";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9998210E758
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 11:44:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 63628401FA;
- Mon, 24 Aug 2026 11:44:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128B01F00A3D;
- Mon, 24 Aug 2026 11:44:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787571842;
- bh=FNjUI1xb/mI1XLPALLA6UhvSP4BLItEmo52d5RUEXzo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FoJ/GwLChuqQmg1pbQqmhgSnU1YW5zfUgBDDZDI5b4p/LX8vapXV7CYT2CD1rCHUn
- N1juf8sGEzxcy6zUHJhnlJ3eqElMDzDWXUsAJeQA8UxT5S4LwD/4WE8+UzwmrdWFbm
- nCyXqj+bxS1K8XrQf0Vq9H/LX8CPW2Z6XknoLQU7R4wswBi+Wy67MsJehSiFjyMq/a
- nlFwl0N91WvQjYM6PWBsSMHVJVoUgv93Due7b8Ilu+w3H91HMSp7zt7nCq6NJOdjjy
- x3llgHbkYOJhxjC1ikYTqKjrkb1nLhEY5eB8HoGv5vMDf76ZL+UUr5G7f8djFlNXtx
- NrN1qzoEFQilg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] phy: qcom: qmp-combo: delay Type-C mux switch while
- DP PHY is initializing
-To: "Saurabh Anand" <saurabh.anand@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, vkoul@kernel.org,
- neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com
-In-Reply-To: <20260824-qcom-dp-typec-reconnect-fixes-v1-1-2825e5bf8a96@oss.qualcomm.com>
-References: <20260824-qcom-dp-typec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com>
- <20260824-qcom-dp-typec-reconnect-fixes-v1-1-2825e5bf8a96@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 11:44:01 +0000
-Message-Id: <20260824114402.128B01F00A3D@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 870F610E75A;
+	Mon, 24 Aug 2026 11:46:17 +0000 (UTC)
+X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
+ Mon, 24 Aug 2026 11:46:15 UTC
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E74D10E75A
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 11:46:15 +0000 (UTC)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+ by leonov.paulk.fr (Postfix) with ESMTPS id 75D293700ED2
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 11:39:54 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+ id 9CC6EB541E5; Mon, 24 Aug 2026 11:39:52 +0000 (UTC)
+Received: from shepard (unknown [192.168.1.1])
+ by laika.paulk.fr (Postfix) with ESMTPSA id D113BB541DB;
+ Mon, 24 Aug 2026 11:39:51 +0000 (UTC)
+Date: Mon, 24 Aug 2026 13:39:49 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 15/70] drm/logicvc: Switch to
+ drm_atomic_helper_crtc_create_state
+Message-ID: <aowthb5VAeG4JSEi@shepard>
+References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
+ <20260821-drm-no-more-crtc-reset-v1-15-fb793475c05a@kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5YYUaZEtaLjuFCEs"
+Content-Disposition: inline
+In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-15-fb793475c05a@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,108 +51,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+--5YYUaZEtaLjuFCEs
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Pre-existing issues:
-- [High] Incomplete fix for DP PHY state corruption during Type-C orientati=
-on changes.
-- [High] Type-C mux state updates are silently dropped when DP PHY is activ=
-e, breaking dynamic pin assignment.
-- [High] Integer underflow of `usb_init_count` breaks USB PHY state trackin=
-g.
---
+Hi Maxime,
 
---- Patch [1]: [PATCH 1/4] phy: qcom: qmp-combo: delay Type-C mux switch wh=
-ile DP PHY is initializing ---
-commit 35456fff470c94d1e75b9f16c438e1e8cf5df40f
-Author: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
-
-phy: qcom: qmp-combo: delay Type-C mux switch while DP PHY is initializing
-
-This commit extends the Type-C mux switch guard to check dp_init_count in
-addition to dp_powered_on. This prevents a race window during DP PHY
-initialization where a Type-C orientation change could corrupt the PHY stat=
-e.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
-comm/phy-qcom-qmp-combo.c
-> index c39ced168d035..f23aff79ca08f 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> @@ -4842,7 +4842,8 @@ static int qmp_combo_typec_mux_set(struct typec_mux=
-_dev *mux, struct typec_mux_s
->  		return 0;
->  	}
+On Fri 21 Aug 26, 16:38, Maxime Ripard wrote:
+> The logicvc crtc implementation uses the deprecated
+> drm_atomic_helper_crtc_reset() as its reset hook.
+>=20
+> Switch to drm_atomic_helper_crtc_create_state() instead.
+>=20
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Cc: Paul Kocialkowski <paulk@sys-base.io>
+> ---
+>  drivers/gpu/drm/logicvc/logicvc_crtc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/logicvc/logicvc_crtc.c b/drivers/gpu/drm/log=
+icvc/logicvc_crtc.c
+> index 81e5b80736fa..3fcebd6af6f4 100644
+> --- a/drivers/gpu/drm/logicvc/logicvc_crtc.c
+> +++ b/drivers/gpu/drm/logicvc/logicvc_crtc.c
+> @@ -211,11 +211,11 @@ static void logicvc_crtc_disable_vblank(struct drm_=
+crtc *drm_crtc)
+>  	regmap_write_bits(logicvc->regmap, LOGICVC_INT_MASK_REG,
+>  			  LOGICVC_INT_MASK_V_SYNC, LOGICVC_INT_MASK_V_SYNC);
+>  }
 > =20
-> -	if (qmp->qmpphy_mode !=3D QMPPHY_MODE_USB3_ONLY && qmp->dp_powered_on) {
-> +	if (qmp->qmpphy_mode !=3D QMPPHY_MODE_USB3_ONLY &&
-> +	    (qmp->dp_powered_on || qmp->dp_init_count)) {
->  		dev_dbg(qmp->dev, "typec_mux_set: DP PHY is still in use, delaying swi=
-tch\n");
->  		return 0;
->  	}
+>  static const struct drm_crtc_funcs logicvc_crtc_funcs =3D {
+> -	.reset			=3D drm_atomic_helper_crtc_reset,
+> +	.atomic_create_state =3D drm_atomic_helper_crtc_create_state,
 
-[Severity: High]
-This is a pre-existing issue, but does this early return cause the driver to
-silently drop legitimate mux state updates?
+It looks like you are breaking the tab indent and replacing it with a single
+space here. Could you keep the tab alignment instead?
 
-When the Type-C framework negotiates a dynamic pin assignment and calls
-qmp_combo_typec_mux_set(), returning 0 here without saving the requested
-mode to qmp->qmpphy_mode or queuing it means the hardware could remain
-stuck in the old lane configuration, causing subsequent DRM link
-retraining to fail.
+Thanks,
 
-[Severity: High]
-This is a pre-existing issue, but is a similar guard needed in
-qmp_combo_typec_switch_set()?
+Paul
 
-The current patch fixes the race in qmp_combo_typec_mux_set(), but a
-Type-C orientation change also triggers qmp_combo_typec_switch_set().
-If DP is active or initializing, qmp_combo_typec_switch_set() forcefully
-resets the COM block:
-
-drivers/phy/qualcomm/phy-qcom-qmp-combo.c:qmp_combo_typec_switch_set() {
-        ...
-        qmp_combo_com_exit(qmp, true);
-        qmp_combo_com_init(qmp, true);
-        ...
-}
-
-Does this hardware reset wipe out the DP PHY lane and link rate
-configurations applied by qmp_combo_dp_power_on(), leaving the
-software state (dp_powered_on) desynchronized from the hardware?
-
-[Severity: High]
-This is a pre-existing issue, but is there a risk of an integer
-underflow with usb_init_count if the USB subsystem also decrements it?
-
-When the Type-C mux switches to QMPPHY_MODE_DP_ONLY,
-qmp_combo_typec_mux_set() manually decrements the counter:
-
-drivers/phy/qualcomm/phy-qcom-qmp-combo.c:qmp_combo_typec_mux_set() {
-        ...
-        if (qmp->usb_init_count)
-                qmp->usb_init_count--;
-        ...
-}
-
-If the USB controller later undergoes a suspend or role switch and
-calls phy_exit(), qmp_combo_usb_exit() will decrement it again:
-
-drivers/phy/qualcomm/phy-qcom-qmp-combo.c:qmp_combo_usb_exit() {
-        ...
-        qmp->usb_init_count--;
-        ...
-}
-
-Could this underflow usb_init_count to UINT_MAX, causing a subsequent
-Type-C orientation flip to fail to power the USB PHY back on?
+>  	.destroy		=3D drm_crtc_cleanup,
+>  	.set_config		=3D drm_atomic_helper_set_config,
+>  	.page_flip		=3D drm_atomic_helper_page_flip,
+>  	.atomic_duplicate_state	=3D drm_atomic_helper_crtc_duplicate_state,
+>  	.atomic_destroy_state	=3D drm_atomic_helper_crtc_destroy_state,
+>=20
+> --=20
+> 2.55.0
+>=20
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-qcom-dp-ty=
-pec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com?part=3D1
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--5YYUaZEtaLjuFCEs
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmqMLYUACgkQhP3B6o/u
+lQxyTw//YnO+3ASOhDB6khIeDNoeTeMoK818XoI1aTARu2Kfej3EWfIDXm3GsiqM
+TBUQdfOR3iWDJK5tbPY6UeFCW/btv17LPRctVN3e8Or+R7WLiA5g/sP563ci+pMw
+7/qGqgO2J9UQC56iK9BcUJAnCbOAo/mptg1Wblk70PXNCRU3iPXz/mQAOukJyQ8f
+qUlyJWLDUL9Ux7avyp81D0roBl/3BqCVo3kdO8VRDXqOQA2c3fwAKS5ZQWTmQMFP
+ht8YsEKRvaR2M82jr0oRM+A1VQfRIKIYm1/pXyJpVHthzbYeykAq4i10EQqGqVg/
+K5VlSvUIeUlBIcv1nf9ca/HCXg2qdS4mbpn32SutUGqcVO0UBjLvQAvEQDU60Lhj
+OjUOEk6MtX/upB4rqB8TvCOcRsyKfq/zyjU5Dyou+PjUvA29fjlFdKDw7oEUo/Rg
+uM2u7/pbnlnVAEPa2uCVgbco033dH8swDdedJh6xdEeDqRentTzpVQo83BWL6kSj
+t8smGSVL0ZPHDjno4LMwsFNP4CuvZOs3EILz7TM4RZeWsYsmVz2xJlFon1TGF4mt
+MuBVRSucgppOSKFu2crR541xpT7DWLt11tDNZ+qFbJgKHM6MmYO4JVtk3hzmzo4M
+NFvae2ulomIHk0TBjrvfuy8HgPm5GXPE4vuzXkBQcUHZ3BAKa5s=
+=RSJM
+-----END PGP SIGNATURE-----
+
+--5YYUaZEtaLjuFCEs--
