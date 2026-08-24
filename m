@@ -4,99 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC75DC5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 15:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 138EAC5DF9B
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 15:20:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13DC410E615;
-	Mon, 24 Aug 2026 15:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70B9F10E743;
+	Mon, 24 Aug 2026 15:20:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Z9UIOaot";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M0CGoCRZ";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B285010E615
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 15:16:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787584572;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lwN1IBw6ISFUhBtlLGpwjjwq2qTPw+f0zNub19DhCGI=;
- b=Z9UIOaotm8FdaoJoTtQW1rxd/NcJjQxUH5F+mpNcMkzAMOfuKt9xOhQt5cpEg2aq6HI0X0
- t3wlWWSf2f1/cni7T8IjnvGKJdZn6pUoExnc+7DZtcdsMZJjk2xQSySbNKzyofk7vQYPyR
- gCxbBG7mFla8Q1SYe5dt5Rrjldi4vwg=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-272-el4YWEBGOWaW6njSJeO0GQ-1; Mon, 24 Aug 2026 11:16:10 -0400
-X-MC-Unique: el4YWEBGOWaW6njSJeO0GQ-1
-X-Mimecast-MFC-AGG-ID: el4YWEBGOWaW6njSJeO0GQ_1787584570
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-52d33c89a29so49015451cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 08:16:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787584570; x=1788189370;
- h=user-agent:in-reply-to:content-disposition:content-type
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lwN1IBw6ISFUhBtlLGpwjjwq2qTPw+f0zNub19DhCGI=;
- b=PRIILJ9S330Nm2k4qj26l8w3yB0fodiE25b9ItNtjwgN5Mdr+zadRaFeN0BbQ9fThN
- 7vBKS7tOf1eNpXMl4PkCBrRtNekU5IJMjTukK/r5WuK9HpSUFHVjJDmw9pVHdAzGxSPO
- jN7FKinSSgMc8rZGSHDrWGACxn86VttwaG23aVP0Q/k0IT5O4yCPYRJuSG4Ex1Rd6Oj3
- sRJevAbcrreKvYMDTkwIkN5t7CuuI6FHhAy6fjUKFWe+YjuJcoouWTbdr3hrtQuROVns
- T5J2jn1z5WXFXGXwuxF14npDVgrHlIIoyPx54YgJr3uTLn3r/Utw5aAZmtAG2koZ1CYX
- LSSg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpNCBekpNVHS4/nsdVBxbTBHhLozabX4CTO29dcWUrXij4LokxJ9g77gSUMe02LqRmpo+tgqzSryNA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nap/moL8bI95KRlKqLmP+/VyZnktrS/04fFkJiFaQbXUuMbQbc
- J3as28m8WhI9zPNDUQRhg0sCWiu8oj+tberq5xORka9vPXY5ml4ozhPfSAN+pImEX2H1HkYguk+
- l2+BhAd58XQDpcpZ6mh2z/l5RPWMsfWOlOhpiAUg95nzlNFcM9Ev4Je9wI+LhlFInatq+3Q==
-X-Gm-Gg: AR+sD10uYS0s4M6SVdvaRq5tze0a7pD0NaxB2IX1EaylYI3N0i/AIrkW2+zlAUaqQxR
- 8Lsl6WA9hj5HWyg+dC4ASeKvxlLoL4eODwtzf0jFUR/HJ7rdXFdkNyh6H5MfBuW6DK3y121DA2o
- PglFK9UJqsPTmMzgC2wTVckxOsR3PzLL5GQG6zrjT255+2y9H1x7ql4H4AkGTW4IZc8Xy7mybcx
- /sy2aXfUBN33DGL+mXRKZaAQyO7WUTonHERFIEqfPTFcgmSBBs9H57/FQEI3pbxm6jo8t1ELFgd
- rbMO/C3jQoLBfoIe+XSo90F19IWD05HSAHCUPZD5jZSpd0PkqUJHg6ESxgWxwjftnWNcxHMZQOu
- LvX3N5Z17NULmUHBS4FAi/z4SG/oGd5yN0I4=
-X-Received: by 2002:a05:622a:1249:b0:528:a8c:aa00 with SMTP id
- d75a77b69052e-52df56e1163mr279730261cf.8.1787584569870; 
- Mon, 24 Aug 2026 08:16:09 -0700 (PDT)
-X-Received: by 2002:a05:622a:1249:b0:528:a8c:aa00 with SMTP id
- d75a77b69052e-52df56e1163mr279728951cf.8.1787584569268; 
- Mon, 24 Aug 2026 08:16:09 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net.
- [73.183.53.213]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90c93a4c1a1sm63772856d6.34.2026.08.24.08.16.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2026 08:16:05 -0700 (PDT)
-Date: Mon, 24 Aug 2026 11:16:03 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Chen-Yu Tsai <wens@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/tegra: Make sure clk_init_data is fully
- initialized
-Message-ID: <aoxgM9vY01nLeX_f@redhat.com>
-References: <cover.1787239944.git.geert+renesas@glider.be>
- <9bc5029f7ad84b0b1e02be231a5abd7e5fa03946.1787239944.git.geert+renesas@glider.be>
-MIME-Version: 1.0
-In-Reply-To: <9bc5029f7ad84b0b1e02be231a5abd7e5fa03946.1787239944.git.geert+renesas@glider.be>
-User-Agent: Mutt/2.4.0 (2026-06-19)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 7LstVPxkulbx_oFL_URgEMEb-jSh6HsNVbyhb2pyD6I_1787584570
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 864CB10E743
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 15:20:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B5AE76011F;
+ Mon, 24 Aug 2026 15:20:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0B51F000E9;
+ Mon, 24 Aug 2026 15:20:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787584809;
+ bh=wU9I9AHGjB5kMskH/aF6lnLOoR8eWjXkm3zZGjx+Mn8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=M0CGoCRZdSTnYMestYKHzuX6YU5eM9cEQswGLAe7/sY/1XTufn4mdahGGi44g3A9F
+ h5JdRJpEqlmNe6WaxkOLBDeQqwgsx9W35dTR0Cld5CdKImAeamRTWi+TF4MAt4my9s
+ SdBDmWfpm8TnZW26aYCq6urHtSYsfZNtsZJ6BScITtNeL41xkYaaUTu1AJNL5MTDez
+ eM8ChCEocOWQD0O6lv55VaAw2rhJTWkYWZCYqM2LtLlJVdN857IsWREX7+nqYVp7D9
+ YrbEc4Wt3k8dS/Ri4763VzxYp84ULTZuMaHouZJa2/ATUDqjzI9+nzpD1+j4zkY6VX
+ shflDs/wQrV2g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <1e519fb24aa5521788d69cc7980665ccbc227b14.1787584184.git.geert@linux-m68k.org>
+References: <1e519fb24aa5521788d69cc7980665ccbc227b14.1787584184.git.geert@linux-m68k.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 15:20:08 +0000
+Message-Id: <20260824152009.4C0B51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,22 +52,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 21, 2026 at 12:03:03PM +0200, Geert Uytterhoeven wrote:
-> The clk_init_data structure contains several mutually-exclusive members
-> for different methods to specify the possible parents of a clock,
-> prompting drivers to initialize only the members they need.  However,
-> not initializing all members may cause subtle issues, which are only
-> exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
-> enabled.
-> 
-> Make sure all members are fully initialized, to avoid such bugs, and to
-> prevent future breakage when converting drivers to a different method
-> for specifying the parents.
-> 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing `.kunitconfig` update causes `kunit.py` to fail due to u=
+nmet dependencies.
+--
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+--- Patch [1]: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDD=
+Y ---
+commit cb5627cb79f60b67a5672a81939fd993a20abdd4
+Author: Geert Uytterhoeven <geert@linux-m68k.org>
 
+gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
+
+This commit changes the GPU_BUDDY_KUNIT_TEST Kconfig entry to depend on
+GPU_BUDDY rather than selecting it. It also adds a dependency on DRM or
+COMPILE_TEST to the GPU_BUDDY option.
+
+> diff --git a/drivers/gpu/Kconfig b/drivers/gpu/Kconfig
+> index 3bcf08260d73a..d881ab6f7a006 100644
+> --- a/drivers/gpu/Kconfig
+> +++ b/drivers/gpu/Kconfig
+
+[ ... ]
+
+> @@ -1,14 +1,15 @@
+>  # SPDX-License-Identifier: GPL-2.0
+> =20
+>  config GPU_BUDDY
+> -       bool
+> +       bool "Page based buddy allocator for GPU memory" if KUNIT
+> +       depends on DRM || COMPILE_TEST
+>         help
+>           A page based buddy allocator for GPU memory.
+> =20
+>  config GPU_BUDDY_KUNIT_TEST
+>         tristate "KUnit tests for GPU buddy allocator" if !KUNIT_ALL_TESTS
+>         depends on KUNIT
+> -       select GPU_BUDDY
+> +       depends on GPU_BUDDY
+
+[Severity: Medium]
+Since this changes from a select to a dependency, does the KUnit configurat=
+ion
+file at drivers/gpu/tests/.kunitconfig also need to be updated?
+
+If CONFIG_COMPILE_TEST=3Dy and CONFIG_GPU_BUDDY=3Dy are not added to=20
+.kunitconfig, running kunit.py will fail because CONFIG_GPU_BUDDY_KUNIT_TES=
+T=20
+will be silently dropped from the generated config due to unmet dependencie=
+s.
+
+>         default KUNIT_ALL_TESTS
+>         help
+>           KUnit tests for the GPU buddy allocator.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/1e519fb24aa5521788d=
+69cc7980665ccbc227b14.1787584184.git.geert@linux-m68k.org?part=3D1
