@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C392FC5DF81
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 14:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEBE6C5DF94
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 14:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15FB610E4CE;
-	Mon, 24 Aug 2026 14:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1993110E0C0;
+	Mon, 24 Aug 2026 14:21:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TzvrgePD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WVJ26So0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4AB10E0C0;
- Mon, 24 Aug 2026 14:19:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51A9B10E0C0
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 14:21:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DDD7140E11;
- Mon, 24 Aug 2026 14:19:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958861F000E9;
- Mon, 24 Aug 2026 14:19:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2281143B60;
+ Mon, 24 Aug 2026 14:21:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B655A1F00A3A;
+ Mon, 24 Aug 2026 14:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787581189;
- bh=osf90roqkwdlA4d0364B9VX/c5X2XCLSvuGD0BgOU1o=;
+ s=k20260515; t=1787581286;
+ bh=21exBnjwsDW+R/kDKogTAsBJW33Mxny+2PiJ5JKiHAA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TzvrgePDKZZWQIu4dE2k0U8ToJCZ/XTQJLEsky3bQLFDPsDiKpxyYkneCdc/D0mhI
- 8AM9wFOoJpRyjos/KbScGvmBVhEjv/A5xeWpz5uxheFM9KoSASEfgh6f9s5rJZb3lX
- X2U49VGXoQPUcHx7jxaaWOhZAbHu/scymQnztPirb87K/wsP6/19QzGdwy+RUDV4Mq
- vq6wyGHzcXzH+GAXvoMnlU/cInJQZ7exsUqnEi2swP3fCJJIKyKWBc5jk4wXALglLs
- YdmA5m6TNDO8xpoVd2EdMQeQbPGLeGOnG3vAsFuZBLpJtRrtUoQ7eC4IQwDqbafi4r
- 7ObP7JlxL6CJw==
+ b=WVJ26So0gbfQe1fHJZkzHihJ1shO1BSqxSBzd83FbcSmrIZ519/nf60Uzbcd48FND
+ 2QyKAFYJu1E9enMNT5ghNqjLpNt3jJpm+xjfk31Qk+UyWW8rf0RFHeLQMwbZJ/aJKb
+ 91bwbuoYc5UqsnAqQapIVrVbpG/wvFIHs7Ox12fyDQlrzz1t1gtV1ANTWjotFI6LW9
+ 2DofZG5Oys5bJxy8bMs5Ahiu7FDMtnMZ8DN6esLvm3zZzXJ9/B8ZOnhdexfUKGUDxs
+ FWsEGQhRCxRmRhGRPSX1AcfFM0w5dx+94YrEuejsYwmjugHU0bNiERDf1q0aeb2unb
+ mVT5phtnz+fVA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] drm/xe: Capture devcoredump on TLB invalidation
- timeout
-To: =?utf-8?b?VGFsZXMgQS4gTWVuZG9uw6dh?= <talesam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260824140748.54974-2-talesam@gmail.com>
-References: <20260824140748.54974-1-talesam@gmail.com>
- <20260824140748.54974-2-talesam@gmail.com>
+Subject: Re: [PATCH v11 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
+ DSI to HDMI driver
+To: mohit.dsor@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260824-lt9611c-v7-v11-2-eb4a79cb597c@oss.qualcomm.com>
+References: <20260824-lt9611c-v7-v11-0-eb4a79cb597c@oss.qualcomm.com>
+ <20260824-lt9611c-v7-v11-2-eb4a79cb597c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 14:19:49 +0000
-Message-Id: <20260824141949.958861F000E9@smtp.kernel.org>
+Date: Mon, 24 Aug 2026 14:21:25 +0000
+Message-Id: <20260824142125.B655A1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,59 +59,147 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Uncancelled deferred devcoredump work on the global workqueue lead=
-s to UAF if the driver is unbound/unloaded before the work executes.
+- [High] Incorrect HPD read response length causes HDMI to never be detecte=
+d.
+- [High] Sysfs attributes are accessible before drvdata is initialized, cau=
+sing a NULL pointer dereference.
+- [Medium] Incorrect interrupt clear sequence leaves other active interrupt=
+s stuck high.
+- [Medium] Global CRC table is initialized concurrently in probe(), creatin=
+g a data race.
 --
 
---- Patch [1]: [PATCH v3 1/3] drm/xe: Capture devcoredump on TLB invalidati=
-on timeout ---
-commit e17a9749756454a4d7c32af8d34a73ac7b919a3e
-Author: Tales A. Mendon=C3=A7a <talesam@gmail.com>
+--- Patch [2]: [PATCH v11 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI=
+ DSI to HDMI driver ---
+commit 1a2f947d19c88c8a2effc903f8f83ec6e9fd330b
+Author: Sunyun Yang <syyang@lontium.com>
+Subject: drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
 
-drm/xe: Capture devcoredump on TLB invalidation timeout
+This commit introduces a new DRM bridge driver for the Lontium LT9611C=20
+series chips. It provides conversion from MIPI DSI and I2S signals to=20
+HDMI output, and includes firmware upgrade capability and sysfs integration.
 
-This commit adds xe_devcoredump_gt() to capture GuC log and CT state
-for hangs that are not tied to an exec queue or job. It also hooks
-this mechanism up to the TLB invalidation timeout path.
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
+ridge/lontium-lt9611c.c
+> index 0000000000000..148da2bf5648e
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+> @@ -0,0 +1,1283 @@
 
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-
-> diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_=
-devcoredump.c
-> --- a/drivers/gpu/drm/xe/xe_devcoredump.c
-> +++ b/drivers/gpu/drm/xe/xe_devcoredump.c
 [ ... ]
-> @@ -323,40 +318,44 @@ static void devcoredump_snapshot(struct xe_devcored=
-ump *coredump,
-[ ... ]
-> +	if (q) {
-> +		ss->ge =3D xe_guc_exec_queue_snapshot_capture(q);
-> +		if (job)
-> +			ss->job =3D xe_sched_job_snapshot_capture(job);
-> +		ss->vm =3D xe_vm_snapshot_capture(q->vm);
+
+> +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_id;
+> +	struct device *dev =3D lt9611c->dev;
+> +	int ret;
+> +	unsigned int irq_status;
 > +
-> +		xe_engine_snapshot_capture_for_queue(q);
+> +	guard(mutex)(&lt9611c->mcu_lock);
+> +
+> +	ret =3D regmap_read(lt9611c->regmap, 0xe084, &irq_status);
+> +	if (ret) {
+> +		dev_err(dev, "failed to read irq status: %d\n", ret);
+> +		return IRQ_HANDLED;
 > +	}
-> =20
->  	queue_work(system_dfl_wq, &ss->work);
+> +
+> +	if (!(irq_status & BIT(0)))
+> +		return IRQ_NONE;
+> +
+> +	/*Clear interrupt: hardware requires two writes with delay*/
+> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
+> +	usleep_range(10000, 12000);
+> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
+
+[Severity: Medium]
+Could this sequence leave other active interrupts stuck in the clear state?
+
+If irq_status contains other active interrupts (for example, bit 1 is set),
+the second write will write a 1 to those bits. Since there is no subsequent
+write of 0 to clear them, this appears to leave them permanently asserted.
+
+> +
+> +	schedule_work(&lt9611c->work);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void lt9611c_hpd_work(struct work_struct *work)
+> +{
+> +	struct lt9611c *lt9611c =3D container_of(work, struct lt9611c, work);
+> +	struct device *dev =3D lt9611c->dev;
+> +	static const u8 hpd_data[] =3D { 0x00 };
+> +	struct lt9611c_cmd cmd =3D {
+> +		.hdr =3D { LT9611C_FUNC_READ, LT9611C_TYPE_HDMI, 0x31, LT9611C_CMD_SEP=
+ },
+> +		.data =3D hpd_data,
+> +		.data_len =3D 1,
+> +	};
+> +	u8 hpd_status;
+> +	struct lt9611c_rsp rsp =3D { .data =3D &hpd_status, .data_len =3D 1 };
 
 [Severity: High]
-This is a pre-existing issue, but does this deferred work item on the global
-system_dfl_wq cause a use-after-free if the driver is unbound before it
-executes?
+Will this ever read the actual HPD status payload?
 
-During teardown, xe_driver_devcoredump_fini() calls dev_coredump_put(). If
-the work hasn't run yet, the coredump device hasn't been registered by the
-deferred worker.
+As demonstrated by lt9611c_get_edid_block(), the LT9611C chip's read protoc=
+ol
+echoes the subcommand index byte (Y0) as the first byte of the response.
+Because data_len is set to 1, the driver will only read this echo byte (0x0=
+0)
+instead of the actual HPD status in the second byte, causing hpd_status to
+always evaluate to false.
 
-Consequently, dev_coredump_put() finds no device, returns silently, and
-never invokes xe_devcoredump_free(). The work remains uncanceled on
-system_dfl_wq and will eventually execute using a freed xe_device.
+This same pattern also appears in lt9611c_bridge_detect().
+
+[ ... ]
+
+> +static ssize_t firmware_show(struct device *dev, struct device_attribute=
+ *attr, char *buf)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
+> +
+> +	return sysfs_emit(buf, "0x%04x\n", lt9611c->fw_version);
+
+[Severity: High]
+Can this result in a NULL pointer dereference?
+
+Since the sysfs files are registered via lt9611c_driver.driver.dev_groups,
+the driver core creates these groups before calling the probe() function.
+However, i2c_set_clientdata() is only called at the very end of probe().
+
+If a user accesses this sysfs file during the initialization window,
+dev_get_drvdata() will return NULL, which is immediately dereferenced here.
+
+> +}
+> +
+> +static DEVICE_ATTR_RW(firmware);
+
+[ ... ]
+
+> +static int lt9611c_probe(struct i2c_client *client)
+> +{
+> +	struct lt9611c *lt9611c;
+> +	struct device *dev =3D &client->dev;
+> +	bool fw_updated =3D false;
+> +	int ret;
+> +
+> +	crc8_populate_msb(lt9611c_crc8_table, LT9611C_CRC_POLYNOMIAL);
+
+[Severity: Medium]
+Is it safe to unconditionally initialize the global lt9611c_crc8_table here?
+
+If multiple LT9611C devices probe concurrently on different CPUs, this
+will result in multiple threads writing to the same global array
+simultaneously without synchronization.
+
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824140748.5497=
-4-1-talesam@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-lt9611c-v7=
+-v11-0-eb4a79cb597c@oss.qualcomm.com?part=3D2
