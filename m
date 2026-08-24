@@ -4,134 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D999BC5DF8C
-	for <dri-devel@archiver.kernel.org>; Sun, 23 Aug 2026 21:19:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01B5CC5DF8C
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 02:18:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5CBA10E05C;
-	Sun, 23 Aug 2026 21:19:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C10210E071;
+	Mon, 24 Aug 2026 02:18:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eR/jx95A";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iHjg2HUL";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="oFtjZcHm";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9158110E05C
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 21:19:43 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67NLDpoL1012295
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 21:19:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=l7RZsap49chD01FXy+hLzS/6
- WnZt4hChaP4Q9DCEjMM=; b=eR/jx95AtwAWeXuNlUrYcV+LJpiXQw5PxRRev38E
- xTrN9DECacOgT9kNqDcn5LmMbbhPkZO5IfIyM9UJUROywjay4vznKPW49wjdMK59
- 49K/DZ1wIyXIdIdsilQBrfL4qY9if2iCv3pbF047Je8FrsfX9ptiBqeW5RIBJa4h
- lhFnlCo3GJV3b6EGllGW0+3y9mBXnkMF2n/vnB6GdQ9BVBagEiPxEHNS5VZ+eEor
- gbaMcrjbCjIOZsD5X7NmVb83Y+cHX6KvYX+xpm3bPyoSXIQn6fsszk1C/ybSjzCq
- qxyi6pM5+k9yGiY5ZxY6IucROn5KT2SY3/60nAg3Cz6AiQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g88k7g079-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 21:19:42 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-5174a23afcbso39543231cf.3
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 14:19:42 -0700 (PDT)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0529810E071
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 02:18:35 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-7e9ef94c0e2so2252027a34.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 19:18:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787537915; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Ep+skPQu0cnOPfFj3Yhja+XYvS8nXqOWh6PtCa6VhXBnFAK8iB+8g8kV0dA3x0I5xW
+ LaK2lAIaXWKaBpNIDUQCBwJOxNZiVuFK30aOAUR/tO21U1M6yRK2o3MCj42W6NPkDx21
+ Dp5tvjWWAs5Li8dk1sWy5m3U47syVTioF2fNE2hvUSGKWJ8KGrfNJIRAq5miByRuekgt
+ Qt71Ij4XZHJpMTd5UlkSX4gkj/eu4XrWE3pVkuljvIUBBOpHlcIAw3SxHPSa+BZOaT9/
+ VOhgerCk/jeQ6Oocba31TDz1xKjbAqMDu6BBbHa8FL8vGhBdEda2CmmSg0eALaulB8ow
+ hfsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Ti7uDrEa0LEcGW1nlIJmRJ1t8Z8G6Rv27AouiCCX9Ms=;
+ fh=LJKnP1qIWbhuHSsYRNXihlLCkX/1S6q0LfN3r5GoZ0M=;
+ b=ZM+rTT2Yk6OZhcdZ7cAig/bG7OeN20hP2io6/ztg//ntSYhFA1jRdaGlI/EUI4Reb1
+ sL6LCCUitxNhnlK+T4JS6wgRFQVF1iJN1aZeqtwTzaOMNxoMAwrPmRs8/XdR7Bikt/7s
+ zaZbh2H2bpiWhkfpWEgUOCmZ0CYwAp4pSKQcdPW7yscfbSXN/6iHLYbKNXZDOIbv3f86
+ hMLuonOLG+UQW3ABE1/hsnVgxI7394M3ii3uZzjVH7NyebINNwLKUobuyGI9Ui60CgZ3
+ YBsyxZkNj11QiP/rnCeepWjdgsA4Hqr+1+EXNTNhhRQT1FiZodOz+kqYgmHiogpncZ4r
+ XGHA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787519982; x=1788124782;
+ d=google.com; s=20251104; t=1787537915; x=1788142715;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=l7RZsap49chD01FXy+hLzS/6WnZt4hChaP4Q9DCEjMM=;
- b=iHjg2HULZyQ4kMMDvtbGaO46OmPrMRti4CPvXN/+H1j7HQZRuQHwm+5dsbugd54oaR
- qRawFbtkD6uHrqNnKz06KWu/G6uBSnUYC6kxLV8LfoYgmfr1D/GOzOmAoiiWAincbvnj
- ylUILs3L7qFKKXawx3Hl7M4M3ZfTwA9Hcar1ZrYt0FUbLKZxryvXmKvKeeMT37vw3wxL
- n9Y90+sgWWk4xOP+ZsOpnppe1BVRuUGsB9fikJKn87Na/nyVzdPx7mTAf7yuCROBAURM
- cbpHoB7amgJGk9SjyJLZaulpvlW8kpi9ysIZ8FCcA/tX/ksCVAR4mDKsdKRLFNF5jY4J
- 7+NA==
+ bh=Ti7uDrEa0LEcGW1nlIJmRJ1t8Z8G6Rv27AouiCCX9Ms=;
+ b=oFtjZcHmxYTJxDgjrMq2sege/pIEpjJnQpwUF+phAoKNoDtN124auz3HjwiACnOmtm
+ YR+UPOvygH5xxA2ECTGU07M/Bo0AfgLdJV42QhhbkkgMKy/KPR4DZymG3KpqlWrASJYM
+ DQazYuDvE7YoJXI2QaQ0e400+vdorePlwQJjGNR+il5+SHETx1mwF1KmNlv/Inm3i9mC
+ GiBnjoIVtOPXhkFTlYbbBY5aUhw/AuB+0ke6mO7GcvJAITmRnSXH4xLntQJrtPxRHvMz
+ tIA2Rptpb+we1seXKNL2jJNDeWowWivyHIZrD2fTcOP2ocmw21zDsxhjmVnD7KlyXVfJ
+ Gayw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787519982; x=1788124782;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20251104; t=1787537915; x=1788142715;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=l7RZsap49chD01FXy+hLzS/6WnZt4hChaP4Q9DCEjMM=;
- b=Zqun/eYFo31bNcYjBCFOzQdW+rmEu0foSL2c5mjj2gnSuAM2PM9TcNE76I5myecfOB
- Ab7qDkiu8Lkk7mKvqgy7SOxAX1KiE14frqZZ0uwIPPbUrp18WWN5T8BztwG0MJBie1H6
- VBj14iU11uNqy/HRdkJRBiyUXu8VZsoHblb23ZFLx5NCojQsb/0a9CwTFv5c6IL+DWVs
- dO26aGpsGs4POjJ4rCxOBVZIutSq8+iqIhg+KZG9x4FxkPc15ccMl6Jq3nlEHbYooK37
- oQ0O3rbH3aAQwNt6X4z4XcMlMYlo5/lrd8RENu5usuWccwzmpFs3RmaRG3l9NMXaJsdW
- sd/g==
+ bh=Ti7uDrEa0LEcGW1nlIJmRJ1t8Z8G6Rv27AouiCCX9Ms=;
+ b=YaK1Qw4Clzj9bobKYJohcz0chxdflBAjTUNKfc9ZRIgxImKtrFoMk6JxHzlz2OiaZa
+ yjT7y3lD+cmOBFqLL4giJZp02k4Px93Fmv3+P19yofVBSrV3HvqzOUllSZAuwUJmfZTY
+ dLNIbl5HOvMUXwh7eqX48I5hVQfTv02s5We2kUcE0jLntAKnt5iJMBSQBX+P/kQtQnkb
+ l67jPsKQqxr49UT0DsTNRpwn9u7CA5EblC6HBzJWxOvOWuWhMF2DMew2EYZFDuQFIRgX
+ kZKhStd0vzZjmYSKWvs+vrtyYi25DdZeQqJCo0vUG2dnEiKRQqQ2EPv9iOJ5hRw1ZYwZ
+ DOEg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoPm/4BfgeVI2dYfN+yaZgZ50DNDj/Tgda929nYnrbteksqatt7On9I25EICF2BlKiElcJvQdehboA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lqWRhixflN+FZL6hpnt9RNpx8jR129zvnMvlbNT+HuOP9Sa3RH
- XJ99qFcwqDaPebQRQVIEMqITH04uM+Nm3CJTVulyTdiYPLKY1wJXaVFYQqy21BrgE1+FpMQr/39
- Cqi+pxZXXv/dge862Ib+60LJy5Y8KPQ6gZ/PfBhNZEvGjjaZ1N7k+v5wqcwWoSMCdiK8ePxo=
-X-Gm-Gg: AR+sD13xUWhE6hHTqyn4SJk5OYVU8m1+9J/6XlpIfCOwFEVirkx7Xr1z3gOErXsSwru
- u6dVN30SmkjXo7t+2FIFmmaSwZdnIKqHY8g+LS6catIQBctyA6GUYylvGXP0P1+osOQyV7d0AGY
- E/eleNw71/idkl3Gl38IwUnLTK/5yN5EQYM5UEWvSWn40RfmRKkpTTDqoySs1zegj4GMHvz4B6Y
- /w1uMkBmUWteLB8pyUg2WI9cdU24fgUXgQ6b45/PXP/kxMP3OQrwB54Y6ZxwQ6SyyN5+/bFjChH
- k3+ElySIomkZDYSVfimSukjBnvcMunVQnNtQQeM/1i5bVevcmZA3WAJkhmBBgyBaoNzfOwZdoR3
- 8IMkDP2xZNJZSJpvSB10Uz6DOIBO5eACJI0QN58UgKQU/P6iv2CtQ4rCmzhvKRdiZ74ZTiIk0Fm
- 2d6M/LzJxhHQL+
-X-Received: by 2002:ac8:5cd1:0:b0:528:583:a6ca with SMTP id
- d75a77b69052e-52df5741738mr218248931cf.14.1787519981845; 
- Sun, 23 Aug 2026 14:19:41 -0700 (PDT)
-X-Received: by 2002:ac8:5cd1:0:b0:528:583:a6ca with SMTP id
- d75a77b69052e-52df5741738mr218248731cf.14.1787519981388; 
- Sun, 23 Aug 2026 14:19:41 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b48cdfdc49sm1246625e87.41.2026.08.23.14.19.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 Aug 2026 14:19:40 -0700 (PDT)
-Date: Mon, 24 Aug 2026 00:19:38 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 70/70] drm/crtc: Remove reset
-Message-ID: <yjm52tuppz73qhmqvlbod6s2zxkmtjutmazgkwqg6oolrn7mqg@owea27yrpg5v>
-References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
- <20260821-drm-no-more-crtc-reset-v1-70-fb793475c05a@kernel.org>
+ AHgh+RqZMxwgHa7gS67YjFOmjjexYf0qdcDcny1J3AM29uwjHyM84RVRkW/aYoVHnGb5GMwbbUEkIddZN24=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mKDrMjt7ujd+p+6VPLQMKE9OZU+WGRJMWxtIKkMmUszB33S20m
+ NdhjjAErzxmPsI/XTvZNiBiLyKKIbk5pjIMK3LM7WXKhw7T18h92Wz8u8MMuRfEJATuDuwE7bQ6
+ 0fmrNL/mMnJjxXk0VeyvgJQz3kZ5O2riVv2WUDLHjCuHX7mOoCGKGtvixvA==
+X-Gm-Gg: AR+sD134lLAdiQAHJ/Oir/o4Nw2Hh6plXa87KfI6+bJNTUKHjwL3z6KSJssxZtInLP+
+ kx8oY5cbMg5kKye0aNNcWIQnmuNUiJFkapFoavfMwI+K1/zv3K47NjQkq/s3HqWuiHZwmOoViLm
+ MGj5ijL4UvUZozdfO6BimgnPeEZu6C/enRhotGYJu8BxNB7Xvl0mMvbxKT7BcvneNLAtPiQRyUO
+ hB5n0fR/mifUqD8x7USs7aaEHiIhBkS76rIr5ePKSX5VPjdaLcUWByofElAFYsxq5SiGjG+v8lG
+ pH9oNf7D+7rZ4CwGZ3Dun4+bEvGvJMiQBGFp5AYXH6vYnw==
+X-Received: by 2002:a05:6820:4c04:b0:6b1:272f:db97 with SMTP id
+ 006d021491bc7-6b1593781ddmr23997585eaf.18.1787537914987; Sun, 23 Aug 2026
+ 19:18:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-70-fb793475c05a@kernel.org>
-X-Authority-Analysis: v=2.4 cv=b4iCJNGx c=1 sm=1 tr=0 ts=6a8b63ee cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=15lF2q8AZfmMG3c9NoEA:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIzMDE5NCBTYWx0ZWRfX9KWIx+0PzRt3
- FQVoIw5rJuT3ZS0RiDVlXMDXeg/EDo5KY4oaOWW1x9Q0Psl9lAh+cBQ5Qqq/A/8z3fwvFGmQvSd
- TKUNNHY/tJ7FiR1dCEdam+jigCvNx0M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIzMDE5NCBTYWx0ZWRfXyKBHPKOHP6PC
- A4XoTbN4pnj9CXMsKIn1d04ASVSdACAdxIrJdz5xl/TPca70S91UXOncUhpsz7ZcHSZoesa+2zr
- rkD30oATJrf+eFFvDnqwSy+osK1M8sBRx6WxtJfX818Q4yIDGcIuxeAewqf8h+A+BC2QIJXraBj
- +DpOYf1M4gkg9MXzGXXnEICx5FVwzvwmYB8M5+mo/cu0eNl7egR4Flr9AILEMQZp9FpFIP/aumZ
- Wo8GPBC6uxM+5Yo9DAJ0NfGcD0aqqI/lKJJdGArhXfqdWFgEvxR+RfH2F8J+CmJWBPlHsxt/M5+
- ssLs/86CrcN0mjp88FrPANQEWKjowcYiZ3rhZvl6s6h7EiJMCvKqC6vYqUTXfP6YeCormGxxSJE
- t7nmxXRXLsIhiT1iuvt4ozK5OG0UMP0PtEiq8ack1/HUPbw/yEmlK41QUZvwP5mRGlqJLTlTsaI
- W05JaGKAcqjd+oCiufQ==
-X-Proofpoint-ORIG-GUID: k6zZULAkyU_aUDyGVsC7TH96uQDLhuGo
-X-Proofpoint-GUID: k6zZULAkyU_aUDyGVsC7TH96uQDLhuGo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-23_06,2026-08-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 adultscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608230194
+References: <20260820012554.4038893-1-zhouhaikun5@huaqin.corp-partner.google.com>
+ <CAD=FV=XSbzZP3j15dNioUeibSw7ArnLUUsuLqtfMm8MzTDpZTg@mail.gmail.com>
+In-Reply-To: <CAD=FV=XSbzZP3j15dNioUeibSw7ArnLUUsuLqtfMm8MzTDpZTg@mail.gmail.com>
+From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+Date: Mon, 24 Aug 2026 10:18:24 +0800
+X-Gm-Features: AcwNN1WGbzQuXL0vJrXozGJtpnOyCcxtFhEM85LMUbag0_ngCo0XH_CUtEKw7MA
+Message-ID: <CAKDRTei-79M31gT7wDK6qNn9ap06-agxCBRkfMOi2G5WaDJOOQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Support MNE007QS3-F and TM140VDXP15 edp
+ panel
+To: Doug Anderson <dianders@chromium.org>
+Cc: neil.armstrong@linaro.org, sam@ravnborg.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ daniel@ffwll.ch, airlied@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,27 +110,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 21, 2026 at 04:39:46PM +0200, Maxime Ripard wrote:
-> All crtc drivers now implement the atomic_create_state hook instead of
-> the reset hook for initial state creation. The reset hook conflated
-> initial state allocation at probe time with hardware and software reset
-> during suspend/resume, making error handling difficult since it is not
-> fallible.
-> 
-> Remove the reset hook from struct drm_crtc_funcs and the associated
-> call in drm_mode_config_reset().
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->  drivers/gpu/drm/drm_mode_config.c |  4 +---
->  include/drm/drm_crtc.h            | 10 ----------
->  2 files changed, 1 insertion(+), 13 deletions(-)
-> 
+Hi Doug
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Sat, Aug 22, 2026 at 6:00=E2=80=AFAM Doug Anderson <dianders@chromium.or=
+g> wrote:
+>
+> Hi,
+>
+> On Wed, Aug 19, 2026 at 6:31=E2=80=AFPM Haikun Zhou
+> <zhouhaikun5@huaqin.corp-partner.google.com> wrote:
+> >
+> > MNE007QS3-F raw edid:
+> > 00 ff ff ff ff ff ff 00 0e 77 87 14 00 00 00 00
+> > 0f 24 01 04 a5 1e 13 78 03 2c c5 94 5c 59 95 29
+> > 1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> > 01 01 01 01 01 01 35 30 80 a0 70 b0 24 40 30 20
+> > 66 00 2d bc 10 00 00 1a 00 00 00 fd 00 28 3c 4b
+> > 4b 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
+> > 4c 20 20 20 20 20 20 20 20 20 20 ff 00 00 00 fc
+> > 00 4d 4e 45 30 30 37 51 53 33 2d 46 0a 20 01 41
+> >
+> > 70 20 79 02 00 21 00 1d c8 0b 5d 07 80 07 b0 04
+> > 80 3f 79 5c 9e 05 95 9c f2 1d 02 45 54 b0 5c b0
+> > 5c 00 42 12 78 22 00 14 8c 5a 02 85 7f 07 9f 00
+> > 2f 80 1f 00 af 04 23 00 05 00 05 00 2b 00 0c 27
+> > 00 28 3b 00 00 27 00 28 3b 00 00 2e 00 06 00 42
+> > b0 5c b0 5c 81 00 1e 72 1a 00 00 03 01 28 3c 00
+> > 00 53 ff 53 ff 3c 00 00 00 00 e3 05 04 00 e6 06
+> > 01 01 53 53 ff 00 00 00 00 00 00 00 00 00 7e 90
+> >
+> > TM140VDXP15 raw edid:
+> > 00 ff ff ff ff ff ff 00 51 a1 37 21 00 00 00 00
+> > 0b 24 01 04 a5 1e 13 78 03 2b a5 97 5b 57 8c 28
+> > 20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> > 01 01 01 01 01 01 24 31 80 a0 70 b0 3c 40 30 20
+> > a6 00 2d bc 10 00 00 1a 00 00 00 fd 00 28 3c 4c
+> > 4c 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
+> > 4c 20 20 20 20 20 20 20 20 20 20 ff 00 00 00 fc
+> > 00 54 4d 31 34 30 56 44 58 50 31 35 0a 20 01 dd
+> >
+> > 70 20 79 02 00 21 01 1d c2 0b 58 07 80 07 b0 04
+> > 80 71 69 5b 79 d5 8c 87 82 20 02 45 54 b0 5c b0
+> > 5c 00 42 12 78 22 00 14 3f 66 02 85 7f 07 9f 00
+> > 2f 80 1f 00 af 04 3b 00 05 00 05 00 2b 00 0c 27
+> > 00 28 3b 00 00 27 00 28 3b 00 00 2e 00 06 00 42
+> > b0 5c b0 5c 81 00 17 72 1a 00 00 03 01 28 3c 00
+> > 00 53 ff 53 ff 3c 00 00 00 00 e3 05 04 00 00 00
+> > 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0a 90
+> >
+> > Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+> > ---
+> >  drivers/gpu/drm/panel/panel-edp.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/=
+panel-edp.c
+> > index 5784ba0618bd1..03e24f2a8a104 100644
+> > --- a/drivers/gpu/drm/panel/panel-edp.c
+> > +++ b/drivers/gpu/drm/panel/panel-edp.c
+> > @@ -2236,6 +2236,7 @@ static const struct edp_panel_entry edp_panels[] =
+=3D {
+> >         EDP_PANEL_ENTRY('C', 'S', 'W', 0x146e, &delay_80_500_e50_d50, "=
+MNE007QB3-1"),
+> >         EDP_PANEL_ENTRY('C', 'S', 'W', 0x147c, &delay_200_500_e50_d100,=
+ "MNE007QB3-1"),
+> >         EDP_PANEL_ENTRY('C', 'S', 'W', 0x1486, &delay_200_500_e50_d100,=
+ "MNE001BS6-2"),
+> > +       EDP_PANEL_ENTRY('C', 'S', 'W', 0x1487, &delay_200_500_e50, "MNE=
+007QS3-F"),
+> >         EDP_PANEL_ENTRY('C', 'S', 'W', 0x1519, &delay_200_500_e80_d50, =
+"MNF601BS1-3"),
+> >         EDP_PANEL_ENTRY('C', 'S', 'W', 0x1529, &delay_200_500_e80_d50, =
+"MNF307QS3-2"),
+> >         EDP_PANEL_ENTRY('C', 'S', 'W', 0x153f, &delay_200_500_e200_d50,=
+ "MNF601BS4-1"),
+> > @@ -2288,6 +2289,7 @@ static const struct edp_panel_entry edp_panels[] =
+=3D {
+> >
+> >         EDP_PANEL_ENTRY('T', 'M', 'A', 0x0811, &delay_200_500_e80_d50, =
+"TM140VDXP01-04"),
+> >         EDP_PANEL_ENTRY('T', 'M', 'A', 0x2094, &delay_200_500_e50_d100,=
+ "TL140VDMS03-01"),
+> > +       EDP_PANEL_ENTRY('T', 'M', 'A', 0x2137, &delay_200_500_e50, "TM1=
+40VDXP15"),
+> >         EDP_PANEL_ENTRY('T', 'M', 'A', 0x2139, &delay_200_500_e80_pu100=
+, "TM156VDXP25"),
+>
+> Looks OK and I've pushed the change with my reviewed-by tag:
+>
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+>
+> [1/1] drm/panel-edp: Support MNE007QS3-F and TM140VDXP15 edp panel
+>       commit: ae3592a2b58a9acc6e6211440f0f638b79b96e9b
+>
+> It did seem a little strange that there was no "disable" timing for
+> either panel even though "nearby" panels did. Are you sure it's not
+> needed? If so, please submit a followon patch. Thanks!
+>
+> -Doug
 
-
-
--- 
-With best wishes
-Dmitry
+The hardware meets the vendor specifications after testing. Thank you.
