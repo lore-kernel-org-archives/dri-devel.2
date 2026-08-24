@@ -4,59 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE6DAC61DBE
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 333B6C61DB9
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8D2E10EA94;
-	Tue, 25 Aug 2026 14:35:49 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 447D310E5E9
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:48:27 +0000 (UTC)
-X-UUID: f56db44aa05011f19a56ed5b684f684d-20260825
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CHARSET
- HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD
- HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
- HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_CHARSET
- HR_TO_CHARSET_NUM, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_UNTRUSTED
- SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, DN_TRUSTED, SRC_TRUSTED
- SA_EXISTED, SN_UNTRUSTED, SN_LOWREP, SN_EXISTED, SPF_NOPASS
- DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF, CIE_UNKNOWN
- GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:6d8ea21a-811b-45cd-bbdd-64524ccf41e8, IP:10,
- URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:5
-X-CID-INFO: VERSION:1.3.19, REQID:6d8ea21a-811b-45cd-bbdd-64524ccf41e8, IP:10,
- UR
- L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:5
-X-CID-META: VersionHash:7db8b62, CLOUDID:c3e46c1cf2c82a3bb5de4a970c6e606f,
- BulkI
- D:260825144824CR8KV65X,BulkQuantity:0,SF:19|38|66|72|78|102|127|850|865|89
- 8,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
- l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
- 0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f56db44aa05011f19a56ed5b684f684d-20260825
-X-User: lihaojie@kylinos.cn
-Received: from localhost.localdomain [(39.144.194.152)] by mailgw.kylinos.cn
- (envelope-from <lihaojie@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1786909968; Tue, 25 Aug 2026 14:48:20 +0800
-From: Haojie Li <lihaojie@kylinos.cn>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Haojie Li <lihaojie@kylinos.cn>
-Subject: [PATCH] dma-buf: fix coding style in dma_resv_get_singleton
-Date: Tue, 25 Aug 2026 14:48:15 +0800
-Message-Id: <20260825064815.331653-1-lihaojie@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D75310EA93;
+	Tue, 25 Aug 2026 14:35:50 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VHO9OZuW";
+	dkim-atps=neutral
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 616A010E7C5
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 14:08:07 +0000 (UTC)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-836cde02992so42326717b3.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 07:08:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787580486; x=1788185286; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=HjcuIYMPT9C9kbhn3WnVAyI2bGT3SrHgj0fSx/Nh5HI=;
+ b=VHO9OZuWqYIXnyU4b/ZK1eqETqvJT8O3eLLzK1ly1lougdh4xbvB3UForgwjCaPQus
+ NsWHp78u8IvMmliLrEO6zkBfIEg4fXw5GeHgg8c6nK9g8QCf82/msA7x6nEkFUDC9X0B
+ ygg0OjJq8GAoVMctUrvsZHukWsNEiQpJJaNnyBg1w1td8fLgBI3HLmMMqwx2z0Kv3su7
+ 6fOPFJIqPHvhmclyjhfVgCeaaCmNoQ7xkSpW2OKqTd4H2o1EhwARGUm/OpnJWN0qZSpz
+ s4nq/4D455t5zBlBbj+5IabhiiGcXni8OHEiYjIRFXE9qekAmFaEGIBbvPLkqSGbNuKE
+ WC/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787580486; x=1788185286;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=HjcuIYMPT9C9kbhn3WnVAyI2bGT3SrHgj0fSx/Nh5HI=;
+ b=W4MxMsNGtfForYqOUxMYWgtINw5duP8GEpmJP7YXnIVaKJvXGYY6ixc6mS8q+pzVZL
+ 59upqX3SOrCJeOiQWwpszJRiXLr0b5fpNIkti/6fg2ToVtUkaBT/Edhlhzk8HQBuKoNp
+ 4gdMT/gjgBNLboyaI846SIn2MHIqfbh67z+o+G1LUjXlG5wybgCc90BLTl8NYzIRnP50
+ k3egKqwXcFvRxy1QFzw1M+JS4/jQS+7f7gmNLtnBAnrbdW5Af2tawPEzhNHDUPtNfM3R
+ dd9LWmJBsC7M/JvWoNm3Bu3XwKr6OAmoNlgZ3HHWHjfSDpqZVLHSBJfvvsOU+Z6JKdtU
+ iT8A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro5iq+Xa9y5nGd4iMsDLqBZq8QPWhImPYDs/int4EpsQQJJXNRbg9/eRp7DN6i/V47bMHNGicInaBY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nNfySMuAF8J9XkPFGvLOIzhHZevayWt4iiM7CaH0FKq1Yml145
+ tnWPY28tZUJMLhPv2yRyjtfNR83foHrTU4P2MgT0B0697DI3L2BVoolr
+X-Gm-Gg: AR+sD10y78wZXQoBLt9W7Ii0zCMyhPYKgw8qF2+zvauqqAjQSZz19t0AEqvueXYMrVz
+ bHS8Z0/FvqbzW7LgR2qukFBtzcmjSpH8y3Mj6cRxiCG+xgf+D7ZXakD6KMoX4BdC5myuzbdovkP
+ bmuQ2qutlwmrvZPT08dmUPHDZcojT0HzHdPOJlqZlhGuz+ROW6+ea3+jX4GmlngRqRNoqmQ5t/8
+ 9Q5UgX3zJJV0+OHXtiVno4jHfIPnYJGAfZMTubKNb3BROgvNSZEzaT9UFU+9Q6MvgmnWL3N11Hk
+ ezbst12a5B8bhss8pdH0we5q4yTZZRz2XuySh6cAmpZQMTMMtWv1SnYNRNdN5imzej+mvHaW6ny
+ AQoS6usJONiqLrzKp70VTWZ35fttWUNzZBPQ3kscX/6vNihJ39PsMxBwKDF8xaFvBpS4KtHsoGt
+ 3Aafjuf1ax1rPo2NJKs9qFLX58jQxxbfyyTaavtueh15lI3fa9oBjcWTlHCBSrTUXpNjWMLudpl
+ 4rJpfPrDY6ifWz4AfUcdZWOFGTUVL8b1djiJE0=
+X-Received: by 2002:a05:690c:e15c:20b0:81e:45a6:bd5a with SMTP id
+ 00721157ae682-849ebd3ae8emr69438287b3.0.1787580486277; 
+ Mon, 24 Aug 2026 07:08:06 -0700 (PDT)
+Received: from lord ([170.246.211.189]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-853ff053a84sm3326337b3.4.2026.08.24.07.08.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Aug 2026 07:08:05 -0700 (PDT)
+From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
+ stuart.summers@intel.com, julia.filipchuk@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ navonjohnlukose@gmail.com, dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+Subject: [PATCH v3 2/3] drm/xe: Log when a timed out TLB invalidation ack
+ finally arrives
+Date: Mon, 24 Aug 2026 11:07:47 -0300
+Message-ID: <20260824140748.54974-3-talesam@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260824140748.54974-1-talesam@gmail.com>
+References: <20260824140748.54974-1-talesam@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,29 +96,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The conditional "if (r)" following the dma_resv_get_fences() call was
-indented with spaces instead of a tab, violating the kernel coding
-style. Fix it to use a single tab for consistency with the rest of
-the function.
+When a TLB invalidation fence times out we log the timeout, but if the
+ack for that seqno later shows up there is no record of it, making it
+impossible to tell from logs whether the ack was lost forever or merely
+(very) late.
 
-Signed-off-by: Haojie Li <lihaojie@kylinos.cn>
+Track the most recent timed out seqno and log how late its ack arrives,
+relative to both the original request and the moment the fence was
+signaled with -ETIME.
+
+On ARL with GuC 70.53.0 this shows the acks are never lost: they
+consistently arrive ~2.3s after the request, tens of milliseconds after
+the TDR has already signaled the fence:
+
+  TLB invalidation fence timeout, seqno=10992 recv=10991
+  TLB invalidation late ack: seqno=10992 recv=10992,
+    request-to-ack=2314ms, timeout-to-ack=45ms
+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
+Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
 ---
- drivers/dma-buf/dma-resv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_tlb_inval.c       | 19 +++++++++++++++++++
+ drivers/gpu/drm/xe/xe_tlb_inval_types.h | 17 +++++++++++++++++
+ 2 files changed, 36 insertions(+)
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index 39a92d9f2413..2365a6d8ca15 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -633,7 +633,7 @@ int dma_resv_get_singleton(struct dma_resv *obj, enum dma_resv_usage usage,
- 	int r;
+diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tlb_inval.c
+index 833fb92cd3e..e98c6a0b7a6 100644
+--- a/drivers/gpu/drm/xe/xe_tlb_inval.c
++++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
+@@ -14,6 +14,7 @@
+ #include "xe_guc_tlb_inval.h"
+ #include "xe_mmio.h"
+ #include "xe_pm.h"
++#include "xe_printk.h"
+ #include "xe_tlb_inval.h"
+ #include "xe_trace.h"
  
- 	r = dma_resv_get_fences(obj, usage, &count, &fences);
--        if (r)
-+	if (r)
- 		return r;
+@@ -99,6 +100,11 @@ static void xe_tlb_inval_fence_timeout(struct work_struct *work)
+ 			fence->seqno, tlb_inval->seqno_recv);
  
- 	if (count == 0) {
+ 		timedout_seqno = fence->seqno;
++		if (!tlb_inval->timedout_seqno) {
++			tlb_inval->timedout_seqno = fence->seqno;
++			tlb_inval->timedout_inval_time = fence->inval_time;
++			tlb_inval->timedout_time = ktime_get();
++		}
+ 
+ 		fence->base.error = -ETIME;
+ 		xe_tlb_inval_fence_signal(fence);
+@@ -227,6 +233,7 @@ void xe_tlb_inval_reset(struct xe_tlb_inval *tlb_inval)
+ 	else
+ 		pending_seqno = tlb_inval->seqno - 1;
+ 	WRITE_ONCE(tlb_inval->seqno_recv, pending_seqno);
++	tlb_inval->timedout_seqno = 0;
+ 
+ 	list_for_each_entry_safe(fence, next,
+ 				 &tlb_inval->pending_fences, link)
+@@ -424,6 +431,18 @@ void xe_tlb_inval_done_handler(struct xe_tlb_inval *tlb_inval, int seqno)
+ 
+ 	WRITE_ONCE(tlb_inval->seqno_recv, seqno);
+ 
++	if (tlb_inval->timedout_seqno &&
++	    xe_tlb_inval_seqno_past(tlb_inval, tlb_inval->timedout_seqno)) {
++		ktime_t now = ktime_get();
++
++		xe_warn(xe,
++			"TLB invalidation late ack: seqno=%d recv=%d, request-to-ack=%lldms, timeout-to-ack=%lldms",
++			tlb_inval->timedout_seqno, seqno,
++			ktime_ms_delta(now, tlb_inval->timedout_inval_time),
++			ktime_ms_delta(now, tlb_inval->timedout_time));
++		tlb_inval->timedout_seqno = 0;
++	}
++
+ 	list_for_each_entry_safe(fence, next,
+ 				 &tlb_inval->pending_fences, link) {
+ 		trace_xe_tlb_inval_fence_recv(xe, fence);
+diff --git a/drivers/gpu/drm/xe/xe_tlb_inval_types.h b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
+index 3d1797d186f..38288966254 100644
+--- a/drivers/gpu/drm/xe/xe_tlb_inval_types.h
++++ b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
+@@ -102,6 +102,23 @@ struct xe_tlb_inval {
+ 	 * @pending_lock: protects @pending_fences and updating @seqno_recv.
+ 	 */
+ 	spinlock_t pending_lock;
++	/**
++	 * @timedout_seqno: seqno of the most recent timed out TLB
++	 * invalidation, 0 if none. Used to measure how late the ack for a
++	 * timed out invalidation actually arrives. Protected by
++	 * @pending_lock.
++	 */
++	int timedout_seqno;
++	/**
++	 * @timedout_inval_time: request time of @timedout_seqno. Protected by
++	 * @pending_lock.
++	 */
++	ktime_t timedout_inval_time;
++	/**
++	 * @timedout_time: time @timedout_seqno was signaled with -ETIME.
++	 * Protected by @pending_lock.
++	 */
++	ktime_t timedout_time;
+ 	/**
+ 	 * @fence_tdr: schedules a delayed call to xe_tlb_fence_timeout after
+ 	 * the timeout interval is over.
 -- 
-2.25.1
+2.55.0
 
