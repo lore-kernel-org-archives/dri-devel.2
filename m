@@ -4,145 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F721C5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 06:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 585DAC5DF94
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 06:17:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5318B10E0A4;
-	Mon, 24 Aug 2026 06:12:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8825210E07B;
+	Mon, 24 Aug 2026 06:17:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bDJ9mCE8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ef7yAbXV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mTNEmKJd";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A58D810E0B9
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 06:12:29 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67O5RImV1848428
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 06:12:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UEFTefeAsv2qh5vvlMQhjsN6dfN8Sm6dSGVONX8CTCI=; b=bDJ9mCE8GtJiY+1O
- 1eSD2GI5q2it/1mGV1cvqkCCrnGpxYvbF8Cem+kOFSzos3lOrWWfs7n6X1elvu6G
- nk9A+ZyD48tHJ8OINfvmSkCZ3AKB3ZmuLzEigWNtGUyJQ7Dkhu1Wp3JSfkmoJMTw
- GyD0TGZlcATAGtvaJOro0dST3ENOC+58Sr8y9OR/swLbKvq/FV/gt2TQ6YMJWA5O
- aSFEJsHtyhXQ4DEDVdbvXYws13TJm/Iy761cvzYkxKCu1fmJ8WqaGx9bIjTmcKT3
- s5hygI7ZdANdDFsbn1MfTbDcFB3/GHuVxkNsVQNA9yvmrFaJYG37IcNMiKLXjTj6
- dM/Y/A==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g740f5mwd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 06:12:28 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-52845bd815bso6060881cf.0
- for <dri-devel@lists.freedesktop.org>; Sun, 23 Aug 2026 23:12:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787551948; x=1788156748;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=UEFTefeAsv2qh5vvlMQhjsN6dfN8Sm6dSGVONX8CTCI=;
- b=Ef7yAbXVOdJ01vDAOidjSTjqh5/XaWt5C0rtHEY5Mv5WUcQPbOQDlGtsxMKR4pGmCL
- JbPG2ooB9c/9385LIZqNw8uV4HZTw4F7oLgAum+5vDyznILmQmHmrNIaT5tz/0HkIuFG
- 1U5DvWff6G5UPPbGA0TIzaY11d7ay+lnrQ8dePFgFqwAg2Xq4J47S9W+8wONzN6qrBym
- exRaHiCZkqEg+LKvr3EacriLb5oqJeiTGr77pqSNBWhVkSBm9eNEiLRR1n/dJpke1Hv/
- fsF4CoQY3gIr+pk3czVqIRDi4oAjRI43Kh33BO8eO32CXj+ZuRqfvhBY6ohMb2A3XQYw
- 8BFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787551948; x=1788156748;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=UEFTefeAsv2qh5vvlMQhjsN6dfN8Sm6dSGVONX8CTCI=;
- b=aoBWM58KFVmGoUj69NF8YaekP9MXeumfyK8d+2jrXgLzWzH0Fhx7hJw5zoseXkwma6
- +BuhKzbbqFLhDP/w86IO/SsD5j4QHeiMjp6x2Hmb1T/ldu2xptFOSDyh7DHkGAf7fhoo
- yCd6koAokIZos/OfHtpUWK0lAOb9VPdGZDao2gv0bilzfJWoM+KoM3kTMp2RNzVsFYx1
- e1VVQsQSgZipjMoRB91h17GApwbTG1jfcSVUJQB3OVAdKhKD9wDs6s3/jTY5ydnunVo2
- /cVc3g/nGLpXfcBP32FqkQFb8IVwdWJuPGiFr5UyvmJsx98SRK28boQYtCJcMAs6/NIi
- M0Kw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp8GLucMcGmE+2jARgHfSufBNY67alLaSto/OXwxEf0bwkIOWL68T5lViAduzncY5YPzGmtIvyUbag=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kQ7bWO4EWIJyhN6R70/0b7LBdIr6bRRIcCJFMzMWqkeRiUnQaM
- w9xnXrOpF/SA6TyOLQz8v0H0be++u3em/h59mx3P4rtXjgQXjVr71+2hth0ONPAMJQ9dtP27v0f
- 2UeBGT7nj8319UEl2BmE4Xm8P8o9VgfTBiI6tI44JEGxqKv67/ElDJW1ii8IEFuu7YB4JbTY=
-X-Gm-Gg: AR+sD110hYrtnY4y6aU0l2o9Ker3tnYbGVkBILWvFe9CrGpYGEMwsk3sXEA4DOztBrc
- BzCxVV8QqJa5l7LlAr7qWNqZZtE9CgmReeCw0kncZicitI8ftVes9AH8HsXhg31ClW1fjoB4nhS
- ovN3xBEJzbIlyBofD3jB6bmfVOcc8T6n/g4tCrFaPGZxpdMHR2ww56TJNYSHduWONBKhW1eBp87
- eAMCMVmUF/rsvqGfsj+QJ5flJravEeLRv49VF3Q4cu7SorSZm6F57RXY3Rt1Dh9UhURSu+HzbsG
- andQxmgGydhX9HmAbOolIKTSDhb221xSA25wvt/bG7f3E/lxqEYIyi8bRNlALq6h1BYJH29gHaj
- RKF8+Emx9tTx3dG/IYP5/4/62
-X-Received: by 2002:a05:622a:15c2:b0:51c:2101:f0 with SMTP id
- d75a77b69052e-52df56d00ebmr175961111cf.2.1787551947873; 
- Sun, 23 Aug 2026 23:12:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:15c2:b0:51c:2101:f0 with SMTP id
- d75a77b69052e-52df56d00ebmr175960721cf.2.1787551947423; 
- Sun, 23 Aug 2026 23:12:27 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c24968ba7b6sm1031837966b.62.2026.08.23.23.12.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 23 Aug 2026 23:12:26 -0700 (PDT)
-Message-ID: <7a21f01c-288a-418c-8c7a-a57fb40e2124@oss.qualcomm.com>
-Date: Mon, 24 Aug 2026 08:12:22 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B443710E07B;
+ Mon, 24 Aug 2026 06:17:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5BD6342D77;
+ Mon, 24 Aug 2026 06:17:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618CB1F000E9;
+ Mon, 24 Aug 2026 06:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787552270;
+ bh=lyy07IOpdfyPMESqNf/gba+24Jjsl6/nIgt6dLFhdHk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=mTNEmKJdFSoSbWHxjxHCWS97+paMvbMwtuCvJizOH9xc/X0ROKx7kruz2jg4SUDbk
+ /dDg+ET23DoXeSLs16uuqOFmm1s8+ciYBy+cUTC2cKnq9fgpoFHdk1rfjLJN6GAofj
+ FNI8TkeA607SE3brSW97S5ujB/AOPZ0XI+1gerGdhB75L4IMVL4ZkSpatnahRr6xY9
+ sgUeurj7se/49ytA76VXoo3fBRb6seyuAbB306sws47BAoK15In6+DdX/Z814h+tVc
+ L9H85SsiUdYoMOM3n4JDn38nvvn/h8PDGyBsyU3pOLdgzEpwoZ7bhcqGT2q0O5HMBR
+ Inwdts+EXt4jw==
+Message-ID: <d85c9ffc-d9a4-4f33-bd63-5cb7a505a840@kernel.org>
+Date: Mon, 24 Aug 2026 08:17:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/adreno: Only check for PAS when a zap shader is
- present
-To: Paul Hollinsky <phollinsky@holtechnik.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
- Konrad Dybcio <konradybcio@gmail.com>,
+Subject: Re: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Guangshuo Li <lgs201920130244@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-References: <20260821081325.89088-1-phollinsky@holtechnik.com>
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260808131624.2854412-1-lgs201920130244@gmail.com>
+ <e5964398-cc23-440c-8c69-01353b5a5ecc@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260821081325.89088-1-phollinsky@holtechnik.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <e5964398-cc23-440c-8c69-01353b5a5ecc@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA1MiBTYWx0ZWRfX/AMjA2SCRpFr
- +hqLcbku2feN2g7mF9eoa/ZZ1U9p52iVXY5QuPrQyjcmvqP/3TKKxRSN+1UpWkFRckRpD17SfgN
- SQWYwxHIraNfd3KCHsyCQ2GPrbNQYeWMYfnxmSZSMGbWiT/gwFVfcQx6lv0Hkx4RCcCPSfMdHQH
- 3k12DfB+t4e/OYtnDfuT+7BuL9cLUelkgH+pM85zC1PWJFZTU5QjBeRIzcNgE8cfRnkk0Hwm64e
- ZGnIhPtUdmBKKLhZ3GsGYWpSzVwnRa4pUJrpV97I0Y/UsXtL7J5LBSjb9GdNOxQIWWw7F0HLP01
- 3sVgF/sbWjF41JQpVmUENZkPZ+EFa2PMGgVb70YNKCFw6Q7qskZZ+i9dWbDeIIZ4Vqt5vaw1vlJ
- xI0roZ6gPGzd0n87U/g+YUZfINbGypmyeG1YCjpVkGkGqYe3SA/+yZm4ddubcpaAwLE73n/UQnl
- LRJujZ9CrRVyWEOy15A==
-X-Authority-Analysis: v=2.4 cv=BZjoFLt2 c=1 sm=1 tr=0 ts=6a8be0cc cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=Bzkix8dev8cQr7rmkK0A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA1MiBTYWx0ZWRfX0EdYJIrlmr1d
- c/FBKBwJ7zgOiJZZL37MmDQLPPDpbwoYAki+8MmxULGkddYgDkJK10lKuDqsVsFf/CK6fyeSiNQ
- xjvh5j0z8/VdbbCFbGmkBa1v8CxuBOQ=
-X-Proofpoint-GUID: xZh7IVGexBrNXeIauYQQjCIV_4camqVh
-X-Proofpoint-ORIG-GUID: xZh7IVGexBrNXeIauYQQjCIV_4camqVh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-24_02,2026-08-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
- clxscore=1015 phishscore=0 suspectscore=0 spamscore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608240052
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,13 +112,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/21/26 10:13 AM, Paul Hollinsky wrote:
-> Commit 0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs") replaced
-> the qcom_scm_is_available() check in adreno_zap_shader_load() with
-> qcom_pas_is_available(). These are not equivalent: the former reports
-> whether the SCM transport is up, the latter whether the TrustZone
-> firmware implements the peripheral authentication service.
+On 18/08/2026 12:40, Konrad Dybcio wrote:
+> On 8/8/26 3:16 PM, Guangshuo Li wrote:
+>> adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
+>> adreno_gpu_cleanup() does not call the matching
+>> pm_runtime_dont_use_autosuspend() during teardown.
+>>
+>> If the autosuspend delay is set to a negative value while autosuspend
+>> is enabled, the runtime PM core increments usage_count to prevent
+>> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+>> during teardown, this reference is not dropped and usage_count remains
+>> unbalanced.
+>>
+>> The documentation for pm_runtime_use_autosuspend() also notes that it
+>> is important to undo it with pm_runtime_dont_use_autosuspend() at
+>> driver exit time, unless runtime PM was initially enabled with
+>> devm_pm_runtime_enable().
+>>
+>> Add the missing pm_runtime_dont_use_autosuspend() call to
+>> adreno_gpu_cleanup().
+>>
+>> This issue was found by manual code inspection.
+>>
+>> Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+>> ---
+> 
+> I think we can use devm_pm_runtime_enable() instead, which will take
+> care of cleaning up both the autosuspend and runpm halves
+> 
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Author here is unresponsive, he was told a few times to send corrections
+for his vast amount of unthreaded patches and there is zero reaction.
 
-Konrad
+Best regards,
+Krzysztof
