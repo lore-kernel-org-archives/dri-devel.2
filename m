@@ -4,125 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2171AC5DF9C
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 19:59:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9DABC5DF9C
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 20:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C76F510E7F2;
-	Mon, 24 Aug 2026 19:59:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3902010E82B;
+	Mon, 24 Aug 2026 20:04:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bf8g5DJj";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VbuemKA/";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012057.outbound.protection.outlook.com [40.107.209.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EADB10E654;
- Mon, 24 Aug 2026 19:59:40 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE2210E82B
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 20:04:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lSPfcbSSwF9Hmu6QGPXJDgUzSQ5BEXNY4EamXSssYMMYu3OsnLws/oEQ6YQYz98sOsH+q+INT8gzh2U/v/uhpcf97qmq0Vz7zj/ilykBHbOgl5buNMbtgwFlqlyIHd+24TByenVMK4Ite3Gl5B8jROcDk2gWgHNMgLyNjFZnOuZxDGHQuJXwpE2wX1V5Q/lM45tvQ69c2dwElIYK7NIxUmMf/mA17UtPwGQ0dPMJIUlkDg9Pt/guuBZOzPCzNrFlR6V498q4FlE0rNrhTWTcTKbYpHWk66cowDFsht7QgKuKCHXn2dDhlHGu1yGxIqc+d32GvYKIxhEqIvzOXmPAnQ==
+ b=Dt5hn+RXUJwAwDFMUpIi6/7VuglJGOQjIzM8K6fHbu8pJ4JI/YSMLHGDqC2MFc+KJy/eeVOk6v47QIjxOuQoz0B9hY6e70C4cXU1T6MLM8D98QJ9mZzZ3oY0OBIBqkbNaHwCLxt8GcwflFeUbi+5Es34CE7lTzgW3eMj+R+a/A+IRdAkf/DZL4YHC8gsC4T6u7g1KIMTyuQ+LAcYvIkfcqxhZN96PxxhXCVMkcfA1y4jialI+yMVb/gRQlQbqmt1Al1nairTsyEGL5g9kED9G4U32qrRWY3tcvXP3LaRJqROlheENMmi5Gw4i1vetJKp1yXESVXFb1m6T68ZtpYd+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xKpSvLv6J9+xua0E7MjQhQlyeKPTWhZmDw5o4c5fht4=;
- b=N+uGGoy5D3TODGSqt8GCSTZOkJMATehuEHKq6YILN1y6t/1fXF5Bss4Q05yA/6lZBNTf1TnWds7FMEqPax+6crzcBjOjwkYQbwsF9IuOzE5ZYGBhvIRvEt0J/EZcXOKoqgXvdIBqUvnxNgwFT2ulUtNzhyKbP8j7ObbyLHK/KuAKJbhuqnsMLBqouYixhxJO0O77tvugyTZYBc97RZW4uD+x8HXmfHxq5eufN9j9xZrJyo+6BTRvObjuKBHeuWwfaR2dTfIjkLNYwTNwWDlwLbDtyBoksci02gP4juVtSQFOlbkY4e/GGtLZG7uR+O3Zrqqi5D60VYRhF1fDn70C/Q==
+ bh=m5AIHWsAbrwCzAKL2A+56GkBxS4lameRP4ZU6L6L7a0=;
+ b=y2bLpQ+fGNsk553pZtI0AW7xw6y/VLweao7N1Jffihi43MpcTkHbZIr4NQtCqsub+SATYDWzICT+bxoY7i0YevcC6sFSpiRGY9Pzf3dvVEcoGODbINUTldl09IVTyQLToIde8VirUYJFslCcc4rpHrhoE87ZyQdh3ZU76rCdKyRcOFu/sucb3stiqbrDeG032yIVhB+rvlfnvMdPAVGpYqBBrcpHlhIiyWChH113IeERNj7XbhA/FTHMTYknwuGRrDE+0P1e6oyZ4s26RdEB4UuHTVJqXwdG8uefMJrldEgsnIJReA+JgERdXk3uBPzahmSSey99oNXN+Cl+K5BPEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xKpSvLv6J9+xua0E7MjQhQlyeKPTWhZmDw5o4c5fht4=;
- b=Bf8g5DJjX6FrTKMhNQyQXdQ4I6EZzi+mIUt/91UVqwndWPWdL8C0AzhLeXmiaVmf7bJ7rJNdD9pS0rO12KDoS0CgAa1leS+z5VfqARTglW+sghW1f1/d1l2bdk1HId1c7bjLkQzcxQ6M721jtPPEvKe/qExKmxOACBHWDjXr+DY=
+ bh=m5AIHWsAbrwCzAKL2A+56GkBxS4lameRP4ZU6L6L7a0=;
+ b=VbuemKA/q2MS2TJ18GaWL47/4kCl4rsoNIB1Zq8nLv6DEn7Dp8yhkGpg6Ua4w3Nn5cYzO1SEig2KjlGc7YV11Xh0g8r/wiG7PQmLnVi8XVUayBU9Rqg4G1pxIBh3BZ+E7Sy+MTym4gVhIcMsc92rHin0rLMsGskmL11j618ej+a4wMvoZMqXq4cJcVMBXibq8tU+i+6OYLPBKobgxL+CGK0Q0Nmllkm+Hfs1ce3ytY9kDhWBkf4/Rntu61B7Nkf6rISBfylf+Z9YvkQpYaRbJ5oEa5nCG0QVcVH++dkOx85Dwc8mG14CVuYtBVZYlB2wuJb1CH/Nsz6i+kEAdOd2Vw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by IA1PR12MB6353.namprd12.prod.outlook.com (2603:10b6:208:3e3::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 19:59:37 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
- 19:59:36 +0000
-Message-ID: <239158bc-3060-4a9e-916d-86baf2031d36@amd.com>
-Date: Mon, 24 Aug 2026 15:59:33 -0400
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ PH8PR12MB6964.namprd12.prod.outlook.com (2603:10b6:510:1bf::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Mon, 24 Aug
+ 2026 20:04:32 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 20:04:32 +0000
+Message-ID: <f9d3f749-dacb-4cfa-acf7-e748795729a6@nvidia.com>
+Date: Mon, 24 Aug 2026 13:04:30 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] drm/amd/display: Enable HDMI ALLM for Gaming-VRR
-To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
- daniel@fooishbar.org
-References: <20260811003921.1398292-1-jerry.zuo@amd.com>
- <20260814164344.3098143-1-jerry.zuo@amd.com>
- <20260814164344.3098143-5-jerry.zuo@amd.com>
+Subject: Re: [PATCH v4 4/7] drm: nova: Add a GPU info ioctl
+To: Danilo Krummrich <dakr@kernel.org>, Alistair Popple <apopple@nvidia.com>
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Eliot Courtney <ecourtney@nvidia.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+References: <20260811050657.646799-1-apopple@nvidia.com>
+ <20260811050657.646799-5-apopple@nvidia.com>
+ <DKXFCIT7WHBE.1MJV6UKAJ5VEU@kernel.org>
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260814164344.3098143-5-jerry.zuo@amd.com>
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DKXFCIT7WHBE.1MJV6UKAJ5VEU@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBP288CA0016.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:6a::15) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
+X-ClientProxiedBy: SJ2PR07CA0016.namprd07.prod.outlook.com
+ (2603:10b6:a03:505::16) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|IA1PR12MB6353:EE_
-X-MS-Office365-Filtering-Correlation-Id: 714f1b18-6c59-47ed-b2f2-08df021a395d
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH8PR12MB6964:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0abaff58-b308-404a-09cc-08df021ae99b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|56012099006|10067099003|22082099003|11063799006|4143699003|18002099003;
-X-Microsoft-Antispam-Message-Info: hIsXYpROR9KqVt29se5C5ohVQzQe7+uX7+tN666MDU1wXXsogRFq8KGIi/W1EdkQ8Z4P5IAyvsDj94GjaMXAPZSNIg7o1LRCyHsnqYyIaLNLSn/ZXvQ3raFKt5fF94bAIw589phaSy3c7tYBClgN9sBWOIzwQwiTrwf9DsZM4Vfhfd7VJkoeGUZ7+/y3q2fvC5YB80MVuxCl6jwIdVk93pYXj/DpO4Vzis1R8/mVJ77BPacU99fjpwShEhs5SyZejCLLsVQp6/vGRqMNRq/ZPp9o822PbiZbCT7jL6RPVuOK6U8ZlUmR6FWAzWMNTVGIz5mjcFQOpaHtv2oYJx3NNqH9Cg/vrbn/T9Ug/xBWnwlezDHbjADV/CzWiOHqJKpUIdhhwp21DiEDXy6S95OT8GvRxKrFqNmMwW1QlJ3tAfnyZucU0qbZb8dtDEF79wvXdWblK/ynMdCLwv+OoTL4rvbuZ4O+OIhy18nlJFDzwDxqGT8CDVW0kQm2C1o7oKgkkpecI1kGLcXs7PkwV9zSFEz+uyXPvJhtZ82QGKIFPsWaXMBXNDOGqlx1B7RkkUsRyfbB8c0Bfr+uboYza0lxHP+INBU3otvwQzaHGf5dL5PswGy4ovDt8AN3JcWwLtTKNGHvv3R1fg93yldj8rUjsc9FQo4reP3Y6aMmbN1Kb18=
+ ARA:13230040|366016|1800799024|23010399003|376014|10067099003|56012099006|6133799003|22082099003|18002099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: WyA13ll0zoMx0b3YbccRUcFpueGU06mjsOOnk9FzOI5LoHZ85BL/FnPP6qC74TclazdARmM0dmTCg/MLhlcizQz2xtucel+nLi0V8LPK/uShe8KyQJEYKWfhSlFshHxNyW427pp7eIGiNf54biyOiki1Gh4MaCTb4n7MV47cuAyrNQbRoaTfCm6QeV8CUy+CQgN+/SqaLzqjQfptFdKSgHyqBAcj7PH/lq1V32LWhBs3Eyc4REdMyv6XDomyR5F0YjZ4o+8oW8yEittQKZhU4vGKH4aQUFnU/RnCq1/qX2GN5pwMDve0k/l9ZqnSxK9Ob7lh0s/NiUdKTGmILOHViZmIB4+gRV9AarjfvkOsM4PDdkFQ3DTF9zbdjdFq+WpjQNZ0nab1WUj79RBfrmBopyUZHFAHL4bsI5hcxWXxs96KbgZm+3WCoDrRmjPgLt9vyWjZfwNShW1BmFOKobMMAe5fsgvc8dPtnaGVun8iF5cq7F1UKiq3yXM+SsX4hmChuV1iuhLCKGNtyFUH/xIO3LvldxKP2m/CHKrU0VZVkaJH4QxB3DftVLng/3KJNPcnVCUFd+XabkTkeQHPMeqr4JAturJ0jelnNQ/Ki6pLEOy1JP6qlAWIETPZMCViTcac/MMzYv2vu5yfSST9+HyCj9VvRYKcAwEoe+Sd7i8O2OQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(22082099003)(11063799006)(4143699003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(11063799006)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QTFJVlJDa1I3Rjl2bkV3VWY3bFI1MzhRSkJPREhLYmpVT0pHS05vWWhlZzVL?=
- =?utf-8?B?NmswUmxmS0NDSGxjQnlNM0ZnWHlUbEk4UC94YkVMZVovVm1rYzRXK0prUVp0?=
- =?utf-8?B?akI0bURxQkpsTHlvcGZSdWw0VEtwdFErZ0dUODdQSHlXbVdCblQ1UE5rTi92?=
- =?utf-8?B?ZkxQY2hqV3ZoWlRtWkZmY3Fyb0huTWZ0RlM1d3I2dStxVWNFbXk4NDNaMHc0?=
- =?utf-8?B?aE1pcTRDR2phWlJDT3VaS1dsS0hHMVFZbG90a3I0VTB1T3pEQnVzSmVteU9i?=
- =?utf-8?B?a3NKb21NWGRUc2JBNHlLcXlXUmdvVlYxRGRDeEZDWGc1Ujd0UlA2VWtCdmdC?=
- =?utf-8?B?aE9WWWRLenZBcWY3R1BmWEx2Q0xTemhYZGN1MXJ6YWMwUzg1STdFTUtncWl3?=
- =?utf-8?B?UC9mRWhxQ1RaU0JMTUF2N1FnN3E4VFFZWkVpRy8yT3BPSm0rZ3lHamVLMzlv?=
- =?utf-8?B?K0laaGpveE5HcVFhSlVQYzV4RENUb0FLVURuVlBzZ1MxUW9JTDkyVCtnQzNy?=
- =?utf-8?B?MUlHNGg2WjZBc2hUYXdMRWEzRjZIbVV3OSs4b2FKWVVvUUM2NDdtV0hZaERE?=
- =?utf-8?B?Uzd3aVF6SEI1d0FRcGl3NW5uQW9NMW5iY0FIcE5FaWEyR1owNjQ5ZUJ4ckxJ?=
- =?utf-8?B?QU94dytBSTM5emo5L1JDMWU3ZlBWdlFWUElKVkxYYXFuK3BRQTl0M21BaHZM?=
- =?utf-8?B?OUx3NXVYOW9IN2pRdDNGa1pVdk8rOFFydE1jTTFBY25XYlVRTVhXZHZoRHhP?=
- =?utf-8?B?SjhQQ2VkTjJraHZLWUdyV2w3L1FaU3NYUFlxUVhOSUpTQkhEakVnMXpoQTRT?=
- =?utf-8?B?ZVFFbnptMmpiUkJ6U05JRmc3ZzdTS3Q0eVZ6amdqcWNjYTVwdHpiajJreXA1?=
- =?utf-8?B?dHQxeFZ0SWF4Q0pwdmVJbUZ3M0Vuc3ZZeGRFRFh0Q2tkeW11OE1xSDdUQjlB?=
- =?utf-8?B?MG5BUEVMVzZKOWMxMzZkY2IyUGJXTjd3Q2JlbHQwemVtMEJ1SzE5ck85QVRj?=
- =?utf-8?B?aFFWVXFGbXRsY0ZiU2FLRVh0dmN2S1V4MUVtREZ5RzBiZ0dyaFMzWkR5MHVX?=
- =?utf-8?B?RThocFdQMkdEa0N6ZXdXSFlud0VDaXJHeXJZdDhZTDZ3amh1TCtPUStaaDZ4?=
- =?utf-8?B?YkxGMG90NWtiNnZXTGVBdDhPVHRPY01QNUtjNm1hMUl3bUU1czUrOVdPOURD?=
- =?utf-8?B?bXdtWTcrMzhHUzkya3ZGL3hWdWZIazROb0ZRcDZyNlF5MExFdVZxcjFjcmYx?=
- =?utf-8?B?RE1aY0pKckd1a1dXWXZWTDhoYnBXYWZYZ1lGazN4WmdFc2VhYmpFWEx5NThL?=
- =?utf-8?B?cEhjNWIyK002dG9YbEFrV2hEUHQvUjczNmxPUmhhV2Vkc2RZTjVLcUhDWkYx?=
- =?utf-8?B?SjhOMXczSDI3Y0F0L2FJbW1IK2VqNGlJYjREdllhRmFCYncxL003YlZaRk40?=
- =?utf-8?B?REltaFJsZ21hOXhxdWE0YXpEYmxaU3Bpd3lhbGd3OWdvTC95dmRFeUxyNG51?=
- =?utf-8?B?U3RCaDNONU94bXM5RFRVTnhNa2hYcngwYUE2MEw4Q3o5VHN1Ky93SnJaSTY2?=
- =?utf-8?B?NURJNmtNay9YckpvNEd4Vjl6Y1o5dzNJVVRUZTJVZ0xlZ1g3SUQ5MERyVzV3?=
- =?utf-8?B?d0JVazdDdmtCcGVrR1UyUkNZRGZqT2RkZ21lVnZSSHJuT3JMUkkxM1E0azh6?=
- =?utf-8?B?ak1YNTVhalJMWHZwWVdxeHRsanpFR0NMcCthQ2RLVnVlRCtvd0lPVFdlYXhY?=
- =?utf-8?B?OWdvZ1hXaFp0K0hvbTRuSEJXVHMxTmp0N0xIUlZDT1luODJhVFJYTVZQdkdh?=
- =?utf-8?B?VGNNVEJ5WFMwSFdreHdYYXBaN2RoL0NndlZSYmhudkhaM1B1c2x3YnZwcFBl?=
- =?utf-8?B?czZpRWIrdXJ0dk53ZHN2eVJxUDRLdkx3bW9Gb2hUOThtbjNSelBNT0M0OE5U?=
- =?utf-8?B?SVVOdTRUbk9xcForOVovZGNQcWg3b1Y5Q3hjeVYySU93eVFrL2xXN3JjeHJG?=
- =?utf-8?B?b0gvTmlGekNXYndpSUFXSzVDMkxrMTROOHhValNaanlZaEhXTzk1Z3ZUdlpp?=
- =?utf-8?B?cVVnaG9hUVFMczhSYnczcDQvNzh4dGRseVpMelNzTXEwSHVMNWUrR3MxVGEw?=
- =?utf-8?B?aldITmtIVVlyL1A5VmVGZThVR0Via0w1M0VCdllCSUo0WHl0UWVZeVRCV1lD?=
- =?utf-8?B?am0xTVpYcmFzYkZpek43eFdacTBJTUo0VS92eFczLys0OWJqWlh2VGdRUHNO?=
- =?utf-8?B?SGhvaXUyMVhNZmZHSmJ0U1Iza3BOeVZLY09RUGk2b0p6VndVdzRDZis1TzFK?=
- =?utf-8?B?TFBUeVR1dEJqQk1TYXF5SDlEVE56bE40RkU1aWVVS1NpVkp4WnRyUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 714f1b18-6c59-47ed-b2f2-08df021a395d
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1M3QjZBcVBZRVR3V3AwYjUxMkdqdFlQTEdOV1JXTGlzUjExbkJIQnQ1WWNu?=
+ =?utf-8?B?TUpBM2NVeGNLQzVvRVdIOEliMDRlTTNwVDZDeFN5aHNIbldiU1M5RVdTMDRm?=
+ =?utf-8?B?V3h4c0dCK2ZtQm5GeUVaYzBQTEpUbjNIVjVrR0ZVRkhMcWdybklSakV2N0N5?=
+ =?utf-8?B?SmVRcFZyV01ZekRIMkRVaUtCc0dEYlprYnlQcEZaNy81b29mQTVmSHA5RnBl?=
+ =?utf-8?B?ZTRvdS9naE1mWGpaclJvWGt5N3dnMDJjazg3d2FqOC93cW9zbEsrbkk1Nmlv?=
+ =?utf-8?B?cHRhd0x5M0tEWXk4MVc1VHM3RXEvbUh6Z2xZUE9ZSXBrZUM0bzJhajBMaW1t?=
+ =?utf-8?B?WEJrRDUrcUczbjRVc0oxakVEUU1NN1NQaCtUc1F6Nm5sUk1LSXdHZDlMbU9X?=
+ =?utf-8?B?c2MrSXBoMTJaUWVQQXNyd2t4TlhzM0pXK1c4dXg4QnA3V3RHMnRkVU1UZmw2?=
+ =?utf-8?B?Z2h1cW1iTk5UNXJRa2xMbW1nSjhTTFpML0dPKy9WT3hORVhxcjNxWjladHB1?=
+ =?utf-8?B?OStTRUJqcUZ4VThNazdLVFZwcGFXaXNOZis3WEoyeXNXa1VuQU1KUFBpOFZo?=
+ =?utf-8?B?NDlPZDhVcy9rdS9pMTl0Q3JBNGxEVHFqUEkxZHl0RmRHMThPM3ZoN3hyRm1z?=
+ =?utf-8?B?RnBSTE9ITllUTk5nUlBBdFJkRldyV2FEZVdNc1R3YktXMkhVWjZFamhDVXps?=
+ =?utf-8?B?cW4ydllQY3RyQVZQekgwMDRYbVljSlZHRlFLSlU4bnhWNEg5Z3F4YUMvcDRz?=
+ =?utf-8?B?V2ZML2pNeHd0WFFnOTZ1MUp2dG1QMkc3aC9ScmdoUkxnbDRRZHpERlgzNU1v?=
+ =?utf-8?B?SlhoWGU1YjdTYWZQSVVqVTYyamZyazZNWGgrVVJvbTVBUFJYRUxBTmFUSDdt?=
+ =?utf-8?B?bVg3UTR4enVuN094b1R3ejd5SnpqSHVZdVg4NW45cGszTVVkbTVJY1p6dHlv?=
+ =?utf-8?B?ampXdFJVaFN0bmZoK3NpUnhlN0VIbTRENE52elBGa3prNW9Gem8wRndDOU5N?=
+ =?utf-8?B?SVRqY2pxa2NEaWh4OWgwTHZ0SWFwc05PRkxURzJmUm1VVXczRkNBQ1BsMnZq?=
+ =?utf-8?B?d1hPUzQ3N2VKWEVvZWtoUW1jRzlRWVMwYVpRdklremwvc3dHakVPRHcwWTFM?=
+ =?utf-8?B?MkJaMWVhNzBBc0QyVnFzdnBhUDk3UjJIc3p6SnhOc1NPUEZqR3Y3VCttM25v?=
+ =?utf-8?B?SXorM3dNMWtkRmNlQjlGcHFWWk5ibG1OT3pCTktkV003WWtudmJwLzVTTlp2?=
+ =?utf-8?B?em5CT1l3bHZacFBsZWM2N2pEcEdLRmVkbXNoSzMrREk3d0N4RFIxeEpFQWJM?=
+ =?utf-8?B?YTV1VWRzVWJVVHBVL05kN09pT0hJenJLY3ptd3o4dlR5bC9BWWRjWXUyOFlv?=
+ =?utf-8?B?OTgzWW9Id0g5d050TmxyaHN1TzBKOFJPNE5yaGVxMWtXb08yT1ZkdlRhSE10?=
+ =?utf-8?B?Z1Q1d3ZveXJ2bzBBbW91NW5icGNqcU9ObnMzdktKeHV2RllZelJDQXpxc0tP?=
+ =?utf-8?B?YU5jak5PaEdOMFBONHFlcEV4MzFsR2JDOGZ2QWlmdnlCNnRQRGYyTDF1cG9Z?=
+ =?utf-8?B?MzczUjl0Q0RsMWYwUXZvempXMU5XS1RmeHFsdmFheUZaZXo3ejNaUlR1YThX?=
+ =?utf-8?B?eWpjNGQ5WVJ3Qm9laVN5UFlQcVV0alRUV1pvMUx6Qm52eEJ1TDBQaGV5cDEv?=
+ =?utf-8?B?Ui8wRXVtaXM4L3ZNaWVnblZENUE1R1piWEQ2TmRIa0swYlJxSEJlT0hXSkFB?=
+ =?utf-8?B?M0JUUXRYUlNGVmF0TFRLMXFjUllkQ3dVVDBoamZjMlVyRWRkV1QyWVREZGVC?=
+ =?utf-8?B?MUx2UmNKd1hPdFFuUnFPd2pFTmU5WGVvQ2g2dlBYNjQ3RGFPcVdRa3lvYWI2?=
+ =?utf-8?B?bG83ancyVHZ1b1E4KzB4TjZ6N0IvR0FEV3JqRkxPdG5SWUpRazFZZkthVlNS?=
+ =?utf-8?B?eTljZHZkdjVZb1JqaTZ1ZWdjMUdZMWQ3U2h4Q0J3RjJuSEJ0bklIYmhQU1FS?=
+ =?utf-8?B?S0JoWXVjK0hDVEVGVTN0Z2tBRGFTY2JBOFBKZUM5M0tSSDdjeEFVK2o1bUd4?=
+ =?utf-8?B?REprQXRuSG9wci9JNnBsY016Rk5yMldVa3FRakkyeXQ2RmxQS1hETldIZlpy?=
+ =?utf-8?B?SjlGV0FtS0V5V29CRW02V3FSeGpYM2Y1YUV1SzRJNGM4anc2dVZSck5ZaU1F?=
+ =?utf-8?B?dnpPcHNEOE56T3Jici9XdmZlMTdlMWhUSlRZNEpiaTdwNTJpTTJETVAzZFR0?=
+ =?utf-8?B?WGFmcmZwTHZ5TlFZL0daaEVybXlxSmIxYXp6Y3ZjNmlkekhsY29jSWF2OTdh?=
+ =?utf-8?B?elB4NHY5Mm50TjVQTXlwbzdzMFhHRDJLRlhyNWVBR2NDdFJveFhJQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0abaff58-b308-404a-09cc-08df021ae99b
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 19:59:36.7050 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 20:04:32.3418 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yq16bTnCbwFIS9sxGA++NAaG3k7/3IbCtB6AYZsr7ObFFNrjMwfgljfhiKI/HQ3riTaN/V5WiFL20C8mFGz8aw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6353
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZOixT0txSIKUoPvAG36vceTHlI2v23/3vxU/ykuQ/PhDwcqAzxRozst/Dg2yZpEaR2PHGo7yP5eDzCaLCyC2bQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6964
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,92 +141,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 2026-08-14 12:43, Fangzhi Zuo wrote:
-> why:
-> HDMI 2.1 Auto Low-Latency Mode (ALLM) lets a Source request the Sink's
-> low-latency mode through the HF-VSIF. HDMI 2.1 Section 7.6.6 requires
-> that when Gaming-VRR is enabled (VRR_EN=1) and the Sink advertises ALLM
-> in the SCDS, the Source shall transmit the HF-VSIF and set ALLM_Mode=1.
-> amdgpu never set ALLM_Mode, so this requirement was not met.
+On 8/24/26 12:34 PM, Danilo Krummrich wrote:
+> On Tue Aug 11, 2026 at 7:06 AM CEST, Alistair Popple wrote:
+>>  include/uapi/drm/nova_drm.h    | 27 +++++++++++++++++++++++++++
 > 
-> how:
-> - In update_freesync_state_on_stream(), set ALLM_Mode=1 in the HF-VSIF
->   when Gaming-VRR is active (vrr state ACTIVE_VARIABLE/ACTIVE_FIXED,
->   i.e. VRR_EN=1) and the sink advertises ALLM, per HDMI 2.1 Section
->   7.6.6, and push the updated HF-VSIF (vsp_infopacket) as a stream
->   update.
-> 
-> ALLM is driven only by the mandatory Gaming-VRR case.
-> 
-> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> Btw. I think it would be nice to have project to play around with and write
+> tests directly on top of the uAPI before we can run the big test suites.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Yes, I think it's reasonable to do something like that. Seeing a new API
+from both sides, caller and callee, is always illuminating during review,
+for one thing.
 
-Harry
-
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++-
->  .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 29 +++++++++++++++++++
->  2 files changed, 33 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 567bf04979ee..ff0db0cb9880 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4029,9 +4029,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
->  		}
->  
->  		if (acrtc_state->stream) {
-> -			if (acrtc_state->freesync_vrr_info_changed)
-> +			if (acrtc_state->freesync_vrr_info_changed) {
->  				bundle->stream_update.vrr_infopacket =
->  					&acrtc_state->stream->vrr_infopacket;
-> +				bundle->stream_update.vsp_infopacket =
-> +					&acrtc_state->stream->vsp_infopacket;
-> +			}
->  		}
->  	}
->  
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> index 382c339b67b1..63d10cb7f5ed 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> @@ -252,6 +252,35 @@ void amdgpu_dm_update_freesync_state_on_stream(
->  	new_stream->vrr_infopacket = vrr_infopacket;
->  	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
->  
-> +	/*
-> +	 * HDMI ALLM: when Gaming-VRR is active (VRR_EN=1) and the sink
-> +	 * advertises ALLM in the SCDS, the Source shall transmit the HF-VSIF
-> +	 * with ALLM_Mode=1 (HDMI 2.1 Section 7.6.6).
-> +	 */
-> +	if (new_stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
-> +	    new_stream->signal == SIGNAL_TYPE_HDMI_FRL) {
-> +		struct dc_info_packet vsp_infopacket = {0};
-> +		bool sink_allm = aconn && aconn->base.display_info.hdmi.allm;
-> +		bool allm = sink_allm &&
-> +			(vrr_params.state == VRR_STATE_ACTIVE_VARIABLE ||
-> +			 vrr_params.state == VRR_STATE_ACTIVE_FIXED);
-> +		bool allm_changed;
-> +
-> +		mod_build_hf_vsif_infopacket(new_stream, &vsp_infopacket, allm, allm);
-> +
-> +		allm_changed = memcmp(&new_stream->vsp_infopacket, &vsp_infopacket,
-> +				      sizeof(vsp_infopacket)) != 0;
-> +		new_crtc_state->freesync_vrr_info_changed |= allm_changed;
-> +		new_stream->vsp_infopacket = vsp_infopacket;
-> +
-> +		if (allm_changed)
-> +			drm_dbg_driver(adev_to_drm(adev),
-> +				       "ALLM: flip on crtc=%u: sink_allm=%d vrr_state=%d -> ALLM_Mode=%d\n",
-> +				    new_crtc_state->base.crtc->base.id,
-> +				    sink_allm,
-> +				    vrr_params.state, allm);
-> +	}
-> +
->  	if (new_crtc_state->freesync_vrr_info_changed)
->  		drm_dbg_kms(adev_to_drm(adev), "VRR packet update: crtc=%u enabled=%d state=%d",
->  			      new_crtc_state->base.crtc->base.id,
+> When I implemented the VM_BIND uAPI for nouveau I used IGT for this (but didn't
+> enjoy it too much). It turned out to be very useful to test and benchmark the
+> implementation before being able to complete VK CTS.
+> 
+> When I sent the first nova-drm skeleton, I also submitted [1]; maybe we can
+> extend this further accordingly?
+> 
+> I'm also open for other ideas, but I'd really like to have something like this
+> as we develop nova-drm.
+> 
+> [1] https://gitlab.freedesktop.org/dakr/drm-test
+
+I was thinking about where this sort of thing should go, and this
+location seems as good, or slightly better than the main alternatives,
+to get started anyway.
+
+Alternatives include:
+
+1) The kernel's kselftests (tools/testings/selftests). These are
+helpful in many cases, but some minor issues include:
+
+    a) Oddly tight coupling to kernel code, even though the whole
+       point of these is to exercise the kernel from user space.
+       (Otherwise, these days one would use KUnit.) I've personally
+       working on mitigating the coupling-induced problems and 
+       ran into other, bigger problems along the way, such as:
+
+   b) Confused build system and an arguably wrong way of invoking
+      the tests (from Make(1) !).
+
+2) Some other github-like location to host user space tests for
+   nova. The idea is, do we want to set up a well-known location
+   that people should keep updated? Or let a thousand github
+   small test sites bloom? 
+
+
+thanks,
+-- 
+John Hubbard
 
