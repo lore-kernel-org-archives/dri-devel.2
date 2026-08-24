@@ -4,97 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB6BC5DF9D
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 18:31:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87645C5DF9C
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 19:04:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 827BA10E5E2;
-	Mon, 24 Aug 2026 18:31:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0AAE10E18C;
+	Mon, 24 Aug 2026 19:04:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H5WggGcj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YFFyZLTf";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5458310E585
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 18:31:46 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-381f03d7be0so497808a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 11:31:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787596306; cv=none;
- d=google.com; s=arc-20260327;
- b=Zcdli2+boeuw5XVvhqJPNUnzBmmpzshn28oUUIGzGaxlgJRuw/FP8+BSTz7zTHtun7
- txDGX+ggIA47pnlXmQrsqPEzY8FtOFQKW+iLN1SeScREPr9K64Qh82Ukj84ostidr9il
- prVHXYpZArlE7c/9k7Rx7T0DgcHu43Y37mSZW1AfGWmafzJ1jRS4Sg89xtnOcu9HjZV6
- Ctuzn674hOjXeRPxiPzie4R7g3uDdTI2LuL8VXQ9UmAsYOigD9NcPutl+g5XSs3FwOj3
- FlD0bzXLYLfIMkRnlBsQaX9gjrHBK9jF5xP1YgIHUyNRbkHeZ23ysdZARKorwIEGnyM5
- 0eHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=vJtoyxpAuKAFerPlGSQxOgsaspj02cFCH/n6OuEN4+I=;
- fh=91aHnUN5mjJkVsSIPBJ6rxU8PngIRUskUHqb+3uSS0M=;
- b=Qa5OU6eUF3lWF4jKicZROxzTUMpNztVs7pBSyv6lwCDSWLuHAssSQ4OQL8yxz1I1lH
- 9jNYAPBlOCMfJUrPrKWwT1SdbVaSR9Z6RjhXt+vFIyxXjWTIOB5zvX1R25EqLz0BliJH
- 0dJo4HR7g02ZsCVj3JEkZUAOLuYt739eUu2cmkMm2/XGUdLsdvVWUa7tL+GRTsy3vKcr
- XjBr3VvKvZz1G1vcrTSzm1eBk9i2gX4NNa2HbqHsCxUL9N0niFn/ea3zHOC/VcYMrZrb
- t26Iyj3t6sjteZPTfBRXNGlU00FawotuALezBmZS4Co2Yf84y0H1Eq2b+TCDUEndMbhm
- ciRw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94AAB10E18E
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 19:04:26 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-cc1a4c62804so1035382a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 12:04:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787596306; x=1788201106; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=vJtoyxpAuKAFerPlGSQxOgsaspj02cFCH/n6OuEN4+I=;
- b=H5WggGcjFVfRvT5zh344lOA+bNJcVyvjZFVqr5o6ZlJGW3AsrXtDovba+RyyxmFY89
- 0Zv5NCvdauE2ehUXzHP3G5eojgkBK+3/QRxk6T/BR/w6qnAWJXU7ka4yn9FQU+VWW+uL
- +2iJXFxDYu9iSEJq/btRdwnJpPDPVRmlOrutrAg3v64NOoCfUgbxEaOWU1A+qC2TGZdL
- g5fPlIJIhp9Z8sBKy/aAuu8Qn4ZnOX7hozrCGp3AjKXGI3Vv5Fy26tyQdFarK0VeSms/
- uFrM8wpKyBl2MaDbgUGrWRqLPwxUgMbAEGS4oo8AYlXdxl27SoLUVVs/aS+dhRewThTM
- JZjQ==
+ d=gmail.com; s=20251104; t=1787598266; x=1788203066; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=PW9z4Kczz+MaTp35NxsSZNeNvJrFEB2eoMmOK27RfDA=;
+ b=YFFyZLTfkuilplDnAwKeqom+kga+6K3oVsTcSDybvzUY25ntyp5PxT3ivLwAYJLBZ1
+ xc2l0scFYUJzkpr4aL5/5ZPuLgJucwTcpmBLlcWoKpiOWXWEBwQAlu2b5UWTfsN/0l+2
+ hzw0RN+VJWbYjod6kzad52qQM9AYZIiQhnEYtN5h4Zn8b68/4qpvGFIHOu8vCKQPPg7x
+ AO+tXy5CoM2ufQFAquk0jN2zGbG1lC64z09Ag/wyJ5DFirUmNuEQets/hoCcKPUNFPI7
+ cj/2j+c8WcE6oy7HBHWfQ/IiGr7CRnW++NQ8j0KrFg/NjZQJlABED/Ssr52EZrC4I8ha
+ VTjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787596306; x=1788201106;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=vJtoyxpAuKAFerPlGSQxOgsaspj02cFCH/n6OuEN4+I=;
- b=pfH9Z+SZicWNRdOLZaJQqmS41szjNvkYv1RAQApzO1prhlami3MIkKuo3FYf0LH52r
- dQ9o3+fJwwtjxD675EMjk+NJOPeTPmFY4/D8sGFo2OmN6ShvBrOy2zvWFdgfBdaqVwtl
- Vqlqjxd94AGzho1MVEY/bRqgSwwWBoIQfGS1TxtDqs7ny+B0ITk7b2fh/WgcAOfVW/Og
- oZ4yUpykYfhk2MBMw7d1oxd9yvUQQoqjygkSLSOos1YnNkP815w8U+4CNbPr7lD8B/AB
- t7eBmPyf32QtzkrjC6n+cJ/1Teml+NMSwo/Jlm5VVBL2db/47BdxluaZpHbieT+9snNL
- qKCg==
+ d=1e100.net; s=20251104; t=1787598266; x=1788203066;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=PW9z4Kczz+MaTp35NxsSZNeNvJrFEB2eoMmOK27RfDA=;
+ b=JVqrGgSeqZhJA5b2kQQ6zPEpJwwo2xRjxe3fFV/SyuD6oLliz+7lR+dug3RzE/CGl1
+ IhIWa5eUHhbudgoeTn9lrSuiPSwYr+r+05447sWBNMssUxOpeG+vk4gtlXz0PrGt9jo8
+ 8GEkkzfzWzZpiAXQ4+ltim9Vzpz7HDrm/DpK8KhDT3b/6Vhwn7rXJLsXcBbS1yGeANat
+ Z39chX4m0Yp/s6Pr3NC553qNrRQSOan4xReQVLRqpV3w5GQt62tRaW9pP+YVd4FRSRnV
+ SGbrAQlLzYR+S6+mTWxo5ZQoFsxox/2JllISQOfdp2xs0cTkks/u8UgXMb5WLsQPp6Yl
+ bSRw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrK1ilkzVM1XZeX8S8Wj2Y+K7zVYg2UpPKp2gGtm6FkL2Xo8yUiAeFwt3DlpcosnTR6XDNmepzZfH8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kn5LGSmmUVa7dJd+m8uxtoXr3ncmWrVljamNgDbZqG3Rbu93rR
- hHJLzZofcr3WPou/sVAMSzFWccifftcPN68eZuWFLp+NC2QZeA0MoJN8Ip/UgSCouLi5VjPXOVl
- SIxj/K/qqSmENfuBg0b/8IMQGSOBkpL8=
-X-Gm-Gg: AR+sD11yXWTibjv1N3vIFvQaZzkS35xw0cGdxPxH2ot+6hjv223vnWPCypcsSSVZZmn
- dmDBRMCAScsIaDKVZuegGLsOnjmf9fZDStTe8/jL3bb6nj9k+L439mj4AtW9V5fdrlIuDPLOoDL
- +S4ca10CUgy4fj9YzYpNrW6mlw0AWgJkXldU8CSfhunawUWpVuQ+qUuhgqXW9qrh3iH/QL4bG4F
- hEy1hSnlymI1YkdG0YAajqplbAkl0FwJvuBpPz5Vx0q5JUbsxMEThF/reaa1bvCrdeJiMeuaXYO
- OR9lsiUQ8vywle95DUId1VRTP6j3X6D+kFPe3w8uRNnq5amTJUk3y1AIxjjKHbfFhKvlPCa/w1N
- kJu3+zsyZQomu83RBHjVslVRBiTQkvcI71JnGV0VoGg==
-X-Received: by 2002:a17:90b:1642:b0:381:2788:a437 with SMTP id
- 98e67ed59e1d1-395c33b86bcmr22444305a91.1.1787596305560; Mon, 24 Aug 2026
- 11:31:45 -0700 (PDT)
+ AHgh+RrpnIS4g2w8e+ryHMlRouk4v9Sk5ODZVmiAMCJu8ifsGO4UlBx0ULtHlK63YSN6ibZSOtmQBNdJ8f8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ltu1DMtDAFVQOrKi9eo6RzX14VIKYPaqCFlco4B2Q54PGONFgC
+ fkLMpoJdYrkM9a2Aaa9tq+AxlesEmWbPXIeNvWSKAwMNzXfafuxX2pc=
+X-Gm-Gg: AR+sD10HqgJuZJ+p8N1DDYN8pmbRQGbnssSGwlUDvZiFMVOWdmDtPUtqe/CYn5y21O5
+ UdOtfjUpmkniDFVla9a1/n+1A+sPB8XeYphWjMtQcEGAW71vAdEvqvEaO/EOw3CioXOYScInk6j
+ bImywcAGXOBgry8n4hqZc2hEI89c2u+zJGCVsVXojO8l9OnQKA11YQ9kB0PdH+BcUvDT6x+lHe+
+ CDYig2L/iirieoxiOdrrscmYYYMeFT66zSoruw2qA7dV/Ox1meepfdmJ01ywfiw17mgksV2CgDA
+ 2CXs6b3IuvaXOD/LdG4uLPR6gbstLquTDSh2SDVS1RrAFsVZ6qusFz3/dSRC5sRP8yPpYIxapO3
+ z4t975T55CMRuw4btRG/9Xk9aO+fb8R+hKwY7wMlY0rOy4smsNiHKGZJRpAWgR17fOaK5bjSqVO
+ Rp1hvQNr9L+ENTdTzpw19qcXjgzFyvb1XGBXcMqWh4Mf6nLMu5CImFeWmFppPB+U/NTH2x+nX4M
+ rsU0mbj7D+9ShKXs1QvtLED
+X-Received: by 2002:a05:6a21:9214:b0:3cc:f280:ebc6 with SMTP id
+ adf61e73a8af0-3cd4ba4839amr45577910637.5.1787598265874; 
+ Mon, 24 Aug 2026 12:04:25 -0700 (PDT)
+Received: from at-Standard-PC-Q35-ICH9-2009.. ([223.228.8.56])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-327f90cb8e3sm42815637eec.12.2026.08.24.12.04.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Aug 2026 12:04:25 -0700 (PDT)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ "Guna R . Bharati" <062bel313@gmail.com>,
+ Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu/smu: Enable UCLK after init in AMD Radeon Pro 5300
+Date: Mon, 24 Aug 2026 15:04:06 -0400
+Message-ID: <20260824190409.1724-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260819185349.29407-1-pisarevden@gmail.com>
- <20260824153542.491012-1-pisarevden@gmail.com>
-In-Reply-To: <20260824153542.491012-1-pisarevden@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Aug 2026 14:31:33 -0400
-X-Gm-Features: AcwNN1UPHsH6u8MQ3-dz-R7n3llHB8rXojPRmivVrINOZe7FEthOUqaTO0ipPmQ
-Message-ID: <CADnq5_MEb72btY3NtbEVgZm=H_7OV6k1xC_t5YXVM_ONrZ2b3A@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 0/1] drm/amdgpu: MMIO TLB invalidation fallback
- when KIQ is wedged after S4 resume
-To: Denis Pisarev <pisarevden@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, mario.limonciello@amd.com, ionut_n2001@yahoo.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,66 +93,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 24, 2026 at 12:30=E2=80=AFPM Denis Pisarev <pisarevden@gmail.co=
-m> wrote:
->
-> Hi,
->
-> v3 addresses the two findings from the sashiko-bot review of v2.
-> Failure data and trigger isolation are unchanged (bugzilla 219492):
-> S4 resume on Cezanne (gmc_v9, GFXOFF) wedges KIQ TLB flushes at
-> 80-140/hour for 9+ hours with sched.ready true throughout; holding
-> GFXOFF off across the S4 cycle produces zero errors.
->
-> 1. [High] "VFs and interrupt contexts silently drop TLB flushes once
->    the threshold is reached" - correct, and fixed. In v3 the latch
->    only reroutes bare metal process context to MMIO. VFs and IRQ
->    contexts keep submitting to KIQ exactly as before this patch, with
->    per-failure logging, because they have no MMIO alternative; there
->    is no longer any code path that drops a flush without attempting
->    and logging.
->
-> 2. [High] "KIQ and MMIO race on the same invalidation engine if KIQ
->    recovers" - this remains the documented open question; no code
->    change in v3. Our analysis: once latched, this path submits no new
->    KIQ commands, so the exposure is limited to already-queued stale
->    commands and the recovery transition window. The engine serializes
->    requests internally, so the realistic worst case is a lost flush
->    request caught by the existing ACK timeout ("Timeout waiting for VM
->    flush ACK!"), not silent state corruption. If maintainers consider
->    a fence necessary (or a dedicated invalidate engine for the MMIO
->    path), guidance on the preferred mechanism would be welcome.
->
-> Full patch history: v1 (initial fallback+counter), v2 (GFXOFF hold,
-> per-instance counter, irqsave, VF/IRQ restrictions, MES error
-> propagation) - all from bot review; v3 (this one) fixes the VF/IRQ
-> drop regression the bot found in v2.
->
-> Also still open from the cover letters: the alternative direction of
-> fixing the S4 resume ordering itself (RLC/ME vs GFXOFF) instead of a
-> runtime fallback. Happy to run tracing on the affected hardware.
->
+On the AMD Radeon PRO 5300, enabling UCLK_BIT in
+navi10_init_allowed_features causes errors such as:
 
-If that's a problem, that should be fixed.  That said, did you have
-any success with the branch I proposed?
+SMU: No response msg_reg: 6 resp_reg: 0
 
-Alex
+or:
 
-> Patch 1/1 follows.
->
-> Denis Pisarev
->
-> Denis Pisarev (1):
->   drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
->     unresponsive
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |   2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |   2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  18 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |   2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 123 +++++++++++++++++++-----
->  5 files changed, 114 insertions(+), 33 deletions(-)
->
-> --
-> 2.55.0
->
+SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x00000006 SMN_C2PMSG_82:0x00000000
+
+To work around this issue, we use smu_set_pp_feature_mask() to enable UCLK_BIT instead.
+
+Fixes:
+https://gitlab.freedesktop.org/drm/amd/-/work_items/4895
+
+Tested-by: Guna R. Bharati <062bel313@gmail.com>
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 33 +++++++++++++++++++
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  7 +++-
+ 2 files changed, 39 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 3969a7670..c05ceb0be 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -905,6 +905,33 @@ static int smu_apply_default_config_table_settings(struct smu_context *smu)
+ 	return smu_set_config_table(smu, &adev->pm.config_table);
+ }
+ 
++static int smu_apply_late_quirks(struct smu_context *smu)
++{
++	struct pci_dev *pdev = smu->adev->pdev;
++	int ret = 0;
++	uint32_t features[2];
++	struct smu_feature_bits feature_mask;
++	uint64_t mask;
++
++	if (pdev->device == 0x7340 &&
++			pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++			pdev->subsystem_device == 0x0219) {
++		ret = smu_feature_get_enabled_mask(smu, &feature_mask);
++		if (ret)
++			return ret;
++
++		smu_feature_bits_to_arr32(&feature_mask, features, 64);
++		features[0] |= BIT(3);
++		mask = ((uint64_t)features[1] << 32) | features[0];
++
++		ret = smu_set_pp_feature_mask(smu, mask);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ static int smu_late_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -977,6 +1004,12 @@ static int smu_late_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	smu_restore_dpm_user_profile(smu);
+ 
++	ret = smu_apply_late_quirks(smu);
++	if (ret) {
++		dev_err(adev->dev, "Unable to apply late quirks\n");
++		return ret;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 6dfc3b585..ed67e4bfc 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -349,7 +349,12 @@ navi10_init_allowed_features(struct smu_context *smu)
+ 	      (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 0, 0)) &&
+ 	      (adev->rev_id == 0)) &&
+ 	    (adev->pm.pp_feature & PP_MCLK_DPM_MASK)) {
+-		smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEATURE_DPM_UCLK_BIT);
++		if (!(adev->pdev->device == 0x7340 &&
++				adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++				adev->pdev->subsystem_device == 0x0219))
++			smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED,
++					FEATURE_DPM_UCLK_BIT);
++
+ 		smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEATURE_MEM_VDDCI_SCALING_BIT);
+ 		smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEATURE_MEM_MVDD_SCALING_BIT);
+ 	}
+-- 
+2.43.0
+
