@@ -4,42 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C81AC5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 15:22:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66981C5DF94
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 15:22:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79CE410E0AD;
-	Mon, 24 Aug 2026 15:22:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0B6210E7DA;
+	Mon, 24 Aug 2026 15:22:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EBkQVmyF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="as7QEXIR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C5CE10E0AD
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 15:22:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 65785434B0;
- Mon, 24 Aug 2026 15:22:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F0811F000E9;
- Mon, 24 Aug 2026 15:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787584928;
- bh=dzbjSWbs+hDl2LTltLc0mEWz108HrZ6dsbjjyWi6cUQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EBkQVmyFP7j2POW7bl6Akyty+dpzL76iXk2M5/WhBlcXD+2XFMSEGHk46mMbdcZmM
- gFnTVkpwxTujUU3JDJc9HTi21mAYB6rYy+VL0Jj5FI7Fd1E/V7rwIrapVhFqn2iOoO
- zmmPr2iZOvnZyTTsg6SnBKobYcaKjLnCVeFZNX61xHzxZUBhmNVkQtZgXiKfc0fqnB
- /DjrYAncj5geKM2e3RUhYVAz8GiWdpD8QGw0W5V1zbwHJaa1JFTcXZC/m+jOsUdRrF
- JOIQX/WEUfRbhECq3x9fbCLitseKTQjEHzWlKFYRivOM1z8WROn7KjWaKIJgnKda0A
- XS+p3brhutQ6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
-To: "Geert Uytterhoeven" <geert@linux-m68k.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260824151230.XuHT5veUT8Oi5un54yAsIsxDMMalaTNf64h7qW1s0ow@z>
-References: <20260824151230.XuHT5veUT8Oi5un54yAsIsxDMMalaTNf64h7qW1s0ow@z>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 15:22:07 +0000
-Message-Id: <20260824152208.1F0811F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AD0210E7DA
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 15:22:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787584940; x=1819120940;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=uS2xIZbzLdsQ6jGYoq7awlY+R0+yW1/utnd6qsmgcdc=;
+ b=as7QEXIR+U8m5nJg35RH6Viw6HYHEHjqrsjIiA6pKMK6sNAWtR+4KCYN
+ odxrvfOpHfWLH/d3fMoLu1kkQV4f6xWxvNCT58fS1RA5KqLxudHROiR2w
+ fUwFwSguyOE7UwSrIYzrK4JdBNQDs1/kTlQMwh/hjPF1oL1OlBbVBPQOW
+ BdNNq/33meU34nKkooqSXQt5FDZOq4j2Ga/R7DVBvIB3J4xcRDkTknliB
+ mLNNXpKnZft1SoX4qKLQXBCRnVu7pTGvbDkDpnLXPp1ydTrPYa7iAMvBa
+ avFBdeDAP3x6yKWn75nUDoKfADebXKOpo/vhBQn37PIdCdh1t0agq671I Q==;
+X-CSE-ConnectionGUID: Ez4xicACTdedjeRzgjvwBQ==
+X-CSE-MsgGUID: A1WnPDapQ/qQ46kLfFZRtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="88241429"
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; d="scan'208";a="88241429"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2026 08:22:16 -0700
+X-CSE-ConnectionGUID: JL6v4/tISb2nj8yZowLCVA==
+X-CSE-MsgGUID: ub6DQ2ocR+y3ihV+537KRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; d="scan'208";a="271238495"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.130])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2026 08:22:13 -0700
+Date: Mon, 24 Aug 2026 18:22:10 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>
+Cc: javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, holofermes@gmail.com,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v5 2/6] drm/ssd130x: Change SSD133X color format to
+ RGB565 from RGB332
+Message-ID: <aoxhoqad_F99VtBL@ashevche-desk.local>
+References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
+ <20260823111959.17029-3-amit.barzilai22@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260823111959.17029-3-amit.barzilai22@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,77 +74,17 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Missing explicit Kconfig dependencies in `.kunitconfig` causes t=
-he test to be silently dropped.
-- [Medium] Adding a tristate dependency to a `bool` config causes Kconfig w=
-arnings and hides the configuration prompt when DRM is a module.
---
+On Sun, Aug 23, 2026 at 02:19:55PM +0300, Amit Barzilai wrote:
+> SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
+> Switch the SSD133X data path to RGB565.
 
---- Patch [1]: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDD=
-Y ---
-commit ffd08cabf5088a2a96497e1ac48e8e50484ee037
-Author: Geert Uytterhoeven <geert@linux-m68k.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
+-- 
+With Best Regards,
+Andy Shevchenko
 
-This commit changes the Kconfig rules for GPU_BUDDY_KUNIT_TEST to depend on
-GPU_BUDDY rather than selecting it. It also adds a dependency on DRM or
-COMPILE_TEST for the GPU_BUDDY allocator itself.
 
-> diff --git a/drivers/gpu/Kconfig b/drivers/gpu/Kconfig
-> --- a/drivers/gpu/Kconfig
-> +++ b/drivers/gpu/Kconfig
-> @@ -1,14 +1,15 @@
->  # SPDX-License-Identifier: GPL-2.0
-> =20
->  config GPU_BUDDY
-> -       bool
-> +       bool "Page based buddy allocator for GPU memory" if KUNIT
-> +       depends on DRM || COMPILE_TEST
-
-[Severity: Medium]
-Will adding a tristate dependency (DRM) to a bool config cause Kconfig
-warnings?
-
-If a kernel is configured with CONFIG_DRM=3Dm and CONFIG_COMPILE_TEST=3Dn, a
-tristate driver that selects GPU_BUDDY will force it to y. Kconfig will
-compare the selected value (y) against the dependency limit (m from DRM) and
-issue an unmet direct dependencies detected warning.
-
-Additionally, users cannot manually enable the test because Kconfig hides
-prompts for bool configs when their dependencies evaluate to m.
-
->         help
->           A page based buddy allocator for GPU memory.
-> =20
->  config GPU_BUDDY_KUNIT_TEST
->         tristate "KUnit tests for GPU buddy allocator" if !KUNIT_ALL_TESTS
->         depends on KUNIT
-> -       select GPU_BUDDY
-> +       depends on GPU_BUDDY
-
-[Severity: Medium]
-Does this change cause the test to be silently dropped when running kunit.p=
-y?
-
-Because GPU_BUDDY_KUNIT_TEST now explicitly depends on GPU_BUDDY, which in
-turn depends on DRM || COMPILE_TEST, if drivers/gpu/tests/.kunitconfig is
-not updated to include CONFIG_DRM=3Dy (or CONFIG_COMPILE_TEST=3Dy) and
-CONFIG_GPU_BUDDY=3Dy, Kconfig will evaluate these unmet dependencies as n.
-
-This will silently drop CONFIG_GPU_BUDDY_KUNIT_TEST=3Dy from the generated
-configuration during automated testing.
-
->         default KUNIT_ALL_TESTS
->         help
->           KUnit tests for the GPU buddy allocator.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824151230.XuHT=
-5veUT8Oi5un54yAsIsxDMMalaTNf64h7qW1s0ow@z?part=3D1
