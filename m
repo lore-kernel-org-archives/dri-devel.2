@@ -4,126 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88CB6C5DF94
-	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 11:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E5C8C5DF81
+	for <dri-devel@archiver.kernel.org>; Mon, 24 Aug 2026 11:40:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAF7110E74F;
-	Mon, 24 Aug 2026 11:36:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F41F10E751;
+	Mon, 24 Aug 2026 11:40:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iu4p4JX0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e0KanVja";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9A4910E74F
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 11:36:36 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2d30c22b1eeso2420795ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 04:36:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787571396; cv=none;
- d=google.com; s=arc-20260327;
- b=nbd5HYIM7si4kXgL8pudV4+OIU0ezCpNLXGBaARcTWT2a2K5agqKakJzXT9tT2l7Y9
- FrQOpvZQnxXpAwvfpE487HXCS9wsMlzKvjr9IePC172uLH8Cg9pgZabdt0G3k0m0iXV+
- D8lN8Y66UY+URQw5gAKDcryTzyGy0iJw8FdCdYFukSDs9WOQTNnVH/1e18vDGw6sGDae
- lkLpaqa8H2sWSYPg2NoeSuLQZSHjW9Lt5zo46G+6LraJvTgvwkgfg19Zs+uG4lsf3RCp
- ++0HlDe0O0ahZUVGxhRcSCFFqnsknv1fDwAYk9IX0dfTkkblwIXj7rXM7uENz/8iLEdE
- ZNFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=FLR8gNeFJ9TssEfTR8tSkoTtg4StSpJ+7GNVLjYl8Vg=;
- fh=T2Xzb2BgLhYdf8E12Q7Xz5duZLZWQIg88BqaLzF4ZzI=;
- b=OkSaaEMOrb0EsaBrMjQH/X+5pQ5qp7NU+fPYdkd/93/pS644XMTDHIB9Kps6r/wHMj
- 3x233yQHKlumoLunaMMYMVWtRkQny/rzQr+TDtyY/npCaIIFppzTF+lmuTglTW2nFzSs
- sSdEx0iidHg8u4F2ndF0h3G99ziUfNwI2J75SU0uJRXkRsJfHK3tFvNmqSKs+r7S0XQj
- oEVIRj3YBBTiXiZJvTQQl792V/kRVXA7BfA5G3aMTjS/zN79O4c5la182gGm9pRdRbGE
- 9UoZHOcqJItO1cyaIIT57O56CyFt9H9Zorp+G7aGuqZxxlIRNhe5tnhu6ZlNU9K8VSOs
- Y7Cg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787571396; x=1788176196; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=FLR8gNeFJ9TssEfTR8tSkoTtg4StSpJ+7GNVLjYl8Vg=;
- b=iu4p4JX0+5ptgH0dcHLXYnzCcay5d8BLzVbM5FrleXszFIkq82CVXYGEfqAhvWi+Pv
- JX8Nc/kXhq0PxTwHc+NEQbcPJyEN1BMhQuiI/uH1p1QAZda3D4M2ZGdUSg7SZ/LdnRIR
- 7cD5qmCj17DUUD1KMipwBjFoORVKA58wJxVnE1OyukL/zba2LT3CBnwDN7f8FwX1q246
- P9dyfDC3o7MFuWSd55R4K1/adLTRayNmJZCtstaFFIs8eF39d7/Goz5Fc8Mgmtb8SorI
- VagZv74WNfR8+eau9ak+4lmTptejCivnRPwQIaeOpAhVLVhyG90HbNEOdn4Uyg2XZp5t
- E6Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787571396; x=1788176196;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=FLR8gNeFJ9TssEfTR8tSkoTtg4StSpJ+7GNVLjYl8Vg=;
- b=r/ZVQHVuPNI7Vw3CUWazrImjefiHpWrXwtckVx+On0IWhBL2Gk/rapdcvKiNMwBiO3
- b2v1pPGrU3uQvFMHnC7LOLjOL8GDIoSU43XVWuIkCVz6ESutpijdgiHR86ZtbOEO+t8V
- BnfDcyW458uViLpD3KG6sgLoTSpIaWP8aIS4S2haGoIZZvWtHWWrg1QtQxdN6heEPWbI
- rvdbXrWR1RKfIknKny0uwlLrTZdVKLJiTa0GHLjRmN5FrSp2Vs+txCEKIo3z0cLrfbBb
- Pfvtz+jwhkTvl+CiB2CLhfqHy60sU6hJ0u6Hc8XFhMk1z49/WwDPo/9n+iCp4coIgU0n
- pOgw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RosYlGMK4V0btM3zQFtYxJfoQ0Firj0oZRvudxegI9h21ZgPIAkgYqIp5mt75C27NekLn1D87NO6IY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nA8dKNl0aR2Lc/xTtK/Uri7QNVZ6i8eLitrSwQU4n4HpJfG4X+
- GRJ89IN3nnZxFdE4XSWx6o209aE/Jesj4gyjnsXIZZ9GB2lE3QHdfolz3c/eUm4dersa98QemFx
- gk6HxSFUmCyYu5pJB/uMGfBYyQ8XoEVg=
-X-Gm-Gg: AR+sD10yBFEFj88RV1eQRLMXXHQ1TUCKF6eVz7w+G+LUaTcFy1ll93rN1ZqNf5xuZB4
- LnIwpk103veEQFm76gHphROtwgOKV/Hq0IT+GoxGkSLCc1N2DKaNQsQYklPuCt6QlCYyXTng/od
- 7isJZ/nj9td2F/Q1lNtWUzG6HTcCP9X27Omfzekv6p7jQzkWGC0cmXuhotAoIgkmSUu5S6u7hmH
- cFj3/mu1zGUJx1zyWiBnOLdbgH/HTWw/pJ3ImkqI8XgYvHv27XZ8EVxRV+l+OlMmepFPWrwLQXm
- o30lLoyzX4CwmxsR9/ENWQjw5e+lqqL174I4ocz5ztTl9AX8THCNWowDsEcX/hThn7wp3gpecM7
- lrD17jdQNYeUTv9ASDGR+ihZJ1OtK8Y3nriTzsw2Fi2gpBPLT/M9pM/J0TOQtCeKg22ePM14=
-X-Received: by 2002:a17:902:fc4d:b0:2c9:e846:a582 with SMTP id
- d9443c01a7336-2d64a9a668bmr222250785ad.0.1787571396025; Mon, 24 Aug 2026
- 04:36:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
- <20260824-unique-ref-v20-6-490735672187@kernel.org>
-In-Reply-To: <20260824-unique-ref-v20-6-490735672187@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 24 Aug 2026 13:36:22 +0200
-X-Gm-Features: AcwNN1XvVB-Mna-bMRr_-WAakhrdmhTEWRag6uYdZi5jKauuC-nwA9j0nxkTDxw
-Message-ID: <CANiq72mPLrKQMzb37ow2969m5r3Z2Kh_4LHERUun6ALw3ea6tg@mail.gmail.com>
-Subject: Re: [PATCH v20 6/8] rust: Add missing SAFETY documentation for `ARef`
- example
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>,
- Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
- Oliver Mangold <oliver.mangold@pm.me>
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71D5510E751
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 11:40:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 858C56013A;
+ Mon, 24 Aug 2026 11:40:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F8B1F000E9;
+ Mon, 24 Aug 2026 11:40:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787571630;
+ bh=GwE5uDtGz0EH9Gvdg9euI8g5rfiCsOHRqdpI8yxqBFc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=e0KanVjahEqoojMbYWq5DQCPJX4c740wfoTuYxxSBrpxh2WzJXhLqn9zx6DwYNAgD
+ JrdcnSKGzuOPRvFDzykkf27nCESYuxIqQXu/0vJtj5kYMosn2NdW8GRZntH12nI3zK
+ 42E2Z+Ya2DXlizicGQTHXMHh3R4ptNNvn4jeTeEprfBv3c2tzFeC8+0y9Vwlh8biTt
+ B7LjmeS+ChXAojFoSaI53tzyH6bTso4d6Aa61aV8gQONFh4hLbtGAJ9ADDvPRxDIqA
+ fom8qBnh4XOFyOHEN1JINlOvA4S4x3OBmJxvfRKHNAPuDdHmOsY4MF8qOhcQ0Q8jy4
+ d5MA9jLSpLWjA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/4] drm/msm/dp: continue link training downgrade when
+ cable is still plugged
+To: "Saurabh Anand" <saurabh.anand@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org,
+ olteanv@gmail.com, neil.armstrong@linaro.org, vkoul@kernel.org
+In-Reply-To: <20260824-qcom-dp-typec-reconnect-fixes-v1-4-2825e5bf8a96@oss.qualcomm.com>
+References: <20260824-qcom-dp-typec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com>
+ <20260824-qcom-dp-typec-reconnect-fixes-v1-4-2825e5bf8a96@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 11:40:29 +0000
+Message-Id: <20260824114029.F1F8B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,24 +55,94 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 24, 2026 at 1:19=E2=80=AFPM Andreas Hindborg <a.hindborg@kernel=
-.org> wrote:
->
-> From: Oliver Mangold <oliver.mangold@pm.me>
->
-> SAFETY comment in rustdoc example was just 'TODO'. Fixed.
->
-> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Please see/link https://github.com/Rust-for-Linux/linux/issues/351.
+New issues:
+- [Medium] Lockless read of dp->plugged in msm_dp_display_prepare_link() ca=
+uses a data race.
 
-Thanks!
+Pre-existing issues:
+- [High] The return value of drm_dp_dpcd_read_link_status() is ignored, cau=
+sing uninitialized stack memory to be used if the DPCD read fails.
+--
 
-Cheers,
-Miguel
+--- Patch [4]: [PATCH 4/4] drm/msm/dp: continue link training downgrade whe=
+n cable is still plugged ---
+commit ad6d2e949e22a448345ebdb67f36f42020cff884
+Author: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+
+drm/msm/dp: continue link training downgrade when cable is still plugged
+
+During a Type-C reconnect the AUX channel may report link-disconnected
+transiently while the physical cable is still present. The link training
+retry loop in msm_dp_ctrl_on_link() was aborting immediately on any
+msm_dp_aux_is_link_connected() failure, preventing the rate/lane downgrade
+path from running.
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
+_ctrl.c
+> index 59070f399e2d3..e8fd8f4c75fec 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -2379,7 +2379,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_=
+ctrl,
+>  			break;
+>  		} else if (training_step =3D=3D DP_TRAINING_1) {
+>  			/* link train_1 failed */
+> -			if (!msm_dp_aux_is_link_connected(ctrl->aux))
+> +			if (!msm_dp_aux_is_link_connected(ctrl->aux) && !msm_dp_ctrl->plugged)
+>  				break;
+> =20
+>  			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+
+[Severity: High]
+This is a pre-existing issue, but by allowing the loop to continue when AUX
+is disconnected, is it possible we'll perform a DPCD read that fails, leavi=
+ng
+the link_status stack array uninitialized?
+
+If drm_dp_dpcd_read_link_status() fails (which is likely if the link is
+disconnected), the error return value is ignored. Uninitialized stack memor=
+y is
+then evaluated by msm_dp_ctrl_clock_recovery_any_ok() below to make hardware
+configuration decisions.
+
+Does this also affect the DP_TRAINING_2 case below, as well as
+msm_dp_ctrl_channel_eq_ok()?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index 1f60c78a463dd..93a37a44273f0 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -644,6 +644,7 @@ static int msm_dp_display_prepare_link(struct msm_dp_=
+display_private *dp)
+>  	if (!msm_dp_display->power_on) {
+>  		msm_dp_display_host_phy_init(dp);
+>  		force_link_train =3D true;
+> +		dp->ctrl->plugged =3D dp->plugged;
+
+[Severity: Medium]
+Is it safe to read dp->plugged here without holding the dp->plugged_lock mu=
+tex?
+
+This assignment runs in msm_dp_display_prepare_link() during atomic commit,
+which could run concurrently with HPD plug/unplug events that modify
+dp->plugged.
+
+Could this lead to a data race where a stale value is read?
+
+>  	}
+> =20
+>  	rc =3D msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-qcom-dp-ty=
+pec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com?part=3D4
