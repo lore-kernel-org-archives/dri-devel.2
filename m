@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739A9C61DBE
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 839A9C61DBE
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:29:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2F7B10E1C6;
-	Tue, 25 Aug 2026 12:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC23E10EA26;
+	Tue, 25 Aug 2026 12:29:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A/ii/jGS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MJmdoSFd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7AE210E1DC;
- Tue, 25 Aug 2026 12:26:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08B2810EA26;
+ Tue, 25 Aug 2026 12:29:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 034596011F;
- Tue, 25 Aug 2026 12:26:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73CD21F000E9;
- Tue, 25 Aug 2026 12:26:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CC3824166E;
+ Tue, 25 Aug 2026 12:29:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C531F000E9;
+ Tue, 25 Aug 2026 12:29:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787660802;
- bh=S8jrV7vrsiewaQAeJhs+EDT+bYTiak1pT9WQgKiA3hg=;
+ s=k20260515; t=1787660983;
+ bh=HRLWYJbKwOApKH+48tMVqFtRbkWoRJduhSjRZhl8sZo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=A/ii/jGSWP3kkBD2qOzprrVF4IUlmUNP4saguXs6ovbIG0p37d0oTgT8qYbsE/nVg
- C6YRMEn7iWv2CF4H7wxyBtTNkUJ6PWVz0e4uTh2VG4rGyDYdWtQ02Zub2R/u3jXLMf
- 4Wai9IxYq2RMbqDHeLJB2gnUsgF3TCEEgFzt6dwtd9NFfT/H9kfWqJxjuJsLizGd2z
- auU4ZLOJHgEvXYjMQNiylgWJpKA/J4VXxJDKgXW8Qo2+7NF+EdtMovi0V5I0fF0p5K
- 6ONVqOKk78M7m91FcGyv4wov8hEWBBpECDe0+vRxiNGu8SYeB20t9tM10gAGm6Nsyw
- mjOkBxNOZ8UBw==
+ b=MJmdoSFdSQVvWCBIsA3hwzN5sM20Ysm4YrjHierT2Q4sYF/WPO+1VuSO6tmM32Fe1
+ SOtNhXNwWIH+Ok/qYYo+GtX3p3s+lyS1eMIqZDtkjuUEdMz5bIJOxkqJdSmRz54y+x
+ J1VOO9z9h88cGgruXT2724QA4iI+p73CpOActnv9gglXT2gbAvRsuLUC3CvOTofxWE
+ EE+zfVN96OfwShbfjlv2E1GhC/vaYTlNQwW1Cjvnq5CG8UZ7mpj/hsIZD9t2J5h3VS
+ X2GHYjLWhJgzem2FduVrQwj2rOGwUeXisTLqAp18xMD46qkakzGJeg2WaSgY9JuwRe
+ YI/VRK/glL+GQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/6] rust: hrtimer: document deadlock when starting a
- timer in its handler
+Subject: Re: [PATCH 2/6] drm/i915/pmu: use the expiry injecting hrtimer
+ callback
 To: "Andreas Hindborg" <a.hindborg@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  ojeda@kernel.org
-In-Reply-To: <20260825-expires-v2-v1-5-90411c6217c7@kernel.org>
+In-Reply-To: <20260825-expires-v2-v1-2-90411c6217c7@kernel.org>
 References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
- <20260825-expires-v2-v1-5-90411c6217c7@kernel.org>
+ <20260825-expires-v2-v1-2-90411c6217c7@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 12:26:42 +0000
-Message-Id: <20260825122642.73CD21F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 12:29:42 +0000
+Message-Id: <20260825122943.69C531F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,55 +63,80 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Dropping `HrTimerHandle` from within its own timer callback deadlo=
-cks the CPU.
+- [High] Race condition in `i915_pmu_unregister()` allowing the timer to be=
+ rearmed after cancellation, leading to a use-after-free.
 --
 
---- Patch [5]: [PATCH 5/6] rust: hrtimer: document deadlock when starting a=
- timer in its handler ---
-commit 728bf4e6c510d8fc30ab14edb4327239f3f07e2b
+--- Patch [2]: [PATCH 2/6] drm/i915/pmu: use the expiry injecting hrtimer c=
+allback ---
+commit 3544b866c523f970d22c7a2ae5ea50d0bc15978f
 Author: Andreas Hindborg <a.hindborg@kernel.org>
 
-rust: hrtimer: document deadlock when starting a timer in its handler
+drm/i915/pmu: use the expiry injecting hrtimer callback
+   =20
+The commit converts the i915 PMU sampling timer to use the expiry injecting
+callback variant. This prevents a race condition between the timer callback
+forwarding itself and concurrent timer restarts when the GT is unparked.
 
-This commit updates the hrtimer documentation to note that calling the
-start operation from within the timer handler will lead to a deadlock.
-This happens because the handle returned by start cancels the timer
-when dropped, waiting for the current handler to finish.
+> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_=
+pmu.c
+> index 1c3bafda9c708..c18587e200c9f 100644
+> --- a/drivers/gpu/drm/i915/i915_pmu.c
+> +++ b/drivers/gpu/drm/i915/i915_pmu.c
 
-> diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
-> --- a/rust/kernel/time/hrtimer.rs
-> +++ b/rust/kernel/time/hrtimer.rs
-> @@ -78,6 +78,8 @@
->  //! handler returns, and a restart requested by the return value of the =
-handler is discarded in
->  //! favor of the `restart` operation.
->  //!
-> +//! =E2=9A=A0=EF=B8=8F Issuing the `start` operation from within the tim=
-er handler will lead to deadlock.
+[ ... ]
+
+> @@ -1157,7 +1159,7 @@ void i915_pmu_register(struct drm_i915_private *i91=
+5)
+>  	int ret =3D -ENOMEM;
+> =20
+>  	spin_lock_init(&pmu->lock);
+> -	hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_R=
+EL);
+> +	hrtimer_setup_ext(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MO=
+DE_REL);
 
 [Severity: High]
-This is a pre-existing issue, but does relying on documentation here
-leave safe Rust code vulnerable to triggering a kernel deadlock?
+This is a pre-existing issue, but is there a race condition between the PMU
+unregistration and GT unparking that can lead to a use-after-free?
 
-The handle types unconditionally invoke a synchronous cancel when dropped.
-For example, looking at ArcHrTimerHandle:
+Looking at i915_pmu_gt_unparked() in drivers/gpu/drm/i915/i915_pmu.c, it
+performs a lockless check on pmu->registered before acquiring the lock:
 
-rust/kernel/time/hrtimer/arc.rs:Drop for ArcHrTimerHandle {
-    fn drop(&mut self) {
-        self.cancel();
-    }
+drivers/gpu/drm/i915/i915_pmu.c:i915_pmu_gt_unparked() {
+	if (!pmu->registered)
+		return;
+
+	spin_lock_irq(&pmu->lock);
+
+	/*
+	 * Re-enable sampling timer when GPU goes active.
+	 */
+	if (pmu->unparked =3D=3D 0)
+		__i915_pmu_maybe_start_timer(pmu);
+    ...
 }
 
-This means if safe code invokes start() from within the timer callback
-and allows the returned HrTimerHandle to drop, or replaces an existing
-handle in a shared structure (implicitly dropping the old one), it will
-block on hrtimer_cancel().
+Concurrently, i915_pmu_unregister() sets pmu->registered to false and
+cancels the timer:
 
-Since calling a synchronous cancel from the timer's own callback results
-in a CPU deadlock, can safe Rust currently trigger a hard lockup just by
-following standard drop patterns?
+drivers/gpu/drm/i915/i915_pmu.c:i915_pmu_unregister() {
+    ...
+	/* Disconnect the PMU callbacks */
+	pmu->registered =3D false;
+
+	hrtimer_cancel(&pmu->timer);
+    ...
+}
+
+If a user unparks the GT (e.g., by submitting a request) while the driver is
+being removed, could i915_pmu_gt_unparked() read pmu->registered as true,
+wait for the lock, and then rearm the timer after i915_pmu_unregister() has
+already cancelled it?
+
+When the drm_i915_private struct is later freed, would the rearmed timer
+fire on freed memory?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-expires-v2=
--v1-0-90411c6217c7@kernel.org?part=3D5
+-v1-0-90411c6217c7@kernel.org?part=3D2
