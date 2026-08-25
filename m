@@ -4,45 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75885C61DC4
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C429C61DB9
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 725D28918D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCFC7892F6;
 	Tue, 25 Aug 2026 14:35:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=poczta.fm header.i=@poczta.fm header.b="orbBPggv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LnO4AfgM";
 	dkim-atps=neutral
-X-Greylist: delayed 367 seconds by postgrey-1.36 at gabe;
- Tue, 25 Aug 2026 09:52:48 UTC
-Received: from smtpo75.interia.pl (smtpo75.interia.pl [217.74.67.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32C7410E182
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 09:52:48 +0000 (UTC)
-Received: from nr200 (unknown [80.68.231.31])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
- (No client certificate requested)
- by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
- Tue, 25 Aug 2026 11:46:36 +0200 (CEST)
-Date: Tue, 25 Aug 2026 11:46:34 +0200
-From: Slawomir Stepien <sst@poczta.fm>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: sashiko-reviews@lists.linux.dev, syzbot <syzbot@kernel.org>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/cirrus-qemu: Validate BAR0 size during probe
-Message-ID: <ao1ketQ4oxNiWGAM@nr200>
-References: <b11f8965-5896-4119-98b7-6bd0eb9fa139@mail.kernel.org>
- <20260825074432.0B4511F00A3A@smtp.kernel.org>
- <ce0912d6-fdc4-4ead-9388-a9e0e9a1954c@suse.de>
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD6110E9E1
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:54:55 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-3964b061528so844825a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 03:54:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787655295; x=1788260095; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Ecc+4+3fD7whcx5Dflr4OBgeAjnyDsX+6ud1zRaZ8Vk=;
+ b=LnO4AfgM9AaSepyI4E0EoO++6BJMFMO4pRgUNIUElM6idadA4elcMYSsr1eAiXSSAD
+ v7b5NPANy+5W8Vplhysilq4Pch+bzOGx5r1HwiaotBcOCUL7nyCkZadgnSqG9Cg5eO+J
+ DfP99nuzR93wLQ4Js7zpeOjbs7gnZxlUUkoKpXbScWPMqmCIW+lXRb0N5eE/dWJqJskQ
+ TygLNncBzEm9xL7tNmwlgjN6p9/y13jjG6s8ZoNyaUwWorX0ekSgKInnm2jllfogugYg
+ Ip3qQyTLlU/+izlqYB86N6ZWFTmH3o5nm5zVsFRdWTp0mYvJhzvp+n5NMkGIsZdYwJAC
+ X5XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787655295; x=1788260095;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Ecc+4+3fD7whcx5Dflr4OBgeAjnyDsX+6ud1zRaZ8Vk=;
+ b=ogaAeB3piRl6VGolV5Ym2Hdjza+l2cEZeB7pdpMX0uao/siKSzQyBiYB2bTVmvNGbm
+ HXaf15/v8VWPATA54/d4cAq+Gk3kJJvyfE5vHfshSiWeR2xkKTWkNySEVK/NvrLxk7WI
+ 7+jtScM8FcwiQm2r59CcatnWisetHTVI2bJt29dDW0MKu5HnzunL9t7eYXCkP8+Tqrvk
+ EQvxZFhqVE+IdzFZfmFNJW0wcGJaUY9ktgI3t3v2yZogsa1TPN7jhrA+cMNg1MdVOpux
+ GCQhAsCO+dYFe7cQllM4t9fFciK9NiM0O3wWGYT3FtSFIc3oI95ZRLuqeYN2zFVHh6KK
+ LB+Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqLgY3f8c7DvPXy+mERJB8TTBFrA1Dnm/kU/Bfum4z2QbTDu2SNntT0NTJ2OwIZcVlSFRJM0hJI9u8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mttsgZ8/Gy+x+EuNhV7uRQST/RJ7+dTKPdTAVlrVklhwEiNPCG
+ wilkwkyIVK8/w0LnCl9aOGJtvMrvMhKkON8sEfreTTsDeuOncCFCjWZ38WU7AMJh
+X-Gm-Gg: AR+sD13S+nOkAdm+IG1+1HYPkzGwzH99NIEVtTLZuRhgJNVv7AZElK0Vbj7OH/s4KmE
+ ZT5B96w/fqmIlm2qkf4wxx4jqk9g2LffTIkN5r0NIfe+2qfUKiesqvnMSw0dGDoYqETj4HlipQ7
+ wjwdhdKKHZP43i7gXdeJJ4VQWquXr/sFgLBzW9oXoI/a49Bs+76tEAPM/f460oCK11nwr2zyugv
+ DnrWifydwvIrEroU5LBQ0LH63Dcie64fclpPagLiFftX0/Lx8RnnElcxAUPUOQaDh16170L4Nv5
+ qNJZz13Y0BGge+UEyb0+kRhkloZwBdRtu6KSfrziOFHNMk0jT/X03SBLhhbsNHZLh7loGS3CZkC
+ wnImYdKT0UB1SQgp5VdRaqZNXlIyr5got71HeLdStR9cIessc25Pt92VbY0ve3M3XaFOhFuIw3H
+ Vemn5x/RILhrtvdBakBg2N0hDSrbvvvKoA1PiZc8wmXVsVN3XkN5E=
+X-Received: by 2002:a17:90b:3805:b0:396:4c63:7193 with SMTP id
+ 98e67ed59e1d1-3964c6378fdmr8038558a91.11.1787655294838; 
+ Tue, 25 Aug 2026 03:54:54 -0700 (PDT)
+Received: from fox.. ([43.242.224.196]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-327f9209f51sm58375372eec.22.2026.08.25.03.54.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Aug 2026 03:54:54 -0700 (PDT)
+From: Roshan Kumar <roshaen09@gmail.com>
+To: linusw@kernel.org,
+	dri-devel@lists.freedesktop.org
+Cc: leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, pimyn@google.com, linux-kernel@vger.kernel.org,
+ roshaen09@gmail.com
+Subject: [PATCH] drm/pl111: Advertise no pixel blending
+Date: Tue, 25 Aug 2026 16:24:26 +0530
+Message-ID: <20260825105427.686619-1-roshaen09@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ce0912d6-fdc4-4ead-9388-a9e0e9a1954c@suse.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
- t=1787651198; bh=MvH/GZjMBZncc502+FYWTWv0K2Z8oMHl739kUmAgO54=;
- h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
- b=orbBPggvICoii+Nd15hkuQdaVT4uWhs0z4sbW4il/lbCDnVOE6amIE9ygg+Ht4iYT
- CYHDmQ3C1E1Ty9JxV9OQg0L2sziOirldjm08W1Mh1nhm3Ng9xDbmKL3qZb6705X/kq
- sQ+RYSnnW1c6qCNhYORfySESlYl9GLL9YB/U8T8Q=
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,97 +89,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On sie 25, 2026 10:00, Thomas Zimmermann wrote:
-> (cc: Slawomir)
-> 
-> Hi,
+Commit 860e748bddcc ("drm: ensure blend mode supported if
+pixel format with alpha exposed") added validation that warns when a
+plane exposes an alpha format without a pixel blend mode property. PL111
+exposes several such formats but does not attach the property.
 
-Hello,
+The PL110/PL111 controller scans out a single framebuffer and does not
+blend its alpha channel with a background. Advertise
+DRM_MODE_BLEND_PIXEL_NONE to match the existing hardware behavior.
 
-> thanks for the fix. Please see below for changes that should go into the
-> patch.
+With panic_on_warn enabled, this warning prevents the syzkaller
+vexpress-a15 manager from booting. The change was tested on current
+master with QEMU 10 and the existing production DTB; the guest reached
+sshd and returned an SSH banner.
 
-thanks I will look into them and make a manual v2!
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+Link: https://github.com/google/syzkaller/issues/7805
+Signed-off-by: Roshan Kumar <roshaen09@gmail.com>
+---
+ drivers/gpu/drm/pl111/pl111_display.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> Best regards
-> Thomas
-> 
-> Am 25.08.26 um 09:44 schrieb sashiko-bot@kernel.org:
-> > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> > - [High] The exact equality check for BAR0 size (`!= CIRRUS_VRAM_SIZE`) incorrectly rejects valid QEMU configurations with larger VRAM.
-> > - [High] The VRAM size validation check is placed after `aperture_remove_conflicting_pci_devices()`, meaning the firmware framebuffer is permanently destroyed even if the driver ultimately fails to bind.
-> > --
-> > 
-> > --- Patch [1]: [PATCH] drm/cirrus-qemu: Validate BAR0 size during probe ---
-> > commit 75467ead62a494b6afbc057c666ab59f7e4b8915
-> > Author: Slawomir Stepien <sst@poczta.fm>
-> > 
-> > drm/cirrus-qemu: Validate BAR0 size during probe
-> > 
-> > This commit adds a check during PCI probe to verify that the BAR0 resource
-> > length equals CIRRUS_VRAM_SIZE. This is intended to prevent supervisor write
-> > page faults caused by writing past the end of the mapped I/O memory when
-> > smaller BARs are presented.
-> > 
-> > Link: https://syzkaller.appspot.com/ai_job?id=ba262a3a-bccf-4ad8-a1b0-583c55d34fd6
-> > 
-> > > diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
-> > > index 075221b431d37..70c995025f508 100644
-> > > --- a/drivers/gpu/drm/tiny/cirrus-qemu.c
-> > > +++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
-> > > @@ -602,6 +602,9 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
-> > >   	dev = &cirrus->dev;
-> > > +	if (pci_resource_len(pdev, 0) != CIRRUS_VRAM_SIZE)
-> > > +		return -ENODEV;
-> > > +
-> > [Severity: High]
-> > Does this strict equality check unintentionally break valid QEMU
-> > configurations that have more than 4 MB of VRAM?
-> > 
-> > When a VM is booted with a configuration like -device cirrus-vga,vgamem_mb=8,
-> > the BAR0 size will be 8 MB. The check in cirrus_pci_probe() evaluates
-> > to true (since 8 MB is not equal to 4 MB) and rejects the device by
-> > returning -ENODEV.
-> > 
-> > Would it be safer to check if pci_resource_len(pdev, 0) < CIRRUS_VRAM_SIZE
-> > instead of requiring an exact match?
-
-It seems that 4MB is the default one and 8 and 16MB are just for compatibility:
-
-(qemu hw/display/cirrus_vga.c):
-
-2951     /*
-2952      * Follow real hardware, cirrus card emulated has 4 MB video memory.
-2953      * Also accept 8 MB/16 MB for backward compatibility.
-2954      */
-2955     if (s->vga.vram_size_mb != 4 && s->vga.vram_size_mb != 8 &&
-2956         s->vga.vram_size_mb != 16) {
-2957         error_setg(errp, "Invalid cirrus_vga ram size '%u'",
-2958                    s->vga.vram_size_mb);
-2959         return;
-2960     }
-
-I will add the 8 and 16MB then in v2.
-
-> > [Severity: High]
-> > Is it safe to place this validation check after the call to
-> > aperture_remove_conflicting_pci_devices() earlier in cirrus_pci_probe()?
-> > 
-> > If this new size check fails (either due to a malformed device or a larger
-> > valid VRAM size), cirrus_pci_probe() aborts with -ENODEV. However, because
-> > aperture_remove_conflicting_pci_devices() was already executed at the start
-> > of the probe function, the firmware framebuffers (like efifb or simplefb)
-> > have been permanently destroyed.
-> > 
-> > Could this leave the system with a dead display output? Would it make sense
-> > to move this PCI configuration check to the very beginning of the probe
-> > function, before any destructive actions occur?
-
-Yeah I guess this new check can be before aperture_remove_conflicting_pci_devices().
-
-> > >   	cirrus->vram = devm_ioremap(&pdev->dev, pci_resource_start(pdev, 0),
-> > >   				    pci_resource_len(pdev, 0));
-> > >   	if (cirrus->vram == NULL)
-
+diff --git a/drivers/gpu/drm/pl111/pl111_display.c b/drivers/gpu/drm/pl111/pl111_display.c
+index 5d10bc5..758b297 100644
+--- a/drivers/gpu/drm/pl111/pl111_display.c
++++ b/drivers/gpu/drm/pl111/pl111_display.c
+@@ -15,6 +15,7 @@
+ #include <linux/media-bus-format.h>
+ #include <linux/of_graph.h>
+ 
++#include <drm/drm_blend.h>
+ #include <drm/drm_fb_dma_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+@@ -596,5 +597,10 @@ int pl111_display_init(struct drm_device *drm)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = drm_plane_create_blend_mode_property(&priv->pipe.plane,
++						   BIT(DRM_MODE_BLEND_PIXEL_NONE));
++	if (ret)
++		return ret;
++
+ 	return 0;
+ }
 -- 
-Slawomir Stepien
+2.43.0
+
