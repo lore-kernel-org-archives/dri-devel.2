@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A94A9C61CE2
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:13:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CED18C61CE2
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:20:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03F6C10E9C1;
-	Tue, 25 Aug 2026 10:13:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3199E10E9C2;
+	Tue, 25 Aug 2026 10:20:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="ajKemV2w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TUsHG3iq";
 	dkim-atps=neutral
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch
- [109.224.244.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E04BF10E9C1
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:13:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1787652830; x=1787912030;
- bh=mLYnEk4zxlRkMBFZndTuGiFtQNuyUOtWaqNB08diNQo=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=ajKemV2wRSGrR7EZAwwOpkHiq3/UXYQ7IcUEIfhCpFPgOEXC9FvAUt/t/LRe0pl9G
- QRFV+q7JyyKivbmz8XtO0HRdfwwvOVJfyXA3wIJk/26aRL78ywV/dVxlre3+o4Nu6T
- WyMLRiygwMwSxEnWuAKg7pcdNlLJFIyECVSnL4LEQuC6rdtKfxL4Iy7adZp/OP8Ez6
- obK8yX11FJV6oN+LCb08t5kIU3SFXhDUcjOjtrW/P+7gjkfV/OcDdntgxoOxvwvVzZ
- n8ShMmy72OGt/xjMPplnuzgB+irO6Hj2H4ewMeNZF/T3xmKudODUQ/eVg9SIb/UG4m
- MmKm7C2ykWTnQ==
-X-Pm-Submission-Id: 4hTkC13Vm9z2Schg
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 4/5] drm/bridge: nwl-dsi: Add error handling of
- nwl_dsi_mode_set()
-In-Reply-To: <20260810072257.2ABD61F000E9@smtp.kernel.org>
- (sashiko-bot@kernel.org's message of "Mon, 10 Aug 2026 07:22:56
- +0000")
-References: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
- <20260810-nwl-dsi-fixes-v3-4-256da9d672e1@geanix.com>
- <5q9c0nOychvLDFd3tAjzhmVICVDZQWFIPqhVqa1FQJGcjJTarKOeTu1dJqvF_NiZXLKlWwb68VedbPjlDsJ8gg==@protonmail.internalid>
- <20260810072257.2ABD61F000E9@smtp.kernel.org>
-Date: Tue, 25 Aug 2026 12:13:49 +0200
-Message-ID: <87jypeo6ci.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C8910E9C2
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:20:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 243F96011F;
+ Tue, 25 Aug 2026 10:20:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37C41F000E9;
+ Tue, 25 Aug 2026 10:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787653208;
+ bh=Gu55QArcsWkPYuH5BBASS35a+MN2cPs2dur4kYahtaM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TUsHG3iqv/WX6us9BqBQa3FFNkjzn6rOnSq8V5Ck3LA3rPnHwZPn3spVEwpNCNSk+
+ IKGrDB8FhXeH4HA0OokVTjmsQcwUA7FSKs9IBcxkSqNco/yhyx3JvowNwx55iox5Ml
+ 9vsHyg/LU/liPtnJynJrbrCmJLAMHsepCNIRCQODVtAhONFh0bHcPGSb7kI9pdnSc2
+ CqcmAilz7FJwDw42mGq60VwJfrVqhiLli/qJ6iKEYhiSlDgwgT3ANftmS70EcvzbHr
+ dGEZ0+sDHNr+chELI96F36MLcr4r+4eHG8Us3AxedqBRyemWrZPDKzOKcx1FyosPMF
+ 1St2tStPAn5JA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/mediatek: Add missing IS_ERR check for
+ ovl_adaptor  platform device
+To: "Haojie Li" <lihaojie@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260825100845.438893-1-lihaojie@kylinos.cn>
+References: <7a3cbf55bf6a97835ee426eb38c34b2c153437eb.camel@mediatek.com>
+ <20260825100845.438893-1-lihaojie@kylinos.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 10:20:08 +0000
+Message-Id: <20260825102008.A37C41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,131 +54,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-<sashiko-bot@kernel.org> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [High] Unbalanced resource teardown and PM runtime underflow in mode_se=
-t error path.
-> --
->
-> --- Patch [4]: [PATCH v3 4/5] drm/bridge: nwl-dsi: Add error handling of =
-nwl_dsi_mode_set() ---
-> commit 0db3c1cc2f73a9bc66aea2633f754029dd76b743
-> Author: Esben Haabendal <esben@geanix.com>
->
-> drm/bridge: nwl-dsi: Add error handling of nwl_dsi_mode_set()
->
-> This commit adds a return value check for nwl_dsi_mode_set() in
-> nwl_dsi_bridge_mode_set(), jumping to an error path on failure.
->
->> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/n=
-wl-dsi.c
->> index 3fd41212933c8..e90588299c5ea 100644
->> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
->> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
->> @@ -884,7 +884,9 @@ nwl_dsi_bridge_mode_set(struct drm_bridge *bridge,
->>  	}
->>
->>  	/* Step 2 from DSI reset-out instructions */
->> -	nwl_dsi_mode_set(dsi);
->> +	ret =3D nwl_dsi_mode_set(dsi);
->> +	if (ret < 0)
->> +		goto runtime_put;
->
-> [Severity: High]
-> This is a pre-existing issue, but does taking the runtime_put error path =
-here
-> lead to unbalanced resource teardown and PM runtime underflows?
+Pre-existing issues:
+- [High] platform_device_register_data() is incorrectly used to create a sh=
+allow kmemdup copy of a 'struct device' object by value instead of passing =
+a pointer.
+--
 
-Yes, it looks like it does. Similar to the existing error flows unfortunate=
-ly.
+--- Patch [1]: [PATCH v2] drm/mediatek: Add missing IS_ERR check for ovl_ad=
+aptor  platform device ---
+commit 7a17d0a013a729b24666cfaf3097488acb16a27b
+Author: Haojie Li <lihaojie@kylinos.cn>
 
-> Because the drm_bridge_funcs.mode_set callback returns void, failures can=
-not be
-> propagated to the DRM core to abort the commit. If nwl_dsi_mode_set() fai=
-ls and
-> jumps to runtime_put, it calls pm_runtime_put_sync() and returns early.
->
-> However, the DRM core still considers the bridge pipeline state to be 'en=
-abled',
-> and will unconditionally call nwl_dsi_bridge_atomic_disable() during the =
-next
-> pipeline teardown.
->
-> When atomic_disable() runs, it unconditionally calls pm_runtime_put(), le=
-ading
-> to a reference count underflow:
->
-> drivers/gpu/drm/bridge/nwl-dsi.c:nwl_dsi_bridge_atomic_disable() {
-> 	...
-> 	pm_runtime_put(dsi->dev);
-> }
+drm/mediatek: Add missing IS_ERR check for ovl_adaptor platform device
 
-Maybe we should use pm_runtime_get_sync() instead of
-pm_runtime_resume_and_get() in nwl_dsi_bridge_mode_set(), and then call
-pm_request_idle() on error instead of pm_runtime_put_sync(). This way we
-can keep the pm_runtime_put() in nwl_dsi_bridge_atomic_disable() without
-risk of counter undeflow.
+This commit adds an IS_ERR() check for the return value of
+platform_device_register_data() when initializing the ovl_adaptor
+device. This prevents a potential kernel crash caused by using an
+invalid pointer if the registration fails.
 
-We would need to do something about the initial early return on
-nwl_dsi_get_dphy_params() error, to avoid that causing counter
-underflow. I think it should be safe to call pm_runtime_get_synmc()
-first thing in nwl_dsi_bridge_mode_set().
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_drv.c
+> index c86a3f54f35bc..b281482ab8c82 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -1112,6 +1112,9 @@ static int mtk_drm_probe(struct platform_device *pd=
+ev)
+>  							    PLATFORM_DEVID_AUTO,
+>  							    (void *)private->mmsys_dev,
+>  							    sizeof(*private->mmsys_dev));
 
-Is it possible to do this in a follow-up patch series, so that we can
-proceed with merging this without causing more complications by dealing
-with this tricky pre-existing issue?
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to pass
+sizeof(*private->mmsys_dev) to platform_device_register_data() here?
 
-> Furthermore, atomic_disable() unconditionally calls nwl_dsi_disable(), wh=
-ich
-> blindly attempts to tear down the PHY:
->
-> drivers/gpu/drm/bridge/nwl-dsi.c:nwl_dsi_bridge_atomic_disable() {
-> 	...
-> 	nwl_dsi_disable(dsi);
-> 	...
-> }
->
-> Since nwl_dsi_mode_set() already cleans up its own PHY resources on inter=
-nal
-> failure,
->
-> this double-disable pushes the PHY framework's power_count and
-> init_count to -1. The next attempt to initialize the display will increme=
-nt
-> these counters to 0, skipping the actual hardware ops->power_on() and
-> ops->init() calls, permanently leaving the display broken until the modul=
-e is
-> reloaded.
+The size parameter instructs platform_device_register_data() to kmemdup
+the entire struct device object into the new platform device's platform_dat=
+a.
 
-True. That is a pre-existing issue, but I don't see how it is affected
-by this change. In case nwl_dsi_mode_set() fails, it did internal cleanup/d=
-isable
-of PHY resources before this change, and does so after this change in
-the same way.
+Later in mtk_disp_ovl_adaptor_probe():
 
-> While this broken error path already existed for clock initialization fai=
-lures
-> in this function, wiring up nwl_dsi_mode_set's return value to it exposes=
- the
-> PHY breakage on a new failure path.
+drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c:mtk_disp_ovl_adaptor_probe(=
+) {
+    ...
+    priv->mmsys_dev =3D pdev->dev.platform_data;
+    ...
+}
 
-I don't think that is true. The changed behavior in case
-nwl_dsi_mode_set() fails is that we are now skipping deassert of rst_esc
-and rst_byte and doing pm_runtime_put_sync(), where as before we were
-executin g the deassert of rst_esc and rst_byte and not doing
-pm_runtime_put_sync(). The PHY double-disable issue is unchanged.
+This extracts the cloned struct device object. Copying a struct device by
+value duplicates its internal state (like kobjects, list heads, and locks).
+If this cloned device is passed to generic device APIs, it could risk list
+corruption, use-after-free, or power management state desynchronization.
 
->>
->>  	/* Step 3 from DSI reset-out instructions */
->>  	ret =3D reset_control_deassert(dsi->rst_esc);
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-nwl-dsi-=
-fixes-v3-0-256da9d672e1@geanix.com?part=3D4
+Should this be passing a pointer to the device object instead of copying
+the object by value?
+
+> +		if (IS_ERR(ovl_adaptor))
+> +			return PTR_ERR(ovl_adaptor);
+> +
+>  		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev =3D &ovl_adaptor-=
+>dev;
+>  		mtk_ddp_comp_init(dev, NULL, &private->ddp_comp[DDP_COMPONENT_DRM_OVL_=
+ADAPTOR],
+>  				  DDP_COMPONENT_DRM_OVL_ADAPTOR);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825100845.4388=
+93-1-lihaojie@kylinos.cn?part=3D1
