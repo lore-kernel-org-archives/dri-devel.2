@@ -4,53 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4987FC61DB9
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 13:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2528C61DBE
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 13:12:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E32E10EA4E;
-	Tue, 25 Aug 2026 13:12:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9BD10E5F3;
+	Tue, 25 Aug 2026 13:12:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Lynkkr9J";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="f6dINm/5";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8B6AA10E5F3
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 13:11:59 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2CB621A9A
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:11:55 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- C9DB73F66F
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:11:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787663519; bh=ip74jrEBcTzJPtVOaT/s5xoO1C2OZn6vFIy6/oB81rg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Lynkkr9JDx+onHeSlo22Sw4nwA+QvWzwIRoZrkYgyV2dpJyZpd1jVH4tHzE+gRv6a
- 3dSZ4w5han28ECxi9Ma+p0rvTDMiSglDRf7xJTmSA7FznVYn9KW1GkfryGOu+13igp
- 3WPh1goJrlnLmXzh47Ub5iGFOihhm8TfJ1OCiJSA=
-Date: Tue, 25 Aug 2026 14:11:46 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A475410E5F3
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 13:12:57 +0000 (UTC)
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-49545071724so40320285e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:12:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1787663576; x=1788268376;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rXohTk4GdfSVv1B1Vj6jhy4ehfsGqcW+TXrVTAjc0Ko=;
+ b=f6dINm/52kJ4LCnrTsvgffZ27FXG7GmwPvdyBGC7134237H5SOzFNdjoVEwQ1Hp/di
+ u8CkwWjyIkpvYpbOohTye78r2Q5LQXplfaW/029KFgWMcZT0iF1CEolFzkmPMywRi0qG
+ ZTR3HqdQ2binnFDQjq0XsXw1T3Rzu1pnwhHeJ0eOqGTT3byS64b9+a1/tpbZhKJqjY8E
+ UeMAZ3priwx7nR2wyeNUjyEgRv2Wzxv+WLfJWyiYP+zE6MBxjt3kEEtLff3bvFMrPf7I
+ 9H0j3m0KSRXhQvPR/OwqBfCDK1piVitObtV4aoyCzH8xyVzLHeZbr9axSsVHw1v+b4P+
+ 2Vrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787663576; x=1788268376;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rXohTk4GdfSVv1B1Vj6jhy4ehfsGqcW+TXrVTAjc0Ko=;
+ b=sIyno2xLl8w75qLiT5rruxPlT8+B8ETBwmPdug5Vo0TJCKn8PweWCWpO9iGgAH0uRF
+ c3JyVDR5dV8kXAKip18bmnBv65aZHDNklycRL4bL3H6xZkUO3yLb5MN/yed7AeEADCVc
+ o2oaU4hEbEGfksGbEProEd814p5zcGC0EfE+JWBZfNPkJw5rn4OzEFX2oMdSIZRt6mQS
+ oH/fCyqdGxiElOMweHnuY4EtnGzH7CRwqwrcbZGI9D/+TedM9RbysSIiYqsuoBt0M5zn
+ tmd8kz+W4Seu7xghsb6GDIqKXg3dxuF0PcNfYRM5lvKYJ4SxdHyYxYbY1HfVm/w/+t5d
+ 3ZEw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpwZr/1wa31vMyuqSXESRm0JzWvPLMHu+b1iju1Q0TNU9PD7NT6/jlIFtj7MiCk+JsbxVuXW9G3Pdk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lDAfSeXNi/y4Ol5zdjo/Fhe874jQZKTHyYLdXGMJcERySd1IOC
+ 27tOHzVlbwafUo+DOzrMVPEse39TIXooVqgAx3sdHFIHw/vofMZQbtagJO7xR5QO1X9Je/Rdy45
+ Tw60yflmnAhoB898pYw==
+X-Received: from wmoo2.prod.google.com ([2002:a05:600d:102:b0:499:58e2:b51f])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3b9f:b0:499:8ae1:b900 with SMTP id
+ 5b1f17b1804b1-499d652362amr77858225e9.12.1787663575869; 
+ Tue, 25 Aug 2026 06:12:55 -0700 (PDT)
+Date: Tue, 25 Aug 2026 13:12:54 +0000
+In-Reply-To: <DKXZ7VHUCLWL.C6IPHWPTEJW4@nvidia.com>
+Mime-Version: 1.0
+References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
+ <20260817-chid-v7-6-a5872e64d8f4@nvidia.com>
+ <DKUHJF1YTTY6.1XXC1L2SYXEMF@nvidia.com> <DKXZ7VHUCLWL.C6IPHWPTEJW4@nvidia.com>
+Message-ID: <ao2U1jNaT7waibJW@google.com>
+Subject: Re: [PATCH v7 06/10] rust: id_pool: take a NonZero capacity in
+ with_capacity
+From: Alice Ryhl <aliceryhl@google.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Burak Emir <burak.emir@gmail.com>,
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>,
+ "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Grant Likely <grant.likely@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v4 2/3] drm/panthor: Revisit reqs_lock handling in
- flush/reset paths
-Message-ID: <ao2UkqH1eHkbTc0h@e142607>
-References: <20260812-panthor-cache-flush-fix-v4-0-751e32901898@collabora.com>
- <20260812-panthor-cache-flush-fix-v4-2-751e32901898@collabora.com>
- <3ee78a7a-3600-4b44-bf8b-1ff99b693cda@arm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3ee78a7a-3600-4b44-bf8b-1ff99b693cda@arm.com>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, 
+ Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, 
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,167 +98,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 19, 2026 at 04:37:27PM +0100, Steven Price wrote:
-> On 12/08/2026 15:07, Nicolas Frattaroli wrote:
-> > panthor_gpu_flush_caches() and panthor_gpu_soft_reset() acquire their
-> > reqs_lock spinlock with the IRQ-disabling variants of the spinlocking
-> > functions. This isn't necessary, as the lock is never taken from an
-> > atomic context, as Panthor uses threaded interrupt handlers. The result
-> > of this overly strict locking is that IRQs may be disabled more
-> > frequently and for longer than they should be, resulting in increased
-> > system latency.
-> > 
-> > Switch the locking to use non-IRQ-disabling scoped_guard statements for
-> > locking. The wait_event_timeout read of pending_reqs outside of the
-> > spinlock is fine as wait_event_timeout is a memory barrier according to
-> > the Linux Memory Model.
-> > 
-> > Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+On Tue, Aug 25, 2026 at 08:09:13PM +0900, Eliot Courtney wrote:
+> On Fri Aug 21, 2026 at 5:39 PM JST, Alexandre Courbot wrote:
+> > On Mon Aug 17, 2026 at 4:04 PM JST, Eliot Courtney wrote:
+> >> There is no good reason to allocate an IdPool with zero capacity.
+> >> Reflect this in IdPool::with_capacity.
+> >>
+> >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> >
+> > I am not sure this one is justifiable; `KVec::with_capacity(0)` is
+> > doable, so why not here? As long as it doesn't introduce soundness
+> > issues I'd say this is the caller's business; a driver with a legitimate
+> > empty IdPool use-case would now need to special-case it.
+> >
+> > Now we do have an actual soundness issue with zero-sized IdPools, which
+> > is that `find_unused_id` would panic with `CONFIG_RUST_BITMAP_HARDENED`,
+> > but as I said on patch 5 I don't think it should anyway. Another
+> > potential issue is that `grow_request` would not grow anything; but that
+> > should be fixed there by handling the `capacity == 0` case. Actually
+> > that would give justification for empty IdPools to exist: just like a
+> > vector can start empty and grow, so can an IdPool.
 > 
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> 
-> Although one minor formatting nit below.
-> 
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_gpu.c | 72 ++++++++++++++++-------------------
-> >  1 file changed, 33 insertions(+), 39 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> > index 7088371c6d64..55e33f145b40 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> > @@ -345,41 +345,36 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
-> >  			     u32 l2, u32 lsc, u32 other)
-> >  {
-> >  	struct panthor_gpu *gpu = ptdev->gpu;
-> > -	unsigned long flags;
-> >  	u64 start = 0;
-> >  	int ret = 0;
-> >  
-> >  	/* Serialize cache flush operations. */
-> >  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
-> >  
-> > -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> > -
-> > -	if (tracepoint_enabled(gpu_cache_flush))
-> > -		start = ktime_get_ns();
-> > -
-> > -	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
-> > -		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
-> > -		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
-> > -	} else {
-> > -		ret = -EIO;
-> > -	}
-> > -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
-> > -
-> > -	if (ret) {
-> > -		panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc, other, ret);
-> > -		return ret;
-> > +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
-> > +		if (tracepoint_enabled(gpu_cache_flush))
-> > +			start = ktime_get_ns();
-> > +
-> > +		if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
-> > +			ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
-> > +			gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
-> > +		} else {
-> > +			panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc,
-> > +							 other, -EIO);
-> > +			return -EIO;
-> > +		}
-> >  	}
-> >  
-> >  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> >  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
-> >  				msecs_to_jiffies(100))) {
-> > -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> > -		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
-> > -		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
-> > -			ret = -ETIMEDOUT;
-> > -		else
-> > -			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
-> > -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
-> > +		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
-> > +			if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
-> > +			!(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
-> 
-> NIT: This isn't aligned correctly with the if() above any more.
+> I don't have a very strong opinion here but I can't really think of a
+> use case for a zero capacity IdPool. Unlike an empty vector, since
+> IdPool doesn't automatically grow (there is a notion of a fixed ID
+> space), the only thing you can do with a zero capacity IdPool is grow it
+> to non-zero. All the other operations don't do anything useful.
 
-I've fixed this locally before pushing it to drm-misc-next.
+It may not grow automatically, but that's only because Binder (which
+will grow its IdPool) holds it in a spinlock and needs to use the
+PoolResizer and so on to grow it without allocating under said spinlock.
 
-Best regards,
-Liviu
+> If such a use case exists, maybe it'd have to be something like you are
+> using the capacity to identify your ID space size (and the ID space size
+> is important otherwise you would just use IdPool::new() with the
+> MAX_INLINE_LEN capacity) but then the only way you can grow it is via
+> grow_request() which doesn't grow the ID space in caller controllable
+> way.
+> 
+> Anyway, let me know if you feel strongly about this one. FWIW, previous
+> to this patch series you couldn't construct a 0 capacity IdPool either.
 
-> 
-> To be honest what we really need here is a helper for this sequence as
-> there's basically the same code again in panthor_gpu_soft_reset() below.
-> 
-> > +				ret = -ETIMEDOUT;
-> > +			else
-> > +				ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
-> > +		}
-> >  	}
-> >  
-> >  	panthor_gpu_emit_flush_caches_tp(ptdev, start, l2, lsc, other, ret);
-> > @@ -402,27 +397,26 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
-> >  {
-> >  	struct panthor_gpu *gpu = ptdev->gpu;
-> >  	bool timedout = false;
-> > -	unsigned long flags;
-> >  
-> > -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> > -	if (!drm_WARN_ON(&ptdev->base,
-> > -			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
-> > -		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
-> > -		gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
-> > -		gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
-> > +	scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
-> > +		if (!drm_WARN_ON(&ptdev->base,
-> > +				ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
-> > +			ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
-> > +			gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
-> > +			gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
-> > +		}
-> >  	}
-> > -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
-> >  
-> >  	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> >  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
-> >  				msecs_to_jiffies(100))) {
-> > -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> > -		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
-> > -		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
-> > -			timedout = true;
-> > -		else
-> > -			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
-> > -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
-> > +		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
-> > +			if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
-> > +			!(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
-> 
-> NIT: Same issue here.
-> 
-> Thanks,
-> Steve
-> 
-> > +				timedout = true;
-> > +			else
-> > +				ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
-> > +		}
-> >  	}
-> >  
-> >  	if (timedout) {
-> > 
-> 
+I feel strongly.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Using NonZero to prevent passing zero is a very strong mitigation due to
+its big ergonomic cost. There's nothing really wrong about a
+zero-capacity IdPool, so let's not pay the ergonomics cost when we don't
+need to.
+
+Alice
