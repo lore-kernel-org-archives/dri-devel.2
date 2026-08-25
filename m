@@ -4,44 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88AA2C5DF94
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 09:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0833BC61DB6
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 09:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBF7410E16B;
-	Tue, 25 Aug 2026 09:03:45 +0000 (UTC)
-X-Greylist: delayed 1158 seconds by postgrey-1.36 at gabe;
- Tue, 25 Aug 2026 09:03:43 UTC
-Received: from wxsgout04.xfusion.com (wxsgout03.xfusion.com [36.139.52.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5507310E16B
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 09:03:43 +0000 (UTC)
-Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
- by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4hTh8s1djqzBQssm;
- Tue, 25 Aug 2026 16:41:49 +0800 (CST)
-Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
- wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.20;
- Tue, 25 Aug 2026 16:44:18 +0800
-From: shechenglong <shechenglong@xfusion.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sam Ravnborg
- <sam@ravnborg.org>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <stone.xulei@xfusion.com>, <chenjialong@xfusion.com>, shechenglong
- <shechenglong@xfusion.com>
-Subject: [RESEND PATCH] drm: Fix NULL pointer dereference in drm_minor_alloc()
- on error path
-Date: Tue, 25 Aug 2026 16:44:10 +0800
-Message-ID: <20260825084410.1306-1-shechenglong@xfusion.com>
-X-Mailer: git-send-email 2.37.1.windows.1
-In-Reply-To: <20260810120509.784-1-shechenglong@xfusion.com>
-References: <20260810120509.784-1-shechenglong@xfusion.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54A7C10E980;
+	Tue, 25 Aug 2026 09:15:27 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="O2Be2iUR";
+	dkim-atps=neutral
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC54A10E980
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 09:15:25 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-496bb7cdf51so26828785e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 02:15:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1787649324; x=1788254124;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=KQG7I15zl1cZ8xoz0nJUhoyELZuli5z85AXKE7Cy0D4=;
+ b=O2Be2iUREOgaUt1Sall3oDJfkjyB4Dk6UqQsX90GFvED/31LCXNMKlRnaS/9POlzzx
+ 8e5xWJU355SeIRCtFTaGD9WrRenWhm2K6IFWNlBURicM/HtA8dEAX76bSVRG5sRq1fuR
+ EgsnBcpJE3Cx/MnTU37/CgjGsGr5TUdpg/1SG5uT8zCbdMT729O7AJWrBuqV74rzHZgQ
+ /VsJAyPmdSWdzQWXpKlfTW8U2X47+BKG8rs6d7YEcbmNSCZnhJGMsxKJ2taUCaKaQBHu
+ aPCbJ6r79kV9I093PXgT2Wy15qQoxeDo7yuuAw3D5NYCUkpJeT+fnQVllJKYI+KR3Wm+
+ GCWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787649324; x=1788254124;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=KQG7I15zl1cZ8xoz0nJUhoyELZuli5z85AXKE7Cy0D4=;
+ b=TlOvEo0Kb6RojkluRraapvflYDYQHNN+b2ViZt4RYfCRqerFuRllNSfaHWCjQRwT/z
+ Ydt8OJ/hau4BaGUflaLl/fEgp0CQ8TpkFhe7CkimBZw/lwDTCVa4KILd4RXoUCOYjCwa
+ DtHpnhKHXiqp29c4DsAMeNMou97QBrRUEnAXv5+9nbj/lGIrYfe5w2VbBCqoM11LNxl1
+ AzTtExIsHPkENPOJb2lmwXA4xrgvccAaqoc5HbBDPpprelLR00R/BKERH6Rjs5xPRG0d
+ SkexJ1s48fX1hhpNotRnCIuAUdv6ULXnsnb2EmJPVhxMZd6faGfqSU+jzN18BOO9I73Q
+ DxFQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RorKMNIIOtddRVzsO+rn+6jXT4+t2nQLpDEtGF//BmHgrouf43HOSfJ9K5xTaW1j9+2tkQksi9fKq0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ko86WYYmgTnspjbuV5Rh0ar4rg+nLntpgaLhWnk3s/LzGOusAc
+ 0dCVxcQnC0IW/WPF7zG6QwUaI3ulGPLC/W3UVFzn1zdiMFhnnmWbT6mYXQ4eWqT5dlk=
+X-Gm-Gg: AR+sD12teXAYXWPrXir6JQKV9c1E9ySVDYy6H5mBFgRavEPEy+tQtbLsJ0yBvDGLmcA
+ QaNn4mxwlM2bLXy4aCirhPqiZw7qozRayIGaBzvE44C2Hmw/hXk5q0/s1CkhmlwBpQv3HTP2ZBO
+ RO/7bXUBhJeFk2bF2cxKKzB9YhuuKVDUScGKPYX16c9c2KW2ZXNbvKLfwhpWMS/+mDxkGXb+UiQ
+ Nf7XwX0T6PDutxeR9mqNxqZUBOKhh1FQwY3zBcpWAoRWCh/VHlLAaTxSTaMv72C4T3H6A9nqsz1
+ uEDkSCUQ9hWmZeuahP/bplOgII+meE04TFI+YG0Jy4uhmm/d3f4Hfpj3gEce9faXiwn9E+dljrQ
+ 2QQgPcOq01ANy/gLL+BywigCKKOzarD/tkylboZLPEg8LOmKeT/zuW/Z0KIzh/w9YZKnZcIvT0M
+ PHuh099igKzevFkBdpf+C8c38wzNrf+B7nRLSFM/PeLGPMP6IZsA/8znDkZsTsiH7GRwdNsQWGa
+ 9NZ7puJQ6EpaxkncbysiO2F23l4MrrRReNqoxyxM69Kb/j6Zto9BEb/jvNAQXdONbIbKj71Wzqa
+ qIi5ZYe7dyV70bArNvZRttSQtw/01RB7VXG8BgWkbjiOjQ==
+X-Received: by 2002:a05:600c:c493:b0:499:7aa7:eaa7 with SMTP id
+ 5b1f17b1804b1-499b845c184mr414028865e9.15.1787649324060; 
+ Tue, 25 Aug 2026 02:15:24 -0700 (PDT)
+Received: from aspen.lan
+ (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-499d65c326esm20415775e9.10.2026.08.25.02.15.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Aug 2026 02:15:22 -0700 (PDT)
+Date: Tue, 25 Aug 2026 10:15:19 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Andrew Davis <afd@ti.com>
+Cc: "A. Sverdlin" <alexander.sverdlin@siemens.com>,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
+Subject: Re: [PATCH 2/2] leds: lp8864: Register a backlight device
+Message-ID: <ao1dJ1Ce6qcp9USk@aspen.lan>
+References: <20260817170817.1933046-1-alexander.sverdlin@siemens.com>
+ <20260817170817.1933046-3-alexander.sverdlin@siemens.com>
+ <aowP3K7sgXKnsonS@aspen.lan>
+ <fcdc4b46-dab7-40fe-9b1e-c5c2e2ef8dd7@ti.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.82.130.100]
-X-ClientProxiedBy: wuxpheds03048.xfusion.com (10.32.143.30) To
- wuxpheds03048.xfusion.com (10.32.143.30)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fcdc4b46-dab7-40fe-9b1e-c5c2e2ef8dd7@ti.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,84 +101,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When drm_sysfs_minor_alloc() fails (e.g., due to -ENOMEM), the
-following Oops occurs because an ERR_PTR is passed to put_device():
+On Mon, Aug 24, 2026 at 10:39:19AM -0500, Andrew Davis wrote:
+> On 8/24/26 4:33 AM, Daniel Thompson wrote:
+> > On Mon, Aug 17, 2026 at 07:08:15PM +0200, A. Sverdlin wrote:
+> > > From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> > >
+> > > The LP8864/LP8866 is a display-cluster LED backlight driver. Expose a
+> > > standard backlight class interface in addition to the LED class device,
+> > > so it can be used by display/panel stacks that expect a backlight.
+> > >
+> > > Use the new devm_led_backlight_register() helper, which spawns a
+> > > led-backlight device driven by our LED and tied to the I2C device
+> > > lifetime. This keeps the driver a plain LED driver, requires no
+> > > device-tree changes and remains backwards compatible with existing DTs.
+> > > It is a no-op when the led-backlight support is not enabled.
+> >
+> > ... but when led-backlight support is enabled it will prohibit the use
+> > of the LED sysfs interface.
+> >
+>
+> The commit message states "in addition to" so both are registered still.
+> The issue would be in the [1/2] patch if it disables the LED sysfs interface
+> as this might be unexpected behavior to not keep both interfaces active.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000030
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  RIP: 0010:kobject_put+0xd/0x60
-  Call Trace:
-   drm_minor_alloc_release+0x1c/0x50 [drm]
-   drm_managed_release+0x96/0x160 [drm]
-   drm_dev_init+0x269/0x330 [drm]
-   drm_dev_alloc+0x3f/0x80 [drm]
-   virtio_gpu_probe+0x40/0x180 [virtio_gpu]
-   virtio_dev_probe+0x1fd/0x360
-   ...
-   do_syscall_64+0xaf/0x500
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+Yes, led_bl disables the sysfs interface of any LED supplier(s). Note
+that this is not changed by anything in the patch series ([1/2]
+rearranges the code slghtlt but this has always been the case).
 
-The call path that leads to this crash is:
 
-  virtio_gpu_probe()
-    drm_dev_alloc()
-      drm_dev_init()
-        drm_minor_alloc()              // allocates minor
-          drm_sysfs_minor_alloc()      // returns ERR_PTR(-ENOMEM)
-          minor->kdev = ERR_PTR(-ENOMEM)  // stored directly
-          return -ENOMEM
-        // drm_dev_init() fails, triggers cleanup:
-        drm_managed_release()
-          drm_minor_alloc_release(dev, minor)
-            put_device(minor->kdev)     // ERR_PTR(-ENOMEM) dereferenced
-              kobject_put()             // crashes at address 0x30
+> > Having zero DT changes is a nice property but it seems rather fragile to
+> > change the ABI the userspace must use to manipulate the LED based on
+> > CONFIG_LED_BL.
+> >
+>
+> If this was done in DT then it would also change the API userspace must
+> use in a non-flexible way (DT is also considered a fixed ABI for a board).
 
-drm_minor_alloc() assigns the return value of drm_sysfs_minor_alloc()
-directly to minor->kdev, even when it is an error pointer.  The
-subsequent cleanup unconditionally calls put_device(minor->kdev),
-which dereferences the error pointer and causes a NULL-pointer
-dereference (offset 0x30 into a non-page-mapped area).
+Agreed, although it does allow an existing board not to change userspace
+ABI based on a Kconfig option.
 
-Fix this by using a temporary variable to hold the result of
-drm_sysfs_minor_alloc().  If the allocation fails, we return the error
-immediately, leaving minor->kdev as NULL (the whole minor structure is
-zero-allocated).  put_device(NULL) is explicitly allowed and safe.
 
-Fixes: f96306f9892b ("drm: manage drm_minor cleanup with drmm_")
+> > Is there no way to explictly configure which ABI should be used?
+> >
+>
+> I wonder if there is a good way to have the actual use of one API cause
+> the other to be disabled at runtime? So the first one used disables the
+> other, but that does sound like a race.
+>
+> Maybe a mod config to disable the LED-BL path and keep the simple LED
+> sysfs interface would be enough. Or maybe a sysfw entry so it could
+> be set per-device if needed.
 
-Signed-off-by: shechenglong <shechenglong@xfusion.com>
----
- drivers/gpu/drm/drm_drv.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Mod config isn't "nice" although it might be a good enough solution for
+what is probably a fairly niche issue if nothing better comes up.
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 675675480..2348fbb21 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -143,6 +143,7 @@ static void drm_minor_alloc_release(struct drm_device *dev, void *data)
- static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
- {
- 	struct drm_minor *minor;
-+	struct device *kdev;
- 	int r;
- 
- 	minor = drmm_kzalloc(dev, sizeof(*minor), GFP_KERNEL);
-@@ -164,9 +165,11 @@ static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
- 	if (r)
- 		return r;
- 
--	minor->kdev = drm_sysfs_minor_alloc(minor);
--	if (IS_ERR(minor->kdev))
--		return PTR_ERR(minor->kdev);
-+	kdev = drm_sysfs_minor_alloc(minor);
-+	if (IS_ERR(kdev))
-+		return PTR_ERR(kdev);
-+
-+	minor->kdev = kdev;
- 
- 	*drm_minor_get_slot(dev, type) = minor;
- 	return 0;
--- 
-2.43.0
+I'd also note that a mod config would also allow the driver to error out
+when CONFIG_LED_BL is not set (with a hint on the logs to either enable
+LED_BL or set the config option) rather then the current "secret" ABI
+change.
 
+
+Daniel.
