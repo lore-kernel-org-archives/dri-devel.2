@@ -4,68 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC8EAC61DB9
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 23:45:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0570AC61DBD
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 23:45:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3E7E10EB8B;
-	Tue, 25 Aug 2026 23:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04B3A10EB91;
+	Tue, 25 Aug 2026 23:45:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NcwCQ5c8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OF/MnDcv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E50A10EB8B
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 23:44:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B594010EB8B
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 534DE600C4;
+ by sea.source.kernel.org (Postfix) with ESMTP id 774D642BC6;
  Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EF086C2BCB8;
- Tue, 25 Aug 2026 23:44:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D178C2BCFB;
+ Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1787701498;
- bh=yahlqdnVKdlnxPv7kgdCgJdOJCjTzFaRNEl+vby53Eo=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=NcwCQ5c8UxpB4cb/xG0fyOp/MX1wadAx+YQDMOppxoCbLdlpqD754sv4JAE5R4tsg
- 9ghKu+swuEsARr5As/BLmdEkOI4UxBlWcEZVOjymIOFhVX7gvxDdqGURBEbozQwjMn
- zpXXYxa2WQPfpd2UD9lWnfA7EEc2aTX0a0QnUBW8NhWSXIE2A9Oe7xOzleACiInnpL
- nDRIUSbJHwztUiIISXmTv94kU7bTOxTfTBUPjHi2HYW9SRhPwkWtmEKWar6yAtuXK+
- N0F4w0C20eYAK68+EuwDffXbqN9VIZ1kofgRaTuCZJPTH+jemkU10zcQt1FUkpQVSP
- yXaCa4jXeQuuA==
+ bh=t1t28+oq4vInabn8KtnubXPRvys01xfCsPHSy8FPoPU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=OF/MnDcvb44kN1XUMBcSgsH+6orrOdON8YwtcHYyAskbgmVDsizDnhHXBEfD3Rr3J
+ zIofpV8mvHuwedJKOBVCr/blBeRh1WSQVuNNTg0m3Ptavteb/6NjHEE9/YzxxGwL4u
+ uM4y6w3BKtCWyplVPxYBwukQGiPdcCqKEDep+wxnyfJcdY+VKgYm5eAZEsy6vgzy8N
+ f8tr1243jfgkSeKNYn+/p/RbsqVsRHv8SD7SPXfpx5B0OZPlPdlijPX3rW5xlEJKYr
+ edg4busIcmBdVZwjlYxZnUK8DItXPjv7QlI7qbVl8NQ1SmmXUSauE51VQD5WXc1VwV
+ XNWCv48d7Pz2g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id C49FFC61DC4;
- Tue, 25 Aug 2026 23:44:57 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 1A1F4C61DC7;
+ Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
 From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Subject: [PATCH 0/4] gpu: nova-core: Extract falcon registers
-Date: Wed, 26 Aug 2026 01:44:17 +0200
-Message-Id: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com>
+Date: Wed, 26 Aug 2026 01:44:20 +0200
+Subject: [PATCH 3/4] gpu: nova-core: falcon: Extract PFALCON2 register
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCMBBA0auUWTsQ0yDqVcRFkk7qiCZhJkqh9
- O5GXb7N/ysoCZPCeVhB6M3KJXfsdwPEm88zIU/dYI09mKN1GBzS0sTHhjVpRaGZtZEotoLJP2L
- J+CwTnijYcYyOgiHotSqUePmdLte/9RXuFNs3D9v2AQPfdjqLAAAA
-X-Change-ID: 20260824-b4-extract-pfsp-registers-to-falcon-mod-9eb233c4eb0e
+Message-Id: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-3-38351df09084@nanonej.com>
+References: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com>
+In-Reply-To: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
  Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1951; i=dev@nanonej.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5391; i=dev@nanonej.com;
  h=from:subject:message-id;
- bh=yahlqdnVKdlnxPv7kgdCgJdOJCjTzFaRNEl+vby53Eo=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqjijxzESK/eGaMHr+EPAPyhvYawjQyQmfITTVS
- zajJ4lOX7OJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCao4o8QAKCRBmh/EjChUV
- /UuXEACoo67K7QxxNIrys3YxVZ8cj7nYt/S+aPbV+AWLvJ/7LFEckl98v6FIOVMwGVnwOT+or7R
- T3K8W9K+QFQr5a7FkWu5aorbO33T3UEO1wUaigdm4s2MZnIq/SWMb9N8rAzGaBNUGeDIZ1VGCM0
- SWTqZDMVKNunkErE1EHezeIIqZuxzJU7sLS7LBNYwQ4xWGZ29ibl32HAfO46JFZth5eHUdVpnma
- 7/DVYcIBfg7fncPUBWZ+SlZFZoc3B/ITjY8fhKLq3d+W9QyzaxVisxdry1NNNc9eKrR1aeIcy8r
- Vog5YMLI3kHWBX7ZPEqPPm8pzBHFUIr959bW5nzNeVvfA+gQvAOT5+M1uLzneJRrQNJAC9u3FRI
- T++Idtv9CnjDenDGKTJ8tT/laBvTgV8yi1CC+09drc/tNtlsBqrprHaAuNrnw1ErgLIqJqyQ/Gq
- CYYk3HLKKhnW+03VSMfiprvAl8+RSJ+ow//FcrMv42ZLaWpWnvaXQaW6xQjF38FaEGZqaXkmohM
- AAVahj9Fde3NngKLoUxVHVDV6gwLLcByc3PsgLTXagAXrLAqwcrYWP57DY5S2EAckUsINztOzR+
- iHq+ELKfeS0yEMSpiccrtGq+maxo4X8nY0W3awc4C5dox9GhbpJvw7zc2k7RfkPsBfXz7b9G5JD
- n0Ftg577Mw28Jww==
+ bh=+5srcIuDrPHxo7RqYT2/oVgDi4LJMOur/dkzKD5zi7M=;
+ b=kA0DAAoBZofxIwoVFf0ByyZiAGqOKPigEFX4gzYbkVNU+kiYbYKv5cNg0JbSBYH7AAanev+ut
+ okCMwQAAQoAHRYhBIO2T7B8kSEvUoUifWaH8SMKFRX9BQJqjij4AAoJEGaH8SMKFRX9zRMP/1Oq
+ 7PlxuHne//KCaYihnEfDK1WssNGU3vxB8hN0vsxVW3GgZUEcIEQWiENMppW5RZQDVWSl3iCzSJN
+ kYEM+dy1hWVkC3l9siEh8oaRVK8pzBuCkijWCgPhSl2ga0TeqQn28/gPNixfd4F3BSd8VClJ677
+ 4zMI3PSLi7yyxFsDuu+HEWLVOi3JmzhtAJYdjcK9c8I7LQela5nWRzW4PmOQF2Z5pzHUj1qsZlL
+ wmxmkDrrM2z9xTkhRONAufvIi7qRb70fFYeOURtqzvTbVQ9o2rStDH7+1yY6tck0JDEV+A0FThy
+ lGS8bXJhUhl/SdT7ZmhxJkIvc8SMv1AVSGs/kr0CC8a4+7DFUZIEHxntA6BoGhoxlSopyY6o65D
+ hHwzuGBV2V+a7sBQEMArY/UqQ6chSrRfDAVHJpxlJ+8yR3gIDipaLEHdlkUOkilFXWVSoiOQZ0B
+ 0eiGTbqanMlS0wudrUUKZh5j31NPdJMOPF+MESBgbL/FXPQkajeS8cMQp2IJs38aFS1uYZYCo2L
+ JNix5UPxrXXABiDWsEcDazYhJ34/2AStRbYfVn01QP4A2qvYx+4XcewsQpkYtPwr/dbxfWTsgz8
+ sIfNvwyBekDPMlil1pZ7uA9D17hKt5hK/oSbgRAmq+GUzk1BdYrHma6d4iDXNJdJED6Wt3BrN5m
+ XRhO+
 X-Developer-Key: i=dev@nanonej.com; a=openpgp;
  fpr=83B64FB07C91212F5285227D6687F1230A1515FD
 X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
@@ -86,47 +84,143 @@ Reply-To: dev@nanonej.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move PFSP, PRISCV, PFALCON2, PFALCON registers definitions from the
-root regs.rs file into the falcon module.
+From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-I tried a different solution than rescoping all  registers with
-`crate::super::...` by re-exporting them, hence the comment, but I'm
-not sure it's the best solution. I was hoping they would all disapear
-by the end of my patch series but as we discussed FUSE register
-definitions better stay in the root regs for now.
+Move PFALCON2 register definitions from the root regs.rs file into
+the falcon module that own them, in the existing falcon/regs.rs file.
 
-Also the extract of `set_fbif_transcfg_regs_at()` change some
-other functions signature, I think I have covered all but tell me in
-case.
-And I wasn't sure btw if `.try_at()` required `#[inline()]` there.
+This follows the same pattern established by previous commits for
+GSP, PDISP, PFB, PBUS, PMC, PFSP and PRISCV registers: register
+definitions move to the module that interprets their service,
+visibility changes to pub(super).
 
-Finaly, If I'm correct, this series should conclude the refacto as the
-remaining registers seems to be better left in the root regs.rs.
-
+Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
 ---
-Antonin Malzieu Ridolfi (4):
-      gpu: nova-core: Extract PFSP register definitions
-      gpu: nova-core: falcon: Extract PRISCV register
-      gpu: nova-core: falcon: Extract PFALCON2 register
-      gpu: nova-core: Extract PFALCON register
+ drivers/gpu/nova-core/falcon.rs      |  4 ++--
+ drivers/gpu/nova-core/falcon/regs.rs | 31 ++++++++++++++++++++++++++-----
+ drivers/gpu/nova-core/regs.rs        | 24 ------------------------
+ 3 files changed, 28 insertions(+), 31 deletions(-)
 
- drivers/gpu/nova-core/falcon.rs                    |  38 ++-
- drivers/gpu/nova-core/falcon/fsp.rs                |   6 +-
- drivers/gpu/nova-core/falcon/gsp.rs                |  16 +-
- drivers/gpu/nova-core/falcon/hal/ga102.rs          |   4 +-
- drivers/gpu/nova-core/falcon/hal/tu102.rs          |  12 +-
- drivers/gpu/nova-core/falcon/regs.rs               | 304 +++++++++++++++++++++
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  22 +-
- drivers/gpu/nova-core/gsp/hal/tu102.rs             |   7 +-
- drivers/gpu/nova-core/regs.rs                      | 295 +-------------------
- 9 files changed, 352 insertions(+), 352 deletions(-)
----
-base-commit: d53bc149eea6213e9c4a4604df5521db7b7296ca
-change-id: 20260824-b4-extract-pfsp-registers-to-falcon-mod-9eb233c4eb0e
+diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+index 68658a6e666c..11613a2ccb69 100644
+--- a/drivers/gpu/nova-core/falcon.rs
++++ b/drivers/gpu/nova-core/falcon.rs
+@@ -95,8 +95,8 @@ pub(crate) enum FalconSecurityModel with TryFrom<Bounded<u32, 2>> {
+ 
+ bounded_enum! {
+     /// Signing algorithm for a given firmware, used in the
+-    /// [`crate::regs::NV_PFALCON2_FALCON_MOD_SEL`] register. It is passed to the Falcon Boot ROM
+-    /// (BROM) as a parameter.
++    /// [`crate::falcon::regs::NV_PFALCON2_FALCON_MOD_SEL`] register. It is passed to the Falcon
++    /// Boot ROM (BROM) as a parameter.
+     #[derive(Debug, Copy, Clone)]
+     pub(crate) enum FalconModSelAlgo with TryFrom<Bounded<u32, 8>> {
+         /// AES.
+diff --git a/drivers/gpu/nova-core/falcon/regs.rs b/drivers/gpu/nova-core/falcon/regs.rs
+index a9e1f75598dd..446a67bdf3dd 100644
+--- a/drivers/gpu/nova-core/falcon/regs.rs
++++ b/drivers/gpu/nova-core/falcon/regs.rs
+@@ -3,10 +3,33 @@
+ use kernel::io::register;
+ 
+ use crate::falcon::{
++    FalconModSelAlgo,
+     PFalcon2Base,
+     PeregrineCoreSelect, //
+ };
+ 
++// PFALCON2
++
++register! {
++    pub(super) NV_PFALCON2_FALCON_MOD_SEL(u32) @ PFalcon2Base + 0x00000180 {
++        7:0     algo ?=> FalconModSelAlgo;
++    }
++
++    pub(super) NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID(u32) @ PFalcon2Base + 0x00000198 {
++        7:0    ucode_id => u8;
++    }
++
++    pub(super) NV_PFALCON2_FALCON_BROM_ENGIDMASK(u32) @ PFalcon2Base + 0x0000019c {
++        31:0    value => u32;
++    }
++
++    /// OpenRM defines this as a register array, but doesn't specify its size and only uses its
++    /// first element. Be conservative until we know the actual size or need to use more registers.
++    pub(super) NV_PFALCON2_FALCON_BROM_PARAADDR(u32)[1] @ PFalcon2Base + 0x00000210 {
++        31:0    value => u32;
++    }
++}
++
+ // PRISCV
+ 
+ register! {
+@@ -52,16 +75,14 @@
+     }
+ }
+ 
+-// PFALCON, PFALCON2 and FUSE registers are defined in the root `regs.rs` but
+-// are part of the falcon interface, accessed by the whole falcon module. They
++// PFALCON and FUSE registers are defined in the root `regs.rs` but are
++// part of the falcon interface, accessed by the whole falcon module. They
+ // are re-exported here so falcon code can use a single `regs::` prefix.
+ // Once these families move out of the root module, these re-exports become
+ // plain definitions.
+ pub(super) use crate::regs::{
+     NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION, NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION,
+-    NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION, NV_FUSE_OPT_FPF_SIZE,
+-    NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID, NV_PFALCON2_FALCON_BROM_ENGIDMASK,
+-    NV_PFALCON2_FALCON_BROM_PARAADDR, NV_PFALCON2_FALCON_MOD_SEL, NV_PFALCON_FALCON_BOOTVEC,
++    NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION, NV_FUSE_OPT_FPF_SIZE, NV_PFALCON_FALCON_BOOTVEC,
+     NV_PFALCON_FALCON_CPUCTL, NV_PFALCON_FALCON_CPUCTL_ALIAS, NV_PFALCON_FALCON_DMACTL,
+     NV_PFALCON_FALCON_DMATRFBASE, NV_PFALCON_FALCON_DMATRFBASE1, NV_PFALCON_FALCON_DMATRFCMD,
+     NV_PFALCON_FALCON_DMATRFFBOFFS, NV_PFALCON_FALCON_DMATRFMOFFS, NV_PFALCON_FALCON_DMEMC,
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 5c1cef1c66a1..c9eca3ff911f 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -21,9 +21,7 @@
+         FalconFbifMemType,
+         FalconFbifTarget,
+         FalconMem,
+-        FalconModSelAlgo,
+         FalconSecurityModel,
+-        PFalcon2Base,
+         PFalconBase, //
+     },
+ };
+@@ -312,28 +310,6 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
+     }
+ }
+ 
+-/* PFALCON2 */
+-
+-register! {
+-    pub(crate) NV_PFALCON2_FALCON_MOD_SEL(u32) @ PFalcon2Base + 0x00000180 {
+-        7:0     algo ?=> FalconModSelAlgo;
+-    }
+-
+-    pub(crate) NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID(u32) @ PFalcon2Base + 0x00000198 {
+-        7:0    ucode_id => u8;
+-    }
+-
+-    pub(crate) NV_PFALCON2_FALCON_BROM_ENGIDMASK(u32) @ PFalcon2Base + 0x0000019c {
+-        31:0    value => u32;
+-    }
+-
+-    /// OpenRM defines this as a register array, but doesn't specify its size and only uses its
+-    /// first element. Be conservative until we know the actual size or need to use more registers.
+-    pub(crate) NV_PFALCON2_FALCON_BROM_PARAADDR(u32)[1] @ PFalcon2Base + 0x00000210 {
+-        31:0    value => u32;
+-    }
+-}
+-
+ // The modules below provide registers that are not identical on all supported chips. They should
+ // only be used in HAL modules.
+ 
 
-Best regards,
---  
-Antonin Malzieu Ridolfi <dev@nanonej.com>
+-- 
+2.55.0
 
 
