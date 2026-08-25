@@ -4,45 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 839A9C61DBE
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:29:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A4EBC61DBE
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:30:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC23E10EA26;
-	Tue, 25 Aug 2026 12:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF4310EA29;
+	Tue, 25 Aug 2026 12:30:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MJmdoSFd";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="M/plwnle";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08B2810EA26;
- Tue, 25 Aug 2026 12:29:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CC3824166E;
- Tue, 25 Aug 2026 12:29:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C531F000E9;
- Tue, 25 Aug 2026 12:29:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787660983;
- bh=HRLWYJbKwOApKH+48tMVqFtRbkWoRJduhSjRZhl8sZo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MJmdoSFdSQVvWCBIsA3hwzN5sM20Ysm4YrjHierT2Q4sYF/WPO+1VuSO6tmM32Fe1
- SOtNhXNwWIH+Ok/qYYo+GtX3p3s+lyS1eMIqZDtkjuUEdMz5bIJOxkqJdSmRz54y+x
- J1VOO9z9h88cGgruXT2724QA4iI+p73CpOActnv9gglXT2gbAvRsuLUC3CvOTofxWE
- EE+zfVN96OfwShbfjlv2E1GhC/vaYTlNQwW1Cjvnq5CG8UZ7mpj/hsIZD9t2J5h3VS
- X2GHYjLWhJgzem2FduVrQwj2rOGwUeXisTLqAp18xMD46qkakzGJeg2WaSgY9JuwRe
- YI/VRK/glL+GQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] drm/i915/pmu: use the expiry injecting hrtimer
- callback
-To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- ojeda@kernel.org
-In-Reply-To: <20260825-expires-v2-v1-2-90411c6217c7@kernel.org>
-References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
- <20260825-expires-v2-v1-2-90411c6217c7@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 12:29:42 +0000
-Message-Id: <20260825122943.69C531F000E9@smtp.kernel.org>
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E143B10EA29
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 12:30:02 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260825123000euoutp0292e91df20f39ead33ba1a583fd40ac8c~PDDVZCRVl1742717427euoutp02N
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 12:30:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260825123000euoutp0292e91df20f39ead33ba1a583fd40ac8c~PDDVZCRVl1742717427euoutp02N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1787661000;
+ bh=/CFXDg3L0aD6SB3xy+cQUqcdazmfSamoOM2pD2VK9/8=;
+ h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
+ b=M/plwnleb557HnWW2Dgy9vnFWSWbm89jMkXmfdBPQP4QBiSMtpwH1WVf0GPG0YzkB
+ gifzRvzJLk6W7MqMdMgDOgPSNREwbE762LekRDsHSM41/dqjMNjK0W8f2FmZQdds1C
+ PimsNKW8gsS17sEJpl3sKl4RVUT9KVaiQ48N53po=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260825123000eucas1p248f943e21b217192142c843eb427dd76~PDDVEpmia1504115041eucas1p2S;
+ Tue, 25 Aug 2026 12:30:00 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260825122959eusmtip1bd8675e1e80e324fa87b118bf74d4d66~PDDULpsjo1767517675eusmtip1d;
+ Tue, 25 Aug 2026 12:29:59 +0000 (GMT)
+Message-ID: <e7605d7a-85f1-4339-99d2-85c0df884ec2@samsung.com>
+Date: Tue, 25 Aug 2026 14:29:58 +0200
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [PATCH v5 05/10] mm/cma: Introduce cma_alloc_at() API
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Thierry Reding
+ <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jonathan
+ Hunter <jonathanh@nvidia.com>, Robin Murphy <robin.murphy@arm.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <ae6c93e6-10f2-4bac-be61-118bbfc3c05d@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260825123000eucas1p248f943e21b217192142c843eb427dd76
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0
+X-EPHeader: CA
+X-CMS-RootMailID: 20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0
+References: <20260814-tegra-vpr-v5-0-71832b5d0246@nvidia.com>
+ <20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
+ <CGME20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0@eucas1p2.samsung.com>
+ <ae6c93e6-10f2-4bac-be61-118bbfc3c05d@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,88 +78,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 20.08.2026 20:04, David Hildenbrand (Arm) wrote:
+>> /* This part must be outside protection */> diff --git a/mm/cma.c b/mm/cma.c
+>> index a10ea37a261d..1e1ebae79090 100644
+>> --- a/mm/cma.c
+>> +++ b/mm/cma.c
+>> @@ -936,6 +936,141 @@ struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+>> return __cma_alloc_frozen(cma, 1 << order, order, gfp);
+>> }
+>> +static int cma_range_alloc_at(struct cma *cma, struct cma_memrange *cmr,
+>> + unsigned long offset, unsigned long count,
+>> + struct page **pagep, gfp_t gfp)
+>> +{
+>> + struct page *page = NULL;
+>> + unsigned long pfn;
+>> + int ret = -EBUSY;
+>> +
+>> + spin_lock_irq(&cma->lock);
+>> +
+>> + /*
+>> + * If the request is larger than the available number of pages, stop
+>> + * right away.
+>> + */
+>> + if (count > cma->available_count)
+>> + goto unlock;
+>> +
+>> + ret = bitmap_allocate(cmr->bitmap, offset, count);
+>> + if (ret < 0)
+>> + goto unlock;
+>> +
+>> + pfn = cmr->base_pfn + offset;
+>> + page = pfn_to_page(pfn);
+>> +
+>> + /*
+>> + * Do not hand out page ranges that are not contiguous, so
+>> + * callers can just iterate the pages without having to worry
+>> + * about these corner cases.
+>> + */
+>> + if (!page_range_contiguous(page, count)) {
+>> + pr_warn_ratelimited("%s: %s: skipping non-contiguous area [0x%lx-0x%lx]",
+>> + __func__, cma->name, pfn, pfn + count - 1);
+>> + ret = -EBUSY;
+>> + goto clear;
+>> + }
+>> +
+>> + cma->available_count -= count;
+>> +
+>> + /*
+>> + * It's safe to drop the lock here. We've marked this region for
+>> + * our exclusive use. If the migration fails we will take the
+>> + * lock again and unmark it.
+>> + */
+>> + spin_unlock_irq(&cma->lock);
+>> +
+>> + mutex_lock(&cma->alloc_mutex);
+>> + ret = alloc_contig_frozen_range(pfn, pfn + count, ACR_FLAGS_CMA, gfp);
+>> + mutex_unlock(&cma->alloc_mutex);
+>> +
+> There is quite some code duplication with cma_range_alloc(). Please try harder
+> to factor common code out and reuse it.
+>
+>
+> > ...
+> Also here, way too much code duplication with __cma_alloc_frozen().
+>
+> There must be a better way :)
 
-Pre-existing issues:
-- [High] Race condition in `i915_pmu_unregister()` allowing the timer to be=
- rearmed after cancellation, leading to a use-after-free.
---
+Maybe the existing 'alloc' functions could call 'alloc_at' variant internally
 
---- Patch [2]: [PATCH 2/6] drm/i915/pmu: use the expiry injecting hrtimer c=
-allback ---
-commit 3544b866c523f970d22c7a2ae5ea50d0bc15978f
-Author: Andreas Hindborg <a.hindborg@kernel.org>
+(with locks adjusted and moved out).
 
-drm/i915/pmu: use the expiry injecting hrtimer callback
-   =20
-The commit converts the i915 PMU sampling timer to use the expiry injecting
-callback variant. This prevents a race condition between the timer callback
-forwarding itself and concurrent timer restarts when the GT is unparked.
 
-> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_=
-pmu.c
-> index 1c3bafda9c708..c18587e200c9f 100644
-> --- a/drivers/gpu/drm/i915/i915_pmu.c
-> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+> (I really prefer this direction of the patch set)
 
-[ ... ]
+Definitely, I also like this approach much more than previous attempt with
 
-> @@ -1157,7 +1159,7 @@ void i915_pmu_register(struct drm_i915_private *i91=
-5)
->  	int ret =3D -ENOMEM;
-> =20
->  	spin_lock_init(&pmu->lock);
-> -	hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_R=
-EL);
-> +	hrtimer_setup_ext(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MO=
-DE_REL);
+'dynamically' instantiated cma regions.
 
-[Severity: High]
-This is a pre-existing issue, but is there a race condition between the PMU
-unregistration and GT unparking that can lead to a use-after-free?
 
-Looking at i915_pmu_gt_unparked() in drivers/gpu/drm/i915/i915_pmu.c, it
-performs a lockless check on pmu->registered before acquiring the lock:
 
-drivers/gpu/drm/i915/i915_pmu.c:i915_pmu_gt_unparked() {
-	if (!pmu->registered)
-		return;
+Best regards
 
-	spin_lock_irq(&pmu->lock);
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-	/*
-	 * Re-enable sampling timer when GPU goes active.
-	 */
-	if (pmu->unparked =3D=3D 0)
-		__i915_pmu_maybe_start_timer(pmu);
-    ...
-}
-
-Concurrently, i915_pmu_unregister() sets pmu->registered to false and
-cancels the timer:
-
-drivers/gpu/drm/i915/i915_pmu.c:i915_pmu_unregister() {
-    ...
-	/* Disconnect the PMU callbacks */
-	pmu->registered =3D false;
-
-	hrtimer_cancel(&pmu->timer);
-    ...
-}
-
-If a user unparks the GT (e.g., by submitting a request) while the driver is
-being removed, could i915_pmu_gt_unparked() read pmu->registered as true,
-wait for the lock, and then rearm the timer after i915_pmu_unregister() has
-already cancelled it?
-
-When the drm_i915_private struct is later freed, would the rearmed timer
-fire on freed memory?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-expires-v2=
--v1-0-90411c6217c7@kernel.org?part=3D2
