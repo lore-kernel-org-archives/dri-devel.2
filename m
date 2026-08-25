@@ -4,58 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9891AC61DBE
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0754EC61DBE
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8B1989444;
-	Tue, 25 Aug 2026 14:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B98D10EAA9;
+	Tue, 25 Aug 2026 14:36:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="aRyBXA5+";
+	dkim=pass (1024-bit key; unprotected) header.d=poczta.fm header.i=@poczta.fm header.b="cmhpM67M";
 	dkim-atps=neutral
-Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com
- [203.205.221.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0B7B10E99E
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 09:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1787650584; bh=PWLKdWWaI2jPcx8YxTfUdYf0ELiUgEUH09VaKGicck8=;
- h=Date:To:Cc:From:Subject;
- b=aRyBXA5+SesmwQvqClu0bZ+zoszcSFaBpdwhzuq2j3XOmwGzfjr71xbozbKYDkr6l
- rrFlzgJvwLGcGoInLv2cOoX5jCN73Wc0TiisT6h2QZcrdZqzlkzYgAfIaP8nIb6Kzl
- o65uERvWUS4RJMe6Jlgpl7zcic4XPRdwDFz9WNLc=
-Received: from [192.168.255.10] ([111.206.96.150])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id 915904B6; Tue, 25 Aug 2026 17:36:21 +0800
-X-QQ-mid: xmsmtpt1787650581t9me5pmpc
-Message-ID: <tencent_BA5E7F623BA1DDDE076775332AA916D99E08@qq.com>
-X-QQ-XMAILINFO: MYIgjB+F6BG8a5PFzh2c4y/5sXd1dGtBj7Y+z8RLxwkXr08O7Um1KBPMs66PkP
- Ahoodn2jSdfQN/rcUbRk/Z/R1dSWISYPc0cw/mQWCGXyYmGJXgOhkcaV4mY2BPWjigLlsP3tLmNf
- dzZKP2DMWAjKzNPMK8zb/MuokyI6c0A6cVNLuQJNKpP0tX1sN62hvFSsMRbbu7h1+Hz5Kl8JRPHy
- VTSdgIE7IaGWJUM/A9lx32nZ9kq5/EjncxhOBvcbjZV60E8EcHIkXJSEBB0qWxKoIPOCsNIHmIry
- 1IWmKjWg+kMuqIj4j1Ny2W7eDRbCpbsGeWQz8W4yDFZ6RfyveQPXwsqw+LUQxb05KQyp1icpv3dH
- 1jDYjCpZ1m9cspbcEQ73EZYalTBjAoOLtwrQQ0kZM9PAG3ej5R1D2TmRsG0AZovEqoO1njkvTOfl
- wcNN3sjhLDfQdClLrbIzJRGLrZCNVSkSIC7SST81EX2xwsBTzP1GkkG+lAQsZ2KWDIjS8tCSI5aG
- XEb9ilg069VW007zKOY+fNWNTI1DS0aGdei+pyqCiDXbQ9WjMhaz8WVeuUU5b3VwN285j5XjLVH/
- IZk3AjMszXEUutTN2zJ0jazx6PknoYjPYr/VmiA7RnSxVV/tdwmZofffT+MpUTswVE9JMC8YjcBq
- 9P+8ZUqRI4t86R6HgpQ63P8U8gtlO0S+AyJMWKbcf00jM+PVXxT8EDDHMwRrgpXdO9a0Mtg9KuGa
- YqZUbI6KKfU3XjV+WDxdRujOaiUA9TEnEYmU/HSwJIbyN0Sb31z2ojnUrBYIBafvXtAVgzGLse56
- FA+2UjiPVuyma/8w4dOg0Iw4Qfhg7l/T/vHCFEjH6mwWmnyowG6lr+XX9RkUx1oe1GkZ8tm+ZocL
- V9Okbjw6lQi0mx3QsGKvvSXSuZwYKgoWlDyclJKD6458BQ3zHmYA9hmu/Lzc4/eYUEeIWzmHxC0u
- qqrCyFs557uiVcrYzaWU1UyBCC4EUCxq0pKnLV2/Dsq8POoN0I2FRSukmIuOekVKVXbD1377YCQU
- KgZs5cZ2xKWiydtpWUAL6nMvZgAPqEKPGHu+ddZ5pDzem/hp3dn8UdnOHgoRhfFRzwxdlQmPsc3i
- zoHhqtQ5R7xOH0aKUKTGRaq6kT5Tj/ec3+oWVK1Kmzitc/Vswr4zKjFDw05g==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-OQ-MSGID: <43614503-2270-4aae-9d20-7dec42c6c7e7@qq.com>
-Date: Tue, 25 Aug 2026 17:36:20 +0800
+Received: from smtpo49.interia.pl (smtpo49.interia.pl [217.74.67.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9647610E192
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 11:27:05 +0000 (UTC)
+Received: from nr200 (unknown [80.68.231.31])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+ (No client certificate requested)
+ by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
+ Tue, 25 Aug 2026 13:27:01 +0200 (CEST)
+Date: Tue, 25 Aug 2026 13:26:58 +0200
+From: Slawomir Stepien <sst@poczta.fm>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: sashiko-reviews@lists.linux.dev, syzbot <syzbot@kernel.org>,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/cirrus-qemu: Validate BAR0 size during probe
+Message-ID: <ao18Ag6ucRMqGRVI@nr200>
+References: <b11f8965-5896-4119-98b7-6bd0eb9fa139@mail.kernel.org>
+ <20260825074432.0B4511F00A3A@smtp.kernel.org>
+ <ce0912d6-fdc4-4ead-9388-a9e0e9a1954c@suse.de>
+ <ao1ketQ4oxNiWGAM@nr200>
+ <7a61b8fc-68f4-4d8d-b5ff-0ffd9a9507fc@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: alexander.deucher@amd.com, christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-From: Yang Zi <2959243019@qq.com>
-Subject: [PATCH] drm/amdgpu: fix NULL pointer dereference in amdgpu_vm_init
- error path
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <7a61b8fc-68f4-4d8d-b5ff-0ffd9a9507fc@suse.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
+ t=1787657222; bh=u849jbuokEGJrG4MX8DSBd4S8qyShqARHeqPFRwMBnk=;
+ h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+ b=cmhpM67MEZ37ijAG671Dl4j3ZWeRnGYqh4YR7REM468lXUCBDEwTY2dm9SMflzmzn
+ JduRxTM2zNKIbkSGGj59M9QbOwS6aOtC1Y5ijxDslfEiyxjN0zCrmwfbRtAbHbnA3U
+ 8FnXHmcHG4cGlxrKxQpWhzRsOKsb/Hh9rtZGhwGM=
 X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,35 +60,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In amdgpu_vm_init(), the error_free_root cleanup label runs
-amdgpu_vm_pt_free_root() before amdgpu_bo_unreserve(). However,
-amdgpu_vm_pt_free_root() walks the page table tree and frees each
-entry via amdgpu_vm_pt_free(), which calls amdgpu_bo_unref() on the
-root BO and clears vm->root.bo to NULL. The subsequent
-amdgpu_bo_unreserve(vm->root.bo) then dereferences a NULL pointer.
+On sie 25, 2026 12:21, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 25.08.26 um 11:46 schrieb Slawomir Stepien:
+> > On sie 25, 2026 10:00, Thomas Zimmermann wrote:
+> > > (cc: Slawomir)
+> > > 
+> > > Hi,
+> > Hello,
+> > 
+> > > thanks for the fix. Please see below for changes that should go into the
+> > > patch.
+> > thanks I will look into them and make a manual v2!
+> > 
+> > > Best regards
+> > > Thomas
+> > > 
+> > > Am 25.08.26 um 09:44 schrieb sashiko-bot@kernel.org:
+> > > > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> > > > - [High] The exact equality check for BAR0 size (`!= CIRRUS_VRAM_SIZE`) incorrectly rejects valid QEMU configurations with larger VRAM.
+> > > > - [High] The VRAM size validation check is placed after `aperture_remove_conflicting_pci_devices()`, meaning the firmware framebuffer is permanently destroyed even if the driver ultimately fails to bind.
+> > > > --
+> > > > 
+> > > > --- Patch [1]: [PATCH] drm/cirrus-qemu: Validate BAR0 size during probe ---
+> > > > commit 75467ead62a494b6afbc057c666ab59f7e4b8915
+> > > > Author: Slawomir Stepien <sst@poczta.fm>
+> > > > 
+> > > > drm/cirrus-qemu: Validate BAR0 size during probe
+> > > > 
+> > > > This commit adds a check during PCI probe to verify that the BAR0 resource
+> > > > length equals CIRRUS_VRAM_SIZE. This is intended to prevent supervisor write
+> > > > page faults caused by writing past the end of the mapped I/O memory when
+> > > > smaller BARs are presented.
+> > > > 
+> > > > Link: https://syzkaller.appspot.com/ai_job?id=ba262a3a-bccf-4ad8-a1b0-583c55d34fd6
+> > > > 
+> > > > > diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
+> > > > > index 075221b431d37..70c995025f508 100644
+> > > > > --- a/drivers/gpu/drm/tiny/cirrus-qemu.c
+> > > > > +++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
+> > > > > @@ -602,6 +602,9 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
+> > > > >    	dev = &cirrus->dev;
+> > > > > +	if (pci_resource_len(pdev, 0) != CIRRUS_VRAM_SIZE)
+> > > > > +		return -ENODEV;
+> > > > > +
+> > > > [Severity: High]
+> > > > Does this strict equality check unintentionally break valid QEMU
+> > > > configurations that have more than 4 MB of VRAM?
+> > > > 
+> > > > When a VM is booted with a configuration like -device cirrus-vga,vgamem_mb=8,
+> > > > the BAR0 size will be 8 MB. The check in cirrus_pci_probe() evaluates
+> > > > to true (since 8 MB is not equal to 4 MB) and rejects the device by
+> > > > returning -ENODEV.
+> > > > 
+> > > > Would it be safer to check if pci_resource_len(pdev, 0) < CIRRUS_VRAM_SIZE
+> > > > instead of requiring an exact match?
+> > It seems that 4MB is the default one and 8 and 16MB are just for compatibility:
+> > 
+> > (qemu hw/display/cirrus_vga.c):
+> > 
+> > 2951     /*
+> > 2952      * Follow real hardware, cirrus card emulated has 4 MB video memory.
+> > 2953      * Also accept 8 MB/16 MB for backward compatibility.
+> > 2954      */
+> > 2955     if (s->vga.vram_size_mb != 4 && s->vga.vram_size_mb != 8 &&
+> > 2956         s->vga.vram_size_mb != 16) {
+> > 2957         error_setg(errp, "Invalid cirrus_vga ram size '%u'",
+> > 2958                    s->vga.vram_size_mb);
+> > 2959         return;
+> > 2960     }
+> > 
+> > I will add the 8 and 16MB then in v2.
+> 
+> Please check that� it is >= VRAM_SIZE, so we're flexible.
 
-Swap the two statements so that the root BO is unreserved before it is
-freed. This mirrors the success path at the end of the function, which
-unreserves before releasing its reference.
+Sure!
 
-Found by static analysis of the error handling path; the failure cases
-(dma_resv_reserve_fences() or amdgpu_vm_pt_clear() returning an error)
-trigger this path.
-
-Signed-off-by: Yang Zi <2959243019@qq.com>
----
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index d2ad5b0e8759..dc72181ea0fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2672,8 +2672,8 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-     return 0;
- 
- error_free_root:
--    amdgpu_vm_pt_free_root(adev, vm);
-     amdgpu_bo_unreserve(vm->root.bo);
-+    amdgpu_vm_pt_free_root(adev, vm);
-     amdgpu_bo_unref(&root_bo);
- 
- error_free_delayed:
-
+-- 
+Slawomir Stepien
