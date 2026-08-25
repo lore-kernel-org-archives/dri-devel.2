@@ -4,85 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7665C61DB9
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:46:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D59C61DB9
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 13:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54CAE10EA38;
-	Tue, 25 Aug 2026 12:46:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F340010EA2E;
+	Tue, 25 Aug 2026 13:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QZg0WkzQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dkp00pUl";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD48E10EA38
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 12:46:03 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c15b51ba80dso39194766b.2
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 05:46:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787661962; x=1788266762; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ZAN0remZKwTzPxuAENpiQH5fEVpl+tgiLHbVt5de6NI=;
- b=QZg0WkzQlz5rHbVbGAUqqcT5XvTmArV9Zipes9iJUgSqLVN+xnW4wd9ZcK4PLuqBXh
- ODqhjq6obG4sZ8h7auNyW+SHz/57Bkw2O1+JIJiEhdkmFO6ur9nOT5juSAN55/SAa88r
- 0FMauMtamThdR2njevPu6rB6kaPCgnL/lGwAUEYo2FFfYQ/NQE+ZZL0nL2Isxkm9RT32
- HlO5nF0drZZ3tG5rYr95t2VhTA1FWaGJ4iiGaVNTJqViS7k6ws4708KVY5AvAk8UVnEP
- FltKExuENm3z1M0QS4FN0zY1eKd0zTk02eoYoWADsGCN3LtebOhQU0khXgUdG8+kDA+M
- stFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787661962; x=1788266762;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ZAN0remZKwTzPxuAENpiQH5fEVpl+tgiLHbVt5de6NI=;
- b=OlLsrVpJ1u1NS5bf8ZElOGBSAg6UgaymXw8mmaNVq1JgBjeoDgrAANnzMAitt9W88k
- EPUuVM1VsjkYZ9FbcWNhWfdsb7kOWTlWiofvn82Yr1Hk7x49BmedBijTpYROhp4lkiTu
- 6FjjdCH1eCxvZYcZW2PQK849amWK65OoBbsl7pasO0RFzMq6QY5H51bNEv6Joxpda6Kz
- S/F9xt6Ni7sry90zOqfFKlsxlJPKy4D9eIxBLhojnUA9ghMn3x8X6v9BfN0wGEO9PyYV
- nEYVEkJJcAwg5qdvpruzskMA4lPpOmyzY/KZdMLR0L+gr0GhwrCdHLUVqujkwD7NEk1j
- P+iw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq0RbLNL9H1YkVvbVrrZeUhUUTW1dFv4Y5eatlQ/HkRSF7L0FgowS/QvXMCdDJeKjV94Y6dRZnV8eI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n0KGI4fG/Qw18YoFjjGARhBvWbH6vwkDq87cuDaNOyl6k6FPCP
- kmfcH0jSMXdvDsdE35noKfoekHKfaGv1smaeft+BhfLt9kHhS77LnqII
-X-Gm-Gg: AR+sD13iCZHpsJaijVxUphK7Ox75MEQ1MjUCwE8btQPCuFwWFGqWZY4aW+MhYuI+O7h
- +ubW+3lzmwacZPtvqcJ+sX+zUk6JpEk4aZTtBu69osUocWRLCtbdO7Sy1EmClz55ke8M0SNM2K9
- dB2Khl3OnuL9VUGrCDgpa20wuvuqk6N0311rwzbiSXWOdUlnm44STJLicrKKQKwg1mPIAhZdvAU
- ZcIPRARsl6GKEd66LYEdV02jdXItFoOZoKqemZREe5HpQQZNgrc0Ceu2wIoknLjX3yHTkpcSRUI
- SpqQRjUrWj/tnHwcoFzt6O7YZ43Jd4vMeLNO674eJWVe8+GzZptHBS4zT3yOWxhsSs3zhYe3DdS
- AUXvnngPMMjnf//1kMN9ts2mQ3cN0iyzhVeSZcTk2VF8ic+9vB6c4qMKZQDASR2tV8XLbQ521wo
- 1szE0F4Ui6vFKvv/Fo7AZLbWJd5tJROC9si7XHJ118KFVIyGM0HGsLR6mNA76XI4a45AQILulLZ
- vXquUTqc30RpSdtY2m6oLxDeeDa/MFxEdyL
-X-Received: by 2002:a17:907:d0e:b0:c20:c5f4:e19f with SMTP id
- a640c23a62f3a-c246a65fe29mr2143386466b.4.1787661962050; 
- Tue, 25 Aug 2026 05:46:02 -0700 (PDT)
-Received: from OrangePi5-Plus (178-223-53-162.dynamic.isp.telekom.rs.
- [178.223.53.162]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c249629929dsm1824340566b.23.2026.08.25.05.45.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Aug 2026 05:46:00 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Igor Paunovic <royalnet026@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Alexey Charkov <alchark@flipper.net>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 03/13] accel/rocket: let the core suspend after a reset
-Date: Tue, 25 Aug 2026 14:45:42 +0200
-Message-ID: <20260825124544.11766-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAEWPSH5MVzoQMaFOEQ93+1pOPmcXCDNfuXsv5j-X8Lb1fy_hrg@mail.gmail.com>
-References: <cover.1787568658.git.gahing@gahingwoo.com>
- <b5265e47492897d0ada844c2ff7f477bb715cd07.1787568944.git.gahing@gahingwoo.com>
- <CAEWPSH5MVzoQMaFOEQ93+1pOPmcXCDNfuXsv5j-X8Lb1fy_hrg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48D3710EA2E
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 13:02:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 65B866011F;
+ Tue, 25 Aug 2026 13:02:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1972A1F00A3F;
+ Tue, 25 Aug 2026 13:01:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787662929;
+ bh=VNcoz4Pw6SFuZfea+o/jo++KMcxe/kAZME+DPG+fZOo=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=Dkp00pUl9EQ7kOKFQgqA2AIpvWU64bXsCrPAHo2qX5sNnLEOXJ5aBfAY6fhEeaYrk
+ plBRhMhwwqmDXjQzXoAF4Y9UnaE6++ghDotlTwDLqWYKco+ySPZ81338ywjIpV8Yuh
+ kG5jEQvKZwhGsnHdrk1/trpBPttTYxDHgVrm53gWUteDdiXjBJVIq/kI3zv6QlPkIM
+ 2f7Z1LsZE/FhsO0XeZBWqSuG8SmpE0fgIDqpLmj6Z7m3FMEITvXj/nUH5oYfWO/l67
+ T3X7eYN53W8nSAZXwL/AS8OsYKZ0bU6cnO/xBj/O/fGL++eW5F8VDSMJZSXdfvsV0M
+ Vf4P8RYBCMHAw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 25 Aug 2026 15:01:57 +0200
+Message-Id: <DKY1M6ZZENAL.152ELCOMXURCU@kernel.org>
+Subject: Re: [PATCH v20 1/8] rust: alloc: add `KBox::into_non_null`
+Cc: "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross"
+ <tmgross@umich.edu>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Lyude Paul" <lyude@redhat.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?=
+ <arve@android.com>, "Todd Kjos" <tkjos@android.com>, "Christian Brauner"
+ <brauner@kernel.org>, "Carlos Llamas" <cmllamas@google.com>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, "Dave Ertman" <david.m.ertman@intel.com>,
+ "Leon Romanovsky" <leon@kernel.org>, "Paul Moore" <paul@paul-moore.com>,
+ "Serge Hallyn" <sergeh@kernel.org>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Alexander Viro"
+ <viro@zeniv.linux.org.uk>, "Jan Kara" <jack@suse.cz>, "Igor Korotin"
+ <igor.korotin@linux.dev>, "Viresh Kumar" <vireshk@kernel.org>, "Nishanth
+ Menon" <nm@ti.com>, "Stephen Boyd" <sboyd@kernel.org>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Pavel Tikhomirov" <ptikhomirov@virtuozzo.com>,
+ "Michal Wilczynski" <m.wilczynski@samsung.com>, "Ira Weiny"
+ <iweiny@kernel.org>, "Philipp Stanner" <phasta@kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-mm@kvack.org>, <driver-core@lists.linux.dev>,
+ <linux-block@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-fsdevel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-pwm@vger.kernel.org>, <linux-usb@vger.kernel.org>
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
+ <20260824-unique-ref-v20-1-490735672187@kernel.org>
+In-Reply-To: <20260824-unique-ref-v20-1-490735672187@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,12 +86,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-My mail client wrapped the tag comment in the previous mail, which
-would truncate the disclosure when the trailer is collected. Here it
-is again, on one line:
+On Mon Aug 24, 2026 at 1:17 PM CEST, Andreas Hindborg wrote:
+> Add a method to consume a `Box<T, A>` and return a `NonNull<T>`. This
+> is a convenience wrapper around `Self::into_raw` for callers that need
+> a `NonNull` pointer rather than a raw pointer.
+>
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
-
-Sorry for the noise.
-
-Igor
+Acked-by: Danilo Krummrich <dakr@kernel.org>
