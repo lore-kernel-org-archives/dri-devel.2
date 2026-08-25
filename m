@@ -4,43 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5316C61CE2
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:32:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB7FC61CE2
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:37:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF34910E9CB;
-	Tue, 25 Aug 2026 10:32:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9865E10E9D7;
+	Tue, 25 Aug 2026 10:37:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R+o1ifM8";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="SiW984JH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B53910E9CB
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:32:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A9E546011F;
- Tue, 25 Aug 2026 10:32:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2B71F000E9;
- Tue, 25 Aug 2026 10:32:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787653954;
- bh=dUwB8nkxT5AYI1sTDrEszAuZdXbVyaYmCMpOJE3OgoE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=R+o1ifM8mNj2+yvGjRYJ6VZ3UTaDxsHiPLXvHfS3cfO3v/sn/o434GAOHCfFnVhPO
- MiwABvFm4p1R5/5eg0O18bPPqx1elBEGMb2R+RwmvUlOhhvE9QfYcdcqO9KyxR3AFB
- kFD5Pj5QbDNEjsJv7XAnRVk9y2U8SvEu+KHOLufoUJug5jBVRn6pFY4swgF+z9E8gN
- 2L5BsAz5IMT/RRwyBcl30ifRln6jTvarv06S7vlQWtMJAkqR/9MVLJb+y5NZFT9cK8
- 78waI14hZ47NCIkMuzuLrRDXTnLNbBZEMHpYhn74e4kLhcJFCkCknD7CgyHYlrbDjo
- EjrhMzsiW1CpQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/12] drm/bridge: tc358767: select DRM_PANEL_BRIDGE
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260825-drm-bridge-drm_panel-cleanup-v2-10-c6c88ba7ffd2@bootlin.com>
-References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com>
- <20260825-drm-bridge-drm_panel-cleanup-v2-10-c6c88ba7ffd2@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 10:32:33 +0000
-Message-Id: <20260825103234.3F2B71F000E9@smtp.kernel.org>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBB5B10E21F
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:37:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=R1
+ Q4eWOjIpnmVqx7q7hMkd9UCukHHEP5SaCklvg1tv8=; b=SiW984JHUk80qvzClx
+ Fa250rcuSK15xDhQedgoVn1ZnHoLf0GDPPRWi5fH5Sia69pfuN0A05ls5eNE7K+d
+ 32ouwb82FCtN7sEatROQ3SjBaQQgtAj1wLPjBeDMqKtbFynGikT3PDfWNF9omU5E
+ rRpbJ2h3stleEo3ljwE3ctfoE=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id
+ _____wCXxckicI1q7jIKQA--.63928S2; 
+ Tue, 25 Aug 2026 18:36:19 +0800 (CST)
+From: oushixiong1025@163.com
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+Subject: [PATCH v2] drm/sched: Guard against NULL dev in drm_sched_job trace
+ event
+Date: Tue, 25 Aug 2026 18:36:15 +0800
+Message-Id: <20260825103615.661200-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wCXxckicI1q7jIKQA--.63928S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy8ZrWfJF43JFyrWFy5CFg_yoW8CF4Upr
+ ZrWFW5Kry8tr47t3yUZ3WrWry5Ga1fZayxCr1DX3s3Zrn0vF15Jr17Kw4fJrW7Ar4xAr92
+ g3Wq9a12q3Wjgw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPxhJUUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4gMiMWqNcCP4GAAA3m
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,57 +60,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Incomplete Kconfig cleanup in patch series: DRM_TOSHIBA_TC358764 us=
-es drm_panel_bridge APIs but does not select DRM_PANEL_BRIDGE.
---
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
---- Patch [10]: [PATCH v2 10/12] drm/bridge: tc358767: select DRM_PANEL_BRI=
-DGE ---
-commit 0a2f8ec4febb1e1d377dd7d92fdc0b82006defba
-Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+The drm_sched_job trace event class calls dev_name() on
+sched_job->sched->dev without checking for NULL. Since the
+dev field in drm_sched_init_args is optional (used for
+debugging), a NULL dev causes a kernel oops when the trace
+event fires.
 
-drm/bridge: tc358767: select DRM_PANEL_BRIDGE
+The DRM scheduler KUnit tests do not set the dev field in
+drm_sched_init_args, leaving sched->dev as NULL. This causes
+a NULL pointer dereference when the drm_sched_job trace event
+fires during test execution, as dev_name(NULL) is called.
 
-This driver uses a mixture of drm_panel and drm_panel_bridge APIs, but the
-Kconfig symbol only selects DRM_PANEL. Select DRM_PANEL_BRIDGE instead,
-which in turn depends on DRM_PANEL.
+  Unable to handle kernel NULL pointer dereference at virtual
+  address 0000000000000050
+  Call trace:
+   trace_event_raw_event_drm_sched_job+0x90/0x258
+   __traceiter_drm_sched_job_queue+0x4c/0x78
+   drm_sched_entity_push_job+0x188/0x380
+   drm_sched_basic_entity_cleanup+0xfc/0x240
+   kunit_try_run_case+0x74/0x170
 
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
-fig
-> index 7874d3b1e7608..8eaaa3282062a 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -399,7 +399,7 @@ config DRM_TOSHIBA_TC358767
->  	select DRM_KMS_HELPER
->  	select REGMAP_I2C
->  	select DRM_MIPI_DSI
-> -	select DRM_PANEL
-> +	select DRM_PANEL_BRIDGE
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+v1->v2:
+  Change each line of the message to be within 75 characters
+	
+ drivers/gpu/drm/scheduler/gpu_scheduler_trace.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[Severity: Low]
-Since you are updating bridge drivers in this series to select
-DRM_PANEL_BRIDGE, should DRM_TOSHIBA_TC358764 also be updated?
+diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
+index 261713dd7d5a..319a3ec54bec 100644
+--- a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
++++ b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
+@@ -61,7 +61,8 @@ DECLARE_EVENT_CLASS(drm_sched_job,
+ 			     __string(name, sched_job->sched->name)
+ 			     __field(u32, job_count)
+ 			     __field(int, hw_job_count)
+-			     __string(dev, dev_name(sched_job->sched->dev))
++			     __string(dev, sched_job->sched->dev ?
++				      dev_name(sched_job->sched->dev) : "none")
+ 			     __field(u64, fence_context)
+ 			     __field(u64, fence_seqno)
+ 			     __field(u64, client_id)
+-- 
+2.25.1
 
-In drivers/gpu/drm/bridge/tc358764.c:tc358764_probe(), the driver uses
-devm_drm_of_get_bridge():
 
-	ctx->next_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-	if (IS_ERR(ctx->next_bridge))
+No virus found
+		Checked by Hillstone Network AntiVirus
 
-This API call relies on CONFIG_DRM_PANEL_BRIDGE being enabled, but
-config DRM_TOSHIBA_TC358764 doesn't select DRM_PANEL_BRIDGE. If the default
-for CONFIG_DRM_PANEL_BRIDGE ever changes, could this cause
-devm_drm_of_get_bridge() to silently return -ENODEV and fail probing?
-
->  	help
->  	  Toshiba TC358767 eDP bridge chip driver.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-drm-bridge=
--drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com?part=3D10
